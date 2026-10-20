@@ -2,123 +2,122 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8710606A319
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Oct 2026 19:51:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7552D606A31A
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Oct 2026 22:21:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=WA9RW8Ze
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=F7Tr7Lpq
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69C6B10F792;
-	Tue, 20 Oct 2026 19:51:06 +0000 (UTC)
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010005.outbound.protection.outlook.com [52.101.56.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79B9B10F792
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Oct 2026 19:50:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B4AB10E056;
+	Tue, 20 Oct 2026 22:21:19 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011031.outbound.protection.outlook.com [52.101.52.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1940A10E5F7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Oct 2026 22:21:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MxaUTd4+VD9pG+l2iQP450q++xp5F9UCeF/hVKhTNfcoWo798JZcTzVnYyLr4rKX8bFFQd7jtLazPya9CV+b2AO3a5/Ah3Xq8Ey3HEOjXYMBEEtwMn4ys6uBHVX0DVXQJdEHVGbEjbn14JHfPI14cAZFIlnAjetXQGhTdT4/8pDGFH0O6K4JG2dFcerk7vIB9lPt4lfvR16hxW9kXGhrbcSbzw0OSmerMZ4i4NmlMzARuMjtXv6pqRdUZJXSsiG4VOP2h7WQAIkaodtJmnXG34qB9aD2fl1r/BmnAR4t1gQVYybMglXyKYCkDf0wWWyaQw85gEKSjBtEFKAPt68zMA==
+ b=WVJzUORqF7PgKmEplIhGBek8cUHAgawZOoCnIJU6YLhdVnzgDjsx85KQh7gVctdD+LXMQ9EEHi/WT7gtL4OWvAOgD5sGjM8AOb4W4TGdpuBTX7qLd4ZueFpRYvNCA43oOoH1Kg0T4k3oCpaJy6uFh5REDa/HG38BAOOE5wSfaCzKZmXYyy1mJnF6RWY8jnhAV2LF2oDoppztIrExzZxoMMlaqhevrWlBrCal32i4kqjMh8MVU1kj1WbQtLmBClY1WrGHa3cJFomPqwb/7e5GjPdedzHk6+7foqRyFlFQTTolAHAMePJ4W5rCQVs70tYNMahztEAcqu1B0ZAGCduUqg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HaPGnftu0tiUnY4qxX0V3xxFJB1u3I1dtOKp161OL0w=;
- b=Bg7QRnaPy4CiJMufnnbSEsEfhnKdBMdiqJdVOgbr/5Ja3AVjFzqOvKW509Tic2/oeHyitJTPp42iEFQZIUdFLFJFebiKAE3rmG/1dB0otOtYYZfD/GNO9BnEhGicFBFyXZf1acWZLDBum07JYomwplib2RUSI6X9qmI62hwQtsjox1ShRZj9qgFoo7tLxEP4dOS9tiNCZOk6qyGwYP1bu7HXEAn2/5nNerDGJZxXMGn+vny5DvvY1CmKrTFrIqi8BS/FniJP1bP+zJKr6pc60+2szLecT9OG622/UJxhr678kRTT9mGtkTFzp6F/MYwLkZV6BMMBRcc5ijeUl/B1SQ==
+ bh=pwSanLuOQGvyISZgL5VRdxvIalPqejhbuCHEq1sJztY=;
+ b=WrzgzO/vy9ta7wBiBTICKMwsDEovAVrQdYmSYVzyPyhcnYPdwIlZ6Dqlly4eB4b7cnaNfgz5At6DLkQiENpSYkyk4nbCY0mx9odfx8s7GqlB1+aUMsxu+kG79o4ZNsXpgKkoFxlPqyRX1vSOakmgGZDo1jRzPE2oojcWcflpTjuQ8XEy8tgscFwRSb2EK7t5M0/qt+WzTgLYwrzkDA87kSKxWnnviCENXB7hJIhXcE71QOvKx4fyrWogS7ZEO9VqlvB1wnebxidzydGNQtMP9O9C/p9XxIaXSkC84su68HeWRuUMdQem3u5TkkF8LljPqWX+3lLZqOukqkLwhKAVtw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HaPGnftu0tiUnY4qxX0V3xxFJB1u3I1dtOKp161OL0w=;
- b=WA9RW8Ze1sQ8EMKP4+C65ZbjIf5rcSfNNsVASrn0AQIXYSolhZd4JfK3Afj7A1jtq4QjTGl06dj3Q7Cn6WR2fhKhm5AAlMW6r0GxkCkpzh615CR6tI3ZBtUn1wQRxqHmux+L+K6A7rh/PvG7g9OXqawEesZOoocYcj/PiRhRBJc=
-Received: from BN9PR12MB5146.namprd12.prod.outlook.com (2603:10b6:408:137::16)
- by SN7PR12MB6789.namprd12.prod.outlook.com (2603:10b6:806:26b::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Tue, 20 Oct
- 2026 19:50:54 +0000
-Received: from BN9PR12MB5146.namprd12.prod.outlook.com
- ([fe80::535a:591e:27f6:c23]) by BN9PR12MB5146.namprd12.prod.outlook.com
- ([fe80::535a:591e:27f6:c23%7]) with mapi id 15.21.0522.017; Tue, 20 Oct 2026
- 19:50:54 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Liu, Leo" <Leo.Liu@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Liu, Leo" <Leo.Liu@amd.com>, "stable@vger.kernel.org"
- <stable@vger.kernel.org>, "Liu, Leo" <Leo.Liu@amd.com>
-Subject: RE: [PATCH 1/2] drm/amdgpu: cancel idle work in hw_init failure paths
- for vcn/uvd/vce/jpeg
-Thread-Topic: [PATCH 1/2] drm/amdgpu: cancel idle work in hw_init failure
- paths for vcn/uvd/vce/jpeg
-Thread-Index: AQHdYMoJmO0M3982CEa7eLzc8TKvHLcG1FEQ
-Date: Tue, 20 Oct 2026 19:50:54 +0000
-Message-ID: <BN9PR12MB51466AE18098D65FFB7FAC0AF7672@BN9PR12MB5146.namprd12.prod.outlook.com>
-References: <20261020152701.18355-1-leo.liu@amd.com>
- <20261020193212.19760-1-leo.liu@amd.com>
-In-Reply-To: <20261020193212.19760-1-leo.liu@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Enabled=True;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SetDate=2026-10-20T19:41:19.0000000Z;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Name=AMD Public
- v26; MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_ContentBits=3;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Method=Privileged
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ bh=pwSanLuOQGvyISZgL5VRdxvIalPqejhbuCHEq1sJztY=;
+ b=F7Tr7LpqfqS75NjhkJ9rIRlrzaJFmFczhL92vD6WJnBH/30ccxf5r9itxQSUx+9GcjenhUl+zDbCFmhHrpiXHqfRfLK4CkIpNJVl7kwhRoBsfWEzq3mV9Qp8T0tVv3LYS16TAv07Hn3D+5pKqs66zo64c08Yl9jWH5W91EeQbzE=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5146:EE_|SN7PR12MB6789:EE_
-x-ms-office365-filtering-correlation-id: a70a7323-f3b8-4b47-a54e-08df2ee373d4
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|23010399003|38070700021|56012099006|260925022911599003|260925021311599003|260925021911599003|261009223327099003|11063799006|4143699003|261009221227099003|261009221727099003|261009223027099003|261009220027099003|10067099003|22082099003|18002099003;
-x-microsoft-antispam-message-info: w8F2NNtdQXmCyDxg7l/GtMThYby6eVlUe4eOqTaUmSIzK0zvsCIioTwNwUMLIAF6bUOX6K4GuPt/F1sNjgN0BdfSnjrGi/qbD0A9T/OapXIdyY5kJ/P4zHlUiTOFPBkLg7nE6lmt8ir3XT/DMx0KYRHxqbKJu1B/dr8Y96lAEAViOxF4JvDwQWN3dZa81dB1DfvK+EvWWAm4Uc0A92x3m2zETn4qrdB+pejDbB5OgDsVyUj9GE/cUm4K1EnHR0KAMzzgvmHiGWbtdthbAupupI6ndHC3SdrMLCMufEXfOLG2WTyYD9PRylejDFy0n8Jv/Wn3U79maqCSxZY5w5S3e8ECC9bM3yFNJ+Ls9gG1KDLOlRB3ttwhuNIDf9Blb79LdOqmgAZ/yyBTx71Hr/za9yE0dlcUAEExhWY0luvIWfDL4CNhFdBZ4tbreS0Fa4vn+wVVlmtdCZmyZJPydCVFgEp5oSpWlMmSvDF5onYt8N/Fet+qmteL8jqxIWOxHeX/XHIyo8OAhxVJ9aHdLvUk1dxXFnYqclxSRlxzQbg8LYc2M60b3sSyHfkA2ric/xiMRajOtBcDt8qiPQcEGctg2kLzTxW6ud8mv4d7V3OXHJFx9NeZzCJ0m4NQCeyDWk0c3pJ3HADqtI+gO9uhkgjBkMQtYzOF05hf923368vdF63RqrSVbD/2p1BM+JsXA/yzlY7G4N90J59rwed3rkzSxJW3E8KfJKgYTM92v8WqqvY=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5146.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(38070700021)(56012099006)(260925022911599003)(260925021311599003)(260925021911599003)(261009223327099003)(11063799006)(4143699003)(261009221227099003)(261009221727099003)(261009223027099003)(261009220027099003)(10067099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?og2XUkQyKLCAP3d1YL6rvL1qRhJtRDbLUgVuwXl9fA/mFiSyGglGn39sZmLV?=
- =?us-ascii?Q?fSPi8A2Nne8JwCw53X1/cQhvNNkYXeC2YspGVSfoy34h2+GBf3W0dcsGLEL8?=
- =?us-ascii?Q?rb94SaWHRSFnlMW6YalOm4Ytb2pQcnP23ldfHDSlnzkaXA7PAlj6v6HM8Kmi?=
- =?us-ascii?Q?a05SXE83OnaojbSvWlZ502DA/xjPAmkGKezkR3g5zUhzU9KqVXXO7yzQCvI/?=
- =?us-ascii?Q?K5/+HJNrlePWvWPHkQatG3MuQN1Fa5kMKUfWywdhmbk8cJow/mlfePR8iOnE?=
- =?us-ascii?Q?QUkTpclG5KLkdfsKh7+WLKu001Z4qcGSDX6oS5q89mJfzO/ulN0ecnYk83Iv?=
- =?us-ascii?Q?23m8B3SwEjcpwTsPw990iXHAyVziA+PkmdL6UsXhxNLKXUzmH8K9KYJ2nW5H?=
- =?us-ascii?Q?Rrsl81O6nYUlCjZlAOxzvF9+fECpeJcvwYdO5v/IAwRbFjvQvr648YeGP6TN?=
- =?us-ascii?Q?me6XEGLgkh/S8HdIll7nbAJOERey0ma5jZeNhn4kcArCfFlSUM/1NKfIBY2t?=
- =?us-ascii?Q?/5NjqpQx7xPQ3rwsZGgpDgp4D25Wc2XSDzjHOju7DnEbFHuWd+HO81hoK5G4?=
- =?us-ascii?Q?CNJOgqaHijADdo89xKEFGWSECcGr6rZQxpzP4Um8yWIwjxia4VIV39mXo221?=
- =?us-ascii?Q?zbfP8EaaJQQ/+4yM+VK+RvG714JCn8B+P5H3TI60tJMVtQSvnMZ8mMFnDhk2?=
- =?us-ascii?Q?T+L/Fw0BuawT9soLhELe0vLKlfSmfQqyWVRewCjoOAzU4d48qQNHljqY8yqQ?=
- =?us-ascii?Q?aekuA5L0cyTQ29Fo5KxOptnLNrsC5QDw7h6I0XPctjqCmiBBpm+HwmLi6vGR?=
- =?us-ascii?Q?1t+cZUK8rIZfUSvG/v4SIopwOh8+d5livAQmbXkRFSyQNJx6mT/1LX9eCm9E?=
- =?us-ascii?Q?0zMrr5fvlmkk8FwYj1C+p4lJnu7867dLnUUF7WeCffiEW+vzx73XR9f0mOdf?=
- =?us-ascii?Q?oBhfxbk1o/nGkkdioT9UJRpIZR1NM1Wk4mWjkkUAhc/fpmi0V4e1OrkCr090?=
- =?us-ascii?Q?CmZy4hiIfFMgTDo0WOEMi75hlTZA/zS/xqe2fHo4nTRtZHKftF61VbVe0IXS?=
- =?us-ascii?Q?OHRYAUKX08EV63S18wiw0F3mYA2uKl0TxeAH+i7CgNZqBGL8JBYx8dkOVXYE?=
- =?us-ascii?Q?6lcf1W4r1yZhpgQJaSkqZCd6GrGZMcGVsCm1QdqJsMsLM8mzVKYj8FpbVaw9?=
- =?us-ascii?Q?LPfNTgLS2jo4OWfgrrvANahYcJNFyQ5qKGl67x7+WvxsDRf4z8379Qudy3ed?=
- =?us-ascii?Q?8/DSmYiuQPoCe7YSF8qP3YlWza8Ax8DfH0IQ37FG23v/NptEiT1uQJorUqrA?=
- =?us-ascii?Q?01qST9x4jIXwpzkXO/bAYpN4HaBYilIBPkwBn9PLO7TBclPnG1RiLkkV+Aaj?=
- =?us-ascii?Q?FtarBb7W1ibhOxnbdqq7313+HcusTC0Io2ft4FIruVyUCivqaZjODo0AZSi0?=
- =?us-ascii?Q?8RKytmQYDvWI76PR1qJxyltAbieCVXRFxoz66XwTrJbSpay09vb8Ij5cA9Hk?=
- =?us-ascii?Q?Nc8KdzmlxjspUzL/5rL7tdiNy5XRm9jDhz49YT8EGItxCnKxhnRKUr8SXrH4?=
- =?us-ascii?Q?HUw5EIHz9Ji543UTOd7DYheAjIiPoHHCPuM8jgLzGrmgGGyh5PE/jycAmwTX?=
- =?us-ascii?Q?fkz8YTk4JWraxshFg3qjJ+f1gYOIvcDxopyDzgQghFLjGD2NoK6iMzFBF8Jz?=
- =?us-ascii?Q?mLGnp9npc7Pbn815ZBmcSUV2jhD+FizD6CycZBK86AH3ZPkU?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from DS5PPF78FC67EBA.namprd12.prod.outlook.com
+ (2603:10b6:f:fc00::655) by CY8PR12MB7513.namprd12.prod.outlook.com
+ (2603:10b6:930:91::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Tue, 20 Oct
+ 2026 22:21:10 +0000
+Received: from DS5PPF78FC67EBA.namprd12.prod.outlook.com
+ ([fe80::23fd:d049:8f53:2054]) by DS5PPF78FC67EBA.namprd12.prod.outlook.com
+ ([fe80::23fd:d049:8f53:2054%6]) with mapi id 15.21.0522.017; Tue, 20 Oct 2026
+ 22:21:10 +0000
+Message-ID: <f4575349-880a-4f68-a93c-94380166b602@amd.com>
+Date: Tue, 20 Oct 2026 18:21:07 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5] drm/amdgpu: UALink add debugfs selftest
+To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org,
+ Harish.Kasiviswanathan@amd.com, Mukul.Joshi@amd.com
+References: <20261015212123.2781004-1-Philip.Yang@amd.com>
+Content-Language: en-US
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+In-Reply-To: <20261015212123.2781004-1-Philip.Yang@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQBPR0101CA0244.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:66::16) To DS5PPF78FC67EBA.namprd12.prod.outlook.com
+ (2603:10b6:f:fc00::655)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS5PPF78FC67EBA:EE_|CY8PR12MB7513:EE_
+X-MS-Office365-Filtering-Correlation-Id: daecbe4d-f7eb-48b7-23db-08df2ef87153
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|366016|376014|1800799024|6133799003|10067099003|18002099003|22082099003|3023799007|11063799006|5023799004|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info: i1JCwta73dvCBPlZnlYSs5g6qs3wXayaO/OPZkumbeYTy2sRe8pn2MwYHzqJn7GtRRfRzef0JPH7ewYnTaa2UI8u2e58qfQxftlarG/vuGqwAAm9nlKUd3GPWaS+FW8fmh8/SwE6dxXBk5YY5ITstLZtT60zjP1wcWSbP8CUJHb52SBmQI3sU6GQyyZWqrdpu3/tRnH0Mlc7lXM5LgOYLBgokwSA+T9aaCW8xdROt7VOA/RDdLnMU8KM9LDuCCzCAx0+tj9ifzpz2HDCH7Y7mBYyHdQlTMse0e1eav24KOwd8iQDvobw379urgWIaHei76TxgGpbFawbxiftzbNScaV13DMJ2b5EEThQd5mtEYt0bIlQSiWimkvJBD5+nuXvFFu0itGjrMDfq65UDSEQ4p1mmJ5S/ltNyU+FPBL8jkKEjRInkjCNXKlfqT+ECIOgrQ+x7cai01ZIeukfO23zTbZJOF/FH0iHWgEbfgCQ2zZXarXJPCVarhbyC2NETdCZKi9Viqyf0wveuulpbPPKYQrXOsI28kHOReTuNGn0+KDXUYuDGt47CctNktZ7unP0PNwsggfFooqepvnPRh4a8ZzSJgbqrmSsRkqlAZv5HBtWz+tQIGiAJeJUMmp3fhqLoq/JCua6SCUPlTD3KKWvgp0ggDHtBNhokUqWy3os2r8=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS5PPF78FC67EBA.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(6133799003)(10067099003)(18002099003)(22082099003)(3023799007)(11063799006)(5023799004)(261009223027099003)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NnNVVGFQM0hqMmtORytGeEV5RE1vYkg4L2NGYktLM0R0ZWN1bkVsdGVKYlgy?=
+ =?utf-8?B?TGFFS0V6eXR3TUF2RFpxbmx5VEpFZjhVYVVjUzdIaUNPdlA4YzJoMWdXZ1lh?=
+ =?utf-8?B?THM4YUxLWUt5WWZUMm11Ty9sYzRsWTVYUmlxMFQ1blZXSHpoVjNhV2t3bjA0?=
+ =?utf-8?B?b3ZLUVBKeWdYUXpseW9QUFlQYVdDNjdpclM0azc0dlNPVDR0SDJ6M1RJWUVR?=
+ =?utf-8?B?Rmgzc1ZKcjZqcUFQTmVCUlJESFBQVUtNWmxFQkNtbzA1eGZUWC8vakp6d2lX?=
+ =?utf-8?B?RXJQT1VRRXdMUFA3N1ZhMkFmbVdGM3o3RlZPRHkyczBDbitDdmg3U3R2MVY0?=
+ =?utf-8?B?RGVOeDIwS1BJYXVoYk1WSTRpaWxtL3Nma1JPUTNrU2MxSUMwWWFHNUc3bVdY?=
+ =?utf-8?B?dElhZGN1WEE3TzRrMElTWUJFUWxrZGQrVVdOQnZLWFk1dHFrQVd1UlNQeExD?=
+ =?utf-8?B?VzVLZWNBemI2OWVrR0FxaUF1dDN0OFc0MTRBUldHdzdsYlY5cUUrTXFhT2lZ?=
+ =?utf-8?B?WWZuRmZMOEU0bVVrVUtUdndaNVNmRWxLUjN6RGYzaTRFQjVLQ1R1OUN5UExK?=
+ =?utf-8?B?a3VWL0V5VHN2M0t0ZmFEc21waVFMdnlIODhhcUhpampmWEJSYUJFU2c2TlI0?=
+ =?utf-8?B?UVdJWld3MVdGM3VCOG5QMS9Pdm8wNWlXeFAwVWxUeU14ZEU3T2VuUXBlOC84?=
+ =?utf-8?B?bStPV3lhczFrOXVZNk1rUHVLL2prY09EOFYxMnV4djZtRDdMNk1ERVVFeklI?=
+ =?utf-8?B?bEV0ODVKeElFaURkNHFYWDFta3lneE5ZQkIwUWQxbVk4dDZnUXliRVZWaXJK?=
+ =?utf-8?B?cDA1ZkRUWUw3TUthdEwreWl6YWFkUlBaZlJpTm83N3FtN1pGYTlkYUFXWisw?=
+ =?utf-8?B?SU5aRElBdU96MHBRbEYxNElkWVR6MEhIVXdjS0l2NFFHVVU1MG00RW5FbElu?=
+ =?utf-8?B?dlhzZDNGOW1SaFBlZ2U0c3lLdE95NkRMdEhxQnpabUl1K3BQUXRlRSsrcjFt?=
+ =?utf-8?B?aUx0RUhYMm9va25YSUYyZjlJbFBwT2ZDUkFTOW44MXUrc243WU92amtxajVh?=
+ =?utf-8?B?bXhxcTBROXR1dDNhVXpZRFU5OHJBa2NkQWlSQzFpSjhadTQ4WXBIQm5BUGZZ?=
+ =?utf-8?B?c1ZqOFdhcVFVNWV4VmF3RGh3a0IvdEppTFV0VXcxQnNtNHZ0M0tUWm1VTmhK?=
+ =?utf-8?B?MjlZdTlTUzQvSmZvY2xEZ0ZUenVOL3pSNGlWY08rcHFhQ0k0eFdLdGlhTlJX?=
+ =?utf-8?B?SVZJdGFMWkgvM2lXUHdTTjVJOUN0NWhvVW4rQnptQmdRb3p5WTNZMnFPRUFp?=
+ =?utf-8?B?ei94ZW4vWk5OOGpXU0hhaDFMUEVHS29GR0x2VjlObndTNFovbTl2MWxJTm5y?=
+ =?utf-8?B?a2xWck80WlUzb09HOVI1b0JZa29Ha0FWaEw4bmJKZjNxbmdPVmpqTkdJWUFJ?=
+ =?utf-8?B?WDZDSG5LRXVXZTd0VWxDK3VuQm1vZjFZMk5GcjRmNHgxcVFFWlU4R203amtB?=
+ =?utf-8?B?ZUNobzJYWUphbHV3WlhhaG5NTzUvQ29icWQ3RVFES1hlTkFRaXI4cm41eTFR?=
+ =?utf-8?B?dG9td0ozejhyWFBXMnN2NGhTT2tRb0p6RlVhS1lWbXVQQVd3L3IyUGhtNG1p?=
+ =?utf-8?B?cnBXS0Z0cXB6dllTSElaYVRJay9wMy9oYzl4MzRxdlhJMXh1ZEtVT01xKzZz?=
+ =?utf-8?B?TW5vTkZlcjNXekxQYi96Yml4T1NIekQvMXZnZG1aakwwQlNRSlh6aFRrUFRI?=
+ =?utf-8?B?T1pwcVpsTktHaUFrZ2dSWkxIbmJsdVpENjk0YWEwRmE1T3IrcXVHUG93dHhn?=
+ =?utf-8?B?U3BvRHFWcnIyZGpxdkZoclRVVlR4d3FDczA3NUN6OGR3NFp0ZXJ3cVhMd0JK?=
+ =?utf-8?B?VnN4Q0hyVnVQMThKbUNDVnlpYzF0NnJ6dUY5cVhWUEZBYnlOQXA1Tk5uUFdp?=
+ =?utf-8?B?S09EdFJRaUFndjAwVHhmYjZLNXZYUktMSjRyZmI3TnlHcjMyRk9RaURVU0kr?=
+ =?utf-8?B?bm1VSnREVy9vMEVPVWlldFVqSkFlTWdlUVA1Y2VOUE5BNnlpT0pQYUNEMkQ4?=
+ =?utf-8?B?YTBmTzJjUnBoQnVsTzRVTjRQblNXM1ltb3hIRXQzL2VSUUdaZmFZaGdrNlJq?=
+ =?utf-8?B?b1NDc3lyTGdKdDFUeWJKbE5UMXo5ZU03TWpUV3E2L25qc1ZId1ZPdUFJdmls?=
+ =?utf-8?B?emFic0FrbGszUUtaTTBxRTFTQlR3YituQjRNMWdndGtibGlWdVVNMWNCRWs3?=
+ =?utf-8?B?L0MySmpoQityb0h2Snp5dlozNGJDcEtZUzUxU2Z2eGJKcGU1S1U0elpnOFJC?=
+ =?utf-8?B?Q2gyMHlyeUxuekg5ejFWT0Yrb3hLd1dGdHhPSjBCemYwVk5KcnNqZz09?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: daecbe4d-f7eb-48b7-23db-08df2ef87153
+X-MS-Exchange-CrossTenant-AuthSource: DS5PPF78FC67EBA.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5146.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a70a7323-f3b8-4b47-a54e-08df2ee373d4
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Oct 2026 19:50:54.5647 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 2aQ27xQSlsNg8Q8A0Kvyifk1f1KTAKBRjTrVhOcntjqhFdOWPMIBAaK4RzPWMTSYV2HlAe7KUq1ad5tJfOg1ww==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6789
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 22:21:09.9608 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: r45cGK9/QmyKEoNBjKuZsrkfUx8UaY4bf9e2gpod1uDAMfvATknRsi34ZZY0F/iY1YDI5FYCxkcHNZyq3bRB4g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7513
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,766 +128,855 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-21.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-17.6 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Public
 
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Leo
-> Liu
-> Sent: Tuesday, October 20, 2026 3:32 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Liu, Leo <Leo.Liu@amd.com>; stable@vger.kernel.org; Liu, Leo
-> <Leo.Liu@amd.com>
-> Subject: [PATCH 1/2] drm/amdgpu: cancel idle work in hw_init failure path=
-s
-> for vcn/uvd/vce/jpeg
+On 2026-10-15 17:21, Philip Yang wrote:
+> Driver-side selftests for UALink bring-up: exercise the nHT firmware,
+> remote interrupts, remote TLB shootdown and remote VRAM access without
+> any userspace application.
 >
-> From: "Liu, Leo" <Leo.Liu@amd.com>
+> Add debugfs directory "amdgpu_ualink_test" to trigger UALink selftests
+> with these read/write entries:
 >
-> When hw_init() fails, amdgpu_device_ip_fini_early() skips hw_fini() becau=
-se
-> status.hw was never set.  For VCN, UVD (including UVD ENC), VCE, and JPEG=
-,
-> hw_fini() is where cancel_delayed_work_sync() is called.  Any idle work
-> queued during the partial hw_init() is therefore left pending after sw_fi=
-ni()
-> frees the adev state the handler touches.
+>    command          write the test name to run it, read to list the
+>                     valid test names
+>    remote_accel_id  accel_id of the remote GPU used by the tests
+>    test_size        test buffer size in bytes, from 4 to 4096
+>    local_test_data  the local ring buffer the remote GPU accesses
+>    remote_sdma      the remote GPU ring buffer, using sdma
+>    remote_lsdma     the remote GPU ring buffer, using lsdma
 >
-> Cancel the idle work in each hw_init() error path, immediately before ret=
-urning
-> the error, so that hw_fini() remains the sole cancel site on the normal
-> teardown path with no duplication.
+> The data entries take and return binary data, a write shorter than
+> test_size is repeated to fill it, so formatting is left to userspace
+> tools like printf, xxd, od and cmp.
 >
-> Link: https://github.com/ROCm/amdgpu/issues/234
-> Fixes: 416e1fab4752 ("drm/amdgpu: drop redundant
-> cancel_delayed_work_sync call")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:Claude-Sonnet-4.6
-> Signed-off-by: Leo Liu <leo.liu@amd.com>
+> Add helper functions: ualink_test_local_data() and
+> ualink_test_remote_rw() for local and remote ring buffer R/W,
+> ualink_test_remote_shootdown() for TLB shootdown,
+> ualink_test_send_hello() for handshake,
+> ualink_test_update_interrupt_wb() and
+> ualink_test_update_shootdown_wb() to read writeback results.
+>
+> v5: Replace the four remote access commands with local_test_data,
+>      remote_sdma and remote_lsdma entries, to get the test data without
+>      looking at debug logs or using xxd with physical addresses (Felix).
+>      Dump and accept binary data, no parser in the driver (Felix).
+>      Stage the DMA in the local ring buffer instead of the IB, which is
+>      freed before the data is read back.
+> v4: Use a single "command" entry taking the test name, instead of one
+>      entry per test (Felix).
+>      Resync the remote wptr before sending a command, the peer may have
+>      rebooted.
+> v3: Replace the single entry taking a test number with a debugfs
+>      directory and a named entry per command.
+>      Take peer->lock to update the writeback address and selftest_mutex
+>      to read the test parameters.
+> v2: Fix typos and issues from copilot code review.
+>
+> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c   |  6 +++++-
->  drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c   |  6 +++++-
->  drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c   |  6 +++++-
->  drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c   |  6 +++++-
->  drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c |  6 +++++-
-> drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c |  6 +++++-
-> drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c |  6 +++++-
-> drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c |  6 +++++-
-> drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c |  6 +++++-
-> drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c |  6 +++++-
->  drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c    |  4 +++-
->  drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c    |  4 +++-
->  drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c    |  4 +++-
->  drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c    |  4 +++-
->  drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c    |  4 +++-
->  drivers/gpu/drm/amd/amdgpu/vce_v1_0.c    |  6 +++++-
->  drivers/gpu/drm/amd/amdgpu/vce_v2_0.c    |  6 +++++-
->  drivers/gpu/drm/amd/amdgpu/vce_v3_0.c    |  6 +++++-
->  drivers/gpu/drm/amd/amdgpu/vce_v4_0.c    |  6 +++++-
->  drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c    | 11 +++++++++--
->  drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c    |  8 ++++++--
->  drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c    |  8 ++++++--
->  drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c    |  8 ++++++--
->  drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c    |  6 +++++-
->  drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c  |  6 +++++-
-> drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c  |  6 +++++-
-> drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c  |  6 +++++-
-> drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c  |  6 +++++-
-> drivers/gpu/drm/amd/amdgpu/vcn_v5_0_2.c  |  6 +++++-
->  29 files changed, 142 insertions(+), 33 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 346 ++++++++++++++++++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.c   |  49 +++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.h   |   1 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c  | 225 ++++++++++++-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h  |  24 +-
+>   5 files changed, 634 insertions(+), 11 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
-> b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
-> index 72069b77f6f1..7ce3396b1431 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
-> @@ -159,11 +159,15 @@ static int jpeg_v2_0_hw_init(struct
-> amdgpu_ip_block *ip_block)  {
->       struct amdgpu_device *adev =3D ip_block->adev;
->       struct amdgpu_ring *ring =3D adev->jpeg.inst->ring_dec;
-> +     int r;
->
->       adev->nbio.funcs->vcn_doorbell_range(adev, ring->use_doorbell,
->               (adev->doorbell_index.vcn.vcn_ring0_1 << 1), 0);
->
-> -     return amdgpu_ring_test_helper(ring);
-> +     r =3D amdgpu_ring_test_helper(ring);
-> +     if (r)
-> +             cancel_delayed_work_sync(&adev->jpeg.idle_work);
-> +     return r;
->  }
->
->  /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
-> b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
-> index 2968256d4cd7..46293664fd28 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
-> @@ -221,10 +221,14 @@ static int jpeg_v2_5_hw_init(struct
-> amdgpu_ip_block *ip_block)
->
->               r =3D amdgpu_ring_test_helper(ring);
->               if (r)
-> -                     return r;
-> +                     goto error;
->       }
->
->       return 0;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> index 3dc95d9accf2..2d786639d081 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> @@ -2133,9 +2133,336 @@ DEFINE_DEBUGFS_ATTRIBUTE(fops_ib_preempt, NULL,
+>   DEFINE_DEBUGFS_ATTRIBUTE(fops_sclk_set, NULL,
+>   			amdgpu_debugfs_sclk_set, "%llu\n");
+>   
+> +enum amdgpu_ualink_test_cmd {
+> +	UALINK_TEST_SW_INIT,
+> +	UALINK_TEST_SEND_HELLO,
+> +	UALINK_TEST_REMOTE_SHOOTDOWN,
+> +	UALINK_TEST_FLUSH_TLB,
+> +	UALINK_TEST_UPDATE_INTERRUPT_WB,
+> +	UALINK_TEST_UPDATE_SHOOTDOWN_WB,
+> +	UALINK_TEST_LSDMA_SELFTEST,
+> +};
 > +
-> +error:
-> +     cancel_delayed_work_sync(&adev->jpeg.idle_work);
-> +     return r;
->  }
->
->  /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
-> b/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
-> index 564e40899df2..361d0f4b4bc7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
-> @@ -174,11 +174,15 @@ static int jpeg_v3_0_hw_init(struct
-> amdgpu_ip_block *ip_block)  {
->       struct amdgpu_device *adev =3D ip_block->adev;
->       struct amdgpu_ring *ring =3D adev->jpeg.inst->ring_dec;
-> +     int r;
->
->       adev->nbio.funcs->vcn_doorbell_range(adev, ring->use_doorbell,
->               (adev->doorbell_index.vcn.vcn_ring0_1 << 1), 0);
->
-> -     return amdgpu_ring_test_helper(ring);
-> +     r =3D amdgpu_ring_test_helper(ring);
-> +     if (r)
-> +             cancel_delayed_work_sync(&adev->jpeg.idle_work);
-> +     return r;
->  }
->
->  /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
-> b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
-> index b29ca3a49939..4e8eed2b62db 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
-> @@ -204,10 +204,14 @@ static int jpeg_v4_0_hw_init(struct
-> amdgpu_ip_block *ip_block)
->
->               r =3D amdgpu_ring_test_helper(ring);
->               if (r)
-> -                     return r;
-> +                     goto error;
->       }
->
->       return 0;
+> +/* commands talking to a remote accelerator, remote_accel_id must be set */
+> +#define UALINK_TEST_NEEDS_ACCEL_ID					\
+> +	(BIT(UALINK_TEST_SEND_HELLO) | BIT(UALINK_TEST_REMOTE_SHOOTDOWN) | \
+> +	 BIT(UALINK_TEST_UPDATE_INTERRUPT_WB) |				\
+> +	 BIT(UALINK_TEST_UPDATE_SHOOTDOWN_WB))
 > +
-> +error:
-> +     cancel_delayed_work_sync(&adev->jpeg.idle_work);
-> +     return r;
->  }
->
->  /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
-> b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
-> index 0343a64595f2..1925d3092d02 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
-> @@ -435,12 +435,16 @@ static int jpeg_v4_0_3_hw_init(struct
-> amdgpu_ip_block *ip_block)
->
->       VCN_JPEG_DB_CTRL__EN_MASK);
->                               r =3D amdgpu_ring_test_helper(ring);
->                               if (r)
-> -                                     return r;
-> +                                     goto error;
->                       }
->               }
->       }
->
->       return 0;
+> +static int amdgpu_debugfs_ualink_test_run(struct amdgpu_device *adev,
+> +					  enum amdgpu_ualink_test_cmd cmd)
+> +{
+> +	u32 remote_accel_id = adev->ualink.test_remote_accel_id;
+> +	int r = 0;
 > +
-> +error:
-> +     cancel_delayed_work_sync(&adev->jpeg.idle_work);
-> +     return r;
->  }
->
->  /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c
-> b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c
-> index 4da3f9c995c1..a1496412810c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c
-> @@ -232,10 +232,14 @@ static int jpeg_v4_0_5_hw_init(struct
-> amdgpu_ip_block *ip_block)
->               ring =3D adev->jpeg.inst[i].ring_dec;
->               r =3D amdgpu_ring_test_helper(ring);
->               if (r)
-> -                     return r;
-> +                     goto error;
->       }
->
->       return 0;
+> +	guard(mutex)(&adev->ualink.selftest_mutex);
 > +
-> +error:
-> +     cancel_delayed_work_sync(&adev->jpeg.idle_work);
-> +     return r;
->  }
->
->  /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
-> b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
-> index dcdb089b4308..1a4594d5d952 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
-> @@ -173,9 +173,13 @@ static int jpeg_v5_0_0_hw_init(struct
-> amdgpu_ip_block *ip_block)
->
->       r =3D amdgpu_ring_test_helper(ring);
->       if (r)
-> -             return r;
-> +             goto error;
->
->       return 0;
+> +	if ((BIT(cmd) & UALINK_TEST_NEEDS_ACCEL_ID) &&
+> +	    remote_accel_id >= AMDGPU_UALINK_ACCEL_MAX) {
+> +		dev_err(adev->dev, "set remote_accel_id first\n");
+> +		return -EINVAL;
+> +	}
 > +
-> +error:
-> +     cancel_delayed_work_sync(&adev->jpeg.idle_work);
-> +     return r;
->  }
->
->  /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c
-> b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c
-> index f2debf6b6bd0..efdc537ec81e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c
-> @@ -307,11 +307,15 @@ static int jpeg_v5_0_1_hw_init(struct
-> amdgpu_ip_block *ip_block)
->
-> VCN_JPEG_DB_CTRL__EN_MASK);
->                       r =3D amdgpu_ring_test_helper(ring);
->                       if (r)
-> -                             return r;
-> +                             goto error;
->               }
->       }
->
->       return 0;
+> +	adev->ualink.selftesting = true;
 > +
-> +error:
-> +     cancel_delayed_work_sync(&adev->jpeg.idle_work);
-> +     return r;
->  }
->
->  /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c
-> b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c
-> index dd0abce73687..eb3dc9558e0d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c
-> @@ -280,11 +280,15 @@ static int jpeg_v5_0_2_hw_init(struct
-> amdgpu_ip_block *ip_block)
->
-> VCN_JPEG_DB_CTRL__EN_MASK);
->                       r =3D amdgpu_ring_test_helper(ring);
->                       if (r)
-> -                             return r;
-> +                             goto error;
->               }
->       }
->
->       return 0;
+> +	switch (cmd) {
+> +	case UALINK_TEST_SW_INIT:
+> +		if (adev->ualink.remote)
+> +			amdgpu_ualink_sw_fini(adev);
 > +
-> +error:
-> +     cancel_delayed_work_sync(&adev->jpeg.idle_work);
-> +     return r;
->  }
->
->  /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c
-> b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c
-> index 8ddd12740a04..0cbb2b8a7e78 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c
-> @@ -156,9 +156,13 @@ static int jpeg_v5_3_0_hw_init(struct
-> amdgpu_ip_block *ip_block)
->
->       r =3D amdgpu_ring_test_helper(ring);
->       if (r)
-> -             return r;
-> +             goto error;
->
->       return 0;
+> +		dev_dbg(adev->dev, "load metadata init MPNHT firmware\n");
+> +		r = amdgpu_ualink_sw_init(adev);
+> +		break;
+> +	case UALINK_TEST_SEND_HELLO:
+> +		r = ualink_test_send_hello(adev, remote_accel_id);
+> +		break;
+> +	case UALINK_TEST_REMOTE_SHOOTDOWN:
+> +		r = ualink_test_remote_shootdown(adev, remote_accel_id, 1UL << 30,
+> +						 1, TLB_FLUSH_HEAVYWEIGHT);
+> +		break;
+> +	case UALINK_TEST_FLUSH_TLB:
+> +		amdgpu_ualink_flush_tlb(adev, TLB_FLUSH_HEAVYWEIGHT);
+> +		break;
+> +	case UALINK_TEST_UPDATE_INTERRUPT_WB:
+> +		r = ualink_test_update_interrupt_wb(adev, remote_accel_id);
+> +		break;
+> +	case UALINK_TEST_UPDATE_SHOOTDOWN_WB:
+> +		r = ualink_test_update_shootdown_wb(adev, remote_accel_id);
+> +		break;
+> +	case UALINK_TEST_LSDMA_SELFTEST:
+> +		r = adev->lsdma.funcs ? amdgpu_lsdma_selftest(adev) : -EOPNOTSUPP;
+> +		break;
+> +	}
 > +
-> +error:
-> +     cancel_delayed_work_sync(&adev->jpeg.idle_work);
-> +     return r;
->  }
->
->  /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
-> b/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
-> index ff7128a11cad..97c265daa2bd 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
-> @@ -710,7 +710,9 @@ static int uvd_v3_1_hw_init(struct amdgpu_ip_block
-> *ip_block)
->       amdgpu_ring_commit(ring);
->
->  done:
-> -     if (!r)
-> +     if (r)
-> +             cancel_delayed_work_sync(&adev->uvd.idle_work);
-> +     else
->               drm_info(adev_to_drm(adev), "UVD initialized
-> successfully.\n");
->
->       return r;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
-> b/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
-> index cf304b489d87..90b57a08d6dc 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
-> @@ -198,7 +198,9 @@ static int uvd_v4_2_hw_init(struct amdgpu_ip_block
-> *ip_block)
->       amdgpu_ring_commit(ring);
->
->  done:
-> -     if (!r)
-> +     if (r)
-> +             cancel_delayed_work_sync(&adev->uvd.idle_work);
-> +     else
->               drm_info(adev_to_drm(adev), "UVD initialized
-> successfully.\n");
->
->       return r;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
-> b/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
-> index 564d8fb58905..aa75b2691d57 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
-> @@ -190,7 +190,9 @@ static int uvd_v5_0_hw_init(struct amdgpu_ip_block
-> *ip_block)
->       amdgpu_ring_commit(ring);
->
->  done:
-> -     if (!r)
-> +     if (r)
-> +             cancel_delayed_work_sync(&adev->uvd.idle_work);
-> +     else
->               drm_info(adev_to_drm(adev), "UVD initialized
-> successfully.\n");
->
->       return r;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
-> b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
-> index dcb8487e22b1..3016227cf0ed 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
-> @@ -515,7 +515,9 @@ static int uvd_v6_0_hw_init(struct amdgpu_ip_block
-> *ip_block)
->       }
->
->  done:
-> -     if (!r) {
-> +     if (r) {
-> +             cancel_delayed_work_sync(&adev->uvd.idle_work);
-> +     } else {
->               if (uvd_v6_0_enc_support(adev))
->                       drm_info(adev_to_drm(adev), "UVD and UVD ENC
-> initialized successfully.\n");
->               else
-> diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
-> b/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
-> index 46222fc30be6..48eac56f758e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
-> @@ -583,7 +583,9 @@ static int uvd_v7_0_hw_init(struct amdgpu_ip_block
-> *ip_block)
->               }
->       }
->  done:
-> -     if (!r)
-> +     if (r)
-> +             cancel_delayed_work_sync(&adev->uvd.idle_work);
-> +     else
->               drm_info(adev_to_drm(adev), "UVD and UVD ENC initialized
-> successfully.\n");
->
->       return r;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c
-> b/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c
-> index b1428f5bbc81..0ba9bab7c921 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c
-> @@ -651,12 +651,16 @@ static int vce_v1_0_hw_init(struct
-> amdgpu_ip_block *ip_block)
->       for (i =3D 0; i < adev->vce.num_rings; i++) {
->               r =3D amdgpu_ring_test_helper(&adev->vce.ring[i]);
->               if (r)
-> -                     return r;
-> +                     goto error;
->       }
->
->       dev_info(adev->dev, "VCE initialized successfully.\n");
->
->       return 0;
+> +	adev->ualink.selftesting = false;
 > +
-> +error:
-> +     cancel_delayed_work_sync(&adev->vce.idle_work);
-> +     return r;
->  }
->
->  static int vce_v1_0_hw_fini(struct amdgpu_ip_block *ip_block) diff --git
-> a/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
-> b/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
-> index dd870ecac2a4..20a4cb6d17fb 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
-> @@ -483,12 +483,16 @@ static int vce_v2_0_hw_init(struct
-> amdgpu_ip_block *ip_block)
->       for (i =3D 0; i < adev->vce.num_rings; i++) {
->               r =3D amdgpu_ring_test_helper(&adev->vce.ring[i]);
->               if (r)
-> -                     return r;
-> +                     goto error;
->       }
->
->       drm_info(adev_to_drm(adev), "VCE initialized successfully.\n");
->
->       return 0;
+> +	dev_dbg(adev->dev, "ualink test cmd %d remote_accel_id %u ret %d\n",
+> +		cmd, remote_accel_id, r);
 > +
-> +error:
-> +     cancel_delayed_work_sync(&adev->vce.idle_work);
-> +     return r;
->  }
->
->  static int vce_v2_0_hw_fini(struct amdgpu_ip_block *ip_block) diff --git
-> a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
-> b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
-> index d5adccd3e689..7637305df7e8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
-> @@ -482,12 +482,16 @@ static int vce_v3_0_hw_init(struct
-> amdgpu_ip_block *ip_block)
->       for (i =3D 0; i < adev->vce.num_rings; i++) {
->               r =3D amdgpu_ring_test_helper(&adev->vce.ring[i]);
->               if (r)
-> -                     return r;
-> +                     goto error;
->       }
->
->       drm_info(adev_to_drm(adev), "VCE initialized successfully.\n");
->
->       return 0;
+> +	return r;
+> +}
 > +
-> +error:
-> +     cancel_delayed_work_sync(&adev->vce.idle_work);
-> +     return r;
->  }
->
->  static int vce_v3_0_hw_fini(struct amdgpu_ip_block *ip_block) diff --git
-> a/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
-> b/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
-> index ee445d8abe47..4e1fbc7b50f5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
-> @@ -533,12 +533,16 @@ static int vce_v4_0_hw_init(struct
-> amdgpu_ip_block *ip_block)
->       for (i =3D 0; i < adev->vce.num_rings; i++) {
->               r =3D amdgpu_ring_test_helper(&adev->vce.ring[i]);
->               if (r)
-> -                     return r;
-> +                     goto error;
->       }
->
->       drm_info(adev_to_drm(adev), "VCE initialized successfully.\n");
->
->       return 0;
+> +#define UALINK_TEST_CMD_NAME_MAX	32
 > +
-> +error:
-> +     cancel_delayed_work_sync(&adev->vce.idle_work);
-> +     return r;
->  }
->
->  static int vce_v4_0_hw_fini(struct amdgpu_ip_block *ip_block) diff --git
-> a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-> b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-> index 76793a5caa70..b3e63d6e79a8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-> @@ -252,18 +252,25 @@ static int vcn_v1_0_hw_init(struct
-> amdgpu_ip_block *ip_block)
->
->       r =3D amdgpu_ring_test_helper(ring);
->       if (r)
-> -             return r;
-> +             goto error_vcn;
->
->       for (i =3D 0; i < adev->vcn.inst[0].num_enc_rings; ++i) {
->               ring =3D &adev->vcn.inst->ring_enc[i];
->               r =3D amdgpu_ring_test_helper(ring);
->               if (r)
-> -                     return r;
-> +                     goto error_vcn;
->       }
->
->       ring =3D adev->jpeg.inst->ring_dec;
->       r =3D amdgpu_ring_test_helper(ring);
-> +     if (r)
-> +             goto error_both;
-> +     return 0;
->
-> +error_both:
-> +     cancel_delayed_work_sync(&adev->jpeg.idle_work);
-> +error_vcn:
-> +     cancel_delayed_work_sync(&adev->vcn.inst[0].idle_work);
->       return r;
->  }
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-> b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-> index 7d2b9e4b913a..12ac20484396 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-> @@ -294,7 +294,7 @@ static int vcn_v2_0_hw_init(struct amdgpu_ip_block
-> *ip_block)
->
->       r =3D amdgpu_ring_test_helper(ring);
->       if (r)
-> -             return r;
-> +             goto error;
->
->       //Disable vcn decode for sriov
->       if (amdgpu_sriov_vf(adev))
-> @@ -304,10 +304,14 @@ static int vcn_v2_0_hw_init(struct
-> amdgpu_ip_block *ip_block)
->               ring =3D &adev->vcn.inst->ring_enc[i];
->               r =3D amdgpu_ring_test_helper(ring);
->               if (r)
-> -                     return r;
-> +                     goto error;
->       }
->
->       return 0;
+> +static const char * const amdgpu_ualink_test_cmd_name[] = {
+> +	[UALINK_TEST_SW_INIT]			= "sw_init",
+> +	[UALINK_TEST_SEND_HELLO]		= "send_hello",
+> +	[UALINK_TEST_REMOTE_SHOOTDOWN]		= "remote_shootdown",
+> +	[UALINK_TEST_FLUSH_TLB]			= "flush_tlb",
+> +	[UALINK_TEST_UPDATE_INTERRUPT_WB]	= "update_interrupt_wb",
+> +	[UALINK_TEST_UPDATE_SHOOTDOWN_WB]	= "update_shootdown_wb",
+> +	[UALINK_TEST_LSDMA_SELFTEST]		= "lsdma_selftest",
+> +};
 > +
-> +error:
-> +     cancel_delayed_work_sync(&adev->vcn.inst->idle_work);
-> +     return r;
->  }
->
->  /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-> b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-> index 10ef5616b2f5..fdd0b85a1aa7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-> @@ -481,18 +481,22 @@ static int vcn_v2_5_hw_init(struct
-> amdgpu_ip_block *ip_block)
->
->                       r =3D amdgpu_ring_test_helper(ring);
->                       if (r)
-> -                             return r;
-> +                             goto error;
->
->                       for (i =3D 0; i < adev->vcn.inst[j].num_enc_rings; =
-++i) {
->                               ring =3D &adev->vcn.inst[j].ring_enc[i];
->                               r =3D amdgpu_ring_test_helper(ring);
->                               if (r)
-> -                                     return r;
-> +                                     goto error;
->                       }
->               }
->       }
->
->       return r;
+> +static ssize_t amdgpu_debugfs_ualink_command_read(struct file *file,
+> +						  char __user *ubuf,
+> +						  size_t len, loff_t *offp)
+> +{
+> +	char buf[UALINK_TEST_CMD_NAME_MAX * ARRAY_SIZE(amdgpu_ualink_test_cmd_name)];
+> +	unsigned int i;
+> +	int n = 0;
 > +
-> +error:
-> +     cancel_delayed_work_sync(&adev->vcn.inst[j].idle_work);
+> +	for (i = 0; i < ARRAY_SIZE(amdgpu_ualink_test_cmd_name); i++)
+> +		n += scnprintf(buf + n, sizeof(buf) - n, "%s\n",
+> +			       amdgpu_ualink_test_cmd_name[i]);
+> +
+> +	return simple_read_from_buffer(ubuf, len, offp, buf, n);
+> +}
+> +
+> +static ssize_t amdgpu_debugfs_ualink_command_write(struct file *file,
+> +						   const char __user *ubuf,
+> +						   size_t len, loff_t *offp)
+> +{
+> +	struct amdgpu_device *adev = file->private_data;
+> +	char buf[UALINK_TEST_CMD_NAME_MAX];
+> +	int cmd, r;
+> +
+> +	if (len >= sizeof(buf))
+> +		return -EINVAL;
+> +
+> +	if (copy_from_user(buf, ubuf, len))
+> +		return -EFAULT;
+> +
+> +	buf[len] = '\0';
+> +	cmd = sysfs_match_string(amdgpu_ualink_test_cmd_name, strim(buf));
+> +	if (cmd < 0) {
+> +		dev_err(adev->dev, "unknown ualink test command\n");
+> +		return cmd;
+> +	}
+> +
+> +	r = amdgpu_debugfs_ualink_test_run(adev, cmd);
+> +	if (r)
+> +		return r;
+> +
+> +	return len;
+> +}
+> +
+> +static const struct file_operations amdgpu_ualink_command_fops = {
+> +	.owner	 = THIS_MODULE,
+> +	.open	 = simple_open,
+> +	.read	 = amdgpu_debugfs_ualink_command_read,
+> +	.write	 = amdgpu_debugfs_ualink_command_write,
+> +	.llseek	 = default_llseek,
+> +};
+> +
+> +/* test data buffers, see amdgpu_debugfs_ualink_data_xfer() */
+> +enum amdgpu_ualink_test_buf {
+> +	UALINK_BUF_LOCAL,
+> +	UALINK_BUF_REMOTE_SDMA,
+> +	UALINK_BUF_REMOTE_LSDMA,
+> +};
+> +
+> +static int amdgpu_debugfs_ualink_data_xfer(struct amdgpu_device *adev,
+> +					   enum amdgpu_ualink_test_buf buf,
+> +					   u32 *data, u32 size, bool read)
+> +{
+> +	u32 remote_accel_id = adev->ualink.test_remote_accel_id;
+> +	int r;
+> +
+> +	if (remote_accel_id >= AMDGPU_UALINK_ACCEL_MAX) {
+> +		dev_err(adev->dev, "set remote_accel_id first\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	adev->ualink.selftesting = true;
+> +
+> +	if (buf == UALINK_BUF_LOCAL)
+> +		r = ualink_test_local_data(adev, remote_accel_id, data, size, read);
+> +	else
+> +		r = ualink_test_remote_rw(adev, remote_accel_id, data, size, read,
+> +					  buf == UALINK_BUF_REMOTE_LSDMA);
+> +
+> +	adev->ualink.selftesting = false;
+> +
+> +	return r;
+> +}
+> +
+> +static ssize_t amdgpu_debugfs_ualink_data_read(struct file *file,
+> +					       char __user *ubuf, size_t len,
+> +					       loff_t *offp,
+> +					       enum amdgpu_ualink_test_buf buf)
+> +{
+> +	struct amdgpu_device *adev = file->private_data;
+> +	ssize_t ret;
+> +	u32 size;
+> +	void *data;
+> +	int r;
+> +
+> +	guard(mutex)(&adev->ualink.selftest_mutex);
+> +
+> +	size = adev->ualink.test_size_dwords * 4;
+> +
+> +	data = kmalloc(size, GFP_KERNEL);
+> +	if (!data)
+> +		return -ENOMEM;
+> +
+> +	r = amdgpu_debugfs_ualink_data_xfer(adev, buf, data, size, true);
+> +	ret = r ? r : simple_read_from_buffer(ubuf, len, offp, data, size);
+> +
+> +	kfree(data);
+> +
+> +	return ret;
+> +}
+> +
+> +static ssize_t amdgpu_debugfs_ualink_data_write(struct file *file,
+> +						const char __user *ubuf,
+> +						size_t len, loff_t *offp,
+> +						enum amdgpu_ualink_test_buf buf)
+> +{
+> +	struct amdgpu_device *adev = file->private_data;
+> +	u32 i, size;
+> +	void *data;
+> +	int r;
+> +
+> +	guard(mutex)(&adev->ualink.selftest_mutex);
+> +
+> +	size = adev->ualink.test_size_dwords * 4;
+> +
+> +	if (!len)
+> +		return -EINVAL;
+> +
+> +	len = min_t(size_t, len, size);
+> +
+> +	data = kmalloc(size, GFP_KERNEL);
+> +	if (!data)
+> +		return -ENOMEM;
+> +
+> +	if (copy_from_user(data, ubuf, len)) {
+> +		kfree(data);
+> +		return -EFAULT;
+> +	}
+> +
+> +	/* repeat a short pattern to fill the test size */
+> +	for (i = len; i < size; i += len)
+> +		memcpy(data + i, data, min_t(u32, len, size - i));
+> +
+> +	r = amdgpu_debugfs_ualink_data_xfer(adev, buf, data, size, false);
+> +
+> +	kfree(data);
+> +
+> +	return r ? r : len;
+> +}
+> +
+> +#define UALINK_TEST_DATA_ATTR(name, buf)				\
+> +static ssize_t amdgpu_debugfs_ualink_##name##_read(struct file *file,	\
+> +		char __user *ubuf, size_t len, loff_t *offp)		\
+> +{									\
+> +	return amdgpu_debugfs_ualink_data_read(file, ubuf, len, offp, buf); \
+> +}									\
+> +static ssize_t amdgpu_debugfs_ualink_##name##_write(struct file *file,	\
+> +		const char __user *ubuf, size_t len, loff_t *offp)	\
+> +{									\
+> +	return amdgpu_debugfs_ualink_data_write(file, ubuf, len, offp, buf); \
+> +}									\
+> +static const struct file_operations amdgpu_ualink_##name##_fops = {	\
+> +	.owner	 = THIS_MODULE,						\
+> +	.open	 = simple_open,						\
+> +	.read	 = amdgpu_debugfs_ualink_##name##_read,			\
+> +	.write	 = amdgpu_debugfs_ualink_##name##_write,		\
+> +	.llseek	 = default_llseek,					\
+> +}
+> +
+> +UALINK_TEST_DATA_ATTR(local_test_data, UALINK_BUF_LOCAL);
+> +UALINK_TEST_DATA_ATTR(remote_sdma, UALINK_BUF_REMOTE_SDMA);
+> +UALINK_TEST_DATA_ATTR(remote_lsdma, UALINK_BUF_REMOTE_LSDMA);
+> +
+> +static int amdgpu_debugfs_ualink_accel_id_get(void *data, u64 *val)
+> +{
+> +	struct amdgpu_device *adev = data;
+> +
+> +	guard(mutex)(&adev->ualink.selftest_mutex);
+> +
+> +	*val = adev->ualink.test_remote_accel_id;
+> +
+> +	return 0;
+> +}
+> +
+> +static int amdgpu_debugfs_ualink_accel_id_set(void *data, u64 val)
+> +{
+> +	struct amdgpu_device *adev = data;
+> +
+> +	if (!adev->ualink.info)
+> +		return -EOPNOTSUPP;
+> +
+> +	guard(mutex)(&adev->ualink.selftest_mutex);
+> +
+> +	if (val >= AMDGPU_UALINK_ACCEL_MAX ||
+> +	    !test_bit(val, adev->ualink.info->vpod.active_accel_bits)) {
+> +		dev_err(adev->dev, "invalid remote accel_id %llu\n", val);
+> +		return -EINVAL;
+> +	}
+> +
+> +	if (val == adev->ualink.info->ppod.accel_id) {
+> +		dev_err(adev->dev, "remote accel_id equals to local accel_id\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	adev->ualink.test_remote_accel_id = val;
+> +	dev_info(adev->dev, "set remote accel_id to %llu, local accel_id %u\n",
+> +		 val, adev->ualink.info->ppod.accel_id);
+> +
+> +	return 0;
+> +}
+> +
+> +DEFINE_DEBUGFS_ATTRIBUTE(amdgpu_ualink_accel_id_fops,
+> +			 amdgpu_debugfs_ualink_accel_id_get,
+> +			 amdgpu_debugfs_ualink_accel_id_set, "%llu\n");
+> +
+> +static int amdgpu_debugfs_ualink_test_size_get(void *data, u64 *val)
+> +{
+> +	struct amdgpu_device *adev = data;
+> +
+> +	guard(mutex)(&adev->ualink.selftest_mutex);
+> +
+> +	*val = adev->ualink.test_size_dwords * 4;
+> +
+> +	return 0;
+> +}
+> +
+> +static int amdgpu_debugfs_ualink_test_size_set(void *data, u64 val)
+> +{
+> +	struct amdgpu_device *adev = data;
+> +
+> +	if (val < 4 || val > AMDGPU_UALINK_RB_SIZE)
+> +		return -EINVAL;
+> +
+> +	guard(mutex)(&adev->ualink.selftest_mutex);
+> +
+> +	adev->ualink.test_size_dwords = val / 4;
+> +	dev_dbg(adev->dev, "test buffer size %u bytes\n",
+> +		adev->ualink.test_size_dwords * 4);
+> +
+> +	return 0;
+> +}
+> +
+> +DEFINE_DEBUGFS_ATTRIBUTE(amdgpu_ualink_test_size_fops,
+> +			 amdgpu_debugfs_ualink_test_size_get,
+> +			 amdgpu_debugfs_ualink_test_size_set, "%llu\n");
+> +
+>   int amdgpu_debugfs_init(struct amdgpu_device *adev)
+>   {
+>   	struct dentry *root = adev_to_drm(adev)->primary->debugfs_root;
+> +	struct dentry *ualink_test;
+>   	struct dentry *ent;
+>   	int r, i;
+>   
+> @@ -2246,6 +2573,25 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
+>   	debugfs_create_ulong("amdgpu_ualink_drop_msg_bitmap", 0600, root,
+>   			     &adev->ualink.drop_msg_bitmap);
+>   
+> +	mutex_init(&adev->ualink.selftest_mutex);
+> +	/* 64 bytes test size by default */
+> +	adev->ualink.test_size_dwords = 16;
+> +	adev->ualink.test_remote_accel_id = AMDGPU_UALINK_ACCEL_MAX;
+> +
+> +	ualink_test = debugfs_create_dir("amdgpu_ualink_test", root);
+> +	debugfs_create_file("command", 0600, ualink_test, adev,
+> +			    &amdgpu_ualink_command_fops);
+> +	debugfs_create_file("remote_accel_id", 0600, ualink_test, adev,
+> +			    &amdgpu_ualink_accel_id_fops);
+> +	debugfs_create_file("test_size", 0600, ualink_test, adev,
+> +			    &amdgpu_ualink_test_size_fops);
+> +	debugfs_create_file("local_test_data", 0600, ualink_test, adev,
+> +			    &amdgpu_ualink_local_test_data_fops);
+> +	debugfs_create_file("remote_sdma", 0600, ualink_test, adev,
+> +			    &amdgpu_ualink_remote_sdma_fops);
+> +	debugfs_create_file("remote_lsdma", 0600, ualink_test, adev,
+> +			    &amdgpu_ualink_remote_lsdma_fops);
+> +
+>   	adev->debugfs_vbios_blob.data = adev->bios;
+>   	adev->debugfs_vbios_blob.size = adev->bios_size;
+>   	debugfs_create_blob("amdgpu_vbios", 0444, root,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.c
+> index 05bc281216bf..1f83d9b69135 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.c
+> @@ -97,3 +97,52 @@ int amdgpu_lsdma_fill_mem(struct amdgpu_device *adev,
+>   	mutex_unlock(&adev->lsdma.lock);
+>   	return ret;
+>   }
+> +
+> +int amdgpu_lsdma_selftest(struct amdgpu_device *adev)
+> +{
+> +	struct amdgpu_ib ib;
+> +	int i, r;
+> +	u64 gpu_addr;
+> +	char *p;
+> +	u32 size = 128;
+> +
+> +	memset(&ib, 0, sizeof(ib));
+> +	r = amdgpu_ib_get(adev, NULL, 2 * size, AMDGPU_IB_POOL_DIRECT, &ib);
+> +	if (r)
+> +		return r;
+> +
+> +	gpu_addr = ib.gpu_addr;
+> +	p = (char *)ib.ptr;
+> +	memset(p, 0, 2 * size);
+> +
+> +	for (i = 0; i < size; i++)
+> +		*(p + i) = i;
+> +
+> +	dev_dbg(adev->dev, "copy src 0x%llx dst 0x%llx size %d bytes\n",
+> +		gpu_addr, gpu_addr + size, size);
+> +
+> +	r = amdgpu_lsdma_copy_mem(adev, gpu_addr, gpu_addr + size, size);
+> +	if (r)
+> +		goto out;
+> +
+> +	p += size;
+> +	for (i = 0; i < size; i++) {
+> +		if (*(p + i) != i) {
+> +			dev_dbg(adev->dev, "data mismatch expecting 0x%x but read 0x%x\n",
+> +				i, *(p + i));
+> +			break;
+> +		}
+> +	}
+> +	if (i != size)
+> +		r = -EIO;
+> +
+> +out:
+> +	amdgpu_ib_free(&ib, NULL);
+> +
+> +	if (r)
+> +		dev_dbg(adev->dev, "lsdma selftest failed r=%d\n", r);
+> +	else
+> +		dev_dbg(adev->dev, "lsdma selftest passed\n");
+> +
+> +	return r;
+> +}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.h
+> index 34e92aaa4617..f0a5eeb3529f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.h
+> @@ -46,5 +46,6 @@ int amdgpu_lsdma_fill_mem(struct amdgpu_device *adev, uint64_t dst_addr,
+>   			  uint32_t data, uint64_t mem_size);
+>   int amdgpu_lsdma_wait_for(struct amdgpu_device *adev, uint32_t reg_index,
+>   			  uint32_t reg_val, uint32_t mask);
+> +int amdgpu_lsdma_selftest(struct amdgpu_device *adev);
+>   
+>   #endif
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+> index 339f639a450e..7552c52bb325 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+> @@ -39,8 +39,6 @@ static void deactivate_accelerator(struct amdgpu_device *adev);
+>   static int amdgpu_ualink_remote_interrupt(struct amdgpu_device *adev,
+>   				u32 remote_accel_id, u32 dw0, u32 dw1,
+>   				u32 dw2, u32 dw3);
+> -static void amdgpu_ualink_flush_tlb(struct amdgpu_device *adev,
+> -				    u32 flush_type);
+>   static int amdgpu_ualink_reserve_npa_vm_and_bos(struct amdgpu_device *adev,
+>   						struct amdgpu_bo *bos[], u32 n_bos,
+>   						struct drm_exec *exec,
+> @@ -4333,9 +4331,6 @@ void amdgpu_ualink_manager_stop(struct amdgpu_device *adev)
+>    * UALink remote interrupt and shootdown
+>    */
+>   
+> -/* UALINK ring buffer size, same for both remote shootdown and interrupt ring */
+> -#define AMDGPU_UALINK_RB_SIZE	4096
+> -
+>   #define AMDGPU_UALINK_METADATA_HEADER	0x4E485446
+>   
+>   /* 2MB NPA start address for 2MB page mapping */
+> @@ -4582,7 +4577,7 @@ static inline u32 ualink_tlb_wb_offset(struct amdgpu_device *adev, u32 accel_id)
+>   	return ualink_wb_offset(adev, accel_id) + sizeof(struct amdgpu_ualink_wb);
+>   }
+>   
+> -static void amdgpu_ualink_flush_tlb(struct amdgpu_device *adev, u32 flush_type)
+> +void amdgpu_ualink_flush_tlb(struct amdgpu_device *adev, u32 flush_type)
+>   {
+>   	u32 bit;
+>   
+> @@ -5281,7 +5276,8 @@ static int amdgpu_ualink_metadata_init(struct amdgpu_device *adev)
+>   	if (status != AMDGPU_NHT_FW_ST_PREINIT &&
+>   	    status != AMDGPU_NHT_FW_ST_HALT) {
+>   		dev_dbg(adev->dev, "fw status 0x%x not preinit or halt\n", status);
+> -		return -ENODEV;
+> +		if (!adev->ualink.selftesting)
+> +			return -ENODEV;
+>   	}
+>   
+>   	dev_dbg(adev->dev, "accel_id %u addr_mode %d fw status 0x%x\n",
+> @@ -5330,6 +5326,14 @@ static int amdgpu_ualink_metadata_init(struct amdgpu_device *adev)
+>   		remote->rb_gpu_addr, remote->rb_cpu_addr, adev->gmc.vram_start,
+>   		adev->vm_manager.vram_base_offset);
+>   
+> +	if (adev->ualink.selftesting) {
+> +		u32 *p = remote->rb_cpu_addr;
+> +		int i;
+> +
+> +		for (i = 0; i < rb_size / 4; i++)
+> +			*(p + i) = 0xdeadbeef;
+> +	}
+> +
+>   	/*
+>   	 * address aliasing mode, shared wptr pagee left is not enough for wb data,
+>   	 * wb status and rptr, alloc another BO, and then alloc npa address and map
+> @@ -5399,6 +5403,8 @@ static int amdgpu_ualink_metadata_init(struct amdgpu_device *adev)
+>   	r = adev->ualink.msg_ctl->send_metadata(adev,
+>   						    remote->metadata_gpu_addr,
+>   						    AMDGPU_UALINK_ACCEL_MAX << 8);
+> +	if (r && adev->ualink.selftesting)
+> +		r = 0;
+>   
+>   out:
+>   	if (r)
+> @@ -6384,11 +6390,214 @@ void amdgpu_ualink_sw_fini(struct amdgpu_device *adev)
+>   	adev->ualink.remote = NULL;
+>   }
+>   
+> -int ualink_send_hello(struct amdgpu_device *adev, u32 remote_accel_id)
+> +/* byte offset of the local interrupt ring a remote GPU writes to */
+> +static u32 ualink_test_local_rb_offset(u32 remote_accel_id)
+> +{
+> +	u32 rb_size = AMDGPU_GPU_PAGE_ALIGN(2 * AMDGPU_UALINK_RB_SIZE);
+> +
+> +	/* remote shootdown ring is first, remote interrupt ring follows it */
+> +	return rb_size * remote_accel_id + AMDGPU_UALINK_RB_SIZE;
+> +}
+> +
+> +/*
+> + * ualink_test_local_data - read or write the local ring buffer of a remote GPU
+> + *
+> + * The local ring buffer is partitioned per remote GPU, @remote_accel_id selects
+> + * the interrupt ring that remote GPU writes to through its NPA mapping. Read it
+> + * to see what the remote GPU wrote, write it to provide the data it reads.
+> + */
+> +int ualink_test_local_data(struct amdgpu_device *adev, u32 remote_accel_id,
+> +			   void *data, u32 size, bool read)
+> +{
+> +	struct amdgpu_ualink_remote *remote = to_remote(adev);
+> +	void *rb;
+> +
+> +	if (!remote || !remote->rb_cpu_addr)
+> +		return -EINVAL;
+> +
+> +	if (size > AMDGPU_UALINK_RB_SIZE)
+> +		return -EINVAL;
+> +
+> +	rb = remote->rb_cpu_addr + ualink_test_local_rb_offset(remote_accel_id);
+> +
+> +	dev_dbg(adev->dev, "%s local rb of remote %u at 0x%p size 0x%x\n",
+> +		read ? "read" : "write", remote_accel_id, rb, size);
+> +
+> +	if (read)
+> +		memcpy(data, rb, size);
+> +	else
+> +		memcpy(rb, data, size);
+> +
+> +	return 0;
+> +}
+> +
+> +/*
+> + * ualink_test_remote_rw - read or write the remote GPU ring buffer
+> + *
+> + * Copy @size bytes between @data and the remote GPU ring buffer NPA address
+> + * using lsdma or sdma. The DMA engines cannot access @data, the local ring
+> + * buffer of the same remote GPU is used to stage it, so local_test_data shows
+> + * what was sent or received.
+> + *
+> + * Works with or without MPNHT FW running, the copy does not update wptr and
+> + * does not ring the doorbell.
+> + */
+> +int ualink_test_remote_rw(struct amdgpu_device *adev, u32 remote_accel_id,
+> +			  void *data, u32 size, bool read, bool use_lsdma)
+>   {
+> +	struct amdgpu_ualink_remote *remote = to_remote(adev);
+> +	struct amdgpu_ualink_peer *peer;
+> +	struct amdgpu_ualink_ring *ring;
+> +	struct dma_fence *fence;
+> +	struct amdgpu_job *job;
+> +	struct amdgpu_ib *ib;
+> +	u64 npa, local;
+> +	u32 offset, ndw;
+> +	int r;
+> +
+> +	if (!remote)
+> +		return -EINVAL;
+> +
+> +	if (size > AMDGPU_UALINK_RB_SIZE)
+> +		return -EINVAL;
+> +
+> +	peer = &remote->peer[remote_accel_id];
+> +	ring = &peer->interrupt;
+> +
+> +	guard(mutex)(&peer->lock);
+> +
+> +	offset = ualink_test_local_rb_offset(remote_accel_id);
+> +	local = remote->rb_gpu_addr + offset;
+> +	npa = ring->rb_npa_gart;
+> +
+> +	if (!read)
+> +		memcpy(remote->rb_cpu_addr + offset, data, size);
 
-You need to cancel all of the delayed workers.  E.g.,
+If I understand this correctly, a remote write has a side-effect to 
+overwrite the local test data. That's not ideal. The local data should 
+only be changed by writing to it explicitly in the local sysfs, or by 
+writing to it from the remote GPU.
 
-for (i =3D 0; i < j; i++)
-    cancel_delayed_work_sync(&adev->vcn.inst[i].idle_work);
+I think you could stage the data to be written at offset = 
+ualink_test_local_rb_offset(adev->ualink.info->ppod.accel_id). That way 
+it's separate from the data accessed by the remote GPU.
 
-Alex
+Similarly,the local data for remote read accesses should go to that same 
+staging location to avoid overwriting data meant for the remote GPU to 
+access.
 
-> +     return r;
->  }
->
->  /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-> b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-> index 0f4f4d66e2e4..f4b79611639a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-> @@ -417,18 +417,22 @@ static int vcn_v3_0_hw_init(struct
-> amdgpu_ip_block *ip_block)
->
->                       r =3D amdgpu_ring_test_helper(ring);
->                       if (r)
-> -                             return r;
-> +                             goto error;
->
->                       for (j =3D 0; j < adev->vcn.inst[i].num_enc_rings; =
-++j) {
->                               ring =3D &adev->vcn.inst[i].ring_enc[j];
->                               r =3D amdgpu_ring_test_helper(ring);
->                               if (r)
-> -                                     return r;
-> +                                     goto error;
->                       }
->               }
->       }
->
->       return 0;
-> +
-> +error:
-> +     cancel_delayed_work_sync(&adev->vcn.inst[i].idle_work);
-> +     return r;
->  }
->
->  /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-> b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-> index 4b7f7bbe18da..dabab58d4042 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-> @@ -349,11 +349,15 @@ static int vcn_v4_0_hw_init(struct
-> amdgpu_ip_block *ip_block)
->
->                       r =3D amdgpu_ring_test_helper(ring);
->                       if (r)
-> -                             return r;
-> +                             goto error;
->               }
->       }
->
->       return 0;
-> +
-> +error:
-> +     cancel_delayed_work_sync(&adev->vcn.inst[i].idle_work);
-> +     return r;
->  }
->
->  /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-> b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-> index 3f39aa83c319..56fabca78ea4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-> @@ -395,11 +395,15 @@ static int vcn_v4_0_3_hw_init(struct
-> amdgpu_ip_block *ip_block)
->
->                       r =3D amdgpu_ring_test_helper(ring);
->                       if (r)
-> -                             return r;
-> +                             goto error;
->               }
->       }
->
->       return r;
-> +
-> +error:
-> +     cancel_delayed_work_sync(&adev->vcn.inst[i].idle_work);
-> +     return r;
->  }
->
->  /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-> b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-> index f30f80c1b07f..93d12e1b9050 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-> @@ -303,10 +303,14 @@ static int vcn_v4_0_5_hw_init(struct
-> amdgpu_ip_block *ip_block)
->
->               r =3D amdgpu_ring_test_helper(ring);
->               if (r)
-> -                     return r;
-> +                     goto error;
->       }
->
->       return 0;
-> +
-> +error:
-> +     cancel_delayed_work_sync(&adev->vcn.inst[i].idle_work);
-> +     return r;
->  }
->
->  /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-> b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-> index 7b7c3bc9f046..891ef2232c3a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-> @@ -267,10 +267,14 @@ static int vcn_v5_0_0_hw_init(struct
-> amdgpu_ip_block *ip_block)
->
->               r =3D amdgpu_ring_test_helper(ring);
->               if (r)
-> -                     return r;
-> +                     goto error;
->       }
->
->       return 0;
-> +
-> +error:
-> +     cancel_delayed_work_sync(&adev->vcn.inst[i].idle_work);
-> +     return r;
->  }
->
->  /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c
-> b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c
-> index c9e990ab297d..b35db4cc6aee 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c
-> @@ -342,11 +342,15 @@ static int vcn_v5_0_1_hw_init(struct
-> amdgpu_ip_block *ip_block)
->
->                       r =3D amdgpu_ring_test_helper(ring);
->                       if (r)
-> -                             return r;
-> +                             goto error;
->               }
->       }
->
->       return 0;
-> +
-> +error:
-> +     cancel_delayed_work_sync(&adev->vcn.inst[i].idle_work);
-> +     return r;
->  }
->
->  /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_2.c
-> b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_2.c
-> index ed47ddd5b08c..ea76fb20d4f6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_2.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_2.c
-> @@ -257,11 +257,15 @@ static int vcn_v5_0_2_hw_init(struct
-> amdgpu_ip_block *ip_block)
->
->                       r =3D amdgpu_ring_test_helper(ring);
->                       if (r)
-> -                             return r;
-> +                             goto error;
->               }
->       }
->
->       return 0;
-> +
-> +error:
-> +     cancel_delayed_work_sync(&adev->vcn.inst[i].idle_work);
-> +     return r;
->  }
->
->  /**
-> --
-> 2.43.0
+That's my last nit-pick. Other than that, this looks good to go.
 
+Thanks,
+   Felix
+
+
+> +
+> +	remote->use_lsdma = use_lsdma;
+> +
+> +	dev_dbg(adev->dev, "%s remote %u npa 0x%llx local 0x%llx size 0x%x use %s\n",
+> +		read ? "read" : "write", remote_accel_id, npa, local, size,
+> +		use_lsdma ? "lsdma" : "sdma");
+> +
+> +	if (use_lsdma) {
+> +		r = amdgpu_lsdma_copy_mem(adev, read ? npa : local,
+> +					  read ? local : npa, size);
+> +		if (r)
+> +			return r;
+> +
+> +		goto done;
+> +	}
+> +
+> +	/* sdma linear copy command, align to 8 dwords boundary */
+> +	ndw = ALIGN(adev->mman.buffer_funcs->copy_num_dw, 8);
+> +
+> +	r = amdgpu_job_alloc_with_ib(adev, &peer->entity, AMDGPU_FENCE_OWNER_VM,
+> +				     ndw * 4, AMDGPU_IB_POOL_IMMEDIATE,
+> +				     AMDGPU_KERNEL_JOB_ID_TTM_COPY_BUFFER, &job);
+> +	if (r)
+> +		return r;
+> +
+> +	ib = job->ibs;
+> +	ib->length_dw = 0;
+> +
+> +	amdgpu_emit_copy_buffer(adev, ib, read ? npa : local,
+> +				read ? local : npa, size, 0);
+> +	amdgpu_ring_pad_ib(&adev->sdma.instance[0].ring, ib);
+> +	WARN_ON(ib->length_dw > ndw);
+> +
+> +	fence = amdgpu_job_submit(job);
+> +
+> +	r = dma_fence_wait_timeout(fence, false, HZ * 10);
+> +	dma_fence_put(fence);
+> +	if (r <= 0) {
+> +		dev_dbg(adev->dev, "remote sdma fence wait timeout %d\n", r);
+> +		dev_dbg(adev->dev, "use lsdma for testing afterwards\n");
+> +		remote->use_lsdma = true;
+> +		return -ETIME;
+> +	}
+> +
+> +done:
+> +	if (read)
+> +		memcpy(data, remote->rb_cpu_addr + offset, size);
+> +
+> +	return 0;
+> +}
+> +
+> +/* The peer may have rebooted or the vpod was reconfigured, adopt the remote
+> + * wptr before sending a command, same as the handshake does.
+> + */
+> +static int ualink_test_resync_peer(struct amdgpu_device *adev, u32 remote_accel_id)
+> +{
+> +	int r;
+> +
+> +	if (!adev->ualink.remote)
+> +		return -EINVAL;
+> +
+> +	r = amdgpu_ualink_ring_resync_ptrs(adev, remote_accel_id);
+> +	if (r < 0)
+> +		return r;
+> +
+> +	amdgpu_ualink_reset_peer_rings(adev, remote_accel_id);
+> +
+> +	return 0;
+> +}
+> +
+> +int ualink_test_send_hello(struct amdgpu_device *adev, u32 remote_accel_id)
+> +{
+> +	int r;
+> +
+> +	r = ualink_test_resync_peer(adev, remote_accel_id);
+> +	if (r)
+> +		return r;
+> +
+>   	return amdgpu_ualink_send_hello_msg(adev, remote_accel_id);
+>   }
+>   
+> +int ualink_test_remote_shootdown(struct amdgpu_device *adev, u32 remote_accel_id,
+> +				 u64 addr, u32 size_in_pages, u32 flush_type)
+> +{
+> +	int r;
+> +
+> +	r = ualink_test_resync_peer(adev, remote_accel_id);
+> +	if (r)
+> +		return r;
+> +
+> +	return amdgpu_ualink_remote_shootdown(adev, remote_accel_id, addr,
+> +					      size_in_pages, flush_type);
+> +}
+> +
+> +int ualink_test_update_interrupt_wb(struct amdgpu_device *adev, u32 remote_accel_id)
+> +{
+> +	int r;
+> +
+> +	r = ualink_test_resync_peer(adev, remote_accel_id);
+> +	if (r)
+> +		return r;
+> +
+> +	guard(mutex)(&adev->ualink.remote->peer[remote_accel_id].lock);
+> +
+> +	/* Update interrupt completion write back address */
+> +	r = amdgpu_ualink_update_wb_address(adev, remote_accel_id,
+> +					    RB_TYPE_REMOTE_INTERRUPT);
+> +	return r;
+> +}
+> +
+> +int ualink_test_update_shootdown_wb(struct amdgpu_device *adev, u32 remote_accel_id)
+> +{
+> +	int r;
+> +
+> +	r = ualink_test_resync_peer(adev, remote_accel_id);
+> +	if (r)
+> +		return r;
+> +
+> +	guard(mutex)(&adev->ualink.remote->peer[remote_accel_id].lock);
+> +
+> +	/* Update shootdown completion write back address */
+> +	r = amdgpu_ualink_update_wb_address(adev, remote_accel_id,
+> +					    RB_TYPE_TLB_INV);
+> +	return r;
+> +}
+> +
+>   /*
+>    * The low bits of handle_lo carry the message-header field on the wire.
+>    * Strip those bits and splice in @acc_id to recover the
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
+> index 85c9a9634a4b..90e90cd8b495 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
+> @@ -310,6 +310,9 @@ struct amdgpu_ualink_connection {
+>   	enum amdgpu_ualink_conn_state state;
+>   };
+>   
+> +/* UALINK ring buffer size, same for both remote shootdown and interrupt ring */
+> +#define AMDGPU_UALINK_RB_SIZE	4096
+> +
+>   struct amdgpu_ualink_remote;
+>   
+>   struct amdgpu_ualink_msg_ctl {
+> @@ -333,6 +336,13 @@ struct amdgpu_ualink_mgr {
+>   	/* For remote interrupt and shootdown */
+>   	struct amdgpu_ualink_remote *remote;
+>   
+> +	/* true for selftest driver path, ignore FW error */
+> +	bool selftesting;
+> +	/* serialize the selftest debugfs entries */
+> +	struct mutex selftest_mutex;
+> +	u32 test_size_dwords;
+> +	u32 test_remote_accel_id;
+> +
+>   	/* handle irq from ualink client of remote GPUs */
+>   	struct amdgpu_irq_src irq;
+>   
+> @@ -390,14 +400,22 @@ struct amdgpu_ualink_mgr {
+>   	unsigned long drop_msg_bitmap;
+>   };
+>   
+> +int ualink_test_local_data(struct amdgpu_device *adev, u32 remote_accel_id,
+> +			   void *data, u32 size, bool read);
+> +int ualink_test_remote_rw(struct amdgpu_device *adev, u32 remote_accel_id,
+> +			  void *data, u32 size, bool read, bool use_lsdma);
+> +int ualink_test_send_hello(struct amdgpu_device *adev, u32 remote_accel_id);
+> +int ualink_test_remote_shootdown(struct amdgpu_device *adev, u32 remote_accel_id,
+> +				 u64 addr, u32 size_in_pages, u32 flush_type);
+> +int ualink_test_update_interrupt_wb(struct amdgpu_device *adev, u32 remote_accel_id);
+> +int ualink_test_update_shootdown_wb(struct amdgpu_device *adev, u32 remote_accel_id);
+> +
+>   int amdgpu_ualink_init_interrupt(struct amdgpu_device *adev,
+>   				 unsigned int client_id, unsigned int src_id);
+> -
+> +void amdgpu_ualink_flush_tlb(struct amdgpu_device *adev, u32 flush_type);
+>   int amdgpu_ualink_sw_init(struct amdgpu_device *adev);
+>   void amdgpu_ualink_sw_fini(struct amdgpu_device *adev);
+>   
+> -int ualink_send_hello(struct amdgpu_device *adev, u32 remote_accel_id);
+> -
+>   int amdgpu_ualink_config_update_handler(struct amdgpu_device *adev);
+>   int amdgpu_ualink_pause_handler(struct amdgpu_device *adev);
+>   int amdgpu_ualink_resume_handler(struct amdgpu_device *adev);
