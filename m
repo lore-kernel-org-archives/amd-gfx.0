@@ -2,100 +2,88 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C9B660A2601
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Oct 2026 08:38:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F27BD606A31E
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Oct 2026 08:41:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=DDMvFuW9
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=amjw9E6n
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D69DB10EB91;
-	Tue, 20 Oct 2026 08:38:29 +0000 (UTC)
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010014.outbound.protection.outlook.com [52.101.201.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A1B9D10EB7C
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Oct 2026 08:38:23 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=C0ePpjF0T6D0N/AwBsY3U+g29Z1rbK5pLjoqz2MCJJ2Yp5SiWAcZrg9xpA4HJ3VRUMiIdaujeFZQmT12rZJBWmsM6EfSMx2Hxy7d/KqA12OT4eIo0B4pU9/FbMwg0KOXXR19AGLO05YbBeNxevmsw+2rj8rh9fRDzS0DI1uv9Uh0tdIkF6IGbvovsD8DVQC8V/9cesE1X5woWRoGxxciB1iNytpRKaSrxE3wvqYbEMPFA0NopJm/whilIcwz9f2yI9/JZ3MAvUy+HfC1BaHDJ9bvEVtC9dOGyhusmZ/4l0LrtBRUPrJqMy+iz2r0gumFRXpgFa67f2YF6w4XClTjgw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Du6adTgCRCCqg5YfNVokdgDEw29DSxfBDsODm8PjcUc=;
- b=hZ6LlGZnkrcp3Z/rRvSqKegRBNnTadqI+imDSCpn0ueBvzw601EJ8/HkYQGdkdk4Vfo1yzxCnx26uw1BM/yP6WhFnu2JN5e5PhboK3H8GFqCBZokWZ34Lg8geUvVq1kNibEuK3K92MKXdXklxq8pgnG5/A7c0khVQzfTpAPZtOv6x3mmSmTmF6wvTq2gMKZFcbBtQMTyB4H1Q+B/tP1hq+IIwASGHVJJFBk5FHHNelNDwc5spm5DMQihfQKZnkLo/xsEA9HahDNd9T09wlfwmZDwy5Jv+oQ2LUke36AriH95DgHmX2GR8hbG50fgD6+wvK7bn9dh9DWsAICOJG8PfQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Du6adTgCRCCqg5YfNVokdgDEw29DSxfBDsODm8PjcUc=;
- b=DDMvFuW9+m3yNsNel/NLrr0Sx4vgIXHNVfVeA0Int+alDlMv1nqVUD21nF6FRwVc/m6SXwGiOaSepGCtliqq6mG0HQkKuiB8bqHqryAbTTB/7glybIoQZ94WBeoavPD9+7e4E9ZwCnH0RccfgLJuSRqHoWXkHg/nmyaTjLPk/zo=
-Received: from SJ0PR05CA0141.namprd05.prod.outlook.com (2603:10b6:a03:33d::26)
- by PH7PR12MB6466.namprd12.prod.outlook.com (2603:10b6:510:1f6::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Tue, 20 Oct
- 2026 08:38:17 +0000
-Received: from MWH0EPF000D894C.namprd05.prod.outlook.com
- (2603:10b6:a03:33d:cafe::6) by SJ0PR05CA0141.outlook.office365.com
- (2603:10b6:a03:33d::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.19 via Frontend Transport; Tue,
- 20 Oct 2026 08:38:15 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MWH0EPF000D894C.mail.protection.outlook.com (10.167.249.212) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Tue, 20 Oct 2026 08:38:15 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 20 Oct
- 2026 03:38:13 -0500
-Received: from JesseDEV.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Tue, 20 Oct 2026 03:38:12 -0500
-From: Jesse Zhang <Jesse.Zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
- Prike Liang <prike.liang@amd.com>, Sunil Khatri <sunil.khatri@amd.com>,
- "Jesse Zhang" <Jesse.Zhang@amd.com>
-Subject: [PATCH 2/3] drm/amdgpu: keep the CS user fence BO in GTT
-Date: Tue, 20 Oct 2026 16:37:09 +0800
-Message-ID: <20261020083804.2777099-2-Jesse.Zhang@amd.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261020083804.2777099-1-Jesse.Zhang@amd.com>
-References: <20261020083804.2777099-1-Jesse.Zhang@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A84110EBB4;
+	Tue, 20 Oct 2026 08:41:09 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7984D10EBB4
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Oct 2026 08:41:03 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 46B84418BC;
+ Tue, 20 Oct 2026 08:41:03 +0000 (UTC)
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+ t=1792485663;
+ b=lATvxu5zRBPW5YGwz3mY5aSlpW496rRmlY0Qq20HpBwoTjHDQ0aNzcctmxTGmReLUjht
+ OitHKgSk9ZPkhYTVvzCBq6vdmH8tUTXhTXPEZJ0obvVUikTT0LpIwCbKE1XVkVJ7vvd+q
+ gN7ZT60F8owIS0XBCm3CEg+etwWw2To5DIo6eBtv3bDtKffPCGTuuYAKzZDCQ5ijBB3K5
+ Bq7o0o6UW1tZSil5OsX0BRbnlC/is2EtWpEl393oYObrCl6sHhau0C0jLrFbWp03nr7O9
+ Ep7Fnc66FrcRjc3kEOLk1HA6Wfv1/j+yG7cfhJPHZaExrddIapopXgK04xzjZeEGdNw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+ c=relaxed/relaxed; t=1792485663;
+ h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+ Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+ X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+ X-Original-From:Reply-To:Content-Transfer-Encoding;
+ bh=pffISxaztRWKYcckfYU/SHcbK5rMl4mTn1LIc62eib4=;
+ b=VTuS6D52uWpNN7oliJGp1p+BM8pfdgCtznJtzVnLJ0EU5PFARni7N7DFxYc2UBD4UkJv
+ 2q2NGUPf4QFflrItgiaTGmy6tWEEZu7IP3KF/41AixY2IenXnnJcnwkz0R/5mbLMjn0Zm
+ p2dUBk3WqfG6roveAEV4JzuT6y7zojgRDITS2mRUk0QqBaw3koxq7q/sIBGiD6+/WULlH
+ iVZdjJqx697S85GB5vqdWYFftUMD8dtqfFwP9sh8zugQ+9K4T6/efKKSTSwp58f9DGUpz
+ j2DtFX6Qjz2FIY57LLbE3AxRsW+3hv8xmEjYOSn78UhQH5Es/Dyc6C21gVKXR1hJgFg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+ arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+ (No client certificate requested)
+ by smtp.kernel.org (Postfix) with ESMTPS id A12CC1F000C5;
+ Tue, 20 Oct 2026 08:41:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1792485663;
+ bh=pffISxaztRWKYcckfYU/SHcbK5rMl4mTn1LIc62eib4=;
+ h=From:Date:Subject:To:Cc:Reply-To;
+ b=amjw9E6nYdyLVAXKCnnxnRvzxRirinV44nZdfj31XQcTbuvGcnxZR7iB/EiE1Sd+M
+ ZxmZnyYHOx6qL3MrVvb9hIDDv1lhqfuQCB6IDLiiRiMSw/9wYyl7P6kkoowebQN4dj
+ jbNq8PbaxPE22TrOKTIXEqWjk6O62WpEt2Ha/S2czV1igoaCovIdBCAf+QM3zwBlpb
+ dCkvdA1R2ZjdCEHpQUpPFPJxvYELTsVqwfvZAzCv0m/kFxcbtYVzMZ/iebG2h3eFEf
+ iJBYlj8pCM4HhpKZajy83DiBbT99dkHWyNkexvLC2zQfjlIcbLVhJ/0aZ0gTp2hKFm
+ AiJoY/3o8XvHw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+ by lkml.kernel.org (Postfix) with ESMTP id 05D8A40612;
+ Tue, 20 Oct 2026 08:41:02 +0000 (UTC)
+From: Brad Drury via B4 Relay <devnull+drury.brad.gmail.com@kernel.org>
+Date: Tue, 20 Oct 2026 16:40:59 +0800
+Subject: [PATCH] drm/amdgpu/gmc6: restore FB location and HDP non-surface
+ programming
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000D894C:EE_|PH7PR12MB6466:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9143cb8c-be0a-4f3a-92b2-08df2e857bce
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|82310400026|376014|36860700016|11063799006|56012099006|10067099003|261009223027099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: GdI5Zj7FYIsWxFfjKztghTIWM4syGGKusK9iqo8l9hbe7A4Z7Ex9flT+VEJKfDe7QPrKZUHhr0f5bsTZdGWilX9j5gRQhsWooQi3g/0GSJn/uKZP5Uabp7CRYN4oAr5D86eO1DeXPfIM/tgcE1QwDdHMlanTuM9HN+BIYqcy70h7tEWk2uqOjMviCCYnpe8I2AWsui9kps3vX0DpT+dz5DbEddbfdY8BP+XRgkEx2flEOSiWjblvN4Km1205Gj2iaeTaUpFaq5elXI4JWg71gJTCbLDcGemMN+tk2xjsayzZuRDW5EeQUN1kfCPCrwDuYJ5DQlK8vl045CG1ptcshXquBHFmYJTxwHBKaowZRfkwg/zRiGZIwWiCHwYLhXfkphvAhll2Vw8p2By4VzhwJuRsdhwGQXUO2tVUllMEhM2ODp6pHbapUi/ZILyezVPTNZ1sicmqkeq/ZYpADVU2iWJWIplIwXhRv0CKwyq4bd1dRq2UkPHY+cr+cnYXtPGCYfuIYCqse4j6qjyVge67TdcBwD/YiCh8EAwYr766BfVO38pDM3EWWgL2PeLDcb1PUoN3hxVj1tMjRKkuNtKzN6WEjHMrFBYGftWatkHeRwLE6UsvJthlWX5qCCLjfO2bAfRKdLdECazmdpBASwY3CggtEGRI+ceMntMBdkyVi0BoXZm+gADpXNzCvjyIPcdICPK4QHx8U1BHEhjvImGDIw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(82310400026)(376014)(36860700016)(11063799006)(56012099006)(10067099003)(261009223027099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: vE/SVLW+XSOoQxtuCXZDK2lEsX8soTs3jp51GWL79Qc7vEqOH0yPLyVOn8Exk46oQd93jg1nOToQxfvp4ll/B8GlkVzI+pvdPM9Wma5QGXXaGTFX0j6lPerMEJ3nIeb2xsRu0Bh/rzU4UR/ldi892W9fzVimxqUAO9sgZphdRxJr+tjKgNkIg50pYOJ9kJJyt4T0aDbl9UrB6y17ELZ0uNgUoR+TuNTMZZI+ZZiEvODpKBrxNfNtFLEj047PZ3om3AaUXyIVKtW1cJPl5q+Ln/MakYkrOvzFJs3REDMfSjXfRiL8hiNrc1JzD+5W3OkuJxEt9glYRkSILhuz7GQhkHNn81Lo/0EMjyihQyB593It0oTWrKyChg4A/0Q4tyFkV2DmS6z8jLXJ0f3puybXfdjmZVeysY/T7BJ8vbkdwcpRkCqDpuIroERxbgh2MZ/V
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 08:38:15.1228 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9143cb8c-be0a-4f3a-92b2-08df2e857bce
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000D894C.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6466
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261020-gmc6-writes-only-v3-v1-1-70730a302504@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMPQ6DMAxA4asgz7WUH8HAVVCHJBgwglDFQIsQd
+ ydtx2947wShxCRQFyck2ll4iRn6UUAYXOwJuc0Go0yllVHYz6HCd+KVBJc4HbhbtFaX2rngfOc
+ hl69EHX9+1+b5t2x+pLB+V3BdN2T+Y1l3AAAA
+X-Change-ID: 20261020-gmc6-writes-only-v3-33151aacabfb
+To: Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, stable@vger.kernel.org, 
+ Brad Drury <drury.brad@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792485661; l=4500;
+ i=drury.brad@gmail.com; s=20261020; h=from:subject:message-id;
+ bh=raIwOSTMc66p8OsMKySvOqV197RJo30SgKnIRMjJUaQ=;
+ b=qlVrHHTaGlVubwyQsxPbVgSl3AaxIXEaz/lqwKoS7+P5x50WLXNJ14ZTm1bfd+0lrSqB2kgjn
+ OIMTgBeU860A32iXHLG698uljaE/S7HWIQmJB7CfWs59s23lcMRNWAn
+X-Developer-Key: i=drury.brad@gmail.com; a=ed25519;
+ pk=vbLeVFkpkhLWuDhWMxes9in024/YW681CJos0eosnVQ=
+X-Endpoint-Received: by B4 Relay for drury.brad@gmail.com/20261020 with
+ auth_id=1247
+X-Original-From: Brad Drury <drury.brad@gmail.com>
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,97 +93,116 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: drury.brad@gmail.com
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The CS ioctl hands the GPU the GART address of the user fence BO, but
-since the BO keeps its own preferred and allowed domains, it no longer
-makes sure the BO is in GTT. A user fence in a VRAM BO, which only needs
-to be a page in size, gets its address from amdgpu_bo_gpu_offset(), which
-warns about non-contiguous VRAM. On navi31, a CS with a user fence in a
-4K VRAM BO, or in one created with AMDGPU_GEM_CREATE_VM_ALWAYS_VALID:
+From: Brad Drury <drury.brad@gmail.com>
 
-  WARNING: amdgpu_object.c:1531 at amdgpu_bo_gpu_offset+0x86/0xb0 [amdgpu], CPU#11: cs_gem_checks/18393
-  RIP: 0010:amdgpu_bo_gpu_offset+0x86/0xb0 [amdgpu]
-  Call Trace:
-   <TASK>
-   amdgpu_cs_parser_bos.isra.0+0x4eb/0x850 [amdgpu]
-   amdgpu_cs_ioctl+0x97e/0x2510 [amdgpu]
-   drm_ioctl_kernel+0xac/0x110 [drm]
-   drm_ioctl+0x2c6/0x5b0 [drm]
-   __x64_sys_ioctl+0xa0/0xf0
-   do_syscall_64+0xa3/0x4d0
-   entry_SYSCALL_64_after_hwframe+0x76/0x7e
+On a MacBookPro11,5 (Radeon R9 M370X, Verde, PCI 1002:6821), used as a
+headless PRIME offload GPU with the panel on i915, every S3 resume with
+amdgpu fails:
 
-and BOs which can't be in GTT at all, like GWS or OA ones of a page in
-size, pass the checks as well.
+  amdgpu 0000:01:00.0: [drm] ring gfx test failed (-110)
+  amdgpu 0000:01:00.0: resume of IP block <gfx_v6_0> failed -110
 
-Only take BOs which can be in GTT as user fence and validate them only
-there, like before, along with the other BOs of the CS. Validate the
-user fence BO explicitly as well, a per VM BO shares the reservation of
-the root PD and so isn't one of the locked objects of the CS.
+followed by SDMA timeouts and a failed GPU recovery.  The GPU stays
+unusable until reboot.  radeon resumes the same card fine.
 
-Fixes: 1ea863fd736e ("drm/amdgpu: keep the prefered/allowed domains in the BO")
-Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+Instrumenting the resume path with a write/read-back VRAM probe through
+MM_INDEX/MM_DATA shows that VRAM is still intact after the driver
+re-POSTs the card and at the start of gmc_v6_0_hw_init(), but is corrupt
+at the end of it.  The gfx ring test failure is a consequence.
+
+Commit 71086a3e8470 ("drm/amdgpu/gmc6: drop fb location programming")
+removed the MC_VM_FB_LOCATION and HDP_NONSURFACE_* writes from
+gmc_v6_0_mc_program(), on the grounds that the vbios sets these up.
+That holds after the system firmware POSTs the card at boot, but it does
+not appear to hold after S3, where the card is only re-POSTed via
+asic_init.  radeon's si_mc_program() still writes them on every init and
+resume.
+
+Write them again, with the same values as radeon, after the AGP aperture
+registers.  gmc_v8_0_mc_program() already does the same for SR-IOV VFs.
+
+Unlike radeon and the code removed by 71086a3e8470, this does not black
+out the MC around the writes.  The old gmc_v6_0_mc_stop() relied on
+amdgpu_display_stop_mc_access() to blank the CRTCs first, and that was
+removed by commit e4f6b39e8bcd ("drm/amdgpu: remove *_mc_access from
+display funcs"), so restoring the blackout now would stop the MC under a
+live scanout.  On this machine the writes alone fix resume; a variant that
+also restored the blackout behaved the same.
+
+It is not established which of these writes is the one that matters.
+At boot on this machine FB_LOCATION and HDP_NONSURFACE_BASE already hold
+the values written here, but HDP_NONSURFACE_INFO/SIZE do not.  The
+register state on a failing resume could not be captured.
+
+Tested on linux 7.3-rc7, MacBookPro11,5, amdgpu.si_support=1
+radeon.si_support=0, mem_sleep=deep, with this change alone on top of
+the stock driver:
+ - 7/7 S3 cycles clean, from a few seconds to 10 h 49 min asleep, on
+   battery and on AC, including two back-to-back cycles woken by the
+   RTC alarm
+ - DRI_PRIME=1 glxinfo (radeonsi), glxgears and vkcube (RADV) work
+   after each resume; no ring, -110 or reset errors in the log
+ - cold boot unaffected
+
+The variant with the MC blackout passed a further 6/6 cycles, up to
+9 h 40 min asleep.
+
+This patch applies to amd-staging-drm-next with only a line offset from
+the tested 7.3-rc7 change and has been build-tested there.
+
+Not tested: other SI parts (Tahiti, Pitcairn, Oland, Hainan), and an SI
+dGPU that drives a display.
+
+Fixes: 71086a3e8470 ("drm/amdgpu/gmc6: drop fb location programming")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Brad Drury <drury.brad@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
+I can run further tests on this machine (MacBookPro11,5, R9 M370X /
+Verde) if that would help, e.g. register dumps or other variants.
+---
+ drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index abd8a756779e..62758866378e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -153,6 +153,9 @@ static int amdgpu_cs_p1_user_fence(struct amdgpu_cs_parser *p,
- 	if (amdgpu_ttm_tt_get_usermm(p->uf_bo->tbo.ttm))
- 		return -EINVAL;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+index a7c353d1a..d6e315f4b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+@@ -223,6 +223,17 @@ static void gmc_v6_0_mc_program(struct amdgpu_device *adev)
+ 	WREG32(mmMC_VM_AGP_BASE, 0);
+ 	WREG32(mmMC_VM_AGP_TOP, adev->gmc.agp_end >> 22);
+ 	WREG32(mmMC_VM_AGP_BOT, adev->gmc.agp_start >> 22);
++	/*
++	 * Don't rely on the vbios having set these up.  After S3 the card is
++	 * only re-POSTed with asic_init, and without these (as written by
++	 * radeon's si_mc_program()) VRAM is corrupt by the end of hw_init.
++	 */
++	WREG32(mmMC_VM_FB_LOCATION,
++	       (((adev->gmc.vram_end >> 24) & 0xFFFF) << 16) |
++	       ((adev->gmc.vram_start >> 24) & 0xFFFF));
++	WREG32(mmHDP_NONSURFACE_BASE, adev->gmc.vram_start >> 8);
++	WREG32(mmHDP_NONSURFACE_INFO, (2 << 7) | (1 << 30));
++	WREG32(mmHDP_NONSURFACE_SIZE, 0x3FFFFFFF);
  
-+	if (!(p->uf_bo->allowed_domains & AMDGPU_GEM_DOMAIN_GTT))
-+		return -EINVAL;
-+
- 	*offset = data->offset;
- 	return 0;
- }
-@@ -823,6 +826,14 @@ static int amdgpu_cs_bo_validate(void *param, struct amdgpu_bo *bo)
- 	uint32_t domain;
- 	int r;
- 
-+	/* The GPU writes the user fence through the GART */
-+	if (bo == p->uf_bo) {
-+		if (bo->tbo.pin_count)
-+			return bo->tbo.resource->mem_type == TTM_PL_TT ? 0 : -EINVAL;
-+		domain = AMDGPU_GEM_DOMAIN_GTT;
-+		goto retry;
-+	}
-+
- 	if (bo->tbo.pin_count)
- 		return 0;
- 
-@@ -858,7 +869,8 @@ static int amdgpu_cs_bo_validate(void *param, struct amdgpu_bo *bo)
- 	    amdgpu_res_cpu_visible(adev, bo->tbo.resource))
- 		p->bytes_moved_vis += ctx.bytes_moved;
- 
--	if (unlikely(r == -ENOMEM) && domain != bo->allowed_domains) {
-+	if (unlikely(r == -ENOMEM) && domain != bo->allowed_domains &&
-+	    bo != p->uf_bo) {
- 		domain = bo->allowed_domains;
- 		goto retry;
- 	}
-@@ -992,6 +1004,10 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
- 	}
- 
- 	if (p->uf_bo) {
-+		r = amdgpu_cs_bo_validate(p, p->uf_bo);
-+		if (unlikely(r))
-+			goto out_free_user_pages;
-+
- 		r = amdgpu_ttm_alloc_gart(&p->uf_bo->tbo);
- 		if (unlikely(r))
- 			goto out_free_user_pages;
--- 
-2.50.1
+ 	if (gmc_v6_0_wait_for_idle(ip_block))
+ 		dev_warn(adev->dev, "Wait for MC idle timedout !\n");
+
+---
+base-commit: f307e9d20cc7bd6dd54a3fd8c2af767dd7ef2931
+change-id: 20261020-gmc6-writes-only-v3-33151aacabfb
+
+Best regards,
+--  
+Brad Drury <drury.brad@gmail.com>
+
 
