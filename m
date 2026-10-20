@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E124606A31B
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Oct 2026 05:29:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52B6F606A326
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Oct 2026 05:29:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=R31ROa4b
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=nTbBNxz3
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB26C10EB71;
-	Tue, 20 Oct 2026 05:29:28 +0000 (UTC)
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011026.outbound.protection.outlook.com
- [40.93.194.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 229FE10E7C7
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Oct 2026 05:29:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB5C510EB8C;
+	Tue, 20 Oct 2026 05:29:33 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013055.outbound.protection.outlook.com
+ [40.93.201.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67B1E10E7C7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Oct 2026 05:29:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pQYlaP09uW4jC7o400QltO/i6fJDro/FgX6RcTVmkanBmBwSuOpgKvI2ybUILp6c3C4AJYee1u3fs2MflUkNNfLZB3QgexQA7Nmn2UHpqcWDh7qBJL34x1psqjKTF3XJKF5dUEd+j8I7Hg2soy+A38TCtxq0SuZpFjbFq+v4lt49EAALJJHZKfnfSc9waTH1YJJ6/RE82RfXTNXvSEHCNGAbL1lX/HMqVCx7T9BpjKVo06aEWzyMQFrtXzyzM+D1CqbR1y3ynlv3GBuC89iK+mmTQ06i0sIPsNa3Gqi4IVADCKmjM6ArrMoPfvQ2MWKmbwdajmKkPK0eDbhjAMEFfQ==
+ b=kSN6skn1V70ITn8ymlhbMno4RMtKx8LkprtPR3JByBp7iPSuLyfnnWsAvUi0y/v+fvvCqTJNfg+dq9YHr3GCTa3Y7CMIRcwnzG9vgYr4OCAf7pPfsgqXqJSvwR27CbX3GvdBP+1By6uEy1ScIE9aVDVwQxX1ocLxROD3s9JuDrxjDM8KRTROWdGAo4jWGSqbJ9f0jwY13PwNlOyp9FB1X1t33JqTl7Ae+ypK+fSTI5nPTcY+SkL53H9RADdYlFo3ZapL3AZiySw0i7qnMeh9xrbRere/C2Tze8vdSvouZ1rF2yKijHchAYvSMzpqNeqBrP8at8u/ZNhyMYlRq+Lqyg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=860UXQDCQBgiH2YVRs/X7KIpzpmlYhCh06VPXrQxv1s=;
- b=eOhFEZrHPLZADLKPhkJqV6z29q++U6GLUVRVHJwkN7U2DuSyh5l1CEdL+9xrY0DUqZfmvnDKpvtHS9MrpMQtIEj8FgfJiO66jwZ7cSExv1Vt7IuVAg7kwjdFZgqcizJu5g2uH+P0bLWVQzM749/xAQBgvChEj0l8N2ZAfDXtLS5BK+MIbV+J+srm80b8IdXCyGQpnTO8t0er3CJxVag8ZfNGAIXiX1jRXq5LuKCpOyKs2I5B+s2Knc5DqiNs6TLHxAT9up3zo5Pb+wkc92/6veeYyAyhfZyblkmMShEcoroViZIVNq4j2Z4RuZ8t+xttiNgeJXg5wFOgPv2gq7zhbA==
+ bh=AoOZenu/7ilCXlTIsAsxT8KHpg8XjqkoSNl/ImpYPfc=;
+ b=jCg4mR8lBw570H/6HBARv/Jr+UU4U3lmrVLTLEZ4+3Qnydqze6IT2efQFRZwHzgnLwfWDisiCA14fgedBp5tRZ5DKAmrX2rsIu5wm7NhyJc8Sw7ILcb5NTkgRHYBdq0fpUUD10jZ4WWAKBNmkAUCqB9omCv8ucBqidqpLlT5wWBbJTZfnFVuS1dWqL6cynL32SvdYDjoKIaKAgx8yKrUfL6VvIJ7/c6lnGAdg/B+aNyPMh/OSGOM9FVn8BlgLsjGgKe4ocMhw9HJcKcHWTRLp7npSm+zy18yqf/pifB9NemWJl326FcBFMxMVjG+nifBuuQHpW7WgXMCDnlbxvKHgA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=860UXQDCQBgiH2YVRs/X7KIpzpmlYhCh06VPXrQxv1s=;
- b=R31ROa4bg1uPFURc8beRKUhuIv2MOZm5InjRkDy7zd/Uv9geLdRR6a/hrsipjgIL+YsKk68X+z1hLVwmy++E6eiQNO2TtmvzHwxPx67OjbUu+eWzjcvvWZ0Icc5DwEjYAKLorzKTyJ0T3Spc8b6TLiBWoq03aaMnVZ0H0Nh3uuE=
-Received: from BLAPR03CA0147.namprd03.prod.outlook.com (2603:10b6:208:32e::32)
- by SN7PR12MB6816.namprd12.prod.outlook.com (2603:10b6:806:264::10)
+ bh=AoOZenu/7ilCXlTIsAsxT8KHpg8XjqkoSNl/ImpYPfc=;
+ b=nTbBNxz3S8/E1oawVTAn7RUdUaM/t6uWRNaWZObmY2S2CGkrZHZSsOn5yPnWewcIVJkGZ2+MtNpOQH/3wZXHuZdpUHBt8VsfAlCqAsXCVAqitwkZNX2EXq9dWFMW/Jd36JsyttU2wIyZb1HzvgEimNvV6xrVTvHh1INgxfL9tRg=
+Received: from BL1P222CA0005.NAMP222.PROD.OUTLOOK.COM (2603:10b6:208:2c7::10)
+ by PH8PR12MB7160.namprd12.prod.outlook.com (2603:10b6:510:228::6)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Tue, 20 Oct
- 2026 05:29:17 +0000
-Received: from BN2PEPF000055DD.namprd21.prod.outlook.com
- (2603:10b6:208:32e:cafe::84) by BLAPR03CA0147.outlook.office365.com
- (2603:10b6:208:32e::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Tue, 20
- Oct 2026 05:29:17 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.18; Tue, 20 Oct
+ 2026 05:29:20 +0000
+Received: from BN2PEPF000055E0.namprd21.prod.outlook.com
+ (2603:10b6:208:2c7:cafe::8f) by BL1P222CA0005.outlook.office365.com
+ (2603:10b6:208:2c7::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Tue, 20
+ Oct 2026 05:29:20 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -47,22 +47,22 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF000055DD.mail.protection.outlook.com (10.167.245.7) with Microsoft
+ BN2PEPF000055E0.mail.protection.outlook.com (10.167.245.10) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.0 via Frontend Transport; Tue, 20 Oct 2026 05:29:17 +0000
+ 15.21.569.0 via Frontend Transport; Tue, 20 Oct 2026 05:29:19 +0000
 Received: from danielhuang-HP-EliteBook-845-14-inch-G10-Notebook-PC.amd.com
  (10.180.168.240) by satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.53; Tue, 20 Oct 2026 00:29:15 -0500
+ 15.2.2562.53; Tue, 20 Oct 2026 00:29:18 -0500
 From: Daniel Huang <danielhu@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Felix Kuehling <Felix.Kuehling@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Alex Deucher
  <alexander.deucher@amd.com>, Daniel Huang <danielhu@amd.com>
-Subject: [PATCH v3 1/2] drm/amdkfd: disable SVM when the GPUVM cannot cover
- CPU addresses
-Date: Tue, 20 Oct 2026 21:29:00 +0800
-Message-ID: <20261020132901.23157-2-danielhu@amd.com>
+Subject: [PATCH v3 2/2] drm/amdkfd: bound SVM ranges by the smallest GPU
+ address limit
+Date: Tue, 20 Oct 2026 21:29:01 +0800
+Message-ID: <20261020132901.23157-3-danielhu@amd.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261020132901.23157-1-danielhu@amd.com>
 References: <20261020132901.23157-1-danielhu@amd.com>
@@ -74,29 +74,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000055DD:EE_|SN7PR12MB6816:EE_
-X-MS-Office365-Filtering-Correlation-Id: a53dc96e-0500-4d6a-0223-08df2e6b15bb
+X-MS-TrafficTypeDiagnostic: BN2PEPF000055E0:EE_|PH8PR12MB7160:EE_
+X-MS-Office365-Filtering-Correlation-Id: fdd636db-d267-4173-cf74-08df2e6b174d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|23010399003|82310400026|36860700016|13003099007|11063799006|261009223027099003|10067099003|22082099003|56012099006|18002099003|3023799007|6133799003;
-X-Microsoft-Antispam-Message-Info: ShghVItyr6S0hcuroko7eW9iiwnBxKkg5Lh5/xjVa6xVUS/EH06E6jvRT373eIkJ8U3guG5GbvUYJyWIn7TH8DK4VfLnsYCYGjnzKYIIWLrTQzyWjQhx0NZJ1hPNqdmfsU5/A8/2y6ZJUMx9QU/qIiL9pO6Ob6Yawj7wSME9ugmDGth4BYXL1pii5ppNHz31oxEXKiSLq/jXNe9is1wYSNHBQ5wyczcjDw8dHC+FplALiMb+QhS/Cr/PTKnkGmSHnwQ15oHdQhuo2N/QVvENW8vRTu/LZzPUx7J5adLmqfEJDiTU6HAxJ10O0Al+hIWl8v5Dy5MV2MdebOjR8MagmfItrTZBhSYnqIrqTUBjgcQnz4A8tDYCaMT4zRt3D8lnM9yOdeqFQrM1bsYaXoFgwtPhyHN4wsMA8CMwGqb5DggLZZ4+IvryxI+24tfWKZf1eOiOK4CkXwKaSr1r5q3ZUOd5sA5ZYI+hFqx69+oUF62aCG3B4G4jjmvs9r6YVBQ399Wb5pSJN0VUj7ecY092+kFd5hWeJLBikmNoI6LkdebksBSdr6KWbjc7ZYkon1gFOodd7zY68WLA96pLiNeHE3E/R3FOGCPKuF2irVVzyr5gwkeqazKVOjpiJoWxrLlP0kSmt/lm4SMGIKGf8t3WwQ==
+ ARA:13230040|1800799024|36860700016|376014|23010399003|82310400026|56012099006|5023799004|11063799006|10067099003|22082099003|18002099003|261009223027099003|6133799003|13003099007|3023799007;
+X-Microsoft-Antispam-Message-Info: OZakZJn9M28LQZL4n5Zc62k3gxNgakDTX+8ViidVNr/u9/Nw/3WBlSR7TWw7uWqONiiqCFNPsVSFydafcQD3QzEwm7FUmVirBt+Z+TX2+3R/Ptu0tHdSd9ZXIXmrKwidAN8v1IBrAvKpqYAJMdtES4DsVZt9wEsEGkxwfs/K/fO2po0XspDPohq0F0LuvEKrmQV0u20qsEFDynpyKFj5X8in3sgOxWbb1l8rWL/PpoWmJPP22nI7xZqigYfhzTxBjPWhBVkalTwnbhw1cAx1legB2ROX3qIKaQPkTLnIplDyvPC0YGV80y09bzhixRjk/SgFV/haS3IVJZUcDTrBEOjeOp+2uWXvDeWk8AN1xP6WqZOJFIekUfP+iAvqOEaXRBI2rkSDSEwq7jCfCgRiPzUkGtvDg26ThJapU5vfLRgBF1S+25+e2ooLQlTT0jclm6xcnuWCiB9+T54V1MxLDvOHuRf+GaCETkIpDZag+pqVwgQ2SWhWu7/fMn5w5tfQXp99idqjJFfG9/knDxcOK7DmWA/UPHfZQ694pU6hrVUAETonqPaLL3pwl9jO/lqxa7xTp/NxY/mYUwnh9R8F3KKFI/oI7nRvzIyFSKW1vjqfFBYUKPJRfDEz0525XAT3ux7WYnH2EuVvkTTjFdAjpQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(23010399003)(82310400026)(36860700016)(13003099007)(11063799006)(261009223027099003)(10067099003)(22082099003)(56012099006)(18002099003)(3023799007)(6133799003);
+ SFS:(13230040)(1800799024)(36860700016)(376014)(23010399003)(82310400026)(56012099006)(5023799004)(11063799006)(10067099003)(22082099003)(18002099003)(261009223027099003)(6133799003)(13003099007)(3023799007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: VAWu/nrSpEilyDwRpId5QxAISZ7jLkfQqlkkZxFhGUPh/qQStnCFOGGy8l3my2ELXmY0fO3jDLecYBEp8fVq/cRRsuBl8jOgy7w5DVqswYTHlJFtqKP3jUi3+6SPob1VfbXtNUZp+FwLC1CQSkQjNqBITC3aXG4z9f+IMckIc/egwPgLVnQ6N4ajTNC2AU3AEB0sLTID+Vo+wfOqJq48IANU1Ib6ZDebJAphycXLq2tCQX5aa+VofmrPaLgcU72sk3glStJskUAaH85Ykr18In1JDw1m5jxrVM0w9NeK+4vMxPn83WbF0aXyiiZoPef0ym2wyKV2kSf9mNHzumN/ff9C0sweK7f1bAjkGedzj0Dznto6T8aviakqWkzAR3fqibC5JGJxFdjh97rNi87kVDwHf7E5Omd/5oQ7wFYElDcBcRaaLjCvSksIBfmMGtKc
+X-MS-Exchange-AntiSpam-MessageData-0: on1HUPVXMUzqVumuvUorRIW10V4afPMlzS9ZTIqbJoJzUy0SPVj4x/Fg/Kkhx0VcnDfA5MZ5I2ca4owPb4ocCCxGdwr/sWjfISO1xSVL5X0PI0NbWaipZdMoREziXGJjs7J4GsYpEfYjnkl7Ix0wkyabTTIjigd/mcb6ygy8sJqGuu7+H2zkgkpQUydfHLDRy84QYBh+ueiCL/kkzfyupYGpYoG+2cWPWVrh/9xdnExZuh78MVyrBCOPFU7qEL9lWJkbyNIcaKdZgmCucztExTzP9r3bngAF3a35K9SYUn8na9kN9PYG59+w9F3jjafnHNnff4FZTrja5gIdQ1HimMVl+b6elXIFF4M8MOaaERUvxKAx5JQij5nd+oJUCUEOfvlxO3T26jRzTYjvdNdhAgowgRygdx2yJWeg8dhfj/qNALNiqE/iIr+bujV+LzBp
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 05:29:17.0403 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a53dc96e-0500-4d6a-0223-08df2e6b15bb
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 05:29:19.6830 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fdd636db-d267-4173-cf74-08df2e6b174d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000055DD.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000055E0.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6816
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7160
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,130 +107,180 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-22.1 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-17.1 required=3.0 tests=BAYES_00,
 	DATE_IN_FUTURE_06_12,DKIMWL_WL_HIGH,DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-KFD SVM maps memory in GPUVM at the same virtual address used by
-the CPU. However, svm_range_map_to_gpu() passes the corresponding
-PFNs to amdgpu_vm_update_range() without checking them against
-vm_manager.max_pfn.
+KFD SVM maps memory in GPUVM at the same virtual address used by the
+CPU, but nothing bounds that address against what the GPU can
+represent. kfd_ioctl_svm() checks only page alignment and a non-zero
+size, so the PFNs reach amdgpu_vm_update_range() unvalidated. Unlike
+the SVM path, the BO mapping path validates the address range through
+amdgpu_vm_verify_parameters().
 
-If the GPUVM address range is smaller than the CPU address range,
-the page-table walker can index beyond the allocated root page-table
-entries. Unlike the SVM path, the BO mapping path validates the
-address range through amdgpu_vm_verify_parameters().
+Disabling SVM when the GPUVM cannot cover AMDGPU_GMC_HOLE_START closes
+the case where the GPUVM is globally too small, but it compares the
+GPUVM against the GPU's own address hole. When the CPU address space is
+larger than the GPU's, the comparison succeeds and SVM stays enabled
+while individual addresses can still fall outside the GPUVM.
 
-Only an explicit amdgpu.vm_size override configures a GPUVM smaller
-than the driver would select on its own, and that parameter is meant
-for driver testing rather than normal end-user configuration.
+On a 5-level paging CPU with a 4-level GPU, mmap() returns addresses
+above the GPU limit when user space passes a hint above
+DEFAULT_MAP_WINDOW. Passing such an address to KFD SVM indexes beyond
+the allocated root page-table entries in amdgpu_vm_pt_descendant().
 
-Reproduced on a Radeon 780M (gfx1103) with amdgpu.vm_size=64.
-Repeated hipMallocManaged() allocations attempted to map CPU
-address 0x74bd48000000, well beyond the 64 GiB GPUVM limit.
-The out-of-bounds root entry contained SLUB poison with
-slub_debug=FZPU and recycled heap data without it, resulting in
-a general protection fault:
+This gap was found by the Sashiko AI review bot, during review of the
+first patch in this series.
 
-  RIP: 0010:amdgpu_vm_cpu_update+0x2f/0x140 [amdgpu]
-   amdgpu_vm_pte_update_flags+0xfa/0x1e0 [amdgpu]
-   amdgpu_vm_ptes_update+0x38b/0xa00 [amdgpu]
-   amdgpu_vm_update_range+0x279/0x930 [amdgpu]
-   svm_range_map_to_gpu+0x13d/0x400 [amdgpu]
-   svm_range_validate_and_map+0x8d3/0xaa0 [amdgpu]
-   svm_ioctl+0x66/0x80 [amdgpu]
-   kfd_ioctl+0x40a/0x650 [amdgpu]
+Determine the smallest GPUVM among the SVM capable GPUs of the process
+in svm_range_list_init(), where the pdds are already final, and store
+it in svm_range_list as the first CPU page index that cannot be mapped.
+Reuse shared_resources.gpuvm_size, which the KFD already derives from
+vm_manager.max_pfn and the GPUVM address hole, and reports to user
+space as pdd->gpuvm_limit.
 
-As discussed in [1], rejecting out-of-range PFNs in
-amdgpu_vm_update_range() is too late. SVM must not be initialized
-when the GPUVM cannot represent the required CPU addresses.
+Validate against that limit where ranges are created, so that an
+address the GPUs cannot map is rejected as early as possible and never
+results in a range that is silently left unmapped:
 
-Prevent this by disabling KFD SVM support when the GPUVM address
-range is smaller than AMDGPU_GMC_HOLE_START. This prevents
-affected devices from advertising SVM support and excludes them
-from SVM mappings. Warn from kfd_update_svm_support_properties(),
-which runs after the device memory pgmap is registered, so that
-only devices that would otherwise have advertised SVM report the
-loss of the capability.
+ - svm_range_is_valid() rejects out of range set_attr and get_attr
+   ioctls with -EINVAL, before any range is allocated.
+ - svm_range_create_unregistered_range() rejects an out of range fault
+   address, which svm_range_restore_pages() reports as -EFAULT. The
+   range boundaries widen the fault address to the granularity, so the
+   widened range is clamped rather than the fault refused.
 
-KFD SVM has never been supported before GFXv9: kgd2kfd_init_zone_device()
-returns early for GC IP versions below 9.0.1, leaving kfd.pgmap.type at
-zero, so KFD_IS_SVM_API_SUPPORTED() is already false and
-HSA_CAP_SVMAPI_SUPPORTED is never advertised on GMC v6/v7/v8. The new
-condition therefore cannot change behaviour on those generations.
+svm_range_map_to_gpu() keeps a hard check so that no out of range PFN
+can reach amdgpu_vm_update_range() through any caller.
 
-The BO and userptr paths are unaffected. Their GPU virtual address is
-chosen by user space independently of the CPU address and validated by
-amdgpu_vm_verify_parameters() in amdgpu_vm_bo_map(), so an out of range
-address is rejected at map time instead of reaching the page tables.
-SVM is the only path whose address is dictated by the CPU mapping.
+A process wide minimum makes a GPU with a larger GPUVM unusable above
+the smallest limit in the process, even for ranges only that GPU would
+map. Every SVM capable GMC generation uses a 4-level, 48-bit GPUVM
+except one gfx12 variant, so the minimum is uniform in practice.
 
-[1] https://lore.kernel.org/amd-gfx/da43b0e3-5bd9-4aa1-86d3-b733f3bad108@amd.com/
-
-Closes: https://github.com/ROCm/TheRock/issues/9302
+Link: https://sashiko.dev/#/patchset/20261016145129.69645-1-danielhu%40amd.com
 Assisted-by: Claude:claude-opus-5
 Signed-off-by: Daniel Huang <danielhu@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_svm.h      | 15 +++++++++++++--
- drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 11 ++++++++++-
- 2 files changed, 23 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h |  4 +++
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c  | 44 +++++++++++++++++++++++++--
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.h  |  8 +++++
+ 3 files changed, 53 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index b9a31489b1c8..a800515baf4a 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -907,6 +907,10 @@ struct svm_range_list {
+ 	atomic_t			drain_pagefaults;
+ 	struct delayed_work		restore_work;
+ 	DECLARE_BITMAP(bitmap_supported, MAX_GPU_INSTANCE);
++	/* First CPU page index beyond the smallest GPUVM supported by the
++	 * SVM capable GPUs of this process. Zero if none support SVM.
++	 */
++	uint64_t			max_va_pfn;
+ 	struct task_struct		*faulting_task;
+ 	/* check point ts decides if page fault recovery need be dropped */
+ 	atomic64_t			checkpoint_ts[MAX_GPU_INSTANCE];
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index cfb428c72686..3fa0d6ff7236 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -1504,6 +1504,15 @@ svm_range_map_to_gpu(struct kfd_process_device *pdd, struct svm_range *prange,
+ 		return -EINVAL;
+ 	}
+ 
++	/* Backstop before amdgpu_vm_update_range() walks the page tables.
++	 * Ranges are bounded when created, so this is not expected to trigger.
++	 */
++	if (npages && last_start + npages - 1 >= kfd_svm_gpu_va_limit_pfn(pdd)) {
++		pr_debug("CPU[0x%lx 0x%lx] exceeds GPUVM, canceling map\n",
++			 last_start, last_start + npages - 1);
++		return -EINVAL;
++	}
++
+ 	for (i = offset; i < offset + npages; i++) {
+ 		uint64_t gpu_start;
+ 		uint64_t gpu_end;
+@@ -2960,6 +2969,15 @@ svm_range *svm_range_create_unregistered_range(struct kfd_node *node,
+ 					   &is_heap_stack))
+ 		return NULL;
+ 
++	if (p->svms.max_va_pfn) {
++		if (addr >= p->svms.max_va_pfn) {
++			pr_debug("fault address 0x%llx exceeds GPUVM limit 0x%llx\n",
++				 addr, p->svms.max_va_pfn);
++			return NULL;
++		}
++		last = min_t(unsigned long, last, p->svms.max_va_pfn - 1);
++	}
++
+ 	r = svm_range_check_vm(p, start, last, &bo_s, &bo_l);
+ 	if (r != -EADDRINUSE)
+ 		r = svm_range_check_vm_userptr(p, start, last, &bo_s, &bo_l);
+@@ -3410,9 +3428,18 @@ int svm_range_list_init(struct kfd_process *p)
+ 	INIT_LIST_HEAD(&svms->criu_svm_metadata_list);
+ 	spin_lock_init(&svms->deferred_list_lock);
+ 
+-	for (i = 0; i < p->n_pdds; i++)
+-		if (KFD_IS_SVM_API_SUPPORTED(p->pdds[i]->dev->adev))
+-			bitmap_set(svms->bitmap_supported, i, 1);
++	/* The ranges of this process must fit in every GPU that can map them,
++	 * so bound them by the smallest GPUVM among the SVM capable GPUs.
++	 */
++	for (i = 0; i < p->n_pdds; i++) {
++		struct kfd_process_device *pdd = p->pdds[i];
++
++		if (!KFD_IS_SVM_API_SUPPORTED(pdd->dev->adev))
++			continue;
++		bitmap_set(svms->bitmap_supported, i, 1);
++		svms->max_va_pfn = min_not_zero(svms->max_va_pfn,
++						kfd_svm_gpu_va_limit_pfn(pdd));
++	}
+ 
+ 	 /* Value of default granularity cannot exceed 0x1B, the
+ 	  * number of pages supported by a 4-level paging table
+@@ -3511,6 +3538,17 @@ svm_range_is_valid(struct kfd_process *p, uint64_t start, uint64_t size)
+ 	if (check_add_overflow(start, size << PAGE_SHIFT, &end))
+ 		return -EOVERFLOW;
+ 
++	/* Reject up front what the GPUs of this process cannot map, rather
++	 * than letting the mapping fail later on.
++	 */
++	if (p->svms.max_va_pfn &&
++	    (end - 1) >> PAGE_SHIFT >= p->svms.max_va_pfn) {
++		pr_debug("CPU[0x%lx 0x%lx] exceeds GPUVM limit 0x%llx\n",
++			 start_unchg, (end - 1) >> PAGE_SHIFT,
++			 p->svms.max_va_pfn);
++		return -EINVAL;
++	}
++
+ 	do {
+ 		vma = vma_lookup(p->mm, start);
+ 		if (!vma || (vma->vm_flags & device_vma))
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-index c7d7adae4476..f61030408f45 100644
+index f61030408f45..268a545302bd 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-@@ -203,11 +203,22 @@ struct kfd_process_device *
- svm_range_get_pdd_by_node(struct svm_range *prange, struct kfd_node *node);
- void svm_range_list_lock_and_flush_work(struct svm_range_list *svms, struct mm_struct *mm);
+@@ -213,6 +213,14 @@ static inline bool kfd_svm_vm_covers_user_va(struct amdgpu_device *adev)
+ 		AMDGPU_GMC_HOLE_START;
+ }
  
-+/* SVM uses CPU virtual addresses for GPU mappings. Disable SVM if the GPUVM
-+ * address range cannot cover the required CPU address range. The parameter
-+ * must be named adev, AMDGPU_GMC_HOLE_START dereferences it.
++/* First CPU page index that this GPU's GPUVM cannot represent. An SVM range
++ * is mappable on pdd only if its last page lies below this.
 + */
-+static inline bool kfd_svm_vm_covers_user_va(struct amdgpu_device *adev)
++static inline uint64_t kfd_svm_gpu_va_limit_pfn(struct kfd_process_device *pdd)
 +{
-+	return (adev->vm_manager.max_pfn << AMDGPU_GPU_PAGE_SHIFT) >=
-+		AMDGPU_GMC_HOLE_START;
++	return pdd->dev->kfd->shared_resources.gpuvm_size >> PAGE_SHIFT;
 +}
 +
  /* SVM API and HMM page migration work together, device memory type
   * is initialized to not 0 when page migration register device memory.
   */
--#define KFD_IS_SVM_API_SUPPORTED(adev) ((adev)->kfd.pgmap.type != 0 ||\
--					((adev)->apu_prefer_gtt))
-+#define KFD_IS_SVM_API_SUPPORTED(adev)					\
-+	(((adev)->kfd.pgmap.type != 0 || (adev)->apu_prefer_gtt) &&	\
-+	 kfd_svm_vm_covers_user_va(adev))
- 
- void svm_range_bo_unref_async(struct svm_range_bo *svm_bo);
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-index 35b3abe57b80..5d12446b8ea8 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-@@ -2471,8 +2471,17 @@ void kfd_update_svm_support_properties(struct amdgpu_device *adev)
- 				sys_props.generation_count++;
- 			else
- 				dev_err(adev->dev, "Failed to update SVM support properties. ret=%d\n", ret);
--		} else
-+		} else {
-+#if IS_ENABLED(CONFIG_HSA_AMD_SVM)
-+			if ((adev->kfd.pgmap.type || adev->apu_prefer_gtt) &&
-+			    !kfd_svm_vm_covers_user_va(adev))
-+				dev_warn_once(adev->dev,
-+					      "GPUVM size 0x%llx is too small for KFD SVM; SVM disabled (amdgpu.vm_size=%d)\n",
-+					      adev->vm_manager.max_pfn << AMDGPU_GPU_PAGE_SHIFT,
-+					      amdgpu_vm_size);
-+#endif
- 			dev->node_props.capability &= ~HSA_CAP_SVMAPI_SUPPORTED;
-+		}
- 	}
- 	up_write(&topology_lock);
- }
 -- 
 2.53.0
 
