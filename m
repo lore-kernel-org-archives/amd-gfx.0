@@ -2,59 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E19A1606A31D
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Oct 2026 09:19:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7A02606A319
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Oct 2026 09:19:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nasledov.com header.i=@nasledov.com header.a=rsa-sha256 header.s=mail header.b=k58Zbnxz
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=PiXfUFk3
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 535CF10E848;
-	Tue, 20 Oct 2026 09:19:19 +0000 (UTC)
-X-Greylist: delayed 412 seconds by postgrey-1.36 at gabe;
- Mon, 19 Oct 2026 23:50:37 UTC
-Received: from smtpauth.rollernet.us (smtpauth.rollernet.us [208.79.240.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 553AA10F0F2
- for <amd-gfx@lists.freedesktop.org>; Mon, 19 Oct 2026 23:50:37 +0000 (UTC)
-Received: from smtpauth.rollernet.us (localhost [127.0.0.1])
- by smtpauth.rollernet.us (Postfix) with ESMTP id 7BC0F2801D03;
- Mon, 19 Oct 2026 16:43:38 -0700 (PDT)
-Received: from nasledov.com (162-224-188-88.lightspeed.sntcca.sbcglobal.net
- [162.224.188.88])
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0CF210EB9E;
+	Tue, 20 Oct 2026 09:19:21 +0000 (UTC)
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB3B410E578
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Oct 2026 06:47:51 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (Client did not present a certificate)
- by smtpauth.rollernet.us (Postfix) with ESMTPSA;
- Mon, 19 Oct 2026 16:43:37 -0700 (PDT)
-Received: from deepthot.lan.foggyden.org
- (76-210-4-7.lightspeed.sntcca.sbcglobal.net [76.210.4.7])
- by nasledov.com (Postfix) with ESMTPSA id B7C56FF889;
- Mon, 19 Oct 2026 16:43:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nasledov.com;
- s=mail; t=1792453416;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=CQTotrkNMR4MpCie0Y79Xge9qGBIr2fldIVNOxUBLz8=;
- b=k58Zbnxzy6Qub2scFaWuAMONHIsUafTLG0TnqcU/JN7/TrZLZPLrGKHbAJ203qgRY51bAG
- h/jXzZuJbLnxdQ5wzV96kVdxH1HyYgNQG6oVJwfDrexlzjlS3cXH5vITJ6LtnYQNhjFN1j
- qI9RMILUG4PcuC8nWR0xDCp+1n2bC341/RqSuiTTe5xnfzCZx/FTxL7Sp/1JEf/wXKM/Kn
- KDXDrqCeO5ZdbEMw0WjYuoMr95KDTcScuS6ZpMyzwA/9quBMyRxohavvYFZ/caoD/RITyL
- am/epeSazMPPIe2FlUZXgFwJgn4z9+Mbw50n75QjEAJr2gF+yCsmqW/AojwI5w==
-From: Misha Nasledov <misha@nasledov.com>
-To: misha@nasledov.com,
-	amd-gfx@lists.freedesktop.org
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amd/display: Drop clock requirements on DCN32 when no
- displays are active
-Date: Mon, 19 Oct 2026 16:42:32 -0700
-Message-ID: <20261019234232.33760-1-misha@nasledov.com>
-X-Mailer: git-send-email 2.55.0
+ key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4j82zS5DrFzKp6s;
+ Tue, 20 Oct 2026 08:47:48 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1792478868; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=5cHirzWe2wfw2eW3EksY4WknOzu4j2sDM1krSqv5mqg=;
+ b=PiXfUFk3CKraC0udoBD3DECyXVt1RwM9uxeSkwLI7Cdkj7B2XTIghtEcAr7xrC+4VL0o8g
+ AiZtPonShANMBoW1ouyV7iU35Z0tsaQgRPrB3aeb98ROrMOI6iz7M8NXj0hdYnEWuFUpiT
+ reJjHhl6dMA5O5G8SKTcrkA9E81z6LnHJ4P192wTi6zoZQc0BVe5C8t87bXGs3sS2Esd17
+ kenzwGdU6r1vg8uqMsxjkcbQ50gq6zQfQQBXjPD9ZlnZWoRSGcsmuHBiZutoamQCBkpHdH
+ sBnywjj7AndBbQJ4O+b760dtqBubmqaC24xbBTXG07OcEH/TR2M2MQGNTyamkA==
+Message-ID: <e1202a38369202264a735836a2fd6a2de3609a13.camel@mailbox.org>
+Subject: Re: [PATCH v2] drm/amdgpu: guard VCE/UVD sched entity teardown on
+ failed probe
+From: Philipp Stanner <phasta@mailbox.org>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Olivier Kaloudoff
+ <olivier.kaloudoff@gmail.com>, amd-gfx@lists.freedesktop.org
+Cc: phasta@kernel.org, alexander.deucher@amd.com, christian.koenig@amd.com
+Date: Tue, 20 Oct 2026 08:47:45 +0200
+In-Reply-To: <d6a743a1-7268-4167-9378-a364b6c04fbb@igalia.com>
+References: <20261015193037.86472-1-olivier.kaloudoff@gmail.com>
+ <d6a743a1-7268-4167-9378-a364b6c04fbb@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rollernet-Abuse: mailto:abuse@rollernet.us https://www.rollernet.us/policy
-X-Rollernet-Submit: Submit ID 1fdfa3.6ad6ab29.2b0d8.0
+X-MBO-RS-META: ydigo8gebtkysu414sbpqbf6r6pwhmbp
+X-MBO-RS-ID: 8a55f8dc748e3aef11a
 X-Mailman-Approved-At: Tue, 20 Oct 2026 09:19:18 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,73 +60,81 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-amdgpu_dm builds the new dc_state as a copy of the old one. When the last
-stream is removed, dml1_validate() returns early on pipe_cnt == 0 and
-never reaches dcn32_calculate_dlg_params(), so bw.dcn.clk keeps the
-dramclk/dcfclk/fclk requirements of the display that was just turned off.
-dcn32_update_clocks() then keeps those hard minimums applied.
+On Fri, 2026-10-16 at 09:23 +0100, Tvrtko Ursulin wrote:
+>=20
+> On 15/10/2026 20:30, Olivier Kaloudoff wrote:
+> > The hole was latent-but-safe until commit 2df5efb45425 ("drm/sched:
+> > Remove redundant entity->rq initialization and checks") removed the
+> > if (!entity->rq) early return that commit 1decbf6bb0b4 ("drm/sched:
+> > Fix entities with 0 rqs.") had put in drm_sched_entity_flush(), on the
+> > grounds that entity->rq can never be NULL. That holds only for
+> > entities that completed drm_sched_entity_init() =E2=80=94 not for the
+> > never-initialized entity this teardown path reaches.
 
-On an RX 7900 XTX this leaves UCLK at 456 MHz and DCFCLK at 637 MHz with
-the monitor off, and the board idles at 28.4 W. With this change they
-drop to 96 MHz and 145 MHz and board power falls to 15.3 W.
+[=E2=80=A6]
 
-Reset the clock requirements in that case, as calculate_dlg_params()
-already does when no HUBP is active and as the DML2 path does for
-stream_count == 0.
+> > =C2=A0=20
+> > -	drm_sched_entity_destroy(&adev->uvd.entity);
+> > +	if (adev->uvd.entity.rq)
+> > +		drm_sched_entity_destroy(&adev->uvd.entity);
+> > =C2=A0=20
+> > =C2=A0=C2=A0	for (j =3D 0; j < adev->uvd.num_uvd_inst; ++j) {
+> > =C2=A0=C2=A0		if (adev->uvd.harvest_config & (1 << j))
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_vce.c
+> > index 1f7a98cdc..3952af9ae 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+> > @@ -253,7 +253,8 @@ int amdgpu_vce_sw_fini(struct amdgpu_device *adev)
+> > =C2=A0=C2=A0	if (adev->vce.vcpu_bo =3D=3D NULL)
+> > =C2=A0=C2=A0		return 0;
+> > =C2=A0=20
+> > -	drm_sched_entity_destroy(&adev->vce.entity);
+> > +	if (adev->vce.entity.rq)
+> > +		drm_sched_entity_destroy(&adev->vce.entity);
+> > =C2=A0=20
+> > =C2=A0=C2=A0	for (i =3D 0; i < adev->vce.num_rings; i++)
+> > =C2=A0=C2=A0		amdgpu_ring_fini(&adev->vce.ring[i]);
+>=20
+> Dang, it looks like currently the ownership of entity initialization is=
+=20
+> broken between the IP agnostic phase which does the init, and per-IP=20
+> phase which tears it down.
+>=20
+> The fix will get in the way of me re-trying to embed the run-queue into=
+=20
+> the scheduler but it does look correct.
 
-Signed-off-by: Misha Nasledov <misha@nasledov.com>
----
-Tested on an RX 7900 XTX on v7.2.11, where the patch applies cleanly.
-This version is against amd-staging-drm-next.
+Couldn't the status be tracked through the vce struct?
 
-I used an LLM to help trace the clock path and draft this change, and
-I reviewed and tested it myself.
+if (vce.entity_initialized)
 
-DCN 2.0 and 2.1 (dcn20_validate_bandwidth_internal() and
-dcn21_validate_bandwidth_fp() in dml/dcn20/dcn20_fpu.c) and DCN 3.0
-(dcn30_validate_bandwidth()) take the same pipe_cnt == 0 early exit, so
-they probably keep stale clocks with all displays off as well. I've left
-them alone because I only have DCN 3.2 hardware to test on. I'm happy to
-send the same change for them if that's wanted.
+Otherwise you rely on API-internals (again) which is what enabled that
+bug AFAICS. If it's about amdgpu having called foo_init() or not, then
+the most robust solution is to track within amdgpu "did I call that
+function already?" Same applies to all constructors and destructors in
+the kernel AFAIK.
 
- .../display/dc/resource/dcn32/dcn32_resource.c    | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+>=20
+> Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>=20
+> I will see if I can re-work the init/cleanup phases so this can be=20
+> removed, or if not, try to add a proper DRM scheduler API to query the=
+=20
+> status of an entity.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-index c9eba16ef359..c22ffbe74d9b 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-@@ -1941,8 +1941,21 @@ static bool dml1_validate(struct dc *dc, struct dc_state *context, enum dc_valid
- 	out = dcn32_internal_validate_bw(dc, context, pipes, &pipe_cnt, &vlevel, validate_mode);
- 	DC_FP_END();
- 
--	if (pipe_cnt == 0)
-+	if (pipe_cnt == 0) {
-+		/* The context is a copy of the previous state, so without this the
-+		 * clocks the last display needed stay applied with all displays off.
-+		 */
-+		context->bw_ctx.bw.dcn.clk.socclk_khz = 0;
-+		context->bw_ctx.bw.dcn.clk.dppclk_khz = 0;
-+		context->bw_ctx.bw.dcn.clk.dcfclk_khz = 0;
-+		context->bw_ctx.bw.dcn.clk.dcfclk_deep_sleep_khz = 0;
-+		context->bw_ctx.bw.dcn.clk.dramclk_khz = 0;
-+		context->bw_ctx.bw.dcn.clk.fclk_khz = 0;
-+		context->bw_ctx.bw.dcn.clk.p_state_change_support = true;
-+		context->bw_ctx.bw.dcn.clk.fclk_p_state_change_support = true;
-+		context->bw_ctx.bw.dcn.clk.num_ways = 0;
- 		goto validate_out;
-+	}
- 
- 	if (!out)
- 		goto validate_fail;
--- 
-2.55.0
+An API with which you can query whether a data object that you
+allocated and that you own had the constructor run by yourself? Or am I
+misunderstanding something?
 
+
+P.
