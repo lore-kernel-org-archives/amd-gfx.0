@@ -2,126 +2,145 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68AEC606A31C
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Oct 2026 18:42:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52AD1606A322
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Oct 2026 19:14:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=0yKg8NyN
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=OYHKC5T0
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 10C8689BEC;
-	Tue, 20 Oct 2026 18:41:56 +0000 (UTC)
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013007.outbound.protection.outlook.com
- [40.93.201.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 153AF89BEC
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Oct 2026 18:41:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E438610E215;
+	Tue, 20 Oct 2026 19:14:42 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013048.outbound.protection.outlook.com
+ [40.107.201.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFC5610E215;
+ Tue, 20 Oct 2026 19:14:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=h0/QaP8qij7KEupUoOUt+faJ0ZFQSPv2y3UzTZdmqO4U+a+sCK89hCX4dhujkygIJkQVwmsTYTTitkeAQvIM8hSFIIVFVj7rMXBJtNnuSJZ+dZA/58Fi/DifqYwb75aFkOgk2jhMeIpQh8s6ICatifYxmQ8lq1HPtGwN+nmiM4OAOnb3ZtEsDe3y+y6iftMDX7Hjbdh/D3CfzODATP6oddVITDU5yqNHnjkjNdfWGzbpUTI3M1ALFfIi2e/6pwSDCkrgrffrIWpxAoD9lMpBOsTbBoHrUizDiCQdJ1Kak2tkSJnQUC3VKO+foSXAwsyrZ38syjLSFP4sW4z3Kvqt7Q==
+ b=CvLTDaYaEqJe1iaEic9vUaYon5aGQHnsFA2kVN0HI+V0+hdikW44pa0SzIDgWyDC2ynCrEr0IZ+HfGr8+AsFi2w1hcDoh9/4r2XhAp40l2OKbgy4g/9d6LGPkQNlevMnHPNKcV6lILES1issACD9QekDuFtyAYoKVfqAa1zYf1L7fmZvFqFPtu3aT2KNOcD4Qb64ybLQa4hUPhteUyuAo9erxL/xGHpc+Nc1w+Q7nmsE3T8YxJuNvcH7l3iVxUxAhaqcrs0StPgEMkilhOIDTe+JR1gnuidbnnkZOjaS68Db62ey4bWk8TBP0MCA5KGgPBq4+d+goDTXHW6vXfXNXA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KPdJFPQokb78lNyb0mleHHKEVdQubwF6oZgPIQcoM1E=;
- b=N8ik6zxqY4Rwt0+wV60EQJmeyACTufFtCmBD0vvvptzh1W44c/mLjLCcZGnajhBlG501aADY59zzeSDbB2rcOqLyeaU1GoYRJ3mTEQfZCX8hm73Po93dAYvJKYwNc+PYqWoCr9erpE63E9KKTeAb4+KYHzN6uxgyhsaFT48M9fI6Ttp/nLW3HCY8H5GKoOi/ks1D8Uwu/emlXmD1Xkqr6KEKSAaXDz8B0Y7GgZcnPVL2PseGSAGDRqj7mAZrbOTOUQzkD94B72Betpd46dDh6T/Lb+rJxpP6F/v1T7UZCrRjHmximc05sjrKWE878PadSfdd9NGzifxw49aikxneKw==
+ bh=6d4IG9S29wybTx7Exeo1TsHIVy7PUvMX3ckP1t5w5VM=;
+ b=hIc8c2FPR7TZYdb3x29G3DqOrQazilurY+YE6PJ/azsNMdREOzZvwUwfoOA/avkegdaTDEvPb3uqJ4HJLpB2vFOeCve/W9ducPlXzyzshMXZATd+r8ozpL52paPbBs44H5uMTpYVkUWcO9kbtICEVlV3sgC5Tfi40sFj121XTHHebqfPpIkfYOiyEHyUlrg+DaQBXz7RUXSZ08jNzKpAopRn8069e87JSaxBcGZBLl9vqFcbDMleaUMgRmsO88TkUTUIVixDcPJvduD+YfTLvkBmZsfp+o/5TTYp3DD8ePqIE/Oi0QPed2bCgYFKGspkIATL98sMo45sKCY+C+O+IA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KPdJFPQokb78lNyb0mleHHKEVdQubwF6oZgPIQcoM1E=;
- b=0yKg8NyNoRegtT/sp0W5TzHuwPb0aHIP1a8mjXi6vJ9S8qvji9Boh99+2Q3K/AM0jFtYgp3Rr+KmdBqrWphsfzghd8d6haWm7kepQGYNQX62c+2eA3H6H3dquuhBd46kVHYp/Pmf8Ldcf90Aqm0h0vTQesbF/NhRU3va4uRWiKA=
+ bh=6d4IG9S29wybTx7Exeo1TsHIVy7PUvMX3ckP1t5w5VM=;
+ b=OYHKC5T05Ov/sW0JLpJ9XMnG3UM9cwQZ9pdCs8PkxCVj4H0JJPUFYciq4jxPSSbd3W1SYhtuL+zwR1HHCez51ruijVfXOEGDP94t7qznNwJBwlZlD/5PZ2WXV5g3jw8Kez5KOXJhlBKWBR4RYFBOYAiXWFZq7SjWnd/s+uC9wyA=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS5PPF78FC67EBA.namprd12.prod.outlook.com
- (2603:10b6:f:fc00::655) by LV2PR12MB5821.namprd12.prod.outlook.com
- (2603:10b6:408:17a::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Tue, 20 Oct
- 2026 18:41:46 +0000
-Received: from DS5PPF78FC67EBA.namprd12.prod.outlook.com
- ([fe80::23fd:d049:8f53:2054]) by DS5PPF78FC67EBA.namprd12.prod.outlook.com
- ([fe80::23fd:d049:8f53:2054%6]) with mapi id 15.21.0522.017; Tue, 20 Oct 2026
- 18:41:46 +0000
-Message-ID: <bda53386-6f8f-48ae-ba0e-c25c979da906@amd.com>
-Date: Tue, 20 Oct 2026 14:41:44 -0400
+Received: from IA6PR12MB893085.namprd12.prod.outlook.com
+ (2603:10b6:208:601::18) by DS0PR12MB8293.namprd12.prod.outlook.com
+ (2603:10b6:8:f3::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Tue, 20 Oct
+ 2026 19:14:33 +0000
+Received: from IA6PR12MB893085.namprd12.prod.outlook.com
+ ([fe80::3f4e:1f38:3db2:270a]) by IA6PR12MB893085.namprd12.prod.outlook.com
+ ([fe80::3f4e:1f38:3db2:270a%5]) with mapi id 15.21.0546.012; Tue, 20 Oct 2026
+ 19:14:33 +0000
+Message-ID: <e39ddfb1-7a42-449d-86c6-92086fec5ae0@amd.com>
+Date: Tue, 20 Oct 2026 15:14:30 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] drm/amdkfd: bound SVM ranges by the smallest GPU
- address limit
-To: Daniel Huang <danielhu@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-References: <20261020132901.23157-1-danielhu@amd.com>
- <20261020132901.23157-3-danielhu@amd.com>
+From: Harry Wentland <harry.wentland@amd.com>
+Subject: Re: [PATCH v7 1/9] drm/amd/display: embed the writeback encoder in
+ amdgpu_dm_wb_connector
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ John Harrison <John.Harrison@igalia.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Liviu Dudau <liviu.dudau@arm.com>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>,
+ Mihail Atanassov <mihail.atanassov@arm.com>, Eric Anholt <eric@anholt.net>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Brian Starkey <brian.starkey@arm.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ linux-renesas-soc@vger.kernel.org
+References: <20261019-wb-drop-encoder-v7-0-d4288a26eb54@oss.qualcomm.com>
+ <20261019-wb-drop-encoder-v7-1-d4288a26eb54@oss.qualcomm.com>
 Content-Language: en-US
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <20261020132901.23157-3-danielhu@amd.com>
+In-Reply-To: <20261019-wb-drop-encoder-v7-1-d4288a26eb54@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4PR01CA0052.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:111::21) To DS5PPF78FC67EBA.namprd12.prod.outlook.com
- (2603:10b6:f:fc00::655)
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQZPR01CA0122.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:87::23) To IA6PR12MB893085.namprd12.prod.outlook.com
+ (2603:10b6:208:601::18)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS5PPF78FC67EBA:EE_|LV2PR12MB5821:EE_
-X-MS-Office365-Filtering-Correlation-Id: ff05bf8f-cbc9-43ff-19cb-08df2ed9cb33
+X-MS-TrafficTypeDiagnostic: IA6PR12MB893085:EE_|DS0PR12MB8293:EE_
+X-MS-Office365-Filtering-Correlation-Id: 746eb3d8-cbce-4d77-7a2e-08df2ede5f6a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|376014|366016|56012099006|4143699003|5023799004|11063799006|261009223027099003|10067099003|18002099003|22082099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info: RMNZr5NNg84DSr8H/5+5j1yrVjoB3A1l32GrdD92l2RkeInf3T/OCGXvtgRrDjyMD/iRUyBJxCd65FMhekZ8bISCiwzUTxZ/+VRImigS9LA9AistsdtFdz/mVnmyy9LazaTVT74WPx8TLfc3KWf+zjXCsV2eSOABAywrpnfHBavdtQeX7hlRVLchnl0OaSQrSq/BTcuoeNXapnmigkjsJjDt2f9c5+bcvF7sZLGQvrZHmCfuWiQEaxEyQ9zW+GjDZOwRkkZedojiEDJuJtoTdpy2+Y7vZpYtnTJR73TyWCcRr01obAASSeTAvAu0a77AfxsK0/X1fYX55W/Hj6Tlvo7AGM5zyGH4ZwHX9SqqSVO/NW0Fp1B2Ya5xTA8bShxMW1qIWhSX5HYBd0pffd+t5biblAtqFwUIBO/j5WBfZ4NT8RDZTTYe2mt3TjLvd76120NtC9gm2DT/SyRSOp+ZNItGNR4HtQVqmHhvTB9ECU0eBLPyPdFnvINSbOlUCn/sI9Wj/sq+bN+CYq1jRHaLZ1GgYNEOi1d5cbiqHyjkC4X/8jS8YoXg1zMeXq2ALUCyjipWo5jeZzIGu4aaxjPtc6Zzl8cyQEzLwPZACnMkdcY=
+ ARA:13230040|366016|376014|7416014|23010399003|1800799024|56012099006|4143699003|11063799006|261009223027099003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 5yHoSKhoS9fsP4cwEPmA+c1VHyK8Vg3jyUG83BWkT0xV+e9c3Kk1LdV5eahoCy3RHz6u/eoneOgO6E0wxQy0gxxAkRlFoWZoWn112AxyHMIZK/Bmrgf3Mcvh0x6b+6zyu4Dfw5pOBo5DhIlIExPzrAOJCY/Q7Pr2u/IVUBVBOQ6soQyR5+HaiEaknPCrzLxbZa7wr02J2wPAKyoavzr4Y1OuQE7jzpfL+x1Vb3t9dRxsaKPo80jb4g80aZ4+6j5XKHYjrZYepFyz7ytsUCp7DMYGYKXqxX6BWRuG9xvgS4Mfqn5pGIqaomnHXDoq5K6otAZ5ivzzWr+EMm7EZVBc17JVej1apDYMuYjP+uWSn9Vpi7Mnp2mX+s7auUhG5EFUDcUZQg+aAjQxqUedjnE54gQ8s/bwmkIwKVCwuCjzgzT8UjhA6kCXQfMJMde7bXO/TuSXu1+JODdH2usX0lTFNILcFGGQ94OIKtOlyzBI4ixxdhEZ3OclSAtCsOlWvfSjq2FQ7ONV/KIfmSlQahnJadJuW4k/AiC+nzeS/5adRJRnX5FiSDyhyqGCRbigsXM7WqV9dTUjGOr1Y7r0YuoEt1KNQHhDCORRVkfyQoD+zwmcLyStv7EXPKb2C5HD7f5zVQg1Zuso6W5ABfQOUbR+om6MuaPMyMA6EOoCLBOT4Fk=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS5PPF78FC67EBA.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(56012099006)(4143699003)(5023799004)(11063799006)(261009223027099003)(10067099003)(18002099003)(22082099003)(6133799003)(3023799007);
+ IPV:NLI; SFV:NSPM; H:IA6PR12MB893085.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(7416014)(23010399003)(1800799024)(56012099006)(4143699003)(11063799006)(261009223027099003)(10067099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Mmtnd1g3YktiUVFZSForblkrTUc0TlNXK1d4NWxMM1BaNitpU1VDeUlmMVpt?=
- =?utf-8?B?ck5YanRhQTZqdW0rWDBQek5PaGxwVkFiQ0JkN05xZDVudkZyUVNFclIrMVJs?=
- =?utf-8?B?SU1XSUVsYWhuN1QxVGwyWHhXakc2Uld1bERvUnpKanRFbEJrRm5WZ0RtQlA1?=
- =?utf-8?B?QThWRGpSWFpxcXd4VVg3Q3ZKekRjZndxazJxVVc5QnlRSGNlMnVtVVhwelZQ?=
- =?utf-8?B?MmRXREo3eDVtdEtadUpyM1VJR0ZPaUZNUDhUS3QxN3hHd3ZEZUYrMStUZ0FE?=
- =?utf-8?B?Q2FKMkpKREdkcXVxbjdmOVVFVW55c0MrV2lVZ3BUamp4WU0yQVVRTEh4ZVZm?=
- =?utf-8?B?TW9vQmdVNnRRYWJRR2h2M1BuMnFQdE5uamwyYjVlNGZnekNzQWxESUdPOHY1?=
- =?utf-8?B?eEthUU81dGkxR3o0OUtNNC9NZU9GQURBN1pYZno4NHlRUEJzMWFGVHp0dXcy?=
- =?utf-8?B?cVl2NlFHYm1iVjE5RXBjL00yNnhoRmlBZUZFYzR4U28rVTFDWkJvK05PMkds?=
- =?utf-8?B?QjJ5TTFJR2JOTXE2MExIWGNudmM4K2VscHFNaFVieU1zbWdWY0NscllVazds?=
- =?utf-8?B?TFpaWm5xN2prQlNVQUQwOVR4eU1uVmd0dDFJOVg1c1FVZEtDUjBVcHhaa0xi?=
- =?utf-8?B?M0srSTQ0MllPMEtxOFdHVmlUUTUyMnArL0FZcHFxT3pkckkvTGFOT01mS0JH?=
- =?utf-8?B?UHFwY0tDTzlCTjE2R3pxeXRTRldGZnJJajE2THNmdmc4YytLaTQ2TVpJaTZv?=
- =?utf-8?B?a3hFU0w5VFpqWm1RSjl3NXpNazE3NnZtak9SM05TeWVWbE85TS9YMm93TjN2?=
- =?utf-8?B?SnQ5TXdFY0I2NndNYnRmZ2lUR0dHWlNGYXNkQ0RXUytVbE1QTG5GWVhhNTVT?=
- =?utf-8?B?ZHAyY1M3bVNXTGx3KzhmbzZjY3RUVXNRbG5rYmUrQ1ZyVnNWdktNSldFQlB1?=
- =?utf-8?B?K3lGdExwdTc5Rjh3OWlVc0FvN2tMVkR6TEhaZ2FmblRBYTFxQUsxQ0c2RzMv?=
- =?utf-8?B?THlHNWg0RmdreUhtWDc4WHY5UWhCNVhBSmx2OVVDRTdyZGM1MjVldEljNzho?=
- =?utf-8?B?cDZyNGcvK3NRQi9Sd21RenlBODFXb01GWFZnL1VWWUNqVi9nSWNNQnVGNWhJ?=
- =?utf-8?B?dWx3dk9Ea0prdTBtOUVpMUVZc1E4Zm9wS2dTc3BxbXFYeHNhZWZzbWEreGhq?=
- =?utf-8?B?YTZ2QWhTcHVGc0QyR3NFUXlIRkdLT0hRU0lhZFp0azAxaUxQL2x2eEFjZWtO?=
- =?utf-8?B?MnVuWVFXVmIyUUdEREc3elJlSURvKzM1TlFSY25hdVBvV1BwbWxXeUQvMVZl?=
- =?utf-8?B?T3FYbmVoVlZRSXUzRWFyempVaUM4Mm4zZlV5czFtaGxYVXVnNUYrK0d5MFVn?=
- =?utf-8?B?OVJHaDc0UFhIOVJNUDlGNWlzTXdQUFZBM213MThpM2tOY1FlbzBMcEQvWEs1?=
- =?utf-8?B?b2VidEY4YTEwQTA0d252WHJoNTNMTC9kVmtDOWttTlpSUHdZVWFkcmwrOFlK?=
- =?utf-8?B?Y3RqL0h5QW9OM0t1eXk4bEhyeHZFeDNEVkQwenowSU1WSkt3TngzaXVJTTRs?=
- =?utf-8?B?dlE0RmJhVE50NWVBYldMYitGbkl5SHhBTmoySGVRV3lMQVZpOU1DbDdObjlL?=
- =?utf-8?B?K1lZdDdBUDAzTm5xSUJBa0VqOFhUVU81b2pYV3ZnWGlQYjBLVEdEbFJ4VmNk?=
- =?utf-8?B?ejV4STlEdjFzNjd0enBLNmFzWHVGTWR4MTE1REYzUDNodU0veldsRy82SytD?=
- =?utf-8?B?bVM4TUs4NTBOSklQc2lKeFBDbWV5Z1NmTS96QlM1T2NPN3QwbEpJSFpxSk9v?=
- =?utf-8?B?ZEhyaTU0TVFGZ0g2bnVVWFNwelpKRUoxU3c2M0k3NDRuVDNPaENFUFAxY3p1?=
- =?utf-8?B?WlB4aFNlV24zbkpHUVFPcWwzelRCM0dlRDlCMTdZZUZQRGlyY3lWaCtHUjE5?=
- =?utf-8?B?eW9DNTc5Wmg4SmhIRExxeWJYMW1Ia2NSb2RMSEN3VzdSQ2g1QUwyUEZ4dXp2?=
- =?utf-8?B?WTdVdzZselRkWFZqM2lJVURqT290SE92b0h1a003a3MrY2tWVWpYMXI0a3hu?=
- =?utf-8?B?NjU4eWJPM1FXU05sRzd0WTM1U05CM29WVjJEUm1BN043U3dTVk52eVJaMG94?=
- =?utf-8?B?U29COVZJVnNTTUk4d2FXbHVVVGpqOFBYQWREMkYwUWNoTm8wUHhvL01LN0Vp?=
- =?utf-8?B?ekIyRGMreTh4TFNlMm9oaW5KdkRIc0xqUWsvcDlpWWdNUkErY3M3QjBBeTRq?=
- =?utf-8?B?Z3BuYUNwNVdrNXpZUitQLzRqc0ppQlowaWs4ZHN5NWhXWnJUaHJzc2JjQm96?=
- =?utf-8?B?OFE2MWoxNHdqY3BrKzNRV3dha1RoVUQvYS9jcGI0Z01QOS9aQVM5Zz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VkJ6NXkrYUJYQm01bjdtS2VqMmRJRXJGU2hwelhHb3VOSDFaVkl2V0V2K0U4?=
+ =?utf-8?B?WENGR0ZGVC85bUxpd0ZGK3J1Ykx1Z2lVUmZBajBkc2E4c25qMUV3WENldFBK?=
+ =?utf-8?B?SmlrTGgvcHpSeThiTUpNQnNMck1jenlRaENydS90Wi9lUkJPcFlvcFdpbS81?=
+ =?utf-8?B?OFJaSzhzS0UwSVJmaEtnOHI2elMzcTVZWEpJOXBIRmNTVFZ5cnptWlJEZHp1?=
+ =?utf-8?B?T3paNVc4QUc3Q3F5czg0MEdDTWw1TGV1MWE2dlZmMVJUYTVUdXgwcHNnS3hZ?=
+ =?utf-8?B?YnU4aXQycWJFTG1WV1U5K2xYVER5ZUZRdXo0QmdTalAzTE9LdzErRmpwV3g4?=
+ =?utf-8?B?Wk8rMmNWNDR3dUYyemhBQjQwbUtvaDNzUXM3NEU4dW5UT2I5YjQwN3U5QTRK?=
+ =?utf-8?B?M0x6NlpNbFhiUXlTYXBsdnFRNUEvSGhOZGtrV0FNNnB6OU95RlR0VWUvZ1hs?=
+ =?utf-8?B?ZEZpSkhmQVl6WFdBNzEwZWhoY29vNFN1QVdhZmk1dWh5eWp6YkpTZFU4QmNs?=
+ =?utf-8?B?b05wZ1FCZ0MvU09CdzgrSlpZQ3pMeDNZMDEvb3dGSWZXcFVIalJIaWw4dnF3?=
+ =?utf-8?B?YnlpTTkrd0JxbHEvZHlXUDBXM1VkUUNKYkRzTndGRXVTUncxeXI3TnZ0OTdC?=
+ =?utf-8?B?QmxRTFl2dlFJK2p6S2xjYUgyZndWQ25nVXl4MXBTS2JEOThvaEowUlE1Q1Fm?=
+ =?utf-8?B?NWJHYWlGamxkQzM1L3Z2UXNOSEVZcnFDRGJodWFVNTBLTlFWT3dmUzlTbWhU?=
+ =?utf-8?B?OVJ4bzdnVC9hWnRIa0pKdlE5TVVUZUdlYWp0SDcwNUVCZ0tHZXo3R21lUDRu?=
+ =?utf-8?B?TEx6SUNveWRidDhmTHZzemUrTkRpdlc3OVJUT3ZDa2J5Uk1Ha25YcFNWNlB0?=
+ =?utf-8?B?dVZacGVkWCs2RkFqUEczd08wWDB2VFRLQ1RrdVFhQjZoby9rb0x4Znp2dHdQ?=
+ =?utf-8?B?QlYyYnlPVmZhRmowVzNUN21XeDZsU3hoUGVoM2lML1k0K2VrOEh4UkROMVRX?=
+ =?utf-8?B?SHRuck1wdkdZeDFxWWFVU1BvSXV5N1lqbWY4dkk2TFl0OVR6d3B1V2w2dGZK?=
+ =?utf-8?B?QWlWVUdHL3luRnpPSHROcE5laWM3dVpMZHgrS3NoNXpnMkgwUlE3YXJoNWtZ?=
+ =?utf-8?B?MzRad3FlL053dHNjcVZGZFY1YmNoTW9oYjZtNTRmWXFOMzFJYzZhdGp5d0lD?=
+ =?utf-8?B?U1dCa1NMYkpEQjhNKzlyK3ExS3VZOGVaTzg1dE5OK3p2ZmpHWUlSQXdIMGho?=
+ =?utf-8?B?MTcya3FWaGxxTlVKaDNSOTdUMmo0a2huTWFVMjlIeVhwU01uVHBJNHpFMkRi?=
+ =?utf-8?B?amNjb0hCN2g4ZU9uN2luYnluSUZqZWpFd1N2Z0QxN3dhaUxuVURqVEpEMnR0?=
+ =?utf-8?B?bzhXV3NpZU5KazhXUFVnby9qUzJaS0tQckRQaEp1cHhoRTNpR0NOZkpNVVZq?=
+ =?utf-8?B?QitQZTV0cUlmQlpTWGN4L3RMRE5lRkpkUkIvWFhYTUpLUm1vOWJ6Uit5YWh5?=
+ =?utf-8?B?RS9HT2VTVVVTa09RTXEvc2FpK3FMSmJRSHVsM2FlZFRTZlZLUUVWZzRHQlJp?=
+ =?utf-8?B?cTE0TzUrWUU3WXlxbkgvS291Qmh2YUY5L3FhZGx6MytQMDFsck1sQ29oQzFu?=
+ =?utf-8?B?bExzN2tncWNDcmErSEk1RUt2Nnd4MU1YaUZGcUNWR3ptN256dG96eVlTTFlo?=
+ =?utf-8?B?Mm9rdXJZWGZxVlJTbkErTGFjNnJLeDRqVnhrd04yaDlqVWRpaW1CWjN1eEph?=
+ =?utf-8?B?eDM2Zjh3cDFVTEYvaWQ1MnlPRThiamtkT2hZakZDWUpRUnJmUVYrRm54ZlNX?=
+ =?utf-8?B?bCsvajIyWTJTVUg0a1J3dU1CKytRbVlWYWhFTG5aOGMwZjhYeXVQSnBhU3RB?=
+ =?utf-8?B?RThXRnlrODl3REVKODJTa0J5SmNiMks3M2M4NGU0V2VxZWd0QXVyYk9USzF6?=
+ =?utf-8?B?ZXRCTzBndVBWN0h6YnN6ZjFvcTBHTVFiNWM2cUg2anR2VUtKUm82WDRISGxL?=
+ =?utf-8?B?OHB1cWNJSWRpQ1ZtZVZycy9MdmM1R3pKaXgyeDZicDdxbE5NL0ltYVJ6eVcr?=
+ =?utf-8?B?dWMrKzNRZXowb0JES1VhSXlhbDZ6SlMxQnUwRWVkQ0ZqS0Y5N2MzK2ZuKzVk?=
+ =?utf-8?B?WUk2eE01UXNiNGtrVEU0eXlKK1pqbVA3d0N4REkwZDNiaDMwMitwZDVQL090?=
+ =?utf-8?B?M3ZBYUFDU09DQ1BjSjloNHBGNVJQQS8vYThQeURDNkJ4U080UTRjN2RjdG9H?=
+ =?utf-8?B?NEp1b3QvdGlvMnI2NnVNVSthalZvTVFqamtRczkzZVh2SzlHRUdJaGRYK1pO?=
+ =?utf-8?B?ZllEbFEveEM1M1RtL2J1bVh0QzZCdk9XTnNGU21Mak1lcTRCdnNQdz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ff05bf8f-cbc9-43ff-19cb-08df2ed9cb33
-X-MS-Exchange-CrossTenant-AuthSource: DS5PPF78FC67EBA.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 746eb3d8-cbce-4d77-7a2e-08df2ede5f6a
+X-MS-Exchange-CrossTenant-AuthSource: IA6PR12MB893085.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 18:41:46.3089 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 19:14:32.9392 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9cDJuTNBHipRJXYIUPj8MzcX51SWHguOScxRoYT20iKD9v7/eR09pUCsqAHW+WRNU4KxUDx72K+E/ltI7AHkBQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5821
+X-MS-Exchange-CrossTenant-UserPrincipalName: CwI3NswoR+OSrNhDCWmYueYMMx/1eTBzcpS7bYSgvsbtHjsGTUeXYPrLU6ulMgN1626tf0+WRjVxJYI4c6qekA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8293
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,184 +154,145 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-17.6 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 2026-10-20 09:29, Daniel Huang wrote:
-> KFD SVM maps memory in GPUVM at the same virtual address used by the
-> CPU, but nothing bounds that address against what the GPU can
-> represent. kfd_ioctl_svm() checks only page alignment and a non-zero
-> size, so the PFNs reach amdgpu_vm_update_range() unvalidated. Unlike
-> the SVM path, the BO mapping path validates the address range through
-> amdgpu_vm_verify_parameters().
+On 10/19/26 09:12, Dmitry Baryshkov wrote:
+> drm_writeback_connector_init() hides the encoder inside struct
+> drm_writeback_connector, which is the only reason that structure carries
+> an encoder at all. Every other writeback user already owns its encoder.
 >
-> Disabling SVM when the GPUVM cannot cover AMDGPU_GMC_HOLE_START closes
-> the case where the GPUVM is globally too small, but it compares the
-> GPUVM against the GPU's own address hole. When the CPU address space is
-> larger than the GPU's, the comparison succeeds and SVM stays enabled
-> while individual addresses can still fall outside the GPUVM.
+> Embed the encoder in the driver's own structure and register the
+> connector with drm_writeback_connector_init_with_encoder(), so that the
+> encoder can be dropped from drm_writeback_connector.
 >
-> On a 5-level paging CPU with a 4-level GPU, mmap() returns addresses
-> above the GPU limit when user space passes a hint above
-> DEFAULT_MAP_WINDOW. Passing such an address to KFD SVM indexes beyond
-> the allocated root page-table entries in amdgpu_vm_pt_descendant().
->
-> This gap was found by the Sashiko AI review bot, during review of the
-> first patch in this series.
->
-> Determine the smallest GPUVM among the SVM capable GPUs of the process
-> in svm_range_list_init(), where the pdds are already final, and store
-> it in svm_range_list as the first CPU page index that cannot be mapped.
-> Reuse shared_resources.gpuvm_size, which the KFD already derives from
-> vm_manager.max_pfn and the GPUVM address hole, and reports to user
-> space as pdd->gpuvm_limit.
->
-> Validate against that limit where ranges are created, so that an
-> address the GPUs cannot map is rejected as early as possible and never
-> results in a range that is silently left unmapped:
->
->   - svm_range_is_valid() rejects out of range set_attr and get_attr
->     ioctls with -EINVAL, before any range is allocated.
->   - svm_range_create_unregistered_range() rejects an out of range fault
->     address, which svm_range_restore_pages() reports as -EFAULT. The
->     range boundaries widen the fault address to the granularity, so the
->     widened range is clamped rather than the fault refused.
->
-> svm_range_map_to_gpu() keeps a hard check so that no out of range PFN
-> can reach amdgpu_vm_update_range() through any caller.
->
-> A process wide minimum makes a GPU with a larger GPUVM unusable above
-> the smallest limit in the process, even for ranges only that GPU would
-> map. Every SVM capable GMC generation uses a 4-level, 48-bit GPUVM
-> except one gfx12 variant, so the minimum is uniform in practice.
->
-> Link: https://sashiko.dev/#/patchset/20261016145129.69645-1-danielhu%40amd.com
-> Assisted-by: Claude:claude-opus-5
-> Signed-off-by: Daniel Huang <danielhu@amd.com>
+> Assisted-by: LLM
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+
+Harry
+
 > ---
->   drivers/gpu/drm/amd/amdkfd/kfd_priv.h |  4 +++
->   drivers/gpu/drm/amd/amdkfd/kfd_svm.c  | 44 +++++++++++++++++++++++++--
->   drivers/gpu/drm/amd/amdkfd/kfd_svm.h  |  8 +++++
->   3 files changed, 53 insertions(+), 3 deletions(-)
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  2 +-
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h  |  1 +
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c   | 29 ++++++++++++++++------
+>  .../amd/display/amdgpu_dm/tests/amdgpu_dm_test.c   |  4 +--
+>  .../display/amdgpu_dm/tests/amdgpu_dm_wb_test.c    |  4 +--
+>  5 files changed, 27 insertions(+), 13 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> index b9a31489b1c8..a800515baf4a 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> @@ -907,6 +907,10 @@ struct svm_range_list {
->   	atomic_t			drain_pagefaults;
->   	struct delayed_work		restore_work;
->   	DECLARE_BITMAP(bitmap_supported, MAX_GPU_INSTANCE);
-> +	/* First CPU page index beyond the smallest GPUVM supported by the
-> +	 * SVM capable GPUs of this process. Zero if none support SVM.
-> +	 */
-> +	uint64_t			max_va_pfn;
->   	struct task_struct		*faulting_task;
->   	/* check point ts decides if page fault recovery need be dropped */
->   	atomic64_t			checkpoint_ts[MAX_GPU_INSTANCE];
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> index cfb428c72686..3fa0d6ff7236 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> @@ -1504,6 +1504,15 @@ svm_range_map_to_gpu(struct kfd_process_device *pdd, struct svm_range *prange,
->   		return -EINVAL;
->   	}
->   
-> +	/* Backstop before amdgpu_vm_update_range() walks the page tables.
-> +	 * Ranges are bounded when created, so this is not expected to trigger.
-> +	 */
-> +	if (npages && last_start + npages - 1 >= kfd_svm_gpu_va_limit_pfn(pdd)) {
-> +		pr_debug("CPU[0x%lx 0x%lx] exceeds GPUVM, canceling map\n",
-> +			 last_start, last_start + npages - 1);
-> +		return -EINVAL;
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 5e106b65034d..07dd69b42e83 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -4805,7 +4805,7 @@ dm_set_writeback(struct amdgpu_display_manager *dm,
+>  		goto cleanup;
+>  	}
+>  
+> -	acrtc = to_amdgpu_crtc(wb_conn->encoder.crtc);
+> +	acrtc = to_amdgpu_crtc(to_amdgpu_dm_wb_connector(wb_conn)->encoder.crtc);
+>  	if (!acrtc) {
+>  		drm_err(adev_to_drm(adev), "no amdgpu_crtc found\n");
+>  		goto cleanup;
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> index 1d256dce0e4b..d365370d9958 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> @@ -930,6 +930,7 @@ static inline void amdgpu_dm_set_mst_status(uint8_t *status,
+>  
+>  struct amdgpu_dm_wb_connector {
+>  	struct drm_writeback_connector base;
+> +	struct drm_encoder encoder;
+>  	struct dc_link *link;
+>  };
+>  
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
+> index 6f91a992d43f..b5b186e4f81c 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
+> @@ -218,6 +218,10 @@ STATIC_IFN_KUNIT void amdgpu_dm_wb_cleanup_job(struct drm_writeback_connector *c
+>  }
+>  EXPORT_IF_KUNIT(amdgpu_dm_wb_cleanup_job);
+>  
+> +static const struct drm_encoder_funcs amdgpu_dm_wb_encoder_funcs = {
+> +	.destroy = drm_encoder_cleanup,
+> +};
+> +
+>  static const struct drm_encoder_helper_funcs amdgpu_dm_wb_encoder_helper_funcs = {
+>  	.atomic_check = amdgpu_dm_wb_encoder_atomic_check,
+>  };
+> @@ -246,17 +250,26 @@ int amdgpu_dm_wb_connector_init(struct amdgpu_display_manager *dm,
+>  
+>  	wbcon->link = link;
+>  
+> -	drm_connector_helper_add(&wbcon->base.base, &amdgpu_dm_wb_conn_helper_funcs);
+> -
+> -	res = drm_writeback_connector_init(&dm->adev->ddev, &wbcon->base,
+> -					    &amdgpu_dm_wb_connector_funcs,
+> -					    &amdgpu_dm_wb_encoder_helper_funcs,
+> -					    amdgpu_dm_wb_formats,
+> -					    ARRAY_SIZE(amdgpu_dm_wb_formats),
+> -					    amdgpu_dm_get_encoder_crtc_mask(dm->adev));
+> +	drm_encoder_helper_add(&wbcon->encoder, &amdgpu_dm_wb_encoder_helper_funcs);
+> +	wbcon->encoder.possible_crtcs = amdgpu_dm_get_encoder_crtc_mask(dm->adev);
+>  
+> +	res = drm_encoder_init(&dm->adev->ddev, &wbcon->encoder,
+> +			       &amdgpu_dm_wb_encoder_funcs,
+> +			       DRM_MODE_ENCODER_VIRTUAL, NULL);
+>  	if (res)
+>  		return res;
+> +
+> +	drm_connector_helper_add(&wbcon->base.base, &amdgpu_dm_wb_conn_helper_funcs);
+> +
+> +	res = drm_writeback_connector_init_with_encoder(&dm->adev->ddev, &wbcon->base,
+> +							&wbcon->encoder,
+> +							&amdgpu_dm_wb_connector_funcs,
+> +							amdgpu_dm_wb_formats,
+> +							ARRAY_SIZE(amdgpu_dm_wb_formats));
+> +	if (res) {
+> +		drm_encoder_cleanup(&wbcon->encoder);
+> +		return res;
 > +	}
+>  	/*
+>  	 * Some of the properties below require access to state, like bpc.
+>  	 * Allocate some default initial connector state with our reset helper.
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
+> index e27f6e504395..9d237f2db95c 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
+> @@ -4535,7 +4535,7 @@ static void dm_test_clear_writeback_removes_stream(struct kunit *test)
+>  static void dm_test_set_writeback_no_pipe(struct kunit *test)
+>  {
+>  	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
+> -	struct drm_writeback_connector *wb_conn;
+> +	struct amdgpu_dm_wb_connector *wb_conn;
+>  	struct drm_connector_state *conn_state;
+>  	struct drm_writeback_job *job;
+>  	struct amdgpu_framebuffer *afb;
+> @@ -4565,7 +4565,7 @@ static void dm_test_set_writeback_no_pipe(struct kunit *test)
+>  	conn_state->writeback_job = job;
+>  	crtc_state->stream = dm_kunit_alloc_stream(test, NULL);
+>  
+> -	dm_set_writeback(&adev->dm, crtc_state, &wb_conn->base, conn_state);
+> +	dm_set_writeback(&adev->dm, crtc_state, &wb_conn->base.base, conn_state);
+>  
+>  	KUNIT_EXPECT_NULL(test, acrtc->wb_conn);
+>  	KUNIT_EXPECT_FALSE(test, acrtc->wb_pending);
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_wb_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_wb_test.c
+> index 03036f906385..2711696f6b9c 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_wb_test.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_wb_test.c
+> @@ -506,8 +506,8 @@ static void dm_test_wb_connector_init_success(struct kunit *test)
+>  	KUNIT_EXPECT_TRUE(test, wbcon->base.base.funcs != NULL);
+>  	KUNIT_EXPECT_TRUE(test, wbcon->base.base.helper_private != NULL);
+>  	KUNIT_EXPECT_TRUE(test, wbcon->base.base.state != NULL);
+> -	KUNIT_EXPECT_TRUE(test, wbcon->base.encoder.funcs != NULL);
+> -	KUNIT_EXPECT_EQ(test, wbcon->base.encoder.possible_crtcs, 0x1);
+> +	KUNIT_EXPECT_TRUE(test, wbcon->encoder.funcs != NULL);
+> +	KUNIT_EXPECT_EQ(test, wbcon->encoder.possible_crtcs, 0x1);
+>  }
+>  
+>  /* Tests for amdgpu_dm_wb_prepare_job / amdgpu_dm_wb_cleanup_job */
 
-If this cannot happen, then either drop it, or turn it into a WARN or 
-WARN_ONCE (the closest thing we have to "assert"). Other than that, this 
-patch looks good to me.
-
-Regards,
-   Felix
-
-
-> +
->   	for (i = offset; i < offset + npages; i++) {
->   		uint64_t gpu_start;
->   		uint64_t gpu_end;
-> @@ -2960,6 +2969,15 @@ svm_range *svm_range_create_unregistered_range(struct kfd_node *node,
->   					   &is_heap_stack))
->   		return NULL;
->   
-> +	if (p->svms.max_va_pfn) {
-> +		if (addr >= p->svms.max_va_pfn) {
-> +			pr_debug("fault address 0x%llx exceeds GPUVM limit 0x%llx\n",
-> +				 addr, p->svms.max_va_pfn);
-> +			return NULL;
-> +		}
-> +		last = min_t(unsigned long, last, p->svms.max_va_pfn - 1);
-> +	}
-> +
->   	r = svm_range_check_vm(p, start, last, &bo_s, &bo_l);
->   	if (r != -EADDRINUSE)
->   		r = svm_range_check_vm_userptr(p, start, last, &bo_s, &bo_l);
-> @@ -3410,9 +3428,18 @@ int svm_range_list_init(struct kfd_process *p)
->   	INIT_LIST_HEAD(&svms->criu_svm_metadata_list);
->   	spin_lock_init(&svms->deferred_list_lock);
->   
-> -	for (i = 0; i < p->n_pdds; i++)
-> -		if (KFD_IS_SVM_API_SUPPORTED(p->pdds[i]->dev->adev))
-> -			bitmap_set(svms->bitmap_supported, i, 1);
-> +	/* The ranges of this process must fit in every GPU that can map them,
-> +	 * so bound them by the smallest GPUVM among the SVM capable GPUs.
-> +	 */
-> +	for (i = 0; i < p->n_pdds; i++) {
-> +		struct kfd_process_device *pdd = p->pdds[i];
-> +
-> +		if (!KFD_IS_SVM_API_SUPPORTED(pdd->dev->adev))
-> +			continue;
-> +		bitmap_set(svms->bitmap_supported, i, 1);
-> +		svms->max_va_pfn = min_not_zero(svms->max_va_pfn,
-> +						kfd_svm_gpu_va_limit_pfn(pdd));
-> +	}
->   
->   	 /* Value of default granularity cannot exceed 0x1B, the
->   	  * number of pages supported by a 4-level paging table
-> @@ -3511,6 +3538,17 @@ svm_range_is_valid(struct kfd_process *p, uint64_t start, uint64_t size)
->   	if (check_add_overflow(start, size << PAGE_SHIFT, &end))
->   		return -EOVERFLOW;
->   
-> +	/* Reject up front what the GPUs of this process cannot map, rather
-> +	 * than letting the mapping fail later on.
-> +	 */
-> +	if (p->svms.max_va_pfn &&
-> +	    (end - 1) >> PAGE_SHIFT >= p->svms.max_va_pfn) {
-> +		pr_debug("CPU[0x%lx 0x%lx] exceeds GPUVM limit 0x%llx\n",
-> +			 start_unchg, (end - 1) >> PAGE_SHIFT,
-> +			 p->svms.max_va_pfn);
-> +		return -EINVAL;
-> +	}
-> +
->   	do {
->   		vma = vma_lookup(p->mm, start);
->   		if (!vma || (vma->vm_flags & device_vma))
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-> index f61030408f45..268a545302bd 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-> @@ -213,6 +213,14 @@ static inline bool kfd_svm_vm_covers_user_va(struct amdgpu_device *adev)
->   		AMDGPU_GMC_HOLE_START;
->   }
->   
-> +/* First CPU page index that this GPU's GPUVM cannot represent. An SVM range
-> + * is mappable on pdd only if its last page lies below this.
-> + */
-> +static inline uint64_t kfd_svm_gpu_va_limit_pfn(struct kfd_process_device *pdd)
-> +{
-> +	return pdd->dev->kfd->shared_resources.gpuvm_size >> PAGE_SHIFT;
-> +}
-> +
->   /* SVM API and HMM page migration work together, device memory type
->    * is initialized to not 0 when page migration register device memory.
->    */
