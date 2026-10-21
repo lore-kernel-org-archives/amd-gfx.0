@@ -2,42 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22A24606A31B
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Oct 2026 20:15:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D514606A319
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Oct 2026 20:48:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=RRlDhdzQ
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=W0MwSO+S
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD2F310E2FD;
-	Wed, 21 Oct 2026 20:15:31 +0000 (UTC)
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012011.outbound.protection.outlook.com [40.107.209.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D68410E2FD
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2026 20:15:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0FBCA10E070;
+	Wed, 21 Oct 2026 20:48:44 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010065.outbound.protection.outlook.com [52.101.46.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC5EA10E070
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2026 20:48:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=amJhn69ZO+ypQmlQPfCGvkcah4VGab3YG+NJCkBZXH4t/vdRCNryBeh0opZSxnsvO7+vDO+J8jKYCWK5gkTBwZXhv/sQz5SYY/scZnZROXA0WDfjaxBKL0kJ13wXOXsp6ZKCNVLvC2IlZSGc2+ikDfoKAoTXN7DJUSsBAL2ThkPp3ocZ1WpDILIqNucEIn7+QaaWyWKfU8E/yqFknM6w4467nDDaLiWVH3kvd86r2NRxtDx2Welgi+UE8T5GUpQyejFvYbtBnggNwfmDRcpMG3Oxz6oO0au7ae1fzAsmPjpA7MQFv/anEg/d+7TBa5rHHlLNk8IYadjupf1wKZsKAw==
+ b=u0mpUo5x5gobY8rtBA8psg8oDaeMvstVpogezXsTpk2+I6WH8WxpDBN9QYPiDD/Y0cMy6/IsvAOtBWl3no50MwTcMXIluPu/aAEs7B4p6Y+IfmybEyZi1rmkoiuJ2I++OctBJcrVKhFDR3XfAcmE42bMaMUwAEJvsNEuBI1TVzyMSIBmkkMTalamDiARCwm19oGkIYFmj+tTAc98EyQGZt1T4Pux0Ls8ISgAVWo9//J826nU4wUdHvBQnYAHj+H8icIVlYI3fqN4DPvHDwMNHCR9Weqaja3r9BXX+wopgmkiiEnpgyY642nYmcqvru5m84m+hJgylcWl/oL8D/xgog==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=t06HK4BGMV9yGh6F4Nd41KUl4RdQorfqhKU4SSlFnq8=;
- b=a9eqFTlSj3/93jI0h+8Hd+B0erHAUH4bLAVgsmH3ci7OBWT++0vn3Dojo1Dz4bslB/sBlgJa9Rrti1IRN3NzanUfBN8JZMxGzUdK3RM9sJzur9q5qUR2dzj3BqsLQOyvs7N6yLMvltuSXeW6hQcGTKfBfESILfgtUMTukFU7lxcZ0/+BWSWpjUcq0ZU1m7drsT0BSVH9P6rw2msEgwh2BzhJ5ETsn9o6fpTxhqrMBmr1gY6rGt4ove4XTRETKxyfWs2r6Tdr2OBKr+gM2xHGG6fCZZICuqFhQyPbNAhzbFBy4gQNitnIpBiaCIKl5a5n8NFo6ueQWWKwEMAiUPhE1A==
+ bh=vG3f6zMgCPR6zpzL5vR2r6CsFxJxk5LkbLL2yCfJu88=;
+ b=kTPmd8T1KS0gFmOiaqOeOCMtPnjsQ+y3NAgXWvHu1sD1zOdNS9cHqMN7WS+/mOwfOJkaVT0ThO/YoLHY7nmmMM9cTXQWpj7h52Ph3nRtOBFpnJvE5xxQQJYUADFTLrWFu+LzVZjbz2XxFjqNGd6j/ylWWfLjUBIlJS/Waz63rd3LYEHw50byBqKASNPuHDRcXF808RCwVBRT+rJsEgy33RxPDyKQQqtvQzuhfAxn9/ZX4xmul7HRQm0YrWTf/4axCoJAlUwB9w11nBoo2kS+/aH+nRa3ivSX/70A8eCVwBe9U4FoNd7upu4O5BD5lYav6xyJP6LQUYJnlid5tYxZ7A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=t06HK4BGMV9yGh6F4Nd41KUl4RdQorfqhKU4SSlFnq8=;
- b=RRlDhdzQ06ZmgRM77sxy7wzVQdq8My4S93AIctvAIKWhfYyJSPFoy3Bih2NVXAKdNQhOcyv6Xq4pS9xxOR/yCavwfkh5jt/+oWD2OsPzifXnP8hFVL/w9otka+zESm8KxBmc4qx/cCZ2j+OwCkz5fQhsW0D1jbxwL8oHJyxdVS8=
-Received: from BL0PR05CA0022.namprd05.prod.outlook.com (2603:10b6:208:91::32)
- by BY1PR12MB8445.namprd12.prod.outlook.com (2603:10b6:a03:523::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Wed, 21 Oct
- 2026 20:15:14 +0000
-Received: from BN3PEPF0000B373.namprd21.prod.outlook.com
- (2603:10b6:208:91:cafe::13) by BL0PR05CA0022.outlook.office365.com
- (2603:10b6:208:91::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Wed, 21
- Oct 2026 20:15:14 +0000
+ bh=vG3f6zMgCPR6zpzL5vR2r6CsFxJxk5LkbLL2yCfJu88=;
+ b=W0MwSO+SBHOZ54p8Bq7kOZZwKbzEfHFzdtx4gd4FLSmLVon9pv8l3RdXoUK2E1DHnEAYwVWmTOWlp0gbp6UzBKyH/uLi+ZASW7/NEZRYQX96zqgtqAI0a5FpkmqKFQQisvfxPA5VWMNNFYLR3HmIGmmcrJsqKQlSjQh+t8wprtU=
+Received: from BN0PR03CA0013.namprd03.prod.outlook.com (2603:10b6:408:e6::18)
+ by DS2PR12MB9565.namprd12.prod.outlook.com (2603:10b6:8:279::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
+ 2026 20:48:24 +0000
+Received: from BN1PEPF00005FFF.namprd05.prod.outlook.com
+ (2603:10b6:408:e6:cafe::a8) by BN0PR03CA0013.outlook.office365.com
+ (2603:10b6:408:e6::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.20 via Frontend Transport; Wed,
+ 21 Oct 2026 20:48:21 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -46,54 +46,53 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF0000B373.mail.protection.outlook.com (10.167.243.170) with Microsoft
+ BN1PEPF00005FFF.mail.protection.outlook.com (10.167.243.231) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.0 via Frontend Transport; Wed, 21 Oct 2026 20:15:14 +0000
-Received: from amd-desktop.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 21 Oct
- 2026 15:15:10 -0500
-From: Shahyan Soltani <shahyan.soltani@amd.com>
+ 15.21.546.15 via Frontend Transport; Wed, 21 Oct 2026 20:48:21 +0000
+Received: from heliosr-1b114-e03-4.mnb.dcgpu (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.53; Wed, 21 Oct 2026 15:48:20 -0500
+From: Ellen Pan <yunru.pan@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: <alexander.deucher@amd.com>, <christian.koenig@amd.com>
-Subject: [PATCH v2 3/3] drm/amdgpu: defer GPU resume from open/close to first
- use
-Date: Wed, 21 Oct 2026 16:14:59 -0400
-Message-ID: <20261021201459.715423-4-shahyan.soltani@amd.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261021201459.715423-1-shahyan.soltani@amd.com>
-References: <20261021201459.715423-1-shahyan.soltani@amd.com>
+CC: <Lijo.Lazar@amd.com>, <Zhigang.Luo@amd.com>, <Gavin.Wan@amd.com>,
+ <Jeffrey.Chan@amd.com>, <yunru.pan@amd.com>
+Subject: [PATCH] drm/amd/amdgpu: Fix NULL RAS context deref on VF
+ unrecoverable error
+Date: Wed, 21 Oct 2026 20:48:08 +0000
+Message-ID: <20261021204809.204454-1-yunru.pan@amd.com>
+X-Mailer: git-send-email 2.43.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B373:EE_|BY1PR12MB8445:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1b79ef69-f0be-405e-022b-08df2fb00482
+X-MS-TrafficTypeDiagnostic: BN1PEPF00005FFF:EE_|DS2PR12MB9565:EE_
+X-MS-Office365-Filtering-Correlation-Id: 69b18dc1-cd19-4d84-3f16-08df2fb4a4c0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|82310400026|1800799024|36860700016|261021121427099003|11063799006|56012099006|261021123027099003|261009221227099003|261009223027099003|10067099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info: VijUvyLMki45hoeBo/ETyQH0Q1NW2Zk5h2k0g14sSaH4xY9KfFJyng4ktJTu/xmyZDRH7oY6wf6XygaKnFYy+flFsGajxIHpmpLAWU19HHwI40EsHQBGDtyDvNYOpGmFyQnqoWZ/X+l9DXojGb+qefLNgMi81BMKpz5F++TNJMpyhyMfMhqoMEoEZn/01amdPwW9nVU2JA+vNeylv8wn7zSmG1FgIyZcnwrlkUYJd2RItjNUp9989nRzdZQJ+JcW+T3ewsbp6snkCXdQSF1G909WT4rgbUWL4JmBuopqMjHx+1Isr9uXvhh4uodjLtAD2JdEbcqefP5507OFvjoKQb21vUgoIaH78DOBiDicVhKsKjlGX9A9G+pQsLP9vAwMlbX7gDmKg9OBhVIrreXPusOGd/jfUm85szrZi+dXjRk5389vJrWG5eYHgUsGzeAIuymvyZwi0XhpT2ZaCBVM4lGIJhjEqoOOapfhdLdaR9C9goevf/6eIrbqr+SfgbE6Qcfff0J/M4zdY00koCe4EYWKaGj+tYNeD/g3Tw1FP/ikH9bs+YzyAIXxAlCdu1j2rAXRCqWl3UQ7nKyend5OMPmKB0ozEdGGXvr2oyd/Un6eIut78GLvWm4Zb0P02ypcirGD8hJVnser3+dE9VG60sZI/HETJ25gFt1NWYF41f4Prwup0rNBvrbTREi/4pSblTvzc3lUeWrMoVGfMoxygw==
+ ARA:13230040|23010399003|1800799024|376014|36860700016|82310400026|261021121427099003|56012099006|261021135927099003|11063799006|261009223027099003|10067099003|18002099003|261021123027099003;
+X-Microsoft-Antispam-Message-Info: j4o2/UMwq1Stubgybf2fijojeo+BSEEXWcFb9s5VLRVXpmc+1Z0DEgP9gi6rCfZxdQnIRcxhXG2JoifjZ8lg+K2ThNBhnj2Od2W8hEc3tpFszEIZYEdvibt74JR8GR6qISyQ2m25y3FWRj7oD4m0FAJ9OfreF5Mdz9t5WBVCsQZ7vlb7s/I6LgG2iC3Y3XJpxtvYdK4bANyJkGfRUhBZLRu1NOFBFhOFOfBzAkJoVWKjsahv5/lxeZVJzSX6QIQhRl53WxhgxD7lZRAxAk2sliv1svIq/rSGn8uzJITK8vPkrfgoDcFwCH1RG7/UEJ1Xp+zZONUQ9JykWhBNs3o2CgFwsWbP1VUd9lYMwFDs+YA4o9DmGZwLmEZiEQ8Cm5kVxVRYTR7vePOEM0e8zdOUKHGc6eMwDGOwJUWf6EOdnZe9le7HBuuaA1ph5CJVVobiwsjRv4hDGqa6JqyLnLvTKuQQEh9Kg0q5EOtQL7pb+SkrRZJ+xoFzB98LyQq2PtDjQxqZ2esjYA5QSQTTRA9dzcwN32ZLmSAMr9g9RPPalj2eHdEIxA8gxIiR4KiuKH53ARgCsT+X/93D9SDvzrXmjG72YM77e1IRPXmKim44EqbScTHy99lZneL4tuBVRK8oI4iujibgN6fFH+nm0KuC/dmLxwpzx0UnPRWfiJJ9ndlF+BeD+l2jhNcmb6mHnCjinMMqTflpMfOsbBte2g1wJw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(82310400026)(1800799024)(36860700016)(261021121427099003)(11063799006)(56012099006)(261021123027099003)(261009221227099003)(261009223027099003)(10067099003)(18002099003)(22082099003)(6133799003);
+ SFS:(13230040)(23010399003)(1800799024)(376014)(36860700016)(82310400026)(261021121427099003)(56012099006)(261021135927099003)(11063799006)(261009223027099003)(10067099003)(18002099003)(261021123027099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: eXrSW9HLU+hgWMLBMdj7hTXReppSyVGVP1sbvL7/Z9xydfZZD9qhgZG92sCanusyXyQotZtJnxjT8W3rVJMpFFrf5IEcuM+XhGcsfPwtgR93159IhsNEhckLIHnZi5h10I6Lq613dHXSuOWC3Prkcf+fZYtZw65L0POlNJwIQ0eMYbOPCsxRxsb/HLXEcPvh6ZJHYKIyvwmfU0LwT9DSULcQC54WixPMy60tHiPKTY1+lSnELfZu4pl/7NiRj4V2RBDXKH3oQRZC6Mda1od1m7f6OJEsTlq+KkJQdxazO0jm2aDPQsCF43/9U/bENiOvQP7j1AZmr/cx3nYpDs4SR48DbXt7UdUDyEbLK2fWv6tLWaX73bJcTCyInEQhIgjQL8/PhJo45Ebpoxw7ifckAgtEzZ3YEYPnxEZqPlc4ko2ksl2OJm6FxH65fsKCoBLC
+X-MS-Exchange-AntiSpam-MessageData-0: X3LUoH48JEgK5tLFyioWx7CmTI2QMZezMqP+CkZdkOTVyPHh7g+eCU9Wu8XEm39wYM5Dn+1GnFmKYG0tGS/7eA/MEmzCcyev3Y01StcPcHh7PKgFI25t9eXB6hiz9IPWFilLdIclhNO9akVUA0rY+YXKesdCIPtgytPeGlU261SrBl5DQgOlHz7cRLXbrWunDikEFqp5/nCpNqZGyrx/0FyZve9fzAJi8FjnFAp50NFoxwA2An7mjqw06OMFTQYBFoXYjW03CmwxGOP3gl/rwJFWg+KZO7YVm18czUERIwjb3MZmt+hgDszTfPoDCcmbHWHZ7M/aa6X237IzJHeBCwCdoG27svnNjVF1TG4M/ZRYJyH5l+/WbUkwi8K9ELTW80hIPv9TA8of146vhgR5C7ykrrpaZNhlnqmFOJfah3AeFVlaiAF0AL0App5mlLNp
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 20:15:14.5708 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1b79ef69-f0be-405e-022b-08df2fb00482
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 20:48:21.4137 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 69b18dc1-cd19-4d84-3f16-08df2fb4a4c0
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B373.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00005FFF.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY1PR12MB8445
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9565
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,208 +110,153 @@ X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-[Why]
-Every open system call for an amdgpu device holds a runtime reference
-and resumes the device from a BACO/BOCO sleep state even if direct
-hardware access is not required.
+A VF has no RAS context when RAS isn't supported on it or
+before RAS is initialized during probe. Handling
+UNRECOV_ERR_NOTIFICATION in that state dereferences a NULL
+amdgpu_ras pointer and panics the guest.
 
-[What]
-Drop pm_runtime_get_sync() from open/close KMS to prevent unnecessary
-resumes. Instead, the PM reference will only be held if the GPU is
-currently awake.
+The fix is to track the notification in adev->virt.unrecov_err
+instead of the RAS context, and amdgpu_Ras_is_rma() checks that
+flags for VFs. Once the flag is set, mailbox reqs fail immediately
+with -ENODEV and GPU recovery bails out. If the notification arrives
+during probe, probe now fails cleaning instead of panicking. If it
+arrives during unload, unload completes without accessing the HW.
 
-Introduce delayed virtual memory hardware initialization through a
-powered_init flag. The powered_init flag handles initializing the VM
-domain in a GTT or VRAM domain depending on the init state of the GPU.
-
-Remove the vm->generation assignment on amdgpu_vm_init() to force a
-mismatch and proccess the amdgpu_vm_validate() logic. This path will
-migrate GTT based page tables into VRAM upon a cs_ioctl, as well as
-clear any garbage data within those page tables.
-
-Signed-off-by: Shahyan Soltani <shahyan.soltani@amd.com>
+Signed-off-by: Ellen Pan <yunru.pan@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c    | 18 +++++++++---------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c     | 12 +++++++-----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h     |  5 ++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c  |  7 ++++++-
- 5 files changed, 27 insertions(+), 17 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c  |  3 +++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h |  3 +++
+ drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c    | 15 ++++++++++++---
+ drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c    | 23 ++++++++++++-----------
+ 4 files changed, 30 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index 14a72a406d37..6ac0459f202c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -1502,6 +1502,7 @@ int amdgpu_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
- 	struct amdgpu_fpriv *fpriv;
- 	struct drm_exec exec;
- 	int r, pasid = 0;
-+	int pm_ref;
- 
- 	/* Ensure IB tests are run on ring */
- 	flush_delayed_work(&adev->delayed_init_work);
-@@ -1514,9 +1515,7 @@ int amdgpu_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
- 
- 	file_priv->driver_priv = NULL;
- 
--	r = pm_runtime_get_sync(dev->dev);
--	if (r < 0)
--		goto pm_put;
-+	pm_ref = pm_runtime_get_if_active(dev->dev);
- 
- 	fpriv = kzalloc(sizeof(*fpriv), GFP_KERNEL);
- 	if (unlikely(!fpriv)) {
-@@ -1530,7 +1529,7 @@ int amdgpu_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
- 
- 	amdgpu_debugfs_vm_init(file_priv);
- 
--	r = amdgpu_vm_init(adev, &fpriv->vm, fpriv->xcp_id);
-+	r = amdgpu_vm_init(adev, &fpriv->vm, fpriv->xcp_id, !!pm_ref);
- 	if (r)
- 		goto error_pasid;
- 
-@@ -1597,9 +1596,8 @@ int amdgpu_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
- 	kfree(fpriv);
- 
- out_suspend:
--pm_put:
--	pm_runtime_put_autosuspend(dev->dev);
--
-+	if (pm_ref > 0)
-+		pm_runtime_put_autosuspend(dev->dev);
- 	return r;
- }
- 
-@@ -1619,12 +1617,13 @@ void amdgpu_driver_postclose_kms(struct drm_device *dev,
- 	struct amdgpu_bo_list *list;
- 	struct amdgpu_bo *pd;
- 	unsigned long handle;
-+	int pm_ref;
- 	u32 pasid;
- 
- 	if (!fpriv)
- 		return;
- 
--	pm_runtime_get_sync(dev->dev);
-+	pm_ref = pm_runtime_get_if_active(dev->dev);
- 
- 	if (amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYPE_UVD) != NULL)
- 		amdgpu_uvd_free_handles(adev, file_priv);
-@@ -1663,7 +1662,8 @@ void amdgpu_driver_postclose_kms(struct drm_device *dev,
- 	kfree(fpriv);
- 	file_priv->driver_priv = NULL;
- 
--	pm_runtime_put_autosuspend(dev->dev);
-+	if (pm_ref > 0)
-+		pm_runtime_put_autosuspend(dev->dev);
- }
- 
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-index 6cd3927a7e82..c8d558d07d1e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-@@ -4169,7 +4169,7 @@ int amdgpu_ualink_manager_start(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index 557baca454a9..8349b86ab932 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -4925,6 +4925,9 @@ bool amdgpu_ras_is_rma(struct amdgpu_device *adev)
  {
- 	int i, r;
+ 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
  
--	r = amdgpu_vm_init(adev, &adev->ualink.npa_vm, 0);
-+	r = amdgpu_vm_init(adev, &adev->ualink.npa_vm, 0, true);
- 	if (r)
- 		goto out;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 961557997cd2..2cb194dea6d6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -2634,7 +2634,7 @@ void amdgpu_vm_set_task_info(struct amdgpu_vm *vm)
-  * 0 for success, error for failure.
-  */
- int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
--		   int32_t xcp_id)
-+		   int32_t xcp_id, bool device_active)
- {
- 	struct amdgpu_bo *root_bo;
- 	struct amdgpu_bo_vm *root;
-@@ -2658,6 +2658,7 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 
- 	ttm_lru_bulk_move_init(&vm->lru_bulk_move);
- 
-+	vm->powered_init = device_active;
- 	vm->is_compute_context = false;
- 	vm->need_tlb_fence = amdgpu_userq_enabled(&adev->ddev);
- 
-@@ -2678,7 +2679,6 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 	vm->last_update = dma_fence_get_stub();
- 	vm->last_unlocked = dma_fence_get_stub();
- 	vm->last_tlb_flush = dma_fence_get_stub();
--	vm->generation = amdgpu_vm_generation(adev, NULL);
- 
- 	mutex_init(&vm->eviction_lock);
- 	vm->evicting = false;
-@@ -2701,9 +2701,11 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 	if (r)
- 		goto error_free_root;
- 
--	r = amdgpu_vm_pt_clear(adev, vm, root, false);
--	if (r)
--		goto error_free_root;
-+	if (device_active) {
-+		r = amdgpu_vm_pt_clear(adev, vm, root, false);
-+		if (r)
-+			goto error_free_root;
-+	}
- 
- 	r = amdgpu_vm_create_task_info(vm);
- 	if (r)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-index 06e0ddd60c7b..8ed9c88c4da3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-@@ -372,6 +372,8 @@ struct amdgpu_vm {
- 	bool			is_npa;
- 	/* Flag to indicate if VM needs a TLB fence (KFD or KGD) */
- 	bool			need_tlb_fence;
-+	/* Flag to indicate if VM during initialization holds a runtime reference */
-+	bool			powered_init;
- 
- 	/* Memory partition number, -1 means any partition */
- 	int8_t			mem_id;
-@@ -433,7 +435,8 @@ void amdgpu_vm_manager_init(struct amdgpu_device *adev);
- void amdgpu_vm_manager_fini(struct amdgpu_device *adev);
- 
- long amdgpu_vm_wait_idle(struct amdgpu_vm *vm, long timeout);
--int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm, int32_t xcp_id);
-+int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm, int32_t xcp_id,
-+		   bool device_active);
- int amdgpu_vm_make_compute(struct amdgpu_device *adev, struct amdgpu_vm *vm);
- int amdgpu_vm_make_npa(struct amdgpu_device *adev, struct amdgpu_vm *vm);
- void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-index c73eb416c0e2..c22b3fc82a05 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-@@ -456,7 +456,7 @@ int amdgpu_vm_pt_create(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 	bp.size = amdgpu_vm_pt_size(adev, level);
- 	bp.byte_align = AMDGPU_GPU_PAGE_SIZE;
- 
--	if (!adev->gmc.is_app_apu)
-+	if (!adev->gmc.is_app_apu && (vm->powered_init || vm->root.bo))
- 		bp.domain = AMDGPU_GEM_DOMAIN_VRAM;
- 	else
- 		bp.domain = AMDGPU_GEM_DOMAIN_GTT;
-@@ -486,6 +486,11 @@ int amdgpu_vm_pt_create(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 	if (r)
- 		return r;
- 
-+	if (bp.domain == AMDGPU_GEM_DOMAIN_GTT && !adev->gmc.is_app_apu) {
-+		(*vmbo)->bo.preferred_domains = AMDGPU_GEM_DOMAIN_VRAM;
-+		(*vmbo)->bo.allowed_domains = AMDGPU_GEM_DOMAIN_GTT | AMDGPU_GEM_DOMAIN_VRAM;
-+	}
++	if (amdgpu_sriov_vf(adev))
++		return adev->virt.unrecov_err;
 +
- 	/* Assumes that reservation is shared with the VM root and that the
- 	 * reservation is locked
- 	 */
+ 	if (amdgpu_uniras_enabled(adev))
+ 		return amdgpu_ras_mgr_is_rma(adev);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+index a2c1aa838737..4a30306a387d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+@@ -358,6 +358,9 @@ struct amdgpu_virt {
+ 
+ 	/* hibernate and resume with different VF feature for xgmi enabled system */
+ 	bool is_xgmi_node_migrate_enabled;
++
++	/* PF reported the VF unrecoverable */
++	bool unrecov_err;
+ };
+ 
+ struct amdgpu_video_codec_info;
+diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
+index fec08f235b92..4dcfa256c9e1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
++++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
+@@ -98,6 +98,16 @@ static int xgpu_ai_poll_ack(struct amdgpu_device *adev)
+ 	return -ETIME;
+ }
+ 
++static void xgpu_ai_set_unrecov_err(struct amdgpu_device *adev)
++{
++	if (adev->virt.unrecov_err)
++		return;
++
++	adev->virt.unrecov_err = true;
++
++	dev_err(adev->dev, "VF is in an unrecoverable state. Runtime Services are halted.\n");
++}
++
+ static int xgpu_ai_poll_msg(struct amdgpu_device *adev, enum idh_event event)
+ {
+ 	int r, timeout = AI_MAILBOX_POLL_MSG_TIMEDOUT;
+@@ -345,7 +355,6 @@ static int xgpu_ai_mailbox_rcv_irq(struct amdgpu_device *adev,
+ 				   struct amdgpu_iv_entry *entry)
+ {
+ 	enum idh_event event = xgpu_ai_mailbox_peek_msg(adev);
+-	struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
+ 
+ 	switch (event) {
+ 	case IDH_RAS_BAD_PAGES_READY:
+@@ -360,8 +369,8 @@ static int xgpu_ai_mailbox_rcv_irq(struct amdgpu_device *adev,
+ 		break;
+ 	case IDH_UNRECOV_ERR_NOTIFICATION:
+ 		xgpu_ai_mailbox_send_ack(adev);
+-		ras->is_rma = true;
+-		dev_err(adev->dev, "VF is in an unrecoverable state. Runtime Services are halted.\n");
++		xgpu_ai_set_unrecov_err(adev);
++
+ 		if (amdgpu_sriov_runtime(adev))
+ 			WARN_ONCE(!amdgpu_reset_domain_schedule(adev->reset_domain,
+ 					&adev->virt.flr_work),
+diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
+index eb537b2ae685..3062f1506760 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
++++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
+@@ -103,11 +103,20 @@ static int xgpu_nv_poll_ack(struct amdgpu_device *adev)
+ 	return -ETIME;
+ }
+ 
++static void xgpu_nv_set_unrecov_err(struct amdgpu_device *adev)
++{
++	if (adev->virt.unrecov_err)
++		return;
++
++	adev->virt.unrecov_err = true;
++
++	dev_err(adev->dev, "VF is in an unrecoverable state. Runtime Services are halted.\n");
++}
++
+ static int xgpu_nv_poll_msg(struct amdgpu_device *adev, enum idh_event event)
+ {
+ 	int r;
+ 	uint64_t timeout, now;
+-	struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
+ 
+ 	now = (uint64_t)ktime_to_ms(ktime_get());
+ 	timeout = now + NV_MAILBOX_POLL_MSG_TIMEDOUT;
+@@ -119,11 +128,7 @@ static int xgpu_nv_poll_msg(struct amdgpu_device *adev, enum idh_event event)
+ 					event, NV_MAILBOX_POLL_MSG_TIMEDOUT - timeout + now);
+ 			return 0;
+ 		} else if (r == -ENODEV) {
+-			if (!amdgpu_ras_is_rma(adev)) {
+-				ras->is_rma = true;
+-				dev_err(adev->dev, "VF is in an unrecoverable state. "
+-						"Runtime Services are halted.\n");
+-			}
++			xgpu_nv_set_unrecov_err(adev);
+ 			return r;
+ 		}
+ 
+@@ -453,7 +458,6 @@ static int xgpu_nv_mailbox_rcv_irq(struct amdgpu_device *adev,
+ 				   struct amdgpu_iv_entry *entry)
+ {
+ 	enum idh_event event = xgpu_nv_mailbox_peek_msg(adev);
+-	struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
+ 
+ 	switch (event) {
+ 	case IDH_RAS_BAD_PAGES_READY:
+@@ -468,10 +472,7 @@ static int xgpu_nv_mailbox_rcv_irq(struct amdgpu_device *adev,
+ 		break;
+ 	case IDH_UNRECOV_ERR_NOTIFICATION:
+ 		xgpu_nv_mailbox_send_ack(adev);
+-		if (!amdgpu_ras_is_rma(adev)) {
+-			ras->is_rma = true;
+-			dev_err(adev->dev, "VF is in an unrecoverable state. Runtime Services are halted.\n");
+-		}
++		xgpu_nv_set_unrecov_err(adev);
+ 
+ 		if (amdgpu_sriov_runtime(adev))
+ 			WARN_ONCE(!amdgpu_reset_domain_schedule(adev->reset_domain,
 -- 
-2.56.0
+2.43.0
 
