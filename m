@@ -2,74 +2,76 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14A44606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10F9E606A31F
 	for <amd-gfx@archiver.kernel.org>; Wed, 21 Oct 2026 13:09:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=sWPaowe6
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=iiRQ/HCb
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BCC710E2E8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90E4710E237;
 	Wed, 21 Oct 2026 13:09:26 +0000 (UTC)
-Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com
- [209.85.217.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 710AA10FD9E
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2026 11:41:53 +0000 (UTC)
-Received: by mail-vs1-f53.google.com with SMTP id
- ada2fe7eead31-7cc0e865dd1so179579137.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2026 04:41:53 -0700 (PDT)
+Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com
+ [209.85.221.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBD2810FD99
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2026 11:42:00 +0000 (UTC)
+Received: by mail-vk1-f178.google.com with SMTP id
+ 71dfb90a1353d-5eac6c5f927so187154e0c.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2026 04:42:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792582912; x=1793187712; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=Fx75j4SxhSfx9/iSOVIDoOGsjmIu6P89n8oQ2wrar1Q=;
- b=sWPaowe6ngjS0YD/gPl6Is9y0HUgKrXGM2HpjkokH4ckunEJYdRiYLzIdr6ZhgkgZQ
- mQ5s+/BKyAsT/lB19KlkO0qD/VpKtSX8DsWugTMdyz9Mh/0l+JMOGJmeZr9reGptyDRh
- YRNUMaVQij5sr1zxznXM98nx41am+FAliS4QV2ckemMrFdrsV+rxnjS3crZzaVMMCejY
- ngwtXttlMUjONvf0CZRIqfIX7PUpFvJfCXyfJOqr8/PIaOzgDrAec95CvMv3DV9/01WY
- nsUwmjZz6Nmxw4lOloctgLxST0fafCfP4IFQgcTbyjVqH8x0+TFHPAND4lgd51FylCDY
- xDZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792582912; x=1793187712;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1792582919; x=1793187719; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=Fx75j4SxhSfx9/iSOVIDoOGsjmIu6P89n8oQ2wrar1Q=;
- b=rG/Nx5ILlcm4AnUCgJwDvEisgJ3kbc85WX/rHqZKJnp03LgfPcDRCn4gVkq3sGKMTj
- IO90AgTgOoDxI2tBxMtyNco5BWzUXAr6s3v+ZBeWz81QVXr1qeMIlMvr+unCAYtEM6FB
- 0hJE4NUa5SQB+Rpf1BOqr3HdDSCEAX5CwhqRASJ/41POkv+cZ7KJ0T+eSQ1J1+FFZI86
- y0dkp3WW9eXzAlsOpGfVaorjWkQvrWz/dUbwF+7p/cLG3BGWO93qiaOMNU5Leyc+gS9H
- ibPLt0sfpeTTET5aW8x8kXEgJ5CudGHBePO2Ousvt1F2Ukvpso6ezAU5PXC7NqodvEre
- j1RA==
+ bh=BIPpbckw4KCv3KnM8UNOMNM81SAc/Xr6FmEH7qH71N8=;
+ b=iiRQ/HCbz+8yCBvyU4r/TowKsX5jy+r7GnqJzrDJRFkb7p4pbfPkfxGvZwZXoTgZpy
+ VNhQfs5zqYfdX8rNERfqKRF9ZSMHcBlwz1tAv9/8X3Skowl+45twlpumhiKM0oeyxe9u
+ jzFj+uRBqIqJAQc0TRL2+ePw61kSlcg3poILy7IyHtJtPkrcw84TXFeohkan/HJcH9xW
+ stDMHMVlF+EkzREBnEqiFyp7BHmIvlmESd5dfENsdCvbe8U2X939SQaTfvumF3wNV9g5
+ Vd0Qd4/rYgZs+wNxvPfPW7WbmIGBH3DWBeSrbzVhtIqQ7AQetz6w8dVeBXSEG448tjcz
+ WZ/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792582919; x=1793187719;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=BIPpbckw4KCv3KnM8UNOMNM81SAc/Xr6FmEH7qH71N8=;
+ b=zU5kM5yv3RCcQrrQMhUi0EqauVfCNv0QFHtq2Qi+3a5I5RFJeQYDxh4EHVmO34vvCA
+ tRJ9K82VXVlepisNtyDMrvoXWH3oCqyQVCa3fxy8TvJR+duxlgicql7X6SROQGl8FTdT
+ y3/BLbb1O66RyGv3TuLqIRbX253pW+DdGpJ7eRiKoRZ7dC9+gU5xiLKFWcEle6otm6DX
+ mjDKVdHh1YmBivxriPd2wwlOb2/zS4uqtagkDKzXyH2pZhEKWB2CwvKlGb+JPDLVKbZL
+ E7UGfIsi7gHJ0VAYAfnjuuUlr+/HBHTJDCZf6jll63PgxhtzWbS0+Il4PsWGMXoyMqhu
+ I30Q==
 X-Forwarded-Encrypted: i=1;
- AKwUvByIbGYp+mP/XflSj1x8TTx+L3c2avQPnfamhj+v9KTjomGZXbv1Te6PI3RRVMO+KyelaSLPSw44@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLWcsqug/e2/tIG0qopdYKaCTzvX9DHRypD+WY2krRkzcvcdzCs
- uqK9uVEeyZG26Q0Rx2F6ltkV2FKA+iraTBoK6kuoNtBb8SGpvienZr4odiSpwarS
-X-Gm-Gg: AYBFou1JIvai61BYlvHAijp+l3SrD3yMiY6qv3aFlb2jobd6K2HUKxPFzCNfWUmQEoP
- UWfBwlWGpHYkgPJv64eWEid6QT20uo3bFG6t4o0JDCRssIiX3FnrlmAS7rRcz8urotBDiuMs1ZX
- u6QRc0wg+YUZfvxM1L2MDxOqBw1Y9fFDAwD/R7W630k2cuTLgDK2Ti4eUajqEUJDZzn/CbipweD
- S7sqYTZpU+PHatL41QsQXKw2LAapp4wfhGuQq1NEw5NP04Kb8PN+MX2VxAXQi2Kqi86pCGHke3c
- NKGalf+Yjy4SR7puUdRkuIsPHuOTVP06cktP058dqNdgx9VV4H3NUexiO7YxgcPBQb8hQI8sv9J
- CXrzYGCnlb7XyBlcCxKrgRM8b5CdOPy37A/t8abEWlYVa/51qzcNI9Z5OTqO2yUx+MJTH5fLUB0
- qP2v3JoQxfihpDslph/Ie7edMdAGh0YDR38ikzDd+XLE0XSywDPgB3zVXucI62blDx4XvO+P76w
- NEbF1x6n8rWpmQAk2vw1El8U4GlBBv7pSivsCM3u3cpbi7RX00e7f1e25XbhQvs7NmO6P0=
-X-Received: by 2002:a05:6102:5346:b0:7c0:9788:b46e with SMTP id
- ada2fe7eead31-7cc926f8856mr513003137.32.1792582912106; 
- Wed, 21 Oct 2026 04:41:52 -0700 (PDT)
+ AKwUvBxBUhZYt6kOMYVeHSLw6X7tE0d/LoSE2ONu8JnM/X0MmR9LtaSmes4Yb1hCxekfTaNodmauaody@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKVuqip6LWeYh6je+ZpDTv/pbouQzPZ9rqOfiIL3/A1KI8L3LqG
+ kig15xrlmfn2vhRRQkOAIFYorbdQN91kHhLo3J2Sc33K4bpiObiSTDXT
+X-Gm-Gg: AYBFou202aCIKUJSGqSPgf0RSK/jCKmDp7W32OAwdKehsrAXn+bS9rKkJ75h9cP0l5D
+ gtKmmE4qg0bIQ2zxBy9kQ44BGY0TYjvYJ+sT6E6KHPxuZH4XaGuP8ZqyJTFrZNj8Zgeng6/FUpL
+ MKcHNYOhA0NpIcHeT18Tx4TVTebhtom400vlcXsUR2EvSec8DiX7u5jg38G4Clwdj1528DYg+BF
+ whug5Evy0tqoo4lrZc5p7QUiilfW8mzvkKCZBjBzCzhgCEk+wKl0NG8CYrDm5GSniAwbpmgDxnw
+ VGX+gUJIeXG49TWT0nQG7BcZvmxdpF0iMVqOnOsmKZrVqLh42YuNuospvGaKgAX2MreWzSKRZCn
+ 0jN0hk/jscYpvOOPU+lh3eEimuQk9XLtxvJAcf/ZupiBG+sXXAkGMGaY4eG7bZjDo26c5+VrU2y
+ Sc8V9tc6q5cjEx+JUiRG140BvYsYq4BEIjrkivQ751AQ1+HZC92FfLFYd7j4XvV7xiLa0Gu5E4l
+ CdWrS83PuxyaZCSjG55Hfd9rA/GHRhhu0n9zvAt+qqA9upllot+aBMRRhZdl/WIKya+96c=
+X-Received: by 2002:a05:6102:508f:b0:7cc:1ace:fd0b with SMTP id
+ ada2fe7eead31-7cc925e41e6mr560431137.8.1792582918645; 
+ Wed, 21 Oct 2026 04:41:58 -0700 (PDT)
 Received: from localhost.localdomain ([177.155.254.119])
  by smtp.gmail.com with ESMTPSA id
- ada2fe7eead31-7cc91f9c7f1sm2365006137.0.2026.10.21.04.41.49
+ ada2fe7eead31-7cc91f9c7f1sm2365006137.0.2026.10.21.04.41.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 21 Oct 2026 04:41:51 -0700 (PDT)
+ Wed, 21 Oct 2026 04:41:58 -0700 (PDT)
 From: Matheus Tagliari <mptagliari@gmail.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Cc: Matheus Tagliari <mptagliari@gmail.com>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 0/2] drm/radeon: fix VCE1 encoding on SI by handling the VCE
- interrupt
-Date: Wed, 21 Oct 2026 08:41:16 -0300
-Message-ID: <20261021114122.94008-1-mptagliari@gmail.com>
+Subject: [PATCH 2/2] drm/radeon/vce1: enable the VCE trap interrupt
+Date: Wed, 21 Oct 2026 08:41:18 -0300
+Message-ID: <20261021114122.94008-3-mptagliari@gmail.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261021114122.94008-1-mptagliari@gmail.com>
+References: <20261021114122.94008-1-mptagliari@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -84,59 +86,79 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hardware H.264 encoding with the VCE block on SI GPUs (radeon driver)
-hangs the GPU after a few dozen frames.  I hit it with the KDE Plasma
-RDP server, which encodes through VAAPI, and reproduced it with a
-plain "ffmpeg -vaapi_device ... -c:v h264_vaapi" test on a Radeon HD
-8870M (Cape Verde).
+vce_v2_0 sets VCE_SYS_INT_TRAP_INTERRUPT_EN in VCE_SYS_INT_EN so that
+the VCE_CMD_TRAP emitted after each fence raises an interrupt.  The
+VCE1 code, used by SI and Trinity/Richland, never does, and amdgpu's
+vce_v1_0 does (mmVCE_SYS_INT_EN, 0x8340, i.e. byte offset 0x20d00 on
+SI).  VCE fences are therefore never processed from the interrupt
+handler and are only noticed when a fence wait times out.
 
-The VCE1 code never enables the VCE trap interrupt and the SI (and
-Trinity) interrupt handlers do not process it, unlike the CIK code and
-amdgpu.  Patch 1 adds the handlers, patch 2 enables the interrupt.
+Enable the trap interrupt at the end of vce_v1_0_start().
 
-Results on Debian 6.12.113 (see patch 2 for numbers): hang before,
-none after, and 34 fps instead of ~4 fps for the workaround that avoids
-the hang.  The KDE RDP server (KRDP) itself, driven by a local FreeRDP
-client, now encodes on the VCE ring for several minutes (about 40
-fences per second on ring 6 in the radeon_fence_emit tracepoint) with a
-clean kernel log.
+Observed on a Radeon HD 8870M (Cape Verde, 1002:6821) with VCE firmware
+50.0.1, Mesa 25.0.7 radeonsi and ffmpeg h264_vaapi on Debian 6.12.113:
 
-Two caveats:
+ - Stock driver: the encode hangs after a few dozen frames ("ring 0
+   stalled", "ring 3 stalled", "GPU lockup"), and the reset does not
+   recover ("failed VCE resume (-22)", "ring 0 test failed").
+ - With the hardware ring semaphores of the VCE ring disabled as a
+   workaround, the hang is gone but encoding runs at 3.9 fps
+   (~256 ms per frame), consistent with fences being noticed only by
+   timeouts.
+ - With this series: 640x360 for 1800 frames, 1280x720 for 900 frames
+   and 1920x1080 for 600 frames, all in real time with no decode
+   errors, and 191 fps at 720p / 91 fps at 1080p unthrottled.  Four
+   runtime suspend/resume cycles with an encode in between also
+   worked.  No lockup, reset, WARNING or error in the kernel log, with
+   DPM and runtime PM enabled.
 
- - I have not worked out why the missing interrupt turns into ring
-   lockups instead of only added latency.  What I know is that the
-   hang needs the VCE ring to wait on a hardware semaphore (disabling
-   only the waiting side, or both sides, of radeon_vce_semaphore_emit()
-   avoids it) and that handling the interrupt makes it go away with
-   the semaphores left enabled.  If someone knows why, I would be glad
-   to improve the commit message.
- - The Trinity/Richland change is compile tested only.
+Trinity/Richland shares this code and is covered by the previous
+patch, but I have no such hardware to test.
 
-The series was developed and tested on Debian's 6.12.113 with the
-radeon module built out of tree.  It applies cleanly on drm-next
-(fad06cf), where drivers/gpu/drm/radeon builds without warnings (W=1,
-allmodconfig) both after patch 1 and with the whole series.
+Fixes: a918efab631a ("drm/radeon: add VCE 1.0 support v4")
+Cc: stable@vger.kernel.org
+Signed-off-by: Matheus Tagliari <mptagliari@gmail.com>
+---
+ drivers/gpu/drm/radeon/sid.h      | 2 ++
+ drivers/gpu/drm/radeon/vce_v1_0.c | 4 ++++
+ 2 files changed, 6 insertions(+)
 
-Matheus Tagliari (2):
-  drm/radeon: process the VCE interrupt on SI and Trinity
-  drm/radeon/vce1: enable the VCE trap interrupt
-
- drivers/gpu/drm/radeon/evergreen.c | 14 ++++++++++++++
- drivers/gpu/drm/radeon/si.c        | 14 ++++++++++++++
- drivers/gpu/drm/radeon/sid.h       |  2 ++
- drivers/gpu/drm/radeon/vce_v1_0.c  |  4 ++++
- 4 files changed, 34 insertions(+)
-
-
-base-commit: fad06cfaf385787b9ffa2f73f049d42dbe1de57f
+diff --git a/drivers/gpu/drm/radeon/sid.h b/drivers/gpu/drm/radeon/sid.h
+index f9267b026..ba322de84 100644
+--- a/drivers/gpu/drm/radeon/sid.h
++++ b/drivers/gpu/drm/radeon/sid.h
+@@ -1878,6 +1878,8 @@
+ #define	DMA_PACKET_NOP					  0xf
+ 
+ #define VCE_STATUS					0x20004
++#define VCE_SYS_INT_EN					0x20d00
++#define		VCE_SYS_INT_TRAP_INTERRUPT_EN		(1 << 3)
+ #define VCE_VCPU_CNTL					0x20014
+ #define		VCE_CLK_EN				(1 << 0)
+ #define VCE_VCPU_CACHE_OFFSET0				0x20024
+diff --git a/drivers/gpu/drm/radeon/vce_v1_0.c b/drivers/gpu/drm/radeon/vce_v1_0.c
+index bdfbcf14b..0866e7fb0 100644
+--- a/drivers/gpu/drm/radeon/vce_v1_0.c
++++ b/drivers/gpu/drm/radeon/vce_v1_0.c
+@@ -350,6 +350,10 @@ int vce_v1_0_start(struct radeon_device *rdev)
+ 		return r;
+ 	}
+ 
++	/* enable the trap interrupt so that VCE fences are processed */
++	WREG32_P(VCE_SYS_INT_EN, VCE_SYS_INT_TRAP_INTERRUPT_EN,
++		 ~VCE_SYS_INT_TRAP_INTERRUPT_EN);
++
+ 	return 0;
+ }
+ 
 -- 
 2.47.3
 
