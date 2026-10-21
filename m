@@ -2,77 +2,77 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26843606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3129F606A31A
 	for <amd-gfx@archiver.kernel.org>; Wed, 21 Oct 2026 13:09:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=LjXYoBHC
+	dkim=pass (1024-bit key, unprotected) header.d=furiosa.ai header.i=@furiosa.ai header.a=rsa-sha256 header.s=google header.b=c4uZ2YHj
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCDAB10E2F4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFC2410E30B;
 	Wed, 21 Oct 2026 13:09:29 +0000 (UTC)
-Received: from mail-ua1-f51.google.com (mail-ua1-f51.google.com
- [209.85.222.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE60410FDAB
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2026 11:41:56 +0000 (UTC)
-Received: by mail-ua1-f51.google.com with SMTP id
- a1e0cc1a2514c-9906a5410f5so1241210241.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2026 04:41:56 -0700 (PDT)
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
+ [209.85.216.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 37B0B10FDCD
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2026 12:22:07 +0000 (UTC)
+Received: by mail-pj1-f54.google.com with SMTP id
+ 98e67ed59e1d1-3a0aaa0fd13so434180a91.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2026 05:22:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792582915; x=1793187715; darn=lists.freedesktop.org;
+ d=furiosa.ai; s=google; t=1792585327; x=1793190127; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=BzvnC7BX4lHpgCzhnJO5oI/EjW4Sy80MjAmOtqEc83U=;
- b=LjXYoBHCll9XcFOkn3r69yRnoguU1kbYyfx7WHevFx5MTlRdTNb2teJ9CsVAX6zBUX
- grxsSRg8JBnfXtSlpTbgrJ7sMfvyqzY48QYW0BtzicCmi5frgDQGkQiwNvstoHnaPmzv
- pZve5rIvwiqf434yio7jUyDkpbKNKXB2Fk3TWvKPX1x5LDi2KftLpxBf2j3DlcXMEF9x
- 0CbHKs0sC39ktoSlAKwz8DAohfQvt8cltH4s7rjosJ67ABPj1vzvi/p2/KoeH5mEkZRA
- VAuXSKJxIPE0zTmRtj7KFLa4fDM1fV/Ce6bI6gPM4nktT31wlWNvzYpJfE7SAdFqO3rD
- S4ag==
+ bh=nm84xhZ5VD0N09VimNJbbjTrxWz/UGMFx4b8eXz8p5M=;
+ b=c4uZ2YHjUfAenbmVZxsXFE2q9hQJLHzzsiVevdCUMC4cuA3Xb4YfMhl9to8ZNB3QkJ
+ MxhDDOesEvmQn3CXvLljT6efwS3nAIRe5HbN/Vu6lwvU5TqmSaEiYDrYpknMGJ6GjKhC
+ Hzj3z8OdZKg1l6+YWYLb8ghSQaYl95TIReZXo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792582915; x=1793187715;
+ d=1e100.net; s=20260707; t=1792585327; x=1793190127;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=BzvnC7BX4lHpgCzhnJO5oI/EjW4Sy80MjAmOtqEc83U=;
- b=E41o/SkN/BM6X/5+wXNk7JHuvRGmLkzxRN8/PglaOXl/JjOGudHPRqcOKeBwE9GUwi
- EUHErFgUYfFuVG27Epi2fA5EHcaVzDzTIPtYr0gZW7v9UpiUUA93ZnSQffyDH0qkwkZy
- yO0oIJFt+wRizlSDugcRDtRiMPyOj2RlqUCR0TJeYWS/MkmSrlXie71dMPwwdw7f1KAA
- cOnnGsG8d/OhJ6k6eaffAC0L3aUmiU7cZhM0j/vXmhRvaRw8Kap2DRKaPZvys1t6n9/o
- eZ6yyC42gpkuZwTJnOdU6xJ4fCIrk0KZlUV/NQPJSidc4DSBUgh6kvSqRTiJrUAlsoUf
- 0gmw==
+ bh=nm84xhZ5VD0N09VimNJbbjTrxWz/UGMFx4b8eXz8p5M=;
+ b=B+TGdwULnixkkfMwLK+gWkM7urlG7NXsQnIQdtm5JQszGVFrh4aXlrbQDSCLGjDpqU
+ iN3CXAFOiNIZdWlVEDHse1hPvY+pXPaIPilzBrk8SStvpOlMzx+QjB7ez5j07AnaABsn
+ u7DouVrU4X9yc04sWpiOHOELR4S5XMfPB+qRfAkH8cbYKfWSBB3mPvfTYACIxgP3Rtqz
+ pYBc6vgMHbh07y0sG+lO2bMC7y+TuG5DtBkLKE+vuCy2nUL3V5twVq9TpyHfaZegWJ0J
+ GKLhIRolDq/jMysFTt7N8xd6/ZPu6VDqzjZ2RT2Ytci5UWKxNWmqtqlKe7kN3AsEcyAN
+ DnIg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzLO+EZTnELtN8UnZSQlFjAsC/0wPsyWV0KIRzKzBJI6SGwE8LV6Upa/mKlAJVqk2B6teSYxSqz@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJuv5RSVRCVj5pxr5jJr4uAFpa6ntxr8b+/NUg0q3ZRI+mcXw2N
- Wa+kY+aytALUR7aTZXYDZqKLKJpld8rjzr0osstCbnUG/JV8F+DSUILx
-X-Gm-Gg: AYBFou2VjX2qcP93vIGW62ke7IiKemUznCTaMxMjuAxXY2DFSDs0BPe58k6G4hXnHpk
- Lk++1RhGFCQtSheYXtWrPzhq0C5YB1j/Vq+KQ0alhD7ZxoBg08LntewAjn0t80DEH0GzZ/h3rWJ
- q3QnjNyY0bPx/e6CmSf/IBW8c2SY9pCgMSIwX8ngaI/796QEaL9/ZWhSI1mzWVqHaTi4tWBF7NV
- Ukt+JrEhX8YSkzHVJ7lL9u8yWjEcR14m19Q3Ly27su5Y6HgxfsY5TtCPj7N7CTT72rVfkRdWuSw
- oZ5je1DgE1t/KN/tzvPGxFoe+7lxkhsDFYYfZxYZf1w2cuPRt9guh3Z5Ry1R3x/ndOaSKRaHcPP
- ktG1rd7HOItZieFqDe4chTXUBeG6MP6bEpv28B26yGKhde54rD7jaZX9MpMOLl1m5jl94Ob1aws
- 7p7MgLP9WLDK/6oRLUAnd3qUG8PAbyvzymqUGgEceKJgsS0oufassoZasSeshGjB+9hwcqUTOFN
- wJMvvfDpD4b3igz7d1c3WwLQmKW6FE9qDQL13eknFlwxU0EQr73GMUXkT6ClTfzmUCf9z86Oy5v
- SvqYr28tH/j7anZ+
-X-Received: by 2002:a05:6102:21cd:b0:7ca:9674:a58f with SMTP id
- ada2fe7eead31-7cc7bcdf51amr931833137.32.1792582915474; 
- Wed, 21 Oct 2026 04:41:55 -0700 (PDT)
-Received: from localhost.localdomain ([177.155.254.119])
- by smtp.gmail.com with ESMTPSA id
- ada2fe7eead31-7cc91f9c7f1sm2365006137.0.2026.10.21.04.41.52
+ AKwUvBw/sfeIrIfhkb0fNFhtNkhrPXm5aXKnq6XyI2+nAqstJtLY06H7i90Jmd9KKWTIeAjeZAgwUTpj@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYL+bD8RMHhYs089bw2uICSfQ00LpRkjJ86SlMTIsnqfZMB6UYzf
+ fNFrttU9vNIMLZTpP5JpMCH7KX193NrNaqrgrRUQxVN/d1zbs3bH9B3TLbKqVdB2wQk=
+X-Gm-Gg: AYBFou3fpoibhqsGOv2OrBleGtnL9VRx9vjaq2WTOxUhJHvy1HdpI2Hjd2YuVWFphva
+ EsgekV8PnoNfChWmTyF5xGTcF4MooM/IY9JfuFdOSXzMxz5o90myQJGJ2vUEulchJYz3Y+BwZoB
+ Zu4KoXRSVzJdkZGiduTk88FFiEkLi7eHPzExKFWRLh5pHMkdJSHB25+YM6YTAx5SyI34Upd1jcd
+ wPSbPsyT4Y4HdQ3fn8XZD/Gojv5HPJufycNW7cAVhhl7EMoLAOMNbn/9wJnVijCDs2ZWzaqcC7t
+ EfEaa6quC/2H/YjatA2jKJWS8OrI7aLh5ZeQAgoKUrC5QrgI87o0PB7SAAJSMBeR68ikEReqYqY
+ p0prtqfpBMR2w0+nbbjBi4WcyAMEkCSwXA7NKCsEqp6giw0TCdggAVOBVCsr32j+iyrs4Xee1aD
+ jNPpATq2YtTnowu/Fx+tQ/UBVntFqg0uAHrFFcU614wPfyqVdeaHygUMsUXtBdXvvKZ6Ea/DV74
+ b5OnHbCwP6nDYTSyXs+YTz2ZCnScx3nKfUE1vOzdRqrg0RXKVb9k2WDJw==
+X-Received: by 2002:a17:90b:4b0a:b0:3ac:8446:c1b5 with SMTP id
+ 98e67ed59e1d1-3ad86f45340mr1541343a91.31.1792585326711; 
+ Wed, 21 Oct 2026 05:22:06 -0700 (PDT)
+Received: from rock-5b-plus ([61.83.209.48]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3ad8021d29bsm4309317a91.4.2026.10.21.05.22.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 21 Oct 2026 04:41:55 -0700 (PDT)
-From: Matheus Tagliari <mptagliari@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Matheus Tagliari <mptagliari@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] drm/radeon: process the VCE interrupt on SI and Trinity
-Date: Wed, 21 Oct 2026 08:41:17 -0300
-Message-ID: <20261021114122.94008-2-mptagliari@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261021114122.94008-1-mptagliari@gmail.com>
-References: <20261021114122.94008-1-mptagliari@gmail.com>
+ Wed, 21 Oct 2026 05:22:06 -0700 (PDT)
+From: Sidong Yang <sidong.yang@furiosa.ai>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ kernel-dev@igalia.com,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Luben Tuikov <ltuikov89@gmail.com>,
+ Matthew Brost <matthew.brost@intel.com>, Simona Vetter <simona@ffwll.ch>,
+ Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>
+Subject: Re: [PATCH v2 8/8] drm/sched: Untangle the scheduler list mess
+Date: Wed, 21 Oct 2026 21:21:49 +0900
+Message-ID: <20261021122151.7384-1-sidong.yang@furiosa.ai>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261020154123.33631-9-tvrtko.ursulin@igalia.com>
+References: <20261020154123.33631-1-tvrtko.ursulin@igalia.com>
+ <20261020154123.33631-9-tvrtko.ursulin@igalia.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -87,86 +87,21 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-radeon_vce_fence_emit() ends every VCE fence with VCE_CMD_TRAP, which
-raises the VCE trap interrupt (IH src_id 167).  cik_irq_process()
-handles it by calling radeon_fence_process() for the matching VCE ring,
-but si_irq_process() and evergreen_irq_process(), which serve the other
-ASICs with VCE1 (SI and Trinity/Richland), have no case for it.
+On Tue, Oct 20, 2026 at 04:41:23PM +0100, Tvrtko Ursulin wrote:
+> Rocket only compile tested!
 
-Add the same handling.  The trap interrupt is not enabled on these
-ASICs yet, so this does not change behaviour on its own; the next patch
-enables it.
+Tested on a ROCK 5B+ (RK3588) with rocket and panthor: MobileNet
+inference with up to 6 concurrent clients, open/close stress and the
+drm_sched KUnit tests all pass, with no warnings.
 
-The SI part was tested together with the next patch.  The Trinity part
-mirrors the CIK and SI code and has not been tested on Trinity/Richland
-hardware.
+Tested-by: Sidong Yang <sidong.yang@furiosa.ai> # rocket on RK3588
 
-Fixes: a918efab631a ("drm/radeon: add VCE 1.0 support v4")
-Cc: stable@vger.kernel.org
-Signed-off-by: Matheus Tagliari <mptagliari@gmail.com>
----
- drivers/gpu/drm/radeon/evergreen.c | 14 ++++++++++++++
- drivers/gpu/drm/radeon/si.c        | 14 ++++++++++++++
- 2 files changed, 28 insertions(+)
-
-diff --git a/drivers/gpu/drm/radeon/evergreen.c b/drivers/gpu/drm/radeon/evergreen.c
-index 3cbc6eedb..eb94916c8 100644
---- a/drivers/gpu/drm/radeon/evergreen.c
-+++ b/drivers/gpu/drm/radeon/evergreen.c
-@@ -4847,6 +4847,20 @@ int evergreen_irq_process(struct radeon_device *rdev)
- 			drm_dbg(ddev, "IH: UVD int: 0x%08x\n", src_data);
- 			radeon_fence_process(rdev, R600_RING_TYPE_UVD_INDEX);
- 			break;
-+		case 167: /* VCE */
-+			drm_dbg(ddev, "IH: VCE int: 0x%08x\n", src_data);
-+			switch (src_data) {
-+			case 0:
-+				radeon_fence_process(rdev, TN_RING_TYPE_VCE1_INDEX);
-+				break;
-+			case 1:
-+				radeon_fence_process(rdev, TN_RING_TYPE_VCE2_INDEX);
-+				break;
-+			default:
-+				drm_err(ddev, "Unhandled interrupt: %d %d\n", src_id, src_data);
-+				break;
-+			}
-+			break;
- 		case 146:
- 		case 147:
- 			addr = RREG32(VM_CONTEXT1_PROTECTION_FAULT_ADDR);
-diff --git a/drivers/gpu/drm/radeon/si.c b/drivers/gpu/drm/radeon/si.c
-index 4681ff286..af3c4026d 100644
---- a/drivers/gpu/drm/radeon/si.c
-+++ b/drivers/gpu/drm/radeon/si.c
-@@ -6347,6 +6347,20 @@ int si_irq_process(struct radeon_device *rdev)
- 			DRM_DEBUG("IH: UVD int: 0x%08x\n", src_data);
- 			radeon_fence_process(rdev, R600_RING_TYPE_UVD_INDEX);
- 			break;
-+		case 167: /* VCE */
-+			DRM_DEBUG("IH: VCE int: 0x%08x\n", src_data);
-+			switch (src_data) {
-+			case 0:
-+				radeon_fence_process(rdev, TN_RING_TYPE_VCE1_INDEX);
-+				break;
-+			case 1:
-+				radeon_fence_process(rdev, TN_RING_TYPE_VCE2_INDEX);
-+				break;
-+			default:
-+				DRM_ERROR("Unhandled interrupt: %d %d\n", src_id, src_data);
-+				break;
-+			}
-+			break;
- 		case 146:
- 		case 147:
- 			addr = RREG32(VM_CONTEXT1_PROTECTION_FAULT_ADDR);
--- 
-2.47.3
-
+Thanks,
+Sidong
