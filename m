@@ -2,42 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8486606A319
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Oct 2026 06:28:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46B7A606A321
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Oct 2026 06:28:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=dIaW9BYO
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=hGlGEa9K
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8193E10F96E;
-	Wed, 21 Oct 2026 06:28:23 +0000 (UTC)
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011023.outbound.protection.outlook.com [40.107.208.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8845F10F96C
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2026 06:28:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6C9B10F970;
+	Wed, 21 Oct 2026 06:28:28 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010043.outbound.protection.outlook.com
+ [40.93.198.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D3F010F96A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2026 06:28:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=A5vvCxOaSNLiyF3RDE0pufMPm5FS9jMiaqsKcJ4ef3L1p+GDFq95dxqKKsQulEvuTNeTXVrEM0SC57as+kSxw/9xM9FJOU4IRXzY7cgSzgHw0ijkQsoRrT3xJjrreiwnJqp9hJyCRK8/dhFoAqKtVfHz+E709W5KuQVheE5L0AYTFRgRn41eDP3B7EjWN66fscnGrM9hfG6qm7Ytp+dDs3TZkNrabDAaCpf4xQHodog2YJ4iz7e+5o63bgzJRQh8Mtzfy6cAGWtg9qOLuqR+gaNoBh5xST/gLblYvkqwKn9UduiZ75UxAfTE6kwVj+TN+H7CSnasThBRKVvU6U09Zw==
+ b=QJ5j+zJxcT+onEbzzyMiWveXZgKz+Dr49fLQgwZgpTmPHHeHmzeMxyXKJyg72DXXvBTNTn/FfmF/bnBSN/4b20qjOIAjIPvUaLlvLOJMr8JbsTnwBZnqPA5dQWNZkfD1RIQuV5+GuRi2HgbRQvbVKcOHj53UihhFO3nbjUnLP3s5bEU3b9CH/LOh+aKEzEUPGSe741B7VInKPPKq+SwK9zt+iTLIzwzZVg/zV1eRX6oIDnttPKwXl+nPJcx6RzOq+QBjepJRng+p210rQhGBs7EhFai2+4A8CcbOcEaQW9RSQxn3kqBCvhVuoKm9EVtKfHqEd0VqXeuiQvjddwKN6g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HLZ+jjUxHQ7t8tVYFri6uQzwDsnX0pFdBnhhMsvRgUA=;
- b=OnLCR2g20l7fdzXKK72xRR2SkQ71xyd7iELz5CB+13tnG0Dk03OLIs/gjNfRhe0Eo0126NrMaHS0FjF1EXrZovnkiw1cKVDqjbRd/+k9s63mtXmncGD1LAgRAuD3+IPuks7rnzDVWbW/BCx5HDyaUPuwIUvhzNxcOTFMScCdlhefDvkV5WxJEbmuUHcqk1PMYrAKpP5w5vjiTjswNGd8emGjpyCm7ia6w8F2RLNDizSdDfDPpHWApVt8p/mJfOJIq7G2mptNcN3JBBYkbkKcqoB2MtXE8rKUCLuletBW/leJGG0bQvW40ver14oq92zQ/8k3ITCOYREzkFDlHwYcIw==
+ bh=TbX8L2WevYQeCJbarbBGPPch87ZOT1vhoW0CNLytZsM=;
+ b=pL2MrZROHPTiSwYUSzKaxPmXFB7KBb/pJS0tAIRvWYw57jKqIRVzpmJiWcTnICZ8zjLYo3anhkjrNe2rfqaWQDsEA6AYpRNzYGeq7BOPXAFjeC6eqGPaI2Q7GHKksAc0qXhYu4RZwwl5Ql4pRzz9A8gulk+D8gbkhsx1aF5ynDVrt8IJ/OeaSIBpt/t/g0mE7BZtYLKuGlp6SYneiqBNaarK13CQGn1vd+INj9WmFK3e7FtbnIjCdknHDX8FIuUaL+T075Cz4sFXEli4dB1wPAuhjqSX6pLGut4iQIRRV0RXyPQyyYWwh8jpXmFBvknfNY/FPt6zFAzYMdvo0kcVvw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HLZ+jjUxHQ7t8tVYFri6uQzwDsnX0pFdBnhhMsvRgUA=;
- b=dIaW9BYOxqmKWXsx4fFJ1hzKAOxR3XgKUAbGTu4abKyfeMP3L5N5mPWzaUsnZdFBTfGcX/62MZSpgQW7YJI4kW17zaZLg/wLaHPlgmRetUZuexkZBeDH7shl/unqf7ubevyZeEhhb+AhmXFjshqLD6mcM0lxjGoCPUp7LUcVCJo=
-Received: from SJ0PR03CA0356.namprd03.prod.outlook.com (2603:10b6:a03:39c::31)
- by BY1PR12MB8447.namprd12.prod.outlook.com (2603:10b6:a03:525::13)
+ bh=TbX8L2WevYQeCJbarbBGPPch87ZOT1vhoW0CNLytZsM=;
+ b=hGlGEa9KGuyYUT2vIF79RAnVOX6OJVd11JI5x1muSpUc2CvKuvd7XQIrYK1e27Zmv6kP2yUXZDK4KpMsBBZ2pRy/StXGP0Ie0qHwuFpS+xs6JFhPglIyeAMsO9LZZ7JHiNIGRhVEuqAD95h8+Y3jxGIq+IQlLI527B+cjaujUD8=
+Received: from SJ0PR13CA0207.namprd13.prod.outlook.com (2603:10b6:a03:2c3::32)
+ by PH8PR12MB6723.namprd12.prod.outlook.com (2603:10b6:510:1ce::12)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Wed, 21 Oct
- 2026 06:28:10 +0000
-Received: from SJ1PEPF000037A9.namprd03.prod.outlook.com
- (2603:10b6:a03:39c:cafe::94) by SJ0PR03CA0356.outlook.office365.com
- (2603:10b6:a03:39c::31) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.20 via Frontend Transport; Wed,
- 21 Oct 2026 06:28:10 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.18; Wed, 21 Oct
+ 2026 06:28:16 +0000
+Received: from SJ1PEPF000037AF.namprd03.prod.outlook.com
+ (2603:10b6:a03:2c3:cafe::1d) by SJ0PR13CA0207.outlook.office365.com
+ (2603:10b6:a03:2c3::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.15 via Frontend Transport; Wed,
+ 21 Oct 2026 06:28:16 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -46,20 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
 Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ1PEPF000037A9.mail.protection.outlook.com (10.167.244.182) with Microsoft
+ SJ1PEPF000037AF.mail.protection.outlook.com (10.167.244.187) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.15 via Frontend Transport; Wed, 21 Oct 2026 06:28:10 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ 15.21.546.15 via Frontend Transport; Wed, 21 Oct 2026 06:28:15 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 21 Oct
- 2026 01:28:07 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 21 Oct
- 2026 01:28:07 -0500
+ 2026 01:28:15 -0500
 Received: from tom-r5.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Wed, 21 Oct 2026 01:28:04 -0500
+ Transport; Wed, 21 Oct 2026 01:28:11 -0500
 From: Tom Chung <chiahsuan.chung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -68,10 +65,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
-Subject: [PATCH 44/49] drm/amd/display: Use kzalloc_obj in tests
-Date: Wed, 21 Oct 2026 14:22:50 +0800
-Message-ID: <20261021062519.674697-45-chiahsuan.chung@amd.com>
+ <Chen-Yu.Chen@amd.com>, Wenjing Liu <wenjing.liu@amd.com>, Dillon Varone
+ <dillon.varone@amd.com>
+Subject: [PATCH 46/49] drm/amd/display: Add debug option to force MPC combine
+Date: Wed, 21 Oct 2026 14:22:52 +0800
+Message-ID: <20261021062519.674697-47-chiahsuan.chung@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261021062519.674697-1-chiahsuan.chung@amd.com>
 References: <20261021062519.674697-1-chiahsuan.chung@amd.com>
@@ -81,29 +79,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000037A9:EE_|BY1PR12MB8447:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0e682ea3-679d-4b4c-85ee-08df2f3c79fc
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000037AF:EE_|PH8PR12MB6723:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7789d71d-6474-4c37-0b5d-08df2f3c7d86
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700016|23010399003|1800799024|82310400026|261009223027099003|10067099003|56012099006|22082099003|18002099003|11063799006;
-X-Microsoft-Antispam-Message-Info: fbIEKWcUAMBtt6iYAYCQbaeTWXWy/mXW+FV8dZoYJiK+nw05KreKCIAgm/FpWumt6hURKMAEZhtWXuMegwxhHpvwcEdlYtFwuqQdEhR4n1Rye5UZkHDJT0f1QTZrIX2WVCMU3pmTF1/LNRWf63UZC3tdExeRb8SeQoW628sHoy/Rs37ETigiuhUNga564aLIPMpNY8nHoMwv1LtiVGvyjTGyJMfAtfNW6eltOSwxZXt3/GSs1zvvem+jvcqOn4xuFbLgTUVWluUEsOwEte9ERHvZV1+Yzb7/fXAPo8mEC8u3e7KNW1g0a99qg+TvMAUhw/ZPHMQEF8NvmKDCKu2R/t/Q7COl53NOnfBLbOoBkM6hBxpK/KsYUJL9N7btJGk0cC8gMTUn6qTp4gDAc7Usq+K5cWjMK4xS0ueoMgylHzT0+tMaulCoGU26U6uw6ER70X8DtFd4dqYQzEsFbWNXIOIbnxYucXQiCj/A0kUoNlL9rKu5bRAh8IeGZ9/z53h4T6H6waR8FoFRzZmgxgilQBir+QVXDN3oepzflO4g2Y1xyENAOGsFolEPNF3ry/mB11Y5OMJGNjc+TrRB3P/lX+qp25i0eJVs3lfoE1Z/+Y4BkgxRTquF79VwaBSPxc0NFG68djYVAAC+GBwLZeLBPsSZHv9nQdKv1TmAndCIDxetfJDkai45iq7n3qYb2CFXmZxLPfc8QX8N76h0j+8nCA==
+ ARA:13230040|82310400026|1800799024|376014|23010399003|36860700016|56012099006|11063799006|261009223027099003|10067099003|18002099003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info: lMPzJ0iT41HKmED3lcBAtiuryuTjR+FvyndP3meqdQtJucwKa44b2/+iCrSXkJlvR8dkmvX3o1BfQJqS3lNJc7v30qfhlgqJ1P3f32j5koXyKnyAjXf29TfRRqm7HiEX79TNOZ32C06YrIkeCNevejNf9h9SiXfkMS6yoYWi5vvmUREiBQGi98TdDJ/r7I5k4owyXnZ/X0kCuyC6QHQLPUu4BpAg+AwzSTOFnugCt95P9ec9Ur+o8DEbqbfqfoTTtTBIkfM/Du2N8eVxPqXVBbaS/IGP7xEplxaiHwjobS86nsaYl9Ne3X9RfmGjWNuovdZt7NV/CFq3DfIQ0LN9giroo/ecMU+/4N24jruuwG5avX6tMrn6NNsDmuSIoF6ab7bmuddqQ4zQL8XzkU8ftspPRYPdjAhUsjsZySHUVam4mq4wNVTYckkdqoIPMiGYiJ1EaAGvJBKnabyaGlo1GvCycPYnbm9CqGf9zp8yPi3o9WB/EK5Z3vHMKpATAEYmluKjFfnjqI2ox/J7R2INe2G6ODyqOcje2ygBZ5k+9XOOts6jKtEJRDj8JaayKTDcIDsAUcW0bUwYlRpzKWxnHlsdA8grlxPmQu6It7eY5tiL9pPvpzIcjpe+58ruwqPjSS36lowLFswx2+Or6/4RJD0C7wrt18PcTX5Vyr0ih/2cM0tKartehK/WzYRX05ftENxDdKnx2l8KI3K+QliP6A==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700016)(23010399003)(1800799024)(82310400026)(261009223027099003)(10067099003)(56012099006)(22082099003)(18002099003)(11063799006);
+ SFS:(13230040)(82310400026)(1800799024)(376014)(23010399003)(36860700016)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003)(22082099003)(3023799007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: ko2c2R5zyWU74nrywQJDjle594YYEqEpK2FnM41nHhLAuhahMlLk1+iwFosekvPbtHT399L51LoTW8gFaZ9m5tg0eUKqMRU77kvYjDIPh44366sg/v4OK8vMQfG3vv/9iZhqeUOA+jplj+hn8Q7CtmcmGEemwnFXfOwVsNVnfKQ8+Cs0AYRReWp0eAFemXAUcL+9tfC+G0x5Qz5RM+GSls7XD7XHXdnhu4oVe4prHz0J+qBUPsjcD6Dz636S1kRIm0hlC2y23Ts+75+xE7c36JvuUjX+oDATe/NzyNredSinSDzdYpGTPP1lhMPfHzDljOfA+F4ZXJ6LZFzRTdgdbWN5MiZN4ZGpo9yUmLbNSoOpqNFbZ4KWcxV54my4gGr38Xhc2QxBGI6EkI4EzFLWuzKbv3rFk3KJavbr6HCdki7cH4DaMyCVcOYZaDpOSBhD
+X-MS-Exchange-AntiSpam-MessageData-0: sI6XCQSL6dv0ANrDQhlstFbotKVELwCiNVDe6e6qe6ybfcYWWUtGmIRBOQCnL8E0uv6OV+yMiysSGug/t6etH3k8QNjLIAFvoT5z7yjOgEw6G6/X0mp9Sy6M1howi0ZqaZyDf/PFFimZ0+du7Q822fbUNpvMF1/qNrgtgBr3GQ4uQSAdx7YxO1ewKeI4FNh47eCv8RJC+jl6HzBQBCjs8JUarUvHFqBgT5/2q9ET7+ZsO40CLzjF6k+TgF6I7VnIWQJ/eTBzzG+uB18a1M0Q0Vp5iIri21gtQC+tZ151tHc9F4jvJ9ZQ1AJtClLrSBBzSJQfk+/Ijft/N7b/Obw76CvpM7F7zYBcvJ3ammxwFXRIPbcPpkRJNwyLtOdJ16Bv8kGHfY7pvxqdc8zFhQZQN/4XVKbFvmq6RH/f2EDtYczQab0rA6jMg9EoBPXHKt5j
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 06:28:10.0037 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0e682ea3-679d-4b4c-85ee-08df2f3c79fc
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 06:28:15.9064 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7789d71d-6474-4c37-0b5d-08df2f3c7d86
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000037A9.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000037AF.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY1PR12MB8447
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6723
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,54 +119,58 @@ X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Alex Hung <alex.hung@amd.com>
+From: Wenjing Liu <wenjing.liu@amd.com>
 
-[WHY]
-dm_test_sink_create() in the irq test and the SRM buffers in the hdcp
-test still use open-coded kzalloc() sizes, unlike the rest of these
-files which use the typed kzalloc_obj() helpers.
+[Why]
+DML2.1 decides the per-plane MPC combine on its own and there is
+no way to override it. A forced override helps debug and isolate
+issues that may depend on the pipe split.
 
-[HOW]
-Switch the sink to kzalloc_obj() and the 16-byte SRM buffers to
-kzalloc_objs().
+[How]
+Add force_mpc_combine to dc_debug_options. At the end of
+populate_dml21_plane_config_from_plane_state, apply it to the
+plane mpcc_combine_factor override when it is non-zero:
+0 = auto, 1 = single DPP, 2 = 2:1 MPC combine.
 
-Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
+Reviewed-by: Dillon Varone <dillon.varone@amd.com>
+Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
 Signed-off-by: Tom Chung <chiahsuan.chung@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_hdcp_test.c | 4 ++--
- .../gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c  | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dc.h                         | 6 ++++++
+ .../dml2_wrapper/dml21_wrapper/dml21_translation_helper.c   | 3 +++
+ 2 files changed, 9 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_hdcp_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_hdcp_test.c
-index cfdcc44581b1..5af6ae47bb21 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_hdcp_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_hdcp_test.c
-@@ -1352,9 +1352,9 @@ static void dm_test_hdcp_destroy_frees_and_removes_sysfs(struct kunit *test)
- 	INIT_DELAYED_WORK(&work->watchdog_timer_dwork, dummy_work_fn);
- 	INIT_DELAYED_WORK(&work->property_validate_dwork, dummy_work_fn);
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index 51472d6849cb..494ab208cadf 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -1102,6 +1102,12 @@ struct dc_debug_options {
+ 	 */
+ 	enum pipe_split_policy pipe_split_policy;
+ 	bool force_single_disp_pipe_split;
++	/*
++	 * @force_mpc_combine: Override the DML2.1 per-plane MPC combine
++	 * decision. 0 = auto (default), 1 = force single DPP (no MPC combine),
++	 * 2 = force 2:1 MPC combine.
++	 */
++	uint8_t force_mpc_combine;
+ 	bool voltage_align_fclk;
+ 	bool disable_min_fclk;
  
--	work->srm = kzalloc(16, GFP_KERNEL);
-+	work->srm = kzalloc_objs(*work->srm, 16);
- 	KUNIT_ASSERT_NOT_NULL(test, work->srm);
--	work->srm_temp = kzalloc(16, GFP_KERNEL);
-+	work->srm_temp = kzalloc_objs(*work->srm_temp, 16);
- 	KUNIT_ASSERT_NOT_NULL(test, work->srm_temp);
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_wrapper/dml21_wrapper/dml21_translation_helper.c b/drivers/gpu/drm/amd/display/dc/dml2_wrapper/dml21_wrapper/dml21_translation_helper.c
+index 7181fc71e4c9..6a9f822b2b33 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_wrapper/dml21_wrapper/dml21_translation_helper.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2_wrapper/dml21_wrapper/dml21_translation_helper.c
+@@ -828,6 +828,9 @@ static void populate_dml21_plane_config_from_plane_state(struct dml2_context *dm
+ 	plane->composition.rect_out_height_spans_vactive =
+ 		plane_state->dst_rect.height >= stream->src.height &&
+ 		stream->dst.height >= (int)stream->timing.v_addressable;
++
++	if (plane_state->ctx->dc->debug.force_mpc_combine)
++		plane->overrides.mpcc_combine_factor = plane_state->ctx->dc->debug.force_mpc_combine;
+ }
  
- 	kobj = setup_destroy_sysfs(test, work);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
-index f15eb14f64bf..b29aef2ae16c 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
-@@ -144,7 +144,7 @@ static ssize_t dm_test_aux_transfer_fail(struct drm_dp_aux *aux,
-  */
- static struct dc_sink *dm_test_sink_create(struct dc_link *link)
- {
--	struct dc_sink *sink = kzalloc(sizeof(*sink), GFP_KERNEL);
-+	struct dc_sink *sink = kzalloc_obj(*sink, GFP_KERNEL);
- 
- 	if (!sink)
- 		return NULL;
+ //TODO : Could be possibly moved to a common helper layer.
 -- 
 2.43.0
 
