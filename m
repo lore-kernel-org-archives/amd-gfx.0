@@ -2,60 +2,64 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC6C2606A319
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Oct 2026 06:26:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEBAC606A319
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Oct 2026 06:26:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=l+bU5KyJ
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ZLFBnHEY
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D1F210F92F;
-	Wed, 21 Oct 2026 06:26:13 +0000 (UTC)
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011066.outbound.protection.outlook.com [52.101.57.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85DA010F941
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2026 06:26:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4AD6510F942;
+	Wed, 21 Oct 2026 06:26:19 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010034.outbound.protection.outlook.com [52.101.46.34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7815E10F942
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2026 06:26:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VDIxN6XEHr89VGUSPNAalWgWHwJpt2eL36UCteu0VLukkYGKoZ2u4qIbdgMEQxo2ZtgPm2t+rlCfTBYtmp0eA3U/8whM1TQoGKs1jWM9qEiKjETNN31vqTGP0LG1/ycYX3x9WefZMrYcMlOcGgI1UbMw9Oret5NzQuTHTEUBxnyniox2YI4+5DMtYllvBdJloSQiD5FEjsSoG5MsP/MPo6G7sypvB3Z5WCYUbpqUoL7yAScYtTsB6aQEnw1W973+MNjjIcgFlR9Lmj3FmJ2psgTwOo8wLbbDCbmsCiOab+q4u9+UH8t8QYIg5HSh2um/pAjvIeBV8W0k77DmPRoQzQ==
+ b=E3QlM08aFh16huriw3xudILJeC5FL+sKgZUSnZuS5p3fZRDFWo00RZAEjEcTvwkFBAQbW/6pzZg3/1JpcUzBSx+vCj/HqxLocNXXmKSppD7CjbROwAF5vfP2Ojkqh110+RUhRPTKouDj/2fGozHMqMVf0L8XYAn87inbZgWLRNnue6huulKx5zW+SLW/DhpzQFBffoq3Rj/tJ5riSPSv91yLzY0AkcGz8u5FGWMCqqmPXX9niZNoH3o4izNJ5/YmSycEPurZPETN9Xez2mFXqsirtVUm++rwUY8RtFIV2tbJAWSJP/4wIW7uFIDkovAxS7nYg8e9k67dz6h5b3mYzQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OSCbpXoAntPoRfsI2buJvG/iPMjkbV6lPLrVpHWFQ8w=;
- b=ikzB8pNAgFcGWcR+a4kmzo6c3CBx7ISVGIwrk9X+toWCvkrclOUFfRtfEUPNkRIH/kxOvao1QZ+hCUT+Z+gGrm+3izGaD8wNc7o2m6MVONubw7UoQFZyJR4tG/i5/oQvJ4mIvvfW6xlNUmecdcwlTxwGnXqHq0KoiI+nm+Ge5EwPEyPYOiiK58JsnUV/jTfvA/c/bnB3jUIT1csN8ZMAaju/aAXHcaV9G93gSR9nQdx/AqprYa3nJYUNYO/713Y21ZwcxDRPRFrV4BKjPbJDY9gpSDqvD/BMP1+MvrhcPrB8YDaU7BBQWtmUURwDXjeMT5p8QhpFPgfC7cEZIg7L2w==
+ bh=7CzSVz+NS+nOaj96U3zHBTWT1hz0GU29S0WJi4PlbK0=;
+ b=Ux2jLX8id1Kp5FZzwZIF49Tr3ylSKqY9Mx0cUk4S/bKDoOnmZYx6QrTt05zSQUNH9QtY1UBgUvLYJTm8ciXsl/d9I4ea52sTTmwIGXMitBL+YtmZWtWQz0LEElL6xdhHWmqBJr72DzzHv3Dyj+YX62L0FI2IJgWrAYLS4UmxpNSFvoX5qXjKs5Ho4PNUCpJJCcMTP9krrbww5RDSwRnY0HwNje3aVEP0Wu/xEb9ZJRA0188QjC+a0oHfuO0H8jaIjPynnvYQ1aEc647AelNNZMLsDpYpMnbDzNW6guxd8gca+Aejap+MGfxY3DHrQkbvw7sS/6ezfTXimmScqK9A6A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OSCbpXoAntPoRfsI2buJvG/iPMjkbV6lPLrVpHWFQ8w=;
- b=l+bU5KyJnaerGBQ2SVCuhaUk5Y3uczQsy+w/9rV/gdLwpDOdf7XPwpFGPSE+GJAxApjx0+Hxx6IS7iJ7sBN0afHVPfOjZcS5LMO4BiljxNtaA0jU/70FPx6iTaHr4vwc+c6q9t1ikoIQv5sAkn4xAXghhvpzE54hHR8PCamfCxA=
-Received: from BN9PR03CA0915.namprd03.prod.outlook.com (2603:10b6:408:107::20)
- by DS7PR12MB8369.namprd12.prod.outlook.com (2603:10b6:8:eb::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.18; Wed, 21 Oct
- 2026 06:26:04 +0000
-Received: from BN1PEPF0001854B.namprd05.prod.outlook.com
- (2603:10b6:408:107:cafe::1b) by BN9PR03CA0915.outlook.office365.com
- (2603:10b6:408:107::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Wed, 21
- Oct 2026 06:26:04 +0000
+ bh=7CzSVz+NS+nOaj96U3zHBTWT1hz0GU29S0WJi4PlbK0=;
+ b=ZLFBnHEYMSS2sGI41ePJS00LO9WazCo+o9mlQyGDKphzOSJcg5LrXeUgT9KgR0WPK8g6JmQ0kr6R1gswsqytcfJSTfGUWw0+jNvc9pDxIkuaw445bKV8gq0Glejm0EzzaiRWJdeXN00ICfY2MO78f2EKUXEPAqDcUYuJIRQ+mbU=
+Received: from BY3PR05CA0055.namprd05.prod.outlook.com (2603:10b6:a03:39b::30)
+ by LV1PR12MB365848.namprd12.prod.outlook.com (2603:10b6:408:50d::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
+ 2026 06:26:08 +0000
+Received: from SJ1PEPF000037AF.namprd03.prod.outlook.com
+ (2603:10b6:a03:39b:cafe::59) by BY3PR05CA0055.outlook.office365.com
+ (2603:10b6:a03:39b::30) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.15 via Frontend Transport; Wed,
+ 21 Oct 2026 06:26:07 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN1PEPF0001854B.mail.protection.outlook.com (10.167.248.10) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ1PEPF000037AF.mail.protection.outlook.com (10.167.244.187) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.15 via Frontend Transport; Wed, 21 Oct 2026 06:26:04 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.546.15 via Frontend Transport; Wed, 21 Oct 2026 06:26:07 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 21 Oct
- 2026 01:26:02 -0500
+ 2026 01:26:06 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 21 Oct
+ 2026 01:26:06 -0500
 Received: from tom-r5.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Wed, 21 Oct 2026 01:25:58 -0500
+ Transport; Wed, 21 Oct 2026 01:26:02 -0500
 From: Tom Chung <chiahsuan.chung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -64,12 +68,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Matthew Stewart <Matthew.Stewart2@amd.com>, "Nicholas
- Kazlauskas" <nicholas.kazlauskas@amd.com>
-Subject: [PATCH 11/49] drm/amd/display: Reuse mpc401_read_mpcc_state on dcn42,
- dcn60
-Date: Wed, 21 Oct 2026 14:22:17 +0800
-Message-ID: <20261021062519.674697-12-chiahsuan.chung@amd.com>
+ <Chen-Yu.Chen@amd.com>, Wenjing Liu <wenjing.liu@amd.com>, Dillon Varone
+ <dillon.varone@amd.com>
+Subject: [PATCH 12/49] drm/amd/display: Fix QoS bandwidth fields copied from
+ DML
+Date: Wed, 21 Oct 2026 14:22:18 +0800
+Message-ID: <20261021062519.674697-13-chiahsuan.chung@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261021062519.674697-1-chiahsuan.chung@amd.com>
 References: <20261021062519.674697-1-chiahsuan.chung@amd.com>
@@ -79,29 +83,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF0001854B:EE_|DS7PR12MB8369:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8cbebc82-ac74-44b7-10e8-08df2f3c2f03
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000037AF:EE_|LV1PR12MB365848:EE_
+X-MS-Office365-Filtering-Correlation-Id: 129c5800-0d11-4744-241a-08df2f3c30fb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|82310400026|376014|1800799024|23010399003|22082099003|18002099003|10067099003|11063799006|56012099006|261009223027099003;
-X-Microsoft-Antispam-Message-Info: MgM1OYRL7H/3K1wWt2zBg3KFHc+lTqGVtMuKOYap/QlHVvNEcxKYSHQPgQGnYirn68g++NBDfgzd8NK2y+9ao7YANqki3lLwrEyLOydTiLcfc49K1dSBZolb31uMAGv0FWGaN1vjJk5yQn7o8dYT6ZWD+CiUwkx1ynibijfyu8l6rAeI94I0ywzl5lAEbUsFU0UbReqHuULWtcbqQq7fPYAi0NICKjt86FpltrXJ9dFnyQCHf1d06VS7+sXYmgOuIvWbB682VTqXxnAPtyfK+QTZ1Sz2Vs1jH6J9r8rXpu4zUtOnZRt9s204/pE0HNj9SPPm0p/8EZS0oehwOiXqRTni1t2y1RpfJpinr1K0dvJg7efr+tdwH3IGsTsDFqfcFxDzeytDrnVXiRdMnKBnVUp5WYSxycAMK/mqZLur7ZF++Wd2Q8aP5g+wahTvvpR0TBJ97ZFnd7H3KTbUA6n0xmfKb57l5ugOMv0sje9SqxdM0oSZDUDgmIWGvuvnzbWev5pjFKPJV7VlaqwWKoOY+7JZBSI0E8Usg15PTytMazJQoEIcFoR+NKmUWuTMUDbbBXWMiIO0McKv6GK17+AhbrgIyZ/9XhZc6ZB/tEAPwxOclEq5Vgt1KU/OfVXQreajDwIrOG6suarOTPpgEuZnYidYZVfeSaLvHcZluR9OK3/OezEt9LZiPyXVqC0ypaaFmCrnXB58sfehmjaJMz+1Jw==
+ ARA:13230040|376014|23010399003|1800799024|30052699003|36860700016|82310400026|56012099006|11063799006|261009223027099003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: fD7tNTPowwHReJkkJGixLqLzNblsPclxGajW6hvsdjIV91mgNMsDoRdnTqx7pjZ3uRgu6vVPe7VrWvJZzp/dUAXpb/A93TppNtHG1sbfKV/oFmrk35WmuAZ0HH2EYVJCqjWRC2Qord5DBFy/miFrv+G1sSfdt/diAFvqNqk2QVT/6jEnzclIru8IKdjPydeSTwUPNq5C96y5rI4Nf4rCLIIJ2m9+h3yCXPTEsqS3aV1u3HomEDh0Kq/7xG/s4t+4vMvUmhLE9pwPnAA4OIZm4C0fLW0VKArze1WNp8XnECeHEgp290n6gQZhstTjXsM8wn4uR+9Z4u+A15H5E55C4exmbNFh4lIkwdorFEJSTx/D6bBcq/iH9b0/sGCt2N8j/yVm9YMi32KArVRCW2+jUhT24v96qYMQLD7gLD6zxA0dyjDY2FOnb2cE+v10QpOw07WWFQAY0Yaahw+oha2BuV9hPiRUozhCTIplpwW3gC+2KWvf0fLXAmRnx8r331NcFaof6LhW3kj9tFtilbBt05e2sGmt8oRsi6RfWduaWTrMcybFk156M+7PtSG0KvaBjSVZ3svp0qGVO5iXRnP2RWrU0G2iyLXRhZ0CXcMPD0m8DdrPXY4Yj9LTcL9FoibpOPiRO/b3hXbOV2+XKNfo3MXE+rQngrKZmOo89OXWf7E8QUh3KNySncQKoSfJZTRvByNo7JF8J6tzBTaGmTiqvQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(82310400026)(376014)(1800799024)(23010399003)(22082099003)(18002099003)(10067099003)(11063799006)(56012099006)(261009223027099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(1800799024)(30052699003)(36860700016)(82310400026)(56012099006)(11063799006)(261009223027099003)(10067099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 2/7nqyQnjVXU3tjxnL5PCTsL85E8APQukDyNPHvucsmocKGb7DTs8Ramav3o4IuwRO93Dw+MWcuNFR4sc2KgHN2QoCyqfOD9p/MGKgAs/UdACJ2E799F3rcDkCyifApO8Dt4FV3o+XsX/fE6OhMyMtAp6jovVmrwFKRAZvxzJ7jX4fkamgmTlYPe91316jp88bTNqpYHEJ/jqGPXk9yxFdPvqVspw3dgfPDHt48xXUlyZZyZ/of0xe0drXkFJsBVevmfJL6ijEZ7spvR/EFntBDAMUi8kEQaPQIyK9yhOSRP1QMmiqoh9K5M7isxwqV3WemkdkXITf5yKgAc+bo7x2biH/1JRTp+oU/HFgQGPXxTuaIt5UjS7srwuRjsMN0oFK/8iYx0mFQm9/KpNQJvGBizTXEIGafgIzIv58c9gQiY3+o11eCREVaSkkuC2aiU
+X-MS-Exchange-AntiSpam-MessageData-0: X8N28WFPDgA46orTR+IGc4zuWtZfqn3LULxtn7OADGyRSlIIqPSzy7WgcKqMkxxrygTi9RhdGT5Wlp06TbAUZtSwWPLYQgL3KC3i//H+PNEabaf8MW/vJ8OvmoYYHJP13ezDGto4IQLEdLH8093foL7oeqhsIr6lDkCE8LCrq4AkQ4tT9z3GZs7EphhRnnUbI5c+tpC0BP5rfaaNHKsj5TQNL8W2IlKrgLSXnAGGWj4ai/hzOesoi0NcjJNww/U7Hi707r+iyetv7BE/d6CU0Ald6X/T7mLn/ZDmug/xiY5kTydYYCqxM3IPFmLJ1I9u9wIjxgvfi8mTwwmFReIpL1yhFG4A0n60qZHLY0uKXCjQXoC7GapoFJM0QPN/QAH3uRggJ4kGpYsS3HG1pfwPPlNVeGtvgwyRe50Rj1r/3kjwq4/moREHYclgOG4c8KdV
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 06:26:04.2752 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8cbebc82-ac74-44b7-10e8-08df2f3c2f03
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 06:26:07.5565 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 129c5800-0d11-4744-241a-08df2f3c30fb
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF0001854B.namprd05.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000037AF.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8369
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV1PR12MB365848
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,84 +123,50 @@ X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Matthew Stewart <Matthew.Stewart2@amd.com>
+From: Wenjing Liu <wenjing.liu@amd.com>
 
-This will populate lut3d_mode, lut3d_size, and shaper_lut_mode so that
-they have valid values for dcn10_log_hw_state.
+[Why]
+The QoS request message is never sent. The DML translation writes
+the bandwidth lower bounds to fields the clock manager does not
+read, so the clock manager never sees a change.
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Signed-off-by: Matthew Stewart <Matthew.Stewart2@amd.com>
+[How]
+Write the bandwidth lower bounds to the fields the clock manager
+consumes, and reset the same fields when initializing min clocks.
+
+Reviewed-by: Dillon Varone <dillon.varone@amd.com>
+Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
 Signed-off-by: Tom Chung <chiahsuan.chung@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/mpc/dcn401/dcn401_mpc.c |  2 +-
- drivers/gpu/drm/amd/display/dc/mpc/dcn401/dcn401_mpc.h |  5 +++++
- drivers/gpu/drm/amd/display/dc/mpc/dcn42/dcn42_mpc.c   | 10 +---------
- drivers/gpu/drm/amd/display/dc/mpc/dcn60/dcn60_mpc.c   |  2 +-
- 4 files changed, 8 insertions(+), 11 deletions(-)
+ .../dml2_wrapper/dml21_wrapper/dml21_translation_helper.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/mpc/dcn401/dcn401_mpc.c b/drivers/gpu/drm/amd/display/dc/mpc/dcn401/dcn401_mpc.c
-index 5f5c27eb1d64..a485db71c166 100644
---- a/drivers/gpu/drm/amd/display/dc/mpc/dcn401/dcn401_mpc.c
-+++ b/drivers/gpu/drm/amd/display/dc/mpc/dcn401/dcn401_mpc.c
-@@ -627,7 +627,7 @@ void mpc401_get_lut_mode(struct mpc *mpc,
- 	}
- }
- 
--static void mpc401_read_mpcc_state(
-+void mpc401_read_mpcc_state(
- 		struct mpc *mpc,
- 		int mpcc_inst,
- 		struct mpcc_state *s)
-diff --git a/drivers/gpu/drm/amd/display/dc/mpc/dcn401/dcn401_mpc.h b/drivers/gpu/drm/amd/display/dc/mpc/dcn401/dcn401_mpc.h
-index 75fa05ed2b22..2731045f277c 100644
---- a/drivers/gpu/drm/amd/display/dc/mpc/dcn401/dcn401_mpc.h
-+++ b/drivers/gpu/drm/amd/display/dc/mpc/dcn401/dcn401_mpc.h
-@@ -275,4 +275,9 @@ void mpc401_update_3dlut_fast_load_select(
- 	int mpcc_id,
- 	int hubp_idx);
- 
-+void mpc401_read_mpcc_state(
-+	struct mpc *mpc,
-+	int mpcc_inst,
-+	struct mpcc_state *s);
-+
- #endif
-diff --git a/drivers/gpu/drm/amd/display/dc/mpc/dcn42/dcn42_mpc.c b/drivers/gpu/drm/amd/display/dc/mpc/dcn42/dcn42_mpc.c
-index 37d024cfb3fb..f15690b026cc 100644
---- a/drivers/gpu/drm/amd/display/dc/mpc/dcn42/dcn42_mpc.c
-+++ b/drivers/gpu/drm/amd/display/dc/mpc/dcn42/dcn42_mpc.c
-@@ -65,16 +65,8 @@ void mpc42_update_blending(
- 
- 
- 
--void mpc42_read_mpcc_state(
--		struct mpc *mpc,
--		int mpcc_inst,
--		struct mpcc_state *s)
--{
--	mpc1_read_mpcc_state(mpc, mpcc_inst, s);
--}
--
- static const struct mpc_funcs dcn42_mpc_funcs = {
--	.read_mpcc_state = mpc42_read_mpcc_state,
-+	.read_mpcc_state = mpc401_read_mpcc_state,
- 	.insert_plane = mpc1_insert_plane,
- 	.remove_mpcc = mpc1_remove_mpcc,
- 	.mpc_init = mpc32_mpc_init,
-diff --git a/drivers/gpu/drm/amd/display/dc/mpc/dcn60/dcn60_mpc.c b/drivers/gpu/drm/amd/display/dc/mpc/dcn60/dcn60_mpc.c
-index e38582f0a319..89c4d431a82c 100644
---- a/drivers/gpu/drm/amd/display/dc/mpc/dcn60/dcn60_mpc.c
-+++ b/drivers/gpu/drm/amd/display/dc/mpc/dcn60/dcn60_mpc.c
-@@ -229,7 +229,7 @@ static bool mpc60_program_3dlut(
- }
- 
- static const struct mpc_funcs dcn60_mpc_funcs = {
--	.read_mpcc_state = mpc1_read_mpcc_state,
-+	.read_mpcc_state = mpc401_read_mpcc_state,
- 	.insert_plane = mpc60_insert_plane,
- 	.remove_mpcc = mpc1_remove_mpcc,
- 	.mpc_init = mpc32_mpc_init,
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_wrapper/dml21_wrapper/dml21_translation_helper.c b/drivers/gpu/drm/amd/display/dc/dml2_wrapper/dml21_wrapper/dml21_translation_helper.c
+index 366767f4413e..7181fc71e4c9 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_wrapper/dml21_wrapper/dml21_translation_helper.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2_wrapper/dml21_wrapper/dml21_translation_helper.c
+@@ -1027,8 +1027,8 @@ void dml21_copy_clocks_to_dc_state(struct dml2_context *in_ctx, struct dc_state
+ 	context->bw_ctx.bw.dcn.clk.subvp_prefetch_dramclk_khz = in_ctx->v21.mode_programming.programming->min_clocks.dcn4x.svp_prefetch_no_throttle.uclk_khz;
+ 	context->bw_ctx.bw.dcn.clk.subvp_prefetch_fclk_khz = in_ctx->v21.mode_programming.programming->min_clocks.dcn4x.svp_prefetch_no_throttle.fclk_khz;
+ 	context->bw_ctx.bw.dcn.clk.utm_latency_ub_index = 0; /* TODO - derive from qos model */
+-	context->bw_ctx.bw.dcn.clk.utm_nominal_bandwidth_lb_Kbps = (unsigned int) in_ctx->v21.mode_programming.programming->qos_bound.bandwidth_lb.dcn5.non_urgent_bandwidth_kbps;
+-	context->bw_ctx.bw.dcn.clk.utm_urgent_bandwidth_lb_Kbps = (unsigned int) in_ctx->v21.mode_programming.programming->qos_bound.bandwidth_lb.dcn5.urgent_bandwidth_kbps;
++	context->bw_ctx.bw.dcn.clk.utm_nominal_bandwidth_lb_KBps = (unsigned int) in_ctx->v21.mode_programming.programming->qos_bound.bandwidth_lb.dcn5.non_urgent_bandwidth_kbps;
++	context->bw_ctx.bw.dcn.clk.utm_urgent_bandwidth_lb_KBps = (unsigned int) in_ctx->v21.mode_programming.programming->qos_bound.bandwidth_lb.dcn5.urgent_bandwidth_kbps;
+ 	context->bw_ctx.bw.dcn.clk.stutter_efficiency.base_efficiency = (uint8_t)in_ctx->v21.mode_programming.programming->stutter.base_percent_efficiency;
+ 	context->bw_ctx.bw.dcn.clk.stutter_efficiency.low_power_efficiency = (uint8_t)in_ctx->v21.mode_programming.programming->stutter.low_power_percent_efficiency;
+ 	context->bw_ctx.bw.dcn.clk.stutter_efficiency.z8_stutter_efficiency = (uint8_t)in_ctx->v21.mode_programming.programming->informative.power_management.z8.stutter_efficiency;
+@@ -1168,8 +1168,8 @@ void dml21_init_min_clocks_for_dc_state(struct dml2_context *in_ctx, struct dc_s
+ 	min_clocks->subvp_prefetch_fclk_khz = 0;
+ 	min_clocks->phyclk_khz = in_ctx->v21.dml_init.soc_bb.clk_table.phyclk.clk_values_khz[lowest_dpm_state_index];
+ 	min_clocks->utm_latency_ub_index = 0; /* TODO - derive from qos model */
+-	min_clocks->utm_nominal_bandwidth_lb_Kbps = 0;
+-	min_clocks->utm_urgent_bandwidth_lb_Kbps = 0;
++	min_clocks->utm_nominal_bandwidth_lb_KBps = 0;
++	min_clocks->utm_urgent_bandwidth_lb_KBps = 0;
+ 	min_clocks->stutter_efficiency.base_efficiency = 1;
+ 	min_clocks->stutter_efficiency.low_power_efficiency = 1;
+ 	min_clocks->stutter_efficiency.z8_stutter_efficiency = 1;
 -- 
 2.43.0
 
