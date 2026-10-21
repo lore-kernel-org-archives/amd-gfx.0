@@ -2,42 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 738EB606A31A
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Oct 2026 13:16:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79E02606A31A
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Oct 2026 13:16:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=RKygc1a0
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Z1U48z3P
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A92C10FDF7;
-	Wed, 21 Oct 2026 13:16:19 +0000 (UTC)
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011008.outbound.protection.outlook.com [52.101.57.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6376C10F9BE
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2026 13:16:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11C3B10FDF9;
+	Wed, 21 Oct 2026 13:16:22 +0000 (UTC)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012051.outbound.protection.outlook.com [52.101.48.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44B0310E03B
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2026 13:16:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KfmZ7BmT7zqweyTmEn1f+5jPGeY4q4Xs9idp35S/BXZK2HyWoKUqrFN3J7Jwt+o+1Zwq1C22L7b5OTK2s6GHKb3dDNWhA9k3GAi5goG/DZeFyhb0F72HCObAcmQdK6ekAvM87Kv4EHKWozmrCRi7E/vvlr4UDwOdqQsgkPsRKc5qmObDkUHXKfp31+P+5bNHF7FSorBZ/ooChPHmmu8ANQbSjR/wmFiv0XXzOX7cm51HfbD/Y8J0gL4l3nMVWg1Zo9XFzvEGRYgWzX4FnUeIBp3QDOnnc+oyeLnHsTPE7h1vw2fDFPa9sxIrshzZumwnsgD+pxeMuQpPZd9Xy/nsVw==
+ b=X1IIGD7u5wikh0+kACYdHeiWlVtUUDWIeFGImCWmTsLyyt7hmudeIoZHN+oxrkwpt0USq1+QAp4aHCblz/ztp4W0DddWyxWgCHdtzSgIffQe+kHFW2tHC/CxKNilAIk9tX3ai9qnm2fSyZbEkvb0PnpXfwzDUlSDtEV6Ehat3rWcT6Lvb2KIflKeNoEMYyqFqHeXsRcFXVhypW29FW23mYJpf0gURDO8Vju8UhcKVH8wu4mw1fBPgXFrFaEB/Rtt91JhCL32VmHj+HwMhIJspIBARI78w8zYYZqTJQXtctwhNspYdfbh1mX1tbNhFq4CPipNyBE/IrZzX+mJJ4V/jQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ilgr7r5Y6sus0Ojg+LcfvZMlsmB34uggi3YYd6rqzRA=;
- b=Ujuks36evT8sI7yVweq5sNAmFiGOv3gnQH3izNF1/n+LlecPO1RUhjDrOC5k3N/wrIqvh/xEiEdsOA/tvtWSn+2fTWUMG4c3iD6hdqd+8eR0UEPAzYT+DPQ8iRE+cV7lYGtcWo83fnrM2JQm60RaS5oTXRIu6yhVQ14wRtsIqvvi6OUE7xqkzCk2lRunJVFNYknaRBCMCmZbsFLNJWshuHFQVgm4Vn7GV/lNlT5gavzylTGPsQNPso9Wb5d8BD+ey8fry9VOrOiW6IaRZe6oYaxp5Ka0sHm1LNfKASSAL87X8GYPvGpV0hY/9Fau7bAaf+EmUmOD7vp9OVObN9ex+w==
+ bh=I7APgYyRDMqC8nS7JO1siQVa0TrpXajydjqi//Qj/8U=;
+ b=sHqyPuAJiWRX2hWLTzKfqLvyTx1SYU4uxbp2mVltq2dFq2zBgQRS2E/nIbpHu4ipbVN9XxblJwmVQFgvmG5CysBhTtH7MdAZP3edFtCzW0J90W6XkYp5WchbnGVxPwfFMMdsya4ylQbodgC7+01Nc6y977UJuVMMiRXj08hf9Xp14A5BL9m8YeKrX8hA4r/wv6SwNPo9Z4JzLPeccH6CTMgwxkRT8GoxiHjhXvtXfFoaxizqvjs8aER9gCzeXNLyUOOxLgy6nkv8ARpD3c/+9g8xZzfVhUJrVuT5zP6lHP78CBc+jz80h0yZcZQHIXM2pDm/GItmGokOT9BgVr2D2w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ilgr7r5Y6sus0Ojg+LcfvZMlsmB34uggi3YYd6rqzRA=;
- b=RKygc1a0DqG7h1Y6nr6tpxYM4tGjDw3uG3i8xhQ4c/I9NK+dWg6j4Mg/7YkZdum297HDPtSIZ3u1m5qQsKD9R/gGm5hlao4ae908CSRk1/8bcQ7mdJvggPRAue1BePeFJxKCw5lO7K/rE2/pm6oC98VlDG0XQbwYUx6A1J+yEGg=
+ bh=I7APgYyRDMqC8nS7JO1siQVa0TrpXajydjqi//Qj/8U=;
+ b=Z1U48z3PbPMqXndemnYkjiUBehPzUJG7LUcS1V3HC/sKzUlyfmOfqF5fmTdj8G50MYz4cfQOtpLof9jT1OQMDer2rtaigEO6LCClJRq7pJaI7DoNKuVTmQ93eTw0vO00DbBPOlsbfqqB3yEfRfLXymVv3M/1fe7rSN6T1kkiaHc=
 Received: from BN9PR03CA0499.namprd03.prod.outlook.com (2603:10b6:408:130::24)
- by PH8PR12MB7423.namprd12.prod.outlook.com (2603:10b6:510:229::17)
+ by DSVPR12MB999173.namprd12.prod.outlook.com (2603:10b6:8:38a::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Wed, 21 Oct
- 2026 13:16:01 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.14; Wed, 21 Oct
+ 2026 13:16:00 +0000
 Received: from BN1PEPF00005FFF.namprd05.prod.outlook.com
- (2603:10b6:408:130:cafe::2c) by BN9PR03CA0499.outlook.office365.com
+ (2603:10b6:408:130:cafe::94) by BN9PR03CA0499.outlook.office365.com
  (2603:10b6:408:130::24) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Wed, 21
- Oct 2026 13:16:01 +0000
+ Oct 2026 13:16:00 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -48,24 +48,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb08.amd.com (165.204.84.17) by
  BN1PEPF00005FFF.mail.protection.outlook.com (10.167.243.231) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.15 via Frontend Transport; Wed, 21 Oct 2026 13:16:01 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ 15.21.546.15 via Frontend Transport; Wed, 21 Oct 2026 13:16:00 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 21 Oct
- 2026 08:16:00 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 21 Oct
- 2026 08:16:00 -0500
+ 2026 08:15:59 -0500
 Received: from p8.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Wed, 21 Oct 2026 08:16:00 -0500
+ Transport; Wed, 21 Oct 2026 08:15:59 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 8/8] drm/amdgpu: don't set queue priorities for kernel queues
-Date: Wed, 21 Oct 2026 09:15:45 -0400
-Message-ID: <20261021131545.1962601-8-alexander.deucher@amd.com>
+Subject: [PATCH 6/8] drm/amdgpu/gfx12: rework kernel queue priority handling
+Date: Wed, 21 Oct 2026 09:15:43 -0400
+Message-ID: <20261021131545.1962601-6-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261021131545.1962601-1-alexander.deucher@amd.com>
 References: <20261021131545.1962601-1-alexander.deucher@amd.com>
@@ -75,29 +71,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00005FFF:EE_|PH8PR12MB7423:EE_
-X-MS-Office365-Filtering-Correlation-Id: 17e2193f-9abe-432f-1a44-08df2f75742c
+X-MS-TrafficTypeDiagnostic: BN1PEPF00005FFF:EE_|DSVPR12MB999173:EE_
+X-MS-Office365-Filtering-Correlation-Id: c1bfc2ce-2466-4d3c-c8b9-08df2f7573af
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|376014|23010399003|1800799024|82310400026|261009223027099003|10067099003|56012099006|18002099003|22082099003|11063799006;
-X-Microsoft-Antispam-Message-Info: R8ZOvn+e+EqI7tKRNo8GgIQy5rif25nhxgY0zSb2C3Wz+CBcStnvANMq1gDl6WMgLTGdqiRRurDuBztRqzJxEb3hJvHGyRbjg+uQ9m0Sxw6idRllfXD2in5WF6woW3MxGDBkZjPZbsV5okrmokhMDxvdxihSdqofW6FQQXVtNzJdy2Wsa1yqmFAaKh5WGeFZg6kv/HChIKc8xQPOe1MKmAXHbTCjf5ip7dopO82LaGvpDcrbhVQzHc3hghYb+FJArwRbFtbNJYPm2c5Fd9jiPfgJke+pQTheJl6d+8T8hZCy6pi2oXyhCuduG/Mep489GrSMN1Ypd/wPrbuEEHjL9+6wkzrhrYrIIa3FA5mM5RH8rqn1HANbMjcGCqsPhIFoQuv/h5nTDEz78l5TaZDiGBvCGGYs+hVQPZFiM+Zfcybj1RBqcf6x801c6tQ37L+G8VvtQkMCPLmGr2mzR0WUBd88ukt/VVTrB4X8GlJi0sEwCFUeKaY7Zu70FBbCW0CcgmTA2Yls+J0GEUdAJqdx/GF6U16pgF4uEhKOtuByfWYSw09gLEuiHGulYqIImCSoDQ3dmlj30BIg+C5sH7TzfidhmBrqr4i4scUdJAUbgfwMJOJIQ98dXCzbgDmvVBiddu2k1iBEWNinYom95Y8NKk4s2mHIPqOECaR9EimR6OANQC0ld4XsSjVMgtO1CAdjz47bgp+jrvdD4He7QUECgg==
+ ARA:13230040|23010399003|1800799024|376014|36860700016|82310400026|56012099006|11063799006|261009223027099003|18002099003|10067099003|22082099003;
+X-Microsoft-Antispam-Message-Info: mTpIu5jUnJy/uau1aL3PoGr5VM5doH1TL3hKZl+BrqvrZkzXmlvSUkNgmUsqrVBW+JDPWkclLXwAsm0AiMnrLLtKtiLgEPqwQCr12hXfYplAQn+FBqZ+nUzzKVUegSlbK9qbQnTllM6vO3Igf1gYa9fWS00eG1ZtHEzL/IQ6VTIMpVvq9Xf+f2bZy7MdhKVRBwzC/FBtcjKhhmH1MU0zjc+G6J7aqS4X714799prIYqlR0HzHhiLsrYVGVKGzOGzVZkVQOL4nAntZmFYoRRfGQjHbx2PMVW4hxO9xVuH0H9X8WEvGiQKQ5IGVgBZvYU33JrIXVX1/vSBqYZ78boq9gtJbQWCk208Lp+20+4QrPow0GpE4bMfWRPiMzgKbaSi2+Kuc25GBNNjnIMRb70dektBMcBaGE/CBq+MGussIo4xtr18rvZSdKnW8Vu0TQP58ujRotgPk0e7Nl8RwSdYQU7Y+aTDOZITG4eufmf4mP+IQJn2uft0jFx9gJtodwCfKlZZJBRlFTFxtDHUbb0IMLvq5ZFD7hheXjPnueSRkWgm+uZFdAJQlmJ23o6uGFTJnRf/B51TGxrLjxAirUfRZ7cDefFA87wYOq4bFqi3D1gduoLEuuvOGSKAjm2pEA3hP11j/MXCVGyBQPDx5098/VmrEWOtliJtcqwTtXuV13KcYfZKoV1ui/nkOxFDVHZK
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(376014)(23010399003)(1800799024)(82310400026)(261009223027099003)(10067099003)(56012099006)(18002099003)(22082099003)(11063799006);
+ SFS:(13230040)(23010399003)(1800799024)(376014)(36860700016)(82310400026)(56012099006)(11063799006)(261009223027099003)(18002099003)(10067099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: MI+nOctIhUgnGmlD07pmNi7vTfCM0hTYaSvLMWS2Xwrqcp/BUE0gjiwJljF4F5L3Wx44jKPWMFb0sn2tHzexGE2+3nGAADr3bBg0JK4bY4wsF56TeqNp7spqP93sE8oBtlYqx1FD+xIdXGhVixay443hTJbvQQr8JBS+zPhq0l3XnjFDH8vy94zudYnH75G8zQEv8B5k9HyxafKN9lv25SC1JyGmEXIAj48U9z0rUsbMWZrdvs3GfZBk/RrF4SRSJGtPgZbHGU8F+L/8t9XnO1lsNnsa00a2AgEupuHVbtl25RI6Iz4pMZtrCsfXjvfWKfkvfG2Hhy+qOhj/FwLoG1iU6UdHvIiHuz/1s85XqOHtwEQKV5Rxxj1ob6C/9jKoXXI0tqeyBGCr2yKt7idyzSgaIizGg6pJbPnU5Xcb+XgTE4/4Rbmn/btqVCoAFtM2
+X-MS-Exchange-AntiSpam-MessageData-0: YAlUnLnC79PXO9QBpGmWTxHIQFilXPKJXrjqXkznFKOHo1szV5Iip2eEAcYg8dxlZTOn+YtTbkpuQX3SNXOkIDJCR24GbQs1+LVv1qM2ExxEPHsvkDt/bQ2xEM8MiZCFTCth4EUcjw2OWVht/XdfBOdHrqJyn/OgpWwhS/jbDn4AjKEpVVG5pZfQ1Nvhme8OUf15IQWHE4iBGIoP0WdCW4n6qArXK87NDhsYbWvEfuGk5MAF4M1RBz/mMonP4Zz9lr1G6uIEdePFjbhwI5kyn4l5nEh0OfBgxpXYQpMYywE0U/W12nq7NSknRsFXdzlwESlc+HM3AsgPik1fxR1uAc6y/8sXYgGNlagkwlCMuvcy5/COaksh5NDo2AaKR0wV/3l780hYbZSoET4/fJJoU5MS6cebW3YuxT4P4T/abXEmYLMbCvb8rgM2xQWLv4z3
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 13:16:01.6201 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 17e2193f-9abe-432f-1a44-08df2f75742c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 13:16:00.8039 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c1bfc2ce-2466-4d3c-c8b9-08df2f7573af
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00005FFF.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7423
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR12MB999173
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,75 +111,48 @@ X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Align with KFD and don't set queue priorities for kernel
-queues.  This can result in starvation of lower priority
+Rather than setting a higher queue priority which could
+starve a lower priority queue, enable longer quantums
+for high priority kernel queues. This will avoid
+starvation, but provide longer runtime for high priority
 queues.
-
-v2: fix GC 8 and 9
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 4 +---
- drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c    | 2 --
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c    | 2 --
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c  | 2 --
- 4 files changed, 1 insertion(+), 9 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-index 2277345413165..4d472ce8cb710 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-@@ -830,10 +830,8 @@ static void amdgpu_ring_to_mqd_prop(struct amdgpu_ring *ring,
- 	prop->hqd_active = ring->funcs->type == AMDGPU_RING_TYPE_KIQ;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+index d334fb8050201..b9f847d9c8dd9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+@@ -2945,6 +2945,12 @@ static int gfx_v12_0_gfx_mqd_init(struct amdgpu_device *adev, void *m,
+ 	/* set up time quantum */
+ 	tmp = regCP_GFX_HQD_QUANTUM_DEFAULT;
+ 	tmp = REG_SET_FIELD(tmp, CP_GFX_HQD_QUANTUM, QUANTUM_EN, 1);
++	/* increase the duration of a high priority kernel queue */
++	if (prop->kernel_queue &&
++	    (prop->hqd_pipe_priority == AMDGPU_GFX_PIPE_PRIO_HIGH))
++		tmp = REG_SET_FIELD(tmp, CP_GFX_HQD_QUANTUM, QUANTUM_DURATION, 20);
++	else
++		tmp = REG_SET_FIELD(tmp, CP_GFX_HQD_QUANTUM, QUANTUM_DURATION, 10);
+ 	mqd->cp_gfx_hqd_quantum = tmp;
  
- 	prop->allow_tunneling = is_high_prio_compute;
--	if (is_high_prio_compute || is_high_prio_gfx) {
-+	if (is_high_prio_compute || is_high_prio_gfx)
- 		prop->hqd_pipe_priority = AMDGPU_GFX_PIPE_PRIO_HIGH;
--		prop->hqd_queue_priority = AMDGPU_GFX_QUEUE_PRIORITY_MAXIMUM;
--	}
- }
+ 	/* set up gfx hqd base. this is similar as CP_RB_BASE */
+@@ -3213,7 +3219,12 @@ static int gfx_v12_0_compute_mqd_init(struct amdgpu_device *adev, void *m,
  
- int amdgpu_ring_init_mqd(struct amdgpu_ring *ring)
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-index 80f3172f038c5..0ad8b8614d927 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-@@ -4396,8 +4396,6 @@ static void gfx_v8_0_mqd_set_priority(struct amdgpu_ring *ring, struct vi_mqd *m
- 	if (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE) {
- 		if (amdgpu_gfx_is_high_priority_compute_queue(adev, ring)) {
- 			mqd->cp_hqd_pipe_priority = AMDGPU_GFX_PIPE_PRIO_HIGH;
--			mqd->cp_hqd_queue_priority =
--				AMDGPU_GFX_QUEUE_PRIORITY_MAXIMUM;
- 		}
- 	}
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index 020315156dad4..fe4454d0877b2 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -3538,8 +3538,6 @@ static void gfx_v9_0_mqd_set_priority(struct amdgpu_ring *ring, struct v9_mqd *m
- 	if (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE) {
- 		if (amdgpu_gfx_is_high_priority_compute_queue(adev, ring)) {
- 			mqd->cp_hqd_pipe_priority = AMDGPU_GFX_PIPE_PRIO_HIGH;
--			mqd->cp_hqd_queue_priority =
--				AMDGPU_GFX_QUEUE_PRIORITY_MAXIMUM;
- 		}
- 	}
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-index 2240f61c5e6bf..19f05af61557c 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-@@ -1756,8 +1756,6 @@ static void gfx_v9_4_3_mqd_set_priority(struct amdgpu_ring *ring, struct v9_mqd
- 	if (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE) {
- 		if (amdgpu_gfx_is_high_priority_compute_queue(adev, ring)) {
- 			mqd->cp_hqd_pipe_priority = AMDGPU_GFX_PIPE_PRIO_HIGH;
--			mqd->cp_hqd_queue_priority =
--				AMDGPU_GFX_QUEUE_PRIORITY_MAXIMUM;
- 		}
- 	}
- }
+ 	tmp = REG_SET_FIELD(0, CP_HQD_QUANTUM, QUANTUM_EN, 1);
+ 	tmp = REG_SET_FIELD(tmp, CP_HQD_QUANTUM, QUANTUM_SCALE, 1);
+-	tmp = REG_SET_FIELD(tmp, CP_HQD_QUANTUM, QUANTUM_DURATION, 1);
++	/* increase the duration of a high priority kernel queue */
++	if (prop->kernel_queue &&
++	    (prop->hqd_pipe_priority == AMDGPU_GFX_PIPE_PRIO_HIGH))
++		tmp = REG_SET_FIELD(tmp, CP_HQD_QUANTUM, QUANTUM_DURATION, 2);
++	else
++		tmp = REG_SET_FIELD(tmp, CP_HQD_QUANTUM, QUANTUM_DURATION, 1);
+ 	mqd->cp_hqd_quantum = tmp;
+ 
+ 	mqd->cp_hqd_active = prop->hqd_active;
 -- 
 2.56.0
 
