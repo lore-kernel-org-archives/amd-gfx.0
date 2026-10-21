@@ -2,43 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F14E3606A31A
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Oct 2026 06:25:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10A0C606A319
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Oct 2026 06:25:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Z/vK16Ou
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=WQfsIOoU
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D75E10E0CE;
-	Wed, 21 Oct 2026 06:25:31 +0000 (UTC)
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012003.outbound.protection.outlook.com
- [40.93.195.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B46810E0CE
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2026 06:25:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91C5F10EC3D;
+	Wed, 21 Oct 2026 06:25:39 +0000 (UTC)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010043.outbound.protection.outlook.com [52.101.56.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA33010EC3D
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2026 06:25:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kPLv/qNzqeaRQbQhmW5duk3uS+yr/F8iKHpmI4LVuawOqBBFA2U3bJHrRmUyrQSBxM0kawgwdWFv1yGMPN2f0Wz3F/XW9ck7W4452bY0KgWO/8291yN27/RGrOq1RPIFB08OxNazGbKwVaDvOEIwOYOb7A/ydzPZdVHMmT28fbOG/mYCr5r0uaKqF4JsiIcTk4ZWRIgLYOtnUi80R0fNJ3OXL3uvz5IT+aawkCn/f1mrnDkH/jvbnqk38BQEfW9xIaa9YoOWEkJuAP7CaubKGEOgnCEGfGfHeKZouwILvgHwulToPvfS3547oklHW6sEhPpG58+bvb+l39HcRvpctA==
+ b=mJq5TaXgTA4FeOub4D/29K5DLyoumarESQmHTmWgkjlILkz/Z+IFeYT9r4LiUEw+u6kaqX0o3BRN45GJtjfKssdhk+n8SI1G/qp/M5HeIjfchBCLZ1udVJC2VVFm1RQP5FqvDw49aeFukR1RBnGINFwsqPvVmQDKsl52uXDhv9+wQ+Jv96KZCegKAbsOZsIWZUPnYs56gscwikiGgaU6F0AbrhkHye9aOqBXzLlAEmOsh7Rf6aaVIfK2tAkEf5O2zEjBUjdHFbnpvXI0HoP1gfJL2D7phnnfnxuZWsP7RtzjNwciqz/rZV1LQsoY9h/zHk6A+wLTS6CpCaK0sybmZA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aLMHvmyCO1ImjaVg6PMzlpmAy0cLKlpzSc1YYGhbbEY=;
- b=G+vKZdS4+8khkvKUuWVTLbY/oXi1XQvGW1vHJmdFXEudqG9U/Zy0uClf4Kb8kLsapAibMYE/4WrAC3n5HZSNKzmN3p7lcpFZW8DuNYCHcffbbl+G1DW1nyJe5odNsTjTIcZZEdKObrfiiVMx8L1iC1kS5GJz3AQn7CShDqZYzZfujnh1LyMv8R5sU3eGtcr6mgdBhWpmsocmZdGbThWf2aWf3Rnc3t24iG+HykFahJhtER4QafkWGMzspv6DjgAeWqe8i8gM95yj4o+iWBFa/Cxgaf77g+LeBbF9+EIWot8Q3dtTWt6WGb9etLGnWxwJhy51NNGdHwAshRD8xIXcBQ==
+ bh=gN0bmrzfsrztBFKNkcfTGlGETdFLXRPF72wf437AUfA=;
+ b=eHb03VcynTPt9pRB7B3qx+Xb9+zxlM3gZnLgekyZtTgBcLhthryuNPSWbPQOXK7Ta/aRNwFDuXg06WzcMwUIFootyP9hV45adOTwq0zhfIQurFqpn/dr+MDwhIhLDvYAd3zlFG/hprNs9KZ0bw5OAEQrB5G7ucW2wnPhmEqEftdhooCAgET1N/PILs1GRMeAiZx9VSOIzcZkcr8HShbwVqwN1rGa/5898YZmhVHmrdHIDvGa+bspz/7fLs+f8WxX+hTgaC4uXyy0djeXtbe7je7ddQEXxDLP2zFZaaRLkM6hL5ekpSBAZ0DMVyA9rzzdfbV+5/ku2vu9cI37eiF+Kg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aLMHvmyCO1ImjaVg6PMzlpmAy0cLKlpzSc1YYGhbbEY=;
- b=Z/vK16OurjHhOlxyIlPECOsHAtliflk2zjPM/1nc8auVaW4LrxH6egjEsRjak1xO2E2v03VWuRqAjw8/3u/kLkZd3kEey3oKZnCzEHhIirMnzLDWc7NgC9Y+l0ENMNXtPE/NNCw1s0KnCHxEMSKa+IzIlMHjBFkvO7R+Bvu6SIs=
-Received: from BN9P223CA0026.NAMP223.PROD.OUTLOOK.COM (2603:10b6:408:10b::31)
- by LV2PR12MB999096.namprd12.prod.outlook.com (2603:10b6:408:353::16)
+ bh=gN0bmrzfsrztBFKNkcfTGlGETdFLXRPF72wf437AUfA=;
+ b=WQfsIOoU5/sMoPg5IsuAXUtr7/kzmi0YdVsDPqZYQPE/dxIHegoOTZxvhUXNMW67w6Bw4U0I/fineSxbwv/2+oCeRTiKb4c2V3cR1vbqJyL/v/fxEEPN4vFxuUz9RA04iJkuy1GV4Qz+tGaDFk7kNlghgFexpcK1Gitz3kt2lN8=
+Received: from BN9PR03CA0118.namprd03.prod.outlook.com (2603:10b6:408:fd::33)
+ by IA1PR12MB7710.namprd12.prod.outlook.com (2603:10b6:208:422::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
- 2026 06:25:20 +0000
-Received: from BN1PEPF00018549.namprd05.prod.outlook.com
- (2603:10b6:408:10b:cafe::aa) by BN9P223CA0026.outlook.office365.com
- (2603:10b6:408:10b::31) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.18; Wed, 21 Oct
+ 2026 06:25:24 +0000
+Received: from BN1PEPF00018546.namprd05.prod.outlook.com
+ (2603:10b6:408:fd:cafe::58) by BN9PR03CA0118.outlook.office365.com
+ (2603:10b6:408:fd::33) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Wed,
- 21 Oct 2026 06:25:20 +0000
+ 21 Oct 2026 06:25:24 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -47,16 +46,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN1PEPF00018549.mail.protection.outlook.com (10.167.248.8) with Microsoft
+ BN1PEPF00018546.mail.protection.outlook.com (10.167.248.5) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.15 via Frontend Transport; Wed, 21 Oct 2026 06:25:20 +0000
+ 15.21.546.15 via Frontend Transport; Wed, 21 Oct 2026 06:25:23 +0000
 Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 21 Oct
- 2026 01:25:19 -0500
+ 2026 01:25:23 -0500
 Received: from tom-r5.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Wed, 21 Oct 2026 01:25:16 -0500
+ Transport; Wed, 21 Oct 2026 01:25:19 -0500
 From: Tom Chung <chiahsuan.chung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -65,40 +64,44 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>
-Subject: [PATCH 00/49] DC Patches Oct 26 2026
-Date: Wed, 21 Oct 2026 14:22:06 +0800
-Message-ID: <20261021062519.674697-1-chiahsuan.chung@amd.com>
+ <Chen-Yu.Chen@amd.com>, Tony Cheng <tony.cheng@amd.com>, Jun Lei
+ <jun.lei@amd.com>
+Subject: [PATCH 01/49] drm/amd/display: Add Core 2 initialization BLS
+ scaffolding
+Date: Wed, 21 Oct 2026 14:22:07 +0800
+Message-ID: <20261021062519.674697-2-chiahsuan.chung@amd.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261021062519.674697-1-chiahsuan.chung@amd.com>
+References: <20261021062519.674697-1-chiahsuan.chung@amd.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00018549:EE_|LV2PR12MB999096:EE_
-X-MS-Office365-Filtering-Correlation-Id: 262bc4b9-2cbb-4365-dac3-08df2f3c14a2
+X-MS-TrafficTypeDiagnostic: BN1PEPF00018546:EE_|IA1PR12MB7710:EE_
+X-MS-Office365-Filtering-Correlation-Id: b6706a24-f6c0-4c9c-889a-08df2f3c16f1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|82310400026|23010399003|36860700016|56012099006|11063799006|261009223027099003|10067099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info: HjSLHRySUFugEzngvvaFET1uRuhcKgj1tJmxBmd/+ggPnb2s37esZNMNkISRKOrxuxFMBYEcljNN37d3X90F00t388y7S33sWCaKrkjC3Y3irMzbOj03ApAZCrb1myloeXA0WBqX/3ho4xJbYA8S6aNEq+kPjCk9/GmBF0P7iLC4ujCKxotjf7v9W2f73mRwazvrwqBVcvH6w1E4pvUqT/kPg/pn5YkfbzfJvu5EiMMcjuEZrEu7OvZuIYfFSbCfohpon3DjMYD5Qim6ocysLxM5jeaI12qdn2/Nqh5MJnrFmAb+7fM5tiEkul1mLrLH5lWBe96qkj8qjQpC+Jl4d810pRBMXDbgLchrNJT1c/qz3eHiscyGPLePatBIo01cDvQmorNwMvlnNRFPeIW7R4F8hcD/mousG/kWM3ZIaaLXj7gFFbZhczUkJyivbUpD7pfqfqQDbVWkfPh64XISCRuTgSC4cbMiorVHD2Xkoq0HhkDJwxEFBcWMv0QAkaAPOAfwSLVxKZs8BmB80G1opnb2Wi8jVureWlf87VY3fbIfGidfxWuIKKT9LZa63OEQMMU8gvSf9BkBbKiDY7xUpI8N482Z7TVTM+dS9LPplknLQfOaysrBj0j2qPewZxf5ROw/RQ42saZyZGcKdQwVJAfANpDdozCzkXqfkPvuY7bSJ9jORY+HP1mgf2hgLHULkjAjDXHvHkH1peb6TL4osA==
+ ARA:13230040|23010399003|376014|1800799024|36860700016|82310400026|56012099006|11063799006|261009221227099003|261009223027099003|22082099003|18002099003|10067099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info: 6KhWPiUw5Qefz9KvSuG8KiAqxSihuVRpclOeXcQjFUA4GCyXZlotaZR25Sbjew2C03AbFrwk0COvRz7tCl9jqx5i77LNwHpOIAZ+GydoAmkzRUJs554dQFjMLxj/n2QjVGhSb/3x/lfLxx+LIgBHqT17s7Q1xotyvW0Z/aFJJNSMyANy1B8PNiMk1RREpebOG6eVsqxHSCUF8PqV3krimezou3PWc8LduFz2UZSsT6lEMDmBRBEUxCs6ISFDoT3x93fC+vLW1hmreZNHcEAxWgyf4uJtHISlz+zN9dcfqNbVPK5XgQGGyOArQpzU8JwTvIRapbYyLbgrlEUHnhoAZMSWrHzeMDXchqAmW9jHttKSYf6g799kcuo9lQJfcdf6w1fI9WNdNod4PJfJ5XkJVzi4iuyWia0XNVtWos88fWputle7N/R3GufzhBEblnpo9pOiZ0kSnnZhEgXJ5F0xXfTUwzOMUp9Mt58Haz9T4n3xT8sheaLU7y+reIu7W05nbwtbkSg6BAWkIDsj7FMMTWgcDeZU7UGOuVYDiOH/hoZ2bo1RIfqoLhze+DX2aZRdVwdMo4orqYfg33kgwz9tBkP5lK8/OPmWm1amT05DD2a6rLMy3xNQftqs0IjJF8ahpACJFr30N0AvhV63a5w32e1+w2V4+EYDhQn3TRLudFio8vWHNWZgD0fFdcGLBHp/rKgMUY+h4v9Hpwqc7DymyQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(82310400026)(23010399003)(36860700016)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003)(6133799003);
+ SFS:(13230040)(23010399003)(376014)(1800799024)(36860700016)(82310400026)(56012099006)(11063799006)(261009221227099003)(261009223027099003)(22082099003)(18002099003)(10067099003)(6133799003)(3023799007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: HdZv9rZBCoy7oqDEzyeCoaYCE/06iZ+hx2PUD3QolQb4hiz29aB/94aIP6yYKvu7UZwHpVPt8b+dIjFQpLtfi3vHN86662QWHgqCuSfnUbqSTEVftgqze7bM6Q59G6Nai1iZ/a8E8VA+OWL90kXAvuh1Zga+d0atkJHHp/CiSjSQRixxyFvW4YrwKC0cRU9d3AZR4BQPP7nG8wKBQOtM2EEb4CtaXnPqh1OJVGIh16zQlgB97JJ6Ke6ct68Ey2uoneHt17oGxIyJHp/t0NoB4ZSVHArTYeTEsYCOlXjt16Lg/EPPSPr2h+6Qi2BpqdkmZ40ToS/DN4DtQmzw0p/+MYdr9R56+X9W5sbC3R0HyvNrI8V2WwnHroV4Ivj/ipbgPG12CIEBtp2bfMXW6bBudwe7IXd9hdrf3SeeGyeg6RYL/uw2iae0OaCedTyn1AzY
+X-MS-Exchange-AntiSpam-MessageData-0: 0TpAFkmqyTyk5Hfi8KYTNa6nOM5WFszDgsV6F3B4M4V4r2YyAI2nEpmhDqBVU3dKlLlYO/1sIl76QvshQ/nPhcj+Bk/E7Xahjt2dyj6tZvFEhLFSKna5YllFnXfdJVrcpxS3ZBoR+95xrWG4mMrKgmJA7+/Dd9XnACb+RrZrishHBFO1M2Q7QhUSgygP+Ci2lHmodsNK26zjIFD8dVMs9ODO5iG2i5+ThOC0BtM2W/8Ec3lCaqRtNeyZ0gcBv2IkMvIvqKJqFPqej2AljsI5FSkYnYl+uuHj/PiboAJW4vHgPuZ6rxal53FCK7ukxdCwG9kazAR5dl5XjgIpCYQkuVTH8tmaJQ1S4ZJodxZVKBDpDSxYFuc880PcIIRS2Il4yKjQjW9ElQFExEUTJ8afQIZFU/thILCKtbMOOEk+G5ymD1SV5IBtvu0uUbqlVB0E
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 06:25:20.0188 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 262bc4b9-2cbb-4365-dac3-08df2f3c14a2
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 06:25:23.8943 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b6706a24-f6c0-4c9c-889a-08df2f3c16f1
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00018549.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00018546.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB999096
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7710
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,224 +112,423 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-This DC patchset brings improvements in multiple areas. In summary, we have:
- - Add Core 2 BLS initialization scaffolding with builder, executor,
-   workaround manager and DMUB dispatch.
- - Run DC2_DC1_Wrapped dcn401 init as staged BLS builds.
- - Split dcn401 init register writes into hwseq funcs.
- - Read MPCC LUT modes, cursor lock and DCN401 PHY state, and add BIOS,
-   link and DSC sections to get_hw_state.
- - Fix QoS bandwidth fields copied from DML.
- - Convert update scratch to memory pool.
- - Pre-allocate DC state for atomic-context commits.
- - Preserve planes on DPMS-on during DP test link retrain.
- - Poll passive DVI sinks for EDID readiness.
- - Re-init cursor offload to DMUB after resume.
- - Add fec_status check flow for 8b10b links.
- - Revert DSC programming changes for DCN60.
- - Update alt-ch size calc to handle MPO + ODM correctly.
- - Cap DSC bpp for USB4 DP tunnels.
- - Add debug options for DMCUB FW loading and forcing MPC combine.
- - Fix CRTC init cleanup and pipeline name OOM handling.
- - Various cleanups, coding style and KUnit test fixes.
+From: Tony Cheng <tony.cheng@amd.com>
 
-Cc: Daniel Wheeler <daniel.wheeler@amd.com>
+why:
+Core2 initialization cannot safely cut over until the architected DMUB
+halt, PSP reload, DMUB Initialize-DCN, ABI resolution, and symmetric
+teardown contracts exist. The remaining operations do not yet have DAL
+component contracts, so this parent must not cut the selectable
+lifecycle path over.
 
-Alex Hung (11):
-  drm/amd/display: Handle pipeline name OOM
-  drm/amd/display: Fix CRTC init cleanup
-  drm/amd/display: Flatten CRC update flow
-  drm/amd/display: Clean up allocation handling
-  drm/amd/display: Fix coding style errors
-  drm/amd/display: Fix KUnit connector leaks
-  drm/amd/display: Use kunit_kcalloc for arrays
-  drm/amd/display: Destroy dup connector state
-  drm/amd/display: Drop single-entry kcalloc
-  drm/amd/display: Use kzalloc_obj in tests
-  drm/amd/display: Assert NOT_NULL on allocs
+how:
+Keep the existing legacy lifecycle behavior and introduce fail-closed
+Builder/Executor scaffolding over struct block_sequence as peer
+directories. Encapsulate dispatch behind bls_builder_create and a
+per-ASIC vtable, emit one explicit DCCG_INITIALIZE_CLOCKS BLC
+operation, and reject incomplete initialization and missing dispatch
+targets.
 
-Alvin Lee (1):
-  drm/amd/display: Update alt-ch size calc to handle MPO + ODM correctly
-
-Ashwin Santhosh (1):
-  drm/amd/display: Pre-allocate DC state for atomic-context commits
-
-Austin Zheng (1):
-  drm/amd/display: Expose Generic Function That Can Be Reused
-
-Charlene Liu (1):
-  drm/amd/display: remove not used code
-
-Dominik Kaszewski (1):
-  drm/amd/display: Convert update scratch to memory pool
-
-Fangzhi Zuo (2):
-  drm/amd/display: Poll passive DVI sinks for EDID readiness
-  drm/amd/display: Cap DSC bpp for USB4 DP tunnels
-
-George Shen (1):
-  drm/amd/display: Preserve planes on DPMS-on during DP test link
-    retrain
-
-Ivan Lipski (1):
-  drm/amd/display: Re-init cursor offload to dmub after resume
-
-Matthew Stewart (1):
-  drm/amd/display: Reuse mpc401_read_mpcc_state on dcn42, dcn60
-
-Ovidiu Bunea (1):
-  drm/amd/display: Add debug flag to support for different DMCUB FW
-    loading
-
-Peichen Huang (1):
-  drm/amd/display: fec_status check flow
-
-Samson Tam (3):
-  drm/amd/display: Revert "Program DSC prior to OTG enable starting
-    DCN60"
-  drm/amd/display: Revert "Add new config_dsc hwseq function for dcn60"
-  drm/amd/display: Revert "Split link_set_dsc_on_stream into encoder and
-    DSC components"
-
-Taimur Hassan (2):
-  drm/amd/display: [FW Promotion] Release 0.1.81.0
-  drm/amd/display: Promote DC to 3.2.404
-
-Tony Cheng (18):
-  drm/amd/display: Add Core 2 initialization BLS scaffolding
-  drm/amd/display: Scaffold Core2 BLS builder and executor
-  drm/amd/display: Add Core 2 Workaround Manager scaffolding
-  drm/amd/display: Scaffold DMUB inbox BLS dispatch
-  drm/amd/display: Scaffold generic DMUB GPINT BLS dispatch
-  drm/amd/display: Scaffold DMUB STOP_FW on the init BLS
-  drm/amd/display: Name the init STOP_FW entry DMUB_HALT_FW
-  drm/amd/display: Scaffold PSP reload, ABI query, and Initialize DCN
-  drm/amd/display: Call the init BLS from Core2 hardware init
-  drm/amd/display: Attach retained DMUB windows to PSP reload
-  drm/amd/display: Split dcn401 init register writes into hwseq funcs
-  drm/amd/display: Add dal_gpio_ddc_open_aux_once
-  drm/amd/display: Dispatch the dcn401_init_hw calls from the Executor
-  drm/amd/display: Narrow the DMUB-driven dcn401 init builder helpers
-  drm/amd/display: Run DC2_DC1_Wrapped init as staged BLS builds
-  drm/amd/display: Read DCN401 PHY reset and lane enable state
-  drm/amd/display: Read cursor update lock into mpcc_state
-  drm/amd/display: Add BIOS, link, DSC and cursor lock to get_hw_state
-
-Wenjing Liu (3):
-  drm/amd/display: Fix QoS bandwidth fields copied from DML
-  drm/amd/display: Remove deprecated bandwidth Kbps fields
-  drm/amd/display: Add debug option to force MPC combine
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   69 +-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   22 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_color.c   |    2 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c |    4 +
- .../display/amdgpu_dm/amdgpu_dm_connector.c   |    8 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |   12 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c |    1 +
- .../amd/display/amdgpu_dm/amdgpu_dm_dmub.c    |    5 +
- .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |   24 +-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_irq.h |    4 +-
- .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |   17 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   |    6 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_plane.h   |    2 +-
- .../display/amdgpu_dm/amdgpu_dm_services.c    |    2 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_trace.h   |    2 +-
- .../gpu/drm/amd/display/amdgpu_dm/dc_fpu.c    |    5 +-
- .../amdgpu_dm/tests/amdgpu_dm_audio_test.c    |   84 +-
- .../tests/amdgpu_dm_backlight_test.c          |   48 +-
- .../amdgpu_dm/tests/amdgpu_dm_color_test.c    |    8 +-
- .../amdgpu_dm/tests/amdgpu_dm_colorop_test.c  |    2 +-
- .../tests/amdgpu_dm_connector_test.c          |   80 +-
- .../amdgpu_dm/tests/amdgpu_dm_crtc_test.c     |  248 ++--
- .../amdgpu_dm/tests/amdgpu_dm_dmub_test.c     |  168 +--
- .../amdgpu_dm/tests/amdgpu_dm_freesync_test.c |   24 +-
- .../amdgpu_dm/tests/amdgpu_dm_hdcp_test.c     |    4 +-
- .../amdgpu_dm/tests/amdgpu_dm_irq_test.c      |  329 +++--
- .../amdgpu_dm/tests/amdgpu_dm_kunit_helpers.c |    2 +-
- .../tests/amdgpu_dm_mst_types_test.c          |   12 +-
- .../amdgpu_dm/tests/amdgpu_dm_quirks_test.c   |    6 +-
- .../display/amdgpu_dm/tests/amdgpu_dm_test.c  |   30 +-
- drivers/gpu/drm/amd/display/dc/Makefile       |    7 +
- .../amd/display/dc/bls_builder/bls_builder.c  |   21 +
- .../amd/display/dc/bls_builder/bls_builder.h  |   98 ++
- .../dc/bls_builder/bls_builder_internal.h     |   11 +
- .../dc/bls_builder/bls_builder_legacy_init.h  |  128 ++
- .../dc/bls_builder/dcn401_init_builder.c      |  413 +++++++
- .../dc/bls_builder/dcn401_init_builder.h      |   42 +
- .../bls_builder/dcn401_init_builder_legacy.c  | 1071 +++++++++++++++++
- .../bls_builder/dcn401_init_builder_legacy.h  |   18 +
- .../drm/amd/display/dc/bls_builder/dmub_abi.h |   13 +
- .../display/dc/bls_executor/bls_executor.c    |  703 +++++++++++
- .../display/dc/bls_executor/bls_executor.h    |   21 +
- drivers/gpu/drm/amd/display/dc/core/dc.c      |  125 +-
- .../drm/amd/display/dc/core2/dc_core2_init.c  |   78 +-
- .../display/dc/core2/dc_core2_legacy_init.c   |  236 ++++
- .../display/dc/core2/dc_core2_legacy_init.h   |   17 +
- drivers/gpu/drm/amd/display/dc/dc.h           |   33 +-
- .../amd/display/dc/dc_api_dispatch/api_shim.h |    4 +
- .../dc/dcn10/dcn10_hw_sequencer_debug.c       |  173 +++
- .../dc/dio/dcn401/dcn401_dio_link_encoder.c   |   22 +-
- .../dc/dio/dcn401/dcn401_dio_link_encoder.h   |    8 +
- .../dml2_core/dml2_core_dcn6_calcs_dchub.c    |    7 +-
- .../dml2_0/dml21/src/dml2_pmo/dml2_pmo_dcn6.c |    2 +-
- .../dml2_0/dml21/src/dml2_pmo/dml2_pmo_dcn6.h |    1 +
- .../dml21_wrapper/dml21_translation_helper.c  |   11 +-
- .../dc/dmub_messenger/dmub_messenger.c        |   81 ++
- .../dc/dmub_messenger/dmub_messenger.h        |   55 +
- .../drm/amd/display/dc/gpio/gpio_service.c    |   19 +
- .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c |   48 +-
- .../amd/display/dc/hwss/dcn401/dcn401_hwseq.h |    3 +
- .../amd/display/dc/hwss/dcn401/dcn401_init.c  |    4 +
- .../amd/display/dc/hwss/dcn60/dcn60_hwseq.c   |   97 --
- .../amd/display/dc/hwss/dcn60/dcn60_hwseq.h   |    1 -
- .../amd/display/dc/hwss/dcn60/dcn60_init.c    |    1 -
- .../drm/amd/display/dc/hwss/hw_sequencer.h    |  229 +++-
- .../display/dc/hwss/hw_sequencer_private.h    |    8 +
- .../gpu/drm/amd/display/dc/inc/core_types.h   |    7 +
- .../drm/amd/display/dc/inc/hw/link_encoder.h  |    2 +
- drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h   |    1 +
- .../display/dc/link/accessories/link_dp_cts.c |   19 +-
- .../gpu/drm/amd/display/dc/link/link_dpms.c   |  336 +++---
- .../drm/amd/display/dc/mpc/dcn10/dcn10_mpc.c  |    2 +
- .../amd/display/dc/mpc/dcn401/dcn401_mpc.c    |    2 +-
- .../amd/display/dc/mpc/dcn401/dcn401_mpc.h    |    5 +
- .../drm/amd/display/dc/mpc/dcn42/dcn42_mpc.c  |   10 +-
- .../drm/amd/display/dc/mpc/dcn60/dcn60_mpc.c  |    2 +-
- .../dc/resource/dcn401/dcn401_resource.c      |   10 +-
- .../dc/resource/dcn42/dcn42_resource.c        |    5 -
- .../dc/resource/dcn42/dcn42_resource_fpu.c    |   22 -
- .../dc/resource/dcn42/dcn42_resource_fpu.h    |    1 -
- .../workaround_manager/workaround_manager.c   |   74 ++
- .../workaround_manager/workaround_manager.h   |   46 +
- .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |   11 +-
- .../display/include/gpio_service_interface.h  |    6 +
- 84 files changed, 4603 insertions(+), 997 deletions(-)
+Reviewed-by: Jun Lei <jun.lei@amd.com>
+Signed-off-by: Tony Cheng <tony.cheng@amd.com>
+Signed-off-by: Roman Li <roman.li@amd.com>
+---
+ drivers/gpu/drm/amd/display/dc/Makefile       |   3 +
+ .../amd/display/dc/bls_builder/bls_builder.c  |  21 ++++
+ .../amd/display/dc/bls_builder/bls_builder.h  |  84 ++++++++++++++
+ .../dc/bls_builder/bls_builder_internal.h     |  11 ++
+ .../dc/bls_builder/dcn401_init_builder.c      | 107 ++++++++++++++++++
+ .../display/dc/bls_executor/bls_executor.c    |  52 +++++++++
+ .../display/dc/bls_executor/bls_executor.h    |  17 +++
+ .../drm/amd/display/dc/hwss/hw_sequencer.h    |   6 +
+ 8 files changed, 301 insertions(+)
  create mode 100644 drivers/gpu/drm/amd/display/dc/bls_builder/bls_builder.c
  create mode 100644 drivers/gpu/drm/amd/display/dc/bls_builder/bls_builder.h
  create mode 100644 drivers/gpu/drm/amd/display/dc/bls_builder/bls_builder_internal.h
- create mode 100644 drivers/gpu/drm/amd/display/dc/bls_builder/bls_builder_legacy_init.h
  create mode 100644 drivers/gpu/drm/amd/display/dc/bls_builder/dcn401_init_builder.c
- create mode 100644 drivers/gpu/drm/amd/display/dc/bls_builder/dcn401_init_builder.h
- create mode 100644 drivers/gpu/drm/amd/display/dc/bls_builder/dcn401_init_builder_legacy.c
- create mode 100644 drivers/gpu/drm/amd/display/dc/bls_builder/dcn401_init_builder_legacy.h
- create mode 100644 drivers/gpu/drm/amd/display/dc/bls_builder/dmub_abi.h
  create mode 100644 drivers/gpu/drm/amd/display/dc/bls_executor/bls_executor.c
  create mode 100644 drivers/gpu/drm/amd/display/dc/bls_executor/bls_executor.h
- create mode 100644 drivers/gpu/drm/amd/display/dc/core2/dc_core2_legacy_init.c
- create mode 100644 drivers/gpu/drm/amd/display/dc/core2/dc_core2_legacy_init.h
- create mode 100644 drivers/gpu/drm/amd/display/dc/dmub_messenger/dmub_messenger.c
- create mode 100644 drivers/gpu/drm/amd/display/dc/dmub_messenger/dmub_messenger.h
- create mode 100644 drivers/gpu/drm/amd/display/dc/workaround_manager/workaround_manager.c
- create mode 100644 drivers/gpu/drm/amd/display/dc/workaround_manager/workaround_manager.h
 
+diff --git a/drivers/gpu/drm/amd/display/dc/Makefile b/drivers/gpu/drm/amd/display/dc/Makefile
+index 1cbf284bb2fd..e64a098e04e3 100644
+--- a/drivers/gpu/drm/amd/display/dc/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/Makefile
+@@ -84,6 +84,9 @@ FILES += core/dc_surface.o
+ FILES += core/dc_vm_helper.o
+ FILES += core2/dc_core2.o
+ FILES += core2/dc_core2_init.o
++FILES += bls_builder/bls_builder.o
++FILES += bls_builder/dcn401_init_builder.o
++FILES += bls_executor/bls_executor.o
+ 
+ AMD_DISPLAY_FILES += $(addprefix $(AMDDALPATH)/dc/, $(FILES))
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/bls_builder/bls_builder.c b/drivers/gpu/drm/amd/display/dc/bls_builder/bls_builder.c
+new file mode 100644
+index 000000000000..8ac202487189
+--- /dev/null
++++ b/drivers/gpu/drm/amd/display/dc/bls_builder/bls_builder.c
+@@ -0,0 +1,21 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright 2026 Advanced Micro Devices, Inc.
++ */
++
++#include "dm_services.h"
++#include "bls_builder/bls_builder_internal.h"
++
++const struct bls_builder *bls_builder_create(struct dc *dc,
++		enum bls_builder_name name)
++{
++	if (!dc || !dc->ctx)
++		return NULL;
++
++	switch (dc->ctx->dce_version) {
++	case DCN_VERSION_4_01:
++		return dcn401_bls_builder_create(name);
++	default:
++		return NULL;
++	}
++}
+diff --git a/drivers/gpu/drm/amd/display/dc/bls_builder/bls_builder.h b/drivers/gpu/drm/amd/display/dc/bls_builder/bls_builder.h
+new file mode 100644
+index 000000000000..61952f8b95b6
+--- /dev/null
++++ b/drivers/gpu/drm/amd/display/dc/bls_builder/bls_builder.h
+@@ -0,0 +1,84 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright 2026 Advanced Micro Devices, Inc.
++ */
++
++#pragma once
++
++#include "dc.h"
++#include "hwss/hw_sequencer.h"
++
++#define DC2_BLS_MAX_STEPS 64
++
++enum bls_builder_result {
++	BLS_BUILD_SUCCESS,
++	BLS_BUILD_ERROR_UNSUPPORTED_STATE_UPDATE,
++	BLS_BUILD_ERROR_RESOURCE_MAPPING,
++	BLS_BUILD_ERROR_DMUB_ABI_UNRESOLVED,
++};
++
++enum bls_builder_name {
++	DCN_DECL_INITIALIZATION,
++	BLS_BUILDER_NAME_COUNT,
++};
++
++enum bls_builder_kind {
++	BLS_BUILDER_DECLARATIVE,
++	BLS_BUILDER_IMPERATIVE,
++};
++
++struct dmub_abi {
++	unsigned int fw_version;
++	unsigned int feature_caps;
++};
++
++struct bls_builder_output_init {
++	unsigned int xtalin_clock_inKhz;
++	unsigned int dccg_ref_clock_inKhz;
++	unsigned int dchub_ref_clock_inKhz;
++	unsigned int dchub_ref_clock_inKhz_before;
++	unsigned int backlight;
++	struct dmub_abi dmub_abi;
++};
++
++struct bls_builder_output_targets {
++	union {
++		struct bls_builder_output_init *DCN_DECL_INITIALIZATION;
++	};
++};
++
++struct bls_builder_check_capability_params {
++	struct dc *dc;
++	const struct dc_state *current_state;
++	const struct dc_state *new_state;
++};
++
++struct bls_builder_declarative_params {
++	struct dc *dc;
++	const struct dc_state *current_state;
++	const struct dc_state *new_state;
++	const struct dmub_abi *dmub_abi;
++	struct bls_builder_output_targets *out_targets;
++	struct block_sequence head_sequence[DC2_BLS_MAX_STEPS];
++	unsigned int head_num_steps;
++	struct block_sequence tail_sequence[DC2_BLS_MAX_STEPS];
++	unsigned int tail_num_steps;
++};
++
++typedef bool (*bls_builder_check_capability)(
++		const struct bls_builder_check_capability_params *params);
++
++typedef enum bls_builder_result (*bls_builder_build_declarative)(
++		struct bls_builder_declarative_params *params);
++
++struct bls_builder {
++	enum bls_builder_name name;
++	enum bls_builder_kind kind;
++	bls_builder_check_capability check_capability;
++	union {
++		bls_builder_build_declarative declarative;
++	} build;
++};
++
++const struct bls_builder *bls_builder_create(struct dc *dc,
++		enum bls_builder_name name);
+diff --git a/drivers/gpu/drm/amd/display/dc/bls_builder/bls_builder_internal.h b/drivers/gpu/drm/amd/display/dc/bls_builder/bls_builder_internal.h
+new file mode 100644
+index 000000000000..216879c93f9e
+--- /dev/null
++++ b/drivers/gpu/drm/amd/display/dc/bls_builder/bls_builder_internal.h
+@@ -0,0 +1,11 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright 2026 Advanced Micro Devices, Inc.
++ */
++
++#pragma once
++
++#include "bls_builder/bls_builder.h"
++
++const struct bls_builder *dcn401_bls_builder_create(
++		enum bls_builder_name name);
+diff --git a/drivers/gpu/drm/amd/display/dc/bls_builder/dcn401_init_builder.c b/drivers/gpu/drm/amd/display/dc/bls_builder/dcn401_init_builder.c
+new file mode 100644
+index 000000000000..42a648b8c065
+--- /dev/null
++++ b/drivers/gpu/drm/amd/display/dc/bls_builder/dcn401_init_builder.c
+@@ -0,0 +1,107 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright 2026 Advanced Micro Devices, Inc.
++ */
++
++#include "dm_services.h"
++#include "core_types.h"
++#include "resource.h"
++#include "bls_builder/bls_builder_internal.h"
++
++static bool bls_append(struct block_sequence_state *sequence,
++		enum block_sequence_func func,
++		const union block_sequence_params *params)
++{
++	struct block_sequence *entry;
++
++	if (!sequence || !sequence->steps || !sequence->num_steps ||
++			!params || *sequence->num_steps >=
++			DC2_BLS_MAX_STEPS)
++		return false;
++
++	entry = &sequence->steps[*sequence->num_steps];
++	entry->params = *params;
++	entry->func = func;
++	(*sequence->num_steps)++;
++	return true;
++}
++
++static enum bls_builder_result dcn401_check_initialization_support(
++		const struct bls_builder_check_capability_params *params)
++{
++	struct dc *dc;
++
++	if (!params || !params->dc)
++		return BLS_BUILD_ERROR_UNSUPPORTED_STATE_UPDATE;
++
++	dc = params->dc;
++	if (!dc->ctx || !dc->res_pool || !dc->res_pool->dccg)
++		return BLS_BUILD_ERROR_RESOURCE_MAPPING;
++	if (dc->config.seamless_boot_edp_requested)
++		return BLS_BUILD_ERROR_UNSUPPORTED_STATE_UPDATE;
++
++	return BLS_BUILD_SUCCESS;
++}
++
++static bool dcn401_initialization_check_capability(
++		const struct bls_builder_check_capability_params *params)
++{
++	return dcn401_check_initialization_support(params) ==
++			BLS_BUILD_SUCCESS;
++}
++
++static enum bls_builder_result dcn401_build_initialization(
++		struct bls_builder_declarative_params *params)
++{
++	struct bls_builder_check_capability_params check_params = {0};
++	enum bls_builder_result support_result;
++	struct block_sequence_state sequence;
++	union block_sequence_params bls_params = {0};
++	struct dc *dc;
++
++	if (!params)
++		return dcn401_check_initialization_support(NULL);
++
++	check_params.dc = params->dc;
++	check_params.current_state = params->current_state;
++	check_params.new_state = params->new_state;
++	support_result =
++			dcn401_check_initialization_support(&check_params);
++	if (support_result != BLS_BUILD_SUCCESS)
++		return support_result;
++
++	dc = params->dc;
++	params->head_num_steps = 0;
++	params->tail_num_steps = 0;
++	sequence.steps = params->head_sequence;
++	sequence.num_steps = &params->head_num_steps;
++
++	/*
++	 * Add only operations with explicit component dispatch today. Core will
++	 * not execute or commit ownership until the fixed four-entry DCN
++	 * initialization sequence is available.
++	 */
++	bls_params.dccg_initialize_clocks_params.dccg =
++			dc->res_pool->dccg;
++	if (!bls_append(&sequence, DCCG_INITIALIZE_CLOCKS,
++			&bls_params))
++		return BLS_BUILD_ERROR_UNSUPPORTED_STATE_UPDATE;
++
++	return BLS_BUILD_ERROR_UNSUPPORTED_STATE_UPDATE;
++}
++
++const struct bls_builder *dcn401_bls_builder_create(
++		enum bls_builder_name name)
++{
++	static const struct bls_builder initialization_builder = {
++		.name = DCN_DECL_INITIALIZATION,
++		.kind = BLS_BUILDER_DECLARATIVE,
++		.check_capability = dcn401_initialization_check_capability,
++		.build.declarative = dcn401_build_initialization,
++	};
++
++	if (name != DCN_DECL_INITIALIZATION)
++		return NULL;
++
++	return &initialization_builder;
++}
+diff --git a/drivers/gpu/drm/amd/display/dc/bls_executor/bls_executor.c b/drivers/gpu/drm/amd/display/dc/bls_executor/bls_executor.c
+new file mode 100644
+index 000000000000..d1bb951e47ae
+--- /dev/null
++++ b/drivers/gpu/drm/amd/display/dc/bls_executor/bls_executor.c
+@@ -0,0 +1,52 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright 2026 Advanced Micro Devices, Inc.
++ *
++ */
++
++#include "dm_services.h"
++#include "dccg.h"
++#include "bls_executor/bls_executor.h"
++
++static bool dc2_bls_step_supported(const struct block_sequence *step)
++{
++	struct dccg *dccg;
++
++	switch (step->func) {
++	case DCCG_INITIALIZE_CLOCKS:
++		dccg = step->params.dccg_initialize_clocks_params.dccg;
++		return dccg && dccg->funcs && dccg->funcs->dccg_init;
++	default:
++		return false;
++	}
++}
++
++enum dc2_bls_exec_result dc2_bls_execute(
++		const struct block_sequence *steps,
++		unsigned int num_steps)
++{
++	const struct block_sequence *entry;
++	unsigned int i;
++
++	if (!steps || num_steps > MAX_HWSS_BLOCK_SEQUENCE_SIZE)
++		return DC2_BLS_EXEC_ERROR;
++
++	for (i = 0; i < num_steps; i++)
++		if (!dc2_bls_step_supported(&steps[i]))
++			return DC2_BLS_EXEC_ERROR;
++
++	for (i = 0; i < num_steps; i++) {
++		entry = &steps[i];
++		switch (entry->func) {
++		case DCCG_INITIALIZE_CLOCKS:
++			entry->params.dccg_initialize_clocks_params.dccg->funcs->dccg_init(
++					entry->params.dccg_initialize_clocks_params.dccg);
++			break;
++		default:
++			ASSERT(false);
++			return DC2_BLS_EXEC_ERROR;
++		}
++	}
++
++	return DC2_BLS_EXEC_OK;
++}
+diff --git a/drivers/gpu/drm/amd/display/dc/bls_executor/bls_executor.h b/drivers/gpu/drm/amd/display/dc/bls_executor/bls_executor.h
+new file mode 100644
+index 000000000000..6f45b37a3b87
+--- /dev/null
++++ b/drivers/gpu/drm/amd/display/dc/bls_executor/bls_executor.h
+@@ -0,0 +1,17 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright 2026 Advanced Micro Devices, Inc.
++ */
++
++#pragma once
++
++#include "bls_builder/bls_builder.h"
++
++enum dc2_bls_exec_result {
++	DC2_BLS_EXEC_OK,
++	DC2_BLS_EXEC_ERROR,
++};
++
++enum dc2_bls_exec_result dc2_bls_execute(
++		const struct block_sequence *steps,
++		unsigned int num_steps);
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
+index 8f4ed80385fc..48ccbc3b1240 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
++++ b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
+@@ -1003,6 +1003,10 @@ struct clk_mgr_update_clocks_params {
+ 	struct clk_mgr *clk_mgr;
+ };
+ 
++struct dccg_initialize_clocks_params {
++	struct dccg *dccg;
++};
++
+ struct hubbub_program_watermarks_params {
+ 	struct dc *dc;
+ 	struct hubbub *hubbub;
+@@ -1198,6 +1202,7 @@ union block_sequence_params {
+ 	struct link_set_dpms_on_params link_set_dpms_on_params;
+ 	struct clk_mgr_set_max_memclk_params clk_mgr_set_max_memclk_params;
+ 	struct clk_mgr_update_clocks_params clk_mgr_update_clocks_params;
++	struct dccg_initialize_clocks_params dccg_initialize_clocks_params;
+ 	struct hubbub_program_watermarks_params hubbub_program_watermarks_params;
+ 	struct hubbub_program_arbiter_params hubbub_program_arbiter_params;
+ 	struct hubbub_program_compbuf_segments_params hubbub_program_compbuf_segments_params;
+@@ -1368,6 +1373,7 @@ enum block_sequence_func {
+ 	HUBBUB_PERFMON_GET_URGENT_ASSERTION_COUNT,
+ 	HUBBUB_PERFMON_GET_PREFETCH_DATA_SIZE,
+ 	HUBBUB_PERFMON_GET_URGENT_RAMP_LATENCY,
++	DCCG_INITIALIZE_CLOCKS,
+ 	/* This must be the last value in this enum, add new ones above */
+ 	HWSS_BLOCK_SEQUENCE_FUNC_COUNT
+ };
 -- 
 2.43.0
 
