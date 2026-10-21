@@ -2,43 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C3EE606A321
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Oct 2026 06:56:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83E5E606A31D
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Oct 2026 06:56:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=f7fD8zKs
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=LtgWDSBh
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1894B10EC5B;
-	Wed, 21 Oct 2026 06:56:41 +0000 (UTC)
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011043.outbound.protection.outlook.com
- [40.93.194.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7EDED10E2D8
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2026 06:56:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F87810F975;
+	Wed, 21 Oct 2026 06:56:43 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012008.outbound.protection.outlook.com [52.101.43.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BA4910E067
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2026 06:56:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HrQ9CWV3WfMBo7S/qG9qyMvTKiq1w1MuRhmXLVfr3L36e7ayTTwzqEzc5HvjWhaPeTozt6uV2kDwXm5CL6YTEV1pPEE558byYGx1XR9WZ9zifm+hFFFwuzgodL+yYFFaePaLt2iFpf5flI1wesrjcMME72O7Nke7agq94egzAWeh7WGNVj5xC8CPiOWStaXfiUwwHoWiYllltFQEYZRGazHEqdvGthJUV5Ua9jShUqzqQWOiVjmMkFcin4uN0Ts3mq7F5W/khOnk4l6MxIwU/GIUMtSbcrysro0UjlcnBxHWYlgFA9xKJD9xLifFx83KbKuVWi2iPw3hnaPwFU4unA==
+ b=nY72kKO9EKDsd2akuQVnWUzDT9ooB1qh0mri2NBNFxdZfAQ6PVnBsVtbl7JGGDfgjPNOI3QEuqGG2R9UUoj4ZcM/EgeCdD3DKVjE+41dzz8cS7xTHzjdtsH/kLFdsPV8PZx0CWbpYIg5g6TjXX3v7uEfRvacwTWmtj5p05O21waA9JsSHFelPqSvP0Loe1W9RTHDx/Gxg2pySfgzCrEpNi2W1bIPhc3IFYKjI8FXukQEphNhZQKQ9+CdT8pBBjQdwc1jpOquvJniCMW0aSeMHXZPBt3lRYCnFvlj6p8ce1MvOrLZYSPZPaF/pUp2JtJPVE0xkFSRtDiq/OVlWQuCyQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9NuszUW5jn2e8bFgXZ7BiXebafHOU3wruwaJq9ICj9g=;
- b=D1c+Yld0jkk//9dhGluZaH/sc9kY0rDaoYhYrFzEEleZhHZthbhxxkXIRTiMQ6LVxS5yrf2vPkOU40RUUpSyVJavqr8UdOMwvZZNcPR3crsZoC4Dsv2k5DGQYbt0YgcTu5LJQs+WzI0DsWfqEr7jzL9+XurUr3FUocMEWRVNXO2U2qZdOP8X7j9/FwV+a2GxyCiKa1Sy6B+65N09+O/48dJUkxVVFLSmVLGkkAxnE+pUiNyzuMJU+hdaFCtAre5FYsDU3ThJTBqQtrYzVku0er6HAeRcvDNeo208qVtlkpI43V1lODSLcEMANyUMIzZ2IyyozZ7BpEe7uz9Ma1DCzA==
+ bh=Ut2MH6Xt4r1peSYxIwFMwtBHk/Gkd0VaP2Md8c4Gjt8=;
+ b=iR6BKhTQzJdST/wmQCUcx1/4/Yd1VXjf0hWPFw33nInfEJEr+is8YxwPvg9OxfeIWtooXv1C/yun8dZMZRy28aPT2CqfiV2WKy12mzvBp5Np0pvar+Omhvwd5hf9m+PdwQ98rU2C5/litIJ9xDJ7rT62ZviJtJ/P4zp/lR47tYLkBj9gFka58l3T3PS4sCxViG4XpmgUx4kXASHoHqxZNupc03FUGsmrL/WLwEQLAWhefRIEVFGecsyUB7vyJZPoR8phAhfvcs+098Bpy/nSwqILCy8Xdy++OkuiIbj0SVwVS1Xrel5dYINFyOLewQ/O/jZxceInVgR8MRwcTvnF/Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9NuszUW5jn2e8bFgXZ7BiXebafHOU3wruwaJq9ICj9g=;
- b=f7fD8zKs6VKARkOy3RFPLybLIM3qVSxi9xqYQLj3+2p72yBLXYp215taX948PjOjMkwvGAW2NRwl0LyOvKfsB4dxyjxfDTXUnCnxOqkuMp1Vr0wWTK8Dm9Pb3JhLeUCFh1+vr8w/wpJs6jAaLZmWc53ufr73+aazUH6J7VtyA1U=
-Received: from BY5PR04CA0013.namprd04.prod.outlook.com (2603:10b6:a03:1d0::23)
- by MN2PR12MB4238.namprd12.prod.outlook.com (2603:10b6:208:199::11)
+ bh=Ut2MH6Xt4r1peSYxIwFMwtBHk/Gkd0VaP2Md8c4Gjt8=;
+ b=LtgWDSBh/EIfDpM7WJLGCqlCQJ4kISiaaEmcbiNcOnrTjNXdB3q+zfDYTw0qp3tPvoaTPQ/sUgjj/wBB+0HgGFmmjqfSxcDEhkMmBPWUqukInz6Mz1C0uz5E7b8m6AvsdmzauNV4s6ywd3sdolmYyty6zvjZwnHXLTl8+9rBogk=
+Received: from SJ0PR13CA0001.namprd13.prod.outlook.com (2603:10b6:a03:2c0::6)
+ by CYYPR12MB8730.namprd12.prod.outlook.com (2603:10b6:930:c1::15)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
- 2026 06:56:26 +0000
-Received: from SJ1PEPF0000231A.namprd03.prod.outlook.com
- (2603:10b6:a03:1d0:cafe::3b) by BY5PR04CA0013.outlook.office365.com
- (2603:10b6:a03:1d0::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Wed,
- 21 Oct 2026 06:56:26 +0000
+ 2026 06:56:32 +0000
+Received: from SJ1PEPF0000231F.namprd03.prod.outlook.com
+ (2603:10b6:a03:2c0:cafe::af) by SJ0PR13CA0001.outlook.office365.com
+ (2603:10b6:a03:2c0::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.15 via Frontend Transport; Wed,
+ 21 Oct 2026 06:56:31 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -47,55 +46,61 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF0000231A.mail.protection.outlook.com (10.167.242.231) with Microsoft
+ SJ1PEPF0000231F.mail.protection.outlook.com (10.167.242.235) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.15 via Frontend Transport; Wed, 21 Oct 2026 06:56:25 +0000
+ 15.21.546.15 via Frontend Transport; Wed, 21 Oct 2026 06:56:30 +0000
 Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
  satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.53; Wed, 21 Oct 2026 01:56:23 -0500
+ 15.2.2562.53; Wed, 21 Oct 2026 01:56:26 -0500
 From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
  Deucher" <alexander.deucher@amd.com>
-CC: <amd-gfx@lists.freedesktop.org>, Lijo Lazar <lijo.lazar@amd.com>, "James
- Zhu" <James.Zhu@amd.com>
-Subject: [PATCH v2 2/7] drm/amdgpu: Integrate CWSR with user queues
-Date: Wed, 21 Oct 2026 12:25:58 +0530
-Message-ID: <20261021065603.1329111-3-srinivasan.shanmugam@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Lijo Lazar <lijo.lazar@amd.com>, "Felix
+ Kuehling" <felix.kuehling@amd.com>, Lancelot Six <lancelot.six@amd.com>,
+ "James Zhu" <james.zhu@amd.com>, Samuel Pitoiset <hakzsam@gmail.com>, Natalie
+ Vock <natalie.vock@gmx.de>, =?UTF-8?q?Timur=20Krist=C3=B3f?=
+ <timur.kristof@gmail.com>, Pierre-Eric Pelloux-Prayer
+ <pierre-eric.pelloux-prayer@amd.com>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>
+Subject: [PATCH v2 4/7] drm/amdgpu: Add second-level trap handler
+ infrastructure
+Date: Wed, 21 Oct 2026 12:26:00 +0530
+Message-ID: <20261021065603.1329111-5-srinivasan.shanmugam@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261021065603.1329111-1-srinivasan.shanmugam@amd.com>
 References: <20261021065603.1329111-1-srinivasan.shanmugam@amd.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF0000231A:EE_|MN2PR12MB4238:EE_
-X-MS-Office365-Filtering-Correlation-Id: 48912f37-c949-400a-8956-08df2f406cda
+X-MS-TrafficTypeDiagnostic: SJ1PEPF0000231F:EE_|CYYPR12MB8730:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8c419bd0-258f-4666-b80a-08df2f406fd8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|23010399003|36860700016|82310400026|56012099006|11063799006|261009223027099003|10067099003|22082099003|18002099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info: /IkUpbnaOSOiK3d022Vogq7fuIVdrJoZ9FFkv5U47QH7F4TlFaD41UZenMJKmmFpdwbdio5T3Be6+ydRmujvy8yd1nwtSPUnpeuNratWShQMeaSy9rMKlEnDiyajZrCaenEqRdn30nKmg593MZp5ICXXXLwWWpNisImzPBBhUeDvR14mpDHfVtDnI3eBMzA+aSRgMLUYwEvMo6ry1z8ox9rEkcmfDAd8pgAliFgUGfh3msaVEIcMbYDuVE5kM4ypODk06/3vcggdpHTGB1DULQwaFuYYZaUyl4irelEmVFoAXysNYA9mkT7LKUpWdH7pf3MtPE54YAw2nL3E4DmQQT7gOHOla0EFGNGVEQd3rPFjLGS9hkH6d8dqbnSkBtg0mplx+zM5GmsrmDurn5HUJa/JUHCWQHICRRlBdRQ+b2Vfxv3MiM+MNw6wZqt+ALZjd7Iv8p3/oDjq4l3nek7YlzGAyAJr2XDaqSZ8brK9lDedB9D73LKACsJsLgrLuJ7aTREZczJKLecEVkRkqwkOy/7S+XTVpwhYls//zLp9cferS1sVRB1SPWeku+ZMIgOloj1vXmPjQV7+6MlHt1eg9HQGepjClXiGpIyZZ04bBIoXU8eQbwGmiSyGZo0G9ZnDISSfJ3NB3h+tLhSvK4C/nsMHvFwSHYS5eH2xl3OmlU1r7GxIMiXvQJ2+lwRSa4ruagZ+1cqAGIgo/qGawQNIzQ==
+ ARA:13230040|376014|1800799024|23010399003|36860700016|82310400026|56012099006|11063799006|261009223027099003|10067099003|22082099003|6133799003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info: 5T9yG4UVMViDJWa9I27ODerDDnYT1jDSowVmmOLndcBM55Bz3LsnD3X3Fdq5e1mYNaFBu1tkomUzNv5d6e8UMZkjS7dt1huX2U1KNYtSTmKXyxbG7f+bBkj2E0NVpWlQ7HhXZMjyYekFAb3t7cdkn4JCkghg+ZuHNVkZnOY+EXpARPLewcsoYe4RBpop5klDV7sx/dEU64Zjdl5NcmrOMliCrRtvsK0ALCGVYoq8GgOsO4RRLwln68HJA6Fj0/7aNTI/GYu2nItwok6eZKPJnFz2QAGF5GzcXOZ2X4ffR9blskRBmh4wg+mZ38Cwvz3NAY5cyqpQd7H6K5Cy5BHYkfLJjo1hb3e26XQ+tOvPfDdInHNhAHV5zpisNo0IhUMf72plNu9JqjX5BWysj+gaDfIGAjpulkhUzf7+iZJOBqTLfytVaK4Fcce/uspl1YgK+YzHLHUa94DL7kndp3KZj/rK2GIsaGOfB7/qL1Uq7oBnQoiXPtKVT0QbsBzB7ffXqXc1PEZfxSNbQLW0hDBW3/zZ8CBK76oXsEihfNHvKcJW6qg9Z3e43tpV6iuw8KsbDszQyRUJDe4rKvsaijp2KDKIiwG31W32huidQ6S8gYrDFkrPEWqAVbI+oEZyfMkWRgKkzP7gj1U2+O3rjA7L+SKyGCIVAj61VDkt+zj2vmbhgQ7Pj9Jlc1Ju6r/fijNEt12Uy36tM3x2r309v8ofLg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(23010399003)(36860700016)(82310400026)(56012099006)(11063799006)(261009223027099003)(10067099003)(22082099003)(18002099003)(6133799003)(3023799007);
+ SFS:(13230040)(376014)(1800799024)(23010399003)(36860700016)(82310400026)(56012099006)(11063799006)(261009223027099003)(10067099003)(22082099003)(6133799003)(18002099003)(3023799007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: YOsqrcN/WeHHs0JufK9vRoBizQu/AwmK/YIFkjEgVrdiczwdh3kvPOd9V5jFhZ/56G3ccCXf2c1xKamENapAJUxA+0SBrT110/zTHbC1d1kXnXJFX2GL5rA1aUFLJs8zmRBuK11DPMt/WmOcT3h/Pz83xWAjHem6C1YsG+ubvRZ3RnSdrnxTickbJMSowpHotwvz7SHCDmWhnipzsCSwqSRak6PGf51iZIrj+YoONpdOh6Rc7cZk414roBibBMG6ah599czXQU1waLEJTTu4uPWiwLwTpm8Sza3gYYG5K2fUD5dbeoc5T/Oc4MUsMK+0Es7bDBsNAZJXgoJaYAOAe4orahhwd26BFvPPYZP2ddPljNdnv53G0Sc4fO3GgfCFI8n9Eoh7vS4wq/uxvMfQpAuovU4YsltsV60OXR8U76r0UBJHIFKJFzDITQbjbGt6
+X-MS-Exchange-AntiSpam-MessageData-0: AhaNZF8Q37BepLqioNhvsgDigUpB/msrxB2j3Eb4EHdfVhkFTpVYi7O62cTxaDUKS57gDomh3+ls+xN32pSpB6HhWJlZpExaWBa1OVd/eOhMfbQl4rcYcwATpWRc42Gp4uY1ODOvBGIDiMPJLsxoFE0qYmyxhllnDa0Vnx1j3TnpqVHRzESU2vxAM8rWgAr16I2Dl72xkzZWk5VjAZ9xAi6haNfu4phHM2VSRQ60STbn8CvLtIzvj3o0tOx5McQ1Pv5iKGCnZ1OP1ZRuqV2L4y2XXmpTEc71kpYqm7dt0FRaWMdAVtV1/A5RWBNXQagpckFtrKuEh+YyVVDFs27CyvIiQEGKSNzVjrrzdKHALQTbcfKgOBtazg9phuebhI95KuQsxJoqoOFtUH/nhknaVoXqmhFtZ0S50S4eyi4bsodFivSzH48jgUfzKo6K+Hi4
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 06:56:25.9291 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 48912f37-c949-400a-8956-08df2f406cda
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 06:56:30.9507 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8c419bd0-258f-4666-b80a-08df2f406fd8
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF0000231A.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF0000231F.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4238
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8730
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,560 +120,1353 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Lijo Lazar <lijo.lazar@amd.com>
 
-Initialize the CWSR handler during device initialization and release
-the associated resources during device teardown.
+Expand the CWSR infrastructure to support second-level userspace trap
+handlers and rename it to reflect the broader trap handler scope.
 
-Add a per-file CWSR trap object for render-node user queues and map the
-first-level CWSR trap handler into the GPUVM associated with the file.
-Use the mapped TBA and TMA addresses when programming user queues.
+Rename the CWSR files and common interfaces to amdgpu_trap while keeping
+CWSR-specific naming for the context save/restore functionality.
 
-Add user save area parameters to the MQD properties for compute queue
-creation and validate the parameters before using them for MQD
-initialization.
+Add the basic support needed for a userspace second-level trap handler.
+Store the second-level TBA and TMA addresses in the first-level TMA and
+provide helpers to set and clear them for a GPUVM.
 
-The CWSR parameter validation walks the VM mapping tree and updates the
-user queue VA mapping state. Reserve the VM root BO around the
-validation so the required VM reservation is held while accessing the
-mapping tree.
+The first-level TMA buffer can move in memory, so do not keep it
+permanently mapped on the CPU. Map it only while accessing its contents
+and unmap it afterwards.
 
+Check that the second-level TBA and TMA address ranges are mapped in the
+GPUVM before using them. Wait for GPUVM work to stop before changing the
+addresses and keep the VM locked while checking and updating them.
+
+Add support for updating the debugger trap flag in the first-level TMA.
+
+Do not expose a standalone TRAP ioctl. The second-level trap handler is
+controlled through SET_L2_TRAP and CLEAR_L2_TRAP operations on the VM
+ioctl added later in the series.
+
+Suggested-by: Christian König <christian.koenig@amd.com>
+Suggested-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: Felix Kuehling <felix.kuehling@amd.com>
+Cc: Lancelot Six <lancelot.six@amd.com>
+Cc: James Zhu <james.zhu@amd.com>
+Cc: Lijo Lazar <lijo.lazar@amd.com>
+Cc: Samuel Pitoiset <hakzsam@gmail.com>
+Cc: Natalie Vock <natalie.vock@gmx.de>
+Cc: Timur Kristóf <timur.kristof@gmail.com>
+Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
-Co-developed-by: James Zhu <James.Zhu@amd.com>
-Signed-off-by: James Zhu <James.Zhu@amd.com>
-Change-Id: I2bc2159e6ff36b2aaa08d112ed8e7a17b5dadc5e
+Co-developed-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Change-Id: I0b52502234a402a59b1a225b541a01d3a95fcee7
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h        |   2 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.c   |   8 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.h   |   6 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  10 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c    |   9 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h    |   8 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c  |  25 +++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h  |   8 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c     |  14 +++
- drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 102 +++++++++++++++++----
- 10 files changed, 172 insertions(+), 20 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/Makefile        |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h        |   8 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.h   |  88 ---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |   6 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c    |  17 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c   | 753 +++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_trap.h   | 143 ++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c  |  13 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h  |   7 +-
+ drivers/gpu/drm/amd/amdgpu/mes_userqueue.c |  24 +-
+ 11 files changed, 935 insertions(+), 127 deletions(-)
+ delete mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.h
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_trap.h
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+index 0f449b8a1b43..7dfc4902faba 100644
+--- a/drivers/gpu/drm/amd/amdgpu/Makefile
++++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+@@ -72,7 +72,7 @@ amdgpu-y += amdgpu_device.o amdgpu_reg_access.o amdgpu_doorbell_mgr.o amdgpu_kms
+ 	amdgpu_eeprom.o amdgpu_mca.o amdgpu_psp_ta.o amdgpu_lsdma.o amdgpu_lockdep.o \
+ 	amdgpu_ring_mux.o amdgpu_xcp.o amdgpu_seq64.o amdgpu_dev_coredump.o \
+ 	amdgpu_cper.o amdgpu_userq_fence.o amdgpu_eviction_fence.o amdgpu_ip.o \
+-	amdgpu_wb.o amdgpu_cwsr.o
++	amdgpu_wb.o amdgpu_trap.o
+ 
+ amdgpu-$(CONFIG_PROC_FS) += amdgpu_fdinfo.o
+ 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 53aeaca52a6e..6ed1cb942802 100644
+index 6ed1cb942802..2f49da48aa90 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -333,6 +333,7 @@ struct amdgpu_reset_control;
+@@ -332,8 +332,8 @@ struct amdgpu_reset_context;
+ struct amdgpu_reset_control;
  struct amdgpu_coredump_info;
  struct amdgpu_video_codecs;
- struct amdgpu_cwsr_isa;
-+struct amdgpu_cwsr_trap_obj;
+-struct amdgpu_cwsr_isa;
+-struct amdgpu_cwsr_trap_obj;
++struct amdgpu_trap_isa;
++struct amdgpu_trap_obj;
  
  enum amdgpu_cp_irq {
  	AMDGPU_CP_IRQ_GFX_ME0_PIPE0_EOP = 0,
-@@ -421,6 +422,7 @@ struct amdgpu_fpriv {
+@@ -422,7 +422,7 @@ struct amdgpu_fpriv {
  	struct xarray		bo_list_handles;
  	struct amdgpu_ctx_mgr	ctx_mgr;
  	struct amdgpu_userq_mgr	userq_mgr;
-+	struct amdgpu_cwsr_trap_obj *cwsr_trap;
+-	struct amdgpu_cwsr_trap_obj *cwsr_trap;
++	struct amdgpu_trap_obj *trap_obj;
  
  	/* Eviction fence infra */
  	struct amdgpu_eviction_fence_mgr evf_mgr;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.c
-index e9cd04364367..e854614483c2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.c
-@@ -387,6 +387,7 @@ int amdgpu_cwsr_alloc(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+@@ -990,7 +990,7 @@ struct amdgpu_device {
+ 	 */
+ 	struct amdgpu_kfd_dev		kfd;
  
- 	if (!amdgpu_cwsr_is_enabled(adev))
- 		return -EOPNOTSUPP;
-+
- 	if (!vm || !trap_obj)
- 		return -EINVAL;
+-	struct amdgpu_cwsr_info *cwsr_info;
++	struct amdgpu_trap_info *trap_info;
+ };
  
-@@ -395,12 +396,15 @@ int amdgpu_cwsr_alloc(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 		return -ENOMEM;
- 
- 	bo = adev->cwsr_info->isa_bo;
-+
- 	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
- 	drm_exec_until_all_locked(&exec) {
- 		r = amdgpu_vm_lock_pd(vm, &exec, 0);
- 		if (likely(!r))
- 			r = drm_exec_lock_obj(&exec, &bo->tbo.base);
-+
- 		drm_exec_retry_on_contention(&exec);
-+
- 		if (unlikely(r)) {
- 			dev_err(adev->dev,
- 				"failed to reserve for CWSR allocs: err=%d\n",
-@@ -447,17 +451,21 @@ int amdgpu_cwsr_alloc(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 	}
- 
- 	drm_exec_fini(&exec);
-+
- 	*trap_obj = cwsr;
- 	return 0;
- 
- err_kmap:
- 	amdgpu_bo_kunmap(cwsr->tma_bo);
-+
- err_tma:
- 	amdgpu_bo_unref(&cwsr->tma_bo);
-+
- err_exec:
- 	drm_exec_fini(&exec);
- 	kfree(cwsr);
- 	*trap_obj = NULL;
-+
- 	return r;
- }
- 
+ static inline uint32_t amdgpu_ip_version(const struct amdgpu_device *adev,
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.h
-index 297a4ff04730..65a0d2852fb3 100644
+deleted file mode 100644
+index 65a0d2852fb3..000000000000
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.h
-@@ -79,4 +79,10 @@ uint32_t amdgpu_cwsr_size_needed(struct amdgpu_device *adev, int num_xcc);
- int amdgpu_cwsr_validate_params(struct amdgpu_device *adev,
- 				struct amdgpu_cwsr_params *cwsr_params,
- 				int num_xcc);
-+static inline bool amdgpu_cwsr_has_dbg_wa(struct amdgpu_device *adev)
-+{
-+	uint32_t gc_ver = amdgpu_ip_version(adev, GC_HWIP, 0);
-+
-+	return gc_ver >= IP_VERSION(11, 0, 0) && gc_ver <= IP_VERSION(11, 0, 3);
-+}
- #endif
++++ /dev/null
+@@ -1,88 +0,0 @@
+-/* SPDX-License-Identifier: MIT */
+-/*
+- * Copyright 2025 Advanced Micro Devices, Inc.
+- *
+- * Permission is hereby granted, free of charge, to any person obtaining a
+- * copy of this software and associated documentation files (the "Software"),
+- * to deal in the Software without restriction, including without limitation
+- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+- * and/or sell copies of the Software, and to permit persons to whom the
+- * Software is furnished to do so, subject to the following conditions:
+- *
+- * The above copyright notice and this permission notice shall be included in
+- * all copies or substantial portions of the Software.
+- *
+- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+- * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+- * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+- * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+- * OTHER DEALINGS IN THE SOFTWARE.
+- */
+-
+-#ifndef AMDGPU_CWSR_H
+-#define AMDGPU_CWSR_H
+-
+-#include <linux/types.h>
+-
+-struct amdgpu_bo;
+-struct amdgpu_bo_va;
+-struct amdgpu_device;
+-struct amdgpu_vm;
+-
+-/**
+- * struct amdgpu_cwsr_obj - CWSR (Compute Wave Save Restore) buffer tracking
+- * @bo: Buffer object for CWSR area
+- * @bo_va: Buffer object virtual address mapping
+- */
+-struct amdgpu_cwsr_trap_obj {
+-	uint64_t tma_gpu_va_addr;
+-	uint64_t tba_gpu_va_addr;
+-
+-	struct amdgpu_bo *tma_bo;
+-	struct amdgpu_bo_va *tba_va;
+-	struct amdgpu_bo_va *tma_va;
+-	void *tma_cpu_addr;
+-};
+-
+-struct amdgpu_cwsr_info {
+-	/* cwsr isa */
+-	struct amdgpu_bo *isa_bo;
+-	const void *isa_buf;
+-	uint32_t isa_sz;
+-	/* cwsr size info per XCC*/
+-	uint32_t xcc_ctl_stack_sz;
+-	uint32_t xcc_dbg_mem_sz;
+-	uint32_t xcc_cwsr_sz;
+-};
+-
+-struct amdgpu_cwsr_params {
+-	uint64_t ctx_save_area_address;
+-	/* cwsr size info */
+-	uint32_t cwsr_sz;
+-};
+-
+-int amdgpu_cwsr_init(struct amdgpu_device *adev);
+-void amdgpu_cwsr_fini(struct amdgpu_device *adev);
+-
+-int amdgpu_cwsr_alloc(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+-		      struct amdgpu_cwsr_trap_obj **cwsr_obj);
+-void amdgpu_cwsr_free(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+-		      struct amdgpu_cwsr_trap_obj **cwsr_obj);
+-static inline bool amdgpu_cwsr_is_enabled(struct amdgpu_device *adev)
+-{
+-	return adev->cwsr_info != NULL;
+-}
+-
+-uint32_t amdgpu_cwsr_size_needed(struct amdgpu_device *adev, int num_xcc);
+-int amdgpu_cwsr_validate_params(struct amdgpu_device *adev,
+-				struct amdgpu_cwsr_params *cwsr_params,
+-				int num_xcc);
+-static inline bool amdgpu_cwsr_has_dbg_wa(struct amdgpu_device *adev)
+-{
+-	uint32_t gc_ver = amdgpu_ip_version(adev, GC_HWIP, 0);
+-
+-	return gc_ver >= IP_VERSION(11, 0, 0) && gc_ver <= IP_VERSION(11, 0, 3);
+-}
+-#endif
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 7cb1427761ef..ccabaf99eca6 100644
+index ccabaf99eca6..d416e0b6fd3c 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -81,6 +81,7 @@
+@@ -81,7 +81,7 @@
  #include "amdgpu_reset.h"
  #include "amdgpu_virt.h"
  #include "amdgpu_dev_coredump.h"
-+#include "amdgpu_cwsr.h"
+-#include "amdgpu_cwsr.h"
++#include "amdgpu_trap.h"
  
  #include <linux/suspend.h>
  #include <drm/task_barrier.h>
-@@ -2546,6 +2547,14 @@ static int amdgpu_device_ip_init(struct amdgpu_device *adev)
- 	amdgpu_fru_get_product_info(adev);
+@@ -2550,7 +2550,7 @@ static int amdgpu_device_ip_init(struct amdgpu_device *adev)
+ 	if (r)
+ 		goto init_failed;
  
- 	r = amdgpu_cper_init(adev);
-+	if (r)
-+		goto init_failed;
-+
-+	r = amdgpu_cwsr_init(adev);
-+	if (r == -EOPNOTSUPP)
-+		r = 0;
-+	else if (r)
-+		goto init_failed;
- 
- init_failed:
- 
-@@ -2950,6 +2959,7 @@ static int amdgpu_device_ip_fini(struct amdgpu_device *adev)
+-	r = amdgpu_cwsr_init(adev);
++	r = amdgpu_trap_init(adev);
+ 	if (r == -EOPNOTSUPP)
+ 		r = 0;
+ 	else if (r)
+@@ -2959,7 +2959,7 @@ static int amdgpu_device_ip_fini(struct amdgpu_device *adev)
  {
  	int i, r;
  
-+	amdgpu_cwsr_fini(adev);
+-	amdgpu_cwsr_fini(adev);
++	amdgpu_trap_fini(adev);
  	amdgpu_cper_fini(adev);
  
  	if (amdgpu_sriov_vf(adev) && adev->virt.ras_init_done)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 436656734a1b..64a69b66f160 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -52,6 +52,7 @@
+ #include "amdgpu_sched.h"
+ #include "amdgpu_xgmi.h"
+ #include "amdgpu_userq.h"
++#include "amdgpu_trap.h"
+ #include "amdgpu_userq_fence.h"
+ #include "../amdxcp/amdgpu_xcp_drv.h"
+ #include "amdgpu_ualink.h"
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index 14a72a406d37..fe5e505c6f2b 100644
+index eedace58eaf8..201c167577c6 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -49,6 +49,8 @@
- #include "amdgpu_userq.h"
+@@ -50,7 +50,7 @@
  #include "amdgpu_video_codecs.h"
  #include "amdgpu_ras_mgr.h"
-+#include "amdgpu_vm.h"
-+#include "amdgpu_cwsr.h"
+ #include "amdgpu_vm.h"
+-#include "amdgpu_cwsr.h"
++#include "amdgpu_trap.h"
  
  void amdgpu_unregister_gpu_instance(struct amdgpu_device *adev)
  {
-@@ -1580,6 +1582,12 @@ int amdgpu_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
- 			 r);
+@@ -1460,15 +1460,15 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 		int num_xcc, r;
+ 
+ 		fpriv = (struct amdgpu_fpriv *)filp->driver_priv;
+-		if (!amdgpu_cwsr_is_enabled(adev) || !fpriv->cwsr_trap)
++		if (!amdgpu_trap_is_enabled(adev) || !fpriv->trap_obj)
+ 			return -EOPNOTSUPP;
+ 		num_xcc = amdgpu_xcp_get_num_xcc(adev->xcp_mgr, fpriv->xcp_id);
+ 		cwsr_info.ctl_stack_size =
+-			adev->cwsr_info->xcc_ctl_stack_sz * num_xcc;
++			adev->trap_info->cwsr.xcc_ctl_stack_sz * num_xcc;
+ 		cwsr_info.dbg_mem_size =
+-			adev->cwsr_info->xcc_dbg_mem_sz * num_xcc;
++			adev->trap_info->cwsr.xcc_dbg_mem_sz * num_xcc;
+ 		cwsr_info.min_save_area_size =
+-			amdgpu_cwsr_size_needed(adev, num_xcc);
++			amdgpu_trap_size_needed(adev, num_xcc);
+ 		r = copy_to_user(out, &cwsr_info,
+ 				 min((size_t)size, sizeof(cwsr_info))) ?
+ 			    -EFAULT :
+@@ -1604,8 +1604,9 @@ int amdgpu_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
  
  	amdgpu_evf_mgr_init(&fpriv->evf_mgr);
-+
-+	r = amdgpu_cwsr_alloc(adev, &fpriv->vm,
-+			      &fpriv->cwsr_trap);
-+	if (r == -EOPNOTSUPP)
-+		r = 0;
-+
- 	amdgpu_ctx_mgr_init(&fpriv->ctx_mgr, adev);
  
- 	file_priv->driver_priv = fpriv;
-@@ -1649,6 +1657,7 @@ void amdgpu_driver_postclose_kms(struct drm_device *dev,
+-	r = amdgpu_cwsr_alloc(adev, &fpriv->vm,
+-			      &fpriv->cwsr_trap);
++	r = amdgpu_trap_alloc(adev,
++			      &fpriv->vm,
++			      &fpriv->trap_obj);
+ 	if (r == -EOPNOTSUPP)
+ 		r = 0;
+ 
+@@ -1678,7 +1679,7 @@ void amdgpu_driver_postclose_kms(struct drm_device *dev,
  	}
  
  	amdgpu_ctx_mgr_fini(&fpriv->ctx_mgr);
-+	amdgpu_cwsr_free(adev, &fpriv->vm, &fpriv->cwsr_trap);
+-	amdgpu_cwsr_free(adev, &fpriv->vm, &fpriv->cwsr_trap);
++	amdgpu_trap_free(adev, &fpriv->vm, &fpriv->trap_obj);
  
  	if (pasid)
  		amdgpu_pasid_free_delayed(pd->tbo.base.resv, pasid);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-index 0f368fbd2c80..298ac47f83bc 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-@@ -533,6 +533,14 @@ struct amdgpu_mqd_prop {
- 	uint32_t cu_mask_count;
- 	uint32_t cu_flags;
- 	bool is_user_cu_masked;
-+	bool aql_queue;
-+	uint32_t queue_percentage;
-+	/* used in gfx9 and gfx12.1 */
-+	uint32_t pm4_target_xcc;
-+	/* cwsr params */
-+	uint64_t ctx_save_area_addr;
-+	uint32_t ctx_save_area_size;
-+	uint32_t ctl_stack_size;
- };
- 
- struct amdgpu_mqd {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
+new file mode 100644
+index 000000000000..12e37d0467f9
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
+@@ -0,0 +1,753 @@
++/*
++ * Copyright 2025 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ */
++#include <linux/iosys-map.h>
++
++#include <drm/ttm/ttm_bo.h>
++#include <drm/drm_exec.h>
++
++#include "amdgpu.h"
++#include "cwsr_trap_handler.h"
++#include "amdgpu_trap.h"
++
++/*
++ * First-level TMA layout used by the second-level trap-handler ABI.
++ * The trap-handler ISA reads L2 TBA at offset 0 and L2 TMA at offset 8.
++ */
++#define AMDGPU_TRAP_L2_TBA_INDEX	0
++#define AMDGPU_TRAP_L2_TMA_INDEX	1
++#define AMDGPU_TRAP_DEBUG_FLAG_INDEX	2
++
++extern int cwsr_enable;
++
++#define AMDGPU_TRAP_TBA_MAX_SIZE (2 * AMDGPU_GPU_PAGE_SIZE)
++#define AMDGPU_TRAP_TMA_MAX_SIZE (AMDGPU_GPU_PAGE_SIZE)
++#define AMDGPU_TRAP_TMA_OFFSET (AMDGPU_TRAP_TBA_MAX_SIZE)
++
++#define SGPR_SIZE_PER_CU 0x4000
++#define LDS_SIZE_PER_CU 0x10000
++#define HWREG_SIZE_PER_CU 0x1000
++#define DEBUGGER_BYTES_ALIGN 64
++#define DEBUGGER_BYTES_PER_WAVE 32
++#define SIZEOF_HSA_USER_CONTEXT_SAVE_AREA_HEADER 40
++
++enum amdgpu_trap_region {
++	AMDGPU_TRAP_TBA,
++	AMDGPU_TRAP_TMA,
++};
++
++static inline uint64_t amdgpu_trap_tba_vaddr(struct amdgpu_device *adev)
++{
++	uint64_t addr = AMDGPU_VA_RESERVED_TRAP_UQ_START(adev);
++
++	addr = amdgpu_gmc_sign_extend(addr);
++
++	return addr;
++}
++
++static inline bool amdgpu_trap_is_supported(struct amdgpu_device *adev)
++{
++	uint32_t gc_ver = amdgpu_ip_version(adev, GC_HWIP, 0);
++
++	if (!cwsr_enable || gc_ver < IP_VERSION(9, 0, 1))
++		return false;
++
++	return true;
++}
++
++uint32_t amdgpu_trap_size_needed(struct amdgpu_device *adev, int num_xcc)
++{
++	if (!amdgpu_trap_is_enabled(adev))
++		return 0;
++
++	return num_xcc *
++	       (adev->trap_info->cwsr.xcc_cwsr_sz + adev->trap_info->cwsr.xcc_dbg_mem_sz);
++}
++
++static void amdgpu_trap_cwsr_init_isa_details(struct amdgpu_device *adev,
++					      struct amdgpu_trap_info *trap_info)
++{
++	uint32_t gc_ver = amdgpu_ip_version(adev, GC_HWIP, 0);
++
++	if (gc_ver < IP_VERSION(9, 0, 1)) {
++		BUILD_BUG_ON(sizeof(cwsr_trap_gfx8_hex) >
++			     AMDGPU_TRAP_TBA_MAX_SIZE);
++		trap_info->isa_buf = cwsr_trap_gfx8_hex;
++		trap_info->isa_sz = sizeof(cwsr_trap_gfx8_hex);
++	} else if (gc_ver == IP_VERSION(9, 4, 1)) {
++		BUILD_BUG_ON(sizeof(cwsr_trap_arcturus_hex) >
++			     AMDGPU_TRAP_TBA_MAX_SIZE);
++		trap_info->isa_buf = cwsr_trap_arcturus_hex;
++		trap_info->isa_sz = sizeof(cwsr_trap_arcturus_hex);
++	} else if (gc_ver == IP_VERSION(9, 4, 2)) {
++		BUILD_BUG_ON(sizeof(cwsr_trap_aldebaran_hex) >
++			     AMDGPU_TRAP_TBA_MAX_SIZE);
++		trap_info->isa_buf = cwsr_trap_aldebaran_hex;
++		trap_info->isa_sz = sizeof(cwsr_trap_aldebaran_hex);
++	} else if (gc_ver == IP_VERSION(9, 4, 3) ||
++		   gc_ver == IP_VERSION(9, 4, 4)) {
++		BUILD_BUG_ON(sizeof(cwsr_trap_gfx9_4_3_hex) >
++			     AMDGPU_TRAP_TBA_MAX_SIZE);
++		trap_info->isa_buf = cwsr_trap_gfx9_4_3_hex;
++		trap_info->isa_sz = sizeof(cwsr_trap_gfx9_4_3_hex);
++	} else if (gc_ver == IP_VERSION(9, 5, 0)) {
++		BUILD_BUG_ON(sizeof(cwsr_trap_gfx9_5_0_hex) > PAGE_SIZE);
++		trap_info->isa_buf = cwsr_trap_gfx9_5_0_hex;
++		trap_info->isa_sz = sizeof(cwsr_trap_gfx9_5_0_hex);
++	} else if (gc_ver < IP_VERSION(10, 1, 1)) {
++		BUILD_BUG_ON(sizeof(cwsr_trap_gfx9_hex) >
++			     AMDGPU_TRAP_TBA_MAX_SIZE);
++		trap_info->isa_buf = cwsr_trap_gfx9_hex;
++		trap_info->isa_sz = sizeof(cwsr_trap_gfx9_hex);
++	} else if (gc_ver < IP_VERSION(10, 3, 0)) {
++		BUILD_BUG_ON(sizeof(cwsr_trap_nv1x_hex) >
++			     AMDGPU_TRAP_TBA_MAX_SIZE);
++		trap_info->isa_buf = cwsr_trap_nv1x_hex;
++		trap_info->isa_sz = sizeof(cwsr_trap_nv1x_hex);
++	} else if (gc_ver < IP_VERSION(11, 0, 0)) {
++		BUILD_BUG_ON(sizeof(cwsr_trap_gfx10_hex) >
++			     AMDGPU_TRAP_TBA_MAX_SIZE);
++		trap_info->isa_buf = cwsr_trap_gfx10_hex;
++		trap_info->isa_sz = sizeof(cwsr_trap_gfx10_hex);
++	} else if (gc_ver < IP_VERSION(12, 0, 0)) {
++		/* The gfx11 cwsr trap handler must fit inside a single
++			   page. */
++		BUILD_BUG_ON(sizeof(cwsr_trap_gfx11_hex) > PAGE_SIZE);
++		trap_info->isa_buf = cwsr_trap_gfx11_hex;
++		trap_info->isa_sz = sizeof(cwsr_trap_gfx11_hex);
++	} else if (gc_ver < IP_VERSION(12, 1, 0)) {
++		BUILD_BUG_ON(sizeof(cwsr_trap_gfx12_hex) >
++			     AMDGPU_TRAP_TBA_MAX_SIZE);
++		trap_info->isa_buf = cwsr_trap_gfx12_hex;
++		trap_info->isa_sz = sizeof(cwsr_trap_gfx12_hex);
++	} else {
++		BUILD_BUG_ON(sizeof(cwsr_trap_gfx12_1_0_hex) >
++			     AMDGPU_TRAP_TBA_MAX_SIZE);
++		trap_info->isa_buf = cwsr_trap_gfx12_1_0_hex;
++		trap_info->isa_sz = sizeof(cwsr_trap_gfx12_1_0_hex);
++	}
++}
++
++static uint32_t amdgpu_trap_cwsr_get_vgpr_size_per_cu(struct amdgpu_device *adev)
++{
++	uint32_t gc_ver = amdgpu_ip_version(adev, GC_HWIP, 0);
++	uint32_t vgpr_size;
++
++	switch (gc_ver) {
++	case IP_VERSION(9, 4, 1): /* GFX_VERSION_ARCTURUS */
++	case IP_VERSION(9, 4, 2): /* GFX_VERSION_ALDEBARAN */
++	case IP_VERSION(9, 4, 3): /* GFX_VERSION_AQUA_VANJARAM */
++	case IP_VERSION(9, 4, 4): /* GFX_VERSION_AQUA_VANJARAM */
++	case IP_VERSION(9, 5, 0):
++		vgpr_size = 0x80000;
++		break;
++	case IP_VERSION(11, 0, 0):
++	case IP_VERSION(11, 0, 2):
++	case IP_VERSION(11, 0, 3):
++	case IP_VERSION(12, 0, 0):
++	case IP_VERSION(12, 0, 1):
++		vgpr_size = 0x60000;
++		break;
++	default:
++		vgpr_size = 0x40000;
++		break;
++	}
++
++	return vgpr_size;
++}
++
++static uint32_t amdgpu_trap_cwsr_get_wg_ctxt_size_per_cu(struct amdgpu_device *adev)
++{
++	uint32_t lds_sz_per_cu;
++
++	lds_sz_per_cu =
++		(amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 5, 0)) ?
++			(adev->gfx.cu_info.lds_size << 10) :
++			LDS_SIZE_PER_CU;
++
++	return amdgpu_trap_cwsr_get_vgpr_size_per_cu(adev) + SGPR_SIZE_PER_CU +
++	       lds_sz_per_cu + HWREG_SIZE_PER_CU;
++}
++
++static uint32_t amdgpu_trap_cwsr_ctl_stack_bytes_per_wave(struct amdgpu_device *adev)
++{
++	uint32_t sz;
++
++	if (amdgpu_ip_version(adev, GC_HWIP, 0) >= IP_VERSION(10, 1, 0))
++		sz = 12;
++	else
++		sz = 8;
++	return sz;
++}
++
++static void amdgpu_trap_cwsr_init_save_area_info(struct amdgpu_device *adev,
++						 struct amdgpu_trap_info *trap_info)
++{
++	struct amdgpu_gfx_config *gfx_info = &adev->gfx.config;
++	uint32_t gc_ver = amdgpu_ip_version(adev, GC_HWIP, 0);
++	uint32_t ctl_stack_size, wg_data_size, dbg_mem_size;
++	uint32_t array_count;
++	uint32_t wave_num;
++	uint32_t cu_num;
++
++	if (gc_ver < IP_VERSION(9, 0, 1))
++		return;
++
++	array_count = gfx_info->max_shader_engines * gfx_info->max_sh_per_se;
++
++	cu_num = adev->gfx.cu_info.number / NUM_XCC(adev->gfx.xcc_mask);
++	wave_num = (gc_ver < IP_VERSION(10, 1, 0)) ? /* GFX_VERSION_NAVI10 */
++			   min(cu_num * 40,
++			       array_count / gfx_info->max_sh_per_se * 512) :
++			   cu_num * 32;
++
++	wg_data_size = ALIGN(cu_num * amdgpu_trap_cwsr_get_wg_ctxt_size_per_cu(adev),
++			     PAGE_SIZE);
++	ctl_stack_size =
++		wave_num * amdgpu_trap_cwsr_ctl_stack_bytes_per_wave(adev) + 8;
++	ctl_stack_size =
++		ALIGN(SIZEOF_HSA_USER_CONTEXT_SAVE_AREA_HEADER + ctl_stack_size,
++		      PAGE_SIZE);
++	dbg_mem_size =
++		ALIGN(wave_num * DEBUGGER_BYTES_PER_WAVE, DEBUGGER_BYTES_ALIGN);
++	/*
++	* HW design limits control stack size to 0x7000.
++	* This is insufficient for theoretical PM4 cases
++	* but sufficient for AQL, limited by SPI events.
++	*/
++	if (IP_VERSION_MAJ(gc_ver) == 10)
++		ctl_stack_size = min(ctl_stack_size, 0x7000);
++
++	trap_info->cwsr.xcc_ctl_stack_sz = ctl_stack_size;
++	trap_info->cwsr.xcc_cwsr_sz = ctl_stack_size + wg_data_size;
++	trap_info->cwsr.xcc_dbg_mem_sz = dbg_mem_size;
++}
++
++int amdgpu_trap_init(struct amdgpu_device *adev)
++{
++	struct amdgpu_trap_info *trap_info __free(kfree) =
++		kzalloc(sizeof(*trap_info), GFP_KERNEL);
++	void *ptr;
++	int r;
++
++	if (!amdgpu_trap_is_supported(adev))
++		return -EOPNOTSUPP;
++
++	if (!trap_info)
++		return -ENOMEM;
++	amdgpu_trap_cwsr_init_isa_details(adev, trap_info);
++
++	if (!trap_info->isa_sz)
++		return -EOPNOTSUPP;
++
++	r = amdgpu_bo_create_kernel(adev, AMDGPU_TRAP_TBA_MAX_SIZE, PAGE_SIZE,
++				    AMDGPU_GEM_DOMAIN_GTT, &trap_info->isa_bo,
++				    NULL, &ptr);
++	if (r)
++		return r;
++
++	memcpy(ptr, trap_info->isa_buf, trap_info->isa_sz);
++
++	amdgpu_trap_cwsr_init_save_area_info(adev, trap_info);
++	adev->trap_info = no_free_ptr(trap_info);
++
++	return 0;
++}
++
++void amdgpu_trap_fini(struct amdgpu_device *adev)
++{
++	if (!amdgpu_trap_is_enabled(adev))
++		return;
++
++	amdgpu_bo_free_kernel(&adev->trap_info->isa_bo, NULL, NULL);
++	kfree(adev->trap_info);
++	adev->trap_info = NULL;
++}
++
++/*
++ * amdgpu_map_cwsr_trap_handler should be called during amdgpu_vm_init
++ * it maps virtual address amdgpu_trap_tba_vaddr() to this VM, and each
++ * compute queue can use this virtual address for wave save/restore
++ * operations to support compute preemption.
++ */
++static int amdgpu_trap_map_region(struct amdgpu_device *adev,
++				  struct amdgpu_vm *vm,
++				  struct amdgpu_trap_obj *cwsr,
++				  enum amdgpu_trap_region region)
++{
++	uint64_t cwsr_addr, va_flags, va;
++	struct amdgpu_bo_va **bo_va;
++	struct amdgpu_bo *bo;
++	uint32_t size;
++	int r;
++
++	if (!cwsr || !vm)
++		return -EINVAL;
++
++	cwsr_addr = amdgpu_trap_tba_vaddr(adev);
++
++	if (region == AMDGPU_TRAP_TBA) {
++		size = AMDGPU_TRAP_TBA_MAX_SIZE;
++		bo_va = &cwsr->tba_va;
++		bo = adev->trap_info->isa_bo;
++		va = cwsr_addr;
++		va_flags = (AMDGPU_VM_PAGE_READABLE | AMDGPU_VM_PAGE_WRITEABLE |
++			    AMDGPU_VM_PAGE_EXECUTABLE);
++	} else {
++		size = AMDGPU_TRAP_TMA_MAX_SIZE;
++		bo_va = &cwsr->tma_va;
++		bo = cwsr->tma_bo;
++		va = cwsr_addr + AMDGPU_TRAP_TMA_OFFSET;
++		va_flags = (AMDGPU_VM_PAGE_READABLE | AMDGPU_VM_PAGE_WRITEABLE);
++	}
++
++	*bo_va = amdgpu_vm_bo_add(adev, vm, bo);
++	if (!*bo_va)
++		return -ENOMEM;
++
++	va &= AMDGPU_GMC_HOLE_MASK;
++	r = amdgpu_vm_bo_map(adev, *bo_va, va, 0, size, va_flags);
++	if (r) {
++		dev_err(adev->dev, "failed to do bo map of %s region, err=%d\n",
++			(region == AMDGPU_TRAP_TBA ? "tba" : "tma"), r);
++		amdgpu_vm_bo_del(adev, *bo_va);
++		*bo_va = NULL;
++		return r;
++	}
++
++	r = amdgpu_vm_bo_update(adev, *bo_va, false);
++	if (r) {
++		dev_err(adev->dev,
++			"failed to do page table update of %s region, err=%d\n",
++			(region == AMDGPU_TRAP_TBA ? "tba" : "tma"), r);
++		amdgpu_vm_bo_del(adev, *bo_va);
++		*bo_va = NULL;
++		return r;
++	}
++
++	if (region == AMDGPU_TRAP_TBA)
++		cwsr->tba_gpu_va_addr = va;
++	else
++		cwsr->tma_gpu_va_addr = va;
++
++	return 0;
++}
++
++static int amdgpu_trap_unmap_region(struct amdgpu_device *adev,
++				    struct amdgpu_trap_obj *cwsr,
++				    enum amdgpu_trap_region region)
++{
++	struct amdgpu_bo_va **bo_va;
++	uint64_t va;
++	int r;
++
++	if (!cwsr)
++		return -EINVAL;
++
++	if (region == AMDGPU_TRAP_TBA) {
++		bo_va = &cwsr->tba_va;
++		va = cwsr->tba_gpu_va_addr;
++	} else {
++		bo_va = &cwsr->tma_va;
++		va = cwsr->tma_gpu_va_addr;
++	}
++
++	r = amdgpu_vm_bo_unmap(adev, *bo_va, va);
++	if (r) {
++		dev_err(adev->dev,
++			"failed to do bo_unmap on CWSR trap handler, err=%d\n",
++			r);
++		return r;
++	}
++
++	amdgpu_vm_bo_del(adev, *bo_va);
++	*bo_va = NULL;
++
++	return r;
++}
++
++int amdgpu_trap_alloc(struct amdgpu_device *adev, struct amdgpu_vm *vm,
++		      struct amdgpu_trap_obj **trap_obj)
++{
++	struct amdgpu_bo_param bp;
++	struct iosys_map map;
++	struct amdgpu_trap_obj *cwsr;
++	struct amdgpu_bo *bo;
++	struct drm_exec exec;
++	int r;
++
++	if (!amdgpu_trap_is_enabled(adev))
++		return -EOPNOTSUPP;
++
++	if (!vm || !trap_obj)
++		return -EINVAL;
++
++	cwsr = kzalloc(sizeof(*cwsr), GFP_KERNEL);
++	if (!cwsr)
++		return -ENOMEM;
++
++	bo = adev->trap_info->isa_bo;
++
++	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
++	drm_exec_until_all_locked(&exec) {
++		r = amdgpu_vm_lock_pd(vm, &exec, 0);
++		drm_exec_retry_on_contention(&exec);
++		if (unlikely(r))
++			goto err_exec;
++
++		r = drm_exec_lock_obj(&exec, &bo->tbo.base);
++		drm_exec_retry_on_contention(&exec);
++		if (unlikely(r))
++			goto err_exec;
++	}
++
++	/*
++	 * Create the TMA BO with the VM root reservation. The reservation is
++	 * already held by drm_exec, so creating the BO doesn't recursively
++	 * acquire another reservation_ww_class_mutex. The TMA remains
++	 * unpinned and is covered by the VM root reservation.
++	 */
++	memset(&bp, 0, sizeof(bp));
++	bp.size = AMDGPU_TRAP_TMA_MAX_SIZE;
++	bp.byte_align = PAGE_SIZE;
++	bp.domain = AMDGPU_GEM_DOMAIN_GTT;
++	bp.flags = AMDGPU_GEM_CREATE_CPU_GTT_USWC |
++		   AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
++	bp.type = ttm_bo_type_kernel;
++	bp.bo_ptr_size = sizeof(struct amdgpu_bo);
++	bp.resv = vm->root.bo->tbo.base.resv;
++
++	r = amdgpu_bo_create(adev, &bp, &cwsr->tma_bo);
++	if (r)
++		goto err_exec;
++
++	/*
++	 * The TMA BO is unpinned and movable. Map it only while accessing
++	 * its contents so that no CPU mapping can become stale across BO
++	 * migration. ttm_bo_vmap() and ttm_bo_vunmap() require the BO
++	 * reservation, which is the already held VM root reservation.
++	 */
++	r = ttm_bo_vmap(&cwsr->tma_bo->tbo, &map);
++	if (r)
++		goto err_tma;
++
++	/*
++	 * Finish initialization with a DMA write barrier before allowing
++	 * the GPU to observe the contents.
++	 */
++	iosys_map_memset(&map, 0, 0, AMDGPU_TRAP_TMA_MAX_SIZE);
++	dma_wmb();
++
++	ttm_bo_vunmap(&cwsr->tma_bo->tbo, &map);
++
++	r = amdgpu_trap_map_region(adev, vm, cwsr, AMDGPU_TRAP_TMA);
++	if (r)
++		goto err_tma;
++
++	r = amdgpu_trap_map_region(adev, vm, cwsr, AMDGPU_TRAP_TBA);
++	if (r) {
++		amdgpu_trap_unmap_region(adev, cwsr, AMDGPU_TRAP_TMA);
++		goto err_tma;
++	}
++
++	drm_exec_fini(&exec);
++
++	*trap_obj = cwsr;
++
++	return 0;
++
++err_tma:
++	amdgpu_bo_unref(&cwsr->tma_bo);
++
++err_exec:
++	drm_exec_fini(&exec);
++	kfree(cwsr);
++	*trap_obj = NULL;
++
++	return r;
++}
++
++static int amdgpu_trap_update_l2_handler(struct amdgpu_trap_obj *trap_obj,
++					 u64 tba, u64 tma)
++{
++	struct iosys_map map;
++	int r;
++
++	if (!trap_obj || !trap_obj->tma_bo)
++		return -EINVAL;
++
++	dma_resv_assert_held(trap_obj->tma_bo->tbo.base.resv);
++
++	r = ttm_bo_vmap(&trap_obj->tma_bo->tbo, &map);
++	if (r)
++		return r;
++
++	/*
++	 * Publish both descriptor fields before allowing the GPU to observe
++	 * the updated second-level trap handler.
++	 */
++	iosys_map_wr(&map, AMDGPU_TRAP_L2_TBA_INDEX * sizeof(u64),
++		     u64, tba);
++	iosys_map_wr(&map, AMDGPU_TRAP_L2_TMA_INDEX * sizeof(u64),
++		     u64, tma);
++	dma_wmb();
++
++	ttm_bo_vunmap(&trap_obj->tma_bo->tbo, &map);
++
++	return 0;
++}
++
++static int amdgpu_trap_clear_l2_handler(struct amdgpu_vm *vm,
++					struct amdgpu_trap_obj *trap_obj)
++{
++	if (!trap_obj || !trap_obj->tma_bo)
++		return -EINVAL;
++
++	dma_resv_assert_held(vm->root.bo->tbo.base.resv);
++
++	return amdgpu_trap_update_l2_handler(trap_obj, 0, 0);
++}
++
++int amdgpu_trap_validate_params(struct amdgpu_device *adev,
++				struct amdgpu_trap_params *trap_params,
++				int num_xcc)
++{
++	uint32_t min_size, max_size;
++
++	if (!amdgpu_trap_is_enabled(adev))
++		return -EOPNOTSUPP;
++
++	if (!trap_params)
++		return -EINVAL;
++
++	min_size = amdgpu_trap_size_needed(adev, num_xcc);
++	max_size = 2 * min_size;
++	/*
++	 * Only save area size details checked. Address validation needs to be
++	 * carried out separately. User is expected to pass a cwsr buffer area
++	 * with size >= ctl stack size + wg data size + debug memory size
++	 */
++	if (trap_params->cwsr_sz < min_size ||
++	    trap_params->cwsr_sz > max_size) {
++		dev_dbg(adev->dev,
++			"queue cwsr size 0x%x should be within min %u : max %u\n",
++			trap_params->cwsr_sz, min_size, max_size);
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++void amdgpu_trap_free(struct amdgpu_device *adev, struct amdgpu_vm *vm,
++		      struct amdgpu_trap_obj **trap_obj)
++{
++	struct amdgpu_bo *tba_bo;
++	struct drm_exec exec;
++	int r;
++
++	if (!trap_obj || !*trap_obj)
++		return;
++
++	tba_bo = adev->trap_info->isa_bo;
++
++	drm_exec_init(&exec, 0, 0);
++	drm_exec_until_all_locked(&exec) {
++		r = amdgpu_vm_lock_pd(vm, &exec, 0);
++		drm_exec_retry_on_contention(&exec);
++		if (unlikely(r))
++			goto out_exec;
++
++		if (tba_bo) {
++			r = drm_exec_lock_obj(&exec, &tba_bo->tbo.base);
++			drm_exec_retry_on_contention(&exec);
++			if (unlikely(r))
++				goto out_exec;
++		}
++	}
++
++	if ((*trap_obj)->tba_va) {
++		amdgpu_vm_bo_del(adev, (*trap_obj)->tba_va);
++		(*trap_obj)->tba_va = NULL;
++	}
++
++	if ((*trap_obj)->tma_va) {
++		amdgpu_vm_bo_del(adev, (*trap_obj)->tma_va);
++		(*trap_obj)->tma_va = NULL;
++	}
++
++	drm_exec_fini(&exec);
++	amdgpu_bo_unref(&(*trap_obj)->tma_bo);
++	kfree(*trap_obj);
++	*trap_obj = NULL;
++
++	return;
++
++out_exec:
++	drm_exec_fini(&exec);
++}
++
++static int amdgpu_trap_validate_user_addr(struct amdgpu_device *adev,
++					 struct amdgpu_vm *vm,
++					 struct amdgpu_trap_usr_addr *usr_addr)
++{
++	struct amdgpu_bo_va_mapping *va_map;
++	u64 start, end, addr, last;
++
++	if (!usr_addr || !usr_addr->size)
++		return -EINVAL;
++
++	dma_resv_assert_held(vm->root.bo->tbo.base.resv);
++
++	start = usr_addr->addr & AMDGPU_GMC_HOLE_MASK;
++
++	if (check_add_overflow(start, (u64)usr_addr->size - 1, &end))
++		return -EINVAL;
++
++	addr = start >> AMDGPU_GPU_PAGE_SHIFT;
++	last = end >> AMDGPU_GPU_PAGE_SHIFT;
++
++	va_map = amdgpu_vm_bo_lookup_mapping(vm, addr);
++	if (!va_map)
++		return -EINVAL;
++
++	if (addr < va_map->start || last > va_map->last)
++		return -EINVAL;
++
++	return 0;
++}
++
++int amdgpu_trap_vm_set_l2_trap(struct amdgpu_device *adev,
++			       struct amdgpu_vm *vm,
++			       struct amdgpu_trap_obj *trap_obj,
++			       u64 tba_va, uint32_t tba_sz,
++			       u64 tma_va, uint32_t tma_sz)
++{
++	struct amdgpu_trap_usr_addr tba = {
++		.addr = tba_va,
++		.size = tba_sz,
++	};
++	struct amdgpu_trap_usr_addr tma = {
++		.addr = tma_va,
++		.size = tma_sz,
++	};
++	long timeout;
++	int r;
++
++	if (!amdgpu_trap_is_enabled(adev))
++		return -EOPNOTSUPP;
++
++	if (!vm || !trap_obj || !trap_obj->tma_bo)
++		return -EINVAL;
++
++	r = amdgpu_bo_reserve(vm->root.bo, false);
++	if (r)
++		return r;
++
++	timeout = dma_resv_wait_timeout(vm->root.bo->tbo.base.resv,
++					DMA_RESV_USAGE_BOOKKEEP,
++					true, MAX_SCHEDULE_TIMEOUT);
++	if (timeout <= 0) {
++		r = timeout < 0 ? timeout : -ETIMEDOUT;
++		goto out_unreserve;
++	}
++
++	r = amdgpu_trap_validate_user_addr(adev, vm, &tba);
++	if (r)
++		goto out_unreserve;
++
++	r = amdgpu_trap_validate_user_addr(adev, vm, &tma);
++	if (r)
++		goto out_unreserve;
++
++	r = amdgpu_trap_update_l2_handler(trap_obj, tba_va, tma_va);
++
++out_unreserve:
++	amdgpu_bo_unreserve(vm->root.bo);
++
++	return r;
++}
++
++int amdgpu_trap_vm_clear_l2_trap(struct amdgpu_device *adev,
++				 struct amdgpu_vm *vm,
++				 struct amdgpu_trap_obj *trap_obj)
++{
++	long timeout;
++	int r;
++
++	if (!amdgpu_trap_is_enabled(adev))
++		return -EOPNOTSUPP;
++
++	if (!vm || !trap_obj || !trap_obj->tma_bo)
++		return -EINVAL;
++
++	r = amdgpu_bo_reserve(vm->root.bo, false);
++	if (r)
++		return r;
++
++	timeout = dma_resv_wait_timeout(vm->root.bo->tbo.base.resv,
++					DMA_RESV_USAGE_BOOKKEEP,
++					true, MAX_SCHEDULE_TIMEOUT);
++	if (timeout <= 0) {
++		r = timeout < 0 ? timeout : -ETIMEDOUT;
++		goto out_unreserve;
++	}
++
++	r = amdgpu_trap_clear_l2_handler(vm, trap_obj);
++
++out_unreserve:
++	amdgpu_bo_unreserve(vm->root.bo);
++
++	return r;
++}
++
++int amdgpu_trap_set_trap_debug_flag(struct amdgpu_device *adev,
++				    struct amdgpu_vm *vm,
++				    struct amdgpu_trap_obj *trap_obj,
++				    bool enabled)
++{
++	struct iosys_map map;
++	int r;
++
++	if (!amdgpu_trap_is_enabled(adev))
++		return -EOPNOTSUPP;
++
++	if (!vm || !trap_obj || !trap_obj->tma_bo)
++		return -EINVAL;
++
++	r = amdgpu_bo_reserve(vm->root.bo, false);
++	if (r)
++		return r;
++
++	r = ttm_bo_vmap(&trap_obj->tma_bo->tbo, &map);
++	if (r)
++		goto out_unreserve;
++
++	iosys_map_wr(&map, AMDGPU_TRAP_DEBUG_FLAG_INDEX * sizeof(u64),
++		     u64, (u64)enabled);
++	dma_wmb();
++
++	ttm_bo_vunmap(&trap_obj->tma_bo->tbo, &map);
++
++out_unreserve:
++	amdgpu_bo_unreserve(vm->root.bo);
++
++	return r;
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.h
+new file mode 100644
+index 000000000000..c78c60e3d18d
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trap.h
+@@ -0,0 +1,143 @@
++/*
++ * Copyright 2025 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ */
++
++#ifndef AMDGPU_TRAP_H
++#define AMDGPU_TRAP_H
++
++#include <linux/types.h>
++
++struct amdgpu_bo;
++struct amdgpu_bo_va;
++struct amdgpu_device;
++struct amdgpu_vm;
++
++/**
++ * struct amdgpu_trap_obj - per-GPUVM CWSR trap-handler state
++ * @tma_gpu_va_addr: GPU virtual address of the first-level TMA
++ * @tba_gpu_va_addr: GPU virtual address of the first-level TBA
++ * @tma_bo: buffer object backing the first-level TMA
++ * @tba_va: VM mapping of the first-level TBA
++ * @tma_va: VM mapping of the first-level TMA
++ */
++struct amdgpu_trap_obj {
++	uint64_t tma_gpu_va_addr;
++	uint64_t tba_gpu_va_addr;
++
++	struct amdgpu_bo *tma_bo;
++	struct amdgpu_bo_va *tba_va;
++	struct amdgpu_bo_va *tma_va;
++};
++
++struct amdgpu_trap_info {
++	/* cwsr isa */
++	struct amdgpu_bo *isa_bo;
++	const void *isa_buf;
++	uint32_t isa_sz;
++
++	/* cwsr size info per XCC */
++	struct {
++		uint32_t xcc_ctl_stack_sz;
++		uint32_t xcc_dbg_mem_sz;
++		uint32_t xcc_cwsr_sz;
++	} cwsr;
++};
++
++struct amdgpu_trap_params {
++	uint64_t ctx_save_area_address;
++
++	/* cwsr size info */
++	uint32_t cwsr_sz;
++};
++
++struct amdgpu_trap_usr_addr {
++	uint64_t addr;
++	uint32_t size;
++};
++
++int amdgpu_trap_init(struct amdgpu_device *adev);
++void amdgpu_trap_fini(struct amdgpu_device *adev);
++
++int amdgpu_trap_alloc(struct amdgpu_device *adev, struct amdgpu_vm *vm,
++		      struct amdgpu_trap_obj **trap_obj);
++
++void amdgpu_trap_free(struct amdgpu_device *adev,
++		      struct amdgpu_vm *vm,
++		      struct amdgpu_trap_obj **trap_obj);
++
++static inline bool amdgpu_trap_is_enabled(struct amdgpu_device *adev)
++{
++	return adev->trap_info;
++}
++
++uint32_t amdgpu_trap_size_needed(struct amdgpu_device *adev, int num_xcc);
++
++int amdgpu_trap_validate_params(struct amdgpu_device *adev,
++				struct amdgpu_trap_params *trap_params,
++				int num_xcc);
++
++static inline bool amdgpu_trap_has_dbg_wa(struct amdgpu_device *adev)
++{
++	uint32_t gc_ver = amdgpu_ip_version(adev, GC_HWIP, 0);
++
++	return gc_ver >= IP_VERSION(11, 0, 0) &&
++	       gc_ver <= IP_VERSION(11, 0, 3);
++}
++
++/**
++ * amdgpu_trap_vm_set_l2_trap - install the second-level trap handler
++ * @adev: AMDGPU device
++ * @vm: GPUVM owning the first-level trap state
++ * @trap_obj: first-level trap object
++ * @tba_va: GPU virtual address of the second-level TBA
++ * @tba_sz: size of the second-level TBA
++ * @tma_va: GPU virtual address of the second-level TMA
++ * @tma_sz: size of the second-level TMA
++ *
++ * The second-level trap handler is configured per GPUVM. The descriptor is
++ * stored in the per-GPUVM first-level TMA.
++ *
++ * Return: 0 on success or a negative error code on failure.
++ */
++int amdgpu_trap_vm_set_l2_trap(struct amdgpu_device *adev,
++			       struct amdgpu_vm *vm,
++			       struct amdgpu_trap_obj *trap_obj,
++			       u64 tba_va, uint32_t tba_sz,
++			       u64 tma_va, uint32_t tma_sz);
++
++/**
++ * amdgpu_trap_vm_clear_l2_trap - clear the second-level trap handler
++ * @adev: AMDGPU device
++ * @vm: GPUVM owning the first-level trap state
++ * @trap_obj: first-level trap object
++ *
++ * Return: 0 on success or a negative error code on failure.
++ */
++int amdgpu_trap_vm_clear_l2_trap(struct amdgpu_device *adev,
++				 struct amdgpu_vm *vm,
++				 struct amdgpu_trap_obj *trap_obj);
++
++int amdgpu_trap_set_trap_debug_flag(struct amdgpu_device *adev,
++				    struct amdgpu_vm *vm,
++				    struct amdgpu_trap_obj *trap_obj,
++				    bool enabled);
++
++#endif
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index 1a2aa85c504e..d1811a29892a 100644
+index d1811a29892a..bbabcd92a6a1 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -35,6 +35,7 @@
+@@ -35,7 +35,7 @@
  #include "amdgpu_hmm.h"
  #include "amdgpu_userq_fence.h"
  #include "amdgpu_trace.h"
-+#include "amdgpu_cwsr.h"
+-#include "amdgpu_cwsr.h"
++#include "amdgpu_trap.h"
  
  u32 amdgpu_userq_get_supported_ip_mask(struct amdgpu_device *adev)
  {
-@@ -266,6 +267,30 @@ int amdgpu_userq_input_va_validate(struct amdgpu_device *adev,
+@@ -267,9 +267,8 @@ int amdgpu_userq_input_va_validate(struct amdgpu_device *adev,
  	return -EINVAL;
  }
  
-+int amdgpu_userq_input_cwsr_params_validate(
-+	struct amdgpu_usermode_queue *queue,
-+	struct amdgpu_cwsr_params *cwsr_params)
-+{
-+	struct amdgpu_fpriv *fpriv = uq_mgr_to_fpriv(queue->userq_mgr);
-+	struct amdgpu_device *adev = queue->userq_mgr->adev;
-+	uint32_t cwsr_size;
-+	int num_xcc;
-+	int r;
-+
-+	num_xcc = amdgpu_xcp_get_num_xcc(adev->xcp_mgr, fpriv->xcp_id);
-+	r = amdgpu_cwsr_validate_params(queue->userq_mgr->adev, cwsr_params,
-+					num_xcc);
-+	if (r)
-+		return r;
-+	cwsr_size = amdgpu_cwsr_size_needed(queue->userq_mgr->adev, num_xcc);
-+	if (!cwsr_size)
-+		return -EOPNOTSUPP;
-+
-+	return amdgpu_userq_input_va_validate(
-+		adev, queue, cwsr_params->ctx_save_area_address, cwsr_size,
-+		&queue->userq_vas.va.cwsr);
-+}
-+
- static bool amdgpu_userq_buffer_va_mapped(struct amdgpu_vm *vm, u64 addr)
+-int amdgpu_userq_input_cwsr_params_validate(
+-	struct amdgpu_usermode_queue *queue,
+-	struct amdgpu_cwsr_params *cwsr_params)
++int amdgpu_userq_input_trap_params_validate(struct amdgpu_usermode_queue *queue,
++					    struct amdgpu_trap_params *trap_params)
  {
- 	struct amdgpu_bo_va_mapping *mapping;
+ 	struct amdgpu_fpriv *fpriv = uq_mgr_to_fpriv(queue->userq_mgr);
+ 	struct amdgpu_device *adev = queue->userq_mgr->adev;
+@@ -278,16 +277,16 @@ int amdgpu_userq_input_cwsr_params_validate(
+ 	int r;
+ 
+ 	num_xcc = amdgpu_xcp_get_num_xcc(adev->xcp_mgr, fpriv->xcp_id);
+-	r = amdgpu_cwsr_validate_params(queue->userq_mgr->adev, cwsr_params,
++	r = amdgpu_trap_validate_params(queue->userq_mgr->adev, trap_params,
+ 					num_xcc);
+ 	if (r)
+ 		return r;
+-	cwsr_size = amdgpu_cwsr_size_needed(queue->userq_mgr->adev, num_xcc);
++	cwsr_size = amdgpu_trap_size_needed(queue->userq_mgr->adev, num_xcc);
+ 	if (!cwsr_size)
+ 		return -EOPNOTSUPP;
+ 
+ 	return amdgpu_userq_input_va_validate(
+-		adev, queue, cwsr_params->ctx_save_area_address, cwsr_size,
++		adev, queue, trap_params->ctx_save_area_address, cwsr_size,
+ 		&queue->userq_vas.va.cwsr);
+ }
+ 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-index 488dc21d7c81..727f60c40bbf 100644
+index 727f60c40bbf..5eb0f3ee9b4e 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-@@ -41,6 +41,7 @@ enum amdgpu_userq_state {
+@@ -41,7 +41,7 @@ enum amdgpu_userq_state {
  };
  
  struct amdgpu_mqd_prop;
-+struct amdgpu_cwsr_params;
+-struct amdgpu_cwsr_params;
++struct amdgpu_trap_params;
  
  struct amdgpu_userq_obj {
  	void		 *cpu_ptr;
-@@ -97,8 +98,9 @@ struct amdgpu_usermode_queue {
- 			u64 eop;
- 			u64 shadow;
- 			u64 csa;
-+			u64 cwsr;
- 		} va;
--		u64 va_array[6];
-+		u64 va_array[7];
- 	} userq_vas;
- 
- 	uint32_t	gang_ctx_array_index;
-@@ -200,4 +202,8 @@ int amdgpu_userq_input_va_validate(struct amdgpu_device *adev,
+@@ -202,8 +202,7 @@ int amdgpu_userq_input_va_validate(struct amdgpu_device *adev,
  
  void amdgpu_userq_gem_va_unmap_validate(struct amdgpu_device *adev,
  					struct amdgpu_bo_va_mapping *mapping);
-+int amdgpu_userq_input_cwsr_params_validate(
-+	struct amdgpu_usermode_queue *queue,
-+	struct amdgpu_cwsr_params *cwsr_params);
-+
+-int amdgpu_userq_input_cwsr_params_validate(
+-	struct amdgpu_usermode_queue *queue,
+-	struct amdgpu_cwsr_params *cwsr_params);
++int amdgpu_userq_input_trap_params_validate(struct amdgpu_usermode_queue *queue,
++					    struct amdgpu_trap_params *trap_params);
+ 
  #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-index d334fb805020..2adc2bcc3dce 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-@@ -3224,6 +3224,20 @@ static int gfx_v12_0_compute_mqd_init(struct amdgpu_device *adev, void *m,
- 	/* set CU mask */
- 	gfx_v12_0_compute_mqd_set_cu_mask(adev, mqd, prop);
- 
-+	/* If non-zero, assume cwsr is enabled */
-+	if (prop->ctx_save_area_addr) {
-+		mqd->cp_hqd_persistent_state |=
-+			(1 << CP_HQD_PERSISTENT_STATE__QSWITCH_MODE__SHIFT);
-+		mqd->cp_hqd_ctx_save_base_addr_lo =
-+			lower_32_bits(prop->ctx_save_area_addr);
-+		mqd->cp_hqd_ctx_save_base_addr_hi =
-+			upper_32_bits(prop->ctx_save_area_addr);
-+		mqd->cp_hqd_ctx_save_size = prop->ctx_save_area_size;
-+		mqd->cp_hqd_cntl_stack_size = prop->ctl_stack_size;
-+		mqd->cp_hqd_cntl_stack_offset = prop->ctl_stack_size;
-+		mqd->cp_hqd_wg_state_offset = prop->ctl_stack_size;
-+	}
-+
- 	return 0;
- }
- 
 diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-index 7abb9d95ef59..108dced28f97 100644
+index 0ba672ce7e55..67fccdb64f14 100644
 --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
 +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-@@ -27,6 +27,7 @@
+@@ -27,7 +27,7 @@
  #include "mes_userqueue.h"
  #include "amdgpu_userq_fence.h"
  #include "amdgpu_trace.h"
-+#include "amdgpu_cwsr.h"
+-#include "amdgpu_cwsr.h"
++#include "amdgpu_trap.h"
  
  #define AMDGPU_USERQ_PROC_CTX_SZ PAGE_SIZE
  #define AMDGPU_USERQ_GANG_CTX_SZ PAGE_SIZE
-@@ -120,6 +121,7 @@ static int convert_to_mes_priority(int priority)
- static int mes_userq_map(struct amdgpu_usermode_queue *queue)
- {
- 	struct amdgpu_userq_mgr *uq_mgr = queue->userq_mgr;
-+	struct amdgpu_fpriv *fpriv = uq_mgr_to_fpriv(uq_mgr);
- 	struct amdgpu_device *adev = uq_mgr->adev;
- 	struct amdgpu_userq_obj *ctx = &queue->fw_obj;
- 	struct amdgpu_mqd_prop *userq_props = queue->userq_prop;
-@@ -151,24 +153,37 @@ static int mes_userq_map(struct amdgpu_usermode_queue *queue)
+@@ -153,10 +153,10 @@ static int mes_userq_map(struct amdgpu_usermode_queue *queue)
  	queue_input.page_table_base_addr = amdgpu_gmc_pd_addr(queue->vm->root.bo);
  	queue_input.wptr_mc_addr = queue->wptr_obj.gpu_addr;
  
-+	if (fpriv->cwsr_trap) {
-+		queue_input.tba_addr = fpriv->cwsr_trap->tba_gpu_va_addr;
-+		queue_input.tma_addr = fpriv->cwsr_trap->tma_gpu_va_addr;
-+		queue_input.trap_en = !amdgpu_cwsr_has_dbg_wa(adev);
-+	}
-+
- 	if (mes->use_rs64mem) {
- 		if (!uq_mgr->proc_ctx_allocated) {
--			r = amdgpu_mes_alloc_proc_ctx_index(mes, &uq_mgr->proc_ctx_array_index);
-+			r = amdgpu_mes_alloc_proc_ctx_index(mes,
-+							    &uq_mgr->proc_ctx_array_index);
- 			if (r) {
--				DRM_ERROR("Failed to allocate userq process index err:%d\n", r);
-+				DRM_ERROR("Failed to allocate userq process index err:%d\n",
-+					  r);
- 				return r;
- 			}
- 			uq_mgr->proc_ctx_allocated = true;
- 		}
- 
--		r = amdgpu_mes_alloc_gang_ctx_index(mes, &queue->gang_ctx_array_index);
-+		r = amdgpu_mes_alloc_gang_ctx_index(mes,
-+						    &queue->gang_ctx_array_index);
- 		if (r) {
- 			DRM_ERROR("Failed to allocate userq gang index err:%d\n", r);
- 			return r;
- 		}
--		queue_input.process_context_array_index = uq_mgr->proc_ctx_array_index;
--		queue_input.gang_context_array_index = queue->gang_ctx_array_index;
-+
-+		queue_input.process_context_array_index =
-+			uq_mgr->proc_ctx_array_index;
-+		queue_input.gang_context_array_index =
-+			queue->gang_ctx_array_index;
+-	if (fpriv->cwsr_trap) {
+-		queue_input.tba_addr = fpriv->cwsr_trap->tba_gpu_va_addr;
+-		queue_input.tma_addr = fpriv->cwsr_trap->tma_gpu_va_addr;
+-		queue_input.trap_en = !amdgpu_cwsr_has_dbg_wa(adev);
++	if (fpriv->trap_obj) {
++		queue_input.tba_addr = fpriv->trap_obj->tba_gpu_va_addr;
++		queue_input.tma_addr = fpriv->trap_obj->tma_gpu_va_addr;
++		queue_input.trap_en = !amdgpu_trap_has_dbg_wa(adev);
  	}
-+
- 	amdgpu_mes_lock(&adev->mes);
- 	r = adev->mes.funcs->add_hw_queue(&adev->mes, &queue_input);
- 	amdgpu_mes_unlock(&adev->mes);
-@@ -179,7 +194,9 @@ static int mes_userq_map(struct amdgpu_usermode_queue *queue)
  
- 	amdgpu_mes_userq_queue_mapped(adev);
- 
--	DRM_DEBUG_DRIVER("Queue (doorbell:%d) mapped successfully\n", userq_props->doorbell_index);
-+	DRM_DEBUG_DRIVER("Queue (doorbell:%d) mapped successfully\n",
-+			 userq_props->doorbell_index);
-+
- 	return 0;
- }
- 
-@@ -403,6 +420,7 @@ static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
+ 	if (mes->use_rs64mem) {
+@@ -420,7 +420,7 @@ static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
  
  	if (queue->queue_type == AMDGPU_HW_IP_COMPUTE) {
  		struct drm_amdgpu_userq_mqd_compute_gfx11 *compute_mqd;
-+		struct amdgpu_cwsr_params cwsr_params;
+-		struct amdgpu_cwsr_params cwsr_params;
++		struct amdgpu_trap_params trap_params;
  
  		if (mqd_user->mqd_size != sizeof(*compute_mqd)) {
  			DRM_ERROR("Invalid compute IP MQD size\n");
-@@ -410,7 +428,8 @@ static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
- 			goto free_mqd;
- 		}
- 
--		compute_mqd = memdup_user(u64_to_user_ptr(mqd_user->mqd), mqd_user->mqd_size);
-+		compute_mqd = memdup_user(u64_to_user_ptr(mqd_user->mqd),
-+					  mqd_user->mqd_size);
- 		if (IS_ERR(compute_mqd)) {
- 			r = PTR_ERR(compute_mqd);
- 			goto free_mqd;
-@@ -421,6 +440,7 @@ static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
- 			kfree(compute_mqd);
- 			goto free_mqd;
- 		}
-+
- 		r = amdgpu_userq_input_va_validate(adev, queue,
- 						   compute_mqd->eop_va, 2048,
- 						   &queue->userq_vas.va.eop);
-@@ -432,29 +452,63 @@ static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
- 
- 		userq_props->eop_gpu_addr = compute_mqd->eop_va;
- 		userq_props->hqd_pipe_priority = AMDGPU_GFX_PIPE_PRIO_NORMAL;
--		userq_props->hqd_queue_priority = AMDGPU_GFX_QUEUE_PRIORITY_MINIMUM;
-+		userq_props->hqd_queue_priority =
-+			AMDGPU_GFX_QUEUE_PRIORITY_MINIMUM;
- 		userq_props->hqd_active = false;
+@@ -458,16 +458,16 @@ static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
  		userq_props->tmz_queue =
  			mqd_user->flags & AMDGPU_USERQ_CREATE_FLAGS_QUEUE_SECURE;
-+
-+		if (amdgpu_cwsr_is_enabled(adev)) {
-+			struct amdgpu_fpriv *fpriv =
-+				uq_mgr_to_fpriv(queue->userq_mgr);
-+			int num_xcc;
-+
-+			num_xcc = amdgpu_xcp_get_num_xcc(adev->xcp_mgr,
-+							 fpriv->xcp_id);
-+			cwsr_params.ctx_save_area_address =
-+				userq_props->ctx_save_area_addr;
-+			cwsr_params.cwsr_sz =
-+				userq_props->ctx_save_area_size;
-+			userq_props->ctl_stack_size =
-+				adev->cwsr_info->xcc_ctl_stack_sz * num_xcc;
-+
-+			r = amdgpu_bo_reserve(queue->vm->root.bo, false);
-+			if (r) {
-+				kfree(compute_mqd);
-+				goto free_mqd;
-+			}
-+
-+			r = amdgpu_userq_input_cwsr_params_validate(
-+				queue, &cwsr_params);
-+			amdgpu_bo_unreserve(queue->vm->root.bo);
-+			if (r) {
-+				kfree(compute_mqd);
-+				goto free_mqd;
-+			}
-+		}
-+
+ 
+-		if (amdgpu_cwsr_is_enabled(adev)) {
++		if (amdgpu_trap_is_enabled(adev)) {
+ 			struct amdgpu_fpriv *fpriv =
+ 				uq_mgr_to_fpriv(queue->userq_mgr);
+ 			int num_xcc;
+ 
+ 			num_xcc = amdgpu_xcp_get_num_xcc(adev->xcp_mgr,
+ 							 fpriv->xcp_id);
+-			cwsr_params.ctx_save_area_address =
++			trap_params.ctx_save_area_address =
+ 				compute_mqd->ctx_save_area_va;
+-			cwsr_params.cwsr_sz =
++			trap_params.cwsr_sz =
+ 				compute_mqd->ctx_save_area_size;
+ 
+ 			r = amdgpu_bo_reserve(queue->vm->root.bo, false);
+@@ -476,8 +476,8 @@ static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
+ 				goto free_mqd;
+ 			}
+ 
+-			r = amdgpu_userq_input_cwsr_params_validate(
+-				queue, &cwsr_params);
++			r = amdgpu_userq_input_trap_params_validate(
++				queue, &trap_params);
+ 			amdgpu_bo_unreserve(queue->vm->root.bo);
+ 			if (r) {
+ 				kfree(compute_mqd);
+@@ -489,7 +489,7 @@ static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
+ 			userq_props->ctx_save_area_size =
+ 				compute_mqd->ctx_save_area_size;
+ 			userq_props->ctl_stack_size =
+-				adev->cwsr_info->xcc_ctl_stack_sz * num_xcc;
++				adev->trap_info->cwsr.xcc_ctl_stack_sz * num_xcc;
+ 		}
+ 
  		kfree(compute_mqd);
- 	} else if (queue->queue_type == AMDGPU_HW_IP_GFX) {
- 		struct drm_amdgpu_userq_mqd_gfx11 *mqd_gfx_v11;
- 		struct amdgpu_gfx_shadow_info shadow_info;
- 
- 		if (adev->gfx.funcs->get_gfx_shadow_info) {
--			adev->gfx.funcs->get_gfx_shadow_info(adev, &shadow_info, true);
-+			adev->gfx.funcs->get_gfx_shadow_info(adev,
-+							     &shadow_info, true);
- 		} else {
- 			r = -EINVAL;
- 			goto free_mqd;
- 		}
- 
--		if (mqd_user->mqd_size != sizeof(*mqd_gfx_v11) || !mqd_user->mqd) {
-+		if (mqd_user->mqd_size != sizeof(*mqd_gfx_v11) ||
-+		    !mqd_user->mqd) {
- 			DRM_ERROR("Invalid GFX MQD\n");
- 			r = -EINVAL;
- 			goto free_mqd;
- 		}
- 
--		mqd_gfx_v11 = memdup_user(u64_to_user_ptr(mqd_user->mqd), mqd_user->mqd_size);
-+		mqd_gfx_v11 = memdup_user(u64_to_user_ptr(mqd_user->mqd),
-+					   mqd_user->mqd_size);
- 		if (IS_ERR(mqd_gfx_v11)) {
- 			r = PTR_ERR(mqd_gfx_v11);
- 			goto free_mqd;
-@@ -470,7 +524,9 @@ static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
- 			kfree(mqd_gfx_v11);
- 			goto free_mqd;
- 		}
--		r = amdgpu_userq_input_va_validate(adev, queue, mqd_gfx_v11->shadow_va,
-+
-+		r = amdgpu_userq_input_va_validate(adev, queue,
-+						   mqd_gfx_v11->shadow_va,
- 						   shadow_info.shadow_size,
- 						   &queue->userq_vas.va.shadow);
- 		if (r) {
-@@ -479,7 +535,8 @@ static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
- 			goto free_mqd;
- 		}
- 
--		r = amdgpu_userq_input_va_validate(adev, queue, mqd_gfx_v11->csa_va,
-+		r = amdgpu_userq_input_va_validate(adev, queue,
-+						   mqd_gfx_v11->csa_va,
- 						   shadow_info.csa_size,
- 						   &queue->userq_vas.va.csa);
- 		amdgpu_bo_unreserve(queue->vm->root.bo);
-@@ -492,13 +549,15 @@ static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
- 	} else if (queue->queue_type == AMDGPU_HW_IP_DMA) {
- 		struct drm_amdgpu_userq_mqd_sdma_gfx11 *mqd_sdma_v11;
- 
--		if (mqd_user->mqd_size != sizeof(*mqd_sdma_v11) || !mqd_user->mqd) {
-+		if (mqd_user->mqd_size != sizeof(*mqd_sdma_v11) ||
-+		    !mqd_user->mqd) {
- 			DRM_ERROR("Invalid SDMA MQD\n");
- 			r = -EINVAL;
- 			goto free_mqd;
- 		}
- 
--		mqd_sdma_v11 = memdup_user(u64_to_user_ptr(mqd_user->mqd), mqd_user->mqd_size);
-+		mqd_sdma_v11 = memdup_user(u64_to_user_ptr(mqd_user->mqd),
-+					    mqd_user->mqd_size);
- 		if (IS_ERR(mqd_sdma_v11)) {
- 			r = PTR_ERR(mqd_sdma_v11);
- 			goto free_mqd;
-@@ -509,7 +568,9 @@ static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
- 			kfree(mqd_sdma_v11);
- 			goto free_mqd;
- 		}
--		r = amdgpu_userq_input_va_validate(adev, queue, mqd_sdma_v11->csa_va,
-+
-+		r = amdgpu_userq_input_va_validate(adev, queue,
-+						   mqd_sdma_v11->csa_va,
- 						   32,
- 						   &queue->userq_vas.va.csa);
- 		amdgpu_bo_unreserve(queue->vm->root.bo);
-@@ -524,7 +585,8 @@ static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
- 
- 	queue->userq_prop = userq_props;
- 
--	r = mqd_hw_default->init_mqd(adev, (void *)queue->mqd.cpu_ptr, userq_props);
-+	r = mqd_hw_default->init_mqd(adev, (void *)queue->mqd.cpu_ptr,
-+				     userq_props);
- 	if (r) {
- 		DRM_ERROR("Failed to initialize MQD for userqueue\n");
- 		goto free_mqd;
-@@ -533,7 +595,8 @@ static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
- 	/* Create per-process MES process context BO */
- 	r = mes_userq_create_proc_ctx_space(uq_mgr);
- 	if (r) {
--		DRM_ERROR("Failed to allocate MES process context space bo, error: %d\n", r);
-+		DRM_ERROR("Failed to allocate MES process context space bo, error: %d\n",
-+			  r);
- 		goto free_mqd;
- 	}
- 
-@@ -545,7 +608,8 @@ static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
- 	}
- 
- 	/* FW expects WPTR BOs to be mapped into GART */
--	r = mes_userq_create_wptr_mapping(adev, uq_mgr, queue, userq_props->wptr_gpu_addr);
-+	r = mes_userq_create_wptr_mapping(adev, uq_mgr, queue,
-+					  userq_props->wptr_gpu_addr);
- 	if (r) {
- 		DRM_ERROR("Failed to create WPTR mapping\n");
- 		goto free_ctx;
 -- 
 2.34.1
 
