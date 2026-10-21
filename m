@@ -2,60 +2,65 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43275606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C1C0606A319
 	for <amd-gfx@archiver.kernel.org>; Wed, 21 Oct 2026 06:25:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=IoiPepjn
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=S9Xd1psl
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A57BA10F927;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D36CD10F930;
 	Wed, 21 Oct 2026 06:25:47 +0000 (UTC)
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010044.outbound.protection.outlook.com [52.101.56.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 205D010F927
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011064.outbound.protection.outlook.com
+ [40.93.194.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F9EF10F92F
  for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2026 06:25:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tAudt7f3w8uLLS0iDlqsHEskoZ0b28ubpZkKw4iBJiKXgqkA5kFNTPHsRmWi7zpWFU+pOnyxIlF/mjNYCBrjD9bJiC8UxUhwZeK+2wgzIXSG0hq4K10WvzbPVVm4WAFTb2fPmgBpnk337E7ZrEvibnetVSRE/l8UguFQvcuomMOg5wConKwhjNkqy9MyhpfXR551AsitDRTSgGGZEwxxmd6W5r9gL5DOxgIrOR8mB0g459W3wHJ2DoQbvNs5CfeGhgGDD+zb1EhPxzVyAZ7oYjezOVWBkeKi8wcx1qe4g1nqQPn8AuRsUjIuoclYkfRAEfuYhln9arHt//SDjUX+QA==
+ b=lC9OHBrrIYt9gh0roDQDFQ9ZHIhk+rbKD/gJ/z2awZK36xfXyWwLt1qEELpevo4Gf/ARVf5LbQvi+8GYapF7kQalpvA74jZeHZiWk8ZxlJxJWNROTy5pOWhkkazaLzKCTVYxSccMsGmcpgmpL6IfPD9W0l/f0RkIe54NEkk254vD+x4KPmyMqiIi8RuM8f0FZ+FMXaaSJ/L2UctHNs56LiSX5QoiwngNEUGuBpWfT6K9vEyqFuLYuDFCHiWGXTiy30/W5ZM0m4JG6VKonkvDowlfXtB0ZPv+ZYhPeQdpI5MQe3cddAYoOs3s1NBb9//Q5wP/QGwWAJ72NOqFscKZiQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nhfrWFEIZURxsiHdPBBSEzKYnBh8uOJY1lOsH6uts5Q=;
- b=nB0cidgFnAqANn0pF5fkduJWf7naa/CHP948RqPerVffwE59LiXoHpvu9RVSVSrkJeTE6mn4NEOH1aFswfTen8qi2VQsk4tHX22GnJzJuUMAtDlTpa8mVG1upuBFFtQAa/VSaCdTboAniKlTcHHUG/diQRGfRXbrWbQFK0wxBkfh5AXjP3SHfuTcgqKJAMOOx+Xiyg3Bw4HUU4Vz4ceBxpeaUN9ktQTqICnml5LGLBoZAA4w+//MzsOXdDOc5bf3r2FaRFGDLCPmzjzIPyaQnGSk40lQD44B8JCteY83tZ2orJYcWyF+j41DDj54T6LVRA/2U0d1D1PNkWdqf/zqWw==
+ bh=UPRSgyVUrm1BUg8gMhUC4WCe0i1c2DT7ywXACZ1NToc=;
+ b=Z72U5oMqadXBOwbeAcffFc7GToiEptrwdoRbFk0HjZyQWFWL3gFukGEbL6WxhSSVhZ5fuq2LMtd/4I4UTPNqtghOAzrvtKTfTk9EKJbdodrgbm8eXrbE+q98Ye5rr/CHr3Snee52KEiQ1H25q/AUyuiY7bQszJCtg+dtesOlamO4tH2u0/DgFGxhYvBVcHo4ASVgN4RsVChTgzd67jeZZfXH2JFhvVAaMrS9Wld985XJMLC/FfcXLzA/UbXIPnLBRAB2onPZ/tOLI5YFTwnCGcwOp6UVkbyP0TAZWFobgskxh3F9JNUu/5o03GjuCfUZzx+YBrjGaWxwke3P7fj5vg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nhfrWFEIZURxsiHdPBBSEzKYnBh8uOJY1lOsH6uts5Q=;
- b=IoiPepjn9UuhdwaFHzYu9MgSFPhDBzVBg7uJ8qYljnKCPuWdq+0+77JUK3fBNIr5xh1WkKbsnw7CZSY70xrfbUSCiZXRYn5RTPgVEQU6/hcgKX+Q1WMX++f1jYv/7gIJzM1gWGJrA32yfz1Mf5KhKaXTenVBlIvuaVf2eqVLgHg=
-Received: from SJ0PR13CA0063.namprd13.prod.outlook.com (2603:10b6:a03:2c4::8)
- by LY0PR12MB727857.namprd12.prod.outlook.com (2603:10b6:408:3ba::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
+ bh=UPRSgyVUrm1BUg8gMhUC4WCe0i1c2DT7ywXACZ1NToc=;
+ b=S9Xd1pslWfOzDVPofCXW+F1fb3jxP1zfI7F88aofztv92q1M32uktugbCDreBkdUNkaYxSSE+rerlWHK8Jdis1XjOHDgL+0msYINQELn85aJZ57ufIjYrzajcTuDG47EECCpwvymKlR9WenAK1V11BT/vvXihZSrxrMvgvIzgsA=
+Received: from BN9PR03CA0119.namprd03.prod.outlook.com (2603:10b6:408:fd::34)
+ by DS7PR12MB5743.namprd12.prod.outlook.com (2603:10b6:8:72::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Wed, 21 Oct
  2026 06:25:36 +0000
-Received: from SJ1PEPF000037A8.namprd03.prod.outlook.com
- (2603:10b6:a03:2c4:cafe::28) by SJ0PR13CA0063.outlook.office365.com
- (2603:10b6:a03:2c4::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.15 via Frontend Transport; Wed,
- 21 Oct 2026 06:25:36 +0000
+Received: from BN1PEPF00018546.namprd05.prod.outlook.com
+ (2603:10b6:408:fd:cafe::a) by BN9PR03CA0119.outlook.office365.com
+ (2603:10b6:408:fd::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Wed, 21
+ Oct 2026 06:25:35 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ1PEPF000037A8.mail.protection.outlook.com (10.167.244.181) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN1PEPF00018546.mail.protection.outlook.com (10.167.248.5) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
  15.21.546.15 via Frontend Transport; Wed, 21 Oct 2026 06:25:35 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 21 Oct
- 2026 01:25:31 -0500
+ 2026 01:25:35 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 21 Oct
+ 2026 01:25:35 -0500
 Received: from tom-r5.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Wed, 21 Oct 2026 01:25:27 -0500
+ Transport; Wed, 21 Oct 2026 01:25:31 -0500
 From: Tom Chung <chiahsuan.chung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -64,12 +69,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Tony Cheng <tony.cheng@amd.com>, Dillon Varone
- <dillon.varone@amd.com>, Jun Lei <jun.lei@amd.com>
-Subject: [PATCH 03/49] drm/amd/display: Add Core 2 Workaround Manager
- scaffolding
-Date: Wed, 21 Oct 2026 14:22:09 +0800
-Message-ID: <20261021062519.674697-4-chiahsuan.chung@amd.com>
+ <Chen-Yu.Chen@amd.com>, Tony Cheng <tony.cheng@amd.com>, Jun Lei
+ <jun.lei@amd.com>
+Subject: [PATCH 04/49] drm/amd/display: Scaffold DMUB inbox BLS dispatch
+Date: Wed, 21 Oct 2026 14:22:10 +0800
+Message-ID: <20261021062519.674697-5-chiahsuan.chung@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261021062519.674697-1-chiahsuan.chung@amd.com>
 References: <20261021062519.674697-1-chiahsuan.chung@amd.com>
@@ -79,29 +83,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000037A8:EE_|LY0PR12MB727857:EE_
-X-MS-Office365-Filtering-Correlation-Id: 18c381f5-fe85-4d35-306b-08df2f3c1e33
+X-MS-TrafficTypeDiagnostic: BN1PEPF00018546:EE_|DS7PR12MB5743:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6cbfab5c-891c-47eb-8ebd-08df2f3c1e18
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|82310400026|23010399003|36860700016|56012099006|261009223327099003|261009220027099003|11063799006|261009221227099003|261009221727099003|261009223027099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: Nvz9jamni1D7JUKjcPjeDPl83cfFbKK76YbEI94AbMF4prexFK+qTgSGXj8Flb0Zw0IbXQWkQSppmjW9Xox0vIRxi5TMGNDGUD8MyZ3UjX83Klg3ye6VYhrP6TQOxHHUpJNZSv9Eoxsv3SQ9pVisQLuLDZIx4uxrFjRYStXsw7qVL6dyj2lwHHQ3as0fDIvZ0HAaNulw/BQ583BYDt5RNS4LY//VX2B8yTEMxyhXFJV4kPd943BCJocmacnTh9K57HBXoUBTe5CyK0Gr1rhyg1CVLCoOCSmFBpEg/RBY4L+SE4ccg09nq561AkE8q698D6ZWt8Nd38RF0Rk7rx4jvwoxCP5MaV/4v4xP5rhpI6ZuVJBHxNW7TD6wMb5C8cdF7bl/sfl6jOsQVw5MHF7nmfqzH+NKPI4ir/wOoNAYS4o2rlSYSM6CCDQbHjmZIs2wzwF3+Sp3H7p6mT1pFPiPN91XhTFHbu09O4IkGcJ0ZG8hU6D+4vpFk9aMSDVDk15a+rVVL1697MT+VNmMeJCkdf7+btj6cr+IKVq0BfDCycQTIMAn8Am7DG/M0ueoSjrmRPcDv+cEolGBcXQUFiH1TodoEJfYthToDKTtfrecljM+YpJfXOUVIQHwcKZL+BvqSrIxXfgIAO2gAyBeKUU2B8VsGdnlO7Gyy5ChUqQX7PtOxsbj7c9ralyd0j11W1Up1ewtbqMEHrGbrJFdflmhYA==
+ ARA:13230040|376014|1800799024|82310400026|23010399003|36860700016|11063799006|261009223027099003|10067099003|22082099003|56012099006|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info: VphjfibAA0SsD2m8YzZ1e/ioFA+NIuuzSNXeFFzS/1d5VFyo23sxZ2gkaDaBLkbX9rfA6wHevMSgA/P8RDRRcFLvO4LsxaEK7utGgLiebWE5pMDpsb1T2yc6ewh7L+YM3zWqO0VDqp+hWdbb0A9E3MZXIy3eC3sxQT7P1BUwxe3a4ABNQHkEfxL6uXd2XK9V/T5t2PgIN/UeOaceTh0vzxJtWGTEYqIcLunMMgoL9oVbcIrOmHKIxdFCaDCG6wYRcY+bx91qZFjMcsNDAELzTEcLrMtMhhmwWcxhyopboKJ3U7UPGtXAXKNdlZaEBnXwO12elJg6juSZGF/7u9r5zPTg3Fy0ZmlPhbKdWneKjdhsnHp6cE5FzZKa1Vgj/U1xzNyj9er7vXv2AWivWpJiE/mXXRe8nRyFPav0SKgk3f26eez5la6D1mQ2N7KxuO0Uv4RUiK/me+nWFYxuCxqLv40geDLrEAyvhcFNBCArhUUd+bPZXAUj+eWnwOyDYsfLetIJP0ITxzraLGF3OxISccIfkWSE3weql8wXx/tSvDjBuUnaMDrXkfXfeOk1nZrFohRBhDaycOuo++4DuESGF7McQrzAc4G44J23P1NlTgioXUDAAmovo48tdhp7GttQWMmdUqYT1ZNFBowQmfl8dwIRCDFLQkKfKU0YvlW/Q3sn6kpIg4Md/ki9WcegPkYhIdBZH+PU1xR98a5HuFzOyQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(82310400026)(23010399003)(36860700016)(56012099006)(261009223327099003)(261009220027099003)(11063799006)(261009221227099003)(261009221727099003)(261009223027099003)(10067099003)(22082099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(82310400026)(23010399003)(36860700016)(11063799006)(261009223027099003)(10067099003)(22082099003)(56012099006)(18002099003)(6133799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: oXfj4aEv5KOjfuaPC/QafUCV8FUCTHg2YnGDOv58lH2blhQHzDO0ZXGqTfMwS4G1hl0tv8/cRA1uZfYYV5XAPbBk/5fUN6aiTeBiFBQBpNgb5B4evfMdgaYbZt9ILyvv2fkQ2XX6EzXmD724samMa1Jrrv+7vrgJLxCA0Ab6h7bjGB7uR79ibdDxMmCTqRIhwO67ifndbikRwUN9+sSUHtp1/7kTq3D0TqcRizFJEA/lAVcyk1W0iy7xcxZUClyJYSAEQaOaHm/Si7jLCFac7OMT0XCDoVLmkUP5lZPz3S3O12xKYPKMU7WinuLrciJZ142BreP6n5AQOFiPiEl9da8mwwVOq+X+7mxXru6iwMegNyQhj+EY7GkE17jHBxQszl63A22yZIk27UgWj5I4n8kbngKRY8MZHqXLLXiStmaA9CfulBY2NEkaVktlabHP
+X-MS-Exchange-AntiSpam-MessageData-0: VeQVFjFDMsp9Bpiszsp8Kcm1L3fOXBqHV6EXVxbFZGF7js7Kf6lZFJBeDWg1BcmVhWlEfukGvuCn3pWNeupThBNuEVsy4DXQzfD1Ow5LmYFMV5cQk9zzvcpiGtRGh80LgB9aD/Hd/tr70HpAmqt7pchOXAhsrC58Nemmer2r21fSpgiHXiYTtRw++KRgTyUF/GjgRYmJJAvt+Z2eRt2O8mf7GzJqwINCqQyZ0mALa63TAnstxeVcovN6b52ihu1G59PCGUl9Ym2Ga7e035a7+5BDrpzh5e3BrBVVZ2sesIch/vSIln6k0envsxs56q9/dVNW5jCti6oJQyleh/BY7bjdFVFJ1ZeY8sLsFz7rwEMzUeEo25KC7NhERUO7nIl3eJUofot/bPAjqUl2nzxvJCwfROTb9N6x8kx8WjjEEQKnSYloDLGmhvhR3w0foR/O
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 06:25:35.9848 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 18c381f5-fe85-4d35-306b-08df2f3c1e33
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 06:25:35.8959 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6cbfab5c-891c-47eb-8ebd-08df2f3c1e18
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000037A8.namprd03.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00018546.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LY0PR12MB727857
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5743
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,127 +126,170 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 From: Tony Cheng <tony.cheng@amd.com>
 
 Why:
-Core needs a Layer-2 post-build stage that can edit a built BLS list
-for errata before the Executor runs. Inline workarounds stay scattered
-until that manager exists.
+This is still builder/executor scaffolding, not a live init path.
+The legacy hwseq is still in use; adding inbox dispatch does not cut
+initialization over.
 
 How:
-Add an empty-registry Workaround Manager over block_sequence_state.
-Keep the restore image in BSS so the kernel frame stays small, and
-reject growth past MAX_HWSS_BLOCK_SEQUENCE_SIZE. Name the committed
-state field current_state so the Linux current macro does not expand
-it.
+Dispatch DMUB_SEND_DMCUB_CMD through the DMUB messenger. The
+messenger copies the builder-built command and forwards the entry's
+wait type without reading the payload.
 
-Reviewed-by: Dillon Varone <dillon.varone@amd.com>
 Reviewed-by: Jun Lei <jun.lei@amd.com>
 Signed-off-by: Tony Cheng <tony.cheng@amd.com>
 Signed-off-by: Roman Li <roman.li@amd.com>
 ---
  drivers/gpu/drm/amd/display/dc/Makefile       |  1 +
- .../workaround_manager/workaround_manager.c   | 74 +++++++++++++++++++
- .../workaround_manager/workaround_manager.h   | 46 ++++++++++++
- 3 files changed, 121 insertions(+)
- create mode 100644 drivers/gpu/drm/amd/display/dc/workaround_manager/workaround_manager.c
- create mode 100644 drivers/gpu/drm/amd/display/dc/workaround_manager/workaround_manager.h
+ .../display/dc/bls_executor/bls_executor.c    | 37 ++++++++++++++
+ .../dc/dmub_messenger/dmub_messenger.c        | 46 +++++++++++++++++
+ .../dc/dmub_messenger/dmub_messenger.h        | 51 +++++++++++++++++++
+ 4 files changed, 135 insertions(+)
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dmub_messenger/dmub_messenger.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dmub_messenger/dmub_messenger.h
 
 diff --git a/drivers/gpu/drm/amd/display/dc/Makefile b/drivers/gpu/drm/amd/display/dc/Makefile
-index e64a098e04e3..56a39d9da119 100644
+index 56a39d9da119..795b30b066c6 100644
 --- a/drivers/gpu/drm/amd/display/dc/Makefile
 +++ b/drivers/gpu/drm/amd/display/dc/Makefile
-@@ -87,6 +87,7 @@ FILES += core2/dc_core2_init.o
- FILES += bls_builder/bls_builder.o
+@@ -88,6 +88,7 @@ FILES += bls_builder/bls_builder.o
  FILES += bls_builder/dcn401_init_builder.o
  FILES += bls_executor/bls_executor.o
-+FILES += workaround_manager/workaround_manager.o
+ FILES += workaround_manager/workaround_manager.o
++FILES += dmub_messenger/dmub_messenger.o
  
  AMD_DISPLAY_FILES += $(addprefix $(AMDDALPATH)/dc/, $(FILES))
  
-diff --git a/drivers/gpu/drm/amd/display/dc/workaround_manager/workaround_manager.c b/drivers/gpu/drm/amd/display/dc/workaround_manager/workaround_manager.c
+diff --git a/drivers/gpu/drm/amd/display/dc/bls_executor/bls_executor.c b/drivers/gpu/drm/amd/display/dc/bls_executor/bls_executor.c
+index b1425f8ca73c..407683755509 100644
+--- a/drivers/gpu/drm/amd/display/dc/bls_executor/bls_executor.c
++++ b/drivers/gpu/drm/amd/display/dc/bls_executor/bls_executor.c
+@@ -7,12 +7,16 @@
+ #include "dm_services.h"
+ #include "clk_mgr.h"
+ #include "dccg.h"
++#include "core_types.h"
++#include "dc_dmub_srv.h"
+ #include "bls_executor/bls_executor.h"
++#include "dmub_messenger/dmub_messenger.h"
+ 
+ static bool dc2_bls_step_supported(const struct block_sequence *step)
+ {
+ 	struct clk_mgr *clk_mgr;
+ 	struct dccg *dccg;
++	struct dc_context *ctx;
+ 
+ 	switch (step->func) {
+ 	case LEGACY_CLK_MGR_INIT_CLOCKS:
+@@ -31,11 +35,40 @@ static bool dc2_bls_step_supported(const struct block_sequence *step)
+ 	case DCCG_INITIALIZE_CLOCKS:
+ 		dccg = step->params.dccg_initialize_clocks_params.dccg;
+ 		return dccg && dccg->funcs && dccg->funcs->dccg_init;
++	case DMUB_SEND_DMCUB_CMD:
++		ctx = step->params.send_dmcub_cmd_params.ctx;
++		if (!ctx || !ctx->dmub_srv || !ctx->dmub_srv->dmub ||
++				!step->params.send_dmcub_cmd_params.cmd ||
++				(ctx->dmub_srv->idle_allowed && !ctx->dc))
++			return false;
++		return true;
+ 	default:
+ 		return false;
+ 	}
+ }
+ 
++static enum dc2_bls_exec_result dc2_bls_exec_dmub_send(
++		const struct block_sequence *entry)
++{
++	struct dmub_messenger messenger;
++	struct dmub_messenger_init_data init_data;
++	struct dmub_send_cmd_params params;
++	struct dc_context *ctx;
++
++	ctx = entry->params.send_dmcub_cmd_params.ctx;
++	init_data.ctx = ctx;
++	init_data.dc_dmub_srv = ctx->dmub_srv;
++	params.cmd = entry->params.send_dmcub_cmd_params.cmd;
++	params.wait_type = entry->params.send_dmcub_cmd_params.wait_type;
++
++	dmub_messenger_construct(&messenger, &init_data);
++	if (messenger.funcs->inbox_cmd_send_and_wait(&messenger, &params) !=
++			DMUB_MSG_OK)
++		return DC2_BLS_EXEC_ERROR;
++
++	return DC2_BLS_EXEC_OK;
++}
++
+ enum dc2_bls_exec_result dc2_bls_execute(
+ 		const struct block_sequence *steps,
+ 		unsigned int num_steps)
+@@ -78,6 +111,10 @@ enum dc2_bls_exec_result dc2_bls_execute(
+ 			entry->params.dccg_initialize_clocks_params.dccg->funcs->dccg_init(
+ 					entry->params.dccg_initialize_clocks_params.dccg);
+ 			break;
++		case DMUB_SEND_DMCUB_CMD:
++			if (dc2_bls_exec_dmub_send(entry) != DC2_BLS_EXEC_OK)
++				return DC2_BLS_EXEC_ERROR;
++			break;
+ 		default:
+ 			ASSERT(false);
+ 			return DC2_BLS_EXEC_ERROR;
+diff --git a/drivers/gpu/drm/amd/display/dc/dmub_messenger/dmub_messenger.c b/drivers/gpu/drm/amd/display/dc/dmub_messenger/dmub_messenger.c
 new file mode 100644
-index 000000000000..067a7069186b
+index 000000000000..077e15d82b19
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/display/dc/workaround_manager/workaround_manager.c
-@@ -0,0 +1,74 @@
++++ b/drivers/gpu/drm/amd/display/dc/dmub_messenger/dmub_messenger.c
+@@ -0,0 +1,46 @@
 +// SPDX-License-Identifier: MIT
 +/*
 + * Copyright 2026 Advanced Micro Devices, Inc.
 + */
 +
 +#include "dm_services.h"
-+#include "workaround_manager/workaround_manager.h"
++#include "dc_dmub_srv.h"
++#include "dmub_messenger/dmub_messenger.h"
 +
-+static const struct workaround_manager dc2_wam_empty = {
-+	.registry = NULL,
-+	.count = 0,
++static enum dmub_msg_result dmub_inbox_cmd_send_and_wait(
++		struct dmub_messenger *messenger,
++		const struct dmub_send_cmd_params *params)
++{
++	if (!messenger || !messenger->ctx || !messenger->dc_dmub_srv ||
++			!messenger->dc_dmub_srv->dmub || !params ||
++			!params->cmd)
++		return DMUB_MSG_ERROR;
++
++	if (messenger->dc_dmub_srv->idle_allowed && !messenger->ctx->dc)
++		return DMUB_MSG_ERROR;
++
++	/*
++	 * Transport only: copy the builder-built command through the
++	 * injected DMUB service. Do not read the command header or payload.
++	 */
++	if (!dc_wake_and_execute_dmub_cmd(messenger->ctx, params->cmd,
++			params->wait_type))
++		return DMUB_MSG_ERROR;
++
++	return DMUB_MSG_OK;
++}
++
++static const struct dmub_messenger_funcs dmub_messenger_funcs = {
++	.inbox_cmd_send_and_wait = dmub_inbox_cmd_send_and_wait,
 +};
 +
-+/* BSS, not the stack: 64 block_sequence entries exceed the kernel frame limit. */
-+static struct block_sequence dc2_wam_saved_steps[DC2_BLS_MAX_STEPS];
-+
-+const struct workaround_manager *dc2_workaround_manager_get(void)
++void dmub_messenger_construct(struct dmub_messenger *messenger,
++		const struct dmub_messenger_init_data *init_data)
 +{
-+	return &dc2_wam_empty;
++	if (!messenger)
++		return;
++
++	messenger->funcs = &dmub_messenger_funcs;
++	messenger->ctx = init_data ? init_data->ctx : NULL;
++	messenger->dc_dmub_srv = init_data ? init_data->dc_dmub_srv : NULL;
 +}
-+
-+enum workaround_manager_result workaround_manager_apply(
-+		const struct workaround_manager *wam,
-+		struct block_sequence_state *bls,
-+		const struct workaround_context *ctx)
-+{
-+	struct block_sequence *saved_steps = dc2_wam_saved_steps;
-+	enum workaround_manager_result result;
-+	unsigned int saved_num;
-+	unsigned int i;
-+
-+	if (!wam || !bls || !bls->steps || !bls->num_steps || !ctx ||
-+			*bls->num_steps > MAX_HWSS_BLOCK_SEQUENCE_SIZE ||
-+			(wam->count && !wam->registry))
-+		return WAM_INVALID_INPUT;
-+
-+	/* Snapshot buffer is DC2_BLS_MAX_STEPS; larger built lists stay unmodified. */
-+	if (*bls->num_steps > DC2_BLS_MAX_STEPS) {
-+		if (!wam->count)
-+			return WAM_OK;
-+		return WAM_INVALID_INPUT;
-+	}
-+
-+	saved_num = *bls->num_steps;
-+	memmove(saved_steps, bls->steps,
-+			saved_num * sizeof(saved_steps[0]));
-+
-+	for (i = 0; i < wam->count; i++) {
-+		const struct workaround *wa = &wam->registry[i];
-+
-+		if (!wa->enabled)
-+			continue;
-+		if (!wa->is_applicable || !wa->apply) {
-+			memmove(bls->steps, saved_steps,
-+					saved_num * sizeof(saved_steps[0]));
-+			*bls->num_steps = saved_num;
-+			return WAM_INTERNAL_ERROR;
-+		}
-+		if (!wa->is_applicable(bls, ctx))
-+			continue;
-+		result = wa->apply(bls, ctx);
-+		if (result != WAM_OK ||
-+				*bls->num_steps > MAX_HWSS_BLOCK_SEQUENCE_SIZE) {
-+			memmove(bls->steps, saved_steps,
-+					saved_num * sizeof(saved_steps[0]));
-+			*bls->num_steps = saved_num;
-+			if (result != WAM_OK)
-+				return result;
-+			return WAM_SIZE_EXCEEDED;
-+		}
-+	}
-+
-+	return WAM_OK;
-+}
-diff --git a/drivers/gpu/drm/amd/display/dc/workaround_manager/workaround_manager.h b/drivers/gpu/drm/amd/display/dc/workaround_manager/workaround_manager.h
+diff --git a/drivers/gpu/drm/amd/display/dc/dmub_messenger/dmub_messenger.h b/drivers/gpu/drm/amd/display/dc/dmub_messenger/dmub_messenger.h
 new file mode 100644
-index 000000000000..4cbadffd6a8b
+index 000000000000..a66b167fba47
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/display/dc/workaround_manager/workaround_manager.h
-@@ -0,0 +1,46 @@
++++ b/drivers/gpu/drm/amd/display/dc/dmub_messenger/dmub_messenger.h
+@@ -0,0 +1,51 @@
 +/* SPDX-License-Identifier: MIT */
 +/*
 + * Copyright 2026 Advanced Micro Devices, Inc.
@@ -250,45 +297,50 @@ index 000000000000..4cbadffd6a8b
 +
 +#pragma once
 +
-+#include "bls_builder/bls_builder.h"
++#include "dm_services_types.h"
 +
-+enum workaround_manager_result {
-+	WAM_OK,
-+	WAM_INVALID_INPUT,
-+	WAM_SIZE_EXCEEDED,
-+	WAM_INTERNAL_ERROR,
++struct dc_context;
++struct dc_dmub_srv;
++union dmub_rb_cmd;
++
++/*
++ * Live DMUB_SEND_DMCUB_CMD still carries wait_type. Distinct inbox
++ * primitives are unresolved in the DMUB Messenger spec, so this shim
++ * forwards the builder-selected wait without interpreting the command.
++ */
++struct dmub_send_cmd_params {
++	union dmub_rb_cmd *cmd;
++	enum dm_dmub_wait_type wait_type;
 +};
 +
-+struct workaround_context {
-+	const struct dc_state *current_state;
-+	const struct dc_state *target;
-+	enum bls_builder_name builder_name;
-+	unsigned int dcn_version;
-+	const struct dc_bug_wa *bug_wa;
-+	const struct dc_debug_options *debug;
++struct dmub_messenger_init_data {
++	struct dc_context *ctx;
++	struct dc_dmub_srv *dc_dmub_srv;
 +};
 +
-+struct workaround {
-+	const char *name;
-+	bool enabled;
-+	bool (*is_applicable)(const struct block_sequence_state *bls,
-+			const struct workaround_context *ctx);
-+	enum workaround_manager_result (*apply)(
-+			struct block_sequence_state *bls,
-+			const struct workaround_context *ctx);
++enum dmub_msg_result {
++	DMUB_MSG_OK,
++	DMUB_MSG_NO_MSG,
++	DMUB_MSG_TIMEOUT,
++	DMUB_MSG_ERROR,
 +};
 +
-+struct workaround_manager {
-+	const struct workaround *registry;
-+	unsigned int count;
++struct dmub_messenger;
++
++struct dmub_messenger_funcs {
++	enum dmub_msg_result (*inbox_cmd_send_and_wait)(
++			struct dmub_messenger *messenger,
++			const struct dmub_send_cmd_params *params);
 +};
 +
-+const struct workaround_manager *dc2_workaround_manager_get(void);
++struct dmub_messenger {
++	const struct dmub_messenger_funcs *funcs;
++	struct dc_context *ctx;
++	struct dc_dmub_srv *dc_dmub_srv;
++};
 +
-+enum workaround_manager_result workaround_manager_apply(
-+		const struct workaround_manager *wam,
-+		struct block_sequence_state *bls,
-+		const struct workaround_context *ctx);
++void dmub_messenger_construct(struct dmub_messenger *messenger,
++		const struct dmub_messenger_init_data *init_data);
 -- 
 2.43.0
 
