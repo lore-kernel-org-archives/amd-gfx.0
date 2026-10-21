@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5B92606A319
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Oct 2026 03:01:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8587E606A31A
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Oct 2026 03:01:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=bR1xnCgn
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=pMCk/U5C
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 857EF10F8AF;
-	Wed, 21 Oct 2026 03:01:00 +0000 (UTC)
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012069.outbound.protection.outlook.com
- [40.107.200.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB92F10F8AA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDC2F10F8AD;
+	Wed, 21 Oct 2026 03:01:05 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013063.outbound.protection.outlook.com
+ [40.107.201.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C068510F8A5;
  Wed, 21 Oct 2026 03:00:53 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cyZACvHawBgH0AC7lUgIpYeo4ABmqhS1uoCAclRLggJgMEP/AMXkjaxzqSxB/cdlYf+VZh9dYabggmizmzeXXazb3sUOR0BE5/R8KHFGBzQDtoRU/b7i7jb5ZMYXtOZkI0drSiRFa9h3QQ4mUsdJ8zv0B1JGcwgfGPw8eBOFhcv+g8j6kgO/E4h/Gg3uHFbu+VxPmzxdrx6aNzMLBXt5OsqjZ3QhOZtSzhIwyFp4YG0yIR6OMbfTBnAZr09twdm0C2z76GD8bzTgPyDuj5GwH8RV+uAhtELVz05vu0ZvI/CDDjLzBgVhAiY1rwGLxm0Fm1Dngk8ISD87PRKAgSWsew==
+ b=bPSRLOsVtMl+yJfTFDBmc/1vW1jDoB0hUm0CYWN0iea31LlqaUmnRoimaMn+ErPyr6xDGiZpbeWo2vD66Fe3Gevc82z5hMYAS+8V3hYHWEtw5z1dkTMq5EMrnO0vVfbkgxbRdLR1wuQKnoVxOghgCYSnlAHRDVY9yy082wjc8/X6IDO0jZuIP1txdjgXirO8xmmFDPgTD/o9uaXnujTeYy/XcpXut803conaSZQ0iXYkMSh/zi64RCE22WYhoHPow3fC32a+YbkKiewgwd37ol1l9wC93+OSsESb9+XzSQPveHwro14NUQxICY18OFyRFgUWx2XI1UDAdEYMyeDi6Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=48iAzqcCzqmHnVRMlo2Ov3Jj9wQ3nO2o+/JvBuiWIsQ=;
- b=kC8m+589YV8vmhfEeqyIputxR8awpAuiTFUSODYwmVdvNhcYGGrkHEFQnypUYmy+uyJ5y9BjnMdVmI4YR1yNlch1mlwy6FqOsuQOucKUe+trGygtlrm4eN8jCbO003i3nlsq5IpnmMv59vMlYJuZuwSr/fNImKVtgJY79jUgaHEHCOu8foBHfhWhGFIjDbKVqTS2MtRwDNF8hOy/9ygt37/raXVRT7jHWj9BUy+5aqNGy32twNXH8n9HSL9p5KhsKgWG9EDX/PTLK5vs3pE7ED1snLHF+yY5sBptPjXKYax2a4fPK0aKfr++iK6VWSBIO41pRDMfjEnWKaY+KNtJsg==
+ bh=Tdkgi34i1ilMmzry/pCXmKEQCwkewR772fwrsilAkGM=;
+ b=KGpbp6eSm1yiZ3NDxl0XoLYkBGPJC7cvCBi28tfnCnjZu7sDdW5Hrgbk0lzK8qSnME4FSfl5yJ9Hp5l3eS0y7WxB/AOd/1XTLChzidIIZ67F8UlKhorNVQEkkKZknP36Q8fvmRjmCHX6n+9/Gs+hZk3TPOXpWsPsQUJj9tFmZUBHo9nRq7NP7q+A8Yh30XaOIHg9Zjc/5ElL0WnBxX07UCjmCpUMhw13rPDdFIWIlfXbiAk2BaswTZLFVGCytrhqkkkKaD7NU3CHLtoyahyJi/F6hjntLD96adxURWtYNwilnKhDVZeUv4kG33GhYaC3DTOu9+u/y2rQa3fLERYqCA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=ffwll.ch smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=48iAzqcCzqmHnVRMlo2Ov3Jj9wQ3nO2o+/JvBuiWIsQ=;
- b=bR1xnCgnnS208BKZOoRgfRdpVacVyTwKa0VsptqeJednfrzMVFPiCDtMtQAPnP/xdI5RPzpg1ISsLckvR3pDX5MNF07TYoduks12GywjvgCesnEbuahjBumRTmD/LNwkljvfdJCzhm4qVj2/yDHlqivtNmBS3G+WQAnGcZAO3+M=
-Received: from SJ0PR03CA0173.namprd03.prod.outlook.com (2603:10b6:a03:338::28)
- by CY5PR12MB6478.namprd12.prod.outlook.com (2603:10b6:930:35::19)
+ bh=Tdkgi34i1ilMmzry/pCXmKEQCwkewR772fwrsilAkGM=;
+ b=pMCk/U5CmzMi1jdsNZq+vRMHHEXkO7khlCVwk1m5hiP0z5tHvkUFuwPBPw01M2hYTVZq+ZQkV/wOjDlGoY3Bwg73vCzXFVqPkufznOCsbsiC0G+OLbRJprUk3qKjJ4MFfBIDTvxAs4yzMhjMRevsn99iJy6EdwzMUJGBkHGWEVc=
+Received: from SJ0PR03CA0160.namprd03.prod.outlook.com (2603:10b6:a03:338::15)
+ by IA0PR12MB7604.namprd12.prod.outlook.com (2603:10b6:208:438::9)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Wed, 21 Oct
- 2026 03:00:49 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 21 Oct
+ 2026 03:00:46 +0000
 Received: from SJ5PEPF000001D5.namprd05.prod.outlook.com
- (2603:10b6:a03:338:cafe::2a) by SJ0PR03CA0173.outlook.office365.com
- (2603:10b6:a03:338::28) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:a03:338:cafe::7b) by SJ0PR03CA0160.outlook.office365.com
+ (2603:10b6:a03:338::15) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Wed, 21
- Oct 2026 03:00:49 +0000
+ Oct 2026 03:00:46 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -49,11 +49,11 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  SJ5PEPF000001D5.mail.protection.outlook.com (10.167.242.57) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.15 via Frontend Transport; Wed, 21 Oct 2026 03:00:49 +0000
+ 15.21.546.15 via Frontend Transport; Wed, 21 Oct 2026 03:00:46 +0000
 Received: from hr-amd.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 20 Oct
- 2026 22:00:41 -0500
+ 2026 22:00:36 -0500
 From: Huang Rui <ray.huang@amd.com>
 To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Philip Yang
  <Philip.Yang@amd.com>, Alex Deucher <alexander.deucher@amd.com>, "Felix
@@ -66,46 +66,46 @@ CC: Xiaogang Chen <xiaogang.chen@amd.com>, Oak Zeng <Oak.Zeng@amd.com>, "Jenny
  Liu" <Jenny-Jing.Liu@amd.com>, Zhu Lingshan <lingshan.zhu@amd.com>,
  "Honglei
  Huang" <honglei1.huang@amd.com>, Junhua Shen <Junhua.Shen@amd.com>, Yiru Ma
- <yiru.ma@amd.com>, Huang Rui <ray.huang@amd.com>, Francois Dugast
- <francois.dugast@intel.com>
-Subject: [PATCH v10 16/22] drm/pagemap: fix page undercount for compound src
- entries
-Date: Wed, 21 Oct 2026 10:58:55 +0800
-Message-ID: <20261021025915.2433837-17-ray.huang@amd.com>
+ <yiru.ma@amd.com>, Huang Rui <ray.huang@amd.com>, Honglei Huang
+ <honghuan@amd.com>, Yu Huang <Yu.Huang@amd.com>
+Subject: [PATCH v10 15/22] drm/amdgpu: use drm_gpusvm notifier lock for VM
+ eviction
+Date: Wed, 21 Oct 2026 10:58:54 +0800
+Message-ID: <20261021025915.2433837-16-ray.huang@amd.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261021025915.2433837-1-ray.huang@amd.com>
 References: <20261021025915.2433837-1-ray.huang@amd.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D5:EE_|CY5PR12MB6478:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2d53c8b6-d75d-477a-7b9a-08df2f1f82d5
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D5:EE_|IA0PR12MB7604:EE_
+X-MS-Office365-Filtering-Correlation-Id: ecf9f915-6087-4337-8494-08df2f1f810a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|376014|36860700016|82310400026|921020|11063799006|56012099006|22082099003|261009223027099003|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info: D4ONTWVN9gigE5KPb7ARYb7/8z8k13xrKBhEpmJvP8ndTZENZn8gUBGmHbSRe01+/ppfNJ5hzUIuSdcapWUYFTSiEiAXvihx+TM4gCHiWq0Y2/QqXIC5o4/r4Tw9sUQuePLnOtOA+uno1Wdez3SYZvafC+qbP/ISGNPhOzEsu5GgjjOfxPnGCN9AoD1DK0QGAFRjsWXRDP8kU08NkUHRvAPK5bYWfOk2VkY2ZBFUwgz7oY6P6SB4tFoa4OtBcnW7BctOmCSuxo1TaQorC7DTqv8sJBu1R4PFdfLz/1EDgzeD1ZerMObkGdiJiigWaqq5MB/3NjG6MEKrJYdyiF2wgxUJ1E6CifW0GcOAUhwKft2EU6TA6muPAOL+oVt5bw5ZUXj//t/9hjKeB3Otp9hHXbOGh3AEPmIMmectgCW0rVTDPo/LtOeSyodngiboKUAGf8ms1pSArf22KKbfjAZTZ7CadJSUPjigXmgOjfxYVPe4wX8GUFRd4pauj4LRmrDegR3V/lTMY4iZp4GH4ONk9sT3P/0fiaSjTAlUE7MN1pBXNifCBYEdKzt77Tu9jWenQmBOspAY0pdA0F+T6lA36sopSoft52YXFtK4RX8x3R/no/I95gPoHBq+bXw8VGNLioeQADCmWjfPYYKbN+gtaefNBR5JoC8ectwCo67eT7569GRU/Gkpz8/hXuNXIRUCxreqIeqADHJb046ruHot2eBwlyu1zwvpEsOpJ2OZUEjyU9M0/2Ib9AZa189GOg7M
+ ARA:13230040|1800799024|82310400026|23010399003|376014|36860700016|18002099003|6133799003|11062099010|7136999003|22082099003|261009223027099003|10067099003|11063799006|921020|56012099006;
+X-Microsoft-Antispam-Message-Info: JECV+OI2j3ivFGZ5dBsEW3qWtJ/vHH6pyESu5HXSSrFX0yzOzFHS92rdd8FMA9lAN7iBDyd30F5iEWu0O3AxAb81J7GbBIPkLaq8mqHFuPhE7BNNgIWkZfI9YZRvHeF3WleEWIBGycNmOJ/OT2eI+ZAYefk0Fqyio6BvjelGQcVyEA96k6vnl46MaUOMI6A6YU8VvJg6LI4s6BDfvnqIsBj2daEd0n1UJzwEPZHGXKIKok48XFxd1wgEt1+/q3ZJ1yS8B4AjpwJHen7mZBBOooP+3+nYK127cCJiQgWulEE1519G7enFwu+KWZLUGDHJiaMBdVCIUznWH8S9B8MQroIQ92vq5jqK6fGdiwcFKC6n1T0fW2vxOwbywp3euoHUPbrmJwMF9II2HqaAGiBd9APS+vXFnsEjLo0jBKvsHkRSt1J7zkfCkgF7Y/CUyzt7TbPStMYukjiqFoxH+R3s9d2Vl8IZQpbq1JwRtKeeUWV1zukyE31kn7sKdYfLV7JmMR+ZAJgdnZhDLY6a3PmW3Koe0Vvv5GBla05C8rnbfxHyMPK85uHjZWlmgmX46+P+oxqd4UUwpegNAL6RFUn749BSXAjHE1CG7QeH98LMBIfci71XtujMViCJrcmaKqEu431cIQhvuE1e49CV/CcMmVOmeWp26MrWuvB37sFfa5hwFpETxB6AgsiBM8UU9cFolc7taTywWlZXNL/WlOurSptmPAJk9vYAF9/fqFTWlqk7nC2hyJ1mwECJAy0rwx+m
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(376014)(36860700016)(82310400026)(921020)(11063799006)(56012099006)(22082099003)(261009223027099003)(10067099003)(18002099003);
+ SFS:(13230040)(1800799024)(82310400026)(23010399003)(376014)(36860700016)(18002099003)(6133799003)(11062099010)(7136999003)(22082099003)(261009223027099003)(10067099003)(11063799006)(921020)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: qrPXZGQNOO9PixQ7WAAlRNn+QuJ50IDkLf/ENo1UQOn1Fnt0eLbk/UmUPH5t3WdIwc0YwGlrU59e1/pKZoUtk5l/PkMKMXU+4cek2QqqCHMywSoNIpcNzVC+rpD5Q1uue2XFHOSuZVl1tOVFiwZmBkhoFLEDfwlAY/rMoUOmYwrzx2IGEE4yAq78Pup++lx0Uj3HZhRbDOVjOseF+od/SnKcQiH7uVoaYs6WlAWplWeaR6f17FQ1A7RnQcmg28QdPxJJW2WZ7jwXocMLRmCPbYLmH3w7+hIp5zAE8+cJ+FEAk5MQXEsZn8JRY+38n7yfJeB794gjo99summis+sDwdK+uEXpPpznKem42cQOvlRyj9+K31R7EH7fLbehmv7t32cTJisrEWCX9bFkB+T9a9BdwUi2tPS6I4w5v/EgzoFz4zbY9i1Sd39ntXqcKnEe
+X-MS-Exchange-AntiSpam-MessageData-0: QXUJyDYE+HIEN5Xyhd8bUg7juEzUMgjWhtaUUVuoXjQL4fXRYqxHNtyXuuMJkI9V89lLTpo8sYnxKkxKyVMuIRfcRqVWdi0/9cr8PUKY56Oybd6jDCQ/JwiiVsTxXEheoTD9TrXhyfABCnBc3jO4rNBDEqpA6zfnRL3RX29kxQqemMUY40U3QXggYoJ5dZQ/OSq/567joXvwVxwUxF7UngRx0TCr7H9mZbtMjqLtcQJyISGOaQO+fNrnaeBsivvfPYK/A2KS/zeagmo4ZiX1I7pzFT0Xuqa5yWJou8qSVxsSQyhle9tT+169+DrEa13zSIEk+aOSufDXiaG4WVjVs9K0T9F1tLNLjr8Smra6EnwPCOP87q6aazw7zJvCi6t0D5eb6MJkXFdmHL5stX/On61IsH/Qc5f2XxwIXxSCMrTXsC57Pa2OIl3sUWrIIB7u
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 03:00:49.4756 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2d53c8b6-d75d-477a-7b9a-08df2f1f82d5
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 03:00:46.4625 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ecf9f915-6087-4337-8494-08df2f1f810a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D5.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6478
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7604
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,127 +119,238 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Junhua Shen <Junhua.Shen@amd.com>
+From: Honglei Huang <honghuan@amd.com>
 
-A migrate.src[] entry with MIGRATE_PFN_VALID=0 && MIGRATE_PFN_COMPOUND=1
-represents a compound (THP) source page, but migrate_pfn_to_page() returns
-NULL for it. Both accounting loops in drm_pagemap_migrate_to_devmem()
-derive the count from that NULL page and fall back to nr_pages = 1 instead
-of HPAGE_PMD_NR, undercounting migrated_pages and risking a spurious
--EBUSY in the final migration race check. drm_pagemap_cpages() already
-handles this case, so the open-coded sites disagree.
+Make amdgpu_vm's eviction lock a read/write semaphore so it can be
+shared with drm_gpusvm's notifier lock: VM updates and eviction take
+it for read, MMU notifier invalidation and eviction take it for write.
 
-Factor the decoding out into drm_pagemap_src_pfn_nr_pages() and use it in
-drm_pagemap_cpages() and both accounting loops of
-drm_pagemap_migrate_to_devmem(), so a COMPOUND-only entry is consistently
-counted as HPAGE_PMD_NR base pages.
+Pass the held eviction lock through to amdgpu_vm_update_pdes() in the
+SVM context so callers that already hold it do not try to reacquire it.
 
-Fixes: 192cb1f5cb16 ("drm/pagemap: Enable THP support for GPU memory migration")
-Signed-off-by: Junhua Shen <Junhua.Shen@amd.com>
-Reviewed-by: Francois Dugast <francois.dugast@intel.com>
+Fix the eviction_lock argument at this call site: it must be the
+3-argument form (adev, vm, eviction_lock) introduced by "recheck range
+validity after page table allocation" - a stray leftover 4th argument
+(an old "immediate" bool) was being passed here, which would otherwise
+fail to build.
+
+Suggested-by: Christian König <christian.koenig@amd.com>
+Suggested-by: Huang Rui <ray.huang@amd.com>
+Signed-off-by: Yu Huang <Yu.Huang@amd.com>
+Signed-off-by: Honglei Huang <honghuan@amd.com>
 ---
- drivers/gpu/drm/drm_pagemap.c | 60 +++++++++++++++++++++++++----------
- 1 file changed, 43 insertions(+), 17 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_svm.c       | 37 ++++++++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c | 51 ++++++++-----------
+ 2 files changed, 49 insertions(+), 39 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.c
-index 15c78eca180b7..df23721434d88 100644
---- a/drivers/gpu/drm/drm_pagemap.c
-+++ b/drivers/gpu/drm/drm_pagemap.c
-@@ -554,6 +554,37 @@ static int drm_pagemap_migrate_range(struct drm_pagemap_devmem *devmem,
- 	return ret;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_svm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm.c
+index c7810e6d3035f..5ae8a649644ec 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_svm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm.c
+@@ -157,10 +157,13 @@ amdgpu_svm_lookup_by_pasid(struct amdgpu_device *adev, uint32_t pasid)
+ 	amdgpu_pasid_lock(&irqflags);
+ 	fpriv = amdgpu_pasid_get_fpriv_locked(pasid);
+ 	vm = fpriv ? &fpriv->vm : NULL;
+-	if (vm && vm->svm) {
+-		svm = vm->svm;
++	/*
++	 * eviction_lock changes when SVM is enabled, so acquire vm->svm
++	 * after the new lock alias is published.
++	 */
++	svm = vm ? smp_load_acquire(&vm->svm) : NULL;
++	if (svm)
+ 		kref_get(&svm->refcount);
+-	}
+ 	amdgpu_pasid_unlock(irqflags);
+ 
+ 	return svm;
+@@ -501,6 +504,8 @@ static int amdgpu_svm_init_compute(struct amdgpu_device *adev,
+ 	struct amdgpu_svm *svm;
+ 	int ret;
+ 
++	dma_resv_assert_held(vm->root.bo->tbo.base.resv);
++
+ 	if (vm->svm)
+ 		return 0;
+ 
+@@ -535,7 +540,9 @@ static int amdgpu_svm_init_compute(struct amdgpu_device *adev,
+ 	       1UL << (svm->default_granularity + PAGE_SHIFT),
+ 	       svm->xnack_enabled ? "enabled" : "disabled");
+ 
+-	vm->svm = svm;
++	vm->eviction_lock = &svm->gpusvm.notifier_lock;
++	/* Publish the context after its notifier lock alias. */
++	smp_store_release(&vm->svm, svm);
+ 	return 0;
+ 
+ err_free:
+@@ -611,31 +618,43 @@ void amdgpu_svm_close(struct amdgpu_vm *vm)
+  * amdgpu_svm_fini() - Finalize and release a VM's SVM context
+  * @vm: The VM whose SVM context is being torn down.
+  *
+- * Close the context, tear down the embedded drm_gpusvm under the SVM lock,
+- * destroy the attribute tree and work queues, and drop the context
+- * reference. Safe to call on a VM without an SVM context.
++ * Tear down the embedded drm_gpusvm, attribute tree and work queues, and drop
++ * the context reference.
+  */
+ void amdgpu_svm_fini(struct amdgpu_vm *vm)
+ {
+ 	struct amdgpu_svm *svm = vm->svm;
++	struct amdgpu_bo *root;
+ 
+ 	if (!svm)
+ 		return;
+ 
+ 	amdgpu_svm_close(vm);
+ 	amdgpu_svm_lock(svm);
++
++	root = amdgpu_bo_ref(vm->root.bo);
++	amdgpu_bo_reserve(root, true);
++
+ 	drm_gpusvm_fini(&svm->gpusvm);
++
++	vm->eviction_lock = &vm->default_eviction_lock;
++	/* Publish the lock reset before making SVM unavailable. */
++	smp_store_release(&vm->svm, NULL);
++
+ 	amdgpu_svm_unlock(svm);
+ 
+ 	amdgpu_svm_attr_tree_destroy(svm->attr_tree);
+ 	amdgpu_svm_work_fini(svm);
+-	vm->svm = NULL;
+ 	amdgpu_svm_put(svm);
++
++	amdgpu_bo_unreserve(root);
++	amdgpu_bo_unref(&root);
  }
  
-+/**
-+ * drm_pagemap_src_pfn_nr_pages() - Decode src entry and return base-page count
-+ * @src_pfn: Source migrate entry
-+ * @src_page: Optional decoded source page when MIGRATE_PFN_VALID is set
-+ *
-+ * Decode @src_pfn to compute how many base pages it represents: use folio
-+ * page count for valid entries, HPAGE_PMD_NR for COMPOUND-only entries,
-+ * otherwise 1.
-+ *
-+ * Return: Number of base pages represented by @src_pfn.
-+ */
-+static unsigned long drm_pagemap_src_pfn_nr_pages(unsigned long src_pfn,
-+						   struct page **src_page)
-+{
-+	struct page *page = NULL;
-+	unsigned long nr_pages = 1;
-+
-+	if (src_pfn & MIGRATE_PFN_VALID) {
-+		page = migrate_pfn_to_page(src_pfn);
-+		if (page)
-+			nr_pages = NR_PAGES(folio_order(page_folio(page)));
-+	} else if (src_pfn & MIGRATE_PFN_COMPOUND) {
-+		nr_pages = HPAGE_PMD_NR;
-+	}
-+
-+	if (src_page)
-+		*src_page = page;
-+
-+	return nr_pages;
-+}
-+
- /**
-  * drm_pagemap_cpages() - Count collected pages
-  * @migrate_pfn: Array of migrate_pfn entries to account
-@@ -570,20 +601,14 @@ static int drm_pagemap_cpages(unsigned long *migrate_pfn, unsigned long npages)
- 	unsigned long i, cpages = 0;
+ bool amdgpu_svm_is_enabled(struct amdgpu_vm *vm)
+ {
+-	return vm->svm != NULL;
++	/* Pairs with publishing vm->svm after its lock alias is initialized. */
++	return smp_load_acquire(&vm->svm) != NULL;
+ }
  
- 	for (i = 0; i < npages;) {
--		struct page *page = migrate_pfn_to_page(migrate_pfn[i]);
--		struct folio *folio;
--		unsigned int order = 0;
-+		unsigned long src_pfn = migrate_pfn[i];
-+		struct page *page;
-+		unsigned long nr_pages = drm_pagemap_src_pfn_nr_pages(src_pfn, &page);
+ static int amdgpu_svm_copy_attrs(const struct drm_amdgpu_gem_svm *args,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c
+index a1aa84974a43a..787afe0767e5a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c
+@@ -65,16 +65,14 @@ amdgpu_svm_range_zap_ptes(struct amdgpu_svm *svm,
+ 			  unsigned long last_page)
+ {
+ 	struct dma_fence *fence = NULL;
+-	unsigned int flags;
+ 	int ret;
  
--		if (page) {
--			folio = page_folio(page);
--			order = folio_order(folio);
--			cpages += NR_PAGES(order);
--		} else if (migrate_pfn[i] & MIGRATE_PFN_COMPOUND) {
--			order = HPAGE_PMD_ORDER;
--			cpages += NR_PAGES(order);
--		}
-+		if (page || (src_pfn & MIGRATE_PFN_COMPOUND))
-+			cpages += nr_pages;
+ 	if (last_page < start_page)
+ 		return 0;
  
--		i += NR_PAGES(order);
-+		i += nr_pages;
+-	flags = memalloc_noreclaim_save();
+ 	ret = amdgpu_vm_unmap_range(svm->adev, svm->vm, true, NULL,
+-				    start_page, last_page, NULL, &fence);
+-	memalloc_noreclaim_restore(flags);
++				    start_page, last_page,
++				    svm->vm->eviction_lock, &fence);
+ 
+ 	if (fence) {
+ 		dma_fence_wait(fence, false);
+@@ -210,20 +208,11 @@ amdgpu_svm_range_update_gpu_range(struct amdgpu_svm *svm,
+ 		mapped_pages += seg_pages;
+ 		is_last_seg = mapped_pages == npages;
+ 
+-		/*
+-		 * The struct hmm_range hmm_range field inside amdgpu_hmm_range
+-		 * is drm_gpusvm internal state. It is not exposed to the
+-		 * implementing driver and is managed entirely by the framework
+-		 * as part of the framework logic. This amdgpu_vm_map_range call
+-		 * always runs inside the drm_gpusvm notifier, so omitting
+-		 * hmm_range here is safe.
+-		 */
+-		ret = amdgpu_vm_map_range(svm->adev, svm->vm,
+-					  flush_tlb && is_last_seg, true, NULL,
+-					  start_page, last_page, pte_flags,
+-					  0, entry->addr, NULL, NULL, NULL,
+-					  NULL, NULL,
+-					  wait_fence && is_last_seg ? fence : NULL);
++		ret = amdgpu_vm_map_range(
++			svm->adev, svm->vm, flush_tlb && is_last_seg, true,
++			NULL, start_page, last_page, pte_flags, 0, entry->addr,
++			NULL, NULL, NULL, svm->vm->eviction_lock, base,
++			wait_fence && is_last_seg ? fence : NULL);
+ 		if (ret)
+ 			return ret;
+ 	}
+@@ -308,14 +297,12 @@ int amdgpu_svm_range_update_mapping(struct amdgpu_svm *svm,
+ {
+ 	struct drm_exec exec;
+ 	struct dma_fence *fence = NULL;
+-	unsigned int flags;
+ 	int ret;
+ 
+ 	ret = amdgpu_svm_range_lock_vm_pd(svm, &exec, intr);
+ 	if (ret)
+ 		return ret;
+ 
+-	flags = memalloc_noreclaim_save();
+ 	drm_gpusvm_notifier_lock(&svm->gpusvm);
+ 
+ 	if (!amdgpu_svm_range_pages_valid(svm, range)) {
+@@ -327,24 +314,25 @@ int amdgpu_svm_range_update_mapping(struct amdgpu_svm *svm,
+ 							wait, wait ? &fence : NULL);
  	}
  
- 	return cpages;
-@@ -703,8 +728,9 @@ int drm_pagemap_migrate_to_devmem(struct drm_pagemap_devmem *devmem_allocation,
+-	drm_gpusvm_notifier_unlock(&svm->gpusvm);
+-	memalloc_noreclaim_restore(flags);
+-
+-	if (!ret && fence)
+-		dma_fence_wait(fence, intr);
+-	dma_fence_put(fence);
+-
+ 	if (!ret)
+-		ret = amdgpu_vm_update_pdes(svm->adev, svm->vm, NULL);
++		ret = amdgpu_vm_update_pdes(svm->adev, svm->vm,
++					    svm->vm->eviction_lock);
  
- 	/* Count device-private pages to migrate */
- 	for (i = 0; i < npages;) {
--		struct page *src_page = migrate_pfn_to_page(migrate.src[i]);
--		unsigned long nr_pages = src_page ? NR_PAGES(folio_order(page_folio(src_page))) : 1;
-+		unsigned long src_pfn = migrate.src[i];
-+		struct page *src_page;
-+		unsigned long nr_pages = drm_pagemap_src_pfn_nr_pages(src_pfn, &src_page);
+ 	if (!ret) {
+-		if (flush_tlb)
+-			amdgpu_svm_flush_tlb(svm);
+ 		WRITE_ONCE(range->attr_flags, attrs->flags);
+ 		WRITE_ONCE(range->gpu_mapped, true);
+ 		range->validate_timestamp = ktime_get_boottime();
+ 	}
  
- 		if (src_page && is_zone_device_page(src_page)) {
- 			if (page_pgmap(src_page) == pagemap)
-@@ -813,10 +839,10 @@ int drm_pagemap_migrate_to_devmem(struct drm_pagemap_devmem *devmem_allocation,
- 	migrate_vma_pages(&migrate);
++	drm_gpusvm_notifier_unlock(&svm->gpusvm);
++
++	if (!ret && fence)
++		dma_fence_wait(fence, intr);
++	dma_fence_put(fence);
++
++	if (!ret && flush_tlb)
++		amdgpu_svm_flush_tlb(svm);
++
+ 	drm_exec_fini(&exec);
+ 	return ret;
+ }
+@@ -585,9 +573,12 @@ amdgpu_svm_range_invalidate_interval(struct amdgpu_svm *svm,
+ 					crosses_boundary ? "ATTR DESTROY" :
+ 							   "ATTR ZAP PTE");
  
- 	for (i = 0; !err && i < npages;) {
--		struct page *page = migrate_pfn_to_page(migrate.src[i]);
--		unsigned long nr_pages = page ? NR_PAGES(folio_order(page_folio(page))) : 1;
-+		unsigned long src_pfn = migrate.src[i];
-+		unsigned long nr_pages = drm_pagemap_src_pfn_nr_pages(src_pfn, NULL);
- 
--		if (migrate.src[i] & MIGRATE_PFN_MIGRATE)
-+		if (src_pfn & MIGRATE_PFN_MIGRATE)
- 			migrated_pages += nr_pages;
- 
- 		i += nr_pages;
++				/* Use the unified eviction/MMU notifier lock for PTE zaps. */
++				down_write(svm->vm->eviction_lock);
+ 				ret = amdgpu_svm_range_zap_ptes(svm, svm_range,
+ 						drm_gpusvm_range_start(range) >> PAGE_SHIFT,
+ 						(drm_gpusvm_range_end(range) >> PAGE_SHIFT) - 1);
++				up_write(svm->vm->eviction_lock);
+ 				if (ret < 0) {
+ 					drm_exec_fini(&exec);
+ 					return ret;
 -- 
 2.53.0
 
