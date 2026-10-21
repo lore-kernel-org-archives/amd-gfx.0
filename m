@@ -2,42 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9AD8606A319
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Oct 2026 06:27:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7CBB606A31C
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Oct 2026 06:27:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=iu8ZTlAD
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=TVAQ9uZ1
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5709710F95E;
-	Wed, 21 Oct 2026 06:27:35 +0000 (UTC)
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011056.outbound.protection.outlook.com [52.101.57.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1685D10F95B
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2026 06:27:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5818D10F961;
+	Wed, 21 Oct 2026 06:27:39 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013034.outbound.protection.outlook.com
+ [40.107.201.34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B30410F95C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2026 06:27:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bw/cr2ezs0Sgv1v5muydottbv4dr+DN4lHcSNaTgmetew3auXwE6MhAg7DssYAGInPMgkMWluQm1xw8wrzqnUx3MS89IbT1qTy3xEYWRbrDF+gGbzj+V7SpyZFUDi6cQo8Gt+rWAad32KT0xDrEyjAPHzdjm7nEAcubTu46s15zB91zhO8LKhd4avmXO8ToDbKaiUGSZ/OkbOI5R8xinVDWhzapdzHbv5jBlBmhAR0MAVkcWWrHBua4criyvrmWUH6M6nkFfj9awdEaDweXcfoaRg6U86B1eo5VW8Hhb+JqXyG5+EO9hMeuy51uqqLI7AY2FkQNt3djTHNsLHdiMGQ==
+ b=IResuR9DriCX/xQOTrIPHddbTx+XQ/vjrRG2xusIFTd4jMNLni7ERiGgeX7iNNSamGJt31Po+cZNkSrhkzpeaqO0yg36BcOolAKK0EGl0T9SFVxy6RBX0yNeaQy7bs7D0bPv/o4X+p4F3cjoopwTf8QYpxf2t0GuzADaYoop+qZfi46aME0d16H9FGR0iHqMDz+2Dv95zx2lJwu/F+OvlhfmYAFewr1Y1pFqyEne+WmSLaENLKJv98+48fpqb7sKi2iRBo99ysv4gQwoxFrEn+25CKkA1diOZyder1drVxe1PH9HHPHd2QTbzkL4jHSsJA6L8WpHscz425ndgSFq5Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nZlPdMskllngSeQLr80Yg24MUu/RnVzug9TyiU01voQ=;
- b=RFQfRQ9abu0qeP75VbaH9dBVO07Dyruxeo6rEoinU9kn9+8F8EKEMu0lESHDuIeDtOUfzdDeRRS7Zm3/y0nQbBf3UgrPriNKkHPgnEOny6JwOvVmpBlBbxQRUruT5wgjh6P6qn9WU6oDCtWSRhLc4bwvrFcx/OKL1aahi573B+aOkMCcVdpSjbg0Tv7cckFN9vEE0xMGATFLrYiKc5GyKfWc5kppVK3/wKMD84EcQ3BTRYAZ/MgnP2r11Evml+kdMBI8GoJLZehQs1RIXWBJVL4erasVfso9YMTpiCW0mFz+Wc3JFVEnVImgJnBuzLGFlloUNOrN3vlTZftU0Ta/ng==
+ bh=HQSWfM1Wl0YYfl9xU/tQTvg5MRoizxz3oIKV07dSp1g=;
+ b=Tnna1FVQrU66vRsyirNg1hMxWCYbcGrGeI+CrOjYFaPRYR5SHUsxVnLp2LnJnm/p60VP2TvPzX9z/nRRaI7gCdOhzD/U+gAbNV3b7lqwkIIbjVPzpg2nNuID44rnBakgILlSfk04rC11tgcEUgCpkUZLIqFQXVEL6z/SKxJdb7HVcpgAQAIBqYUS/XvKnckH0s8Z3/wSX6yBSDvadf8e+D1nPJocgdAN0+LNeyBF4r0NeXXA54MNc/ZUAbcK/2AuediOxbEVC8A9fjdyDKXJ+Np36wEe3bD2mmIxsQnbAKyQXAkHcHCsMr2kJ4VrKbrwjUjjZX4rnno6kf52cdiNOQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nZlPdMskllngSeQLr80Yg24MUu/RnVzug9TyiU01voQ=;
- b=iu8ZTlADjNbdPMxnJzcmvruttIJ7yjCgXIZ9M9xsKgEFoHuY5hN8YRH/Q2zPSBZbZAw8FatljoBp4dhoqlzaUpEK8GAHHFxHyM4fEsJsAhdTpfaoWH5GwnhTY4pVg/wYU60wAY6Ujzw/8NEjrEWtSx2PZgVh9/doG+pCHs3EfWc=
-Received: from SJ0PR03CA0351.namprd03.prod.outlook.com (2603:10b6:a03:39c::26)
- by SA1PR12MB8859.namprd12.prod.outlook.com (2603:10b6:806:37c::10)
+ bh=HQSWfM1Wl0YYfl9xU/tQTvg5MRoizxz3oIKV07dSp1g=;
+ b=TVAQ9uZ1E+UXBK3WJ3nBq7IROeiDWmi3luv2N7kSk0ahzqg5pwnSs003PbWA+PJJ04iKXizhL/rf3ZlTAHBBcBlp0Fg/pZa62LNybaiCGjxilQh7g3Fx+zbZtRWBQ6CZOUABY25RgCcLVT5B0EYbaksEwJn8v7TXDKPLe9js2SU=
+Received: from BY3PR05CA0048.namprd05.prod.outlook.com (2603:10b6:a03:39b::23)
+ by IA4PR12MB9811.namprd12.prod.outlook.com (2603:10b6:208:54e::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Wed, 21 Oct
- 2026 06:27:23 +0000
-Received: from SJ1PEPF000037A9.namprd03.prod.outlook.com
- (2603:10b6:a03:39c:cafe::a) by SJ0PR03CA0351.outlook.office365.com
- (2603:10b6:a03:39c::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.20 via Frontend Transport; Wed,
- 21 Oct 2026 06:27:23 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
+ 2026 06:27:27 +0000
+Received: from SJ1PEPF000037AF.namprd03.prod.outlook.com
+ (2603:10b6:a03:39b:cafe::63) by BY3PR05CA0048.outlook.office365.com
+ (2603:10b6:a03:39b::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.15 via Frontend Transport; Wed,
+ 21 Oct 2026 06:27:27 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -46,16 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
 Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ1PEPF000037A9.mail.protection.outlook.com (10.167.244.182) with Microsoft
+ SJ1PEPF000037AF.mail.protection.outlook.com (10.167.244.187) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.15 via Frontend Transport; Wed, 21 Oct 2026 06:27:23 +0000
+ 15.21.546.15 via Frontend Transport; Wed, 21 Oct 2026 06:27:26 +0000
 Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 21 Oct
- 2026 01:27:22 -0500
+ 2026 01:27:26 -0500
 Received: from tom-r5.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Wed, 21 Oct 2026 01:27:18 -0500
+ Transport; Wed, 21 Oct 2026 01:27:22 -0500
 From: Tom Chung <chiahsuan.chung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -64,12 +65,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Samson Tam <Samson.Tam@amd.com>, George Shen
- <george.shen@amd.com>
-Subject: [PATCH 32/49] drm/amd/display: Revert "Split link_set_dsc_on_stream
- into encoder and DSC components"
-Date: Wed, 21 Oct 2026 14:22:38 +0800
-Message-ID: <20261021062519.674697-33-chiahsuan.chung@amd.com>
+ <Chen-Yu.Chen@amd.com>, Tony Cheng <tony.cheng@amd.com>, Jun Lei
+ <jun.lei@amd.com>
+Subject: [PATCH 33/49] drm/amd/display: Read DCN401 PHY reset and lane enable
+ state
+Date: Wed, 21 Oct 2026 14:22:39 +0800
+Message-ID: <20261021062519.674697-34-chiahsuan.chung@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261021062519.674697-1-chiahsuan.chung@amd.com>
 References: <20261021062519.674697-1-chiahsuan.chung@amd.com>
@@ -79,29 +80,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000037A9:EE_|SA1PR12MB8859:EE_
-X-MS-Office365-Filtering-Correlation-Id: 20bf46ed-9b89-4beb-a95a-08df2f3c5dfc
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000037AF:EE_|IA4PR12MB9811:EE_
+X-MS-Office365-Filtering-Correlation-Id: 23fd4bc5-beb7-4da1-e42c-08df2f3c6053
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|36860700016|1800799024|376014|82310400026|56012099006|11063799006|261009221227099003|261009223027099003|10067099003|18002099003|6133799003|22082099003;
-X-Microsoft-Antispam-Message-Info: kDvb2WPAzbquaam3RkPfrUyHO/RiXFxSBRCR498lONGxhpLCPt1ei1BsfTEAJVdSn7m2gd9n4rzldwLi3JjuFzgmv5a/TSIM59YXdSDPfPTiJ3EsKRNj3iZb4I+C6/yLs1TuxM2M3TnLfTrrzyZ3PKMOIm9jNO+FjFbCrOp46rzrjwkgHGoVs4AnzeR6CArQRkWXR4hw+Y1ZP/OHYxqva9MXuaM1MmEbiqGENJkxAXunNqVc93bu+ZbBfkXKhk8vEfF1S/MoOy5F+UWQo1zE8sU45yhZJ+r2QVTwl7cGuGdCAxmvX4KaBq9INLVsNQZfeerEQgdvbibts7ztDHxkx41VDRq3xO6Ak7lmUp36zVkD3QsGyk/Ej6fg7zUMccTVfftuo31RQaPbdoW1kaI+QLf3uBXgs4SFaOvtlJHoXLKAv6N+tQ/NvVZgXLtqvNwVAzPjxwqfyT1tsmo/JjtVPnLPMUeE15hqiMEdQBuLwFx2OeVnMLHqTKwO0zCGLDZ/sjmE1dt/9Uu8ZrhQX4Lf1nAezt3N0l5pYwZE8OlaM3PbFwGQahvh9w/qGZD4fDobGETy7d71UUgZdgB5oQexKM2THqtHnB64r9uoP161bN2l5Ba+edyE+yEc9iMf+AVgwF+40R4jxR2c4LZlM0LggQKUXttOZFVZM6ovi1LXkTpVslKW0bAib7xJn6CvTy2mg6IguwgGokmuKR3r5EW9lQ==
+ ARA:13230040|376014|1800799024|23010399003|36860700016|82310400026|56012099006|5023799004|11063799006|261009223027099003|10067099003|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info: /b4krq+vJk5yPXBUWqTnwR8GTKOi4+YgYeL4qA6+kiARsXXi13d0f+vZH65QoJMgN/c042aiCsWt0IBZgzDhdxGcbJTv554Qo35YlJASovcOaP43NnNq2V+N7NbdKPgZ+ZF0zvp+4zSjhj888iSGTouZUpCTy5K8lEXkuaHrS1Qlh0ae/5KcBmGjvLJKdAQhVpbJTuczwnQABj8Pgu72lXHhxRqyRX91+8iCzkPdQDUag/SzDJly5n1ZGD4r0LG4b2VjSZXGF81FoDxA/eUfR6ZobxiBJOLq33ubffRyejAhpvxtMBZ2Pwse71zPhLQthgNgPxeYCJDIwR/L1OCmaHI9WKV9jGzx81hWSJnRM9rXr8GQ1X/EKfVb+TNg6r9wSjJD975BluUhPrntGGqN79gZ7aOHqY0/bpbskBH9lOyQFArMkPVYFS8o8LX1lM2ZvW39emJLiDIHh/kbtw0VPTcCqbLU2py1PWgxk9G8NHybYwsUw843DS0wsOeiYh6gFn45VVk0ogCn6H3NWuzFt0BKktupADyaXwL7zLM3UuAowRUjH6eoajrqK8tVwX81taKjUtxRh39OqkeopNidyOGvsCo0kpRnKwjQOiAbuiMcfnBf+vJc+MexFdkSypsavG8xpME6lRZDNXrxS0iZn/44ddcK0BHcPdR+K0Kyoblz4yWCtoH+XPI/AvWj1dTxTAFskff0u6RaP8WKrccb1A==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(36860700016)(1800799024)(376014)(82310400026)(56012099006)(11063799006)(261009221227099003)(261009223027099003)(10067099003)(18002099003)(6133799003)(22082099003);
+ SFS:(13230040)(376014)(1800799024)(23010399003)(36860700016)(82310400026)(56012099006)(5023799004)(11063799006)(261009223027099003)(10067099003)(22082099003)(18002099003)(3023799007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 9cHqnzWugpnHlxc8VischLDlcQJ1xPAGLAWWa60aEQH+qjTp7/bq/XoO8S8mDzYFeey3G0YWI1F6p05joqnQJcdY6OL7dwqdfP+2/tg2TwYdqV+KfsvScIGkhschLwzgsWzSRL1blTPbE6FO4UKnzZ9QDlMIDxMxxFlIrr/rl9r9Z2gwboQwslQIPclMn+oMod9y2W8WnyupH6MgXTJ3WqX3hL/iNZMKCiq6Tl0quZ6wDUGR+3SgcvvxckjDhxLgERp1aCd3e6Jlu8TexQksQLKB/Ak+WOSxDH+RHBBc94mvSvQvzHBt5nrfrktQP5Su7nBiC1m4kh3/6GTaQjyzpb3rg4BwmMNIZbGxctPg0/ygkmTSKFKcjzyoWzlnSssrOOf7HMODF0tknUUuQsnAtZRVWOu49W5K9rsyZxjv6QKd+UDueiLU4hr8X2ko9A3i
+X-MS-Exchange-AntiSpam-MessageData-0: 1opkfEwpUIEtoMoU/Yn96jdnVTlMV+VpwqQOgMo84Ut9hKWIh6TKd3BOSTiW/Bq53qNO8WE6zlWprkEQkRQdeTZ+KzVHJKuOpUFdpiUS8n0GaULJjxGJ3gMXPPbcas4pbIGI/YxE7tCsi17tR2zrEsQVCp+QZJy3FiEZWLtqoUJvEnqKgxOQnaInlLRD95pcrX5Xwhl74NT9QoQWiZKSkaOik/Q76GrNhK8P9Skd2qYn7MuP1Lsp5ad1k9yqQm0L5DGyjAoSoxF0njhSjMdkubzoCCvw65GHp3VZTY4QnCIzDwDkKfXG424YvdOVzLbVxa+5IqrH9Bvp1jeWjxoCUTXU2Avf4p1+GziK33/glaXSxndDDk8QQ+UdcKSeU+7HeQ6AwxSRixCiabvSDNMaTxOpDmebL7xDDmawXp97l4WigZIdiVJSIs8o/mP38p04
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 06:27:23.0264 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 20bf46ed-9b89-4beb-a95a-08df2f3c5dfc
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 06:27:26.9800 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 23fd4bc5-beb7-4da1-e42c-08df2f3c6053
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000037A9.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000037AF.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8859
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR12MB9811
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,351 +120,140 @@ X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Samson Tam <Samson.Tam@amd.com>
+From: Tony Cheng <tony.cheng@amd.com>
 
-This reverts commit fe6fdc89d793 ("drm/amd/display: Split
-link_set_dsc_on_stream into encoder and DSC components").
-Fixed 2 checkpatch errors.
+link->phy_state is software bookkeeping, so nothing in DC tells
+whether a PHY is really out of reset. Add rdpcs_phy_reset and
+rdpcs_tx_data_en (one bit per DP TX lane DATA_EN) to struct
+link_enc_state and fill them from a DCN401 read_state that wraps
+link_enc2_read_state.
 
-Reviewed-by: George Shen <george.shen@amd.com>
-Signed-off-by: Samson Tam <Samson.Tam@amd.com>
+DCN401 had no RDPCSTX registers mapped for its link encoders. Map
+RDPCSTX_PHY_CNTL0 and CNTL3 in dcn401_resource.c only; the shared
+DCN401 lists are also used by later generations, which lack them.
+Only read_state reads these registers; nothing programs them.
+
+The fields are printed by get_hw_state later in this series.
+
+Reviewed-by: Jun Lei <jun.lei@amd.com>
+Signed-off-by: Tony Cheng <tony.cheng@amd.com>
 Signed-off-by: Tom Chung <chiahsuan.chung@amd.com>
 ---
- .../gpu/drm/amd/display/dc/link/link_dpms.c   | 273 ++++++++----------
- 1 file changed, 114 insertions(+), 159 deletions(-)
+ .../dc/dio/dcn401/dcn401_dio_link_encoder.c   | 22 ++++++++++++++++++-
+ .../dc/dio/dcn401/dcn401_dio_link_encoder.h   |  8 +++++++
+ .../drm/amd/display/dc/inc/hw/link_encoder.h  |  2 ++
+ .../dc/resource/dcn401/dcn401_resource.c      | 10 ++++++---
+ 4 files changed, 38 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-index 78ad92fe4ea2..bd806240ba2d 100644
---- a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-@@ -717,94 +717,21 @@ static bool dp_set_hblank_reduction_on_rx(struct pipe_ctx *pipe_ctx)
- 	return result;
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_link_encoder.c
+index 6594fbb3fa43..4d62a5982632 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_link_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_link_encoder.c
+@@ -364,6 +364,26 @@ bool dcn401_is_dig_enabled(struct link_encoder *enc)
+ 	return (clk_enabled == 1 && dig_enabled == 1);
  }
  
--/* TODO - There is overlapping functionality between link_set_dsc_pps_packet,
-- * and set_encoder_dsc_config, the two functions should be refactored to avoid code duplication.
-- */
--static void set_encoder_dsc_config(struct pipe_ctx *pipe_ctx,
--		struct dsc_config *dsc_cfg,
--		struct dsc_optc_config *dsc_optc_cfg,
--		bool enable)
--{
--	struct dc *dc = pipe_ctx->stream->ctx->dc;
--	struct display_stream_compressor *dsc = pipe_ctx->stream_res.dsc;
--	struct dc_stream_state *stream = pipe_ctx->stream;
--	enum optc_dsc_mode optc_dsc_mode;
--	int odm_count = 1;
--	struct pipe_ctx *odm_pipe;
--	DC_LOGGER_INIT(dsc->ctx->logger);
--
--	for (odm_pipe = pipe_ctx->next_odm_pipe; odm_pipe; odm_pipe = odm_pipe->next_odm_pipe)
--		odm_count++;
--
--	if (enable) {
--		optc_dsc_mode = dsc_optc_cfg->is_pixel_format_444 ?
--				OPTC_DSC_ENABLED_444 : OPTC_DSC_ENABLED_NATIVE_SUBSAMPLED;
--
--		if (dc_is_dp_signal(stream->signal) && !dp_is_128b_132b_signal(pipe_ctx)) {
--			DC_LOG_DSC("Setting stream encoder DSC config for engine %d:", (int)pipe_ctx->stream_res.stream_enc->id);
--			dsc_optc_config_log(dsc, dsc_optc_cfg);
--			if (pipe_ctx->stream_res.stream_enc->funcs->dp_set_dsc_config)
--				pipe_ctx->stream_res.stream_enc->funcs->dp_set_dsc_config(pipe_ctx->stream_res.stream_enc,
--										optc_dsc_mode,
--										dsc_optc_cfg->bytes_per_pixel,
--										dsc_optc_cfg->slice_width);
--
--			/* PPS SDP is set elsewhere because it has to be done after DIG FE is connected to DIG BE */
--		} else if (dc_is_hdmi_frl_signal(stream->signal)) {
--			uint8_t dsc_packed_pps[128];
--			struct dc_crtc_timing patched_crtc_timing = stream->timing;
--
--			DC_LOG_DSC("Setting stream encoder DSC config for engine %d:", (int)pipe_ctx->stream_res.hpo_frl_stream_enc->id);
--			dsc_optc_config_log(dsc, dsc_optc_cfg);
--			dsc_cfg->dc_dsc_cfg.num_slices_h *= odm_count;
--			dsc_cfg->pic_width *= odm_count;
--			dsc_cfg->dsc_padding = pipe_ctx->dsc_padding_params.dsc_hactive_padding;
--			if (dc->debug.enable_hblank_borrow)
--				dsc_cfg->pic_width = stream->timing.h_addressable;
--			dsc->funcs->dsc_get_packed_pps(dsc, dsc_cfg, &dsc_packed_pps[0]);
--			pipe_ctx->stream_res.hpo_frl_stream_enc->funcs->hdmi_frl_set_dsc_config(
--					pipe_ctx->stream_res.hpo_frl_stream_enc, &patched_crtc_timing, &dsc_packed_pps[0]);
--		}
--
--		return;
--	}
- 
--	if (dc_is_dp_signal(stream->signal)) {
--		if (dp_is_128b_132b_signal(pipe_ctx))
--			pipe_ctx->stream_res.hpo_dp_stream_enc->funcs->dp_set_dsc_pps_info_packet(
--										pipe_ctx->stream_res.hpo_dp_stream_enc,
--										false,
--										NULL,
--										true);
--		else {
--			if (pipe_ctx->stream_res.stream_enc->funcs->dp_set_dsc_config)
--				pipe_ctx->stream_res.stream_enc->funcs->dp_set_dsc_config(
--							pipe_ctx->stream_res.stream_enc,
--							OPTC_DSC_DISABLED, 0, 0);
--			pipe_ctx->stream_res.stream_enc->funcs->dp_set_dsc_pps_info_packet(
--							pipe_ctx->stream_res.stream_enc, false, NULL, true);
--		}
--	} else if (dc_is_hdmi_frl_signal(stream->signal)) {
--		pipe_ctx->stream_res.hpo_frl_stream_enc->funcs->hdmi_frl_set_dsc_config(
--				pipe_ctx->stream_res.hpo_frl_stream_enc, &stream->timing, NULL);
--	}
--}
--
--/* Legacy implementation of DSC configuration sequence. DSC HW block programming
-- * is independent of stream encoder and link configuration operations, and should
-- * be configured separately during front-end programming, not within link DPMS sequences.
-+/* The stream with these settings can be sent (unblanked) only after DSC was enabled on RX first,
-+ * i.e. after dp_enable_dsc_on_rx() had been called
-  */
--static bool configure_dsc_hw_block(struct pipe_ctx *pipe_ctx, bool enable,
--		struct dsc_config *dsc_cfg, struct dsc_optc_config *dsc_optc_cfg)
-+void link_set_dsc_on_stream(struct pipe_ctx *pipe_ctx, bool enable)
++void dcn401_link_encoder_read_state(struct link_encoder *enc, struct link_enc_state *s)
++{
++	struct dcn10_link_encoder *enc10 = TO_DCN10_LINK_ENC(enc);
++	uint32_t tx0 = 0, tx1 = 0, tx2 = 0, tx3 = 0;
++
++	link_enc2_read_state(enc, s);
++
++	if (enc10->link_regs->RDPCSTX_PHY_CNTL0)
++		REG_GET(RDPCSTX_PHY_CNTL0, RDPCS_PHY_RESET, &s->rdpcs_phy_reset);
++
++	if (enc10->link_regs->RDPCSTX_PHY_CNTL3) {
++		REG_GET_4(RDPCSTX_PHY_CNTL3,
++			  RDPCS_PHY_DP_TX0_DATA_EN, &tx0,
++			  RDPCS_PHY_DP_TX1_DATA_EN, &tx1,
++			  RDPCS_PHY_DP_TX2_DATA_EN, &tx2,
++			  RDPCS_PHY_DP_TX3_DATA_EN, &tx3);
++		s->rdpcs_tx_data_en = tx0 | tx1 << 1 | tx2 << 2 | tx3 << 3;
++	}
++}
++
+ enum signal_type dcn401_get_dig_mode(
+ 	struct link_encoder *enc)
  {
-+	/* TODO: Move this to HWSS as this is hardware programming sequence not a
-+	 * link layer sequence
-+	 */
- 	struct display_stream_compressor *dsc = pipe_ctx->stream_res.dsc;
- 	struct dc *dc = pipe_ctx->stream->ctx->dc;
- 	struct dc_stream_state *stream = pipe_ctx->stream;
- 	struct pipe_ctx *odm_pipe;
--	struct dccg *dccg = dc->res_pool->dccg;
- 	int opp_cnt = 1;
--	DC_LOGGER_INIT(dsc->ctx->logger);
--
-+	struct dccg *dccg = dc->res_pool->dccg;
- 	/* It has been found that when DSCCLK is lower than 16Mhz, we will get DCN
- 	 * register access hung. When DSCCLk is based on refclk, DSCCLk is always a
- 	 * fixed value higher than 16Mhz so the issue doesn't occur. When DSCCLK is
-@@ -814,34 +741,35 @@ static bool configure_dsc_hw_block(struct pipe_ctx *pipe_ctx, bool enable,
- 	 * based on fixed value refclk when timing is smaller than 3x16Mhz (i.e
- 	 * 48Mhz) pixel clock to avoid hitting this problem.
- 	 */
--	bool should_use_dto_dscclk = dccg->funcs->set_dto_dscclk &&
-+	bool should_use_dto_dscclk = (dccg->funcs->set_dto_dscclk != NULL) &&
- 			stream->timing.pix_clk_100hz > 480000;
-+	DC_LOGGER_INIT(dsc->ctx->logger);
- 
- 	for (odm_pipe = pipe_ctx->next_odm_pipe; odm_pipe; odm_pipe = odm_pipe->next_odm_pipe)
- 		opp_cnt++;
- 
- 	if (enable) {
-+		struct dsc_config dsc_cfg;
-+		struct dsc_optc_config dsc_optc_cfg = {0};
- 		enum optc_dsc_mode optc_dsc_mode;
--		memset(dsc_cfg, 0, sizeof(*dsc_cfg));
--		memset(dsc_optc_cfg, 0, sizeof(*dsc_optc_cfg));
- 
- 		/* Enable DSC hw block */
--		dsc_cfg->pic_width = (stream->timing.h_addressable + pipe_ctx->dsc_padding_params.dsc_hactive_padding +
-+		dsc_cfg.pic_width = (stream->timing.h_addressable + pipe_ctx->dsc_padding_params.dsc_hactive_padding +
- 				stream->timing.h_border_left + stream->timing.h_border_right) / opp_cnt;
--		dsc_cfg->pic_height = stream->timing.v_addressable + stream->timing.v_border_top + stream->timing.v_border_bottom;
--		dsc_cfg->pixel_encoding = stream->timing.pixel_encoding;
--		dsc_cfg->color_depth = stream->timing.display_color_depth;
--		dsc_cfg->is_odm = pipe_ctx->next_odm_pipe != NULL;
--		dsc_cfg->dc_dsc_cfg = stream->timing.dsc_cfg;
--		ASSERT(dsc_cfg->dc_dsc_cfg.num_slices_h % opp_cnt == 0);
--		dsc_cfg->dc_dsc_cfg.num_slices_h /= opp_cnt;
--		dsc_cfg->dsc_padding = 0;
-+		dsc_cfg.pic_height = stream->timing.v_addressable + stream->timing.v_border_top + stream->timing.v_border_bottom;
-+		dsc_cfg.pixel_encoding = stream->timing.pixel_encoding;
-+		dsc_cfg.color_depth = stream->timing.display_color_depth;
-+		dsc_cfg.is_odm = pipe_ctx->next_odm_pipe ? true : false;
-+		dsc_cfg.dc_dsc_cfg = stream->timing.dsc_cfg;
-+		ASSERT(dsc_cfg.dc_dsc_cfg.num_slices_h % opp_cnt == 0);
-+		dsc_cfg.dc_dsc_cfg.num_slices_h /= opp_cnt;
-+		dsc_cfg.dsc_padding = 0;
- 
- 		if (should_use_dto_dscclk)
--			dccg->funcs->set_dto_dscclk(dccg, dsc->inst, dsc_cfg->dc_dsc_cfg.num_slices_h);
--		if (!dsc->funcs->dsc_prepare_config(dsc, dsc_cfg, dsc_optc_cfg)) {
-+			dccg->funcs->set_dto_dscclk(dccg, dsc->inst, dsc_cfg.dc_dsc_cfg.num_slices_h);
-+		if (!dsc->funcs->dsc_prepare_config(dsc, &dsc_cfg, &dsc_optc_cfg)) {
- 			ASSERT(false);
--			return false;
-+			return;
- 		}
- 		dsc->funcs->dsc_set_config(dsc);
- 		dsc->funcs->dsc_enable(dsc, pipe_ctx->stream_res.opp->inst);
-@@ -850,84 +778,111 @@ static bool configure_dsc_hw_block(struct pipe_ctx *pipe_ctx, bool enable,
- 
- 			ASSERT(odm_dsc);
- 			if (!odm_dsc)
--				return false;
-+				return;
- 			if (should_use_dto_dscclk)
--				dccg->funcs->set_dto_dscclk(dccg, odm_dsc->inst,
--						dsc_cfg->dc_dsc_cfg.num_slices_h);
--			if (!odm_dsc->funcs->dsc_prepare_config(odm_dsc, dsc_cfg, dsc_optc_cfg)) {
-+				dccg->funcs->set_dto_dscclk(dccg, odm_dsc->inst, dsc_cfg.dc_dsc_cfg.num_slices_h);
-+			if (!odm_dsc->funcs->dsc_prepare_config(odm_dsc, &dsc_cfg, &dsc_optc_cfg)) {
- 				ASSERT(false);
--				return false;
-+				return;
- 			}
- 			odm_dsc->funcs->dsc_set_config(odm_dsc);
- 			odm_dsc->funcs->dsc_enable(odm_dsc, odm_pipe->stream_res.opp->inst);
- 		}
--		optc_dsc_mode = dsc_optc_cfg->is_pixel_format_444 ? OPTC_DSC_ENABLED_444 : OPTC_DSC_ENABLED_NATIVE_SUBSAMPLED;
-+		dsc_cfg.dc_dsc_cfg.num_slices_h *= opp_cnt;
-+		dsc_cfg.pic_width *= opp_cnt;
-+		dsc_cfg.dsc_padding = pipe_ctx->dsc_padding_params.dsc_hactive_padding;
- 
--		/* Enable DSC in OPTC */
--		DC_LOG_DSC("Setting optc DSC config for tg instance %d:", pipe_ctx->stream_res.tg->inst);
--		dsc_optc_config_log(dsc, dsc_optc_cfg);
--		pipe_ctx->stream_res.tg->funcs->set_dsc_config(pipe_ctx->stream_res.tg,
--							optc_dsc_mode,
--							dsc_optc_cfg->bytes_per_pixel,
--							dsc_optc_cfg->slice_width);
--		return true;
--	}
-+		optc_dsc_mode = dsc_optc_cfg.is_pixel_format_444 ? OPTC_DSC_ENABLED_444 : OPTC_DSC_ENABLED_NATIVE_SUBSAMPLED;
- 
--	/* disable DSC in OPTC */
--	pipe_ctx->stream_res.tg->funcs->set_dsc_config(
--			pipe_ctx->stream_res.tg,
--			OPTC_DSC_DISABLED, 0, 0);
-+		/* Enable DSC in encoder */
-+		if (dc_is_dp_signal(stream->signal) && !dp_is_128b_132b_signal(pipe_ctx)) {
-+			DC_LOG_DSC("Setting stream encoder DSC config for engine %d:", (int)pipe_ctx->stream_res.stream_enc->id);
-+			dsc_optc_config_log(dsc, &dsc_optc_cfg);
-+			if (pipe_ctx->stream_res.stream_enc->funcs->dp_set_dsc_config)
-+				pipe_ctx->stream_res.stream_enc->funcs->dp_set_dsc_config(pipe_ctx->stream_res.stream_enc,
-+										optc_dsc_mode,
-+										dsc_optc_cfg.bytes_per_pixel,
-+										dsc_optc_cfg.slice_width);
- 
--	for (odm_pipe = pipe_ctx; odm_pipe; odm_pipe = odm_pipe->next_odm_pipe) {
--		odm_pipe->stream_res.dsc->funcs->dsc_disconnect(odm_pipe->stream_res.dsc);
-+			/* PPS SDP is set elsewhere because it has to be done after DIG FE is connected to DIG BE */
-+		} else if (dc_is_hdmi_frl_signal(stream->signal)) {
-+			uint8_t dsc_packed_pps[128];
-+			struct dc_crtc_timing patched_crtc_timing = stream->timing;
- 
--		/*
--		 * dsc_disconnect is a double buffered register.
--		 * by the time we call dsc_disable, dsc may still remain
--		 * connected to OPP. In this case OPTC will no longer
--		 * get correct pixel data because DSCC is off. However
--		 * we also can't wait for the  disconnect pending
--		 * complete, because this function can be called
--		 * with/without OTG master lock acquired. When the lock
--		 * is acquired we will never get pending complete until
--		 * we release the lock later. So there is no easy way to
--		 * solve this problem especially when the lock is
--		 * acquired. DSC is a front end hw block it should be
--		 * programmed as part of front end sequence, where the
--		 * commit sequence without lock and update sequence
--		 * with lock are completely separated. However because
--		 * we are programming dsc as part of back end link
--		 * programming sequence, we don't know if front end OPTC
--		 * master lock is acquired. The back end should be
--		 * agnostic to front end lock. DSC programming shouldn't
--		 * belong to this sequence.
--		 */
--		odm_pipe->stream_res.dsc->funcs->dsc_disable(odm_pipe->stream_res.dsc);
--		if (dccg->funcs->set_ref_dscclk)
--			dccg->funcs->set_ref_dscclk(dccg, odm_pipe->stream_res.dsc->inst);
--	}
--	return true;
--}
-+			DC_LOG_DSC("Setting stream encoder DSC config for engine %d:", (int)pipe_ctx->stream_res.hpo_frl_stream_enc->id);
-+			dsc_optc_config_log(dsc, &dsc_optc_cfg);
- 
--/* The stream with these settings can be sent (unblanked) only after DSC was enabled on RX first,
-- * i.e. after dp_enable_dsc_on_rx() had been called
-- */
--void link_set_dsc_on_stream(struct pipe_ctx *pipe_ctx, bool enable)
--{
--	struct dsc_config dsc_cfg = {0};
--	struct dsc_optc_config dsc_optc_cfg = {0};
-+			/* if we are borrowing from hblank, h_addressable and  pic_width need to be adjusted */
-+			if (dc->debug.enable_hblank_borrow) {
-+				dsc_cfg.pic_width = stream->timing.h_addressable;
-+			}
- 
--	if (!pipe_ctx->stream_res.dsc) {
--		ASSERT(false);
--		return;
--	}
-+			dsc->funcs->dsc_get_packed_pps(dsc, &dsc_cfg, &dsc_packed_pps[0]);
-+			pipe_ctx->stream_res.hpo_frl_stream_enc->funcs->hdmi_frl_set_dsc_config(
-+					pipe_ctx->stream_res.hpo_frl_stream_enc, &patched_crtc_timing, &dsc_packed_pps[0]);
-+		}
- 
--	if (enable) {
--		if (configure_dsc_hw_block(pipe_ctx, true, &dsc_cfg, &dsc_optc_cfg))
--			set_encoder_dsc_config(pipe_ctx, &dsc_cfg, &dsc_optc_cfg, true);
-+		/* Enable DSC in OPTC */
-+		DC_LOG_DSC("Setting optc DSC config for tg instance %d:", pipe_ctx->stream_res.tg->inst);
-+		dsc_optc_config_log(dsc, &dsc_optc_cfg);
-+		pipe_ctx->stream_res.tg->funcs->set_dsc_config(pipe_ctx->stream_res.tg,
-+							optc_dsc_mode,
-+							dsc_optc_cfg.bytes_per_pixel,
-+							dsc_optc_cfg.slice_width);
- 	} else {
--		set_encoder_dsc_config(pipe_ctx, &dsc_cfg, &dsc_optc_cfg, false);
--		configure_dsc_hw_block(pipe_ctx, false, &dsc_cfg, &dsc_optc_cfg);
-+		/* disable DSC in OPTC */
-+		pipe_ctx->stream_res.tg->funcs->set_dsc_config(
-+				pipe_ctx->stream_res.tg,
-+				OPTC_DSC_DISABLED, 0, 0);
-+
-+		/* disable DSC in stream encoder */
-+		if (dc_is_dp_signal(stream->signal)) {
-+			if (dp_is_128b_132b_signal(pipe_ctx))
-+				pipe_ctx->stream_res.hpo_dp_stream_enc->funcs->dp_set_dsc_pps_info_packet(
-+										pipe_ctx->stream_res.hpo_dp_stream_enc,
-+										false,
-+										NULL,
-+										true);
-+			else {
-+				if (pipe_ctx->stream_res.stream_enc->funcs->dp_set_dsc_config)
-+					pipe_ctx->stream_res.stream_enc->funcs->dp_set_dsc_config(
-+							pipe_ctx->stream_res.stream_enc,
-+							OPTC_DSC_DISABLED, 0, 0);
-+				pipe_ctx->stream_res.stream_enc->funcs->dp_set_dsc_pps_info_packet(
-+							pipe_ctx->stream_res.stream_enc, false, NULL, true);
-+			}
-+		} else if (dc_is_hdmi_frl_signal(stream->signal))
-+			pipe_ctx->stream_res.hpo_frl_stream_enc->funcs->hdmi_frl_set_dsc_config(
-+					pipe_ctx->stream_res.hpo_frl_stream_enc, &stream->timing, NULL);
-+
-+		/* disable DSC block */
-+		for (odm_pipe = pipe_ctx; odm_pipe; odm_pipe = odm_pipe->next_odm_pipe) {
-+			odm_pipe->stream_res.dsc->funcs->dsc_disconnect(odm_pipe->stream_res.dsc);
-+			/*
-+			 * TODO - dsc_disconnect is a double buffered register.
-+			 * by the time we call dsc_disable, dsc may still remain
-+			 * connected to OPP. In this case OPTC will no longer
-+			 * get correct pixel data because DSCC is off. However
-+			 * we also can't wait for the  disconnect pending
-+			 * complete, because this function can be called
-+			 * with/without OTG master lock acquired. When the lock
-+			 * is acquired we will never get pending complete until
-+			 * we release the lock later. So there is no easy way to
-+			 * solve this problem especially when the lock is
-+			 * acquired. DSC is a front end hw block it should be
-+			 * programmed as part of front end sequence, where the
-+			 * commit sequence without lock and update sequence
-+			 * with lock are completely separated. However because
-+			 * we are programming dsc as part of back end link
-+			 * programming sequence, we don't know if front end OPTC
-+			 * master lock is acquired. The back end should be
-+			 * agnostic to front end lock. DSC programming shouldn't
-+			 * belong to this sequence.
-+			 */
-+			odm_pipe->stream_res.dsc->funcs->dsc_disable(odm_pipe->stream_res.dsc);
-+			if (dccg->funcs->set_ref_dscclk)
-+				dccg->funcs->set_ref_dscclk(dccg, odm_pipe->stream_res.dsc->inst);
-+		}
- 	}
+@@ -399,7 +419,7 @@ void dcn401_setup_ri_pj_check_in_sw_or_hw_mode(
  }
+ 
+ static const struct link_encoder_funcs dcn401_link_enc_funcs = {
+-	.read_state = link_enc2_read_state,
++	.read_state = dcn401_link_encoder_read_state,
+ 	.validate_output_with_stream =
+ 			dcn30_link_encoder_validate_output_with_stream,
+ 	.hw_init = enc401_hw_init,
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_link_encoder.h b/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_link_encoder.h
+index 62f8f9098b53..689fc817dbc5 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_link_encoder.h
++++ b/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_link_encoder.h
+@@ -28,6 +28,13 @@
+ 
+ #include "dcn30/dcn30_dio_link_encoder.h"
+ 
++#define LINK_ENCODER_PHY_STATE_MASK_SH_LIST_DCN401(mask_sh) \
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL0, RDPCS_PHY_RESET, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL3, RDPCS_PHY_DP_TX0_DATA_EN, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL3, RDPCS_PHY_DP_TX1_DATA_EN, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL3, RDPCS_PHY_DP_TX2_DATA_EN, mask_sh),\
++	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL3, RDPCS_PHY_DP_TX3_DATA_EN, mask_sh)
++
+ #define LINK_ENCODER_MASK_SH_LIST_DCN401(mask_sh) \
+ 	LE_SF(DIG0_DIG_BE_EN_CNTL, DIG_BE_ENABLE, mask_sh),\
+ 	LE_SF(DIG0_DIG_BE_CNTL, DIG_RB_SWITCH_EN, mask_sh),\
+@@ -150,6 +157,7 @@ enum signal_type dcn401_get_dig_mode(
+ 	struct link_encoder *enc);
+ 
+ bool dcn401_is_dig_enabled(struct link_encoder *enc);
++void dcn401_link_encoder_read_state(struct link_encoder *enc, struct link_enc_state *s);
+ 
+ enum signal_type dcn401_get_dig_mode(struct link_encoder *enc);
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/link_encoder.h b/drivers/gpu/drm/amd/display/dc/inc/hw/link_encoder.h
+index f3ef5bbfad81..1c95d643af14 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/link_encoder.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/link_encoder.h
+@@ -117,6 +117,8 @@ struct link_enc_state {
+ 		uint32_t dphy_fec_ready_shadow;
+ 		uint32_t dphy_fec_active_status;
+ 		uint32_t dp_link_training_complete;
++		uint32_t rdpcs_phy_reset;
++		uint32_t rdpcs_tx_data_en;
+ 
+ };
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
+index 34e218bff078..acc5aa8d777f 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
+@@ -307,19 +307,23 @@ static struct dcn10_link_enc_hpd_registers link_enc_hpd_regs[5];
+ 
+ #define link_regs_init(id, phyid) \
+ 	LE_DCN401_REG_LIST_RI(id), \
+-	LE_DCN60_REG_LIST_RI(id)
++	LE_DCN60_REG_LIST_RI(id), \
++	SRI_ARR(RDPCSTX_PHY_CNTL0, RDPCSTX, id), \
++	SRI_ARR(RDPCSTX_PHY_CNTL3, RDPCSTX, id)
+ 
+ static struct dcn10_link_enc_registers link_enc_regs[4];
+ 
+ 
+ static const struct dcn10_link_enc_shift le_shift = {
+ 	LINK_ENCODER_MASK_SH_LIST_DCN401(__SHIFT), \
+-	LINK_ENCODER_MASK_SH_LIST_DCN60_ON_DCN401(__SHIFT)
++	LINK_ENCODER_MASK_SH_LIST_DCN60_ON_DCN401(__SHIFT), \
++	LINK_ENCODER_PHY_STATE_MASK_SH_LIST_DCN401(__SHIFT)
+ };
+ 
+ static const struct dcn10_link_enc_mask le_mask = {
+ 	LINK_ENCODER_MASK_SH_LIST_DCN401(_MASK), \
+-	LINK_ENCODER_MASK_SH_LIST_DCN60_ON_DCN401(_MASK)
++	LINK_ENCODER_MASK_SH_LIST_DCN60_ON_DCN401(_MASK), \
++	LINK_ENCODER_PHY_STATE_MASK_SH_LIST_DCN401(_MASK)
+ };
+ 
  
 -- 
 2.43.0
