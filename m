@@ -2,60 +2,64 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71975606A31A
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Oct 2026 06:27:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AB3C606A31A
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Oct 2026 06:27:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=MQTYWQXM
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=pQi9IU33
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16B5C10F95C;
-	Wed, 21 Oct 2026 06:27:41 +0000 (UTC)
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012039.outbound.protection.outlook.com [40.107.209.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C597110F95B
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2026 06:27:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F090710F963;
+	Wed, 21 Oct 2026 06:27:44 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011036.outbound.protection.outlook.com [52.101.52.36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AEAD310F96E
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2026 06:27:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=L7SZz8dBmJIjyHnm2e91s7NssEmFXz9hqY3h5mrNo1xP6cHLLzLJVYlR7WpaZrsLkndIaVWA1HXZKsqwnvUqsBvXwlugm1FfMwKeiqoF5m4pNMcNh9do4fX3HzOp9NCFiwLZpizghdwXvtZRtnI7kssaM+zxIJ8NjqEnjQuwU9rNPvbm7kvdGFq4C2nzsMGneH3Gg+t1vlDGK4Yb5HNLpulM3jN/rdW4Wje0yCGKisLcc5oGNezC2N1Fv6ORBPof+5euRlXOupsiw7A46GC7qjqZDLPcRMjaKf+lOJUd31+vFV05DBbtE9zjBhqkFCuyLmK/GAAm3veAiXwAggts6Q==
+ b=hmgN9hPMtLuHVa7MKvrUZQ9HwDsTGcNYQBANjC234bOiNot11fmHz7CLguFG7GWYCb8eSHtXWZgOnWWZgysmBv0tqDj9JLpzQv+jT5VHPnOb+0ypg5XQrYDDBPEp1FQqt1EzZXR+bLjnxQssqDhh2ZAyQcfsYG6sjLttGR00bv3G5S/8a+QIsD1ehSnE1TmcBCuGFwT1ioPvx8u/v+lnJpuF409JZLUN4vHjONQG1zBRcFksT6E3Ov/GmkEcNGHcl6+dyTd6Fvrjr2JvLwJ9JmSs2ezhQsSJEjciIO2RCsifesPbP409OGovS3A89kw/SExvsrGdwrEknGY6mGX3gA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Tu7Rk1Pmjrbl4U7w1v9yecYeo3HxYGG2BTC6mdzft1I=;
- b=eFZnG1ZOCwwuS3VJ7zkFtoroKM7fKCEZFmACAuPz1Tr2FtV4ZT06LCxZT6c0Ej4NyTeo7+bQe4N/6HqC18bI95sRNCI1nuy5tF3tO09m4v5TM7DauvWD2RKerxO+cQihA8CEs+gEMzBzFlSbauRTuBkmdK26WBDhDmp6/U/wnd+kgDFxAROQ1igbiJrsRoIj2+wbxCPelr6VufHutCamLtktZpFPSGfoCuvsolPGkq61ET/dCaSht4PR9wp8NfxCWtHI3f2Ved2wwk2lVKSzL4osQZPyPBxGqfFS2Ue5kk4MdqdEQ7BpU3e4W1LHDpq/i5ub6MVOpLkN0af364JEWA==
+ bh=hSFvLhuOD/HguVBkC0cDZP7HNYCJFTqYuX3K9Y4Rt4o=;
+ b=lQp/3vhaRuUBOQl2SkCfdrFP/DEoIlGrzP1nORhBKZzaV5p+hJ4r/koXCC4lkrbWEhYOVBAmGAivKzqLZRlYWKCPhScyzOHEDGLpptQh7v+m6qds6ifJtRrVqICbDfm1iTQaem07V6U/yXPG54LNVYRKRaTu4awgKzfMVIKwhLrF+fEtNzZeVbLAJmzsWXZYE1OJrhrqoCvwfQCODw3FeyhrYJ6AVD8k8CvzD/v7TAVPjFrsJml32OEqKS9u6+taVFnd7rBQ10wex/dh2DxPywjpdpvTlvWh0YfaX/QMXdl1Gl52+ehUfAwA80rY3sheM/LUCkrN1uxhr9eCyUnvIA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Tu7Rk1Pmjrbl4U7w1v9yecYeo3HxYGG2BTC6mdzft1I=;
- b=MQTYWQXMqXIn0AC1V/fN9/e0igJz+r2p97V6EZw4kiO2GlcPI7kkCKcutrqoQntXRoYws5uiUOo/xBiX/J88qTzkX23lN2PPpqbCprmEsWstWGZkME35HSM0D5OlOk2h7gbPpdgaT0yxmOQY15RyxNsD11obHr0ynuBOEG4DgO8=
-Received: from SJ0PR03CA0351.namprd03.prod.outlook.com (2603:10b6:a03:39c::26)
- by PH8PR12MB7231.namprd12.prod.outlook.com (2603:10b6:510:225::9)
+ bh=hSFvLhuOD/HguVBkC0cDZP7HNYCJFTqYuX3K9Y4Rt4o=;
+ b=pQi9IU33Gmk0eibV4dD6qvkFGSjyjREHvK6MC+ZRmr+Eu36mutUS7OOaWizmrJ8jz1I61m6dHvANIgdsYCUEWkN9MCaPeGng6h2LxohwEXXb/4G6c6CoOj8/KtGvhF1viG2qSYt0BaXuor7vqLz1XEGH9vhZae50MqaI7t/Vc3g=
+Received: from BN9PR03CA0978.namprd03.prod.outlook.com (2603:10b6:408:109::23)
+ by MW5PR12MB5621.namprd12.prod.outlook.com (2603:10b6:303:193::12)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
- 2026 06:27:31 +0000
-Received: from SJ1PEPF000037A9.namprd03.prod.outlook.com
- (2603:10b6:a03:39c:cafe::5e) by SJ0PR03CA0351.outlook.office365.com
- (2603:10b6:a03:39c::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.20 via Frontend Transport; Wed,
- 21 Oct 2026 06:27:31 +0000
+ 2026 06:27:34 +0000
+Received: from BN1PEPF0001854A.namprd05.prod.outlook.com
+ (2603:10b6:408:109:cafe::22) by BN9PR03CA0978.outlook.office365.com
+ (2603:10b6:408:109::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.18 via Frontend Transport; Wed,
+ 21 Oct 2026 06:27:34 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ1PEPF000037A9.mail.protection.outlook.com (10.167.244.182) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN1PEPF0001854A.mail.protection.outlook.com (10.167.248.9) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.15 via Frontend Transport; Wed, 21 Oct 2026 06:27:31 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.546.15 via Frontend Transport; Wed, 21 Oct 2026 06:27:34 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 21 Oct
- 2026 01:27:29 -0500
+ 2026 01:27:34 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 21 Oct
+ 2026 01:27:33 -0500
 Received: from tom-r5.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Wed, 21 Oct 2026 01:27:26 -0500
+ Transport; Wed, 21 Oct 2026 01:27:30 -0500
 From: Tom Chung <chiahsuan.chung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -66,9 +70,10 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
  <Chen-Yu.Chen@amd.com>, Tony Cheng <tony.cheng@amd.com>, Jun Lei
  <jun.lei@amd.com>
-Subject: [PATCH 34/49] drm/amd/display: Read cursor update lock into mpcc_state
-Date: Wed, 21 Oct 2026 14:22:40 +0800
-Message-ID: <20261021062519.674697-35-chiahsuan.chung@amd.com>
+Subject: [PATCH 35/49] drm/amd/display: Add BIOS, link,
+ DSC and cursor lock to get_hw_state
+Date: Wed, 21 Oct 2026 14:22:41 +0800
+Message-ID: <20261021062519.674697-36-chiahsuan.chung@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261021062519.674697-1-chiahsuan.chung@amd.com>
 References: <20261021062519.674697-1-chiahsuan.chung@amd.com>
@@ -78,29 +83,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000037A9:EE_|PH8PR12MB7231:EE_
-X-MS-Office365-Filtering-Correlation-Id: 66c52295-dede-4706-195b-08df2f3c62d5
+X-MS-TrafficTypeDiagnostic: BN1PEPF0001854A:EE_|MW5PR12MB5621:EE_
+X-MS-Office365-Filtering-Correlation-Id: 88596fc2-28af-4e19-80e2-08df2f3c64ce
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|36860700016|1800799024|82310400026|56012099006|11063799006|261009223027099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: gvB+of8ppT1CNnK9KBoH1s6rZojSDPge1WzMhQZouw6fYUnCJaWKa2c3oTBWsxwMMF2L0IoVW9GqxIurBuDVgtnx2/EoygWQ5A6EhNk8clsjTEENbhZ7qQ5c9p2m37FjPaYsHJc02N88QFghJJziH0En1cikHhX5dTNVOJUD5GST846OSOW5XsfoqswTpLsVFmL5HS3rrV9pfQ5Ob33A2vRSPzwEGqxwipR8HLNZaBks7M2dy/7MkVagiscGvoqohNJxCEo1GfIbBm7jyMVsLG9l8Bei3HGcJJuTqY57X3/3ZivINuW9AdzM5QI5YTRkYcC5geeeGPeZ0RNUB4jQ4CVoRgwq0QT2JcAt5V/d6t2sX+ew4LB80VWKMl1g/Zqgw+pmyGuak2q0CNE4NLVg/abQFTJH042iapIjXRYy4q8KN8QJgqBNDPfEqbG4d5W0MYIMBsceuE3iuD8NcaVwninkbuGndtHq2mhSZZqvrSmUKosh/haFaWLwd/ninS4WEZMjnN0YyEwBozBB69e36zGsuhVXJr7Os2iZxFldVnoaMczNA6wMtdIdfyhegY8YRA1ZI5eSmTxG2bWpSeGBrKkiQZhsXg2poaba9askh+kTs+lqVejZcnnWhUTyzeqSoAY7K1TSXs1IBeFTWex4ZXyphaEEN2eIDmqmUpAChN0pz1omVvzI4kPbe4cPqdB/yrknps1jzFhf+HrRBAuNrw==
+ ARA:13230040|1800799024|376014|82310400026|23010399003|36860700016|56012099006|11063799006|261009221227099003|261009223027099003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: SYvG59sYg5fdWavGfNJ+VxT4UQqkdQ0TxfbD0XtLK9bNcFDqLjbTlQynk0+bdduuyPuJv+NbzDUi3VrbiDXugR9VoCTezHutiyLoidjLHonMxtA0SdYujapP9e3XEYonpr994GVNZX/gdF7Su0LLV/s1bo6Tlr5KQ4nLcSZydWwomOdGFOWx8m9hELjgsYI1Lgw2+QPGHIBgKrmjNrrnqX9aPSgtHMbv/210gcKIHCyGzcGl4rjZ6hpLTukMVVJMYj2AUffEvwp3JjhcRkfsM5PERqMMPp7x9M8Z2PT4pzqdyv3xv/17++AYJaJ/d/Io9lN2+FaedLtiQMNlczaDRsUmXWvOEuGYCJqgjsuL0jp+JJWHa9BxX/R1p3uJKlj1lZJlf3xCH1jLHwnINe4rNETivHM3esQVrZ3npocO1mEFVMoSi7QmKk3zb8pPEp5o7dmtZXL4uczM68PM1ExlBxhQJeon2bYb1p2x17YyM6K8uw8uu4l9UGX08C86NOvbIaHQs9Nuq+iWChk8Pei2LWMwBji8ClUEvFOXd39dSLKmjTJYQqup/D28IqAjoWnXHkPMLLOuOKgBXyWaEgNCXSbNGWCYqW9VDWWhRfmL2e7e0SRHx4fErDex4N0q34babvrigIPsCgvRwkLvprMfIXc5VgtOOZ0W4brkqJqgt+3RtcNBHdUcZB6vLBoTuVf5jQphItj8LMtpGEOdl0pO+w==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(36860700016)(1800799024)(82310400026)(56012099006)(11063799006)(261009223027099003)(10067099003)(22082099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(82310400026)(23010399003)(36860700016)(56012099006)(11063799006)(261009221227099003)(261009223027099003)(10067099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: p7v0Mi+RyICGjStE8KOm3UI1gsjRc1DfJFUdC+A6Ovk0tfVAkLDtWAjOR41toU7M544ZPLCeu5h3Qihz/eLqnx7nyomXGy16zl2tsFS/c6MdBcVuyaZE2rcpwAdlSuYtY2suG/bAhI/VJIUh0OmF2THeaCL4d3wv7+dUuI8rxL1iFQuZo+Uy86PNP2t4t4nRMWNbJXx6twoIru+c8Vdx+2TgsADQ9EqyjwJxpk8p7EGUpBWSAkPi865YK+pj86en/MwLObw5Ylm6AICeWeh4LEeynDz1Is8lEtXV28gr8WAL9BaBMuAclIwW76Jx4arJgc5pVyo5JGSIkN8SJ2CJoaHjrcXsiAtWw/Vk8gbfynWI//CC1ndA4yLZPbNlXJ0gKarD31Rus92NGRUDrUPQgklijtAtkXFWEqv0F+5QymcGOBxXnvEeaSBZ+FxxQl90
+X-MS-Exchange-AntiSpam-MessageData-0: MqbBoc67XytU6u4RCzWfyICEDCQUuxgmxETen0hue/xS79HJNIADUFM9QHtTKdQBlHNTpDyiDXgOaoR+oMmOPqgzh0Xxk8cm1F5aUYrgU+Idmyk672q+SZ9FE13EjSGLqzB0WEPwfKz4J4HtHv1Et97t1/kbA92oAnFHErbZLTzECDeQj5lSDZEQhEbW+lVEOEdtV/j/46fVFHFDWVd9jhq6xmhNhH60mup6UMdPSgOsfR9bfsenz17Lk7S88AnDFLA6mH204RPSLNEule4TO1Y0iAeTNXEl3CJ/u5Hm7zSmjA1cUwQnFb9JQfGjNQb9LTWCYOP6I0Hx4EJ0Ebj58nvsG1fRspTs4xa9YSbpYR+RQlEw5qrRCelqc/OwDKd6+g5t53zjxFzEf9xxRd5yQPYfhnYIbL9sqHlYLadutIZSZ1cGkgLaJMrhPAORmjNs
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 06:27:31.1294 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 66c52295-dede-4706-195b-08df2f3c62d5
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 06:27:34.5237 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 88596fc2-28af-4e19-80e2-08df2f3c64ce
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000037A9.namprd03.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF0001854A.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7231
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR12MB5621
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,47 +125,239 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Tony Cheng <tony.cheng@amd.com>
 
-DC only ever writes CUR_VUPDATE_LOCK_SET. A lock left set by a
-previous owner holds cursor updates. Read it into a new
-cur_vupdate_lock field of struct mpcc_state in mpc1_read_mpcc_state,
-for the OPP the MPCC feeds. DCN10, DCN32 and the DCN401 family use
-that reader; DCN20 and DCN30 have their own and leave it unread.
+get_hw_state shows OTG timing but not which DIG drives an OTG, so it
+cannot tell what VBIOS or GOP left lit. Add four opt-in sections,
+read from existing hooks without programming anything:
 
-The field is printed by get_hw_state later in this series.
+BIOS (0x10000): acc_mode from is_accelerated_mode.
+LINK (0x20000): per physical link, the transmitter, HPD, DIG enable,
+mode and frontend, the OTG that frontend sources, the preferred
+engine, and phy_on/phy_active from the RDPCS state.
+DSC (0x40000): clock enable, slice width and bits per pixel.
+CURSOR_LOCK (0x80000): mpcc,opp,cur_lock for each MPCC attached to
+an OPP. A lock on an OPP with no MPCC attached is not reported.
+
+Fields a generation's reader does not fill print -1. The bits sit
+above the original 16, so mask 0 and 0xFFFF return the same text as
+before.
 
 Reviewed-by: Jun Lei <jun.lei@amd.com>
 Signed-off-by: Tony Cheng <tony.cheng@amd.com>
 Signed-off-by: Tom Chung <chiahsuan.chung@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h          | 1 +
- drivers/gpu/drm/amd/display/dc/mpc/dcn10/dcn10_mpc.c | 2 ++
- 2 files changed, 3 insertions(+)
+ .../dc/dcn10/dcn10_hw_sequencer_debug.c       | 173 ++++++++++++++++++
+ 1 file changed, 173 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h b/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
-index 75ebfab87efc..a0a8ab195533 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h
-@@ -298,6 +298,7 @@ struct mpcc_state {
- 	uint32_t overlap_only;
- 	uint32_t idle;
- 	uint32_t busy;
-+	uint32_t cur_vupdate_lock;
- 	uint32_t shaper_lut_mode;
- 	uint32_t lut3d_mode;
- 	uint32_t lut3d_bit_depth;
-diff --git a/drivers/gpu/drm/amd/display/dc/mpc/dcn10/dcn10_mpc.c b/drivers/gpu/drm/amd/display/dc/mpc/dcn10/dcn10_mpc.c
-index f9bd1d6e1642..a737887b7c71 100644
---- a/drivers/gpu/drm/amd/display/dc/mpc/dcn10/dcn10_mpc.c
-+++ b/drivers/gpu/drm/amd/display/dc/mpc/dcn10/dcn10_mpc.c
-@@ -453,6 +453,8 @@ void mpc1_read_mpcc_state(
- 			MPCC_BLND_ACTIVE_OVERLAP_ONLY, &s->overlap_only);
- 	REG_GET_2(MPCC_STATUS[mpcc_inst], MPCC_IDLE, &s->idle,
- 			MPCC_BUSY, &s->busy);
-+	if (s->opp_id < MAX_OPP && mpc10->mpc_regs->CUR[s->opp_id])
-+		REG_GET(CUR[s->opp_id], CUR_VUPDATE_LOCK_SET, &s->cur_vupdate_lock);
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer_debug.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer_debug.c
+index feb6ca92802c..37a010e0bd6e 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer_debug.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer_debug.c
+@@ -44,6 +44,7 @@
+ #include "dcn10/dcn10_hubbub.h"
+ #include "dcn10_cm_common.h"
+ #include "clk_mgr.h"
++#include "dsc.h"
+ 
+ __printf(3, 4)
+ unsigned int snprintf_count(char *pbuf, unsigned int bufsize, const char *fmt, ...)
+@@ -488,6 +489,149 @@ static unsigned int dcn10_get_clock_states(struct dc *dc, char *pBuf, unsigned i
+ 	return bufSize - remaining_buffer;
  }
  
- void mpc1_cursor_lock(struct mpc *mpc, int opp_id, bool lock)
++static unsigned int dcn10_get_bios_state(struct dc *dc, char *pBuf, unsigned int bufSize)
++{
++	struct dc_bios *bios = dc->ctx->dc_bios;
++	int acc_mode = -1;
++
++	if (bios && bios->funcs->is_accelerated_mode)
++		acc_mode = bios->funcs->is_accelerated_mode(bios);
++
++	return snprintf_count(pBuf, bufSize, "acc_mode\n%d\n", acc_mode);
++}
++
++/* Preset in a read_state struct for fields that only some generations read. */
++#define HW_STATE_NOT_READ 0xFFFFFFFF
++
++static int dcn10_dig_source_otg(struct dc *dc, unsigned int fe)
++{
++	struct resource_pool *pool = dc->res_pool;
++	unsigned int i;
++
++	for (i = 0; i < pool->stream_enc_count; i++) {
++		struct stream_encoder *se = pool->stream_enc[i];
++
++		if (se && se->id == fe && se->funcs->dig_source_otg)
++			return se->funcs->dig_source_otg(se);
++	}
++	return -1;
++}
++
++static unsigned int dcn10_get_link_states(struct dc *dc, char *pBuf, unsigned int bufSize)
++{
++	unsigned int chars_printed = 0;
++	unsigned int remaining_buffer = bufSize;
++	unsigned int i;
++
++	chars_printed = snprintf_count(pBuf, remaining_buffer,
++		"link,enc,hpd,dig_en,dig_mode,dig_fe,src_otg,preferred_otg,phy_on,phy_active\n");
++	remaining_buffer -= chars_printed;
++	pBuf += chars_printed;
++
++	for (i = 0; i < dc->link_count && remaining_buffer > 0; i++) {
++		struct dc_link *link = dc->links[i];
++		struct link_encoder *enc = link ? link->link_enc : NULL;
++		int hpd = -1, dig_en = -1, dig_mode = -1, dig_fe = -1, src_otg = -1;
++		int phy_on = -1, phy_active = -1;
++		struct link_enc_state s = {0};
++
++		if (!enc || link->connector_signal == SIGNAL_TYPE_VIRTUAL)
++			continue;
++
++		if (enc->funcs->get_hpd_state)
++			hpd = enc->funcs->get_hpd_state(enc);
++		if (enc->funcs->is_dig_enabled)
++			dig_en = enc->funcs->is_dig_enabled(enc);
++		if (dig_en == 1 && enc->funcs->get_dig_mode)
++			dig_mode = enc->funcs->get_dig_mode(enc);
++		if (dig_en == 1 && enc->funcs->get_dig_frontend) {
++			dig_fe = enc->funcs->get_dig_frontend(enc);
++			src_otg = dcn10_dig_source_otg(dc, dig_fe);
++		}
++		s.rdpcs_phy_reset = HW_STATE_NOT_READ;
++		s.rdpcs_tx_data_en = HW_STATE_NOT_READ;
++		if (enc->funcs->read_state)
++			enc->funcs->read_state(enc, &s);
++		if (s.rdpcs_phy_reset != HW_STATE_NOT_READ)
++			phy_on = s.rdpcs_phy_reset == 0;
++		if (s.rdpcs_tx_data_en != HW_STATE_NOT_READ)
++			phy_active = s.rdpcs_tx_data_en != 0;
++
++		chars_printed = snprintf_count(pBuf, remaining_buffer,
++			"%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\n",
++			i, enc->transmitter, hpd, dig_en, dig_mode, dig_fe,
++			src_otg, enc->preferred_engine, phy_on, phy_active);
++		remaining_buffer -= chars_printed;
++		pBuf += chars_printed;
++	}
++
++	return bufSize - remaining_buffer;
++}
++
++static unsigned int dcn10_get_dsc_states(struct dc *dc, char *pBuf, unsigned int bufSize)
++{
++	struct resource_pool *pool = dc->res_pool;
++	unsigned int chars_printed = 0;
++	unsigned int remaining_buffer = bufSize;
++	unsigned int i;
++
++	if (pool->res_cap->num_dsc == 0)
++		return 0;
++
++	chars_printed = snprintf_count(pBuf, remaining_buffer,
++		"dsc,clock_en,slice_width,bits_pp\n");
++	remaining_buffer -= chars_printed;
++	pBuf += chars_printed;
++
++	for (i = 0; i < (unsigned int)pool->res_cap->num_dsc && remaining_buffer > 0; i++) {
++		struct display_stream_compressor *dsc = pool->dscs[i];
++		struct dcn_dsc_state s = {0};
++
++		if (!dsc || !dsc->funcs->dsc_read_state)
++			continue;
++
++		dsc->funcs->dsc_read_state(dsc, &s);
++		chars_printed = snprintf_count(pBuf, remaining_buffer,
++			"%d,%d,%d,%d\n", i, s.dsc_clock_en,
++			s.dsc_slice_width, s.dsc_bits_per_pixel);
++		remaining_buffer -= chars_printed;
++		pBuf += chars_printed;
++	}
++
++	return bufSize - remaining_buffer;
++}
++
++static unsigned int dcn10_get_cursor_lock_states(struct dc *dc, char *pBuf, unsigned int bufSize)
++{
++	struct resource_pool *pool = dc->res_pool;
++	unsigned int chars_printed = 0;
++	unsigned int remaining_buffer = bufSize;
++	unsigned int i;
++
++	chars_printed = snprintf_count(pBuf, remaining_buffer, "mpcc,opp,cur_lock\n");
++	remaining_buffer -= chars_printed;
++	pBuf += chars_printed;
++
++	for (i = 0; i < pool->mpcc_count && remaining_buffer > 0; i++) {
++		struct mpcc_state s = {0};
++		int lock = -1;
++
++		s.cur_vupdate_lock = HW_STATE_NOT_READ;
++		pool->mpc->funcs->read_mpcc_state(pool->mpc, i, &s);
++		if (s.opp_id == 0xf)
++			continue;
++		if (s.cur_vupdate_lock != HW_STATE_NOT_READ)
++			lock = s.cur_vupdate_lock;
++
++		chars_printed = snprintf_count(pBuf, remaining_buffer, "%d,%d,%d\n",
++			i, s.opp_id, lock);
++		remaining_buffer -= chars_printed;
++		pBuf += chars_printed;
++	}
++
++	return bufSize - remaining_buffer;
++}
++
+ static void dcn10_clear_otpc_underflow(struct dc *dc)
+ {
+ 	struct resource_pool *pool = dc->res_pool;
+@@ -548,6 +692,7 @@ void dcn10_get_hw_state(struct dc *dc, char *pBuf, unsigned int bufSize, unsigne
+ 	 *  Mask Format
+ 	 *  Bit 0 - 15: Hardware block mask
+ 	 *  Bit 15: 1 = Invariant Only, 0 = All
++	 *  Bit 16 and up: opt-in blocks, never selected by mask 0
+ 	 */
+ 	const unsigned int DC_HW_STATE_MASK_HUBBUB			= 0x1;
+ 	const unsigned int DC_HW_STATE_MASK_HUBP			= 0x2;
+@@ -559,6 +704,10 @@ void dcn10_get_hw_state(struct dc *dc, char *pBuf, unsigned int bufSize, unsigne
+ 	const unsigned int DC_HW_STATE_MASK_OTG				= 0x80;
+ 	const unsigned int DC_HW_STATE_MASK_CLOCKS			= 0x100;
+ 	const unsigned int DC_HW_STATE_INVAR_ONLY			= 0x8000;
++	const unsigned int DC_HW_STATE_MASK_BIOS			= 0x10000;
++	const unsigned int DC_HW_STATE_MASK_LINK			= 0x20000;
++	const unsigned int DC_HW_STATE_MASK_DSC				= 0x40000;
++	const unsigned int DC_HW_STATE_MASK_CURSOR_LOCK		= 0x80000;
+ 
+ 	unsigned int chars_printed = 0;
+ 	unsigned int remaining_buf_size = bufSize;
+@@ -619,4 +768,28 @@ void dcn10_get_hw_state(struct dc *dc, char *pBuf, unsigned int bufSize, unsigne
+ 		pBuf += chars_printed;
+ 		remaining_buf_size -= chars_printed;
+ 	}
++
++	if ((mask & DC_HW_STATE_MASK_BIOS) && remaining_buf_size > 0) {
++		chars_printed = dcn10_get_bios_state(dc, pBuf, remaining_buf_size);
++		pBuf += chars_printed;
++		remaining_buf_size -= chars_printed;
++	}
++
++	if ((mask & DC_HW_STATE_MASK_LINK) && remaining_buf_size > 0) {
++		chars_printed = dcn10_get_link_states(dc, pBuf, remaining_buf_size);
++		pBuf += chars_printed;
++		remaining_buf_size -= chars_printed;
++	}
++
++	if ((mask & DC_HW_STATE_MASK_DSC) && remaining_buf_size > 0) {
++		chars_printed = dcn10_get_dsc_states(dc, pBuf, remaining_buf_size);
++		pBuf += chars_printed;
++		remaining_buf_size -= chars_printed;
++	}
++
++	if ((mask & DC_HW_STATE_MASK_CURSOR_LOCK) && remaining_buf_size > 0) {
++		chars_printed = dcn10_get_cursor_lock_states(dc, pBuf, remaining_buf_size);
++		pBuf += chars_printed;
++		remaining_buf_size -= chars_printed;
++	}
+ }
 -- 
 2.43.0
 
