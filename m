@@ -2,42 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E6A9606A31B
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Oct 2026 06:27:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D36D606A31A
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Oct 2026 06:27:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=rMQJWTaw
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=p4+wM5Mc
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B23E10F954;
-	Wed, 21 Oct 2026 06:26:58 +0000 (UTC)
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010017.outbound.protection.outlook.com [52.101.201.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C20CA10F952
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2026 06:26:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEB6910F952;
+	Wed, 21 Oct 2026 06:27:01 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013008.outbound.protection.outlook.com
+ [40.107.201.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 555C510F956
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2026 06:26:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wWkNls92y0N7KMVP2FmH0/HHZ7AslulVW7tFA2M9VVxT8vmHzcw2D2wKHI7uHSjKfToLmgZUbA4+C4umcQ1k+KevoNd9fAN95K6DsHYMFYf1HyiOMYn9B2bzqHbvBiPKEgWNnQn7qorTmGgbNxlkTFzDytVujERoxnaVDKto/WTSd7QSWuWk4F3Cy/EIetbOe9RyOPBfbFC3WSZn0pMF0zFf+7Z7qusuGX4mAQPjFZ3D7O0Zysbz4v3ez1Z+hG3SOaD1K1ZK2/qF1sbclUQldnIye9RFMMUwXIIsKmadCmhWqBPZJn+nPYblWJCSvrHhCS8PD09424MkulpjEK44Pw==
+ b=lRMX2dsXezI3cD04GB9yaanS8+4z8QxSRIO2z+mg8ehlRTVon/uad+n0CJ2+9iJS1csymi67lRIMfno6bhDxsBrBZ17G0uQx/U7hJPmm2xgPPXrkzG1rxRmgmz2lE5Zd1i9ypP9f4WFKv7e3V65PxGSYqgTLYiyxS5hNcvOjoHZsHl2vqy/CFJb/V02kDe7DqcJXbF3u0HH0fZAV88OY0LKKAxJ9+u5RoptJOJriblGG48YFGnx09VrY8qAHx3DV30culbF+d7y4zWN6oFZGkk9MjfpWmuNUIO7uLwNMMjIxNAFPrVXwyiMmuOLMlvOey3MCs/kIGI56p9xEP6hdAA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=r2VuSEtnhp/P8HIH1/yUUfog555tHzOv6FT4rMoHlt8=;
- b=XAWeF45Q6CIV3FIHvJOSPjv8X/HJD7fbuJX2AmxAV2P5+QsGAP6m0Mn/ptRLbeE+0lD+gWuW1a1/kdbIndRl3F4ffKQuDsSTU0vCGrWk/XbPZvkpPgXNkTupGrHP8hOCkDKNsFSgu/cYnGxeoEdFP2NznAHp5kAQ2FGlhb+EJLSNj6FXHgxesn2wVap4GuGVBnRNkvYwBud3C3/F/2IYWHsotqxqr75iWu1KtBeCvvqgYXR9/+9XzxKEDX+DbV/Seo8PeCudirYoXk7VJSO0RF7KrzVXCOmK6gVfkcT3DFzkxkzRHLHV0WA9W+W+jAbnHh+SXqt6hQzLOvw6zBkMPg==
+ bh=8XtVhmRz8LvOtt2ZxhCbkdqgEUtAi78/ib2PGkuUhSk=;
+ b=Bct4avvsvJ+WI1kAKki+ItXLo/4h4eG98p58Elkt42JjYms8zZy5ZIyiUiYmNzuJt7sVg5qIV3xkDaxx0f/PrXzUeqPv1DMUIxRT5xRpQcYTtXsKqnVAgh6CSo8iqYi2Ldl2Ko0GB0uN3CTY/ZKBz0+PzKiAswa5s30ZOMJur0JpKhtPWeQe041lxxx4VPbrKexcN2slkTv9u3Z6uSjSZK1FILGc+GLptsbyZhjFw/dOpMP4PV6oZUcbytXKXTcsHe2eU5y2+aoA2Nuy59MwtZzSd7kW52A5jX3rRzZ0vA3R4ByzUTvQRh3lNrwEoKERPftj/gs01g+FEET3bWmN4Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=r2VuSEtnhp/P8HIH1/yUUfog555tHzOv6FT4rMoHlt8=;
- b=rMQJWTawFKO8/ZuVtgigCba/eAJ8K0Zph254+0NauCKFCEkS7NrB6XXy42/DQa5AOyybGdhd43adZkTFjSltYLp0Loz0aQcXnyFMgLbhUHNfU8cBYGA3QOrEYvbYoExQPqIwWyzLUoD+IFQT1U7WHvs3ELzlgX2Z2AYZhYzko+c=
-Received: from BN9PR03CA0322.namprd03.prod.outlook.com (2603:10b6:408:112::27)
- by PH8PR12MB7183.namprd12.prod.outlook.com (2603:10b6:510:228::20)
+ bh=8XtVhmRz8LvOtt2ZxhCbkdqgEUtAi78/ib2PGkuUhSk=;
+ b=p4+wM5Mc5mCX84avVDZ+2RZT/cJ1ljtWli2kpmO/8CXbrCRSw1y+O1MpGWYfo/JPE44r/9FYADVdJpzS1mwqRa8tj0rCZ2NAcUGHn9/94hRqzbG26p8nNdIGYBihnxrkf9/ZISZ6yKknt6w/Vu/K0gtXuW748scqHb73AnfDA7A=
+Received: from BN9P223CA0009.NAMP223.PROD.OUTLOOK.COM (2603:10b6:408:10b::14)
+ by IA1PR12MB7712.namprd12.prod.outlook.com (2603:10b6:208:420::9)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
- 2026 06:26:47 +0000
-Received: from BN1PEPF00018547.namprd05.prod.outlook.com
- (2603:10b6:408:112:cafe::79) by BN9PR03CA0322.outlook.office365.com
- (2603:10b6:408:112::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Wed,
- 21 Oct 2026 06:26:47 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.18; Wed, 21 Oct
+ 2026 06:26:51 +0000
+Received: from BN1PEPF00018549.namprd05.prod.outlook.com
+ (2603:10b6:408:10b:cafe::38) by BN9P223CA0009.outlook.office365.com
+ (2603:10b6:408:10b::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Wed, 21
+ Oct 2026 06:26:51 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -46,20 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN1PEPF00018547.mail.protection.outlook.com (10.167.248.6) with Microsoft
+ BN1PEPF00018549.mail.protection.outlook.com (10.167.248.8) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.15 via Frontend Transport; Wed, 21 Oct 2026 06:26:47 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ 15.21.546.15 via Frontend Transport; Wed, 21 Oct 2026 06:26:51 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 21 Oct
- 2026 01:26:47 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 21 Oct
- 2026 01:26:46 -0500
+ 2026 01:26:50 -0500
 Received: from tom-r5.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Wed, 21 Oct 2026 01:26:43 -0500
+ Transport; Wed, 21 Oct 2026 01:26:47 -0500
 From: Tom Chung <chiahsuan.chung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -70,10 +67,9 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
  <Chen-Yu.Chen@amd.com>, Tony Cheng <tony.cheng@amd.com>, Jun Lei
  <jun.lei@amd.com>
-Subject: [PATCH 23/49] drm/amd/display: Split dcn401 init register writes into
- hwseq funcs
-Date: Wed, 21 Oct 2026 14:22:29 +0800
-Message-ID: <20261021062519.674697-24-chiahsuan.chung@amd.com>
+Subject: [PATCH 24/49] drm/amd/display: Add dal_gpio_ddc_open_aux_once
+Date: Wed, 21 Oct 2026 14:22:30 +0800
+Message-ID: <20261021062519.674697-25-chiahsuan.chung@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261021062519.674697-1-chiahsuan.chung@amd.com>
 References: <20261021062519.674697-1-chiahsuan.chung@amd.com>
@@ -83,29 +79,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00018547:EE_|PH8PR12MB7183:EE_
-X-MS-Office365-Filtering-Correlation-Id: 799c02d1-b3bc-469d-6d80-08df2f3c48e1
+X-MS-TrafficTypeDiagnostic: BN1PEPF00018549:EE_|IA1PR12MB7712:EE_
+X-MS-Office365-Filtering-Correlation-Id: 91ff4ca0-cad2-4784-c48b-08df2f3c4aef
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|23010399003|36860700016|1800799024|376014|6133799003|22082099003|18002099003|3023799007|11063799006|5023799004|10067099003|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info: Vsj6v/UPfZ3ETeZi0jZfaj7u+K9awBP36xm8W5oCXhwiO+ix0KkFLw+/neX71m6Sdsygt8DSGPR1dDsgT1wlfiyxGwftE7OzQ0uAmn8FeBnw0Fw5J36+ylJFUv4fKl2PvSpO9gdKDVvS37SwjbGi6RUgq1pmyxQpZu8WQHLZ7mrQ/3EGmGXRCHZ+9m+GWPa6C8sTQISlNQKl6ViEhwW/OXtxLXtUPDKLB07kTDSukqGylTrTq5ywCOD+KB3yTYNFw9uwihRfBiTAFKARZwcAwWTTo1UP0nl7b96zP1dovI9OwwqU0VVx1VDkYSVPFaDxrnbcLQNy6YCHLUoXowhaHT4NBSncV9FxVQ9BODBdhGT4kuKBeNwe5MzeN+n6Yfz8u6EUYYUB3WzBE5vbql6Ju3Qacwi7fbCx3nHE6GKDeTcbAW0JpgOZSAGkWTJ8vtRQ4y5vWoow8s/gUB+U+I9A5LFMbGRW1wDo68p5il23g4He6RqcftsW/x1fSebFG9nrJJuYEXPz4ioXVyn2skUyqrOjwLxcXCfziroPO7dSpLoe9xyWEGQVuHnlBgjw7uIi3piIYZFTTMUixT0B3JsuFPk4sJ7C6n7fJTFaS4aglqiHhyC9CIuJlZHdESvxEJXft1zeefotWrxKpb46Gb290168zNltjQHStUIz/irFWedXtv/tAaIjbKPtMsANLQc4dIsvoJxUg7qnEMNql7bFnA==
+ ARA:13230040|36860700016|82310400026|376014|1800799024|23010399003|22082099003|18002099003|10067099003|11063799006|5023799004|56012099006|261009223027099003;
+X-Microsoft-Antispam-Message-Info: gB6Kc5mi5n1QCihvyDGGZ9kk62pz+n1iFBaZfdl/lJUOwl0E7yxLqLGgj0JFFMF1agbQaU9FTquHBFUeMp3sU31vfa33Sp1AYmVOCIbEfJogKUSZegOkiE0AcvT/SXSzAEpCIsOF1tpwKzQHlFWHM7XXxeDON2LIlN9AW45CtKgxMmgkwrr4Fwax3DhvjxyzALxquXRz3WrqloFzSfREHeVw08K1BtI2EJbuNwpOVZRMgEaurTn3SKXCda7EeGAut+Tpv9ZbV3DONjb+pYQZgKz86UWTI4DWKILKTkIUuydcfa/q+87rwQJl0pxkINBQajHbfnBAiXen6XywDbS/EFp+t2HB8MyDl6x/4gfLf3O4vtOoKOZUzR13WDHsh+3XC6MqOy8Ea+BtJxMWkJ9hCoDsqn0fbZtn2HsZzZ+vWai4hh4Dguor5inJ3ktUesxvDHAx18NqhQ2vClUv/bH3dkhZoWz19/tzZw2HDm2KATMNT5KWRQZP9XvO6VIEbeFjqLqxf/6Ug0cFS6kH4JZOg11vZ2paNKFxgXqoJ5sDgVuoUUZlVnS9f/vq92C56WvRDTPWAvb7moBn12+J5jeBLzl4rm9g7ZddBg7YbTWvm8/JbSAng1pQUzkeN8UXCjRzUmqlpIBpTRmmrG6hqauD4yTGJjUgWD47S/o9q4kdBAcaZnN3CR16WOPfPfZOdS25DILxb/BDQUmOYLXVGxIWMA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(23010399003)(36860700016)(1800799024)(376014)(6133799003)(22082099003)(18002099003)(3023799007)(11063799006)(5023799004)(10067099003)(261009223027099003)(56012099006);
+ SFS:(13230040)(36860700016)(82310400026)(376014)(1800799024)(23010399003)(22082099003)(18002099003)(10067099003)(11063799006)(5023799004)(56012099006)(261009223027099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: UeJXc7BasokC4URbxUZbuzu8eAx5vXEuddd7TivG6zffFrBbY/1Vnc/rxlx8qZqWuWPZAFuJMT2pwZVgEl9hhOUGnbklc6QankOA0WsCyMvjtwfFU6xfbE5L6bwXyKfSnos4u/GF3tO16/afjBy7mf30ALthB++LhfBnpKHENuLSNCAtLx0HLL/PFeZNOJRi9DHI8iYxG3SIK1k8vhdKYl0lmuJy19EpL+p2qUPifDg1s1Yrz5FDiACLuidkHtLoQcLqykwY7VIvT9fPCGtWFpEaIM5fKN+gseqK8W74q8wGwSDSHHUzWzscPlx0yUgHaGrNEpTSAoemWb2rlmCC5DjlFzwNoVsrcp/tKjboJBmrwiu8ZU/G1IfutgMu4t7Pd4fpTArGyo6bLg4zVKRpZayOk+x0OMvU6cQAnRyO615S8FMDnGtFrx4BNdRfyuqU
+X-MS-Exchange-AntiSpam-MessageData-0: ynCFsBnX35f5gSgjEiQntG3owmVLlgqes+g1lbZiTvhLd6Q5KzDN9LtW3bZxj9ww8/O8FbpIP/e2XuN+Jh+dnMDgP0gJVaZE1ClqVrnpn74kWrJmcEB6hDc+olKlFowmKtI9/OGhcXQ0ALSAtAeVtT85E7VCfux/b6TvI+oLQZ3b/iTSCG+Y76Ncfpsb4bf3fjcW2sX6zwTCPxcZ2Z60QziAyoIpbUw/T0cD1lvheov4iqI+uhxGl/0osXXAuHWUO4hPOA7zMHv419884ZuK7NRlaRlqC1J7vtTrT6aJy1kbz4ElKrRnBr/nBDzIQK5broaAdpCnFX4bOvFQEicqtI8NsxrwcLtz9fcJnmSD7H7D0oCWkHlv+EPV2eTgZcx3AcfutjjDxM0FNCdUD02BJ5Z9s1WZ5/vzYslPQmgCgcK27v+3/NLfIsch9y0t9jnm
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 06:26:47.6749 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 799c02d1-b3bc-469d-6d80-08df2f3c48e1
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 06:26:51.1238 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 91ff4ca0-cad2-4784-c48b-08df2f3c4aef
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00018547.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00018549.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7183
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7712
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,139 +122,71 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 From: Tony Cheng <tony.cheng@amd.com>
 
 [Why]
-DC2_DC1_Wrapped replays dcn401_init_hw as BLS entries, and the
-Executor may only call component functions, not program registers.
-dcn401_init_hw writes ODM_MEM_PWR_CTRL3, MMHUBBUB_MEM_PWR_CNTL and
-DCFCLK_CNTL inline, so the Executor has nothing to call for them.
+dcn401_init_hw switches each link's DDC pad to AUX mode with a
+create, open, destroy sequence on a stack ddc. The BLS Executor needs
+that sequence as one call it can dispatch from a flat parameter
+block.
 
 [How]
-Move each inline write into a dcn401 hwseq function with the same
-REG_* call, and call it from dcn401_init_hw:
-- dcn401_init_odm_mem_power
-- dcn401_power_down_vga_mem
-- dcn401_dcfclk_gating_control (GATE_DIS = !enable)
-
-Expose them, plus init_hpo_hw_control for the HPO_IO_EN write, as
-hwseq_private_funcs. init_hpo_hw_control is separate from
-setup_hpo_hw_control because setup also runs on every commit.
-
-No functional change: the register writes, values and order in
-dcn401_init_hw are the same.
+Add dal_gpio_ddc_open_aux_once(service, offset, mask, info). It copies
+the hw_info, creates the DDC, opens it in GPIO_MODE_HARDWARE with
+GPIO_DDC_CONFIG_TYPE_MODE_AUX, and destroys it. Nothing calls it yet.
 
 Reviewed-by: Jun Lei <jun.lei@amd.com>
 Signed-off-by: Tony Cheng <tony.cheng@amd.com>
 Signed-off-by: Tom Chung <chiahsuan.chung@amd.com>
 ---
- .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c | 30 +++++++++++++------
- .../amd/display/dc/hwss/dcn401/dcn401_hwseq.h |  3 ++
- .../amd/display/dc/hwss/dcn401/dcn401_init.c  |  4 +++
- .../display/dc/hwss/hw_sequencer_private.h    |  8 +++++
- 4 files changed, 36 insertions(+), 9 deletions(-)
+ .../drm/amd/display/dc/gpio/gpio_service.c    | 19 +++++++++++++++++++
+ .../display/include/gpio_service_interface.h  |  6 ++++++
+ 2 files changed, 25 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-index f2391d45d4c5..e1f391dbf15c 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-@@ -169,15 +169,11 @@ void dcn401_init_hw(struct dc *dc)
- 	//}
- 
- 	// Set default OPTC memory power states
--	if (dc->debug.enable_mem_low_power.bits.optc) {
--		// Shutdown when unassigned and light sleep in VBLANK
--		REG_SET_2(ODM_MEM_PWR_CTRL3, 0, ODM_MEM_UNASSIGNED_PWR_MODE, 3, ODM_MEM_VBLANK_PWR_MODE, 1);
--	}
-+	if (dc->debug.enable_mem_low_power.bits.optc)
-+		dcn401_init_odm_mem_power(hws);
- 
--	if (dc->debug.enable_mem_low_power.bits.vga) {
--		// Power down VGA memory
--		REG_UPDATE(MMHUBBUB_MEM_PWR_CNTL, VGA_MEM_PWR_FORCE, 1);
--	}
-+	if (dc->debug.enable_mem_low_power.bits.vga)
-+		dcn401_power_down_vga_mem(hws);
- 
- 	if (dc->ctx->dc_bios->fw_info_valid) {
- 		res_pool->ref_clocks.xtalin_clock_inKhz =
-@@ -367,7 +363,7 @@ void dcn401_init_hw(struct dc *dc)
- 		if (dc->res_pool->dccg && dc->res_pool->dccg->funcs && dc->res_pool->dccg->funcs->allow_clock_gating)
- 			dc->res_pool->dccg->funcs->allow_clock_gating(dc->res_pool->dccg, true);
- 
--		REG_UPDATE(DCFCLK_CNTL, DCFCLK_GATE_DIS, 0);
-+		dcn401_dcfclk_gating_control(hws, true);
- 	}
- 
- 	dcn401_setup_hpo_hw_control(hws, true);
-@@ -981,6 +977,22 @@ void dcn401_setup_hpo_hw_control(const struct dce_hwseq *hws, bool enable)
- 	REG_UPDATE(HPO_TOP_HW_CONTROL, HPO_IO_EN, enable);
+diff --git a/drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c b/drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c
+index 95f8b7c7d657..66010841dcf8 100644
+--- a/drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c
++++ b/drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c
+@@ -552,6 +552,25 @@ void dal_gpio_destroy_ddc(
+ 	*ddc = NULL;
  }
  
-+void dcn401_init_odm_mem_power(struct dce_hwseq *hws)
++/* Switch the DDC pad to AUX mode, one time only. */
++void dal_gpio_ddc_open_aux_once(
++	struct gpio_service *service,
++	uint32_t offset,
++	uint32_t mask,
++	const struct gpio_ddc_hw_info *info)
 +{
-+	// Shutdown when unassigned and light sleep in VBLANK
-+	REG_SET_2(ODM_MEM_PWR_CTRL3, 0, ODM_MEM_UNASSIGNED_PWR_MODE, 3, ODM_MEM_VBLANK_PWR_MODE, 1);
++	struct gpio_ddc_hw_info hw_info = *info;
++	struct ddc *ddc_pin;
++
++	ddc_pin = dal_gpio_create_ddc(service, offset, mask, &hw_info);
++	if (!ddc_pin)
++		return;
++
++	dal_ddc_open(ddc_pin, GPIO_MODE_HARDWARE,
++			GPIO_DDC_CONFIG_TYPE_MODE_AUX);
++	dal_gpio_destroy_ddc(&ddc_pin);
 +}
 +
-+void dcn401_power_down_vga_mem(struct dce_hwseq *hws)
-+{
-+	REG_UPDATE(MMHUBBUB_MEM_PWR_CNTL, VGA_MEM_PWR_FORCE, 1);
-+}
-+
-+void dcn401_dcfclk_gating_control(struct dce_hwseq *hws, bool enable)
-+{
-+	REG_UPDATE(DCFCLK_CNTL, DCFCLK_GATE_DIS, !enable);
-+}
-+
- void adjust_hotspot_between_slices_for_2x_magnify(uint32_t cursor_width, struct dc_cursor_position *pos_cpy)
- {
- 	if (cursor_width <= 128) {
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.h b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.h
-index 9df72e980e7a..d5853cd01a93 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.h
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.h
-@@ -50,6 +50,9 @@ enum dc_status dcn401_enable_stream_timing(
- 				struct dc *dc);
- void dcn401_enable_stream(struct pipe_ctx *pipe_ctx);
- void dcn401_setup_hpo_hw_control(const struct dce_hwseq *hws, bool enable);
-+void dcn401_init_odm_mem_power(struct dce_hwseq *hws);
-+void dcn401_power_down_vga_mem(struct dce_hwseq *hws);
-+void dcn401_dcfclk_gating_control(struct dce_hwseq *hws, bool enable);
+ enum gpio_result dal_ddc_open(
+ 	struct ddc *ddc,
+ 	enum gpio_mode mode,
+diff --git a/drivers/gpu/drm/amd/display/include/gpio_service_interface.h b/drivers/gpu/drm/amd/display/include/gpio_service_interface.h
+index 63813009a3a6..130c78600b6e 100644
+--- a/drivers/gpu/drm/amd/display/include/gpio_service_interface.h
++++ b/drivers/gpu/drm/amd/display/include/gpio_service_interface.h
+@@ -77,6 +77,12 @@ struct ddc *dal_gpio_create_ddc(
+ void dal_gpio_destroy_ddc(
+ 	struct ddc **ddc);
  
- void dcn401_disable_link_output(struct dc_link *link,
- 		const struct link_resource *link_res,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_init.c
-index 1a387e52218d..dbeda44ebc8e 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_init.c
-@@ -150,6 +150,10 @@ static const struct hwseq_private_funcs dcn401_private_funcs = {
- 	.plane_atomic_power_down = dcn401_plane_atomic_power_down,
- 	.plane_atomic_power_down_sequence = dcn401_plane_atomic_power_down_sequence,
- 	.enable_power_gating_plane = dcn32_enable_power_gating_plane,
-+	.init_hpo_hw_control = dcn401_setup_hpo_hw_control,
-+	.init_odm_mem_power = dcn401_init_odm_mem_power,
-+	.power_down_vga_mem = dcn401_power_down_vga_mem,
-+	.dcfclk_gating_control = dcn401_dcfclk_gating_control,
- 	.hubp_pg_control = dcn32_hubp_pg_control,
- 	.program_all_writeback_pipes_in_tree = dcn30_program_all_writeback_pipes_in_tree,
- 	.program_all_writeback_pipes_in_tree_sequence = dcn401_program_all_writeback_pipes_in_tree_sequence,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer_private.h b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer_private.h
-index 9c5e9abf5a95..91a84fb50b59 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer_private.h
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer_private.h
-@@ -203,6 +203,14 @@ struct hwseq_private_funcs {
- 	void (*PLAT_58856_wa)(struct dc_state *context,
- 			struct pipe_ctx *pipe_ctx);
- 	void (*setup_hpo_hw_control)(const struct dce_hwseq *hws, bool enable);
-+	/*
-+	 * Init-time only. setup_hpo_hw_control also drives the HPO toggle
-+	 * on every commit, so a DCN that leaves it unset keeps it unset.
-+	 */
-+	void (*init_hpo_hw_control)(const struct dce_hwseq *hws, bool enable);
-+	void (*init_odm_mem_power)(struct dce_hwseq *hws);
-+	void (*power_down_vga_mem)(struct dce_hwseq *hws);
-+	void (*dcfclk_gating_control)(struct dce_hwseq *hws, bool enable);
- 	void (*enable_plane)(struct dc *dc, struct pipe_ctx *pipe_ctx,
- 			       struct dc_state *context);
- 	void (*program_mall_pipe_config)(struct dc *dc, struct dc_state *context);
++void dal_gpio_ddc_open_aux_once(
++	struct gpio_service *service,
++	uint32_t offset,
++	uint32_t mask,
++	const struct gpio_ddc_hw_info *info);
++
+ void dal_gpio_service_destroy(
+ 	struct gpio_service **ptr);
+ 
 -- 
 2.43.0
 
