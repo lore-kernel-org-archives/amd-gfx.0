@@ -2,80 +2,55 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41DF4606A319
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2026 13:04:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 439E4606A31B
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2026 13:04:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UvkrjmIo
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=LZcRw+G2
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1CA410E3F1;
-	Thu, 22 Oct 2026 13:04:17 +0000 (UTC)
-Received: from mail-vs1-f47.google.com (mail-vs1-f47.google.com
- [209.85.217.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95BCD10E3FB
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2026 11:48:17 +0000 (UTC)
-Received: by mail-vs1-f47.google.com with SMTP id
- ada2fe7eead31-7cc91ddf447so576158137.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2026 04:48:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792669696; x=1793274496; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=BzvnC7BX4lHpgCzhnJO5oI/EjW4Sy80MjAmOtqEc83U=;
- b=UvkrjmIoi8TdGtD9zp35rtjT/Qz4DcSsNBRHaYC2ikaIBpJXrBYSKp0b1GKJIyJXZG
- XNJs1iQA7vO83tdft7HckuPy9WLIsxyk0wMNwMfjuajmWVDxhKjP4Kt/I8I/L89G1DEq
- F4F2X6Z5qqT1bv2Ejk9iwPwiG0En2nvDbuY068VRH0bLBvjT8z+4y7R6DlItn6vaSXLD
- 7KltdZIX6Om3xPRjFpxdqly4DDUeByrhsDiuVm0GkfSgG0AXZNZcZZ5sctipeHb2ocA4
- XREtBlNLEkW3GxTI3d6LWpitqsQ2RdVr0RHIgBkb5zIAPycVF6uMnvoqDdiF3/Balh2Q
- yJ+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792669696; x=1793274496;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=BzvnC7BX4lHpgCzhnJO5oI/EjW4Sy80MjAmOtqEc83U=;
- b=YjhHY0VN5OT0epVku2m7mPPD14hhv7EUobJubeYGHd/eU4VVeZ1yAE8iG/vIMiugHE
- pU/6nWvJky1EZqM1/1JIk3/Hi/gVknS6Iome2vfBlDG80AXP45Ul+4z1ZIt3/ZrYa6VW
- KIHRaoHC1hxqM3SDNwzTbluTgS7mv4cRIWGXlORUjZYTB65QnPlbkWDt3V57hPnqSkvb
- Il19gbsFmLq3ciR26KNuyz+ggQCA4JXM3+anWwZRgJmO+mNQYV4nOCDIc6WmlOD99Ul7
- cSL/gY/wfiH8j6x9szcdyEKvDjjSleQxPHHzNUkFwXp6lrntzcxPJVZit3bhiEKOwm2V
- VnHg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBx+lLIMHezJlsJMU7/ZM/KKdzQ5h7iyxAoDkaMFt/6+uW4eyA4BH2/kauieEGOR1reB7OGnM549@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJ35VXTxcZsGcDxH80wSbGEkbbZmlPpOLiAZ+vTm5/9MTwzgE5i
- WldPfF1nOIZdZuSxn+8GjGUeV3AAhd1d3BJG2ECHEMfJK6QDj7i7qfN16NpRxoCl
-X-Gm-Gg: AYBFou3fVaBQmhAlxKNNTjTHlEIfaIZs9V6xGszZFH8qM5Bh0nfQRNDOpy+P61qSjRV
- hmNNoFkX/YM4c130Su2qN6F7Wukfoc7nPwexNY5J2QYyY9i30FtbCtRFogueWdcv4gVg+07ubYy
- 6oCXebjkdP+865vIBhSrw8fKhNf4XRZnT/7+SQN+P4WokOo37k1mLHYo9prZZvYGTD1L72YVSlI
- 0Qt5CiK0dLNQwGbMiGTR3tunn964qCe085BighCXq2BRoBoIahgCp89KrX6O5YfkY4UnxHtqiYX
- RJ6hSAhifMylmA3636Yxk1nCrauhLZPjQ+VwJpYvS5pM/YpH+2y6GWkkOW5lq6XhlGtcBrFfgah
- Zx1wYIzuQ0yf8QxTRqWFkZ9+/zid0jIvB0tvhzvVAlZ3wzd+fvvO2VxM1qvwXmp4KO7lR4K1A20
- qqt19gMUWpgyqShTUl8H1qZgWYCzGHFuW4LflRlVhQnxUQDYV9AovKHZJLVXFs6WKioLh7A6WuJ
- OwtA0HGVEFmNRqOSIslq7/KrIIwvRSjWIAVoaFx5vjoZ45tU0HRYEav8nQTxLKTKDrdNDw=
-X-Received: by 2002:a05:6102:4498:b0:7cc:2712:cafb with SMTP id
- ada2fe7eead31-7cc926ac31fmr1668407137.15.1792669696418; 
- Thu, 22 Oct 2026 04:48:16 -0700 (PDT)
-Received: from localhost.localdomain ([177.155.254.104])
- by smtp.gmail.com with ESMTPSA id
- a1e0cc1a2514c-990d117c005sm6177793241.9.2026.10.22.04.48.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 Oct 2026 04:48:16 -0700 (PDT)
-From: Matheus Tagliari <mptagliari@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Cc: Matheus Tagliari <mptagliari@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/2] drm/radeon: process the VCE interrupt on SI and Trinity
-Date: Thu, 22 Oct 2026 08:47:46 -0300
-Message-ID: <20261022114754.865669-2-mptagliari@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261022114754.865669-1-mptagliari@gmail.com>
-References: <20261022114754.865669-1-mptagliari@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D67CF1125F0;
+	Thu, 22 Oct 2026 13:04:19 +0000 (UTC)
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2258810E3FB;
+ Thu, 22 Oct 2026 11:42:27 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4j9PQS0cXgzKnBt;
+ Thu, 22 Oct 2026 13:42:24 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1792669344; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=bmAOhFOUl+jgvj3w/Fv9SPPkZ2u6YRily7KkPBXzABY=;
+ b=LZcRw+G2IK/jT6oj395A+7STUWrKsAdWs59UJmf5YR1Q945HOZGRtM2pg9/OKOnx3ku08g
+ ORr+1a5eZiXNtDAcuk0vtKl4O5Si0LzVQJA7R8iTMEnwzkCrGf/TGF7pb8sjakz1/P6Sa4
+ f+ctqHY/bieBpgKYpRaLr4Kt2qXAzTjHtzAb8Rzx6LSZbDdq+XskvD9/KDjZS9aG8cpYa6
+ uzhMW6McnUAagSEuMzhbjcgL7SbiHZFJVvv47K3UMmw4qwe6IUvhjlDS0PhiFzUvtSItaV
+ Yme1eqV8rpRjfj0WjfZck8ewslhvPdHMIFpUbZaTHspwaBu7Fqn/1jEHvICaog==
+Message-ID: <3eff390804e2791e73733a38e245979f375b7b64.camel@mailbox.org>
+Subject: Re: [PATCH] drm/scheduler: signal fences of jobs pushed to a
+ stopped entity
+From: Philipp Stanner <phasta@mailbox.org>
+To: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>, 
+ dri-devel@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org, christian.koenig@amd.com, 
+ alexander.deucher@amd.com, tvrtko.ursulin@igalia.com, phasta@kernel.org,
+ Danilo Krummrich <dakr@kernel.org>
+Date: Thu, 22 Oct 2026 13:42:22 +0200
+In-Reply-To: <20261022105454.60267-1-olivier.kaloudoff@gmail.com>
+References: <20261022105454.60267-1-olivier.kaloudoff@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: a3pqdk7ewpj5pbxk8p1jd1imtb5xudnk
+X-MBO-RS-ID: 9a57cb3bcd345bf0012
 X-Mailman-Approved-At: Thu, 22 Oct 2026 13:04:11 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,87 +61,85 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-radeon_vce_fence_emit() ends every VCE fence with VCE_CMD_TRAP, which
-raises the VCE trap interrupt (IH src_id 167).  cik_irq_process()
-handles it by calling radeon_fence_process() for the matching VCE ring,
-but si_irq_process() and evergreen_irq_process(), which serve the other
-ASICs with VCE1 (SI and Trinity/Richland), have no case for it.
++Cc Danilo
 
-Add the same handling.  The trap interrupt is not enabled on these
-ASICs yet, so this does not change behaviour on its own; the next patch
-enables it.
+Please use scripts/get_maintainer.pl
 
-The SI part was tested together with the next patch.  The Trinity part
-mirrors the CIK and SI code and has not been tested on Trinity/Richland
-hardware.
 
-Fixes: a918efab631a ("drm/radeon: add VCE 1.0 support v4")
-Cc: stable@vger.kernel.org
-Signed-off-by: Matheus Tagliari <mptagliari@gmail.com>
----
- drivers/gpu/drm/radeon/evergreen.c | 14 ++++++++++++++
- drivers/gpu/drm/radeon/si.c        | 14 ++++++++++++++
- 2 files changed, 28 insertions(+)
+On Thu, 2026-10-22 at 12:54 +0200, Olivier Kaloudoff wrote:
+> An earlier attempt [1] checked ->stopped without holding entity->lock
+> and was rejected as racy; this performs the check under the lock where
+> ->stopped is written.
 
-diff --git a/drivers/gpu/drm/radeon/evergreen.c b/drivers/gpu/drm/radeon/evergreen.c
-index 3cbc6eedb..eb94916c8 100644
---- a/drivers/gpu/drm/radeon/evergreen.c
-+++ b/drivers/gpu/drm/radeon/evergreen.c
-@@ -4847,6 +4847,20 @@ int evergreen_irq_process(struct radeon_device *rdev)
- 			drm_dbg(ddev, "IH: UVD int: 0x%08x\n", src_data);
- 			radeon_fence_process(rdev, R600_RING_TYPE_UVD_INDEX);
- 			break;
-+		case 167: /* VCE */
-+			drm_dbg(ddev, "IH: VCE int: 0x%08x\n", src_data);
-+			switch (src_data) {
-+			case 0:
-+				radeon_fence_process(rdev, TN_RING_TYPE_VCE1_INDEX);
-+				break;
-+			case 1:
-+				radeon_fence_process(rdev, TN_RING_TYPE_VCE2_INDEX);
-+				break;
-+			default:
-+				drm_err(ddev, "Unhandled interrupt: %d %d\n", src_id, src_data);
-+				break;
-+			}
-+			break;
- 		case 146:
- 		case 147:
- 			addr = RREG32(VM_CONTEXT1_PROTECTION_FAULT_ADDR);
-diff --git a/drivers/gpu/drm/radeon/si.c b/drivers/gpu/drm/radeon/si.c
-index 4681ff286..af3c4026d 100644
---- a/drivers/gpu/drm/radeon/si.c
-+++ b/drivers/gpu/drm/radeon/si.c
-@@ -6347,6 +6347,20 @@ int si_irq_process(struct radeon_device *rdev)
- 			DRM_DEBUG("IH: UVD int: 0x%08x\n", src_data);
- 			radeon_fence_process(rdev, R600_RING_TYPE_UVD_INDEX);
- 			break;
-+		case 167: /* VCE */
-+			DRM_DEBUG("IH: VCE int: 0x%08x\n", src_data);
-+			switch (src_data) {
-+			case 0:
-+				radeon_fence_process(rdev, TN_RING_TYPE_VCE1_INDEX);
-+				break;
-+			case 1:
-+				radeon_fence_process(rdev, TN_RING_TYPE_VCE2_INDEX);
-+				break;
-+			default:
-+				DRM_ERROR("Unhandled interrupt: %d %d\n", src_id, src_data);
-+				break;
-+			}
-+			break;
- 		case 146:
- 		case 147:
- 			addr = RREG32(VM_CONTEXT1_PROTECTION_FAULT_ADDR);
--- 
-2.47.3
+I think it was also rejected because this as an attempt to fix a driver
+issue in the shared infrastructure:
 
+https://lore.kernel.org/dri-devel/61787d6cdbfbcb8acdd28c9b6ead50dfb0641899.=
+camel@mailbox.org/
+
+
+Who stops an entity?
+
+It is amdgpu, which does so by calling drm_sched_entity_kill(). This is
+the only place where an entity gets stopped.
+
+Thus, amdgpu runs into an issue because it tries to push to an entity
+which it has stopped itself. So the logical solution is to just not do
+that :)
+
+>=20
+> Note: Tvrtko Ursulin's entity run-queue consolidation series [2]
+> moves this code around, making drm_sched_entity_push_job() lockless
+> and taking entity->lock inside drm_sched_rq_add_entity() instead.
+> The orphan survives that series unchanged -- the job is queued before
+> the NULL return and nothing completes it -- so this fix stays needed
+> whichever lands first; the loser's side just needs a context rebase.
+
+That is long outdated, Tvrtko has now agreed to getting us rid of the
+spsc_queue, which means that _push_job() and _pop_job() will almost be
+fully locked, with a nice clean linked list below.
+
+>=20
+
+[=E2=80=A6]
+
+> =C2=A0
+> +	/*
+> +	 * A stopped entity is never put back on a run queue, so a job
+> +	 * queued on it would be stranded forever and its fences would
+> +	 * never signal, hanging any task waiting on them. Don't queue
+> +	 * the job at all; run the normal kill-jobs work on it so its
+> +	 * finished fence completes with -ESRCH.
+> +	 */
+> +	if (unlikely(entity->stopped)) {
+> +		spin_unlock(&entity->lock);
+> +		/*
+> +		 * Balance the atomic_inc(&sched->score) above; the
+> +		 * decrement in drm_sched_job_done() only happens when
+> +		 * the job actually runs on a scheduler.
+> +		 */
+> +		atomic_dec(entity->rq->sched->score);
+> +		DRM_ERROR("Trying to push to a killed entity\n");
+
+Having a warning around here could be okay-ish I guess, but actual
+operational code is not, because it fixes around the driver being
+broken.
+
+The warning would then merely be there to inform the driver that it
+needs to be repaired.
+
+
+P.
+
+> +		INIT_WORK(&sched_job->work, drm_sched_entity_kill_jobs_work);
+> +		schedule_work(&sched_job->work);
+> +		return;
