@@ -2,77 +2,77 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF102606A31A
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2026 10:54:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D96B1606A319
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2026 10:55:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=aEaX8V8t
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hNQUhxhh
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 580DE10E408;
-	Thu, 22 Oct 2026 10:54:49 +0000 (UTC)
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D78710E408
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2026 10:54:43 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-4a208d93758so5210935e9.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2026 03:54:42 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72C3310E3D7;
+	Thu, 22 Oct 2026 10:54:57 +0000 (UTC)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 963121124DE
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2026 10:54:51 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-4980fe6b3beso4657125e9.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2026 03:54:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792666481; x=1793271281; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1792666490; x=1793271290; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=PrARJiy7el+rjKnRPy0l4gYQDrWufE3f+CulbX9MY7g=;
- b=aEaX8V8tAQCG9HZais4yrijTe+VuZRaqDS0Nb0DRDg8s8dEaqknUuVGT711SunyTxJ
- ph9oouOYpuSfjHb0ibwEsumhy0sDliiildno17a2sBV1D4XPpsbjh59sQ4UTghMZLJ+j
- +ItFeGyaKodcq78OOl7RuC/ccRf7Mn/ObV5cOjTuUrDODPTxdCVhuBkl+rB1vHvJVtK5
- O6B1H0J/DQ8yA51EfnpIKAOHHV39ItCj/g79/j2WpCkFFTWmO7LtF+nYZP0pW4wlY7BD
- mCL4KkurLOpMgOWtNJwMjMWVbJ5P7drGG6CuzsQpWfSDwQWrQ2TZZwshdxOQJQJWtqrn
- zUlQ==
+ bh=LVY9RR0ejs52k/gK7nEFk0ODJIAZv1qtVQ02HFOzar0=;
+ b=hNQUhxhhPgB0tQKizNOs0VpBlZ7H//lBikcxknylTcVwpOlZnFtl5GcyXCtWwS+DAG
+ U2G24NWg05MMsE8pPQa1CQ9IVWsZBGvF1NQ4zdsazM79jPKgR8/QJq8fK3iz4xHwcaHC
+ WPDMKOjBUpIGJnsPevDyN97RfiQUBBB4ahuMvd2I0JmnmDyn7EvzTR9BXGITkjwQ1MwX
+ 0P7+cYA2WnEtHHTZR8PWp5Q0KlsERtT13bNdLKtAs7+4gKKxk1ERM0qjkVzQcflDRLFy
+ kMIAb9fLAXjE2UkhuLsxKX0gCR1Mh5lBuaCly1x9J6jbmu83CKK15vU8n/XtLj4h82cQ
+ rivw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792666481; x=1793271281;
+ d=1e100.net; s=20260707; t=1792666490; x=1793271290;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=PrARJiy7el+rjKnRPy0l4gYQDrWufE3f+CulbX9MY7g=;
- b=T8Y3l5z00W1UsMLnsBdP83U/3cvcHC83hhg1WQ1ljABNxCUTcmWqRz3PohjWvZtk7X
- KGNB0wrfpbCsoH/+UjKfKOxhFX/CvQKgb17m9PSbt8gFRjLn5tATEoldD8hVjiXNPxOa
- /7jmc/v54AynCPiKFbCIN5l3kSZoTsvN1mCHPO64hjXZf3q8oiK4FTp/pxyoiNu8Myvs
- tNgES+Zq95+eJGcCpGR5PCzEpHdpz3SV6OeP5rxokXo5OCl+/HBS4yNWBdDDzQlAcNaJ
- wBxAWo4yjbrwmLCDzFuD5QxU2REzVzES4Tlnll0OBvZ7fUw2LfIplmUoKN3shsv1ivlq
- avmA==
-X-Gm-Message-State: AFq9FYJPquQPFw02gUIW1EOWLFHzEGKJpG50WWrKoJ7tpbDdVztblaJZ
- XGenoxSRoPTHTnFlFnil0Mh1OqDZZgzhzHYvyfpfWrAdMyQ9BnYr+NNCAtcMmg==
-X-Gm-Gg: AYBFou3e4nbk+3lnZzkwXzMUcFWbKNa2MbUXjfxupEqprYIhkV5yrQjwbE17aNNXCDU
- fv6yovWMktlIfo/6xpIqLrsI01+qdI3gRVceP1AB35ksCLVgEWBbJcaWd/vtSZn/8bik32a4QQU
- SAH4WsSFkk2+6gRrf244wtoqNsadBgTL2l/bFSJ7Ciugt8VRvzzvx2YTag40mcgLd0COuiI3Gsg
- /zQJBBxezydRS0cx5fFYPLZ31JhZ0F2vvcMy2zJn0kHBUbObVUIVqa2hNB7QdvAJHsRbrtxJXI4
- S0khLx/pwBVyDrgn5heTQGRVLV1yqvJ00i3Vn6mfRLG8QHA0EFfh80chA86th4bqr3KCMoFacKR
- 3kDe6nypuokFzhjK2mnYPY9k6rhsR1e66coCG+F3kNuNkHhZyfzXrw8aWYvqJWMr5rrjWLo+0gM
- Vh4bYzn+kRwE6tkrGl8c2NYwJtaLeJ5at5FcTaUz8wnx1+l3zIBsHL8YFmLsdmIZssW/09WcbAC
- Zc1C6UYJF8xkfmvepxlE+QjHxAxvuh5sHcI9PCAxGkfXqOWHRshwqoteM4VPRkdL3TBMfOpkE/6
- FFWijLtio4JEMKscky8FfTPwyiHFX1eWLR10+RdJmTzGPTz1cCKEI7Lr2MWIfM5YTgy7yTBNZAV
- NkP9u6cnkFdEB+OzF1NJE2ZCf87pRwxqLfiqb59zF0jfgkvuUI1DyhjRk8fHRf04uW9qaXwddUT
- IhMPhRjtlggUEULqzw61nQQigiyph68kBEvrwcH11SKlqIIK02DfRin8e9oqL93pSBJDCHlFZ+J
- 7nckV5J21m+Qv2EKDr7CoCLbogmCvImxo8=
-X-Received: by 2002:a05:600c:3547:b0:4a1:e672:5721 with SMTP id
- 5b1f17b1804b1-4a1fdd2f5ecmr102624685e9.13.1792666481138; 
- Thu, 22 Oct 2026 03:54:41 -0700 (PDT)
+ bh=LVY9RR0ejs52k/gK7nEFk0ODJIAZv1qtVQ02HFOzar0=;
+ b=yerLzfHuG1fEgrybAGN98LX0m7Lk5KD7OCPZHM3ITap9cxkbLa2VWPgIUSXA/fLUGV
+ D6O3I35MiNrPQ6JBsnTm4eyIY5Gg1nFZizwEGuNnkHoHjbqSj+Z/VUtWWns83cJ1TeIj
+ h46gOyAV1OBP90VLFbIs7Q8SDheNidIOCz37YjYnDZPpNt273wC5/Zu/+yF7Td82uFJ6
+ mS/0jiEAofW0Yt5hz4/A1d2BK70GEHgQF3/Lk8T0aC/leVTv9FfLQ8dHSSOcDohgViof
+ cAYbZ0NOeyJDAaNWVoApjf4ytHN6MkXzaSfGD6o/8IMavqpeSf08OtAYQ3TLYfNXnZ9S
+ JmUg==
+X-Gm-Message-State: AFq9FYJgat8/8IDESauOK8YWz2J9aLISHZ8HWEW8DYir1EEVqbs/xuyP
+ 3SmqwjfQoNKV3fqcEo0JP+VZgASkj5//0NFhh23AdqGa7CsFriho6Se8el0iDA==
+X-Gm-Gg: AYBFou1RJxn5BPzfAdvWlw3Ua9Elg+NA7Fnlm25wWbTZJqpRZ6r8zMfwdKCG/irwvq1
+ DvA1uNBFBnZGOZtNsfLoiYylfkhr1EhSGmY5Yx6SHq66qcmxPNsDJImVrdwRP8lb7t9ccR9bo1F
+ MWAZSEQy9qpKjJguzRiBBoQ0wlILWrs7JyObO92YImb8hlcmC1s2UYnUwn4XKTLxCSZOvXfnZJl
+ F620BV6qDGKewX6ecNUCtzXfX6vfxgFu+/taCwPltF/Wbebe2Fy8JMD7vWWFZq0lVsBWetSvcvu
+ acajZ4l1uGtGRL+5B2oTldzDzEymkQygNcruIzXtuEOFBrn9GZphWD5PBB04V8oGQN1r1nGh2Nz
+ VN1Lor0ba2hLPEjYau5HP2dglWo64OSWxX9P4BiNRY15WMpj2PhzR9tAhpQjm43BCSPBV7ZFLqF
+ 7HNCn24JMvuEvgRPVw3L1VT6qu5kDLNP9DFsKinXu7tsETx7H0Z82A5rtd5qhrA3tHUfZE3CQpt
+ hFlX8TPmj/8pUF6HX5LR/xKfLSmLh49+ZseH+XebbrTa9wEGVKYMG3PmVGOH+uWF7t05dB8pzj6
+ ebe3LAjQcZ4L8SFPWQNq+F7btY/6HhAhD46741wv8cUSVC/8xaHuCrZ7Fm4lu1NDD+BNPgfnpFd
+ bOJEXnQ7X7nqC2LQyuByWGh8gE0fO6P60Xf7R+gPb58oKfbVLLZIIJ5sYOtwDRgzOj3XqS13YZq
+ yQhmyKmp+UaXjRvUttoOwZ85oY/I1+vc7yXHLfkyRsftVL2GAeEOL882NZ3UwXAYPouvioAJ0S7
+ K77LDK4+upf/gwJF/nwEsTOQUwJy4rkMcU=
+X-Received: by 2002:a05:600c:4fc9:b0:4a1:efbe:529c with SMTP id
+ 5b1f17b1804b1-4a204b2032cmr42772605e9.12.1792666489719; 
+ Thu, 22 Oct 2026 03:54:49 -0700 (PDT)
 Received: from localhost.localdomain (188.42.205.77.rev.sfr.net.
  [77.205.42.188]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4a203a265afsm72501755e9.7.2026.10.22.03.54.40
+ 5b1f17b1804b1-4a1fc0b42bdsm108321235e9.0.2026.10.22.03.54.49
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Thu, 22 Oct 2026 03:54:40 -0700 (PDT)
+ Thu, 22 Oct 2026 03:54:49 -0700 (PDT)
 From: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: christian.koenig@amd.com,
 	felix.kuehling@amd.com
 Subject: Re: [PATCH v5 3/3] drm/amdkfd: bound SVM migration fence wait and
  guard with drm_dev_enter
-Date: Thu, 22 Oct 2026 12:54:35 +0200
-Message-ID: <20261022105435.60056-1-olivier.kaloudoff@gmail.com>
+Date: Thu, 22 Oct 2026 12:54:43 +0200
+Message-ID: <20261022105443.60162-1-olivier.kaloudoff@gmail.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <5028b598-b039-46b3-b4a5-9563ab0a252e@amd.com>
+In-Reply-To: <a2b9e67d-fd7c-44fe-ad48-ce11a8bae4f9@amd.com>
 References: 
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
@@ -97,53 +97,57 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 Hi Christian,
 
-> Yeah and you need to fix the fence orphaning and *NOT* the wait!
+> No, what we need to avoid killing the entity while KFD is still
+> using it!
+>
+> That is basically an use after free what you have here, only that
+> the drm_sched can point that out with a warning instead of
+> crashing immediately.
 
-Agreed — found the exact orphan site. drm_sched_entity_push_job()
-pushes the job onto entity->job_queue first, then
-drm_sched_rq_add_entity() sees entity->stopped (under entity->lock)
-and returns NULL: the scheduler is never woken, the job strands on
-the spsc queue, and its fence never signals. In our repro the dying
-process's fault path submits the migration job on its own killed
-entity — it's the process-kill race, not a device-unplug race at
-all, which is why drm_dev_enter() doesn't cover it.
+The exact "use" we hit is the dying process's own exit fault:
+SIGBUS -> coredump -> get_dump_page -> do_swap_page ->
+svm_migrate_to_ram() submits the migration job on the process's own
+entity after drm_sched_entity_kill() already ran for it.
 
-This is the same failure Tong Liu reported in August 2025 (task
-hang after job submission during process kill); that fix was
-rejected for checking entity->stopped without the lock. The clean
-fix is not to pre-check but to handle the NULL return while still
-under entity->lock: drain the queue / schedule the kill-jobs work
-so each stranded job's finished fence completes with -ESRCH.
+I think we actually need two complementary things rather than a
+choice between them:
 
-> Blocking for all fences is correct shutdown order.
+b) The scheduler-level guarantee: a job pushed to an entity must
+   have its fence complete. drm_sched_rq_add_entity() returning NULL
+   for a stopped entity leaves the pushed job stranded on the spsc
+   queue forever — that window exists independently of who killed
+   the entity when. My patch closes it atomically under
+   entity->lock: either the entity is live and the job queues
+   normally, or it is stopped and the job goes through
+   kill_jobs_work so its fence completes with -ESRCH. This is a
+   generic scheduler invariant, not a KFD workaround, and it is the
+   only fix demonstrated to prevent the fence-orphan hang.
 
-Agreed. v7 drops the timeout entirely — unbounded wait restored.
-With fences guaranteed to signal, the copy_done error path becomes
-genuinely reachable via the fence's error status, so the error
-propagation and migrate->dst rollback Felix asked for stay — now
-on a real error path instead of a timeout.
+   It is also required on surprise removal even with perfect entity
+   lifetime ordering: a job can be pushed while the entity is still
+   live, then the device disappears before the job completes. Fences
+   must still signal — which is exactly your "fences *must* always
+   signal" requirement.
 
-v7 is now implemented and tested on this machine (7.3.0-rc5 +
-p1/p2 teardown+restore-stop, sched orphan fix, KFD fence-error
-rework). Hot-unplug test: svmhog2 mid-migration plus a second KFD
-process, then Thunderbolt deauthorize. With only the sched fix
-the host still wedges — the kill-jobs drain prevents the orphan,
-but the unplug path additionally needs the KFD teardown ordering
-(processes torn down before device early-fini) and the restore
-worker stopping on -ENODEV. With the full stack, across two
-unplug/replug cycles and a 60-round kill-under-memory-pressure
-soak: fences complete with error instead of orphaning, the KFD
-processes get SIGBUS and reap cleanly, device tears down, host
-stays alive, and re-authorizing gives a clean re-enumeration.
-So your direction was right — the wait was never the bug — but
-the orphan fix is necessary rather than sufficient for unplug.
+a) The KFD-side lifetime ordering you want: don't kill the entity
+   while KFD can still submit. Worth doing, but the boundary is hard
+   to place — the submitter is the dying task's own mm fault path
+   (coredump -> do_swap_page), not a KFD-controlled context, and the
+   "mm can no longer fault on SVM ranges" point is earlier than
+   exit_mmap and not obviously under KFD's teardown control.
 
-On layering: I'm posting the sched fix standalone to dri-devel
-("drm/scheduler: signal fences of jobs pushed to a stopped
-entity") since it is drm-misc territory and also fixes the same
-hang for any other driver pushing to a killed entity. The KFD
-series then just needs the error propagation. Happy to fold it
-into this series instead if you prefer.
+So my question: is there an existing KFD ordering point that
+guarantees no further SVM migration submission for a process's mm —
+for example after MMU-notifier release but before entity kill? If
+there is, I'll implement (a) there. If not, I'd like to land (b) as
+the scheduler-level guarantee, and then evaluate whether an
+additional KFD lifetime ordering is feasible on top.
+
+> drm_dev_unplug() *must* be blocked until all fences are signaled.
+
+Agreed — the drm_dev_enter/exit submit guard and the unbounded wait
+stay, and copy_done now propagates dma_fence_error() so a failed
+copy can never complete as a successful migration.
 
 Regards,
   Olivier
