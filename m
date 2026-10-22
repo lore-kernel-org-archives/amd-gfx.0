@@ -2,42 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD62F606A319
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2026 10:09:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06FD4606A32C
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2026 10:11:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=jVQHD28V
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=lLdd4+rd
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 75DFD1124A9;
-	Thu, 22 Oct 2026 10:09:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A663112475;
+	Thu, 22 Oct 2026 10:11:18 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B44C10E3D5
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2026 10:09:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3A17112475
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2026 10:11:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:From:To:Subject:
  MIME-Version:Date:Message-ID:From:Reply-To;
- bh=oWIKZ4tjW48ABdpZJQLCqTxJ5z5ZhcqhW0/KLasQDfo=; b=jVQHD28VV3AGBLHcI8oKMLxTBd
- suxLXLspupCDksgvTjHtcHIM0BJg+QF3PS8AS7CrgRDha+ja3k2jpI719LWamDn3o5YoqaCvf/seg
- c6XPFBwC6vKvCw9RljyFtV0MqFW/0ZBF1VwV4IU9TJVjsVjYpDSCjjLvwntgtoYSfQUYetyHS3CSq
- 8JA00cdT+loviPGoMHYoSb3JaQtcfsIlhN+YwoaDdx6ZkVXNAGhnrGtLgXa+Y0yik2tU+S/BxHeJC
- PFQR8k23fXYm/0DXeunWzcaf9Pgz+bStqTh9MsSK94iul3N9YYrN6vwGI4Jf3bMKz+6WYU2aDS5DA
- R6w8BNcw==;
+ bh=A7KIkryCb2rP1kRYOFCG4wa4giNqWJmW3oxAc7/bkqg=; b=lLdd4+rd9e6N3K24Je1RDHbmaA
+ g5oE1Mi/6/NbBZ/FrXZ3xjUB4taY/p5Gz3QQhMbLMB/x/po8axrvoVmYLBpN9JWCPC3sPKd98rblN
+ DIdgCtnNiv8c9xgBvdhreCpY1Iopv3pYV2B0LKl/0U6nqmnSV2leY6mtUKMI3Lo7ttxDtzbEu4S6y
+ 6K0xQwEF6eZ4ceB2gNJSLicWnV/8+8H9vqlnmyw3Il6kkspdyrBemCAG0N+PSxxzFZ+l2Kha0lsxl
+ YWpog2I5tEAmRD0fsGQUVkSaF5rAYTbIsgyj2IeZ9tjaEg3fqyIzNCeyLcRX8cFXJQTp1yFDCj6FV
+ 7IYDbAYg==;
 Received: from [81.79.79.1] (helo=[192.168.0.116])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1xJpjZ-006gSr-W2; Thu, 22 Oct 2026 12:09:18 +0200
-Message-ID: <a084d839-9b1d-4be2-b955-c3cafdd3406c@igalia.com>
-Date: Thu, 22 Oct 2026 11:09:17 +0100
+ id 1xJplP-006gYm-56; Thu, 22 Oct 2026 12:11:11 +0200
+Message-ID: <5b97b2a6-c4cf-47a9-94d5-0190f72d0d61@igalia.com>
+Date: Thu, 22 Oct 2026 11:11:10 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/2] drm/amdgpu: Add LIST option to USERQ ioctl
+Subject: Re: [PATCH v5 2/2] drm/amdgpu: Add CHANGE_ID option for USERQ ioctl
 To: David Francis <David.Francis@amd.com>, amd-gfx@lists.freedesktop.org
 References: <20261020194801.506382-1-David.Francis@amd.com>
- <20261020194801.506382-2-David.Francis@amd.com>
+ <20261020194801.506382-3-David.Francis@amd.com>
 Content-Language: en-GB
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <20261020194801.506382-2-David.Francis@amd.com>
+In-Reply-To: <20261020194801.506382-3-David.Francis@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -60,22 +60,22 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 
 On 20/10/2026 20:48, David Francis wrote:
-> Add a new option to ioctl USERQ which provides information
-> to a process about their own user queues.
+> Add a new option to the USERQ ioctl, which is called with
+> the queue_id of an existing user queue and an unused queue_id,
+> and changes that queue's id to the new value.
 > 
-> The returned data is in the same format as that used to
-> create the queue in the first place.
+> Calling with an invalid new handle will fail. Calling with new_handle
+> = handle will succeed if that queue exists but not do anything.
 > 
-> The interface uses retries; the user can guess at the number
-> of queues required; if insufficiently large, the correct
-> value will be returned.
-> The same is done for the mqd sizes of each entry.
+> Performing this operation on a queue with signals or waits
+> outstanding is fine, as those hold not the queue_id but a
+> direct reference to the queue object.
 > 
-> v3: Don't acquire xa_lock and other misc fixes
-> v4: Don't acquire mutex either and other misc fixes
-> v5: Small fixes; now with accompanying igt and criu changes
+> v3: Poison queue and misc fixes
+> v4: Using xas interface
+> v5: Now with accompanying igt and criu changes
 
-LGTM!
+LGTM as well.
 
 Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
@@ -86,245 +86,117 @@ Tvrtko
 > 
 > Signed-off-by: David Francis <David.Francis@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 145 +++++++++++++++++++++-
->   include/uapi/drm/amdgpu_drm.h             |  40 ++++++
->   2 files changed, 182 insertions(+), 3 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 46 +++++++++++++++++++++++
+>   include/uapi/drm/amdgpu_drm.h             | 17 +++++++--
+>   2 files changed, 60 insertions(+), 3 deletions(-)
 > 
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> index 3fe10d6af757..5aa53b2f4355 100644
+> index 5aa53b2f4355..1310004ec63f 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -850,6 +850,8 @@ static int amdgpu_userq_input_args_validate(struct drm_device *dev,
->   		    args->in.mqd_size)
->   			return -EINVAL;
+> @@ -852,6 +852,11 @@ static int amdgpu_userq_input_args_validate(struct drm_device *dev,
 >   		break;
-> +	case AMDGPU_USERQ_OP_LIST:
+>   	case AMDGPU_USERQ_OP_LIST:
+>   		break;
+> +	case AMDGPU_USERQ_OP_CHANGE_ID:
+> +		if (!args->change_in.new_queue_id ||
+> +		    args->change_in.new_queue_id > AMDGPU_MAX_USERQ_COUNT)
+> +			return -EINVAL;
 > +		break;
 >   	default:
 >   		return -EINVAL;
 >   	}
-> @@ -857,6 +859,142 @@ static int amdgpu_userq_input_args_validate(struct drm_device *dev,
->   	return 0;
+> @@ -995,6 +1000,44 @@ amdgpu_userq_list(struct drm_file *filp, union drm_amdgpu_userq *args)
+>   	return ret;
 >   }
 >   
-> +static int
-> +amdgpu_userq_list(struct drm_file *filp, union drm_amdgpu_userq *args)
+> +static int amdgpu_userq_change_id(struct drm_file *filp, union drm_amdgpu_userq *args)
 > +{
 > +	struct amdgpu_fpriv *fpriv = filp->driver_priv;
 > +	struct amdgpu_userq_mgr *uq_mgr = &fpriv->userq_mgr;
-> +	struct drm_amdgpu_userq_list_entry *entries;
+> +	XA_STATE(xas, &uq_mgr->userq_xa, args->change_in.new_queue_id);
 > +	struct amdgpu_usermode_queue *queue;
-> +	size_t mqd_size, entry_buffer_size;
-> +	uint32_t num_queues = 0;
-> +	unsigned long queue_id;
-> +	int i = 0;
 > +	int ret;
 > +
-> +	xa_for_each(&uq_mgr->userq_xa, queue_id, queue)
-> +		num_queues += 1;
+> +	if (args->change_in.new_queue_id == args->change_in.queue_id)
+> +		return -EINVAL;
 > +
-> +	/**
-> +	 * If the num_entries buffer is too small, return the correct size.
-> +	 * User should try again with the right space allocated.
-> +	 */
-> +	if (num_queues > args->list_in_out.num_entries) {
-> +		args->list_in_out.num_entries = num_queues;
-> +		return 0;
-> +	}
-> +	args->list_in_out.num_entries = num_queues;
+> +	do {
+> +		xas_lock(&xas);
 > +
-> +	if (num_queues == 0)
-> +		return 0;
-> +
-> +	ret = check_mul_overflow(num_queues, sizeof(*entries), &entry_buffer_size);
-> +	if (ret)
-> +		return -E2BIG;
-> +
-> +	entries = kvmalloc_objs(typeof(*entries), num_queues, GFP_KERNEL);
-> +	if (!entries)
-> +		return -ENOMEM;
-> +
-> +	ret = copy_from_user(entries, u64_to_user_ptr(args->list_in_out.entries),
-> +			     entry_buffer_size);
-> +	if (ret) {
-> +		ret = -EFAULT;
-> +		goto exit;
-> +	}
-> +
-> +	xa_for_each(&uq_mgr->userq_xa, queue_id, queue) {
-> +		/**
-> +		 * The xa may have added or removed queues since we counted
-> +		 * them, so break if there are now more queues than entries.
-> +		 */
-> +		if (i >= num_queues)
-> +			break;
-> +		/**
-> +		 * Check mqd size. As with num_entries, return the right sizes
-> +		 * if they are too small. These sizes also serve as
-> +		 * versioning for the mqd. Despite the names, these are the
-> +		 * mqd sizes for both gfx11 and gfx12.
-> +		 */
-> +		if (queue->queue_type == AMDGPU_HW_IP_COMPUTE) {
-> +			mqd_size = sizeof(struct drm_amdgpu_userq_mqd_compute_gfx11);
-> +		} else if (queue->queue_type == AMDGPU_HW_IP_GFX) {
-> +			mqd_size = sizeof(struct drm_amdgpu_userq_mqd_gfx11);
-> +		} else if (queue->queue_type == AMDGPU_HW_IP_DMA) {
-> +			mqd_size = sizeof(struct drm_amdgpu_userq_mqd_sdma_gfx11);
-> +		} else {
-> +			drm_err_once(adev_to_drm(uq_mgr->adev), "Unrecognized queue type in USERQ_OP_LIST");
+> +		queue = xa_load(&uq_mgr->userq_xa, args->change_in.queue_id);
+> +		if (!queue) {
 > +			ret = -EINVAL;
-> +			goto exit;
+> +			goto unlock;
 > +		}
 > +
-> +
-> +		if (mqd_size > entries[i].mqd_size) {
-> +			entries[i].mqd_size = mqd_size;
-> +			entries[i].ip_type = queue->queue_type;
-> +			i += 1;
-> +			continue;
+> +		if (xas_load(&xas)) {
+> +			ret = -EBUSY;
+> +			goto unlock;
 > +		}
-> +		entries[i].mqd_size = mqd_size;
-> +		entries[i].ip_type = queue->queue_type;
 > +
-> +		entries[i].queue_id = queue_id;
-> +		/* userq prop handling */
-> +		entries[i].queue_va = queue->userq_prop->hqd_base_gpu_addr;
-> +		entries[i].queue_size = queue->userq_prop->queue_size;
-> +		entries[i].rptr_va = queue->userq_prop->rptr_gpu_addr;
-> +		entries[i].wptr_va = queue->userq_prop->wptr_gpu_addr;
-> +		/* flag handling (AMDGPU_USERQ_CREATE_FLAGS_QUEUE_PRIORITY_MASK are the only flags in use) */
-> +		entries[i].flags = (queue->priority << AMDGPU_USERQ_CREATE_FLAGS_QUEUE_PRIORITY_SHIFT)
-> +			& AMDGPU_USERQ_CREATE_FLAGS_QUEUE_PRIORITY_MASK;
-> +		/* doorbell handling */
-> +		entries[i].doorbell_handle = queue->doorbell_handle;
-> +		/* This is the inverse of the calculation used in amdgpu_doorbell_index_on_bar
-> +		 * doorbell_index = db_bo_offset / sizeof(u32)
-> +		 *    + doorbell_offset * DIV_ROUND_UP(db_size, 4)
-> +		 * db_size is always sizeof(u64) = 8
-> +		 */
-> +		entries[i].doorbell_offset =
-> +			(queue->doorbell_index - amdgpu_bo_gpu_offset_no_check(queue->db_obj.obj) / 4) / 2;
+> +		xas_store(&xas, queue);
+> +		ret = xas_error(&xas);
+> +		if (ret)
+> +			goto unlock;
 > +
-> +		if (queue->queue_type == AMDGPU_HW_IP_COMPUTE) {
-> +			struct drm_amdgpu_userq_mqd_compute_gfx11 compute_mqd = {0};
+> +		__xa_erase(&uq_mgr->userq_xa, args->change_in.queue_id);
+> +unlock:
+> +		xas_unlock(&xas);
+> +	} while (xas_nomem(&xas, GFP_KERNEL));
 > +
-> +			compute_mqd.eop_va = queue->userq_prop->eop_gpu_addr;
-> +
-> +			ret = copy_to_user(u64_to_user_ptr(entries[i].mqd_data),
-> +					   &compute_mqd, mqd_size);
-> +		} else if (queue->queue_type == AMDGPU_HW_IP_GFX) {
-> +			struct drm_amdgpu_userq_mqd_gfx11 mqd_gfx_v11 = {0};
-> +
-> +			mqd_gfx_v11.shadow_va = queue->userq_prop->shadow_addr;
-> +			mqd_gfx_v11.csa_va = queue->userq_prop->csa_addr;
-> +
-> +			ret = copy_to_user(u64_to_user_ptr(entries[i].mqd_data),
-> +					   &mqd_gfx_v11, mqd_size);
-> +		} else if (queue->queue_type == AMDGPU_HW_IP_DMA) {
-> +			struct drm_amdgpu_userq_mqd_sdma_gfx11 mqd_sdma_v11 = {0};
-> +
-> +			mqd_sdma_v11.csa_va = queue->userq_prop->csa_addr;
-> +
-> +			ret = copy_to_user(u64_to_user_ptr(entries[i].mqd_data),
-> +					   &mqd_sdma_v11, mqd_size);
-> +		}
-> +		if (ret) {
-> +			ret = -EFAULT;
-> +			goto exit;
-> +		}
-> +		i += 1;
-> +	}
-> +	ret = copy_to_user(u64_to_user_ptr(args->list_in_out.entries), entries,
-> +			   entry_buffer_size);
-> +	if (ret)
-> +		ret = -EFAULT;
-> +exit:
-> +	kvfree(entries);
 > +	return ret;
 > +}
 > +
 >   bool amdgpu_userq_enabled(struct drm_device *dev)
 >   {
 >   	struct amdgpu_device *adev = drm_to_adev(dev);
-> @@ -891,7 +1029,7 @@ int amdgpu_userq_ioctl(struct drm_device *dev, void *data,
->   			drm_file_err(filp, "Failed to create usermode queue\n");
+> @@ -1041,6 +1084,9 @@ int amdgpu_userq_ioctl(struct drm_device *dev, void *data,
+>   	case AMDGPU_USERQ_OP_LIST:
+>   		r = amdgpu_userq_list(filp, args);
 >   		break;
->   
-> -	case AMDGPU_USERQ_OP_FREE: {
-> +	case AMDGPU_USERQ_OP_FREE:
->   		xa_lock(&fpriv->userq_mgr.userq_xa);
->   		queue = __xa_erase(&fpriv->userq_mgr.userq_xa, args->in.queue_id);
->   		xa_unlock(&fpriv->userq_mgr.userq_xa);
-> @@ -900,8 +1038,9 @@ int amdgpu_userq_ioctl(struct drm_device *dev, void *data,
->   
->   		amdgpu_userq_put(queue);
->   		break;
-> -	}
-> -
-> +	case AMDGPU_USERQ_OP_LIST:
-> +		r = amdgpu_userq_list(filp, args);
+> +	case AMDGPU_USERQ_OP_CHANGE_ID:
+> +		r = amdgpu_userq_change_id(filp, args);
 > +		break;
 >   	default:
 >   		drm_dbg_driver(dev, "Invalid user queue op specified: %d\n", args->in.op);
 >   		return -EINVAL;
 > diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-> index b32c72a662b6..92738d630eea 100644
+> index 92738d630eea..37d0efd1eda4 100644
 > --- a/include/uapi/drm/amdgpu_drm.h
 > +++ b/include/uapi/drm/amdgpu_drm.h
-> @@ -332,6 +332,7 @@ union drm_amdgpu_ctx {
+> @@ -330,9 +330,10 @@ union drm_amdgpu_ctx {
+>   };
+>   
 >   /* user queue IOCTL operations */
->   #define AMDGPU_USERQ_OP_CREATE	1
->   #define AMDGPU_USERQ_OP_FREE	2
-> +#define AMDGPU_USERQ_OP_LIST	3
+> -#define AMDGPU_USERQ_OP_CREATE	1
+> -#define AMDGPU_USERQ_OP_FREE	2
+> -#define AMDGPU_USERQ_OP_LIST	3
+> +#define AMDGPU_USERQ_OP_CREATE		1
+> +#define AMDGPU_USERQ_OP_FREE		2
+> +#define AMDGPU_USERQ_OP_LIST		3
+> +#define AMDGPU_USERQ_OP_CHANGE_ID	4
 >   
 >   /* queue priority levels */
 >   /* low < normal low < normal high < high */
-> @@ -425,9 +426,48 @@ struct drm_amdgpu_userq_out {
->   	__u32 _pad;
+> @@ -464,10 +465,20 @@ struct drm_amdgpu_userq_list_in_out {
+>   	__u64   entries;
 >   };
 >   
-> +struct drm_amdgpu_userq_list_entry {
-> +	/** Userspace pointer to buffer holding mqd */
-> +	__u64	mqd_data;
-> +	/**
-> +	 *  In: Size of mqd_data user-allocated buffer.
-> +	 *  Out: If mqd_data was insufficiently large, the
-> +	 * size it needs to be.
-> +	 */
-> +	__u32	mqd_size;
-> +
-> +	/** Definitions same as drm_amdgpu_userq_in */
-> +	__u32	queue_id;
-> +	__u32   ip_type;
-> +	__u32   doorbell_handle;
-> +	__u32   doorbell_offset;
-> +	__u32   flags;
-> +	__u64   queue_va;
-> +	__u64   queue_size;
-> +	__u64   rptr_va;
-> +	__u64   wptr_va;
-> +};
-> +
-> +struct drm_amdgpu_userq_list_in_out {
-> +	/**
-> +	 * For operation AMDGPU_USERQ_OP_LIST: User will provide a buffer, which the
-> +	 * driver will fill with information about all of that process's queues on this device.
-> +	 */
-> +	/** AMDGPU_USERQ_OP_LIST */
-> +	__u32	op;
-> +	/**
-> +	 * Size of entries buffer / Number of handles in process
-> +	 * (if larger than size of buffer, must retry)
-> +	 */
-> +	__u32   num_entries;
-> +	/* User pointer to array of drm_amdgpu_userq_list_entry */
-> +	__u64   entries;
+> +struct drm_amdgpu_userq_change_id_in {
+> +	/** AMDGPU_USERQ_OP_CHANGE_ID */
+> +	__u32   op;
+> +	/** Queue id of some queue */
+> +	__u32   queue_id;
+> +	/** Queue id to change that queue to */
+> +	__u32   new_queue_id;
 > +};
 > +
 >   union drm_amdgpu_userq {
 >   	struct drm_amdgpu_userq_in in;
 >   	struct drm_amdgpu_userq_out out;
-> +	struct drm_amdgpu_userq_list_in_out list_in_out;
+>   	struct drm_amdgpu_userq_list_in_out list_in_out;
+> +	struct drm_amdgpu_userq_change_id_in change_in;
 >   };
 >   
 >   /* GFX V11 IP specific MQD parameters */
