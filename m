@@ -2,42 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FA8E606A319
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2026 08:20:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9ECE606A31A
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2026 08:20:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=WiqPDW3o
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=KEoclnRb
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EEC561123C5;
-	Thu, 22 Oct 2026 08:20:39 +0000 (UTC)
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012045.outbound.protection.outlook.com
- [40.93.195.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 846221123C5
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2026 08:20:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44A941123CF;
+	Thu, 22 Oct 2026 08:20:42 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010054.outbound.protection.outlook.com [52.101.201.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 060801123CF
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2026 08:20:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EmQh61qrXlPHGSUj5BidTxaYZ2saGSDhpUHVjPWKCDBPGdiBGpqMCrvE8bbwXb/pl5HMVHF6Ljhz0fAj9380qWMcRSqhMoASO1KOX/aQzHAG0q65ndSGhKKrYp4xa/J7J/aChLOXD3TDOeHmFzfSLf22wcm30ULwWitGy3EXDwY6yxq9vGBfqOSQTS4bKYs3wRpbHNSSB4rZNVBgAcFvgott+MExscFHSIE7oEgiVZhkf7BsHKkYUxDbRl3aMfdD11SMKM7OVvRS24HYFizJ8ahWn5cql5f3ye60oU5KJR+YHd/fuQhnGwI8jhYyGRmSIjwBL1iH9f9vJ6Df/j92lQ==
+ b=kUgQr+tv2Xm35HtZXK/ACBIR3VbErdntoEIKQutSjvxqpaxh/R1+aXse65wPtOe01kVxO+b/5oPiQCpxOaa49m0MMxLLvskMcm21386vKv0rlT5SEDup9hzKP2JxV2pvTMFu9Jvt/EqXdfV5bMRtIcdrNdDdtGsG2a9EQ4v8vdHFKPP5idko6sV+3H4UWOw51vgtDdbXZDYdLOZDpP4BZDWskjbyNX3se906I6QQ8rUmt2+Dm/6UfHa8/OWc2GSc/crmFJ3qDAF5j6C6V4d4siqF183a7gCvhNiPrnw+J4/vPwSypu07yyHNRSVdw88FIXUb00Ch5rk95C96gbDZOA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=osPdT9nEDWStt45BIk4NCtc0Ydiap1dYXlxNVD8JRWc=;
- b=S6XYk4/DjG3CgW/FSHnbZQ9Yd9vqdkUOfHHmvpgixjmAIpMvilido0dHe1CSeVsZi+i4DN1qyKRrs6NsSABTCY/2X+/Ym9j6HB3+mwGJowEk8larPctAcHn8QFz7jgLTbNMiR41wQ/kXUGWDuzXgiinCRxc30AJ9APHzd+RTF+BuRJqLc9l8istwHGYHBq3U1Mf0uqwzx4st9MgHTWiu0Hg6NSooiKlWcaxmzjMGNfZ0CVrtunUzqDllnhJ00DrOA2p3J7LxENDS0M4Tr+MIpN4PGc9ePPQSa4NzGUom8+L56P+r8eYG4F80LvcVVAOkypHtcC5tyXwZ7hwXK3jmSg==
+ bh=PtJxrZwtVwSyzO7eIDiPBNOLO5+fYAHJiF9H46HOQn0=;
+ b=OhWL+L4AC2es5FmkMfQtL+UsGcfmB2KWSJmwmGLi6cj1KczfSIVKuckHjEAix4wSWZ6eUJS8cI434K4LCfLm83D6je68jo4/HXbxGxGLDsPngONHOrknbjgjiwsGZKhqhZjsBWifJRYOXVqp9DbB3wRBU9bzOqD5XkXNMT02jlXJzLYbtGuIFOF0IZYam/YRPPsz2T1kI03poGTedbYtq+AKZIFL3dGct737PFBwT45ipXYcEV9TZDGMg7ElLd+dK9xWrkeUH2Yo/UPxac7mBybsqnkiQ95CaoH+OyxvhOC7cOFy1tuOUQpi+bcy5SSvPGJId1mSk1KP7/018fkG7Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=osPdT9nEDWStt45BIk4NCtc0Ydiap1dYXlxNVD8JRWc=;
- b=WiqPDW3of2PLxCRn8eT2h0LvHFdkm6YdPvvQnBETNUD3f7jYx7cMawkTOj8VdLC0B08HrGAmjlSygbLnrmYBuQ47gLDf2gILwJCSENWzDampK2DsYX89FnKSKUEJ5DlkDN/69i+zawRmQhjrFkFlC/YEiZeABxQnV2zbcxvdL5Y=
-Received: from CH2PR08CA0002.namprd08.prod.outlook.com (2603:10b6:610:5a::12)
- by MN6PR12MB8591.namprd12.prod.outlook.com (2603:10b6:208:471::15)
+ bh=PtJxrZwtVwSyzO7eIDiPBNOLO5+fYAHJiF9H46HOQn0=;
+ b=KEoclnRb5PqbNjlsljOnQzROx8psTfnpYIobFxWSI+aM0aekaqh/YYNlBVpxXpIfnpiDgzVMn7Ko4NK9JT0ZuXYFybJl4XzluqE5ZQoHYZR8J358LvIyogvoXgEQnfD+vgMwBfATjkpDKk2d6+WWj8/vsj4RosXO/neg4ntHdDU=
+Received: from CH0P221CA0024.NAMP221.PROD.OUTLOOK.COM (2603:10b6:610:11c::20)
+ by DS5PPF78FC67EBA.namprd12.prod.outlook.com (2603:10b6:f:fc00::655)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Thu, 22 Oct
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Thu, 22 Oct
  2026 08:20:29 +0000
-Received: from BL02EPF00029928.namprd02.prod.outlook.com
- (2603:10b6:610:5a:cafe::9e) by CH2PR08CA0002.outlook.office365.com
- (2603:10b6:610:5a::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.16 via Frontend Transport; Thu,
+Received: from BN2PEPF0000A805.namprd02.prod.outlook.com
+ (2603:10b6:610:11c:cafe::80) by CH0P221CA0024.outlook.office365.com
+ (2603:10b6:610:11c::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.17 via Frontend Transport; Thu,
  22 Oct 2026 08:20:28 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
@@ -45,27 +44,26 @@ X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BL02EPF00029928.mail.protection.outlook.com (10.167.249.53) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN2PEPF0000A805.mail.protection.outlook.com (10.167.245.169) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
  15.21.546.15 via Frontend Transport; Thu, 22 Oct 2026 08:20:28 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 22 Oct
- 2026 03:20:28 -0500
+ 2026 03:20:20 -0500
 Received: from JesseDEV.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Thu, 22 Oct 2026 03:20:26 -0500
+ Transport; Thu, 22 Oct 2026 03:20:19 -0500
 From: Jesse Zhang <Jesse.Zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
  <lijo.lazar@amd.com>, <Mario.Novales@amd.com>, <Manu.Rastogi@amd.com>,
  <Jiongyu.Zhu@amd.com>, Jesse Zhang <Jesse.Zhang@amd.com>
-Subject: [PATCH v2 05/15] drm/amdgpu/gfx12: read and restore the ring state of
- a gfx queue
-Date: Thu, 22 Oct 2026 16:19:45 +0800
-Message-ID: <20261022082011.331462-5-Jesse.Zhang@amd.com>
+Subject: [PATCH v2 02/15] drm/amdgpu/gfx12: add a gfx engine reset
+Date: Thu, 22 Oct 2026 16:19:42 +0800
+Message-ID: <20261022082011.331462-2-Jesse.Zhang@amd.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20261022082011.331462-1-Jesse.Zhang@amd.com>
 References: <20261022082011.331462-1-Jesse.Zhang@amd.com>
@@ -75,29 +73,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00029928:EE_|MN6PR12MB8591:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7ca531f3-0076-42c8-625c-08df301554f9
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000A805:EE_|DS5PPF78FC67EBA:EE_
+X-MS-Office365-Filtering-Correlation-Id: d7808642-5438-4c40-7411-08df301554d7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|376014|1800799024|23010399003|82310400026|261021121427099003|56012099006|11063799006|261009223027099003|10067099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info: y7WXFATdvntTaypy5qIBw3pcjQlZ3C1wYrL2RTLAHUdWhjj8Do24e5XM0k0W7vpZAbqqoojXafcoQCDMRAqewnjFmJh017FAIDChsgEuf+2l/CqTUr6DxYq7AOSlEmR4JT4GD/rKJCyppt4PV0kLxhFUNyl/b4dpd4T7enlKmKQ63uTyhKBfNxehTL9u4Qa8wUL6pBFlsvhHU3uQ4cnHNNz3e3ysjJH2ekY+nLiCIVWGxXZZgW5ZHqPUbKdboGAdLOaidduzmcu9wbysuEwyshsfNjuoZ0Lbno9NN61rNdS2MWJUvKtmcQ3QI+2096YJb8yO0WQ0xA9YSAxgzPeMDPYFRnOG2HTfEkApbdHuQmcB6HpRv9PzsRLoZSRxh2lS8G48Tq5RAWXOW0k/JJ6LPlkSR9DgaZswZpOv2sBBTKjXqhhWExDRBIyz1M0GsIOwziMLmIo+txmbqPT6nQ/ciDnc/U7712ue65AZdAc48S2OnooL1nJbeOArkm2CjEG+3AYmtKPXCBZatoNfK2MXwl6f1MG10nsO8YGVEVo5CVn8NOmWGcG3rPUC3GXUnSmQbMAdtuY4Y0mAWjvDvO8uCCHXb0/StN+ZR+EsxAFxNbGyG/MbjJvEojHU5ohKCYeB5PoYDnI3cntrjyScUtWN55YySk8h1Je2vBXro3nuM7lG7QJpuiOXJH3UAUqK+sKC9pHqqBZTXIrietmBOLpyYA==
+ ARA:13230040|82310400026|376014|1800799024|36860700016|23010399003|18002099003|10067099003|22082099003|261021121427099003|3023799007|261021123027099003|11063799006|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info: N1BNe/41VyFtQ4exUKoNZGPpLkNsnSdZOb0MAvMoHWHCfAt8bot/iD38uXkpdjp8NhJZHn0kiwYakEQ2vcO8+IzeiF4Lk4cxIn2ve7lwmRpk/9tsTUfjBcB3WTBebyjmDD0kmm0itQ/YeBGIc6xexZRxNj27m8RWWuT1FNZQrpNUbA6elBfjJv9CngZZYbg5CTAt6nee/zV1oM4VcjAMoQ1GSTf4h9eAQRYgNC4Iu/Akdm/ebN6iQ1SDOFZQqqtsgAMBye/9HQ9sSbQMWgWruWMkc+IlB6DaJcX6kciNHibFZxBJUn9SCVdERcMkT2kWn32wDuVoMu2fQ6DKzQ4c0pqpOAptFyX+LBn+yjH6gs2PlgqITrl6So/AWyloCZDKiJDjbS4jf/qaZFwxIybqX+wOOWMxuIhwaAIMEl8X5iUNqSzqGvOxBJ447yeZFQ8c/V7/vaT2tmTClzcXqb/+vYxXahUN4/946T2JZkq9wRatlwC75v5G9uapBzLgbdMZhBr5gs44CuxrJaTvQNc+NdeiMNXSrS+aNmoIbTQrr4pnUWWLN876Tn8OXYqu7uGUqp9ulYlvKK26prN1HI3Z3S32IeGl2Y8RVme2xtQpCTFz50J+rOE3P6gM94HcflQlcuLlMuQQV5m24vDYf3DL+5fWTivlW9apFcmVClLmoT1VyDTrqiG+bb0R1cFRmOOKoza/LCl8pZJM1r35sw4zPg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(376014)(1800799024)(23010399003)(82310400026)(261021121427099003)(56012099006)(11063799006)(261009223027099003)(10067099003)(22082099003)(18002099003)(6133799003);
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(376014)(1800799024)(36860700016)(23010399003)(18002099003)(10067099003)(22082099003)(261021121427099003)(3023799007)(261021123027099003)(11063799006)(261009223027099003)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: jQUJYwELgRAvb0wz1DHHY7qBg8hxiWVpOmt9tkppIFi4mP6lxwi40OYpKNCh4dqZvyaKkUI4MT1lKUVLuydvNRtNQvdPvTxwjbgtKVpe/W/ldnq5eEEAJZ8/H5fT+blLUta0ElYUiXU1C8G4IITd9JbrOC0uYQ4P8YDIxb4/y5EJMtSq+z2N//+z2NjBc2k0Lt+o1CUEVZXnXjbccnZixZw6Ub+LcqaSHsO2rnRiSdVVx4ElXKXCJpUsbRco8J2qXBpxrMNy5f6ViFos+MWXXG/orLwSvJiyu6+66C3NyOWzO3J2TJcUc/+eOCr7kC+iiSk7zeXaz8FCdRP45Wn2yv1B2CFIPg4K712wa3CAhW0xBI7dCm75w9XcxR7eu/6OxPzF3Clyoks1/y1Qixs/hI4XoFiWX9hQsvQmLyl+GMa1ospZZieo4jA2e1yYEqTG
+X-MS-Exchange-AntiSpam-MessageData-0: Z2iHrJfuDe1soBqBNkSJBwzaO8MLllQk2Tg0+ci9B0zdilPe3a0cNAmEUI4yPMI/RAY4CsrfBPVgcbOzWCetqpQua2mW8f39HIa964RT4HcQlg9e/0sAUXnhC7ijNkkvnqNIHHAlhU1alH5lXjp9fI80OuSvs4W/bfVgs7RrQ8EQozg47GzbwclfUuHMPkEeiHfNHWqOPCuAIaRWhE1LGnGmZpJAeHg0UhX7lWbm3rt1so7D2RRgJcYjL1H19Co1dKXz1AneBkzO9fx4M99953uGpBxzFPDfdsdjOUIfh/4riUp3actX5GXq4ZDgxw3so+gcEG5t1GgYDUN9ix2Lftigt/Rl0xp81Kj4WS3TeRA6LwL98RvO9ZHRGbUUt1Byepc+uZVI59W8LJ/F+cvUivttZJnFc8e5dKxYRuo8LA0/O8E/pFGOwbeqtHo0xUYL
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 08:20:28.7550 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7ca531f3-0076-42c8-625c-08df301554f9
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 08:20:28.5356 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d7808642-5438-4c40-7411-08df301554d7
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00029928.namprd02.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF0000A805.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8591
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPF78FC67EBA
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,128 +113,195 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Implement the gfx callbacks to read and restore the ring state of a gfx
-queue for gfx12:
-- read_gfx_hqd_ptrs() reads the HQD offset, CSMD read pointer and write
-  pointer of the gfx HQD of a doorbell, and whether the queue is the one
-  connected to its pipe;
-- restore_gfx_mqd_ring() puts them in the MQD after a reset, for MES to
-  map the queue again where it was. A queue switched out of the pipe
-  resumes from the preemption status the PFP saved in its MQD, also in
-  the middle of an IB. The queue the pipe was executing has its state in
-  the PFP, which the reset cleared: it restarts after the work submitted
-  so far instead, and that work is dropped.
+Some hangs leave the gfx streaming engine of the CP front-end stuck,
+eg. waiting for packet data that never arrives. Neither a queue reset
+nor a pipe reset can stop it, so the recovery currently ends in a full
+GPU reset, and VRAM is lost.
+
+Implement the reset_engine callback for the graphics engine:
+- halt PFP/ME;
+- wait for the memory requests of the CP DMA to complete;
+- with CP_SOFT_RESET_CNTL.GFX_ONLY_SOFT_RESET and GFX_HQD_REG_RESET set,
+  pulse GRBM_SOFT_RESET.SOFT_RESET_CPF/CPG. A CPF reset alone does not
+  clear the stuck stream;
+- restart PFP/ME and restore CP_PFP_IB_CONTROL;
+- remap the kernel gfx queue through MES from its MQD backup.
+
+MEC and the compute part of CPF/CPG aren't reset, so the compute queues
+keep running.
+
+MES fetches its own queues through CPF, and a MES command in flight
+during the reset doesn't complete: hold the MES lock across the reset.
+
+A CP DMA request in flight during the reset leaves the ME busy after it,
+and MES then fails its next commands. Wait for those requests before
+the reset, and give up after the usual timeout: the DMA of a hung stream
+may never complete. Wait for them after the reset too, but not for the
+whole CP, as the halted PFP stays busy until it is restarted. If the CP
+doesn't go idle once PFP/ME run again, fail the reset so that a full
+reset follows.
+
+The reset also clears the HQDs of the gfx user queues, the caller has to
+handle them.
+
+The callback relies on the caller to only use it when the IP reports
+AMDGPU_RESET_TYPE_PER_ENGINE, which a later patch enables with MES and
+async gfx rings.
 
 Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c | 85 ++++++++++++++++++++++++++
- 1 file changed, 85 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c | 129 +++++++++++++++++++++++++
+ 1 file changed, 129 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-index dfc409e28914..b5f03f9a4ac3 100644
+index d334fb805020..dfc409e28914 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-@@ -276,6 +276,12 @@ static int gfx_v12_0_get_cu_info(struct amdgpu_device *adev,
+@@ -274,6 +274,8 @@ static void gfx_v12_0_set_imu_funcs(struct amdgpu_device *adev);
+ static int gfx_v12_0_get_cu_info(struct amdgpu_device *adev,
+ 				 struct amdgpu_cu_info *cu_info);
  static uint64_t gfx_v12_0_get_gpu_clock_counter(struct amdgpu_device *adev);
- static int gfx_v12_0_reset_engine(struct amdgpu_device *adev,
- 				  enum amdgpu_gfx_engine engine);
-+static bool gfx_v12_0_read_gfx_hqd_ptrs(struct amdgpu_device *adev,
-+					u32 doorbell_index,
-+					struct amdgpu_gfx_hqd_ptrs *ptrs);
-+static bool gfx_v12_0_restore_gfx_mqd_ring(struct amdgpu_device *adev, void *m,
-+					   u32 ring_size,
-+					   struct amdgpu_gfx_hqd_ptrs *ptrs);
++static int gfx_v12_0_reset_engine(struct amdgpu_device *adev,
++				  enum amdgpu_gfx_engine engine);
  static void gfx_v12_0_select_se_sh(struct amdgpu_device *adev, u32 se_num,
  				   u32 sh_num, u32 instance, int xcc_id);
  static u32 gfx_v12_0_get_wgp_active_bitmap_per_sh(struct amdgpu_device *adev);
-@@ -962,6 +968,8 @@ static const struct amdgpu_gfx_funcs gfx_v12_0_gfx_funcs = {
+@@ -959,6 +961,7 @@ static const struct amdgpu_gfx_funcs gfx_v12_0_gfx_funcs = {
+ 	.update_perfmon_mgcg = &gfx_v12_0_update_perf_clk,
  	.get_gfx_shadow_info = &gfx_v12_0_get_gfx_shadow_info,
  	.get_hdp_flush_mask = &amdgpu_gfx_get_hdp_flush_mask,
- 	.reset_engine = &gfx_v12_0_reset_engine,
-+	.read_gfx_hqd_ptrs = &gfx_v12_0_read_gfx_hqd_ptrs,
-+	.restore_gfx_mqd_ring = &gfx_v12_0_restore_gfx_mqd_ring,
++	.reset_engine = &gfx_v12_0_reset_engine,
  };
  
  static int gfx_v12_0_gpu_early_init(struct amdgpu_device *adev)
-@@ -3973,6 +3981,83 @@ static int gfx_v12_0_reset_engine(struct amdgpu_device *adev,
- 	return r;
+@@ -3844,6 +3847,132 @@ static int gfx_v12_0_wait_for_idle(struct amdgpu_ip_block *ip_block)
+ 	return -ETIMEDOUT;
  }
  
-+#define GFX12_HPD_QUEUE_STATE_CONNECTED_MIN	3
-+#define GFX12_HPD_QUEUE_STATE_CONNECTED_MAX	15
++/* The CP DMA and the interfaces its memory requests go through */
++#define GFX12_CP_STAT_MEM_BUSY	(CP_STAT__DMA_BUSY_MASK | \
++				 CP_STAT__TCIU_BUSY_MASK | \
++				 CP_STAT__RCIU_BUSY_MASK | \
++				 CP_STAT__UTCL2IU_BUSY_MASK)
 +
-+static bool gfx_v12_0_read_gfx_hqd_ptrs(struct amdgpu_device *adev,
-+					u32 doorbell_index,
-+					struct amdgpu_gfx_hqd_ptrs *ptrs)
++/*
++ * Soft reset the gfx CP and restart PFP and ME. Returns 0, or -ETIMEDOUT if the
++ * CP doesn't go idle after PFP and ME are restarted.
++ */
++static int gfx_v12_0_soft_reset_gfx_cp(struct amdgpu_device *adev)
 +{
-+	u32 me, pipe, queue, status, state;
++	u32 tmp, cntl, me_cntl, ib_control;
++	int i;
 +
-+	memset(ptrs, 0, sizeof(*ptrs));
-+	ptrs->doorbell_index = doorbell_index;
-+	if (!gfx_v12_0_detect_hung_queue(adev, doorbell_index, &me, &pipe, &queue))
-+		return true;
++	amdgpu_gfx_rlc_enter_safe_mode(adev, 0);
 +
-+	amdgpu_gfx_off_ctrl(adev, false);
-+	mutex_lock(&adev->srbm_mutex);
-+	soc24_grbm_select(adev, me, pipe, queue, 0);
-+	ptrs->on_hqd = RREG32_SOC15(GC, 0, regCP_GFX_HQD_ACTIVE) &
-+		       CP_GFX_HQD_ACTIVE__ACTIVE_MASK;
-+	if (!ptrs->on_hqd)
-+		goto out;
-+	ptrs->mqd_addr = RREG32_SOC15(GC, 0, regCP_GFX_MQD_BASE_ADDR) |
-+			 (u64)RREG32_SOC15(GC, 0, regCP_GFX_MQD_BASE_ADDR_HI) << 32;
-+	ptrs->offset = RREG32_SOC15(GC, 0, regCP_GFX_HQD_OFFSET);
-+	ptrs->csmd_rptr = RREG32_SOC15(GC, 0, regCP_GFX_HQD_CSMD_RPTR);
-+	ptrs->wptr = RREG32_SOC15(GC, 0, regCP_GFX_HQD_WPTR) |
-+		     (u64)RREG32_SOC15(GC, 0, regCP_GFX_HQD_WPTR_HI) << 32;
-+	status = RREG32_SOC15(GC, 0, regCP_GFX_HPD_STATUS0);
-+	state = REG_GET_FIELD(status, CP_GFX_HPD_STATUS0, QUEUE_STATE);
-+	ptrs->connected =
-+		state >= GFX12_HPD_QUEUE_STATE_CONNECTED_MIN &&
-+		state <= GFX12_HPD_QUEUE_STATE_CONNECTED_MAX &&
-+		REG_GET_FIELD(status, CP_GFX_HPD_STATUS0, MAPPED_QUEUE) == queue;
-+out:
-+	soc24_grbm_select(adev, 0, 0, 0, 0);
-+	mutex_unlock(&adev->srbm_mutex);
-+	amdgpu_gfx_off_ctrl(adev, true);
++	/* MES fetches its queues through CPF: keep it out of the reset. */
++	amdgpu_mes_lock(&adev->mes);
 +
-+	return true;
++	me_cntl = RREG32_SOC15(GC, 0, regCP_ME_CNTL);
++	/* Cleared by the reset. */
++	ib_control = RREG32_SOC15(GC, 0, regCP_PFP_IB_CONTROL);
++
++	tmp = REG_SET_FIELD(me_cntl, CP_ME_CNTL, ME_HALT, 1);
++	tmp = REG_SET_FIELD(tmp, CP_ME_CNTL, PFP_HALT, 1);
++	WREG32_SOC15(GC, 0, regCP_ME_CNTL, tmp);
++	udelay(50);
++
++	/* A CP DMA in flight during the reset leaves the ME busy after it. */
++	for (i = 0; i < adev->usec_timeout; i++) {
++		if (!(RREG32_SOC15(GC, 0, regCP_STAT) & GFX12_CP_STAT_MEM_BUSY))
++			break;
++		udelay(1);
++	}
++
++	/* Without GFX_ONLY_SOFT_RESET, a CPF reset would also hit compute and MES. */
++	cntl = RREG32_SOC15(GC, 0, regCP_SOFT_RESET_CNTL);
++	tmp = REG_SET_FIELD(cntl, CP_SOFT_RESET_CNTL, GFX_ONLY_SOFT_RESET, 1);
++	tmp = REG_SET_FIELD(tmp, CP_SOFT_RESET_CNTL, GFX_HQD_REG_RESET, 1);
++	WREG32_SOC15(GC, 0, regCP_SOFT_RESET_CNTL, tmp);
++
++	/* A CPF reset alone leaves the streaming engine stuck. */
++	tmp = RREG32_SOC15(GC, 0, regGRBM_SOFT_RESET);
++	tmp = REG_SET_FIELD(tmp, GRBM_SOFT_RESET, SOFT_RESET_CPF, 1);
++	tmp = REG_SET_FIELD(tmp, GRBM_SOFT_RESET, SOFT_RESET_CPG, 1);
++	WREG32_SOC15(GC, 0, regGRBM_SOFT_RESET, tmp);
++	tmp = RREG32_SOC15(GC, 0, regGRBM_SOFT_RESET);
++	udelay(50);
++	tmp = REG_SET_FIELD(tmp, GRBM_SOFT_RESET, SOFT_RESET_CPF, 0);
++	tmp = REG_SET_FIELD(tmp, GRBM_SOFT_RESET, SOFT_RESET_CPG, 0);
++	WREG32_SOC15(GC, 0, regGRBM_SOFT_RESET, tmp);
++	tmp = RREG32_SOC15(GC, 0, regGRBM_SOFT_RESET);
++
++	WREG32_SOC15(GC, 0, regCP_SOFT_RESET_CNTL, cntl);
++
++	/* Not the whole CP: the halted PFP stays busy until restarted. */
++	for (i = 0; i < adev->usec_timeout; i++) {
++		if (!(RREG32_SOC15(GC, 0, regCP_STAT) & GFX12_CP_STAT_MEM_BUSY))
++			break;
++		udelay(1);
++	}
++	amdgpu_mes_unlock(&adev->mes);
++
++	gfx_v12_0_set_pfp_ucode_start_addr(adev);
++	gfx_v12_0_set_me_ucode_start_addr(adev);
++	tmp = RREG32_SOC15(GC, 0, regCP_ME_CNTL);
++	tmp = REG_SET_FIELD(tmp, CP_ME_CNTL, CE_HALT,
++			    REG_GET_FIELD(me_cntl, CP_ME_CNTL, CE_HALT));
++	WREG32_SOC15(GC, 0, regCP_ME_CNTL, tmp);
++	WREG32_SOC15(GC, 0, regCP_PFP_IB_CONTROL, ib_control);
++	amdgpu_gfx_rlc_exit_safe_mode(adev, 0);
++
++	tmp = RREG32_SOC15(GC, 0, regCP_ME_CNTL);
++	tmp = REG_SET_FIELD(tmp, CP_ME_CNTL, ME_HALT, 0);
++	tmp = REG_SET_FIELD(tmp, CP_ME_CNTL, PFP_HALT, 0);
++	WREG32_SOC15(GC, 0, regCP_ME_CNTL, tmp);
++	for (i = 0; i < adev->usec_timeout; i++) {
++		if (!RREG32_SOC15(GC, 0, regCP_STAT))
++			return 0;
++		udelay(1);
++	}
++	return -ETIMEDOUT;
 +}
 +
-+static bool gfx_v12_0_restore_gfx_mqd_ring(struct amdgpu_device *adev, void *m,
-+					   u32 ring_size,
-+					   struct amdgpu_gfx_hqd_ptrs *ptrs)
++/*
++ * Reset the graphics engine: the CP front-end (CPF/CPG), PFP/ME and the gfx
++ * HQDs. MEC, MES and the compute queues keep running.
++ */
++static int gfx_v12_0_reset_engine(struct amdgpu_device *adev,
++				  enum amdgpu_gfx_engine engine)
 +{
-+	struct v12_gfx_mqd *mqd = m;
-+	u32 wptr = lower_32_bits(ptrs->wptr) & ((ring_size >> 2) - 1);
-+	u32 *status;
++	int i, r;
 +
-+	/*
-+	 * MQD dwords 32-41 (reserved_32..41) are the PFP preemption status,
-+	 * mcbp_status_pfp: the offset and chained IB size and address of IB1
-+	 * (32-35) and IB2 (36-39), rb_preempt (40: preempted in the ring) and
-+	 * completion_status (41: 0 IB not started, 1 preempted inside an IB,
-+	 * 2 IB completed, 3 IB resumed). The PFP saves it when the queue is
-+	 * switched out of the pipe and resumes from it when the queue runs
-+	 * again, at the HQD offset. That survives the reset for a queue that
-+	 * was switched out. The queue the pipe executed has its state in the
-+	 * PFP, which the reset cleared: restart it at the write pointer with
-+	 * no IB to resume, and drop its work in flight.
-+	 */
-+	if (ptrs->connected) {
-+		mqd->cp_gfx_hqd_offset = wptr;
-+		mqd->cp_gfx_hqd_csmd_rptr = wptr;
-+		for (status = &mqd->reserved_32; status <= &mqd->reserved_41; status++)
-+			*status = 0;
-+	} else {
-+		mqd->cp_gfx_hqd_offset = ptrs->offset;
-+		mqd->cp_gfx_hqd_csmd_rptr = ptrs->csmd_rptr;
++	lockdep_assert_held(&adev->gfx.mec.reset_mutex);
++
++	if (engine != AMDGPU_GFX_ENGINE_GFX)
++		return -EOPNOTSUPP;
++
++	amdgpu_gfx_off_ctrl(adev, false);
++
++	r = gfx_v12_0_soft_reset_gfx_cp(adev);
++	if (r) {
++		dev_err(adev->dev, "gfx CP still busy after reset, CP_STAT 0x%08x\n",
++			RREG32_SOC15(GC, 0, regCP_STAT));
++		goto exit;
 +	}
-+	mqd->cp_gfx_hqd_wptr = lower_32_bits(ptrs->wptr);
-+	mqd->cp_gfx_hqd_wptr_hi = upper_32_bits(ptrs->wptr);
-+	mqd->cp_gfx_hqd_active = 0;
 +
-+	return ptrs->connected;
++	/* Map the kernel gfx queue again: the reset cleared its HQD. */
++	r = amdgpu_gfx_disable_kgq(adev, 0);
++	if (r)
++		goto exit;
++
++	for (i = 0; i < adev->gfx.num_gfx_rings; i++)
++		amdgpu_gfx_mqd_reset_restore(&adev->gfx.gfx_ring[i]);
++	r = amdgpu_gfx_enable_kgq(adev, 0);
++	if (r)
++		goto exit;
++
++	r = gfx_v12_0_cp_gfx_start(adev);
++
++exit:
++	amdgpu_gfx_off_ctrl(adev, true);
++	return r;
 +}
 +
  static uint64_t gfx_v12_0_get_gpu_clock_counter(struct amdgpu_device *adev)
