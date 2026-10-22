@@ -2,122 +2,55 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 069C5606A319
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2026 14:19:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D24E1606A31B
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2026 14:56:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Y/4sHBEt
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=WW3HK2RG
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F0A810E34E;
-	Thu, 22 Oct 2026 14:19:38 +0000 (UTC)
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010018.outbound.protection.outlook.com [52.101.46.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4765C10E34E
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2026 14:19:33 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=E1JfnllO9gC6W3IA6DOJYYt3IHS5fasBRpR+9+Z+UJMLC0nlE4/6kozJXCf0wWQpg500NMpCIkMCFNZO4Cd99PaNOlFjoxdoHioV7K5EmFuwQ//CB6cUOYYd3P81SRcpPSCs+V8tB1yPEIlZj4u/wGu10+S6KB254eAP5WliMYK46uP9whooARTsjwl6Rg85m5Fgo0qZTl/ShxaNnCnsdXxFR6OkCoZbdq1O/WeDN7udXLZ9OoR4Y0h/OZbgrRPLM+qnPWeDkEjh3lRCt+vklOkAbsxr4Ovj79iDevVVGShCQBIi9auUIV2pTpZEr7+K7zX/2W8GVH7T7XfaOID/Zw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ux67W9DTLhBLi6z95jqhfVfizIjsODjQ1ch+wvCIEO0=;
- b=FJl4xXa2iUMoiYB0PYBG9OEKp4A6xcQpdgSZyhUlrJUCwi0HrDuQqr9x5KDi4BOY8a/ukuHlupfd/SmcNZOoOlgPdP4zZwoNMzZ44WkumnOAPK1kkS4rmCold1r7VK7RIZA6XREEklxYsarGYDiIGVWGlx4Qs9LhSKWRzudydhLojTOVjaKavzzuMAoLs+RU+FsYfjhN6ZNdQcsaRYG+YC91gNFH4LgTPoWAnY59ipe+ePcyIkLj7ZFxbCVVh3N/2/5aM/L61XP7suO7oUkdV06wr4wh/EJJGQCiHc7Cb2kQ5NOuMErcL7CYgwP5QTXy7qe9EseBhh7sNAol1sdsrA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ux67W9DTLhBLi6z95jqhfVfizIjsODjQ1ch+wvCIEO0=;
- b=Y/4sHBEt76vLw2/XTILGbxqW/Dq8lkm41HAeJwtfRlxOBQwk8+SRX8LbhGJDqh/38oDzbVb72HUD+/qrGlqTmSq6hvQpqd5fsU9O8gHRerQs3+++AKOZn5fEFIu3dUMpnX8foMg2/OCMn6/NmQn5qmn4MvK5TA+1N9fPUCMnis4=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL1PR12MB5336.namprd12.prod.outlook.com (2603:10b6:208:314::8)
- by LY0PR12MB635447.namprd12.prod.outlook.com (2603:10b6:408:3b9::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Thu, 22 Oct
- 2026 14:19:30 +0000
-Received: from BL1PR12MB5336.namprd12.prod.outlook.com
- ([fe80::576a:69b5:929c:8640]) by BL1PR12MB5336.namprd12.prod.outlook.com
- ([fe80::576a:69b5:929c:8640%6]) with mapi id 15.21.0546.016; Thu, 22 Oct 2026
- 14:19:30 +0000
-Message-ID: <c7772c1d-a6ba-4c5a-848e-eeb35e38c702@amd.com>
-Date: Thu, 22 Oct 2026 10:19:27 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/9] drm/amdgpu/mes: skip unmap queue notification during
- GPU reset
-To: amd-gfx@lists.freedesktop.org
-References: <20261022083331.3019779-1-Prike.Liang@amd.com>
- <20261022083331.3019779-3-Prike.Liang@amd.com>
-Content-Language: en-US
-From: Eric Huang <jinhuieric.huang@amd.com>
-In-Reply-To: <20261022083331.3019779-3-Prike.Liang@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BL1PR13CA0132.namprd13.prod.outlook.com
- (2603:10b6:208:2bb::17) To BL1PR12MB5336.namprd12.prod.outlook.com
- (2603:10b6:208:314::8)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C6EB10E38E;
+	Thu, 22 Oct 2026 14:56:23 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3DF01126EA;
+ Thu, 22 Oct 2026 14:56:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=KVZXirYmjSt9t8wCQ9s8F1Og8+yXsk1FVMfEWXSHtn4=; b=WW3HK2RGz1pC94LCYMsaX9Bobg
+ UP8JBO0e1JsgiDFwJjuWCfK4xWM6ao+OhpILkfc0aw6Murv7z6vMB8tSzXs9cvnv0rI1cgN3/KbI/
+ /MPizUveN9WxMda7ksxfhkpSMh7iwU7ZiYGGTzDIBU+BhEIUzs9rJn+t3Ai51Xzb125khvo4AGoPw
+ W0Zqx19CZO2dWF/6ZwfjbpC7KhDQcuMLfubnWywOq7/yd+2Ew7uz7o5P1wFeNePlScUoZSerh7/HE
+ wCz018g8YRFvLu7j8lJBtzUyVL64Gr1AR3U5LcVqU1D/MD7TJq2p25zsg3g8PEPFocs5YjYa6btWi
+ KV6dyaZQ==;
+Received: from [81.79.79.1] (helo=[192.168.0.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1xJuDG-006tz4-2p; Thu, 22 Oct 2026 16:56:14 +0200
+Message-ID: <511fadfc-e165-47d3-a09d-9c2832e1862b@igalia.com>
+Date: Thu, 22 Oct 2026 15:56:12 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5336:EE_|LY0PR12MB635447:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5ab8b855-6831-4e57-432b-08df30477c89
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|376014|366016|22082099003|18002099003|261021121427099003|261021123027099003|261009223027099003|4143699003|11063799006|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info: gUGDsSzeaYMVd+fjVO7Iz6Rf1MDKxd2KcIamdnGTLu6nm53JYsqgKsWKTuuU+T0ZZ/bwejPsYNh75Y5/OkbLCqd5CtY9lfU7SH+ckhzR/vAfdvgakm5mffuSBA2exjtZkEq9TVrgtVchIEgW2jwxlvXHc+1xqzdQ6mFk85fSsakbqYQnMQ8Ak6y8hlr5vsKQ/MgPFuqPjvAz9oWOVZIVYnyA7QqKcRYfgpoAuyibikTOd+x4JrpI5yY6MFobn1I3UK6We0FkXZ9iREyNzL41Q9wahAisSBFq1TZBWcAn7pb1rg1IF9RGNO753/zUfYKkeUX7fuhZ21iaIBQRiSKbRku6sUZJ3YPB4iGbI42mxqgq0FKa04mKKRd2nL46+6XZaC4yL/TKYmT3AOqTsY6VBt66IQva8NdBk/OwNjTy3K+qoULK4fKGDMw6pIKyV+Oj71Y/Q2eh4647H5l7Fn+tlTVW2CkAMy3VciebKxIDdWTS7dspcItBgUdpK7lxy8DfGFgjLmcjn7hrTp5AKAYRUEx2J2fqawAbMAQlkhTbiK3zZJwLAfarFsGfO0lgWNVPmm1DzrzfWZgTjoU4YcLBIwut3OuOM7evGjWeWdjqdWjEUUs0l2X8jKHTM2jP2GFkDm4imEmbM0PUJEzU7WUB6GQsJ6RGlnbjHQOzgqn/l4E=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5336.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(22082099003)(18002099003)(261021121427099003)(261021123027099003)(261009223027099003)(4143699003)(11063799006)(10067099003)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Qk9HN2ZFWkVoZm1JcFZxZGhjVmczV0MvMy8yZEFOdmxjTlAzWStPZ0hjZUZH?=
- =?utf-8?B?d2I1eW8zSU9oSVArY1Z3NG9uaTQ3cjJZZC9GdGduV1lFTGNlUEV2UEM0bmtu?=
- =?utf-8?B?d1pNcmZZeTk1NUhjTUdjWUlYYjFDdkl0c0tDSEJMVTVzNjlKTGp5eFJTYjR3?=
- =?utf-8?B?NGVwTmx3UzdTdkR1aWFLSXFwdisrM2NWZGJPTjNBby93RzRTNUJKelhETm43?=
- =?utf-8?B?bW14OHlmWVF0RnljcW4vUTNOVUdpcDQ4d3JxZDlsaVlLV3NIbHNvOEVGWHhR?=
- =?utf-8?B?aWw3blc0ekVobWRrSkEvaXZ5SC95SW1IMjVJZGl0WWlSRVV3SnJEOVRKeDli?=
- =?utf-8?B?SFhrbnlZbXF5VUV0WXVEN2VEdE40YXF2ekRRb0dmb2o0V2lTV3RYK2wrcGpy?=
- =?utf-8?B?eUkwcjlFZGJWL2VQRjA2MDZRbGRQOGxqRU1QTlNWT2VVTzhaMDFDckdnYnUx?=
- =?utf-8?B?TmlxZlh3SG9nQ1VaUE5mTTFrWHhUZGI2MXRRTkpUR3U1ckpkUk91UG9ZWWNW?=
- =?utf-8?B?ZE9OTGtPRThlT3lpRjRVQ2I1K056N0ZCZnA0cDduOTRncGxYd3J6ZXhpTER1?=
- =?utf-8?B?cUxlRUhHdjFYV0taQWVsQW9JZTlrU0czQkV1WFRnaXlRZWs4TnB5UWRhOCtZ?=
- =?utf-8?B?ME5ETm5GaVRhSGUxRnppU2RQaldOSlpXNHY1YWlCTDlVczAwSUZxUkVKTTI3?=
- =?utf-8?B?a3FZVEZ2Yk5SaFRoUysrRXUxN1hSSlNlWXBUUHZnT1pZT3F3TURhaHZCOHVL?=
- =?utf-8?B?L1lSUFJ1L1QzSEVzTkJjSS9xa3BMdGphRDN2TmxCODhNaXU2UVhhQVZ4SVdY?=
- =?utf-8?B?Uit5bzlPb3VYYU0reTRPVlpQeS9LMURKZUhab3NEd09ESXFaL1RVUGpJNlFT?=
- =?utf-8?B?WkJFZVVYaWtHcHdBNThmNGsvbHRab1Fwb0lMV2pHUEJFVFc2c2Z5NnhDWVR4?=
- =?utf-8?B?M1VFUzZZNUg1M0thNkdYYVl2WkVMVDBkTWE5SHhvd1U0QjB1OUJqV1ZLam1P?=
- =?utf-8?B?WjV2TFd5QjJPdWsxZExQMlN3bEhJdGNVYUpmTm9tOUNQZ1Y1Vk5LN2lWYklF?=
- =?utf-8?B?VW14WitpTm5IcjRqd1JvcDVIaW1Vanp4UFFVamplRkhzMTdWZ2Mzbm9ndDNt?=
- =?utf-8?B?b1JFTkF4YzdZYUc4Smprd2VHS2I4Sjl5RjlPaWUrS3phdnM0WlBjelBEa2dx?=
- =?utf-8?B?Q1hXVGhvU08xTnVvVDhFTFhLc2JJWjBmM0lOVGhDVVZ3RmFqTGl0alo1S0VB?=
- =?utf-8?B?aFpEMmd3cVhRLzM1eDFUQStFZ1lTaVc4OVhHOHhqeFNpZUpGTFhsM0hLcEVm?=
- =?utf-8?B?dFVDVE50WSt5UWl5d01KZVkzTS94VnZuenYzZkJkOERMcE5hTVoyNHVHU2pn?=
- =?utf-8?B?RS90cG5aNmRSNzErTFpXMjd3NElvU2lRR0JqWEdPYnM1YjJONWpyQUE3akk3?=
- =?utf-8?B?TDdQekhSOFZJT204SlJNNVlCVTBOVk1CcUFvWGI1QVVEaE5uVkptei83VndK?=
- =?utf-8?B?UVppdDkrWDVxWSt4Vk13ZmkrSXVZTVBwWHU0M1dZSmQwNmthb1JnazllVDIy?=
- =?utf-8?B?YVU3VzBwam1jUUlMV2RFcUZBVTF3R1QyMUhBZkRZMjBmam1ObWxpSldMNVVz?=
- =?utf-8?B?Mk9TVFdta253ckdoRWs4bzUvcmdMZDhPa3lWNjNlT3JWOStiTUFoaUVqRjY2?=
- =?utf-8?B?ZGgrSFZvV2JVTll0emZnUGRlcWk3RXo1cVU2TE5ZaGkycmF5MjNHRkpFdVpZ?=
- =?utf-8?B?RXJaZ2VndHlhd2ZneXZyNzlSbXExUkJ0Z3puME1USlY5MmNBaDgxK2luZVh2?=
- =?utf-8?B?RFVnOUpjTlJqVm0rRkNmVXMyNThDRTUrMFgyT0FVc1BIcUVJc0NyWnI2MFVH?=
- =?utf-8?B?OFhhQXNDS05TTVYzRi9JTTdBN3hNVGFLZVBoM1lWM1FjV0d0ZGpBTmZyY0Ez?=
- =?utf-8?B?Z2V4cUVPejJaSTNCazNDV2JzRm16MXNkNlJCOTZXM2hCQ3UrWnVsSFJWMFk5?=
- =?utf-8?B?cURJL0U4a0JhbG9ML3ZuOGkwbUQ1SnpMak9oSjREUitOTWJBdW13aWNqai9i?=
- =?utf-8?B?c3dLNzJkQy9mTUlscFdNU0NLeGNtRmI0UncvRjY1MTlvWiswSEZlRXBnQXBw?=
- =?utf-8?B?NzdCczYxR2lUcUlRVHRwb3hiWUJSdlFUaldIM2pXUVVrS2VKTk5nWjhpSWdQ?=
- =?utf-8?B?ZnJ1NU1DejFZNStvNE9zcDVKeThDNEFQSm5rdHdmQ05rVlNPdU5BM2hvbE45?=
- =?utf-8?B?OHArbmx0ajUrWG5mTkxKaEd6blZlKzdOSkt1RTFJbUhEY25Xck0wMG1VWG43?=
- =?utf-8?Q?1VdoH+r0wKZtUj5iLr?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5ab8b855-6831-4e57-432b-08df30477c89
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5336.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 14:19:30.3992 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: T9D4h3NV2X9EmAWQafYTdF6Nvg2A16wt9CUxGl9utxpMMX8GdZrQxgGfxgG7HhVapfRr143VaCBRm5wv4JCt/A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LY0PR12MB635447
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH i-g-t v7 7/9] tests/cgroup_dmem: add dmem cgroup eviction
+ test
+To: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ igt-dev@lists.freedesktop.org
+Cc: siqueira@igalia.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ Christian Koenig <christian.koenig@amd.com>,
+ maarten.lankhorst@linux.intel.com,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Kamil Konieczny <kamil.konieczny@linux.intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>, Natalie Vock <natalie.vock@gmx.de>,
+ kernel-dev@igalia.com
+References: <20260923-dmem_max-v7-0-194ea47bbb4d@igalia.com>
+ <20260923-dmem_max-v7-7-194ea47bbb4d@igalia.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <20260923-dmem_max-v7-7-194ea47bbb4d@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,8 +61,8 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-16.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
 	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
 	version=4.0.1
@@ -137,49 +70,397 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 
-On 2026-10-22 04:33, Prike Liang wrote:
-> amdgpu_mes_userq_notify_unmap_work_handler() submits a MES misc op
-> without holding reset_domain->sem, so it can ring the MES doorbell while
-> the GPU is being reset:
->
->    WARNING: amdgpu_device.c:928 at amdgpu_device_skip_hw_access+0x73/0x90 [amdgpu]
->    Workqueue: events amdgpu_mes_userq_notify_unmap_work_handler [amdgpu]
->    Call Trace:
->     amdgpu_mm_wdoorbell64+0x20/0x70 [amdgpu]
->     mes_v11_0_ring_set_wptr+0x71/0x80 [amdgpu]
->     amdgpu_ring_commit+0x5b/0xa0 [amdgpu]
->     mes_v11_0_submit_pkt_and_poll_completion.constprop.0+0x207/0x520 [amdgpu]
->     mes_v11_0_misc_op+0x8b/0x240 [amdgpu]
->     amdgpu_mes_notify_unmap_queue+0xa3/0x110 [amdgpu]
->     amdgpu_mes_userq_notify_unmap_work_handler+0x24/0x70 [amdgpu]
->
-> Only send the notification when reset_domain->sem can be trylocked. The
-> work re-arms itself while the HW queues are oversubscribed, so the
-> notification is retried once the reset has finished.
->
-> Fixes: a3e112968588 ("drm/amdgpu/userq: create the same workaround of oversubscription timer")
-> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
-Reviewed-by: Eric Huang <jinhuieric.huang@amd.com>
-> Cc: Eric Huang <jinhuieric.huang@amd.com>
+On 23/09/2026 21:44, Thadeu Lima de Souza Cascardo wrote:
+> From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> 
+> The write_eviction subtest:
+>   - Creates a sub-cgroup and moves the test process into it.
+>   - Sets a dmem.max limit on the first VRAM region (up to 4 GiB, or
+>     the full capacity if smaller).
+> - Fills VRAM by repeatedly creating BOs placed in VRAM, depending on card
+>    support.
+>   - Verifies that cgroup current usage is within the expected range when
+>     the limit is hit.
+>   - Lowers dmem.max in 128 MiB steps, waiting for usage to follow each
+>     reduction.
+> 
+> The write_eviction_interruptible subtest runs the same test with
+> SIGCONT signals injected via igt_fork_signal_helper() and reports the
+> number of signals received.  When a signal interrupts kernel-side
+> eviction, a small BO allocation is used to re-trigger it.
+> 
+> Assisted-by: GitHub Copilot:claude-sonnet-4.6
+> Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 6 +++++-
->   1 file changed, 5 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> index 05bbbd1afb63..f573453415bd 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> @@ -1191,7 +1191,11 @@ static void amdgpu_mes_userq_notify_unmap_work_handler(struct work_struct *work)
->   					       userq_notify_unmap_work.work);
->   	struct amdgpu_device *adev = mes->adev;
+>   tests/cgroup_dmem.c | 285 ++++++++++++++++++++++++++++++++++++++++++++++++++--
+>   1 file changed, 279 insertions(+), 6 deletions(-)
+> 
+> diff --git a/tests/cgroup_dmem.c b/tests/cgroup_dmem.c
+> index 2ccd8bdb00ae..5cdb2f8830c8 100644
+> --- a/tests/cgroup_dmem.c
+> +++ b/tests/cgroup_dmem.c
+> @@ -1,6 +1,7 @@
+>   // SPDX-License-Identifier: MIT
+>   /*
+> - * Copyright © 2025 Intel Corporation
+> + * Copyright © 2025,2026 Intel Corporation
+> + * Copyright © 2026 Valve Corporation
+>    */
 >   
-> -	amdgpu_mes_notify_unmap_queue(adev);
-> +	/* MES is unusable during GPU recovery; the re-arm below retries later */
-> +	if (down_read_trylock(&adev->reset_domain->sem)) {
-> +		amdgpu_mes_notify_unmap_queue(adev);
-> +		up_read(&adev->reset_domain->sem);
+>   /**
+> @@ -17,10 +18,217 @@
+>    * Test category: uapi
+>    */
+>   
+> +#include <errno.h>
+>   #include <inttypes.h>
+> +#include <signal.h>
+> +#include <stdatomic.h>
+> +#include <stdint.h>
+> +#include <stdlib.h>
+> +#include <string.h>
+> +#include <unistd.h>
+>   
+> +#include "drmtest.h"
+>   #include "igt.h"
+> +#include "igt_aux.h"
+>   #include "igt_cgroup.h"
+> +#include "igt_dmem_driver.h"
+> +
+> +#define BO_SIZE			SZ_64M
+> +#define MAX_LIMIT		((uint64_t)4 * SZ_1G)
+> +#define EVICT_STEP		SZ_128M
+> +
+> +#define TEST_INTERRUPTIBLE	(1 << 0)
+> +
+> +/**
+> + * SUBTEST: simple
+> + * DESCRIPTION:
+> + *  Creates a cgroup, moves the process into it, enumerates all dmem regions,
+> + *  prints their capacity, system-wide current usage, per-cgroup current usage
+> + *  and configured limits, then destroys the cgroup.
+> + */
+> +
+> +/**
+> + * SUBTEST: write_eviction
+> + * DESCRIPTION:
+> + *   Create a dmem cgroup, move the current process into it and set the max
+> + *   device memory limit for the first VRAM region to 4 GiB.  Then fill VRAM
+> + *   by creating BOs with %DRM_XE_GEM_CREATE_FLAG_DEFER_BACKING (so that the
+> + *   physical allocation is deferred until VM_BIND) and binding them into an
+> + *   LR VM until the cgroup limit is hit.  Verify that the reported cgroup
+> + *   current usage is within the expected range when the error occurs.
+> + *   Finally lower the max limit in 256 MiB steps and verify that the cgroup
+> + *   usage follows.
+> + *   This subtest requires GPU device with at least one VRAM region.
+> + */
+> +
+> +/**
+> + * SUBTEST: write_eviction_interruptible
+> + * DESCRIPTION:
+> + *   Same as write_eviction but with SIGCONT signals injected throughout via
+> + *   igt_fork_signal_helper() to verify that the dmem.max write path handles
+> + *   signal interruption correctly.  A signal handler counts received signals
+> + *   and the count is reported as debug output at the end of the test.
+> + *   A signal interrupts the set-time eviction, and further eviction can be
+> + *   triggered by an explicit allocation.
+> + *   This subtest requires GPU device with at least one VRAM region.
+> + */
+> +
+> +static atomic_int signal_count;
+> +static struct sigaction sigcont_oldact;
+> +
+> +static void sigcont_handler(int sig)
+> +{
+> +	atomic_fetch_add(&signal_count, 1);
+> +
+> +	/* Chain to the previous handler (IGT's dummy sig_handler) */
+> +	if (sigcont_oldact.sa_handler &&
+> +	    sigcont_oldact.sa_handler != SIG_IGN &&
+> +	    sigcont_oldact.sa_handler != SIG_DFL)
+> +		sigcont_oldact.sa_handler(sig);
+> +}
+> +
+> +static void install_sigcont_counter(void)
+> +{
+> +	struct sigaction sa;
+> +
+> +	atomic_store(&signal_count, 0);
+> +	igt_fork_signal_helper();
+> +	/*
+> +	 * Install the counter after igt_fork_signal_helper() so our handler
+> +	 * is not overwritten.  Save the old handler so we can chain to it.
+> +	 */
+> +	memset(&sa, 0, sizeof(sa));
+> +	sa.sa_handler = sigcont_handler;
+> +	sigemptyset(&sa.sa_mask);
+> +	sigaction(SIGCONT, &sa, &sigcont_oldact);
+> +}
+> +
+> +static int allocate_vram(void **handles, const struct igt_dmem_driver *drv,
+> +			 void *ctx, int max_bo, size_t len)
+> +{
+> +	int i, err = 0;
+> +
+> +	for (i = 0; i < max_bo; i++) {
+> +		err = drv->allocate_vram(ctx, len, &handles[i]);
+> +		if (err)
+> +			break;
 > +	}
+> +	/* These are expected failures we can ignore. */
+> +	if (err == -ENOMEM || err == -ENOSPC)
+> +		err = 0;
+> +	if (!err)
+> +		return i;
+> +	for (i--; i >= 0; i--)
+> +		drv->free_vram(ctx, handles[i]);
+> +
+> +	return err;
+> +}
+> +
+> +static void test_write_eviction(int fd, char *cg_region, unsigned int flags, const struct igt_dmem_driver *drv, void *ctx)
+> +{
+> +	struct igt_cgroup *cg;
+> +	void **handles;
+> +	int max_bo;
+> +	uint64_t current, capacity, cg_max, limit, after;
+> +	int err;
+> +
+> +	igt_cgroup_dmem_get_capacity(cg_region, &capacity);
+> +	igt_require_f(capacity >= 4 * BO_SIZE,
+> +		      "VRAM capacity (%"PRIu64" MiB) too small to test\n",
+> +		      capacity / SZ_1M);
+> +
+> +	/*
+> +	 * Use up to 4 GiB, or the full capacity if the device has less.
+> +	 * Leave one BO_SIZE worth of headroom so the device isn't completely
+> +	 * exhausted before the cgroup limit is hit.
+> +	 */
+> +	cg_max = min(MAX_LIMIT, capacity - BO_SIZE);
+> +	cg_max = ALIGN_DOWN(cg_max, EVICT_STEP);
+> +
+> +	if (flags & TEST_INTERRUPTIBLE)
+> +		install_sigcont_counter();
+
+Is it okay to start the signal spam so early or it should be before the 
+loop below? I guess if it works it works.. more stress testing the better.
+
+> +
+> +	/* Create cgroup and move into it */
+> +	cg = igt_cgroup_new("igt_cgroups_test");
+> +	igt_cgroup_move_current(cg);
+> +	igt_cgroup_dmem_set_max(cg, cg_region, cg_max, false);
+> +
+> +	max_bo = (cg_max / BO_SIZE) + 8; /* headroom for overcommit */
+> +
+> +	handles = calloc(max_bo, sizeof(handles[0]));
+> +	igt_assert_f(handles, "failed to allocate handles array");
+> +
+> +	allocate_vram(handles, drv, ctx, max_bo, BO_SIZE);
+> +
+> +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
+> +	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
+> +		  "max = %"PRIu64" MiB\n",
+> +		  current / SZ_1M, cg_max / SZ_1M);
+> +
+> +	igt_assert_f(current <= cg_max,
+> +		     "Usage %"PRIu64" MiB exceeds max %"PRIu64" MiB\n",
+> +		     current / SZ_1M, cg_max / SZ_1M);
+> +
+> +	/* Phase 2: lower max in 128 MiB steps, verify usage follows */
+> +	limit = cg_max;
+> +	while (limit >= EVICT_STEP) {
+> +
+> +		limit -= EVICT_STEP;
+> +		igt_cgroup_dmem_set_max(cg, cg_region, limit, false);
+> +
+> +		igt_cgroup_dmem_get_current(cg, cg_region, &after);
+> +		igt_debug("Lowered max to %"PRIu64" MiB: usage = %"PRIu64" MiB\n",
+> +			  limit / SZ_1M, after / SZ_1M);
+> +
+> +		if (limit > EVICT_STEP) {
+> +			if ((flags & TEST_INTERRUPTIBLE) && after > limit) {
+> +				/* Let a new bo creation trigger eviction. */
+> +				void *handle;
+> +				err = drv->allocate_vram(ctx, BO_SIZE / 8, &handle);
+> +				igt_assert_f(err == 0,
+> +					"Error trying to allocate more VRAM to trigger eviction.");
+> +				drv->free_vram(ctx, handle);
+> +
+> +				igt_cgroup_dmem_get_current(cg, cg_region, &after);
+> +				igt_debug("Forced eviction max is %"PRIu64
+> +					  " MiB: usage = %"PRIu64" MiB\n",
+> +					  limit / SZ_1M, after / SZ_1M);
+> +			}
+> +
+> +			igt_assert_f(after <= limit,
+> +				     "Usage %"PRIu64" MiB did not follow max %"PRIu64" MiB\n",
+> +				     after / SZ_1M, limit / SZ_1M);
+> +		}
+> +	}
+> +
+> +	if (flags & TEST_INTERRUPTIBLE) {
+> +		igt_stop_signal_helper();
+> +		igt_info("Signals received during test: %d\n",
+> +			 atomic_load(&signal_count));
+> +	}
+> +
+> +	/* Cleanup */
+> +	igt_cgroup_dmem_set_max(cg, cg_region, IGT_CGROUP_DMEM_MAX, false);
+> +}
+> +
+> +static const struct {
+> +	const char *name;
+> +	void (*test_fn)(int fd, char *cg_region, unsigned int flags, const struct igt_dmem_driver *drv, void *ctx);
+> +	unsigned int flags;
+> +} subtests[] = {
+> +	{ "write_eviction", test_write_eviction, 0 },
+> +	{ "write_eviction_interruptible", test_write_eviction, TEST_INTERRUPTIBLE },
+> +	{ }
+> +};
+> +
+> +static const struct {
+> +	int driver_flag;
+> +	const struct igt_dmem_driver *driver;
+> +} drivers[] = {
+> +	{ DRIVER_XE, &xe_dmem_driver },
+> +	{ DRIVER_AMDGPU, &amdgpu_dmem_driver },
+> +	{ },
+> +};
 >   
->   	/* Re-arm if still oversubscribed */
->   	if (atomic_read(&mes->userq_hw_queue_count) >
+>   IGT_TEST_DESCRIPTION("Exercises the cgroup v2 dmem controller interface.");
+>   
+> @@ -32,7 +240,7 @@ static void fmt_bytes(uint64_t v, char *buf, size_t len)
+>   		snprintf(buf, len, "%" PRIu64, v);
+>   }
+>   
+> -int igt_simple_main()
+> +static void simple_cgroup(void)
+>   {
+>   	struct igt_cgroup *cg;
+>   	const char *region;
+> @@ -42,10 +250,6 @@ int igt_simple_main()
+>   	char min_s[32], low_s[32], max_s[32];
+>   	int i;
+>   
+> -	igt_require_f(igt_cgroup_dmem_available(),
+> -		      "No dmem regions found; is cgroup v2 with the "
+> -		      "dmem controller available?\n");
+> -
+>   	cg = igt_cgroup_new("igt-cgroup-dmem-test");
+>   	igt_assert_f(cg, "Failed to create cgroup\n");
+>   
+> @@ -89,3 +293,72 @@ int igt_simple_main()
+>   
+>   	igt_cgroup_dmem_regions_free(regions);
+>   }
+> +
+> +int igt_main()
+> +{
+> +	igt_fixture() {
+> +		igt_require_f(getuid() == 0, "Test requires root\n");
+
+It doesn't matter for IGT but geteuid would be more correct.
+
+> +		/* Check dmem cgroup controller is available before doing anything else */
+> +		igt_require_f(igt_cgroup_dmem_available(),
+> +			      "dmem cgroup controller not available (no cgroup v2 or no registered regions)\n");
+> +
+> +	}
+> +
+> +	igt_subtest("simple")
+> +		simple_cgroup();
+
+FWIW "basic" would be more in line with how we used to do it in the 
+past. IIRC.
+
+> +
+> +	for (int d = 0; drivers[d].driver; d++) {
+> +
+
+Spurious blank line.
+
+> +		int fd = -1;
+> +
+> +		for (int i = 0; subtests[i].name; i++) {
+> +			igt_subtest_group() {
+> +
+
+Hm perhaps it was deliberate? I don't see a pattern here and in some 
+cases below.
+
+> +				int ret = -1;
+> +				char *cg_region = NULL;
+> +				void *ctx = NULL;
+> +
+> +				igt_fixture() {
+> +					igt_cgroup_exit_current();
+> +					if (fd >= 0) {
+> +						int new_fd;
+
+Blank line.
+
+> +						new_fd = drm_reopen_driver(fd);
+> +						drm_close_driver(fd);
+
+This I guess frees the bos belonging to the previous subtest?
+
+> +						fd = new_fd;
+> +					} else {
+> +						fd = drm_open_driver(drivers[d].driver_flag);
+
+Strictly speaking it could use render node right? (Moot because it needs 
+root to configure dmem controller.)
+
+> +					}
+> +					igt_require_f(fd >= 0,
+> +						"No %s device found, skipping\n",
+> +						drivers[d].driver->name);
+> +					ret = drivers[d].driver->init(&ctx, fd);
+> +					igt_require_f(ret == 0,
+> +						"Failed to initialize %s device, skipping\n",
+> +						drivers[d].driver->name);
+> +					cg_region = drivers[d].driver->get_region_name(ctx);
+> +					igt_require_f(cg_region, "Region not tracked by dmem cgroup controller\n");
+
+"No regions tracked.." ?
+
+> +				}
+> +
+> +				igt_subtest_f("%s-%s", drivers[d].driver->name, subtests[i].name)
+> +					subtests[i].test_fn(fd, cg_region, subtests[i].flags, drivers[d].driver, ctx);
+
+My IGT-fu is somewhat dimishied these days, but isn't one bad thing here 
+that the list of subtests is not stable (as in cgroup_dmem --l)? Ie. it 
+depends on the GPUs installed. In the past that was annoying for CI 
+systems so we added igt_dynamic to deal with disappearing subtests. 
+Maybe look into that, or perhaps nowadays people do not care.
+
+Regards,
+
+Tvrtko
+
+> +
+> +				igt_fixture() {
+> +
+> +					if (subtests[i].flags & TEST_INTERRUPTIBLE)
+> +						igt_stop_signal_helper();
+> +
+> +					if (!ret)
+> +						drivers[d].driver->deinit(ctx);
+> +					free(cg_region);
+> +				}
+> +
+> +			}
+> +		}
+> +
+> +		igt_fixture() {
+> +			if (fd >= 0)
+> +				drm_close_driver(fd);
+> +		}
+> +
+> +	}
+> +}
+> 
 
