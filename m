@@ -2,69 +2,94 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8524606A319
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2026 15:53:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83CEB606A328
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2026 15:54:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=PKfQ3107
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bGkzQW16
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64A6811277E;
-	Thu, 22 Oct 2026 15:53:13 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E993F11277E;
- Thu, 22 Oct 2026 15:53:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=FC4eFsO01rcXqLH7YHA3uDKUlJxUSk705KFFMzLmvQQ=; b=PKfQ3107rKT1VMujuAHMJ/WzFy
- qCZqJaiRKMEUVjxt5mqwp7pTmS3TuIEVDKSF9hM7PxSGeFX/9v5aZRT60aZm9iOkdHbvuDKcSN3P2
- p1PEg2oHXtohazoq1YXKP1SjE3EApaXC0KM60oO3bahfEJ4nx1sTLSIIH7OO+5MwI5+nE0AVHvj8z
- u2BbOHVsHKeB+3oGR5lCXXrgOO+C9YVCMD4CtzCfZPDidOAnNVJUCWDg/R+bC9Gbmwd/7V1cZT/Po
- YoH4UiAaS9aiH1qxkTeyH8fXyRRZf8kqiWI4+jTUf7deNCPpM/ylQmGE2fN+ldFdJ/kQMfJeSRN5v
- g84OhrKA==;
-Received: from c-73-157-168-91.hsd1.or.comcast.net ([73.157.168.91]
- helo=[192.168.1.133]) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1xJv5u-006wgQ-Se; Thu, 22 Oct 2026 17:52:43 +0200
-Message-ID: <b93caf6d-1277-4e86-98a6-139f9cf8fb4c@Igalia.com>
-Date: Thu, 22 Oct 2026 08:52:34 -0700
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C08D11279A;
+	Thu, 22 Oct 2026 15:54:01 +0000 (UTC)
+Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com
+ [209.85.217.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0BAE411279A
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2026 15:53:54 +0000 (UTC)
+Received: by mail-vs1-f53.google.com with SMTP id
+ ada2fe7eead31-7cc228078a1so61721137.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2026 08:53:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792684433; cv=none;
+ d=google.com; s=arc-20260327;
+ b=UD4zScCAXS/jyy+dogghQzyAa0uAsDSVRVzDkv2AO72B5T6kI84AsL+/AzMtZm+5Wt
+ ftu5AtuOFda+XYnLpLNQ+tnu+bkgylpoyG3I2KLcTi0Fc73lPkxnvgY6XW0UKzkROJEW
+ A1jtaJqSC62jUqvwfPzb/YPbQCXap50TN9wAsRfEqaXWDfIaiUyueZVp/AoV907bls/h
+ rNiraL7239JOQJduVbvvfaHbgMfiz5hJtCGIeQc/jsQwytddvcXfZaL0WBcJmxZ5So87
+ 14s5S+t8S9M1mbYt6UHg+B3PiztCxK7Zjqu9PYbwGyoqTiKBgwXjXIxKa5Luat0RGDz1
+ ZcJQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=RcUu4DVxRWMupITw2FCqqjgBYc8DKYegf3oDVgYiJWc=;
+ fh=gumS4ncRmU4qH3AXNbe3LANH0azf8Ff9FlVIrW6S5Es=;
+ b=mAIij157zCFCtP59qFFYnA3H1A0sAzjAqTAfcC6wQUtN/bEHvVohq1bs6SzrHo0jjc
+ CEMSrRY9JMJyPSotger3QavUe6/poV85K6nxhyFmOKqLasnAfesvdCMDhu+8QjsayAml
+ akPT8baTI3I7lMHiSSH3oq7RFgT5evCCwe70cV+x6+p5ECFbCDKvFlHKjNvazfaLr7FW
+ ISG1yNxMBQuRqBhPiTszOUgpNwrBou4+NocvUnVeVDvf4vDR8U4XqICY5NA+v/1sVUKj
+ nQd/HeVQA8zXtx73kkjgJMMFmtY7KAOdVKKAF/CpujwMkHLfsB1pPkFXpeUJu0PQjBr/
+ qusQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1792684433; x=1793289233; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=RcUu4DVxRWMupITw2FCqqjgBYc8DKYegf3oDVgYiJWc=;
+ b=bGkzQW16UABPfCZIoTevJHMCVfmaSpMQ8n92FSPtbro/6jP5xSnlGzm5kUg0GGYhiP
+ MPWwYq7xjg7Mv1gn/h3M6lwCokcrNYmodYzwKAa5q4+rxzm4IbDWdA21DqmbVBhlyhgc
+ rTU+f6VZ2/jLvrCpls8LANT0sODtrVbBLhub63yMyrIQWW3B7E+sYw7AeO4MIZoNZIlj
+ 3I5lH5lvOvMx8jt4gyfgg+LgTD20vb79sZ5naNBkxRpaSCLMJ26fsB0pqjjlGDWvGL4M
+ 0rOR4YaInzMnnt+jxJJG8QbvyGjHITPMWhu6CgwvL1m+Quy8oVMF384XiyYRzoFRYJ+/
+ jdRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792684433; x=1793289233;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=RcUu4DVxRWMupITw2FCqqjgBYc8DKYegf3oDVgYiJWc=;
+ b=NvZJxT5aQQrucEqD9NZj1lSodHYZJD6TmLUgAR2B43GDPpGZCjgGh1jTm2wLFSRf5r
+ kMqdbo224qLhQ072YTnE0B8yFbPqy8/Dx15mtIJbgFJJktgiRtAyU7hlkLwssdo6puJ4
+ sQKQC4h16GZ513By6j6GLhaZXDmmuBtB8DtW9s7Y3G92V5I39c4m3o1M3bZzHD45Tf+r
+ B2UEY51T/i34KTqyldtyrpfyPZAG4vNtf+rFwd9XEkVAXAA8tBTsYk719BS1Gberz3YC
+ 8BCfl4RfrJMDwmUbmQ7TWcMRoq64K5Mwgo3EYCFLh69htR0HDn8mfQWjZ2JWz7cZAPio
+ cXew==
+X-Gm-Message-State: AFq9FYKN5CrS4c49pFRyxQs9Jf4EpsUTGSQcFy7j0ICcnrQCNAgYkV2B
+ gq6/LpoNhLrx5Nvb35REt9YYRAjtxYvu5r8RogKV0zzzEoc7PkGQZmtV9FPwVJPt+6GgTwfkBg3
+ 8UOrkLNpfGD2fCLRKbzWUGVw0lfzGa7g=
+X-Gm-Gg: AYBFou3ZAoX+OlGHXJ4nBj3yRggaluwLJkidhHyBPFRzf+3Ihn/NskH76cjLJIo4cF7
+ dB8r+fzx/Le6aAAfNsm/jxzMCvIz7vK3sZErlOeUcDXWtSh9dR4CX460pvDPh8MHbF5Xb+3uEPb
+ UJGuCoLsUdGCVOAbUz/gaLJvALCqt7uYt0KR1Ybf+VcIDOpM6rUYy5F6vSo+7upxF6jWqJWpUKO
+ msUJMLntY5TX2Xhz1HN5rmYRn8zP6Ztn2DMmSn/xn2ZD+9ioTgE/9zygRDu52nYIOemOEzwvxn0
+ 1eR8G0kmQJFMdV9mHQmFi81OBVrbAQi783nfnbTRAD8YM404cIR8VbXJg25XjvurJ0D9vPZ2YWe
+ r8/jIF3RQtq1UAtRS8RvobwP9mD/573uOpgAQDVzUPzs3D9BLeCR7ANhDkLqEwiwxhi0WGzO4aR
+ v9CQXxoiZij0frCKyfDvpDIOE=
+X-Received: by 2002:ac5:c4f8:0:b0:5ea:d67f:fd39 with SMTP id
+ 71dfb90a1353d-5eaebe76faamr1785426e0c.5.1792684433373; Thu, 22 Oct 2026
+ 08:53:53 -0700 (PDT)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 8/9] drm: writeback: clean up writeback connectors in
- drm_connector_cleanup()
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Liviu Dudau <liviu.dudau@arm.com>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>,
- Mihail Atanassov <mihail.atanassov@arm.com>, Eric Anholt <eric@anholt.net>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Brian Starkey <brian.starkey@arm.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- linux-renesas-soc@vger.kernel.org
-References: <20261019-wb-drop-encoder-v7-0-d4288a26eb54@oss.qualcomm.com>
- <20261019-wb-drop-encoder-v7-8-d4288a26eb54@oss.qualcomm.com>
- <d792066e-c857-4e80-8587-44a58ab75815@Igalia.com>
- <gjeqgaewd5omwhdmepqcsrjq3pph722j6rjtoedot5rqsjsaht@h55ako6z42dt>
-Content-Language: en-GB
-From: John Harrison <John.Harrison@Igalia.com>
-In-Reply-To: <gjeqgaewd5omwhdmepqcsrjq3pph722j6rjtoedot5rqsjsaht@h55ako6z42dt>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261022003058.1723817-1-bas@basnieuwenhuizen.nl>
+ <20261022003058.1723817-2-bas@basnieuwenhuizen.nl>
+In-Reply-To: <20261022003058.1723817-2-bas@basnieuwenhuizen.nl>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 22 Oct 2026 11:53:39 -0400
+X-Gm-Features: AclHuK9goIMM32nAxMzkGLdI9wTGQjVy-TyiXmSxr0kXjkOJVh-5UxTyd_fvFVs
+Message-ID: <CADnq5_Oh5b_XVZu5oUBEsotGmwa6mJUevUZ7Fsqf7_9ZKnGs6w@mail.gmail.com>
+Subject: Re: [PATCH 1/5] drm/amdgpu: Check cs flags.
+To: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+Cc: amd-gfx@lists.freedesktop.org, christian.koenig@amd.com, 
+ samuel.pitoiset@gmail.com, natalie.vock@gmx.de
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,82 +100,51 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-11.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FORGED_GMAIL_RCVD,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 10/22/26 04:59, Dmitry Baryshkov wrote:
-> On Wed, Oct 21, 2026 at 11:22:48AM -0700, John Harrison wrote:
->> On 10/19/26 06:12, Dmitry Baryshkov wrote:
->>> Only drmm_writeback_connector_init() registers
->>> drm_writeback_connector_cleanup(). Connectors set up with
->>> drm_writeback_connector_init() (amdgpu, komeda, malidp, rcar-du, vc4)
->>> never drop the formats blob or free the jobs still on the queue, leaking
->>> them together with their framebuffer and fence references.
->>>
->>> Call drm_writeback_connector_cleanup() from drm_connector_cleanup() for
->>> writeback connectors, the same way the HDMI audio and SCDC state is torn
->>> down there, so it runs for both kinds of initialization. The drmm action
->>> now just wraps it. Clearing the blob pointer makes the second invocation
->>> a no-op and also covers drm_connector_cleanup() being called after a
->>> failed __drm_writeback_connector_init().
->>>
->>> Fixes: 935774cd71fe ("drm: Add writeback connector type")
->>> Assisted-by: LLM
->>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
->>> ---
->>>    drivers/gpu/drm/drm_connector.c     |  3 +++
->>>    drivers/gpu/drm/drm_crtc_internal.h |  3 +++
->>>    drivers/gpu/drm/drm_writeback.c     | 30 +++++++++++++++++++++++-------
->>>    3 files changed, 29 insertions(+), 7 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
->>> index 893716a9e489..1c2bef5e0636 100644
->>> --- a/drivers/gpu/drm/drm_connector.c
->>> +++ b/drivers/gpu/drm/drm_connector.c
->>> @@ -929,6 +929,9 @@ void drm_connector_cleanup(struct drm_connector *connector)
->>>    	if (connector->hdmi.scdc_work_initialized)
->>>    		cancel_delayed_work_sync(&connector->hdmi.scdc_work);
->>> +	if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
->>> +		drm_writeback_connector_cleanup(connector);
->>> +
->> Could this be done via a new connector->funcs->cleanup() vfunc or something?
->> Set that inside the writeback init path and it is guaranteed to then only be
->> called for objects that explicitly requested it. That would be more robust
->> and would keep sashiko happy. It would also keep a writeback connector
->> specific declaration out of the crtc_internal header.
-> I'd rather not do it. These are the generic properties of every
-> writeback connector. The answer to Sahiko would be that yes, currently
-> all DRM_MODE_CONNECTOR_WRITEBACK use drm_writeback_connector. Once that
-> is changed for the Intel driver, the condition might/would change here.
-Except for the KUNIT selftests at least. I'm not sure about the HDMI 
-issues but Sashiko is correct that some of the tests hack up partial 
-structures and I can reproduce a bunch of the AMD ones hitting 
-out-of-bounds accesses with the 'connector_type' based clean up. Locally 
-hacking it to just add an extra bool that is only set in the full init 
-path fixes the issue. Using a vfunc cleanup member would be nicer than 
-having a specific writeback flag ontop of the connector type. The other 
-option is to re-work all the selftests to allocate full writeback 
-connector objects in the first place. Again, having an explicitly set 
-vfunc would fix all those and just be more robust in general.
+On Wed, Oct 21, 2026 at 9:26=E2=80=AFPM Bas Nieuwenhuizen
+<bas@basnieuwenhuizen.nl> wrote:
+>
+> Had no validation before. libdrm_amdgpu memsets this, even
+> for the raw/raw2 functions.
+>
+> We have a lot of functions touching the ioctl struct, no
+> strong opinion on where this is placed, but I thought
+> early would be good.
+>
+> Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+> Reviewed-by: Faith Ekstrand <faith.ekstrand@collabora.com>
 
-Note, it's not just the audio selftests that go boom. E.g. 
-dm_test_crtc_set_crc_source_dprx_no_connector, 
-dm_test_dmub_hpd_callback_unknown_type_match and 
-dm_test_register_hpd_handlers_valid all fail. I've only tried the AMD 
-ones at the moment, I'm not able to run the VC4 tests.
+Patch 1 is arguably a bug fix, so applying it now.
 
-Note further, there are a lot of unrelated failures in the AMD selftests 
-at the moment :(. I had to fix a bunch of other issues to get a clean 
-run! Will post some patches shortly.
+Alex
 
-Regarding i915/Xe, I have updated those patch sets to run on your new 
-baseline and I have the IGTs passing. At least, as well as they did with 
-the prior versions. So no particular concerns from there.
-
-John.
-
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 3 +++
+>  1 file changed, 3 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_cs.c
+> index 1745e500fd80..63fd16009bf8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> @@ -188,6 +188,9 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser *p=
+,
+>         int ret;
+>         int i;
+>
+> +       if (cs->in.flags)
+> +               return -EINVAL;
+> +
+>         chunk_array =3D memdup_array_user(u64_to_user_ptr(cs->in.chunks),
+>                                         cs->in.num_chunks,
+>                                         sizeof(uint64_t));
+> --
+> 2.56.0
+>
