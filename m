@@ -2,76 +2,74 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 706CC606A31B
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2026 09:45:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1888A606A31B
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2026 09:45:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NiPUQ2Ks
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hBiXNiRy
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A003112467;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22D70112469;
 	Thu, 22 Oct 2026 09:45:00 +0000 (UTC)
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F1861123CE
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2026 08:10:29 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-4a1ec92f655so7057165e9.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2026 01:10:29 -0700 (PDT)
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com
+ [74.125.82.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD5111123B1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2026 07:36:51 +0000 (UTC)
+Received: by mail-dy1-f177.google.com with SMTP id
+ 5a478bee46e88-36878d8f8f5so94328eec.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2026 00:36:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792656627; x=1793261427; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1792654611; x=1793259411; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=5WlGP2aYrjDFuUc+YNVO9vArip6u9SIM0c4z3P59W+A=;
- b=NiPUQ2Ksc777yciunid9id1/ZTvIcvKp9Ey1XnnvF41hq1HkTMOv1oq03lW8Dhf/qt
- zg6U5QVyMLisyY2OC7JEpHpYtJjwjOopeNLT/GPUukc04SIT/sKSeGk9+P8pi+5Tua8W
- JgO+K2aq61rAjG0UFA0SfqXc7cD7JWwze9neHTHc7VVsG2/ynEbVk98/tyPDKTlGyeos
- nwucdUfSpRERymb2t6/i2cg4GnCG9/FgZwzsnYNEyxtLe6eUY04PuJ/RK3/G9CvoOAgL
- kA/N2LExEtiWa4IG8vLFNVqvSrbIUOVkpVTwQf/6pvmN1dLaM0vgOu+c5z0awdaojZie
- ri+A==
+ bh=5DpYvnCuMI3yPgcDnrdR2yXHOcHCjxXFPFiwuk+v6Tw=;
+ b=hBiXNiRyaw+ys74dl4XEaR3F4Z628uGa7qfq4DtZIfXNsxuib+RD9yMWqnX5uoW/OL
+ /fsgBUBm5DhSe/X411YnO1JdGdX+a/tdi0UNbOrgpOgxSx4BrPY5KDvjTp06jBsTgbVa
+ fBbsiZPUlZoG2TrZrgoZFuFnRmjr5O7Rn557YB8OfTTjpCnV6RA4CfYoxjDo6R7KneXz
+ uU7zoA2LNrjq0/XWPol5vbKpKNU4x+mK+Kmu0jI4py0FWnBReEIc5azm2utFO2jorAX5
+ +jnqg2QVlGMmT0pdCUgNTHVQUvDpDeLACd7Ww1LK7HxSRdliBQatPHOvvHErW7u1DguV
+ uRLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792656627; x=1793261427;
+ d=1e100.net; s=20260707; t=1792654611; x=1793259411;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=5WlGP2aYrjDFuUc+YNVO9vArip6u9SIM0c4z3P59W+A=;
- b=r0joUm746oHTAvvKfuulTJXK/Dh5GwpNCHXtJ2zoo+gEJhMFXVy1aa0w+IE4OQ8GJn
- 0bHF8XTrHah4kQoWrv+dGrw7SrRjmnQMlBS2W2jNEnVJjssj1sTMdOW2pXqPDlUOmmcU
- NO1UDKOpfFzOZIXGTL3szjRc9EPxUQmGhLeCZezztlPyNftONCoaL9dIS2/n58T+Pd5m
- A1gEtLZizUvUmERqkofy0t1ji+VaXh4EDcpbn2+yMN8533lz5yX6PMl5S2qh3tGDZCnl
- EYL1uFWk9eVkqpzNC2ODaBxSEJgEVt0cMEu8yldtt2APkttCXg4Po+o7WsrGiaILd7ej
- 7EUw==
-X-Gm-Message-State: AFq9FYKq5D2DOKhknh9OnA+AYnULCswEC3QQCTcUxVXyTEso0oAFwIPi
- J6jkGhHfg8hx6jUMK4d53xZ0NlAgnxsLdFUc9alQ/PTV6vEHVUocKOC6GyMgSpqOU7Yr8g==
-X-Gm-Gg: AYBFou0JlL0CWgKAIRj3rENZ3SPecuy2RgNQRAqaGX8y19lHs3Acj165ruUuEUDmWOm
- mXkxncmlJMOAhcTCvbEfJdGnR8130Invdz9oUSWcXP+KxgA55oRd3550rby99/Iq6ltBIHxWgWR
- pn+IPntTb89+3cdqxd1neNSzrDpXpazlbGszwrTdUdSp8J86v8FCggcrT70h0syOEgUApFzjWi8
- MsPuXX+pLRVFwQiHJhtNhjcgQE8pQuFyliq5dEfJcSODFpVtFnk7R1YxBQqHeiX+PCp7XjZcHWK
- UiEDlLEI4hNElWa6ZuT32k8svByP/I+tlEgSDMMi77uw4lCUTGrFHmtjPidatCtBxsEQu3IvssL
- TeyIQ6+bdka0VoImdYLyun7VlWGI+Of6oBeTxkABBf4i4Room1HM0HZbBfKjG3UrxuJI7ib1/6+
- lSAzoLi1sum5UXFRqPzJZVQ9dNB1sdKG/PdeqhJNKBbRFM7u7/hwWdarVN1XxbWEK65zChUsHbN
- yc7WIMNEVMdXDI56rYg5qglSexIIbeyrEpGJL+cZJjpRzgpuR9m70fMa+8i1H68zDyxAC0BXA/3
- sul4Bbm8CcRknw52oCbdimsOHjUbeDHI+TEUuvPl+NrU8B5p
-X-Received: by 2002:a05:600c:8b22:b0:4a1:c27d:e1a8 with SMTP id
- 5b1f17b1804b1-4a204b1f425mr31189595e9.10.1792656627397; 
- Thu, 22 Oct 2026 01:10:27 -0700 (PDT)
-Received: from tvab-pc (v2202507270734364850.supersrv.de. [152.53.198.198])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4a1fcd234fasm72133325e9.3.2026.10.22.01.10.26
+ bh=5DpYvnCuMI3yPgcDnrdR2yXHOcHCjxXFPFiwuk+v6Tw=;
+ b=adh4fSt6Pg0Kqc2gPBor9ZXCq3FIQLD/Un5Z1j7vTN/geBfXefOq+ySqHTdabdszrH
+ Xgm5mCjQ43Zwd3EviwH1SIc32q/8WaKGERB2DUtcWNoR0CyEaafUqysvoF22AQ5xS4cm
+ TYBB0e367YLNgYI1obknFf7ckdxVdx06rY2hVOBsMJwOqc69SR2KCFzYlDyWAuAXNZIj
+ VFAcvflMm/g2gOeKKIR95hPU0wimmNpXWZmdvcAsuJgOqwdtQr0CVtqn7Pt3ssBtd9b1
+ tGeOXuWXgc75qFC4Oo8H7FyAfnyAzmnip0ho88dcUiFDlb3tadHthgeJ63FY1CUbjuPr
+ h+Hg==
+X-Gm-Message-State: AFq9FYJ2Almz1lt2jwi7F9M0O/nGtwID7e3p0XfSGRWyrNd0VKh4lPUW
+ bHzGogWQq5bTFqRzBi8R/fS76Ho4ASBxwFjDVmhHGpb04m5hIIvUHPPC
+X-Gm-Gg: AYBFou21EXbIW0jM5y8vKD4novNggKYAvwUPcqEG1iI5qBn7+SdGsYJGWq8TZLq9G7+
+ Z7OXKzo8YfVolwleUk32MB2KeDWQC30GxLK89bZDV1R+wAC+RrQq8DshOvGpHswBFdR41jBDmTJ
+ 7fUi7Oq59PjLOAyjipjkPrYoJNIWKEKtMqZMGeXfK9QkpHHhLehqIC2TxdjRsCJk6MFAeUn8Mez
+ QYGXkigsHx1z3qNiNlt2E6riIH1gcU9HNqNIat/IstbqRycx+oNBBFyUP9hTMggDojojQa8oMB8
+ u5JJAeM32qzb0sgBZ+CHlR1w9G2ucPTTJ9toyioSCgg07Hc9OrAD/585ZyIAR4D+vi5ueotzj8f
+ d9oAANKsmq0esAjYbsyI5hSMFNIJMe3/8BGmP2ESdPUhoFjDqoxKCv8E+T1rDm3MzU5RcHgHQgC
+ 0pLZ6FQw/upNKxCfifqEEudMsEMtRfJKyZ8XroVykFPp/LgnjOt/6hr3qxoGEgRWPX4djuWPAks
+ GtT/putD4Bw4Vy1mYIWJt3z7eL7mkfVTkQ9f5UmtjBKnRu0B+p1IrJU
+X-Received: by 2002:a05:693c:811a:b0:368:8792:720 with SMTP id
+ 5a478bee46e88-36887a14b77mr4373527eec.1.1792654611029; 
+ Thu, 22 Oct 2026 00:36:51 -0700 (PDT)
+Received: from archbook.lan ([14.1.89.164]) by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-368ca323effsm4486672eec.7.2026.10.22.00.36.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 Oct 2026 01:10:27 -0700 (PDT)
-From: Ilya Shidlovskiy <shidlovskiyilya@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: Ilya Shidlovskiy <shidlovskiyilya@gmail.com>,
- Kenneth Feng <kenneth.feng@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>
-Subject: [PATCH v2 1/3] drm/amd/display: dcn32: rebuild WM range table when
- memclk states change
-Date: Thu, 22 Oct 2026 11:09:23 +0300
-Message-ID: <20261022080925.13994-2-shidlovskiyilya@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261022080925.13994-1-shidlovskiyilya@gmail.com>
-References: <20261022080925.13994-1-shidlovskiyilya@gmail.com>
+ Thu, 22 Oct 2026 00:36:50 -0700 (PDT)
+From: Brad Drury <drury.brad@gmail.com>
+To: qchcio@gmail.com
+Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] drm/amdgpu: reset SI ASIC on MacBookPros with VRAM
+ at 0
+Date: Thu, 22 Oct 2026 15:36:38 +0800
+Message-ID: <20261022073638.724414-1-drury.brad@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261015095713.20560-2-qchcio@gmail.com>
+References: <20261015095713.20560-1-qchcio@gmail.com>
+ <20261015095713.20560-2-qchcio@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -86,64 +84,49 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-dcn32_get_memclk_states_from_smu() refreshes the UCLK levels,
-max_memclk_mhz and the bounding box, but the watermark range table and
-the dummy P-state table (which are derived from the same memclk levels)
-are only built once in dcn32_init_clocks(). Build them at the end of
-dcn32_get_memclk_states_from_smu() instead, so that every caller which
-re-reads the memclk states from PMFW also gets matching WM ranges.
+Hi Maciej,
 
-No functional change for the init path.
+I tested this patch on a second MacBookPro11,5 (Radeon R9 M370X, Verde,
+1002:6821, subsystem 106b:0149). Here the dGPU is a headless PRIME
+offload GPU and the panel is on i915. The kernel is linux 7.3-rc7, with
+amdgpu rebuilt from that tree with this patch on top and nothing else
+changed in amdgpu (amdgpu.si_support=1 radeon.si_support=0,
+mem_sleep=deep).
 
-Link: https://gitlab.freedesktop.org/drm/amd/-/issues/6009
-Acked-by: Leo Li <sunpeng.li@amd.com>
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Ilya Shidlovskiy <shidlovskiyilya@gmail.com>
----
+Without the patch, VRAM is at 0 after boot and every S3 resume fails
+with "ring gfx test failed (-110)".
 
-Notes:
-    v2:
-    - rebased on amd-staging-drm-next, no code changes
-    - added Leo's Acked-by (given in drm/amd#6009)
+With it, amdgpu logs "PCI CONFIG reset" and "GPU posting now..." at
+load, and VRAM ends up at 0x000000F400000000. I then ran four S3 cycles:
+two on battery and two on AC, from 9 minutes to 13 h 19 min asleep.
+After each resume the GART table was still at 0x000000F400000000 and
+the kernel log showed no ring timeouts, -110 errors or GPU recovery.
+After the last (overnight) resume, DRI_PRIME=1 glxgears (radeonsi) and
+vkcube (RADV) ran, and VA-API H.264 encode (VCE) and decode (UVD) both
+worked through ffmpeg.
 
- .../gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c  | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+One thing I noticed: on 2 of the 4 resumes, about a second after
+resume, vce_v1_0_stop() logged:
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
-index 22dfca6ef..7abb13ffd 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
-@@ -256,11 +256,8 @@ void dcn32_init_clocks(struct clk_mgr *clk_mgr_base)
- 		if (clk_mgr_base->bw_params->clk_table.entries[i].dppclk_mhz > 1950)
- 			clk_mgr_base->bw_params->clk_table.entries[i].dppclk_mhz = 1950;
- 
--	/* Get UCLK, update bounding box */
-+	/* Get UCLK, update bounding box and WM range table */
- 	clk_mgr_base->funcs->get_memclk_states_from_smu(clk_mgr_base);
--
--	/* WM range table */
--	dcn32_build_wm_range_table(clk_mgr);
- }
- 
- static void dcn32_update_clocks_update_dtb_dto(struct clk_mgr_internal *clk_mgr,
-@@ -1079,6 +1076,9 @@ static void dcn32_get_memclk_states_from_smu(struct clk_mgr *clk_mgr_base)
- 	/* Refresh bounding box */
- 	clk_mgr_base->ctx->dc->res_pool->funcs->update_bw_bounding_box(
- 			clk_mgr->base.ctx->dc, clk_mgr_base->bw_params);
-+
-+	/* WM range table and dummy P-state table depend on the memclk levels */
-+	dcn32_build_wm_range_table(clk_mgr);
- }
- 
- static bool dcn32_are_clock_states_equal(struct dc_clocks *a,
--- 
-2.55.0
+  amdgpu 0000:01:00.0: VCE busy: VCE_STATUS=0x2, SRBM_STATUS2=0x80
 
+VCE encode worked straight afterwards, so it doesn't seem to break
+anything. I didn't see it in about 11 resumes with a local workaround
+that kept VRAM at 0, so it may come with the new layout, but I haven't
+looked further. Mentioning it in case it's known.
+
+This supersedes the gmc6 patch I sent on 20 Oct for the same failure:
+https://lore.kernel.org/amd-gfx/20261020-gmc6-writes-only-v3-v1-1-70730a302504@gmail.com/
+
+Tested-by: Brad Drury <drury.brad@gmail.com> # MacBookPro11,5, Radeon R9 M370X
+
+Thanks,
+Brad
