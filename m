@@ -2,83 +2,78 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D09C606A319
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 706CC606A31B
 	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2026 09:45:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=QnYcNFZ6
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NiPUQ2Ks
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE02B112465;
-	Thu, 22 Oct 2026 09:44:59 +0000 (UTC)
-Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com
- [209.85.217.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 755E010E031
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2026 15:34:09 +0000 (UTC)
-Received: by mail-vs1-f42.google.com with SMTP id
- ada2fe7eead31-7cc2bb73cd9so255073137.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Oct 2026 08:34:09 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A003112467;
+	Thu, 22 Oct 2026 09:45:00 +0000 (UTC)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F1861123CE
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2026 08:10:29 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-4a1ec92f655so7057165e9.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2026 01:10:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792596848; x=1793201648; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=TyKYR89dztucZkRvKJmuDPmnMeeGrPRrohNUsu403oE=;
- b=QnYcNFZ6SyioVcpkS4/6aJvPLM2F5RkMufKPC1Zs7l1Au9uRyD6RrNjX77C5Sy/ZIJ
- juYLGj8uIEGSu/aGrTg4fa0T4Hjs/Q+7elUlGNT7LnZqUtmBeajaznMUuwDaMByi00A3
- t6LWhzeghZGZl868rdekGmTMcAJQWy6TP7tFGEOV94NSxkFkBBRQklTh0eTQ0zHDl48O
- ZKT7ZxKxSQ+EFZq6WarNxAXD9jFinjJWupkwHgA96to1qL5OlIjk+yKSAToAe+NHkwWi
- nJD3PsAxygFHy/TVYcbk0nN5bEfb+GxlLCX3WAs0DO9OvU/DPHwSixmky59bTm45kK0d
- N4fg==
+ d=gmail.com; s=20251104; t=1792656627; x=1793261427; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=5WlGP2aYrjDFuUc+YNVO9vArip6u9SIM0c4z3P59W+A=;
+ b=NiPUQ2Ksc777yciunid9id1/ZTvIcvKp9Ey1XnnvF41hq1HkTMOv1oq03lW8Dhf/qt
+ zg6U5QVyMLisyY2OC7JEpHpYtJjwjOopeNLT/GPUukc04SIT/sKSeGk9+P8pi+5Tua8W
+ JgO+K2aq61rAjG0UFA0SfqXc7cD7JWwze9neHTHc7VVsG2/ynEbVk98/tyPDKTlGyeos
+ nwucdUfSpRERymb2t6/i2cg4GnCG9/FgZwzsnYNEyxtLe6eUY04PuJ/RK3/G9CvoOAgL
+ kA/N2LExEtiWa4IG8vLFNVqvSrbIUOVkpVTwQf/6pvmN1dLaM0vgOu+c5z0awdaojZie
+ ri+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792596848; x=1793201648;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=TyKYR89dztucZkRvKJmuDPmnMeeGrPRrohNUsu403oE=;
- b=GebMgVIia8ogZQoEnrbpZ0dJLfTaBsWU73oLLlBbvaETnSBgk9tkBiY3gNtY+IaoQG
- 3h+/a1LA1KbUIPRwCYF3GnEj29IaFGdmOlM1Z2CUDti7GFzDZk1pIscGzJZXt8UsM0Tq
- /1b0VGzUPbrosG3B028Fhc2U/J59MNQUIjuVl2VEWorfIP6bjucGzLpRxhVTC9Xl4gX4
- 7SMTsczNcXR+DwWvZhbm476ZgmC5gLo/Ul36YOoC4t1vvsUh4mErjakJpi2DciEuJCoH
- +Z+wuQpeBLUENh+OwaITbDGpZSp/W7YaC2N78LcYL2HmFHpJx3cgaj3d0ik1rK3tBLtS
- oq2g==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzOJcOX2cHp7uSG8MLsUbU2JqCsZJ8JqcTLfmucWns5RvCDxQDmS7Z5f12QeBnZhouNcnxZbSMT@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLgUm6zEntAVfA5UhvxR3Gt+e/oA4f9ss7dVU6yqF+2hm1fRyYH
- II/rosUyHc1Ci8JAMdztApmCtVTeY8Ntql8CCsch4OEL+ZdsDQzi/iOn
-X-Gm-Gg: AYBFou14dM3PUbCbgAELb5FqtYptkKqzk6Dh0J9blOVB/PGA2ycxXPDh2S4mQANZNZq
- VnZNbD9jOS/ebrBUUJvCFbY+bNh+hX0mbp32qp7vg0lkRHHJnHQWyMgY6mY/1dbdPgzmtUCuGUo
- tXaig8bozpii3OA4KOP9CqeKmtp52gS2ulNe6dfzxmQnR5s32+X2MkUABvLm0qPXfYXTAwqs2JD
- nJhw4t5sV54lrMYGvEIbvdXvJc3+GQEhUOVzO8wzilkBJ1MMtINFtnEKke5dgxyKMAkOtyRp08g
- 0cvNJJV7OrIv1WIQAzciKJ+tLjjp3aBQEFRJw5XysvykP1ZseG70T9DHtutkkk9J2dhVVdjblhE
- ug8DN5JauWd5lb+IQ8zAaU0NVyyWSRSbxo+jjJ9sOweyKkDXy2C/oXsF7jNDeRCeE0D7VSU6OAd
- jEAJ+9eyaW5jNszXRaYad5dVTxa/6MvPpQWaYvMaM+TfS2GyQqPAD7t0a9AtJlz5VxM9K/079/O
- vz81mem5pbGkRCgqQvG2bnQ+caYOkOIalnydv0a1NQ9vGQ+S1yA6BBSmv71qECpNnuzt2f6H1Cm
- l/ruGbVkJn3MEdbc
-X-Received: by 2002:a05:6102:808f:b0:7cc:23e7:e743 with SMTP id
- ada2fe7eead31-7cc9263184dmr918810137.15.1792596848060; 
- Wed, 21 Oct 2026 08:34:08 -0700 (PDT)
-Received: from localhost.localdomain ([177.155.254.119])
+ d=1e100.net; s=20260707; t=1792656627; x=1793261427;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=5WlGP2aYrjDFuUc+YNVO9vArip6u9SIM0c4z3P59W+A=;
+ b=r0joUm746oHTAvvKfuulTJXK/Dh5GwpNCHXtJ2zoo+gEJhMFXVy1aa0w+IE4OQ8GJn
+ 0bHF8XTrHah4kQoWrv+dGrw7SrRjmnQMlBS2W2jNEnVJjssj1sTMdOW2pXqPDlUOmmcU
+ NO1UDKOpfFzOZIXGTL3szjRc9EPxUQmGhLeCZezztlPyNftONCoaL9dIS2/n58T+Pd5m
+ A1gEtLZizUvUmERqkofy0t1ji+VaXh4EDcpbn2+yMN8533lz5yX6PMl5S2qh3tGDZCnl
+ EYL1uFWk9eVkqpzNC2ODaBxSEJgEVt0cMEu8yldtt2APkttCXg4Po+o7WsrGiaILd7ej
+ 7EUw==
+X-Gm-Message-State: AFq9FYKq5D2DOKhknh9OnA+AYnULCswEC3QQCTcUxVXyTEso0oAFwIPi
+ J6jkGhHfg8hx6jUMK4d53xZ0NlAgnxsLdFUc9alQ/PTV6vEHVUocKOC6GyMgSpqOU7Yr8g==
+X-Gm-Gg: AYBFou0JlL0CWgKAIRj3rENZ3SPecuy2RgNQRAqaGX8y19lHs3Acj165ruUuEUDmWOm
+ mXkxncmlJMOAhcTCvbEfJdGnR8130Invdz9oUSWcXP+KxgA55oRd3550rby99/Iq6ltBIHxWgWR
+ pn+IPntTb89+3cdqxd1neNSzrDpXpazlbGszwrTdUdSp8J86v8FCggcrT70h0syOEgUApFzjWi8
+ MsPuXX+pLRVFwQiHJhtNhjcgQE8pQuFyliq5dEfJcSODFpVtFnk7R1YxBQqHeiX+PCp7XjZcHWK
+ UiEDlLEI4hNElWa6ZuT32k8svByP/I+tlEgSDMMi77uw4lCUTGrFHmtjPidatCtBxsEQu3IvssL
+ TeyIQ6+bdka0VoImdYLyun7VlWGI+Of6oBeTxkABBf4i4Room1HM0HZbBfKjG3UrxuJI7ib1/6+
+ lSAzoLi1sum5UXFRqPzJZVQ9dNB1sdKG/PdeqhJNKBbRFM7u7/hwWdarVN1XxbWEK65zChUsHbN
+ yc7WIMNEVMdXDI56rYg5qglSexIIbeyrEpGJL+cZJjpRzgpuR9m70fMa+8i1H68zDyxAC0BXA/3
+ sul4Bbm8CcRknw52oCbdimsOHjUbeDHI+TEUuvPl+NrU8B5p
+X-Received: by 2002:a05:600c:8b22:b0:4a1:c27d:e1a8 with SMTP id
+ 5b1f17b1804b1-4a204b1f425mr31189595e9.10.1792656627397; 
+ Thu, 22 Oct 2026 01:10:27 -0700 (PDT)
+Received: from tvab-pc (v2202507270734364850.supersrv.de. [152.53.198.198])
  by smtp.gmail.com with ESMTPSA id
- ada2fe7eead31-7cc91f9c7f1sm3056156137.0.2026.10.21.08.34.05
+ 5b1f17b1804b1-4a1fcd234fasm72133325e9.3.2026.10.22.01.10.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 21 Oct 2026 08:34:07 -0700 (PDT)
-From: Matheus Tagliari <mptagliari@gmail.com>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Thu, 22 Oct 2026 01:10:27 -0700 (PDT)
+From: Ilya Shidlovskiy <shidlovskiyilya@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: Ilya Shidlovskiy <shidlovskiyilya@gmail.com>,
+ Kenneth Feng <kenneth.feng@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] drm/radeon: fix VCE1 encoding on SI by handling the
- VCE interrupt
-Date: Wed, 21 Oct 2026 12:33:44 -0300
-Message-ID: <20261021153346.124285-1-mptagliari@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <8c60afb2-cb0b-4aec-9237-2ea3404d2793@amd.com>
-References: <8c60afb2-cb0b-4aec-9237-2ea3404d2793@amd.com>
+ Harry Wentland <harry.wentland@amd.com>
+Subject: [PATCH v2 1/3] drm/amd/display: dcn32: rebuild WM range table when
+ memclk states change
+Date: Thu, 22 Oct 2026 11:09:23 +0300
+Message-ID: <20261022080925.13994-2-shidlovskiyilya@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261022080925.13994-1-shidlovskiyilya@gmail.com>
+References: <20261022080925.13994-1-shidlovskiyilya@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 22 Oct 2026 09:44:57 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -91,72 +86,64 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, Oct 21, 2026 at 04:10:04PM +0200, Christian König wrote:
-> The fence handling on radeon should work completely without interrupts
-> since those have been rather flaky on really old HW.
->
-> So no idea why that actually crashes for you if the interrupt is not
-> enabled, my educated guess is that enabling interrupts actually doesn't
-> fix the crash but makes it less likely because of timing change.
->
-> Would it be possible to just switch over to amdgpu instead? Or is there
-> any support still missing there?
+dcn32_get_memclk_states_from_smu() refreshes the UCLK levels,
+max_memclk_mhz and the bounding box, but the watermark range table and
+the dummy P-state table (which are derived from the same memclk levels)
+are only built once in dcn32_init_clocks(). Build them at the end of
+dcn32_get_memclk_states_from_smu() instead, so that every caller which
+re-reads the memclk states from PMFW also gets matching WM ranges.
 
-Thanks for taking a look.
+No functional change for the init path.
 
-On the interrupt: I agree I have not shown why the hang happens, and a
-timing change is entirely possible.  What I can say is limited to this:
+Link: https://gitlab.freedesktop.org/drm/amd/-/issues/6009
+Acked-by: Leo Li <sunpeng.li@amd.com>
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Ilya Shidlovskiy <shidlovskiyilya@gmail.com>
+---
 
- - stock radeon: every encode hung within about 100 frames (many runs);
- - with the VCE ring semaphores disabled: no hang, but fences are only
-   noticed by the wait timeout, about 4 fps (~256 ms per frame);
- - with the interrupt enabled and handled, semaphores left on: no hang
-   in roughly ten minutes of total encode time (up to 1080p, plus
-   several minutes of KDE's RDP server).
+Notes:
+    v2:
+    - rebased on amd-staging-drm-next, no code changes
+    - added Leo's Acked-by (given in drm/amd#6009)
 
-That is correlation, not a root cause.  If it helps I can test enabling
-VCE_SYS_INT_EN without processing the fences from the handler, and run a
-long soak test with two concurrent encodes.
+ .../gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c  | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-One difference that may be relevant: on CIK radeon does enable and
-process the VCE interrupt (vce_v2_0_resume() sets VCE_SYS_INT_EN and
-cik_irq_process() handles src_id 167).  Only VCE1 (SI and Trinity)
-never did.
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
+index 22dfca6ef..7abb13ffd 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
+@@ -256,11 +256,8 @@ void dcn32_init_clocks(struct clk_mgr *clk_mgr_base)
+ 		if (clk_mgr_base->bw_params->clk_table.entries[i].dppclk_mhz > 1950)
+ 			clk_mgr_base->bw_params->clk_table.entries[i].dppclk_mhz = 1950;
+ 
+-	/* Get UCLK, update bounding box */
++	/* Get UCLK, update bounding box and WM range table */
+ 	clk_mgr_base->funcs->get_memclk_states_from_smu(clk_mgr_base);
+-
+-	/* WM range table */
+-	dcn32_build_wm_range_table(clk_mgr);
+ }
+ 
+ static void dcn32_update_clocks_update_dtb_dto(struct clk_mgr_internal *clk_mgr,
+@@ -1079,6 +1076,9 @@ static void dcn32_get_memclk_states_from_smu(struct clk_mgr *clk_mgr_base)
+ 	/* Refresh bounding box */
+ 	clk_mgr_base->ctx->dc->res_pool->funcs->update_bw_bounding_box(
+ 			clk_mgr->base.ctx->dc, clk_mgr_base->bw_params);
++
++	/* WM range table and dummy P-state table depend on the memclk levels */
++	dcn32_build_wm_range_table(clk_mgr);
+ }
+ 
+ static bool dcn32_are_clock_states_equal(struct dc_clocks *a,
+-- 
+2.55.0
 
-On amdgpu: it works for me, I found nothing missing for this use.  I
-tested it on 7.2.9 and on Debian's 6.12.113 with the amdgpu VCE1 series
-backported: h264_vaapi encodes up to 1080p with DPM and runtime PM
-enabled, no hangs.
-
-The reason I looked at radeon at all is the distribution situation.
-Debian 13 stable ships 6.12, where SI is driven by radeon by default
-and amdgpu has no VCE1 support (that needs a newer kernel, which Debian
-only offers through backports).  So anyone on the stable kernel who
-uses VAAPI encoding on an SI card, here through KDE's RDP server, ends
-up with a wedged GPU.
-
-Since you are considering dropping SI/CIK from radeon, I do not want to
-push a change you don't want.  If radeon keeps SI for the 6.x kernels,
-what would you prefer?
-
- a) this series;
- b) disable the VCE semaphores like uvd_v1_0 did in 013ead48a843 (works
-    here, but slow);
- c) leave radeon alone and just document VCE encoding on SI with radeon
-    as a known issue that amdgpu's VCE1 support in newer kernels
-    supersedes (even a one-line warning pointing to amdgpu.si_support=1
-    would help people on 6.x).
-
-I am fine with any of them, and if it is (c) please feel free to ignore
-the series.  A v2 of patch 2 that fixes the CIK register issue found by
-the automated review is ready in case you want (a).
-
-Regards,
-Matheus
