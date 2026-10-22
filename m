@@ -2,123 +2,99 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8A80606A31A
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2026 02:36:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F1D0606A31B
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2026 02:44:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=gLy1FLIE
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=On87HMAZ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BAF7910E126;
-	Thu, 22 Oct 2026 02:35:55 +0000 (UTC)
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013041.outbound.protection.outlook.com
- [40.107.201.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F98A10E126
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2026 02:35:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4415E10E242;
+	Thu, 22 Oct 2026 02:44:01 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013036.outbound.protection.outlook.com
+ [40.93.196.36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7967410E242
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2026 02:43:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VZzwlfgnponF5gTQrvUfqbA8bGCGR8qYK9upsB6WIbvU/1kqkmuSV+GQbkBm+QBq+KTKyf2D6vfnAMpdZF2JFNGPHtm7+S0k8V/qpLmeUEBPpfqdxiC3mFigime7CPw/GnnVbKV+f5exrhMOevBLnmayZyOtht8PJxNcc6MYJqPtZNYMs6V/Pe4l4/4hRJeQCzHq7GuuCsiPp5MyPm+yTwtAVK9TFXh3O+hJILJTjIFaaNSnC73yyC0BseZlwJwrVeccQhcEU1pfyLkzply7Ihrh58Yt2nCml1Se8eMuux2GoR+qpwZ+47g0mJ8rRQ4Kvw9/CjEY85lVERc4J/OtRA==
+ b=YE4rXxN57aqvgx6a+zAAToxBuud+S5J6tfe4avA4QYIPT383RGJ7sCsBdK8ZnH5bFN1/77mY7O0wN2mKTdUY5T7VTASI37Jn5Vpq/mef6pZBjRt+kyan3Eyuoc8LguqC0DmUcydXEjjxeZSzbwPGnxGUocjEkMPx9SL/0kL5aeMm47H6+ZDbC3lnF8a77CKHDZ1wK+RnHtK2OYifUALjr3BP7ELAoAjY8Rrfv8ov/4n1iul9Dg0oHIhWasWc6jqdtG5sBgWtx33/5nomL+S0snb/gsa7wclxGOf3achKLdERAJIwRqtmsZCVIcU4H7GHB5OGYXFP4hUuXG5+1oeWdA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vjAEWV26zDUH3IwRPZfDJr9N/aixHA1L6sEPkHbgxFs=;
- b=CO9dJJGO0Yh4NJ2sDjWP0UFRQaaTVDGENn9VsTjaCeRKLEv0R2N/HkWBCdiN80ciXAr3+Iz3LjJEfxistTuKFisW9GEoTZJ1UN0nJ202FwbjxKkZ0j/qJ0EZFgVgvcCBK6ly84xOO8c0wdW3z7SPm9QeOoEtlo/JX94C+LLjJyaM9LFEbdbJnCvgPB2MnjZM9P9LxCg8y9V/OhqgQ0QUjO0XF+pX3GIRSF50FLguE9raW9+irGyj6AiiOIFwOZ0Kpt7xsBN3/rKoZvZUXgBHFCgt7X2W+VCouhmQ0LwqhBgmoO+BByD8SUIMTi2K1e6+GWX9RTG0QILq530Teb1nFg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=ish5T4CmZM+zycvn+ZiHFBNPzjcUW8dtfOJb0Mp+oFw=;
+ b=NmRPMNNvFWwhgiE2KXGpuPzqPUzRh69WU1o6+nR49BpH40+Ku7k7jKcr4DwhyxG9iku4KgkVxRhTErIPUZx+sV4qRxSoAWN1etVOQTOeLHxrZHXrgqRBTQOXQIcB59RvDXuHvmsU/c44KDOn/lwbbgNIWsPJzhXk+Vbrp/rz8Ny/h/iYzuueqJZey2xTq1QsmYbIGcpf1kpgQCEifx+H8HGKFbELhx9/amHB0AkqWpftDZsC4CvDJ9KjzqDI0S+s2smF68ldYis341ZtUEOvknTJRUOavpmV0Mv8fYoUQlEDilmI0tpM5+YiCGOhuLqBBhmwgk0z+qfyv6FYLRmPlg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vjAEWV26zDUH3IwRPZfDJr9N/aixHA1L6sEPkHbgxFs=;
- b=gLy1FLIEM9kejYexhfI4ckKd50QDf7zMWtJLIrWV7oj7XKRhjzfgObvQwQbsMy64eOf8Dwv9z51PKBCUqARNhh0V/EZfN9nl/cjS0Ms+p0i75YXZarTqJb9fp+zC4Rh+274I7fL4w4r0ZK834mDyNhi0fOXhQfJIW9XM90vMNhs=
-Received: from BN9PR12MB5258.namprd12.prod.outlook.com (2603:10b6:408:11f::20)
- by CY8PR12MB7315.namprd12.prod.outlook.com (2603:10b6:930:51::21)
+ bh=ish5T4CmZM+zycvn+ZiHFBNPzjcUW8dtfOJb0Mp+oFw=;
+ b=On87HMAZJGjHxwqUfHqllNr46oB6s/aZ3/bBMMsZ6NJ6Z2ZQF6QNSD2pWgbuwt33Tmz5LuNvQ5JWhcvEXxiK/9Ug/PpGX4xe8hE6aefvpQW204Isrvxi0AGS7cexRklR8QoAHV04nbHmCmRu+WmjRLCrgvVUl+RVusN7WIISwvc=
+Received: from BN0PR04CA0011.namprd04.prod.outlook.com (2603:10b6:408:ee::16)
+ by SA1PR12MB6996.namprd12.prod.outlook.com (2603:10b6:806:24f::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.14; Thu, 22 Oct
- 2026 02:35:45 +0000
-Received: from BN9PR12MB5258.namprd12.prod.outlook.com
- ([fe80::3420:a950:a599:eeab]) by BN9PR12MB5258.namprd12.prod.outlook.com
- ([fe80::3420:a950:a599:eeab%6]) with mapi id 15.21.0546.012; Thu, 22 Oct 2026
- 02:35:45 +0000
-From: "Sun, Ce(Overlord)" <Ce.Sun@amd.com>
-To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Chai, Thomas" <YiPeng.Chai@amd.com>, "Zhou1, Tao" <Tao.Zhou1@amd.com>,
- "Yang, Stanley" <Stanley.Yang@amd.com>, "Gadre, Mangesh"
- <Mangesh.Gadre@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: skip RAS error count reset in debug mode
-Thread-Topic: [PATCH] drm/amdgpu: skip RAS error count reset in debug mode
-Thread-Index: AQHdYTza2Jb51G62YUyVrQsoErMt+LcIzIoAgAAMt0o=
-Date: Thu, 22 Oct 2026 02:35:45 +0000
-Message-ID: <BN9PR12MB525882B57116D93B788066B09D652@BN9PR12MB5258.namprd12.prod.outlook.com>
-References: <20261021091607.245415-1-cesun102@amd.com>
- <BN7PPFFF39339DD155315E1E27AD5DFB060FC652@BN7PPFFF39339DD.namprd12.prod.outlook.com>
-In-Reply-To: <BN7PPFFF39339DD155315E1E27AD5DFB060FC652@BN7PPFFF39339DD.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-10-22T02:35:44.472Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
- General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=1;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard; 
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5258:EE_|CY8PR12MB7315:EE_
-x-ms-office365-filtering-correlation-id: e1f87d21-a5f2-4eee-91fd-08df2fe52c9a
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|23010399003|376014|1800799024|6133799003|18092099006|22082099003|10067099003|18002099003|10086099003|261021123027099003|8096899003|4143699003|261009223027099003|11063799006|5023799004|261021121427099003|56012099006|38070700021;
-x-microsoft-antispam-message-info: Tq/V2K0TJGU22zQYA1qne2Lxo69PG4KZhhr5zqtqAmQpDj+Pq9wpB3a/XPCpdg7/yYJ3vxOrA6NMQGq+8hhiwE/E8CcHTY8r8Q4oAQWhq1njzfNqXWx2Mvwzz+tBSr0187t6IbNhSoLjTCZ0rhtCOHxl3wCjWLcaDkzUnJBXlVIAXffucU7J7TQvyNzLInGJRG0xFqvmnsU9JMrRTFbnY/mIEx7AuPBslxw94jtJxtwQl7NZ/H5dMshBdi2XDMFsz2BgQvFDRwZwdwJ5k+s5KNlm9MC1tkxQTBeNMuqXaqIGmwDonnh4SfFkSEpQ1hhMaVs2EZfrWQhp6Ry0a5RleLr6+ZmB7NmXCWBXgJRcGal4ZLNxRg4IFCMJLBseK1E1bTu+ZjXAUXwyNvG09Uc60dqdDgid46XHPowoHfOS3PM4lIeVk0lNtHiTh8XKhMrw1w4k6W9bGJTf0od2I/ls2DBpSyXyTU/ShsfCRFnN0w1Bl+RzkSbPeYcSLJYRIykGptzpI0JCMgMETu83FYggTf0cPTyQPvq4AQpG5u1PTxDFTVd3PBBKWDuuvycPMKymxCiFIaYqkzVZoTLeVLd05zfy76iWkN5kt47c7r0dtFOi+7AV7Z6awuwTUT1SozHNp6vcn0Yx7YmUwWhn38xHRNF6+YEao/v5TG9SYelugoCs3skH27lEir3Hs+OsIMj+cgmkLki9CM1QjsnQWI3hoWb1P/M2xdKGHofYZ/kiDf0=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5258.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(6133799003)(18092099006)(22082099003)(10067099003)(18002099003)(10086099003)(261021123027099003)(8096899003)(4143699003)(261009223027099003)(11063799006)(5023799004)(261021121427099003)(56012099006)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?BFxCpiZf1aYob9NrRCDgdP5SIEeNAyy88s20WqvDEynzOBX4PRfjx3sjgEnZ?=
- =?us-ascii?Q?jJK63/ANkFdVq1nbJx7zs54b7MpdaEeOS2ThO8QqMvdPRiI8KmndGoDD+PmN?=
- =?us-ascii?Q?3UMhQRs1xwIJkkmZShn2amwLcYsDgCMQeCjexsklpF+wUGa/6nNkvrU24umf?=
- =?us-ascii?Q?NyAsM0qeELiyyONX5P5Y5nFca07KcCz/HSUAwCInUesy74w0WAx9KHPK2oVc?=
- =?us-ascii?Q?U01oTLaUhWIjCGphSBCNLAI23MTUA5Qf0yINa7DyLb4fBbBgJiKeFtHFMQgx?=
- =?us-ascii?Q?EEPw1wv0wm/3MIuLAganTgsmYNHLp4j1cb+onuEJzJX7zvmQS4U6rtSoQqWp?=
- =?us-ascii?Q?bOp6NpR+1tE4luHwi1qeNHFO0X9hBeWVb28crQSMz59IROMlkHPmzwvWh42U?=
- =?us-ascii?Q?n+DkqnC38eZTduD7AJeKXd3QvKtXECiqAa1dtEhjE2vPeErhfXvbwLt9KQfk?=
- =?us-ascii?Q?SLGzeQO4p+YnFRVy1XqZ6kGdsiUoQ9zJgMTI6HTG5gjp0WrR19Shx7X2zkDB?=
- =?us-ascii?Q?CgdEBg7u/GJ08vOTojDkoEQYOKIiXF1yXxQNPim6nkJbArITrG6XsEn2g2Su?=
- =?us-ascii?Q?SFadUvBvbMgXxtx/SJlamL3o58Zy76/CRCa8G5d/pJ6Qtv4orjCm++95etwc?=
- =?us-ascii?Q?4kqPuyfYxxBv1QR6nWnFzhVvvenohQkxIim2ubCzJA8G596MQdCv4DQcfbQt?=
- =?us-ascii?Q?4OZ8Q+bh3aT8rOvaTAsslss9XPuDqt1QLtLXjT1RjD6vRfrGWW6HOmx9XhoI?=
- =?us-ascii?Q?D9LTzS8CdbOzyAazCQoCUO5KTOTd2nb3Q7xXKl1wlA42d/vnEn5hz976Xh5T?=
- =?us-ascii?Q?smfS56j4ppaac9cBt/ynyIsKjnQvQTQP+tlF7tUY+ptfj9cIKvmGbaDIaVf2?=
- =?us-ascii?Q?zqjEsBOHWU/I4jg67Jbj5vq2ZesBbSXjOjjAF+EozewblPhMKdgJC8i8vr06?=
- =?us-ascii?Q?h3LYvrgcOq6JsMvryyhuqaTbn2TxVFrUa9jand2FZUJuwXHS3CbnfKyN02Jq?=
- =?us-ascii?Q?DV+TKTKOyUw+ggiyAhVXRB1C4h6OXvBrmSuEGvjVayOrL4Gi8uS2XyRe2T77?=
- =?us-ascii?Q?x4wg8AIWM09V7zhepMV6PSjCVu1IpMjnP8Yfr77vneKEnPibK4s8NePX3YVJ?=
- =?us-ascii?Q?LiKztzJ3LQ9LDJSVv3CSrOQ9RmWCb7guUMHrxEyDwB/RnEgAoPFvIx+VJIbF?=
- =?us-ascii?Q?2CI7OR4eGQkETK78e9El3cz+huB7HDrlWdWPnLpu+EdnN5TQRsWZBg5IdNAx?=
- =?us-ascii?Q?TTS+7tEuqjUJzMJrPF/vbJAKqQlH3NSobsK58NiWuxPxMsog/fbavcrmlKib?=
- =?us-ascii?Q?1GoX8HPJnKgouZ94wx29Ck/QzmBODNDrbR3bcW3A7CehJyEkovq/l1zWA0nf?=
- =?us-ascii?Q?N5CNPQRJv/sKSUtGE9ECGV9B7Zhf+rf3OwTfyE5F7YGBpZEaFsbD1p1muXqV?=
- =?us-ascii?Q?R9rZwQwRgM8UDdOdew3npe4ifqRjLc6RtKoxab8NlN0LzewRsi8tpqwOOo+l?=
- =?us-ascii?Q?DUkOTRDzQcayjivA2IVqTtDGOM6DXORJGpiKF0gxBQwV1iKE9890ZmQ4wJLp?=
- =?us-ascii?Q?0Ldwx/DaxpQDBlHhaxbd2CwMDPkdgFh4EwEy8AKIpQHycb22njl9u2c64qHy?=
- =?us-ascii?Q?Y+cuf19VC7ioP7rFIDfTt0dXAG4tZUE5xyHTfviFdX7pLZ5sic0FgfEE3X0W?=
- =?us-ascii?Q?xpMKhboYk7u+79an9fuP/trerl4+XnLupjuX8R2e2xLdgmLT?=
-Content-Type: multipart/alternative;
- boundary="_000_BN9PR12MB525882B57116D93B788066B09D652BN9PR12MB5258namp_"
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Thu, 22 Oct
+ 2026 02:43:51 +0000
+Received: from BL02EPF0002992D.namprd02.prod.outlook.com
+ (2603:10b6:408:ee:cafe::76) by BN0PR04CA0011.outlook.office365.com
+ (2603:10b6:408:ee::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.16 via Frontend Transport; Thu,
+ 22 Oct 2026 02:43:51 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL02EPF0002992D.mail.protection.outlook.com (10.167.249.58) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.546.15 via Frontend Transport; Thu, 22 Oct 2026 02:43:50 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 21 Oct
+ 2026 21:43:50 -0500
+Received: from JesseDEV.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Wed, 21 Oct 2026 21:43:49 -0500
+From: Jesse Zhang <Jesse.Zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
+ Jesse Zhang <Jesse.Zhang@amd.com>
+Subject: [PATCH v3 1/3] drm/amdgpu: don't wait for the SPM VMID's jobs under
+ the VMID manager lock
+Date: Thu, 22 Oct 2026 10:43:24 +0800
+Message-ID: <20261022024343.4187095-1-Jesse.Zhang@amd.com>
+X-Mailer: git-send-email 2.50.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0002992D:EE_|SA1PR12MB6996:EE_
+X-MS-Office365-Filtering-Correlation-Id: 25f0a902-0447-408c-d029-08df2fe64df8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|23010399003|376014|36860700016|82310400026|261021123027099003|56012099006|11063799006|261009223027099003|10067099003|18002099003|261021121427099003;
+X-Microsoft-Antispam-Message-Info: UbB/Rqml9KDLz/eM5trHkCSRIFR4EbZSL8skWFpZaZef/9RBfteuArGyGMUu6kaI1yC+Lmwqjm61tV5fEK+8GcQr3u1xmqG2o1sIkwjo/CSUEb7O0HE3KlSY0THNC905wH7KSikwQaXj6iPxSE/3L0wO8O/qZV6q+U0p4piruzCRGKSd1X+TnmFh2KSstptUBwXS4OyzDDnJ0NPx+Sgy6XF1epC1A0JUstECsF7Q82YtiuB62tWzD19YeL78eQnRjSJnpNbbr/WwRKXHL5gBVG77tTcQEYZeTGOQUr3TKYNHUvTmW6/5ZBoUkk/hzlenVYU+mHYZWTm7NfoKQ3RbHI2SBNLlzYJc9ON3JT20WynR7LXkEo//bP0tBII8qH2+kbjUN2P/qYPW8Kmvr4UWto8Z2vE+U0XAdwThcCJGXFTLGtSB1lwq9vTWwOmvF5+53FaT6tQU7GlhyYATPLdXfBmR3RB4g8uTN5B3Yiam0fW/wgKAzSrjZm4inBJD5GimY5gkSWclg48kTCM/P5iHwj5fZpPkUemIvPM47CEiiNEGxGR5RPaYskPJuUe9a60IbH1uvnq/tr5lWgVvX2adn2MPopCt7PF5oZnT+zqa3tiY+LB76BT5UPJ7TDxIRBf2dT9UpP04lsriYW8F7EQzmV6mWfvoPO/aXpsBy85ePc2m0KmMB5kN126dtNb/Itb7Yu/I4WAcNm85wsapkvDn2g==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(23010399003)(376014)(36860700016)(82310400026)(261021123027099003)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003)(261021121427099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: eMm7uZ867N9unutXgF3MJHAVaJmyy1LLnUtesYjWeGojdODc/J3nxYAHVDdTj05BWDlIXmzhTAiyqIVusi1BKeRcKMLfOWD/QSZEjQfk6LM3ObK2ehyfHom2w/KZ0W88UL+5i55RVhr39q8ecfhqUbK24lrcr/eZpryq46hymBbinnLCxUM6ogYHMT2WRyicIXa91BvuZzWqYEpasPifFpapR8zVkaHx0J6RSS27GCqI9q0YdBXuJSAimogl7+TYpo3fus6lBgAXoydi+wZKgfdZanvtGEMMbg34iec46D6M+MwDVKM293a6CnIPRuUjI0mzU2X2lmJV8wgMqUyzXw/QmMPld6kJUg5yQucimVAO2a/V0IaVtZawZf1t8p7LshCD/LIXck47TKk/RKN/436/9mIgbrSlaPYrPxxeP9DYyLm2hjLPR3+isW4XEQFA
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5258.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e1f87d21-a5f2-4eee-91fd-08df2fe52c9a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Oct 2026 02:35:45.1639 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: dxQWa63jgFXBzmTuhBBSCNKdYKkTyrEDaGE+wvxFlgIn2UGTI316wYeiehdUQOZW/ucp0LPlM50RaTPaGD22xA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7315
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 02:43:50.6598 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 25f0a902-0447-408c-d029-08df2fe64df8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0002992D.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6996
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,302 +105,106 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	HTML_MESSAGE,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---_000_BN9PR12MB525882B57116D93B788066B09D652BN9PR12MB5258namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+amdgpu_vmid_free_spm() waits for the jobs of the reserved VMID while
+holding the VMID manager lock of the hub, which every VMID grab on the
+hub takes as well. Freeing the reservation, by UNRESERVE_VMID or when
+the VM is destroyed, so stalls the kernel queue submissions of every
+process on the GFXHUB until those jobs completed, or until the job
+timeout if one of them hangs. A full GPU reset even deadlocks, since
+amdgpu_vmid_reset_all() needs the lock before the scheduler is started
+again to signal the jobs.
 
-AMD General
+On navi31, with a GFX job of the reserving process that waits for 1s,
+an unrelated process' SDMA NOP takes 0.8s instead of no time when the
+VMID gets unreserved meanwhile.
 
-Hi Hawking,
-Thanks for the review. The current changes are based on the legacy RAS impl=
-ementation approach.
-I'll further investigate the specific reset operation that is triggering th=
-e security violation. In the meantime, I'll also try modifying the flow by =
-either skipping the reset for the affected IPs or removing the direct reset=
- call altogether where the security violation occurs.
+Wait for the submissions of the VM in the callers instead, through the
+fences of the root PD, before taking the lock. Use DMA_RESV_USAGE_READ,
+which covers the command submissions but not the KFD eviction fence.
+UNRESERVE_VMID keeps the root PD reserved while waiting and freeing the
+VMID, so that no new submission can grab the VMID in between, and only
+waits when the VM actually has the VMID reserved.
 
-Regards,
-Ce
+v2: wait for the root PD's reservation object in the callers instead of
+    accessing id->active without the lock (Christian)
 
-________________________________
-From: Zhang, Hawking <Hawking.Zhang@amd.com>
-Sent: Thursday, October 22, 2026 9:49 AM
-To: Sun, Ce(Overlord) <Ce.Sun@amd.com>; amd-gfx@lists.freedesktop.org <amd-=
-gfx@lists.freedesktop.org>
-Cc: Chai, Thomas <YiPeng.Chai@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>; Yan=
-g, Stanley <Stanley.Yang@amd.com>; Gadre, Mangesh <Mangesh.Gadre@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: skip RAS error count reset in debug mode
-
-AMD General
-
-Hi @Sun, Ce(Overlord)<mailto:Ce.Sun@amd.com>,
-
-Have we identified the specific reset operation that is triggering the secu=
-rity violation?
-
-Would it make more sense to skip the reset, or remove the direct reset call=
- for the IPs where the security violation occurs?
-
-In general, a reset is still required on some GFX v9_4_3 products to preven=
-t stale or invalid error-counter data from being reported at initialization=
- time.
-
-Regards,
-Hawking
-
------Original Message-----
-From: Sun, Ce(Overlord) <Ce.Sun@amd.com>
-Sent: Wednesday, October 21, 2026 5:16 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Chai, Thomas <YiPeng.Chai@amd.c=
-om>; Zhou1, Tao <Tao.Zhou1@amd.com>; Yang, Stanley <Stanley.Yang@amd.com>; =
-Gadre, Mangesh <Mangesh.Gadre@amd.com>; Sun, Ce(Overlord) <Ce.Sun@amd.com>
-Subject: [PATCH] drm/amdgpu: skip RAS error count reset in debug mode
-
-Fixes: c65c9fc19b6e ("drm/amdgpu: retire legacy ACA support")
-
-After legacy ACA support was retired, some ASICs systems may trigger securi=
-ty violations during driver load when
-amdgpu_ras_reset_error_count() is invoked in debug mode.
-
-The function only checks whether RAS is supported for the target block befo=
-re proceeding. In debug mode, ACA/RAS handling is not available and attempt=
-ing to access the reset path can lead to unexpected HW accesses, resulting =
-in security violation reports during driver initialization.
-
-Prevent this by treating debug mode as unsupported for RAS error count rese=
-t and return -EOPNOTSUPP early.
-
-Signed-off-by: Ce Sun <cesun102@amd.com<mailto:cesun102@amd.com>>
+Fixes: 9b47649cabf4 ("drm/amdgpu: bind the SPM VMID's page table to the reserving VM")
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
 ---
-drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 3 ++-
-1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c |  8 +++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  | 16 +++++++++++++++-
+ 2 files changed, 18 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_ras.c
-index 557baca454a9..e8a4fe22317f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -1506,7 +1506,8 @@ int amdgpu_ras_reset_error_count(struct amdgpu_device=
- *adev,
-                 return -EOPNOTSUPP;
-         }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+index 1482fc031d44..9c879ac68352 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+@@ -634,8 +634,9 @@ int amdgpu_vmid_alloc_spm(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+  * @vm: the VM with the reserved ID
+  * @vmhub: the VMHUB which should be used
+  *
+- * Waits for all work that used the reserved VMID to finish before unbinding
+- * its page table, so submissions still in flight don't suddenly fault.
++ * The caller must wait for all work that used the reserved VMID to finish
++ * before, so submissions still in flight don't suddenly fault when its page
++ * table gets unbound.
+  */
+ void amdgpu_vmid_free_spm(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 			       unsigned vmhub)
+@@ -649,9 +650,6 @@ void amdgpu_vmid_free_spm(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 		vm->reserved_vmid[vmhub] = NULL;
+ 		id_mgr->reserved_vmid = false;
+ 
+-		/* Only for kernel queues and kfd/userqueues by pass that */
+-		amdgpu_sync_wait(&id->active, false);
+-
+ 		if (adev->vm_manager.spm_vmid && adev->gfxhub.funcs)
+ 			amdgpu_gmc_bind_vmid(adev, AMDGPU_GFXHUB(0),
+ 					     adev->vm_manager.spm_vmid, 0);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 3f19d03fd7d8..c5643344a3f1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -2852,6 +2852,10 @@ void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+ 
+ 	root = amdgpu_bo_ref(vm->root.bo);
+ 	amdgpu_bo_reserve(root, true);
++	/* Wait for the jobs which might still use the reserved VMID */
++	if (vm->reserved_vmid[AMDGPU_GFXHUB(0)])
++		dma_resv_wait_timeout(root->tbo.base.resv, DMA_RESV_USAGE_READ,
++				      false, MAX_SCHEDULE_TIMEOUT);
+ 	dma_fence_wait(vm->last_unlocked, false);
+ 	dma_fence_put(vm->last_unlocked);
+ 	dma_fence_wait(vm->last_tlb_flush, false);
+@@ -3002,9 +3006,19 @@ int amdgpu_vm_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 		}
+ 		return r;
+ 	}
+-	case AMDGPU_VM_OP_UNRESERVE_VMID:
++	case AMDGPU_VM_OP_UNRESERVE_VMID: {
++		struct amdgpu_bo *root = vm->root.bo;
++
++		amdgpu_bo_reserve(root, true);
++		/* Wait for the jobs which might still use the reserved VMID */
++		if (vm->reserved_vmid[AMDGPU_GFXHUB(0)])
++			dma_resv_wait_timeout(root->tbo.base.resv,
++					      DMA_RESV_USAGE_READ, false,
++					      MAX_SCHEDULE_TIMEOUT);
+ 		amdgpu_vmid_free_spm(adev, vm, AMDGPU_GFXHUB(0));
++		amdgpu_bo_unreserve(root);
+ 		break;
++	}
+ 	default:
+ 		return -EINVAL;
+ 	}
+-- 
+2.50.1
 
--       if (!amdgpu_ras_is_supported(adev, block))
-+       if (!amdgpu_ras_is_supported(adev, block) ||
-+           !amdgpu_ras_mgr_get_debug_mode(adev))
-                 return -EOPNOTSUPP;
-
-         if (amdgpu_sriov_vf(adev))
---
-2.34.1
-
-
---_000_BN9PR12MB525882B57116D93B788066B09D652BN9PR12MB5258namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div>
-<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
-; margin-left: 5pt; font-size: 10pt;">
-AMD General</div>
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"line-height: 20px; margin-top: 1em; =
-margin-bottom: 1em; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontSer=
-vice, Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);=
-">
-Hi Hawking,</div>
-<div class=3D"elementToProof" style=3D"line-height: 20px; margin-top: 1em; =
-margin-bottom: 1em; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontSer=
-vice, Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);=
-">
-Thanks for the review. The current changes are based on the legacy RAS impl=
-ementation approach.</div>
-<div class=3D"elementToProof" style=3D"line-height: 20px; margin-top: 1em; =
-margin-bottom: 1em; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontSer=
-vice, Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);=
-">
-I'll further investigate the specific reset operation that is triggering th=
-e security violation. In the meantime, I'll also try modifying the flow by =
-either skipping the reset for the affected IPs or removing the direct reset=
- call altogether where the security
- violation occurs.</div>
-<div class=3D"elementToProof" style=3D"line-height: 20px; margin-top: 1em; =
-margin-bottom: 1em; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontSer=
-vice, Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);=
-">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"line-height: 20px; font-family: Apto=
-s, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif;=
- font-size: 12pt; color: rgb(0, 0, 0);">
-Regards,<br>
-Ce</div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Zhang, Hawking &lt;Ha=
-wking.Zhang@amd.com&gt;<br>
-<b>Sent:</b> Thursday, October 22, 2026 9:49 AM<br>
-<b>To:</b> Sun, Ce(Overlord) &lt;Ce.Sun@amd.com&gt;; amd-gfx@lists.freedesk=
-top.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
-<b>Cc:</b> Chai, Thomas &lt;YiPeng.Chai@amd.com&gt;; Zhou1, Tao &lt;Tao.Zho=
-u1@amd.com&gt;; Yang, Stanley &lt;Stanley.Yang@amd.com&gt;; Gadre, Mangesh =
-&lt;Mangesh.Gadre@amd.com&gt;<br>
-<b>Subject:</b> RE: [PATCH] drm/amdgpu: skip RAS error count reset in debug=
- mode</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font face=3D"Calibri" size=3D"2"><span style=
-=3D"font-size:10pt;">
-<div style=3D"padding-right:5pt;padding-left:5pt;"><font color=3D"blue">AMD=
- General<br>
-</font></div>
-<div style=3D"margin-top:5pt;"><font face=3D"Times New Roman" size=3D"3"><s=
-pan style=3D"font-size:12pt;"><br>
-</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Hi <=
-a href=3D"mailto:Ce.Sun@amd.com">
-<font color=3D"#2B579A"><span style=3D"background-color:#E1DFDD;">@Sun, Ce(=
-Overlord)</span></font></a>,</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Have=
- we identified the specific reset operation that is triggering the security=
- violation?</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Woul=
-d it make more sense to skip the reset, or remove the direct reset call for=
- the IPs where the security violation occurs?</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">In g=
-eneral, a reset is still required on some GFX v9_4_3 products to prevent st=
-ale or invalid error-counter data from being reported at initialization tim=
-e.</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Rega=
-rds,</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Hawk=
-ing</span></font></div>
-<a name=3D"_MailEndCompose"></a>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">----=
--Original Message-----<br>
-From: Sun, Ce(Overlord) &lt;Ce.Sun@amd.com&gt; <br>
-Sent: Wednesday, October 21, 2026 5:16 PM<br>
-To: amd-gfx@lists.freedesktop.org<br>
-Cc: Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Chai, Thomas &lt;YiPeng.C=
-hai@amd.com&gt;; Zhou1, Tao &lt;Tao.Zhou1@amd.com&gt;; Yang, Stanley &lt;St=
-anley.Yang@amd.com&gt;; Gadre, Mangesh &lt;Mangesh.Gadre@amd.com&gt;; Sun, =
-Ce(Overlord) &lt;Ce.Sun@amd.com&gt;<br>
-Subject: [PATCH] drm/amdgpu: skip RAS error count reset in debug mode</span=
-></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Fixe=
-s: c65c9fc19b6e (&quot;drm/amdgpu: retire legacy ACA support&quot;)</span><=
-/font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Afte=
-r legacy ACA support was retired, some ASICs systems may trigger security v=
-iolations during driver load when</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">amdg=
-pu_ras_reset_error_count() is invoked in debug mode.</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">The =
-function only checks whether RAS is supported for the target block before p=
-roceeding. In debug mode, ACA/RAS handling is not available and attempting =
-to access the reset path can lead to unexpected
- HW accesses, resulting in security violation reports during driver initial=
-ization.</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Prev=
-ent this by treating debug mode as unsupported for RAS error count reset an=
-d return -EOPNOTSUPP early.</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Sign=
-ed-off-by: Ce Sun &lt;<a href=3D"mailto:cesun102@amd.com">cesun102@amd.com<=
-/a>&gt;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">---<=
-/span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">driv=
-ers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 3 ++-</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">1 fi=
-le changed, 2 insertions(+), 1 deletion(-)</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">diff=
- --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdg=
-pu/amdgpu_ras.c</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">inde=
-x 557baca454a9..e8a4fe22317f 100644</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">--- =
-a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+++ =
-b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">@@ -=
-1506,7 +1506,8 @@ int amdgpu_ras_reset_error_count(struct amdgpu_device *ad=
-ev,</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; return -EOPNOTSUPP;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_ras_is_supported(adev, block)=
-)</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_ras_is_supported(adev, block)=
- ||</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; !amdgpu_ras_mgr_g=
-et_debug_mode(adev))</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; return -EOPNOTSUPP;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev))</sp=
-an></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">--</=
-span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">2.34=
-.1</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN9PR12MB525882B57116D93B788066B09D652BN9PR12MB5258namp_--
