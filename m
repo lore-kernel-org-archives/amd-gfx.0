@@ -2,74 +2,75 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DCE7606A319
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52E58606A31A
 	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2026 10:55:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=WU0+ou+4
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=QPLXUf1P
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF2E81124EB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E45411124F0;
 	Thu, 22 Oct 2026 10:55:20 +0000 (UTC)
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
- [209.85.221.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D34DA1124E6
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2026 10:55:12 +0000 (UTC)
-Received: by mail-wr1-f48.google.com with SMTP id
- ffacd0b85a97d-48b042c0728so562992f8f.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2026 03:55:12 -0700 (PDT)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B0C71124EB
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2026 10:55:13 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-4a2001dd4e7so17920165e9.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2026 03:55:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792666511; x=1793271311; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1792666512; x=1793271312; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=HLD9iVIZ163U9jFvBO1ehanu99qPbM6uZlGnS0s+nMg=;
- b=WU0+ou+4lmjzzOo9JDTQYCeacSMJVU+AbWRqlKlN2OTrREsPxLIk7d1lQEor7VFizQ
- t4wKoKcIg+uUgqvvU2AbXCRai1KyTRMqTutyaWGLDxnkEZ1h9jj3SeJ9uMmcfFcm7LUt
- hTXcsXX4VqoSVN5bJ+ypb4uNngtRlfz4cw4E/+vm/sU61CZ4O/fCeqVBtXL/EuancK9i
- oCTV6d5qxecIMCmrIcypXDhuInEH9Zlc092E5Yo2RElMIhGs9BgiYAvjV7GuxJghkAW3
- w7BYIlxp8pkxjRaw5zh23GNaRnP0vkl1fc7LOTPF1nSvGO/6+Ad7g8GgwiNs3xjgtjJi
- vG/Q==
+ bh=zv7CkHAV3N3REUXqzyWKtvO8PelSQIZd3jgUPZp9ZC8=;
+ b=QPLXUf1PoPXwfURZ5GM37aa3I88UeAnMVP5Brt2axgISVvf7+cMW7UD6VzY7eLjBKP
+ HYZCcxAjdlcqDInnVKOmMbNxgN0f0130+0yTD6kJNMzzPWaK/Hn1kSdgbRbIM9x81GFw
+ DTwVWHQuewA5pDdFOQLllXZxAMcyLi6MmHEyWGx+VaBBJcMq6+mMyXXqYucA69AF+8A4
+ AmsuJFTqlI6MkjKlQgmF7i5SHnu5k3CPtG3rG7E6qVji3rnyjI8PI7Bm6IFJgJDMSwLa
+ uYlldeEzkldZQlftIoiZ9/JmdAHXAfCb/iqRAQKzRU21h71ug2VDG2galxCJ8WwaSxVs
+ i44w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792666511; x=1793271311;
+ d=1e100.net; s=20260707; t=1792666512; x=1793271312;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=HLD9iVIZ163U9jFvBO1ehanu99qPbM6uZlGnS0s+nMg=;
- b=f/+xEDU97XW3KnsJzW8zjXPiDLVz9jPUMYenHCiUm1+EFMltYIsZ192CI6OIycq8Cv
- VLWsncbVBSy9VNMgrmSEIvwJkvXeAA9JC3Lz2IYjvKNoGSJ+NFshQuv8Q2vgc8OnKEqR
- Ge0QJlwqCe/8vgoReK6CYaIaWMZYLywwbs3Uqd6mgIUXnf7j8LBxPj7VVSWhw1QOn3dv
- UTrSSN7VekAMdbijg0vzwjofyzGqPIUnlLCHLGklSrtcXSnYwhIbTy/iSgW0vJ1Rr5f3
- oKYIn4EpxUguNtUtQf6+Vaw1oCR+sv+neSmRJqkdT6yaAbAZUEoyJYdzrSmsKn8Zp6hO
- KLSg==
-X-Gm-Message-State: AFq9FYJiqETfDAhI4aw1c4x0Xp4OLqcxjeZXdx5T5/NEbSWO4RwVUyNS
- kQ8bZySIGjgWyy1dM39mbSK21AK13LdDOk7UwzIYGbRsnir1jjcM3/gH7V3rFyuC
-X-Gm-Gg: AYBFou3JyeknFxGLAS5p08Z9IkknBy3GyfqqbRSd0wUilfYnss74g4ALXBc293fFosz
- FJhuwX6d/Dy8UwJrAvVdkmjmpXen3RKttSwnl8Ea4VnjO6fdsuyW1KbMMJb+/QZ0V9m7Cw2O31Z
- v4G6WlqvDO14dd0fbYe4WgiABWOKC12HlTpoY3aiADwC2NgCawDsyUlAzQAA88yIwTYAtK+4CvD
- lhn9e3FjujvbExlnXA0NPtv5gm6Bx1WcAc+/EAmSNFrJusTne3qmeN5z19JPD0qIqs1Dxrqj3iu
- u08UFx2cNduuKfdX4AsSYegVLAyieDPwDIHjdVAOhuuCONP1QV447zzBwbIZYoFHEnP0uUDbjTr
- 2TXU8gyc+k1/AnpWFTk4rFNJN5kgQ1ByM0iKuGNslFgp5Cqb1RDc8QIVrl4zKuPLEmL2xtoTDvY
- fU6GJv5gdMt3TpZ90VAUlJTN1eL3l7DAmnZvKagqtH8WuEfwixkoKM4EQG0pCLokpQQvuVFiEb1
- Q6LR8Zg6Zuf+i7sDtykpkTJwyQNfZdEfs6JhhxztZIm+c/tB5vPd5esAHazOTvtfX8ZNG84oUdG
- AgR4y6RPiupf3Oq3gYnGuKyNbzc1LWyypgvb7GN58bUolS6K/5z8CzdfpjZM82Y5fZYZahK6V47
- vOioZkRRHmJBG3pHOYyC5nctVg1jtcxe7YxYB2v7hFB9kdWFIRPt3lhbDYkpEst12vwyqaAp4GV
- weLZOmTTCkoYb/jrScoqHFmC5Gu3NY3h9s3RGf6ZNzVevXjDAexDHYPJ/SyeD8CuLNP+RUj8uVN
- 4BVNUtmymB9ng==
-X-Received: by 2002:a05:6000:160a:b0:48e:c0:9441 with SMTP id
- ffacd0b85a97d-48e264a979dmr6837259f8f.29.1792666511055; 
+ bh=zv7CkHAV3N3REUXqzyWKtvO8PelSQIZd3jgUPZp9ZC8=;
+ b=OHNDzO5XohwT7BTynBFOEJOxwVRW3uui4unBDhiF+5Wq5lfbbMBe695EoJQvIhc/XG
+ WVTo3MBXMskqJEtE4JGyOzj3kOLuFhGwsAMxgcnpZAUjzYkPBsaxkENxhqe3qeV5uIEu
+ tgKzTMxrHbYtd8rinzFpJZOS2rBK4q5Xr+ilp0E/2VBbVbp3zHOJ39BUKQlib86bonL/
+ FEi7Pvo0qdfovovqT4+VIti5WC2utYWHiD04B9LXYW6d0MMe5EGfKr0VFrNtgaK5Rm+J
+ tZQ9+yPl2CV8bpIYSswZ5terFhgiLXkQKbs3zU/7dE4ywZs89c28JcpSOzemgaBIWxyb
+ bilg==
+X-Gm-Message-State: AFq9FYK0dPSbJSOcTGJYQ47M0wfApeuj3hyqHQ4QDcFa8t9+teNQFk4m
+ WIAEDu5s9yzkKWgkOiB9rRipJLZPYUxwMxN3SgrmDdjRbARUR3qBI+G2qjlkt3Q8
+X-Gm-Gg: AYBFou0dwK0pmpBdgV2t3LHDW/nO4PH8NgXSp0ERjYsp2fWdVf7CSLtiVD0JpNrbiLS
+ Go5h/eQU5bVxCZLqcflLNWu+cCBFPEV/E+5HeNI65NXPNNP+M3yCk7u/on2dnzqaLceeAyZWUkc
+ Pi2wpZPQHcbF3dmfWEsFyFekXeeeVkOYbzVAAtHnyLrCUXWVsPZQBYSa+YQt6zGhblPxOn1YJB0
+ QUapdMHBUNSaU6sypLz2bGtwJ/7JBf16HVpemi1+7YdQvcquThTydwkFAbKksK7PJblFbwxSoJ8
+ sXCvYu7WU2YlW2RXuUzP78zEIm1yoJ213TZs4NqrqAu4bWszx2Jq9oAGIbccQ3504zWg1rGZ6h1
+ vzXaYg9x/DbO7+M2jnm2sgmiyC2VFons+HhkzVudCYcY+uxfRiNtkAIajy5Lmyoz9ZyJi3nrYQ/
+ PYxw0YNuY8/9hB0R64FIn1wunnEFK5I20eRJyrjFJBZ4Vw+uND9VkDJpJMNF3+yAtKgV854cGoh
+ dJ27gQZLuZgtFt4euwYWs/UB/O4M7mF0sz7fyjfhIFwdpNMdJ9xxjh4nqFHzX202wu8JyaY52hR
+ 9GcveO9MkvaA6wbj5yT3PMldySLO20LMqjzjYw6+gwbq/Myh/VRaPwGO0oMS5pLGmduwgWmY+sK
+ 0LK1WsyHBvGWGS3N/yC8MAmwssDJkbuqw8fXPIgZrbJH75lin+tATA3bm0QNbTBwThBGs5EmXSJ
+ UOcONrfS8l8vUCBpdZvfT7shzs02wb8AUNDn4wMYhjKkcjc3P+3R2ncOK9MrXjLkc8T+YzBpYam
+ SO0i02IOMJ9SA==
+X-Received: by 2002:a05:600c:8b78:b0:4a2:cbe:beac with SMTP id
+ 5b1f17b1804b1-4a20cbec01dmr5594955e9.23.1792666511845; 
  Thu, 22 Oct 2026 03:55:11 -0700 (PDT)
 Received: from localhost.localdomain (188.42.205.77.rev.sfr.net.
  [77.205.42.188]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48e2583e25asm12227393f8f.46.2026.10.22.03.55.10
+ ffacd0b85a97d-48e2583e25asm12227393f8f.46.2026.10.22.03.55.11
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Thu, 22 Oct 2026 03:55:10 -0700 (PDT)
+ Thu, 22 Oct 2026 03:55:11 -0700 (PDT)
 From: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: christian.koenig@amd.com, felix.kuehling@amd.com,
  alexander.deucher@amd.com, xiaogang.chen@amd.com,
  Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
-Subject: [PATCH v7 2/3] drm/amdkfd: stop restore retries on device unplug
-Date: Thu, 22 Oct 2026 12:55:02 +0200
-Message-ID: <20261022105503.60372-3-olivier.kaloudoff@gmail.com>
+Subject: [PATCH v7 3/3] drm/amdkfd: propagate SVM migration fence errors and
+ guard submit with drm_dev_enter
+Date: Thu, 22 Oct 2026 12:55:03 +0200
+Message-ID: <20261022105503.60372-4-olivier.kaloudoff@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261022105503.60372-1-olivier.kaloudoff@gmail.com>
 References: <20261022105503.60372-1-olivier.kaloudoff@gmail.com>
@@ -94,107 +95,239 @@ X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-amdgpu_amdkfd_restore_userptr_worker() and svm_range_restore_work()
-reschedule themselves when validation fails with evicted objects
-pending. After a surprise removal the restore paths fail with -ENODEV
-permanently, so rescheduling just spins the worker uselessly until
-cancel_delayed_work_sync() in fini finally stops it - which can take
-a while, since process teardown itself is delayed by the dead device.
+On surprise removal the killed process's own exit path can fault on its
+SVM managed ranges: SIGBUS -> coredump -> get_dump_page() ->
+__get_user_pages() -> do_swap_page() -> svm_migrate_to_ram(). The fault
+path waits on the SDMA migration fence in svm_migrate_copy_done().
 
-Treat -ENODEV as terminal in both workers and also stop setting
-evicted_bos after it.
+That fence can complete with an error: the dying process submits the
+migration job on its own drm_sched entity, which process teardown has
+already killed, so the job is terminated and its fence completes with
+-ESRCH (guaranteed to signal at all by the companion drm/scheduler
+fix posted separately to dri-devel).
 
-Cc: Xiaogang Chen <xiaogang.chen@amd.com>
+Make svm_migrate_copy_done() return the fence's error status after the
+unbounded wait, and make both callers handle it: release the allocated
+destination pages (VRAM pages via svm_migrate_put_vram_page(), system
+pages unmapped, unlocked and put), clear migrate->dst before
+migrate_vma_finalize() so a failed copy cannot complete as a
+successful migration, and propagate the error to the caller. The page
+release loops are the same logic the copy functions already run on
+their own error paths, factored into helpers so both error paths share
+them.
+
+Also guard the job-submitting sections of svm_migrate_ram_to_vram() and
+svm_migrate_vram_to_ram() with drm_dev_enter()/drm_dev_exit() so they
+fail fast with -ENODEV once the device is unplugged instead of
+submitting to dead hardware.
+
+Rebased on amd-staging-drm-next (post window_resident landing).
+
+Tested on gfx906 (MI50 on Thunderbolt): with a managed-memory hog
+process SIGBUS'd mid-migration, surprise removal now tears down
+cleanly, all KFD processes reap, the pciehp removal completes, the
+host survives and the device re-enumerates on re-authorization.
+
 Signed-off-by: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
 ---
-Changes in v6: none
-Changes in v5: none
-Changes in v4:
-- moved the svm_range_restore_work() change here from the SVM
-  migration patch (Felix Kuehling)
-- assign ret on the evicted_bos-mismatch and confirm_valid-WARN paths,
-  fixing a latent uninitialized read introduced in v2
-Changes in v3:
-- retitled; now covers both restore workers
-Changes in v2:
-- new
----
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index d668816..2ad6777 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -2827,6 +2827,7 @@ static void amdgpu_amdkfd_restore_userptr_worker(struct work_struct *work)
- 	struct task_struct *usertask;
- 	struct mm_struct *mm;
- 	uint32_t evicted_bos;
-+	int ret;
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 101 ++-
+ 1 file changed, 73 insertions(+), 28 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+index 8b96e1f..0000000 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+@@ -204,7 +204,8 @@
+ 	int r = 0;
  
- 	mutex_lock(&process_info->notifier_lock);
- 	evicted_bos = process_info->evicted_bos;
-@@ -2846,14 +2847,16 @@ static void amdgpu_amdkfd_restore_userptr_worker(struct work_struct *work)
- 
- 	mutex_lock(&process_info->lock);
- 
--	if (update_invalid_user_pages(process_info, mm))
-+	ret = update_invalid_user_pages(process_info, mm);
-+	if (ret)
- 		goto unlock_out;
- 	/* userptr_inval_list can be empty if all evicted userptr BOs
- 	 * have been freed. In that case there is nothing to validate
- 	 * and we can just restart the queues.
- 	 */
- 	if (!list_empty(&process_info->userptr_inval_list)) {
--		if (validate_invalid_user_pages(process_info))
-+		ret = validate_invalid_user_pages(process_info);
-+		if (ret)
- 			goto unlock_out;
+ 	if (mfence) {
+-		r = dma_fence_wait(mfence, false);
++		dma_fence_wait(mfence, false);
++		r = mfence->error;
+ 		dma_fence_put(mfence);
+ 		pr_debug("sdma copy memory fence done\n");
  	}
- 	/* Final check for concurrent evicton and atomic update. If
-@@ -2862,11 +2865,14 @@ static void amdgpu_amdkfd_restore_userptr_worker(struct work_struct *work)
- 	 * reference counting inside KFD will handle this case.
- 	 */
- 	mutex_lock(&process_info->notifier_lock);
--	if (process_info->evicted_bos != evicted_bos)
-+	if (process_info->evicted_bos != evicted_bos) {
-+		ret = -EAGAIN;
- 		goto unlock_notifier_out;
+@@ -239,6 +240,24 @@
+ 	put_page(page);
+ }
+ 
++/* Release VRAM dst pages of a failed migration and clear migrate->dst
++ * so migrate_vma_finalize() leaves the source pages unmigrated.
++ */
++static void
++svm_migrate_vram_pages_put(struct amdgpu_device *adev,
++			   struct migrate_vma *migrate, u64 *dst, u64 npages)
++{
++	u64 i;
++
++	for (i = 0; i < npages; i++) {
++		if (!dst[i])
++			continue;
++		svm_migrate_put_vram_page(adev, dst[i]);
++		dst[i] = 0;
++		migrate->dst[i] = 0;
 +	}
- 
- 	if (confirm_valid_user_pages_locked(process_info)) {
- 		WARN(1, "User pages unexpectedly invalid");
-+		ret = -EINVAL;
- 		goto unlock_notifier_out;
++}
++
+ static unsigned long
+ svm_migrate_addr(struct amdgpu_device *adev, struct page *page)
+ {
+@@ -359,13 +378,7 @@
+ out_free_vram_pages:
+ 	if (r) {
+ 		pr_debug("failed %d to copy memory to vram\n", r);
+-		for (i = 0; i < npages && mpages; i++) {
+-			if (!dst[i])
+-				continue;
+-			svm_migrate_put_vram_page(adev, dst[i]);
+-			migrate->dst[i] = 0;
+-			mpages--;
+-		}
++		svm_migrate_vram_pages_put(adev, migrate, dst, npages);
  	}
  
-@@ -2884,8 +2890,10 @@ unlock_notifier_out:
- unlock_out:
- 	mutex_unlock(&process_info->lock);
+ #ifdef DEBUG_FORCE_MIXED_DOMAINS
+@@ -441,7 +454,7 @@
+ 	unsigned long mpages = 0;
+ 	dma_addr_t *scratch;
+ 	void *buf;
+-	int r = -ENOMEM;
++	int ret, r = -ENOMEM;
  
--	/* If validation failed, reschedule another attempt */
--	if (evicted_bos) {
-+	/* If validation failed, reschedule another attempt, unless the
-+	 * device is gone for good
-+	 */
-+	if (evicted_bos && ret != -ENODEV) {
- 		queue_delayed_work(system_freezable_wq,
- 			&process_info->restore_userptr_work,
- 			msecs_to_jiffies(AMDGPU_USERPTR_RESTORE_DELAY_MS));
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index fa4054d..3dab456 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -2013,8 +2013,10 @@ out_reschedule:
- 	mmap_write_unlock(mm);
- 	mutex_unlock(&process_info->lock);
+ 	/* Avoid unnecessary migrations and MMU notifiers if all the data is
+ 	 * already resident in VRAM.
+@@ -493,7 +506,13 @@
+ 	r = svm_migrate_copy_to_vram(node, prange, &migrate, &mfence, scratch, ttm_res_offset);
+ 	migrate_vma_pages(&migrate);
  
--	/* If validation failed, reschedule another attempt */
--	if (evicted_ranges) {
-+	/* If validation failed, reschedule another attempt, unless the
-+	 * device is gone for good
-+	 */
-+	if (evicted_ranges && r != -ENODEV) {
- 		pr_debug("reschedule to restore svm range\n");
- 		queue_delayed_work(system_freezable_wq, &svms->restore_work,
- 			msecs_to_jiffies(AMDGPU_SVM_RANGE_RESTORE_DELAY_MS));
+-	svm_migrate_copy_done(adev, mfence);
++	ret = svm_migrate_copy_done(adev, mfence);
++	if (ret) {
++		svm_migrate_vram_pages_put(adev, &migrate,
++					   (u64 *)(scratch + npages), npages);
++		if (!r)
++			r = ret;
++	}
+ 	migrate_vma_finalize(&migrate);
+ 
+ 	mpages = svm_migrate_successful_pages(&migrate);
+@@ -542,6 +561,7 @@
+ 	u64 ttm_res_offset;
+ 	struct kfd_node *node;
+ 	unsigned long mpages = 0;
++	int idx;
+ 	long r = 0;
+ 
+ 	if (start_mgr < prange->start || last_mgr > prange->last) {
+@@ -627,6 +647,34 @@
+ 	}
+ }
+ 
++/* Release system RAM dst pages of a failed migration and clear
++ * migrate->dst so migrate_vma_finalize() leaves them unmigrated.
++ */
++static void
++svm_migrate_ram_pages_put(struct device *dev, struct migrate_vma *migrate,
++			  dma_addr_t *dst, u64 npages)
++{
++	u64 i;
++
++	for (i = 0; i < npages; i++) {
++		struct page *dpage;
++
++		if (dst[i]) {
++			dma_unmap_page(dev, dst[i], PAGE_SIZE,
++				       DMA_BIDIRECTIONAL);
++			dst[i] = 0;
++		}
++		if (!migrate->dst[i])
++			continue;
++		dpage = migrate_pfn_to_page(migrate->dst[i]);
++		if (!dpage)
++			continue;
++		unlock_page(dpage);
++		put_page(dpage);
++		migrate->dst[i] = 0;
++	}
++}
++
+ static int
+ svm_migrate_copy_to_ram(struct amdgpu_device *adev, struct svm_range *prange,
+ 			struct migrate_vma *migrate, struct dma_fence **mfence,
+@@ -717,22 +765,7 @@
+ 		}
+ 
+ 		/* release previous allocated sys pages and unmap dma address */
+-		while (i--) {
+-
+-			if (dst[i]) {
+-				dma_unmap_page(dev, dst[i], PAGE_SIZE,
+-					       DMA_BIDIRECTIONAL);
+-				dst[i] = 0;
+-			}
+-
+-			dpage = migrate_pfn_to_page(migrate->dst[i]);
+-			if (!dpage)
+-				continue;
+-
+-			unlock_page(dpage);
+-			put_page(dpage);
+-			migrate->dst[i] = 0;
+-		}
++		svm_migrate_ram_pages_put(dev, migrate, dst, npages);
+ 	}
+ 
+ 	return r;
+@@ -770,7 +803,7 @@
+ 	struct migrate_vma migrate = { 0 };
+ 	dma_addr_t *scratch;
+ 	void *buf;
+-	int r = -ENOMEM;
++	int ret, r = -ENOMEM;
+ 
+ 	memset(&migrate, 0, sizeof(migrate));
+ 	migrate.vma = vma;
+@@ -825,7 +858,12 @@
+ 	pr_debug("migrated/collected/requested 0x%lx/0x%lx/0x%lx\n",
+ 		 mpages, cpages, migrate.npages);
+ 
+-	svm_migrate_copy_done(adev, mfence);
++	ret = svm_migrate_copy_done(adev, mfence);
++	if (ret) {
++		svm_migrate_ram_pages_put(adev->dev, &migrate, scratch, npages);
++		if (!r)
++			r = ret;
++	}
+ 	migrate_vma_finalize(&migrate);
+ 
+ 	svm_range_dma_unmap_dev(adev->dev, scratch, 0, npages);
+@@ -869,6 +907,7 @@
+ 	unsigned long start;
+ 	unsigned long end;
+ 	unsigned long mpages = 0;
++	int idx;
+ 	long r = 0;
+ 
+ 	/* this pragne has no any vram page to migrate to sys ram */
+@@ -889,6 +928,11 @@
+ 		pr_debug("failed to get kfd node by id 0x%x\n", prange->actual_loc);
+ 		return -ENODEV;
+ 	}
++
++	/* Block unplug while the migration submits jobs and waits on them */
++	if (!drm_dev_enter(adev_to_drm(node->adev), &idx))
++		return -ENODEV;
++
+ 	pr_debug("svms 0x%p prange 0x%p [0x%lx 0x%lx] from gpu 0x%x to ram\n",
+ 		 prange->svms, prange, start_mgr, last_mgr,
+ 		 prange->actual_loc);
+@@ -933,6 +977,7 @@
+ 		}
+ 	}
+ 
++	drm_dev_exit(idx);
+ 	return r < 0 ? r : 0;
+ }
+ 
 -- 
-2.47.3
+2.39.0
