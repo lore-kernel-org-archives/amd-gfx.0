@@ -2,37 +2,37 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A602F606A321
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2026 17:37:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AE0E606A325
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2026 17:37:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=OXTrGs+P
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=VSkIJ4pV
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2D9010E46E;
-	Thu, 22 Oct 2026 17:37:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0657F112844;
+	Thu, 22 Oct 2026 17:37:21 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 745B710E46E;
- Thu, 22 Oct 2026 17:37:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC6DC10E452;
+ Thu, 22 Oct 2026 17:37:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=qamfClWRYrhIHnH1n7xYSLqdEQ7se1uV1kfI6/268pQ=; b=
- OXTrGs+PmHKLXrkx2QWYggpTmu5qOKSbsLL5jbaPXvpRTRe+cCRcBT50MfHOSJrBD3f2For8xGIlq
- 9E7JTL6WHF47/252tTRVn83ovCAW1WnN9ZytxvQl/AMZl+BVA+UzKpUqVeXLuZCFiCHdLb3GrzX7P
- HTiWe75uO72tb6E2vomHUSisRo/YDB/lFZiA1vfLAhJN7YbJsBEQCAeonoTkqUAG07/Hq1lDMp6dv
- 2eHvPGgUZqJVA/vMXc3YK9KbERnyJ31jPOhN3S7nP+NbqF0CJGehkKxjs1dEH+aAB4erA0RwEgt3r
- yRFNExmwRJR6eRq33pM0DNqvskMtKIEHKw==;
+ Cc:To:From:From:Reply-To; bh=VuOF9IF+st0KOU68En0/qYK7S5CSIkMh9BXiGMzbD10=; b=
+ VSkIJ4pVp7wz2/DlkHtTd74J3ZFx8+t9Buf9Krs+UGRQ553XdrNpYwUQHcK6x7LscM8/feoNadmSo
+ nN92aIcvgKIMnJaoXwwevuXqoslY7nqGq/jXxVCQ/k6LAvMcWj5gXBEgmVVw0CX/691+Zeg6DP31X
+ Xs5tuSZ4V+zeAzz9jXEoz7ehj8/bbJjOJ9SQVQA1A6m6U0b7kcaqaAVwaDN6Qojl4Vi90RRThFxNI
+ wxvi4zGZoHv2g0GArJAkHQ8RTU3tfL55n4/+UmEeywGZUgRNiepgbYqXxRBZcRS8Xw931W+NjVZWn
+ mIYN5J7/rUnZaVHC+lO+7XsJ5+3rwX7LJw==;
 Received: from c-73-157-168-91.hsd1.or.comcast.net ([73.157.168.91]
  helo=localhost.localdomain) by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xJwiy-0071Z2-6s; Thu, 22 Oct 2026 19:37:08 +0200
+ id 1xJwj1-0071Z2-9P; Thu, 22 Oct 2026 19:37:11 +0200
 From: John Harrison <John.Harrison@Igalia.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
- Alex Hung <alex.hung@amd.com>, Harry Wentland <harry.wentland@amd.com>
-Subject: [PATCH 1/3] drm/amd/display: Fix some memory lifetime issues in KUnit
- tests
-Date: Thu, 22 Oct 2026 10:36:53 -0700
-Message-ID: <20261022173655.2318987-2-John.Harrison@Igalia.com>
+ Harry Wentland <harry.wentland@amd.com>, Alex Hung <alex.hung@amd.com>
+Subject: [PATCH 3/3] drm/amd/display: Update colorop pipeline tests for new
+ fixed matrix op
+Date: Thu, 22 Oct 2026 10:36:55 -0700
+Message-ID: <20261022173655.2318987-4-John.Harrison@Igalia.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261022173655.2318987-1-John.Harrison@Igalia.com>
 References: <20261022173655.2318987-1-John.Harrison@Igalia.com>
@@ -56,59 +56,55 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-When running the KUnit tests with memory debugging enabled, a bunch of
-use-after-free errors are hit. Fix them by using the appropriate alloc
-manager (which might be none - write back connectors and DP MST ports
-both have their own lifetime management).
+A bunch of tests verify that the pipeline created by the driver
+matches an expected pipeline hard coded into the test. The below patch
+added a new op into the driver's pipeline but did not update the tests
+to match. So add it in.
 
+Fixes: 6d103ad11583 ("drm/amd/display: Add fixed matrix colorop to color pipeline")
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Alex Hung <alex.hung@amd.com>
 Signed-off-by: John Harrison <John.Harrison@Igalia.com>
-CC: Alex Hung <alex.hung@amd.com>
-CC: Harry Wentland <harry.wentland@amd.com>
 ---
- .../drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c  | 2 +-
- .../drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c  | 2 +-
- drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_wb_test.c | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+ .../drm/amd/display/amdgpu_dm/tests/amdgpu_dm_colorop_test.c  | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-index 5fdf8ce023b9..aa72934e1fea 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-@@ -9702,7 +9702,7 @@ dm_test_conn_init_ctx_alloc(struct kunit *test, enum signal_type signal)
- 	ctx->adev->mode_info.num_crtc = 1;
- 	dm_test_create_mode_props(test, ctx->adev);
- 
--	pdev = kunit_kzalloc(test, sizeof(*pdev), GFP_KERNEL);
-+	pdev = drmm_kzalloc(ctx->drm, sizeof(*pdev), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, pdev);
- 	device_initialize(&pdev->dev);
- 	pdev->dev.parent = dev;
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
-index eafa3e6733a6..5dc6cd880169 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
-@@ -3833,7 +3833,7 @@ dm_mst_test_alloc_dsc_link_ctx(struct kunit *test, int total_avail_slots)
- 	link_srv = kunit_kzalloc(test, sizeof(*link_srv), GFP_KERNEL);
- 	res_pool = kunit_kzalloc(test, sizeof(*res_pool), GFP_KERNEL);
- 	sink = kunit_kzalloc(test, sizeof(*sink), GFP_KERNEL);
--	port = kunit_kzalloc(test, sizeof(*port), GFP_KERNEL);
-+	port = kzalloc(sizeof(*port), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, link_srv);
- 	KUNIT_ASSERT_NOT_NULL(test, res_pool);
- 	KUNIT_ASSERT_NOT_NULL(test, sink);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_wb_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_wb_test.c
-index 4bc033fdfa97..f3b64a66cf28 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_wb_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_wb_test.c
-@@ -500,7 +500,7 @@ static void dm_test_wb_connector_init_success(struct kunit *test)
- 	dc->links[0] = link;
- 	dm->dc = dc;
- 
--	wbcon = kunit_kzalloc(test, sizeof(*wbcon), GFP_KERNEL);
-+	wbcon = kzalloc_obj(*wbcon);
- 	KUNIT_ASSERT_NOT_NULL(test, wbcon);
- 
- 	ret = amdgpu_dm_wb_connector_init(dm, wbcon, 0);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_colorop_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_colorop_test.c
+index 90cc5592ef5d..00f1d5b33b1f 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_colorop_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_colorop_test.c
+@@ -192,6 +192,7 @@ static void dm_expect_colorop_pipeline(struct kunit *test, struct drm_device *dr
+ static void dm_test_initialize_default_pipeline(struct kunit *test)
+ {
+ 	static const enum drm_colorop_type expected[] = {
++		DRM_COLOROP_FIXED_MATRIX,
+ 		DRM_COLOROP_1D_CURVE,	/* degam TF */
+ 		DRM_COLOROP_MULTIPLIER,
+ 		DRM_COLOROP_CTM_3X4,
+@@ -257,6 +258,7 @@ static void dm_test_initialize_default_pipeline_caps(struct kunit *test,
+ static void dm_test_initialize_default_pipeline_dpp_3d_lut(struct kunit *test)
+ {
+ 	static const enum drm_colorop_type expected[] = {
++		DRM_COLOROP_FIXED_MATRIX,
+ 		DRM_COLOROP_1D_CURVE,
+ 		DRM_COLOROP_MULTIPLIER,
+ 		DRM_COLOROP_CTM_3X4,
+@@ -278,6 +280,7 @@ static void dm_test_initialize_default_pipeline_dpp_3d_lut(struct kunit *test)
+ static void dm_test_initialize_default_pipeline_mpc_preblend(struct kunit *test)
+ {
+ 	static const enum drm_colorop_type expected[] = {
++		DRM_COLOROP_FIXED_MATRIX,
+ 		DRM_COLOROP_1D_CURVE,
+ 		DRM_COLOROP_MULTIPLIER,
+ 		DRM_COLOROP_CTM_3X4,
+@@ -299,6 +302,7 @@ static void dm_test_initialize_default_pipeline_mpc_preblend(struct kunit *test)
+ static void dm_test_initialize_default_pipeline_no_3d_lut(struct kunit *test)
+ {
+ 	static const enum drm_colorop_type expected[] = {
++		DRM_COLOROP_FIXED_MATRIX,
+ 		DRM_COLOROP_1D_CURVE,
+ 		DRM_COLOROP_MULTIPLIER,
+ 		DRM_COLOROP_CTM_3X4,
 -- 
 2.43.0
 
