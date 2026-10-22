@@ -2,84 +2,125 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADD42606A31D
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2026 21:22:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76033606A319
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2026 21:33:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=f3XOzxne
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=huNzSMuI
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 445CC10E4A0;
-	Thu, 22 Oct 2026 21:22:01 +0000 (UTC)
-Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com
- [209.85.210.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA2AF10E4A0
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2026 21:21:55 +0000 (UTC)
-Received: by mail-ot1-f41.google.com with SMTP id
- 46e09a7af769-84e513877a3so153105a34.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2026 14:21:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792704115; x=1793308915; darn=lists.freedesktop.org;
- h=content-type:content-transfer-encoding:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=ZbdQtj8aRv8Qaqx0U63gfrGuX304wgT8my2VMv2KCwA=;
- b=f3XOzxneBd5/k2Xjq5jpBR42OtilyN2tcTcfBuJt5xBeWXp8jB3NLp0ATzyXc1wcF6
- fsxOu9oz4RUgMPD9J5eV+JNowGw0vwcSGypb03clOOZlS4aErEnkk69WAEXcLqcEZLwj
- PmQmZFq72uLkof8Z3DG8DEyjmk5bouPEO50VodFapmABfVFdgA1jybMJEmIoGwVi1OHN
- i+0boQ2yhItdQiWoGE3gTHwoauI1mWrk6zYLGmg+OxhP5++miwmeFotMqxa36OMGJir8
- sONhM+EslmGBNorUoTr59OdDqZ4JpOgHKDWVGRQKlHVbBetAp7OcuHxZdzQuU+OnJlg3
- S18w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792704115; x=1793308915;
- h=content-type:content-transfer-encoding:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=ZbdQtj8aRv8Qaqx0U63gfrGuX304wgT8my2VMv2KCwA=;
- b=edlNCpVDr60E8NxxcGvxBOC1P8MVyz1c/XIc54r2s6qvhtjPW2ECJ2G0RT05KCvfea
- 3nIndTrR4xSPc/YGVLV44AyyiiLmDlao8TwO/l2+N3BDMtmsBhEMFWBd/+pm2ZghXKWN
- tfaP2F13Y3mSqeBzQGxeK7sjerVTbOEmcJRixbVorhrTgerNgowOK7EOlKV7SM5DsN3z
- iofnwHAeqVe1ye2yRWjxeoIDoix3E0mUm9yocBlgTIb3mQtni8h8FJx5jxqnJoEVBfBn
- q9S6whqXOahGkH/0eVp6dC87JmM31J7RkS6YMfq95dy1SNZGuFkfjkJTK/w3oBxM9Hn8
- okcQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBx1VrkpMMYBd678dC4E/iSFZXIFsZhJUeUUM+/irTMfr0atcM3CleRXkA9hpLIUY7Ip28KGQZ2R@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLFR5XuhtsUX7Ar9NqlK6H9MS1+3DqgCtpBvFhCOyOL6Y/rwTzc
- QJ7IEQND09xQZDPu9eWDdnwrCiKoBOhF6dEC5+zQJtKfD7QNYO8+pJQp
-X-Gm-Gg: AYBFou1xjlUopBZ6jWfcWcuDrGaQzp5rYESf+qsU8XiTRLWnZTx+HfRyQrslM1CXny9
- 3iEl5p1ZnhFagPnTcBQ9u0rUiwfqYVcRAYc1kOzyiDt6LXoNiNASfq9Ay0nFbcHi4lI9w1AAWJo
- iPgMjViNyoxrsFGg6+n+gZLe+gkNN0ZiFA8I76ZFRqoH3NCWAwRGVcNa4+IESpBkqdAJmMfATJJ
- YCiK9Xlry4D99F7cyVRe9Xzb640etl7uBE66N9KThXc3Svl2nEozHvYEJmJ28vd7f7joCfPr799
- Cd43EhjCjwNgzXl1pl7yoSanFv1E4LAI5R2xNvP5684Gob3GD4RmR1XLh77OMsUgaPuGHv846QB
- s0DDofLUr0t6VsOIBwUt4NhxZiwcaMA2eij9QLvwyJ9SNn6+5PcE1j/eR98iUDJ+gKEfv4aZjhz
- sZ+jur/YVdOVgL8/jU3bEwfpYmtUL32qceLpaO3G2OPpnDc/UidCl1A+GL1b89fHFknciht1OnP
- iCgtN5tcCWrUP5SMie/uIfz8haHMuHk5FGWC/9yMbeLEkiLpJZWuetBmIU+LmTIoA==
-X-Received: by 2002:a9d:640f:0:b0:846:6f06:33d9 with SMTP id
- 46e09a7af769-84e345f009dmr1665705a34.31.1792704114689; 
- Thu, 22 Oct 2026 14:21:54 -0700 (PDT)
-Received: from timur-max.localnet ([2806:105e:c:c9fd:4410:7a5:8e46:9c0])
- by smtp.gmail.com with ESMTPSA id
- 46e09a7af769-84fbea6667bsm197377a34.24.2026.10.22.14.21.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 Oct 2026 14:21:53 -0700 (PDT)
-From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
-To: Matheus Tagliari <mptagliari@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] drm/radeon: fix VCE1 encoding on SI by handling the
- VCE interrupt
-Date: Thu, 22 Oct 2026 15:21:52 -0600
-Message-ID: <9yQu5OqOSQiEjRU6vUeH3Q@gmail.com>
-In-Reply-To: <3c11368b-06a3-4f25-8dc3-f57596b4f627@amd.com>
-References: <8c60afb2-cb0b-4aec-9237-2ea3404d2793@amd.com>
- <20261021153346.124285-1-mptagliari@gmail.com>
- <3c11368b-06a3-4f25-8dc3-f57596b4f627@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0CC8E10E4C6;
+	Thu, 22 Oct 2026 21:33:02 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013061.outbound.protection.outlook.com
+ [40.107.201.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7A1910E4C6
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2026 21:32:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wf7rUqXRye9nS8M8u9aQEWbN3HYkjSaJQK92QZzV1hHKve11Ut3VsDSPzITf9y5rlimfH4tCPT8qDjUBEsGu0lEXEWjQGhQpFdLKLyvnlF28rK7UNn2WE5RnIA7xQ1XSLnm8ZigZD7Of4mACPqTulWKt/22iMHxZcMp61q42gekSE7bhM0VpecupLYxWMu1Ha3iyEdrKQiMumNeveoywXokDOeu8NA3FE95oi6PiXVTd+6wiJC9SMpcmhCJlARp0EfY3KX64bXSk6MTEQK6A0swvsXSMl2veOLiXqEd5ilUr/5YdeCVsXMh24ZLosXcEHifK622Zibh+HKSOI44fgQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WjJp9rxldYjLcIUobCwtmuWIRfFMQH5cszsq3Fe0LwU=;
+ b=q0/ddlexKvgiZkzZF9TMXFCeH5QX6kbJWDySW+CN/5lncuFWH3pqwRCMfVg8A5JSqRV8y++XJWjg2ii5dlUrPK56YpSMzlHk1It+WzSzP2TcB3ARfRLiXUicyj03GsD2lvbgjmxvvweUtzAC45yJp/1AQdSU+rwfbjSS8CPSnwE9hR0CQvs+Q0BZ+C6pFPVe+MQy1j+DWm26c9iUfVcERCAL24f6d/9UyPLo1ZMeTOOdP6PGIXVZ46HQ2pqu+N+IwqqMyv/fhh88e932S55bw4wr5E5PCCdCuqtNKousixecQZBv7XUjKB3ORky7hLGQp8k+AIjeEdTdCRkeER/uTA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WjJp9rxldYjLcIUobCwtmuWIRfFMQH5cszsq3Fe0LwU=;
+ b=huNzSMuINYIyw57d4wRSvb+ebC4WpVj4mwPSzEgboTt34/fKkXx3s/DcFvx0t9s8+WwuN/hoHtJPhbImVqHHEq5fxvoMhEJzUfY6WNkb5RhOfYGvx4pkyCfzO5OqI7VbG7jLmbDGPPZIksnFiUlzx3WsIMzkzdGnSWaJFzzTc/o=
+Received: from CH3PR12MB8075.namprd12.prod.outlook.com (2603:10b6:610:122::5)
+ by LY0PR12MB331121.namprd12.prod.outlook.com (2603:10b6:404:226::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Thu, 22 Oct
+ 2026 21:32:52 +0000
+Received: from CH3PR12MB8075.namprd12.prod.outlook.com
+ ([fe80::83e8:3151:eef1:9e40]) by CH3PR12MB8075.namprd12.prod.outlook.com
+ ([fe80::83e8:3151:eef1:9e40%5]) with mapi id 15.21.0546.016; Thu, 22 Oct 2026
+ 21:32:52 +0000
+From: "Patel, Maharshii" <Maharshii.Patel@amd.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>, "Feng, Kenneth" <Kenneth.Feng@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: reset dGPU on resume if it kept power across
+ s2idle
+Thread-Topic: [PATCH] drm/amdgpu: reset dGPU on resume if it kept power across
+ s2idle
+Thread-Index: AQHdTGSke7N6kQgkRUyQxWaWiLyv4rcKQPD3
+Date: Thu, 22 Oct 2026 21:32:52 +0000
+Message-ID: <CH3PR12MB8075FADB8E90CD10DBF9BFC6F3652@CH3PR12MB8075.namprd12.prod.outlook.com>
+References: <20260924203756.2771789-1-Maharshii.Patel@amd.com>
+In-Reply-To: <20260924203756.2771789-1-Maharshii.Patel@amd.com>
+Accept-Language: en-US
+Content-Language: en-CA
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-10-22T21:32:39.2039598Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+x-ms-reactions: allow
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CH3PR12MB8075:EE_|LY0PR12MB331121:EE_
+x-ms-office365-filtering-correlation-id: b2519d23-913f-424a-e32b-08df3084074f
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|1800799024|10070799003|376014|23010399003|10067099003|18002099003|22082099003|8096899003|261021121427099003|13003099007|11063799006|261009223027099003|261022105027099003|56012099006|38070700021;
+x-microsoft-antispam-message-info: epWzUrvCKUoVlLE8P3nAMLjZRWiWdJAjkK2TgoI8DRiwmIo053UEBmxmMC2gcKaMw1Tmu+/sKlsHNGDIvdZsQz/tZqvDq+k5e5FLhFN5Svo8ID9QXcn2I/0JugGjsBqhVckIl/hAYY2vfGwORfMK+3hjd4RoTx8RqV4fcP0OSz4kq42tgFlaW7gucdYaP0g+fZxOySjjSqNSy9X8LHpsePCFl7DaEBF56pdE6wqQyse+IJpYe7bdsRg/9hRuyzzam+1b1sBoM5YwnqXo1sVnkmrsJpcVuL1iSnVQaZ9rNLLn3TM5hm6scHasaBV2WtKU7V1vc4h9Ccrr5pIR4c9VXtS57HKP+JZv2ciz/vqGK4JP2KE6NyQDOHKLqXYEMsKjYEXBhxHXFOI/yjzFDMIKV1DSYgkxnjnD4pgVyLNToC3YD73KHJDmx8DKxcazCTM2XbYxKc3Djjcm9dxEgNVwOeiHeabkukGsGtLcaEQc/R49WQrIHtdjAnxurlm+fEFwTzthGISNaQdWJ0W4axMX1dxWNVGqi6CWLW1NbD9HcEG/t13C52tNi6Ypnug6hRXtf7OQdut4Evp57Fr5zu/mhtZsVQg96K1w/5bROCxnqzUSM8fQsrNl48SzVjV8GMfbBX3/w2c7sDZvDlwyMHG7T+a10CJ5WSq+uZrBfRYXRh3THvWiHAPh2APryWFylG1ArVo4peFSpAjeMDOfmM4hZ1GuNa/0jzMUu7y0XV6qEGA=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH3PR12MB8075.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(10070799003)(376014)(23010399003)(10067099003)(18002099003)(22082099003)(8096899003)(261021121427099003)(13003099007)(11063799006)(261009223027099003)(261022105027099003)(56012099006)(38070700021);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 2
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?5KUMNSRu1h20PeOpECZYgmP+vjEUvWhfRVoC2Wtu24zjZNBxw3vjQXsCd7pg?=
+ =?us-ascii?Q?VDDxYB8liZDHkwG8/crd4whXYsdx1p8R9nTmp5CWwHcUSdjdQSZeYf10pobZ?=
+ =?us-ascii?Q?Z2DDxLfUyaPEW+tLtHfY+HIsMGkQus43FnEGH++/5gyUcePB6+ldZE/V2fNG?=
+ =?us-ascii?Q?hGxMKfmWGy7Wgsjs+++qmo+1Y/CJwBvhFjnIwDqHyUgpB8MQGVCpPZ2dWfLY?=
+ =?us-ascii?Q?UMjTRpGfWvijfcOr2/2y28xZ9tIIF0YihVaC/Nj4mRH/xZ21NgfTCSjVm4Ov?=
+ =?us-ascii?Q?3RkBYK2yJE3nCFHbvpWLHV6COOASmDZmCgvpBAkFFXHMqphrtXGBXm+mvia/?=
+ =?us-ascii?Q?hXELvP9+nt4CbspexpBaTIvxFMeEmNAZ3vgyYZsEbgpFs6DDx3uI31HbhOUB?=
+ =?us-ascii?Q?lmSbr9h1Ek3VxjZ5OBfXWAq1TBq0f26XSj2w9nAokOzL/eizIkYp2ANxGfkr?=
+ =?us-ascii?Q?82zgS3NHcMIZV6AVLkrkRqAMznBxgzGceJyteeaAO0yOInld2XQm5vWPCCjG?=
+ =?us-ascii?Q?4YBg3AFZo5N3R9pMZuDUzCOkN6kbtCk8tmfh+YeQ891L9ZPlORfKOihQhLAF?=
+ =?us-ascii?Q?f/Z4AgsYC75BaKTTw5HtvlakZXm2WS9Bk6C1BmzNEPnL00TLsKXUhBLNAQTA?=
+ =?us-ascii?Q?dSKOH+Ll/+47zgzEsaWERztQMs9/UwUmGexbHOO7rN6dA2Cmq4mA9q05D/pL?=
+ =?us-ascii?Q?wFnGpe3OpdzUT0ik5S8uH+ujL8k41MdWUP21oLBaBy7NdksI+jDU/25a37Ro?=
+ =?us-ascii?Q?EkFViyZrg7Z93hkHvJ1ZBMX0DZJJ7p8Ywb4ccWcqpwPf3Rr66XV+2HVE79tj?=
+ =?us-ascii?Q?WXx9QLNVPsstw4o4XON9/SJFwP4keB7KAD9KwLu77lPX+QZortKjBsQjoa5C?=
+ =?us-ascii?Q?BZtvelaMGud80x6D1rtZdDtpPihnKLbChqQD+UCQOEicXlKkxz0Elz8c45Nd?=
+ =?us-ascii?Q?dakxJPhLIisxVZjWojhJ5RSCIjIJdp8xJ2YwfAL6JF5xpzh+ZFcPmzZrQPHp?=
+ =?us-ascii?Q?H5LDOMgUBG4Y3Dso0/vFelevgX3YjQqafxtomEPogNpz4vkSfzGdBvR47YQy?=
+ =?us-ascii?Q?lylNUqwa1mA5T0OSpJquLg232l3qkE08BQjDpZ2Jj56raKcxsigUSdoeC21F?=
+ =?us-ascii?Q?uVMwpVF9rhB5c/QzyoyUMXHfX6Dq4VjtAAuVrcuwirSlTjAd7ALjCG4RkXJ4?=
+ =?us-ascii?Q?yM8VM01ohMdM0ANHShU1mztwZuCWXRN8S9CIWi5Tenxynpc8ZvbB8mKq2yi9?=
+ =?us-ascii?Q?MwR3lCE89eq7wpTfl9L27Cl3Bh8u9ahMKkatgduVjV8XlRz6073fg2YLixMj?=
+ =?us-ascii?Q?RcoN/mO+xAv9pz6Cs+rMAUSxKbZZ6eBhhGUjdorGRYeWw6fSKB1Zk5HUiaTw?=
+ =?us-ascii?Q?v4+olNwc4V2zF+2PrmZv7aBIWCC9JVAPoBWZP1c/m6XScUi5MOLeFMR9w1Cg?=
+ =?us-ascii?Q?NdURYe9RrFxw6Tvnv3XY0bBARW5bkEG1MoJYZr9mU1/hCdPSm3pZ/uf8jeoK?=
+ =?us-ascii?Q?M4ykfxvrO6IdhvMOmwzNeWvAhr5hI9imgutoVWZ2b242ndmRwl9fFw6lXmOs?=
+ =?us-ascii?Q?QYJHtaEdBj8ZQuOo4L7VLREPwz5HYKa42VUHlYbZb98ytHLhwXNuWfGWyx0e?=
+ =?us-ascii?Q?eXARMAc96ljrfBlTRgstNqIlcqrpmSw48seu3B65bJuLh7FQOUf859n4RVfi?=
+ =?us-ascii?Q?wTFton3q/jcdpGXveMMN8IxL1gSmbhyW/EuCQEDDJfuwQ0vFWvLt0NTi62JX?=
+ =?us-ascii?Q?ULRmLupTIRnyNqNvz+8ybBKCb3gbcI4LKr6oVtiVYfrVuKyI5g0I95qh23FT?=
+x-ms-exchange-antispam-messagedata-1: x5YWtmjvNgYqTw==
+Content-Type: multipart/alternative;
+ boundary="_000_CH3PR12MB8075FADB8E90CD10DBF9BFC6F3652CH3PR12MB8075namp_"
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CH3PR12MB8075.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b2519d23-913f-424a-e32b-08df3084074f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Oct 2026 21:32:52.5538 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: ehNC8KfuD78gL1w7Mkl84O7nzCkL2X4PrYDiB+6Qt3sDiCW7V2tafR22BETYxFfT
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LY0PR12MB331121
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,114 +131,254 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-1.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FORGED_GMAIL_RCVD,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	HTML_MESSAGE,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 2026. okt=C3=B3ber 22., cs=C3=BCt=C3=B6rt=C3=B6k 4:00:53 k=C3=B6z=C3=A9p=
-s=C5=91 =C3=A1llamokbeli z=C3=B3naid=C5=91 Christian=20
-K=C3=B6nig wrote:
-> On 10/21/26 17:33, Matheus Tagliari wrote:
-> > On Wed, Oct 21, 2026 at 04:10:04PM +0200, Christian K=C3=B6nig wrote:
-> >> The fence handling on radeon should work completely without interrupts
-> >> since those have been rather flaky on really old HW.
-> >>=20
-> >> So no idea why that actually crashes for you if the interrupt is not
-> >> enabled, my educated guess is that enabling interrupts actually doesn't
-> >> fix the crash but makes it less likely because of timing change.
-> >>=20
-> >> Would it be possible to just switch over to amdgpu instead? Or is there
-> >> any support still missing there?
-> >=20
-> > Thanks for taking a look.
-> >=20
-> > On the interrupt: I agree I have not shown why the hang happens, and a
-> >=20
-> > timing change is entirely possible.  What I can say is limited to this:
-> >  - stock radeon: every encode hung within about 100 frames (many runs);
-> >  - with the VCE ring semaphores disabled: no hang, but fences are only
-> > =20
-> >    noticed by the wait timeout, about 4 fps (~256 ms per frame);
-> > =20
-> >  - with the interrupt enabled and handled, semaphores left on: no hang
-> > =20
-> >    in roughly ten minutes of total encode time (up to 1080p, plus
-> >    several minutes of KDE's RDP server).
-> >=20
-> > That is correlation, not a root cause.  If it helps I can test enabling
-> > VCE_SYS_INT_EN without processing the fences from the handler, and run a
-> > long soak test with two concurrent encodes.
-> >=20
-> > One difference that may be relevant: on CIK radeon does enable and
-> > process the VCE interrupt (vce_v2_0_resume() sets VCE_SYS_INT_EN and
-> > cik_irq_process() handles src_id 167).  Only VCE1 (SI and Trinity)
-> > never did.
-> >=20
-> > On amdgpu: it works for me, I found nothing missing for this use.  I
-> > tested it on 7.2.9 and on Debian's 6.12.113 with the amdgpu VCE1 series
-> > backported: h264_vaapi encodes up to 1080p with DPM and runtime PM
-> > enabled, no hangs.
-> >=20
-> > The reason I looked at radeon at all is the distribution situation.
-> > Debian 13 stable ships 6.12, where SI is driven by radeon by default
-> > and amdgpu has no VCE1 support (that needs a newer kernel, which Debian
-> > only offers through backports).  So anyone on the stable kernel who
-> > uses VAAPI encoding on an SI card, here through KDE's RDP server, ends
-> > up with a wedged GPU.
-> >=20
-> > Since you are considering dropping SI/CIK from radeon, I do not want to
-> > push a change you don't want.  If radeon keeps SI for the 6.x kernels,
-> > what would you prefer?
-> >=20
-> >  a) this series;
-> >  b) disable the VCE semaphores like uvd_v1_0 did in 013ead48a843 (works
-> > =20
-> >     here, but slow);
-> > =20
-> >  c) leave radeon alone and just document VCE encoding on SI with radeon
-> > =20
-> >     as a known issue that amdgpu's VCE1 support in newer kernels
-> >     supersedes (even a one-line warning pointing to amdgpu.si_support=
-=3D1
-> >     would help people on 6.x).
-> >=20
-> > I am fine with any of them, and if it is (c) please feel free to ignore
-> > the series.  A v2 of patch 2 that fixes the CIK register issue found by
-> > the automated review is ready in case you want (a).
->=20
-> Yeah as Alex pointed out trinity is not supported by amdgpu and never wil=
-l.
->=20
-> On the other hand that APU was the first one with VCE and I widely rememb=
-er
-> how buggy that HW was. So it is probably a wonder that this works in the
-> first place.
->=20
-> I would say we take the patch and see. If anybody starts screaming we will
-> probably just revert it immediately.
->=20
-> Problem is more than I have no time at all to wrap my head around that co=
-de
-> again. @Timur can you do me a favor and take a look?
+--_000_CH3PR12MB8075FADB8E90CD10DBF9BFC6F3652CH3PR12MB8075namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+AMD General
 
-I skimmed the series and it looks OK to me, though I don't have the energy =
-to=20
-actually test the radeon KMD. My 20 cents say we should apply the series an=
-d=20
-see what happens. It won't impact any users who are already using amdgpu, b=
-ut=20
-hopefully if we backport the series it will help users who are stuck on old=
-=20
-distros like Matheus says, or old pre-GCN APUs.
+Hey folks, any update on this?
 
-Best regards,
-Timur
+Get Outlook for iOS<https://aka.ms/o0ukef>
+________________________________
+From: Patel, Maharshii <Maharshii.Patel@amd.com>
+Sent: Thursday, 24 September 2026 16:37:56
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Chri=
+stian.Koenig@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>; Patel, Maharsh=
+ii <Maharshii.Patel@amd.com>
+Subject: [PATCH] drm/amdgpu: reset dGPU on resume if it kept power across s=
+2idle
+
+dGPUs take the S3 suspend path even when the platform suspends to idle,
+but amdgpu_pmops_suspend_noirq() skips the ASIC reset for s2idle. On
+desktops the GPU also keeps power in s2idle, so it resumes without
+having been reset or powered off.
+
+SMU 13.0.0/7/10 and 14.0.2/3 skip smu_disable_dpms() on suspend and rely
+on the PMFW to clean up on reset or power loss. With neither, the PMFW
+still holds its pre-suspend DPM state and stops responding when resume
+sends EnableAllSmuFeatures:
+
+  amdgpu 0000:03:00.0: SMU: No response msg_reg: 6 resp_reg: 0
+  amdgpu 0000:03:00.0: resume of IP block <smu> failed -62
+
+SDMA ring resets and mode1 recovery then fail as well, leaving the GPU
+unusable until a power cycle. soc24_need_reset_on_resume() does not
+catch this, as it only detects aborted suspends.
+
+Do the skipped reset in amdgpu_pmops_resume() when the VBIOS init state
+survived suspend, i.e. the GPU kept power. S3, and s2idle platforms that
+cut power to the GPU, are unaffected.
+
+Tested with this change applied to the amdgpu 6.19.4 DKMS driver on two
+Radeon AI PRO R9700 (gfx1201) on an Intel Z390 system: s2idle failed on
+the first cycle without it and passed 16/16 with it; S3 passed 10/10
+with no extra reset.
+
+Closes: https://github.com/ROCm/legacy-rocm-build/issues/6684
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Maharshii Patel <Maharshii.Patel@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_drv.c
+index 9c5e93c..b9be88e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -2703,6 +2703,24 @@ static int amdgpu_pmops_resume(struct device *dev)
+         if (!pci_device_is_present(adev->pdev))
+                 adev->no_hw_access =3D true;
+
++       /*
++        * A dGPU takes the S3 path even for s2idle, but suspend_noirq skip=
+s
++        * the reset there. If the platform also kept the GPU powered (VBIO=
+S
++        * init state survived), the PMFW still holds its pre-suspend DPM
++        * state and times out when resume re-enables features. Do the
++        * skipped reset now; resume will POST the card afterwards if neede=
+d.
++        */
++       if (!(adev->flags & AMD_IS_APU) && !amdgpu_sriov_vf(adev) &&
++           !adev->no_hw_access && !amdgpu_acpi_should_gpu_reset(adev) &&
++           !amdgpu_device_need_post(adev)) {
++               dev_info(adev->dev, "GPU kept power across suspend, resetti=
+ng\n");
++               amdgpu_device_lock_reset_domain(adev->reset_domain);
++               r =3D amdgpu_asic_reset(adev);
++               amdgpu_device_unlock_reset_domain(adev->reset_domain);
++               if (r)
++                       dev_err(adev->dev, "reset on resume failed (%d)\n",=
+ r);
++       }
++
+         r =3D amdgpu_device_resume(drm_dev, true);
+         if (amdgpu_acpi_is_s0ix_active(adev))
+                 adev->in_s0ix =3D false;
+--
+2.43.0
 
 
+--_000_CH3PR12MB8075FADB8E90CD10DBF9BFC6F3652CH3PR12MB8075namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+</head>
+<body>
+<p style=3D"font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;fon=
+t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
+AMD General<br>
+</p>
+<br>
+<div>
+<div dir=3D"ltr" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-s=
+ystem, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt; color: rgb(0,=
+ 0, 0);">
+Hey folks, any update on this?</div>
+<div id=3D"ms-outlook-mobile-body-separator-line" data-applydefaultfontstyl=
+es=3D"true" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-system=
+, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt;" dir=3D"ltr">
+<div style=3D"font-family: Aptos, Aptos_MSFontService, -apple-system, Robot=
+o, Arial, Helvetica, sans-serif; font-size: 12pt;" dir=3D"ltr">
+<br>
+</div>
+</div>
+<div style=3D"font-family: Aptos, Aptos_MSFontService, -apple-system, Robot=
+o, Arial, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" id=
+=3D"ms-outlook-mobile-signature">
+<span style=3D"font-family: Aptos, Aptos_MSFontService, -apple-system, Robo=
+to, Arial, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">Ge=
+t
+</span><span style=3D"font-family: Aptos, Aptos_MSFontService, -apple-syste=
+m, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt;"><a href=3D"https=
+://aka.ms/o0ukef">Outlook for iOS</a></span></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Patel, Maharshii &lt;=
+Maharshii.Patel@amd.com&gt;<br>
+<b>Sent:</b> Thursday, 24 September 2026 16:37:56<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Koenig, Ch=
+ristian &lt;Christian.Koenig@amd.com&gt;; Feng, Kenneth &lt;Kenneth.Feng@am=
+d.com&gt;; Patel, Maharshii &lt;Maharshii.Patel@amd.com&gt;<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: reset dGPU on resume if it kept power a=
+cross s2idle</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">dGPUs take the S3 suspend path even when the platf=
+orm suspends to idle,<br>
+but amdgpu_pmops_suspend_noirq() skips the ASIC reset for s2idle. On<br>
+desktops the GPU also keeps power in s2idle, so it resumes without<br>
+having been reset or powered off.<br>
+<br>
+SMU 13.0.0/7/10 and 14.0.2/3 skip smu_disable_dpms() on suspend and rely<br=
+>
+on the PMFW to clean up on reset or power loss. With neither, the PMFW<br>
+still holds its pre-suspend DPM state and stops responding when resume<br>
+sends EnableAllSmuFeatures:<br>
+<br>
+&nbsp; amdgpu 0000:03:00.0: SMU: No response msg_reg: 6 resp_reg: 0<br>
+&nbsp; amdgpu 0000:03:00.0: resume of IP block &lt;smu&gt; failed -62<br>
+<br>
+SDMA ring resets and mode1 recovery then fail as well, leaving the GPU<br>
+unusable until a power cycle. soc24_need_reset_on_resume() does not<br>
+catch this, as it only detects aborted suspends.<br>
+<br>
+Do the skipped reset in amdgpu_pmops_resume() when the VBIOS init state<br>
+survived suspend, i.e. the GPU kept power. S3, and s2idle platforms that<br=
+>
+cut power to the GPU, are unaffected.<br>
+<br>
+Tested with this change applied to the amdgpu 6.19.4 DKMS driver on two<br>
+Radeon AI PRO R9700 (gfx1201) on an Intel Z390 system: s2idle failed on<br>
+the first cycle without it and passed 16/16 with it; S3 passed 10/10<br>
+with no extra reset.<br>
+<br>
+Closes: <a href=3D"https://github.com/ROCm/legacy-rocm-build/issues/6684">h=
+ttps://github.com/ROCm/legacy-rocm-build/issues/6684</a><br>
+Assisted-by: Claude:claude-opus-5-5<br>
+Signed-off-by: Maharshii Patel &lt;Maharshii.Patel@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 18 ++++++++++++++++++<br>
+&nbsp;1 file changed, 18 insertions(+)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_drv.c<br>
+index 9c5e93c..b9be88e 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
+@@ -2703,6 +2703,24 @@ static int amdgpu_pmops_resume(struct device *dev)<b=
+r>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!pci_device_is_present=
+(adev-&gt;pdev))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; adev-&gt;no_hw_access =3D true;<br>
+&nbsp;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * A dGPU takes the S3 path even=
+ for s2idle, but suspend_noirq skips<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * the reset there. If the platf=
+orm also kept the GPU powered (VBIOS<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * init state survived), the PMF=
+W still holds its pre-suspend DPM<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * state and times out when resu=
+me re-enables features. Do the<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * skipped reset now; resume wil=
+l POST the card afterwards if needed.<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!(adev-&gt;flags &amp; AMD_IS_APU=
+) &amp;&amp; !amdgpu_sriov_vf(adev) &amp;&amp;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; !adev-&gt;no_=
+hw_access &amp;&amp; !amdgpu_acpi_should_gpu_reset(adev) &amp;&amp;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; !amdgpu_devic=
+e_need_post(adev)) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; dev_info(adev-&gt;dev, &quot;GPU kept power across suspend, rese=
+tting\n&quot;);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; amdgpu_device_lock_reset_domain(adev-&gt;reset_domain);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; r =3D amdgpu_asic_reset(adev);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; amdgpu_device_unlock_reset_domain(adev-&gt;reset_domain);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (r)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_err(adev-&gt=
+;dev, &quot;reset on resume failed (%d)\n&quot;, r);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
++<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_device_resume=
+(drm_dev, true);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_acpi_is_s0ix_ac=
+tive(adev))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; adev-&gt;in_s0ix =3D false;<br>
+-- <br>
+2.43.0<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
 
+--_000_CH3PR12MB8075FADB8E90CD10DBF9BFC6F3652CH3PR12MB8075namp_--
