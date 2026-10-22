@@ -2,100 +2,80 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A9A7606A324
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2026 12:52:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E63EF606A319
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Oct 2026 13:04:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=3RxwtEAP
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TnLPye/L
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E10301125E0;
-	Thu, 22 Oct 2026 12:51:54 +0000 (UTC)
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013019.outbound.protection.outlook.com
- [40.93.201.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72CEA1125E2
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2026 12:51:48 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=e8/C3LEeiM612sAGdJJgPoO169o8uNnD4B7r3ZbjzLiVTWXaok1X9A5hAnGiWHk681JSdNHaOwR9rW5J/X+iJS/uckTsepuUysaELokCbwTrgHFdIE1jPXVzWnnrMQmRS4frcIBh/HLn/RkDlJuoeVnEOsLVMQh8PkYFuKhhShluSSsgXCACpLge1iMzoIaqZsm/GPFw2cx4VHQT8giDjFcko8GlmmQaTiH0BiB/uZOeA6eihYnE13OT6gBGR2Yf8HkGZaQZc+gZGXnA9S8RwG8QoLhmeMx9xZ29YF3FglDnNO64scyS0f2wAAN+bAG+r2zP6YeNuwaneGJe5umj9A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vL3py7IG+aaaYRbObxrY8YzFqjg+sw1dXHD2ECObh9Q=;
- b=oa0Zk9Y9bIKuYlGvjyMKVYZagz44486t+90EAEN8LVQIU4R8+lso7uWaX+sogBqrT6omILblQjzIW3UmkDdc5ArFvFL14TwBtIWcDqeeZXEJQiYWwqmIKwrp+w07kRtQviPMZpBIFTcTqboNtR+QKVwD3jDw6i8PS3o/Ln0uMZtgNKqsE4HA3/3Fr0P3Hd/2HkPWR4XSX5BU+XZmso5s4aKSBFDfhhAEigNHwfO9HPJWdoNQkT+OCE/mVDWSddVB+RazyDkTtwpCz7o7FA1TwhGr3bC4Ihp78HXXgs3TFr46qplNF1blPqpcVg34wMo7CI9LKwJoQ1OfwhBetctxoA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vL3py7IG+aaaYRbObxrY8YzFqjg+sw1dXHD2ECObh9Q=;
- b=3RxwtEAPjANrTlQA2aEvn+EqA0uK6+er+R8HLpOUCuEH46rNZThi/a3VHs0TXifV31cyBfXnZi7Ad9VBdtCBffJ+9NoltqWMMeY8EeZJeTK800bu8UlqV2TVIvFSM4l0pAz5kqxr23pAwLOqPDRiww1VVs7f06BTeebiV5iiOxY=
-Received: from SJ0PR03CA0195.namprd03.prod.outlook.com (2603:10b6:a03:2ef::20)
- by CH3PR12MB9344.namprd12.prod.outlook.com (2603:10b6:610:1c8::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Thu, 22 Oct
- 2026 12:51:45 +0000
-Received: from SJ5PEPF000001D1.namprd05.prod.outlook.com
- (2603:10b6:a03:2ef:cafe::a9) by SJ0PR03CA0195.outlook.office365.com
- (2603:10b6:a03:2ef::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.19 via Frontend Transport; Thu,
- 22 Oct 2026 12:51:44 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ5PEPF000001D1.mail.protection.outlook.com (10.167.242.53) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.15 via Frontend Transport; Thu, 22 Oct 2026 12:51:44 +0000
-Received: from asad-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 22 Oct
- 2026 07:51:24 -0500
-From: Asad Kamal <asad.kamal@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <lijo.lazar@amd.com>, <hawking.zhang@amd.com>, <le.ma@amd.com>,
- <shiwu.zhang@amd.com>, <alexander.deucher@amd.com>, <Kevin.Wang@amd.com>,
- <asad.kamal@amd.com>
-Subject: [PATCH 2/2] drm/amd/pm: Add a metrics revision for SMU 15.0.8
-Date: Thu, 22 Oct 2026 20:49:17 +0800
-Message-ID: <20261022124917.2232285-2-asad.kamal@amd.com>
-X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20261022124917.2232285-1-asad.kamal@amd.com>
-References: <20261022124917.2232285-1-asad.kamal@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 89A0B89FA5;
+	Thu, 22 Oct 2026 13:04:12 +0000 (UTC)
+Received: from mail-vs1-f46.google.com (mail-vs1-f46.google.com
+ [209.85.217.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E464011254F
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2026 11:48:13 +0000 (UTC)
+Received: by mail-vs1-f46.google.com with SMTP id
+ ada2fe7eead31-7c3b6e8225dso1119156137.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Oct 2026 04:48:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1792669693; x=1793274493; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=wazDlZjKfyP7wNB9LE8dQu7qNqOMALjuh7zvPs0dUkU=;
+ b=TnLPye/LtLt5aVfKNDFcSI8U8/LdYgNIeyjbM5WFJC90W1iFDk0+jrAhHeRjfdqaXk
+ G10L+9enTJ/VVfdFdLnWvUePmyO8vXb/w4x8UUKN2LyfLkPpg+Knmj8XPyGSz1EuGqcg
+ HGRwU+kv19JciT4/ciXDnzHGDD9ayrCe3rvDUT9wP2+MVKM76DqX2OhpDdT9W86YlOhJ
+ MpuF6RXGBW1li5nDPwEINg/KE2pQV5im3WfF4bVMP2vQm+ZOF3JU3M7VPAUV5TvrcpJo
+ o2Dj8LQFgVBPzQ4qKYb4esWcd08Ua3wEiMq2RHc9/q3sR84D6T9CWRgpbeG007HlJ5jg
+ wd8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792669693; x=1793274493;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=wazDlZjKfyP7wNB9LE8dQu7qNqOMALjuh7zvPs0dUkU=;
+ b=ZugsKxgJeCGgzSFYY3SMPCZWN8hWekh4ukU3s8qcQ3uqkRu1GoBC/jX8KQjnjTYniw
+ TsTHJwVsfdl5NvIwOTNWiIoq1HL/jgtf7Dp+uxAxjC1YnUFJVmt/KqizQWP6S3aGhFyT
+ StW11ZutXxN7hB3ZTm8nU+ErK2+gIpLkaF3BACWJYgM9fprP/6snMM/jvOoOtd6BO820
+ BVIrSb5Fd8bcEXl6nHsxCqMVKXTzetb3IwGMHAhz87uFgoIggksUAjoEbbvRHsatVMiG
+ KVifzZlzAFLdlhMGZMlHz+iIdb0seJrnHvGu6Qt3GC2FC573oQqacBo3G0bW+el0Jrr1
+ gCFw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxNIdWQCjpa9kW2l+yRCkFTuujgyPj0yG4dnFcSJsdr+Yy9OTNXVptr+FbrA+6yoNsFNcnU59xN@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYK/dUcZxohjNL3bdwVR3rXyb99bUKyiM+31kZSh2kM+KtdGAbn0
+ Y8Ly2vejGxE3bBNnoDGhGi3wM9al1G8XhnAWa9Q4+SvlWwYU+53MeWnI
+X-Gm-Gg: AYBFou2QxE+MMUwfO09H3cgSynLnhiSXIMutPKhFtaAS5uJFPvd5cscx5xYI2+BsBwW
+ Lq9f+FBVNqt33w+UMwMIeVIhfsrWnRM3ujz1evZwwiY3GQAZ+idzTofsXQXbyOMIyC8gx76PNnQ
+ Cqt1xt7yZUvB7G6fTCPjl1suyd+5PQvHPmj21f7+yR99X2pXaExu/bdT18/dc0sIkVaB++DmJjJ
+ Oh9b+l0Eq9AmqmKOT0SPygA5UTkbYbNjWJ70XeZPosZAL9zg5DSJ7j2+Jwsq9SDqbI2RQjaT3RA
+ y6cBfmHCm8PX0vztZ1dYaR5DN5RvcAjYlpYcoxV5o1L1MGU6/9y+3S3fvuDZPjfZphqdbUgdQyt
+ 5UWXOaMDDEFsi/8G3Rt/jjaZxyg+bf5nATO1zgC1rqYBnDRhK49BbM1gdoNId/iluNlRDBUqDqK
+ k550CqluSdbYpHf+vHdWqUgqupyifyz1fY2lHg5f63mEMz8VrGQTiTdb10uPScChBTdAvvq1emI
+ RD9MnHddSXbtWhZYQF/YpnkLmd48OFCHkjI1k/QH6S7oCyy1/3zXyZXw8cRjqqQu01ckcn6A3EV
+ g7vD8hPOOr10lOS4
+X-Received: by 2002:a05:6102:6a83:b0:7c3:1395:a090 with SMTP id
+ ada2fe7eead31-7cc925f94e2mr2135424137.6.1792669692664; 
+ Thu, 22 Oct 2026 04:48:12 -0700 (PDT)
+Received: from localhost.localdomain ([177.155.254.104])
+ by smtp.gmail.com with ESMTPSA id
+ a1e0cc1a2514c-990d117c005sm6177793241.9.2026.10.22.04.48.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 22 Oct 2026 04:48:12 -0700 (PDT)
+From: Matheus Tagliari <mptagliari@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
+Cc: Matheus Tagliari <mptagliari@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/2] drm/radeon: fix VCE1 encoding on SI by handling the
+ VCE interrupt
+Date: Thu, 22 Oct 2026 08:47:45 -0300
+Message-ID: <20261022114754.865669-1-mptagliari@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D1:EE_|CH3PR12MB9344:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5af9b32e-8e03-49e6-6558-08df303b3a17
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|82310400026|36860700016|1800799024|261009223027099003|18002099003|10067099003|22082099003|261021123027099003|261021121427099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: jOkEKsUwwlhYb6o6kqcAcyKjLBcin+17WFq8d0C+Jf6OcPZKV8DNItoOV81PlWJ01CQdQGUHIgUfh7uQYar4qPSh9YiW7AXbRqNUvu8/Jc1lbY/Ake9Ag7kb3ESMJMcMGEmcpLkDkletWZ9EbvztfIhst5mh1MK+cbHGgs0ch93JZtF+FuTYmOB6wD8Wu9xklGg5OP3+auVgS3j2zbfdNi/SkI3vbZNpr1mty02+SWZTn93RjSZ5MBNEb8mUBsmsosgSApOsFxVJTYKquGwvTAM7es8HGZ0HI6UjoQf1CjgrdkUk8JQQau1Hl+1kygYXPY2tEqsajPPr6C0555tzZJSSizixCrjVk8VRO8WsDrpLJVzjP+5ibenV4fXtFf+UR5uDQrlqICqAtY2S3CzMhQ0FRkNT5YDF4aCg/qTL3B3IM699GwXRsdk62+R6k7sa+5EY+4dTKtW1UQjNMfLQ5dML0DM3QAPeUGGoL7FsQNzJrAdZduRgZpDHGtgefNX3279WLGXPuhYfL4dFOHIRTYKgwhM7UmeOFUx7ZpHPC2S3Km7olrBbXPFfItqvP75yOQ5bB+NUYegvuucvkBwF3BXTPCohd6Dkri2mumpd0e+Gr8M6w3upRULpewOw2AdiCHtBlfvD5ra+OWvSwVW0PFhTS7IHLdAbkUzdZ34OwO0tfsXAHzvsPEUkLqchjRus5+NBsPJaP1EyaqtmGIzkBA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(82310400026)(36860700016)(1800799024)(261009223027099003)(18002099003)(10067099003)(22082099003)(261021123027099003)(261021121427099003)(56012099006)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: jMtFAJ+wvp6vE88gYg1VrYzOxrpXUpVhmma0NhDWZEHTPRFM4yYO0AagjqOx7jRAYPj3YISflaG+xzYqIixfm4v59vH4x6AYHTMkcToowvvbyG+2p/Sl9zjgjFlgST7cNGag9i46K0FOZJ9nBiU5v9xedIp9SlolXdkJf7K1GAYkV8p1uW7n8aTC7fbnLp8AyIjlf7qMaf5sEI0SpdUYmFnruBUSL6caEG0p7CNcyHp2ANAqfat76IdVGfCTsTMLTHaHrnQk6kE/hvLiP8d9DLmSVmw9d0o5aY6MKwZW63PGVcmlQUoja6jKhdPSbMzoaEkZ+Sfdr/p60xFpvJu6mGw6gTAS2HayNoFI2TKMYqvDTddOlOrlJ69tYfHVNzwvSvbX9ZiQ03GWbMu1PeqUeS3MnTrUMEItJzxa+j7jTlMVE8QmuIXrPAbk5+j6VgD1
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 12:51:44.4442 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5af9b32e-8e03-49e6-6558-08df303b3a17
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D1.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9344
+X-Mailman-Approved-At: Thu, 22 Oct 2026 13:04:11 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,121 +86,69 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Publish a revision attribute from the SMU 15.0.8 GPU, partition, and
-temperature metrics tables. The value starts at 1.
+Hardware H.264 encoding with the VCE block on SI GPUs (radeon driver)
+hangs the GPU after a few dozen frames.  I hit it with the KDE Plasma
+RDP server, which encodes through VAAPI, and reproduced it with a
+plain "ffmpeg -vaapi_device ... -c:v h264_vaapi" test on a Radeon HD
+8870M (Cape Verde).
 
-Increment a table's revision when its fields change.
+The VCE1 code never enables the VCE trap interrupt and the SI (and
+Trinity) interrupt handlers do not process it, unlike the CIK code and
+amdgpu.  Patch 1 adds the handlers, patch 2 enables the interrupt.
 
-Signed-off-by: Asad Kamal <asad.kamal@amd.com>
----
- .../drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c  |  6 ++++++
- .../drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.h  | 20 +++++++++++++++----
- 2 files changed, 22 insertions(+), 4 deletions(-)
+Results on Debian 6.12.113 (see patch 2 for numbers): hang before,
+none after, and 34 fps instead of ~4 fps for the workaround that avoids
+the hang.  The KDE RDP server (KRDP) itself, driven by a local FreeRDP
+client, now encodes on the VCE ring for several minutes (about 40
+fences per second on ring 6 in the radeon_fence_emit tracepoint) with a
+clean kernel log.
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
-index 82c2a379ba4b..22c8fe511fb0 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
-@@ -1652,6 +1652,8 @@ static void smu_v15_0_8_fill_baseboard_temp_metrics(
- 		metrics->SystemTemperatures[SYSTEM_TEMP_IBC_HSC];
- 	baseboard_temp_metrics->system_temp_ibc =
- 		metrics->SystemTemperatures[SYSTEM_TEMP_IBC];
-+	baseboard_temp_metrics->revision =
-+		SMU_15_0_8_BASEBOARD_TEMP_METRICS_REVISION;
- }
- 
- static void smu_v15_0_8_fill_gpuboard_temp_metrics(
-@@ -1717,6 +1719,8 @@ static void smu_v15_0_8_fill_gpuboard_temp_metrics(
- 		metrics->VrTemperatures[SVI_PLANE_VDDIO_065_UCIEAM_C_TEMP];
- 	gpuboard_temp_metrics->vr_temp_vddan_075 =
- 		metrics->VrTemperatures[SVI_PLANE_VDDAN_075_TEMP];
-+	gpuboard_temp_metrics->revision =
-+		SMU_15_0_8_GPUBOARD_TEMP_METRICS_REVISION;
- }
- 
- static ssize_t smu_v15_0_8_get_temp_metrics(struct smu_context *smu,
-@@ -1833,6 +1837,7 @@ static ssize_t smu_v15_0_8_get_xcp_metrics(struct smu_context *smu, int xcp_id,
- 
- 	xcp_metrics->accumulation_counter = metrics->AccumulationCounter;
- 	xcp_metrics->firmware_timestamp = metrics->Timestamp;
-+	xcp_metrics->revision = SMU_15_0_8_PARTITION_METRICS_REVISION;
- 
- 	return sizeof(*xcp_metrics);
- }
-@@ -1993,6 +1998,7 @@ static ssize_t smu_v15_0_8_get_gpu_metrics(struct smu_context *smu, void **table
- 	gpu_metrics->xgmi_link_speed = SMUQ10_ROUND(metrics->XgmiBitrate);
- 
- 	gpu_metrics->firmware_timestamp = metrics->Timestamp;
-+	gpu_metrics->revision = SMU_15_0_8_GPU_METRICS_REVISION;
- 
- 	*table = gpu_metrics;
- 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.h b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.h
-index dff601bc0f9a..59fd8a31ae1f 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.h
-@@ -35,6 +35,10 @@
- #define SMU_15_0_8_CAP_NPM			1
- #define SMU_15_0_8_CAP_NODE_UNLOAD		2
- #define SMU_15_0_8_NODE_UNLOAD_MIN_FW_VERSION	0x027d0c00u /* 2.125.12.0 */
-+#define SMU_15_0_8_GPU_METRICS_REVISION			1
-+#define SMU_15_0_8_GPUBOARD_TEMP_METRICS_REVISION	1
-+#define SMU_15_0_8_BASEBOARD_TEMP_METRICS_REVISION	1
-+#define SMU_15_0_8_PARTITION_METRICS_REVISION		1
- extern void smu_v15_0_8_set_ppt_funcs(struct smu_context *smu);
- 
- typedef struct {
-@@ -181,7 +185,9 @@ typedef struct {
- 		  SMU_15_0_8_MAX_XCC);                                         \
- 	SMU_ARRAY(SMU_MATTR(GFX_BELOW_HOST_LIMIT_TOTAL_ACC), SMU_MUNIT(NONE),  \
- 		  SMU_MTYPE(U64), gfx_below_host_limit_total_acc,              \
--		  SMU_15_0_8_MAX_XCC);
-+		  SMU_15_0_8_MAX_XCC);                                         \
-+	SMU_SCALAR(SMU_MATTR(REVISION), SMU_MUNIT(NONE),                       \
-+		   SMU_MTYPE(U16), revision);
- 
- DECLARE_SMU_METRICS_CLASS(smu_v15_0_8_gpu_metrics, SMU_15_0_8_METRICS_FIELDS);
- 
-@@ -251,7 +257,9 @@ DECLARE_SMU_METRICS_CLASS(smu_v15_0_8_gpu_metrics, SMU_15_0_8_METRICS_FIELDS);
- 	SMU_SCALAR(SMU_MATTR(VR_TEMP_VDDIO_065_UCIEAM_C), SMU_MUNIT(TEMP_1),   \
- 		   SMU_MTYPE(S16), vr_temp_vddio_065_ucieam_c);                \
- 	SMU_SCALAR(SMU_MATTR(VR_TEMP_VDDAN_075), SMU_MUNIT(TEMP_1),            \
--		   SMU_MTYPE(S16), vr_temp_vddan_075);
-+		   SMU_MTYPE(S16), vr_temp_vddan_075);                          \
-+	SMU_SCALAR(SMU_MATTR(REVISION), SMU_MUNIT(NONE),                       \
-+		   SMU_MTYPE(U16), revision);
- 
- DECLARE_SMU_METRICS_CLASS(smu_v15_0_8_gpuboard_temp_metrics,
- 			  SMU_15_0_8_GPUBOARD_TEMP_METRICS_FIELDS);
-@@ -309,7 +317,9 @@ DECLARE_SMU_METRICS_CLASS(smu_v15_0_8_gpuboard_temp_metrics,
- 	SMU_SCALAR(SMU_MATTR(SYSTEM_TEMP_IBC_HSC), SMU_MUNIT(TEMP_1),          \
- 		   SMU_MTYPE(S16), system_temp_ibc_hsc);                       \
- 	SMU_SCALAR(SMU_MATTR(SYSTEM_TEMP_IBC), SMU_MUNIT(TEMP_1),              \
--		   SMU_MTYPE(S16), system_temp_ibc);
-+		   SMU_MTYPE(S16), system_temp_ibc);                            \
-+	SMU_SCALAR(SMU_MATTR(REVISION), SMU_MUNIT(NONE),                       \
-+		   SMU_MTYPE(U16), revision);
- 
- DECLARE_SMU_METRICS_CLASS(smu_v15_0_8_baseboard_temp_metrics,
- 			  SMU_15_0_8_BASEBOARD_TEMP_METRICS_FIELDS);
-@@ -343,7 +353,9 @@ DECLARE_SMU_METRICS_CLASS(smu_v15_0_8_baseboard_temp_metrics,
- 	SMU_SCALAR(SMU_MATTR(ACCUMULATION_COUNTER), SMU_MUNIT(NONE),           \
- 		   SMU_MTYPE(U64), accumulation_counter);                      \
- 	SMU_SCALAR(SMU_MATTR(FIRMWARE_TIMESTAMP), SMU_MUNIT(TIME_2),           \
--		   SMU_MTYPE(U64), firmware_timestamp);
-+		   SMU_MTYPE(U64), firmware_timestamp);                         \
-+	SMU_SCALAR(SMU_MATTR(REVISION), SMU_MUNIT(NONE),                       \
-+		   SMU_MTYPE(U16), revision);
- 
- DECLARE_SMU_METRICS_CLASS(smu_v15_0_8_partition_metrics,
- 			  SMU_15_0_8_PARTITION_METRICS_FIELDS);
+Two caveats:
+
+ - I have not worked out why the missing interrupt turns into ring
+   lockups instead of only added latency.  What I know is that the
+   hang needs the VCE ring to wait on a hardware semaphore (disabling
+   only the waiting side, or both sides, of radeon_vce_semaphore_emit()
+   avoids it) and that handling the interrupt makes it go away with
+   the semaphores left enabled.  If someone knows why, I would be glad
+   to improve the commit message.
+ - The Trinity/Richland change has not been tested on that hardware.
+
+The series was developed and tested on Debian's 6.12.113 with the
+radeon module built out of tree.  It applies cleanly on drm-next
+(fad06cf), where drivers/gpu/drm/radeon builds without warnings (W=1,
+allmodconfig) both after patch 1 and with the whole series.
+
+v1: https://lore.kernel.org/r/20261021114122.94008-1-mptagliari@gmail.com
+
+Changes in v2:
+ - Patch 2: only enable VCE_SYS_INT_EN for VCE1 (family < CHIP_BONAIRE).
+   vce_v1_0_start() is also reached on CIK (vce_v1_0_init() from cik.c,
+   kv_dpm), where the register is at a different offset and is already
+   enabled by vce_v2_0_resume(); v1 would have written the VCE1 offset
+   there.  Thanks to the automated review of v1 for pointing this out.
+ - Patch 1: unchanged.
+
+Matheus Tagliari (2):
+  drm/radeon: process the VCE interrupt on SI and Trinity
+  drm/radeon/vce1: enable the VCE trap interrupt
+
+ drivers/gpu/drm/radeon/evergreen.c | 14 ++++++++++++++
+ drivers/gpu/drm/radeon/si.c        | 14 ++++++++++++++
+ drivers/gpu/drm/radeon/sid.h       |  2 ++
+ drivers/gpu/drm/radeon/vce_v1_0.c  |  9 +++++++++
+ 4 files changed, 39 insertions(+)
+
+
+base-commit: fad06cfaf385787b9ffa2f73f049d42dbe1de57f
 -- 
-2.46.0
+2.47.3
 
