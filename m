@@ -2,124 +2,99 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 793A2606A319
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Oct 2026 02:47:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1F58606A31A
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Oct 2026 06:30:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=mKdU53Bv
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Yczs6hpp
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1633910E530;
-	Fri, 23 Oct 2026 02:47:52 +0000 (UTC)
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011001.outbound.protection.outlook.com
- [40.93.194.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9426E10E525
- for <amd-gfx@lists.freedesktop.org>; Fri, 23 Oct 2026 02:47:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38B6110E54A;
+	Fri, 23 Oct 2026 06:30:46 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012041.outbound.protection.outlook.com [52.101.53.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C550A10E54A
+ for <amd-gfx@lists.freedesktop.org>; Fri, 23 Oct 2026 06:30:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SMSJWjNVtRYxPyEeGomGlzbcH5qxqX6bfKw2iIPsnJQ2vKiM9+1A0isSuJlQJKrAK/ANdzV7qdZoAz45cggFn9oA7RDbEmM3yWDu4lF2RSN7T3LTg7U1R+coUm57T4rPdLbgwvx8NT4xcraP4nTMiEzDQ/xS1yl/+7NHvzf/96pMXBZfnJwKwqR5xcbEO1kCk7Dyay671A53UgvAFWr3HsKCo7EWFE2c0LsNKplnJ2vt0sNvmrEW2tnw2htkAEkfPcP0ZMphWUhQb9vewDRP+KRELhlPjueytViE+W+T/MBnJEm+LJOvjfs0rK2chRejimZEkUC8+vTEYvp0S72G8w==
+ b=Ab4TuT2ot+NoIm4Watsgnv7TUdRQlFRlttzeLcqGaneNzKuu23sj6QYaTR1txJ2a8T1FMAAzR0O3IiGi+T4Y9DV/+Bu4eR91ujo/A7MGryeOqVb3l4OAWihsoB1PLOrXQSRg0r1GNfgekRnkTNmGLbU00aOCZAGKPQzYFtIaqkItOqssE9fD6KZ5soZd/sTicO3B8+RwBHbtbXLPRK2SUYayg6qpl1JbL1Rn1U7YSzGB3ai0bkfzm1NG0aYc3iD+ZIDISUN9JV7Y0/BSv6XX9oeZbkzKrWjJ+lTR+XhX2Vk1KMeCS4MY5nizcccAm3wyQ/pBHQs1Xt7kRtXgU4yoLw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BfWEthK9Wm9I+yLBEyL2r/G35CiirUcqKNTBNpCT8i0=;
- b=AnZ6wYutxyJw/p3D0RNhpVYDCp86uKhK8eVMuvzR1xaYrtv9LSfF1hz4j5Eb18aiFtdpj8dW3lwe99MQeSgA5E8eVR9EIJVkwhcUGF0lAcjKD5C+05NEQFzpbaipOLHJZWcS5jjZbFl4WNNr/QSvCrExdOkTZVlzmDpOiMvx83/ziwLfTC1wHdHTKhomDVCzZGv7B2q45I0Ipwom+i7PhPqJnQaEgRU/WsjVYwaMzwATWCW8kYUIY2yDWKhqa2W6aGxva8dM36sOpIUdDKHDXCo4v/cAGyFTwX0I3qgsyiFCIZiDTg0paIaTU900z9foh2WGDzbjq1BRgyU7FytXng==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=5vtIE0c9zeYavnfBIJBBye3wCeG4n7dHfcAv7EBSVzU=;
+ b=tGYBAO9nwC5YIFOMTQBljalAjIwuUOlXZZmODrs+4eEIt6O0ERbc3nJvZk7KW+OaSU4OsBfoOr8GgfDxzPtAuM+cWFOwaq//qlR3ouoFrvEH5+LrWWfM4tQRzqMkvRfeP6SLDRJLs9OAU+Y4AlE+Cl2slIj9w+/JV5kxEupVNTPvJgiuZ3rJH1ZixkQNco9uOl5EbYh/czk/gOVNkFxZ1UsojT+gH0elKyIrVIeoadqQ7PilsN1/xhwjPcvyzSFSJN6otwNbS7SR+7FO2OYYdk1i/fmSTZT1BqEFE7KVI4w7X7lhGm19cdPoDVrtK2upt2vTRI93QVajJoiTy+vpYQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BfWEthK9Wm9I+yLBEyL2r/G35CiirUcqKNTBNpCT8i0=;
- b=mKdU53BvM7lFhkj52gkPVHSZ+QTR+33mEuVTtovtcjfmeBWVXkDOcI2GhYFdFeVn1QPlkDi/YLlauOOfTOnwZbsODJ+zXFnKCSxNLc4Uyjz3ZBwihQROcr4T1IMd9I9RsvEI7PkKBdB45TH6GgwkUgZbAu1LSp/c6MEgFzPHK3M=
-Received: from CYYPR12MB8729.namprd12.prod.outlook.com (2603:10b6:930:c2::5)
- by CH3PR12MB7641.namprd12.prod.outlook.com (2603:10b6:610:150::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.16; Fri, 23 Oct
- 2026 02:47:42 +0000
-Received: from CYYPR12MB8729.namprd12.prod.outlook.com
- ([fe80::1f0c:463f:a438:d85]) by CYYPR12MB8729.namprd12.prod.outlook.com
- ([fe80::1f0c:463f:a438:d85%2]) with mapi id 15.21.0546.017; Fri, 23 Oct 2026
- 02:47:42 +0000
-From: "Zhou1, Tao" <Tao.Zhou1@amd.com>
-To: "Pan, Ellen" <Yunru.Pan@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Luo, Zhigang" <Zhigang.Luo@amd.com>, 
- "Wan, Gavin" <Gavin.Wan@amd.com>, "Chan, Hing Pong" <Jeffrey.Chan@amd.com>,
- "Pan, Ellen" <Yunru.Pan@amd.com>
-Subject: RE: [PATCH] drm/amd/amdgpu: Fix NULL RAS context deref on VF
- unrecoverable error
-Thread-Topic: [PATCH] drm/amd/amdgpu: Fix NULL RAS context deref on VF
- unrecoverable error
-Thread-Index: AQHdYZ2X6guqCuyWHU+Z5Uw/H8rYNrcKbcxg
-Date: Fri, 23 Oct 2026 02:47:42 +0000
-Message-ID: <CYYPR12MB87298ABD1401D57924E70A93B0642@CYYPR12MB8729.namprd12.prod.outlook.com>
-References: <20261021204809.204454-1-yunru.pan@amd.com>
-In-Reply-To: <20261021204809.204454-1-yunru.pan@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-10-23T02:45:07.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CYYPR12MB8729:EE_|CH3PR12MB7641:EE_
-x-ms-office365-filtering-correlation-id: 9a0e5242-85ed-4142-2bb2-08df30b0027d
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|23010399003|376014|261009223027099003|261021121427099003|261021135927099003|261021123027099003|10067099003|56012099006|261022105027099003|261022075727099003|18002099003|22082099003|38070700021|11063799006;
-x-microsoft-antispam-message-info: V4R57pOlU0iewpj9+C9yMLgclqo/rzhdMfUdKHwvofQ3TDzF1DOAGFWhKW77YxQPofZhBZz7+o+cP58vX3u2HzJmyARJIpP4lVBNrlWLDr8uRxOxixc4NLymCbnQJ3f5rIT5ieE9JxrGdI5nWjjj0WfnKU21UIu1YP0IasybCizffsBBRfKhKjHQP2WU7PsgG0vmNdId0yR7iDXNNrRhxmuxr0Mjv1yYgZvyMNHjR4N9HnL/JyXYRTibDtjdv8PU1i+YLnpxNIohH1d1h1iH5eTNscRIRx9noMDztwAAkOAAsBHctbkdoroVHQQ5haplvxysoU3mO0yxFTRYfzGlo5eLyC8fAM8ypfUny24XXPhaMUqXdVBtx6klcYKQK36KFUAFfR4AkwNVTykLnqXtbTMR0lE+QO3jQXll+2qdb00hoApaLz8Pn28+wo9YOCDHQLliS7O3nNIacEqSm+sBpYN9GLjN49cei2Gc/Gv30Mr+k7daC4vcb8pyRDPchJoMwz7HsUprRny8gA8r8kgYnIVYyrDkpxGjZCtZuY2kpLXo0Utpz03PHlz2J2amC3Eq7DqylZKAtMXwHJa2eKflRAK8962n201eK8p8UoDFzVN/YjVG8sz8+0sTQDbM/c5WNo2N5FyTlxiNWFHD8JjZewe6INDqqV4DR26LWwRvbIVCVHZqL5qQ0ueh4xnDCD1cIrnnjvRKNf42w/dMNZYS4pwlFvqU/rOtVw662fMWZx4=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CYYPR12MB8729.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(261009223027099003)(261021121427099003)(261021135927099003)(261021123027099003)(10067099003)(56012099006)(261022105027099003)(261022075727099003)(18002099003)(22082099003)(38070700021)(11063799006);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?WXHA1lN2nuBtDyBmmR7yCVsCMJkjVd8ridlC20J2Li7Qdcxzlb4piazsLKIF?=
- =?us-ascii?Q?jbpehoADnzKWmy8N3qzyJ7UPic9tIL4cW6CRYa9q0jUZcc62FZoiyqAfZoC+?=
- =?us-ascii?Q?oMtd6Vo20sDhYrqETh4GZLSPk+zP/9ioFHmgDU0qBXjJ1E7qbNYoxOi3Gt29?=
- =?us-ascii?Q?wrypnCKi9Zg1AWx4byhC6q34GZUQaLYD2uwvUmBxIF7+XQRZXU47/Y63ZdGa?=
- =?us-ascii?Q?gbl8Cqr1kGZ47sbwVEhbNzHV8HMje8jDYPzIs6XUS+ZBLgAshME6s4zZQvO6?=
- =?us-ascii?Q?91Ke8pcrg9tJIiwrvP91DJTk3kB0amn7z1pfFGrL+b5StDGrOstTFgrSW3Zk?=
- =?us-ascii?Q?fg2EOHql8jUsG5M+whostwPm9WRCaDjiVMql1YINxJlyeEi0diTX8b+4/o17?=
- =?us-ascii?Q?SLVkGOp10xHze/YPbsq8yIxAo0HPZQ6c+U9/Y55jkYhtZf8vf4XQvWsIfXvW?=
- =?us-ascii?Q?nJXXnGXCOLHkhp0CHpZFMpp7SR6lVRNtu42PuSmZ1j1wR8Px4Yq6IB9sZ/mu?=
- =?us-ascii?Q?HpRJuZkSpzENMHENKuWEhWvQKZkvvmAVfzozb9BQcFZ8ZHcxo5A8s4qva9pV?=
- =?us-ascii?Q?KijpRp5qYyytqJBxHpi2ZtHdJxVzNBwwSQJaeNd53LNWI1GbkFNKnULURZ5P?=
- =?us-ascii?Q?qoXEOlvHaW+8g0UokjnfLiEue0HmbVlO2XZoiSWdkuy+2RiFupwaMjTkRwAG?=
- =?us-ascii?Q?wQ6pMlFAcTlBWBpXm6B0Q6J/kGR44V0R+w4lcnGErIXBrDPbt7uKtlLumVW6?=
- =?us-ascii?Q?g094d4ZAcHHCOSERRNcxEWr46Jf3E81hXI5FmcZRzZz/GSvknTe2t+VBoQB4?=
- =?us-ascii?Q?cqHExT6cTzeinWJa8xIhT8truUD/vwXY8E8efXmg/NlmUx3HXGtliowQxI0h?=
- =?us-ascii?Q?6KAx6vLi6hsqzIcxm8OI1CkTSt/UJeYcUDqd29MwezlIBtUaaJQHw5Q90byB?=
- =?us-ascii?Q?cCZMuSzOGTKYnUDReQ7MvOlJAZy/S8459E67Krw30h27Trp3GJoA/FLIhIeK?=
- =?us-ascii?Q?8tt1yQw3ZRPTdP7bZqSUABUohZG2o3m5DEcOzhZADPj/JTkhTobHEUOQl/Kq?=
- =?us-ascii?Q?dxMyT3jnOOPmcpBMPwGEpFmFx9hiN97GrkR9V/XYcGMH3ZvR1xhrK+sAIKFB?=
- =?us-ascii?Q?14Ewdr/7rIuQCvafxL0eWjDKJawNfM/JZyrrcXF/SnuoCl1yKH6GUFj/NxXf?=
- =?us-ascii?Q?HQZsji5BNfkhDHKy6nZMCo9XQVp2WZee2MbOgbftgxRPylFWcTvleUPPfrKN?=
- =?us-ascii?Q?cFpEw9aj+uX4PnsZE7/jiFsipCNMaHS8D6KgGUbRmTscwvxTQbAo3qZCKkUl?=
- =?us-ascii?Q?k3VaEQzP5nx/OMUloHfzQ4qF4nx5V8ggHyi3q/HAECEphsy1BZvZQQEFaR7Z?=
- =?us-ascii?Q?nQRutQQilleEWfWEsHTZUlYHFU/xNvruRyuTqGYWWJpV0KECRkgeUSO4HdEw?=
- =?us-ascii?Q?HN7X/A29mlXpGRCtQl8auwd/eb/SH+GVLWBz9yD0p+c/29wdy2lSigat8htl?=
- =?us-ascii?Q?HUureIT3Rd4xv1JtDBQj/lamU8Dy+R1YubgDIRuuzf4mYWyhETQRzRV5z622?=
- =?us-ascii?Q?NWRSeitdM9wx+6gsVPtTMgezcgwvQLMIUqidgTwk3vwMM7mtw5fPs9qvzs5N?=
- =?us-ascii?Q?MF5TG8Ke2GM6tV4shtcyAE8TbYv7fPZo/OFr3nwyM6eFCouxUgBMz4hYoujg?=
- =?us-ascii?Q?anyMbHgRDNT33CYIb3Kys8M+1f03PeX6b0qTG4ySglxlcjKQ?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ bh=5vtIE0c9zeYavnfBIJBBye3wCeG4n7dHfcAv7EBSVzU=;
+ b=Yczs6hppGkH1kDTKhQ+IUDrtELz3W9VWumeXjuomozbBwFHzHtkOxqodMi2cZWwe0YLcn8NQQ0a4EIX92mQR7oaxezPedVveLcouiFLsV7g7quHLzz5tiFGQZ62q/DkJhf/GGEadlo5dTz6aEyeB0Gc26PJ0wXwazq6b2V2TUL8=
+Received: from CH5P220CA0010.NAMP220.PROD.OUTLOOK.COM (2603:10b6:610:1ef::14)
+ by SN7PR12MB7252.namprd12.prod.outlook.com (2603:10b6:806:2ac::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Fri, 23 Oct
+ 2026 06:30:34 +0000
+Received: from CH01EPF000BE94F.namprd02.prod.outlook.com
+ (2603:10b6:610:1ef:cafe::a9) by CH5P220CA0010.outlook.office365.com
+ (2603:10b6:610:1ef::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.16 via Frontend Transport; Fri,
+ 23 Oct 2026 06:30:34 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH01EPF000BE94F.mail.protection.outlook.com (10.167.244.199) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.546.15 via Frontend Transport; Fri, 23 Oct 2026 06:30:34 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 23 Oct
+ 2026 01:30:33 -0500
+Received: from JesseDEV.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Fri, 23 Oct 2026 01:30:31 -0500
+From: Jesse Zhang <Jesse.Zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
+ <Mario.Novales@amd.com>, <Igor.Caike@amd.com>, Jesse Zhang
+ <Jesse.Zhang@amd.com>
+Subject: [PATCH] drm/amdgpu/gfx12: flush the scratch register write in the
+ ring test
+Date: Fri, 23 Oct 2026 14:30:26 +0800
+Message-ID: <20261023063031.849579-1-Jesse.Zhang@amd.com>
+X-Mailer: git-send-email 2.50.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH01EPF000BE94F:EE_|SN7PR12MB7252:EE_
+X-MS-Office365-Filtering-Correlation-Id: 26a57dd6-7641-4db7-4a0a-08df30cf24cd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|23010399003|82310400026|36860700016|261022105027099003|56012099006|11063799006|5023799004|261009223027099003|261021121427099003|10067099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info: udvyRtvYXQjPCLkvgbYaGEBKu7NDhueTPq/fjcPPSpRgFA4LNb+UTRxRug99DBEfhkEUtQg58y4fnDAAgQB8Acy/gt3Q6moPasYhV9eC6NVWAHOMH1+5+QgLkXVIiglvKeENogS3c4Z0URC6hjhU0qPlcvV8lF1r4khTFmoMx97oNFPlg6cbv1rn6bRLlp50wRi0UuRZK6QwsPz6uolG8LKHgtkeKnRZpb3Cr4x5E1veM6Z0xdxIoX0v6g8ym/S62EtIJZ2K5lWg9cIbrpyYy681VLpwqKSFWcxG1P1hVF6+89QPDM1zFab43adbfZ3MWRrOVrOQPG59AnqMp/nH8HNI/oA3/nwt6AH0REIB4zALcFwB5AuMTrvjgxIdwr+CWLDfODekThrEP7nepXTbzeaGH/l1eZdJYIs/timqNtX3R/PdDhs2pBTXDonieTkW7oMx4htMTj1YtYi6yLaOheWhH/ibYglCoXVr6Q3l0HZn1sV1BDH3k17vwOa6AbJCuF+/oRGZAcr/UhlauVK9bGQHV3kJkvxIlOdWBjXU03ZYjbZvo6RtMaPYooJD0maAIulVP3WMszzjzy8uG8YrX5aJl20FRC1fnXSoMf9ecEiexncLc1KE86avAzzPwbjg2D5mKwgha2emga9WWXojltnd0OTccIYNWonXtu/82mTHVYTkUe8EYTbjdxJllGF1NKBxkwrk3GLSKQc1/YopkA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(23010399003)(82310400026)(36860700016)(261022105027099003)(56012099006)(11063799006)(5023799004)(261009223027099003)(261021121427099003)(10067099003)(18002099003)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: kTDAA82jVxok9YRDjv600GfOASMSmrYx7xdC18r3wb0zoiEtdXLJ881eVsVXWh/ej/H9zX/eTWCxbgLDlmPvB0RkNSK478CqV+YN7vS5s9oEEqUDhdvzRp8wwSzCkbnPXQ9DJJ7+VCCCd9ktk0RtOXffYHcqDXHz05DvMSUGSwdkB2Uj8Fb49TkzUUtKWyMuWEVF2LenGSrkf79YxuyywbN6P650O/ASNXuxYYl7qpHVkFtFhLI8VT4FOclFpJ24eTV1MT1UXN8FlkQwnuaXEie/NID3cldjVz9CfgINHox3Ln0Ekz6qtuj680do4uRe+CjR1k6WE6pgDd4koobIJ9fo35G71rm8Hcvqg17mH2y1yAn+4ngqwh99krGCKuy5+MP9VTJL1vo8sAlb6HPQC5QwyDDdomNxOugiWa66Hh7jIxsdStqtIzqGwJvsAS8p
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CYYPR12MB8729.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9a0e5242-85ed-4142-2bb2-08df30b0027d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Oct 2026 02:47:42.3297 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: m6VTGkAMV0vyfvP5Rb7r8I6BrOQ7xNjgN5txKDm30g14yHUy+yx3K3dazvJDfSFQ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7641
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 06:30:34.3074 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 26a57dd6-7641-4db7-4a0a-08df30cf24cd
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH01EPF000BE94F.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7252
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,206 +105,56 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-AMD General
+The ring test writes 0xCAFEDEAD to SCRATCH_REG0 through MMIO, rings the
+doorbell for the CP to write 0xDEADBEEF with SET_UCONFIG_REG, and polls
+for the new value.
 
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Ellen =
-Pan
-> Sent: Thursday, October 22, 2026 4:48 AM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Lazar, Lijo <Lijo.Lazar@amd.com>; Luo, Zhigang <Zhigang.Luo@amd.com>;
-> Wan, Gavin <Gavin.Wan@amd.com>; Chan, Hing Pong <Jeffrey.Chan@amd.com>;
-> Pan, Ellen <Yunru.Pan@amd.com>
-> Subject: [PATCH] drm/amd/amdgpu: Fix NULL RAS context deref on VF
-> unrecoverable error
->
-> A VF has no RAS context when RAS isn't supported on it or before RAS is i=
-nitialized
-> during probe. Handling UNRECOV_ERR_NOTIFICATION in that state dereference=
-s
-> a NULL amdgpu_ras pointer and panics the guest.
->
-> The fix is to track the notification in adev->virt.unrecov_err instead of=
- the RAS
-> context, and amdgpu_Ras_is_rma() checks that flags for VFs. Once the flag=
- is set,
-> mailbox reqs fail immediately with -ENODEV and GPU recovery bails out. If=
- the
-> notification arrives during probe, probe now fails cleaning instead of pa=
-nicking. If it
-> arrives during unload, unload completes without accessing the HW.
->
-> Signed-off-by: Ellen Pan <yunru.pan@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c  |  3 +++
-> drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h |  3 +++
->  drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c    | 15 ++++++++++++---
->  drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c    | 23 ++++++++++++-----------
->  4 files changed, 30 insertions(+), 14 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> index 557baca454a9..8349b86ab932 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> @@ -4925,6 +4925,9 @@ bool amdgpu_ras_is_rma(struct amdgpu_device *adev) =
- {
->       struct amdgpu_ras *con =3D amdgpu_ras_get_context(adev);
->
-> +     if (amdgpu_sriov_vf(adev))
-> +             return adev->virt.unrecov_err;
-> +
->       if (amdgpu_uniras_enabled(adev))
->               return amdgpu_ras_mgr_is_rma(adev);
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-> index a2c1aa838737..4a30306a387d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-> @@ -358,6 +358,9 @@ struct amdgpu_virt {
->
->       /* hibernate and resume with different VF feature for xgmi enabled =
-system */
->       bool is_xgmi_node_migrate_enabled;
-> +
-> +     /* PF reported the VF unrecoverable */
+Nothing orders the posted MMIO write against the CP's write: the
+doorbell reaches the CP on another path. With coarse grain clock gating,
+a GC register access from the host takes about 2 us, and an awake CP can
+execute the packet before the 0xCAFEDEAD write lands. The test then
+reads 0xCAFEDEAD forever and fails, although the ring consumed the
+packet (rptr == wptr).
 
-[Tao] you can update comment to clarify that vf maintains rma status by its=
-elf, with this fixed, the patch is:
+On Navi48, 39 of 10000 back-to-back compute ring tests failed this way.
+None failed when a GC register was read back after the write, or with
+CGCG disabled.
 
-Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
+Ring tests run on every queue, pipe and IP reset, and a false failure
+there escalates the recovery to a full GPU reset.
 
-> +     bool unrecov_err;
->  };
->
->  struct amdgpu_video_codec_info;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
-> b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
-> index fec08f235b92..4dcfa256c9e1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
-> @@ -98,6 +98,16 @@ static int xgpu_ai_poll_ack(struct amdgpu_device *adev=
-)
->       return -ETIME;
->  }
->
-> +static void xgpu_ai_set_unrecov_err(struct amdgpu_device *adev) {
-> +     if (adev->virt.unrecov_err)
-> +             return;
-> +
-> +     adev->virt.unrecov_err =3D true;
-> +
-> +     dev_err(adev->dev, "VF is in an unrecoverable state. Runtime Servic=
-es
-> +are halted.\n"); }
-> +
->  static int xgpu_ai_poll_msg(struct amdgpu_device *adev, enum idh_event e=
-vent)  {
->       int r, timeout =3D AI_MAILBOX_POLL_MSG_TIMEDOUT; @@ -345,7 +355,6
-> @@ static int xgpu_ai_mailbox_rcv_irq(struct amdgpu_device *adev,
->                                  struct amdgpu_iv_entry *entry)
->  {
->       enum idh_event event =3D xgpu_ai_mailbox_peek_msg(adev);
-> -     struct amdgpu_ras *ras =3D amdgpu_ras_get_context(adev);
->
->       switch (event) {
->       case IDH_RAS_BAD_PAGES_READY:
-> @@ -360,8 +369,8 @@ static int xgpu_ai_mailbox_rcv_irq(struct amdgpu_devi=
-ce
-> *adev,
->               break;
->       case IDH_UNRECOV_ERR_NOTIFICATION:
->               xgpu_ai_mailbox_send_ack(adev);
-> -             ras->is_rma =3D true;
-> -             dev_err(adev->dev, "VF is in an unrecoverable state. Runtim=
-e
-> Services are halted.\n");
-> +             xgpu_ai_set_unrecov_err(adev);
-> +
->               if (amdgpu_sriov_runtime(adev))
->                       WARN_ONCE(!amdgpu_reset_domain_schedule(adev-
-> >reset_domain,
->                                       &adev->virt.flr_work),
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
-> b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
-> index eb537b2ae685..3062f1506760 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
-> @@ -103,11 +103,20 @@ static int xgpu_nv_poll_ack(struct amdgpu_device *a=
-dev)
->       return -ETIME;
->  }
->
-> +static void xgpu_nv_set_unrecov_err(struct amdgpu_device *adev) {
-> +     if (adev->virt.unrecov_err)
-> +             return;
-> +
-> +     adev->virt.unrecov_err =3D true;
-> +
-> +     dev_err(adev->dev, "VF is in an unrecoverable state. Runtime Servic=
-es
-> +are halted.\n"); }
-> +
->  static int xgpu_nv_poll_msg(struct amdgpu_device *adev, enum idh_event e=
-vent)  {
->       int r;
->       uint64_t timeout, now;
-> -     struct amdgpu_ras *ras =3D amdgpu_ras_get_context(adev);
->
->       now =3D (uint64_t)ktime_to_ms(ktime_get());
->       timeout =3D now + NV_MAILBOX_POLL_MSG_TIMEDOUT; @@ -119,11
-> +128,7 @@ static int xgpu_nv_poll_msg(struct amdgpu_device *adev, enum
-> idh_event event)
->                                       event,
-> NV_MAILBOX_POLL_MSG_TIMEDOUT - timeout + now);
->                       return 0;
->               } else if (r =3D=3D -ENODEV) {
-> -                     if (!amdgpu_ras_is_rma(adev)) {
-> -                             ras->is_rma =3D true;
-> -                             dev_err(adev->dev, "VF is in an unrecoverab=
-le state. "
-> -                                             "Runtime Services are halte=
-d.\n");
-> -                     }
-> +                     xgpu_nv_set_unrecov_err(adev);
->                       return r;
->               }
->
-> @@ -453,7 +458,6 @@ static int xgpu_nv_mailbox_rcv_irq(struct amdgpu_devi=
-ce
-> *adev,
->                                  struct amdgpu_iv_entry *entry)
->  {
->       enum idh_event event =3D xgpu_nv_mailbox_peek_msg(adev);
-> -     struct amdgpu_ras *ras =3D amdgpu_ras_get_context(adev);
->
->       switch (event) {
->       case IDH_RAS_BAD_PAGES_READY:
-> @@ -468,10 +472,7 @@ static int xgpu_nv_mailbox_rcv_irq(struct amdgpu_dev=
-ice
-> *adev,
->               break;
->       case IDH_UNRECOV_ERR_NOTIFICATION:
->               xgpu_nv_mailbox_send_ack(adev);
-> -             if (!amdgpu_ras_is_rma(adev)) {
-> -                     ras->is_rma =3D true;
-> -                     dev_err(adev->dev, "VF is in an unrecoverable state=
-. Runtime
-> Services are halted.\n");
-> -             }
-> +             xgpu_nv_set_unrecov_err(adev);
->
->               if (amdgpu_sriov_runtime(adev))
->                       WARN_ONCE(!amdgpu_reset_domain_schedule(adev-
-> >reset_domain,
-> --
-> 2.43.0
+Read the scratch register back before ringing the doorbell, as
+commit 3f69d5860f5b ("drm/amdgpu: Add a read to GFX v9.4.3 ring test")
+does for a similar race on gfx 9.4.3 with multiple XCCs.
+
+Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+index d334fb805020..184e009c8e50 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+@@ -458,6 +458,11 @@ static int gfx_v12_0_ring_test_ring(struct amdgpu_ring *ring)
+ 	int r;
+ 
+ 	WREG32(scratch, 0xCAFEDEAD);
++	/*
++	 * Read the value back so the posted write reaches the register before
++	 * the CP writes the test value; otherwise it can overwrite the result.
++	 */
++	RREG32(scratch);
+ 	r = amdgpu_ring_alloc(ring, 5);
+ 	if (r) {
+ 		drm_err(adev_to_drm(adev),
+-- 
+2.50.1
 
