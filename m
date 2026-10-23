@@ -2,105 +2,66 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B237A606A31A
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Oct 2026 10:13:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DA3E606A31B
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Oct 2026 10:22:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=JTriCpbZ
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=JTRkpIWO
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B0BB112A77;
-	Fri, 23 Oct 2026 10:13:11 +0000 (UTC)
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013067.outbound.protection.outlook.com
- [40.93.196.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C2BDE112A77
- for <amd-gfx@lists.freedesktop.org>; Fri, 23 Oct 2026 10:13:00 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bh82+I/LBtJVle9h22BEABKHNfW61hSmP1E63fhM9/UEXABmqz4SSW9CjcTWL5NkcTWsYZgMjqYLxrM0Tq3MiD0u61dy1+JnVQaStkqaPDn7iMlCA9j2hSegAH9C7stMNMaVReRgY7kThd2o3SwwHTcuErQclxbXxumcdrZO/4dAET03bVlbmeX2zQQG3T7N48Q8lqqwHL7DVlzDYsoci4OiHTu+Sd6Ln7LExTUFgM0C2UcJNqqI6S00qfP4PFFET8aynhenqhqMoMjVyAzXz+OWv8mHhRXH6Q6Coicx+83Q18XMXD3N0rMUduxvEgt4RDlovrzN7pmw/tJ68SN4Xw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iWSMrUTFnrJQ/bc2qmzcAlIwc+hMjHPwxWdSqa3xad4=;
- b=e+xBcqPvcYPGeOoCBZz047VhzsWGzE4mP72MYSotRjF4eVd5AOtIM/MDwg1Mb4PdVWUMRZ0eQd6LGCPI1Fmv/tCV2/TxcBBMehEHHsQ2D5eLrzpQ1DCfZLtxnXbWbYQR7Js9r5Maxpjp4peEoez/M4abl10rOBMqD1S+faLXcjmEED185HQHiHhEgNAhb9tybA5Ir3T7BBySmx2SZXo8zReoXAOROly+QslVgsE94hV1tIBsAXkGrWWeaXj0BAnCOEeYUvOL+LOe1kWhI/e7+ycgxJDfa9JbZpzidYCcPXCAa7Mxkv/WyhPStPAcXT3AePnzPXeEiRMmoJ+kr0PCpQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iWSMrUTFnrJQ/bc2qmzcAlIwc+hMjHPwxWdSqa3xad4=;
- b=JTriCpbZt4hcQ5f0mII8lhIRGzgg5UfO1bsoGRO5B6o/cVnELhURWCA3elMyuFs65zAlCQwOJChwrcLeHCxY7LBHCR9OvWF2HldTH5toQWoZ1pWmyI36sXyUY2xfVHMpTkVImj8oHqX5wcrWtGUSxJsCukhxAVE97m6tWLKTt0w=
-Received: from BN9P221CA0016.NAMP221.PROD.OUTLOOK.COM (2603:10b6:408:10a::18)
- by PH8PR12MB8607.namprd12.prod.outlook.com (2603:10b6:510:1cf::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.16; Fri, 23 Oct
- 2026 10:12:57 +0000
-Received: from BN2PEPF0000A895.namprd04.prod.outlook.com
- (2603:10b6:408:10a:cafe::5d) by BN9P221CA0016.outlook.office365.com
- (2603:10b6:408:10a::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.17 via Frontend Transport; Fri,
- 23 Oct 2026 10:12:56 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN2PEPF0000A895.mail.protection.outlook.com (10.167.248.187) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.15 via Frontend Transport; Fri, 23 Oct 2026 10:12:56 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 23 Oct
- 2026 05:12:56 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 23 Oct
- 2026 05:12:55 -0500
-Received: from JesseDEV.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Fri, 23 Oct 2026 05:12:54 -0500
-From: Jesse Zhang <Jesse.Zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
- <David.Francis@amd.com>, Jesse Zhang <Jesse.Zhang@amd.com>
-Subject: [PATCH 2/3] drm/amdgpu: parse CS IBs at the BO offset their VA
- mapping starts at
-Date: Fri, 23 Oct 2026 18:12:33 +0800
-Message-ID: <20261023101246.937830-2-Jesse.Zhang@amd.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261023101246.937830-1-Jesse.Zhang@amd.com>
-References: <20261023101246.937830-1-Jesse.Zhang@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D814C112A7E;
+	Fri, 23 Oct 2026 10:22:25 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 60110112A7E
+ for <amd-gfx@lists.freedesktop.org>; Fri, 23 Oct 2026 10:22:19 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A0A5D307A
+ for <amd-gfx@lists.freedesktop.org>; Fri, 23 Oct 2026 03:22:15 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ 96A683F7B4
+ for <amd-gfx@lists.freedesktop.org>; Fri, 23 Oct 2026 03:22:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1792750938; bh=VnaOaoCbZWtRveOiSDtrRS+aRrEZTeoetU0oSSXUGhU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=JTRkpIWOkfo+U72XmNIZsDMV2BL3BH7zbu7DPMbnonf7vts5SS3GLq/ZvFDppdpac
+ P39Uer/FGanRN7a5cStCtRxs3CiEvKvwKwkJhLTkjiUVbkBZwjjcLLegwh8srkzzXl
+ njUQLoM8zjmqqMwPoyJU5QEJVGqQxPZT0iBV62M0=
+Date: Fri, 23 Oct 2026 11:21:48 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ John Harrison <John.Harrison@igalia.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>,
+ Mihail Atanassov <mihail.atanassov@arm.com>, Eric Anholt <eric@anholt.net>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Brian Starkey <brian.starkey@arm.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+ Suraj Kandpal <suraj.kandpal@intel.com>
+Subject: Re: [PATCH v7 0/9] drm: writeback: clean up writeback connector
+ initialization
+Message-ID: <ats1PJqVhNR-RXAX@e142607>
+References: <20261019-wb-drop-encoder-v7-0-d4288a26eb54@oss.qualcomm.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000A895:EE_|PH8PR12MB8607:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2c30c16c-62b8-46b6-4ebf-08df30ee3561
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|82310400026|1800799024|36860700016|11063799006|56012099006|261022115727099003|261022113327099003|261022105027099003|261022075727099003|261021135927099003|261021133027099003|261021130227099003|261021123027099003|261021121427099003|261009223027099003|10067099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info: DEhrdAhQmSjQ93sAOdg28/O9rEHI3Jv+VJl1I6QK+FXjEclm7LQ/cHv1NIseZZUyZozRgqnkGuaMdqVEnZcLzCc6tQ9ZD8DAyYcLQMgbiNkOKPrgnGrUW3Yk5po51Ws1Ew5pZ3yDigN2p8Vwrew/dIHlrGb9QGsghw+SnyMEdr3saxmiBus2ETVnoJxh0r49v6E0oI35mDEJiOJteSqAVAWqzoAKBHFOILlH/Zo/y2UCI4Z80i/NoQydZiAur+R7CUm0F/1C69wsqIDzO0kYr9B029b3NWhp7BECihx5LezxaNshvUTxlOy5mCeuUZF1BtBW1harhBnrZYj2NBpxvidPwb8sksI/z5iuOCxHiljfpOz8bprt4iB1Lk80sAdC8XvWkB/MqwgushBB0fLKWw+dQdn7ZCifqN05AD/cSJBtCfpIk4h5aL44M2p/4jXdTkFBIC3Sx0jD7sKdWShNx7NLQs5zLJFOPv0YevJRf1QcyjpJgYmrvyeb84Wly0URCu1CtQkG+N8nhhFSFDXJXbHlvWJxU1bPTLTHjeO6PcL6CViEwe7xOdNmrDgQM5sRFp6GzICMO8YTG2Enx0fSUg+qGaYO56dWTeaHveXIHtbSzYHhs8Jmo9QZsHYv2S9c46nzCPArcoKfDUbCEHTjd/84jexb5aVmVR50Ni48NKUHtKwVLk7rLan2NGgoz3dTvzI+t6x5uN1pcju06Spqvg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(82310400026)(1800799024)(36860700016)(11063799006)(56012099006)(261022115727099003)(261022113327099003)(261022105027099003)(261022075727099003)(261021135927099003)(261021133027099003)(261021130227099003)(261021123027099003)(261021121427099003)(261009223027099003)(10067099003)(18002099003)(22082099003)(6133799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Jj0E7cpVtaTtiYk8sqCyg47jLMbwikaHHWTgKz2P0GL4Y7ku3MsH8bYF274ln+GjyrmIpC92YP2I+KrWQjbxwi+boU3ZWfUxSSsWadal/ElQ2BiA7TxmEm6CG0NCMsMITIsFeyz8Ls0dc+9ZNtpAXoQjtUY5shhZYUjs78trmhMUcbNTpMmNzgouc6p5VmtXKa1rYOjg2qOYXJMi3yw+Tqt1Ci6tootUWZGIXVxpLyT4NABXeU4q8BAwiQvUzM8C7OhayXvXhBs0J+rtvm2v1hKV6m2y1y92E32IPUmkpJG1JBmEQHyr3eJLJFg0OlVwcqYDzun+oEJ3y1a10OuJAVVU6c1WBWJ8A4ok/PC5CrkvqQa5iGyANSl24NPFFtyQf6Q3F9EBrwTBs5sNo4EIsEZm01e60CdmttQtreEXMpJUmhEIVAUaigghjvn1BUXo
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 10:12:56.5387 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2c30c16c-62b8-46b6-4ebf-08df30ee3561
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF0000A895.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB8607
+In-Reply-To: <20261019-wb-drop-encoder-v7-0-d4288a26eb54@oss.qualcomm.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,45 +72,152 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-For rings which parse or patch the IBs on the CPU, like JPEG and VCN,
-the CS looks the IB up through its VA mapping and maps the BO, but
-ignores the offset in the BO the mapping starts at. It then parses
-other data than the GPU executes. On navi31, an IB of JPEG NOPs in the
-second page of a BO, mapped with offset_in_bo 4096, is parsed from the
-zeros in the first page and rejected:
+On Mon, Oct 19, 2026 at 04:12:26PM +0300, Dmitry Baryshkov wrote:
+> Drivers using drm_writeback_connector_init() / _with_encoder() don't
+> perform cleanup in a manner similar to drmm_writeback_connector_init()
+> (see drm_writeback_connector_cleanup()). Enough of the drivers don't use
+> the encoder embedded into the drm_writeback connector.  In preparation
+> to further rework of the WB connectors (as planned to enable WB for i915
+> / xe drivers, which would move drm_writeback_connector to be a field
+> inside drm_connector instead of subclassing it) remove the drm_encoder
+> wrapped in struct drm_writeback_connector. Rename the
+> drm_writeback_connector_init_with_encoder() to
+> drm_writeback_connector_init()
+> and copy drmm_writeback_connector_init() interface. Then, with the
+> encoder being gone, handle proper cleanup of writeback data in
+> drm_connector_cleanup().
+> 
+> ---
+> Changes in v7:
+> - Significantly reworked series, no longer insisting on using drmm.
+> - Link to v6: https://patch.msgid.link/20260612-wb-drop-encoder-v6-0-9f3a54f81310@oss.qualcomm.com
+> 
+> Changes in v6:
+> - Dropped applied patch
+> - Implemented suggestion by Alex to use drmm allocation for the
+>   writeback connector.
+> - Link to v5: https://patch.msgid.link/20260505-wb-drop-encoder-v5-0-42567b7c7af2@oss.qualcomm.com
+> 
+> Changes in v5:
+> - Rebased on top of drm-misc-next
+> - Expanded commit message for msm patch, describing devm vs drmm issues (Laurent)
+> - Expanded commit messages, describing why the drivers are converted to
+>   drmm_writeback_connector_init() (Laurent)
+> - Link to v4: https://lore.kernel.org/r/20251228-wb-drop-encoder-v4-0-58d28e668901@oss.qualcomm.com
+> 
+> Changes in v4:
+> - Rebase on top of drm-misc-next, dropping applied patch.
+> - Added a note regarding memory leak in the AMDGPU driver.
+> - Fixed a devm vs drmm issue in the msm/dpu driver.
+> - Link to v3: https://lore.kernel.org/r/20250819-wb-drop-encoder-v3-0-b48a6af7903b@oss.qualcomm.com
+> 
+> Changes in v3:
+> - Fixed subject prefix for the rcar-du patch (Jessica Zhang)
+> - Link to v2: https://lore.kernel.org/r/20250816-wb-drop-encoder-v2-0-f951de04f4f9@oss.qualcomm.com
+> 
+> Changes in v2:
+> - Switched to drm_crtc_mask() where applicable (Louis Chauvet)
+> - Link to v1: https://lore.kernel.org/r/20250801-wb-drop-encoder-v1-0-824646042f7d@oss.qualcomm.com
+> 
+> To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> To: Maxime Ripard <mripard@kernel.org>
+> To: Thomas Zimmermann <tzimmermann@suse.de>
+> To: David Airlie <airlied@gmail.com>
+> To: Simona Vetter <simona@ffwll.ch>
+> To: John Harrison <John.Harrison@igalia.com>
+> To: Harry Wentland <harry.wentland@amd.com>
+> To: Leo Li <sunpeng.li@amd.com>
+> To: Rodrigo Siqueira <siqueira@igalia.com>
+> To: Alex Deucher <alexander.deucher@amd.com>
+> To: Christian König <christian.koenig@amd.com>
+> To: Liviu Dudau <liviu.dudau@arm.com>
+> To: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+> To: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+> To: Geert Uytterhoeven <geert+renesas@glider.be>
+> To: Magnus Damm <magnus.damm@gmail.com>
+> To: Dave Stevenson <dave.stevenson@raspberrypi.com>
+> To: Maíra Canal <mcanal@igalia.com>
+> To: Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+> To: Louis Chauvet <louis.chauvet@bootlin.com>
+> To: Mihail Atanassov <mihail.atanassov@arm.com>
+> To: Eric Anholt <eric@anholt.net>
+> To: Rob Clark <robin.clark@oss.qualcomm.com>
+> To: Brian Starkey <brian.starkey@arm.com>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: amd-gfx@lists.freedesktop.org
+> Cc: linux-renesas-soc@vger.kernel.org
+> 
+> ---
+> Dmitry Baryshkov (9):
+>       drm/amd/display: embed the writeback encoder in amdgpu_dm_wb_connector
+>       drm/komeda: embed the writeback encoder in komeda_wb_connector
+>       drm/mali: embed the writeback encoder in malidp_drm
+>       drm: renesas: rcar-du: embed the writeback encoder in rcar_du_crtc
+>       drm: writeback: drop excess connector initialization functions
+>       drm: writeback: rename drm_writeback_connector_init_with_encoder()
+>       drm: writeback: don't destroy the shared writeback properties
+>       drm: writeback: clean up writeback connectors in drm_connector_cleanup()
+>       drm: writeback: drop the drmm writeback cleanup action
+> 
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |   2 +-
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h  |   1 +
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c   |  27 +++-
+>  .../amd/display/amdgpu_dm/tests/amdgpu_dm_test.c   |   4 +-
+>  .../display/amdgpu_dm/tests/amdgpu_dm_wb_test.c    |   4 +-
+>  drivers/gpu/drm/arm/display/komeda/komeda_kms.h    |   3 +
+>  .../drm/arm/display/komeda/komeda_wb_connector.c   |  24 +++-
+>  drivers/gpu/drm/arm/malidp_drv.h                   |   1 +
+>  drivers/gpu/drm/arm/malidp_mw.c                    |  25 +++-
+>  drivers/gpu/drm/drm_connector.c                    |   3 +
+>  drivers/gpu/drm/drm_crtc_internal.h                |   3 +
+>  drivers/gpu/drm/drm_writeback.c                    | 147 +++++----------------
+>  drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.h     |   2 +
+>  .../gpu/drm/renesas/rcar-du/rcar_du_writeback.c    |  29 +++-
+>  drivers/gpu/drm/vc4/vc4_txp.c                      |   8 +-
+>  include/drm/drm_writeback.h                        |  22 +--
+>  16 files changed, 140 insertions(+), 165 deletions(-)
 
-  amdgpu 0000:03:00.0: Invalid packet [0x00000000]!
+I still personally dislike the whole idea of removing a framework feature that was beneficial
+to a lot of drivers in order to help one driver, but that is just my stance. The stats kind of
+show that and if it wasn't for the massive delete in drm_writeback.c (partly of comments) you
+would add more code with this change. The cleanup and fixes patches in this series also points
+out that there are still issues with the concept and John and sashiko are also raising issues.
 
-while the same IB submitted through a mapping of the whole BO works.
+Anyway, as far as komeda and malidp drivers changes are concerned, I'm OK with them being applied
+as long as the framework or the patch series solves any cleanup issues. So for those two patches
+you can have my
 
-Add the mapping offset when locating the IB in the BO.
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
-Fixes: 4802ce117786 ("drm/amdgpu: fix UVD/VCE VM emulation")
-Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Best regards,
+Liviu
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index fa301c71b782..4a277f04cde5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -1073,7 +1073,7 @@ static int amdgpu_cs_patch_ibs(struct amdgpu_cs_parser *p,
- 		if (r)
- 			return r;
- 
--		kptr += va_start - (m->start * AMDGPU_GPU_PAGE_SIZE);
-+		kptr += va_start - (m->start * AMDGPU_GPU_PAGE_SIZE) + m->offset;
- 
- 		if (ring->funcs->parse_cs) {
- 			memcpy(ib->ptr, kptr, ib->length_dw * 4);
+
+> ---
+> base-commit: 725953d4da85cfb97a4c309fad6346b72f8529e7
+> change-id: 20250801-wb-drop-encoder-97a0c75bd5d7
+> 
+> Best regards,
+> --  
+> With best wishes
+> Dmitry
+> 
+
 -- 
-2.50.1
-
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
