@@ -2,122 +2,123 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2FEF606A31D
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Oct 2026 09:14:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E518606A31A
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Oct 2026 09:22:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=PMVF4Xa4
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=sNyg72xJ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5EFE81129DA;
-	Fri, 23 Oct 2026 09:14:46 +0000 (UTC)
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010039.outbound.protection.outlook.com [52.101.46.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2CEF31129DA
- for <amd-gfx@lists.freedesktop.org>; Fri, 23 Oct 2026 09:14:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B970510E5B0;
+	Fri, 23 Oct 2026 09:22:20 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010003.outbound.protection.outlook.com
+ [40.93.198.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4CE610E5B0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 23 Oct 2026 09:22:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=k+HqWGSYPJQzSaAloCti3s843dsD2Wf1Xrm2Av9sWfP9A2/fJdt89jOtXwkHtyzEKeQru7ulsM3i8CusuPsaTr6mL2/5WfL6Ga/S87+KmomsOHp9jPCc72bFxJ0wT/NNkLESKF8BI4NZ/+ItxBOj5oyZcItN3BcuqracUpO2e+oH6LHKk37R8BO4IEtYs4VALcOde/pYEKki/R9gJ81AzAfKhdT8s7bcqkLCrBBZ0teUTAw4jYPLK3o0rh1ZkjLNOZ3ereWBHqgSyl0n9Pbds38O2Xv9TKQEhdVxahrHy19unBxPGKqPtlmY8DuD7gT5aL6cSxWD+aIxGZKJtNi3BQ==
+ b=qGk5LYIhtbD0RCAX0dd3vkhgx28fM3EtPovbT4587RmFsuL2+utVP7ihXNaAaMDzNhEWPH1xkXBcp/WfyKf4qUHZnmz+fkbi81mx4gZOMjhyNyn1B/8WlivCef+zjtYZe7pwDjDqRirJrFsqguxuO0h45UG/77xULyugjCQdpCt6VeOeJ40v9DBOy2T7hMRUTBiuz7uIJI66WCBz/AvHvab5PkwJIA54886zMRAyMwXhVOupTuiVTozTefblHlVa7uj6+DplgblLvOtJiQBSOlH96B5JISrRYfkOG6pMM637Oy6uIPUhaimXQRa2oFiJgb6hFnZ3b8CzJr+3ia0KYA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3WR1Vjy13BGWObWVdmmIh0I5VSMzyuxEGY63z/SoRGM=;
- b=aokKESKGstLC/mugbK4LKHWAH++1y+j539Pg6MLGGZdkQWEdgk+smZEtQKDTHvP9MHg1/rK7+NzLtotd0xd1qcEfOpNYdVt6msqXEIKQK5K5nVuyXq9JplcKqjJ0iBtQy7E0IzwbEO5GB/lsxXZpEzQo9XfozlFN7zi4+xWJw9d2nXrPSXEsKRtlLnqF2LOJFTir/cngdWce39MMnJAnJZhuI+NJ0XQ369s8UHaes04LEGin+TzbJsjJxXxbKq/YoKJBDtXJ82J6sJrykKBbj/ePvwOqv+UkEB5Kl84H4h2MSrj1IqIiNqlbm0aLZP5PsVkvj9xpdau24BS6gnwzTQ==
+ bh=1YRP3Hl47DLhPNHfabqjbT+uurz1FmOqCJPx/zLp2kI=;
+ b=sWr28gM5MJzhqcnAZ+VSiFcY2ZNbUpfIp+xxpDq/wbPvGw4zaqME4i//xyqQZezFokWkzhd+5FOLI5m1vsZmiAcknbVhnZ2I5WgyZftRY40mwSN5GpWmUaV478388+ejWWxeVNXBUNviIxWNCNk6RcEFSfvjXyf6UrlxDRp2o6fCDGKPjTjJtVY3AN+hqH37r+VTC1Oe889qSTcDqbVHjX/Ep2rokgsJ1u4txD8Z3AquH62j2D+iZRvY28NXslaErt2BpG5kiF2Jg7DGdb1pyW8EGuqvg1IUE+MMdFMNt12OJ+Y5NjtPzeDa3qPY1kmixU3sTsWvVECreOU1ztPa7A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3WR1Vjy13BGWObWVdmmIh0I5VSMzyuxEGY63z/SoRGM=;
- b=PMVF4Xa4WaLnYcoHj8aKY4lVhIYODHYYcYUj8zRYpFvLV6QMkGyj3IbnC+C/oDqxA8IJonS3yNfdRG38BPEiiDyzYy17prf95GMFQ1+aRBuTcQbzxxEhcnqXmM/nomvBzU2EbY11YRh/nJcR2jws6K9DMKxRbPyGjJ4eL4dn/yY=
+ bh=1YRP3Hl47DLhPNHfabqjbT+uurz1FmOqCJPx/zLp2kI=;
+ b=sNyg72xJD03HzHhpVRpG+m/lSu7EFhPw4LxIxR+zzSAVLQd0VBJ77Dj1ytTH7QZSvxWllN9pFCL+H+F7MTGTHgQXEdsWUInSn9knLYKlVSSkkLsdI2FpVdt2Y3y9Y4yrV5k4ns14q8hI+Un/vQTGq0ltuEgDzpHOPgZy5x8BFkQ=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
  by MN2PR12MB4486.namprd12.prod.outlook.com (2603:10b6:208:263::23)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.16; Fri, 23 Oct
- 2026 09:14:34 +0000
+ 2026 09:22:10 +0000
 Received: from SA0PR12MB7091.namprd12.prod.outlook.com
  ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
  ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.21.0546.017; Fri, 23 Oct 2026
- 09:14:34 +0000
-Message-ID: <f07784fd-26e6-44fb-8558-da0638ceb11a@amd.com>
-Date: Fri, 23 Oct 2026 14:44:28 +0530
+ 09:22:10 +0000
+Message-ID: <03452daa-204a-40a0-98a8-0a34861dac2f@amd.com>
+Date: Fri, 23 Oct 2026 14:52:05 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/8] drm/amdgpu: finish GPU recovery callbacks before
- restarting schedulers
+Subject: Re: [PATCH 5/8] drm/amdgpu: stop GPU recovery wait for the JPEG/VCN
+ idle work
 To: Prike Liang <Prike.Liang@amd.com>, amd-gfx@lists.freedesktop.org
 Cc: Alexander.Deucher@amd.com, Christian.Koenig@amd.com, Vitaly.Prosyak@amd.com
 References: <20261023083422.3049246-1-Prike.Liang@amd.com>
- <20261023083422.3049246-2-Prike.Liang@amd.com>
+ <20261023083422.3049246-5-Prike.Liang@amd.com>
 Content-Language: en-US
 From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20261023083422.3049246-2-Prike.Liang@amd.com>
+In-Reply-To: <20261023083422.3049246-5-Prike.Liang@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA0PR01CA0082.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:ae::12) To SA0PR12MB7091.namprd12.prod.outlook.com
+X-ClientProxiedBy: MA0PR01CA0089.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:ae::15) To SA0PR12MB7091.namprd12.prod.outlook.com
  (2603:10b6:806:2d5::17)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|MN2PR12MB4486:EE_
-X-MS-Office365-Filtering-Correlation-Id: e896e823-5805-4b53-66e9-08df30e60da0
+X-MS-Office365-Filtering-Correlation-Id: 2bdf19a4-5402-4cf1-3f47-08df30e71db7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|376014|366016|6133799003|18002099003|22082099003|261022105027099003|261022075727099003|11063799006|4143699003|261009223027099003|261021123027099003|10067099003|261021121427099003|56012099006;
-X-Microsoft-Antispam-Message-Info: 0/9gT6FgKl89p0vGF/vNpv36NZpq2t7BnHQXonPXo9X1msnKGexwwmy+ltbSYRDPC6C+CovXnITPi6PzTnxw4kRA/5tbSmhWV6aChcVtme+zrdrx2hy5W1RB5D2gCyHFzCYTqUuwmIjs0NZLuZKbiRNo8Iay+aIS7g0gqJC0SRgomdM2SWA/vJlT+7gt+tFQFzRT0O2X0HnlAFXUDEM+0R/dvCNCDyaRPdtwpQVt0WatApYEEwEVtQz8hTi1BL9BaOEydYJyjlqfaRy9dwgeMYW8ooQmNKMFcxYID3ePoxrjyg1JN2Y1GuJmKT8DQSit4th6gHuY+kZn56wrgEKX4zsUvlrxSRDpCrP+6i5PtI4G9T1s046b6rm2pkyUZRHDXKc5xn1yI+YFmVN2wRDgoGpPOyCE53y72mZ6X3FvPOFEzS4uF25oVOx/K3T3eSfg1SZ/JmigbqVjeocTFEZbKHd06Xl5XahhbNjHFACGCXoFdQyLro3sJ2BSuA03sWdheQwWT0mcgCFWDVWIyEnJcA+SZRpuXWDPJgj7+u250/dvfFzFfHwlSMsrtxjkEJjp7szHXFjLHxtz3SqjryD6A/Q2+UnnDUbVoDInkomIWa0N53hqzJ1c4a/gmkqVYOdAz8XopPO82+hu5dq5Tod7hqK3WZnxQ6oJxhmKz5KnV78=
+ ARA:13230040|23010399003|1800799024|376014|366016|6133799003|18002099003|22082099003|261022105027099003|3023799007|261022075727099003|11063799006|4143699003|5023799004|261009221227099003|261009223027099003|261009220027099003|261009221727099003|261021123027099003|10067099003|261021121427099003|261009223327099003|260925021911599003|260925022911599003|260925021311599003|56012099006;
+X-Microsoft-Antispam-Message-Info: OukrhRXGbyFAM7H74BIbo0yqQH2qwHyoUk8jpRgJKmL5F5KFAhHMWgZMhzhDFfU1CVGQbLTZm1qojR076cK/0cpwTGBn+RouUEq/hefIl1xTzRdLLvODLDw/JM728RpQNOYUtcDO7YxrLN/QWw0m8W9uEMbebCBxp7gbWhmRCwSBlC26R6INOx1mWVLSF1nnviYwERbt1CVwWRiwfPpUoyPFn6ukAMUzqAQnSbwzfTCW0DwYvyFFYbZKqPDuHy/G2lJbiMHCrYhg1eCYn179tw/fLYFPArLONCQo42MvFX4rPmPjlIzEXCAVhCEazUSlri/RdnMiBFPgDVO0m7kSyjSKapl+eFRyeNbxtpo28fCSz16rVM5sPzpGsCi1EP8KWcLBNWRaA3EA2SSrYk4iKDhV62HI24L4qfglL3oxIsfiq73gHEap9oYbB0TdSDflEE79pzzljg42TCTsLgaZDvaZA8FRe27MbSNoaHzGgQC0sH23FRyqOhhn2Le/saOil266pBgMPQ5+k5N273KIKBgdPBe6XEOESEQkuswvtwZCnscVtm4oHlNVmtR2cjSbw74Yc7kfu7AV6O0227UofbonNTk1Iyelg5TlUvrOFIA=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(6133799003)(18002099003)(22082099003)(261022105027099003)(261022075727099003)(11063799006)(4143699003)(261009223027099003)(261021123027099003)(10067099003)(261021121427099003)(56012099006);
+ SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(6133799003)(18002099003)(22082099003)(261022105027099003)(3023799007)(261022075727099003)(11063799006)(4143699003)(5023799004)(261009221227099003)(261009223027099003)(261009220027099003)(261009221727099003)(261021123027099003)(10067099003)(261021121427099003)(261009223327099003)(260925021911599003)(260925022911599003)(260925021311599003)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cDJKVFJCdEtDMGlwNFE1ZzYwKzNsWVZLaVlTa1RnRHN2N3hndXMwbDFwOHNw?=
- =?utf-8?B?ZW1JOHZxMXpqd3RCUWNSQlc1eGN0dEVLNFJwdEk5eVRRTHpseTYwa0NRaTl3?=
- =?utf-8?B?MHRDdGJLZlEvakVRa2NISm1UeitOT0djLy9xQzlmTE9NbHFWajhPVC9hZVhu?=
- =?utf-8?B?QStnZFlPQU56a2Z4U3ZOMVhqMHo2b0FKN25ic2NtM0h2eWVvUzRrT1pzemMv?=
- =?utf-8?B?SmNHc3hBZUg3STU5OG1haTV4bGZrRWlmQmlLMEJXYzNyYllPMVQ1U29LTlp6?=
- =?utf-8?B?SDU0cjNPTE5YWWNnWkl2U040RnRFdGkzM3B0VVpBLzlhaDI4a0xUVmlvUXFU?=
- =?utf-8?B?d2pmMWVaMkVoOCtuVVBkRHdaMGNnWXdGRWdDcUl2dEpDTUpURHFraW1ZcE9y?=
- =?utf-8?B?YmtDZnZwUXpVWjZvUW5vUHV0ZjJUZE9ZaTd4SXBEMVZ2SFdDbmNYRFVZdVJv?=
- =?utf-8?B?UXRxd09lRFdNWU0zWXVYbU1TWkpUWEh5L2VjSnZRYXZGYlRlSnRoc1M1YkRK?=
- =?utf-8?B?SU5IekpDTzdjOUhZV0lZaDRabDRZVU1OSjJXVm5KcFZ3b2l3K3g1YXZvdjEv?=
- =?utf-8?B?NzZ5TEFNd3E0RXlxUnFwdnNSdkl3WVp2TlZRYkJsdEtzVldMTk0vdkRzRlVR?=
- =?utf-8?B?VFFReTE0bW9DcUY3WngrVk9IVEVCZjk0TTZlWG1LWW0rMEdqMmtqTXRZVTlr?=
- =?utf-8?B?U2RmL0szVmJTZXVQRnZFZ04vNUJ1VjNPZXRqYk1HUjRvSGszM2pjL3Q3YzdL?=
- =?utf-8?B?Zk5ZOEVieW5VdXdqZ0lhamJGeUlSSWs1VnJEMHFQcm1iMzFaTy9SWENZaXFT?=
- =?utf-8?B?WnVyelBvVmlsemtyVEN2eEFPVGZ2RDE0SG1ENmFYTHlGeVl6elZxZTBic0sx?=
- =?utf-8?B?ajNmSjhqSDRhcm1zd0t2dDIxVTZSMHQ0YmQrK2dSdnhtZVlTK1d3cGc4cGFB?=
- =?utf-8?B?dGtaL29XYjhHaURsTWYyVDlIZmtrRGgvWC9xd1JIMFlod09ua2xWUDdWQWho?=
- =?utf-8?B?TlMzWit6eGxPUWFhUDlhZW9OQkhIZGN5WHgxaklWWkNxZnlrbEpLdy9xd0hD?=
- =?utf-8?B?YzdyQkRnTG5PN0hoeTMxS1dQWEw0Z0R1SDdlV1JaeklXQm84UXIxcmxZbytL?=
- =?utf-8?B?NzY5Y3V6S2JOS0V3ajdNcFNocUEzWUFvY2pmYW1hZFRJY0Y3V0hUcENBNU40?=
- =?utf-8?B?dWFOZmNvc2x3OTZ3VFVNNHIxbHlMQXlSNThaR2dPc0x3YnArcjhEQ1FQUCsw?=
- =?utf-8?B?emo0WlZPTTNiOEFUMzlDNUwzd0M3dmh0VWlzMDVzTm5DdDBoV3hKQUdYNVRX?=
- =?utf-8?B?bHVMNjNPNE9iUXJsUVVpUGpIUk1uRXFEeGxFV2RldTNaNXBQS0N6aldHUklM?=
- =?utf-8?B?b1FQandHYVR5YkJNek03aXJ4UFYwM2E1blNOTVQ1bEloRTJld3NwdEE3em9k?=
- =?utf-8?B?L0trUjN2V0xESDlRc2RlM1pCT1NEV3BDM0VqMng3Q1JsbXd5cVhveEp3RTdp?=
- =?utf-8?B?QTIyOXY5WmNWTlU5OUtOa3IvNUN5M0pLSVI4V1ZBNlZaTG5sWEVkTytVUmlP?=
- =?utf-8?B?OWQ1QmEvSW9Zek0zQUV4c1FkYWJnYVZaZkE2Z0VuUnE1MlkwWEdaYkhKUmxM?=
- =?utf-8?B?eHpKc2tPdnhDa3RFNkNsUVlTcGF3ZDJWeGdkVmsyanlXREtJMktXRjA5QWF2?=
- =?utf-8?B?RjNqVzNhYnRyaThaYjJ3TW50WG1lSDUrWEpGT3E0bGp4dk1NanVhT203Ukd1?=
- =?utf-8?B?VVBPOHVmY1lDQjVNMDZKS2xJUU5Eem1PWUxIYTF3aUZsdkQxdWFKaHA0Uzl1?=
- =?utf-8?B?MmN5OS9OTEZyZjl3NFVNQXBFbHFna0pMWDcybDM3cEVPOWI4dU9jaVdBME1u?=
- =?utf-8?B?NTQ4VGVaT1piSjliSTJNcFZ2TFY2eWZKUVBjSFZFMVp6bFU4MjBKRFh2cVMw?=
- =?utf-8?B?N0FXVHpHdWV4TUFBNmJIaCtOZ0xrRmh5WmdDUy8ya21RTHpkMjF4diswQnlp?=
- =?utf-8?B?dUlZNEJMTUNLVThFOHVaNjQwYUhBZGlxM2Z2Y3RzazBqWWlncFU3OWtWWkQ2?=
- =?utf-8?B?c05nemxVNXZiNzZ0ZzhwQWpDbVQ2bXlwV1lVWDJLU3F2b0ZrU2RlR05GRjJZ?=
- =?utf-8?B?UlhzOVlCZ3FMclBhR3VhRDloRVk5Qm5mb2ZqdkVLdFpSQnpoSXVXUmVDTnRn?=
- =?utf-8?B?MnBQalRFdlo4TjRhc3RJQmhmQmxLYnZIN0EvRTRCWFpwYkxidFh3cEdmZ3B5?=
- =?utf-8?B?eFZoSXV2Zmk0Q0U0dGVqUFRmdmptcldwYmltQ0U1bFg0L0NheGNoT2szRGdF?=
- =?utf-8?Q?j9hN+CCNRBTn3XWMN5?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QmdFWUNFVldMOXBOYXZKWjQ4MkRlaWdFSS82MnZRalpVVUtNVUxaMW43cHVp?=
+ =?utf-8?B?WEJqczZtajlYa09CSW1DcWE2STZoa1E2b3o1NjBaVU81QThlQVFuMjdvdW9z?=
+ =?utf-8?B?cTk2Sm02QVI1UXBVQ2xsY0NaUTE1eU82YWM5RTNCeDhqZjd3STNTYlhDRFM3?=
+ =?utf-8?B?RmJvK2c2YlZyNk95YzBLeHgvQnJvY1ZqSisxZ1dBNHIvdjgzaGN2TW1nZzlz?=
+ =?utf-8?B?d2RtYncxa1VyQ2hNT25ndWI4czNCZkRQNzgyWTZ3azVxemhBNG45bGd2Y1g0?=
+ =?utf-8?B?aC91Y2syMTgwZGQyamNTV1BtbVhsSlB3SmZTbHZhTi9ENHpxNjZraGxQZFNx?=
+ =?utf-8?B?STRtT2xjd3RIMFdJZ1FmRS9HZm12TjR4VUZwY0N6OGw5K2dnOEdSVndXb1dX?=
+ =?utf-8?B?NkNkM3BBdnlsZnlYd3dSRkkvZU1MdFJsT2hWajZ4YlpYVmg1UUpPaDdLekZ5?=
+ =?utf-8?B?bXhVSXU4R0RhMG9LbW9CTlQ0Nng5Rm5sYXEwOVRQWE80ajJjVnZBREN4eXlv?=
+ =?utf-8?B?b2t6NTk3UHdjdnNFMHJmSTZaTFZUUU1Yd2FQTUh6c05mVVJZdUpFRjFJem5T?=
+ =?utf-8?B?NGpjMkRMS00yMndFOWZ1OC9hdUp6cGdyVW9oWEUvL2dCU0IrdFM2aU5KQ0lF?=
+ =?utf-8?B?cnFFd1VrWUhVUzQwQzVld0lEZG5tTGZuNVdUSmVXYjI2Ni9ReTZwMWY1RzBw?=
+ =?utf-8?B?MjZKczMzaWZoOFYvR29qSWlVVGZZMDNKeFVEb09BVmxjclROMmhEVi9RaGFM?=
+ =?utf-8?B?c2RHdzFCQzh6NmxRd2wwaVFYcWYzbVM2TkIrcHJXd0Z6NHJkSVdtdjR4TFQ5?=
+ =?utf-8?B?QTBzOXJrSmdLa1pDTmVHUHl2YUwxQm1MaTdrRVFhUWtTcFhGWjdtS2JBeDQ1?=
+ =?utf-8?B?bkV3MHc1TnhFa3lHWktrQkpaalZXTktJaERIbFlYeDZrU2tyVFA1aHh0dUFp?=
+ =?utf-8?B?ZUJyMUFkbFBtbUkxMnFyTkFtTXpMcTMxMTZ3UnRjR0F4c3JNTWxQRDNDUm9R?=
+ =?utf-8?B?NHI1NXM2TFZ2SDNGZDl6cjF2TTMrbUpBUHYvQTd5SU9PSmRPaHl5UERTOGZF?=
+ =?utf-8?B?ZG5PYTRpWTEzZ1lTcUtTeWV4WnZqQjVMbjIxdmtQazJYWlh5b2VUNDVySTIx?=
+ =?utf-8?B?UFdRTjlnU21aMnBEcEYrR2tQR1ZSKzRkcmw2RmJMdUxOdFFhUVpZbEUrSHZM?=
+ =?utf-8?B?NDMyZWVwSnVzSmFhRzFobWd2YlFoQ1R3WEt2QmJpR1BxRWQrVEJhVGIyK2cz?=
+ =?utf-8?B?ZDJ4SEFZaVB0Mi9uanhHS2Z2ZWgvOE1PbzVuZDNIUGZxbU1jYW5hb3BNMGdM?=
+ =?utf-8?B?bU4zWmh6TVZDREFDKzBtVTFPQlNjd01rcE9LT2VZNXNJM2F2MXd5azJDOEtK?=
+ =?utf-8?B?ZFVscFhpWWxmU2dmckV1Z3B1MThHTzMrazNROURLdzhVSUFxOFQrV1lHMzV2?=
+ =?utf-8?B?UnArQUxkRXZ4NStSSTNQMklmbVgzWFh0clNKVzQ3NGZPM0s0UjRPRXAvejdu?=
+ =?utf-8?B?MEVhTE8rbndraTVTMDBkMG44VUJOdm5xTi9KOEFwV2M4OXRkbFlKZVNFTTBJ?=
+ =?utf-8?B?QWhMYlMxeXZDVFJVQ21nOVZteWlPNzlHYVo2aEVlR2FKdW9aZFpxT2NPYW10?=
+ =?utf-8?B?NkgveDVRbXlyK0lacG9GTDhpNHdueDY1ckZmbldTbzRRNjFnTTlvaklNOVRw?=
+ =?utf-8?B?VmlkWXdFc0VKWXBHQ3JCREpCZmFmbFF3eGo3SGNZNlpNcU1zOTdqVmtlcWVx?=
+ =?utf-8?B?RGs5TkQ2emNQazdNclJxOVV4K0RYblUxWFNKTHNXWEN0dW9RcGtqdlBxREJa?=
+ =?utf-8?B?V09tMTdFbHdreGpzVG5ZZ2Z1clZ2NXMzdzc3Z1UzS3pCaTBzTW1ZeisrTVJx?=
+ =?utf-8?B?VHJ2Y00wS2MvL3l2ZkE5V0REc1d1UnNuOFArcGx1bVczNGRRcnhLdU5zUlRF?=
+ =?utf-8?B?T1NQWi90eWNCZStlaUtxaWJidTNuK0FUM1hHZnVTbnVnTUg4UWFHV2QrdmND?=
+ =?utf-8?B?dkVNdnBOeUM3TWVZL0RsMlZpU0JRNmdmaE9yYk5TMDJ1NmJJSXY2Uys1Wkh3?=
+ =?utf-8?B?K1QvOVd0WHI4NjFpRjJ1bjhHZ2xKZklITTVJMU9xV2FvUFNFaUNVdGRBek15?=
+ =?utf-8?B?MkRaa0kyemV5UUQ3U1FJNkZ3Q0Y2Zkt5TkNKWXU1U1EzeHpVUW13Q1JPTVVU?=
+ =?utf-8?B?R1JhWi9lV2UzbjBhZTZ1cHhzYlpCazlhT3FkdU4zb2xsRmNUSG1VR1pXOTFQ?=
+ =?utf-8?B?VTBIMU1hVWsyMG1HVHJCbXpuOFdDakI4TDJPUE50YTVrN3VJQkJSV2wwc2lH?=
+ =?utf-8?Q?KGonSWwN3QilrqqMzs?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e896e823-5805-4b53-66e9-08df30e60da0
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2bdf19a4-5402-4cf1-3f47-08df30e71db7
 X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 09:14:34.1301 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 09:22:10.5298 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xIhXH2jI7jnXBn9nfaTLRLqt4s5cUz5aCd691nxgQaAyOS6W4k9IaswbQHk/6L5v
+X-MS-Exchange-CrossTenant-UserPrincipalName: NtjW0ZZoAst8ntUE2HC+s38F4tQfGr6zdtebMmWx5iwgQ5byeNKQ7OCTLHw692CG
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4486
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -140,61 +141,448 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 
 On 23-Oct-26 2:04 PM, Prike Liang wrote:
-> Run GPU post-reset callbacks, including KFD and display-audio resume,
-> before restarting DRM scheduler workqueues. IP hardware initialization
-> already happens inside ASIC recovery; this change orders the remaining
-> callbacks before new scheduler submissions. Preserve the emergency-stop
-> and guity job completition path's callbacks without starting schedulers,
+> The common JPEG and VCN idle workers program power gating and DPG pause,
+> so they must not run while a GPU reset is in progress. Recovery must not
+> wait for them either, since everything the workers depend on then
+> becomes a dependency of GPU recovery.
+> 
+> Make the workers take reset_domain->sem for read, so they wait for a
+> running reset instead of touching the hardware. hw_fini/suspend and
+> begin_use, the latter for the IB tests, run from GPU recovery as well,
+> so only skip waiting for the idle work when the reset itself calls them.
+> The reset holds the semaphore for write and would otherwise deadlock on
+> a worker blocked on it. Outside a reset the cancel stays synchronous as
+> before. sw_fini always cancels synchronously, it never runs with the
+> reset semaphore held.
+> 
+> Update versions: https://lore.kernel.org/amd-gfx/PH7PR12MB6000698A62D208E47BB358D7FB662@
+> PH7PR12MB6000.namprd12.prod.outlook.com/
 > 
 > Signed-off-by: Prike Liang <Prike.Liang@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 13 +++++++------
->   1 file changed, 7 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 406c5f2fbee1..20f02dd14c41 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -5816,8 +5816,10 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
->   
->   	amdgpu_device_halt_activities(adev, job, reset_context, &device_list,
->   				      hive, need_emergency_restart);
-> -	if (need_emergency_restart)
-> -		goto skip_sched_resume;
-> +	if (need_emergency_restart) {
-> +		amdgpu_device_gpu_resume(adev, &device_list, need_emergency_restart);
-> +		goto reset_unlock;
-> +	}
 
-Does this reordering indirectly affect any ttm memory management funcs 
-(sdma) that may be required during KFD resume sequence?
+Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
 
 Thanks,
 Lijo
 
->   	/*
->   	 * Must check guilty signal here since after this point all old
->   	 * HW fences are force signaled.
-> @@ -5827,18 +5829,17 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
->   	if (job && (dma_fence_get_status(&job->hw_fence->base) > 0)) {
->   		job_signaled = true;
->   		dev_info(adev->dev, "Guilty job already signaled, skipping HW reset");
-> -		goto skip_hw_reset;
-> +		goto post_resume;
->   	}
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c | 20 ++++++++++++++++++--
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c  | 18 +++++++++++++++++-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h  |  1 +
+>   drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c   |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c   |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c   |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c   |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c    |  4 ++--
+>   drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c    |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c    |  4 ++--
+>   drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c    |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c    |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c  |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c  |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c  |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c  |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/vcn_v5_0_2.c  |  2 +-
+>   23 files changed, 58 insertions(+), 25 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
+> index 87f879a2e4f4..2bddef322870 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
+> @@ -74,6 +74,8 @@ int amdgpu_jpeg_sw_fini(struct amdgpu_device *adev)
+>   {
+>   	int i, j;
 >   
->   	r = amdgpu_device_asic_reset(adev, &device_list, reset_context);
+> +	cancel_delayed_work_sync(&adev->jpeg.idle_work);
+> +
+>   	for (i = 0; i < adev->jpeg.num_jpeg_inst; ++i) {
+>   		if (adev->jpeg.harvest_config & (1U << i))
+>   			continue;
+> @@ -95,9 +97,18 @@ int amdgpu_jpeg_sw_fini(struct amdgpu_device *adev)
+>   	return 0;
+>   }
+>   
+> +static void amdgpu_jpeg_cancel_idle_work(struct amdgpu_device *adev)
+> +{
+> +	/* The reset mustn't wait for the idle work, which waits for the reset */
+> +	if (amdgpu_in_reset(adev))
+> +		cancel_delayed_work(&adev->jpeg.idle_work);
+> +	else
+> +		cancel_delayed_work_sync(&adev->jpeg.idle_work);
+> +}
+> +
+>   int amdgpu_jpeg_suspend(struct amdgpu_device *adev)
+>   {
+> -	cancel_delayed_work_sync(&adev->jpeg.idle_work);
+> +	amdgpu_jpeg_cancel_idle_work(adev);
+>   
+>   	return 0;
+>   }
+> @@ -114,6 +125,9 @@ static void amdgpu_jpeg_idle_work_handler(struct work_struct *work)
+>   	unsigned int fences = 0;
+>   	unsigned int i, j;
+>   
+> +	/* Nothing holding the reset semaphore waits for this work */
+> +	down_read(&adev->reset_domain->sem);
+> +
+>   	for (i = 0; i < adev->jpeg.num_jpeg_inst; ++i) {
+>   		if (adev->jpeg.harvest_config & (1U << i))
+>   			continue;
+> @@ -129,6 +143,8 @@ static void amdgpu_jpeg_idle_work_handler(struct work_struct *work)
+>   		mutex_unlock(&adev->jpeg.jpeg_pg_lock);
+>   	} else
+>   		schedule_delayed_work(&adev->jpeg.idle_work, JPEG_IDLE_TIMEOUT);
+> +
+> +	up_read(&adev->reset_domain->sem);
+>   }
+>   
+>   void amdgpu_jpeg_ring_begin_use(struct amdgpu_ring *ring)
+> @@ -136,7 +152,7 @@ void amdgpu_jpeg_ring_begin_use(struct amdgpu_ring *ring)
+>   	struct amdgpu_device *adev = ring->adev;
+>   
+>   	if (!atomic_fetch_inc(&adev->jpeg.total_submission_cnt))
+> -		cancel_delayed_work_sync(&adev->jpeg.idle_work);
+> +		amdgpu_jpeg_cancel_idle_work(adev);
+>   
+>   	mutex_lock(&adev->jpeg.jpeg_pg_lock);
+>   	amdgpu_device_ip_set_powergating_state(adev, AMD_IP_BLOCK_TYPE_JPEG,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+> index 34e1242d66ea..631f9471be1f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+> @@ -269,6 +269,8 @@ void amdgpu_vcn_sw_fini(struct amdgpu_device *adev, int i)
+>   	if (adev->vcn.harvest_config & (1 << i))
+>   		return;
+>   
+> +	cancel_delayed_work_sync(&adev->vcn.inst[i].idle_work);
+> +
+>   	amdgpu_bo_free_kernel(
+>   		&adev->vcn.inst[i].dpg_sram_bo,
+>   		&adev->vcn.inst[i].dpg_sram_gpu_addr,
+> @@ -459,6 +461,15 @@ void amdgpu_vcn_put_profile(struct amdgpu_device *adev)
+>   	mutex_unlock(&adev->vcn.workload_profile_mutex);
+>   }
+>   
+> +void amdgpu_vcn_cancel_idle_work(struct amdgpu_vcn_inst *vcn_inst)
+> +{
+> +	/* The reset mustn't wait for the idle work, which waits for the reset */
+> +	if (amdgpu_in_reset(vcn_inst->adev))
+> +		cancel_delayed_work(&vcn_inst->idle_work);
+> +	else
+> +		cancel_delayed_work_sync(&vcn_inst->idle_work);
+> +}
+> +
+>   static void amdgpu_vcn_idle_work_handler(struct work_struct *work)
+>   {
+>   	struct amdgpu_vcn_inst *vcn_inst =
+> @@ -470,6 +481,9 @@ static void amdgpu_vcn_idle_work_handler(struct work_struct *work)
+>   	if (adev->vcn.harvest_config & (1 << i))
+>   		return;
+>   
+> +	/* Nothing holding the reset semaphore waits for this work */
+> +	down_read(&adev->reset_domain->sem);
+> +
+>   	for (j = 0; j < adev->vcn.inst[i].num_enc_rings; ++j)
+>   		fence[i] += amdgpu_fence_count_emitted(&vcn_inst->ring_enc[j]);
+>   
+> @@ -499,6 +513,8 @@ static void amdgpu_vcn_idle_work_handler(struct work_struct *work)
+>   	} else {
+>   		schedule_delayed_work(&vcn_inst->idle_work, VCN_IDLE_TIMEOUT);
+>   	}
+> +
+> +	up_read(&adev->reset_domain->sem);
+>   }
+>   
+>   void amdgpu_vcn_ring_begin_use(struct amdgpu_ring *ring)
+> @@ -507,7 +523,7 @@ void amdgpu_vcn_ring_begin_use(struct amdgpu_ring *ring)
+>   	struct amdgpu_vcn_inst *vcn_inst = &adev->vcn.inst[ring->me];
+>   
+>   	if (!atomic_fetch_inc(&vcn_inst->total_submission_cnt))
+> -		cancel_delayed_work_sync(&vcn_inst->idle_work);
+> +		amdgpu_vcn_cancel_idle_work(vcn_inst);
+>   
+>   	mutex_lock(&vcn_inst->vcn_pg_lock);
+>   	vcn_inst->set_pg_state(vcn_inst, AMD_PG_STATE_UNGATE);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
+> index bea95307fd42..a6438950854e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
+> @@ -526,6 +526,7 @@ int amdgpu_vcn_suspend(struct amdgpu_device *adev, int i);
+>   int amdgpu_vcn_resume(struct amdgpu_device *adev, int i);
+>   void amdgpu_vcn_ring_begin_use(struct amdgpu_ring *ring);
+>   void amdgpu_vcn_ring_end_use(struct amdgpu_ring *ring);
+> +void amdgpu_vcn_cancel_idle_work(struct amdgpu_vcn_inst *vcn_inst);
+>   
+>   bool amdgpu_vcn_is_disabled_vcn(struct amdgpu_device *adev,
+>   				enum vcn_ring_type type, uint32_t vcn_instance);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
+> index 72069b77f6f1..b048fd4b8b59 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
+> @@ -177,7 +177,7 @@ static int jpeg_v2_0_hw_fini(struct amdgpu_ip_block *ip_block)
+>   {
+>   	struct amdgpu_device *adev = ip_block->adev;
+>   
+> -	cancel_delayed_work_sync(&adev->jpeg.idle_work);
+> +	amdgpu_jpeg_suspend(adev);
+>   
+>   	if (adev->jpeg.cur_state != AMD_PG_STATE_GATE &&
+>   	      RREG32_SOC15(JPEG, 0, mmUVD_JRBC_STATUS))
+> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
+> index 2968256d4cd7..f6a9258ae3ca 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
+> @@ -239,7 +239,7 @@ static int jpeg_v2_5_hw_fini(struct amdgpu_ip_block *ip_block)
+>   	struct amdgpu_device *adev = ip_block->adev;
+>   	int i;
+>   
+> -	cancel_delayed_work_sync(&adev->jpeg.idle_work);
+> +	amdgpu_jpeg_suspend(adev);
+>   
+>   	for (i = 0; i < adev->jpeg.num_jpeg_inst; ++i) {
+>   		if (adev->jpeg.harvest_config & (1 << i))
+> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
+> index 564e40899df2..922711aa06a3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
+> @@ -192,7 +192,7 @@ static int jpeg_v3_0_hw_fini(struct amdgpu_ip_block *ip_block)
+>   {
+>   	struct amdgpu_device *adev = ip_block->adev;
+>   
+> -	cancel_delayed_work_sync(&adev->jpeg.idle_work);
+> +	amdgpu_jpeg_suspend(adev);
+>   
+>   	if (adev->jpeg.cur_state != AMD_PG_STATE_GATE &&
+>   	      RREG32_SOC15(JPEG, 0, mmUVD_JRBC_STATUS))
+> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
+> index b29ca3a49939..fe7ab9cb35bb 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
+> @@ -221,7 +221,7 @@ static int jpeg_v4_0_hw_fini(struct amdgpu_ip_block *ip_block)
+>   {
+>   	struct amdgpu_device *adev = ip_block->adev;
+>   
+> -	cancel_delayed_work_sync(&adev->jpeg.idle_work);
+> +	amdgpu_jpeg_suspend(adev);
+>   	if (!amdgpu_sriov_vf(adev)) {
+>   		if (adev->jpeg.cur_state != AMD_PG_STATE_GATE &&
+>   			RREG32_SOC15(JPEG, 0, regUVD_JRBC_STATUS))
+> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
+> index 0343a64595f2..f4896ad9d1de 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
+> @@ -455,7 +455,7 @@ static int jpeg_v4_0_3_hw_fini(struct amdgpu_ip_block *ip_block)
+>   	struct amdgpu_device *adev = ip_block->adev;
+>   	int ret = 0;
+>   
+> -	cancel_delayed_work_sync(&adev->jpeg.idle_work);
+> +	amdgpu_jpeg_suspend(adev);
+>   
+>   	if (!amdgpu_sriov_vf(adev)) {
+>   		if (adev->jpeg.cur_state != AMD_PG_STATE_GATE)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c
+> index 4da3f9c995c1..87efc3c2b9e0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c
+> @@ -250,7 +250,7 @@ static int jpeg_v4_0_5_hw_fini(struct amdgpu_ip_block *ip_block)
+>   	struct amdgpu_device *adev = ip_block->adev;
+>   	int i;
+>   
+> -	cancel_delayed_work_sync(&adev->jpeg.idle_work);
+> +	amdgpu_jpeg_suspend(adev);
+>   
+>   	for (i = 0; i < adev->jpeg.num_jpeg_inst; ++i) {
+>   		if (adev->jpeg.harvest_config & (1 << i))
+> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
+> index dcdb089b4308..91968ad26f17 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
+> @@ -189,7 +189,7 @@ static int jpeg_v5_0_0_hw_fini(struct amdgpu_ip_block *ip_block)
+>   {
+>   	struct amdgpu_device *adev = ip_block->adev;
+>   
+> -	cancel_delayed_work_sync(&adev->jpeg.idle_work);
+> +	amdgpu_jpeg_suspend(adev);
+>   
+>   	if (adev->jpeg.cur_state != AMD_PG_STATE_GATE &&
+>   	      RREG32_SOC15(JPEG, 0, regUVD_JRBC_STATUS))
+> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c
+> index f2debf6b6bd0..27116d1e9e64 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c
+> @@ -326,7 +326,7 @@ static int jpeg_v5_0_1_hw_fini(struct amdgpu_ip_block *ip_block)
+>   	struct amdgpu_device *adev = ip_block->adev;
+>   	int ret = 0;
+>   
+> -	cancel_delayed_work_sync(&adev->jpeg.idle_work);
+> +	amdgpu_jpeg_suspend(adev);
+>   
+>   	if (!amdgpu_sriov_vf(adev)) {
+>   		if (adev->jpeg.cur_state != AMD_PG_STATE_GATE)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c
+> index dd0abce73687..7e068c2d4d6d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c
+> @@ -299,7 +299,7 @@ static int jpeg_v5_0_2_hw_fini(struct amdgpu_ip_block *ip_block)
+>   	struct amdgpu_device *adev = ip_block->adev;
+>   	int ret = 0;
+>   
+> -	cancel_delayed_work_sync(&adev->jpeg.idle_work);
+> +	amdgpu_jpeg_suspend(adev);
+>   
+>   	if (!amdgpu_sriov_vf(adev)) {
+>   		if (adev->jpeg.cur_state != AMD_PG_STATE_GATE)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c
+> index 8ddd12740a04..16daeb61114c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c
+> @@ -172,7 +172,7 @@ static int jpeg_v5_3_0_hw_fini(struct amdgpu_ip_block *ip_block)
+>   {
+>   	struct amdgpu_device *adev = ip_block->adev;
+>   
+> -	cancel_delayed_work_sync(&adev->jpeg.idle_work);
+> +	amdgpu_jpeg_suspend(adev);
+>   
+>   	if (adev->jpeg.cur_state != AMD_PG_STATE_GATE &&
+>   	      RREG32_SOC15(JPEG, 0, regUVD_JRBC0_UVD_JRBC_STATUS))
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+> index 76793a5caa70..470d8f110799 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+> @@ -150,8 +150,8 @@ static int vcn_v1_0_sw_init(struct amdgpu_ip_block *ip_block)
 >   	if (r)
->   		goto reset_unlock;
-> -skip_hw_reset:
-> +post_resume:
-> +	amdgpu_device_gpu_resume(adev, &device_list, need_emergency_restart);
->   	r = amdgpu_device_sched_resume(&device_list, reset_context, job_signaled);
->   	if (r)
->   		goto reset_unlock;
-> -skip_sched_resume:
-> -	amdgpu_device_gpu_resume(adev, &device_list, need_emergency_restart);
->   reset_unlock:
->   	amdgpu_device_recovery_put_reset_lock(adev, &device_list);
->   	amdgpu_ras_post_reset(adev, &device_list);
+>   		return r;
+>   
+> -	/* Override the work func */
+> -	adev->vcn.inst[0].idle_work.work.func = vcn_v1_0_idle_work_handler;
+> +	/* Own lockdep class, this work is still cancelled synchronously */
+> +	INIT_DELAYED_WORK(&adev->vcn.inst[0].idle_work, vcn_v1_0_idle_work_handler);
+>   
+>   	amdgpu_vcn_setup_ucode(adev, 0);
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
+> index 7d2b9e4b913a..ba451f2a2534 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
+> @@ -322,7 +322,7 @@ static int vcn_v2_0_hw_fini(struct amdgpu_ip_block *ip_block)
+>   	struct amdgpu_device *adev = ip_block->adev;
+>   	struct amdgpu_vcn_inst *vinst = adev->vcn.inst;
+>   
+> -	cancel_delayed_work_sync(&vinst->idle_work);
+> +	amdgpu_vcn_cancel_idle_work(vinst);
+>   
+>   	if ((adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG) ||
+>   	    (vinst->cur_state != AMD_PG_STATE_GATE &&
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
+> index 10ef5616b2f5..9dd4c313cbe7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
+> @@ -304,8 +304,8 @@ static int vcn_v2_5_sw_init(struct amdgpu_ip_block *ip_block)
+>   		if (r)
+>   			return r;
+>   
+> -		/* Override the work func */
+> -		adev->vcn.inst[j].idle_work.work.func = vcn_v2_5_idle_work_handler;
+> +		/* Own lockdep class, this work is still cancelled synchronously */
+> +		INIT_DELAYED_WORK(&adev->vcn.inst[j].idle_work, vcn_v2_5_idle_work_handler);
+>   
+>   		amdgpu_vcn_setup_ucode(adev, j);
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+> index 0f4f4d66e2e4..3e85abd1e82c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+> @@ -449,7 +449,7 @@ static int vcn_v3_0_hw_fini(struct amdgpu_ip_block *ip_block)
+>   		if (adev->vcn.harvest_config & (1 << i))
+>   			continue;
+>   
+> -		cancel_delayed_work_sync(&vinst->idle_work);
+> +		amdgpu_vcn_cancel_idle_work(vinst);
+>   
+>   		if (!amdgpu_sriov_vf(adev)) {
+>   			if ((adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG) ||
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+> index 4b7f7bbe18da..5b47a643d725 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+> @@ -374,7 +374,7 @@ static int vcn_v4_0_hw_fini(struct amdgpu_ip_block *ip_block)
+>   		if (adev->vcn.harvest_config & (1 << i))
+>   			continue;
+>   
+> -		cancel_delayed_work_sync(&vinst->idle_work);
+> +		amdgpu_vcn_cancel_idle_work(vinst);
+>   
+>   		if (!amdgpu_sriov_vf(adev)) {
+>   			if ((adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG) ||
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+> index 3f39aa83c319..5aa09c3bd79b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+> @@ -417,7 +417,7 @@ static int vcn_v4_0_3_hw_fini(struct amdgpu_ip_block *ip_block)
+>   	for (i = 0; i < adev->vcn.num_vcn_inst; ++i) {
+>   		struct amdgpu_vcn_inst *vinst = &adev->vcn.inst[i];
+>   
+> -		cancel_delayed_work_sync(&vinst->idle_work);
+> +		amdgpu_vcn_cancel_idle_work(vinst);
+>   
+>   		if (vinst->cur_state != AMD_PG_STATE_GATE)
+>   			vinst->set_pg_state(vinst, AMD_PG_STATE_GATE);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
+> index f30f80c1b07f..9693950cd16d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
+> @@ -327,7 +327,7 @@ static int vcn_v4_0_5_hw_fini(struct amdgpu_ip_block *ip_block)
+>   		if (adev->vcn.harvest_config & (1 << i))
+>   			continue;
+>   
+> -		cancel_delayed_work_sync(&vinst->idle_work);
+> +		amdgpu_vcn_cancel_idle_work(vinst);
+>   
+>   		if (!amdgpu_sriov_vf(adev)) {
+>   			if ((adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG) ||
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
+> index 7b7c3bc9f046..0c189063a6ab 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
+> @@ -291,7 +291,7 @@ static int vcn_v5_0_0_hw_fini(struct amdgpu_ip_block *ip_block)
+>   		if (adev->vcn.harvest_config & (1 << i))
+>   			continue;
+>   
+> -		cancel_delayed_work_sync(&vinst->idle_work);
+> +		amdgpu_vcn_cancel_idle_work(vinst);
+>   
+>   		if (!amdgpu_sriov_vf(adev)) {
+>   			if ((adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG) ||
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c
+> index c9e990ab297d..3fa553fb41d3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c
+> @@ -364,7 +364,7 @@ static int vcn_v5_0_1_hw_fini(struct amdgpu_ip_block *ip_block)
+>   	for (i = 0; i < adev->vcn.num_vcn_inst; ++i) {
+>   		struct amdgpu_vcn_inst *vinst = &adev->vcn.inst[i];
+>   
+> -		cancel_delayed_work_sync(&adev->vcn.inst[i].idle_work);
+> +		amdgpu_vcn_cancel_idle_work(&adev->vcn.inst[i]);
+>   		if (vinst->cur_state != AMD_PG_STATE_GATE)
+>   			vinst->set_pg_state(vinst, AMD_PG_STATE_GATE);
+>   	}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_2.c b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_2.c
+> index ed47ddd5b08c..eb13f792e25d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_2.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_2.c
+> @@ -279,7 +279,7 @@ static int vcn_v5_0_2_hw_fini(struct amdgpu_ip_block *ip_block)
+>   	for (i = 0; i < adev->vcn.num_vcn_inst; ++i) {
+>   		struct amdgpu_vcn_inst *vinst = &adev->vcn.inst[i];
+>   
+> -		cancel_delayed_work_sync(&adev->vcn.inst[i].idle_work);
+> +		amdgpu_vcn_cancel_idle_work(&adev->vcn.inst[i]);
+>   		if (vinst->cur_state != AMD_PG_STATE_GATE)
+>   			vinst->set_pg_state(vinst, AMD_PG_STATE_GATE);
+>   	}
 
