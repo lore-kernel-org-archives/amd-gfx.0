@@ -2,129 +2,88 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5005606A31A
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Oct 2026 08:44:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8B15606A31A
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Oct 2026 08:44:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=VTsK+wGQ
+	dkim=pass (2048-bit key, unprotected) header.d=lazarus.enterprises header.i=@lazarus.enterprises header.a=rsa-sha256 header.s=google header.b=Icf6dAAw
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A4F510ECD4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F377C10ECD6;
 	Mon, 26 Oct 2026 08:44:08 +0000 (UTC)
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013053.outbound.protection.outlook.com
- [40.93.201.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 474F410E94D;
- Mon, 26 Oct 2026 05:38:21 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=A6FhklNO3pSZBHbtQ3PdAhkZlDuRt+dIH8FjHjzlqWndkEsaIK6ipA5llJjN/3U+PsuRh1foSEM+AlAZkKc6G0wBRgnZ1bjFsEURutiqJ7MxEl3c410003Q7jdxrGzGQ0epVkDr8nToSMsyMTHVcwbPJ9CXXMx/ZWJQu/ZJd9KpnDmDTFo90DnhRL4EZ4McRBZFbFxQzAqu0iPj/c4ngWQsnO2WGd/4IDv6DYEmBclX6/qxIOZjk5dZFHIpmmnjbR70cXPDeKTcx0H00jOH9Bti3je3iiHvwK9aIqVDIyTgz92urXfjEIbDkyO5LOGgBohzEYCEpxAw2NFtVjfNDTA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6dRCzn5viTe7SKeHNjAEAXsjfYd/OOnFavncKBFIXNI=;
- b=fQIL7K9fH53hj5ozsrCqyc81BGQpoomOfFjU5GVdXK1ru88vYFBz6dl4B6dtVf/82UzZvBOKBILX4s0I6nSISneRjDCukp2wEvyjuESnzr30B/qs+YePemP7AP2yXDZDGTeaacgot//8iRTv1HkCsov5v2ubioBfYZ9zhNoDHiVCePt6eGcUMR7o9OjXvPkygnLxFYoXGmrMXMQUm2pVFsMn9J2i1IfTC3SdUoylnA9Hq7Lm1RQewwAK9floMiOlEWme5OUidzHrCCCp/r0xcWay6YCNvTDiJtbIQwlNeJfb0UBSl116VBWdJJha9/5FZmw48UWmI6U08vwikrwHMA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6dRCzn5viTe7SKeHNjAEAXsjfYd/OOnFavncKBFIXNI=;
- b=VTsK+wGQJq5THEcdYMFfdD6o9BT/KxA5MpOB7AZotbJngzz4pC18cEgIeY2HTeXCljxUZmVTiUllnRrhUtU/yEZR/eISxKJHROtJdc0SRGyWG/YWJTjYQhGjjSIXQvj1IWqbF1mNyE7o3RLvjLlkxQBf++gArMh0gJheVsFZpJSIIWuyBBeo3UWkA8MXjYOWt5naswDKNqgOkbgpAyJAYzJFjvYWyIBp6zC8rS36pCltVEdfK8c5PVO4oc3OeGHwT4RQafZu+1TqM5f+QQFgh9v4KnLdzPjhPs4McCT1Bd3QMuRIjvR5mxVzdceHDYyI+H8ZlLOjNRvZL/B6TMzovQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SA3PR12MB598757.namprd12.prod.outlook.com
- (2603:10b6:806:52d::14) by SJ0PR12MB6967.namprd12.prod.outlook.com
- (2603:10b6:a03:44b::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 05:38:15 +0000
-Received: from SA3PR12MB598757.namprd12.prod.outlook.com
- ([fe80::e206:100:5946:a777]) by SA3PR12MB598757.namprd12.prod.outlook.com
- ([fe80::e206:100:5946:a777%5]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
- 05:38:15 +0000
-From: Alistair Popple <apopple@nvidia.com>
-To: dri-devel@lists.freedesktop.org, christian.koenig@amd.com,
- sumit.semwal@linaro.org, jgg@nvidia.com
-Cc: Alistair Popple <apopple@nvidia.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Simona Vetter <simona.vetter@ffwll.ch>,
- Matthew Brost <matthew.brost@intel.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- Dongwon Kim <dongwon.kim@intel.com>, Leon Romanovsky <leonro@nvidia.com>,
- Kevin Tian <kevin.tian@intel.com>, Xu Yilun <yilun.xu@linux.intel.com>,
- Karl Mehltretter <kmehltretter@gmail.com>,
- Baolu Lu <baolu.lu@linux.intel.com>,
- Felix Kuehling <felix.kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, intel-xe@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org,
- iommu@lists.linux.dev, Alexey Kardashevskiy <aik@amd.com>,
- zhipingz@meta.com, treding@nvidia.com, jhubbard@nvidia.com
-Subject: [PATCH 20/26] dma-buf: Remove unused SGT stuff from the common
- structures
-Date: Mon, 26 Oct 2026 16:36:11 +1100
-Message-ID: <20261026053623.202642-21-apopple@nvidia.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261026053623.202642-1-apopple@nvidia.com>
-References: <20261026053623.202642-1-apopple@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SY5PR01CA0040.ausprd01.prod.outlook.com
- (2603:10c6:10:1f8::6) To SA3PR12MB598757.namprd12.prod.outlook.com
- (2603:10b6:806:52d::14)
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
+ [209.85.218.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB3A010E0D7
+ for <amd-gfx@lists.freedesktop.org>; Fri, 23 Oct 2026 16:20:22 +0000 (UTC)
+Received: by mail-ej1-f42.google.com with SMTP id
+ a640c23a62f3a-c4697404c2bso136390066b.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 23 Oct 2026 09:20:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792772421; cv=none;
+ d=google.com; s=arc-20260327;
+ b=ccusqdwSGEbBYazu1wNfl0FkMOkyrIdoI6V6r5E9eU1CRQQbTFfgoaoYdU9oOS2aCZ
+ 0gdl7675mKxVa50+OxtXtY/FHzwAFcJQQ/MgKRvuskIBqy/usGl1GhEBk7Cx/ALKanne
+ Kyd6yrjKorKM276TSscGLgZC/yAqtAlhrcZarctA2P5idEXeIT4Cqz0NvEd0+qMq5lQa
+ OSOu8BOoidGEbIZR8erh5/HH+qWJz6AAY961wBhGEe5AvHKPXsfOkE3Ski3IDGwDYy3t
+ fhu2Mly5QQnmNdDFbleWXHMjG2OQ1MlCCzg/JtV3zoizMav0AsfgVHVFybiJ0MNqJfNl
+ aa/Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+ bh=vp0AmgkV+8bYYUGEPqE/GGODWrk9pTBUCtY0uWtKuU0=;
+ fh=DfBLKPOyHZ/wEAYSZkVMO/ud9d4D8je29OCNW3+eYZg=;
+ b=WL/GED0D5eNARNAhrugRptGvWP4US8EZNPGfasaMtUqpDfV/qR2CwGn+z+7q62URd8
+ e6Pm/8LEpIHwft746Xb/HQTxhgaqfy/pW0qvkyqPDQx05FNbjwwvzPEk1TR373fZs2uO
+ /bdSTkFouwyZSpxJj+SR3GVOjto09TqKZqjkTWYnI/k3nkxlCJPYZEtBGZFfIEipir4u
+ 5m1bt/z1lh0Q4hYjCUXsb8itq3Fy8iufAwCmN4y8VtTAPfjXiMnlXuQjhwKPQRmzJQYl
+ UZWNQssiMgCH+xXzQBH5RUFLM0IJ8rhqqO/OEqBeZzT/OiaNSHAA/8JnU+EHVRfyntxl
+ ERuA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=lazarus.enterprises; s=google; t=1792772421; x=1793377221;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=vp0AmgkV+8bYYUGEPqE/GGODWrk9pTBUCtY0uWtKuU0=;
+ b=Icf6dAAwV1MJzym5YfKVFcrCfduHkDaXFEq6t4hjubg0ekzQJpd1skSyC6fwRJdqIB
+ 2BBtrWGovV3gcR0TFdP4MVX8i8dtt1W8pnV/vWxwGl+J/oVqs8m8oHv62LC2G1EqQVGR
+ YZT+2ETw42ElHUBdVgweXhD48un1j+zlKNeyf86g+GB3gu6vCcbiXhhFfCBWUhLl0qrG
+ OTc7sShhsU/EhbezbmLB/Oy5wJ/8VBvkkOVGj/1jnQPlt5dbbInvJpbnD0t98g7mi+Do
+ zZjsirlJjBd9/9TJf2A+aMLcCv44ZB8QwviVfv/a32wwI9Q7ywN/FpRekk5ujuzyGhxP
+ GxHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792772421; x=1793377221;
+ h=content-type:cc:to:subject:message-id:date:from:mime-version
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=vp0AmgkV+8bYYUGEPqE/GGODWrk9pTBUCtY0uWtKuU0=;
+ b=yIQNoJHqg3SbzaDv9eHwf0ihbUV0xlM3+mc7bkG+MWxKaZHotMN5O8r8UAzOpTs/Yi
+ oPJs9GyXjagiM/2K7m0mpilQo5HidCO+7leHDbF9RWWZEG1xQtOvUcYK++2DaPJyuTen
+ FYXv4uvIvpuZu9//BhA4yZypRWNyLh3Ag0N+WQT8iU8tFXZiDxZHXnK0Xp1Mi0Fl1Bq+
+ mCjo3CMth4xdsE/8bFiO7Ci270rOmYl5EibDy3D3OXRK/AetNF73c8LkTSsoM0mXhGUc
+ 9z0RYXY1Kz3rjFT2MKHQ43DAo108935oeqj//PcLbvB6CPX4KFWZDbBXR0FuLK2gJqnR
+ RGMw==
+X-Gm-Message-State: AFq9FYIvZS34Zg20JCK/SK2hPN5+t94xQn4iODaWrk+RYD8S2hF6IJz8
+ CKTYHCK2N1ClmoTGSDbRwRw6RBffwlrbszozQzT1Z90x5zZfFPqAJNmhtoYwE0Ns/rMeQs0JoQf
+ iouHVNxFDQl0UaOJajxpmJSUOVwSUiO+X8TbDFCzYGFMBZVvZ0uowZyFD8Q==
+X-Gm-Gg: AYBFou1r1gpN6WvexyVNfJis82qadehePTMdke103lOmrI1Iv4dyDScgm1OBil1+Ayp
+ GI8Lel1HP3HqaKWejxPS2k6V7mJHBgDJXf2tjeCAmIi45jGH+tWo2fTCssXLPVIj82e6JZ8iNNU
+ NTSyyYBMKhNmtT0JJw34kpe8Ki5s/+WurUnjMLiPkJhm9dOon6WXJGrelrLHPloMP7OUlyueAVe
+ gjDElBvfss6+J4to7M9Xok5qRgLHSMdWBpso1PCTzK5jKkZvhevxjZ1dO2xY4MeL+SliIvop9ga
+ Dy3bL/Z2DqyyY0X7rOiEgPXl6349+DqUI0kYa6S6iC/sdA68TPyvMmiTCTCTxUs/X3iXknQPQGl
+ bMg+PsPfyw9c1zh6jnqeFihWZchquQVhtCqFGHED7Q3cacXUarjnW8T/KhtA=
+X-Received: by 2002:a17:906:c106:b0:c40:231:6ea1 with SMTP id
+ a640c23a62f3a-c46a9490b8cmr380827966b.43.1792772420750; Fri, 23 Oct 2026
+ 09:20:20 -0700 (PDT)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA3PR12MB598757:EE_|SJ0PR12MB6967:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1f418314-c100-4c12-3b9c-08df33235500
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|1800799024|23010399003|366016|18002099003|22082099003|6133799003|3023799007|56012099006|11063799006|261022075727099003|261021121427099003|261021123027099003|10067099003|261009221227099003|261009223027099003|261022105027099003;
-X-Microsoft-Antispam-Message-Info: o5B0l4OqKId2FhQ0+oRaF0yVmdzSJ/MQMPawF0EQPhdhbksowsFLTeIm5yN2HFbMEClQoabwr0bR6yLCA04w4S5vUzFEyGjhoBaejtFfqgyr2qQWeL4u2khE+taHdDIoDyijC5VhgtiJg5yCORynzY9a+SNTZl/RhiZ5NHjdIoiB1M+RwOencSU4/6D4yH7GmYkum6jJkMS3VMArhg2CUULofkRro9jkWxM+hBasQMONKhVwGxz3i0Aq1kX1+O9OYXSGICI+JASdoq+z1udcu2F7+gSH9HYZO7zA6THb4IdpcS3rj892UZAm0cU+C1SjCm4555kDu2ap3uL2P8DYA6xKreokRBHgrh2l/1ZsXoz3CRjk+3OGZ6Ic0BB9llPDMKJ6I8GexqBjrIz0fRIM8edqkpMtSqR17mvwsGgOX+GMHzWj9Fx63ZGQ/OM2uYsthZB6ibZRX0r+tU3uAkKNj6SpKH0WlF6M+c5nV29g4s6lpCXdEc/pLj+TN0IZsioLw0u+mUVsk0FwEPQULNXcyRD8KkuzkY1JIiMLHYO8QO3u1TPgQqRlRZhXujcI0Plpu2c4bhuI4EVHl1LqQHZib5igZU18MqLz9I2+T43Y7+/+0IebCkx3fAXjayPJZVUOsiJF9hhmJnzx+t8+PTNEuShyZTsMjT2Ty96rF3V7ClM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA3PR12MB598757.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(366016)(18002099003)(22082099003)(6133799003)(3023799007)(56012099006)(11063799006)(261022075727099003)(261021121427099003)(261021123027099003)(10067099003)(261009221227099003)(261009223027099003)(261022105027099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?RyWAg3nBe1fpi6KwBrZmIhwjQdCqNpMEeKp9719yExYug+KaWP4SwiE6W6yO?=
- =?us-ascii?Q?C+hSo3sbvZaySMjfA2a4qAIiosMwqr2bES4yP4dvnuE2gqb+CoYmkigJT7nj?=
- =?us-ascii?Q?oWGvh76FT0C9RIasM8bCGAfSlqGGqbA+2yJDphmfHBFp3+1o1twPJgIv47V1?=
- =?us-ascii?Q?/flxcBGh9z2ahDXnxFVtQQKbrV3zgeIZEAQs7VFNpBdOCD1zCftfngGGDam8?=
- =?us-ascii?Q?pLHVdZ1FpqCp9bgGVzlgbWBq7bUn9kO7ZlpLdLwGXHCmV1QIOd3CblHbJwqt?=
- =?us-ascii?Q?vA6wM4wDeuFUMLB0nEaGt7A7AqY1uOI80ZVhacNbpVVHNrEr8BmHYdlsqxtQ?=
- =?us-ascii?Q?iKn1j9WFo9GqOnAlEqZGFF5EqZnLSTO2q88/CB3YxBamn5XE4lpY5VKHsNE4?=
- =?us-ascii?Q?DaB87jOAdzh4DuaANkNKGb50PL3KhhQ/d0bvFTbxDUUxW4FGtVq0NDmD74f8?=
- =?us-ascii?Q?zJE+k/pvKbaO+EWDecKF0T6CemrUUNTWwGHZqxZWIDUEf4liameiMa/VMCvX?=
- =?us-ascii?Q?HvJCCvfUS9qL1uDH9yAPSqm4TbI3HIfa5EgSSwRNAaKNdOfMarBCmvfP+HEp?=
- =?us-ascii?Q?cudAVrEo0KdCSBjTBA3aXPbFk2UX9PSElg/cEdaq65naiWPZGsAjIYSlP0Ae?=
- =?us-ascii?Q?nEhIQqC3NLElANct2DTVdZfFFuL9ZKz/YUY5flX7jwZG/zxX1K8QAS5zmTkY?=
- =?us-ascii?Q?00kUsULDURmmi8NmrP3LXqr7ivAr3Ch9j4lLr7fsgqmR3egs3mGv05vZvXtl?=
- =?us-ascii?Q?FyCCTuo7S0t7xnob5IxpF0rq6I8Y1EfQs7FYQJxtj9pfbzG0IAW7IU0MlZ+u?=
- =?us-ascii?Q?Jq6DnILhMMUiFp5QtSxLlMjeR9NZau/T1nrSR9Yg4vKpAPqtCv+wDCXKFOcY?=
- =?us-ascii?Q?YiNXUDW1hCwbm9AEjhtoox0D7ICNxgOikMKwF0R0n10YCsOAD8PbVoJv7X/3?=
- =?us-ascii?Q?1EHFYODMxZK1DJT9i86zrt3wcBnhhC6NdlboUQjJzFBAR2Lzp7m8GSYdaZFB?=
- =?us-ascii?Q?sJRsxY68npdii+Rnnbzu3UcSvkBa0WEHRTOCVuJLcZqaJEvFN/WTsniFFR/H?=
- =?us-ascii?Q?FSMQ7v4eep28HbKiVooZPpETZ4rI6F/aqESA/RzmeiNPPea08Q6rpZgfbI4z?=
- =?us-ascii?Q?3K+Gtnm6sg50uVNieGOa53uV1Xd8lrzPxlalCQLkk0fVUgirrb7Rm6Vb+ZDb?=
- =?us-ascii?Q?9szJX9Oxe1IdvShzNRi3YDIXMjYHXv/QYmyWPObxBm1zD1xIzzKibBBucsWP?=
- =?us-ascii?Q?k8yD5eJDnyPvbN2Ev90i8ZcNrwnmKjbt77lyXx+TJcSz4HpWRHZ94Jx/4mGc?=
- =?us-ascii?Q?3Td3DdLsx44umwHYYwzSDtoO4eYkAdz1HvJ80hI8d26ss0fhcWb36aJWzOsj?=
- =?us-ascii?Q?1YYRDgiMRwexciNd7nHqPr/CfCqfxAz6ThZ73DQU8fbwoic0HZiJwj0J5Khx?=
- =?us-ascii?Q?y/mfmeP0q7uqFPZ5fDXqrVPwGVHrmsW/+jEzKw8CE2GQZfXGGokp+hlRCkp9?=
- =?us-ascii?Q?r9BrGxmdIbGg2UylqrDIPX3rXtMT7AvzGcZXXO3Ii5ShSjixYx5rvqpAbH83?=
- =?us-ascii?Q?d75Do9Tm1l08pshqY69ttRbOY5qWqUrnDzjFyDi6wkp86OMs7ZMuMLrd2td3?=
- =?us-ascii?Q?gO8UWGe6Yf2yhWmb8apEQqzJrPHLhfWdMZ7sJa63BHzEnHrXll/Pd4ukWBVV?=
- =?us-ascii?Q?1HSVyTLXWAStEne7Oe8QeWcfNqjcDQdOQiwmjRzKBg6jLUCBpgk1hoKVeaWa?=
- =?us-ascii?Q?errkVnHVhA=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1f418314-c100-4c12-3b9c-08df33235500
-X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB598757.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 05:38:15.3590 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: S44SmNYSjK4cXRu2Msqv3CNtY1uK/KSIZeFvUjx9CYaeC8HiqOsZ8TR9dC66jajbrtHFXKWMB62kQALDbVCQlQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6967
+From: "Rob O'Callahan" <rob.ocallahan@lazarus.enterprises>
+Date: Fri, 23 Oct 2026 09:20:09 -0700
+X-Gm-Features: AclHuK_Ak4m_jQ6teOOkEJXQnPh_rMdlAmPFfeH3dB_-8VHqdjW8y-BX_HWPz70
+Message-ID: <CAA5hP1ZA4h=dbOwUycRY+VW+aaVcOKmA37pD3rTp9pknUvRT9g@mail.gmail.com>
+Subject: drm/amdgpu: please add Fixes/stable tags to 871467ce5bce ("don't leak
+ bo_va when gem_object_open fails")
+To: amd-gfx@lists.freedesktop.org
+Cc: xiang.liu@amd.com, mukul.joshi@amd.com, felix.kuehling@amd.com, 
+ alexander.deucher@amd.com, christian.koenig@amd.com, eric@quixi.ai
+Content-Type: multipart/alternative; boundary="0000000000004deffb065e845b7c"
 X-Mailman-Approved-At: Mon, 26 Oct 2026 08:43:34 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -136,349 +95,107 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Jason Gunthorpe <jgg@nvidia.com>
+--0000000000004deffb065e845b7c
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Now that all exporters are converted these compatibility things can be
-removed:
+Hi,
 
-dma_buf_ops: map_dma_buf/unmap_dma_buf
-             Moved to dma_buf_mapping_sgt_exp_ops
+We hit the bug fixed by 871467ce5bce ("drm/amdgpu: don't leak bo_va
+when gem_object_open fails", currently in amd-staging-drm-next) in
+production, and the result was much worse than a leak: the node locked
+up. Could the patch get Fixes: tags and Cc: stable when it goes to
+drm-fixes / drm-next?
 
-dma_buf_attachment: dev
-		    Moved to attach->map_type.importing_dma_device
+  Fixes: 50661eb1a2c8 ("drm/amdgpu: Auto-validate DMABuf imports in compute
+VMs")
+  Fixes: 31f7efcdca4d ("drm/amdgpu: enable eviction fence")
+  Cc: stable@vger.kernel.org # v6.9+
 
-dma_buf_attachment: peer2peer
-		    Moved to attach->map_type.exporter_requires_p2p
-                    accessed via dma_buf_sgt_p2p_allowed()
+Setup: 8x MI300X, ROCm 7.2.4, amdgpu DKMS 6.16.13 (roc-7.2.x). HIP
+processes imported large VMM allocations (~149 GB per GPU) from another
+process as dma-bufs. A later hipDeviceEnablePeerAccess() mapped the
+imports for all peers, so amdgpu_gem_object_open() had to validate them
+into GTT, and that failed with -ENOMEM. Each failure leaked a bo_va.
+After about 6000 failures, in roughly 20 minutes, the TTM LRU walk
+dereferenced NULL while holding the LRU lock. Every task that touched
+amdgpu then soft-locked (process teardown, prime import, rocm-smi sysfs
+reads), and the node had to be rebooted:
 
-dma_buf_sgt_exp_compat_match: No compatibility exporters anymore
+  amdgpu 0000:e5:00.0: amdgpu: validate_and_fence failed: -12
+  WARNING: CPU: 128 PID: 1308908 at amdgpu_object.c:1340
+amdgpu_bo_release_notify+0x1b3/0x1e0 [amdgpu]
+   amdgpu_gem_object_free+0x59/0x120 [amdgpu]
+   drm_gem_prime_fd_to_handle+0x186/0x1f0
+  amdgpu: VM memory stats for proc dstrain_gate(1308908) ... is non-zero
+when fini
+  ...
+  BUG: kernel NULL pointer dereference, address: 0000000000000000
+   __ttm_bo_lru_cursor_next+0xa2/0x330 [amdttm]
+   amdttm_lru_walk_for_evict+0x8d/0x260 [amdttm]
+   ...
+   amdgpu_amdkfd_bo_validate_and_fence+0x53/0x100 [amdgpu]
+   amdgpu_gem_object_open+0x168/0x2c0 [amdgpu]
+  watchdog: BUG: soft lockup - CPU#153 stuck for 26s! [dstrain_lab:1327943]
 
-Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
-[ use dma_buf_sgt_dma_device(attach) in dma_buf_detach trace point instead of attach->dev - apopple ]
-Signed-off-by: Alistair Popple <apopple@nvidia.com>
----
- drivers/dma-buf/dma-buf-mapping.c | 40 -----------------
- drivers/dma-buf/dma-buf.c         | 27 +++---------
- drivers/gpu/drm/drm_prime.c       |  2 -
- include/linux/dma-buf-mapping.h   | 67 +++++++++++++++++++++++++++-
- include/linux/dma-buf.h           | 73 -------------------------------
- 5 files changed, 72 insertions(+), 137 deletions(-)
+Mainline and the stable kernels from v6.9 on still have the leak. So do
+ROCK-Kernel-Driver master and roc-7.2.x. Please also include the fix in
+the next ROCm 7.2.x DKMS release. That branch has neither the drm_exec
+locking in gem_object_open nor the evf_mgr rework, so the commit does
+not apply as is. Eric Hartford has prepared a roc-7.2.x backport and
+can send it if that would help.
 
-diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-buf-mapping.c
-index 7d20979af7fb..403f8432586a 100644
---- a/drivers/dma-buf/dma-buf-mapping.c
-+++ b/drivers/dma-buf/dma-buf-mapping.c
-@@ -479,16 +479,6 @@ dma_buf_sgt_finish_match(struct dma_buf_match_args *args,
- 			.exporter_requires_p2p = exp->sgt_data.exporter_requires_p2p,
- 		},
- 	};
--
--	/*
--	 * Setup the SGT type variables stored in attach because importers and
--	 * exporters that do not natively use mappings expect them to be there.
--	 * When converting to use mappings users should use the match versions
--	 * of these instead.
--	 */
--	attach->dev = imp->sgt_data.importing_dma_device;
--	attach->peer2peer = attach->map_type.sgt_data.importer_accepts_p2p ==
--			    DMA_SGT_IMPORTER_ACCEPTS_P2P;
- }
- 
- static void dma_buf_sgt_debugfs_dump(struct seq_file *s,
-@@ -506,33 +496,3 @@ struct dma_buf_mapping_type dma_buf_mapping_sgt_type = {
- 	.unmap = dma_buf_sgt_type_unmap,
- };
- EXPORT_SYMBOL_NS_GPL(dma_buf_mapping_sgt_type, "DMA_BUF");
--
--static struct sg_table *
--dma_buf_sgt_compat_map_dma_buf(struct dma_buf_attachment *attach,
--			       enum dma_data_direction dir)
--{
--	return attach->dmabuf->ops->map_dma_buf(attach, dir);
--}
--
--static void dma_buf_sgt_compat_unmap_dma_buf(struct dma_buf_attachment *attach,
--					     struct sg_table *sgt,
--					     enum dma_data_direction dir)
--{
--	attach->dmabuf->ops->unmap_dma_buf(attach, sgt, dir);
--}
--
--/* Route the classic map/unmap ops through the exp ops for old importers */
--static const struct dma_buf_mapping_sgt_exp_ops dma_buf_sgt_compat_exp_ops = {
--	.map_dma_buf = dma_buf_sgt_compat_map_dma_buf,
--	.unmap_dma_buf = dma_buf_sgt_compat_unmap_dma_buf,
--};
--
--/*
-- * This mapping type is used for unaware exporters that do not support
-- * match_mapping(). It wraps the dma_buf ops for SGT mappings into a mapping
-- * type so aware importers can transparently work with unaware exporters. This
-- * does not require p2p because old exporters will check it through the
-- * attach->peer2peer mechanism.
-- */
--const struct dma_buf_mapping_match dma_buf_sgt_exp_compat_match =
--	DMA_BUF_EMAPPING_SGT(&dma_buf_sgt_compat_exp_ops);
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index 6c9ab8bc09ac..dc65752fb0fa 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -718,19 +718,9 @@ struct dma_buf *dma_buf_export(const struct dma_buf_export_info *exp_info)
- 		    || !exp_info->ops->release))
- 		return ERR_PTR(-EINVAL);
- 
--	if (exp_info->ops->match_mapping ||
--	    exp_info->ops->single_exporter_match) {
--		if (WARN_ON(exp_info->ops->map_dma_buf ||
--			    exp_info->ops->unmap_dma_buf))
--			return ERR_PTR(-EINVAL);
--		if (WARN_ON(exp_info->ops->match_mapping &&
--			    exp_info->ops->single_exporter_match))
--			return ERR_PTR(-EINVAL);
--	} else {
--		if (WARN_ON(!exp_info->ops->map_dma_buf ||
--			    !exp_info->ops->unmap_dma_buf))
--			return ERR_PTR(-EINVAL);
--	}
-+	if (WARN_ON(!exp_info->ops->match_mapping &&
-+		    !exp_info->ops->single_exporter_match))
-+		return ERR_PTR(-EINVAL);
- 
- 	if (WARN_ON(!exp_info->ops->pin != !exp_info->ops->unpin))
- 		return ERR_PTR(-EINVAL);
-@@ -1082,12 +1072,8 @@ struct dma_buf_attachment *dma_buf_mapping_attach(
- 		if (ret)
- 			goto err_attach;
- 	} else {
--		const struct dma_buf_mapping_match *exp_match =
--			dmabuf->ops->single_exporter_match;
--
--		if (!exp_match)
--			exp_match = &dma_buf_sgt_exp_compat_match;
--		ret = dma_buf_match_mapping(&match_args, exp_match, 1);
-+		ret = dma_buf_match_mapping(
-+			&match_args, dmabuf->ops->single_exporter_match, 1);
- 		if (ret)
- 			goto err_attach;
- 	}
-@@ -1180,7 +1166,8 @@ void dma_buf_detach(struct dma_buf *dmabuf, struct dma_buf_attachment *attach)
- 		dmabuf->ops->detach(dmabuf, attach);
- 
- 	DMA_BUF_TRACE(trace_dma_buf_detach, dmabuf, attach,
--		dma_buf_attachment_is_dynamic(attach), attach->dev);
-+		dma_buf_attachment_is_dynamic(attach),
-+		dma_buf_sgt_dma_device(attach));
- 
- 	kfree(attach);
- }
-diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
-index d797598e42f7..7792caf87883 100644
---- a/drivers/gpu/drm/drm_prime.c
-+++ b/drivers/gpu/drm/drm_prime.c
-@@ -593,8 +593,6 @@ static bool is_gem_map_dma_buf(struct dma_buf_attachment *attach)
- 	const struct dma_buf_mapping_sgt_exp_ops *sgt_exp_ops =
- 		dma_buf_get_sgt_ops(attach);
- 
--	if (attach->dmabuf->ops->map_dma_buf == drm_gem_map_dma_buf)
--		return true;
- 	if (sgt_exp_ops && sgt_exp_ops->map_dma_buf == drm_gem_map_dma_buf)
- 		return true;
- 	return false;
-diff --git a/include/linux/dma-buf-mapping.h b/include/linux/dma-buf-mapping.h
-index 4aaddad8c7be..91a55cbe0bb4 100644
---- a/include/linux/dma-buf-mapping.h
-+++ b/include/linux/dma-buf-mapping.h
-@@ -202,8 +202,73 @@ dma_buf_sgt_mapping_table(struct dma_buf_mapping *mapping)
- 
- struct dma_buf_mapping_sgt_exp_ops {
- 	struct dma_buf_mapping_exp_ops ops;
-+
-+	/**
-+	 * @map_dma_buf:
-+	 *
-+	 * This is called by dma_buf_map_attachment() and is used to map a
-+	 * shared &dma_buf into device address space, and it is mandatory. It
-+	 * can only be called if @attach has been called successfully.
-+	 *
-+	 * This call may sleep, e.g. when the backing storage first needs to be
-+	 * allocated, or moved to a location suitable for all currently attached
-+	 * devices.
-+	 *
-+	 * Note that any specific buffer attributes required for this function
-+	 * should get added to device_dma_parameters accessible via
-+	 * &device.dma_params from the &dma_buf_attachment. The @attach callback
-+	 * should also check these constraints.
-+	 *
-+	 * If this is being called for the first time, the exporter can now
-+	 * choose to scan through the list of attachments for this buffer,
-+	 * collate the requirements of the attached devices, and choose an
-+	 * appropriate backing storage for the buffer.
-+	 *
-+	 * Based on enum dma_data_direction, it might be possible to have
-+	 * multiple users accessing at the same time (for reading, maybe), or
-+	 * any other kind of sharing that the exporter might wish to make
-+	 * available to buffer-users.
-+	 *
-+	 * This is always called with the dmabuf->resv object locked when
-+	 * the dynamic_mapping flag is true.
-+	 *
-+	 * Note that for non-dynamic exporters the driver must guarantee that
-+	 * that the memory is available for use and cleared of any old data by
-+	 * the time this function returns.  Drivers which pipeline their buffer
-+	 * moves internally must wait for all moves and clears to complete.
-+	 * Dynamic exporters do not need to follow this rule: For non-dynamic
-+	 * importers the buffer is already pinned through @pin, which has the
-+	 * same requirements. Dynamic importers otoh are required to obey the
-+	 * dma_resv fences.
-+	 *
-+	 * Returns:
-+	 *
-+	 * A &sg_table scatter list of the backing storage of the DMA buffer,
-+	 * already mapped into the device address space of the &device attached
-+	 * with the provided &dma_buf_attachment. The addresses and lengths in
-+	 * the scatter list are PAGE_SIZE aligned.
-+	 *
-+	 * On failure, returns a negative error value wrapped into a pointer.
-+	 * May also return -EINTR when a signal was received while being
-+	 * blocked.
-+	 *
-+	 * Note that exporters should not try to cache the scatter list, or
-+	 * return the same one for multiple calls. Caching is done either by the
-+	 * DMA-BUF code (for non-dynamic importers) or the importer. Ownership
-+	 * of the scatter list is transferred to the caller, and returned by
-+	 * @unmap_dma_buf.
-+	 */
- 	struct sg_table *(*map_dma_buf)(struct dma_buf_attachment *attach,
- 					enum dma_data_direction dir);
-+
-+	/**
-+	 * @unmap_dma_buf:
-+	 *
-+	 * This is called by dma_buf_unmap_attachment() and should unmap and
-+	 * release the &sg_table allocated in @map_dma_buf, and it is mandatory.
-+	 * For static dma_buf handling this might also unpin the backing
-+	 * storage if this is the last mapping of the DMA buffer.
-+	 */
- 	void (*unmap_dma_buf)(struct dma_buf_attachment *attach,
- 			      struct sg_table *sgt,
- 			      enum dma_data_direction dir);
-@@ -304,8 +369,6 @@ DMA_BUF_EMAPPING_SGT_P2P(const struct dma_buf_mapping_sgt_exp_ops *exp_ops,
- 	return match;
- }
- 
--extern const struct dma_buf_mapping_match dma_buf_sgt_exp_compat_match;
--
- /*
-  * dma_buf_ops initializer helper for simple drivers that use a single
-  * SGT map/unmap operation without P2P.
-diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-index d78eec3476f3..77a18b9817ac 100644
---- a/include/linux/dma-buf.h
-+++ b/include/linux/dma-buf.h
-@@ -152,75 +152,6 @@ struct dma_buf_ops {
- 	 */
- 	void (*unpin)(struct dma_buf_attachment *attach);
- 
--	/**
--	 * @map_dma_buf:
--	 *
--	 * This is called by dma_buf_map_attachment() and is used to map a
--	 * shared &dma_buf into device address space, and it is mandatory. It
--	 * can only be called if @attach has been called successfully.
--	 *
--	 * This call may sleep, e.g. when the backing storage first needs to be
--	 * allocated, or moved to a location suitable for all currently attached
--	 * devices.
--	 *
--	 * Note that any specific buffer attributes required for this function
--	 * should get added to device_dma_parameters accessible via
--	 * &device.dma_params from the &dma_buf_attachment. The @attach callback
--	 * should also check these constraints.
--	 *
--	 * If this is being called for the first time, the exporter can now
--	 * choose to scan through the list of attachments for this buffer,
--	 * collate the requirements of the attached devices, and choose an
--	 * appropriate backing storage for the buffer.
--	 *
--	 * Based on enum dma_data_direction, it might be possible to have
--	 * multiple users accessing at the same time (for reading, maybe), or
--	 * any other kind of sharing that the exporter might wish to make
--	 * available to buffer-users.
--	 *
--	 * This is always called with the dmabuf->resv object locked when
--	 * the dynamic_mapping flag is true.
--	 *
--	 * Note that for non-dynamic exporters the driver must guarantee that
--	 * that the memory is available for use and cleared of any old data by
--	 * the time this function returns.  Drivers which pipeline their buffer
--	 * moves internally must wait for all moves and clears to complete.
--	 * Dynamic exporters do not need to follow this rule: For non-dynamic
--	 * importers the buffer is already pinned through @pin, which has the
--	 * same requirements. Dynamic importers otoh are required to obey the
--	 * dma_resv fences.
--	 *
--	 * Returns:
--	 *
--	 * A &sg_table scatter list of the backing storage of the DMA buffer,
--	 * already mapped into the device address space of the &device attached
--	 * with the provided &dma_buf_attachment. The addresses and lengths in
--	 * the scatter list are PAGE_SIZE aligned.
--	 *
--	 * On failure, returns a negative error value wrapped into a pointer.
--	 * May also return -EINTR when a signal was received while being
--	 * blocked.
--	 *
--	 * Note that exporters should not try to cache the scatter list, or
--	 * return the same one for multiple calls. Caching is done either by the
--	 * DMA-BUF code (for non-dynamic importers) or the importer. Ownership
--	 * of the scatter list is transferred to the caller, and returned by
--	 * @unmap_dma_buf.
--	 */
--	struct sg_table * (*map_dma_buf)(struct dma_buf_attachment *,
--					 enum dma_data_direction);
--	/**
--	 * @unmap_dma_buf:
--	 *
--	 * This is called by dma_buf_unmap_attachment() and should unmap and
--	 * release the &sg_table allocated in @map_dma_buf, and it is mandatory.
--	 * For static dma_buf handling this might also unpin the backing
--	 * storage if this is the last mapping of the DMA buffer.
--	 */
--	void (*unmap_dma_buf)(struct dma_buf_attachment *,
--			      struct sg_table *,
--			      enum dma_data_direction);
--
- 	/* TODO: Add try_map_dma_buf version, to return immed with -EBUSY
- 	 * if the call would block.
- 	 */
-@@ -562,9 +493,7 @@ struct dma_buf_attach_ops {
- /**
-  * struct dma_buf_attachment - holds device-buffer attachment data
-  * @dmabuf: buffer for this attachment.
-- * @dev: device attached to the buffer.
-  * @node: list of dma_buf_attachment, protected by dma_resv lock of the dmabuf.
-- * @peer2peer: true if the importer can handle peer resources without pages.
-  * @priv: exporter specific attachment data.
-  * @importer_ops: importer operations for this attachment, if provided
-  * dma_buf_map/unmap_attachment() must be called with the dma_resv lock held.
-@@ -591,9 +520,7 @@ struct dma_buf_attach_ops {
-  */
- struct dma_buf_attachment {
- 	struct dma_buf *dmabuf;
--	struct device *dev;
- 	struct list_head node;
--	bool peer2peer;
- 	const struct dma_buf_attach_ops *importer_ops;
- 	void *importer_priv;
- 	void *priv;
--- 
-2.54.0
+Reported-by: Eric Hartford <eric@quixi.ai>
 
+Thanks,
+Robert =C3=93 Callaghan
+
+--0000000000004deffb065e845b7c
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi,<br><br>We hit the bug fixed by 871467ce5bce (&quot;drm=
+/amdgpu: don&#39;t leak bo_va<br>when gem_object_open fails&quot;, currentl=
+y in amd-staging-drm-next) in<br>production, and the result was much worse =
+than a leak: the node locked<br>up. Could the patch get Fixes: tags and Cc:=
+ stable when it goes to<br>drm-fixes / drm-next?<br><br>=C2=A0 Fixes: 50661=
+eb1a2c8 (&quot;drm/amdgpu: Auto-validate DMABuf imports in compute VMs&quot=
+;)<br>=C2=A0 Fixes: 31f7efcdca4d (&quot;drm/amdgpu: enable eviction fence&q=
+uot;)<br>=C2=A0 Cc: <a href=3D"mailto:stable@vger.kernel.org">stable@vger.k=
+ernel.org</a> # v6.9+<br><br>Setup: 8x MI300X, ROCm 7.2.4, amdgpu DKMS 6.16=
+.13 (roc-7.2.x). HIP<br>processes imported large VMM allocations (~149 GB p=
+er GPU) from another<br>process as dma-bufs. A later hipDeviceEnablePeerAcc=
+ess() mapped the<br>imports for all peers, so amdgpu_gem_object_open() had =
+to validate them<br>into GTT, and that failed with -ENOMEM. Each failure le=
+aked a bo_va.<br>After about 6000 failures, in roughly 20 minutes, the TTM =
+LRU walk<br>dereferenced NULL while holding the LRU lock. Every task that t=
+ouched<br>amdgpu then soft-locked (process teardown, prime import, rocm-smi=
+ sysfs<br>reads), and the node had to be rebooted:<br><br>=C2=A0 amdgpu 000=
+0:e5:00.0: amdgpu: validate_and_fence failed: -12<br>=C2=A0 WARNING: CPU: 1=
+28 PID: 1308908 at amdgpu_object.c:1340 amdgpu_bo_release_notify+0x1b3/0x1e=
+0 [amdgpu]<br>=C2=A0 =C2=A0amdgpu_gem_object_free+0x59/0x120 [amdgpu]<br>=
+=C2=A0 =C2=A0drm_gem_prime_fd_to_handle+0x186/0x1f0<br>=C2=A0 amdgpu: VM me=
+mory stats for proc dstrain_gate(1308908) ... is non-zero when fini<br>=C2=
+=A0 ...<br>=C2=A0 BUG: kernel NULL pointer dereference, address: 0000000000=
+000000<br>=C2=A0 =C2=A0__ttm_bo_lru_cursor_next+0xa2/0x330 [amdttm]<br>=C2=
+=A0 =C2=A0amdttm_lru_walk_for_evict+0x8d/0x260 [amdttm]<br>=C2=A0 =C2=A0...=
+<br>=C2=A0 =C2=A0amdgpu_amdkfd_bo_validate_and_fence+0x53/0x100 [amdgpu]<br=
+>=C2=A0 =C2=A0amdgpu_gem_object_open+0x168/0x2c0 [amdgpu]<br>=C2=A0 watchdo=
+g: BUG: soft lockup - CPU#153 stuck for 26s! [dstrain_lab:1327943]<br><br>M=
+ainline and the stable kernels from v6.9 on still have the leak. So do<br>R=
+OCK-Kernel-Driver master and roc-7.2.x. Please also include the fix in<br>t=
+he next ROCm 7.2.x DKMS release. That branch has neither the drm_exec<br>lo=
+cking in gem_object_open nor the evf_mgr rework, so the commit does<br>not =
+apply as is. Eric Hartford has prepared a roc-7.2.x backport and<br>can sen=
+d it if that would help.<br><br>Reported-by: Eric Hartford &lt;<a href=3D"m=
+ailto:eric@quixi.ai">eric@quixi.ai</a>&gt;<br><br>Thanks,<div>Robert =C3=93=
+ Callaghan</div></div>
+
+--0000000000004deffb065e845b7c--
