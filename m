@@ -2,124 +2,122 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C570606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6FCB606A31A
 	for <amd-gfx@archiver.kernel.org>; Fri, 23 Oct 2026 17:13:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=2927q2R9
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=2TDrX8wl
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2021F112C6C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75922112C57;
 	Fri, 23 Oct 2026 17:13:14 +0000 (UTC)
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011069.outbound.protection.outlook.com [52.101.52.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC67510E670;
- Fri, 23 Oct 2026 15:50:17 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012070.outbound.protection.outlook.com [52.101.43.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 99D2C10E496
+ for <amd-gfx@lists.freedesktop.org>; Fri, 23 Oct 2026 14:48:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mnqW+4iHXG7XUyjmjDSkiX50UYqG0hSvLcW9kG8axM53FA/B+L1m2tXkG4Z38MA/Rce1nxzGECH7A0WwUofVJmYdFfHeZ36vAOksL7iy6uYFTorfuSO/408LZ2NuYmNOUGmi5Ks2FFEQO5ov5VSV/z2wHn4C3S3MKp5LH9I+pAmevXE2a6gq/SfYGhr6bN9/Q7MKrh9k/aqlJRZy0Q5/EiFZH8SxHtVPWOB3oOBXDS6gYDjg0+BpgzMWxXhSw2s/bzKUAN3YiXzXrV81fiAZMZ1Mb1ZRKfMO+ltn2Bb753EUU92vo2No3pauKBE9sCaYHZ98R68iXeRnprmtycxhsw==
+ b=mViODwd3Z7cK3RrnlOE5xGAOT1t8kmXcJIPkWui0WiDsHPKVQwbhFpFRSdNSdSSZRjoDsuER0z3MLCeIEpma1yxg94VjdVjBI4hnncwV7/Qy0S1x4cIzkE9n2c+9fhJFc28BYyEIRWJKLdOY88+rhG6ZDqWEsyM2ZZQ6HIsiYsRVwu0wy2vIEKqLLOv+lc0LtNHk5/WgzYU/eo8Al+BKb8dbLU9FIMyWEDsIwkCJgOwHVqydW7PLSNWybPhTvati/CLvZ0ddO6hFBJmZcknyDntGqOKe/jQPhVLHXKTd4lv1bupmX040vzCwkWEdK7M9LpdeURoilcS1yPOqaepWKA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NyrtEASTWWkJMoOgPftYj6eZo7pCFs4A3fSH2PGrkcw=;
- b=uhjjNUnJyBgCF85fVRvxqfwH7Ol2onk4KUFOeSEvyjsIVz8hmCMr2TNvFX1aO6VJFyRSubk1LPyZi0nDDUpmtP/ugqH7yJurQjuTjKvsacCCwt5uqi2yiewF/yNLMjVJrYJNuL9g/fT0nDtWc5/16AP0/lHea/UWL7cOhXn/OP5Dx9jW53luZA7K502qJ0I2CxJklaNj8gRo0oMC3Njx9UheOXsNrBdXuE5zeTUVckXKQOFeFbufXHr5giYcRwCdOSBEgD6+YMxBxozfku9jHWJ9+exBQBfEPr3w05dfo8xy/7bIuKaJmqbZP5fP5hffVCvISSHHfkred1ePYIu4DA==
+ bh=pJeY3TsXVJmq94ikD5pdmaWN8Qit0xLnZPXwOcQS3cI=;
+ b=SehTAeOAo1Fg47SeJNrVaO+4BZPGmb13brtGGhmwQ09R1a0jA5s4Ed4D7in8IU8xz1F2+M1hcwyPGwSt/zbqzY1/6HenPkYwIZf6C8WejqQhbJ7K2Cid5EUx9ILWiWhVmhCcbVjlBvS9FVBeiUJAMTgK5LpXX1zfewGF5wpgRqm9BWkOJ+JL7iW3huJ38l3qS/j1m3tCnYQ7MgC1qavfz8Gkyf1ue/QXy9NzkkdxF8ULELV2r0yxTDtKTf+4HLP6avg17ZY9YkOzqxX4zCT1KRe/fMcEQdU4Ujzn/nRkm/FX6zzJFvk6c9ORGYfKuIwYGNFb7pY1xPIWfH24ZX7CkQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NyrtEASTWWkJMoOgPftYj6eZo7pCFs4A3fSH2PGrkcw=;
- b=2927q2R9q6kTKn3UICnbS7OhmaS7eLuaPFT5WsHgjmqAuWJNcbgxenib4mHJAW+zTOtlH0FzsTBPOXTOI0QgjbCDY0vLc8GH37o1X6PydwM+M1C8k0yZYeQPGpuULfZUdX9Fsu9XSOAK4cgGxB6GVESK52a9DW6V4WK7C3NhR9s=
-Received: from CHXPR12MB999220.namprd12.prod.outlook.com
- (2603:10b6:610:2fd::7) by MN2PR12MB4359.namprd12.prod.outlook.com
- (2603:10b6:208:265::24) with Microsoft SMTP Server (version=TLS1_2,
+ bh=pJeY3TsXVJmq94ikD5pdmaWN8Qit0xLnZPXwOcQS3cI=;
+ b=2TDrX8wlKjXiFfE1BxPoe2UJpKYM1iWi5ZtKcOKiXAMQLkshawoIydppiNPyVEQAFopt95rfeAX1zLzQ8WTD4niDFBUZeKKuRK+X9wRLz3FmtSYsPlHWmGe7MfPbc6X5nwK6lSkDM5Cq4jEEIzKc34LRxb3npsgt+L8HUA0AAIE=
+Received: from BN9PR12MB5146.namprd12.prod.outlook.com (2603:10b6:408:137::16)
+ by DS7PR12MB8276.namprd12.prod.outlook.com (2603:10b6:8:da::19) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.19; Fri, 23 Oct
- 2026 15:50:13 +0000
-Received: from CHXPR12MB999220.namprd12.prod.outlook.com
- ([fe80::c13f:e49a:47dc:5c61]) by CHXPR12MB999220.namprd12.prod.outlook.com
- ([fe80::c13f:e49a:47dc:5c61%6]) with mapi id 15.21.0546.017; Fri, 23 Oct 2026
- 15:50:12 +0000
-From: "Zuo, Jerry" <Jerry.Zuo@amd.com>
-To: David Janice <djanice1980@gmail.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Wentland, Harry" <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)"
- <Sunpeng.Li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amd/display: Allow 300 ms for HDMI FRL link training
- at every rate
-Thread-Topic: [PATCH] drm/amd/display: Allow 300 ms for HDMI FRL link training
- at every rate
-Thread-Index: AQHdSJ+3gktfw8rd2ESLnJsPZ/OvCLcLdfcw
-Date: Fri, 23 Oct 2026 15:50:12 +0000
-Message-ID: <CHXPR12MB999220096CBA8DA25F23E138A0E5642@CHXPR12MB999220.namprd12.prod.outlook.com>
-References: <20260920013050.21259-1-djanice1980@gmail.com>
-In-Reply-To: <20260920013050.21259-1-djanice1980@gmail.com>
-Accept-Language: en-CA, en-US
+ 2026 14:48:16 +0000
+Received: from BN9PR12MB5146.namprd12.prod.outlook.com
+ ([fe80::535a:591e:27f6:c23]) by BN9PR12MB5146.namprd12.prod.outlook.com
+ ([fe80::535a:591e:27f6:c23%7]) with mapi id 15.21.0546.017; Fri, 23 Oct 2026
+ 14:48:16 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "Patel, Maharshii" <Maharshii.Patel@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Koenig, Christian" <Christian.Koenig@amd.com>, "Feng, Kenneth"
+ <Kenneth.Feng@amd.com>, "Limonciello, Mario" <Mario.Limonciello@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: reset dGPU on resume if it kept power across
+ s2idle
+Thread-Topic: [PATCH] drm/amdgpu: reset dGPU on resume if it kept power across
+ s2idle
+Thread-Index: AQHdTGSkT7KTy78QcUiN4U+JMv18BLcLX5cA
+Date: Fri, 23 Oct 2026 14:48:15 +0000
+Message-ID: <BN9PR12MB514689CD438188AF0AD61E37F7642@BN9PR12MB5146.namprd12.prod.outlook.com>
+References: <20260924203756.2771789-1-Maharshii.Patel@amd.com>
+In-Reply-To: <20260924203756.2771789-1-Maharshii.Patel@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-10-23T15:31:43.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+msip_labels: MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Enabled=True;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SetDate=2026-10-23T14:38:45.0000000Z;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Name=AMD Public
+ v26; MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_ContentBits=3;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Method=Privileged
 authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CHXPR12MB999220:EE_|MN2PR12MB4359:EE_
-x-ms-office365-filtering-correlation-id: 989218ac-e8b3-4a1e-624a-08df311d5312
+x-ms-traffictypediagnostic: BN9PR12MB5146:EE_|DS7PR12MB8276:EE_
+x-ms-office365-filtering-correlation-id: db8f0bdf-efd8-4be9-29ba-08df3114abba
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|23010399003|38070700021|11063799006|56012099006|261009223027099003|261021135927099003|261021123027099003|261021121427099003|261022105027099003|10067099003|22082099003|18002099003|6133799003|3023799007;
-x-microsoft-antispam-message-info: Xy0sektSIRHKKElsXecka9K8NlnKOAICEU/WPNTlWVH0wy/Xe/SHMSrLzwGhGHKfDQvqaHsa4NZE4c0VcoxjLN0cu2Q3cnPjNc+4YmbqswXWnB/qIANB9ulQRIVrMrE7TGRyPrJHKuXO4Xu0+KBawdK15N0kcwWdMTMRTMbIsigKPSdDZffEDfln8noUeobkVHk4tbr+JtILJTN0LMTQYrffcoe/WefVd69/yjxq4rOe/WxpXUPSBOAIm9SFUggalIva+fDtVSOqqtVtNPu3vPr0byr6AHZrABw6JgXrDdDFm6ggV6N8k0gTQw3TXFNeKbwsO8qnkF3BMbkq9xJWZ4oAE+TM2xlnXrGAMO29N4BRetMzUaLbzgxTp4bISMsCU59uiA4e/pm80ZfPXKfivFrsduqCgOJn7bMvoin4Aok0DorNQVCZ52HkS98HXMBF5e99kyJxOMn/KCDte1JuWMobbhCvlFl0Tv8xExErw9XBearR0OIDXSicfHFjnBBEHpyCcMgejywVTeDFRTf+KbQEs9g1yOGHywO63qS8vyyrCIClSTz9MGfCX2NNRDYre78EIHr3VCOFTym+K5tUoK1w9c8IQHNgcmGCEjhV8rCN0pJTVM49BAhOGHT4Watyg71tU5qw4Zc9fkyZscZ2x1OGZhnqqNXg/fGgn3udoRCuVTcJ/vvjrNoeJzWpft7c5/NTMgpcLQnVLHXfGytJG3XMib0wIWqxEjzBpg7tZDk=
+ ARA:13230040|376014|366016|1800799024|23010399003|38070700021|11063799006|56012099006|261022105027099003|261021121427099003|261009223027099003|10067099003|18002099003|22082099003;
+x-microsoft-antispam-message-info: /tskV6R/iBkFULUzYpdbVQU6YzgD9OCJ534nSLmQW8m2ahysACKm8+3ekQzQ/t5AZ/Hr+Fc2b7dthUqTj65cf2YJol0Lu6ZqyW3GuoHcH26lOXypcEiw6vIp5BhZWQnMN4Du9UdSQs5RLMnE/3mp/Ke7SrRoQ9dlm8HZsbhwOk48qfgi5BbFm840BsxtFrEnvfWOR5wAVISD5qhV/SirdqG8NAlAtIxl8beRzvQsoMPZPw3Na99+wClq1Wu2u1U+FidYaEex2tRJKAPJxgGqToMlvIIcZEyoPPPemRLC0+qLitgeVUok/y6qocCzmKwhyuJmMSHBRBYQZy52Wov8BWL13PmK5TMSdGGz18fZobl3ijAGQ2hvoQtaltr1lnjzmqmISdMdIk+F4es1hUYTRBktnUVHuWTwnvxZt60kdogf9bu9LM1qVUpfbx7pmzGooquDJ6kCvXshOQR2Y6Z56TMRTZM9IjWPciuMJER5SZnccaB0P+Bo8iM+VWIt4uvMI7AO+RJVWAI+xmZLTPq+JOatIVfZnfNfTaLCpaYdUIUeLl9rBQ4Hjaf101RHHYiBnPVzIBbihS0ru/MwMTk6ndRcEVJziU6I/51lNFw3cWotwnXo+NKd8M0fvXQD9JB/XVATDKGvCJSw0WejvT+uAtpOvS+i+a1VxLYApyZPouc=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CHXPR12MB999220.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(38070700021)(11063799006)(56012099006)(261009223027099003)(261021135927099003)(261021123027099003)(261021121427099003)(261022105027099003)(10067099003)(22082099003)(18002099003)(6133799003)(3023799007);
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5146.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(38070700021)(11063799006)(56012099006)(261022105027099003)(261021121427099003)(261009223027099003)(10067099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?ZvnceYnGf4yDVaegWBWnDKLeUMVqq8/37aAWnkoGWSXcsvEkPvxs/xW8B2hp?=
- =?us-ascii?Q?zDOKYjk815F712b72bzHjtqieixUYqNjP2dgzoTKE6jTZtXRtL0oxmEZEZ6o?=
- =?us-ascii?Q?qaXmvE/HtC4kqivTAiRfE/Ox4AsALYpXM53skiRss5yCRvbgaerWMdjSjYOT?=
- =?us-ascii?Q?UMlyfOZGq9cgj7QtpGRQ819p73v6t5a1ruwjTJSfPh6KIZV0DpXVQHUFbimv?=
- =?us-ascii?Q?f/dkh9BYci5Stk6FTtNWNctSqknm9i18/Gq88Q/U02uLT07586pNKB/Hmidx?=
- =?us-ascii?Q?ypC8gSzVwb13czufywvHc22Z+tWyXK/Xl+2Kid4PFbNROPHo7A4dH1Sx4A8u?=
- =?us-ascii?Q?OM+Kwe7SDoVp7YSrgY0eMQOxj7d9VQ5B2wd+Pajx2qEvs8kVAKrMZcHRbMKQ?=
- =?us-ascii?Q?5i68GOFrbboQUvfJt4b+s85N7Usdlf7Sly6TJwV1wxDIdqy7oShVzrknXUTk?=
- =?us-ascii?Q?DGA8WGEwF/y7WSLSTHB8S8mpM0pheJElJwjKCxewIlziGfYCzYOaRpn0oh8/?=
- =?us-ascii?Q?tyCTNCKBEAL0zlD1K3PHqtMFc+17WVB9ijTjLMBiZuvFJPmdYLu2kPkRjulf?=
- =?us-ascii?Q?wYjwS1IENo/0m3eRl/5yLvFLfwc0PYhijN7kclTwsDyQjP6Uu4f1+NBr7mkz?=
- =?us-ascii?Q?UNPx0wEF0T7Vd8QMRko29jJTnicZ0IQuHfcuLms9F3ovBYyCiEg//A+QNeu2?=
- =?us-ascii?Q?vMpnbxFsT9B6dRDe6PTe+u0ET6727mO/tiT9FrWve0InMkx24JEJVFhAntc7?=
- =?us-ascii?Q?jefurdHAeREK7tbzZplB4ul1G13CQOLDJ3R2SYrtca0WxU93AjBh2HB+PRkU?=
- =?us-ascii?Q?zAvfgfkfpvOrru01tHhDeSfHCPREwKtf4fJ+988OwyCGcT+JPB4hX99fsN9a?=
- =?us-ascii?Q?xXyCDkqlvnDMaGVGYerXfilJB2aULy548aq1rizQtLg+17Wc9pzVSanz2fHz?=
- =?us-ascii?Q?V9Cqxc0Y61XI9BLsNk1FQhkmIWXTYWUoi5JJP8xuHyObNXZe1pcRLXPompc4?=
- =?us-ascii?Q?jYkmIbRmZ+Ek9OCxMSdIAsDg2m/c5/l3J8jHRHu6bI8vSiSmxexqcS662etx?=
- =?us-ascii?Q?bBT0XRmJ4CyPfdUBlHQhphASAdjOzfPUOgl5p7Qh0lyrVz7/KGQDXofKPtyv?=
- =?us-ascii?Q?UhWrzrPCJu0YvyXWdwVURJRynwCCc7ool3rcsCNn3ePBqo7u5zKI+wF+mRm9?=
- =?us-ascii?Q?UfElQ8wNIWF2GvA6VqgM60bdrWXV3eKLvmZLL/uLWpMKR5IChPQUdlUswWMM?=
- =?us-ascii?Q?mRt0mmz2JVztnG/aGjNAuPmOU4uyu/TW+2N8O7E5fvBLdVnv+N7prPAu5xwQ?=
- =?us-ascii?Q?h0MXBFUyM0vdbNG1YxQyMDohNVbSlKcyKppTKa9VGllxf5rv/mpgzrPeCdR5?=
- =?us-ascii?Q?HSO4DTr9tTTlTgLCywukNNVSzsXluRPaC6c85O1p+0ImX/ROk2VhNRH5gGk2?=
- =?us-ascii?Q?A6cCWNU1esLRVHncO+Rh+QgHTfnyhMlSk29l0fMWWmtb/5qo4BurpOdD/gZn?=
- =?us-ascii?Q?DkYGsY/NNJCu4iOTLMB/R9jkyfVlLP4XOGEHYAA2Egkks8dsmL0JlunVIIDQ?=
- =?us-ascii?Q?BzgjjNRMsfn49tbawtpQRhQ44JypDDp/r72nBj7OhrrgeuCvs1GNeFxuqqwR?=
- =?us-ascii?Q?Wq/b4rXTLzVAzliuicl5Y0ffWO03c/aReIGFrQqBABwtLVkJIqlrLbZaVYzu?=
- =?us-ascii?Q?tS604AzroEygsT4Wd9U2OQ+qfxLk3T6xHzP4HejCNO8GO4cb?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?uT4lq7fi0aDmoQ6b6wjlJJUvoCNXF4anKvn7YE7LfXNFLZUEUuyIV6Zl2370?=
+ =?us-ascii?Q?2vKqAl0x6kBm5Owb2bfTbpXgPN5Y8cHR2moMLxTpX0766hcRbV0BQPKei9xl?=
+ =?us-ascii?Q?ACdkxYT17mIz+08Ju48ov+CTv4w8Tb0Dt3EtMm4L9NRvqxg6BJo5zOrFUAHT?=
+ =?us-ascii?Q?H51+2EH4paBw5N+rLNY95KYAvLUF3oaQ49NblB9RLIMk+ik/dcHEQW5bmmRD?=
+ =?us-ascii?Q?/OXh5kfrPnStHhzHQl5lq7+fDs0XvtWFlEPuzbpWy+cfGDpCj7RYCTENSKlq?=
+ =?us-ascii?Q?M8bQI7n/mi35Z/B3Y8Bky3V/VfOzNyUey4sPbhN9X9ifQ734KZaT2mpwx2Ni?=
+ =?us-ascii?Q?MPyxTO7zBDUPMx/5Vxkq10itWnfAw2iPmJxSq7q8TQwssFQ4O6HzBX9E9Wfj?=
+ =?us-ascii?Q?ZuA/ET57skFm4ERsr8D+DCrTfsCxManh9vLdueX9F0qG8tTKHbTTUgZDd3vP?=
+ =?us-ascii?Q?gPfagGMajxscnUIbLFSgUA/N2lzJA0czQ2kuZ2My5LJnPH0s6shv5SCaniVr?=
+ =?us-ascii?Q?1F4prmg9l4kvjPZ2wA38BCcV5MaMfZRMq2ReU8yTR0dwVWiiWFJIRYkYEkLT?=
+ =?us-ascii?Q?94Q+u4UwgQrEBMzR/B/bXARaOcimwYWP3lu/3qcaejPP+Esp5WWtiwklaHYJ?=
+ =?us-ascii?Q?gsb/8RmfdqZwsc5ZgJB+Uc+AqEEBAGYJ3J35X3JzcOM3Ax/3cDihHjCzSVfo?=
+ =?us-ascii?Q?cCBauK5JBPrty41+8+1oJQDDbLeAmi2F9G0leKdKLE8kUFauyacGMftze+jw?=
+ =?us-ascii?Q?7ode99W2b5bbAzgx1YZGtdW1FtrC3rYspyg8F0bA0pkCNo73bbbEzWJVutU3?=
+ =?us-ascii?Q?4mKqKWRDTNA29ZzyfxIWoTRe7piJGLKt6RPFM7tjJjFN4hwXPnkPboX5N9NG?=
+ =?us-ascii?Q?NGgkMJcuCPe8gqw/xBxibvPRb6IoWr+GoUh4DdnidzG5xkPN+w+9FQyZfFHl?=
+ =?us-ascii?Q?dpqO03w/dxBfvUGr8EN2SX622mhH/w/DaZktgIag7JgVN9Z1ztbl3wqI2AMO?=
+ =?us-ascii?Q?Ul5D6JsMWBkhQcWcqiSeK8+WSfWnxbknchNn+I0afmDfWpdmSj1TAnm8iHFq?=
+ =?us-ascii?Q?lRA3EYNbS7OjexsdrRGPLsDkldVvnWz6qCIDwpDpMX0xJXRsK5NNPl72BbeJ?=
+ =?us-ascii?Q?tj2vadpeIlyNXgMJlywVS1Q9W0xhJdUAXXTfEprimkjGD3PNcJrxeklykMTr?=
+ =?us-ascii?Q?jGiwg0+bNCgXRFpNNM2RKfwA3P1XQnB/GjYaTwMroJuzW2V1tPCJo9bBpD7s?=
+ =?us-ascii?Q?7ljB7+6J5c9HXn+RPTES4amTVUXFjPlVl374dzz0wMwPm7azVkDZZRYYIXMA?=
+ =?us-ascii?Q?b/+yPLCvx7+lQ7dt6cz06kjw8U8Ab3KqCDn5O7oO4VR1isRO02gsmY+SIpe7?=
+ =?us-ascii?Q?AS+q7jUsgH2EgCuDd5yvO8e3S4fXl7mAxbmBGMfZws8KY07IBQDsGwQ+4R/C?=
+ =?us-ascii?Q?KY7AUq21YETk1PlHLZ9kl/XdfmpsBxvlQz6qOG89u91BS08hXchVRjJwU1ll?=
+ =?us-ascii?Q?BwEV/7uI2rU5lkKQqoNLvu81VOSWOY11/G86BrobOlUMhFNvbz3XpZj4rnzi?=
+ =?us-ascii?Q?0BNWULDsjHjLZZnHhJpi2BBcVvykWmHvgaLw1IrWKCRalvTMya8mxvjns37W?=
+ =?us-ascii?Q?rIZwBXivGM5XIV675l4v8RMara6QiydeyAWQSBvw4xgD53c+XtLmuSGU6sej?=
+ =?us-ascii?Q?0Dt77lxhQbDdDT4s4VQdM523qWFAemGIqrNI1TWECT9dyE0G?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CHXPR12MB999220.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 989218ac-e8b3-4a1e-624a-08df311d5312
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Oct 2026 15:50:12.6460 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5146.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: db8f0bdf-efd8-4be9-29ba-08df3114abba
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Oct 2026 14:48:15.9482 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: wPliVeG5kVGzjGy1yXuEUtsHGFvjM7W7nL9t8XwGVEvZqhyh6OIF9uSDb9johcPG
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4359
+X-MS-Exchange-CrossTenant-userprincipalname: a+uazfrUn8TgQ6mzD/V+fewb/sq/vVhIcobn2TZCcLJ1IxGv1scOkC3hNNrXOT08ENf2GQn+MbDgvza+gOMj+Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8276
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,128 +131,110 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-21.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-AMD General
+Public
 
-Your change already being considered in below two changes. Please kindly ch=
-eck below two changes:
-https://gerrit.core.linux.amd.com/plugins/gitiles/upstream/github.com/torva=
-lds/linux/+/ae5df7bc72d919c669301e
-https://gerrit.core.linux.amd.com/plugins/gitiles/upstream/github.com/torva=
-lds/linux/+/d6751306a6e0fbb09
-
-Regards,
-Jerry
++ Mario
 
 > -----Original Message-----
-> From: David Janice <djanice1980@gmail.com>
-> Sent: Saturday, September 19, 2026 21:31
+> From: Patel, Maharshii <Maharshii.Patel@amd.com>
+> Sent: Thursday, September 24, 2026 4:38 PM
 > To: amd-gfx@lists.freedesktop.org
-> Cc: Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo)
-> <Sunpeng.Li@amd.com>; Rodrigo Siqueira <siqueira@igalia.com>; Deucher,
-> Alexander <Alexander.Deucher@amd.com>; Zuo, Jerry
-> <Jerry.Zuo@amd.com>; dri-devel@lists.freedesktop.org; David Janice
-> <djanice1980@gmail.com>
-> Subject: [PATCH] drm/amd/display: Allow 300 ms for HDMI FRL link training=
- at
-> every rate
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
+> <Christian.Koenig@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>;
+> Patel, Maharshii <Maharshii.Patel@amd.com>
+> Subject: [PATCH] drm/amdgpu: reset dGPU on resume if it kept power across
+> s2idle
 >
-> [You don't often get email from djanice1980@gmail.com. Learn why this is
-> important at https://aka.ms/LearnAboutSenderIdentification ]
+> dGPUs take the S3 suspend path even when the platform suspends to idle, b=
+ut
+> amdgpu_pmops_suspend_noirq() skips the ASIC reset for s2idle. On desktops
+> the GPU also keeps power in s2idle, so it resumes without having been res=
+et or
+> powered off.
 >
-> hdmi_frl_perform_link_training() gives LTS:3 a single budget of 105 polls=
- at 2
-> ms (~210 ms) that starts at the FRL_Rate write and is not restarted when =
-the
-> sink raises its first FLT_update with the LTP request. A sink that needs =
-close to
-> 200 ms after the LTP request to report lock therefore fails whenever its =
-LTP
-> request itself takes more than a few tens of ms.
+> SMU 13.0.0/7/10 and 14.0.2/3 skip smu_disable_dpms() on suspend and rely =
+on
+> the PMFW to clean up on reset or power loss. With neither, the PMFW still
+> holds its pre-suspend DPM state and stops responding when resume sends
+> EnableAllSmuFeatures:
 >
-> Measured on an LG C2 (GSM 49352, 2022) driven by a Strix Halo DP-HDMI FRL
-> PCON, DPMS off/on with drm.debug=3D0x2, kernel 7.2.6:
+>   amdgpu 0000:03:00.0: SMU: No response msg_reg: 6 resp_reg: 0
+>   amdgpu 0000:03:00.0: resume of IP block <smu> failed -62
 >
->   6G x4  (3840x2160@60 10bpc):  LTP request at poll 11 (~21 ms),
->          lock at poll 100 (~179 ms later): PASSED first try.
->   10G x4 (3840x2160@120 10bpc): LTP request at poll 22 (~44 ms),
->          no lock by poll 105: "FAILED - Timeout waiting for FLT_UPDATE".
->          Retry 200 ms later: LTP request at poll 11, lock at poll 101:
->          PASSED.
+> SDMA ring resets and mode1 recovery then fail as well, leaving the GPU
+> unusable until a power cycle. soc24_need_reset_on_resume() does not catch
+> this, as it only detects aborted suspends.
 >
-> The sink answers FLT_READY on the first poll every time and locks in a st=
-eady
-> ~180 ms at both rates, so it is neither slow to wake nor marginal; the to=
-tal just
-> does not fit 210 ms once the LTP request is late, which happens far more =
-often
-> at 10G. On this system that is the difference between reliable DPMS wakes=
- at
-> 4K60 and mostly dark ones at
-> 4K120: hdmi_frl_perform_link_training_with_retries() retrains at the same
-> rate up to four times 200 ms apart and the output is then left dark.
+> Do the skipped reset in amdgpu_pmops_resume() when the VBIOS init state
+> survived suspend, i.e. the GPU kept power. S3, and s2idle platforms that =
+cut
+> power to the GPU, are unaffected.
 >
-> "drm/amd/display: Update and revert FRL LT Timeout behaviour" already
-> allows 155 polls (~300 ms) for 16 Gbps and above. Use that budget at ever=
-y
-> rate. With the change applied to 7.2.6, five consecutive DPMS wakes at 10=
-G
-> x4 trained on the first attempt; three of them locked at poll 104-105, i.=
-e.
-> inside the last 1-2 polls of the old budget.
+> Tested with this change applied to the amdgpu 6.19.4 DKMS driver on two
+> Radeon AI PRO R9700 (gfx1201) on an Intel Z390 system: s2idle failed on t=
+he
+> first cycle without it and passed 16/16 with it; S3 passed 10/10 with no =
+extra
+> reset.
 >
-> Cc: Fangzhi Zuo <Jerry.Zuo@amd.com>
-> Signed-off-by: David Janice <djanice1980@gmail.com>
+
+This should probably use the runtime pm path for dGPUs, otherwise the GPU w=
+ill be on the whole time consuming power if the platform doesn't power off =
+the port.  Can you try these patches?
+https://gitlab.freedesktop.org/agd5f/linux/-/commits/dgpu_s0i3?ref_type=3Dh=
+eads
+
+Alex
+
+> Closes: https://github.com/ROCm/legacy-rocm-build/issues/6684
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Maharshii Patel <Maharshii.Patel@amd.com>
 > ---
->  .../amd/display/dc/link/protocols/link_hdmi_frl.c  | 14 +++++++++++---
->  1 file changed, 11 insertions(+), 3 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 18 ++++++++++++++++++
+>  1 file changed, 18 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_hdmi_frl.=
-c
-> b/drivers/gpu/drm/amd/display/dc/link/protocols/link_hdmi_frl.c
-> index 7f93009..005feb9 100644
-> --- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_hdmi_frl.c
-> +++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_hdmi_frl.c
-> @@ -528,10 +528,18 @@ static enum link_result
-> hdmi_frl_perform_link_training(struct ddc_service *ddc_s
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index 9c5e93c..b9be88e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -2703,6 +2703,24 @@ static int amdgpu_pmops_resume(struct device
+> *dev)
+>       if (!pci_device_is_present(adev->pdev))
+>               adev->no_hw_access =3D true;
 >
->                 FRL_INFO("FRL LINK TRAINING:  Poll for FLT_UPDATE.\n");
->                 /*LTS:3: Start Link Training*/
-> -               /*Start FLT Timer =3D 200 ms, or 300ms if link rate >=3D =
-16Gbps*/
-> +               /*
-> +                * Start FLT Timer =3D 300 ms. HDMI 2.1 specifies FLT_TIM=
-EOUT =3D 200
-> ms,
-> +                * but this budget runs from the FRL_Rate write to the fi=
-nal
-> +                * FLT_update and some sinks need more than that in total=
-: an LG C2
-> +                * (2022) at 10G x4 raises its first FLT_update (the LTP =
-request)
-> +                * ~45 ms after the rate write and reports lock a further=
- ~180 ms
-> +                * later, ~225 ms in all, so it failed the 105-poll (~210=
- ms) budget on
-> +                * most DPMS wakes at 4K120 while at 6G x4 (~20 ms + ~180=
- ms) it
-> just
-> +                * fit. Use the 300 ms already allowed for >=3D 16 Gbps a=
-t every rate.
-> +                */
->                 num_polls =3D 0;
-> -               if (link_settings->frl_link_rate >=3D HDMI_FRL_LINK_RATE_=
-16GBPS)
-> -                       max_polls =3D 155;
-> +               max_polls =3D 155;
->
->                 while (num_polls < max_polls) {
->                         flt_poll_cur_time =3D dm_get_timestamp(ddc_servic=
-e->ctx);
+> +     /*
+> +      * A dGPU takes the S3 path even for s2idle, but suspend_noirq skip=
+s
+> +      * the reset there. If the platform also kept the GPU powered (VBIO=
+S
+> +      * init state survived), the PMFW still holds its pre-suspend DPM
+> +      * state and times out when resume re-enables features. Do the
+> +      * skipped reset now; resume will POST the card afterwards if neede=
+d.
+> +      */
+> +     if (!(adev->flags & AMD_IS_APU) && !amdgpu_sriov_vf(adev) &&
+> +         !adev->no_hw_access && !amdgpu_acpi_should_gpu_reset(adev)
+> &&
+> +         !amdgpu_device_need_post(adev)) {
+> +             dev_info(adev->dev, "GPU kept power across suspend,
+> resetting\n");
+> +             amdgpu_device_lock_reset_domain(adev->reset_domain);
+> +             r =3D amdgpu_asic_reset(adev);
+> +             amdgpu_device_unlock_reset_domain(adev->reset_domain);
+> +             if (r)
+> +                     dev_err(adev->dev, "reset on resume failed (%d)\n",=
+ r);
+> +     }
+> +
+>       r =3D amdgpu_device_resume(drm_dev, true);
+>       if (amdgpu_acpi_is_s0ix_active(adev))
+>               adev->in_s0ix =3D false;
 > --
-> 2.55.0
+> 2.43.0
 
