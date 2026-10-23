@@ -2,128 +2,76 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F21D606A31A
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Oct 2026 08:43:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81997606A31B
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Oct 2026 08:43:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=GFoJ2Edg
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=V86CXKaK
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4DBF10ECA1;
-	Mon, 26 Oct 2026 08:43:46 +0000 (UTC)
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010071.outbound.protection.outlook.com [52.101.56.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E036110E944;
- Mon, 26 Oct 2026 05:37:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=o23cTaSdvA5iGl3mXfYBIbxdJy+rH2CL7l4iDYdyadtCuUT5Hihl+t0PzFNfCJJ9Er4vTvDq87uTgZxjm5FUQ4CBJ3+VP+JbBVDgfcMzYPLnSWQbhxcRAJBhFwxs2SmKvwN+ejlHR04NZv5w0eVzwVGOP3tN6TcdrIS0eNTfk1nvcOTA2D6+4G9vMqmUthg5UST62uUbn76oSjvKuQoU92VxUdh61R4BX1tKQTOdDP1kk0ybxGB9qjntsniFQIQoMHkj0+RLjr4bo97sqU0f/Lu0pDo8ZyeAj24qCvpBEX58NHLyfgl3uVtgsVHid2RaVIeRfERmzKocC0of8m1Klw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DEFTmH25jZl0Udq4wEX3Jf6BphgnZKvgZXZZ2HXqpTs=;
- b=Pqm+GGJPN64hMztmA5WaO5mmV8e1dbAiDPDN3kp0FO2IKcJXnKg/y+ytCk1xXVyaqPughzM/r+zlQFKxxMhVK3Z0pPUOUhJeuFHAn+M8Sy3KenneH0a72DZBxVHr7xczdVdADWdgFzhr+y2lEfqOHsvmmbNJ5WDlG/wljI0jjKCMmSBpFGUVv7F0gZjUUkZ91LWglZKsNC9UxmZuqkxgXGOh2Zu25uG5efd71rspFwhE7jICU9et3edEXUiii1709WD1FDDguB3POVOXZTimyxFdhGkx/VgET4tLdfhVdOFkcLbATV+/gT2JLBSyiy95+UmVNgMJBJdZC9nh6b26Vw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DEFTmH25jZl0Udq4wEX3Jf6BphgnZKvgZXZZ2HXqpTs=;
- b=GFoJ2EdgCWJknjDZ0OUxceNPrjlWHK1FrNiBWmbRGKeovBoWkz7lheYLvnkNB0VDV7+6hNoi1loz1QRQnmPrTHsS9CtUKDNJySa1b2Web18N4WNkVQCgShq6rrVi7EsvzVPvT944IUalkJo7aXUWedmlev3LeYoXPWRiL8N1W6bsBVmhOa7L+R1G6cEzUqHbn4xtlUFIcZ9brnimWwMTKT53sF2FTgrFMQDXy18v0z0jQyUUK/mETT5jOarG8oPRHpvXc58/7oSPA8qjOjrUUQuSPgmOnYPv56IAGboAQ6HR74a3nuya98z8nWkDPgJgsg4AcBlNI8yQ9BM/gtZ/iw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SA3PR12MB598757.namprd12.prod.outlook.com
- (2603:10b6:806:52d::14) by SA1PR12MB7442.namprd12.prod.outlook.com
- (2603:10b6:806:2b5::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 05:37:41 +0000
-Received: from SA3PR12MB598757.namprd12.prod.outlook.com
- ([fe80::e206:100:5946:a777]) by SA3PR12MB598757.namprd12.prod.outlook.com
- ([fe80::e206:100:5946:a777%5]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
- 05:37:41 +0000
-From: Alistair Popple <apopple@nvidia.com>
-To: dri-devel@lists.freedesktop.org, christian.koenig@amd.com,
- sumit.semwal@linaro.org, jgg@nvidia.com
-Cc: Alistair Popple <apopple@nvidia.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Simona Vetter <simona.vetter@ffwll.ch>,
- Matthew Brost <matthew.brost@intel.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- Dongwon Kim <dongwon.kim@intel.com>, Leon Romanovsky <leonro@nvidia.com>,
- Kevin Tian <kevin.tian@intel.com>, Xu Yilun <yilun.xu@linux.intel.com>,
- Karl Mehltretter <kmehltretter@gmail.com>,
- Baolu Lu <baolu.lu@linux.intel.com>,
- Felix Kuehling <felix.kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, intel-xe@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org,
- iommu@lists.linux.dev, Alexey Kardashevskiy <aik@amd.com>,
- zhipingz@meta.com, treding@nvidia.com, jhubbard@nvidia.com
-Subject: [PATCH 13/26] drm/xe/dma-buf: Use the SGT mapping type
-Date: Mon, 26 Oct 2026 16:36:04 +1100
-Message-ID: <20261026053623.202642-14-apopple@nvidia.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261026053623.202642-1-apopple@nvidia.com>
-References: <20261026053623.202642-1-apopple@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SY5PR01CA0083.ausprd01.prod.outlook.com
- (2603:10c6:10:1f5::17) To SA3PR12MB598757.namprd12.prod.outlook.com
- (2603:10b6:806:52d::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C73E10ECA2;
+	Mon, 26 Oct 2026 08:43:51 +0000 (UTC)
+Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com
+ [209.85.167.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93B3410E625
+ for <amd-gfx@lists.freedesktop.org>; Fri, 23 Oct 2026 10:55:16 +0000 (UTC)
+Received: by mail-lf1-f45.google.com with SMTP id
+ 2adb3069b0e04-5bcc6094d7fso542807e87.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 23 Oct 2026 03:55:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1792752914; x=1793357714; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:subject:from:cc:to
+ :content-language:user-agent:mime-version:date:message-id:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=b2Fd5oNxkb9TwPHoe6jZ2lXM4JNiBNNjJrD7JxD65p8=;
+ b=V86CXKaKfiOLUnMgWOr7XR6+DqcVKBNATh/CW92MPSvKNJEIfXvMiSxkX7jbix6sgM
+ ScsMPVtjI/CFOI92jimLECL1jbD41OI6VAXMhcMAkZKeUqcU4w2tkOI5jxWnfXuwDUeZ
+ kIfEnDsrca/tIdtkWhSZbmtpF74krLs0AjuWWLBbWno0WEHKyFNwPYEUPRppavbC4M3h
+ 0f+y6GDMkbl/0/+HJuKs4IrlbDF6e9KRimneeobacCUxrvteWLTgqyaS0eOTlXJ3m6Q8
+ hprivG9wW1y45nwqjV5XpRWCMKvnKS/sfyB+rTCgVVoJP5ksBF5sMelzYwaxFBDS7xQF
+ 6adQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792752914; x=1793357714;
+ h=content-transfer-encoding:content-type:subject:from:cc:to
+ :content-language:user-agent:mime-version:date:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=b2Fd5oNxkb9TwPHoe6jZ2lXM4JNiBNNjJrD7JxD65p8=;
+ b=xpemdbkH2LSD/la16fdaV/uGIDhqFuP90tuXXNbDixcYDy+6KjsHnAX44tvx4nq9i0
+ CBL7MzJxgRciDRTLswrlevy/mNxwDmgJgyMM5yKz3owrj8d5jhOKxcOKypepjabjAtdN
+ 03KRVMSrFRuaVXGB3mo/gs7qPzQFx3+sGzraQ1hRo7pvA7KSWSMEzCq22p8OJtY8P4Pn
+ 3WDJPvOBdH3fJcliQsDFvZ5VSsn2WX/xpWGhGq1prhl/DR7inb6Xmajlnf9/umOYIB2t
+ ijUvdRc18pesCyxbpnpHSJjAFKA/HB/58VbobzHhCr6kmogpc4LGu4iynFe3l/3g48a5
+ Tulg==
+X-Gm-Message-State: AFq9FYI605vQ29iSnocbolHCnGO8SVKPHL84FudySzn+evcLVDHFL69y
+ ZyDdYHpda7GVJMwvwGxSbF9GhCbwkAX83EQORYEaU3/8UUknj7wYnkXCN0HLCMyvc1k=
+X-Gm-Gg: AYBFou0kBLaJ9RNvfy7dfLw1xrVP+n7uhPjLE71vZsOIYq4k0xh0W95gzDUN46fPJjb
+ OQT+jseFhBuEfz/KcymNR2Z854z92svhvQlmt3NeQNwEPq09fFwEkUn4jA7n3422asRc10EKstO
+ JZUeZf0UOWVoluHBpVv3xoX0vvAs6UXIVYnlENPMu+9GQZupYFb17kVcwx0unGQVccb9TFYgqL7
+ 8sapMAuT9+GXGHh5/zLo/ibzkNCXPfcRXoyp9v76EPr7ehhH9dJQd/tnDgl6QKxcah+4Sl3LLUD
+ q4B7Dx2biFf81ZUTVP0dDXaq21fUjLVhOSF12c88RO0owRFwwzMIXRxb+kX1rX3T3z7En6A1pvk
+ x5vcn1TcYzCaNGQ395033eg8ZPAf7bJr9rzGWqhoav+iWDfYGH80lZYzVYjeGeyhOfurpD6aODi
+ GiLjmTtL581CyanTLcUKHP1zI99ak2Z5fwRYwng3bB92iQZPYhRXbbcuxuRSjvfKMA2tjK1uoaE
+ Pq2hUK+/foIUbNCMTHtbPWJPBC3VoMLA4AbvbtatPtlknMTicYlLaBfB05BJA==
+X-Received: by 2002:a05:6512:1283:b0:5bf:a490:52fa with SMTP id
+ 2adb3069b0e04-5bfb0b3418emr549995e87.64.1792752914189; 
+ Fri, 23 Oct 2026 03:55:14 -0700 (PDT)
+Received: from [10.8.1.15] ([149.104.78.189]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5bfb027d075sm324260e87.32.2026.10.23.03.55.10
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 23 Oct 2026 03:55:12 -0700 (PDT)
+Message-ID: <99ad760f-c563-4c68-b5e2-bb473c5b41ff@gmail.com>
+Date: Fri, 23 Oct 2026 13:55:07 +0000
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA3PR12MB598757:EE_|SA1PR12MB7442:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3add736b-017b-49e5-4b35-08df33234093
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|7416014|1800799024|366016|18002099003|22082099003|56012099006|11063799006|261021123027099003|10067099003|261009223027099003|261021121427099003|261022105027099003;
-X-Microsoft-Antispam-Message-Info: 3zZqMXWddjlg3MS1ESOMSujocvDtgczBtiEH7uK6PyfDxiwfTBAyfq0MdiUneTroJTGuMXjZ/iwca7m8zc8x3Xw7X8Gu7MDVl913i/0ephNkt9A7rnYmj0vXdNpKcePeWTPc5FagHu0p18LHZm3bCVp8Q91eqRkn+3G8IjnoaXnnjUiHm0+6a3gYrr3AOcH0b7X7RUgUqH3xOMCEgh/9TKTmVlPim8x7BKmbljTt/++AtfjI3/euJaVdw49k9jr5vvdglegszK1jUnD6DEBwceRsZlB14R/YizTeLMZGtdeOBVc/CPKsujoOkfsOpAzGOz1Fs0coPoq50/RWlMhEeEGBrn6RL0SlMzFBsLu0i3doO/ctHzC9Y1bt8C/oFbwgXeaZn+3NZMpnGoaefV27yg2mbOwhUmlwyB7b7Wt03LSVtwaaP9H/9e5jTlytyxs2xvsHlSYfjZnvW+5UTXHxAfH3eu3SDauszMSSo1/GIDM4jqELgoTsA1ul8AFx3V9G/3vCBO7uHiHnHlwaB9UEv7jW98E4M2QCTzbXdeb2QiBhSUH1a3jPRzO+K+p1GdA48fGBqxq3c2f5u2vNO8MktCQvYA+erwFRVkoBIJBSCa8td4kmu8fTTFrh8v7n814+MrTrRil/9XopppSQ6izPOQ40CuTx2+LWsGcpqaomxak=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA3PR12MB598757.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(18002099003)(22082099003)(56012099006)(11063799006)(261021123027099003)(10067099003)(261009223027099003)(261021121427099003)(261022105027099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?V1fUeh8DJml2oLE6dpTGQdf99NQsVxPjhiFMgZmBhV4qLZXLQEPcSwjXgFLA?=
- =?us-ascii?Q?E0Tt/JjW2np16jM6vYIVes2jMPbXGmvPy2pEoY1ENjJDYl8yHs/n88HpGpwm?=
- =?us-ascii?Q?sE6rwunip9+wx8RsDjnVcbLa6yD+EK2Szk1QqMvHXHeI5vwis3g1njJ6r9/l?=
- =?us-ascii?Q?PH1WIWXeF33InkCwMNHhJ46q2Tou60l/0xV1uQ98aXyN0llnWHFdpuXnolF2?=
- =?us-ascii?Q?Sjj1yNgZJq8hlsdsYLtWHk3JTx29lcilbkhGoI9v173slY4R2N2SHLTJJFI2?=
- =?us-ascii?Q?i391oaCELkRl/7fjvayySSbKvFJjct2A8BZJag1lURa35CRwePOzZze0T0pj?=
- =?us-ascii?Q?vxAYmQ+KS6byqWL0GFArXKodw/fsPUwyyiWJvRhAUcpw8VVsFnP1w/d9SqfD?=
- =?us-ascii?Q?biapEgiWuYsmkVMTmPi+7fHVq0dAVZhRdv7ErVIAB6ccq4WXY46C6Ulq4rBy?=
- =?us-ascii?Q?wSxVcHBPvUj+O/G+FkHPqeDbHgWxU6cd1N5sva4OcwAp+De/6LozeK1K1KcI?=
- =?us-ascii?Q?5gZsK/Uh/Vxxhl8gUjbl3F6n4TjmGXTx3Yc+Tl0HjmC7mfPsDnUOwlHA36f8?=
- =?us-ascii?Q?alHoIRFG8rGJoj5eWdLAtie+BjNZr1YL0eQ2keYMClQJ7pl7q7KW+3MMWa3L?=
- =?us-ascii?Q?7GDiddBXCzjHN0iIiXsuANL5hwWDgH9TBxE1MJujZsRlL++G27XvNl+USmLq?=
- =?us-ascii?Q?QWgW0QImX+g5loafF9fDu3VB6lbZMjMW2fk/piJWHe5VS7vbFM5KOmDSPoFI?=
- =?us-ascii?Q?rj6oAZrclzU1BAHP8YGTNpkymDJPTw1ELB1WyqttyNlFFG2n5yAUUkTjLM1v?=
- =?us-ascii?Q?PUVB6XaNVI3jwfTRh+Nnn5zr5Uiv+3odXdWF22ishgG6lSCArR0FX3ee+Ifz?=
- =?us-ascii?Q?tPXeIMUUJvAjsLmWFCiyrzIT0c3eDyg/LJ/Gl3woy9+Ri/cFGVMm/ydQoN5D?=
- =?us-ascii?Q?4SRgKrqGSTiSucrjuuFyvZ5xyCVXZTpDIXJpevhUYCsmSgzKSp4mFBq5XjFe?=
- =?us-ascii?Q?zv2qX+DBOeGXMq5+Zm/2/gkL5HafYdZRWTftQ771sFtPDcVhCG6Z0aLhhUxI?=
- =?us-ascii?Q?ILUiHwfatV2S5Zgudyy4fxu4/FqEtj8C0kOI6I8Z8W9hjhjlKFUE31amkhAs?=
- =?us-ascii?Q?ALYNbfXauwhNT4I7/P91Aw8QLVquTpajzv1oUHkv01SqtX2AxyizZy9Szr2x?=
- =?us-ascii?Q?j+fewTJVyjFanUbLHKI2KjfPbX+w+rOYZIN8GqK+XhU19ssY+9OYZcdo2VOj?=
- =?us-ascii?Q?jEVhvhkXAad4s1C2jKw+R8REKS1v21uIp6X6g4/BoTjYCXodYWr9QfHo+PHX?=
- =?us-ascii?Q?tWFTRke/kR3qpRyhaINjG+fJHPZg3vu6vJAWL7r2A3/alKBYXQCBwN+44we6?=
- =?us-ascii?Q?MUqC6AFlnQ4eSpn1Re9/LOX6j/itKY8uBVfU046wEgG3MwAJ7TndFL9UeUGl?=
- =?us-ascii?Q?KUvtTP8z3Tzq6SX8tXmtJ6deCVscgQp0ADhOYDOIAATbKvFf04m2Nvw8s4De?=
- =?us-ascii?Q?gVtQY9VENsp5Ct5exx5SzZBr76u8F1jsOJ83vzaTme3U6q0QOLtKip1r19l/?=
- =?us-ascii?Q?oHuVVxaRry5a263zbFL+PfO70g+92dxs8em5WQLmk8S832nFdmanFU+SCBfA?=
- =?us-ascii?Q?tjzAgAaI+ZK6/qUf/ogsJB3R4XkQl6NZWvjzdhHqXIiMk68O/MlWkcJwoe3v?=
- =?us-ascii?Q?qZNn2H8NMtPH1OReocbTdju6W450gNeYBJyhZB6DOyt0lNooZ8mqz7Dnm/oR?=
- =?us-ascii?Q?v9fIESrwjQ=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3add736b-017b-49e5-4b35-08df33234093
-X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB598757.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 05:37:41.2396 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lTFU+vCwCvlvW9IRrr/DPv4F7w0MPl7cqkn254CH69gA4YCD+k4V+wl5+xhgLbgJRRfvEXfd8mBGeuJzR0nKUQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7442
-X-Mailman-Approved-At: Mon, 26 Oct 2026 08:43:35 +0000
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: amd-gfx@lists.freedesktop.org
+Cc: julien.lebourg8@gmail.com
+From: Ilya Bogomyakov <tofu.connected@gmail.com>
+Subject: Re: [PATCH v2] drm/amd/display: Restore self-refresh fallback in
+ DCN21 bandwidth validation
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 26 Oct 2026 08:43:34 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,187 +82,57 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-9.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Jason Gunthorpe <jgg@nvidia.com>
+Hi Julien, all,
 
-Like habana, xe wants to check pci_p2pdma_distance(), but unlike
-habana, it can migrate to system memory and support non-p2p DMAs as well.
+I tested the v2 series on a second DCN 2.1 machine, with a different
+panel setup from the G733QSA.
 
-Add two exporter SGT mapping types, one that matches P2P and one that
-matches all of the non-p2p. The pin and map code will force migrate if
-the non-p2p one is matched.
+Hardware:
+- ASUS ROG Zephyrus Duo 15 SE (GX551QR)
+- AMD Ryzen 9 5900HX (Cezanne), Radeon 1002:1638, DCN 2.1
+- Main panel: eDP-1, 1920x1080@300.01 (666.62 MHz, vtotal 1111,
+   31-line vblank, ~93 us)
+- Second internal panel (ScreenPad Plus): DP-1, BOE NV140DQM-N51,
+   1920x550@60.02
+- Kernel: 7.2.11-arch1-1 (Arch Linux), KWin 6.8.1, Mesa 26.2.5
 
-Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
-[ rebased onto v7.3-rc5: CONFIG_DMABUF_MOVE_NOTIFY no longer
-  exists (609fc8766d68 "dma-buf: Always build with DMABUF_MOVE_NOTIFY"), so
-  the IS_ENABLED() guards are dropped, the P2P match is always offered and
-  xe_dma_buf_pin() only walks the attachments. dma_buf_match_mapping() is
-  passed num_match rather than ARRAY_SIZE(sgt_match) so an unfilled entry
-  is never read. Upstream's xe_dma_buf_release() is kept. The pin walk asks
-  the other attachments what they accept with
-  dma_buf_attach_accepts_sgt_p2p(), since those may not have selected a
-  type yet; the attachment being pinned has just been selected and uses
-  dma_buf_sgt_p2p_allowed(). - apopple ]
-Signed-off-by: Alistair Popple <apopple@nvidia.com>
----
- drivers/gpu/drm/xe/xe_dma_buf.c | 62 ++++++++++++++++++++++-----------
- 1 file changed, 41 insertions(+), 21 deletions(-)
+Before the patch, enabling both panels at 300 Hz + 60 Hz fails:
 
-diff --git a/drivers/gpu/drm/xe/xe_dma_buf.c b/drivers/gpu/drm/xe/xe_dma_buf.c
-index bf0728838ead..3ca198da6ee8 100644
---- a/drivers/gpu/drm/xe/xe_dma_buf.c
-+++ b/drivers/gpu/drm/xe/xe_dma_buf.c
-@@ -7,7 +7,7 @@
- 
- #include <kunit/test.h>
- #include <linux/dma-buf.h>
--#include <linux/pci-p2pdma.h>
-+#include <linux/dma-buf-mapping.h>
- 
- #include <drm/drm_device.h>
- #include <drm/drm_prime.h>
-@@ -27,13 +27,6 @@ static int xe_dma_buf_attach(struct dma_buf *dmabuf,
- {
- 	struct drm_gem_object *obj = attach->dmabuf->priv;
- 
--	if (attach->peer2peer &&
--	    pci_p2pdma_distance(to_pci_dev(obj->dev->dev), attach->dev, false) < 0)
--		attach->peer2peer = false;
--
--	if (!attach->peer2peer && !xe_bo_can_migrate(gem_to_xe_bo(obj), XE_PL_TT))
--		return -EOPNOTSUPP;
--
- 	xe_pm_runtime_get(to_xe_device(obj->dev));
- 	return 0;
- }
-@@ -53,13 +46,16 @@ static int xe_dma_buf_pin(struct dma_buf_attachment *attach)
- 	struct xe_bo *bo = gem_to_xe_bo(obj);
- 	struct xe_device *xe = xe_bo_device(bo);
- 	struct drm_exec *exec = XE_VALIDATION_UNSUPPORTED;
--	bool allow_vram = true;
-+	bool allow_vram = dma_buf_sgt_p2p_allowed(attach);
- 	int ret;
- 
--	list_for_each_entry(attach, &dmabuf->attachments, node) {
--		if (!attach->peer2peer) {
--			allow_vram = false;
--			break;
-+	if (allow_vram) {
-+		/* Other attachments may be unmapped: ask what they accept */
-+		list_for_each_entry(attach, &dmabuf->attachments, node) {
-+			if (!dma_buf_attach_accepts_sgt_p2p(attach)) {
-+				allow_vram = false;
-+				break;
-+			}
- 		}
- 	}
- 
-@@ -97,6 +93,8 @@ static void xe_dma_buf_unpin(struct dma_buf_attachment *attach)
- static struct sg_table *xe_dma_buf_map(struct dma_buf_attachment *attach,
- 				       enum dma_data_direction dir)
- {
-+	struct device *dma_dev = dma_buf_sgt_dma_device(attach);
-+	bool peer2peer = dma_buf_sgt_p2p_allowed(attach);
- 	struct dma_buf *dma_buf = attach->dmabuf;
- 	struct drm_gem_object *obj = dma_buf->priv;
- 	struct xe_bo *bo = gem_to_xe_bo(obj);
-@@ -104,11 +102,11 @@ static struct sg_table *xe_dma_buf_map(struct dma_buf_attachment *attach,
- 	struct sg_table *sgt;
- 	int r = 0;
- 
--	if (!attach->peer2peer && !xe_bo_can_migrate(bo, XE_PL_TT))
-+	if (!peer2peer && !xe_bo_can_migrate(bo, XE_PL_TT))
- 		return ERR_PTR(-EOPNOTSUPP);
- 
- 	if (!xe_bo_is_pinned(bo)) {
--		if (!attach->peer2peer)
-+		if (!peer2peer)
- 			r = xe_bo_migrate(bo, XE_PL_TT, NULL, exec);
- 		else
- 			r = xe_bo_validate(bo, NULL, false, exec);
-@@ -124,7 +122,7 @@ static struct sg_table *xe_dma_buf_map(struct dma_buf_attachment *attach,
- 		if (IS_ERR(sgt))
- 			return sgt;
- 
--		if (dma_map_sgtable(attach->dev, sgt, dir,
-+		if (dma_map_sgtable(dma_dev, sgt, dir,
- 				    DMA_ATTR_SKIP_CPU_SYNC))
- 			goto error_free;
- 		break;
-@@ -133,7 +131,7 @@ static struct sg_table *xe_dma_buf_map(struct dma_buf_attachment *attach,
- 	case XE_PL_VRAM1:
- 		r = xe_ttm_vram_mgr_alloc_sgt(xe_bo_device(bo),
- 					      bo->ttm.resource, 0,
--					      bo->ttm.base.size, attach->dev,
-+					      bo->ttm.base.size, dma_dev,
- 					      dir, &sgt);
- 		if (r)
- 			return ERR_PTR(r);
-@@ -154,12 +152,14 @@ static void xe_dma_buf_unmap(struct dma_buf_attachment *attach,
- 			     struct sg_table *sgt,
- 			     enum dma_data_direction dir)
- {
-+	struct device *dma_dev = dma_buf_sgt_dma_device(attach);
-+
- 	if (sg_page(sgt->sgl)) {
--		dma_unmap_sgtable(attach->dev, sgt, dir, 0);
-+		dma_unmap_sgtable(dma_dev, sgt, dir, 0);
- 		sg_free_table(sgt);
- 		kfree(sgt);
- 	} else {
--		xe_ttm_vram_mgr_free_sgt(attach->dev, dir, sgt);
-+		xe_ttm_vram_mgr_free_sgt(dma_dev, dir, sgt);
- 	}
- }
- 
-@@ -205,18 +205,38 @@ static void xe_dma_buf_release(struct dma_buf *dmabuf)
- 	drm_gem_dmabuf_release(dmabuf);
- }
- 
-+static const struct dma_buf_mapping_sgt_exp_ops xe_dma_buf_sgt_ops = {
-+	.map_dma_buf = xe_dma_buf_map,
-+	.unmap_dma_buf = xe_dma_buf_unmap,
-+};
-+
-+static int xe_dma_buf_match_mapping(struct dma_buf_match_args *args)
-+{
-+	struct drm_gem_object *obj = args->dmabuf->priv;
-+	struct dma_buf_mapping_match sgt_match[2];
-+	unsigned int num_match = 0;
-+
-+	sgt_match[num_match++] = DMA_BUF_EMAPPING_SGT_P2P(
-+		&xe_dma_buf_sgt_ops, to_pci_dev(obj->dev->dev));
-+
-+	if (xe_bo_can_migrate(gem_to_xe_bo(obj), XE_PL_TT))
-+		sgt_match[num_match++] =
-+			DMA_BUF_EMAPPING_SGT(&xe_dma_buf_sgt_ops);
-+
-+	return dma_buf_match_mapping(args, sgt_match, num_match);
-+}
-+
- static const struct dma_buf_ops xe_dmabuf_ops = {
- 	.attach = xe_dma_buf_attach,
- 	.detach = xe_dma_buf_detach,
- 	.pin = xe_dma_buf_pin,
- 	.unpin = xe_dma_buf_unpin,
--	.map_dma_buf = xe_dma_buf_map,
--	.unmap_dma_buf = xe_dma_buf_unmap,
- 	.release = xe_dma_buf_release,
- 	.begin_cpu_access = xe_dma_buf_begin_cpu_access,
- 	.mmap = drm_gem_dmabuf_mmap,
- 	.vmap = drm_gem_dmabuf_vmap,
- 	.vunmap = drm_gem_dmabuf_vunmap,
-+	.match_mapping = xe_dma_buf_match_mapping,
- };
- 
- struct dma_buf *xe_gem_prime_export(struct drm_gem_object *obj, int flags)
--- 
-2.54.0
+   amdgpu 0000:07:00.0: [drm] Mode Validation Warning: Unknown Status 
+failed validation.
+
+KWin then reports "Modeset failed: Invalid argument" and rejects the
+output configuration. SDDM's Xorg greeter also falls back to the
+ScreenPad only, leaving the main panel on the framebuffer console.
+Setting the main panel to 60 Hz lets DP-1 enable, which is consistent
+with the short-vblank/p-state explanation.
+
+With v2 applied, both panels stay enabled at 300.01 Hz + 60.02 Hz.
+The stutter-latency snapshot/restore is included; this round tested v2,
+not the v1 one-liner. Steady state has no validation warnings.
+Changing the display configuration still produces a short burst of the
+same "Unknown Status" warnings before the final configuration applies;
+the status message itself is still not informative.
+
+I built only the amdgpu module against the official 7.2.11 config and
+Module.symvers, not a full distribution kernel. The module loaded and
+the dual-panel configuration is stable in normal desktop use. I did not
+specifically stress MPO/flip_done; if there is a particular test you
+want for that path, tell me what to run.
+
+This turns the ScreenPad from a 60 Hz workaround into a normal 300 Hz +
+60 Hz dual-panel setup. It would be useful to have in the stable tree.
+
+Thanks,
+Ilya Bogomyakov
+
+Tested-by: tof tofu.connected@gmail.com
 
