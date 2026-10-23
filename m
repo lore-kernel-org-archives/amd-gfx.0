@@ -2,127 +2,98 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5A53606A31F
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Oct 2026 08:43:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4986D606A31B
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Oct 2026 08:43:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=jdlKHU+S
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=sVTbbaPY
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C7AE10EC97;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12AF010EC99;
 	Mon, 26 Oct 2026 08:43:36 +0000 (UTC)
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010006.outbound.protection.outlook.com [52.101.56.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF9FF10E92D;
- Mon, 26 Oct 2026 05:36:48 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=f9obbTr1djj83F9iwFhyZXGlzfXdWDDiY/nkjgq7DzIy0GjnCKsmq6xWzENLY9hgH/DOJtczPk4AjCVWu1R0X3ev5E732TVKIIOgznXCWtt+HF+2sbo20yQ+jFJP4c4QAHPLQU/3i7FRC+Y6uCRjibPRxHJ0PBVe6t9B3yd6cyhwbTLCmRWl4+vPCy5wL5mFWEKzDI6uwg1NZzfokVBkaZ0Y4Rveslj6Zn/CwtzcgOMwCJ4p81DOaXsqfpN1vSmV4cxlStLQsV4Nl/z07BxIYqBpwxL0kAFBmnFXtkklxCnudTvsD9dH42ZnYluDiZ4MUzrq2aPv/Gx0Djf/JMq5lA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uQc1yeqihEno27XwAd7uU+0kc8M7ak/jjycaIFWAvYc=;
- b=Dwhun7dV46UY/pDzx3qn/FE0cPdIJ09AGfqUmD3QiZfXTzxsXbkN9P3RiAZTD0KVTApMfucQW+HAQHKA762dY2LPnAj3g8k5acu8Q5u7gQoCpkJz0MXZuJW4z6/CVTXLRqbpDvzDgfa7MDH8P3Hbt/upaFIDI4dpTA2EsJWBaaWFtaP6FLE5gu2UDo0NRVyH4XiLxvvsVxDGbvNmrzNFMEoApwXzsQnxDlpsdqoBiKOof1T0Z7CMDgtKYVyLEiAB4QgyjMsTzk/9bkOVjEzrF7+A47SxRZBBg62sxVlqCeoZSvZnUOnkJnSfNuk4w5U/douU8eXuMrN9iqrMnon3/Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uQc1yeqihEno27XwAd7uU+0kc8M7ak/jjycaIFWAvYc=;
- b=jdlKHU+Sm5DmoqFjPpcdDr/g95JzaVzyYbp5vNiUwpr056jxrJQ+7HhMxfp3ZLiceUUkfd8lXFWI5YJuO5D6HY5TKRIItZWE1gM3dFhqWRO1HBKwGY331eHBrOvNPZ2bmufOIt7slb+qzj6D3lrQ9A8m05HYc0FsTPpTWXIuN/wwBO12hFXIA4eKrlqw57I5OlLUgU4l7ik1HWAKCLv/lQe86SNioD2c9lL5t7/4M5hyNl2Ua3wDjdCst7GoAzOEaLUZBeFhzb3nZilJOUlz+SqRoeTUutdORD59NZ/xQ4GxY4X83LOVC3OhYrAuVCPWwsC5tw59DXC9vuVljaEqcg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SA3PR12MB598757.namprd12.prod.outlook.com
- (2603:10b6:806:52d::14) by SA1PR12MB7442.namprd12.prod.outlook.com
- (2603:10b6:806:2b5::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 05:36:44 +0000
-Received: from SA3PR12MB598757.namprd12.prod.outlook.com
- ([fe80::e206:100:5946:a777]) by SA3PR12MB598757.namprd12.prod.outlook.com
- ([fe80::e206:100:5946:a777%5]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
- 05:36:44 +0000
-From: Alistair Popple <apopple@nvidia.com>
-To: dri-devel@lists.freedesktop.org, christian.koenig@amd.com,
- sumit.semwal@linaro.org, jgg@nvidia.com
-Cc: Alistair Popple <apopple@nvidia.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Simona Vetter <simona.vetter@ffwll.ch>,
- Matthew Brost <matthew.brost@intel.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- Dongwon Kim <dongwon.kim@intel.com>, Leon Romanovsky <leonro@nvidia.com>,
- Kevin Tian <kevin.tian@intel.com>, Xu Yilun <yilun.xu@linux.intel.com>,
- Karl Mehltretter <kmehltretter@gmail.com>,
- Baolu Lu <baolu.lu@linux.intel.com>,
- Felix Kuehling <felix.kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, intel-xe@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org,
- iommu@lists.linux.dev, Alexey Kardashevskiy <aik@amd.com>,
- zhipingz@meta.com, treding@nvidia.com, jhubbard@nvidia.com
-Subject: [PATCH 02/26] dma-buf: Add the SGT DMA mapping type
-Date: Mon, 26 Oct 2026 16:35:53 +1100
-Message-ID: <20261026053623.202642-3-apopple@nvidia.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261026053623.202642-1-apopple@nvidia.com>
-References: <20261026053623.202642-1-apopple@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SY6PR01CA0066.ausprd01.prod.outlook.com
- (2603:10c6:10:ea::17) To SA3PR12MB598757.namprd12.prod.outlook.com
- (2603:10b6:806:52d::14)
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
+ [209.85.208.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B500C112A30
+ for <amd-gfx@lists.freedesktop.org>; Fri, 23 Oct 2026 08:18:40 +0000 (UTC)
+Received: by mail-ed1-f45.google.com with SMTP id
+ 4fb4d7f45d1cf-6af8620a7d2so674311a12.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 23 Oct 2026 01:18:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792743519; cv=none;
+ d=google.com; s=arc-20260327;
+ b=Kv3SP6K8BPzXJCoUVpsUCPu7yzJT5o7EzKdLpvMNki5zEzoJy8p76AmnhpnATzZA4b
+ qOrqSon7jG5EYh03ZN375LNZ5LfuDnwsE8CTA2zChgqC5m+f++84Yl8WzG3452aw1Qsy
+ xurq7+Qv1xOpcazzOmIBictLX7r54oTOQRNta3w87V5SnJxALyYDDYC3r60cezp4Wk+1
+ ijQgVDb9JnZDacBtCAvQ8J2YIpPvzp7/Y/LeAJSm3FXRLE5lHdLI47bvKF0E6CAWFDbh
+ HT8aLomE0Ip/QWhz7wlUuJEmzUIoYqXoVDW1GpzIEt7ZzNzPWGuiQGuxKqEkQdt19umF
+ dAJA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=juYsWNTs/9xa0MNCmCG9MckMTuP8cxPKiXqsXWxom3U=;
+ fh=DYBgBcxJz8mp+cKTIU6yPY8dDh30nRhmXbE39i8q5A8=;
+ b=QQQjtoz45M72Ofh+mT4jOPdGTjFrc5QhDJbGOQJ47lZ8nGXkUU8ZBoP7RA2WCALjv+
+ 5gKSoYxeHfbw4Mavp3O2i64Byv702uxpQQqKH3EfzX0TvoIv6Dp3XnS7F1vSQW/bkv4X
+ p59SNK/8oSIaox1RcjQTtSSRXN0JuY0ZAeIsRalTQtCk51NJUwC91YPCB0aRd8FVibFR
+ BEYwFxkfznLFYSwzscNUMmIoY5fLh8FPIWEXt/RomFnpT0bpo7ShepERL5qS8L5vptdm
+ MFrZB+d2yBjiSsucLVXiWBeXcVf14l36y1RV96sd/9IjkaOO6jt+XjfZh8AVyQHmpRu9
+ Iv6g==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1792743519; x=1793348319; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=juYsWNTs/9xa0MNCmCG9MckMTuP8cxPKiXqsXWxom3U=;
+ b=sVTbbaPY8pSB9po8CgNqejKIqu8UvBQVsnGmIopxvQ9g3ObCxkoWHjnQYembpvSgOu
+ AoYoErxxQH3THhPUZyMQDHna0AJCxt4mitHzdVOgqkHB1isFNfkEu3n17lkr3pB750QH
+ 2l0JiUE77lAlCcr7cCftDjpcMrAepVDE5vFGAtEDME/CqUoBRVgYvWfdElVThqNh+4cJ
+ USgKVBtYnTsLenVXK+LZ87B0TuNeQbo/LTEXSTIqXoqrpwUKiScLFUAPc2ZNXzOi9N9D
+ DiZ+KUXKGmaypYYsTRChqz/SXoFgffx2F2KHRnOq43Rpa+zevJdXU5tuWagbExj6yHt6
+ Nc8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792743519; x=1793348319;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=juYsWNTs/9xa0MNCmCG9MckMTuP8cxPKiXqsXWxom3U=;
+ b=NflAFsYaKOw9UbZBJUJhIjSjYX5jX+Lj1TxKQpdEU5s8ySwWPJqoVv+2kTiiG27+YI
+ 4q70ui2fSX51ODlGnvH47TVCsKZW37Db4JCJM70T5EV8XCyF8H9mkp+Tgew+ylO69hP3
+ gaE0VNf9mBeLE8rbaBh3wC4SRTJh4mjdWX26yJF0J53XO/zM0xGoWYiWijox82JBlOMh
+ 7gw7el9wJmm7Qz/LPvH2WrLYr2k5QwAhjwTdXWxyQkluFGOqdo0XcrcppeJ53bxIytPa
+ NosfQuYJAd/uPLgchF/cO+OYjh+bF5+EF3RvAin4Z5IEghC/uqLPP+kSIUxcO2E8B4uG
+ fasw==
+X-Gm-Message-State: AFq9FYLAPy7fFTs/xBX9riM2Zw6QPsed8BG7XSEJYJdY8bjDvWQIvwhv
+ 5gW+eU/uO0zwBXZnOTtL2zeQjqjzyBIhrNP1GJYuAfNfzN7SN937rBzOfGZ3Vo5kf3l3DpvYXHt
+ ahkFfRQfbVm6TsP97uX9pKLSlFwrOHtc=
+X-Gm-Gg: AYBFou0+h7J5d/vBj8ZhxVMOSW2CDsnEXbHtaSifnYvrJovWrOhp3fCzsTj22r1ymos
+ A4RtKoo5RqOUFdfZ2rMdaAeH8KBtwxYy6D1R4714mCbugrgFDbMCSxU8pOiDMLKQ30eF9nDOVhn
+ 0iEgQpkjVcKHRYf7SJgL+NBJ/phh10S6/0TacaWNf5Ki12i8bBD33ajFTaH+ughN7YpeHIwsSyG
+ MEugQ835xhWMhwfrUp0AjOC9sMiAitrxDtzshLCbTd1FH2M5lkiSyigAKH3zOOuoh9lW+twC9Ut
+ Mr1BzcNPX2EqXvyH+MlWurbzu3xEbaWokFSTuaPm09GpYONOwduLOWlNdagiKRfcB9Pqd9NX5nm
+ UxOgQs7pHVFMB7FyHs344aGRwPWrT8Z+hjJjq4rJr1WhmjYcZ7fXneYJ68hqF7CS0sPvYdc0JJf
+ C9NTvrta5hVUjfI80=
+X-Received: by 2002:aa7:cf14:0:b0:6b1:b97b:745 with SMTP id
+ 4fb4d7f45d1cf-6b432bd60bcmr2074924a12.29.1792743518717; Fri, 23 Oct 2026
+ 01:18:38 -0700 (PDT)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA3PR12MB598757:EE_|SA1PR12MB7442:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6cbd2b24-0f33-4ced-3ca1-08df33231ee5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|7416014|1800799024|366016|18002099003|6133799003|22082099003|3023799007|56012099006|11063799006|5023799004|261022075727099003|261021123027099003|10067099003|261009223027099003|261021121427099003|261022105027099003;
-X-Microsoft-Antispam-Message-Info: MTd+3u5sDmtN+AFr5rgs4n7Fd2baHIgcDcTWzR8Et+d0VUg6cFzFpAAIwdW9Hgprvmw1qDKd8Hkfu/v+76TMDsFcSbWrPLDwMPCUCM/Fy1A3cEWRAHbp5FFwcu0PSRBrqNzf9SzH9OXWV7clOArDv28A6i9qM4H79yUwytwA2YDTPi/0Q3GT2vKgc64INkeHlEt8/80cnVRFjPA4Tyi5sBVhorKlk+SrhBDC69/sI2soDzB84aG8HrcTIIXdc8u6xT7AVELQHURbI2cJXeAPspbbaZIvyvkf6qE2XLMGnnebLBjupyNxcrwVY7bU28U4XEXa37sE7EqoxS5jYtGtkDDVlUCpTjqtd2Sg++C2kWK50dcwgpamif48zOv1EDx2kWKdRv+1ctmwYXSF16nFFFiaold835xFU4Xjx0m0k9OV2yyimzShWuR/VlwlpE33kry9+aIEgBtQOGXNf2QFGfm9dGsAiPbtp6eInTVf/Isq7PeLEZHXHqBKgcAZ1n2R3Oou+pIkmQenO2l4+JjVbJXxq7e7Jd8w5VPo0Ip8CtfdzB2ajojFfCu9+/AZvoojdI2H901D9QqBvgyqjv0MhJ3P0vDqbHwORWr0iyMHd3o5rodu3Txj4pA+SHw53wDr+Cw3XPVZ0vawcInki7CIg4DnAxv2slcY8SUEdTktWEs=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA3PR12MB598757.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(18002099003)(6133799003)(22082099003)(3023799007)(56012099006)(11063799006)(5023799004)(261022075727099003)(261021123027099003)(10067099003)(261009223027099003)(261021121427099003)(261022105027099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?lYLlZoWMRVhfqTpgWzoMxjMvzrmXKDVqexC/CPfW/hzzVylypuMjfUuqlf+a?=
- =?us-ascii?Q?0q8qlmEfZHA/BWrGbZ+CsS22ixONHlmPiAM7av2g4eKtkDTVDA5OKt/Lza7A?=
- =?us-ascii?Q?7Z9pPV8JmZEHU5vFfTBYY+j/+sW4MU0xD/ptJbXBtvayn36N4SUbJb9nBJGO?=
- =?us-ascii?Q?Z1PUtgRFZYNW9Lgn+vBAiUt1/W+ObWAttaG86uvVWZc6mUMVE3yorr3CEASY?=
- =?us-ascii?Q?xwuftDvgtXAChJcOa2hh5d4bZolHQUbiZdzn7YhkiITnBBdRjWxieaNuMnne?=
- =?us-ascii?Q?2O/HTNcZ9ORB8EeM0CSEPFdLWGBi5XIHxSwF2RuqThuaMX9YniWcnBj3DaQu?=
- =?us-ascii?Q?Yu89kM/8zpLvQ+82KIeymgzfEg5JrQ9sUPfYgVUsZbloO1+iP5aOLXvUXKLF?=
- =?us-ascii?Q?tMI4XYkrRfaMVVQDT6af4wYaykpqZuXvgbPUWxjsQPa6HaQemVlqBrIaAF9z?=
- =?us-ascii?Q?mRvyPQNFRsXRnRwa9ELcfDf4W76gWSnuyHrA1WYA3ZdpocYyK/kMkRdozXfk?=
- =?us-ascii?Q?+Ii/fQokMpOGrfYVzfEtfFchBzfVIzbN1zfh7AL13omVSz5KAo75qHD0yQZQ?=
- =?us-ascii?Q?T5UBeQYZ7NmeFUns/n9CpeBL024a572k+kbvSFcRYWTVD2kNQHlmAbTyd48m?=
- =?us-ascii?Q?dBcsRRLhBJ5vuNj5T362CgWB+4aW5KosoacP5Y7vx2FUcKpzvVPbuRzBu3UQ?=
- =?us-ascii?Q?Ns+ijU/6T6Q4nfP4KY/m01g4vNQqTWeizTYQZIveEokVVkgjksXMIGidgc1A?=
- =?us-ascii?Q?ksMFFJoTfp1bhHdZd4bxR3tR8Yk//fYDy8R54JGum4AFBuaqFsKvO+kQi+9T?=
- =?us-ascii?Q?zZnhgWVxIYuJtUJ2qdUEH3XV7fUF4LxuJSx4/KvishQGAv7nSL7ENl1MGMC0?=
- =?us-ascii?Q?mbtO9qqZPS8+8sb+NeqwuPH8KML/XUQtNB0TcM8A2PxpH3OH+X5064Ptf6d9?=
- =?us-ascii?Q?rj5vsKVOpdJU5HD6/u3GdboafRZIpeGgJ7HDpjZ0LmSPzIu1peNEtOS7y4m3?=
- =?us-ascii?Q?XUc9d32/+sFxbXWsdvQkNXWxw/02MHOKLYG1vbq37ffDsTZ+gLmJpSjQOnSd?=
- =?us-ascii?Q?Q2Irc1iJgjdacGlm3sL/pYpdT9NZMOfySGIPUt+ku6Hhd0bYva7bukT+HSSj?=
- =?us-ascii?Q?oKnU4qNpucnOLQ7NzfWD3s9K2MKWHKK6KA2mF8BstTOo7G6kM4/tTMq0xxWm?=
- =?us-ascii?Q?4Upd/xol07cu0sRyscW2mVx3Sd3SQ/kPzj7r9SlzIGYuBq+6ngEbc0yN75ZH?=
- =?us-ascii?Q?4GoB4k9RTqhANnWutU4LWoW7OR8yiFEmTlaegNEhwNkWpU/mj+tgY3LG5TQU?=
- =?us-ascii?Q?5hZCeTyLZeZGgl+zB7hoo8fZJVgtsdw9Lim2SPSee7epEtAooteWLElneFEt?=
- =?us-ascii?Q?Ig/n5O1wjyxnH3gdx5gc7Bm7SnIZqnSK0gpFAwDbrx6IfCGx2U/9c+nD0fjQ?=
- =?us-ascii?Q?RZMFUdNB0H8rO038Y+z5DMjgsQEbnj8F0bkm0xstb33FOBwROMVvmLmE9XF2?=
- =?us-ascii?Q?Whha0hN9U7WYZzWO2TsLDKlE+XnPf/tUAexTRhdIfW6Fy763QYSQ8G/Azqxn?=
- =?us-ascii?Q?ciwyrl7WQzoaLbdulwxSksdifgo0ChwseUp35Doj0ufcvH7+NfoG6bvbOIpX?=
- =?us-ascii?Q?GUEi5M8Dt8nf9dFvjOCfFQMA0pL1f5v1ziqNAHg7HpVxgoW6FqfI8NUBOHt0?=
- =?us-ascii?Q?WQ697piZjF2A4RnB/LAigfvGwaDvX04Hf3i40AcTwyn3Up+UW9PIBa7OmC6m?=
- =?us-ascii?Q?96VK0ovg2g=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6cbd2b24-0f33-4ced-3ca1-08df33231ee5
-X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB598757.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 05:36:44.5821 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: heTnKsJ6SnsXt6kgHao4auVs1kPv1S5HaQjNcC2UZp2IVGy+G7WRnhaagbC8z6neBBsy6oP8JVbaXLTeMNp46Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7442
+References: <20261022080925.13994-1-shidlovskiyilya@gmail.com>
+ <MW4PR12MB6803EF32D2E8C32E163BCB638E642@MW4PR12MB6803.namprd12.prod.outlook.com>
+In-Reply-To: <MW4PR12MB6803EF32D2E8C32E163BCB638E642@MW4PR12MB6803.namprd12.prod.outlook.com>
+From: =?UTF-8?B?0JjQu9GM0Y8g0KjQuNC00LvQvtCy0YHQutC40Lk=?=
+ <shidlovskiyilya@gmail.com>
+Date: Fri, 23 Oct 2026 11:18:26 +0300
+X-Gm-Features: AclHuK__g7onYIWK4YCVcw355RZZbfTaTqNc_gVetLSql-wtgtDInFdW9dopA7g
+Message-ID: <CAGjg405_42ftMLqZ_ttmvbgFLtUZou7vSsxQCo4usUgijes0cQ@mail.gmail.com>
+Subject: Re: [PATCH v2 0/3] drm/amd: fix DCN3.2 flicker/hangs after OD_MCLK
+ (VRAM overclock)
+To: "Feng, Kenneth" <Kenneth.Feng@amd.com>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
+ "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, 
+ "Wentland, Harry" <Harry.Wentland@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 26 Oct 2026 08:43:34 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -134,298 +105,152 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-11.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FORGED_GMAIL_RCVD,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Jason Gunthorpe <jgg@nvidia.com>
+Hi Kenneth,
 
-The SGT (Scatter Gather Table) DMA mapping type represents the existing
-sg_table/scatterlist based DMA mapping. It provides a sg_table based
-map/unmap interface that exactly matches how things work today.
+Yes, confirmed. The v2 series is based on amd-staging-drm-next at
+77f548b12 (=E2=80=9Cdrm/amdgpu: keep PRT mappings off the VM state lists
+again=E2=80=9D, 2026-10-20), which already contains Kevin=E2=80=99s =E2=80=
+=9Cpreserve
+committed OD features=E2=80=9D changes for SMU 13.0.0/13.0.7 and 14.0.2 (th=
+e
+user_od_feature_mask handling that patch 2/3 relies on). The commit
+hashes in the public branch differ from the ones you quoted, but the
+code is the same.
 
-dma_buf_sgt_exp_compat_match will be used in the next patch to
-transparently wrap an unaware exporter with a mapping type.
+Thanks for the review!
 
-The SGT type handles the allow_peer2peer flag directly through matching
-logic. The importer indicates if it is willing to accept peer2peer and the
-exporter indicates if it requires peer2peer. A required peer2peer exporter
-will not match to an importer that does not accept peer2peer.
+Ilya
 
-Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
----
- drivers/dma-buf/dma-buf-mapping.c |  95 ++++++++++++++++++++++++++++
- include/linux/dma-buf-mapping.h   | 101 ++++++++++++++++++++++++++++++
- include/linux/dma-buf.h           |  18 +++++-
- 3 files changed, 213 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-buf-mapping.c
-index 616ab057fb28..d30c0e9ef038 100644
---- a/drivers/dma-buf/dma-buf-mapping.c
-+++ b/drivers/dma-buf/dma-buf-mapping.c
-@@ -6,6 +6,7 @@
- #include <linux/dma-buf-mapping.h>
- #include <linux/dma-resv.h>
- #include <linux/dma-buf.h>
-+#include <linux/seq_file.h>
- #include <linux/overflow.h>
- #include <linux/align.h>
- 
-@@ -319,3 +320,97 @@ int dma_buf_match_mapping(struct dma_buf_match_args *args,
- 	return 0;
- }
- EXPORT_SYMBOL_NS_GPL(dma_buf_match_mapping, "DMA_BUF");
-+
-+static int dma_buf_sgt_match(struct dma_buf *dmabuf,
-+			     const struct dma_buf_mapping_match *exp,
-+			     const struct dma_buf_mapping_match *imp)
-+{
-+	switch (exp->sgt_data.exporter_requires_p2p) {
-+	case DMA_SGT_NO_P2P:
-+		return 0;
-+	case DMA_SGT_EXPORTER_REQUIRES_P2P_DISTANCE:
-+		if (WARN_ON(!exp->sgt_data.exporting_p2p_device) ||
-+		    imp->sgt_data.importer_accepts_p2p !=
-+			    DMA_SGT_IMPORTER_ACCEPTS_P2P)
-+			return -EOPNOTSUPP;
-+		if (pci_p2pdma_distance(exp->sgt_data.exporting_p2p_device,
-+					imp->sgt_data.importing_dma_device,
-+					true) < 0)
-+			return -EOPNOTSUPP;
-+		return 0;
-+	}
-+	return 0;
-+}
-+
-+static inline void
-+dma_buf_sgt_finish_match(struct dma_buf_match_args *args,
-+			 const struct dma_buf_mapping_match *exp,
-+			 const struct dma_buf_mapping_match *imp)
-+{
-+	struct dma_buf_attachment *attach = args->attach;
-+
-+	attach->map_type = (struct dma_buf_mapping_match) {
-+		.type = &dma_buf_mapping_sgt_type,
-+		.exp_ops = exp->exp_ops,
-+		.sgt_data = {
-+			.importing_dma_device = imp->sgt_data.importing_dma_device,
-+			/* exporting_p2p_device is left opaque */
-+			.importer_accepts_p2p = imp->sgt_data.importer_accepts_p2p,
-+			.exporter_requires_p2p = exp->sgt_data.exporter_requires_p2p,
-+		},
-+	};
-+
-+	/*
-+	 * Setup the SGT type variables stored in attach because importers and
-+	 * exporters that do not natively use mappings expect them to be there.
-+	 * When converting to use mappings users should use the match versions
-+	 * of these instead.
-+	 */
-+	attach->dev = imp->sgt_data.importing_dma_device;
-+	attach->peer2peer = attach->map_type.sgt_data.importer_accepts_p2p ==
-+			    DMA_SGT_IMPORTER_ACCEPTS_P2P;
-+}
-+
-+static void dma_buf_sgt_debugfs_dump(struct seq_file *s,
-+				     struct dma_buf_attachment *attach)
-+{
-+	seq_printf(s, " %s", dev_name(dma_buf_sgt_dma_device(attach)));
-+}
-+
-+struct dma_buf_mapping_type dma_buf_mapping_sgt_type = {
-+	.name = "DMA Mapped Scatter Gather Table",
-+	.match = dma_buf_sgt_match,
-+	.finish_match = dma_buf_sgt_finish_match,
-+	.debugfs_dump = dma_buf_sgt_debugfs_dump,
-+};
-+EXPORT_SYMBOL_NS_GPL(dma_buf_mapping_sgt_type, "DMA_BUF");
-+
-+static struct sg_table *
-+dma_buf_sgt_compat_map_dma_buf(struct dma_buf_attachment *attach,
-+			       enum dma_data_direction dir)
-+{
-+	return attach->dmabuf->ops->map_dma_buf(attach, dir);
-+}
-+
-+static void dma_buf_sgt_compat_unmap_dma_buf(struct dma_buf_attachment *attach,
-+					     struct sg_table *sgt,
-+					     enum dma_data_direction dir)
-+{
-+	attach->dmabuf->ops->unmap_dma_buf(attach, sgt, dir);
-+}
-+
-+/* Route the classic map/unmap ops through the exp ops for old importers */
-+static const struct dma_buf_mapping_sgt_exp_ops dma_buf_sgt_compat_exp_ops = {
-+	.map_dma_buf = dma_buf_sgt_compat_map_dma_buf,
-+	.unmap_dma_buf = dma_buf_sgt_compat_unmap_dma_buf,
-+};
-+
-+/*
-+ * This mapping type is used for unaware exporters that do not support
-+ * match_mapping(). It wraps the dma_buf ops for SGT mappings into a mapping
-+ * type so aware importers can transparently work with unaware exporters. This
-+ * does not require p2p because old exporters will check it through the
-+ * attach->peer2peer mechanism.
-+ */
-+const struct dma_buf_mapping_match dma_buf_sgt_exp_compat_match =
-+	DMA_BUF_EMAPPING_SGT(&dma_buf_sgt_compat_exp_ops);
-diff --git a/include/linux/dma-buf-mapping.h b/include/linux/dma-buf-mapping.h
-index 03a03624166b..f9b749af362b 100644
---- a/include/linux/dma-buf-mapping.h
-+++ b/include/linux/dma-buf-mapping.h
-@@ -12,6 +12,12 @@ struct dma_buf;
- struct dma_buf_attachment;
- struct dma_buf_mapping_exp_ops;
- 
-+enum dma_sgt_requires_p2p {
-+	DMA_SGT_NO_P2P = 0,
-+	DMA_SGT_EXPORTER_REQUIRES_P2P_DISTANCE,
-+	DMA_SGT_IMPORTER_ACCEPTS_P2P,
-+};
-+
- /* Type tag for all mapping operations */
- struct dma_buf_mapping_exp_ops {};
- 
-@@ -90,4 +96,99 @@ int dma_buf_match_mapping(struct dma_buf_match_args *args,
- 			  const struct dma_buf_mapping_match *exp_mappings,
- 			  size_t exp_len);
- 
-+/*
-+ * DMA Mapped Scatterlist Type
-+ *
-+ * When this type is matched the map/unmap functions are:
-+ *
-+ *  dma_buf_map_attachment()
-+ *  dma_buf_unmap_attachment()
-+ *
-+ * The struct sg_table returned by those functions has only the DMA portions
-+ * available. The caller must not try to use the struct page * information.
-+ *
-+ * importing_dma_device is passed to the DMA API to provide the dma_addr_t's.
-+ */
-+extern struct dma_buf_mapping_type dma_buf_mapping_sgt_type;
-+
-+struct dma_buf_mapping_sgt_exp_ops {
-+	struct dma_buf_mapping_exp_ops ops;
-+	struct sg_table *(*map_dma_buf)(struct dma_buf_attachment *attach,
-+					enum dma_data_direction dir);
-+	void (*unmap_dma_buf)(struct dma_buf_attachment *attach,
-+			      struct sg_table *sgt,
-+			      enum dma_data_direction dir);
-+};
-+
-+/**
-+ * dma_buf_sgt_dma_device - Return the device to use for DMA mapping
-+ * @attach: sgt mapping type attachment
-+ *
-+ * Called by the exporter to get the struct device to pass to the DMA API
-+ * during map and unmap callbacks.
-+ */
-+static inline struct device *
-+dma_buf_sgt_dma_device(struct dma_buf_attachment *attach)
-+{
-+	if (attach->map_type.type != &dma_buf_mapping_sgt_type)
-+		return NULL;
-+	return attach->map_type.sgt_data.importing_dma_device;
-+}
-+
-+/**
-+ * dma_buf_sgt_p2p_allowed - True if MMIO memory can be used peer to peer
-+ * @attach: sgt mapping type attachment
-+ *
-+ * Should be called by exporters, returns true if the exporter's
-+ * DMA_SGT_EXPORTER_REQUIRES_P2P_DISTANCE was matched.
-+ */
-+static inline bool dma_buf_sgt_p2p_allowed(struct dma_buf_attachment *attach)
-+{
-+	if (attach->map_type.type != &dma_buf_mapping_sgt_type)
-+		return false;
-+	return attach->map_type.sgt_data.exporter_requires_p2p ==
-+	       DMA_SGT_EXPORTER_REQUIRES_P2P_DISTANCE;
-+}
-+
-+static inline const struct dma_buf_mapping_sgt_exp_ops *
-+dma_buf_get_sgt_ops(struct dma_buf_attachment *attach)
-+{
-+	if (attach->map_type.type != &dma_buf_mapping_sgt_type)
-+		return NULL;
-+	return container_of(attach->map_type.exp_ops,
-+			    struct dma_buf_mapping_sgt_exp_ops, ops);
-+}
-+
-+static inline struct dma_buf_mapping_match
-+DMA_BUF_IMAPPING_SGT(struct device *importing_dma_device,
-+		     enum dma_sgt_requires_p2p importer_accepts_p2p)
-+{
-+	return (struct dma_buf_mapping_match){
-+		.type = &dma_buf_mapping_sgt_type,
-+		.sgt_data = { .importing_dma_device = importing_dma_device,
-+			      .importer_accepts_p2p = importer_accepts_p2p },
-+	};
-+}
-+#define DMA_BUF_EMAPPING_SGT(_exp_ops)                                      \
-+	((struct dma_buf_mapping_match){ .type = &dma_buf_mapping_sgt_type, \
-+					 .exp_ops = &((_exp_ops)->ops) })
-+
-+/*
-+ * Only matches if the importing device is P2P capable and the P2P subsystem
-+ * says P2P is possible from p2p_device.
-+ */
-+static inline struct dma_buf_mapping_match
-+DMA_BUF_EMAPPING_SGT_P2P(const struct dma_buf_mapping_sgt_exp_ops *exp_ops,
-+			 struct pci_dev *p2p_device)
-+{
-+	struct dma_buf_mapping_match match = DMA_BUF_EMAPPING_SGT(exp_ops);
-+
-+	match.sgt_data.exporter_requires_p2p =
-+		DMA_SGT_EXPORTER_REQUIRES_P2P_DISTANCE;
-+	match.sgt_data.exporting_p2p_device = p2p_device;
-+	return match;
-+}
-+
-+extern const struct dma_buf_mapping_match dma_buf_sgt_exp_compat_match;
-+
- #endif
-diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-index a749562c1728..3e82ec59d5ce 100644
---- a/include/linux/dma-buf.h
-+++ b/include/linux/dma-buf.h
-@@ -30,6 +30,7 @@ struct dma_buf_attachment;
- struct dma_buf_mapping_type;
- struct dma_buf_mapping_exp_ops;
- 
-+
- /*
-  * Upper bound on the number of mapping types an attachment can record as
-  * mutually acceptable. An exporter offering more compatible types than this
-@@ -46,7 +47,22 @@ struct dma_buf_mapping_match {
- 	const struct dma_buf_mapping_type *type;
- 	const struct dma_buf_mapping_exp_ops *exp_ops;
- 	union {
--		/* Each mapping_type has unique match parameters here */
-+		/* For dma_buf_mapping_sgt_type */
-+		struct {
-+			struct device *importing_dma_device;
-+			/* Only used if DMA_SGT_EXPORTER_REQUIRES_P2P_DISTANCE */
-+			struct pci_dev *exporting_p2p_device;
-+			/*
-+			 * These p2p flags are used to support the hard coded
-+			 * mechanism for p2p. If an exporting device knows it
-+			 * will put MMIO into the sgt then it should set
-+			 * exporter_requires_p2p. Importers should set
-+			 * importer_accepts_p2p unless it is known that the
-+			 * importing HW never supports P2P because of HW issues.
-+			 */
-+			u8 importer_accepts_p2p;
-+			u8 exporter_requires_p2p;
-+		} sgt_data;
- 	};
- };
- 
--- 
-2.54.0
-
+=D0=BF=D1=82, 23 =D0=BE=D0=BA=D1=82. 2026=E2=80=AF=D0=B3. =D0=B2 05:31, Fen=
+g, Kenneth <Kenneth.Feng@amd.com>:
+>
+> AMD General
+>
+> Could you also please confirm this series is rebased on the below two com=
+mits?
+> commit 5cd40ce699014025614140294b8e3b7a847e6472
+> Author: Kevin Wang <kevin.wang@amd.com>
+> Date:   Thu Oct 15 14:02:09 2026 +0800
+>     drm/amd/pm: preserve committed OD features for SMU 13.0.0/13.0.7
+>
+> commit 5a3833e7dd532ac02b4747d1b0d717dd49e87aa6
+> Author: Kevin Wang <kevin.wang@amd.com>
+> Date:   Thu Oct 15 14:02:31 2026 +0800
+>     drm/amd/pm: preserve committed OD features for SMU 14.0.2
+>
+> These two commits have the related code modified for another issue.
+>
+> With this confirmed, Series is Reviewed-by: Kenneth Feng <kenneth.feng@am=
+d.com>
+>
+> Thanks.
+>
+>
+> -----Original Message-----
+> From: Ilya Shidlovskiy <shidlovskiyilya@gmail.com>
+> Sent: Thursday, October 22, 2026 4:09 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Ilya Shidlovskiy <shidlovskiyilya@gmail.com>; Feng, Kenneth <Kenneth.=
+Feng@amd.com>; Li, Sun peng (Leo) <Sunpeng.Li@amd.com>; Deucher, Alexander =
+<Alexander.Deucher@amd.com>; Wentland, Harry <Harry.Wentland@amd.com>
+> Subject: [PATCH v2 0/3] drm/amd: fix DCN3.2 flicker/hangs after OD_MCLK (=
+VRAM overclock)
+>
+> [You don't often get email from shidlovskiyilya@gmail.com. Learn why this=
+ is important at https://aka.ms/LearnAboutSenderIdentification ]
+>
+> On DCN3.2 (Navi31, RX 7900 GRE here), raising the UCLK max through OD_MCL=
+K makes the display flicker (full-width stripes) and eventually hang the wh=
+ole system, if the current mode does not allow memory P-state switching. DC=
+ reads the UCLK DPM levels from PMFW only in init_hw, so after the OD commi=
+t it keeps asking for the old top level as UCLK hard min ("set UCLK min =3D=
+ max"). That is no longer the top level, so PMFW switches UCLK outside of v=
+blank.
+>
+> The series makes DC re-read the UCLK levels (bounding box and WM ranges
+> included) after an OD commit/restore that changed UCLK, and on resume aft=
+er the user OD settings are restored. It also refreshes the SMU driver's UC=
+LK DPM table, so pp_dpm_mclk shows the real levels.
+>
+> Bug report and review of v1: https://gitlab.freedesktop.org/drm/amd/-/iss=
+ues/6009
+> (v1 was posted there as a comment, not to the list.)
+>
+> Changes in v2:
+> - Only act when the user has customized UCLK (user_od_feature_mask &
+>   PP_OD_FEATURE_UCLK_BIT), instead of on every OD commit (Kenneth).
+>   PP_OD_FEATURE_UCLK_BIT is ASIC specific, so the check is done in the
+>   smu13.0.0 code, which sets a flag that the generic code reads.
+> - The SMU patch now comes before the DC patch, which depends on it.
+> - Rebased on amd-staging-drm-next.
+> - Added Leo's ack for the display parts.
+>
+> Testing:
+> v2 is build-tested against amd-staging-drm-next. The hardware test is on =
+an equivalent backport to the Ubuntu 7.3.0-9 kernel (same code, plus a smal=
+l local backport of the user_od_feature_mask tracking, which Ubuntu
+> 7.3 does not have yet).
+>
+> Hardware: RX 7900 GRE (Navi31, SMU 13.0.0), 5120x1440@144 (DSC, ODM 4:1)
+> + 2560x1440@100, UCLK OD max 1124 -> 1300 MHz, toggled via LACT.
+>
+> v1 results:
+> - On OD commit, DC logs the new max UCLK (1300 MHz). pp_dpm_mclk shows
+>   1300 as the top level, and the current level stays at 1300 (20/20
+>   samples, no drops to 772).
+> - About 4 minutes of heavy window switching on the 5120x1440@144 output:
+>   no stripes, no hang, no amdgpu errors.
+> - 3 OC on/off toggles: one short flash exactly at the switch (memory
+>   retraining during scanout, expected), then clean.
+> - Same scenario with the stock module: stripes, then a full system hang.
+>
+> v2 results:
+> v2 hardware test (same RX 7900 GRE, 5120x1440@144 + 2560x1440@100; v2 bac=
+kported to the Ubuntu 7.3.0-9 amdgpu, LACT applying power cap / voltage off=
+set at boot):
+> - boot and login with stock VRAM: no "DC memclk states refreshed" at all,=
+ so
+>   non-UCLK OD commits (power cap, voltage offset) no longer touch DC; the
+>   short login flash seen with v1 is gone;
+> - VRAM OC on (OD_MCLK 1300): exactly one refresh, "max UCLK 1300 MHz";
+>   pp_dpm_mclk top level 1300 and current level 1300 (12/12 samples);
+> - VRAM OC off: exactly one refresh, "max UCLK 1124 MHz";
+> - desktop stays clean, no stripes, no hangs.
+>
+> Known limitations (unchanged from v1):
+> - The OD commit itself still happens during scanout, hence the single
+>   flash at the switch.
+> - Only DCN3.2/SMU 13.0.0 is handled. Other ASICs with OD_MCLK probably
+>   need the same hook in their ppt code.
+>
+> Ilya Shidlovskiy (3):
+>   drm/amd/display: dcn32: rebuild WM range table when memclk states
+>     change
+>   drm/amd/pm: smu13.0.0: refresh the UCLK DPM table after an OD_MCLK
+>     change
+>   drm/amd: let DC re-read UCLK DPM levels after an OD_MCLK change
+>
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 33 +++++++++++++++++++  =
+.../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  6 ++++  .../display/dc/clk=
+_mgr/dcn32/dcn32_clk_mgr.c  |  8 ++---
+>  drivers/gpu/drm/amd/display/dc/core/dc.c      | 21 ++++++++++++
+>  drivers/gpu/drm/amd/display/dc/dc.h           |  2 ++
+>  drivers/gpu/drm/amd/pm/amdgpu_dpm.c           |  7 ++++
+>  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 19 +++++++++++
+>  drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  3 ++  .../drm/amd/pm/sw=
+smu/smu13/smu_v13_0_0_ppt.c  | 33 ++++++++++++++++++-
+>  9 files changed, 127 insertions(+), 5 deletions(-)
+>
+>
+> base-commit: 77f548b127c6de34ce271fa09ba270cb1ef9f2da
+> --
+> 2.55.0
+>
