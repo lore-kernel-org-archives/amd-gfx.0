@@ -2,123 +2,124 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 469DC606A325
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Oct 2026 02:31:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 793A2606A319
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Oct 2026 02:47:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Wftyx5dd
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=mKdU53Bv
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B80B110E4FE;
-	Fri, 23 Oct 2026 02:31:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1633910E530;
+	Fri, 23 Oct 2026 02:47:52 +0000 (UTC)
 Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011003.outbound.protection.outlook.com
- [40.93.194.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74CCC10E4FE
- for <amd-gfx@lists.freedesktop.org>; Fri, 23 Oct 2026 02:31:17 +0000 (UTC)
+ (mail-southcentralusazon11011001.outbound.protection.outlook.com
+ [40.93.194.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9426E10E525
+ for <amd-gfx@lists.freedesktop.org>; Fri, 23 Oct 2026 02:47:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CM9OHzSjsJkbULPu6h/XonrPdA/9e5Q3/ahqz0Pq33gYbTcH9qI312sc/jTLJWxik63nvCI6OAniBClwH1DiR423KPcojvJa+yWBrodfOydzJlIJrm8dK6TBHweQ5hX/z9HpbQwZ4MShaqw3OOKRKwp6p2nv76Hf2B1w7tkraXrTKUksBD5vMRxTsTGw0eRYkEUC9UzEjplRv+x/OgC88GrrjhylyilnRtsX9M9Cff72AkXDubC7BLdpdHuxZ8MYOX4QUm+psPaIZOYjA2Wib7n5ZlWM262mMRnzBSgepWjTiB534XIPioAO3jlEK1RhWkC1Z5Tv+Z6BoAUj0d57dA==
+ b=SMSJWjNVtRYxPyEeGomGlzbcH5qxqX6bfKw2iIPsnJQ2vKiM9+1A0isSuJlQJKrAK/ANdzV7qdZoAz45cggFn9oA7RDbEmM3yWDu4lF2RSN7T3LTg7U1R+coUm57T4rPdLbgwvx8NT4xcraP4nTMiEzDQ/xS1yl/+7NHvzf/96pMXBZfnJwKwqR5xcbEO1kCk7Dyay671A53UgvAFWr3HsKCo7EWFE2c0LsNKplnJ2vt0sNvmrEW2tnw2htkAEkfPcP0ZMphWUhQb9vewDRP+KRELhlPjueytViE+W+T/MBnJEm+LJOvjfs0rK2chRejimZEkUC8+vTEYvp0S72G8w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ma5Fa4up0QkmcGeIsq2z3MVyBvtlccLV53+p+nTm0oM=;
- b=EMIX+toSwbwuTko0qbx12tepN+0pRS0g9JqFgacromc6oGJCyvRO4nxT60RyMbUb7oMo6fmmTbuXNPV48WaR8GT8Ew7mdKFiWA/U9yWYvCMHnP2uRoIImD5+cJJx5RCVHWFt8oc53LrsPUAHnSrIX6G/Xwa61i15b4UwL618j1z12FPs6rk8UdW0NU0bpYpU2WwlpycJ+OGPkMogrJb2tzaBPe7XZRYdfitKyIZ4OGDh6TkaS24tpz38gDdSsrWbCb/DpHG0D4GcrTE3y9oiPmeaskNgTboug/yR12mQQHfR0IJPf5Zgf6Qv7EXAqABuSiRWdBJVAA05glJh+zaJUQ==
+ bh=BfWEthK9Wm9I+yLBEyL2r/G35CiirUcqKNTBNpCT8i0=;
+ b=AnZ6wYutxyJw/p3D0RNhpVYDCp86uKhK8eVMuvzR1xaYrtv9LSfF1hz4j5Eb18aiFtdpj8dW3lwe99MQeSgA5E8eVR9EIJVkwhcUGF0lAcjKD5C+05NEQFzpbaipOLHJZWcS5jjZbFl4WNNr/QSvCrExdOkTZVlzmDpOiMvx83/ziwLfTC1wHdHTKhomDVCzZGv7B2q45I0Ipwom+i7PhPqJnQaEgRU/WsjVYwaMzwATWCW8kYUIY2yDWKhqa2W6aGxva8dM36sOpIUdDKHDXCo4v/cAGyFTwX0I3qgsyiFCIZiDTg0paIaTU900z9foh2WGDzbjq1BRgyU7FytXng==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ma5Fa4up0QkmcGeIsq2z3MVyBvtlccLV53+p+nTm0oM=;
- b=Wftyx5ddeHeamvHLJs3wQPAiWyvB/FZ2i9ILKW51N7w4N2iEYtnbNR0oMITihD0tznaoWLIM+FWdkLt+6ggDNGTANMDx8H3jJQcWTSETKZs1a/4t629Y66wzTUz9IE39G7a23hy9YWI2XlKm3nSZ6LyQ3jCMaht9kt0Fg7crOgk=
-Received: from MW4PR12MB6803.namprd12.prod.outlook.com (2603:10b6:303:20e::10)
- by DS7PR12MB6239.namprd12.prod.outlook.com (2603:10b6:8:95::18) with
+ bh=BfWEthK9Wm9I+yLBEyL2r/G35CiirUcqKNTBNpCT8i0=;
+ b=mKdU53BvM7lFhkj52gkPVHSZ+QTR+33mEuVTtovtcjfmeBWVXkDOcI2GhYFdFeVn1QPlkDi/YLlauOOfTOnwZbsODJ+zXFnKCSxNLc4Uyjz3ZBwihQROcr4T1IMd9I9RsvEI7PkKBdB45TH6GgwkUgZbAu1LSp/c6MEgFzPHK3M=
+Received: from CYYPR12MB8729.namprd12.prod.outlook.com (2603:10b6:930:c2::5)
+ by CH3PR12MB7641.namprd12.prod.outlook.com (2603:10b6:610:150::18) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Fri, 23 Oct
- 2026 02:31:12 +0000
-Received: from MW4PR12MB6803.namprd12.prod.outlook.com
- ([fe80::c193:ef2e:260f:dcfd]) by MW4PR12MB6803.namprd12.prod.outlook.com
- ([fe80::c193:ef2e:260f:dcfd%6]) with mapi id 15.21.0546.017; Fri, 23 Oct 2026
- 02:31:12 +0000
-From: "Feng, Kenneth" <Kenneth.Feng@amd.com>
-To: Ilya Shidlovskiy <shidlovskiyilya@gmail.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "Wentland, Harry" <Harry.Wentland@amd.com>
-Subject: RE: [PATCH v2 0/3] drm/amd: fix DCN3.2 flicker/hangs after OD_MCLK
- (VRAM overclock)
-Thread-Topic: [PATCH v2 0/3] drm/amd: fix DCN3.2 flicker/hangs after OD_MCLK
- (VRAM overclock)
-Thread-Index: AQHdYfzpmp0Gc44YuUyNtTXcW7wugbcKZ+Dg
-Date: Fri, 23 Oct 2026 02:31:11 +0000
-Message-ID: <MW4PR12MB6803EF32D2E8C32E163BCB638E642@MW4PR12MB6803.namprd12.prod.outlook.com>
-References: <20261022080925.13994-1-shidlovskiyilya@gmail.com>
-In-Reply-To: <20261022080925.13994-1-shidlovskiyilya@gmail.com>
-Accept-Language: en-US, zh-CN
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.16; Fri, 23 Oct
+ 2026 02:47:42 +0000
+Received: from CYYPR12MB8729.namprd12.prod.outlook.com
+ ([fe80::1f0c:463f:a438:d85]) by CYYPR12MB8729.namprd12.prod.outlook.com
+ ([fe80::1f0c:463f:a438:d85%2]) with mapi id 15.21.0546.017; Fri, 23 Oct 2026
+ 02:47:42 +0000
+From: "Zhou1, Tao" <Tao.Zhou1@amd.com>
+To: "Pan, Ellen" <Yunru.Pan@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Luo, Zhigang" <Zhigang.Luo@amd.com>, 
+ "Wan, Gavin" <Gavin.Wan@amd.com>, "Chan, Hing Pong" <Jeffrey.Chan@amd.com>,
+ "Pan, Ellen" <Yunru.Pan@amd.com>
+Subject: RE: [PATCH] drm/amd/amdgpu: Fix NULL RAS context deref on VF
+ unrecoverable error
+Thread-Topic: [PATCH] drm/amd/amdgpu: Fix NULL RAS context deref on VF
+ unrecoverable error
+Thread-Index: AQHdYZ2X6guqCuyWHU+Z5Uw/H8rYNrcKbcxg
+Date: Fri, 23 Oct 2026 02:47:42 +0000
+Message-ID: <CYYPR12MB87298ABD1401D57924E70A93B0642@CYYPR12MB8729.namprd12.prod.outlook.com>
+References: <20261021204809.204454-1-yunru.pan@amd.com>
+In-Reply-To: <20261021204809.204454-1-yunru.pan@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-10-23T02:26:35.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-10-23T02:45:07.0000000Z;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
  v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
 authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MW4PR12MB6803:EE_|DS7PR12MB6239:EE_
-x-ms-office365-filtering-correlation-id: 4214a7d1-a8fa-4cf0-5415-08df30adb427
+x-ms-traffictypediagnostic: CYYPR12MB8729:EE_|CH3PR12MB7641:EE_
+x-ms-office365-filtering-correlation-id: 9a0e5242-85ed-4142-2bb2-08df30b0027d
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|366016|261021121427099003|10067099003|11063799006|261009223027099003|56012099006|261021123027099003|261022105027099003|261022075727099003|3023799007|22082099003|18002099003|38070700021;
-x-microsoft-antispam-message-info: cb/kp7G7Im7Wif/MC1p03Y+MPmKEm0WEb87r7ADLOIW2nCExZOqTbl1K/LUd2ZbUq5gXIhRHypIAgMpXFbzXslim6OJpAMqDz56A3xpEXYspkTTSSFSxTdhANUiOz9Gvwu3L+vHGOmqCu92bcYJHTC/4jP8O64/5EBWlM51d6MHi+R420ZuFSpthndavGzttB8+jvdMbYqeRa87CaFyCAhA43wJLwfK7DPgmhw2sljmMTcRR50TWEWX/+qx3AZkmC+3hbbRxzgcFaoB7/UWDWLVvwKpKoyk5gB7vjsSYZYojiv4PD86vm/MWtebMv4UUfVgf389DB3oStaqmIW6pvZztQoM3xIO38jTjznLlviCXS/e3v05Z0HtJGMsMourFoiSnWZEJUNBqefs1FWZvtixqn6oZDZsw4ixfCvqYI5BMSRXvsAKDcSsEd2SrHDYEZ1xeMcsM6X1Tz/zwu7n8KQxtuLR/B2u+SYoM2XWFvFi6HTKOM/XGJG1i531o/Fpnw2F0UMtMrav+V1qsh2F9RS5nglFa4AWUE/E/8xxC2FRAqPHAAEE68cLjoYE74mm2EnEH9oKZV7yxULblmn6Saknnfan5OywC3tEhwd9ABDrV3jgBll18cofYzTHwe0Vh26FhKoGQvqBags7wnX9ErW/OdS0yvm0JFG6IvTngk1E=
+ ARA:13230040|366016|1800799024|23010399003|376014|261009223027099003|261021121427099003|261021135927099003|261021123027099003|10067099003|56012099006|261022105027099003|261022075727099003|18002099003|22082099003|38070700021|11063799006;
+x-microsoft-antispam-message-info: V4R57pOlU0iewpj9+C9yMLgclqo/rzhdMfUdKHwvofQ3TDzF1DOAGFWhKW77YxQPofZhBZz7+o+cP58vX3u2HzJmyARJIpP4lVBNrlWLDr8uRxOxixc4NLymCbnQJ3f5rIT5ieE9JxrGdI5nWjjj0WfnKU21UIu1YP0IasybCizffsBBRfKhKjHQP2WU7PsgG0vmNdId0yR7iDXNNrRhxmuxr0Mjv1yYgZvyMNHjR4N9HnL/JyXYRTibDtjdv8PU1i+YLnpxNIohH1d1h1iH5eTNscRIRx9noMDztwAAkOAAsBHctbkdoroVHQQ5haplvxysoU3mO0yxFTRYfzGlo5eLyC8fAM8ypfUny24XXPhaMUqXdVBtx6klcYKQK36KFUAFfR4AkwNVTykLnqXtbTMR0lE+QO3jQXll+2qdb00hoApaLz8Pn28+wo9YOCDHQLliS7O3nNIacEqSm+sBpYN9GLjN49cei2Gc/Gv30Mr+k7daC4vcb8pyRDPchJoMwz7HsUprRny8gA8r8kgYnIVYyrDkpxGjZCtZuY2kpLXo0Utpz03PHlz2J2amC3Eq7DqylZKAtMXwHJa2eKflRAK8962n201eK8p8UoDFzVN/YjVG8sz8+0sTQDbM/c5WNo2N5FyTlxiNWFHD8JjZewe6INDqqV4DR26LWwRvbIVCVHZqL5qQ0ueh4xnDCD1cIrnnjvRKNf42w/dMNZYS4pwlFvqU/rOtVw662fMWZx4=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB6803.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(261021121427099003)(10067099003)(11063799006)(261009223027099003)(56012099006)(261021123027099003)(261022105027099003)(261022075727099003)(3023799007)(22082099003)(18002099003)(38070700021);
+ IPV:NLI; SFV:NSPM; H:CYYPR12MB8729.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(261009223027099003)(261021121427099003)(261021135927099003)(261021123027099003)(10067099003)(56012099006)(261022105027099003)(261022075727099003)(18002099003)(22082099003)(38070700021)(11063799006);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?A6wL+lym132WOW+sc7H2j7fsHwEhS1nRNTQIilQ1aOF7vlRmr/YfHF8zqU8l?=
- =?us-ascii?Q?PtWBg7X7ypCizUgH42a5sSmv770J7i60t/LPxmX2jhcPQ3cg131ZmVr+LxLD?=
- =?us-ascii?Q?75G2TprF6iEqhHybcPF1tuQJAgdN1XK2S0z9jF4sRkagUgVUhw5QGNuyYoVB?=
- =?us-ascii?Q?/clvheNppm7cIPdvjPRnk1aDlpeNaYVfvdesP7isECe/MKcShaviu67i51/n?=
- =?us-ascii?Q?P8Amn/O0QNT8vs5MfBXgR+3JHI5/8K/Mfuk6D99K0WrSUlKDR7BbnI0LMe/A?=
- =?us-ascii?Q?jrQNKVpqRMGIxprT6aCoynVVbt6KYsbIvL+0W06xd9iUchtSpmVt26FE9dEP?=
- =?us-ascii?Q?37dk7RLK8Tna37+TAX91lemG9bemyenSzcyre8JVQhW+xlPbpkCqThn9nU4Z?=
- =?us-ascii?Q?FD8oq9a51gD7BBnSeaMts/S8ujGvyhxe90PZ+meJWvKyGvzRg3UJrR8ZAFVN?=
- =?us-ascii?Q?tquqiOQa4WpMTHtsK6Ak0XFnbTIaFq0I1Yfg9byagMTfzCOhRxTWR5mAwRqm?=
- =?us-ascii?Q?47TlkP0hZiZKHPUndW+UnoXYKCCiVtdNw4IInW0zGwBqsEcbFt/LSO/P93J+?=
- =?us-ascii?Q?pG4R4cfav2lf3HBrKNdQ6plZFXmfJF50rOSapbOfAPWJuQN9a7WB9fgiOo3c?=
- =?us-ascii?Q?Q5wPg8cfmmW6u7AWp4a5e16uwxvjGB99MQgHuvSnz3gI3j96t8biXMJh0HRZ?=
- =?us-ascii?Q?zsiehJ+WLsOAWAzdHO19bVCAVydi4zrb8WfjcnFygyNlAMNiUOOSyd6GqLTB?=
- =?us-ascii?Q?iXdVKWylvRskco9fzyqabP4FMPvqWmb3rSdsM/e0k5AgT7KEiAWB0nXfj5XI?=
- =?us-ascii?Q?1OvNRzb9M0c+d2rF5NMFMuMc0s81CuTIcxG32/WwLPpGJ/p3JJXgMUK+ix22?=
- =?us-ascii?Q?QxfqESxpx+5Pcx96WJ5ykS8+t7RkpfBZdp1WXQix1zN4vZRjMr0y0OIqP1Vz?=
- =?us-ascii?Q?iMLSM1CEdX+YhFQTi2dBJdU1aOi2iPc+SbIqmAzfrXyTHJBDOzh1QhWbzuao?=
- =?us-ascii?Q?i+jCZDYODHLGTLXqvQi3bzeypWYwef9UGEQk9agq/I5LHK6D+zcmaFA6tKtX?=
- =?us-ascii?Q?K5ifbBElR/NIraRT2muwXYcjlfRqx48/ljnBgrWbI1JuKb9O01O8W60JjXqL?=
- =?us-ascii?Q?OQ8CZUgE39q/J5CU9GPda6a7sH8mhjuN46BG7ptlHS62xiqQ9ss6Ce8Y//Rv?=
- =?us-ascii?Q?FvIUKMDftIUhlUR6EY5yxomsoYVMghkoZKsJk7Zfb5s7dlzeCO8ihdXCs1t3?=
- =?us-ascii?Q?cHW00mFwdxoTVfYj2gleP6RzKcVZ54xFrb1g6Y5YaPpgovuA44cKnrkjCr4A?=
- =?us-ascii?Q?QTphlcyMjvrnrM9GtFcx0tUOxvTZwudDyJJd7tPSJ0XJdj1/ggTWhiOcEjiM?=
- =?us-ascii?Q?5waFpmhOWOCjwbmKQJ0S/DAq5RYL0HQIWq6+5FWyPqlRnYk4N5kmvqkO8l4M?=
- =?us-ascii?Q?GOxyYWb9+QU88zlvAk8oknx8vUv9tA45ZobrjqFgSUbzebk1TmtRv9qoJJEk?=
- =?us-ascii?Q?7lfthU0ry8bFWwIxqPfzYtedqc/YAt+Vd/cnVgOWMxaETYH7NAst1j0DFr2V?=
- =?us-ascii?Q?VLJ/rgVkysVcdU0pITkeoZ1+XKgeBTqD5YBBi3Kiq6QbRMeB8zxYgJtDWJWT?=
- =?us-ascii?Q?LMAqyrN6qVS0R/ZIFrV/SlppSwd7Wane6DOjQC3bdpmjz+hrJQPMrMbRht4s?=
- =?us-ascii?Q?VhwgYCJk2XscXJFRA9UNN7QO0xD2GqR5qAp1esD8OK+eVWYE?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?WXHA1lN2nuBtDyBmmR7yCVsCMJkjVd8ridlC20J2Li7Qdcxzlb4piazsLKIF?=
+ =?us-ascii?Q?jbpehoADnzKWmy8N3qzyJ7UPic9tIL4cW6CRYa9q0jUZcc62FZoiyqAfZoC+?=
+ =?us-ascii?Q?oMtd6Vo20sDhYrqETh4GZLSPk+zP/9ioFHmgDU0qBXjJ1E7qbNYoxOi3Gt29?=
+ =?us-ascii?Q?wrypnCKi9Zg1AWx4byhC6q34GZUQaLYD2uwvUmBxIF7+XQRZXU47/Y63ZdGa?=
+ =?us-ascii?Q?gbl8Cqr1kGZ47sbwVEhbNzHV8HMje8jDYPzIs6XUS+ZBLgAshME6s4zZQvO6?=
+ =?us-ascii?Q?91Ke8pcrg9tJIiwrvP91DJTk3kB0amn7z1pfFGrL+b5StDGrOstTFgrSW3Zk?=
+ =?us-ascii?Q?fg2EOHql8jUsG5M+whostwPm9WRCaDjiVMql1YINxJlyeEi0diTX8b+4/o17?=
+ =?us-ascii?Q?SLVkGOp10xHze/YPbsq8yIxAo0HPZQ6c+U9/Y55jkYhtZf8vf4XQvWsIfXvW?=
+ =?us-ascii?Q?nJXXnGXCOLHkhp0CHpZFMpp7SR6lVRNtu42PuSmZ1j1wR8Px4Yq6IB9sZ/mu?=
+ =?us-ascii?Q?HpRJuZkSpzENMHENKuWEhWvQKZkvvmAVfzozb9BQcFZ8ZHcxo5A8s4qva9pV?=
+ =?us-ascii?Q?KijpRp5qYyytqJBxHpi2ZtHdJxVzNBwwSQJaeNd53LNWI1GbkFNKnULURZ5P?=
+ =?us-ascii?Q?qoXEOlvHaW+8g0UokjnfLiEue0HmbVlO2XZoiSWdkuy+2RiFupwaMjTkRwAG?=
+ =?us-ascii?Q?wQ6pMlFAcTlBWBpXm6B0Q6J/kGR44V0R+w4lcnGErIXBrDPbt7uKtlLumVW6?=
+ =?us-ascii?Q?g094d4ZAcHHCOSERRNcxEWr46Jf3E81hXI5FmcZRzZz/GSvknTe2t+VBoQB4?=
+ =?us-ascii?Q?cqHExT6cTzeinWJa8xIhT8truUD/vwXY8E8efXmg/NlmUx3HXGtliowQxI0h?=
+ =?us-ascii?Q?6KAx6vLi6hsqzIcxm8OI1CkTSt/UJeYcUDqd29MwezlIBtUaaJQHw5Q90byB?=
+ =?us-ascii?Q?cCZMuSzOGTKYnUDReQ7MvOlJAZy/S8459E67Krw30h27Trp3GJoA/FLIhIeK?=
+ =?us-ascii?Q?8tt1yQw3ZRPTdP7bZqSUABUohZG2o3m5DEcOzhZADPj/JTkhTobHEUOQl/Kq?=
+ =?us-ascii?Q?dxMyT3jnOOPmcpBMPwGEpFmFx9hiN97GrkR9V/XYcGMH3ZvR1xhrK+sAIKFB?=
+ =?us-ascii?Q?14Ewdr/7rIuQCvafxL0eWjDKJawNfM/JZyrrcXF/SnuoCl1yKH6GUFj/NxXf?=
+ =?us-ascii?Q?HQZsji5BNfkhDHKy6nZMCo9XQVp2WZee2MbOgbftgxRPylFWcTvleUPPfrKN?=
+ =?us-ascii?Q?cFpEw9aj+uX4PnsZE7/jiFsipCNMaHS8D6KgGUbRmTscwvxTQbAo3qZCKkUl?=
+ =?us-ascii?Q?k3VaEQzP5nx/OMUloHfzQ4qF4nx5V8ggHyi3q/HAECEphsy1BZvZQQEFaR7Z?=
+ =?us-ascii?Q?nQRutQQilleEWfWEsHTZUlYHFU/xNvruRyuTqGYWWJpV0KECRkgeUSO4HdEw?=
+ =?us-ascii?Q?HN7X/A29mlXpGRCtQl8auwd/eb/SH+GVLWBz9yD0p+c/29wdy2lSigat8htl?=
+ =?us-ascii?Q?HUureIT3Rd4xv1JtDBQj/lamU8Dy+R1YubgDIRuuzf4mYWyhETQRzRV5z622?=
+ =?us-ascii?Q?NWRSeitdM9wx+6gsVPtTMgezcgwvQLMIUqidgTwk3vwMM7mtw5fPs9qvzs5N?=
+ =?us-ascii?Q?MF5TG8Ke2GM6tV4shtcyAE8TbYv7fPZo/OFr3nwyM6eFCouxUgBMz4hYoujg?=
+ =?us-ascii?Q?anyMbHgRDNT33CYIb3Kys8M+1f03PeX6b0qTG4ySglxlcjKQ?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6803.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4214a7d1-a8fa-4cf0-5415-08df30adb427
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Oct 2026 02:31:11.9542 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: CYYPR12MB8729.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9a0e5242-85ed-4142-2bb2-08df30b0027d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Oct 2026 02:47:42.3297 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: bX8PJIflf5dJhgX+vkGVfSmhrda+H63s5uRbQCdLztFqTId0UdXqsRLgjZ5ctxDw
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6239
+X-MS-Exchange-CrossTenant-userprincipalname: m6VTGkAMV0vyfvP5Rb7r8I6BrOQ7xNjgN5txKDm30g14yHUy+yx3K3dazvJDfSFQ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7641
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,123 +139,197 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 AMD General
 
-Could you also please confirm this series is rebased on the below two commi=
-ts?
-commit 5cd40ce699014025614140294b8e3b7a847e6472
-Author: Kevin Wang <kevin.wang@amd.com>
-Date:   Thu Oct 15 14:02:09 2026 +0800
-    drm/amd/pm: preserve committed OD features for SMU 13.0.0/13.0.7
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Ellen =
+Pan
+> Sent: Thursday, October 22, 2026 4:48 AM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Lazar, Lijo <Lijo.Lazar@amd.com>; Luo, Zhigang <Zhigang.Luo@amd.com>;
+> Wan, Gavin <Gavin.Wan@amd.com>; Chan, Hing Pong <Jeffrey.Chan@amd.com>;
+> Pan, Ellen <Yunru.Pan@amd.com>
+> Subject: [PATCH] drm/amd/amdgpu: Fix NULL RAS context deref on VF
+> unrecoverable error
+>
+> A VF has no RAS context when RAS isn't supported on it or before RAS is i=
+nitialized
+> during probe. Handling UNRECOV_ERR_NOTIFICATION in that state dereference=
+s
+> a NULL amdgpu_ras pointer and panics the guest.
+>
+> The fix is to track the notification in adev->virt.unrecov_err instead of=
+ the RAS
+> context, and amdgpu_Ras_is_rma() checks that flags for VFs. Once the flag=
+ is set,
+> mailbox reqs fail immediately with -ENODEV and GPU recovery bails out. If=
+ the
+> notification arrives during probe, probe now fails cleaning instead of pa=
+nicking. If it
+> arrives during unload, unload completes without accessing the HW.
+>
+> Signed-off-by: Ellen Pan <yunru.pan@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c  |  3 +++
+> drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h |  3 +++
+>  drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c    | 15 ++++++++++++---
+>  drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c    | 23 ++++++++++++-----------
+>  4 files changed, 30 insertions(+), 14 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> index 557baca454a9..8349b86ab932 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> @@ -4925,6 +4925,9 @@ bool amdgpu_ras_is_rma(struct amdgpu_device *adev) =
+ {
+>       struct amdgpu_ras *con =3D amdgpu_ras_get_context(adev);
+>
+> +     if (amdgpu_sriov_vf(adev))
+> +             return adev->virt.unrecov_err;
+> +
+>       if (amdgpu_uniras_enabled(adev))
+>               return amdgpu_ras_mgr_is_rma(adev);
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> index a2c1aa838737..4a30306a387d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> @@ -358,6 +358,9 @@ struct amdgpu_virt {
+>
+>       /* hibernate and resume with different VF feature for xgmi enabled =
+system */
+>       bool is_xgmi_node_migrate_enabled;
+> +
+> +     /* PF reported the VF unrecoverable */
 
-commit 5a3833e7dd532ac02b4747d1b0d717dd49e87aa6
-Author: Kevin Wang <kevin.wang@amd.com>
-Date:   Thu Oct 15 14:02:31 2026 +0800
-    drm/amd/pm: preserve committed OD features for SMU 14.0.2
+[Tao] you can update comment to clarify that vf maintains rma status by its=
+elf, with this fixed, the patch is:
 
-These two commits have the related code modified for another issue.
+Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
 
-With this confirmed, Series is Reviewed-by: Kenneth Feng <kenneth.feng@amd.=
-com>
-
-Thanks.
-
-
------Original Message-----
-From: Ilya Shidlovskiy <shidlovskiyilya@gmail.com>
-Sent: Thursday, October 22, 2026 4:09 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Ilya Shidlovskiy <shidlovskiyilya@gmail.com>; Feng, Kenneth <Kenneth.Fe=
-ng@amd.com>; Li, Sun peng (Leo) <Sunpeng.Li@amd.com>; Deucher, Alexander <A=
-lexander.Deucher@amd.com>; Wentland, Harry <Harry.Wentland@amd.com>
-Subject: [PATCH v2 0/3] drm/amd: fix DCN3.2 flicker/hangs after OD_MCLK (VR=
-AM overclock)
-
-[You don't often get email from shidlovskiyilya@gmail.com. Learn why this i=
-s important at https://aka.ms/LearnAboutSenderIdentification ]
-
-On DCN3.2 (Navi31, RX 7900 GRE here), raising the UCLK max through OD_MCLK =
-makes the display flicker (full-width stripes) and eventually hang the whol=
-e system, if the current mode does not allow memory P-state switching. DC r=
-eads the UCLK DPM levels from PMFW only in init_hw, so after the OD commit =
-it keeps asking for the old top level as UCLK hard min ("set UCLK min =3D m=
-ax"). That is no longer the top level, so PMFW switches UCLK outside of vbl=
-ank.
-
-The series makes DC re-read the UCLK levels (bounding box and WM ranges
-included) after an OD commit/restore that changed UCLK, and on resume after=
- the user OD settings are restored. It also refreshes the SMU driver's UCLK=
- DPM table, so pp_dpm_mclk shows the real levels.
-
-Bug report and review of v1: https://gitlab.freedesktop.org/drm/amd/-/issue=
-s/6009
-(v1 was posted there as a comment, not to the list.)
-
-Changes in v2:
-- Only act when the user has customized UCLK (user_od_feature_mask &
-  PP_OD_FEATURE_UCLK_BIT), instead of on every OD commit (Kenneth).
-  PP_OD_FEATURE_UCLK_BIT is ASIC specific, so the check is done in the
-  smu13.0.0 code, which sets a flag that the generic code reads.
-- The SMU patch now comes before the DC patch, which depends on it.
-- Rebased on amd-staging-drm-next.
-- Added Leo's ack for the display parts.
-
-Testing:
-v2 is build-tested against amd-staging-drm-next. The hardware test is on an=
- equivalent backport to the Ubuntu 7.3.0-9 kernel (same code, plus a small =
-local backport of the user_od_feature_mask tracking, which Ubuntu
-7.3 does not have yet).
-
-Hardware: RX 7900 GRE (Navi31, SMU 13.0.0), 5120x1440@144 (DSC, ODM 4:1)
-+ 2560x1440@100, UCLK OD max 1124 -> 1300 MHz, toggled via LACT.
-
-v1 results:
-- On OD commit, DC logs the new max UCLK (1300 MHz). pp_dpm_mclk shows
-  1300 as the top level, and the current level stays at 1300 (20/20
-  samples, no drops to 772).
-- About 4 minutes of heavy window switching on the 5120x1440@144 output:
-  no stripes, no hang, no amdgpu errors.
-- 3 OC on/off toggles: one short flash exactly at the switch (memory
-  retraining during scanout, expected), then clean.
-- Same scenario with the stock module: stripes, then a full system hang.
-
-v2 results:
-v2 hardware test (same RX 7900 GRE, 5120x1440@144 + 2560x1440@100; v2 backp=
-orted to the Ubuntu 7.3.0-9 amdgpu, LACT applying power cap / voltage offse=
-t at boot):
-- boot and login with stock VRAM: no "DC memclk states refreshed" at all, s=
-o
-  non-UCLK OD commits (power cap, voltage offset) no longer touch DC; the
-  short login flash seen with v1 is gone;
-- VRAM OC on (OD_MCLK 1300): exactly one refresh, "max UCLK 1300 MHz";
-  pp_dpm_mclk top level 1300 and current level 1300 (12/12 samples);
-- VRAM OC off: exactly one refresh, "max UCLK 1124 MHz";
-- desktop stays clean, no stripes, no hangs.
-
-Known limitations (unchanged from v1):
-- The OD commit itself still happens during scanout, hence the single
-  flash at the switch.
-- Only DCN3.2/SMU 13.0.0 is handled. Other ASICs with OD_MCLK probably
-  need the same hook in their ppt code.
-
-Ilya Shidlovskiy (3):
-  drm/amd/display: dcn32: rebuild WM range table when memclk states
-    change
-  drm/amd/pm: smu13.0.0: refresh the UCLK DPM table after an OD_MCLK
-    change
-  drm/amd: let DC re-read UCLK DPM levels after an OD_MCLK change
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 33 +++++++++++++++++++  ..=
-./gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  6 ++++  .../display/dc/clk_m=
-gr/dcn32/dcn32_clk_mgr.c  |  8 ++---
- drivers/gpu/drm/amd/display/dc/core/dc.c      | 21 ++++++++++++
- drivers/gpu/drm/amd/display/dc/dc.h           |  2 ++
- drivers/gpu/drm/amd/pm/amdgpu_dpm.c           |  7 ++++
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 19 +++++++++++
- drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  3 ++  .../drm/amd/pm/swsm=
-u/smu13/smu_v13_0_0_ppt.c  | 33 ++++++++++++++++++-
- 9 files changed, 127 insertions(+), 5 deletions(-)
-
-
-base-commit: 77f548b127c6de34ce271fa09ba270cb1ef9f2da
---
-2.55.0
+> +     bool unrecov_err;
+>  };
+>
+>  struct amdgpu_video_codec_info;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
+> b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
+> index fec08f235b92..4dcfa256c9e1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
+> @@ -98,6 +98,16 @@ static int xgpu_ai_poll_ack(struct amdgpu_device *adev=
+)
+>       return -ETIME;
+>  }
+>
+> +static void xgpu_ai_set_unrecov_err(struct amdgpu_device *adev) {
+> +     if (adev->virt.unrecov_err)
+> +             return;
+> +
+> +     adev->virt.unrecov_err =3D true;
+> +
+> +     dev_err(adev->dev, "VF is in an unrecoverable state. Runtime Servic=
+es
+> +are halted.\n"); }
+> +
+>  static int xgpu_ai_poll_msg(struct amdgpu_device *adev, enum idh_event e=
+vent)  {
+>       int r, timeout =3D AI_MAILBOX_POLL_MSG_TIMEDOUT; @@ -345,7 +355,6
+> @@ static int xgpu_ai_mailbox_rcv_irq(struct amdgpu_device *adev,
+>                                  struct amdgpu_iv_entry *entry)
+>  {
+>       enum idh_event event =3D xgpu_ai_mailbox_peek_msg(adev);
+> -     struct amdgpu_ras *ras =3D amdgpu_ras_get_context(adev);
+>
+>       switch (event) {
+>       case IDH_RAS_BAD_PAGES_READY:
+> @@ -360,8 +369,8 @@ static int xgpu_ai_mailbox_rcv_irq(struct amdgpu_devi=
+ce
+> *adev,
+>               break;
+>       case IDH_UNRECOV_ERR_NOTIFICATION:
+>               xgpu_ai_mailbox_send_ack(adev);
+> -             ras->is_rma =3D true;
+> -             dev_err(adev->dev, "VF is in an unrecoverable state. Runtim=
+e
+> Services are halted.\n");
+> +             xgpu_ai_set_unrecov_err(adev);
+> +
+>               if (amdgpu_sriov_runtime(adev))
+>                       WARN_ONCE(!amdgpu_reset_domain_schedule(adev-
+> >reset_domain,
+>                                       &adev->virt.flr_work),
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
+> b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
+> index eb537b2ae685..3062f1506760 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
+> @@ -103,11 +103,20 @@ static int xgpu_nv_poll_ack(struct amdgpu_device *a=
+dev)
+>       return -ETIME;
+>  }
+>
+> +static void xgpu_nv_set_unrecov_err(struct amdgpu_device *adev) {
+> +     if (adev->virt.unrecov_err)
+> +             return;
+> +
+> +     adev->virt.unrecov_err =3D true;
+> +
+> +     dev_err(adev->dev, "VF is in an unrecoverable state. Runtime Servic=
+es
+> +are halted.\n"); }
+> +
+>  static int xgpu_nv_poll_msg(struct amdgpu_device *adev, enum idh_event e=
+vent)  {
+>       int r;
+>       uint64_t timeout, now;
+> -     struct amdgpu_ras *ras =3D amdgpu_ras_get_context(adev);
+>
+>       now =3D (uint64_t)ktime_to_ms(ktime_get());
+>       timeout =3D now + NV_MAILBOX_POLL_MSG_TIMEDOUT; @@ -119,11
+> +128,7 @@ static int xgpu_nv_poll_msg(struct amdgpu_device *adev, enum
+> idh_event event)
+>                                       event,
+> NV_MAILBOX_POLL_MSG_TIMEDOUT - timeout + now);
+>                       return 0;
+>               } else if (r =3D=3D -ENODEV) {
+> -                     if (!amdgpu_ras_is_rma(adev)) {
+> -                             ras->is_rma =3D true;
+> -                             dev_err(adev->dev, "VF is in an unrecoverab=
+le state. "
+> -                                             "Runtime Services are halte=
+d.\n");
+> -                     }
+> +                     xgpu_nv_set_unrecov_err(adev);
+>                       return r;
+>               }
+>
+> @@ -453,7 +458,6 @@ static int xgpu_nv_mailbox_rcv_irq(struct amdgpu_devi=
+ce
+> *adev,
+>                                  struct amdgpu_iv_entry *entry)
+>  {
+>       enum idh_event event =3D xgpu_nv_mailbox_peek_msg(adev);
+> -     struct amdgpu_ras *ras =3D amdgpu_ras_get_context(adev);
+>
+>       switch (event) {
+>       case IDH_RAS_BAD_PAGES_READY:
+> @@ -468,10 +472,7 @@ static int xgpu_nv_mailbox_rcv_irq(struct amdgpu_dev=
+ice
+> *adev,
+>               break;
+>       case IDH_UNRECOV_ERR_NOTIFICATION:
+>               xgpu_nv_mailbox_send_ack(adev);
+> -             if (!amdgpu_ras_is_rma(adev)) {
+> -                     ras->is_rma =3D true;
+> -                     dev_err(adev->dev, "VF is in an unrecoverable state=
+. Runtime
+> Services are halted.\n");
+> -             }
+> +             xgpu_nv_set_unrecov_err(adev);
+>
+>               if (amdgpu_sriov_runtime(adev))
+>                       WARN_ONCE(!amdgpu_reset_domain_schedule(adev-
+> >reset_domain,
+> --
+> 2.43.0
 
