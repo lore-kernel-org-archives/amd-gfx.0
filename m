@@ -2,126 +2,96 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCF3D606A31B
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Oct 2026 18:26:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDDE2606A31A
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Oct 2026 20:35:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=BZknUaE9
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=T66GljHM
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A02510E50A;
-	Fri, 23 Oct 2026 18:26:45 +0000 (UTC)
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011006.outbound.protection.outlook.com
- [40.93.194.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E44110E50A;
- Fri, 23 Oct 2026 18:26:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7107210E2DE;
+	Fri, 23 Oct 2026 20:35:25 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012015.outbound.protection.outlook.com [52.101.43.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 456E410E2DE
+ for <amd-gfx@lists.freedesktop.org>; Fri, 23 Oct 2026 20:35:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qsykA2iR6eSDRK0+PBa7v2m5WXyVm3UL9sdfT0JfLXBuhL61Mg+hFYDzbQi7aXDJhu8F6NHzkMrXNRGtmcagzXeNNxwlu4YFrYhSKd+2Nt4CcVBwMsUGL1yFL4lFopSQc6VboqvJDhZ+LyWo4Gl7Qt2Gq8bE1rxvtG3H/JCM6x+ACpYixgpVh1BwrZHAYrcAjVyPeJ6JiVCKz7MQhIu6DO8IxoBz1kmClYgIEtDkC+4VTobUlHzjjGi65oIx+mwrLgB2cJF3BOvk9ubKY6xP78ifD705MErrYAvhL4CNR0hv8mLbGds+FYwDJtGsupUy4Vye0/31BHbO3ha3aJP5bw==
+ b=sDYFrpd7ayElNj6TMYfYI8W/8lCH5Nc9oF9uW/ebWi11mZAU+YNu7oi83E9s8aUUoqD9ZO2/FgPWr5ESBrcw2lzFOqRVHLP3V/1sp4RSZ5RVsmKS6CIn7Qu5fOX4+cGYv7qMnj31l38N3xDmn9snL/t+Tu9zFkXt3NQVRQn/zkRJ203msiEoMLghKhH2DA37K/QywEbpjmEc47oBhr3VLZ0yEuZ+poeE0zBTuq4dAeUVnk8CAqUBkVjoqgjXCSPfWQAY9sAFjsRvYq7nDvaB9e80GYf7gaUKDy3uZox19T3kC9NC3UdBOKHlRpVlH9izoI2CU4DUS63pdcmGNCxttQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Bq0Q6xx4U3IJnSIsof3zoEc10hR/y9i3Dq6P/zbAl4s=;
- b=JExjSa32zMvY4GiKnAhDeSgLFuMUtdLWhUvzGJV4poXwT21NCvoL3+/IELrGZch4JLu+EO2BhgAFnvr0VIc6Px8FU3oDCOP9BNqNP00/23NIWq+S0Cv0soZ78SRDjhbrcxQLkttOCI1iOPX2JFWooh+Au8Goxo8XqOYSJSAUfcvetQcTCtNbtwKJAsczL/PsT/Ll/tk2EgYMlvL/VBbJ2snDpkF+P0i9yZCgyvhu82t+gzcJZnLD5bx4WM32KZgQiIYhxgB1hDu19P1+VWKkeEdvwWejXtdGB9BGuug7s2aoOhXmZKorvgSZdf0pKNQQeDi8Szw02xXoM/b7O7aNWA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=dB47nuqyBafAf6vk3uImEfv6hEc+Z/LctShPdfYKXfo=;
+ b=IsNm/k0yir/SuXouM/TOlaMvLT/XTii3SM5ALRAVNA7gZAw8aJCEyyvQ+7d9U9QWgg76mPJYJgeB7N3RR2SM7IIGSAkYXtwmFDo/Xh7goan4tsWt4hcCydj7ZqKE+qPSBLsMdWROpPGw0zKBkdtaRenl8ruD5f/3naBq0OCOUsdH9M2Z32zWsESHuts4MqBBJtaX+URiKOhXHq8ziCFxIUGwkxUih2Ov0giOj887ACaqEpT6z2qejfOnFDtUuP+tNlxRn6gd/UfYqTR95nMlHmyL1bMP7cUgdZUm3fgjN746EW+wVE1azcDk5BcIikxnEW5ZXDZWLGX9qvEXdheWsw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Bq0Q6xx4U3IJnSIsof3zoEc10hR/y9i3Dq6P/zbAl4s=;
- b=BZknUaE9Ag9nUOTkNZG6TAwwHG8XeDo1pVnwWmI8TM+RFCeGyAKO7FXN0NLy8asGVYI/4lpONVX9kc2I1pIJo8HiZcs6ZIHYnHpIL48BV7J+z6UqAylyo5JkFJe6EIzUjnT91ktSkLyioPPzwLOsmzJa0vAYTAcbkPDfnutbXP4=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SJ2PR12MB9189.namprd12.prod.outlook.com (2603:10b6:a03:55b::15)
- by CH3PR12MB9024.namprd12.prod.outlook.com (2603:10b6:610:176::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.17; Fri, 23 Oct
- 2026 18:26:32 +0000
-Received: from SJ2PR12MB9189.namprd12.prod.outlook.com
- ([fe80::7923:8cd0:a2d8:ac7e]) by SJ2PR12MB9189.namprd12.prod.outlook.com
- ([fe80::7923:8cd0:a2d8:ac7e%5]) with mapi id 15.21.0546.016; Fri, 23 Oct 2026
- 18:26:31 +0000
-Message-ID: <74c73b6f-a6b3-4652-8da1-b5c46ae58809@amd.com>
-Date: Sat, 24 Oct 2026 02:26:26 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/amd/display: Fall back to the native mode, not
- the first, on eDP/LVDS
-To: Hugo Sales <hugo@hsal.es>, amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- alexander.deucher@amd.com
-References: <20261014223041.171317-1-hugo@hsal.es>
- <20261014223041.171317-2-hugo@hsal.es>
-Content-Language: en-US
-From: "Chung, ChiaHsuan (Tom)" <chiahsuan.chung@amd.com>
-In-Reply-To: <20261014223041.171317-2-hugo@hsal.es>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: TP0P295CA0058.TWNP295.PROD.OUTLOOK.COM
- (2603:1096:910:3::17) To SJ2PR12MB9189.namprd12.prod.outlook.com
- (2603:10b6:a03:55b::15)
+ bh=dB47nuqyBafAf6vk3uImEfv6hEc+Z/LctShPdfYKXfo=;
+ b=T66GljHMd/nf7YaHgaCswBiaLNl6UbfUwoILPF/biHD7rs/7fq+UnlJk4GldYvZfCF3SxxHsuvhVdzuSFiD5nwewxs16ZrD7w66eD63vOsIMC+6WzREdbPpctGYXD6SOcXxSpAinvhaOltXbA5nOjKW1LbJ02AXSJVWvhNY1xqc=
+Received: from SJ0PR03CA0114.namprd03.prod.outlook.com (2603:10b6:a03:333::29)
+ by DM6PR12MB4329.namprd12.prod.outlook.com (2603:10b6:5:211::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.19; Fri, 23 Oct
+ 2026 20:35:11 +0000
+Received: from CO1PEPF0001886A.namprd03.prod.outlook.com
+ (2603:10b6:a03:333:cafe::71) by SJ0PR03CA0114.outlook.office365.com
+ (2603:10b6:a03:333::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.16 via Frontend Transport; Fri,
+ 23 Oct 2026 20:35:10 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CO1PEPF0001886A.mail.protection.outlook.com (10.167.249.155) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.4 via Frontend Transport; Fri, 23 Oct 2026 20:35:08 +0000
+Received: from Philip-Dev.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 23 Oct
+ 2026 15:35:06 -0500
+From: Philip Yang <Philip.Yang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <Felix.Kuehling@amd.com>,
+ <Mukul.Joshi@amd.com>
+CC: Philip Yang <Philip.Yang@amd.com>
+Subject: [PATCH v6] drm/amdgpu: UALink add debugfs selftest
+Date: Fri, 23 Oct 2026 16:34:47 -0400
+Message-ID: <20261023203447.2075707-1-Philip.Yang@amd.com>
+X-Mailer: git-send-email 2.50.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB9189:EE_|CH3PR12MB9024:EE_
-X-MS-Office365-Filtering-Correlation-Id: 42cd7054-b856-4c70-d8b4-08df31332959
+X-MS-TrafficTypeDiagnostic: CO1PEPF0001886A:EE_|DM6PR12MB4329:EE_
+X-MS-Office365-Filtering-Correlation-Id: 84d57bbc-b316-4bf8-fd69-08df31452133
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|366016|1800799024|4143699003|11063799006|56012099006|261021135927099003|261009223027099003|261021121427099003|10067099003|18002099003|22082099003|261022105027099003|261022075727099003;
-X-Microsoft-Antispam-Message-Info: Ar4tGYBOuh6/Uc/3HRM0aZxo9QUtS+QOVFkS1oSoZcIsJwLnp2a61DMjVmyqiOmAjp9umxMeEQqx44mjQVThbbXxfOO6ZfyCuV9qCcYHCv6MpM4rbW0baXWNH8aoIIZJYdlK38VD7xNHXJ7u0dAE6D/iJcFWwCtqf6y4GbOg6MtXoZf5eaZHchkjH295dd72DRK9Fh+tgNBQhCgO4rEVhBS7b7o3Vjoea1RdPNvD60IdwjxRSaJshevPv7ch1teJC7PQrlCGZjMHmCd2i/4WM1Q3AmKLTrQTtIkISk8Mbt5hKFWSK3lOO9jTcjSZycFB13Kv13CPYQwnJCibGS2Hs/TB1OMi4cDEyfSMK0qwckAGOi4H3S/BfQvjKV1gGH6XKWF6E0B9rdZBFHB/Y641Ui7Exz+nc9yAJxPaxP71E4X+i2jA1kbKRnX3tw6KEOEG8Cu3YVsdLbcjPJSl8wkuHjbuzZF89B7w7VuyHJVFApG7lVofrgC3Tzmcnazuan4WdUtBxEki6yNouN0MwSeep3UfGxv1o36VYE8hw1SASzyfe/dN1cyH5f+U7uDkumkgKewEic6YcT1zj8+rnauJUrdLq5pdHUw0W19pCYgVLn0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ2PR12MB9189.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(4143699003)(11063799006)(56012099006)(261021135927099003)(261009223027099003)(261021121427099003)(10067099003)(18002099003)(22082099003)(261022105027099003)(261022075727099003);
+ ARA:13230040|36860700016|23010399003|376014|1800799024|82310400026|261009223027099003|261021133027099003|261021123027099003|261021130227099003|261022113327099003|261022105027099003|261022075727099003|261021121427099003|261022115727099003|261021135927099003|10067099003|56012099006|3023799007|6133799003|18002099003|5023799004|11063799006;
+X-Microsoft-Antispam-Message-Info: QXt1F2DUSJKs6/n2FYxkB1SrAWj26uOxVK7mGfxdol2CVJU6oXCXmVO2vSZ/O0fj00hMksixOd0aDPLWQTpFMlEXdlr/wHLTCsSxGH/paIyNT0FuQCVQ/XK6g9/3P1CPxjhIXLTdgqFcOIGMgCFW/wsLQIySqll7oZIBFRtb4tPXumZFbRh2V5HvZbSOoPSSpGbSBNLcS36aZoxVL2IxZi2pUZ5+j/AFl8B/9qiEtL4Dh/oiJej9s89cZ8NpQvmCqZeKvD2Nem6VsfIvj/KnAPIbpb2+X8LKvuf/43CRTLcfIBrKOXc1jgkeI3SSaTcz8vIdoeX8N/PjP8BypcTKeG0ELYiWZubvXR/aeCPuuVI23VVPfue45F0vK3g+9QsHo8XE/e2eJ1T6qUrajkada/erAkMDD07MWabeLVn3LqVKVAy3mKmwQFdpztXXefSbsfaVMSGr8111yR2k29NlgbPvzKR9+cG1XSsouEekXn3h3M/VKFt8KFFokVcXjqvCWnRA4IFAqaRcpOXW/QKU+H/vs9otnbWXV27R1ptc96ERP4s7KoXuh0pPLbheocns324MXA4n1Y+SThU1MgPi+djn+puVX3Ns81CFfaMGG59q1eKZhiPlyq4Z9TOkx1qiaEZSWTRqdp74FBI+WRCj+tZPloqfIfLG5Rapeen8q/crGos/5d0pFtZPin2eXaqm6FYnoxC7n8utsXNVQrpdng==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(23010399003)(376014)(1800799024)(82310400026)(261009223027099003)(261021133027099003)(261021123027099003)(261021130227099003)(261022113327099003)(261022105027099003)(261022075727099003)(261021121427099003)(261022115727099003)(261021135927099003)(10067099003)(56012099006)(3023799007)(6133799003)(18002099003)(5023799004)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OFJEYTFoZG9obnFQRVgveSt5NE4vUHNrSUlJY0x0ZjRFc1IzUFBoMzI3VUVn?=
- =?utf-8?B?WlZYSUhVNFFhU0NNSFRWYjFpU1djV1F3YktrV3ZUWDFDSnA1YnllRVdScGlT?=
- =?utf-8?B?T0JySEJxQ09FVURRRmpjd1g4aVBzaEIwNFQwMkV4M3JWZDJycHFpa29nR29Q?=
- =?utf-8?B?UmFFSlBHN1AyeXFSYnNpcDdvNjdTUWJqMG5YYWJMdHI2SVkxNXI4YXFlcUdx?=
- =?utf-8?B?ZHhHYndYUXNYekc0c2Q5TjdBcytyWFVjUklJcHNmbVdyMzE5YXFtUDl0aXpO?=
- =?utf-8?B?OFMyZ0hCMHd4VVBVWlJOUFliS00yODdkOFE0alNubFRTaGk3amNFNitHbDVv?=
- =?utf-8?B?ZGsweFZSNkR1SGx3Ukt4amlYa0ZmSXZjRi80QXF2bFBobVh6UlpxYWRpVWo0?=
- =?utf-8?B?dTlhSzlBQUVaZ2xxT2JSYnVWSEpiZ0REZjd0VzVEODJGOFR5NjBHZ2ZqMk5z?=
- =?utf-8?B?NGZrMFFPUzFLblQ3T3J3dFFNNURiaXQ3RWFrVVlhUitqd0ZLSUMzSnEyNUhZ?=
- =?utf-8?B?dlpkNzl2SjlreHhlVEtYSjRIcVVLbjh6dDVqYWJkSjBiK2FYWmhGSGtvcUtP?=
- =?utf-8?B?eFZ6RXVxZER1cEZVallBK25XSTNNQlZYbHRUbnk5VTNQWjNGQ0IyRGtBMjhn?=
- =?utf-8?B?T2VXUnVvdHhZNUU5aWpFeEkyZjkzWWhkelMrajZaOGlRMW1BZSt0MEs0WlZr?=
- =?utf-8?B?bVg0V2tLeWc2b2V6a0YvL2tXb1pkY1c4bE1JVC9POGZ0OFhIc3QydEp4aEpy?=
- =?utf-8?B?K2YyVkh0TzN6SmIwWVZ2S0dQN2ZoaXhpQVg3YVFNVkN0VjhVOSs5ZENVditu?=
- =?utf-8?B?ME80U2pTVHlsdEVQN3RZSmdiUWtzakxFQ3hwVm1zWlQvRkFaOXVJMnV5eUgr?=
- =?utf-8?B?enhrSk5qUmNYM3U2TndKWXJkZHVpMDVORkFlMXJZSmw0QksyTDdYMmZsbXU4?=
- =?utf-8?B?TmRPNE0rU1hRVjRMajBWSHFxR09KRngyVFY4enhuQlNuV2JSbVduZ3p5bnlv?=
- =?utf-8?B?VEo4NTZHUWpDeFFRNnpKK21tT3hGSjBvdGZhMCtzRkdQZzNYeEF2VnhZeUMy?=
- =?utf-8?B?YzBlOUJFY3IxSnlFeURjZGpSL2FEeTRxaEZLYjJkQ3VMY2IrRkI4SktpbGxh?=
- =?utf-8?B?MkJkZVdobG0rcmw4OWhUY0U4emNmV1JNZ0xPT0sxRDRXNDRiOEdPangrVExy?=
- =?utf-8?B?SzdvWHFnVzhjMXptK2VMSkM3RGd1dXkvUEI3R3paRmVoMHRUcmh1eWxRa3Zk?=
- =?utf-8?B?bVlKbmRLNEhVcklNc0dEUWJVa1c4dTlhRWZqRjlTZTFwTDVPNnVMS2xnZnBv?=
- =?utf-8?B?Q2x3QzRPMFVaUG9GS3J3Q0NzSTFOcFlNMm96UFVlWE1PQXZnZjFGcjJMQWlV?=
- =?utf-8?B?SVd5Tm9MUlVBcXByc0wrRFVadmN4UEwrVjZmN0c1N0xKT3oyZEFic0xpdURk?=
- =?utf-8?B?MmV4UHBycW5td3AyVE9QRkVHRVBnRGVlNzE5bGF0S1BDMFNlb0RSS0N3UnJ0?=
- =?utf-8?B?eTlpcmVxZmR1empjM0hkVHVYWDBybWVUWkpJM1NJbFBMeW1BenpPbkZOejZF?=
- =?utf-8?B?TVdqSTJ3UWxLZnNoSzRWNEdmQnBVS3JrMnkzS0JHMU9kMW95dFZ1VWREVmFO?=
- =?utf-8?B?OW5qWHNrWWNUS0xHaDN4c0ZJMEFCSXJBNjQ0R0JCbTNUQmNINGp5VDQ4dVhN?=
- =?utf-8?B?WXBtdWZTQ0UxS25yVUphcVNYWXpybE9VMXRGaHBiVjNmMUVkWHVsNlpyanhS?=
- =?utf-8?B?Y1RQR3pIZTNrcEh4WStwQ250eERpWnZ2SEhYa2dxR0JBS3dTUHcya3VLSWpD?=
- =?utf-8?B?amRJZ2VUQjVKeDJMVVhDeU96VWZKQk1veUhjRHcrTjdiaTlQR3pqbzFaa2lJ?=
- =?utf-8?B?Wkp3NVFGZWdLVDhmR2ttSVZrLzRwWWJvRlRZTzhENU9uK3VuaHBCQnBDV215?=
- =?utf-8?B?WnZPZTc4UnRiUDRJVHdrc2RGaDhwZnpjenJGbmJhdndBNXRpVSs5M3RMbUsw?=
- =?utf-8?B?MVFjRlZVTXV0ZFl2TUdxVTYwbVpFZXhBTDNud3hJenJEdm1KM2RNT2J0bm9D?=
- =?utf-8?B?MkJhNTFTQTBOdmgvSFZZWmlQZEVZU0lYUHRsQU56NmVzVmlMTERvUVNHWkli?=
- =?utf-8?B?NDRyb2Z2R3NJMjhxTm04U1FyblUySnBBQW5WalhQejQyZ2t3Y0lrc2g1akla?=
- =?utf-8?B?S3ZXMnk4RFdrYTRNOExFdlRNN1dueWxJZ0VmWUhzLzJESHNiK2wzd2xhTmRH?=
- =?utf-8?B?ZTlpK0xPbmhJaHUyclZweXUzRFpqRVppeFdFb0drMVpMdS9ma2UxNW10c1hT?=
- =?utf-8?Q?s25mxoTHUUyd/vApd/?=
+X-MS-Exchange-AntiSpam-MessageData-0: oWpqA5dEownNwQ79k9uNLFh1Wn0bizbb9YkSMcuQuWFrIYL3UG+PZ9d9sUgklw3Q47bgPIvuJDFSlvJI1IBRJW29TCaiYfV7H27JQ8itpNP5uPsK9TKUyrSV0jYhbxGPQr/NO4m1ZJrkVj1d195oAdvUdoOrfpj7Yje44hXnPhjL9C2NpZLLFx9hs5r+jcgJnROVWyZRZ2UnNj7K2TFmijPXtzYK4tfQhuTKG8jWAJipMJUSFMJFVivcjD6slMqy4Kj9+NAQFJro50zKj17dFD7OcsMIdvZobs8sN5LEjX01vqfoKJywkFa208znA2YJnPeKolHdZSw62tUomJzPLtS8JaosFB83RrJqURsrGV9TuXBXFbcJ6hq+o9cSYIwb0CPfLDCVnCUWjHB+LvF2LK37NwulboOjUXYRwLyFy++qOehd8egV8Ml3NNUrWvha
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 42cd7054-b856-4c70-d8b4-08df31332959
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9189.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 18:26:31.8084 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 20:35:08.7988 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 84d57bbc-b316-4bf8-fd69-08df31452133
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eMgTSg7PeMAhX/TW4f3OXIkhKX1CEHbz8mWA2B6MXGvvmmycgAAME3pCkBlAmwa/NWrvKgiM5fBAxCwomqoSAw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9024
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF0001886A.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4329
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,120 +102,823 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.6 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+Driver-side selftests for UALink bring-up: exercise the nHT firmware,
+remote interrupts, remote TLB shootdown and remote VRAM access without
+any userspace application.
 
-On 10/15/2026 6:30 AM, Hugo Sales wrote:
-> Currently, create_stream_for_sink() takes the native timing for a scaled
-> mode from the preferred mode in connector->modes. After fbdev emulation
-> probes with size limits below the native resolution, as it does when
-> video= sets a smaller mode, that mode is no longer in the list
->
-> If that probe is the last one before a suspend, for example after an
-> HDMI hotplug, the resume finds no preferred mode, and the panel is
-> driven with the scaled mode's timing instead of its own
->
-> amdgpu_dm_get_native_mode() copies the preferred mode to the encoder on
-> every probe, before the size limits apply. Fall back to that copy when
-> connector->modes has no preferred mode. Limit this to eDP and LVDS,
-> where amdgpu turns scaling on by itself. On other connectors mode_valid
-> can also leave the preferred mode out, and then the first valid mode is
-> the right fallback
->
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5983
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Hugo Sales <hugo@hsal.es>
+Add debugfs directory "amdgpu_ualink_test" to trigger UALink selftests
+with these read/write entries:
 
-Hi Hugo,
+  command          write the test name to run it, read to list the
+                   valid test names
+  remote_accel_id  accel_id of the remote GPU used by the tests
+  test_size        test buffer size in bytes, from 4 to 4096
+  local_test_data  the local ring buffer the remote GPU accesses
+  remote_sdma      the remote GPU ring buffer, using sdma
+  remote_lsdma     the remote GPU ring buffer, using lsdma
 
-Thanks for the patch and the detailed analysis.
-This no longer applies to the current amd-staging-drm-next. It
-conflicts with commit 3299935e65c0 ("drm/amd/display: Use separate
-iterator for preferred mode lookup"), which landed after the tree you
-based this on. That commit removed native_mode_found from
-create_stream_for_sink() and now checks preferred_mode directly:
+The data entries take and return binary data, a write shorter than
+test_size is repeated to fill it, so formatting is left to userspace
+tools like printf, xxd, od and cmp.
 
-     if (!preferred_mode)
-         preferred_mode = list_first_entry_or_null(...);
+Add helper functions: ualink_test_local_data() and
+ualink_test_remote_rw() for local and remote ring buffer R/W,
+ualink_test_remote_shootdown() for TLB shootdown,
+ualink_test_send_hello() for handshake,
+ualink_test_update_interrupt_wb() and
+ualink_test_update_shootdown_wb() to read writeback results.
 
-Could you rebase the series onto the latest amd-staging-drm-next and
-send a v2? The change should be mechanical: test !preferred_mode
-instead of !native_mode_found, and drop the native_mode_found = true
-assignment. The logic stays the same. Patch 2/2 still applies cleanly.
-Also, the dm_test_fs_caps_hdmi_vsdb and dm_test_fs_caps_pcon_whitelist
-failures you mentioned in the cover letter were fixed by commit
-5ac0b4dd2a1f ("drm/amd/display: Fix FreeSync caps tests after common
-EDID VSDB switch"). With the series rebased that way, the whole
-amdgpu_dm_connector KUnit suite passes on our side, including your new
-tests.
+v6: ring buffer wptr for itself is used for wptr, don't init to 0xdeadbeef
+v5: Replace the four remote access commands with local_test_data,
+    remote_sdma and remote_lsdma entries, to get the test data without
+    looking at debug logs or using xxd with physical addresses (Felix).
+    Dump and accept binary data, no parser in the driver (Felix).
+    Stage the DMA in the local ring buffer instead of the IB, which is
+    freed before the data is read back.
+v4: Use a single "command" entry taking the test name, instead of one
+    entry per test (Felix).
+    Resync the remote wptr before sending a command, the peer may have
+    rebooted.
+v3: Replace the single entry taking a test number with a debugfs
+    directory and a named entry per command.
+    Take peer->lock to update the writeback address and selftest_mutex
+    to read the test parameters.
+v2: Fix typos and issues from copilot code review.
 
+Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 346 ++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.c   |  49 +++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.h   |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c  | 219 ++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h  |  24 +-
+ 5 files changed, 628 insertions(+), 11 deletions(-)
 
-Thanks,
-Tom
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+index 3dc95d9accf2..2d786639d081 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -2133,9 +2133,336 @@ DEFINE_DEBUGFS_ATTRIBUTE(fops_ib_preempt, NULL,
+ DEFINE_DEBUGFS_ATTRIBUTE(fops_sclk_set, NULL,
+ 			amdgpu_debugfs_sclk_set, "%llu\n");
+ 
++enum amdgpu_ualink_test_cmd {
++	UALINK_TEST_SW_INIT,
++	UALINK_TEST_SEND_HELLO,
++	UALINK_TEST_REMOTE_SHOOTDOWN,
++	UALINK_TEST_FLUSH_TLB,
++	UALINK_TEST_UPDATE_INTERRUPT_WB,
++	UALINK_TEST_UPDATE_SHOOTDOWN_WB,
++	UALINK_TEST_LSDMA_SELFTEST,
++};
++
++/* commands talking to a remote accelerator, remote_accel_id must be set */
++#define UALINK_TEST_NEEDS_ACCEL_ID					\
++	(BIT(UALINK_TEST_SEND_HELLO) | BIT(UALINK_TEST_REMOTE_SHOOTDOWN) | \
++	 BIT(UALINK_TEST_UPDATE_INTERRUPT_WB) |				\
++	 BIT(UALINK_TEST_UPDATE_SHOOTDOWN_WB))
++
++static int amdgpu_debugfs_ualink_test_run(struct amdgpu_device *adev,
++					  enum amdgpu_ualink_test_cmd cmd)
++{
++	u32 remote_accel_id = adev->ualink.test_remote_accel_id;
++	int r = 0;
++
++	guard(mutex)(&adev->ualink.selftest_mutex);
++
++	if ((BIT(cmd) & UALINK_TEST_NEEDS_ACCEL_ID) &&
++	    remote_accel_id >= AMDGPU_UALINK_ACCEL_MAX) {
++		dev_err(adev->dev, "set remote_accel_id first\n");
++		return -EINVAL;
++	}
++
++	adev->ualink.selftesting = true;
++
++	switch (cmd) {
++	case UALINK_TEST_SW_INIT:
++		if (adev->ualink.remote)
++			amdgpu_ualink_sw_fini(adev);
++
++		dev_dbg(adev->dev, "load metadata init MPNHT firmware\n");
++		r = amdgpu_ualink_sw_init(adev);
++		break;
++	case UALINK_TEST_SEND_HELLO:
++		r = ualink_test_send_hello(adev, remote_accel_id);
++		break;
++	case UALINK_TEST_REMOTE_SHOOTDOWN:
++		r = ualink_test_remote_shootdown(adev, remote_accel_id, 1UL << 30,
++						 1, TLB_FLUSH_HEAVYWEIGHT);
++		break;
++	case UALINK_TEST_FLUSH_TLB:
++		amdgpu_ualink_flush_tlb(adev, TLB_FLUSH_HEAVYWEIGHT);
++		break;
++	case UALINK_TEST_UPDATE_INTERRUPT_WB:
++		r = ualink_test_update_interrupt_wb(adev, remote_accel_id);
++		break;
++	case UALINK_TEST_UPDATE_SHOOTDOWN_WB:
++		r = ualink_test_update_shootdown_wb(adev, remote_accel_id);
++		break;
++	case UALINK_TEST_LSDMA_SELFTEST:
++		r = adev->lsdma.funcs ? amdgpu_lsdma_selftest(adev) : -EOPNOTSUPP;
++		break;
++	}
++
++	adev->ualink.selftesting = false;
++
++	dev_dbg(adev->dev, "ualink test cmd %d remote_accel_id %u ret %d\n",
++		cmd, remote_accel_id, r);
++
++	return r;
++}
++
++#define UALINK_TEST_CMD_NAME_MAX	32
++
++static const char * const amdgpu_ualink_test_cmd_name[] = {
++	[UALINK_TEST_SW_INIT]			= "sw_init",
++	[UALINK_TEST_SEND_HELLO]		= "send_hello",
++	[UALINK_TEST_REMOTE_SHOOTDOWN]		= "remote_shootdown",
++	[UALINK_TEST_FLUSH_TLB]			= "flush_tlb",
++	[UALINK_TEST_UPDATE_INTERRUPT_WB]	= "update_interrupt_wb",
++	[UALINK_TEST_UPDATE_SHOOTDOWN_WB]	= "update_shootdown_wb",
++	[UALINK_TEST_LSDMA_SELFTEST]		= "lsdma_selftest",
++};
++
++static ssize_t amdgpu_debugfs_ualink_command_read(struct file *file,
++						  char __user *ubuf,
++						  size_t len, loff_t *offp)
++{
++	char buf[UALINK_TEST_CMD_NAME_MAX * ARRAY_SIZE(amdgpu_ualink_test_cmd_name)];
++	unsigned int i;
++	int n = 0;
++
++	for (i = 0; i < ARRAY_SIZE(amdgpu_ualink_test_cmd_name); i++)
++		n += scnprintf(buf + n, sizeof(buf) - n, "%s\n",
++			       amdgpu_ualink_test_cmd_name[i]);
++
++	return simple_read_from_buffer(ubuf, len, offp, buf, n);
++}
++
++static ssize_t amdgpu_debugfs_ualink_command_write(struct file *file,
++						   const char __user *ubuf,
++						   size_t len, loff_t *offp)
++{
++	struct amdgpu_device *adev = file->private_data;
++	char buf[UALINK_TEST_CMD_NAME_MAX];
++	int cmd, r;
++
++	if (len >= sizeof(buf))
++		return -EINVAL;
++
++	if (copy_from_user(buf, ubuf, len))
++		return -EFAULT;
++
++	buf[len] = '\0';
++	cmd = sysfs_match_string(amdgpu_ualink_test_cmd_name, strim(buf));
++	if (cmd < 0) {
++		dev_err(adev->dev, "unknown ualink test command\n");
++		return cmd;
++	}
++
++	r = amdgpu_debugfs_ualink_test_run(adev, cmd);
++	if (r)
++		return r;
++
++	return len;
++}
++
++static const struct file_operations amdgpu_ualink_command_fops = {
++	.owner	 = THIS_MODULE,
++	.open	 = simple_open,
++	.read	 = amdgpu_debugfs_ualink_command_read,
++	.write	 = amdgpu_debugfs_ualink_command_write,
++	.llseek	 = default_llseek,
++};
++
++/* test data buffers, see amdgpu_debugfs_ualink_data_xfer() */
++enum amdgpu_ualink_test_buf {
++	UALINK_BUF_LOCAL,
++	UALINK_BUF_REMOTE_SDMA,
++	UALINK_BUF_REMOTE_LSDMA,
++};
++
++static int amdgpu_debugfs_ualink_data_xfer(struct amdgpu_device *adev,
++					   enum amdgpu_ualink_test_buf buf,
++					   u32 *data, u32 size, bool read)
++{
++	u32 remote_accel_id = adev->ualink.test_remote_accel_id;
++	int r;
++
++	if (remote_accel_id >= AMDGPU_UALINK_ACCEL_MAX) {
++		dev_err(adev->dev, "set remote_accel_id first\n");
++		return -EINVAL;
++	}
++
++	adev->ualink.selftesting = true;
++
++	if (buf == UALINK_BUF_LOCAL)
++		r = ualink_test_local_data(adev, remote_accel_id, data, size, read);
++	else
++		r = ualink_test_remote_rw(adev, remote_accel_id, data, size, read,
++					  buf == UALINK_BUF_REMOTE_LSDMA);
++
++	adev->ualink.selftesting = false;
++
++	return r;
++}
++
++static ssize_t amdgpu_debugfs_ualink_data_read(struct file *file,
++					       char __user *ubuf, size_t len,
++					       loff_t *offp,
++					       enum amdgpu_ualink_test_buf buf)
++{
++	struct amdgpu_device *adev = file->private_data;
++	ssize_t ret;
++	u32 size;
++	void *data;
++	int r;
++
++	guard(mutex)(&adev->ualink.selftest_mutex);
++
++	size = adev->ualink.test_size_dwords * 4;
++
++	data = kmalloc(size, GFP_KERNEL);
++	if (!data)
++		return -ENOMEM;
++
++	r = amdgpu_debugfs_ualink_data_xfer(adev, buf, data, size, true);
++	ret = r ? r : simple_read_from_buffer(ubuf, len, offp, data, size);
++
++	kfree(data);
++
++	return ret;
++}
++
++static ssize_t amdgpu_debugfs_ualink_data_write(struct file *file,
++						const char __user *ubuf,
++						size_t len, loff_t *offp,
++						enum amdgpu_ualink_test_buf buf)
++{
++	struct amdgpu_device *adev = file->private_data;
++	u32 i, size;
++	void *data;
++	int r;
++
++	guard(mutex)(&adev->ualink.selftest_mutex);
++
++	size = adev->ualink.test_size_dwords * 4;
++
++	if (!len)
++		return -EINVAL;
++
++	len = min_t(size_t, len, size);
++
++	data = kmalloc(size, GFP_KERNEL);
++	if (!data)
++		return -ENOMEM;
++
++	if (copy_from_user(data, ubuf, len)) {
++		kfree(data);
++		return -EFAULT;
++	}
++
++	/* repeat a short pattern to fill the test size */
++	for (i = len; i < size; i += len)
++		memcpy(data + i, data, min_t(u32, len, size - i));
++
++	r = amdgpu_debugfs_ualink_data_xfer(adev, buf, data, size, false);
++
++	kfree(data);
++
++	return r ? r : len;
++}
++
++#define UALINK_TEST_DATA_ATTR(name, buf)				\
++static ssize_t amdgpu_debugfs_ualink_##name##_read(struct file *file,	\
++		char __user *ubuf, size_t len, loff_t *offp)		\
++{									\
++	return amdgpu_debugfs_ualink_data_read(file, ubuf, len, offp, buf); \
++}									\
++static ssize_t amdgpu_debugfs_ualink_##name##_write(struct file *file,	\
++		const char __user *ubuf, size_t len, loff_t *offp)	\
++{									\
++	return amdgpu_debugfs_ualink_data_write(file, ubuf, len, offp, buf); \
++}									\
++static const struct file_operations amdgpu_ualink_##name##_fops = {	\
++	.owner	 = THIS_MODULE,						\
++	.open	 = simple_open,						\
++	.read	 = amdgpu_debugfs_ualink_##name##_read,			\
++	.write	 = amdgpu_debugfs_ualink_##name##_write,		\
++	.llseek	 = default_llseek,					\
++}
++
++UALINK_TEST_DATA_ATTR(local_test_data, UALINK_BUF_LOCAL);
++UALINK_TEST_DATA_ATTR(remote_sdma, UALINK_BUF_REMOTE_SDMA);
++UALINK_TEST_DATA_ATTR(remote_lsdma, UALINK_BUF_REMOTE_LSDMA);
++
++static int amdgpu_debugfs_ualink_accel_id_get(void *data, u64 *val)
++{
++	struct amdgpu_device *adev = data;
++
++	guard(mutex)(&adev->ualink.selftest_mutex);
++
++	*val = adev->ualink.test_remote_accel_id;
++
++	return 0;
++}
++
++static int amdgpu_debugfs_ualink_accel_id_set(void *data, u64 val)
++{
++	struct amdgpu_device *adev = data;
++
++	if (!adev->ualink.info)
++		return -EOPNOTSUPP;
++
++	guard(mutex)(&adev->ualink.selftest_mutex);
++
++	if (val >= AMDGPU_UALINK_ACCEL_MAX ||
++	    !test_bit(val, adev->ualink.info->vpod.active_accel_bits)) {
++		dev_err(adev->dev, "invalid remote accel_id %llu\n", val);
++		return -EINVAL;
++	}
++
++	if (val == adev->ualink.info->ppod.accel_id) {
++		dev_err(adev->dev, "remote accel_id equals to local accel_id\n");
++		return -EINVAL;
++	}
++
++	adev->ualink.test_remote_accel_id = val;
++	dev_info(adev->dev, "set remote accel_id to %llu, local accel_id %u\n",
++		 val, adev->ualink.info->ppod.accel_id);
++
++	return 0;
++}
++
++DEFINE_DEBUGFS_ATTRIBUTE(amdgpu_ualink_accel_id_fops,
++			 amdgpu_debugfs_ualink_accel_id_get,
++			 amdgpu_debugfs_ualink_accel_id_set, "%llu\n");
++
++static int amdgpu_debugfs_ualink_test_size_get(void *data, u64 *val)
++{
++	struct amdgpu_device *adev = data;
++
++	guard(mutex)(&adev->ualink.selftest_mutex);
++
++	*val = adev->ualink.test_size_dwords * 4;
++
++	return 0;
++}
++
++static int amdgpu_debugfs_ualink_test_size_set(void *data, u64 val)
++{
++	struct amdgpu_device *adev = data;
++
++	if (val < 4 || val > AMDGPU_UALINK_RB_SIZE)
++		return -EINVAL;
++
++	guard(mutex)(&adev->ualink.selftest_mutex);
++
++	adev->ualink.test_size_dwords = val / 4;
++	dev_dbg(adev->dev, "test buffer size %u bytes\n",
++		adev->ualink.test_size_dwords * 4);
++
++	return 0;
++}
++
++DEFINE_DEBUGFS_ATTRIBUTE(amdgpu_ualink_test_size_fops,
++			 amdgpu_debugfs_ualink_test_size_get,
++			 amdgpu_debugfs_ualink_test_size_set, "%llu\n");
++
+ int amdgpu_debugfs_init(struct amdgpu_device *adev)
+ {
+ 	struct dentry *root = adev_to_drm(adev)->primary->debugfs_root;
++	struct dentry *ualink_test;
+ 	struct dentry *ent;
+ 	int r, i;
+ 
+@@ -2246,6 +2573,25 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
+ 	debugfs_create_ulong("amdgpu_ualink_drop_msg_bitmap", 0600, root,
+ 			     &adev->ualink.drop_msg_bitmap);
+ 
++	mutex_init(&adev->ualink.selftest_mutex);
++	/* 64 bytes test size by default */
++	adev->ualink.test_size_dwords = 16;
++	adev->ualink.test_remote_accel_id = AMDGPU_UALINK_ACCEL_MAX;
++
++	ualink_test = debugfs_create_dir("amdgpu_ualink_test", root);
++	debugfs_create_file("command", 0600, ualink_test, adev,
++			    &amdgpu_ualink_command_fops);
++	debugfs_create_file("remote_accel_id", 0600, ualink_test, adev,
++			    &amdgpu_ualink_accel_id_fops);
++	debugfs_create_file("test_size", 0600, ualink_test, adev,
++			    &amdgpu_ualink_test_size_fops);
++	debugfs_create_file("local_test_data", 0600, ualink_test, adev,
++			    &amdgpu_ualink_local_test_data_fops);
++	debugfs_create_file("remote_sdma", 0600, ualink_test, adev,
++			    &amdgpu_ualink_remote_sdma_fops);
++	debugfs_create_file("remote_lsdma", 0600, ualink_test, adev,
++			    &amdgpu_ualink_remote_lsdma_fops);
++
+ 	adev->debugfs_vbios_blob.data = adev->bios;
+ 	adev->debugfs_vbios_blob.size = adev->bios_size;
+ 	debugfs_create_blob("amdgpu_vbios", 0444, root,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.c
+index 05bc281216bf..1f83d9b69135 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.c
+@@ -97,3 +97,52 @@ int amdgpu_lsdma_fill_mem(struct amdgpu_device *adev,
+ 	mutex_unlock(&adev->lsdma.lock);
+ 	return ret;
+ }
++
++int amdgpu_lsdma_selftest(struct amdgpu_device *adev)
++{
++	struct amdgpu_ib ib;
++	int i, r;
++	u64 gpu_addr;
++	char *p;
++	u32 size = 128;
++
++	memset(&ib, 0, sizeof(ib));
++	r = amdgpu_ib_get(adev, NULL, 2 * size, AMDGPU_IB_POOL_DIRECT, &ib);
++	if (r)
++		return r;
++
++	gpu_addr = ib.gpu_addr;
++	p = (char *)ib.ptr;
++	memset(p, 0, 2 * size);
++
++	for (i = 0; i < size; i++)
++		*(p + i) = i;
++
++	dev_dbg(adev->dev, "copy src 0x%llx dst 0x%llx size %d bytes\n",
++		gpu_addr, gpu_addr + size, size);
++
++	r = amdgpu_lsdma_copy_mem(adev, gpu_addr, gpu_addr + size, size);
++	if (r)
++		goto out;
++
++	p += size;
++	for (i = 0; i < size; i++) {
++		if (*(p + i) != i) {
++			dev_dbg(adev->dev, "data mismatch expecting 0x%x but read 0x%x\n",
++				i, *(p + i));
++			break;
++		}
++	}
++	if (i != size)
++		r = -EIO;
++
++out:
++	amdgpu_ib_free(&ib, NULL);
++
++	if (r)
++		dev_dbg(adev->dev, "lsdma selftest failed r=%d\n", r);
++	else
++		dev_dbg(adev->dev, "lsdma selftest passed\n");
++
++	return r;
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.h
+index 34e92aaa4617..f0a5eeb3529f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.h
+@@ -46,5 +46,6 @@ int amdgpu_lsdma_fill_mem(struct amdgpu_device *adev, uint64_t dst_addr,
+ 			  uint32_t data, uint64_t mem_size);
+ int amdgpu_lsdma_wait_for(struct amdgpu_device *adev, uint32_t reg_index,
+ 			  uint32_t reg_val, uint32_t mask);
++int amdgpu_lsdma_selftest(struct amdgpu_device *adev);
+ 
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+index 339f639a450e..86e0dc8d728e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+@@ -39,8 +39,6 @@ static void deactivate_accelerator(struct amdgpu_device *adev);
+ static int amdgpu_ualink_remote_interrupt(struct amdgpu_device *adev,
+ 				u32 remote_accel_id, u32 dw0, u32 dw1,
+ 				u32 dw2, u32 dw3);
+-static void amdgpu_ualink_flush_tlb(struct amdgpu_device *adev,
+-				    u32 flush_type);
+ static int amdgpu_ualink_reserve_npa_vm_and_bos(struct amdgpu_device *adev,
+ 						struct amdgpu_bo *bos[], u32 n_bos,
+ 						struct drm_exec *exec,
+@@ -4333,9 +4331,6 @@ void amdgpu_ualink_manager_stop(struct amdgpu_device *adev)
+  * UALink remote interrupt and shootdown
+  */
+ 
+-/* UALINK ring buffer size, same for both remote shootdown and interrupt ring */
+-#define AMDGPU_UALINK_RB_SIZE	4096
+-
+ #define AMDGPU_UALINK_METADATA_HEADER	0x4E485446
+ 
+ /* 2MB NPA start address for 2MB page mapping */
+@@ -4582,7 +4577,7 @@ static inline u32 ualink_tlb_wb_offset(struct amdgpu_device *adev, u32 accel_id)
+ 	return ualink_wb_offset(adev, accel_id) + sizeof(struct amdgpu_ualink_wb);
+ }
+ 
+-static void amdgpu_ualink_flush_tlb(struct amdgpu_device *adev, u32 flush_type)
++void amdgpu_ualink_flush_tlb(struct amdgpu_device *adev, u32 flush_type)
+ {
+ 	u32 bit;
+ 
+@@ -5281,7 +5276,8 @@ static int amdgpu_ualink_metadata_init(struct amdgpu_device *adev)
+ 	if (status != AMDGPU_NHT_FW_ST_PREINIT &&
+ 	    status != AMDGPU_NHT_FW_ST_HALT) {
+ 		dev_dbg(adev->dev, "fw status 0x%x not preinit or halt\n", status);
+-		return -ENODEV;
++		if (!adev->ualink.selftesting)
++			return -ENODEV;
+ 	}
+ 
+ 	dev_dbg(adev->dev, "accel_id %u addr_mode %d fw status 0x%x\n",
+@@ -5399,6 +5395,8 @@ static int amdgpu_ualink_metadata_init(struct amdgpu_device *adev)
+ 	r = adev->ualink.msg_ctl->send_metadata(adev,
+ 						    remote->metadata_gpu_addr,
+ 						    AMDGPU_UALINK_ACCEL_MAX << 8);
++	if (r && adev->ualink.selftesting)
++		r = 0;
+ 
+ out:
+ 	if (r)
+@@ -6384,11 +6382,216 @@ void amdgpu_ualink_sw_fini(struct amdgpu_device *adev)
+ 	adev->ualink.remote = NULL;
+ }
+ 
+-int ualink_send_hello(struct amdgpu_device *adev, u32 remote_accel_id)
++/* byte offset of the local interrupt ring a remote GPU writes to */
++static u32 ualink_test_local_rb_offset(u32 remote_accel_id)
++{
++	u32 rb_size = AMDGPU_GPU_PAGE_ALIGN(2 * AMDGPU_UALINK_RB_SIZE);
++
++	/* remote shootdown ring is first, remote interrupt ring follows it */
++	return rb_size * remote_accel_id + AMDGPU_UALINK_RB_SIZE;
++}
++
++/*
++ * ualink_test_local_data - read or write the local ring buffer of a remote GPU
++ *
++ * The local ring buffer is partitioned per remote GPU, @remote_accel_id selects
++ * the interrupt ring that remote GPU writes to through its NPA mapping. Read it
++ * to see what the remote GPU wrote, write it to provide the data it reads.
++ */
++int ualink_test_local_data(struct amdgpu_device *adev, u32 remote_accel_id,
++			   void *data, u32 size, bool read)
+ {
++	struct amdgpu_ualink_remote *remote = to_remote(adev);
++	void *rb;
++
++	if (!remote || !remote->rb_cpu_addr)
++		return -EINVAL;
++
++	if (size > AMDGPU_UALINK_RB_SIZE)
++		return -EINVAL;
++
++	rb = remote->rb_cpu_addr + ualink_test_local_rb_offset(remote_accel_id);
++
++	dev_dbg(adev->dev, "%s local rb of remote %u at 0x%p size 0x%x\n",
++		read ? "read" : "write", remote_accel_id, rb, size);
++
++	if (read)
++		memcpy(data, rb, size);
++	else
++		memcpy(rb, data, size);
++
++	return 0;
++}
++
++/*
++ * ualink_test_remote_rw - read or write the remote GPU ring buffer
++ *
++ * Copy @size bytes between @data and the remote GPU ring buffer NPA address
++ * using lsdma or sdma. The DMA engines cannot access @data, the local ring
++ * buffer of the same remote GPU is used to stage it, so local_test_data shows
++ * what was sent or received.
++ *
++ * Works with or without MPNHT FW running, the copy does not update wptr and
++ * does not ring the doorbell.
++ */
++int ualink_test_remote_rw(struct amdgpu_device *adev, u32 remote_accel_id,
++			  void *data, u32 size, bool read, bool use_lsdma)
++{
++	struct amdgpu_ualink_remote *remote = to_remote(adev);
++	struct amdgpu_ualink_peer *peer;
++	struct amdgpu_ualink_ring *ring;
++	struct dma_fence *fence;
++	struct amdgpu_job *job;
++	struct amdgpu_ib *ib;
++	u64 npa, local;
++	u32 offset, ndw;
++	int r;
++
++	if (!remote)
++		return -EINVAL;
++
++	if (size > AMDGPU_UALINK_RB_SIZE)
++		return -EINVAL;
++
++	peer = &remote->peer[remote_accel_id];
++	ring = &peer->interrupt;
++
++	guard(mutex)(&peer->lock);
++
++	offset = ualink_test_local_rb_offset(remote_accel_id);
++	local = remote->rb_gpu_addr + offset;
++	npa = ring->rb_npa_gart;
++
++	if (!read)
++		memcpy(remote->rb_cpu_addr + offset, data, size);
++
++	remote->use_lsdma = use_lsdma;
++
++	dev_dbg(adev->dev, "%s remote %u npa 0x%llx local 0x%llx size 0x%x use %s\n",
++		read ? "read" : "write", remote_accel_id, npa, local, size,
++		use_lsdma ? "lsdma" : "sdma");
++
++	if (use_lsdma) {
++		r = amdgpu_lsdma_copy_mem(adev, read ? npa : local,
++					  read ? local : npa, size);
++		if (r)
++			return r;
++
++		goto done;
++	}
++
++	/* sdma linear copy command, align to 8 dwords boundary */
++	ndw = ALIGN(adev->mman.buffer_funcs->copy_num_dw, 8);
++
++	r = amdgpu_job_alloc_with_ib(adev, &peer->entity, AMDGPU_FENCE_OWNER_VM,
++				     ndw * 4, AMDGPU_IB_POOL_IMMEDIATE,
++				     AMDGPU_KERNEL_JOB_ID_TTM_COPY_BUFFER, &job);
++	if (r)
++		return r;
++
++	ib = job->ibs;
++	ib->length_dw = 0;
++
++	amdgpu_emit_copy_buffer(adev, ib, read ? npa : local,
++				read ? local : npa, size, 0);
++	amdgpu_ring_pad_ib(&adev->sdma.instance[0].ring, ib);
++	WARN_ON(ib->length_dw > ndw);
++
++	fence = amdgpu_job_submit(job);
++
++	r = dma_fence_wait_timeout(fence, false, HZ * 10);
++	dma_fence_put(fence);
++	if (r <= 0) {
++		dev_dbg(adev->dev, "remote sdma fence wait timeout %d\n", r);
++		dev_dbg(adev->dev, "use lsdma for testing afterwards\n");
++		remote->use_lsdma = true;
++		return -ETIME;
++	}
++
++done:
++	if (read)
++		memcpy(data, remote->rb_cpu_addr + offset, size);
++
++	return 0;
++}
++
++/* The peer may have rebooted or the vpod was reconfigured, adopt the remote
++ * wptr before sending a command, same as the handshake does.
++ */
++static int ualink_test_resync_peer(struct amdgpu_device *adev, u32 remote_accel_id)
++{
++	int r;
++
++	if (!adev->ualink.remote)
++		return -EINVAL;
++
++	r = amdgpu_ualink_ring_resync_ptrs(adev, remote_accel_id);
++	if (r < 0)
++		return r;
++
++	/* Peer moved, drop ready so the next command updates the wb address */
++	if (r)
++		amdgpu_ualink_reset_peer_rings(adev, remote_accel_id);
++
++	return 0;
++}
++
++int ualink_test_send_hello(struct amdgpu_device *adev, u32 remote_accel_id)
++{
++	int r;
++
++	r = ualink_test_resync_peer(adev, remote_accel_id);
++	if (r)
++		return r;
++
+ 	return amdgpu_ualink_send_hello_msg(adev, remote_accel_id);
+ }
+ 
++int ualink_test_remote_shootdown(struct amdgpu_device *adev, u32 remote_accel_id,
++				 u64 addr, u32 size_in_pages, u32 flush_type)
++{
++	int r;
++
++	r = ualink_test_resync_peer(adev, remote_accel_id);
++	if (r)
++		return r;
++
++	return amdgpu_ualink_remote_shootdown(adev, remote_accel_id, addr,
++					      size_in_pages, flush_type);
++}
++
++int ualink_test_update_interrupt_wb(struct amdgpu_device *adev, u32 remote_accel_id)
++{
++	int r;
++
++	r = ualink_test_resync_peer(adev, remote_accel_id);
++	if (r)
++		return r;
++
++	guard(mutex)(&adev->ualink.remote->peer[remote_accel_id].lock);
++
++	/* Update interrupt completion write back address */
++	r = amdgpu_ualink_update_wb_address(adev, remote_accel_id,
++					    RB_TYPE_REMOTE_INTERRUPT);
++	return r;
++}
++
++int ualink_test_update_shootdown_wb(struct amdgpu_device *adev, u32 remote_accel_id)
++{
++	int r;
++
++	r = ualink_test_resync_peer(adev, remote_accel_id);
++	if (r)
++		return r;
++
++	guard(mutex)(&adev->ualink.remote->peer[remote_accel_id].lock);
++
++	/* Update shootdown completion write back address */
++	r = amdgpu_ualink_update_wb_address(adev, remote_accel_id,
++					    RB_TYPE_TLB_INV);
++	return r;
++}
++
+ /*
+  * The low bits of handle_lo carry the message-header field on the wire.
+  * Strip those bits and splice in @acc_id to recover the
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
+index 85c9a9634a4b..90e90cd8b495 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
+@@ -310,6 +310,9 @@ struct amdgpu_ualink_connection {
+ 	enum amdgpu_ualink_conn_state state;
+ };
+ 
++/* UALINK ring buffer size, same for both remote shootdown and interrupt ring */
++#define AMDGPU_UALINK_RB_SIZE	4096
++
+ struct amdgpu_ualink_remote;
+ 
+ struct amdgpu_ualink_msg_ctl {
+@@ -333,6 +336,13 @@ struct amdgpu_ualink_mgr {
+ 	/* For remote interrupt and shootdown */
+ 	struct amdgpu_ualink_remote *remote;
+ 
++	/* true for selftest driver path, ignore FW error */
++	bool selftesting;
++	/* serialize the selftest debugfs entries */
++	struct mutex selftest_mutex;
++	u32 test_size_dwords;
++	u32 test_remote_accel_id;
++
+ 	/* handle irq from ualink client of remote GPUs */
+ 	struct amdgpu_irq_src irq;
+ 
+@@ -390,14 +400,22 @@ struct amdgpu_ualink_mgr {
+ 	unsigned long drop_msg_bitmap;
+ };
+ 
++int ualink_test_local_data(struct amdgpu_device *adev, u32 remote_accel_id,
++			   void *data, u32 size, bool read);
++int ualink_test_remote_rw(struct amdgpu_device *adev, u32 remote_accel_id,
++			  void *data, u32 size, bool read, bool use_lsdma);
++int ualink_test_send_hello(struct amdgpu_device *adev, u32 remote_accel_id);
++int ualink_test_remote_shootdown(struct amdgpu_device *adev, u32 remote_accel_id,
++				 u64 addr, u32 size_in_pages, u32 flush_type);
++int ualink_test_update_interrupt_wb(struct amdgpu_device *adev, u32 remote_accel_id);
++int ualink_test_update_shootdown_wb(struct amdgpu_device *adev, u32 remote_accel_id);
++
+ int amdgpu_ualink_init_interrupt(struct amdgpu_device *adev,
+ 				 unsigned int client_id, unsigned int src_id);
+-
++void amdgpu_ualink_flush_tlb(struct amdgpu_device *adev, u32 flush_type);
+ int amdgpu_ualink_sw_init(struct amdgpu_device *adev);
+ void amdgpu_ualink_sw_fini(struct amdgpu_device *adev);
+ 
+-int ualink_send_hello(struct amdgpu_device *adev, u32 remote_accel_id);
+-
+ int amdgpu_ualink_config_update_handler(struct amdgpu_device *adev);
+ int amdgpu_ualink_pause_handler(struct amdgpu_device *adev);
+ int amdgpu_ualink_resume_handler(struct amdgpu_device *adev);
+-- 
+2.50.1
 
-> ---
->   .../display/amdgpu_dm/amdgpu_dm_connector.c   | 28 +++++++++++++++++++
->   1 file changed, 28 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> index 428a5f937..a1dc3e287 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> @@ -257,6 +257,8 @@ STATIC_IFN_KUNIT void update_subconnector_property(struct amdgpu_dm_connector *a
->   EXPORT_IF_KUNIT(update_subconnector_property);
->
->   STATIC_IFN_KUNIT int amdgpu_dm_connector_get_modes(struct drm_connector *connector);
-> +STATIC_IFN_KUNIT struct drm_encoder *amdgpu_dm_connector_to_encoder(
-> +       struct drm_connector *connector);
->
->   STATIC_IFN_KUNIT void amdgpu_dm_fbc_init(struct drm_connector *connector)
->   {
-> @@ -1470,6 +1472,7 @@ create_stream_for_sink(struct drm_connector *connector,
->          struct dc_stream_state *stream = NULL;
->          struct drm_display_mode mode;
->          struct drm_display_mode saved_mode;
-> +       struct drm_display_mode native_mode;
->          struct drm_display_mode *freesync_mode = NULL;
->          bool native_mode_found = false;
->          bool recalculate_timing = false;
-> @@ -1529,6 +1532,31 @@ create_stream_for_sink(struct drm_connector *connector,
->                          break;
->                  }
->          }
-> +
-> +       /*
-> +        * After a probe with size limits smaller than the preferred mode,
-> +        * connector->modes no longer has that mode, and the first mode left
-> +        * would become the stream timing. fbdev emulation probes with limits
-> +        * that video= can set below the native size. The encoder has a copy of
-> +        * the preferred mode from amdgpu_dm_get_native_mode(), made on every
-> +        * probe before the limits apply, so use that copy. Only do this for eDP
-> +        * and LVDS panels, which take only their native timing. On other
-> +        * connectors mode_valid can also reject the preferred mode, and then
-> +        * the first valid mode is the right one
-> +        */
-> +       if (!native_mode_found && aconnector && !aconnector->mst_root && aconnector->drm_edid &&
-> +           (connector->connector_type == DRM_MODE_CONNECTOR_eDP ||
-> +            connector->connector_type == DRM_MODE_CONNECTOR_LVDS)) {
-> +               struct drm_encoder *encoder = amdgpu_dm_connector_to_encoder(connector);
-> +
-> +               if (encoder && to_amdgpu_encoder(encoder)->native_mode.clock) {
-> +                       drm_mode_copy(&native_mode, &to_amdgpu_encoder(encoder)->native_mode);
-> +                       drm_mode_set_crtcinfo(&native_mode, CRTC_INTERLACE_HALVE_V);
-> +                       preferred_mode = &native_mode;
-> +                       native_mode_found = true;
-> +               }
-> +       }
-> +
->          if (!native_mode_found)
->                  preferred_mode = list_first_entry_or_null(
->                                  &connector->modes,
-> --
-> 2.55.0
->
