@@ -2,128 +2,94 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84755606A328
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91423606A32F
 	for <amd-gfx@archiver.kernel.org>; Mon, 26 Oct 2026 08:44:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=qgx8czUO
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PWdCNNq8
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACCA010ECC9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1D1310ECC8;
 	Mon, 26 Oct 2026 08:44:02 +0000 (UTC)
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010071.outbound.protection.outlook.com [52.101.56.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 63D4110E945;
- Mon, 26 Oct 2026 05:37:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=njuQ8r1bmF8dCPb0t0p9maCsjMRAphu8Un+V8qxKPRmmwcfC0aV3BlydtU7sZVrtBd2+mSB1ugYeHDRLcj8rhiMj/6cwAvDJFgfDdoyr45VUmJjhtI4EPivIbpuJsqDIJ126MNKZYKDQMwvwTlTbo9+h5O+Qb12RrjCDpCwADB4hwGaMsSF55512fprFGlE8hpXlLTMuIjjg20Wh43mdC7nBO0Fc1JrGxBoUskeCkrZPnhhsJf3DYqn8gUHF4WxoueEZmfsIHaY0Z9g8TEkXwZaaYNFc1voGj7dvdRbKN+SGSFypGv+aF60dd7jihArUwu+RWjn25l3e8/myx1JYhg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TeESoJB+r+SIwpshRKsxhkXVtUKSxkyLATsiV/y/xmY=;
- b=RaDbDSlzzv8EFtalTQaOhDmmReb0jjdFQx+/+FO/HAqgcS+Y4eTqG28QQiDAoKWSHCnZniBdu9nXm9nZ9Y58XBb7gvAnq1cuR/XX2UE739WE0jDGkib30Gi+3T7b8a2+BnepJ7ZOcIc1Io57KqQrg8BSX7ifZbplAIln/AQRXydRpC46U748Z3H6+msshmKpO6oTj2+vBqtq/7e/CEP4KNJ05bwhEyCwBZCMf7q2VtmrQ2lS6YXJA2q1cQzwKaGNaz04MFn1UjvjnEjmnvSJbe21X29Q4qN1lN6f+HAKQgIQkGbQhiKEvy9c6UzLUuJ8l8c58nC8lS8Sv/2VLSBeFA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TeESoJB+r+SIwpshRKsxhkXVtUKSxkyLATsiV/y/xmY=;
- b=qgx8czUOE/2OJ1S4URxiZXWn5dfJ3H6fdq8wSeZOUh6bA1V9Ly+/biGxn8Eg0QdZGbHoW8ffOojWeOSCaycjWUrqRcuqv9TlVX3j1RcT1L4TzF4koaYvBCOlnTRdjK64RLSBGvoP2m9YW+dHqy87iZGKtK/iH+YZX11gyR5rt2r/TvJQMCdPuw9jC+vgqwrQXJ0NWF8g38aN4nwHm0Mz4n12BBv03mTQNIR2mN18oFOiOd0Osz750WnrpysPNOm5eRmAsnh8gv14A9rdQ6RB9dvkQl1HpUxfMsy9G28ysWUuCJiDDCCeNEi5AhExxZpX7E4hUrWu1/mQYswMN1fPUw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SA3PR12MB598757.namprd12.prod.outlook.com
- (2603:10b6:806:52d::14) by SA1PR12MB7442.namprd12.prod.outlook.com
- (2603:10b6:806:2b5::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 05:37:51 +0000
-Received: from SA3PR12MB598757.namprd12.prod.outlook.com
- ([fe80::e206:100:5946:a777]) by SA3PR12MB598757.namprd12.prod.outlook.com
- ([fe80::e206:100:5946:a777%5]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
- 05:37:51 +0000
-From: Alistair Popple <apopple@nvidia.com>
-To: dri-devel@lists.freedesktop.org, christian.koenig@amd.com,
- sumit.semwal@linaro.org, jgg@nvidia.com
-Cc: Alistair Popple <apopple@nvidia.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Simona Vetter <simona.vetter@ffwll.ch>,
- Matthew Brost <matthew.brost@intel.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- Dongwon Kim <dongwon.kim@intel.com>, Leon Romanovsky <leonro@nvidia.com>,
- Kevin Tian <kevin.tian@intel.com>, Xu Yilun <yilun.xu@linux.intel.com>,
- Karl Mehltretter <kmehltretter@gmail.com>,
- Baolu Lu <baolu.lu@linux.intel.com>,
- Felix Kuehling <felix.kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, intel-xe@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org,
- iommu@lists.linux.dev, Alexey Kardashevskiy <aik@amd.com>,
- zhipingz@meta.com, treding@nvidia.com, jhubbard@nvidia.com
-Subject: [PATCH 15/26] vfio/pci: Change the DMA-buf exporter to use
- mapping_type
-Date: Mon, 26 Oct 2026 16:36:06 +1100
-Message-ID: <20261026053623.202642-16-apopple@nvidia.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261026053623.202642-1-apopple@nvidia.com>
-References: <20261026053623.202642-1-apopple@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SY5P300CA0068.AUSP300.PROD.OUTLOOK.COM
- (2603:10c6:10:247::10) To SA3PR12MB598757.namprd12.prod.outlook.com
- (2603:10b6:806:52d::14)
+Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com
+ [209.85.128.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D6D310E156
+ for <amd-gfx@lists.freedesktop.org>; Sat, 24 Oct 2026 20:49:04 +0000 (UTC)
+Received: by mail-yw1-f170.google.com with SMTP id
+ 00721157ae682-8b09e07e149so15748567b3.1
+ for <amd-gfx@lists.freedesktop.org>; Sat, 24 Oct 2026 13:49:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792874943; cv=none;
+ d=google.com; s=arc-20260327;
+ b=sP/L1ivUDRfRJ4lF0kQLauEU3lxBdfTXGLy+x6pmJrp4lJ6GsoQ5ZbFySwPgVytYU1
+ YJaA0okGpRLc4qTnnDXb5/tu5GiQNZNsjknza+zkuyGkHSX/YTgYKUh+KuzEwr1RUQua
+ 01mE5Tn2ED0a3uNTjJl4DLYQYCYiha0EtgFVhoZ1/ZuHi11wt9je+VyLiGQGEs0oeOjN
+ cGDyA3EtWyKpKP7JwBNcqmL9bHiOhQWXZLe8Kp/oqx3WjvDyoEY/i68dOTXbLMpu7ypJ
+ x1x20vPYq87XiXGBbtJB2ZLnIm56RRKappj+q0L2bo9CHNpgPdiwQxU4K0GIso69pA3f
+ mQ1A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=oGOpDt5hTBOwyatPqLiX1Cu6VE1WJai8/pltTFw/Xv4=;
+ fh=tTBpjf5hnuIPlzzusD2i1CXhUclICIs/yeAf7AbiFeQ=;
+ b=exvIwxvqof2lfVpBOLiibaUx3Qi1vbGAN1xjndVfj9W1XMl5DnLSolYDrBJihz9i4g
+ 1cLprED2XmqraOVQgLiAsgDZgfs6EE20nZksJzXeZYx+HW/AjNZkpvXewpJL6fU0VKoW
+ JUZKHxS/kYVGjnLfxrGoIJYzqxabgEGl5NxqpqDANp3d+n1GKpR5tfP5mLi2o2kWZ2+E
+ g7uOC2SJwLn3QektLCNWIiF04NyGx94jymBht1xjG3mxIiymV5ujmt4uHsewq3MWqIBx
+ cV9HxKSBiwb+fkwPq9g+PBM6wMUWFsL3V5j9i/5Me19hQqsF5wSi/RM2Xd7A+Zr2ymp1
+ OYmg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1792874943; x=1793479743; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=oGOpDt5hTBOwyatPqLiX1Cu6VE1WJai8/pltTFw/Xv4=;
+ b=PWdCNNq8LIcfkUSiIoZVPtnHcBWKXMCRh157z+XIy46/RxJuAiFiynbLowRbVRS3Cn
+ SKZYVjB0qoaYcpEEBr6CRIS/olOQoRTObJ5Kk1EvYSTn/QPiITDZ8HLKiZzlSUNsMQZQ
+ K6zTKw/IghfKxzMUZN1R4SyMF3SJbNkvmU/FUTJxV6kU6CvWnCxyi+iG6RQBSAvfYAZJ
+ qN+jwDv752pXE2iChW6ACQnrp2W9mCPBUu3RJ4ymbrK3nQdXVMQ2LSt7fLnwxorMoea1
+ hz1/xgxYlXPIwGqSgaqvaMHs+DPcdEehHG4QFDv9y6CpeGFzTO5aO9McN2VTeuV9pdsE
+ m21A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792874943; x=1793479743;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=oGOpDt5hTBOwyatPqLiX1Cu6VE1WJai8/pltTFw/Xv4=;
+ b=GgTRz7PTB4HHjZgDJi6zXc1CWYzmZ289Q/OGeVmbDkqM35lLRlu6GK+foxrYf7x/Kx
+ XRsRIyQkrrpPEAjpat5wgeCfbB+tAT4fDjkFXtLcQoZZaILv3iC0QSoYVWw7Pk7QCntO
+ YOoIk4izniDMhkDANfJu8b1xrgTnrshUjanQblU5FqwY6Im+XAfGXLuSxD1FSEchViq8
+ 63cpRjUXHdOXrZu3Z1yE477fsHqyfkuH2PKgXvkH4dEPeCS7WHswinmMtEXTGn1d3pL6
+ m7vmvSBuG5NBR34RfaRqxWkCAw1CdPRGmMBIdOgJUgvIMJvw+DlIiVVeSyLfqpZGtLLn
+ adog==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwYh5Vx6zLaMHPRDBlLZkoHrL1QIODFeioj6VBcym7rQALB2JYtXVJEcCk3+ZXeJjcHYHnE+cXl@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJHTtAr43Vh5e4xW8Bg8Bi6Y/neRNGy4wP0MO9pkn3fjKjMB2MS
+ hSoSFiVC4IhUdueCImcLiND2r8b7TqNGc6CaSLzOSDEGAhdRuXI79Jj80/q82HcrHphH4fB3hp5
+ GY5d1YrFMkPxOBBF56eNxq5SdchxJLvQM5VJqoUCiig==
+X-Gm-Gg: AYBFou1dN11ejCH/zD/HXt1wXw8sOtE5kptWCFIYLXqxHzh3h+bblOQesrThTD5CQU8
+ 5T3MKN8lKcx4Ort8cvGNI55PicWgz5mBA6q6Vdd/CmqHwihfMRVJbtSUrB+SyLXYo1OwKOa7YAv
+ CI04Y+IBALAYj7WnNgJb7piDB2sgw0+sBDAtntekvMJD4112yR4s9jcwSpU6tF7baRNO9za06mj
+ TJSc4cqueluidkID4011+RbL1hmRVYYCSVU6m6yXK5FiDP11nPzncahEgKi+LRWxvml21OFIM+j
+ Lbuy/VQDO2HltnOLkWidr67bv6WjJkIj5XKeBfsSbAZDLV9Bcf2evagbVYquWfaSnG1qDCPmOau
+ zJfeSLfcBrEyO6bGszFi4wO137geKybdY158=
+X-Received: by 2002:a05:690c:6d81:b0:8b0:f0cc:db0e with SMTP id
+ 00721157ae682-8b166c3e768mr19087577b3.78.1792874942607; Sat, 24 Oct 2026
+ 13:49:02 -0700 (PDT)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA3PR12MB598757:EE_|SA1PR12MB7442:EE_
-X-MS-Office365-Filtering-Correlation-Id: 88c55b40-4563-4e2b-c162-08df332346df
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|7416014|1800799024|366016|18002099003|22082099003|56012099006|11063799006|261022075727099003|261021123027099003|10067099003|261009223027099003|261021121427099003|261022105027099003;
-X-Microsoft-Antispam-Message-Info: rwmhFQdDo+zEDQnX3AhS2qohNwoJYuDCEtE0GUbkwO0pzF3nTlHGz5+dlxVdzqwqWVNQ/IXWLNc8LlZjMZkjK9s05fHL2YCnfvKFTlYZqo/k5WSC5A3P+Fnmxy+OBKWAPBEbUXtHFcOZW47OiG+BrtGjA2ngJBa1gNrLEjN0vMjzbv3hrVY8mzjSLJKy8rs0csZi+xclkuBMxAAJTg9eZcmYi+5Y24Qsn+Y0NxeC6OMLzZ3WFyDG1J0n6QmOkHgJDYBoUl6khZWYFzpsceAXinlOx6aRRYC4tnCAyqiIa8uogdhG0A945IddIO4CJNEfCJpa2Zm0AB94ZCrVnGkmXJpN43L+csNskf3CKoio8ax7vQyvbnY4SfRjkWAyjJdCKs+9Ry+7ETA8wgl/WphUn737PFdXYX9gW/IckXASHQHtFBHuSTtm7lrfhqh+Wc/fLTAuR3QiQBS9VQsVmuWvw/GwJOVj9pckiZU+1vUDyhkWpyFu7ADC2+EjU5/l6KCxYzXoyihDDzXwfTmihCrsjkI/+/oDGEJYNGnyM4e5iE4bb1IezevkSsXoVjdEjuLez3zsyuccJZuvKgp8SIKiJKsSczgkC5b4rbUTqTwIzadyl69Bs3SmR6c8Pv2Mb9I7vfg7WEy//Y8Gwya0txXfrn2REZ45ygmwMOAWX1EnvsQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA3PR12MB598757.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(18002099003)(22082099003)(56012099006)(11063799006)(261022075727099003)(261021123027099003)(10067099003)(261009223027099003)(261021121427099003)(261022105027099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?gB4o4Y3oz6WhXjD9NMHYuUUrAes0MGonaIAX8q0kYq0rmbJ7P41x5EUvCguz?=
- =?us-ascii?Q?9zHqusIjcKI0VXSf7bJkdqjM6+VMnjVE3RiLcIka3Lz3LURrF0lH0yUfvhmX?=
- =?us-ascii?Q?urn8e8XDt+prSdRJI6XRafVt7T8HGlcgfeKC0si+xJCBWMUVRFSr9xwIMhML?=
- =?us-ascii?Q?H4MzqpSU+e7iOSOFrEnGNI6tkkPhdOKtLQVFGUU1pecpqV3PrjCagzzREwOV?=
- =?us-ascii?Q?OiSgYsUeH/TPpWrED8jy6tc9hccdbWH/LhRukc8zrtylamXxLsWqasbKcbV1?=
- =?us-ascii?Q?AO2YVwLD3yEghQ9kb/7jdAnNhrW/5XuSS/qHczDIiaIrTbYhAKjgwq9Xmd7c?=
- =?us-ascii?Q?6WWEaUYieN/lPJNXVKFccWg0IWdMWpInP9ofVHciLk3JqMR+GmbV2i+MhSDg?=
- =?us-ascii?Q?Qtw2P9ZJ6ZeNntREmyvVQ0Iq3O4Z+b/cgT8yJzSY7qomLqdwfoYmq/jPpPsr?=
- =?us-ascii?Q?g+xql/0JFlWX/jMVr5SbThjbdQ9I3/OYoP8wL04U2Lbs6/rWDmaCbvtN1avi?=
- =?us-ascii?Q?iPDH2yEE6ki7lKjy4fRGjdInGxXb00iHcf29psHIaAayzUeRAUBHljv43uS1?=
- =?us-ascii?Q?IwOH0UrdBMoBIvhnnzyHkSL5eOrkE4qHrTGMTtqVrdAkUTBd/KXXSdBOmWW8?=
- =?us-ascii?Q?BuAovR2ZPHDWK7cm0G6qy96gZz4AZquH8VW3IDtlbZ6C2qSrsnCsMhObdrap?=
- =?us-ascii?Q?9RLMAqQLRTDbLNXPKl9T5xpQsuCu172lTo1la5ETK6rc6aZCVwWHYgBDhrmq?=
- =?us-ascii?Q?qNK1b5IJRgxQX9VFlD2Ya0bq0CTp5VL4pMBuVXvigJdGzH/0FsW0Y6XWJsUx?=
- =?us-ascii?Q?BXV1zPJSINRgs9NzWNZKC7AtgFWgDX4gZEYJvZkh0ROXX8fodS0IUwvUOL6z?=
- =?us-ascii?Q?aZGwsZ7lC2TZJ00QGb8KKNHu7GdXNbKFOhpBrI7qx/2IA/w1MPI19SbBGscY?=
- =?us-ascii?Q?pBs9rMP9gOYlKuyT0u6qGewtn2E5AkBPDcB6BwPjSVi6A5VUiklme6VEMkqv?=
- =?us-ascii?Q?MTlRnqlAp6AC8JD7krVMOnMJ0yCUgv66uvhQzbsMzcEqR3mfrrebWdc96oOB?=
- =?us-ascii?Q?gmEEU8PhDxyMlu5TatqwH6zoRKOgrLprqHcIbE3RgKEB3xGwCtnvIPBnCN6K?=
- =?us-ascii?Q?kmIWgOlKmmPzIqN67Sueez21h4H+IM7O2XNkHjEIb8uQj42lAnDpyGSFPRWY?=
- =?us-ascii?Q?GrDhH3/XX3meTbFRReY1kaxvd1smtQDUvIO+l3Z66ezhnUQ5VgPXVtcpJZ/6?=
- =?us-ascii?Q?19gjEno9rBbSrSLu8feXQw0odIk05i8kYS2PGk16Z+pNiPfgFv06FLVtLM6E?=
- =?us-ascii?Q?nv+rQ1WlihxYlMLqfKU6ZeWHXmDE0FvUGykyY9ZrC+onaLD7RjGW7HRLJ62I?=
- =?us-ascii?Q?RSRNbHfCVUqWP4cQWWm3DLDycgywI8PUwsKcExTqCpeGf0cWzH3pSKjqSDZz?=
- =?us-ascii?Q?12d2XzQ19GeZRk8B1BQoSdRNsdc1rW0RnWn5fXK+C6upgYK4Y+78avLfr2WW?=
- =?us-ascii?Q?xogc9mtWwILEeVAsqaSmZujlfqMgq3VzUbyoxNdtXLuPwnDtiNo9HMG1+SMG?=
- =?us-ascii?Q?0ISh2xql0iZx8xJmDNSlUGtPUetRh9r2IMP7msorrmsZ+INYMRgGe2m2Q7Cu?=
- =?us-ascii?Q?KC3+Xi3BzNCqrP4EVae4As7gBYJwTwQQ6v8aB/LzsCsMfVYQh5UMpWzm2Kgn?=
- =?us-ascii?Q?8YaSnpKFWSNNyDZ6qxwpClUjMIzr1QoTTaf2Z6YgEdj205xpW7tH1ixIYWPw?=
- =?us-ascii?Q?Uc1XvAMfKQ=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 88c55b40-4563-4e2b-c162-08df332346df
-X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB598757.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 05:37:51.7967 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VqlVr1GPwXcTXNh615eL5LVQr+qPkMBq6v5JZvxXtr4xR35BUaF1fwBHh8e4DN6qgsfKEMRCMP9RPfX71bhyJg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7442
+References: <20260923152912.1296884-1-qwe.aldo@gmail.com>
+ <20260923154357.1319689-1-qwe.aldo@gmail.com>
+ <CADnq5_PuveD6MFtdLFkkHk24jVCQqgyC1R6pUy7ri_RyWVSZXw@mail.gmail.com>
+In-Reply-To: <CADnq5_PuveD6MFtdLFkkHk24jVCQqgyC1R6pUy7ri_RyWVSZXw@mail.gmail.com>
+From: Aldo Ariel <qwe.aldo@gmail.com>
+Date: Sat, 24 Oct 2026 17:48:51 -0300
+X-Gm-Features: AclHuK_zPYbCeC6EeY7wu8k7LkFZqFRZDodTP3-jmQGg2_aDFjYe5voeFfBXbPw
+Message-ID: <CAP48Hftn=4fRju0BiDw84THpgOe=jn23zJT_9HFmvfWZHvfS=A@mail.gmail.com>
+Subject: Re: [PATCH v3] drm/amdgpu: prevent parameter-space underflow in
+ nested ATOM table calls
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Content-Type: multipart/alternative; boundary="00000000000014b6f6065e9c3a17"
 X-Mailman-Approved-At: Mon, 26 Oct 2026 08:43:34 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -135,103 +101,214 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-9.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Jason Gunthorpe <jgg@nvidia.com>
+--00000000000014b6f6065e9c3a17
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Simple conversion to add a match_mapping() callback that offers an
-exporter SGT mapping type. Later patches will add a physical address
-exporter so go straight to adding the match_mapping() function.
+Hi Alex,
 
-The check for attachment->peer2peer is replaced with setting
-exporter_requires_p2p=true. VFIO always uses MMIO memory.
+Thanks for applying this fix. Could you point me to the commit or
+the branch where it landed? I haven't been able to locate it and
+would like to track its integration.
 
-Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
-[ dma_buf_mapping_attach() calls ->match_mapping() without
-  holding the dma_resv lock, so the dma_resv_assert_held() in
-  vfio_pci_dma_buf_match_mapping() fires under lockdep and the priv->vdev
-  read it guarded was not serialised against vfio_pci_dma_buf_cleanup()
-  either. Fixed as Jason proposed in
-  https://lore.kernel.org/all/20260413130147.GG2588311@nvidia.com/: hold a
-  pci_dev reference for the lifetime of the dmabuf and use it for the P2P
-  match instead of dereferencing priv->vdev. - apopple ]
-Reported-by: Baolu Lu <baolu.lu@linux.intel.com>
-Closes: https://lore.kernel.org/all/f4e2171a-da58-488f-be02-26a39b5afbe3@linux.intel.com/
-Signed-off-by: Alistair Popple <apopple@nvidia.com>
----
- drivers/vfio/pci/vfio_pci_dmabuf.c | 25 ++++++++++++++++++++-----
- 1 file changed, 20 insertions(+), 5 deletions(-)
+Thanks,
+Aldo
 
-diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
-index c16f460c01d6..58e771309c5f 100644
---- a/drivers/vfio/pci/vfio_pci_dmabuf.c
-+++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
-@@ -12,6 +12,7 @@ MODULE_IMPORT_NS("DMA_BUF");
- struct vfio_pci_dma_buf {
- 	struct dma_buf *dmabuf;
- 	struct vfio_pci_core_device *vdev;
-+	struct pci_dev *pdev;
- 	struct list_head dmabufs_elm;
- 	size_t size;
- 	struct phys_vec *phys_vec;
-@@ -27,9 +28,6 @@ static int vfio_pci_dma_buf_attach(struct dma_buf *dmabuf,
- {
- 	struct vfio_pci_dma_buf *priv = dmabuf->priv;
- 
--	if (!attachment->peer2peer)
--		return -EOPNOTSUPP;
--
- 	if (priv->revoked)
- 		return -ENODEV;
- 
-@@ -95,15 +93,31 @@ static void vfio_pci_dma_buf_release(struct dma_buf *dmabuf)
- 		up_write(&priv->vdev->memory_lock);
- 		vfio_device_put_registration(&priv->vdev->vdev);
- 	}
-+	pci_dev_put(priv->pdev);
- 	kfree(priv->phys_vec);
- 	kfree(priv);
- }
- 
--static const struct dma_buf_ops vfio_pci_dmabuf_ops = {
--	.attach = vfio_pci_dma_buf_attach,
-+static const struct dma_buf_mapping_sgt_exp_ops vfio_pci_dma_buf_sgt_ops = {
- 	.map_dma_buf = vfio_pci_dma_buf_map,
- 	.unmap_dma_buf = vfio_pci_dma_buf_unmap,
-+};
-+
-+static int vfio_pci_dma_buf_match_mapping(struct dma_buf_match_args *args)
-+{
-+	struct vfio_pci_dma_buf *priv = args->dmabuf->priv;
-+	struct dma_buf_mapping_match sgt_match[1];
-+
-+	sgt_match[0] = DMA_BUF_EMAPPING_SGT_P2P(&vfio_pci_dma_buf_sgt_ops,
-+						priv->pdev);
-+
-+	return dma_buf_match_mapping(args, sgt_match, ARRAY_SIZE(sgt_match));
-+}
-+
-+static const struct dma_buf_ops vfio_pci_dmabuf_ops = {
-+	.attach = vfio_pci_dma_buf_attach,
- 	.release = vfio_pci_dma_buf_release,
-+	.match_mapping = vfio_pci_dma_buf_match_mapping,
- };
- 
- /*
-@@ -300,6 +314,7 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
- 		goto err_dev_put;
- 	}
- 
-+	priv->pdev = pci_dev_get(vdev->pdev);
- 	kref_init(&priv->kref);
- 	init_completion(&priv->comp);
- 
--- 
-2.54.0
 
+
+On Thu, 24 Sep 2026 17:52:34 -0400, Alex Deucher <alexdeucher@gmail.com>
+wrote:
+> Applied.  Thanks!
+>
+> On Wed, Sep 23, 2026 at 11:44=E2=80=AFAM Aldo Ariel Panzardo <qwe.aldo@gm=
+ail.com>
+wrote:
+> >
+> > atom_op_calltable() invokes a child ATOM table, forwarding the
+> > parent's parameter space with an offset:
+> >
+> >     amdgpu_atom_execute_table_locked(ctx->ctx, idx,
+> >         ctx->ps + ctx->ps_shift,
+> >         ctx->ps_size - ctx->ps_shift);
+> >
+> > ctx->ps_shift is in dwords (set to ps / 4 in
+> > amdgpu_atom_execute_table_locked()), while ctx->ps_size is the
+> > remaining capacity in bytes. The subtraction therefore mixes units:
+> > a child table requesting 60 bytes (ps_shift =3D 15 dwords) with only
+> > 16 bytes remaining would compute 16 - 15 =3D 1 instead of the correct
+> > 16 - 60 =3D underflow.
+> >
+> > Convert ps_shift to bytes (ps_shift * 4) in both the guard and the
+> > subtraction so the units are consistent. Abort the interpreter when
+> > the request exceeds the available space so the parent table does not
+> > continue with stale or uninitialized data.
+> >
+> > Fixes: d38ceaf99ed0 ("drm/amdgpu: add coordinate ATOMBIOS table
+support")
+> > Cc: stable@vger.kernel.org
+> > Reported-by: Sashiko <sashiko-bot@kernel.org>
+> > Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+> > ---
+> > v3: abort the interpreter (ctx->abort =3D true + return) when the
+> >     child table's parameter space exceeds the parent's remaining
+> >     capacity, instead of silently skipping execution (found by
+> >     Sashiko AI review on v2).
+> > v2: convert ps_shift to bytes (ps_shift * 4) before comparing with
+> >     ps_size, fixing the unit mismatch (found by Sashiko AI review).
+> >
+> >  drivers/gpu/drm/amd/amdgpu/atom.c | 7 ++++++-
+> >  1 file changed, 6 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c
+b/drivers/gpu/drm/amd/amdgpu/atom.c
+> > index e0e585f..af283cd 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/atom.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/atom.c
+> > @@ -646,8 +646,13 @@ static void atom_op_calltable(atom_exec_context
+*ctx, int *ptr, int arg)
+> >                 SDEBUG("   table: %d (%s)\n", idx,
+atom_table_names[idx]);
+> >         else
+> >                 SDEBUG("   table: %d\n", idx);
+> > -       if (U16(ctx->ctx->cmd_table + 4 + 2 * idx))
+> > -               r =3D amdgpu_atom_execute_table_locked(ctx->ctx, idx,
+ctx->ps + ctx->ps_shift, ctx->ps_size - ctx->ps_shift);
+> > +       if (U16(ctx->ctx->cmd_table + 4 + 2 * idx)) {
+> > +               if (ctx->ps_shift * 4 > ctx->ps_size) {
+> > +                       ctx->abort =3D true;
+> > +                       return;
+> > +               }
+> > +               r =3D amdgpu_atom_execute_table_locked(ctx->ctx, idx,
+ctx->ps + ctx->ps_shift, ctx->ps_size - ctx->ps_shift * 4);
+> > +       }
+> >         if (r) {
+> >                 ctx->abort =3D true;
+> >         }
+> > --
+> > 2.43.0
+
+--00000000000014b6f6065e9c3a17
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto">Hi Alex,<br>
+<br>
+Thanks for applying this fix. Could you point me to the commit or<br>
+the branch where it landed? I haven&#39;t been able to locate it and<br>
+would like to track its integration.<br>
+<br>
+Thanks,<br>
+Aldo</div><br>
+<br>
+<br>
+On Thu, 24 Sep 2026 17:52:34 -0400, Alex Deucher &lt;<a href=3D"mailto:alex=
+deucher@gmail.com" target=3D"_blank" rel=3D"noreferrer">alexdeucher@gmail.c=
+om</a>&gt; wrote:<br>
+&gt; Applied.=C2=A0 Thanks!<br>
+&gt; <br>
+&gt; On Wed, Sep 23, 2026 at 11:44=E2=80=AFAM Aldo Ariel Panzardo &lt;<a hr=
+ef=3D"mailto:qwe.aldo@gmail.com" target=3D"_blank" rel=3D"noreferrer">qwe.a=
+ldo@gmail.com</a>&gt; wrote:<br>
+&gt; &gt;<br>
+&gt; &gt; atom_op_calltable() invokes a child ATOM table, forwarding the<br=
+>
+&gt; &gt; parent&#39;s parameter space with an offset:<br>
+&gt; &gt;<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0amdgpu_atom_execute_table_locked(ctx-&gt;ctx, =
+idx,<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ctx-&gt;ps + ctx-&gt;ps_shift,<b=
+r>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ctx-&gt;ps_size - ctx-&gt;ps_shi=
+ft);<br>
+&gt; &gt;<br>
+&gt; &gt; ctx-&gt;ps_shift is in dwords (set to ps / 4 in<br>
+&gt; &gt; amdgpu_atom_execute_table_locked()), while ctx-&gt;ps_size is the=
+<br>
+&gt; &gt; remaining capacity in bytes. The subtraction therefore mixes unit=
+s:<br>
+&gt; &gt; a child table requesting 60 bytes (ps_shift =3D 15 dwords) with o=
+nly<br>
+&gt; &gt; 16 bytes remaining would compute 16 - 15 =3D 1 instead of the cor=
+rect<br>
+&gt; &gt; 16 - 60 =3D underflow.<br>
+&gt; &gt;<br>
+&gt; &gt; Convert ps_shift to bytes (ps_shift * 4) in both the guard and th=
+e<br>
+&gt; &gt; subtraction so the units are consistent. Abort the interpreter wh=
+en<br>
+&gt; &gt; the request exceeds the available space so the parent table does =
+not<br>
+&gt; &gt; continue with stale or uninitialized data.<br>
+&gt; &gt;<br>
+&gt; &gt; Fixes: d38ceaf99ed0 (&quot;drm/amdgpu: add coordinate ATOMBIOS ta=
+ble support&quot;)<br>
+&gt; &gt; Cc: <a href=3D"mailto:stable@vger.kernel.org" target=3D"_blank" r=
+el=3D"noreferrer">stable@vger.kernel.org</a><br>
+&gt; &gt; Reported-by: Sashiko &lt;<a href=3D"mailto:sashiko-bot@kernel.org=
+" target=3D"_blank" rel=3D"noreferrer">sashiko-bot@kernel.org</a>&gt;<br>
+&gt; &gt; Signed-off-by: Aldo Ariel Panzardo &lt;<a href=3D"mailto:qwe.aldo=
+@gmail.com" target=3D"_blank" rel=3D"noreferrer">qwe.aldo@gmail.com</a>&gt;=
+<br>
+&gt; &gt; ---<br>
+&gt; &gt; v3: abort the interpreter (ctx-&gt;abort =3D true + return) when =
+the<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0child table&#39;s parameter space exceeds the =
+parent&#39;s remaining<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0capacity, instead of silently skipping executi=
+on (found by<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0Sashiko AI review on v2).<br>
+&gt; &gt; v2: convert ps_shift to bytes (ps_shift * 4) before comparing wit=
+h<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0ps_size, fixing the unit mismatch (found by Sa=
+shiko AI review).<br>
+&gt; &gt;<br>
+&gt; &gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/atom.c | 7 ++++++-<br>
+&gt; &gt;=C2=A0 1 file changed, 6 insertions(+), 1 deletion(-)<br>
+&gt; &gt;<br>
+&gt; &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/=
+amd/amdgpu/atom.c<br>
+&gt; &gt; index e0e585f..af283cd 100644<br>
+&gt; &gt; --- a/drivers/gpu/drm/amd/amdgpu/atom.c<br>
+&gt; &gt; +++ b/drivers/gpu/drm/amd/amdgpu/atom.c<br>
+&gt; &gt; @@ -646,8 +646,13 @@ static void atom_op_calltable(atom_exec_cont=
+ext *ctx, int *ptr, int arg)<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0SDEB=
+UG(&quot;=C2=A0 =C2=A0table: %d (%s)\n&quot;, idx, atom_table_names[idx]);<=
+br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0else<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0SDEB=
+UG(&quot;=C2=A0 =C2=A0table: %d\n&quot;, idx);<br>
+&gt; &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0if (U16(ctx-&gt;ctx-&gt;cmd_table + 4=
+ + 2 * idx))<br>
+&gt; &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0r =3D amd=
+gpu_atom_execute_table_locked(ctx-&gt;ctx, idx, ctx-&gt;ps + ctx-&gt;ps_shi=
+ft, ctx-&gt;ps_size - ctx-&gt;ps_shift);<br>
+&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0if (U16(ctx-&gt;ctx-&gt;cmd_table + 4=
+ + 2 * idx)) {<br>
+&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (ctx-&=
+gt;ps_shift * 4 &gt; ctx-&gt;ps_size) {<br>
+&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0ctx-&gt;abort =3D true;<br>
+&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0return;<br>
+&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0r =3D amd=
+gpu_atom_execute_table_locked(ctx-&gt;ctx, idx, ctx-&gt;ps + ctx-&gt;ps_shi=
+ft, ctx-&gt;ps_size - ctx-&gt;ps_shift * 4);<br>
+&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (r) {<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ctx-=
+&gt;abort =3D true;<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt; &gt; --<br>
+&gt; &gt; 2.43.0
+
+--00000000000014b6f6065e9c3a17--
