@@ -2,92 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFBB1606A31A
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Oct 2026 08:44:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09D76606A31A
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Oct 2026 08:44:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=EoE9CzuE
+	dkim=pass (2048-bit key, unprotected) header.d=empyreal.works header.i=@empyreal.works header.a=rsa-sha256 header.s=protonmail2 header.b=djI+/Fs1
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B68D10ECCB;
-	Mon, 26 Oct 2026 08:44:13 +0000 (UTC)
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C86810E675
- for <amd-gfx@lists.freedesktop.org>; Sun, 25 Oct 2026 04:03:29 +0000 (UTC)
-Received: by mail-dl1-f43.google.com with SMTP id
- a92af1059eb24-14fc585291cso716523c88.1
- for <amd-gfx@lists.freedesktop.org>; Sat, 24 Oct 2026 21:03:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792901008; x=1793505808; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=ld0b6jnrv9lRwiEj850RVsyn17/7q2cRzxdIYpNocEM=;
- b=EoE9CzuE6p7kHUAzFVmmVt0qqx9n89Zr0FpiJXY0wKRrXvfa6SqtRH33NLMJThiMl7
- Q4K306xl1TSdHLyEchmz9DGW1BrNa0AHvzGwmzAhrvN3kbDAXnoC6V0K3RCC7sft6cla
- IhXuEGgIOOxQwMZr9NIIXJf+rWwzRDESQ3vw4fAWtAzotBVYiryHkP0djMGpaPC8DC7z
- EzbXJwttFZz74kc5sbmrIfGnEG7mJqUcH8QyGEEknBpV2bm/k0hUdIXlG+Ntys9kYr9Y
- QPPoGT1ZNvglFc5lFNdg2KPeEwgB9WcoclTsTIA4UExbJpa+NZvExWyCcrKcF0sr8Ppt
- 8wdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792901008; x=1793505808;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=ld0b6jnrv9lRwiEj850RVsyn17/7q2cRzxdIYpNocEM=;
- b=mSDA6ytedZTIUeKky1Rh+nIP4+27yiwb+3RucXD8xeD1KEneJ+nYrqqDgRcPJLf7uk
- jnaUIxTVosCZxxPc3W6Gt/sB4sPewYGAWfOww50DTDTocDfFPCiD3MU/aEWwIAWwVK5U
- 7lJt8nzkVxEufOSyqh72a8kpDszgjcgNY87SKElysRVKO+ObacoxgsIrRUPsGO7MnIAB
- 21E2xXuQ/h7pV1YwAnvciGBGFZWuxepBAlaQUIoSDwy/GHcJOR0fK0lSGDiA2FZ5NGzC
- qrQCEuHUypbD8yIEfKDi260lqMXqCx334/NFQRrMS8h8yVqjTOMMaAIzT3OFrneMo8FS
- Uvng==
-X-Forwarded-Encrypted: i=1;
- AKwUvByjPTfv2NKD80gazcdool0M1kIs7pdSUUrN1sQWwfAWEriXtBe7COs0Jww1ytnIBvMnh22a9uvz@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKu+pY4j52nAJ2uaqKWbNxhOqBTgkZmMmhUpE8NIDjl9/70GGTq
- oD16TKuWr+qNigeKItxWFpF2+4iRXSoMmAiZd+wUPZdtKKXMFjOf/3g=
-X-Gm-Gg: AYBFou1OBkITgZFxhFYwTVQDm/nt66Hf62oD85+wu4qTbO3JLKeuMykK3FxF45mLY1q
- vg6wrz+uhfHwilbIC8MJRVnCLJ1msweHd3x2FM+Awap9xNLDWs058YrKGTML/11IVqWWLlTKcT0
- IV+Pt8TdAqtmMfdLd6RxDov57YmqBjYTQNW2E/6KlW76pIg7nQKl7+AFOxnxyF47A8zo8mYrMwz
- 70VWnB9rt87RRCQXPh1WSlLrJh0uSjUYASXcd0DppP0DuIB1E9MO6KlBDU0/S1FNsCSXh9GEU5V
- MBrPigHhoV4X8ps4ewy3BILzhrIz1thUz99fLF2iUvwQv9MbbELrgWc2MpYBrYzoVflVVEPh4kx
- 0+y4wuWnsoKoOVOBJJNA7/Tr1drtrFhmoUmZQHbjUkjAeg7+9kg68NWuQTNdVY4icmiex3xx0eh
- PI5tUWi5UWgd5zPXbAFhJJJplTz3J0pUN54BOKvK/9NlMI1A8C8N1Ziw+ZZJgQvzkxKDFApQtHR
- krKxRxdhYOMYDfySNfEda5ZCKOIk+29YDACjt59wPdwHwNo4hNgKvDIcHVIexwXuQZUV3m3VrOf
- d0fuBZImnlimyeNNFrMAHShxwTb3uEfX4Frm
-X-Received: by 2002:a05:701b:42cd:10b0:187:ec67:2fc5 with SMTP id
- a92af1059eb24-1993702567cmr5122803c88.32.1792901008081; 
- Sat, 24 Oct 2026 21:03:28 -0700 (PDT)
-Received: from at-Standard-PC-Q35-ICH9-2009 ([106.221.76.40])
- by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-198a32ff780sm11635283c88.22.2026.10.24.21.03.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 24 Oct 2026 21:03:27 -0700 (PDT)
-From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-To: 
-Cc: Andre Eikmeyer <dev@deq.rocks>, Bjorn Helgaas <bhelgaas@google.com>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org (maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)),
- "H. Peter Anvin" <hpa@zytor.com>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Kenneth Feng <kenneth.feng@amd.com>, Hans de Goede <hansg@kernel.org>,
- =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
- linux-pci@vger.kernel.org (open list:PCI SUBSYSTEM),
- linux-kernel@vger.kernel.org (open list:X86 ARCHITECTURE (32-BIT AND 64-BIT)), 
- amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
- dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
- platform-driver-x86@vger.kernel.org (open list:X86 PLATFORM DRIVERS)
-Subject: [PATCH 09/13] drm/amdgpu: Add Apple GMUX runtime PM support
-Date: Sat, 24 Oct 2026 23:59:45 -0400
-Message-ID: <20261025040046.1602-10-atharvatiwarilinuxdev@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261025040046.1602-1-atharvatiwarilinuxdev@gmail.com>
-References: <20261025040046.1602-1-atharvatiwarilinuxdev@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8183910ECD3;
+	Mon, 26 Oct 2026 08:44:14 +0000 (UTC)
+X-Greylist: delayed 458 seconds by postgrey-1.36 at gabe;
+ Sat, 24 Oct 2026 01:41:25 UTC
+Received: from mail-244102.protonmail.ch (mail-244102.protonmail.ch
+ [109.224.244.102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C57710E355
+ for <amd-gfx@lists.freedesktop.org>; Sat, 24 Oct 2026 01:41:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=empyreal.works;
+ s=protonmail2; t=1792805626; x=1793064826;
+ bh=b4pf2WxrjoiB/I5SjNfdoKPGcUXYjRelg0jICQe0YCg=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=djI+/Fs11uQr5FDYnD2fmQojAZfuukbUEH8KfXAcQV7MRkyaz5GQBZkeOnTU3qcll
+ 2kWoiReWMi3iz02I9Twt4GoZdcXtmA/J3ncn2snl7OlQmloaYUgPaZQFfI+qN3TV0T
+ a2+G/u7ZYKLljhqKNW7mF/q3Dz2q/07PMpnAm9dTYMbUnGd7QPEucFrIs5n6OHVqZX
+ nZ/ycQ/A8OY4aH73ndDVvMDQV3fqNgkMAXgFucWpAHWV4ri/nH2pAVuF6yV/kvQdYM
+ nEM+bHowjU1zZaEzmqAkHhPC4gFUJGs8+5r0c93V69fdGatwAXFNm1xTrKX43ndnPJ
+ oTEE7hV1HInog==
+Date: Sat, 24 Oct 2026 01:33:43 +0000
+To: amd-gfx@lists.freedesktop.org
+From: Andrei Rusu de Castro <arc@empyreal.works>
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, alex.hung@amd.com, roman.li@amd.com,
+ mario.limonciello@amd.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, chen-yu.chen@amd.com, ray.wu@amd.com
+Subject: [PATCH v3 2/2] drm/amd/display: test custom brightness with non-zero
+ minimum
+Message-ID: <a896f516c52d247653ef35720719b9bc06c0ce68.1792805565.git.arc@empyreal.works>
+In-Reply-To: <cover.1792805565.git.arc@empyreal.works>
+References: <20260902-brightness-cover-abf809f2@empyreal.works>
+ <cover.1788388049.git.arc@empyreal.works>
+ <cover.1792805565.git.arc@empyreal.works>
+Feedback-ID: 182420409:user:proton
+X-Pm-Message-ID: 8b5a122c0615c4049cec610c88e4b908b4bb1caf
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 26 Oct 2026 08:43:34 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -99,335 +59,365 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Andre Eikmeyer <dev@deq.rocks>
+The existing custom-curve tests use min_input_signal =3D=3D 0. In that
+configuration the firmware minimum is zero and an extra [0..max] to
+[min..max] conversion is an identity, so the output-side double scaling
+cannot be observed.
 
-The T2 MacBookPro's uses Apple GMUX to control power to the discrete GPU,
-but it does not expose the ATPX or ACPI power-resource interfaces currently
-recognized by amdgpu. The driver therefore leaves runtime PM disabled even
-though vga_switcheroo can switch the GPU reliably.
+Add a curve using the default non-zero PWM minimum. Cover the helper's
+userspace-domain result, zero and maximum endpoints, interpolation,
+monotonicity, range bounds, zero round-trip, agreement with the linear
+path at zero, and the unchanged no-curve path.
 
-A dedicated GMUX runtime PM mode uses the existing vga_switcheroo PM domain
-to sequence GPU power. A runtime-suspended GMUX GPU can remain powered off
-across system sleep, following the smart-suspend handling already used by
-BOCO devices.
+Six of the nine new cases fail against the pre-fix arithmetic. The other
+three retain endpoint and linear-path invariants around the repair.
 
-On muxed systems the inactive GPU cannot reach the panel AUX channel. Like
-the macOS driver, tell Display Core that eDP is disconnected before
-dc_create() when the GMUX GPU is not the boot display device, and skip eDP
-detection at init as the resume path already does. This avoids powering the
-panel from the inactive GPU and retaining a fail-safe sink that reports as
-connected and keeps the GPU runtime busy.
+The cases were verified under UML KUnit.
 
-This allows the discrete GPU to enter D3cold while the integrated GPU is
-primary and allows PRIME workloads and external displays to wake it on
-demand.
-
-This was tested on MacBookPro15,1, 16,1, 16,4 together
-with the corresponding apple-gmux power-sequencing support.
-
-Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
+Assisted-by: LLM
+Signed-off-by: Andrei Rusu de Castro <arc@empyreal.works>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  2 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 55 +++++++++++++++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       | 40 +++++++++-----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 14 +++++
- drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h       |  1 +
- 5 files changed, 93 insertions(+), 19 deletions(-)
+ .../tests/amdgpu_dm_backlight_test.c          | 264 ++++++++++++++++++
+ 1 file changed, 264 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index a9c6f5d4a..6fd607587 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -1194,6 +1194,8 @@ int amdgpu_device_mode1_reset(struct amdgpu_device *adev);
- int amdgpu_device_link_reset(struct amdgpu_device *adev);
- bool amdgpu_device_supports_atpx(struct amdgpu_device *adev);
- bool amdgpu_device_supports_px(struct amdgpu_device *adev);
-+bool amdgpu_device_supports_gmux(struct amdgpu_device *adev);
-+bool amdgpu_device_has_gmux_edp(struct amdgpu_device *adev);
- bool amdgpu_device_supports_boco(struct amdgpu_device *adev);
- bool amdgpu_device_supports_smart_shift(struct amdgpu_device *adev);
- int amdgpu_device_supports_baco(struct amdgpu_device *adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 9269e780f..c1f196242 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -34,6 +34,7 @@
- #include <linux/slab.h>
- #include <linux/iommu.h>
- #include <linux/pci.h>
-+#include <linux/dmi.h>
- #include <linux/pci-p2pdma.h>
- #include <linux/apple-gmux.h>
- #include <linux/nospec.h>
-@@ -570,6 +571,45 @@ bool amdgpu_device_supports_px(struct amdgpu_device *adev)
- 	return false;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backligh=
+t_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_=
+test.c
+index 5ff074497..a24991e3a 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.=
+c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.=
+c
+@@ -1419,6 +1419,261 @@ static void dm_test_brightness_from_user_with_curve=
+(struct kunit *test)
+ =09amdgpu_dm_set_dc_debug_mask(saved_mask);
  }
- 
-+static const struct dmi_system_id amdgpu_gmux_runpm_dmi_table[] = {
-+	{
-+		.matches = {
-+			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro15,1"),
-+		},
-+	},
-+	{
-+		.matches = {
-+			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro15,3"),
-+		},
-+	},
-+	{
-+		.matches = {
-+			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro16,1"),
-+		},
-+	},
-+	{
-+		.matches = {
-+			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro16,4"),
-+		},
-+	},
-+	{ }
-+};
-+
-+bool amdgpu_device_supports_gmux(struct amdgpu_device *adev)
+=20
++/*
++ * The custom curve cases above all use min_input_signal =3D=3D 0.  There =
+the
++ * firmware minimum is zero and the [0..max] to [min..max] span is the ide=
+ntity,
++ * so an extra application of that mapping cannot be observed.  The cases =
+below
++ * use the default firmware range instead, where min is 0x101 * 12 =3D=3D =
+3084 and
++ * max is 0x101 * 255 =3D=3D 65535.
++ */
++static void dm_test_curve_caps_init(struct amdgpu_dm_backlight_caps *caps)
 +{
-+	return dmi_check_system(amdgpu_gmux_runpm_dmi_table) &&
-+	       !dev_is_removable(&adev->pdev->dev) &&
-+	       apple_gmux_detect(NULL, NULL);
++=09caps->aux_support =3D false;
++=09caps->min_input_signal =3D AMDGPU_DM_DEFAULT_MIN_BACKLIGHT;
++=09caps->max_input_signal =3D AMDGPU_DM_DEFAULT_MAX_BACKLIGHT;
++=09caps->data_points =3D 3;
++=09caps->luminance_data[0].input_signal =3D 50;
++=09caps->luminance_data[0].luminance =3D 20;
++=09caps->luminance_data[1].input_signal =3D 128;
++=09caps->luminance_data[1].luminance =3D 50;
++=09caps->luminance_data[2].input_signal =3D 255;
++=09caps->luminance_data[2].luminance =3D 100;
 +}
 +
-+bool amdgpu_device_has_gmux_edp(struct amdgpu_device *adev)
++/**
++ * dm_test_custom_brightness_user_domain - Curve output is a userspace val=
+ue
++ * @test: The KUnit test context
++ *
++ * convert_custom_brightness() reshapes a value inside the userspace [0..m=
+ax]
++ * domain.  Its caller owns the single conversion to the firmware [min..ma=
+x]
++ * domain, so the firmware minimum must not appear in this result.
++ */
++static void dm_test_custom_brightness_user_domain(struct kunit *test)
 +{
-+	return amdgpu_device_supports_gmux(adev) &&
-+	       (dmi_match(DMI_PRODUCT_NAME, "MacBookPro15,3") ||
-+		dmi_match(DMI_PRODUCT_NAME, "MacBookPro16,1") ||
-+		dmi_match(DMI_PRODUCT_NAME, "MacBookPro16,4"));
++=09struct amdgpu_dm_backlight_caps caps =3D {};
++=09uint saved_mask =3D amdgpu_dm_get_dc_debug_mask();
++=09unsigned int min, max;
++=09u32 brightness;
++
++=09amdgpu_dm_set_dc_debug_mask(saved_mask & ~DC_DISABLE_CUSTOM_BRIGHTNESS_=
+CURVE);
++=09dm_test_curve_caps_init(&caps);
++=09get_brightness_range(&caps, &min, &max);
++
++=09/* Zero stays zero; it is not lifted to the firmware minimum here. */
++=09brightness =3D 0;
++=09convert_custom_brightness(&caps, max, &brightness);
++=09KUNIT_EXPECT_EQ(test, brightness, (u32)0);
++
++=09/* The top of the curve stays inside the userspace range. */
++=09brightness =3D max;
++=09convert_custom_brightness(&caps, max, &brightness);
++=09KUNIT_EXPECT_LE(test, brightness, (u32)max);
++
++=09amdgpu_dm_set_dc_debug_mask(saved_mask);
++}
++
++/**
++ * dm_test_curve_from_user_zero_is_min - Zero maps to the firmware minimum
++ * @test: The KUnit test context
++ *
++ * Zero is the darkest level userspace can ask for and must reach the dark=
+est
++ * level the firmware accepts.
++ */
++static void dm_test_curve_from_user_zero_is_min(struct kunit *test)
++{
++=09struct amdgpu_dm_backlight_caps caps =3D {};
++=09uint saved_mask =3D amdgpu_dm_get_dc_debug_mask();
++=09unsigned int min, max;
++
++=09amdgpu_dm_set_dc_debug_mask(saved_mask & ~DC_DISABLE_CUSTOM_BRIGHTNESS_=
+CURVE);
++=09dm_test_curve_caps_init(&caps);
++=09get_brightness_range(&caps, &min, &max);
++
++=09KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, 0), (u32)min)=
+;
++
++=09amdgpu_dm_set_dc_debug_mask(saved_mask);
++}
++
++/**
++ * dm_test_curve_from_user_matches_linear_at_zero - Curve keeps the lower =
+endpoint
++ * @test: The KUnit test context
++ *
++ * The curve reshapes the interior of the range.  It does not move either
++ * endpoint, so the curved and linear paths must agree at zero.
++ */
++static void dm_test_curve_from_user_matches_linear_at_zero(struct kunit *t=
+est)
++{
++=09struct amdgpu_dm_backlight_caps caps =3D {};
++=09uint saved_mask =3D amdgpu_dm_get_dc_debug_mask();
++=09u32 with_curve, without_curve;
++
++=09dm_test_curve_caps_init(&caps);
++
++=09amdgpu_dm_set_dc_debug_mask(saved_mask & ~DC_DISABLE_CUSTOM_BRIGHTNESS_=
+CURVE);
++=09with_curve =3D convert_brightness_from_user(&caps, 0);
++
++=09amdgpu_dm_set_dc_debug_mask(saved_mask | DC_DISABLE_CUSTOM_BRIGHTNESS_C=
+URVE);
++=09without_curve =3D convert_brightness_from_user(&caps, 0);
++
++=09KUNIT_EXPECT_EQ(test, with_curve, without_curve);
++
++=09amdgpu_dm_set_dc_debug_mask(saved_mask);
++}
++
++/**
++ * dm_test_curve_from_user_round_trip_zero - Zero survives a conversion ro=
+und trip
++ * @test: The KUnit test context
++ */
++static void dm_test_curve_from_user_round_trip_zero(struct kunit *test)
++{
++=09struct amdgpu_dm_backlight_caps caps =3D {};
++=09uint saved_mask =3D amdgpu_dm_get_dc_debug_mask();
++=09u32 level;
++
++=09amdgpu_dm_set_dc_debug_mask(saved_mask & ~DC_DISABLE_CUSTOM_BRIGHTNESS_=
+CURVE);
++=09dm_test_curve_caps_init(&caps);
++
++=09level =3D convert_brightness_from_user(&caps, 0);
++=09KUNIT_EXPECT_EQ(test, convert_brightness_to_user(&caps, level), (u32)0)=
+;
++
++=09amdgpu_dm_set_dc_debug_mask(saved_mask);
++}
++
++/**
++ * dm_test_curve_from_user_interpolation - Interpolated point with a non-z=
+ero min
++ * @test: The KUnit test context
++ */
++static void dm_test_curve_from_user_interpolation(struct kunit *test)
++{
++=09struct amdgpu_dm_backlight_caps caps =3D {};
++=09uint saved_mask =3D amdgpu_dm_get_dc_debug_mask();
++
++=09amdgpu_dm_set_dc_debug_mask(saved_mask & ~DC_DISABLE_CUSTOM_BRIGHTNESS_=
+CURVE);
++=09dm_test_curve_caps_init(&caps);
++
++=09/*
++=09 * scale_input_to_fw(65535, 25700) =3D DIV_ROUND_CLOSEST(25700 * 255, 6=
+5535)
++=09 * =3D 100, which falls between the (50, 20) and (128, 50) points:
++=09 *   lum =3D 20 + DIV_ROUND_CLOSEST((50 - 20) * (100 - 50), 128 - 50) =
+=3D 39
++=09 * The curved firmware level is DIV_ROUND_CLOSEST(39 * 100, 101) =3D 39=
+,
++=09 * which is DIV_ROUND_CLOSEST(39 * 65535, 255) =3D 10023 in the userspa=
+ce
++=09 * domain and 3084 + DIV_ROUND_CLOSEST(62451 * 10023, 65535) =3D 12635
++=09 * once converted to the firmware domain.
++=09 */
++=09KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, 25700), (u32)=
+12635);
++
++=09amdgpu_dm_set_dc_debug_mask(saved_mask);
++}
++
++/**
++ * dm_test_curve_from_user_max - The top of the range stays inside the ran=
+ge
++ * @test: The KUnit test context
++ */
++static void dm_test_curve_from_user_max(struct kunit *test)
++{
++=09struct amdgpu_dm_backlight_caps caps =3D {};
++=09uint saved_mask =3D amdgpu_dm_get_dc_debug_mask();
++=09unsigned int min, max;
++
++=09amdgpu_dm_set_dc_debug_mask(saved_mask & ~DC_DISABLE_CUSTOM_BRIGHTNESS_=
+CURVE);
++=09dm_test_curve_caps_init(&caps);
++=09get_brightness_range(&caps, &min, &max);
++
++=09/*
++=09 * scale_input_to_fw(65535, 65535) =3D 255 matches the last point exact=
+ly,
++=09 * so lum =3D 100 and the curved firmware level is
++=09 * DIV_ROUND_CLOSEST(100 * 255, 101) =3D 252.  That is
++=09 * DIV_ROUND_CLOSEST(252 * 65535, 255) =3D 64764 in the userspace domai=
+n
++=09 * and 3084 + DIV_ROUND_CLOSEST(62451 * 64764, 65535) =3D 64800 in the
++=09 * firmware domain.
++=09 */
++=09KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, max), (u32)64=
+800);
++=09KUNIT_EXPECT_LE(test, convert_brightness_from_user(&caps, max), (u32)ma=
+x);
++
++=09amdgpu_dm_set_dc_debug_mask(saved_mask);
++}
++
++/**
++ * dm_test_curve_from_user_monotonic - A rising curve gives a rising level
++ * @test: The KUnit test context
++ */
++static void dm_test_curve_from_user_monotonic(struct kunit *test)
++{
++=09struct amdgpu_dm_backlight_caps caps =3D {};
++=09uint saved_mask =3D amdgpu_dm_get_dc_debug_mask();
++=09unsigned int min, max, i;
++=09u32 previous =3D 0;
++
++=09amdgpu_dm_set_dc_debug_mask(saved_mask & ~DC_DISABLE_CUSTOM_BRIGHTNESS_=
+CURVE);
++=09dm_test_curve_caps_init(&caps);
++=09get_brightness_range(&caps, &min, &max);
++
++=09for (i =3D 0; i <=3D max; i +=3D 1023) {
++=09=09u32 level =3D convert_brightness_from_user(&caps, i);
++
++=09=09KUNIT_ASSERT_GE(test, level, previous);
++=09=09previous =3D level;
++=09}
++
++=09KUNIT_EXPECT_GE(test, convert_brightness_from_user(&caps, max), previou=
+s);
++
++=09amdgpu_dm_set_dc_debug_mask(saved_mask);
++}
++
++/**
++ * dm_test_curve_from_user_within_range - Curved levels never leave [min..=
+max]
++ * @test: The KUnit test context
++ *
++ * The firmware level is programmed through a 16-bit path, so a converted =
+value
++ * above max would wrap and darken the panel.
++ */
++static void dm_test_curve_from_user_within_range(struct kunit *test)
++{
++=09struct amdgpu_dm_backlight_caps caps =3D {};
++=09uint saved_mask =3D amdgpu_dm_get_dc_debug_mask();
++=09unsigned int min, max, i;
++
++=09amdgpu_dm_set_dc_debug_mask(saved_mask & ~DC_DISABLE_CUSTOM_BRIGHTNESS_=
+CURVE);
++=09dm_test_curve_caps_init(&caps);
++=09get_brightness_range(&caps, &min, &max);
++
++=09for (i =3D 0; i <=3D max; i +=3D 1023) {
++=09=09u32 level =3D convert_brightness_from_user(&caps, i);
++
++=09=09KUNIT_ASSERT_GE(test, level, (u32)min);
++=09=09KUNIT_ASSERT_LE(test, level, (u32)max);
++=09}
++
++=09KUNIT_EXPECT_LE(test, convert_brightness_from_user(&caps, max), (u32)ma=
+x);
++
++=09amdgpu_dm_set_dc_debug_mask(saved_mask);
++}
++
++/**
++ * dm_test_from_user_no_curve_unchanged - The linear path is untouched
++ * @test: The KUnit test context
++ *
++ * Without luminance data the conversion is the plain
++ * min + DIV_ROUND_CLOSEST((max - min) * brightness, max) mapping.
++ */
++static void dm_test_from_user_no_curve_unchanged(struct kunit *test)
++{
++=09struct amdgpu_dm_backlight_caps caps =3D {};
++=09unsigned int min, max;
++
++=09caps.aux_support =3D false;
++=09caps.min_input_signal =3D AMDGPU_DM_DEFAULT_MIN_BACKLIGHT;
++=09caps.max_input_signal =3D AMDGPU_DM_DEFAULT_MAX_BACKLIGHT;
++=09caps.data_points =3D 0;
++
++=09get_brightness_range(&caps, &min, &max);
++
++=09KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, 0), (u32)3084=
+);
++=09KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, 16383), (u32)=
+18696);
++=09KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, 32767), (u32)=
+34309);
++=09KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, max), (u32)65=
+535);
 +}
 +
  /**
-  * amdgpu_device_supports_boco - Is the device a dGPU with ACPI power resources
-  *
-@@ -640,6 +680,9 @@ void amdgpu_device_detect_runtime_pm_mode(struct amdgpu_device *adev)
- 			/* enable PX as runtime mode */
- 			adev->pm.rpm_mode = AMDGPU_RUNPM_PX;
- 			dev_info(adev->dev, "Using ATPX for runtime pm\n");
-+		} else if (amdgpu_device_supports_gmux(adev)) {
-+			adev->pm.rpm_mode = AMDGPU_RUNPM_GMUX;
-+			dev_info(adev->dev, "Using Apple GMUX for runtime pm\n");
- 		} else if (amdgpu_device_supports_boco(adev)) {
- 			/* enable boco as runtime mode */
- 			adev->pm.rpm_mode = AMDGPU_RUNPM_BOCO;
-@@ -3767,7 +3810,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- {
- 	struct pci_dev *pdev = adev->pdev;
- 	int r, i;
--	bool px = false;
-+	bool gmux, px = false;
- 	u32 max_MBps;
- 	int tmp;
- 
-@@ -4202,12 +4245,13 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 		vga_client_register(adev->pdev, amdgpu_device_vga_set_decode);
- 
- 	px = amdgpu_device_supports_px(adev);
-+	gmux = amdgpu_device_supports_gmux(adev);
- 
- 	if (amdgpu_device_should_register_switcheroo(adev, px))
- 		vga_switcheroo_register_client(adev->pdev,
--					       &amdgpu_switcheroo_ops, px);
-+					       &amdgpu_switcheroo_ops, px || gmux);
- 
--	if (px)
-+	if (px || gmux)
- 		vga_switcheroo_init_domain_pm_ops(adev->dev, &adev->vga_pm_domain);
- 
- 	adev->pm_nb.notifier_call = amdgpu_device_pm_notifier;
-@@ -4336,7 +4380,7 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
- void amdgpu_device_fini_sw(struct amdgpu_device *adev)
- {
- 	int i;
--	bool px;
-+	bool gmux, px;
- 
- 	amdgpu_device_ip_fini(adev);
- 	amdgpu_fence_driver_sw_fini(adev);
-@@ -4367,11 +4411,12 @@ void amdgpu_device_fini_sw(struct amdgpu_device *adev)
- 	adev->xcp_mgr = NULL;
- 
- 	px = amdgpu_device_supports_px(adev);
-+	gmux = amdgpu_device_supports_gmux(adev);
- 
- 	if (amdgpu_device_should_register_switcheroo(adev, px))
- 		vga_switcheroo_unregister_client(adev->pdev);
- 
--	if (px)
-+	if (px || gmux)
- 		vga_switcheroo_fini_domain_pm_ops(adev->dev);
- 
- 	if ((adev->pdev->class >> 8) == PCI_CLASS_DISPLAY_VGA)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index d9d794a7d..5ad7b6dd8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -2494,11 +2494,12 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
- 		DRM_ERROR("Creating debugfs files failed (%d).\n", ret);
- 
- 	if (adev->pm.rpm_mode != AMDGPU_RUNPM_NONE) {
--		/* only need to skip on ATPX */
-+		/* ATPX requires a full system-sleep transition. */
- 		if (amdgpu_device_supports_px(adev))
- 			dev_pm_set_driver_flags(ddev->dev, DPM_FLAG_NO_DIRECT_COMPLETE);
--		/* we want direct complete for BOCO */
--		if (amdgpu_device_supports_boco(adev))
-+		/* BOCO and GMUX can remain runtime suspended across system sleep. */
-+		if (amdgpu_device_supports_boco(adev) ||
-+		    adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX)
- 			dev_pm_set_driver_flags(ddev->dev, DPM_FLAG_SMART_PREPARE |
- 						DPM_FLAG_SMART_SUSPEND |
- 						DPM_FLAG_MAY_SKIP_RESUME);
-@@ -2610,7 +2611,9 @@ static int amdgpu_pmops_prepare(struct device *dev)
- 	/* Return a positive number here so
- 	 * DPM_FLAG_SMART_SUSPEND works properly
- 	 */
--	if (amdgpu_device_supports_boco(adev) && pm_runtime_suspended(dev))
-+	if ((amdgpu_device_supports_boco(adev) ||
-+	     adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX) &&
-+	    pm_runtime_suspended(dev))
- 		return 1;
- 
- 	/* if we will not support s3 or s2i for the device
-@@ -2881,6 +2884,7 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
- 	}
- 
- 	adev->in_runpm = true;
-+	/* GMUX dGPUs drive displays, so hotplug handlers may reopen them. */
- 	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX)
- 		drm_dev->switch_power_state = DRM_SWITCH_POWER_CHANGING;
- 
-@@ -2891,7 +2895,8 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
- 	 * platforms.
- 	 * TODO: this may be also needed for PX capable platform.
- 	 */
--	if (adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO)
-+	if (adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO ||
-+	    adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX)
- 		adev->mp1_state = PP_MP1_STATE_UNLOAD;
- 
- 	ret = amdgpu_device_prepare(drm_dev);
-@@ -2900,16 +2905,19 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
- 	ret = amdgpu_device_suspend(drm_dev, false);
- 	if (ret) {
- 		adev->in_runpm = false;
--		if (adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO)
-+		if (adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO ||
-+		    adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX)
- 			adev->mp1_state = PP_MP1_STATE_NONE;
- 		return ret;
- 	}
- 
--	if (adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO)
-+	if (adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO ||
-+	    adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX)
- 		adev->mp1_state = PP_MP1_STATE_NONE;
- 
--	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX) {
--		/* Only need to handle PCI state in the driver for ATPX
-+	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX ||
-+	    adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX) {
-+		/* Only need to handle PCI state in the driver for ATPX and GMUX.
- 		 * PCI core handles it for _PR3.
- 		 */
- 		amdgpu_device_cache_pci_state(pdev);
-@@ -2956,10 +2964,12 @@ static int amdgpu_pmops_runtime_resume(struct device *dev)
- 	if (!pci_device_is_present(adev->pdev))
- 		adev->no_hw_access = true;
- 
--	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX) {
--		drm_dev->switch_power_state = DRM_SWITCH_POWER_CHANGING;
-+	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX ||
-+	    adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX) {
-+		if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX)
-+			drm_dev->switch_power_state = DRM_SWITCH_POWER_CHANGING;
- 
--		/* Only need to handle PCI state in the driver for ATPX
-+		/* Only need to handle PCI state in the driver for ATPX and GMUX.
- 		 * PCI core handles it for _PR3.
- 		 */
- 		pci_set_power_state(pdev, PCI_D0);
-@@ -2979,12 +2989,14 @@ static int amdgpu_pmops_runtime_resume(struct device *dev)
- 	}
- 	ret = amdgpu_device_resume(drm_dev, false);
- 	if (ret) {
--		if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX)
-+		if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX ||
-+		    adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX)
- 			pci_disable_device(pdev);
- 		return ret;
- 	}
- 
--	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX)
-+	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX ||
-+	    adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX)
- 		drm_dev->switch_power_state = DRM_SWITCH_POWER_ON;
- 
- 	amdgpu_restore_umd_profile_pstate_after_runpm(adev);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 47a0ff2ed..aee12cd76 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -81,6 +81,7 @@
- #include <linux/moduleparam.h>
- #include <linux/types.h>
- #include <linux/pm_runtime.h>
-+#include <linux/vgaarb.h>
- #include <linux/pci.h>
- #include <linux/power_supply.h>
- #include <linux/firmware.h>
-@@ -623,6 +624,10 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
- 	else
- 		init_data.bb_from_dmub = NULL;
- 
-+	if (amdgpu_device_has_gmux_edp(adev) &&
-+	    adev->pdev != vga_default_device())
-+		init_data.flags.edp_not_connected = true;
-+
- 	/* Display Core create. */
- 	adev->dm.dc = dc_create(&init_data);
- 
-@@ -2545,6 +2550,15 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
- 			dm->hpd_rx_offload_wq[aconnector->base.index].aconnector =
- 				aconnector;
- 
-+		/* Like the resume path, skip eDP detection without a sink. */
-+		if (link->connector_signal == SIGNAL_TYPE_EDP &&
-+		    amdgpu_device_has_gmux_edp(adev) &&
-+		    !link->edp_sink_present) {
-+			drm_info(adev_to_drm(adev), "Skipping detection of inactive GMUX eDP link %d\n",
-+				 i);
-+			continue;
-+		}
-+
- 		if (!dc_link_detect_connection_type(link, &new_connection_type))
- 			drm_err(adev_to_drm(adev), "KMS: Failed to detect connector\n");
- 
-diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-index 8e8a052e1..025fa806d 100644
---- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-+++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-@@ -48,6 +48,7 @@ enum amdgpu_int_thermal_type {
- enum amdgpu_runpm_mode {
- 	AMDGPU_RUNPM_NONE,
- 	AMDGPU_RUNPM_PX,
-+	AMDGPU_RUNPM_GMUX,
- 	AMDGPU_RUNPM_BOCO,
- 	AMDGPU_RUNPM_BACO,
- 	AMDGPU_RUNPM_BAMACO,
--- 
-2.55.0
+  * dm_test_brightness_range_zero_signals - Test Brightness range with zero=
+ min and max signals
+  * @test: The KUnit test context
+@@ -1976,6 +2231,15 @@ static struct kunit_case dm_backlight_test_cases[] =
+=3D {
+ =09KUNIT_CASE(dm_test_brightness_to_user_above_max),
+ =09KUNIT_CASE(dm_test_brightness_from_user_midrange),
+ =09KUNIT_CASE(dm_test_brightness_from_user_with_curve),
++=09KUNIT_CASE(dm_test_custom_brightness_user_domain),
++=09KUNIT_CASE(dm_test_curve_from_user_zero_is_min),
++=09KUNIT_CASE(dm_test_curve_from_user_matches_linear_at_zero),
++=09KUNIT_CASE(dm_test_curve_from_user_round_trip_zero),
++=09KUNIT_CASE(dm_test_curve_from_user_interpolation),
++=09KUNIT_CASE(dm_test_curve_from_user_max),
++=09KUNIT_CASE(dm_test_curve_from_user_monotonic),
++=09KUNIT_CASE(dm_test_curve_from_user_within_range),
++=09KUNIT_CASE(dm_test_from_user_no_curve_unchanged),
+ =09KUNIT_CASE(dm_test_brightness_range_zero_signals),
+ =09/* amdgpu_dm_backlight_fill_props */
+ =09KUNIT_CASE(dm_test_backlight_fill_props_ac_linear),
+--=20
+2.56.0
+
 
