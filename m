@@ -2,51 +2,91 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11B6B606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 611A1606A31B
 	for <amd-gfx@archiver.kernel.org>; Mon, 26 Oct 2026 08:44:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=empyreal.works header.i=@empyreal.works header.a=rsa-sha256 header.s=protonmail2 header.b=LIwHqmqw
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KT/HoBKh
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68AF710ECB9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 627DB10ECB8;
 	Mon, 26 Oct 2026 08:43:56 +0000 (UTC)
-Received: from mail-106110.protonmail.ch (mail-106110.protonmail.ch
- [79.135.106.110])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B286610E74E
- for <amd-gfx@lists.freedesktop.org>; Sat, 24 Oct 2026 01:34:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=empyreal.works;
- s=protonmail2; t=1792805623; x=1793064823;
- bh=U20DJXdLZgpHltsupjTkKgbtDLL46fdvXL7lze6YrJk=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=LIwHqmqwPpPjGD78UxeXLJiJ3iKRFjbdhrr2nzUR5+enicE02l2RdkMM1qaZ/TaOb
- QOfS03bsZTSKBoNIuWFnImgoxfy/7ACRuA44nxmd27dawksNnd8jLdpYKPNBSP2Of3
- pg+5pr1+rSKH2XGDVBSSHUZrqdMWrT2Vrzg91hJa4ac1td6h3AuvZRer0GIeM0SDlc
- 3sK1CRJmyrssT/yWDqjT4rfcjrPmTD0LN3wJJksgN/AXcTkTqoTKM0t1VsJutvpo3n
- 3KNu4pCD7h0iJgv+V1A9uxZo6sGyiGQqhhYmmOiu1goMaZNAxIpji9TskIvCFydsm0
- ucPBt91ueKwRQ==
-Date: Sat, 24 Oct 2026 01:33:38 +0000
-To: amd-gfx@lists.freedesktop.org
-From: Andrei Rusu de Castro <arc@empyreal.works>
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, alex.hung@amd.com, roman.li@amd.com,
- mario.limonciello@amd.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, chen-yu.chen@amd.com, ray.wu@amd.com,
- stable@vger.kernel.org
-Subject: [PATCH v3 1/2] drm/amd/display: keep custom brightness curve in
- userspace domain
-Message-ID: <ba2699e51bc48bc673e3bac85a6788734d61cc92.1792805565.git.arc@empyreal.works>
-In-Reply-To: <cover.1792805565.git.arc@empyreal.works>
-References: <20260902-brightness-cover-abf809f2@empyreal.works>
- <cover.1788388049.git.arc@empyreal.works>
- <cover.1792805565.git.arc@empyreal.works>
-Feedback-ID: 182420409:user:proton
-X-Pm-Message-ID: 6ea466e04b99f6b5a3b9b9af7bea70f55c6c35b8
+Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com
+ [209.85.128.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A403910E423
+ for <amd-gfx@lists.freedesktop.org>; Sat, 24 Oct 2026 20:50:59 +0000 (UTC)
+Received: by mail-yw1-f175.google.com with SMTP id
+ 00721157ae682-8ab38a051aaso17040037b3.3
+ for <amd-gfx@lists.freedesktop.org>; Sat, 24 Oct 2026 13:50:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792875058; cv=none;
+ d=google.com; s=arc-20260327;
+ b=KdaYiao7yBRGh9d+AKvvPoWDO8aiczq1waSAEPks9wiETh0V0J1kZXiqLK4Ii2J3qR
+ vvlul6etwYAs6cXkrzig2KodaTFmfgtfFb+McEO0DPZ2XHcOhjvVgADq5RaO2y0uJBBi
+ XBhbbwhqQY0QA9Duvg4TUvGe141QiJS44V/x1auHEeSNk7cfmPvhbQCdJ1qY2qmFDQsA
+ 0TGgjtO4+9oeYGQhc/zvGiyMK+1hXRuWTDfuWBckGFIB0/n6H92pOujJxCwpXcfLwzd6
+ sb31JBoQR8WlTxmOyGKO9k6s05yCsvvZMDnxyeAn+wUurDROgaH+pk5nYeg7Ojb7FIdW
+ HFJw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=THEh2bYqn6+ElVcsARETUL5wY3+9JX2zf4qY49wZ0/k=;
+ fh=go4659PGm8XvFN+ZSNxQYRyMGgEUsl/Aipy5dFN4OXY=;
+ b=Ng+rLuipE/4O6BHYSZtm42tdsucMNt0CCHb+l/6Lob33a8b9pY2S0vTsduWpFi3Lpp
+ /C2CvKPr2UVwmdq48Rls/g+EvlhDMwgepKj4AYszB2Cu/Jor209C79Ks4C/Hl7NeLEIO
+ oRGAivfCignLI/UyYnbaFokBW3ediR+d/rc3p1oYX8lqEGCUiu72+DCO5MEPx+Bl1M7L
+ yylwHkj48fB282saj2tNNulLyQNIlppQTUQXXVwdl6WiNRKnyH7XXHXvjpYaYF4IEAmf
+ +128qr3crRJcf5VV6N8f/WIEOpr56aXDIqvJEIs8PU2HkHptf/NMOA0wKBWhypCOxEo+
+ rOyw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1792875058; x=1793479858; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=THEh2bYqn6+ElVcsARETUL5wY3+9JX2zf4qY49wZ0/k=;
+ b=KT/HoBKhubdaUSu2lRSo+DIUmbWxe6AXpMubwx6C+zwPjunSQD2lsqHr2TC8/VFDKn
+ GWhhRq6aoJP1WOaQcrat/Q6kM1/pEtAkxAkTBNAAqJQnbzZMkyjtKe0C81pKRJMFX2Ze
+ w/qYU47wMIj/cptFdK1qJWjZpobPxIlraqMqFIENd5Yp/AbOJ4RqPs33HygFnRCDGtQg
+ A+m1hy3Wxp06+n5HuXPQ8BcBT4/v5SlTCwQDx3yr9VnvS61Pg9b2E1/QZPR3qdCJ4jiB
+ Hgq/vvf8dy0ITV5TDtqsDk9BVan7iMqOVheqbw3WCvnB35fZkax1lOvI4uGo62K9YKMo
+ 1EMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792875058; x=1793479858;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=THEh2bYqn6+ElVcsARETUL5wY3+9JX2zf4qY49wZ0/k=;
+ b=uWloGlWbR5oSxp2h+VHYCJxnpi2NLGdEuBHuz/Zu482pjqo9/GVZIdOSmDbFxc5Thl
+ fza8a4gbeZ9tZ1QfGzkWrxq3zK7K4KwYSMFF/I+dZbBx3WpJ4VJTL0xQ4g292Sxn2Ahe
+ zSvf05x/G+LKbx8XaRGMHwKtBAFER7FtT72iGqxbu63TbtTnvd43+SdM9rQTrQjw5q8P
+ eHx0h0v4zq51jUze406nosCVnC/KSgxAAPAike2HrqN5lQTidM8ytpSXt1Pd9X2DmaV9
+ 3USuhX0GMLZw8M4UnLponH9qUhhiuE0XkBRbyI4cBdV3IN9Z1imOuQsYUd4vvsU7SuCp
+ ZF9w==
+X-Gm-Message-State: AFq9FYIR2dR7T1WlBc7VduDuerRVYFfRGyUe5pM6XA1Jmv3peVWd+WjE
+ xPaNHXcsmf04g73hVe4CgIsVaS6PSkaHJKATA2o065ff4GzqF7NF7msV6zbjRhpwidHt3R471er
+ F9Yo9qYbsQQV+nO0wxpIZkCmC4l5KA1M=
+X-Gm-Gg: AYBFou2zUPQt7kiYetfH4ODPZPvr7dLWif/TVoKbbWqnoHz6shgSOIgFNr8IRBsHl6H
+ FHsnBZXoZ+FJDRpnJZ3AVQ1387gDAMCAFTLl9HBq25DV5Kg4f+WtTvKXuYOt8Lex3O5hjiTpv/5
+ UFEIuJfFCtywH9VmmcKrGn12uaJ3SMwEwm8snBTf8YkM7JRaJVFrIUUXpJOThz7clbwmC2xoC0E
+ EKZevGkdtKzXBUkyEjHpxR5h/kxfD+pDsX1YMttH3ZeUl0gDPAstmEfhI3/l+ALhTSUddDxKS1g
+ /LKef3pDigGrlLMw+Hw1Kfb18msDLp2S4zWUL36NBAJ38VmfWSbmW8LWaCTIqIX9K0RD3yFC+yw
+ QB7qnN/7cpigwGEXtIyyo1oeahfuHeexmBr8=
+X-Received: by 2002:a05:690c:82:b0:8b0:c50c:2547 with SMTP id
+ 00721157ae682-8b166cbd79amr20873667b3.66.1792875058672; Sat, 24 Oct 2026
+ 13:50:58 -0700 (PDT)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+References: <20260923162839.1368073-1-qwe.aldo@gmail.com>
+ <20261009030328.3062630-1-qwe.aldo@gmail.com>
+In-Reply-To: <20261009030328.3062630-1-qwe.aldo@gmail.com>
+From: Aldo Ariel <qwe.aldo@gmail.com>
+Date: Sat, 24 Oct 2026 17:50:47 -0300
+X-Gm-Features: AclHuK9AhTwIlzFskjDteU31wyGjNevtnC9D6_ZiZtWl8UdkpewAefbYOk7fI8c
+Message-ID: <CAP48Hfv00AnX2ejk9twed6ZVPaHFoCUONKC96EdvFASQQj=nZw@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amdgpu: fix ATOM parameter space index bounds check
+To: Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ stable@vger.kernel.org
+Content-Type: multipart/alternative; boundary="000000000000ffb84e065e9c40fc"
 X-Mailman-Approved-At: Mon, 26 Oct 2026 08:43:34 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -58,245 +98,77 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=0.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-convert_brightness_from_user() expects convert_custom_brightness() to
-reshape a value in the userspace [0..max] domain before the caller maps
-it once into the firmware [min..max] domain.
+--000000000000ffb84e065e9c40fc
+Content-Type: text/plain; charset="UTF-8"
 
-Commit 8dbd72cb7900 ("drm/amd/display: Export full brightness range to
-userspace") instead made convert_custom_brightness() call
-scale_fw_to_input(min, max, ...). That helper adds min and scales by the
-firmware span, entering the firmware domain before the caller applies
-the same span and minimum again.
+Hi Alex, Christian,
 
-With the default PWM range, min is 3084 and max is 65535. A zero request
-through any custom curve consequently returns 6023 instead of 3084, so
-the darkest 2939 firmware levels are unreachable. AUX panels with a
-custom curve lose their lowest levels the same way.
+Following up on this v2.
 
-Keep the curve result in [0..max]. scale_fw_to_input() then becomes the
-inverse of scale_input_to_fw(), and the caller remains the sole owner of
-the userspace-to-firmware conversion. The linear path is unchanged.
+Would any additional testing or changes help with the review of
+the parameter-space index bounds check? I'm happy to investigate
+further or revise the patch if needed.
 
-Since commit "drm/amd/display: map PWM brightness through custom
-backlight curve", PWM panels no longer reach this helper. AUX panels
-still do through convert_brightness_from_user(), and stable kernels
-predating the power module still use it on PWM panels.
-
-Commit 6fd83a1c2cde ("drm/amd/display: Scale custom brightness curve from
-full range") fixed the corresponding input-side domain error. This
-completes the output side of the same conversion.
-
-Source and arithmetic analysis identified the duplicate domain
-conversion. KUnit coverage for a non-zero firmware minimum is added
-separately.
-
-Fixes: 8dbd72cb7900 ("drm/amd/display: Export full brightness range to user=
-space")
-Cc: stable@vger.kernel.org # 6.17.x: 6fd83a1c2cde: drm/amd/display: Scale c=
-ustom brightness curve from full range
-Cc: stable@vger.kernel.org # 6.17.x
-Cc: stable@vger.kernel.org # before 7.3 this code is in amdgpu_dm.c; drop t=
-he header and test hunks
-Assisted-by: LLM
-Signed-off-by: Andrei Rusu de Castro <arc@empyreal.works>
----
- .../display/amdgpu_dm/amdgpu_dm_backlight.c   | 13 ++++----
- .../display/amdgpu_dm/amdgpu_dm_backlight.h   |  3 +-
- .../tests/amdgpu_dm_backlight_test.c          | 30 +++++++++----------
- 3 files changed, 22 insertions(+), 24 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/=
-drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-index 27546febf..cd8be50bb 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-@@ -122,10 +122,10 @@ static inline u32 scale_input_to_fw(int max, u64 inpu=
-t)
- =09return DIV_ROUND_CLOSEST_ULL(input * AMDGPU_MAX_BL_LEVEL, max);
- }
-=20
--/* Rescale from [0..AMDGPU_MAX_BL_LEVEL] to [min..max] */
--static inline u32 scale_fw_to_input(int min, int max, u64 input)
-+/* Rescale the firmware curve's [0..AMDGPU_MAX_BL_LEVEL] back to userspace=
- [0..max]. */
-+static inline u32 scale_fw_to_input(int max, u64 input)
- {
--=09return min + DIV_ROUND_CLOSEST_ULL(input * (max - min), AMDGPU_MAX_BL_L=
-EVEL);
-+=09return DIV_ROUND_CLOSEST_ULL(input * max, AMDGPU_MAX_BL_LEVEL);
- }
-=20
- static u32 backlight_signal_to_luminance(const struct amdgpu_dm_backlight_=
-caps *caps,
-@@ -192,8 +192,7 @@ static u32 convert_brightness_to_millipercent(const str=
-uct amdgpu_dm_backlight_c
-=20
- STATIC_IFN_KUNIT
- void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *caps=
-,
--=09=09=09       unsigned int min, unsigned int max,
--=09=09=09       uint32_t *user_brightness)
-+=09=09=09       unsigned int max, uint32_t *user_brightness)
- {
- =09u32 brightness =3D scale_input_to_fw(max, *user_brightness);
- =09u8 lower_signal, upper_signal, upper_lum, lower_lum, lum;
-@@ -251,7 +250,7 @@ void convert_custom_brightness(const struct amdgpu_dm_b=
-acklight_caps *caps,
- =09=09=09=09=09=09    (brightness - lower_signal),
- =09=09=09=09=09=09    upper_signal - lower_signal);
- scale:
--=09*user_brightness =3D scale_fw_to_input(min, max,
-+=09*user_brightness =3D scale_fw_to_input(max,
- =09=09=09=09=09     DIV_ROUND_CLOSEST(lum * brightness, 101));
- }
-=20
-@@ -266,7 +265,7 @@ u32 convert_brightness_from_user(const struct amdgpu_dm=
-_backlight_caps *caps,
- =09if (!get_brightness_range(caps, &min, &max))
- =09=09return brightness;
-=20
--=09convert_custom_brightness(caps, min, max, &brightness);
-+=09convert_custom_brightness(caps, max, &brightness);
-=20
- =09/* Rescale 0..max to min..max */
- =09return min + DIV_ROUND_CLOSEST_ULL((u64)(max - min) * brightness, max);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h b/=
-drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
-index 9ad888d3a..32ba2f8ef 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
-@@ -68,8 +68,7 @@ ssize_t panel_power_savings_store(struct device *device,
- int get_brightness_range(const struct amdgpu_dm_backlight_caps *caps,
- =09=09=09 unsigned int *min, unsigned int *max);
- void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *caps=
-,
--=09=09=09       unsigned int min, unsigned int max,
--=09=09=09       uint32_t *user_brightness);
-+=09=09=09       unsigned int max, uint32_t *user_brightness);
- u32 convert_brightness_from_user(const struct amdgpu_dm_backlight_caps *ca=
-ps,
- =09=09=09=09 uint32_t brightness);
- u32 convert_brightness_to_user(const struct amdgpu_dm_backlight_caps *caps=
-,
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backligh=
-t_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_=
-test.c
-index 5221050de..5ff074497 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.=
-c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.=
-c
-@@ -1054,7 +1054,7 @@ static void dm_test_custom_brightness_no_data_points(=
-struct kunit *test)
-=20
- =09caps.data_points =3D 0;
-=20
--=09convert_custom_brightness(&caps, 3084, 65535, &brightness);
-+=09convert_custom_brightness(&caps, 65535, &brightness);
-=20
- =09/* No data points =E2=86=92 no-op */
- =09KUNIT_EXPECT_EQ(test, brightness, saved);
-@@ -1078,7 +1078,7 @@ static void dm_test_custom_brightness_debug_mask_disa=
-bles(struct kunit *test)
- =09/* Set the disable flag */
- =09amdgpu_dm_set_dc_debug_mask(amdgpu_dm_get_dc_debug_mask() | DC_DISABLE_=
-CUSTOM_BRIGHTNESS_CURVE);
-=20
--=09convert_custom_brightness(&caps, 3084, 65535, &brightness);
-+=09convert_custom_brightness(&caps, 65535, &brightness);
-=20
- =09/* Should be no-op due to debug mask */
- =09KUNIT_EXPECT_EQ(test, brightness, saved);
-@@ -1121,14 +1121,14 @@ static void dm_test_custom_brightness_exact_match(s=
-truct kunit *test)
- =09 */
- =09brightness =3D 32896;
-=20
--=09convert_custom_brightness(&caps, min, max, &brightness);
-+=09convert_custom_brightness(&caps, max, &brightness);
-=20
- =09/*
- =09 * Exact match: lum=3D50, brightness_scaled=3D128
--=09 * result =3D scale_fw_to_input(min, max, DIV_ROUND_CLOSEST(50*128, 101=
-))
--=09 *        =3D scale_fw_to_input(0, 65535, DIV_ROUND_CLOSEST(6400, 101))
--=09 *        =3D scale_fw_to_input(0, 65535, 63)
--=09 *        =3D 0 + DIV_ROUND_CLOSEST(63 * 65535, 255) =3D 16191 (approx)
-+=09 * result =3D scale_fw_to_input(max, DIV_ROUND_CLOSEST(50*128, 101))
-+=09 *        =3D scale_fw_to_input(65535, DIV_ROUND_CLOSEST(6400, 101))
-+=09 *        =3D scale_fw_to_input(65535, 63)
-+=09 *        =3D DIV_ROUND_CLOSEST(63 * 65535, 255) =3D 16191 (approx)
- =09 */
- =09KUNIT_EXPECT_TRUE(test, brightness !=3D 32896);
- =09KUNIT_EXPECT_TRUE(test, brightness < 32896);
-@@ -1167,13 +1167,13 @@ static void dm_test_custom_brightness_below_first(s=
-truct kunit *test)
- =09 */
- =09brightness =3D 12850;
-=20
--=09convert_custom_brightness(&caps, min, max, &brightness);
-+=09convert_custom_brightness(&caps, max, &brightness);
-=20
- =09/*
- =09 * Below first data point: lum =3D DIV_ROUND_CLOSEST(40 * 50, 100) =3D =
-20
--=09 * Then: scale_fw_to_input(0, 65535, DIV_ROUND_CLOSEST(20 * 50, 101))
--=09 *      =3D scale_fw_to_input(0, 65535, DIV_ROUND_CLOSEST(1000, 101))
--=09 *      =3D scale_fw_to_input(0, 65535, 10)
-+=09 * Then: scale_fw_to_input(65535, DIV_ROUND_CLOSEST(20 * 50, 101))
-+=09 *      =3D scale_fw_to_input(65535, DIV_ROUND_CLOSEST(1000, 101))
-+=09 *      =3D scale_fw_to_input(65535, 10)
- =09 * The output should be significantly less than input.
- =09 */
- =09KUNIT_EXPECT_TRUE(test, brightness < 12850);
-@@ -1211,7 +1211,7 @@ static void dm_test_custom_brightness_interpolation(s=
-truct kunit *test)
- =09 */
- =09brightness =3D 32125;
-=20
--=09convert_custom_brightness(&caps, min, max, &brightness);
-+=09convert_custom_brightness(&caps, max, &brightness);
-=20
- =09/*
- =09 * The function should interpolate between data points and produce
-@@ -1254,7 +1254,7 @@ static void dm_test_custom_brightness_above_last(stru=
-ct kunit *test)
- =09 */
- =09brightness =3D 56533;
-=20
--=09convert_custom_brightness(&caps, min, max, &brightness);
-+=09convert_custom_brightness(&caps, max, &brightness);
-=20
- =09/* Output should differ from input (remapped via curve) */
- =09KUNIT_EXPECT_TRUE(test, brightness !=3D 56533);
-@@ -1292,7 +1292,7 @@ static void dm_test_custom_brightness_single_data_poi=
-nt(struct kunit *test)
- =09 */
- =09brightness =3D 16448;
-=20
--=09convert_custom_brightness(&caps, min, max, &brightness);
-+=09convert_custom_brightness(&caps, max, &brightness);
-=20
- =09KUNIT_EXPECT_TRUE(test, brightness < 16448);
-=20
-@@ -1330,7 +1330,7 @@ static void dm_test_custom_brightness_lower_lum_zero(=
-struct kunit *test)
- =09 */
- =09brightness =3D 32125;
-=20
--=09convert_custom_brightness(&caps, min, max, &brightness);
-+=09convert_custom_brightness(&caps, max, &brightness);
-=20
- =09/* Should remap; result should differ from input */
- =09KUNIT_EXPECT_TRUE(test, brightness !=3D 32125);
---=20
-2.56.0
+Thanks,
+Aldo
 
 
+
+On Fri, 09 Oct 2026 00:03:27 -0300, Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+wrote:
+> Hi Alex,
+>
+> Friendly ping on this v2, sent September 23.  It fixes the dword/byte
+> mismatch in the ATOM PS index bounds check in atom_get_src_int() and
+> atom_put_dst() -- the sibling of the calltable underflow fix you
+> already applied.
+>
+> v2 also corrects the pr_info() messages to print ps_size/4 (dwords)
+> instead of ps_size (bytes), per Sashiko review on v1.
+>
+> Thanks,
+> Aldo
+
+--000000000000ffb84e065e9c40fc
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto">Hi Alex, Christian,<br>
+<br>
+Following up on this v2.<br>
+<br>
+Would any additional testing or changes help with the review of<br>
+the parameter-space index bounds check? I&#39;m happy to investigate<br>
+further or revise the patch if needed.<br>
+<br>
+Thanks,<br>
+Aldo</div><br>
+<br>
+<br>
+On Fri, 09 Oct 2026 00:03:27 -0300, Aldo Ariel Panzardo &lt;<a href=3D"mail=
+to:qwe.aldo@gmail.com" target=3D"_blank" rel=3D"noreferrer">qwe.aldo@gmail.=
+com</a>&gt; wrote:<br>
+&gt; Hi Alex,<br>
+&gt; <br>
+&gt; Friendly ping on this v2, sent September 23.=C2=A0 It fixes the dword/=
+byte<br>
+&gt; mismatch in the ATOM PS index bounds check in atom_get_src_int() and<b=
+r>
+&gt; atom_put_dst() -- the sibling of the calltable underflow fix you<br>
+&gt; already applied.<br>
+&gt; <br>
+&gt; v2 also corrects the pr_info() messages to print ps_size/4 (dwords)<br=
+>
+&gt; instead of ps_size (bytes), per Sashiko review on v1.<br>
+&gt; <br>
+&gt; Thanks,<br>
+&gt; Aldo
+
+--000000000000ffb84e065e9c40fc--
