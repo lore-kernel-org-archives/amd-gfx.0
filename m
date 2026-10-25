@@ -2,128 +2,92 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7373606A31A
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Oct 2026 08:44:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFBB1606A31A
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Oct 2026 08:44:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ZAk2dXNT
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=EoE9CzuE
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6207510ECCF;
-	Mon, 26 Oct 2026 08:44:11 +0000 (UTC)
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013053.outbound.protection.outlook.com
- [40.93.201.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 249E610E957;
- Mon, 26 Oct 2026 05:38:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Q7+5jIYudsUjnF6yf04hvz+1SSB6b4bYgUrbwLMELbDI4SA/RKPKkQD3dG+WRHM3Lf6DzC4FuTaG+fCZzOq9LGpUa/7aUrYcMPgTgPQ9zsfCvczjYNq0wzzJ9711xgQ4Mu6L0MtYb3fCnJfXZj09iSYnFaHz/GlqtTGLgbi+1APt6iehFLp6i1tpn42CppjuaUGbz7m4c2XqYpetEyA51gRi5EJPd0vOEHFqBVv3afCkNh9MP9ySyU7kCHIrQ5E19TLSH1evk6Xv6YOcItWVFOj5gYoLnABEcbbSWcI50JhKdr040BgUrLib78aC2p3h/lgg+Zp5b9Xz17MJER/+HA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=omjT3x4Mor9YKifck/IQ3Rn1pS/qkEztusBwXFWEUe0=;
- b=FeNac9Eol+I90c7Etxuoi8iNjGdl6xoY+oqpkQYLY1tKiOQb2hypIzPNILKA17ZljgfLvJG+mH4/2bRqDJQQ+1yaeuEksPkmL//AXWBeabA2WY+otvGcQ/9cHqitcl8eHULYeJCOe8RiTclOV2iqtJZecCPZcLc37MKqcEiEpGt6qbD/aUKRcE8yj8SqSZNbuP2WYJNn+UUKX9MvV7i9Jmg+V+3VpfVAERU96Fr7LBnrPRMY8jbByM+E4ez5iqZceoiAndT3SjxdigKer5bLjiUoV7C/WgSmWS8tJHRqHvgkbmRiHyIVBXChuMRWGWgxics3S9qQC4utM41fKtiWCA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=omjT3x4Mor9YKifck/IQ3Rn1pS/qkEztusBwXFWEUe0=;
- b=ZAk2dXNT6kZPdxGPxBV4wBUW/7UZkEK2W+pfJsWSfE0TQfqMOLr7p9Zyts4foajL203WGhoGapIyEg0nd1dcKXTHNSh1El+HoWM7p2OD4hmcBUAN4PDm/jBzbyBn5chl3sZvsX6tgp7h2a8poJp3BZnHVYH/Cb2isDcH5NmG3XWFjNOGwpiRgky6i5gAd8XfUQdb8KRotw0MRXTMvXWK8Epu5cURoFwCTGYbMjk6zd2bPNnpn4ouXL7H2sw5onFBLJu32qR04c314Jo2HIUXGWmOSzjbgVbO6XQQZ79NZZ9ZMuZUA38RZ4uc4OKTlmDKyZVmkMx71mphUxD+QHnNtA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SA3PR12MB598757.namprd12.prod.outlook.com
- (2603:10b6:806:52d::14) by SJ0PR12MB6967.namprd12.prod.outlook.com
- (2603:10b6:a03:44b::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 05:38:43 +0000
-Received: from SA3PR12MB598757.namprd12.prod.outlook.com
- ([fe80::e206:100:5946:a777]) by SA3PR12MB598757.namprd12.prod.outlook.com
- ([fe80::e206:100:5946:a777%5]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
- 05:38:43 +0000
-From: Alistair Popple <apopple@nvidia.com>
-To: dri-devel@lists.freedesktop.org, christian.koenig@amd.com,
- sumit.semwal@linaro.org, jgg@nvidia.com
-Cc: Alistair Popple <apopple@nvidia.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Simona Vetter <simona.vetter@ffwll.ch>,
- Matthew Brost <matthew.brost@intel.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- Dongwon Kim <dongwon.kim@intel.com>, Leon Romanovsky <leonro@nvidia.com>,
- Kevin Tian <kevin.tian@intel.com>, Xu Yilun <yilun.xu@linux.intel.com>,
- Karl Mehltretter <kmehltretter@gmail.com>,
- Baolu Lu <baolu.lu@linux.intel.com>,
- Felix Kuehling <felix.kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, intel-xe@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org,
- iommu@lists.linux.dev, Alexey Kardashevskiy <aik@amd.com>,
- zhipingz@meta.com, treding@nvidia.com, jhubbard@nvidia.com
-Subject: [PATCH 25/26] dma-buf: Add kunit tests for mapping type
-Date: Mon, 26 Oct 2026 16:36:16 +1100
-Message-ID: <20261026053623.202642-26-apopple@nvidia.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261026053623.202642-1-apopple@nvidia.com>
-References: <20261026053623.202642-1-apopple@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SY5PR01CA0086.ausprd01.prod.outlook.com
- (2603:10c6:10:1f5::18) To SA3PR12MB598757.namprd12.prod.outlook.com
- (2603:10b6:806:52d::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B68D10ECCB;
+	Mon, 26 Oct 2026 08:44:13 +0000 (UTC)
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C86810E675
+ for <amd-gfx@lists.freedesktop.org>; Sun, 25 Oct 2026 04:03:29 +0000 (UTC)
+Received: by mail-dl1-f43.google.com with SMTP id
+ a92af1059eb24-14fc585291cso716523c88.1
+ for <amd-gfx@lists.freedesktop.org>; Sat, 24 Oct 2026 21:03:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1792901008; x=1793505808; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=ld0b6jnrv9lRwiEj850RVsyn17/7q2cRzxdIYpNocEM=;
+ b=EoE9CzuE6p7kHUAzFVmmVt0qqx9n89Zr0FpiJXY0wKRrXvfa6SqtRH33NLMJThiMl7
+ Q4K306xl1TSdHLyEchmz9DGW1BrNa0AHvzGwmzAhrvN3kbDAXnoC6V0K3RCC7sft6cla
+ IhXuEGgIOOxQwMZr9NIIXJf+rWwzRDESQ3vw4fAWtAzotBVYiryHkP0djMGpaPC8DC7z
+ EzbXJwttFZz74kc5sbmrIfGnEG7mJqUcH8QyGEEknBpV2bm/k0hUdIXlG+Ntys9kYr9Y
+ QPPoGT1ZNvglFc5lFNdg2KPeEwgB9WcoclTsTIA4UExbJpa+NZvExWyCcrKcF0sr8Ppt
+ 8wdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792901008; x=1793505808;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=ld0b6jnrv9lRwiEj850RVsyn17/7q2cRzxdIYpNocEM=;
+ b=mSDA6ytedZTIUeKky1Rh+nIP4+27yiwb+3RucXD8xeD1KEneJ+nYrqqDgRcPJLf7uk
+ jnaUIxTVosCZxxPc3W6Gt/sB4sPewYGAWfOww50DTDTocDfFPCiD3MU/aEWwIAWwVK5U
+ 7lJt8nzkVxEufOSyqh72a8kpDszgjcgNY87SKElysRVKO+ObacoxgsIrRUPsGO7MnIAB
+ 21E2xXuQ/h7pV1YwAnvciGBGFZWuxepBAlaQUIoSDwy/GHcJOR0fK0lSGDiA2FZ5NGzC
+ qrQCEuHUypbD8yIEfKDi260lqMXqCx334/NFQRrMS8h8yVqjTOMMaAIzT3OFrneMo8FS
+ Uvng==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByjPTfv2NKD80gazcdool0M1kIs7pdSUUrN1sQWwfAWEriXtBe7COs0Jww1ytnIBvMnh22a9uvz@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKu+pY4j52nAJ2uaqKWbNxhOqBTgkZmMmhUpE8NIDjl9/70GGTq
+ oD16TKuWr+qNigeKItxWFpF2+4iRXSoMmAiZd+wUPZdtKKXMFjOf/3g=
+X-Gm-Gg: AYBFou1OBkITgZFxhFYwTVQDm/nt66Hf62oD85+wu4qTbO3JLKeuMykK3FxF45mLY1q
+ vg6wrz+uhfHwilbIC8MJRVnCLJ1msweHd3x2FM+Awap9xNLDWs058YrKGTML/11IVqWWLlTKcT0
+ IV+Pt8TdAqtmMfdLd6RxDov57YmqBjYTQNW2E/6KlW76pIg7nQKl7+AFOxnxyF47A8zo8mYrMwz
+ 70VWnB9rt87RRCQXPh1WSlLrJh0uSjUYASXcd0DppP0DuIB1E9MO6KlBDU0/S1FNsCSXh9GEU5V
+ MBrPigHhoV4X8ps4ewy3BILzhrIz1thUz99fLF2iUvwQv9MbbELrgWc2MpYBrYzoVflVVEPh4kx
+ 0+y4wuWnsoKoOVOBJJNA7/Tr1drtrFhmoUmZQHbjUkjAeg7+9kg68NWuQTNdVY4icmiex3xx0eh
+ PI5tUWi5UWgd5zPXbAFhJJJplTz3J0pUN54BOKvK/9NlMI1A8C8N1Ziw+ZZJgQvzkxKDFApQtHR
+ krKxRxdhYOMYDfySNfEda5ZCKOIk+29YDACjt59wPdwHwNo4hNgKvDIcHVIexwXuQZUV3m3VrOf
+ d0fuBZImnlimyeNNFrMAHShxwTb3uEfX4Frm
+X-Received: by 2002:a05:701b:42cd:10b0:187:ec67:2fc5 with SMTP id
+ a92af1059eb24-1993702567cmr5122803c88.32.1792901008081; 
+ Sat, 24 Oct 2026 21:03:28 -0700 (PDT)
+Received: from at-Standard-PC-Q35-ICH9-2009 ([106.221.76.40])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-198a32ff780sm11635283c88.22.2026.10.24.21.03.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 24 Oct 2026 21:03:27 -0700 (PDT)
+From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+To: 
+Cc: Andre Eikmeyer <dev@deq.rocks>, Bjorn Helgaas <bhelgaas@google.com>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org (maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)),
+ "H. Peter Anvin" <hpa@zytor.com>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Kenneth Feng <kenneth.feng@amd.com>, Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
+ linux-pci@vger.kernel.org (open list:PCI SUBSYSTEM),
+ linux-kernel@vger.kernel.org (open list:X86 ARCHITECTURE (32-BIT AND 64-BIT)), 
+ amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
+ dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
+ platform-driver-x86@vger.kernel.org (open list:X86 PLATFORM DRIVERS)
+Subject: [PATCH 09/13] drm/amdgpu: Add Apple GMUX runtime PM support
+Date: Sat, 24 Oct 2026 23:59:45 -0400
+Message-ID: <20261025040046.1602-10-atharvatiwarilinuxdev@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261025040046.1602-1-atharvatiwarilinuxdev@gmail.com>
+References: <20261025040046.1602-1-atharvatiwarilinuxdev@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA3PR12MB598757:EE_|SJ0PR12MB6967:EE_
-X-MS-Office365-Filtering-Correlation-Id: f75b264f-6854-4109-ef49-08df33236583
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|1800799024|23010399003|366016|18002099003|22082099003|56012099006|11063799006|261022075727099003|261021121427099003|10067099003|261009223027099003|261022105027099003;
-X-Microsoft-Antispam-Message-Info: COEYSZrz1fhEnJT0NiTofSqT4vWaBw7tuZNw5Tn83CfnTj0QeZ/5lQTreKqaBs6Ht3doufN34u34c3AZ4wOuBL9Gt8oy2mGtCKrcWaV/y4OXkI1eotFH8d0qYo+s+atksROQwSaxg4nPqEsGh9L8qYjccvU/Osuza/iyOdJM/MiVCpMYhkjXzrtzEpwzm79SEAGezf4WQFcb0h7AfmNYHHSM2YFKNoYRpa5JswMcOdChORBxy4JU35p/+Czn1uke2vqbYF7K0h2hqcQyTryOYdatXTTr8y+qqY/cDdry+p2lS5QBg+JxmITgErVaj02uNKkQbC4xDnOkJaPGD7r3D1jXLLQAUEYmiOZeswxSbK5sGBm1uOT3mm+yzpkS/kd5PrBZzH4tFgsN0nY6NUR+ugrcxkBbVlxftlWnWx4H9bJxgKN1U/OFe1PjvcM2cpdblI9liqg5JYbLj87BPtey/wdX4jzKhehoeJRZc9opP5yztfb/eGJ1sQaG6NfSBZgc6mItpZwxFY0t8CP+IgDc8U491e0c8cJiVnMzEUlBVdvve11rc/F1Br3bw8b1jHiYh3wBIdd07wGPD9TCe7sARFzX/8HSgWFvd0BjjmAjj6usMxmWz0RxMznIbAor1lQAz8oDI9W+H5s/rhIISkYlxkG2uexj+IztXLiAO9xKo3w=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA3PR12MB598757.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(366016)(18002099003)(22082099003)(56012099006)(11063799006)(261022075727099003)(261021121427099003)(10067099003)(261009223027099003)(261022105027099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?signlY3OO1veHFKrWdCguYEYzr7i+jqVYB71w9lBPVG7/8nv0VK+X+IXRBWG?=
- =?us-ascii?Q?Lcujf1/AXTvlRnrr+DvPVko7OP0PnNMVucqIc7rdXSn9Jly5jIe90A7/0sT+?=
- =?us-ascii?Q?7RfZZ0OxQ2mehiV8vQdXA4aaJNq52gWtDsjOcmpyRweCwOD2aNo4T5Tsz/fn?=
- =?us-ascii?Q?NzVwVSKYhage799PIbXheuqSYq25vy9uGQUn7KP5I43A/1xIapROqMxaOw0D?=
- =?us-ascii?Q?/5HeihLfqAAnpDECERSQtG2xvc6QLe0RpBijywQ1rTMjzKv7S6KJ2qMt8FVB?=
- =?us-ascii?Q?KsPkL6Tb09I8z0YNO05RzmBS4NJ7/eWfo0CeaABAFFNlmm3k4jFYU0WH97cM?=
- =?us-ascii?Q?BcNxTFLn215aMCmm7g00L8BWgK1khvdopH3Q4yiDHXFCYqRMQvTK6gYwTRZh?=
- =?us-ascii?Q?3F0NZqCGCPtxGVlfy031LsccuyyAs/UAUiJjtsMQmHJ3Rd6IZo5OPq4wiYbv?=
- =?us-ascii?Q?6x6YI2ukWv5Jvwu7gwGBN5YA7Jpuk4LdiVUfIPi4pj5GfL8lmyAn/tHj6tGK?=
- =?us-ascii?Q?szsJTFnOCvv5NZqsH+Qshn6eghJWqik6Kxl7bNc6bJzrYklkaTgQq9YQLDgn?=
- =?us-ascii?Q?9uLoHEeGQHrRk5DkOR98TqsFCrXovrrEViVWsSSMdz9DhGhQfTHICcpDuJ8q?=
- =?us-ascii?Q?OjNFoz9Jc0pNtLJX8/hRdwG45RI+oenedH080t5QHnAc3V1NqByktAMmujM+?=
- =?us-ascii?Q?3Nupcqh2Q1TahEx4cr/veUWsjnYSkqkWun4Q/bPX0gmmsP/ctIe5KV7Bu2+z?=
- =?us-ascii?Q?pqHfjeN95gjnjNmpKfsKgBZAqxqV7PaXc708U4JgrGRESPb/CCWx0VTopuay?=
- =?us-ascii?Q?imwI8t0xK+1T3Sk7HA5c9ArtWa72ICSG7wZe2+ztfSjU61Kxv9IwkThb4mOh?=
- =?us-ascii?Q?vJ3NPqDYfJBa8/MHxIK6zoLL0eMYc0tlCpFBqAJJIFkyeS3MitpQ0nQ0UR0X?=
- =?us-ascii?Q?RR4RyEhPlpn3caA+/BEWrZzt4K7LaVcDQE/N6aBVDhouyvXWhU74IwY9qE9B?=
- =?us-ascii?Q?8inTES0xPjUzQlXvQFu6y4vJyx5Vs0e8RTuA1td4P2EHqm5TUeUFx/zG9jXD?=
- =?us-ascii?Q?5bDjI/AoiORJEJ/RHTJpAa8ZpYXnEmS+hs5H8SISf7tsKpMVAGfara3OgMPV?=
- =?us-ascii?Q?q5DLnHRz7UuQZiOmZ9g9KeqyI7IvO22QM/r0VkfnCbT9CZBqWHsD9kDWPwEs?=
- =?us-ascii?Q?bmMt/fEeHOsXrD476GrDWUa1Kig9pAgnyGlfYBE5uVFzUH0EvM3bH2mW7iiT?=
- =?us-ascii?Q?/eKK5Inwiw3e1XzVQX7qzE1apRHEAGh2VErLl/RteeucigbJ2aqlCdAlar8S?=
- =?us-ascii?Q?02tubNMxFusWzw2p0hnLBFCHSSGa6emJZjn4vzasi8bfEwwewmO0Pm9DvMcx?=
- =?us-ascii?Q?LgUp8dbL62UOmHQcv/WFJyOKlJJCbpsnalRWT6y8kcz2lW75PT378EWhfe0L?=
- =?us-ascii?Q?0oTQsOMURAEIREhufuHmq1qKdSs8zO6jMHBEdgKgrvi8XCSUwkvRnmAjntLm?=
- =?us-ascii?Q?AF0+oMpnorCUd5LRpmZX4hT2Q7aqgvrt1UQtBQD8SiNZMl2nnAmBjmj7B5of?=
- =?us-ascii?Q?mhsghk/JSDxrqrSCkaoMI9oZj8uRJOydiyWNiLeFA8g5utMwVCN9MrLmQ5fI?=
- =?us-ascii?Q?lpqJ3kvXvGE5kdpFuq2Y4IkUxyZ6cejEUJRQBlHJXriu1L6ui+cx7M4pU9Hs?=
- =?us-ascii?Q?deBb7cnn+rNLJFqT5gcgoYztqPcq/5R6SUgoka31qT/hB1cUx8lB5vc/upol?=
- =?us-ascii?Q?PjjtP4GiTQ=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f75b264f-6854-4109-ef49-08df33236583
-X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB598757.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 05:38:43.0623 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nvp2zJAG1tXwzHkd275b5CzBNlPBBXJmSn3h3NbA3yxv5H7bGvOsFYvVE93WlcRuEwErG0Y6tZgsksqMx5wjMQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6967
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 26 Oct 2026 08:43:34 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -135,436 +99,335 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Jason Gunthorpe <jgg@nvidia.com>
+From: Andre Eikmeyer <dev@deq.rocks>
 
-Some basic coverage of common flows:
- - Check dma_buf_match_mapping()'s rules. These choices effectively
-   become driver facing API and it would be a pain to change them later
- - Test the dma_bug_sgt attachment flow to see that the new wrappers work
+The T2 MacBookPro's uses Apple GMUX to control power to the discrete GPU,
+but it does not expose the ATPX or ACPI power-resource interfaces currently
+recognized by amdgpu. The driver therefore leaves runtime PM disabled even
+though vga_switcheroo can switch the GPU reliably.
 
-Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
-[ .move_notify renamed to .invalidate_mappings - apopple ]
-[ dma_buf_match_mapping() records every compatible pair into the
-  attachment instead of stopping at the first, so every test passes an
-  attachment and the priority tests assert the recorded match set - apopple ]
-Signed-off-by: Alistair Popple <apopple@nvidia.com>
+A dedicated GMUX runtime PM mode uses the existing vga_switcheroo PM domain
+to sequence GPU power. A runtime-suspended GMUX GPU can remain powered off
+across system sleep, following the smart-suspend handling already used by
+BOCO devices.
+
+On muxed systems the inactive GPU cannot reach the panel AUX channel. Like
+the macOS driver, tell Display Core that eDP is disconnected before
+dc_create() when the GMUX GPU is not the boot display device, and skip eDP
+detection at init as the resume path already does. This avoids powering the
+panel from the inactive GPU and retaining a fail-safe sink that reports as
+connected and keeps the GPU runtime busy.
+
+This allows the discrete GPU to enter D3cold while the integrated GPU is
+primary and allows PRIME workloads and external displays to wake it on
+demand.
+
+This was tested on MacBookPro15,1, 16,1, 16,4 together
+with the corresponding apple-gmux power-sequencing support.
+
+Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
 ---
- drivers/dma-buf/Makefile         |   1 +
- drivers/dma-buf/st-dma-mapping.c | 385 +++++++++++++++++++++++++++++++
- 2 files changed, 386 insertions(+)
- create mode 100644 drivers/dma-buf/st-dma-mapping.c
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 55 +++++++++++++++++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       | 40 +++++++++-----
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 14 +++++
+ drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h       |  1 +
+ 5 files changed, 93 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/dma-buf/Makefile b/drivers/dma-buf/Makefile
-index b25d7550bacf..92fce1b5e2e0 100644
---- a/drivers/dma-buf/Makefile
-+++ b/drivers/dma-buf/Makefile
-@@ -11,6 +11,7 @@ dmabuf_kunit-y := \
- 	st-dma-fence.o \
- 	st-dma-fence-chain.o \
- 	st-dma-fence-unwrap.o \
-+	st-dma-mapping.o \
- 	st-dma-resv.o
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index a9c6f5d4a..6fd607587 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -1194,6 +1194,8 @@ int amdgpu_device_mode1_reset(struct amdgpu_device *adev);
+ int amdgpu_device_link_reset(struct amdgpu_device *adev);
+ bool amdgpu_device_supports_atpx(struct amdgpu_device *adev);
+ bool amdgpu_device_supports_px(struct amdgpu_device *adev);
++bool amdgpu_device_supports_gmux(struct amdgpu_device *adev);
++bool amdgpu_device_has_gmux_edp(struct amdgpu_device *adev);
+ bool amdgpu_device_supports_boco(struct amdgpu_device *adev);
+ bool amdgpu_device_supports_smart_shift(struct amdgpu_device *adev);
+ int amdgpu_device_supports_baco(struct amdgpu_device *adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 9269e780f..c1f196242 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -34,6 +34,7 @@
+ #include <linux/slab.h>
+ #include <linux/iommu.h>
+ #include <linux/pci.h>
++#include <linux/dmi.h>
+ #include <linux/pci-p2pdma.h>
+ #include <linux/apple-gmux.h>
+ #include <linux/nospec.h>
+@@ -570,6 +571,45 @@ bool amdgpu_device_supports_px(struct amdgpu_device *adev)
+ 	return false;
+ }
  
- obj-$(CONFIG_DMABUF_KUNIT_TEST) += dmabuf_kunit.o
-diff --git a/drivers/dma-buf/st-dma-mapping.c b/drivers/dma-buf/st-dma-mapping.c
-new file mode 100644
-index 000000000000..9d0f1e389e15
---- /dev/null
-+++ b/drivers/dma-buf/st-dma-mapping.c
-@@ -0,0 +1,385 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * KUnit tests for dma_buf_match_mapping()
-+ */
-+
-+#include <kunit/device.h>
-+#include <kunit/test.h>
-+#include <linux/dma-buf.h>
-+#include <linux/dma-buf-mapping.h>
-+#include <linux/errno.h>
-+
-+/* Mock tracking state -- reset before each test */
-+static bool mock_match_called;
-+static const struct dma_buf_mapping_match *mock_match_exp_arg;
-+static const struct dma_buf_mapping_match *mock_match_imp_arg;
-+static int mock_match_ret;
-+
-+static bool mock_finish_called;
-+static const struct dma_buf_match_args *mock_finish_args_arg;
-+static const struct dma_buf_mapping_match *mock_finish_exp_arg;
-+static const struct dma_buf_mapping_match *mock_finish_imp_arg;
-+
-+static int reset_mock_state(struct kunit *test)
-+{
-+	mock_match_called = false;
-+	mock_match_exp_arg = NULL;
-+	mock_match_imp_arg = NULL;
-+	mock_match_ret = 0;
-+	mock_finish_called = false;
-+	mock_finish_args_arg = NULL;
-+	mock_finish_exp_arg = NULL;
-+	mock_finish_imp_arg = NULL;
-+	return 0;
-+}
-+
-+static int mock_match(struct dma_buf *dmabuf,
-+		      const struct dma_buf_mapping_match *exp,
-+		      const struct dma_buf_mapping_match *imp)
-+{
-+	mock_match_called = true;
-+	mock_match_exp_arg = exp;
-+	mock_match_imp_arg = imp;
-+	return mock_match_ret;
-+}
-+
-+static void mock_finish_match(struct dma_buf_match_args *args,
-+			      const struct dma_buf_mapping_match *exp,
-+			      const struct dma_buf_mapping_match *imp)
-+{
-+	mock_finish_called = true;
-+	mock_finish_args_arg = args;
-+	mock_finish_exp_arg = exp;
-+	mock_finish_imp_arg = imp;
-+
-+	args->attach->map_type = (struct dma_buf_mapping_match){
-+		.type = exp->type,
-+		.exp_ops = exp->exp_ops,
-+	};
-+}
-+
-+/* Type with both match and finish_match callbacks */
-+static struct dma_buf_mapping_type mock_type_a = {
-+	.name = "mock_type_a",
-+	.match = mock_match,
-+	.finish_match = mock_finish_match,
++static const struct dmi_system_id amdgpu_gmux_runpm_dmi_table[] = {
++	{
++		.matches = {
++			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro15,1"),
++		},
++	},
++	{
++		.matches = {
++			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro15,3"),
++		},
++	},
++	{
++		.matches = {
++			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro16,1"),
++		},
++	},
++	{
++		.matches = {
++			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro16,4"),
++		},
++	},
++	{ }
 +};
 +
-+/* Second type -- distinct pointer identity from A */
-+static struct dma_buf_mapping_type mock_type_b = {
-+	.name = "mock_type_b",
-+	.match = mock_match,
-+	.finish_match = mock_finish_match,
-+};
-+
-+static void test_match_fail(struct kunit *test)
++bool amdgpu_device_supports_gmux(struct amdgpu_device *adev)
 +{
-+	struct dma_buf_mapping_match matches[] = { { .type = &mock_type_a } };
-+	struct dma_buf_mapping_match exp[] = { { .type = &mock_type_b } };
-+	struct dma_buf_attachment attach = {};
-+	struct dma_buf_match_args args = {
-+		.attach = &attach,
-+		.imp_matches = matches,
-+		.imp_len = ARRAY_SIZE(matches),
-+	};
-+
-+	/* Zero-length exporter array returns -EINVAL */
-+	KUNIT_EXPECT_EQ(test, dma_buf_match_mapping(&args, NULL, 0), -EINVAL);
-+	KUNIT_EXPECT_FALSE(test, mock_match_called);
-+	KUNIT_EXPECT_FALSE(test, mock_finish_called);
-+
-+	/* Zero-length importer array returns -EINVAL */
-+	args = (struct dma_buf_match_args){ .attach = &attach };
-+	KUNIT_EXPECT_EQ(test,
-+			dma_buf_match_mapping(&args, matches,
-+					      ARRAY_SIZE(matches)),
-+			-EINVAL);
-+	KUNIT_EXPECT_FALSE(test, mock_match_called);
-+	KUNIT_EXPECT_FALSE(test, mock_finish_called);
-+
-+	/* Different types produce no match */
-+	KUNIT_EXPECT_EQ(test,
-+			dma_buf_match_mapping(&args, exp, ARRAY_SIZE(exp)),
-+			-EINVAL);
-+	KUNIT_EXPECT_FALSE(test, mock_match_called);
-+	KUNIT_EXPECT_FALSE(test, mock_finish_called);
++	return dmi_check_system(amdgpu_gmux_runpm_dmi_table) &&
++	       !dev_is_removable(&adev->pdev->dev) &&
++	       apple_gmux_detect(NULL, NULL);
 +}
 +
-+/* When type->match() is NULL same types always match */
-+static void test_match_no_match_callback(struct kunit *test)
++bool amdgpu_device_has_gmux_edp(struct amdgpu_device *adev)
 +{
-+	static struct dma_buf_mapping_type mock_type_no_match = {
-+		.name = "mock_type_no_match",
-+		.finish_match = mock_finish_match,
-+	};
-+	struct dma_buf_mapping_match matches[] = {
-+		{ .type = &mock_type_no_match }
-+	};
-+	struct dma_buf_attachment attach = {};
-+	struct dma_buf_match_args args = {
-+		.attach = &attach,
-+		.imp_matches = matches,
-+		.imp_len = ARRAY_SIZE(matches),
-+	};
-+
-+	KUNIT_EXPECT_EQ(
-+		test,
-+		dma_buf_match_mapping(&args, matches, ARRAY_SIZE(matches)), 0);
-+	KUNIT_EXPECT_FALSE(test, mock_match_called);
-+	KUNIT_EXPECT_TRUE(test, mock_finish_called);
-+	KUNIT_EXPECT_PTR_EQ(test, mock_finish_args_arg, &args);
-+	KUNIT_EXPECT_PTR_EQ(test, mock_finish_exp_arg, &matches[0]);
-+	KUNIT_EXPECT_PTR_EQ(test, mock_finish_imp_arg, &matches[0]);
++	return amdgpu_device_supports_gmux(adev) &&
++	       (dmi_match(DMI_PRODUCT_NAME, "MacBookPro15,3") ||
++		dmi_match(DMI_PRODUCT_NAME, "MacBookPro16,1") ||
++		dmi_match(DMI_PRODUCT_NAME, "MacBookPro16,4"));
 +}
 +
-+static void test_match_callback_returns(struct kunit *test)
-+{
-+	struct dma_buf_mapping_match matches[] = { { .type = &mock_type_a } };
-+	struct dma_buf_attachment attach = {};
-+	struct dma_buf_match_args args = {
-+		.attach = &attach,
-+		.imp_matches = matches,
-+		.imp_len = ARRAY_SIZE(matches),
-+	};
+ /**
+  * amdgpu_device_supports_boco - Is the device a dGPU with ACPI power resources
+  *
+@@ -640,6 +680,9 @@ void amdgpu_device_detect_runtime_pm_mode(struct amdgpu_device *adev)
+ 			/* enable PX as runtime mode */
+ 			adev->pm.rpm_mode = AMDGPU_RUNPM_PX;
+ 			dev_info(adev->dev, "Using ATPX for runtime pm\n");
++		} else if (amdgpu_device_supports_gmux(adev)) {
++			adev->pm.rpm_mode = AMDGPU_RUNPM_GMUX;
++			dev_info(adev->dev, "Using Apple GMUX for runtime pm\n");
+ 		} else if (amdgpu_device_supports_boco(adev)) {
+ 			/* enable boco as runtime mode */
+ 			adev->pm.rpm_mode = AMDGPU_RUNPM_BOCO;
+@@ -3767,7 +3810,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ {
+ 	struct pci_dev *pdev = adev->pdev;
+ 	int r, i;
+-	bool px = false;
++	bool gmux, px = false;
+ 	u32 max_MBps;
+ 	int tmp;
+ 
+@@ -4202,12 +4245,13 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ 		vga_client_register(adev->pdev, amdgpu_device_vga_set_decode);
+ 
+ 	px = amdgpu_device_supports_px(adev);
++	gmux = amdgpu_device_supports_gmux(adev);
+ 
+ 	if (amdgpu_device_should_register_switcheroo(adev, px))
+ 		vga_switcheroo_register_client(adev->pdev,
+-					       &amdgpu_switcheroo_ops, px);
++					       &amdgpu_switcheroo_ops, px || gmux);
+ 
+-	if (px)
++	if (px || gmux)
+ 		vga_switcheroo_init_domain_pm_ops(adev->dev, &adev->vga_pm_domain);
+ 
+ 	adev->pm_nb.notifier_call = amdgpu_device_pm_notifier;
+@@ -4336,7 +4380,7 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
+ void amdgpu_device_fini_sw(struct amdgpu_device *adev)
+ {
+ 	int i;
+-	bool px;
++	bool gmux, px;
+ 
+ 	amdgpu_device_ip_fini(adev);
+ 	amdgpu_fence_driver_sw_fini(adev);
+@@ -4367,11 +4411,12 @@ void amdgpu_device_fini_sw(struct amdgpu_device *adev)
+ 	adev->xcp_mgr = NULL;
+ 
+ 	px = amdgpu_device_supports_px(adev);
++	gmux = amdgpu_device_supports_gmux(adev);
+ 
+ 	if (amdgpu_device_should_register_switcheroo(adev, px))
+ 		vga_switcheroo_unregister_client(adev->pdev);
+ 
+-	if (px)
++	if (px || gmux)
+ 		vga_switcheroo_fini_domain_pm_ops(adev->dev);
+ 
+ 	if ((adev->pdev->class >> 8) == PCI_CLASS_DISPLAY_VGA)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index d9d794a7d..5ad7b6dd8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -2494,11 +2494,12 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
+ 		DRM_ERROR("Creating debugfs files failed (%d).\n", ret);
+ 
+ 	if (adev->pm.rpm_mode != AMDGPU_RUNPM_NONE) {
+-		/* only need to skip on ATPX */
++		/* ATPX requires a full system-sleep transition. */
+ 		if (amdgpu_device_supports_px(adev))
+ 			dev_pm_set_driver_flags(ddev->dev, DPM_FLAG_NO_DIRECT_COMPLETE);
+-		/* we want direct complete for BOCO */
+-		if (amdgpu_device_supports_boco(adev))
++		/* BOCO and GMUX can remain runtime suspended across system sleep. */
++		if (amdgpu_device_supports_boco(adev) ||
++		    adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX)
+ 			dev_pm_set_driver_flags(ddev->dev, DPM_FLAG_SMART_PREPARE |
+ 						DPM_FLAG_SMART_SUSPEND |
+ 						DPM_FLAG_MAY_SKIP_RESUME);
+@@ -2610,7 +2611,9 @@ static int amdgpu_pmops_prepare(struct device *dev)
+ 	/* Return a positive number here so
+ 	 * DPM_FLAG_SMART_SUSPEND works properly
+ 	 */
+-	if (amdgpu_device_supports_boco(adev) && pm_runtime_suspended(dev))
++	if ((amdgpu_device_supports_boco(adev) ||
++	     adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX) &&
++	    pm_runtime_suspended(dev))
+ 		return 1;
+ 
+ 	/* if we will not support s3 or s2i for the device
+@@ -2881,6 +2884,7 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
+ 	}
+ 
+ 	adev->in_runpm = true;
++	/* GMUX dGPUs drive displays, so hotplug handlers may reopen them. */
+ 	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX)
+ 		drm_dev->switch_power_state = DRM_SWITCH_POWER_CHANGING;
+ 
+@@ -2891,7 +2895,8 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
+ 	 * platforms.
+ 	 * TODO: this may be also needed for PX capable platform.
+ 	 */
+-	if (adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO)
++	if (adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO ||
++	    adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX)
+ 		adev->mp1_state = PP_MP1_STATE_UNLOAD;
+ 
+ 	ret = amdgpu_device_prepare(drm_dev);
+@@ -2900,16 +2905,19 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
+ 	ret = amdgpu_device_suspend(drm_dev, false);
+ 	if (ret) {
+ 		adev->in_runpm = false;
+-		if (adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO)
++		if (adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO ||
++		    adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX)
+ 			adev->mp1_state = PP_MP1_STATE_NONE;
+ 		return ret;
+ 	}
+ 
+-	if (adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO)
++	if (adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO ||
++	    adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX)
+ 		adev->mp1_state = PP_MP1_STATE_NONE;
+ 
+-	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX) {
+-		/* Only need to handle PCI state in the driver for ATPX
++	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX ||
++	    adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX) {
++		/* Only need to handle PCI state in the driver for ATPX and GMUX.
+ 		 * PCI core handles it for _PR3.
+ 		 */
+ 		amdgpu_device_cache_pci_state(pdev);
+@@ -2956,10 +2964,12 @@ static int amdgpu_pmops_runtime_resume(struct device *dev)
+ 	if (!pci_device_is_present(adev->pdev))
+ 		adev->no_hw_access = true;
+ 
+-	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX) {
+-		drm_dev->switch_power_state = DRM_SWITCH_POWER_CHANGING;
++	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX ||
++	    adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX) {
++		if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX)
++			drm_dev->switch_power_state = DRM_SWITCH_POWER_CHANGING;
+ 
+-		/* Only need to handle PCI state in the driver for ATPX
++		/* Only need to handle PCI state in the driver for ATPX and GMUX.
+ 		 * PCI core handles it for _PR3.
+ 		 */
+ 		pci_set_power_state(pdev, PCI_D0);
+@@ -2979,12 +2989,14 @@ static int amdgpu_pmops_runtime_resume(struct device *dev)
+ 	}
+ 	ret = amdgpu_device_resume(drm_dev, false);
+ 	if (ret) {
+-		if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX)
++		if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX ||
++		    adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX)
+ 			pci_disable_device(pdev);
+ 		return ret;
+ 	}
+ 
+-	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX)
++	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX ||
++	    adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX)
+ 		drm_dev->switch_power_state = DRM_SWITCH_POWER_ON;
+ 
+ 	amdgpu_restore_umd_profile_pstate_after_runpm(adev);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 47a0ff2ed..aee12cd76 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -81,6 +81,7 @@
+ #include <linux/moduleparam.h>
+ #include <linux/types.h>
+ #include <linux/pm_runtime.h>
++#include <linux/vgaarb.h>
+ #include <linux/pci.h>
+ #include <linux/power_supply.h>
+ #include <linux/firmware.h>
+@@ -623,6 +624,10 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+ 	else
+ 		init_data.bb_from_dmub = NULL;
+ 
++	if (amdgpu_device_has_gmux_edp(adev) &&
++	    adev->pdev != vga_default_device())
++		init_data.flags.edp_not_connected = true;
 +
-+	/* type->match() returns -EOPNOTSUPP. Skips to next */
-+	mock_match_ret = -EOPNOTSUPP;
-+	KUNIT_EXPECT_EQ(test,
-+			dma_buf_match_mapping(&args, matches,
-+					      ARRAY_SIZE(matches)),
-+			-EINVAL);
-+	KUNIT_EXPECT_TRUE(test, mock_match_called);
-+	KUNIT_EXPECT_FALSE(test, mock_finish_called);
+ 	/* Display Core create. */
+ 	adev->dm.dc = dc_create(&init_data);
+ 
+@@ -2545,6 +2550,15 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
+ 			dm->hpd_rx_offload_wq[aconnector->base.index].aconnector =
+ 				aconnector;
+ 
++		/* Like the resume path, skip eDP detection without a sink. */
++		if (link->connector_signal == SIGNAL_TYPE_EDP &&
++		    amdgpu_device_has_gmux_edp(adev) &&
++		    !link->edp_sink_present) {
++			drm_info(adev_to_drm(adev), "Skipping detection of inactive GMUX eDP link %d\n",
++				 i);
++			continue;
++		}
 +
-+	/* type->match() returns an error code. Stops immediately, returns code */
-+	mock_match_ret = -ENOMEM;
-+	KUNIT_EXPECT_EQ(test,
-+			dma_buf_match_mapping(&args, matches,
-+					      ARRAY_SIZE(matches)),
-+			-ENOMEM);
-+	KUNIT_EXPECT_TRUE(test, mock_match_called);
-+	KUNIT_EXPECT_FALSE(test, mock_finish_called);
-+}
-+
-+/*
-+ * The match set records every compatible pair, in the exporter's order. The
-+ * first entry is the default selection.
-+ */
-+static void test_match_exporter_priority(struct kunit *test)
-+{
-+	struct dma_buf_mapping_match exp1[2] = {
-+		{ .type = &mock_type_a },
-+		{ .type = &mock_type_b },
-+	};
-+	struct dma_buf_mapping_match exp2[] = { { .type = &mock_type_b } };
-+	struct dma_buf_mapping_match imp[2] = {
-+		{ .type = &mock_type_a },
-+		{ .type = &mock_type_b },
-+	};
-+	struct dma_buf_attachment attach = {};
-+	struct dma_buf_match_args args = {
-+		.attach = &attach,
-+		.imp_matches = imp,
-+		.imp_len = ARRAY_SIZE(imp),
-+	};
-+
-+	/* Both match, exporter order preserved, first is the default */
-+	KUNIT_EXPECT_EQ(
-+		test, dma_buf_match_mapping(&args, exp1, ARRAY_SIZE(exp1)), 0);
-+	KUNIT_ASSERT_EQ(test, attach.nr_matches, 2);
-+	KUNIT_EXPECT_PTR_EQ(test, attach.matches[0].type, &mock_type_a);
-+	KUNIT_EXPECT_PTR_EQ(test, attach.matches[1].type, &mock_type_b);
-+	KUNIT_EXPECT_PTR_EQ(test, attach.map_type.type, &mock_type_a);
-+
-+	/* Only the second importer type is offered */
-+	KUNIT_EXPECT_EQ(
-+		test, dma_buf_match_mapping(&args, exp2, ARRAY_SIZE(exp2)), 0);
-+	KUNIT_ASSERT_EQ(test, attach.nr_matches, 1);
-+	KUNIT_EXPECT_PTR_EQ(test, attach.matches[0].type, &mock_type_b);
-+	KUNIT_EXPECT_PTR_EQ(test, attach.map_type.type, &mock_type_b);
-+	KUNIT_EXPECT_PTR_EQ(test, mock_finish_imp_arg, &imp[1]);
-+}
-+
-+/* The exporter's order wins over the importer's */
-+static void test_match_importer_priority(struct kunit *test)
-+{
-+	struct dma_buf_mapping_match exp[] = {
-+		{ .type = &mock_type_a },
-+		{ .type = &mock_type_b },
-+	};
-+	struct dma_buf_mapping_match imp1[] = { { .type = &mock_type_b } };
-+	struct dma_buf_mapping_match imp2[] = {
-+		{ .type = &mock_type_b },
-+		{ .type = &mock_type_a },
-+	};
-+	struct dma_buf_attachment attach = {};
-+	struct dma_buf_match_args args = {
-+		.attach = &attach,
-+		.imp_matches = imp1,
-+		.imp_len = ARRAY_SIZE(imp1),
-+	};
-+
-+	/* Single importer type */
-+	KUNIT_EXPECT_EQ(test,
-+			dma_buf_match_mapping(&args, exp, ARRAY_SIZE(exp)), 0);
-+	KUNIT_ASSERT_EQ(test, attach.nr_matches, 1);
-+	KUNIT_EXPECT_PTR_EQ(test, attach.matches[0].type, &mock_type_b);
-+	KUNIT_EXPECT_PTR_EQ(test, mock_finish_imp_arg, &imp1[0]);
-+
-+	/* Importer prefers B, exporter prefers A: A is the default */
-+	args.imp_matches = imp2;
-+	args.imp_len = ARRAY_SIZE(imp2);
-+	KUNIT_EXPECT_EQ(test,
-+			dma_buf_match_mapping(&args, exp, ARRAY_SIZE(exp)), 0);
-+	KUNIT_ASSERT_EQ(test, attach.nr_matches, 2);
-+	KUNIT_EXPECT_PTR_EQ(test, attach.matches[0].type, &mock_type_a);
-+	KUNIT_EXPECT_PTR_EQ(test, attach.matches[1].type, &mock_type_b);
-+	KUNIT_EXPECT_PTR_EQ(test, attach.map_type.type, &mock_type_a);
-+}
-+
-+static void mock_dmabuf_release(struct dma_buf *dmabuf)
-+{
-+}
-+
-+static struct sg_table *mock_map_dma_buf(struct dma_buf_attachment *attach,
-+					 enum dma_data_direction dir)
-+{
-+	return ERR_PTR(-ENODEV);
-+}
-+
-+static void mock_unmap_dma_buf(struct dma_buf_attachment *attach,
-+			       struct sg_table *sgt,
-+			       enum dma_data_direction dir)
-+{
-+}
-+
-+static const struct dma_buf_mapping_sgt_exp_ops mock_sgt_ops = {
-+	.map_dma_buf = mock_map_dma_buf,
-+	.unmap_dma_buf = mock_unmap_dma_buf,
-+};
-+
-+static const struct dma_buf_ops mock_dmabuf_simple_sgt_ops = {
-+	.release = mock_dmabuf_release,
-+	DMA_BUF_SIMPLE_SGT_EXP_MATCH(mock_map_dma_buf, mock_unmap_dma_buf),
-+};
-+
-+static int mock_dmabuf_match_mapping(struct dma_buf_match_args *args)
-+{
-+	struct dma_buf_mapping_match sgt_match[2];
-+	unsigned int num_match = 0;
-+
-+	sgt_match[num_match++] =
-+		(struct dma_buf_mapping_match){ .type = &mock_type_a };
-+
-+	sgt_match[num_match++] = DMA_BUF_EMAPPING_SGT(&mock_sgt_ops);
-+
-+	return dma_buf_match_mapping(args, sgt_match, ARRAY_SIZE(sgt_match));
-+}
-+
-+static const struct dma_buf_ops mock_dmabuf_two_exp_ops = {
-+	.release = mock_dmabuf_release,
-+	.match_mapping = mock_dmabuf_match_mapping,
-+};
-+
-+struct dma_exporter {
-+	const struct dma_buf_ops *ops;
-+	const char *desc;
-+};
-+
-+static struct dma_buf *mock_dmabuf_export(const struct dma_buf_ops *ops)
-+{
-+	DEFINE_DMA_BUF_EXPORT_INFO(exp_info);
-+
-+	exp_info.ops = ops;
-+	exp_info.size = PAGE_SIZE;
-+	exp_info.priv = ERR_PTR(-EINVAL);
-+	return dma_buf_export(&exp_info);
-+}
-+
-+/*
-+ * Check that a simple SGT exporter with single_exporter_match works with
-+ * dma_buf_sgt_attach()
-+ */
-+static void test_sgt_attach(struct kunit *test)
-+{
-+	const struct dma_exporter *param = test->param_value;
-+	struct dma_buf *dmabuf;
-+	struct dma_buf_attachment *attach;
-+	struct device *dev;
-+
-+	dev = kunit_device_register(test, "dma-buf-test");
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
-+
-+	dmabuf = mock_dmabuf_export(param->ops);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dmabuf);
-+
-+	attach = dma_buf_sgt_attach(dmabuf, dev);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, attach);
-+
-+	KUNIT_EXPECT_PTR_EQ(test, attach->map_type.type,
-+			    &dma_buf_mapping_sgt_type);
-+	KUNIT_EXPECT_PTR_EQ(test, dma_buf_sgt_dma_device(attach), dev);
-+	KUNIT_EXPECT_FALSE(test, dma_buf_sgt_p2p_allowed(attach));
-+
-+	dma_buf_detach(dmabuf, attach);
-+	dma_buf_put(dmabuf);
-+}
-+
-+static void mock_move_notify(struct dma_buf_attachment *attach)
-+{
-+}
-+
-+static const struct dma_buf_attach_ops mock_importer_ops = {
-+	.invalidate_mappings = &mock_move_notify,
-+};
-+
-+/* Check a dynamic attach with a non-sgt mapping type */
-+static void test_mock_attach(struct kunit *test)
-+{
-+	struct dma_buf_mapping_match imp[] = { { .type = &mock_type_a } };
-+	struct dma_buf *dmabuf;
-+	struct dma_buf_attachment *attach;
-+	struct device *dev;
-+
-+	dev = kunit_device_register(test, "dma-buf-test");
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
-+
-+	dmabuf = mock_dmabuf_export(&mock_dmabuf_two_exp_ops);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dmabuf);
-+
-+	attach = dma_buf_mapping_attach(dmabuf, imp, ARRAY_SIZE(imp),
-+					&mock_importer_ops, NULL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, attach);
-+
-+	KUNIT_EXPECT_PTR_EQ(test, attach->map_type.type, &mock_type_a);
-+
-+	dma_buf_detach(dmabuf, attach);
-+	dma_buf_put(dmabuf);
-+}
-+
-+static const struct dma_exporter dma_exporter_params[] = {
-+	{ &mock_dmabuf_simple_sgt_ops, "simple_sgt" },
-+	{ &mock_dmabuf_two_exp_ops, "two_exp" },
-+};
-+KUNIT_ARRAY_PARAM_DESC(dma_exporter, dma_exporter_params, desc);
-+
-+static struct kunit_case dma_mapping_cases[] = {
-+	KUNIT_CASE(test_match_fail),
-+	KUNIT_CASE(test_match_no_match_callback),
-+	KUNIT_CASE(test_match_callback_returns),
-+	KUNIT_CASE(test_match_exporter_priority),
-+	KUNIT_CASE(test_match_importer_priority),
-+	KUNIT_CASE_PARAM(test_sgt_attach, dma_exporter_gen_params),
-+	KUNIT_CASE(test_mock_attach),
-+	{}
-+};
-+
-+static struct kunit_suite dma_mapping_test_suite = {
-+	.name = "dma-buf-mapping",
-+	.init = reset_mock_state,
-+	.test_cases = dma_mapping_cases,
-+};
-+
-+kunit_test_suite(dma_mapping_test_suite);
-+
-+MODULE_IMPORT_NS("DMA_BUF");
+ 		if (!dc_link_detect_connection_type(link, &new_connection_type))
+ 			drm_err(adev_to_drm(adev), "KMS: Failed to detect connector\n");
+ 
+diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+index 8e8a052e1..025fa806d 100644
+--- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
++++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+@@ -48,6 +48,7 @@ enum amdgpu_int_thermal_type {
+ enum amdgpu_runpm_mode {
+ 	AMDGPU_RUNPM_NONE,
+ 	AMDGPU_RUNPM_PX,
++	AMDGPU_RUNPM_GMUX,
+ 	AMDGPU_RUNPM_BOCO,
+ 	AMDGPU_RUNPM_BACO,
+ 	AMDGPU_RUNPM_BAMACO,
 -- 
-2.54.0
+2.55.0
 
