@@ -2,46 +2,78 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EBFF606A323
-	for <amd-gfx@archiver.kernel.org>; Sat, 24 Oct 2026 16:29:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C656606A31D
+	for <amd-gfx@archiver.kernel.org>; Sun, 25 Oct 2026 16:48:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=deq.rocks header.i=@deq.rocks header.a=rsa-sha256 header.s=securedbylima-20251205 header.b=gzcyrfN+
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PZsZqZbA
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C260710E180;
-	Sat, 24 Oct 2026 16:29:20 +0000 (UTC)
-X-Greylist: delayed 480 seconds by postgrey-1.36 at gabe;
- Sat, 24 Oct 2026 16:29:14 UTC
-Received: from mx5.mail-out.lima-city.de (mx5.mail-out.lima-city.de
- [91.216.248.207])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF48910E180;
- Sat, 24 Oct 2026 16:29:14 +0000 (UTC)
-From: Andre Eikmeyer <dev@deq.rocks>
-X-Lima-ML-UUID: 058fab7f-7490-4316-b2a6-b06f24c3fce8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=deq.rocks;
- s=securedbylima-20251205; t=1792858872;
- bh=4yRUaUcZJ7NVfl/ojp5ovKj0o5QzSmiM/G82y808yXo=;
- h=From:To:Cc:Subject:Date:From;
- b=gzcyrfN+SohEVnOopB1lpmVXh9mJMOjMuc8ZyFDiB5QP4e2fXg7HSPbCdvYkxr1Iy
- MUsU/R/9Wr9+uine925Mjg74u5+Vu3mlm8yVbxjG9HcyNsz+VuMIXlKoKmAwCzhx4n
- Nsz2Qcml9udIpHmkXPNfdHvRWG/jFZr18vVRGlYQQWsTV0b/KtBTLME470Gj33wPRB
- vjMJ5SI+osZXpsFI3gwbd1nXb8UflsWb7iLs/vr6lSCCmYlzwWexWcC6XaOqjaCv/z
- 6i/FBbfnUqye4e2QWljP15NYsL2sM/1k+ayQajlcdH8MUkTJaJIDnjHzXQ2RP3fF/x
- dVGeWIHeSx5sA==
-To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Kenneth Feng <kenneth.feng@amd.com>
-Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Jesse Zhang <Jesse.Zhang@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Andre Eikmeyer <dev@deq.rocks>,
- stable@vger.kernel.org
-Subject: [PATCH] drm/amd/pm: use the VBIOS trained UCLK levels on the
- MacBookPro16, 1
-Date: Sat, 24 Oct 2026 18:21:09 +0200
-Message-ID: <20261024162109.307247-1-dev@deq.rocks>
-X-Mailer: git-send-email 2.56.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8683010E140;
+	Sun, 25 Oct 2026 16:48:29 +0000 (UTC)
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
+ [209.85.221.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A10B310E140
+ for <amd-gfx@lists.freedesktop.org>; Sun, 25 Oct 2026 16:48:22 +0000 (UTC)
+Received: by mail-wr1-f46.google.com with SMTP id
+ ffacd0b85a97d-48dfaa3fa12so2357204f8f.0
+ for <amd-gfx@lists.freedesktop.org>; Sun, 25 Oct 2026 09:48:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1792946901; x=1793551701; darn=lists.freedesktop.org;
+ h=content-type:content-transfer-encoding:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=1M3gjq/8LTzZo7v++YE3JUMPJiThXfcWvCP7W8ZVP2k=;
+ b=PZsZqZbAdOHs5g46dGp4z8GtbUh/Saky+l/WNaROOe/8TiMGh1Cdx+f6tWywvOTuic
+ b7Wg9CUdJgAuxeH4orEL6Iqwl8FiND63imttPQfFUwwaHTSgGg85NoZC1fMgUYpN3rAP
+ bEElEIekwukH4XsvxKeGy7nUIy8t37MHAqkzDIBcgcMM7Z6mTJp5V7AyGAKqV41tQ0EZ
+ 8qUo9dpoY6wK/E9zs3Xwz5icY/m5Evva+aj6aaMP4ZPklZ8T0U6RMbW9eAm2WrswFo6C
+ mbPJPZEFabdCuHTYIBiW35TeL22m4xBQAH06SJuyrfEVljODDIWWAjgP9TgFq5CA6jq8
+ Sp1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792946901; x=1793551701;
+ h=content-type:content-transfer-encoding:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=1M3gjq/8LTzZo7v++YE3JUMPJiThXfcWvCP7W8ZVP2k=;
+ b=ZZNTM5uyoQjZMWslfLj+kBi1t65CR3vb4TYmaJR4g/gL+yzRCmff3ze621SO3FNEJ9
+ bB5V5wEEzsqJ5XLSvNiCzkr6RjtszO5PdnvcHGUUKrzHNwMappkpkYtqdJvApGlL5Uye
+ XVK1+l6U8Ax6zrR0Nh5WPiezZLMmbdUcyJE52yH0cLlQHCqOO4TRv1XutTyWZFNeSAHK
+ 7BlzJc4MJsJ5ZnICfy5Ur2UsbI/sZ5eeWZynooQwLqWQzKOOPpLgDQYyGHd6ebP9bse3
+ y93XPBflOqm9nyXqLbZEnve4LU9cSc+uoUxlMuII6MxD5ftseLZLCDuxeIu0WlKYLKqR
+ fLAw==
+X-Gm-Message-State: AFq9FYJ3TtKo5WSjIGhomBS8exkaM2jmfF4NIvpjh9tShNpWeIdkbSol
+ m1uSHOvpSA1ME+0XXleBslViqxPPtr245uvrz79VBF4a5W+NeRKShY/seJvoF9Atvb0=
+X-Gm-Gg: AYBFou0B/8Fl2qP63aWuC2KUGo0EFywMXikDPoLJENMcPzAlGsVCmKXNhnNvO1/kXaA
+ qV/Xud5vftXy3aXcWYvtVngaordPpfgFS8m+SQB0J1BdnMA+3W2jNAlUqUBvxCpqYt4vOCHPXaR
+ djvp5C1Laao59C0JJz8WPGJyjWS4OgBi24ogr/FzjrloEm/JjA/h0Q8oik2B9zW3TcWPa0DPqmQ
+ tpgEWs191K8c/PXpBjxxkVyDb74pqSdBKT04QZs86ChxK8vsF0wW+3LCII9oeRLTIY/rTHv/xbw
+ JHBTABImd4w9mF4Zd6U7hAZsUYgYFvDwGFG+mwIpN5oZwUBgevUMKhLMpA646Yhy5VHN4XezmUn
+ w+7UpQE5UZa3U2LAksK88WKjKXSddNkzHZUmOdqL4kd55MaLTeoJ0jRdF40cABDgED8S0q4DAXX
+ d/eLGJrzYKaNrYLuBkl7+6GGzTwVDDXE2+3q9zvwMYrWGvLKtEnCEcVrC7h9doGKX8YdCb/yymo
+ 2oZGhjf4p19sGu6cqmm7ia67QwaQBX7fDKOUlg/zwugVMnaan0xkCrMXI4Z1S3C8RG9ug==
+X-Received: by 2002:a05:600c:a08:b0:4a1:7f96:9b42 with SMTP id
+ 5b1f17b1804b1-4a35aeab300mr93680945e9.15.1792946900773; 
+ Sun, 25 Oct 2026 09:48:20 -0700 (PDT)
+Received: from timur-max.localnet ([62.245.128.202])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4a35a59d998sm139175175e9.15.2026.10.25.09.48.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 25 Oct 2026 09:48:20 -0700 (PDT)
+From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: Alexander.Deucher@amd.com, Christian Koenig <christian.koenig@amd.com>,
+ lijo.lazar@amd.com, Mario.Novales@amd.com, Manu.Rastogi@amd.com,
+ Jiongyu.Zhu@amd.com, Jesse Zhang <Jesse.Zhang@amd.com>,
+ Jesse Zhang <Jesse.Zhang@amd.com>
+Subject: Re: [PATCH v2 01/15] drm/amdgpu/gfx: add a reset_engine callback
+Date: Sun, 25 Oct 2026 17:48:19 +0100
+Message-ID: <SoyYXquqRq2ehHt61k0aVA@gmail.com>
+In-Reply-To: <20261022082011.331462-1-Jesse.Zhang@amd.com>
+References: <20261022082011.331462-1-Jesse.Zhang@amd.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,109 +84,106 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-7.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The Radeon Pro 5300M and 5500M of the MacBookPro16,1 (Navi 14 boards
-1002:7340/106b:0210 and 1002:7340/106b:020f) stop answering SMU messages
-as soon as UCLK switches into its third level. This happens at boot or
-at the latest under dGPU load and ends in a CPU CATERR that resets the
-machine.
+On 2026. okt=C3=B3ber 22., cs=C3=BCt=C3=B6rt=C3=B6k 2:19:41 k=C3=B6z=C3=A9p=
+s=C5=91 =C3=A1llamokbeli z=C3=B3naid=C5=91 Jesse=20
+Zhang wrote:
+> Some gfx hangs can't be recovered by a queue or a pipe reset, eg. a CP
+> front-end stuck in the middle of a packet. They currently end in a full
+> GPU reset, and VRAM is lost. Resetting only the graphics engine is
+> enough for them, and leaves the compute engine running.
+>=20
+> Add an optional reset_engine callback to amdgpu_gfx_funcs that resets
+> only the graphics or only the compute engine. The split is specific to
+> the GFX IP, eg. CP_SOFT_RESET_CNTL has GFX_ONLY_SOFT_RESET and
+> CMP_ONLY_SOFT_RESET, so it doesn't belong in the amd_ip_funcs that all
+> IP blocks share.
+>=20
 
-Apple's VBIOS trains the UMC p-state sets at 95, 496, 598 and 736 MHz
-(umc_info v3.3), but its pptable lists 95, 496, 736 and 750 MHz. Level 2
-then runs 736 MHz on a set trained at 598 MHz.
+Hi Jesse,
 
-Take the UCLK levels of these boards from umc_info.
+I think this is a very good idea, in fact I wanted to implement something l=
+ike=20
+this myself.
 
-Tested on three MacBookPro16,1, two with the 5500M and one with the 5300M.
+I notice that there is a lot of overlap between your engine reset and the p=
+re-
+existing IP block soft reset. I would prefer that the engine reset be=20
+integrated into the IP block soft reset instead of adding yet another reset=
+=20
+type to the driver. I believe this would make the code overall better.
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
----
- .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 56 +++++++++++++++++++
- 1 file changed, 56 insertions(+)
+My suggestion is the following:
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-index 2d0508861..63b773252 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-@@ -470,6 +470,60 @@ static int navi10_store_powerplay_table(struct smu_context *smu)
- 	return 0;
- }
- 
-+static bool navi14_needs_trained_uclk(struct amdgpu_device *adev)
-+{
-+	struct pci_dev *pdev = adev->pdev;
-+
-+	return pdev->vendor == PCI_VENDOR_ID_ATI &&
-+		pdev->device == 0x7340 &&
-+		pdev->subsystem_vendor == PCI_VENDOR_ID_APPLE &&
-+		(pdev->subsystem_device == 0x020f ||
-+		 pdev->subsystem_device == 0x0210);
-+}
-+
-+/*
-+ * The pptable of these boards lists other UCLK levels than the VBIOS trained
-+ * the UMC p-state sets at, and the SMU hangs switching into such a level.
-+ */
-+static void navi14_use_trained_uclk_levels(struct smu_context *smu)
-+{
-+	struct amdgpu_device *adev = smu->adev;
-+	PPTable_t *pptable = smu->smu_table.driver_pptable;
-+	struct atom_umc_info_v3_3 *umc_info;
-+	uint16_t trained[NUM_UCLK_DPM_LEVELS];
-+	uint16_t size;
-+	uint8_t frev, crev;
-+	int index, i;
-+
-+	if (!navi14_needs_trained_uclk(adev) ||
-+	    pptable->DpmDescriptor[PPCLK_UCLK].NumDiscreteLevels != NUM_UCLK_DPM_LEVELS)
-+		return;
-+
-+	index = get_index_into_master_table(atom_master_list_of_data_tables_v2_1,
-+					    umc_info);
-+	if (amdgpu_atombios_get_data_table(adev, index, &size, &frev, &crev,
-+					   (uint8_t **)&umc_info) ||
-+	    frev != 3 || crev != 3 || size < sizeof(*umc_info))
-+		return;
-+
-+	for (i = 0; i < NUM_UCLK_DPM_LEVELS; i++) {
-+		trained[i] = le32_to_cpu(umc_info->pstate_uclk_10khz[MAX_UCLK_DPM_LEVEL - i]) / 100;
-+		if (!trained[i] || (i && trained[i] <= trained[i - 1]))
-+			return;
-+	}
-+
-+	for (i = 0; i < NUM_UCLK_DPM_LEVELS; i++) {
-+		if (pptable->FreqTableUclk[i] == trained[i])
-+			continue;
-+		dev_info(adev->dev, "UCLK level %d: %u MHz -> %u MHz, as trained by the VBIOS\n",
-+			 i, pptable->FreqTableUclk[i], trained[i]);
-+		pptable->FreqTableUclk[i] = trained[i];
-+	}
-+
-+	pptable->DcModeMaxFreq[PPCLK_UCLK] = min(pptable->DcModeMaxFreq[PPCLK_UCLK],
-+						 trained[MAX_UCLK_DPM_LEVEL]);
-+}
-+
- static int navi10_setup_pptable(struct smu_context *smu)
- {
- 	int ret = 0;
-@@ -482,6 +536,8 @@ static int navi10_setup_pptable(struct smu_context *smu)
- 	if (ret)
- 		return ret;
- 
-+	navi14_use_trained_uclk_levels(smu);
-+
- 	ret = navi10_append_powerplay_table(smu);
- 	if (ret)
- 		return ret;
+=2D Instead of introducing amdgpu_gfx_reset_gfx_engine(), use=20
+amdgpu_device_ip_soft_reset() and add the missing user queue handling there=
+=2E=20
+Note that amdgpu_device_ip_soft_reset() already has a more sophisticated wa=
+y=20
+to minimize collateral damage to kernel queues, so the new GPU generations=
+=20
+will benefit from that as well.
 
-base-commit: 77f548b127c6de34ce271fa09ba270cb1ef9f2da
--- 
-2.56.0
+=2D Instead of introducing amdgpu_gfx_funcs::reset_engine(), use=20
+amd_ip_funcs::soft_reset() and fix that up for each affected GPU generation=
+ as=20
+necessary.
+
+=2D I think the cleanest solution is to reset the entire GFX IP block (incl=
+uding=20
+both graphics and compute) for the sake of consistency. There are some hang=
+=20
+cases such as gang submissions which cannot be resolved by just resetting=20
+graphics or compute.
+
+Please let me know what you think. I'd be happy to contribute to this effor=
+t.
+
+Thanks & best regards,
+Timur
+
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h index 5939e1fb3b24..8dc669e89db5
+> 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> @@ -345,6 +345,13 @@ struct amdgpu_gfx_shadow_info {
+>  	u32 eop_alignment;
+>  };
+>=20
+> +/* The engines of the GFX IP that can be reset on their own. */
+> +enum amdgpu_gfx_engine {
+> +	AMDGPU_GFX_ENGINE_GFX,
+> +	AMDGPU_GFX_ENGINE_COMPUTE,
+> +	AMDGPU_GFX_ENGINE_NUM,
+> +};
+> +
+>  struct amdgpu_gfx_funcs {
+>  	/* get the gpu clock counter */
+>  	uint64_t (*get_gpu_clock_counter)(struct amdgpu_device *adev);
+> @@ -376,6 +383,9 @@ struct amdgpu_gfx_funcs {
+>  	/* find the gfx HQD slot (me/pipe/queue) for a doorbell */
+>  	bool (*detect_hung_queue)(struct amdgpu_device *adev, u32=20
+doorbell_index,
+>  				  u32 *me, u32 *pipe, u32=20
+*queue);
+> +	/* reset one engine, leaving the other one running */
+> +	int (*reset_engine)(struct amdgpu_device *adev,
+> +			    enum amdgpu_gfx_engine engine);
+>  };
+>=20
+>  struct sq_work {
+
+
+
 
