@@ -2,93 +2,53 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A05B606A321
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Oct 2026 18:51:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52E84606A31A
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Oct 2026 18:57:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=q33GwpKk
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=K1zWyD5a
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C326010F0C1;
-	Mon, 26 Oct 2026 18:51:17 +0000 (UTC)
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com
- [74.125.82.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8E9910F0C1
- for <amd-gfx@lists.freedesktop.org>; Mon, 26 Oct 2026 18:51:11 +0000 (UTC)
-Received: by mail-dy1-f180.google.com with SMTP id
- 5a478bee46e88-369fc2e984fso134303eec.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 26 Oct 2026 11:51:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793040671; cv=none;
- d=google.com; s=arc-20260327;
- b=CkmO+pLjtOysnTuYHyYsQPBY2m/jMurE6bGvBVR3D8JiHyDqpE7b5VIRvYm5wyJ1wl
- UkyrRBkihqN1E5dwLxRa8KPiiNXVyb0WhkZGW5nR+yawJmafldP7iJuCNec+6HTtepEa
- g+4cY6z5iFfy+ghQ/gkyNsDaoLNZc/iO7+JYv7LIdPw4jOEYF9SqgEDiinbmTPHgZ4y6
- Grlac4gnPR9s54hjs7HRyHgGaDermv81UGb6vHfhkl3FOJCYR42+MRyCWe5pjmuN6bY/
- Zy1URfuj3OHzC4ZwOeSXLf2DhwC95f39vuEdd+pl/xBptQJ7fJKcEj1qIp7/wNRD05sU
- mC0g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=wqy+U/eNoSrka88//FzuP/0bHFzoFAWbQVt9E7/zjAI=;
- fh=qQPJ2C1cUZTI88KvdTTxpDqLRX3dsSacqfr/T5CS4Tg=;
- b=MPb2f/c+oxihhzZPSjrwyq8MEn6WZdkWHgkiEUVcYd5zPYxldsOwOt3qljgoyM4SrR
- a5gzQJHdMEsATmkvq0uCcc977YDoPwGV8mDIqtabHrPjbbdsQoBgJcKTIeco66+8Z3Hu
- SJFnYQuEn2MexOvWagjdY1LeQQe1wSMfm9EpdGWNzBj9dKsOT89BwsxEoI3CSUcDIZx3
- WHCQDIBQI4myPg3Ui1b+xRQnhbT9trJQleMvLg9KO6CZbXiNw5XYQbzpdwO6rMHmik2E
- lqH0dQ/7TYwgWMUnnYasvMJLnlg++ute060ttXZhRMVb+ofW4gwakhpPBv9Outg09+qd
- 966g==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1793040671; x=1793645471; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=wqy+U/eNoSrka88//FzuP/0bHFzoFAWbQVt9E7/zjAI=;
- b=q33GwpKkZL38vqnKzFDodJpfLPIk9uwDbUNpuggCtGepYyrpuV8CIhf2Ce8Pu/ANTG
- +zmY3UeNnGkg/cko0XiY5VfEuqu0hBP/tWrR5t5HODlpOn4MTZglLXcfqesMakHJ+wDB
- k+qN6X2O7XH41Y/Ed3IoTjnVg5CA2uw9qcZa7Hq8BCtjitEDruIpcWLIGZMmf0KYV78d
- 04zNeys0sHKtTuONFWgiz8ACcHjEY3arW5pLIwjNLwqxiIn/YnePpe0WB4r1F/nl5rD0
- 9rKErODOOp/dl6+r6BmiPgASS1rbU0Sieh9YBZcrv56BsAER37iSiJvy1xH+4f74oRhU
- OBfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793040671; x=1793645471;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=wqy+U/eNoSrka88//FzuP/0bHFzoFAWbQVt9E7/zjAI=;
- b=jRafcKbMTqmRAPa2UfV/Oi1WkmS3tyaqiFhqGxdnZ74kBTlVEUlAaASzTW5d2vs6vY
- d/rC+v+D2Sao15hwcJyfb6NHogU8wStyr5bZ2ZfbecoxxATUzT1FLBzSBHjK9Eh1zZVr
- 6HTXrWxU6FLtBlPa1i7Fx3Cm8xsXMmUt87MR3QeqVw/KuIz1HhbU/NPMDL0eFpBDJNkt
- Y14TgZOZ8psdzbLdIPlpFXnIKf/PDzsvuDfptsGFEsBeT0lGZxSgKyoO0cJD7kT4AwdV
- VBL1iw5RGhFWG9X7CUSMq4/NZYWWrFm/Ol/49GSS9XXdhFr1YE6olAdf5e7FWl9foRFr
- M5Fw==
-X-Gm-Message-State: AFq9FYJcbVVH2tzpLEQcUfyK6PBO+OD3u+Y79HHZY9LiFZwodXxTWj1w
- l0bxj3naZ+94Ls8c/lFZJneZGv1+pj8/X4lzUKgvi2ctUNr27V7ENyGQQ736MrLPQREDnme+vCc
- xNvCFl/GQyBTk+bQ/0nj9ysXLUH7v1jkz8KObBHU=
-X-Gm-Gg: AYBFou0ollPLw4yw5yJ4S/Brdr8wyqFO6iPPsb2FuE93v/+4ALfXJBsrpJb0/2m+3uE
- 87pqymSHMLoAdi0FpBCYtPrrAtW+L22+mETD8B+lmIjtmfZgH3gM+XEVs4m/AJ52PoE0/veFDNw
- hyKHAWhW0zyyMA79tvHn7UqSkLShrD1QiziTkhjK9PKpxezP3jOg5RTN5UlcVzH+w2DzkbKo2LR
- oB6YCQAQqX19UTcQvlyzc+ERmfRfkvZx+dn5t7YPvUzX+uDk6yYcjyMVRsWTpOX/wySdm+h0cSh
- vAhLOL2sl4NUTU/ev5RyuqCSRqn84iWa9sZId6IbftGshrjjBWg+q3tfAv+XMasoon6zII7Ser7
- 1BoIfWM06Ld21K5S0M+1zWWCtoaVt3Exsr8uunbKHFg0t/mlGRX+QkaexWy4gLjm8M0JbHg2CKy
- 1S9IbAKBR6clc5Al+tg7HSsq4=
-X-Received: by 2002:a05:701b:4308:b0:144:fd17:3b21 with SMTP id
- a92af1059eb24-1991bbd19eamr17594583c88.0.1793040670795; Mon, 26 Oct 2026
- 11:51:10 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0512898F5;
+	Mon, 26 Oct 2026 18:57:41 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 177F910E31A;
+ Mon, 26 Oct 2026 18:57:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=fQo9kNtBhK6ou/kDtDR1zwtvqMc7GoPFTSxU7VhxlaU=; b=K1zWyD5a776NI1+6ZYyv5FMS4A
+ zqeHkxFmLpHi7QdiixdCnB+I96t6WFQzjorh37nooEh3qU9Y/CZxg/cO2xCeDZnHHQ6C0YDgYUYLq
+ 6D8/7N4VkoM4IXGyECZm7vnJJwc3jQnG1lhCtjHtCwD5sjlvRF0V1Xb0sknWd46XySHUxr2X7cpRO
+ uqtK9j5AnLe9AgJxmufPaJp/AKH25FJnt4svBYGbSwoP+fppVFJzmPednsx2hcEiKlGc2JMZq5BzC
+ rJSRYYqIND+aHOu8CDpkkFDB0a23+s7kzEMgoluvOHwRO1R3dZ7nC+mhvjRdZjHjMmxiB/SbuDiRF
+ GTNY0B6w==;
+Received: from c-73-157-168-91.hsd1.or.comcast.net ([73.157.168.91]
+ helo=[192.168.1.133]) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1xLPsy-00Azuf-Qj; Mon, 26 Oct 2026 19:57:33 +0100
+Message-ID: <e076014e-b461-4e27-8220-709722b73ceb@Igalia.com>
+Date: Mon, 26 Oct 2026 11:57:26 -0700
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261024194334.305636-1-erhan.bilgili@gmail.com>
-In-Reply-To: <20261024194334.305636-1-erhan.bilgili@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 26 Oct 2026 14:50:58 -0400
-X-Gm-Features: AclHuK-kmOXWKo6oWycda5Of6rgDRCxKLgMNNguCQFggynhp4LcGoHX5sTF6fW8
-Message-ID: <CADnq5_OBqDH0hoQQQDBxKGoiv0FdgbY7EiM0juqj1QpPyOSSOw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Report MES ring wait timeouts.
-To: Erhan Bilgili <erhan.bilgili@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
- christian.koenig@amd.com, Jack.Xiao@amd.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: Add null DC check to hpd init
+To: Albert Esteve <aesteve@redhat.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ kernel-dev@igalia.com, Mattia Tadini <info@mtsistemi.it>,
+ Roman Li <roman.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Alex Hung <alex.hung@amd.com>, George Zhang <george.zhang@amd.com>,
+ Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>,
+ "Mario Limonciello (AMD)" <superm1@kernel.org>, Leo Li <sunpeng.li@amd.com>,
+ =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Geoffrey McRae <geoffrey.mcrae@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>
+References: <20261022173154.2318054-1-John.Harrison@Igalia.com>
+ <atsRYJ7XTBY987fr@aesteve-thinkpadp1gen8.rmtes.csb>
+Content-Language: en-GB
+From: John Harrison <John.Harrison@Igalia.com>
+In-Reply-To: <atsRYJ7XTBY987fr@aesteve-thinkpadp1gen8.rmtes.csb>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,79 +59,113 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon, Oct 26, 2026 at 4:51=E2=80=AFAM Erhan Bilgili <erhan.bilgili@gmail.=
-com> wrote:
+On 10/23/26 00:48, Albert Esteve wrote:
+> Hi John,
 >
-> Return -ETIMEDOUT when the fence wait before submission expires instead
-> of reporting success without submitting the packet.
+> On Thu, Oct 22, 2026 at 10:31:54AM -0700, John Harrison wrote:
+>> A bunch of the KUNIT tests (dm_test_hpd_init_*) expect that the init
+>> function can be called with adev->dm.dc set to null. Indeed, the
+>> dm_test_hpd_init_fini_with_connectors test has a comment explicitly
+>> saying that the null is intentional. Unfortunately, since the patch
+>> mentioned below, the first thing that the init function does is access
+>> adev->dm.dc->link_count. Thus it is a null pointer dereference and a
+>> boom (at least if running with KASAN).
+>>
+>> I'm not sure if a null DC can ever occur outside of the KUNIT tests,
+>> but there is presumably a reason for the KUNITs explicitly testing it.
+>> So add a null check around the link_count loop.
+> This feels backwards reasoning. The tests assume in comments that
+> "a NULL dc that fallback is a safe no-op", which isn't true after
+> commit e38159437a91. Also, in amdgpu_dm_init() the DC is created and
+> checked, and if it is NULL errors out. Thus, DC is never NULL at
+> amdgpu_dm_hpd_init() in production.
 >
-> Fixes: 34e087e8920e ("drm/amdgpu/mes: fix mes ring buffer overflow")
->
-> Signed-off-by: Erhan Bilgili <erhan.bilgili@gmail.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 5 ++++-
->  drivers/gpu/drm/amd/amdgpu/mes_v12_0.c | 5 ++++-
->  2 files changed, 8 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/mes_v11_0.c
-> index b2e4da70d208..674ef3260001 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> @@ -218,8 +218,11 @@ static int mes_v11_0_submit_pkt_and_poll_completion(=
-struct amdgpu_mes *mes,
->         r =3D amdgpu_fence_wait_polling(ring,
->                                       seq - ring->fence_drv.num_fences_ma=
-sk,
->                                       timeout);
-> -       if (r < 1)
-> +       if (r < 1) {
-> +               if (!r)
+> The fix should be in the tests, maybe allocating a stub with
+> link_count 0?
+I was meaning the later comment "DC is absent (NULL), so the HW writes 
+are NULL-safe no-ops.". To me that reads as the test is explicitly 
+checking that a NULL DC is safe. Also, the 
+dm_test_hpd_init_empty_connectors test says "init must complete without 
+touching the DC". Which also seems to be saying that a null DC is a 
+valid thing to happen and must be allowed.
 
-I think you can just set r =3D -ETIMEDOUT;.  No need to check !r.
+If you are certain that there is never a possibility nor a reason for 
+having a null DC in reality, then sure, the tests can be updated 
+instead. This is not code I am especially familiar with - I'm just 
+trying to run the tests to ensure that other changes don't break 
+existing drivers. I just don't want to go removing test coverage simply 
+because a driver change breaks a test - that is generally the backwards 
+direction!
 
+John.
 
-> +                       r =3D -ETIMEDOUT;
->                 goto error_undo;
-> +       }
+> BR,
+> Albert
 >
->         api_status =3D (struct MES_API_STATUS *)((char *)pkt + api_status=
-_off);
->         api_status->api_completion_fence_addr =3D status_gpu_addr;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd=
-/amdgpu/mes_v12_0.c
-> index ce577f49b630..e25d6018fd56 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-> @@ -195,8 +195,11 @@ static int mes_v12_0_submit_pkt_and_poll_completion(=
-struct amdgpu_mes *mes,
->         r =3D amdgpu_fence_wait_polling(ring,
->                                       seq - ring->fence_drv.num_fences_ma=
-sk,
->                                       timeout);
-> -       if (r < 1)
-> +       if (r < 1) {
-> +               if (!r)
-> +                       r =3D -ETIMEDOUT;
+>> Fixes: e38159437a91 ("drm/amd/display: only clear the hotplug sources the ASIC has")
+>> Cc: Mattia Tadini <info@mtsistemi.it>
+>> Cc: Roman Li <roman.li@amd.com>
+>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>> Cc: Alex Hung <alex.hung@amd.com>
+>> Cc: George Zhang <george.zhang@amd.com>
+>> Cc: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
+>> Cc: "Mario Limonciello (AMD)" <superm1@kernel.org>
+>> Cc: Leo Li <sunpeng.li@amd.com>
+>> Cc: "Timur Kristóf" <timur.kristof@gmail.com>
+>> Cc: Albert Esteve <aesteve@redhat.com>
+>> Cc: Geoffrey McRae <geoffrey.mcrae@amd.com>
+>> Cc: Harry Wentland <harry.wentland@amd.com>
+>> Signed-off-by: John Harrison <John.Harrison@Igalia.com>
+>> ---
+>>   .../drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c | 26 ++++++++++---------
+>>   1 file changed, 14 insertions(+), 12 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+>> index 5b4ff079cd55..427f7bba343d 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+>> @@ -989,18 +989,20 @@ void amdgpu_dm_hpd_init(struct amdgpu_device *adev)
+>>   	 * has rather than over the whole enum: the unused slots of the DC
+>>   	 * interrupt table hold dummy handlers that assert when touched.
+>>   	 */
+>> -	for (i = 0; i < adev->dm.dc->link_count; i++) {
+>> -		const struct dc_link *link = adev->dm.dc->links[i];
+>> -
+>> -		if (link->irq_source_hpd != DC_IRQ_SOURCE_INVALID &&
+>> -		    !amdgpu_dm_irq_set(adev, link->irq_source_hpd, false))
+>> -			drm_err(dev, "Failed to clear hpd source=%d on init\n",
+>> -				link->irq_source_hpd);
+>> -
+>> -		if (link->irq_source_hpd_rx != DC_IRQ_SOURCE_INVALID &&
+>> -		    !amdgpu_dm_irq_set(adev, link->irq_source_hpd_rx, false))
+>> -			drm_err(dev, "Failed to clear hpdrx source=%d on init\n",
+>> -				link->irq_source_hpd_rx);
+>> +	if (adev->dm.dc) {
+>> +		for (i = 0; i < adev->dm.dc->link_count; i++) {
+>> +			const struct dc_link *link = adev->dm.dc->links[i];
+>> +
+>> +			if (link->irq_source_hpd != DC_IRQ_SOURCE_INVALID &&
+>> +			    !amdgpu_dm_irq_set(adev, link->irq_source_hpd, false))
+>> +				drm_err(dev, "Failed to clear hpd source=%d on init\n",
+>> +					link->irq_source_hpd);
+>> +
+>> +			if (link->irq_source_hpd_rx != DC_IRQ_SOURCE_INVALID &&
+>> +			    !amdgpu_dm_irq_set(adev, link->irq_source_hpd_rx, false))
+>> +				drm_err(dev, "Failed to clear hpdrx source=%d on init\n",
+>> +					link->irq_source_hpd_rx);
+>> +		}
+>>   	}
+>>   
+>>   	drm_connector_list_iter_begin(dev, &iter);
+>> -- 
+>> 2.43.0
+>>
 
-Same here.
-
-Alex
-
->                 goto error_undo;
-> +       }
->
->         api_status =3D (struct MES_API_STATUS *)((char *)pkt + api_status=
-_off);
->         api_status->api_completion_fence_addr =3D status_gpu_addr;
-> --
-> 2.56.0
->
