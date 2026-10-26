@@ -2,93 +2,97 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F2C1606A327
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Oct 2026 18:37:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FB1A606A31A
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Oct 2026 18:47:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NXd4z6KD
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Z1WFcizR
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C377F10E161;
-	Mon, 26 Oct 2026 18:37:37 +0000 (UTC)
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 768B210E161
- for <amd-gfx@lists.freedesktop.org>; Mon, 26 Oct 2026 18:37:31 +0000 (UTC)
-Received: by mail-dl1-f47.google.com with SMTP id
- a92af1059eb24-15943c9be84so165274c88.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 26 Oct 2026 11:37:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793039851; cv=none;
- d=google.com; s=arc-20260327;
- b=Wt7aZxW4UFURWjqtq6sWbGfnHgjVEKtiuF5ILxN+0wT++9nUgF0zutcxyaX7rsidnx
- zriq2uqQ9aow1BaqBtxX3JVMsEtYLhV/vHXW0f3RIr0c9wmEwhPeJlQ6ZTxgHfJeGuhu
- VY8sLM3U2Iq7riGmAVTH5uvQJurmzMbu2qfPBkbmc6mxwe/dB6ZWZ5ENawEFcltp6NbH
- YBTREow9ophqOY5gm6WoHKaniELoLqdmuCUpB7tsDkKYLlDlM65iJL8/WcbBlsAd1Tz+
- ptfWUjGDzy0nknSNU7UpZC5Fw+VCuwtBXpelYCQ05CH/z8I/qnuYNv5FKJKUkZEQhiQn
- 3Uhw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=bcgLXrUlnHpOFqiHdgBQ3icz8rvLrw5Gs+pVzMlm6b8=;
- fh=9/TMgaKTKqsWtPh2xnFpGLWe9nKpK0i7PlzvbkIbs/Q=;
- b=qJHcig7kA8jEa6n7r1XzFOyaAPnuEt2XemskbJcSWg0MGmZ/7w8LBSA51pb8LKVJGr
- 7HnZzDR/fNe4GAHss6wH3cGQVZxEO9PurYXLwUvDVQ6fVdDJEr28//nCgReGGAYdGRs8
- TFe1/TGWphKpv49stzHU/hrq4tXaTFbCoNv/dMIPMJKGZ2ELa8GbZLxy+HcS9Ti5nuFE
- pXbIAoPF9mt4oyx3/Q4OtMhMRdVHANsqTKPVGDJhGjXYwceY5OGdCZskLqP+Nvb7Uw1e
- /GFw7cgsQAj87S18q2UZe16aY/6dNgh09OSWXMdbrVDPBOi1avdmFvV8VJaI1wUXQJO5
- hXIw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1793039851; x=1793644651; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=bcgLXrUlnHpOFqiHdgBQ3icz8rvLrw5Gs+pVzMlm6b8=;
- b=NXd4z6KDb+A1gUvEPlSlWbjbPlXJBEFYkadFbZCIjcN9zuH8h5gLa/qRMNqeiePI7N
- /Defi7/KRXXhTLRoBuy8t6GAZKIRXJXA63rXqaG3uBAmt4ClwMhK7UoDHRm0XlbRLeqC
- X80N7YojvnQyq6cV+UFAr9CnKWHGh78gpGjI/FHhiws1XWbexZ5mTk/Sflax/NFN85Rs
- qH3qBhFrsLdD+fVupDhe50fzNsuHPhlwgnj90ZUxRvLdcctQre8KVPZB0COiKU7xBuu6
- Oq0FqBsrkUnhIrneiGeG25oF9MkZXspVlzioVmB0OGb0QMhKZSJKsPxkkKaStnsJHVNK
- avtA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793039851; x=1793644651;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=bcgLXrUlnHpOFqiHdgBQ3icz8rvLrw5Gs+pVzMlm6b8=;
- b=n/RuEyEmVMR/NjnRfpCgFXM54avoxjvGU4Aj22lRAmX60qYvVaIINgVHUKufhdfbGo
- OedewqiDHKoVKrfJOt7j0Fv5uUVIapEOoscqHYMY2oeXNtSXdcwlmrk4W0AsfrRgpYdp
- sjJgwTFREYOVWB5omezQ9P9UXy1hAJZ3WTRGSKGRC44KDhQnb1+BDP/T1QqFuPsmOyCU
- qUyOwV/gqWNkTISQ2bRrQSLHpXWpYicXCVk7iobJE/Qo9ArOBh7znoy7jIpR2J3v0SX/
- Isx38uZYp0jY6mj7WdS+5wrPUeE9DhylAFFPhxgssICHHAHdAj02248oHZ27NAmGax4U
- wVEQ==
-X-Gm-Message-State: AFq9FYKoMpHPAgm5SEaWiqTiUOFwQhGoDhNOogeyNSfNWftW9bwG6MRa
- zFFuPk6Zwlr2ku6J9yfkZThZGP+/nwW9iTQ25gYOzs3hyjfsOCeLAhbBSF7qETzjJ+7vSRWP2cP
- rY7SElczBy7i/XPYtv9D/XIUvRGJMV3bb9For
-X-Gm-Gg: AYBFou2Ze+060cWd7ZLJc0LA7xHSE0eH/vaC/JrtBL8SBr5QwsMadAMjwWFR7e569ov
- DtoK9t+puOjGH3GCFY4pmu6JpA7arpoOoJA0hhGXANz7rut7pSAlXgzK4LpwAAlOjCDrUtacrWD
- /0n8yEYfSwHwewMHFbYWOrsTSm7aCe8qdu5QcTrGXFnRrxh0KwZVxf5r7EtwHlacxL41Xevunsk
- 8bXj/9M5yjbZ6/DrS5+3bJXM1fT0/62wTdlrvYQRSoR6st+UvtqoYK03eHxwFl6foeq1ebvG/g7
- 0gRvIVDVE0J2L4i97eoF/rcDtijsBOse5nB7oDtzDupBeDrZ1p1R2EGPZeBCDYj+hjPrwyg93wj
- QK9PINTuTeJdjsOJFgFAgEFqg9B+zcEuRlnRpqPLP7pOkCXIJ93CjtpS5CSeOfx3tZsE8w+VCLt
- Vy/NquVmvC32v0LVHT/CroHW8=
-X-Received: by 2002:a05:7022:7e0e:b0:183:d275:cf76 with SMTP id
- a92af1059eb24-19934a9266cmr19122981c88.2.1793039850157; Mon, 26 Oct 2026
- 11:37:30 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C40410E1D7;
+	Mon, 26 Oct 2026 18:47:49 +0000 (UTC)
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010031.outbound.protection.outlook.com
+ [52.101.193.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A573010E1D7
+ for <amd-gfx@lists.freedesktop.org>; Mon, 26 Oct 2026 18:47:42 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LZKouO2PrAAcd1adoIMoEyh3eWk9DDyHr6WMvDgB+lc0MnXUXluVTLcwZjRePZ3UPSS2L/YjNDrdtyR8wvp9ZclhW2fcutl6WUYzS5uqtlYtEFKHJ36vw/CmpkG8nmocqNJb6hVsH5iEdKDORUTBy00qOQyMMgqF9OZZAYxMcSIq+UoowDOPB6l0S68dCtXMmAUpgUifZWOVLQ3CwnL8A2UkS1ZeYeRLTFcpJ5jcPxUNkP2yncc24M/2T6KBVc4voaFbI7S1xIx/1QUVmhT1ow95a2kUlz/O+PsCxlcuFYX+yjJr6+mYon3xvP1t4rKk8wizD2Re/McqOkbjFWHeHQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pzF8Nr6ZOdKLL7/sY8132+CzKP/eKJICz12FGbcY5n0=;
+ b=EqML4luqys01CGQ9U0J/Dzx301IGMbvY1r1QhLZT6dSZaESqDl8VFzj2HyIIxVFC/cOiqu+HbUacqFzESvb+olkVrjrxkttbLDOp+7gnz2Snd+knw3xZ68TGaJK3HqjNdlFHahYtpxe8S7NSdLLgcOP80joGRKyE175YXJul3G5e7p/OlNghf38gLLSx/l/rQUxQzgH1c/gyiJvA+zH4BZBObK27ovmJ4hmZedhnAOqdkBNcynM2SUuk/aZC2f8TBUMfcTuv4ICwH6efdQG/U0ykp+IBEWcKZbxz23ehKldmSxAiaXHXA25NZbILqUerQVoZvzUjfYXC0es+dNuyHg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pzF8Nr6ZOdKLL7/sY8132+CzKP/eKJICz12FGbcY5n0=;
+ b=Z1WFcizRE8hS8eCM67LwrZOUpVG1VxvB8HtFi/UdgLpMFo4CwYP1Z+pwinaWt5VdwdRw1rngrlbWvSEEbG/aHTz9jJ8ZuOaCLt6fBFjyDAcxZdeZMJmjI/KsFRLMIcSyS7cNW7sZZ5zc/zmdI3iWMFdt3eT+nAZnERZ7Yu5lu9Y=
+Received: from SJ0PR13CA0231.namprd13.prod.outlook.com (2603:10b6:a03:2c1::26)
+ by CH3PR12MB8330.namprd12.prod.outlook.com (2603:10b6:610:12c::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.18; Mon, 26 Oct
+ 2026 18:47:29 +0000
+Received: from SJ5PEPF000001D7.namprd05.prod.outlook.com
+ (2603:10b6:a03:2c1:cafe::16) by SJ0PR13CA0231.outlook.office365.com
+ (2603:10b6:a03:2c1::26) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.7 via Frontend Transport; Mon, 26
+ Oct 2026 18:47:28 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ5PEPF000001D7.mail.protection.outlook.com (10.167.242.59) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.4 via Frontend Transport; Mon, 26 Oct 2026 18:47:28 +0000
+Received: from tuf-amd.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 26 Oct
+ 2026 13:47:27 -0500
+From: Apurv Mishra <Apurv.Mishra@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, <Bing.Ma@amd.com>, <Felix.Kuehling@amd.com>, 
+ <Benjamin.Welton@amd.com>, Apurv Mishra <Apurv.Mishra@amd.com>
+Subject: [PATCH] drm/amdkfd: Force perfmon clock on for profiler PMC requests
+Date: Mon, 26 Oct 2026 14:47:07 -0400
+Message-ID: <20261026184707.103933-1-Apurv.Mishra@amd.com>
+X-Mailer: git-send-email 2.43.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261022161822.758057-1-siwei.he@amd.com>
-In-Reply-To: <20261022161822.758057-1-siwei.he@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 26 Oct 2026 14:37:18 -0400
-X-Gm-Features: AclHuK-332uaeZEFy9GZutp0-cYL6rAi80Pbas10kAiFp9mXvfS1NblLP1-08lc
-Message-ID: <CADnq5_PbtfK-UO_y2nRbqLzUZk=L_9agxwcksDBtYMs3R_UuuQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: add AMDGPU_INFO_CU_BITMAP query for per-XCC
- CU masks
-To: Siwei He <siwei.he@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, felix.kuehling@amd.com, 
- harish.kasiviswanathan@amd.com, mukul.joshi@amd.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D7:EE_|CH3PR12MB8330:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3a58dcc1-ec06-416d-4b26-08df33919597
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|23010399003|376014|36860700016|82310400026|261026121527099003|11063799006|5023799004|56012099006|261009223027099003|261021121427099003|261022105027099003|261022075727099003|261009221227099003|261021123027099003|10067099003|18002099003|3023799007|261026140227099003;
+X-Microsoft-Antispam-Message-Info: 1gXeLlQpC9AU6RWOTAjrkWP8bVRW4vHANA1VDvg2Jv927eLhucIZ619sH4OKVpbIFG/WZmEHAXYZnlbxtCYS4vQHD63worDeUSCnlQTHtI9Lzz8ZZQVUjcItru++D1VXhhB90s4CFeT4//b6FT3vSpZpNgbgc9Sb84dqvUztPw9zeiOmJrlSPkkpXFEQJTlfI4SQyKDd7StutthqBhdb5zNnnPGe/pmYvaoWKEptGvx1NPODDe9LmbI8NzP1rcaqx1CuRN+a8UeLToQNUrER13x2jOgTLpyGX+Q8H/zmfcU/K0ReJF10JKB0amDNVcYsz2SAoVFg+wBElDJjq/LqPK33DJ2A8hPfs5TMeYzO/4wKIcjWEQmjNI6UMheWqgv/zWrwsByuCbvvqopBXTh4GAeMTslW6wbr2EYiZ6IxwfIB3ktGNmV0PCykJimCNnJ19HXTXVonmedglG4gQXdWMP0OoR+rJ7oTGqoQgK0ZTnwgiXzZdMdg2bmx/ROdptpuFpJGPPW2sDyp9j2WDwdYtPT+sfkNxqREm65JIkSvymXHxdKoSRWx79Ni2PaSpR9puUXHcBm5yUHhI+mYBizgdrOJypPedmbE56uMwsgwrEiTmkL0sNPSrmio5hByFYlGybM/ABAn4m2DQRzs/qGk2LLofvfKguWegk/a0nStNFfqXG9idBmh4S7VNIr9kREFxTYZuSuuCQb7WhLHgKqpwQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(23010399003)(376014)(36860700016)(82310400026)(261026121527099003)(11063799006)(5023799004)(56012099006)(261009223027099003)(261021121427099003)(261022105027099003)(261022075727099003)(261009221227099003)(261021123027099003)(10067099003)(18002099003)(3023799007)(261026140227099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: e+p0s8iocTSFFykELLGnkaYP4LLB/f0o5K8HzJoUj3tj8aq0SRR/l72tVN0lAtocoIy/nmYsaPcQEFfy2TjUR75omkaw/CEJVGDh/Cv/Hua32lm8bl/pbMJ/Fwd/6RsjQndUwQ/Y0ZtzjxTAmg8HQMc+Lw02S+K9jbsp8nPnN66tij2BzzR6VfA35TW2bkQDNb+bSGbUGUbSZrdoag+AzrDBeBBAFoYcwN3BNUHMmv1oaUmj0mYZvjToNd47c5b/cFpOqCANDk1Rh0dQg9yuJhEA9ZuJ4mF40cfkb00rnpG8FeP7MbnwRbYPmugHhZ6nbCZSKrbEHSJ1GHkUzap2V4QZtkpvMkIbwBQKSDr+gkDy3GuLWSH81AWkds4WRt6BFKB/wS5h2vm1iea1+DsAARLfA61bkNmWWNbl90LKGCPfpcz5TYdOTWClNdyf9va4
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 18:47:28.1630 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3a58dcc1-ec06-416d-4b26-08df33919597
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D7.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8330
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,270 +103,487 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, Oct 22, 2026 at 12:18=E2=80=AFPM Siwei He <siwei.he@amd.com> wrote:
->
-> Add AMDGPU_INFO_CU_BITMAP, returning struct drm_amdgpu_info_cu_bitmap:
-> a header carrying num_xcc, num_se, num_sa and xcc_mask, followed by a
-> flexible array of num_xcc * num_se * num_sa active CU masks in un-folded
-> [xcc][se][sa] order, indexed bitmap[(xcc * num_se + se) * num_sa + sa].
->
+Counters and SQ/PC sampling read 0 at DPM AUTO on gfx11/gfx12 because
+RLC_CGTT_MGCG_OVERRIDE.PERFMON_CLOCK_STATE is gated, and the existing
+workaround (STABLE_STD) needs root and pins clocks.
 
-Please provide a link in the commit message to the proposed userspace
-side which uses this new query.  Other than that, looks good to me.
+Add a refcounted amdgpu_gfx_perfmon_clk_override() that forces the
+perfmon clock on per XCC, holds GFXOFF off while overridden, and
+restores the previous state on last release, resume and reset.
 
-Alex
+Use it from KFD_IOC_PROFILER_PMC:
+- lock=1 (device mode, CAP_PERFMON): held until unlock or exit.
+- lock=0, perfcount_enable=1 (dispatch mode): no CAP_PERFMON needed,
+  held until process exit.
 
+No DPM change, no new ioctl, no struct change.
+Bump KFD_IOC_PROFILER_VERSION_NUM to 2.
 
-> Signed-off-by: Siwei He <siwei.he@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 69 +++++++++++++++++++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  2 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 50 ++++++++++++++++++
->  include/uapi/drm/amdgpu_drm.h           | 32 ++++++++++++
->  4 files changed, 153 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_gfx.c
-> index 0ae6e990c310..7a0a1d5542ee 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> @@ -2050,6 +2050,75 @@ static ssize_t amdgpu_gfx_get_gfx_reset_mask(struc=
-t device *dev,
->         return amdgpu_show_reset_mask(buf, adev->gfx.gfx_supported_reset)=
-;
->  }
->
-> +/**
-> + * amdgpu_gfx_get_cu_bitmap - un-fold the active CU bitmap for a set of =
-XCCs
-> + *
-> + * @adev: amdgpu_device pointer
-> + * @inst_mask: mask of logical GC (XCC) instances to report
-> + * @out: destination, filled in [xcc][se][sa] row-major order
-> + * @max_entries: capacity of @out, in u32 entries
-> + *
-> + * XCCs are written in ascending set-bit order of @inst_mask, densely pa=
-cked,
-> + * so entry (xcc * num_se + se) * num_sa + sa holds shader array @sa of
-> + * shader engine @se on the @xcc'th set bit of @inst_mask.
-> + *
-> + * Returns the number of XCCs written, or a negative error code.
-> + */
-> +int amdgpu_gfx_get_cu_bitmap(struct amdgpu_device *adev, u32 inst_mask,
-> +                            u32 *out, u32 max_entries)
-> +{
-> +       struct amdgpu_gfx_config *config =3D &adev->gfx.config;
-> +       u32 gc_version =3D amdgpu_ip_version(adev, GC_HWIP, 0);
-> +       u32 num_se, num_sa, sh_mul, se, sa, n =3D 0;
-> +       int xcc;
-> +
-> +       /* cu_info.bitmap[] only has AMDGPU_MAX_GC_INSTANCES slots */
-> +       inst_mask &=3D GENMASK(AMDGPU_MAX_GC_INSTANCES - 1, 0);
-> +       if (!inst_mask)
-> +               return -ENODEV;
-> +
-> +       num_se =3D config->max_shader_engines;
-> +       num_sa =3D config->max_sh_per_se;
-> +       if (!num_se || !num_sa)
-> +               return -ENODEV;
-> +
-> +       if (hweight32(inst_mask) * num_se * num_sa > max_entries)
-> +               return -EINVAL;
-> +
-> +       /* gfx11/gfx12_0 fold SE4-7 into shader array columns 2 and 3 */
-> +       sh_mul =3D (gc_version >=3D IP_VERSION(11, 0, 0) &&
-> +                 gc_version < IP_VERSION(13, 0, 0)) ? 2 : 1;
-> +
-> +       /*
-> +        * cu_info.bitmap[] stores a [4][4] tile per XCC, and the IP back=
-end
-> +        * packed (se, sa) into it with the fold above. The row index se =
-% 4 is
-> +        * in range by construction; the column must both stay inside the=
- tile
-> +        * and not alias another shader engine's slot. Shader engines 4 a=
-part
-> +        * share a row and are separated by sh_mul columns, so num_sa > s=
-h_mul
-> +        * overlaps them. A topology failing either test lost data when t=
-he
-> +        * backend wrote the tile, and un-folding cannot recover it -- fa=
-il
-> +        * rather than report some other slot's mask as this shader array=
-'s.
-> +        */
-> +       if ((num_se > 4 && num_sa > sh_mul) ||
-> +           (num_sa - 1) + ((num_se - 1) / 4) * sh_mul > 3) {
-> +               dev_warn_once(adev->dev,
-> +                             "unsupported CU bitmap topology %u SE x %u =
-SA\n",
-> +                             num_se, num_sa);
-> +               return -EOPNOTSUPP;
-> +       }
-> +
-> +       for_each_inst(xcc, inst_mask) {
-> +               for (se =3D 0; se < num_se; se++)
-> +                       for (sa =3D 0; sa < num_sa; sa++)
-> +                               out[(n * num_se + se) * num_sa + sa] =3D
-> +                                       adev->gfx.cu_info.bitmap[xcc]
-> +                                               [se % 4][sa + (se / 4) * =
-sh_mul];
-> +               n++;
-> +       }
-> +
-> +       return n;
-> +}
-> +
->  static ssize_t amdgpu_gfx_get_compute_reset_mask(struct device *dev,
->                                                 struct device_attribute *=
-attr,
->                                                 char *buf)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_gfx.h
-> index 5939e1fb3b24..bd2617dd4c56 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> @@ -663,6 +663,8 @@ int amdgpu_gfx_poison_consumption_handler(struct amdg=
-pu_device *adev,
->  bool amdgpu_gfx_is_master_xcc(struct amdgpu_device *adev, int xcc_id);
->  int amdgpu_gfx_sysfs_init(struct amdgpu_device *adev);
->  void amdgpu_gfx_sysfs_fini(struct amdgpu_device *adev);
-> +int amdgpu_gfx_get_cu_bitmap(struct amdgpu_device *adev, u32 inst_mask,
-> +                            u32 *out, u32 max_entries);
->  int amdgpu_gfx_reset_mes_compute(struct amdgpu_device *adev,
->                                  struct amdgpu_ring *ring,
->                                  struct amdgpu_fence *guilty_fence,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_kms.c
-> index 14a72a406d37..a8ebc85c9b88 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> @@ -1453,6 +1453,56 @@ int amdgpu_info_ioctl(struct drm_device *dev, void=
- *data, struct drm_file *filp)
->                         return -EINVAL;
->                 }
->         }
-> +       case AMDGPU_INFO_CU_BITMAP: {
-> +               struct drm_amdgpu_info_cu_bitmap *cu_bitmap;
-> +               u32 num_xcc, num_se, num_sa, nent;
-> +               size_t sz;
-> +
-> +               fpriv =3D (struct amdgpu_fpriv *)filp->driver_priv;
-> +
-> +               /* scope the reply to the partition this fd was opened ag=
-ainst */
-> +               if (adev->xcp_mgr && adev->xcp_mgr->num_xcps > 0 &&
-> +                   fpriv->xcp_id < adev->xcp_mgr->num_xcps) {
-> +                       xcp =3D &adev->xcp_mgr->xcp[fpriv->xcp_id];
-> +                       ret =3D amdgpu_xcp_get_inst_details(xcp, AMDGPU_X=
-CP_GFX,
-> +                                                         &inst_mask);
-> +                       if (ret)
-> +                               return ret;
-> +               } else {
-> +                       inst_mask =3D adev->gfx.xcc_mask ? adev->gfx.xcc_=
-mask : 1;
-> +               }
-> +
-> +               inst_mask &=3D GENMASK(AMDGPU_MAX_GC_INSTANCES - 1, 0);
-> +               num_xcc =3D hweight32(inst_mask);
-> +               num_se =3D adev->gfx.config.max_shader_engines;
-> +               num_sa =3D adev->gfx.config.max_sh_per_se;
-> +               if (!num_xcc || !num_se || !num_sa)
-> +                       return -ENODEV;
-> +
-> +               nent =3D num_xcc * num_se * num_sa;
-> +               sz =3D struct_size(cu_bitmap, bitmap, nent);
-> +
-> +               cu_bitmap =3D kzalloc(sz, GFP_KERNEL);
-> +               if (!cu_bitmap)
-> +                       return -ENOMEM;
-> +
-> +               ret =3D amdgpu_gfx_get_cu_bitmap(adev, inst_mask,
-> +                                              cu_bitmap->bitmap, nent);
-> +               if (ret < 0) {
-> +                       kfree(cu_bitmap);
-> +                       return ret;
-> +               }
-> +
-> +               cu_bitmap->num_xcc =3D ret;
-> +               cu_bitmap->num_se =3D num_se;
-> +               cu_bitmap->num_sa =3D num_sa;
-> +               cu_bitmap->xcc_mask =3D inst_mask;
-> +
-> +               ret =3D copy_to_user(out, cu_bitmap, min_t(size_t, size, =
-sz)) ?
-> +                             -EFAULT : 0;
-> +               kfree(cu_bitmap);
-> +               return ret;
-> +       }
->         default:
->                 DRM_DEBUG_KMS("Invalid request %d\n", info->query);
->                 return -EINVAL;
-> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.=
-h
-> index 29009f6aabde..b726dc511491 100644
-> --- a/include/uapi/drm/amdgpu_drm.h
-> +++ b/include/uapi/drm/amdgpu_drm.h
-> @@ -1289,6 +1289,8 @@ struct drm_amdgpu_cs_chunk_cp_gfx_shadow {
->  #define AMDGPU_INFO_GPUVM_FAULT                        0x23
->  /* query FW object size and alignment */
->  #define AMDGPU_INFO_UQ_FW_AREAS                        0x24
-> +/* query the full per-XCC active CU bitmap */
-> +#define AMDGPU_INFO_CU_BITMAP                  0x25
->
->  #define AMDGPU_INFO_MMR_SE_INDEX_SHIFT 0
->  #define AMDGPU_INFO_MMR_SE_INDEX_MASK  0xff
-> @@ -1363,6 +1365,36 @@ struct drm_amdgpu_info {
->         };
->  };
->
-> +/*
-> + * Reply to AMDGPU_INFO_CU_BITMAP.
-> + *
-> + * Reports every XCC visible to the file descriptor in
-> + * un-folded [xcc][se][sa] order.
-> + *
-> + * On a partitioned device the reply covers only the XCCs belonging to t=
-he
-> + * partition the file descriptor was opened against.
-> + *
-> + * The reply is variable length and carries no fixed topology limits. Qu=
-ery it
-> + * twice: first with return_size =3D sizeof(struct drm_amdgpu_info_cu_bi=
-tmap) to
-> + * read the counts, then with return_size large enough for the trailing =
-array.
-> + */
-> +struct drm_amdgpu_info_cu_bitmap {
-> +       /** number of XCC slices described by bitmap[] */
-> +       __u32 num_xcc;
-> +       /** number of shader engines per XCC */
-> +       __u32 num_se;
-> +       /** number of shader arrays per shader engine */
-> +       __u32 num_sa;
-> +       /** mask of logical XCC instances this reply describes */
-> +       __u32 xcc_mask;
-> +       /**
-> +        * active CU mask per shader array, num_xcc * num_se * num_sa ent=
-ries
-> +        * in [xcc][se][sa] row-major order. Index as
-> +        * bitmap[(xcc * num_se + se) * num_sa + sa].
-> +        */
-> +       __u32 bitmap[];
-> +};
-> +
->  struct drm_amdgpu_info_gds {
->         /** GDS GFX partition size */
->         __u32 gds_gfx_partition_size;
-> --
-> 2.43.0
->
+Signed-off-by: Apurv Mishra <Apurv.Mishra@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c    | 79 ++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h    | 11 +++
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c     | 28 +++++---
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c     | 28 +++++---
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c     | 28 +++++---
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c   | 30 ++++++++
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h      |  2 +
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c   |  5 ++
+ include/uapi/linux/kfd_ioctl.h             | 10 ++-
+ 10 files changed, 198 insertions(+), 25 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 5069042b5279..551051c5e6d8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -2773,6 +2773,7 @@ static int amdgpu_device_ip_late_init(struct amdgpu_device *adev)
+ 
+ 	amdgpu_device_set_cg_state(adev, AMD_CG_STATE_GATE);
+ 	amdgpu_device_set_pg_state(adev, AMD_PG_STATE_GATE);
++	amdgpu_gfx_perfmon_clk_restore(adev);
+ 
+ 	r = amdgpu_dpm_reapply_umd_profile(adev);
+ 	if (r) {
+@@ -3822,6 +3823,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ 	mutex_init(&adev->srbm_mutex);
+ 	mutex_init(&adev->gfx.pipe_reserve_mutex);
+ 	mutex_init(&adev->gfx.gfx_off_mutex);
++	mutex_init(&adev->gfx.perfmon_clk_mutex);
+ 	mutex_init(&adev->gfx.partition_mutex);
+ 	mutex_init(&adev->grbm_idx_mutex);
+ 	mutex_init(&adev->mn_lock);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index 0ae6e990c310..b1b3fbb49a9c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -1015,6 +1015,85 @@ void amdgpu_gfx_off_ctrl_immediate(struct amdgpu_device *adev, bool enable)
+ 	amdgpu_gfx_do_off_ctrl(adev, enable, true);
+ }
+ 
++/* Force the perfmon clock on, or restore the saved state; @save records the old one. */
++static void amdgpu_gfx_perfmon_clk_program(struct amdgpu_device *adev,
++					   bool force_on, bool save)
++{
++	int i, num_xcc = NUM_XCC(adev->gfx.xcc_mask);
++
++	amdgpu_gfx_off_ctrl(adev, false);
++	for (i = 0; i < num_xcc; i++) {
++		bool on = force_on || test_bit(i, &adev->gfx.perfmon_clk_restore_mask);
++		bool in_safe_mode = adev->gfx.rlc.in_safe_mode[i];
++		bool was_on;
++
++		if (!in_safe_mode)
++			amdgpu_gfx_rlc_enter_safe_mode(adev, i);
++		was_on = adev->gfx.funcs->set_perfmon_clk_override(adev, i, on);
++		if (!in_safe_mode)
++			amdgpu_gfx_rlc_exit_safe_mode(adev, i);
++
++		if (save)
++			assign_bit(i, &adev->gfx.perfmon_clk_restore_mask, was_on);
++	}
++	amdgpu_gfx_off_ctrl(adev, true);
++}
++
++/*
++ * Refcounted override that keeps the perfmon clock on for profilers. The last
++ * put restores the previous state. GFXOFF is held off meanwhile, as a GFXOFF
++ * exit restores the register. Returns -EOPNOTSUPP if the ASIC can't do it.
++ */
++int amdgpu_gfx_perfmon_clk_override(struct amdgpu_device *adev, bool enable)
++{
++	int r = 0;
++
++	if (amdgpu_sriov_vf(adev) || !adev->gfx.funcs ||
++	    !adev->gfx.funcs->set_perfmon_clk_override)
++		return -EOPNOTSUPP;
++
++	mutex_lock(&adev->gfx.perfmon_clk_mutex);
++	if (enable) {
++		if (!adev->gfx.perfmon_clk_override_count++) {
++			amdgpu_gfx_off_ctrl(adev, false);
++			amdgpu_gfx_perfmon_clk_program(adev, true, true);
++		}
++	} else if (WARN_ON_ONCE(!adev->gfx.perfmon_clk_override_count)) {
++		r = -EINVAL;
++	} else if (!--adev->gfx.perfmon_clk_override_count) {
++		amdgpu_gfx_perfmon_clk_program(adev, false, false);
++		amdgpu_gfx_off_ctrl(adev, true);
++	}
++	mutex_unlock(&adev->gfx.perfmon_clk_mutex);
++
++	return r;
++}
++
++/*
++ * While overridden, record the requested state for the final restore instead
++ * of programming it. Returns true if the caller must skip the register write.
++ */
++bool amdgpu_gfx_perfmon_clk_defer(struct amdgpu_device *adev, int xcc_id, bool on)
++{
++	if (!READ_ONCE(adev->gfx.perfmon_clk_override_count))
++		return false;
++
++	assign_bit(xcc_id, &adev->gfx.perfmon_clk_restore_mask, on);
++	return true;
++}
++
++/* Re-apply the override after resume/reset reprogrammed clock gating. */
++void amdgpu_gfx_perfmon_clk_restore(struct amdgpu_device *adev)
++{
++	if (!adev->gfx.funcs || !adev->gfx.funcs->set_perfmon_clk_override)
++		return;
++
++	mutex_lock(&adev->gfx.perfmon_clk_mutex);
++	if (adev->gfx.perfmon_clk_override_count)
++		amdgpu_gfx_perfmon_clk_program(adev, true, false);
++	mutex_unlock(&adev->gfx.perfmon_clk_mutex);
++}
++
+ int amdgpu_set_gfx_off_residency(struct amdgpu_device *adev, bool value)
+ {
+ 	int r = 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+index 5939e1fb3b24..1690eb3e37bf 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+@@ -362,6 +362,9 @@ struct amdgpu_gfx_funcs {
+ 				 u32 queue, u32 vmid, u32 xcc_id);
+ 	void (*init_spm_golden)(struct amdgpu_device *adev);
+ 	void (*update_perfmon_mgcg)(struct amdgpu_device *adev, bool enable);
++	/* set the perfmon clock, returns its previous state */
++	bool (*set_perfmon_clk_override)(struct amdgpu_device *adev, int xcc_id,
++					 bool on);
+ 	int (*get_gfx_shadow_info)(struct amdgpu_device *adev,
+ 				   struct amdgpu_gfx_shadow_info *shadow_info,
+ 				   bool skip_check);
+@@ -503,6 +506,11 @@ struct amdgpu_gfx {
+ 	uint32_t                        gfx_off_residency;  /* last logged residency */
+ 	uint64_t                        gfx_off_entrycount; /* count of times GPU has get into GFXOFF state */
+ 
++	/* perfmon clock override for profilers */
++	struct mutex			perfmon_clk_mutex;
++	uint32_t			perfmon_clk_override_count;
++	unsigned long			perfmon_clk_restore_mask; /* per XCC */
++
+ 	/* pipe reservation */
+ 	struct mutex			pipe_reserve_mutex;
+ 	DECLARE_BITMAP			(pipe_reserve_bitmap, AMDGPU_MAX_COMPUTE_QUEUES);
+@@ -635,6 +643,9 @@ void amdgpu_gfx_handle_priv_fault(struct amdgpu_device *adev,
+ 					u8 me_id, u8 pipe_id, u8 queue_id);
+ void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev, bool enable);
+ void amdgpu_gfx_off_ctrl_immediate(struct amdgpu_device *adev, bool enable);
++int amdgpu_gfx_perfmon_clk_override(struct amdgpu_device *adev, bool enable);
++bool amdgpu_gfx_perfmon_clk_defer(struct amdgpu_device *adev, int xcc_id, bool on);
++void amdgpu_gfx_perfmon_clk_restore(struct amdgpu_device *adev);
+ int amdgpu_get_gfx_off_status(struct amdgpu_device *adev, uint32_t *value);
+ int amdgpu_gfx_ras_late_init(struct amdgpu_device *adev, struct ras_common_if *ras_block);
+ void amdgpu_gfx_ras_suspend(struct amdgpu_device *adev, struct ras_common_if *ras_block);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+index 315dfd806d56..0a80dacd0932 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+@@ -365,6 +365,8 @@ static void gfx_v11_0_unset_safe_mode(struct amdgpu_device *adev, int xcc_id);
+ static void gfx_v11_0_userq_priv_fault_work(struct work_struct *work);
+ static void gfx_v11_0_update_perf_clk(struct amdgpu_device *adev,
+ 				      bool enable);
++static bool gfx_v11_0_set_perfmon_clk_override(struct amdgpu_device *adev,
++					       int xcc_id, bool on);
+ 
+ static void gfx11_kiq_set_resources(struct amdgpu_ring *kiq_ring, uint64_t queue_mask)
+ {
+@@ -1147,6 +1149,7 @@ static const struct amdgpu_gfx_funcs gfx_v11_0_gfx_funcs = {
+ 	.read_wave_vgprs = &gfx_v11_0_read_wave_vgprs,
+ 	.select_me_pipe_q = &gfx_v11_0_select_me_pipe_q,
+ 	.update_perfmon_mgcg = &gfx_v11_0_update_perf_clk,
++	.set_perfmon_clk_override = &gfx_v11_0_set_perfmon_clk_override,
+ 	.get_gfx_shadow_info = &gfx_v11_0_get_gfx_shadow_info,
+ 	.get_hdp_flush_mask = &amdgpu_gfx_get_hdp_flush_mask,
+ 	.detect_hung_queue = &gfx_v11_0_detect_hung_queue,
+@@ -5499,23 +5502,32 @@ static void gfx_v11_0_unset_safe_mode(struct amdgpu_device *adev, int xcc_id)
+ 	WREG32_SOC15(GC, 0, regRLC_SAFE_MODE, RLC_SAFE_MODE__CMD_MASK);
+ }
+ 
+-static void gfx_v11_0_update_perf_clk(struct amdgpu_device *adev,
+-				      bool enable)
++static bool gfx_v11_0_set_perfmon_clk_override(struct amdgpu_device *adev,
++					       int xcc_id, bool on)
+ {
+ 	uint32_t def, data;
+ 
+-	if (!(adev->cg_flags & AMD_CG_SUPPORT_GFX_PERF_CLK))
+-		return;
+-
+ 	def = data = RREG32_SOC15(GC, 0, regRLC_CGTT_MGCG_OVERRIDE);
+ 
+-	if (enable)
+-		data &= ~RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
+-	else
++	if (on)
+ 		data |= RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
++	else
++		data &= ~RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
+ 
+ 	if (def != data)
+ 		WREG32_SOC15(GC, 0, regRLC_CGTT_MGCG_OVERRIDE, data);
++
++	return !!(def & RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK);
++}
++
++static void gfx_v11_0_update_perf_clk(struct amdgpu_device *adev,
++				      bool enable)
++{
++	if (!(adev->cg_flags & AMD_CG_SUPPORT_GFX_PERF_CLK) ||
++	    amdgpu_gfx_perfmon_clk_defer(adev, 0, !enable))
++		return;
++
++	gfx_v11_0_set_perfmon_clk_override(adev, 0, !enable);
+ }
+ 
+ static void gfx_v11_0_update_sram_fgcg(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+index d334fb805020..8774dfd64022 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+@@ -289,6 +289,8 @@ static void gfx_v12_0_unset_safe_mode(struct amdgpu_device *adev, int xcc_id);
+ static void gfx_v12_0_userq_priv_fault_work(struct work_struct *work);
+ static void gfx_v12_0_update_perf_clk(struct amdgpu_device *adev,
+ 				      bool enable);
++static bool gfx_v12_0_set_perfmon_clk_override(struct amdgpu_device *adev,
++					       int xcc_id, bool on);
+ 
+ static void gfx_v12_0_kiq_set_resources(struct amdgpu_ring *kiq_ring,
+ 					uint64_t queue_mask)
+@@ -957,6 +959,7 @@ static const struct amdgpu_gfx_funcs gfx_v12_0_gfx_funcs = {
+ 	.select_me_pipe_q = &gfx_v12_0_select_me_pipe_q,
+ 	.detect_hung_queue = &gfx_v12_0_detect_hung_queue,
+ 	.update_perfmon_mgcg = &gfx_v12_0_update_perf_clk,
++	.set_perfmon_clk_override = &gfx_v12_0_set_perfmon_clk_override,
+ 	.get_gfx_shadow_info = &gfx_v12_0_get_gfx_shadow_info,
+ 	.get_hdp_flush_mask = &amdgpu_gfx_get_hdp_flush_mask,
+ };
+@@ -3938,23 +3941,32 @@ static void gfx_v12_0_unset_safe_mode(struct amdgpu_device *adev,
+ 	WREG32_SOC15(GC, 0, regRLC_SAFE_MODE, RLC_SAFE_MODE__CMD_MASK);
+ }
+ 
+-static void gfx_v12_0_update_perf_clk(struct amdgpu_device *adev,
+-				      bool enable)
++static bool gfx_v12_0_set_perfmon_clk_override(struct amdgpu_device *adev,
++					       int xcc_id, bool on)
+ {
+ 	uint32_t def, data;
+ 
+-	if (!(adev->cg_flags & AMD_CG_SUPPORT_GFX_PERF_CLK))
+-		return;
+-
+ 	def = data = RREG32_SOC15(GC, 0, regRLC_CGTT_MGCG_OVERRIDE);
+ 
+-	if (enable)
+-		data &= ~RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
+-	else
++	if (on)
+ 		data |= RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
++	else
++		data &= ~RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
+ 
+ 	if (def != data)
+ 		WREG32_SOC15(GC, 0, regRLC_CGTT_MGCG_OVERRIDE, data);
++
++	return !!(def & RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK);
++}
++
++static void gfx_v12_0_update_perf_clk(struct amdgpu_device *adev,
++				      bool enable)
++{
++	if (!(adev->cg_flags & AMD_CG_SUPPORT_GFX_PERF_CLK) ||
++	    amdgpu_gfx_perfmon_clk_defer(adev, 0, !enable))
++		return;
++
++	gfx_v12_0_set_perfmon_clk_override(adev, 0, !enable);
+ }
+ 
+ static void gfx_v12_0_update_spm_vmid(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
+index 1589fc6413af..0b9e41c26182 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
+@@ -211,6 +211,8 @@ static void gfx_v12_1_update_perf_clk(struct amdgpu_device *adev,
+ 				      bool enable);
+ static void gfx_v12_1_xcc_update_perf_clk(struct amdgpu_device *adev,
+ 					 bool enable, int xcc_id);
++static bool gfx_v12_1_set_perfmon_clk_override(struct amdgpu_device *adev,
++					       int xcc_id, bool on);
+ static int gfx_v12_1_init_cp_compute_microcode_bo(struct amdgpu_device *adev);
+ static void gfx_v12_1_xcc_update_medium_grain_clock_gating(
+ 	struct amdgpu_device *adev, bool enable, int xcc_id, bool force);
+@@ -746,6 +748,7 @@ static const struct amdgpu_gfx_funcs gfx_v12_1_gfx_funcs = {
+ 	.read_wave_vgprs = &gfx_v12_1_read_wave_vgprs,
+ 	.select_me_pipe_q = &gfx_v12_1_select_me_pipe_q,
+ 	.update_perfmon_mgcg = &gfx_v12_1_update_perf_clk,
++	.set_perfmon_clk_override = &gfx_v12_1_set_perfmon_clk_override,
+ 	.get_xccs_per_xcp = &gfx_v12_1_get_xccs_per_xcp,
+ 	.ih_node_to_logical_xcc = &gfx_v12_1_ih_to_xcc_inst,
+ };
+@@ -3155,23 +3158,32 @@ static void gfx_v12_1_xcc_update_sram_fgcg(struct amdgpu_device *adev,
+ 		WREG32_SOC15(GC, GET_INST(GC, xcc_id), regRLC_CGTT_MGCG_OVERRIDE, data);
+ }
+ 
+-static void gfx_v12_1_xcc_update_perf_clk(struct amdgpu_device *adev,
+-					  bool enable, int xcc_id)
++static bool gfx_v12_1_set_perfmon_clk_override(struct amdgpu_device *adev,
++					       int xcc_id, bool on)
+ {
+ 	uint32_t def, data;
+ 
+-	if (!(adev->cg_flags & AMD_CG_SUPPORT_GFX_PERF_CLK))
+-		return;
+-
+ 	def = data = RREG32_SOC15(GC, GET_INST(GC, xcc_id), regRLC_CGTT_MGCG_OVERRIDE);
+ 
+-	if (enable)
+-		data &= ~RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
+-	else
++	if (on)
+ 		data |= RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
++	else
++		data &= ~RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
+ 
+ 	if (def != data)
+ 		WREG32_SOC15(GC, GET_INST(GC, xcc_id), regRLC_CGTT_MGCG_OVERRIDE, data);
++
++	return !!(def & RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK);
++}
++
++static void gfx_v12_1_xcc_update_perf_clk(struct amdgpu_device *adev,
++					  bool enable, int xcc_id)
++{
++	if (!(adev->cg_flags & AMD_CG_SUPPORT_GFX_PERF_CLK) ||
++	    amdgpu_gfx_perfmon_clk_defer(adev, xcc_id, !enable))
++		return;
++
++	gfx_v12_1_set_perfmon_clk_override(adev, xcc_id, !enable);
+ }
+ 
+ static int gfx_v12_1_xcc_update_gfx_clock_gating(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index 6c710e4a5220..8e3104ce181a 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -3410,6 +3410,7 @@ static inline int profile_lock_device(struct kfd_process *p,
+ 	if (op == 1) {
+ 		if (!kfd->profiler_process) {
+ 			kfd->profiler_process = p;
++			amdgpu_gfx_perfmon_clk_override(kfd->adev, true);
+ 			status = 0;
+ 			mutex_unlock(&kfd->profiler_lock);
+ 			if (ptl->hw_supported_state == AMDGPU_PTL_HW_SUPPORTED) {
+@@ -3427,6 +3428,7 @@ static inline int profile_lock_device(struct kfd_process *p,
+ 		}
+ 	} else if (op == 0 && kfd->profiler_process == p) {
+ 		kfd->profiler_process = NULL;
++		amdgpu_gfx_perfmon_clk_override(kfd->adev, false);
+ 		status = 0;
+ 		mutex_unlock(&kfd->profiler_lock);
+ 
+@@ -3444,6 +3446,30 @@ static inline int profile_lock_device(struct kfd_process *p,
+ 	return status;
+ }
+ 
++static int kfd_profiler_perfmon_clk(struct kfd_process *p, uint32_t gpu_id)
++{
++	struct kfd_process_device *pdd;
++	struct kfd_dev *kfd;
++	int r = 0;
++
++	mutex_lock(&p->mutex);
++	pdd = kfd_process_device_data_by_id(p, gpu_id);
++	mutex_unlock(&p->mutex);
++
++	if (!pdd || !pdd->dev || !pdd->dev->kfd)
++		return -EINVAL;
++
++	kfd = pdd->dev->kfd;
++	mutex_lock(&kfd->profiler_lock);
++	if (!pdd->perfmon_clk_req) {
++		r = amdgpu_gfx_perfmon_clk_override(kfd->adev, true);
++		pdd->perfmon_clk_req = !r;
++	}
++	mutex_unlock(&kfd->profiler_lock);
++
++	return r;
++}
++
+ static inline int kfd_profiler_pmc(struct kfd_process *p,
+ 				   struct kfd_ioctl_pmc_settings *args)
+ {
+@@ -3451,6 +3477,10 @@ static inline int kfd_profiler_pmc(struct kfd_process *p,
+ 	struct device_queue_manager *dqm;
+ 	int status;
+ 
++	/* Dispatch mode: perfmon clock only, no lock, no CAP_PERFMON needed */
++	if (!args->lock && args->perfcount_enable)
++		return kfd_profiler_perfmon_clk(p, args->gpu_id);
++
+ 	/* Check if we have the correct permissions. */
+ 	if (!perfmon_capable())
+ 		return -EPERM;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index f0ce5fc4a138..f753ecae842f 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -895,6 +895,8 @@ struct kfd_process_device {
+ 	u32 pasid;
+ 	/* Indicates this process has requested PTL stay disabled */
+ 	bool ptl_disable_req;
++	/* Holds a perfmon clock override until the process exits */
++	bool perfmon_clk_req;
+ };
+ 
+ #define qpd_to_pdd(x) container_of(x, struct kfd_process_device, qpd)
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index ac18c2be6ecb..7a8da8d36962 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -1180,6 +1180,11 @@ static void kfd_process_profiler_release(struct kfd_process *p, struct kfd_proce
+ 	if (pdd->dev->kfd->profiler_process == p) {
+ 		pdd->qpd.dqm->ops.set_perfcount(pdd->qpd.dqm, 0);
+ 		pdd->dev->kfd->profiler_process = NULL;
++		amdgpu_gfx_perfmon_clk_override(pdd->dev->kfd->adev, false);
++	}
++	if (pdd->perfmon_clk_req) {
++		amdgpu_gfx_perfmon_clk_override(pdd->dev->kfd->adev, false);
++		pdd->perfmon_clk_req = false;
+ 	}
+ 	mutex_unlock(&pdd->dev->kfd->profiler_lock);
+ }
+diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
+index 564faefe6978..d7fb52c30df0 100644
+--- a/include/uapi/linux/kfd_ioctl.h
++++ b/include/uapi/linux/kfd_ioctl.h
+@@ -1558,7 +1558,15 @@ struct kfd_ioctl_dbg_trap_args {
+ 	};
+ };
+ 
+-#define KFD_IOC_PROFILER_VERSION_NUM 1
++/*
++ * KFD_IOC_PROFILER_VERSION_NUM history:
++ * - 1 - initial version
++ * - 2 - KFD_IOC_PROFILER_PMC lock also forces the perfmon clock on until the
++ *       lock is released or the process exits. lock == 0 with
++ *       perfcount_enable == 1 forces it on without CAP_PERFMON and without
++ *       locking, until the process exits
++ */
++#define KFD_IOC_PROFILER_VERSION_NUM 2
+ enum kfd_profiler_ops {
+ 	KFD_IOC_PROFILER_PMC = 0,
+ 	KFD_IOC_PROFILER_VERSION = 2,
+-- 
+2.43.0
+
