@@ -2,56 +2,128 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ED82606A328
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84755606A328
 	for <amd-gfx@archiver.kernel.org>; Mon, 26 Oct 2026 08:44:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=DwVKWf+J
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=qgx8czUO
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7994D10ECC7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id ACCA010ECC9;
 	Mon, 26 Oct 2026 08:44:02 +0000 (UTC)
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9643710E367;
- Sat, 24 Oct 2026 16:33:53 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org
- [IPv6:2001:67c:2050:b231:465::2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4jBlnr02JYzKnD2;
- Sat, 24 Oct 2026 18:33:52 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
- t=1792859632;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=X1q4PEJ9Ha8yWvuIOTCB6Gv/7mKOEEFzQYswHidxd2A=;
- b=DwVKWf+J2Gpv46E4apgmk77QEzRsi3uP2vXOJvYFQ3v0AKm0yrvDw4zMnkdmnTcqHSGYTn
- GGZvG3Gctn27el7bTJ/tQ3QZMnmRmHONieUi+o7J2QyBYpohd4V8/+2ya7x/q/rSYe3Tup
- N0QyORRbMguCuQQMEtQZB69KiUlNpC/RKzV4iYkqmIZN4k0dHcqjOij4hlVi3/5BwxhT2k
- DDEE6tCbvyHHfqVBrU/Ruxls6QIxabAbsHXrKFtkAtAW5k4JOwAVMUPvv3rfJGHPte5rjU
- J9ChtaY1kBrMjGH0aL7N+BIRKDeNSIFvHcgxaxB4hBFHx2wnQN+cKsTdKaLCMg==
-Authentication-Results: outgoing_mbo_mout; dkim=none;
- spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates
- 2001:67c:2050:b231:465::2 as permitted sender) smtp.mailfrom=hugo@hsal.es
-From: Hugo Sales <hugo@hsal.es>
-To: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- alexander.deucher@amd.com,
- "Chung, ChiaHsuan (Tom)" <chiahsuan.chung@amd.com>
-Subject: [PATCH v2 2/2] drm/amd/display: Add KUnit tests for the eDP/LVDS
- native mode fallback
-Date: Sat, 24 Oct 2026 17:33:47 +0100
-Message-ID: <20261024163347.2413649-3-hugo@hsal.es>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261024163347.2413649-1-hugo@hsal.es>
-References: <74c73b6f-a6b3-4652-8da1-b5c46ae58809@amd.com>
- <20261024163347.2413649-1-hugo@hsal.es>
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010071.outbound.protection.outlook.com [52.101.56.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63D4110E945;
+ Mon, 26 Oct 2026 05:37:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=njuQ8r1bmF8dCPb0t0p9maCsjMRAphu8Un+V8qxKPRmmwcfC0aV3BlydtU7sZVrtBd2+mSB1ugYeHDRLcj8rhiMj/6cwAvDJFgfDdoyr45VUmJjhtI4EPivIbpuJsqDIJ126MNKZYKDQMwvwTlTbo9+h5O+Qb12RrjCDpCwADB4hwGaMsSF55512fprFGlE8hpXlLTMuIjjg20Wh43mdC7nBO0Fc1JrGxBoUskeCkrZPnhhsJf3DYqn8gUHF4WxoueEZmfsIHaY0Z9g8TEkXwZaaYNFc1voGj7dvdRbKN+SGSFypGv+aF60dd7jihArUwu+RWjn25l3e8/myx1JYhg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TeESoJB+r+SIwpshRKsxhkXVtUKSxkyLATsiV/y/xmY=;
+ b=RaDbDSlzzv8EFtalTQaOhDmmReb0jjdFQx+/+FO/HAqgcS+Y4eTqG28QQiDAoKWSHCnZniBdu9nXm9nZ9Y58XBb7gvAnq1cuR/XX2UE739WE0jDGkib30Gi+3T7b8a2+BnepJ7ZOcIc1Io57KqQrg8BSX7ifZbplAIln/AQRXydRpC46U748Z3H6+msshmKpO6oTj2+vBqtq/7e/CEP4KNJ05bwhEyCwBZCMf7q2VtmrQ2lS6YXJA2q1cQzwKaGNaz04MFn1UjvjnEjmnvSJbe21X29Q4qN1lN6f+HAKQgIQkGbQhiKEvy9c6UzLUuJ8l8c58nC8lS8Sv/2VLSBeFA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TeESoJB+r+SIwpshRKsxhkXVtUKSxkyLATsiV/y/xmY=;
+ b=qgx8czUOE/2OJ1S4URxiZXWn5dfJ3H6fdq8wSeZOUh6bA1V9Ly+/biGxn8Eg0QdZGbHoW8ffOojWeOSCaycjWUrqRcuqv9TlVX3j1RcT1L4TzF4koaYvBCOlnTRdjK64RLSBGvoP2m9YW+dHqy87iZGKtK/iH+YZX11gyR5rt2r/TvJQMCdPuw9jC+vgqwrQXJ0NWF8g38aN4nwHm0Mz4n12BBv03mTQNIR2mN18oFOiOd0Osz750WnrpysPNOm5eRmAsnh8gv14A9rdQ6RB9dvkQl1HpUxfMsy9G28ysWUuCJiDDCCeNEi5AhExxZpX7E4hUrWu1/mQYswMN1fPUw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SA3PR12MB598757.namprd12.prod.outlook.com
+ (2603:10b6:806:52d::14) by SA1PR12MB7442.namprd12.prod.outlook.com
+ (2603:10b6:806:2b5::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
+ 2026 05:37:51 +0000
+Received: from SA3PR12MB598757.namprd12.prod.outlook.com
+ ([fe80::e206:100:5946:a777]) by SA3PR12MB598757.namprd12.prod.outlook.com
+ ([fe80::e206:100:5946:a777%5]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
+ 05:37:51 +0000
+From: Alistair Popple <apopple@nvidia.com>
+To: dri-devel@lists.freedesktop.org, christian.koenig@amd.com,
+ sumit.semwal@linaro.org, jgg@nvidia.com
+Cc: Alistair Popple <apopple@nvidia.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ Dongwon Kim <dongwon.kim@intel.com>, Leon Romanovsky <leonro@nvidia.com>,
+ Kevin Tian <kevin.tian@intel.com>, Xu Yilun <yilun.xu@linux.intel.com>,
+ Karl Mehltretter <kmehltretter@gmail.com>,
+ Baolu Lu <baolu.lu@linux.intel.com>,
+ Felix Kuehling <felix.kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, intel-xe@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org,
+ iommu@lists.linux.dev, Alexey Kardashevskiy <aik@amd.com>,
+ zhipingz@meta.com, treding@nvidia.com, jhubbard@nvidia.com
+Subject: [PATCH 15/26] vfio/pci: Change the DMA-buf exporter to use
+ mapping_type
+Date: Mon, 26 Oct 2026 16:36:06 +1100
+Message-ID: <20261026053623.202642-16-apopple@nvidia.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261026053623.202642-1-apopple@nvidia.com>
+References: <20261026053623.202642-1-apopple@nvidia.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SY5P300CA0068.AUSP300.PROD.OUTLOOK.COM
+ (2603:10c6:10:247::10) To SA3PR12MB598757.namprd12.prod.outlook.com
+ (2603:10b6:806:52d::14)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4jBlnr02JYzKnD2
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA3PR12MB598757:EE_|SA1PR12MB7442:EE_
+X-MS-Office365-Filtering-Correlation-Id: 88c55b40-4563-4e2b-c162-08df332346df
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|7416014|1800799024|366016|18002099003|22082099003|56012099006|11063799006|261022075727099003|261021123027099003|10067099003|261009223027099003|261021121427099003|261022105027099003;
+X-Microsoft-Antispam-Message-Info: rwmhFQdDo+zEDQnX3AhS2qohNwoJYuDCEtE0GUbkwO0pzF3nTlHGz5+dlxVdzqwqWVNQ/IXWLNc8LlZjMZkjK9s05fHL2YCnfvKFTlYZqo/k5WSC5A3P+Fnmxy+OBKWAPBEbUXtHFcOZW47OiG+BrtGjA2ngJBa1gNrLEjN0vMjzbv3hrVY8mzjSLJKy8rs0csZi+xclkuBMxAAJTg9eZcmYi+5Y24Qsn+Y0NxeC6OMLzZ3WFyDG1J0n6QmOkHgJDYBoUl6khZWYFzpsceAXinlOx6aRRYC4tnCAyqiIa8uogdhG0A945IddIO4CJNEfCJpa2Zm0AB94ZCrVnGkmXJpN43L+csNskf3CKoio8ax7vQyvbnY4SfRjkWAyjJdCKs+9Ry+7ETA8wgl/WphUn737PFdXYX9gW/IckXASHQHtFBHuSTtm7lrfhqh+Wc/fLTAuR3QiQBS9VQsVmuWvw/GwJOVj9pckiZU+1vUDyhkWpyFu7ADC2+EjU5/l6KCxYzXoyihDDzXwfTmihCrsjkI/+/oDGEJYNGnyM4e5iE4bb1IezevkSsXoVjdEjuLez3zsyuccJZuvKgp8SIKiJKsSczgkC5b4rbUTqTwIzadyl69Bs3SmR6c8Pv2Mb9I7vfg7WEy//Y8Gwya0txXfrn2REZ45ygmwMOAWX1EnvsQ=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA3PR12MB598757.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(18002099003)(22082099003)(56012099006)(11063799006)(261022075727099003)(261021123027099003)(10067099003)(261009223027099003)(261021121427099003)(261022105027099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?gB4o4Y3oz6WhXjD9NMHYuUUrAes0MGonaIAX8q0kYq0rmbJ7P41x5EUvCguz?=
+ =?us-ascii?Q?9zHqusIjcKI0VXSf7bJkdqjM6+VMnjVE3RiLcIka3Lz3LURrF0lH0yUfvhmX?=
+ =?us-ascii?Q?urn8e8XDt+prSdRJI6XRafVt7T8HGlcgfeKC0si+xJCBWMUVRFSr9xwIMhML?=
+ =?us-ascii?Q?H4MzqpSU+e7iOSOFrEnGNI6tkkPhdOKtLQVFGUU1pecpqV3PrjCagzzREwOV?=
+ =?us-ascii?Q?OiSgYsUeH/TPpWrED8jy6tc9hccdbWH/LhRukc8zrtylamXxLsWqasbKcbV1?=
+ =?us-ascii?Q?AO2YVwLD3yEghQ9kb/7jdAnNhrW/5XuSS/qHczDIiaIrTbYhAKjgwq9Xmd7c?=
+ =?us-ascii?Q?6WWEaUYieN/lPJNXVKFccWg0IWdMWpInP9ofVHciLk3JqMR+GmbV2i+MhSDg?=
+ =?us-ascii?Q?Qtw2P9ZJ6ZeNntREmyvVQ0Iq3O4Z+b/cgT8yJzSY7qomLqdwfoYmq/jPpPsr?=
+ =?us-ascii?Q?g+xql/0JFlWX/jMVr5SbThjbdQ9I3/OYoP8wL04U2Lbs6/rWDmaCbvtN1avi?=
+ =?us-ascii?Q?iPDH2yEE6ki7lKjy4fRGjdInGxXb00iHcf29psHIaAayzUeRAUBHljv43uS1?=
+ =?us-ascii?Q?IwOH0UrdBMoBIvhnnzyHkSL5eOrkE4qHrTGMTtqVrdAkUTBd/KXXSdBOmWW8?=
+ =?us-ascii?Q?BuAovR2ZPHDWK7cm0G6qy96gZz4AZquH8VW3IDtlbZ6C2qSrsnCsMhObdrap?=
+ =?us-ascii?Q?9RLMAqQLRTDbLNXPKl9T5xpQsuCu172lTo1la5ETK6rc6aZCVwWHYgBDhrmq?=
+ =?us-ascii?Q?qNK1b5IJRgxQX9VFlD2Ya0bq0CTp5VL4pMBuVXvigJdGzH/0FsW0Y6XWJsUx?=
+ =?us-ascii?Q?BXV1zPJSINRgs9NzWNZKC7AtgFWgDX4gZEYJvZkh0ROXX8fodS0IUwvUOL6z?=
+ =?us-ascii?Q?aZGwsZ7lC2TZJ00QGb8KKNHu7GdXNbKFOhpBrI7qx/2IA/w1MPI19SbBGscY?=
+ =?us-ascii?Q?pBs9rMP9gOYlKuyT0u6qGewtn2E5AkBPDcB6BwPjSVi6A5VUiklme6VEMkqv?=
+ =?us-ascii?Q?MTlRnqlAp6AC8JD7krVMOnMJ0yCUgv66uvhQzbsMzcEqR3mfrrebWdc96oOB?=
+ =?us-ascii?Q?gmEEU8PhDxyMlu5TatqwH6zoRKOgrLprqHcIbE3RgKEB3xGwCtnvIPBnCN6K?=
+ =?us-ascii?Q?kmIWgOlKmmPzIqN67Sueez21h4H+IM7O2XNkHjEIb8uQj42lAnDpyGSFPRWY?=
+ =?us-ascii?Q?GrDhH3/XX3meTbFRReY1kaxvd1smtQDUvIO+l3Z66ezhnUQ5VgPXVtcpJZ/6?=
+ =?us-ascii?Q?19gjEno9rBbSrSLu8feXQw0odIk05i8kYS2PGk16Z+pNiPfgFv06FLVtLM6E?=
+ =?us-ascii?Q?nv+rQ1WlihxYlMLqfKU6ZeWHXmDE0FvUGykyY9ZrC+onaLD7RjGW7HRLJ62I?=
+ =?us-ascii?Q?RSRNbHfCVUqWP4cQWWm3DLDycgywI8PUwsKcExTqCpeGf0cWzH3pSKjqSDZz?=
+ =?us-ascii?Q?12d2XzQ19GeZRk8B1BQoSdRNsdc1rW0RnWn5fXK+C6upgYK4Y+78avLfr2WW?=
+ =?us-ascii?Q?xogc9mtWwILEeVAsqaSmZujlfqMgq3VzUbyoxNdtXLuPwnDtiNo9HMG1+SMG?=
+ =?us-ascii?Q?0ISh2xql0iZx8xJmDNSlUGtPUetRh9r2IMP7msorrmsZ+INYMRgGe2m2Q7Cu?=
+ =?us-ascii?Q?KC3+Xi3BzNCqrP4EVae4As7gBYJwTwQQ6v8aB/LzsCsMfVYQh5UMpWzm2Kgn?=
+ =?us-ascii?Q?8YaSnpKFWSNNyDZ6qxwpClUjMIzr1QoTTaf2Z6YgEdj205xpW7tH1ixIYWPw?=
+ =?us-ascii?Q?Uc1XvAMfKQ=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 88c55b40-4563-4e2b-c162-08df332346df
+X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB598757.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 05:37:51.7967 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: VqlVr1GPwXcTXNh615eL5LVQr+qPkMBq6v5JZvxXtr4xR35BUaF1fwBHh8e4DN6qgsfKEMRCMP9RPfX71bhyJg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7442
 X-Mailman-Approved-At: Mon, 26 Oct 2026 08:43:34 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,296 +135,103 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
 	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Leave only a scaled mode in connector->modes and put the larger native
-mode in the encoder, as a size-limited probe does. On eDP and LVDS,
-create_stream_for_sink() must build a stream with the native timing and
-the scaled mode as its source size. On HDMI it must keep the first mode
-in the list as the timing
+From: Jason Gunthorpe <jgg@nvidia.com>
 
-When the list also has a mode of the native size with a different
-timing, eDP must use that mode and not the encoder's copy
+Simple conversion to add a match_mapping() callback that offers an
+exporter SGT mapping type. Later patches will add a physical address
+exporter so go straight to adding the match_mapping() function.
 
-The fallback must stay off when the list has a preferred mode, without
-an EDID, and when the encoder's copy has no clock
+The check for attachment->peer2peer is replaced with setting
+exporter_requires_p2p=true. VFIO always uses MMIO memory.
 
-Signed-off-by: Hugo Sales <hugo@hsal.es>
+Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+[ dma_buf_mapping_attach() calls ->match_mapping() without
+  holding the dma_resv lock, so the dma_resv_assert_held() in
+  vfio_pci_dma_buf_match_mapping() fires under lockdep and the priv->vdev
+  read it guarded was not serialised against vfio_pci_dma_buf_cleanup()
+  either. Fixed as Jason proposed in
+  https://lore.kernel.org/all/20260413130147.GG2588311@nvidia.com/: hold a
+  pci_dev reference for the lifetime of the dmabuf and use it for the P2P
+  match instead of dereferencing priv->vdev. - apopple ]
+Reported-by: Baolu Lu <baolu.lu@linux.intel.com>
+Closes: https://lore.kernel.org/all/f4e2171a-da58-488f-be02-26a39b5afbe3@linux.intel.com/
+Signed-off-by: Alistair Popple <apopple@nvidia.com>
 ---
- .../tests/amdgpu_dm_connector_test.c          | 226 +++++++++++++++++-
- 1 file changed, 224 insertions(+), 2 deletions(-)
+ drivers/vfio/pci/vfio_pci_dmabuf.c | 25 ++++++++++++++++++++-----
+ 1 file changed, 20 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-index d291ae40ca1d0..af71ca660bfea 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-@@ -4181,7 +4181,8 @@ struct dm_test_stream_ctx {
- 	struct drm_display_mode *mode;
- };
- 
--static struct dm_test_stream_ctx *dm_test_stream_ctx_alloc(struct kunit *test)
-+static struct dm_test_stream_ctx *
-+dm_test_stream_ctx_alloc_type(struct kunit *test, int connector_type)
+diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
+index c16f460c01d6..58e771309c5f 100644
+--- a/drivers/vfio/pci/vfio_pci_dmabuf.c
++++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
+@@ -12,6 +12,7 @@ MODULE_IMPORT_NS("DMA_BUF");
+ struct vfio_pci_dma_buf {
+ 	struct dma_buf *dmabuf;
+ 	struct vfio_pci_core_device *vdev;
++	struct pci_dev *pdev;
+ 	struct list_head dmabufs_elm;
+ 	size_t size;
+ 	struct phys_vec *phys_vec;
+@@ -27,9 +28,6 @@ static int vfio_pci_dma_buf_attach(struct dma_buf *dmabuf,
  {
- 	struct dm_test_stream_ctx *ctx;
- 	struct device *dev;
-@@ -4202,7 +4203,7 @@ static struct dm_test_stream_ctx *dm_test_stream_ctx_alloc(struct kunit *test)
- 	KUNIT_ASSERT_EQ(test,
- 		drmm_connector_init(ctx->drm, &ctx->aconnector->base,
- 				    &dm_test_connector_funcs,
--				    DRM_MODE_CONNECTOR_DisplayPort, NULL), 0);
-+				    connector_type, NULL), 0);
+ 	struct vfio_pci_dma_buf *priv = dmabuf->priv;
  
- 	ctx->dc_ctx = kunit_kzalloc(test, sizeof(*ctx->dc_ctx), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, ctx->dc_ctx);
-@@ -4229,6 +4230,11 @@ static struct dm_test_stream_ctx *dm_test_stream_ctx_alloc(struct kunit *test)
- 	return ctx;
+-	if (!attachment->peer2peer)
+-		return -EOPNOTSUPP;
+-
+ 	if (priv->revoked)
+ 		return -ENODEV;
+ 
+@@ -95,15 +93,31 @@ static void vfio_pci_dma_buf_release(struct dma_buf *dmabuf)
+ 		up_write(&priv->vdev->memory_lock);
+ 		vfio_device_put_registration(&priv->vdev->vdev);
+ 	}
++	pci_dev_put(priv->pdev);
+ 	kfree(priv->phys_vec);
+ 	kfree(priv);
  }
  
-+static struct dm_test_stream_ctx *dm_test_stream_ctx_alloc(struct kunit *test)
-+{
-+	return dm_test_stream_ctx_alloc_type(test, DRM_MODE_CONNECTOR_DisplayPort);
-+}
-+
- /**
-  * dm_test_create_stream_fake_sink_success - Test a stream is built from a fake sink
-  * @test: The KUnit test context
-@@ -4547,6 +4553,215 @@ static void dm_test_create_stream_hdmi_vsif(struct kunit *test)
- 	dc_sink_release(sink);
- }
- 
-+enum dm_test_native {
-+	/*
-+	 * The list also keeps a 3840x2400 mode at half the native clock, as if
-+	 * mode_valid had rejected the native timing and no limit applied
-+	 */
-+	DM_TEST_NATIVE_LISTED = BIT(0),
-+	/* The scaled mode is the preferred one */
-+	DM_TEST_NATIVE_PREFERRED = BIT(1),
-+	DM_TEST_NATIVE_NO_CLOCK = BIT(2),
-+	DM_TEST_NATIVE_NO_EDID = BIT(3),
+-static const struct dma_buf_ops vfio_pci_dmabuf_ops = {
+-	.attach = vfio_pci_dma_buf_attach,
++static const struct dma_buf_mapping_sgt_exp_ops vfio_pci_dma_buf_sgt_ops = {
+ 	.map_dma_buf = vfio_pci_dma_buf_map,
+ 	.unmap_dma_buf = vfio_pci_dma_buf_unmap,
 +};
 +
-+/*
-+ * Build a stream after a probe with size limits below the native mode, such as
-+ * fbdev emulation's. That probe leaves only a 1920x1200 scaled mode in the
-+ * connector's mode list, while the encoder keeps the 3840x2400 native mode.
-+ * @flags is a mask of enum dm_test_native
-+ */
-+static struct dc_stream_state *
-+dm_test_native_mode_stream(struct kunit *test, int connector_type, unsigned int flags)
++static int vfio_pci_dma_buf_match_mapping(struct dma_buf_match_args *args)
 +{
-+	static const u8 edid[EDID_LENGTH];
-+	struct dm_test_stream_ctx *ctx = dm_test_stream_ctx_alloc_type(test, connector_type);
-+	struct amdgpu_encoder *aenc;
-+	struct dc_stream_state *stream;
-+	struct drm_display_mode *native;
++	struct vfio_pci_dma_buf *priv = args->dmabuf->priv;
++	struct dma_buf_mapping_match sgt_match[1];
 +
-+	aenc = drmm_kzalloc(ctx->drm, sizeof(*aenc), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, aenc);
-+	KUNIT_ASSERT_EQ(test, drmm_encoder_init(ctx->drm, &aenc->base, NULL,
-+						DRM_MODE_ENCODER_TMDS, NULL), 0);
-+	KUNIT_ASSERT_EQ(test, drm_connector_attach_encoder(&ctx->aconnector->base, &aenc->base), 0);
++	sgt_match[0] = DMA_BUF_EMAPPING_SGT_P2P(&vfio_pci_dma_buf_sgt_ops,
++						priv->pdev);
 +
-+	native = &aenc->native_mode;
-+	native->clock = 592500;
-+	native->hdisplay = 3840;
-+	native->hsync_start = 3888;
-+	native->hsync_end = 3920;
-+	native->htotal = 4000;
-+	native->vdisplay = 2400;
-+	native->vsync_start = 2403;
-+	native->vsync_end = 2409;
-+	native->vtotal = 2469;
-+	/* Cached by the first, unlimited probe */
-+	drm_mode_copy(&ctx->aconnector->freesync_vid_base, native);
-+
-+	drm_mode_copy(ctx->mode, native);
-+	ctx->mode->hdisplay = 1920;
-+	ctx->mode->vdisplay = 1200;
-+	drm_mode_set_crtcinfo(ctx->mode, CRTC_INTERLACE_HALVE_V);
-+	dm_test_stream_add_mode(test, ctx, flags & DM_TEST_NATIVE_PREFERRED ?
-+				DRM_MODE_TYPE_PREFERRED : 0);
-+
-+	/* After the scaled mode, so that taking the first mode can't pass */
-+	if (flags & DM_TEST_NATIVE_LISTED) {
-+		struct drm_display_mode *listed = drm_mode_duplicate(ctx->drm, ctx->mode);
-+
-+		KUNIT_ASSERT_NOT_NULL(test, listed);
-+		listed->hdisplay = native->hdisplay;
-+		listed->vdisplay = native->vdisplay;
-+		listed->clock /= 2;
-+		drm_mode_set_crtcinfo(listed, CRTC_INTERLACE_HALVE_V);
-+		list_add_tail(&listed->head, &ctx->aconnector->base.modes);
-+	}
-+	ctx->dm_state->scaling = RMX_FULL;
-+
-+	if (flags & DM_TEST_NATIVE_NO_CLOCK)
-+		native->clock = 0;
-+	if (!(flags & DM_TEST_NATIVE_NO_EDID)) {
-+		ctx->aconnector->drm_edid = drm_edid_alloc(edid, sizeof(edid));
-+		KUNIT_ASSERT_NOT_NULL(test, ctx->aconnector->drm_edid);
-+	}
-+
-+	stream = create_stream_for_sink(&ctx->aconnector->base, ctx->mode,
-+					ctx->dm_state, NULL, 8,
-+					PIXEL_ENCODING_RGB, false);
-+
-+	drm_edid_free(ctx->aconnector->drm_edid);
-+	ctx->aconnector->drm_edid = NULL;
-+	KUNIT_ASSERT_NOT_NULL(test, stream);
-+
-+	return stream;
++	return dma_buf_match_mapping(args, sgt_match, ARRAY_SIZE(sgt_match));
 +}
 +
-+/* Expect the stream to be driven with the 1920x1200 mode left in the list */
-+static void dm_test_expect_first_mode(struct kunit *test, struct dc_stream_state *stream)
-+{
-+	KUNIT_EXPECT_EQ(test, (int)stream->timing.h_addressable, 1920);
-+	KUNIT_EXPECT_EQ(test, (int)stream->timing.v_addressable, 1200);
-+	KUNIT_EXPECT_EQ(test, (int)stream->src.width, 1920);
-+	KUNIT_EXPECT_EQ(test, (int)stream->src.height, 1200);
-+	dc_stream_release(stream);
-+}
-+
-+/**
-+ * dm_test_create_stream_native_mode_pruned_edp - Test eDP gets native timing
-+ * @test: The KUnit test context
-+ *
-+ * The scaled mode must still be driven with the panel's native timing, kept in
-+ * the encoder
-+ */
-+static void dm_test_create_stream_native_mode_pruned_edp(struct kunit *test)
-+{
-+	struct dc_stream_state *stream =
-+		dm_test_native_mode_stream(test, DRM_MODE_CONNECTOR_eDP, 0);
-+
-+	KUNIT_EXPECT_EQ(test, (int)stream->timing.h_addressable, 3840);
-+	KUNIT_EXPECT_EQ(test, (int)stream->timing.v_addressable, 2400);
-+	KUNIT_EXPECT_EQ(test, (int)stream->timing.pix_clk_100hz, 5925000);
-+	KUNIT_EXPECT_EQ(test, (int)stream->src.width, 1920);
-+	KUNIT_EXPECT_EQ(test, (int)stream->src.height, 1200);
-+	dc_stream_release(stream);
-+}
-+
-+/**
-+ * dm_test_create_stream_native_mode_pruned_lvds - Test LVDS gets native timing
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_create_stream_native_mode_pruned_lvds(struct kunit *test)
-+{
-+	struct dc_stream_state *stream =
-+		dm_test_native_mode_stream(test, DRM_MODE_CONNECTOR_LVDS, 0);
-+
-+	KUNIT_EXPECT_EQ(test, (int)stream->timing.h_addressable, 3840);
-+	KUNIT_EXPECT_EQ(test, (int)stream->timing.v_addressable, 2400);
-+	KUNIT_EXPECT_EQ(test, (int)stream->timing.pix_clk_100hz, 5925000);
-+	KUNIT_EXPECT_EQ(test, (int)stream->src.width, 1920);
-+	KUNIT_EXPECT_EQ(test, (int)stream->src.height, 1200);
-+	dc_stream_release(stream);
-+}
-+
-+/**
-+ * dm_test_create_stream_native_mode_pruned_hdmi - Test HDMI uses the first mode
-+ * @test: The KUnit test context
-+ *
-+ * On a connector that is not a panel, mode_valid may have dropped the native
-+ * mode, so the first mode left in the list must drive the timing
-+ */
-+static void dm_test_create_stream_native_mode_pruned_hdmi(struct kunit *test)
-+{
-+	dm_test_expect_first_mode(test,
-+				  dm_test_native_mode_stream(test, DRM_MODE_CONNECTOR_HDMIA, 0));
-+}
-+
-+/**
-+ * dm_test_create_stream_native_size_listed_edp - Test eDP prefers a listed mode
-+ * @test: The KUnit test context
-+ *
-+ * When the mode list still has a mode of the native size, that mode's timing
-+ * must drive the panel instead of the encoder's copy, which mode_valid may
-+ * have rejected
-+ */
-+static void dm_test_create_stream_native_size_listed_edp(struct kunit *test)
-+{
-+	struct dc_stream_state *stream =
-+		dm_test_native_mode_stream(test, DRM_MODE_CONNECTOR_eDP,
-+					   DM_TEST_NATIVE_LISTED);
-+
-+	KUNIT_EXPECT_EQ(test, (int)stream->timing.h_addressable, 3840);
-+	KUNIT_EXPECT_EQ(test, (int)stream->timing.v_addressable, 2400);
-+	KUNIT_EXPECT_EQ(test, (int)stream->timing.pix_clk_100hz, 2962500);
-+	KUNIT_EXPECT_EQ(test, (int)stream->src.width, 1920);
-+	KUNIT_EXPECT_EQ(test, (int)stream->src.height, 1200);
-+	dc_stream_release(stream);
-+}
-+
-+/**
-+ * dm_test_create_stream_native_preferred_edp - Test a listed preferred mode
-+ * wins on eDP
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_create_stream_native_preferred_edp(struct kunit *test)
-+{
-+	dm_test_expect_first_mode(test,
-+				  dm_test_native_mode_stream(test, DRM_MODE_CONNECTOR_eDP,
-+							     DM_TEST_NATIVE_LISTED |
-+							     DM_TEST_NATIVE_PREFERRED));
-+}
-+
-+/**
-+ * dm_test_create_stream_native_mode_no_clock_edp - Test an empty native mode
-+ * isn't used
-+ * @test: The KUnit test context
-+ *
-+ * amdgpu_dm_get_native_mode() zeroes the clock and then copies only a
-+ * preferred mode at the head of probed_modes. When there is none, the size
-+ * left in the encoder is stale and must not pick a listed mode
-+ */
-+static void dm_test_create_stream_native_mode_no_clock_edp(struct kunit *test)
-+{
-+	dm_test_expect_first_mode(test,
-+				  dm_test_native_mode_stream(test, DRM_MODE_CONNECTOR_eDP,
-+							     DM_TEST_NATIVE_LISTED |
-+							     DM_TEST_NATIVE_NO_CLOCK));
-+}
-+
-+/**
-+ * dm_test_create_stream_native_mode_no_edid_edp - Test the fallback needs an
-+ * EDID
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_create_stream_native_mode_no_edid_edp(struct kunit *test)
-+{
-+	dm_test_expect_first_mode(test,
-+				  dm_test_native_mode_stream(test, DRM_MODE_CONNECTOR_eDP,
-+							     DM_TEST_NATIVE_LISTED |
-+							     DM_TEST_NATIVE_NO_EDID));
-+}
-+
- /* Tests for amdgpu_dm_connector_detect() */
++static const struct dma_buf_ops vfio_pci_dmabuf_ops = {
++	.attach = vfio_pci_dma_buf_attach,
+ 	.release = vfio_pci_dma_buf_release,
++	.match_mapping = vfio_pci_dma_buf_match_mapping,
+ };
  
  /*
-@@ -10248,6 +10463,13 @@ static struct kunit_case amdgpu_dm_connector_tests[] = {
- 	KUNIT_CASE(dm_test_create_stream_dp_vsc_colorimetry),
- 	KUNIT_CASE(dm_test_create_stream_dp_colorimetry_quirk),
- 	KUNIT_CASE(dm_test_create_stream_hdmi_vsif),
-+	KUNIT_CASE(dm_test_create_stream_native_mode_pruned_edp),
-+	KUNIT_CASE(dm_test_create_stream_native_mode_pruned_lvds),
-+	KUNIT_CASE(dm_test_create_stream_native_mode_pruned_hdmi),
-+	KUNIT_CASE(dm_test_create_stream_native_size_listed_edp),
-+	KUNIT_CASE(dm_test_create_stream_native_preferred_edp),
-+	KUNIT_CASE(dm_test_create_stream_native_mode_no_clock_edp),
-+	KUNIT_CASE(dm_test_create_stream_native_mode_no_edid_edp),
- 	/* amdgpu_dm_connector_detect */
- 	KUNIT_CASE(dm_test_detect_force_on),
- 	KUNIT_CASE(dm_test_detect_force_on_digital),
+@@ -300,6 +314,7 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
+ 		goto err_dev_put;
+ 	}
+ 
++	priv->pdev = pci_dev_get(vdev->pdev);
+ 	kref_init(&priv->kref);
+ 	init_completion(&priv->comp);
+ 
 -- 
-2.55.0
+2.54.0
 
