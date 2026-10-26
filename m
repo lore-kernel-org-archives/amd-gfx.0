@@ -2,41 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 343A3606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1508606A31B
 	for <amd-gfx@archiver.kernel.org>; Mon, 26 Oct 2026 23:03:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=wG2DlYjm
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=o7BSeXPc
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BBC1410F1B3;
-	Mon, 26 Oct 2026 23:03:19 +0000 (UTC)
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012005.outbound.protection.outlook.com
- [40.93.195.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F07410F1B3
- for <amd-gfx@lists.freedesktop.org>; Mon, 26 Oct 2026 23:03:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1039410F1C0;
+	Mon, 26 Oct 2026 23:03:20 +0000 (UTC)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011040.outbound.protection.outlook.com
+ [40.93.194.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D880910F1C0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 26 Oct 2026 23:03:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WMKuLbX94RZJ8ex1FyqbdOeI9whr7+49nAAjwJgm/ejzQjDqDTJZ+MfQVuZJ8aY1kINvs5oeXLprh7lPNpSpckqcwlVOOIFTDaD3/WRoQIM0hUuu+jdvdcxgm4V1M58acyk1E5yzvc+5mfE+MSq2hRRQl0oMfefRyJ8mBSmha4Kzpr3q45WMLp5p9EN5341EXUStedkgtHMeR0aho27dAEOkBXA9KVXZcw9SRq/fYjfqOGn2UcFWAiB68rAPCna4kXmyhB3k+LOdmtM0VgIP4rHd0ysanCZaFHQ7qE6u+/oyqTVyd1RVEo6J6iY8Wuz7o6VU748V/A3H8IpKdOHJ7g==
+ b=oTIugbIpyIpnXKN3fmcT4JXGhjGqFDN0l6BSkRDFcpjQyzuHzYcgLWHSSzLyo1XP4mltr1kipMOiOLe3K1ldp73zLDvVMBFIQ8pj7yr2AqOt+ihRHYZZvCR6FV6eVLoMA0MfTZlvjX71oyt7gQVMhhyO1xZ9xGqm6xAxByfI12i7lm3r/VtH6F/XuXXAnLqb5tYUX0HMo72PkE2Qqvg8HEim+/UANHNcsZ/5Xb9wIt9g/ZjQiopcOVGrjiGsOAufeWZ1/XmEoe4CtFSoH6x17Jhbqij9n64j8fin0GRlOeXIa9PbtrNwfydBStNeEHNITRuCSaHQr1zLR0jL55Lg8w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VsY8GCUMQI+5D5gi47ISqUFQ5sqfIcJMHdjK9qcJHHg=;
- b=sFisN00bAb/5+ojps1wcDyoCEQwZeoXK/bsJvmDSYEnYlU7gZPIJwe60jEbbnRI5EWgZymLkKDBybl3SQnwqaq/f8QD9SyWhpcFZs1118u705Djfzd6v6K3wBLUr3lj4ov21z8ANhf0RuE99oVMDDrFN1SHfSyG61s4IEOR87swaG4X1CVGhy/Rz2FpQH02sFn1ng9YAvRo1OpWU+Kc0Y/RkDrgKhRTeT3KowGigsWo+8HuRQTO+Op8LII0EL+4Iy9zev+tXNNfqCHsw16vEK/rx7iFftd/jR+dgqGpuQFcXnodbZA8uSZTqYHfI8SgwyGClYw//uAp2TgyFBs0ESw==
+ bh=x5vVjQgyJvD4JdhJLz3IHs9AHpFhyY7zCC6nib0wyn8=;
+ b=oyf6+y6PGAMHbUUFUuh8RwmycVrNpDc0zDsplyqJYt87arYiVrdMhPg3DWNSOrY7glTsrA3lD7/soSusqazQTP2wi/YXyYFBYePTFCgclo1TcX3IMseEj1U/q7IUitEmuT/t1Jl0vo/TFHbgqB6udZs+LpJFFG5rGKYqjS005BAuqUzDzglUh83qmVh8K1NwRJjmrPAC3LjH3V4zizNdymkxl/ZjObrGZD4kReEfqQkaebV82QiFoS2YZ/YmsADerBsAz9H2RUwfJVv7B50m9Pf+Q+hUuCsv572lEIMIoCdn8HB2D9ebD8FOKiI41HwfeV6aTIWl7EkXjxAljcohAQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VsY8GCUMQI+5D5gi47ISqUFQ5sqfIcJMHdjK9qcJHHg=;
- b=wG2DlYjm5T90AVFKJNpmL9TeBeI9R+1ldSR5MeguC+wGg8CXK+QXEQ4N1y14V12G8HNaHLV+k4LFRxe9aIe95bLjxMcwjhGTFSr8E+qdtsAlk8C4+kC8VVLo9oNUsvnap0Re9rgKD2dvTsYXkE27sNn6w6diN/PEii2iHUm/LhA=
-Received: from BN0PR07CA0006.namprd07.prod.outlook.com (2603:10b6:408:141::23)
- by CY5PR12MB6203.namprd12.prod.outlook.com (2603:10b6:930:24::17)
+ bh=x5vVjQgyJvD4JdhJLz3IHs9AHpFhyY7zCC6nib0wyn8=;
+ b=o7BSeXPcyUBJel0B8UmpraLzGZsNa7yPCUpdYz3GYhXqa9mqukXhQSOHar3dkICmV+uac1gkVHtWN5MAWk1GrxjLK7hflfQ1CKRdT1yrkyKKGGyMTCCal1tJ4LnxDfU/ikrBubRLebnZetlE1Q9w53ibudbo6mg6+pt38jOuXc8=
+Received: from BN0PR07CA0019.namprd07.prod.outlook.com (2603:10b6:408:141::9)
+ by CY8PR12MB8214.namprd12.prod.outlook.com (2603:10b6:930:76::19)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 23:03:05 +0000
+ 2026 23:03:06 +0000
 Received: from BN3PEPF00022BBB.namprd04.prod.outlook.com
- (2603:10b6:408:141:cafe::92) by BN0PR07CA0006.outlook.office365.com
- (2603:10b6:408:141::23) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:408:141:cafe::2e) by BN0PR07CA0019.outlook.office365.com
+ (2603:10b6:408:141::9) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Mon,
  26 Oct 2026 23:03:05 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
@@ -58,9 +58,9 @@ From: Mukul Joshi <mukul.joshi@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Felix.Kuehling@amd.com>, <Harish.Kasiviswanathan@amd.com>,
  <philip.yang@amd.com>, Mukul Joshi <mukul.joshi@amd.com>
-Subject: [PATCH 5/8] drm/amdgpu: Set up UALink rings and metadata for loopback
-Date: Mon, 26 Oct 2026 18:59:27 -0400
-Message-ID: <20261026230248.1597606-6-mukul.joshi@amd.com>
+Subject: [PATCH 6/8] drm/amdgpu: Enable UALink loopback mode
+Date: Mon, 26 Oct 2026 18:59:28 -0400
+Message-ID: <20261026230248.1597606-7-mukul.joshi@amd.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261026230248.1597606-1-mukul.joshi@amd.com>
 References: <20261026230248.1597606-1-mukul.joshi@amd.com>
@@ -72,29 +72,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF00022BBB:EE_|CY5PR12MB6203:EE_
-X-MS-Office365-Filtering-Correlation-Id: fafccef9-4a1a-4230-f2ef-08df33b54b3b
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BBB:EE_|CY8PR12MB8214:EE_
+X-MS-Office365-Filtering-Correlation-Id: a43171b2-0e86-47cc-0d66-08df33b54b7c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|82310400026|36860700016|1800799024|10067099003|22082099003|18002099003|261026140227099003|56012099006|11063799006|261021123027099003|261021121427099003|261022105027099003|261009223027099003|261026121527099003;
-X-Microsoft-Antispam-Message-Info: ceOuFRdbZr1boK4NXS0RDWNGsS/SgtcNdFmJjeoPwHBRBm1i36F8b6yCr3hgnvZtUNVQfjzjQA+bur/4sdpQwOpJcF/2lIrYucrpTXKTEqhsH4c2ELM7Uarp7BfycJBcj1Raxd4LPLdqvnQQyd9WS9XTzoQQ1wqWpVLPrHuAj/sxwlL3E/yKh7F5ZEsjnk2MX7w09w4Ik/PQgLgLoLFdjAYXGYV+6I5EhNNx/yLM6r5fRAnpjs7OzrXrciUKfmr5ClWd2W7lieElvSZfKCcSj+VU/al0TM+xHNBHJEDkXS6avuafkULAn+gqZfLq4pcnbsT4qU7RAijXf4nyYAn910rioI4MHptjsbb/n5fpCFJcihyH486WfX6o6bGUY+Yi3kvwwRB1k02fJqUDgAAw5IOt4dzDRO1YydWsOx4G49bRfMNFhhKubUt7VcdcQU++BmU+0Em9rOXut3L0mEnP42wz1e1sa70fyOxP+o0PCdb1sG5/fPPZ47hhtdAo7UIfMBbzcdT6MWrC+dW9oH/vDRGI2AJKtgRZBayDB4Gy4KRhQzDlWm6tOHjUFTAwvSELnJ3Vx9dkVHgNNKhHng3G6qmL0aJyTOLcNBwOqtHyjVh1joKRhLPijolOvGyeRSfB8LH9NddvbS86OTFXo7DtZzWmICKeaQTsKNZ3LQNskpsx+QBq2tCQTXvu7Nw4zI1cmfDBccBAjhe3zI+xsWqYug==
+ ARA:13230040|1800799024|376014|82310400026|36860700016|23010399003|261026140227099003|11063799006|56012099006|261009223027099003|261022105027099003|261021121427099003|261021123027099003|261022075727099003|10067099003|18002099003|22082099003|261026121527099003|6133799003;
+X-Microsoft-Antispam-Message-Info: cmPN3XyLmJ4RXv6HoKVoXieyedcITKDU8GuwkM2evTS8wfTr7x09XLaqO7eaGDmXBy4bFg/kN3G0s0Tk01pHQVsrC1ifpy+WJxYkirtxotpC44uSmHuA0DV7vytd0fL4umAZUSEeGkq6m9cmGpjXAMmNvYfu3ij+xx+y26COccs2E+GK4UA4S5zwPh5Xhobx9gN9cnyeVz0QqUzpBKK7Wnnuzj5+myp5HFlyGE/P4gWa8lDfSv5jIW7NX6FQiJVqKlAzRTauPuF/RhL9hU9fO4ZzHrOve24P1wzE4Ra/qUvKNhPH1V7PYpvmjGSF7H6q5JlVLECc2ZALWb37tNmWRqXvBMUMqa9E92N4IzkEv1D3xtqAlbm2Upg2MsdBzdzVrDqvIHC2tnxXxs4LsyVCRGtnyefQCS+9h5yzxVs6IL8XCOdKyU9Q5lon3Vq3M0U2nrTPYemojehwWN2GBEFHZwREvhVQNJV6lkwq3HRHCCV+UgabiwgCNlbChFj7K86TqBor5KRzf28twojfxu36MBz2jode7VRMzVwh8F3+xyi0um0KnmdH2EFkO24rZEm+KIWBctwqlpyuvQ6Ir9mqadEhd+KZTGfn3V2K/MWczuER5eGr5zsLuKza6c2/ooAA1CmYZJb4tIDQM5aEN6UU2wIqOQ9YqswEjbngoXvDIhBedNMuatsi9aeFxpDRoYZcvM0Tki+gna5Pd89VsBa49g==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(82310400026)(36860700016)(1800799024)(10067099003)(22082099003)(18002099003)(261026140227099003)(56012099006)(11063799006)(261021123027099003)(261021121427099003)(261022105027099003)(261009223027099003)(261026121527099003);
+ SFS:(13230040)(1800799024)(376014)(82310400026)(36860700016)(23010399003)(261026140227099003)(11063799006)(56012099006)(261009223027099003)(261022105027099003)(261021121427099003)(261021123027099003)(261022075727099003)(10067099003)(18002099003)(22082099003)(261026121527099003)(6133799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: tSDOWss5aRgWY9uFdhjQ9mSlPgqED5XTTUgHICleHX87Ku2fzG8rST5hVC8qaNVK1PKfaMVMh+fUw02rXvtW9X3r+xOsTDC2X7mjPVOiWzTuuwGMXjOc9mWgJ5E4Oyj57/ApSl4nfSgWZw5FxXNKd4ZiRSel763v9w/5DMdzLmLoUGsJJux6lvFX3NJfqLSMcAlzsys5y5wNx4MniEfsfBPtCbxqAh5tKIQq9t7yoT9bS2lYZKBBnfQZEwSAchQ6Dq+ngPU36oqvaKHFMWtfREP6rUL3YZ5FyQEnkAkQFxt2m4fFF3FG0eXm3+5zxcBn7x3nhvCmykzN95TThf+/iyp8ILUgbf6RzI40TK6xR+qqa93iciYM2AT20CdKYIA1gAztDGUpN+86JfIDU/2ZUOTcMwnaw7FYzMbTRC2Oq0YUM7ww09kNgDWfmOUbATgY
+X-MS-Exchange-AntiSpam-MessageData-0: TKFZ26EJnyBZdjaM5R6YfPISaDoWd6XxkYEGIZjtu6Z11/owbctOO6gvY/IvRSqDd981Q6FFxyHSRMRPim1Hjg8soLj9BQ+z+JTcNTvLWLaEp8plXVtrZfMVbiq/GU9xyc6c0vHZlKvmFUqNY30LNue1TZ+rfbSg/OGVEgBNobiVSZ00/11C7XMkjvbHLvy6/Jorgh3ds3pNG33m3iSQ3bkLtFm3I/ReSV+AyjIC7RzYNZ5XzwexhLhYMsYGxXxMFPcxcQtGZPSOPvA4n5jKAQV6JTCL4f5Yb1zwK+SD7s78tmQnFClqDGZrNLS1MXHiZPg48KWGi9X59dniwbSGcAQzBQkmiaWq2KE70bC2xi8scebmRd8qlrnK7ynHtHXwAsO66+Qp7cM7QGUnuxcxCLDlodK6DJ5t6XBkPtfu+gFN6q7lMZbGrZty00XFfabS
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 23:03:05.3831 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fafccef9-4a1a-4230-f2ef-08df33b54b3b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 23:03:05.7995 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a43171b2-0e86-47cc-0d66-08df33b54b7c
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF00022BBB.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6203
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8214
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,155 +112,195 @@ X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-In UALink loopback mode a single GPU acts as both the exporter and the
-importer, and the only path the HW serves is importer -> exporter.
-Adjust the per-peer setup accordingly:
+In UALink loopback mode a single GPU acts as both the exporter (accel
+ID 1) and the importer (accel ID 0). This lets the existing tests export
+a BO and import it on the same device, traversing the UALink HW
+pipeline.
 
-- The importer's doorbell reaches the MP nHT stamped with the GPU ID of
-  the exporter, and the FW looks up the metadata entry by that ID. So
-  publish the importer's rings and tail pointers in metadata[exporter].
+Add amdgpu_ualink_loopback_detect(), the single place that decides
+whether loopback is enabled. It runs right after the UALink info is
+queried from PSP, before any per-peer setup. When loopback is enabled:
 
-- The local sender of the HW-served direction is the importer, so set
-  up (and tear down) the send rings with the importer as the source.
+- There is no user-space agent to configure the pod, so synthesize the
+  pPod/vPod configuration with both accel IDs active.
 
-- Skip the ring pointer resync. Both ends of every ring are on this
-  GPU, so there is no remote peer that can reboot and leave the
-  pointers stale.
+- Activate the device directly instead of through the cross-GPU vpod
+  activation path, which needs peer GPUs and a user-space vpod commit.
 
-- Do not take the local dma-buf shortcut on import. It would bypass
-  the NPA path that loopback is meant to exercise.
+The mechanism that requests loopback mode is added separately, so
+amdgpu_ualink_loopback_requested() returns false for now. The normal
+activation path is unchanged when loopback is not enabled.
 
 Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 66 +++++++++++++++++-----
- 1 file changed, 51 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 128 ++++++++++++++++++++-
+ 1 file changed, 123 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-index 233ca804c4cf..9326836f4f4c 100644
+index 9326836f4f4c..1e30391e2e18 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-@@ -3961,7 +3961,13 @@ int amdgpu_ualink_import_handle(struct drm_device *dev,
- 		return -EINVAL;
- 	}
+@@ -62,6 +62,7 @@ static int amdgpu_ualink_ring_resync_ptrs(struct amdgpu_device *adev,
+ static int amdgpu_ualink_loopback_self_interrupt(struct amdgpu_device *adev,
+ 						 u32 sender_accel_id, u32 dw0,
+ 						 u32 dw1, u32 dw2, u32 dw3);
++static void activate_accelerator(struct amdgpu_device *adev);
  
--	if (amdgpu_ualink_is_local_accel(adev, remote_acc_id))
-+	/* In loopback mode the exporter and importer are the same GPU, but the
-+	 * import must still go through the full cross-domain NPA path (the
-+	 * dma_buf shortcut in amdgpu_ualink_local_import() bypasses NPA). Only
-+	 * take the local shortcut for genuine same-pod local accelerators.
-+	 */
-+	if (!adev->ualink.loopback.enabled &&
-+	    amdgpu_ualink_is_local_accel(adev, remote_acc_id))
- 		return amdgpu_ualink_local_import(adev, remote_acc_id,
- 						  &handle, fd_out);
+ #define STRIP_NPA(addr)						\
+ 	(((u64)(addr) & ~AMDGPU_UALINK_NPA_ADDR_GPUID_MASK))
+@@ -92,19 +93,130 @@ static int amdgpu_ualink_drm_client_create(struct amdgpu_device *adev)
+ }
  
-@@ -5454,11 +5460,28 @@ static int amdgpu_ualink_metadata_init(struct amdgpu_device *adev)
- 		wptr_gpu_addr = remote->rb_gpu_addr + rb_size * ualink_exp_accel_id(adev);
- 
- 	for_each_set_bit(accel_id, remote->active_accel_bits, AMDGPU_UALINK_ACCEL_MAX) {
-+		struct amdgpu_ualink_metadata *md;
+ /*
+- * amdgpu_ualink_loopback_init - set up UALink loopback mode
++ * amdgpu_ualink_loopback_requested - check whether UALink loopback is requested
+  *
+- * Called once loopback mode has been detected. Allocates the ordered
+- * workqueue used to emulate exporter->importer interrupts in SW.
++ * There is no mechanism to request loopback mode yet, so it stays disabled.
++ */
++static bool amdgpu_ualink_loopback_requested(struct amdgpu_device *adev)
++{
++	return false;
++}
 +
- 		dev_dbg(adev->dev, "init for accel_id %u\n", accel_id);
- 
- 		if (accel_id == ualink_exp_accel_id(adev))
- 			continue;
- 
-+		/* In loopback the single MP nHT services the exporter half:
-+		 * the only messages delivered over HW are importer -> exporter
-+		 * (source = importer accel_id), while the exporter -> importer
-+		 * direction is emulated in SW and never reaches the MP nHT.
-+		 *
-+		 * The importer's doorbell reaches the MP nHT stamped with the
-+		 * GPU ID of the single physical station, the exporter, so the
-+		 * FW looks up metadata[exporter]. Publish the importer's rings
-+		 * and tail pointers in that entry.
-+		 */
-+		if (adev->ualink.loopback.enabled)
-+			md = &metadata[ualink_exp_accel_id(adev)];
-+		else
-+			md = &metadata[accel_id];
++/*
++ * amdgpu_ualink_loopback_detect - detect UALink loopback mode
++ *
++ * This is the only place that decides whether loopback mode is enabled. It
++ * must run before any per-peer setup, since enabling loopback changes the
++ * accelerator IDs returned by ualink_exp_accel_id() and ualink_imp_accel_id().
++ */
++static void amdgpu_ualink_loopback_detect(struct amdgpu_device *adev)
++{
++	if (!amdgpu_ualink_loopback_requested(adev))
++		return;
 +
- 		rb_gpu_addr = remote->rb_gpu_addr + rb_size * accel_id;
- 
- 		if (ualink_addr_mode(adev) == AMDGPU_UALINK_ADDR_MODE_SOURCE_IDENT) {
-@@ -5466,27 +5489,26 @@ static int amdgpu_ualink_metadata_init(struct amdgpu_device *adev)
- 			wptr_gpu_addr += wptr_size * accel_id;
- 		}
- 
--		metadata[accel_id].header = AMDGPU_UALINK_METADATA_HEADER;
--		metadata[accel_id].rb_size = fls(AMDGPU_UALINK_RB_SIZE / 64) - 1;
-+		md->header = AMDGPU_UALINK_METADATA_HEADER;
-+		md->rb_size = fls(AMDGPU_UALINK_RB_SIZE / 64) - 1;
- 
- 		/*
- 		 * remote shootdown type is 0, remote command type is 1
- 		 * with 2MB ring buffer mapping, remote shootdown ring NPA is before interrupt
- 		 */
--		metadata[accel_id].ri_rb = rb_gpu_addr + AMDGPU_UALINK_RB_SIZE;
--		metadata[accel_id].tlb_inv_rb = rb_gpu_addr;
-+		md->ri_rb = rb_gpu_addr + AMDGPU_UALINK_RB_SIZE;
-+		md->tlb_inv_rb = rb_gpu_addr;
- 
--		metadata[accel_id].tailptr_ri = wptr_gpu_addr +
--						ualink_wptr_offset(adev, accel_id);
--		metadata[accel_id].tailptr_tlb_inv = wptr_gpu_addr +
--						     ualink_tlb_wptr_offset(adev, accel_id);
-+		md->tailptr_ri = wptr_gpu_addr + ualink_wptr_offset(adev, accel_id);
-+		md->tailptr_tlb_inv = wptr_gpu_addr +
-+				      ualink_tlb_wptr_offset(adev, accel_id);
- 
--		dev_dbg(adev->dev, "init from accel_id %u to accel_id %u, rb_size 0x%x\n",
--			accel_id, ualink_exp_accel_id(adev), metadata[accel_id].rb_size);
-+		dev_dbg(adev->dev, "init from accel_id %u to accel_id %u, metadata entry %td, rb_size 0x%x\n",
-+			accel_id, ualink_exp_accel_id(adev), md - metadata, md->rb_size);
- 		dev_dbg(adev->dev, "rb 0x%llx tlb rb 0x%llx\n",
--			metadata[accel_id].ri_rb, metadata[accel_id].tlb_inv_rb);
-+			md->ri_rb, md->tlb_inv_rb);
- 		dev_dbg(adev->dev, "rb wptr at 0x%llx tlb wptr at 0x%llx\n",
--			metadata[accel_id].tailptr_ri, metadata[accel_id].tailptr_tlb_inv);
-+			md->tailptr_ri, md->tailptr_tlb_inv);
- 	}
- 
- 	r = adev->ualink.msg_ctl->send_metadata(adev,
-@@ -6067,6 +6089,12 @@ static int amdgpu_ualink_ring_resync_ptrs(struct amdgpu_device *adev,
- 	u64 int_wptr, tlb_wptr;
- 	int r;
- 
-+	/* UALink loopback: both ends of every ring live on this GPU, so there
-+	 * is no remote peer that can reboot and leave the pointers stale.
-+	 */
-+	if (adev->ualink.loopback.enabled)
-+		return 0;
++	adev->ualink.loopback.enabled = true;
++	adev->ualink.loopback.exporter_accel_id =
++		AMDGPU_UALINK_LOOPBACK_EXPORTER_ACCID;
++	adev->ualink.loopback.importer_accel_id =
++		AMDGPU_UALINK_LOOPBACK_IMPORTER_ACCID;
++}
 +
- 	/* ring->wptr and ring->rptr are owned by the send path. */
- 	guard(mutex)(&peer->lock);
- 
-@@ -6288,7 +6316,12 @@ static int amdgpu_ualink_peer_remote_init(struct amdgpu_device *adev)
- 	struct amdgpu_ualink_peer *peer;
- 	struct amdgpu_ualink_ring *interrupt;
- 	struct amdgpu_ualink_ring *shootdown;
--	u32 src_accel_id = ualink_exp_accel_id(adev);
-+	/* This sets up the send rings (local sender -> each remote dst). In
-+	 * loopback the HW-served direction is importer -> exporter, so the
-+	 * local sender is the importer; the skip below then skips the importer
-+	 * and sets up the peer[exporter] ring that the HW path needs.
++/*
++ * amdgpu_ualink_loopback_populate_info - synthesize pPod/vPod config for loopback
++ *
++ * In loopback there is no user-space agent (AIFM / xncmdclient) writing the
++ * UALink sysfs nodes to configure the pod, so populate adev->ualink.info
++ * directly. The layout is fixed and known: a single GPU alone in its own
++ * physical pod, presented as accelerator ID 1 (the exporter) and also owning
++ * accelerator ID 0 (the importer). The values are made self-consistent so
++ * check_vpod_info() would pass and amdgpu_ualink_metadata_init() programs the
++ * importer's ring buffers / GART NPA mappings / MP nHT receive metadata.
++ */
++static void amdgpu_ualink_loopback_populate_info(struct amdgpu_device *adev)
++{
++	struct amdgpu_ualink_info *info = adev->ualink.info;
++	u32 exporter = adev->ualink.loopback.exporter_accel_id; /* 1 */
++	u32 importer = adev->ualink.loopback.importer_accel_id; /* 0 */
++
++	/* Physical pod: this GPU is presented as the exporter accel ID in its
++	 * own pod. ppod.size must be large enough to contain both the exporter
++	 * and importer accel IDs. ppod.id must be unique within the system
++	 * (matters for 1P4G, where every loopback GPU is its own physical pod).
 +	 */
-+	u32 src_accel_id = ualink_imp_accel_id(adev);
- 	u32 dst_accel_id;
- 	u64 npa, flags;
- 	int r = 0;
-@@ -6411,7 +6444,10 @@ static void amdgpu_ualink_peer_remote_fini(struct amdgpu_device *adev)
++	info->ppod.accel_id = exporter;
++	info->ppod.size = max(exporter, importer) + 1;	/* == 2 */
++	uuid_gen(&info->ppod.id);
++
++	/* Virtual pod: mark BOTH the exporter and the importer active so the
++	 * per-peer setup (amdgpu_ualink_metadata_init()) programs the importer's
++	 * resources for the importer accel ID. Preserve the address mode queried
++	 * from firmware if it is valid (keeps source-identification HW working),
++	 * otherwise default to source-aliasing (MI450).
++	 */
++	info->vpod.id = 0;
++	info->vpod.size = 2;
++	if (info->vpod.addr_mode >= AMDGPU_UALINK_ADDR_MODE_MAX)
++		info->vpod.addr_mode = AMDGPU_UALINK_ADDR_MODE_SOURCE_ALIAS;
++	bitmap_zero(info->vpod.active_accel_bits, AMDGPU_UALINK_ACCEL_MAX);
++	set_bit(exporter, info->vpod.active_accel_bits);
++	set_bit(importer, info->vpod.active_accel_bits);
++
++	/* Only the exporter (this GPU's own accel ID) is a local accelerator;
++	 * the importer is reached through the (loopback) remote/NPA path.
++	 */
++	info->n_local_accels = 1;
++	info->local_accels[0] = exporter;
++
++	/* Mark the pod vpod-configured so the activation path proceeds. */
++	info->accel_state = AMDGPU_UALINK_ACCEL_STATE_VPOD_CONFIGURED;
++}
++
++/*
++ * amdgpu_ualink_loopback_activate - bring up the UALink manager for loopback
++ *
++ * The normal activation is driven by the sysfs vpod_config/commit path via
++ * activate_local_vpod(), which derives the local accelerators from peer GPUs
++ * and runs a cross-GPU integrity check. Neither applies in loopback (the
++ * importer is not a separate GPU), so activate this device directly.
++ */
++static int amdgpu_ualink_loopback_activate(struct amdgpu_device *adev)
++{
++	mutex_lock(&mgpu_info.mutex);
++	activate_accelerator(adev);
++	mutex_unlock(&mgpu_info.mutex);
++
++	if (adev->ualink.info->accel_state < AMDGPU_UALINK_ACCEL_STATE_ACTIVE) {
++		dev_err(adev->dev, "UALink loopback activation did not reach ACTIVE\n");
++		return -EIO;
++	}
++
++	return 0;
++}
++
++/*
++ * amdgpu_ualink_loopback_init - set up and activate UALink loopback mode
++ *
++ * Called once loopback mode has been detected, after the initial pod/vpod
++ * configuration has been queried into adev->ualink.info. Synthesizes the pod
++ * configuration (there is no user-space agent to write the UALink sysfs nodes
++ * in loopback), allocates the ordered workqueue used to emulate
++ * exporter->importer interrupts in SW and activates the device.
+  */
+ static int amdgpu_ualink_loopback_init(struct amdgpu_device *adev)
  {
- 	u32 rb_pages = AMDGPU_UALINK_RB_SIZE >> AMDGPU_GPU_PAGE_SHIFT;
- 	struct amdgpu_ualink_remote *remote = to_remote(adev);
--	u32 src_accel_id = ualink_exp_accel_id(adev);
-+	/* Mirror peer_remote_init: in loopback the local sender is the
-+	 * importer, so unmap the peer[exporter] send ring that was set up.
-+	 */
-+	u32 src_accel_id = ualink_imp_accel_id(adev);
- 	u32 dst_accel_id;
- 	struct amdgpu_ualink_peer *peer;
- 	struct amdgpu_ualink_ring *ring;
++	amdgpu_ualink_loopback_populate_info(adev);
++
+ 	adev->ualink.loopback.wq =
+ 		alloc_ordered_workqueue("amdgpu_ualink_loopback", 0);
+ 	if (!adev->ualink.loopback.wq)
+ 		return -ENOMEM;
+ 
+-	return 0;
++	dev_info(adev->dev,
++		 "UALink loopback enabled (exporter accel %u, importer accel %u)\n",
++		 adev->ualink.loopback.exporter_accel_id,
++		 adev->ualink.loopback.importer_accel_id);
++
++	return amdgpu_ualink_loopback_activate(adev);
+ }
+ 
+ static void amdgpu_ualink_object_fini(struct amdgpu_device *adev)
+@@ -498,10 +610,16 @@ int ualink_ip_late_init(struct amdgpu_ip_block *ip_block)
+ 	if (r)
+ 		return r;
+ 
++	amdgpu_ualink_loopback_detect(adev);
++
+ 	scoped_guard(mutex, &mgpu_info.mutex) {
+ 		amdgpu_ualink_info_set_accel_state(adev, adev->ualink.info,
+ 						   cfg_state);
+-		__amdgpu_ualink_activate_vpod_locked(adev);
++		/* Loopback has no peer GPUs and no user-space vpod commit, so it
++		 * cannot use the normal cross-GPU activation path.
++		 */
++		if (!adev->ualink.loopback.enabled)
++			__amdgpu_ualink_activate_vpod_locked(adev);
+ 	}
+ 
+ 	/* Treat this optional, no error check on failure */
 -- 
 2.55.0
 
