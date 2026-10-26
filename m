@@ -2,57 +2,128 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65D13606A31B
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Oct 2026 08:44:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4475606A31A
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Oct 2026 08:44:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=Zkl2Zlcy
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=p0U1NO0y
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DCA2010ECD9;
-	Mon, 26 Oct 2026 08:44:19 +0000 (UTC)
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A758B10E32B;
- Sat, 24 Oct 2026 16:33:52 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org
- [IPv6:2001:67c:2050:b231:465::2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4jBlnq0qtWz8sb1;
- Sat, 24 Oct 2026 18:33:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
- t=1792859631;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=N3tgvrUsFi4GN/V4BTiVMEFcYaEE2L14qNp0gE7VNQE=;
- b=Zkl2Zlcy9WCmjSBTcsw1zL9sFYirNkJ3jjImOeopxiBg3QVCMKQnFLQpZfGLMNe++9HF0i
- rBMN+eOXmGvu+CvLohHwjMe8KEjKel68kQDVTpiE3/w7gCVACS6I5LFPsU8OcwE+2FzSoM
- 0Olpdv38xKBpnoXaf/9GsRxuO7VPygbE+vlq5Kegq0R5L3jDivHd+GYWwWtmc+tDEELop8
- wF9IrPvWUnnvR1KwzR0sWT/FYqEQ4xi2eyRl8TkMUiyfwxtrmoAQdQbKLlDjPYgwGWytcX
- px8dVhLxb0FiDEdEF4eGov59OKezfWNnLEyRMy0/NUoHQq7Alce9VOYgcVmBog==
-Authentication-Results: outgoing_mbo_mout; dkim=none;
- spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates
- 2001:67c:2050:b231:465::2 as permitted sender) smtp.mailfrom=hugo@hsal.es
-From: Hugo Sales <hugo@hsal.es>
-To: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- alexander.deucher@amd.com,
- "Chung, ChiaHsuan (Tom)" <chiahsuan.chung@amd.com>
-Subject: [PATCH v2 1/2] drm/amd/display: Fall back to the native mode,
- not the first, on eDP/LVDS
-Date: Sat, 24 Oct 2026 17:33:46 +0100
-Message-ID: <20261024163347.2413649-2-hugo@hsal.es>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261024163347.2413649-1-hugo@hsal.es>
-References: <74c73b6f-a6b3-4652-8da1-b5c46ae58809@amd.com>
- <20261024163347.2413649-1-hugo@hsal.es>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2ED4410ECD5;
+	Mon, 26 Oct 2026 08:44:24 +0000 (UTC)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010071.outbound.protection.outlook.com [52.101.56.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A24C310E92D;
+ Mon, 26 Oct 2026 05:37:40 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jDrKaoQmFwdRot1Zm+9ShflPYfCWLAYzUjGHvu0MpKkgfZPc1YmQLzBdFsVAn2XOCQAoy+hcvflJB167FilNpud+IztsWRiuF3Lwy7EBEv01qHPwHF18zr4jccCyRclrQNUR8Ori6qwuGkOz+68BZZ8YvkKSaM9p8yD3w607PG+AxXr1irf2EvX6JegcfijCoi0CjqBdLN4l1GFXFYCpbnEFiQgZXQ9S6k2c8h4SBaOpgfA/SBlnUn9PmFEEh6otv23r3w4aQTqQxztmCWk3XZWWsh+VcfEmnccCPzMYDV9e58suU6YCa8JYujLJVhn/gg7yHfuWrkl1wLSO0CM6Gw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SXL1QxRAqfKetgQUiaIIvbAeXy4Drwi/UlAfB8zG/tE=;
+ b=wUUz58qAyKEDBdze7hFevc6vKhDYW6nIzTynt2ASKaeJX5Ct2m8unmZSesfjgdL31TVx1F7g4p/er2dCvQeqNKDSUVlk/yM4zgZYyHyJ6XgO4LMqo1EVWS8byc+EiisXQmiCClPCROFfdiumYSFHq3AnoSqdaJ46Y5GoRntYzNYmGtbZ2dxKbCiAIbby6EJd4G/Tfr4ZvuyDCtWpp8jtF0z01GqxFVwrv5B16XZm1z6CLfiuOV4QJCLtb+lMu6kZotgmYNDzCu45yyybr2ZDWizB5WMnEErFYwCq5dgzf3y75rUxfEx1Kqw0P6ViuHfW9UMXHT2wSDjt1uSMGWqplw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SXL1QxRAqfKetgQUiaIIvbAeXy4Drwi/UlAfB8zG/tE=;
+ b=p0U1NO0ylmTKIBChsWtPZq+l6cPwOEOIcIFfzKr2JFOyT/J8zX6CX0hnfjVHd9ZytFfxymPtTzHM7JOwiFZLuwZDWJ7oTMg72cju4OTiD5Nsz69NIe4aBd9sIQSRsSJ3IdjjA4k5VHak6Z+2uIIr418iPP2iYNxFjk0vXuOK5zW/AyqmKiFfG1hRSmcmUs+GBhFjkM958VGMDigbGypEVPYTFnDSXMpmCso67dJXmkQW+G5IGlKEB2AMs7TuzhMjeMUz4iMYCGLqaMJY4KDeHu6QupQ2IEzN4URHB7E+ODwdJnoTe3eETfX8UsLiOlRur+qavit7zA6ws6WXiDh5tw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SA3PR12MB598757.namprd12.prod.outlook.com
+ (2603:10b6:806:52d::14) by SA1PR12MB7442.namprd12.prod.outlook.com
+ (2603:10b6:806:2b5::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
+ 2026 05:37:36 +0000
+Received: from SA3PR12MB598757.namprd12.prod.outlook.com
+ ([fe80::e206:100:5946:a777]) by SA3PR12MB598757.namprd12.prod.outlook.com
+ ([fe80::e206:100:5946:a777%5]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
+ 05:37:36 +0000
+From: Alistair Popple <apopple@nvidia.com>
+To: dri-devel@lists.freedesktop.org, christian.koenig@amd.com,
+ sumit.semwal@linaro.org, jgg@nvidia.com
+Cc: Alistair Popple <apopple@nvidia.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ Dongwon Kim <dongwon.kim@intel.com>, Leon Romanovsky <leonro@nvidia.com>,
+ Kevin Tian <kevin.tian@intel.com>, Xu Yilun <yilun.xu@linux.intel.com>,
+ Karl Mehltretter <kmehltretter@gmail.com>,
+ Baolu Lu <baolu.lu@linux.intel.com>,
+ Felix Kuehling <felix.kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, intel-xe@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org,
+ iommu@lists.linux.dev, Alexey Kardashevskiy <aik@amd.com>,
+ zhipingz@meta.com, treding@nvidia.com, jhubbard@nvidia.com
+Subject: [PATCH 12/26] accel/habanalabs: Use the SGT_P2P mapping type
+Date: Mon, 26 Oct 2026 16:36:03 +1100
+Message-ID: <20261026053623.202642-13-apopple@nvidia.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261026053623.202642-1-apopple@nvidia.com>
+References: <20261026053623.202642-1-apopple@nvidia.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SY6PR01CA0086.ausprd01.prod.outlook.com
+ (2603:10c6:10:110::19) To SA3PR12MB598757.namprd12.prod.outlook.com
+ (2603:10b6:806:52d::14)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4jBlnq0qtWz8sb1
-X-Mailman-Approved-At: Mon, 26 Oct 2026 08:43:34 +0000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA3PR12MB598757:EE_|SA1PR12MB7442:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9a26a90a-9f4b-4de8-86ea-08df33233d7a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|7416014|1800799024|366016|18002099003|22082099003|56012099006|11063799006|261022075727099003|261021123027099003|10067099003|261009223027099003|261021121427099003|261022105027099003;
+X-Microsoft-Antispam-Message-Info: QRYV2kIOBwdSi4RTwPkOVLnf4SZkDeHkDmT1r/4zs+CVwZlsuH2r1oqwQEFNP0/z5Q+gb2i9z9Q0WAWqGr/jCWIq+5EeYvRUWKI3PNIoyp4wSxdIKL0bE+VkOwCQpJC2X9D443hqsTDQCe8becEGp1gsHKvIoa+7ZxzsgST3oAtcbeIUMT3e0Lfb7jrs5yjaTi+uJhdFf9cSyYib7jtW1mHsiZTc+Xf1nSFFnnma1+lPcqAjWzrWz10uuECA6B71uCyKJQAt0cWP6S3geZgYcsHLbAP96FB19e2YrsS08obYINAZBj/Z//0al1/sheif5NKN/qpa7Tn87wlH+83PlQG+NSC9dkr+5I8Erg56IipGFPFTo/iKTX71rSYGK/kZ6TxQXwuM+2FfAInOtNfu4T0XGZEV6Z4R7jdfU1KDGRXyIvsueKpUTVa21jrW6TDI0R8m913GWL0HlO5UYGtEo2YX260AJcHfoZT0QCwYunIWaEdMZEFrRxLJ15cofW1iB5kJ6OILBYPKL+W3T3Zm4TsqqjaG3xZmwANYEZSGixbQxsPHiDh6REm0cph4bilZPl/egsOQJ6hvPdbI4jDGSHXe/V1ckluI4RRb7SVIhGXJce6H02rwKiRTk6b2aAsmD68Q65vf4nJfwiEmlHQEZ6DOiFZebORdbffOk8KjP8M=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA3PR12MB598757.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(18002099003)(22082099003)(56012099006)(11063799006)(261022075727099003)(261021123027099003)(10067099003)(261009223027099003)(261021121427099003)(261022105027099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?PSBg8188YreEm4mdbEhrS2CJKTuhlLIiDzEelKCWwFW+3oskjNiIKnCYIlLU?=
+ =?us-ascii?Q?7VrhEW44899nak0RQwd/7tjsGdCXjUJkGO/1kTrauPH43VU+NvhXAnnAgUcC?=
+ =?us-ascii?Q?L0kLIQ5W5FbPuM/p78x6Bl1CY+wgnKknWAnh9WOVQAhbmfRTihmP8K9qKe4E?=
+ =?us-ascii?Q?mtQ+DF3StaiJpYT4Qd3+jf4xjIVViwxXO4PK66+IBHg/7w+yy47aDJNk98x+?=
+ =?us-ascii?Q?WYB6IUY6Lv9blpBWQbus8EjG41LXrH8dZniczMki8bSpjgoGSAXoqRkOe8Vr?=
+ =?us-ascii?Q?8cL22RJF2cGS7CJLnmROH6MHKkuqDmCCJ7u1l/ZtDQMf6RZTY2BcijiU9sCl?=
+ =?us-ascii?Q?4ED1hpcrb1hHa866FD9Z7AJBmHwUeqWJHl7v01QImWsBb+UI7+zRYIFp7oTR?=
+ =?us-ascii?Q?Ehrzy5UdbcjO24mLSGoy8lylvGNiMRzPh65xTfKy2XOrzYkq/3hf0lLj8+GX?=
+ =?us-ascii?Q?qcF115aja+/6Qo5EgW+vB2RLazJoUYIMub8oFuIPBWDwt+k7nv3wlCE19xo/?=
+ =?us-ascii?Q?NPgs/WiVyW1W7xNPBv8CfNpI2zXgRonRTm+HZ653vF10prOoQwCsh/0llhCZ?=
+ =?us-ascii?Q?JCA40grRmdX8yxjjghouURvZERtBkkn/b9TiRItfF5Wx3t/ad1tgi9Kpqb/s?=
+ =?us-ascii?Q?0i1XO8hmYSY4yHrMaJSxraclN8YgVlPR2NH8Xc6YqfpN2igO2IKDcsfvxe+A?=
+ =?us-ascii?Q?pYV56CSq0f3a7QfPTplydTIo/dZ2asqae81FrayD+oM/r6q+KtNt5X6kzRuw?=
+ =?us-ascii?Q?+uIuV1CLVIEngwtvwm6xu5MqlrTtzmHrcFI51vUSxGTIxM+DdkoywILvfDlk?=
+ =?us-ascii?Q?euKTcLSnNVlbpfWlhmlSACeWxrziQs/Ti2zDR2Qbn/jRhj5jMBAFxPw5eolJ?=
+ =?us-ascii?Q?vr6gRe1XlEvx/y5t8XL+/1ZWNvtCrZBQ+NpEawsDMGqZBJdPxWQgJBDLNrMN?=
+ =?us-ascii?Q?OBtwJCKQOgZ2otIgsokqQblhzijyFLcHh+h1g6J1sYYHDD5nNy9wvRWjeNEL?=
+ =?us-ascii?Q?YuwDR97PMukYHwyYx9GgdIer996ipopNPZb4IFk801f2yhLM/hgvlqIabRG3?=
+ =?us-ascii?Q?672gMnW3nYbbotAAYh7m8hEnqba1ZKz6jXvErFIjcy7RjJHDZwEkuWghz5sf?=
+ =?us-ascii?Q?ZxaFChgzDt0bNIwV8ZT6j3hhWR7ccRgLwFd9ysxVPq73097hKBDFyuL488wZ?=
+ =?us-ascii?Q?+I0c3+lQNgeNKz46X67g8h/bDvifvs40Ysp4BRLkGxR58Ht3H6ra8zuVz5R5?=
+ =?us-ascii?Q?2bZ2nU7NP8+uN9EoDulFnGGX1UfJYSDQ4AGFVWuXJNxbJH1O40IL1nyRC0b8?=
+ =?us-ascii?Q?R/N/HwGfmQXJSmWowQPXoc8K3BDyvv88VLi8rOTcffaDTR7+fvtcwns58iR0?=
+ =?us-ascii?Q?6+XckwSU8iXgxTDjtMBHGkA/ozBYqmkYl1A+Wj91DKQlaTvdXo85vUID9JO8?=
+ =?us-ascii?Q?Lgg8WlukziHmc3BO+NJadz17py6b4ouJpNvr6SraByPJAnXw5BXJAFxUUVlf?=
+ =?us-ascii?Q?31VVZYWM88rSz+x1XB689K23lIukoNGN23MYPOuuO+HCyMhRbcMUMXaE3NMg?=
+ =?us-ascii?Q?slFry+AOiMUZWAVOSh3h2QAAuKyUsr2XlGGno2sjPmlGFbrqwxtp2YIIzdHs?=
+ =?us-ascii?Q?84btPqV8FXZLnzkA8qhAbo703wBOhZyH8y6s2uWa0Yp6Nteuiyx3xunKHZkS?=
+ =?us-ascii?Q?u3I9LqI3a2yNiw37D+ZZ0Rixrh3BRDFzNunFjVNUsY4lZcDtTcDafgp+Sa+1?=
+ =?us-ascii?Q?yLR6A8LCGg=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9a26a90a-9f4b-4de8-86ea-08df33233d7a
+X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB598757.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 05:37:36.0335 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: n9dda1N7jCiOel9Wvlmi+X8iz/XsYyBz+KsLwp70MK/EJ2RXBUMTfhlNC7nDHJUJsgq23efMiYMUDMM1Wl3Taw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7442
+X-Mailman-Approved-At: Mon, 26 Oct 2026 08:43:35 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,103 +134,139 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
 	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Currently, create_stream_for_sink() takes the native timing for a scaled
-mode from the preferred mode in connector->modes. After fbdev emulation
-probes with size limits below the native resolution, as it does when
-video= sets a smaller mode, that mode is no longer in the list
+From: Jason Gunthorpe <jgg@nvidia.com>
 
-If that probe is the last one before a suspend, for example after an
-HDMI hotplug, the resume finds no preferred mode, and the panel is
-driven with the scaled mode's timing instead of its own
+habana has special code to check pci_p2pdma_distance() and rejects any
+importer that cannot do P2P DMA to its MMIO.
 
-amdgpu_dm_get_native_mode() copies the preferred mode to the encoder on
-every probe, before the size limits apply. When connector->modes has no
-preferred mode, take a mode of the native size from the list, or that
-copy if the limits pruned them all. The list comes first because
-mode_valid may have rejected the copy's timing and kept another mode of
-the same size. Limit this to eDP and LVDS, where amdgpu turns scaling on
-by itself. On other connectors mode_valid can also leave the preferred
-mode out, and then the first valid mode is the right fallback
+Convert this directly to a SGT_P2P match which does the same check
+inside the matching logic.
 
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5983
-Signed-off-by: Hugo Sales <hugo@hsal.es>
+Someday this should be converted to use dma_buf_phys_vec_to_sgt() which
+does the P2P checking correctly, for both direct and IOMMU based cases,
+instead of this hack.
+
+Remove the now empty attach function.
+
+Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
 ---
- .../display/amdgpu_dm/amdgpu_dm_connector.c   | 47 +++++++++++++++++++
- 1 file changed, 47 insertions(+)
+ drivers/accel/habanalabs/common/memory.c | 54 +++++++++++-------------
+ 1 file changed, 24 insertions(+), 30 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-index ded8e21897f1c..a13e3b641fd27 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-@@ -257,6 +257,8 @@ STATIC_IFN_KUNIT void update_subconnector_property(struct amdgpu_dm_connector *a
- EXPORT_IF_KUNIT(update_subconnector_property);
+diff --git a/drivers/accel/habanalabs/common/memory.c b/drivers/accel/habanalabs/common/memory.c
+index 361cff577381..6745af1328c1 100644
+--- a/drivers/accel/habanalabs/common/memory.c
++++ b/drivers/accel/habanalabs/common/memory.c
+@@ -9,10 +9,10 @@
+ #include "habanalabs.h"
+ #include "../include/hw_ip/mmu/mmu_general.h"
  
- STATIC_IFN_KUNIT int amdgpu_dm_connector_get_modes(struct drm_connector *connector);
-+STATIC_IFN_KUNIT struct drm_encoder *amdgpu_dm_connector_to_encoder(
-+	struct drm_connector *connector);
++#include <linux/dma-buf-mapping.h>
+ #include <linux/uaccess.h>
+ #include <linux/slab.h>
+ #include <linux/vmalloc.h>
+-#include <linux/pci-p2pdma.h>
  
- STATIC_IFN_KUNIT void amdgpu_dm_fbc_init(struct drm_connector *connector)
+ MODULE_IMPORT_NS("DMA_BUF");
+ 
+@@ -1704,23 +1704,6 @@ static struct sg_table *alloc_sgt_from_device_pages(struct hl_device *hdev, u64
+ 	return ERR_PTR(rc);
+ }
+ 
+-static int hl_dmabuf_attach(struct dma_buf *dmabuf,
+-				struct dma_buf_attachment *attachment)
+-{
+-	struct hl_dmabuf_priv *hl_dmabuf;
+-	struct hl_device *hdev;
+-	int rc;
+-
+-	hl_dmabuf = dmabuf->priv;
+-	hdev = hl_dmabuf->ctx->hdev;
+-
+-	rc = pci_p2pdma_distance(hdev->pdev, attachment->dev, true);
+-
+-	if (rc < 0)
+-		attachment->peer2peer = false;
+-	return 0;
+-}
+-
+ static struct sg_table *hl_map_dmabuf(struct dma_buf_attachment *attachment,
+ 					enum dma_data_direction dir)
  {
-@@ -1545,6 +1547,51 @@ create_stream_for_sink(struct drm_connector *connector,
- 			break;
- 		}
+@@ -1734,11 +1717,6 @@ static struct sg_table *hl_map_dmabuf(struct dma_buf_attachment *attachment,
+ 	hl_dmabuf = dma_buf->priv;
+ 	hdev = hl_dmabuf->ctx->hdev;
+ 
+-	if (!attachment->peer2peer) {
+-		dev_dbg(hdev->dev, "Failed to map dmabuf because p2p is disabled\n");
+-		return ERR_PTR(-EPERM);
+-	}
+-
+ 	exported_size = hl_dmabuf->dmabuf->size;
+ 	offset = hl_dmabuf->offset;
+ 	phys_pg_pack = hl_dmabuf->phys_pg_pack;
+@@ -1753,8 +1731,10 @@ static struct sg_table *hl_map_dmabuf(struct dma_buf_attachment *attachment,
+ 		page_size = hl_dmabuf->dmabuf->size;
  	}
+ 
+-	sgt = alloc_sgt_from_device_pages(hdev, pages, npages, page_size, exported_size, offset,
+-						attachment->dev, dir);
++	sgt = alloc_sgt_from_device_pages(hdev, pages, npages, page_size,
++					  exported_size, offset,
++					  dma_buf_sgt_dma_device(attachment),
++					  dir);
+ 	if (IS_ERR(sgt))
+ 		dev_err(hdev->dev, "failed (%ld) to initialize sgt for dmabuf\n", PTR_ERR(sgt));
+ 
+@@ -1776,9 +1756,9 @@ static void hl_unmap_dmabuf(struct dma_buf_attachment *attachment,
+ 	 * a sync of the memory to the CPU's cache, as it never resided inside that cache.
+ 	 */
+ 	for_each_sgtable_dma_sg(sgt, sg, i)
+-		dma_unmap_resource(attachment->dev, sg_dma_address(sg),
+-					sg_dma_len(sg), dir,
+-					DMA_ATTR_SKIP_CPU_SYNC);
++		dma_unmap_resource(dma_buf_sgt_dma_device(attachment),
++				   sg_dma_address(sg), sg_dma_len(sg), dir,
++				   DMA_ATTR_SKIP_CPU_SYNC);
+ 
+ 	/* Need to restore orig_nents because sg_free_table use that field */
+ 	sgt->orig_nents = sgt->nents;
+@@ -1848,11 +1828,25 @@ static void hl_release_dmabuf(struct dma_buf *dmabuf)
+ 	kfree(hl_dmabuf);
+ }
+ 
+-static const struct dma_buf_ops habanalabs_dmabuf_ops = {
+-	.attach = hl_dmabuf_attach,
++static const struct dma_buf_mapping_sgt_exp_ops hl_dma_buf_sgt_ops = {
+ 	.map_dma_buf = hl_map_dmabuf,
+ 	.unmap_dma_buf = hl_unmap_dmabuf,
++};
 +
-+	/*
-+	 * After a probe with size limits smaller than the preferred mode,
-+	 * connector->modes no longer has that mode, and the first mode left
-+	 * would become the stream timing. fbdev emulation probes with limits
-+	 * that video= can set below the native size. Only eDP and LVDS panels
-+	 * get a fallback here, since they take only their native size. On other
-+	 * connectors mode_valid can also reject the preferred mode, and then
-+	 * the first valid mode is the right one
-+	 *
-+	 * Take a mode of the native size from connector->modes if one is left,
-+	 * since mode_valid may have rejected the preferred timing itself. The
-+	 * probe sorts the list, so the first one has the highest refresh rate
-+	 * left. If the limits pruned them all, use the copy of the preferred
-+	 * mode that amdgpu_dm_get_native_mode() keeps in the encoder. It is
-+	 * made on every probe, before the limits apply
-+	 */
-+	if (!preferred_mode && aconnector && aconnector->drm_edid &&
-+	    (connector->connector_type == DRM_MODE_CONNECTOR_eDP ||
-+	     connector->connector_type == DRM_MODE_CONNECTOR_LVDS)) {
-+		struct drm_encoder *encoder = amdgpu_dm_connector_to_encoder(connector);
-+		const struct drm_display_mode *enc_native =
-+			encoder ? &to_amdgpu_encoder(encoder)->native_mode : NULL;
++static int hl_match_mapping(struct dma_buf_match_args *args)
++{
++	struct hl_dmabuf_priv *hl_dmabuf = args->dmabuf->priv;
++	struct dma_buf_mapping_match sgt_match[] = {
++		DMA_BUF_EMAPPING_SGT_P2P(&hl_dma_buf_sgt_ops,
++					 hl_dmabuf->ctx->hdev->pdev),
++	};
 +
-+		if (enc_native && enc_native->clock) {
-+			list_for_each_entry(connector_mode, &connector->modes, head) {
-+				if (connector_mode->hdisplay == enc_native->hdisplay &&
-+				    connector_mode->vdisplay == enc_native->vdisplay) {
-+					preferred_mode = connector_mode;
-+					break;
-+				}
-+			}
++	return dma_buf_match_mapping(args, sgt_match, ARRAY_SIZE(sgt_match));
++}
 +
-+			/*
-+			 * saved_mode is only used for FreeSync video modes, and
-+			 * that path doesn't read preferred_mode
-+			 */
-+			if (!preferred_mode) {
-+				drm_mode_init(&saved_mode, enc_native);
-+				drm_mode_set_crtcinfo(&saved_mode, CRTC_INTERLACE_HALVE_V);
-+				preferred_mode = &saved_mode;
-+			}
-+		}
-+	}
-+
- 	if (!preferred_mode)
- 		preferred_mode = list_first_entry_or_null(
- 				&connector->modes,
++static const struct dma_buf_ops habanalabs_dmabuf_ops = {
+ 	.release = hl_release_dmabuf,
++	.match_mapping = hl_match_mapping,
+ };
+ 
+ static int export_dmabuf(struct hl_ctx *ctx,
 -- 
-2.55.0
+2.54.0
 
