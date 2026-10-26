@@ -2,93 +2,127 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4E3A606A31B
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Oct 2026 08:44:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2254B606A31A
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Oct 2026 08:44:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fshSUgf8
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=nuz3D67E
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 830DC10ECC1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 752C010ECBE;
 	Mon, 26 Oct 2026 08:43:57 +0000 (UTC)
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 70CE710E67F
- for <amd-gfx@lists.freedesktop.org>; Sun, 25 Oct 2026 04:03:56 +0000 (UTC)
-Received: by mail-dl1-f44.google.com with SMTP id
- a92af1059eb24-14fd9dafb0dso1649910c88.0
- for <amd-gfx@lists.freedesktop.org>; Sat, 24 Oct 2026 21:03:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792901035; x=1793505835; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=LMc3CYZEKLGD01XMea94oTj/yeGbugpGFxEInSpf2Xs=;
- b=fshSUgf8RIHkR2+DE/j6KVWwPtV0X+TA/f3ElwTvfZH+8Hw9kMLY/bVdbHXUHBXvAG
- AMDgwuJZgeAaIW11YV7SVv4hwajbEUnNkcJTR6U0mVA2ziFC+xPStF1AlG3MnGS6h6gO
- KWlmyICHC+LYAedH29NcXd2ZSCpeohjpzimaCRgVDp8EEg07PrOjVkk/Q6/dYfz6eosl
- e5ylscrmkoIYj+Rde0joWkesDkqPhbB67lLCJiMelO4b2VNQxv4vJjBPKZpecsnLkpGr
- vesw4V6/09ROMl0Cg/FmX/S6cz13oqyuVZD26A35CgNYvMNtza5kKlhtPkepp7bZKh/H
- cM+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792901035; x=1793505835;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=LMc3CYZEKLGD01XMea94oTj/yeGbugpGFxEInSpf2Xs=;
- b=1aPSkNDik+V6/GYh7/JM4WYQtPi9+u/PvB+UyFy/emxh+7lM7vN11Ad5nm58M8WEh1
- WeEZPJFLimjeaTMzwAWWVusZ/B+7RnMNXdSBQEhg8KmFktvSFfRFpXxl1TSqPMdCjiR7
- 9CZfjyeNzbv0fxec3E0zXDlMTiWhBNd70BqUVbeOk+P86i90g65Sj0uyrfphZQF2w2zp
- LHLm6+4/Vd7n3IElMFAOYclAG2tDKwBIBM2jOQPNqF+eWggo/oSewm06tnNkatx7LjcW
- Y2F7FgbmC4Ku2Waj532rzLVlzCEjMxPFtwVA5Emi0TtPahxFZzbbzkQxvVYHB76KQ40C
- lrLg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBz35/cGbzuO/LXLaKzQS/lb73KqzYHrEk2LuovJNhK75k+I/tsRimC1s32vYH/Od1CzcbNGbYFK@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYI83Gv5aMlAREj9GHYb22ThPcYcnL1EShBnecX1FO81Mcbv4SXD
- KfA6yZ+8bbMv/E/brRuHDTjR8e8KQYTWRqZZ/fmo33XcESNNcIMOcDY=
-X-Gm-Gg: AYBFou0wa2cgb0rhPREAGymcHYOQcS7W+MN44hP+aQLk2zk5tpk3X3rmr7/NSjRfl7l
- emgsk9Yt1I8Y3skget0AWDFTu32tYT+/0xBLxDXBR/vNVXFHi4jIsVOxIzqp9xoOCZtjZKVkpzB
- Qzth9DboLJGm5dda5xbbIOypLVPG+r5cvVijV1jeFUHebZZ0VYjZANLpvwPjvY7miSUwvUJnscP
- /tSR2qmkamEjLiBOQDHLIDoDbUpXa6edMNCd2NnKpdTboZA+bPIn6dO1DSoi/hJ+n8HuMJikwVt
- GVvkTmMgo/8AH/JtcsISCnNy4ohQJc4lZKjfyLjEy0YnhoNv2iwPY7hjfWy/rKz19nWyZWL6ZJe
- aZBj3Ok9fYN3sRbAyJhzjKAB54vQoWZeUr6PLCSqBAyyUu1QmMlMu7MVRv7TL8jaPEwcj2F83Pw
- hzvJTUr+C1VnioTZdxOcCLPAPcs11WF2RiIUNoRpbtKH7iqX5I7vMiBwGi8yXtm8dBJWsqmEHd1
- yPYvvrIBmDwqsBY4KRZF/iVldAyqT9eRephmyDYihSVcheqZuVFMwUCPpDfKjcKCZoYXHb79Z4o
- zLTGV1wdHi1gXD0=
-X-Received: by 2002:a05:7023:885:b0:16e:6e3:9a9f with SMTP id
- a92af1059eb24-1993639e6efmr6212921c88.34.1792901035199; 
- Sat, 24 Oct 2026 21:03:55 -0700 (PDT)
-Received: from at-Standard-PC-Q35-ICH9-2009 ([106.221.76.40])
- by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-198a32ff780sm11635283c88.22.2026.10.24.21.03.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 24 Oct 2026 21:03:54 -0700 (PDT)
-From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-To: 
-Cc: Andre Eikmeyer <dev@deq.rocks>, Bjorn Helgaas <bhelgaas@google.com>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org (maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)),
- "H. Peter Anvin" <hpa@zytor.com>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Kenneth Feng <kenneth.feng@amd.com>, Hans de Goede <hansg@kernel.org>,
- =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
- linux-pci@vger.kernel.org (open list:PCI SUBSYSTEM),
- linux-kernel@vger.kernel.org (open list:X86 ARCHITECTURE (32-BIT AND 64-BIT)), 
- amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
- dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
- platform-driver-x86@vger.kernel.org (open list:X86 PLATFORM DRIVERS)
-Subject: [PATCH 11/13] drm/amd/display: Refuse DP AUX while GMUX keeps the GPU
- off
-Date: Sat, 24 Oct 2026 23:59:47 -0400
-Message-ID: <20261025040046.1602-12-atharvatiwarilinuxdev@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261025040046.1602-1-atharvatiwarilinuxdev@gmail.com>
-References: <20261025040046.1602-1-atharvatiwarilinuxdev@gmail.com>
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010071.outbound.protection.outlook.com [52.101.56.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 273F710E940;
+ Mon, 26 Oct 2026 05:37:51 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ruw0ePCkA5LiD7KPtlqaK0H6pT24dpvJ6Ov30CphINHvHnoOwNlaCFnECMONFPFG/nLPDvXaOo/fNNehLKYm7oRrI32Y4zzCSuoI6laUcD6/29TIbw6PY++AaF3OC2+XlWnW8FreV5/PU6Q5BrKtU1uVMW/P06F819vgXbpSAhEByA10dfPtB/sd4nG2La8TZEmRbkcwZVnoGuXgoKBY2SFEoy/gWt220teC4xsGK5oX+6SRIOYKi4HyE6GT+7pzG52XZ+M1/onGVxLCXRBjZYPZCrHjAMm3p2Xn/RHF1FZSKTMwHjr8Ls6SXWkqeizgyDgWm/90hiiZKtKcBv3lzw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MpMaLNlimllblJa9cIjGeCnm3n3JY1R2x4eK/IUw1K8=;
+ b=H5M/ruxciZfnI9xUSulZwsHmcKdnLwBwRBQ8r33BVDcqkVpbZL22i/KYAjUw+c+Ag2yt5qoHo+p1rvDAjvUU/vlwH08lQxEiwRoKNDARVFj5pBWcIrrGkbfLoNvptwXg/qN6/LsM8LAswZekOvhLVlsjTCyVNqZvHcwUY14PVb5dC7Wlk+RymcB562ESon9qLb5f6IX9noxHVi7LaTGmu5gdABNC7PMzAOmlqAKByUx6wCJS9uRO1VU51Ay7Oow1aSnNN6Jtg86Vg0veNvXVaxU6dMRItqzXMj2wubntxoXCt11KBcT4y4+TvEzlg1bS5hly9W6RVCa7krWGNmtE6g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MpMaLNlimllblJa9cIjGeCnm3n3JY1R2x4eK/IUw1K8=;
+ b=nuz3D67E+rAlVsBMuiHDmTr1bvZD5FzXu3gO7XqOoZzS35VLVdUB0y30yGJO+1risNEz8OzZFa1+sRZKnoIkXehSBw+BtOaBkF/zPyhuIsgdizaYBBPzmZwtZE8BTry2h3TmZsB4pRA28WM0+qrLvgTaEuzsacoY9N5ZrR9oEahK9JC0D3E/ir2R/XN6kPXTDF9x7yXbGkLcV/R+FAZXxhPXegfOabcHRPQET259kM5x6z3zF8OKt4ZD8YRiFCgPhL95O+T3BfeZ8oKLHPN4Tft8fiEW5hiIozf85VLshf0SSAWuFOXoXHvl+ewTLOvae1PJPg4OP3jDFWUOh0NEOg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SA3PR12MB598757.namprd12.prod.outlook.com
+ (2603:10b6:806:52d::14) by SA1PR12MB7442.namprd12.prod.outlook.com
+ (2603:10b6:806:2b5::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
+ 2026 05:37:46 +0000
+Received: from SA3PR12MB598757.namprd12.prod.outlook.com
+ ([fe80::e206:100:5946:a777]) by SA3PR12MB598757.namprd12.prod.outlook.com
+ ([fe80::e206:100:5946:a777%5]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
+ 05:37:46 +0000
+From: Alistair Popple <apopple@nvidia.com>
+To: dri-devel@lists.freedesktop.org, christian.koenig@amd.com,
+ sumit.semwal@linaro.org, jgg@nvidia.com
+Cc: Alistair Popple <apopple@nvidia.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ Dongwon Kim <dongwon.kim@intel.com>, Leon Romanovsky <leonro@nvidia.com>,
+ Kevin Tian <kevin.tian@intel.com>, Xu Yilun <yilun.xu@linux.intel.com>,
+ Karl Mehltretter <kmehltretter@gmail.com>,
+ Baolu Lu <baolu.lu@linux.intel.com>,
+ Felix Kuehling <felix.kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, intel-xe@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org,
+ iommu@lists.linux.dev, Alexey Kardashevskiy <aik@amd.com>,
+ zhipingz@meta.com, treding@nvidia.com, jhubbard@nvidia.com
+Subject: [PATCH 14/26] drm/amdgpu: Use the SGT mapping type
+Date: Mon, 26 Oct 2026 16:36:05 +1100
+Message-ID: <20261026053623.202642-15-apopple@nvidia.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261026053623.202642-1-apopple@nvidia.com>
+References: <20261026053623.202642-1-apopple@nvidia.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SY5PR01CA0058.ausprd01.prod.outlook.com
+ (2603:10c6:10:1fc::17) To SA3PR12MB598757.namprd12.prod.outlook.com
+ (2603:10b6:806:52d::14)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA3PR12MB598757:EE_|SA1PR12MB7442:EE_
+X-MS-Office365-Filtering-Correlation-Id: 29047b8f-6137-4721-de2f-08df332343c2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|7416014|1800799024|366016|18002099003|22082099003|3023799007|56012099006|11063799006|261022075727099003|261021123027099003|10067099003|261009221227099003|261009223027099003|261021121427099003|261022105027099003;
+X-Microsoft-Antispam-Message-Info: MjEGpmcDYCG8x7D3//ZpLf/0LMQh5ANbDaJ9LlXRATxI4nFgowF4IriK9Pi1E8WFjCgMw1KtrcqoCnshX9BwIE3UFY4ZMl4pZCkZ12Ckm5Hgk7DyajlvjuhVeKGe4m6ry0QyaRgtMxhRSw5MtrcXtyR1e+k5d1PsOZgipxyM6c9/DJrDTnz/S+N9xUutZl3d4NFl1YfiAGuMfO34fOsemW6HuZ1sNFNjYLSKRjPcMC9eLVTexO2ilwis9JfH10dSsLpbXw6jh9XnVJLnlGaT/xGR49tC4o+ZHkNEZ010AgHn+RbeJdwyaQzPhrP8977C8Z/1sgKbqTkzF80Zi5ztAPFIM6Q8uUJEokcSq72a7TgLozNqjCTKkNxB8+0rNiDJkuBxWFVtN9HwfxNQpBE9F2WUQrUmaU0+Z7tuDXhtfnMxMtXw0fHIG3d5oQ/spVGxq9rpsoh6E9CDvZ8A5VEIghAdtKrOmud78Z6+MZDKeMigbZH7S7D927lvI66XK3K2ypvmHUWwnlbXQEZJuAoNFOrY8Hgo91DcMSW0UCJx24Wqxr2q2fpZ+z0IJ9o+q9j0ZS3S0nfP207y/iI/QT83zwqMCQ6CNcomnJ0PX2Az3kbbD/yg5PF+Kgry5Vdxl5fvyhmROdOB3V+aBSY3cmJCAhEwWkCafdkL/z0L2UIE0lY=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA3PR12MB598757.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(18002099003)(22082099003)(3023799007)(56012099006)(11063799006)(261022075727099003)(261021123027099003)(10067099003)(261009221227099003)(261009223027099003)(261021121427099003)(261022105027099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?0H6GbSTLFCcIDnoVALKfPZ8A8mpaiUOUF/1wdBpT887pglJopyyniq2TGC0K?=
+ =?us-ascii?Q?8wPZPSxLaIOFWTn1iPYKYxNAUQANPc+iOTpIgYS/DKFBCiToZwquMDtRW3+w?=
+ =?us-ascii?Q?kyJefKyhU28vwz1yta6gYRWItcyGCbS+ZlWEX/W6RZjeXtQNXwCH+M+Qsl4j?=
+ =?us-ascii?Q?dpdZPxYhxwon4fQnU5hJ6G2XS7Cf1zwNAh55Kv3KSaUW7s3IcxkFnoMP/8PG?=
+ =?us-ascii?Q?ToSLLSY24TdkOgSJBbMDFyYhQiiRgUq4EN6v1didIKwOiFsQ7+BS4q7m3Kdf?=
+ =?us-ascii?Q?cc5mz9ufjnn3zdknj/PJIMYJYHQctudX+U9/HzwiEVJDLFhj5acT8g9gqz0J?=
+ =?us-ascii?Q?Z6MnW3UnR66H0cssl4QfJ9j96ZcfyDZ5AkigDgDL0o4oeaa8aBN2pEsj9ink?=
+ =?us-ascii?Q?edvd70zsEOk+XYJA5n0zs45a86VKc7+0l8lMLu4hBjvheaJsb6/RDKyHAfg6?=
+ =?us-ascii?Q?Hl6avn8qk9YT6oHvmzY3egi4emjDZPDvC5b7OVM319R8y83wXtqcXaJ33o3O?=
+ =?us-ascii?Q?wKlYi1V9g9Ec7tL5YHOr1f0izmOKZClHqTb93VOxZOrZi+6MWpNpsc9L3oaz?=
+ =?us-ascii?Q?jO8/bcJTkwF30To7JkYlduWGxzFIdTssjOMSFQxrHLLqyhZFybc/SS1njDd8?=
+ =?us-ascii?Q?wTCgKHWh/nz1E/CQHGPLwH/vhgSvChk9Ad0gh8JsdcEJpE3jRalpVp5cPP9k?=
+ =?us-ascii?Q?+JriCqsIPvmJsZKr0EKsCEWJgL0mZ8E2DuqDrwskqsRo+URxnCzOml93Ghr9?=
+ =?us-ascii?Q?nMdIY0eOo2DgqySjXJQ8ynP2Rvcuz6l5ExFVAbbt0CcbUKWw1c4zmU0Aga/Z?=
+ =?us-ascii?Q?G7NfvjdwlbdFQLWpbT5iLMUyfiigKfQ5109G4fciStUqr5VfblhRyuTCYLbM?=
+ =?us-ascii?Q?qBxKpXj5HaCMh6fKenKR8YyfYLCUccOMt6drI5JudA+nrQc++xCztu1m7nt7?=
+ =?us-ascii?Q?E2m4TQzaEJ/CsCnQC2bi+W0WFDaQcXGVT9jQbBWvAdh6X3+mfwKauImxkzYC?=
+ =?us-ascii?Q?p1IRxL4Bi8Z0brUsJ8njdJX5plvJR7AveJafGzldNHa14DmvaQ/snuypybSF?=
+ =?us-ascii?Q?9qFb6/iLXK2ePEkhYOHEd7UT0oYTRmzmRkgywqGBam9tsbYXTwiRaLyBZSzD?=
+ =?us-ascii?Q?9FF5oKnxij9WdPCLEqMP/gH89IMY30tzU4EM74lkMeUBk9yF/zRdMADywLRR?=
+ =?us-ascii?Q?8cXJS1sPpE+CO9uiZ4ySPWNywnia7+HgGiSLxbfY5SxCWJulrquNCzQHkmMH?=
+ =?us-ascii?Q?6GIPwELGcUoH50M+tvBz45OJmAhR5u7nOd/h6MKPLva3+ePEQ24glRSVayXa?=
+ =?us-ascii?Q?SKaoTROZfDR5ySNfHuAQ/P0RJy4lpYECpu7QQncUJgX1IS+EBe/OVUTEv9C+?=
+ =?us-ascii?Q?BhmEKaAMkw9ijYo36F8vtxJJaTV9xL/F00YXAsEzBnysqk1GdDNJ43v+Nqy4?=
+ =?us-ascii?Q?v6BBAqDK2m9Ult2qNzTHPUqt9/eNswZKVHZu3HqmKREDMkISe5cXSUHuVvvU?=
+ =?us-ascii?Q?QY6MyMzUfpRRgy+SSFpqRCVTuKuJE0BTKDzeA8nrs8JdCqg9F8q3Qb6FlIoS?=
+ =?us-ascii?Q?HbOUWQwTXHmnRSF74dS/xYJkoo4/R7o+WZ8sbZdN4C+oSevdK+OmA+vxdDds?=
+ =?us-ascii?Q?FbUGhdf6QIPVQ9fXDuqZLIvJXmULSOiW+X5Fulv1R9FN9KSqmiK8kLPQ+Klp?=
+ =?us-ascii?Q?Ctj8I8KVF6pa9Ivn+ipIDIiytzz1HG8N540L4qdfxDDQ8YW3QXF8VoTXGV2j?=
+ =?us-ascii?Q?b6dh9r2amg=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 29047b8f-6137-4721-de2f-08df332343c2
+X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB598757.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 05:37:46.4367 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: oDECtDpwD6R5IgXihmu0B3idluPazS8xYOnC/vm+wVW7EJl/VV5vBC2gnFbl/nmpEEwps+xOU3l3azmQrdoSVA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7442
 X-Mailman-Approved-At: Mon, 26 Oct 2026 08:43:34 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -100,74 +134,301 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Andre Eikmeyer <dev@deq.rocks>
+From: Jason Gunthorpe <jgg@nvidia.com>
 
-fwupd reads /dev/drm_dp_aux* while the GPU is runtime suspended. The AUX
-device holds no runtime PM reference, so the transfer touched registers of
-the powered off GPU and caused a CPU CATTER.
+Similar to xe, amdgpu wants to check pci_p2pdma_distance(), and
+only needs that if peer2peer can be supported by the GPU. It can migrate to
+system memory and support non-p2p DMA as well.
 
-Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
+Further it supports a private non-PCI XGMI path. For now hack this on top
+of a SGT type, but eventually this is likely better off as its own mapping
+type.
+
+Add two exporter SGT mapping types, one that matches P2P and one that
+matches all of the non-p2p. The pin and map code will force migrate if
+the non-p2p one is matched.
+
+Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+[ the match set is recorded in attach->matches and the type
+  selected from it at pin or map, so the pin walk, detach and the attach
+  error path ask dma_buf_attach_accepts_sgt_p2p() whether an attachment
+  could take P2P at all, and the XGMI override rewrites the recorded match
+  set entry rather than only attach->map_type. The map path keeps using
+  dma_buf_sgt_p2p_allowed() for the attachment being mapped, which has just
+  been selected. The runtime PM reference follows the same question: held
+  while P2P is in the match set, dropped in detach. - apopple ]
+Signed-off-by: Alistair Popple <apopple@nvidia.com>
 ---
- .../display/amdgpu_dm/amdgpu_dm_mst_types.c   | 19 +++++++++++++++++--
- 1 file changed, 17 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 137 +++++++++++++-------
+ 1 file changed, 92 insertions(+), 45 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index 7261317d4..b099bf520 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -24,6 +24,7 @@
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+index 9adf3eed8822..19ee9f85ff30 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+@@ -41,6 +41,7 @@
+ #include <drm/amdgpu_drm.h>
+ #include <drm/ttm/ttm_tt.h>
+ #include <linux/dma-buf.h>
++#include <linux/dma-buf-mapping.h>
+ #include <linux/dma-fence-array.h>
+ #include <linux/pci-p2pdma.h>
+ #include <linux/pm_runtime.h>
+@@ -79,43 +80,11 @@ static struct amdgpu_device *dma_buf_attach_adev(struct dma_buf_attachment *atta
+ static int amdgpu_dma_buf_attach(struct dma_buf *dmabuf,
+ 				 struct dma_buf_attachment *attach)
+ {
+-	struct amdgpu_device *attach_adev = dma_buf_attach_adev(attach);
+ 	struct drm_gem_object *obj = dmabuf->priv;
+ 	struct amdgpu_bo *bo = gem_to_amdgpu_bo(obj);
+ 	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
+ 	int r;
+ 
+-	/*
+-	 * Disable peer-to-peer access for DCC-enabled VRAM surfaces on GFX12+.
+-	 * Such buffers cannot be safely accessed over P2P due to device-local
+-	 * compression metadata. Fallback to system-memory path instead.
+-	 * Device supports GFX12 (GC 12.x or newer)
+-	 * BO was created with the AMDGPU_GEM_CREATE_GFX12_DCC flag
+-	 *
+-	 */
+-	if (amdgpu_ip_version(adev, GC_HWIP, 0) >= IP_VERSION(12, 0, 0) &&
+-	    bo->flags & AMDGPU_GEM_CREATE_GFX12_DCC)
+-		attach->peer2peer = false;
+-
+-	if (!amdgpu_dmabuf_is_xgmi_accessible(attach_adev, bo) &&
+-	    pci_p2pdma_distance(adev->pdev, attach->dev, false) < 0)
+-		attach->peer2peer = false;
+-
+-	/*
+-	 * Only allow P2P while the exporter is active, and keep it active
+-	 * until detach.  With runtime PM disabled take a plain reference so
+-	 * the put in detach stays balanced.
+-	 */
+-	if (attach->peer2peer) {
+-		struct device *dev = adev_to_drm(adev)->dev;
+-		int ret = pm_runtime_get_if_active(dev);
+-
+-		if (!ret)
+-			attach->peer2peer = false;
+-		else if (ret < 0)
+-			pm_runtime_get_noresume(dev);
+-	}
+-
+ 	r = dma_resv_lock(bo->tbo.base.resv, NULL);
+ 	if (r)
+ 		goto err_pm_put;
+@@ -127,7 +96,8 @@ static int amdgpu_dma_buf_attach(struct dma_buf *dmabuf,
+ 	return 0;
+ 
+ err_pm_put:
+-	if (attach->peer2peer)
++	/* Drop the reference taken in amdgpu_dma_buf_match_mapping() */
++	if (dma_buf_attach_accepts_sgt_p2p(attach))
+ 		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+ 	return r;
+ }
+@@ -138,7 +108,7 @@ static int amdgpu_dma_buf_attach(struct dma_buf *dmabuf,
+  * @dmabuf: DMA-buf where we remove the attachment from
+  * @attach: the attachment to remove
   *
+- * Drop the runtime PM reference taken in amdgpu_dma_buf_attach().
++ * Drop the runtime PM reference taken in amdgpu_dma_buf_match_mapping().
   */
+ static void amdgpu_dma_buf_detach(struct dma_buf *dmabuf,
+ 				  struct dma_buf_attachment *attach)
+@@ -147,7 +117,7 @@ static void amdgpu_dma_buf_detach(struct dma_buf *dmabuf,
+ 	struct amdgpu_bo *bo = gem_to_amdgpu_bo(obj);
+ 	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
  
-+#include <linux/pm_runtime.h>
- #include <linux/vmalloc.h>
- #include <drm/display/drm_dp_helper.h>
- #include <drm/display/drm_dp_mst_helper.h>
-@@ -111,6 +112,20 @@ STATIC_IFN_KUNIT ssize_t dm_dp_aux_transfer(struct drm_dp_aux *aux,
- 	if (WARN_ON(msg->size > 16))
- 		return -E2BIG;
+-	if (attach->peer2peer)
++	if (dma_buf_attach_accepts_sgt_p2p(attach))
+ 		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+ }
  
-+	ddc = TO_DM_AUX(aux)->ddc_service;
-+	adev = ddc->ctx->driver_context;
+@@ -175,7 +145,7 @@ static int amdgpu_dma_buf_pin(struct dma_buf_attachment *attach)
+ 	 * notiers are enabled.
+ 	 */
+ 	list_for_each_entry(attach, &dmabuf->attachments, node)
+-		if (!attach->peer2peer)
++		if (!dma_buf_attach_accepts_sgt_p2p(attach))
+ 			domains &= ~AMDGPU_GEM_DOMAIN_VRAM;
+ 
+ 	if (domains & AMDGPU_GEM_DOMAIN_VRAM)
+@@ -218,6 +188,7 @@ static void amdgpu_dma_buf_unpin(struct dma_buf_attachment *attach)
+ static struct sg_table *amdgpu_dma_buf_map(struct dma_buf_attachment *attach,
+ 					   enum dma_data_direction dir)
+ {
++	struct device *dma_dev = dma_buf_sgt_dma_device(attach);
+ 	struct dma_buf *dma_buf = attach->dmabuf;
+ 	struct drm_gem_object *obj = dma_buf->priv;
+ 	struct amdgpu_bo *bo = gem_to_amdgpu_bo(obj);
+@@ -231,7 +202,7 @@ static struct sg_table *amdgpu_dma_buf_map(struct dma_buf_attachment *attach,
+ 		unsigned int domains = AMDGPU_GEM_DOMAIN_GTT;
+ 
+ 		if (bo->preferred_domains & AMDGPU_GEM_DOMAIN_VRAM &&
+-		    attach->peer2peer) {
++		    dma_buf_sgt_p2p_allowed(attach)) {
+ 			bo->flags |= AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
+ 			domains |= AMDGPU_GEM_DOMAIN_VRAM;
+ 		}
+@@ -249,7 +220,7 @@ static struct sg_table *amdgpu_dma_buf_map(struct dma_buf_attachment *attach,
+ 		if (IS_ERR(sgt))
+ 			return sgt;
+ 
+-		if (dma_map_sgtable(attach->dev, sgt, dir,
++		if (dma_map_sgtable(dma_dev, sgt, dir,
+ 				    DMA_ATTR_SKIP_CPU_SYNC))
+ 			goto error_free;
+ 		break;
+@@ -261,7 +232,7 @@ static struct sg_table *amdgpu_dma_buf_map(struct dma_buf_attachment *attach,
+ 			return ERR_PTR(-EINVAL);
+ 
+ 		r = amdgpu_vram_mgr_alloc_sgt(adev, bo->tbo.resource, 0,
+-					      bo->tbo.base.size, attach->dev,
++					      bo->tbo.base.size, dma_dev,
+ 					      dir, &sgt);
+ 		if (r)
+ 			return ERR_PTR(r);
+@@ -269,7 +240,7 @@ static struct sg_table *amdgpu_dma_buf_map(struct dma_buf_attachment *attach,
+ 
+ 	case AMDGPU_PL_MMIO_REMAP:
+ 		r = amdgpu_ttm_mmio_remap_alloc_sgt(adev, bo->tbo.resource,
+-						    attach->dev, dir, &sgt);
++						    dma_dev, dir, &sgt);
+ 		if (r)
+ 			return ERR_PTR(r);
+ 		break;
+@@ -299,21 +270,22 @@ static void amdgpu_dma_buf_unmap(struct dma_buf_attachment *attach,
+ 				 struct sg_table *sgt,
+ 				 enum dma_data_direction dir)
+ {
++	struct device *dma_dev = dma_buf_sgt_dma_device(attach);
+ 	struct drm_gem_object *obj = attach->dmabuf->priv;
+ 	struct amdgpu_bo *bo = gem_to_amdgpu_bo(obj);
+ 
+ 	if (bo->tbo.resource &&
+ 	    bo->tbo.resource->mem_type == AMDGPU_PL_MMIO_REMAP) {
+-		amdgpu_ttm_mmio_remap_free_sgt(attach->dev, dir, sgt);
++		amdgpu_ttm_mmio_remap_free_sgt(dma_dev, dir, sgt);
+ 		return;
+ 	}
+ 
+ 	if (sg_page(sgt->sgl)) {
+-		dma_unmap_sgtable(attach->dev, sgt, dir, 0);
++		dma_unmap_sgtable(dma_dev, sgt, dir, 0);
+ 		sg_free_table(sgt);
+ 		kfree(sgt);
+ 	} else {
+-		amdgpu_vram_mgr_free_sgt(attach->dev, dir, sgt);
++		amdgpu_vram_mgr_free_sgt(dma_dev, dir, sgt);
+ 	}
+ }
+ 
+@@ -388,18 +360,93 @@ static void amdgpu_dma_buf_vunmap(struct dma_buf *dma_buf, struct iosys_map *map
+ 	amdgpu_bo_unpin(bo);
+ }
+ 
++static const struct dma_buf_mapping_sgt_exp_ops amdgpu_dma_buf_sgt_ops = {
++	.map_dma_buf = amdgpu_dma_buf_map,
++	.unmap_dma_buf = amdgpu_dma_buf_unmap,
++};
++
++static int amdgpu_dma_buf_match_mapping(struct dma_buf_match_args *args)
++{
++	struct dma_buf_attachment *attach = args->attach;
++	struct drm_gem_object *obj = args->dmabuf->priv;
++	struct amdgpu_bo *bo = gem_to_amdgpu_bo(obj);
++	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
++	struct device *dev = adev_to_drm(adev)->dev;
++	struct dma_buf_mapping_match sgt_match[2];
++	unsigned int num_match = 0;
++	bool peer2peer = true;
++	int ret;
 +
 +	/*
-+	 * User space reaches this through the drm_dp_aux_dev character device
-+	 * without a runtime PM reference. Refuse the transfer while GMUX keeps
-+	 * the GPU powered off, a register access then hangs the PEG link.
++	 * Disable peer-to-peer access for DCC-enabled VRAM surfaces on GFX12+.
++	 * Such buffers cannot be safely accessed over P2P due to device-local
++	 * compression metadata. Fallback to system-memory path instead.
++	 * Device supports GFX12 (GC 12.x or newer)
++	 * BO was created with the AMDGPU_GEM_CREATE_GFX12_DCC flag
++	 *
 +	 */
-+	pm_runtime_get_noresume(adev->dev);
-+	if (READ_ONCE(adev->gmux_off)) {
-+		pm_runtime_put_noidle(adev->dev);
-+		return -EBUSY;
++	if (amdgpu_ip_version(adev, GC_HWIP, 0) >= IP_VERSION(12, 0, 0) &&
++	    bo->flags & AMDGPU_GEM_CREATE_GFX12_DCC)
++		peer2peer = false;
++
++	/*
++	 * Only allow P2P while the exporter is active, and keep it active
++	 * until detach.  With runtime PM disabled take a plain reference so
++	 * the put in detach stays balanced.
++	 */
++	if (peer2peer) {
++		ret = pm_runtime_get_if_active(dev);
++		if (!ret)
++			peer2peer = false;
++		else if (ret < 0)
++			pm_runtime_get_noresume(dev);
 +	}
 +
- 	payload.address = msg->address;
- 	payload.data = msg->buffer;
- 	payload.length = msg->size;
-@@ -126,13 +141,13 @@ STATIC_IFN_KUNIT ssize_t dm_dp_aux_transfer(struct drm_dp_aux *aux,
- 	result = dc_link_aux_transfer_raw(TO_DM_AUX(aux)->ddc_service, &payload,
- 				      &operation_result);
- 
-+	pm_runtime_put_autosuspend(adev->dev);
++	if (peer2peer)
++		sgt_match[num_match++] = DMA_BUF_EMAPPING_SGT_P2P(
++			&amdgpu_dma_buf_sgt_ops, adev->pdev);
++	sgt_match[num_match++] = DMA_BUF_EMAPPING_SGT(&amdgpu_dma_buf_sgt_ops);
 +
- 	/*
- 	 * w/a on certain intel platform where hpd is unexpected to pull low during
- 	 * 1st sideband message transaction by return AUX_RET_ERROR_HPD_DISCON
- 	 * aux transaction is succuess in such case, therefore bypass the error
- 	 */
--	ddc = TO_DM_AUX(aux)->ddc_service;
--	adev = ddc->ctx->driver_context;
- 	if (adev->dm.aux_hpd_discon_quirk) {
- 		if (msg->address == DP_SIDEBAND_MSG_DOWN_REQ_BASE &&
- 			operation_result == AUX_RET_ERROR_HPD_DISCON) {
++	ret = dma_buf_match_mapping(args, sgt_match, num_match);
++	if (ret)
++		goto err_pm_put;
++
++	/*
++	 * If the transfer will use XGMI then force a P2P match: the importer
++	 * reaches VRAM over XGMI, so the BO may stay there even though PCIe
++	 * P2P did not match. Rewrite the recorded match set entry rather than
++	 * only attach->map_type, which is what dma_buf_mapping_select() will
++	 * copy from at pin or map time.
++	 */
++	if (peer2peer && !dma_buf_attach_accepts_sgt_p2p(attach) &&
++	    amdgpu_dmabuf_is_xgmi_accessible(dma_buf_attach_adev(attach), bo)) {
++		attach->matches[0].sgt_data.exporter_requires_p2p =
++			DMA_SGT_EXPORTER_REQUIRES_P2P_DISTANCE;
++		attach->map_type = attach->matches[0];
++	}
++
++	/* The PM reference is only needed while P2P is actually possible. */
++	if (peer2peer && !dma_buf_attach_accepts_sgt_p2p(attach))
++		pm_runtime_put_autosuspend(dev);
++	return 0;
++
++err_pm_put:
++	if (peer2peer)
++		pm_runtime_put_autosuspend(dev);
++	return ret;
++}
++
+ const struct dma_buf_ops amdgpu_dmabuf_ops = {
+ 	.attach = amdgpu_dma_buf_attach,
+ 	.detach = amdgpu_dma_buf_detach,
+ 	.pin = amdgpu_dma_buf_pin,
+ 	.unpin = amdgpu_dma_buf_unpin,
+-	.map_dma_buf = amdgpu_dma_buf_map,
+-	.unmap_dma_buf = amdgpu_dma_buf_unmap,
+ 	.release = drm_gem_dmabuf_release,
+ 	.begin_cpu_access = amdgpu_dma_buf_begin_cpu_access,
+ 	.mmap = drm_gem_dmabuf_mmap,
+ 	.vmap = amdgpu_dma_buf_vmap,
+ 	.vunmap = amdgpu_dma_buf_vunmap,
++	.match_mapping = amdgpu_dma_buf_match_mapping,
+ };
+ 
+ /**
 -- 
-2.55.0
+2.54.0
 
