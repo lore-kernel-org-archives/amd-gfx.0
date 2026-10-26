@@ -2,82 +2,84 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04ED7606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69B7C606A31B
 	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 09:34:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gr4eAt7W
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jdpmM1JF
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04D1A10F356;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2853010F357;
 	Tue, 27 Oct 2026 09:34:18 +0000 (UTC)
-Received: from mail-wm2-f6.google.com (mail-wm2-f6.google.com [74.125.225.134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FDFB10F1A7
- for <amd-gfx@lists.freedesktop.org>; Mon, 26 Oct 2026 22:45:18 +0000 (UTC)
-Received: by mail-wm2-f6.google.com with SMTP id
- 5b1f17b1804b1-4a1d25d7d5dso13787105e9.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 26 Oct 2026 15:45:18 -0700 (PDT)
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9E5710F148
+ for <amd-gfx@lists.freedesktop.org>; Mon, 26 Oct 2026 20:36:53 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-4a2084d62cdso27219595e9.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 26 Oct 2026 13:36:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1793054716; x=1793659516; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:subject:from:cc:to
- :content-language:user-agent:mime-version:date:message-id:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=J+L7bw3dA5fk3lxjoeNRPOpOrA1fQj1+m6AAzdxl9Ok=;
- b=gr4eAt7WTP/j4c8RnR1I5GEpRKFtoE3AukrcN5vH67RAbvCxE6l0ATiJG1QGWY9jFV
- aQpNSu4Yfps+ctaZq8koN/sOb8RbF+sS0whfKVT0KsPql4bKdPRWU2Zz+3qMG+rBSsUr
- ElQbYPpPNTuM2wHIK0OqkbaI9+2gs6k3BIzeptR/S2247cF2ZDUDQEix57GSHwOv/itt
- 6kJnqK7Kvd9I5bFbhwB3vKVv0aqSMgxdQh8LdncKHJ62BAT/+viVC/lW6UbhMPhUJ/Oc
- 7Jpv6QxukRY/hge/X8ysheITkaLkW3OKuSivw+VkbhCSoBp3JqWg58TQwyt3/rdY9XZW
- Q8cg==
+ d=gmail.com; s=20251104; t=1793047012; x=1793651812; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=NCTPq4rCLjOU9tU56KP+2bzUZdmxKJi8dy8plluOj+8=;
+ b=jdpmM1JFRdfghpcGvMfAZ9itIy6xa1a2ikrukq9P3iQbG7bShEm/15swU0zAMznMhL
+ TEDPv/TB02fkX26wwEnfmtmV5YdY60cmrSoBi2LucgKT1pL9xTnbtjQEvm190k0vFqpK
+ VarPcq9ZfktGoIQst7FNFWxzLs0DGc1kvCGCsaYmMRJf7597mIjPbChEKqajq7WnHuLT
+ 3fmXm1vdSVjc+TWOXDRqgX+EK1/3FWEirKsxV9ExD2ElIZR0YHfZGfwCEwzrDkLw64dx
+ aoyR73zTDDocJ6cwP2U6HoRwo7qlUvKOdbEEq7T8TE1qZAzsooBs03DDpNZibWWG/+gK
+ SDzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793054716; x=1793659516;
- h=content-transfer-encoding:content-type:subject:from:cc:to
- :content-language:user-agent:mime-version:date:message-id:x-gm-gg
+ d=1e100.net; s=20260707; t=1793047012; x=1793651812;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=J+L7bw3dA5fk3lxjoeNRPOpOrA1fQj1+m6AAzdxl9Ok=;
- b=Q5JI+kZ7aEQgH+RUKlIT9rXakTIZBrfG77YX04WE6gangSgZEZZAyPjJXjswW65hGQ
- 2WmqqLmVU6sS/U8rI2F23ehMiM68wKhV7VnPh+IvKEChUWWgmpQL7ikQdBxIbult1I7H
- OsvfG8gX61hN4Y7pTIR3EhzEstAwK8Pevf7bv4RJx+sNDj6ywwZOaJAkGgnLnbwEeOnA
- HbvkFgSyPcQnmN8EJcdByjEJ52vhDtbgFG7bCBqvDC512awdxAe+n0jEw3tIyzbQPOrC
- wcgB/2hg5/7VtmGEJcJTQMlcMsH1f+88hdJcQQg1wWu9oi4dQimBhNTUO7uKkva3KugR
- hAww==
-X-Gm-Message-State: AFq9FYKEWEx+JQny30hNQ3th90R1g//RaWNAY06dMeRexPo7x0rZRt66
- 7PC1PraMeMnFMOaWoGff8nuOz1B97dHWfAvpXPo1frIAX5T4RIiQwLBUT5Lo/babiTBVHDP6
-X-Gm-Gg: AYBFou2IyRvGnQHQ0Vt1EENj+0Kg2w99KQwyjeQzrs4BesfytrarlAzljCzM3WUbX+X
- DqbGJmYN7AuflDFIkOfz5bOqoz3Pb2ztZ0As3RiHdPXJ212JGQJw2zIyja+NyghbYNyHV4j2I4i
- gQrIo4ZNlue8GTv9UioRPvLhZVrVpTDsviL2EFwtfZCTDlk6/q+MmamZGrwATuXPT+S3r7qnVup
- Wruljx/M+IemJ1Gfx+fJCjOjFgzk7tkUMIRbTxvnt0fJgbYZXlqQ3oaIoQZbOmdGhASlqnRfYSB
- q1HwvSuprGrEZUVL5GpXziAJX0DNL4DNVspjfgeQiC4YkUdCKKghPs4vsfE5ebZYicHD5MDThKS
- /w6r7avvGIVkS+MNyMmgf+qYSm5uNYAbVQ/lCqVsoctEbgx2/sSoQJgckW+PFIrHP99TpflYWmF
- UDhokXNSYfWtBEKROkul6aOtVnz1DpxeqOsMruPoER4JWBraoaLLlGm1XmFjKvVVmO3Rj1ohsTR
- D6tPEGJG970spjfkG9shjC6Jp+dpCwZ+e8hI0AtYDUzDZftW8BD63euku5wM/0KUiHVMQ==
-X-Received: by 2002:a05:600c:530e:b0:4a1:811c:8078 with SMTP id
- 5b1f17b1804b1-4a35acbee85mr151336425e9.26.1793054716377; 
- Mon, 26 Oct 2026 15:45:16 -0700 (PDT)
-Received: from [192.168.1.12] ([31.94.68.191])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4a35a58a0e2sm276910045e9.13.2026.10.26.15.45.15
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 26 Oct 2026 15:45:15 -0700 (PDT)
-Message-ID: <9045e8b9-2634-476a-b765-c42fbbf44d85@gmail.com>
-Date: Mon, 26 Oct 2026 22:45:14 +0000
+ bh=NCTPq4rCLjOU9tU56KP+2bzUZdmxKJi8dy8plluOj+8=;
+ b=lkTPEeqrW2C++rG9US8DKvywO5Qz0QmwUF8mRfRg9EGZJtAb97LS4WZwrfv2rtxNwT
+ QCO3RCyK4fZm7LrFMf8DfdobLjaWy1mA8fOHZb+SuaKBXi3SaMZ8RM6U2oO5i0o9G0Js
+ G/B8LLJWc/ricieHoe0b8CV6pV93XKFLaIMiiqw9tBtfIf3tZ1Uza1CS3lsJx+hvPS9U
+ 4F/YoBdJE4LKj3nBF2aMJ+H1mQDCRBDSfmijS2QmQIl2SAuvs0vIiEu7Win/8IsUVpag
+ F37nefV4VnWNFwZABCCWHnooHyJGRn7Zo8BBw7w0lRTD3x0jwqHsrjLXKsYAPr19T1lT
+ Jv9Q==
+X-Gm-Message-State: AFq9FYKzRuXTz3eLGqeLRsQqh/yd8yTu1UVMVA74zPArbCaRRpmAnVwy
+ uVeWv8k3iHwQvgkW2YWPVXmEEYKpUvJglXvxOk4M5Y+GXR4CqAq4L+rRviWkwHbB5oI=
+X-Gm-Gg: AYBFou12hrc9coeyUG8slSncuAEmNzvD2a9TwCjbxlEZQ1qPaaFzfvBTWrNWr4BtD7z
+ jzl3FyJ8bHInY7iXr3w/HJZlp42edDP5t/EXB5Mrxy16UYZuZQE51VwXFAgkehg5D2M8nDXvLuj
+ kiKCPweCjCJoemkn9Ck2aIcYoq9mFJ+9DhKnlSgifcSnwXiRs3j6JpyHThqpvXlCo2KmqG5p2a1
+ aoN2daofkPph/EOrvGEL8LY7ek+DRgy3eAblumWHoH7lPs39c1SgsfZkBMj0+zw+/9juqdye/xs
+ F6squRJi8g+HTsUQtrNh3gK1RTisvhJAXyeciqnS7ItD8TwpoVVp+ClgbSB8xPHUrqe+il8a+pM
+ dZ26wTBVn/0hOEln0Ic7bxQNFX2mvM62jd7R0OI1O2yH/mpcd9Lg8KLK0NuLZgadMZQvTFmRDDD
+ tFsfw0NKxQql6m2VbtYx6CU34Rv9dU+s8yuxPA2xE930aQuyxbceSaWu/i5P7wpGFwCurV7yNaY
+ ORelzgxIMQRKSLVh3Csl0OSeDYDkqGTN5oK38qiPfUxxcW2OZNvEGGHryCHq+2UynbOJwXax+c5
+ QNLeDakGqthhBQAiX7XKmB//WCRk88lQJvAaTq8aFIR4Vzub3p7sLCL0N+axs8dwVKv7i5isB7L
+ nEafZvPvEP+UzdRMjl1ZF0Pk9kbg5I8llcOTSeOhWJuDDZkRDWQnMPsjH1Zr4iQBmIzocpuXz+D
+ 6xmV8vEAnknA677f59L6pQc8IrWHAUulYCqTsLDb7Wy+gDOQo87+PglWhx3fIdW32nUboic7XxA
+ hqxJRifRHeS2VMuq2EvKEtYNcbO6UTpyw/3ec6r7aW3WYlran+jKzjxOIH38ajEQO1JwdDeJxZi
+ IKmtb1tDSeA=
+X-Received: by 2002:a05:600c:1909:b0:4a1:7c56:d4e2 with SMTP id
+ 5b1f17b1804b1-4a35ac95fa0mr139540185e9.16.1793047012059; 
+ Mon, 26 Oct 2026 13:36:52 -0700 (PDT)
+Received: from albatros (ip-091-065-217-039.vkd74.pools.vodafone-ip.de.
+ [91.65.217.39]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4a359f3e00asm380680195e9.0.2026.10.26.13.36.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 26 Oct 2026 13:36:51 -0700 (PDT)
+From: Erhan Bilgili <erhan.bilgili@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, Jack.Xiao@amd.com,
+ Erhan Bilgili <erhan.bilgili@gmail.com>,
+ =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
+ stable@vger.kernel.org
+Subject: [PATCH v2] drm/amdgpu: Fix DC scanout position handling
+Date: Mon, 26 Oct 2026 21:36:19 +0100
+Message-ID: <20261026203619.41601-1-erhan.bilgili@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261025084506.62881-1-erhan.bilgili@gmail.com>
+References: <20261025084506.62881-1-erhan.bilgili@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Richard Lane <richardlanedev@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-From: Richard Lane <richardlanedev@gmail.com>
-Subject: [PATCH 0/3] drm/amd: Enable 2x1 tiled display support on Apple 5K
- iMacs
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 27 Oct 2026 09:34:11 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,72 +91,57 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-9.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable
-	autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi folks,
+The scanout position and vblank boundaries were decoded with a 13 bit
+mask, but the hardware reports wider values. With VRR, the vertical
+blank can be extended beyond 8191 lines, so the position gets
+truncated. This results in wrong vblank timestamps.
 
-Apple 27" 5K iMacs (2014-2019, iMac15,1 through Polaris-based iMac19,1)
-drive their internal 5120x2880 panel as a 2x1 tiled display using two
-2560x2880 streams over an internal eDP root link and a secondary DP
-link.
+Decode both values as 16 bit fields. No hardware generation uses the
+upper bits for anything else.
 
-At boot, the Apple EFI firmware initializes only a single 2560x2880 pipe
-and leaves the secondary DP tile unlatched with HPD deasserted. Because
-the secondary tile reports HPD low and requires a vendor-specific DPCD
-handshake before it responds as a DisplayPort sink, amdgpu currently
-fails to detect the second tile, leaving Linux limited to single-tile
-resolutions.
+Fixes: d38ceaf99ed0 ("drm/amdgpu: add core driver (v4)")
+Suggested-by: Michel Dänzer <michel.daenzer@mailbox.org>
+Cc: stable@vger.kernel.org
+Signed-off-by: Erhan Bilgili <erhan.bilgili@gmail.com>
+---
+v2: Decode both values as 16 bit fields (Michel).
+    Point Fixes at the commit which introduced the 13 bit mask (Michel).
 
-This series enables full 5120x2880 dual-tile operation on DCE < 12 Apple
-5K iMacs so that the internal 5K panel behaves like a standard DisplayID
-tiled monitor:
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-1. Reserve the full 64 MiB stolen EFI framebuffer region in GMC when
-   handing over from the relocated Apple EFI framebuffer.
-2. Pair the two internal links via an EDID quirk on DCE < 12 (covering
-   iMac15,1, iMac17,1, iMac18,3, and Polaris-based iMac19,1), latch the
-   secondary tile via DPCD 0x4F1 on the root eDP link, write the 3-byte
-   Boot Camp source table (0x310) on the secondary link, keep the
-   secondary tile out of D3 power-down, expose both tiles as
-   DRM_MODE_CONNECTOR_eDP for userspace compositors, and unlatch the
-   TCON back to single-pipe mode on suspend/shutdown. (DCE >= 12 support
-   for Vega-equipped iMac19,1, iMacPro1,1, and 2020 iMac20,x is noted as
-   TODO)
-3. Report the hardware-synchronized state of the two tiles
-   (all_displays_in_sync = true) to PowerPlay after dc_commit_streams()
-   on DCE < 12. While program_timing_sync() already aligns both CRTCs at
-   modeset, DCE < 12 leaves all_displays_in_sync unset, preventing SMU7
-   from downclocking MCLK at idle without modeset underflows.
-
-Note for review: Excluding explanatory comments, this series is ~ 47
-lines of functional code. All added code comments are intended to be
-removed before final submission, except for the comment starting
-"Workaround for..." in amdgpu_dm_helpers.c.
-
-Regards,
-Richard
-
-Richard Lane (3):
-  drm/amdgpu: reserve 64M stolen memory for Apple 5K iMac
-  drm/amd/display: unlock secondary tile on Apple 5K iMac panels
-  drm/amd/display: report synced Apple 5K tiles to PowerPlay for MCLK
-    switch
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c       | 10 ++++-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 44 +++++++++++++++++++
- .../display/amdgpu_dm/amdgpu_dm_connector.c   |  6 +++
- .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 34 ++++++++++++++
- drivers/gpu/drm/amd/display/dc/dc.h           | 12 +++++
- .../drm/amd/display/dc/link/link_detection.c  | 14 +++++-
- .../dc/link/protocols/link_dp_capability.c    |  7 +++
- .../display/dc/link/protocols/link_dp_phy.c   |  8 ++++
- 8 files changed, 133 insertions(+), 2 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+index 0a8dd7241750..9ceb2921ccec 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+@@ -1784,15 +1784,15 @@ int amdgpu_display_get_crtc_scanoutpos(struct drm_device *dev,
+ 	/* preempt_enable_rt() should go right here in PREEMPT_RT patchset. */
+ 
+ 	/* Decode into vertical and horizontal scanout position. */
+-	*vpos = position & 0x1fff;
+-	*hpos = (position >> 16) & 0x1fff;
++	*vpos = lower_16_bits(position);
++	*hpos = upper_16_bits(position);
+ 
+ 	/* Valid vblank area boundaries from gpu retrieved? */
+ 	if (vbl > 0) {
+ 		/* Yes: Decode. */
+ 		ret |= DRM_SCANOUTPOS_ACCURATE;
+-		vbl_start = vbl & 0x1fff;
+-		vbl_end = (vbl >> 16) & 0x1fff;
++		vbl_start = lower_16_bits(vbl);
++		vbl_end = upper_16_bits(vbl);
+ 	} else {
+ 		/* No: Fake something reasonable which gives at least ok results. */
+ 		vbl_start = mode->crtc_vdisplay;
 -- 
-2.55.0
+2.56.0
+
