@@ -2,121 +2,100 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3CDA606A31A
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Oct 2026 17:00:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B1CE606A31A
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Oct 2026 17:01:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=agLsNwns
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=inmRO8Ln
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 869F610E10C;
-	Mon, 26 Oct 2026 17:00:26 +0000 (UTC)
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011038.outbound.protection.outlook.com [40.107.208.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6634D10E1DF
- for <amd-gfx@lists.freedesktop.org>; Mon, 26 Oct 2026 17:00:20 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IsBEtStiVuzF7BKNRrB6jSbGwVCr3zTpZQksOPsAYE9O3YqpO0g5WTGEN5rsPrrByZdGq4+ofzEuYEV+AY3dY0lC2MQzmm45XgNZ9pQxtlOvl6/dcP24H71wGSNEZDblvSdvV2Jq2AL42v4hhr+JAjMtQJDwLJYSTEv3NWqUMLgzJxIWpiZ+KfbM5NcIW16Rjv/taYMSy3rmFRIJVBzCEcRBIvgo1pf0rZGEjRKU2AlPJmSiNjseb6RhmADF8Jqco1dX+RgPFbXOlDSYWuhQ0JOCozQ/2+iqmgAF3a4gk9fYwfD+OKaeU06Rjqj3rFreGZbhj0Yb5Kzz7SEnszL1Fg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1zNLW7EjmQnym0zPEf+dyxyHadTU/cGxPaacVQkOJ8E=;
- b=QdxQlTvvcIHqBGiDPLqmYYufumzvcbC5GyXr/Xp9uEyDZIxgjTCXI7w6Th3qFOFaM9TybV5cNM+C9aBiusNKbDXT4trrVC0jRVPyZxbVsDI25DFtm7E7i3rnJI98JJ7hzklAmK2B01PhHCnk/zEGa7upFDvkIPAldDCi9uYdZ+eF0EvkDcUoL1EEFL3ltTEMvysawiwKP5740SaYyDMsNVWE5Khnu1TdMRb2qhe/SGYdMcznxxA+JdXWc8ODi7gK53AmHo7qrMBOQHoPuLYRRySta4VJ7keS7n1p9lIULUUYY16jl5WEKYEt0wJdiHnmJaUQFqzr5n4wgbxBIsHtcg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1zNLW7EjmQnym0zPEf+dyxyHadTU/cGxPaacVQkOJ8E=;
- b=agLsNwns0EWYRUqxIBwa1jzVx9fx1kimu3T5aahkphRcIccO5/JqmyXCCmnbL0L3VX3gPNYJkHAJ7nhd2DhRLkms6W5nWYimp1gIB5PTu3yoNl+uR28BYAWCk6GLESWH/3nz5iZZrAV3oPCWB6oPXO5BNlmXDYKOKoSyWG6KIbM=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB9174.namprd12.prod.outlook.com (2603:10b6:510:2ed::9)
- by SA5PPFCAFD069B8.namprd12.prod.outlook.com
- (2603:10b6:80f:fc04::8e1) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 17:00:17 +0000
-Received: from PH7PR12MB9174.namprd12.prod.outlook.com
- ([fe80::eaaa:b430:ba9:5dc]) by PH7PR12MB9174.namprd12.prod.outlook.com
- ([fe80::eaaa:b430:ba9:5dc%7]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
- 17:00:15 +0000
-Message-ID: <65de1f6f-df69-417d-b31e-8e1731c12ca8@amd.com>
-Date: Mon, 26 Oct 2026 12:00:13 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Ensure that harvest information gets set
-Content-Language: en-US
-To: Kent Russell <kent.russell@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Hawking.Zhang@amd.com
-References: <20261022215738.3248641-1-kent.russell@amd.com>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <20261022215738.3248641-1-kent.russell@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SN7P220CA0025.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:806:123::30) To PH7PR12MB9174.namprd12.prod.outlook.com
- (2603:10b6:510:2ed::9)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E23C110E351;
+	Mon, 26 Oct 2026 17:01:10 +0000 (UTC)
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com
+ [74.125.82.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F48410E1DF
+ for <amd-gfx@lists.freedesktop.org>; Mon, 26 Oct 2026 17:01:04 +0000 (UTC)
+Received: by mail-dy1-f181.google.com with SMTP id
+ 5a478bee46e88-313bab9cfe7so559584eec.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 26 Oct 2026 10:01:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793034064; cv=none;
+ d=google.com; s=arc-20260327;
+ b=EEPSNFfRlKrEysWZN3SofAt27HgTe2SlixDNQDi+xbrpBw0AZPOr+X5K+Rxp4RZXZX
+ yjD9M9vg4jaLZIGpR5XIRlvb/azce0jdnQwToX24a8fTfR4pfrXyrf5riy1T+meqZJ63
+ fCRsj3QuFmn8JJn2eIwJTKj0iXNMBgcSfGKlTEl9Nb5C7mEWR1II3a3s6J/uLsFYVU4e
+ ddzmbBHZTcUkxXzbIqoJ+quTVP9gzzi1SXpFKZpjgL0ksrrrMC3WU40o8b6QU9LgnbYm
+ lSMt/l8Nwi8QKy3pmcMVfjHZOJRzyqu/6UoYZEkR/IBKO52fF/czlYZGEnbJhIf3Fx8D
+ 7pRQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=BS54ovh1nB1Pr1TNbVZrV/xnE/i+a7dkc4mdMDvEa3E=;
+ fh=MzjP44THGctB3bJ9O7DKkkpP1qgtwNmXjgild+RfD8Y=;
+ b=NiZ9Fy4EE1ISDcbIUliPauBDGivoa3wvaKjWBkB7jLaZ6ds8bT/whtHBOHSkeb38Ob
+ 9aFVe0FMRkck2KvMB8Jz7fKRybgWPIyjMRsPMOlpTf9gXGQx93pndtuWy3IPI8MIeyBd
+ 41zjIO/9ZO4MJRuEOEI7wnSmJjIzbRx+yeeXX+Age5BohhuOjS+oWUDMe5Elqi9HG2bM
+ ZAk8516nKmqEgh2CumfXWCSxSqsFIwPwcMrSQPxjrcIRCiB/lyK9KKfebp9m1HRtMAEp
+ 6IrK2LP/hpUviTQTqt/kJHX7YR/pYoCXDPyjchaPcTvTxBfcqOFWstoI5DB/j7yTa3Pf
+ JIlA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1793034064; x=1793638864; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=BS54ovh1nB1Pr1TNbVZrV/xnE/i+a7dkc4mdMDvEa3E=;
+ b=inmRO8LnlyEUDfFSuW9gusZuU+5+Cp/L0ffwSwo3/pA0sZg0RRyyIV+XPbj0Grz3XB
+ bBsehq4gT2Dsa1029f5QZI7FqgKyglUihXffJTbuJzPBa391meU1UMDlkMWpmmHjkj+m
+ Ok+/CY2mmIAtJVtMJBqm9g4U2nV1W1NJccl79mz2PgXo8BNgYjuz9XCasauEiJUFLVKJ
+ pbfCTYzFKdkiN3iHfzlYoM82zO0MCSv6z5HwSEZ/bY9Och5zes5PmwzOUQlts2zenNMx
+ 8Ev33ksfEgIM9jlfq1plVCVCThlAF+w1kZ5Gl8IvAOMC8AtNJ3OmDsJDWmSi3Dn8qwiw
+ 3r7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793034064; x=1793638864;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=BS54ovh1nB1Pr1TNbVZrV/xnE/i+a7dkc4mdMDvEa3E=;
+ b=t32DgM/6SHL79Hsn3oypRTnMLRd+CmfGSMHUmeQbUpYzKbNOghDR8ceF41JUzZcMSq
+ 8bvLzkULmpCT0EVTiR/AjWRvHPQCuSvPQDKgr8SEjrkXorS8rVZiSm4ib11LHRiSSe5p
+ nqL1TpwbNjrqdmxdEOpPAwdjdXGK0uS3rHbQWnpPEczljBHHKGV++1cj1ZF5ehSCrOur
+ SsHzUrHrdfZ3oRX/1jktvSKLZpXB4/dyv5H73MVKabaufQl/OyRAPlDSUQLivD8Gza0g
+ tBe3XPqxlZ7Is2H7BjvpTQlNyZi9z5g6k6U+sMXbkLcax9x9r0Bm4LzwAK7VxJLeswJW
+ 8uDg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxIwOwQj6WZ4vtUR1H4njJzcHqaRUfWGeyIe8kJ2iezLmJRbkvs3yfEEgiUiq+eMIpG02CjFDZZ@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJSi0YMXPPqC4QSIkgFWeZnFq6gX6vZ7IsfWWJRfWoOIOYulqiw
+ WAZcMsbjIyuFy1VCo3gDj2VbJdUWs0srz8dyFbEwOFCOkJYHafDWD3GZ1kCtUxJPPeLqzkQHJLX
+ cC9vm0WTrXVfZNT8afOuQJWq+AdmYnzw=
+X-Gm-Gg: AYBFou3dHdB/cQgk3FfGp01r1JitzvEHgS33Ny6xpP0a2Q5UMfkFjotSrFDbfdwsDl6
+ /T72Om6Eahgcrotl8XTVtuNruki40kAx+iMCbMra+wq0X5CJh7lN969mzE6RCGnXShF2XzT6Mfj
+ mNWlQASqIZT0ShXqDt/8qE8Tz0J6+gPbBsVX0KOoqvyoDYlhgqEnVo6YIO0MP5J4ecNNhjhZubq
+ oAsUaxAT7XKnokl0ijoQxJwpa2A5ePUAg2t41K/XUdpdPSg2WmbkFYHlCsPY23lz7bNracSTOce
+ QUqkaHo6IAG/L0Lr/VoYkcdpATP5BXnFC+8Z24bsAbRFyNpCdRNDoYk2/CVzUuzQC3RmB2Cx63C
+ 8/hVWe0L2jIm6eyPnksaigH/5Bbra4IXGg0GD6l7zIgRRmhd6gxL9bfEbXqFyAlGmuzKLWSPBNx
+ jDSgRATHMFg3jaDz4K6gBglko=
+X-Received: by 2002:a05:701b:430a:b0:16b:4f52:a08 with SMTP id
+ a92af1059eb24-1991b142105mr15395135c88.0.1793034063564; Mon, 26 Oct 2026
+ 10:01:03 -0700 (PDT)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB9174:EE_|SA5PPFCAFD069B8:EE_
-X-MS-Office365-Filtering-Correlation-Id: 39c49d17-b275-4909-289d-08df33829b52
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|23010399003|376014|1800799024|22082099003|18002099003|261026140227099003|56012099006|10067099003|261021123027099003|261022105027099003|261009223027099003|261022113327099003|261021121427099003|261026121527099003|11063799006;
-X-Microsoft-Antispam-Message-Info: QZ38ulpTa5nibJEwY/J9Phdx0b5D7lWOGJKMTAuOINTnLDY6OuISodStpENTZEldG1mh071gYkRLOGd/cSAAAUoBjnpVSeCF0coGHjhLVQjEPU5EtPjWkuOTEbXaw1Hg94cEaWx3P7qwrRkWKXkJ093XzvJaA0f27BYvpG/RtIjiEiY3JTIXeRqKa4Gb/aZzjJyTHJMuuD+vMlTr2MFWVJdUSbiKAfQHpmSBxLMUilBPDzSqZUfqQAQGwGhKFToifw1af+74VMw7i7z/roUAwS1+oOcv0XwgPNH6lLVAqqkyK06yCly2Wqfy2VXhR5q2erLu07PbpPs6R8iG5UNGqKBtr/tO/NSA3lrMuPFvDig3f32RGK4ndiqmktCKngaTXwyd58fzwjyzpSsdNWW7fjyhj2gIQiN/nHG2muP6cDgWmzGJfEPMWIFtjeD9lX2wl966qo8kOaDLvevtn7bn6K4ytFdhmNqO09gvRTj108ahYDxoJMVSqmj9z4azKDhYBCblGWItGNFRbZtBB6MQnTeH+n3cL/0b9sCMizZK3SY3B18MW57isncyZDFSg/p+tQWp1Ik0wnAPwV4fD/Dp/tDrADzznMkr/Ebr0RrpWPuhP4cqnGackBmvaRGxBhgoZf0+8/MN6dSNpX/JST6lKWGt1TvrpHPUCdfjsEjrFh8=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB9174.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(22082099003)(18002099003)(261026140227099003)(56012099006)(10067099003)(261021123027099003)(261022105027099003)(261009223027099003)(261022113327099003)(261021121427099003)(261026121527099003)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VEkvM08zL1NOUHpDWmtpMjU1WGZVUHZKMVlDR0ZaMXBxN0NEbFcrNXovRHIw?=
- =?utf-8?B?S2ZGU0pNTlZUeHVpSjFmdENCdWovSUYwMDRRV1dkMW4vMjBTcUdheVdVeU9q?=
- =?utf-8?B?OW5rODF5RWhKSU96WGZ2S3pzSmtCNjRMT3d4QzU1SERJOERCSFZPYVFsYTRT?=
- =?utf-8?B?UmhTbjJGUTRSNERVcEVTRFVSK08rSXZydjFKWjhhRExMM3pBZENkQlBUZm9F?=
- =?utf-8?B?RFQrSDJNcjYrMHhVRmtIQ2RlbHRlQ3VKMjJnSEp3aFBqcnBmTjMzUWQ5VS8w?=
- =?utf-8?B?cUhQTm4xeE5FYy9uZ1pRdU5aWlp1Sy9NQ1pEZC9QN2xlZGwzallxMWVUMDJS?=
- =?utf-8?B?TWpyUzdKOWh5QzBVZWZKdG1MR3M5QmNJR0laWGJqQVpXVlk1enRXUzY1dU81?=
- =?utf-8?B?WlNNdGVGczM5cTB2N01tQnM0d3ROMi8vOE1VOEpQUDJqaVMvdkx5dlB6M0FR?=
- =?utf-8?B?YzdBbGpGOUZZUkRnMFhSbS9QOFp4RkNKYzIraGJob3A3WHpteDFiRFVIc1Rp?=
- =?utf-8?B?Ni9CalR1UkgzN1VtNEFTKzF3bzl1aEsyTS91enIyWGNraXh4cjV4WHUxMmxn?=
- =?utf-8?B?YWhXR21KSHFRUVluLzl4dTFOdGNFb0toUlZPTXBxL1A0cjY2bFhrb0gvMDMr?=
- =?utf-8?B?WUFiWVZVVk1wMytOYW9nSmtvM0JJYVlSYzY3VEU2VXJJc1VJWjN0L1VSY1Bq?=
- =?utf-8?B?NGpFV1R0YWZIRnlrbVRxc09ia1hwMzAvN1AvbUhiTThTK2UwZGZ4WGlSSDlS?=
- =?utf-8?B?TndIcXgvbFkzMDZJeDVIa0htL3BsTHdqQkhsY2MwR0Fldm9sMVUrZEFPZzR4?=
- =?utf-8?B?TEkxM1NaSkVONS9nc1NkYjJ0TUQ5TTJhUEJ2SU9aTXN2dkV2RXV2UlYzOWwx?=
- =?utf-8?B?ZGZLbjcydVJTTFFQQiszYk0xTHhLcW45ZFQrcW5ONmFhVFpTL2kyYXZOTllP?=
- =?utf-8?B?N0ZmdVE3Qm9LaTdlTkNMYSt1OU5NR1hGTkh1aU10bVc3R21yQWxCT0dHeHVW?=
- =?utf-8?B?OEQ0b0NJb0Z1cnhCZjJBd3N4WWJDKzRoVUtjSS9CTGVwcVRUTWkzU2kzTWVk?=
- =?utf-8?B?d01mUEVMMExmRFJBS3BzaUc1VGYyWkFZVCtCOW4vdml0OFRWMFdjbnNMUko1?=
- =?utf-8?B?aGpXbnUySEVNS09BQVlaSnE2RCtITWxxcEZqUWs0b2RENUhsSEtiMHlWRzhE?=
- =?utf-8?B?ZkNISjFLMVNTK3BqTWpCcWFzeENXYkNVRzJXT2krMm5RSHBiODhmbEt1M0FW?=
- =?utf-8?B?eUxneldSQlg2NE9kK2RNY3NrL0pIcjdwMklPVldYS3BPeHlTc25taGNPbVBh?=
- =?utf-8?B?aWRpbk1CQ0FKcXdvbnQvSG9iWllkcWtlMjBkWGQ5dXhDYTgvU2lzOXJyVkNa?=
- =?utf-8?B?TnJHNzBzS0EvVHFveDRpdDRrempyR1l2U3lCVkNYS3RXNjZKT1VMb2RESTV2?=
- =?utf-8?B?RnJjREdqZDVnR3U4Nm91TElsODhIUlIxbDR3bVZUUXg1d3U4MW5PRzlhVnJm?=
- =?utf-8?B?ZlcrcEN0TDg5QWtPV08vcGJEbjcranRCWG5CUTZHV1duZ2VlbWZBZFNybGtW?=
- =?utf-8?B?UlkrVS9kSEtrRUhBSFY0SHd4SlZ2OVZUSmdUdnlwZ01QajVxSEh0TW9UdW9m?=
- =?utf-8?B?ck83SWVkNHVqR1U3a0dKeGZCdjN6Z1VkaGtQVjZrR2hPQWdEaU1QWUV0YWda?=
- =?utf-8?B?c215ZVVTeVJGL1pUWWZwaUZQZGZzMTFNQjFxOHBLUmlLVFFSR2RjQ0wzWGVk?=
- =?utf-8?B?cng5ZGxHQXFEU3k4TisrZy90clpMczRrRytiQzlhbU5Ib3BxWjFRd1NURkNI?=
- =?utf-8?B?Yy94R1NscitCK2dKUmRsTHloeGlyb3Z0RzlBeGRKUkI4RjB1OThzd0Z3ajJ2?=
- =?utf-8?B?L0h6eVgvQldMNFpCVngzMTE2ajFnUHZRZnluOGZtOFhYSkJoa1MyeGphTE9q?=
- =?utf-8?B?eVNLYmg4NnhBMThuaEluQ24wYURBdTVJUU44TUFEd2wrRXUwK0o5UlhPeFhD?=
- =?utf-8?B?OEFWZk5PRjFKZ0dVeUVZaVBPcEdZaHU5a3BqOUZvODlObUtUNm83K0NGYjlE?=
- =?utf-8?B?VWRVZzVVdmtKSndUeERKTGhMVGxIaS9HTW5HZkFmZU1NVEprS0VVRUwzUFUz?=
- =?utf-8?B?a3pXTTBwb0JucVRKV2JZYktMaXJJcTVjNW5ONmFhNmtaSkxkckVmaDJHU3BQ?=
- =?utf-8?B?WEdCY3AzNkYvM200RlVNRktzSzVKempQUzJLTzlmYnV4VzdxQU12MVg2NmJX?=
- =?utf-8?B?cjZqakFjUnROVzdiU1ErSXR2aFVxNjA2WVVITklBc2N6QUpCaERiRUs5UGdj?=
- =?utf-8?B?UEZmdzYwTE9oNkhSQ1RUQUZxSFgrdWtlREU3UC9uaXZpTy8wamNFUT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 39c49d17-b275-4909-289d-08df33829b52
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB9174.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 17:00:15.6660 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: L2GUf6p2u7J8oLHYYr/KZ7Dzo4p7L2k8aAEDLyFOy6xRPnmsPESjFPJBdqCNyM4igQdStLxlfhBnnm2TGBj9qg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPFCAFD069B8
+References: <20260923152912.1296884-1-qwe.aldo@gmail.com>
+ <20260923154357.1319689-1-qwe.aldo@gmail.com>
+ <CADnq5_PuveD6MFtdLFkkHk24jVCQqgyC1R6pUy7ri_RyWVSZXw@mail.gmail.com>
+ <CAP48Hftn=4fRju0BiDw84THpgOe=jn23zJT_9HFmvfWZHvfS=A@mail.gmail.com>
+In-Reply-To: <CAP48Hftn=4fRju0BiDw84THpgOe=jn23zJT_9HFmvfWZHvfS=A@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 26 Oct 2026 13:00:51 -0400
+X-Gm-Features: AclHuK-ZJnBGjssDmaDNeuleS1m5YvnvGtHzqQMdnRIj_FC0Z9Z0M08nvMiS3aY
+Message-ID: <CADnq5_PGM6sh3ZidW=_ZrPP7d0oANFvFXfiarF_5UVj4HZwGqw@mail.gmail.com>
+Subject: Re: [PATCH v3] drm/amdgpu: prevent parameter-space underflow in
+ nested ATOM table calls
+To: Aldo Ariel <qwe.aldo@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,119 +106,100 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.6 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+On Sat, Oct 24, 2026 at 5:01=E2=80=AFPM Aldo Ariel <qwe.aldo@gmail.com> wro=
+te:
+>
+> Hi Alex,
+>
+> Thanks for applying this fix. Could you point me to the commit or
+> the branch where it landed? I haven't been able to locate it and
+> would like to track its integration.
 
+Sorry, I forget to mention that it caused a regression in atombios
+parsing when I ran it through CI.
 
-On 10/22/26 16:57, Kent Russell wrote:
-> After the earlier patch export IP discovery on probe failure, there was
-> an unexpected consequence where harvest info was not populated. The
-> early-exit in amdgpu_discovery_sysfs_init meant that we never called
-> amdgpu_discovery_get_harvest_info, which is where we set the actual
-> harvest value. The first time we call amdgpu_discovery_sysfs_recurse
-> with NULL instead of adev, most values can get set. The 2nd time
-> amdgpu_discovery_sysfs_recurse is called, we bail early.
-> 
-> To keep the logic of the first patch intact, ensuring that older kernels
-> can still discover the IP blocks, add a separate call in the early-exit
-> section that sets the harvest information. This should be the only
-> functionality that is missed in this flow, the rest of the calls either
-> work fine with adev=NULL, or use the discovery_bin directly.
-> 
-> Fixes: 3ee1065e9830 ("drm/amdgpu: Export ip_discovery sysfs on probe failure")
-> Assisted-by: Claude:claude-opus-4
+Alex
 
-This should be
-
-Assisted-by: LLM
-
-> Signed-off-by: Kent Russell <kent.russell@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 45 +++++++++++++++++--
->   1 file changed, 41 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> index 16e3129db6a1..342edbd02880 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> @@ -1469,6 +1469,41 @@ static int amdgpu_discovery_sysfs_recurse(struct amdgpu_device *adev,
->   	return 0;
->   }
->   
-> +#define list_to_kobj(el) container_of(el, struct kobject, entry)
-> +
-> +static void amdgpu_discovery_sysfs_update_harvest(struct amdgpu_device *adev)
-> +{
-> +	struct ip_discovery_top *ip_top = adev->discovery.ip_top;
-> +	struct ip_die_entry *ip_die_entry;
-> +	struct list_head *el_die, *el_hw_id, *el_hw_inst;
-> +	struct ip_hw_id *hw_id;
-> +	struct kset *die_kset;
-> +	struct ip_hw_instance *ip_inst;
-> +
-> +	if (!ip_top)
-> +		return;
-> +
-> +	die_kset = &ip_top->die_kset;
-> +
-> +	spin_lock(&die_kset->list_lock);
-
-Can you use this here:
-
-guard(spinlock)(&die_kset->list_lock);
-
-Then you don't need the explicit cleanup one at the end.
-
-> +	list_for_each(el_die, &die_kset->list) {
-> +		ip_die_entry = to_ip_die_entry(list_to_kobj(el_die));
-> +
-> +		list_for_each(el_hw_id, &ip_die_entry->ip_kset.list) {
-> +			hw_id = to_ip_hw_id(list_to_kobj(el_hw_id));
-> +
-> +			list_for_each(el_hw_inst, &hw_id->hw_id_kset.list) {
-> +				ip_inst = to_ip_hw_instance(list_to_kobj(el_hw_inst));
-> +				ip_inst->harvest =
-> +					amdgpu_discovery_get_harvest_info(
-> +						adev, ip_inst->hw_id,
-> +						ip_inst->num_instance);
-> +			}
-> +		}
-> +	}
-> +	spin_unlock(&die_kset->list_lock);
-> +}
-> +
->   static int amdgpu_discovery_sysfs_init(struct amdgpu_device *adev)
->   {
->   	uint8_t *discovery_bin = adev->discovery.bin;
-> @@ -1479,9 +1514,13 @@ static int amdgpu_discovery_sysfs_init(struct amdgpu_device *adev)
->   	if (!discovery_bin)
->   		return -EINVAL;
->   
-> -	/* If early init already created sysfs in standalone mode, skip normal init */
-> -	if (adev->discovery.ip_top && adev->discovery.ip_top->standalone_mode)
-> +	/* If early init already created sysfs in standalone mode, update harvest info
-> +	 * now that adev is fully initialized, then skip the rest of normal init.
-> +	 */
-> +	if (adev->discovery.ip_top && adev->discovery.ip_top->standalone_mode) {
-> +		amdgpu_discovery_sysfs_update_harvest(adev);
->   		return 0;
-> +	}
->   
->   	ip_top = kzalloc_obj(*ip_top);
->   	if (!ip_top)
-> @@ -1536,8 +1575,6 @@ static int amdgpu_discovery_sysfs_init(struct amdgpu_device *adev)
->   
->   /* -------------------------------------------------- */
->   
-> -#define list_to_kobj(el) container_of(el, struct kobject, entry)
-> -
->   static void amdgpu_discovery_sysfs_ip_hw_free(struct ip_hw_id *ip_hw_id)
->   {
->   	struct list_head *el, *tmp;
-
+>
+> Thanks,
+> Aldo
+>
+>
+>
+> On Thu, 24 Sep 2026 17:52:34 -0400, Alex Deucher <alexdeucher@gmail.com> =
+wrote:
+> > Applied.  Thanks!
+> >
+> > On Wed, Sep 23, 2026 at 11:44=E2=80=AFAM Aldo Ariel Panzardo <qwe.aldo@=
+gmail.com> wrote:
+> > >
+> > > atom_op_calltable() invokes a child ATOM table, forwarding the
+> > > parent's parameter space with an offset:
+> > >
+> > >     amdgpu_atom_execute_table_locked(ctx->ctx, idx,
+> > >         ctx->ps + ctx->ps_shift,
+> > >         ctx->ps_size - ctx->ps_shift);
+> > >
+> > > ctx->ps_shift is in dwords (set to ps / 4 in
+> > > amdgpu_atom_execute_table_locked()), while ctx->ps_size is the
+> > > remaining capacity in bytes. The subtraction therefore mixes units:
+> > > a child table requesting 60 bytes (ps_shift =3D 15 dwords) with only
+> > > 16 bytes remaining would compute 16 - 15 =3D 1 instead of the correct
+> > > 16 - 60 =3D underflow.
+> > >
+> > > Convert ps_shift to bytes (ps_shift * 4) in both the guard and the
+> > > subtraction so the units are consistent. Abort the interpreter when
+> > > the request exceeds the available space so the parent table does not
+> > > continue with stale or uninitialized data.
+> > >
+> > > Fixes: d38ceaf99ed0 ("drm/amdgpu: add coordinate ATOMBIOS table suppo=
+rt")
+> > > Cc: stable@vger.kernel.org
+> > > Reported-by: Sashiko <sashiko-bot@kernel.org>
+> > > Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+> > > ---
+> > > v3: abort the interpreter (ctx->abort =3D true + return) when the
+> > >     child table's parameter space exceeds the parent's remaining
+> > >     capacity, instead of silently skipping execution (found by
+> > >     Sashiko AI review on v2).
+> > > v2: convert ps_shift to bytes (ps_shift * 4) before comparing with
+> > >     ps_size, fixing the unit mismatch (found by Sashiko AI review).
+> > >
+> > >  drivers/gpu/drm/amd/amdgpu/atom.c | 7 ++++++-
+> > >  1 file changed, 6 insertions(+), 1 deletion(-)
+> > >
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/=
+amdgpu/atom.c
+> > > index e0e585f..af283cd 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/atom.c
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/atom.c
+> > > @@ -646,8 +646,13 @@ static void atom_op_calltable(atom_exec_context =
+*ctx, int *ptr, int arg)
+> > >                 SDEBUG("   table: %d (%s)\n", idx, atom_table_names[i=
+dx]);
+> > >         else
+> > >                 SDEBUG("   table: %d\n", idx);
+> > > -       if (U16(ctx->ctx->cmd_table + 4 + 2 * idx))
+> > > -               r =3D amdgpu_atom_execute_table_locked(ctx->ctx, idx,=
+ ctx->ps + ctx->ps_shift, ctx->ps_size - ctx->ps_shift);
+> > > +       if (U16(ctx->ctx->cmd_table + 4 + 2 * idx)) {
+> > > +               if (ctx->ps_shift * 4 > ctx->ps_size) {
+> > > +                       ctx->abort =3D true;
+> > > +                       return;
+> > > +               }
+> > > +               r =3D amdgpu_atom_execute_table_locked(ctx->ctx, idx,=
+ ctx->ps + ctx->ps_shift, ctx->ps_size - ctx->ps_shift * 4);
+> > > +       }
+> > >         if (r) {
+> > >                 ctx->abort =3D true;
+> > >         }
+> > > --
+> > > 2.43.0
