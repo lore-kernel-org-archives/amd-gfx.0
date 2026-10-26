@@ -2,94 +2,128 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8589606A31A
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Oct 2026 08:43:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 075B1606A31B
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Oct 2026 08:43:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pOMZPskZ
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=acD0u71T
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C4B910ECA7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88D2E10ECA4;
 	Mon, 26 Oct 2026 08:43:41 +0000 (UTC)
-Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DA2A10E55C
- for <amd-gfx@lists.freedesktop.org>; Sun, 25 Oct 2026 04:01:54 +0000 (UTC)
-Received: by mail-dl1-f50.google.com with SMTP id
- a92af1059eb24-1931ff67a29so4176848c88.1
- for <amd-gfx@lists.freedesktop.org>; Sat, 24 Oct 2026 21:01:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792900914; x=1793505714; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=gibUibvdgP83xG+GS9VEMDqCdWat6T2Cw1tMDL5UgY8=;
- b=pOMZPskZ8ofwJ/JhiY9dz0BfGk5tYTd6IzoRtBfKUb6xxQJLj9bU80YDrxptz2vDD+
- HDFoZsHawHupujYqAzDXBpt5xzybiuQ8h/OJ6uQcghDd44kCyg6V9OoxY683cN+Eh+xs
- cZ5UNVfr4tBG269fiq5p7KiHKJhVECoTpFmJDc7/bxXM+c9QX/2BeJTDftJRc3TbBd+c
- HgSddyeCrXiXHqtZEjUDFiC61fFPsPRCCw6u7nC9Wx6fYsU4AWjtATIe8GQgatU4EFxx
- gWPew1UYS3nxc1R1M4dsvgaDUdsWxOH2xqCkX/EprCnGZYv20JsSKCdTYWsKBlZZdnEF
- QcZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792900914; x=1793505714;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=gibUibvdgP83xG+GS9VEMDqCdWat6T2Cw1tMDL5UgY8=;
- b=tTfYZIVU/IXnJZ1XVZAJM1h3cDO2oywVMkOLVCv8BrgrMI2w5t61cW7+TWQb00yO6g
- 62p9S2zZcMmnClmbjWPn3kooYGmSqL89GqcajwIEGN6fNvVu3i3KiRjNN9pM+bh005we
- gJnvSln/anUe1hgMZTU7YGbGtozMGTc2v8Yd0cV+5B/Ic3vAEXWhtPrjj2kpA9IRuGQ6
- B21jqdULUvOZ5rW+ftEuFo91wFLgRi0wpgk5BjGianXKffBFuOoGww1jQUI95OfvhTXs
- /kp/Wyqsgn4bcjkQkx7DDgZuhvUplAAeWCgBNXRkkML8+jedaV2K2pBilLdxJohwI9Zg
- 2G4w==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzS5SLWu8fdvArCRHVtppvaKUdpvMIdYvSI+sSqt+p3bx4883Ns0chKpiF2Tf5e0UBGsXXpG29k@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJVmzPsfHJTgyq+UIEu8TZXlqt6Hnlt+zKfcjfgMB9Prvs8ukfH
- TwtbUjGNHeCAsa3wVA/y7Oi6ErJbWc+T94svokix75qq0ZRgT0cirLk=
-X-Gm-Gg: AYBFou30+6Ie86zlSMV9VKuAMhCFSjFfoFMKpAWMJiIDd5FNOTuReHen0cIRGSD2yE7
- dVGKxBVN5XKHoayWS+wBDE4peXt6YVmGMCqgdNybOfIKAdLTjqk0cLVdNyxDGFmum+eWrCyz9MW
- cHBhTelrSl+A5qQszE6nzpRgWmXSgmX/Z2eMYwu+WHhkY54j+n62U0PyLgkBS5ia4skspfeaaPO
- t8bHr1Sy46mtTBITmKXAoXrMjEoZs+fFv2QSE0D4tlEXrSUIGLIC+E+0yrkkYUnjKti7NUQ4Ysr
- HOuwp7VyVGOS3v0KgNHI7YAtUMimWA3DOCUtmHPy5AdHeWqPCq6/kAIUDP6rCxiVQb+QC/Pvico
- DadJj2r2Tn4Gt0EzQe7Dme44JTxz1SA3DD3dITNI1mZreAAEDMjCMSELZ63zyr9vrZLBxMbpV3z
- +rWfcxIuEeQg0Z0e1t3hNwfp56FDdshOWc1NCQjl/WOCJodNDcjZHPXCeQkH5OCNEgsmgtEp8KX
- YJmHUx8pNvTdCpP9pfjKJCQO2mbyjSacLL2IuJy3V0DWBJbYMQiQjfli5y7qr6n1C3YABBnomF5
- 2AJf5QaeMCM9jPA=
-X-Received: by 2002:a05:701b:2501:b0:17b:fed6:7449 with SMTP id
- a92af1059eb24-19937abc522mr4807131c88.47.1792900913608; 
- Sat, 24 Oct 2026 21:01:53 -0700 (PDT)
-Received: from at-Standard-PC-Q35-ICH9-2009 ([106.221.76.40])
- by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-198a32ff780sm11635283c88.22.2026.10.24.21.01.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 24 Oct 2026 21:01:53 -0700 (PDT)
-From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-To: 
-Cc: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org (maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)),
- "H. Peter Anvin" <hpa@zytor.com>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Kenneth Feng <kenneth.feng@amd.com>, Hans de Goede <hansg@kernel.org>,
- =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Andre Eikmeyer <dev@deq.rocks>,
- linux-pci@vger.kernel.org (open list:PCI SUBSYSTEM),
- linux-kernel@vger.kernel.org (open list:X86 ARCHITECTURE (32-BIT AND 64-BIT)), 
- amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
- dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
- platform-driver-x86@vger.kernel.org (open list:X86 PLATFORM DRIVERS)
-Subject: [PATCH 02/13] PCI: Disable pcie port and access on D3 on specific amd
- devices
-Date: Sat, 24 Oct 2026 23:59:38 -0400
-Message-ID: <20261025040046.1602-3-atharvatiwarilinuxdev@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261025040046.1602-1-atharvatiwarilinuxdev@gmail.com>
-References: <20261025040046.1602-1-atharvatiwarilinuxdev@gmail.com>
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010071.outbound.protection.outlook.com [52.101.56.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7123B10E93D;
+ Mon, 26 Oct 2026 05:37:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GVhI55Mzcq4atVAmG+GBuK8VMnACMdOlybg85kBgz44Tqt+NRRXMWaNLR3cKCKn+3Ef2FiXobcyuUg+h5PYLxB1CdOI//ICY9Dx0XQuKu9nmd/QruDHSIVGrkYjp5XZeqQaQrHKGJdR19+BzCIFuznhJ6TFwTzoyXV8jZMbVp65xsMrD9DI5bDQfjAJfnbIGH5QnkS0RCswKIpXu4yahJCc4AUsa32le2WYhw2rcemcQub0tvataGs3jBylGlA+4ckYYREP/LlLBAng6o4LeM37RI9SV7/KaWwhqA7zxoRXCJO98pwcimLgLY6IkLOLL5ORAqsTUyEc2kEZaxoWmIw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=46NZBu0fDMsKHuKZKDe9ZlZgZjaOE6fO4ips4mAXnHc=;
+ b=cQHnUy9R0+MambrMeL9lQvZ/Z7G0S4UZi+ghCFycrQCbbp65vD8UXwqwgsCL6OhCAeRSaWRPJxJL+2XiqvmKJ5e3/IST9lvJ7id3HonyeLTRwbqRHkb3oIETw+SabuCfOXKNYExRegODFc6ikWJD4pNXOy9Z11iI27XGpfEnfTVCGvxA5gJTrgE/8QsmsOH5owzBO/ThHKiCAeG0VR/A/snsYXOq/b0b7G1MhBoyMzvUGgFwgmOLyeElh7NCnXstqSvzyNqI7BQhTuSJPAkv/xGOji9s7NHTjVUvQq75XTpMrMql+9PV4Yvp+yGAdscTCx84cQRsdOSh3Bo8KU8tAQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=46NZBu0fDMsKHuKZKDe9ZlZgZjaOE6fO4ips4mAXnHc=;
+ b=acD0u71TY3f1rJTKQDFQrIX+d5Ea06T/4Fn/jK2tWsKt6jFGd62w2Ez8zwDDR+o3cSVOe7xXOwtp0mG/kCmZQr1+3cecVvRDVBa8P8f5qQmBYI9PqL1gdeEJkKKSHg/WzsoGPei24LWe1zGdiu4DDO9KONgaBuG5S4DREwGHmcPTNhB34qq6j9c6YPNIsPFdS9mjzaD4ef+63jsxWYb9jeEy3Rfekns7IitCiqUw7NiYWZiiaJXaMsuGmR6J1AJs1HuZsBVlVie/rtWMwuyCDifD4N8GAwpO5bdls0HkAtaQbCNm85HsfuaPqlMCZWyMXSIi7fX6FlSTa62xPz3VoA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SA3PR12MB598757.namprd12.prod.outlook.com
+ (2603:10b6:806:52d::14) by SA1PR12MB7442.namprd12.prod.outlook.com
+ (2603:10b6:806:2b5::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
+ 2026 05:37:16 +0000
+Received: from SA3PR12MB598757.namprd12.prod.outlook.com
+ ([fe80::e206:100:5946:a777]) by SA3PR12MB598757.namprd12.prod.outlook.com
+ ([fe80::e206:100:5946:a777%5]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
+ 05:37:16 +0000
+From: Alistair Popple <apopple@nvidia.com>
+To: dri-devel@lists.freedesktop.org, christian.koenig@amd.com,
+ sumit.semwal@linaro.org, jgg@nvidia.com
+Cc: Alistair Popple <apopple@nvidia.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ Dongwon Kim <dongwon.kim@intel.com>, Leon Romanovsky <leonro@nvidia.com>,
+ Kevin Tian <kevin.tian@intel.com>, Xu Yilun <yilun.xu@linux.intel.com>,
+ Karl Mehltretter <kmehltretter@gmail.com>,
+ Baolu Lu <baolu.lu@linux.intel.com>,
+ Felix Kuehling <felix.kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, intel-xe@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org,
+ iommu@lists.linux.dev, Alexey Kardashevskiy <aik@amd.com>,
+ zhipingz@meta.com, treding@nvidia.com, jhubbard@nvidia.com
+Subject: [PATCH 08/26] dma-buf: Allow single exporter drivers to avoid the
+ match_mapping function
+Date: Mon, 26 Oct 2026 16:35:59 +1100
+Message-ID: <20261026053623.202642-9-apopple@nvidia.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261026053623.202642-1-apopple@nvidia.com>
+References: <20261026053623.202642-1-apopple@nvidia.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SY5P300CA0055.AUSP300.PROD.OUTLOOK.COM
+ (2603:10c6:10:1fe::10) To SA3PR12MB598757.namprd12.prod.outlook.com
+ (2603:10b6:806:52d::14)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA3PR12MB598757:EE_|SA1PR12MB7442:EE_
+X-MS-Office365-Filtering-Correlation-Id: b800c6e5-2109-4f05-371d-08df332331c1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|7416014|1800799024|366016|18002099003|6133799003|22082099003|56012099006|11063799006|261022075727099003|261021130227099003|261021123027099003|10067099003|261009223027099003|261022113327099003|261021135927099003|261022115727099003|261021121427099003|261022105027099003;
+X-Microsoft-Antispam-Message-Info: OFGs+aGAHfk8Fc1mJDVNfPTw3FTzWQIR0O74IXy5xwq4XkA83cbwH9ATD7nA5ea1XAkphCVDXh+Wpq1lEvOATaR9uOfWKpL5rVlQbw/UxR1s7kA4rwfdY9jXZ66kqUVNI8HhLyrFPiM+SuqqJakHlnmSqGG7KZ0c7q1uRAFrv0xiScFqbRT/1C53I23pxbm4DgzFCUeSxHFST25aweqwtoUyl+94NnBwucuJUykdwp/uGkGCr2YoGZg2+7+XhK2dlCvtmPF1MXygygoChKfJMt6uK8lPIgaHaGS66hJTnOVsqDfZFrQ5kap4c7BCTXQ/h+dPFbRUPK/vBf9BfW/nP1U9xDNxLZbvCYiCAjM8PWVSOR8EqB9f2oHEO310jOCKk0MZnKk4c5XBgG2U2EhAEvYCS7GJ8ptX2v3Co+HHQC2dw/dPqqMLn1w7RD1da+p2mxNKTIZpRKxZ5en+3h0kuDxnrqem2BPK/IxnbzTBve/HH/O+y2v+OAJBnZbC3z2UxUBHgQdWJj6j23m6ikg3bZMD87iTtnFcj9i543uL435PEM1Ak3sWZxQD3Oi019jNm2DjWosajZu5MknkduAmrR8TDlVwZ1ooby1bgs61jdNVXGYyCRY628+3JEHrMGLSLYLwIaJ1N6ExDC5+Oiu63DVxwTixxtnPJSBx613ina8=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA3PR12MB598757.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(18002099003)(6133799003)(22082099003)(56012099006)(11063799006)(261022075727099003)(261021130227099003)(261021123027099003)(10067099003)(261009223027099003)(261022113327099003)(261021135927099003)(261022115727099003)(261021121427099003)(261022105027099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?8ZcL9OemVsts2DOgqPxyEOVc/KBVbK8yQyZjjFZh8F7wzuwTQH/1YsKzdWtw?=
+ =?us-ascii?Q?I8xcCDT6LADoGz+GsRLWU0VbXIIOS2krsS4MxQSBnntxc1RCrH5NQ4uxzlue?=
+ =?us-ascii?Q?m31RlwqfxZavovBCpe4j9OAsgwBcmZc0Bug4DBAXG3+gdjwUmOJJHMrhjLEp?=
+ =?us-ascii?Q?p5auNFWc3LGmCx/6YTZbjTQGY10MojBXQ3FuxIabn64XkIUkSMWr750o0c6T?=
+ =?us-ascii?Q?kr+NOamWmRDXl2G3pJ/Xm9FJn/8unLTQDaxYoVkJx3jzywMrw7WjEv2QHXxC?=
+ =?us-ascii?Q?PhNsePjbh/b7giFeJCQpAacZ9TlSoF77p2ZGHQGiP/QnwHj8yVFD/+3oPol7?=
+ =?us-ascii?Q?Zc7IWpFPgwlDZ8ktjEM3IqvLPhfH3Uv4h86MFEBSS4gfxWGQgN5lZ/9luZu4?=
+ =?us-ascii?Q?F2svHekqXS+4gFFqPSCRDeayjoBcjV7Az6JrvsCdoEOJl860mF1RU43tFRjW?=
+ =?us-ascii?Q?qhDYcm8m+fxzEqYlpsu43a8yRFr2LX2JKDJFMBqqQr3xrBr2imTKvADEvYgb?=
+ =?us-ascii?Q?WpXEjHbiE//US2X5zoi+MTfwStqPYlYJfj3iNNMaC3ZwZhxTz1xgA/2BrxDB?=
+ =?us-ascii?Q?GqruBCSYMMgaX1uW6K0uzFO6GI8umR/nkUx/vLTMIykMkE8CppJH84yIhh+j?=
+ =?us-ascii?Q?EJiawtaDF8gvCqVjw49lsXB0mkIFQSgvOgahk+xzCYX2Ry5rUMZnXu9K5tbp?=
+ =?us-ascii?Q?n+w8dl/P3FRSkrwTwSazFnPcA0m/JwX6ETam0eNf0Z0k3uGpTm0EyUGjWlxe?=
+ =?us-ascii?Q?UdAN81GqaUPRaYcD1ZruzvPe8WA1d9Z6hv8Kzt/d2MIvpj2x7WvK6UnBR2/x?=
+ =?us-ascii?Q?Vo2mQqofaQHAONCypgQzH1lKfbB+MkBM8YvOOvwAEalna2HheB3D4erpLY9y?=
+ =?us-ascii?Q?h8kaj6uCMP7qYKqdhyIEwPD6tGsQfhpxYuREMrCSFXSmDSuaA4uHB5m7CBxP?=
+ =?us-ascii?Q?vV97C7ocVYMKuPkR31sGBGGLyHcWs6I/1576o6ScgsJi4VyHo5N82+rodzGs?=
+ =?us-ascii?Q?Q1FBSI+JuhahYMBQgxXZuEAOOAvbLl3MWpCCU5qxPzJIx7iiuWw+a1TJFZWt?=
+ =?us-ascii?Q?AEq5Nzp6zOj9ItGw4T8oqDTkHaRUi5IvYN/iuoAavX9AZXwVWPtccozhEPNN?=
+ =?us-ascii?Q?3xmkPdxvVyoQLS5Vl6/pYivOGbbP4IX1858TftWYAL2xAh8Xa0+JVfJuqOW0?=
+ =?us-ascii?Q?RPuEvqakaOtQ/AnukLW+QdFa4/LbSQIqm9ANV2psYiE0FpWf406aoiMiGo9A?=
+ =?us-ascii?Q?e6FMx0Q3QiC4naZs/BxYd/UCrODT4/Z1NZsCywRAH+z/xADJOrz8VvQyItVi?=
+ =?us-ascii?Q?znCj6LrGNQnMTjC7c9xY66ZmB7xV+/nsIfFxlNTGo+375ofOw+qWyW2kIafw?=
+ =?us-ascii?Q?lLAu/4UZJaQt32MQaOQXEOKkRBHRfRtrdf35BFVQ5NozIRpFzPttiWTVeSTv?=
+ =?us-ascii?Q?9AjpoO5uMu5a6zTIiFEnvNoX4OA1EVmQxTurXvxI63J6WkyQb39UAHAS4z5m?=
+ =?us-ascii?Q?PpjA8tzib/BoFiP481Pdyebs0BID39+KgXtnp/b21XezffWYpKWRzGVhIeTL?=
+ =?us-ascii?Q?FDnztVu/bOd8wrgKzGkKx6Uop3+s7ZmeTEFwbBWiL2v5iJFfNne5//ML+Btu?=
+ =?us-ascii?Q?lCGjqLPRdBjYiXzK6LR7xXHBpL/LEHD7b7rV0dbJc/GOgHEZVVi/8WBfi1l5?=
+ =?us-ascii?Q?VhHi2FlUoUdaK8vvuHAPDc/NJJevVbBf93NE/YnJa2ZlLzEsOJabyc5lIbxM?=
+ =?us-ascii?Q?QK+7nAwRjw=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b800c6e5-2109-4f05-371d-08df332331c1
+X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB598757.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 05:37:16.3619 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9ngYSjdlt4R0FouDoWzruxfHrY5x5XS0fK8VCT0cNRuQv5liNQXdKAU3UuUSL7eAbltyni2MldojTq86Kh/YNQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7442
 X-Mailman-Approved-At: Mon, 26 Oct 2026 08:43:34 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -101,177 +135,111 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-As mentioned in the previous commit, PWRD turns off the entire
-bridge, and if we read/write anything to the config space
-or the PCIE space when the bridge is dead, the CPU CATERR's,
-so to avoid interaction when the bridge is dead,
-we remove pcieport support for the bridges, and we restrict
-access to those bridges when the bridge is dead.
+From: Jason Gunthorpe <jgg@nvidia.com>
 
-Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+Introduce single_exporter_match into the dma_buf_ops so that single
+exporter drivers can simply set it using a static initializer to use the
+mapping type APIs. Provide a helper macro DMA_BUF_SIMPLE_SGT_EXP_MATCH()
+that generates the initializer for simple drivers that don't use P2P.
+
+More complex exporters, especially those with P2P, need to implement the
+match_mapping call back to extract things like their DMA struct device
+from the dma_buf in order to do the P2P calculations.
+
+Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
 ---
- arch/x86/pci/fixup.c       | 30 ++++++++++++++++++++++++++++++
- drivers/pci/access.c       | 18 ++++++++++++++++++
- drivers/pci/pcie/portdrv.c |  2 +-
- include/linux/pci.h        |  7 +++++++
- 4 files changed, 56 insertions(+), 1 deletion(-)
+ drivers/dma-buf/dma-buf.c       | 14 +++++++++++---
+ include/linux/dma-buf-mapping.h | 15 +++++++++++++++
+ include/linux/dma-buf.h         |  9 +++++++++
+ 3 files changed, 35 insertions(+), 3 deletions(-)
 
-diff --git a/arch/x86/pci/fixup.c b/arch/x86/pci/fixup.c
-index 795d81c7a..66829941e 100644
---- a/arch/x86/pci/fixup.c
-+++ b/arch/x86/pci/fixup.c
-@@ -1094,6 +1094,35 @@ static void asus_disable_nvme_d3cold(struct pci_dev *pdev)
- }
- DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, 0x9a09, asus_disable_nvme_d3cold);
+diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+index 90699e85e4c8..6c9ab8bc09ac 100644
+--- a/drivers/dma-buf/dma-buf.c
++++ b/drivers/dma-buf/dma-buf.c
+@@ -718,10 +718,14 @@ struct dma_buf *dma_buf_export(const struct dma_buf_export_info *exp_info)
+ 		    || !exp_info->ops->release))
+ 		return ERR_PTR(-EINVAL);
  
-+static const struct dmi_system_id quirk_disable_pcie_port_dmi_table[] = {
-+	{
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro16,1"),
-+		},
-+	},
-+	{
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro16,4"),
-+		},
-+	},
-+	{}
-+};
+-	if (exp_info->ops->match_mapping) {
++	if (exp_info->ops->match_mapping ||
++	    exp_info->ops->single_exporter_match) {
+ 		if (WARN_ON(exp_info->ops->map_dma_buf ||
+ 			    exp_info->ops->unmap_dma_buf))
+ 			return ERR_PTR(-EINVAL);
++		if (WARN_ON(exp_info->ops->match_mapping &&
++			    exp_info->ops->single_exporter_match))
++			return ERR_PTR(-EINVAL);
+ 	} else {
+ 		if (WARN_ON(!exp_info->ops->map_dma_buf ||
+ 			    !exp_info->ops->unmap_dma_buf))
+@@ -1078,8 +1082,12 @@ struct dma_buf_attachment *dma_buf_mapping_attach(
+ 		if (ret)
+ 			goto err_attach;
+ 	} else {
+-		ret = dma_buf_match_mapping(&match_args,
+-					    &dma_buf_sgt_exp_compat_match, 1);
++		const struct dma_buf_mapping_match *exp_match =
++			dmabuf->ops->single_exporter_match;
 +
-+static void quirk_disable_pcie_port(struct pci_dev *pdev)
-+{
-+	struct pci_dev *upstream = pdev;
-+
-+	if (dmi_check_system(quirk_disable_pcie_port_dmi_table)) {
-+		while ((upstream = pci_upstream_bridge(upstream))) {
-+			upstream->no_pcie_port = 1;
-+			upstream->ignore_access_d3 = 1;
-+		}
-+	}
-+}
-+DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_ATI, 0x7340, quirk_disable_pcie_port);
-+
- #ifdef CONFIG_SUSPEND
- /*
-  * Root Ports on some AMD SoCs advertise PME_Support for D3hot and D3cold, but
-@@ -1179,4 +1208,5 @@ static void quirk_tuxeo_rp_d3(struct pci_dev *pdev)
++		if (!exp_match)
++			exp_match = &dma_buf_sgt_exp_compat_match;
++		ret = dma_buf_match_mapping(&match_args, exp_match, 1);
+ 		if (ret)
+ 			goto err_attach;
  	}
- }
- DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_AMD, 0x1502, quirk_tuxeo_rp_d3);
-+
- #endif /* CONFIG_SUSPEND */
-diff --git a/drivers/pci/access.c b/drivers/pci/access.c
-index b123da16b..5e9513067 100644
---- a/drivers/pci/access.c
-+++ b/drivers/pci/access.c
-@@ -559,6 +559,9 @@ EXPORT_SYMBOL(pcie_capability_clear_and_set_dword);
+diff --git a/include/linux/dma-buf-mapping.h b/include/linux/dma-buf-mapping.h
+index 885e0e54b5eb..4aaddad8c7be 100644
+--- a/include/linux/dma-buf-mapping.h
++++ b/include/linux/dma-buf-mapping.h
+@@ -306,4 +306,19 @@ DMA_BUF_EMAPPING_SGT_P2P(const struct dma_buf_mapping_sgt_exp_ops *exp_ops,
  
- int pci_read_config_byte(const struct pci_dev *dev, int where, u8 *val)
- {
-+	if (pci_dev_ignore_access(dev))
-+		return PCIBIOS_SUCCESSFUL;
-+
- 	if (pci_dev_is_disconnected(dev)) {
- 		PCI_SET_ERROR_RESPONSE(val);
- 		return PCIBIOS_DEVICE_NOT_FOUND;
-@@ -569,6 +572,9 @@ EXPORT_SYMBOL(pci_read_config_byte);
+ extern const struct dma_buf_mapping_match dma_buf_sgt_exp_compat_match;
  
- int pci_read_config_word(const struct pci_dev *dev, int where, u16 *val)
- {
-+	if (pci_dev_ignore_access(dev))
-+		return PCIBIOS_SUCCESSFUL;
++/*
++ * dma_buf_ops initializer helper for simple drivers that use a single
++ * SGT map/unmap operation without P2P.
++ */
++#define DMA_BUF_SIMPLE_SGT_EXP_MATCH(_map, _unmap)                       \
++	.single_exporter_match = &((const struct dma_buf_mapping_match){ \
++		.type = &dma_buf_mapping_sgt_type,                       \
++		.exp_ops = &((const struct dma_buf_mapping_sgt_exp_ops){ \
++			.map_dma_buf = _map,                             \
++			.unmap_dma_buf = _unmap,                         \
++		}.ops),                                                  \
++		.sgt_data = {                                            \
++			.exporter_requires_p2p = DMA_SGT_NO_P2P,         \
++		} })
 +
- 	if (pci_dev_is_disconnected(dev)) {
- 		PCI_SET_ERROR_RESPONSE(val);
- 		return PCIBIOS_DEVICE_NOT_FOUND;
-@@ -580,6 +586,9 @@ EXPORT_SYMBOL(pci_read_config_word);
- int pci_read_config_dword(const struct pci_dev *dev, int where,
- 					u32 *val)
- {
-+	if (pci_dev_ignore_access(dev))
-+		return PCIBIOS_SUCCESSFUL;
+ #endif
+diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
+index 8bd5026eb642..d78eec3476f3 100644
+--- a/include/linux/dma-buf.h
++++ b/include/linux/dma-buf.h
+@@ -365,6 +365,15 @@ struct dma_buf_ops {
+ 	 */
+ 	const struct dma_buf_mapping_match *(*select_mapping)(
+ 		struct dma_buf_attachment *attach);
 +
- 	if (pci_dev_is_disconnected(dev)) {
- 		PCI_SET_ERROR_RESPONSE(val);
- 		return PCIBIOS_DEVICE_NOT_FOUND;
-@@ -590,6 +599,9 @@ EXPORT_SYMBOL(pci_read_config_dword);
++	/**
++	 * @single_exporter_match:
++	 *
++	 * Should only be set by the DMA_BUF_SIMPLE_*_EXP_MATCH() helper macros.
++	 * Exactly one of @match_mapping or @single_exporter_match must be
++	 * provided.
++	 */
++	const struct dma_buf_mapping_match *single_exporter_match;
+ };
  
- int pci_write_config_byte(const struct pci_dev *dev, int where, u8 val)
- {
-+	if (pci_dev_ignore_access(dev))
-+		return PCIBIOS_SUCCESSFUL;
-+
- 	if (pci_dev_is_disconnected(dev))
- 		return PCIBIOS_DEVICE_NOT_FOUND;
- 	return pci_bus_write_config_byte(dev->bus, dev->devfn, where, val);
-@@ -598,6 +610,9 @@ EXPORT_SYMBOL(pci_write_config_byte);
- 
- int pci_write_config_word(const struct pci_dev *dev, int where, u16 val)
- {
-+	if (pci_dev_ignore_access(dev))
-+		return PCIBIOS_SUCCESSFUL;
-+
- 	if (pci_dev_is_disconnected(dev))
- 		return PCIBIOS_DEVICE_NOT_FOUND;
- 	return pci_bus_write_config_word(dev->bus, dev->devfn, where, val);
-@@ -607,6 +622,9 @@ EXPORT_SYMBOL(pci_write_config_word);
- int pci_write_config_dword(const struct pci_dev *dev, int where,
- 					 u32 val)
- {
-+	if (pci_dev_ignore_access(dev))
-+		return PCIBIOS_SUCCESSFUL;
-+
- 	if (pci_dev_is_disconnected(dev))
- 		return PCIBIOS_DEVICE_NOT_FOUND;
- 	return pci_bus_write_config_dword(dev->bus, dev->devfn, where, val);
-diff --git a/drivers/pci/pcie/portdrv.c b/drivers/pci/pcie/portdrv.c
-index a9cbfc1d2..d2f19e566 100644
---- a/drivers/pci/pcie/portdrv.c
-+++ b/drivers/pci/pcie/portdrv.c
-@@ -688,7 +688,7 @@ static int pcie_portdrv_probe(struct pci_dev *dev,
- 	int type = pci_pcie_type(dev);
- 	int status;
- 
--	if (!pci_is_pcie(dev) ||
-+	if (!pci_is_pcie(dev) || dev->no_pcie_port ||
- 	    ((type != PCI_EXP_TYPE_ROOT_PORT) &&
- 	     (type != PCI_EXP_TYPE_UPSTREAM) &&
- 	     (type != PCI_EXP_TYPE_DOWNSTREAM) &&
-diff --git a/include/linux/pci.h b/include/linux/pci.h
-index d31a8d107..8835b1c82 100644
---- a/include/linux/pci.h
-+++ b/include/linux/pci.h
-@@ -420,6 +420,8 @@ struct pci_dev {
- 	unsigned int	no_d1d2:1;	/* D1 and D2 are forbidden */
- 	unsigned int	no_d3cold:1;	/* D3cold is forbidden */
- 	unsigned int	bridge_d3:1;	/* Allow D3 for bridge */
-+	unsigned int	no_pcie_port:1; /* PCIE Port driver is forbidden */
-+	unsigned int	ignore_access_d3:1;	/* Ignore access when device is in D3Cold */
- 	unsigned int	d3cold_allowed:1;	/* D3cold is allowed by user */
- 	unsigned int	mmio_always_on:1;	/* Disallow turning off io/mem
- 						   decoding during BAR sizing */
-@@ -2747,6 +2749,11 @@ static inline bool pci_dev_is_disconnected(const struct pci_dev *dev)
- 	return READ_ONCE(dev->error_state) == pci_channel_io_perm_failure;
- }
- 
-+static inline bool pci_dev_ignore_access(const struct pci_dev *dev)
-+{
-+	return dev->ignore_access_d3 && dev->current_state == PCI_D3cold;
-+}
-+
- void pci_request_acs(void);
- bool pci_acs_enabled(struct pci_dev *pdev, u16 acs_flags);
- bool pci_acs_path_enabled(struct pci_dev *start,
+ /**
 -- 
-2.55.0
+2.54.0
 
