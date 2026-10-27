@@ -2,42 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0757606A31E
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 20:00:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 751C4606A31A
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 20:01:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=3WzvHHoK
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=zF8XisCX
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C10010E478;
-	Tue, 27 Oct 2026 20:00:11 +0000 (UTC)
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010008.outbound.protection.outlook.com [52.101.61.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6914A10E478
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2026 20:00:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CB8C10E498;
+	Tue, 27 Oct 2026 20:01:47 +0000 (UTC)
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010062.outbound.protection.outlook.com
+ [52.101.193.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B587A10F7E6
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2026 20:01:40 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fSNZKsMNE7jd4JLQ33ujg7XzWnk6spOh6di9sDXGEhyWQP3c/68MwlX3eYsybDh0WTVNCQS2KeOQ50g+b5m17sHQXlyxbX0RpCgKy1O8NyluKoGrNm3kuppTRW8Y9nq99TVO6E06twVqPGuCZOQAx5/KyipVILCSxcknobS/grNntf0ZWVtVUdng3CZlGTshj97q4jX/N8DropeDf44H08qQNa75OiRcConpaJ05Jdy0aXxuxBX4GKkrW75PNFiG10wobcVmhyczIJ1FLK50F88kl8SfANQSqE1zj70dr/VSeWh/F72gAjhLh7+IKCwHCkBgJH6/cKteYgIkx3AaJw==
+ b=PeWbheDtyv6mpHsu7VtgTA+j1Xe+YmyiHWxfFwoTIqyIFL+0cviIeofTlxZUUwBXTLfWtmAe6x1TwafEEn21ypzZTkz1lAxSLm0LcD0M5xMUYp/b4dOWh8ZMWEd6/Xa5aRxjTxAkIOput471E2L/LTDZR++uDdbyt5rD67ViApvXkBoic/SUlH3O76QZvRZej00uXwgVAqTXFFTbu+LNBJSTGRIPhm8RznBMxEzXOS2aWplwi2In362azqoXJMEcfv01Pyj1DkPzN5aeDbCbcYzdPjCgjr5sL5z/1ZoEDCPnQyQFlRIybPEHfu8n3L79DuGy8hRTIBSKz+JRAGjX6g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Rl/XoC08ri35EYHJFuaYT/dR52o7b8NgvdIBQuRD9CI=;
- b=mviG0Y5SED4Zw2dSTtYD5P44nCeGnCyVb18SNtDAk5UsI6ltl5rZPPCVeuKtrsjkcQkKV1SvT2Bp6rujT+hXVrNQUyDBC4QVp7+5S8UkC2dbpvTbvF6PzXxYJBcfObbOvcjwn3AF4XzUMmUTQhj4FfeIjrv2k44XwjqHp3cZzXbsXgyZk5kBl2RBtCfinn3LrZLEwYXdH/yLzQXPNpLdYDxrxOXC6rwdCT9mBW9jDwu2ZXQBlGFE1B1j+d+MB+bAs8tLSZzTnwmQZeSOYTw+f37S29k9yGj5AigDNtFyyCRORgPk8g2wgka+THTv5/8inVQYSNJjj16ngOqJ8d68CQ==
+ bh=suCljZIruTJ53ILmx0i5QpHGYi7DuvulcyJqNvnHCFs=;
+ b=qA6UxR/iTVclFqRWuSXhQqiPZcm/UzL7OC12VX3gqeFVjHDIGiskxRSn+KmrMKO9phjwifonmuF3ASngU0pK1WM22To1x1BE8nj9x03GDqokOYPEGuA/vXiQqODtGasBDFeP1NKL3mEGSLw3bIckStjvY2P6U1CWkYul3yICOMLZgc+7pq6y4NEv1kXyt8gxTDaszsP26eTbZY8P2d3SLfLEjyOu5kjZY2ixghPXKdXvJq9nWXQSoLSgkYTW9yS/IRRw2F1swoKOH2X2aD9zcCAdnC6FHZQvjswhQrxtcSw19iuVN83PCdcJrRSTrBWWXT/UZQgoAJRIxOhZdEGaTQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Rl/XoC08ri35EYHJFuaYT/dR52o7b8NgvdIBQuRD9CI=;
- b=3WzvHHoKm8kEMdpALm4cpbNLo45EKczRvBZvEupuUz7C55wIPJ0gkA0qhAbUxTWJGdrWSEmc2LiYbbEaQbu7phEYJleSGVZIDQXi1GLFPiny3sDuWtYfHM9GKPTPvUXCpUkWGjMqcP91hwAXQFDZkyiG323O12R6mLUp4XKLb/M=
-Received: from SJ0PR05CA0071.namprd05.prod.outlook.com (2603:10b6:a03:332::16)
- by SJ2PR12MB8112.namprd12.prod.outlook.com (2603:10b6:a03:4f8::21)
+ bh=suCljZIruTJ53ILmx0i5QpHGYi7DuvulcyJqNvnHCFs=;
+ b=zF8XisCXSc0nbkrYkts3cucIUNhv77kY8J8DEftEq/Nj8blUSZovaxnj/sfxQ2LduxSiI+z+EqdaF7QE2ago97LJacuEAgqbFAWz9EFRP7pFB3MMMYqHq2la2sSiZhAlDp7TPxWn7pr6xh3kq3tIFVo0qKbnntFhADi5v1jV+VQ=
+Received: from SJ0PR05CA0070.namprd05.prod.outlook.com (2603:10b6:a03:332::15)
+ by CH3PR12MB504971.namprd12.prod.outlook.com (2603:10b6:610:34a::14)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 19:59:32 +0000
+ 2026 19:59:34 +0000
 Received: from PH5PEPF0000002E.namprd04.prod.outlook.com
- (2603:10b6:a03:332:cafe::87) by SJ0PR05CA0071.outlook.office365.com
- (2603:10b6:a03:332::16) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:a03:332:cafe::88) by SJ0PR05CA0070.outlook.office365.com
+ (2603:10b6:a03:332::15) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.7 via Frontend Transport; Tue, 27
- Oct 2026 19:59:31 +0000
+ Oct 2026 19:59:34 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -48,19 +49,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  PH5PEPF0000002E.mail.protection.outlook.com (10.167.243.8) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Tue, 27 Oct 2026 19:59:31 +0000
+ 15.21.569.4 via Frontend Transport; Tue, 27 Oct 2026 19:59:34 +0000
 Received: from mukjoshi-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 27 Oct
- 2026 14:59:29 -0500
+ 2026 14:59:30 -0500
 From: Mukul Joshi <mukul.joshi@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Felix.Kuehling@amd.com>, <Harish.Kasiviswanathan@amd.com>,
  <philip.yang@amd.com>, Mukul Joshi <mukul.joshi@amd.com>
-Subject: [PATCHv2 2/8] drm/amdgpu: Support VMID 0 GPUVA completion WB address
- for UALink
-Date: Tue, 27 Oct 2026 15:54:15 -0400
-Message-ID: <20261027195913.1794477-3-mukul.joshi@amd.com>
+Subject: [PATCHv2 5/8] drm/amdgpu: Set up UALink rings and metadata for
+ loopback
+Date: Tue, 27 Oct 2026 15:54:18 -0400
+Message-ID: <20261027195913.1794477-6-mukul.joshi@amd.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261027195913.1794477-1-mukul.joshi@amd.com>
 References: <20261027195913.1794477-1-mukul.joshi@amd.com>
@@ -72,29 +73,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH5PEPF0000002E:EE_|SJ2PR12MB8112:EE_
-X-MS-Office365-Filtering-Correlation-Id: a94e5e4a-b03b-4d7f-ac8a-08df3464d112
+X-MS-TrafficTypeDiagnostic: PH5PEPF0000002E:EE_|CH3PR12MB504971:EE_
+X-MS-Office365-Filtering-Correlation-Id: df674c26-e9f0-411b-7914-08df3464d279
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|82310400026|1800799024|376014|23010399003|18002099003|3023799007|6133799003|22082099003|261026121527099003|10067099003|261021123027099003|56012099006|11063799006|261021121427099003|261009223027099003|261022105027099003|261026140227099003;
-X-Microsoft-Antispam-Message-Info: wkvp/LPzhrxkE/Bwpodo4q/qlQzYASErE7AkCno3Oc1oVV0if02mssrVgx8c5pufFI/tcrZoC1uT9N9m1oI8nvofTHYPKpKQU7lLsMACcQZqIMZ8Wmk/HQzLHOMhBEhSo49g4+2M3WuCfYX0A0jAMn/r+OSEKRVEkE9yPPJ5r9Hcx/pJPg7Aq4Ex4JY24TWh50bnUA5dL+ByptGz9pOfnazket7xoan7PWaNAZJQsMxVhMF2B9kgucvQugexCnB7Clj/NRDe95JaA6MpLcJzgerbp6G/cZy/vWTpMQ0TMNpFC+vO2UST3JNtclJY7H6SilJHPjqmPb9I04+uryg5iL+cV6oZMA50T0novM2fptydU3sEdqPdYP3VNyrbYsep9QkNSuQbw51Y0j83fSN/EAt1un8UWQAJmtx5N8WShE7V/Wipr9gdNyVhnM0CVKR5pNLK3zowtpI/ldZ7rkP9RGgdvf41PhozyzDTOU+f3HOA+YiIiJNI5LwYQa2NlB3SS1by8JI0eGXQGzA769k/kmRNucAs/kIlRsivqgk8kb8CEb1sAJVQYbCPuTIBoir6Gk7VKVHMEexKoEShJjqVdjUnprLZp799g6zfJ4QKYl2Ac/f5SVZwH/jK/XIu8ZMokTzDg5YxasLnK+HruP76WKQFyowSIn+Net0Dm6HhoUpXWM0NEzdN+nL77O7PwDgXgfLUR/iXSWaIzpAZo1RQaQ==
+ ARA:13230040|23010399003|1800799024|36860700016|376014|82310400026|261021123027099003|261022105027099003|261009223027099003|261021121427099003|10067099003|56012099006|261026121527099003|22082099003|18002099003|11063799006|261026140227099003;
+X-Microsoft-Antispam-Message-Info: SpNSC2ZWrERNK9Fgd06Gwxs9vatsiCz1sV7PoBNa6jXi8ivuaoIM+fdyURTUHMeMUoxdv1aR9XzJaEIzChwC0Z1aJypXpNJvrb5j+OSFH/79xeRMn1ctCVCDZckvpqq7g3BzI536PjzuCkQ64tKRkVqxlyMFduvkFDJ4G30DuOphBI4/lNAp8lc91lzLR8I8kFdT+c5INooHSmqtlmw1p+7qlEJuLgj2+Da6BnSCQdaXlJOzJppE69nAWc7nzHyVoArE+YrtEstE1KtzSfM++tgrAVS85pLW8dGs2UVJYaoL8edJyu5eTQteLIgsRXNSpf/XzxnVSN8jJVHZCZtIcuIKETri6M4oMvz/GDFA8e5+7Q74WYaoZU1JESheY8Zj4zHExKpykbPkEKnADIkm1CSTphh/cr/j6JyttScL2lhzqTKyNMPcoDCJSefvXxh7ltyMHSz0sQ0nCrnmhk3f32CtHuFR7D1KR8ir9/vb1kaNgefCmuTnmR9jR8fHuZJQRWva+kz+LLkSW9zvBh9eaHG9vISsSltN7jQqV55g31GpzJysmSweKYGnWDDCKjMynUrEIAmwSH/+Dn2ewiySnTAQ1BRKazRkHGfplwIOUBvu24ta4cU3oMolOe+sATXVAmvg/3fp4y05qMMo3gnDvZX0eD3xZhd7ZhyxXZyS9B4I29tSlDJtVx1904L5OfbbkIs4p7awo5Erm4mWUObv9Q==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(82310400026)(1800799024)(376014)(23010399003)(18002099003)(3023799007)(6133799003)(22082099003)(261026121527099003)(10067099003)(261021123027099003)(56012099006)(11063799006)(261021121427099003)(261009223027099003)(261022105027099003)(261026140227099003);
+ SFS:(13230040)(23010399003)(1800799024)(36860700016)(376014)(82310400026)(261021123027099003)(261022105027099003)(261009223027099003)(261021121427099003)(10067099003)(56012099006)(261026121527099003)(22082099003)(18002099003)(11063799006)(261026140227099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: jScwNipVLU4N9Af4GmPWBhmTLjzEnBdstfuY/gISqZO2x0w90hszEokDcfEUzVKj0x1mAiy4pJP/eij1zUImTwxI6vJPFdPTHaGoNKAA9vK735NocAyWsImexg5v4PDWwjiIdCKt6ACbxvhYJg/BPE9+uy9Q+qgoZiBRJorc2sWjKCVkObZjaOYX+wo4knP8hj47BPER6I4Lx3k7+Dw0ug4I0T+eqtyGaqNcj3qr9oij13lKJofazDvOEmz9ZowcCboDcCm/H44ppZ61Uhf9UWDGRLaUuX1G2Br2NxAm8jw7nXhVlwGlwl+KZdkLodhcWe+um8lyop3uRvkulr8f+L/Hu3DSP0ypTHP6/nF2OrPZ71MAu70pdCaKRq6gSvshqag3HzjcwctFhS3CCQaHFbXEVABlww3dv3izpCPJ0MI6m8TkT4vK/uFOP7SLgGPJ
+X-MS-Exchange-AntiSpam-MessageData-0: jPd73qXfBpRGjOK3yeb3McKVWVtD+ej1PECmMpNvqwrcgxYwt1US6VaVfdu7opKOCN6Rv2hUipC8TQDtQ9eANTl5V/I2Q5+OtWUg2gHYwBIU4hSX3U3QxJBGtnZGWi8cvcS5epto8zbGIiIWaiUoxJlFGkMdUSeu7UZXHuNpOwhOuEkpSnf4+poAnNH3a9MxIHL4+uWSZ14hwtw0T/At7diq2TFNTRBwUk3qE6gmuRroDzAIHrZ7rvX3xXrCEkrqgvA+NTHq92X7zXVbfLc9IjOTqE2CPIFyKgBlXSlRq03gjFCvxN4/9zGJza5uDTXGTqqk3fd4YhiPTkvowVgyNJtaZ6pHvEvOY7MafBA4zO9Ma7JGYjXrO4SzwdkXacyHFvjwk0dvQq/6UsK/h7x3pYL3zFnFe4b6/dUkNbXxiqAgAWZKc6AafBD2hXZM6ba6
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 19:59:31.7812 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a94e5e4a-b03b-4d7f-ac8a-08df3464d112
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 19:59:34.1331 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: df674c26-e9f0-411b-7914-08df3464d279
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: PH5PEPF0000002E.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8112
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB504971
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,136 +113,155 @@ X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The UPDATE_WB_ADDR remote command hands the MP nHT FW the address it
-writes command completions back to. So far that has always been an NPA.
+In UALink loopback mode a single GPU acts as both the exporter and the
+importer, and the only path the HW serves is importer -> exporter.
+Adjust the per-peer setup accordingly:
 
-The FW can also take a VMID 0 GPUVA, selected by setting DW4 of the
-command to 1. Return the VMID 0 GPUVA of the writeback slot from
-amdgpu_ualink_get_wb_addr() alongside the NPA, and use it in
-UALink loopback mode. There the HW only carries importer -> exporter
-traffic, so the FW cannot write the completion back over NPA.
+- The importer's doorbell reaches the MP nHT stamped with the GPU ID of
+  the exporter, and the FW looks up the metadata entry by that ID. So
+  publish the importer's rings and tail pointers in metadata[exporter].
 
-Outside loopback the NPA is still used and DW4 stays 0.
+- The local sender of the HW-served direction is the importer, so set
+  up (and tear down) the send rings with the importer as the source.
+
+- Skip the ring pointer resync. Both ends of every ring are on this
+  GPU, so there is no remote peer that can reboot and leave the
+  pointers stale.
+
+- Do not take the local dma-buf shortcut on import. It would bypass
+  the NPA path that loopback is meant to exercise.
 
 Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 48 +++++++++++++++-------
- 1 file changed, 34 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 66 +++++++++++++++++-----
+ 1 file changed, 51 insertions(+), 15 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-index 2cd6dc71ab9f..a186859dee3c 100644
+index 96a6023f51c5..e6272446ff4f 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-@@ -5641,9 +5641,9 @@ static void amdgpu_ualink_emit_update_wb_addr(u32 **cpu_addr_p, u32 wb_data,
- 
- 	*cpu_addr++ = cmd;
- 	*cpu_addr++ = wb_data;
--	*cpu_addr++ = dw1 & 0xFFFFFFFC;	/* lower32 wb_npa */
--	*cpu_addr++ = dw0 & 0xFFFFF;	/* upper32 wb_npa */
--	*cpu_addr++ = 0;
-+	*cpu_addr++ = dw1 & 0xFFFFFFFC;	/* lower32 wb address */
-+	*cpu_addr++ = dw0 & 0xFFFFF;	/* upper32 wb address */
-+	*cpu_addr++ = dw2;		/* 1: wb address is VMID 0 GPUVA, 0: NPA */
- 	*cpu_addr++ = 0;
- 	*cpu_addr++ = 0; /* metadata */
- 	*cpu_addr++ = 0; /* metadata */
-@@ -5857,7 +5857,7 @@ static int amdgpu_ualink_send_command(struct amdgpu_device *adev,
- static void amdgpu_ualink_get_wb_addr(struct amdgpu_device *adev,
- 				      u32 remote_accel_id,
- 				      struct amdgpu_ualink_wb **wb_cpu,
--				      u64 *wb_npa, u32 type)
-+				      u64 *wb_npa, u64 *wb_gpu, u32 type)
- {
- 	struct amdgpu_ualink_remote *remote = to_remote(adev);
- 	/* The GPUID encoded in the write-back NPA address is the routing target
-@@ -5870,15 +5870,17 @@ static void amdgpu_ualink_get_wb_addr(struct amdgpu_device *adev,
- 	u32 accel_id = ualink_exp_accel_id(adev);
- 	u32 rb_size = AMDGPU_GPU_PAGE_ALIGN(2 * AMDGPU_UALINK_RB_SIZE);
- 	uintptr_t wb;
--	u64 npa;
-+	u64 gpu, npa;
- 	u32 offset = 0;
- 
- 	if (ualink_addr_mode(adev) == AMDGPU_UALINK_ADDR_MODE_SOURCE_IDENT) {
- 		wb = (uintptr_t)remote->rb_cpu_addr + rb_size * remote->num_accel;
-+		gpu = remote->rb_gpu_addr + rb_size * remote->num_accel;
- 		npa = amdgpu_ualink_npa_addr(adev, RB_TYPE_TAILPTR,
- 					     remote_accel_id, accel_id);
- 	} else {
- 		wb = (uintptr_t)remote->rptr_cpu_addr;
-+		gpu = remote->rptr_gpu_addr;
- 		npa = remote->rptr_npa;
- 		npa |= (u64)accel_id << AMDGPU_UALINK_GART_NPA_ADDR_GPUID_SHIFT;
+@@ -3965,7 +3965,13 @@ int amdgpu_ualink_import_handle(struct drm_device *dev,
+ 		return -EINVAL;
  	}
-@@ -5891,9 +5893,11 @@ static void amdgpu_ualink_get_wb_addr(struct amdgpu_device *adev,
- 	*wb_cpu = (struct amdgpu_ualink_wb *)(wb + offset);
- 	if (wb_npa)
- 		*wb_npa = npa + offset;
-+	if (wb_gpu)
-+		*wb_gpu = gpu + offset;
  
--	dev_dbg(adev->dev, "source %d remote %d wb npa 0x%llx\n", accel_id,
--		remote_accel_id, npa + offset);
-+	dev_dbg(adev->dev, "source %d remote %d wb npa 0x%llx gpu 0x%llx\n", accel_id,
-+		remote_accel_id, npa + offset, gpu + offset);
- }
+-	if (amdgpu_ualink_is_local_accel(adev, remote_acc_id))
++	/* In loopback mode the exporter and importer are the same GPU, but the
++	 * import must still go through the full cross-domain NPA path (the
++	 * dma_buf shortcut in amdgpu_ualink_local_import() bypasses NPA). Only
++	 * take the local shortcut for genuine same-pod local accelerators.
++	 */
++	if (!adev->ualink.loopback.enabled &&
++	    amdgpu_ualink_is_local_accel(adev, remote_acc_id))
+ 		return amdgpu_ualink_local_import(adev, remote_acc_id,
+ 						  &handle, fd_out);
  
- struct amdgpu_ualink_wptr_fence_cb {
-@@ -6057,9 +6061,9 @@ static int amdgpu_ualink_ring_resync_ptrs(struct amdgpu_device *adev,
- 		ualink_exp_accel_id(adev), peer->interrupt.wptr, peer->shootdown.wptr,
- 		remote_accel_id, int_wptr, tlb_wptr);
+@@ -5441,11 +5447,28 @@ static int amdgpu_ualink_metadata_init(struct amdgpu_device *adev)
+ 		wptr_gpu_addr = remote->rb_gpu_addr + rb_size * ualink_exp_accel_id(adev);
  
--	amdgpu_ualink_get_wb_addr(adev, remote_accel_id, &int_wb, NULL,
-+	amdgpu_ualink_get_wb_addr(adev, remote_accel_id, &int_wb, NULL, NULL,
- 				  RB_TYPE_REMOTE_INTERRUPT);
--	amdgpu_ualink_get_wb_addr(adev, remote_accel_id, &tlb_wb, NULL,
-+	amdgpu_ualink_get_wb_addr(adev, remote_accel_id, &tlb_wb, NULL, NULL,
- 				  RB_TYPE_TLB_INV);
+ 	for_each_set_bit(accel_id, remote->active_accel_bits, AMDGPU_UALINK_ACCEL_MAX) {
++		struct amdgpu_ualink_metadata *md;
++
+ 		dev_dbg(adev->dev, "init for accel_id %u\n", accel_id);
  
- 	peer->interrupt.wptr = int_wptr;
-@@ -6093,7 +6097,8 @@ static int amdgpu_ualink_update_wb_address(struct amdgpu_device *adev,
- 	struct amdgpu_ualink_peer *peer;
- 	struct amdgpu_ualink_ring *ring;
- 	struct amdgpu_ualink_wb *wb_cpu;
--	u64 wb_npa;
-+	u64 wb_npa, wb_gpu, wb_addr;
-+	u32 wb_vmid0;
+ 		if (accel_id == ualink_exp_accel_id(adev))
+ 			continue;
+ 
++		/* In loopback the single MP nHT services the exporter half:
++		 * the only messages delivered over HW are importer -> exporter
++		 * (source = importer accel_id), while the exporter -> importer
++		 * direction is emulated in SW and never reaches the MP nHT.
++		 *
++		 * The importer's doorbell reaches the MP nHT stamped with the
++		 * GPU ID of the single physical station, the exporter, so the
++		 * FW looks up metadata[exporter]. Publish the importer's rings
++		 * and tail pointers in that entry.
++		 */
++		if (adev->ualink.loopback.enabled)
++			md = &metadata[ualink_exp_accel_id(adev)];
++		else
++			md = &metadata[accel_id];
++
+ 		rb_gpu_addr = remote->rb_gpu_addr + rb_size * accel_id;
+ 
+ 		if (ualink_addr_mode(adev) == AMDGPU_UALINK_ADDR_MODE_SOURCE_IDENT) {
+@@ -5453,27 +5476,26 @@ static int amdgpu_ualink_metadata_init(struct amdgpu_device *adev)
+ 			wptr_gpu_addr += wptr_size * accel_id;
+ 		}
+ 
+-		metadata[accel_id].header = AMDGPU_UALINK_METADATA_HEADER;
+-		metadata[accel_id].rb_size = fls(AMDGPU_UALINK_RB_SIZE / 64) - 1;
++		md->header = AMDGPU_UALINK_METADATA_HEADER;
++		md->rb_size = fls(AMDGPU_UALINK_RB_SIZE / 64) - 1;
+ 
+ 		/*
+ 		 * remote shootdown type is 0, remote command type is 1
+ 		 * with 2MB ring buffer mapping, remote shootdown ring NPA is before interrupt
+ 		 */
+-		metadata[accel_id].ri_rb = rb_gpu_addr + AMDGPU_UALINK_RB_SIZE;
+-		metadata[accel_id].tlb_inv_rb = rb_gpu_addr;
++		md->ri_rb = rb_gpu_addr + AMDGPU_UALINK_RB_SIZE;
++		md->tlb_inv_rb = rb_gpu_addr;
+ 
+-		metadata[accel_id].tailptr_ri = wptr_gpu_addr +
+-						ualink_wptr_offset(adev, accel_id);
+-		metadata[accel_id].tailptr_tlb_inv = wptr_gpu_addr +
+-						     ualink_tlb_wptr_offset(adev, accel_id);
++		md->tailptr_ri = wptr_gpu_addr + ualink_wptr_offset(adev, accel_id);
++		md->tailptr_tlb_inv = wptr_gpu_addr +
++				      ualink_tlb_wptr_offset(adev, accel_id);
+ 
+-		dev_dbg(adev->dev, "init from accel_id %u to accel_id %u, rb_size 0x%x\n",
+-			accel_id, ualink_exp_accel_id(adev), metadata[accel_id].rb_size);
++		dev_dbg(adev->dev, "init from accel_id %u to accel_id %u, metadata entry %td, rb_size 0x%x\n",
++			accel_id, ualink_exp_accel_id(adev), md - metadata, md->rb_size);
+ 		dev_dbg(adev->dev, "rb 0x%llx tlb rb 0x%llx\n",
+-			metadata[accel_id].ri_rb, metadata[accel_id].tlb_inv_rb);
++			md->ri_rb, md->tlb_inv_rb);
+ 		dev_dbg(adev->dev, "rb wptr at 0x%llx tlb wptr at 0x%llx\n",
+-			metadata[accel_id].tailptr_ri, metadata[accel_id].tailptr_tlb_inv);
++			md->tailptr_ri, md->tailptr_tlb_inv);
+ 	}
+ 
+ 	r = adev->ualink.msg_ctl->send_metadata(adev,
+@@ -6058,6 +6080,12 @@ static int amdgpu_ualink_ring_resync_ptrs(struct amdgpu_device *adev,
+ 	u64 int_wptr, tlb_wptr;
  	int r;
  
- 	peer = &remote->peer[remote_accel_id];
-@@ -6105,13 +6110,28 @@ static int amdgpu_ualink_update_wb_address(struct amdgpu_device *adev,
- 		return -EINVAL;
- 
- 	amdgpu_ualink_get_wb_addr(adev, remote_accel_id, &wb_cpu, &wb_npa,
--				  ring_type);
-+				  &wb_gpu, ring_type);
-+
-+	/* UALink loopback: HW only carries importer -> exporter traffic, so the
-+	 * MPNHT FW cannot write the completion back over NPA. Hand it the VMID 0
-+	 * GPUVA of the writeback instead and flag it in DW4 of the command.
++	/* UALink loopback: both ends of every ring live on this GPU, so there
++	 * is no remote peer that can reboot and leave the pointers stale.
 +	 */
-+	if (adev->ualink.loopback.enabled) {
-+		wb_addr = wb_gpu;
-+		wb_vmid0 = 1;
-+	} else {
-+		wb_addr = wb_npa;
-+		wb_vmid0 = 0;
-+	}
++	if (adev->ualink.loopback.enabled)
++		return 0;
 +
-+	dev_dbg(adev->dev, "remote %u ring type %u wb %s 0x%llx\n",
-+		remote_accel_id, ring_type, wb_vmid0 ? "gpuva" : "npa", wb_addr);
+ 	/* ring->wptr and ring->rptr are owned by the send path. */
+ 	guard(mutex)(&peer->lock);
  
- 	r = amdgpu_ualink_send_command(adev, remote_accel_id, ring, wb_cpu,
- 				       amdgpu_ualink_emit_update_wb_addr,
--				       upper_32_bits(wb_npa),
--				       lower_32_bits(wb_npa),
--				       0, 0);
-+				       upper_32_bits(wb_addr),
-+				       lower_32_bits(wb_addr),
-+				       wb_vmid0, 0);
- 	if (!r) {
- 		ring->wb_cpu = wb_cpu;
- 		ring->ready = true;
+@@ -6279,7 +6307,12 @@ static int amdgpu_ualink_peer_remote_init(struct amdgpu_device *adev)
+ 	struct amdgpu_ualink_peer *peer;
+ 	struct amdgpu_ualink_ring *interrupt;
+ 	struct amdgpu_ualink_ring *shootdown;
+-	u32 src_accel_id = ualink_exp_accel_id(adev);
++	/* This sets up the send rings (local sender -> each remote dst). In
++	 * loopback the HW-served direction is importer -> exporter, so the
++	 * local sender is the importer; the skip below then skips the importer
++	 * and sets up the peer[exporter] ring that the HW path needs.
++	 */
++	u32 src_accel_id = ualink_imp_accel_id(adev);
+ 	u32 dst_accel_id;
+ 	u64 npa, flags;
+ 	int r = 0;
+@@ -6402,7 +6435,10 @@ static void amdgpu_ualink_peer_remote_fini(struct amdgpu_device *adev)
+ {
+ 	u32 rb_pages = AMDGPU_UALINK_RB_SIZE >> AMDGPU_GPU_PAGE_SHIFT;
+ 	struct amdgpu_ualink_remote *remote = to_remote(adev);
+-	u32 src_accel_id = ualink_exp_accel_id(adev);
++	/* Mirror peer_remote_init: in loopback the local sender is the
++	 * importer, so unmap the peer[exporter] send ring that was set up.
++	 */
++	u32 src_accel_id = ualink_imp_accel_id(adev);
+ 	u32 dst_accel_id;
+ 	struct amdgpu_ualink_peer *peer;
+ 	struct amdgpu_ualink_ring *ring;
 -- 
 2.55.0
 
