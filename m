@@ -2,86 +2,123 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F253A606A31A
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Oct 2026 23:51:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6295606A31E
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 03:42:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kMlaLlet
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=WGTfmp47
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 76D3D10E060;
-	Mon, 26 Oct 2026 23:51:13 +0000 (UTC)
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3B3A10E060
- for <amd-gfx@lists.freedesktop.org>; Mon, 26 Oct 2026 23:51:07 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-4a5720b0a57so2725585e9.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 26 Oct 2026 16:51:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1793058666; x=1793663466; darn=lists.freedesktop.org;
- h=mime-version:user-agent:content-transfer-encoding:content-type
- :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
- :cc:subject:date:message-id:reply-to:content-type;
- bh=mJJ88KthELvwKH1YCQio0NHFc68Qi5oemLUdp0JCP88=;
- b=kMlaLletj8NWIOz+GqXG86Np83wpLrLCRFB0mZY6RKtX6bbFbIqHXx6wuR4CahvAYe
- 6YK3aU3MNzFYI9c0EH9zkUeApHPPPXrmAZX2nurukj8lRJSfdKyYJvaYxKU6C6vb9WZh
- 5q0MZYEtw4JbqiugQ7lZrWzfkymSrKb5fqL4lf7XJoHv4kPTai2EjCcIe+OrSoOZZobN
- TeOdluPLyMknVZ4fPVfD+dpvRoVG2qBoid3T2XjFVhLafoxLiMS6w8ul9kEMXLAdHgy9
- OF47BB0DxN1onhvHhvvxJstUucrZ26t1V2w8b3rcvkfyE9X/c3M5p9iPotftcKO2TvgP
- nj7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793058666; x=1793663466;
- h=mime-version:user-agent:content-transfer-encoding:content-type
- :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=mJJ88KthELvwKH1YCQio0NHFc68Qi5oemLUdp0JCP88=;
- b=ty7vu35VGPuwOGqOX2PfudKwVjhmLQp8TONJ2FleR1oKMRX1vciGyHbZLeZJ7X+JHM
- /ACpCwbykLyWj6zjLVUvXcIWIg2yfoFROc5PI/ChmWH43kwPq3YrOqfrg42Tj44v9JHf
- iFBLCjlqWOtFIEoAq8btGq5bPzmr4X7RAZ2iL9otW/BVNuET4hAEqLJDqF5ba8iCDOH0
- nuuMe+aAutejjHvGV1MDg7k0IjxDGVvc/mzKGB6RyjHdbhIyYqHUTtd8t49mjrpdKEhg
- jkt9TqzwqlzpxYpICm8+YMVQZPj9M2QzHZUX6+qwz+EWf7A55O7BGJdky8gJNvXuQXlv
- PEcg==
-X-Forwarded-Encrypted: i=1;
- AKwUvByH37ABtyHCuEABY5GKPT2dJ9zvrR2cr/oE/DCiMoB/dGckS7rsrah5amysMCIlTMtWBweC0NFQ@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKsZWsMR/RfPdGRqLFzMA16Tu9RoUflip7CC6O+EncTxNgMUNv7
- o+jOQi8JhbNR/MUoqlCBl7rrJkQLR/uKxY1n4lnZIAJ5VdorIfZIOr3y
-X-Gm-Gg: AYBFou0KI1Kq//KWtThToaKS537wm4deR3x0LG2HAYuKJIYDeiL1YKvmHQcKVBCVgjp
- vaU7Sy7mwGpNAWHII8eHcI2TCzpTpRfA3V0Jg7Ct6UJuR7shkiJM7h6HTfEcBfNu5Tq/1ib5vQH
- RDHsYcXBAEpgxk3YtRK9fHHtDgQ6ILLKHfZoDYlg40wMfxpp+HgsvdM5welZEWgGbYuakeeExRT
- zf9ZBRPZneZGwAj7tcQ7lS+DhW1uVXjZWk6bD4APFsWPuGguTpQxaQj8XG84kpfPt+RcOHSD1ea
- Q1LXh+Cq8QbOrosXGnJ1/7bSj6+q42wo9tZs/ZKWrTB8YqsdaD0ZNz316XfpbO8WN1mmYhco1ie
- Ndfgz7RKlJdWWKCBm/sFk7hiRJKb7sX/Fw9JmZUpTDwqotVMYjDxULrvx8CUwKxf7GKC/e2UECi
- LhVJQtRW+pd/sNzOHhD+ElOS7XH4PRS1WmqxLuNw/huedVoVHDSxG8ZVN7JgIFW1W+n7FlpktgR
- 8pcUkODy2tOdyddCpOjeci5wZ7/bcxCBCgOWZEvB5eOwx1puaEMOjeeqV9V2mvsW+ir8idWDrwt
- sR/jYZvxo4gyGrs=
-X-Received: by 2002:a05:600d:849a:20b0:49e:795e:ba89 with SMTP id
- 5b1f17b1804b1-4a7c3856e2fmr18480965e9.6.1793058666105; 
- Mon, 26 Oct 2026 16:51:06 -0700 (PDT)
-Received: from [192.168.1.253] (4E5C1F56.dsl.pool.telekom.hu. [78.92.31.86])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48e3ebd4bc5sm19197467f8f.34.2026.10.26.16.51.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 26 Oct 2026 16:51:04 -0700 (PDT)
-Message-ID: <62012beac646bf55f09efc83c1b402077e90d982.camel@gmail.com>
-Subject: Re: [PATCH v2 03/15] drm/amdgpu/gfx11: add a gfx engine reset
-From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
-To: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"	
- <Christian.Koenig@amd.com>, "Lazar, Lijo" <Lijo.Lazar@amd.com>, Mario
- Sopena-Novales <Mario.Novales@amd.com>, "Rastogi, Manu"
- <Manu.Rastogi@amd.com>, "Zhu, Jiongyu (Joey)"	 <Jiongyu.Zhu@amd.com>
-Date: Tue, 27 Oct 2026 00:51:04 +0100
-In-Reply-To: <DM4PR12MB515270DDDF3DA61E1CAF739FE3612@DM4PR12MB5152.namprd12.prod.outlook.com>
-References: <20261022082011.331462-1-Jesse.Zhang@amd.com>
- <20261022082011.331462-3-Jesse.Zhang@amd.com>
- <uwzBcRnwS66upuRrx7Ywcw@gmail.com>
- <DM4PR12MB515270DDDF3DA61E1CAF739FE3612@DM4PR12MB5152.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86D3B10E07D;
+	Tue, 27 Oct 2026 03:42:52 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013020.outbound.protection.outlook.com
+ [40.93.201.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F72610E07D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2026 03:42:46 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RnMToKaBgmVE/LAfHDd+EqD3D9pex8wTqMNahEYgmvhzly7GtTcxdKRleyYpxTWk3jhdpG953w1DwRSu90/HgNEGS9Y6lZgzc50mURYZ3DBxCZVnVNcScHzw5SYiAAT3PEdlvkAV+Al48ctPQUt+Pm6Wa8ELSFZ8s4goYvTjNLdlnR4+2uArFHfp2vuXXmp/NdJUt2wh1/U8stxqTQCoVd+kgcirvMbcY1U/ZnP8Pgqe7zbi3PhcsPeUcD1bTmWsqfuDDXTUvl7iHf6kGIN5CFcqMescZLBXN1hh/yw4jheU79fZEvvDOE38gcnALtTpkLZgSTzgLmApEU8TtiguAA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=V3219eN/hxZetfknv1OvBMLirPxLgbU8/uRlJmQCipg=;
+ b=jk+WNr7TGgN8O8ROwhM+DoIiH71rY4I/y//emrw5Aqp0LdTfrKTszpQnmgQFoPs+5HoTTmAQ3w1at+f9yH8KrmQwjchXMeeEVpgbZ8Sis7st7njbOmGWGgsV/uoxVL+1REyFtlspBSvFnHcYD90oIjNhZB8mZ3B7i1szWeA9BR4fCcd3FY/zqpOM5GHaUQhEEz7+sun+2t2QA0+Y/2AcYP5Ibsnqp7qdg9vZ6TKNY4gq6qf9HWSnAP5j6E8OiaIPNS9JARMDDMK9xNawZjW7uqNnlRtwXDdDiQfLFObg68ZL86IPh0z7kkA3U9EW/Ey9bSgq9k9pQYickR5HTZ4GIQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=V3219eN/hxZetfknv1OvBMLirPxLgbU8/uRlJmQCipg=;
+ b=WGTfmp47yLW7EKrkbU0g4JdkWLX98xLiO+B2FpHQx1Zhx4QqVs/McZ5fdEC/DBgEac1ngoA4NiLATS1zfA4+BHq1o2tbfw3IpQY1K2z9NOJZS3HhmUnTWnpyZPuijqz6TQAz8x+bKdGVVQqP1SMf9bTe9d3nnkGe+5qivyD3iNQ=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
+ by PHXPR12MB999258.namprd12.prod.outlook.com (2603:10b6:510:3ca::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
+ 2026 03:42:43 +0000
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
+ 03:42:43 +0000
+Message-ID: <cc576171-525c-4698-a269-8b7ab3133cbc@amd.com>
+Date: Tue, 27 Oct 2026 09:12:37 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdkfd: Add UALOE and UALINK IO link types
+To: Alex Sierra <alex.sierra@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Mukul.Joshi@amd.com, Harish.Kasiviswanathan@amd.com,
+ Alysa Liu <Alysa.Liu@amd.com>
+References: <20261026213820.2979770-1-alex.sierra@amd.com>
+Content-Language: en-US
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <20261026213820.2979770-1-alex.sierra@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5P287CA0101.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1d4::15) To SA0PR12MB7091.namprd12.prod.outlook.com
+ (2603:10b6:806:2d5::17)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|PHXPR12MB999258:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8fa0a121-67d3-402f-70a7-08df33dc5bbf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|23010399003|376014|1800799024|261026121527099003|11063799006|56012099006|261021123027099003|261021121427099003|261022105027099003|261009223027099003|10067099003|22082099003|18002099003|261026140227099003;
+X-Microsoft-Antispam-Message-Info: LePQwvPxoKzKXlkYULUuxOyAApIRONyVwkyWDW4TBFrAPAta9Fozf9xECY6oy2TWMAf5o5Odn5sCtQGkCXAwOm21DNHksQi1H60RobQ6n8Lr40Vu3n4F3gSO9dBmLEysuFkhy4SvlAGUEsUKwRdi1jwJxKtUgcVxOID9kXSB0lOlQzhlAZr1RlcHyJffUuVeTHS6TdsKxqGwb7XewJTHoOJJsTUdnB52Mvj7FUK6ZXrjeramNLPHLo8XvcBzImFltJuNWu5KoX78TNuL8Xwqm/U+cz0XDnq0bWnJc8Jm/FMlgnBUn4CyscQ9cKvV/TsOk0k3QD8RZRbd5iXRSFl4L3EOT0Gsfam2htu5EZ76HvIqzi/CxjVBx0pnR4/3+qzAxTRggYZ6ljp40hZtIMNhtbS7scNFbvN/D+nLhSbEcSuI1GOAd6FEU566ch0d+rdzLV1ap8BFYX5w+13+IIrffrSWuLgjJJTLdnfTpvfUx3cMuTl7b65UJ5GzEvlmMkmvJ4PEwur+zwp1tufn8lCH+9/A2jqPEcH55MGtT1pV5V3ISbdbDiCvQDEDOLmfQbKjNVVkzu3uw5ix3jOwP18fgcpO8uCe56cWOukD0YcZtZqONzdt099+v3WljWadQPiyr1/RY8WvgkkEbCN9m2GhMlP/JQEthY4GOnwkG/pKiH4=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(261026121527099003)(11063799006)(56012099006)(261021123027099003)(261021121427099003)(261022105027099003)(261009223027099003)(10067099003)(22082099003)(18002099003)(261026140227099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NDJrUjdoMCtGT0ZWSWN1cWNZZzV4Y24vUlNrdmZZWmtVbUF0TmpkRTZKSW1a?=
+ =?utf-8?B?SDlDOXRZS0pjaUNXZ1F5NDBpWlhaczJad3ZiYTBGZE9RY1BIQW8zV3B0b3NG?=
+ =?utf-8?B?MmxxU01QUkhDbmpXQzYxRHJWWlNvTFFRQnh6YlA3ZzFoQ0hhQVF0Z0ZjLytK?=
+ =?utf-8?B?S29ZSUJxaE5jWHZRQ0ZJV1plZW80WnNpNnVkUGVMMjhSOXpMUWNvMWRQMHQ0?=
+ =?utf-8?B?MEtLQWU1YnBtSGxlOGFkZkl0WmNRaE8vc2tKRElrM1ZYdWxhRC9kUEtsL25l?=
+ =?utf-8?B?Z1BlSEQrSnRGMTJVczBVQ1N6bmxaSU5tTFhCR1N0MlVIRndHN0krYUYxVjk3?=
+ =?utf-8?B?OUlnM0ZhRUwzWk9NVTVsUHVqc2M1VDhlRkxsZUdlc2RsRWszSXNpOFRHSWxk?=
+ =?utf-8?B?WmIxZWMweVE2aWFPWkgvdXNhZHNpMm1lSm5kdVV1UFhIUDdJU3dqYmYzS2gy?=
+ =?utf-8?B?ZXBscTZlaTh5ZWxGZzE2WEFOamZxSURTcnhNSms1amFGYXc5Vmd4eUNVY2VY?=
+ =?utf-8?B?ZGhyaVNGb0xJN0oyckpLMGVNdktBWG1UUnNRQkwxTlBTajNoU2hQc2VWeDJh?=
+ =?utf-8?B?aGxqaWEvUksyR0U0V2dhQWpEM2cwTHVhS3dSLzVoSTRZZnNCc2tvUUc4ZTBC?=
+ =?utf-8?B?c3oreVhjVVZ6bEdLTW9ZUG9RRW5vciswTjlMRlpsSWdXM2Z5QWZOSS9WZXJy?=
+ =?utf-8?B?YU1LQitJc3NTdytTbkNtTmFQVkY5LzQwWWFBSk93b1ZhdXVsL1pVSEdGb0dX?=
+ =?utf-8?B?VkVKWE92eW5TOVlCZkMrTXU2TGhWN2F1SjdoTGpaTTUzUzJxaGx2TVJoK3A3?=
+ =?utf-8?B?Rlpnbk5LV0pFZmJ2cHdDTEJsR3JQWWJERmQrUG4vdW4yb1dJNVZBVWVOeGJQ?=
+ =?utf-8?B?Z1FIUnhXa1Rnb3NRaHBzMnptdkRzOE5SZXlabi9rZE1WR29kWngwS1hkTHBG?=
+ =?utf-8?B?akFqUWppeFNkWldDMGF3RGErMVhXSGVjYVRKYS9GVkhKYmhNUHJpT0VUNDFO?=
+ =?utf-8?B?UmlVMHJ4NFRUbU5QTVhpVklQK1ZRVXUxaHZYM3pVb2M2akpjOGlWZXRlMGVK?=
+ =?utf-8?B?SFNQMGlKYzc2YjF1L081bVJsQkF1Mys3ZWpOMzhlQ2lXTFVxbjhJSzVHbGtx?=
+ =?utf-8?B?UVJNeWtzWTVqemxnVFdBWUNteHR6T01IeDl4Tys5bkRERGlNUUFaZ3pnNjJJ?=
+ =?utf-8?B?RWtoblZmVkx5TG9UWTB4VUQzNi9VeU1xckNLTzA1eW03RzNvZkZxOGVOWmpZ?=
+ =?utf-8?B?dGdDZnZtcFhPL0JHeEFCZ3NBT2lOenFxZ2hHRTYxLzdJWTBYd2pFMkpsOVJ3?=
+ =?utf-8?B?VUVQeVJqd2VmODdwUGQ1dnpqSCttSWF0U1F0UFFQdHltcEFlSEVnU3VoN0RQ?=
+ =?utf-8?B?RG91bFQ4cy81VDRNYXZraVZ4czVkcTJmc3gxWmVySDVYaDh1TXZCZ0x1SEZM?=
+ =?utf-8?B?MkVZbk44ZFQrUTBuc0FpOG9hcmxYUWhMckVIT1plRis3RmNMZmlUY2lIcXNv?=
+ =?utf-8?B?Z1VWKzU5MUhzTVJLZEVTR2lKZkxFWUdpSEpMcW5CNzI4NUJHRTNNWFBDekNQ?=
+ =?utf-8?B?M0tYUmYwL3lycG9uYXlxMmV1ZGJ0Zll5T3hMaERlclRXR2VWR2h0T3liRnRB?=
+ =?utf-8?B?UXZ1UkM2RVYxK3ZWMzFCY09xK2NvTGRkTFlrMmlXR0U4bThXeGszd0VNUzNB?=
+ =?utf-8?B?dzhkTWMyWU9DbG5iaVQ4SnRuQ0IxMXFlSGhsZE1xWTJkdGlRZDYvVUxyRVB1?=
+ =?utf-8?B?dHlsMEJPcm82Vkg2Zjg3Rmd3d0pXWHhnbzF2SDZFbWFiNTdHSG5nN3hMb2pk?=
+ =?utf-8?B?TXJ0K29rUytYZU9XVmI2K1lYT01xRVlTU0xneWJ0NXY2clRJUHJSa2FGSFF6?=
+ =?utf-8?B?QXR5VUYyZ25zQlFXL29Pbm90M2ErdW1IVXZrdm81YllZMGZoNlZaZDlYbXl4?=
+ =?utf-8?B?Q1ZHSCtXUUptUVpoYmNKZE1HYmdwa21oU0tFVGV6MHJnR3FOb1FNVW1OOW1N?=
+ =?utf-8?B?VGxCRXQzem1PWldRT0hPL0d1aEFKYzlKcnlEREFWb1NxSUFyMW05SDZYN2d6?=
+ =?utf-8?B?Sm01S1VVcHpCQzYzUENRdmlSa1lYYTM2Yks4TkIxakp5bjRqengrMUhhdmFh?=
+ =?utf-8?B?Q2o2Z0RaUXV0MktWVlorUnFvOU5KRlNza2hPeVBWZjZyb1YxeWt6OS80R3BJ?=
+ =?utf-8?B?VzRMWEozRTIra0IxQnZpV1R6NlFiR3Y0NjJ5WFZxUFJZOVRGUm04VXNHM0o1?=
+ =?utf-8?B?bUF1WHBHRlJBclhXTXFRSlZLQUlLb0ZuOW1QR3QwM1VmU1Y2WUpxZnUrdWVV?=
+ =?utf-8?Q?apau9o9tx/q5Hs6eTm?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8fa0a121-67d3-402f-70a7-08df33dc5bbf
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 03:42:43.6458 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: BUOURt4cE9bcv8nucN1QchEOyUc+TYfNZweRVnnDUuo6nt1DB+JeN3HVUsQNAvPe
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PHXPR12MB999258
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,170 +129,140 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-2.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.6 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon, 2026-10-26 at 08:35 +0000, Zhang, Jesse(Jie) wrote:
-> >=20
-> > On 2026. okt=C3=B3ber 22., cs=C3=BCt=C3=B6rt=C3=B6k 10:19:43 k=C3=B6z=
-=C3=A9p-eur=C3=B3pai t=C3=A9li id=C5=91
-> > Jesse Zhang
-> > wrote:
-> > > Implement the reset_engine callback for the graphics engine of
-> > > gfx11,
-> > > as for gfx12:
-> > > - halt PFP/ME and wait for the memory requests of the CP DMA to
-> > > complete;
-> > > - with CP_SOFT_RESET_CNTL.GFX_ONLY_SOFT_RESET and
-> > GFX_HQD_REG_RESET set,
-> > > =C2=A0 pulse GRBM_SOFT_RESET.SOFT_RESET_CPF/CPG, holding the MES lock=
-,
-> > > and
-> > > =C2=A0 wait for the memory requests again;
-> > > - clear CP_VMID_RESET;
-> > > - restart PFP/ME from the start of their RS64 firmware and
-> > > restore
-> > > =C2=A0 CP_PFP_IB_CONTROL; if the CP doesn't go idle then, fail the
-> > > reset so
-> > > =C2=A0 that a full reset follows;
-> > > - remap the kernel gfx queue through MES from its MQD backup and
-> > > restart
-> > > =C2=A0 it with gfx_v11_0_cp_gfx_start().
-> > >=20
-> > > MES resets a gfx queue by writing CP_VMID_RESET, which the PFP
-> > > handles.
-> > > When the PFP hung, eg. on a bad opcode, the request stays pending
-> > > across the CPF/CPG reset, and the restarted PFP then waits on it
-> > > forever for queues the reset already cleared.
-> > >=20
-> > > gfx11 has no helper to restart PFP/ME from their start addresses
-> > > outside of the firmware load: add one. A later patch enables the
-> > > reset
-> > > with MES, async gfx rings and the RS64 firmware.
-> >=20
-> > I don't think it's enough to soft-reset just the CP and expect the
-> > GFX queue to
-> > continue. There are other parts of the GFX block which can hang,
-> > for example a
-> > badly written NGG shader can easily hang the PA. I think we need to
-> > use the
-> > SOFT_RESET_GFX bit as well.
-> >=20
-> > I noticed that the soft reset implementation needs to also re-
-> > initialize the clock
-> > and power gating for the GFX block, otherwise the GPU can consume
-> > more
-> > power after the reset than before on older GPU generations (and
-> > some GPUs
-> > just fall off the PCIe bus). We need to check how GFX11-12 behaves.
-> > I think it
-> > would be best to re-initialize the clock and power gating here too.
-> >=20
-> > Additionally, as I said on the other patch, I think the cleanest
-> > would be to reset
-> > the entire GFX block instead of just parts of it, for two reasons:
-> > (1) gang submit can hang both gfx and compute at the same time, and
-> > those
-> > hangs can only be resolved by resetting both gfx and compute.
-> > (2) if we choose to reset the whole gfx block, that allows us to
-> > reuse the code
-> > from the suspend() and resume() functions, which means better code
-> > reuse
-> > and more consistency.
-> >=20
-> > What do you think?
-> >=20
->=20
-> Hi Timur,
->=20
-> Thanks for the review. I'm glad you find the idea useful.
->=20
-> I would keep the gfx-only CP reset as a separate recovery level. Its
-> purpose is to recover an isolated gfx CP hang without resetting
-> independent compute workloads.
-> Replacing it with a whole GFX IP reset would lose that benefit.
 
-I see your point. I'm skeptical because the GFX7-8 soft reset code was
-also supposed to do that, but it never actually worked and nobody
-noticed it for many years until I fixed it recently.
 
->=20
-> There are several reasons for keeping this distinction:
->=20
-> - The hardware supports this narrower scope through
-> =C2=A0 CP_SOFT_RESET_CNTL.GFX_ONLY_SOFT_RESET and CMP_ONLY_SOFT_RESET.
-> =C2=A0 This gives us an intermediate recovery step when a queue or pipe
-> reset
-> =C2=A0 cannot clear the hang.
+On 27-Oct-26 3:08 AM, Alex Sierra wrote:
+> From: Alysa Liu <Alysa.Liu@amd.com>
+> 
+> When ualink info is available, report the specific link type
+> (UALOE or UALINK) instead of XGMI in topology sysfs.
+> 
+> Signed-off-by: Alysa Liu <Alysa.Liu@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdkfd/kfd_crat.c     | 18 ++++++++++++++++--
+>   drivers/gpu/drm/amd/amdkfd/kfd_crat.h     |  9 +++++++++
+>   drivers/gpu/drm/amd/amdkfd/kfd_topology.c |  6 +++---
+>   include/uapi/linux/kfd_sysfs.h            |  2 ++
+>   4 files changed, 30 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+> index 7725956e4b08..0583624e5897 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+> @@ -1254,7 +1254,7 @@ static int kfd_parse_subtype_iolink(struct crat_subtype_iolink *iolink,
+>   
+>   			if (props->iolink_type == CRAT_IOLINK_TYPE_PCIEXPRESS)
+>   				props->weight = 20;
+> -			else if (props->iolink_type == CRAT_IOLINK_TYPE_XGMI)
+> +			else if (crat_iolink_is_xgmi_class(props->iolink_type))
+>   				props->weight = iolink->weight_xgmi;
 
-We need to test each code path very thoroughly to make sure it can
-recover from all possible hangs on both graphics and compute queues.
-There should also be a code path that resets all engines at the same
-time if needed.
+Should there be different weight values for UALOE vs UALINK?
 
-> - A whole GFX IP reset also affects compute resources and requires
-> =C2=A0 recovery of the affected MES queue state and all the KFD/ROCm
-> queues.
+>   			else
+>   				props->weight = node_distance(id_from, id_to);
+> @@ -2229,7 +2229,21 @@ static int kfd_fill_gpu_xgmi_link_to_gpu(int *avail_size,
+>   	sub_type_hdr->flags |= CRAT_SUBTYPE_FLAGS_ENABLED |
+>   			       CRAT_IOLINK_FLAGS_BI_DIRECTIONAL;
+>   
+> -	sub_type_hdr->io_interface_type = CRAT_IOLINK_TYPE_XGMI;
+> +	if (kdev->adev->ualink.info) {
+> +		switch (kdev->adev->ualink.info->link_type) {
+> +		case AMDGPU_UALINK_TYPE_UALOE:
+> +			sub_type_hdr->io_interface_type = CRAT_IOLINK_TYPE_UALOE;
+> +			break;
+> +		case AMDGPU_UALINK_TYPE_UALINK:
+> +			sub_type_hdr->io_interface_type = CRAT_IOLINK_TYPE_UALINK;
+> +			break;
+> +		default:
+> +			sub_type_hdr->io_interface_type = CRAT_IOLINK_TYPE_XGMI;
+> +			break;
+> +		}
+> +	} else {
+> +		sub_type_hdr->io_interface_type = CRAT_IOLINK_TYPE_XGMI;
+> +	}
+>   	sub_type_hdr->proximity_domain_from = proximity_domain_from;
+>   	sub_type_hdr->proximity_domain_to = proximity_domain_to;
+>   
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.h b/drivers/gpu/drm/amd/amdkfd/kfd_crat.h
+> index a8ca7ecb6d27..ce78484f94a5 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.h
+> @@ -257,8 +257,17 @@ struct crat_subtype_ccompute {
+>   #define CRAT_IOLINK_TYPE_ETHERNET_RDMA	14
+>   #define CRAT_IOLINK_TYPE_RDMA_OTHER	15
+>   #define CRAT_IOLINK_TYPE_OTHER		16
+> +#define CRAT_IOLINK_TYPE_UALOE		17
+> +#define CRAT_IOLINK_TYPE_UALINK		18
+>   #define CRAT_IOLINK_TYPE_MAX		255
+>   
+> +static inline bool crat_iolink_is_xgmi_class(uint32_t type)
+> +{
+> +	return type == CRAT_IOLINK_TYPE_XGMI ||
+> +	       type == CRAT_IOLINK_TYPE_UALOE ||
+> +	       type == CRAT_IOLINK_TYPE_UALINK;
+> +}
+> +
+>   #define CRAT_IOLINK_RESERVED_LENGTH	24
+>   
+>   struct crat_subtype_iolink {
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> index 8689f4110afc..1863a944d44d 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> @@ -1473,7 +1473,7 @@ static void kfd_set_iolink_no_atomics(struct kfd_topology_device *dev,
+>   					struct kfd_iolink_properties *link)
+>   {
+>   	/* xgmi always supports atomics between links. */
+> -	if (link->iolink_type == CRAT_IOLINK_TYPE_XGMI)
+> +	if (crat_iolink_is_xgmi_class(link->iolink_type))
+>   		return;
+>   
+>   	/* checkout source dev has atomics support on root. */
+> @@ -1572,7 +1572,7 @@ static void kfd_set_recommended_sdma_engines(struct kfd_topology_device *to_dev,
+>   			inbound_link->rec_sdma_eng_id_mask = xgmi_sdma_eng_id_mask;
+>   
+>   	} else {
+> -		uint32_t engine_mask = (outbound_link->iolink_type == CRAT_IOLINK_TYPE_XGMI &&
+> +		uint32_t engine_mask = (crat_iolink_is_xgmi_class(outbound_link->iolink_type) &&
+>   				num_xgmi_sdma_engines && to_dev->gpu) ? xgmi_sdma_eng_id_mask :
+>   				sdma_eng_id_mask;
 
-The soft reset code already handles that for kernel queues.
-It just needs to be extended to also consider user queues.
+This may not hold anymore for SOCs supporting ualink. Instead of 
+dedicated sdma engines, probably everything can be shown as available.
 
-> =C2=A0 The gfx-only CP reset preserves that state and the pending compute
-> work, although MES
-> =C2=A0 suspend/resume can temporarily pause scheduling. We have successfu=
-l
-> =C2=A0 HIP and compute test runs across these resets, demonstrating the
-> value
-> =C2=A0 of preserving independent compute workloads.
+Thanks,
+Lijo
 
-Nice! That's impressive.
+>   
+> @@ -1601,7 +1601,7 @@ static void kfd_fill_iolink_non_crat_info(struct kfd_topology_device *dev)
+>   
+>   		/* Include the CPU peer in GPU hive if connected over xGMI. */
+>   		if (!peer_dev->gpu &&
+> -		    link->iolink_type == CRAT_IOLINK_TYPE_XGMI) {
+> +		    crat_iolink_is_xgmi_class(link->iolink_type)) {
+>   			/*
+>   			 * If the GPU is not part of a GPU hive, use its pci
+>   			 * device location as the hive ID to bind with the CPU.
+> diff --git a/include/uapi/linux/kfd_sysfs.h b/include/uapi/linux/kfd_sysfs.h
+> index 0b6ce2f3c887..b11f9bcae7f8 100644
+> --- a/include/uapi/linux/kfd_sysfs.h
+> +++ b/include/uapi/linux/kfd_sysfs.h
+> @@ -114,6 +114,8 @@
+>   #define HSA_IOLINK_TYPE_ETHERNET_RDMA	14
+>   #define HSA_IOLINK_TYPE_RDMA_OTHER	15
+>   #define HSA_IOLINK_TYPE_OTHER		16
+> +#define HSA_IOLINK_TYPE_UALOE		17
+> +#define HSA_IOLINK_TYPE_UALINK		18
+>   
+>   /* Flag bits in IO link properties (matches CRAT flags, excluding the
+>    * bi-directional flag, which is not offially part of the CRAT spec, and
 
->=20
-> - The locking doesn't fit either: amdgpu_device_ip_soft_reset() takes
-> =C2=A0 the reset domain for write. [...]
-
-We can change that.
-
-> It is also reached from the user queue
-> reset path, not only from a kernel ring timeout.
-
-I was planning to extend the soft reset code to be reachable when user
-queues hang the GPU. Just haven't done it yet as currently user queues
-don't yet work well on any supported GPU.
-
-> - gfx12 has no soft_reset callback, and the gfx11 one isn't enabled
-> as
-> =C2=A0 a recovery step. A whole GFX reset for these generations needs new
-> =C2=A0 work and validation in any case.
-
-If we really want to have the capability to reset graphics and compute
-separately, then I think the right way to go about it is to make soft
-reset more fine-grained instead of introducing another reset type.
-I think that would simplify the code and benefit both implementations.
-
-In my opinion, we should do the following:
-
-1. amdgpu_device_ip_soft_reset() needs to be extended to handle user
-queues. It should be able to save and recover non-guilty user queues
-(it already does that for kernel queues), and it should be reachable
-when user queues hang.
-
-2. We should add an IP block function called soft_reset_engine() and
-move your engine reset implementation there. The argument should be a
-bit mask, each bit representing an engine so that the function should
-be able to reset multiple engines at once if needed (when all bits are
-set, it should reset all engines at the same time, ie. equivalent to a
-full IP block reset).
-
-3. amdgpu_device_ip_soft_reset() should call soft_reset_engine() if it
-exists.
-
-I'm happy to help with the code if you want. Can you share what is your
-test case and how to reproduce it?
-
-Best regards,
-Timur
