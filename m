@@ -2,127 +2,130 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5BAF606A31A
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 20:49:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95D90606A31A
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 20:51:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=XRyFDpjB
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=WvMSQOH8
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8432E10F828;
-	Tue, 27 Oct 2026 20:49:47 +0000 (UTC)
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012047.outbound.protection.outlook.com [40.107.209.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2663010F828;
- Tue, 27 Oct 2026 20:49:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 391A310F823;
+	Tue, 27 Oct 2026 20:50:56 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012012.outbound.protection.outlook.com
+ [40.93.195.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1D9010F823;
+ Tue, 27 Oct 2026 20:50:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=McWiJAbfqvkdbLyArR7CPl+mDBhymgbqB6cSuX7L3exxbHuaJqMMWBmpebJPEeCG7WYagPQMjCtkk9gEEbwY63uJzsyQzxRSGhpV174cag9w+qGB1o2GLI8lKXlNQ7zppGLQNcausdvqna+46df3io5pQq9cZDFQqWglgKrRXuqDvpM/fmr78qzKFpOrARbcnjawTX5H+OWUUcN5nqYuG48WcoYC8SRNvMLInnaVdfVsBlSHhSa4eAk5P0qM9nASRUZCse0RH5Bx1NCFpHCPX+fdrXLjG9xjF2vzbPlStyYz8JR1zlCKapFUTLv4e2X6TWChattxHXYRNKBEKnWtbA==
+ b=o3OjRihc/9g/C/jmT16v27W23pZ7GpYGZZ8gL7WB+cPiqJtFMNKsc1YPWEVWvCsuvaMI36lCpVxrAQWM45/AGAs9xVNyZ9BZvCMS+GLuyJVAgIOgMrNvwH8IJaoviMFdC7JMR3TEV6CeKVi/wUCc+H9u8BiHaDfe9gIBqFgmckuqH1n+bIElbKTk8SWqaaSBA4yET8rtthgwWgjmV+eGEtnHOeVAgHO6BzjVSJkGOEB7/0azG6RpZ393ZQuRuodQWHg1dtzwoIcfGl6quIhNGf6Q3SypepkA1y17yQMo4qT3xJh4v6+jUmIKRYQ/PePtjt2YZtWVIQTvMShBoyLQ9A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uCo8HUdANfVGNVbqKc2K0NJZvDGI6bAa7jDaVUlrzlw=;
- b=dSctHqV9cJkEp399/XZhnGngV1oqBfJi0xgDR/NGRPQ8hQDaYfRV5+O8eKunzlPfzMw4MSZisaJb4bd49lYCG6jMUDeljr9N6AIApua7qHUy1H8BJtkvTTRG5PF64S+v53TD2udAyIhgr6MyIgUPcl8hQiDYTXPiqBJ9O0Iz1mQff/62XKMTiyUHE66Z4reOeMjThMX+4jNxiSdvT1Vlkw9iBHtvF7sbJ9AU57mEit9FAqJRqio7ujKkJZ8bHFi0d0dlNiv/VhtrKFtAzCRTiN85S6jTe4k+9/PniJ52MqdVpfwTR7xpd7ruY3Eq39JsBEw/K6TWtAFH1b3CrVodrA==
+ bh=ghVknt/XXqH4uDdnh7fnbY7iSaomlTGIgQYIHHjE9gQ=;
+ b=vTgKzv0E9FLsOXOGnwK24QtWeDrKg+LVMtXywcmjJG7R9tSbHQtL70G1iQ9daJNKUz/HqNoLcm2rmCoxX/vZ+GkD0J6Vveb74g4A7RjKfd1asxCnTsSS0H/zul5sEwEfRauImA47pZ/o4Cc7bZ1mFUuGrDs4E0aT1B9WR1ZUvSBM+HAG0jVlQ5uFqDPAcGrelktg1R8iAnraruMkfLE2mki4BA2lAmBSYSuLXSbZjskT+34HP3G4Lqz+mv5Ng7V/+Fs7RdI7LiYvnaNsB9Hn9x4TrNj+bIeBy17PnL21DjNOU4mz4UzM4E5ttddn7cytTujZOseZnNC1dvXcGp8OUQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uCo8HUdANfVGNVbqKc2K0NJZvDGI6bAa7jDaVUlrzlw=;
- b=XRyFDpjB9TZ0mxQMPQgoe+Pmn0XaZEUHILAh208/8uq8lX1LscXyUCvM1m5jXTlZ+PPBi62KehDcw2SwLaut5ztNdT0kTzbWM1+gM+wfO6evLKPxXdlj9bJA+muX79x0dW7irsPwkxGsiwTwb4gdh63K5pe0llgH5XS1WiHqBq0=
-Received: from BN9PR12MB5146.namprd12.prod.outlook.com (2603:10b6:408:137::16)
- by DM4PR12MB5963.namprd12.prod.outlook.com (2603:10b6:8:6a::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.22; Tue, 27 Oct 2026 20:49:37 +0000
-Received: from BN9PR12MB5146.namprd12.prod.outlook.com
- ([fe80::535a:591e:27f6:c23]) by BN9PR12MB5146.namprd12.prod.outlook.com
- ([fe80::535a:591e:27f6:c23%7]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 20:49:37 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: Paul Menzel <pmenzel@molgen.mpg.de>, "Wentland, Harry"
- <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>, Rodrigo
- Siqueira <siqueira@igalia.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Wentao Liang <vulab@iscas.ac.cn>, "Hung, Alex"
- <Alex.Hung@amd.com>
-CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH] drm/amd/display: Don't warn about vendor infoframe for
- non-infoframe sinks
-Thread-Topic: [PATCH] drm/amd/display: Don't warn about vendor infoframe for
- non-infoframe sinks
-Thread-Index: AQHdZkSaay7NIqmdhkSTqo5HX3WdxLcR3Jtw
-Date: Tue, 27 Oct 2026 20:49:37 +0000
-Message-ID: <BN9PR12MB5146C1B694B96CDFDE3E3101F7602@BN9PR12MB5146.namprd12.prod.outlook.com>
-References: <20261027185414.162183-1-pmenzel@molgen.mpg.de>
-In-Reply-To: <20261027185414.162183-1-pmenzel@molgen.mpg.de>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Enabled=True;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SetDate=2026-10-27T20:49:02.0000000Z;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Name=AMD Public
- v26; MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_ContentBits=3;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Method=Privileged
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ bh=ghVknt/XXqH4uDdnh7fnbY7iSaomlTGIgQYIHHjE9gQ=;
+ b=WvMSQOH8C5N5fwRrDW6BYSKc4JFHyr6PN7vJALv/3UHueedVHVkwlh7c7qe1OZbLTHD/9b0Qsehfqy+kc2AjuOQjUEh2md18XOiqvdFLaL4i5dDLvRPk8UUrY9FXfyehVSx/VLvOJLFjq8FxikWekbJTuoP6JHpOPYsy0PAvHn0=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5146:EE_|DM4PR12MB5963:EE_
-x-ms-office365-filtering-correlation-id: 96aa0ad5-9f3a-4cac-6a78-08df346bd057
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|23010399003|376014|11063799006|921020|38070700021|261026121527099003|5023799004|56012099006|261009223027099003|261021123027099003|261022105027099003|261021121427099003|10067099003|22082099003|18002099003|6133799003|261026140227099003;
-x-microsoft-antispam-message-info: P5/8zkMqV5eoTXAWWlRUaW0HrfH5tBNsyFcw8IiFd3qQU2yqDrtngV9ZhccAbyThN3XNc6zOBqRhGQxzSVcVZhaNErS8BS1mb6x1ECldZE87dVm1Yz33TiWIrlLMYtVMPs+gcPJ7T63GK1uVo/RD1VyjFacg/kt86RfYE//8IVyfAmocxn/Y8UNVAM7WAVKj0GEwO3GqmeVhuPORnY3WRnBalahSBTO3WnIcer4Lz/EpvGkMdB8aBF+FLbzbcQOXtCSpgH/Q+96hce5CG6Fu/+Aw/jQuQrc6VXDdQKl2LUweTD74JAyTYBU7J8tDDzd2E+3Ylek3wMaJJmWgyIggXpwq/VM2C3/bE4CLUqUQB0czt/ygGSj7xlU2D53VJi3LT2FoAJmX3CS/g1TkjFYJnXNzbo3bKjRjxtlqa7+STNhyRCmuuLhx4BtM6Y0ozNNOJEK0onGA5rfzGr9h6vLRwvujdDLVX8+oCVrEaKvWcXF8mNUHeoqIjY0P5NWI3MoGMOulCDuykDZBDvfu+F9Umf8Cllhdeh6+LtVwKgx+Wua9uYbaR5616NoCKPcG1h11J8t6nZemTXqb1DKIeztAhm0ZuoFSyfPlzyRIgVSlf7bBfJObspVj8v0jZ5f3TW/FJZ42lS4CUwBuefVTo0x8jWWTFyCR70nTkXUfWNMEacvls9FyZm6mjpIvXFZFFDnS
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5146.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(11063799006)(921020)(38070700021)(261026121527099003)(5023799004)(56012099006)(261009223027099003)(261021123027099003)(261022105027099003)(261021121427099003)(10067099003)(22082099003)(18002099003)(6133799003)(261026140227099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?jPm05eV7JIsanggce23oL2BtipjmNHVsJMl6jL8i7XTJNClWaHVhoMZb60X5?=
- =?us-ascii?Q?d4dhhsLWNaGSAgkmR5p2iFimfSsnWnj0aGhrDL6IinvaS+cg1MAi+sa3DhRN?=
- =?us-ascii?Q?uMYcCxbFRhzJMs/f2Jfp8u15FsMlxm8wMkJ69iLzQu2Vw4HFf/k7HyuljlRh?=
- =?us-ascii?Q?/sb52x82rI+ng8bEpTKxdi4i1R0K/+9Jji9fDiQ4OHvB78lcBmG2hP4kW+qR?=
- =?us-ascii?Q?4LB9XIPdoJN1mms4jDTiI7N3lO7Y81ABGxtWxfw7IGfz/uITrjQ6ph6NO4yf?=
- =?us-ascii?Q?Efe5Gnk+vg+c2f2B6OZJXPHSuOGZ8xaqVAkPrjDpIk34K2pRr42VcVoNq8Lf?=
- =?us-ascii?Q?ihTTwQuWN6eq/udN0n8JpbcImQ4wDgwVrdWHP4mLgqZOUK925PlnDu1xV7AL?=
- =?us-ascii?Q?CXJ8u23dn3njktyYOSWR1zz9T+axoKiiy9cp8WHd76bhqKk9PFAZBv2mBotB?=
- =?us-ascii?Q?ukD96a3lU/YWD441z+50Iy9irKe41lyqX0kM1/lQ9hvbMevTVYoFk/D9OQx7?=
- =?us-ascii?Q?Z02Tq0qVDSeWswEUWIcfc8psnS2bBD4Czvsj9WXepslkO0PlWy2B9D+t8VGk?=
- =?us-ascii?Q?kSvlqdI3SdYElHaBka2a05LYW7+TPU2kLEqJxPxxKbWZRLFCtKToStSM7zsj?=
- =?us-ascii?Q?sIeIRlbRiKgmGmPu2cGJG8p14pIwZHWdZMezFzH+6pqVxHRFFLJFyvyrU/lW?=
- =?us-ascii?Q?9rkNUBGYIYouTuDPuLHTVAb3/lOSpkL/C803YU6LrsEuaV0Q2yLNKCMI5OBe?=
- =?us-ascii?Q?I2ltJkGC/aSyl95j0UyeA1UZCOY7cuQKmQid0a8qQwz6PzL4UVcS2bBV2KZw?=
- =?us-ascii?Q?O9oZjLqQ+DOw4xFHUlBH0JlPlRiE55B/TVkrNC8xa11KXEW5FdebS8PNRC/A?=
- =?us-ascii?Q?q5ge8y1iboWFo9+3eTRRMGneZ6auVDYXdTtgcXXFuRUURq2QJugxbriXcPT2?=
- =?us-ascii?Q?OWDFGm3H5YIyh7srBI7dxtHORxN2Mkxxytc1U3P3jOKt3Cjz3tbnCiSMdQ1T?=
- =?us-ascii?Q?W6HA6vK35hVoRYKEH3p/Jq7cxRh0RwyfANor+53jZUlpNiy2wuXfQ/Ad3L9C?=
- =?us-ascii?Q?c4nx7v62eH9UZj0kW36i4DPqDwIcU6vFeFV/4FBljmddbsNoP1EuJPjSPXuI?=
- =?us-ascii?Q?TiNxHdqObOLKbjZRvUtDQuAGPQjqfX1hsjoYIigZQs3qqPrammx1WGj6I75C?=
- =?us-ascii?Q?hamOjiYXjztxuECGp5xsmzGEeZojL11OkoDtixzJV/RhoRNKbSY5UlcLQ5lG?=
- =?us-ascii?Q?8bxQ7tGiHPpvb6/oJVk1WhS79rJ4FOHLPkK1ELnHG20NfG1Jpa5lTAJAWRqj?=
- =?us-ascii?Q?EkvkL6zbqGUevJtHvRZ3w8xryhe4YGVzJWdQVIbFZt+Zk6aTtrIYyip/fpTu?=
- =?us-ascii?Q?zlA10Ot6dj4wLQTkDmCC2aSxTFVd6fMIg+UexMDXZjt9lrrDV5mRlOm/iUsX?=
- =?us-ascii?Q?6I5DSUoCSUs1T8oqis6BzVWTfwh7GYByKv8EWaoviHU5TLtRJlV+IWR+lljI?=
- =?us-ascii?Q?3BuNsIGgA3EdisG+qfOPEXHe/WwsHR9uKnf0e9BjbiHsh9rrCbrbkvktqm10?=
- =?us-ascii?Q?RC4AnHdJMXhaObEo0Xf/+iC4AEw5Sxy0qknS1Ll0V5NwvN80q7+fZbgE/jtq?=
- =?us-ascii?Q?w3VbVq01WeKETBL74h6MNMV3sYBJknSxj3uXs9UlljNvF2zKqTP+L514bDZp?=
- =?us-ascii?Q?DeR0jB2v2O0B9g1UNpZUf4SItsSdIaWFYbFqgDBnacKuL+On?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from PH7PR12MB9174.namprd12.prod.outlook.com (2603:10b6:510:2ed::9)
+ by IA1PR12MB9061.namprd12.prod.outlook.com (2603:10b6:208:3ab::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
+ 2026 20:48:49 +0000
+Received: from PH7PR12MB9174.namprd12.prod.outlook.com
+ ([fe80::eaaa:b430:ba9:5dc]) by PH7PR12MB9174.namprd12.prod.outlook.com
+ ([fe80::eaaa:b430:ba9:5dc%7]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
+ 20:48:48 +0000
+Message-ID: <ba77a6b8-f79c-496f-ad45-9314ac8f8a46@amd.com>
+Date: Tue, 27 Oct 2026 15:48:46 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: Don't warn about vendor infoframe for
+ non-infoframe sinks
+Content-Language: en-US
+To: Paul Menzel <pmenzel@molgen.mpg.de>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Wentao Liang <vulab@iscas.ac.cn>, Alex Hung <alex.hung@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20261027185414.162183-1-pmenzel@molgen.mpg.de>
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <20261027185414.162183-1-pmenzel@molgen.mpg.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SA1P222CA0184.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:806:3c4::29) To PH7PR12MB9174.namprd12.prod.outlook.com
+ (2603:10b6:510:2ed::9)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB9174:EE_|IA1PR12MB9061:EE_
+X-MS-Office365-Filtering-Correlation-Id: 57b2f081-44c1-441d-4b57-08df346bb336
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|23010399003|376014|921020|261026121527099003|261009223027099003|11063799006|56012099006|5023799004|261022105027099003|261021121427099003|261021123027099003|10067099003|22082099003|18002099003|6133799003|261026140227099003;
+X-Microsoft-Antispam-Message-Info: H9Gb+fIa/jIYkcj9wQnNcXveXAIXVnCG7HB8+5u59Aj7mGvY06aYtpI4T6yelC/NnTuSSJJVU5EjhHmUfvqakUyVXjQ7KQbIHe9KeLoFudxsp8R5nCq1iRhyVDCjFA+uj35wWSMNlLoIVrnBUdaxVQLY0KuZYgGLcMJCI6UVjN3rqYLPG2YopZoFVjo37/D8u3VNL4NkNBzlIWGXMzXE1m1+5/wjPTYV7gQHodJZkn2m9wC6cbimnRzlot4NB45gFYUXPpW6Ix7Vje/HIxVQjScdF/Nm2WBgOQVR4nbSa4TJoj8uyQGCgc3yfkB5JBlgeumiwOV+3qNen2zpAK06t74uWHjmmlb0+BFsMOesFmWk56JMt26bY95RpQhGvLEexoWpwOBvAKfFbi3nc31KThjetbwAcSow/5THi1IVUrJn1uE2jDGONC3QrVAaP0sQxAslGRFFSoCmTEweP6gliu9SbqST5TVE3uprttKJUnPy9ReFvCf4ILQaww7NSqCNTUVXKk2WuI+PQMNVf8xTRxv0ojBUBeloU+vh0o5Wen7X9nhkeAq07AmogWLg1FUxxrfLvmPvmGJQyIZUxQ90WcCsOvzlqJ7KPQFqx4Kj+COy6DXSQ9g0xIsf9nB5Vf4xhIuol5Ps7ZXimaqAL8v+q0oveCkv13/lHyGEJJ2XA4I=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB9174.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(921020)(261026121527099003)(261009223027099003)(11063799006)(56012099006)(5023799004)(261022105027099003)(261021121427099003)(261021123027099003)(10067099003)(22082099003)(18002099003)(6133799003)(261026140227099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MmdoV3pyMkJSeVVBYTNmMDRXZk9wK2hITXlNa1pKVkg4cThnZjdXUDZNQ0NR?=
+ =?utf-8?B?V0wrakMvU2M5Q1A2Tm5KeUZndjZIQU9iMWhRZnRvTjlwckVzTHJ0ODJMQVZB?=
+ =?utf-8?B?S1VkMVJoc05KTWxBU2RiWnkzY2dHdk5WY3FYYXo4cG0wR1hOa08vMzhLSGFa?=
+ =?utf-8?B?bUZDSit2Mlk2cG43QXdnU05aU0RnYjcxcEhCK0swcHAvaUZwUmcvOE51VzU1?=
+ =?utf-8?B?cnQvRmxmQ3ZuV0todG1hdVQ2TWJ0WWNkTDk4ci9SSEo4cHpwT0RrYmVxU1Vu?=
+ =?utf-8?B?eGoxUzlHblJ0TmN6azY3eFFmNjgxYzhLQWhmc0FzS1dsK0ZVTlY5UDR0Q2Jz?=
+ =?utf-8?B?cVQySmcyK0RJWGdoNytOYXVxRlNqcGlYZmZZVTdqd2UzWEpjeDBhYzF4S3Q3?=
+ =?utf-8?B?M1BQQ05zbFQzSnBSZEI1VDV3UjUydlRaUWFiYUt5djM0SExLckNPZm96SWFt?=
+ =?utf-8?B?U0oveTE4Q2RyeFJ5VE9QQ0pYcnNTcE9jRVozTEIzVnVucVJqemhQUWQ1a0R2?=
+ =?utf-8?B?eVNTMitabVIzTS9RN2U3NnVIT1huVDJiTVlQVjNIZVVmaHVrNGVEd2FiWWhN?=
+ =?utf-8?B?bjNaTlloZUJvQ0hQZDRuSjMwWUlFb29mMElncHk3aG5WNkZpSlU1UjVkbGZR?=
+ =?utf-8?B?b29mb3dqdmpVbVhYVmYzbXE0Wmx1dGN0RVRFRVM0KysveXFzaVdtOURsWUpa?=
+ =?utf-8?B?M2QrOTVhK0x2UDVzK0pZRU53RTFuN0NVa1pBVEZoVlJKQlBUdkpIMUtuM3N6?=
+ =?utf-8?B?UWlvWXB4Q2NoTUl6aTJRVnl1Mzd5bU5wL3JJRXZtYTNWSWlRL3c3dmlXc2JJ?=
+ =?utf-8?B?TXQ1RzVZa21rbkhLamd6b1poVWlYdDNMYndFcnIrMmJxbkprQ0tiaCtlRFF4?=
+ =?utf-8?B?K21nM0VvM3JtVUN2c2lpc3lMZkNCZlNKSUxrZkljSnAvWGtUQ0NUY01lc1pH?=
+ =?utf-8?B?VlRIcVIyaE5NS3BzN2N4S2NyNFczT1JtNUU3YUxWcWFNZHp0QmliZlRnWWdK?=
+ =?utf-8?B?VVFUZktPWFRwZnd2ODM5Y08yYmZpb2NyeDVwTUE5OGEzbjVOUHNvd3NkcWc0?=
+ =?utf-8?B?UnNndUZqNFh3b0JPcWlxSUZlbzRkUS9FUUM3UDRwVjFyREpzMEJtNmVuVGtN?=
+ =?utf-8?B?Um1zbE92eWxkaUtlcTEySFBzWDRiSXhGRUhIQkRmY0lKTkdoREFoUWZjeWhB?=
+ =?utf-8?B?aDE3K2VYQTBKa0xqUjJMSmlFUUFPUnhsUkUwWEpLbXlzSFcwSUJJVk5Md3hN?=
+ =?utf-8?B?UW1BYkpqMnJnc1BTQXpJeGZkbXlZWUZieHQyMlhrdm5xTUVNekRnSWtNTG1P?=
+ =?utf-8?B?K1lkTDZhSFZUSXVKMGZPMVNCdUFPUFJycklNSkkzeHk3aGdHeGRDbHdHOVJS?=
+ =?utf-8?B?cCsvVGVheEhHSitlNWVlS0F6WHFmZDl6YnBpcGh6S3dOazExYUxpeWx5SFpj?=
+ =?utf-8?B?ZzJ2anVXRmlNcFdnaGI1L1YwQitaYTRWdERwMDJUMHlMLytQODJGK0p1TmNP?=
+ =?utf-8?B?NkdodGRnY1B3dVhnZnFQYmJGcm9VbEhicWhWZ21EdW1NbVllRzVoRzkzS3Q0?=
+ =?utf-8?B?ei8zalhwUURvclVwUlM4MFBkQndxTFJVNjdtTm1OK2ZvY1JxRnRZUFN5T1FS?=
+ =?utf-8?B?dk9QSUdUQTlDUmpQVlVMVEFxQzJpZGVyVHdnWkhnZDdVVWpsVEVuWmxta1JL?=
+ =?utf-8?B?a3pUZFFhQ1JxRVJrYjVXbHE2NUp4cmdoeTlDMkNRc3M1ZzJ4aFVKWXpQL0xw?=
+ =?utf-8?B?UkRyYVZoRytvSmtvWHV0M2xSLy9VNGtSeTFqbDhod0Q0dTFNMDZ5M1B4UkxN?=
+ =?utf-8?B?dkgvNmlJdGJsNFI2TXY4SThiUTVFZGx1Ym5WTmh6N0JTYjVjQ1hCS25YeXJh?=
+ =?utf-8?B?NWJNT0t1Z2J2d1VQQ2M1cGRQeVZqSmpIQnBRdXUwWll5N3p1Z0s5VnFGL2VO?=
+ =?utf-8?B?ME5yUmhKQ01HRmMrVjdVSlRhYktJZW5QQVJjVm5VbFZwVWNYOHpnNDljUk5z?=
+ =?utf-8?B?Z3dzMkQ3U1UraTVEK2ZmVTZRWVgwd0pPck84TGFyRnhaWWRUSzFRRzI5c21O?=
+ =?utf-8?B?UlVlWkk5QlR6alptOTVudHY4UWw5UDBITDVERGt2c09MQVhKRHZnblh4bTNW?=
+ =?utf-8?B?aVFkSEl4a1JiRnY5TWdiUG5rUG51c2VCc0t5WXJqejFmdHdjOEVyLzJ4Y2lK?=
+ =?utf-8?B?TVhyLzcyaEQ1ZGwvNDBmYmEyL041YXNaczd6eW1lZjEveVY2bmdDR1RFbDRB?=
+ =?utf-8?B?WFgyeG1yR0FJbkF0V0tRZXE1ZHdmR01GQ052L3NqbjdNY0JzdnlqVlo0c3Nq?=
+ =?utf-8?B?MW10NlFnS3pBd0NudFVhUzcrZnd4L3ZBK256TWdYeG9oZFdWU2FzQT09?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 57b2f081-44c1-441d-4b57-08df346bb336
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB9174.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5146.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 96aa0ad5-9f3a-4cac-6a78-08df346bd057
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Oct 2026 20:49:37.1343 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: tZnut6XHpSJYvf2d4pcGvAFR9mjJCaLtEEBhmBWEg0oq6t31OGcieh98gtcD75f00r8bTqZ4VVZlSIJQDSLJ3w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5963
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 20:48:48.6412 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kpkxh+X/DWfCKATZeCdhIH6joFjT3xeFlcgOFX9SFSlrny1xiyDrddzGM0xV4UieaYBr1yaYjL9KUU15G1kIJg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB9061
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,106 +136,80 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-12.6 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Public
 
-> -----Original Message-----
-> From: Paul Menzel <pmenzel@molgen.mpg.de>
-> Sent: Tuesday, October 27, 2026 2:54 PM
-> To: Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo)
-> <Sunpeng.Li@amd.com>; Rodrigo Siqueira <siqueira@igalia.com>; Deucher,
-> Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
-> <Christian.Koenig@amd.com>; David Airlie <airlied@gmail.com>; Simona
-> Vetter <simona@ffwll.ch>; Wentao Liang <vulab@iscas.ac.cn>; Hung, Alex
-> <Alex.Hung@amd.com>
-> Cc: Paul Menzel <pmenzel@molgen.mpg.de>; amd-gfx@lists.freedesktop.org;
-> dri-devel@lists.freedesktop.org; linux-kernel@vger.kernel.org
-> Subject: [PATCH] drm/amd/display: Don't warn about vendor infoframe for n=
-on-
-> infoframe sinks
->
+
+On 10/27/26 13:54, Paul Menzel wrote:
 > With an EIZO EV2781 connected over HDMI to an AMD Ryzen 3 2200G (Raven)
 > on an MSI B350M MORTAR (MS-7A37), Linux logs at every boot since v6.16:
->
->     amdgpu 0000:30:00.0: [drm] Failed to setup vendor infoframe on connec=
-tor
-> HDMI-A-1: -22
->
-> Commit 6027cbee1900 ("drm/amd/display: Add error check for avi and vendor
-> infoframe setup function") started to log the return value of
+> 
+>      amdgpu 0000:30:00.0: [drm] Failed to setup vendor infoframe on connector HDMI-A-1: -22
+> 
+> Commit 6027cbee1900 ("drm/amd/display: Add error check for avi and
+> vendor infoframe setup function") started to log the return value of
 > drm_hdmi_vendor_infoframe_from_display_mode(). With `frame` and `mode`
-> being non-NULL, the helper only fails with -EINVAL, if the sink does not =
-support
-> HDMI infoframes, that means, if `connector->display_info.has_hdmi_infofra=
-me`
-> is false, and its kernel-doc says, that this error can be safely ignored.
+> being non-NULL, the helper only fails with -EINVAL, if the sink does
+> not support HDMI infoframes, that means, if
+> `connector->display_info.has_hdmi_infoframe` is false, and its
+> kernel-doc says, that this error can be safely ignored.
 > drm_parse_hdmi_vsdb_video() only sets `has_hdmi_infoframe`, if the HDMI
-> VSDB has HDMI_Video_present set, and drm_parse_hdmi_forum_scds() sets it
-> for sinks with an HF-SCDB. So an HDMI sink, whose VSDB lacks
+> VSDB has HDMI_Video_present set, and drm_parse_hdmi_forum_scds() sets
+> it for sinks with an HF-SCDB. So an HDMI sink, whose VSDB lacks
 > HDMI_Video_present, triggers the warning, although nothing failed.
->
-> The EIZO EV2781 is such a sink. Its HDMI VSDB has a payload of only seven
-> bytes (source physical address, Supports_AI, and a maximum TMDS clock of =
-250
-> MHz), so the byte with HDMI_Video_present is absent, and the EDID has no =
-HF-
-> SCDB:
->
->     67 03 0c 00 10 00 80 32
->
-> Only warn, if the sink supports HDMI infoframes. The infoframe setup itse=
-lf is
-> unchanged.
->
-> Fixes: 6027cbee1900 ("drm/amd/display: Add error check for avi and vendor
-> infoframe setup function")
+> 
+> The EIZO EV2781 is such a sink. Its HDMI VSDB has a payload of only
+> seven bytes (source physical address, Supports_AI, and a maximum TMDS
+> clock of 250 MHz), so the byte with HDMI_Video_present is absent, and
+> the EDID has no HF-SCDB:
+> 
+>      67 03 0c 00 10 00 80 32
+> 
+> Only warn, if the sink supports HDMI infoframes. The infoframe setup
+> itself is unchanged.
+> 
+> Fixes: 6027cbee1900 ("drm/amd/display: Add error check for avi and vendor infoframe setup function")
 > Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5025
-
-Missing your S-o-b.
-
-Alex
-
-
 > ---
->
+> 
 > Notes:
->
-> claude-opus-5-5 (Claude Code) assisted in analysis, code change and commi=
-t
-> message.
->
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git
-> a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> 
+> claude-opus-5-5 (Claude Code) assisted in analysis, code change and
+> commit message.
+> 
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
 > index ded8e21897f1c..636dd2dedd73d 100644
 > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
 > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> @@ -941,7 +941,8 @@ STATIC_IFN_KUNIT void
-> fill_stream_properties_from_drm_display_mode(
->               err =3D
-> drm_hdmi_vendor_infoframe_from_display_mode(&hv_frame,
->                                                                 (struct
-> drm_connector *)connector,
->                                                                 mode_in);
-> -             if (err < 0)
-> +             /* Sinks without HDMI infoframe support make it fail with -
-> EINVAL. */
-> +             if (err < 0 && info->has_hdmi_infoframe)
->                       drm_warn_once(connector->dev, "Failed to setup
-> vendor infoframe on connector %s: %zd\n",
->                                     connector->name, err);
->               timing_out->hdmi_vic =3D hv_frame.vic;
->
+> @@ -941,7 +941,8 @@ STATIC_IFN_KUNIT void fill_stream_properties_from_drm_display_mode(
+>   		err = drm_hdmi_vendor_infoframe_from_display_mode(&hv_frame,
+>   								  (struct drm_connector *)connector,
+>   								  mode_in);
+> -		if (err < 0)
+> +		/* Sinks without HDMI infoframe support make it fail with -EINVAL. */
+> +		if (err < 0 && info->has_hdmi_infoframe)
+>   			drm_warn_once(connector->dev, "Failed to setup vendor infoframe on connector %s: %zd\n",
+>   				      connector->name, err);
+>   		timing_out->hdmi_vic = hv_frame.vic;
+> 
 > base-commit: 77f548b127c6de34ce271fa09ba270cb1ef9f2da
-> --
-> 2.54.0
+
+The actual change looks reasonable to me.  But a few things about your 
+commit message you'll need to change.
+
+1) You are missing a S-o-b [1]
+2) Disclosing LLM should currently be done by
+"Assisted-by: LLM" [2]
+
+https://docs.kernel.org/process/coding-assistants.html#signed-off-by-and-developer-certificate-of-origin 
+[1]
+https://docs.kernel.org/process/coding-assistants.html#attribution [2]
 
