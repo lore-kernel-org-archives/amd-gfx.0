@@ -2,43 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B0B6606A31D
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 23:22:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A6DD606A31A
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 23:23:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=MGNP9Cj+
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=5iyHavHL
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 21B3110F899;
-	Tue, 27 Oct 2026 23:22:48 +0000 (UTC)
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013046.outbound.protection.outlook.com
- [40.93.201.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C79210F899
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2026 23:22:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 241F310F89F;
+	Tue, 27 Oct 2026 23:23:14 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012008.outbound.protection.outlook.com [52.101.43.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 537D410F89A
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2026 23:23:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LMaA/h6sETBiKfwiy0odQ0nTAbxaAjs3jE2+aO6KbSmyjVFPIPR1DTafmdlgJohnKeyiOQm77gGGLfr8eAtmLsAoKrZ58CtIF7w0RB4aG2i93j59ePCRb2NAePhwFnNkEpkyk2T9F5xW7SoOfy6MJBddU68dob96zochh8X+czbbUCSkkas6oNlrbONvS3Icp49jGQlRJyjtl91C1xdidaUz7zreeNHt38NMxLpwrGyyl8O3VY1imuXEgTOHl8wEB5BhkYmlhT6sLflJXaWMozmzq4obQA0ehyVLcEWCjSUeLoul3NYUHPs5AT/ZHq/d+uxVE4rrbc2+ZbMixMcNHQ==
+ b=dl1GOc4ivjZ/BYlLafTiTxZMVs7FsZI9LxhsyNPjKRAwL/LUBVaA3jf1pCNaEI9wG8WvcfTNg4+0b9oAJoyaVjTCc7bWATGAcmjckajKE5VF/mH8y8UVDsyqVZUVhtUfmJ1zFW6YUJrLlEV3bXjMCzF7OJJ9CYW9ri3GoQ1HMQW2Ypq0OfdsRyA8Zfbp1KS/wkZ5ei8koYxws8v7IiLU7E1oIRvHN1Y/YMSrbfcndwlhQ/1aLQ7kaP6q+PCtYioN0g3DqjOZkPhE8TPQ1ph5wFIbMNbpkyLYW0JL8eAWALCQA0oHOoeIh1Oy09AeJ5a84fjw8EffGjuju4gVpv6qvw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jhkkzEdxfsXg6WuWh3m+zNF6AWoYy12cbDmRnsxBdwg=;
- b=wOGY7M/OGtgmsOkUFPxMH+I1cIIuUWruqgm1ioSh7lsZE5Dn2TQMhjdfLCwQgK5dIivybIu7Uc0hcw37H9QEkgMgZ8aAptqvDSv8OZHxxXSKL/T5gsyxy3iljQTH/tTLrhtCP06zIuZe2qWZ3/L5Jo7e09/TVg22QrCvwlATW/OArd6A+TJLLEaQhhODI8HtOE1cbBolZa17OspF4Qoe8iIe3E8oSs7yFm1qJyW8zPLbbAWkia+/CEtbUkacrDWaQGJI6eFPGRjmYa0vJ/trLPsfTSuA2aE1ZSiqwuEXvq5P8cTPdUitJUGcmCZGKGjDLxHlIPci15qn9XNFzo/I1Q==
+ bh=qJxBcL+rQl9C946YefZn7JaTNVzslvMg3jy6vZJUci4=;
+ b=Ka4tcC8lBOCr0W0UB47cVBNQ2dUOOTIeMbiXQZqjstBhIPcqRTuiNfY7b77FEv18rhO2lsGdSQGSq4O2hSQbcerxDrxw7m4KCeOCmBy/9jbXMlWyh1eGN7dGsVg9GSKzkpstOC6hFmc2vrEeEfqIHirTLEaOMHN7/QVlPtNn7eJW0+5uNmEpnBFyXMUFtldtB7K0Se7numxwazy3gHR/tn0Heabzx+YtBAA2iGWPpx2iaPNV0zmhwhQt3SeRqzkHsqFkR5NmCC91ZoNYag5i5hSLbfaZJtRwB9b04Mq1d0zYXE4Kpy/yocz/jD7jUhiN9IA1mxn6dUNnoVFkkI/j9g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jhkkzEdxfsXg6WuWh3m+zNF6AWoYy12cbDmRnsxBdwg=;
- b=MGNP9Cj+k7/E67s4ZRPzvc74uWIGvOsWm1wyecNbBlAcm+AtQYS4iQSrfJBxs6vrc5djbShm0gncv1yav79KWGsQF1RjBXPpMESM9ws8EUttXGUs1nJcxFtZQtX9wRD2cs/OMrEyfG8nViq06zgNadslXJLs6n9ZDCROhs73wVg=
-Received: from CH2PR14CA0055.namprd14.prod.outlook.com (2603:10b6:610:56::35)
- by CY8PR12MB7169.namprd12.prod.outlook.com (2603:10b6:930:5e::10)
+ bh=qJxBcL+rQl9C946YefZn7JaTNVzslvMg3jy6vZJUci4=;
+ b=5iyHavHLkAZgY+hfwcpae9YeE5Jj8roxZ+juIdEdp55QVoy5mU75pqk4q9rW1XudI4HkikN6QPPyLDJhi5fJz1oy/FkJqBu2l7W8F0arC7EqJ5E+qVZs4Zg3lvZGuJvGaNbunt7hot5IyV1wAQ9rXf8GLlGU3Gp02j0XA6JNiq8=
+Received: from CH0PR03CA0216.namprd03.prod.outlook.com (2603:10b6:610:e7::11)
+ by LV1PR12MB509357.namprd12.prod.outlook.com (2603:10b6:408:516::7)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.16; Tue, 27 Oct
- 2026 23:22:38 +0000
-Received: from CH01EPF000BE943.namprd02.prod.outlook.com
- (2603:10b6:610:56:cafe::8c) by CH2PR14CA0055.outlook.office365.com
- (2603:10b6:610:56::35) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
+ 2026 23:23:05 +0000
+Received: from CH01EPF000BE940.namprd02.prod.outlook.com
+ (2603:10b6:610:e7:cafe::64) by CH0PR03CA0216.outlook.office365.com
+ (2603:10b6:610:e7::11) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Tue,
- 27 Oct 2026 23:22:38 +0000
+ 27 Oct 2026 23:23:05 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -47,13 +46,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- CH01EPF000BE943.mail.protection.outlook.com (10.167.244.135) with Microsoft
+ CH01EPF000BE940.mail.protection.outlook.com (10.167.244.132) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Tue, 27 Oct 2026 23:22:38 +0000
+ 15.21.569.4 via Frontend Transport; Tue, 27 Oct 2026 23:23:05 +0000
 Received: from kylin.lan (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 27 Oct
- 2026 18:22:35 -0500
+ 2026 18:23:02 -0500
 From: Alex Hung <alex.hung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -62,12 +61,10 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Alvin Lee <Alvin.Lee2@amd.com>, Wenjing Liu
- <wenjing.liu@amd.com>
-Subject: [PATCH 10/28] drm/amd/display: Indicate wait_resp based on FAMS even
- in disable path
-Date: Tue, 27 Oct 2026 17:17:06 -0600
-Message-ID: <20261027232005.2879750-11-alex.hung@amd.com>
+ <Chen-Yu.Chen@amd.com>
+Subject: [PATCH 12/28] drm/amd/display: Fix unadvertised mode detection
+Date: Tue, 27 Oct 2026 17:17:08 -0600
+Message-ID: <20261027232005.2879750-13-alex.hung@amd.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261027232005.2879750-1-alex.hung@amd.com>
 References: <20261027232005.2879750-1-alex.hung@amd.com>
@@ -79,29 +76,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH01EPF000BE943:EE_|CY8PR12MB7169:EE_
-X-MS-Office365-Filtering-Correlation-Id: fae91a6c-7d8a-4547-fbda-08df348130a4
+X-MS-TrafficTypeDiagnostic: CH01EPF000BE940:EE_|LV1PR12MB509357:EE_
+X-MS-Office365-Filtering-Correlation-Id: 275575e8-a330-4b63-0d2b-08df348140c1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700016|1800799024|23010399003|82310400026|6133799003|22082099003|18002099003|261022075727099003|261022105027099003|261021123027099003|11063799006|10067099003|261021121427099003|261009223027099003|261026140227099003|56012099006;
-X-Microsoft-Antispam-Message-Info: kGL19JX1zfhdm1bjpAZtDs3rCB/5n78VpoJj4wqn98sYAcxHXYDdOsbAWDb1VifdGN+tgWCt+WvTDj0a90hlAqKalul3l+M2Rs86mwQ1cc2e6P8vyO8zNtkHLxIrW9DGXSnp+jptnFJF8Qo84HieHzdMIDhFgfM7modqy5Q6DfbzrsnqsWXsmRVbt16trvKKpdE4JZjDKSp6vBkNOqAH9Ojmh+8ThfsobUWnRYLsG9crwaRO8CHcBGzUUfOlL/7/UC+GCKr65XSSenMdI9IBTNnqRG3N2y1E/ZyiJW4PN+t4cMtZ8gQjUBkRoRblVTr96yIE4QiTZNgON1HzT/fnw7CjIHY8fF4gGHM3sSFZDRCUnnsWRQqWLS5hC4TI923r4mCXFByUw/jNUZfLd78Esq+tyHdeYq5I4QyT6DNVYtWQvBmZAiMepBWeuEsrINujUbymYF+eFKKnXdgHMCszqJtP7Zq8vEwzY457IqbBd29QbIlsLMM/doweGPRTGdYoqYZzo2+2Nn8TEwqfLicJePmkgFM+7/TBCTdi9xOe+RhZ2+nklkv+bh8w4jCg2atiPV+vmKmDRCEHCmd3XCcukANqi2iDLKW5Iw46WUQoNaGEr0ehwqOjQHMXQ9R6hLn4B3qiTZQjN+DhDM6bSNmMMdWpQkbv/JPzskGMorqNfyfYAkuG69bQYJZL7lEl3/LKAKpT4WFJaZXqLPm+FozaqQ==
+ ARA:13230040|36860700016|82310400026|1800799024|376014|23010399003|18002099003|22082099003|10067099003|56012099006|11063799006|261021121427099003|261009223027099003|261021123027099003|261022075727099003|261022105027099003|261026140227099003;
+X-Microsoft-Antispam-Message-Info: fgkOnCOL2PT4gBB4DpO5wQqhoHq725MqUlv+3FMaz8dUktjulh97inyVhX1W8FjMKebHDaezRyRmtwDnysZrHPpXl/eOL3HpQXycY6iWW+OXgAJ5Q9bNiPnkbLFToY6+U62s9x87pbrsI5Gs0t5ou+kDDDZtfoPujgAPdSqgcALYmStuNVPhDDLSO6UK3am39gYNdOojV+PJaaVMDH7be7TeGvKWfQtnA+WsH8zWm/pBPPK5Gt62Y57v0bRPOBsIHzu25lmHnobP9m7JNqLvgNzRt/NQ5Xm+UHeN3nfU79h0p5j4dkKSwJvW+S/vIIW+2FfBYNEdLUYcBWJ7l/zrCyWaTBVRMp3d2IimHmiB6fCdjBIJuo8Ck61vfWdDGZVZg+TkTeOUz9dr64ahZqxsnImdSxDOOObhqDRPLAQlYsT4Jn3+wIcvmEtkAUnqUc4xfBi/AeLK+Dc9myBbE+y2Ub6lEc8gtLZD12lZ1oy2Lksscdra+Ij/tfR1RfjbxGtHyUJm05X7Gyt+WC4St9YlEwEiUPaAaKkvKUquGhjqJzO1We7nC3DjkA6BG5cTx47A33rNw5GTnKrLoI6+RMlBG2U1wDSlINk+F4GaC+SvH8zMcmrIVRz4UKWXQo7zzE24joKA2yMV12OJRvWePe42IzP6WDOYQLfMBbh1SGXh+8gf+LOomI0HxAh+2MiqFD2EDN34WkOzmsiENbUsNQc7XA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700016)(1800799024)(23010399003)(82310400026)(6133799003)(22082099003)(18002099003)(261022075727099003)(261022105027099003)(261021123027099003)(11063799006)(10067099003)(261021121427099003)(261009223027099003)(261026140227099003)(56012099006);
+ SFS:(13230040)(36860700016)(82310400026)(1800799024)(376014)(23010399003)(18002099003)(22082099003)(10067099003)(56012099006)(11063799006)(261021121427099003)(261009223027099003)(261021123027099003)(261022075727099003)(261022105027099003)(261026140227099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: vsFDvonPhb+B/Pyff75QF5Mx+U1yGrVQLRszX/B2jJtXKLkkP2PzC7Bq3b68l1CykcWqywVlCBUKZYbK9iIFjbZ0/6VSxwOye5d1fWAhBC3jGKtp05uA4riSbWVE566Q2wMQ91JFvCWHxbHWq1pumHa9Co7Z81l3KjgyQ3Q66asvI5o1L1wonLUGGtPfZkMgw+KIdPhpjDi4z34Oy72ksBBcTAUkUYwbVKFgdZNi9Qgp8oNV5d9ta5l4sNqDDe5slxVty/XYMeOfubaKezXSpozX4f1ve7yzaPGq9Yp2ZeneOZXPPXK6V4NKYzK/N6wyw5nkhqS7KOVdNmBl+ZEpcwpmVTtvDJEhAjLOx/tAAHfn6esHuUkKo+uWL7Fi9siJhj7+PgcLm7EZeiuZdaG+SzLG3wuO2YgLmFSWh1AfqnMeZ3t4TXH4xxownDOXXaSZ
+X-MS-Exchange-AntiSpam-MessageData-0: 7SARoVLLZvViriOuws0jkDZcRZ4V14jezXfijq84E1r+SLZX3ZWnxrrJlFUBeuplinKdZpakKsoOsD8YfNxAy0NthYnWlZvhzX97Uso2IfE6UpSP7cWuxfF46Sm8gLhaedyBvE5zVFKMEDJlZ9gvNlGLNznwbwO+avmK1YLVPpx5cWelRHucKD0SeQ5A0g1uEQ5gpL5bX9iKeMxPHbxkJQJyJAVpZeZIYBrGht+M5tGWt3nbZStxQ7WN5Og06hJDpdsmI+rM6jIgFXdbKf5ArDwpL+3n50j5vLiaWN9gTlrqtyC4aXztkSDTy/LmSjo1sFKBPxOaT6y/ZttTk3NqxQfjTTed6XgPXX3wqcyYazcJiiQZ+seNjccObeveiMtct1VoMqQSoaT2o7oRsNPpP75qm+sUemAQokUbkgBSWXrFfAnbmZDuB5oTxm1VvOS5
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 23:22:38.0873 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fae91a6c-7d8a-4547-fbda-08df348130a4
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 23:23:05.1160 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 275575e8-a330-4b63-0d2b-08df348140c1
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH01EPF000BE943.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CH01EPF000BE940.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7169
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV1PR12MB509357
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,36 +116,128 @@ X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Alvin Lee <Alvin.Lee2@amd.com>
+From: Fangzhi Zuo <jerry.zuo@amd.com>
 
-[WHAT]
-The "disable" path for indicate PSTATE status can be triggered due to
-disabling alt-ch, but keeping everything else enabled (UCLK, FAMS).
-In this case we must assign the wait_resp flag based on FAMS instead
-of hardcoding to false in the disable path.
+[WHY]
+The advertised mode list moves between probed_modes and modes during
+mode validation. Checking only one list can misclassify valid modes or
+allow generated FreeSync modes to be added more than once.
 
-Cc: Wenjing Liu <wenjing.liu@amd.com>
-Signed-off-by: Alvin Lee <Alvin.Lee2@amd.com>
+[HOW]
+Make is_duplicate_mode() search both connector->modes and
+connector->probed_modes so it works before and after DRM transfers
+probed modes. Update the KUnit fixtures to use the advertised modes
+list.
+
+Fixes: ed82b939ccd1 ("drm/amd/display: warn on unadvertised modes without scaling")
+Cc: Roman Li <roman.li@amd.com>
+Signed-off-by: Fangzhi Zuo <jerry.zuo@amd.com>
 Signed-off-by: Alex Hung <alex.hung@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/clk_mgr/dcn60/dcn60_clk_mgr.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ .../display/amdgpu_dm/amdgpu_dm_connector.c   |  5 +++
+ .../tests/amdgpu_dm_connector_test.c          | 38 +++++++++++++++++--
+ 2 files changed, 40 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn60/dcn60_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn60/dcn60_clk_mgr.c
-index 1c8daa7d46a1..98d146bc25c0 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn60/dcn60_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn60/dcn60_clk_mgr.c
-@@ -1458,7 +1458,9 @@ static unsigned int dcn60_build_bandwidth_clocks_block_sequence_with_action(
- 				!action->alt_ch.disable
- 				&& (action->alt_ch.enable
- 						|| clk_mgr_base->clks.alt_ch_pstate_switch);
--		block_sequence[num_steps].params.indicate_pstate_status_params.wait_resp = false;
-+		block_sequence[num_steps].params.indicate_pstate_status_params.wait_resp =
-+				action->fams.enable
-+				|| clk_mgr_base->clks.fw_based_mclk_switching;
- 		block_sequence[num_steps].func = CLK_MGR60_INDICATE_PSTATE_STATUS;
- 		num_steps++;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+index bc5745a5ba37..37b41c887ede 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+@@ -1407,6 +1407,11 @@ STATIC_IFN_KUNIT bool is_duplicate_mode(struct amdgpu_dm_connector *aconnector,
+ 			return true;
  	}
+ 
++	list_for_each_entry(m, &aconnector->base.modes, head) {
++		if (drm_mode_equal(m, mode))
++			return true;
++	}
++
+ 	return false;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+index acde20241f43..7965a221e0e9 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+@@ -1135,6 +1135,7 @@ static void dm_test_is_duplicate_mode_empty_list(struct kunit *test)
+ 	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, aconnector);
+ 
++	INIT_LIST_HEAD(&aconnector->base.modes);
+ 	INIT_LIST_HEAD(&aconnector->base.probed_modes);
+ 	mode.hdisplay = 1920;
+ 	mode.vdisplay = 1080;
+@@ -1155,6 +1156,34 @@ static void dm_test_is_duplicate_mode_match(struct kunit *test)
+ 	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, aconnector);
+ 
++	INIT_LIST_HEAD(&aconnector->base.modes);
++	INIT_LIST_HEAD(&aconnector->base.probed_modes);
++	existing.hdisplay = 1920;
++	existing.vdisplay = 1080;
++	existing.clock = 148500;
++	list_add_tail(&existing.head, &aconnector->base.modes);
++
++	candidate.hdisplay = 1920;
++	candidate.vdisplay = 1080;
++	candidate.clock = 148500;
++
++	KUNIT_EXPECT_TRUE(test, is_duplicate_mode(aconnector, &candidate));
++}
++
++/**
++ * dm_test_is_duplicate_mode_probed_match - Test probed mode duplicate match
++ * @test: The KUnit test context
++ */
++static void dm_test_is_duplicate_mode_probed_match(struct kunit *test)
++{
++	struct amdgpu_dm_connector *aconnector;
++	struct drm_display_mode existing = {};
++	struct drm_display_mode candidate = {};
++
++	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, aconnector);
++
++	INIT_LIST_HEAD(&aconnector->base.modes);
+ 	INIT_LIST_HEAD(&aconnector->base.probed_modes);
+ 	existing.hdisplay = 1920;
+ 	existing.vdisplay = 1080;
+@@ -1182,10 +1211,11 @@ static void dm_test_is_duplicate_mode_no_match(struct kunit *test)
+ 	KUNIT_ASSERT_NOT_NULL(test, aconnector);
+ 
+ 	INIT_LIST_HEAD(&aconnector->base.probed_modes);
++	INIT_LIST_HEAD(&aconnector->base.modes);
+ 	existing.hdisplay = 1920;
+ 	existing.vdisplay = 1080;
+ 	existing.clock = 148500;
+-	list_add_tail(&existing.head, &aconnector->base.probed_modes);
++	list_add_tail(&existing.head, &aconnector->base.modes);
+ 
+ 	candidate.hdisplay = 2560;
+ 	candidate.vdisplay = 1440;
+@@ -1207,12 +1237,13 @@ static void dm_test_is_duplicate_mode_same_size_different_clock(struct kunit *te
+ 
+ 	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, aconnector);
+-
+ 	INIT_LIST_HEAD(&aconnector->base.probed_modes);
++
++	INIT_LIST_HEAD(&aconnector->base.modes);
+ 	existing.hdisplay = 1920;
+ 	existing.vdisplay = 1080;
+ 	existing.clock = 148500;
+-	list_add_tail(&existing.head, &aconnector->base.probed_modes);
++	list_add_tail(&existing.head, &aconnector->base.modes);
+ 
+ 	candidate.hdisplay = 1920;
+ 	candidate.vdisplay = 1080;
+@@ -10096,6 +10127,7 @@ static struct kunit_case amdgpu_dm_connector_tests[] = {
+ 	/* is_duplicate_mode */
+ 	KUNIT_CASE(dm_test_is_duplicate_mode_empty_list),
+ 	KUNIT_CASE(dm_test_is_duplicate_mode_match),
++	KUNIT_CASE(dm_test_is_duplicate_mode_probed_match),
+ 	KUNIT_CASE(dm_test_is_duplicate_mode_no_match),
+ 	KUNIT_CASE(dm_test_is_duplicate_mode_same_size_different_clock),
+ 	/* amdgpu_dm_get_encoder_crtc_mask */
 -- 
 2.53.0
 
