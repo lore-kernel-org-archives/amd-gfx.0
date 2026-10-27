@@ -2,84 +2,125 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2386F606A31A
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 09:34:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9C33606A31A
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 09:47:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AkmM/X18
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=YX/biKTV
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E93E10F358;
-	Tue, 27 Oct 2026 09:34:24 +0000 (UTC)
-Received: from mail-wr2-f10.google.com (mail-wr2-f10.google.com
- [74.125.225.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D432710F1B1
- for <amd-gfx@lists.freedesktop.org>; Mon, 26 Oct 2026 22:49:11 +0000 (UTC)
-Received: by mail-wr2-f10.google.com with SMTP id
- ffacd0b85a97d-48df0245ce6so1570693f8f.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 26 Oct 2026 15:49:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1793054950; x=1793659750; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:subject:from:cc:to
- :content-language:user-agent:mime-version:date:message-id:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=kKstMhy7XYdWlOxfLVVB+n9yotypUq8kAPAlGnHm/EA=;
- b=AkmM/X18/GcI0rTLzX73RgSrogQEgwkaWkcvu9vTcVD77Rg8sjQMCl8o9/gjHwIftb
- JL/3UU3jpXHCbgLcU+gJqt8U77DU3VYL6PdsEGa1DP85WO2D4IcG1r0F7tMijuHvNabI
- pWVQowPmnvo5leDRF2h5iIJzfkUovcQQAPJHv9X8o1/5g664UG71ZjPvmxqzPHJmhjFK
- SawbVTBeKISrAueGEl2I/pGZ0xFt7TDSHWPYYb60G2kNiAOBIilGsnoBYy9Oww48Ux3O
- OHJIkLDQYppSLvomBmk3pWy95jDYvrMtUzhecmB/HzyzFH87i7k/ll+jZvKWlbyQFhVk
- TbVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793054950; x=1793659750;
- h=content-transfer-encoding:content-type:subject:from:cc:to
- :content-language:user-agent:mime-version:date:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=kKstMhy7XYdWlOxfLVVB+n9yotypUq8kAPAlGnHm/EA=;
- b=khLDh9YhS+iMv1K7D8Uv9hxgvZGZvgLoD8WhUj9pyGRAA+s2E2OB85JJoBQpQFtS4T
- yBdkcpHxMzqEu75B/FC/IgiNHIuyCiVGDZqqgavW/emOVEmyM4bRm5BZes9V1K16zjIO
- WRemLAA+zGnRPVWL/zuAiqoe9nXRLno4K+Nb2EFRmPypljj2fTZqEvvXxozd+BDSiwla
- P1Rjuul3f8h/YkH0nWs2ZWZWW6pMx3OEXfxBeY0z7MbIyXEHkEfobPm9J05psUH9VUCA
- OMxNjjq5H36Hesx7wOLKlIwh7DBq8N9VMYxtRqjzBzm9Lbmy2PuZF7zjrLQXtdrNLnCA
- pq2A==
-X-Gm-Message-State: AFq9FYKTs7ZF1wPfM+i6/0seo4Y6jdVQOWmkF1AYUnYNj6ZG/WIg2p9a
- RvfiX6u5zheR+lJzFuV+fZn1r6DN4Zqm0L/QqGIiARmQo4UOlh5bVc4jH8ft7WXIRh0d/2HG
-X-Gm-Gg: AYBFou1GKsr5mS34YK5pPdzlBRM3HFm6c9dkfF7gpCT7jdnvtggiktq/Wd4pFwiXpmJ
- XQZ58QtLH32AtfuUvLkik0UOgDu7GuTTa/NpP/WPLpP1CpxSfnyi06c0ZaSJDeRofhthynJkX5n
- vgacppD23FAPr+eiGEW3hwDoIypiPohCsLReVOEdwzIYwTrQ/721ZjNljkiKyw20xGxxba557J9
- uwVpyjSJUZjc5VAfY/LNRLUBN1xABaHLWbmjwGfgwoE9Fo00eegmhAfigd2ig4oFW8VRpeYFl4r
- zkIOcOafmFx4Mw09y4q5dNTVRPJzngYOEm53AwmK+O27I3lU34dgOqeR8KC49LChyqBwk8XVmAU
- 1zZ8rWIkyUQvnrz4/Ja3noNadwNbyFbzz3n69dB0CeWB07UVTUruZk5be0lfB0r7I73QniuRO+x
- NRwtOmXAWvWUiACet+1CpL4uKDMqUh55j7eUiAqf//w2R7k5Aqk1zTf7tS7OVcPwwa5kmRY5cAc
- SS6Zr1BxdEastKCRAJvrs0i5cQ/7FRA04nE3lHXJaUqBew2
-X-Received: by 2002:a05:600c:8114:b0:4a1:dec1:4e1 with SMTP id
- 5b1f17b1804b1-4a35aca4ab5mr129489045e9.22.1793054950146; 
- Mon, 26 Oct 2026 15:49:10 -0700 (PDT)
-Received: from [192.168.1.12] ([31.94.68.191])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4a35a04ad39sm587066755e9.1.2026.10.26.15.49.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 26 Oct 2026 15:49:09 -0700 (PDT)
-Message-ID: <3ff4ef96-9c59-4e8d-a0da-92a1ac6f5ba1@gmail.com>
-Date: Mon, 26 Oct 2026 22:49:08 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C31510E2AE;
+	Tue, 27 Oct 2026 09:47:04 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010001.outbound.protection.outlook.com [52.101.85.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C83DE10E2AE
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2026 09:46:57 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qJFsQsxmfn9sIT11/39jIAE6lJHUExxeenhkSz2La9MJx4iuMj3iOzhdGyA+WRVQawoxauFHeB+rZbbpsBPKB1JxY+CVz0dddjfIKADiiNCmvchh+lp2iYcPhdBpzo0yqqk1X7icWbPR+/ewJROqQTgFEcQ3IjHLSNVbePapMEs92kd4Qkf+qHZ12xA4919IFzmzEZnQ1QeCQM7Bm6qn/N2Gdd5ycQoWw+K1XXa0bpBAaSwKE8wEcc1HpRUt/qr5RggLX8aLd+TcMLvuvMaFXTzYZxesimCGnKcZHR+2h1XF5kOE91J+THaNDjdEGBDY7aOcJDKTBp7FpJ+g9yMwvQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LA2o8jJxJAUfyIrsTPkCyTcJUxE6mHJz+qaZkVQNGvk=;
+ b=v5S7/NmSjBf/XAD7KKJJpxoPJvHH6oo4Z/AHDFIcYON172FU21Dr1nMtDqmySAlQKUQPrOMVe3eNT5LUd0nuX2t/+8YLh2jRX47KPrmtz+rV4hbVXfrIqkCCCijsLBipRjMt6ntSxGIfdKE7IC78dWria5igfMaR+2yF2hr6IpmfL5FQJNcliw/O2cTu+XIG9K6H+pQz5XCgT+PKMTkBtC2zJhRmpyBXHWAqYfH+FRnjnS+JwrryKwxXceWKKpxo7cTB+5K21BjlJSKmjqBEtu2ZZtlu1GdkktPmkfEYhvyPd3aqsixRT3bg08vvoT+MnUr93C9vnkS4LmlY1IxFkA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LA2o8jJxJAUfyIrsTPkCyTcJUxE6mHJz+qaZkVQNGvk=;
+ b=YX/biKTVbGHNLtgef8MnfzoJPlFG1mkKlSwqfAfdtdAlkMtUSexLS05NWnS65arvpzjpIm1c+g6ywxhkAZf5h8iWxdhink/kJ574nw2MIIGigyINFB4Q66ZzXOmmS4l1ZktJ0m7sp7wwkLeV798A/taWe4ti+DG1xxqkus+q/Nk=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CH2PR12MB4039.namprd12.prod.outlook.com (2603:10b6:610:a8::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
+ 2026 09:46:53 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
+ 09:46:53 +0000
+Message-ID: <38975a37-ca5a-40b4-ade5-d7ab861782e6@amd.com>
+Date: Tue, 27 Oct 2026 10:46:49 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 3/3] drm/amdkfd: bound SVM migration fence wait and
+ guard with drm_dev_enter
+To: phasta@kernel.org, Olivier Kaloudoff <olivier.kaloudoff@gmail.com>,
+ amd-gfx@lists.freedesktop.org
+Cc: felix.kuehling@amd.com, Danilo Krummrich <dakr@kernel.org>
+References: <20261022105443.60162-1-olivier.kaloudoff@gmail.com>
+ <9c4f99bf-4bb4-4c31-9571-31f2aa57da38@amd.com>
+ <d1db22be29151b65ac5054be1e80d36605ee732b.camel@mailbox.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <d1db22be29151b65ac5054be1e80d36605ee732b.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0084.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:cd::6) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Richard Lane <richardlanedev@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-From: Richard Lane <richardlanedev@gmail.com>
-Subject: [PATCH 3/3] drm/amd/display: report synced Apple 5K tiles to
- PowerPlay for MCLK switch
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Tue, 27 Oct 2026 09:34:11 +0000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH2PR12MB4039:EE_
+X-MS-Office365-Filtering-Correlation-Id: cd9a19fd-5509-41d2-4689-08df340f3afc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|23010399003|1800799024|376014|22082099003|18002099003|6133799003|261026121527099003|20046099003|56012099006|11063799006|4143699003|10067099003|261022105027099003|261022075727099003|261021121427099003|261021135927099003|261026140227099003|261021123027099003;
+X-Microsoft-Antispam-Message-Info: Vm1h09yPFYrhSWUzUIEOL+ePfjvLo/OlQ3IoSLT6/Z8GihQTwlH/A/VuHujPRhHs4O5p06K19s7arkvgPdvL0aSJZT1Ld7aTSDtw3ScMW3Fb/nsvHcn7VGadzDMeIgOCne2f5amq0kFQrA6yxfG6WrKfdkcyFhDka7zs6Nqdau7206h1nG0u6mAI49a25kr7UXfGZm8qosmWAIDBKPC23uYcAZkOZIlAei+rooIKZzdK6Xugs0iTp+ROKZ7w4G0lIXqM+pLx4Aj3S9Nov9Wxe/Rfb8KcPvxpIeS0e2waKSGLhMim5mdauiQXG/llAClKFH8810qWi3H70AgqRkgNxHwQh6vl43lWtr8WoSAJgMYX86zg7KHThq8TbFwToiKHlGcmOq9zEDqOSt71+XIyCLb7NrnRUP2DKqV6qf6vW1cebzbJry2XO7klADwLaeYqBdGni/QZrxRv9yQ9ddc4ulz0GkCCu5tTiwRIrpWhevTOIUertEAapka1Y9cTEf5/2NcO8vg43ZOwvbAjqiwkG99wgMTSH25MC1NO7dd9D+s8OqHLdhKnjeXhbIcWntFV2MUogaffoHx27iPkrgj8fgzZLN8WTNLWyifhr+YGbOgArFJJ9ifi29Y7MshcKTzaEmqMY02KoazVCRBPSNZvI7u/Eis/7+Oip5rlpG4Q9T8=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(22082099003)(18002099003)(6133799003)(261026121527099003)(20046099003)(56012099006)(11063799006)(4143699003)(10067099003)(261022105027099003)(261022075727099003)(261021121427099003)(261021135927099003)(261026140227099003)(261021123027099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y2MyMGxsUjFZTW1ZdXExc3JmQVA5ZWUyUlIzcU82dnZOd3pJYmxuK2FvUDF4?=
+ =?utf-8?B?Vk9DTE1QZXRESHJxeTRFc3QvckZwMWc2ZFdZVUNwUWJ2ek5BNFpPSEQwQlBr?=
+ =?utf-8?B?WDlwL2NCeG51MSs1N2JoSTZSME13b1YxMXdBNkJqMlRUN0ZJMXdxanN2YVAv?=
+ =?utf-8?B?TWRucE05c0lxV2Ywa1JOVG8wRU1Ic1JNN2VwYmRIQTBMaldXS0pQaEJLbjZi?=
+ =?utf-8?B?czFKT3VzVCtIRkdNL2UvTHE2b3FTOFlqM0psR3BUM3hLNlN5Ykl5eHdERFlJ?=
+ =?utf-8?B?eGJMRWw4bFFqTVNGR0ZsbHlPRE15bS9UTW55RG9wbTZnMUVPVzhFamRuTVFl?=
+ =?utf-8?B?YktPYTFZaGZzSTc4NGx6WDVzcE15bGxnVTFhVjhyTGJZVzU2UmI1RnB5Q1Zz?=
+ =?utf-8?B?TEphUlg0b2V5UUJrSklRT0lLbGZtTVA5U2NrMkFqaUZsOVoxT1RyUWtBWCtD?=
+ =?utf-8?B?UXg1WjFKQngzeHE5K0c1VHQyRExLSkJmZmNUYyswOSt1VHNBY1NYZmFhK1Rx?=
+ =?utf-8?B?eUR4MG1BUVU1YXlsbTZIQXA2NlRnVW9HczBQa3lvNjdhanN1NHJKOTZ0QmRs?=
+ =?utf-8?B?SDl0ODlpRHdqSWF3eWVPQ25OVGROYndTaldmY0JMNTNjejNlK2JMOUdERXVY?=
+ =?utf-8?B?c1RuWGcwWWNCT3VIWkM1ZzlVRU45TSt4MjJtWmE5Z3FOVjNSSk5nWmhRUGwy?=
+ =?utf-8?B?Unh1eGZZaUY1ZWI3R0dUOVNJR0xuWDZIUXZOQzhYWlkvZmFTOUtUTSsyYVQw?=
+ =?utf-8?B?bHdjVTRTUno3dS91ZzFTaWJzSDhHdG12bG8xRTE5aVZQYXNINDI0TVlpakxS?=
+ =?utf-8?B?VXNLV3R6NHlXQjNpZlY1SWxweFkwZmNndW9PYTJpM2pOTWw1NDdpODdNMVlL?=
+ =?utf-8?B?TkdrQ011VFhDYzZsU1BOQWJ2RTFXSitaaFRMMGwzQ3AwU2xOUGVDbmZkS2Jy?=
+ =?utf-8?B?YWo3NExhSnpVcnZnZWlweXhiSVBXZ09UTys4VVZJTTRQUDV2aUlCLzdwaHYz?=
+ =?utf-8?B?V1ZWQ1grS0JLYWtqNEFVcFZMNlcvSWs2QmFqZzBVL3J0Zm92UkdlOVJkMk9B?=
+ =?utf-8?B?U1BMZyswUzF3VXp2UXg0SUcrS25ZeTZKUXV3WU5BMnZ2K3ZRaHlQTmZwTlFz?=
+ =?utf-8?B?NndXYVJ6aHNaaWNsd1BWSlpidmpnTGNaY0EzbXh5dkF4ODV4NkRnQzErUUtX?=
+ =?utf-8?B?ZnBUVHErckN5TjhOcGgvRW5yL2REdHkzemhmb1JYakdSWWFGbFU0dFZmYWNm?=
+ =?utf-8?B?Vm5EcGNDWWc0amhZYkVUWFBkdkRWZVZqMlVBTHBWcC9nNVlkdGVyUGxjaUFO?=
+ =?utf-8?B?bi9HdkJ0cTBLTDVwS1F3UmkwSmNOazJxNWx4SitXclN0a3Q5S0pYRHJWOHkw?=
+ =?utf-8?B?YkdudC9pYTFlN1ZlQXhla05wZGFHc2RkK0ROREZxSXhJdkgzU2J2eklMdXND?=
+ =?utf-8?B?V244MG1YaFBIUHNmaGZVOXYvSE9HaUo0aXdIUVl1MkRVMHdHZUlwalVFU0d6?=
+ =?utf-8?B?NmkxRUgxNlIveHN5K0EwNURWYzR4bjFaMFpZdnduYnhnd01BdmJ5c1pyL09m?=
+ =?utf-8?B?SmdrSTZQd0tWVkEyMGROc2tOeWFBell4WDViTEE1d2czczMzOXNEQVQzcUhu?=
+ =?utf-8?B?TmpVKzNBNWNQKzVJTmZJOWtxVjdoUmVNcHRuUFVEWGZ2Y1JaWjFVVGh3WFM1?=
+ =?utf-8?B?NGR5RzZVMmpxQUduUEc4a2IrR1NqVlBsQW4xdlEwaWtEU05TbUNINXIzaUlu?=
+ =?utf-8?B?OGJ3blRGOW83VUpNSDRpdkx2YXdaY3pmUk91bmZkVHJxaW8zSUpMV2wyUTZL?=
+ =?utf-8?B?bmRGSnJhcmMxdktqWCtneVRBbTRWQXFQZkZ0bmxDcDlQa1VCcm1IT0tubEJw?=
+ =?utf-8?B?RGpKVTNSaWFreDFHdXRUVDZOUnErUVBmVkZEMTJjNmlJRzk0RmJIc2N6RERU?=
+ =?utf-8?B?QkdXd2Q3R2tlRzZCWEdVb0RQbGpUeE1jNlBvR3YrcmQ2RUY3UDJiR2lSNDZw?=
+ =?utf-8?B?dVFZQkRnRW1TSzlFOHpQVDBlOXBjNXRWbG5ybVFQZjFySmZCaGtGSC9ibUFG?=
+ =?utf-8?B?M3hhN1RyeTJJQ3FzTmxOYjRVUXB2M0UydG9XZXovaVFHTlRRUHQ5OXhBWWFr?=
+ =?utf-8?B?YW9PdWJwUWJKK2loZDgvV2pXa2tubHgxdEFYeVUvVVRuR2g2cEIzY2lWTWZ0?=
+ =?utf-8?B?dTBsaElOYVJ3bmFyQ2I1WXRDNTA2dmhROXVXazFVVk03bXhZUGcyaVNmclYw?=
+ =?utf-8?B?cFVyUUF2WHNoMWdSaVlPTm5jSERieE1iQWZCVllhRnlaV2VSM3dqdDhHUU9O?=
+ =?utf-8?Q?Zo0nTSSB2GhtPr8+7t?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cd9a19fd-5509-41d2-4689-08df340f3afc
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 09:46:52.9892 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: G9BbEW7aEBkLnP0CZsYCweTyBX4l3sXh2gH7FxdrAX71jS+TCMV7TCRfXSamnWtG
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4039
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,57 +131,52 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+X-Spam-Status: No, score=-7.6 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-When driving both 2560x2880 tiles of an Apple 5K iMac panel, Display
-Core's program_timing_sync() already aligns both CRTCs in hardware
-during dc_commit_streams() because the two streams share identical
-timings.
+On 10/26/26 09:53, Philipp Stanner wrote:
+> On Mon, 2026-10-26 at 09:22 +0100, Christian König wrote:
+>> Hi Olivier,
+>>
+>> adding Philip and Danilo as DRM scheduler maintainers, just FYI on the technical background.
+>>
+>> On 10/22/26 12:54, Olivier Kaloudoff wrote:
+>>> Hi Christian,
+>>>
+>>>> No, what we need to avoid killing the entity while KFD is still
+>>>> using it!
+>>>>
+>>>> That is basically an use after free what you have here, only that
+>>>> the drm_sched can point that out with a warning instead of
+>>>> crashing immediately.
+>>>
+>>> The exact "use" we hit is the dying process's own exit fault:
+>>> SIGBUS -> coredump -> get_dump_page -> do_swap_page ->
+>>> svm_migrate_to_ram() submits the migration job on the process's own
+>>> entity after drm_sched_entity_kill() already ran for it.
+>>
+>> Well, thanks for confirming my worst fear :) That is exactly what I
+>> expected and it is essentially unfixable.
+> 
+> What prevents you from having your own synchronisation primitive in the
+> struct where your drm_sched_entity lives in?
+The problem isn't really the synchronization nor the UAF of the scheduler entity.
 
-However, on DCE < 12 (iMac15,1 through Polaris-based iMac19,1), Display
-Core leaves pp_display_cfg.all_displays_in_sync unset. Because PowerPlay
-is not informed that the two streams have synchronized vertical blanking
-intervals, SMU7 prevents MCLK switching at idle or causes modeset
-underflows.
+The fundamental problem is that SVM/HMM means that the local memory of the PCIe device (VRAM) is registered as "normal" system memory but in a way so that the kernel wouldn't use it by default for get free page.
 
-Report all_displays_in_sync = true to PowerPlay after committing both
-tiled streams so SMU7 knows the tiles blank simultaneously and can
-safely downclock MCLK at idle.
+So you got struct pages for the device memory very similar to how for example DAX works. On GPU access the memory is then migrated to the device local memory and the system memory copy of the page is freed up.
 
-Signed-off-by: Richard Lane <richardlanedev@gmail.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+When you then now howplug the GPU and with it the local memory the data is from one second to next completely lost. If the data is an anonymous page the application will just crash, if the data is a memory mapped file it will eventually be tried to written back to storage. So you can even corrupt your file system with that leading to the system not booting anymore at all.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 548f975c7324..384a81371f80 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -4788,6 +4788,19 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_commit *state,
- 	mutex_lock(&dm->dc_lock);
- 	dc_exit_ips_for_hw_access(dm->dc);
- 	WARN_ON(!dc_commit_streams(dm->dc, &params));
-+	/*
-+	 * DCE < 12 leaves all_displays_in_sync unset; report synchronized
-+	 * Apple 5K tiles to PowerPlay after commit so SMU7 can downclock MCLK
-+	 * at idle without modeset underflows.
-+	 */
-+	if (params.stream_count == 2 &&
-+	    params.streams[0]->link->tiled_peer == params.streams[1]->link) {
-+		struct dm_pp_display_configuration *pp_cfg =
-+			&dm->dc->current_state->pp_display_cfg;
-+
-+		pp_cfg->all_displays_in_sync = true;
-+		dm_pp_apply_display_requirements(dm->dc->ctx, pp_cfg);
-+	}
- 
- 	bool frl_stream_found = false;
- 
--- 
-2.55.0
+I mean I have seen hot remove of DRAM modules like 30 years ago already, SPARC was really big with that. But in this case you got a red led where you ECC error was, pressed a button and halve a second later the OS removed all valuable data from this DRAM module and it was safe to remove.
+
+Hotplug on the other hand is a completely different beast because you don't get a pre-notification that you need to save your data. So hotplug is essentially incompatible with SVM/HMM.
+
+What Oliver tries to do here will never work even in theory.
+
+Regards,
+Christian.
