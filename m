@@ -2,89 +2,89 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2929606A31E
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 13:00:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CBFB606A31D
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 13:00:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MylnB0aR
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zEqzu35H
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17BE710FC25;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F90810FC34;
 	Wed, 28 Oct 2026 12:59:58 +0000 (UTC)
-Received: from mail-wr1-f66.google.com (mail-wr1-f66.google.com
- [209.85.221.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A283C10E289
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2026 23:59:58 +0000 (UTC)
-Received: by mail-wr1-f66.google.com with SMTP id
- ffacd0b85a97d-48dfaa3fa12so1131307f8f.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2026 16:59:58 -0700 (PDT)
+Received: from mail-vs1-f46.google.com (mail-vs1-f46.google.com
+ [209.85.217.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A79810F5CD
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2026 15:47:39 +0000 (UTC)
+Received: by mail-vs1-f46.google.com with SMTP id
+ ada2fe7eead31-7c33cc572e6so946709137.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2026 08:47:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793145597; x=1793750397; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from:references
- :cc:to:content-language:subject:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=bBTKol9N1nqETGHQsxayqsr3cv18S0UQTtkfWd81H5E=;
- b=MylnB0aRrMD7MUQ7YpAGqlwDSrIHZLtSSbx0PeuyRvgSv/d8elrecrKosHXYQI3MGO
- 0sQIsKywAOe5fwpnxLR9x2hnwYhGrafdHE6CkfyJzhfiMRvPXlWR/Y3ve0lv0m+O7wFL
- aNkzzPerXYCFKTxz7s96YFBcbIUlIkSmaf89qWD+N6O1uquVUKXyys0e6WBroBC6vtzk
- yYkWpBPozZYLgDyZPIxGRiJ456gAERbgcUMeFZrAWha86td2g7fSfXRyX+H6cIx/2SuX
- ZAQ+sJRww98HtnJmYRF4YYm2ef/at7qa+1/aMdvf7RFM0QKbJheAtgV5P0Ln1SoZWMMT
- YHQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793145597; x=1793750397;
- h=content-transfer-encoding:content-type:in-reply-to:from:references
- :cc:to:content-language:subject:user-agent:mime-version:date
- :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20260707; t=1793116058; x=1793720858; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=bBTKol9N1nqETGHQsxayqsr3cv18S0UQTtkfWd81H5E=;
- b=M8zTNM230EvuvqswKcJ8I0HFAeAerLHQmywIK7Ouby//V7NTKb74a2f+kDRb4c+2ij
- p9Jwow3ogKvIF58B/LeN1jXE9F5aQlfOLOlA9v5MJ2Ml3GHG9iIrQbOu8C7dhRSLWqMJ
- obY+BbFDQ8eiR+DZ20dQHB/D8zMNxF1lU/62kOQZkbMimnI6ocokT5IRrHlPCIIVGC1y
- VbUROH9X5L5AzKewujDkmtA5q+nK3Gg18/P0zzsZPusyf+0Q0XuhHmYBhO6MTO94Dyjt
- GDNeaNbU8VsmSOZY2AyhDp0Ws43cJc9t0fLAH4jmnYFxkvz2BgpQdTg0haqp8h0ir29w
- ip9Q==
+ bh=0DswmWoXofnI9OqDL5xwhT8a7C+9NrwyAXFpDB+jHbw=;
+ b=zEqzu35HkDHYc4nlHYza96L9JMjXdPkEYcWNpijXJxXGiZ/PWUKv6B9ws7ZohdSns+
+ k4mi1OZq3kt30GMdGVTjenIvLKWetGk+E9lhRXeeDtxcnG9gKPZnnEZ/YW6iyyg3PM3D
+ N++d+VGGD76JWYHik/5oROAlGVZnTxHAy0DcD0hNs11Y1plAIquQzLUujfHOjaShzBVR
+ xsPK1ldbbHiWiZueaS8cJ+Mvpod0NjS2ghd7/fuOuxjLkLcHXvVDTFrodAKpR1W/Bieu
+ x3ln93HfD4ME4FoIRw+IHiHLP9VTl3/gy+yYWuzevMhCg5OtPOv18dBUvjvl6HINdn9+
+ HmjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793116058; x=1793720858;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=0DswmWoXofnI9OqDL5xwhT8a7C+9NrwyAXFpDB+jHbw=;
+ b=MPS3WqhlSnDcOU79oafSITusINhQO/6Aw6p4rBYUi6SPWto+sxG9mvlkVuul5rdeTe
+ BKK/NkhWykvZHkZeMrBekoUBq94WJJMVGaGYTvft8qxUmTERVbi3TfoSqllwBuZK/BVs
+ aNX9R0AsA3c2G5IbPcEn//R+psuc+umZlL4F5CetNk7jgQ57H3ULQDz//LblFPoPbDYX
+ YjThgdDDUCgBQkUJgFcaP3wF1/Mi1tpJG3AEI0RcJRv8h1TWi7wrpv4zYq2gsOlovv1v
+ 80daIs/eE1x3u3NAqiZTGvBkuPUVizva3/uMZrT0oNWldwmTjbVpcNL4U7uQ7nbABGan
+ iT6w==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwUWwj75p4WXQViEcI6anRbdg+05VS5Cn3fjxezWTrFUQlWoJsasr4FVx5ma52baN7T40J9cT9i@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIr4yqNVvErTn9p7sV3iDEtuB8wmOFWT1KUX/lnuQ2t+cK/Zx9d
- WV/8LdZkchtLi3C0DUIIlb1Tmwsb/xT68gwhsIj+X8cJ+/GveJ6BrgOd
-X-Gm-Gg: AYBFou2bKRDq93Y6R6FNrGEPoR0mlDP4skmQt1ONN16obwwvOyrPcE/8P2tcpFOl1kI
- 1PIUEKkghrqIjZlzE0FtWbJVehylg5OVdGlP9EJRBpAPoyHFds2DR+VL/ThEtnAxe1N2qxUHz7O
- i7CsuD6O2vrJ8gBS5x06tyX7yT52/D+0ikbF/825r0xZmB62AF+gbkJfXwORW3Bo931Ah9xdZXA
- PDUW6A8BYa+3hMvUnjULpK7pMBboKwPjyhBx6oaFy68yXldKUHZqGcRrM6IhaQoAo5i96Fe5DbK
- K5TpC5aF9g5YGiCIcmHFGMBtIZXqnBE33zF9SabgyF2w6CPmgT27cMSnmnH7TocIe/pWixwnVXo
- /I6I1mAdthi6r3OWvnGGlCsMSqa/WKNOmTnZDj5MUao1gQbQ8Cq9LBT9vpBXm5M2MdNaL7aw1Qi
- IkKalREbiL/3CIazEmoj7dpckC2JWpNoYBjQO8R6/J1zdkWqkCNmJ0T134nBmys6dwLkE2UTxeo
- spKshV7qThFG1lHTY8bT0Jj74BwvJHuAPNa8JrINlpO9PPO
-X-Received: by 2002:adf:ebcd:0:b0:48e:4ad2:32e0 with SMTP id
- ffacd0b85a97d-48e55a5a8bemr6497483f8f.29.1793145596732; 
- Tue, 27 Oct 2026 16:59:56 -0700 (PDT)
-Received: from [192.168.1.12] ([31.94.68.191])
+ AKwUvBzZ54IXhQOvRwV6CZ4Xjf62Tdy235YdyxKiQ060p23QKCVPOglD77dNGqRS4Nb6nZYo0UYftWa/@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJSlkNr/H6uxzqB00lwkEoBbfaRl7vj/2Y2u0Zf5ik3Zc420gL+
+ A8fOezt4MXSM/PDjUT1ijZFM0W7SIYrQ8AybAECPso5xZujkW1YTMz8l
+X-Gm-Gg: AYBFou0Ak1S6dMBPSGF6VjU4Jj4lhOqCTDhBixWtLTrG0GPz7hl8rj4mEaw0vYNH/Fz
+ zOM4CCUoO+4h0KkjIpilWDEzCcZfi1Xvd2JXW+Qq+fIoJonhV+wyQO+AnlseJvGk2n3WzP1ZKLx
+ eMcI24kk76Bc7/voIp1mo5LBG2K73ONTjj2IFqY7ozm04Pr4um1NftwWIi40ZT0M1XhwC1Ov+gw
+ qtsigG3mEBuSkdUI1e0UfOnsKkLzrM52VIs3hptChd+csopXDL+EXZw/1m1P9hG6vHAB75StWSG
+ BUhky1peZWCxb4g4QibhYzqsVL9eep5gDuF7IKwnwHEcBiTeSGZKqmXMxT6ww4bgB2CW8Ajf9cA
+ 0ekeYuCVeDoa/e2Tlwjq5mx01eDYnNzTBx5faumCYUEPna4dYk2V4RjBk+KjDYlPqMsislKCyjb
+ tuPURS99oqPHUNSei1OunhXuaMiHzImvcmn8+LizPa2qw6xCw9mhJ0MuaaE42YcMpLPPI56mZmM
+ 1jf5ko0Ok6xzYXUiWziyObI8viE4xmVbYfAmkQKeh37TUQvMeJfX54+wk/5fU4fNc2pcFcwGtQ9
+ 5n3PvfgB0JSbPXI=
+X-Received: by 2002:a05:6102:390b:b0:7bb:64cc:1362 with SMTP id
+ ada2fe7eead31-7cea1300c05mr1004091137.6.1793116058224; 
+ Tue, 27 Oct 2026 08:47:38 -0700 (PDT)
+Received: from localhost.localdomain ([177.155.254.22])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48e3ebd4be6sm23200698f8f.37.2026.10.27.16.59.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 27 Oct 2026 16:59:55 -0700 (PDT)
-Message-ID: <138497f6-2271-4229-87f1-4e42e9d2b581@gmail.com>
-Date: Tue, 27 Oct 2026 23:59:53 +0000
+ ada2fe7eead31-7cea3973caesm2799894137.2.2026.10.27.08.47.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 27 Oct 2026 08:47:37 -0700 (PDT)
+From: Matheus Tagliari <mptagliari@gmail.com>
+To: Alex Deucher <alexdeucher@gmail.com>,
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Matheus Tagliari <mptagliari@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] drm/radeon: process the VCE interrupt on SI and
+ Trinity
+Date: Tue, 27 Oct 2026 12:47:17 -0300
+Message-ID: <20261027154719.155006-1-mptagliari@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <CADnq5_OGgbFOJtBu7SwvvnaN01F=RSqtxZgBhJ1fty4pwBHmVg@mail.gmail.com>
+References: <20261022114754.865669-1-mptagliari@gmail.com>
+ <20261022114754.865669-2-mptagliari@gmail.com>
+ <88c61950-125e-4109-955e-ce09ebaab7af@amd.com>
+ <0c7e45a13fb78064390818bb501e754b62f16f6e.camel@gmail.com>
+ <20261027001506.27266-1-mptagliari@gmail.com>
+ <6e0b5af2-692a-4b2f-ae20-9c164e7e42ed@amd.com>
+ <d451b9a185817c576ebb7943a604fd1952470412.camel@gmail.com>
+ <CADnq5_OGgbFOJtBu7SwvvnaN01F=RSqtxZgBhJ1fty4pwBHmVg@mail.gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] drm/amdgpu: reserve 64M stolen memory for Apple 5K
- iMac
-Content-Language: en-US
-To: Alex Deucher <alexdeucher@gmail.com>,
- Mario Limonciello <mario.limonciello@amd.com>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <a826b32d-597a-4c01-8b30-218cbca8627a@gmail.com>
- <e0573e72-dcc1-4ff2-8cf2-53aefde912cb@amd.com>
- <CADnq5_M8f2Hgs06n9EXUaihGsr6YEm6G4YFVQmPfQbGU08XkBg@mail.gmail.com>
- <6f79a3e2-5510-4018-aabd-45fcdf5dcbb3@amd.com>
- <CADnq5_OTLQuD3B6-VUgZv6wGjhFNY_U77wqdv5Y+e25+O0B2ZA@mail.gmail.com>
-From: Richard Lane <richardlanedev@gmail.com>
-In-Reply-To: <CADnq5_OTLQuD3B6-VUgZv6wGjhFNY_U77wqdv5Y+e25+O0B2ZA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 28 Oct 2026 12:59:51 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -97,180 +97,41 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FORGED_GMAIL_RCVD,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-5.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 27/10/2026 13:37, Alex Deucher wrote:
-> On Tue, Oct 27, 2026 at 9:16 AM Mario Limonciello
-> <mario.limonciello@amd.com> wrote:
->>
->>
->>
->> On 10/27/26 07:57, Alex Deucher wrote:
->>> On Tue, Oct 27, 2026 at 8:21 AM Christian König
->>> <christian.koenig@amd.com> wrote:
->>>>
->>>> On 10/26/26 23:46, Richard Lane wrote:
->>>>> Apple 27" 5K iMacs report a single 2560x2880 tile (28.125 MiB) in
->>>>> VIEWPORT_SIZE while scanning out up to 64 MiB across the relocated EFI
->>>>> framebuffer.
->>>>>
->>>>> Override the stolen VGA memory allocation size to 64 MiB when matching
->>>>> PCI_VENDOR_ID_APPLE with a 2560x2880x4 viewport size to prevent
->>>>> framebuffer corruption during boot handover.
->>>>
->>>> Hacks like those are usually a big no-go.
->>>>
->>>> Why is that framebuffer handling not working with DC out of the box?
->>>
->>> The GMC IP code reserves the memory used by the display hardware from
->>> the pre-OS console.  The gmc get_vbios_fb_size() callback looks to see
->>> what display viewport was set by the pre-OS environment.  If the Macs
->>> need a workaround, that's where it should go.  Since these displays
->>> require multiple display pipes, my guess is you need to double the
->>> allocation in that case since the current code just checks the first
->>> pipe.
->>
->>
->> Could this also be a logic error in that callback?  Would it be worth
->> double checking all the register values in that callback for this system?
->>
->> I know for example there are a few different IP specific implementations
->> in gmc_v9_0_get_vbios_fb_size().
-> 
-> Not likely.  I suspect the issue is that these systems use two display
-> pipes so we only reserve enough memory to cover half of the display.
-> On PCs the vbios never sets up MST.
-> 
-> Alex
-> 
+Hi Alex, Timur, Christian,
 
-I tested doubling the allocation in gmc_v8_0_get_vbios_fb_size():
+Thanks Alex for picking these up, and Christian for the Trinity
+background.
 
-	if (adev->pdev->subsystem_vendor == PCI_VENDOR_ID_APPLE &&
-	    size == (2560 * 2880 * 4))
-		size *= 2;
+Timur, yes, that is possible. The only place where Trinity/Richland
+gets the interrupt enabled is the family check in vce_v1_0_start() in
+patch 2.  Today it reads "rdev->family < CHIP_BONAIRE", which also
+matches CHIP_ARUBA.  Narrowing it to
 
-That eliminated the corruption across the middle (45-60%) of the screen,
-but still left a band of corruption along the very bottom (95-100%) of
-the screen.
+	if (rdev->family >= CHIP_TAHITI && rdev->family < CHIP_BONAIRE)
 
-Dumping the DCE registers inside gmc_v8_0_get_vbios_fb_size() on the
-iMac17,1 showed:
+enables it on Tahiti, Pitcairn, Verde, Oland and Hainan only, and
+leaves Trinity/Richland (and CIK) as they were.  I built vce_v1_0.o
+with that change against 6.12 and checked the gate against the
+radeon_family enum: SI on, ARUBA and CIK off.  On SI the generated
+code is the same register write I tested on the Cape Verde card, so
+the earlier results still apply there.  I cannot test the Trinity side.
 
-  vram_start = 0xf400000000, d1vga = 0x0
-  CRTC0: grph_en=0x1 surf_hi=0xf4 surf_lo=0x300000 pitch=5120 vp_size=2560x2880
-  CRTC1: grph_en=0x80000000 surf_hi=0x0 surf_lo=0x0 pitch=0 vp_size=0x0
+The handling added to evergreen_irq_process() by patch 1 stays
+harmless on Trinity: with the trap interrupt left disabled it is
+never raised.
 
-Even though only CRTC0 is active at EFI boot with a 2560x2880 viewport,
-Apple's EFI allocates a full 5120-pixel stride surface (mmGRPH_PITCH) and places
-mmGRPH_PRIMARY_SURFACE_ADDRESS at a 3 MiB offset (0x300000) from
-vram_start.
+Since the series is already applied, I did not want to send a v3 on
+top of it unasked.  If Christian would still prefer to keep Trinity
+out of the picture, especially for stable, I can send this as a
+small follow-up against the current tree right away.  Otherwise I
+will leave it as it is.
 
-Because CRTC0 scans out 2880 lines at a 5120-pixel pitch starting at
-offset 3 MiB, the active pre-OS scanout spans [3 MiB, 59.25 MiB) in VRAM:
-- Reserving 2560 * 2880 * 4 (28.125 MiB) places permanent driver BOs at
-  ~28.125..32 MiB, corrupting the middle (40-60%) of the screen.
-- Reserving 2 * 2560 * 2880 * 4 (56.25 MiB) places those BOs at
-  ~56.25..59.25 MiB, leaving the final 3 MiB exposed due to the 0x300000
-  surface offset and corrupting the bottom (95-100%) of the screen.
-- Accounting for the 5120 pitch and the 0x300000 surface offset reserves
-  the full 59.25 MiB span and eliminates the corruption completely.
-
-For v2 of the patch, which of the following two approaches in both
-gmc_v7_0/v8_0_get_vbios_fb_size() would you prefer? Both tested working.
-
-Option A (change whole function):
-
- static unsigned gmc_v8_0_get_vbios_fb_size(struct amdgpu_device *adev)
- {
- 	u32 d1vga_control = RREG32(mmD1VGA_CONTROL);
- 	unsigned size;
- 
- 	if (REG_GET_FIELD(d1vga_control, D1VGA_CONTROL, D1VGA_MODE_ENABLE)) {
- 		size = AMDGPU_VBIOS_VGA_ALLOCATION;
- 	} else {
- 		u32 viewport = RREG32(mmVIEWPORT_SIZE);
--		size = (REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT_HEIGHT) *
--			REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT_WIDTH) * 4);
-+		size = REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT_HEIGHT) *
-+		       RREG32(mmGRPH_PITCH) * 4;
-+		if (size)
-+			size += RREG32(mmGRPH_PRIMARY_SURFACE_ADDRESS) -
-+				lower_32_bits(adev->gmc.vram_start);
- 	}
- 
- 	return size;
- }
-
-Option B (add Apple 5K iMacs quirk):
-
- static unsigned gmc_v8_0_get_vbios_fb_size(struct amdgpu_device *adev)
- {
- 	u32 d1vga_control = RREG32(mmD1VGA_CONTROL);
- 	unsigned size;
- 
- 	if (REG_GET_FIELD(d1vga_control, D1VGA_CONTROL, D1VGA_MODE_ENABLE)) {
- 		size = AMDGPU_VBIOS_VGA_ALLOCATION;
- 	} else {
- 		u32 viewport = RREG32(mmVIEWPORT_SIZE);
- 		size = (REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT_HEIGHT) *
- 			REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT_WIDTH) * 4);
-+
-+		if (adev->pdev->subsystem_vendor == PCI_VENDOR_ID_APPLE &&
-+		    size == (2560 * 2880 * 4))
-+			size = size * 2 + RREG32(mmGRPH_PRIMARY_SURFACE_ADDRESS);
- 	}
- 
- 	return size;
- }
-
-
-Richard
-
->>
->>>
->>> Alex
->>>
->>>>
->>>> Regards,
->>>> Christian.
->>>>
->>>>>
->>>>> Signed-off-by: Richard Lane <richardlanedev@gmail.com>
->>>>> ---
->>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 10 +++++++++-
->>>>>   1 file changed, 9 insertions(+), 1 deletion(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
->>>>> index 4204c3c750a8..8b196fbfa724 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
->>>>> @@ -1232,7 +1232,15 @@ void amdgpu_gmc_init_vga_resv_regions(struct amdgpu_device *adev)
->>>>>          } else {
->>>>>                  size = amdgpu_gmc_get_vbios_fb_size(adev);
->>>>>
->>>>> -               if (adev->mman.keep_stolen_vga_memory)
->>>>> +               /*
->>>>> +                * Apple 5K iMacs report one 2560x2880 tile in VIEWPORT_SIZE
->>>>> +                * while scanning out up to 64M across the relocated EFI
->>>>> +                * framebuffer.
->>>>> +                */
->>>>> +               if (adev->pdev->subsystem_vendor == PCI_VENDOR_ID_APPLE &&
->>>>> +                   size == (2560 * 2880 * 4))
->>>>> +                       size = 64U * 1024 * 1024;
->>>>> +               else if (adev->mman.keep_stolen_vga_memory)
->>>>>                          size = max(size, (unsigned)AMDGPU_VBIOS_VGA_ALLOCATION);
->>>>>          }
->>>>>
->>>>> --
->>>>> 2.55.0
->>>>
->>
-
+Thanks,
+Matheus
