@@ -2,80 +2,138 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 044C3606A31E
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 09:34:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7971606A31B
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 09:34:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PxObTWOg
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=BOndQ1Hm
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B27710F353;
-	Tue, 27 Oct 2026 09:34:12 +0000 (UTC)
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
- [209.85.218.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB21D10E3D1
- for <amd-gfx@lists.freedesktop.org>; Mon, 26 Oct 2026 19:50:19 +0000 (UTC)
-Received: by mail-ej1-f42.google.com with SMTP id
- a640c23a62f3a-c413dea9ca6so543651766b.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 26 Oct 2026 12:50:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1793044218; x=1793649018; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=ClZUc16qtddYCX0Axof+CUhlhGSWDDKrln+zkDueyKY=;
- b=PxObTWOgLV/1CHOKVNq/YbcsRHPe0xS3jicug+5Ias2auQDpj1eP2ZPLpKP60ghYkM
- xWxyhwjj/6WU2StvMbq6humazAaPMB4dYMLLnVIxg7cPF54Fs5dwbJaqVXs21HiYZ9wE
- zZp79P9ifTBju85etHb03OVM28hqG6+xivtryjYCFLreA9NTnsm+hL0UjzbgBm0ZNP9f
- stWDzxvpDf6WEQFWDlNtUiLS00pywxTAAGAbfGvOI53LRgaUm+PBScnMt8g9UE1rJ/tX
- mO+d5R1T/G0mcfT83lZNMupesQAvXTu8gBxjKiwEI52zmHxv6HVKYZmnlS2mGBGaRhHq
- ED7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793044218; x=1793649018;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=ClZUc16qtddYCX0Axof+CUhlhGSWDDKrln+zkDueyKY=;
- b=d10Ur3OsKpajyirx78Gye2/mOMZSWA7tA1LYoxv95fNuy3NhWGmpuaI2TRY96kq1Pb
- t0fTO6rDRd5KHB5yyNlyc32UxE/KAnK+rNPhLqxrstB31FRO6W/kYO+gGLTQVoa/jZ8W
- NTQqwO+nr0s7VksOkznz3B3Bqj4UY7HWu0R34adbqvnbT4X5X70AD9oC5sjEe4TA6tLT
- BBqNiV7IIhbETBnHJSxSztRJt2UPpFJwdO6c15Pu+nS4pXuTj94sQpJD4b9GzV4UdeD4
- 33rySUrhm32HiIaYE74CwH19VCIWY8F3so4nYRM63njtkTykc+yEk6ULJVghDGYOqbPe
- l8dw==
-X-Gm-Message-State: AFq9FYLd0CRR8wq7SX5axKFUVuShbddR2+QTgFDOKQZR2s9KyN3DwB7R
- ZDWA8Y5jfAEhHxZLKlCzqEYRSXQWM1jg6/G0qeWpt4kzosEPqX1gjD73hTMml6eN
-X-Gm-Gg: AYBFou0dDXrj3Ra6S6i3o3e1/5bQb+QPKAvONvs7DXAERN9+vLZdN+k7kX1c5nj3mW7
- mKVdE+gokAvcJC18npTshrYH0RcTGml0JfhMDtVlreEsJCVGp757Hcg8el0fAY3gEsLn4edQiv/
- 6Etr9av+94G+aMKRGQSMezv1v2GqaVHCY4aCSj3cHidLUcbnTk5dDSs+piz2cXNY/4ihk8BCPLp
- wf6fBWPP7zWJ5xcwr58v+WT8HfyU1BiFaXkLXhTqvpLo+KlYtMhrZoEIE0mpuuuWZpWz+s6beBz
- 6IR4PJvPacoisSdrkO5I4c22p2CpDhZyjWjA2HEyISLhZhTwJNDtMKpZEwCC2R1F2hUISHxmFwl
- nFfnUDdQUeAc89TD7pH0mTIEVvkV8f+YiIVirqnOSf7yP2OSV3Y07vxXmQvurWZlvx+Qjg0xQPF
- YzxcBMmOx0EjsMOZKESI9Z1k+wT78TBKKCexEXg7ysaQ4UFF7HQhTAtpb5aKF0OCjb3zb62cyn1
- szelCk9k6tMLVEqhzzFAMAx3w9V3o2D1m+KCPP0KnRCxN9ggxeuxLo285Z2bqAMANUSF49tdAan
- XnzEOHYbTyBMVHRb3AxqBg/VZRwQDdr/xsA+S7Lgw0VrkSzrW7oBEYXrFDPIxx160XLFrIXsvGr
- OmrenGu9LHu0DXUHSjIz3s4OALHK5USJ2dL351k5FjB8PzLD3yy1SgrcFGXOHcd1ygF00zMVsHe
- Wv791rzyCAdVTUiZWoiIGxe1dyccLtBnAzdbkH0mAibeEndOWx9qJAT1xA2vgxdG6yHAnswO9G4
- hCtey4f6XfNPOFIwmPvWPwyX84EicziUph5jfYOTGoyv79t1lS29d5HsQTKYFgtmnxZZK4mhSZ2
- hX3JIQZNKg4=
-X-Received: by 2002:a17:907:7b9e:b0:c2c:d06f:cf89 with SMTP id
- a640c23a62f3a-c46bdacc54fmr933504666b.2.1793044217958; 
- Mon, 26 Oct 2026 12:50:17 -0700 (PDT)
-Received: from albatros (ip-091-065-217-039.vkd74.pools.vodafone-ip.de.
- [91.65.217.39]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c46bd7ac041sm351814566b.82.2026.10.26.12.50.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 26 Oct 2026 12:50:17 -0700 (PDT)
-From: Erhan Bilgili <erhan.bilgili@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, Jack.Xiao@amd.com,
- Erhan Bilgili <erhan.bilgili@gmail.com>
-Subject: [PATCH v2] drm/amdgpu: Report MES ring wait timeouts.
-Date: Mon, 26 Oct 2026 20:50:13 +0100
-Message-ID: <20261026195013.451031-1-erhan.bilgili@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261024194334.305636-1-erhan.bilgili@gmail.com>
-References: <20261024194334.305636-1-erhan.bilgili@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C2EE10F355;
+	Tue, 27 Oct 2026 09:34:17 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011007.outbound.protection.outlook.com [52.101.52.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9714810E07D;
+ Tue, 27 Oct 2026 03:42:40 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=K1bENl+UGN4TfrQI45+YBe0se/6GR7zvWF7f7itucI5C4u9mXPrS87aFi96zFVLh4qUJOv8/QJodQcXbjXfemjT3350PiLInJwG242a4x9E58kqWPRvWv/Z+oFrPeKLFokCy9iHNUJ9zEJQIqIQaD2dvDxXMW/10kR94BvWv6NgX9xxc2GF0ufU3PRADrU5Y8b4B7nRXSYSH6N3IzZFSBWub6AshHKNEqbxCNw0jYHWrACe/HcjcAQaoEoR1AUPeCVxqy5KTQfYfGu+89tnWApb8KLZCF9mOc8w+8O6zcuKmyeOEX/5ha3f3VGh4UDcqmDKwDOZgt3w5QVg0hxgIjg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bIr823/UzfsG9CRAeLIu2WbktM8BknLKIBPc+Dr9qXU=;
+ b=fnPJyGgsBkuIngJvzosgiDbHqs/IpTpRpGlAsdayo4jTDPMtSunaUQfIviiWGx17zIl66g2uLRYFAf1+XfnSgHTEZ+FAxm8HyxdAYlZW4FaGn5Tf/SyT3j1txmFSY9I0zRiVh1UYvX18M1VMAb76zw1LdYyiVww0aAH+ZyG4fx1FU86io+MDCI3KpEEQnjTbuDqDk6TqSOnUWuFYwqSQ+iZz5YAZBZEPdkck/JtjR54HU1bzqYKjJF4iktiKhqi35wilBvZgnplMUA6vgiQd5PEvZLnbPqmk/M1uchf78cI7F+kQVmFMeaMQr3F8G+7/Yd7IQf2wvXFr83FXy5j6gQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bIr823/UzfsG9CRAeLIu2WbktM8BknLKIBPc+Dr9qXU=;
+ b=BOndQ1HmuhqJ7eMDjkK6G8BbGEXMo50YlznzoGH+4VUINexj/O2WLcHYP+Nj2fS/NPddkOKiM8pJK98/YhVed6VKicGzLCj7UN86nRPSLWEgNLGpTYHktg19+ofthrVVV1G9CMyPbVqD98SVfK8fBYPw5KrGbVzLOrInmex1ymUGY//fUIlcrXLUhS+UyyHPjxurl669KpVgm7L0ilFHm4cYAhyHZ+1EGBFVSeLPmoTh8rCRMQglaRDrRStmT1A0WAbNYqrGs3mRqWaQLhJ5Id0HVpzkGi8QHO8CI+pmMMX9OlW2lUoj+ZiH//g4XsEa+BOPlxypz0tcvbTtahyzBA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
+ by LV8PR12MB9665.namprd12.prod.outlook.com (2603:10b6:408:297::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
+ 2026 03:42:36 +0000
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
+ 03:42:36 +0000
+From: Mikko Perttunen <mperttunen@nvidia.com>
+To: Alistair Popple <apopple@nvidia.com>, linux-rdma@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org, christian.koenig@amd.com,
+ sumit.semwal@linaro.org, jgg@nvidia.com,
+ Thomas =?UTF-8?B?SGVsbHN0csO2bQ==?= <thomas.hellstrom@linux.intel.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ Dongwon Kim <dongwon.kim@intel.com>, Leon Romanovsky <leonro@nvidia.com>,
+ Kevin Tian <kevin.tian@intel.com>, Xu Yilun <yilun.xu@linux.intel.com>,
+ Baolu Lu <baolu.lu@linux.intel.com>, Felix Kuehling <felix.kuehling@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, intel-xe@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org,
+ iommu@lists.linux.dev, Alexey Kardashevskiy <aik@amd.com>, zhipingz@meta.com, 
+ treding@nvidia.com, jhubbard@nvidia.com,
+ Karl Mehltretter <kmehltretter@gmail.com>
+Subject: Re: [PATCH 23/26] treewide: Rename dma_buf_attach() to
+ dma_buf_sgt_attach()
+Date: Tue, 27 Oct 2026 12:42:32 +0900
+Message-ID: <jB0baKUEStaR7DFEykw_Qw@nvidia.com>
+In-Reply-To: <auAIO0y09SXk34CN@gmail.com>
+References: <20261026053623.202642-1-apopple@nvidia.com>
+ <20261026053623.202642-24-apopple@nvidia.com> <auAIO0y09SXk34CN@gmail.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-ClientProxiedBy: TYCPR01CA0161.jpnprd01.prod.outlook.com
+ (2603:1096:400:2b1::11) To SJ2PR12MB9161.namprd12.prod.outlook.com
+ (2603:10b6:a03:566::20)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|LV8PR12MB9665:EE_
+X-MS-Office365-Filtering-Correlation-Id: e798faec-de9f-4ce4-ce5b-08df33dc572f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|10070799003|1800799024|366016|23010399003|261026121527099003|4143699003|11063799006|56012099006|261021121427099003|261022105027099003|261022075727099003|10067099003|22082099003|18002099003|6133799003|261026140227099003;
+X-Microsoft-Antispam-Message-Info: btsvxWYuKcB1hzxqjl/79VqPSfsRwqK9UwoaSlZSLHuP7MeEbTB0he+ds3tuuKGl6FeogV50eOVCMyRt+z++7Y5151nz4ZBRa9e66eJk8x+7ESHsf3YUt2wHEFMbureRlelkL8PyK3mvNNqNaFdjQZpIuYd8I8+vkC01lv2nBoL+XlTrBCPJNc7Sbeb4x/xPx6upo/ZgceciUweUzfuzYrjNnBtHpYRDcolMggRpgQC6Z+cJ+J3XQIvI8DHi7Jw/BD9pJA2QKvYrDzNvFTKOEVbpEVoB6mV+zkuE794hztNtFWRtNEam4n3oPboHNxPcv8w4sRqBpIK0yPk70ufUiKjaIrq+PEjvSqd5rlrUbzARImJEnOnrhT9QDBb1TlvYhsdM9/Yy6/N+P0JjL1Lt+0hRAW5PcJgduAkh5XiJQ+IkjYxqXeBJ8Fe+sPwp7JaxuvDpb9PIuKkDy+DPXFwaTQdvuYIV4QSpyT7BDJbLot4MQfk40P3lKF50SaAN2AfgdBOYVCAoyhvv8KDsvgGe4EyNsF1CeaI2k255I0t03vVHTgGlcnJ6rD5RBGPUdFcUi3ah4tSV5g+0wYtHdRN/ST6opYFrpavQsHXR0zTY8DkuWqm3vWwU4qH7Ipms0L4RpRfhtSfZqicZp8HPIb1v11LZ/wVX9Ch9suE2oizqVP0=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ2PR12MB9161.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(10070799003)(1800799024)(366016)(23010399003)(261026121527099003)(4143699003)(11063799006)(56012099006)(261021121427099003)(261022105027099003)(261022075727099003)(10067099003)(22082099003)(18002099003)(6133799003)(261026140227099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T0NKSlpaNElMMGpBN2J4aC8yRElZcmlNVDNLN3dyRFVXRmx2U2VTL3dkdkRF?=
+ =?utf-8?B?YUVWRG8zNEJITGtZTzMwRmV0TGorNHFDdWJZTURiTWk2MHhqcERQVzJqaW5k?=
+ =?utf-8?B?eUdIL05iUnlZdm8wVGZGRUcraXdTTEk0Y0pTNm14ejFFQzJkVTN5Skl6N1I5?=
+ =?utf-8?B?WnAxRXg0bDVFUWVKV3JWY0pZRldVMkRTVUd5U01zazVBM1JjZ1NkWE4rbisy?=
+ =?utf-8?B?R3JvVnpTWkdmZmZSa0cxbGdaNWJUS0NzNDI0TUZSaEtEV3VIK043anJjVTJY?=
+ =?utf-8?B?UnNvUGlCUE1UZWZLWTFpK3FGU01QUjZsRFRhbmo2S2dYMmpWMkhOVURGRytB?=
+ =?utf-8?B?YW1qMlljRGhSSENYSThOMjVSa0o5cExIeGlUR2wzRm1KQVhsbllCamlkeXhK?=
+ =?utf-8?B?enhTVk9ueXZQL1ZwSW9lL05RKytZSFBSTThIOElTTFFGM25iK0tiM2FkdTd5?=
+ =?utf-8?B?VlBXSWR2bDNqMER4STJNMnI3L1VGbmRsQ1hRRjhseDJxM21maXJDaVB2L2tl?=
+ =?utf-8?B?M1lJK2VpSFB5ZmtCaU90bnlHSWpUSlB5aVNSTWZVY0dzUjFEK1JTTHBkcHY4?=
+ =?utf-8?B?dU1Wb2ZZb0lSd0RQUElaV2oyWHhpTk82aTBGekE0Sklxb1dFYUFqTFRGQmZn?=
+ =?utf-8?B?a3R6dGlWdDdkdEM3M1Q2V1JNY0J2eHh2SzNBRUxNalhCcVovOFBaUGNLZVpv?=
+ =?utf-8?B?Yi9xeGk3RndCRUlGdWhrdEp5ZHBRYWJIdVRkTHg0MEZUdlhWNUh2dzZtL3Az?=
+ =?utf-8?B?VnJsTDcxK1NkS25TYzJRai82OW9hK2lRU3EvYVkxTzc0N1VWb2NTbmFJUGdO?=
+ =?utf-8?B?QWxCdTZkeENaQzJOL3BDSkIyby9GQlV5MnFsY2lEWklxMUx3Tk1LYWV1Rm1S?=
+ =?utf-8?B?aGFIN0VuazJOckRXZ1ZYWjlIZmhUbG5UQ25PYXFsODluVlRrdGIyc1hKWlBi?=
+ =?utf-8?B?d1Rvc1RWbTZKR3ZlN0JIUnBzSGlKb1VTVml1VkVxOGsrYXFTVG1FSWdkeVdO?=
+ =?utf-8?B?aGdBSHJjMGhUTXZiTUdzbDBYTzRZSmpDcGlkU3ppanNJT0FuMlh6bW05RXA5?=
+ =?utf-8?B?UTFGckcwZkRJMkRDN0RSTGRKM1hiUWdReWR4VVZCeFN4d1FMcTBxNWxJL0s0?=
+ =?utf-8?B?ZjFDQklFMjdzWU5GMXB2VlpiaUllRXRNV0twcXZIVGlIWFJNc3ptRUtXS2gx?=
+ =?utf-8?B?TDdnK1NBcThHOWVmeG8vL3FuTzlnL1AwcGsrNXVuZ0p5ZVBRWkZrVlh1ajNy?=
+ =?utf-8?B?WHpZYUhneGRLR2lGcUdwVVlaVktna0tYeVNjZU4xOThWVWhvWVg5dVRDdkha?=
+ =?utf-8?B?bGQ5bnc5WmZsanl4enFWVGlveDErMHpDajliZWxhYk5RemlVTjhkYVl5ZC8x?=
+ =?utf-8?B?WDZ3YWpidjMrZHJiTGdKWnlDOHJKRVVCSnJVekxLZCt6a2FXQkRoZEpaOVZi?=
+ =?utf-8?B?aXdTTkt3N0VWdGdhSjhNTEdqR29HTDZmeXhaSXRXUVdaK1lJcU1ud2NvSWVj?=
+ =?utf-8?B?VzRnU2x1VUFHRnVoSGE2ZHJXMmpyT3doSUJTNnBrL0dWNllmdG51M2tzTkVD?=
+ =?utf-8?B?Zmhna203c1FScUtubmUyZWVhandJdGVZOEFLTkhtUEFGMFdCd2drNTlUbmRz?=
+ =?utf-8?B?cEgzbThQS1dUS1U3ZCtkcEZ4NTBzSFZ5SFhIL1lxNmxid2JPcTNXaUlPN2JE?=
+ =?utf-8?B?UWxOZGJFaS9KdzZoalRXeFN1SEd4a1ZDY0hVQVllaGNQdWRydTFjL2ZGcFVV?=
+ =?utf-8?B?L2IwMEdVUHZIVmh1VHNPRnU2eXhVUEkxSDhEMFpsMXIwb0tGUVhydTVCMVVM?=
+ =?utf-8?B?OWtyQU13czBQVlNEU05RT3hNVFhRUWJLQjFJekdRV0QwL3c3b01nZThhVy9F?=
+ =?utf-8?B?NmVTb0h0bmRKS2IvUkxJMnc2ci90VDhVeHZuamh0TnR2UEtaSnY2NHppWWEr?=
+ =?utf-8?B?MDZBNWNBaUFqRkdXak8vemVmRmovMHJHQnUyaGJnZkhVSjk4SU1FTUJNRlQz?=
+ =?utf-8?B?dnFtOWNBZGhvaHpHK2RNVmY5NTVBUmlNM1RONnhXRWVhQUVVQ09VUG1wWkxa?=
+ =?utf-8?B?ZnhNQ3pOZkVJRWFHdXRVZDNtaFh0YmZTN0pZbnIvMGdIYzZ5eFMzMng4U0t0?=
+ =?utf-8?B?RUNhZm1odmVzN3BFdVcvYTIvWFM0elhxR2dkM25HbWVCRXFGNEh0dlJMR29C?=
+ =?utf-8?B?ZERRWG1QSDE5UEE4cmtVMzEyVnh1UUxZSU90SVJZN2htQzFLSzZQWDNIUWNj?=
+ =?utf-8?B?WWV4Vmp5Tnk4WDVUM2lYTUdpL1BNUDk1c2hhTzcyWGpueGNoOTIzK0F6TjFI?=
+ =?utf-8?B?Q1FvQ1pRVkxCdVJDTFJ0WFhZcTBrMEJBbjdVcGVBQ2ZkMyszOG1CVngrV3VN?=
+ =?utf-8?Q?uANqSSZEUqFWtcBq8Ox16qaVfwSc5NZ+gifCVn95cDkna?=
+X-MS-Exchange-AntiSpam-MessageData-1: B/HnEOwHuQxkxQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e798faec-de9f-4ce4-ce5b-08df33dc572f
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 03:42:36.0242 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: D3s6wqKZeX4bA7FOhFSdvS3A1TGPcl/LsJ0vjFKi3aOCjPhaGCTF+RQBlVebaL5anjN68m1lUY8y1YO9lc7NAg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9665
 X-Mailman-Approved-At: Tue, 27 Oct 2026 09:34:11 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,58 +145,61 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Return -ETIMEDOUT when the fence wait before submission expires instead
-of reporting success without submitting the packet.
+On Tuesday, October 27, 2026 11:15=E2=80=AFAM Karl Mehltretter wrote:
+> On Mon, Oct 26, 2026 at 04:36:14PM +0100, Alistair Popple wrote:
+>=20
+> Testing the series on a Jetson Nano exposed this path. A 3 MiB system-hea=
+p
+> buffer was imported into Tegra DRM and scanned out over HDMI. With
+> CONFIG_DMABUF_DEBUG=3Dy the PRIME import succeeded, but scanout immediate=
+ly
+> produced display SMMU faults starting at 0x300000.
+>=20
+> Tracing the fault led here:
+>=20
+> > @@ -475,7 +475,7 @@ static struct tegra_bo *tegra_bo_import(struct drm_=
+device *drm,
+> >  	 * domain, map it first to the DRM device to get an sgt.
+> >  	 */
+> >  	if (tegra->domain) {
+> > -		attach =3D dma_buf_attach(buf, drm->dev);
+> > +		attach =3D dma_buf_sgt_attach(buf, drm->dev);
+>=20
+> tegra_bo_import() passes the attachment SGT to iommu_map_sgtable(), which
+> uses sg_phys() and sg->length. The SGT mapping contract only guarantees t=
+he
+> DMA address and length fields. The debug wrapper clears the page-side fie=
+lds,
+> so iommu_map_sgtable() maps zero bytes.=20
+>=20
+> Tegra only treats negative returns as errors and keeps the reserved
+> IOVA, which scanout then faults on.
+>=20
+> This page-side use predates the series, so the fault is not itself a v2
+> regression. Is dma_buf_sgt_attach() valid for this call site, or does Teg=
+ra
+> need a page/physical mapping type first?
+>=20
+> Karl
+>=20
 
-Fixes: 34e087e8920e ("drm/amdgpu/mes: fix mes ring buffer overflow")
-Signed-off-by: Erhan Bilgili <erhan.bilgili@gmail.com>
----
-v2: Dropped the redundant check of the wait return value.
+Sounds like a bug in TegraDRM; we should be using the DMA addr/length=20
+for the explicit IOMMU mapping as the sgt attachment is for the dummy=20
+DRM device explicitly intended to give us physical addresses.
 
- drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 4 +++-
- drivers/gpu/drm/amd/amdgpu/mes_v12_0.c | 4 +++-
- 2 files changed, 6 insertions(+), 2 deletions(-)
+I'm currently in the process of removing the whole explicit IOMMU path=20
+so if this only occurs with CONFIG_DMABUF_DEBUG enabled, I don't think=20
+there's a pressing need to fix this before then.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-index b2e4da70d208..8ca487829aaa 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-@@ -218,8 +218,10 @@ static int mes_v11_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
- 	r = amdgpu_fence_wait_polling(ring,
- 				      seq - ring->fence_drv.num_fences_mask,
- 				      timeout);
--	if (r < 1)
-+	if (r < 1) {
-+		r = -ETIMEDOUT;
- 		goto error_undo;
-+	}
- 
- 	api_status = (struct MES_API_STATUS *)((char *)pkt + api_status_off);
- 	api_status->api_completion_fence_addr = status_gpu_addr;
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-index ce577f49b630..a25e6f6d5a71 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-@@ -195,8 +195,10 @@ static int mes_v12_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
- 	r = amdgpu_fence_wait_polling(ring,
- 				      seq - ring->fence_drv.num_fences_mask,
- 				      timeout);
--	if (r < 1)
-+	if (r < 1) {
-+		r = -ETIMEDOUT;
- 		goto error_undo;
-+	}
- 
- 	api_status = (struct MES_API_STATUS *)((char *)pkt + api_status_off);
- 	api_status->api_completion_fence_addr = status_gpu_addr;
--- 
-2.56.0
+Thanks for the bug report!
+Mikko
+
+
 
