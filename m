@@ -2,125 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6920C606A31D
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 21:23:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95D62606A31F
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 21:33:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=NGIBvgsx
+	dkim=pass (2048-bit key, unprotected) header.d=molgen.mpg.de header.i=@molgen.mpg.de header.a=rsa-sha256 header.s=20260906 header.b=cJliREQ1
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02C0410E474;
-	Tue, 27 Oct 2026 21:23:52 +0000 (UTC)
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013011.outbound.protection.outlook.com
- [40.107.201.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A42A10E474
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2026 21:23:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=f3FOQKAX+aYc7D7Rl2EYr+mI+rRPBkdy68U9IcEZidQ3mBNzLITEBf8VIrh3Zf1LwQNhmIRN6xxMRNvJ2sP6ST0rCeVhb9zduA8nIcJR2HntalJoRIUQ+iU47WU+oTYkIkumHp6/HvI01vdbLTofLcdvq8ED8C/3ng1xVA9ZxSiDVw4q6J61sHjwSbQhDrSnU88p2umHMA9mr481V26On6zjEfUOG9CWfwUPHA9UI3jBFT897awcP+z/za2qgqGrx4vGs6kqucXszXs00ObKX3OUXebYfYQIYcdAzynVVO/zLeOk+MEkNwIi9bBYbLwSjNgzkEJB6L4V5lleXjTzxw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6vvNU9L3n25+Ya2Z2wduLFB4bXaiAbiGQGsZoJMUoSA=;
- b=SQF4igICMWPWlQtcwNKWh3BKjdGgycAzYkezU0/SNxZi4jXo6yXf+HpH/hQlZhpFeCjMz4Sp1KwSjxah8wF033H0jn0EZ22S7WM4nWfVdHCcfp/T8vxOC9qp7N8QlOsenLS6BUgROacwNKhthDmSqYw9OUfhHPqdJTwb8UPjGLpOThAB8QQ4gdi0j3GCdUv82G83Fd/blhLya2WNLhHgQezVqhTPsLkWdw12bIvfCwxVVVxLjZtUCCWvteuAHX70/hjCDMy5pp3PmGmUHnRwFMXkbifVda6CTbgUEt2JLmRIssK5ME08oXZQwoaA6oAuUGS62wY0InHC3d20NdBrdg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6vvNU9L3n25+Ya2Z2wduLFB4bXaiAbiGQGsZoJMUoSA=;
- b=NGIBvgsxGK9M/abx+APQhBhytujx5Ro7PSJ/orT8YecZksVoXt26BUYPCnmVB3/P9OKXNOl00IEZlHsaYsftdw19C3h1WQrTtxhNtfn0CfyRTvZw9Kjoq90oBPIgNaJKDJlr2z0qIVBCxDBAYL7SlxauG3qfb1TMqw4tL8E5U4U=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::607) by DS7PR12MB6287.namprd12.prod.outlook.com
- (2603:10b6:8:94::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 21:23:42 +0000
-Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- ([fe80::67a7:9feb:71ef:964a]) by BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- ([fe80::67a7:9feb:71ef:964a%8]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 21:23:42 +0000
-Message-ID: <903e67ef-be21-4131-a5be-7b7ed433b48e@amd.com>
-Date: Tue, 27 Oct 2026 17:23:40 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCHv2 2/8] drm/amdgpu: Support VMID 0 GPUVA completion WB
- address for UALink
-To: Mukul Joshi <mukul.joshi@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Harish.Kasiviswanathan@amd.com, philip.yang@amd.com
-References: <20261027195913.1794477-1-mukul.joshi@amd.com>
- <20261027195913.1794477-3-mukul.joshi@amd.com>
-Content-Language: en-US
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <20261027195913.1794477-3-mukul.joshi@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT4PR01CA0357.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:fc::13) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::607)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3911C10E47F;
+	Tue, 27 Oct 2026 21:33:09 +0000 (UTC)
+Received: from mx3.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD19210E47F;
+ Tue, 27 Oct 2026 21:33:02 +0000 (UTC)
+Received: from [192.168.2.228] (p5dc557da.dip0.t-ipconnect.de [93.197.87.218])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: pmenzel)
+ by mx.molgen.mpg.de (Postfix) with ESMTPSA id B36174C442F7D2;
+ Tue, 27 Oct 2026 22:32:44 +0100 (CET)
+Message-ID: <75709eb7-6ff8-44ce-9f0c-84ff47c6ba22@molgen.mpg.de>
+Date: Tue, 27 Oct 2026 22:32:42 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PPF5F16C5C9C:EE_|DS7PR12MB6287:EE_
-X-MS-Office365-Filtering-Correlation-Id: 76a9870e-35ef-4667-e850-08df34709325
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|376014|366016|261026121527099003|4143699003|261021123027099003|56012099006|11063799006|261009223027099003|261021121427099003|10067099003|261022105027099003|22082099003|18002099003|6133799003|3023799007|261026140227099003;
-X-Microsoft-Antispam-Message-Info: PJenSkipDP5eUGkbph7rvp6IzeFJ0ytnhYAgp7bEVY1RTlbW6sddJuqTfuMAK89hK+CxgmEqV+50XyUctWRGwZqXneL16a2Euqtl3EZ8XbYT10F+9uMsAzYtfn2eSKrChDo5C4fCXJ5V/xJGXp65hPYCDPx0yra+HC4tZK2emY4gX04t5WLXi0CDcKH/NYT3qATYxOQN/STM0FfoVfTTpodTp7+XmS8dITypTlRVKPHifjwAb9t3eiHwiND2rqT1AMey6DnajN3K/KEoKC/FWS+6fLD4S4OdX/Ed3uWwQHzGnVzi5EyMb83tGZa4ZXu9HdLRwWx4hgLlZI5lJLrweK7mrNvQJ7ARlZOzvFIJOq/KxfeFVC5EOAFjDYTaxxk5q5OErBg9hQuIB+klLNVOyISgSNRUULTEy6Fj5bbEVdCFnzKa7TIdlcMfn6JjHHIA9IVy3RmlDWKgW83X2vNgqr9WBHpXfwP+UdOENCbkbuzkMpFLcTKd6A1omC9l7IXLgWucz+ndYuoMCctWbicTmXuBl8O0fcqO2Ie+oVifWdo+FJkFOGCjz1/5GN2dxs+HkTGjwd/qEY54au8uKSWUa15xeW6gIbMsSFTEpME+PKlVD4X+xmIprhVIileSr8T0GHKxlJF9wd+1uRP9cDI/6l6w28iyJmHjhW5FOmSzylM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN7PPF5F16C5C9C.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(261026121527099003)(4143699003)(261021123027099003)(56012099006)(11063799006)(261009223027099003)(261021121427099003)(10067099003)(261022105027099003)(22082099003)(18002099003)(6133799003)(3023799007)(261026140227099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?STZOa3RrK2x6RDVaRGkybzJMamw1SUxVa3l6U0dqZlFldGRwb1hacEJoRVNw?=
- =?utf-8?B?OStBUW5xdUc3c1VOc2hTNWhWRzlCV3NYL25KMDJEM3AvbVlheGpxUCtsK3pB?=
- =?utf-8?B?YXdneTRYTk1tc1JTSWNTdEd6aGJUWnYvTDZlcm1DVWJtbVNHNFdiazhIUXgy?=
- =?utf-8?B?d0dxZUo2cnNGbG5na3lsREZnYzVhenpUR0JWZ1ZWN1I0dVRYeEQzT2FJdC9T?=
- =?utf-8?B?YjQ4dzVwQk83eDVqK2p3SndZSFRsWUtENzI5RXIvbGxVNzFWdFhyd0psMmJm?=
- =?utf-8?B?V2NYeW1IcVZiZjB1WXdsbDRJWkhUNE1jdGpXZDVDRVJNNFV0cFgySDRLR1Ro?=
- =?utf-8?B?YTlwM2V2enQ1WVFOelFNMEZkdzFGZDlzbUJzQUN0VTNucnhieXFCYzBwdEtL?=
- =?utf-8?B?MTRsdjIwN3VDTllPV2xFT0FlUzZRcFR6N3gzTkVFTmVnTVFzWlpzSHVGTlRL?=
- =?utf-8?B?M2hHUktlQmNKSVU0U3BUSk53S0p0UFhGNk5CUHU5RGtNRGYrUUFKY0xEMFhp?=
- =?utf-8?B?M3M1WUhFYk5ZeVllWlF4Q0RtOXRGUURKa0JiQnhteUxzZnNxa2s2ODl4eXJK?=
- =?utf-8?B?TWxDaHUzNDBjY3dyZG0za0hSWGpZRXpaNmdudUZ6MWY5SURLRk9Pa0VYMXpw?=
- =?utf-8?B?VjQyb2VIUDhSc1gvWW9xRktWT24rTWFiODJHRzhyQXh6UlhjNm5iQ21oM2V6?=
- =?utf-8?B?TGxNTjBCcVJRZC9MMVl1TEpxZnpQTGJna0p6M2RibEgrOEVHOVljRlExNzdp?=
- =?utf-8?B?LytkbXV2WlFmVENDQWFtWGNsdVhkcno3RDJFZ250ZXFic2FSREFwS0NTVDRE?=
- =?utf-8?B?UlVZT2duU3dqVlZZQTRzVHdyaitNT0VmZTBxWTBXKzBDS0ovSThQbGNYQ3E2?=
- =?utf-8?B?dytqNDg3UGd3OXBDSHRPNzhXcE9WaVBtUW5CemtDVVptTFMyUW0xRnpuWXRQ?=
- =?utf-8?B?WlFSbllEK1NVb2hTS1R3d01hU1FKdEwwanJXVzJBUVI0SVYwTzhoRktxR1d2?=
- =?utf-8?B?L0p3OEphNE9VbVVka0VxaXZQeWdnSEgwSkdjWk5OdTRkb3RkUjUreDloYmwx?=
- =?utf-8?B?RXRBdTQrRjJHUktCdnJ1aHcxalV3dFdHQ21pKzJzZTNjN3RWN2FjQ1ZVKzAr?=
- =?utf-8?B?NUpIYUZYMW5GK2w3Q2lXOVNPSkd6L3E2RzI3S3ZlK1lUUExqNUdjbVlqVHFC?=
- =?utf-8?B?Y2tpTmtnbkQ4MWNYT0QzTm0xdDg0a1cyUGZrWDFpRkpqYnc2eGQ4eHdxSi9B?=
- =?utf-8?B?QnhjTndKQWdhQlRpTHdEQXhlQ3cybTc4ZmxUTXpSVDNxc2pucWtVelZUSmFD?=
- =?utf-8?B?YnhTR1FtUjdDT2J6cG5hSmlkVW1FL0JCMCs1czRFaG9DWmt6SVdHZjhHV3pO?=
- =?utf-8?B?MW9FYWoveGE3NDF3MFNvWTd0K2l3cHZBN1djc2VYNDByL1RjS1owMXFYR1FK?=
- =?utf-8?B?MTlYY3VyV1d6MzZ2aXhNaUtqMmVnZnVSdi9aRlhJRUJhZ052VVl6WCtyS0Rk?=
- =?utf-8?B?VnhTNWJXRmtvL0RibEZYaDRRTUhWMWJ6aVlrUkREbml2bHBLTFhRSVc3aUM4?=
- =?utf-8?B?RENMTG9IZUF2WmI4NDVxWXh4OXFpZjhxZ08vbExkZWpocU5heGZmaEJzTHhw?=
- =?utf-8?B?UkM5Tll3SjM1ZXZSbFdxUCsza0RlRzA4di9sMUcxTDU3VlZJL0VFQ2RFcmxH?=
- =?utf-8?B?WmdoUDRsZXdKcERnK25HWXZkeGdzdThFVkZ4RkZpdytCVm44SytwU1RiSDRT?=
- =?utf-8?B?OG1wWHZ6ODZ3Y01lTzBaNlFGbmZIVWI5SlBHVVZ2a0RiMy9MRG9ESXhDUWZn?=
- =?utf-8?B?TlJabHVOUXhWM25ZT045NWtHTlRsQ1lpUGR2Ny8ySlE5d05ZWmg2T0NOb1R3?=
- =?utf-8?B?NU8wWHlqY2hWZGhpUG1LMFQzdmw5UnBIUVkxV25zczFqaGNPd05yY3lqdmJH?=
- =?utf-8?B?TGxhQnNRYWFLb3ZaeDZZRTRISWVvcWlYdFFFK1EyT2J4bFRZUWFIdXhmd0h6?=
- =?utf-8?B?NWdaeGJBLzB4TUdLbTJyTjVIdGI1VVZXemJkY0M1bE9UeWhYMjFoWGpsR1NL?=
- =?utf-8?B?WTJYVXBYQzJVVHZBZHNHaCt2YXR4UmtXNkJJc0RldTYzanRmSi91d1h6bmFo?=
- =?utf-8?B?eU41Um9zaHl0cVh4ZHBTNDg3aEJucjVHK0R3czJKamh2Zy84RURSMm1tVDUz?=
- =?utf-8?B?a1RaY2FHUzVIM2FBL3YvWFZBQ2I1QjBDT3kxVlErbTdPVG8wUE82cUZsdGZG?=
- =?utf-8?B?ZERjc3VFeTVOMlFyRmxxTXk4WGJXTkY2K200TlBWNFByRG8xa0ptdXdIMGh5?=
- =?utf-8?B?QUJ2UWQzN29ieU9Lc29CMXpVZ0VwcnIvRTVmcVhSa1BDYjM3WHhZdz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 76a9870e-35ef-4667-e850-08df34709325
-X-MS-Exchange-CrossTenant-AuthSource: BN7PPF5F16C5C9C.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 21:23:42.0896 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4TK3JpglRi0jX+JK8ezA0uzR8pwNmu4YbjQIqt0EfGugK0K27yFyyrYdgSs60vvApJoGm8CU5wxOr4dDNOXc0A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6287
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: Don't warn about vendor infoframe for
+ non-infoframe sinks
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Wentao Liang <vulab@iscas.ac.cn>, Alex Hung <alex.hung@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20261027185414.162183-1-pmenzel@molgen.mpg.de>
+ <ba77a6b8-f79c-496f-ad45-9314ac8f8a46@amd.com>
+Content-Language: en-US
+From: Paul Menzel <pmenzel@molgen.mpg.de>
+In-Reply-To: <ba77a6b8-f79c-496f-ad45-9314ac8f8a46@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=molgen.mpg.de;
+ s=20260906; t=1793136765; 
+ h=from:from:subject:date:message-id:mime-version:content-type:content-transfer-encoding;
+ bh=YprbfqYF/5IHF7LNRQfGp7VZBBSU82RcpHjz3gqg6n0=; 
+ b=cJliREQ1/t9kRei5RaG7Rqav8PcSgbImQ+jzkSCpmYc4D0rkcZgCr/oQUk7i1uRQOssCZLmvuUTI
+ Rz9hI0ig4Ab7aFEilxaX7c5flmjuY5ydu+Fzjlr5BjA8hV+lm04pHq/0sYjDLyIY/hBsEBF5VJJ6u4
+ 4YyxaSCfWsd8TbL/ZmiWCgd8E6ijdbIHDlMI72tFt/29H3W4yBmZKkyuONI+73mP6io/QywKn2ACUW
+ wWcp/TyjdWndQ+L1c4YrR/wd5vWvfYC/16G2f9X8cA2XhTyMJFfoow3bDGOIdEIFK24eMZS+DlrJ66
+ FlVpa3vCWc+8DNUclHEs9xKyT1TIoGtw==
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,146 +60,98 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.6 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-12.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 2026-10-27 15:54, Mukul Joshi wrote:
-> The UPDATE_WB_ADDR remote command hands the MP nHT FW the address it
-> writes command completions back to. So far that has always been an NPA.
->
-> The FW can also take a VMID 0 GPUVA, selected by setting DW4 of the
-> command to 1. Return the VMID 0 GPUVA of the writeback slot from
-> amdgpu_ualink_get_wb_addr() alongside the NPA, and use it in
-> UALink loopback mode. There the HW only carries importer -> exporter
-> traffic, so the FW cannot write the completion back over NPA.
->
-> Outside loopback the NPA is still used and DW4 stays 0.
->
-> Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
-
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+Dear Mario,
 
 
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 48 +++++++++++++++-------
->   1 file changed, 34 insertions(+), 14 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-> index 2cd6dc71ab9f..a186859dee3c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-> @@ -5641,9 +5641,9 @@ static void amdgpu_ualink_emit_update_wb_addr(u32 **cpu_addr_p, u32 wb_data,
->   
->   	*cpu_addr++ = cmd;
->   	*cpu_addr++ = wb_data;
-> -	*cpu_addr++ = dw1 & 0xFFFFFFFC;	/* lower32 wb_npa */
-> -	*cpu_addr++ = dw0 & 0xFFFFF;	/* upper32 wb_npa */
-> -	*cpu_addr++ = 0;
-> +	*cpu_addr++ = dw1 & 0xFFFFFFFC;	/* lower32 wb address */
-> +	*cpu_addr++ = dw0 & 0xFFFFF;	/* upper32 wb address */
-> +	*cpu_addr++ = dw2;		/* 1: wb address is VMID 0 GPUVA, 0: NPA */
->   	*cpu_addr++ = 0;
->   	*cpu_addr++ = 0; /* metadata */
->   	*cpu_addr++ = 0; /* metadata */
-> @@ -5857,7 +5857,7 @@ static int amdgpu_ualink_send_command(struct amdgpu_device *adev,
->   static void amdgpu_ualink_get_wb_addr(struct amdgpu_device *adev,
->   				      u32 remote_accel_id,
->   				      struct amdgpu_ualink_wb **wb_cpu,
-> -				      u64 *wb_npa, u32 type)
-> +				      u64 *wb_npa, u64 *wb_gpu, u32 type)
->   {
->   	struct amdgpu_ualink_remote *remote = to_remote(adev);
->   	/* The GPUID encoded in the write-back NPA address is the routing target
-> @@ -5870,15 +5870,17 @@ static void amdgpu_ualink_get_wb_addr(struct amdgpu_device *adev,
->   	u32 accel_id = ualink_exp_accel_id(adev);
->   	u32 rb_size = AMDGPU_GPU_PAGE_ALIGN(2 * AMDGPU_UALINK_RB_SIZE);
->   	uintptr_t wb;
-> -	u64 npa;
-> +	u64 gpu, npa;
->   	u32 offset = 0;
->   
->   	if (ualink_addr_mode(adev) == AMDGPU_UALINK_ADDR_MODE_SOURCE_IDENT) {
->   		wb = (uintptr_t)remote->rb_cpu_addr + rb_size * remote->num_accel;
-> +		gpu = remote->rb_gpu_addr + rb_size * remote->num_accel;
->   		npa = amdgpu_ualink_npa_addr(adev, RB_TYPE_TAILPTR,
->   					     remote_accel_id, accel_id);
->   	} else {
->   		wb = (uintptr_t)remote->rptr_cpu_addr;
-> +		gpu = remote->rptr_gpu_addr;
->   		npa = remote->rptr_npa;
->   		npa |= (u64)accel_id << AMDGPU_UALINK_GART_NPA_ADDR_GPUID_SHIFT;
->   	}
-> @@ -5891,9 +5893,11 @@ static void amdgpu_ualink_get_wb_addr(struct amdgpu_device *adev,
->   	*wb_cpu = (struct amdgpu_ualink_wb *)(wb + offset);
->   	if (wb_npa)
->   		*wb_npa = npa + offset;
-> +	if (wb_gpu)
-> +		*wb_gpu = gpu + offset;
->   
-> -	dev_dbg(adev->dev, "source %d remote %d wb npa 0x%llx\n", accel_id,
-> -		remote_accel_id, npa + offset);
-> +	dev_dbg(adev->dev, "source %d remote %d wb npa 0x%llx gpu 0x%llx\n", accel_id,
-> +		remote_accel_id, npa + offset, gpu + offset);
->   }
->   
->   struct amdgpu_ualink_wptr_fence_cb {
-> @@ -6057,9 +6061,9 @@ static int amdgpu_ualink_ring_resync_ptrs(struct amdgpu_device *adev,
->   		ualink_exp_accel_id(adev), peer->interrupt.wptr, peer->shootdown.wptr,
->   		remote_accel_id, int_wptr, tlb_wptr);
->   
-> -	amdgpu_ualink_get_wb_addr(adev, remote_accel_id, &int_wb, NULL,
-> +	amdgpu_ualink_get_wb_addr(adev, remote_accel_id, &int_wb, NULL, NULL,
->   				  RB_TYPE_REMOTE_INTERRUPT);
-> -	amdgpu_ualink_get_wb_addr(adev, remote_accel_id, &tlb_wb, NULL,
-> +	amdgpu_ualink_get_wb_addr(adev, remote_accel_id, &tlb_wb, NULL, NULL,
->   				  RB_TYPE_TLB_INV);
->   
->   	peer->interrupt.wptr = int_wptr;
-> @@ -6093,7 +6097,8 @@ static int amdgpu_ualink_update_wb_address(struct amdgpu_device *adev,
->   	struct amdgpu_ualink_peer *peer;
->   	struct amdgpu_ualink_ring *ring;
->   	struct amdgpu_ualink_wb *wb_cpu;
-> -	u64 wb_npa;
-> +	u64 wb_npa, wb_gpu, wb_addr;
-> +	u32 wb_vmid0;
->   	int r;
->   
->   	peer = &remote->peer[remote_accel_id];
-> @@ -6105,13 +6110,28 @@ static int amdgpu_ualink_update_wb_address(struct amdgpu_device *adev,
->   		return -EINVAL;
->   
->   	amdgpu_ualink_get_wb_addr(adev, remote_accel_id, &wb_cpu, &wb_npa,
-> -				  ring_type);
-> +				  &wb_gpu, ring_type);
-> +
-> +	/* UALink loopback: HW only carries importer -> exporter traffic, so the
-> +	 * MPNHT FW cannot write the completion back over NPA. Hand it the VMID 0
-> +	 * GPUVA of the writeback instead and flag it in DW4 of the command.
-> +	 */
-> +	if (adev->ualink.loopback.enabled) {
-> +		wb_addr = wb_gpu;
-> +		wb_vmid0 = 1;
-> +	} else {
-> +		wb_addr = wb_npa;
-> +		wb_vmid0 = 0;
-> +	}
-> +
-> +	dev_dbg(adev->dev, "remote %u ring type %u wb %s 0x%llx\n",
-> +		remote_accel_id, ring_type, wb_vmid0 ? "gpuva" : "npa", wb_addr);
->   
->   	r = amdgpu_ualink_send_command(adev, remote_accel_id, ring, wb_cpu,
->   				       amdgpu_ualink_emit_update_wb_addr,
-> -				       upper_32_bits(wb_npa),
-> -				       lower_32_bits(wb_npa),
-> -				       0, 0);
-> +				       upper_32_bits(wb_addr),
-> +				       lower_32_bits(wb_addr),
-> +				       wb_vmid0, 0);
->   	if (!r) {
->   		ring->wb_cpu = wb_cpu;
->   		ring->ready = true;
+Thank you for you reply.
+
+Am 27.10.26 um 21:48 schrieb Mario Limonciello:
+> 
+> 
+> On 10/27/26 13:54, Paul Menzel wrote:
+>> With an EIZO EV2781 connected over HDMI to an AMD Ryzen 3 2200G (Raven)
+>> on an MSI B350M MORTAR (MS-7A37), Linux logs at every boot since v6.16:
+>>
+>>      amdgpu 0000:30:00.0: [drm] Failed to setup vendor infoframe on 
+>> connector HDMI-A-1: -22
+>>
+>> Commit 6027cbee1900 ("drm/amd/display: Add error check for avi and
+>> vendor infoframe setup function") started to log the return value of
+>> drm_hdmi_vendor_infoframe_from_display_mode(). With `frame` and `mode`
+>> being non-NULL, the helper only fails with -EINVAL, if the sink does
+>> not support HDMI infoframes, that means, if
+>> `connector->display_info.has_hdmi_infoframe` is false, and its
+>> kernel-doc says, that this error can be safely ignored.
+>> drm_parse_hdmi_vsdb_video() only sets `has_hdmi_infoframe`, if the HDMI
+>> VSDB has HDMI_Video_present set, and drm_parse_hdmi_forum_scds() sets
+>> it for sinks with an HF-SCDB. So an HDMI sink, whose VSDB lacks
+>> HDMI_Video_present, triggers the warning, although nothing failed.
+>>
+>> The EIZO EV2781 is such a sink. Its HDMI VSDB has a payload of only
+>> seven bytes (source physical address, Supports_AI, and a maximum TMDS
+>> clock of 250 MHz), so the byte with HDMI_Video_present is absent, and
+>> the EDID has no HF-SCDB:
+>>
+>>      67 03 0c 00 10 00 80 32
+>>
+>> Only warn, if the sink supports HDMI infoframes. The infoframe setup
+>> itself is unchanged.
+>>
+>> Fixes: 6027cbee1900 ("drm/amd/display: Add error check for avi and 
+>> vendor infoframe setup function")
+>> Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5025
+>> ---
+>>
+>> Notes:
+>>
+>> claude-opus-5-5 (Claude Code) assisted in analysis, code change and
+>> commit message.
+>>
+>>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c | 3 ++-
+>>   1 file changed, 2 insertions(+), 1 deletion(-)
+
+[…]
+
+> The actual change looks reasonable to me.  But a few things about your 
+> commit message you'll need to change.
+> 
+> 1) You are missing a S-o-b [1]
+
+Sorry, overlooked.
+
+> 2) Disclosing LLM should currently be done by
+> "Assisted-by: LLM" [2]
+
+Since commit 1e035297ffdadf (docs: remove Assisted-by references) it 
+seems to be deprecated:
+
+$ scripts/checkpatch.pl 
+0001-drm-amd-display-Don-t-warn-about-vendor-infoframe-fo.patch
+[…]
+WARNING: Non-standard signature: Assisted-by:
+#35:
+Assisted-by: LLM
+
+ERROR: Unrecognized email address: 'LLM'
+#35:
+Assisted-by: LLM
+
+I wanted to send v3 with the tag added, but would refrain from it now, 
+if that’s alright with you.
+
+
+Kind regards,
+
+Paul
+
+
+> https://docs.kernel.org/process/coding-assistants.html#signed-off-by- 
+> and-developer-certificate-of-origin [1]
+> https://docs.kernel.org/process/coding-assistants.html#attribution [2]
