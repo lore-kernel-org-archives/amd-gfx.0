@@ -2,42 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6659606A321
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 13:51:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB06F606A31B
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 14:21:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=d4uP2I+c
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=eERDmeMq
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E2EE10F56E;
-	Tue, 27 Oct 2026 13:51:08 +0000 (UTC)
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012014.outbound.protection.outlook.com [52.101.48.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0249B10F54D
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2026 13:51:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6971B10F59F;
+	Tue, 27 Oct 2026 14:20:57 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013025.outbound.protection.outlook.com
+ [40.93.201.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DAE110F5A2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2026 14:20:51 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=s+K5EvcRg2sYRTVJa4EymoGbirxCq2Y63F4FIzPPJQf6yzNw2DRC+x6P9QiVvAJTSXoDMZo+eRTJGJeZSJ3K8YptXm7OLp5Szru2Vm3VFvdiCOv7LwekKISGNfaIICOHFyBJcRQE7jGzKe/29ehDLEYyLiNvFhZiA4VnNL/JDeSEdera8qtRXFyhv6YwE7kil+SRjZuhM5a5VOq/KzXjjZjIYTwbuCPo3uw/r4SSw+wXvRVIm7ppVXCKsiJaTG11HGcdYDj+9ddlNzeXqv+bk0kMAd6H4I7O8EKQVIoQGf7WjhnQIbhdpHS1h5cg8/EXbl8DcOusPaKx4mYErLZdKw==
+ b=KX4zJvIT7fM9qpsDnXQCV+KZsKM0kPc/gH8tEiLiEyg9WChDIgBsO2UhRQkAjBMno35fsX5NVLwp1+c2jQwica9NEzhbKQPrjJ9vMVympM83yVYESz0SG/7SMj/Ds7vD4LHpLaN+GREI0VItBc1U86iw5qnDUmo0FfrNtvHqN+T3Ioq00MjfO2pLJEpJkzmUPutVrIrYAxnzlI4Q1lT5ngKcJY5mNVnyi/heyTVhcYChw69XoHvC2hqCm45Nnczzjv9s+5tHBPjCv7xXH6h7Nl8y+aB+yAGO1twNoibJYrPp8uLck0B+Z1nNYFfNbnJaQSAOp6xS+gSqcQ71h/7lNQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VyPekAbkYSVmfbAxPfwojahoInN1+8BKf9VoM5Q7EOM=;
- b=vH83mTI8phl2YkEfoixiXToKolS8sEwuO41m7swaxTnyfpJsZ0wOGXAHF8X0sgok2AMYIxMeq58r5T6983KB7MgYO9OwcN2ttt4tY3QxPyUGCS4BD5l7OJ80q6K6I25PLLpGBtfvEYP/IiBY48RPloTpRnLHPPyFuP65Eh+SBhncfOOoX+zJMY/HJDme2fPnWZmAHhfba2c3GE+KR9eH+T36/wXald7Lgitf5AnThwJVZ+j00np6IGDyvChWEYqEgJe9fhQuLig/fnvDDA0vKmvbPHWN7D6wHv+CAOsXPiblN0qkDQaBBwOZugYsVynLsYJmQwu8qY5Qt8NaI1jeJQ==
+ bh=LBVqLr3rcPirY/xF8WapC4H8sBk4L+CuZC9j1XPcuds=;
+ b=SCixEWeXpRnd3p05T8rPVh1vHJxEtSET69pG9Wmsj8+myiTBZ7nAgr8UefqYHIVlZg7l/8Nrhy1Yy/TdiKGnFNhstwDs6gw9drGFj6eW/xGHxMiCgCPNxLuqEDRos2p9NaIBeXebMN2GrcGK/BPb4VWSti6170gMQ3U3yR9UbGw8jZajhNmHaxhMDLr2K/2A+RBsLKRAVBCF3DuVNAC4KX9/N7xc9HoELrXRcv1bFcPo9B+6YKaE7EnEbr/Xp0wIfxCiKJh12pjtJgsBi9ltRDOPA5kPuQ1AJEoIVFaERZngZPE0lCyuK39UuU46HRNFGS/XB9O+7cVouy5FQ7Y/+w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VyPekAbkYSVmfbAxPfwojahoInN1+8BKf9VoM5Q7EOM=;
- b=d4uP2I+cCsxJ7IxBv3PpKdLv4m54NiUcPBILRHb380jfH8vnT+5qE4+Xb6rb6S/yRq0TgyAabsb8aEPWFWHve73E7fzzcTo57UTUsidMqCT2Np6kVPSMEj4zRC2YSrO+NgJ0x+dan96J1LZL6kHuDEoIaKY3wQNI4Ur+gHf0QcI=
-Received: from PH7PR10CA0009.namprd10.prod.outlook.com (2603:10b6:510:23d::29)
- by MN0PR12MB6295.namprd12.prod.outlook.com (2603:10b6:208:3c0::17)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=LBVqLr3rcPirY/xF8WapC4H8sBk4L+CuZC9j1XPcuds=;
+ b=eERDmeMqL7As6IvzdpUA4TMKyXhAQqGUjPnC2Qbn0lvttAWxcXTxbegA3ot22oOAYZP2n6KI2wTgJENw7CLY6RUh4hmsiZhj2ziaICwdvu+bCnmyoCiHoCy6DOyuviudZjGDGLx8N1i8VcB1FxMWs1PLjFkSn1Weh5gIS+8SVno=
+Received: from MW4PR03CA0242.namprd03.prod.outlook.com (2603:10b6:303:b4::7)
+ by IA0PR12MB8908.namprd12.prod.outlook.com (2603:10b6:208:48a::12) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 13:50:50 +0000
-Received: from SJ5PEPF000001D1.namprd05.prod.outlook.com
- (2603:10b6:510:23d:cafe::33) by PH7PR10CA0009.outlook.office365.com
- (2603:10b6:510:23d::29) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 14:20:48 +0000
+Received: from SJ5PEPF000001E9.namprd05.prod.outlook.com
+ (2603:10b6:303:b4:cafe::3) by MW4PR03CA0242.outlook.office365.com
+ (2603:10b6:303:b4::7) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Tue,
- 27 Oct 2026 13:50:49 +0000
+ 27 Oct 2026 14:20:47 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -46,53 +47,55 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ5PEPF000001D1.mail.protection.outlook.com (10.167.242.53) with Microsoft
+ SJ5PEPF000001E9.mail.protection.outlook.com (10.167.242.197) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Tue, 27 Oct 2026 13:50:48 +0000
-Received: from RSBMMILICEV01.amd.com (10.180.168.240) by satlexmb07.amd.com
+ 15.21.569.4 via Frontend Transport; Tue, 27 Oct 2026 14:20:47 +0000
+Received: from alysaliu-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 27 Oct
- 2026 08:50:45 -0500
-From: Milan Milicevic <Milan.Milicevic@amd.com>
+ 2026 09:20:45 -0500
+From: William Palacek <William.Palacek@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: <Milan.Milicevic@amd.com>, <Danijel.Slivka@amd.com>,
- <Alexander.Deucher@amd.com>
-Subject: [PATCH] drm/amdgpu: clear RB_OVERFLOW bit when enabling interrupts
- for navi10_ih
-Date: Tue, 27 Oct 2026 14:50:24 +0100
-Message-ID: <20261027135024.1391-1-Milan.Milicevic@amd.com>
+CC: <arunpravin.paneerselvam@amd.com>, <christian.koenig@amd.com>,
+ <kent.russell@amd.com>, William Palacek <William.Palacek@amd.com>
+Subject: [PATCH 2/2] gpu/tests/buddy: add range-biased allocation performance
+ test
+Date: Tue, 27 Oct 2026 10:19:25 -0400
+Message-ID: <e544554daa5353cf83c2529f49ff01fdc97f034e.1793108566.git.William.Palacek@amd.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1793108566.git.William.Palacek@amd.com>
+References: <cover.1793108566.git.William.Palacek@amd.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D1:EE_|MN0PR12MB6295:EE_
-X-MS-Office365-Filtering-Correlation-Id: f8dd6b1d-4c3a-435a-5a6d-08df34314ea9
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001E9:EE_|IA0PR12MB8908:EE_
+X-MS-Office365-Filtering-Correlation-Id: 340e528e-c96c-421e-84c6-08df34357efa
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|23010399003|376014|36860700016|11063799006|56012099006|261021121427099003|261009223027099003|10067099003|18002099003|261026121527099003;
-X-Microsoft-Antispam-Message-Info: 0dKoblM/xW9x7GFUKoLPHqj2guNGQS3Vt+h+vmvWrkHO6KiaNmyMyjrRIrgpgpsydWimevPLlM4BGSBzDk+YDkatp8STYi0t5i4PoI8y4MFNY03iZd8L+T91kU9Cp/8c97o2J/eyMAyDHbNbl9t8hKYnje91fFsX8XdSu1eIXhA8hSzr9cYzP50fNr10sbag1/Z6h+2V6IiFQv1LpCnShtbGDml8UbRMQe63netZp0WF0M0Me8zPcLcndK/+6pyLBxEs5kWx6Olul4n+rjCgL10AupXEGJiGi7GAzYLuzuyVXLf1BXZ2VhAaotpLSbEQZWDl8D4X6ZiSNxO/VoMqocGuX5va+PN3sB5SwhPKR0FxmRfR1/qN5FoUb+cQlaNTf6aXf+H8IPM58cldphM5moGd463njR+6FfgKdVc6oQFmzRyQBVxk7O2dc6WZ6uo8NLfIcFk8ttJuPx3txeVjf8y5TZnYz8pGvFIvBWfPiTz/IDPG4EYZYx5o1dI5DavyrzR0CmC7JxRsYa467CI4wBCpieabQrSKpBohSWlhlmq84iotBgz0flKMcAYRcvPUzsuShFjfWG8BMHW8GLaOmqh0FA0FLAZUpvP+ag/+NCElrvCOgxcz1qSKs1YkwL5CWY8O2r8Df7BY3Z/OJGpxA2m1zMO3Pzpoc+vh20jHfyQOmLBpJYt1+fui/EZiP2deEjdlTkpyX0CEx1B9HR8mIg==
+ ARA:13230040|23010399003|376014|82310400026|1800799024|36860700016|261009223027099003|261021121427099003|261021123027099003|10067099003|56012099006|22082099003|18002099003|261026121527099003|11063799006;
+X-Microsoft-Antispam-Message-Info: rhLBFEBwAyEvyOQmJYwbnb/SV1KqjLYLmchtDLT5AsOWYDn8QnJpCZLhNXQsN15nOUJtt/5XqdcShu+3Mq3LwXEOGHua1ROT+IlJ6vvRc6FrWt4oCzM55rZxWco8fG0C76NqCMWvUWuT+ymdAS+VrBJNXkjsx4aV4tItyuJeKS5pWK+McALewEheT5pVCLAHlIjWY02263qHEjfmcstQNsswgBx5GJkUeGrsI0pfsmqwK0tGljzVrzEaGWnGFwTaOGvo85vPJ7LsSE0f35oLfCTYjxmA+5yDijFcoYosw4e5jQ0gM4udF0Gx9dSXAlDKomjO68QOz8lb9wKseB2tvJxaI5dUDYhk+Q3QGEIeMqr4kkUF6eQ1pAz+vAwTNcNoAoKTbrhzZDyXLje1hLwM1MCze9+hZ6U8y2QXtekMGZECaXZd7/Nectir0aBNQa7ZgdUNlEn9paTFNmP6X6NIdjneF6a31HgUzL7fOq+mYhuoLHXkENCaO/9zy/qcC6XIldJWwLNUtqYLqX6ZC5r5SRpyW8MIb5kY5bdo9XIAoSNkKz3jkqtOE/y6DV2CqZa5uRlsOgVtIyKck8LaU1BF5QhwGPxiA1j0dwRk2Blzd1lh5A2OOhkuQ2M9vlEqVQxzp0bZ+2qfNh5y6mHNOpAGKnSiqp8+D5y6HtdC0SDvjvoCOG+daYqGxP+gCLuU1Z4UG7m4Ia1nDphqQxpQNd39kA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(23010399003)(376014)(36860700016)(11063799006)(56012099006)(261021121427099003)(261009223027099003)(10067099003)(18002099003)(261026121527099003);
+ SFS:(13230040)(23010399003)(376014)(82310400026)(1800799024)(36860700016)(261009223027099003)(261021121427099003)(261021123027099003)(10067099003)(56012099006)(22082099003)(18002099003)(261026121527099003)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: ljgf22rPqIosrUrIFKogB0C3oMgS6106IahsXhiE7EVvvxGKisi8Y6vSXEbSdRuWKDXXQOj6GqvnEd3LL0/to0a811YF9A74li3HvnXz3OdipjGy9TX41GzLkkAofDZZD0dz2L+s29mqYhyU/so1rLHOgKPThSayzGBrWtDEm9YG7hhF/L+Lk5Zng7MRrs3+r2aMwOGDft9Fa1guNPn+OH4U5RbwHjN3TSDsCLUYq/hUl1r0gtvRFIYdTn1494s4oTSP+NMNQAufyC2bgnGA9RT+tIZuhf1eGIUs5VrHI6GyrJG64OpoBQp56aq+dKPeQbKC69ayjdrc4yX1rpJQubCGMn+N0pAsz2OHFppXbpif3M/b7RApAy42dRvv8UD5dbMhU+Jpjoi8jDpy92uHRwtWguBD5iofQfuJz1CszOXgjZGc5fhOlSvoWWEe2OKK
+X-MS-Exchange-AntiSpam-MessageData-0: V1lS/f3OK73WmarT2ZsHguytcwmtXS7KNryew15wNR/0uGiw18Wh1efD+WpnvJlMmH7NmMcR3b8uLo0Y+z6nHcNGRvmWUGoPFKP0PV0oSQxoWWP3CxGEFxp8ELIhd3V929ba9r1ra0kpQUHdOw5BD+5xt7okMx/A1Lttg9Q3bf/yrkwKCxx1IteZnJ0TGxJ8urZr/AeB8Obc9cH/kTe0cV/Qu3aM7t4kBFTRykjKdLL+maw0nMOmYb5m5PVrVCDCCkxBy0ZWLpwJO89vGP6NovHEm0/woDMdYFsZeyAIVtdrYmhy2+p23g0aIMryqag0ktEwST3tcaeIDiQwS6BKmxm+YLuvQTgZZ0I6SSPYijiu6V6r/iyVBu+JtD1ZIo0ZhhAnbIkpV+Mxk1tzKn2e0hbfXyVxWRe8iNPxXoLEsiRwYGYZKtf/jJWZS770ew1+
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 13:50:48.6379 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f8dd6b1d-4c3a-435a-5a6d-08df34314ea9
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 14:20:47.6848 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 340e528e-c96c-421e-84c6-08df34357efa
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D1.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001E9.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6295
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8908
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,60 +113,60 @@ X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Danijel Slivka <Danijel.Slivka@amd.com>
+Fill a 1 GiB range of a 4 GiB manager with 64 KiB range-biased
+allocations that request cleared memory, as amdgpu does for KFD VRAM
+on NPS4 partitions, and report the time taken. Before the previous
+change this took about 1 s because every allocation walked all live
+blocks in the range; it now takes about 2 ms.
 
-Port this change to navi10_ih.c:
-commit afbf7955ff01 ("drm/amdgpu: clear RB_OVERFLOW bit when enabling interrupts")
-
-Setting IH_RB_WPTR to 0 does not clear RB_OVERFLOW if RB_ENABLE is not
-set. Pulse WPTR_OVERFLOW_CLEAR after RB_ENABLE (and with
-WPTR_OVERFLOW_ENABLE) so overflow is cleared when interrupts are
-enabled.
-
-Signed-off-by: Danijel Slivka <Danijel.Slivka@amd.com>
+Signed-off-by: William Palacek <William.Palacek@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/navi10_ih.c | 28 ++++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
+ drivers/gpu/tests/gpu_buddy_test.c | 25 +++++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-index 1dae7df9ee17..6edef75846a6 100644
---- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-+++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-@@ -161,6 +161,34 @@ static int navi10_ih_toggle_ring_interrupts(struct amdgpu_device *adev,
- 	tmp = RREG32(ih_regs->ih_rb_cntl);
- 	tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, RB_ENABLE, (enable ? 1 : 0));
- 	tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, RB_GPU_TS_ENABLE, 1);
+diff --git a/drivers/gpu/tests/gpu_buddy_test.c b/drivers/gpu/tests/gpu_buddy_test.c
+index 4d288f58fb5c..10b4fab2407c 100644
+--- a/drivers/gpu/tests/gpu_buddy_test.c
++++ b/drivers/gpu/tests/gpu_buddy_test.c
+@@ -289,6 +289,30 @@ static void gpu_test_buddy_fragmentation_performance(struct kunit *test)
+ 	gpu_buddy_fini(&mm);
+ }
+ 
++static void gpu_test_buddy_range_bias_performance(struct kunit *test)
++{
++	LIST_HEAD(allocated);
++	struct gpu_buddy mm;
++	ktime_t t0;
++	u64 i;
 +
-+	if (enable) {
-+		/* Unset the CLEAR_OVERFLOW bit to make sure the next step
-+		 * is switching the bit from 0 to 1
-+		 */
-+		tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
-+		if (amdgpu_sriov_vf(adev) && amdgpu_sriov_reg_indirect_ih(adev)) {
-+			if (psp_reg_program(&adev->psp, ih_regs->psp_reg_id, tmp))
-+				return -ETIMEDOUT;
-+		} else {
-+			WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
-+		}
++	/*
++	 * Fill one NPS4-like quarter with 64 KiB range-biased allocations
++	 * that ask for cleared memory, as amdgpu does for KFD VRAM.
++	 */
++	KUNIT_ASSERT_FALSE(test, gpu_buddy_init(&mm, SZ_4G, SZ_4K));
++	t0 = ktime_get();
++	for (i = 0; i < SZ_1G / SZ_64K; i++)
++		KUNIT_ASSERT_FALSE(test, gpu_buddy_alloc_blocks(&mm, SZ_1G, SZ_2G, SZ_64K,
++								SZ_64K, &allocated,
++								GPU_BUDDY_RANGE_ALLOCATION |
++								GPU_BUDDY_CLEAR_ALLOCATION));
++	kunit_info(test, "Range-biased fill took %lld ms\n",
++		   ktime_ms_delta(ktime_get(), t0));
++	gpu_buddy_free_list(&mm, &allocated, 0);
++	gpu_buddy_fini(&mm);
++}
 +
-+		/* Clear RB_OVERFLOW bit */
-+		tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
-+		if (amdgpu_sriov_vf(adev) && amdgpu_sriov_reg_indirect_ih(adev)) {
-+			if (psp_reg_program(&adev->psp, ih_regs->psp_reg_id, tmp))
-+				return -ETIMEDOUT;
-+		} else {
-+			WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
-+		}
-+
-+		/* Unset the CLEAR_OVERFLOW bit immediately so new overflows
-+		 * can be detected.
-+		 */
-+		tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
-+	}
-+
- 	/* enable_intr field is only valid in ring0 */
- 	if (ih == &adev->irq.ih)
- 		tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, ENABLE_INTR, (enable ? 1 : 0));
+ static void gpu_test_buddy_dirty_tracker_performance(struct kunit *test)
+ {
+ 	struct gpu_buddy_block *block, *tmp;
+@@ -1612,6 +1636,7 @@ static struct kunit_case gpu_buddy_tests[] = {
+ 	KUNIT_CASE(gpu_test_buddy_alloc_range_bias),
+ 	KUNIT_CASE_SLOW(gpu_test_buddy_fragmentation_performance),
+ 	KUNIT_CASE_SLOW(gpu_test_buddy_dirty_tracker_performance),
++	KUNIT_CASE_SLOW(gpu_test_buddy_range_bias_performance),
+ 	KUNIT_CASE(gpu_test_buddy_alloc_exceeds_max_order),
+ 	KUNIT_CASE(gpu_test_buddy_offset_aligned_allocation),
+ 	KUNIT_CASE(gpu_test_buddy_subtree_offset_alignment_stress),
 -- 
 2.43.0
 
