@@ -2,56 +2,86 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87311606A31A
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 12:59:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFB3D606A31A
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 12:59:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=asmblr.net header.i=@asmblr.net header.a=rsa-sha256 header.s=1706450368.internal header.b=Kv8UBPlD
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=kflGcXV9
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0455310E405;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0259110E20F;
 	Wed, 28 Oct 2026 12:59:52 +0000 (UTC)
-X-Greylist: delayed 580 seconds by postgrey-1.36 at gabe;
- Tue, 27 Oct 2026 19:45:51 UTC
-Received: from shared-aoh59.rev.nazwa.pl (shared-aoh59.rev.nazwa.pl
- [85.128.243.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F3E510E46A;
- Tue, 27 Oct 2026 19:45:51 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new using ClamAV (26)
-X-Spam-Score: 3.374
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=asmblr.net;
- s=1706450368.internal; t=1793129767;
- bh=GXZiXxLaCT6zNJxqGPpsw8ftIxUw0oJV+4UMcKmAg9g=;
- h=From:To:Cc:Subject:Date;
- b=Kv8UBPlDRuya9W/HtAuHl4iEbOXKZ3H6dcFBOK7RxJizWbG8bgHpq9BD+8LyVOPZz
- 4R8YWrA+kzyPpPsUR0U9cgD5q9aN5vDwBPPcjkrqiA/DFq6QeE2np2mYbx+TesOOn9
- rffwEwwMdmLPyz0N3EXCQ5RkcII23/SJH+WtKEnI4ixqAW3SGIhaaI1EYlDshM/EMO
- 92nJ4/PaEg4DCgaFm3Pk3pbSsnzl/d6t3IokfqIv6r15wYKsYQZQtt3MSGmOY8LuuF
- FsH3HjYab3CucrX0fPS+5fdGCq6cZi7Ru2w4La6r0eksZJ93L0V8BcJQZZUIOlMZCv
- P6L4Bd61JQNzA==
-Received: from milkyway (91-150-220-230.dynamic.play.pl [91.150.220.230])
- by server753313.nazwa.pl (Postfix) with ESMTP id D4CAA1BD892;
- Tue, 27 Oct 2026 20:36:06 +0100 (CET)
-From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?= <amade@asmblr.net>
-To: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?= <amade@asmblr.net>
-Subject: [PATCH 1/2] drm/amdgpu: Prevent debugfs nullptr dereference
-Date: Tue, 27 Oct 2026 20:35:58 +0100
-Message-ID: <20261027193559.28474-1-amade@asmblr.net>
-X-Mailer: git-send-email 2.56.0
+Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 231D110F863
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2026 22:39:25 +0000 (UTC)
+Received: by mail-dl1-f69.google.com with SMTP id
+ a92af1059eb24-147be78cd56so953026c88.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2026 15:39:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20260707; t=1793140764; x=1793745564;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=2p5eYZPmxsY9xh985bGLWJJ6j3FfFGXO/U6MsVvS8Z8=;
+ b=kflGcXV9nH0UoZlUR1R3mMlZ1Nl5THQwaREoLKZDexOAHsW9Vn2BEGRTJe95KUpV1v
+ mpAHPh5/8ArFJE+x8IyefyDAULTpxT+VxWDeLwWeX/jjNC5JEwv5qXd+QhZCCjxk3nk/
+ BSRDrXoSr0gBVvUOVYELQTkPeFjYO6zXaWYS8XuAWkVP3YZrTvjs0ibR+UCLtJU7650l
+ /YFqR6HachZ/npy5A3Rf1WXVxIo4tBVM2j/FsEsV2YSAztWg2aTKuFMbrKEaZIYMk2zp
+ G3qH0B/2fgcNz3FlpIpu3Hiq18PZltQO9tAB2zuyahcp/TuQz+hrNGKEIshRf/k0Xr/r
+ xQ2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793140764; x=1793745564;
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=2p5eYZPmxsY9xh985bGLWJJ6j3FfFGXO/U6MsVvS8Z8=;
+ b=gtZVgk5YzKEe94m2O/ytlySVbAd+QLI2/BBtaAl7lcgl/PM4Gmf+S1zWurnwE8cCQ/
+ e0Ge+4gZBOMajeYy0eBZEhASsbxB3Wpm5tC5DuhKNQnwPnyFzZaFI9IAuaXlTg1StGSi
+ Tvxaa9sVC08nm/gD6rRCoRxng5YkyMwfHid6mShrfVH08ZWeB9N7kmMWJVJo9tmxruzz
+ wiWb94s29bBgZsGFDH4XeEieS339Lxm54nX4Qj7tOnMMz0tOonWNvTKdsdLLX9zQGxFV
+ gqpHH2GLvCkpM1n2gwcyBRyOBY54FbSqUSzd09Lmm5em91IelwT3Pj62PAUL3rCa5kwf
+ t1NQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBz4C7ZK3AGNocHh2tRDRVNjbFVoGs8U82222jVMIRRE9pfRet9Mna8UfpmB+wJJmaW5KDlZd5pb@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJHdFQZqIvUx3b3zPVdR9WtHfY20IHaiAH7MIVLUKIxwDkuT982
+ vjHCO0dtK8NGnnKLlPSaYarurQhrbxF2i1MGiYqtj/F50ChE11P59wc2nUUpVIYWMTyoX1IQR5Q
+ 04rx+WRAb+w==
+X-Received: from dlbsv1.prod.google.com ([2002:a05:7022:3a01:b0:1a1:3ce6:560b])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7022:fd04:b0:1a3:bfb6:44ad
+ with SMTP id a92af1059eb24-1a6ce2ff120mr1130455c88.32.1793140763880; Tue, 27
+ Oct 2026 15:39:23 -0700 (PDT)
+Date: Tue, 27 Oct 2026 15:38:40 -0700
+In-Reply-To: <20261027223847.652884-1-irogers@google.com>
 X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261027223847.652884-1-irogers@google.com>
+X-Mailer: git-send-email 2.56.0.313.g2479322e68-goog
+Message-ID: <20261027223847.652884-6-irogers@google.com>
+Subject: [PATCH v2 5/9] dlm: Free dlm_ls in kobject release callback
+From: Ian Rogers <irogers@google.com>
+To: Kees Cook <kees@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Miguel Ojeda <ojeda@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>
+Cc: Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>, 
+ Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>, 
+ "=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>,
+ Zhihao Cheng <chengzhihao1@huawei.com>, 
+ Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>,
+ Sumanth Korikkar <sumanthk@linux.ibm.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ driver-core@lists.linux.dev, 
+ llvm@lists.linux.dev, linux-hardening@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-acpi@vger.kernel.org, linux-pm@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, linux-sh@vger.kernel.org, 
+ linux-s390@vger.kernel.org, gfs2@lists.linux.dev, 
+ xen-devel@lists.xenproject.org, linux-mtd@lists.infradead.org, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Ian Rogers <irogers@google.com>, 
+ Alexander Aring <aahringo@redhat.com>, David Teigland <teigland@redhat.com>, 
+ Greg Kroah-Hartman <gregkh@suse.de>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Wed, 28 Oct 2026 12:59:51 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,59 +93,142 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
+X-Spam-Status: No, score=-26.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT,USER_IN_DEF_DKIM_WL autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Running
-cat /sys/kernel/debug/dri/0/psp_spirom_dump
-with amdgpu card that doesn't support it leads to nullptr dereference.
-Add checks to prevent that.
+struct dlm_ls embeds a struct kobject (ls_kobj), but dlm_ktype lacked a
+.release callback and dlm freed the lockspace structure directly via
+kfree(ls). With CONFIG_DEBUG_KOBJECT_RELEASE=y, freeing ls before the
+delayed kobject release runs causes a use-after-free, and unloading the
+module while the delayed release is pending results in an instruction
+page fault.
 
-Signed-off-by: Amadeusz Sławiński <amade@asmblr.net>
+Add a completion ls_kobj_done and dlm_ls_release() to complete it when
+the last kobject reference is dropped, waiting for it in free_lockspace()
+before kfree(ls) and in the new_lockspace() error path before module_put().
+Also delete the kobject via kobject_del() before stopping dlm_recoverd
+to close the window where concurrent sysfs writes could wake the stopped
+recovery task.
+
+Fixes: 3514faca19a6 ("kobject: remove struct kobj_type from struct kset")
+Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 6 ++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h | 2 +-
- 2 files changed, 7 insertions(+), 1 deletion(-)
+ fs/dlm/dlm_internal.h |  1 +
+ fs/dlm/lockspace.c    | 26 ++++++++++++++++++++------
+ 2 files changed, 21 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index 82a2684dbd2e..627c74f16914 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -5381,6 +5381,9 @@ static int psp_read_spirom_debugfs_open(struct inode *inode, struct file *filp)
- 	struct spirom_bo *bo_triplet;
- 	int ret;
+diff --git a/fs/dlm/dlm_internal.h b/fs/dlm/dlm_internal.h
+index 74c2e77d1b55..95b3bff0cb57 100644
+--- a/fs/dlm/dlm_internal.h
++++ b/fs/dlm/dlm_internal.h
+@@ -576,6 +576,7 @@ struct dlm_ls {
+ 	int			ls_create_count; /* create/release refcount */
+ 	unsigned long		ls_flags;	/* LSFL_ */
+ 	struct kobject		ls_kobj;
++	struct completion	ls_kobj_done;
  
-+	if (!adev->psp.funcs || !adev->psp.funcs->dump_spirom)
-+		return -EOPNOTSUPP;
+ 	struct xarray		ls_lkbxa;
+ 	rwlock_t		ls_lkbxa_lock;
+diff --git a/fs/dlm/lockspace.c b/fs/dlm/lockspace.c
+index a9c98b4f378f..2dccd080a10f 100644
+--- a/fs/dlm/lockspace.c
++++ b/fs/dlm/lockspace.c
+@@ -179,7 +179,15 @@ static const struct sysfs_ops dlm_attr_ops = {
+ 	.store = dlm_attr_store,
+ };
+ 
++static void dlm_ls_release(struct kobject *kobj)
++{
++	struct dlm_ls *ls = container_of(kobj, struct dlm_ls, ls_kobj);
 +
- 	/* serialize the open() file calling */
- 	if (!mutex_trylock(&adev->psp.mutex))
- 		return -EBUSY;
-@@ -5473,6 +5476,9 @@ void amdgpu_psp_debugfs_init(struct amdgpu_device *adev)
- #if defined(CONFIG_DEBUG_FS)
- 	struct drm_minor *minor = adev_to_drm(adev)->primary;
- 
-+	if (!adev->psp.funcs || !adev->psp.funcs->dump_spirom)
-+		return;
++	complete(&ls->ls_kobj_done);
++}
 +
- 	debugfs_create_file_size("psp_spirom_dump", 0444, minor->debugfs_root,
- 				 adev, &psp_dump_spirom_debugfs_ops, AMD_VBIOS_FILE_MAX_SIZE_B * 2);
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-index a4ec60f6c317..975d12359358 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-@@ -574,7 +574,7 @@ struct amdgpu_psp_funcs {
- 	(psp)->funcs->update_spirom((psp), fw_pri_mc_addr) : -EINVAL)
+ static struct kobj_type dlm_ktype = {
++	.release        = dlm_ls_release,
+ 	.default_groups = dlm_groups,
+ 	.sysfs_ops     = &dlm_attr_ops,
+ };
+@@ -355,6 +363,8 @@ static void free_lockspace(struct work_struct *work)
+ 	 */
+ 	rhashtable_free_and_destroy(&ls->ls_rsbtbl, rhash_free_rsb, NULL);
  
- #define psp_dump_spirom(psp, fw_pri_mc_addr) \
--	((psp)->funcs->dump_spirom ? \
-+	(((psp)->funcs && (psp)->funcs->dump_spirom) ? \
- 	(psp)->funcs->dump_spirom((psp), fw_pri_mc_addr) : -EINVAL)
++	kobject_put(&ls->ls_kobj);
++	wait_for_completion(&ls->ls_kobj_done);
+ 	kfree(ls);
+ }
  
- #define psp_vbflash_status(psp) \
-
-base-commit: 83f32c773255720a661aa45d83e36278135f23f5
+@@ -435,7 +445,10 @@ static int new_lockspace(const char *name, const char *cluster,
+ 	ls->ls_lvblen = lvblen;
+ 	atomic_set(&ls->ls_count, 0);
+ 	init_waitqueue_head(&ls->ls_count_wait);
++	init_completion(&ls->ls_kobj_done);
+ 	ls->ls_flags = 0;
++	ls->ls_kobj.kset = dlm_kset;
++	kobject_init(&ls->ls_kobj, &dlm_ktype);
+ 
+ 	if (ops && dlm_config.ci_recover_callbacks) {
+ 		ls->ls_ops = ops;
+@@ -567,9 +580,7 @@ static int new_lockspace(const char *name, const char *cluster,
+ 	wait_event(ls->ls_recover_lock_wait,
+ 		   test_bit(LSFL_RECOVER_LOCK, &ls->ls_flags));
+ 
+-	ls->ls_kobj.kset = dlm_kset;
+-	error = kobject_init_and_add(&ls->ls_kobj, &dlm_ktype, NULL,
+-				     "%s", ls->ls_name);
++	error = kobject_add(&ls->ls_kobj, NULL, "%s", ls->ls_name);
+ 	if (error)
+ 		goto out_recoverd;
+ 	kobject_uevent(&ls->ls_kobj, KOBJ_ADD);
+@@ -582,7 +593,7 @@ static int new_lockspace(const char *name, const char *cluster,
+ 
+ 	error = do_uevent(ls, 1, 0);
+ 	if (error < 0)
+-		goto out_recoverd;
++		goto out_kobj;
+ 
+ 	/* wait until recovery is successful or failed */
+ 	wait_for_completion(&ls->ls_recovery_done);
+@@ -600,6 +611,8 @@ static int new_lockspace(const char *name, const char *cluster,
+ 	do_uevent(ls, 0, 0);
+ 	dlm_clear_members(ls);
+ 	kfree(ls->ls_node_array);
++ out_kobj:
++	kobject_del(&ls->ls_kobj);
+  out_recoverd:
+ 	dlm_recoverd_stop(ls);
+  out_callback:
+@@ -615,6 +628,7 @@ static int new_lockspace(const char *name, const char *cluster,
+ 	rhashtable_destroy(&ls->ls_rsbtbl);
+  out_lsfree:
+ 	kobject_put(&ls->ls_kobj);
++	wait_for_completion(&ls->ls_kobj_done);
+ 	kfree(ls);
+  out:
+ 	module_put(THIS_MODULE);
+@@ -740,6 +754,8 @@ static int release_lockspace(struct dlm_ls *ls, unsigned int release_option)
+ 	    dlm_user_daemon_available())
+ 		do_uevent(ls, 0, (release_option == DLM_RELEASE_RECOVER));
+ 
++	kobject_del(&ls->ls_kobj);
++
+ 	dlm_recoverd_stop(ls);
+ 
+ 	/* clear the LSFL_RUNNING flag to fast up
+@@ -759,8 +775,6 @@ static int release_lockspace(struct dlm_ls *ls, unsigned int release_option)
+ 
+ 	dlm_delete_debug_file(ls);
+ 
+-	kobject_put(&ls->ls_kobj);
+-
+ 	xa_destroy(&ls->ls_recover_xa);
+ 	kfree(ls->ls_recover_buf);
+ 
 -- 
-2.56.0
+2.56.0.313.g2479322e68-goog
 
