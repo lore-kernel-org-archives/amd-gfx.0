@@ -2,43 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6886F606A31D
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 23:21:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F16F606A31E
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 23:21:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ETQAaNCe
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=puCtXvIS
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 079A810F893;
-	Tue, 27 Oct 2026 23:21:41 +0000 (UTC)
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013070.outbound.protection.outlook.com
- [40.93.196.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB57910F893
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2026 23:21:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26FA410F895;
+	Tue, 27 Oct 2026 23:21:53 +0000 (UTC)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010018.outbound.protection.outlook.com [52.101.61.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0489410F895
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2026 23:21:47 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Gqri7cIZ8HfSbjKj/AsoRdMyKoXJaWi14VRrm5UDs83IuQBLOxwgIQJ9DlcMguvleZvOX5cyWvs8NM8WA70AFp6nd5XSi7gxmBk2D4pkCgAreHBJfu9WARWLHkJbYzFizpZwd3SdARVf3QbegcrQ3UoYBfHpYOyl6PgT2uSAQnojr7+H6sJDz5AlnH/pUu5wX2ohGEBiYG7QZF8TfK+iG1dT5TaE9g2JHZaw1VEY0GIcfnurju/+iWQoraY8Uxs4aTgVaMNsQDpOu4bN5uNWcc6xbGII8ucQq0RuxAzQ/4cEOI3Ed7uo56JlJKhqzHJQTgm4ldFLXf+LEsjPj137Ww==
+ b=cK7iW5MhkF8R+lpoa0qeUHKQVunGcneLkfX9+s/6MSzKGjDkXeZ7EJFvpVWqgXNI1OAtdV2i9Bv1MLbBc1BolZAOSE/R3Y6jNui0r/PdhWLuD3cqUB+HrJuhNyQ/V8NLDIKSOS6Wrm8AQReAa2xRvHxfkYUSGu/oYt78T2SYqOjjBhm/FH8s0kIIYr88kTTTy/Hqfjqeo1ZMCBSKVZevk1Hvrsqc+/mfL4Jf6pjdtg2XWzso+iKDHHqPvN2meojMcw+WvVPQE6qOUDsswnJiNxg5Iv3++0yVgcEQsFEvaUlbEFcNv+M5Z0a/liuURS7LmMg6FzfWWJoFNuI7S8iYyQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0QvaNmKgsR7hRj1F99jTARw8DZKYNraqNHkgVUVTGus=;
- b=I/Tv+S0TtSfDjOtuwRRZZinBotHl3dLnLO8uy5FSmoGTjMsWVtzQI6/fGA223BxGScatturtbJzuCoe0QiM6B08aYaiO3AjujoNz3QxhiWB99EFIbk98s5EVqQuTqjvCb9p0HcFUyuTzVKN05ucY/j5WW+V/SX7biKmsyIoQGIgHXdAC1peS6sewPa40fRnnGpZthP1GKPwlR/nIXxtzqP4B9RJnOHFNdb25LeOQBrBTEljiygWvAOw426QiVZegzDhhq5WQbsfQrSOiUH0LNWYh3XhsmZWJYfga9jYlgZ9Bvb8+lgy9OIWMHxY3JWfYG6TMJJStmwMI+Fy5emsU6A==
+ bh=ZGjEqC3xvXCRR1/iBVYV/FHmcvuTydGOS4/Cz8A0Hpg=;
+ b=zFNRKirqUj/3ntwy669BdMhGTtjkLnvUhscstY4noU/DabkGJ0i2vDWb7OxTzi/juuz4N5T4VZcBovOdvHiLMruKl/okzTQNdP2apANko6PGbV6rTSJtGpzQhBGQ2NvHjxTJK1MTdv2D4ntK+zSBkP0gcWhBgwmJ6C1BzE25KI1f5XZvPtyIQcgqL2Ukx699y9mj85Rtd8iYW3EDqQgzRZ8QRfzGncLVF0pW2W2ISxPr/1YuexSMozUAF4ElsT4u/YtoJk3dZ73sXMEAe5RRIR1mnmGbzF+mkGmjwP1Awa4GFlwR2t9Q4BgPL9xQ+icZf50LKj4COM+pCC18ge6LNw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0QvaNmKgsR7hRj1F99jTARw8DZKYNraqNHkgVUVTGus=;
- b=ETQAaNCeRGyLbRUUYz1vSCJWZYYYDP8cZ992zo0A/nGdoNmgh6Uq1DiRX5w0jImS3oYZtTtmR3kc0d/Aebk+zYF/hibmvBO2Gn1YM3lfv1tDyRkk4bOzTVbkFl7m6irCrDZ+E4AKlneXwTmXWycpcLMn9MhqaRqTgIEmOtir7fU=
-Received: from MN2PR01CA0041.prod.exchangelabs.com (2603:10b6:208:23f::10) by
- IA4PR12MB9764.namprd12.prod.outlook.com (2603:10b6:208:5d0::9) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.22; Tue, 27 Oct 2026 23:21:31 +0000
-Received: from BN2PEPF00004FBD.namprd04.prod.outlook.com
- (2603:10b6:208:23f:cafe::56) by MN2PR01CA0041.outlook.office365.com
- (2603:10b6:208:23f::10) with Microsoft SMTP Server (version=TLS1_3,
+ bh=ZGjEqC3xvXCRR1/iBVYV/FHmcvuTydGOS4/Cz8A0Hpg=;
+ b=puCtXvISimw5KrdCMFpyQa5ayXg1pEjXEBo7XsjmmigFlFkyPdXsN35X4RlOcN/GODjM7FH+YwMTZVYhJ0+4M3U1eYuD2Y7HuaE1tPyfhtIwuCvFPQTxbaOxBU95boVyPiTeU6r1TbYZl05qrNdGgez855M7UTM5u4y3qDsTjpo=
+Received: from BN0PR04CA0062.namprd04.prod.outlook.com (2603:10b6:408:ea::7)
+ by MN0PR12MB5811.namprd12.prod.outlook.com (2603:10b6:208:377::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
+ 2026 23:21:06 +0000
+Received: from BN2PEPF00004FBF.namprd04.prod.outlook.com
+ (2603:10b6:408:ea:cafe::56) by BN0PR04CA0062.outlook.office365.com
+ (2603:10b6:408:ea::7) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Tue,
- 27 Oct 2026 23:21:31 +0000
+ 27 Oct 2026 23:21:06 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -47,13 +46,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF00004FBD.mail.protection.outlook.com (10.167.243.183) with Microsoft
+ BN2PEPF00004FBF.mail.protection.outlook.com (10.167.243.185) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Tue, 27 Oct 2026 23:21:30 +0000
+ 15.21.569.4 via Frontend Transport; Tue, 27 Oct 2026 23:21:05 +0000
 Received: from kylin.lan (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 27 Oct
- 2026 18:21:28 -0500
+ 2026 18:21:01 -0500
 From: Alex Hung <alex.hung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -62,11 +61,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Tony Cheng <toncheng@amd.com>, Nicholas Kazlauskas
- <nicholas.kazlauskas@amd.com>
-Subject: [PATCH 05/28] drm/amd/display: Remove DCN401 RDPCS PHY state reads
-Date: Tue, 27 Oct 2026 17:17:01 -0600
-Message-ID: <20261027232005.2879750-6-alex.hung@amd.com>
+ <Chen-Yu.Chen@amd.com>, Dominik Kaszewski <dominik.kaszewski@amd.com>,
+ Wenjing Liu <wenjing.liu@amd.com>
+Subject: [PATCH 03/28] drm/amd/display: Clarify endianness error
+Date: Tue, 27 Oct 2026 17:16:59 -0600
+Message-ID: <20261027232005.2879750-4-alex.hung@amd.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261027232005.2879750-1-alex.hung@amd.com>
 References: <20261027232005.2879750-1-alex.hung@amd.com>
@@ -78,29 +77,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBD:EE_|IA4PR12MB9764:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5141def6-1da3-4a9b-dd9e-08df3481085e
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBF:EE_|MN0PR12MB5811:EE_
+X-MS-Office365-Filtering-Correlation-Id: caf29314-4ea3-46e0-a984-08df3480f9a7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|36860700016|23010399003|82310400026|10067099003|261026121527099003|11063799006|56012099006|261021135927099003|261022075727099003|261021123027099003|261009223027099003|261022105027099003|261021121427099003|22082099003|18002099003|261026140227099003|3023799007;
-X-Microsoft-Antispam-Message-Info: rgVdZsSiSIZGiMMhSNJV8W9qJKeU2Ae4mAv5janIsO8Sbi8MOUkWO2wZ5sGECw+NqMlRwNDNqRqS6up5rC48xWQN8LpkEzkfU3ljxLt5bLVDZSQvgB4XIr1++aimznaV5KaPlobXsi3x6+T6EjsKn0lMe/uI4ikfNclaQqd9hFj2UFSnRYh/GXGT+3tZtgaoNSs5bN1MKhafz+oQA4quCGKci5tT56lNDoZseVoKJ5QDMfC5kNk5E4hkwJ9v4N/ywHjA9cFk+srUHr4LoDkEEwP0CE16ehRdtACcwpkATDCDwW6NVolQ9IgrVo0F/cnIeDuLXTaqREgE2UUwshODw2xWaeaThYTFbomyLhnJiYfuvzW6eB0d0BqGXWg01pD4tTLIb2OjhXvgSWVnbqIwOZlDd9fkIyxpaPAZ/GFMcqj567bJ+6MNbhEU9Qh6V10dKvOJXdbH8WJygVwVnwc4OPH+IgS+DY8D1NwQwNYsOjvd6B3MUpvT1DBv7RJmMS79FzrQzYs6AH8D4y2cf6dGv5eBoIHIeWlCso6HvMh4z7zZXvpKL1dm01v++7oWpfguq+H59Ta0w9qmV+9bDqHQfkrTgyLdhKQDqfR0FxB4/yur0uDf1Q2ID8YA7gPxGfeyYAIb5eKpMOR1+XjGAuHDt8fiPcBaN/Hn2njVVygWbtL61rZw3SPmL9Isv2LvqtLwqpvOZZiWnPZbJtssCQWmDw==
+ ARA:13230040|1800799024|23010399003|376014|82310400026|36860700016|261026121527099003|11063799006|56012099006|261021121427099003|261021123027099003|261009223027099003|10067099003|261022105027099003|18002099003|22082099003|261026140227099003;
+X-Microsoft-Antispam-Message-Info: KLw6TWH9CJc7Z/kCihGXlP+EtK6MC+RTMmPvThfTpTR5KEu8obmXYN2YTp5u9rpC2cUbk8xAlvCdHWY9x7Qp6Fjak9fx7e6HcghyCKf11/Bn+j/aBP8bgdBE2GUpiGNI7aC7zyu9N4v+EHOJkrWlW0bErp7wdNr6zM+3UoApFSzazCRs4UZMZMwp5CkQJfLYgGtYpCtlpdx4+I69muTVNfx9XpcCGr0pm1K4g3eBpxOpqJqNqNessu4b2Amfscslf1rAkhcOFqw1H+bWHQ68Oy4uZ42bq+ja/Uduf+0y9gQlLS9QrHpiULRtgZPWuK/Q5B7uzt2vSdmrwgSy1nlYgxTM7ddT886zkAEOPFLbNG6HflgGLDXfl6LpQWPQ4z78dlpfYsD/34gZZEXpO5nOgUGH2FQx5914moylNZvaOI9PXboEzJucR7T58dbwLkde+8SJRg0Qno5BTvWm7VgtvoPXE5k8qYEL6dR1F+vqyG7a/0SpkQZQ/0irXDSr0YSr9s1vpZSGziEop4gDy5W58N95bay0wvPh9g+udItoU+ZbGDLHYg2xMChHJujiEwYGDYbLYs0RcFf4tW1VHLmR/sOZJlY9thuBdBVZpEdUg7xcPB9w9hIUtWjjQi/t/rl+p9my2lQX8kN/t+9y72lds0eNdnlba0KUDzCGH4umL6MQ5Tov61qGNcMRE4GqaDCqH2WXHg17quAp4t73ODeNtg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(36860700016)(23010399003)(82310400026)(10067099003)(261026121527099003)(11063799006)(56012099006)(261021135927099003)(261022075727099003)(261021123027099003)(261009223027099003)(261022105027099003)(261021121427099003)(22082099003)(18002099003)(261026140227099003)(3023799007);
+ SFS:(13230040)(1800799024)(23010399003)(376014)(82310400026)(36860700016)(261026121527099003)(11063799006)(56012099006)(261021121427099003)(261021123027099003)(261009223027099003)(10067099003)(261022105027099003)(18002099003)(22082099003)(261026140227099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: g6LMFOTchHP8BXZbWqoOI/wsRLeIHY5gToierKFX8+j0LHprK0z+Q3VvAgfues0BtsWdgYhq5DSIsVTVPmBazhXxzAUoM+lF2rKN9Dr3sjucJFYkeyJxOy9KCAHo5/oD11dRsntr/d6Gs0hLXxF42X9yhX/VesR8beir3YhsQ0sgorkYf83YYAf4qCh7zupWXXBrryPhvLRG1PkHYUZoQqx4Ie31K3lpuEChL89VfpeGhqq6ABxV4jDhZniDCfkjTHGMKcpOrTuDpevcfL26NDylGr348oGcwjSgH7RAxvZ/CC7U3eg7LZeyq5SxxRRfhSiZj8YytLJ9cpbM+je1OyQu/EV0A0DDX3AonRwT3pjzuWIpf3Gxc9PqAHNrhZ3HwhOShoBiPZwpdnG5VkJ0KWa236Av4Uxu2NqeHr/W5odgbuJsZ3WEpWz65oabRxSp
+X-MS-Exchange-AntiSpam-MessageData-0: n4BUvUyhPwy98/6E6RqKzCNBd6+2dJLcnBIIIU3PaknmIkvW5wdDRTAEpwSg0pUZ48mU3L7KRu+CnOc4pqAhENxoLM5hfZGTTapLlxDb0IhBHuw7GkWge9dWZztTd3zGJMQ4kknzh7WTaXkERGHGQ9eKtsc7EOPSJD+WpKpE8Nt0dcU/zpitJxNEldx0gL3Hk/vp1HOwZD+ARiWTnU5MeYdj0NzQv0TJf8CIVIkc37qnPlGJe7lJMWasYqcbNjO5TQlfpFl5q+wei9hWAJzxRECvhQP7izmNtp0E4i4tY2eZ6D6G2RWANbNEFiq5Y9x7DtqpuzWMn119Ht5wkL7N8oSkJiVxU36gau/wVPxA8CKdF+vCKILIG0kq98EyQ69ZZWmVImysmMSl003nWy3/pJRsv5rYI6KCT6bBeQzBPPTbGU3qGdB6rnKvrS202qFy
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 23:21:30.5333 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5141def6-1da3-4a9b-dd9e-08df3481085e
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 23:21:05.8486 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: caf29314-4ea3-46e0-a984-08df3480f9a7
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FBD.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FBF.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR12MB9764
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5811
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,183 +117,32 @@ X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Tony Cheng <toncheng@amd.com>
+From: Dominik Kaszewski <dominik.kaszewski@amd.com>
 
-[WHAT]
-DMCUB owns the PHY on DCN31+ and can gate its REFCLK. Reading RDPCS
-while REFCLK is off can hang the register interface, and only firmware
-knows the REFCLK state.
+[WHY & HOW]
+link_service_types.h requires specifying endianness. The existing
+compilation error was too generic and did not immediately point
+to the cause of the issue and how to fix it.
 
-Revert the RDPCS reads added by commit 4b21ed5d08af ("drm/amd/display:
-Read DCN401 PHY reset and lane enable state"): the RDPCSTX_PHY_CNTL0/3
-register entries, the shift/mask list, dcn401_link_encoder_read_state()
-and the link_enc_state fields. Drop the phy_on and phy_active columns
-from the get_hw_state LINK section, which read them.
-
-Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Signed-off-by: Tony Cheng <toncheng@amd.com>
+Cc: Wenjing Liu <wenjing.liu@amd.com>
+Signed-off-by: Dominik Kaszewski <dominik.kaszewski@amd.com>
 Signed-off-by: Alex Hung <alex.hung@amd.com>
 ---
- .../dc/dcn10/dcn10_hw_sequencer_debug.c       | 16 +++-----------
- .../dc/dio/dcn401/dcn401_dio_link_encoder.c   | 22 +------------------
- .../dc/dio/dcn401/dcn401_dio_link_encoder.h   |  8 -------
- .../drm/amd/display/dc/inc/hw/link_encoder.h  |  2 --
- .../dc/resource/dcn401/dcn401_resource.c      | 10 +++------
- 5 files changed, 7 insertions(+), 51 deletions(-)
+ drivers/gpu/drm/amd/display/include/link_service_types.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer_debug.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer_debug.c
-index 37a010e0bd6e..395bccdd0f1d 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer_debug.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer_debug.c
-@@ -524,7 +524,7 @@ static unsigned int dcn10_get_link_states(struct dc *dc, char *pBuf, unsigned in
- 	unsigned int i;
- 
- 	chars_printed = snprintf_count(pBuf, remaining_buffer,
--		"link,enc,hpd,dig_en,dig_mode,dig_fe,src_otg,preferred_otg,phy_on,phy_active\n");
-+		"link,enc,hpd,dig_en,dig_mode,dig_fe,src_otg,preferred_otg\n");
- 	remaining_buffer -= chars_printed;
- 	pBuf += chars_printed;
- 
-@@ -532,8 +532,6 @@ static unsigned int dcn10_get_link_states(struct dc *dc, char *pBuf, unsigned in
- 		struct dc_link *link = dc->links[i];
- 		struct link_encoder *enc = link ? link->link_enc : NULL;
- 		int hpd = -1, dig_en = -1, dig_mode = -1, dig_fe = -1, src_otg = -1;
--		int phy_on = -1, phy_active = -1;
--		struct link_enc_state s = {0};
- 
- 		if (!enc || link->connector_signal == SIGNAL_TYPE_VIRTUAL)
- 			continue;
-@@ -548,19 +546,11 @@ static unsigned int dcn10_get_link_states(struct dc *dc, char *pBuf, unsigned in
- 			dig_fe = enc->funcs->get_dig_frontend(enc);
- 			src_otg = dcn10_dig_source_otg(dc, dig_fe);
- 		}
--		s.rdpcs_phy_reset = HW_STATE_NOT_READ;
--		s.rdpcs_tx_data_en = HW_STATE_NOT_READ;
--		if (enc->funcs->read_state)
--			enc->funcs->read_state(enc, &s);
--		if (s.rdpcs_phy_reset != HW_STATE_NOT_READ)
--			phy_on = s.rdpcs_phy_reset == 0;
--		if (s.rdpcs_tx_data_en != HW_STATE_NOT_READ)
--			phy_active = s.rdpcs_tx_data_en != 0;
- 
- 		chars_printed = snprintf_count(pBuf, remaining_buffer,
--			"%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\n",
-+			"%d,%d,%d,%d,%d,%d,%d,%d\n",
- 			i, enc->transmitter, hpd, dig_en, dig_mode, dig_fe,
--			src_otg, enc->preferred_engine, phy_on, phy_active);
-+			src_otg, enc->preferred_engine);
- 		remaining_buffer -= chars_printed;
- 		pBuf += chars_printed;
- 	}
-diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_link_encoder.c
-index 4d62a5982632..6594fbb3fa43 100644
---- a/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_link_encoder.c
-+++ b/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_link_encoder.c
-@@ -364,26 +364,6 @@ bool dcn401_is_dig_enabled(struct link_encoder *enc)
- 	return (clk_enabled == 1 && dig_enabled == 1);
- }
- 
--void dcn401_link_encoder_read_state(struct link_encoder *enc, struct link_enc_state *s)
--{
--	struct dcn10_link_encoder *enc10 = TO_DCN10_LINK_ENC(enc);
--	uint32_t tx0 = 0, tx1 = 0, tx2 = 0, tx3 = 0;
--
--	link_enc2_read_state(enc, s);
--
--	if (enc10->link_regs->RDPCSTX_PHY_CNTL0)
--		REG_GET(RDPCSTX_PHY_CNTL0, RDPCS_PHY_RESET, &s->rdpcs_phy_reset);
--
--	if (enc10->link_regs->RDPCSTX_PHY_CNTL3) {
--		REG_GET_4(RDPCSTX_PHY_CNTL3,
--			  RDPCS_PHY_DP_TX0_DATA_EN, &tx0,
--			  RDPCS_PHY_DP_TX1_DATA_EN, &tx1,
--			  RDPCS_PHY_DP_TX2_DATA_EN, &tx2,
--			  RDPCS_PHY_DP_TX3_DATA_EN, &tx3);
--		s->rdpcs_tx_data_en = tx0 | tx1 << 1 | tx2 << 2 | tx3 << 3;
--	}
--}
--
- enum signal_type dcn401_get_dig_mode(
- 	struct link_encoder *enc)
- {
-@@ -419,7 +399,7 @@ void dcn401_setup_ri_pj_check_in_sw_or_hw_mode(
- }
- 
- static const struct link_encoder_funcs dcn401_link_enc_funcs = {
--	.read_state = dcn401_link_encoder_read_state,
-+	.read_state = link_enc2_read_state,
- 	.validate_output_with_stream =
- 			dcn30_link_encoder_validate_output_with_stream,
- 	.hw_init = enc401_hw_init,
-diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_link_encoder.h b/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_link_encoder.h
-index 689fc817dbc5..62f8f9098b53 100644
---- a/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_link_encoder.h
-+++ b/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_link_encoder.h
-@@ -28,13 +28,6 @@
- 
- #include "dcn30/dcn30_dio_link_encoder.h"
- 
--#define LINK_ENCODER_PHY_STATE_MASK_SH_LIST_DCN401(mask_sh) \
--	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL0, RDPCS_PHY_RESET, mask_sh),\
--	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL3, RDPCS_PHY_DP_TX0_DATA_EN, mask_sh),\
--	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL3, RDPCS_PHY_DP_TX1_DATA_EN, mask_sh),\
--	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL3, RDPCS_PHY_DP_TX2_DATA_EN, mask_sh),\
--	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL3, RDPCS_PHY_DP_TX3_DATA_EN, mask_sh)
--
- #define LINK_ENCODER_MASK_SH_LIST_DCN401(mask_sh) \
- 	LE_SF(DIG0_DIG_BE_EN_CNTL, DIG_BE_ENABLE, mask_sh),\
- 	LE_SF(DIG0_DIG_BE_CNTL, DIG_RB_SWITCH_EN, mask_sh),\
-@@ -157,7 +150,6 @@ enum signal_type dcn401_get_dig_mode(
- 	struct link_encoder *enc);
- 
- bool dcn401_is_dig_enabled(struct link_encoder *enc);
--void dcn401_link_encoder_read_state(struct link_encoder *enc, struct link_enc_state *s);
- 
- enum signal_type dcn401_get_dig_mode(struct link_encoder *enc);
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/link_encoder.h b/drivers/gpu/drm/amd/display/dc/inc/hw/link_encoder.h
-index 1c95d643af14..f3ef5bbfad81 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/link_encoder.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/link_encoder.h
-@@ -117,8 +117,6 @@ struct link_enc_state {
- 		uint32_t dphy_fec_ready_shadow;
- 		uint32_t dphy_fec_active_status;
- 		uint32_t dp_link_training_complete;
--		uint32_t rdpcs_phy_reset;
--		uint32_t rdpcs_tx_data_en;
- 
- };
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
-index acc5aa8d777f..34e218bff078 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
-@@ -307,23 +307,19 @@ static struct dcn10_link_enc_hpd_registers link_enc_hpd_regs[5];
- 
- #define link_regs_init(id, phyid) \
- 	LE_DCN401_REG_LIST_RI(id), \
--	LE_DCN60_REG_LIST_RI(id), \
--	SRI_ARR(RDPCSTX_PHY_CNTL0, RDPCSTX, id), \
--	SRI_ARR(RDPCSTX_PHY_CNTL3, RDPCSTX, id)
-+	LE_DCN60_REG_LIST_RI(id)
- 
- static struct dcn10_link_enc_registers link_enc_regs[4];
- 
- 
- static const struct dcn10_link_enc_shift le_shift = {
- 	LINK_ENCODER_MASK_SH_LIST_DCN401(__SHIFT), \
--	LINK_ENCODER_MASK_SH_LIST_DCN60_ON_DCN401(__SHIFT), \
--	LINK_ENCODER_PHY_STATE_MASK_SH_LIST_DCN401(__SHIFT)
-+	LINK_ENCODER_MASK_SH_LIST_DCN60_ON_DCN401(__SHIFT)
- };
- 
- static const struct dcn10_link_enc_mask le_mask = {
- 	LINK_ENCODER_MASK_SH_LIST_DCN401(_MASK), \
--	LINK_ENCODER_MASK_SH_LIST_DCN60_ON_DCN401(_MASK), \
--	LINK_ENCODER_PHY_STATE_MASK_SH_LIST_DCN401(_MASK)
-+	LINK_ENCODER_MASK_SH_LIST_DCN60_ON_DCN401(_MASK)
- };
- 
+diff --git a/drivers/gpu/drm/amd/display/include/link_service_types.h b/drivers/gpu/drm/amd/display/include/link_service_types.h
+index 798d83238828..9026cfddeeea 100644
+--- a/drivers/gpu/drm/amd/display/include/link_service_types.h
++++ b/drivers/gpu/drm/amd/display/include/link_service_types.h
+@@ -229,7 +229,7 @@ union dpcd_training_lane_set {
+ 		uint8_t MAX_SWING_REACHED:1;
+ 		uint8_t VOLTAGE_SWING_SET:2;
+ #else
+-	#error ARCH not defined!
++	#error "Endianness not defined! Missing LITTLEENDIAN_CPU or BIGENDIAN_CPU"
+ #endif
+ 	} bits;
  
 -- 
 2.53.0
