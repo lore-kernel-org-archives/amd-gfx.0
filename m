@@ -2,94 +2,128 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0936606A31A
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 15:53:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01933606A31F
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 15:55:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=i261/Ixj
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=gkojRX4M
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38AFE10E38E;
-	Tue, 27 Oct 2026 15:53:03 +0000 (UTC)
-Received: from mail-ua1-f51.google.com (mail-ua1-f51.google.com
- [209.85.222.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F4C710F6B5
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2026 15:52:57 +0000 (UTC)
-Received: by mail-ua1-f51.google.com with SMTP id
- a1e0cc1a2514c-990bc7aed3dso2534241.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2026 08:52:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793116376; cv=none;
- d=google.com; s=arc-20260327;
- b=QU83BAAxzTPbi/5sCGjTPQotVbmDerGZso+3ba3DhQKcy8Ag85lG/rYcbY0+saAzNE
- TrM21Gms9XGECZ5nOOYRTAJr4BQZ2nTy6GqUZWAqMrJA9mCW2ylZyZZx4ieN1GDzxULq
- F03sQN6Ms3NeFNNZV+WbdEde63hSVvbi7to6gSvnR7T90LZ2dq9CVOAHnmav6pafULHL
- AZZ55P57DYtTNQy+fh7gvmOMDja45Smsdz7Wp2DoFcu5oHWl+raTjt5C1l2B+PSnNscG
- 7zYHggsUUi6/G3Vy7GtXC8EJ62OjzQ9zAMQKP5T8PHBErs2pJYzdSpPgf5f8BU08oMot
- jzTw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=Lu/QeKLU2dWLNzMZRte+u9fozfFXjmX5mkXEeBMb+Hs=;
- fh=L1Zq8pjd/jtaRIXlQv7/blW39adfknSOItCaajOVxU0=;
- b=XXfWgEYgqf0ElqywZRNB5ix/qIDrF7dGO7jZxwASkJ4uuTcltfWt6QrS7ADTjxBulQ
- jiDHLHUn6WlY3aPBkwgi6zcI80inJH/CeDOcoN+HznsT0t+2eoSI9Ku9zUD3+1nVdYlA
- FhBXrPmkAaFDvWdsqU59EGuYJ/U9s1LWk+NMShLWh9mSziirRtZk0eHKV5DLfuB2Y0VZ
- x+hx8xXzrtGHioy2xIMC+jsui2R3hWmcAcO6tECEgsOLrqh5r4s7TAxi39t+R5lPVBYb
- mU8steR5FD4Et8DkOMkEJBwzDfh2FENBIMoJz0di1lghaqDzaqz9oyJawg8P/c2GuFFd
- tK7Q==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793116376; x=1793721176; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=Lu/QeKLU2dWLNzMZRte+u9fozfFXjmX5mkXEeBMb+Hs=;
- b=i261/IxjMuldi/Ht9vIldYjPrNaAWEn/djiPQBOPvcdBkB08itm6ax00j9B0BncCkf
- QKCwz12rRnASeAF1vC/ol0Bz0wZ2WgrSeBnFVHyjtAHE2MxJkUv9FIiiy+1sX1GHfB1I
- dXpW3bSS5s35IHsHjOsANmfDI5tcE421RIuTJmlwTywjdCCS/lnENJpVoDb4sLfXS1Kx
- 2qsTCOxTcqaN6nHvvMOUvCA53Qdx6kE8XJlYuaLgrFDgVjDE2ILkWuq78jKsIRy01Kxp
- dG44bjofi3vpQBiYTHX6Jmsgp6RL5g30m9SXIR2bwc5dfWRfbcUg2RgpQlyeBsXI9myE
- PNJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793116376; x=1793721176;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=Lu/QeKLU2dWLNzMZRte+u9fozfFXjmX5mkXEeBMb+Hs=;
- b=xLGVR3ynrav6J25Vs4H36xkZsuUlmRUgILdiLtqektT/tJWG6X+hIajifcQGpArm99
- JKIam/ZiBknQEqn1DG9Bt/HmsY7aIoiatWzix1NYqeS1IitLSg8kw+TYjD4XNY+JLtnH
- i+x38MGtuq0pJNIV9WTQNr2RmU5C8DLUT7NiM051iMQLjxS2xbnP1Sgstu/Uegamwv0U
- JNb9EyZc8ie5cMTxbbGLkXcjfXiBFbdOpJJLrZwfGau+uuJGZQJA/oDgF/slw+2DBI53
- DRV64D7qwfLA+tMNbYTz4TGzMQucXOuamnz1sttqSCK9n7WVJmbQyBx0+oUru/WevJJm
- lTbg==
-X-Gm-Message-State: AFq9FYKwIGwg6y4HEDlCSpA+1mtFsxt2e+G8KAvK1vg0KMlgx6r8O7SC
- z8VtWlWtJQ3/UnZeOyotXDWzNXKOjQjmGoY6MGq97SJfQBMgPLsuXs7uxPDbgfBlCnOz+NC2mBn
- k/k7vD7OuqzIYZ/6mG8sdSFukn1xE5O0=
-X-Gm-Gg: AYBFou3fHYNSkV/FyXkcVcr9BXRxEkSBz+veS6BYxERGzbzZPRw9v/pyzrazzzHNrTH
- oYpuEVOWyUn8wR5qH2z+gJFZjfxlparsPEoZkIIu1LIV19i37ep8ElNc5OMC9nHaqpVD++IbdoW
- s0lu66avGSHT7qnElQKcuweeQ5YqeELLHHJ4sxSb8+F1mmHMxEDpqGfcsQqSQh1nv9vutbwbssn
- mytKMbodsf4XF7CD70zo/uAYjOUQj/eZYTI6Jbn+1KvHsxYHwNaSMQPMVceGhqNkXubBcv9MXkB
- dhe/NuzIa1JFROTV14InlOqQF7BJXQ9hX0TMyVQU2UpfQGbaht5qoQNs/G33USlSqKrav6RV/7F
- Kmdq1TwdEqwIVVREiRkOYNj2Qv7B5OqQf7s2ZAXAZm7wee0zvhsgmuvU1xJWkO9CwlKYifuNgC0
- FdzayARgNYu+dFoWyHZ0YXsMd3
-X-Received: by 2002:a05:6102:8648:10b0:7c3:83a9:edb2 with SMTP id
- ada2fe7eead31-7ce5cabd66fmr3806751137.1.1793116376325; Tue, 27 Oct 2026
- 08:52:56 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D0D410E129;
+	Tue, 27 Oct 2026 15:54:58 +0000 (UTC)
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010004.outbound.protection.outlook.com
+ [52.101.193.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E05D10E129
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2026 15:54:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vugAY3Tmz60mYzfckLHuQ+4/SGbJX2zNvu6nq2wd4V2pS3GwQLRIMzhp12jIsabn+elVab0kSjHtycIsHQ5O+Bk9BF60IXDRwLaBO3JnQHVbClw/kmyqgxczoQR6bwNGW3L4/JAfMrui06BOSiAAawIn72FBGxnS/lptJdcQez65m/wMm6FmyfzgHkifec8o+acP6I8ra+lf3jOYqP1+sBn2QPMY8y0OUkdSPTwgxdLGAagla95H4+ejnTrlqcfFzODKl1NatwG6M4PMVPYdpyWNpF5o6xtAWtRo7cGxX1b/rsD7AoWWhFn8bgSAoNNwYyUIbZkvscEcMvmMpXvjqg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4NcnRfLaiHwgRj3y1GkYUZPUjkH6+ar6A4tGjiOyeiU=;
+ b=OM5LtiJ0VKASqbeF7lmAfw3g5x5yOnKsDSyTPHhBYGghDzo4As3KZgvJd8y9fR+lIFIcYEQ3X4a7iYcpOQOLFY+cETU8uoSxtsoabxwy/UP4mgH/P/ZK3GHXXfqs2Tv7l+QYYhQfLFuLQcKiRF8fwgiuywjFNaoN0X1dwjjjIiCnX7neROCVwD3eFfE6Jzd04pGOdNBDGjFtvzRQy3Hs8XSek/LZsoZ8x6E3s0oxFmce3OIDQv4hEjg7HeMZukYnMm6B/2jXBPmvUTFn3XjojDEoYlEmZyoijTHjgr55ux9JQkqIagjihodOf82y+3l19znrql3wTm9Qp3nC3+l3/Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4NcnRfLaiHwgRj3y1GkYUZPUjkH6+ar6A4tGjiOyeiU=;
+ b=gkojRX4MB4+gQkeB1jXbdN6sIhPSm18BRLWj9izQTkMBFsbckEoehFIZofCuLmb2zVyS1LD0z33fQbNFFRzSwtld1/FnIaFC+NePN3aQGihV1siv/XJBbLVIY0Sev64crayiACrVk15UqwwiUts390MKWD5xMivqtOeCJZcrM5Y=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::607) by MW4PR12MB7360.namprd12.prod.outlook.com
+ (2603:10b6:303:21a::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
+ 2026 15:54:46 +0000
+Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ ([fe80::67a7:9feb:71ef:964a]) by BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ ([fe80::67a7:9feb:71ef:964a%8]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
+ 15:54:45 +0000
+Message-ID: <eb350cb1-9d63-4075-91dd-f321ccc26199@amd.com>
+Date: Tue, 27 Oct 2026 11:54:43 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 3/3] drm/amdkfd: bound SVM migration fence wait and
+ guard with drm_dev_enter
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ phasta@kernel.org, Olivier Kaloudoff <olivier.kaloudoff@gmail.com>,
+ amd-gfx@lists.freedesktop.org
+Cc: Danilo Krummrich <dakr@kernel.org>
+References: <20261022105443.60162-1-olivier.kaloudoff@gmail.com>
+ <9c4f99bf-4bb4-4c31-9571-31f2aa57da38@amd.com>
+ <d1db22be29151b65ac5054be1e80d36605ee732b.camel@mailbox.org>
+ <38975a37-ca5a-40b4-ade5-d7ab861782e6@amd.com>
+Content-Language: en-US
+From: "Kuehling, Felix" <felix.kuehling@amd.com>
+In-Reply-To: <38975a37-ca5a-40b4-ade5-d7ab861782e6@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQZPR01CA0172.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:8b::10) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::607)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261027135024.1391-1-Milan.Milicevic@amd.com>
-In-Reply-To: <20261027135024.1391-1-Milan.Milicevic@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 27 Oct 2026 11:52:43 -0400
-X-Gm-Features: AclHuK__GaP1GFu_F73yLT0G0odHd_rg6g_r7s3QBAHFhw3BINquj7ROGHLkTRE
-Message-ID: <CADnq5_PV3Hv0DvPgeBRJYquA5sUqHdyMUAES5fLmJAHXE3d+Tg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: clear RB_OVERFLOW bit when enabling
- interrupts for navi10_ih
-To: Milan Milicevic <Milan.Milicevic@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Danijel.Slivka@amd.com, 
- Alexander.Deucher@amd.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN7PPF5F16C5C9C:EE_|MW4PR12MB7360:EE_
+X-MS-Office365-Filtering-Correlation-Id: d72d9d0f-d3ac-4d94-3233-08df34429f35
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|23010399003|366016|1800799024|261026140227099003|11063799006|4143699003|56012099006|261026121527099003|261022105027099003|261021123027099003|261022075727099003|261021135927099003|261021121427099003|10067099003|20046099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info: rB3Z1NAE7m3fvESTZqlDSN9rypwac9Qc3NzsozW/lPVjEi+eBJ3CPTXcqk8UFi49LEYziQ+mrcq83KXKExqNxA1Jh1EBAgiTZrAfF7n6JxkjafCfX9T0mxX8BT8kLlxWitlAgH7C01g4dSI5fjIsL4Qfzon73zxDj8V6Z76kVgUpRvEWkiNgu7fI+NUjWVlaA/10TV4Fbl1km3K3Gx2yh+ldreZrj9JKpxc5D+IBkeS6hmprwGZ+IuQlobU/ZRTlAKSxguufSTHIMJqsYlmPfW0dahQiizQKPXBPm6Vuhk/3kPzOynFuC6J68hEUd1ye0hNjC/YN9GxLzk6RAo+2qbnQfAt93k5txGUxyZb+QZKrgVSb+dywkbLS/AQeGs4NKesm/ISo4YcdsWnxjen1RKx/ytp8W30Emq010F2EVupMWvJmE2m6xfydEiGVlJGfHNGFotcm99NwEMbmEsBDQ/rr9EWlvNFZYVty76ZBcLFTF2FNt1OTCqxzlR/VqwymXb37GoiQpnzZN7yWiZdYMvi/bmJhk06tI9Xx51cAPqzVROrsY0XJCQKJVC0oowHvChYpZObG1MG2fl5vC92jSRS/L8PLb1XKK5ZxGQj8QUWx8mZN73PodfyBAjvBx2lTzQPu45arI2Tx/3RV7uzYvTWepcS9l4VH2wNOpYu56nk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN7PPF5F16C5C9C.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(261026140227099003)(11063799006)(4143699003)(56012099006)(261026121527099003)(261022105027099003)(261021123027099003)(261022075727099003)(261021135927099003)(261021121427099003)(10067099003)(20046099003)(22082099003)(18002099003)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?U3Y5NTAxZEFvODRValVZMEdIWDMrL0dIeEhNV3BsTFpnSXFSbnNzZlhZeUpo?=
+ =?utf-8?B?a2ZITmp5eHBvZFphWStobnU4RUg1UzFGME5IU21RZVhFd1ltYjV6eDNSbTZN?=
+ =?utf-8?B?Wjg4VU5tUmNjN3c2eGZwTDBWWnRZOUtVWHZkdXpZclVNUytsbEhNUVRQbHNn?=
+ =?utf-8?B?MEF3RTJycUZmUUJIaHdaM1N1K3RBb21rRE9kb0tWU01zNlpUekxFOGp6Z3JG?=
+ =?utf-8?B?ZVpZL1pPV2hiODVMRDIzbXQ3TG9sSUlJdDJReENvRFhlbGNyOXpqNUd3UTJO?=
+ =?utf-8?B?MldmUmNneGs3S21sS0N4QXlBNW1Nd2JUeTZ3aHB4c0h1MmVLQ21ZWEZFeEtF?=
+ =?utf-8?B?L0daUWVNa1VIb3g2RkNsUnU5Z3VWUG5lOHpVL3JBMjBHUTErQTZobDVaaWtu?=
+ =?utf-8?B?cHVsRE93OS9iZkJnR1Zwb2RZbitQRDVza0xsbFhwTDh2ZUdNUHpCS0QvM1Bx?=
+ =?utf-8?B?cnR1UmttTEVQMFpXQmxaK0RJelI0TnpDaVVpZ0ozSFdGSXNYV3pldHVVZzB3?=
+ =?utf-8?B?NjJlRjFOT1E2WkFKOUVrSGxoTkhxWjdRZEQwTkJxVENxS1dRMDM4QldtcTly?=
+ =?utf-8?B?aURlY3htazhaTTBjTjVSY2lkVXROQkZiM01HaHFvRGRhT2dRRWVVd2ZCTGNl?=
+ =?utf-8?B?c3FSNzV2ZUFya1k1aTlLcURLaE5ucDBhMjdBM29qc1F0Z2tjN21RaVFobjdO?=
+ =?utf-8?B?eW9Hcy9DMmFNMktIM2E4eCs4aFhhQ3hkaG5zbSs2dDdsUkc4eEhkbi9UTHc2?=
+ =?utf-8?B?NkJSbnp5aFB3dTdLQ0hpbVh3Nm1tS2tMZmFJR1VsSkptZ3J6K3VjUHVPcDk0?=
+ =?utf-8?B?Qk80UXFWUDh4dzFLdzlNNXNPczNGVWRHQmhIcDhyYjUwQ21QSjdCUFZVOVIv?=
+ =?utf-8?B?UUtETDd4MzRqaWxRZFl2K2pPRVZpcElaMGF6MDlKbzhFdVRKa0JIem1xWUhk?=
+ =?utf-8?B?aHJVcGV1dHl6MVBhZTFDdnVXK2wvRGxkMDRud1B5YTU5QnlaVllSdnY0bmxO?=
+ =?utf-8?B?YXVJL3VqNjlRQ1Q2MFBCSHJyNXVKY0J3ZjJTM3JvWFBmZFpENXB5SDl3TW1O?=
+ =?utf-8?B?dUZRN29XdkR5QnZ4bkdJcERIVHA5WFZYT0JsNTNETHh0K2Z6MmhueVMwYkJN?=
+ =?utf-8?B?QkZSV2ZPRnd4WWFrYitKZVhoVWFIaXlBZFE0NWpYaUc2QkNRQk55YnBLMzlE?=
+ =?utf-8?B?bmN2bS8vM09OOHZSazdVOW5HTEVJNE5WM0lyQS9aSVZRWEFScFNhczdBcTVo?=
+ =?utf-8?B?YVBMcDNvRW9wc2RNL1VITEZVTFVQOXR1NGZMVjlCc2lWT3Y4UFd5bVF5OHFN?=
+ =?utf-8?B?YllSK1FmU3FGd2tHUGVMSFFIdFRWTFNmY2NoWFZJaUNyNEpoRzVIVjB6aVNn?=
+ =?utf-8?B?dHVNS0R2cnp5QitCVkMvZ1FNTXFZdGF1YldMalo1YkxjRXVzZ3JSL0FkVVZx?=
+ =?utf-8?B?bGJmdVpuMFRUa3NYOWNpd1AyZC9lS3dTY2RPdG03TXVOWTdaZ0FPZ2FkMGZS?=
+ =?utf-8?B?Ky83QTdXdkx3VnBzVGRYOWJkSnpuZlIxa2FWYVlOdStWUStDODZKVzRiWXQr?=
+ =?utf-8?B?c05xWlNuUW5BZDNTa0FGY254RFRPS0tCTm12WGxtVEM4dU1QTktKOW9kVFpp?=
+ =?utf-8?B?RXJWa3lkOUdLdWVWNVhZakdGYnE3OU1VQmlzZFhaTDQzQlVnZmFXSDlOWGF6?=
+ =?utf-8?B?Z0pHbGlOSVpRUjBvNWhtT3lvNTFlcW10bFZmMEE1Rmd5OFVoTVViWDZtZHEy?=
+ =?utf-8?B?UXM4bVVoUWJIN3FDMWRmbFRDNS9kMDFReVNVN3B4aExydXUvRVBTZUppTUp4?=
+ =?utf-8?B?bnQ5cEEzTE52dTYxREMrS0VXVFoxMlJvNHREK05kM2ZoaHlYUjM4K0lodk1J?=
+ =?utf-8?B?VC9DKzl0dmdUQVdjTXRLUFJCS0NnVkp2VlozZnljbGZhTHBMcXNCTlJnY2hC?=
+ =?utf-8?B?cDhDdkkrekdjc29saGwwT0g0NFlxZXlVSTVpeXltSVdHL3F4N3JRTlNQWUFJ?=
+ =?utf-8?B?TWNIYzA4YjBTaEFGZCt4TlNueHBOREl2Y1FFWXVVYklQR3UvVWhIOGlKTDlF?=
+ =?utf-8?B?bWVOWXlVVGV6aFlvV3RTRjZRdVBRSnFkRDQrUWRQSEN5NG5EZjJkdkRTRzE0?=
+ =?utf-8?B?MkFtdWl2KzJNdTZxNG04bG1kWjFRQWJpMUE2bTlmNjY4bi9SVjM0bStqWVZi?=
+ =?utf-8?B?UGhCVnVkZHIyYjJCWmNhREROMVhnOFVaaW9RR2JpQVZaSS94SDVVeTdybUdM?=
+ =?utf-8?B?UFNlR2lBUHM2TW91VURHN1NRWEY2UkdUSTlzRjEyNEhOWFpDUzA4QWt3MWlC?=
+ =?utf-8?B?NXBHUWMxdWJvVG9kYWdFQnlTS3V1VCtGcFdaeVZ3QXB3VFZGcEwzQT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d72d9d0f-d3ac-4d94-3233-08df34429f35
+X-MS-Exchange-CrossTenant-AuthSource: BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 15:54:45.4680 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: gNwMed7/Gc76PgVPWOEOmhh6VbNVp1G/0f+HcISSqBpVPrXDZJWyq/lGPzobeDpTe9rALLq+Z8s2sVcXG7x4Yg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7360
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,88 +134,70 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-7.6 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Oct 27, 2026 at 10:02=E2=80=AFAM Milan Milicevic
-<Milan.Milicevic@amd.com> wrote:
+On 2026-10-27 05:46, Christian König wrote:
+> On 10/26/26 09:53, Philipp Stanner wrote:
+>> On Mon, 2026-10-26 at 09:22 +0100, Christian König wrote:
+>>> Hi Olivier,
+>>>
+>>> adding Philip and Danilo as DRM scheduler maintainers, just FYI on the technical background.
+>>>
+>>> On 10/22/26 12:54, Olivier Kaloudoff wrote:
+>>>> Hi Christian,
+>>>>
+>>>>> No, what we need to avoid killing the entity while KFD is still
+>>>>> using it!
+>>>>>
+>>>>> That is basically an use after free what you have here, only that
+>>>>> the drm_sched can point that out with a warning instead of
+>>>>> crashing immediately.
+>>>> The exact "use" we hit is the dying process's own exit fault:
+>>>> SIGBUS -> coredump -> get_dump_page -> do_swap_page ->
+>>>> svm_migrate_to_ram() submits the migration job on the process's own
+>>>> entity after drm_sched_entity_kill() already ran for it.
+>>> Well, thanks for confirming my worst fear :) That is exactly what I
+>>> expected and it is essentially unfixable.
+>> What prevents you from having your own synchronisation primitive in the
+>> struct where your drm_sched_entity lives in?
+> The problem isn't really the synchronization nor the UAF of the scheduler entity.
 >
-> From: Danijel Slivka <Danijel.Slivka@amd.com>
+> The fundamental problem is that SVM/HMM means that the local memory of the PCIe device (VRAM) is registered as "normal" system memory but in a way so that the kernel wouldn't use it by default for get free page.
 >
-> Port this change to navi10_ih.c:
-> commit afbf7955ff01 ("drm/amdgpu: clear RB_OVERFLOW bit when enabling int=
-errupts")
+> So you got struct pages for the device memory very similar to how for example DAX works. On GPU access the memory is then migrated to the device local memory and the system memory copy of the page is freed up.
 >
-> Setting IH_RB_WPTR to 0 does not clear RB_OVERFLOW if RB_ENABLE is not
-> set. Pulse WPTR_OVERFLOW_CLEAR after RB_ENABLE (and with
-> WPTR_OVERFLOW_ENABLE) so overflow is cleared when interrupts are
-> enabled.
->
-> Signed-off-by: Danijel Slivka <Danijel.Slivka@amd.com>
+> When you then now howplug the GPU and with it the local memory the data is from one second to next completely lost. If the data is an anonymous page the application will just crash, if the data is a memory mapped file it will eventually be tried to written back to storage. So you can even corrupt your file system with that leading to the system not booting anymore at all.
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Migration of file-backed VMAs is not supported by HMM, as far as I know.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/navi10_ih.c | 28 ++++++++++++++++++++++++++
->  1 file changed, 28 insertions(+)
+
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/amd=
-/amdgpu/navi10_ih.c
-> index 1dae7df9ee17..6edef75846a6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-> @@ -161,6 +161,34 @@ static int navi10_ih_toggle_ring_interrupts(struct a=
-mdgpu_device *adev,
->         tmp =3D RREG32(ih_regs->ih_rb_cntl);
->         tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, RB_ENABLE, (enable ? 1 : 0=
-));
->         tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, RB_GPU_TS_ENABLE, 1);
-> +
-> +       if (enable) {
-> +               /* Unset the CLEAR_OVERFLOW bit to make sure the next ste=
-p
-> +                * is switching the bit from 0 to 1
-> +                */
-> +               tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEA=
-R, 0);
-> +               if (amdgpu_sriov_vf(adev) && amdgpu_sriov_reg_indirect_ih=
-(adev)) {
-> +                       if (psp_reg_program(&adev->psp, ih_regs->psp_reg_=
-id, tmp))
-> +                               return -ETIMEDOUT;
-> +               } else {
-> +                       WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
-> +               }
-> +
-> +               /* Clear RB_OVERFLOW bit */
-> +               tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEA=
-R, 1);
-> +               if (amdgpu_sriov_vf(adev) && amdgpu_sriov_reg_indirect_ih=
-(adev)) {
-> +                       if (psp_reg_program(&adev->psp, ih_regs->psp_reg_=
-id, tmp))
-> +                               return -ETIMEDOUT;
-> +               } else {
-> +                       WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
-> +               }
-> +
-> +               /* Unset the CLEAR_OVERFLOW bit immediately so new overfl=
-ows
-> +                * can be detected.
-> +                */
-> +               tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEA=
-R, 0);
-> +       }
-> +
->         /* enable_intr field is only valid in ring0 */
->         if (ih =3D=3D &adev->irq.ih)
->                 tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, ENABLE_INTR, (enab=
-le ? 1 : 0));
-> --
-> 2.43.0
+> I mean I have seen hot remove of DRAM modules like 30 years ago already, SPARC was really big with that. But in this case you got a red led where you ECC error was, pressed a button and halve a second later the OS removed all valuable data from this DRAM module and it was safe to remove.
 >
+> Hotplug on the other hand is a completely different beast because you don't get a pre-notification that you need to save your data. So hotplug is essentially incompatible with SVM/HMM.
+>
+> What Oliver tries to do here will never work even in theory.
+
+What are we trying to achieve here? I think Olivier just wants the 
+kernel to not hang or crash. It's obvious that any application using the 
+unplugged GPU will die with a SIGBUS or some other catastrophic event. 
+It doesn't really matter whether it used SVM or not. So if the result is 
+that a migration of an anonymous page from unplugged VRAM back to system 
+memory fails with a SIGBUS, that's not a big deal. That application was 
+going to die anyway.
+
+But we don't want the kernel to crash or panic if we can help it. And I 
+don't see a fundamental reason why the kernel should crash.
+
+Regards,
+   Felix
+
+
+>
+> Regards,
+> Christian.
