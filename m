@@ -2,37 +2,37 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8DD3606A32C
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 15:44:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C2C7606D95B
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 15:44:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dRCE5OfD
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h/Uk7vit
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 963AD10F68A;
-	Tue, 27 Oct 2026 15:44:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F0B810F6A1;
+	Tue, 27 Oct 2026 15:44:22 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3160810F68A;
- Tue, 27 Oct 2026 15:44:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 151B210E44D;
+ Tue, 27 Oct 2026 15:44:15 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 795B043F0C;
+ by sea.source.kernel.org (Postfix) with ESMTP id 201F84450F;
  Tue, 27 Oct 2026 15:44:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48C031F031F4;
- Tue, 27 Oct 2026 15:44:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E01891F031E1;
+ Tue, 27 Oct 2026 15:44:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
  s=k20260515; t=1793115854;
- bh=fpo83JJokXYjEujj6r4TMCvSFPUafgC/gibglk3KIJo=;
+ bh=7V1o3THBsVPSIJpnHm1gJN2cks+b9EypDUR8GPnuLtM=;
  h=Date:From:To:Cc:Subject:References;
- b=dRCE5OfDYXBgtk7dnfD1xuKrA7mtXKGbWDZc2l5bgSltXOnLKtL5O94PrcC1+w2nX
- mrfpPSfkYE5jIaO0gEX2OfLARGnOE7JoPLNa8tK7YDbCvx5NX24LiQHtjHb2CdNmTL
- WyyDzMMJKgjtdgVcmCIkBLVWuiS/oaldsrvG+V710MKSt8wtxll4vys7tH9SOL2zsD
- E9FyKgeWCnJd0NxfgfSVeo7Uf/+nYxMJqYhpLGAgq+T8kFi9Kk/sVJjPpIJYxVU+De
- VCIcMdrlzZmaP16CqcZ4AMUqRTmDxoOkkk6SvY7bdjEA85piOfEnjkP2ng4Vc3YAAl
- lAq5Kv48fwh/Q==
+ b=h/Uk7vitfWDO/h1gJuB0QkLG4PxV5tWVEb27yPYN65h4Tuaoei/grvaUBxVVMaHpT
+ ECZRcGLBcA8tsHZ1Fg0HbWzH3tvYNGZNUFTnMqDhRcUnj/LF12BfyD9p+X+VeV1OXE
+ GRS81++tpZ0ZP1HADog9dU47GF50lPCuK/FARBHKbo7psDms+0UG641cVxGQMtspRe
+ qlZYy9mcbwEP6ZqTPFAOeFvBl8M5EuMHBeVOmqyrU+eAVEAud/29omvbUdgBIh93sR
+ /60UR+yFCX6azSPyOkLAzCIAB5xs38NRMv2lIQfq2Ko6ujhOtAzKpZUsTeyW3TlBSX
+ uauGVrji6eK8w==
 Received: from rostedt by gandalf with local (Exim 4.100.1)
- (envelope-from <rostedt@kernel.org>) id 1xLjLR-000000078hw-2W0c;
+ (envelope-from <rostedt@kernel.org>) id 1xLjLR-000000078gq-0u2O;
  Tue, 27 Oct 2026 11:44:13 -0400
-Message-ID: <20261027154413.428706632@kernel.org>
+Message-ID: <20261027154413.039021489@kernel.org>
 User-Agent: quilt/0.69
-Date: Tue, 27 Oct 2026 11:37:03 -0400
+Date: Tue, 27 Oct 2026 11:37:01 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org,
  linux-trace-kernel@vger.kernel.org
@@ -76,8 +76,8 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
  linux-pm@vger.kernel.org, linux-scsi@vger.kernel.org,
  linux-sctp@vger.kernel.org, netdev@vger.kernel.org
-Subject: [PATCH 5/9] drm: Use trace_call__##name() at guarded tracepoint call
- sites
+Subject: [PATCH 3/9] devfreq: Use trace_call__##name() at guarded tracepoint
+ call sites
 References: <20261027153658.703730257@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
@@ -114,75 +114,28 @@ Parts of the original v2 series have already been merged in mainline.
 This patch is being reposted as a follow-up cleanup for the remaining
 unmerged pieces.
 
-Link: https://patch.msgid.link/20260515135932.2238842-1-vineeth@bitbyteword.org
+Link: https://patch.msgid.link/20260515135920.2238808-1-vineeth@bitbyteword.org
 Suggested-by: Steven Rostedt <rostedt@goodmis.org>
 Suggested-by: Peter Zijlstra <peterz@infradead.org>
 Signed-off-by: Vineeth Pillai (Google) <vineeth@bitbyteword.org>
 Assisted-by: Claude:claude-sonnet-4-6
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c   | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c   | 4 ++--
- drivers/gpu/drm/scheduler/sched_entity.c | 5 +++--
- 3 files changed, 6 insertions(+), 5 deletions(-)
+ drivers/devfreq/devfreq.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index 5558e7330cf4..8873e28f526f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -1025,7 +1025,7 @@ static void trace_amdgpu_cs_ibs(struct amdgpu_cs_parser *p)
- 		struct amdgpu_job *job = p->jobs[i];
+diff --git a/drivers/devfreq/devfreq.c b/drivers/devfreq/devfreq.c
+index 82dd9a43dc62..9f71d9dc4a70 100644
+--- a/drivers/devfreq/devfreq.c
++++ b/drivers/devfreq/devfreq.c
+@@ -370,7 +370,7 @@ static int devfreq_set_target(struct devfreq *devfreq, unsigned long new_freq,
+ 	 * change order of between devfreq device and passive devfreq device.
+ 	 */
+ 	if (trace_devfreq_frequency_enabled() && new_freq != cur_freq)
+-		trace_devfreq_frequency(devfreq, new_freq, cur_freq);
++		trace_call__devfreq_frequency(devfreq, new_freq, cur_freq);
  
- 		for (j = 0; j < job->num_ibs; ++j)
--			trace_amdgpu_cs(p, job, &job->ibs[j]);
-+			trace_call__amdgpu_cs(p, job, &job->ibs[j]);
- 	}
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 2bd07007def4..f10e443e1ebe 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -1425,7 +1425,7 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev, struct amdgpu_bo_va *bo_va,
- 
- 	if (trace_amdgpu_vm_bo_mapping_enabled()) {
- 		list_for_each_entry(mapping, &bo_va->valids, list)
--			trace_amdgpu_vm_bo_mapping(mapping);
-+			trace_call__amdgpu_vm_bo_mapping(mapping);
- 	}
- 
- error_free:
-@@ -2189,7 +2189,7 @@ void amdgpu_vm_bo_trace_cs(struct amdgpu_vm *vm, struct ww_acquire_ctx *ticket)
- 				continue;
- 		}
- 
--		trace_amdgpu_vm_bo_cs(mapping);
-+		trace_call__amdgpu_vm_bo_cs(mapping);
- 	}
- }
- 
-diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
-index 7be0387bac3c..ddf161a47742 100644
---- a/drivers/gpu/drm/scheduler/sched_entity.c
-+++ b/drivers/gpu/drm/scheduler/sched_entity.c
-@@ -500,7 +500,8 @@ static bool drm_sched_entity_add_dependency_cb(struct drm_sched_entity *entity,
- 
- 	if (trace_drm_sched_job_unschedulable_enabled() &&
- 	    !test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &entity->dependency->flags))
--		trace_drm_sched_job_unschedulable(sched_job, entity->dependency);
-+		trace_call__drm_sched_job_unschedulable(sched_job,
-+							entity->dependency);
- 
- 	if (!dma_fence_add_callback(entity->dependency, &entity->cb,
- 				    drm_sched_entity_wakeup))
-@@ -630,7 +631,7 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
- 		unsigned long index;
- 
- 		xa_for_each(&sched_job->dependencies, index, entry)
--			trace_drm_sched_job_add_dep(sched_job, entry);
-+			trace_call__drm_sched_job_add_dep(sched_job, entry);
- 	}
- 	atomic_inc(entity->rq->sched->score);
- 	WRITE_ONCE(entity->last_user, current->group_leader);
+ 	freqs.new = new_freq;
+ 	devfreq_notify_transition(devfreq, &freqs, DEVFREQ_POSTCHANGE);
 -- 
 2.53.0
