@@ -2,42 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EB78606A31A
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 19:59:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7762D606A31A
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 19:59:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=iiLgz5Kg
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=rCF0WpLx
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB3A510E47A;
-	Tue, 27 Oct 2026 19:59:42 +0000 (UTC)
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010062.outbound.protection.outlook.com [52.101.85.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE7B710E47A
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4CDC10E48C;
+	Tue, 27 Oct 2026 19:59:43 +0000 (UTC)
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010052.outbound.protection.outlook.com
+ [52.101.193.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8194410E46A
  for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2026 19:59:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tNhP92u4sW25bmguRxyYC7rGSHliiL/APfEstYQQk9hn//HWx1BgKLxAnT4xyjq98yDbLEf6qc8fo/gwL6zhEHvUJXZxoOodRvaDc0CM2f9AX2tFKhqTrHSJUij50XW+BLWYFa8E5MrYmdR/OO8w6V8a+dw7UNNpMTdomm2KxZJEn5eCUuIHmAPW/k7Mhm+CyU5WRAmsgsSpw3Y0zN6vcb0PhmSPkza/YTEa8YrJldZWZ3xrhx+HfRw4FSwlYVGuK4bnyVcMfg7AJP73EIA/iWcJURDzDh25SN7Sq3VZHeTKpoKyytyxnORYz4ccMT85ixpaDrscLxM/4+AQ8qyKQA==
+ b=qZmanEURDUT9E22pDW7PexvAfaonkluTzunm3yQtLR4tTT9svpvu/pPVZC+1LcHTf/vdBcvnBr/zUzpeNP6MVO3F1ywB3Ye5kzOMwOu0P9VWzHvrCf7ZNUw8UkyDQQwhpR7XVTddsDbnV2Rl5mQHC7VTfAIPXGSorMCJN+PUEXkKQyKc9HV7pEhdA0F1qAhl7gEggR6Xx6fqPnNiFRMtau7jVOuVIg2u1SkyuUGRuiWt/kUA99jjNE9YQ0oK71fRjuYPrJ07IkzLPqhSIzOoiXy7q2sqNaN10Ap50fETcIlgOj2K1yhxHRMXuvFbLNUCRt33zSau1Asr9JK2kJBZOQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rYTSZmiw0G1Zw7GBSqC3e5VG7JZ0Tqs+/RXH8shoxxo=;
- b=SoylGb3WDYv0pgG8fWCODdFjt/R8HCd2sWij1pwm66yxWju14nLwagnh+jzueGZ8sTA7/h1h5N16j+EwTl3J0lvWEtRpQslBlY6QXNs493pnojz3LtXlx8VQxgQAzvnJ3H7Hua2cGapWUGtR2EG4PisKMNJ1qLwjy+6B+MTIv7jAeO52/PvKw42zNRFX9HZzIWmMsuceJH7mDLbvmIyBruIf4doeaZP39waPiJVVnYfHjbGE6AxG3DpWjfhLL6j7rRbrg3umOaNUMj7MGCAGUSWQLbItteiDUIGKcMbALtPEVQZDmylFk/ykd6WlLFntovxgeLpyiS52MTrMkDCFXA==
+ bh=6XQad+vOnvAqOGyb4OwzVOQHjTx0EeLxab02IzWorPM=;
+ b=fKGEBr1p4k1bMBQRbSgFesYaGlmXOEda7L4ZLazU4BkMctz/JNBwAfAFr/3zfBt0r2BITJs5mzv48V7E4gXnomt374be7U0Lk05Am39FmrdkZ9sgvuNrld4GTzOlFlhL0Q0FHt9/i62vuivgGbOCqux9hmnkPj5FeZYYVvylBstEOoACDgL2ISTKqOaN3FPluq/lCr764cV+E7ZIyaiAfDVD2Nps3OHYwWqXuuoJrVzEYsOdAwPB6slnlAxAscCsGyVGpA3aQTwJmtm4FtWcfxr5QpSUoL5WqrJrHR4wq/Kki/Gr0Pf7DkYauOUhhYDVx2R0T3NNnVs3SUjy3KP7BQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rYTSZmiw0G1Zw7GBSqC3e5VG7JZ0Tqs+/RXH8shoxxo=;
- b=iiLgz5KgU6BnKuV7QPZiBCS1mFeeffHh9uf+pJnIZ+jTvBdd2I6SheeGRloFfEx/sybtJyJryHEa3OUMjs2fMKpPO3lVboVJKKDjUcAepU0tf8IJHm5xdUYmD9VFZTPtYafrB07CLkBoYMjAg9F66skefEyUOh28yKhNWcP0iKw=
-Received: from SJ0PR05CA0069.namprd05.prod.outlook.com (2603:10b6:a03:332::14)
- by CYXPR12MB9340.namprd12.prod.outlook.com (2603:10b6:930:e4::20)
+ bh=6XQad+vOnvAqOGyb4OwzVOQHjTx0EeLxab02IzWorPM=;
+ b=rCF0WpLxqFlHbq0ztvfoZAfZaHkRYMq2ye1jY+XtvIvLmNOSUZJr1nT+FhZ5BeW/+u0JWWqyF5B12h2fzA1WBFgKL5qrFxplou4VosbMQHNpdxjEJvWSX4YVGsBBjihRuGNY4zgFAKnP4WCpPsNsAHz95pg0zA5h3zTrF1wEezE=
+Received: from SJ0PR05CA0079.namprd05.prod.outlook.com (2603:10b6:a03:332::24)
+ by CH3PR12MB7665.namprd12.prod.outlook.com (2603:10b6:610:14a::12)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
  2026 19:59:33 +0000
 Received: from PH5PEPF0000002E.namprd04.prod.outlook.com
- (2603:10b6:a03:332:cafe::4d) by SJ0PR05CA0069.outlook.office365.com
- (2603:10b6:a03:332::14) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:a03:332:cafe::18) by SJ0PR05CA0079.outlook.office365.com
+ (2603:10b6:a03:332::24) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.7 via Frontend Transport; Tue, 27
- Oct 2026 19:59:33 +0000
+ Oct 2026 19:59:32 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -48,7 +49,7 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  PH5PEPF0000002E.mail.protection.outlook.com (10.167.243.8) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Tue, 27 Oct 2026 19:59:33 +0000
+ 15.21.569.4 via Frontend Transport; Tue, 27 Oct 2026 19:59:32 +0000
 Received: from mukjoshi-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 27 Oct
@@ -57,10 +58,10 @@ From: Mukul Joshi <mukul.joshi@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Felix.Kuehling@amd.com>, <Harish.Kasiviswanathan@amd.com>,
  <philip.yang@amd.com>, Mukul Joshi <mukul.joshi@amd.com>
-Subject: [PATCHv2 4/8] drm/amdgpu: Attribute UALink loopback messages to the
- correct sender
-Date: Tue, 27 Oct 2026 15:54:17 -0400
-Message-ID: <20261027195913.1794477-5-mukul.joshi@amd.com>
+Subject: [PATCHv2 3/8] drm/amdgpu: Emulate exporter->importer UALink messages
+ in loopback
+Date: Tue, 27 Oct 2026 15:54:16 -0400
+Message-ID: <20261027195913.1794477-4-mukul.joshi@amd.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261027195913.1794477-1-mukul.joshi@amd.com>
 References: <20261027195913.1794477-1-mukul.joshi@amd.com>
@@ -72,29 +73,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH5PEPF0000002E:EE_|CYXPR12MB9340:EE_
-X-MS-Office365-Filtering-Correlation-Id: e5c60710-0a5c-436a-9ee3-08df3464d223
+X-MS-TrafficTypeDiagnostic: PH5PEPF0000002E:EE_|CH3PR12MB7665:EE_
+X-MS-Office365-Filtering-Correlation-Id: fdd14deb-fdf4-4ce8-9125-08df3464d162
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|82310400026|23010399003|1800799024|376014|261026121527099003|18002099003|22082099003|10067099003|56012099006|11063799006|261009223027099003|261021121427099003|261021123027099003;
-X-Microsoft-Antispam-Message-Info: E7MpHGYmKvnhJyv4qDSIregB0n9Fib7iBheW/LUiaFcnFkJT4a/OYjsJbGeuuzs5vll14bmDwhVjenO6pgVSAe63KlOFHLr01wt/RrJ+0JxNtZoyBTQU+4YwM8w2gdBJfCGv1F/YqJDcb1Q7ADIBiTON6VvATHwB7JlloqA06q3d4L5qmY+nSqkSazSRaibSZv2BSWFr0gU/27Tz7l+IyG9Z2MfgkKUHhRoCZxBywMlgva2KzTKUBkXybQJ5wLXr0Sfbf+MVUTjYLjuruOXcyssQTZ7Q2ApxNaQNXZvyRmQOqTHad5hdyWakrhaW4XJIirW0/U9mwscJ63zdp2mbuL/WeFcXrMczbcs4ZCRaOBlGZ+oeSxPQGwIEQGBbtewsiqp8AqjrjaJZSIgFUwXRiQiwT3Vgmstd5vGPY0F5PTSeHlXNs33bzK3N9aRcR5XIox/wEndMsyyhiOMXFVMChUIV3kCIKEoJrdI/zsB/1LoeMshtn6ERxwZTAtlNniCbZPIM0n0E+YO5xjQvmtMsomM/AuHV2K8Aq1mtqBGWW/RNnWpemIEiUla1QBSBgSYg+eEHLyE6fJKqwRZLPs4X08fSpOliiTGd8mRS2hkW89vFIrtvqiAJD0but7Ynlk8YvnNTYlPvXptnlTWyvbHC9dBzZOSmzhXVcjUbljvVdmcas1m7Hya7d+gc6OtiAOXb+6MuHWbd5m6OqctwX1ioFA==
+ ARA:13230040|82310400026|376014|23010399003|1800799024|36860700016|261026121527099003|11063799006|56012099006|261021123027099003|261021121427099003|261022105027099003|261009223027099003|10067099003|18002099003|22082099003|6133799003|261026140227099003;
+X-Microsoft-Antispam-Message-Info: jvUoUW4t8B+3tzqChfBavydIOqZcO5MVOXOp4v9bcdaozE0GCar7mzCw5bGEwtDMCs/lY8Qf1L75DO2NvbptAPYIxlhUJXjBKBQ/pmh/r1KIqQsZ7Lf20yBZ9f4kPTOjKosp5yIwfV2BEPJArsLN0uwaayW61VWWCxqL5ARIui0cyJJ46/P94SASrFAfffkg8U7Qcu4NyN869E+U2j2d1nHopPx+qbZPpEQPxTdnjp/olH7gLvKoEbuVb++uj+rTb0S8unTzNejBBxnqJcInIALs1kZnhR/2xBCwijGA1A56+1is9cQE7XOZ9f+xcRWR74rlgzCIIJl41N7Uh1vd6B33mfP2IWVyaNXYJIHJdvvZ/m5eYOUMAu1QaoVM0M4hAeellw/yMPRPBjP/9hkWGECJDcse+Ekg/Xq+h52dMR4IZCqLJLSIPoMo9Sggn5XOA5pmtRE7+QZhYTZ7UvVfuGos1I/WcqA7K1S1kQE+2DCBVsvR1Lfc9z9ljzMvZ7FE9xZ6U/C8ePBrquDelIGt449SYxij881nxCnV6X/GVJurgCqa/4IGE8sH/AewQlOM0ao7ldQ/uh4LehXHLX7U2RTzYUe6g0gb+Evi8EjHV2l/cwVsRNJJkSLyfg6UW3snP+/FNJDq2mHIO/nLfAmbFcg11kqM7GlH0TwIxNVQJ6m6KtvlWF6JLS5B8LrBhrkdBjOhtTd0yEBEnWtx6703Zw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(82310400026)(23010399003)(1800799024)(376014)(261026121527099003)(18002099003)(22082099003)(10067099003)(56012099006)(11063799006)(261009223027099003)(261021121427099003)(261021123027099003);
+ SFS:(13230040)(82310400026)(376014)(23010399003)(1800799024)(36860700016)(261026121527099003)(11063799006)(56012099006)(261021123027099003)(261021121427099003)(261022105027099003)(261009223027099003)(10067099003)(18002099003)(22082099003)(6133799003)(261026140227099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 3ax/fHEN5+wuZSBG+s4C0RS5mPCcdVN3LVKroJ/MqGQSlRlGK3QkYQPrvNcC1Fq/rnAYBbp4VkjfvVG5e1pDTA40YTlJG19WHY2NBxCcKT+k1k2MQNnTr+yD1bMx7FVyyCFlI4xrakh9HxbsYWVSwxZPBRp2bVYIF7xKsB9YmnP07dniRTgeT2a5U+LZMiAqWHV/bTOcaGoQBC0D9MvWdo3Lr7EDEBGKOkLl8RuHWM0IPXSJZMuPHPf01PfMgB402qmR92dK42OaRf6uSeZA7yqUzRQ5m13jzaZKgOmbuqO+RtPaliZKE+rG2kk537HRub8D2maMG3tuZXDlhxfXKTYW1HkwRcJG7O2OxqUC9ax5Jyq82/YYmT8VFxk6NS/J0GNd7rRxXs3Ji1FbIzgUK/7J+v6DOdaJFLLzOAM1fKZsi8gZWYfBAMEj+b0xrEiC
+X-MS-Exchange-AntiSpam-MessageData-0: 2LJCqyCR0FSmLGNNxDvoEMg9eUZ1DXbxDE3ArGi01Dp4FJYPe3/xQybZKVqx6ZhxLIicnpNv+qjFXUXTM2KtDklalFzqY+OTTSqoPUD7ZSn0R2re6sE+1SR3qBO1tDnhSYSk0tzTuKWP2pfzEm1/Xph9yqwXCdxj/lC2pdoXr9RUrDSTo6NXiJKf1xxKkxYyZYJx7vtZCIANFLPHX/ZmOr1WaQiEXNV9iJQiqxjBndtCZ3/Z7xIYLrlf5FVwqK9vl5n8PqSk7Jty4By5GFWf/zWk/5FXymv3COnSL39bL+8y0iewTBO+tTferCy5KBHIrUlq9QU0NJ9+5yYZX3Lx7jj+kGYLNGsedxURxu1C9znZHLWUSqD7Hngb/Fsq1cgqGLKgDMsZEfFrLMhnUvhLkk8hpbHvT2FMwwj+4hWSabiuCt04nfuQJ3p8Y3smpyPj
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 19:59:33.6093 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e5c60710-0a5c-436a-9ee3-08df3464d223
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 19:59:32.3021 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fdd14deb-fdf4-4ce8-9125-08df3464d162
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: PH5PEPF0000002E.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9340
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7665
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,84 +114,131 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 In UALink loopback mode a single GPU acts as both the exporter and the
-importer, so the sender accel ID of a message depends on its direction.
+importer. The exporter is the one physical station, so the only path
+the HW serves is importer -> exporter. A message the exporter sends to
+the importer cannot be delivered by the MP nHT.
 
-- Send HELLO as the opposite role of the destination: a message to the
-  exporter is sent as the importer and vice versa. Outside loopback
-  this is still the GPU's own accel ID.
-
-- The MP nHT stamps the IH cookie of every HW-delivered message with
-  the GPU ID of the single physical station, the exporter. The only HW
-  path is importer -> exporter, so attribute these messages to the
-  importer. SW-emulated exporter -> importer messages carry no IH ring
-  and already name the exporter as the sender.
+Emulate that direction in SW: when loopback is enabled and a remote
+interrupt is addressed to the importer, queue it on the loopback
+ordered workqueue, which feeds it back into amdgpu_ualink_process_irq()
+as if the exporter had sent it. The ordered workqueue keeps successive
+messages in order and runs the (possibly sleeping) handlers outside
+the sender's context.
 
 Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
 ---
 v1->v2:
-- Use ualink_exp_accel_id/ualink_imp_accel_id() wrappers in
-  amdgpu_ualink_process_irq(). (Lijo)
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 32 +++++++++++++++++++++-
- 1 file changed, 31 insertions(+), 1 deletion(-)
+- Use wrapper functions in amdgpu_ualink_remote_interrupt() (Lijo).
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 82 ++++++++++++++++++++++
+ 1 file changed, 82 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-index 6c70be7badec..96a6023f51c5 100644
+index a186859dee3c..6c70be7badec 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-@@ -1090,6 +1090,23 @@ static inline u32 ualink_imp_accel_id(struct amdgpu_device *adev)
- 	return adev->ualink.info->ppod.accel_id;
+@@ -60,6 +60,9 @@ static void amdgpu_ualink_reset_peer_rings(struct amdgpu_device *adev,
+ 					   u32 remote_accel_id);
+ static int amdgpu_ualink_ring_resync_ptrs(struct amdgpu_device *adev,
+ 					  u32 remote_accel_id);
++static int amdgpu_ualink_loopback_self_interrupt(struct amdgpu_device *adev,
++						 u32 sender_accel_id, u32 dw0,
++						 u32 dw1, u32 dw2, u32 dw3);
+ 
+ #define STRIP_NPA(addr)						\
+ 	(((u64)(addr) & ~AMDGPU_UALINK_NPA_ADDR_GPUID_MASK))
+@@ -6209,6 +6212,17 @@ static int amdgpu_ualink_remote_interrupt(struct amdgpu_device *adev,
+ 	struct amdgpu_ualink_ring *ring;
+ 	int r;
+ 
++	/* UALink loopback: the single MP nHT can only deliver messages addressed
++	 * to the exporter accelerator. Messages addressed to the importer
++	 * (exporter->importer direction) cannot be delivered by HW, so emulate
++	 * them by feeding the message back into our own IRQ handler.
++	 */
++	if (adev->ualink.loopback.enabled &&
++	    remote_accel_id == ualink_imp_accel_id(adev))
++		return amdgpu_ualink_loopback_self_interrupt(adev,
++				ualink_exp_accel_id(adev),
++				dw0, dw1, dw2, dw3);
++
+ 	peer = &remote->peer[remote_accel_id];
+ 	ring = &peer->interrupt;
+ 
+@@ -6630,6 +6644,74 @@ static int amdgpu_ualink_process_irq(struct amdgpu_device *adev,
+ 	return handled;
  }
  
-+/*
-+ * amdgpu_ualink_local_sender_accel_id - sender accel_id for an outgoing message
-+ *
-+ * Normally a GPU sends messages as its own (single) accelerator. In loopback
-+ * mode the same GPU plays both roles, so the sender identity depends on the
-+ * destination: a message to the exporter is sent as the importer and vice
-+ * versa. Outside loopback both roles collapse to the GPU's own accel_id.
++/* Work item used to emulate an exporter->importer UALink interrupt in
++ * loopback mode (see amdgpu_ualink_loopback_self_interrupt()).
 + */
-+static u32 amdgpu_ualink_local_sender_accel_id(struct amdgpu_device *adev,
-+					       u32 remote_acc_id)
-+{
-+	if (remote_acc_id == ualink_exp_accel_id(adev))
-+		return ualink_imp_accel_id(adev);
++struct amdgpu_ualink_self_irq_work {
++	struct work_struct work;
++	struct amdgpu_device *adev;
++	u32 sender_accel_id;
++	u32 dw[4];
++};
 +
-+	return ualink_exp_accel_id(adev);
++static void amdgpu_ualink_self_irq_worker(struct work_struct *w)
++{
++	struct amdgpu_ualink_self_irq_work *job =
++		container_of(w, struct amdgpu_ualink_self_irq_work, work);
++	struct amdgpu_device *adev = job->adev;
++	struct amdgpu_iv_entry entry = { };
++
++	/* Build an IH entry as if the message had been delivered by the MP nHT
++	 * from the exporter accelerator. amdgpu_ualink_process_irq() consumes
++	 * the sender accel_id from entry->pasid and the four context dwords
++	 * from entry->src_data[]. entry->ih must differ from adev->irq.ih so
++	 * the message is processed here instead of being delegated to the
++	 * UALink soft ring.
++	 */
++	entry.ih = NULL;
++	entry.pasid = job->sender_accel_id;
++	entry.src_data[0] = job->dw[0];
++	entry.src_data[1] = job->dw[1];
++	entry.src_data[2] = job->dw[2];
++	entry.src_data[3] = job->dw[3];
++
++	amdgpu_ualink_process_irq(adev, &adev->ualink.irq, &entry);
++	kfree(job);
 +}
 +
- static bool amdgpu_ualink_is_local_accel(struct amdgpu_device *adev,
- 					 u32 accel_id)
- {
-@@ -2238,7 +2255,10 @@ static int amdgpu_ualink_send_hello_msg(struct amdgpu_device *adev,
- 
- 	dw0 = AMDGPU_UALINK_HELLO_MSG;
- 	dw0 |= (remote_acc_id << AMDGPU_UALINK_HELLO_MSG_RECV_ACCID_SHIFT);
--	dw0 |= (adev->ualink.info->ppod.accel_id <<
-+	/* In loopback the sender is the opposite role of the destination, so
-+	 * the exporter side tracks the connection under the importer accel_id.
-+	 */
-+	dw0 |= (amdgpu_ualink_local_sender_accel_id(adev, remote_acc_id) <<
- 		AMDGPU_UALINK_HELLO_MSG_SENDER_ACCID_SHIFT);
- 
- 	dev_dbg(adev->dev, "SEND HELLO: HELLO message to remote AccId:%u\n",
-@@ -6548,6 +6568,16 @@ static int amdgpu_ualink_process_irq(struct amdgpu_device *adev,
- 		return handled;
- 	}
- 
-+	/* UALink loopback: the MP nHT stamps every HW-delivered message with
-+	 * the GPU ID of the single physical station, the exporter. The only
-+	 * HW path is importer -> exporter, so the real sender is the importer.
-+	 * SW-emulated exporter -> importer messages carry no IH ring and
-+	 * already name the exporter as sender.
-+	 */
-+	if (adev->ualink.loopback.enabled && entry->ih &&
-+	    src_acc_id == ualink_exp_accel_id(adev))
-+		src_acc_id = ualink_imp_accel_id(adev);
++/*
++ * amdgpu_ualink_loopback_self_interrupt - deliver a UALink message to ourselves
++ *
++ * Used in loopback mode for the exporter->importer direction, where there is
++ * no HW path. The message is processed asynchronously on an ordered workqueue
++ * so ordering between successive messages is preserved and the (potentially
++ * sleeping) message handlers do not run from the caller's context.
++ */
++static int amdgpu_ualink_loopback_self_interrupt(struct amdgpu_device *adev,
++						 u32 sender_accel_id, u32 dw0,
++						 u32 dw1, u32 dw2, u32 dw3)
++{
++	struct amdgpu_ualink_self_irq_work *job;
 +
- 	msg_type = dw0 & AMDGPU_UALINK_MESSAGE_HEADER_MASK;
- 	local_acc_id = adev->ualink.info->ppod.accel_id;
- 	dev_dbg(adev->dev, "Got MSG: remote acc_id %u msg_type %u\n",
++	if (!adev->ualink.loopback.wq)
++		return -ENODEV;
++
++	job = kzalloc(sizeof(*job), GFP_KERNEL);
++	if (!job)
++		return -ENOMEM;
++
++	job->adev = adev;
++	job->sender_accel_id = sender_accel_id;
++	job->dw[0] = dw0;
++	job->dw[1] = dw1;
++	job->dw[2] = dw2;
++	job->dw[3] = dw3;
++	INIT_WORK(&job->work, amdgpu_ualink_self_irq_worker);
++	queue_work(adev->ualink.loopback.wq, &job->work);
++
++	return 0;
++}
++
+ static int amdgpu_ualink_set_irq_state(struct amdgpu_device *adev,
+ 					struct amdgpu_irq_src *source,
+ 					u32 type,
 -- 
 2.55.0
 
