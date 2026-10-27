@@ -2,83 +2,129 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C521606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEA6D606A31D
 	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 09:34:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TwPeAI17
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=UwFNZ2Un
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17C4A10F34B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69F7210F351;
 	Tue, 27 Oct 2026 09:34:12 +0000 (UTC)
-Received: from mail-wm2-f10.google.com (mail-wm2-f10.google.com
- [74.125.225.138])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BBF4110F1AC
- for <amd-gfx@lists.freedesktop.org>; Mon, 26 Oct 2026 22:48:13 +0000 (UTC)
-Received: by mail-wm2-f10.google.com with SMTP id
- 5b1f17b1804b1-4a16dfb8fa6so17658435e9.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 26 Oct 2026 15:48:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1793054892; x=1793659692; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:subject:from:cc:to
- :content-language:user-agent:mime-version:date:message-id:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=xlqP9nlXPIQC9v0fnOGYQwCTYHMQLryM+G9N3rnt/EE=;
- b=TwPeAI17uxomlpPbNip37aQGUJibMm0Qa35JOwNrsRm33pc6RGfTZLNSWkq/4adK1y
- NBbaHDl5FqvzTQWerVoSlnFQZd2nR8Q7y/HcP0JXJG4jrdtmevjEIFvFFJlmvlbJ5QCq
- 0Gip/zfZt3MJIl93PN8aA2bx46s5qjlzvySGHGzNni34YEMOdAa7wvbAPzQ8J68REuFY
- ZvZTW3HdQUXE52GuSrXd41sXxg+ZWArbrjKWgNJvgNTPk6YicOChkhBXGRlvJSg2bglS
- ddp9cN1goJGWczmcXiA2BiyqPGzR5ZD+pbcnAkkbkzXA15dGzfnKD1xoMAGAsX7DhM4P
- R2DQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793054892; x=1793659692;
- h=content-transfer-encoding:content-type:subject:from:cc:to
- :content-language:user-agent:mime-version:date:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=xlqP9nlXPIQC9v0fnOGYQwCTYHMQLryM+G9N3rnt/EE=;
- b=KVMbIwcKDowJV8uw7DZfAcmrYcacdbCJvCD5howQgss5kj15WPMY86JpQu8J7W7oHe
- BEwQGpLU6TXTvEOENfPZLsrQgFf/DqyOEd0ZeV8tNhWM3/Il/nfhz7WUyc7YosqinMXN
- zV1GOUJGeTrTzd6uxOsxp5PqrxkDrTbvYfkGwZH4t7OW9xJZxQU7BHGmVt+GSAEwqaaK
- eckJw2XICWpbrOcPdDAJwQB+XH14Vc/SR4Q+F2F6DVTxZdZcRwyqzpabzXrizwCDkBV0
- jwlWPJlqGH2Yb42oUlRb2w7jOHf4eQBiQJb4+rYHK63i6YSTqdWsXIIUTjShLjHmyphw
- 7/yw==
-X-Gm-Message-State: AFq9FYLWq4HD91gO203Fw4fvr+SKmntg2J9PEt5HHTdimoA4Ym8mdOyx
- 0142xJGM/+hLuIHCUmnzsIM2Tp6fL/dayjiq0lRgrfU7se7ORj8r+vKuITFxgUO51oBdwcue
-X-Gm-Gg: AYBFou1Di6efajdHkaC/gjWQpwlWk7lkl+lxL+sptCIQI5r89aWx22+BZK7fAu+nvgR
- DC4V8iy2Ep7h1zRANadWpaRITWFbl44mqvTltX9EkbTPHq1GHgIIsqStkaFyjsx6mNfvBDUL4Lr
- 5lPQKUg8y9p2NMMwo0QgjkupjB2oQYGPUYzXVQ5km9pJe0NljJ+QJiZms1HlOK/auAnyXPLsD2n
- 83Jh5Thw4aKiGXngWJTwB5gxEikuu3Y2aA6AUY3qsS1pSQ3xDS5++1Zm5CLn3eIPdtBb6/ZPusp
- tmaOV2aYitUz4a9hCFiSV/h3vSKAO7q2eJX97T7ZIX5wGphAM964j8ltKHsydYD7f6aDUBgL5dp
- 2ncDqSuwaI/DRVUUz5JvN89ibqToWt/RhVlpas/CE5EsnjnlNcIIOa8Ie/T5btRk566s1OL49RO
- 22gZxHHQ0v/iaf9CN2lUBecwH4H4RQVDl7JMx+42FAeQbcFy4Lj9nDEMA57L2WbKGFae9cROaGT
- f143e4X8AkaXour5bACFrJq7KLGjo+pia1hL2rLgvMVcbSOAA==
-X-Received: by 2002:a05:600c:8b2c:b0:4a1:df52:3e36 with SMTP id
- 5b1f17b1804b1-4a35acaa6d1mr153363505e9.27.1793054891988; 
- Mon, 26 Oct 2026 15:48:11 -0700 (PDT)
-Received: from [192.168.1.12] ([31.94.68.191])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4a35a2e8f25sm224603255e9.14.2026.10.26.15.48.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 26 Oct 2026 15:48:10 -0700 (PDT)
-Message-ID: <18b5101d-c05e-45c0-a880-457bb7b9d887@gmail.com>
-Date: Mon, 26 Oct 2026 22:48:09 +0000
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013058.outbound.protection.outlook.com
+ [40.93.196.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F076C10E1F9;
+ Tue, 27 Oct 2026 05:46:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=euDw0Vfwn8cLkGnm/1+5S8qx7GiqrSx2fJWBqMXAK3cgjz5fn014t78BNaUVDpqmmXRero/2huRN3kMXhys+geckfA1c8phi3pwXKfbfv0mn03O9Mkac/Qnj08sgDDoUazU85FWtiRykydjROp63xdOhUaUK8rbcRbasp4XolkhFrs/PtN28rhFVm039aLYsMI+dfKEHsj5p2JhB9oXMGHzpM0DAL89FE+p6lUhOhiQcJaeFOaVNOtC7Ra3bSFLcHrCjBy7G/7rANm4m7JGZF+Dq7Et1NpUWpxSuFUUyWS/x5TILJNssOx5tr++oAJctvFpXKw5vRfSlndkkOHWlOQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=orew0HFCOjG6QeMy39zxQad9wZITCwtfKZiHsv0QIYE=;
+ b=rp9qFOtSbWbGv0H5b3rrG+sFzc2BjxdEjyUsps83qqo2PSMGxeAf8A3O9tZ+oPHP9UhDUbKU7c05zv/U27GxoIypHcjDh+vaXIy+uO8g7Mdn+RNYEaR5EDDy0HxmeR8MVy2VkAOT+PqPW6EHRmX0V6ZfJltV+EDhcVPYk70EkRZggDnBgPjwdNjo48kX13RhuYKY+ExB7S6ti0aNNojamDYTqtXX+xY1cccCP1EruijzqQEfgUMLv1mCo5ma0LF9NP6S5o4jk6zAmo1An40KD6Jf9nks24XqHtw+0ohIAJLNDqIom1W+6xztyK/1lrTtw3wF61givFrOwC1jppO8yQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=orew0HFCOjG6QeMy39zxQad9wZITCwtfKZiHsv0QIYE=;
+ b=UwFNZ2Un2+2zbdghrUhERdBLcyw8OljZI5xVocfvqbjHRBusO3w9e96XFKIL4VW8Y5jA18aVfQ4H++CWocPmMhiV0+WOYBe/nYyJ3h3DGyFvWapyq5vINLAfrKxWImPyssTYFdoeNagBq2qcv8ZUQHkwc+ZcxSNcxKu29pTAlUIVyaF0dHbU4vSz5MYet7brK7XndMYQFCb6xCuTksxRKaZhmyftOkBwnrQOllMivmM5Iqf44ZGJ9EcGByPJak+9+V6ALFbOrI8UwtwrV5+ahMr2VkoL63KS2dEAluL9KLNhemLTuFGYPrPI8E/XfGeuGZVRreie2ZBwsJn6ifsmEg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SA3PR12MB598757.namprd12.prod.outlook.com
+ (2603:10b6:806:52d::14) by CY5PR12MB6645.namprd12.prod.outlook.com
+ (2603:10b6:930:42::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
+ 2026 05:46:28 +0000
+Received: from SA3PR12MB598757.namprd12.prod.outlook.com
+ ([fe80::e206:100:5946:a777]) by SA3PR12MB598757.namprd12.prod.outlook.com
+ ([fe80::e206:100:5946:a777%5]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
+ 05:46:28 +0000
+Date: Tue, 27 Oct 2026 16:46:22 +1100
+From: Alistair Popple <apopple@nvidia.com>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, christian.koenig@amd.com, 
+ sumit.semwal@linaro.org, jgg@nvidia.com, 
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>, 
+ Matthew Brost <matthew.brost@intel.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, 
+ Dongwon Kim <dongwon.kim@intel.com>, Leon Romanovsky <leonro@nvidia.com>, 
+ Kevin Tian <kevin.tian@intel.com>, Xu Yilun <yilun.xu@linux.intel.com>, 
+ Baolu Lu <baolu.lu@linux.intel.com>, Felix Kuehling <felix.kuehling@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, intel-xe@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, 
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, 
+ iommu@lists.linux.dev, Alexey Kardashevskiy <aik@amd.com>, zhipingz@meta.com, 
+ treding@nvidia.com, jhubbard@nvidia.com
+Subject: Re: [PATCH 05/26] dma-buf: Let the exporter select mapping type at
+ pin/map
+Message-ID: <auA0XzHv9lgImZLP@nvdebian.thelocal>
+References: <20261026053623.202642-1-apopple@nvidia.com>
+ <20261026053623.202642-6-apopple@nvidia.com>
+ <at8IQZ34wkHQ_5PL@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <at8IQZ34wkHQ_5PL@gmail.com>
+X-ClientProxiedBy: SY6PR01CA0002.ausprd01.prod.outlook.com
+ (2603:10c6:10:e8::7) To SA3PR12MB598757.namprd12.prod.outlook.com
+ (2603:10b6:806:52d::14)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Richard Lane <richardlanedev@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-From: Richard Lane <richardlanedev@gmail.com>
-Subject: [PATCH 2/3] drm/amd/display: unlock secondary tile on Apple 5K iMac
- panels
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA3PR12MB598757:EE_|CY5PR12MB6645:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9759392c-6858-4783-3821-08df33eda533
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|366016|376014|1800799024|7416014|22082099003|18002099003|261026121527099003|261022075727099003|56012099006|5023799004|11063799006|4143699003|10067099003|261009223027099003|261022105027099003|261021121427099003|261026140227099003;
+X-Microsoft-Antispam-Message-Info: znck1QSyz04bugkYl6we+im5AaNhJVC+eyT6b1RfHtlbr1gQxYLeiztucY7dxkJAY78m2wdoS2UOALZyloWMKn5q4orfqQFuNl0TvSt4/BAeSAZLPPnpjRSjn2QyiNM9umIOTItcxfDajU1E+ku0cdr6w6TGuH2vFnOWTSI1DNzBjKAYv8KNUNEkaN7TXkoxsKSb3JKpo0AiBWrwzxttpmDYm5xzxvhaTWV9yj/+7DCANFqYpAl65048TsgTASgM/BAnVxtk4Xy07iTl+2NpQ1RPT4Sw6ypHjtOdatcGf7uH1PSQM4fSd7R1QZm4ij1rgv7W4H9AJUST1X6gT8dO6OQp3dkMV5DuDn6c6U5HZSZARMVtyKUqDo3i5cVzx2X6XKxPK5CiO57Z16g1VIYs8JV2K2qIVzjFXAA9YqHGkJO7YuYCgkUOC4Uh+9JRjWqUmRGo3X6Amcm/T6ZQqBPgDPXKeNEVRAmtEW3b0R2egwsaVwQIkI8sMV4SBYGm5b2lqonslRzm2T3Wk3gucFHO7TQzZPz7IDg68bpv5jbQ1eOEq5DZhLDW5vpfdix4FYPH4XfI49W+8VlFtUVpRxj1XAZ9u+558AciAm+GSpuV6q/F1Cjs1qgrvVapCOGu9ILI1/FGcYDDbo6VVaY5W1exhmSE10djTt5QZ3XyQx1fWzw=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA3PR12MB598757.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(7416014)(22082099003)(18002099003)(261026121527099003)(261022075727099003)(56012099006)(5023799004)(11063799006)(4143699003)(10067099003)(261009223027099003)(261022105027099003)(261021121427099003)(261026140227099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?0YAxFUJ8cEEBfare/UyqRza9a9mnEpSKgQYBzt3Z63o/Z+eCVHkStkO/nYL4?=
+ =?us-ascii?Q?jzN8ajZIwouaoTyCn5psMDrjjEa3mkL0En4ZKjx1bXFz0hU7816XQA6MS+F7?=
+ =?us-ascii?Q?LCQhPtFyiCEeMic+c39W+xBhpSrQoFT4PJHJit6sSxNHgWKxha6KFjMggywO?=
+ =?us-ascii?Q?ckdvwJZ6p3EqvM6qNcsq+ligzaIJ3BtO38jf3ZvSIs9iy3F/Trz+Uydu7qO0?=
+ =?us-ascii?Q?kioclCJJl4x/hGlQQvndRVRDAqqwIdMLhTsgZlNit94y1mRRyKxOBQ7YacxP?=
+ =?us-ascii?Q?LAus0Il0QCHeQU5qEEM0xJSU2NjRAL5I6r8X2GLJJGNfg2xEkVxY/5+nC1bG?=
+ =?us-ascii?Q?K3Qdez28BBbLUCJ5fVzc+Sg72VXx57c7y0Zospjvcj/prt47HTNcXXaJnoB7?=
+ =?us-ascii?Q?akGAWO53UQaizfaM2j7wLbu1uRClAutDzWRrOwAKX+a1M1BuhmXGjgr76Fmw?=
+ =?us-ascii?Q?th5qAE9BwG0EYRbLqt1aNqfLaMSRo53M6dYzuawkViCO36bq4ALX11dcJs1q?=
+ =?us-ascii?Q?jlEeVsnjS+PvZz5ivPRR4+MJbIBe28nc34Xc8ry2u6Iulq8SjGH0UeuC58g7?=
+ =?us-ascii?Q?FCCzHCAAjZqnyuA8i3azouptiGYzrTtnPkJ+lXSsq02DzVoW509qesQWB3Sh?=
+ =?us-ascii?Q?4vqJithTLjAQe0N3lIP9CuQ+mXLseD9yNSLQZymIg1NxV7Bulil2FmMydvgz?=
+ =?us-ascii?Q?MEoPY9f6cE/lV38UxygjM4mPMYJKM4tBTB7U7A41kkDlOB9A8iPa10S9ldM0?=
+ =?us-ascii?Q?jAzi4GofzotDpZjwm92jCmTOMacqfwF/NOsChtUjEA5RtyOaTYdZEnd3Kdya?=
+ =?us-ascii?Q?RX7dtJ7tVhpeZMkO4aOOhbdj4mdT7HfpqgvmM94eJHGdeIF162m9Zm1/Pctb?=
+ =?us-ascii?Q?HckSclrVyXxC25Cirvk8EHnQkRm+MXwWfJOk22+q7Keu7/HoXulwKzvKGZEB?=
+ =?us-ascii?Q?DF/hZhWd940jRFhiGFMXYAJGgm3j0HRgdBmzFPBEAidOX5ghNWl4TiWJiouW?=
+ =?us-ascii?Q?Oy02wtdF901Znb1KAlG7GvTc5faM0PuGDTfFkDRx+yfSjyKigs2mxVEftpt+?=
+ =?us-ascii?Q?hWaBYFlO7uBpsAqT7MmQorIzbhTIH3A6xUoXa3KsiGyKuqbpA+wyIJPNr54b?=
+ =?us-ascii?Q?97wY0Bhpzw+wD/dSzuluekon6mvOrSDLYBM/lSVGYn0ubdfvBh2ceisYFOWQ?=
+ =?us-ascii?Q?xdHGtev1xTEtZ3WDY7HxdT256w83V1d0tI8K+Sh9SZ5Y8Pyz1Cc8bg90k78c?=
+ =?us-ascii?Q?1NHziSgOdrYzyIsSIL2h3S4xJ2/8MSflb7N/ClOs7oCwhaBeeZSfTseAciuK?=
+ =?us-ascii?Q?QwJxx+MbhYZrVgTJ4Jfdw+c8cY93orHh/Q6b7tkdf7aSw7t8P8RYMu9kxH7z?=
+ =?us-ascii?Q?EmmN3PTbCn2SwWthFTEAJIgW/LDKfjLX68OI61ILprj6KBJUmHOKsXpsPCn3?=
+ =?us-ascii?Q?RRpq1Z2tDHPVjQdd0mOKGK0QGJQJR7UBv4XNcE/hvrgc0OIIvjNBKyc1itmB?=
+ =?us-ascii?Q?U/tQtRTbTfEXaY0nhlVip8pxPSiexo2MaW3h225KAqnrZOeTHAvQZcxJ8NRo?=
+ =?us-ascii?Q?HmlR0k+UJbEpN0388MvOX5srilU4bq3avzEWZBK6JN0AxIxQRQSnlemKnjAx?=
+ =?us-ascii?Q?rZeoGyj6xNqu4IGBaRQ9q94g6su74OU3SrFKcrnbCWLF56jSxV+jB/rRt8Lv?=
+ =?us-ascii?Q?WqvQpt16RmLvDyTSpwVqbKb+/IF9iosbLyBJyYZAlO7rXaWx6/s2KHDy0GEb?=
+ =?us-ascii?Q?2f8nu4A8/g=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9759392c-6858-4783-3821-08df33eda533
+X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB598757.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 05:46:28.3993 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lSNEgZ5vxiyFMECzjOFPBjAJ92nBZUhaWxcFiok652GeudCENXfbzY0gJ82CX76zY60igr4zCsXf+t5wDy0G/Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6645
 X-Mailman-Approved-At: Tue, 27 Oct 2026 09:34:11 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,266 +136,78 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-6.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Apple 27" 5K iMacs (2014-2019, iMac15,1 through Polaris-based iMac19,1)
-expose their internal 5120x2880 panel as a 2x1 tiled display over an eDP
-root link and a secondary DP link. At boot, the panel TCON operates in
-single-pipe mode and holds the secondary DP link's HPD line low until
-unlocked via DPCD registers.
+On 2026-10-26 at 19:03 +1100, Karl Mehltretter <kmehltretter@gmail.com> wrote...
+> On Mon, Oct 26, 2026 at 04:35:56PM +0100, Alistair Popple wrote:
+> > +struct sg_table *dma_buf_map_attachment(struct dma_buf_attachment *attach,
+> > +					enum dma_data_direction direction)
+> > +{
+> > +	struct sg_table *sg_table;
+> > +	int ret;
+> > +
+> > +	might_sleep();
+> > +
+> > +	if (WARN_ON(!attach || !attach->dmabuf))
+> > +		return ERR_PTR(-EINVAL);
+> > +
+> > +	dma_resv_assert_held(attach->dmabuf->resv);
+> > +
+> > +	ret = dma_buf_mapping_select(attach);
+> > +	if (ret)
+> > +		return ERR_PTR(ret);
+> > +
+> > +	sg_table = __dma_buf_sgt_map_attachment(attach, direction);
+> > +	if (IS_ERR(sg_table))
+> > +		/* Nothing was established, so the choice may be made afresh */
+> > +		attach->selected = false;
+> > +
+> > +	return sg_table;
+> > +}
+> 
+> The map-failure report from Sashiko [1] reproduces with a KUnit test
+> against the full series:
+> 
+>   pin selects B -> map returns -EIO -> selected is cleared
+>                 -> retry selects A, with the original pin still held
+> 
+> The exporter pin count stays at 1. Preserving selected when it was true
+> on entry makes the test pass. Patch 7 needs the same fix.
 
-Enable native tiled detection and link training for DCE < 12 Apple 5K
-panels:
-- Pair the two internal dc_link instances during EDID quirk matching for
-  DCE < 12 iMac15,1, iMac17,1, iMac18,3, and Polaris-based iMac19,1
-  (identifying roles via connector_signal since panel IDs can flip
-  across the two links after S3 wake). DCE >= 12 support for Vega-based
-  iMac19,1, iMacPro1,1, and iMac20,x is documented as TODO.
-- Avoid falling back to DVI and latch the secondary tile via DPCD 0x4F1
-  on the root eDP link when probing the secondary link.
-- Write the 3-byte Boot Camp source table (0x04, 0x1d, 0x03) to DPCD
-  0x310 in dpcd_set_source_specific_data() to unlock the secondary tile.
-- Prevent the secondary tile from entering DP_SET_POWER D3, which causes
-  the TCON to drop HPD and stop responding to AUX transactions.
-- Override the secondary tile's connector type to DRM_MODE_CONNECTOR_eDP
-  so userspace compositors treat both tiles as a single built-in display.
-- Unlatch both tiles (0x4F1) and clear DP_SOURCE_TABLE_REVISION (0x310)
-  and DP_EDP_CONFIGURATION_SET (0x10A) in dm_suspend() so the TCON
-  returns to single-pipe mode for the EFI boot screen across reboots.
+Agreed, thanks for looking. A failed map shouldn't undo a previous selection.
 
-Signed-off-by: Richard Lane <richardlanedev@gmail.com>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 31 +++++++++++++++++
- .../display/amdgpu_dm/amdgpu_dm_connector.c   |  6 ++++
- .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 34 +++++++++++++++++++
- drivers/gpu/drm/amd/display/dc/dc.h           | 12 +++++++
- .../drm/amd/display/dc/link/link_detection.c  | 14 +++++++-
- .../dc/link/protocols/link_dp_capability.c    |  7 ++++
- .../display/dc/link/protocols/link_dp_phy.c   |  8 +++++
- 7 files changed, 111 insertions(+), 1 deletion(-)
+> Could dma_buf_mapping_select() report whether it made a new selection?
+> Then the error path could undo only that choice, without dropping one
+> established by an earlier pin or map.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index bdabb4bf14da..548f975c7324 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -1607,6 +1607,35 @@ STATIC_IFN_KUNIT void dm_destroy_cached_state(struct amdgpu_device *adev)
- }
- EXPORT_IF_KUNIT(dm_destroy_cached_state);
- 
-+/*
-+ * Unlatch Apple 5K panel tiles and reset DPCD state on suspend/shutdown.
-+ * This returns the TCON to single-pipe mode so the EFI boot logo is not
-+ * skewed on reboot.
-+ */
-+static void amdgpu_dm_apple5k_unlatch(struct dc *dc)
-+{
-+	const u8 zeros[3] = { 0 };
-+
-+	for (int i = 0; i < dc->link_count; i++) {
-+		struct dc_link *link = dc->links[i];
-+
-+		if (dc_link_is_apple_5k_secondary(link)) {
-+			/*
-+			 * Clear Boot Camp source table (0x310), eDP config
-+			 * (0x10A), and secondary tile latch (0x4F1).
-+			 */
-+			core_link_write_dpcd(link, DP_SOURCE_TABLE_REVISION, zeros, 3);
-+			core_link_write_dpcd(link, DP_EDP_CONFIGURATION_SET, zeros, 1);
-+			core_link_write_dpcd(link, 0x4F1, zeros, 1);
-+
-+			/* Unlatch primary root tile */
-+			core_link_write_dpcd(link->tiled_peer, 0x4F1, zeros, 1);
-+
-+			break;
-+		}
-+	}
-+}
-+
- static int dm_suspend(struct amdgpu_ip_block *ip_block)
- {
- 	struct amdgpu_device *adev = ip_block->adev;
-@@ -1674,6 +1703,8 @@ static int dm_suspend(struct amdgpu_ip_block *ip_block)
- 
- 	amdgpu_dm_hpd_rx_irq_work_suspend(dm);
- 
-+	amdgpu_dm_apple5k_unlatch(dm->dc);
-+
- 	dc_set_power_state(dm->dc, DC_ACPI_CM_POWER_STATE_D3);
- 
- 	if (dm->dc->caps.ips_support && adev->in_s0ix)
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-index ded8e21897f1..27de7965f366 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-@@ -3460,6 +3460,12 @@ int amdgpu_dm_connector_init(struct amdgpu_display_manager *dm,
- 	}
- 
- 	connector_type = to_drm_connector_type(link->connector_signal, link->link_id.id);
-+	/*
-+	 * Override Apple 5K secondary tile to eDP so compositors treat it as
-+	 * built-in.
-+	 */
-+	if (dc_link_is_apple_5k_secondary(link))
-+		connector_type = DRM_MODE_CONNECTOR_eDP;
- 
- 	res = drm_connector_init_with_ddc(
- 			dm->ddev,
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index 9774ea33272d..db6ac803e14f 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -97,6 +97,21 @@ STATIC_IFN_KUNIT u32 edid_extract_panel_id(struct edid *edid)
- }
- EXPORT_IF_KUNIT(edid_extract_panel_id);
- 
-+/*
-+ * Pairs the two internal hardware links driving the Apple 5K panel,
-+ * allowing the driver to synchronize both tiles as a single display.
-+ */
-+static void dm_helpers_wire_tiled_peer(struct dc_link *link)
-+{
-+	u32 peer_index = link->link_index ^ 1;
-+
-+	if (link->ctx->dce_version < DCE_VERSION_12_0 &&
-+	    peer_index < link->dc->link_count) {
-+		link->tiled_peer = link->dc->links[peer_index];
-+		link->tiled_peer->tiled_peer = link;
-+	}
-+}
-+
- STATIC_IFN_KUNIT void apply_edid_quirks(struct dc_link *link, struct edid *edid,
- 			      struct dc_edid_caps *edid_caps)
- {
-@@ -173,6 +188,25 @@ STATIC_IFN_KUNIT void apply_edid_quirks(struct dc_link *link, struct edid *edid,
- 		drm_dbg_driver(dev, "Force FreeSync min to 60 Hz on panel id %X\n", panel_id);
- 		edid_caps->panel_patch.force_freesync_min_hz = 60;
- 		break;
-+	/*
-+	 * Workaround for Apple 27" 5K iMacs which expose a 2x1 tiled internal
-+	 * panel over an eDP root link and a secondary DP link. Wire the peer
-+	 * links to latch and synchronize both tiles, using connector_signal
-+	 * for role assignment as panel IDs can flip after wake.
-+	 * IDs (Root/Tile): iMac15,1 (AE01/02), iMac17,1 (AE05/06),
-+	 * iMac18,3 (AE11/12), iMac19,1 (AE25/26); TODO (DCE >= 12): iMac19,1
-+	 * Vega (AE25/26), iMacPro1,1 (AE1D/1E), iMac20,x (AE31/32).
-+	 */
-+	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE01):
-+	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE02):
-+	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE05):
-+	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE06):
-+	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE11):
-+	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE12):
-+	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE25):
-+	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE26):
-+		dm_helpers_wire_tiled_peer(link);
-+		break;
- 	default:
- 		return;
- 	}
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index f4fefa7c9ab8..498c11c0616f 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -2003,6 +2003,12 @@ struct dc_scratch_space {
- 	bool skip_implict_edp_power_control;
- 	bool forced_psr_active;
- 	enum backlight_control_type backlight_control_type;
-+
-+	/*
-+	 * Partner link for dual-tile Apple 5K panels, wired during EDID quirk
-+	 * matching.
-+	 */
-+	struct dc_link *tiled_peer;
- };
- 
- struct dc {
-@@ -3172,6 +3178,12 @@ struct dc_sink {
- 
- void dc_sink_retain(struct dc_sink *sink);
- void dc_sink_release(struct dc_sink *sink);
-+/* Helper to identify secondary (DP) tile of the Apple 5K panel. */
-+static inline bool dc_link_is_apple_5k_secondary(const struct dc_link *link)
-+{
-+	return link && link->tiled_peer &&
-+	       link->connector_signal == SIGNAL_TYPE_DISPLAY_PORT;
-+}
- 
- struct dc_sink_init_data {
- 	enum signal_type sink_signal;
-diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-index b4546f93af0c..25662ed3e612 100644
---- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-@@ -218,7 +218,8 @@ static enum signal_type link_detect_sink_signal_type(struct dc_link *link,
- 			 * we assume signal is DVI; it could be corrected
- 			 * to HDMI after dongle detection
- 			 */
--			if (!dm_helpers_is_dp_sink_present(link))
-+			if (!dc_link_is_apple_5k_secondary(link) &&
-+			    !dm_helpers_is_dp_sink_present(link))
- 				result = SIGNAL_TYPE_DVI_SINGLE_LINK;
- 		}
- 		break;
-@@ -1625,6 +1626,17 @@ bool link_detect_connection_type(struct dc_link *link, enum dc_connection_type *
- 		}
- 	}
- 
-+	/*
-+	 * Internal tiled DP secondary reports HPD low until latched. Latch
-+	 * the secondary tile via the root eDP link's DPCD (0x4F1) and force a
-+	 * single-sink connection.
-+	 */
-+	if (*type == dc_connection_none &&
-+	    dc_link_is_apple_5k_secondary(link)) {
-+		core_link_write_dpcd(link->tiled_peer, 0x4F1, &(const uint8_t){1}, 1);
-+		*type = dc_connection_single;
-+	}
-+
- 	return true;
- }
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-index ad1a499b0d9d..15f223e48091 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-@@ -1496,6 +1496,13 @@ void dpcd_set_source_specific_data(struct dc_link *link)
- 				link->dc->vendor_signature.data.raw,
- 				sizeof(link->dc->vendor_signature.data.raw));
- 	}
-+	/*
-+	 * Write the 3-byte Boot Camp source table (0x310) required to unlock
-+	 * the secondary tile.
-+	 */
-+	if (dc_link_is_apple_5k_secondary(link))
-+		core_link_write_dpcd(link, DP_SOURCE_TABLE_REVISION,
-+				     (const uint8_t[]){0x04, 0x1d, 0x03}, 3);
- }
- 
- void dpcd_write_cable_id_to_dprx(struct dc_link *link)
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
-index 49521ac4b0e8..abac117d0514 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
-@@ -50,6 +50,14 @@ void dpcd_write_rx_power_ctrl(struct dc_link *link, bool on)
- 	if (link->sync_lt_in_progress)
- 		return;
- 
-+	/*
-+	 * Prevent Apple 5K secondary tile from entering D3 power-down.
-+	 * Powering it off causes the TCON to drop HPD and stop responding to
-+	 * AUX.
-+	 */
-+	if (!on && dc_link_is_apple_5k_secondary(link))
-+		return;
-+
- 	core_link_write_dpcd(link, DP_SET_POWER, &state,
- 						 sizeof(state));
- 
--- 
-2.55.0
+We could do. At one stage I had a prototype of this returning the old match, but
+that got complicated. We do need to undo in the error path though, so will fix
+this for v2.
+
+> On the Sashiko failed-pin report:
+> ("Because the attachment is not pinned, the exporter may migrate the
+> buffer elsewhere without invalidating it")
+> 
+> I don't think this follows from the documented contract.
+> select_mapping() requires the exporter to keep the recorded type
+> servable and invalidate before an incompatible move. That obligation
+> still applies if ops->pin() fails.
+
+Yes, I think that statement is correct.
+
+> Is retaining the selection after a failed pin intentional? If so, this
+> can be added as a test documenting that alongside the map-failure
+> regression test.
+
+No, that was not intentional. As noted about I think if the first pin/map of an
+attachment failed it should effectively go back to the selected = false state.
+
+ - Alistair
+
+> Thanks,
+> Karl
