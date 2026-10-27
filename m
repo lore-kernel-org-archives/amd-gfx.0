@@ -2,128 +2,99 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC06A606A31A
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 04:41:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9523E606A320
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 05:22:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ByZVhisO
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=JHaP2ZCB
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8130510E218;
-	Tue, 27 Oct 2026 04:41:47 +0000 (UTC)
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013031.outbound.protection.outlook.com
- [40.93.201.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 862BE10E218;
- Tue, 27 Oct 2026 04:41:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3826E10E124;
+	Tue, 27 Oct 2026 05:22:19 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012066.outbound.protection.outlook.com [52.101.53.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA63710E124
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2026 05:22:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=R6dRIAeCTGp1YCDM+EkZOgT4SV8sAHz9XB9Aua7/aGSPzhYm+0YmzbwrXZ1/deS3c0G4NMsKNImbvh8w1c6C46W6jZY8O8cb2s0HhDqi3fu63h9Fxnqv50oaxIzX51bgDOkYC+eLr1ImxT4KboYuz1fRRsP+phyMdpkgV3MGH34uf2HFzYvmyG6RvSWA2NvCpXQRifTl1atMvBlkn5NNP/TiUJfm91++A9EYwjjvtu8rfjP3bTcCCW7NOZ2qmfC8j7YPCGPVyWc5RQk1vLhk4s2/xdbhpbNkbxnptCIDtkgPfxWdU+9THwH1x6RCWotVP5wrw978pwtQjGin7pMQyw==
+ b=Y2tHIxAG87dqwDZUGkq92PoeMVnEv8SOEaMRpTk0UN/YjkKNPPP0XuVi3L/zM5VjYRwsKIls0EzTLME/9mQA08JngbD5sDe88zhWDmb/aIyy79tLHgg7AuhGsnhWMaekoBHWyaZLJdK5mldTA0sRr8SZUTr5lK6N859OvGixqnbB12hmS9vlr2bPeyzOnblTGxW34U1cCpR0ERkKaNW/HD8g+7mRVc1gnopO1Xy690mQwlf4T82fNNQYjgl+jjny8VZI28oRy8ADFvkW4DEH4Ur2aCP+2Qq4QhhifJPCjySaLvVR8uWFmnJrVny7X/VFagyhgU14PfYLjG8IaGfovQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SVK/bV1B3kvBJC10uWIJEZvjX8nNtALCrupE7TaYsME=;
- b=xpDtB+Nn//o6usppo1l2FxhBI6yGICaHtgyp/dXdNUNG8mnT+nCSVDdXtub1wdGjZAltpJbPjYMG46hYR+UFWLsgJ5+OT4nIXQBuFGpJ3TShhtjlfuTHKjdcte69E57yNo7JuAKZJR6Yj5/UsyTyoLkFdAEOp0Jk+DSA/QnSZq9B4680M0GYdYa+YZUi2yTbyaEeZAS5DxAH5OOyUPQIcXqO/8d5wSm+wY/f4RzPxkeRMpc7K1LJsmSJv03gAuQ8183lZ+24XHnQs37gGka8W5kGeVuOvwh0SJNUuWsH6FKjIXK7vA0F9hCROZaLn1ikKPaSh2RHT3xF+HsrUsZuhA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=EZpFGThBaION2hT4L0IVN4N0pJYE0IbA9PFHwKMFOzg=;
+ b=cn7g6SiAxyAfiVPh8eqG41Xi8IJwn4Ih6pohMWetmC7fBuUZS44GDoHE9MEgfoFQqAYZfgVSumVC6cpiOTYqW2p15V5lJz6rNWmNn65XgBYIyoFZLyT+/SaGzPoZnqVJLoJ4P/5CyuRB7U7Gkx4B8KcT/eiafnjwAx1v9KnLFjZdocABvpML+OEYGQFkxHBNIzPmKOLmcqGB5fQOyUnlwvexM5//ZlNVNl7t3JDdV58R9PdPQTtDrME4w8w5Tg7yjJE1YOoQ0xyy3ivszf3jfbggRY9g8jtmId2rpWdLQvwShWRDdxSzVwpZbqjXE5SQQ0ejOok/IHBuDIKtfANt0A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SVK/bV1B3kvBJC10uWIJEZvjX8nNtALCrupE7TaYsME=;
- b=ByZVhisOnCbUByZW66biup2EA0IXrAi2Ym/eKK3thct+gCJDNNO7mx5dp0fQzYptMEg//YI1AsYwZ16zeiaDtxzT89jAfpj/cOC4NRguphbFW5kwt43x0VpUxEnd+HOi9JpZFv8Mx9EF8XTk/cxrmOmRcSQueQqKOUci6YHlsUo=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
- by CH0PR12MB8552.namprd12.prod.outlook.com (2603:10b6:610:18e::9)
+ bh=EZpFGThBaION2hT4L0IVN4N0pJYE0IbA9PFHwKMFOzg=;
+ b=JHaP2ZCBcNyKW/lw/kJ/aP5vqQanbG87oKmNrQdMAcExqCYPZ1fm0HUx/GXlLxTA2IKBsEqStV9JoH2DUUvcMsTwlmiBTrket1Txtv9Okqs/SAf/S6oqWsFP+58wOZz4jeRcLhnsWzGPTE2ZZzoKayg0NgTLcQL1c5omGGhJp/g=
+Received: from PH7P223CA0001.NAMP223.PROD.OUTLOOK.COM (2603:10b6:510:338::22)
+ by PH7PR12MB6787.namprd12.prod.outlook.com (2603:10b6:510:1ad::15)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 04:41:38 +0000
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 04:41:38 +0000
-Message-ID: <bb135cd6-5e36-4330-9635-885bb26576e3@amd.com>
-Date: Tue, 27 Oct 2026 10:11:31 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] PCI: Preserve the initial bus number in pci_bus
-To: Mario Limonciello <mario.limonciello@amd.com>,
- Bjorn Helgaas <helgaas@kernel.org>, Alex Deucher
- <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>
-Cc: Oz Tiram <oz@shift-computing.de>, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-References: <20261026-vfct-regression-v3-0-fe9586ed6978@amd.com>
- <20261026-vfct-regression-v3-1-fe9586ed6978@amd.com>
-Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20261026-vfct-regression-v3-1-fe9586ed6978@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA1PR01CA0183.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:d::6) To SA0PR12MB7091.namprd12.prod.outlook.com
- (2603:10b6:806:2d5::17)
+ 2026 05:22:08 +0000
+Received: from SN1PEPF000397B1.namprd05.prod.outlook.com
+ (2603:10b6:510:338:cafe::b) by PH7P223CA0001.outlook.office365.com
+ (2603:10b6:510:338::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Tue,
+ 27 Oct 2026 05:22:08 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SN1PEPF000397B1.mail.protection.outlook.com (10.167.248.55) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.4 via Frontend Transport; Tue, 27 Oct 2026 05:22:07 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 27 Oct
+ 2026 00:22:07 -0500
+Received: from JesseDEV.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Tue, 27 Oct 2026 00:22:05 -0500
+From: Jesse Zhang <Jesse.Zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
+ Eric Huang <jinhuieric.huang@amd.com>, <Felix.Kuehling@amd.com>,
+ Jesse Zhang <Jesse.Zhang@amd.com>
+Subject: [PATCH] drm/amdkfd: use the queue's process info for the WPTR BO
+ eviction fence
+Date: Tue, 27 Oct 2026 13:21:22 +0800
+Message-ID: <20261027052205.2716707-1-Jesse.Zhang@amd.com>
+X-Mailer: git-send-email 2.50.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|CH0PR12MB8552:EE_
-X-MS-Office365-Filtering-Correlation-Id: 23c04c03-5065-405b-eaee-08df33e49643
+X-MS-TrafficTypeDiagnostic: SN1PEPF000397B1:EE_|PH7PR12MB6787:EE_
+X-MS-Office365-Filtering-Correlation-Id: f29c99de-8985-4cd5-9abf-08df33ea3edf
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|1800799024|376014|261009223027099003|261022105027099003|261022075727099003|261021121427099003|10067099003|56012099006|261026121527099003|3023799007|22082099003|18002099003|4143699003|11063799006|261026140227099003;
-X-Microsoft-Antispam-Message-Info: AG+i+YcszxkaC6OmkGKQSXyP7RyELYAxo0s+ED+FzdIyv/gcl4UqrS1X40L2j3oCnK4KSkTQOHCCZ8GZ9bOIhLe8gWDkiiXfcQ+lniRtoDpKUS0BSlHtxAPpst0vXmyJnExPkNtZeAvxa5RS2oatLhBxh3/8sNIbEZL+aJlVspvWi+/4DTlfeCXQ4fP5aVLOWzwW0sNlapQpiKsJkORlQAAOMmEIMQzN0ibeFDAiFdtB+BqyVp7RqNg5gyVtU9fEznHPt92ujgRf4rg/jD/WVhqTyglXUIQG5lzHHeukavApn5X1Tfk2gUrGn+0U4HSdlTi4XkbgSEXtnVEdNb3voZuYnEquiSPFZq+wLjdfUplfRBnX3jhipQBuuTm4zn/SHp9VBUbcT8bCeRvAvVreUakHXbeA4kAfuXCvqjJjx1EfkenhP5Z8rWyOM9mRUzLsQQR9CJfFDfjs0sIdCr2F7wk+y2z5QqRbY8AB1Nt8q7JAEGbc+P4C8EOG+Y7lpbCJiUjLDfoOc4eiUXD5pU+eNlGzWqpMOUmWVT1z2lhzZUI48qPJ6ZAG9+yn+/9nli6u3tUI/UO1sz+MjPW/lX5GseozQjwZ2L7AuiOC9X/oPBW/AI6oiZjFeSFMsTWZRflz2IOab1hNkFkghFouSB/wd4MvXBQXr5dyXsaMx4pTUkE=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(261009223027099003)(261022105027099003)(261022075727099003)(261021121427099003)(10067099003)(56012099006)(261026121527099003)(3023799007)(22082099003)(18002099003)(4143699003)(11063799006)(261026140227099003);
+ ARA:13230040|36860700016|376014|1800799024|23010399003|82310400026|261009223027099003|261021123027099003|261022105027099003|261021121427099003|10067099003|56012099006|261026121527099003|18002099003|11063799006|261026140227099003;
+X-Microsoft-Antispam-Message-Info: FpprWXYzstu3xAwZ6kxud/yyKTBThaWwPsIScbkP/Tv7aTzY84bcFlOuvA8QGqaz7RKi1z9WexSwZpzMrtYYzQnNFiHDAYFVYlYhUuy0SAzcUmvzkGlbbeQIDMnyZZ2E6JF7wMhFnITKaZBN2ToNv8/nByW6HoAwckCP8pZSsZNGU65UqAL54XGGt8oKwzCEch2E10bRh0tKVBN3FHrIOF3lZVyNdk1+KUSC/JowUFrMTY2bdcMDAldf/aTCL/npRrluooW09/pWg4fJgEtWmasG6AqvBJ4+8mq31LPy1t8a2fWTKMKRXYWI4fH98xus0sq8EJducNBnKM6datNPBEp/JwJQF6568UczEd2IRHJUmGIXgOVT8z7zF1NXxaOvbEK3XmcqoFmgXCu9UXL4kMETNwtXjrM/ywRc4moRTKMBcDz0jQg/4AZXYZ0Xxn+Zotg59WxKUmcsn6kiiy3xiRL/d2ZZtSJv3VYXNsHPb+6wZ4tE6jUTiWdEKVgZLHYv9XXAJ3/lDEx3yTqty0qmtMah+XzsjuYIv+sOZXDZeGR1N+is11E13zgepqY8s+ihhH3sRphQfD+lG/1+4ozHhpE7ImpW5vaygmcU20jy1la5B3DsRPZL50E0OBWqwemqKD6noPbvyUp9mQuBpuCdcWjd2Op6cgux9Mux0b2rAk4M4MY9H59FQWM6XX/OyzcKoWhgozB/rCNxVaondfto2g==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(376014)(1800799024)(23010399003)(82310400026)(261009223027099003)(261021123027099003)(261022105027099003)(261021121427099003)(10067099003)(56012099006)(261026121527099003)(18002099003)(11063799006)(261026140227099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N3J1ZHR4UmY2cVNUK09Tbi8wbE5JWFF6OVc1cEtQWU1XMVhZdHBYWjlsTFQz?=
- =?utf-8?B?citRSVU1bjlRYjVGUkdLZTFyM1RRS21nZXFLQzg2VXg0M3pIMjgxZTZsdU9M?=
- =?utf-8?B?WnFHejdlT0xKOTg0eTlnczBzSGVMY3Z4MXZBOWFQckMxOWhXYmdPNzBtdzJI?=
- =?utf-8?B?TDZDSEUzczdiWkZuczl5ekZzSmlBT1dlZVBTTGxYcklxNnYxdVdTSk56Z0Jl?=
- =?utf-8?B?Q05qRG53NlljVW5yQmROelpZVjdkOEhCeGpWMDFmK3RpZWdQRlNrS3BKZkZF?=
- =?utf-8?B?WjJ6WE12ZUlVQUpKbDNialFtYmtrLzZ0bXRyVTZhbGFYSHZZY2k5QmViQVZH?=
- =?utf-8?B?cS9JV2dOVWczTnZtY0dCaU5GOGZBbW1GWkpHZFd1V3VtNk1LTUJjZmJVbGJP?=
- =?utf-8?B?NXFudmlzUVdWaTRENDlXOXBTbEw1NGFGSzBnTXhoT3Z2MXJmM0hwQ2x0ZDVa?=
- =?utf-8?B?emE0akR3eEtMWjJNQzdTRzVPNkdxNmJtK1JYS0JDaTBSOUtncEx5MzlSRmpo?=
- =?utf-8?B?TE82TlRqeGZNTWd4YWY0T3dFQ2xQbGVrQkVBNmRpNnJVa0pqb3dObXpDcGJz?=
- =?utf-8?B?ZUxLQXcxYndGdFg1QnNrVVYwanVtY1I1YUpCT0hNcG0zTUlRVFJzSVFoUU13?=
- =?utf-8?B?ZVd4K2tRRFE2Rmx0NDJzOHkwWXJsVllGUnNqTWREVFBOZzNJVUFvN3RPdUZU?=
- =?utf-8?B?Ui84UlJTbWhDZlFoSS81NUt0Q1l3ZTNoODFMV0d0bVZ2ZFdJTE8xZ3YveWk5?=
- =?utf-8?B?U2I2bkl6K0lvZzNWRlVVbWFLbnA5RmovWk1JZzFRQzI0YmlZZ21SWDFPdUtS?=
- =?utf-8?B?Vy91UDRIcVZLNFNYdUczNUpIR1V4S281OFNMdkJJVDBBNWxsM3hPN0RUb2I4?=
- =?utf-8?B?ajFqbXdiM3ZJNzhDYjVHVGYzQWtjMlczcGl2d1REQVRDT3o0Z1hWbS9FTVdX?=
- =?utf-8?B?UnFud3VYNUdRRVlRSzNmOVQwU25EVGJpRms1MXdpbzFMSmp4N3R3aXpkMHJp?=
- =?utf-8?B?MU1CaDNyQnlxSnpDalFzeWN2eWpYYXBoeFk0Y3lHbytOQm1OUjkwUjQrN0Jj?=
- =?utf-8?B?TitUMU9sdGlhN1NmeUNLZ29vcGVlQmpwdVBFa2NFa0pPUmd3QndMZVdlMW9Y?=
- =?utf-8?B?NFVnakd2WnoydmJaNTFoZWJ1OEJHUUdXU2tSV1diRng0b1BYWTJnalZkZ2RD?=
- =?utf-8?B?azNxd2V1L1VUbHlaWUlObjdYd2cvSFU3RnFpa1U0YjNzSXIzOUgrQ25NV0hS?=
- =?utf-8?B?Q1M3THNyMFlXMUkrS2FLZVJ2OUt4c3RtN1JSTVp1b3RYbzYvQllFWFlxbEEv?=
- =?utf-8?B?Nm9Dd1MzOEZJVHhnNlpMQzdJZHdjRlBUK0FvMFBVOUNPRHFmU3ZCN1ZKZGR3?=
- =?utf-8?B?b0k3dk5iczBGWktCZUg5aHl3dk83QUpKSXZ6Q3NqUTRvRUl4dE1iRkxjZDdp?=
- =?utf-8?B?VmhtMEVOREhHUUFNbU1SdXEwM01wZnk5SWxDRk9GYVp5V0V4Ukx4Qlpab0dD?=
- =?utf-8?B?VGhJeHdEaUJrTjhabHpZSmJ6ZlBCcTVObXZySEJJbllHK0F2QmpQbHRtOEtQ?=
- =?utf-8?B?d01qakJQWmg0dGJ3RDBybndMVWRJMCtXTzVQdEk3azlGd25DeEFreFJhb3ZQ?=
- =?utf-8?B?dFFMSDRJQWhtV3FTK3JvZVJuUFFOcTd0TDdCQ2JPUnJPa2VUVU4vYWRleWhp?=
- =?utf-8?B?dHpaQ1VMc3JTdEpZVVVRMVc0Tm01aWlaYk05L3ZWQVBHSlRwdFMvZGpjdlBH?=
- =?utf-8?B?V1dHOXZCLytsajRhaStHeElhY0xJNHd2eSs2WktwWUdreFkya1ZlMkw4RzV6?=
- =?utf-8?B?ZnhwRTlGWmF2akM5d1VWditqRXVuc0xnOGQwc1Z6c0ExYnlDRU5qdmhWQlJi?=
- =?utf-8?B?VEo0dStNSTVhQnVaeGZpVVQrMEtoUEx3d24xM1ZQQWorTUNaMjJzZzhQbTFw?=
- =?utf-8?B?ZHNSVUJYbmlNT2NuWTk3aFE4K2VtdXR0UXJnRXlacmpoNVpHZ1NuRUJLRVN3?=
- =?utf-8?B?Rlc2eGVSd25pQmg1bG5QclJtelpydzliQkV3R1pObW1Rc1l4RGphdU01UjFZ?=
- =?utf-8?B?M3VJL25hUWtuVFovaGtmVnJTL2xRcURxYkw3TGZoMDNIS2Q3cjZuUUw5dVdQ?=
- =?utf-8?B?RW9JeUZSeFM3L3pWbElPSFNydXllSDMwbjN1aE9GMHloV3BkS2F6cTJYcGNO?=
- =?utf-8?B?SWNWV3FwclpzQTNMckRsOXgydzVtd0F5RkhVT3lRYk8wTXdweWVzUXdtRTVj?=
- =?utf-8?B?NytCS2kxTG5QUUVVdkZhUW9rTHpHak94YXFNdDYyU2VjVmh3QmxNYUFQdm9K?=
- =?utf-8?Q?Ot8GVEb45Fi9tE4x/Y?=
+X-MS-Exchange-AntiSpam-MessageData-0: UVixXdmJWgPzbjbQQb4xQhkeVwB6TAdanmKJKbkYqUlwtcyH+sYrExzKRIfDxv/rUXZmwYcnyDD+P+iOe5jzODNr/6iwVBKOfDHJxAJ2kiwwY8ymvBEvkKx4E9fZlJ28LzXY3/krIZcnjP2oUZwWSWA6NYBJV7JfoN16DEc+bBckcTyZhv8Xhkwu9HbuN/9LbEBB0KN0kN+/44gtqsRP1eakZS/9gYMhP4U1Y1sSD0Uw47Y9jgqxPKWCJKJ2FpebPDudrfNeeoQpmYEmnNJS6PtGmuoTBUOIhFHv3LR68uMLFQq7ufPeftFbCMHOv2quGqJQ3n4GrM4MHu9tvhvn1o68SZEuY7i1mrcC1Gqu8xbGm55pct8w3JOUwU7RERIP6rxVSaSL28FxApSBPjdup25NFvnZyeRkboU7bxS/hmQA81IXztV5dwbiloFik4uS
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 23c04c03-5065-405b-eaee-08df33e49643
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 04:41:37.9871 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 05:22:07.9736 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f29c99de-8985-4cd5-9abf-08df33ea3edf
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: F1fP2TmBLKnJl5SwaRDLwgY1XS2y1foF+gv2lNyqlhnf2YpG5eEXSDanEBI+cyxu
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB8552
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000397B1.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6787
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,106 +105,97 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.6 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+amdgpu_amdkfd_map_gtt_bo_to_gart() removes the eviction fence of
+bo->vm_bo->vm->process_info from the WPTR BO of a new queue. bo->vm_bo
+is the VM which opened the BO last, not necessarily the KFD process' VM,
+and a render node VM has no process info.
 
+On navi31, an unprivileged process which exports its WPTR BO with
+AMDKFD_IOC_EXPORT_DMABUF and imports it on a second render node fd
+oopses in AMDKFD_IOC_CREATE_QUEUE:
 
-On 26-Oct-26 9:18 PM, Mario Limonciello wrote:
-> Bridges that need bus reassignment are scanned in two passes. Save
-> the firmware secondary bus number during the first pass, before the
-> bridge is disabled, and carry it to the bus created in the second
-> pass. Drivers can then match firmware records against the bus number
-> from before PCI bus renumbering.
-> 
-> The initial number belongs to the bus, so consumers can use the
-> pci_bus value directly without copying it into every pci_dev.
-> 
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> ---
->   drivers/pci/probe.c | 9 +++++++++
->   include/linux/pci.h | 2 ++
->   2 files changed, 11 insertions(+)
-> 
-> diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
-> index 27008e2ea5afc..9950a9dd1db1f 100644
-> --- a/drivers/pci/probe.c
-> +++ b/drivers/pci/probe.c
-> @@ -1012,6 +1012,7 @@ static int pci_register_host_bridge(struct pci_host_bridge *bridge)
->   	bus->sysdata = bridge->sysdata;
->   	bus->ops = bridge->ops;
->   	bus->number = bus->busn_res.start = bridge->busnr;
-> +	bus->number_initial = bus->number;
->   #ifdef CONFIG_PCI_DOMAINS_GENERIC
->   	if (bridge->domain_nr == PCI_DOMAIN_NR_NOT_SET)
->   		bus->domain_nr = pci_bus_find_domain_nr(bus, parent);
-> @@ -1232,6 +1233,7 @@ static struct pci_bus *pci_alloc_child_bus(struct pci_bus *parent,
->   
->   	/* Set up the primary, secondary and subordinate bus numbers */
->   	child->number = child->busn_res.start = busnr;
-> +	child->number_initial = busnr;
->   	child->primary = parent->busn_res.start;
->   	child->busn_res.end = 0xff;
->   
-> @@ -1470,6 +1472,7 @@ static int pci_scan_bridge_extend(struct pci_bus *bus, struct pci_dev *dev,
->   			child = pci_add_new_bus(bus, dev, secondary);
->   			if (!child)
->   				goto out;
-> +			child->number_initial = secondary;
->   			child->primary = primary;
->   			pci_bus_insert_busn_res(child, secondary, subordinate);
->   			child->bridge_ctl = bctl;
-> @@ -1491,6 +1494,8 @@ static int pci_scan_bridge_extend(struct pci_bus *bus, struct pci_dev *dev,
->   		 * do in the second pass.
->   		 */
->   		if (!pass) {
-> +			if (!dev->secondary_busnr)
-> +				dev->secondary_busnr = secondary;
->   			if (pcibios_assign_all_busses() || broken)
->   
->   				/*
-> @@ -1529,6 +1534,10 @@ static int pci_scan_bridge_extend(struct pci_bus *bus, struct pci_dev *dev,
->   			pci_bus_insert_busn_res(child, next_busnr,
->   						bus->busn_res.end);
->   		}
-> +		if (dev->secondary_busnr) {
-> +			child->number_initial = dev->secondary_busnr;
-> +			dev->secondary_busnr = 0;
-> +		}
->   		max++;
->   		if (available_buses)
->   			available_buses--;
-> diff --git a/include/linux/pci.h b/include/linux/pci.h
-> index 5ffcf5ce8c966..75a5fd2374acb 100644
-> --- a/include/linux/pci.h
-> +++ b/include/linux/pci.h
-> @@ -363,6 +363,7 @@ struct pci_dev {
->   	struct pci_slot	*slot;		/* Physical slot this device is in */
->   
->   	unsigned int	devfn;		/* Encoded device & function index */
-> +	u8		secondary_busnr;	/* Original secondary bus number */
+  BUG: kernel NULL pointer dereference, address: 0000000000000060
+  RIP: 0010:amdgpu_amdkfd_map_gtt_bo_to_gart+0x86/0x1a0 [amdgpu]
+   init_user_queue.part.0+0x180/0x250 [amdgpu]
+   pqm_create_queue+0x32d/0x730 [amdgpu]
+   kfd_ioctl_create_queue+0x583/0x9f0 [amdgpu]
 
-This doesn't make sense for end point devices. Is it possible to keep 
-under bus itself?
+Pass the process info of the queue instead. With the fix, the queue is
+created and destroyed normally.
 
-Thanks,
-Lijo
+Fixes: 7f347e3f8217 ("drm/amdkfd: Fix NULL pointer error for GC 11.0.1 on mGPU")
+Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h             | 3 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c       | 8 +++++---
+ drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c | 3 ++-
+ 3 files changed, 9 insertions(+), 5 deletions(-)
 
->   	unsigned short	vendor;
->   	unsigned short	device;
->   	unsigned short	subsystem_vendor;
-> @@ -724,6 +725,7 @@ struct pci_bus {
->   	struct proc_dir_entry *procdir;	/* Directory entry in /proc/bus/pci */
->   
->   	unsigned char	number;		/* Bus number */
-> +	unsigned char	number_initial;	/* Bus number before reassignment */
->   	unsigned char	primary;	/* Number of primary bridge */
->   	unsigned char	max_bus_speed;	/* enum pci_bus_speed */
->   	unsigned char	cur_bus_speed;	/* enum pci_bus_speed */
-> 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+index 77c0504cc158..74dc307e5140 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+@@ -344,7 +344,8 @@ int amdgpu_amdkfd_gpuvm_map_bo_to_kernel(struct kgd_mem *mem, void **kptr,
+ 					 u64 *size, u32 domain);
+ void amdgpu_amdkfd_gpuvm_unmap_bo_from_kernel(struct kgd_mem *mem);
+ 
+-int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_bo *bo, struct amdgpu_bo **bo_gart);
++int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_bo *bo, struct amdgpu_bo **bo_gart,
++				     struct amdkfd_process_info *process_info);
+ 
+ int amdgpu_amdkfd_gpuvm_restore_process_bos(void *process_info,
+ 					    struct dma_fence __rcu **ef);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index 4d209b6c2582..cd72f8d84e79 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -2261,11 +2261,13 @@ int amdgpu_amdkfd_gpuvm_sync_memory(
+  * amdgpu_amdkfd_map_gtt_bo_to_gart - Map BO to GART and increment reference count
+  * @bo: Buffer object to be mapped
+  * @bo_gart: Return bo reference
++ * @process_info: KFD process info of the queue the BO is for
+  *
+  * Before return, bo reference count is incremented. To release the reference and unpin/
+  * unmap the BO, call amdgpu_amdkfd_free_kernel_mem.
+  */
+-int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_bo *bo, struct amdgpu_bo **bo_gart)
++int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_bo *bo, struct amdgpu_bo **bo_gart,
++				     struct amdkfd_process_info *process_info)
+ {
+ 	int ret;
+ 
+@@ -2287,8 +2289,8 @@ int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_bo *bo, struct amdgpu_bo **bo
+ 		goto err_map_bo_gart_failed;
+ 	}
+ 
+-	amdgpu_amdkfd_remove_eviction_fence(
+-		bo, bo->vm_bo->vm->process_info->eviction_fence);
++	/* bo->vm_bo can be the VM of any file which opened the BO */
++	amdgpu_amdkfd_remove_eviction_fence(bo, process_info->eviction_fence);
+ 
+ 	amdgpu_bo_unreserve(bo);
+ 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+index 78ab759ad854..4c4a3a8587f4 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+@@ -303,7 +303,8 @@ static int init_user_queue(struct process_queue_manager *pqm,
+ 		}
+ 
+ 		retval = amdgpu_amdkfd_map_gtt_bo_to_gart(q_properties->wptr_bo,
+-							  &(*q)->wptr_bo_gart);
++							  &(*q)->wptr_bo_gart,
++							  pqm->process->kgd_process_info);
+ 		if (retval) {
+ 			pr_err("Failed to map wptr bo to GART\n");
+ 			goto free_gang_ctx_bo;
+-- 
+2.50.1
 
