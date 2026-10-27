@@ -2,123 +2,90 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE74760A2622
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 13:25:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CB08606A31B
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 13:26:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=2xrwwp+k
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=THsDkX3X
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D92910E3F1;
-	Tue, 27 Oct 2026 13:25:46 +0000 (UTC)
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013054.outbound.protection.outlook.com
- [40.93.196.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 42A1110F519
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2026 13:25:40 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LYlQuTEKY7/6jNog94wt6vBgt6wHhHzx5r+qUMt0A/FlLD+i7DyYPnRx7AUxCvcAAlzmdVMoesilsiwVs/94csU5QB30cwJXE1ZM+3fmW+w5qUOM5j/FXWU0adT8q5hK61tTvto6wDR3SoLHM9qHYedpuihRr4WrfY+2qDGZaihsi4ETySETEWfg6waQJvbyilCLa5o4B3yCFGbs9uN5pLFoGLKyLfN2ED64Ez7KfHVrBlUdfaZ9jnuSNiyzcd07VTmOOVVQrDmjVxFX9ggtw40b0FXYgzq6kgpXOc+pjGOyyY5MtD9iUyETlZktCfAcOjFGbTd5Ykb53eClkxrwKQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KChMKmVOL6GXkaEo29Osr0oWuI7vm/y/F8EbaUiFi6A=;
- b=s87eGWA9sEb/NUP2TfD775D+31Kat1kklVedcrMby0OSSf0cTN8fI7wRqvw8gWwf9wjyMJGqy2tYT9FDJXBr4xqYaGuMLboF28ICm3TZ/b0/IxXE40JDnqJlUAmneW2jnmhZ5GXu+sUwgB6SC8EXNIKkQknVPrcLVqQZISvpn04mrMO5W1/xbo2VTZPFo1p5eIoCxhUfqEMxGM/Rs2brOlwcnTKMhoBzjalatxAYYGgBFGLKXTPnzyTW6xiGq3ADIS0Cnp4wOcTUG5o0lbKha5LPFVbKIUKsbYznObemwOUvfJ9oBZXcpZAvr4W3zgBJ56u7fZ0GcLgF4sTP2ZGVxw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KChMKmVOL6GXkaEo29Osr0oWuI7vm/y/F8EbaUiFi6A=;
- b=2xrwwp+kxQ43HLKll5GZ/2ppAQQL5lMSI5rLNo5z0smN0igCrk2MX1mykXn44ixSTxNZ5EqrVR9dTXLKnW7siAa69ELAS69i8M0P6EsrynxNL1bqzGTnmDvl56vSln68M0XenUpQCmT4O2iij4+Qdmw25aJxbdDYT1m+ihWcs6I=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DM4PR12MB7549.namprd12.prod.outlook.com (2603:10b6:8:10f::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 13:25:35 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 13:25:28 +0000
-Message-ID: <e43cd3c4-555b-49ec-a550-4a24c672ba77@amd.com>
-Date: Tue, 27 Oct 2026 14:25:25 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/5] drm/amdgpu: Add usage argument to amdgpu_sync_resv.
-To: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>, amd-gfx@lists.freedesktop.org
-Cc: samuel.pitoiset@gmail.com, natalie.vock@gmx.de
-References: <20261022003058.1723817-1-bas@basnieuwenhuizen.nl>
- <20261022003058.1723817-3-bas@basnieuwenhuizen.nl>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261022003058.1723817-3-bas@basnieuwenhuizen.nl>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BN9PR03CA0212.namprd03.prod.outlook.com
- (2603:10b6:408:f8::7) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31CB410F511;
+	Tue, 27 Oct 2026 13:25:56 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A5C910F511;
+ Tue, 27 Oct 2026 13:25:49 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 66FD3601FE;
+ Tue, 27 Oct 2026 13:25:48 +0000 (UTC)
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+ t=1793107548;
+ b=thQCKuBPgSKCnoIN3m65nfF4vliTt7sC/P0ssqeAcLK3zfRNj7XnVGKy85IIVBMhY6Pb
+ qH7TkDrEzVUQ0zUu0LnAmP5CZSyZkQCef9I1uTZ1Whlx97ZXKZ3HY7v/NmzgA8ltK8KJt
+ AI9+04axi+ESYHDBwUH76O5a86qaTkvNCvZ7fvXsPsskM3Vy2SyrIYlYy/5urwLuiNA7x
+ 6okhD/7QAB6PqZDCMhz0SFvEDuumJ46MaUzZxmBNNGnAndysEz1FaNAhjk+VmA1IEYSl+
+ zsX/o0hcCBDMpvW1CuB4zzvWhOmBW0rfM+0ZzokHGl03qnhbNHAxtl9yHIi9hiDn9jg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+ c=relaxed/relaxed; t=1793107548;
+ h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+ Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+ X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+ X-Original-From:Reply-To:Content-Transfer-Encoding;
+ bh=fsVyneAuwCCRnbMVOLuO3iFk91hXl4euBvA3bqTOW9E=;
+ b=KpIwvyRZv6NugPgomWTVJ3x3tlCTJkhIzeb2/QhXBin/W5sG25znvyno7jTy33N0CvFR
+ ySnDin9gbMfJAWTJvGnbh94Jnet0b3gXoJEBFC0G/VXkh1p4R3OA5JLckobHqXWgqZJE7
+ gliohYIJlVWV1j+Yqo5v0vsc5/g6AP0iOi2CauBbmsPMzR9jx9Y3gYqMxxn73PHjzP4Q0
+ oOC1HT7Vu06lJ+/eYlbfm0Oo8/g8WR8UYiT2loRuOoRmS2EWOM31hHYNsf2OcwxraRicl
+ 2p/akINW6Qf30amY0O2+LLgdfJWyCsPRwcGNnVOYWDnNqbUCSSEN7pIPILba4MRq19Q==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+ arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+ (No client certificate requested)
+ by smtp.kernel.org (Postfix) with ESMTPS id 0A82F1F01829;
+ Tue, 27 Oct 2026 13:25:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793107548;
+ bh=fsVyneAuwCCRnbMVOLuO3iFk91hXl4euBvA3bqTOW9E=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+ b=THsDkX3XCJban8bFO7xfDnhaAH5GxmeTOk4jtRYgUYnQvGefHPvYdmZBgk2Me0O7n
+ GdGLvFV4/PQRc4SVYIxdvpMorTQbrR16YDDM7XPUdHdHUv+HW4ultO1zkE+ONFDlqn
+ 86Xw7Xaq8PA+1m4Dw+12wwwYMm7e/y2RTMg86qwIEGW/5xhaeD6nvnKp19p1zQffCg
+ 4oZXTjDU9LGJGdrwmGqmrubjbHzGRu/gVZIlSZdeJT4ds/EnfeL2/Y4f5BRDVOJlBS
+ 378fo7Kw8KJUKvrfKJRE/QE8DhKgzDHYsKLtHtH+Q8NMcJBOieiqMeC4S/S8iaU0e6
+ 9OzFui8vlk41w==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+ by lkml.kernel.org (Postfix) with ESMTP id 8125A450F7;
+ Tue, 27 Oct 2026 13:25:46 +0000 (UTC)
+From: Davey Hughes via B4 Relay <devnull+davidralphhughes.gmail.com@kernel.org>
+Date: Tue, 27 Oct 2026 06:25:43 -0700
+Subject: [PATCH 2/2] drm/amd/display: Test FreeSync flip timing across
+ plane resets
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM4PR12MB7549:EE_
-X-MS-Office365-Filtering-Correlation-Id: 30c1328e-4b74-468b-b4c8-08df342dc477
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|366016|1800799024|261009223027099003|261022105027099003|261021123027099003|261021121427099003|10067099003|56012099006|22082099003|18002099003|4143699003|11063799006|261026140227099003;
-X-Microsoft-Antispam-Message-Info: R7zA80GXKLA11/jOprrUFumvuha7ET1yCUBLZy8pQW8eVjpwNYTt/B+9sN/85wuhJ5wOVaKJUpVN3lW6+31OFOawxPi35v/iWx2Mkl0nyVvG6i/AWlok88QbV0/idFwtOVH2E+NuvQ+kTMGFpOjaoD0sJh6X9bhYeuyXrLxv9qisBgg54eUAdN7FrJVGmAmE4/B1HxJFjZFAcgWc7kwEkfsbw4X5vky0pU4u1+i+4J3jsYNBnrnSp62lrraEOPeFM23I2hNqlwKn8zSGBUhOM7KFWn1Sjz2TDJgnFydU8PRyTT/jXXzN97Kpx+XzYpBN0d7Gqd/kXDW4bgu35wSL3VOnjzaglvA9mdrshXpao5fFxDRRoA5J7ot+in8VdaR8x0U99C7GV4PtUfZcKIkfe9vnewScvSQhsh7TovLwznqNHyFaNhipbqGFuP/jC1qQyLeZs7r9i65dDWIOWGVYYZYEgLoYqImLpAqpa69M6G2wQWG7Q9590KQUrCWWIJbI9bpV+Qu6mf+3+OnZwqP05l3YGLdhkvJhT94D6ywoP9GUUKMxN2n/9P84SxIPcPIJ/iDXElwHftJ3joF/+n4iyp9MIdZg522wArOtVakbT09GKsVdN7CkD4Z55P9RoLF/iZIJVhyfLBWoJXAhSjcHufkdsRSh85SjiDu+EHTPhLQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(261009223027099003)(261022105027099003)(261021123027099003)(261021121427099003)(10067099003)(56012099006)(22082099003)(18002099003)(4143699003)(11063799006)(261026140227099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VndMbkp0bWFTMC9lTkNSWWZuakRIZDh4NEtTUGk1eVpQRDFlY3dCbHVtaFpP?=
- =?utf-8?B?M0w0ME1INkpuYkVVbXJicWpISDVDY1hrUjAwNFUrTHd5cTNnb0xJemUwb0VP?=
- =?utf-8?B?Snl3d1lwbFFBRlYxTzhyK1JGSGRleEVZTnEvV2JIL0VEMllEZXNVbWZMcHdP?=
- =?utf-8?B?aFBuREt0aDdnRm1IR2ppaUhMRFZaY3RtdnlkckdROTFHWHF4emxFbWFaY3A5?=
- =?utf-8?B?eGU1bTVyUHUydWxKcWF2RG9KYzg2WjV0NnQzaUFLVUl5N1N4SG9kb0xLM1cy?=
- =?utf-8?B?UEFEb0MvSWl1Y1QyMTZhNkxReWY3SmtQK2RXd2p6cU1MQ2twSmlKRDkxalU4?=
- =?utf-8?B?dTFLeDl4K0ZJbDgyaEZrOWEyZUMvY20xaXUzd3ZMQWE5eUVROXlodTl5QVJY?=
- =?utf-8?B?Qy80TUxQYUR3aU05ZFhjTXBrNUxxSjBNcFJlUm1IaHFSRGJrd1BGU0lNUk94?=
- =?utf-8?B?VzgwcExBeDJFV1VmNHFMcHZjeXM0SnZXYzNTSGpYZ3dDWjdhc2VXMDNRRnpR?=
- =?utf-8?B?ZVFuZFRvbzJ2Q0tTWm1BTis1Z3lMOWhJVmRwU2FHQml3NHU4Z3FwMXdnMkI4?=
- =?utf-8?B?S016WE9xbGR5OFBpNUpLN3RmaE55U1lNcnEyaWowOEJBcCtoVmJzNWdRRFZq?=
- =?utf-8?B?RDZ3MmNud1dzamc4dGkrdmxrOHg0ZzBzT2VxTExMd3dXMFF3cDNhZzI1NExW?=
- =?utf-8?B?UTZpT1VyU21SSkU5dmFkMFQzcG9DaDNKR3pQTHVwUnBDWTM4dUQ0a2FkY2da?=
- =?utf-8?B?QWZQcjN1R2NYQ29NS3c4MDY5eTRhVHEwOUI3VU56SWZFZ0JmeGk2NmZSQWJ2?=
- =?utf-8?B?Y0RzNFFvVWR1Y3AvWEVHYnJ6a2g4cjc2WTBscUM3ZXZxZUx2bUgrczV1dUtn?=
- =?utf-8?B?REdYRDV1N1lucEdmbk8wRndoTExINVk5bGs5anJwaWRXWnoyUHU1VXZlWTF4?=
- =?utf-8?B?QjVsMWZwN3ltSEg3Wks1cHZscHA2Skc2K2t5Vm9MbkRkVDdOaE8vUXlCWmJp?=
- =?utf-8?B?UURwU2hJWE91dkhnTk9BOGYyc0N5UXY4TkE1NzVGT2N4K09MdVBqcW8yOHVX?=
- =?utf-8?B?WlZjVjlJSUwvTkdpS01nbXZGQXFteGw5aHhQSUFBYzhmMHhqVFVmOVJpQ0N0?=
- =?utf-8?B?dFUwNzJKbnI4U1BKRkdISjdJeFRoZnBpdXZ6aklUV1BQbEVzSkZHR29mbkVq?=
- =?utf-8?B?UHNDcmtYVFhXUkFqOU5KUVZ0MjBSNElXVnc3R3QraVNKenRyRGRYcHAzbVVi?=
- =?utf-8?B?ZnorWUFYWkUrOGpNSGw4aEIrdlV3bUNTMk9CMSswSXpqY2luZ1Z0K2svMTMx?=
- =?utf-8?B?WHZWUzd5RVFNK3RERGk0aFJ4WEtGZkxkVnhORWs4WHh3eXJzVVp0VXIyTDdI?=
- =?utf-8?B?VzNpNTdCSFNScVN6TmxxSnZ3MVRGVktraEVwTitIUUlUdnRlU2tJRW9KTTI3?=
- =?utf-8?B?dlNUTWNUdTlLL2YwejNnZmRpMWxPU3IxRVU0bzJKZWtjbW0wbStwakhpdkRs?=
- =?utf-8?B?QU5SaVVEUmMyUDBxVk1yOU5JUnEyUlZGbkVoTy9iYTRjQVN3eWM0UkM3cWRC?=
- =?utf-8?B?UU96L2gwS1VWQkNuenRxUmRXVUcwUzNZbjk1LzkxTTB5NFNGNXhzakQ4a2xl?=
- =?utf-8?B?Z09pYjVQN1d4SHZJZy95RC9SckNDMlpRNzRsL0E3ZTNmOGNnbVJyYm9SSm5G?=
- =?utf-8?B?VVBBZXQ5bHVJdUlaR0oyOVdEa3JaNUhNa0REQlBFM28zSnpVWlZhR2YvV2Fk?=
- =?utf-8?B?VXVqeExLa21GWXhLa0FsaytQMlRMRTNjMkZYVWNUZG15a0RSS3Q3WmFrRzdQ?=
- =?utf-8?B?T1FJWHliUW90UWh3dlB0WUxDK21iazZycHFXbktiZjA2aTJWVGxORnVUNm0x?=
- =?utf-8?B?KzVBYnk0U3g1VmpSUy9abzljVG85OXRmbWVDL0dOUVBxSGJ4MEZ6NHdFYVFB?=
- =?utf-8?B?amluVXhwbDBpSFpUWC9zcUMySmNTb0xJcldqNHNhUTNzRW9PTU9rWHhoc2pR?=
- =?utf-8?B?eXpSeGJNS2J1VFFiR1MyRjFudkNjUzVzL2R2TWtqTUkxZU5MZ3lJZ0taSkw1?=
- =?utf-8?B?OWp0YjJhbEZWODNpMFVRMCtJQXhwaGNNWW13VlQxaXU1QXpYd0hrY0IzOHVV?=
- =?utf-8?B?ZTY5UmNmVFlIUWhoRzYrTURncVh4Wlg1TnZOTERiWCtUbE83eFRHMmFYL3Nm?=
- =?utf-8?B?U2pONnVndHdPaVA0SmdQV0x2VFVybjMzSXNnY2crUUVTaFJwVkJkdVM1d2Uz?=
- =?utf-8?B?NmtaWHBROXoyOTVIY1gzNkltMlEyNXp2K2dzT1hSSURXcXV0YTZuWVc1LzlH?=
- =?utf-8?Q?MaczST2zAgckuDwPrd?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 30c1328e-4b74-468b-b4c8-08df342dc477
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 13:25:28.7028 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wfPXLbPRXS1cDmIhLxprh75ttkQD+W1amBQqQZ/o6kuzt7UTNzDc9jDQtxqHAlz+
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7549
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261027-freesync-plane-reset-time-v1-2-bb43b501faf4@gmail.com>
+References: <20261027-freesync-plane-reset-time-v1-0-bb43b501faf4@gmail.com>
+In-Reply-To: <20261027-freesync-plane-reset-time-v1-0-bb43b501faf4@gmail.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Davey Hughes <davidralphhughes@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793107546; l=11037;
+ i=davidralphhughes@gmail.com; s=20261027; h=from:subject:message-id;
+ bh=noQfQHHG6kH0mVBBbepkfdjvsuqRN4qDLINdKPj4CHU=;
+ b=2cl7Nd3zslu2tZjleGBfmU2sZwGvAX4dO1xxGCadiGc5raBrd1GgBflDn5V3kXaPf06JgHaXZ
+ ngrNrima+q3D258gd0XR3q6nJ++2BVBceG9GKIS5JsBhOH56eyxqwwE
+X-Developer-Key: i=davidralphhughes@gmail.com; a=ed25519;
+ pk=y45yWVxpjjxFE2cXy96fGlXLfDlt6UKHFHS5szhrFAs=
+X-Endpoint-Received: by B4 Relay for davidralphhughes@gmail.com/20261027
+ with auth_id=1335
+X-Original-From: Davey Hughes <davidralphhughes@gmail.com>
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,164 +95,305 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: davidralphhughes@gmail.com
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.6 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 10/22/26 02:30, Bas Nieuwenhuizen wrote:
-> Let callers pass the highest dma_resv usage amdgpu_sync_resv() syncs to,
-> instead of hardcoding DMA_RESV_USAGE_READ. All existing callers pass
-> DMA_RESV_USAGE_READ, so there is no functional change.
-> 
-> Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-> Reviewed-by: Faith Ekstrand <faith.ekstrand@collabora.com>
+From: Davey Hughes <davidralphhughes@gmail.com>
 
-We probably want to drop that change again at some point when we can fully switch over to only use the amdgpu_sync handling for WRITES.
+KUnit can't reach the plane enable path of dm_update_plane_state(), so
+the flip timing copy there is untested.
 
-But for now Reviewed-by: Christian König <christian.koenig@amd.com>
+Move the copy into dm_plane_inherit_flip_time() and expose it to KUnit.
+Test that a plane reset on the same CRTC keeps its flip timing, and that
+a newly enabled plane or one moved to another CRTC starts over.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 1 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c           | 4 +++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c       | 3 ++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c         | 9 +++++----
->  drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h         | 5 +++--
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c           | 8 +++++---
->  6 files changed, 19 insertions(+), 11 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> index 9a7e14a3c719..0ed41f696197 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> @@ -1375,6 +1375,7 @@ static int process_sync_pds_resv(struct amdkfd_process_info *process_info,
->  		struct amdgpu_bo *pd = peer_vm->root.bo;
->  
->  		ret = amdgpu_sync_resv(NULL, sync, pd->tbo.base.resv,
-> +				       DMA_RESV_USAGE_READ,
->  				       AMDGPU_SYNC_NE_OWNER,
->  				       AMDGPU_FENCE_OWNER_KFD);
->  		if (ret)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> index 63fd16009bf8..afcd254c9884 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> @@ -1227,7 +1227,9 @@ static int amdgpu_cs_sync_rings(struct amdgpu_cs_parser *p)
->  
->  		sync_mode = amdgpu_bo_explicit_sync(bo) ?
->  			AMDGPU_SYNC_EXPLICIT : AMDGPU_SYNC_NE_OWNER;
-> -		r = amdgpu_sync_resv(p->adev, &p->sync, resv, sync_mode,
-> +		/* Implicitly sync only to KERNEL, WRITE and READ */
-> +		r = amdgpu_sync_resv(p->adev, &p->sync, resv,
-> +				     DMA_RESV_USAGE_READ, sync_mode,
->  				     &fpriv->vm);
->  		if (r)
->  			return r;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> index d6d84ff110a0..663873dc005a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> @@ -1454,7 +1454,8 @@ int amdgpu_bo_sync_wait_resv(struct amdgpu_device *adev, struct dma_resv *resv,
->  	int r;
->  
->  	amdgpu_sync_create(&sync);
-> -	amdgpu_sync_resv(adev, &sync, resv, sync_mode, owner);
-> +	amdgpu_sync_resv(adev, &sync, resv, DMA_RESV_USAGE_READ, sync_mode,
-> +			 owner);
->  	r = amdgpu_sync_wait(&sync, intr);
->  	amdgpu_sync_free(&sync);
->  	return r;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-> index d6ae9974c952..c670ca01c230 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-> @@ -234,14 +234,15 @@ static bool amdgpu_sync_test_fence(struct amdgpu_device *adev,
->   * @adev: amdgpu device
->   * @sync: sync object to add fences from reservation object to
->   * @resv: reservation object with embedded fence
-> + * @usage: the maximum fence usage to sync to
->   * @mode: how owner affects which fences we sync to
->   * @owner: owner of the planned job submission
->   *
->   * Sync to the fence
->   */
->  int amdgpu_sync_resv(struct amdgpu_device *adev, struct amdgpu_sync *sync,
-> -		     struct dma_resv *resv, enum amdgpu_sync_mode mode,
-> -		     void *owner)
-> +		     struct dma_resv *resv, enum dma_resv_usage usage,
-> +		     enum amdgpu_sync_mode mode, void *owner)
->  {
->  	struct dma_resv_iter cursor;
->  	struct dma_fence *f;
-> @@ -249,8 +250,8 @@ int amdgpu_sync_resv(struct amdgpu_device *adev, struct amdgpu_sync *sync,
->  
->  	if (resv == NULL)
->  		return -EINVAL;
-> -	/* Implicitly sync only to KERNEL, WRITE and READ */
-> -	dma_resv_for_each_fence(&cursor, resv, DMA_RESV_USAGE_READ, f) {
-> +
-> +	dma_resv_for_each_fence(&cursor, resv, usage, f) {
->  		dma_fence_chain_for_each(f, f) {
->  			struct dma_fence *tmp = dma_fence_chain_contained(f);
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h
-> index 51eb4382c91e..7d39bdb9d4d6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h
-> @@ -24,6 +24,7 @@
->  #ifndef __AMDGPU_SYNC_H__
->  #define __AMDGPU_SYNC_H__
->  
-> +#include <linux/dma-resv.h>
->  #include <linux/hashtable.h>
->  
->  struct dma_fence;
-> @@ -50,8 +51,8 @@ void amdgpu_sync_create(struct amdgpu_sync *sync);
->  int amdgpu_sync_fence(struct amdgpu_sync *sync, struct dma_fence *f,
->  		      gfp_t flags);
->  int amdgpu_sync_resv(struct amdgpu_device *adev, struct amdgpu_sync *sync,
-> -		     struct dma_resv *resv, enum amdgpu_sync_mode mode,
-> -		     void *owner);
-> +		     struct dma_resv *resv, enum dma_resv_usage usage,
-> +		     enum amdgpu_sync_mode mode, void *owner);
->  int amdgpu_sync_kfd(struct amdgpu_sync *sync, struct dma_resv *resv);
->  struct dma_fence *amdgpu_sync_peek_fence(struct amdgpu_sync *sync,
->  				     struct amdgpu_ring *ring);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index 0b8a8f82ecab..6adeb4b0e217 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -1307,7 +1307,8 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev, struct amdgpu_bo_va *bo_va,
->  		 * unmapping.
->  		 */
->  		r = amdgpu_sync_resv(adev, &sync, vm->root.bo->tbo.base.resv,
-> -				     AMDGPU_SYNC_EQ_OWNER, vm);
-> +				     DMA_RESV_USAGE_READ, AMDGPU_SYNC_EQ_OWNER,
-> +				     vm);
->  		if (r)
->  			goto error_free;
->  		if (bo) {
-> @@ -1339,7 +1340,8 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev, struct amdgpu_bo_va *bo_va,
->  
->  		/* Implicitly sync to moving fences before mapping anything */
->  		r = amdgpu_sync_resv(adev, &sync, bo->tbo.base.resv,
-> -				     AMDGPU_SYNC_EXPLICIT, vm);
-> +				     DMA_RESV_USAGE_READ, AMDGPU_SYNC_EXPLICIT,
-> +				     vm);
->  		if (r)
->  			goto error_free;
->  	}
-> @@ -1593,7 +1595,7 @@ int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
->  	 */
->  	amdgpu_sync_create(&sync);
->  	r = amdgpu_sync_resv(adev, &sync, vm->root.bo->tbo.base.resv,
-> -			     AMDGPU_SYNC_EQ_OWNER, vm);
-> +			     DMA_RESV_USAGE_READ, AMDGPU_SYNC_EQ_OWNER, vm);
->  	if (r)
->  		goto error_free;
->  
+Also flip a reset plane one 60 Hz frame after its last flip on a
+48-165 Hz panel with BTR. With the inherited timing BTR stays off;
+without it FreeSync engages BTR.
+
+Signed-off-by: Davey Hughes <davidralphhughes@gmail.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  20 ++-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h  |   3 +
+ .../amd/display/amdgpu_dm/tests/amdgpu_dm_test.c   | 190 +++++++++++++++++++++
+ 3 files changed, 209 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index a69e28685857..d1c1b01584ae 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -5966,6 +5966,20 @@ STATIC_IFN_KUNIT bool should_reset_plane(struct drm_atomic_commit *state,
+ }
+ EXPORT_IF_KUNIT(should_reset_plane);
+ 
++/* FreeSync times each frame from the plane's previous flip. */
++STATIC_IFN_KUNIT void
++dm_plane_inherit_flip_time(struct dc_plane_state *dc_plane_state,
++			   struct drm_plane_state *old_plane_state,
++			   struct drm_plane_state *new_plane_state)
++{
++	struct dc_plane_state *old_dc_plane_state =
++		to_dm_plane_state(old_plane_state)->dc_state;
++
++	if (old_dc_plane_state && old_plane_state->crtc == new_plane_state->crtc)
++		dc_plane_state->time = old_dc_plane_state->time;
++}
++EXPORT_IF_KUNIT(dm_plane_inherit_flip_time);
++
+ STATIC_IFN_KUNIT int
+ dm_update_plane_state(struct dc *dc,
+ 		      struct drm_atomic_commit *state,
+@@ -6076,10 +6090,8 @@ dm_update_plane_state(struct dc *dc,
+ 			goto out;
+ 		}
+ 
+-		/* FreeSync times each frame from the plane's previous flip. */
+-		if (dm_old_plane_state->dc_state &&
+-		    old_plane_crtc == new_plane_crtc)
+-			dc_new_plane_state->time = dm_old_plane_state->dc_state->time;
++		dm_plane_inherit_flip_time(dc_new_plane_state, old_plane_state,
++					   new_plane_state);
+ 
+ 		drm_dbg_atomic(new_plane_crtc->dev, "Enabling DRM plane: %d on DRM crtc %d\n",
+ 				 plane->base.id, new_plane_crtc->base.id);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index 594d275918d5..18dce8244af1 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -1266,6 +1266,9 @@ int dm_update_plane_state(struct dc *dc,
+ 			  bool enable,
+ 			  bool *lock_and_validation_needed,
+ 			  bool *is_top_most_overlay);
++void dm_plane_inherit_flip_time(struct dc_plane_state *dc_plane_state,
++				struct drm_plane_state *old_plane_state,
++				struct drm_plane_state *new_plane_state);
+ int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 			   struct drm_atomic_commit *state);
+ void amdgpu_dm_mod_power_update_streams(struct drm_atomic_commit *state,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
+index a497cce332bb..4bdb9831f508 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
+@@ -34,6 +34,7 @@
+ #include "atom.h"
+ #include "amdgpu_dm.h"
+ #include "amdgpu_dm_audio.h"
++#include "amdgpu_dm_freesync.h"
+ #include "amdgpu_dm_hdcp.h"
+ #include "amdgpu_dm_mst_types.h"
+ #include "amdgpu_dm_kunit_test_helpers.h"
+@@ -3271,6 +3272,190 @@ static void dm_test_update_plane_state_detached(struct kunit *test)
+ 	KUNIT_EXPECT_NULL(test, new_plane_state->dc_state);
+ }
+ 
++/* Tests for dm_plane_inherit_flip_time() */
++
++struct dm_test_flip_time_ctx {
++	struct dm_plane_state *old_plane_state;
++	struct dm_plane_state *new_plane_state;
++	struct dc_plane_state *dc_plane_state;
++};
++
++/*
++ * A plane reset on one CRTC: the old DC plane has FreeSync flip history and
++ * the new one is freshly created.
++ */
++static struct dm_test_flip_time_ctx *
++dm_test_flip_time_ctx_alloc(struct kunit *test)
++{
++	struct dm_test_flip_time_ctx *ctx;
++	struct dc_plane_state *old_dc;
++	struct drm_crtc *crtc;
++
++	ctx = kunit_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx);
++	ctx->old_plane_state = kunit_kzalloc(test, sizeof(*ctx->old_plane_state),
++					     GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx->old_plane_state);
++	ctx->new_plane_state = kunit_kzalloc(test, sizeof(*ctx->new_plane_state),
++					     GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx->new_plane_state);
++	ctx->dc_plane_state = kunit_kzalloc(test, sizeof(*ctx->dc_plane_state),
++					    GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx->dc_plane_state);
++	old_dc = kunit_kzalloc(test, sizeof(*old_dc), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, old_dc);
++	crtc = kunit_kzalloc(test, sizeof(*crtc), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, crtc);
++
++	old_dc->time.time_elapsed_in_us[0] = 16667;
++	old_dc->time.index = 1;
++	old_dc->time.prev_update_time_in_us = 1234567;
++	ctx->old_plane_state->dc_state = old_dc;
++	ctx->old_plane_state->base.crtc = crtc;
++	ctx->new_plane_state->base.crtc = crtc;
++
++	return ctx;
++}
++
++static void dm_test_flip_time_inherit(struct dm_test_flip_time_ctx *ctx)
++{
++	dm_plane_inherit_flip_time(ctx->dc_plane_state,
++				   &ctx->old_plane_state->base,
++				   &ctx->new_plane_state->base);
++}
++
++/**
++ * dm_test_flip_time_same_crtc - Test a reset plane keeps its flip history
++ * @test: The KUnit test context
++ */
++static void dm_test_flip_time_same_crtc(struct kunit *test)
++{
++	struct dm_test_flip_time_ctx *ctx = dm_test_flip_time_ctx_alloc(test);
++
++	dm_test_flip_time_inherit(ctx);
++
++	KUNIT_EXPECT_MEMEQ(test, &ctx->dc_plane_state->time,
++			   &ctx->old_plane_state->dc_state->time,
++			   sizeof(ctx->dc_plane_state->time));
++}
++
++/**
++ * dm_test_flip_time_crtc_changed - Test a plane moved between CRTCs starts over
++ * @test: The KUnit test context
++ */
++static void dm_test_flip_time_crtc_changed(struct kunit *test)
++{
++	struct dm_test_flip_time_ctx *ctx = dm_test_flip_time_ctx_alloc(test);
++	struct dc_plane_flip_time *time = &ctx->dc_plane_state->time;
++	struct drm_crtc *other_crtc;
++
++	other_crtc = kunit_kzalloc(test, sizeof(*other_crtc), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, other_crtc);
++	ctx->new_plane_state->base.crtc = other_crtc;
++
++	dm_test_flip_time_inherit(ctx);
++
++	KUNIT_EXPECT_EQ(test, time->prev_update_time_in_us, 0);
++	KUNIT_EXPECT_EQ(test, time->index, 0);
++}
++
++/**
++ * dm_test_flip_time_no_old_dc_state - Test a newly enabled plane starts over
++ * @test: The KUnit test context
++ */
++static void dm_test_flip_time_no_old_dc_state(struct kunit *test)
++{
++	struct dm_test_flip_time_ctx *ctx = dm_test_flip_time_ctx_alloc(test);
++	struct dc_plane_flip_time *time = &ctx->dc_plane_state->time;
++
++	ctx->old_plane_state->dc_state = NULL;
++
++	dm_test_flip_time_inherit(ctx);
++
++	KUNIT_EXPECT_EQ(test, time->prev_update_time_in_us, 0);
++	KUNIT_EXPECT_EQ(test, time->index, 0);
++}
++
++/*
++ * Flip the reset plane one 60 Hz frame after the old plane's last flip on a
++ * 48-165 Hz panel with below-the-range compensation, and report whether
++ * FreeSync engaged BTR.
++ */
++static bool dm_test_flip_time_btr_active(struct kunit *test,
++					 struct dm_test_flip_time_ctx *ctx)
++{
++	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
++	struct dc_stream_state *stream = dm_kunit_alloc_stream(test, NULL);
++	struct dm_crtc_state *crtc_state;
++	struct mod_vrr_params *vrr;
++	struct amdgpu_crtc *acrtc;
++	u32 flip_time_in_us;
++
++	acrtc = kunit_kzalloc(test, sizeof(*acrtc), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, acrtc);
++	crtc_state = kunit_kzalloc(test, sizeof(*crtc_state), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, crtc_state);
++	adev->dm.adev = adev;
++	/* Only pre-AI flips dereference the module, so a stub will do. */
++	adev->family = AMDGPU_FAMILY_NV;
++	adev->dm.freesync_module = kunit_kzalloc(test, sizeof(struct mod_freesync),
++						 GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, adev->dm.freesync_module);
++
++	/* 165 Hz nominal */
++	stream->ctx = dm_kunit_alloc_dc_with_ctx(test)->ctx;
++	stream->timing.pix_clk_100hz = 4083750;
++	stream->timing.h_total = 2200;
++	stream->timing.v_total = 1125;
++
++	crtc_state->base.crtc = &acrtc->base;
++	crtc_state->base.vrr_enabled = true;
++	crtc_state->stream = stream;
++	crtc_state->vrr_supported = true;
++	crtc_state->freesync_config.min_refresh_in_uhz = 48000000;
++	crtc_state->freesync_config.max_refresh_in_uhz = 165000000;
++	crtc_state->freesync_config.btr = true;
++
++	amdgpu_dm_update_stream_irq_parameters(&adev->dm, crtc_state);
++
++	vrr = &acrtc->dm_irq_params.vrr_params;
++	KUNIT_ASSERT_EQ(test, (int)vrr->state, (int)VRR_STATE_ACTIVE_VARIABLE);
++	KUNIT_ASSERT_TRUE(test, vrr->btr.btr_enabled);
++	KUNIT_ASSERT_FALSE(test, vrr->btr.btr_active);
++
++	flip_time_in_us =
++		ctx->old_plane_state->dc_state->time.prev_update_time_in_us + 16667;
++	amdgpu_dm_update_freesync_state_on_stream(&adev->dm, crtc_state, stream,
++						  ctx->dc_plane_state,
++						  flip_time_in_us);
++
++	return vrr->btr.btr_active;
++}
++
++/**
++ * dm_test_flip_time_btr_inherited - Test a reset plane's next flip stays out of BTR
++ * @test: The KUnit test context
++ */
++static void dm_test_flip_time_btr_inherited(struct kunit *test)
++{
++	struct dm_test_flip_time_ctx *ctx = dm_test_flip_time_ctx_alloc(test);
++
++	dm_test_flip_time_inherit(ctx);
++
++	KUNIT_EXPECT_FALSE(test, dm_test_flip_time_btr_active(test, ctx));
++}
++
++/**
++ * dm_test_flip_time_btr_no_history - Test a plane without flip history enters BTR
++ * @test: The KUnit test context
++ */
++static void dm_test_flip_time_btr_no_history(struct kunit *test)
++{
++	struct dm_test_flip_time_ctx *ctx = dm_test_flip_time_ctx_alloc(test);
++
++	KUNIT_EXPECT_TRUE(test, dm_test_flip_time_btr_active(test, ctx));
++}
++
+ /**
+  * dm_test_mod_power_update_streams_empty - Test an empty commit updates no streams
+  * @test: The KUnit test context
+@@ -5361,6 +5546,11 @@ static struct kunit_case amdgpu_dm_tests[] = {
+ 	KUNIT_CASE(dm_test_aquire_global_lock_waits_commit),
+ 	KUNIT_CASE(dm_test_update_crtc_state_unchanged),
+ 	KUNIT_CASE(dm_test_update_plane_state_detached),
++	KUNIT_CASE(dm_test_flip_time_same_crtc),
++	KUNIT_CASE(dm_test_flip_time_crtc_changed),
++	KUNIT_CASE(dm_test_flip_time_no_old_dc_state),
++	KUNIT_CASE(dm_test_flip_time_btr_inherited),
++	KUNIT_CASE(dm_test_flip_time_btr_no_history),
+ 	KUNIT_CASE(dm_test_mod_power_update_streams_empty),
+ 	KUNIT_CASE(dm_test_mod_power_update_streams_no_modeset),
+ 	KUNIT_CASE(dm_test_mod_power_update_streams_enable),
+
+-- 
+2.56.0
+
 
