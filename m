@@ -2,43 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BC96606A31A
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 23:26:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 732D9606A31A
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 23:26:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=tSxb0QhU
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=c6IbYRK7
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B00A10F8B9;
-	Tue, 27 Oct 2026 23:26:00 +0000 (UTC)
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010028.outbound.protection.outlook.com
- [52.101.193.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC94610F8B9
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2026 23:25:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0FCAD10F8B5;
+	Tue, 27 Oct 2026 23:26:09 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010069.outbound.protection.outlook.com [52.101.85.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1514210F8BD
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2026 23:26:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=A2WEovUO/jpd7nKfyQwMyjJNUnQVADe3iU+tv4fqdI7kmysxGsZ8s2TRH5Q+5rNdGdAIUmrLxzx3qX12u+aUmpj7yJKn+OccF1uroh6ZRUpAa0FMWCCgHiipVCpZpRqbW4350X3FobcV2fQDjElKaVQFVdCMuNLzHGhvicUrmoAhiZjtkAVEHpPmXEz5wE90bkH+H4hEmgCIH4tyFAFmJydSeUgWGslRetAnMGI3z6Ek3DdFcBGgeEyRFEA+F9srKUntdoxIh71smzuias7LIuEpX1c+Eeb7aNm5fimxuv5VZ59GiLxpG7dWX8aOiGek0YrWQBPweS19TdpO7rtldw==
+ b=VOUFpLTEoQg8YqT2ALnSm0UZokZE7YvQ2gltQDyKNlnd9jovKBcVBKZSXq1g4LZR7E6q5wVzGY3bkuVkOMY1G3aWaovhRvUwOXlfnDQukAfL8Dku8wCW7ZcpF/A3Yz5LW0rS2aPGAJPIo/jugBa5GbcaINoqsKvfVIbvrCLLjEnTS1kpgs3GE7o5bjpwvQFjRW2v8nT+keIvNboIH7b/c6J6KVG7b8BUxz/lpzxhdr+YYCp0cvDZ559JevphMekpjWUxZSbcIccrvudSEXpNiEKIrafWIKd9bEzDm0zjdB989ZHLIu+UzeOFn7XKV54p7RTdJCCdYcD3F41YWkxKyQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yvfWEt0SCWpRWaxS2SY9H7Kv8zoIi8cmAb8HES8wifw=;
- b=t2+Y6K592aE+mTN4txYr4rRwcV08FR59BumHnv3oQuJ6r23qkTS5FZ3mAuk2riq7WmF9TPjZ84WmbUJzw063PBNxmHvKUYy1oHpl78yJsZlEv/lFE8tPygsdSGmeQIQa4Y8mnSuSV/Pfcp6KtD+CxsA18mGtSZI3W7KSGbyY0R9g95QkRdJ500712jZT4qy66rQVXSmqGxIM589tOMJeMwP7uCCJjTBCs70A7aikBq+Gjw7iYlSup2iPDV5MdkfK2L6astbjg92WP/Ejh6R2U1e81cxv/LwVmWEumxG6EGOEXqwjnS0z3AJgwHClXdTmgW4u9ARvF1YUOezD2nJDrw==
+ bh=DKI2j33xavCKT/tCJviqvBBh+eJ8hEU0m29ueS8zZRs=;
+ b=PeGKASGN4aikOPfuz5kL1I11YS/pYRMFhNKjxMs0Ixx4wOWVtgR2KB8u+60KoepX5jefWjJTEGIu/UFVvEXvMwJztkO6Oms9n06g1J+4yG9IkhPq/dEHa6FdKy4CrsA9Y6BlHRx7NoOmjLtUI6UYWebSGej2PrpkdqS1aj1J1g2LuqslmSoST1GNRMLvtHWVXG+mvR9Hb8qXB4zfR6DFEZ5UQAJibkNK8lwfMgqemA0qfksfbX1ICJOpvX9VUTkspPWVGJLjg2kvm/Xcg6fnCxuDorsj9nqhc9gP4aYpipXAdHHG0IBNuDIcf6jkbrRDUlvezxLbNK4+W5+tJ7lcaQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yvfWEt0SCWpRWaxS2SY9H7Kv8zoIi8cmAb8HES8wifw=;
- b=tSxb0QhUS/9Ux7LgOQ88DccmJm5weVBFzCG9kvL4vz/co8mBvbWcuokP35M6JagDPU1Bd4S5/ckv+svYpbWgZSa7Cg41g6cmgTQGakKsdmX6WBgJ/C7W3jUIHjIaaHndDKAS3pbvRI1juSSdqFb0ymp2cb93q1+0c782moK/7aw=
-Received: from CH2PR03CA0022.namprd03.prod.outlook.com (2603:10b6:610:59::32)
- by IA0PR12MB9011.namprd12.prod.outlook.com (2603:10b6:208:488::8)
+ bh=DKI2j33xavCKT/tCJviqvBBh+eJ8hEU0m29ueS8zZRs=;
+ b=c6IbYRK7vj9yINmC9XxZ6TtU9q9yfiIeNEnQ3usml9U3uBX/GAtN/l7qWa9uD50Km3Jrwbgtt+7tAsPa8OztZYGwpPJVWJYPN7OOQ8z64D+bSkrZSTRZu+rI6iAHERcRDoptkWhjcjzmONgMXjve/kHZN7/HAytdbQSNMN13T1g=
+Received: from CH0PR03CA0238.namprd03.prod.outlook.com (2603:10b6:610:e7::33)
+ by PH5PR12MB989986.namprd12.prod.outlook.com (2603:10b6:510:501::5)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 23:25:45 +0000
-Received: from CH01EPF000BE942.namprd02.prod.outlook.com
- (2603:10b6:610:59:cafe::62) by CH2PR03CA0022.outlook.office365.com
- (2603:10b6:610:59::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.21; Tue, 27 Oct
+ 2026 23:25:58 +0000
+Received: from CH01EPF000BE940.namprd02.prod.outlook.com
+ (2603:10b6:610:e7:cafe::4e) by CH0PR03CA0238.outlook.office365.com
+ (2603:10b6:610:e7::33) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Tue,
- 27 Oct 2026 23:25:45 +0000
+ 27 Oct 2026 23:25:58 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -47,13 +46,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- CH01EPF000BE942.mail.protection.outlook.com (10.167.244.134) with Microsoft
+ CH01EPF000BE940.mail.protection.outlook.com (10.167.244.132) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Tue, 27 Oct 2026 23:25:45 +0000
+ 15.21.569.4 via Frontend Transport; Tue, 27 Oct 2026 23:25:58 +0000
 Received: from kylin.lan (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 27 Oct
- 2026 18:25:43 -0500
+ 2026 18:25:56 -0500
 From: Alex Hung <alex.hung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -63,9 +62,9 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
  <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
-Subject: [PATCH 24/28] drm/amd/display: Add more CRC KUnit tests
-Date: Tue, 27 Oct 2026 17:17:20 -0600
-Message-ID: <20261027232005.2879750-25-alex.hung@amd.com>
+Subject: [PATCH 25/28] drm/amd/display: Add more connector KUnit tests
+Date: Tue, 27 Oct 2026 17:17:21 -0600
+Message-ID: <20261027232005.2879750-26-alex.hung@amd.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261027232005.2879750-1-alex.hung@amd.com>
 References: <20261027232005.2879750-1-alex.hung@amd.com>
@@ -77,29 +76,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH01EPF000BE942:EE_|IA0PR12MB9011:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8d892fd9-09be-4241-7091-08df3481a023
+X-MS-TrafficTypeDiagnostic: CH01EPF000BE940:EE_|PH5PR12MB989986:EE_
+X-MS-Office365-Filtering-Correlation-Id: eb990c81-0f1f-4cf4-f06a-08df3481a7ee
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|261022075727099003|260925021911599003|261026121527099003|260925021311599003|260925022911599003|11063799006|56012099006|261009223027099003|261022105027099003|261026140227099003|261021121427099003|261021123027099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: 1NCx3x+Y1eJ/rnr5OxANDR8RxDTU6qRZTt3JZ1SsR1C7yq05dLETwAzzvyq1QdTumq3XXwDJpSB81Wk84Fhb5Udgakjn8e9k4TYU5ggScpUrZ2GsMX0mSm2Y4Al5AMaEEXvnkOS1oRqWowLrdEVRSfYeZAqQCFyoyzfCfOJBB8G/VsTa4mtevpW7DboHja6QpwZ50EU58PpugPeRUyfjAEV5nlGZquS6vxz1wAuDnX7F3s8pbOQ6pdPFf0FvY8SNjU/53/nh3dbXa1QTmKmArL0STHYSqOBpnyAufzWfdxIR7f/HJsWCnGq0KCgARY6Fj6vyjdhq2z5EaCAMdp10JaHc/Czpct7XgM2N4/GyahMW7xWLvC5Our+pc088s6Ghl75muoBypFUnOlr5awA6UqmtHB9NQUD32xMDAqMNU4gwL8EHk5mYValcYpW1yw4nHJ59RqfgxMQ3iLd6OeWGqG7ElcY1jqZ5BBb1+Wjn8KIv4xDz64enHa20TTNtI+ouoXRYQU2fNIl/9gW0+EunSZK/dfBMIjfeT4+D5YrlCEjkrr1I5E0o1ZSNJoe9mKFpVoj3rEAlprJCBKpVECFZdaXq7IaqCTBFyYrdHQHEl4LydZ38WhQRXDVQ8E3NbnV3YtGJuHmpDb1W1sPX8pCJ/ChvfYSWB6hXqUL9m5so659ONI+YwLjNxVs+z7dM9E9w3KDV/hGt3RgTmTWgepTNqw==
+ ARA:13230040|82310400026|23010399003|376014|36860700016|1800799024|6133799003|22082099003|18002099003|3023799007|10067099003|261009223027099003|11063799006|5023799004|56012099006|261021123027099003|261022105027099003|261021121427099003|261022075727099003|261026140227099003;
+X-Microsoft-Antispam-Message-Info: KxDSDQDxevI1CORbOkgpb1WsROsC8oTktV+P9sFocBCUSz5qPQQAzogVjCYBd0+84sZ4YXCnZYG/SRc7g6ZVNnXeAdn+s08qTrza3+3Gnv46RixOB6717gRpnun71Grn66mm48HmyK3nQHNy+le0LKkjPmGlU9LuZgsOS3zMHflEI9lApBYKtpm5BWlNIZUu0vhGYIxdazPxYetDnOzFWjjLu2YxaQe2oPBneOqEDGR6BvDtH24pPEWmo7YzJHNos6FJN1nIauAk0n0cddL3alkKN7bLk7h53+a/ksz0R1gYmgrIeXiQ2mlSiyqntW7ih0yuuSgAIEZaVaxjC3jXN2EyZnWa50s7Lxy7iJPImOgv5V6d1k+eP0uYN2DzXzr6iEx2W3bbItI3WMOOyTlwdHA81j2Q09aaRJ6f16iP7sdbEhTOprj804EYsUlMDvhR+B3JGsKs6R7CjgKzCZhCLnXRkAZ1jZh7HlgBa0qBNNrAgXoqzQb6VkQYoPtvU3oN0Bl0g01McuPBZGbFzE2LXe1IHoOI73alEyx9o7wv98iAfoBIeMavT2FP7Bs7xnVXjaHxPhb55m0chYgar5NV3zclveHm3v3rMxl4yVMqO7N2CSYAOZhDzriHNYgXJoCfhZksExM0eW/CAgLMHL//2O7WQ7349D1IOvgwc7f3C/eCn54wn1PXY7HU2zJsWfBmK3TqSiX4dMoPWEyepiQj8g==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(261022075727099003)(260925021911599003)(261026121527099003)(260925021311599003)(260925022911599003)(11063799006)(56012099006)(261009223027099003)(261022105027099003)(261026140227099003)(261021121427099003)(261021123027099003)(10067099003)(22082099003)(18002099003);
+ SFS:(13230040)(82310400026)(23010399003)(376014)(36860700016)(1800799024)(6133799003)(22082099003)(18002099003)(3023799007)(10067099003)(261009223027099003)(11063799006)(5023799004)(56012099006)(261021123027099003)(261022105027099003)(261021121427099003)(261022075727099003)(261026140227099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: n1NDlG/CKoyLChq1579uwPDSVJ2J8CT4AU5mq/Jc8dreInrhrheVMx0R/jX+HORsomWxW6G2wEtvEjJQQTd1DchHCeKoHy7I2/DHDiF8nD6VUsbRs4OqDfm9Nipkh/TMRB3ofhtGaRucDJR7Wadj3xs9+4FUCsd50vMy/8o+tx8Ig5L4Us9OyNGa4OWCPUiCxJQi7x627aERINfqias3jgn4ywfc3KxCeKWymrCTj7cfBAx/LF5Cx1R4HUFvPKLf+gcZagj3qjX9LExfBweZ1WWzh9ax3BSq4SXNfuXXtm/lNQlHisO+Rr/GMi/5YrUZa2yLFlghd5tFS253h9XUt44TjgvdsgguAthfcv26B6GedS4DEV3CZK8jy8lHY6AC1nh35sPZbi2CBSnZWaaaGSHp7LDuAOQDd7HpG98xgibQ7iELD8bSLyh9HRgfq9et
+X-MS-Exchange-AntiSpam-MessageData-0: R5tWEFRBsp0JlTwzUe/BHiNqDgC+2c61+X3rYpwXlOca3QgkuNJByPOctfjKLabpy/yUiammausoXsICepQiV5uG1EvnLmynDLyxZIjSbTTSAUHvljvUS/fsJKPokz9yb8U52JhXDWkiZbly0JlpHXZLVl6JHChxIXZPj7b9nM/fLFHgXtDk0zvk3hlnC0+pI4Fc5CnPZnArzNzw2kZYMLewSt+hOcBo7nHBj6O8mEz5T4NKqt77rrfsnR6NNQCnaOnC1HE3x72gKiu2BYGafHQwsW2w1agtLqFAwxhc4rTsW91fvF0Bi4Jb6pu1zlf4wQfCgEGbJEah9Rn3xGMOERxY7HWvpAM+QGXzVmFdiCAh0aTGGbh4oC1KnG0XamT28Kh9xveksVaurIO6DqEK7uJL3P3k52LrcexX0oR9W3lEZJil89374XRX644+3Nkj
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 23:25:45.1449 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8d892fd9-09be-4241-7091-08df3481a023
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 23:25:58.2191 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: eb990c81-0f1f-4cf4-f06a-08df3481a7ee
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH01EPF000BE942.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CH01EPF000BE940.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB9011
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH5PR12MB989986
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,198 +117,236 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 [WHAT]
-Add KUnit tests for amdgpu_dm_crc.c:
-- amdgpu_dm_crtc_set_crc_source(): a DPRX source on a non-DP
-  connector bound to the CRTC, a DPRX source on a DP connector that
-  fails to take a vblank reference, and switching from the CRTC
-  source to none.
-- amdgpu_dm_crtc_handle_crc_irq(): delivering a CRTC CRC read from DC
-  to the DRM CRC entry queue.
+Add KUnit tests for amdgpu_dm_connector.c:
+- amdgpu_dm_initialize_hdmi_connector(): CEC setup skipped by
+  DC_DISABLE_HDMI_CEC.
+- amdgpu_dm_hdmi_cec_set_edid() and hdmi_cec_unset_edid(): forwarding
+  to a registered CEC notifier.
+- amdgpu_dm_connector_destroy(): releasing the pending HDMI HPD
+  debounce sink and an unregistered backlight index.
+- dm_encoder_helper_atomic_check(): an MST mode forced to YCbCr 4:2:0.
+- amdgpu_dm_create_validate_stream_for_sink(): a YCbCr 4:2:0 capable
+  mode and a sink-reported bpc that rules out every depth.
+- amdgpu_dm_connector_atomic_check(): a connector missing from the
+  commit.
+- amdgpu_dm_connector_add_common_modes(): common modes already probed.
+- parse_edid_displayid_vrr(): a 10-bit max refresh rate.
+- hdmi_frl_status_polling_work(): skipping an inactive FRL link.
 
 [HOW]
-Bind an amdgpu_dm_connector to the CRTC and request "dprx" first as
-HDMI, then as DisplayPort on a device without vblank support. Reuse
-the DC CRC fixture with a held vblank reference to turn CRTC CRC off
-and check the source, skip count and vblank refcount. Register a real
-CRTC with vblank support and CRC entries to check the queued CRC.
+Extend the existing tests for these functions instead of adding new
+cases. Add dm_test_set_420_also_mode() to load CEA VIC 16 and mark it
+YCbCr 4:2:0 capable, shared by the encoder and stream tests.
+
+Fix a use-after-free in the connector init tests: the i2c adapter
+parent was freed by KUnit before devres deleted the adapter. Manage
+the parent with devres on adev->dev so the adapter is deleted first.
 
 Cc: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
 Signed-off-by: Alex Hung <alex.hung@amd.com>
 ---
- .../amdgpu_dm/tests/amdgpu_dm_crc_test.c      | 124 ++++++++++++++++++
- 1 file changed, 124 insertions(+)
+ .../tests/amdgpu_dm_connector_test.c          | 80 ++++++++++++++++---
+ 1 file changed, 70 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crc_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crc_test.c
-index 29a513dab9cd..7f6340702502 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crc_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crc_test.c
-@@ -10,8 +10,10 @@
- #include <drm/drm_atomic.h>
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_connector.h>
-+#include <drm/drm_managed.h>
- #include <drm/drm_modeset_lock.h>
- #include <drm/drm_probe_helper.h>
-+#include <drm/drm_vblank.h>
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+index 7965a221e0e9..0a32f24e9132 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+@@ -29,6 +29,7 @@
+ #include "amdgpu_dm_connector.h"
+ #include "amdgpu_dm_backlight.h"
+ #include "amdgpu_dm_hdcp.h"
++#include "amdgpu_dm_irq.h"
+ #include "amdgpu_dm_psr.h"
+ #include "include/grph_object_id.h"
+ #include "amdgpu_dm_kunit_test_helpers.h"
+@@ -5128,6 +5129,11 @@ static void dm_test_destroy_releases_dc_sink(struct kunit *test)
+ 	/* Extra reference so the sink survives destroy for inspection. */
+ 	dc_sink_retain(sink);
+ 	aconnector->dc_sink = sink;
++	dc_sink_retain(sink);
++	aconnector->hdmi_prev_sink = sink;
++	aconnector->hdmi_hpd_debounce_delay_ms = 100;
++	INIT_DELAYED_WORK(&aconnector->hdmi_hpd_debounce_work, amdgpu_dm_hdmi_hpd_debounce_work);
++	aconnector->bl_idx = 0;
  
- #include "dc.h"
- #include "core_types.h"
-@@ -187,6 +189,11 @@ static void dm_test_crc_connector_cleanup(void *data)
- 	drm_connector_cleanup(data);
- }
+ 	amdgpu_dm_connector_destroy(&aconnector->base);
  
-+static const struct drm_crtc_funcs dm_test_crc_crtc_funcs = {
-+	.atomic_duplicate_state = drm_atomic_helper_crtc_duplicate_state,
-+	.atomic_destroy_state = drm_atomic_helper_crtc_destroy_state,
-+};
+@@ -5233,6 +5239,18 @@ struct dm_test_atomic_check_ctx {
+ 	struct drm_crtc_state *crtc_state;
+ };
+ 
++/* Load CEA VIC 16 (1080p60) into @mode and mark it YCbCr 4:2:0 capable on @conn. */
++static void dm_test_set_420_also_mode(struct kunit *test, struct drm_device *drm,
++				      struct drm_connector *conn, struct drm_display_mode *mode)
++{
++	struct drm_display_mode *cea = drm_display_mode_from_cea_vic(drm, 16);
 +
- static void dm_test_parse_crc_source_none(struct kunit *test)
++	KUNIT_ASSERT_NOT_NULL(test, cea);
++	drm_mode_copy(mode, cea);
++	drm_mode_destroy(drm, cea);
++	set_bit(16, conn->display_info.hdmi.y420_cmdb_modes);
++}
++
+ static struct dm_test_atomic_check_ctx *
+ dm_test_atomic_check_ctx_alloc(struct kunit *test, int connector_type)
  {
- 	KUNIT_EXPECT_EQ(test, AMDGPU_DM_PIPE_CRC_SOURCE_NONE, dm_parse_crc_source("none"));
-@@ -673,6 +680,77 @@ static void dm_test_crtc_set_crc_source_dprx_no_connector(struct kunit *test)
- 			AMDGPU_DM_PIPE_CRC_SOURCE_NONE);
+@@ -5501,6 +5519,9 @@ static void dm_test_atomic_check_mst_finds_vcpi_slots(struct kunit *test)
+ 	dm_test_atomic_check_mst_scaffold(test, ctx, &s, true);
+ 	s.state->duplicated = false;
+ 	ctx->dm_state->base.max_requested_bpc = 8;
++	dm_test_set_420_also_mode(test, ctx->drm, &ctx->aconnector->base,
++				  &ctx->crtc_state->adjusted_mode);
++	ctx->aconnector->force_yuv_pixel_format = PIXEL_ENCODING_YCBCR420;
+ 
+ 	KUNIT_EXPECT_EQ(test,
+ 		dm_encoder_helper_atomic_check(&ctx->aenc->base,
+@@ -5999,6 +6020,8 @@ static void dm_test_add_common_modes_edp_adds(struct kunit *test)
+ 	mutex_lock(&ctx->drm->mode_config.mutex);
+ 	amdgpu_dm_connector_add_common_modes(&ctx->aenc->base,
+ 					     &ctx->aconnector->base);
++	/* A second pass finds every common mode already probed. */
++	amdgpu_dm_connector_add_common_modes(&ctx->aenc->base, &ctx->aconnector->base);
+ 	mutex_unlock(&ctx->drm->mode_config.mutex);
+ 
+ 	KUNIT_EXPECT_EQ(test, ctx->aconnector->num_modes, 10);
+@@ -6664,6 +6687,12 @@ static void dm_test_parse_displayid_vrr_sets_range(struct kunit *test)
+ 
+ 	KUNIT_EXPECT_EQ(test, connector->display_info.monitor_range.min_vfreq, 40);
+ 	KUNIT_EXPECT_EQ(test, connector->display_info.monitor_range.max_vfreq, 144);
++
++	/* Flags bit 0 extends max vfreq with two bits from the next byte. */
++	ext[2] = 0x01;
++	ext[12] = 0x01;
++	parse_edid_displayid_vrr(connector, edid);
++	KUNIT_EXPECT_EQ(test, connector->display_info.monitor_range.max_vfreq, 400);
  }
  
-+/**
-+ * dm_test_crtc_set_crc_source_dprx_connector() - Test DPRX connector checks.
-+ * @test: KUnit test context.
-+ *
-+ * Verifies that a DPRX source is rejected for a non-DP connector bound to the
-+ * CRTC, and that a DP connector passes the AUX lookup but still fails when the
-+ * device has no vblank support.
-+ */
-+static void dm_test_crtc_set_crc_source_dprx_connector(struct kunit *test)
-+{
-+	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
-+	struct amdgpu_crtc *acrtc = dm_test_alloc_crc_crtc(test, adev);
-+	struct amdgpu_dm_connector *aconn;
-+	int ret;
-+
-+	aconn = kunit_kzalloc(test, sizeof(*aconn), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, aconn);
-+	/* Init as DP: drm_connector_cleanup() frees the type id from this type's IDA. */
-+	ret = drm_connector_init(&adev->ddev, &aconn->base, &dm_test_crc_connector_funcs,
-+				 DRM_MODE_CONNECTOR_DisplayPort);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	ret = kunit_add_action_or_reset(test, dm_test_crc_connector_cleanup, &aconn->base);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	drm_atomic_helper_connector_reset(&aconn->base);
-+	KUNIT_ASSERT_NOT_NULL(test, aconn->base.state);
-+	aconn->base.state->crtc = &acrtc->base;
-+	/* Balance the reference the state destroy drops for a set CRTC. */
-+	drm_connector_get(&aconn->base);
-+
-+	aconn->base.connector_type = DRM_MODE_CONNECTOR_HDMIA;
-+	KUNIT_EXPECT_EQ(test, amdgpu_dm_crtc_set_crc_source(&acrtc->base, "dprx"), -EINVAL);
-+
-+	aconn->base.connector_type = DRM_MODE_CONNECTOR_DisplayPort;
-+	KUNIT_EXPECT_EQ(test, amdgpu_dm_crtc_set_crc_source(&acrtc->base, "dprx"), -EINVAL);
-+	KUNIT_EXPECT_EQ(test, acrtc->dm_irq_params.crc_src, AMDGPU_DM_PIPE_CRC_SOURCE_NONE);
-+}
-+
-+/**
-+ * dm_test_crtc_set_crc_source_crtc_to_none() - Test turning CRTC CRC off.
-+ * @test: KUnit test context.
-+ *
-+ * Verifies that switching from the CRTC source to NONE disables DC CRC capture,
-+ * drops the vblank reference held while CRC was on, records the new source and
-+ * resets the skip counter.
-+ */
-+static void dm_test_crtc_set_crc_source_crtc_to_none(struct kunit *test)
-+{
-+	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
-+	struct amdgpu_crtc *acrtc = dm_test_alloc_crc_crtc(test, adev);
-+	struct dm_test_crc_dc_fixture *fixture;
-+	int ret;
-+
-+	fixture = dm_test_alloc_crc_dc_fixture(test, adev);
-+	fixture->dm_state->crc_skip_count = 2;
-+	acrtc->base.state = &fixture->dm_state->base;
-+	acrtc->dm_irq_params.crc_src = AMDGPU_DM_PIPE_CRC_SOURCE_CRTC;
-+	KUNIT_ASSERT_EQ(test, drm_vblank_init(&adev->ddev, 1), 0);
-+	atomic_set(&adev->ddev.vblank[0].refcount, 1);
-+	dm_test_crc_dc_ctx = fixture;
-+
-+	ret = amdgpu_dm_crtc_set_crc_source(&acrtc->base, "none");
-+	dm_test_crc_dc_ctx = NULL;
-+
-+	KUNIT_EXPECT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_TRUE(test, fixture->configure_crc_called);
-+	KUNIT_EXPECT_FALSE(test, fixture->crc_params.enable);
-+	KUNIT_EXPECT_EQ(test, atomic_read(&adev->ddev.vblank[0].refcount), 0);
-+	KUNIT_EXPECT_EQ(test, acrtc->dm_irq_params.crc_src, AMDGPU_DM_PIPE_CRC_SOURCE_NONE);
-+	KUNIT_EXPECT_EQ(test, fixture->dm_state->crc_skip_count, 0);
-+}
-+
  /**
-  * dm_test_crtc_handle_crc_irq_early_returns() - Test null/missing state exits.
-  * @test: KUnit test context.
-@@ -799,6 +877,49 @@ static void dm_test_crtc_handle_crc_irq_get_crc_fails(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, fixture->dm_state->crc_skip_count, 2);
+@@ -6923,15 +6952,23 @@ static void dm_test_create_validate_stream_no_valid_bpc(struct kunit *test)
+ 							   ctx->mode,
+ 							   ctx->dm_state, NULL);
+ 	KUNIT_EXPECT_NULL(test, stream);
++
++	/* Same result when the sink-reported bpc is the limiting cap. */
++	ctx->dm_state->base.max_requested_bpc = 16;
++	ctx->aconnector->base.display_info.bpc = 4;
++	stream = amdgpu_dm_create_validate_stream_for_sink(&ctx->aconnector->base, ctx->mode,
++							   ctx->dm_state, NULL);
++	KUNIT_EXPECT_NULL(test, stream);
  }
  
-+/**
-+ * dm_test_crtc_handle_crc_irq_adds_entry() - Test CRC delivery to DRM.
-+ * @test: KUnit test context.
-+ *
-+ * Verifies that a CRTC CRC read from DC after the skip window is queued as a
-+ * DRM CRC entry on a registered CRTC.
-+ */
-+static void dm_test_crtc_handle_crc_irq_adds_entry(struct kunit *test)
-+{
-+	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
-+	struct dm_test_crc_dc_fixture *fixture;
-+	struct amdgpu_crtc *acrtc;
-+	struct drm_crtc_crc *crc;
-+	int ret;
-+
-+	acrtc = drmm_kzalloc(&adev->ddev, sizeof(*acrtc), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, acrtc);
-+	ret = drmm_crtc_init_with_planes(&adev->ddev, &acrtc->base, NULL, NULL,
-+					 &dm_test_crc_crtc_funcs, NULL);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	KUNIT_ASSERT_EQ(test, drm_vblank_init(&adev->ddev, 1), 0);
-+	crc = &acrtc->base.crc;
-+	crc->entries = kunit_kcalloc(test, DRM_CRC_ENTRIES_NR, sizeof(*crc->entries), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, crc->entries);
-+	crc->values_cnt = 3;
-+
-+	fixture = dm_test_alloc_crc_dc_fixture(test, adev);
-+	fixture->dm_state->crc_skip_count = 2;
-+	fixture->get_crc_return = true;
-+	fixture->crc_r = 0x111;
-+	acrtc->base.state = &fixture->dm_state->base;
-+	acrtc->dm_irq_params.crc_src = AMDGPU_DM_PIPE_CRC_SOURCE_CRTC;
-+	dm_test_crc_dc_ctx = fixture;
-+
-+	amdgpu_dm_crtc_handle_crc_irq(&acrtc->base);
-+	dm_test_crc_dc_ctx = NULL;
-+	/* Keep drm_crtc_cleanup() from freeing the KUnit-managed state. */
-+	acrtc->base.state = NULL;
-+
-+	KUNIT_EXPECT_EQ(test, crc->head, 1);
-+	KUNIT_EXPECT_EQ(test, crc->entries[0].crcs[0], 0x111U);
-+}
-+
  /**
-  * dm_test_need_dp_aux() - Test dm_need_dp_aux().
-  * @test: KUnit test context.
-@@ -944,12 +1065,15 @@ static struct kunit_case dm_crc_test_cases[] = {
- 	KUNIT_CASE(dm_test_crtc_set_crc_source_none_no_stream),
- 	KUNIT_CASE(dm_test_crtc_set_crc_source_none_commit),
- 	KUNIT_CASE(dm_test_crtc_set_crc_source_dprx_no_connector),
-+	KUNIT_CASE(dm_test_crtc_set_crc_source_dprx_connector),
-+	KUNIT_CASE(dm_test_crtc_set_crc_source_crtc_to_none),
- 	/* amdgpu_dm_crtc_handle_crc_irq() */
- 	KUNIT_CASE(dm_test_crtc_handle_crc_irq_early_returns),
- 	KUNIT_CASE(dm_test_crtc_handle_crc_irq_disabled_source),
- 	KUNIT_CASE(dm_test_crtc_handle_crc_irq_skips_initial_frames),
- 	KUNIT_CASE(dm_test_crtc_handle_crc_irq_dprx_after_skip),
- 	KUNIT_CASE(dm_test_crtc_handle_crc_irq_get_crc_fails),
-+	KUNIT_CASE(dm_test_crtc_handle_crc_irq_adds_entry),
- 	/* dm_need_dp_aux() */
- 	KUNIT_CASE(dm_test_need_dp_aux),
- 	/* dm_crc_source_should_start_dprx() */
+  * dm_test_create_validate_stream_hdmi_ycbcr - Test the HDMI encoding mask
+  * @test: The KUnit test context
+  *
+- * A native HDMI sink advertising YCbCr 4:4:4 and 4:2:2 exercises HDMI endpoint
+- * detection and the YCbCr444/YCbCr422 mask branches; the low bpc cap still
+- * prunes every depth, so the helper returns NULL.
++ * A native HDMI sink advertising YCbCr 4:4:4 and 4:2:2, driving a YCbCr 4:2:0
++ * capable mode, exercises HDMI endpoint detection and the YCbCr444, YCbCr422
++ * and YCbCr420 mask branches; the low bpc cap still prunes every depth, so the
++ * helper returns NULL.
+  */
+ static void dm_test_create_validate_stream_hdmi_ycbcr(struct kunit *test)
+ {
+@@ -6943,6 +6980,7 @@ static void dm_test_create_validate_stream_hdmi_ycbcr(struct kunit *test)
+ 	ctx->aconnector->base.display_info.color_formats =
+ 		BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444) |
+ 		BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422);
++	dm_test_set_420_also_mode(test, ctx->drm, &ctx->aconnector->base, ctx->mode);
+ 
+ 	stream = amdgpu_dm_create_validate_stream_for_sink(&ctx->aconnector->base,
+ 							   ctx->mode,
+@@ -7371,6 +7409,11 @@ static void dm_test_conn_atomic_check_no_crtc(struct kunit *test)
+ 	ret = amdgpu_dm_connector_atomic_check(&ctx->aconn->base, ctx->state);
+ 
+ 	KUNIT_EXPECT_EQ(test, ret, 0);
++
++	/* A connector missing from the commit is rejected (WARN only). */
++	ctx->state->connectors[0].old_state = NULL;
++	ret = amdgpu_dm_connector_atomic_check(&ctx->aconn->base, ctx->state);
++	KUNIT_EXPECT_EQ(test, ret, -EINVAL);
+ }
+ 
+ /**
+@@ -8931,6 +8974,12 @@ static void dm_test_frl_skips_zero_rate(struct kunit *test)
+ 	dm_test_frl_run(ctx);
+ 
+ 	KUNIT_EXPECT_EQ(test, dm_test_frl_poll_calls, 0);
++
++	/* An inactive link is skipped as well. */
++	link->frl_link_settings.frl_link_rate = HDMI_FRL_LINK_RATE_3GBPS;
++	link->link_status.link_active = false;
++	dm_test_frl_run(ctx);
++	KUNIT_EXPECT_EQ(test, dm_test_frl_poll_calls, 0);
+ }
+ 
+ /**
+@@ -9320,16 +9369,25 @@ static void dm_test_init_helper_hpd_debounce_disabled(struct kunit *test)
+  * dm_test_initialize_hdmi_cec_registers - Test the CEC notifier is registered
+  * @test: The KUnit test context
+  *
+- * Without DC_DISABLE_HDMI_CEC in the debug mask a CEC notifier is created for
+- * the connector.
++ * With DC_DISABLE_HDMI_CEC in the debug mask CEC setup is skipped with -EINVAL.
++ * Without it a CEC notifier is created for the connector, and setting and
++ * unsetting the EDID are forwarded to that notifier.
+  */
+ static void dm_test_initialize_hdmi_cec_registers(struct kunit *test)
+ {
+ 	struct dm_test_init_helper_ctx *ctx =
+ 		dm_test_init_helper_ctx_alloc(test, DRM_MODE_CONNECTOR_HDMIA);
++	uint saved_mask = amdgpu_dm_get_dc_debug_mask();
++
++	amdgpu_dm_set_dc_debug_mask(saved_mask | DC_DISABLE_HDMI_CEC);
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_initialize_hdmi_connector(ctx->aconnector), -EINVAL);
++	amdgpu_dm_set_dc_debug_mask(saved_mask);
+ 
+ 	KUNIT_EXPECT_EQ(test, amdgpu_dm_initialize_hdmi_connector(ctx->aconnector), 0);
+ 	KUNIT_EXPECT_NOT_NULL(test, ctx->aconnector->notifier);
++
++	amdgpu_dm_hdmi_cec_set_edid(ctx->aconnector);
++	hdmi_cec_unset_edid(ctx->aconnector);
+ }
+ 
+ /* Tests for amdgpu_dm_update_freesync_caps() */
+@@ -9734,11 +9792,13 @@ static void dm_test_fs_caps_disables_replay(struct kunit *test)
+ /*
+  * amdgpu_dm_create_i2c() parents the adapter on adev->pdev->dev, so
+  * devm_i2c_add_adapter() needs a registered device there. Provide one by
+- * registering the device embedded in a KUnit allocated pci_dev.
++ * registering the device embedded in a pci_dev managed by adev->dev's devres.
++ * The adapter is devres managed on adev->dev too and is added later, so it is
++ * deleted before its parent is unregistered and freed.
+  */
+ static void dm_test_conn_init_release_dev(struct device *dev)
+ {
+-	/* Backing storage is KUnit managed, so there is nothing to free. */
++	/* Backing storage is devres managed, so there is nothing to free. */
+ }
+ 
+ static void dm_test_conn_init_unregister_dev(void *data)
+@@ -9781,7 +9841,7 @@ dm_test_conn_init_ctx_alloc(struct kunit *test, enum signal_type signal)
+ 	ctx->adev->mode_info.num_crtc = 1;
+ 	dm_test_create_mode_props(test, ctx->adev);
+ 
+-	pdev = kunit_kzalloc(test, sizeof(*pdev), GFP_KERNEL);
++	pdev = devm_kzalloc(dev, sizeof(*pdev), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, pdev);
+ 	device_initialize(&pdev->dev);
+ 	pdev->dev.parent = dev;
+@@ -9789,8 +9849,8 @@ dm_test_conn_init_ctx_alloc(struct kunit *test, enum signal_type signal)
+ 	KUNIT_ASSERT_EQ(test, dev_set_name(&pdev->dev, "dm-test-i2c-parent"), 0);
+ 	KUNIT_ASSERT_EQ(test, device_add(&pdev->dev), 0);
+ 	KUNIT_ASSERT_EQ(test,
+-			kunit_add_action_or_reset(test, dm_test_conn_init_unregister_dev,
+-						  &pdev->dev), 0);
++			devm_add_action_or_reset(dev, dm_test_conn_init_unregister_dev,
++						 &pdev->dev), 0);
+ 	ctx->adev->pdev = pdev;
+ 
+ 	ctx->dm = &ctx->adev->dm;
 -- 
 2.53.0
 
