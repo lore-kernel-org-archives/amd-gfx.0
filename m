@@ -2,84 +2,46 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DAC8606A31A
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 22:33:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD803606A31D
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 22:41:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nHyN1DtE
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=By9twM0k
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0147C10E00A;
-	Tue, 27 Oct 2026 22:33:10 +0000 (UTC)
-Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com
- [209.85.208.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F175710E4D7
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2026 22:33:02 +0000 (UTC)
-Received: by mail-lj1-f175.google.com with SMTP id
- 38308e7fff4ca-3a772ec8389so2330951fa.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2026 15:33:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793140381; x=1793745181; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=wPmToGC5y+VhdITU4V4ZbBMK8thCOWUoBfhcPC5IseQ=;
- b=nHyN1DtEwE7ipAa2X/aijjlXzpRhFFKHL7WwVSGRaW9gD5kcidMJuIBTn+HreUVFWY
- xX4aBS+w/aFOMtxEcsrET80tXZVPEZiRDuM6qeuhKRByrzgKSzfonDn053sRjQZ0nOr0
- eLZlTjYruGIojeG8ixKELy3UvcsUR/jSKn0QJR8cZ31cV+DMR3n8iJXkMINluddn88Cg
- v6SQTBnJRSmV50A3y/EprnmQuyO/qnc/XCYFLMJwGZ7nQ3qx6P2jdguGgGBLgUBWu20K
- MQjQ90o6Xjhrs5v4RspVmTYloIm19WbUOzl8XoMONNz3zHVN4yMZOC7hKnON3kpT4JuX
- HGUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793140381; x=1793745181;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=wPmToGC5y+VhdITU4V4ZbBMK8thCOWUoBfhcPC5IseQ=;
- b=i7PxPO+Q9Jp8RcRb9WXzPHwUq5UBHKIDsHBGOhZgvtKmmT46eu7LRFnE0C+eFmVGTl
- iY1AAX2LkDV8MKaDi8ZsUjzoowHyzlKGD1KJLmjnAXNRliivXvVahzvrwN4e1vcn+kTA
- RHPT5BcLTwWMow9RzQ5L0dRzSqvyDwVGGjJ4XhHFeDRtoX4WV+EJjyj9e44wQ/CbR1Y/
- WUxSJ87JfEWDHORItaChFd0yk1D7gnch6YK+STN3o+vgR1oa44J6bAwn+s8v2j76GJX1
- 0jENi6J84vmF0ffuH+QKlc1VyBmtdLT6HrdpqOl+fQgAYe2hAySrPN9BJarfib7pTuxz
- Jqdg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBx0CYLt16LUAUkLRP7PvKbWfZkoFDUGYy3uyh5DQRoOjnOoTW9aQ3sj+YM8JzmJXvZlOQj5/sT7@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIpu7q0MMJkbfBRv/hs//btng1xggaH2KcKO3I5zPn2sVd0ptPO
- UeOgdqxOcBIpYO0Qatg8lBojIl+1/lBRbIJ1EsNxAi02XUqetOSB1xHL
-X-Gm-Gg: AYBFou0suxbKG56ARyYo/fep9CcfwPXAGc0gyTdcjFFdS9GvcOFUnNvVA+J4ScNhEl3
- 9BYayTi7a2ZZy50+3k9SH6iUvVh1WM+6kuUCIeTPZi0664oRVxVt8AIBtBMQf4aVNPFCZD+OwEs
- 7E44HC5p9ZlmgBed4+giXQbiOj4jWFXan8Q0/C5eikpk0U99rvWg7C3pVVm53L6JCpfIQvj8jEY
- qJIv26qR213eD/CM5qlbCf/5OomTjwnJF4LrrWY31KaxvlTpo0Rg/duj+/WqHXkvYxp6o+b+FoU
- h6ZJA3Mfx/KtypeIJVqGR4S9IpSyRH3nZTuiLR6inEL3ph13qFEAxh76/rL7OhozP22OX7ns5du
- SFdVhxRQ0IRPHkSxQH5Aj3hsisUkqVRtN44/O/4YXi73hmBVl6T4QIBhRRODvy3WGMcMtT4lKKF
- cgnjriSDanj9/9Rufvm3Kbx0UcCp1ckac1Ao+b0gdya9xPgNm6Iw0sWWgW/VyC/mb3MXUZPbKQi
- HGKbrdbi/UiobQzAo5fVOJomODf9zffOTs9i3eiiufRGqb5JnrFMCUoLNIpFYus+K9iormG6P/e
- a7/Fd/srP9FMYSjgM7HryOkLft7i3XRXWcNX9Vzx7rUk99F74hlo
-X-Received: by 2002:a05:651c:4216:b0:3ab:690f:829f with SMTP id
- 38308e7fff4ca-3ac9cf5b6d2mr759271fa.15.1793140380999; 
- Tue, 27 Oct 2026 15:33:00 -0700 (PDT)
-Received: from localhost ([178.214.243.78]) by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3ac709d1c1asm27657721fa.16.2026.10.27.15.32.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 27 Oct 2026 15:32:59 -0700 (PDT)
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Fangzhi Zuo <Jerry.Zuo@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- George Zhang <george.zhang@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- regressions@lists.linux.dev, Calvin Owens <calvin@wbinvd.org>
-Subject: Re: [REGRESSION 7.3] drm/amd/display: single-frame scanout corruption
- on DCN32 at 120 Hz since a637a140ab86
-Date: Wed, 28 Oct 2026 03:32:47 +0500
-Message-ID: <20261027223247.300463-1-mikhail.v.gavrilov@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261018223905.32324-1-mikhail.v.gavrilov@gmail.com>
-References: <20261018223905.32324-1-mikhail.v.gavrilov@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 59A3A8825B;
+	Tue, 27 Oct 2026 22:41:38 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6533810F869;
+ Tue, 27 Oct 2026 22:41:32 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id EEC9B415FF;
+ Tue, 27 Oct 2026 22:41:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2F4B1F01825;
+ Tue, 27 Oct 2026 22:41:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793140891;
+ bh=36BYKCF164tXZn3FsLSkOB63KBQCKvHjKoR2T7jC1As=;
+ h=Date:From:To:Cc:Subject:In-Reply-To;
+ b=By9twM0khKiyjXxV0Yx0gmrjtdC4XEQPzMwUDl+Una0jfLlAUEm4jYcbm08BVHjQY
+ PMAyhJ6MSrn6qWfGAs7OSIniRe1vJyzSMUnCSK4+sS5ogCsGxex4xW2wCncWk1TDyg
+ m8erVmAzhMyDwbkh79AxfmDf5nW9diszeWU8Y4rFPEYVAWXRmn+b+1GTscQ6BDSEJR
+ Gzpcv6o3EfAnCPBJuhgsgdwENi2BnGngjQBdQgaHjZJhtdY1fiQjW9aW60lQO+G8TN
+ XVp3gfycemxjRqdGKuh6aNkpOLLXvGqAdyxszYvU7NO4z5Qv6nzzzD8iqeLTTu6HPG
+ gTBIGzJ+M/neQ==
+Date: Tue, 27 Oct 2026 17:41:30 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Oz Tiram <oz@shift-computing.de>, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Lijo Lazar <lijo.lazar@amd.com>
+Subject: Re: [PATCH v4 1/3] PCI: Preserve the initial bus number in pci_bus
+Message-ID: <20261027224130.GA511803@bhelgaas>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027-vfct-regression-v4-1-0e7190e39c2c@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,31 +52,108 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-16.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Calvin Owens bisected the same artefact to a637a140ab86 on his RX 7900,
-with the same parent good, and posted a revert.  On his machine the
-band appears within 30 minutes, and the revert removes it:
+[+cc Lijo]
 
-  https://lore.kernel.org/all/25995707c39c0c191e3ac46c4813f55a7f928403.1793131583.git.calvin@wbinvd.org/
+On Tue, Oct 27, 2026 at 11:22:25AM -0500, Mario Limonciello wrote:
+> Bridge scans are split into two passes when bus numbers need reassigning.
+> Save the firmware secondary bus number on the bridge in pass 0, before it
+> is disabled. Use it to initialize number_initial when the child bus is
+> created in pass 1, before bus registration callbacks run.
+> 
+> Keep the saved secondary number on the bridge so a later rescan does not
+> replace the child's initial number with its reassigned runtime number.
+> 
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> ---
+>  drivers/pci/probe.c | 6 ++++++
+>  include/linux/pci.h | 3 +++
+>  2 files changed, 9 insertions(+)
+> 
+> diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
+> index 27008e2ea5afc..3c03ac22223d9 100644
+> --- a/drivers/pci/probe.c
+> +++ b/drivers/pci/probe.c
+> @@ -1012,6 +1012,7 @@ static int pci_register_host_bridge(struct pci_host_bridge *bridge)
+>  	bus->sysdata = bridge->sysdata;
+>  	bus->ops = bridge->ops;
+>  	bus->number = bus->busn_res.start = bridge->busnr;
+> +	bus->number_initial = bus->number;
+>  #ifdef CONFIG_PCI_DOMAINS_GENERIC
+>  	if (bridge->domain_nr == PCI_DOMAIN_NR_NOT_SET)
+>  		bus->domain_nr = pci_bus_find_domain_nr(bus, parent);
+> @@ -1232,6 +1233,8 @@ static struct pci_bus *pci_alloc_child_bus(struct pci_bus *parent,
+>  
+>  	/* Set up the primary, secondary and subordinate bus numbers */
+>  	child->number = child->busn_res.start = busnr;
+> +	child->number_initial = bridge && bridge->bridge_secondary_busnr ?
+> +		bridge->bridge_secondary_busnr : busnr;
+>  	child->primary = parent->busn_res.start;
+>  	child->busn_res.end = 0xff;
+>  
+> @@ -1418,6 +1421,8 @@ static int pci_scan_bridge_extend(struct pci_bus *bus, struct pci_dev *dev,
+>  
+>  	pci_dbg(dev, "scanning [bus %02x-%02x] behind bridge, pass %d\n",
+>  		secondary, subordinate, pass);
+> +	if (!pass && !dev->bridge_secondary_busnr)
+> +		dev->bridge_secondary_busnr = secondary;
 
-#regzbot monitor: https://lore.kernel.org/all/25995707c39c0c191e3ac46c4813f55a7f928403.1793131583.git.calvin@wbinvd.org/
+I think I was mistaken to suggest that pci_bus was the right place to
+store this.
 
-A correction to my earlier mails, which listed the instruction
-constants and the stack among the DMUB windows that a637a140ab86 moves
-to GTT.  When the firmware is loaded through the PSP, the default on
-these cards, the driver neither copies the instruction constants into
-its window nor programs the instruction and stack windows
-(dm_dmub_hw_init(), dmub_srv_hw_init()), so the firmware does not run
-from the driver's copies of those two.  The windows the driver does set
-up -- BSS data, VBIOS, mailbox, trace buffer, firmware state, shared
-state and the rest -- did move.
+It seems like we definitely need something in the pci_dev because we
+may clear the initial bus numbers in the first pass, so we need to
+stash the secondary bus number somewhere until the second pass
+allocates the pci_bus and we can save it here.
 
--- 
-Thanks,
-Mikhail
+Since we have to have it in the pci_dev, I suspect maybe it would be
+enough to have it *only* there.  Maybe it could be set in
+pci_read_bridge_windows(), and drivers could find it via
+pdev->bus->self?
+
+>  	if (!primary && (primary != bus->number) && secondary && subordinate) {
+>  		pci_warn(dev, "Primary bus is hard wired to 0\n");
+> @@ -1470,6 +1475,7 @@ static int pci_scan_bridge_extend(struct pci_bus *bus, struct pci_dev *dev,
+>  			child = pci_add_new_bus(bus, dev, secondary);
+>  			if (!child)
+>  				goto out;
+> +			child->number_initial = secondary;
+>  			child->primary = primary;
+>  			pci_bus_insert_busn_res(child, secondary, subordinate);
+>  			child->bridge_ctl = bctl;
+> diff --git a/include/linux/pci.h b/include/linux/pci.h
+> index 5ffcf5ce8c966..c607818a98a87 100644
+> --- a/include/linux/pci.h
+> +++ b/include/linux/pci.h
+> @@ -363,6 +363,8 @@ struct pci_dev {
+>  	struct pci_slot	*slot;		/* Physical slot this device is in */
+>  
+>  	unsigned int	devfn;		/* Encoded device & function index */
+> +	/* Firmware secondary bus number saved across bridge scan passes */
+> +	u8		bridge_secondary_busnr;
+
+I think you're right to use "secondary" here so we don't perpetuate
+the "subordinate" misuse.  Maybe also include "initial" and make it
+"unsigned char" so it's the same as pci_bus.number?
+
+>  	unsigned short	vendor;
+>  	unsigned short	device;
+>  	unsigned short	subsystem_vendor;
+> @@ -724,6 +726,7 @@ struct pci_bus {
+>  	struct proc_dir_entry *procdir;	/* Directory entry in /proc/bus/pci */
+>  
+>  	unsigned char	number;		/* Bus number */
+> +	unsigned char	number_initial;	/* Bus number before reassignment */
+>  	unsigned char	primary;	/* Number of primary bridge */
+>  	unsigned char	max_bus_speed;	/* enum pci_bus_speed */
+>  	unsigned char	cur_bus_speed;	/* enum pci_bus_speed */
+> 
+> -- 
+> 2.43.0
+> 
