@@ -2,42 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD5AE606A325
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 23:22:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 762EA606A31D
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 23:22:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=tcC+Hum1
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=C+aa/lAj
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B99210E4F6;
-	Tue, 27 Oct 2026 23:22:08 +0000 (UTC)
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012054.outbound.protection.outlook.com [52.101.43.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 195C110F898
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2026 23:22:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B3C210F897;
+	Tue, 27 Oct 2026 23:22:24 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012059.outbound.protection.outlook.com [40.107.209.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 526EC10F897
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2026 23:22:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AGuBjlPJEPyqdvmldcPoBJ3ULu2kRo/Hl9+8Yh0nGZa9IPMqA1wCqJvojFdCJ3Jz2+NseE8ugjEk3nhallTgBAZZyI9PtQpZNK70Xvmt9YvRJTO8keuJa2DPLQ1Z6SiSYhydxFjLdrRy75zMBPGi9C58mNK6sNW/6dvrGAsR6X54KIT3+FOs2FSu16mRG7zO+HYlZR7aYE1PewFracMD57zHU487sBBMBxZU5s7IQ18avtmQtKKDvz7XE1K95krw3DHJkK6O1Cht8lj/U7ahqTOQ94ZUd8Uw2PreG1vXYD36nDYhsgTGcAphZOBndp2OVYMz06xJUvyK6KhK8USDWw==
+ b=bHSiVtvpY+qDl4lzh+W0hoBJ5fhDBEP9cSq13mhqgMmzz4gUsy4RliUloT7t6aLJ3LgXNOMmyjhHGkToMzq5aTNhpJnFKfb6amZXVgzmNrJx13ruawRjF03nwho7/htdUWG+Ci2Xz1dhHC1VoWuMDCWzspXZSo2054mV0xJLORvdUHIWvIfHSiefdQPNZnqxYQoOZj5bgYFenzR3GvFlD1zuKALcNy+vwNft56KrA1rHn6bqHoMZTuOh4fU/VqR0RPMYMgtLlNH5IrH4AO/anz6nOsu4572fwEz1W7fUBhXUndVwW3oWNnDPEBcbbp9oQDnfC06xh/+k72xJ7HxIRQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JTI2ACJ9w54EKgCb0WfXG3hKXE0fUE55D5bl/yeQ9+M=;
- b=tMTAmb0RsID2lRIxi44upbMGfXNBgHIYNLquHALzlDvS1RPXCBWI3fqAm6fVRlZ4mjyF9c5zRj7nut5DR5Upnl53MCOczFDe5ffaUjr6+g1Q+YOU5w+kVu3OQldHc5/1iwTuI7217iT+3/lrRQzzKWFGEvesmlsATYManVJzQkPofIrxamozesGXNj8AkDPHzuedTFl31DGlrz+pOdZBhVNOkdWL4nkF40pQ9SocOpJF5jS9q+KGMGutq3R3hHy+QP1IA8k/i6YoqXN33huEDyZME0wAh/Pr9q6Cit8zMAInNaxniRDZ6QpQdzCgfqt/QpfoD3egTihe1eWObmIRRw==
+ bh=HDCSExm/1XOcvPqLSU0reKIRFqo7ScSCFVCxscCbc4w=;
+ b=Rnzc/sc3J79RnifKrbHlOxw5Qbz2TO5nbbuiD7XDuqoZ/tVWE7a97O1NcN7qvgj2xoFh5xnERp9HBaNEiV9WUi/1JZ9EjEQ0loJVBwCrlZ7SKhyJVlybDB75wxxBRNd2Row935+bCeoOlOvASb8LGWG0JFcQHCwiMUpvDpgUjznVmBKyAtGW5aXbQDId/gBA5QRbNwG5JW5Kh1eBLQBJtRIfPSL5KrzUpoAxvxFO8ZrHS8YYd9zNtfBtDQE5ffWgczyGfG4DuI0lbcDLfOuIJoDh3U8U/+/oyBo/o7++e2v6polxs4pq3ekT2oEGCXYrh1BqsUCR6tIfpRg0xF84EA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JTI2ACJ9w54EKgCb0WfXG3hKXE0fUE55D5bl/yeQ9+M=;
- b=tcC+Hum1YakmYSuD73n2kB3pHDe5uzbvwgoDmRrlvnpLUvVwizi5oh/x2KySlefbknbfVAMF+XgCr/pC4BiTTgWpRoSWWYQgaXg4WWpzOJGOf05z86lX5jcPixXHouFEeU+R5eHCycOmrITDYs0MqL+n5RTvGgsdnK2i9IuWmHQ=
-Received: from MN2PR01CA0042.prod.exchangelabs.com (2603:10b6:208:23f::11) by
- LV2PR12MB5968.namprd12.prod.outlook.com (2603:10b6:408:14f::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.22; Tue, 27 Oct 2026 23:21:58 +0000
-Received: from BN2PEPF00004FBD.namprd04.prod.outlook.com
- (2603:10b6:208:23f:cafe::9f) by MN2PR01CA0042.outlook.office365.com
- (2603:10b6:208:23f::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Tue,
- 27 Oct 2026 23:21:58 +0000
+ bh=HDCSExm/1XOcvPqLSU0reKIRFqo7ScSCFVCxscCbc4w=;
+ b=C+aa/lAjpZ7+mMz7YWxkGHZl1h38z2LH2mkQDb67RaPgRQKrRFfqxSMvZdYWqh0/cf/Mz8npnMZXb8FyjYKYs9kXGxW+H1NLxCxkZztfefmRxqypSOL6BZpUMrlMK1ifg2jxtbc0a2FkFFAzn+FfotZVTMoro1YdBrMrWcz6LLk=
+Received: from BN9PR03CA0941.namprd03.prod.outlook.com (2603:10b6:408:108::16)
+ by DS0PR12MB9322.namprd12.prod.outlook.com (2603:10b6:8:1bd::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
+ 2026 23:22:11 +0000
+Received: from BN2PEPF00004FBA.namprd04.prod.outlook.com
+ (2603:10b6:408:108:cafe::87) by BN9PR03CA0941.outlook.office365.com
+ (2603:10b6:408:108::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Tue, 27
+ Oct 2026 23:22:11 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -46,13 +46,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF00004FBD.mail.protection.outlook.com (10.167.243.183) with Microsoft
+ BN2PEPF00004FBA.mail.protection.outlook.com (10.167.243.180) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Tue, 27 Oct 2026 23:21:58 +0000
+ 15.21.569.4 via Frontend Transport; Tue, 27 Oct 2026 23:22:11 +0000
 Received: from kylin.lan (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 27 Oct
- 2026 18:21:56 -0500
+ 2026 18:22:09 -0500
 From: Alex Hung <alex.hung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -61,10 +61,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>
-Subject: [PATCH 07/28] drm/amd/display: Configure alternate-channel apertures
-Date: Tue, 27 Oct 2026 17:17:03 -0600
-Message-ID: <20261027232005.2879750-8-alex.hung@amd.com>
+ <Chen-Yu.Chen@amd.com>, Mario Limonciello <mario.limonciello@amd.com>, "Alex
+ Deucher" <alexander.deucher@amd.com>, <stable@vger.kernel.org>
+Subject: [PATCH 08/28] drm/amd/display: Avoid closing unowned DDC pins
+Date: Tue, 27 Oct 2026 17:17:04 -0600
+Message-ID: <20261027232005.2879750-9-alex.hung@amd.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261027232005.2879750-1-alex.hung@amd.com>
 References: <20261027232005.2879750-1-alex.hung@amd.com>
@@ -76,29 +77,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBD:EE_|LV2PR12MB5968:EE_
-X-MS-Office365-Filtering-Correlation-Id: a9641734-ff85-423b-00c7-08df3481190a
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBA:EE_|DS0PR12MB9322:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3f6ce1ed-a302-4829-5ac5-08df3481209e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|1800799024|36860700016|23010399003|261026121527099003|11063799006|56012099006|261022075727099003|261021121427099003|261009223027099003|261022105027099003|10067099003|22082099003|18002099003|3023799007|6133799003|261026140227099003;
-X-Microsoft-Antispam-Message-Info: 9BP+ahq9Ndz2b/zr5o5gesRZBNcaxSywitU6GTL/1TgCSoZfOiRp8jJdltqHJtp9a3zLmM06h4wwumegzXRE9U7KH6az2ouX5t6nF0BVkXV4RqpgvdpXBUJbRcKCwoMX7CbzqkdQW2LfjdkLYXNHw6Bdfwash5bd9V0SZ+ywWS7BrRMJdUmq7eVNATfek3JwuYSuPJFTSjRZ8uTm6kTkBEVybXEwRjL1hT5X9bPp1eLsjDp1N4wMH2XMf1ZHNRnjk+eCHT+m0RXjewezzMt2TbvxRDBJ3losSz2t73v9+citHIljuF5a8u+X+FYFRFn1yfS9xWFJ860a6KyQ3kGI2fyTJOPzEPfm1t1uopV4uK/QCjUk2WUS1xjAN9dPZHAYTEjkjfb05CMSi06qzdslR4EihiApaOjRv4uZT+B27to3lnEHkaDE/ostdyUs9Ju6gf2L1svuVnqmU0jNN2qCtuoThl6+X8loeV+QPmxGhELRAGMCOOh5p/YtoiwV4cO15Gpk32XRpRordk5VBL8DauCTJhoFtue5UbfBqpLjaoxurFXgtHS7Dn8T710JusHR4x2IH9HwuG897WbIcAnZ9z3gClqO9+JGuEvseDC0cZd0qiPR+aDvuhUZR7MPAbDboiPhPVjm4ONbq2Mr5bRwB2B71HE53eppewJte3/XAXJH9wVWM/RRDJSiz+9ZfU7/GYR/SrmxjYmZvkRmIs9E+A==
+ ARA:13230040|1800799024|36860700016|376014|23010399003|82310400026|22082099003|18002099003|3023799007|5023799004|261022113327099003|11063799006|261021121427099003|56012099006|10067099003|261009223027099003|261021123027099003|261022105027099003|261026140227099003;
+X-Microsoft-Antispam-Message-Info: YMJlCw039M1xKJx3muTI8UEYFTMZE39D/SlI2rtcskkXowlio3+1U/guqvZRtURBEnthazVcM+Gvqbm39jEzkAAy08CNX48e1Yb8JvXEd94VS6arC78/tNhdDrZVq4g10XInra5zDiYkiR2m31Ng+qTg/2diebv/sfev32GyVCX320u8gf7BCZNzy5ii8UfgrDxGMylpyusUTI44xVJ78phvgwFzgc40X78JXVzjDUQWYiR8G1NhJJZYbW93ysgbmiQ0/nkohju+QVf8PnjoWDrNBcXtrTZ/YFkXl8iwqWBhosiry35E8wB/uu61ilu/g0JwvR9KHrio79gBTo5FY8AFdWJPqTw6uroPeHjPiESbPdDCeBay1K1D2/4udOFMNThrx6Nj3IafN+Y+O22K6wslM1epbxgPz2WauKv7azUDEwJC/yH/O8lKa96uzdbAh69F41srdGW8YvI9d7VMyRbhzfX4Gub5lh8NuaX9sAqKc3Y0/W+2jSxjKB8MHFrdG1XRQE6CBho7tsn6o7qkUmb6zaEYMtaJxFP7pZee4G8UxA1I0dzFNI5ErodnXv/e/oojakUY7g+KzmTwXm2vztWO4MkER5GKtK/PvZFTXkJBEtokNmPXX7y//wTFPobsZY1df1DqLEkGthqURBsRea/SsdkaYrEou/WVapkazkDE2s4LJoxRdEHYq5o88WJ1WgDZlSHXm8rpW52mPXUsYA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(1800799024)(36860700016)(23010399003)(261026121527099003)(11063799006)(56012099006)(261022075727099003)(261021121427099003)(261009223027099003)(261022105027099003)(10067099003)(22082099003)(18002099003)(3023799007)(6133799003)(261026140227099003);
+ SFS:(13230040)(1800799024)(36860700016)(376014)(23010399003)(82310400026)(22082099003)(18002099003)(3023799007)(5023799004)(261022113327099003)(11063799006)(261021121427099003)(56012099006)(10067099003)(261009223027099003)(261021123027099003)(261022105027099003)(261026140227099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: qrAoEZWHU/Obh+AOsAKn5maaev7tfvsbtl5nF/W/ogy+Ix3SNXHArLCctED0pbMbCDKqfvls39adejrBCMejDvPowqMY7/rVW8SNX7IOv3uk6sICUWtBCs5VxNatWEESnB43mkewTb7a7zgifAKwJ/FEFiUcuw0JETpm7198fWJZk3eEtW6tf7/KzefOzJwv4y0yGAkRqpGY7PSUNW/sU2MaYY+zeOXplWkQx5pDoNx6KXpsW95XVQA5AB7Ods0ZSfyUyhlpNCSHsEDMHWdcPppbwzJFMfuTiF5n/7QwsNt0Rq6FZoqlLsjN2STcXUpTKSv7tyICpWjVTtrbYHEtDT0pspil38b3vj0sYXJeuMhrkE2cS0MnrTbMLlcdMdn9h8JeZEXyhNLbphW3EZFvIuiPr3EMccN+D/3JvdAZyFk7V7ytL1e1+Rfw9ylBlYKQ
+X-MS-Exchange-AntiSpam-MessageData-0: +KVVieoTec2JrpCZHarqLuNMV5wpsuTiqrTsGgpB47eMGmLAKA21N3W7LTRkZ6xVr2H83mvaOSlsHYRqLu2vhoX2Zn4+869hTlTiQnHHYY13uqArdPaNxntDKDzFVSCAgUEG95Y7ENj6FdgE1Za1ye4cN64dTpNw60xB94VvAGJqNFEUO/d5hTTuYMhhfiJywbvOiAJfh5OQqSPuNGFtyicj96ZZM7Q67wnLLVc5D4f0vU23493tQaRhjyxjjASLOKfqzUk7xOtKgUMQ3sXd+/RVgxePMmmYnfXqcDMZTJBGydgY54uTg4J0PQ08XWD9B//sZ2dPivvGivR/0yS2w9U+yGvPs6WFWDuyrcMe6CcEiFfqnp65psE9GPiK4asuilG2yQrBXLukEG+93qkKsClRa05+uTKIPZM277mdZuCxWl0eaRhQe9cE/VMCr1u7
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 23:21:58.4889 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a9641734-ff85-423b-00c7-08df3481190a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 23:22:11.2162 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3f6ce1ed-a302-4829-5ac5-08df3481209e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FBD.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FBA.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5968
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9322
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,109 +113,49 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Ivan Lipski <ivan.lipski@amd.com>
-
 [WHY]
-Alternate channel P-State switching enables in-frame P-State changes by
-streaming scanout from carved DRAM apertures on one memory channel set
-while the other is optimized.
+dal_ddc_open() cleans up pins it acquires on later failures. If the
+data-pin open fails, this attempt acquired nothing. If opening the
+clock pin or configuring fails, dal_ddc_open() closes the pins it
+opened. An extra dal_ddc_close() is unnecessary and unsafe:
+GPIO_RESULT_ALREADY_OPENED can mean AUX owns the existing handles,
+and closing them here would disrupt AUX.
 
 [HOW]
-Read both aperture regions from IP discovery, translate their
-addresses for DMUB and DML2, and populate their base and size fields.
+Remove the extra dal_ddc_close() from the failed-open path.
 
-Cc: Sun peng (Leo) Li <sunpeng.li@amd.com>
-Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
+Cc: Jerry Zuo <jerry.zuo@amd.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: stable@vger.kernel.org
 Signed-off-by: Alex Hung <alex.hung@amd.com>
 ---
- .../amd/display/amdgpu_dm/amdgpu_dm_dmub.c    | 63 +++++++++++++++++++
- 1 file changed, 63 insertions(+)
+ .../drm/amd/display/dc/link/protocols/link_dp_capability.c  | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
-index b0325d686b28..614709fe11a6 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
-@@ -160,6 +160,68 @@ bool dm_register_dmub_notify_callback(struct amdgpu_device *adev,
- }
- EXPORT_IF_KUNIT(dm_register_dmub_notify_callback);
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
+index ad1a499b0d9d..c487c5b87dfd 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
+@@ -2602,12 +2602,8 @@ bool dp_is_sink_present(struct dc_link *link)
+ 	 * which indicates we need additional delay
+ 	 */
  
-+
-+/**
-+ * dm_get_alt_channel_pstate_switch_aperture - Set the vactive p-state switch apertures.
-+ * @adev: amdgpu device containing the discovered apertures
-+ * @hw_params: DMUB hardware parameters to populate
-+ *
-+ * Reads both apertures before populating the DMUB parameters and DML2 config.
-+ * Translates their base addresses into MC space for DML2. If either aperture
-+ * is unavailable, the feature remains disabled.
-+ */
-+static void
-+dm_get_alt_channel_pstate_switch_aperture(struct amdgpu_device *adev,
-+					   struct dmub_srv_hw_params *hw_params)
-+{
-+	static const u32 region_ids[] = {
-+		G7_PSTATE_APERTURE1_ID,
-+		G7_PSTATE_APERTURE2_ID,
-+	};
-+	struct mem_reserved_info apertures[ARRAY_SIZE(region_ids)];
-+	u64 aperture_mc_bases[ARRAY_SIZE(region_ids)];
-+	u32 i;
-+	int r;
-+
-+	/* Region IDs 5 and 6 identify the p-state switch apertures 1 and 2.
-+	 * Do not publish partial aperture configuration if either lookup fails.
-+	 */
-+	for (i = 0; i < ARRAY_SIZE(region_ids); i++) {
-+		r = amdgpu_discovery_get_mem_reserved_region_by_id(adev,
-+								region_ids[i], &apertures[i]);
-+		if (r) {
-+			drm_warn(adev_to_drm(adev),
-+				 "P-state switching during vactive unavailable: aperture %u lookup failed (%d)\n",
-+				 region_ids[i], r);
-+			return;
-+		}
-+
-+		if (!apertures[i].reserved_region_size ||
-+		    apertures[i].reserved_region_size >= (0xfffULL << 20)) {
-+			drm_warn(adev_to_drm(adev),
-+				 "P-state switching during vactive unavailable: aperture %u has invalid size\n",
-+				 region_ids[i]);
-+			return;
-+		}
-+
-+		/* DML2 requires the reserved-region base in MC address space. */
-+		aperture_mc_bases[i] = apertures[i].reserved_region_start +
-+			adev->gmc.fb_start - adev->vm_manager.vram_base_offset;
-+	}
-+
-+	for (i = 0; i < ARRAY_SIZE(region_ids); i++) {
-+		hw_params->soc_fb_info.alt_channel_region_base[i] = aperture_mc_bases[i];
-+		hw_params->soc_fb_info.alt_channel_region_size[i] =
-+			apertures[i].reserved_region_size;
-+		/* DML consumes the MC base address bits [47:16]. */
-+		adev->dm.dc->dml2_options.alt_ch_cfg.region_base_addr_47_16[i] =
-+				(u32)(aperture_mc_bases[i] >> 16);
-+		adev->dm.dc->dml2_options.alt_ch_cfg.region_size_bytes[i] =
-+				(u32)apertures[i].reserved_region_size;
-+	}
-+}
-+
-+
- int dm_dmub_hw_init(struct amdgpu_device *adev)
- {
- 	const struct dmcub_firmware_header_v1_0 *hdr;
-@@ -261,6 +323,7 @@ int dm_dmub_hw_init(struct amdgpu_device *adev)
- 	memset(&hw_params, 0, sizeof(hw_params));
- 	hw_params.soc_fb_info.fb_base = adev->gmc.fb_start;
- 	hw_params.soc_fb_info.fb_offset = adev->vm_manager.vram_base_offset;
-+	dm_get_alt_channel_pstate_switch_aperture(adev, &hw_params);
+-	if (dal_ddc_open(ddc, GPIO_MODE_INPUT,
+-			 GPIO_DDC_CONFIG_TYPE_MODE_I2C) != GPIO_RESULT_OK) {
+-		dal_ddc_close(ddc);
+-
++	if (dal_ddc_open(ddc, GPIO_MODE_INPUT, GPIO_DDC_CONFIG_TYPE_MODE_I2C) != GPIO_RESULT_OK)
+ 		return present;
+-	}
  
- 	/* backdoor load firmware and trigger dmub running */
- 	if (adev->firmware.load_type != AMDGPU_FW_LOAD_PSP)
+ 	/*
+ 	 * Read GPIO: DP sink is present if both clock and data pins are zero
 -- 
 2.53.0
 
