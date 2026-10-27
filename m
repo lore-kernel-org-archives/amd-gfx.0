@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C6F5606A31A
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 23:21:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6886F606A31D
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 23:21:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=G+MyhviW
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ETQAaNCe
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C931E10F891;
-	Tue, 27 Oct 2026 23:21:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 079A810F893;
+	Tue, 27 Oct 2026 23:21:41 +0000 (UTC)
 Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013025.outbound.protection.outlook.com
- [40.93.196.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4AFC10F891
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2026 23:21:24 +0000 (UTC)
+ (mail-southcentralusazon11013070.outbound.protection.outlook.com
+ [40.93.196.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB57910F893
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2026 23:21:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MN2f4d7O6y+ByA5NJL3m91jqctepS5iS6RT8LiKrS/RuJCPa/M6BXYRrTzF6sf1MWLVkPuJrHTJ5kMNmB691Q2POJjbIXy5ZAh/Cg3Qz8nhPNbkT142+2hduC9KcU1xX5RQpmb2pXtDiLbrHuvkkphD+Yotr5Faydv2HuOKbMI854wx79sYmx27FEZVAgqLpvwibrcKorQw4nsW4YBFyNt1TKCU8Fjhe4ev+mN0XRTIsNKlU94urGHj8/xLn3W6YXmAYOU8J1JZ92w8KdTDAGtD1akMPdAbuE+SODPFsdR+M8Z5A4zX1/DoJ7lc1AZXvCbfTSjWIOmMjeC3jNZxFIA==
+ b=Gqri7cIZ8HfSbjKj/AsoRdMyKoXJaWi14VRrm5UDs83IuQBLOxwgIQJ9DlcMguvleZvOX5cyWvs8NM8WA70AFp6nd5XSi7gxmBk2D4pkCgAreHBJfu9WARWLHkJbYzFizpZwd3SdARVf3QbegcrQ3UoYBfHpYOyl6PgT2uSAQnojr7+H6sJDz5AlnH/pUu5wX2ohGEBiYG7QZF8TfK+iG1dT5TaE9g2JHZaw1VEY0GIcfnurju/+iWQoraY8Uxs4aTgVaMNsQDpOu4bN5uNWcc6xbGII8ucQq0RuxAzQ/4cEOI3Ed7uo56JlJKhqzHJQTgm4ldFLXf+LEsjPj137Ww==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2Ng55zvNi0UaBwU4EBAdyua3dmQMRZC4khvHWuWm/Ug=;
- b=e0TV4a4RwAHpYRNfVxWHh9/KrZaxevJBNfoC/tvKTP5wAcw5i51wi5AR9HzH+EPzHxWTldP9JMr7ffmh5nE5I5znxhYPRAgrd1MGB20Q4ojC4jvuk28hAddGlYfRYN5RNQpqTEAWvf7avegyOJgYwe3G65Xgqfd3sdGlH1x5bPL6H6uZKM8bshAbFFWGgOoALsqwkI09x041NYf/kJeZo8+xxB8uzHGN/Xm61cvOzZwkBso6/O4gI58DMt3ylk8ar3tVAkOgTZyk5bEJhz+CsBYtYsZLy4wCnsjdKgxFN/ixzQMr2zXjuLmCIdU6Uy940TZnFPykctjxOzzwePypdA==
+ bh=0QvaNmKgsR7hRj1F99jTARw8DZKYNraqNHkgVUVTGus=;
+ b=I/Tv+S0TtSfDjOtuwRRZZinBotHl3dLnLO8uy5FSmoGTjMsWVtzQI6/fGA223BxGScatturtbJzuCoe0QiM6B08aYaiO3AjujoNz3QxhiWB99EFIbk98s5EVqQuTqjvCb9p0HcFUyuTzVKN05ucY/j5WW+V/SX7biKmsyIoQGIgHXdAC1peS6sewPa40fRnnGpZthP1GKPwlR/nIXxtzqP4B9RJnOHFNdb25LeOQBrBTEljiygWvAOw426QiVZegzDhhq5WQbsfQrSOiUH0LNWYh3XhsmZWJYfga9jYlgZ9Bvb8+lgy9OIWMHxY3JWfYG6TMJJStmwMI+Fy5emsU6A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2Ng55zvNi0UaBwU4EBAdyua3dmQMRZC4khvHWuWm/Ug=;
- b=G+MyhviWlNBNLYRZftKPDnYGQ/bK2efrogUuzRZGZeZQR1fh7CP0lgdNRlbzFEEx3obT38vWc0eh4FklQvhF89LuFjBjlh56yXBbR5eWPdKl+TtdCjenq4nRZhZOxre6W1x+W/Zwg1mY4HFwsQRQ7kh7pr6bbkA7m/IYZZlEcDo=
-Received: from BN9PR03CA0940.namprd03.prod.outlook.com (2603:10b6:408:108::15)
- by CH3PR12MB9146.namprd12.prod.outlook.com (2603:10b6:610:19c::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 23:21:18 +0000
-Received: from BN2PEPF00004FBA.namprd04.prod.outlook.com
- (2603:10b6:408:108:cafe::97) by BN9PR03CA0940.outlook.office365.com
- (2603:10b6:408:108::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Tue, 27
- Oct 2026 23:21:17 +0000
+ bh=0QvaNmKgsR7hRj1F99jTARw8DZKYNraqNHkgVUVTGus=;
+ b=ETQAaNCeRGyLbRUUYz1vSCJWZYYYDP8cZ992zo0A/nGdoNmgh6Uq1DiRX5w0jImS3oYZtTtmR3kc0d/Aebk+zYF/hibmvBO2Gn1YM3lfv1tDyRkk4bOzTVbkFl7m6irCrDZ+E4AKlneXwTmXWycpcLMn9MhqaRqTgIEmOtir7fU=
+Received: from MN2PR01CA0041.prod.exchangelabs.com (2603:10b6:208:23f::10) by
+ IA4PR12MB9764.namprd12.prod.outlook.com (2603:10b6:208:5d0::9) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.546.22; Tue, 27 Oct 2026 23:21:31 +0000
+Received: from BN2PEPF00004FBD.namprd04.prod.outlook.com
+ (2603:10b6:208:23f:cafe::56) by MN2PR01CA0041.outlook.office365.com
+ (2603:10b6:208:23f::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Tue,
+ 27 Oct 2026 23:21:31 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -47,13 +47,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF00004FBA.mail.protection.outlook.com (10.167.243.180) with Microsoft
+ BN2PEPF00004FBD.mail.protection.outlook.com (10.167.243.183) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Tue, 27 Oct 2026 23:21:17 +0000
+ 15.21.569.4 via Frontend Transport; Tue, 27 Oct 2026 23:21:30 +0000
 Received: from kylin.lan (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 27 Oct
- 2026 18:21:15 -0500
+ 2026 18:21:28 -0500
 From: Alex Hung <alex.hung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -62,12 +62,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Alvin Lee <Alvin.Lee2@amd.com>, Samson Tam
- <samson.tam@amd.com>
-Subject: [PATCH 04/28] drm/amd/display: Add visual confirm full viewport debug
- option
-Date: Tue, 27 Oct 2026 17:17:00 -0600
-Message-ID: <20261027232005.2879750-5-alex.hung@amd.com>
+ <Chen-Yu.Chen@amd.com>, Tony Cheng <toncheng@amd.com>, Nicholas Kazlauskas
+ <nicholas.kazlauskas@amd.com>
+Subject: [PATCH 05/28] drm/amd/display: Remove DCN401 RDPCS PHY state reads
+Date: Tue, 27 Oct 2026 17:17:01 -0600
+Message-ID: <20261027232005.2879750-6-alex.hung@amd.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261027232005.2879750-1-alex.hung@amd.com>
 References: <20261027232005.2879750-1-alex.hung@amd.com>
@@ -79,29 +78,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBA:EE_|CH3PR12MB9146:EE_
-X-MS-Office365-Filtering-Correlation-Id: 484b2306-e438-41c5-9789-08df3481008b
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBD:EE_|IA4PR12MB9764:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5141def6-1da3-4a9b-dd9e-08df3481085e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|1800799024|376014|23010399003|82310400026|261009223027099003|261022105027099003|261021121427099003|261021123027099003|10067099003|56012099006|3023799007|22082099003|18002099003|11063799006|261026140227099003;
-X-Microsoft-Antispam-Message-Info: Unrb2/o59SkLBnzxwRUshBmYlTJKeuMvWoZRWuJKAalK8zYkxx6A2kdmpwEGnuGBmRqKkWGU5EkXNDSBiHnJ2kKFYh0kCqCofQPIKk6zO3iPuREJ3/8N+gcyq4c6TkMuntOS0icOWZMeu0yo1XDha0dOLkzHZdzVLgr47WbdKmBNt9+MEtMtJrwRvIP00xN8sCVnHiAAe4fGBBxkH8IG9+UDtAd93EB++FaU9VzCKc4qUOa86gQYWmmEZavHieW9rxi7P7Ork/xn+dwFKydysjA64iFNIyv/Sxh/sLK7BlWA+68tf8sa8fLrEl0jpt+0a/KlzsetnpHW8/4gzNMLDwA24QJCJAEtLsIMN2EZizxuUsETDcHwsZD42ysOW7AaRPCsLx7KN2SCdlz3us0P+YCge+dH/uk6GYeOF5nHN76ioTuOkWrW/2fe8bF/fFu45hD8YUZviORRoZGcrJNnnM2Koq9yiElg/zbrPRSnejsBBslmnqX9QfJUBu9aql5mZSYYT1U2A3SuRzYj0ScwOuEd0UhvgmioSFsvUM/sStzgK8fPfQkpFJXSdlotozCYbE9x0WV5jFvobxpOU57cnSr+5K5r4MzhuXzbn7xZNwSTDyePOXj6cJ7WnaoOM/FnaipqoavgYH5+t1ztBJ8bp/J7N6jJeT6hLF0WA9PhcaYw/+HEbFzsxeUUbHSWH9ldLKMFpxYjb8kDDOK0mtDVrA==
+ ARA:13230040|1800799024|376014|36860700016|23010399003|82310400026|10067099003|261026121527099003|11063799006|56012099006|261021135927099003|261022075727099003|261021123027099003|261009223027099003|261022105027099003|261021121427099003|22082099003|18002099003|261026140227099003|3023799007;
+X-Microsoft-Antispam-Message-Info: rgVdZsSiSIZGiMMhSNJV8W9qJKeU2Ae4mAv5janIsO8Sbi8MOUkWO2wZ5sGECw+NqMlRwNDNqRqS6up5rC48xWQN8LpkEzkfU3ljxLt5bLVDZSQvgB4XIr1++aimznaV5KaPlobXsi3x6+T6EjsKn0lMe/uI4ikfNclaQqd9hFj2UFSnRYh/GXGT+3tZtgaoNSs5bN1MKhafz+oQA4quCGKci5tT56lNDoZseVoKJ5QDMfC5kNk5E4hkwJ9v4N/ywHjA9cFk+srUHr4LoDkEEwP0CE16ehRdtACcwpkATDCDwW6NVolQ9IgrVo0F/cnIeDuLXTaqREgE2UUwshODw2xWaeaThYTFbomyLhnJiYfuvzW6eB0d0BqGXWg01pD4tTLIb2OjhXvgSWVnbqIwOZlDd9fkIyxpaPAZ/GFMcqj567bJ+6MNbhEU9Qh6V10dKvOJXdbH8WJygVwVnwc4OPH+IgS+DY8D1NwQwNYsOjvd6B3MUpvT1DBv7RJmMS79FzrQzYs6AH8D4y2cf6dGv5eBoIHIeWlCso6HvMh4z7zZXvpKL1dm01v++7oWpfguq+H59Ta0w9qmV+9bDqHQfkrTgyLdhKQDqfR0FxB4/yur0uDf1Q2ID8YA7gPxGfeyYAIb5eKpMOR1+XjGAuHDt8fiPcBaN/Hn2njVVygWbtL61rZw3SPmL9Isv2LvqtLwqpvOZZiWnPZbJtssCQWmDw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(1800799024)(376014)(23010399003)(82310400026)(261009223027099003)(261022105027099003)(261021121427099003)(261021123027099003)(10067099003)(56012099006)(3023799007)(22082099003)(18002099003)(11063799006)(261026140227099003);
+ SFS:(13230040)(1800799024)(376014)(36860700016)(23010399003)(82310400026)(10067099003)(261026121527099003)(11063799006)(56012099006)(261021135927099003)(261022075727099003)(261021123027099003)(261009223027099003)(261022105027099003)(261021121427099003)(22082099003)(18002099003)(261026140227099003)(3023799007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: dbHcjuBbovfANGlcRWLsOP1UbhEedgZVLfr9KCbYRfO0FDPR80ySK51O4Uf73BgFXN8PtOdJ2lE+Y3xeC3NaG0gb0juz9EFjHGeshc8EBnJGFvt33PhaNkODWNOONfc0fc7p95XoWw0HyTdxg9Eo5cfiXocvnXPtBHbO/i+YQnQKHDPYd2FfQFU1H8Ch0wcrh+2cN5FV6hS+tLJEyf0GvgBOqLwijkzZi67fcswzLQaqpyKDeLLFO3Haayn0Zam2LwCZxXYyamHc/c6RoUsilI3nuGx9NJCf7l5f9sR1A5SXYpjptX6mYiTQEOgF+ux8HqbGUUOyMYGagbcnrao8FBCliBHV6zgGS09gHJ3HIQIec72vhpa30lfgKwv6G1CWolZ+EAQcUEaX/KFc2vE6wfVPtIIvSdFWsyLJYDzfmvXMK+Hk3ewISxPQtlMNpEmm
+X-MS-Exchange-AntiSpam-MessageData-0: g6LMFOTchHP8BXZbWqoOI/wsRLeIHY5gToierKFX8+j0LHprK0z+Q3VvAgfues0BtsWdgYhq5DSIsVTVPmBazhXxzAUoM+lF2rKN9Dr3sjucJFYkeyJxOy9KCAHo5/oD11dRsntr/d6Gs0hLXxF42X9yhX/VesR8beir3YhsQ0sgorkYf83YYAf4qCh7zupWXXBrryPhvLRG1PkHYUZoQqx4Ie31K3lpuEChL89VfpeGhqq6ABxV4jDhZniDCfkjTHGMKcpOrTuDpevcfL26NDylGr348oGcwjSgH7RAxvZ/CC7U3eg7LZeyq5SxxRRfhSiZj8YytLJ9cpbM+je1OyQu/EV0A0DDX3AonRwT3pjzuWIpf3Gxc9PqAHNrhZ3HwhOShoBiPZwpdnG5VkJ0KWa236Av4Uxu2NqeHr/W5odgbuJsZ3WEpWz65oabRxSp
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 23:21:17.4039 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 484b2306-e438-41c5-9789-08df3481008b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 23:21:30.5333 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5141def6-1da3-4a9b-dd9e-08df3481085e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FBA.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FBD.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9146
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR12MB9764
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,127 +118,184 @@ X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Alvin Lee <Alvin.Lee2@amd.com>
+From: Tony Cheng <toncheng@amd.com>
 
 [WHAT]
-The visual confirm overlay shrinks the recout before the viewport is
-derived from it, so the viewport shrinks too. The viewport then
-programmed into hardware no longer matches the one DML calculated, since
-DML sized the pipe for the full viewport. Keep the viewport full and
-shrink only the recout used by the overlay. This is to avoid discrepency
-between HW programming and DML calculations.
+DMCUB owns the PHY on DCN31+ and can gate its REFCLK. Reading RDPCS
+while REFCLK is off can hang the register interface, and only firmware
+knows the REFCLK state.
 
-- Add visual_confirm_full_viewport to struct dc_debug_options.
-- Derive the viewport from the full recout on the legacy and SPL paths.
-- Shrink the recout for HW only after viewport derivation, including the
-  dscl_prog_data recout the SPL path programs.
+Revert the RDPCS reads added by commit 4b21ed5d08af ("drm/amd/display:
+Read DCN401 PHY reset and lane enable state"): the RDPCSTX_PHY_CNTL0/3
+register entries, the shift/mask list, dcn401_link_encoder_read_state()
+and the link_enc_state fields. Drop the phy_on and phy_active columns
+from the get_hw_state LINK section, which read them.
 
-Cc: Samson Tam <samson.tam@amd.com>
-Signed-off-by: Alvin Lee <Alvin.Lee2@amd.com>
+Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Signed-off-by: Tony Cheng <toncheng@amd.com>
 Signed-off-by: Alex Hung <alex.hung@amd.com>
 ---
- .../gpu/drm/amd/display/dc/core/dc_resource.c | 47 ++++++++++++++++---
- drivers/gpu/drm/amd/display/dc/dc.h           |  2 +
- .../dc/resource/dcn60/dcn60_resource.c        |  1 +
- 3 files changed, 43 insertions(+), 7 deletions(-)
+ .../dc/dcn10/dcn10_hw_sequencer_debug.c       | 16 +++-----------
+ .../dc/dio/dcn401/dcn401_dio_link_encoder.c   | 22 +------------------
+ .../dc/dio/dcn401/dcn401_dio_link_encoder.h   |  8 -------
+ .../drm/amd/display/dc/inc/hw/link_encoder.h  |  2 --
+ .../dc/resource/dcn401/dcn401_resource.c      | 10 +++------
+ 5 files changed, 7 insertions(+), 51 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-index fa44c68b3340..832286f0c0b1 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-@@ -1241,9 +1241,15 @@ static void calculate_recout(struct pipe_ctx *pipe_ctx)
- 		pipe_ctx->plane_res.scl_data.recout = shift_rec(
- 				&overlapping_area,
- 				-odm_slice_src.x, -odm_slice_src.y);
--		adjust_recout_for_visual_confirm(
--				&pipe_ctx->plane_res.scl_data.recout,
--				pipe_ctx);
-+		/* Non-SPL path: shrinking the recout here, before the viewport is
-+		 * derived from it, shrinks the viewport too (legacy behavior). To keep
-+		 * the HW viewport full, skip this and shrink the recout for HW only at
-+		 * the tail of resource_build_scaling_params.
-+		 */
-+		if (!pipe_ctx->stream->ctx->dc->debug.visual_confirm_full_viewport)
-+			adjust_recout_for_visual_confirm(
-+					&pipe_ctx->plane_res.scl_data.recout,
-+					pipe_ctx);
- 	} else {
- 		/* if there is no overlap, zero recout */
- 		memset(&pipe_ctx->plane_res.scl_data.recout, 0,
-@@ -1606,10 +1612,22 @@ bool resource_build_scaling_params(struct pipe_ctx *pipe_ctx)
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer_debug.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer_debug.c
+index 37a010e0bd6e..395bccdd0f1d 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer_debug.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer_debug.c
+@@ -524,7 +524,7 @@ static unsigned int dcn10_get_link_states(struct dc *dc, char *pBuf, unsigned in
+ 	unsigned int i;
  
- 		// Convert pipe_ctx to respective input params for SPL
- 		translate_SPL_in_params_from_pipe_ctx(pipe_ctx, spl_in);
--		/* Pass visual confirm debug information */
--		calculate_adjust_recout_for_visual_confirm(pipe_ctx,
--			&spl_in->debug.visual_confirm_base_offset,
--			&spl_in->debug.visual_confirm_dpp_offset);
-+		/* Pass visual confirm debug information. These offsets are SPL inputs:
-+		 * SPL subtracts them from the recout and then derives the viewport from
-+		 * that shrunk recout, so the viewport shrinks together with the recout.
-+		 */
-+		if (pipe_ctx->stream->ctx->dc->debug.visual_confirm_full_viewport) {
-+			/* pass 0 so SPL keeps both recout and viewport full; the recout is
-+			 * shrunk for HW only at the tail of this function
-+			 */
-+			spl_in->debug.visual_confirm_base_offset = 0;
-+			spl_in->debug.visual_confirm_dpp_offset = 0;
-+		} else {
-+			/* legacy: let SPL shrink both the recout and the viewport */
-+			calculate_adjust_recout_for_visual_confirm(pipe_ctx,
-+				&spl_in->debug.visual_confirm_base_offset,
-+				&spl_in->debug.visual_confirm_dpp_offset);
-+		}
- 		// Set SPL output parameters to dscl_prog_data to be used for hw registers
- 		spl_out->dscl_prog_data = resource_get_dscl_prog_data(pipe_ctx);
- 		// Calculate scaler parameters from SPL
-@@ -1723,6 +1741,21 @@ bool resource_build_scaling_params(struct pipe_ctx *pipe_ctx)
- #ifdef CONFIG_DRM_AMD_DC_FP
- 	}
- #endif
-+	/* Common tail for both paths (legacy and SPL): the viewport has now been derived from the
-+	 * full recout, so shrink the recout for HW only. This runs only when
-+	 * keeping the viewport full; the legacy paths above already shrank the
-+	 * recout before the viewport was computed.
-+	 */
-+	if (pipe_ctx->stream->ctx->dc->debug.visual_confirm_full_viewport) {
-+		adjust_recout_for_visual_confirm(
-+				&pipe_ctx->plane_res.scl_data.recout, pipe_ctx);
-+		/* SPL programs the HW recout from dscl_prog_data, not scl_data.recout */
-+		if (pipe_ctx->stream->ctx->dc->config.use_spl &&
-+				!pipe_ctx->stream->ctx->dc->debug.disable_spl)
-+			adjust_recout_for_visual_confirm((struct rect *)
-+					&pipe_ctx->plane_res.scl_data.dscl_prog_data.recout,
-+					pipe_ctx);
-+	}
- 	DC_LOG_SCALER("%s pipe %d:\nViewport: height:%d width:%d x:%d y:%d  Recout: height:%d width:%d x:%d y:%d  HACTIVE:%d VACTIVE:%d\n"
- 			"src_rect: height:%d width:%d x:%d y:%d  dst_rect: height:%d width:%d x:%d y:%d  clip_rect: height:%d width:%d x:%d y:%d\n",
- 			__func__,
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index d983bab7eea3..fa4c142ac271 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -1350,6 +1350,8 @@ struct dc_debug_options {
- 	uint32_t dml21_custom_derate_at_dpm[DML2_MAX_NUM_DPM_LVL];
- 	bool override_utm_client_qc_profile;
- 	uint8_t utm_client_qc_profiles[4];
-+	/* keep HW viewport unchanged by shrinking only recout for visual confirm */
-+	bool visual_confirm_full_viewport;
- };
+ 	chars_printed = snprintf_count(pBuf, remaining_buffer,
+-		"link,enc,hpd,dig_en,dig_mode,dig_fe,src_otg,preferred_otg,phy_on,phy_active\n");
++		"link,enc,hpd,dig_en,dig_mode,dig_fe,src_otg,preferred_otg\n");
+ 	remaining_buffer -= chars_printed;
+ 	pBuf += chars_printed;
  
+@@ -532,8 +532,6 @@ static unsigned int dcn10_get_link_states(struct dc *dc, char *pBuf, unsigned in
+ 		struct dc_link *link = dc->links[i];
+ 		struct link_encoder *enc = link ? link->link_enc : NULL;
+ 		int hpd = -1, dig_en = -1, dig_mode = -1, dig_fe = -1, src_otg = -1;
+-		int phy_on = -1, phy_active = -1;
+-		struct link_enc_state s = {0};
  
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn60/dcn60_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn60/dcn60_resource.c
-index 3b70e97c0a6a..f192c95952ab 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn60/dcn60_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn60/dcn60_resource.c
-@@ -675,6 +675,7 @@ static const struct dc_debug_options debug_defaults_drv = {
+ 		if (!enc || link->connector_signal == SIGNAL_TYPE_VIRTUAL)
+ 			continue;
+@@ -548,19 +546,11 @@ static unsigned int dcn10_get_link_states(struct dc *dc, char *pBuf, unsigned in
+ 			dig_fe = enc->funcs->get_dig_frontend(enc);
+ 			src_otg = dcn10_dig_source_otg(dc, dig_fe);
  		}
- 	},
- 	.force_cositing = CHROMA_COSITING_NONE + 1,
-+	.visual_confirm_full_viewport = true,
+-		s.rdpcs_phy_reset = HW_STATE_NOT_READ;
+-		s.rdpcs_tx_data_en = HW_STATE_NOT_READ;
+-		if (enc->funcs->read_state)
+-			enc->funcs->read_state(enc, &s);
+-		if (s.rdpcs_phy_reset != HW_STATE_NOT_READ)
+-			phy_on = s.rdpcs_phy_reset == 0;
+-		if (s.rdpcs_tx_data_en != HW_STATE_NOT_READ)
+-			phy_active = s.rdpcs_tx_data_en != 0;
+ 
+ 		chars_printed = snprintf_count(pBuf, remaining_buffer,
+-			"%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\n",
++			"%d,%d,%d,%d,%d,%d,%d,%d\n",
+ 			i, enc->transmitter, hpd, dig_en, dig_mode, dig_fe,
+-			src_otg, enc->preferred_engine, phy_on, phy_active);
++			src_otg, enc->preferred_engine);
+ 		remaining_buffer -= chars_printed;
+ 		pBuf += chars_printed;
+ 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_link_encoder.c
+index 4d62a5982632..6594fbb3fa43 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_link_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_link_encoder.c
+@@ -364,26 +364,6 @@ bool dcn401_is_dig_enabled(struct link_encoder *enc)
+ 	return (clk_enabled == 1 && dig_enabled == 1);
+ }
+ 
+-void dcn401_link_encoder_read_state(struct link_encoder *enc, struct link_enc_state *s)
+-{
+-	struct dcn10_link_encoder *enc10 = TO_DCN10_LINK_ENC(enc);
+-	uint32_t tx0 = 0, tx1 = 0, tx2 = 0, tx3 = 0;
+-
+-	link_enc2_read_state(enc, s);
+-
+-	if (enc10->link_regs->RDPCSTX_PHY_CNTL0)
+-		REG_GET(RDPCSTX_PHY_CNTL0, RDPCS_PHY_RESET, &s->rdpcs_phy_reset);
+-
+-	if (enc10->link_regs->RDPCSTX_PHY_CNTL3) {
+-		REG_GET_4(RDPCSTX_PHY_CNTL3,
+-			  RDPCS_PHY_DP_TX0_DATA_EN, &tx0,
+-			  RDPCS_PHY_DP_TX1_DATA_EN, &tx1,
+-			  RDPCS_PHY_DP_TX2_DATA_EN, &tx2,
+-			  RDPCS_PHY_DP_TX3_DATA_EN, &tx3);
+-		s->rdpcs_tx_data_en = tx0 | tx1 << 1 | tx2 << 2 | tx3 << 3;
+-	}
+-}
+-
+ enum signal_type dcn401_get_dig_mode(
+ 	struct link_encoder *enc)
+ {
+@@ -419,7 +399,7 @@ void dcn401_setup_ri_pj_check_in_sw_or_hw_mode(
+ }
+ 
+ static const struct link_encoder_funcs dcn401_link_enc_funcs = {
+-	.read_state = dcn401_link_encoder_read_state,
++	.read_state = link_enc2_read_state,
+ 	.validate_output_with_stream =
+ 			dcn30_link_encoder_validate_output_with_stream,
+ 	.hw_init = enc401_hw_init,
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_link_encoder.h b/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_link_encoder.h
+index 689fc817dbc5..62f8f9098b53 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_link_encoder.h
++++ b/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_link_encoder.h
+@@ -28,13 +28,6 @@
+ 
+ #include "dcn30/dcn30_dio_link_encoder.h"
+ 
+-#define LINK_ENCODER_PHY_STATE_MASK_SH_LIST_DCN401(mask_sh) \
+-	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL0, RDPCS_PHY_RESET, mask_sh),\
+-	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL3, RDPCS_PHY_DP_TX0_DATA_EN, mask_sh),\
+-	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL3, RDPCS_PHY_DP_TX1_DATA_EN, mask_sh),\
+-	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL3, RDPCS_PHY_DP_TX2_DATA_EN, mask_sh),\
+-	LE_SF(RDPCSTX0_RDPCSTX_PHY_CNTL3, RDPCS_PHY_DP_TX3_DATA_EN, mask_sh)
+-
+ #define LINK_ENCODER_MASK_SH_LIST_DCN401(mask_sh) \
+ 	LE_SF(DIG0_DIG_BE_EN_CNTL, DIG_BE_ENABLE, mask_sh),\
+ 	LE_SF(DIG0_DIG_BE_CNTL, DIG_RB_SWITCH_EN, mask_sh),\
+@@ -157,7 +150,6 @@ enum signal_type dcn401_get_dig_mode(
+ 	struct link_encoder *enc);
+ 
+ bool dcn401_is_dig_enabled(struct link_encoder *enc);
+-void dcn401_link_encoder_read_state(struct link_encoder *enc, struct link_enc_state *s);
+ 
+ enum signal_type dcn401_get_dig_mode(struct link_encoder *enc);
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/link_encoder.h b/drivers/gpu/drm/amd/display/dc/inc/hw/link_encoder.h
+index 1c95d643af14..f3ef5bbfad81 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/link_encoder.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/link_encoder.h
+@@ -117,8 +117,6 @@ struct link_enc_state {
+ 		uint32_t dphy_fec_ready_shadow;
+ 		uint32_t dphy_fec_active_status;
+ 		uint32_t dp_link_training_complete;
+-		uint32_t rdpcs_phy_reset;
+-		uint32_t rdpcs_tx_data_en;
+ 
  };
  
- static const struct dc_check_config config_defaults = {
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
+index acc5aa8d777f..34e218bff078 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
+@@ -307,23 +307,19 @@ static struct dcn10_link_enc_hpd_registers link_enc_hpd_regs[5];
+ 
+ #define link_regs_init(id, phyid) \
+ 	LE_DCN401_REG_LIST_RI(id), \
+-	LE_DCN60_REG_LIST_RI(id), \
+-	SRI_ARR(RDPCSTX_PHY_CNTL0, RDPCSTX, id), \
+-	SRI_ARR(RDPCSTX_PHY_CNTL3, RDPCSTX, id)
++	LE_DCN60_REG_LIST_RI(id)
+ 
+ static struct dcn10_link_enc_registers link_enc_regs[4];
+ 
+ 
+ static const struct dcn10_link_enc_shift le_shift = {
+ 	LINK_ENCODER_MASK_SH_LIST_DCN401(__SHIFT), \
+-	LINK_ENCODER_MASK_SH_LIST_DCN60_ON_DCN401(__SHIFT), \
+-	LINK_ENCODER_PHY_STATE_MASK_SH_LIST_DCN401(__SHIFT)
++	LINK_ENCODER_MASK_SH_LIST_DCN60_ON_DCN401(__SHIFT)
+ };
+ 
+ static const struct dcn10_link_enc_mask le_mask = {
+ 	LINK_ENCODER_MASK_SH_LIST_DCN401(_MASK), \
+-	LINK_ENCODER_MASK_SH_LIST_DCN60_ON_DCN401(_MASK), \
+-	LINK_ENCODER_PHY_STATE_MASK_SH_LIST_DCN401(_MASK)
++	LINK_ENCODER_MASK_SH_LIST_DCN60_ON_DCN401(_MASK)
+ };
+ 
+ 
 -- 
 2.53.0
 
