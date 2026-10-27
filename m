@@ -2,82 +2,140 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46BA4606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D17D4606A31C
 	for <amd-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 13:00:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=aV2n9fYA
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=k1bhtu35
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 597CB10FC3A;
-	Wed, 28 Oct 2026 12:59:58 +0000 (UTC)
-Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5ACA310F859
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2026 22:39:10 +0000 (UTC)
-Received: by mail-dl1-f72.google.com with SMTP id
- a92af1059eb24-1a2f2ea3c3cso596008c88.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2026 15:39:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20260707; t=1793140749; x=1793745549;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:from:subject:message-id:mime-version:date:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=pEmx5PL3tlnBiGr2rjVOl0G+YHkBW7VB5cziBEiH9l0=;
- b=aV2n9fYAByugHXYF3HRuN/1VWaElgxhuvcuDgTqF9ci378ccnJjBCdYqlr00JvTXFE
- oewwsbcvXpwCLj5cLcG7Xf2iLXR0qbKpplo0MZY9kyU65ecq3RasZQ6a7OEDS/ma1MRr
- v12gkRzMvZ0uo3ODZ29kILVE2+tIFAx3i44tF0xHiHqR/1LgwuDMGDa6hgnT3dgRG/ev
- l5u7ZSmiRgf+F66rIk+coJPSmdsV0D6zHp/c/r+Gd+kNyHYOVScKNFojefYqnVbwA1jp
- ZZ4zNKFVU9ubcfpYCuvD3vOZDPXSQ0Uk3ttNsJcEMc+bvxld/uNmTzgkBHeCQf73iMDK
- sHTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793140749; x=1793745549;
- h=content-type:cc:to:from:subject:message-id:mime-version:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=pEmx5PL3tlnBiGr2rjVOl0G+YHkBW7VB5cziBEiH9l0=;
- b=bxIMioAx1SsDpcH6MQmZct++NbMoS2cV4Ly5HnCT8KBOmD6IPvCFG7epyvF5rk1VMj
- NuPOI02EmkSoOmAWbYolCMhmRaGkfPDoirtN7dXpRK/aRsYkPG0aoaIvEpzpAtn6G2IN
- qWlMMa+GmfQItAYxPy7pdw66tczT7468zOSUdSfJ56n8ghcmH0ZpF+4iNXqmZCyIkddB
- dW7Pyq0ECA5TPZRjx/AeBd4CUqHENkp1Y4teIMHysjuQcgEK2YntgWBJk3tGiRTkspPe
- zxi1wXdGhgzN2oFjR+ods6V79fZrcWuiP6vlP2zcZhp5FAebfXL5rANR+3ob4V9lppFQ
- AAEA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzKk/+UhjGsC8kvzEW1L12b15D48vogQgcT7mhcJs9K5u7PI1UUJYlv/GKxGX8P91EEXn5cpwvX@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLrj2cwuEhdYoV0axS8lvE2uyavz/ZT6eSpE3j9jYJKViQ1LN+Q
- 6I9nwxxjGcZ6Kz2THtJFwHswn3XwlSXyrtEdG4ztajbY5MXYf5TWfVcVZtqm/Ol0QlehmTrVxyO
- ZZsftvVNsQQ==
-X-Received: from dli9.prod.google.com ([2002:a05:7022:289:b0:1a1:da78:f9b9])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7022:6989:b0:165:90af:a25f
- with SMTP id a92af1059eb24-1a6cfa0c447mr941563c88.41.1793140748444; Tue, 27
- Oct 2026 15:39:08 -0700 (PDT)
-Date: Tue, 27 Oct 2026 15:38:35 -0700
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A8E810FC3B;
+	Wed, 28 Oct 2026 13:00:02 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012026.outbound.protection.outlook.com [52.101.53.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 25B1B10E40B;
+ Tue, 27 Oct 2026 12:39:09 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=N5zYQVaaDRq/8BRlpblbEfEwddZdxLFJ9aohQl3v789ZsQqJIkhZ3+nA8CANtTFcKzFb4uUEag+1wQ8Xrhv3lfGkG7iMo31Mo+N0iv5Rs6lBrPJ2VXrzVmye/58br2JVAZUQlPqY7dXCnzDfaMiVGanvfbsm+RQHl9K20HkSbuj81flSeQyo63lpbR+VMxjUPK3JWdJ8U/X2g9XyujG+VyUvLkK1LipFMANN8CPNhbdMT0jZYLAEXP0xiDHXt/gHuN/f8hnQ537gj4kQneXuNH2X/zBf1XngcJeo/o+asqi4RQl9joYZ42NaWOjyq9Gq+tDbo4FeOrlPOvpfYpj0UA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HziDsGmgK9Gf37+SktFNo49wkeEA9Ry2xyPH26deLYs=;
+ b=gJnqJZGMVjSdsfRp1in9586Pg+52lp06LArAtMG0PSTJ+2dTi8lkgBuarqfI3McaA1eG1rkQ4VqZs+O/zYMBK3zE/cC5iLMBOT2MU0Asx2YW/haSp0TY093yt0uak4uXITvXwiDR7QNwalX7Jp4X5DR41EgF9+NWHy3/zHMrRHRf+YeqaZMpjMaLzKjJ8035RDN5xhF2paj1Hc/w3zS4uE2JGK+KlU8/b6Rjok/t+hyMny/vEP/eLWE0orlxNSw5HjDkqrdWfwAsDpVaZfFLfLksQP32d2Afj/BfRUqWlCsuh4oAK+qWLqvGeW5lTlszLIZ77BxrB7FP+UZN8mR2Xg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HziDsGmgK9Gf37+SktFNo49wkeEA9Ry2xyPH26deLYs=;
+ b=k1bhtu35NcetzH3jUQF+t3rhAJIwNujuTgVYEBXPU0Hie5bIfca9A9SwvyCb1ls/eN3ckzroFWhieQhBWIHQZO7RJmK4o5mCgPMk4l+clweyazwI5biGfILuNi78SX9pWCqgEoQlBk7vX3vsCcQGHcwUpIcJ3ZjEY3Xr7vCIgwn0aYnsgnUtYBERSEgjPf1fWHZyJUTWk42xyK9woDDrcSVP1Ax4MfOCFPfnQQrVUOBUjfURiJ21XMdWyyvdIdnJDSFhJ2wNycAhY8V8qCKFyBXPV7G5tVYdCPA89clQ3IhEfHilEsUmG9Je8tFfK12zgRgx8SdiTg/AHwbf9YOQ8g==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12) by CH3PR12MB7548.namprd12.prod.outlook.com
+ (2603:10b6:610:144::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
+ 2026 12:39:00 +0000
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
+ 12:39:00 +0000
+Date: Tue, 27 Oct 2026 09:38:59 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: Alistair Popple <apopple@nvidia.com>, dri-devel@lists.freedesktop.org,
+ sumit.semwal@linaro.org,
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ Dongwon Kim <dongwon.kim@intel.com>, Leon Romanovsky <leonro@nvidia.com>,
+ Kevin Tian <kevin.tian@intel.com>, Xu Yilun <yilun.xu@linux.intel.com>,
+ Karl Mehltretter <kmehltretter@gmail.com>,
+ Baolu Lu <baolu.lu@linux.intel.com>,
+ Felix Kuehling <felix.kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, iommu@lists.linux.dev,
+ Alexey Kardashevskiy <aik@amd.com>, zhipingz@meta.com,
+ treding@nvidia.com, jhubbard@nvidia.com
+Subject: Re: [PATCH 23/26] treewide: Rename dma_buf_attach() to
+ dma_buf_sgt_attach()
+Message-ID: <20261027123859.GE1671235@nvidia.com>
+References: <20261026053623.202642-1-apopple@nvidia.com>
+ <20261026053623.202642-24-apopple@nvidia.com>
+ <27307d58-9ca9-4624-a564-6e35fb4befb5@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <27307d58-9ca9-4624-a564-6e35fb4befb5@amd.com>
+X-ClientProxiedBy: MN0P223CA0022.NAMP223.PROD.OUTLOOK.COM
+ (2603:10b6:208:52b::23) To CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12)
 X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.313.g2479322e68-goog
-Message-ID: <20261027223847.652884-1-irogers@google.com>
-Subject: [PATCH v2 0/9] Add __must_init and require explicit kobj_type::release
-From: Ian Rogers <irogers@google.com>
-To: Kees Cook <kees@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Miguel Ojeda <ojeda@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>
-Cc: Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, 
- Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>, 
- "=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>,
- Zhihao Cheng <chengzhihao1@huawei.com>, 
- Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>,
- Sumanth Korikkar <sumanthk@linux.ibm.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- driver-core@lists.linux.dev, 
- llvm@lists.linux.dev, linux-hardening@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-acpi@vger.kernel.org, linux-pm@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, linux-sh@vger.kernel.org, 
- linux-s390@vger.kernel.org, gfs2@lists.linux.dev, 
- xen-devel@lists.xenproject.org, linux-mtd@lists.infradead.org, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Ian Rogers <irogers@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|CH3PR12MB7548:EE_
+X-MS-Office365-Filtering-Correlation-Id: ba848c84-75e6-4b89-5207-08df342746bf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|23010399003|376014|7416014|1800799024|22082099003|18002099003|261026140227099003|56012099006|11063799006|4143699003|10067099003|261022105027099003|261026121527099003;
+X-Microsoft-Antispam-Message-Info: ouxHyHteo6Af9DAYY30UBwqgYDBkUk6Nb22Q6a3WKojA5bGgTZR5QTdm5m/4GBEOd2AZNAilXQuQRojaZOgGEsIuvXXc6SqjBDhD1t7DvrvzoMxoL6uQXGN8IegxAh91seomhzTZ9dmp9Zr27PFRFUtMyKfRCwufhKBhzbQwoBY+GYVLgKHzFilR51Aff2g784ONq7BzKFaXoer/9p41zubqeay/74uc+oDmnDRkOxGGUtXpUq+9NcPQbUf7JfrH9Qcv6vnCf4TtXm7Uz4FY3D/qzWDWIB44AD1D/eU6+xENlqnP5yn4GSwKjXFiHzbNOfVh7M7ijKekXxDxSeZQxwHKB258GzvpxBXpw5Af/xd/9EshR5vHjDB10iqSyTukeChVhrXX83DWfb9JXNQzNUNc8mYmp3ms96jUuDSTeahUjrqdGjd6tz6w44gJY1n8ficPIkg6Ql5rvP4sIeSqieNorvE9Hfr0W4prL6LWUxxlt4OwVrugVUdHPA2MTR56ashnKojTcPH3vIWmweMOY4cT/jclrx7bH7aHltI8lbErdml8JufAtf/c55HL87zIiwqkrcUYeVBDHy4DRlx6+RhqS50FkUWERJgVwDXBC8cy1vlePPJgjLJw3V+ymyWebWP4DGhp+/MMmVna0NkicNRjMeqdb3dl1czbtAHURfM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CHBPR12MB731189.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(376014)(7416014)(1800799024)(22082099003)(18002099003)(261026140227099003)(56012099006)(11063799006)(4143699003)(10067099003)(261022105027099003)(261026121527099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bnFuU2cvRDJQZndzaTA3dFArU3k3Uy9XKzZBNndhNmZpQ1dpVzhYem9LaGli?=
+ =?utf-8?B?djRKOWZPS09SelNuNXZQSWVBYUN3NS85bkplVytwRjE4MDh1NzV4T0tFSHY0?=
+ =?utf-8?B?VWJhS0JDOGpPRnRwOHF3QkRsUVM1WE52UDlwZGRDM0haczJLQUZ3cWFBYnkz?=
+ =?utf-8?B?ekI3bnFMcHczVXZyaVQ3a2QzWCttc1J1UEFXcm95cEUxVHJ4cTlFbzNMNGww?=
+ =?utf-8?B?TlNSZk9IVi9mbHN0dGUzZkhjTWhwUmhlNVMxdXVWT3R3dWVsQlZaLzFyNExM?=
+ =?utf-8?B?ZDVlNGtmZytMdDAyaUxWZ3RSMERKQVo2OWtDMVhsQmVyTDlObkZZRjg1ZWNC?=
+ =?utf-8?B?NWZEVk9UY3hyd2JqcjNJNXVIK0xqSHpVVkEvN1VCYStQUTJxQmtkSDFaby8y?=
+ =?utf-8?B?aTdvMHBNamdtYjczT2VBcTh2M2pvUTRZYTV5UFAvNGdSMkorRWdJQ1NWbElv?=
+ =?utf-8?B?cnh4bFNtNmp1VUFNU3RyVXp3TklUb1hVYUFjcHROVi83dGdac3pzRms3K3Fx?=
+ =?utf-8?B?b08zaWNWMFFlYm02cTdmYTQwUHlXVWJiSHJ5N1NhNms5T0l0UHIvYTFSaXJw?=
+ =?utf-8?B?S01vcFErVzJuOVQ1Rm1PQWxYNTgvNURSc2t3REQ4blhNUWYzK2RzVXE3SHpv?=
+ =?utf-8?B?TVJtMnhDRGFXWDQxUzRSRjhGREhpM2YwV21jY2l5a1VXSlQ0djAyZm93b2dr?=
+ =?utf-8?B?ckVwOWF1UHJURSsrT3dGQ0ZtMEwrQ1VldUsvRUdVWmdpOHlzU3BDdnBMbFFz?=
+ =?utf-8?B?dlJlNDFDd2p0Zm8wTHN5SFE2dkgzZi9rL04ydnBzeTkxQzZsL0lTdHh3R0FN?=
+ =?utf-8?B?N0J1MjFVcUNJTDBsQzdEOG1SUm1oNWt3aXM5bGpsdHZLdGdnOGZhS2VkKzJE?=
+ =?utf-8?B?UXpzaEhRaXZCSDR2WENmbnRuYTRxZTIxaHJYb2ZmdFh2TVN3eUl4dEVtdytn?=
+ =?utf-8?B?dkJwUGVhUFpKZ1h3ZjI4SFgzRmxzN1VoSWYxMVBYdkdLWTY1d3VNL2VuVE1H?=
+ =?utf-8?B?aHFlQUorMlJ6eHhJdzZGM0hyQURTRGl3WnlFYUx0V1p1M3J1NjVhWk9BZGR6?=
+ =?utf-8?B?MDhadGNmTjZESWU1Z1BtN0NDU2xNaVBmcXA4ZC9EZ2tMRDNJVm5wQnVvdHhj?=
+ =?utf-8?B?OTU1aUJHQ1ZYTzNZZ3l6WlduSnRCUlF6Z2xIRmI3b0ZGTUcySi91emxhQ1NR?=
+ =?utf-8?B?YmxHT25mdW5Ra0gzaU1QNFdEd1Y0Uko5VjJ1a3l3RUZDTmJrUjN1UllvOEVQ?=
+ =?utf-8?B?WFVpYXl5RDY0SzFrQVZYNFpad2s5dTZUUTdTMmpxR2RoR1Q1NnpEbnBUbkxT?=
+ =?utf-8?B?Ym1tR2E2VkxxVVQvOWp4VTVsWUNmSnlVcUlJSVBqM0h4ZHcyNDZyVkxjYzZI?=
+ =?utf-8?B?ckJlNmttemlPSzNOa2hCSnpMZE1hZStEci9zQThqODZSVnljanRGbzAyOEdv?=
+ =?utf-8?B?ZE5IV2RvendGVzlDTXN4b0dTL1p4RHFXcjRYN2ZocHBIa3lUMjlESnFVbHhX?=
+ =?utf-8?B?K2tINTcvUGY3cnppTkcreWVFL2NsSTNzUC9RMldhL2Y5Wmpac3VhNXBkOEhP?=
+ =?utf-8?B?eDYxajZvaUlXZnU5amxXekNrU0tKc3MyTVQxY29qV2UyL0hzaHJuVHJpalVE?=
+ =?utf-8?B?SVJzby9XSkswUXlrQmgxMFZZdWJpWDB3U2ZacVZUZEhNR2RETnFXUllkVUZN?=
+ =?utf-8?B?YzUxM2Q4bHJaSmNjeGgwcEc1SG05UmlMK2lXQWF4Sy9EaU1BS3d2VWlyblUv?=
+ =?utf-8?B?YnBhNCtqOFNta1dvRFhYTzdrSnhEWVcyYm1MdUpBZFd5VGNJeWlVaEVTNUY2?=
+ =?utf-8?B?R0NNUnVUeGlMN1dQR0ZIcFg1YmhZNEVXTk1aY0g2M21kY201N2FLaHpUMjFm?=
+ =?utf-8?B?bnFUaURRQnErVWtJek5OaXM2ZnhGK2hweFJsK2NhNVFqUEpxV1VudmZzU1hR?=
+ =?utf-8?B?SXY0NFMrWnNXNUNoZ0cxYnkzOGp4cm85UWVDYXM5TURVc0VKajl1bnZla3cv?=
+ =?utf-8?B?N0VqNVFsWWsyd2JnWXNOZlI1ZEpkSkFTbFJUb0QwOVQzUTZBdzdpTmJ4Qkpi?=
+ =?utf-8?B?WVFEQnN6YityR3NpdlJNdjBaVng0ZlVtWXRoRk9ZbnBzRStzdVFDMGhnekVM?=
+ =?utf-8?B?WXlCcVdRck9LWCtWZFdRc2dvWnZIQ2xyY2R1elYwK25kMFczbU9WOUpad2dL?=
+ =?utf-8?B?eXFXemZvYWhac2VSczNaMmNaWHd3dzNNMkJpQ0dqR1VIR3pXUEEzbDFoMGlp?=
+ =?utf-8?B?VE9jb0FwakxTYmhnZzdDTFdhQzR1Ukg1dWR3dWNyUzdrY3BQcW1OMVU5UlRx?=
+ =?utf-8?Q?ZqDqhL5G3uBsTKwptY?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ba848c84-75e6-4b89-5207-08df342746bf
+X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 12:39:00.6151 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: x9lvOFOBrhp1LpevKB0FFkNPeFfo8NeyoJEGpRTivn0hYN/4K5wYDyGHfn7oI41x
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7548
 X-Mailman-Approved-At: Wed, 28 Oct 2026 12:59:51 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,138 +147,36 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-21.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT,USER_IN_DEF_DKIM_WL autolearn=unavailable
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Clang supports the 'require_explicit_initialization' attribute on struct
-fields to enforce that the field is explicitly initialized when an
-aggregate object is constructed, emitting -Wuninitialized-explicit-init
-(enabled by default) if the field is omitted.
+On Tue, Oct 27, 2026 at 01:07:36PM +0100, Christian König wrote:
+> On 10/26/26 06:36, Alistair Popple wrote:
+> > From: Jason Gunthorpe <jgg@nvidia.com>
+> > 
+> > This attach function always creates a SGT mapping type importer.
+> 
+> Yeah that is a clear NO-GO. The attachment should be the same for
+> the new interface as well.
 
-Following discussion at the Linux Plumbers Conference [1], patch 1 adds
-the attribute to include/linux/compiler_attributes.h as __must_init. In
-v1 it was called __require_explicit_initialization. Kees picked up that
-patch with a first seq_file user [2], and in that thread Greg suggested
-the shorter __must_init spelling, which Kees and Miguel agreed to. As
-the attribute did not land in the v7.4 merge window, Kees asked that
-this series carry the renamed attribute. The Acked-by/Reviewed-by tags
-on patch 1 were given for the original spelling; the rename is
-mechanical.
+Not sure I understand this comment...
 
-As Documentation/core-api/kobject.rst notes:
-  "One important point cannot be overstated: every kobject must have a
-  release() method, and the kobject must persist (in a consistent state)
-  until that method is called. If these constraints are not met, the
-  code is flawed."
+This was intended as a helper so that existing drivers can run through
+the sgt based mapping type flow without having to open code it. It is
+hardwired to only do sgt like this. If you want to use more than sgt
+as your mapping type don't use this function
 
-Annotating struct kobj_type::release caught struct kobj_type definitions
-across the tree that omitted .release:
-- Patches 2-8 fix struct kobj_type definitions where dynamically
-  allocated kobjects, ksets, or enclosing structures were either leaked
-  on kobject_put(), freed prematurely before kobject release, or missing
-  proper static initializers.
-- Patch 9 annotates struct kobj_type::release with __must_init and
-  explicitly sets .release = NULL (with explanatory comments prefixed
-  with "Pre-existing:") on the remaining legacy struct kobj_type
-  definitions whose kobjects are static, per-CPU, permanent firmware
-  structures, or embedded in devm- or parent-managed structures.
+The point was to create a clear distinction in the API names when
+things were in a SGT-only flow vs using the newer negotiable flow.
 
-Note on tool use: An LLM coding assistant was used to help audit the
-compiler diagnostics across the tree, draft the fixes and changelog
-descriptions, and verify builds and review feedback.
+> > Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
 
-Changes in v2:
-- Rebased on v7.3-16928-g83f32c773255 (v7.4 merge window).
-- Patch 1: Rename __require_explicit_initialization to __must_init per
-  Greg Kroah-Hartman; document the Clang >= 20 requirement per Miguel
-  Ojeda; note the Clang gap for file-scope objects without an
-  initializer reported by Kees Cook; add tags from v1 and from Kees's
-  posting.
-- Move LLM assistance attribution from Assisted-by tags to this cover
-  letter per commit 1e035297ffda ("docs: remove Assisted-by
-  references").
-- Patch 4 (cpufreq): Use "cpufreq: governor:" prefix, drop Fixes tag,
-  fix typo, and remove the redundant runtime assignment in
-  cpufreq_dbs_governor_init() per Zhongqiu Han.
-- Dropped v1 patch 5 (ACPI: CPPC), already fixed upstream by
-  commit 27954e29d7de ("ACPI: CPPC: Release CPC descriptors through
-  kobject").
-- Patch 5 (dlm): Call kobject_del() before dlm_recoverd_stop() in
-  release_lockspace() and the new_lockspace() error path, and wait on a
-  new ls_kobj_done completion before freeing the lockspace or dropping
-  the module reference, avoiding races with delayed kobject release.
-- Dropped v1 patch 8 (s390/sclp_mem) per Sumanth Korikkar: the
-  /sys/firmware/memory/memoryX kobjects are permanent, so sclp_mem.c is
-  folded into patch 9 with .release = NULL.
-- Patch 7 (ubifs): Add Tested-by and Reviewed-by from Zhihao Cheng.
-- Patch 8 (drm/amdkfd): Check q->kobj.state_in_sysfs before
-  kobject_del() in kfd_procfs_del_queue().
-- Patch 9 (kobject): Cover sclp_mem.c and the new amdgpu_ualink.c
-  ualink_xcp_info_ktype, fix the overlay-sysfs.c comment, and prefix
-  legacy .release = NULL comments with "Pre-existing:".
-- Patch 9 (kobject): The ioat, kunpeng_hccs and omapfb display comments
-  now say that the existing teardown can use-after-free under
-  CONFIG_DEBUG_KOBJECT_RELEASE (reported by Sashiko). Fixing those
-  drivers is left to follow-up patches.
+Alistair since you rebased it you should put your SOB on every
+patch...
 
-v1: https://lore.kernel.org/all/20261013223946.1836757-1-irogers@google.com/
-[1] https://lpc.events/event/20/contributions/2392/
-[2] https://lore.kernel.org/lkml/20261014225811.i.852-kees@kernel.org/
-
-Ian Rogers (9):
-  Compiler Attributes: Add __must_init macro
-  powerpc/secvar: Add missing kobject release callback to secvar_ktype
-  sh: sq: Add missing kobject release callback to ktype_percpu_entry
-  cpufreq: governor: Initialize kobj_type release callback statically
-  dlm: Free dlm_ls in kobject release callback
-  xen/sys-hypervisor: Add release callback to hyp_sysfs_kobj_type
-  ubifs: sysfs: Use kset_create_and_add() for ubifs_kset
-  drm/amdkfd: Free queue in procfs_queue_type kobject release callback
-  kobject: Require explicit initialization of struct kobj_type::release
-
- Documentation/conf.py                         |  1 +
- arch/arm64/kernel/cpuinfo.c                   |  5 ++++
- arch/powerpc/kernel/secvar-sysfs.c            |  6 +++++
- arch/sh/kernel/cpu/sh4/sq.c                   |  6 +++++
- drivers/acpi/sysfs.c                          |  2 ++
- drivers/cpufreq/cpufreq_conservative.c        |  5 +++-
- drivers/cpufreq/cpufreq_governor.c            |  4 +--
- drivers/cpufreq/cpufreq_governor.h            |  1 +
- drivers/cpufreq/cpufreq_ondemand.c            |  5 +++-
- drivers/dma/ioat/sysfs.c                      |  7 +++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c    |  5 ++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c       | 10 +++++++
- drivers/gpu/drm/amd/amdkfd/kfd_process.c      | 12 ++++++---
- drivers/gpu/drm/amd/amdkfd/kfd_queue.c        |  5 +++-
- drivers/infiniband/hw/hfi1/sysfs.c            |  5 ++++
- drivers/infiniband/hw/usnic/usnic_ib_sysfs.c  |  2 ++
- drivers/parisc/pdc_stable.c                   |  5 ++++
- drivers/power/supply/ab8500_fg.c              |  5 ++++
- drivers/s390/char/sclp_mem.c                  |  2 ++
- drivers/soc/hisilicon/kunpeng_hccs.c          | 21 +++++++++++++++
- .../fbdev/omap2/omapfb/dss/display-sysfs.c    |  7 +++++
- .../fbdev/omap2/omapfb/dss/manager-sysfs.c    |  5 ++++
- .../fbdev/omap2/omapfb/dss/overlay-sysfs.c    |  5 ++++
- drivers/xen/sys-hypervisor.c                  |  6 +++++
- fs/dlm/dlm_internal.h                         |  1 +
- fs/dlm/lockspace.c                            | 26 ++++++++++++++-----
- fs/erofs/sysfs.c                              | 10 +++++++
- fs/f2fs/sysfs.c                               | 15 +++++++++++
- fs/ocfs2/cluster/masklog.c                    |  5 ++++
- fs/ubifs/sysfs.c                              | 24 +++++------------
- include/linux/compiler_attributes.h           | 12 +++++++++
- include/linux/kobject.h                       |  2 +-
- scripts/checkpatch.pl                         |  1 +
- tools/lib/python/kdoc/xforms_lists.py         |  1 +
- 34 files changed, 202 insertions(+), 32 deletions(-)
-
-
-base-commit: 83f32c773255720a661aa45d83e36278135f23f5
--- 
-2.56.0.313.g2479322e68-goog
-
+Regards,
+Jason
