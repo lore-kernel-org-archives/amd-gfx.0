@@ -2,90 +2,90 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45D19606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2929606A31E
 	for <amd-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 13:00:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=nn2EMPXM
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MylnB0aR
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D3E310FC28;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17BE710FC25;
 	Wed, 28 Oct 2026 12:59:58 +0000 (UTC)
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com
- [209.85.210.200])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 361D510F85C
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2026 22:39:19 +0000 (UTC)
-Received: by mail-pf1-f200.google.com with SMTP id
- d2e1a72fcca58-8a0592d4539so466539b3a.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2026 15:39:19 -0700 (PDT)
+Received: from mail-wr1-f66.google.com (mail-wr1-f66.google.com
+ [209.85.221.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A283C10E289
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2026 23:59:58 +0000 (UTC)
+Received: by mail-wr1-f66.google.com with SMTP id
+ ffacd0b85a97d-48dfaa3fa12so1131307f8f.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2026 16:59:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20260707; t=1793140759; x=1793745559;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:from:subject:message-id:references:mime-version
- :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=beIsynJTUoVVYUibNrHvS9xq2J3rMWzpCblr3XGPomY=;
- b=nn2EMPXMOmVSCHKcw3gY1RwaCTUyhrhYUvEVhswBMwC8d6Sl7GheBTyUuhDudi9DTP
- doiI9X3TcNkVPEhdxnoi/hqlnDljmctYO/rhLehGAdSeQwOXh3+TgjD2QP04w3WDXzwp
- 0qLbI3bWbfI242bDJ1J/eWokTXbj8JDwx5CizKJktl/0eDv4v7yRBZtQbkNG5uu7/9x4
- e7OJDUIzOjuDtsTqK19rSiPz3jA2dpgXRJC1Nep2yDpSZVpJKOGS239xhuhBpisLDNcB
- +p6m0c0PcJv7bBm73XmZQqU2UvqSv8cSaggRXbsHqd6ZyZI5ZprJ20nYzOyQl9wSJcyE
- BaMw==
+ d=gmail.com; s=20260707; t=1793145597; x=1793750397; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from:references
+ :cc:to:content-language:subject:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=bBTKol9N1nqETGHQsxayqsr3cv18S0UQTtkfWd81H5E=;
+ b=MylnB0aRrMD7MUQ7YpAGqlwDSrIHZLtSSbx0PeuyRvgSv/d8elrecrKosHXYQI3MGO
+ 0sQIsKywAOe5fwpnxLR9x2hnwYhGrafdHE6CkfyJzhfiMRvPXlWR/Y3ve0lv0m+O7wFL
+ aNkzzPerXYCFKTxz7s96YFBcbIUlIkSmaf89qWD+N6O1uquVUKXyys0e6WBroBC6vtzk
+ yYkWpBPozZYLgDyZPIxGRiJ456gAERbgcUMeFZrAWha86td2g7fSfXRyX+H6cIx/2SuX
+ ZAQ+sJRww98HtnJmYRF4YYm2ef/at7qa+1/aMdvf7RFM0QKbJheAtgV5P0Ln1SoZWMMT
+ YHQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793140759; x=1793745559;
- h=content-type:cc:to:from:subject:message-id:references:mime-version
- :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20260707; t=1793145597; x=1793750397;
+ h=content-transfer-encoding:content-type:in-reply-to:from:references
+ :cc:to:content-language:subject:user-agent:mime-version:date
+ :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=beIsynJTUoVVYUibNrHvS9xq2J3rMWzpCblr3XGPomY=;
- b=vhEUlAL4fsQcXKOaWuTaAm9I4MLzwBW3zyvaeq4K0awq/p+BDeOPyctAd7qTNe8wY7
- 9p2LD41fXqB8DpucGqZ5gUpLMAsTNBNBJbsbvjA3fsc8rj4FeEBUtzlogM8DU5LZbuQE
- FAMCU84DcTaO+dIrJQylmABEU7Phz7ooHZPtjjQQvmDLvBqM++gHpEZ4htI45JrmZBvL
- 4DY/T4K6x1KaxTrNDgtiMjfQxXn/vyEzh534WXoV1RNr8LJaVhFpP6QB30Cr64yXNdra
- 68CsZMFeLqrp5EO+rNgdkOuGeqLMhPnH/BIf70dn2vZiUqMEqDAVSNbiTkAlMbCE9Yor
- 2R6w==
+ bh=bBTKol9N1nqETGHQsxayqsr3cv18S0UQTtkfWd81H5E=;
+ b=M8zTNM230EvuvqswKcJ8I0HFAeAerLHQmywIK7Ouby//V7NTKb74a2f+kDRb4c+2ij
+ p9Jwow3ogKvIF58B/LeN1jXE9F5aQlfOLOlA9v5MJ2Ml3GHG9iIrQbOu8C7dhRSLWqMJ
+ obY+BbFDQ8eiR+DZ20dQHB/D8zMNxF1lU/62kOQZkbMimnI6ocokT5IRrHlPCIIVGC1y
+ VbUROH9X5L5AzKewujDkmtA5q+nK3Gg18/P0zzsZPusyf+0Q0XuhHmYBhO6MTO94Dyjt
+ GDNeaNbU8VsmSOZY2AyhDp0Ws43cJc9t0fLAH4jmnYFxkvz2BgpQdTg0haqp8h0ir29w
+ ip9Q==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxKyBKymhz5FblwJrj8Ikc5rNsQ+T8BwSngl8v3bTL/vlZLAW0ZFn0rgMGi+e0QSG0lek1gYQhT@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYL1EtonnNj1Mx2oeHsr8mG5Y4QzvFft9Ma983ifdHLrlzompxd3
- PuPauXYJDmBhmis47osWj/MFM3Yr2UeJxyPoYjdoaBujiuyjBsxjSAZiFNT/sw76qdef6CgptUF
- 1RvXzXldhuQ==
-X-Received: from pfbdw21.prod.google.com
- ([2002:a05:6a00:3695:b0:89f:827e:eb47])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a00:4293:b0:876:194e:b8fe
- with SMTP id d2e1a72fcca58-8a6e70e832amr492696b3a.26.1793140758450; Tue, 27
- Oct 2026 15:39:18 -0700 (PDT)
-Date: Tue, 27 Oct 2026 15:38:38 -0700
-In-Reply-To: <20261027223847.652884-1-irogers@google.com>
+ AKwUvBwUWwj75p4WXQViEcI6anRbdg+05VS5Cn3fjxezWTrFUQlWoJsasr4FVx5ma52baN7T40J9cT9i@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIr4yqNVvErTn9p7sV3iDEtuB8wmOFWT1KUX/lnuQ2t+cK/Zx9d
+ WV/8LdZkchtLi3C0DUIIlb1Tmwsb/xT68gwhsIj+X8cJ+/GveJ6BrgOd
+X-Gm-Gg: AYBFou2bKRDq93Y6R6FNrGEPoR0mlDP4skmQt1ONN16obwwvOyrPcE/8P2tcpFOl1kI
+ 1PIUEKkghrqIjZlzE0FtWbJVehylg5OVdGlP9EJRBpAPoyHFds2DR+VL/ThEtnAxe1N2qxUHz7O
+ i7CsuD6O2vrJ8gBS5x06tyX7yT52/D+0ikbF/825r0xZmB62AF+gbkJfXwORW3Bo931Ah9xdZXA
+ PDUW6A8BYa+3hMvUnjULpK7pMBboKwPjyhBx6oaFy68yXldKUHZqGcRrM6IhaQoAo5i96Fe5DbK
+ K5TpC5aF9g5YGiCIcmHFGMBtIZXqnBE33zF9SabgyF2w6CPmgT27cMSnmnH7TocIe/pWixwnVXo
+ /I6I1mAdthi6r3OWvnGGlCsMSqa/WKNOmTnZDj5MUao1gQbQ8Cq9LBT9vpBXm5M2MdNaL7aw1Qi
+ IkKalREbiL/3CIazEmoj7dpckC2JWpNoYBjQO8R6/J1zdkWqkCNmJ0T134nBmys6dwLkE2UTxeo
+ spKshV7qThFG1lHTY8bT0Jj74BwvJHuAPNa8JrINlpO9PPO
+X-Received: by 2002:adf:ebcd:0:b0:48e:4ad2:32e0 with SMTP id
+ ffacd0b85a97d-48e55a5a8bemr6497483f8f.29.1793145596732; 
+ Tue, 27 Oct 2026 16:59:56 -0700 (PDT)
+Received: from [192.168.1.12] ([31.94.68.191])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-48e3ebd4be6sm23200698f8f.37.2026.10.27.16.59.53
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 27 Oct 2026 16:59:55 -0700 (PDT)
+Message-ID: <138497f6-2271-4229-87f1-4e42e9d2b581@gmail.com>
+Date: Tue, 27 Oct 2026 23:59:53 +0000
 X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0
-References: <20261027223847.652884-1-irogers@google.com>
-X-Mailer: git-send-email 2.56.0.313.g2479322e68-goog
-Message-ID: <20261027223847.652884-4-irogers@google.com>
-Subject: [PATCH v2 3/9] sh: sq: Add missing kobject release callback to
- ktype_percpu_entry
-From: Ian Rogers <irogers@google.com>
-To: Kees Cook <kees@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Miguel Ojeda <ojeda@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>
-Cc: Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, 
- Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>, 
- "=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>,
- Zhihao Cheng <chengzhihao1@huawei.com>, 
- Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>,
- Sumanth Korikkar <sumanthk@linux.ibm.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- driver-core@lists.linux.dev, 
- llvm@lists.linux.dev, linux-hardening@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-acpi@vger.kernel.org, linux-pm@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, linux-sh@vger.kernel.org, 
- linux-s390@vger.kernel.org, gfs2@lists.linux.dev, 
- xen-devel@lists.xenproject.org, linux-mtd@lists.infradead.org, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Ian Rogers <irogers@google.com>, 
- Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, 
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- Paul Mundt <lethal@linux-sh.org>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] drm/amdgpu: reserve 64M stolen memory for Apple 5K
+ iMac
+Content-Language: en-US
+To: Alex Deucher <alexdeucher@gmail.com>,
+ Mario Limonciello <mario.limonciello@amd.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <a826b32d-597a-4c01-8b30-218cbca8627a@gmail.com>
+ <e0573e72-dcc1-4ff2-8cf2-53aefde912cb@amd.com>
+ <CADnq5_M8f2Hgs06n9EXUaihGsr6YEm6G4YFVQmPfQbGU08XkBg@mail.gmail.com>
+ <6f79a3e2-5510-4018-aabd-45fcdf5dcbb3@amd.com>
+ <CADnq5_OTLQuD3B6-VUgZv6wGjhFNY_U77wqdv5Y+e25+O0B2ZA@mail.gmail.com>
+From: Richard Lane <richardlanedev@gmail.com>
+In-Reply-To: <CADnq5_OTLQuD3B6-VUgZv6wGjhFNY_U77wqdv5Y+e25+O0B2ZA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 28 Oct 2026 12:59:51 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -97,45 +97,180 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-26.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT,USER_IN_DEF_DKIM_WL autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FORGED_GMAIL_RCVD,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-In sq_dev_add(), sq_kobject[cpu] is dynamically allocated with
-kzalloc_obj() and initialized with ktype_percpu_entry. When
-sq_dev_remove() calls kobject_put(kobj), the kobject is never freed
-because ktype_percpu_entry lacks a .release callback.
+On 27/10/2026 13:37, Alex Deucher wrote:
+> On Tue, Oct 27, 2026 at 9:16 AM Mario Limonciello
+> <mario.limonciello@amd.com> wrote:
+>>
+>>
+>>
+>> On 10/27/26 07:57, Alex Deucher wrote:
+>>> On Tue, Oct 27, 2026 at 8:21 AM Christian König
+>>> <christian.koenig@amd.com> wrote:
+>>>>
+>>>> On 10/26/26 23:46, Richard Lane wrote:
+>>>>> Apple 27" 5K iMacs report a single 2560x2880 tile (28.125 MiB) in
+>>>>> VIEWPORT_SIZE while scanning out up to 64 MiB across the relocated EFI
+>>>>> framebuffer.
+>>>>>
+>>>>> Override the stolen VGA memory allocation size to 64 MiB when matching
+>>>>> PCI_VENDOR_ID_APPLE with a 2560x2880x4 viewport size to prevent
+>>>>> framebuffer corruption during boot handover.
+>>>>
+>>>> Hacks like those are usually a big no-go.
+>>>>
+>>>> Why is that framebuffer handling not working with DC out of the box?
+>>>
+>>> The GMC IP code reserves the memory used by the display hardware from
+>>> the pre-OS console.  The gmc get_vbios_fb_size() callback looks to see
+>>> what display viewport was set by the pre-OS environment.  If the Macs
+>>> need a workaround, that's where it should go.  Since these displays
+>>> require multiple display pipes, my guess is you need to double the
+>>> allocation in that case since the current code just checks the first
+>>> pipe.
+>>
+>>
+>> Could this also be a logic error in that callback?  Would it be worth
+>> double checking all the register values in that callback for this system?
+>>
+>> I know for example there are a few different IP specific implementations
+>> in gmc_v9_0_get_vbios_fb_size().
+> 
+> Not likely.  I suspect the issue is that these systems use two display
+> pipes so we only reserve enough memory to cover half of the display.
+> On PCs the vbios never sets up MST.
+> 
+> Alex
+> 
 
-Provide a sq_kobj_release() callback that calls kfree(kobj).
+I tested doubling the allocation in gmc_v8_0_get_vbios_fb_size():
 
-Fixes: d7c30c682a27 ("sh: Store Queue API rework.")
-Signed-off-by: Ian Rogers <irogers@google.com>
----
- arch/sh/kernel/cpu/sh4/sq.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+	if (adev->pdev->subsystem_vendor == PCI_VENDOR_ID_APPLE &&
+	    size == (2560 * 2880 * 4))
+		size *= 2;
 
-diff --git a/arch/sh/kernel/cpu/sh4/sq.c b/arch/sh/kernel/cpu/sh4/sq.c
-index 908a8e09113b..f33864958487 100644
---- a/arch/sh/kernel/cpu/sh4/sq.c
-+++ b/arch/sh/kernel/cpu/sh4/sq.c
-@@ -331,7 +331,13 @@ static const struct sysfs_ops sq_sysfs_ops = {
- 	.store	= sq_sysfs_store,
- };
+That eliminated the corruption across the middle (45-60%) of the screen,
+but still left a band of corruption along the very bottom (95-100%) of
+the screen.
+
+Dumping the DCE registers inside gmc_v8_0_get_vbios_fb_size() on the
+iMac17,1 showed:
+
+  vram_start = 0xf400000000, d1vga = 0x0
+  CRTC0: grph_en=0x1 surf_hi=0xf4 surf_lo=0x300000 pitch=5120 vp_size=2560x2880
+  CRTC1: grph_en=0x80000000 surf_hi=0x0 surf_lo=0x0 pitch=0 vp_size=0x0
+
+Even though only CRTC0 is active at EFI boot with a 2560x2880 viewport,
+Apple's EFI allocates a full 5120-pixel stride surface (mmGRPH_PITCH) and places
+mmGRPH_PRIMARY_SURFACE_ADDRESS at a 3 MiB offset (0x300000) from
+vram_start.
+
+Because CRTC0 scans out 2880 lines at a 5120-pixel pitch starting at
+offset 3 MiB, the active pre-OS scanout spans [3 MiB, 59.25 MiB) in VRAM:
+- Reserving 2560 * 2880 * 4 (28.125 MiB) places permanent driver BOs at
+  ~28.125..32 MiB, corrupting the middle (40-60%) of the screen.
+- Reserving 2 * 2560 * 2880 * 4 (56.25 MiB) places those BOs at
+  ~56.25..59.25 MiB, leaving the final 3 MiB exposed due to the 0x300000
+  surface offset and corrupting the bottom (95-100%) of the screen.
+- Accounting for the 5120 pitch and the 0x300000 surface offset reserves
+  the full 59.25 MiB span and eliminates the corruption completely.
+
+For v2 of the patch, which of the following two approaches in both
+gmc_v7_0/v8_0_get_vbios_fb_size() would you prefer? Both tested working.
+
+Option A (change whole function):
+
+ static unsigned gmc_v8_0_get_vbios_fb_size(struct amdgpu_device *adev)
+ {
+ 	u32 d1vga_control = RREG32(mmD1VGA_CONTROL);
+ 	unsigned size;
  
-+static void sq_kobj_release(struct kobject *kobj)
-+{
-+	kfree(kobj);
-+}
+ 	if (REG_GET_FIELD(d1vga_control, D1VGA_CONTROL, D1VGA_MODE_ENABLE)) {
+ 		size = AMDGPU_VBIOS_VGA_ALLOCATION;
+ 	} else {
+ 		u32 viewport = RREG32(mmVIEWPORT_SIZE);
+-		size = (REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT_HEIGHT) *
+-			REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT_WIDTH) * 4);
++		size = REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT_HEIGHT) *
++		       RREG32(mmGRPH_PITCH) * 4;
++		if (size)
++			size += RREG32(mmGRPH_PRIMARY_SURFACE_ADDRESS) -
++				lower_32_bits(adev->gmc.vram_start);
+ 	}
+ 
+ 	return size;
+ }
+
+Option B (add Apple 5K iMacs quirk):
+
+ static unsigned gmc_v8_0_get_vbios_fb_size(struct amdgpu_device *adev)
+ {
+ 	u32 d1vga_control = RREG32(mmD1VGA_CONTROL);
+ 	unsigned size;
+ 
+ 	if (REG_GET_FIELD(d1vga_control, D1VGA_CONTROL, D1VGA_MODE_ENABLE)) {
+ 		size = AMDGPU_VBIOS_VGA_ALLOCATION;
+ 	} else {
+ 		u32 viewport = RREG32(mmVIEWPORT_SIZE);
+ 		size = (REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT_HEIGHT) *
+ 			REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT_WIDTH) * 4);
 +
- static struct kobj_type ktype_percpu_entry = {
-+	.release	= sq_kobj_release,
- 	.sysfs_ops	= &sq_sysfs_ops,
- 	.default_groups	= sq_sysfs_groups,
- };
--- 
-2.56.0.313.g2479322e68-goog
++		if (adev->pdev->subsystem_vendor == PCI_VENDOR_ID_APPLE &&
++		    size == (2560 * 2880 * 4))
++			size = size * 2 + RREG32(mmGRPH_PRIMARY_SURFACE_ADDRESS);
+ 	}
+ 
+ 	return size;
+ }
+
+
+Richard
+
+>>
+>>>
+>>> Alex
+>>>
+>>>>
+>>>> Regards,
+>>>> Christian.
+>>>>
+>>>>>
+>>>>> Signed-off-by: Richard Lane <richardlanedev@gmail.com>
+>>>>> ---
+>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 10 +++++++++-
+>>>>>   1 file changed, 9 insertions(+), 1 deletion(-)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+>>>>> index 4204c3c750a8..8b196fbfa724 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+>>>>> @@ -1232,7 +1232,15 @@ void amdgpu_gmc_init_vga_resv_regions(struct amdgpu_device *adev)
+>>>>>          } else {
+>>>>>                  size = amdgpu_gmc_get_vbios_fb_size(adev);
+>>>>>
+>>>>> -               if (adev->mman.keep_stolen_vga_memory)
+>>>>> +               /*
+>>>>> +                * Apple 5K iMacs report one 2560x2880 tile in VIEWPORT_SIZE
+>>>>> +                * while scanning out up to 64M across the relocated EFI
+>>>>> +                * framebuffer.
+>>>>> +                */
+>>>>> +               if (adev->pdev->subsystem_vendor == PCI_VENDOR_ID_APPLE &&
+>>>>> +                   size == (2560 * 2880 * 4))
+>>>>> +                       size = 64U * 1024 * 1024;
+>>>>> +               else if (adev->mman.keep_stolen_vga_memory)
+>>>>>                          size = max(size, (unsigned)AMDGPU_VBIOS_VGA_ALLOCATION);
+>>>>>          }
+>>>>>
+>>>>> --
+>>>>> 2.55.0
+>>>>
+>>
 
