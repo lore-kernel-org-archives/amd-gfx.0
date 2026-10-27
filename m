@@ -2,42 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCD59606A31A
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 23:25:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F382D606A31A
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 23:25:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=decJ6Qkq
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=PpAcC9bE
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E82E10F8AD;
-	Tue, 27 Oct 2026 23:25:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 918D410F8AE;
+	Tue, 27 Oct 2026 23:25:29 +0000 (UTC)
 Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011018.outbound.protection.outlook.com [40.107.208.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92D5610F8AD
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2026 23:25:11 +0000 (UTC)
+ (mail-westus3azon11011038.outbound.protection.outlook.com [40.107.208.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E27B910F8AE
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2026 23:25:23 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Fxs0jq/YYc4a88CfJsoLAii2w6ctWSLsIfvz6nRUJLp8SHX/ECWxWeHvR+0yTWfl9QLdXnu6FFVeOJujxDVTaHeMOzH1X13dXmtgs6Jc5e1Re2T8z9lon1Mu+aGWRrAVFP+GNL2Uj6noTB1Tn2OdIhxpgVSulI/VWXBLer8wdGQ+SxycDMtv19R1uevEtx/p1FHMVV3SjQmpp8OBLW3GpgSA0v9sYDyu9IBVrUAIKwGzzC12MtMGQ5MjdE1O0Y9x8yAfuWziZLSmFJ27MupoAkUa4Bueg5oK7/mZ+a4ZmetADuvOeFUEvikTlHRfmfcm321bvO1UnByaiuiI6Lzh8w==
+ b=vskBzxPW4toPaQ7vCt1AdHEtARYeonqK3s7E8pmlcbE/KeKffRRMfUxzS0gPU3qMjauVJVMUpW17ODKlB64CHtrJqe6/xSuJrAyOD5nN95QLaarYTq4zEGpE0iEKa0afle1O7kDj0RrfioTFU9z1aSltLqgFi6fVG9MQ0HSuaFxChGziVuFUfdg8F6P+stxvvkrWztZLfdRyfv+BVrPv4kv7ywfPaSPoN1QDQDr0Gu/y+HiqCbFzL2V0YrIEem4RJXg5BddXObt5usI3e6+8BW/mRw8XtiZ0x5cowGIdIDJQX+bkTmh9Gsgyh0ugDcSiB+sOsRGaKv7C1ZWRgMQddA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UyXwsc5EWkmoLPitPMttD0GDDAKv7kecW8xBFsw2P/w=;
- b=CsvMxk4qY1Mpau11/F1jFmiTgjNUEYf7w5rIw+YeAVQRw2fHBLja5jbIXttGWbdw5BqQOLjpTWJrzwGpGnwgee/fdxwDm8kbSBoxxcoDEJzrAceiN2vaj5oWIIRRXCNwsiItcYA9kH9VrS8r6CrFESAOwMucYbU4G7YqcbdLPUwjuy665vM3V7MzvH4ND+z61o7jiy3s8HVMvk/8nScGCjDepCbCOtZDFv6fhkINpt5WAAHpjYkRjhlz1fX8UF/+3Xvqw7TkN7wttJKkHXIih5cMw0R9ar28kv9KJDPNahL5n//0V3E2ZYH3+GZSIJ4/Kwr08vW0Jdo0kmM4yruKsw==
+ bh=R3rWxfxFOV4Yrc6UpL25hV3azWY5V++1kWYNmnabm7o=;
+ b=UfX67txnNXDrMDA4Z304DS9W3c+DcuMNnt4xOTqTv6ECO/XokZLU9NCenGU7kTfbCIGlu1KaRSCg875XQ+vhe0r/YhCzp/Sr73wMEVky6Sj8L2edgnH4WUVPq/MyQ19A2hh1crDYO4C7yHp3H0nx89AWAKx7bJYa3vqS785JjLU31/y1YDjyLkl5Rj5DSk2DTdxwCTpsCuimmg+G/HUV2xGpZ50BXRpmcclamIH/S6HpjFz5Y6wHW3Ip+bcgsPn6LkOmqk9P9dXYuTfPxSvE01D3DRbif052z82k0K1dzj4lQy/4piYqzgWfna3PJUqSA5RDYU7Fb/YKMcxoFCiMOg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UyXwsc5EWkmoLPitPMttD0GDDAKv7kecW8xBFsw2P/w=;
- b=decJ6QkqdG0c0R3kXulCJbDKa0A5n8r64JLNd5lV2rRJYudCMu+eU/4PJsIOVT9ecfe5615LJwNbC/N6WmFezhRhxDWAkoiXrjzLPe0BoWtwCQpGp0UtBAdMJ7R4yDQwbAkS//TOZe+JXaRNJ9y4QiFHrZu20zL2hLo5fr1v7Fc=
-Received: from CH0PR03CA0220.namprd03.prod.outlook.com (2603:10b6:610:e7::15)
- by CH3PR12MB7571.namprd12.prod.outlook.com (2603:10b6:610:147::9)
+ bh=R3rWxfxFOV4Yrc6UpL25hV3azWY5V++1kWYNmnabm7o=;
+ b=PpAcC9bEd3DSBxNWpp1cF7KPLHsBGejW9nci0CWkmtS9Z2fmsjgEr8kqWp1SWq64P9h+NBv2OCwPMhB0mx5pEb0u9lZfgpl3cKH3KYAcSzF3OwI45xCLxnEs6BECtxvK4Beqoc0C/Ve9s0Sn40kVz3zVE5cVQHl0mCtJ9SjiiCE=
+Received: from CH2PR03CA0014.namprd03.prod.outlook.com (2603:10b6:610:59::24)
+ by SJ1PR12MB6196.namprd12.prod.outlook.com (2603:10b6:a03:456::8)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 23:25:05 +0000
-Received: from CH01EPF000BE940.namprd02.prod.outlook.com
- (2603:10b6:610:e7:cafe::64) by CH0PR03CA0220.outlook.office365.com
- (2603:10b6:610:e7::15) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 23:25:19 +0000
+Received: from CH01EPF000BE945.namprd02.prod.outlook.com
+ (2603:10b6:610:59:cafe::aa) by CH2PR03CA0014.outlook.office365.com
+ (2603:10b6:610:59::24) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Tue,
- 27 Oct 2026 23:25:05 +0000
+ 27 Oct 2026 23:25:18 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -46,13 +46,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- CH01EPF000BE940.mail.protection.outlook.com (10.167.244.132) with Microsoft
+ CH01EPF000BE945.mail.protection.outlook.com (10.167.244.137) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Tue, 27 Oct 2026 23:25:05 +0000
+ 15.21.569.4 via Frontend Transport; Tue, 27 Oct 2026 23:25:18 +0000
 Received: from kylin.lan (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 27 Oct
- 2026 18:25:03 -0500
+ 2026 18:25:16 -0500
 From: Alex Hung <alex.hung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -61,11 +61,10 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Ilya Bakoulin <Ilya.Bakoulin@amd.com>, Dillon Varone
- <dillon.varone@amd.com>
-Subject: [PATCH 21/28] drm/amd/display: Expand DSCCLK support check
-Date: Tue, 27 Oct 2026 17:17:17 -0600
-Message-ID: <20261027232005.2879750-22-alex.hung@amd.com>
+ <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
+Subject: [PATCH 22/28] drm/amd/display: Add more backlight Kunit tests
+Date: Tue, 27 Oct 2026 17:17:18 -0600
+Message-ID: <20261027232005.2879750-23-alex.hung@amd.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261027232005.2879750-1-alex.hung@amd.com>
 References: <20261027232005.2879750-1-alex.hung@amd.com>
@@ -77,29 +76,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH01EPF000BE940:EE_|CH3PR12MB7571:EE_
-X-MS-Office365-Filtering-Correlation-Id: be42e1d2-3e75-4956-5ef0-08df348188a7
+X-MS-TrafficTypeDiagnostic: CH01EPF000BE945:EE_|SJ1PR12MB6196:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4e5b8a72-4a9b-4c90-c7e1-08df34819072
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|36860700016|1800799024|23010399003|6133799003|18002099003|22082099003|261026121527099003|3023799007|10067099003|56012099006|11063799006|5023799004|261009221227099003|261021121427099003|261009223327099003|261009220027099003|261009223027099003|261021123027099003|261009221727099003|261022075727099003;
-X-Microsoft-Antispam-Message-Info: o/kTSOCcuHzidluomVt7IqkN4usliezXXL700WNWmQB/wqVB9himjYMXKwAZ3i2SFpQBu5Y0ZtD9Q/QgPstIoYXNHWFcMsxIZUKV3/63t2tHV0hRWskPamwnQ86NdXzp+08Q5r3fx/zVGSoK0hARQA+M1PSFlkMCMRkOWXalLEvsxMvplMKuvhYQWp8xAv12RFjgRxIcf6sQ+TJvvhbCGz3fna4Xu3ESB9X4bqY/ScguRS8MOR3eI7gTwp5gm80dBTUXjzlIRbzzcpzdEoucXv/wUYuxNPlz9ifmVYLhshuAsY2y9qSe5/ySyEPdHDEPO3tx9Hey4YbditS0qIffPrJLd86iKay1gaPR2pqlSHmFJGng6tGx6Xau35hoH6xxy6AYPiTrkTmzuszKZ4B5PCukx8QYrdXoIkBYC7oxa3Iqe2HY3hHEY2Jk7i0jjzwl/rs0p0ed7OfoiU9h2XPggS5UG839pwOnMUmTwIwlKZQKODD38tUNR1s52dwF/NzacQhlLhmN67zDqRKeOrSLORcJ6i0je08SMZMn6f+253cX64sWtihmM1pwA6uOvzilxdSS6d7N3eEWIsplsml4wb3WzhQtc2FGfS7hOD+HYBP9tTYhLBSYajNgboGx9pm2HadBkI4PJ5eMVt7MgRaFO0zzX7yeNCgjq6uUCwg+LQr6PkUODsYm5iEjwfPPDu2MpXsyQn3TV650xuUuWYPGMQ==
+ ARA:13230040|36860700016|82310400026|23010399003|376014|1800799024|22082099003|18002099003|261026121527099003|261026135527099003|10067099003|261021133027099003|11063799006|56012099006|261021121427099003|261022113327099003|261021130227099003|261022105027099003|261022075727099003|261009223027099003|261021135927099003|261021123027099003|261022115727099003|261026140227099003|261026130827099003;
+X-Microsoft-Antispam-Message-Info: +FVucCV4PBYqK9WRCpal55NlSXtYGf08YYuSSstJNeWopm+zRtgTzsUdZb9BzZ8I0E06ZD6w7LpsPZe2ypbE2AoFQC7ZWMOyv8mrxjlzQvXgI1t4OvHsj4RZ8zK91N2/nwPFYkSNpC4Da28KQzEaaMZWpycXBkoCHsnfdy0IrYNuU7uqYstQ6HQ5n5Lii8zf+VCcLJmKm5ahAu07SmsXWMBKS1zySdiGaOi4JjErt03ThEnl024EabBk9Kr0mQTglLe6vTR2Ts46nyz+ymKBwgKyK3aVSCHlMrsGP5cK3Ske+BG2bHux5Qcm51Jun06jZC2JR04Pkp2jBGhch/qkZWQIf4e6RabwI5V80US3CDlmM06XLM81W/PNrJa1e5kR6vv0b7bDzLcDYPC4nkkQvNgPxLgAIdJkyBeC2ubTXFDUJvEUsB9KI9fcB0NwG43lRibmvlvhxKpkOYxbFZ9+eb8tyeKdLa59HdMVlOpHtJ8EwevESIu7qs1vSKJtp+HUr7/aEgIvsk/dCD8Ooi0KvW1upc6EgtHwn/Cm6lD9PJ2roZlbm28VOE/2sM3kzhMRBF+TwHlemvF9QWJ+J4/pUBXmXZAFIBi+KsLiSLUhVWBHSB50EhGWvlWWS3HgScAr0v024e7Hd6GIx2noFdabd/FRwnYSA5eIFEuaL141b448Bkjn33NyI3MNjBpnNIwfsbWMyzVFgQ9EQmzS+xu4og==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(36860700016)(1800799024)(23010399003)(6133799003)(18002099003)(22082099003)(261026121527099003)(3023799007)(10067099003)(56012099006)(11063799006)(5023799004)(261009221227099003)(261021121427099003)(261009223327099003)(261009220027099003)(261009223027099003)(261021123027099003)(261009221727099003)(261022075727099003);
+ SFS:(13230040)(36860700016)(82310400026)(23010399003)(376014)(1800799024)(22082099003)(18002099003)(261026121527099003)(261026135527099003)(10067099003)(261021133027099003)(11063799006)(56012099006)(261021121427099003)(261022113327099003)(261021130227099003)(261022105027099003)(261022075727099003)(261009223027099003)(261021135927099003)(261021123027099003)(261022115727099003)(261026140227099003)(261026130827099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: thDO/Q3a+SzuDC26j0voAdPmCVydcd++11Kr3wEHoUNxqMDCp6j5xkTu1WXMTAbErpXgvowqHVid5Ye2IlniWyKv2CzpNR0xaG8PuJZ9JhdGx8lEtZ3aIhgwxgPzr+6RBSN4S+3YD2NbRriXFWcg/Ev1VF/+2i7pc4NKS8sHOKWy4lAchoaRRlCejCOMyAhy6iahw8/pF1gJ6eNT3laWhBeQmXoUJMWcVK9+Jjwzhz1HD0GU5vNSPgjYb0Rc3sk0O89pkuVDpF/4Vy7PJxjRX6R/kZvlpa3kOPqQfMPDy3+eeirqmwBFpRVY3ixODRvepK2vMprz6e1gjaOePoHywWLHBrlpMVTOmgVrKrmL3Yo36vUF+lQSNWUr3MrmCeJ1VuWrm4RgY+Zj7DnQjDXTwsKu+9OJcZgFqDdwNkhTnHYfZpWQuhpbfM2WA3Nkombh
+X-MS-Exchange-AntiSpam-MessageData-0: rmXLZDzEMoq7J3C8Ly4YY/tpTxZC0FHss81PFCuuMrk+0N24+fdnr0SSa2uJ+/+JUKJWyDAbOw+9r2/+LHvId+m4028OG95hbicd6d5CarHAuW/2QheHXBcAmLr6mlUH95PBivp9oCnxU2vjgIj9fXDxIL1utqku7kooHOchN98+2vPDmzkAVxewtMMnysEn2VWCz75n+WR8vgL+znjWG8oJMWAJUQinUBxBvffx4idbrc2qZ393F2ode6dqokHZ0f9Q8zDD1IVG4QfkQCybpZ/WBi6wSoHUVVYZAI0TqFTF8DTdRhbYkzlWIr6m/sD7rX3aU5IupgVCdOvgPqdhe3BlcYbJTngH6pRB0dOwsFtfGR4c72chcP61Nf96+qTQ8oElELAdwfUvJuusQ1j6kN9h8BNCtfG32zkDo6uyWTDueKMTvhmRNhj+xy1YAks5
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 23:25:05.7455 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: be42e1d2-3e75-4956-5ef0-08df348188a7
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 23:25:18.8199 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4e5b8a72-4a9b-4c90-c7e1-08df34819072
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH01EPF000BE940.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CH01EPF000BE945.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7571
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6196
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,145 +116,157 @@ X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Ilya Bakoulin <Ilya.Bakoulin@amd.com>
+[WHAT]
+Add KUnit tests for amdgpu_dm_backlight.c:
+- amdgpu_dm_backlight_set_level(): the PWM custom luminance curve
+  (below, between and above the data points, and a zero-width last
+  segment) and the DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE bypass.
+- amdgpu_dm_register_backlight_device(): the non-linear backlight
+  scale and a hardware readback that differs from the initial
+  brightness.
+- amdgpu_dm_update_connector_ext_caps(): VESA AUX backlight control
+  when the panel reports DPCD panel luminance control.
 
-[WHY & HOW]
-Need to add a check for the case where there is 1 DSC slice per ODM
-pipe, and DSCCLK exceeds 1/5th of DPREFCLK. Such configurations should
-be marked as unsupported.
+[HOW]
+Extend the existing PWM set_level test with a table of data point
+counts and brightness values, then repeat the call with the debug
+mask set. Add a register test with one curve data point that reuses
+the mid backlight level fake. Re-run the OLED ext_caps test with
+panel_luminance_control set.
 
-Cc: Dillon Varone <dillon.varone@amd.com>
-Signed-off-by: Ilya Bakoulin <Ilya.Bakoulin@amd.com>
+Cc: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
 Signed-off-by: Alex Hung <alex.hung@amd.com>
 ---
- .../dml2_core_dcn5_funcs_mode_support.c       | 24 ++++++++++++++++---
- .../dml2_core_dcn6_funcs_mode_support.c       | 19 ++++++++++++++-
- .../dml2_utm_soc_bb/dml2_utm_soc_bb_dcn5.c    |  1 +
- .../dml2_utm_soc_bb/dml2_utm_soc_bb_dcn6.c    |  1 +
- .../src/inc/dml2_internal_shared_types.h      |  1 +
- 5 files changed, 42 insertions(+), 4 deletions(-)
+ .../tests/amdgpu_dm_backlight_test.c          | 79 ++++++++++++++++++-
+ 1 file changed, 78 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn5_funcs_mode_support.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn5_funcs_mode_support.c
-index 09519f0f2251..b9aef66d722d 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn5_funcs_mode_support.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn5_funcs_mode_support.c
-@@ -1151,14 +1151,32 @@ static void dcn5_ms_calculate_dscclk_required(
- }
- 
- static bool dcn5_ms_check_dscclk_support(
--		struct dml2_core_internal_display_mode_lib *mode_lib)
-+		struct dml2_core_internal_display_mode_lib *mode_lib, const struct dml2_utm_soc_bb *utm_soc_bb)
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
+index c6d15fb8ad98..a60c0fbf519d 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
+@@ -197,12 +197,25 @@ static void dm_test_backlight_set_level_aux_programs_power_module(struct kunit *
+  *
+  * With aux_support cleared, set_level() takes the millipercent branch:
+  * get_brightness_range() + mod_power_set_backlight_percent(). A NULL
+- * power_module keeps the call a safe early-false.
++ * power_module keeps the call a safe early-false. The cases walk each segment of
++ * the custom luminance curve; DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE then bypasses it.
+  */
+ static void dm_test_backlight_set_level_pwm_programs_power_module(struct kunit *test)
  {
- 	unsigned int k;
- 	bool support = true;
++	static const struct amdgpu_dm_luminance_data curve[] = {
++		{ .input_signal = 50, .luminance = 10 },
++		{ .input_signal = 100, .luminance = 40 },
++		{ .input_signal = 200, .luminance = 80 },
++		{ .input_signal = 255, .luminance = 90 },
++	};
++	/* { data_points, brightness }: no curve, below/between/above points, zero-width end */
++	static const u32 cases[][2] = {
++		{ 0, 2000 }, { 3, 0 }, { 3, 38550 }, { 3, 65535 }, { 4, 65535 },
++	};
+ 	struct amdgpu_display_manager *dm = dm_kunit_alloc_dm(test);
+ 	struct dc_link *link = dm_kunit_alloc_link(test);
++	uint saved_mask = amdgpu_dm_get_dc_debug_mask();
++	int i;
  
--	for (k = 0; k < mode_lib->ms.num_active_planes; k++)
-+	for (k = 0; k < mode_lib->ms.num_active_planes; k++) {
- 		if (mode_lib->ms.required_dscclk_freq_mhz[k] > mode_lib->ms.max_dscclk_freq_mhz)
- 			support = false;
-+
-+		unsigned int num_dsc_units;
-+
-+		if (mode_lib->ms.ODMMode[k] == dml2_odm_mode_combine_4to1)
-+			num_dsc_units = 4;
-+		else if (mode_lib->ms.ODMMode[k] == dml2_odm_mode_combine_3to1)
-+			num_dsc_units = 3;
-+		else if (mode_lib->ms.ODMMode[k] == dml2_odm_mode_combine_2to1)
-+			num_dsc_units = 2;
-+		else
-+			num_dsc_units = 1;
-+
-+		if (mode_lib->ms.required_dscclk_freq_mhz[k] > ((double)utm_soc_bb->dprefclk_mhz / 5.0) &&
-+				(mode_lib->ms.support.NumberOfDSCSlices[k] / num_dsc_units) == 1) {
-+			support = false;
-+		}
+ 	setup_test_dm_ddev(test, dm);
+ 	mutex_init(&dm->dc_lock);
+@@ -212,10 +225,20 @@ static void dm_test_backlight_set_level_pwm_programs_power_module(struct kunit *
+ 	dm->backlight_caps[1].aux_support = false;
+ 	dm->backlight_caps[1].min_input_signal = AMDGPU_DM_DEFAULT_MIN_BACKLIGHT;
+ 	dm->backlight_caps[1].max_input_signal = AMDGPU_DM_DEFAULT_MAX_BACKLIGHT;
++	memcpy(dm->backlight_caps[1].luminance_data, curve, sizeof(curve));
+ 	dm->backlight_link[1] = link;
+ 	dm_kunit_add_stream_to_state(test, dm->dc->current_state, 0, link);
+ 
++	amdgpu_dm_set_dc_debug_mask(saved_mask & ~DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE);
++	for (i = 0; i < ARRAY_SIZE(cases); i++) {
++		dm->backlight_caps[1].data_points = cases[i][0];
++		amdgpu_dm_backlight_set_level(dm, 1, cases[i][1]);
++		KUNIT_EXPECT_EQ_MSG(test, dm->brightness[1], cases[i][1], "case %d", i);
 +	}
 +
- 	return support;
++	amdgpu_dm_set_dc_debug_mask(saved_mask | DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE);
+ 	amdgpu_dm_backlight_set_level(dm, 1, 2000);
++	amdgpu_dm_set_dc_debug_mask(saved_mask);
+ 
+ 	KUNIT_EXPECT_EQ(test, dm->brightness[1], 2000U);
+ 	KUNIT_EXPECT_EQ(test, dm->actual_brightness[1], 0U);
+@@ -514,6 +537,54 @@ static void dm_test_register_backlight_device_success(struct kunit *test)
+ 			adev->dm.backlight_dev[0]), 0);
  }
  
-@@ -2844,7 +2862,7 @@ static bool dcn5_mode_support(struct dml2_core_calcs_mode_support_ex *in_out_par
- 
- 	dcn5_ms_calculate_dscclk_required(display_cfg, mode_lib);
- 
--	mode_lib->ms.support.DSCCLKRequiredMoreThanSupported = !dcn5_ms_check_dscclk_support(mode_lib);
-+	mode_lib->ms.support.DSCCLKRequiredMoreThanSupported = !dcn5_ms_check_dscclk_support(mode_lib, utm_soc_bb);
- 
- 	dcn5_ms_check_dsc_engine_supports(display_cfg, mode_lib);
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn6_funcs_mode_support.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn6_funcs_mode_support.c
-index 50ca620a4c41..2ca3a603615e 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn6_funcs_mode_support.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn6_funcs_mode_support.c
-@@ -1516,7 +1516,7 @@ bool dcn6_ms_check_dscclk_support(
- 	const struct dml2_utm_soc_bb *soc_bb = ctx->soc_bb;
- 
- 	DML_LOG_FUNC_ENTER();
--	for (k = 0; k < display_cfg->num_planes; k++)
-+	for (k = 0; k < display_cfg->num_planes; k++) {
- 		if (inputs->required_dscclk_freq_mhz[k] > (double) soc_bb->max_dscclk_khz / 1000) {
- 			outputs->support.DSCCLKRequiredMoreThanSupported = true;
- 			DML_LOG_VERBOSE("DML::%s: k=%u, DSCCLKRequiredMoreThanSupported = %u\n",
-@@ -1524,6 +1524,23 @@ bool dcn6_ms_check_dscclk_support(
- 			break;
- 		}
- 
-+		unsigned int num_dsc_units;
++/**
++ * dm_test_register_backlight_device_custom_curve_readback - Test curve + readback
++ * @test: The KUnit test context
++ *
++ * Custom curve data points select the non-linear backlight scale, and a
++ * hardware readback that differs from the initial brightness must update both
++ * the requested and the actual brightness.
++ */
++static void dm_test_register_backlight_device_custom_curve_readback(struct kunit *test)
++{
++	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
++	uint saved_mask = amdgpu_dm_get_dc_debug_mask();
++	struct amdgpu_dm_connector *aconnector;
++	struct amdgpu_dm_backlight_caps *caps;
++	struct dc_link *link = dm_kunit_alloc_link(test);
++	struct backlight_device *bd;
++	struct drm_minor *primary;
++	int ret;
 +
-+		if (inputs->ODMMode[k] == dml2_odm_mode_combine_4to1)
-+			num_dsc_units = 4;
-+		else if (inputs->ODMMode[k] == dml2_odm_mode_combine_3to1)
-+			num_dsc_units = 3;
-+		else if (inputs->ODMMode[k] == dml2_odm_mode_combine_2to1)
-+			num_dsc_units = 2;
-+		else
-+			num_dsc_units = 1;
++	amdgpu_dm_set_dc_debug_mask(saved_mask & ~DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE);
++	setup_test_link_service(test, link);
++	link->dc->link_srv->edp_get_backlight_level = dm_test_get_backlight_level_mid;
++	primary = kunit_kzalloc(test, sizeof(*primary), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, primary);
++	adev->ddev.primary = primary;
++	adev->dm.backlight_link[0] = link;
 +
-+		if (inputs->required_dscclk_freq_mhz[k] > ((double)soc_bb->dprefclk_mhz / 5.0) &&
-+				(inputs->support.NumberOfDSCSlices[k] / num_dsc_units) == 1) {
-+			outputs->support.DSCCLKRequiredMoreThanSupported = true;
-+		}
-+	}
++	aconnector = dm_kunit_alloc_connector(test, adev, link);
++	aconnector->bl_idx = 0;
++	aconnector->base.kdev = adev->ddev.dev;
++	caps = &adev->dm.backlight_caps[0];
++	caps->min_input_signal = AMDGPU_DM_DEFAULT_MIN_BACKLIGHT;
++	caps->max_input_signal = AMDGPU_DM_DEFAULT_MAX_BACKLIGHT;
++	caps->data_points = 1;
 +
- 	DML_LOG_DEBUG_BOOL(outputs->support.DSCCLKRequiredMoreThanSupported);
- 	DML_LOG_FUNC_EXIT();
++	amdgpu_dm_register_backlight_device(aconnector);
++	amdgpu_dm_set_dc_debug_mask(saved_mask);
++
++	bd = adev->dm.backlight_dev[0];
++	KUNIT_ASSERT_NOT_NULL(test, bd);
++	ret = kunit_add_action_or_reset(test, dm_test_unregister_backlight_device, bd);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	KUNIT_EXPECT_EQ(test, bd->props.scale, BACKLIGHT_SCALE_NON_LINEAR);
++	KUNIT_EXPECT_NE(test, adev->dm.brightness[0], (u32)bd->props.brightness);
++	KUNIT_EXPECT_EQ(test, adev->dm.actual_brightness[0], adev->dm.brightness[0]);
++}
++
+ static struct drm_connector *setup_panel_power_savings_connector(struct kunit *test,
+ 							 struct device **device_out,
+ 							 struct dm_connector_state **state_out)
+@@ -1567,6 +1638,11 @@ static void dm_test_update_connector_ext_caps_oled_defaults(struct kunit *test)
+ 	KUNIT_EXPECT_EQ(test, fixture.adev->dm.backlight_caps[0].aux_max_input_signal, 512);
+ 	KUNIT_EXPECT_EQ(test, fixture.adev->dm.backlight_caps[0].aux_min_input_signal, 1);
  
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_utm_soc_bb/dml2_utm_soc_bb_dcn5.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_utm_soc_bb/dml2_utm_soc_bb_dcn5.c
-index a58c3944addb..bb45d9b61554 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_utm_soc_bb/dml2_utm_soc_bb_dcn5.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_utm_soc_bb/dml2_utm_soc_bb_dcn5.c
-@@ -121,6 +121,7 @@ bool dml2_utm_soc_bb_dcn5_create(struct dml2_utm_soc_bb *utm_soc_bb,
- 	utm_soc_bb->writeback_base_latency_us = soc_bb->qos_parameters.writeback.base_latency_us;
- 	utm_soc_bb->vmin_limit = soc_bb->vmin_limit;
- 	utm_soc_bb->dchub_refclk_mhz = soc_bb->dchub_refclk_mhz;
-+	utm_soc_bb->dprefclk_mhz = soc_bb->dprefclk_mhz;
- 	utm_soc_bb->max_outstanding_reqs = soc_bb->max_outstanding_reqs;
- 	utm_soc_bb->return_bus_width_bytes = soc_bb->return_bus_width_bytes;
- 	utm_soc_bb->phy_downspread_percent = soc_bb->phy_downspread_percent;
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_utm_soc_bb/dml2_utm_soc_bb_dcn6.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_utm_soc_bb/dml2_utm_soc_bb_dcn6.c
-index 9fce6b472aa6..586618d7dd58 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_utm_soc_bb/dml2_utm_soc_bb_dcn6.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_utm_soc_bb/dml2_utm_soc_bb_dcn6.c
-@@ -315,6 +315,7 @@ static void dcn6_initialize_from_soc_bb(struct dml2_utm_soc_bb *utm_soc_bb,
- 	utm_soc_bb->writeback_base_latency_us = soc_bb->qos_parameters.writeback.base_latency_us;
- 	utm_soc_bb->vmin_limit = soc_bb->vmin_limit;
- 	utm_soc_bb->dchub_refclk_mhz = soc_bb->dchub_refclk_mhz;
-+	utm_soc_bb->dprefclk_mhz = soc_bb->dprefclk_mhz;
- 	utm_soc_bb->max_outstanding_reqs = soc_bb->max_outstanding_reqs;
- 	utm_soc_bb->return_bus_width_bytes = soc_bb->return_bus_width_bytes;
- 	utm_soc_bb->phy_downspread_percent = soc_bb->phy_downspread_percent;
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/inc/dml2_internal_shared_types.h b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/inc/dml2_internal_shared_types.h
-index fab9d149b3de..f06affe1fbbb 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/inc/dml2_internal_shared_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/inc/dml2_internal_shared_types.h
-@@ -122,6 +122,7 @@ struct dml2_utm_soc_bb {
- 	double hostvm_inefficiency_fraction;
- 	unsigned int max_lsdma_bandwidth_kbps;
- 	unsigned int dchub_refclk_mhz;
-+	unsigned int dprefclk_mhz;
- 	unsigned int max_outstanding_reqs;
- 	unsigned long return_bus_width_bytes;
- 	double phy_downspread_percent;
++	/* DPCD panel luminance control selects VESA AUX over AMD AUX. */
++	fixture.link->dpcd_caps.panel_luminance_control = true;
++	amdgpu_dm_update_connector_ext_caps(fixture.aconnector);
++	KUNIT_EXPECT_EQ(test, fixture.link->backlight_control_type, BACKLIGHT_CONTROL_VESA_AUX);
++
+ 	amdgpu_dm_set_backlight_param(saved_backlight);
+ }
+ 
+@@ -1934,6 +2010,7 @@ static struct kunit_case dm_backlight_test_cases[] = {
+ 	/* amdgpu_dm_register_backlight_device */
+ 	KUNIT_CASE(dm_test_register_backlight_device_negative_index),
+ 	KUNIT_CASE(dm_test_register_backlight_device_success),
++	KUNIT_CASE(dm_test_register_backlight_device_custom_curve_readback),
+ 	/* panel_power_savings_show / store */
+ 	KUNIT_CASE(dm_test_panel_power_savings_show_maps_disable_to_zero),
+ 	KUNIT_CASE(dm_test_panel_power_savings_show_reports_level),
 -- 
 2.53.0
 
