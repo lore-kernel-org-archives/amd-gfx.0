@@ -2,122 +2,124 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A02E8606A31A
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 21:45:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B35B606A31A
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Oct 2026 21:48:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=SqNgEeRt
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ZjE4zJOO
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3174C10F843;
-	Tue, 27 Oct 2026 21:45:44 +0000 (UTC)
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011032.outbound.protection.outlook.com [52.101.52.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92F3210F843
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2026 21:45:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B28D10E495;
+	Tue, 27 Oct 2026 21:48:12 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013066.outbound.protection.outlook.com
+ [40.93.196.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3017510E495
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Oct 2026 21:48:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Q+BGLBruj/1fd7nW7pM3H68c++0f1qrnqlxM+MAo4Qc6qBXcQbFtpKL87J2q/iZ3gE41Eo8dJu8KLjSWJ/yb9FsQQXt/07XMtN6F461LAUmoeZwl/QXCP52px3onJT3bj4aoES5rN/gzpEzdwWiT5LG6ju0u3cyuakejDo5QT7Een0g3p3yHF3hLqfkPaKVtCbxuWcHfmBWOexrWWZYYJ+ipVxpDCCn13h15PdgJ4DdqAb27zE1VJtPjL0cmWwuZhySWO7O7Da9HhxAg6wUetVUhHFRd5LdVjKvhRR3pOZ2NBvBrlh/KJFhL3T1EDbrhD+kn4oVtFhkZIM2GaOAdpw==
+ b=NAzu9xiqlRVX1FSVxuDkjKkgciWA3ihuX2Q5u/nRM572dc28byj7rYtNhTIeeDNXhLDafT0cFPo3N+ejq0GRyLeAIogc+fY6jdnu5UyqwdBdcRunVi43rSWT2+P2zbgqhzaY7eLlnwIOIjMdYANVgmqzFGv2U1vS4NofmwtKrtCAMhkUplUvpdWJaGmu5w57lbFijNtAzmoUr5co4n5ZivoS7HM48TDXNliQZGECnQ361esrAy/y9hJ3eLFpK/qgx7//+RtCj0VQcGtGgwMSewWOm7q4sZwxawT0Yq9duF3P3qQ2kgmQRl9b13evyLTfzjfxw+T8sGCzB9xHgzuhdw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QFZIkhEJmoy+xVtl3JBmmIY7szWtygT8iquXZrENcyk=;
- b=yBk7rTOEi8OuCE0j/ghEvFqzSuX5XWHpyAnRTCWKkSebwgKe/MsXg0n58JtWSIobivW1tU4XKSAS2SP4t4OR12IMqP8Oh/rIyiEY+qX8euvl50bhn6Rgtv6HjbW9P31NwtjMi5zIOcdNrBU1u9LjuYarQZEQyzx87psi8X7BudBelruT0Ik9Y11AuK7qDPjrI1AvH5bNtKxezTC2yDewPIkH9M6I+/jizKjZ6tl4bwkdrxODAVnbUW+2y/VJ2zQ0kaWFwTsOZskdomjPBqISTb4AvZ7ve5BSVgI3O7L7kTpeaPx9Ie+1TxYvcUKk1rDEYTM8HTzsXab8RJWJi/QBQA==
+ bh=E0Pf6+77JbiHV83kSEgtUN4IFAc6TktzPB7QcamTdLE=;
+ b=eH21Usj3fCYQnk8zNfLjLhB3TufsuA8WJtC/T65tmgwX2lQFxzb7kt3Pvf3OFhrkZ8ULGm+pgkNVHMv08rqscEFMFWeLJysxeUjU9w8elun6aW+FDdwEi+pW+aKccSmeT46jumx9u/3/rtwL3sxljnJW6lD0QWjGQBzxqZMYMhtBC6+9qva9TdV01Hxze5ziZ75ObGoxHIDC6G5YlkFluxQ0S7uFi42XGyOMK2IEDJwpx1bIzSFz/hbgXLEWaO4C5ggNQYtgzrwQurLdNsoWeQfyBxT7yxmyy1jF37lY+d9JG8AxwRj+TU1t2cYKbWnpDHBmLpep+aR5a0IYPJXANw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QFZIkhEJmoy+xVtl3JBmmIY7szWtygT8iquXZrENcyk=;
- b=SqNgEeRtsWYH6go5dC6Glq7auoTe/WalKN6A4clAPP514pBhfaNuP3BVSie8mxqW85ftRld/Tdtg/Y+ZCA04qdz2skRbD/IoDX4LPX6mTPlCJxtaqiWWIk4S7735gWyxf978VisF+pCcP0dAUW4x1yVUj7/2/+MysOc7Er8IIIQ=
+ bh=E0Pf6+77JbiHV83kSEgtUN4IFAc6TktzPB7QcamTdLE=;
+ b=ZjE4zJOO8SD6M6/vONdN2bqCYwZxjz3wuKL3+hHcfbRWAx244MNVMQq5TR1lH1IVja1Soup/XZO/BTwwYclCtg/SXsshnO56r7PcPJ9+PKgPyJwtZcWVIDgPbTMsQXw3yU1dhXEqFOmEZhW4p70d1uU6i8TIppbBI3waMcl6Coo=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
  (2603:10b6:40f:fc02::607) by CH3PR12MB8901.namprd12.prod.outlook.com
  (2603:10b6:610:180::6) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.18; Tue, 27 Oct
- 2026 21:45:34 +0000
+ 2026 21:48:02 +0000
 Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
  ([fe80::67a7:9feb:71ef:964a]) by BN7PPF5F16C5C9C.namprd12.prod.outlook.com
  ([fe80::67a7:9feb:71ef:964a%8]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 21:45:34 +0000
-Message-ID: <d4f68dc2-5675-4270-9e9a-616a4ebc9152@amd.com>
-Date: Tue, 27 Oct 2026 17:45:33 -0400
+ 21:48:01 +0000
+Message-ID: <75e4bbf1-1153-44bb-b759-b0d21cec858e@amd.com>
+Date: Tue, 27 Oct 2026 17:47:59 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCHv2 6/8] drm/amdgpu: Enable UALink loopback mode
+Subject: Re: [PATCHv2 8/8] drm/amdgpu: Temporarily enable UALink loopback via
+ module parameter
 To: Mukul Joshi <mukul.joshi@amd.com>, amd-gfx@lists.freedesktop.org
 Cc: Harish.Kasiviswanathan@amd.com, philip.yang@amd.com
 References: <20261027195913.1794477-1-mukul.joshi@amd.com>
- <20261027195913.1794477-7-mukul.joshi@amd.com>
+ <20261027195913.1794477-9-mukul.joshi@amd.com>
 Content-Language: en-US
 From: Felix Kuehling <felix.kuehling@amd.com>
 Organization: AMD Inc.
-In-Reply-To: <20261027195913.1794477-7-mukul.joshi@amd.com>
+In-Reply-To: <20261027195913.1794477-9-mukul.joshi@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT4PR01CA0122.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:d5::13) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT4PR01CA0275.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:109::26) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
  (2603:10b6:40f:fc02::607)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: BN7PPF5F16C5C9C:EE_|CH3PR12MB8901:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5e5f5672-0bc2-48d5-f047-08df3473a176
+X-MS-Office365-Filtering-Correlation-Id: 289f5cf3-b36b-472b-4697-08df3473f8b1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|376014|366016|6133799003|18002099003|261026121527099003|22082099003|261022075727099003|261022105027099003|261021123027099003|11063799006|261021121427099003|4143699003|10067099003|261009223027099003|261026140227099003|56012099006;
-X-Microsoft-Antispam-Message-Info: UgXo+GvbQYjfDz0XjB/CHNDn+MrzVQZ9SbCkGA3TyPMsbd5D/UhP5E6Pc7b5G4Rlh1DWfZDyt02dxf7DiJFgWcAlPcUVVKuyUe5JgPb/3RmFfJWdKvNWxPce/swhJ6DSdc9/gUA9cjBhSZV52xv6Al42FI60sgy6qCesSA9nWOQ4Fnw20V0ms59nCKCXT5qpsav+H+4j+dvyVkSKtvH1D1DFvkPyOeW2CU04uJbiVOZEphJDNjoGWeSswl4LVhExaVCP2OnA0IFNENM4b1mbnO0oWL1YUFuPEYnIgu+C92gyvVOfzTdCjvcbg0i8jdlp1QHEV9MFJp/Tfln7jQOVSl0EPiibLSoLfCN5n7tPJK4D9Afi13Mm8XQOtwoFCcGDmJR5esvrd+TTfoinvoOnm+wUBATIJOpDf+rm8dvjGs4pJuXuvvNxx3s51BWyb78biADQEfridenSuIqoIpmYHT3D9aG9dueahbcoVtfkFAdSkTa/PYxXOReC7h7Y4kzdqbNQ3kHEgXtj8DTnN8aQoHuUGC3obZCh4KbxwzpaPrwTf74EtV/ZS4fVqgh93HSS8NaDJI2qIlnJodFfEbtRu4jn39rCpEcrptCJ0f9QLyXWOOSYvXjHtsVdilcO7BPAPH57GR7qma3b9sz0A0fSMenUUQbrC7qD+QHi6gtiA5s=
+ ARA:13230040|1800799024|23010399003|376014|366016|18002099003|261026121527099003|22082099003|261022075727099003|261021123027099003|11063799006|261021121427099003|4143699003|10067099003|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info: YKmu4T1K6S7cGxWeNEBecvEqj/qjOiMbmD6gTVSWljIQFzyNVouqx4moSs1OT0nrIDPiuAi10OJ3K7ibCV4HAi2M0hBQT2GFiG8ie5uT7MfAJyP4Kyevyu+CbBfwfY6Zh4mWoinaJim3kebCWos8deu1R5c62CkxwRDL0LXijdSibVL/VeRugZbZJTqjmmvvD9VX7uNXrCVudKyu8LZ37ADK4hJ1jv6xYRERoxFNpHkhAdj7OQZrqeGBc88M+lxVTYquQjRVJiAQH0VPYVfvSJhgw7xDuA8uxULFJ3k2gAweqazOA6lNlz6ospLMlFCoa3CyaBNSRWZxLiK5ei5GZGdvMwXrGp/mDboijM3+a9qe4rG8CBTa69oyRf2Neq8tjbQQyQaPIFhpVRGAb0u+CeEcZ00kLpCiUQ1FQJ2mF5ZMbmqDs34SmbX5ANvaaJQwTSfkYotlXLfVy0N+5RtXtviuS+IgS4GiokGSPunToIiYGFWUDXSGFtx7ut6cPfcWlSR9V31ftDSjhm2KpFvg6IE6FyRLTMVnoGnpq/GtvTOeNmnhqy4Oc4hg+hEMEabebEfFLOALptFhWlL6nPBGNIIHTxBbjCtfghZYgr/Jp9i558W0Zn9xeOSmGydcBmIrn2tPpMpF46nKSWefa0uAZBYp/1O0muyAjClkR6TESjU=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN7PPF5F16C5C9C.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(6133799003)(18002099003)(261026121527099003)(22082099003)(261022075727099003)(261022105027099003)(261021123027099003)(11063799006)(261021121427099003)(4143699003)(10067099003)(261009223027099003)(261026140227099003)(56012099006);
+ SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(18002099003)(261026121527099003)(22082099003)(261022075727099003)(261021123027099003)(11063799006)(261021121427099003)(4143699003)(10067099003)(261009223027099003)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dTFRYXNJRUU5dWZ6djVzOUlQYkl6TWYzRCs2WFJtU0poNHArM1lwZ3ZMbWVT?=
- =?utf-8?B?bkZoL24yUitJeEExWCtYaDQzekVQODJqTWJHSWh4WitLdUR0WFJLUnQ5Q3dh?=
- =?utf-8?B?TVUrZXhacDkzY2FsVGcrdnljMVA0NFRtTFpiYUZDbnVaTi94dEllS2VycW5D?=
- =?utf-8?B?VjQwdVNTb3Q3Wk0rcjdJSFRXUWNwMGtIbStZMEZtQ250L3pEMTV2V2plWjZJ?=
- =?utf-8?B?WkxBMEg0Nmk4WTRHdGFUZlBkQjhSd3BEZFY1aDllMHIvNUdWdXdjR3lGMjVF?=
- =?utf-8?B?QmhhS0Q4SlpBTmhYRlJRc0MxZ0d0NVpON1FMcmNna0IwK2l0NFltNEFjNkVo?=
- =?utf-8?B?bldoa0d5S1E3WUdtckd4STRrNGQ5Q1lHbjhKUnBvdVIzTWJGcjhRZmpHRVA3?=
- =?utf-8?B?YU1nVkkrVzFUQ0RoQmQ2RDNHV09GOEFUeXZCSkhBblJKdFA0aTdmQmRMUnp0?=
- =?utf-8?B?Y3F3R0VIMEV2TVZITjNzMWxOUWJsQVNuQmZTU3hSeXg3aDQ2dGQ5alY5Y3JK?=
- =?utf-8?B?WFpjd1FKV3lFVVl6MVE2NDlUbDZJL3pKckhpYldKUTJ0d1g2K1FwcGM3SkVv?=
- =?utf-8?B?MFlzSkFvcnJBZ01vY2ZIcDhnY1NoeS9mUHV5UnVJQVNGcVdTSk05YXRsclNM?=
- =?utf-8?B?a243bkUyT21HWUl1N3J3MVFhWW91Y1UyU3ZyV3VKZEVLU1R2U2pKUlVFK1Fh?=
- =?utf-8?B?WFUyN0xqWU1SZGxmT0VQa3FmVWlid2ZyRndMRERGR01uOTdQekhIOVVJSGVn?=
- =?utf-8?B?Qkw3V3pCQllnTzg1NjdNV2ZKdE5heUc4RzVkVm8vc3hjQ3NaT3VPMzhrMnhN?=
- =?utf-8?B?K0RFYUV2Sjd0czlSaG1lbnNZenVUWEtnemx1RFJ5c2tQdkozZWlHdHl5U3dr?=
- =?utf-8?B?QU5JV0dYVFE0M1ROU3dScGtzcU1VTVRjUWpqMW9vUkZVUzBhZHgyNXI0TDJz?=
- =?utf-8?B?VkQwRHE1VXJnVnJVS1NzdXI5bHZHNkpydmQvcTRmaFlTR2J2dktBSGEwNlNj?=
- =?utf-8?B?dGpQc0l0cnZzRU5pYnJvckdxb3Y2T1ZjUWZ1NWh0ajdFL2h2T3c0VUplSHlq?=
- =?utf-8?B?RVRJdDZSTmJaa1VIWkZjZ3p0ck5BU3BMOThEaUNjT25OYXJwRlZyVUV4ZWp5?=
- =?utf-8?B?aVh1TW9QV09rRXkyY0Rra3d3Y2ovS09ydmhaVktjc2YrSnNlUCtHRXQ1WVBF?=
- =?utf-8?B?bFd1Y2s3NDVzdjJicFNFeDZyM3BPbmZlZ0ZtWFRpd0VWanp3UzFRNER6Nk9Y?=
- =?utf-8?B?TzJWcFpBWUMvampkRTdsZjVMQmc0TnZXcStqMnI5cGdhYWNvL0g3Z2ZFbGFm?=
- =?utf-8?B?RkNrQlZZQjU4ZFZCamgrUWFQU0RKRHZBRFlYanZPYktjVW1XeGxKeDhPV2gw?=
- =?utf-8?B?VkdaR2NpdjFvZThmaXVzbkM3blFqUEQ5Z0lqN2Vidi9PNmxnZlljL3h0bkFD?=
- =?utf-8?B?czNDSTFUMytOcHpHSlg2OXlGOUpCM0dYOFhURTluMVEreS9FYVF5aHBjNWR5?=
- =?utf-8?B?Mjh1R21EdG8zaFJoYUlzekdhL3JQbEpmcnd6L25za05iK1VnVVlxRER1MUN1?=
- =?utf-8?B?WEZidEFvVHZMbzVoUFJYTjAwYTVENVdidnVWMzdjUTl2NlNVR0JiQVJYdE9M?=
- =?utf-8?B?azlWeGhFOGJsRDU5NW9vWkdYRXovckkwLzZrOHFIb2FUTG1oNkphL2RWaFRQ?=
- =?utf-8?B?LzdCRkJ0RmUvWUtGSWxiaFFidTBZNVRjVzNqWnZJTWQ5UFJ4ZUgrUjBJMFZL?=
- =?utf-8?B?RFVQUEUzeGZiSGJRTEpJY2o5bGQ3WG1lY3ByMm5IUU9LU29CQzFMUHN4VEVy?=
- =?utf-8?B?QXQ4TTRtZjgzc29zN2pVZVkyVWlHUHRpaVVYeVQ1cDRDQTlDeTQ1UkxYSDhG?=
- =?utf-8?B?MGdYbmtGVS9OY25jZDg5ZStRenIvelhrYlRGL1JNcTY0VjRLYWg0Z3RjRjl6?=
- =?utf-8?B?aHRQdjhIamdrZTJ5T0NsS1dLMTV2Sm9SWktrTHVSblMwL28zRHUwZ1ZvTGti?=
- =?utf-8?B?KzJzbkdxZ3V5M0ZVMmwxUi9XaU1yL2g1SXNBcnYzYXkwbCtrMk0rbnV4UDE2?=
- =?utf-8?B?TVVnY1NtZFh1MzdwcXlMRTIxNDEwWGV2cllvRGM2djJhaVU1a01KSHUxS1Jn?=
- =?utf-8?B?WEo3aFZXNzAxaGJSeUVnZU14U2tkS25XcU1QTFRveUp6eTVvQlBUSjU0QnZ2?=
- =?utf-8?B?Y0k0WXlCWk9vVFlkK1RHdGhrczBrb293SXh5VllkYjRlZHRyRmVRYm9UNGo0?=
- =?utf-8?B?NFZXcVlWTWFEY3d3UXY2QVdraVplWXkwdHRGTVJBd1pTT2hXM2JSN0N2eXc5?=
- =?utf-8?B?SlBMNmNxMG1OaUVONDhScmlLc2swVm80VW0vVXU3Q05hbmlYQzNYZz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bm9oZjdLeXRkSkFmbC80dDJ4K01IQ0hMYTcrMDBlSU80NnJ4M245dVYrd2J4?=
+ =?utf-8?B?M3kzUURTZGp2bk55cmp0bzRMSEFTemU2b1ZDbVpKSE1iem4wSGsvcVJaNVAx?=
+ =?utf-8?B?ckZidkV1RE03ZThINHZUNlZWaDE1Mm5mNkVBa1NiM1JhLzNZVEZucGoyUy9W?=
+ =?utf-8?B?OHpjVm1NVjVWbEJrbzgyaXNhMjhTcXZGSmVxbVM0OUNWdDRKN3QraGxHcUg4?=
+ =?utf-8?B?VkV3eEllRkdYbnVyM29Ka2dwNGpSdlMwcXd5UU1LVEhDa1BvWFkrSkJzZUVR?=
+ =?utf-8?B?bnV5cm9zVEJWa1M4MUVtUUFxaDdFQXU1Skt6eTRBQTUwOUZhMWVmM2V0MTNT?=
+ =?utf-8?B?TDgwNVhNSHVoOVlXZGFjdUpkZUxLUUpKUXlkVklFS1JkS0pIWHlkMVdValVM?=
+ =?utf-8?B?Y1pVYWhnRk1CcER2Z3RFWG1BdVdXRjFqVG9adEhabVUybzRpczVUODNSUkUx?=
+ =?utf-8?B?R2N2dzdVb0prWU5OcHBoNldzVmp0YVZuUmRPczRlZ3B5Y2d1NkhNdlV4Qkta?=
+ =?utf-8?B?U1JPU2ZneklkTTVZOUJjeW5Uem12blFOVHBna3BOTjY4QmUxZFk1dmY2NlIr?=
+ =?utf-8?B?STZXbHpSV1JpaTRhYlh4WGdHMmphU2NLYm56ekttbk9OYXByTGYxRTlJSCs1?=
+ =?utf-8?B?ZWRWVndCY1E4V0hJZlBNdGFZRFJMclJMN1VlOXhKaTB1aEF0ZzRvdS9mdTNm?=
+ =?utf-8?B?MHVqejZ6YThTK0RBa01HVWlWUUZ3cjZqZkk5MDhxRXErQmdkV1JBMkRFeGlr?=
+ =?utf-8?B?Rk84Y0R2MXltQ2l4eWc1b2c0QnlHZjdnVlZxSGtPVUhQeGdweHVzWFk3UDdR?=
+ =?utf-8?B?MGRpdThxcDJuZHkzeWYxNnhzOWJKaDhDZkpORnF5UDFjMTZDenVRdmU5S1h1?=
+ =?utf-8?B?YkZiZ1krWkVTaDlIeFBBdm1CUG8rUHh4N1EwbS9wTk41M0ZUc3lqRXZPdkZ1?=
+ =?utf-8?B?Y3h3YmF1YlNzMmZCNEwrTGFVaDU4SW5RT1J4UG9hMThld3FCUHEvWlpQLzh0?=
+ =?utf-8?B?UUROY3BMMVZWMWIzcFlWNGs5aFc4cHhWWjc3cTQ3d3BHa0I0L1B4MlFPcm5K?=
+ =?utf-8?B?YnVWT3J6MXZZaVR6VnJxMEJMN1N3bjZKSS9uNFg1TlU1dTlObTdEZnBWL3lV?=
+ =?utf-8?B?K1RUM1F5K2pqSDcwOUUzK1oxMHR2cXEwRGdGOXVaYURpcit6c1ZqZWdxcnNH?=
+ =?utf-8?B?dFN1TDdTamtvL0swenpxTmdYYUU5TzcyUEtWNGZqS0p5QnAxa2dwYXRlN2ZP?=
+ =?utf-8?B?SUNFNG5TaGVldy9qM0M4YUNNelFzZ1pJQ25NekEwb1lEV3p2UnhQM2ZnTDEz?=
+ =?utf-8?B?bzJXNjVZdC9NSk5TOTNRUlBBOEg1K2ljV1k0Qi8zRnVpUVVwOTNuS2V5S1FP?=
+ =?utf-8?B?ZVdPbHc2ejUxZTdybkhkYkxNdEpURUhna05sNjYraEE4ZDFvdmRMU1hkQUpN?=
+ =?utf-8?B?eCsxNHd4eW1NZ1IzQlZ6aDdsVC9KaGVzVk4rSUJFTmhvM045MzIzdTRVdjNS?=
+ =?utf-8?B?R2Q2Q2dKUXZYMVBDbEFndlRaTlpOT0FSeTlhR0p0c3NUeThkN0k4YUVHT1Fh?=
+ =?utf-8?B?RVJpWlo4eFJRSkRCU3RMTEpZS3NpQkxQdmk5Z3lLdEpxSVl0R0ZscFRBeC95?=
+ =?utf-8?B?K05MRE9saDJkQVAzc01RUFdHWGFwbThJUjVVTUI5VkwyNXRRbG1ZZDA0VVh2?=
+ =?utf-8?B?aG5nTGdJMk5VaEpNb2dSRndxMnJ2Z0pIY1pWUzAweGdpS2hVV1JmYTY2UkFE?=
+ =?utf-8?B?UnIwR0hKdGlQK0ZoRS9SbEhSMVYzUWl1R2R5dDEzUHBXaTRlbWhCaVc3Vldi?=
+ =?utf-8?B?TDJZQmVuNWlYZ3ZTRVVDZUFYRHZ6RVhpTWRoRFd0QTJCOFRBemQwVUlWNXl6?=
+ =?utf-8?B?R3RibkJpVExtOE5CelptLzJwaENudkJ3ZHNDakk1dUU3RnJRUCswZ3AvRHR6?=
+ =?utf-8?B?ZGhBdm1hTHluZmczL0VHTGZyQjl2N1JOUFJPU3NxY0VKckJSL2JxY2pFUWlw?=
+ =?utf-8?B?WTRNRFJKR2c0d21tUTBsd3dxWHdZM0swYVk1emUyQ1lBbStieWpiNEhkT2RZ?=
+ =?utf-8?B?bTVGcjlEMnVRQmF6THBjY1MzcWZwNml2N0JzV2pkRnhkWTlmZDlKRW43YlQ4?=
+ =?utf-8?B?SHJaL25MamRJcll3UzF3L2VZK0FZZXRhMDFOWVlvcEJGUlhDVHgyTkduQTFv?=
+ =?utf-8?B?Z21iWldHd0VjaE5wak1YZTJtOFAxMkljUEVkR2pORUhiMzVIbFZXcERWVGIr?=
+ =?utf-8?B?MDQ1WWtucFFscWp4TTgrRTMrbWtFUUJFbVJiQXZqamFuNFpPdmx1SHllMXhI?=
+ =?utf-8?B?K0QvMGtVY01kaUltd3BidmJrMURnd1pmMXJZT1g1RmlPS0MyQXRlUT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5e5f5672-0bc2-48d5-f047-08df3473a176
+X-MS-Exchange-CrossTenant-Network-Message-Id: 289f5cf3-b36b-472b-4697-08df3473f8b1
 X-MS-Exchange-CrossTenant-AuthSource: BN7PPF5F16C5C9C.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 21:45:34.5645 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 21:48:00.9470 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xWulz6u2DBKeScO/205fJXCAe2HL/M6vdniUSAfNASFxoUuJjMpCqzWoRqC9hQg5ylKRNRmYOwVLvIIy+5M5uQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: C1j8THi4ufMZfy0IxaYVpSuf6drnvQm0KGxAfV+cEYV93o8G3w2B57VNpVX8RNd9jxETHutRz8kUe7XQ175DFA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8901
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -138,196 +140,90 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 On 2026-10-27 15:54, Mukul Joshi wrote:
-> In UALink loopback mode a single GPU acts as both the exporter (accel
-> ID 1) and the importer (accel ID 0). This lets the existing tests export
-> a BO and import it on the same device, traversing the UALink HW
-> pipeline.
+> Temporarily add the amdgpu.ualink_loopback module parameter to request
+> UALink loopback mode for manufacturing testing, until the final
+> mechanism for enabling loopback is in place. Loopback is disabled by
+> default.
 >
-> Add amdgpu_ualink_loopback_detect(), the single place that decides
-> whether loopback is enabled. It runs right after the UALink info is
-> queried from PSP, before any per-peer setup. When loopback is enabled:
->
-> - There is no user-space agent to configure the pod, so synthesize the
->    pPod/vPod configuration with both accel IDs active.
->
-> - Activate the device directly instead of through the cross-GPU vpod
->    activation path, which needs peer GPUs and a user-space vpod commit.
->
-> The mechanism that requests loopback mode is added separately, so
-> amdgpu_ualink_loopback_requested() returns false for now. The normal
-> activation path is unchanged when loopback is not enabled.
+> Only amdgpu_ualink_loopback_requested() reads the parameter, so moving
+> to the final mechanism only needs to replace it there.
 >
 > Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
 
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+Acked-by: Felix Kuehling <felix.kuehling@amd.com>
+
+We probably don't want to push this one upstream. It could be for our 
+internal branch only until we have the proper detection method in place.
+
+Regards,
+   Felix
 
 
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 128 ++++++++++++++++++++-
->   1 file changed, 123 insertions(+), 5 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 13 +++++++++++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c |  5 +++--
+>   3 files changed, 17 insertions(+), 2 deletions(-)
 >
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index 5a32b54b1e9b..b8be093b8a33 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -270,6 +270,7 @@ extern int amdgpu_rebar;
+>   extern int amdgpu_wbrf;
+>   extern int amdgpu_user_queue;
+>   extern int amdgpu_ptl;
+> +extern int amdgpu_ualink_loopback;
+>   
+>   extern uint amdgpu_hdmi_hpd_debounce_delay_ms;
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index 3e5634de077f..e0cf40f86194 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -253,6 +253,7 @@ int amdgpu_rebar = -1; /* auto */
+>   int amdgpu_user_queue = -1;
+>   uint amdgpu_hdmi_hpd_debounce_delay_ms;
+>   int amdgpu_ptl = -1; /* auto */
+> +int amdgpu_ualink_loopback;
+>   
+>   DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
+>   			"DRM_UT_CORE",
+> @@ -1165,6 +1166,18 @@ module_param_named(hdmi_hpd_debounce_delay_ms, amdgpu_hdmi_hpd_debounce_delay_ms
+>   MODULE_PARM_DESC(ptl, "Enable PTL (-1 = auto, 0 = disable (default), 1 = enable, 2 = permanently disable)");
+>   module_param_named(ptl, amdgpu_ptl, int, 0444);
+>   
+> +/**
+> + * DOC: ualink_loopback (int)
+> + * Enable UALink loopback mode for manufacturing testing. In loopback mode a
+> + * single GPU acts as both the exporter (accelerator ID 1) and the importer
+> + * (accelerator ID 0) and loops UALink requests back to itself. Possible values:
+> + *
+> + * - 0 = disable (default)
+> + * - 1 = enable
+> + */
+> +MODULE_PARM_DESC(ualink_loopback, "Enable UALink loopback mode (0 = disable (default), 1 = enable)");
+> +module_param_named(ualink_loopback, amdgpu_ualink_loopback, int, 0444);
+> +
+>   /* These devices are not supported by amdgpu.
+>    * They are supported by the mach64, r128, radeon drivers
+>    */
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-> index e6272446ff4f..14b9c05a0f0f 100644
+> index 1c2203ff175d..a98fa5f970b1 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-> @@ -63,6 +63,7 @@ static int amdgpu_ualink_ring_resync_ptrs(struct amdgpu_device *adev,
->   static int amdgpu_ualink_loopback_self_interrupt(struct amdgpu_device *adev,
->   						 u32 sender_accel_id, u32 dw0,
->   						 u32 dw1, u32 dw2, u32 dw3);
-> +static void activate_accelerator(struct amdgpu_device *adev);
->   
->   #define STRIP_NPA(addr)						\
->   	(((u64)(addr) & ~AMDGPU_UALINK_NPA_ADDR_GPUID_MASK))
-> @@ -93,19 +94,130 @@ static int amdgpu_ualink_drm_client_create(struct amdgpu_device *adev)
+> @@ -96,11 +96,12 @@ static int amdgpu_ualink_drm_client_create(struct amdgpu_device *adev)
+>   /*
+>    * amdgpu_ualink_loopback_requested - check whether UALink loopback is requested
+>    *
+> - * There is no mechanism to request loopback mode yet, so it stays disabled.
+> + * Loopback mode is temporarily requested with the amdgpu.ualink_loopback
+> + * module parameter.
+>    */
+>   static bool amdgpu_ualink_loopback_requested(struct amdgpu_device *adev)
+>   {
+> -	return false;
+> +	return amdgpu_ualink_loopback == 1;
 >   }
 >   
 >   /*
-> - * amdgpu_ualink_loopback_init - set up UALink loopback mode
-> + * amdgpu_ualink_loopback_requested - check whether UALink loopback is requested
->    *
-> - * Called once loopback mode has been detected. Allocates the ordered
-> - * workqueue used to emulate exporter->importer interrupts in SW.
-> + * There is no mechanism to request loopback mode yet, so it stays disabled.
-> + */
-> +static bool amdgpu_ualink_loopback_requested(struct amdgpu_device *adev)
-> +{
-> +	return false;
-> +}
-> +
-> +/*
-> + * amdgpu_ualink_loopback_detect - detect UALink loopback mode
-> + *
-> + * This is the only place that decides whether loopback mode is enabled. It
-> + * must run before any per-peer setup, since enabling loopback changes the
-> + * accelerator IDs returned by ualink_exp_accel_id() and ualink_imp_accel_id().
-> + */
-> +static void amdgpu_ualink_loopback_detect(struct amdgpu_device *adev)
-> +{
-> +	if (!amdgpu_ualink_loopback_requested(adev))
-> +		return;
-> +
-> +	adev->ualink.loopback.enabled = true;
-> +	adev->ualink.loopback.exporter_accel_id =
-> +		AMDGPU_UALINK_LOOPBACK_EXPORTER_ACCID;
-> +	adev->ualink.loopback.importer_accel_id =
-> +		AMDGPU_UALINK_LOOPBACK_IMPORTER_ACCID;
-> +}
-> +
-> +/*
-> + * amdgpu_ualink_loopback_populate_info - synthesize pPod/vPod config for loopback
-> + *
-> + * In loopback there is no user-space agent (AIFM / xncmdclient) writing the
-> + * UALink sysfs nodes to configure the pod, so populate adev->ualink.info
-> + * directly. The layout is fixed and known: a single GPU alone in its own
-> + * physical pod, presented as accelerator ID 1 (the exporter) and also owning
-> + * accelerator ID 0 (the importer). The values are made self-consistent so
-> + * check_vpod_info() would pass and amdgpu_ualink_metadata_init() programs the
-> + * importer's ring buffers / GART NPA mappings / MP nHT receive metadata.
-> + */
-> +static void amdgpu_ualink_loopback_populate_info(struct amdgpu_device *adev)
-> +{
-> +	struct amdgpu_ualink_info *info = adev->ualink.info;
-> +	u32 exporter = adev->ualink.loopback.exporter_accel_id; /* 1 */
-> +	u32 importer = adev->ualink.loopback.importer_accel_id; /* 0 */
-> +
-> +	/* Physical pod: this GPU is presented as the exporter accel ID in its
-> +	 * own pod. ppod.size must be large enough to contain both the exporter
-> +	 * and importer accel IDs. ppod.id must be unique within the system
-> +	 * (matters for 1P4G, where every loopback GPU is its own physical pod).
-> +	 */
-> +	info->ppod.accel_id = exporter;
-> +	info->ppod.size = max(exporter, importer) + 1;	/* == 2 */
-> +	uuid_gen(&info->ppod.id);
-> +
-> +	/* Virtual pod: mark BOTH the exporter and the importer active so the
-> +	 * per-peer setup (amdgpu_ualink_metadata_init()) programs the importer's
-> +	 * resources for the importer accel ID. Preserve the address mode queried
-> +	 * from firmware if it is valid (keeps source-identification HW working),
-> +	 * otherwise default to source-aliasing (MI450).
-> +	 */
-> +	info->vpod.id = 0;
-> +	info->vpod.size = 2;
-> +	if (info->vpod.addr_mode >= AMDGPU_UALINK_ADDR_MODE_MAX)
-> +		info->vpod.addr_mode = AMDGPU_UALINK_ADDR_MODE_SOURCE_ALIAS;
-> +	bitmap_zero(info->vpod.active_accel_bits, AMDGPU_UALINK_ACCEL_MAX);
-> +	set_bit(exporter, info->vpod.active_accel_bits);
-> +	set_bit(importer, info->vpod.active_accel_bits);
-> +
-> +	/* Only the exporter (this GPU's own accel ID) is a local accelerator;
-> +	 * the importer is reached through the (loopback) remote/NPA path.
-> +	 */
-> +	info->n_local_accels = 1;
-> +	info->local_accels[0] = exporter;
-> +
-> +	/* Mark the pod vpod-configured so the activation path proceeds. */
-> +	info->accel_state = AMDGPU_UALINK_ACCEL_STATE_VPOD_CONFIGURED;
-> +}
-> +
-> +/*
-> + * amdgpu_ualink_loopback_activate - bring up the UALink manager for loopback
-> + *
-> + * The normal activation is driven by the sysfs vpod_config/commit path via
-> + * activate_local_vpod(), which derives the local accelerators from peer GPUs
-> + * and runs a cross-GPU integrity check. Neither applies in loopback (the
-> + * importer is not a separate GPU), so activate this device directly.
-> + */
-> +static int amdgpu_ualink_loopback_activate(struct amdgpu_device *adev)
-> +{
-> +	mutex_lock(&mgpu_info.mutex);
-> +	activate_accelerator(adev);
-> +	mutex_unlock(&mgpu_info.mutex);
-> +
-> +	if (adev->ualink.info->accel_state < AMDGPU_UALINK_ACCEL_STATE_ACTIVE) {
-> +		dev_err(adev->dev, "UALink loopback activation did not reach ACTIVE\n");
-> +		return -EIO;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +/*
-> + * amdgpu_ualink_loopback_init - set up and activate UALink loopback mode
-> + *
-> + * Called once loopback mode has been detected, after the initial pod/vpod
-> + * configuration has been queried into adev->ualink.info. Synthesizes the pod
-> + * configuration (there is no user-space agent to write the UALink sysfs nodes
-> + * in loopback), allocates the ordered workqueue used to emulate
-> + * exporter->importer interrupts in SW and activates the device.
->    */
->   static int amdgpu_ualink_loopback_init(struct amdgpu_device *adev)
->   {
-> +	amdgpu_ualink_loopback_populate_info(adev);
-> +
->   	adev->ualink.loopback.wq =
->   		alloc_ordered_workqueue("amdgpu_ualink_loopback", 0);
->   	if (!adev->ualink.loopback.wq)
->   		return -ENOMEM;
->   
-> -	return 0;
-> +	dev_info(adev->dev,
-> +		 "UALink loopback enabled (exporter accel %u, importer accel %u)\n",
-> +		 adev->ualink.loopback.exporter_accel_id,
-> +		 adev->ualink.loopback.importer_accel_id);
-> +
-> +	return amdgpu_ualink_loopback_activate(adev);
->   }
->   
->   static void amdgpu_ualink_object_fini(struct amdgpu_device *adev)
-> @@ -495,10 +607,16 @@ int ualink_ip_late_init(struct amdgpu_ip_block *ip_block)
->   	if (r)
->   		return r;
->   
-> +	amdgpu_ualink_loopback_detect(adev);
-> +
->   	scoped_guard(mutex, &mgpu_info.mutex) {
->   		amdgpu_ualink_info_set_accel_state(adev, adev->ualink.info,
->   						   cfg_state);
-> -		__amdgpu_ualink_activate_vpod_locked(adev);
-> +		/* Loopback has no peer GPUs and no user-space vpod commit, so it
-> +		 * cannot use the normal cross-GPU activation path.
-> +		 */
-> +		if (!adev->ualink.loopback.enabled)
-> +			__amdgpu_ualink_activate_vpod_locked(adev);
->   	}
->   
->   	if (adev->ualink.loopback.enabled) {
