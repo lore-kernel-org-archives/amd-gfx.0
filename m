@@ -2,125 +2,122 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6BC9606A31D
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 13:53:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24342606A31C
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 13:58:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=d0kFWDyK
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=E9Iqdm5s
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C1B810E099;
-	Wed, 28 Oct 2026 13:53:53 +0000 (UTC)
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012012.outbound.protection.outlook.com
- [40.107.200.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA66110E099
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Oct 2026 13:53:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE49510FCA4;
+	Wed, 28 Oct 2026 13:57:57 +0000 (UTC)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010017.outbound.protection.outlook.com [52.101.56.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BC2710FCA4
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Oct 2026 13:57:51 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wZlz97/TUM6sKnH6Uw4DABsfe9LqPQ/4+/SLRFtPuyQW+0BQY+mYizB2x8wIsRoP7M0IKUhafc27CmbeUo6pMIguhmr8peTxk54sfPHAd1JxWwaaqg0i5fKcxup4Ga7Nq0Z+en11qusKvtwGrrumAnVSWq4DUMPR/RvNjvLiGCUjX1avPkSRNH3u5b+VyrvBm3mN1oaZYf1wNoggBnyM0MsSsbIBTh1hPs0wGbokMUKRiXGo8ogz7Fc8zv3Nyn2AKwK7JghWLBjp637PWBTkY7FmcJk7XJxqOtvqZO4FPJY5itFHiokHdfvK+IxU6S7pErsoYZjvnfTiOxDzOqKuWw==
+ b=fqUK29seNG2Cq0DDl8wPI0ataOr8tCS6dxV5k0GGLUnjjErBaL9w5ozuqb/I53rmh2XUkuUxSdWBDZOMAyNKT8zvUaXc3uEU10t6y7Cq1RVysKQQ8q4FSmuQdY5T0YXAn73ct9u4XArHZAET9FU88mJdqGomsTRsqW9G9SPJSIeg5+tMNPBotmP2Z9ZnuNfaGFVJW9i2d6BKz7BTDMJI4u2R+V00KUhqReclQVlbzRC/oCl6YzOJc+1FK6wokiBKeSNEdKxqq7Jm8BLagJgLZkDXcCdBHOtfFLBpDAaqwLJ+brIoJNSfugeirGOXUD8DD5eRwx6JUrZEk35EB0nurA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UFJMKLsllbYArEI3IQCdNtwDE15okrRrefRvPTbzzJM=;
- b=u+KPrhruQKJDXjp/XCzXWYT4ONiKlvx1iNKIjQG9lSvj9hDnLCdMHKvB86TCz8Z8/LHQQRHnLi6TENIqE2VpoS64CjZgj6HFykNePOHfLc4O48p8XIb+XPGaEMJxRkELIy08ZyWwfLSMhwxLTD2tRpQkKx3vn0FvqTtKUPdIzHxdG0cpTr5icCiE/YMszFCw5bShR4JYlmj/B9f5xiIOWtRWwBXUpSM0tmHnLj4XQ9KmWC/T03rZ0AzFW4jqOD4NvENDsXYzrz438UuiVjyK7X9cl0BjiQRwIAK/gY77BkqG8r9NsOCikj0DGqDEzyIb2KCGp4BGW4gSAoVzEiRONw==
+ bh=sxNlixuzSL2V0WwvXd3GUj5gql0NUoLoWkTSVQUFVaQ=;
+ b=Y8kzOUPGCsg7b4mDj7ZFTxZXT7n2mI0r9xt/eI50ZRX39gQfnUW4s5N/lmdNZ4YVTi+2aRUYqEoi5OH6CUqfmNCFSyQUjaa04yDqXnBAHw/GlOE4HrB+R780wVE5h/HXWavzWOOZ0qflo/I5mPdnNDh/tSKtOScqVNZKlKquL3NIpWQQa7U8ngHO3wgp3rKxy+lyXZjxstaQ7/bMLVc08HLbphWyHISFRGg8zO/rqmJwEEBAskuBZIGYV5FRbgemNhBzPifiBHy6Nsiagu6fRhuHrdTBTu+P/S5t4q/NiwjEZQhK7eadermD7V6EWCy5pZH1b64ZNum3gpy51sy9Ww==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UFJMKLsllbYArEI3IQCdNtwDE15okrRrefRvPTbzzJM=;
- b=d0kFWDyKTYzAql8891ADWyygnVBMJVJYGKe2RxRygI59U0xXdLR+FmbOpgUmrmWRuF2QGTfNojcipH8SOWjulvMpkKPGY4Ej57F1tKRMY4ZSkkUNCmPwn91cJnW4q2WbFrelkJzLuE9+22CdlUo1MxuGqTyAnG5N4w0mFmjQ4y0=
+ bh=sxNlixuzSL2V0WwvXd3GUj5gql0NUoLoWkTSVQUFVaQ=;
+ b=E9Iqdm5s9Lg2znB+KZlLeM+hShBujvjM9bfzAjNlW5HwfBSGhSqUz0r4cjHHczfzjSRpPUZK6bdHbiHY6xmMBiyscf/mT+ny6xM5KEpxXWAtZZtnbiPlvRHNiwgrbg046bm7RZqf4QOox5PjLiu8ZkT1jLEo0qEf9c6ca1plWHc=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PHXPR12MB999256.namprd12.prod.outlook.com
- (2603:10b6:510:3ca::15) by CY8PR12MB7291.namprd12.prod.outlook.com
- (2603:10b6:930:54::14) with Microsoft SMTP Server (version=TLS1_2,
+Received: from CYYPR12MB8701.namprd12.prod.outlook.com (2603:10b6:930:bf::6)
+ by SN7PR12MB8769.namprd12.prod.outlook.com (2603:10b6:806:34b::12) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Wed, 28 Oct
- 2026 13:53:41 +0000
-Received: from PHXPR12MB999256.namprd12.prod.outlook.com
- ([fe80::9cc3:e12c:d992:4ce4]) by PHXPR12MB999256.namprd12.prod.outlook.com
- ([fe80::9cc3:e12c:d992:4ce4%4]) with mapi id 15.21.0546.021; Wed, 28 Oct 2026
- 13:53:39 +0000
-Message-ID: <0b5f7c6c-86af-4966-b18d-fbcf1b3cdf76@amd.com>
-Date: Wed, 28 Oct 2026 09:53:36 -0400
+ 2026 13:57:47 +0000
+Received: from CYYPR12MB8701.namprd12.prod.outlook.com
+ ([fe80::2d1d:d718:e022:2e18]) by CYYPR12MB8701.namprd12.prod.outlook.com
+ ([fe80::2d1d:d718:e022:2e18%5]) with mapi id 15.21.0546.021; Wed, 28 Oct 2026
+ 13:57:47 +0000
+Message-ID: <f7b7fd3c-f327-4228-8eae-7a879d994155@amd.com>
+Date: Wed, 28 Oct 2026 21:57:42 +0800
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCHv2 4/8] drm/amdgpu: Attribute UALink loopback messages to
- the correct sender
-To: "Lazar, Lijo" <lijo.lazar@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Felix.Kuehling@amd.com, Harish.Kasiviswanathan@amd.com, philip.yang@amd.com
-References: <20261027195913.1794477-1-mukul.joshi@amd.com>
- <20261027195913.1794477-5-mukul.joshi@amd.com>
- <0b9b80f2-58ab-4113-b308-562697650afd@amd.com>
-Content-Language: en-CA
-From: Mukul Joshi <mukul.joshi@amd.com>
-In-Reply-To: <0b9b80f2-58ab-4113-b308-562697650afd@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT1PR01CA0114.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2c::23) To PHXPR12MB999256.namprd12.prod.outlook.com
- (2603:10b6:510:3ca::15)
+Subject: Re: [PATCH] drm/amd/display: add missing CRC engine 1 registers
+To: Wayne Lin <Wayne.Lin@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+References: <20261028091501.191108-1-Wayne.Lin@amd.com>
+Content-Language: en-US
+From: "Chung, ChiaHsuan (Tom)" <chiahsuan.chung@amd.com>
+In-Reply-To: <20261028091501.191108-1-Wayne.Lin@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: TPYP295CA0020.TWNP295.PROD.OUTLOOK.COM
+ (2603:1096:7d0:a::10) To CYYPR12MB8701.namprd12.prod.outlook.com
+ (2603:10b6:930:bf::6)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PHXPR12MB999256:EE_|CY8PR12MB7291:EE_
-X-MS-Office365-Filtering-Correlation-Id: cfb227f3-a075-45cf-44f6-08df34fadede
+X-MS-TrafficTypeDiagnostic: CYYPR12MB8701:EE_|SN7PR12MB8769:EE_
+X-MS-Office365-Filtering-Correlation-Id: 721e0ed6-bb73-44b4-04c1-08df34fb721f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|23010399003|366016|11063799006|4143699003|261009223027099003|56012099006|261021121427099003|261021123027099003|10067099003|261026121527099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: uhTgjgEBM62o1eC+5n5qHbhoo7JGx37UuFYi+LXUOdIhsUMXxcw36bRUQ33E89Jwf92rOBvKuu85oMBW0/RvW4yL5YOF67F/iHTVI0LHh7N3A70SMk+WWJuRdjtDfSGjsC8o3A1kfQYyg8t8DWfXxekqzTiUsI70eeVMLOJcAbbaOQPU6IRq3aUJBPeCmTd/LdHMt9NtSXgJRFZ2LqacQEmeE6pvqLyEgay4Sx2IHkfgBujYns/0ASSqL/VOGeLAQylGNn5BcL9N03ZWtxOXz6dig+1U99pgN8Wa/4McBIlUD+HEbanzEjZg6t3zd1WgUUk6xhXyi9dR4OalbvYGIAvQA3DwG1jd3IDAg/rzOYgUD3JfPTNGJMJx0U37LAupBOzi0OqiD3jTncaSo18p6J5yqSXzU/nsN5Acjl63sTj4BEY4HSenghu9yzuyPEHAxGTkmdbXBrrSVtfho7/pCc1wSvFtrrbJLGCZq3k64Yws3Je/1IJMg+jafnFZm8s85fhjqVhP3pBU2qJyC5XMXjm67XVU4oNIwTdF6QVE17zZz6W7PiIqUL4gtOGt0+5suwcW+eW+vJ8cPZfmLAqBOgA0jT34kS0zm5HL0B9g4hrlKeetWrEXiO4nujCFQTX4lvQq6wtNwteuVD4fNkxHcg2Dw60v9WFnzGtod9N3EXk=
+ ARA:13230040|1800799024|366016|23010399003|376014|11063799006|56012099006|261009223027099003|261022075727099003|261022105027099003|10067099003|261026140227099003|261026121527099003|261021123027099003|261021121427099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: TAOFzOIcq4VNudGXhiGdd4FOWIaomSLvIvZ65ZtBEHljGdwryz8lNeYzlJzFEmxScTs9QFZsEQuigZQ3REM7iEpkKhnbhUZa/wU3/GEvNHqheqekLmgcH2B1eCrZ/vQ5cTx0DXF2BO9wZfDO4ounv7tJt0wyB2rHLX0g9xe3uNB3tGG7BXeTORA9c74lwKM0jbp/M64zgdkfHG010zMwnf7FgipgQXMMDL505gY3GuqB7DKbT2w0xremHmDP0WyzJPlkp8gQ1qqDVIyebA0qUSlA1y1VGB6sTXzFB/mKOmbpbjDhN3mUrKYtid9GgKkYGrD8I2NSMWSr8MT1gnfkDqpkWBvtnyD0P9k9+RkNJkHnbPdf0hnXNwcEARD6iTmgDJAyAcs9EWP/PuGs7cnOfz+AXUpsuosGlWOh76/r7Xs7oHZbOlK+zHI+56QtvRvmgzMWcgCSm0W/eVaS9Z/aVYB4ddjJalOmYgsHay7q5JRW2l0oLqdVMvIfo9WLY6W0i/c44q3lXXn/XArK5N6WtGNVvMp8pPrgdTQBBbOU0FTvNo7lQHU9dKD9hOW+ev3rOxkhcidWFD9BopPJKBzlrjmmWf+GVfJBO+Mrcszp+DMlOWuQKY7hEXD16/idIvwvRKMTlB+1btxivkVU5HuBC5vVKqPkEVmQn6zEnBHbEKQ=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PHXPR12MB999256.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(11063799006)(4143699003)(261009223027099003)(56012099006)(261021121427099003)(261021123027099003)(10067099003)(261026121527099003)(22082099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:CYYPR12MB8701.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(11063799006)(56012099006)(261009223027099003)(261022075727099003)(261022105027099003)(10067099003)(261026140227099003)(261026121527099003)(261021123027099003)(261021121427099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?b3VGd2RlODN3dExaTzBESk1IbU1BWCtmeFdGQ3FTZTJUY0pxNjVyNjJ3RnlK?=
- =?utf-8?B?TnBBcGE1SURBRTEreEdWZDNPem5NcVU3L2ZUQnpwRzdBVnZmbGZFVXplZjVL?=
- =?utf-8?B?NjFsaHcrbGdDN2tIR3VuVktSbzhoOWgyTWRBUW8yaHY2KzR1RFJDV2gxTjFE?=
- =?utf-8?B?R3A4OHJRYnZwSHh3WHZ1ckl1eXB3dTB3Q3BBWkpqNUdyVkJQY0htNVgxTTJW?=
- =?utf-8?B?VDJ3SDVDcE93MzJaV2MxWXZKcnp3bHh1Mm9TR0lERVBicGlWSk1KR29OOXJw?=
- =?utf-8?B?UVl2WHpRSTg4amhONk1MS1Urd2ZlbVdBZnl4MVFFcUZ0SGE1Q0hYMTNsZ3RP?=
- =?utf-8?B?VVdWa3gyNEZXb0IzNmRUZDI2TFV0bjZ5T3NJSXRrV0pWZkJObHlWdFlYMVkr?=
- =?utf-8?B?dWpMMXRKczQ5Ymp1RENSVVhXaEtrTzdRMk5aSjdLejNLbzNYMDhlVnFrL1FI?=
- =?utf-8?B?THlrVFhkMGxYeVFNRXNFMGtsVnUwa1RjYWJsUlkrZ0orMjdFb2ZTR2hMT0ww?=
- =?utf-8?B?M0hzMlVxZTZlWU5HUmxYNy9XaXFQZCtDSW52UUVicmhTZlNtQVpLa3gwTDc5?=
- =?utf-8?B?QjVIb0VIUkVZL2pyY1AzVFlrWnlPTTA1VncyTjAvTDJDcjNvNFdadTdzWUJU?=
- =?utf-8?B?UGxJZVA2aWFLb0RzMEJ3MWtTVHp0bjVjSmZnSWtRRGtoV21UdWtrWTZLMnlM?=
- =?utf-8?B?MkJPWS8rVlVjMFVCRSs5VTdhOUQ2TXRYWGNlTzdJMjlJTGxFU1NnUHBuU29l?=
- =?utf-8?B?QUFHNzNXZEJQNXNHWmhwN2N3SXk1bzNMZXQrS0pUWGVBZ1M4S1VhWTIzVFFV?=
- =?utf-8?B?ZEhNM0xkZTFHY0hJRFBiU0JBRXhmL05HRHJsWTFBUDJBQk1aUzZiTFRqR3Ja?=
- =?utf-8?B?MzBXUHFsb1B0V040RVdDK2t5Y1pVeXY0T3NOdU8xSlJaUW9ndW9kT3pvMWY2?=
- =?utf-8?B?U2M0ZjFxRlg2Y1FSS2RHUzBSSTlmVnB6YzV6akJ0QmpmT2hyS2NScVhrTUJY?=
- =?utf-8?B?OHBQYWdUWC9xd2FFcXFvSlFjOU0ydWExUkYybUZyeTA1Z0hlbHk5R0lVOS8w?=
- =?utf-8?B?S0JlcDVTeEducFFqYlZtSGRBQSsyZUl1SmNwaEcvdkhCMmF6VHlkZDJKUlpk?=
- =?utf-8?B?ODIyRkxRUnZkUlJMQWNKOXhrSkUyOXYzd0lqU0o2dzF2WXFJK0gxeGhDdHRR?=
- =?utf-8?B?NXV2a3JWVUUvU1lKbnpXZGdXdjRVMDlXOHhrUkJlWlg0UDA1aHh4OW5tUk1C?=
- =?utf-8?B?S2R1UFRVWi8wMU9ZRnVSMU1NT3dZUG9aMnJlZElpOXlyVGZOQUtjOVJGalZE?=
- =?utf-8?B?alJpZFhSUTY2Rlg0UVc1TU0yQkEra0VWVW5tYjBFaEl0VnhjOGlhaytVVjBs?=
- =?utf-8?B?YzMwTy83ZVFzdi9pZkt1MjFYR2MzSElQMHQ5c3I4ZEFsUGpzdTBWOTZuNVMr?=
- =?utf-8?B?RVNRTTVPWmNpV2tRTFpuclVtNExwb2tybVNFYmU5ZjV0RENURmVMVTNXY2sv?=
- =?utf-8?B?R0s5RkN0NkdDcnVDZXlNbVBESFc5eXlqV0t4N0RsWFdRNElGMUdhNml3ZlM2?=
- =?utf-8?B?UHdKaXE5cEd4bkJweGlOTU9mMXNRZytLN05tNUpxaFo0K2NuTFFkaWE3ZW84?=
- =?utf-8?B?SXB0eGVsNGNPZ05icUVZYUJUMjNYckZLKzJTeHRtZkJzMm13RWwxcWdDR3Iv?=
- =?utf-8?B?bmhkcThZVG9hZEdLVVhyaHF1RHl4Q05TdVFqdmRuSFdpNmdsY1FWak5MNTE4?=
- =?utf-8?B?K0UvVXJGZjBHNGtMSnVVZE9lOVk2OHhOR0tBN2hlN1JXZkJ1anlWV2FjQ2pN?=
- =?utf-8?B?MWFDQ1E5RkJ6MDA2cDVKcUt4WlBWREhJdE5RK1kwb2pNUE1adjFmcFpsZGI3?=
- =?utf-8?B?ZzZWNVBYY1FjWGRxbmpFSmhIZWR0ZngwYVhRSHNkNTl5WTZMUmdMUHdEUlNi?=
- =?utf-8?B?SkgvcFNlUnZSQVRTMU1jYm9ZYzIyTXZnNkFxNkFJWjRkNXk2MnJHUDA4UzFE?=
- =?utf-8?B?VlZGclZGeEVPRkJ5TjJ3NEUzMmczQythWEd6bHFOWU04T1hEazMrSGFEcXVP?=
- =?utf-8?B?bkpVK2JCTUc3bVhBT2RtTzBNUGo2TWs2ekd5bXpvOWliREZseEJQODZqUWxK?=
- =?utf-8?B?WWtYMmlSUmNjQXNhOG9mMjJIcGVRMHlBcStHSVkxV3BENlZzbEREZUVLM2lQ?=
- =?utf-8?B?bFNyNWk3a3RnYkJ5WlRNeXRuVitzSzJLNktucUV2TXp6OEdEVGZkcXl6aDlP?=
- =?utf-8?B?WEhZZ1I0ZkVPRzNSMlVUbjNUQjYzUXNxSDg1RVk4LzE2Ly9qeVBDQ0xrekhm?=
- =?utf-8?B?QWdPNmdJWVhpajZUSHI5SXRkU0RmUDN4VE9pbVozL1BNVEk5aE9oZz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d1hoSmRuV21nZGR3VFZvNjVWZ0hsVmlXeGNMM21yd3AybFJwNWN4QXpMNHM3?=
+ =?utf-8?B?OFAyRm8vRTNvajdWaEE3TWhwcTJqZ2RpaHUvd2RubnY2djFPd084VVU0aGIx?=
+ =?utf-8?B?RDQrRVVPVURQcWJGTGVXcG9WeVVzTzF4ZDNQb1NLTnFBRFkvcFFsUDFaN2Ur?=
+ =?utf-8?B?ZlA0T1VOR3BGVFNDRUNMY010N1cvaEwzUW1vVndPMWdSUWVxMDF3SGU0WjBG?=
+ =?utf-8?B?dGFqOXBNaXI1K3R5dTdmTmloekUvcWlVMTMxUGw5L1ZrbG16VDZ4M0t4dlNw?=
+ =?utf-8?B?a3hZUkY5UURGVHdoSStYeWowMFBRL2UzYm9DRnBPb0Q3ZkE3WXB6b09teU1z?=
+ =?utf-8?B?dy9PRm53VnNFMTAydDNoNWZ0NituMlRNRHA1a0R3a29wcUpLblNzbk1iMlhO?=
+ =?utf-8?B?RlRxTGtHU1lMS2xxOUJxaUhFdEpGM2dVQUtuYkE3T1pNWTZuWE9TSHRkcEll?=
+ =?utf-8?B?dllFSXBidEtGSEFsZ29nL2g1SlUybW5vZmxFRVk5M3lHMzBwd1RManZIeVlR?=
+ =?utf-8?B?ZERKd2o2TE5TWHlaVnp2VVI3azZvVnVtNUpEZ3hXa0FKZU5uSHpaNWUzVWZS?=
+ =?utf-8?B?MmpUSXREc1diYUpLcmlabW1uVW1FVXNqZ2FwZ2RMa2VaeWIxeWl6bzhIdmxM?=
+ =?utf-8?B?bG9SMHFtdkVPNkl4cG5NMVpOQ1N3YW4xdlFCRWpXNlpjWXl4bnZlSFNPWWU5?=
+ =?utf-8?B?d25NMXZDUExnWUJmcy9BbE9OSzVqSENHbUhaODdhTnFETWZjaFJKSlFGVVM2?=
+ =?utf-8?B?Q1EwZmMzNWMxYnhqMjlQbTY1L0V5djlQRWM1YmNuQ0RaR3dsalU2V3l4anBJ?=
+ =?utf-8?B?aWdvdUFuRnlnZEcwS25NVFgrcm4ycml1VFZXcXJ5ZHVmbUx3L2hZa3RkQWlk?=
+ =?utf-8?B?UU5TUjl0T0c4SlVJdkxWOVI2U3ZtQWVQU2VORmRqVW9kR0xwdEk4UVR1eDNm?=
+ =?utf-8?B?TkJvcHhERk9GQlQ0c21xQ1grbndtajZNSzRUVEoxaW14NWY5Q3UrTkpHUEpv?=
+ =?utf-8?B?aG1taklqbzNuVnE1Z2I1RzJwcU8rVldCRG9oY0pVb1ZwcU1keE15RUd6YldZ?=
+ =?utf-8?B?MC9xeWRTWDJCNTBKYkN1UWJPcFN6N3hmMlFSTGJtZldIdlZ1K2dCUXlrY0xO?=
+ =?utf-8?B?S3haanBoZlEzUUdNcVBVSU5wV1lPQ2NPUXZWZWhaUktmNTVlSUpaQ3hZRWhG?=
+ =?utf-8?B?ZHRVWExpQ2t3STlkeXpBMUVObEJwL3ViUlpaZnY3RjZoQTF2dXhTUEZhVnV0?=
+ =?utf-8?B?YVVFa2RyWUFHRjkzQlVvVFVkbUd5RWwvSjlCbnVhWHZWMHRUTEVGZ2k3VWxU?=
+ =?utf-8?B?RW9ick5aRzVZMnNZQVU0UzlZb29BcDlNcmREczUrVGlzbFc2QnRPeTZBWTls?=
+ =?utf-8?B?SmhvdlpSeFdkbVo1L0s0MmJqLzRrVkR2ZnBsS1NQQXRDVkZkZFdCbExqY29i?=
+ =?utf-8?B?eDdseE5WUVFoblpCWXQ4aXZPRTgwQi9kZUswTUMyeHE5SlV6cFhlTDNwVVpQ?=
+ =?utf-8?B?bVpsazM0bmpVTHAwK3BPaFBmTkRyanpVSFl5SmZDUU5WdUs3aUJIbFlGMU5Y?=
+ =?utf-8?B?Q1hTbjRnWHp2MkZnRm9nVGxSL2JoNk1MaHJiWGp5aDFXOFhCRGd2b0lHM2Qx?=
+ =?utf-8?B?Zm9ZNCtVVWJFY05WN252TVpna25TeTBsVFI1STZoejFzOUFrUmFkVjZtY0VP?=
+ =?utf-8?B?aHVSOUQvdzZKWVZXYnVValRoRE5iVGloQzlaakRnVE82R0tsTlZ5MkVxMEUz?=
+ =?utf-8?B?RGpEYjNwS0Q4SklIRkFkZ1J2QUwySUU3cmY1UHRGK3RnRDJsRzJnVmFjREk5?=
+ =?utf-8?B?WG9lUzlsQnVreThJRXIzNWU1SVhSRGJXanhUVTd4UmRiblVIaFdDSEUvM0ti?=
+ =?utf-8?B?ZGZoTVhqK1pBUm8wVVI5NHRvbks1N1pFOUNBSHJ0c1JnQ2hYWkpYd2s1eFBh?=
+ =?utf-8?B?NUl3TzhpcVZ0a0E4THRyREZGYTFvdVJCYjZURzM1K1p0SnN6ZndtWFFzaUNX?=
+ =?utf-8?B?Q2FVUjR1c05UU0YyUUQwM1dyOFgvYlp5WkJzT00veDZpUDVCR25CbnpjODVs?=
+ =?utf-8?B?OWZyL2JPS3ArL1c2ZTkvaVVpSGxtZG1KRmhEbDdIcnpBQjJRejRPS0RRUk45?=
+ =?utf-8?B?a3hQVmRqVjZjbHJqUG43ZkdjZmcwN2lZemhJRjVYZW5ZL0Z0MURkMUg1YkFB?=
+ =?utf-8?B?ZkxEUWErY2pQNFhlWGcwOUpCQ1g1MjVsRW9HTGZlYWo3NzJmZDdkYkk0SjFP?=
+ =?utf-8?B?V0gwb2ZuQ0pLWjZhU1ZtT3crazlOdjJqNkxtcTI5OXRYUWRoOW1lSXgxdk54?=
+ =?utf-8?Q?+vWF4aliQtMYLNbyWk?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cfb227f3-a075-45cf-44f6-08df34fadede
-X-MS-Exchange-CrossTenant-AuthSource: PHXPR12MB999256.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 721e0ed6-bb73-44b4-04c1-08df34fb721f
+X-MS-Exchange-CrossTenant-AuthSource: CYYPR12MB8701.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 13:53:39.6438 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 13:57:46.9794 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OcjvMa9lT9db5TMYE6n1dqkG16W9JOawzZAjLzvkGETcQdzSSbaqEZUs2/TgZxDUrhJeBvOE/d01lohcWxI1VA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7291
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9FePWq8qSXsxC2S0RPNBis5KV1oXVdHTcYQ9BeuVfYUF+oAlTF+noy1d8UL498Zlh5mTMxzxmEP1GDJE/jpgqA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8769
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,125 +128,367 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=4.0.1
+	SPF_PASS,UPPERCASE_50_75,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+Reviewed-by: Tom Chung <chiahsuan.chung@amd.com>
 
-On 10/28/2026 2:23 AM, Lazar, Lijo wrote:
+On 10/28/2026 5:14 PM, Wayne Lin wrote:
+> [why]
+> Opening the CRTC CRC debugfs file programs every CRC engine. On
+> several generations the engine 1 window and data entries were missing,
+> so configure hits a zero field mask and WARNs. DCN4.2, DCN4.2B, and
+> DCN6.0 already had those entries, but configure still writes
+> OTG_CRC1_SELECT with no mask check. DCN6.0 also lacks OTG_CRC1_EN, so
+> optc1_configure_crc() writes OTG_CRC_EN instead. The ASIC headers
+> already define the addresses and fields. The driver tables did not
+> list them.
 >
+> [how]
+> How the missing entries are filled in:
 >
-> On 28-Oct-26 1:24 AM, Mukul Joshi wrote:
->> In UALink loopback mode a single GPU acts as both the exporter and the
->> importer, so the sender accel ID of a message depends on its direction.
->>
->> - Send HELLO as the opposite role of the destination: a message to the
->>    exporter is sent as the importer and vice versa. Outside loopback
->>    this is still the GPU's own accel ID.
->>
->> - The MP nHT stamps the IH cookie of every HW-delivered message with
->>    the GPU ID of the single physical station, the exporter. The only HW
->>    path is importer -> exporter, so attribute these messages to the
->>    importer. SW-emulated exporter -> importer messages carry no IH ring
->>    and already name the exporter as the sender.
->>
->> Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
->> ---
->> v1->v2:
->> - Use ualink_exp_accel_id/ualink_imp_accel_id() wrappers in
->>    amdgpu_ualink_process_irq(). (Lijo)
->>
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 32 +++++++++++++++++++++-
->>   1 file changed, 31 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
->> index 6c70be7badec..96a6023f51c5 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
->> @@ -1090,6 +1090,23 @@ static inline u32 ualink_imp_accel_id(struct
->> amdgpu_device *adev)
->>       return adev->ualink.info->ppod.accel_id;
->>   }
->>   +/*
->> + * amdgpu_ualink_local_sender_accel_id - sender accel_id for an
->> outgoing message
->> + *
->> + * Normally a GPU sends messages as its own (single) accelerator. In
->> loopback
->> + * mode the same GPU plays both roles, so the sender identity
->> depends on the
->> + * destination: a message to the exporter is sent as the importer
->> and vice
->> + * versa. Outside loopback both roles collapse to the GPU's own
->> accel_id.
->> + */
->> +static u32 amdgpu_ualink_local_sender_accel_id(struct amdgpu_device
->> *adev,
->> +                           u32 remote_acc_id)
->> +{
->> +    if (remote_acc_id == ualink_exp_accel_id(adev))
+> 1. DCN3.0 through DCN3.0.3 use OPTC_COMMON_*_DCN3_BASE. Add the six
+>     engine 1 addresses and the window, data, and OTG_CRC1_SELECT masks.
+>     These headers have no OTG_CRC1_EN bit, so that field is not added.
 >
-> +#define AMDGPU_UALINK_LOOPBACK_EXPORTER_ACCID        1
+> 2. DCN3.1 uses OPTC_COMMON_*_DCN3_1. Add the same addresses and masks,
+>     including OTG_CRC1_EN. dcn_3_1_2 defines that bit. DCN3.1.5
+>     and DCN3.1.6 expand DCN3_1 through DCN31X. DCN3.1.4 has its own
+>     list. OTG_CRC1_EN was already on it, so only addresses, SELECT,
+>     window, and data are added.
 >
-> 1 is a possible id in a regular vpod config also. I think a check of
-> loopback mode also is required here.
-
-We check loopback mode inside the helper, ualink_exp_accel_id().
-
-Thanks,
-
-Mukul
-
+> 3. DCN3.2 and DCN3.2.1 already had OTG_CRC1_EN and OTG_CRC1_SELECT.
+>     Add the window and data masks in the OPTC header and the addresses
+>     in the resource header. DCN3.2 fills addresses at init from
+>     ctx->dcn_reg_offsets[].
 >
-> Thanks,
-> Lijo
+> 4. DCN4.0.1 also uses optc1_configure_crc() and was missing SELECT,
+>     window, and data. Add those masks and the six addresses.
+>     OTG_CRC1_EN was already present.
 >
->> +        return ualink_imp_accel_id(adev);
->> +
->> +    return ualink_exp_accel_id(adev);
->> +}
->> +
->>   static bool amdgpu_ualink_is_local_accel(struct amdgpu_device *adev,
->>                        u32 accel_id)
->>   {
->> @@ -2238,7 +2255,10 @@ static int amdgpu_ualink_send_hello_msg(struct
->> amdgpu_device *adev,
->>         dw0 = AMDGPU_UALINK_HELLO_MSG;
->>       dw0 |= (remote_acc_id <<
->> AMDGPU_UALINK_HELLO_MSG_RECV_ACCID_SHIFT);
->> -    dw0 |= (adev->ualink.info->ppod.accel_id <<
->> +    /* In loopback the sender is the opposite role of the
->> destination, so
->> +     * the exporter side tracks the connection under the importer
->> accel_id.
->> +     */
->> +    dw0 |= (amdgpu_ualink_local_sender_accel_id(adev, remote_acc_id) <<
->>           AMDGPU_UALINK_HELLO_MSG_SENDER_ACCID_SHIFT);
->>         dev_dbg(adev->dev, "SEND HELLO: HELLO message to remote
->> AccId:%u\n",
->> @@ -6548,6 +6568,16 @@ static int amdgpu_ualink_process_irq(struct
->> amdgpu_device *adev,
->>           return handled;
->>       }
->>   +    /* UALink loopback: the MP nHT stamps every HW-delivered
->> message with
->> +     * the GPU ID of the single physical station, the exporter. The
->> only
->> +     * HW path is importer -> exporter, so the real sender is the
->> importer.
->> +     * SW-emulated exporter -> importer messages carry no IH ring and
->> +     * already name the exporter as sender.
->> +     */
->> +    if (adev->ualink.loopback.enabled && entry->ih &&
->> +        src_acc_id == ualink_exp_accel_id(adev))
->> +        src_acc_id = ualink_imp_accel_id(adev);
->> +
->>       msg_type = dw0 & AMDGPU_UALINK_MESSAGE_HEADER_MASK;
->>       local_acc_id = adev->ualink.info->ppod.accel_id;
->>       dev_dbg(adev->dev, "Got MSG: remote acc_id %u msg_type %u\n",
+> 5. DCN3.5, DCN3.5.1, and DCN3.6 already have the addresses and program
+>     engine 1 through optc35_configure_crc(). Their mask list included
+>     DCN3.2 and then repeated the CRC1 window and data fields. Drop the
+>     duplicates.
 >
+> 6. DCN2.0, DCN2.0.1, and DCN2.1 are left unchanged. They inherit the
+>     DCN1.0 lists, which already name engine 1 window, data, and
+>     OTG_CRC1_SELECT. Their headers have no OTG_CRC1_EN bit.
+>
+> 7. DCN4.2 and DCN4.2B use optc35_configure_crc(). Window, data, and
+>     OTG_CRC1_EN were already present. Add OTG_CRC1_SELECT. DCN6.0 uses
+>     optc1_configure_crc(). Window and data were already present. Add
+>     OTG_CRC1_SELECT and OTG_CRC1_EN.
+>
+> Fixes: ef45aaf73717 ("drm/amd/display: Configure all CRC engines in pipe CRC source path")
+> Cc: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+> Reported-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+> Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
+> Assisted-by: Cursor:Grok 4.7
+> ---
+>   .../amd/display/dc/optc/dcn30/dcn30_optc.h    | 18 +++++++++++++++
+>   .../amd/display/dc/optc/dcn31/dcn31_optc.h    | 22 +++++++++++++++++--
+>   .../amd/display/dc/optc/dcn314/dcn314_optc.h  | 18 +++++++++++++++
+>   .../amd/display/dc/optc/dcn32/dcn32_optc.h    | 11 ++++++++++
+>   .../amd/display/dc/optc/dcn35/dcn35_optc.h    | 11 ----------
+>   .../amd/display/dc/optc/dcn401/dcn401_optc.h  | 12 ++++++++++
+>   .../amd/display/dc/optc/dcn42/dcn42_optc.h    |  2 ++
+>   .../amd/display/dc/optc/dcn60/dcn60_optc.h    |  2 ++
+>   .../dc/resource/dcn32/dcn32_resource.h        |  6 +++++
+>   .../dc/resource/dcn401/dcn401_resource.h      |  6 +++++
+>   10 files changed, 95 insertions(+), 13 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn30/dcn30_optc.h b/drivers/gpu/drm/amd/display/dc/optc/dcn30/dcn30_optc.h
+> index 16c5610b49ac..b801989f10cf 100644
+> --- a/drivers/gpu/drm/amd/display/dc/optc/dcn30/dcn30_optc.h
+> +++ b/drivers/gpu/drm/amd/display/dc/optc/dcn30/dcn30_optc.h
+> @@ -91,6 +91,12 @@
+>   	SRI(OTG_CRC0_WINDOWA_Y_CONTROL, OTG, inst),\
+>   	SRI(OTG_CRC0_WINDOWB_X_CONTROL, OTG, inst),\
+>   	SRI(OTG_CRC0_WINDOWB_Y_CONTROL, OTG, inst),\
+> +	SRI(OTG_CRC1_DATA_RG, OTG, inst),\
+> +	SRI(OTG_CRC1_DATA_B, OTG, inst),\
+> +	SRI(OTG_CRC1_WINDOWA_X_CONTROL, OTG, inst),\
+> +	SRI(OTG_CRC1_WINDOWA_Y_CONTROL, OTG, inst),\
+> +	SRI(OTG_CRC1_WINDOWB_X_CONTROL, OTG, inst),\
+> +	SRI(OTG_CRC1_WINDOWB_Y_CONTROL, OTG, inst),\
+>   	SR(GSL_SOURCE_SELECT),\
+>   	SRI(OTG_TRIGA_MANUAL_TRIG, OTG, inst),\
+>   	SRI(OTG_DRR_CONTROL, OTG, inst)
+> @@ -229,6 +235,7 @@
+>   	SF(OTG0_OTG_GSL_CONTROL, OTG_GSL_CHECK_ALL_FIELDS, mask_sh),\
+>   	SF(OTG0_OTG_CRC_CNTL, OTG_CRC_CONT_EN, mask_sh),\
+>   	SF(OTG0_OTG_CRC_CNTL, OTG_CRC0_SELECT, mask_sh),\
+> +	SF(OTG0_OTG_CRC_CNTL, OTG_CRC1_SELECT, mask_sh),\
+>   	SF(OTG0_OTG_CRC_CNTL, OTG_CRC_EN, mask_sh),\
+>   	SF(OTG0_OTG_CRC_CNTL2, OTG_CRC_DSC_MODE, mask_sh),\
+>   	SF(OTG0_OTG_CRC_CNTL2, OTG_CRC_DATA_STREAM_COMBINE_MODE, mask_sh),\
+> @@ -245,6 +252,17 @@
+>   	SF(OTG0_OTG_CRC0_WINDOWB_X_CONTROL, OTG_CRC0_WINDOWB_X_END, mask_sh),\
+>   	SF(OTG0_OTG_CRC0_WINDOWB_Y_CONTROL, OTG_CRC0_WINDOWB_Y_START, mask_sh),\
+>   	SF(OTG0_OTG_CRC0_WINDOWB_Y_CONTROL, OTG_CRC0_WINDOWB_Y_END, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_DATA_RG, CRC1_R_CR, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_DATA_RG, CRC1_G_Y, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_DATA_B, CRC1_B_CB, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_WINDOWA_X_CONTROL, OTG_CRC1_WINDOWA_X_START, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_WINDOWA_X_CONTROL, OTG_CRC1_WINDOWA_X_END, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_WINDOWA_Y_CONTROL, OTG_CRC1_WINDOWA_Y_START, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_WINDOWA_Y_CONTROL, OTG_CRC1_WINDOWA_Y_END, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_WINDOWB_X_CONTROL, OTG_CRC1_WINDOWB_X_START, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_WINDOWB_X_CONTROL, OTG_CRC1_WINDOWB_X_END, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_WINDOWB_Y_CONTROL, OTG_CRC1_WINDOWB_Y_START, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_WINDOWB_Y_CONTROL, OTG_CRC1_WINDOWB_Y_END, mask_sh),\
+>   	SF(OTG0_OTG_TRIGA_MANUAL_TRIG, OTG_TRIGA_MANUAL_TRIG, mask_sh),\
+>   	SF(GSL_SOURCE_SELECT, GSL0_READY_SOURCE_SEL, mask_sh),\
+>   	SF(GSL_SOURCE_SELECT, GSL1_READY_SOURCE_SEL, mask_sh),\
+> diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn31/dcn31_optc.h b/drivers/gpu/drm/amd/display/dc/optc/dcn31/dcn31_optc.h
+> index 19d90c65a22b..c56512455338 100644
+> --- a/drivers/gpu/drm/amd/display/dc/optc/dcn31/dcn31_optc.h
+> +++ b/drivers/gpu/drm/amd/display/dc/optc/dcn31/dcn31_optc.h
+> @@ -83,6 +83,12 @@
+>   	SRI(OTG_CRC0_WINDOWA_Y_CONTROL, OTG, inst),\
+>   	SRI(OTG_CRC0_WINDOWB_X_CONTROL, OTG, inst),\
+>   	SRI(OTG_CRC0_WINDOWB_Y_CONTROL, OTG, inst),\
+> +	SRI(OTG_CRC1_DATA_RG, OTG, inst),\
+> +	SRI(OTG_CRC1_DATA_B, OTG, inst),\
+> +	SRI(OTG_CRC1_WINDOWA_X_CONTROL, OTG, inst),\
+> +	SRI(OTG_CRC1_WINDOWA_Y_CONTROL, OTG, inst),\
+> +	SRI(OTG_CRC1_WINDOWB_X_CONTROL, OTG, inst),\
+> +	SRI(OTG_CRC1_WINDOWB_Y_CONTROL, OTG, inst),\
+>   	SR(GSL_SOURCE_SELECT),\
+>   	SRI(OTG_TRIGA_MANUAL_TRIG, OTG, inst),\
+>   	SRI(OTG_GLOBAL_CONTROL1, OTG, inst),\
+> @@ -205,7 +211,9 @@
+>   	SF(OTG0_OTG_GSL_CONTROL, OTG_GSL_CHECK_ALL_FIELDS, mask_sh),\
+>   	SF(OTG0_OTG_CRC_CNTL, OTG_CRC_CONT_EN, mask_sh),\
+>   	SF(OTG0_OTG_CRC_CNTL, OTG_CRC0_SELECT, mask_sh),\
+> +	SF(OTG0_OTG_CRC_CNTL, OTG_CRC1_SELECT, mask_sh),\
+>   	SF(OTG0_OTG_CRC_CNTL, OTG_CRC_EN, mask_sh),\
+> +	SF(OTG0_OTG_CRC_CNTL, OTG_CRC1_EN, mask_sh),\
+>   	SF(OTG0_OTG_CRC0_DATA_RG, CRC0_R_CR, mask_sh),\
+>   	SF(OTG0_OTG_CRC0_DATA_RG, CRC0_G_Y, mask_sh),\
+>   	SF(OTG0_OTG_CRC0_DATA_B, CRC0_B_CB, mask_sh),\
+> @@ -217,6 +225,17 @@
+>   	SF(OTG0_OTG_CRC0_WINDOWB_X_CONTROL, OTG_CRC0_WINDOWB_X_END, mask_sh),\
+>   	SF(OTG0_OTG_CRC0_WINDOWB_Y_CONTROL, OTG_CRC0_WINDOWB_Y_START, mask_sh),\
+>   	SF(OTG0_OTG_CRC0_WINDOWB_Y_CONTROL, OTG_CRC0_WINDOWB_Y_END, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_DATA_RG, CRC1_R_CR, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_DATA_RG, CRC1_G_Y, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_DATA_B, CRC1_B_CB, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_WINDOWA_X_CONTROL, OTG_CRC1_WINDOWA_X_START, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_WINDOWA_X_CONTROL, OTG_CRC1_WINDOWA_X_END, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_WINDOWA_Y_CONTROL, OTG_CRC1_WINDOWA_Y_START, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_WINDOWA_Y_CONTROL, OTG_CRC1_WINDOWA_Y_END, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_WINDOWB_X_CONTROL, OTG_CRC1_WINDOWB_X_START, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_WINDOWB_X_CONTROL, OTG_CRC1_WINDOWB_X_END, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_WINDOWB_Y_CONTROL, OTG_CRC1_WINDOWB_Y_START, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_WINDOWB_Y_CONTROL, OTG_CRC1_WINDOWB_Y_END, mask_sh),\
+>   	SF(OTG0_OTG_TRIGA_MANUAL_TRIG, OTG_TRIGA_MANUAL_TRIG, mask_sh),\
+>   	SF(GSL_SOURCE_SELECT, GSL0_READY_SOURCE_SEL, mask_sh),\
+>   	SF(GSL_SOURCE_SELECT, GSL1_READY_SOURCE_SEL, mask_sh),\
+> @@ -264,8 +283,7 @@
+>   	SF(OTG0_INTERRUPT_DEST, OTG0_IHC_OTG_VERTICAL_INTERRUPT2_DEST, mask_sh)
+>   
+>   #define OPTC_COMMON_MASK_SH_LIST_DCN31X(mask_sh)\
+> -	OPTC_COMMON_MASK_SH_LIST_DCN3_1(mask_sh),\
+> -	SF(OTG0_OTG_CRC_CNTL, OTG_CRC1_EN, mask_sh)
+> +	OPTC_COMMON_MASK_SH_LIST_DCN3_1(mask_sh)
+>   
+>   void dcn31_timing_generator_init(struct optc *optc1);
+>   
+> diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn314/dcn314_optc.h b/drivers/gpu/drm/amd/display/dc/optc/dcn314/dcn314_optc.h
+> index 7b43c3ecd46b..956eecf0a43a 100644
+> --- a/drivers/gpu/drm/amd/display/dc/optc/dcn314/dcn314_optc.h
+> +++ b/drivers/gpu/drm/amd/display/dc/optc/dcn314/dcn314_optc.h
+> @@ -84,6 +84,12 @@
+>   	SRI(OTG_CRC0_WINDOWA_Y_CONTROL, OTG, inst),\
+>   	SRI(OTG_CRC0_WINDOWB_X_CONTROL, OTG, inst),\
+>   	SRI(OTG_CRC0_WINDOWB_Y_CONTROL, OTG, inst),\
+> +	SRI(OTG_CRC1_DATA_RG, OTG, inst),\
+> +	SRI(OTG_CRC1_DATA_B, OTG, inst),\
+> +	SRI(OTG_CRC1_WINDOWA_X_CONTROL, OTG, inst),\
+> +	SRI(OTG_CRC1_WINDOWA_Y_CONTROL, OTG, inst),\
+> +	SRI(OTG_CRC1_WINDOWB_X_CONTROL, OTG, inst),\
+> +	SRI(OTG_CRC1_WINDOWB_Y_CONTROL, OTG, inst),\
+>   	SR(GSL_SOURCE_SELECT),\
+>   	SRI(OTG_TRIGA_MANUAL_TRIG, OTG, inst),\
+>   	SRI(OTG_GLOBAL_CONTROL1, OTG, inst),\
+> @@ -204,6 +210,7 @@
+>   	SF(OTG0_OTG_GSL_CONTROL, OTG_GSL_CHECK_ALL_FIELDS, mask_sh),\
+>   	SF(OTG0_OTG_CRC_CNTL, OTG_CRC_CONT_EN, mask_sh),\
+>   	SF(OTG0_OTG_CRC_CNTL, OTG_CRC0_SELECT, mask_sh),\
+> +	SF(OTG0_OTG_CRC_CNTL, OTG_CRC1_SELECT, mask_sh),\
+>   	SF(OTG0_OTG_CRC_CNTL, OTG_CRC_EN, mask_sh),\
+>   	SF(OTG0_OTG_CRC_CNTL, OTG_CRC1_EN, mask_sh),\
+>   	SF(OTG0_OTG_CRC0_DATA_RG, CRC0_R_CR, mask_sh),\
+> @@ -217,6 +224,17 @@
+>   	SF(OTG0_OTG_CRC0_WINDOWB_X_CONTROL, OTG_CRC0_WINDOWB_X_END, mask_sh),\
+>   	SF(OTG0_OTG_CRC0_WINDOWB_Y_CONTROL, OTG_CRC0_WINDOWB_Y_START, mask_sh),\
+>   	SF(OTG0_OTG_CRC0_WINDOWB_Y_CONTROL, OTG_CRC0_WINDOWB_Y_END, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_DATA_RG, CRC1_R_CR, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_DATA_RG, CRC1_G_Y, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_DATA_B, CRC1_B_CB, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_WINDOWA_X_CONTROL, OTG_CRC1_WINDOWA_X_START, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_WINDOWA_X_CONTROL, OTG_CRC1_WINDOWA_X_END, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_WINDOWA_Y_CONTROL, OTG_CRC1_WINDOWA_Y_START, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_WINDOWA_Y_CONTROL, OTG_CRC1_WINDOWA_Y_END, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_WINDOWB_X_CONTROL, OTG_CRC1_WINDOWB_X_START, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_WINDOWB_X_CONTROL, OTG_CRC1_WINDOWB_X_END, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_WINDOWB_Y_CONTROL, OTG_CRC1_WINDOWB_Y_START, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_WINDOWB_Y_CONTROL, OTG_CRC1_WINDOWB_Y_END, mask_sh),\
+>   	SF(OTG0_OTG_TRIGA_MANUAL_TRIG, OTG_TRIGA_MANUAL_TRIG, mask_sh),\
+>   	SF(GSL_SOURCE_SELECT, GSL0_READY_SOURCE_SEL, mask_sh),\
+>   	SF(GSL_SOURCE_SELECT, GSL1_READY_SOURCE_SEL, mask_sh),\
+> diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.h b/drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.h
+> index 60c01ec28b65..492760779226 100644
+> --- a/drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.h
+> +++ b/drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.h
+> @@ -146,6 +146,17 @@
+>   	SF(OTG0_OTG_CRC0_WINDOWB_X_CONTROL, OTG_CRC0_WINDOWB_X_END, mask_sh),\
+>   	SF(OTG0_OTG_CRC0_WINDOWB_Y_CONTROL, OTG_CRC0_WINDOWB_Y_START, mask_sh),\
+>   	SF(OTG0_OTG_CRC0_WINDOWB_Y_CONTROL, OTG_CRC0_WINDOWB_Y_END, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_DATA_RG, CRC1_R_CR, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_DATA_RG, CRC1_G_Y, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_DATA_B, CRC1_B_CB, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_WINDOWA_X_CONTROL, OTG_CRC1_WINDOWA_X_START, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_WINDOWA_X_CONTROL, OTG_CRC1_WINDOWA_X_END, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_WINDOWA_Y_CONTROL, OTG_CRC1_WINDOWA_Y_START, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_WINDOWA_Y_CONTROL, OTG_CRC1_WINDOWA_Y_END, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_WINDOWB_X_CONTROL, OTG_CRC1_WINDOWB_X_START, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_WINDOWB_X_CONTROL, OTG_CRC1_WINDOWB_X_END, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_WINDOWB_Y_CONTROL, OTG_CRC1_WINDOWB_Y_START, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_WINDOWB_Y_CONTROL, OTG_CRC1_WINDOWB_Y_END, mask_sh),\
+>   	SF(OTG0_OTG_TRIGA_MANUAL_TRIG, OTG_TRIGA_MANUAL_TRIG, mask_sh),\
+>   	SF(GSL_SOURCE_SELECT, GSL0_READY_SOURCE_SEL, mask_sh),\
+>   	SF(GSL_SOURCE_SELECT, GSL1_READY_SOURCE_SEL, mask_sh),\
+> diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.h b/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.h
+> index 82e0818c8f9f..196596cc9fb6 100644
+> --- a/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.h
+> +++ b/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.h
+> @@ -32,23 +32,12 @@
+>   #define OPTC_COMMON_MASK_SH_LIST_DCN3_5(mask_sh)\
+>   	OPTC_COMMON_MASK_SH_LIST_DCN3_2(mask_sh),\
+>   	SF(OTG0_OTG_CRC_CNTL, OTG_CRC_WINDOW_DB_EN, mask_sh),\
+> -	SF(OTG0_OTG_CRC1_DATA_RG, CRC1_R_CR, mask_sh),\
+> -	SF(OTG0_OTG_CRC1_DATA_RG, CRC1_G_Y, mask_sh),\
+> -	SF(OTG0_OTG_CRC1_DATA_B,  CRC1_B_CB, mask_sh),\
+>   	SF(OTG0_OTG_CRC2_DATA_RG, CRC2_R_CR, mask_sh),\
+>   	SF(OTG0_OTG_CRC2_DATA_RG, CRC2_G_Y, mask_sh),\
+>   	SF(OTG0_OTG_CRC2_DATA_B,  CRC2_B_CB, mask_sh),\
+>   	SF(OTG0_OTG_CRC3_DATA_RG, CRC3_R_CR, mask_sh),\
+>   	SF(OTG0_OTG_CRC3_DATA_RG, CRC3_G_Y, mask_sh),\
+>   	SF(OTG0_OTG_CRC3_DATA_B,  CRC3_B_CB, mask_sh),\
+> -	SF(OTG0_OTG_CRC1_WINDOWA_X_CONTROL, OTG_CRC1_WINDOWA_X_START, mask_sh),\
+> -	SF(OTG0_OTG_CRC1_WINDOWA_X_CONTROL, OTG_CRC1_WINDOWA_X_END, mask_sh),\
+> -	SF(OTG0_OTG_CRC1_WINDOWA_Y_CONTROL, OTG_CRC1_WINDOWA_Y_START, mask_sh),\
+> -	SF(OTG0_OTG_CRC1_WINDOWA_Y_CONTROL, OTG_CRC1_WINDOWA_Y_END, mask_sh),\
+> -	SF(OTG0_OTG_CRC1_WINDOWB_X_CONTROL, OTG_CRC1_WINDOWB_X_START, mask_sh),\
+> -	SF(OTG0_OTG_CRC1_WINDOWB_X_CONTROL, OTG_CRC1_WINDOWB_X_END, mask_sh),\
+> -	SF(OTG0_OTG_CRC1_WINDOWB_Y_CONTROL, OTG_CRC1_WINDOWB_Y_START, mask_sh),\
+> -	SF(OTG0_OTG_CRC1_WINDOWB_Y_CONTROL, OTG_CRC1_WINDOWB_Y_END, mask_sh),\
+>   	SF(OTG0_OTG_CRC0_WINDOWA_X_CONTROL_READBACK, OTG_CRC0_WINDOWA_X_START_READBACK, mask_sh),\
+>   	SF(OTG0_OTG_CRC0_WINDOWA_X_CONTROL_READBACK, OTG_CRC0_WINDOWA_X_END_READBACK, mask_sh),\
+>   	SF(OTG0_OTG_CRC0_WINDOWA_Y_CONTROL_READBACK, OTG_CRC0_WINDOWA_Y_START_READBACK, mask_sh),\
+> diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn401/dcn401_optc.h b/drivers/gpu/drm/amd/display/dc/optc/dcn401/dcn401_optc.h
+> index 3add972ca2ff..9e4e9d75400a 100644
+> --- a/drivers/gpu/drm/amd/display/dc/optc/dcn401/dcn401_optc.h
+> +++ b/drivers/gpu/drm/amd/display/dc/optc/dcn401/dcn401_optc.h
+> @@ -110,6 +110,7 @@
+>   	SF(OTG0_OTG_GSL_CONTROL, OTG_GSL_CHECK_ALL_FIELDS, mask_sh),\
+>   	SF(OTG0_OTG_CRC_CNTL, OTG_CRC_CONT_EN, mask_sh),\
+>   	SF(OTG0_OTG_CRC_CNTL, OTG_CRC0_SELECT, mask_sh),\
+> +	SF(OTG0_OTG_CRC_CNTL, OTG_CRC1_SELECT, mask_sh),\
+>   	SF(OTG0_OTG_CRC_CNTL, OTG_CRC_EN, mask_sh),\
+>   	SF(OTG0_OTG_CRC_CNTL, OTG_CRC1_EN, mask_sh),\
+>   	SF(OTG0_OTG_CRC0_DATA_RG, CRC0_R_CR, mask_sh),\
+> @@ -123,6 +124,17 @@
+>   	SF(OTG0_OTG_CRC0_WINDOWB_X_CONTROL, OTG_CRC0_WINDOWB_X_END, mask_sh),\
+>   	SF(OTG0_OTG_CRC0_WINDOWB_Y_CONTROL, OTG_CRC0_WINDOWB_Y_START, mask_sh),\
+>   	SF(OTG0_OTG_CRC0_WINDOWB_Y_CONTROL, OTG_CRC0_WINDOWB_Y_END, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_DATA_RG, CRC1_R_CR, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_DATA_RG, CRC1_G_Y, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_DATA_B, CRC1_B_CB, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_WINDOWA_X_CONTROL, OTG_CRC1_WINDOWA_X_START, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_WINDOWA_X_CONTROL, OTG_CRC1_WINDOWA_X_END, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_WINDOWA_Y_CONTROL, OTG_CRC1_WINDOWA_Y_START, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_WINDOWA_Y_CONTROL, OTG_CRC1_WINDOWA_Y_END, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_WINDOWB_X_CONTROL, OTG_CRC1_WINDOWB_X_START, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_WINDOWB_X_CONTROL, OTG_CRC1_WINDOWB_X_END, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_WINDOWB_Y_CONTROL, OTG_CRC1_WINDOWB_Y_START, mask_sh),\
+> +	SF(OTG0_OTG_CRC1_WINDOWB_Y_CONTROL, OTG_CRC1_WINDOWB_Y_END, mask_sh),\
+>   	SF(OTG0_OTG_TRIGA_MANUAL_TRIG, OTG_TRIGA_MANUAL_TRIG, mask_sh),\
+>   	SF(GSL_SOURCE_SELECT, GSL0_READY_SOURCE_SEL, mask_sh),\
+>   	SF(GSL_SOURCE_SELECT, GSL1_READY_SOURCE_SEL, mask_sh),\
+> diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn42/dcn42_optc.h b/drivers/gpu/drm/amd/display/dc/optc/dcn42/dcn42_optc.h
+> index bc641f6ecd7e..bdda94489a23 100644
+> --- a/drivers/gpu/drm/amd/display/dc/optc/dcn42/dcn42_optc.h
+> +++ b/drivers/gpu/drm/amd/display/dc/optc/dcn42/dcn42_optc.h
+> @@ -137,6 +137,7 @@
+>   	SF(OTG0_OTG_GSL_CONTROL, OTG_GSL_CHECK_ALL_FIELDS, mask_sh),\
+>   	SF(OTG0_OTG_CRC_CNTL, OTG_CRC_CONT_EN, mask_sh),\
+>   	SF(OTG0_OTG_CRC_CNTL, OTG_CRC0_SELECT, mask_sh),\
+> +	SF(OTG0_OTG_CRC_CNTL, OTG_CRC1_SELECT, mask_sh),\
+>   	SF(OTG0_OTG_CRC_CNTL, OTG_CRC_EN, mask_sh),\
+>   	SF(OTG0_OTG_CRC_CNTL, OTG_CRC1_EN, mask_sh),\
+>   	SF(OTG0_OTG_CRC0_DATA_R, CRC0_R_CR, mask_sh),\
+> @@ -316,6 +317,7 @@
+>   	SF(OTG0_OTG_GSL_CONTROL, OTG_GSL_CHECK_ALL_FIELDS, mask_sh),\
+>   	SF(OTG0_OTG_CRC_CNTL, OTG_CRC_CONT_EN, mask_sh),\
+>   	SF(OTG0_OTG_CRC_CNTL, OTG_CRC0_SELECT, mask_sh),\
+> +	SF(OTG0_OTG_CRC_CNTL, OTG_CRC1_SELECT, mask_sh),\
+>   	SF(OTG0_OTG_CRC_CNTL, OTG_CRC_EN, mask_sh),\
+>   	SF(OTG0_OTG_CRC_CNTL, OTG_CRC1_EN, mask_sh),\
+>   	SF(OTG0_OTG_CRC0_DATA_R, CRC0_R_CR, mask_sh),\
+> diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn60/dcn60_optc.h b/drivers/gpu/drm/amd/display/dc/optc/dcn60/dcn60_optc.h
+> index ba207c0e498e..ec40c9180030 100644
+> --- a/drivers/gpu/drm/amd/display/dc/optc/dcn60/dcn60_optc.h
+> +++ b/drivers/gpu/drm/amd/display/dc/optc/dcn60/dcn60_optc.h
+> @@ -109,7 +109,9 @@
+>   	SF(OTG0_OTG_GSL_CONTROL, OTG_GSL_FORCE_DELAY, mask_sh),\
+>   	SF(OTG0_OTG_CRC_CNTL, OTG_CRC_CONT_EN, mask_sh),\
+>   	SF(OTG0_OTG_CRC_CNTL, OTG_CRC0_SELECT, mask_sh),\
+> +	SF(OTG0_OTG_CRC_CNTL, OTG_CRC1_SELECT, mask_sh),\
+>   	SF(OTG0_OTG_CRC_CNTL, OTG_CRC_EN, mask_sh),\
+> +	SF(OTG0_OTG_CRC_CNTL, OTG_CRC1_EN, mask_sh),\
+>   	SF(OTG0_OTG_CRC0_DATA_R, CRC0_R_CR, mask_sh),\
+>   	SF(OTG0_OTG_CRC0_DATA_G, CRC0_G_Y, mask_sh),\
+>   	SF(OTG0_OTG_CRC0_DATA_B, CRC0_B_CB, mask_sh),\
+> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h
+> index 68e7140f1505..fa8cc89cb3f7 100644
+> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h
+> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h
+> @@ -1054,6 +1054,12 @@ unsigned int dcn32_get_max_hw_cursor_size(const struct dc *dc,
+>         SRI_ARR(OTG_CRC0_WINDOWA_Y_CONTROL, OTG, inst),                          \
+>         SRI_ARR(OTG_CRC0_WINDOWB_X_CONTROL, OTG, inst),                          \
+>         SRI_ARR(OTG_CRC0_WINDOWB_Y_CONTROL, OTG, inst),                          \
+> +      SRI_ARR(OTG_CRC1_DATA_RG, OTG, inst),                                    \
+> +      SRI_ARR(OTG_CRC1_DATA_B, OTG, inst),                                     \
+> +      SRI_ARR(OTG_CRC1_WINDOWA_X_CONTROL, OTG, inst),                          \
+> +      SRI_ARR(OTG_CRC1_WINDOWA_Y_CONTROL, OTG, inst),                          \
+> +      SRI_ARR(OTG_CRC1_WINDOWB_X_CONTROL, OTG, inst),                          \
+> +      SRI_ARR(OTG_CRC1_WINDOWB_Y_CONTROL, OTG, inst),                          \
+>         SR_ARR(GSL_SOURCE_SELECT, inst),                                         \
+>         SRI_ARR(OTG_TRIGA_MANUAL_TRIG, OTG, inst),                               \
+>         SRI_ARR(OTG_GLOBAL_CONTROL1, OTG, inst),                                 \
+> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.h b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.h
+> index 8e3473f86490..3cfc1a39a103 100644
+> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.h
+> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.h
+> @@ -535,6 +535,12 @@ int dcn401_get_power_profile(const struct dc_state *context);
+>   	SRI_ARR(OTG_CRC0_WINDOWA_Y_CONTROL, OTG, inst),                          \
+>   	SRI_ARR(OTG_CRC0_WINDOWB_X_CONTROL, OTG, inst),                          \
+>   	SRI_ARR(OTG_CRC0_WINDOWB_Y_CONTROL, OTG, inst),                          \
+> +	SRI_ARR(OTG_CRC1_DATA_RG, OTG, inst),                                    \
+> +	SRI_ARR(OTG_CRC1_DATA_B, OTG, inst),                                     \
+> +	SRI_ARR(OTG_CRC1_WINDOWA_X_CONTROL, OTG, inst),                          \
+> +	SRI_ARR(OTG_CRC1_WINDOWA_Y_CONTROL, OTG, inst),                          \
+> +	SRI_ARR(OTG_CRC1_WINDOWB_X_CONTROL, OTG, inst),                          \
+> +	SRI_ARR(OTG_CRC1_WINDOWB_Y_CONTROL, OTG, inst),                          \
+>   	SR_ARR(GSL_SOURCE_SELECT, inst),                                         \
+>   	SRI_ARR(OTG_TRIGA_MANUAL_TRIG, OTG, inst),                               \
+>   	SRI_ARR(OTG_GLOBAL_CONTROL1, OTG, inst),                                 \
