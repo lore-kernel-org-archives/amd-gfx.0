@@ -2,121 +2,122 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E4BB606A31C
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 17:50:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA154606A323
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 18:24:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ivMpV3vK
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=by+Des7K
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 30F3510E12B;
-	Wed, 28 Oct 2026 17:50:34 +0000 (UTC)
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012025.outbound.protection.outlook.com [52.101.43.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9158310E12B
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Oct 2026 17:50:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B9A110E0D6;
+	Wed, 28 Oct 2026 18:24:21 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010053.outbound.protection.outlook.com
+ [40.93.198.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B61D310E0D6
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Oct 2026 18:24:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nu2Eo7XFboytR0wL/JvqCA41p8YBjwLaupqQ5vOgJMEeiiI3IPyQ+3iC4SfMiPYGDFH+jhrcREFzd6tp7/Bm4l33s6/wOJGWlH0eCBHU1/a16NffasjHT0AaCOhiMsGihbypVacnD9zYa6Yu0qBMcti3J0D7VEyz5PrcNQ1zQbOjEF0zxbH5Q/7pAUpDKlRCBandj7TtZUqpjyDKYFRJ2cbIhlg74w9qFmVlbk3Kdr6qrUpg50HCFxpGzt1umXvIHBnnjZUazDtFLIFLbJSfXDaiRwymyxkeEhqYtUKxICcb7gfrra5t5cK0PtZ+Bu9cWxy0PeYlZKNKMkB+fxw/qA==
+ b=pGGbfNTORoej92445yH+xHqaBsGdCHdAx+xmcKEFByHqPygxN6lmnfRACkQXEN5jS2mHrJuIp+O3LGOqAeVFbfwSD53M4rmr+TWnPz8b716mam3SXnxG09MRgKgk6XbbsolvKPVU5wslYNPSegW1G813nESs0yx5YV0lasM3BgUTOAX1mdhesnygtlIma8Yl7APAl3KO97w0LjMwUgmjPXWodIycxKSZ98NeFQVgMy0VeTkCyPRHg4kWg9IPM9vzj1QVdb4a/rsfex9Q6sxFN2aULO0ZOO4L378aLZ8nBmiLIMY8pR4Zd/TZNsoZjo9yomZA9Z27ZHtPiarRutMyNA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fFy+x2W9qTUap3/42vy1WeIzr6J5ZczKr5YspPvSOHs=;
- b=MZ1DEHJsbpkHHVN19LDIsG6fxMYweTnraAgFAnZHqNCU6wHQgSkxkxTjZOHY9tqqRJ34kSO6yQVm5EnyRm+lSl84jiCxj0U0cDqrqWAZUrYKUVbGd/3SUpKB5nUUMsIgvqJPpgMMDw9QnmgPVfVSCfsW/GXRjmhMaqU+E88SsNGznQzDmG0kFqadLPVD5a12idn4YpVJ2Jd9FK5pR3Iet4eIXxoZRqU+TM9FYxoRXwB429lro5qS0WBXPGvpGlVCcUjsZFxj3UUu4vcPcGmBrQD1J1INxK9nwRsKlhoXocRe1xUiTYeMTlaMRXVM6sBpxSPuTaR+O9v6aqGBwqcW0w==
+ bh=MNT0yCVIkQmML2ZKT94Pfj4xBm4ocUUW1mSrsc6uQGI=;
+ b=RDiQyxYxN+uM6xqgLk2PRhX4osh5G5wJHqKUP/XE7udSUTsyZc89g2C5fmnfeDe4TPwMPzBJ4DtOsW7O+ay+PCNFMCkzKXLEjP/dkLsXhWn9vBk9XFp0TLy7CY9V59FqTy8NczTVdQGycdbfbWNK7rCw8YbXipyFd7wRLB2QGQtg7eoWMYlyCjTk63FAS0ya6EYN9fQ5BxZUjUsQYbJLUToCfNSaYj5bWK3mmNmb9D26hpOoakVUE3+1lznNqzeCtDEdHAAWnezQdDi63UTnBtFFyfNz83NTCHk8EJE2Ukj09qb6e7EilqFH9I7N/Sf57Q2V7iJmbpc+7XIjUlN5hA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fFy+x2W9qTUap3/42vy1WeIzr6J5ZczKr5YspPvSOHs=;
- b=ivMpV3vKHKLQ/67JnV1VMQNRTdVyrIAy0yUWyclwFSacWRtlawS5IQO5eAo8J0IY1MYYm8MD9LWBOIjNerODhJEGqCYpxejR7Ll37+eR3dJ2ffI3NbslzDM2eMCH2E3B8e1jZ0Jobxi8en7+C82i4ou/1X8he+a973mP8Y4nb3k=
+ bh=MNT0yCVIkQmML2ZKT94Pfj4xBm4ocUUW1mSrsc6uQGI=;
+ b=by+Des7Kyy+TfAtKjjV4P+hYNHo6afNckKgyKzSI65NNWOvQRJ/t2Z6NtUD1k7MkpfledGiSCJEUrKjzEMwQmGDamDr59lzW2KQqo0BYxWmpjgpvGJ5DF1ZLRt0zd5F1D+NAxZQa+diGJQU9pI8Sw9PWAEMXf4DBFbhC0naAy+k=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MW4PR12MB5604.namprd12.prod.outlook.com (2603:10b6:303:18d::17)
- by DM6PR12MB4124.namprd12.prod.outlook.com (2603:10b6:5:221::20) with
- Microsoft SMTP Server (version=TLS1_2,
+Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::607) by PH7PR12MB6953.namprd12.prod.outlook.com
+ (2603:10b6:510:1ac::21) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Wed, 28 Oct
- 2026 17:50:24 +0000
-Received: from MW4PR12MB5604.namprd12.prod.outlook.com
- ([fe80::c09b:b4f7:d646:efe1]) by MW4PR12MB5604.namprd12.prod.outlook.com
- ([fe80::c09b:b4f7:d646:efe1%2]) with mapi id 15.21.0546.021; Wed, 28 Oct 2026
- 17:50:23 +0000
-Message-ID: <68d321fc-1a2e-4de4-8dd5-b7171a319a5f@amd.com>
-Date: Wed, 28 Oct 2026 17:50:13 +0000
+ 2026 18:24:11 +0000
+Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ ([fe80::67a7:9feb:71ef:964a]) by BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ ([fe80::67a7:9feb:71ef:964a%8]) with mapi id 15.21.0546.021; Wed, 28 Oct 2026
+ 18:24:11 +0000
+Message-ID: <abbf170b-628b-455f-94b1-91e3ce540863@amd.com>
+Date: Wed, 28 Oct 2026 14:24:08 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdkfd: Scope VOP3PX trap workaround to revision 0
-To: Jay Cornwall <jay.cornwall@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Vladimir Indic <vladimir.indic@amd.com>
-References: <20261022204858.4143484-1-jay.cornwall@amd.com>
+Subject: Re: [PATCH v6] drm/amdgpu: UALink add debugfs selftest
+To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org,
+ Mukul.Joshi@amd.com
+References: <20261023203447.2075707-1-Philip.Yang@amd.com>
 Content-Language: en-US
-From: Lancelot SIX <Lancelot.Six@amd.com>
-In-Reply-To: <20261022204858.4143484-1-jay.cornwall@amd.com>
+From: "Kuehling, Felix" <felix.kuehling@amd.com>
+In-Reply-To: <20261023203447.2075707-1-Philip.Yang@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0135.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9e::19) To MW4PR12MB5604.namprd12.prod.outlook.com
- (2603:10b6:303:18d::17)
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQZPR01CA0106.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:83::18) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::607)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB5604:EE_|DM6PR12MB4124:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0fff9494-06cd-4be8-ee3e-08df351bf0f5
+X-MS-TrafficTypeDiagnostic: BN7PPF5F16C5C9C:EE_|PH7PR12MB6953:EE_
+X-MS-Office365-Filtering-Correlation-Id: 48e9a250-e6d2-4c9a-2928-08df3520a973
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|366016|18002099003|22082099003|261026121527099003|3023799007|56012099006|261021121427099003|11063799006|261022075727099003|261009223027099003|261022105027099003|261021123027099003|261026140227099003|261028144727099003|10067099003;
-X-Microsoft-Antispam-Message-Info: NgIuFdkBjIL+Bnr3eQ4GeLdKt0fEhBnN1aEK2zuj67CRelkNIjQtU+dNJRt0he87yj/FoGR6xDjKRWiysYKPmVi1a3hZT+nImWxoTPnifqmZCXuZQ4/HkGytl7KPWYFgPomLFdqEr3vIry1QWNDTXhkk1drLU6Il6Kjvj4dGAd1sm2ytvwCpy43vD6auhc5x4GpqcBzc7jH+OUUcLry2l1MaxnkcGx9nHEeM4szec3UvrKLf7Id/+DGRaO6GPxQ4M/6XdfQUrsRMmuFMgNtM/YIX71/UOaJ0qO86iFXDV7aMsAsrVpI2i5S3It3XmScg65Tq1fYx1qndOpBarY4gCZmjtrPYYrg7NLbT0xNn1JH0BPrhuO+laR1EOFF9Dk++M/n4IykokqlfXew4/Fq+iWbXDgmn01Af3MqGzwlHyqTKuXf61tX1ZVUCTusuibNb2CATryLaPXF+CeLC3dMelFYXpdpsSQb9tLx+2Ygl/lxkTiw0jDbNfoJeEvmJwO2Ynx2ahYvpcD5q9EcgzykbDe8tbOQ819ujTskIIz72wmkLNy6pSaaJ4V8l30lJWOkCvA6UqB0tPPE+RqoWKaZt1cvzdqa+OPday3GgeDIqEMyZVDYykub0973Bdq2m4oHr0fkVk6wubN0/fmAr4Ow8gtfnYuxqEff4LKBXx8B0e18=
+ ARA:13230040|376014|23010399003|1800799024|366016|6133799003|22082099003|18002099003|261026121527099003|3023799007|261026135527099003|261028144727099003|56012099006|11063799006|10067099003|261021123027099003|261021133027099003|261022105027099003|261022113327099003|261021130227099003|261009223027099003|261021135927099003|261022075727099003|261022115727099003|261021121427099003|261026140227099003|261026130827099003;
+X-Microsoft-Antispam-Message-Info: E+ZvVgKcFFSS4EnM9vSku2LNem8pD/bzt878QqvHw/c16OIQPi6sAZJxK2aRHFTsL/cphm+kjin4o1FHURO/cVYn4aUclP3rcVdQvNuCy1igdmQhmkd/oLHU1VlLLyoDoy6iwDRKho3K0Gb1LAmsfAL1g0ukQtGgVlb0yWfDeX6I2bIKrkOk3Le9G2dSK8rLa6F009JHn+HLXKvIXl2rxU4/s2SPKT+FCgmUyvYsHq4aie3ZivveqeqOYTjEWO+DyBIKwxJt2ZZarPalyXrhStg2Ni0ZC2mjpjWt5XuANRDhIeDp4vNFfLM2yUwQZu9iX7SR9APSTpDUjfCvtIGJVB+vvuGqSuzxtRUejPVuhXvrGCzr4fFCbF0rjUODi9NLiz1P0REVcRY0ppD5rZwtifTTnAL7rVnn+vlpBX0o62SOBba6Zj/SQShDRQmKpqo0BQlu2Kp9jdlO0P1/mk56Ndfu81Km1FLrr7CIT2mqi1BVCWwGwPXqzKGDc2rGpQMzSMmWssnVHFs/HmukYIdCpZAMFF9UUxAvGnvjbCQWB+O4v0ewg+M4QQzWcBdushxV0hmvtslEfqw+zopQkRwZ1UfoQj+33LsHN5up/qQPM1H9u3/b/cUXjslnbM2t6x3lq3LlzHvdOBq4aK46S2lkJcjIKm3zlwv/v1LXCxWi7L8=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB5604.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(18002099003)(22082099003)(261026121527099003)(3023799007)(56012099006)(261021121427099003)(11063799006)(261022075727099003)(261009223027099003)(261022105027099003)(261021123027099003)(261026140227099003)(261028144727099003)(10067099003);
+ IPV:NLI; SFV:NSPM; H:BN7PPF5F16C5C9C.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(6133799003)(22082099003)(18002099003)(261026121527099003)(3023799007)(261026135527099003)(261028144727099003)(56012099006)(11063799006)(10067099003)(261021123027099003)(261021133027099003)(261022105027099003)(261022113327099003)(261021130227099003)(261009223027099003)(261021135927099003)(261022075727099003)(261022115727099003)(261021121427099003)(261026140227099003)(261026130827099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZERiWGpCd1p3SmJhQStMc3ovTGF5WmloTmE1c2dJRW8xRCtEcWlEK0tHNTJN?=
- =?utf-8?B?Y0tOLzJaRWRINTFad0FTUFMrSWxYRHY2MTVCNEhneEpsalJqN3dUTC9VVlNH?=
- =?utf-8?B?Q0hUa1IzREU2ZW9ONFNnRHdZWHh1eitLRW12amJDcE5PYWZIbjRrRkYwZUJi?=
- =?utf-8?B?NC9uZkNuemUwbTFOYy94UUdUMTlHNitISmUrMS9uUGRqTnBFbjRsYkMzdFVY?=
- =?utf-8?B?Ni9UYmNYT2wzekJ4ZmxrNEVDcmlVLzlwZXRkMm1HQXBVYjRCcE9SZTVzenpS?=
- =?utf-8?B?Nlp4NVhuNlVUZkhJRFJUeFNObmEyNWVjT3VoMWk3UFhZZXNQemZVUldHN3Jw?=
- =?utf-8?B?NU9XZnVUbkh5alRtY05WUDIySkdScXBlS2RLTFkwRUFSNlZadEUxN2NMSEdo?=
- =?utf-8?B?OFc5VlhLeGU3cFVpd2J6RHhlSE5MM0FrbWFDOENBdGpwVGRsYWlWYVN4U1Bj?=
- =?utf-8?B?Y2ovYUw4NnA2bUVmc0gyL21sOFFkWHcyQ0JDOGFxYmZNbHlha2M5V0dVZ1dv?=
- =?utf-8?B?TzZoaGZQZllXMHBBRjErZHpVcjBnTXMvSFJTc291UDdUb1M4QzZvd3dCOUZ5?=
- =?utf-8?B?N04ycGlWaHRnVEtIVEJ5aHlrNE40QlhiTUtCZTgwYjVLVUxZblhQY3c5UXg4?=
- =?utf-8?B?OVN3QUhLQU1wVlVRN3h3RG1ua0JnZFMvM21jYjBXTXlRbjZGaWdaT1lNVStt?=
- =?utf-8?B?TE96OSs3TXQrUWFEaVhRZnRienJkOG9OR0FDS2QyRkl6ZjhhVCszSU9kWVlC?=
- =?utf-8?B?QlBTWjRyNkpacmZrSVBkdFVHa1drS2FJbXppMEhDNVVUcjMweGpONWMzVHBo?=
- =?utf-8?B?OTFVekkxZkNLaXJPYXhkWWZxTXFVdDhXc2xNOVFoL20wcndKNG1aOW4xQmE3?=
- =?utf-8?B?djRSUXB5UDRBS0QwSkVYN0lzMTh5VUpiR0hJWE1pZk1PNGNFV21lYjlDMTE3?=
- =?utf-8?B?TEY2aDAwdFBlOUd4aXIxVmdSd1p0bkI3SXEvZ3NYdUc1MUtlVC9JTVlTZmo1?=
- =?utf-8?B?MEc0Nmc0R01IVjJQejRwcWxuU2FZTElkd3krZktjL1hGN3hHUzBaSG1GVDgw?=
- =?utf-8?B?YXo5MC91Y2g2NWhsb1JNYnVuVVgxbkJHM3dIVjJqWENPdUR5TU9kcXRxR2ds?=
- =?utf-8?B?dUtHTG9qMzRCVkNndXJ5cHUwdGorOVNjZitEOTlIc1h0ekp1UmhMZlZKWHh6?=
- =?utf-8?B?eFRsdVpvUlJPdTR1c2lUZE91dE5SYzF6aURvcDdoblJ5OXFldWR0MjhRdGE3?=
- =?utf-8?B?dkdyRUdKYUZXM0RqdHNTWEQ1dEo1UVY2aEVrVmk1emQ0eEN2TVg4SEVzaEpa?=
- =?utf-8?B?V2xGY3pZQ0lxc1VUMnh2TkFBeUJSSWZyaDZqQUVzSVRrNWFTa2pzZHl0ZjRJ?=
- =?utf-8?B?U2gvbWpZc2dRSXozZDVrVkIxS3RDNTc3UjV3MkVhd3hzam9BRVdId2VIR1hR?=
- =?utf-8?B?T3JEc2RIQzFQT2VhVEVZREhmWDcyTXlCKzJ2dFBZZklHV1p0ckRyUG9tcHIr?=
- =?utf-8?B?USt2YXo5UXlWVzdIbW5sSGxYZmIxcWtWeGlZMHowUHlJZVBUQWQxeUdwcXBK?=
- =?utf-8?B?cmRZSm85d3N2R0ZvTDVFTE82QWp6NEM4UXZNZkduRmlscHlrM2wvUmpuRVl2?=
- =?utf-8?B?RHhyeXFvSnZWUzVic0xLYlJvL3krRk91ZG1telp6am5ZUFhnb3ZjdUprVXd5?=
- =?utf-8?B?RC9teVp3RGR1US9IY0p4RGJ3aWpjVVNFL2xOLytWTXRUSmlQczErK2w1V3lo?=
- =?utf-8?B?NU10SHJLcFRZSGJIVXVOUU41MThLZzVCRXcvNW9ndzdnNmtFb2I3SGtrSktD?=
- =?utf-8?B?Mzg3L0tkYW5lcjh0eWVOQXNtTVVZQ2FzSG9veDU2YUdVZm5ZeXhzbEx1SkdB?=
- =?utf-8?B?STdHV2FVTFVuaUMyaE9CU2FJV0x3N01IamMvSmM4R2dvOTBmVzgwT1FGZVNt?=
- =?utf-8?B?MFovN1hWS3A3dVJqRzEwM2VJM3orZ21OWmE1MElhc09QRk9MaWw1cFNqVnVH?=
- =?utf-8?B?ay9VQzRld0t3L1l6R1BuQXp1bnZ4WmtPem5mcjFROElVMTQzeGh3WUgwQ3d1?=
- =?utf-8?B?VlVNTDNFME80UXQxbm9kU0owM2RFV3Q3YTdMWDRTaTRUZGpjcHpBYUFXclFn?=
- =?utf-8?B?dXJhMVVvdG84Qm56MjR3QjQzTXRmeHFURTFjaUp3NTZOb3orT3VNelBxZWtF?=
- =?utf-8?B?VUJKNk1hejB2RFhvRlY4MlR6WmQ1aHNYazVnODRoZzVJU3pMTWQ0NzdNRlZp?=
- =?utf-8?B?Rll4d2FtU1hVWkVXWGRkNlcrYmFXYTlUbXpqQ0xBUk91aFliYmhaMjFzaGNH?=
- =?utf-8?Q?qumAiP/JxMeKZkullA?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?U3VPV1JsTExLa0Q5d1B3VmZhRGlnd1I3T3lOVHMvK1VJdHZ1YjU4Q2hJcFdo?=
+ =?utf-8?B?MXcxcjBvRTI0UnpnMmppWjdXNlJoYmU5VHc1NVcyditrcFlwcEQyNjY4M0Jq?=
+ =?utf-8?B?TUJJUHBvTUlucFhtZ05VRnBQUVBoVDJWa2NZMVQvNWNJdXpLTUw2UjZsdmFu?=
+ =?utf-8?B?dW02ZHZFSXJZVkR5eVpjTUZxVmkxMjVlTTdyVkh2anZGdVdiZlZQM0ZKNGtZ?=
+ =?utf-8?B?V0FsMFBjNGNKSkQ0Y2FRL0dVLzhaV0Y4d1JROGpLSkF4TUIwQ1JDaSttby9w?=
+ =?utf-8?B?ZEhlMnBLNFM4SEpPMTREQUNiVEY0VlVpQmZPSmt6a2lqQ25raGR2aGxSRVo2?=
+ =?utf-8?B?UEFNL0dtTTVvZGh5c1Bodkw5TGpEM0dOcUw1ekZTclpGVWl4WXdLK3lrNUJl?=
+ =?utf-8?B?YTRKSERDM2t4MlNaU01DMk1TNWZ3elF2SStwMkVxQWFCOTdPU0IwOXNHam8z?=
+ =?utf-8?B?QXJPa3ViOXpPdi9GV01leEVpOHRKWmlGajc1eEo2dDFvM1FmbHA2MWRiUGJ0?=
+ =?utf-8?B?cmtVaUdxVXJGOHdmS2g5MGN6eVBCT29QZnFsUjgrKzMvVFRDL3R0NXV3VTRj?=
+ =?utf-8?B?dFdmRXVnVHk5ODNlTmhKNnYycnJveXFxZmVsLzBZcVR2d010b3Y0cUVOT0dq?=
+ =?utf-8?B?RytNOTBXNlBheUxtcS9JMnorK2NVSDJsaG5VQnFKYzhKNXNHQUl2VlZIa2ln?=
+ =?utf-8?B?RGR6RHJtbFo2Y3E2TXBvWkRpdUx0TGpxUC9IcmFkNGpVeERmTFJVV0NjTUxv?=
+ =?utf-8?B?TVB1cWV2NDh2SVZuY1FwQWI3dHZWTU4ybW9DOVVWK0p1aGxZV0hIeC8rMkhv?=
+ =?utf-8?B?QnV1WlZDeUlLd0IrMmhWZ050ZU5mRmhtblJ5V0VFSTFNcisvbzJJZldlc0lu?=
+ =?utf-8?B?OWE2cXRpK0lYN0U5NTJQTXhTRThNREljVFZCRWozbytZUSt3V2J3L2xhK1lr?=
+ =?utf-8?B?NHllTzZWQ1h2UDgrQ2VrNUFtQXdOelJTYVZNQ2FLeXVZY2tQOVJBSnR6U05m?=
+ =?utf-8?B?cFRjUythODVEOUJ6WmRVaGpMWlN0K0RNQWtXWFNJakJ1d2RJTVhsUzBzQ2dm?=
+ =?utf-8?B?d09wMVZCL3FpVEx6OVJWOCtGb3hVWEFReG5XZlhuakxMMkRUTlZyR09BeXJY?=
+ =?utf-8?B?T2R3T2ovSytXbkVjTVZWRFNGMHp1cEcrZ1NHRS96N3A3a3hHRFl3Wko1c2d5?=
+ =?utf-8?B?WXR6bXZySnloVE5uTGdoOFpLS3lvOUZRYVE5NUlZdFhGc0F6RTIvZk1sWitW?=
+ =?utf-8?B?RjI2SVUwSzFxRHk4dXd4NGd2bWsxNmEyTld4Y2FYb1B0emtvOG5TTTdDKzRq?=
+ =?utf-8?B?eWcyTlZFMVZzRVhGZFEza014a2NFTC9Bd0ZKMjRCc29jbFBvdmRlZWFpNW9S?=
+ =?utf-8?B?WmdCTE5JRkkrVmhIbzhNcDdoTC9LTXE1OXZXeWF3ZG5ZS0h0YWt0cDZTalVW?=
+ =?utf-8?B?b25TaWRZbFNwQnl1RVVxdWJkWUFrN1ZoaHoxK1JYbTIvUmFScjNvS3JlQzRC?=
+ =?utf-8?B?ZEdhaGFsWmFoNmRVcXg3Y2pEek9STUdEOFM1aUxzYTdIcFVlTDJVTmdCRk5u?=
+ =?utf-8?B?RzBqZGhubUJ2Y1oxU05aUUlveDdCQ1d6WFhINHRUL2lJVjJ2Y3cxZkFxbEto?=
+ =?utf-8?B?bkR0dGt1Y1JzdmlWRVl3cjRoVkVmTEo4UnpYeWdHWGE4ODRvSVdlMndGSVk1?=
+ =?utf-8?B?OGtCRkg0bnJWek9ObE5TTzFMNSt2UXRyb0xQaEdqYjRqVExjdkc2bXh4NEk4?=
+ =?utf-8?B?b2lKeXpsOEVObk9oT0dYYTdFemJaRWJoUHN1MGFUaTQrdlJPL0xsdkYrRXJU?=
+ =?utf-8?B?cGxDVG1USDZEYXZIbXRXcWRuQ2hCMDI0RU10M2oxS29UaFJkai81V0FUT1NR?=
+ =?utf-8?B?bS9QQ0taR04yQ2xvQ3ArdXdWWHpDckl6MlNWRm0xa3lENEx5K3ExMDVyOTZF?=
+ =?utf-8?B?OGw3NnBjNzY5eXppWGVmNTkzMHpWcnE4YmlUczhORVVBNlRFUmNLaEY5NWlz?=
+ =?utf-8?B?eTFNMlowaHF4NHB6V3NCdG5SaUlKU0JQMVdmVGVONW11YzU5WVRsUE82eGp6?=
+ =?utf-8?B?ek5xSURCb1lpMEwvSmdmQTNvVnh4VmtXSmREWTJYa24rUXZLVFdqaWZxdUk0?=
+ =?utf-8?B?R2hVK1ExMlNOK24ybDF0enJleXIwN2NObmNtaDJKcWFDVmh3cko4TjJQU1g0?=
+ =?utf-8?B?MkhMYVUvcmc2UUM3V0txS08vZXNvekU5a2JUMUFWM05vb2lNaVFuYkFuMmRi?=
+ =?utf-8?B?aTEzMmxhWC9SL3FQMFFsUVM4eTVpbi8xTmV6djhPcWVGWFYzejRUMXZ3K21X?=
+ =?utf-8?B?d2ZjdXNEN3g4QmFyaXQxV2hmQjZ4NUpBVTVZdXZ3V3BoTHZpK2szUT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0fff9494-06cd-4be8-ee3e-08df351bf0f5
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB5604.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 48e9a250-e6d2-4c9a-2928-08df3520a973
+X-MS-Exchange-CrossTenant-AuthSource: BN7PPF5F16C5C9C.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 17:50:23.6940 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 18:24:10.9513 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qeBToEZw9uXn6EJ2hcKJODNpd/ZWMaEoaul+5+F+N75sDMP2F8ol5+Jp6Lfb98vGS8O0FpZRs9J7PK/FH18Uqw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4124
+X-MS-Exchange-CrossTenant-UserPrincipalName: bb6CT3liv/V89fxstX5tIY2/5BH+Y1Rhuh9Qcg//8aMbPau0BnN/VA185KoKyiQ7dDa1oZT5z24OAlzORvnICg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6953
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,897 +136,823 @@ X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi,
+On 2026-10-23 16:34, Philip Yang wrote:
+> Driver-side selftests for UALink bring-up: exercise the nHT firmware,
+> remote interrupts, remote TLB shootdown and remote VRAM access without
+> any userspace application.
+>
+> Add debugfs directory "amdgpu_ualink_test" to trigger UALink selftests
+> with these read/write entries:
+>
+>    command          write the test name to run it, read to list the
+>                     valid test names
+>    remote_accel_id  accel_id of the remote GPU used by the tests
+>    test_size        test buffer size in bytes, from 4 to 4096
+>    local_test_data  the local ring buffer the remote GPU accesses
+>    remote_sdma      the remote GPU ring buffer, using sdma
+>    remote_lsdma     the remote GPU ring buffer, using lsdma
+>
+> The data entries take and return binary data, a write shorter than
+> test_size is repeated to fill it, so formatting is left to userspace
+> tools like printf, xxd, od and cmp.
+>
+> Add helper functions: ualink_test_local_data() and
+> ualink_test_remote_rw() for local and remote ring buffer R/W,
+> ualink_test_remote_shootdown() for TLB shootdown,
+> ualink_test_send_hello() for handshake,
+> ualink_test_update_interrupt_wb() and
+> ualink_test_update_shootdown_wb() to read writeback results.
+>
+> v6: ring buffer wptr for itself is used for wptr, don't init to 0xdeadbeef
 
-Sorry for the delay.
+I don't see this change. What exactly did you change? I only see the 
+removal of deadbeef init. I don't see any change regarding which ring 
+buffer is used to stage the data for remote read/write.
 
-A couple of (minor) remarks below.
+Regards,
+   Felix
 
-On 22/10/2026 21:48, Jay Cornwall wrote:
-> Split instruction fixup into two separate workarounds:
-> - Trap during VOP3PX: revision 0 only
-> - Trap during VALU/SET_VGPR_MSB: revision 0 and 1
-> 
-> Signed-off-by: Jay Cornwall <jay.cornwall@amd.com>
-> Cc: Lancelot Six <lancelot.six@amd.com>
-> Cc: Vladimir Indic <vladimir.indic@amd.com>
+
+> v5: Replace the four remote access commands with local_test_data,
+>      remote_sdma and remote_lsdma entries, to get the test data without
+>      looking at debug logs or using xxd with physical addresses (Felix).
+>      Dump and accept binary data, no parser in the driver (Felix).
+>      Stage the DMA in the local ring buffer instead of the IB, which is
+>      freed before the data is read back.
+> v4: Use a single "command" entry taking the test name, instead of one
+>      entry per test (Felix).
+>      Resync the remote wptr before sending a command, the peer may have
+>      rebooted.
+> v3: Replace the single entry taking a test number with a debugfs
+>      directory and a named entry per command.
+>      Take peer->lock to update the writeback address and selftest_mutex
+>      to read the test parameters.
+> v2: Fix typos and issues from copilot code review.
+>
+> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 > ---
->   .../gpu/drm/amd/amdkfd/cwsr_trap_handler.h    | 695 +++++++++++++++++-
->   .../amd/amdkfd/cwsr_trap_handler_gfx12.asm    |  43 +-
->   drivers/gpu/drm/amd/amdkfd/kfd_device.c       |  12 +-
->   3 files changed, 729 insertions(+), 21 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h
-> index 5cf306de0d96..5d468460f532 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h
-> @@ -4600,7 +4600,7 @@ static const uint32_t cwsr_trap_gfx9_5_0_hex[] = {
->   	0xbf9b0000, 0x00000000,
->   };
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 346 ++++++++++++++++++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.c   |  49 +++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.h   |   1 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c  | 219 ++++++++++++-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h  |  24 +-
+>   5 files changed, 628 insertions(+), 11 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> index 3dc95d9accf2..2d786639d081 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> @@ -2133,9 +2133,336 @@ DEFINE_DEBUGFS_ATTRIBUTE(fops_ib_preempt, NULL,
+>   DEFINE_DEBUGFS_ATTRIBUTE(fops_sclk_set, NULL,
+>   			amdgpu_debugfs_sclk_set, "%llu\n");
 >   
-> -static const uint32_t cwsr_trap_gfx12_1_0_hex[] = {
-> +static const uint32_t cwsr_trap_gfx12_1_0_rev_0_hex[] = {
->   	0xbfa00001, 0xbfa003e2,
->   	0xb0804009, 0xb8f8f804,
->   	0xbefa007e, 0xbefe0081,
-> @@ -5301,3 +5301,696 @@ static const uint32_t cwsr_trap_gfx12_1_0_hex[] = {
->   	0xbf9f0000, 0xbf9f0000,
->   	0xbf9f0000, 0xbf9f0000,
->   };
-> +
-> +static const uint32_t cwsr_trap_gfx12_1_0_rev_1_hex[] = {
-> +	0xbfa00001, 0xbfa003d0,
-> +	0xb0804009, 0xb8f8f804,
-> +	0xbefa007e, 0xbefe0081,
-> +	0xbeee0080, 0xbeef00c1,
-> +	0xee17406e, 0x00040000,
-> +	0x00000000, 0xbefe007a,
-> +	0x9178ff78, 0x00008c00,
-> +	0xb8fbf811, 0xbf0c877b,
-> +	0xbfa20002, 0x916dff6d,
-> +	0xf0000000, 0xbf0d857b,
-> +	0xbfa10006, 0x917bff7b,
-> +	0x00000480, 0xb98001d1,
-> +	0x00000000, 0xb9800291,
-> +	0x00000000, 0x8b6eff78,
-> +	0x00004000, 0xbfa10008,
-> +	0x8b6eff7b, 0x00000480,
-> +	0xbfa20018, 0x8b6ea07b,
-> +	0xbfa200e1, 0xbf830010,
-> +	0xb8fbf811, 0xbfa0fffb,
-> +	0x8b6eff7b, 0x00000bd0,
-> +	0xbfa20010, 0xb8eef812,
-> +	0x8b6f8f7b, 0xbfa10002,
-> +	0x8c6eff6e, 0x00000080,
-> +	0xb8eff813, 0x8b6e6e6f,
-> +	0xbfa20008, 0x8b6eff6d,
-> +	0xf0000000, 0xbfa20005,
-> +	0x8b6fff6f, 0x00000200,
-> +	0xbfa20002, 0x8b6ea07b,
-> +	0xbfa200cb, 0x9177ff77,
-> +	0x007fc000, 0xb8fa04a1,
-> +	0x847a967a, 0x8c777a77,
-> +	0xb8fa0421, 0x847a957a,
-> +	0x8c777a77, 0xb8fa3021,
-> +	0x847a8e7a, 0x8c777a77,
-> +	0xb980f821, 0x00000000,
-> +	0xbeef007b, 0xbefa4d82,
-> +	0xbf8a0000, 0x84fa887a,
-> +	0xbf0d987b, 0xbfa10002,
-> +	0x8c7bff7b, 0xfe000000,
-> +	0xf4601bbd, 0xf8000010,
-> +	0xbf8a0000, 0x846e976e,
-> +	0x9177ff77, 0x03800000,
-> +	0x8c776e77, 0x8b6eff6f,
-> +	0x00000480, 0xbfa1000c,
-> +	0xbf0d8e78, 0xbfa20002,
-> +	0xbf0d9877, 0xbfa20002,
-> +	0xb98001d1, 0x00000000,
-> +	0xbf0d8e78, 0xbfa20002,
-> +	0xbf0d9977, 0xbfa20002,
-> +	0xb9800291, 0x00000000,
-> +	0xf4603bbd, 0xf8000000,
-> +	0xbf8a0000, 0xf4603ebd,
-> +	0xf8000008, 0xbf8a0000,
-> +	0x8bee6e6e, 0xbfa10001,
-> +	0xbe80486e, 0x8b6eff6d,
-> +	0xf0000000, 0xbfa20009,
-> +	0xb8eef811, 0x8b6eff6e,
-> +	0x00000080, 0xbfa20007,
-> +	0x8c78ff78, 0x00004000,
-> +	0x80ec886c, 0x82ed806d,
-> +	0xbfa00002, 0x806c846c,
-> +	0x826d806d, 0x8b6dff6d,
-> +	0x01ffffff, 0xb8fbf811,
-> +	0xbf0d847b, 0xbfa20078,
-> +	0xf4003eb6, 0xf8000000,
-> +	0xbfc70000, 0xf4003bb6,
-> +	0xf8000008, 0x8b76ff7a,
-> +	0x80000000, 0xbfa20027,
-> +	0x9376ff7a, 0x00060019,
-> +	0x81f9a376, 0xbf0b8179,
-> +	0xbfa20068, 0x81f9ac76,
-> +	0xbf0b8179, 0xbfa20062,
-> +	0x81f9b776, 0xbf0b8179,
-> +	0xbfa2005f, 0x8b76ff7a,
-> +	0x000001ff, 0xbf06ff76,
-> +	0x000000fe, 0xbfa2005d,
-> +	0xbf06ff76, 0x000000ff,
-> +	0xbfa20057, 0xbf06ff76,
-> +	0x000000fa, 0xbfa20054,
-> +	0x81f9ff76, 0x000000e9,
-> +	0xbf0b8179, 0xbfa20050,
-> +	0x8b76ff7b, 0xffff0000,
-> +	0xbf06ff76, 0xbf860000,
-> +	0xbfa10051, 0x9376ff7b,
-> +	0x0002000e, 0x8b79ff7b,
-> +	0x00003f00, 0x85798679,
-> +	0x8c767976, 0xb9763b01,
-> +	0xbfa00049, 0x8b76ff7a,
-> +	0xfc000000, 0xbf06ff76,
-> +	0xd4000000, 0xbfa20013,
-> +	0xbf06ff76, 0xc8000000,
-> +	0xbfa20027, 0x8b76ff7a,
-> +	0xff000000, 0xbf06ff76,
-> +	0xcf000000, 0xbfa20039,
-> +	0x8b79ff7a, 0xffff0000,
-> +	0xbf06ff79, 0xcc350000,
-> +	0xbfa20037, 0xbf06ff79,
-> +	0xcc3a0000, 0xbfa20034,
-> +	0xbf06ff76, 0xcc000000,
-> +	0xbfa10031, 0x8b76ff7b,
-> +	0x000001ff, 0xbf06ff76,
-> +	0x000000ff, 0xbfa20029,
-> +	0xbf06ff76, 0x000000fa,
-> +	0xbfa20026, 0x81f6ff76,
-> +	0x000000e9, 0xbf0b8176,
-> +	0xbfa20022, 0x8b76ff7b,
-> +	0x0003fe00, 0xbf06ff76,
-> +	0x0001fe00, 0xbfa2001d,
-> +	0x8b76ff7b, 0x07fc0000,
-> +	0xbf06ff76, 0x03fc0000,
-> +	0xbfa20018, 0xbfa00014,
-> +	0x9376ff7a, 0x00040016,
-> +	0x81f68176, 0xbf0b8176,
-> +	0xbfa20012, 0x9376ff7a,
-> +	0x00050011, 0x81f68176,
-> +	0xbf0b8176, 0xbfa2000d,
-> +	0x8b76ff7a, 0x000001ff,
-> +	0xbf06ff76, 0x000000ff,
-> +	0xbfa20008, 0x8b76ff7b,
-> +	0x000001ff, 0xbf06ff76,
-> +	0x000000ff, 0xbfa20003,
-> +	0xbfc70000, 0xbefb006e,
-> +	0xbfa0ffad, 0xbfc70000,
-> +	0xbefb006f, 0xbfa0ffaa,
-> +	0xbfc70000, 0x857a9677,
-> +	0xb97a04a1, 0x857a9577,
-> +	0xb97a0421, 0x857a8e77,
-> +	0xb97a3021, 0x8bfe7e7e,
-> +	0x8bea6a6a, 0x85788978,
-> +	0xb9783244, 0xbe804a6c,
-> +	0xb8faf802, 0xbf0d987a,
-> +	0xbfa10001, 0xbfb00000,
-> +	0x8b6dff6d, 0x01ffffff,
-> +	0xbefa0080, 0xb97a0151,
-> +	0x9177ff77, 0x007fc000,
-> +	0xb8fa04a1, 0x847a967a,
-> +	0x8c777a77, 0xb8fa0421,
-> +	0x847a957a, 0x8c777a77,
-> +	0xb8fa3021, 0x847a8e7a,
-> +	0x8c777a77, 0xb980f821,
-> +	0x00000000, 0xbf0d847b,
-> +	0xbfa20078, 0xf4003eb6,
-> +	0xf8000000, 0xbfc70000,
-> +	0xf4003bb6, 0xf8000008,
-> +	0x8b76ff7a, 0x80000000,
-> +	0xbfa20027, 0x9376ff7a,
-> +	0x00060019, 0x81f9a376,
-> +	0xbf0b8179, 0xbfa20068,
-> +	0x81f9ac76, 0xbf0b8179,
-> +	0xbfa20062, 0x81f9b776,
-> +	0xbf0b8179, 0xbfa2005f,
-> +	0x8b76ff7a, 0x000001ff,
-> +	0xbf06ff76, 0x000000fe,
-> +	0xbfa2005d, 0xbf06ff76,
-> +	0x000000ff, 0xbfa20057,
-> +	0xbf06ff76, 0x000000fa,
-> +	0xbfa20054, 0x81f9ff76,
-> +	0x000000e9, 0xbf0b8179,
-> +	0xbfa20050, 0x8b76ff7b,
-> +	0xffff0000, 0xbf06ff76,
-> +	0xbf860000, 0xbfa10051,
-> +	0x9376ff7b, 0x0002000e,
-> +	0x8b79ff7b, 0x00003f00,
-> +	0x85798679, 0x8c767976,
-> +	0xb9763b01, 0xbfa00049,
-> +	0x8b76ff7a, 0xfc000000,
-> +	0xbf06ff76, 0xd4000000,
-> +	0xbfa20013, 0xbf06ff76,
-> +	0xc8000000, 0xbfa20027,
-> +	0x8b76ff7a, 0xff000000,
-> +	0xbf06ff76, 0xcf000000,
-> +	0xbfa20039, 0x8b79ff7a,
-> +	0xffff0000, 0xbf06ff79,
-> +	0xcc350000, 0xbfa20037,
-> +	0xbf06ff79, 0xcc3a0000,
-> +	0xbfa20034, 0xbf06ff76,
-> +	0xcc000000, 0xbfa10031,
-> +	0x8b76ff7b, 0x000001ff,
-> +	0xbf06ff76, 0x000000ff,
-> +	0xbfa20029, 0xbf06ff76,
-> +	0x000000fa, 0xbfa20026,
-> +	0x81f6ff76, 0x000000e9,
-> +	0xbf0b8176, 0xbfa20022,
-> +	0x8b76ff7b, 0x0003fe00,
-> +	0xbf06ff76, 0x0001fe00,
-> +	0xbfa2001d, 0x8b76ff7b,
-> +	0x07fc0000, 0xbf06ff76,
-> +	0x03fc0000, 0xbfa20018,
-> +	0xbfa00014, 0x9376ff7a,
-> +	0x00040016, 0x81f68176,
-> +	0xbf0b8176, 0xbfa20012,
-> +	0x9376ff7a, 0x00050011,
-> +	0x81f68176, 0xbf0b8176,
-> +	0xbfa2000d, 0x8b76ff7a,
-> +	0x000001ff, 0xbf06ff76,
-> +	0x000000ff, 0xbfa20008,
-> +	0x8b76ff7b, 0x000001ff,
-> +	0xbf06ff76, 0x000000ff,
-> +	0xbfa20003, 0xbfc70000,
-> +	0xbefb006e, 0xbfa0ffad,
-> +	0xbfc70000, 0xbefb006f,
-> +	0xbfa0ffaa, 0xbfc70000,
-> +	0xbeee007e, 0xbeef007f,
-> +	0xbefe0180, 0xbefe4d84,
-> +	0xbf8a0000, 0x8b7aff7f,
-> +	0x04000000, 0x847a857a,
-> +	0x8c6d7a6d, 0xb8eff822,
-> +	0xb980f822, 0x00000000,
-> +	0xb8fa2b01, 0x847a997a,
-> +	0x8c6d7a6d, 0xbefa0080,
-> +	0xb97a2b01, 0xbefa007e,
-> +	0x8b7bff7f, 0x01ffffff,
-> +	0xbefe00c1, 0xbeff00c1,
-> +	0xee0a407a, 0x000c0000,
-> +	0x00000000, 0x7e000280,
-> +	0xbefe007a, 0xbeff007b,
-> +	0xb8fb0742, 0x847b997b,
-> +	0xb8fa3b05, 0x807a817a,
-> +	0xbf0d997b, 0xbfa20002,
-> +	0x847a897a, 0xbfa00001,
-> +	0x847a8a7a, 0x8b7bff7f,
-> +	0x01ffffff, 0x807aff7a,
-> +	0x000001c0, 0x807a7e7a,
-> +	0x827b807b, 0xd7610000,
-> +	0x00010870, 0xd7610000,
-> +	0x00010a71, 0xd7610000,
-> +	0x00010c72, 0xd7610000,
-> +	0x00010e73, 0xd7610000,
-> +	0x00011074, 0xd7610000,
-> +	0x00011275, 0xd7610000,
-> +	0x00011476, 0xd7610000,
-> +	0x00011677, 0xd7610000,
-> +	0x00011a79, 0xd7610000,
-> +	0x00011c7e, 0xd7610000,
-> +	0x00011e7f, 0xbefe00ff,
-> +	0x00003fff, 0xbeff0080,
-> +	0xee0a407a, 0x000c0000,
-> +	0x00000000, 0xd760007a,
-> +	0x00011d00, 0xd760007b,
-> +	0x00011f00, 0xbefe007a,
-> +	0xbeff007b, 0xbef4007e,
-> +	0x8b75ff7f, 0x01ffffff,
-> +	0xbef1007d, 0xb8f30742,
-> +	0x84739973, 0xbefe00c1,
-> +	0x857d9973, 0x8b7d817d,
-> +	0xbf06817d, 0xbfa20002,
-> +	0xbeff0080, 0xbfa00002,
-> +	0xbeff00c1, 0xbfa0000a,
-> +	0xee0a4074, 0x008c0000,
-> +	0x00008000, 0xee0a4074,
-> +	0x010c0000, 0x00010000,
-> +	0xee0a4074, 0x018c0000,
-> +	0x00018000, 0xbfa00009,
-> +	0xee0a4074, 0x008c0000,
-> +	0x00010000, 0xee0a4074,
-> +	0x010c0000, 0x00020000,
-> +	0xee0a4074, 0x018c0000,
-> +	0x00030000, 0xb8f03b05,
-> +	0x80708170, 0xbf0d9973,
-> +	0xbfa20002, 0x84708970,
-> +	0xbfa00001, 0x84708a70,
-> +	0x8070ff70, 0x00000200,
-> +	0x7e000280, 0x7e020280,
-> +	0x7e040280, 0xbefd0080,
-> +	0xd7610002, 0x0000fa71,
-> +	0x807d817d, 0xb8faf802,
-> +	0xbf0c8b7a, 0xbfa20003,
-> +	0xbe804fc2, 0xbf94fffe,
-> +	0xbfa10001, 0xbe804ec4,
-> +	0xbf94fffc, 0xbefa4c88,
-> +	0xbfc70000, 0xbf0c807a,
-> +	0xbfa20006, 0x9371ff7a,
-> +	0x00070004, 0x937aff7a,
-> +	0x00070010, 0xbf06717a,
-> +	0xbfa2fff6, 0xb8faf804,
-> +	0x8b7aff7a, 0x0001000c,
-> +	0x9178ff78, 0x0001000c,
-> +	0x8c787a78, 0xd7610002,
-> +	0x0000fa6c, 0x807d817d,
-> +	0x8b7aff6d, 0x01ffffff,
-> +	0xd7610002, 0x0000fa7a,
-> +	0x807d817d, 0xd7610002,
-> +	0x0000fa6e, 0x807d817d,
-> +	0xbefa0080, 0xd7610002,
-> +	0x0000fa7a, 0x807d817d,
-> +	0xd7610002, 0x0000fa78,
-> +	0x807d817d, 0xb8faf811,
-> +	0xd7610002, 0x0000fa7a,
-> +	0x807d817d, 0xd7610002,
-> +	0x0000fa6f, 0x807d817d,
-> +	0xb8f1f801, 0x937aff6d,
-> +	0x00060019, 0x847a8c7a,
-> +	0x8c717a71, 0xd7610002,
-> +	0x0000fa71, 0x807d817d,
-> +	0xb8f1f814, 0xd7610002,
-> +	0x0000fa71, 0x807d817d,
-> +	0xb8f1f815, 0xd7610002,
-> +	0x0000fa71, 0x807d817d,
-> +	0xb8f1f812, 0xd7610002,
-> +	0x0000fa71, 0x807d817d,
-> +	0xb8f1f813, 0xd7610002,
-> +	0x0000fa71, 0x807d817d,
-> +	0xb8faf802, 0xd7610002,
-> +	0x0000fa7a, 0x807d817d,
-> +	0xbefa50c1, 0xbfc70000,
-> +	0xd7610002, 0x0000fa7a,
-> +	0x807d817d, 0xbefa4c88,
-> +	0xbfc70000, 0xd7610002,
-> +	0x0000fa7a, 0x807d817d,
-> +	0xb8faf81a, 0xd7610002,
-> +	0x0000fa7a, 0x807d817d,
-> +	0xbefe00c1, 0xbeff0080,
-> +	0x80767074, 0x82778075,
-> +	0xee0a4076, 0x010c0000,
-> +	0x00000000, 0xbefe00c1,
-> +	0x7e040280, 0xbefa5081,
-> +	0xbfc70000, 0xd7610002,
-> +	0x0001007a, 0xbefa5082,
-> +	0xbfc70000, 0xd7610002,
-> +	0x0001027a, 0xbefa5083,
-> +	0xbfc70000, 0xd7610002,
-> +	0x0001047a, 0xbefa5084,
-> +	0xbfc70000, 0xd7610002,
-> +	0x0001067a, 0xbefa5085,
-> +	0xbfc70000, 0xd7610002,
-> +	0x0001087a, 0xbefa5086,
-> +	0xbfc70000, 0xd7610002,
-> +	0x00010a7a, 0xbefa5087,
-> +	0xbfc70000, 0xd7610002,
-> +	0x00010c7a, 0xbefa5088,
-> +	0xbfc70000, 0xd7610002,
-> +	0x00010e7a, 0xbefa5089,
-> +	0xbfc70000, 0xd7610002,
-> +	0x0001107a, 0xbefa508a,
-> +	0xbfc70000, 0xd7610002,
-> +	0x0001127a, 0xbefa508b,
-> +	0xbfc70000, 0xd7610002,
-> +	0x0001147a, 0xbefa508c,
-> +	0xbfc70000, 0xd7610002,
-> +	0x0001167a, 0xbefa508d,
-> +	0xbfc70000, 0xd7610002,
-> +	0x0001187a, 0xbefa508e,
-> +	0xbfc70000, 0xd7610002,
-> +	0x00011a7a, 0xbefa508f,
-> +	0xbfc70000, 0xd7610002,
-> +	0x00011c7a, 0xbefa5090,
-> +	0xbfc70000, 0xd7610002,
-> +	0x00011e7a, 0xee0a4076,
-> +	0x010c0000, 0x00008000,
-> +	0xb8f03b05, 0x80708170,
-> +	0xbf0d9973, 0xbfa20002,
-> +	0x84708970, 0xbfa00001,
-> +	0x84708a70, 0xbef90080,
-> +	0xbefd0080, 0xbf800000,
-> +	0xbe804100, 0xbe824102,
-> +	0xbe844104, 0xbe864106,
-> +	0xbe884108, 0xbe8a410a,
-> +	0xbe8c410c, 0xbe8e410e,
-> +	0xd7610002, 0x0000f200,
-> +	0x80798179, 0xd7610002,
-> +	0x0000f201, 0x80798179,
-> +	0xd7610002, 0x0000f202,
-> +	0x80798179, 0xd7610002,
-> +	0x0000f203, 0x80798179,
-> +	0xd7610002, 0x0000f204,
-> +	0x80798179, 0xd7610002,
-> +	0x0000f205, 0x80798179,
-> +	0xd7610002, 0x0000f206,
-> +	0x80798179, 0xd7610002,
-> +	0x0000f207, 0x80798179,
-> +	0xd7610002, 0x0000f208,
-> +	0x80798179, 0xd7610002,
-> +	0x0000f209, 0x80798179,
-> +	0xd7610002, 0x0000f20a,
-> +	0x80798179, 0xd7610002,
-> +	0x0000f20b, 0x80798179,
-> +	0xd7610002, 0x0000f20c,
-> +	0x80798179, 0xd7610002,
-> +	0x0000f20d, 0x80798179,
-> +	0xd7610002, 0x0000f20e,
-> +	0x80798179, 0xd7610002,
-> +	0x0000f20f, 0x80798179,
-> +	0xbf06a079, 0xbfa10009,
-> +	0x80767074, 0x82778075,
-> +	0xee0a4076, 0x010c0000,
-> +	0x00000000, 0x8070ff70,
-> +	0x00000080, 0xbef90080,
-> +	0x7e040280, 0x807d907d,
-> +	0xbf0aff7d, 0x00000060,
-> +	0xbfa2ffb9, 0xbe804100,
-> +	0xbe824102, 0xbe844104,
-> +	0xbe864106, 0xbe884108,
-> +	0xbe8a410a, 0xd7610002,
-> +	0x0000f200, 0x80798179,
-> +	0xd7610002, 0x0000f201,
-> +	0x80798179, 0xd7610002,
-> +	0x0000f202, 0x80798179,
-> +	0xd7610002, 0x0000f203,
-> +	0x80798179, 0xd7610002,
-> +	0x0000f204, 0x80798179,
-> +	0xd7610002, 0x0000f205,
-> +	0x80798179, 0xd7610002,
-> +	0x0000f206, 0x80798179,
-> +	0xd7610002, 0x0000f207,
-> +	0x80798179, 0xd7610002,
-> +	0x0000f208, 0x80798179,
-> +	0xd7610002, 0x0000f209,
-> +	0x80798179, 0xd7610002,
-> +	0x0000f20a, 0x80798179,
-> +	0xd7610002, 0x0000f20b,
-> +	0x80798179, 0xbefe00ff,
-> +	0x0000ffff, 0x80767074,
-> +	0x82778075, 0xee0a4076,
-> +	0x010c0000, 0x00000000,
-> +	0xbefe00c1, 0x857d9973,
-> +	0x8b7d817d, 0xbf06817d,
-> +	0xbfa20002, 0xbeff0080,
-> +	0xbfa00001, 0xbeff00c1,
-> +	0xb8fb4306, 0x8b7bc17b,
-> +	0xbfa10042, 0x8b7aff6d,
-> +	0x80000000, 0xbfa1003f,
-> +	0x847b8a7b, 0xb8f03b05,
-> +	0x80708170, 0xbf0d9973,
-> +	0xbfa20002, 0x84708970,
-> +	0xbfa00001, 0x84708a70,
-> +	0x8070ff70, 0x00000200,
-> +	0x8070ff70, 0x00000200,
-> +	0xd71f0000, 0x000100c1,
-> +	0xd7200000, 0x000200c1,
-> +	0x16000084, 0x857d9973,
-> +	0x8b7d817d, 0xbf06817d,
-> +	0xbefd0080, 0xbfa20015,
-> +	0xbe8300ff, 0x00000080,
-> +	0xbf800000, 0xbf800000,
-> +	0xbf800000, 0xd8d80000,
-> +	0x01000000, 0xbf8a0000,
-> +	0x80767074, 0x82778075,
-> +	0xee0a4076, 0x008c0000,
-> +	0x00000000, 0x807d037d,
-> +	0x80700370, 0xd5250000,
-> +	0x0001ff00, 0x00000080,
-> +	0xbf0a7b7d, 0xbfa2fff1,
-> +	0xbfa00014, 0xbe8300ff,
-> +	0x00000100, 0xbf800000,
-> +	0xbf800000, 0xbf800000,
-> +	0xd8d80000, 0x01000000,
-> +	0xbf8a0000, 0x80767074,
-> +	0x82778075, 0xee0a4076,
-> +	0x008c0000, 0x00000000,
-> +	0x807d037d, 0x80700370,
-> +	0xd5250000, 0x0001ff00,
-> +	0x00000100, 0xbf0a7b7d,
-> +	0xbfa2fff1, 0xbefe00c1,
-> +	0x857d9973, 0x8b7d817d,
-> +	0xbf06817d, 0xbfa20004,
-> +	0xbef000ff, 0x00000200,
-> +	0xbeff0080, 0xbfa00003,
-> +	0xbef000ff, 0x00000400,
-> +	0xbeff00c1, 0xb8fb3b05,
-> +	0x807b817b, 0x847b827b,
-> +	0x857d9973, 0x8b7d817d,
-> +	0xbf06817d, 0xbfa2001b,
-> +	0xbefd0084, 0xbf0a7b7d,
-> +	0xbfa10032, 0x7e008700,
-> +	0x7e028701, 0x7e048702,
-> +	0x7e068703, 0x80767074,
-> +	0x82778075, 0xee0a4076,
-> +	0x000c0000, 0x00000000,
-> +	0xee0a4076, 0x008c0000,
-> +	0x00008000, 0xee0a4076,
-> +	0x010c0000, 0x00010000,
-> +	0xee0a4076, 0x018c0000,
-> +	0x00018000, 0x807d847d,
-> +	0x8070ff70, 0x00000200,
-> +	0xbf0a7b7d, 0xbfa2ffe9,
-> +	0xbfa0001a, 0xbefd0084,
-> +	0xbf0a7b7d, 0xbfa10017,
-> +	0x7e008700, 0x7e028701,
-> +	0x7e048702, 0x7e068703,
-> +	0x80767074, 0x82778075,
-> +	0xee0a4076, 0x000c0000,
-> +	0x00000000, 0xee0a4076,
-> +	0x008c0000, 0x00010000,
-> +	0xee0a4076, 0x010c0000,
-> +	0x00020000, 0xee0a4076,
-> +	0x018c0000, 0x00030000,
-> +	0x807d847d, 0x8070ff70,
-> +	0x00000400, 0xbf0a7b7d,
-> +	0xbfa2ffe9, 0xbfa00184,
-> +	0xbef4007e, 0x8b75ff7f,
-> +	0x01ffffff, 0xbef1007f,
-> +	0xb8f20742, 0x84729972,
-> +	0x8b6eff7f, 0x04000000,
-> +	0xbfa10044, 0xbefe00c1,
-> +	0x857d9972, 0x8b7d817d,
-> +	0xbf06817d, 0xbfa20002,
-> +	0xbeff0080, 0xbfa00001,
-> +	0xbeff00c1, 0xb8ef4306,
-> +	0x8b6fc16f, 0xbfa10039,
-> +	0x846f8a6f, 0xb8f83b05,
-> +	0x80788178, 0xbf0d9972,
-> +	0xbfa20002, 0x84788978,
-> +	0xbfa00001, 0x84788a78,
-> +	0x8078ff78, 0x00000200,
-> +	0x8078ff78, 0x00000200,
-> +	0x857d9972, 0x8b7d817d,
-> +	0xbf06817d, 0xbefd0080,
-> +	0xd71f0001, 0x000100c1,
-> +	0xd7200001, 0x000202c1,
-> +	0x30020282, 0xbfa20012,
-> +	0x80767874, 0x82778075,
-> +	0xee0a0076, 0x000c0000,
-> +	0x00000000, 0xbf8a0000,
-> +	0xd8340000, 0x00000001,
-> +	0xd5250001, 0x0001ff01,
-> +	0x00000080, 0x807dff7d,
-> +	0x00000080, 0x8078ff78,
-> +	0x00000080, 0xbf0a6f7d,
-> +	0xbfa2ffef, 0xbfa00011,
-> +	0x80767874, 0x82778075,
-> +	0xee0a0076, 0x000c0000,
-> +	0x00000000, 0xbf8a0000,
-> +	0xd8340000, 0x00000001,
-> +	0xd5250001, 0x0001ff01,
-> +	0x00000100, 0x807dff7d,
-> +	0x00000100, 0x8078ff78,
-> +	0x00000100, 0xbf0a6f7d,
-> +	0xbfa2ffef, 0xbef80080,
-> +	0xbefe00c1, 0x857d9972,
-> +	0x8b7d817d, 0xbf06817d,
-> +	0xbfa20002, 0xbeff0080,
-> +	0xbfa00001, 0xbeff00c1,
-> +	0xb8ef3b05, 0x806f816f,
-> +	0x846f826f, 0x857d9972,
-> +	0x8b7d817d, 0xbf06817d,
-> +	0xbfa2002c, 0xbeee0078,
-> +	0x8078ff78, 0x00000200,
-> +	0xbefd0084, 0x80767874,
-> +	0x82778075, 0xee0a0076,
-> +	0x000c0000, 0x00000000,
-> +	0xee0a0076, 0x000c0001,
-> +	0x00008000, 0xee0a0076,
-> +	0x000c0002, 0x00010000,
-> +	0xee0a0076, 0x000c0003,
-> +	0x00018000, 0xbf8a0000,
-> +	0x7e008500, 0x7e028501,
-> +	0x7e048502, 0x7e068503,
-> +	0x807d847d, 0x8078ff78,
-> +	0x00000200, 0xbf0a6f7d,
-> +	0xbfa2ffe8, 0x80766e74,
-> +	0x82778075, 0xee0a0076,
-> +	0x000c0000, 0x00000000,
-> +	0xee0a0076, 0x000c0001,
-> +	0x00008000, 0xee0a0076,
-> +	0x000c0002, 0x00010000,
-> +	0xee0a0076, 0x000c0003,
-> +	0x00018000, 0xbf8a0000,
-> +	0xbfa0002d, 0xbeee0078,
-> +	0x8078ff78, 0x00000400,
-> +	0xbefd0084, 0xbf0a6f7d,
-> +	0xbfa10018, 0x80767874,
-> +	0x82778075, 0xee0a0076,
-> +	0x000c0000, 0x00000000,
-> +	0xee0a0076, 0x000c0001,
-> +	0x00010000, 0xee0a0076,
-> +	0x000c0002, 0x00020000,
-> +	0xee0a0076, 0x000c0003,
-> +	0x00030000, 0xbf8a0000,
-> +	0x7e008500, 0x7e028501,
-> +	0x7e048502, 0x7e068503,
-> +	0x807d847d, 0x8078ff78,
-> +	0x00000400, 0xbf0a6f7d,
-> +	0xbfa2ffe8, 0x80766e74,
-> +	0x82778075, 0xee0a0076,
-> +	0x000c0000, 0x00000000,
-> +	0xee0a0076, 0x000c0001,
-> +	0x00010000, 0xee0a0076,
-> +	0x000c0002, 0x00020000,
-> +	0xee0a0076, 0x000c0003,
-> +	0x00030000, 0xbf8a0000,
-> +	0xb8f83b05, 0x80788178,
-> +	0xbf0d9972, 0xbfa20002,
-> +	0x84788978, 0xbfa00001,
-> +	0x84788a78, 0x8078ff78,
-> +	0x00000200, 0x80f8ff78,
-> +	0x00000060, 0x80767874,
-> +	0x82778075, 0xbefd00ff,
-> +	0x0000006c, 0xf460403b,
-> +	0xf8000000, 0xbf8a0000,
-> +	0x80fd847d, 0xbf800000,
-> +	0xbe804300, 0xbe824302,
-> +	0x80f6a076, 0x82f78077,
-> +	0xf460603b, 0xf8000000,
-> +	0xbf8a0000, 0x80fd887d,
-> +	0xbf800000, 0xbe804300,
-> +	0xbe824302, 0xbe844304,
-> +	0xbe864306, 0x80f6c076,
-> +	0x82f78077, 0xf460803b,
-> +	0xf8000000, 0xbf8a0000,
-> +	0x80fd907d, 0xbf800000,
-> +	0xbe804300, 0xbe824302,
-> +	0xbe844304, 0xbe864306,
-> +	0xbe884308, 0xbe8a430a,
-> +	0xbe8c430c, 0xbe8e430e,
-> +	0xbf06807d, 0xbfa1ffef,
-> +	0xb980f801, 0x00000000,
-> +	0xb8f83b05, 0x80788178,
-> +	0xbf0d9972, 0xbfa20002,
-> +	0x84788978, 0xbfa00001,
-> +	0x84788a78, 0x8078ff78,
-> +	0x00000200, 0x80767874,
-> +	0x82778075, 0xbeff0071,
-> +	0xf4601bfb, 0xf8000000,
-> +	0xf4601b3b, 0xf8000004,
-> +	0xf4601b7b, 0xf8000008,
-> +	0xf4601c3b, 0xf800000c,
-> +	0xf4601c7b, 0xf8000010,
-> +	0xf4601ebb, 0xf8000014,
-> +	0xf4601efb, 0xf8000018,
-> +	0xf4601e7b, 0xf800001c,
-> +	0xf4601cfb, 0xf8000020,
-> +	0xf4601bbb, 0xf8000024,
-> +	0xbf8a0000, 0xb96ef814,
-> +	0xf4601bbb, 0xf8000028,
-> +	0xbf8a0000, 0xb96ef815,
-> +	0xf4601bbb, 0xf800002c,
-> +	0xbf8a0000, 0xb96ef812,
-> +	0xf4601bbb, 0xf8000030,
-> +	0xbf8a0000, 0xb96ef813,
-> +	0x8b6eff7f, 0x04000000,
-> +	0xbfa10022, 0xf4601bbb,
-> +	0xf8000038, 0xbf8a0000,
-> +	0xbf0d806e, 0xbfa1001d,
-> +	0x856e906e, 0x8b6e6e6e,
-> +	0xbfa10003, 0xbe804ec1,
-> +	0x816ec16e, 0xbfa0fffb,
-> +	0xbef800ff, 0x00000080,
-> +	0xbefd0081, 0xf4601bbb,
-> +	0xf0000000, 0xbfc70000,
-> +	0x80788478, 0x937eff6e,
-> +	0x00070004, 0x847e907e,
-> +	0x8c7d7e7d, 0xbe80517d,
-> +	0x917dff7d, 0x007f0000,
-> +	0x856e906e, 0x8b6e6e6e,
-> +	0xbfa10003, 0xbe804e7d,
-> +	0x816ec16e, 0xbfa0fffb,
-> +	0x807d817d, 0xbf08907d,
-> +	0xbfa1ffec, 0xf4601bbb,
-> +	0xf800003c, 0xbfc70000,
-> +	0xbf0d806e, 0xbfa1000c,
-> +	0xbf0d9a7f, 0xbfa10002,
-> +	0xbf068180, 0xbe804fc4,
-> +	0xbf94fffc, 0xbfa10006,
-> +	0x856e906e, 0x8b6e6e6e,
-> +	0xbfa10003, 0xbe804ec3,
-> +	0x816ec16e, 0xbfa0fffb,
-> +	0xf4601bbb, 0xf8000040,
-> +	0xbfc70000, 0xb96ef81a,
-> +	0xbefd006f, 0xbefe0070,
-> +	0xbeff0071, 0xb979f822,
-> +	0xb97b2011, 0x857b867b,
-> +	0xb97b0191, 0x857b827b,
-> +	0xb97bba11, 0xb973f801,
-> +	0xb8ee3b05, 0x806e816e,
-> +	0xbf0d9972, 0xbfa20002,
-> +	0x846e896e, 0xbfa00001,
-> +	0x846e8a6e, 0x806eff6e,
-> +	0x000001c0, 0x806e746e,
-> +	0x826f8075, 0xf4605c37,
-> +	0xf8000010, 0xf4605d37,
-> +	0xf8000020, 0xf4601e77,
-> +	0xf8000034, 0xbf8a0000,
-> +	0x856e9677, 0xb96e04a1,
-> +	0x856e9577, 0xb96e0421,
-> +	0x856e8e77, 0xb96e3021,
-> +	0x8b6dff6d, 0x01ffffff,
-> +	0x8bfe7e7e, 0x8bea6a6a,
-> +	0xb97af804, 0xb8eef802,
-> +	0xbf0c8b6e, 0xbfa20003,
-> +	0xbe804fc2, 0xbf94fffe,
-> +	0xbfa10001, 0xbe804ec4,
-> +	0xbf94fffc, 0x857a897a,
-> +	0xb97a0244, 0xbe804a6c,
-> +	0xb8eef802, 0xbf0c8b6e,
-> +	0xbfa20003, 0xbe804fc2,
-> +	0xbf94fffe, 0xbfa10001,
-> +	0xbe804ec4, 0xbf94fffc,
-> +	0xbfb10000, 0xbf9f0000,
-> +	0xbf9f0000, 0xbf9f0000,
-> +	0xbf9f0000, 0xbf9f0000,
+> +enum amdgpu_ualink_test_cmd {
+> +	UALINK_TEST_SW_INIT,
+> +	UALINK_TEST_SEND_HELLO,
+> +	UALINK_TEST_REMOTE_SHOOTDOWN,
+> +	UALINK_TEST_FLUSH_TLB,
+> +	UALINK_TEST_UPDATE_INTERRUPT_WB,
+> +	UALINK_TEST_UPDATE_SHOOTDOWN_WB,
+> +	UALINK_TEST_LSDMA_SELFTEST,
 > +};
-> diff --git a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx12.asm b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx12.asm
-> index b5af2c97a091..1e248af0e9e9 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx12.asm
-> +++ b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx12.asm
-> @@ -28,23 +28,26 @@
+> +
+> +/* commands talking to a remote accelerator, remote_accel_id must be set */
+> +#define UALINK_TEST_NEEDS_ACCEL_ID					\
+> +	(BIT(UALINK_TEST_SEND_HELLO) | BIT(UALINK_TEST_REMOTE_SHOOTDOWN) | \
+> +	 BIT(UALINK_TEST_UPDATE_INTERRUPT_WB) |				\
+> +	 BIT(UALINK_TEST_UPDATE_SHOOTDOWN_WB))
+> +
+> +static int amdgpu_debugfs_ualink_test_run(struct amdgpu_device *adev,
+> +					  enum amdgpu_ualink_test_cmd cmd)
+> +{
+> +	u32 remote_accel_id = adev->ualink.test_remote_accel_id;
+> +	int r = 0;
+> +
+> +	guard(mutex)(&adev->ualink.selftest_mutex);
+> +
+> +	if ((BIT(cmd) & UALINK_TEST_NEEDS_ACCEL_ID) &&
+> +	    remote_accel_id >= AMDGPU_UALINK_ACCEL_MAX) {
+> +		dev_err(adev->dev, "set remote_accel_id first\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	adev->ualink.selftesting = true;
+> +
+> +	switch (cmd) {
+> +	case UALINK_TEST_SW_INIT:
+> +		if (adev->ualink.remote)
+> +			amdgpu_ualink_sw_fini(adev);
+> +
+> +		dev_dbg(adev->dev, "load metadata init MPNHT firmware\n");
+> +		r = amdgpu_ualink_sw_init(adev);
+> +		break;
+> +	case UALINK_TEST_SEND_HELLO:
+> +		r = ualink_test_send_hello(adev, remote_accel_id);
+> +		break;
+> +	case UALINK_TEST_REMOTE_SHOOTDOWN:
+> +		r = ualink_test_remote_shootdown(adev, remote_accel_id, 1UL << 30,
+> +						 1, TLB_FLUSH_HEAVYWEIGHT);
+> +		break;
+> +	case UALINK_TEST_FLUSH_TLB:
+> +		amdgpu_ualink_flush_tlb(adev, TLB_FLUSH_HEAVYWEIGHT);
+> +		break;
+> +	case UALINK_TEST_UPDATE_INTERRUPT_WB:
+> +		r = ualink_test_update_interrupt_wb(adev, remote_accel_id);
+> +		break;
+> +	case UALINK_TEST_UPDATE_SHOOTDOWN_WB:
+> +		r = ualink_test_update_shootdown_wb(adev, remote_accel_id);
+> +		break;
+> +	case UALINK_TEST_LSDMA_SELFTEST:
+> +		r = adev->lsdma.funcs ? amdgpu_lsdma_selftest(adev) : -EOPNOTSUPP;
+> +		break;
+> +	}
+> +
+> +	adev->ualink.selftesting = false;
+> +
+> +	dev_dbg(adev->dev, "ualink test cmd %d remote_accel_id %u ret %d\n",
+> +		cmd, remote_accel_id, r);
+> +
+> +	return r;
+> +}
+> +
+> +#define UALINK_TEST_CMD_NAME_MAX	32
+> +
+> +static const char * const amdgpu_ualink_test_cmd_name[] = {
+> +	[UALINK_TEST_SW_INIT]			= "sw_init",
+> +	[UALINK_TEST_SEND_HELLO]		= "send_hello",
+> +	[UALINK_TEST_REMOTE_SHOOTDOWN]		= "remote_shootdown",
+> +	[UALINK_TEST_FLUSH_TLB]			= "flush_tlb",
+> +	[UALINK_TEST_UPDATE_INTERRUPT_WB]	= "update_interrupt_wb",
+> +	[UALINK_TEST_UPDATE_SHOOTDOWN_WB]	= "update_shootdown_wb",
+> +	[UALINK_TEST_LSDMA_SELFTEST]		= "lsdma_selftest",
+> +};
+> +
+> +static ssize_t amdgpu_debugfs_ualink_command_read(struct file *file,
+> +						  char __user *ubuf,
+> +						  size_t len, loff_t *offp)
+> +{
+> +	char buf[UALINK_TEST_CMD_NAME_MAX * ARRAY_SIZE(amdgpu_ualink_test_cmd_name)];
+> +	unsigned int i;
+> +	int n = 0;
+> +
+> +	for (i = 0; i < ARRAY_SIZE(amdgpu_ualink_test_cmd_name); i++)
+> +		n += scnprintf(buf + n, sizeof(buf) - n, "%s\n",
+> +			       amdgpu_ualink_test_cmd_name[i]);
+> +
+> +	return simple_read_from_buffer(ubuf, len, offp, buf, n);
+> +}
+> +
+> +static ssize_t amdgpu_debugfs_ualink_command_write(struct file *file,
+> +						   const char __user *ubuf,
+> +						   size_t len, loff_t *offp)
+> +{
+> +	struct amdgpu_device *adev = file->private_data;
+> +	char buf[UALINK_TEST_CMD_NAME_MAX];
+> +	int cmd, r;
+> +
+> +	if (len >= sizeof(buf))
+> +		return -EINVAL;
+> +
+> +	if (copy_from_user(buf, ubuf, len))
+> +		return -EFAULT;
+> +
+> +	buf[len] = '\0';
+> +	cmd = sysfs_match_string(amdgpu_ualink_test_cmd_name, strim(buf));
+> +	if (cmd < 0) {
+> +		dev_err(adev->dev, "unknown ualink test command\n");
+> +		return cmd;
+> +	}
+> +
+> +	r = amdgpu_debugfs_ualink_test_run(adev, cmd);
+> +	if (r)
+> +		return r;
+> +
+> +	return len;
+> +}
+> +
+> +static const struct file_operations amdgpu_ualink_command_fops = {
+> +	.owner	 = THIS_MODULE,
+> +	.open	 = simple_open,
+> +	.read	 = amdgpu_debugfs_ualink_command_read,
+> +	.write	 = amdgpu_debugfs_ualink_command_write,
+> +	.llseek	 = default_llseek,
+> +};
+> +
+> +/* test data buffers, see amdgpu_debugfs_ualink_data_xfer() */
+> +enum amdgpu_ualink_test_buf {
+> +	UALINK_BUF_LOCAL,
+> +	UALINK_BUF_REMOTE_SDMA,
+> +	UALINK_BUF_REMOTE_LSDMA,
+> +};
+> +
+> +static int amdgpu_debugfs_ualink_data_xfer(struct amdgpu_device *adev,
+> +					   enum amdgpu_ualink_test_buf buf,
+> +					   u32 *data, u32 size, bool read)
+> +{
+> +	u32 remote_accel_id = adev->ualink.test_remote_accel_id;
+> +	int r;
+> +
+> +	if (remote_accel_id >= AMDGPU_UALINK_ACCEL_MAX) {
+> +		dev_err(adev->dev, "set remote_accel_id first\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	adev->ualink.selftesting = true;
+> +
+> +	if (buf == UALINK_BUF_LOCAL)
+> +		r = ualink_test_local_data(adev, remote_accel_id, data, size, read);
+> +	else
+> +		r = ualink_test_remote_rw(adev, remote_accel_id, data, size, read,
+> +					  buf == UALINK_BUF_REMOTE_LSDMA);
+> +
+> +	adev->ualink.selftesting = false;
+> +
+> +	return r;
+> +}
+> +
+> +static ssize_t amdgpu_debugfs_ualink_data_read(struct file *file,
+> +					       char __user *ubuf, size_t len,
+> +					       loff_t *offp,
+> +					       enum amdgpu_ualink_test_buf buf)
+> +{
+> +	struct amdgpu_device *adev = file->private_data;
+> +	ssize_t ret;
+> +	u32 size;
+> +	void *data;
+> +	int r;
+> +
+> +	guard(mutex)(&adev->ualink.selftest_mutex);
+> +
+> +	size = adev->ualink.test_size_dwords * 4;
+> +
+> +	data = kmalloc(size, GFP_KERNEL);
+> +	if (!data)
+> +		return -ENOMEM;
+> +
+> +	r = amdgpu_debugfs_ualink_data_xfer(adev, buf, data, size, true);
+> +	ret = r ? r : simple_read_from_buffer(ubuf, len, offp, data, size);
+> +
+> +	kfree(data);
+> +
+> +	return ret;
+> +}
+> +
+> +static ssize_t amdgpu_debugfs_ualink_data_write(struct file *file,
+> +						const char __user *ubuf,
+> +						size_t len, loff_t *offp,
+> +						enum amdgpu_ualink_test_buf buf)
+> +{
+> +	struct amdgpu_device *adev = file->private_data;
+> +	u32 i, size;
+> +	void *data;
+> +	int r;
+> +
+> +	guard(mutex)(&adev->ualink.selftest_mutex);
+> +
+> +	size = adev->ualink.test_size_dwords * 4;
+> +
+> +	if (!len)
+> +		return -EINVAL;
+> +
+> +	len = min_t(size_t, len, size);
+> +
+> +	data = kmalloc(size, GFP_KERNEL);
+> +	if (!data)
+> +		return -ENOMEM;
+> +
+> +	if (copy_from_user(data, ubuf, len)) {
+> +		kfree(data);
+> +		return -EFAULT;
+> +	}
+> +
+> +	/* repeat a short pattern to fill the test size */
+> +	for (i = len; i < size; i += len)
+> +		memcpy(data + i, data, min_t(u32, len, size - i));
+> +
+> +	r = amdgpu_debugfs_ualink_data_xfer(adev, buf, data, size, false);
+> +
+> +	kfree(data);
+> +
+> +	return r ? r : len;
+> +}
+> +
+> +#define UALINK_TEST_DATA_ATTR(name, buf)				\
+> +static ssize_t amdgpu_debugfs_ualink_##name##_read(struct file *file,	\
+> +		char __user *ubuf, size_t len, loff_t *offp)		\
+> +{									\
+> +	return amdgpu_debugfs_ualink_data_read(file, ubuf, len, offp, buf); \
+> +}									\
+> +static ssize_t amdgpu_debugfs_ualink_##name##_write(struct file *file,	\
+> +		const char __user *ubuf, size_t len, loff_t *offp)	\
+> +{									\
+> +	return amdgpu_debugfs_ualink_data_write(file, ubuf, len, offp, buf); \
+> +}									\
+> +static const struct file_operations amdgpu_ualink_##name##_fops = {	\
+> +	.owner	 = THIS_MODULE,						\
+> +	.open	 = simple_open,						\
+> +	.read	 = amdgpu_debugfs_ualink_##name##_read,			\
+> +	.write	 = amdgpu_debugfs_ualink_##name##_write,		\
+> +	.llseek	 = default_llseek,					\
+> +}
+> +
+> +UALINK_TEST_DATA_ATTR(local_test_data, UALINK_BUF_LOCAL);
+> +UALINK_TEST_DATA_ATTR(remote_sdma, UALINK_BUF_REMOTE_SDMA);
+> +UALINK_TEST_DATA_ATTR(remote_lsdma, UALINK_BUF_REMOTE_LSDMA);
+> +
+> +static int amdgpu_debugfs_ualink_accel_id_get(void *data, u64 *val)
+> +{
+> +	struct amdgpu_device *adev = data;
+> +
+> +	guard(mutex)(&adev->ualink.selftest_mutex);
+> +
+> +	*val = adev->ualink.test_remote_accel_id;
+> +
+> +	return 0;
+> +}
+> +
+> +static int amdgpu_debugfs_ualink_accel_id_set(void *data, u64 val)
+> +{
+> +	struct amdgpu_device *adev = data;
+> +
+> +	if (!adev->ualink.info)
+> +		return -EOPNOTSUPP;
+> +
+> +	guard(mutex)(&adev->ualink.selftest_mutex);
+> +
+> +	if (val >= AMDGPU_UALINK_ACCEL_MAX ||
+> +	    !test_bit(val, adev->ualink.info->vpod.active_accel_bits)) {
+> +		dev_err(adev->dev, "invalid remote accel_id %llu\n", val);
+> +		return -EINVAL;
+> +	}
+> +
+> +	if (val == adev->ualink.info->ppod.accel_id) {
+> +		dev_err(adev->dev, "remote accel_id equals to local accel_id\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	adev->ualink.test_remote_accel_id = val;
+> +	dev_info(adev->dev, "set remote accel_id to %llu, local accel_id %u\n",
+> +		 val, adev->ualink.info->ppod.accel_id);
+> +
+> +	return 0;
+> +}
+> +
+> +DEFINE_DEBUGFS_ATTRIBUTE(amdgpu_ualink_accel_id_fops,
+> +			 amdgpu_debugfs_ualink_accel_id_get,
+> +			 amdgpu_debugfs_ualink_accel_id_set, "%llu\n");
+> +
+> +static int amdgpu_debugfs_ualink_test_size_get(void *data, u64 *val)
+> +{
+> +	struct amdgpu_device *adev = data;
+> +
+> +	guard(mutex)(&adev->ualink.selftest_mutex);
+> +
+> +	*val = adev->ualink.test_size_dwords * 4;
+> +
+> +	return 0;
+> +}
+> +
+> +static int amdgpu_debugfs_ualink_test_size_set(void *data, u64 val)
+> +{
+> +	struct amdgpu_device *adev = data;
+> +
+> +	if (val < 4 || val > AMDGPU_UALINK_RB_SIZE)
+> +		return -EINVAL;
+> +
+> +	guard(mutex)(&adev->ualink.selftest_mutex);
+> +
+> +	adev->ualink.test_size_dwords = val / 4;
+> +	dev_dbg(adev->dev, "test buffer size %u bytes\n",
+> +		adev->ualink.test_size_dwords * 4);
+> +
+> +	return 0;
+> +}
+> +
+> +DEFINE_DEBUGFS_ATTRIBUTE(amdgpu_ualink_test_size_fops,
+> +			 amdgpu_debugfs_ualink_test_size_get,
+> +			 amdgpu_debugfs_ualink_test_size_set, "%llu\n");
+> +
+>   int amdgpu_debugfs_init(struct amdgpu_device *adev)
+>   {
+>   	struct dentry *root = adev_to_drm(adev)->primary->debugfs_root;
+> +	struct dentry *ualink_test;
+>   	struct dentry *ent;
+>   	int r, i;
+>   
+> @@ -2246,6 +2573,25 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
+>   	debugfs_create_ulong("amdgpu_ualink_drop_msg_bitmap", 0600, root,
+>   			     &adev->ualink.drop_msg_bitmap);
+>   
+> +	mutex_init(&adev->ualink.selftest_mutex);
+> +	/* 64 bytes test size by default */
+> +	adev->ualink.test_size_dwords = 16;
+> +	adev->ualink.test_remote_accel_id = AMDGPU_UALINK_ACCEL_MAX;
+> +
+> +	ualink_test = debugfs_create_dir("amdgpu_ualink_test", root);
+> +	debugfs_create_file("command", 0600, ualink_test, adev,
+> +			    &amdgpu_ualink_command_fops);
+> +	debugfs_create_file("remote_accel_id", 0600, ualink_test, adev,
+> +			    &amdgpu_ualink_accel_id_fops);
+> +	debugfs_create_file("test_size", 0600, ualink_test, adev,
+> +			    &amdgpu_ualink_test_size_fops);
+> +	debugfs_create_file("local_test_data", 0600, ualink_test, adev,
+> +			    &amdgpu_ualink_local_test_data_fops);
+> +	debugfs_create_file("remote_sdma", 0600, ualink_test, adev,
+> +			    &amdgpu_ualink_remote_sdma_fops);
+> +	debugfs_create_file("remote_lsdma", 0600, ualink_test, adev,
+> +			    &amdgpu_ualink_remote_lsdma_fops);
+> +
+>   	adev->debugfs_vbios_blob.data = adev->bios;
+>   	adev->debugfs_vbios_blob.size = adev->bios_size;
+>   	debugfs_create_blob("amdgpu_vbios", 0444, root,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.c
+> index 05bc281216bf..1f83d9b69135 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.c
+> @@ -97,3 +97,52 @@ int amdgpu_lsdma_fill_mem(struct amdgpu_device *adev,
+>   	mutex_unlock(&adev->lsdma.lock);
+>   	return ret;
+>   }
+> +
+> +int amdgpu_lsdma_selftest(struct amdgpu_device *adev)
+> +{
+> +	struct amdgpu_ib ib;
+> +	int i, r;
+> +	u64 gpu_addr;
+> +	char *p;
+> +	u32 size = 128;
+> +
+> +	memset(&ib, 0, sizeof(ib));
+> +	r = amdgpu_ib_get(adev, NULL, 2 * size, AMDGPU_IB_POOL_DIRECT, &ib);
+> +	if (r)
+> +		return r;
+> +
+> +	gpu_addr = ib.gpu_addr;
+> +	p = (char *)ib.ptr;
+> +	memset(p, 0, 2 * size);
+> +
+> +	for (i = 0; i < size; i++)
+> +		*(p + i) = i;
+> +
+> +	dev_dbg(adev->dev, "copy src 0x%llx dst 0x%llx size %d bytes\n",
+> +		gpu_addr, gpu_addr + size, size);
+> +
+> +	r = amdgpu_lsdma_copy_mem(adev, gpu_addr, gpu_addr + size, size);
+> +	if (r)
+> +		goto out;
+> +
+> +	p += size;
+> +	for (i = 0; i < size; i++) {
+> +		if (*(p + i) != i) {
+> +			dev_dbg(adev->dev, "data mismatch expecting 0x%x but read 0x%x\n",
+> +				i, *(p + i));
+> +			break;
+> +		}
+> +	}
+> +	if (i != size)
+> +		r = -EIO;
+> +
+> +out:
+> +	amdgpu_ib_free(&ib, NULL);
+> +
+> +	if (r)
+> +		dev_dbg(adev->dev, "lsdma selftest failed r=%d\n", r);
+> +	else
+> +		dev_dbg(adev->dev, "lsdma selftest passed\n");
+> +
+> +	return r;
+> +}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.h
+> index 34e92aaa4617..f0a5eeb3529f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.h
+> @@ -46,5 +46,6 @@ int amdgpu_lsdma_fill_mem(struct amdgpu_device *adev, uint64_t dst_addr,
+>   			  uint32_t data, uint64_t mem_size);
+>   int amdgpu_lsdma_wait_for(struct amdgpu_device *adev, uint32_t reg_index,
+>   			  uint32_t reg_val, uint32_t mask);
+> +int amdgpu_lsdma_selftest(struct amdgpu_device *adev);
+>   
+>   #endif
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+> index 339f639a450e..86e0dc8d728e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+> @@ -39,8 +39,6 @@ static void deactivate_accelerator(struct amdgpu_device *adev);
+>   static int amdgpu_ualink_remote_interrupt(struct amdgpu_device *adev,
+>   				u32 remote_accel_id, u32 dw0, u32 dw1,
+>   				u32 dw2, u32 dw3);
+> -static void amdgpu_ualink_flush_tlb(struct amdgpu_device *adev,
+> -				    u32 flush_type);
+>   static int amdgpu_ualink_reserve_npa_vm_and_bos(struct amdgpu_device *adev,
+>   						struct amdgpu_bo *bos[], u32 n_bos,
+>   						struct drm_exec *exec,
+> @@ -4333,9 +4331,6 @@ void amdgpu_ualink_manager_stop(struct amdgpu_device *adev)
+>    * UALink remote interrupt and shootdown
 >    */
 >   
->   #define CHIP_GFX12 37
-> -#define CHIP_GC_12_0_3 38
+> -/* UALINK ring buffer size, same for both remote shootdown and interrupt ring */
+> -#define AMDGPU_UALINK_RB_SIZE	4096
 > -
-> -#define HAVE_XNACK (ASIC_FAMILY == CHIP_GC_12_0_3)
-> -#define HAVE_57BIT_ADDRESS (ASIC_FAMILY == CHIP_GC_12_0_3)
-> -#define HAVE_BANKED_VGPRS (ASIC_FAMILY == CHIP_GC_12_0_3)
-> -#define NUM_NAMED_BARRIERS (ASIC_FAMILY == CHIP_GC_12_0_3 ? 0x10 : 0)
-> -#define HAVE_CLUSTER_BARRIER (ASIC_FAMILY == CHIP_GC_12_0_3)
-> -#define CLUSTER_BARRIER_SERIALIZE_WORKAROUND (ASIC_FAMILY == CHIP_GC_12_0_3)
-> +#define CHIP_GC_12_0_3_REV_0 38
-> +#define CHIP_GC_12_0_3_REV_1 39
+>   #define AMDGPU_UALINK_METADATA_HEADER	0x4E485446
+>   
+>   /* 2MB NPA start address for 2MB page mapping */
+> @@ -4582,7 +4577,7 @@ static inline u32 ualink_tlb_wb_offset(struct amdgpu_device *adev, u32 accel_id)
+>   	return ualink_wb_offset(adev, accel_id) + sizeof(struct amdgpu_ualink_wb);
+>   }
+>   
+> -static void amdgpu_ualink_flush_tlb(struct amdgpu_device *adev, u32 flush_type)
+> +void amdgpu_ualink_flush_tlb(struct amdgpu_device *adev, u32 flush_type)
+>   {
+>   	u32 bit;
+>   
+> @@ -5281,7 +5276,8 @@ static int amdgpu_ualink_metadata_init(struct amdgpu_device *adev)
+>   	if (status != AMDGPU_NHT_FW_ST_PREINIT &&
+>   	    status != AMDGPU_NHT_FW_ST_HALT) {
+>   		dev_dbg(adev->dev, "fw status 0x%x not preinit or halt\n", status);
+> -		return -ENODEV;
+> +		if (!adev->ualink.selftesting)
+> +			return -ENODEV;
+>   	}
+>   
+>   	dev_dbg(adev->dev, "accel_id %u addr_mode %d fw status 0x%x\n",
+> @@ -5399,6 +5395,8 @@ static int amdgpu_ualink_metadata_init(struct amdgpu_device *adev)
+>   	r = adev->ualink.msg_ctl->send_metadata(adev,
+>   						    remote->metadata_gpu_addr,
+>   						    AMDGPU_UALINK_ACCEL_MAX << 8);
+> +	if (r && adev->ualink.selftesting)
+> +		r = 0;
+>   
+>   out:
+>   	if (r)
+> @@ -6384,11 +6382,216 @@ void amdgpu_ualink_sw_fini(struct amdgpu_device *adev)
+>   	adev->ualink.remote = NULL;
+>   }
+>   
+> -int ualink_send_hello(struct amdgpu_device *adev, u32 remote_accel_id)
+> +/* byte offset of the local interrupt ring a remote GPU writes to */
+> +static u32 ualink_test_local_rb_offset(u32 remote_accel_id)
+> +{
+> +	u32 rb_size = AMDGPU_GPU_PAGE_ALIGN(2 * AMDGPU_UALINK_RB_SIZE);
 > +
-> +#define HAVE_XNACK (ASIC_FAMILY >= CHIP_GC_12_0_3_REV_0)
-> +#define HAVE_57BIT_ADDRESS (ASIC_FAMILY >= CHIP_GC_12_0_3_REV_0)
-> +#define HAVE_BANKED_VGPRS (ASIC_FAMILY >= CHIP_GC_12_0_3_REV_0)
-> +#define NUM_NAMED_BARRIERS (ASIC_FAMILY >= CHIP_GC_12_0_3_REV_0 ? 0x10 : 0)
-> +#define HAVE_CLUSTER_BARRIER (ASIC_FAMILY >= CHIP_GC_12_0_3_REV_0)
-> +#define CLUSTER_BARRIER_SERIALIZE_WORKAROUND (ASIC_FAMILY >= CHIP_GC_12_0_3_REV_0)
->   #define RELAXED_SCHEDULING_IN_TRAP (ASIC_FAMILY == CHIP_GFX12)
-> -#define HAVE_INSTRUCTION_FIXUP (ASIC_FAMILY == CHIP_GC_12_0_3)
-> +#define HAVE_VOP3PX_FIXUP (ASIC_FAMILY == CHIP_GC_12_0_3_REV_0)
-> +#define HAVE_VGPR_MSB_FIXUP (ASIC_FAMILY >= CHIP_GC_12_0_3_REV_0)
-> +#define HAVE_INSTRUCTION_FIXUP (HAVE_VOP3PX_FIXUP || HAVE_VGPR_MSB_FIXUP)
-
-The instruction fixup seems to be doing more than either VOP3PX_FIXUP or 
-VGPR_MSB_FIXUP.  The fixup_instruction function is more than the union 
-of the code enabled by those two flags.
-
-Would seem more consistent to just define this as "ASIC_FAMILY >= 
-CHIP_GC_12_0_3_REV_0".  WDYT?
-
-Other than this minor remark (which would result in the exact same 
-binary), this looks reasonable to me.
-
-Reviewed-by: Lancelot Six <lancelot.six@amd.com>
-
-Best,
-Lancelot.
-
+> +	/* remote shootdown ring is first, remote interrupt ring follows it */
+> +	return rb_size * remote_accel_id + AMDGPU_UALINK_RB_SIZE;
+> +}
+> +
+> +/*
+> + * ualink_test_local_data - read or write the local ring buffer of a remote GPU
+> + *
+> + * The local ring buffer is partitioned per remote GPU, @remote_accel_id selects
+> + * the interrupt ring that remote GPU writes to through its NPA mapping. Read it
+> + * to see what the remote GPU wrote, write it to provide the data it reads.
+> + */
+> +int ualink_test_local_data(struct amdgpu_device *adev, u32 remote_accel_id,
+> +			   void *data, u32 size, bool read)
+>   {
+> +	struct amdgpu_ualink_remote *remote = to_remote(adev);
+> +	void *rb;
+> +
+> +	if (!remote || !remote->rb_cpu_addr)
+> +		return -EINVAL;
+> +
+> +	if (size > AMDGPU_UALINK_RB_SIZE)
+> +		return -EINVAL;
+> +
+> +	rb = remote->rb_cpu_addr + ualink_test_local_rb_offset(remote_accel_id);
+> +
+> +	dev_dbg(adev->dev, "%s local rb of remote %u at 0x%p size 0x%x\n",
+> +		read ? "read" : "write", remote_accel_id, rb, size);
+> +
+> +	if (read)
+> +		memcpy(data, rb, size);
+> +	else
+> +		memcpy(rb, data, size);
+> +
+> +	return 0;
+> +}
+> +
+> +/*
+> + * ualink_test_remote_rw - read or write the remote GPU ring buffer
+> + *
+> + * Copy @size bytes between @data and the remote GPU ring buffer NPA address
+> + * using lsdma or sdma. The DMA engines cannot access @data, the local ring
+> + * buffer of the same remote GPU is used to stage it, so local_test_data shows
+> + * what was sent or received.
+> + *
+> + * Works with or without MPNHT FW running, the copy does not update wptr and
+> + * does not ring the doorbell.
+> + */
+> +int ualink_test_remote_rw(struct amdgpu_device *adev, u32 remote_accel_id,
+> +			  void *data, u32 size, bool read, bool use_lsdma)
+> +{
+> +	struct amdgpu_ualink_remote *remote = to_remote(adev);
+> +	struct amdgpu_ualink_peer *peer;
+> +	struct amdgpu_ualink_ring *ring;
+> +	struct dma_fence *fence;
+> +	struct amdgpu_job *job;
+> +	struct amdgpu_ib *ib;
+> +	u64 npa, local;
+> +	u32 offset, ndw;
+> +	int r;
+> +
+> +	if (!remote)
+> +		return -EINVAL;
+> +
+> +	if (size > AMDGPU_UALINK_RB_SIZE)
+> +		return -EINVAL;
+> +
+> +	peer = &remote->peer[remote_accel_id];
+> +	ring = &peer->interrupt;
+> +
+> +	guard(mutex)(&peer->lock);
+> +
+> +	offset = ualink_test_local_rb_offset(remote_accel_id);
+> +	local = remote->rb_gpu_addr + offset;
+> +	npa = ring->rb_npa_gart;
+> +
+> +	if (!read)
+> +		memcpy(remote->rb_cpu_addr + offset, data, size);
+> +
+> +	remote->use_lsdma = use_lsdma;
+> +
+> +	dev_dbg(adev->dev, "%s remote %u npa 0x%llx local 0x%llx size 0x%x use %s\n",
+> +		read ? "read" : "write", remote_accel_id, npa, local, size,
+> +		use_lsdma ? "lsdma" : "sdma");
+> +
+> +	if (use_lsdma) {
+> +		r = amdgpu_lsdma_copy_mem(adev, read ? npa : local,
+> +					  read ? local : npa, size);
+> +		if (r)
+> +			return r;
+> +
+> +		goto done;
+> +	}
+> +
+> +	/* sdma linear copy command, align to 8 dwords boundary */
+> +	ndw = ALIGN(adev->mman.buffer_funcs->copy_num_dw, 8);
+> +
+> +	r = amdgpu_job_alloc_with_ib(adev, &peer->entity, AMDGPU_FENCE_OWNER_VM,
+> +				     ndw * 4, AMDGPU_IB_POOL_IMMEDIATE,
+> +				     AMDGPU_KERNEL_JOB_ID_TTM_COPY_BUFFER, &job);
+> +	if (r)
+> +		return r;
+> +
+> +	ib = job->ibs;
+> +	ib->length_dw = 0;
+> +
+> +	amdgpu_emit_copy_buffer(adev, ib, read ? npa : local,
+> +				read ? local : npa, size, 0);
+> +	amdgpu_ring_pad_ib(&adev->sdma.instance[0].ring, ib);
+> +	WARN_ON(ib->length_dw > ndw);
+> +
+> +	fence = amdgpu_job_submit(job);
+> +
+> +	r = dma_fence_wait_timeout(fence, false, HZ * 10);
+> +	dma_fence_put(fence);
+> +	if (r <= 0) {
+> +		dev_dbg(adev->dev, "remote sdma fence wait timeout %d\n", r);
+> +		dev_dbg(adev->dev, "use lsdma for testing afterwards\n");
+> +		remote->use_lsdma = true;
+> +		return -ETIME;
+> +	}
+> +
+> +done:
+> +	if (read)
+> +		memcpy(data, remote->rb_cpu_addr + offset, size);
+> +
+> +	return 0;
+> +}
+> +
+> +/* The peer may have rebooted or the vpod was reconfigured, adopt the remote
+> + * wptr before sending a command, same as the handshake does.
+> + */
+> +static int ualink_test_resync_peer(struct amdgpu_device *adev, u32 remote_accel_id)
+> +{
+> +	int r;
+> +
+> +	if (!adev->ualink.remote)
+> +		return -EINVAL;
+> +
+> +	r = amdgpu_ualink_ring_resync_ptrs(adev, remote_accel_id);
+> +	if (r < 0)
+> +		return r;
+> +
+> +	/* Peer moved, drop ready so the next command updates the wb address */
+> +	if (r)
+> +		amdgpu_ualink_reset_peer_rings(adev, remote_accel_id);
+> +
+> +	return 0;
+> +}
+> +
+> +int ualink_test_send_hello(struct amdgpu_device *adev, u32 remote_accel_id)
+> +{
+> +	int r;
+> +
+> +	r = ualink_test_resync_peer(adev, remote_accel_id);
+> +	if (r)
+> +		return r;
+> +
+>   	return amdgpu_ualink_send_hello_msg(adev, remote_accel_id);
+>   }
 >   
->   #define SINGLE_STEP_MISSED_WORKAROUND 1	//workaround for lost TRAP_AFTER_INST exception when SAVECTX raised
->   #define HAVE_VALU_SGPR_HAZARD (ASIC_FAMILY == CHIP_GFX12)
-> -#define HAVE_HT_TRAP_ID_WA (ASIC_FAMILY >= CHIP_GFX12)
-> -#define WAVE32_ONLY (ASIC_FAMILY == CHIP_GC_12_0_3)
-> -#define SAVE_TTMPS_IN_SGPR_BLOCK (ASIC_FAMILY >= CHIP_GC_12_0_3)
-> -#define VMEM_ON_TRAP_ENTRY_WA (ASIC_FAMILY == CHIP_GC_12_0_3)
-> +#define HAVE_HT_TRAP_ID_WA 1
-> +#define WAVE32_ONLY (ASIC_FAMILY >= CHIP_GC_12_0_3_REV_0)
-> +#define SAVE_TTMPS_IN_SGPR_BLOCK (ASIC_FAMILY >= CHIP_GC_12_0_3_REV_0)
-> +#define VMEM_ON_TRAP_ENTRY_WA (ASIC_FAMILY >= CHIP_GC_12_0_3_REV_0)
+> +int ualink_test_remote_shootdown(struct amdgpu_device *adev, u32 remote_accel_id,
+> +				 u64 addr, u32 size_in_pages, u32 flush_type)
+> +{
+> +	int r;
+> +
+> +	r = ualink_test_resync_peer(adev, remote_accel_id);
+> +	if (r)
+> +		return r;
+> +
+> +	return amdgpu_ualink_remote_shootdown(adev, remote_accel_id, addr,
+> +					      size_in_pages, flush_type);
+> +}
+> +
+> +int ualink_test_update_interrupt_wb(struct amdgpu_device *adev, u32 remote_accel_id)
+> +{
+> +	int r;
+> +
+> +	r = ualink_test_resync_peer(adev, remote_accel_id);
+> +	if (r)
+> +		return r;
+> +
+> +	guard(mutex)(&adev->ualink.remote->peer[remote_accel_id].lock);
+> +
+> +	/* Update interrupt completion write back address */
+> +	r = amdgpu_ualink_update_wb_address(adev, remote_accel_id,
+> +					    RB_TYPE_REMOTE_INTERRUPT);
+> +	return r;
+> +}
+> +
+> +int ualink_test_update_shootdown_wb(struct amdgpu_device *adev, u32 remote_accel_id)
+> +{
+> +	int r;
+> +
+> +	r = ualink_test_resync_peer(adev, remote_accel_id);
+> +	if (r)
+> +		return r;
+> +
+> +	guard(mutex)(&adev->ualink.remote->peer[remote_accel_id].lock);
+> +
+> +	/* Update shootdown completion write back address */
+> +	r = amdgpu_ualink_update_wb_address(adev, remote_accel_id,
+> +					    RB_TYPE_TLB_INV);
+> +	return r;
+> +}
+> +
+>   /*
+>    * The low bits of handle_lo carry the message-header field on the wire.
+>    * Strip those bits and splice in @acc_id to recover the
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
+> index 85c9a9634a4b..90e90cd8b495 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
+> @@ -310,6 +310,9 @@ struct amdgpu_ualink_connection {
+>   	enum amdgpu_ualink_conn_state state;
+>   };
 >   
->   #if HAVE_XNACK && !WAVE32_ONLY
->   # error
-> @@ -76,7 +79,7 @@ var SQ_WAVE_LDS_ALLOC_LDS_SIZE_SIZE		= 9
->   var SQ_WAVE_GPR_ALLOC_VGPR_SIZE_SIZE		= 8
->   var SQ_WAVE_GPR_ALLOC_VGPR_SIZE_SHIFT		= 12
+> +/* UALINK ring buffer size, same for both remote shootdown and interrupt ring */
+> +#define AMDGPU_UALINK_RB_SIZE	4096
+> +
+>   struct amdgpu_ualink_remote;
 >   
-> -#if ASIC_FAMILY < CHIP_GC_12_0_3
-> +#if ASIC_FAMILY < CHIP_GC_12_0_3_REV_0
->   var SQ_WAVE_LDS_ALLOC_GRANULARITY		= 9
->   #else
->   var SQ_WAVE_LDS_ALLOC_GRANULARITY		= 10
-> @@ -707,7 +710,7 @@ L_SAVE_HWREG:
->   	write_hwreg_to_v2(s_save_tmp)
->   #endif
+>   struct amdgpu_ualink_msg_ctl {
+> @@ -333,6 +336,13 @@ struct amdgpu_ualink_mgr {
+>   	/* For remote interrupt and shootdown */
+>   	struct amdgpu_ualink_remote *remote;
 >   
-> -#if ASIC_FAMILY >= CHIP_GC_12_0_3
-> +#if ASIC_FAMILY >= CHIP_GC_12_0_3_REV_0
->   	s_getreg_b32	s_save_tmp, hwreg(HW_REG_WAVE_SCHED_MODE)
->   	write_hwreg_to_v2(s_save_tmp)
->   #endif
-> @@ -1281,7 +1284,7 @@ L_SKIP_TRAP_CLUSTER_BARRIER_SIGNAL:
->   L_SKIP_CLUSTER_BARRIER_RESTORE:
->   #endif
+> +	/* true for selftest driver path, ignore FW error */
+> +	bool selftesting;
+> +	/* serialize the selftest debugfs entries */
+> +	struct mutex selftest_mutex;
+> +	u32 test_size_dwords;
+> +	u32 test_remote_accel_id;
+> +
+>   	/* handle irq from ualink client of remote GPUs */
+>   	struct amdgpu_irq_src irq;
 >   
-> -#if ASIC_FAMILY >= CHIP_GC_12_0_3
-> +#if ASIC_FAMILY >= CHIP_GC_12_0_3_REV_0
->   	s_load_b32	s_restore_tmp, [s_restore_addr_lo, s_restore_addr_hi], null scope:SCOPE_SYS offset:0x40
->   	s_wait_kmcnt	0
->   	s_setreg_b32	hwreg(HW_REG_WAVE_SCHED_MODE), s_restore_tmp
-> @@ -1393,7 +1396,7 @@ function get_sgpr_size_bytes
->   end
+> @@ -390,14 +400,22 @@ struct amdgpu_ualink_mgr {
+>   	unsigned long drop_msg_bitmap;
+>   };
 >   
->   function get_hwreg_size_bytes
-> -#if ASIC_FAMILY >= CHIP_GC_12_0_3
-> +#if ASIC_FAMILY >= CHIP_GC_12_0_3_REV_0
->   	return 512
->   #else
->   	return 128
-> @@ -1550,6 +1553,7 @@ function fixup_instruction
->   	// Instruction is 1 DWORD otherwise
+> +int ualink_test_local_data(struct amdgpu_device *adev, u32 remote_accel_id,
+> +			   void *data, u32 size, bool read);
+> +int ualink_test_remote_rw(struct amdgpu_device *adev, u32 remote_accel_id,
+> +			  void *data, u32 size, bool read, bool use_lsdma);
+> +int ualink_test_send_hello(struct amdgpu_device *adev, u32 remote_accel_id);
+> +int ualink_test_remote_shootdown(struct amdgpu_device *adev, u32 remote_accel_id,
+> +				 u64 addr, u32 size_in_pages, u32 flush_type);
+> +int ualink_test_update_interrupt_wb(struct amdgpu_device *adev, u32 remote_accel_id);
+> +int ualink_test_update_shootdown_wb(struct amdgpu_device *adev, u32 remote_accel_id);
+> +
+>   int amdgpu_ualink_init_interrupt(struct amdgpu_device *adev,
+>   				 unsigned int client_id, unsigned int src_id);
+> -
+> +void amdgpu_ualink_flush_tlb(struct amdgpu_device *adev, u32 flush_type);
+>   int amdgpu_ualink_sw_init(struct amdgpu_device *adev);
+>   void amdgpu_ualink_sw_fini(struct amdgpu_device *adev);
 >   
->   L_FIXUP_ONE_DWORD:
-> +#if HAVE_VGPR_MSB_FIXUP
->   	// Check if TTMP15 contains the value for S_SET_VGPR_MSB instruction
->   	s_and_b32	ttmp10, ttmp15, 0xffff0000				// Check encoding in upper 16 bits
->   	s_cmp_eq_u32	ttmp10, 0xbf860000					// Check if SOPP (9b'10_1111111) and S_SET_VGPR_MSB (7b'0000110)
-> @@ -1560,6 +1564,7 @@ L_FIXUP_ONE_DWORD:
->   	s_lshr_b32	ttmp13, ttmp13, 6					// Shift SIMM[13:8] into 7:2, Src2, Src1, Src0
->   	s_or_b32	ttmp10, ttmp10, ttmp13					// Src2, Src1, Src0, Dst --> format in MODE register
->   	s_setreg_b32	hwreg(HW_REG_WAVE_MODE, 12, 8), ttmp10			// Write value into MODE[19:12]
-> +#endif
->   	s_branch	L_FIXUP_DONE
->   
->   L_FIXUP_NOT_VOP12C:
-> @@ -1586,10 +1591,12 @@ L_FIXUP_NOT_VOP12C:
->   	// Not VOP1, VOP2, VOPC, VOP3, VOP3SD, VOPD, or VOPD3.
->   	// Check if we are in the middle of VOP3PX.
->   	s_and_b32	ttmp13, ttmp14, 0xffff0000				// Bits 31:16
-> +#if HAVE_VOP3PX_FIXUP
->   	s_cmp_eq_u32	ttmp13, 0xcc330000					// If 31:16 = 0xcc33, this is 8 bytes past VOP3PX
->   	s_cbranch_scc1	L_FIXUP_VOP3PX_MIDDLE
->   	s_cmp_eq_u32	ttmp13, 0xcc880000					// If 31:16 = 0xcc88, this is 8 bytes past VOP3PX
->   	s_cbranch_scc1	L_FIXUP_VOP3PX_MIDDLE
-> +#endif
->   	// Might be in VOP3P, but we must ensure we are not VOP3PX2
->   	s_cmp_eq_u32	ttmp13, 0xcc350000					// If 31:16 = 0xcc35, this is VOP3PX2
->   	s_cbranch_scc1	L_FIXUP_DONE						// If VOP3PX2, no fixup needed
-> @@ -1651,10 +1658,12 @@ L_FIXUP_THREE_DWORD:
->   	s_mov_b32	ttmp15, ttmp3						// Move possible S_SET_VGPR_MSB into ttmp15
->   	s_branch	L_FIXUP_ONE_DWORD					// Go to common logic that checks if it is S_SET_VGPR_MSB
->   
-> +#if HAVE_VOP3PX_FIXUP
->   L_FIXUP_VOP3PX_MIDDLE:
->   	s_sub_co_u32	ttmp0, ttmp0, 8						// Rewind PC 8 bytes to beginning of instruction
->   	s_sub_co_ci_u32	ttmp1, ttmp1, 0
->   	s_branch	L_FIXUP_TWO_DWORD					// 2 DWORD inst (2nd half of a 4 DWORD inst)
-> +#endif
->   
->   L_FIXUP_DONE:
->   	s_wait_kmcnt	0							// Ensure load of ttmp2 and ttmp3 is done
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> index 0f96c9e3fa4d..edafbd9377b5 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> @@ -564,11 +564,17 @@ static void kfd_cwsr_init(struct kfd_dev *kfd)
->   					     > KFD_CWSR_TMA_OFFSET);
->   			kfd->cwsr_isa = cwsr_trap_gfx12_hex;
->   			kfd->cwsr_isa_size = sizeof(cwsr_trap_gfx12_hex);
-> +		} else if (KFD_GC_VERSION(kfd) == IP_VERSION(12, 1, 0) &&
-> +			(kfd->adev->rev_id & 0xF) == 0) {
-> +			BUILD_BUG_ON(sizeof(cwsr_trap_gfx12_1_0_rev_0_hex)
-> +					     > KFD_CWSR_TMA_OFFSET);
-> +			kfd->cwsr_isa = cwsr_trap_gfx12_1_0_rev_0_hex;
-> +			kfd->cwsr_isa_size = sizeof(cwsr_trap_gfx12_1_0_rev_0_hex);
->   		} else {
-> -			BUILD_BUG_ON(sizeof(cwsr_trap_gfx12_1_0_hex)
-> +			BUILD_BUG_ON(sizeof(cwsr_trap_gfx12_1_0_rev_1_hex)
->   					     > KFD_CWSR_TMA_OFFSET);
-> -			kfd->cwsr_isa = cwsr_trap_gfx12_1_0_hex;
-> -			kfd->cwsr_isa_size = sizeof(cwsr_trap_gfx12_1_0_hex);
-> +			kfd->cwsr_isa = cwsr_trap_gfx12_1_0_rev_1_hex;
-> +			kfd->cwsr_isa_size = sizeof(cwsr_trap_gfx12_1_0_rev_1_hex);
->   		}
->   
->   		kfd->cwsr_enabled = true;
-
+> -int ualink_send_hello(struct amdgpu_device *adev, u32 remote_accel_id);
+> -
+>   int amdgpu_ualink_config_update_handler(struct amdgpu_device *adev);
+>   int amdgpu_ualink_pause_handler(struct amdgpu_device *adev);
+>   int amdgpu_ualink_resume_handler(struct amdgpu_device *adev);
