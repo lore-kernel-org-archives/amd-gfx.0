@@ -2,92 +2,92 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57992606A321
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 13:00:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13EBC606A31A
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 13:00:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TJJ/10li
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TwLlIdaq
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 804B410FC53;
-	Wed, 28 Oct 2026 13:00:08 +0000 (UTC)
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
- [209.85.218.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 41B9310FAD6
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Oct 2026 09:48:03 +0000 (UTC)
-Received: by mail-ej1-f54.google.com with SMTP id
- a640c23a62f3a-c40e30c26a4so297058266b.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Oct 2026 02:48:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793180881; cv=none;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35D3610FC56;
+	Wed, 28 Oct 2026 13:00:09 +0000 (UTC)
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com
+ [209.85.208.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED00A10FAED
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Oct 2026 09:48:54 +0000 (UTC)
+Received: by mail-ed1-f44.google.com with SMTP id
+ 4fb4d7f45d1cf-6b1aa2848d2so1368027a12.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Oct 2026 02:48:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793180933; cv=none;
  d=google.com; s=arc-20260327;
- b=LcERnvd5aTmy4DfLZKSyEEw9nAPvhBoq/z5fF0iKabERiiNX0zSoRHC2+yqhfp4tkT
- Ch1jy54V3R5P5DUEYSZ8UN7Bfh5v3uZ+k5IVuJLW3DrkhtQFHWCCnk05jlSI+8tUEUVh
- aCOWUF+Ff5HdQSuKHtPEZdQJVdU6FVaaW5hY3W/V+X76VBYDzKP4/t2BM8I/kuwRJB/b
- h0pak60WJpFcArZ+B0sCg8jddrrdDOM62Nszpl3Ltge1i7HJAullopHwSTHXzAj9u5Uq
- 90mWUUGOMFkoiDoVI17Fk4ZeMu5ZphPpPBN5vWjFCKz0KcvZvwfsOB9fbsg381se01Pi
- 5MBA==
+ b=ZCUKCmJ8r1voH3x/tu6EY8PWH4bShjASigyi1L0GcwNQqcd1QBTCPnROdywCXnMITR
+ MFIkCoQHiRDrDfsSiq9R7TXGLTaIJGQ2Ov42G5hjwzYJ8YX9mbYw1ftgZnmM0TUyPv9X
+ ThtXBPhwr0I41gwLVIS/6WuJG+iAGayf/KvJjDWzAFKbNLrqogg2uLcNdr0NlbRA49Io
+ XYgaZB9PpLilRy2OtQS5BCpm3jutd6a7OTpSMg/fr/S3hbJ9ze2zBrgxGxf8TLSQQZ6Z
+ ILDIKyGDBft6Uny1ljXn+cHua25ZPZNSvzlDRJ1w2H8HHULnjxVKgQaT5WPFGwfYpwYf
+ wQug==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=Gl/4Yc6JnTMakWEbHOettwInvSk+aSwCfPGu2bGV6uw=;
- fh=3fN+tSA1JlVKEOTSjnKW4m8BFk7k5HKEh5i5KtsBtv4=;
- b=QXq+6aAjwYFFcARdrfQoVG4poE9dDtUq+PamUVlAr9W7TLJ5kYySEOoMHXJNmsUXII
- ONYgKWaL99TYFg7oOrKfMWmHFDAfvLw6uIY/2CnYcWD1fuIXqTW+1skbXP87iSP/umqD
- n0Eb4uXBEYvd9Ho9c7ZPdxZ+0jlmKp+TcKc1moEqzwPaTyUYuyfEv9yBvwiynVRmG0wv
- 8LQrUYM/YS1vS2y8aWsvgcdUlHDXqDxPm5aHLvgQIxXat3tmPAw2Cbh+59so2j+V26oM
- 9ffyTgd5Ldewgbg14FGKKwU1QXz1QU2lTWlL+MB/jeAKL/usrkjqULfV1uPODj0aXFGF
- FiQg==; darn=lists.freedesktop.org
+ bh=dcY0Gi4dcvyxZkHDA78yGLoz9GDb1HPFjbtFx6GpqEs=;
+ fh=y7T8PcrYnxzRqw1UqPAIcOn4AnfVdHXoqkxtyGmEdEQ=;
+ b=gFn0IhlOCYet7ck5/+tHIu61CucD1vQTdE7/7bvTdTdDXTzv66BsgwAb3duT0Wk+Jd
+ tJj/UPmY5NSnbxmW/r5/9BiPzGBJffjKmpNQxRIujZkmg91BZaXQNXcCFUHeeG6fmfJC
+ q08sCDkOQOOlyHvWYOE+ijuqojzg51EG6/xwKo6pUlyLEEqrspsnbtiBK+GLrytpcKUK
+ V8EOyoq7YI5Y7Fb6MhFAtPi86h+xFO4NlzKtPG+Psg0pwExGAbrgg64vxElcMACwvMcR
+ LHJrJFYm4Mv2QG99YL1yIKtiSmOcaTgq4zUqkZW3Ysn1aNb+v0BXLHhL12wOqW1Fpmnw
+ 9Vaw==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793180881; x=1793785681; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1793180933; x=1793785733; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=Gl/4Yc6JnTMakWEbHOettwInvSk+aSwCfPGu2bGV6uw=;
- b=TJJ/10liITcaeE8H9+Yv1GLk575lJThMYiulDUHGJlXnyhb2D1SNbVi5EnDB2Kt0tO
- EfHCFnMg4CWPv/CSpnMP61xnFPNYLiKYFGSgiI6p5o5M498TLPHwk/J8PQ0kULTql5ku
- Dz4+2zQxO9KguHfrYnNyBRIkIKGbi6poqqpNQEO7Y853JHiJ+ZV01P55yz5cHuJaw2BA
- Q5zMiS1b3MqgRzMQRTENFLE6+qhvBwzYRH09oArAKSo+4DiFXr445pIjRep3ZgCDS2tA
- 2gGjkl3iIaKlbfa3ue4yJKiwvAnglqe0SKvcGejaTMQJZSQDyu2x+cPIOzRhzPfKeZBt
- pfBQ==
+ bh=dcY0Gi4dcvyxZkHDA78yGLoz9GDb1HPFjbtFx6GpqEs=;
+ b=TwLlIdaqR2De+/frgxJauvxcud7Nw7bMfWzjPWwN7zpYItK6byIN3C6v0N7kkY/3Ox
+ iQSKLaSbUhxy5UvLmw2lwMJBCSE+708ktUpJAg1+ctefJtujtLKnvUGYNdGhxoZxO62B
+ irFNhk9yVBjq8rdqUOSiDIkOH6L+ZCX9phI0H4Xoa0ifr1jUwZ+QaCYqTGZ9V4v/8BNy
+ MEo3BKm21keztiOilWg6UlQELwMIk21KD5xqPWqIAxe1sROoXE4I937Yze2aysVrAxqJ
+ MtifkNbQFSIX/cH03pYvqhZrrl/5VN5C+quumaDa+lPeyP+Xk+dO3Sizf26reCc1QIsp
+ O8mg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793180881; x=1793785681;
+ d=1e100.net; s=20260707; t=1793180933; x=1793785733;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=Gl/4Yc6JnTMakWEbHOettwInvSk+aSwCfPGu2bGV6uw=;
- b=cnsaTx3u6VLauMAWttO7hqMCPaPXi0pAtSkOVrEZVU8bCQvv+wAc+hKu6EOrV/kG+Y
- Y/xzcxkaSGBOBD+JBK0PJ060pALMTRIBxeCzED2zzeCWjE/dVhBdK3KLnxi6jyYVMm4w
- TgNDXkYApUU9+u4gtVTJFxX94FeRckHoUNWMkXNh8maoRl4ddg8xGHnA6RKSKNV0x4Nm
- uaDWruDry/sb7gpIHX7EECyNv1jGsAowQQUpaW7fyF2VqX/4BzemYnCwjp6NjESC2DUw
- W9s/5vkMPNKl2BD776xRS5H9nDSP71a/Du0SLeCymxGcIinc1DpYgfwQSNKByrlnB7F3
- ODJw==
+ bh=dcY0Gi4dcvyxZkHDA78yGLoz9GDb1HPFjbtFx6GpqEs=;
+ b=qOa4AygKBlhy88BUSmoRTVUwf2WwfWjvrr4IzNdEz5QK/XUixLWX9bHdTHS4JqSxfF
+ n8qQTt0k1e33jf0N9aAn2jlQOrT/E7H50CgEehQtAE1EpTSZTxh3kwFzo9mXHlYbu7TW
+ Lekbp32Z/a2dnHswRR3LuBPS0TPPVXCprolM4svdC1d9Yo1E/GN+wzJzf/DPcgUkqQCU
+ NmORz1LFATRO/71QkDoCSR2R+CsPJT0A3njqKfadgKPIZ55ujaV3vFC3n/rwmi3P5tVv
+ HfIDXoYgXt9AA+xQYgye+Bkt3MV8AySVm8hbq5tNVJK5jeLDIdF7YW+awsEsW9/WtRyJ
+ EXZg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBy8GlGxr8MJeebp+bf5j1HAP2eSo4Tj7sQtpYNKEAso7VOF/Rgc/viNmK6p4Qa4TntkjBREzRKm@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJjLq89SszjUb1uUSo1Aejq6CoBQliliyWTYqIoT2xdUxWX7EAJ
- pWB3dWGzS4m0sABITX9aX9uaWkEBvR40l7GO/ztqEoAHmNtS7gxRD1uSQfIaOXMaiGCbdP6/zCN
- KNliD052HZggPgD7O+QUJlgZFqjIsMnw=
-X-Gm-Gg: AYBFou1LRJQ4QsmVLad/e5S/2krvzPqVif/KXtP14GFpO3fHIXovzHgf7AlWlK6muxE
- GXMzuWm9AlCtqJCJgJ4Huo1byXWIiIN2gvIQjvCi2uhcBNbYygTw7haBlAMXYCkyGrqZgAKvWJs
- 2pKouvcjqg/wGQqnXiXC11QLMkc4WHKE5F6LHIkQCuSKfpv5AZQWGroIPClMeG3CcFQ8BQhDOgh
- iimgBbbBolMRP+ePZMbdAECBc1qiPgG4SidgJN9TNKBaUmk/IFrtyQVXo3em0jYMGxiXA2xaQaR
- r12Pwu1jgti1MRMwmgFur2MS+S3D7AHBT0YwSy6YMHbb9qb/5LzzKxpCXC1NqkGh3CpLn9NHdnJ
- T31nFT5ei2nHnI3BF72tO0ERNdKhWsf0XRkvunRt0R9HUDlLIF6Z4XPXALF1qjT/soIaAKniC17
- 3TlEj/xnKn62DDNabsiOPTFr0UcAgaioXbdT6kigRmvdYbhi8+O1UI8FoAkgRbML7c3c2M79eIs
- jDDn6n8qoNA4BSjI739YmzZLQ==
-X-Received: by 2002:a17:907:86a5:b0:c25:f7db:4bec with SMTP id
- a640c23a62f3a-c49c6357d34mr69949566b.18.1793180881026; Wed, 28 Oct 2026
- 02:48:01 -0700 (PDT)
+ AKwUvBz2rMoYdBcaKrFAQApDynRTmPy3C2yBrtfRozbl2r9pAxSI2l0jvHpUzyU5z4xkthjYVJqtsi9T@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJswKKCIiod5TAHOsnTXNL0GsoOzyF74ksNX3/KOjS17n47w348
+ 664gjCEvp8kGCSjwjEFzs7n6MfF2GDtaWCXrbBnMjbrK70aEACQmR+ZwYc8OlN0/4A1UQElQw3N
+ B4MzLNLsPysynD2JAlJbN0gF4nDo6IpU=
+X-Gm-Gg: AYBFou3BFtyRCKvPAvoIEQLanYisyqo2gMphohjznHgMVFwlYl4KVm5ayjAKX12A6Bs
+ 6zGJqv1Ra6GeZnMdjgwJz5T9m/9+V5n5EPZhpBJhjWzKs2YeyjHSfUA5gGnuILAVym985TvwtbT
+ M8it2wSBJYR9GmROF9wsUofcJiaZVSTnATp9LZwZ4bPuzWBUDjMEc68NC+gXJ9TDMwdPzq8BpxR
+ UZiZpakoUQ5UHFztUe47c7pOEAX8S/uytxvXbtqiutRDiQDhuBmpN3H9r6OL1/jEGpSBAzh3iYK
+ iOzKcWMUxfgASNAjVSvKcUQ8sD0GOctgoka7S6DXZIKdPQipnzR02/tSDpQGFTm+dlwM+y1+xou
+ Ynmo8+DF+rA2hbb/ybFHqeZVArLFwX6ZHToz73A7zwopdHdvUZgle27Cczlj62/16AoKwfMEPn6
+ aeuGDN4PbE51MdQJqEQQKinyNuoHDDoR9CuLwxpusyo+h4K3f8vbMwxt+9VfB1SkGuPYDRmRHi0
+ mMCWUveCDbqDlLoLUF9ApOCcw==
+X-Received: by 2002:a17:907:a893:b0:c46:8b51:c17c with SMTP id
+ a640c23a62f3a-c49bdf394e6mr156034066b.17.1793180933042; Wed, 28 Oct 2026
+ 02:48:53 -0700 (PDT)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 References: <cover.1793027261.git.d@ilvokhin.com>
- <580fdfbe2eb6694438cbd8f5337bd2f1edac564b.1793027261.git.d@ilvokhin.com>
-In-Reply-To: <580fdfbe2eb6694438cbd8f5337bd2f1edac564b.1793027261.git.d@ilvokhin.com>
+ <f0d7b2f0dce916f4cde3dd466a5b51a4b88fbdd8.1793027261.git.d@ilvokhin.com>
+In-Reply-To: <f0d7b2f0dce916f4cde3dd466a5b51a4b88fbdd8.1793027261.git.d@ilvokhin.com>
 From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Wed, 28 Oct 2026 11:47:24 +0200
-X-Gm-Features: AclHuK-8N84O0Y9k-BLOPVpeywTja7886uZe3ugxN4eM-96m__IvC7bzZgS0MkU
-Message-ID: <CAHp75Vedr5J1WJMrAkBjRSLKA_zf1kt3GD6UhjzLcy9vowxnaA@mail.gmail.com>
-Subject: Re: [PATCH 03/10] lib/list_sort: Switch to __nonnull_args() macro
+Date: Wed, 28 Oct 2026 11:48:16 +0200
+X-Gm-Features: AclHuK9bqVSr5ebQZT2ja4gGk1wmv0GUJ0T7y7aJfJNVsg1OI_1bv2lVUKDS3Hk
+Message-ID: <CAHp75VfJ-L5ELAttN+Fz_Co2E1KHumwLZAEMXFMhRubzgVLqug@mail.gmail.com>
+Subject: Re: [PATCH 02/10] string: Switch to __nonnull_args() macro
 To: Dmitry Ilvokhin <d@ilvokhin.com>
 Cc: Alex Deucher <alexander.deucher@amd.com>, 
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
@@ -144,9 +144,6 @@ rote:
 > standardize nonnull attribute usage across the tree and keep the
 > attribute's quirks in one place rather than open-coded at every call
 > site.
->
-> Add spaces after the commas in the __nonnull_args() argument list to
-> follow the usual coding style (according to checkpatch).
 
 Reviewed-by: Andy Shevchenko <andy@kernel.org>
 
