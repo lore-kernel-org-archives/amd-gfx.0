@@ -2,104 +2,79 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71A21606A31A
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 15:12:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19346606A31D
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 15:40:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=eY8XpGB9
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VHtM/wzi
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DF6410FD2F;
-	Wed, 28 Oct 2026 15:11:55 +0000 (UTC)
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011058.outbound.protection.outlook.com [52.101.62.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53A3410FD65
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Oct 2026 15:11:49 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TxYc5pOlfFNAJiXP0Mii/1K2LQM5iQ8R99rLnjgzhljvHhXfYO4VEMEFAzQYkZdjed5YPAoO/awXsz3+y30Ls1MWXoEPKlxUeMZNaiydWO5R3c0rzpBN2gDtGT6BNl2qrlZ7PNzD/dHxEE0onHQJINLdlF41N9CwTgeTKCdhbtxLymMIOsSruamM7iS1N0gwmtfhokhfq+GGnwhFQfcRP3897VLvUtzl+SwrBQQmnEQVEW/I9XdaZzOU+7nWLsP1elY2WQ5D3LPZAHnNwsTgiUmpbfQZoDGNUm8jeiAHrn3SMbmZrYjPRfcepWwSkR1Y6IGxYiVLG9GYyIytsM67XA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0gSU2XiTr8/7nuHu2uATFBSh8VJYLYM1YilIIwTEzLE=;
- b=HL52brg/fsFRTdgkO81lAfyR2vzMz425L0b2ShSRLl4CXqCUsfOU00c/3gihSjdfIGsjbCWEpDi+scfAZSfR/TgwWskQHck+gGgM4TNEfONnhg28YT1qNwqVZK+is3Sy1P/KPtwSJDnIwv7GW2eLDq4+cmiP5YllqLpd+iTRl1jvsq3EAr+tMIydAcZOZQoXYtW80uFmXvFRVLJU0ScoNvRkSFNM5TdPJM5rarUHgdQWALU7AeKNhSvzdBUOl5TglWxhQe/0OPLIEiCIL3072xToBFepz+Ax3AVqkHzi6mHKqLH7F7pMMKEVKkT0e4nhwSuqVxGRAa5mWF4Zcgs1wg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0gSU2XiTr8/7nuHu2uATFBSh8VJYLYM1YilIIwTEzLE=;
- b=eY8XpGB97lfMbbXnmHKSbJnlgRq8QK8qWi19flOYNnskt5AzGIWZicay9kBAnYjyXNpoZ1PvYTO54EE1LRETE7krXo6mMENDu/giXYX2XFct/Hi3tQh0GJ7H8ky9NBh0pRhqOJoxWa6weqJmSeUNQA5kkHzVbrihxuU5AK+Hzls=
-Received: from DS7PR03CA0268.namprd03.prod.outlook.com (2603:10b6:5:3b3::33)
- by DS7PR12MB5838.namprd12.prod.outlook.com (2603:10b6:8:79::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Wed, 28 Oct
- 2026 15:11:19 +0000
-Received: from DM3PEPF000265C2.namprd03.prod.outlook.com
- (2603:10b6:5:3b3:cafe::8a) by DS7PR03CA0268.outlook.office365.com
- (2603:10b6:5:3b3::33) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Wed,
- 28 Oct 2026 15:11:19 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- DM3PEPF000265C2.mail.protection.outlook.com (10.167.23.183) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Wed, 28 Oct 2026 15:11:18 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 28 Oct
- 2026 10:11:18 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 28 Oct
- 2026 10:11:18 -0500
-Received: from box-0.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Wed, 28 Oct 2026 10:11:17 -0500
-From: <ivan.lipski@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex
- Hung <alex.hung@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, "Linlin Yang"
- <yanglinlin@kylinos.cn>, Mario Limonciello <mario.limonciello@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, <stable@vger.kernel.org>, "Dillon
- Varone" <dillon.varone@amd.com>
-Subject: [PATCH] drm/amd/display: Fix __udivdi3 link error in DCN6 DML2
-Date: Wed, 28 Oct 2026 11:11:11 -0400
-Message-ID: <20261028151111.1888807-1-ivan.lipski@amd.com>
-X-Mailer: git-send-email 2.43.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id A56F210E0D4;
+	Wed, 28 Oct 2026 15:39:57 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7E3F10E0D4
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Oct 2026 15:39:51 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 06FD860534
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Oct 2026 15:39:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72C2B1F031E3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Oct 2026 15:39:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793201990;
+ bh=v/GrfVBE9REqGlviMjMV9KYA8baC9D3Z4PFL9rDyJNI=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc;
+ b=VHtM/wzid4Vjpi1ahtkrCTunBXdpMk588+yxAl/Zt7jPzQ9CgDIh+PYPt+lW+RHtD
+ XBF1ITpY/oCCREN/r3GxTTiasnxkbYCm2mrSb3zmMn23c5zknBvNx/dV5SfeyYM827
+ m45G9IzvrUp2GsXITO1BPz91FS4SrBTRct5fIYPvHF7/uja6GCRbMQHJlEDtcLZFBR
+ bBqsTOILPojBkbqP9c5uFYFLXwvDa2XYT2SFUMxRTuB6ZQzLNkssif/6urHzHO00fk
+ Skgn+ptvjMSTS3VMBezq8yREZJPVwbZdc9I441ADP3crdeclpWj7HnR60MZ9kaBb89
+ e8j26jTotaK2A==
+Received: by mail-lj1-f178.google.com with SMTP id
+ 38308e7fff4ca-3ab3dd9667dso8008411fa.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Oct 2026 08:39:50 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwin0faT4DAojn1XfCnlrAJoFKixeJYU6vBfWyz6V5qmFe2Ohzvc0JsGM2HdEAD96L4xsLWkA8F@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLy53pV0lE52V1juylPq6GQ/hT/f26lXimSqnhvibtT/z5B986Q
+ XgHxayV9CI7TrKCvGRIzN6ZJ8oKQ0iICTBUJGNvuyS4FlZbr3SG7LVjsw57MWrMPfqnHRSRr5e8
+ fXxi6Rv/pz51ePoMQ17pec0dsnrHI8YQ=
+X-Received: by 2002:a05:6512:33cb:b0:5bf:ba43:f2f1 with SMTP id
+ 2adb3069b0e04-5bfcad8c081mr1232361e87.34.1793201988873; Wed, 28 Oct 2026
+ 08:39:48 -0700 (PDT)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PEPF000265C2:EE_|DS7PR12MB5838:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6acf663b-7068-461f-a5af-08df3505b816
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|376014|36860700016|82310400026|261026140227099003|261021123027099003|56012099006|11063799006|261009223027099003|261022105027099003|10067099003|261021121427099003|261026121527099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info: Hr3I8rqbsFuKyiVrxgYO4+GmXzDYiHviV1AdaActMDdz3LHADd6Tq8uEgJUYKBFtiovnR1HnLho1PllXjTSMM2Wt707OlmVtuN83CtI0qcXeOY8CJqnAFmdB9tZ3kN0PRzgdGFbSUZpwEOmTaoVQisLIp98njS3QfyVs5GRvDlQ4/KiVvxubbUtGtb3+W/X7PVgmcRnCVDBASprhS8tCzXt932EKUro9TAHrfGcc5SLazN0C3H+2AzfL7soqDqMCwZkHC+VBEP32gL/2CmW3br1gg0fR5GTec2aJbd1cJomL9bwc+zhl+4cyS1fWGbvExl8+2FNdv//OQRIurNcU6PHnz76WBoYoAofVFANy7Z0SMEidu8KOMHGXjoNv5ZqtsnMz8m5lYjjvEUPHixtkl/jwf3hBQoR53jEf+5WqFPqRofgQBdCCBo1LrZGbwfE1xI1Yd8xKVWNEYLIXS1IZyOcHmiNWda4/tMvMnv8BDzGqhMyGM30XR5QdHW4gMpNKnB1LwFbdIYcwd2DFQi0xlGH6MxuZnBUagSEVX/0+AVSDwUuRUCDwN2Y902hxDh0c8/ajgRt9KzrUvuEgPF4zoW8gjUfske7y8RIZSv5bt4uruGkw2UJO9sLG9lZDbObAadKu/bdzuQz641z+lvniPdJEBz6k9JpvAbGJQa46TEfzI64+8GtlKeFKfKnr56nGQ0BeUzLeyDY2OMIF92tbVw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(376014)(36860700016)(82310400026)(261026140227099003)(261021123027099003)(56012099006)(11063799006)(261009223027099003)(261022105027099003)(10067099003)(261021121427099003)(261026121527099003)(18002099003)(6133799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 3ah3RPjleZCo6LPwIy6wuRolshB5wj0jK80fXmJlNF4b+NGSfgMCnz7SEEynHAKn6WzcWDuleRBuet/gyqt2poZXew4x5M8SA9l9zOKVIP+r7kntWT0BXYzhHGa6iD+v6WcjWKPh7HLhcyh14Vss7UlcF4RjRyt9FIOFaiE8nWFUHVD2kiNrKE5qwEoNXF8XPVQL+2Y5KAq+mk7VB1r5LDSwm4NXWhn1F4AYkhx+XPreEdDRmAIH7FJoL23E6OKtO+xTuafgje/qlPdOIdA5/LKMAK1kMVv/JcHgEQ5qrf+X7jxcbuOV0qKFbhr9aeN+WpPFnmPkiNHmYp0W/SGMy7F8EHdvwZ7LJqMNv22WZfpwqEby5mII5yoXAmFtRUBHCWCmQFhK9KaqNEs6khp3XX4tKknw6dN8iANgj+k1moC4rzY2sxRBVsRXw6kXrGp5
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 15:11:18.8698 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6acf663b-7068-461f-a5af-08df3505b816
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM3PEPF000265C2.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5838
+References: <20261027223847.652884-1-irogers@google.com>
+ <20261027223847.652884-5-irogers@google.com>
+ <CAJZ5v0juvZ2ZVRBkY6FxBM=NhPt9vMA3+yRugXc5u=U1jO9AXg@mail.gmail.com>
+ <CAP-5=fWVZ=7-qDRODiEQzRzhpQqribv9Morj=OoAXW_6uaW2dA@mail.gmail.com>
+In-Reply-To: <CAP-5=fWVZ=7-qDRODiEQzRzhpQqribv9Morj=OoAXW_6uaW2dA@mail.gmail.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Wed, 28 Oct 2026 16:39:37 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0i0YoOW+ueh_aZJdYVS0etuCqfrf_S0NTKzCE9_6oKxPQ@mail.gmail.com>
+X-Gm-Features: AclHuK-jtq7opXKWd_89haXf76RntnjsmSewB7PcsqPK44QRbhInXeBo-GT0LQw
+Message-ID: <CAJZ5v0i0YoOW+ueh_aZJdYVS0etuCqfrf_S0NTKzCE9_6oKxPQ@mail.gmail.com>
+Subject: Re: [PATCH v2 4/9] cpufreq: governor: Initialize kobj_type release
+ callback statically
+To: Ian Rogers <irogers@google.com>
+Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>,
+ Kees Cook <kees@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Miguel Ojeda <ojeda@kernel.org>, 
+ Danilo Krummrich <dakr@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
+ Nick Desaulniers <ndesaulniers@google.com>,
+ Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Zhihao Cheng <chengzhihao1@huawei.com>,
+ Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>, 
+ Sumanth Korikkar <sumanthk@linux.ibm.com>, Bill Wendling <morbo@google.com>, 
+ Justin Stitt <justinstitt@google.com>, driver-core@lists.linux.dev,
+ llvm@lists.linux.dev, 
+ linux-hardening@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-acpi@vger.kernel.org, 
+ linux-pm@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+ linux-sh@vger.kernel.org, linux-s390@vger.kernel.org, gfs2@lists.linux.dev, 
+ xen-devel@lists.xenproject.org, linux-mtd@lists.infradead.org, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Viresh Kumar <viresh.kumar@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,116 +85,153 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Ivan Lipski <ivan.lipski@amd.com>
+On Wed, Oct 28, 2026 at 4:36=E2=80=AFPM Ian Rogers <irogers@google.com> wro=
+te:
+>
+> On Wed, Oct 28, 2026 at 4:39=E2=80=AFAM Rafael J. Wysocki (Intel)
+> <rafael@kernel.org> wrote:
+> >
+> > On Tue, Oct 27, 2026 at 11:39=E2=80=AFPM Ian Rogers <irogers@google.com=
+> wrote:
+> > >
+> > > Export cpufreq_dbs_data_release() and set .kobj_type.release statical=
+ly
+> > > in the ondemand and conservative governors so their gov_attr_set
+> > > kobjects have a valid release callback statically initialized, matchi=
+ng
+> > > cpufreq_governor_dbs. Remove the redundant runtime assignment in
+> > > cpufreq_dbs_governor_init().
+> > >
+> > > This prepares for annotating struct kobj_type::release with
+> > > __must_init.
+> > >
+> > > Signed-off-by: Ian Rogers <irogers@google.com>
+> >
+> > Do you want stuff to be picked up by maintainers, or do you want to
+> > route it yourself?
+>
+> Hi Rafael,
+>
+> Just a quick note: I agree with Zhongqiu's feedback and the commit
+> message needs a fix.
+>
+> Regarding merging the patches, the issue with maintainers picking up
+> fixes is that the series will break the clang/llvm build without them.
+> So the maintainers need to either merge the patches (and the series be
+> rebased on top of them) or merge the series as a unit. Perhaps since
+> the patches align, merge conflicts won't happen, so maintainers
+> merging and landing the series is okay. I don't have the experience to
+> know.
 
-[Why&How]
-dchub_v2_get_sop_total_available_bandwidth_KBps() and
-dchub_v2_is_qos_bandwidth_supported_by_sop() divide 64-bit integers
-by 100. On 32-bit builds this emits a call to __udivdi3, which the
-kernel does not link.
+I'd expect the driver core to pick up the series as a whole then, so
+please feel free to add
 
-Use double-cast division instead.
+Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org> # cpufreq
 
-Fixes: 04d9a88decbc ("drm/amd/display: Add new sources for DCN6")
+to the next version of this patch.
 
-Cc: Linlin Yang <yanglinlin@kylinos.cn>
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: stable@vger.kernel.org
+Thanks!
 
-Cc: Dillon Varone <dillon.varone@amd.com>
-Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
----
- .../bounding_boxes/utm_qos_model_dchub_v2.h   | 32 +++++++++----------
- .../bounding_boxes/utm_qos_model_dchub_v3.h   |  2 +-
- 2 files changed, 17 insertions(+), 17 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/bounding_boxes/utm_qos_model_dchub_v2.h b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/bounding_boxes/utm_qos_model_dchub_v2.h
-index ebca5ddda2848..32049c17c0802 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/bounding_boxes/utm_qos_model_dchub_v2.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/bounding_boxes/utm_qos_model_dchub_v2.h
-@@ -58,27 +58,27 @@ static inline void dchub_v2_get_sop_total_available_bandwidth_KBps(
- {
- 	const struct utm_soc_operating_point *sop = &model->sops[sop_index];
- 	const struct utm_qos_model_socbb *socbb = &model->socbb;
--	uint64_t dram_available_bandwidth_KBps_nominal;
--	uint64_t fabric_available_bandwidth_KBps_nominal;
--	uint64_t dram_available_bandwidth_KBps_urgent;
--	uint64_t fabric_available_bandwidth_KBps_urgent;
-+	double dram_available_bandwidth_KBps_nominal;
-+	double fabric_available_bandwidth_KBps_nominal;
-+	double dram_available_bandwidth_KBps_urgent;
-+	double fabric_available_bandwidth_KBps_urgent;
- 
--	dram_available_bandwidth_KBps_nominal = (uint64_t) sop->uclk_khz
-+	dram_available_bandwidth_KBps_nominal = (double) sop->uclk_khz
- 			* socbb->dram_channel_count
- 			* socbb->dram_channel_width_bytes
- 			* socbb->dram_transactions_per_clock
--			* socbb->dram_derate_percent_nominal / 100;
--	dram_available_bandwidth_KBps_urgent = (uint64_t) sop->uclk_khz
-+			* socbb->dram_derate_percent_nominal / 100.0;
-+	dram_available_bandwidth_KBps_urgent = (double) sop->uclk_khz
- 			* socbb->dram_channel_count
- 			* socbb->dram_channel_width_bytes
- 			* socbb->dram_transactions_per_clock
--			* socbb->dram_derate_percent_urgent / 100;
--	fabric_available_bandwidth_KBps_nominal = (uint64_t) sop->fclk_khz
-+			* socbb->dram_derate_percent_urgent / 100.0;
-+	fabric_available_bandwidth_KBps_nominal = (double) sop->fclk_khz
- 			* socbb->fabric_datapath_to_dcn_data_return_bytes
--			* socbb->fabric_derate_percent_nominal / 100;
--	fabric_available_bandwidth_KBps_urgent = (uint64_t) sop->fclk_khz
-+			* socbb->fabric_derate_percent_nominal / 100.0;
-+	fabric_available_bandwidth_KBps_urgent = (double) sop->fclk_khz
- 			* socbb->fabric_datapath_to_dcn_data_return_bytes
--			* socbb->fabric_derate_percent_urgent / 100;
-+			* socbb->fabric_derate_percent_urgent / 100.0;
- 
- 	total_available_bandwidth->nominal_bandwidth_KBps =
- 			dram_available_bandwidth_KBps_nominal < fabric_available_bandwidth_KBps_nominal ?
-@@ -99,8 +99,8 @@ static inline bool dchub_v2_is_qos_bandwidth_supported_by_sop(
- {
- 	struct utm_qos_model_dchub_memory_path_bandwidth_v2 available_bandwidth = {0};
- 	const struct utm_qos_model_dchub_v2 *dchub = model->dchub_v2;
--	uint64_t nominal_available_bandwidth_KBps;
--	uint64_t urgent_available_bandwidth_KBps;
-+	double nominal_available_bandwidth_KBps;
-+	double urgent_available_bandwidth_KBps;
- 
- 	if (nominal_utm_budget_percent > dchub->max_nominal_utm_budget_percent ||
- 			nominal_utm_budget_percent < dchub->min_nominal_utm_budget_percent ||
-@@ -112,9 +112,9 @@ static inline bool dchub_v2_is_qos_bandwidth_supported_by_sop(
- 	nominal_available_bandwidth_KBps = available_bandwidth.nominal_bandwidth_KBps;
- 	urgent_available_bandwidth_KBps = available_bandwidth.urgent_bandwidth_KBps;
- 
--	if ((nominal_available_bandwidth_KBps * nominal_utm_budget_percent / 100) < qos_bandwidth->nominal_bandwidth_KBps)
-+	if ((nominal_available_bandwidth_KBps * nominal_utm_budget_percent / 100.0) < qos_bandwidth->nominal_bandwidth_KBps)
- 		return false;
--	else if ((urgent_available_bandwidth_KBps * urgent_utm_budget_percent / 100) < qos_bandwidth->urgent_bandwidth_KBps)
-+	else if ((urgent_available_bandwidth_KBps * urgent_utm_budget_percent / 100.0) < qos_bandwidth->urgent_bandwidth_KBps)
- 		return false;
- 	else
- 		return true;
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/bounding_boxes/utm_qos_model_dchub_v3.h b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/bounding_boxes/utm_qos_model_dchub_v3.h
-index 9390cad316914..fef7b1dc3060b 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/bounding_boxes/utm_qos_model_dchub_v3.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/bounding_boxes/utm_qos_model_dchub_v3.h
-@@ -50,4 +50,4 @@ struct utm_qos_model_dchub_v3 {
- 		sops[UTM_QOS_MODEL_V3_MAX_LOAD_LEVEL_COUNT][UTM_QOS_MODEL_V3_MAX_SOP_COUNT];
- };
- 
--#endif /* #ifndef UTM_QOS_MODEL_DCHUB_V3_H */
-\ No newline at end of file
-+#endif /* #ifndef UTM_QOS_MODEL_DCHUB_V3_H */
--- 
-2.43.0
-
+> > > ---
+> > >  drivers/cpufreq/cpufreq_conservative.c | 5 ++++-
+> > >  drivers/cpufreq/cpufreq_governor.c     | 4 ++--
+> > >  drivers/cpufreq/cpufreq_governor.h     | 1 +
+> > >  drivers/cpufreq/cpufreq_ondemand.c     | 5 ++++-
+> > >  4 files changed, 11 insertions(+), 4 deletions(-)
+> > >
+> > > diff --git a/drivers/cpufreq/cpufreq_conservative.c b/drivers/cpufreq=
+/cpufreq_conservative.c
+> > > index 02bfd46543e9..146a2353b1a2 100644
+> > > --- a/drivers/cpufreq/cpufreq_conservative.c
+> > > +++ b/drivers/cpufreq/cpufreq_conservative.c
+> > > @@ -318,7 +318,10 @@ static void cs_limits(struct cpufreq_policy *pol=
+icy)
+> > >
+> > >  static struct dbs_governor cs_governor =3D {
+> > >         .gov =3D CPUFREQ_DBS_GOVERNOR_INITIALIZER("conservative"),
+> > > -       .kobj_type =3D { .default_groups =3D cs_groups },
+> > > +       .kobj_type =3D {
+> > > +               .release =3D cpufreq_dbs_data_release,
+> > > +               .default_groups =3D cs_groups,
+> > > +       },
+> > >         .gov_dbs_update =3D cs_dbs_update,
+> > >         .alloc =3D cs_alloc,
+> > >         .free =3D cs_free,
+> > > diff --git a/drivers/cpufreq/cpufreq_governor.c b/drivers/cpufreq/cpu=
+freq_governor.c
+> > > index f3bd3dbe7c41..f8b5aca09b6b 100644
+> > > --- a/drivers/cpufreq/cpufreq_governor.c
+> > > +++ b/drivers/cpufreq/cpufreq_governor.c
+> > > @@ -419,7 +419,7 @@ static void free_policy_dbs_info(struct policy_db=
+s_info *policy_dbs,
+> > >         gov->free(policy_dbs);
+> > >  }
+> > >
+> > > -static void cpufreq_dbs_data_release(struct kobject *kobj)
+> > > +void cpufreq_dbs_data_release(struct kobject *kobj)
+> > >  {
+> > >         struct dbs_data *dbs_data =3D to_dbs_data(to_gov_attr_set(kob=
+j));
+> > >         struct dbs_governor *gov =3D dbs_data->gov;
+> > > @@ -427,6 +427,7 @@ static void cpufreq_dbs_data_release(struct kobje=
+ct *kobj)
+> > >         gov->exit(dbs_data);
+> > >         kfree(dbs_data);
+> > >  }
+> > > +EXPORT_SYMBOL_GPL(cpufreq_dbs_data_release);
+> > >
+> > >  int cpufreq_dbs_governor_init(struct cpufreq_policy *policy)
+> > >  {
+> > > @@ -488,7 +489,6 @@ int cpufreq_dbs_governor_init(struct cpufreq_poli=
+cy *policy)
+> > >         policy->governor_data =3D policy_dbs;
+> > >
+> > >         gov->kobj_type.sysfs_ops =3D &governor_sysfs_ops;
+> > > -       gov->kobj_type.release =3D cpufreq_dbs_data_release;
+> > >         ret =3D kobject_init_and_add(&dbs_data->attr_set.kobj, &gov->=
+kobj_type,
+> > >                                    get_governor_parent_kobj(policy),
+> > >                                    "%s", gov->gov.name);
+> > > diff --git a/drivers/cpufreq/cpufreq_governor.h b/drivers/cpufreq/cpu=
+freq_governor.h
+> > > index 806d8fb4dff1..1026712bb79b 100644
+> > > --- a/drivers/cpufreq/cpufreq_governor.h
+> > > +++ b/drivers/cpufreq/cpufreq_governor.h
+> > > @@ -150,6 +150,7 @@ static inline struct dbs_governor *dbs_governor_o=
+f(struct cpufreq_policy *policy
+> > >  }
+> > >
+> > >  /* Governor callback routines */
+> > > +void cpufreq_dbs_data_release(struct kobject *kobj);
+> > >  int cpufreq_dbs_governor_init(struct cpufreq_policy *policy);
+> > >  void cpufreq_dbs_governor_exit(struct cpufreq_policy *policy);
+> > >  int cpufreq_dbs_governor_start(struct cpufreq_policy *policy);
+> > > diff --git a/drivers/cpufreq/cpufreq_ondemand.c b/drivers/cpufreq/cpu=
+freq_ondemand.c
+> > > index 9942dbb38dae..7386d043c665 100644
+> > > --- a/drivers/cpufreq/cpufreq_ondemand.c
+> > > +++ b/drivers/cpufreq/cpufreq_ondemand.c
+> > > @@ -374,7 +374,10 @@ static struct od_ops od_ops =3D {
+> > >
+> > >  static struct dbs_governor od_dbs_gov =3D {
+> > >         .gov =3D CPUFREQ_DBS_GOVERNOR_INITIALIZER("ondemand"),
+> > > -       .kobj_type =3D { .default_groups =3D od_groups },
+> > > +       .kobj_type =3D {
+> > > +               .release =3D cpufreq_dbs_data_release,
+> > > +               .default_groups =3D od_groups,
+> > > +       },
+> > >         .gov_dbs_update =3D od_dbs_update,
+> > >         .alloc =3D od_alloc,
+> > >         .free =3D od_free,
+> > > --
+> > > 2.56.0.313.g2479322e68-goog
+> > >
+> > >
+>
