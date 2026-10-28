@@ -2,92 +2,92 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38AFE606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57992606A321
 	for <amd-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 13:00:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Maw9n+Tc
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TJJ/10li
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F1EB10FC52;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 804B410FC53;
 	Wed, 28 Oct 2026 13:00:08 +0000 (UTC)
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com
- [209.85.208.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACC4510FAEE
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Oct 2026 09:49:42 +0000 (UTC)
-Received: by mail-ed1-f48.google.com with SMTP id
- 4fb4d7f45d1cf-6af9a90e4bbso812356a12.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Oct 2026 02:49:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793180981; cv=none;
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
+ [209.85.218.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 41B9310FAD6
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Oct 2026 09:48:03 +0000 (UTC)
+Received: by mail-ej1-f54.google.com with SMTP id
+ a640c23a62f3a-c40e30c26a4so297058266b.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Oct 2026 02:48:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793180881; cv=none;
  d=google.com; s=arc-20260327;
- b=UD8iPL76xKIWFTgbbkpg67P3WpgvFiJ+FrWyQjxwVNc0Ruc9xOCfSuCX8EL9WUV+M0
- BDULpFA+8AterBNblWCF3h0318+hTjSUoT3lWUG7GP16MlRjDqnbyb/89sC7k7ggK8pP
- ZKn+eq9gAImwVLBCDQHt+GnP/LI6DpXJK63C3E3mBMAIoQgD6K1uQDuQCsJmc/opXen5
- 82qrEanUMrqJaG9tIcR9hfvmLBebcB52RfbNAHppLWO3OSgtOY5k1OqUPuA5r/1x4SMf
- l9zV9NvFgMWcOJ7viKi4vpGo+wQK9mRwCdvbaLzkO97SdmEInedSCMTTAlj6M5ZGqHqR
- +JcQ==
+ b=LcERnvd5aTmy4DfLZKSyEEw9nAPvhBoq/z5fF0iKabERiiNX0zSoRHC2+yqhfp4tkT
+ Ch1jy54V3R5P5DUEYSZ8UN7Bfh5v3uZ+k5IVuJLW3DrkhtQFHWCCnk05jlSI+8tUEUVh
+ aCOWUF+Ff5HdQSuKHtPEZdQJVdU6FVaaW5hY3W/V+X76VBYDzKP4/t2BM8I/kuwRJB/b
+ h0pak60WJpFcArZ+B0sCg8jddrrdDOM62Nszpl3Ltge1i7HJAullopHwSTHXzAj9u5Uq
+ 90mWUUGOMFkoiDoVI17Fk4ZeMu5ZphPpPBN5vWjFCKz0KcvZvwfsOB9fbsg381se01Pi
+ 5MBA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=OncitmhmKPxQRhu8FlY/GIP5U4Gt08ht3PeyL8T2LDg=;
- fh=BiUxISHmUmoRYlEHC2hCUKNQCyVsS68Id7ICbTNQ9Y4=;
- b=Lcnk6SdWyNP/1TFbL3kCo4xMPF327YXvpeOdkhA42I1KKvQXnlWoYfAvH5rpN4/tKY
- Tj5PaZkrt3jSPMpvDARpVSTAlvL6DHDXlQ+BN0jwkxE0I4TEgeXf+HQTGuB7VN4Q51DM
- h+Gatk19jyzM1UV0XOmmfeY1OXmEPMwjEJfHTYCAujJ11bq7bWROBuQeWYok0srSx5oA
- buvaGnQnBUZF22C1FRosXNAsWW4nnsdjb89PG1jS1XwJmOsaEk4mSB1lJWqJCfabsWdi
- 1aDzUPRwjOQwDcsn/ZIu2cRwXRtk+78EGOiYdSOi9ko8rLsOJFKSkcJ7sVdihUAvVrkY
- MCHA==; darn=lists.freedesktop.org
+ bh=Gl/4Yc6JnTMakWEbHOettwInvSk+aSwCfPGu2bGV6uw=;
+ fh=3fN+tSA1JlVKEOTSjnKW4m8BFk7k5HKEh5i5KtsBtv4=;
+ b=QXq+6aAjwYFFcARdrfQoVG4poE9dDtUq+PamUVlAr9W7TLJ5kYySEOoMHXJNmsUXII
+ ONYgKWaL99TYFg7oOrKfMWmHFDAfvLw6uIY/2CnYcWD1fuIXqTW+1skbXP87iSP/umqD
+ n0Eb4uXBEYvd9Ho9c7ZPdxZ+0jlmKp+TcKc1moEqzwPaTyUYuyfEv9yBvwiynVRmG0wv
+ 8LQrUYM/YS1vS2y8aWsvgcdUlHDXqDxPm5aHLvgQIxXat3tmPAw2Cbh+59so2j+V26oM
+ 9ffyTgd5Ldewgbg14FGKKwU1QXz1QU2lTWlL+MB/jeAKL/usrkjqULfV1uPODj0aXFGF
+ FiQg==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793180981; x=1793785781; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1793180881; x=1793785681; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=OncitmhmKPxQRhu8FlY/GIP5U4Gt08ht3PeyL8T2LDg=;
- b=Maw9n+TcH4EeZ+50zm4sza3sDbL9oGQlrvaSKk/UYKKaYdF+sdqqOo5Ba+SSTfh5+H
- yNsGSwQbLT9ze28aZp+DHmxrgvpcl5/6jG2/Kon28EiHgK+KK5YJV1FjRWgxlNdw4THc
- jXn2kh5Wqt2i4LmUXSsV/qV9F2GWFE8ivCeZZrkVK+8VOfPOSc+ZsYbDAVb5hPSgXzWk
- tTlGejzVX/A8SGO57xOR3nX7nUB1R+2Kt1568PjhjJ2VBa8uaunZs7M+7VwiMZuQz2mN
- akLfn29QZjysCK3NHRdE/mDKq4dlH53hquuZKQO2Dq8h29NWodRciIfT70BylAdMqX3P
- buIg==
+ bh=Gl/4Yc6JnTMakWEbHOettwInvSk+aSwCfPGu2bGV6uw=;
+ b=TJJ/10liITcaeE8H9+Yv1GLk575lJThMYiulDUHGJlXnyhb2D1SNbVi5EnDB2Kt0tO
+ EfHCFnMg4CWPv/CSpnMP61xnFPNYLiKYFGSgiI6p5o5M498TLPHwk/J8PQ0kULTql5ku
+ Dz4+2zQxO9KguHfrYnNyBRIkIKGbi6poqqpNQEO7Y853JHiJ+ZV01P55yz5cHuJaw2BA
+ Q5zMiS1b3MqgRzMQRTENFLE6+qhvBwzYRH09oArAKSo+4DiFXr445pIjRep3ZgCDS2tA
+ 2gGjkl3iIaKlbfa3ue4yJKiwvAnglqe0SKvcGejaTMQJZSQDyu2x+cPIOzRhzPfKeZBt
+ pfBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793180981; x=1793785781;
+ d=1e100.net; s=20260707; t=1793180881; x=1793785681;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=OncitmhmKPxQRhu8FlY/GIP5U4Gt08ht3PeyL8T2LDg=;
- b=e2DQwRqU0xi+TXInFCBzo6rFZ5TkhQFRsaEBS1NlBDEwFawLCxRXe3rQQCaXJCDpBl
- vFisJnULZsDaQv9a9gmcOFV0DOWaFwWSmAO/7SQ8YM+DJthAdAdZjI7GdbL6mlAQ2B97
- vEbsbQkfyboLkXZFP8GqOgOWWpE2XTur2KwvEh7g0JNrZkzdqr6+rrN1qJnB4KCram8V
- ddRR8TJBq1EU1qL0EDLqT7d2OHpw3xAeXL6B6/rWkqpeLBtSej0dIElM/U0uQJauD57/
- KSUj65uKlYVkyFbdjroxrbCs8c9J9v7oQSxsXrBO//CQc/znZWXnLJtbyKeh6AMbdSKx
- aFDQ==
+ bh=Gl/4Yc6JnTMakWEbHOettwInvSk+aSwCfPGu2bGV6uw=;
+ b=cnsaTx3u6VLauMAWttO7hqMCPaPXi0pAtSkOVrEZVU8bCQvv+wAc+hKu6EOrV/kG+Y
+ Y/xzcxkaSGBOBD+JBK0PJ060pALMTRIBxeCzED2zzeCWjE/dVhBdK3KLnxi6jyYVMm4w
+ TgNDXkYApUU9+u4gtVTJFxX94FeRckHoUNWMkXNh8maoRl4ddg8xGHnA6RKSKNV0x4Nm
+ uaDWruDry/sb7gpIHX7EECyNv1jGsAowQQUpaW7fyF2VqX/4BzemYnCwjp6NjESC2DUw
+ W9s/5vkMPNKl2BD776xRS5H9nDSP71a/Du0SLeCymxGcIinc1DpYgfwQSNKByrlnB7F3
+ ODJw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzgRf8dqt0ZyrhJHaR6oJYEw5o83OA2UJP5ygqtO+Onot05d2SJKAv+RzG4BG3o9P4ZYrSi3RAX@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKu2nE70IA7ZD7Pp16dfj2ggAjA4RE3uiNo6pPNyPAqhmpsSgh3
- sUxVH/ENBTOYsvAHUHUYG+VazedEESKbss7vEL5KJTF3w1zUSwnGnLU03/4qE8Qxc/GXn6WTp86
- ZJiagodjyfqBLNamYD4vyg5xTIJY3+vk=
-X-Gm-Gg: AYBFou16ldLOWgRQhClLHB9nGjUBr59ChslZGOXuMrSVYCcP1x8oEx27CBYhsah/W2o
- NHsAWrO9YozUYyAX3QGKMSlviLch4qNq0mgr4IHjn7RN8g8d8Y4KiPFYin7c2A5LqGt61GqddAx
- +Z7JMunsItDgTTR4JB/sgNu7CzONlkqnACxyHjO7mss/WxIbzPdndWNT03QrvGFYsyghdc6+hhX
- WwYqsL17oNgZv1QGB24sWt0Cv0FWCkQQpl9L+0Zo2+1VNSmERxPdgQ2mAhb3mR6vpTmpdgz8aL8
- GXjAlzc9L/WXuVh6v2LC971eS8M2BIZBBJoJ+QdeG13i2R+gzlX1bz9+x1CgrQaanf0Hl47jlgF
- Y3srduypQt/G1HsIrMCegolaBW5NBVSGdBMr1vFy7EWRGHXfBQEt51zzulWmi2SZXjshZohZ3yq
- Z4s4tu1HUG2P3ucngaS4rgQRxeNUhrkgqVPKUCKeXHJ/yT8R86g/pWckJ+rKjPbTiATkr6qi09w
- rEt6TSz4EBa6cKrgHu7H5FGdpA=
-X-Received: by 2002:a17:907:d48d:b0:c42:82ac:b6a9 with SMTP id
- a640c23a62f3a-c49bdf7de97mr167322666b.29.1793180980909; Wed, 28 Oct 2026
- 02:49:40 -0700 (PDT)
+ AKwUvBy8GlGxr8MJeebp+bf5j1HAP2eSo4Tj7sQtpYNKEAso7VOF/Rgc/viNmK6p4Qa4TntkjBREzRKm@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJjLq89SszjUb1uUSo1Aejq6CoBQliliyWTYqIoT2xdUxWX7EAJ
+ pWB3dWGzS4m0sABITX9aX9uaWkEBvR40l7GO/ztqEoAHmNtS7gxRD1uSQfIaOXMaiGCbdP6/zCN
+ KNliD052HZggPgD7O+QUJlgZFqjIsMnw=
+X-Gm-Gg: AYBFou1LRJQ4QsmVLad/e5S/2krvzPqVif/KXtP14GFpO3fHIXovzHgf7AlWlK6muxE
+ GXMzuWm9AlCtqJCJgJ4Huo1byXWIiIN2gvIQjvCi2uhcBNbYygTw7haBlAMXYCkyGrqZgAKvWJs
+ 2pKouvcjqg/wGQqnXiXC11QLMkc4WHKE5F6LHIkQCuSKfpv5AZQWGroIPClMeG3CcFQ8BQhDOgh
+ iimgBbbBolMRP+ePZMbdAECBc1qiPgG4SidgJN9TNKBaUmk/IFrtyQVXo3em0jYMGxiXA2xaQaR
+ r12Pwu1jgti1MRMwmgFur2MS+S3D7AHBT0YwSy6YMHbb9qb/5LzzKxpCXC1NqkGh3CpLn9NHdnJ
+ T31nFT5ei2nHnI3BF72tO0ERNdKhWsf0XRkvunRt0R9HUDlLIF6Z4XPXALF1qjT/soIaAKniC17
+ 3TlEj/xnKn62DDNabsiOPTFr0UcAgaioXbdT6kigRmvdYbhi8+O1UI8FoAkgRbML7c3c2M79eIs
+ jDDn6n8qoNA4BSjI739YmzZLQ==
+X-Received: by 2002:a17:907:86a5:b0:c25:f7db:4bec with SMTP id
+ a640c23a62f3a-c49c6357d34mr69949566b.18.1793180881026; Wed, 28 Oct 2026
+ 02:48:01 -0700 (PDT)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 References: <cover.1793027261.git.d@ilvokhin.com>
- <ed2b0b67c306bb458ba389f16dc92904203a104b.1793027261.git.d@ilvokhin.com>
-In-Reply-To: <ed2b0b67c306bb458ba389f16dc92904203a104b.1793027261.git.d@ilvokhin.com>
+ <580fdfbe2eb6694438cbd8f5337bd2f1edac564b.1793027261.git.d@ilvokhin.com>
+In-Reply-To: <580fdfbe2eb6694438cbd8f5337bd2f1edac564b.1793027261.git.d@ilvokhin.com>
 From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Wed, 28 Oct 2026 11:49:04 +0200
-X-Gm-Features: AclHuK-kwXGKz5n7QFXQ4iO49tQbUX582-rj9xJLuSYR3NDY9XFvg2hsu7UGHjc
-Message-ID: <CAHp75Ve71BfcWr++PfQPiOc=OURNn1-cdJey=M1xBVCb0HhHQw@mail.gmail.com>
-Subject: Re: [PATCH 08/10] leds: pwm: Switch to __nonnull_args() macro
+Date: Wed, 28 Oct 2026 11:47:24 +0200
+X-Gm-Features: AclHuK-8N84O0Y9k-BLOPVpeywTja7886uZe3ugxN4eM-96m__IvC7bzZgS0MkU
+Message-ID: <CAHp75Vedr5J1WJMrAkBjRSLKA_zf1kt3GD6UhjzLcy9vowxnaA@mail.gmail.com>
+Subject: Re: [PATCH 03/10] lib/list_sort: Switch to __nonnull_args() macro
 To: Dmitry Ilvokhin <d@ilvokhin.com>
 Cc: Alex Deucher <alexander.deucher@amd.com>, 
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
@@ -140,9 +140,13 @@ rote:
 > nonnull") added the macro __nonnull_args() to wrap raw compiler
 > attribute.
 >
-> Replace __attribute__((nonnull)) with __nonnull_args() to standardize
-> nonnull attribute usage across the tree and keep the attribute's quirks
-> in one place rather than open-coded at every call site.
+> Replace __attribute__((nonnull)) with __nonnull_args() to
+> standardize nonnull attribute usage across the tree and keep the
+> attribute's quirks in one place rather than open-coded at every call
+> site.
+>
+> Add spaces after the commas in the __nonnull_args() argument list to
+> follow the usual coding style (according to checkpatch).
 
 Reviewed-by: Andy Shevchenko <andy@kernel.org>
 
