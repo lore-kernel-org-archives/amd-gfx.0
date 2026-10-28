@@ -2,122 +2,100 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05742606A31D
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 06:33:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0297606A31A
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 08:57:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=SHgFDwSh
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=S/Ph95IL
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 975FD10F9D5;
-	Wed, 28 Oct 2026 06:33:22 +0000 (UTC)
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012033.outbound.protection.outlook.com [52.101.43.33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7BB2F10F9D5
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Oct 2026 06:33:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D4C110FA7F;
+	Wed, 28 Oct 2026 08:57:52 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010012.outbound.protection.outlook.com [52.101.46.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C324D10FA7C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Oct 2026 08:57:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ntp/NcbupeEFtbodkAP5crU0WX9ucPj9TsOTCQml/pPV8RRd32vzGol3/klY8EQY++U5vzmKymPgrN/imkydgnE8w38GXVkSoE9pwECrrg7KbVlw74fo6J4IkGyWZyiGTYEsPMMBrYJvhpbtrL900b36w5cxqWYvdhpA4GvcH7pgewbf5FNP68182yPpImIfFNmquGfl6KSdOwNbCJpKRfpTZBCZbtWfv4xxnojCULpUC1eQOkkHFAOznmyTOBRBs4rW7n5ubHfY53voZ23lxxisqKjGV9D+vW0KHf2oGA3xCWZmi3CTSnQTEgHI8rZzMIQXYfZs3XrxbDIki7Cv0g==
+ b=OX89RxT6no+udW1di7C03+jcDScYLAec9ELLDpNxkrrIhp3+74waS3Hj+nnWjeWt2ViJWZ7eIxjGBMGuH4llr3k4WTRqb394D6QE33tWCfOzODNXADHwDwM21eBXogkLQm0k5/qQEB8Z5zcSnxCUKvR2WFtaUztNbvvCiZcwleLNRAlzfC5oIVhUHPadw5dOUap+mgkYeBLStQUv2kEoPiNt6fNawX+W3pbWqEnbGHcXXz2J6Q26jCcctdk0sku4KPkJjEz328Br/KKfyuRm/9brqzKAKBMjORkz5XoektWC5MNkbdgORrwToPvb0FZWc15cOsJwHCWhkgPh5ANutA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=e2u79/7zwtt99hbXAPb1/MKffQ8TVkHeX9Czgq18YfU=;
- b=vLhJ3nxDq680wD5obpjdQnDLq1SofrvDFkTLMIuhpHwuKgeBUDt4qmYdC7oxDyhyaXFzLnw6f+BSVc75m8X3f4H4PIvlhT7C3u64LyvnoA5Yjm+ge0+9I91KvR5pL/599SbsTwjtrsG7I8iqwrQH0Lz98e8W7dBlL2EoBRvcrOd+iPrZstfICGlxN9m1i6DmGfBnipjpjGLmVJHG7ksqKra52nu/KhH57/Ulpla7zaoUEbpUiNSwavSKJjirUt+KlUAeXv8zfjNPlVMPpW/uqN9c1xxwU9oyXIVcjMW8AFqmlW1Kmt0/4bscc6Bjr3m4pn4r8ep0Vn++kHi4+OLNPA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=GM4ydBx1gJTSGjyU8HDkuWE+uZHVsUq45ic+xsnjw2s=;
+ b=smsW8t6iJjje/KF2EGX8qHV9/axSiS62HMMVPhXuybLZ1TEd/lZ6peX1r50vkJLSazC1dJzaSC9pUQ7nWwMMzRw8NLV63ozuV1HltkmuBQRdWwN7QV8Rzep9LjDO5yLhVV1tmsQV03D6sITNXzvRQl1pYX4ikXf0q1dEgyFSi+7JXIZLfsrpfUVEF576QfDcSoSO7FYey2ja7EQoGNTEVf7ijy2azQj5IxA58hyqpMCbP7qXBJ3hbHGHfud2IhS9V4EzHt0VYykkeUka010ROK8A/k/b6WDSXo2MWbk6rN9xRJ13BLM98hL1XNUg4b2pVKhcWOIO2aQox+RaGdDYlQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=e2u79/7zwtt99hbXAPb1/MKffQ8TVkHeX9Czgq18YfU=;
- b=SHgFDwShKyB+naegdPjT5Ct3PpqJu3QZwM6AxXSKVZ8MLAvXBmvl+UnqwCcCyydowJ+APfZSVnxaqT+EVTamwOTICpLuvDTh0DayR7YUuKECFb4C0lyD/hBxV8rI0Vc9sZUxLUW2X5edahkSRvqilfkC60giHh+2xEiGdu2hOnI=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SJ0PR12MB7082.namprd12.prod.outlook.com (2603:10b6:a03:4ae::12)
- by LV2PR12MB5725.namprd12.prod.outlook.com (2603:10b6:408:14c::12)
+ bh=GM4ydBx1gJTSGjyU8HDkuWE+uZHVsUq45ic+xsnjw2s=;
+ b=S/Ph95IL0EuwqG5SMpy5ctekZrj/M98UybVKPDvSJNBi3VmJtc546Jcn8UIC9cHTEHiqahRbdrpFm/sTtimJQx7XL/xNWxmdi0ZJMZia2I8YMaRu7LZ/BKf7LHvff4XGyx0nM91KFkG5nTUtLh0qp2/n7KOXHbO425EUr7LbvtY=
+Received: from MW4PR04CA0275.namprd04.prod.outlook.com (2603:10b6:303:89::10)
+ by CY8PR12MB7563.namprd12.prod.outlook.com (2603:10b6:930:96::19)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Wed, 28 Oct
- 2026 06:33:13 +0000
-Received: from SJ0PR12MB7082.namprd12.prod.outlook.com
- ([fe80::fcf5:4106:dc85:4819]) by SJ0PR12MB7082.namprd12.prod.outlook.com
- ([fe80::fcf5:4106:dc85:4819%6]) with mapi id 15.21.0546.021; Wed, 28 Oct 2026
- 06:33:13 +0000
-Message-ID: <859ab8ce-6f32-4e10-9e40-1d007ca2a714@amd.com>
-Date: Wed, 28 Oct 2026 12:03:07 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCHv2 6/8] drm/amdgpu: Enable UALink loopback mode
-To: Mukul Joshi <mukul.joshi@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Felix.Kuehling@amd.com, Harish.Kasiviswanathan@amd.com, philip.yang@amd.com
-References: <20261027195913.1794477-1-mukul.joshi@amd.com>
- <20261027195913.1794477-7-mukul.joshi@amd.com>
-Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20261027195913.1794477-7-mukul.joshi@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5PR01CA0172.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1a9::12) To SJ0PR12MB7082.namprd12.prod.outlook.com
- (2603:10b6:a03:4ae::12)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Wed, 28 Oct
+ 2026 08:57:40 +0000
+Received: from SJ5PEPF00000205.namprd05.prod.outlook.com
+ (2603:10b6:303:89:cafe::98) by MW4PR04CA0275.outlook.office365.com
+ (2603:10b6:303:89::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Wed,
+ 28 Oct 2026 08:57:40 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ5PEPF00000205.mail.protection.outlook.com (10.167.244.38) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.4 via Frontend Transport; Wed, 28 Oct 2026 08:57:39 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 28 Oct
+ 2026 03:57:39 -0500
+Received: from JesseDEV.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Wed, 28 Oct 2026 03:57:36 -0500
+From: Jesse Zhang <Jesse.Zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
+ <Lijo.Lazar@amd.com>, <timur.kristof@gmail.com>, <Mario.Novales@amd.com>, 
+ <Manu.Rastogi@amd.com>, <Jiongyu.Zhu@amd.com>, Jesse Zhang
+ <Jesse.Zhang@amd.com>
+Subject: [PATCH v3 01/15] drm/amdgpu: pass the device to the multi ring reset
+ helpers
+Date: Wed, 28 Oct 2026 16:56:32 +0800
+Message-ID: <20261028085736.3808569-1-Jesse.Zhang@amd.com>
+X-Mailer: git-send-email 2.50.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR12MB7082:EE_|LV2PR12MB5725:EE_
-X-MS-Office365-Filtering-Correlation-Id: 07c7b48e-5d3c-4616-5fd2-08df34bd576e
+X-MS-TrafficTypeDiagnostic: SJ5PEPF00000205:EE_|CY8PR12MB7563:EE_
+X-MS-Office365-Filtering-Correlation-Id: a53a0f1b-9b02-49f1-9ca0-08df34d18568
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|23010399003|261026140227099003|4143699003|11063799006|261021123027099003|56012099006|261021121427099003|261009223027099003|261022105027099003|10067099003|261022075727099003|261026121527099003|18002099003|6133799003|22082099003;
-X-Microsoft-Antispam-Message-Info: Z3QLPnZtD+bDtGYrGn0EfFxR4XOQr9cHauGpBHGMfEE6WITNklhP22KMYceSbBKIYEZ+6u7dgx7mIdGibfp9R89RipdpVqJuq4q/09y9tPpQ2QpT3h/FYcjZulCm3QKGALdL+Tg7AaKqZObLwJrEstnX0taO30JRT8ADrIVApNHEJP6faE5dx342Lw8VartndYw9YP3rFfo6LqQEoMlZMnaD3wzxfWWTUAx0FRz3vAN2BBTyWnh7HGbPp2UTBidiJyE6b98Eq275NQUiTumw/TmEUTe/1jARx+Bi1JBkHQgoT3vs63FGFflqKQZPieUYUV+y2M7fYINRO1pffVMP0HEjCvvNGFVKThDwS10337I4OoG1gK0ejZkwVTzqayx5wKeC/T+/EcXVkvUWmU+MLyn+5JwT3Ae1ccsNFxZNd0dmMiLFFu7SOglVKVCV2OKZWjgrp/kEqk9lqMWxWrsXL5tGPYVdVsZBjdigFRNff+/hu6VKApmvJUVBGlhFz1vZjOzdFJCiH5/rau1XItUV5u8Nufkko9CuIonTSMj9+8rqcpd/M3h5uW8SLPoYKwwPssI2NwnZLRCVZjh7kC/J6fTj+UHuaf1GuSBhCLSKalkM+hY4w9OcbWbfCwc5QWNiUFavnoVpnSCIOPMk8DtmeAesy/XAD4FYySYnB6KZlPo=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ0PR12MB7082.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(261026140227099003)(4143699003)(11063799006)(261021123027099003)(56012099006)(261021121427099003)(261009223027099003)(261022105027099003)(10067099003)(261022075727099003)(261026121527099003)(18002099003)(6133799003)(22082099003);
+ ARA:13230040|1800799024|23010399003|376014|82310400026|36860700016|11063799006|56012099006|261009223027099003|261022105027099003|261026121527099003|261026140227099003|261021121427099003|261021123027099003|10067099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info: t/0JThK+U9aku9+cFXjmpez6EDoHzfbU1KB80eb2jrSoMyK0Q4yHSnsmutQZn/8jdPlZxst7++UOnFaCBuNI/QqPLwvf0Gw1CJAswB1+CxeodmfZU3PBcoafjkqqFMuwEnQPL+yLpVjuGCRX85Jz/lSXvtdOZ7OZ7+Bcnm2Xv1ecDyB3L2MIf21w8M2xzNlNAqlfshksPilZhXNtxT+enVLxxqImYx9hkbNUHJdfswfrDZiawDnlAtzEqfku1qfOFfrnNqNSStqbdbJWCkXeeO07/TRN5P8B///ckkXKqtNWtwQ48Wlze2xs+yzei77NpzukCGpXCxkciNFbqyW5u1tvYhLBMgYJ5xMfV8nzJa4mZ2xeikwfGDmgLqu4H6uQtUIhr2nrKdrFbkwIMek3pDV96oYYff95N7QM7nR3EkNE1nLLAZqxsaZqSrsRTIyLUTmrN/Glfj5bEgac/qI6FZmt2nyLtQf6bSqDMHTld3kiIUJztntvJf3yfKzb78pmiAYUt2TOMhIKueQG2F1fqLelpaLKEc1UqF7AvAps9dr/z6iTRnQAhwcCoCm3AniJwDmRC0kKAtTD+L6AmPw/sPi0DamgyI/nJDiiLXuHk1qILMF4vOo8oVooVFgSLrhr5+I65LoIzh56J3Cj1Esh59CiAICdqBYFgwohJ1CZ08sIRn3nPSoUZleoSjebtjSqhMf9tBgnYlkGFx2ZUf+Frg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(23010399003)(376014)(82310400026)(36860700016)(11063799006)(56012099006)(261009223027099003)(261022105027099003)(261026121527099003)(261026140227099003)(261021121427099003)(261021123027099003)(10067099003)(18002099003)(6133799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VU90VXg5amc3OGhDUW1tb2Fjb0dpUHJkZFdHR0FaQnNDc29pZkxlbVE1d09F?=
- =?utf-8?B?WnNQeTZHY2s3NDY4VlNvWEMrL0IwYmNQNDQ4L1pDcXY0VHFHTW9KelhlYnh2?=
- =?utf-8?B?bXlmc29uaVZrcVpRemVycWR5S2VnWGdwK0orR2tOWVBONGpkVy9LcldZN0ly?=
- =?utf-8?B?SGc2Q1h2aGVtM0NLSmtpa1UxSmdRT0xsY3ZPWkxpMzkvWnhGYkdNeGk4ZDNn?=
- =?utf-8?B?a0pTRXpZYk94WERoVm9mZ0cybVZQTHJwS1k2MUNlODlGaDNkWHQ4UmczSTZH?=
- =?utf-8?B?MGtxUlM4WlhsdTRQZUNYODRNYzdvckR4Qm1aVWVlSWJiKzdQZTB6UUluWC93?=
- =?utf-8?B?NmNRRjk0ODFlc2hhb202M1FaR3ExRmJGOHZ6QzNmYTlURzd2eEhuZ09GYXRU?=
- =?utf-8?B?a1NnNjlIcndYN2M5aURYNnlBZmMxeDdpY3JIZ0h3ZG9lNmNKSUxaOThYS1RJ?=
- =?utf-8?B?bmgraHZ4Z3pxMjhrVlViSGJBY0V6QUd6REpvTUNGQzN3R0FzYkU2R1BqdHZB?=
- =?utf-8?B?bXU1Ny9USVd2SUJ4YzFMMkpYcXBZQmp3RFp2ZUdhY1B6UWtYSE42ZDVnUVZ6?=
- =?utf-8?B?K3FxSG1oaWdRMjlGdDhLQ3hDT29UcFRwamx3REtLejU2OEpON0VmTFYvMmdK?=
- =?utf-8?B?N1RLNTBwOVJCczBNTDViMERENUJ2SGthWC9kQVR1bWNSa2tsaUQrTll2dkRB?=
- =?utf-8?B?YWhyV2p2QUUxazYrZHZsNWJmR3pGeFhRRkVZTlBla2hFeFpXMnREWGdQMHdK?=
- =?utf-8?B?VWI1Ui8zTzdMdVl6ZTZwc1JMTkhWSmhpcytrRVhLekVSbUdXR28wWU5iQlpI?=
- =?utf-8?B?OFVIUFJzcFpOUGJ3M01VZlVBRGR5VmFTdWVGaUtGVXpiRUFjVzNPUVM3ZElp?=
- =?utf-8?B?UmZHUHltM2pIdElFV2dLeXZORDN1WnhhMUFyb1pTS2hZOThSdEVhV2pKMWF1?=
- =?utf-8?B?Mm1mWFVXd1EreUt4cFRyai9YVGxVa2ZJMm51K2pTRjhSUC8velJHRm5sSmls?=
- =?utf-8?B?OTczUEVpS0doc3BaOXgzOXdYbmFTbk1YWE1MY0xQVVZPajRNYWRURXZtV2dt?=
- =?utf-8?B?cmZOTWYyeEExVHhrMy9IUUlHcE1uc1lkMDZ5dk5QRTFNbGF1VDZxT0ZYUy9C?=
- =?utf-8?B?c0l4ekdHOGtYNmZnMXV1bTRHNGxCbGlycnlHaklqeUFFcjhNMUtzTnlGRm9W?=
- =?utf-8?B?dFh1SE1id213L204aWtQd2d5TjBxYitUVkVFZnVrMzZNRUEwT0Z6amdOK1ZO?=
- =?utf-8?B?RTBnVVAwKzZ0bWVwNW1VdzlNeDJqZTZCWnFwa084NXNKUzZjbTJHa01GY3Uv?=
- =?utf-8?B?L2dyeGVUOWdnU3RsVm8xU3l6eUxJVFRKc014MEJlNThqVFlOQ0xoQnJKeUUy?=
- =?utf-8?B?WUQ2L3kvaG45TGtMK2JCclpDaFZJcWFxU2V6S0ljMzBaMUppUEdxWVJCRUtx?=
- =?utf-8?B?TGNESGl0TjFrNTVnM0ozWm1GNTROTFduZDRrU1pZOWFOUEhSdXpDeHkzeUti?=
- =?utf-8?B?NjA1WTZKeWxlRTNaRCtxQ0VoZi8yY3VZS2RYdVVCNzB1K3Q5ZFY5cU1BbjZ6?=
- =?utf-8?B?cUVlTEM4VW1PYTF2VEtOUDRVTFpuUUswNzFnWHdJdlVBZm5OSEoyZS9zZEJm?=
- =?utf-8?B?VElXV201Umg1eWVYK21PN1hJY2t0VEovUlErR2x3N2dWZWdlZVNRRFZCZUtu?=
- =?utf-8?B?aktEWjJmZGtxMHBYMTVZdXBjTzRkSVlBc0lQc2FRUzR3eWN6LzV0OXYzVEVK?=
- =?utf-8?B?Syt3bytOWGhYYnNGZVBZZEt4YmptVTllMnJNQ2FkWFhocUhoY3lLZlU4dlJh?=
- =?utf-8?B?c1gxYTJ6QUJ6aENuaWUzZThSakpsS0hudjVDMzNXTTdsd1RqcjNjK1kvOEhh?=
- =?utf-8?B?OERWMXc2bkR5aDcvMDlXNDRmb0ZpdFdOdmsvbngzcjNaZ3VmSnp4Y2VLaG5M?=
- =?utf-8?B?cHUrcU1MWDNYVERvZTVhc1dnc05GTENrSGZmNGlGZlBLTlpRMlRCdzZadVl3?=
- =?utf-8?B?YUQyY0pPNldsNFZoR0R3YVUycVVoUGxRRVFwUkFIY1FoQXJ2UXpYZHU1VXdC?=
- =?utf-8?B?eWltcll2SGJsR0pOZmVPckVIQ2Z2UC85bU95cnNDdEptWFRqa09CdDU4R0NW?=
- =?utf-8?B?Sm00KzFyY09nKzc1Y211VHp5YWhLeE9XR3VQc25rbWU1SmF6aVRzYTRJU04z?=
- =?utf-8?B?LytEVEkreUs5Y2VPaG9nNjR6YU1hY2FzMm9WNmJKNU5rWU9Ib0F0SWhhbVlD?=
- =?utf-8?B?Q0Urb1BwZThqWEovVEpvMkp4VzNETHhhUkNCaVBLOXBLUnYyUzZPY2lEdEVI?=
- =?utf-8?Q?MadgqKZu71u2rDJdva?=
+X-MS-Exchange-AntiSpam-MessageData-0: T8aJEQrjuXz91+wz5j1iqS2OFOFH0mh/mECKY+VgYizi4VkE5VFElZQ9IFbFEvdFqK2v8clGINyo/oiSZh3u0L8mbJKf5NvmyPFVTBk04AGfq2VUf988DSYT8pZSc3+DWs/s1cLUTPB4LG6GZNAaaGaRYuhWZQ5fmuxNBb+IVl8BKzVjsF1l60bjdVXiQRYiCsixRN2SswyL7yO/HesEP2HmCUdCkQ5SdjapDmtXE8MAoERBi23lVzjbiVpbA8sXXiGz+46HpnURtbH71Z7n/aStlRDG1R9CmdzbymylOveG7ntq3Y/c3igveuMRXZhyV+9nTCN2p3qNkfA+8ijHCkXw9Wb4PKL83b1nEYRr4KWOpuZvQV/XdVceglC++t/+P+3eyz9WN6T20y/cq4OW0n0bQXbsrKfU8Ycej6A8jFDIvqnvsM0Yltifnf7t+O9j
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 07c7b48e-5d3c-4616-5fd2-08df34bd576e
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB7082.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 06:33:13.3198 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 08:57:39.9649 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a53a0f1b-9b02-49f1-9ca0-08df34d18568
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: S45zaXHrT4CIskw34tNgZLdEbo6weWEUh23dZnn/YG2akgvEvvL+cJfEUzZnNv0M
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5725
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF00000205.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7563
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,213 +106,116 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+amdgpu_multi_ring_reset_helper_begin() and _end() take the device from
+the guilty ring. A reset triggered by a hung user queue has no guilty
+kernel ring, so pass the device explicitly and allow a NULL guilty ring.
 
+No functional change.
 
-On 28-Oct-26 1:24 AM, Mukul Joshi wrote:
-> In UALink loopback mode a single GPU acts as both the exporter (accel
-> ID 1) and the importer (accel ID 0). This lets the existing tests export
-> a BO and import it on the same device, traversing the UALink HW
-> pipeline.
-> 
-> Add amdgpu_ualink_loopback_detect(), the single place that decides
-> whether loopback is enabled. It runs right after the UALink info is
-> queried from PSP, before any per-peer setup. When loopback is enabled:
-> 
-> - There is no user-space agent to configure the pod, so synthesize the
->    pPod/vPod configuration with both accel IDs active.
-> 
-> - Activate the device directly instead of through the cross-GPU vpod
->    activation path, which needs peer GPUs and a user-space vpod commit.
-> 
-> The mechanism that requests loopback mode is added separately, so
-> amdgpu_ualink_loopback_requested() returns false for now. The normal
-> activation path is unchanged when loopback is not enabled.
-> 
-> Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 128 ++++++++++++++++++++-
->   1 file changed, 123 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-> index e6272446ff4f..14b9c05a0f0f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-> @@ -63,6 +63,7 @@ static int amdgpu_ualink_ring_resync_ptrs(struct amdgpu_device *adev,
->   static int amdgpu_ualink_loopback_self_interrupt(struct amdgpu_device *adev,
->   						 u32 sender_accel_id, u32 dw0,
->   						 u32 dw1, u32 dw2, u32 dw3);
-> +static void activate_accelerator(struct amdgpu_device *adev);
->   
->   #define STRIP_NPA(addr)						\
->   	(((u64)(addr) & ~AMDGPU_UALINK_NPA_ADDR_GPUID_MASK))
-> @@ -93,19 +94,130 @@ static int amdgpu_ualink_drm_client_create(struct amdgpu_device *adev)
->   }
->   
->   /*
-> - * amdgpu_ualink_loopback_init - set up UALink loopback mode
-> + * amdgpu_ualink_loopback_requested - check whether UALink loopback is requested
->    *
-> - * Called once loopback mode has been detected. Allocates the ordered
-> - * workqueue used to emulate exporter->importer interrupts in SW.
-> + * There is no mechanism to request loopback mode yet, so it stays disabled.
-> + */
-> +static bool amdgpu_ualink_loopback_requested(struct amdgpu_device *adev)
-> +{
-> +	return false;
-> +}
-> +
-> +/*
-> + * amdgpu_ualink_loopback_detect - detect UALink loopback mode
-> + *
-> + * This is the only place that decides whether loopback mode is enabled. It
-> + * must run before any per-peer setup, since enabling loopback changes the
-> + * accelerator IDs returned by ualink_exp_accel_id() and ualink_imp_accel_id().
-> + */
-> +static void amdgpu_ualink_loopback_detect(struct amdgpu_device *adev)
-> +{
-> +	if (!amdgpu_ualink_loopback_requested(adev))
-> +		return;
-> +
-> +	adev->ualink.loopback.enabled = true;
-> +	adev->ualink.loopback.exporter_accel_id =
-> +		AMDGPU_UALINK_LOOPBACK_EXPORTER_ACCID;
-> +	adev->ualink.loopback.importer_accel_id =
-> +		AMDGPU_UALINK_LOOPBACK_IMPORTER_ACCID;
+Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c   |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 14 ++++++++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |  6 ++++--
+ 3 files changed, 14 insertions(+), 10 deletions(-)
 
-A better place for this is amdgpu_ualink_loopback_populate_info which 
-fills all the static info for loopback mode.
-
-Then you may deprecate requested() also as detect() is good enough to 
-find whether loopback mode is requested and sets loopback enabled.
-
-Thanks,
-Lijo
-> +}
-> +
-> +/*
-> + * amdgpu_ualink_loopback_populate_info - synthesize pPod/vPod config for loopback
-> + *
-> + * In loopback there is no user-space agent (AIFM / xncmdclient) writing the
-> + * UALink sysfs nodes to configure the pod, so populate adev->ualink.info
-> + * directly. The layout is fixed and known: a single GPU alone in its own
-> + * physical pod, presented as accelerator ID 1 (the exporter) and also owning
-> + * accelerator ID 0 (the importer). The values are made self-consistent so
-> + * check_vpod_info() would pass and amdgpu_ualink_metadata_init() programs the
-> + * importer's ring buffers / GART NPA mappings / MP nHT receive metadata.
-> + */
-> +static void amdgpu_ualink_loopback_populate_info(struct amdgpu_device *adev)
-> +{
-> +	struct amdgpu_ualink_info *info = adev->ualink.info;
-> +	u32 exporter = adev->ualink.loopback.exporter_accel_id; /* 1 */
-> +	u32 importer = adev->ualink.loopback.importer_accel_id; /* 0 */
-> +
-> +	/* Physical pod: this GPU is presented as the exporter accel ID in its
-> +	 * own pod. ppod.size must be large enough to contain both the exporter
-> +	 * and importer accel IDs. ppod.id must be unique within the system
-> +	 * (matters for 1P4G, where every loopback GPU is its own physical pod).
-> +	 */
-> +	info->ppod.accel_id = exporter;
-> +	info->ppod.size = max(exporter, importer) + 1;	/* == 2 */
-> +	uuid_gen(&info->ppod.id);
-> +
-> +	/* Virtual pod: mark BOTH the exporter and the importer active so the
-> +	 * per-peer setup (amdgpu_ualink_metadata_init()) programs the importer's
-> +	 * resources for the importer accel ID. Preserve the address mode queried
-> +	 * from firmware if it is valid (keeps source-identification HW working),
-> +	 * otherwise default to source-aliasing (MI450).
-> +	 */
-> +	info->vpod.id = 0;
-> +	info->vpod.size = 2;
-> +	if (info->vpod.addr_mode >= AMDGPU_UALINK_ADDR_MODE_MAX)
-> +		info->vpod.addr_mode = AMDGPU_UALINK_ADDR_MODE_SOURCE_ALIAS;
-> +	bitmap_zero(info->vpod.active_accel_bits, AMDGPU_UALINK_ACCEL_MAX);
-> +	set_bit(exporter, info->vpod.active_accel_bits);
-> +	set_bit(importer, info->vpod.active_accel_bits);
-> +
-> +	/* Only the exporter (this GPU's own accel ID) is a local accelerator;
-> +	 * the importer is reached through the (loopback) remote/NPA path.
-> +	 */
-> +	info->n_local_accels = 1;
-> +	info->local_accels[0] = exporter;
-> +
-> +	/* Mark the pod vpod-configured so the activation path proceeds. */
-> +	info->accel_state = AMDGPU_UALINK_ACCEL_STATE_VPOD_CONFIGURED;
-> +}
-> +
-> +/*
-> + * amdgpu_ualink_loopback_activate - bring up the UALink manager for loopback
-> + *
-> + * The normal activation is driven by the sysfs vpod_config/commit path via
-> + * activate_local_vpod(), which derives the local accelerators from peer GPUs
-> + * and runs a cross-GPU integrity check. Neither applies in loopback (the
-> + * importer is not a separate GPU), so activate this device directly.
-> + */
-> +static int amdgpu_ualink_loopback_activate(struct amdgpu_device *adev)
-> +{
-> +	mutex_lock(&mgpu_info.mutex);
-> +	activate_accelerator(adev);
-> +	mutex_unlock(&mgpu_info.mutex);
-> +
-> +	if (adev->ualink.info->accel_state < AMDGPU_UALINK_ACCEL_STATE_ACTIVE) {
-> +		dev_err(adev->dev, "UALink loopback activation did not reach ACTIVE\n");
-> +		return -EIO;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +/*
-> + * amdgpu_ualink_loopback_init - set up and activate UALink loopback mode
-> + *
-> + * Called once loopback mode has been detected, after the initial pod/vpod
-> + * configuration has been queried into adev->ualink.info. Synthesizes the pod
-> + * configuration (there is no user-space agent to write the UALink sysfs nodes
-> + * in loopback), allocates the ordered workqueue used to emulate
-> + * exporter->importer interrupts in SW and activates the device.
->    */
->   static int amdgpu_ualink_loopback_init(struct amdgpu_device *adev)
->   {
-> +	amdgpu_ualink_loopback_populate_info(adev);
-> +
->   	adev->ualink.loopback.wq =
->   		alloc_ordered_workqueue("amdgpu_ualink_loopback", 0);
->   	if (!adev->ualink.loopback.wq)
->   		return -ENOMEM;
->   
-> -	return 0;
-> +	dev_info(adev->dev,
-> +		 "UALink loopback enabled (exporter accel %u, importer accel %u)\n",
-> +		 adev->ualink.loopback.exporter_accel_id,
-> +		 adev->ualink.loopback.importer_accel_id);
-> +
-> +	return amdgpu_ualink_loopback_activate(adev);
->   }
->   
->   static void amdgpu_ualink_object_fini(struct amdgpu_device *adev)
-> @@ -495,10 +607,16 @@ int ualink_ip_late_init(struct amdgpu_ip_block *ip_block)
->   	if (r)
->   		return r;
->   
-> +	amdgpu_ualink_loopback_detect(adev);
-> +
->   	scoped_guard(mutex, &mgpu_info.mutex) {
->   		amdgpu_ualink_info_set_accel_state(adev, adev->ualink.info,
->   						   cfg_state);
-> -		__amdgpu_ualink_activate_vpod_locked(adev);
-> +		/* Loopback has no peer GPUs and no user-space vpod commit, so it
-> +		 * cannot use the normal cross-GPU activation path.
-> +		 */
-> +		if (!adev->ualink.loopback.enabled)
-> +			__amdgpu_ualink_activate_vpod_locked(adev);
->   	}
->   
->   	if (adev->ualink.loopback.enabled) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c
+index 734f2a0bc79a..d0b0d3eaffc5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c
+@@ -465,11 +465,11 @@ int amdgpu_device_ip_soft_reset(struct amdgpu_ring *guilty_ring,
+ 	ring_type_mask = amdgpu_ring_mask_from_ip(ip_type);
+ 
+ 	amdgpu_device_lock_reset_domain(adev->reset_domain);
+-	amdgpu_multi_ring_reset_helper_begin(ring_type_mask, guilty_ring, guilty_fence);
++	amdgpu_multi_ring_reset_helper_begin(adev, ring_type_mask, guilty_ring, guilty_fence);
+ 
+ 	r = ip_block->version->funcs->soft_reset(ip_block);
+ 
+-	r = amdgpu_multi_ring_reset_helper_end(ring_type_mask, guilty_ring, r);
++	r = amdgpu_multi_ring_reset_helper_end(adev, ring_type_mask, guilty_ring, r);
+ 	amdgpu_device_unlock_reset_domain(adev->reset_domain);
+ 
+ 	if (r) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+index 7b67e8cecca2..edae764eb0c4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+@@ -919,8 +919,9 @@ int amdgpu_ring_reset_helper_end(struct amdgpu_ring *ring,
+ /**
+  * amdgpu_multi_ring_reset_helper_begin() - Prepare multiple rings for a reset.
+  *
++ * @adev: amdgpu device
+  * @ring_type_mask: Bitmask of affected ring types
+- * @guilty_ring: The ring which is guilty of causing a reset.
++ * @guilty_ring: The ring which is guilty of causing a reset, or NULL.
+  * @guilty_fence: The fence which didn't signal on the guilty ring.
+  *
+  * Useful when performing a GPU reset method that affects
+@@ -938,11 +939,11 @@ int amdgpu_ring_reset_helper_end(struct amdgpu_ring *ring,
+  * After the reset is complete, the caller should then call
+  * amdgpu_multi_ring_reset_helper_end() to restore the rings.
+  */
+-void amdgpu_multi_ring_reset_helper_begin(const u32 ring_type_mask,
++void amdgpu_multi_ring_reset_helper_begin(struct amdgpu_device *adev,
++					  const u32 ring_type_mask,
+ 					  struct amdgpu_ring *guilty_ring,
+ 					  struct amdgpu_fence *guilty_fence)
+ {
+-	struct amdgpu_device *adev = guilty_ring->adev;
+ 	struct amdgpu_fence *ring_guilty_fence;
+ 	struct amdgpu_ring *ring;
+ 	bool rings_busy;
+@@ -1034,8 +1035,9 @@ void amdgpu_multi_ring_reset_helper_begin(const u32 ring_type_mask,
+ /**
+  * amdgpu_multi_ring_reset_helper_end() - Prepare multiple rings for a reset.
+  *
++ * @adev: amdgpu device
+  * @ring_type_mask: Bitmask of affected ring types
+- * @guilty_ring: The ring which is guilty of causing a reset.
++ * @guilty_ring: The ring which is guilty of causing a reset, or NULL.
+  * @ret: Return code from the reset function.
+  *
+  * After calling amdgpu_multi_ring_reset_helper_begin()
+@@ -1046,10 +1048,10 @@ void amdgpu_multi_ring_reset_helper_begin(const u32 ring_type_mask,
+  * be called to restore preemption state, but it won't attempt to
+  * fully restore the ring contents.
+  */
+-int amdgpu_multi_ring_reset_helper_end(const u32 ring_type_mask,
++int amdgpu_multi_ring_reset_helper_end(struct amdgpu_device *adev,
++				       const u32 ring_type_mask,
+ 				       struct amdgpu_ring *guilty_ring, int ret)
+ {
+-	struct amdgpu_device *adev = guilty_ring->adev;
+ 	struct amdgpu_ring *ring;
+ 	int i, r;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+index b2040f80b7f2..7e6ed43771f2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+@@ -637,10 +637,12 @@ void amdgpu_ring_reset_helper_begin(struct amdgpu_ring *ring,
+ 				    struct amdgpu_fence *guilty_fence);
+ int amdgpu_ring_reset_helper_end(struct amdgpu_ring *ring,
+ 				 struct amdgpu_fence *guilty_fence);
+-void amdgpu_multi_ring_reset_helper_begin(const u32 ring_type_mask,
++void amdgpu_multi_ring_reset_helper_begin(struct amdgpu_device *adev,
++					  const u32 ring_type_mask,
+ 					  struct amdgpu_ring *guilty_ring,
+ 					  struct amdgpu_fence *guilty_fence);
+-int amdgpu_multi_ring_reset_helper_end(const u32 ring_type_mask,
++int amdgpu_multi_ring_reset_helper_end(struct amdgpu_device *adev,
++				       const u32 ring_type_mask,
+ 				       struct amdgpu_ring *guilty_ring, int ret);
+ bool amdgpu_ring_is_reset_type_supported(struct amdgpu_ring *ring,
+ 					 u32 reset_type);
+-- 
+2.50.1
 
