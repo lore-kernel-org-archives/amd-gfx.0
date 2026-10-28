@@ -2,26 +2,26 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79344606A31A
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 13:00:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80425606A31E
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 13:00:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ilvokhin.com header.i=@ilvokhin.com header.a=rsa-sha256 header.s=mail header.b=s1G4iNj7
+	dkim=pass (1024-bit key, unprotected) header.d=ilvokhin.com header.i=@ilvokhin.com header.a=rsa-sha256 header.s=mail header.b=VVlo1g2c
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17D4810FC54;
-	Wed, 28 Oct 2026 13:00:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 135ED10FC59;
+	Wed, 28 Oct 2026 13:00:49 +0000 (UTC)
 Received: from mail.ilvokhin.com (mail.ilvokhin.com [178.62.254.231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE57E10E5C4;
- Wed, 28 Oct 2026 08:30:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D674010FA41;
+ Wed, 28 Oct 2026 08:30:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ilvokhin.com;
- s=mail; t=1793175635;
- bh=DLae2gx4aGYIpiU/bvQJfKJhKs4nNCXiSW/qMDyeW24=;
+ s=mail; t=1793175636;
+ bh=FiKV5NXJkUgnsMcI+sXb0n0HNmp3jB2cH055fflH0Yk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=s1G4iNj7/OxMe3QEsIAEnZ0bhFm524AJi+UtsiJDNZZkymmDz57s/cSBMC+SkARw3
- i3VKwlDdDVQAtn3D0ok4bdXGCRiRr75QTXzaZRCjPUoxQd2Dwf/537SkAttNRm5m+i
- dIZin/56CDIf1Rz1jHjqkNsZ3h7kYtj+ZQxQXxGI=
+ b=VVlo1g2cdt+56K8mWNs+kTnpuMnj6v1NqMXFWNclXmipKK5Opz7hXWMThpTbOSgyj
+ eOL9BeLA9artebTwUe3aomW3AQpvt1PlkLxI2lRkk5FAhY0kJkXeOLwyoZBdm+iTWu
+ I8Pef11LheXSvHn1Q8Fn9g/yAIYYO1mDlqVjQ0aw=
 Received: from localhost.localdomain (shell.ilvokhin.com [138.68.190.75])
  (Authenticated sender: d@ilvokhin.com)
- by mail.ilvokhin.com (Postfix) with ESMTPSA id 67144FBCF7;
+ by mail.ilvokhin.com (Postfix) with ESMTPSA id E3709FBCFD;
  Wed, 28 Oct 2026 08:20:35 +0000 (UTC)
 From: Dmitry Ilvokhin <d@ilvokhin.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
@@ -50,9 +50,9 @@ Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
  linux-doc@vger.kernel.org, Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
  Dmitry Ilvokhin <d@ilvokhin.com>
-Subject: [PATCH 05/10] drm/i915: switch to __nonnull_args() macro
-Date: Wed, 28 Oct 2026 08:19:44 +0000
-Message-ID: <33ec8080594f9f4ef1d50e36497339c9a6897393.1793027261.git.d@ilvokhin.com>
+Subject: [PATCH 06/10] drm/amdgpu: switch to __nonnull_args() macro
+Date: Wed, 28 Oct 2026 08:19:45 +0000
+Message-ID: <d57489b8bec240794a7a8aaac6e1e3e0d78ea331.1793027261.git.d@ilvokhin.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <cover.1793027261.git.d@ilvokhin.com>
 References: <cover.1793027261.git.d@ilvokhin.com>
@@ -89,51 +89,22 @@ in one place rather than open-coded at every call site.
 Suggested-by: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
 Signed-off-by: Dmitry Ilvokhin <d@ilvokhin.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_object.h | 4 ++--
- drivers/gpu/drm/i915/i915_request.h        | 4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-index a2f4b6758a65..648d0b4139cf 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
-@@ -127,7 +127,7 @@ __deprecated
- struct drm_gem_object *
- drm_gem_object_lookup(struct drm_file *file, u32 handle);
- 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 8f0720a77520..c238564b4a31 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -307,7 +307,7 @@ static int amdgpu_ttm_map_buffer(struct amdgpu_ttm_buffer_entity *entity,
+  * move and different for a BO to BO copy.
+  *
+  */
 -__attribute__((nonnull))
 +__nonnull_args()
- static inline struct drm_i915_gem_object *
- i915_gem_object_get(struct drm_i915_gem_object *obj)
- {
-@@ -135,7 +135,7 @@ i915_gem_object_get(struct drm_i915_gem_object *obj)
- 	return obj;
- }
- 
--__attribute__((nonnull))
-+__nonnull_args()
- static inline void
- i915_gem_object_put(struct drm_i915_gem_object *obj)
- {
-diff --git a/drivers/gpu/drm/i915/i915_request.h b/drivers/gpu/drm/i915/i915_request.h
-index b09135301f39..f559203c332d 100644
---- a/drivers/gpu/drm/i915/i915_request.h
-+++ b/drivers/gpu/drm/i915/i915_request.h
-@@ -437,12 +437,12 @@ void i915_request_cancel(struct i915_request *rq, int error);
- long i915_request_wait_timeout(struct i915_request *rq,
- 			       unsigned int flags,
- 			       long timeout)
--	__attribute__((nonnull(1)));
-+	__nonnull_args(1);
- 
- long i915_request_wait(struct i915_request *rq,
- 		       unsigned int flags,
- 		       long timeout)
--	__attribute__((nonnull(1)));
-+	__nonnull_args(1);
- #define I915_WAIT_INTERRUPTIBLE	BIT(0)
- #define I915_WAIT_PRIORITY	BIT(1) /* small priority bump for the request */
- #define I915_WAIT_ALL		BIT(2) /* used by i915_gem_object_wait() */
+ static int amdgpu_ttm_copy_mem_to_mem(struct amdgpu_device *adev,
+ 				      struct amdgpu_ttm_buffer_entity *entity,
+ 				      const struct amdgpu_copy_mem *src,
 -- 
 2.53.0-Meta
 
