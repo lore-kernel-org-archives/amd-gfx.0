@@ -2,76 +2,69 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B6CD606A31A
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 11:39:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2C9B606A31A
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 11:44:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NCqulnQV
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jRmzhIrh
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A7D1810FB6F;
-	Wed, 28 Oct 2026 11:39:17 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 75D7610FB6F
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Oct 2026 11:39:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5193610FBBA;
+	Wed, 28 Oct 2026 11:44:30 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06BBF10FBB2;
+ Wed, 28 Oct 2026 11:44:24 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1C11144009
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Oct 2026 11:39:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0040F1F031E3
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Oct 2026 11:39:10 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 0AA51601F8;
+ Wed, 28 Oct 2026 11:44:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8767F1F01825;
+ Wed, 28 Oct 2026 11:44:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793187551;
- bh=sOScShlNJOoFQgumDsqaC2sVgmpV4+y6Yzg+EW5P6X4=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc;
- b=NCqulnQV1h+oVFLj/JhvH88k7PyrmAZ6XFGU/jiu5vwmg6MjMT387K4TYKodpqyNq
- MA0BGC2UYvKstLU/+8/cU5Hij1Qun59tjJw/DfIwq+KOZ2E09VTvYib4JyxzD8A5vR
- 9FMKKj0khUwFeMGpJ36F9Yqb8MQuFJfMvFW+1Xa1LhcKkL7/unEYyqXLa8aM1bpZEA
- 8dVngYrjEWSjp8xk5SkQO9dzrkVfgOUKD2fJzEqMBvE5ibg3bcu5KhMtDARfyRNLPC
- kqtSBBmkS9cFqnZa7WvMACuYyHl+L9D+bWWczw59zel2Twkqi/4fhm8hAddVbD+Xhz
- 2H9eXmztHew9Q==
-Received: by mail-lf1-f50.google.com with SMTP id
- 2adb3069b0e04-5be4c78e8caso903753e87.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Oct 2026 04:39:10 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AKwUvBzgfLk56aZ1QEuy+G02B93ybq5ifWozjV25wZ+5/ixiZ9a4m4FfN/K59MlJgdGLIbuRqGDavl9R@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLPjjPWPvex0qDMx+L0ureAvM0X5UjFmnsQncquptAAIrkHp+mc
- SMcoeOAgdKpD/SGbk3HUcGsfav7MeuAQ/gpzx3QuPTiORDbTI1b6PHBLHsg0LGjOpFA4n2Ya0bK
- mkk7a//E5rr6Vh7HBSKFccVb1Hy7ObiA=
-X-Received: by 2002:a05:6512:1111:b0:5b9:6603:d451 with SMTP id
- 2adb3069b0e04-5bfcad31c8emr697328e87.3.1793187548999; Wed, 28 Oct 2026
- 04:39:08 -0700 (PDT)
+ s=k20260515; t=1793187862;
+ bh=DfqZSZZirg02/y7+Hu6+biXxEuviwtSJMX1/tfCGZ1E=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=jRmzhIrhvjBYvVLWvF2JxCm33XYPEY+B4MrjzqXXXvADrFnSkcbsTJSj1MGwIIrNw
+ kWnTLeNPwAIyLJtJ9+tdjv+78v1kDot8qmeI/jSFN574FYwb0mRlc5drmbrKuPcITI
+ 6FEhIHn8LraufNE/4d0Z/2AXNjo9H839co+kG/5xv740bKnWioo+cV4BJVLb2j3VTR
+ QyAxwrfZ8T8k1/xE4OmhivZaTmo2IG6MCOaltdGwsIaTczyLlCF7xdElyanabRWrN9
+ fzrY4h44LuGfWoyKWEoK4nCqnl3RBFNXiOdi+7T9W3f9T3De3jThVozlgpURldPRMR
+ pvVdbwZCrX23Q==
+Date: Wed, 28 Oct 2026 12:44:18 +0100
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Dmitry Ilvokhin <d@ilvokhin.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Lee Jones <lee@kernel.org>,
+ Pavel Machek <pavel@kernel.org>, 
+ Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, 
+ Ryan Chen <ryan_chen@aspeedtech.com>, Billy Tsai <billy_tsai@aspeedtech.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Kees Cook <kees@kernel.org>,
+ Andy Shevchenko <andy@kernel.org>, 
+ Matthew Wilcox <willy@infradead.org>, Andrew Morton <akpm@linux-foundation.org>,
+ Andy Whitcroft <apw@canonical.com>, Joe Perches <joe@perches.com>,
+ Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, linux-leds@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, 
+ linux-aspeed@lists.ozlabs.org, linux-hardening@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, 
+ linux-mm@kvack.org, linux-doc@vger.kernel.org, 
+ Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Subject: Re: [PATCH 05/10] drm/i915: switch to __nonnull_args() macro
+Message-ID: <auHf-pdvGkPibgTp@zenone.zhora.eu>
+References: <cover.1793027261.git.d@ilvokhin.com>
+ <33ec8080594f9f4ef1d50e36497339c9a6897393.1793027261.git.d@ilvokhin.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261027223847.652884-1-irogers@google.com>
- <20261027223847.652884-5-irogers@google.com>
-In-Reply-To: <20261027223847.652884-5-irogers@google.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Wed, 28 Oct 2026 12:38:56 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0juvZ2ZVRBkY6FxBM=NhPt9vMA3+yRugXc5u=U1jO9AXg@mail.gmail.com>
-X-Gm-Features: AclHuK-NXF3tWCMDzaNjIN417c7ZMuQGYjVHoQ_x6BSITeW_KdKoI_jbnClXt6k
-Message-ID: <CAJZ5v0juvZ2ZVRBkY6FxBM=NhPt9vMA3+yRugXc5u=U1jO9AXg@mail.gmail.com>
-Subject: Re: [PATCH v2 4/9] cpufreq: governor: Initialize kobj_type release
- callback statically
-To: Ian Rogers <irogers@google.com>
-Cc: Kees Cook <kees@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Miguel Ojeda <ojeda@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, 
- Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Zhihao Cheng <chengzhihao1@huawei.com>,
- Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>, 
- Sumanth Korikkar <sumanthk@linux.ibm.com>, Bill Wendling <morbo@google.com>, 
- Justin Stitt <justinstitt@google.com>, driver-core@lists.linux.dev,
- llvm@lists.linux.dev, 
- linux-hardening@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-acpi@vger.kernel.org, 
- linux-pm@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
- linux-sh@vger.kernel.org, linux-s390@vger.kernel.org, gfs2@lists.linux.dev, 
- xen-devel@lists.xenproject.org, linux-mtd@lists.infradead.org, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Viresh Kumar <viresh.kumar@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <33ec8080594f9f4ef1d50e36497339c9a6897393.1793027261.git.d@ilvokhin.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,120 +75,28 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Oct 27, 2026 at 11:39=E2=80=AFPM Ian Rogers <irogers@google.com> wr=
-ote:
->
-> Export cpufreq_dbs_data_release() and set .kobj_type.release statically
-> in the ondemand and conservative governors so their gov_attr_set
-> kobjects have a valid release callback statically initialized, matching
-> cpufreq_governor_dbs. Remove the redundant runtime assignment in
-> cpufreq_dbs_governor_init().
->
-> This prepares for annotating struct kobj_type::release with
-> __must_init.
->
-> Signed-off-by: Ian Rogers <irogers@google.com>
+Hi Dmitry,
 
-Do you want stuff to be picked up by maintainers, or do you want to
-route it yourself?
+On Wed, Oct 28, 2026 at 08:19:44AM +0000, Dmitry Ilvokhin wrote:
+> Commit 22302af28d3f ("cleanup: Annotate guard constructors with
+> nonnull") added the macro __nonnull_args() to wrap raw compiler
+> attribute.
+> 
+> Replace __attribute__((nonnull)) with __nonnull_args() to standardize
+> nonnull attribute usage across the tree and keep the attribute's quirks
+> in one place rather than open-coded at every call site.
+> 
+> Suggested-by: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+> Signed-off-by: Dmitry Ilvokhin <d@ilvokhin.com>
 
-> ---
->  drivers/cpufreq/cpufreq_conservative.c | 5 ++++-
->  drivers/cpufreq/cpufreq_governor.c     | 4 ++--
->  drivers/cpufreq/cpufreq_governor.h     | 1 +
->  drivers/cpufreq/cpufreq_ondemand.c     | 5 ++++-
->  4 files changed, 11 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/cpufreq/cpufreq_conservative.c b/drivers/cpufreq/cpu=
-freq_conservative.c
-> index 02bfd46543e9..146a2353b1a2 100644
-> --- a/drivers/cpufreq/cpufreq_conservative.c
-> +++ b/drivers/cpufreq/cpufreq_conservative.c
-> @@ -318,7 +318,10 @@ static void cs_limits(struct cpufreq_policy *policy)
->
->  static struct dbs_governor cs_governor =3D {
->         .gov =3D CPUFREQ_DBS_GOVERNOR_INITIALIZER("conservative"),
-> -       .kobj_type =3D { .default_groups =3D cs_groups },
-> +       .kobj_type =3D {
-> +               .release =3D cpufreq_dbs_data_release,
-> +               .default_groups =3D cs_groups,
-> +       },
->         .gov_dbs_update =3D cs_dbs_update,
->         .alloc =3D cs_alloc,
->         .free =3D cs_free,
-> diff --git a/drivers/cpufreq/cpufreq_governor.c b/drivers/cpufreq/cpufreq=
-_governor.c
-> index f3bd3dbe7c41..f8b5aca09b6b 100644
-> --- a/drivers/cpufreq/cpufreq_governor.c
-> +++ b/drivers/cpufreq/cpufreq_governor.c
-> @@ -419,7 +419,7 @@ static void free_policy_dbs_info(struct policy_dbs_in=
-fo *policy_dbs,
->         gov->free(policy_dbs);
->  }
->
-> -static void cpufreq_dbs_data_release(struct kobject *kobj)
-> +void cpufreq_dbs_data_release(struct kobject *kobj)
->  {
->         struct dbs_data *dbs_data =3D to_dbs_data(to_gov_attr_set(kobj));
->         struct dbs_governor *gov =3D dbs_data->gov;
-> @@ -427,6 +427,7 @@ static void cpufreq_dbs_data_release(struct kobject *=
-kobj)
->         gov->exit(dbs_data);
->         kfree(dbs_data);
->  }
-> +EXPORT_SYMBOL_GPL(cpufreq_dbs_data_release);
->
->  int cpufreq_dbs_governor_init(struct cpufreq_policy *policy)
->  {
-> @@ -488,7 +489,6 @@ int cpufreq_dbs_governor_init(struct cpufreq_policy *=
-policy)
->         policy->governor_data =3D policy_dbs;
->
->         gov->kobj_type.sysfs_ops =3D &governor_sysfs_ops;
-> -       gov->kobj_type.release =3D cpufreq_dbs_data_release;
->         ret =3D kobject_init_and_add(&dbs_data->attr_set.kobj, &gov->kobj=
-_type,
->                                    get_governor_parent_kobj(policy),
->                                    "%s", gov->gov.name);
-> diff --git a/drivers/cpufreq/cpufreq_governor.h b/drivers/cpufreq/cpufreq=
-_governor.h
-> index 806d8fb4dff1..1026712bb79b 100644
-> --- a/drivers/cpufreq/cpufreq_governor.h
-> +++ b/drivers/cpufreq/cpufreq_governor.h
-> @@ -150,6 +150,7 @@ static inline struct dbs_governor *dbs_governor_of(st=
-ruct cpufreq_policy *policy
->  }
->
->  /* Governor callback routines */
-> +void cpufreq_dbs_data_release(struct kobject *kobj);
->  int cpufreq_dbs_governor_init(struct cpufreq_policy *policy);
->  void cpufreq_dbs_governor_exit(struct cpufreq_policy *policy);
->  int cpufreq_dbs_governor_start(struct cpufreq_policy *policy);
-> diff --git a/drivers/cpufreq/cpufreq_ondemand.c b/drivers/cpufreq/cpufreq=
-_ondemand.c
-> index 9942dbb38dae..7386d043c665 100644
-> --- a/drivers/cpufreq/cpufreq_ondemand.c
-> +++ b/drivers/cpufreq/cpufreq_ondemand.c
-> @@ -374,7 +374,10 @@ static struct od_ops od_ops =3D {
->
->  static struct dbs_governor od_dbs_gov =3D {
->         .gov =3D CPUFREQ_DBS_GOVERNOR_INITIALIZER("ondemand"),
-> -       .kobj_type =3D { .default_groups =3D od_groups },
-> +       .kobj_type =3D {
-> +               .release =3D cpufreq_dbs_data_release,
-> +               .default_groups =3D od_groups,
-> +       },
->         .gov_dbs_update =3D od_dbs_update,
->         .alloc =3D od_alloc,
->         .free =3D od_free,
-> --
-> 2.56.0.313.g2479322e68-goog
->
->
+Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+
+Thanks,
+Andi
