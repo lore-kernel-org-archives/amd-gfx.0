@@ -2,76 +2,80 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 671FB606A31C
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 11:16:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F5DB606A31C
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 11:34:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SgceIAYX
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JGKF85hm
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6EDB10E61F;
-	Wed, 28 Oct 2026 11:16:30 +0000 (UTC)
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE51310E61F
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Oct 2026 11:16:24 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-4a5087a5348so7616755e9.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Oct 2026 04:16:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793186183; x=1793790983; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=wqaYV4D+nxbNcqZxayfMlqD/q9RUsEpvsi2zVu7Kx9s=;
- b=SgceIAYXC+RwwTfFmF6KXUCka8uKVMpAEZou4S1mmA4aAl6xXlBUgeARbfZLRoVcph
- a23P2+KaV/ShyAm6KUgFviKFmh1AyFOksNcn8lXhYDbE5uhNIc/6EA5rZhMKNshf5VYy
- Z+7LqvSdh525pAeWrhWy9aEopjXCw3FryukzpGZb99xm2pTRYGeNHWUoejFudrrXBH3j
- ssovIIxnVkPC7AGRffM4k9J315v+tYXZZ4pGOTcmeI23taCI71w1xT7FkD+iixccwT8o
- Ymr+2JYVS2F8zCeGjgYxT2cl8T2DbhY4YiwYeOnzbvlR5wDmsfUiBjZBJ062pKQr7MmO
- Op2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793186183; x=1793790983;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=wqaYV4D+nxbNcqZxayfMlqD/q9RUsEpvsi2zVu7Kx9s=;
- b=edn5F0b1eQJ5oHLsP4W2GkYXbsm/M47sXA64rlWN0Rw9lM4KSYUOYqfx+9/nmWWhFf
- K0plnxDdJr34UdJ3DwkI0oB8ZhXvSM6AL/T4GoSIfSnkVI02JclO0xTHsgvhXcP+SMgf
- UMfMlkZ7sqGytIQtgW47MoGgt9U1f/2Qk5BDSa/aTcJvuGRehBXndAVXHKNvGDT9TKK/
- 4XbDzKzv0aK6UJC07RBNQFlhwDTGwtyy8HEyMgXc8W52cqplbxy5raC1uKxf4XG9UzR/
- BPJATs2Dmo/mffDCYC0v7lQ9fScBFOojLFnfPZFlR00XUINzyFnu5tPg7xBC4bUzy/9N
- IhPg==
-X-Gm-Message-State: AFq9FYKfHAg1KRducA3IjrVlUxcoiSjvjo1uo6DUDOn0fw9PY1EOpbGb
- 0kLfEhYxzvNlQ0L7NlbpV/c9Sx4y0WnkcYy+0Ecv2Kf1Ou3pwHayHjNv
-X-Gm-Gg: AYBFou2zF5MgSGSGClncHKLCJEF81fR2+dcgIGI/pOLNVeLSweGY60eIclonNbhZfjF
- JowC34l13ncErEJibv3YEmVt4Yo3Xoa7kNJarp+3+e8tC4A74TbeGdK+djOTxBIBqj1nTqgy3Se
- i+x3tgIQjiWdBFBlwPPppTKgzl/F6YeqnuGgZ4AaLmmPK2r6xQO0Bg+CxIPyiEpv6KH7DapgYBu
- oBEXKvOT7ObK4Dev+gV/l95sB5/17X9CWVVJPHXc8s9CiLgBITG1o3U4IH7c2PVSVgyCYXOOmma
- h+uJsmaXA8Rt4ux0CuLlQhb8BOXN/6pQ5J/jbrbyYq6QheaP1hb3eBG2xLHMRBSaikBrvx1r15E
- gQVdCRyZlVy9nQF+mlQoHtkh0IYgTBMOrMJ5bo7eMad/d7SPZDqGp8d40u2nFr/5WNOzTl/nsCq
- BpMsThCoGyOI+zEPBu2p5Pn5HnY3npcYDNqGMh+w1N97QYEzjbMd6ukSbFR2l3B38fzYILzN9WV
- NH7yIdenb/SyZVRrB1wVvt+sWUzKA5z+smprqHTxYmOMZXanWMVPxbWlfnrJ6bntuqDb0iuMcPk
- Id1zHktMyMfrGdphsG/C8xVwC+Y6NcJZN5ksMi71eWIPKHRhR587vOeNf5WHkPljJHmBN62FTaE
- cky3Wn1U93m72mcUKOAywRUEzmQ4=
-X-Received: by 2002:a05:600c:a314:b0:4a2:180b:3153 with SMTP id
- 5b1f17b1804b1-4a9672f815amr32754615e9.14.1793186182794; 
- Wed, 28 Oct 2026 04:16:22 -0700 (PDT)
-Received: from localhost ([178.214.243.78]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48e3eb8f387sm27793374f8f.4.2026.10.28.04.16.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 28 Oct 2026 04:16:22 -0700 (PDT)
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-To: Wayne Lin <Wayne.Lin@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Tom Chung <chiahsuan.chung@amd.com>
-Subject: Re: [PATCH] drm/amd/display: add missing CRC engine 1 registers
-Date: Wed, 28 Oct 2026 16:16:18 +0500
-Message-ID: <20261028111618.27368-1-mikhail.v.gavrilov@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028091501.191108-1-Wayne.Lin@amd.com>
-References: <20261028091501.191108-1-Wayne.Lin@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36AF310FB84;
+	Wed, 28 Oct 2026 11:33:55 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D63C10FBB1;
+ Wed, 28 Oct 2026 11:33:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793187229; x=1824723229;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=z8y8XV24bROqh0zonAMNAjIZyMJbY12xpb+/fK8m0AI=;
+ b=JGKF85hmCVQ9pf9eXbOsC8wgPHWDavTdyCGWPRpxPC23gPTB9HurHR1u
+ WQIzCd0zwuTx3xDYu7R6x7Tug0u3cG2len/6bLyuT1Ba9nt2Ksz9lFv16
+ uWsDoRlbFOlyD/wV5bIxwsw3kIwHlbx+7870/Q08076xKsblgMcUIm7Xw
+ nkUIXIu5vX0mQFDdirfJv+J+GkeTU7aMk2olzE59xTR4u4jE9NpgRt9lo
+ j3gf2C66LaqLw0qU6mJ+rQfIH8X+Zwj6uep7ZyHB2nWJbxPDyFDqeTPXW
+ uH7NK1RnZY34FW9rSVNOCVg9/KCrbR1XNYeByeZKByf52EvDlzja4Tmz3 g==;
+X-CSE-ConnectionGUID: JyclsOj+S9yIfeGKLwuDbQ==
+X-CSE-MsgGUID: pcolIxavSSyp9/nfaS2Zsg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1813626"
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="1813626"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2026 04:33:48 -0700
+X-CSE-ConnectionGUID: F9mrBK1+QXS8jOjCv8P8bQ==
+X-CSE-MsgGUID: KJ1QgI6jS6ey2L/RLS17LQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="6633584"
+Received: from rvuia-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.146])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2026 04:33:40 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Dmitry Ilvokhin <d@ilvokhin.com>, Alex Deucher
+ <alexander.deucher@amd.com>, Christian =?utf-8?Q?K=C3=B6nig?=
+ <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Joonas
+ Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, Lee Jones
+ <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, Joel Stanley
+ <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, Ryan Chen
+ <ryan_chen@aspeedtech.com>, Billy Tsai <billy_tsai@aspeedtech.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Kees Cook
+ <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>, Matthew Wilcox
+ <willy@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, Andy
+ Whitcroft <apw@canonical.com>, Joe Perches <joe@perches.com>, Jonathan
+ Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy
+ Dunlap <rdunlap@infradead.org>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-leds@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-aspeed@lists.ozlabs.org, linux-hardening@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
+ linux-doc@vger.kernel.org, Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
+ Dmitry Ilvokhin <d@ilvokhin.com>
+Subject: Re: [PATCH 05/10] drm/i915: switch to __nonnull_args() macro
+In-Reply-To: <33ec8080594f9f4ef1d50e36497339c9a6897393.1793027261.git.d@ilvokhin.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <cover.1793027261.git.d@ilvokhin.com>
+ <33ec8080594f9f4ef1d50e36497339c9a6897393.1793027261.git.d@ilvokhin.com>
+Date: Wed, 28 Oct 2026 13:33:37 +0200
+Message-ID: <3b839373c03f6b8aeafa8e4801a486ece68b0815@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,45 +86,73 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Tested on Navi 31 (DCN3.2) the same way as v2: a kernel built from
-mainline 65ba8f34ec88 (7.4 merge window), with and without this patch,
-opening crtc-0/crc/data for the first time after boot.
+On Wed, 28 Oct 2026, Dmitry Ilvokhin <d@ilvokhin.com> wrote:
+> Commit 22302af28d3f ("cleanup: Annotate guard constructors with
+> nonnull") added the macro __nonnull_args() to wrap raw compiler
+> attribute.
+>
+> Replace __attribute__((nonnull)) with __nonnull_args() to standardize
+> nonnull attribute usage across the tree and keep the attribute's quirks
+> in one place rather than open-coded at every call site.
+>
+> Suggested-by: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+> Signed-off-by: Dmitry Ilvokhin <d@ilvokhin.com>
 
-  without: two WARNs from dc_helper.c:53 in set_reg_field_values(),
-           both reached from optc1_configure_crc() under
-           crtc_crc_open()
-  with:    no WARN, and CRC capture on engine 0 works as before
+Acked-by: Jani Nikula <jani.nikula@intel.com>
 
-I also checked the generations I cannot test.  I expanded the OPTC
-register and mask lists of every DCN3.0 and later resource with the
-preprocessor against that ASIC's own offset and sh_mask headers,
-before and after the patch.  Every register and field the patch adds
-is defined for each ASIC and each OTG instance it is used with, no
-initializer gains a duplicate entry, and DCN3.5, 3.5.1 and 3.6 end up
-with the same entries as before.  The patch also applies cleanly to
-v7.3.
-
-You are right about DCN2.x: their lists start with
-TG_COMMON_REG_LIST_DCN and TG_COMMON_MASK_SH_LIST_DCN, which already
-have the engine 1 entries.  My note in v2 that they were missing was
-wrong.
-
-A nit: checkpatch wants a Closes: or Link: right after Reported-by.
-The bug was reported in v2 of my patch, so a Link: to it would do:
-
-  Link: https://lore.kernel.org/all/20260829085941.106318-1-mikhail.v.gavrilov@gmail.com/
-
-Reviewed-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Tested-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com> # Navi 31 (DCN3.2)
+> ---
+>  drivers/gpu/drm/i915/gem/i915_gem_object.h | 4 ++--
+>  drivers/gpu/drm/i915/i915_request.h        | 4 ++--
+>  2 files changed, 4 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+> index a2f4b6758a65..648d0b4139cf 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+> @@ -127,7 +127,7 @@ __deprecated
+>  struct drm_gem_object *
+>  drm_gem_object_lookup(struct drm_file *file, u32 handle);
+>  
+> -__attribute__((nonnull))
+> +__nonnull_args()
+>  static inline struct drm_i915_gem_object *
+>  i915_gem_object_get(struct drm_i915_gem_object *obj)
+>  {
+> @@ -135,7 +135,7 @@ i915_gem_object_get(struct drm_i915_gem_object *obj)
+>  	return obj;
+>  }
+>  
+> -__attribute__((nonnull))
+> +__nonnull_args()
+>  static inline void
+>  i915_gem_object_put(struct drm_i915_gem_object *obj)
+>  {
+> diff --git a/drivers/gpu/drm/i915/i915_request.h b/drivers/gpu/drm/i915/i915_request.h
+> index b09135301f39..f559203c332d 100644
+> --- a/drivers/gpu/drm/i915/i915_request.h
+> +++ b/drivers/gpu/drm/i915/i915_request.h
+> @@ -437,12 +437,12 @@ void i915_request_cancel(struct i915_request *rq, int error);
+>  long i915_request_wait_timeout(struct i915_request *rq,
+>  			       unsigned int flags,
+>  			       long timeout)
+> -	__attribute__((nonnull(1)));
+> +	__nonnull_args(1);
+>  
+>  long i915_request_wait(struct i915_request *rq,
+>  		       unsigned int flags,
+>  		       long timeout)
+> -	__attribute__((nonnull(1)));
+> +	__nonnull_args(1);
+>  #define I915_WAIT_INTERRUPTIBLE	BIT(0)
+>  #define I915_WAIT_PRIORITY	BIT(1) /* small priority bump for the request */
+>  #define I915_WAIT_ALL		BIT(2) /* used by i915_gem_object_wait() */
 
 -- 
-Thanks,
-Mikhail
+Jani Nikula, Intel
