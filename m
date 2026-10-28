@@ -2,107 +2,104 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CD87606A31C
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 14:53:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71A21606A31A
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 15:12:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SjGrl1at
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=eY8XpGB9
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A421D10E356;
-	Wed, 28 Oct 2026 14:53:41 +0000 (UTC)
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com
- [74.125.82.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0161F10FCFF
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Oct 2026 14:53:35 +0000 (UTC)
-Received: by mail-dy1-f180.google.com with SMTP id
- 5a478bee46e88-36a0eecf73fso202260eec.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Oct 2026 07:53:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793199215; cv=none;
- d=google.com; s=arc-20260327;
- b=QSt+fooNgDv0OtsAwu04NeoSsZGpgEws+pvYL19n+rOLYPguM6JVJVesTxrZsFKNwd
- GSWgvRB5wdDyZpRCyCqRYYz+q8jfk0Jmnzis8W8LB4Qv+KJYbGdAwXY+LdT6b4VnIIsL
- Ol7F39rRMayFo5P8k7DXafngC1irmwxRPevEYP2thoYyfYldS0FPaSLqLOfELuo7DT7Z
- SMjznOb/IVaNtsSZh5jzxbrA+GJIamPP/oiwU3H6F/Y1zlHPcFFneCR5HI6zDS7+fV8t
- 3Yw5BQt7kOT9RlczX7RjwH3dajAxFZe7Whu8d1SeS1DKUZp7mdyq4Vca1vZrrH0UJGOC
- b2wA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=hHpZdOuRh3k05zToFRnsSy2dvYFiJ6TeIqmJJw0GgYg=;
- fh=CVzK5ifzM2WHXVDo8XjyUU8pIjEOtK18pwCw49Ibt4E=;
- b=W0CZmOma1N705a5iwDJclWiLfIuG6vxG2LTpBWu6vQ/fiZxdsVWKLG1AN+Lr+Iwnpa
- FI0TbqMihHOB+hr99eAEJEBQVvfiPdPbUwpZZwOGEQQViA/FDQDtDXHjeQGNhSsPBvlz
- CSQQHK2+48ye8h1U09X8hpbP9aIZQ5e4sjWPBUFn3YsepO2Tz1RThwXjQG7NC0w5z6Np
- vDY6iiXYoo7JyaaqsgSIwfGc45yRKIJ6kBbnsBFzMCAi474xu4vl4isGMLk6zHJl50Sp
- rIMNQn+BYn7/BrFGcKxXrKmcx5cUusudHPW2Nh47jXOI8ZG6u2bGrG6TgB7xN2aO/JQA
- FpBw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793199215; x=1793804015; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=hHpZdOuRh3k05zToFRnsSy2dvYFiJ6TeIqmJJw0GgYg=;
- b=SjGrl1atV/X8tqQkgNjZXLb0LYpR0T9I1821he4KratI2COeNo2QVPA9e8+wqhVCxI
- O9XGEkUkcyDlmQbKk4vvpY54VskJH5POtRKTOFm884RZg5OISQgJP5psNMsNzGjJVqNE
- DzLiiiczeegrZ7XuQKNQ6NwToQT5eZ6kcRal/neLlI3dRGCf0WA+8Yje8erv+BK19vUI
- XmWnFcCZ/OURY/hv8GwtR9yZrdHfUtbCGmuSHs5aZn81maKtuPDj9a8RECyVtUzXrhBO
- D3VXKPa8CXD2G7Rs00UEhHuVTlWmVAWKC9iKaEzjrX9apnHxUTaAp5xRYTfxxAHMJKlm
- qRqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793199215; x=1793804015;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=hHpZdOuRh3k05zToFRnsSy2dvYFiJ6TeIqmJJw0GgYg=;
- b=XY6JBuw9dL9e3xd0R5zKg5RmPkbfB+r7RZkf+vbkxft1NICsm3hgTm0Z5Pv6E8ZUM8
- KbVOdElGFzWWmaB0WiQl33xlbo/oZ5ajm3/mUEpULOfiCpImvK7hgwLu8Vzt3Q0hX8xS
- mgp/zVnIQT0mrb7jyc1YrYPdREGQYR+ABxj8MQ5XWkqlkwztUajIM3hOsHrjBF3vfaWv
- tzM0Xt2M8LzMvY71GF6GvV5fYL3YgHn0FZ/KyCoa/ymhsR0r98u1eMgIkcK8PhBL15V8
- hiKf3xmlvc7vksZ9To1RnkZ9a7O/JSpZ1ZcDPj6vrpWWeP//yS+fH2J3q0aoCWFQFdoJ
- Bj6Q==
-X-Forwarded-Encrypted: i=1;
- AKwUvBx+WafXxq08Wt1IMzlOAWITWaLprBSsw0IlqTbNZMo5hgfvK6zf+yqw3TnbSrSxaJo4jqVo0Fdt@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKyaQbgphGIbtkfwwSVzul0nbOmUQtk3sONm69ss4lkHXJqajjR
- z90U17EA/0KFH6HJnjbNczPLMiDAdXpoQrNgq/IUCz1Xu2tUTIUjV63+osZcnhGBfxdEYNYGAvw
- s8EoHpjtbfm/suNCZvpXxjGoV9iRYvhQ=
-X-Gm-Gg: AYBFou2ZlS/2ifqNHLdx5cSVqYjqmuV2CGiGFB0uUNj0cnCucQ6Um4/vBRZ2CDuS5qe
- dk1+peQX+//amwwNlBHtf9zW2z3uUaYc/jUlxMo15gCJilfcWJEB2snhT5fiPc3K0P97DOfzi4m
- SCFrLTx3e0I/kCz4LwKZGG8TNHqjVulWw6BU8Nf6n218XiiwkYAAM/O0EOC8bfAXLRKgI+C86BR
- ymkK0US3zvqfbaHVzPbTmDESvYG+BpUT9fJuP6Xm61VcO8d2sNrToJimJyPT8BGueoghlO2uQHN
- B5RKo3fx+A5dnCf/dNlKnClJf5u+l2S7NI4X/d5I5vhg5yhA1VGYZYVlqFQIar+VT4ULuhjadrY
- SjdPMBHeyzvZXSJad711TD3nEOj+vr6KHX6MaTM+HrWsrbHnJLWpFTorBCmEzD5WSNz/UaZfkdW
- hbuIz2Ww/mWkTP4Sw4NrYq+ZkFdv5lBsRTDM1myBKBZce8
-X-Received: by 2002:a05:7301:1a8c:b0:369:ffc5:6767 with SMTP id
- 5a478bee46e88-36a1ffc100fmr5213282eec.2.1793199215122; Wed, 28 Oct 2026
- 07:53:35 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DF6410FD2F;
+	Wed, 28 Oct 2026 15:11:55 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011058.outbound.protection.outlook.com [52.101.62.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53A3410FD65
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Oct 2026 15:11:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TxYc5pOlfFNAJiXP0Mii/1K2LQM5iQ8R99rLnjgzhljvHhXfYO4VEMEFAzQYkZdjed5YPAoO/awXsz3+y30Ls1MWXoEPKlxUeMZNaiydWO5R3c0rzpBN2gDtGT6BNl2qrlZ7PNzD/dHxEE0onHQJINLdlF41N9CwTgeTKCdhbtxLymMIOsSruamM7iS1N0gwmtfhokhfq+GGnwhFQfcRP3897VLvUtzl+SwrBQQmnEQVEW/I9XdaZzOU+7nWLsP1elY2WQ5D3LPZAHnNwsTgiUmpbfQZoDGNUm8jeiAHrn3SMbmZrYjPRfcepWwSkR1Y6IGxYiVLG9GYyIytsM67XA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0gSU2XiTr8/7nuHu2uATFBSh8VJYLYM1YilIIwTEzLE=;
+ b=HL52brg/fsFRTdgkO81lAfyR2vzMz425L0b2ShSRLl4CXqCUsfOU00c/3gihSjdfIGsjbCWEpDi+scfAZSfR/TgwWskQHck+gGgM4TNEfONnhg28YT1qNwqVZK+is3Sy1P/KPtwSJDnIwv7GW2eLDq4+cmiP5YllqLpd+iTRl1jvsq3EAr+tMIydAcZOZQoXYtW80uFmXvFRVLJU0ScoNvRkSFNM5TdPJM5rarUHgdQWALU7AeKNhSvzdBUOl5TglWxhQe/0OPLIEiCIL3072xToBFepz+Ax3AVqkHzi6mHKqLH7F7pMMKEVKkT0e4nhwSuqVxGRAa5mWF4Zcgs1wg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0gSU2XiTr8/7nuHu2uATFBSh8VJYLYM1YilIIwTEzLE=;
+ b=eY8XpGB97lfMbbXnmHKSbJnlgRq8QK8qWi19flOYNnskt5AzGIWZicay9kBAnYjyXNpoZ1PvYTO54EE1LRETE7krXo6mMENDu/giXYX2XFct/Hi3tQh0GJ7H8ky9NBh0pRhqOJoxWa6weqJmSeUNQA5kkHzVbrihxuU5AK+Hzls=
+Received: from DS7PR03CA0268.namprd03.prod.outlook.com (2603:10b6:5:3b3::33)
+ by DS7PR12MB5838.namprd12.prod.outlook.com (2603:10b6:8:79::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Wed, 28 Oct
+ 2026 15:11:19 +0000
+Received: from DM3PEPF000265C2.namprd03.prod.outlook.com
+ (2603:10b6:5:3b3:cafe::8a) by DS7PR03CA0268.outlook.office365.com
+ (2603:10b6:5:3b3::33) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Wed,
+ 28 Oct 2026 15:11:19 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ DM3PEPF000265C2.mail.protection.outlook.com (10.167.23.183) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.4 via Frontend Transport; Wed, 28 Oct 2026 15:11:18 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 28 Oct
+ 2026 10:11:18 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 28 Oct
+ 2026 10:11:18 -0500
+Received: from box-0.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Wed, 28 Oct 2026 10:11:17 -0500
+From: <ivan.lipski@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex
+ Hung <alex.hung@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, "Linlin Yang"
+ <yanglinlin@kylinos.cn>, Mario Limonciello <mario.limonciello@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, <stable@vger.kernel.org>, "Dillon
+ Varone" <dillon.varone@amd.com>
+Subject: [PATCH] drm/amd/display: Fix __udivdi3 link error in DCN6 DML2
+Date: Wed, 28 Oct 2026 11:11:11 -0400
+Message-ID: <20261028151111.1888807-1-ivan.lipski@amd.com>
+X-Mailer: git-send-email 2.43.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <a826b32d-597a-4c01-8b30-218cbca8627a@gmail.com>
- <e0573e72-dcc1-4ff2-8cf2-53aefde912cb@amd.com>
- <CADnq5_M8f2Hgs06n9EXUaihGsr6YEm6G4YFVQmPfQbGU08XkBg@mail.gmail.com>
- <6f79a3e2-5510-4018-aabd-45fcdf5dcbb3@amd.com>
- <CADnq5_OTLQuD3B6-VUgZv6wGjhFNY_U77wqdv5Y+e25+O0B2ZA@mail.gmail.com>
- <138497f6-2271-4229-87f1-4e42e9d2b581@gmail.com>
- <76b577d9-e8ce-45d5-9330-564411cc099d@amd.com>
-In-Reply-To: <76b577d9-e8ce-45d5-9330-564411cc099d@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 28 Oct 2026 10:53:22 -0400
-X-Gm-Features: AclHuK9PGvqElJiJ4JkJ6TDlP1xlfh9iqAhttNXCNmpg8zpVdT6TtOWjX57qcnA
-Message-ID: <CADnq5_NUKVeF_UNqx=8KfPQ8ntvkT5iv_Tfgp5v9r9ADv8go9g@mail.gmail.com>
-Subject: Re: [PATCH 1/3] drm/amdgpu: reserve 64M stolen memory for Apple 5K
- iMac
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Richard Lane <richardlanedev@gmail.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM3PEPF000265C2:EE_|DS7PR12MB5838:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6acf663b-7068-461f-a5af-08df3505b816
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|1800799024|376014|36860700016|82310400026|261026140227099003|261021123027099003|56012099006|11063799006|261009223027099003|261022105027099003|10067099003|261021121427099003|261026121527099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info: Hr3I8rqbsFuKyiVrxgYO4+GmXzDYiHviV1AdaActMDdz3LHADd6Tq8uEgJUYKBFtiovnR1HnLho1PllXjTSMM2Wt707OlmVtuN83CtI0qcXeOY8CJqnAFmdB9tZ3kN0PRzgdGFbSUZpwEOmTaoVQisLIp98njS3QfyVs5GRvDlQ4/KiVvxubbUtGtb3+W/X7PVgmcRnCVDBASprhS8tCzXt932EKUro9TAHrfGcc5SLazN0C3H+2AzfL7soqDqMCwZkHC+VBEP32gL/2CmW3br1gg0fR5GTec2aJbd1cJomL9bwc+zhl+4cyS1fWGbvExl8+2FNdv//OQRIurNcU6PHnz76WBoYoAofVFANy7Z0SMEidu8KOMHGXjoNv5ZqtsnMz8m5lYjjvEUPHixtkl/jwf3hBQoR53jEf+5WqFPqRofgQBdCCBo1LrZGbwfE1xI1Yd8xKVWNEYLIXS1IZyOcHmiNWda4/tMvMnv8BDzGqhMyGM30XR5QdHW4gMpNKnB1LwFbdIYcwd2DFQi0xlGH6MxuZnBUagSEVX/0+AVSDwUuRUCDwN2Y902hxDh0c8/ajgRt9KzrUvuEgPF4zoW8gjUfske7y8RIZSv5bt4uruGkw2UJO9sLG9lZDbObAadKu/bdzuQz641z+lvniPdJEBz6k9JpvAbGJQa46TEfzI64+8GtlKeFKfKnr56nGQ0BeUzLeyDY2OMIF92tbVw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(376014)(36860700016)(82310400026)(261026140227099003)(261021123027099003)(56012099006)(11063799006)(261009223027099003)(261022105027099003)(10067099003)(261021121427099003)(261026121527099003)(18002099003)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 3ah3RPjleZCo6LPwIy6wuRolshB5wj0jK80fXmJlNF4b+NGSfgMCnz7SEEynHAKn6WzcWDuleRBuet/gyqt2poZXew4x5M8SA9l9zOKVIP+r7kntWT0BXYzhHGa6iD+v6WcjWKPh7HLhcyh14Vss7UlcF4RjRyt9FIOFaiE8nWFUHVD2kiNrKE5qwEoNXF8XPVQL+2Y5KAq+mk7VB1r5LDSwm4NXWhn1F4AYkhx+XPreEdDRmAIH7FJoL23E6OKtO+xTuafgje/qlPdOIdA5/LKMAK1kMVv/JcHgEQ5qrf+X7jxcbuOV0qKFbhr9aeN+WpPFnmPkiNHmYp0W/SGMy7F8EHdvwZ7LJqMNv22WZfpwqEby5mII5yoXAmFtRUBHCWCmQFhK9KaqNEs6khp3XX4tKknw6dN8iANgj+k1moC4rzY2sxRBVsRXw6kXrGp5
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 15:11:18.8698 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6acf663b-7068-461f-a5af-08df3505b816
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM3PEPF000265C2.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5838
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,238 +110,116 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Oct 27, 2026 at 10:14=E2=80=AFPM Mario Limonciello
-<mario.limonciello@amd.com> wrote:
->
->
->
-> On 10/27/26 18:59, Richard Lane wrote:
-> > On 27/10/2026 13:37, Alex Deucher wrote:
-> >> On Tue, Oct 27, 2026 at 9:16=E2=80=AFAM Mario Limonciello
-> >> <mario.limonciello@amd.com> wrote:
-> >>>
-> >>>
-> >>>
-> >>> On 10/27/26 07:57, Alex Deucher wrote:
-> >>>> On Tue, Oct 27, 2026 at 8:21=E2=80=AFAM Christian K=C3=B6nig
-> >>>> <christian.koenig@amd.com> wrote:
-> >>>>>
-> >>>>> On 10/26/26 23:46, Richard Lane wrote:
-> >>>>>> Apple 27" 5K iMacs report a single 2560x2880 tile (28.125 MiB) in
-> >>>>>> VIEWPORT_SIZE while scanning out up to 64 MiB across the relocated=
- EFI
-> >>>>>> framebuffer.
-> >>>>>>
-> >>>>>> Override the stolen VGA memory allocation size to 64 MiB when matc=
-hing
-> >>>>>> PCI_VENDOR_ID_APPLE with a 2560x2880x4 viewport size to prevent
-> >>>>>> framebuffer corruption during boot handover.
-> >>>>>
-> >>>>> Hacks like those are usually a big no-go.
-> >>>>>
-> >>>>> Why is that framebuffer handling not working with DC out of the box=
-?
-> >>>>
-> >>>> The GMC IP code reserves the memory used by the display hardware fro=
-m
-> >>>> the pre-OS console.  The gmc get_vbios_fb_size() callback looks to s=
-ee
-> >>>> what display viewport was set by the pre-OS environment.  If the Mac=
-s
-> >>>> need a workaround, that's where it should go.  Since these displays
-> >>>> require multiple display pipes, my guess is you need to double the
-> >>>> allocation in that case since the current code just checks the first
-> >>>> pipe.
-> >>>
-> >>>
-> >>> Could this also be a logic error in that callback?  Would it be worth
-> >>> double checking all the register values in that callback for this sys=
-tem?
-> >>>
-> >>> I know for example there are a few different IP specific implementati=
-ons
-> >>> in gmc_v9_0_get_vbios_fb_size().
-> >>
-> >> Not likely.  I suspect the issue is that these systems use two display
-> >> pipes so we only reserve enough memory to cover half of the display.
-> >> On PCs the vbios never sets up MST.
-> >>
-> >> Alex
-> >>
-> >
-> > I tested doubling the allocation in gmc_v8_0_get_vbios_fb_size():
-> >
-> >       if (adev->pdev->subsystem_vendor =3D=3D PCI_VENDOR_ID_APPLE &&
-> >           size =3D=3D (2560 * 2880 * 4))
-> >               size *=3D 2;
-> >
-> > That eliminated the corruption across the middle (45-60%) of the screen=
-,
-> > but still left a band of corruption along the very bottom (95-100%) of
-> > the screen.
-> >
-> > Dumping the DCE registers inside gmc_v8_0_get_vbios_fb_size() on the
-> > iMac17,1 showed:
-> >
-> >    vram_start =3D 0xf400000000, d1vga =3D 0x0
-> >    CRTC0: grph_en=3D0x1 surf_hi=3D0xf4 surf_lo=3D0x300000 pitch=3D5120 =
-vp_size=3D2560x2880
-> >    CRTC1: grph_en=3D0x80000000 surf_hi=3D0x0 surf_lo=3D0x0 pitch=3D0 vp=
-_size=3D0x0
-> >
-> > Even though only CRTC0 is active at EFI boot with a 2560x2880 viewport,
-> > Apple's EFI allocates a full 5120-pixel stride surface (mmGRPH_PITCH) a=
-nd places
-> > mmGRPH_PRIMARY_SURFACE_ADDRESS at a 3 MiB offset (0x300000) from
-> > vram_start.
-> >
-> > Because CRTC0 scans out 2880 lines at a 5120-pixel pitch starting at
-> > offset 3 MiB, the active pre-OS scanout spans [3 MiB, 59.25 MiB) in VRA=
-M:
-> > - Reserving 2560 * 2880 * 4 (28.125 MiB) places permanent driver BOs at
-> >    ~28.125..32 MiB, corrupting the middle (40-60%) of the screen.
-> > - Reserving 2 * 2560 * 2880 * 4 (56.25 MiB) places those BOs at
-> >    ~56.25..59.25 MiB, leaving the final 3 MiB exposed due to the 0x3000=
-00
-> >    surface offset and corrupting the bottom (95-100%) of the screen.
-> > - Accounting for the 5120 pitch and the 0x300000 surface offset reserve=
-s
-> >    the full 59.25 MiB span and eliminates the corruption completely.
-> >
-> > For v2 of the patch, which of the following two approaches in both
-> > gmc_v7_0/v8_0_get_vbios_fb_size() would you prefer? Both tested working=
-.
->
-> My feeling is that Option A is less magical.  I'd actually wonder if we
-> should be doing this more widely.  I'd *think* the same problem could
-> happen on a non-Apple display that behaves similarly.
+From: Ivan Lipski <ivan.lipski@amd.com>
 
-I had discussions with the vbios teams when this code was added.  They
-said the display base was always put at the start of VRAM.  The only
-area I have a concern about is adding the surface address.  It works
-ok if the the displays are put near the start of VRAM, but if not
-(e.g., the pre-OS environment puts then at the top of VRAM), we'll end
-up reserving most or all of VRAM.  I think the right solution is to
-add an offset to the reservation and then use the surface address as
-the offset.  That's more work however so maybe it would be better as a
-follow up clean up.
+[Why&How]
+dchub_v2_get_sop_total_available_bandwidth_KBps() and
+dchub_v2_is_qos_bandwidth_supported_by_sop() divide 64-bit integers
+by 100. On 32-bit builds this emits a call to __udivdi3, which the
+kernel does not link.
 
-Alex
+Use double-cast division instead.
 
->
-> >
-> > Option A (change whole function):
-> >
-> >   static unsigned gmc_v8_0_get_vbios_fb_size(struct amdgpu_device *adev=
-)
-> >   {
-> >       u32 d1vga_control =3D RREG32(mmD1VGA_CONTROL);
-> >       unsigned size;
-> >
-> >       if (REG_GET_FIELD(d1vga_control, D1VGA_CONTROL, D1VGA_MODE_ENABLE=
-)) {
-> >               size =3D AMDGPU_VBIOS_VGA_ALLOCATION;
-> >       } else {
-> >               u32 viewport =3D RREG32(mmVIEWPORT_SIZE);
-> > -             size =3D (REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT=
-_HEIGHT) *
-> > -                     REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT_W=
-IDTH) * 4);
-> > +             size =3D REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT_=
-HEIGHT) *
-> > +                    RREG32(mmGRPH_PITCH) * 4;
-> > +             if (size)
-> > +                     size +=3D RREG32(mmGRPH_PRIMARY_SURFACE_ADDRESS) =
--
-> > +                             lower_32_bits(adev->gmc.vram_start);
-> >       }
-> >
-> >       return size;
-> >   }
-> >
-> > Option B (add Apple 5K iMacs quirk):
-> >
-> >   static unsigned gmc_v8_0_get_vbios_fb_size(struct amdgpu_device *adev=
-)
-> >   {
-> >       u32 d1vga_control =3D RREG32(mmD1VGA_CONTROL);
-> >       unsigned size;
-> >
-> >       if (REG_GET_FIELD(d1vga_control, D1VGA_CONTROL, D1VGA_MODE_ENABLE=
-)) {
-> >               size =3D AMDGPU_VBIOS_VGA_ALLOCATION;
-> >       } else {
-> >               u32 viewport =3D RREG32(mmVIEWPORT_SIZE);
-> >               size =3D (REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT=
-_HEIGHT) *
-> >                       REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT_W=
-IDTH) * 4);
-> > +
-> > +             if (adev->pdev->subsystem_vendor =3D=3D PCI_VENDOR_ID_APP=
-LE &&
-> > +                 size =3D=3D (2560 * 2880 * 4))
-> > +                     size =3D size * 2 + RREG32(mmGRPH_PRIMARY_SURFACE=
-_ADDRESS);
-> >       }
-> >
-> >       return size;
-> >   }
-> >
-> >
-> > Richard
-> >
-> >>>
-> >>>>
-> >>>> Alex
-> >>>>
-> >>>>>
-> >>>>> Regards,
-> >>>>> Christian.
-> >>>>>
-> >>>>>>
-> >>>>>> Signed-off-by: Richard Lane <richardlanedev@gmail.com>
-> >>>>>> ---
-> >>>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 10 +++++++++-
-> >>>>>>    1 file changed, 9 insertions(+), 1 deletion(-)
-> >>>>>>
-> >>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu=
-/drm/amd/amdgpu/amdgpu_gmc.c
-> >>>>>> index 4204c3c750a8..8b196fbfa724 100644
-> >>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> >>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> >>>>>> @@ -1232,7 +1232,15 @@ void amdgpu_gmc_init_vga_resv_regions(struc=
-t amdgpu_device *adev)
-> >>>>>>           } else {
-> >>>>>>                   size =3D amdgpu_gmc_get_vbios_fb_size(adev);
-> >>>>>>
-> >>>>>> -               if (adev->mman.keep_stolen_vga_memory)
-> >>>>>> +               /*
-> >>>>>> +                * Apple 5K iMacs report one 2560x2880 tile in VIE=
-WPORT_SIZE
-> >>>>>> +                * while scanning out up to 64M across the relocat=
-ed EFI
-> >>>>>> +                * framebuffer.
-> >>>>>> +                */
-> >>>>>> +               if (adev->pdev->subsystem_vendor =3D=3D PCI_VENDOR=
-_ID_APPLE &&
-> >>>>>> +                   size =3D=3D (2560 * 2880 * 4))
-> >>>>>> +                       size =3D 64U * 1024 * 1024;
-> >>>>>> +               else if (adev->mman.keep_stolen_vga_memory)
-> >>>>>>                           size =3D max(size, (unsigned)AMDGPU_VBIO=
-S_VGA_ALLOCATION);
-> >>>>>>           }
-> >>>>>>
-> >>>>>> --
-> >>>>>> 2.55.0
-> >>>>>
-> >>>
-> >
->
+Fixes: 04d9a88decbc ("drm/amd/display: Add new sources for DCN6")
+
+Cc: Linlin Yang <yanglinlin@kylinos.cn>
+Cc: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: stable@vger.kernel.org
+
+Cc: Dillon Varone <dillon.varone@amd.com>
+Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
+---
+ .../bounding_boxes/utm_qos_model_dchub_v2.h   | 32 +++++++++----------
+ .../bounding_boxes/utm_qos_model_dchub_v3.h   |  2 +-
+ 2 files changed, 17 insertions(+), 17 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/bounding_boxes/utm_qos_model_dchub_v2.h b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/bounding_boxes/utm_qos_model_dchub_v2.h
+index ebca5ddda2848..32049c17c0802 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/bounding_boxes/utm_qos_model_dchub_v2.h
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/bounding_boxes/utm_qos_model_dchub_v2.h
+@@ -58,27 +58,27 @@ static inline void dchub_v2_get_sop_total_available_bandwidth_KBps(
+ {
+ 	const struct utm_soc_operating_point *sop = &model->sops[sop_index];
+ 	const struct utm_qos_model_socbb *socbb = &model->socbb;
+-	uint64_t dram_available_bandwidth_KBps_nominal;
+-	uint64_t fabric_available_bandwidth_KBps_nominal;
+-	uint64_t dram_available_bandwidth_KBps_urgent;
+-	uint64_t fabric_available_bandwidth_KBps_urgent;
++	double dram_available_bandwidth_KBps_nominal;
++	double fabric_available_bandwidth_KBps_nominal;
++	double dram_available_bandwidth_KBps_urgent;
++	double fabric_available_bandwidth_KBps_urgent;
+ 
+-	dram_available_bandwidth_KBps_nominal = (uint64_t) sop->uclk_khz
++	dram_available_bandwidth_KBps_nominal = (double) sop->uclk_khz
+ 			* socbb->dram_channel_count
+ 			* socbb->dram_channel_width_bytes
+ 			* socbb->dram_transactions_per_clock
+-			* socbb->dram_derate_percent_nominal / 100;
+-	dram_available_bandwidth_KBps_urgent = (uint64_t) sop->uclk_khz
++			* socbb->dram_derate_percent_nominal / 100.0;
++	dram_available_bandwidth_KBps_urgent = (double) sop->uclk_khz
+ 			* socbb->dram_channel_count
+ 			* socbb->dram_channel_width_bytes
+ 			* socbb->dram_transactions_per_clock
+-			* socbb->dram_derate_percent_urgent / 100;
+-	fabric_available_bandwidth_KBps_nominal = (uint64_t) sop->fclk_khz
++			* socbb->dram_derate_percent_urgent / 100.0;
++	fabric_available_bandwidth_KBps_nominal = (double) sop->fclk_khz
+ 			* socbb->fabric_datapath_to_dcn_data_return_bytes
+-			* socbb->fabric_derate_percent_nominal / 100;
+-	fabric_available_bandwidth_KBps_urgent = (uint64_t) sop->fclk_khz
++			* socbb->fabric_derate_percent_nominal / 100.0;
++	fabric_available_bandwidth_KBps_urgent = (double) sop->fclk_khz
+ 			* socbb->fabric_datapath_to_dcn_data_return_bytes
+-			* socbb->fabric_derate_percent_urgent / 100;
++			* socbb->fabric_derate_percent_urgent / 100.0;
+ 
+ 	total_available_bandwidth->nominal_bandwidth_KBps =
+ 			dram_available_bandwidth_KBps_nominal < fabric_available_bandwidth_KBps_nominal ?
+@@ -99,8 +99,8 @@ static inline bool dchub_v2_is_qos_bandwidth_supported_by_sop(
+ {
+ 	struct utm_qos_model_dchub_memory_path_bandwidth_v2 available_bandwidth = {0};
+ 	const struct utm_qos_model_dchub_v2 *dchub = model->dchub_v2;
+-	uint64_t nominal_available_bandwidth_KBps;
+-	uint64_t urgent_available_bandwidth_KBps;
++	double nominal_available_bandwidth_KBps;
++	double urgent_available_bandwidth_KBps;
+ 
+ 	if (nominal_utm_budget_percent > dchub->max_nominal_utm_budget_percent ||
+ 			nominal_utm_budget_percent < dchub->min_nominal_utm_budget_percent ||
+@@ -112,9 +112,9 @@ static inline bool dchub_v2_is_qos_bandwidth_supported_by_sop(
+ 	nominal_available_bandwidth_KBps = available_bandwidth.nominal_bandwidth_KBps;
+ 	urgent_available_bandwidth_KBps = available_bandwidth.urgent_bandwidth_KBps;
+ 
+-	if ((nominal_available_bandwidth_KBps * nominal_utm_budget_percent / 100) < qos_bandwidth->nominal_bandwidth_KBps)
++	if ((nominal_available_bandwidth_KBps * nominal_utm_budget_percent / 100.0) < qos_bandwidth->nominal_bandwidth_KBps)
+ 		return false;
+-	else if ((urgent_available_bandwidth_KBps * urgent_utm_budget_percent / 100) < qos_bandwidth->urgent_bandwidth_KBps)
++	else if ((urgent_available_bandwidth_KBps * urgent_utm_budget_percent / 100.0) < qos_bandwidth->urgent_bandwidth_KBps)
+ 		return false;
+ 	else
+ 		return true;
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/bounding_boxes/utm_qos_model_dchub_v3.h b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/bounding_boxes/utm_qos_model_dchub_v3.h
+index 9390cad316914..fef7b1dc3060b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/bounding_boxes/utm_qos_model_dchub_v3.h
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/bounding_boxes/utm_qos_model_dchub_v3.h
+@@ -50,4 +50,4 @@ struct utm_qos_model_dchub_v3 {
+ 		sops[UTM_QOS_MODEL_V3_MAX_LOAD_LEVEL_COUNT][UTM_QOS_MODEL_V3_MAX_SOP_COUNT];
+ };
+ 
+-#endif /* #ifndef UTM_QOS_MODEL_DCHUB_V3_H */
+\ No newline at end of file
++#endif /* #ifndef UTM_QOS_MODEL_DCHUB_V3_H */
+-- 
+2.43.0
+
