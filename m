@@ -2,94 +2,96 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0988E606A31D
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 20:00:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C7E9606A31D
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 20:35:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=basnieuwenhuizen.nl header.i=@basnieuwenhuizen.nl header.a=rsa-sha256 header.s=google header.b=VaovyHK1
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=pBeGnorN
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CA2C10E2B1;
-	Wed, 28 Oct 2026 20:00:19 +0000 (UTC)
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com
- [209.85.208.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A58410FE6C
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Oct 2026 20:00:13 +0000 (UTC)
-Received: by mail-ed1-f54.google.com with SMTP id
- 4fb4d7f45d1cf-6ae14eecc64so2094172a12.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Oct 2026 13:00:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793217612; cv=none;
- d=google.com; s=arc-20260327;
- b=fS443PM1Lt39Nne5S8WHdU+BiQznXDhPGNdAKezVhax3DSNzf7X7T/OOzejlKTdBQ4
- 69rHQvrZVLdxDj7atSs6SZuowrELmWZwQQ2liwRi3ibg0dCkAY5lmRkOfzERRCQkK3WH
- Qho6nUS61lyyEBn64qdsGmr83Mj58BeuqPG0R9PKcjkGQvd2oYohX9rV6W+2MXd3fj1B
- gRZbjlx1lZ2V9R/FG0HqKlIRlir4lYU6wQDn6AA6agwrk9HobKQF50fMt0prB98TtqPU
- Q5pRJlT4Sq+8ZqEmpQ+a2Xdgjamb0JPdF3q3ilzjlZdwYh6C1FF7Kq6oCJkn7dxnxpMf
- f5iw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=QDPCjG7iY0GDQkNY8S/83f10vL3yGPFQ3dnGo4S6nqs=;
- fh=W+8y1goK6vrKjx7BovOONJIB1jwMzNy3LrZSgff03+M=;
- b=StEOIefQ3ftdjjHDIPhGZTbq/i1f8K9iI8DfgK+xGqHMeCv7a5iqRJDu79yrjOXbj2
- z55uGr7V7bABNLQh/HOVKCfV8piwqdPiYyA/xWXUuokKBAEK9f4G6fCS9EUVZlLcN+Up
- jST/no21E7fL+jUCd6R4E+u9PSrkRHFMNsFItPxK5JGvQHqVJtgYjeN763Ee97eynMGb
- hEvuUTqDBO3tf1szxg2D6OgiSUn+lvOlDgLtDJ5IUXhaAb9qXpirz4QlGpTCNdtP0om/
- QC5ts/DR5l+u9B3LJ4GXGDnY8N4rXvWJXTOg39Kc97/nj+Il9b9J7jdpbDMQpAgHbuX2
- X1kw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=basnieuwenhuizen.nl; s=google; t=1793217612; x=1793822412;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=QDPCjG7iY0GDQkNY8S/83f10vL3yGPFQ3dnGo4S6nqs=;
- b=VaovyHK1wltSnkIw6xzMVPMy5XCpXXw5VmAzHQvy4iixRrY1vVwFeJZCBBa1PzqNdW
- PwkXg4zgoK8xoYy9wJwOq9jlNdTbawIsnQ+i28kBhienkRR7g6ORiDxGjIr13L7cIfoS
- kv3ey6fByLukLOdoV/ZNxnRKBPHkRnftBhTnAi6Sgdb1lD9ao8oL5m20oQ5xDTuaVT60
- ZHczJipPc3iwNqC5OY/Q38k+/so9YwaV2niL85WwNJ+4L7KC9uK4c+3NkrAaS6BLEBrS
- kNY8amhHVsSoSE+Je7Nby5zVLz7ijYVBnYXJceLpBXX3x8CcBYH/+3XnYUf1wPD5Vgs3
- XfMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793217612; x=1793822412;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=QDPCjG7iY0GDQkNY8S/83f10vL3yGPFQ3dnGo4S6nqs=;
- b=12GBIPmB9i8dGpzwzh2Mb/i9E7h0ZdOmllTUWUbmV5TN4gh4aDnmpKbIIWUe3uPh5/
- Abw2Ke6OIt+ob4+vN6UUmd2bOPuyY4MU2HJUZxBP+TCAIMDnIYOtdd96lOsgKtZZtIE6
- EUlEPXiKvC8XNCqmmjh5klvjW8Xb38umI5QQMyMPqJRqIJXufByCunWUDK9HPTi6lrIn
- heRQqmvIr2/Kep5E0Iw5tos1fbm1HN8M6cL2gDmxRUfTmX3c1GRneyNyKFj3BvN/rhXh
- xaK9Jd8K8sU0fe/miPhqzC9bZSv9WjJw8/L4vXSCfOposvRrIJw4noICSmBk+9wPdSfv
- kDeQ==
-X-Gm-Message-State: AFq9FYI4/2ASPqgHWTw8szMxRB0tZRFVenfDmGQnGDU7iAirmdfMXVbE
- IYGun9noi9gghK9Xlf066YmHbTL4ITHnZ0RqH5jIWJhqTGt7hQZED2C0G1nelwW31sYBYReLLgu
- BBUwegO1liYXqFL5iGQOG3g13z7eXkywSjDRfN0cVKQ==
-X-Gm-Gg: AYBFou2nP5JdSHLWEG/HtbrZwuyRM2hMjyiz1Jo26Q/mYxoPABold3DxgGV4QExeEJ7
- r88H38HFg5s3Tf8dEINoJkmFwGyuK41/agedtepfC+zOlqY6mhmeOV76lA1jlmZgSZ/SzEztJPk
- Qaa7nAjmKFYKrXJLbH/psbgATKt0ycP/1D6iPP7sZl6meu5VHz/BNu2LMExz5NHv1o3OlbXfuo3
- Cdwyfem8nJFiQMfP+zU4QdRX+SPhemQ7uH3CZsvp6Ytg0DlYYpHjlz88qzCXeyKBP8P0pIhIpKM
- IUiFebaiVkNuYzY7GoSms3yFoJgELuAOlxoCROHzypx90eGzFs4TBdohcFGDEDdtZFrvOaScSEk
- mrGXhFmGla7BrXMch3PZUkW5cdcEhBJogwrjf1LEpytaSHADkRx5MtJWoS7JxjQV/R1FESGCE6u
- W177yJU2pLmc0vKONO4AK9iKxf7kUz0YC7oO5mOA==
-X-Received: by 2002:a05:6402:2032:b0:6b3:d0a0:3743 with SMTP id
- 4fb4d7f45d1cf-6b49cbd61c1mr1907350a12.7.1793217611287; Wed, 28 Oct 2026
- 13:00:11 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CAAEE10E26F;
+	Wed, 28 Oct 2026 20:35:18 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010039.outbound.protection.outlook.com [52.101.201.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F6CD10E26F
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Oct 2026 20:35:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NYff5GrxsfLyMoLdjBOAoGrq97gRTsfJa1c8lFTDjxLE7/Yds0bxv+jJJAs7NYZ8jc/d0APaZ0Q/aHz3iqXYFR03yV2D/So/nWEZ6k63/bWwlQP3A/aKNaz9KZIjxi1QzIdEOUrkdDQ97zMSxRQyEm0QLl0bEo/wTDpWw8Y7hrgP9/6cgrY4Ns3hPZ+EVyfKADlLPifQUHWpflzhpcX3L0d0YeIcRo/tBuvoQx94nd0eVwXeS4bm0PTQISiJHBlFT5zbVxUTdPFAuXNInpNb5vc9v3ASipddqAqhSMM/V9mT5jqy+tEDh/lWinXUy/XQRNQowwqqIle3wOr3AjHegw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FzP84tl+S77cGPf/nyjHPli4IMtm7AbvoaCIzowp56Y=;
+ b=MzefMy/HeeKKndrxrq93DEZO7pfJz1ub3OtvJWQjGjOLcO4UVSlJsbpsNG7cCo2+JARZtw0KBYyr30BbBqepJ/7B+q1LfX9wKf2oHASNFDbPL1pSqkb4OP/dgpgGSbeACz1lZcM/Brf2pdqQEm/N61/rHso6Ne5tF+W15wb8P+0ZolzUqA6D6y602WOQZsFRtBzMDntr7kDZ0N00cCJWhZE/JPmY8ykaUapeAD2t7pPQzIRcakNJGZHyMoUn9M0o34OTl8g+P9JPK6erR55I7CdNTWJlMrvIjabr7vLtxQmZL1K+BKl+BdW6r73DBPfEjLzt87AZTauswH38psfx4Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FzP84tl+S77cGPf/nyjHPli4IMtm7AbvoaCIzowp56Y=;
+ b=pBeGnorNmhek/e4yxHarPT1tpHuvIBGoU6xCIKZB60HIC4j6QM+QxBOlW8PN10CCGhXtrTZiZsjCF7I+Tiw0nb30ZPNJGtx0Xd4jrNHbrzBieUByX0GLLQqCESJzCAmSJXJFtyAqlG7SLCyz2TSeGFJ6TYEwpVQUZ6D6Bw/mDSc=
+Received: from PH8PR22CA0021.namprd22.prod.outlook.com (2603:10b6:510:2d1::7)
+ by DM4PR12MB6181.namprd12.prod.outlook.com (2603:10b6:8:a9::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Wed, 28 Oct
+ 2026 20:35:07 +0000
+Received: from PH3PEPF00059619.namprd05.prod.outlook.com
+ (2603:10b6:510:2d1:cafe::38) by PH8PR22CA0021.outlook.office365.com
+ (2603:10b6:510:2d1::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Wed,
+ 28 Oct 2026 20:35:07 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ PH3PEPF00059619.mail.protection.outlook.com (10.167.243.23) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.4 via Frontend Transport; Wed, 28 Oct 2026 20:35:06 +0000
+Received: from krussell.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 28 Oct
+ 2026 15:35:03 -0500
+From: Kent Russell <kent.russell@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <jay.cornwall@amd.com>, <gang.ba@amd.com>, Kent Russell
+ <kent.russell@amd.com>
+Subject: [PATCH 1/2] drm/amdgpu: Run shader cleaner on all XCCs on faults
+Date: Wed, 28 Oct 2026 16:34:52 -0400
+Message-ID: <20261028203453.3463371-1-kent.russell@amd.com>
+X-Mailer: git-send-email 2.43.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261022003058.1723817-1-bas@basnieuwenhuizen.nl>
- <20261022003058.1723817-5-bas@basnieuwenhuizen.nl>
- <9222106f-576f-4921-bf2f-ee59105a7d4f@amd.com>
-In-Reply-To: <9222106f-576f-4921-bf2f-ee59105a7d4f@amd.com>
-From: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-Date: Wed, 28 Oct 2026 19:59:59 +0000
-X-Gm-Features: AclHuK8OZpeF-3Vgk85CBBPj22Rf_cM3rG-Ti7niLSytkOw2KJI4wMeWBdIlT0w
-Message-ID: <CAP+8YyGggpPyVzjRvAnSCD3q3U2Gdtah0LVPBjhyJvsie+=RHQ@mail.gmail.com>
-Subject: Re: [PATCH 4/5] drm/amdgpu: Implement disabling implicit sync per
- submission.
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, samuel.pitoiset@gmail.com, 
- natalie.vock@gmx.de
-Content-Type: multipart/alternative; boundary="000000000000b9e1ce065eec0217"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH3PEPF00059619:EE_|DM4PR12MB6181:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0defd55b-23a8-4d5e-087c-08df3532f3fc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|23010399003|30052699003|82310400026|1800799024|36860700016|261021121427099003|261028144727099003|11063799006|56012099006|261009223027099003|261026121527099003|261026140227099003|261021123027099003|261022105027099003|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info: RWzTDtkV041HliwDNw/jX0J2Ruk3kQu9tYsKgspZ4Kgq+D5+NoE66xkhWgCAaDeHgCtnlh+nsVP6LcP5fahWI0IaoH599FS1gUpY3g/Vw26ESkLGz9LuRfmvsqwBeYa/RHLjlg125NZhzZAdzQ92/R3KzI7hC79zpjzVykvsQWIudPjhGZvLMpLmvbE+OoIpz+TO6fDkjBfGqkKedKGBuRkD7ph40Olrxys0SdPDFzqm9x6kgx6Pvggns+UiKRg4nA00XtJSnXCoT1AiB/NwAL/N04YyBQ40cxNRILQZl6SxA+alwTGA59veaEm/g5KyNL7T+sA7bQNc/t3QIrJLOA5xRSGe3VElhWvr+QUgmXUVbJhQo8DTbpmwO6fTTDI0CKjQCGyXUxmAjYfnP+dvdAq355FJQpAm0tPRmqc4KIkG4SjIaXT7pm9yuiSKZEB5aJ0nU6vL0/Y222UBMPiKpCCDnsKSff+WOQ9c8wS9jbd0+zOJTUnQXwBT1+BulGKogwgT9t8eZWh1QePgTYYWJWK50qPFpxT5sa+OjVRBU9lM4wOiVEfQhLzkJJ3gNT/yMXjnRDWJehZNpA3bhCzdi/ljzCqKnS9GuFI4unXzOaUBnFZ9LBTxre5Wu93q4BKGpSg/+f9EyDVZ8kp1KktD9ygntalvuZhjzidtGct2dfUh5fkzqFL5ctE9OWaWvdQvNcZWeY75pPbKQlitlGCJFg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(30052699003)(82310400026)(1800799024)(36860700016)(261021121427099003)(261028144727099003)(11063799006)(56012099006)(261009223027099003)(261026121527099003)(261026140227099003)(261021123027099003)(261022105027099003)(10067099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: +tBP3U4cXgR5kevRICAFIQbC24I9XcPNe/o8Pz6KST8bRX+a5LHsuSSCClfP4Zu5FRfCyTJnNBVQzMto5Tpk5J5c8s0IsN428OZi5ssjFfdNSyycGDpzB1WmCx83oFCAAolC7NEJ168+tb3QWPCqhG9rppwYX2Ktzoks97ljtzuV4dmU9EzwJ3/kniWMrb9TUjZGTzakWp7yMdU+REMx2/9je/86lECDlijglR9IsYwQdMlhN0xYu7uaNEy70egVpqUZxT9MFyf5FaVSlCsS5mZVs9m1jRUNEEez4qVY+gzBr4EstBH/TDH3sUs8Yl2fE3buXt2NJ6dYBM/UcUuY27OSTYUemMnblR2IndBLVIwN6TpS1WaFmdB93IoP3Cg9tlIg19jMs8LEw8ndeCKwMZdc0iINMGuKM4oHqSaZf1h3JhflzX+IoobP4VxSeE3u
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 20:35:06.6798 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0defd55b-23a8-4d5e-087c-08df3532f3fc
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: PH3PEPF00059619.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6181
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,477 +102,125 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---000000000000b9e1ce065eec0217
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+The previous patch only ran on XCC0, giving us a good chance that we
+don't clear the right registers on fault handling in MI3. Loop through
+them all to make sure we clear them all.
 
-On Tue, Oct 27, 2026 at 1:30=E2=80=AFPM Christian K=C3=B6nig <christian.koe=
-nig@amd.com>
-wrote:
+Signed-off-by: Kent Russell <kent.russell@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c | 78 +++++++++++++++----------
+ 1 file changed, 47 insertions(+), 31 deletions(-)
 
-> On 10/22/26 02:30, Bas Nieuwenhuizen wrote:
-> > Implements the UAPI flag to give apps an options to disable
-> > implicit sync per submission.
-> >
-> > v2:
-> >  - signal READ fences for the VM root PD, as some unmapping
-> >    operations only wait for READ and up.
-> >
-> > Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-> > Reviewed-by: Faith Ekstrand <faith.ekstrand@collabora.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 34 +++++++++++++++++++++-----
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h |  1 +
-> >  2 files changed, 29 insertions(+), 6 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> > index afcd254c9884..f0fe9d0f1398 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> > @@ -49,6 +49,9 @@
-> >  #define AMDGPU_GFX_SDMA_IB_PACKET_SIZE_MAX_DW        0xFFFFF
-> >  #define AMDGPU_MM_IB_PACKET_SIZE_MAX_DW      0x7FFFF0
-> >
-> > +/* All flags accepted in drm_amdgpu_cs_in.flags */
-> > +#define AMDGPU_CS_FLAGS_MASK AMDGPU_CS_NO_IMPLICIT_SYNC
-> > +
-> >  static u32 amdgpu_cs_ib_packet_size_max_dw(enum amdgpu_ring_type type)
-> >  {
-> >       switch (type) {
-> > @@ -188,9 +191,11 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser
-> *p,
-> >       int ret;
-> >       int i;
-> >
-> > -     if (cs->in.flags)
-> > +     if (cs->in.flags & ~AMDGPU_CS_FLAGS_MASK)
-> >               return -EINVAL;
-> >
-> > +     p->flags =3D cs->in.flags;
-> > +
-> >       chunk_array =3D memdup_array_user(u64_to_user_ptr(cs->in.chunks),
-> >                                       cs->in.num_chunks,
-> >                                       sizeof(uint64_t));
-> > @@ -1220,16 +1225,19 @@ static int amdgpu_cs_sync_rings(struct
-> amdgpu_cs_parser *p)
-> >       }
-> >
-> >       drm_exec_for_each_locked_object(&p->exec, obj) {
-> > +             /* Implicitly sync only to KERNEL, WRITE and READ */
-> > +             enum dma_resv_usage usage =3D DMA_RESV_USAGE_READ;
-> >               struct amdgpu_bo *bo =3D gem_to_amdgpu_bo(obj);
-> >
-> >               struct dma_resv *resv =3D bo->tbo.base.resv;
-> >               enum amdgpu_sync_mode sync_mode;
-> >
-> > +             if (p->flags & AMDGPU_CS_NO_IMPLICIT_SYNC)
-> > +                     usage =3D DMA_RESV_USAGE_KERNEL;
->
-> Use DMA_RESV_USAGE_WRITE here.
->
-> > +
-> >               sync_mode =3D amdgpu_bo_explicit_sync(bo) ?
-> >                       AMDGPU_SYNC_EXPLICIT : AMDGPU_SYNC_NE_OWNER;
-> > -             /* Implicitly sync only to KERNEL, WRITE and READ */
-> > -             r =3D amdgpu_sync_resv(p->adev, &p->sync, resv,
-> > -                                  DMA_RESV_USAGE_READ, sync_mode,
-> > +             r =3D amdgpu_sync_resv(p->adev, &p->sync, resv, usage,
-> sync_mode,
-> >                                    &fpriv->vm);
-> >               if (r)
-> >                       return r;
-> > @@ -1341,9 +1349,23 @@ static int amdgpu_cs_submit(struct
-> amdgpu_cs_parser *p,
-> >
-> >       p->fence =3D dma_fence_get(&leader->base.s_fence->finished);
-> >       drm_exec_for_each_locked_object(&p->exec, gobj) {
-> > +             enum dma_resv_usage read_usage =3D DMA_RESV_USAGE_READ;
-> > +             enum dma_resv_usage write_usage =3D DMA_RESV_USAGE_WRITE;
-> >
-> >
->  ttm_bo_move_to_lru_tail_unlocked(&gem_to_amdgpu_bo(gobj)->tbo);
-> >
-> > +             /*
-> > +              * Keep READ/WRITE on the root PD resv:
-> > +              * amdgpu_vm_bo_update(clear=3Dtrue) only waits on the VM
-> root PD
-> > +              * resv with read and should still sync to avoid unmappin=
-g
-> > +              * before the job finishes.
-> > +              */
-> > +             if ((p->flags & AMDGPU_CS_NO_IMPLICIT_SYNC) &&
-> > +                 gobj->resv !=3D vm->root.bo->tbo.base.resv) {
-> > +                     read_usage =3D DMA_RESV_USAGE_BOOKKEEP;
-> > +                     write_usage =3D DMA_RESV_USAGE_BOOKKEEP;
-> > +             }
-> > +
->
-> Completely drop that.
->
-> >               /* Everybody except for the gang leader uses READ */
-> >               for (i =3D 0; i < p->gang_size; ++i) {
-> >                       if (p->jobs[i] =3D=3D leader)
-> > @@ -1351,11 +1373,11 @@ static int amdgpu_cs_submit(struct
-> amdgpu_cs_parser *p,
-> >
-> >                       dma_resv_add_fence(gobj->resv,
-> >
-> &p->jobs[i]->base.s_fence->finished,
-> > -                                        DMA_RESV_USAGE_READ);
-> > +                                        read_usage);
-> >               }
-> >
-> >               /* The gang leader as remembered as writer */
-> > -             dma_resv_add_fence(gobj->resv, p->fence,
-> DMA_RESV_USAGE_WRITE);
-> > +             dma_resv_add_fence(gobj->resv, p->fence, write_usage);
->
-> Instead just set that here to DMA_RESV_USAGE_READ when the CS is
-> explicitely synced.
->
-> This way we get amdgpu nearly back to the usage model all other DRM
-> drivers uses.
->
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
+index f54f54fe535e..dc46133ed506 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
+@@ -716,51 +716,67 @@ static int gfx_v9_4_2_do_vgprs_init(struct amdgpu_device *adev)
+ 
+ static int gfx_v9_clean_shaders(struct amdgpu_device *adev)
+ {
+-	int r;
++	int r = 0;
+ 	/* CU_ID: 0~15, SIMD_ID: 0~3, WAVE_ID: 0 ~ 9 */
+ 	int wb_size = adev->gfx.config.max_shader_engines *
+ 			 CU_ID_MAX * SIMD_ID_MAX * WAVE_ID_MAX;
+ 	struct amdgpu_ib wb_ib;
++	struct amdgpu_ring *ring;
+ 	struct dma_fence *fence = NULL;
+ 	u32 pattern = 0xa;
++	int xcc_id;
+ 
+-	/* bail if the compute ring is not ready */
+-	if (!adev->gfx.compute_ring[0].sched.ready)
++	if (adev->gfx.disable_kq) {
++		dev_warn(adev->dev, "Cannot run shader cleaner with kernel queues disabled");
+ 		return 0;
+-
+-	/* allocate the write-back buffer from IB */
+-	memset(&wb_ib, 0, sizeof(wb_ib));
+-	r = amdgpu_ib_get(adev, NULL, (1 + wb_size) * sizeof(uint32_t),
+-			  AMDGPU_IB_POOL_DIRECT, &wb_ib);
+-	if (r) {
+-		dev_err(adev->dev, "failed to get ib (%d) for wb.\n", r);
+-		return r;
+ 	}
+-	memset(wb_ib.ptr, 0, (1 + wb_size) * sizeof(uint32_t));
+ 
+-	r = gfx_v9_4_2_run_shader(adev,
+-			&adev->gfx.compute_ring[0],
+-			fault_cleaner_compute_shader_aldebaran,
+-			sizeof(fault_cleaner_compute_shader_aldebaran),
+-			fault_cleaner_init_regs_aldebaran,
+-			ARRAY_SIZE(fault_cleaner_init_regs_aldebaran),
+-			adev->gfx.cu_info.number * 32,
+-			wb_ib.gpu_addr, pattern, &fence);
++	for_each_inst(xcc_id, adev->gfx.xcc_mask) {
++		ring = &adev->gfx.compute_ring[xcc_id * adev->gfx.num_compute_rings];
+ 
+-	if (r) {
+-		dev_err(adev->dev, "failed to clear MI200\n");
+-		goto pro_end;
+-	}
++		/* bail if the compute ring is not ready */
++		if (!ring->sched.ready)
++			continue;
+ 
+-	/* wait for the GPU to finish processing the IB */
+-	r = dma_fence_wait(fence, false);
+-	if (r)
+-		dev_err(adev->dev, "timeout to clear MI200\n");
++		/* allocate the write-back buffer from IB */
++		memset(&wb_ib, 0, sizeof(wb_ib));
++		r = amdgpu_ib_get(adev, NULL, (1 + wb_size) * sizeof(uint32_t),
++				  AMDGPU_IB_POOL_DIRECT, &wb_ib);
++		if (r) {
++			dev_err(adev->dev, "failed to get ib (%d) for wb.\n", r);
++			return r;
++		}
++		memset(wb_ib.ptr, 0, (1 + wb_size) * sizeof(uint32_t));
++
++		r = gfx_v9_4_2_run_shader(adev,
++				ring,
++				fault_cleaner_compute_shader_aldebaran,
++				sizeof(fault_cleaner_compute_shader_aldebaran),
++				fault_cleaner_init_regs_aldebaran,
++				ARRAY_SIZE(fault_cleaner_init_regs_aldebaran),
++				adev->gfx.cu_info.number * 32,
++				wb_ib.gpu_addr, pattern, &fence);
++
++		if (r) {
++			dev_err(adev->dev, "failed to clear GPR on xcc %d\n", xcc_id);
++			goto pro_end;
++		}
++
++		/* wait for the GPU to finish processing the IB */
++		r = dma_fence_wait(fence, false);
++		if (r)
++			dev_err(adev->dev, "timeout to clear GPR on xcc %d\n", xcc_id);
+ 
+ pro_end:
+-	if (fence)
+-		dma_fence_put(fence);
+-	amdgpu_ib_free(&wb_ib, NULL);
++		if (fence) {
++			dma_fence_put(fence);
++			fence = NULL;
++		}
++		amdgpu_ib_free(&wb_ib, NULL);
++
++		if (r)
++			break;
++	}
+ 
+ 	if (r)
+ 		dev_dbg(adev->dev, "Clean GPR Failed\n");
+-- 
+2.43.0
 
-I think this has two problems:
-
-1. It doesn't fully solve the problem I'm trying to address. In the common
-Vulkan WSI apps for present signal WRITE  and then wait on READ[1], meaning
-that the proposed wait on WRITE and signal READ result in submissions from
-the compositor still fully participating in implicit sync wrt presents.
-Waiting on KERNEL and signalling BOOKKEEP actually resolves this.
-2. While the driver landscape is very diverse I think other drivers are
-actually pretty much moving to KERNEL/BOOKKEEP. In particular:
-- Xe does the KERNEl/BOOKKEEP[2]
-- MSMs BO list based path skips waits alltogether with
-MSM_SUBMIT_NO_IMPLICT [4], though signals READ/WRITE, but its newer VM_BIND
-based submission path does not have any BO list at all and adds a BOOKKEEP
-fence to all external BOs imported into the VM[5]
-- Panthor skips waits alltogether and signals BOOKKEEP[6]
-
-And finally I think KERNEL/BOOKKEEP follows the dma-resv documentation[3]:
-- DMA_RESV_USAGE_READ: This should only be used for userspace command
-submissions which add an *implicit read dependency*.
-- DMA_RESV_USAGE_BOOKKEEP: This should be used by submissions which don't
-want to participate in any implicit synchronization. The most common cases
-are preemption fences, page table updates, TLB flushes as well as
-*explicitly synced user submissions*.
-
-(emphasis mine)
-
-So I'm not sure why we shouldn't stick with KERNEL/BOOKKEEP?
-
- - Bas
-
-[1]
-https://gitlab.freedesktop.org/mesa/mesa/-/blob/main/src/vulkan/wsi/wsi_com=
-mon_drm.c?ref_type=3Dheads#L48
-[2]
-https://github.com/torvalds/linux/blob/v7.3-rc4/drivers/gpu/drm/xe/xe_exec.=
-c#L303-L311
-and
-https://github.com/torvalds/linux/blob/v7.3-rc4/drivers/gpu/drm/xe/xe_exec.=
-c#L335-L337
-[3]
-https://github.com/torvalds/linux/blob/v7.3-rc4/include/linux/dma-resv.h#L7=
-1-L116
-[4]
-https://github.com/torvalds/linux/blob/v7.3-rc4/drivers/gpu/drm/msm/msm_gem=
-_submit.c#L678-L682
-[5]
-https://github.com/torvalds/linux/blob/v7.3-rc4/drivers/gpu/drm/msm/msm_gem=
-_submit.c#L410-L413
-[6]
-https://github.com/torvalds/linux/blob/v7.3-rc4/drivers/gpu/drm/panthor/pan=
-thor_sched.c#L4056-L4062
-
->
-> Regards,
-> Christian.
->
-> >       }
-> >
-> >       seq =3D amdgpu_ctx_add_fence(p->ctx, p->entities[p->gang_leader_i=
-dx],
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h
-> > index 39c33ad100cb..5c2a5f6b1d55 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h
-> > @@ -50,6 +50,7 @@ struct amdgpu_cs_parser {
-> >       struct amdgpu_device    *adev;
-> >       struct drm_file         *filp;
-> >       struct amdgpu_ctx       *ctx;
-> > +     u32                     flags;
-> >
-> >       /* chunks */
-> >       unsigned                nchunks;
->
->
-
---000000000000b9e1ce065eec0217
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote g=
-mail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Tue, Oct 27,=
- 2026 at 1:30=E2=80=AFPM Christian K=C3=B6nig &lt;<a href=3D"mailto:christi=
-an.koenig@amd.com">christian.koenig@amd.com</a>&gt; wrote:<br></div><blockq=
-uote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1p=
-x solid rgb(204,204,204);padding-left:1ex">On 10/22/26 02:30, Bas Nieuwenhu=
-izen wrote:<br>
-&gt; Implements the UAPI flag to give apps an options to disable<br>
-&gt; implicit sync per submission.<br>
-&gt; <br>
-&gt; v2:<br>
-&gt;=C2=A0 - signal READ fences for the VM root PD, as some unmapping<br>
-&gt;=C2=A0 =C2=A0 operations only wait for READ and up.<br>
-&gt; <br>
-&gt; Signed-off-by: Bas Nieuwenhuizen &lt;<a href=3D"mailto:bas@basnieuwenh=
-uizen.nl" target=3D"_blank">bas@basnieuwenhuizen.nl</a>&gt;<br>
-&gt; Reviewed-by: Faith Ekstrand &lt;<a href=3D"mailto:faith.ekstrand@colla=
-bora.com" target=3D"_blank">faith.ekstrand@collabora.com</a>&gt;<br>
-&gt; ---<br>
-&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 34 ++++++++++++++++++++=
-+-----<br>
-&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h |=C2=A0 1 +<br>
-&gt;=C2=A0 2 files changed, 29 insertions(+), 6 deletions(-)<br>
-&gt; <br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_cs.c<br>
-&gt; index afcd254c9884..f0fe9d0f1398 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c<br>
-&gt; @@ -49,6 +49,9 @@<br>
-&gt;=C2=A0 #define AMDGPU_GFX_SDMA_IB_PACKET_SIZE_MAX_DW=C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 0xFFFFF<br>
-&gt;=C2=A0 #define AMDGPU_MM_IB_PACKET_SIZE_MAX_DW=C2=A0 =C2=A0 =C2=A0 0x7F=
-FFF0<br>
-&gt;=C2=A0 <br>
-&gt; +/* All flags accepted in drm_amdgpu_cs_in.flags */<br>
-&gt; +#define AMDGPU_CS_FLAGS_MASK AMDGPU_CS_NO_IMPLICIT_SYNC<br>
-&gt; +<br>
-&gt;=C2=A0 static u32 amdgpu_cs_ib_packet_size_max_dw(enum amdgpu_ring_type=
- type)<br>
-&gt;=C2=A0 {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0switch (type) {<br>
-&gt; @@ -188,9 +191,11 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parse=
-r *p,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0int ret;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0int i;<br>
-&gt;=C2=A0 <br>
-&gt; -=C2=A0 =C2=A0 =C2=A0if (cs-&gt;in.flags)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (cs-&gt;in.flags &amp; ~AMDGPU_CS_FLAGS_MASK)<=
-br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -EINVAL;<=
-br>
-&gt;=C2=A0 <br>
-&gt; +=C2=A0 =C2=A0 =C2=A0p-&gt;flags =3D cs-&gt;in.flags;<br>
-&gt; +<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0chunk_array =3D memdup_array_user(u64_to_use=
-r_ptr(cs-&gt;in.chunks),<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0cs-&gt=
-;in.num_chunks,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0sizeof=
-(uint64_t));<br>
-&gt; @@ -1220,16 +1225,19 @@ static int amdgpu_cs_sync_rings(struct amdgpu_=
-cs_parser *p)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0drm_exec_for_each_locked_object(&amp;p-&gt;e=
-xec, obj) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* Implicitly sync on=
-ly to KERNEL, WRITE and READ */<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0enum dma_resv_usage u=
-sage =3D DMA_RESV_USAGE_READ;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct amdgpu_bo=
- *bo =3D gem_to_amdgpu_bo(obj);<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct dma_resv =
-*resv =3D bo-&gt;tbo.base.resv;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0enum amdgpu_sync=
-_mode sync_mode;<br>
-&gt;=C2=A0 <br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (p-&gt;flags &amp;=
- AMDGPU_CS_NO_IMPLICIT_SYNC)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0usage =3D DMA_RESV_USAGE_KERNEL;<br>
-<br>
-Use DMA_RESV_USAGE_WRITE here.<br>
-<br>
-&gt; +<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0sync_mode =3D am=
-dgpu_bo_explicit_sync(bo) ?<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0AMDGPU_SYNC_EXPLICIT : AMDGPU_SYNC_NE_OWNER;<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* Implicitly sync on=
-ly to KERNEL, WRITE and READ */<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0r =3D amdgpu_sync_res=
-v(p-&gt;adev, &amp;p-&gt;sync, resv,<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 DMA_RESV_USAGE_READ, sync=
-_mode,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0r =3D amdgpu_sync_res=
-v(p-&gt;adev, &amp;p-&gt;sync, resv, usage, sync_mode,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &amp;fpriv-&gt;vm);=
-<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (r)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0return r;<br>
-&gt; @@ -1341,9 +1349,23 @@ static int amdgpu_cs_submit(struct amdgpu_cs_pa=
-rser *p,<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0p-&gt;fence =3D dma_fence_get(&amp;leader-&g=
-t;base.s_fence-&gt;finished);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0drm_exec_for_each_locked_object(&amp;p-&gt;e=
-xec, gobj) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0enum dma_resv_usage r=
-ead_usage =3D DMA_RESV_USAGE_READ;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0enum dma_resv_usage w=
-rite_usage =3D DMA_RESV_USAGE_WRITE;<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ttm_bo_move_to_l=
-ru_tail_unlocked(&amp;gem_to_amdgpu_bo(gobj)-&gt;tbo);<br>
-&gt;=C2=A0 <br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/*<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * Keep READ/WRITE on=
- the root PD resv:<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * amdgpu_vm_bo_updat=
-e(clear=3Dtrue) only waits on the VM root PD<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * resv with read and=
- should still sync to avoid unmapping<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * before the job fin=
-ishes.<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 */<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if ((p-&gt;flags &amp=
-; AMDGPU_CS_NO_IMPLICIT_SYNC) &amp;&amp;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0gobj-&g=
-t;resv !=3D vm-&gt;root.bo-&gt;tbo.base.resv) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0read_usage =3D DMA_RESV_USAGE_BOOKKEEP;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0write_usage =3D DMA_RESV_USAGE_BOOKKEEP;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +<br>
-<br>
-Completely drop that.<br>
-<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* Everybody exc=
-ept for the gang leader uses READ */<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0for (i =3D 0; i =
-&lt; p-&gt;gang_size; ++i) {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0if (p-&gt;jobs[i] =3D=3D leader)<br>
-&gt; @@ -1351,11 +1373,11 @@ static int amdgpu_cs_submit(struct amdgpu_cs_p=
-arser *p,<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0dma_resv_add_fence(gobj-&gt;resv,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 &amp;p-&gt;jobs[i]-&gt;base.s_fence-&gt;finished,<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 DMA_=
-RESV_USAGE_READ);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 read=
-_usage);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* The gang lead=
-er as remembered as writer */<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dma_resv_add_fence(go=
-bj-&gt;resv, p-&gt;fence, DMA_RESV_USAGE_WRITE);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dma_resv_add_fence(go=
-bj-&gt;resv, p-&gt;fence, write_usage);<br>
-<br>
-Instead just set that here to DMA_RESV_USAGE_READ when the CS is explicitel=
-y synced.<br>
-<br>
-This way we get amdgpu nearly back to the usage model all other DRM drivers=
- uses.<br></blockquote><div><br></div><div>I think this has two problems:</=
-div><div><br></div><div>1. It doesn&#39;t fully solve the problem I&#39;m t=
-rying to address. In the common Vulkan WSI apps for present signal WRITE=C2=
-=A0 and then wait on READ[1], meaning that the proposed wait on WRITE and s=
-ignal READ result in submissions from the compositor still fully participat=
-ing in implicit sync wrt presents. Waiting on KERNEL and signalling BOOKKEE=
-P actually resolves this.</div><div>2. While the driver landscape is very d=
-iverse I think other drivers are actually pretty much moving to KERNEL/BOOK=
-KEEP. In particular:</div><div>- Xe does the KERNEl/BOOKKEEP[2]</div><div>-=
- MSMs BO list based path skips waits alltogether with MSM_SUBMIT_NO_IMPLICT=
- [4], though signals READ/WRITE, but its newer VM_BIND based submission pat=
-h does not have any BO list at all and adds a BOOKKEEP fence to all externa=
-l BOs imported into the VM[5]</div><div>- Panthor skips waits alltogether a=
-nd signals BOOKKEEP[6]</div><div><br></div><div>And finally I think KERNEL/=
-BOOKKEEP follows the dma-resv documentation[3]:</div><div>- DMA_RESV_USAGE_=
-READ:=C2=A0This should only be used for userspace command submissions which=
- add an *implicit read dependency*.</div><div>-=C2=A0DMA_RESV_USAGE_BOOKKEE=
-P:=C2=A0This should be used by submissions which don&#39;t want to particip=
-ate in=C2=A0any implicit synchronization.=C2=A0The most common cases are pr=
-eemption fences, page table updates, TLB=C2=A0flushes as well as *explicitl=
-y synced user submissions*.</div><div><br></div><div>(emphasis mine)</div><=
-div><br></div><div>So I&#39;m not sure why we shouldn&#39;t stick with KERN=
-EL/BOOKKEEP?</div><div><br></div><div>=C2=A0- Bas</div><div><br></div><div>=
-[1]=C2=A0<a href=3D"https://gitlab.freedesktop.org/mesa/mesa/-/blob/main/sr=
-c/vulkan/wsi/wsi_common_drm.c?ref_type=3Dheads#L48">https://gitlab.freedesk=
-top.org/mesa/mesa/-/blob/main/src/vulkan/wsi/wsi_common_drm.c?ref_type=3Dhe=
-ads#L48</a></div><div>[2] <a href=3D"https://github.com/torvalds/linux/blob=
-/v7.3-rc4/drivers/gpu/drm/xe/xe_exec.c#L303-L311">https://github.com/torval=
-ds/linux/blob/v7.3-rc4/drivers/gpu/drm/xe/xe_exec.c#L303-L311</a> and=C2=A0=
-<a href=3D"https://github.com/torvalds/linux/blob/v7.3-rc4/drivers/gpu/drm/=
-xe/xe_exec.c#L335-L337">https://github.com/torvalds/linux/blob/v7.3-rc4/dri=
-vers/gpu/drm/xe/xe_exec.c#L335-L337</a></div><div>[3] <a href=3D"https://gi=
-thub.com/torvalds/linux/blob/v7.3-rc4/include/linux/dma-resv.h#L71-L116">ht=
-tps://github.com/torvalds/linux/blob/v7.3-rc4/include/linux/dma-resv.h#L71-=
-L116</a></div><div>[4] <a href=3D"https://github.com/torvalds/linux/blob/v7=
-.3-rc4/drivers/gpu/drm/msm/msm_gem_submit.c#L678-L682">https://github.com/t=
-orvalds/linux/blob/v7.3-rc4/drivers/gpu/drm/msm/msm_gem_submit.c#L678-L682<=
-/a></div><div>[5] <a href=3D"https://github.com/torvalds/linux/blob/v7.3-rc=
-4/drivers/gpu/drm/msm/msm_gem_submit.c#L410-L413">https://github.com/torval=
-ds/linux/blob/v7.3-rc4/drivers/gpu/drm/msm/msm_gem_submit.c#L410-L413</a></=
-div><div>[6]=C2=A0<a href=3D"https://github.com/torvalds/linux/blob/v7.3-rc=
-4/drivers/gpu/drm/panthor/panthor_sched.c#L4056-L4062">https://github.com/t=
-orvalds/linux/blob/v7.3-rc4/drivers/gpu/drm/panthor/panthor_sched.c#L4056-L=
-4062</a></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px=
- 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-<br>
-Regards,<br>
-Christian.<br>
-<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0seq =3D amdgpu_ctx_add_fence(p-&gt;ctx, p-&g=
-t;entities[p-&gt;gang_leader_idx],<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_cs.h<br>
-&gt; index 39c33ad100cb..5c2a5f6b1d55 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h<br>
-&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h<br>
-&gt; @@ -50,6 +50,7 @@ struct amdgpu_cs_parser {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0struct amdgpu_device=C2=A0 =C2=A0 *adev;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0struct drm_file=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0*filp;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0struct amdgpu_ctx=C2=A0 =C2=A0 =C2=A0 =C2=A0=
-*ctx;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0u32=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0flags;<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0/* chunks */<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 nchunks;<br>
-<br>
-</blockquote></div></div>
-
---000000000000b9e1ce065eec0217--
