@@ -2,94 +2,105 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94458606A31C
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Oct 2026 22:54:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1055B606A31A
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Oct 2026 00:42:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aQebQVXJ
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=jah6JpHG
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BDE610E765;
-	Wed, 28 Oct 2026 22:54:31 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F17BB10E71D;
- Wed, 28 Oct 2026 22:54:19 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id F0C296021E;
- Wed, 28 Oct 2026 22:54:18 +0000 (UTC)
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1793228058;
- b=YC4ocxpXM0ok2A956+OW3sHELt6EyKgyr67lXK6UxLf5KjrMDCKlb5f8jF3BVsa0o8BK
- uT1BlGNsi987zKFSZGbG69Q8/EfJC7PeuvGPDvPXfItzFAIeW72wV4DVGRWJJMzrX8myA
- 9GSv5H3YGYMZTZIsZOfhcEYGMstMn3rJRmGptjcBRi6vTV4jljcU25/zpyW3KLmkDRk62
- Ng1lW+oZpP9D0Qcy3Hxg70XEjgLLKIzW0mnChiXZp8pYvpKQYGxfrbtESePXpEbfAPRBq
- H9YFPJsuGP1jf5jXiLjwWgzS76fK1KJWMJFbvDW9cwJJzNMbY4BG7P5o5B6mnCAXblQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1793228058;
- h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
- Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
- Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To;
- bh=/ZALVaMldwQ0X/K5RLZjuplS/iUb0KWyBVqHtiMBqmI=;
- b=ajIXd7KbV2P9fe2sLPNLKxtCzOc2i730scAZI4/rVz2+eEce1NYc2HOepmpqvSjoaFBb
- l8GJKtU5RG1/RTKggg3AziKi6HC0pab1sMcQknkuumnW+Gci1R9jRj9R9IfDiiS1laVAD
- 7Id4HoQjaO4YQEmq6B+/NlZ+Ff0aeSLX7m3Q6yn2RV7s5pof4sGGuNo+Ifm3KUdFnIrAQ
- yFPopJzhZ8ocxBiuVWEzI/0JnIH84kZRcrpY5J7Y+8gX4Cc1wxRIv5xyhW8Joj9UfFhEM
- 6GYfUgwoB6V+bNsiC6KvBAC9HbsoaFCRiuWe9ycy6XIhHitn7815s7p+Nb4xTUpILnA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
- arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
- (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 1C2661F031EB;
- Wed, 28 Oct 2026 22:54:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793228058;
- bh=/ZALVaMldwQ0X/K5RLZjuplS/iUb0KWyBVqHtiMBqmI=;
- h=From:Subject:Date:To:Cc:Reply-To;
- b=aQebQVXJ75y4EOlzzhXQ+JAHn3//z1zw685NW0+YfmwTQ+soum1EVSCXDofTMTews
- DV7kGsBuLYXwU7ao7DQqJU74qo9ewx0zAyBC673oHPXlRHfU2fVkfPL5LVaP72GFzZ
- aW/dAukwh26N4xqdPTza6/jmWYNrFIpQ7VtbUlwRE87JVgf0sOxGKBLj3sbo3pgfgs
- QHq2QQFyrMC277DMMqPW6xldi8cHLRzw0qShK5lCXcafPAGB4TUyQEiZ05xgDSWydb
- 0mzKn/mIFUEjgc2MxqOHWzeG19E3AKAmGA4epE9nmi77/B0iXYcTYdkFAziyt6Mca4
- bmmL7baPjIHYg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id A4BDB455FC;
- Wed, 28 Oct 2026 22:54:15 +0000 (UTC)
-From: Davey Hughes via B4 Relay <devnull+davidralphhughes.gmail.com@kernel.org>
-Subject: [PATCH v2 0/2] drm/amd/display: Keep FreeSync flip timing across
- plane resets
-Date: Wed, 28 Oct 2026 15:54:11 -0700
-Message-Id: <20261028-freesync-plane-reset-time-v2-0-545a0f9b17df@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CC5510E746;
+	Thu, 29 Oct 2026 00:42:18 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013000.outbound.protection.outlook.com
+ [40.93.201.0])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF0DE10E757;
+ Thu, 29 Oct 2026 00:42:12 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZT+Iy2LxCYWcXhYljkxYISDRxD5FgLlTRSyWFStmUOxZo5XbK6AIMj+/8e8mFQV6itASVtF5kL1pLQOOG2vXz+x1KZQ/KA3PbXByTAFAGhciR19mddBUn97csUGM+OvmkTP0II/YixLHly4i/T+FjknHdpehCEK5bKXbqPjxPskxPzkSaIUQ2FFHQm9a+A1oaH/jccARlQfkQqLzv2eINvcZFU1zA5LfrwfC/cPUv6L5W6memG+kN42quxeRoLJfKH5QG3nk+rENbmR1fFeQsTepZLgnqFirTu6IGTa3utd2FGuDpx/a8xZ74Escd3wtUQNUWK1u959kmAR8rMpxNA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=iiaGS5p6gX473+7d4PjdYMHcO01BTe5fVRJ55dO4roU=;
+ b=fgLeIZht7tNR9qHULbCjwfpynXfT97qrnoP4k6Hmc6SYX8MA0LyjXjYs750BVtSJUQOwG36Z8Nbrt87MTYdaRfbGwEqQbKqbuBFGREs57hjKbA9ZuCVuvOYgmWukqBDbnG9Bd1D7jh3tg+cmzlGcxmcD3qK7IGz7sqthcWSqs/klIfLOFf2/jyOkmK8f6vjoCPoQ4YuLEEmkvvlKXpOcjSuGjY0/YIxKMFTnGVqKsM20cbSEKTylLvvTS9TElcufepCTCAR+u9xd7JWVxrZj+NxaycBiEKJIySdkQXQxcwS9tHkeShPTMezeYDrUVSYhQI1d9SebGj2wGSZTXugeOA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=linux.intel.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=iiaGS5p6gX473+7d4PjdYMHcO01BTe5fVRJ55dO4roU=;
+ b=jah6JpHG3j3s0vt+NbMyJW4X1ATUAxTXoU7nPy4QHIk+h5x8mUfLYJ0h24FiKzaPwGZCIYPE76M0HnTdi/UtU+4fjFEaVG/RWM+tYwkX/k0d3yxMHoW7Geqclk5FqC5fPJD00gxYbB7qjIE+5KiP43SojQWLyarEKUg45kqjXLU=
+Received: from CH2PR14CA0051.namprd14.prod.outlook.com (2603:10b6:610:56::31)
+ by DM4PR12MB5963.namprd12.prod.outlook.com (2603:10b6:8:6a::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.8; Thu, 29 Oct 2026 00:42:07 +0000
+Received: from CH01EPF000BE94F.namprd02.prod.outlook.com
+ (2603:10b6:610:56:cafe::97) by CH2PR14CA0051.outlook.office365.com
+ (2603:10b6:610:56::31) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Thu,
+ 29 Oct 2026 00:42:07 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH01EPF000BE94F.mail.protection.outlook.com (10.167.244.199) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.4 via Frontend Transport; Thu, 29 Oct 2026 00:42:07 +0000
+Received: from jzuo.laptop (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 28 Oct
+ 2026 19:42:04 -0500
+From: Fangzhi Zuo <jerry.zuo@amd.com>
+To: Alex Deucher <alexander.deucher@amd.com>, Harry Wentland
+ <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+CC: Rodrigo Siqueira <siqueira@igalia.com>, Alex Hung <alex.hung@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>, "Fangzhi
+ Zuo" <jerry.zuo@amd.com>
+Subject: [PATCH 1/2] drm/edid: Parse HDMI 2.2 FRL rates from the SCDS
+Date: Wed, 28 Oct 2026 20:44:56 -0400
+Message-ID: <20261029004457.40545-2-jerry.zuo@amd.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261029004457.40545-1-jerry.zuo@amd.com>
+References: <20261029004457.40545-1-jerry.zuo@amd.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42OTQrCMBSEryJZ+6StVsGV9xAX+Zm0T0wqebG0S
- O9uoxdw+Q0zH/NWgsQQdd68VcLIwkNcodlulO117EDsVlZN1RzrqjmRT4DM0dLzoSMoQZApcwC
- 1zhzbE2C8g1r3zwTP09d9vf1YXuYOm4uwNIwWkEk62r5EOjiSrDuOHbkUKGLKpdaz5CHN349jX
- XT/3BlrqsiYw960Ve21P1y6oPmxs0NQt2VZPt9+2WX7AAAA
-X-Change-ID: 20261027-freesync-plane-reset-time-5db657eebfde
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Davey Hughes <davidralphhughes@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793228055; l=2607;
- i=davidralphhughes@gmail.com; s=20261027; h=from:subject:message-id;
- bh=uB3zeg6snFrSpyNToh+cKiC4OgQ+D5vVvwK0Qxj7Jc4=;
- b=Hp94BmA/h9H3IVvCisahJrlrYCrKHzdJdDkP7r5umAgla/kMsClkNNArhtAolupdBKBDB2RLg
- eXAtm6Bvnd7DWltsqQImRYeV/HqKtvQleG0Am68OK2VLMLRunTOgkKD
-X-Developer-Key: i=davidralphhughes@gmail.com; a=ed25519;
- pk=y45yWVxpjjxFE2cXy96fGlXLfDlt6UKHFHS5szhrFAs=
-X-Endpoint-Received: by B4 Relay for davidralphhughes@gmail.com/20261027
- with auth_id=1335
-X-Original-From: Davey Hughes <davidralphhughes@gmail.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH01EPF000BE94F:EE_|DM4PR12MB5963:EE_
+X-MS-Office365-Filtering-Correlation-Id: da53f398-8daa-4a84-91b4-08df355575f8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|82310400026|23010399003|376014|1800799024|18002099003|22082099003|56012099006|261021121427099003|10067099003|11063799006|261009221227099003|261009223027099003|261009221727099003|261009223327099003|261009220027099003;
+X-Microsoft-Antispam-Message-Info: JvQbXD48OuigLfXKNJ8hz0fLVZPC1EtkPcs5EqDuh4bHm1T1/pp6H+eMgNfUY4uTA+bc7Wth3oKRFGB4xKW0yWRS94nxxBiNgdAO6J1+7oRxUENGPOVDzmLTpTn1WIipxkia4xjMHZDn2vmOKHtvKZv8ttb/pPeM//8cdIbcBEaBTJ6Vt2Vs5sC9CIDsybPPwN3ZR/7vDyutJFGKAVPqdprqjyVKMq0TiQtVx5gkNFGDdtTqJdD54vjv1YWJCmPhAXZ93RLf7oynV7xtO/yM6NrQ+OImTsqEy1t8U5lJFiniMCmN9RrG9nwgvtz7fsN9IXGKIEGICKO9vGb8wamT0niz6EOOVet/CkRIVR1VLw/XZL7kNjZ+E9v+ibojgNFgT7ph3cI96bCp9Qvc9+9yrlsWXayTEvHor2vTQZ5mRGVD5UD8WcizmTZlougpQQy+9RbRiZPL1izMOa/DTG/j6Tr9nT4Nrhx2oIwE6jgQCiQ5B6xY80XZ8gTt0NEy0qkrZKvQSBRdOloiabbRdy4JEyYTfzVm04rnD7wtcawTyTC/7ETvzKXgbfB6E7rRLUkA4n6rI1PBEuREDk4TaRz33+cnoR+x5kPbqhRH4Ok9wJAVJfDiht9Ih+BJACX7yXmB6oJm6Zh2YWkCxGz41PpereX7AtHW0XoYjBJM8Q2NSJf6nRiMLhfrmJTGoISuYV/q7IaxiZ4a+WG4v9FxoBfo4Q==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(82310400026)(23010399003)(376014)(1800799024)(18002099003)(22082099003)(56012099006)(261021121427099003)(10067099003)(11063799006)(261009221227099003)(261009223027099003)(261009221727099003)(261009223327099003)(261009220027099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: lzErkkhUXBfAOF9FJGydIkDCMSeW/IuhOqFS5Mmw2XMZsvaslR9F9wWPn4r8dTM4+NAOsX9ri5fRuRmfZNe862u8JJGZ2JvjjWAKEPhqi3Nr68ApH04LMq4VsBvyOoLAfGzkTY6j6nTL8/dOv30NDOBAsMD4bf/yq/EHDLuuocWthv1LATZHJpPOa/QCtzk16ho3ZQd/C2XkIB6xsNYNk5XXee7KtmjHtJrhmLl6k/u0d4m9ob3Gosy/ARO+maEHuVcGeN7ZIAqsRYbo6zoSjgOQzHjKSkAZGd31Jh8HFPxT5s2JzpctLVmBZ3ubeOk4lxtQ5rVtSlQzLkFyCWV6kH4aq+RbWPBHO0w1iQ5vw/BTeuA56XT9auNZD2hoF3LRW2oS6bALKQEBCyX4pFRNThq1cZDuiQjDUN7/62ZcCj4OhBgo1qHP3kZ31u41gQ1h
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 00:42:07.7045 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: da53f398-8daa-4a84-91b4-08df355575f8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH01EPF000BE94F.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5963
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,69 +110,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: davidralphhughes@gmail.com
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On a 48-165 Hz FreeSync panel, fullscreen clients under KWin with HDR
-enabled and color accuracy set to "Prefer efficiency" run at about 51
-fps instead of 60, with flips locked to the 13.45 ms BTR mid-point
-grid. That grid drifts upward at the rate expected if FreeSync takes
-the 32-bit microsecond timestamp itself as the last render time (3.46
-us/s measured, 3.45 predicted).
+[Why]
+drm_get_max_frl_rate() only decodes Max_FRL_Rate values 1-6, so a sink
+advertising an HDMI 2.2 rate (7, 8 or 9) falls into the default case and
+is reported as having no FRL support at all.
 
-KWin replaces the CRTC GAMMA_LUT blob on every commit in that mode, so
-every flip resets the plane and the new DC plane starts with zeroed
-flip timing. Patch 1 carries the timing over from the old DC plane, as
-DM already does for flip_addr
-(amdgpu_dm_plane_drm_plane_duplicate_state()) and for the BTR state
-itself (dm_irq_params.vrr_params). Patch 2 adds KUnit tests, kept
-separate so patch 1 backports to stable trees without the KUnit
-infrastructure.
+[How]
+Decode the HDMI 2.2 Max_FRL_Rate values 7, 8 and 9 as 16, 20 and 24 Gbps
+per lane over 4 lanes.
 
-Tested with KUnit (UML, all AMD display suites pass; the new timing
-tests fail without the fix) and on 7.2.11 with a Navi 31, an AW3423DWF
-over DP, KWin 6.8.1 and Mesa 26.2.5: 60 fps content now flips at a
-steady 16.65 ms instead of on the 13.45 ms grid, 30 fps content still
-gets BTR (30 fps, no 13.45 ms grid), and debugfs shows
-color_mgmt_changed=1 on the CRTC in every sampled commit. Not tested:
-DCE, overlay planes, other compositors.
-
-I am not sure of the current AI disclosure policy, but I will freely
-mention that I used Claude Opus 5.5 to help debug and write this patch +
-tests. I have tried to do my best to match existing style/procedures.
-
+Signed-off-by: Fangzhi Zuo <jerry.zuo@amd.com>
 ---
-Changes in v2:
-- Copy the flip timing in amdgpu_dm_commit_planes() instead of in
-  atomic check, so it can't race with the previous commit still writing
-  it (reported by Sashiko AI review)
-- Skip the copy when the plane keeps its DC plane
-- Add dm_plane_inherit_flip_time() in patch 1; patch 2 only exposes it
-  to KUnit
-- Check the whole flip timing struct in the KUnit tests
-- Link to v1: https://patch.msgid.link/20261027-freesync-plane-reset-time-v1-0-bb43b501faf4@gmail.com
+ drivers/gpu/drm/drm_edid.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
----
-Davey Hughes (2):
-      drm/amd/display: Keep FreeSync flip timing across plane resets
-      drm/amd/display: Test FreeSync flip timing across plane resets
-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  23 +++
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h  |   3 +
- .../amd/display/amdgpu_dm/tests/amdgpu_dm_test.c   | 188 +++++++++++++++++++++
- 3 files changed, 214 insertions(+)
----
-base-commit: 77f548b127c6de34ce271fa09ba270cb1ef9f2da
-change-id: 20261027-freesync-plane-reset-time-5db657eebfde
-
-Best regards,
---  
-Davey Hughes <davidralphhughes@gmail.com>
-
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index 42f4e41c459f..48d5c4bd4812 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -6193,6 +6193,18 @@ void drm_get_max_frl_rate(int max_frl_rate, u8 *max_lanes, u8 *max_rate_per_lane
+ 		*max_lanes = 4;
+ 		*max_rate_per_lane = 12;
+ 		break;
++	case 7:
++		*max_lanes = 4;
++		*max_rate_per_lane = 16;
++		break;
++	case 8:
++		*max_lanes = 4;
++		*max_rate_per_lane = 20;
++		break;
++	case 9:
++		*max_lanes = 4;
++		*max_rate_per_lane = 24;
++		break;
+ 	case 0:
+ 	default:
+ 		*max_lanes = 0;
+-- 
+2.53.0
 
