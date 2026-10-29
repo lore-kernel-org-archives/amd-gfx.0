@@ -2,130 +2,98 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 600DC606A31D
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Oct 2026 11:24:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8053B606A322
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Oct 2026 12:47:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=YhheDy8E
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=0ZabG6VT
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05750112210;
-	Thu, 29 Oct 2026 11:23:57 +0000 (UTC)
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de
- [185.203.200.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32C0A112208;
- Thu, 29 Oct 2026 11:23:50 +0000 (UTC)
-Received: from [IPv6:::1] (ptz.office.stw.pengutronix.de
- [IPv6:2a0a:edc0:0:900:1d::77])
- (Authenticated sender: lst@pengutronix.de)
- by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 418BC2007F9;
- Thu, 29 Oct 2026 12:23:46 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
- s=20260414; t=1793273028;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=s4uscHTSNNyFgyqCTfvm7pgyQFz42LzvHFK7u0x0Cw0=;
- b=YhheDy8EfCQv89DyrUXN/Yqh1aav8HKOaPDt4/Y3XFIPfM2HQZksNK1Q4J8Xiva3N9Z1Am
- tkP2eX7Gmfxohg3zXmJeyevXeiaQVGhGYtgf5DW7WiXDKCn+YIxVKqJUBhnT18fBqcR9od
- pNUOxHrNlb/aeBZqcMinomv32QEtNIj5iOvnDLzi8UenUwl35U/mEBFZgBoAEnX3k3vgMh
- WQOKG6XE+gjRy2dunur160DUflwOCoaEEllxXNkae4RdWnLlHPVfWZgcVG5KwuGlYdMS4j
- K8l8J5jfGgLMMk0a9E7oE+GBGvUkDtPQtpWfP+urJK7Rg8cIfoftFRGLPfWCxA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de; 
- s=20260414; t=1793273028;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=s4uscHTSNNyFgyqCTfvm7pgyQFz42LzvHFK7u0x0Cw0=;
- b=YtyTqxntKVSuf0cXkpc84IWDjijQempbl/OM6z3jYncGCiwf/Ln99mK5+x8W0cyO9xO1gA
- kZBUATT4teV385wTGMVEaT2ftHDv466XZMo/nCHJ+3VBjvaefh76HC4h6ZqGpVZBZzIif0
- B0s67a7gzHS6sPKR61gN4QKr3LIKCsgfOapXu1CZ/XgwBY8WD5Dr2jHZMjCr5H6sThWMxU
- MsRJbd3Mcfr33CLRmW8Bp3z2gPWqfmC5Y9O64Vqrjxd/mFXxtXsuyhRNEFalbt43sftG6G
- xJ0leaBmncxO0k6VjKMNj5ycc2G3vyKocU53toT9hpLpEM+cmebxYVR8EEEN+Q==
-ARC-Authentication-Results: i=1; ORIGINATING;
- auth=pass smtp.auth=lst@pengutronix.de smtp.mailfrom=l.stach@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793273028; a=rsa-sha256;
- cv=none;
- b=CMz7Ii0BbFpIf3JOy1xOkUy1/GalemR2HX7An2NH4NYYc7nV9uA9ia33/CLwhOM5TIZVCO
- r5SjbN1jtUnItbnYc85Z8xd4yR28RKXjpQwR04UflRreGYa/mpCLkcKsFkvwIJI+HcAAQT
- e6tyb0XkfNDiCGGfk7D6jVoenCj3H0aH4beZaCr4Eu2G+Ql31BsMOvYsHkb91GsL5HKzlk
- 3XcSZVASLqeWZ4KZWuMaxSYPs7oxi8oIKtwvZ2vU+4PLj3JdRq+wZ2/4S5M1ckb3lR6s7O
- ZyHtIMqbdSoBMc5gGXlEKgsiCFaxc5lHEpetkI/HR6kfcn8G0LRnwE1RHAFQyQ==
-Message-ID: <d0610126883f23bec3472f41e528aae786f27c8c.camel@pengutronix.de>
-Subject: Re: [RFC PATCH 0/6] dma-buf: Phase out is_signaled() race
-From: Lucas Stach <l.stach@pengutronix.de>
-To: phasta@kernel.org, Min Ma <mamin506@gmail.com>, Lizhi Hou
- <lizhi.hou@amd.com>,  Oded Gabbay <ogabbay@kernel.org>, "Rob Herring (Arm)"
- <robh@kernel.org>, Tomeu Vizoso	 <tomeu@tomeuvizoso.net>, Karol Wachowski
- <karol.wachowski@linux.intel.com>,  Andrzej Kacprowski
- <andrzej.kacprowski@linux.intel.com>, Sumit Semwal
- <sumit.semwal@linaro.org>, Christian =?ISO-8859-1?Q?K=F6nig?=	
- <christian.koenig@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alex
- Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter	 <simona@ffwll.ch>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Russell King	
- <linux+etnaviv@armlinux.org.uk>, Christian Gmeiner
- <christian.gmeiner@gmail.com>,  Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, Alessio
- Belle	 <alessio.belle@imgtec.com>, Luigi Santivetti
- <luigi.santivetti@imgtec.com>,  Qiang Yu <yuq825@gmail.com>, Rob Clark
- <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov	 <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang	
- <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten	
- <marijn.suijten@somainline.org>, Lyude Paul <lyude@redhat.com>, Danilo
- Krummrich <dakr@kernel.org>, Boris Brezillon
- <boris.brezillon@collabora.com>, Steven Price	 <steven.price@arm.com>,
- =?ISO-8859-1?Q?Adri=E1n?= Larumbe	 <adrian.larumbe@collabora.com>, Liviu
- Dudau <liviu.dudau@arm.com>, Dave Airlie	 <airlied@redhat.com>, Gerd
- Hoffmann <kraxel@redhat.com>, Matthew Brost	 <matthew.brost@intel.com>,
- Natalie Vock <nat@pixelcluster.dev>, Arun Pravin	
- <arunpravin.paneerselvam@amd.com>, Matthew Auld <matthew.auld@intel.com>, 
- Thomas =?ISO-8859-1?Q?Hellstr=F6m?=	 <thomas.hellstrom@linux.intel.com>,
- Melissa Wen <mwen@igalia.com>,  =?ISO-8859-1?Q?Ma=EDra?= Canal	
- <mcanal@igalia.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Raspberry Pi Kernel Maintenance	 <kernel-list@raspberrypi.com>, Dmitry
- Osipenko <dmitry.osipenko@collabora.com>,  Gurchetan Singh
- <gurchetansingh@chromium.org>, Chia-I Wu <olvaffe@gmail.com>, Zack Rusin
- <zack.rusin@broadcom.com>,  Broadcom internal kernel review list	
- <bcm-kernel-feedback-list@broadcom.com>, Thierry Reding	
- <thierry.reding@kernel.org>, Mikko Perttunen <mperttunen@nvidia.com>, 
- Jonathan Cameron	 <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?=	 <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Greg Kroah-Hartman	
- <gregkh@linuxfoundation.org>, Sunil Khatri <sunil.khatri@amd.com>, Kees
- Cook	 <kees@kernel.org>, Jesse Zhang <jesse.zhang@amd.com>, Timur
- =?ISO-8859-1?Q?Krist=F3f?=	 <timur.kristof@gmail.com>, Srinivasan Shanmugam
- <srinivasan.shanmugam@amd.com>,  Kexin Sun <kexinsun@smail.nju.edu.cn>,
- Prike Liang <Prike.Liang@amd.com>, David Rosca	 <david.rosca@amd.com>,
- Krzysztof Karas <krzysztof.karas@intel.com>, Marco Crivellari
- <marco.crivellari@suse.com>, Shixiong Ou <oushixiong@kylinos.cn>, Jouni
- =?ISO-8859-1?Q?H=F6gander?=	 <jouni.hogander@intel.com>, Thadeu Lima de
- Souza Cascardo <cascardo@igalia.com>,  Pierre-Eric Pelloux-Prayer
- <pierre-eric.pelloux-prayer@amd.com>, Joel Fernandes
- <joelagnelf@nvidia.com>, Al Viro <viro@zeniv.linux.org.uk>,  Neill Kapron
- <nkapron@google.com>, Michael Bommarito <michael.bommarito@gmail.com>, Sam
- Day <me@samcday.com>,  Gabriel Prostitis <prostitisgabriel@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
- etnaviv@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- imagination@lists.freedesktop.org, lima@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org, virtualization@lists.linux.dev, 
- spice-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- linux-tegra@vger.kernel.org, linux-iio@vger.kernel.org, 
- linux-usb@vger.kernel.org
-Date: Thu, 29 Oct 2026 12:23:45 +0100
-In-Reply-To: <3565783722927fa48a30f48b063ef99bcd703eab.camel@mailbox.org>
-References: <20261029095542.1526750-3-phasta@kernel.org>
- <abca3f0039b07999e29558690c27fef23292bea3.camel@pengutronix.de>
- <3565783722927fa48a30f48b063ef99bcd703eab.camel@mailbox.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1760F10E02D;
+	Thu, 29 Oct 2026 12:47:13 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013051.outbound.protection.outlook.com
+ [40.93.201.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B542110E02D
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Oct 2026 12:47:06 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Vo7Ck1mP0LmvXPABhe14htNOsg0cim43MxXDy3jX9xJUZexOCmkj2UCXZYac/DKO5E9taPyIzDnocL65DjMPFbA6CQVInpekeh2kwHe0ZbshwzoRykd9oIeUTvu7MBHPLXqZNxOJoGYX4I05koe2z/xdfyUwKIn1MWa7yYWQX964ERDTrLJha6gWyHIPDb+UvnBnS7b2m5DQOds9eRWHJaKzlMLMYae+ALjsv6AKtYGvKjoRXz4OQf/9CPl9+7adzLpP/RXmWa2fIjU/L1ZxMN1+K2GWE6+Pk+0Xitna0HD7k39TyoIS+V/npKCC4t7l0CjOCGBcz/cVGFfuo72POQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BircI4aCFZvXHwYys/+jzo7O2zaVumUfH9A/gh/Ek9c=;
+ b=i/rKSTYcySOY2zIf8Zt3GBRFIBXSZqwkmR0Uc6QBXkw5o092y3YA8KT8ZLRpwoagoJQHQQJ/jcPVS6tN+R2F4y+k05m2bnl2m1C46Hf2LuVB91qJwvcagdUuUiZvOtodW4dFeqfdXj5m52HXxN/HGvSSZy1CQ9ZI+9SnSplnCtwGXnxwZGkCk0tP3IFVI6D2ySoB8R7BgoghdF/3nuZiMMfMAgCVQolVEKWWJDhiS++nlwcPX5VbNDAwnAUa1FrVVeEBkWh+oh79AwbZ/omrXz0IaIYZAOUifXIPjIqU9BpGMd077ma2CSdlvWi35D2EL1CQvMIZk1b4lLjckLAu5Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BircI4aCFZvXHwYys/+jzo7O2zaVumUfH9A/gh/Ek9c=;
+ b=0ZabG6VTGn8AyHBshp40jsNIXappxhrllDInrgLZ+KP5JTGBnFsV3LQJ1UZZ3nS+aVx/Dekuc1K1Jv+EKvSC9cuj8L6wbBFcxNJYFPQLuyJ3G40jtH+RYH5CfZV4Rs2xKaPpgwboNYBJdIZFay1Pp9pzPdH7wI4cMbEotPraesQ=
+Received: from MW4PR03CA0217.namprd03.prod.outlook.com (2603:10b6:303:b9::12)
+ by PH7PR12MB5904.namprd12.prod.outlook.com (2603:10b6:510:1d8::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Thu, 29 Oct
+ 2026 12:47:01 +0000
+Received: from MWH0EPF000D894F.namprd05.prod.outlook.com
+ (2603:10b6:303:b9:cafe::64) by MW4PR03CA0217.outlook.office365.com
+ (2603:10b6:303:b9::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.7 via Frontend Transport; Thu, 29
+ Oct 2026 12:47:01 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ MWH0EPF000D894F.mail.protection.outlook.com (10.167.249.215) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.4 via Frontend Transport; Thu, 29 Oct 2026 12:47:00 +0000
+Received: from asad-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 29 Oct
+ 2026 07:46:57 -0500
+From: Asad Kamal <asad.kamal@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <lijo.lazar@amd.com>, <hawking.zhang@amd.com>, <le.ma@amd.com>,
+ <shiwu.zhang@amd.com>, <alexander.deucher@amd.com>, <Kevin.Wang@amd.com>,
+ <Vojislav.Tomasevic@amd.com>, <asad.kamal@amd.com>
+Subject: [PATCH] drm/amdgpu: Add 13.0.12 & 13.0.15 to TOS reload check
+Date: Thu, 29 Oct 2026 20:46:41 +0800
+Message-ID: <20261029124641.4154067-1-asad.kamal@amd.com>
+X-Mailer: git-send-email 2.46.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000D894F:EE_|PH7PR12MB5904:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1e29845d-ce43-43ba-db82-08df35bab991
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|82310400026|1800799024|36860700016|376014|11063799006|56012099006|10067099003|261009223027099003|261021121427099003|18002099003;
+X-Microsoft-Antispam-Message-Info: XSm9VyEgX5WJLtooP8Q9EF7ythQmm5je/4Tm3o6AUHf7b3kgvudfFHjQ+0ERUP744O8UhjOOvR2AVChE2C7iE99JPhZ0hpzPgxuWr4nI+Eq1aKMJBzlWjg2EYIqoiUB7PEfYgkAyK544RLqTCRYBptgs5s7nehJBQgxDi9T4gfHKngl137mHILadLElaV0x1QvqmFyERxMmKbV+R1NUwTqvDKnHf7PtcOnmAS2lApPZytb+OUhzIbMGLDAqDLblUruGhPXKmsgoBDyI7hTbnC9sGzCAjl4/LWRdlDEzsEhlNrzZkDXRKD5cbbpuWRHnXMDiDv0h72yP8gJVPLPuef7FMv1B9x8RmXOqFEYNjJUnu6x415kHsbN0dzZz4lj171JX9QssnSudkUoqrb3lJgEYl3tw9/Y660LlHRQy/t+DnhY+sW3bzSPC0geVBc7vF5f5aTpEnAUIyDTmHM3a86yuh5tcA01gYjtGIj6mSVh9TkDXNjcwkLFGhB4BxXqxkzF4LZQMlPi5b0D9FHfGDHl9Gx0IvZfW/AjKu44TRcf4jnaH0+wSRQkdd/Q9bXJuNTcVSaFQIRiFfLGAO5+M0VuL1bV+IuIeqh0Z+kYQ3Ed1TnuGCum23fqsfn/hS52t/GNu5v/j7M/aUmhWQWYQNKElRPuKdbPvxg4rEoBebGo/lpEhCvQUa+hwhU5OglMeQ7EUiT1Q3uWgj88sv+HxpMQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(82310400026)(1800799024)(36860700016)(376014)(11063799006)(56012099006)(10067099003)(261009223027099003)(261021121427099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: kgnVijihk6N2WNkep3w1CzUxU6ecIqPxlLtOQPslqP/B6JX9DF4J18etJJd9PEQcPrLmAL3DXmffe9NYfw+idURcZ6+BiIos0tsn22zgTRE2BFtbguWy1aUuj9qTB4QFw4tmFxRh9e/QXCLjy0o3JPgSL5YAYSFdt5t+AlpVx7AXD4ltj3Ax4zQiEjT7Q7x+JEbdi34R10kLIg35p2PBS+wJ226G7RXB+qiWmYIs72yLbFHQQGXTUANSu1utP79LFDnFzC8B48bNfmgboN2Mu9WapgngiIhj1kCfeD7IvAW617OtG4r3Q4jEaw5AMSJFZnnOp9nAbY77mj+qMkfFMS3ynGJYAV8hInO646hy/3TShYtftLsqdljw5Hw/tJl2dcrlCTD3RWyJ3in9NABcF/HJZ6WVeTSOoeSPQnRxSpz4kk4oK/umK0JJswgYgtBR
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 12:47:00.2079 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1e29845d-ce43-43ba-db82-08df35bab991
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000D894F.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5904
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,78 +104,35 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Am Donnerstag, dem 29.10.2026 um 11:28 +0100 schrieb Philipp Stanner:
-> On Thu, 2026-10-29 at 11:23 +0100, Lucas Stach wrote:
-> > Hi Philipp, hi Christian,
->=20
-> Jo Lucas
->=20
-> >=20
-> > Am Donnerstag, dem 29.10.2026 um 10:55 +0100 schrieb Philipp Stanner:
->=20
-> [=E2=80=A6]
->=20
-> > I think we would all be interested in the actual use-case that's
-> > sensitive to this kind of latency.
->=20
-> Me too.
->=20
-> Let me use this opportunity to stress that in the future, in DRM,
-> whenever we have [to accept] a racy "optimization", both commit
-> messages and code comments must document why it exists and who
-> requested it with what proof.
->=20
-I don't fully agree that this is a racy optimization. To me it seems
-the most critical issue here is that "fence is signaled" is under
-specified.
+Add sos reload support when new sos is detected from already
+running sos for 13.0.12 & 13.0.15.
 
-Does it purely mean that the actual hardware operation that the fence
-is guarding is done? In that case the current implementation is fine,
-as the bit is only set after the HW told us that it is done. This is
-the interpretation I would assume was the original intent behind the
-current implementation.
+Signed-off-by: Asad Kamal <asad.kamal@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/psp_v13_0.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Does it mean that the hardware is done and all registered callbacks
-have been run, even if the actual work is done in a (indefinitely)
-deferred worker? You mentioning explosions caused by the pure signal
-state check outside the lock would imply that some consumers of the
-fence took the signaled state to mean this interpretation.
+diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
+index f9a3fbfc0634..2169cbc21811 100644
+--- a/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
+@@ -915,7 +915,9 @@ static bool psp_v13_0_is_reload_needed(struct psp_context *psp)
+ 	switch (amdgpu_ip_version(psp->adev, MP0_HWIP, 0)) {
+ 	case IP_VERSION(13, 0, 2):
+ 	case IP_VERSION(13, 0, 6):
++	case IP_VERSION(13, 0, 12):
+ 	case IP_VERSION(13, 0, 14):
++	case IP_VERSION(13, 0, 15):
+ 		/* TOS version read from microcode header */
+ 		ucode_ver = psp->sos.fw_version;
+ 		/* Read TOS version from hardware */
+-- 
+2.46.0
 
-> Would save us lots of time when those things are discussed >5 years
-> later.
->=20
-> >=20
-> > However, I wonder if this is even an issue anymore with the lock
-> > inlined into the fence structure.
->=20
-> Almost no one uses inline-lock so far. So unfortunately, we might
-> regress old drivers, maybe.
->=20
-> But sounds as if you're in favor of phasing the locklessness out :)
->=20
-I'm in favor of ripping out hard to reason optimizations if they turn
-out to not provide any optimization after all. However, before going in
-either direction we need to clarify the fence signal state interface.=C2=A0
-
-Either we keep the (in my interpretation) original intent of the signal
-state only telling about HW progress state and thus declare some
-current uses as wrong usage of the interface, which need to be fixed.
-Or we need to include the SW callbacks too, but then your current lock
-approach only guards against code directly executed in the callback
-functions. If the implementation of the callback defers anything to a
-worker this may still be racy.
-And that's also my criticism to this patchset now that I thought a bit
-more about this: by simply putting things under the lock you serialized
-more of the SW state without actually better defining the guarantees
-that this changed fence interface provides or doesn't provide to the
-consumers.
-
-Regards,
-Lucas
