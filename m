@@ -2,64 +2,64 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76BAB606A331
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Oct 2026 10:23:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 600DC606A31D
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Oct 2026 11:24:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Ql2h6Chx
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=YhheDy8E
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E258D1121A5;
-	Thu, 29 Oct 2026 10:23:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05750112210;
+	Thu, 29 Oct 2026 11:23:57 +0000 (UTC)
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de
  [185.203.200.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A47C710E4DE;
- Thu, 29 Oct 2026 10:23:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32C0A112208;
+ Thu, 29 Oct 2026 11:23:50 +0000 (UTC)
 Received: from [IPv6:::1] (ptz.office.stw.pengutronix.de
  [IPv6:2a0a:edc0:0:900:1d::77])
  (Authenticated sender: lst@pengutronix.de)
- by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 9E169200AD7;
- Thu, 29 Oct 2026 11:23:34 +0100 (CET)
+ by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 418BC2007F9;
+ Thu, 29 Oct 2026 12:23:46 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
- s=20260414; t=1793269416;
+ s=20260414; t=1793273028;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=h/NTq1WLBMPSLF6XFZgbhvzXQ8oYuf+0ZqChn7K5Lhk=;
- b=Ql2h6ChxMtOcGZatguhKGOuEC+rmEILtn+if2SqEYCCbxsuZJ6Ru1gYHv8VOZp6Mh4UHgD
- nqC+Abc2a38Cwsw0drk11FIo/o24C4d78/xhRP3/VTW8wljjZU8itJ+/kl8dIca91QxHTe
- zvq2X5SIBOfNysNtdZi59WpQkG7l62333eKKoo1mxhb7lKFl0mbo4G2Zx6icW/xkO4bTTE
- YLTxcS/jNobwPebe1QvNnKjEU9FWzz23p1+A9z4qKfS4d3UnGFoteuJK8i4EG/TbM+kgZm
- 36EtXeEIB1VKZmg46ZE6J8JvC49oxRtIkz9PpvGhCuexji4WQBw+w9KH7UeaQg==
+ bh=s4uscHTSNNyFgyqCTfvm7pgyQFz42LzvHFK7u0x0Cw0=;
+ b=YhheDy8EfCQv89DyrUXN/Yqh1aav8HKOaPDt4/Y3XFIPfM2HQZksNK1Q4J8Xiva3N9Z1Am
+ tkP2eX7Gmfxohg3zXmJeyevXeiaQVGhGYtgf5DW7WiXDKCn+YIxVKqJUBhnT18fBqcR9od
+ pNUOxHrNlb/aeBZqcMinomv32QEtNIj5iOvnDLzi8UenUwl35U/mEBFZgBoAEnX3k3vgMh
+ WQOKG6XE+gjRy2dunur160DUflwOCoaEEllxXNkae4RdWnLlHPVfWZgcVG5KwuGlYdMS4j
+ K8l8J5jfGgLMMk0a9E7oE+GBGvUkDtPQtpWfP+urJK7Rg8cIfoftFRGLPfWCxA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de; 
- s=20260414; t=1793269416;
+ s=20260414; t=1793273028;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=h/NTq1WLBMPSLF6XFZgbhvzXQ8oYuf+0ZqChn7K5Lhk=;
- b=GGV5mVLTXHW8P1GM8MYEEw2sQLTe4MwdizvhP5Gb/W/2fDooOaBhx/Sa6fBxsgpigJrLiU
- igwFXfs2zGARcG6oRLe3YbfOnTu/2cJUh7LRJrnnkQS9jz/1Y3UBwkh5VQ/POkNwIuxIT0
- KQqycJPkCqfr8Rb3w+LWfxdHK9tZOIFSmALUHySLhH2nMw1ohIN5PV6epE7MfW9GnTgZiP
- aB1o7tlQphCTr3i/eUUYsp9+VzsQAbIi7aed/Fs9CWQwqWGP3mh0SmpkOiff1MJ5KuNFqQ
- /B16Le4NHB27ysqZuAH84XpNo3HERRJf+Gjr9xim0+G/tMzPUQcCR7egGl6w6w==
+ bh=s4uscHTSNNyFgyqCTfvm7pgyQFz42LzvHFK7u0x0Cw0=;
+ b=YtyTqxntKVSuf0cXkpc84IWDjijQempbl/OM6z3jYncGCiwf/Ln99mK5+x8W0cyO9xO1gA
+ kZBUATT4teV385wTGMVEaT2ftHDv466XZMo/nCHJ+3VBjvaefh76HC4h6ZqGpVZBZzIif0
+ B0s67a7gzHS6sPKR61gN4QKr3LIKCsgfOapXu1CZ/XgwBY8WD5Dr2jHZMjCr5H6sThWMxU
+ MsRJbd3Mcfr33CLRmW8Bp3z2gPWqfmC5Y9O64Vqrjxd/mFXxtXsuyhRNEFalbt43sftG6G
+ xJ0leaBmncxO0k6VjKMNj5ycc2G3vyKocU53toT9hpLpEM+cmebxYVR8EEEN+Q==
 ARC-Authentication-Results: i=1; ORIGINATING;
  auth=pass smtp.auth=lst@pengutronix.de smtp.mailfrom=l.stach@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793269416; a=rsa-sha256;
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793273028; a=rsa-sha256;
  cv=none;
- b=WpN8WUnDHqz9Mc+CuO1qqQ2s1JkX/YAqSIeMD64lYoC6u7e/Mf6zaDQORC81p8qVmhEOlB
- Qyk2Tu3F5ZFoPi+6o3G5P8XatkbqSpZqIMxTmNYjN7iZ9PyGZF+UJ9ECFfr5xTsdvve48U
- DwjbkCL6Gqu4fpyQEmvvgJ4MB8/2UNwQB3y97Tn6pks8uSBKkJNnVRBHkLNA79FYLoF/UQ
- /Fka7A7sY843ZzZCE560WkHfHGLJkmQ0WFB126J4qtxaMZHhGGerIFlt07dEmX36MJuoaj
- +Fi5x3cZiGZ8NviUZwVGZyTDLNtqw6kmMNQeZKWIuGV0RSo3ygqYDO8hsPjmKA==
-Message-ID: <abca3f0039b07999e29558690c27fef23292bea3.camel@pengutronix.de>
+ b=CMz7Ii0BbFpIf3JOy1xOkUy1/GalemR2HX7An2NH4NYYc7nV9uA9ia33/CLwhOM5TIZVCO
+ r5SjbN1jtUnItbnYc85Z8xd4yR28RKXjpQwR04UflRreGYa/mpCLkcKsFkvwIJI+HcAAQT
+ e6tyb0XkfNDiCGGfk7D6jVoenCj3H0aH4beZaCr4Eu2G+Ql31BsMOvYsHkb91GsL5HKzlk
+ 3XcSZVASLqeWZ4KZWuMaxSYPs7oxi8oIKtwvZ2vU+4PLj3JdRq+wZ2/4S5M1ckb3lR6s7O
+ ZyHtIMqbdSoBMc5gGXlEKgsiCFaxc5lHEpetkI/HR6kfcn8G0LRnwE1RHAFQyQ==
+Message-ID: <d0610126883f23bec3472f41e528aae786f27c8c.camel@pengutronix.de>
 Subject: Re: [RFC PATCH 0/6] dma-buf: Phase out is_signaled() race
 From: Lucas Stach <l.stach@pengutronix.de>
-To: Philipp Stanner <phasta@kernel.org>, Min Ma <mamin506@gmail.com>, Lizhi
- Hou	 <lizhi.hou@amd.com>, Oded Gabbay <ogabbay@kernel.org>, "Rob Herring
- (Arm)"	 <robh@kernel.org>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Karol
- Wachowski	 <karol.wachowski@linux.intel.com>, Andrzej Kacprowski	
+To: phasta@kernel.org, Min Ma <mamin506@gmail.com>, Lizhi Hou
+ <lizhi.hou@amd.com>,  Oded Gabbay <ogabbay@kernel.org>, "Rob Herring (Arm)"
+ <robh@kernel.org>, Tomeu Vizoso	 <tomeu@tomeuvizoso.net>, Karol Wachowski
+ <karol.wachowski@linux.intel.com>,  Andrzej Kacprowski
  <andrzej.kacprowski@linux.intel.com>, Sumit Semwal
- <sumit.semwal@linaro.org>,  Christian =?ISO-8859-1?Q?K=F6nig?=	
+ <sumit.semwal@linaro.org>, Christian =?ISO-8859-1?Q?K=F6nig?=	
  <christian.koenig@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alex
  Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
  Simona Vetter	 <simona@ffwll.ch>, Maarten Lankhorst
@@ -116,9 +116,11 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  spice-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
  linux-tegra@vger.kernel.org, linux-iio@vger.kernel.org, 
  linux-usb@vger.kernel.org
-Date: Thu, 29 Oct 2026 11:23:34 +0100
-In-Reply-To: <20261029095542.1526750-3-phasta@kernel.org>
+Date: Thu, 29 Oct 2026 12:23:45 +0100
+In-Reply-To: <3565783722927fa48a30f48b063ef99bcd703eab.camel@mailbox.org>
 References: <20261029095542.1526750-3-phasta@kernel.org>
+ <abca3f0039b07999e29558690c27fef23292bea3.camel@pengutronix.de>
+ <3565783722927fa48a30f48b063ef99bcd703eab.camel@mailbox.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
@@ -134,133 +136,78 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Philipp, hi Christian,
+Am Donnerstag, dem 29.10.2026 um 11:28 +0100 schrieb Philipp Stanner:
+> On Thu, 2026-10-29 at 11:23 +0100, Lucas Stach wrote:
+> > Hi Philipp, hi Christian,
+>=20
+> Jo Lucas
+>=20
+> >=20
+> > Am Donnerstag, dem 29.10.2026 um 10:55 +0100 schrieb Philipp Stanner:
+>=20
+> [=E2=80=A6]
+>=20
+> > I think we would all be interested in the actual use-case that's
+> > sensitive to this kind of latency.
+>=20
+> Me too.
+>=20
+> Let me use this opportunity to stress that in the future, in DRM,
+> whenever we have [to accept] a racy "optimization", both commit
+> messages and code comments must document why it exists and who
+> requested it with what proof.
+>=20
+I don't fully agree that this is a racy optimization. To me it seems
+the most critical issue here is that "fence is signaled" is under
+specified.
 
-Am Donnerstag, dem 29.10.2026 um 10:55 +0100 schrieb Philipp Stanner:
-> dma_fence_is_signaled() can return true *while* the fence is signaling.
-> This has caused explosions before and I guess we can agree that it's
-> just not ideal.
->=20
-> The fundamental issue is that the fence-signaled-bit is set under lock
-> protection but read without it.
->=20
-> So ideally, we would read it with the lock. This would not change the
-> relative order, i.e. the bit would still be true in the fence callbacks.
->=20
-> Christian informs us that taking the lock causes people to complain
-> about performance regressions because the lock-taking shoots down copied
-> cache-lines. (which is weird since it would mean that someone is
-> repeatedly polling on fences instead of just registering a callback to
-> notify himself once it signals)
->=20
-I think we would all be interested in the actual use-case that's
-sensitive to this kind of latency.
+Does it purely mean that the actual hardware operation that the fence
+is guarding is done? In that case the current implementation is fine,
+as the bit is only set after the HW told us that it is done. This is
+the interpretation I would assume was the original intent behind the
+current implementation.
 
-However, I wonder if this is even an issue anymore with the lock
-inlined into the fence structure. With the deprecated external lock you
-would potentially get two cacheline bounces/remote invalidations for
-the exclusive access: once for the lock and one for the
-test_and_set_bit atomic op on the flags field.
-Now with the inlined lock, the lock operation will bring the cacheline
-into exclusive state on the local CPU and the flag check would then
-operate on that same cacheline, so there should be only a very minimal
-penalty compared to the sole atomic op.
+Does it mean that the hardware is done and all registered callbacks
+have been run, even if the actual work is done in a (indefinitely)
+deferred worker? You mentioning explosions caused by the pure signal
+state check outside the lock would imply that some consumers of the
+fence took the signaled state to mean this interpretation.
+
+> Would save us lots of time when those things are discussed >5 years
+> later.
+>=20
+> >=20
+> > However, I wonder if this is even an issue anymore with the lock
+> > inlined into the fence structure.
+>=20
+> Almost no one uses inline-lock so far. So unfortunately, we might
+> regress old drivers, maybe.
+>=20
+> But sounds as if you're in favor of phasing the locklessness out :)
+>=20
+I'm in favor of ripping out hard to reason optimizations if they turn
+out to not provide any optimization after all. However, before going in
+either direction we need to clarify the fence signal state interface.=C2=A0
+
+Either we keep the (in my interpretation) original intent of the signal
+state only telling about HW progress state and thus declare some
+current uses as wrong usage of the interface, which need to be fixed.
+Or we need to include the SW callbacks too, but then your current lock
+approach only guards against code directly executed in the callback
+functions. If the implementation of the callback defers anything to a
+worker this may still be racy.
+And that's also my criticism to this patchset now that I thought a bit
+more about this: by simply putting things under the lock you serialized
+more of the SW state without actually better defining the guarantees
+that this changed fence interface provides or doesn't provide to the
+consumers.
 
 Regards,
 Lucas
-
-> Let's accept the potential for regressions as true for now.
-> Nevertheless, I think I can propose a path towards removing the race:
->=20
-> This series suggests taking the lock in dma_fence_is_signaled() *unless*
-> the driver explicitly asks for a check with a race-condition.
->=20
-> As a preparation, I allow drivers to set flags when initializing fences.
-> Then, we add a flag with which the driver can switch locking off for
-> that particular function.
->=20
-> By default, we let all drivers take the lock.
->=20
-> Should we then, in the kernel release process get reports about
-> regressions, we can set the race-flag for the affected driver and
-> restore the old behavior.
->=20
-> Should there be no reports, we could phase the flag out again after a
-> few releases, always taking the lock.
->=20
-> New users would always see the lock.
->=20
-> I put all potentially affected parties on Cc. Please point out if you
-> can already foresee your driver being negatively affected by this.
->=20
-> P.
->=20
->=20
-> Philipp Stanner (6):
->   dma-buf: dma-fence: Add flags parameter to dma_fence_init()
->   dma-buf: dma-fence: Add flag for using 64-bit seqnos
->   dma-buf: Port users of dma_fence_init64()
->   dma-buf: dma-fence: remove dma_fence_init64()
->   dma-buf: dma-fence: Close race in dma_fence_is_signaled() by default
->   drm/nouveau: Remove hacky fence check
->=20
->  drivers/accel/amdxdna/amdxdna_ctx.c           |  2 +-
->  drivers/accel/ethosu/ethosu_job.c             |  2 +-
->  drivers/accel/ivpu/ivpu_job.c                 |  2 +-
->  drivers/accel/rocket/rocket_job.c             |  2 +-
->  drivers/dma-buf/dma-fence-array.c             |  2 +-
->  drivers/dma-buf/dma-fence-chain.c             |  4 +-
->  drivers/dma-buf/dma-fence.c                   | 44 +++++------------
->  drivers/dma-buf/st-dma-fence-chain.c          |  2 +-
->  drivers/dma-buf/st-dma-fence-unwrap.c         |  2 +-
->  drivers/dma-buf/st-dma-fence.c                |  2 +-
->  drivers/dma-buf/st-dma-resv.c                 |  2 +-
->  drivers/dma-buf/sw_sync.c                     |  2 +-
->  .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c  |  2 +-
->  .../drm/amd/amdgpu/amdgpu_eviction_fence.c    |  7 +--
->  drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c     |  2 +-
->  .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   |  5 +-
->  .../gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c  |  5 +-
->  drivers/gpu/drm/drm_crtc.c                    |  2 +-
->  drivers/gpu/drm/drm_writeback.c               |  2 +-
->  drivers/gpu/drm/etnaviv/etnaviv_gpu.c         |  2 +-
->  drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c  |  2 +-
->  drivers/gpu/drm/i915/i915_request.c           |  2 +-
->  drivers/gpu/drm/i915/i915_sw_fence_work.c     |  2 +-
->  drivers/gpu/drm/i915/i915_vma_resource.c      |  2 +-
->  .../gpu/drm/i915/selftests/i915_sw_fence.c    |  2 +-
->  drivers/gpu/drm/imagination/pvr_ccb.c         |  2 +-
->  drivers/gpu/drm/imagination/pvr_queue.c       |  2 +-
->  drivers/gpu/drm/lima/lima_sched.c             |  2 +-
->  drivers/gpu/drm/msm/msm_fence.c               |  2 +-
->  drivers/gpu/drm/nouveau/nouveau_drm.c         | 13 -----
->  drivers/gpu/drm/nouveau/nouveau_fence.c       |  4 +-
->  drivers/gpu/drm/panfrost/panfrost_job.c       |  2 +-
->  drivers/gpu/drm/panthor/panthor_sched.c       |  2 +-
->  drivers/gpu/drm/qxl/qxl_release.c             |  2 +-
->  drivers/gpu/drm/radeon/radeon_fence.c         |  2 +-
->  drivers/gpu/drm/scheduler/sched_fence.c       |  4 +-
->  .../gpu/drm/scheduler/tests/mock_scheduler.c  |  2 +-
->  drivers/gpu/drm/ttm/tests/ttm_bo_test.c       |  2 +-
->  .../gpu/drm/ttm/tests/ttm_bo_validate_test.c  |  2 +-
->  drivers/gpu/drm/v3d/v3d_fence.c               |  2 +-
->  drivers/gpu/drm/vc4/vc4_gem.c                 |  2 +-
->  drivers/gpu/drm/vgem/vgem_fence.c             |  2 +-
->  drivers/gpu/drm/virtio/virtgpu_fence.c        |  2 +-
->  drivers/gpu/drm/vmwgfx/vmwgfx_fence.c         |  2 +-
->  drivers/gpu/drm/xe/xe_hw_fence.c              |  2 +-
->  drivers/gpu/drm/xe/xe_oa.c                    |  2 +-
->  drivers/gpu/drm/xe/xe_preempt_fence.c         |  2 +-
->  drivers/gpu/drm/xe/xe_tlb_inval.c             |  2 +-
->  drivers/gpu/host1x/fence.c                    |  2 +-
->  drivers/iio/industrialio-buffer.c             |  2 +-
->  drivers/usb/gadget/function/f_fs.c            |  2 +-
->  include/linux/dma-fence.h                     | 48 +++++++++++++++++--
->  52 files changed, 115 insertions(+), 105 deletions(-)
