@@ -2,90 +2,94 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88DED606A31A
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Oct 2026 21:42:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ACD1606A31A
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Oct 2026 21:58:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QYfLUXRs
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sYS2WfiV
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 179BE10E2EB;
-	Thu, 29 Oct 2026 21:42:19 +0000 (UTC)
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com
- [74.125.82.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4168410E2EB
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Oct 2026 21:42:13 +0000 (UTC)
-Received: by mail-dy1-f178.google.com with SMTP id
- 5a478bee46e88-36a0eecf73fso26544eec.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Oct 2026 14:42:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793310132; cv=none;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 155AB11257C;
+	Thu, 29 Oct 2026 21:58:08 +0000 (UTC)
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB39C112581
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Oct 2026 21:58:01 +0000 (UTC)
+Received: by mail-dl1-f42.google.com with SMTP id
+ a92af1059eb24-150b2fbd784so1062c88.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Oct 2026 14:58:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793311081; cv=none;
  d=google.com; s=arc-20260327;
- b=Sm5JkmuZBuSy4Bxk4vVVvPymAY89HgDmBfp2juNndqeLJopsBQor7IxmPJSKfe/HZc
- PVk3UEBpm6YxLQ+JmXPM/70rH1AX4bPk/omGyUTM1I3YzVhieJmVap9MbZtNznVrYv8z
- poMt6qRlFJ+Nnl4P8F7MKlFXW+wbiHoqvNz1cR/hXTN7PdvEbpw9OqacLl9TT5t6Pmnv
- 4E4UX5qCYtbCsIDM9ZHUbMOb3/0YhU2eSVusS+DK99Xh5FnLNJom3Ac/tlhjfj8cZVxl
- gZAm1Hzu37AzM/wsnD7oZdgj5KGDa6ylPPWKTxh+k+Bpu9HyhIUMu26wJQnl+rK5eZmi
- k38Q==
+ b=rxMYkh5/l6x0rLCjdZ1itRLvAplBuftKAwrwHOmDbYSBncm3TrfP/o8nT4Rfvg6iac
+ yTMg9qxxpKSnbuQAbcWkkHKk/gt/GdbqlyT+apCqOYkMzAjZ8kVF2xzJbUHdX57NEhF4
+ CkXsIWEjvT9lTCpaLrgUtwmor4FtxYCRhJK0hRi8607aY6mijyJ6lssClfQS85l+ny9F
+ BBYfXRmMM8WXi1t5K+Api+DoZpipfmiozsAaC9z1iuLG6TeKNFoxOg9zfIxRM0s9GATv
+ FdIjbWLdfVQ/w0cS704ydavG/10PKE4nIqMeP8uBJ7aLTrtL7Gy+0fVTJE1OXtivhIh7
+ +CNA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=PmmbsvA8By0O/Ei0aB60/GVCYLAgYkbG3NIV1KZA160=;
- fh=IY98SR0cNO93Tj0qH750yd04bAXFkNbDKtBTzSqo1Bw=;
- b=hBD7xle0dW/hfVWNAfOzgORQ4EWST8cKAXFUNEErNDF5cTLlT9abZ77ZML7AR5VURT
- BglboJrCQ/maITS22ytzRHVs4KlpjNGMcuGG4EuPD2rHBX3GxSJ9QiD4QxKVG9MJKrHk
- QtMXznGLCdOYcCPSGOpK5qlgRVUCDK1SsIZUMaxC9duLk6vsKeYHBm8hWwswkRy69F5r
- 30G41TvAhI8vo5YxdmJBvm7KKIyg4Z5f03oTL6OePeyeDcw2vJUY0UscZlFuPw+vzEP9
- s4mBWR/fcUJJklq9zRRUZVWKkKTdGHsFNzTDSnVTaFZ/tMZxnqNLzSfHTsfh/ay82wWz
- Bufg==; darn=lists.freedesktop.org
+ bh=vVmdWIfDqgQ57zGphQvuVSmIneDtL7GjZgKyHckL4FM=;
+ fh=jz+yQCQ2HRtIfEfecFFqLIM3ivU7yZlUWDtgMTCW/aQ=;
+ b=JhqyOyfMxNXAFb3yufiPN8nKHYIGAMAHKMHivy78JY6FLL7l2dFuCv64NC7sDfySa8
+ IkZh/hyJvd6TTMcIrMgcDaHh+Amx0ZY+x9PoNOwJVVwmLy0Hr6RzC1/kqk71v39WfDb+
+ daBfTVPzKL/m/7UzNjFGOJzR1Jikv4fRrvkZoXCIRNBDUgrhze6J3k+QdKjNLYZQaN3L
+ /0/nWwUuVU8G2fGe2f33QGqM7vQTj8veGeY+iI57OVu69rdTxCmq0XYyZpwip+38Oq19
+ 799Fm8CFhZFUqHnxe//V2v3sKgqNPb1V2AcRTIwqEB77yffBzNYVLH7tKjQnEO1XrmYQ
+ 4xDA==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793310132; x=1793914932; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1793311081; x=1793915881; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=PmmbsvA8By0O/Ei0aB60/GVCYLAgYkbG3NIV1KZA160=;
- b=QYfLUXRsVJokHqNRwWydsDtcAJSzMHq/Digfn8R1FeiAvnt7Y0SIYUs6hnJZ0n7zGe
- 1hGAjpgEJ1caJE9JoIn+o+lAUCNtTmGb7Pl1ACA3pDpqpcIJkQ2KXHPfnZ3DfatAKchL
- RDSlKQ/tecOv95R8Eh+wZwq7aXN4ME2EDTuVUdtSRvsEEGJPD4BH+vHjuFWGmdosbhb1
- JhrAjm/xvS5SOm5KfUGCAVvKQlyrLihUQRqkvoOtAPfCBnuUWN6GjhGRpSMRs2jjJKeX
- +Ln3AZuIJ8bb5A6EI1v1pkKn50SEN+1OvlbDj72oKDsEBSHxBePYX3gxbl8dkMeqnnZa
- qy1w==
+ bh=vVmdWIfDqgQ57zGphQvuVSmIneDtL7GjZgKyHckL4FM=;
+ b=sYS2WfiVVouqHex7HlXsj34i5akwOxwDXBq9MZ3PtQv/08HKLx2Ue5JVrdAPwB6191
+ Rw0Zn8Y3NAeOrajmRYvl2PWu4xvPuaVf791GjVx9TQniBfXi95DtwuK8cEjPyR3FHY67
+ CnkZ1PODUKpz22/kQUTNI3YBAZMGHDutLLc/Wd/dEbr1lrPu5eGUvnCX2BRWotQiuF4y
+ ZLQXzf04QMrf3NJE9G8gS7yXhiyCNJkzhwlpD7osUVwga003IgUq09ukmkZmRhwAYlgw
+ qe7zuyCFxX2P8z2dL71HlZfqZjmmH9kjfZWfbzzyX/cOXu/ioYwyaAdQYpXNoxIchq+W
+ YCUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793310132; x=1793914932;
+ d=1e100.net; s=20260707; t=1793311081; x=1793915881;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=PmmbsvA8By0O/Ei0aB60/GVCYLAgYkbG3NIV1KZA160=;
- b=lopRp2rVMpjN3LUYiwN3UJJEBqcUUKRoaGHBYR5KpMBL1csr8y1YMHbr0Ou3oSkiuG
- FRezgH7PEjWq85LuB5UVlDULyFQpjnyhTx87eSDiscLqoP4Vv2IdAua6HHkSKrIYbHyD
- hhHt8YV7/HosEmH8RwzpKLQpKxFrWo9lyLl8DzXKzh2rhgEsUZiQQ9W2XS1PtjJ/sC/e
- hHfHfMNCmKoO2lEuDk2P0e4yq4iOU5oiF0kTvV9dzyBSdOCz2kG5aFZCOp4Boc9PTgX9
- 1ilcW/Z+5xp1ILqiAx9qwQ/oZXI+PixF/pGTkEYb+axarep3OFdSsU+fRN6Y3KKBGDi8
- 1c0g==
-X-Gm-Message-State: AFq9FYIcl8wJPwJ2VlUWC1n7ij82Oq/izrV7ueGce5tLgnURrfncU2VI
- LK4gPoEugiERHs8tZkJjCUPyT9LfI4KlRw9lwV5fWznpnrHoKzQdybj7BFD70Q6u+g4UbLLrCux
- pLPjTseGAMKAnQiU2HrhT8HKHgYfRezSyJTjb
-X-Gm-Gg: AYBFou0hnfd4RJ1WUoM3eHfILG+LuqtRGfAgWiakWBu8gSui5z/Wl7VR+QAKeje54pz
- yqf1DYPV5S3DAAsC51V2bMRegpwyO0NwGjC46BU76kphxMfGWM+Pfva6A5FZnHZ0/cBzklNPykg
- 0BtTrNv1Z1h64nu4Mr6s4VMt4PAfM9KBH4kKzK08o4DiuhDr3ed2gujg9xKFPzLqSRjyrykRDjO
- Xn5VowSfxQiW6o8tI7S3QAS2ukMcsMY7gtJbvIF37wwtdq0bxWvYyJbOT6KL83OrEJn5VS/1xvU
- fvcUj22FKx9yGm78u40EOJv0EzCKj87vcxPyx4k+ngzvppl5pxDRX2LypFHJmzeEE7EtKF/1lZN
- iw0ClTUnG1yHJ7oiRMaiuasCTAmZj67ycM94fpCVYvxubKNedZKnO+YGirQxmiNbDJuGaw3d67B
- 8guWDKeHHztsc3/LWyvUShIQfQ
-X-Received: by 2002:a05:701b:428f:10b0:143:5c2a:e45f with SMTP id
- a92af1059eb24-1ac4f91ef0emr763365c88.0.1793310132267; Thu, 29 Oct 2026
- 14:42:12 -0700 (PDT)
+ bh=vVmdWIfDqgQ57zGphQvuVSmIneDtL7GjZgKyHckL4FM=;
+ b=OxxUSnI9IezxxRukxZGkwc7lUmZBoGttW0q/Ycl5gOeGqyqDQu6aQ2xP63pKO5fGL2
+ 3rItpr2hCyQskoMUtGDjBK3uwB/IbQmRcgazcdNnFPutgB+3kZp0LIiFkPtxlNWVVNBQ
+ 6fjEMszx2tlPjoJyK3MlWLIDVqrtq96qHNp3BkdGD+2rCdKO4K6edGayvXCVPOgtufYS
+ uLhlY13aUsUegjxmyVH3lZ6c9sYjZwt3yYeMxboG+LmE26SLZIHZ3SJQvBlghxtecaz4
+ +wklft1zMgqtQyNjdrc7R25WkDFCMHFEJwQWBFJMiFhviT8jj5UPnRjEUVqsiqhr3yLK
+ XjuA==
+X-Gm-Message-State: AFq9FYJzgfORtyBw5fYrVBX1Uig3BoIlPTFffXG5hWbZMYhZWduyN5bp
+ 4wbAxLmGnBAzrjOWCwlwUDlkJwc9W6PWj6jSxCc+VkkBYJHpnNLPLxScDW+sqxPFmg/oiB9bSB4
+ JKtQb2SkX/M8d6fNsQdhJZh6ks2an7S0=
+X-Gm-Gg: AYBFou1d4gOiAMo7P7VR0qG6noBW1NkXsku9Ek/qogDoM2ckhpCvcEpEQqARvK27MUM
+ EXstqa3J6f9RuxNrVGKC8AkIqcfd8m0M/KTEkwudSDWinenKoLcdPmkq2ILN1gxbJx14XMkBba+
+ nwC6QBbhYvjhGZrtuXQt/eB8ICNFSDnrFWyul234x4RWn4EifQPGeDufIbjKskUiN+Vwl1p8mH4
+ tOhtqeVYImmvfq8tCSYyTkYaRTvDUC+Mvn0tVCxyH0+Nf+2VxCEqkmq2rCMvhpCdMWcTHixH1ke
+ DI2sqX5Ubm5ACjV05wqWO8kKVQwV1NBBruDGZHZPBIdTG/GaLsPr7vks7ALTaHfVC2d2wkXqWR9
+ XTs6IkQtdD3XXQ4Mv389cTcSC96UagldwL5x1WCbeyTdBYcF4/axz7h7wC+FdGLHA77Iyj1/Vh+
+ TuG5uaJ38X3t+Rw0B3+oNM7Vo=
+X-Received: by 2002:a05:7022:c46:b0:1a1:9106:cfff with SMTP id
+ a92af1059eb24-1ac5c45fd28mr645027c88.2.1793311081015; Thu, 29 Oct 2026
+ 14:58:01 -0700 (PDT)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261023140611.3095340-1-alexander.deucher@amd.com>
-In-Reply-To: <20261023140611.3095340-1-alexander.deucher@amd.com>
+References: <20260916144014.879355-1-ed@aicharmers.com>
+In-Reply-To: <20260916144014.879355-1-ed@aicharmers.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 29 Oct 2026 17:42:00 -0400
-X-Gm-Features: AclHuK91CBnFt2q8W-oJUNMCJlBkhMep-kiaslH7g0jBkKDb0CI5w-KOHS7bdHI
-Message-ID: <CADnq5_PH4-EcmQRPL8sv2XQiwX3PONFV+jUFDrM2w9Cm+CA2DA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: drop async_gfx_ring parameter
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
+Date: Thu, 29 Oct 2026 17:57:49 -0400
+X-Gm-Features: AclHuK9xVl7f8hieJPy2X3wLzEpfApxWnh2cKeKmKYYgIZ_iAsxEqlD0F7kalKA
+Message-ID: <CADnq5_MsaUDm8rcxr3_0wuEAXywxziAofOO9w-dUxYS9PUoasw@mail.gmail.com>
+Subject: Re: [PATCH v4] drm/amd/pm: defer UCLK DPM on selected Apple Navi GPUs
+To: Ed Schofield <ed@aicharmers.com>, Andre Eikmeyer <dev@deq.rocks>
+Cc: amd-gfx@lists.freedesktop.org, Kenneth Feng <kenneth.feng@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -98,579 +102,308 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-17.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-ping?
++ Andre
 
-On Fri, Oct 23, 2026 at 1:31=E2=80=AFPM Alex Deucher <alexander.deucher@amd=
-.com> wrote:
+On Wed, Sep 16, 2026 at 10:51=E2=80=AFAM Ed Schofield <ed@aicharmers.com> w=
+rote:
 >
-> It's been enabled by default since it was added.  It's
-> leftover from gfx10 bring up.  I doubt the disabled path
-> still works anymore.  Remove it.
+> From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
 >
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Some Apple Navi GPUs intermittently time out during SMU initialization
+> when EnableAllSmuFeatures includes UCLK DPM. Leave UCLK out of that early
+> request and enable it from Navi post-init, after display hardware init
+> and before the UMC workaround and UMD clock setup.
+>
+> Read back the enabled features before rebuilding the memory clock table
+> and sustainable clock limits. Also check the PPT memory states used by
+> display initialization before late enablement. Keep memory-voltage DPM
+> and respect the user's memory-DPM setting and the secure Navi 10 exclusio=
+n.
+>
+> Limit this workaround to Apple 7340/0218 revision 41, 7340/0219, and
+> 731b/021a revision 40. Revisions and PCI IDs here are hexadecimal. The
+> underlying initialization dependency behind the timing sensitivity is
+> still unknown.
+
+@Andre Eikmeyer I think this patch should fix your system as well.
+@Atharva Tiwari are you ok with this patch?
+
+Thanks,
+
+Alex
+
+>
+> This builds on Atharva Tiwari's submitted 0219 delayed-UCLK patch
+> and Guna's diagnosis. Ed Schofield moved the enable point into the
+> Navi callback, added state validation and clock-table refresh, and
+> extended the board matching.
+> Independent tests of the related T2 implementation support improved boot
+> reliability on 0219 and 021a; those are not tests of this exact AMD patch=
+.
+>
+> Link: https://lore.kernel.org/amd-gfx/20260824190409.1724-1-atharvatiwari=
+linuxdev@gmail.com/
+> Link: https://github.com/t2linux/linux-t2-patches/pull/61#issuecomment-56=
+37976466
+> Link: https://github.com/t2linux/linux-t2-patches/pull/61#issuecomment-56=
+45652752
+> Assisted-by: Codex:GPT-6
+> Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+> Co-developed-by: Ed Schofield <ed@aicharmers.com>
+> Signed-off-by: Ed Schofield <ed@aicharmers.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h     |   1 -
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |   9 --
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c |   6 +-
->  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c  | 145 +-------------------
->  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 167 +-----------------------
->  drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c  |   3 -
->  6 files changed, 15 insertions(+), 316 deletions(-)
+> Hi Alex, hi Atharva,
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/am=
-dgpu/amdgpu.h
-> index 5a32b54b1e9b8..16c7d1381ae6a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -213,7 +213,6 @@ extern u64 amdgpu_ras_mask;
->  extern int amdgpu_bad_page_threshold;
->  extern bool amdgpu_ignore_bad_page_threshold;
->  extern struct amdgpu_watchdog_timer amdgpu_watchdog_timer;
-> -extern int amdgpu_async_gfx_ring;
->  extern int amdgpu_mcbp;
->  extern int amdgpu_discovery;
->  extern int amdgpu_mes_log_enable;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_drv.c
-> index 3e5634de077f1..cee7c0c772a55 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -224,7 +224,6 @@ int amdgpu_smu_pptable_id =3D -1;
->  uint amdgpu_dc_feature_mask =3D DC_MULTI_MON_PP_MCLK_SWITCH_MASK | DC_FR=
-L_MASK;
->  uint amdgpu_dc_debug_mask;
->  uint amdgpu_dc_visual_confirm;
-> -int amdgpu_async_gfx_ring =3D 1;
->  int amdgpu_mcbp =3D -1;
->  int amdgpu_discovery =3D -1;
->  int amdgpu_mes_log_enable;
-> @@ -668,14 +667,6 @@ MODULE_PARM_DESC(smu_memory_pool_size,
->         "reserve gtt for smu debug usage, 0 =3D disable,0x1 =3D 256Mbyte,=
- 0x2 =3D 512Mbyte, 0x4 =3D 1 Gbyte, 0x8 =3D 2GByte");
->  module_param_named(smu_memory_pool_size, amdgpu_smu_memory_pool_size, ui=
-nt, 0444);
+> Here is v4 of the delayed-UCLK workaround. Atharva is credited as the
+> author in `From:`, with my rework credited through `Co-developed-by:`.
+> The local development history starts from Atharva's original 0219
+> submission [1], followed by my move to the Navi post-init callback,
+> state validation, clock-table refresh and additional board support. This
+> export is a single replacement patch against AMD staging at `8a4e96cf2`;
+> it is not an incremental patch to apply on top of v2 or Atharva's
+> original patch. (V3 was a local revision that I didn't submit to this
+> list.)
 >
-> -/**
-> - * DOC: async_gfx_ring (int)
-> - * It is used to enable gfx rings that could be configured with differen=
-t prioritites or equal priorities
-> - */
-> -MODULE_PARM_DESC(async_gfx_ring,
-> -       "Asynchronous GFX rings that could be configured with either diff=
-erent priorities (HP3D ring and LP3D ring), or equal priorities (0 =3D disa=
-bled, 1 =3D enabled (default))");
-> -module_param_named(async_gfx_ring, amdgpu_async_gfx_ring, int, 0444);
-> -
->  /**
->   * DOC: mcbp (int)
->   * It is used to enable mid command buffer preemption. (0 =3D disabled, =
-1 =3D enabled, -1 auto (default))
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_gfx.c
-> index 0ae6e990c3102..143d55fed4617 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> @@ -148,7 +148,7 @@ void amdgpu_gfx_parse_disable_cu(struct amdgpu_device=
- *adev, unsigned int *mask,
+> Atharva, I agree that display initialization may explain the timing
+> dependency. This patch already enables UCLK after display hardware
+> initialization on the normal probe path. It is intended as a targeted
+> workaround for the reported boot failures; it does not establish the
+> underlying cause or address native 5K support. Could you share the exact
+> initialization-ordering diff, kernel version and GPU IDs from your
+> experiment? In the AMD staging tree used for this patch,
+> `dce_v10_0_early_init()` handles Tonga/Fiji, while these Navi boards use
+> the DCN path.
 >
->  static bool amdgpu_gfx_is_graphics_multipipe_capable(struct amdgpu_devic=
-e *adev)
->  {
-> -       return amdgpu_async_gfx_ring && adev->gfx.me.num_pipe_per_me > 1;
-> +       return adev->gfx.me.num_pipe_per_me > 1;
->  }
+> My goal is to stop the intermittent boot failures on my iMac (0218) and
+> other affected machines. Testing of my related T2 candidate in PR 61
+> [2], which was based on my local v3, is encouraging:
 >
->  static bool amdgpu_gfx_is_compute_multipipe_capable(struct amdgpu_device=
- *adev)
-> @@ -447,7 +447,7 @@ int amdgpu_gfx_mqd_sw_init(struct amdgpu_device *adev=
-,
->                 }
+> - Matt Olney's report on 021a [3] records internal-display boot success
+>   improving from 2/10 to 10/10, with mixed restart types.
+>   External-display results were 4/10 versus 4/5, with uncertain kernel
+>   selection on the failed candidate attempt.
+> - Vivek Chauhan's report on 0219 [4] records boot success improving from
+>   1/5 to 3/3.
+>
+> These results are from the T2 implementation, not this exact AMD v4
+> export. The T2 patch stack also includes a separate correction to its
+> existing fixed allowed-feature mask on 0219, which clean AMD does not
+> need and this patch does not contain. The results support improved boot
+> reliability on these machines, but do not establish full performance or
+> reliability across all display configurations.
+>
+> Compared with public v2, v4 adds 731b/021a revision 40, preserves the
+> existing secure-Navi-10 exclusion and generalizes the helper names. It
+> retains 7340/0218 revision 41 and 7340/0219. All IDs and revisions here
+> are hexadecimal.
+>
+> Compared with my local v3 / T2 Linux PR #61, v4 excludes 020f: 3v3nFloW
+> reported that initialization completed but the machine subsequently hung
+> under load [5]. Their follow-up testing with a fixed memory-clock level
+> [6] suggests that memory-clock changes cause the hang, but doesn't
+> establish whether GPU load or display activity triggers it. I've also
+> excluded 021b from this version, which we don't yet have testing results
+> for.
+>
+> Local build and host checks pass. I am currently travelling without my
+> iMac and have no new v4 hardware results, but I am submitting this
+> version for merging, with the workaround limited to the three board
+> matches supported by the existing evidence from the volunteer testers
+> mentioned above.
+>
+> Alex, this patch replaces v2 and applies directly to the AMD staging
+> commit identified above.
+>
+> Thanks,
+> Ed
+>
+> [1] https://lore.kernel.org/amd-gfx/20260824190409.1724-1-atharvatiwarili=
+nuxdev@gmail.com/
+> [2] https://github.com/t2linux/linux-t2-patches/pull/61
+> [3] https://github.com/t2linux/linux-t2-patches/pull/61#issuecomment-5637=
+976466
+> [4] https://github.com/t2linux/linux-t2-patches/pull/61#issuecomment-5645=
+652752
+> [5] https://github.com/t2linux/linux-t2-patches/pull/61#issuecomment-5646=
+139127
+> [6] https://github.com/t2linux/linux-t2-patches/pull/61#issuecomment-5646=
+438512
+>
+> v3 was local, not submitted. Since public v2: add the tested 021a/40
+> match, retain the secure-Navi-10 exclusion, and generalize helper names.
+> Since local v3: remove 020f (load hangs) and 021b (no testing evidence).
+> Base: 8a4e96cf2acd1e0340581df100b559f77ad7d855 (AMD staging).
+> This is a full replacement, not a patch to apply on top of v2.
+>
+>  .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 100 ++++++++++++++++++
+>  1 file changed, 100 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gp=
+u/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> index f8ca5eb9a..3ac2a074c 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> @@ -60,6 +60,37 @@
+>
+>  static int navi10_init_ppt_limits(struct smu_context *smu);
+>
+> +static bool is_asic_secure(struct smu_context *smu);
+> +
+> +static bool navi10_apple_needs_late_uclk(struct smu_context *smu)
+> +{
+> +       struct amdgpu_device *adev =3D smu->adev;
+> +       struct pci_dev *pdev =3D adev->pdev;
+> +
+> +       if (pdev->vendor !=3D PCI_VENDOR_ID_ATI ||
+> +           pdev->subsystem_vendor !=3D PCI_VENDOR_ID_APPLE ||
+> +           !(adev->pm.pp_feature & PP_MCLK_DPM_MASK))
+> +               return false;
+> +
+> +       /* Preserve the existing secure Navi 10 memory-DPM exclusion. */
+> +       if (is_asic_secure(smu) &&
+> +           amdgpu_ip_version(adev, MP1_HWIP, 0) =3D=3D IP_VERSION(11, 0,=
+ 0) &&
+> +           adev->rev_id =3D=3D 0)
+> +               return false;
+> +
+> +       switch (pdev->device) {
+> +       case 0x7340:
+> +               return (pdev->subsystem_device =3D=3D 0x0218 &&
+> +                       pdev->revision =3D=3D 0x41) ||
+> +                      pdev->subsystem_device =3D=3D 0x0219;
+> +       case 0x731b:
+> +               return pdev->subsystem_device =3D=3D 0x021a &&
+> +                      pdev->revision =3D=3D 0x40;
+> +       default:
+> +               return false;
+> +       }
+> +}
+> +
+>  static const struct smu_feature_bits navi10_dpm_features =3D {
+>         .bits =3D {
+>                 SMU_FEATURE_BIT_INIT(FEATURE_DPM_PREFETCHER_BIT),
+> @@ -356,6 +387,11 @@ navi10_init_allowed_features(struct smu_context *smu=
+)
+>                 smu_feature_list_set_bit(smu, SMU_FEATURE_LIST_ALLOWED, F=
+EATURE_MEM_MVDD_SCALING_BIT);
 >         }
 >
-> -       if (adev->asic_type >=3D CHIP_NAVI10 && amdgpu_async_gfx_ring) {
-> +       if (adev->gfx.me.num_queue_per_pipe > 1) {
->                 /* create MQD for each KGQ */
->                 for (i =3D 0; i < adev->gfx.num_gfx_rings; i++) {
->                         ring =3D &adev->gfx.gfx_ring[i];
-> @@ -503,7 +503,7 @@ void amdgpu_gfx_mqd_sw_fini(struct amdgpu_device *ade=
-v, int xcc_id)
->         int i, j;
->         struct amdgpu_kiq *kiq =3D &adev->gfx.kiq[xcc_id];
->
-> -       if (adev->asic_type >=3D CHIP_NAVI10 && amdgpu_async_gfx_ring) {
-> +       if (adev->gfx.me.num_queue_per_pipe > 1) {
->                 for (i =3D 0; i < adev->gfx.num_gfx_rings; i++) {
->                         ring =3D &adev->gfx.gfx_ring[i];
->                         kfree(adev->gfx.me.mqd_backup[i]);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gfx_v10_0.c
-> index 74b68b6048c89..456645d6b331f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> @@ -6447,35 +6447,11 @@ static int gfx_v10_0_cp_gfx_start(struct amdgpu_d=
-evice *adev)
+> +       /* Defer UCLK on the selected Apple boards until IP late init. */
+> +       if (navi10_apple_needs_late_uclk(smu))
+> +               smu_feature_list_clear_bit(smu, SMU_FEATURE_LIST_ALLOWED,
+> +                                          FEATURE_DPM_UCLK_BIT);
+> +
+>         if (is_asic_secure(smu) &&
+>             (amdgpu_ip_version(adev, MP1_HWIP, 0) =3D=3D IP_VERSION(11, 0=
+, 0)) &&
+>             (adev->rev_id =3D=3D 0))
+> @@ -470,6 +506,25 @@ static int navi10_store_powerplay_table(struct smu_c=
+ontext *smu)
 >         return 0;
 >  }
 >
-> -static void gfx_v10_0_cp_gfx_switch_pipe(struct amdgpu_device *adev,
-> -                                        CP_PIPE_ID pipe)
-> -{
-> -       u32 tmp;
-> -
-> -       tmp =3D RREG32_SOC15(GC, 0, mmGRBM_GFX_CNTL);
-> -       tmp =3D REG_SET_FIELD(tmp, GRBM_GFX_CNTL, PIPEID, pipe);
-> -
-> -       WREG32_SOC15(GC, 0, mmGRBM_GFX_CNTL, tmp);
-> -}
-> -
->  static void gfx_v10_0_cp_gfx_set_doorbell(struct amdgpu_device *adev,
->                                           struct amdgpu_ring *ring)
+> +/* DCN20 consumes these PPT states before the post-init UCLK enable. */
+> +static int navi10_apple_check_uclk_states(struct smu_context *smu)
+> +{
+> +       PPTable_t *ppt =3D smu->smu_table.driver_pptable;
+> +       unsigned int count, i;
+> +
+> +       if (!navi10_apple_needs_late_uclk(smu))
+> +               return 0;
+> +
+> +       count =3D ppt->DpmDescriptor[PPCLK_UCLK].NumDiscreteLevels;
+> +       if (!count || count > ARRAY_SIZE(ppt->FreqTableUclk))
+> +               return -EINVAL;
+> +       for (i =3D 0; i < count; i++) {
+> +               if (!ppt->FreqTableUclk[i])
+> +                       return -EINVAL;
+> +       }
+> +       return 0;
+> +}
+> +
+>  static int navi10_setup_pptable(struct smu_context *smu)
 >  {
->         u32 tmp;
+>         int ret =3D 0;
+> @@ -490,6 +545,10 @@ static int navi10_setup_pptable(struct smu_context *=
+smu)
+>         if (ret)
+>                 return ret;
 >
-> -       if (!amdgpu_async_gfx_ring) {
-> -               tmp =3D RREG32_SOC15(GC, 0, mmCP_RB_DOORBELL_CONTROL);
-> -               if (ring->use_doorbell) {
-> -                       tmp =3D REG_SET_FIELD(tmp, CP_RB_DOORBELL_CONTROL=
-,
-> -                                               DOORBELL_OFFSET, ring->do=
-orbell_index);
-> -                       tmp =3D REG_SET_FIELD(tmp, CP_RB_DOORBELL_CONTROL=
-,
-> -                                               DOORBELL_EN, 1);
-> -               } else {
-> -                       tmp =3D REG_SET_FIELD(tmp, CP_RB_DOORBELL_CONTROL=
-,
-> -                                               DOORBELL_EN, 0);
-> -               }
-> -               WREG32_SOC15(GC, 0, mmCP_RB_DOORBELL_CONTROL, tmp);
-> -       }
->         switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
->         case IP_VERSION(10, 3, 0):
->         case IP_VERSION(10, 3, 2):
-> @@ -6503,109 +6479,6 @@ static void gfx_v10_0_cp_gfx_set_doorbell(struct =
-amdgpu_device *adev,
->         }
+> +       ret =3D navi10_apple_check_uclk_states(smu);
+> +       if (ret)
+> +               return ret;
+> +
+>         return navi10_init_ppt_limits(smu);
 >  }
 >
-> -static int gfx_v10_0_cp_gfx_resume(struct amdgpu_device *adev)
-> -{
-> -       struct amdgpu_ring *ring;
-> -       u32 tmp;
-> -       u32 rb_bufsz;
-> -       u64 rb_addr, rptr_addr, wptr_gpu_addr;
-> -
-> -       /* Set the write pointer delay */
-> -       WREG32_SOC15(GC, 0, mmCP_RB_WPTR_DELAY, 0);
-> -
-> -       /* set the RB to use vmid 0 */
-> -       WREG32_SOC15(GC, 0, mmCP_RB_VMID, 0);
-> -
-> -       /* Init gfx ring 0 for pipe 0 */
-> -       mutex_lock(&adev->srbm_mutex);
-> -       gfx_v10_0_cp_gfx_switch_pipe(adev, PIPE_ID0);
-> -
-> -       /* Set ring buffer size */
-> -       ring =3D &adev->gfx.gfx_ring[0];
-> -       rb_bufsz =3D order_base_2(ring->ring_size / 8);
-> -       tmp =3D REG_SET_FIELD(0, CP_RB0_CNTL, RB_BUFSZ, rb_bufsz);
-> -       tmp =3D REG_SET_FIELD(tmp, CP_RB0_CNTL, RB_BLKSZ, rb_bufsz - 2);
-> -#ifdef __BIG_ENDIAN
-> -       tmp =3D REG_SET_FIELD(tmp, CP_RB0_CNTL, BUF_SWAP, 1);
-> -#endif
-> -       WREG32_SOC15(GC, 0, mmCP_RB0_CNTL, tmp);
-> -
-> -       /* Initialize the ring buffer's write pointers */
-> -       ring->wptr =3D 0;
-> -       WREG32_SOC15(GC, 0, mmCP_RB0_WPTR, lower_32_bits(ring->wptr));
-> -       WREG32_SOC15(GC, 0, mmCP_RB0_WPTR_HI, upper_32_bits(ring->wptr));
-> -
-> -       /* set the wb address whether it's enabled or not */
-> -       rptr_addr =3D ring->rptr_gpu_addr;
-> -       WREG32_SOC15(GC, 0, mmCP_RB0_RPTR_ADDR, lower_32_bits(rptr_addr))=
-;
-> -       WREG32_SOC15(GC, 0, mmCP_RB0_RPTR_ADDR_HI, upper_32_bits(rptr_add=
-r) &
-> -                    CP_RB_RPTR_ADDR_HI__RB_RPTR_ADDR_HI_MASK);
-> -
-> -       wptr_gpu_addr =3D ring->wptr_gpu_addr;
-> -       WREG32_SOC15(GC, 0, mmCP_RB_WPTR_POLL_ADDR_LO,
-> -                    lower_32_bits(wptr_gpu_addr));
-> -       WREG32_SOC15(GC, 0, mmCP_RB_WPTR_POLL_ADDR_HI,
-> -                    upper_32_bits(wptr_gpu_addr));
-> -
-> -       mdelay(1);
-> -       WREG32_SOC15(GC, 0, mmCP_RB0_CNTL, tmp);
-> -
-> -       rb_addr =3D ring->gpu_addr >> 8;
-> -       WREG32_SOC15(GC, 0, mmCP_RB0_BASE, rb_addr);
-> -       WREG32_SOC15(GC, 0, mmCP_RB0_BASE_HI, upper_32_bits(rb_addr));
-> -
-> -       WREG32_SOC15(GC, 0, mmCP_RB_ACTIVE, 1);
-> -
-> -       gfx_v10_0_cp_gfx_set_doorbell(adev, ring);
-> -       mutex_unlock(&adev->srbm_mutex);
-> -
-> -       /* Init gfx ring 1 for pipe 1 */
-> -       if (adev->gfx.num_gfx_rings > 1) {
-> -               mutex_lock(&adev->srbm_mutex);
-> -               gfx_v10_0_cp_gfx_switch_pipe(adev, PIPE_ID1);
-> -               /* maximum supported gfx ring is 2 */
-> -               ring =3D &adev->gfx.gfx_ring[1];
-> -               rb_bufsz =3D order_base_2(ring->ring_size / 8);
-> -               tmp =3D REG_SET_FIELD(0, CP_RB1_CNTL, RB_BUFSZ, rb_bufsz)=
-;
-> -               tmp =3D REG_SET_FIELD(tmp, CP_RB1_CNTL, RB_BLKSZ, rb_bufs=
-z - 2);
-> -               WREG32_SOC15(GC, 0, mmCP_RB1_CNTL, tmp);
-> -               /* Initialize the ring buffer's write pointers */
-> -               ring->wptr =3D 0;
-> -               WREG32_SOC15(GC, 0, mmCP_RB1_WPTR, lower_32_bits(ring->wp=
-tr));
-> -               WREG32_SOC15(GC, 0, mmCP_RB1_WPTR_HI, upper_32_bits(ring-=
->wptr));
-> -               /* Set the wb address whether it's enabled or not */
-> -               rptr_addr =3D ring->rptr_gpu_addr;
-> -               WREG32_SOC15(GC, 0, mmCP_RB1_RPTR_ADDR, lower_32_bits(rpt=
-r_addr));
-> -               WREG32_SOC15(GC, 0, mmCP_RB1_RPTR_ADDR_HI, upper_32_bits(=
-rptr_addr) &
-> -                            CP_RB1_RPTR_ADDR_HI__RB_RPTR_ADDR_HI_MASK);
-> -               wptr_gpu_addr =3D ring->wptr_gpu_addr;
-> -               WREG32_SOC15(GC, 0, mmCP_RB_WPTR_POLL_ADDR_LO,
-> -                            lower_32_bits(wptr_gpu_addr));
-> -               WREG32_SOC15(GC, 0, mmCP_RB_WPTR_POLL_ADDR_HI,
-> -                            upper_32_bits(wptr_gpu_addr));
-> -
-> -               mdelay(1);
-> -               WREG32_SOC15(GC, 0, mmCP_RB1_CNTL, tmp);
-> -
-> -               rb_addr =3D ring->gpu_addr >> 8;
-> -               WREG32_SOC15(GC, 0, mmCP_RB1_BASE, rb_addr);
-> -               WREG32_SOC15(GC, 0, mmCP_RB1_BASE_HI, upper_32_bits(rb_ad=
-dr));
-> -               WREG32_SOC15(GC, 0, mmCP_RB1_ACTIVE, 1);
-> -
-> -               gfx_v10_0_cp_gfx_set_doorbell(adev, ring);
-> -               mutex_unlock(&adev->srbm_mutex);
-> -       }
-> -       /* Switch to pipe 0 */
-> -       mutex_lock(&adev->srbm_mutex);
-> -       gfx_v10_0_cp_gfx_switch_pipe(adev, PIPE_ID0);
-> -       mutex_unlock(&adev->srbm_mutex);
-> -
-> -       /* start the ring */
-> -       gfx_v10_0_cp_gfx_start(adev);
-> -
-> -       return 0;
-> -}
-> -
->  static void gfx_v10_0_cp_compute_enable(struct amdgpu_device *adev, bool=
- enable)
->  {
->         if (enable) {
-> @@ -7268,15 +7141,9 @@ static int gfx_v10_0_cp_resume(struct amdgpu_devic=
-e *adev)
->         if (r)
->                 return r;
->
-> -       if (!amdgpu_async_gfx_ring) {
-> -               r =3D gfx_v10_0_cp_gfx_resume(adev);
-> -               if (r)
-> -                       return r;
-> -       } else {
-> -               r =3D gfx_v10_0_cp_async_gfx_ring_resume(adev);
-> -               if (r)
-> -                       return r;
-> -       }
-> +       r =3D gfx_v10_0_cp_async_gfx_ring_resume(adev);
-> +       if (r)
-> +               return r;
->
->         for (i =3D 0; i < adev->gfx.num_gfx_rings; i++) {
->                 ring =3D &adev->gfx.gfx_ring[i];
-> @@ -7586,10 +7453,8 @@ static int gfx_v10_0_hw_fini(struct amdgpu_ip_bloc=
-k *ip_block)
->                 gfx_v10_0_set_powergating_state(ip_block, AMD_PG_STATE_UN=
-GATE);
->
->         if (!adev->no_hw_access) {
-> -               if (amdgpu_async_gfx_ring) {
-> -                       if (amdgpu_gfx_disable_kgq(adev, 0))
-> -                               DRM_ERROR("KGQ disable failed\n");
-> -               }
-> +               if (amdgpu_gfx_disable_kgq(adev, 0))
-> +                       DRM_ERROR("KGQ disable failed\n");
->
->                 if (amdgpu_gfx_disable_kcq(adev, 0))
->                         DRM_ERROR("KCQ disable failed\n");
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gfx_v11_0.c
-> index d44d21c0c332f..c9404aa3b5ad8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -3731,9 +3731,6 @@ static int gfx_v11_0_cp_gfx_start(struct amdgpu_dev=
-ice *adev)
->                      adev->gfx.config.max_hw_contexts - 1);
->         WREG32_SOC15(GC, 0, regCP_DEVICE_ID, 1);
->
-> -       if (!amdgpu_async_gfx_ring)
-> -               gfx_v11_0_cp_gfx_enable(adev, true);
-> -
->         ring =3D &adev->gfx.gfx_ring[0];
->         r =3D amdgpu_ring_alloc(ring, gfx_v11_0_get_csb_size(adev));
->         if (r) {
-> @@ -3794,143 +3791,6 @@ static int gfx_v11_0_cp_gfx_start(struct amdgpu_d=
-evice *adev)
->         return 0;
+> @@ -3219,6 +3278,41 @@ static int navi10_enable_mgpu_fan_boost(struct smu=
+_context *smu)
+>                                                NULL);
 >  }
 >
-> -static void gfx_v11_0_cp_gfx_switch_pipe(struct amdgpu_device *adev,
-> -                                        CP_PIPE_ID pipe)
-> -{
-> -       u32 tmp;
-> -
-> -       tmp =3D RREG32_SOC15(GC, 0, regGRBM_GFX_CNTL);
-> -       tmp =3D REG_SET_FIELD(tmp, GRBM_GFX_CNTL, PIPEID, pipe);
-> -
-> -       WREG32_SOC15(GC, 0, regGRBM_GFX_CNTL, tmp);
-> -}
-> -
-> -static void gfx_v11_0_cp_gfx_set_doorbell(struct amdgpu_device *adev,
-> -                                         struct amdgpu_ring *ring)
-> -{
-> -       u32 tmp;
-> -
-> -       tmp =3D RREG32_SOC15(GC, 0, regCP_RB_DOORBELL_CONTROL);
-> -       if (ring->use_doorbell) {
-> -               tmp =3D REG_SET_FIELD(tmp, CP_RB_DOORBELL_CONTROL,
-> -                                   DOORBELL_OFFSET, ring->doorbell_index=
-);
-> -               tmp =3D REG_SET_FIELD(tmp, CP_RB_DOORBELL_CONTROL,
-> -                                   DOORBELL_EN, 1);
-> -       } else {
-> -               tmp =3D REG_SET_FIELD(tmp, CP_RB_DOORBELL_CONTROL,
-> -                                   DOORBELL_EN, 0);
-> -       }
-> -       WREG32_SOC15(GC, 0, regCP_RB_DOORBELL_CONTROL, tmp);
-> -
-> -       tmp =3D REG_SET_FIELD(0, CP_RB_DOORBELL_RANGE_LOWER,
-> -                           DOORBELL_RANGE_LOWER, ring->doorbell_index);
-> -       WREG32_SOC15(GC, 0, regCP_RB_DOORBELL_RANGE_LOWER, tmp);
-> -
-> -       WREG32_SOC15(GC, 0, regCP_RB_DOORBELL_RANGE_UPPER,
-> -                    CP_RB_DOORBELL_RANGE_UPPER__DOORBELL_RANGE_UPPER_MAS=
-K);
-> -}
-> -
-> -static int gfx_v11_0_cp_gfx_resume(struct amdgpu_device *adev)
-> -{
-> -       struct amdgpu_ring *ring;
-> -       u32 tmp;
-> -       u32 rb_bufsz;
-> -       u64 rb_addr, rptr_addr, wptr_gpu_addr;
-> -
-> -       /* Set the write pointer delay */
-> -       WREG32_SOC15(GC, 0, regCP_RB_WPTR_DELAY, 0);
-> -
-> -       /* set the RB to use vmid 0 */
-> -       WREG32_SOC15(GC, 0, regCP_RB_VMID, 0);
-> -
-> -       /* Init gfx ring 0 for pipe 0 */
-> -       mutex_lock(&adev->srbm_mutex);
-> -       gfx_v11_0_cp_gfx_switch_pipe(adev, PIPE_ID0);
-> -
-> -       /* Set ring buffer size */
-> -       ring =3D &adev->gfx.gfx_ring[0];
-> -       rb_bufsz =3D order_base_2(ring->ring_size / 8);
-> -       tmp =3D REG_SET_FIELD(0, CP_RB0_CNTL, RB_BUFSZ, rb_bufsz);
-> -       tmp =3D REG_SET_FIELD(tmp, CP_RB0_CNTL, RB_BLKSZ, rb_bufsz - 2);
-> -       tmp =3D REG_SET_FIELD(tmp, CP_RB0_CNTL, KMD_QUEUE, 1);
-> -       WREG32_SOC15(GC, 0, regCP_RB0_CNTL, tmp);
-> -
-> -       /* Initialize the ring buffer's write pointers */
-> -       ring->wptr =3D 0;
-> -       WREG32_SOC15(GC, 0, regCP_RB0_WPTR, lower_32_bits(ring->wptr));
-> -       WREG32_SOC15(GC, 0, regCP_RB0_WPTR_HI, upper_32_bits(ring->wptr))=
-;
-> -
-> -       /* set the wb address whether it's enabled or not */
-> -       rptr_addr =3D ring->rptr_gpu_addr;
-> -       WREG32_SOC15(GC, 0, regCP_RB0_RPTR_ADDR, lower_32_bits(rptr_addr)=
-);
-> -       WREG32_SOC15(GC, 0, regCP_RB0_RPTR_ADDR_HI, upper_32_bits(rptr_ad=
-dr) &
-> -                    CP_RB_RPTR_ADDR_HI__RB_RPTR_ADDR_HI_MASK);
-> -
-> -       wptr_gpu_addr =3D ring->wptr_gpu_addr;
-> -       WREG32_SOC15(GC, 0, regCP_RB_WPTR_POLL_ADDR_LO,
-> -                    lower_32_bits(wptr_gpu_addr));
-> -       WREG32_SOC15(GC, 0, regCP_RB_WPTR_POLL_ADDR_HI,
-> -                    upper_32_bits(wptr_gpu_addr));
-> -
-> -       mdelay(1);
-> -       WREG32_SOC15(GC, 0, regCP_RB0_CNTL, tmp);
-> -
-> -       rb_addr =3D ring->gpu_addr >> 8;
-> -       WREG32_SOC15(GC, 0, regCP_RB0_BASE, rb_addr);
-> -       WREG32_SOC15(GC, 0, regCP_RB0_BASE_HI, upper_32_bits(rb_addr));
-> -
-> -       WREG32_SOC15(GC, 0, regCP_RB_ACTIVE, 1);
-> -
-> -       gfx_v11_0_cp_gfx_set_doorbell(adev, ring);
-> -       mutex_unlock(&adev->srbm_mutex);
-> -
-> -       /* Init gfx ring 1 for pipe 1 */
-> -       if (adev->gfx.num_gfx_rings > 1) {
-> -               mutex_lock(&adev->srbm_mutex);
-> -               gfx_v11_0_cp_gfx_switch_pipe(adev, PIPE_ID1);
-> -               /* maximum supported gfx ring is 2 */
-> -               ring =3D &adev->gfx.gfx_ring[1];
-> -               rb_bufsz =3D order_base_2(ring->ring_size / 8);
-> -               tmp =3D REG_SET_FIELD(0, CP_RB1_CNTL, RB_BUFSZ, rb_bufsz)=
-;
-> -               tmp =3D REG_SET_FIELD(tmp, CP_RB1_CNTL, RB_BLKSZ, rb_bufs=
-z - 2);
-> -               WREG32_SOC15(GC, 0, regCP_RB1_CNTL, tmp);
-> -               /* Initialize the ring buffer's write pointers */
-> -               ring->wptr =3D 0;
-> -               WREG32_SOC15(GC, 0, regCP_RB1_WPTR, lower_32_bits(ring->w=
-ptr));
-> -               WREG32_SOC15(GC, 0, regCP_RB1_WPTR_HI, upper_32_bits(ring=
-->wptr));
-> -               /* Set the wb address whether it's enabled or not */
-> -               rptr_addr =3D ring->rptr_gpu_addr;
-> -               WREG32_SOC15(GC, 0, regCP_RB1_RPTR_ADDR, lower_32_bits(rp=
-tr_addr));
-> -               WREG32_SOC15(GC, 0, regCP_RB1_RPTR_ADDR_HI, upper_32_bits=
-(rptr_addr) &
-> -                            CP_RB1_RPTR_ADDR_HI__RB_RPTR_ADDR_HI_MASK);
-> -               wptr_gpu_addr =3D ring->wptr_gpu_addr;
-> -               WREG32_SOC15(GC, 0, regCP_RB_WPTR_POLL_ADDR_LO,
-> -                            lower_32_bits(wptr_gpu_addr));
-> -               WREG32_SOC15(GC, 0, regCP_RB_WPTR_POLL_ADDR_HI,
-> -                            upper_32_bits(wptr_gpu_addr));
-> -
-> -               mdelay(1);
-> -               WREG32_SOC15(GC, 0, regCP_RB1_CNTL, tmp);
-> -
-> -               rb_addr =3D ring->gpu_addr >> 8;
-> -               WREG32_SOC15(GC, 0, regCP_RB1_BASE, rb_addr);
-> -               WREG32_SOC15(GC, 0, regCP_RB1_BASE_HI, upper_32_bits(rb_a=
-ddr));
-> -               WREG32_SOC15(GC, 0, regCP_RB1_ACTIVE, 1);
-> -
-> -               gfx_v11_0_cp_gfx_set_doorbell(adev, ring);
-> -               mutex_unlock(&adev->srbm_mutex);
-> -       }
-> -       /* Switch to pipe 0 */
-> -       mutex_lock(&adev->srbm_mutex);
-> -       gfx_v11_0_cp_gfx_switch_pipe(adev, PIPE_ID0);
-> -       mutex_unlock(&adev->srbm_mutex);
-> -
-> -       /* start the ring */
-> -       gfx_v11_0_cp_gfx_start(adev);
-> -
-> -       return 0;
-> -}
-> -
->  static void gfx_v11_0_cp_compute_enable(struct amdgpu_device *adev, bool=
- enable)
+> +/* IP late init follows display hw_init; refresh clocks before UMC/UMD s=
+etup. */
+> +static int navi10_apple_late_uclk_enable(struct smu_context *smu)
+> +{
+> +       struct smu_11_0_dpm_context *dpm =3D smu->smu_dpm.dpm_context;
+> +       struct smu_dpm_table *table =3D &dpm->dpm_tables.uclk_table;
+> +       PPTable_t *ppt =3D smu->smu_table.driver_pptable;
+> +       struct smu_feature_bits enabled;
+> +       int ret;
+> +
+> +       if (!navi10_apple_needs_late_uclk(smu))
+> +               return 0;
+> +
+> +       ret =3D smu_cmn_feature_set_enabled(smu, SMU_FEATURE_DPM_UCLK_BIT=
+, true);
+> +       if (ret)
+> +               return ret;
+> +       ret =3D smu_cmn_get_enabled_mask(smu, &enabled);
+> +       if (ret)
+> +               return ret;
+> +       if (!smu_feature_bits_is_set(&enabled, FEATURE_DPM_UCLK_BIT))
+> +               return -EIO;
+> +
+> +       smu_feature_list_set_bit(smu, SMU_FEATURE_LIST_SUPPORTED,
+> +                                FEATURE_DPM_UCLK_BIT);
+> +       table->clk_type =3D SMU_UCLK;
+> +       ret =3D smu_v11_0_set_single_dpm_table(smu, SMU_UCLK, table);
+> +       if (ret)
+> +               return ret;
+> +       if (!table->count)
+> +               return -EINVAL;
+> +       if (!ppt->DpmDescriptor[PPCLK_UCLK].SnapToDiscrete)
+> +               table->flags |=3D SMU_DPM_TABLE_FINE_GRAINED;
+> +
+> +       return smu_v11_0_init_max_sustainable_clocks(smu);
+> +}
+> +
+>  static int navi10_post_smu_init(struct smu_context *smu)
 >  {
->         u32 data;
-> @@ -4722,9 +4582,6 @@ static int gfx_v11_0_kcq_resume(struct amdgpu_devic=
-e *adev)
->  {
->         int i, r;
+>         struct amdgpu_device *adev =3D smu->adev;
+> @@ -3227,6 +3321,12 @@ static int navi10_post_smu_init(struct smu_context=
+ *smu)
+>         if (amdgpu_sriov_vf(adev))
+>                 return 0;
 >
-> -       if (!amdgpu_async_gfx_ring)
-> -               gfx_v11_0_cp_compute_enable(adev, true);
-> -
->         for (i =3D 0; i < adev->gfx.num_compute_rings; i++) {
->                 r =3D gfx_v11_0_kcq_init_queue(&adev->gfx.compute_ring[i]=
-);
->                 if (r)
-> @@ -4758,10 +4615,8 @@ static int gfx_v11_0_cp_resume(struct amdgpu_devic=
-e *adev)
->
->         gfx_v11_0_cp_set_doorbell_range(adev);
->
-> -       if (amdgpu_async_gfx_ring) {
-> -               gfx_v11_0_cp_compute_enable(adev, true);
-> -               gfx_v11_0_cp_gfx_enable(adev, true);
-> -       }
-> +       gfx_v11_0_cp_compute_enable(adev, true);
-> +       gfx_v11_0_cp_gfx_enable(adev, true);
->
->         if (adev->enable_mes_kiq && adev->mes.kiq_hw_init)
->                 r =3D amdgpu_mes_kiq_hw_init(adev, 0);
-> @@ -4774,15 +4629,9 @@ static int gfx_v11_0_cp_resume(struct amdgpu_devic=
-e *adev)
->         if (r)
->                 return r;
->
-> -       if (!amdgpu_async_gfx_ring) {
-> -               r =3D gfx_v11_0_cp_gfx_resume(adev);
-> -               if (r)
-> -                       return r;
-> -       } else {
-> -               r =3D gfx_v11_0_cp_async_gfx_ring_resume(adev);
-> -               if (r)
-> -                       return r;
-> -       }
-> +       r =3D gfx_v11_0_cp_async_gfx_ring_resume(adev);
-> +       if (r)
-> +               return r;
->
->         if (adev->gfx.disable_kq) {
->                 for (i =3D 0; i < adev->gfx.num_gfx_rings; i++) {
-> @@ -4792,8 +4641,7 @@ static int gfx_v11_0_cp_resume(struct amdgpu_device=
- *adev)
->                         if (r)
->                                 return r;
->                 }
-> -               if (amdgpu_async_gfx_ring)
-> -                       amdgpu_gfx_disable_kgq(adev, 0);
-> +               amdgpu_gfx_disable_kgq(adev, 0);
->         } else {
->                 for (i =3D 0; i < adev->gfx.num_gfx_rings; i++) {
->                         ring =3D &adev->gfx.gfx_ring[i];
-> @@ -5116,8 +4964,7 @@ static int gfx_v11_0_hw_fini(struct amdgpu_ip_block=
- *ip_block)
->         amdgpu_irq_put(adev, &adev->gfx.priv_reg_irq, 0);
->
->         if (!adev->no_hw_access) {
-> -               if (amdgpu_async_gfx_ring &&
-> -                   !adev->gfx.disable_kq) {
-> +               if (!adev->gfx.disable_kq) {
->                         if (amdgpu_gfx_disable_kgq(adev, 0))
->                                 DRM_ERROR("KGQ disable failed\n");
->                 }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c b/drivers/gpu/drm/amd=
-/amdgpu/gfx_v12_1.c
-> index e3d3ca8e7900c..6f6bf2b0bf534 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-> @@ -2411,9 +2411,6 @@ static int gfx_v12_1_xcc_kcq_resume(struct amdgpu_d=
-evice *adev,
->         struct amdgpu_ring *ring =3D NULL;
->         int r =3D 0, i;
->
-> -       if (!amdgpu_async_gfx_ring)
-> -               gfx_v12_1_xcc_cp_compute_enable(adev, true, xcc_id);
-> -
->         for (i =3D 0; i < adev->gfx.num_compute_rings; i++) {
->                 ring =3D &adev->gfx.compute_ring[i + xcc_id * adev->gfx.n=
-um_compute_rings];
->
+> +       ret =3D navi10_apple_late_uclk_enable(smu);
+> +       if (ret) {
+> +               dev_err(adev->dev, "Failed to enable late UCLK DPM: %d\n"=
+, ret);
+> +               return ret;
+> +       }
+> +
+>         ret =3D navi10_run_umc_cdr_workaround(smu);
+>         if (ret)
+>                 dev_err(adev->dev, "Failed to apply umc cdr workaround!\n=
+");
 > --
-> 2.56.0
->
+> 2.43.0
