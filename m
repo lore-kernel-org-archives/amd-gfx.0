@@ -2,207 +2,127 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1AC2606A322
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Oct 2026 16:00:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30C11606A31C
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Oct 2026 16:03:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iw94y/1+
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=hOeOJorG
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BDDA11240B;
-	Thu, 29 Oct 2026 16:00:42 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4DDC11240A;
- Thu, 29 Oct 2026 16:00:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793289636; x=1824825636;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=1s7rQPzBWfF3kY4Gi4Gs8o36uSP/gZ92/BBROqe3tUA=;
- b=iw94y/1+GSa38QiXYO7iHgdQM1H1u+uV/uRXhLZ/qgBiL8xx52iOfeX2
- irU6D2cIH0UUxN4ma4GWTitjgvCO5trpFP7L+f8wxytj7sRHs2jX6gRKW
- hWdrHLNXfGLPoxAwZSPPevy4XoIvrYzKOULJoKCKuThb0VRI8kBxXC9D3
- QuLZovFBYWlb8vf0T8qlxy8rf3c/pAuAF0Q2rSndx1JI4kTCr5FkzBQ6S
- 4c6aC12tXma9PYuugXqgk1vUuPUouXEexyI3aaytW3A6F93wlNNmHP4ht
- NEpPLs17elRcAOlzZ9lCuU+oSBse57XC/28/4AfK4mPNPjO6w0B2QEkqy w==;
-X-CSE-ConnectionGUID: KAWgxIBLQfKK9BkgWcs0fg==
-X-CSE-MsgGUID: Jb6HX69zTP+mA2vC/7wpew==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1924331"
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="1924331"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Oct 2026 09:00:34 -0700
-X-CSE-ConnectionGUID: yvTkDk+tT+OTJ+A6TBHHyA==
-X-CSE-MsgGUID: uKa5PQb6QsebgeeX3ej9Ng==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="5275435"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
- by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Oct 2026 09:00:32 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Thu, 29 Oct 2026 09:00:31 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Thu, 29 Oct 2026 09:00:31 -0700
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (52.101.43.69) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Thu, 29 Oct 2026 09:00:30 -0700
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6723112422;
+	Thu, 29 Oct 2026 16:03:44 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012011.outbound.protection.outlook.com [40.107.209.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D56D6112429;
+ Thu, 29 Oct 2026 16:03:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=N7dw55R7QH2y/o1H0Krg6QrDe1sXjJtyKa4F5Vrih1n4MfYxcWou3GRsTxhzRyq1iRE+3U1dit0gBpLt+bjF/XnCDvO54GVFGp/vqODW+nfWhVZAPEN5GEPpLXsKlLnuI955r62lE2WhqTKgZncFwenkqrTUa+P9a/nuxpt9Ny7YL1qJOJ2Hy8q8Hm8KRt8TS8NjVADzaji6eRRrZhVV7ZO2GJBQ5nx2oY73Hgp/t6zi825dhD7jK3PnAiI3XgubsA8pS9M7s/fJGYy7h4Wny4kGjK4FLVJInuP3OtGF77AI8S0Dgo/Rd60l0j/sOqtq5hgEQ7VNkPN4vWxE4sZ1rA==
+ b=GQXqQLEQwwVpcBI60W2sZz6FHj7TGPJJaciQwcdlW9+g8kyZCmrfLpNmvVfPFRcVtK9rBSrSpmgRjM01Bq83xvtXQS+qGHl7SfJ77OK+i8tw68vn24E9ZGGa7QiCK0F6I4lrNB/lVA3iy7FxFcn6NJKK9QW9F7bfLqEPC09Dc/icAwM/piNH9/TTQ72AJfr0jI29wEhLdF3Bh6dEwG5Xz8QK9R+Eel9wCwGMT7G8zgrBjzL0BBdqh1B/cZqZ4OZJoP7MeUZswYQfNH1Vka50TBaQTmfmP9RaLzdAMuh3UWKMhr4HA9eLACcOwhmgBQ2Yaz2LEmPaLMQcF9GyouG4BA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=++iK9zA7vdSqa2z9khUOayVv3ianUOElr3aNyLxohNs=;
- b=w+WtNPFR1X0tRSrixPIJjnQVocHwPpYr+kD1XQQ9C9MSsG4uj5pNQpGLbuCXtLqD6/XoKFkUB/WZLoE8mpzxtymqFObJQDf2Kvp2EwQadVfzSphjiVSKVm+4MY91fnii4zIidg+2hYSBUxzYv8k6iE/z17e0UhbI0knZBKWzbEO9PRBrECndUs/Sowi0aErm+TuaD5u55rdEP8wriUof1yMR1vK/wqz5E3sxQVIL6w6Qde1yfgAKoHfq9G1ptd8/992NrCO/y2yxyZ5YwSmt2crMuHC13fc9sZQKfFcgFeEqzpLuye7VDR7Nlt2EkROPaKY1vIExt4lnJo2B2/VHXg==
+ bh=24bXCJb6CWonEh/3ooVlXuRBm/yLmWqIOt67RangjeA=;
+ b=uCcPtSO3fdfyDGF9fwuugek5USBCO02dHvNkwhoBPu2TWWVxS1TLUZulzITkFe0fTFrhFlrs4bpD2FX0VUBILeV/cE0tq/fZT7k0Rum4TSyjkZ9A1qDZ24nUV4e3LiXf0seeBfbJJjiFD+vlPIl1pk4ibcoh/7C8ZBblLtDg+OFHb8M4uQJcCqB7S/ikpaM2wyFi6uIrFfR2gcRny54lZliMNDhHwAoTc8E626W8G0AJqwiqzPTDXxZogtTsnomSvBHuz1Npzd4clmQsBVMawCufcnQ1w0FS5ClEh8y+RfUBntNlDCsyOmhr3oWbkk7wVFLHD39TAKCYl/jHCPqtcw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=24bXCJb6CWonEh/3ooVlXuRBm/yLmWqIOt67RangjeA=;
+ b=hOeOJorG1+YOjyhJiFn01qYsjWX00puPyj14vzwTtBC5M8NIwL13PpLRQBbzGfQyLuZ79alY18VE35GT0hqA4VjLGVTHgzdAKQIGx39HcLZJhKWXU8wg5SN8OM7J4qkqm2padNyFXMfrCUETD//6Y9kHB4WHn0PBSHle30qyAds=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from CO1PR11MB4787.namprd11.prod.outlook.com (2603:10b6:303:95::23)
- by DS0PR11MB7999.namprd11.prod.outlook.com (2603:10b6:8:123::5) with
- Microsoft SMTP Server (version=TLS1_2,
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CY0PR12MB226969.namprd12.prod.outlook.com
+ (2603:10b6:930:130::18) by IA1PR12MB8493.namprd12.prod.outlook.com
+ (2603:10b6:208:447::12) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Thu, 29 Oct
- 2026 16:00:20 +0000
-Received: from CO1PR11MB4787.namprd11.prod.outlook.com
- ([fe80::e7eb:a872:53d1:21fd]) by CO1PR11MB4787.namprd11.prod.outlook.com
- ([fe80::e7eb:a872:53d1:21fd%4]) with mapi id 15.21.0569.008; Thu, 29 Oct 2026
- 16:00:19 +0000
-Date: Thu, 29 Oct 2026 09:00:15 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Philipp Stanner <phasta@kernel.org>
-CC: Min Ma <mamin506@gmail.com>, Lizhi Hou <lizhi.hou@amd.com>, Oded Gabbay
- <ogabbay@kernel.org>, "Rob Herring (Arm)" <robh@kernel.org>, Tomeu Vizoso
- <tomeu@tomeuvizoso.net>, Karol Wachowski <karol.wachowski@linux.intel.com>,
- Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>, Sumit Semwal
- <sumit.semwal@linaro.org>, Christian =?iso-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>, "Alex
- Deucher" <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- "Simona Vetter" <simona@ffwll.ch>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Lucas Stach
- <l.stach@pengutronix.de>, Russell King <linux+etnaviv@armlinux.org.uk>,
- Christian Gmeiner <christian.gmeiner@gmail.com>, Jani Nikula
- <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Alessio Belle
- <alessio.belle@imgtec.com>, Luigi Santivetti <luigi.santivetti@imgtec.com>,
- Qiang Yu <yuq825@gmail.com>, Rob Clark <robin.clark@oss.qualcomm.com>,
- "Dmitry Baryshkov" <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul
- <sean@poorly.run>, "Marijn Suijten" <marijn.suijten@somainline.org>, Lyude
- Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, Boris Brezillon
- <boris.brezillon@collabora.com>, Steven Price <steven.price@arm.com>,
- =?iso-8859-1?Q?Adri=E1n?= Larumbe <adrian.larumbe@collabora.com>, Liviu Dudau
- <liviu.dudau@arm.com>, Dave Airlie <airlied@redhat.com>, Gerd Hoffmann
- <kraxel@redhat.com>, Natalie Vock <nat@pixelcluster.dev>, Arun Pravin
- <arunpravin.paneerselvam@amd.com>, Matthew Auld <matthew.auld@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Melissa Wen <mwen@igalia.com>, =?iso-8859-1?Q?Ma=EDra?= Canal
- <mcanal@igalia.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, "Dmitry
- Osipenko" <dmitry.osipenko@collabora.com>, Gurchetan Singh
- <gurchetansingh@chromium.org>, Chia-I Wu <olvaffe@gmail.com>, Zack Rusin
- <zack.rusin@broadcom.com>, Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Thierry Reding
- <thierry.reding@kernel.org>, Mikko Perttunen <mperttunen@nvidia.com>,
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
- Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>, Andy Shevchenko
- <andy@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Sunil
- Khatri" <sunil.khatri@amd.com>, Kees Cook <kees@kernel.org>, Jesse Zhang
- <jesse.zhang@amd.com>, Timur =?iso-8859-1?Q?Krist=F3f?=
- <timur.kristof@gmail.com>, Srinivasan Shanmugam
- <srinivasan.shanmugam@amd.com>, Kexin Sun <kexinsun@smail.nju.edu.cn>, "Prike
- Liang" <Prike.Liang@amd.com>, David Rosca <david.rosca@amd.com>, "Krzysztof
- Karas" <krzysztof.karas@intel.com>, Marco Crivellari
- <marco.crivellari@suse.com>, Shixiong Ou <oushixiong@kylinos.cn>, Jouni
- =?iso-8859-1?Q?H=F6gander?= <jouni.hogander@intel.com>, "Thadeu Lima de Souza
- Cascardo" <cascardo@igalia.com>, Pierre-Eric Pelloux-Prayer
- <pierre-eric.pelloux-prayer@amd.com>, Joel Fernandes <joelagnelf@nvidia.com>, 
- Al Viro <viro@zeniv.linux.org.uk>, Neill Kapron <nkapron@google.com>,
- "Michael Bommarito" <michael.bommarito@gmail.com>, Sam Day <me@samcday.com>,
- "Gabriel Prostitis" <prostitisgabriel@gmail.com>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <linux-media@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
- <etnaviv@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
- <imagination@lists.freedesktop.org>, <lima@lists.freedesktop.org>,
- <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
- <nouveau@lists.freedesktop.org>, <virtualization@lists.linux.dev>,
- <spice-devel@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
- <linux-tegra@vger.kernel.org>, <linux-iio@vger.kernel.org>,
- <linux-usb@vger.kernel.org>
-Subject: Re: [RFC PATCH 5/6] dma-buf: dma-fence: Close race in
- dma_fence_is_signaled() by default
-Message-ID: <auNtj8zYrqwtnXdK@gsse-cloud1.jf.intel.com>
-References: <20261029095542.1526750-3-phasta@kernel.org>
- <20261029095542.1526750-8-phasta@kernel.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20261029095542.1526750-8-phasta@kernel.org>
-X-ClientProxiedBy: MW4PR04CA0044.namprd04.prod.outlook.com
- (2603:10b6:303:6a::19) To CO1PR11MB4787.namprd11.prod.outlook.com
- (2603:10b6:303:95::23)
+ 2026 16:03:31 +0000
+Received: from CY0PR12MB226969.namprd12.prod.outlook.com
+ ([fe80::f47a:5d4e:f3d5:5b26]) by CY0PR12MB226969.namprd12.prod.outlook.com
+ ([fe80::f47a:5d4e:f3d5:5b26%4]) with mapi id 15.21.0569.007; Thu, 29 Oct 2026
+ 16:03:31 +0000
+Message-ID: <cac192c5-1e0e-456a-a678-024100dab65d@amd.com>
+Date: Thu, 29 Oct 2026 10:03:29 -0600
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: keep LTTPR AUX timeout when repeater
+ caps are invalid
+To: =?UTF-8?B?TWljaGHFgiBLb3BlxIc=?= <michal@nozomi.space>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Wenjing Liu <wenjing.liu@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Michael Strauss <michael.strauss@amd.com>,
+ George Shen <george.shen@amd.com>, Fangzhi Zuo <jerry.zuo@amd.com>
+References: <20261024224940.17258-1-michal@nozomi.space>
+Content-Language: en-US
+From: Alex Hung <alex.hung@amd.com>
+In-Reply-To: <20261024224940.17258-1-michal@nozomi.space>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MW4PR04CA0286.namprd04.prod.outlook.com
+ (2603:10b6:303:89::21) To CY0PR12MB226969.namprd12.prod.outlook.com
+ (2603:10b6:930:130::18)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PR11MB4787:EE_|DS0PR11MB7999:EE_
-X-MS-Office365-Filtering-Correlation-Id: a6a3578e-fddd-4b58-297f-08df35d5babd
+X-MS-TrafficTypeDiagnostic: CY0PR12MB226969:EE_|IA1PR12MB8493:EE_
+X-MS-Office365-Filtering-Correlation-Id: e416d527-32c3-4fe0-bd80-08df35d62d5c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|366016|1800799024|23010399003|18002099003|22082099003|56012099006|11063799006|261026140227099003|4143699003|261021123027099003|261021121427099003|10067099003|261026121527099003|261009223027099003|261022075727099003|261022105027099003|261028144727099003;
-X-Microsoft-Antispam-Message-Info: GcA/mTp3EeoLjKo9kf4JRRrRKZLtSlDNaMmvaSH66FCOzpPQZSRs/U5CmyaOEfe85COboqUvFC/IS2XNvmWk0YNjCp1HRjR7+YfGdy5ApnRrM/c67DJNNNEETe1xJ4eXeyYxwYAyvGUWo49j9UYEXcCDfM7TNvUKl7+1BKpFhcPUIHZ7WvA6SMFestx7luxt2me4h/k0MXsnbwVSD6ymbV7F2E5m+M653Aqp6BGQ/Pmr95HLeX7h0n8ZEE8HYdhSLbfaGl/CwOTcphOULwPXNSdQPy6Q/WXlAzgTmEuGea3akpjRVedIkpewnHHLYyTpkxIO3+AhjibRAVaRUb886ft7MLrmdF7945T+lnLtzd/IG2y6aaE/e4VU3HxpkZiV2nWqgMqNc8VXwNa1uxVuRCJQJXU4Y0UObzf1xQsN7ybsDvu6JeegZWipNKVjD7jLbjKyELE0sA095YtYQoMnTWlbavtkL2ZKpCSJsDWUD0zWrlktPcoD/hPddvLuWDqtDsbPcoRuxqgLAOr3uXEK2eLLRbt/8PwA/bocggz5KnHWwSyGSdhUlnDNYwOuZxjvY75hmGX+BOX/YoS8JWi6Gh0w+1MmkT3mzO9G/Wvr9SaMJoNXrUqFSvfDl42XLZeLh0EqVr6DwAWHqeRFrz9VHEFrclPMlQO9kT1wIOCPWjw=
+ ARA:13230040|376014|1800799024|366016|23010399003|6133799003|3023799007|18002099003|22082099003|56012099006|11063799006|261028144727099003|261026140227099003|261022075727099003|10067099003|261026121527099003|261021123027099003|261021121427099003|261022105027099003|261009223027099003|261022113327099003;
+X-Microsoft-Antispam-Message-Info: 3N0klGJ4BmyMF4Oev0jUUeEXGtHQ2Yu8un9/pWeg3phG8fxuaokjk5oKXBnN8jyc4S4vqhKCE3Hg3xcOeCchrzZ4wSEo2ddtPhjTqV5NG91cahaioHD0yPnswPsTOfI1fcMbWqV6Y6hZLEeU4YGkYw/aDLwfS3tOH78alr/h05oGoAMCRBaVDZQ9dzAjh8PPr5COzAVVwBCz6jkahtN8bWqWht/D0Q6T0BsNVL5tf0aH/spHUIBOiesShVIAFvWsYrQjOikZ3OoTtu+JvXu97ssOOay2a87rEI26UwHLvqBRvnpGHZKfsK68Rs+KTlgIaij1l34s9CGmZh9ZUmTxxnJajebhi4gn6n4F9T2J3mUNc8qhdvT2ciLQ2BxTk8l2W9WlGqgfg3UogkfZtgAYGVURfyyMO1v0YrPDB2xebkvsjW2Lacnp24ZSfH0hNAAU+z6iZkd/Uttw7WfuJ7LUUK7Cpq4LOtYUlvGjJ28wIVuKOOsYV1l2KkKmzc6+qeVRM42gNd/XTrn01PooS/mn3ntDAZx2YOpfQ6whfgfPijazneM0ct0bxvPOWZqnzuBL39gMg48Y4e9uuxvOpHlfkXJVzDSx38VAZpftHpTbpR0nNxEWJpHa/BIOma5nyry73lJujwynp6BLmuCC3S800Xf1uAYIXnBeuNfga67eosQ=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO1PR11MB4787.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(366016)(1800799024)(23010399003)(18002099003)(22082099003)(56012099006)(11063799006)(261026140227099003)(4143699003)(261021123027099003)(261021121427099003)(10067099003)(261026121527099003)(261009223027099003)(261022075727099003)(261022105027099003)(261028144727099003);
+ IPV:NLI; SFV:NSPM; H:CY0PR12MB226969.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(6133799003)(3023799007)(18002099003)(22082099003)(56012099006)(11063799006)(261028144727099003)(261026140227099003)(261022075727099003)(10067099003)(261026121527099003)(261021123027099003)(261021121427099003)(261022105027099003)(261009223027099003)(261022113327099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?yhF8AzJ4SOQZjKgwpgmtJEsmjJJJQZSmg7/qT2hQva1P3tFx5+K7Yuv0XDxE?=
- =?us-ascii?Q?YGKyP6qm6UBfD/rfkSnzfmOttXOSXlYIgQEY3s/hDdvwREziNUYoATT3VAXg?=
- =?us-ascii?Q?EyV1ZxkVWVmsB4bf2H1WrARuJ1BWkpzWKvU7vBjZxefHYHIKI9fathPH1BMg?=
- =?us-ascii?Q?Mk8AL15M9nbE6rGhw7oNayZTS7ulj9k4xfkaWFXyzMAu4HCKl30YA7trp8qR?=
- =?us-ascii?Q?jE7HPC18lS8DVACLGgnTvAtkJKYeYldgyP7/2baOmlVZJYZD4zmjEQF6QSqd?=
- =?us-ascii?Q?6AG5+bexZyDihivIA/+1sqYcWy2ZsSKrtf2Sxg7ifGXqaLAO+DVmnpQYAY9u?=
- =?us-ascii?Q?/0X5ieF1oXhQ5T46RrBIgTTGTU2/rS8fiDlgydqTCFa7GwWpITBfLq5XVMPO?=
- =?us-ascii?Q?tuGFnYR5vwENoNvaBfimbbK8VFHzDgqWs9jH7vLZIh8JN4RM/3LbhFm0NlsP?=
- =?us-ascii?Q?Bh/Ji3OtkT/HlQt8VnRQCL7Sa1pkviVpdXMyW63P4TLP4dpOJ/e+rIQps3sc?=
- =?us-ascii?Q?gzIwLCo/A70cwZq4za64EOGuJYykb7JOEQev2O53+8iLbL0malpFKMc305wl?=
- =?us-ascii?Q?M6QbbZX91ZcZYPaqYjIQsVkbLkQmuB0oZzvsnJZAUvt26nnRpc1kydEK/slq?=
- =?us-ascii?Q?Og5hD3gWG0tHqDXZiVDtDYJ+A3NLPdDTX07EOWtGbaxmK8Rha/HeNsdRL7/K?=
- =?us-ascii?Q?j2TNPOQP67Ce92OnO7VF+uUTKGnkedGKW/CUoArTGCjWOu75p5XfKj1gEqPl?=
- =?us-ascii?Q?304SJqpFMsjiQkRPrybV2inV6ZIQxkq8thcDad8z+d7JaQw4/HpaiMFW3BPI?=
- =?us-ascii?Q?Neo+pd7oiPbqwUOrRe/4Wj/uqkDldwF8+C4jPpxRHDcDr7SV2OAXR8DPsuaP?=
- =?us-ascii?Q?FGZvPuF7Jf3IM7mBUWCev38v+otOOF6M6YCD3RepkIXNGX+mvvCuknak1PGI?=
- =?us-ascii?Q?6t/URpwMQsZhbz9V5HTyaXIYqz3l4n5ZeaRmyiYnR1h566xM0KnX/+T4tDhC?=
- =?us-ascii?Q?0+swB0C/53Ez5M8lOitNeERlB7rPLdqLpcENIdKp13fgv3W38Z/ee+MJkVlB?=
- =?us-ascii?Q?JKKV15VqmaV3s0bu1aEufn8upTr8JsHkYTn4RjWI30HHUodW7Xj9Y8x5XCcD?=
- =?us-ascii?Q?bScg1/3thW7vKQe5wngY3yBCkNKSJuhyKUoFNQVjFndmpGGpU79MUU56PlOu?=
- =?us-ascii?Q?tNJCk6cpYJQBOuUan7AtIV8Q53o57SPua3K+laf4u6UsRhT5Egx1tCqG0XJk?=
- =?us-ascii?Q?5cBrlRrfu0MM+TnKPzwRm3tbpqz/5hk0IwcyAXxs45t/lmMepkczpAbvEVJP?=
- =?us-ascii?Q?T7Y7tanSinbMf0apgIhDdgGEygGUlX/u0zoCV03VYQFHM9lfHkaLnXNwMC9G?=
- =?us-ascii?Q?rhBu6/NtP6w8OioKuV00NNXE7dKd2kYgjLklYSMSMlJTQ2HB8jUNBWlgyr0m?=
- =?us-ascii?Q?OZ1/+zOUR0JwAlj2dSs4xV6HHZ2gHo+pTCZMQBIQ6z29M9SoIJMa7kC3HEWp?=
- =?us-ascii?Q?ZxsMSwXPnI12wXgMvByM39w2Vafl2SJo3YdZIpnKGzrD7t/PqCyfPWpI+mEk?=
- =?us-ascii?Q?mrYKJrNxoQPDpTvZPlGgmwyNMUUIsXtYRDjIm5XPzaNV0Q4+YEwCwXidBf2D?=
- =?us-ascii?Q?znPX9w0PaoOE4qN7f8MBUF+ikYcHBjzyB18ztj7xUE9Cy7CzfcBNVaaZgdy9?=
- =?us-ascii?Q?cAqGmr6juZ3Fq2qgbs0f0Nt5F1ZQplZE1fN+64VvSX205qGUiLFixjLme0zX?=
- =?us-ascii?Q?T9a/l0vNZw=3D=3D?=
-X-Exchange-RoutingPolicyChecked: dLchvVtnFtecCNNV+v+ZIIG05MtGLBr70qRjTdh1vTzrBkOTUKxwylRlWDjcLKwFLSJ56kKgUfTh2ISt5C7dnlfSI8QUelygsNRnwrA7w5ztxSoLpV4FeJzVnQ/+LKkP1gXlMiwGPYbVa3hM4F4Kndc+8hpYKSVMm/Z7iXQByCiaNgp2ptitmUZ/Sk5vegJH521FjaX6x4BPVfva0LiV79JFOG0bRAD3q36M+lFvhAvG6ctR5jjk8jmBJTFuUYZXGKbao5N3CIb1jMvbQBeuEgNy0nbDnhecn8RRqVD7zO76vaxATu4keJHpxP6tIWa9Xqa+DUGAEnb4BQDgohgw4g==
-X-MS-Exchange-CrossTenant-Network-Message-Id: a6a3578e-fddd-4b58-297f-08df35d5babd
-X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4787.namprd11.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z1dNR2h5YTNsZXNFVUw1Vk1ja04yZGgybHZ0QXZHNG0veC9QUm9rTEUvYXds?=
+ =?utf-8?B?MlEwQmRrYTJEL1VEbDFuZEpyaUtXYjdKK0JneEdKaHhMUUx0R1FhdHVGQ1Bt?=
+ =?utf-8?B?enFjSnlXdEE4WVVqMTJEd0ZtMm9WSGpPTVNVUWo0WHg0OW5aOWZaRnJTcUdL?=
+ =?utf-8?B?THMrMFZYeGU4THZsL2NjVk5LMnlOc01SeVduN0VtL0I1NkdSc1Z4RUI1cFp3?=
+ =?utf-8?B?V2ZLUDB0Z3llQmlSNFpQYy9BVGJOK3V2REtVL0ZpTWpFeVFlcHVjZU5DS093?=
+ =?utf-8?B?YkE0NVZjSXdzSGl1RDFVTGM4NlJmU3IyRDJUamQwZTVVS2FTWUZzZVZlL0oz?=
+ =?utf-8?B?c0N6R3BobmhKVU1MR3RmQVc4NHMzeFpqUzZIQVcxbWNhZGxhT0p0ZlRKTXdy?=
+ =?utf-8?B?R3FPN2ZmR1R3WWxzOGVjd01zMFBHa3VubHorbUx1Z1prMDROc3h0T2JyTnIw?=
+ =?utf-8?B?aVYvOUlEeVlYOGJTdUFEQnJ1K24wTi90ZFZJMGVVOWdzZ04xQnI5eDc2clZi?=
+ =?utf-8?B?U3NpeTAwN05KRysrNzdaakpNZFU0UVhmcEdOajBFRFlSTFJCNTN1QlprNkhO?=
+ =?utf-8?B?NXdNT21LSUFlb0tVQ2ltbUp4dDZoWllGeUNDYnBoR1AxTWUrbTR0aEZlY1Vv?=
+ =?utf-8?B?Z0VPbGJpc1ZmUHF4NzR1cWs3cUVpaWcvUVBTenNBUStrRE5pbUlFVCtoRGFR?=
+ =?utf-8?B?QzN3aVdjMUs0VHJMaVl3V2MxbFVmVG5xQitLZTM4eWxvcjFVTTU5eXM4L1Jo?=
+ =?utf-8?B?ck9raVFYMEVsblZ4STZvdlhzK3krdjdTb0hwN3JkVzB1L3V2SXBWTTVGVTl1?=
+ =?utf-8?B?cmdxMDNTbTFURGdFd05mV0hXSzh0SDlrR1MxYk9tNDcwUnNpekloVkRKa3N0?=
+ =?utf-8?B?VTdaMk9XSkdleW9TWG9EUG5OWG9Cd2dxWW81OFZ6RlJkVHp6UjFndlZHQkVX?=
+ =?utf-8?B?M1VlMGFHbHJLMFo4US9ZVUVBS3NGZTJxUDRRZXIyMjRDMWxOOXRObTlsVFhs?=
+ =?utf-8?B?MURFV1lqUnA3NWFmVk1zYUw3Q0VHSGg1K2FvNGxVelRsbGgrUE9Xb1BsenJD?=
+ =?utf-8?B?M0twZWRpZ0JKU1AvcytodlVkSVcxay85aDk1bDBFSHlIVFUyZDl5Q2YreVBS?=
+ =?utf-8?B?R0xaWTAvNFhKaUZFUHlNQmZxa0RBTVZ5cTVzb3JxVFEwcE0wcGVNazNnRGlO?=
+ =?utf-8?B?Wit2dTJ2REdDNC9FQkFmVyt0WEtpNW1HNkxZNStxTWJxb0tpWmY5VVArRVZn?=
+ =?utf-8?B?MWE3M3g0c1JJQW9zZnlDNmNTVDN0dm9jcStiV3NOTGpvNFVHQURQc213TnRy?=
+ =?utf-8?B?dWc1RWxXNU41VEdaR2Q1OHp0MXVVOG5WNFlwS0xEeDlVUysydFIxdXdxUS9G?=
+ =?utf-8?B?TVJ0cTVXUFcwNTNKREVzYlgveFVIaDlxTjVKQWMxVmcyQzN5dzdLaGpqNUJx?=
+ =?utf-8?B?ZWVZRENsRmpBUUVHdnB2cXR3TTZtVTFzZDRQUlB0OHhIZXBHTzlDNzlVM05Q?=
+ =?utf-8?B?ZjVOZUFSS01wdjNtRmg0eU5FSmU5VVgxcEVmdWhDbGt1dEZvTXZEWEpyMkow?=
+ =?utf-8?B?QzdteG5GSDl4ZXkwODJIdFNLVFlRUy85ejVkSU8yZi9NOXdoSm1FdnN2YnZQ?=
+ =?utf-8?B?Sm4vbDNtbjVsekY3UkV3NkZMWkprZmRKYno4OVRNV1FUY3ZjSEZBdzBzOUxa?=
+ =?utf-8?B?TnpUNjRUeHhPWUg4cWVQUmZLWHFONnBrYm16NGNmS0RZODdaYWJaM2ROYU9X?=
+ =?utf-8?B?T3Rya0tXd2tEVW51ODdlVnA4RngzQkpKTHdUdmFqQ3pSRjhGWENONXpqV01Z?=
+ =?utf-8?B?VVJlUWs4anBTSHFLNUJ3Z3ArYVNYWnM3Qkk5NERpNlhhamdHaHB2TlNiV2J2?=
+ =?utf-8?B?ZzQrVm1HZ0ZEd2d3dXpJOXlYUXlhVlJ1K1BNRlA3MGFRMUxOTklpMlZkTUFS?=
+ =?utf-8?B?VTVuMkpEQjVUR2ROVzUzY2hOSGpBRERtUUdXV3p0bThiSE00R1h4d2tiTHdM?=
+ =?utf-8?B?blpsODlSSGw5RnZjQzEvdFlCV3hwaFUxV0ZVeEFXQWI4Z1pJczZLOUlDNlgz?=
+ =?utf-8?B?TjVEMXFJZCtRWTMxY3U5dEgxaGV4c2VVZHIzdUh1OFBPeUtVV0hvNkV4a2U4?=
+ =?utf-8?B?VXBLcUt6Rk0wV3RRcitlSm5LMUtNUXlueGpHZnRMVHZlcTN5QUNWSmx1cXRZ?=
+ =?utf-8?B?dkhlM0FpUnY1dFdidE9aNmcxMWxidUpRQU5tQ1ZVL1gxeGQ3OGNlZG1EcWRv?=
+ =?utf-8?B?djZYbklBaEJ6VWtYMW90UUZDWHJyeWY3YVhpM1U3Yk81RUpIYUhjOS9MQWM1?=
+ =?utf-8?Q?425V35GEuJ2iQqbkNV?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e416d527-32c3-4fe0-bd80-08df35d62d5c
+X-MS-Exchange-CrossTenant-AuthSource: CY0PR12MB226969.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 16:00:19.1318 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 16:03:31.1047 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +5xI66ER351bw+NXujpvhxkFpRqgB+f3HwPJlr35TdqYCPpvwQDo7vWQUcbhQEiONluhg4IYvB+WQX47sagy2Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB7999
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3RweDKsBjf2O0uDxnO9D/bt09y7PDjV2jqYTKreZMJQCBQTXHL9h22WjKkHBa9DhdV9EwvE/bp31HAEkiaf1Eg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8493
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -213,119 +133,122 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, Oct 29, 2026 at 10:55:42AM +0100, Philipp Stanner wrote:
-> dma_fence_is_signaled() contains a lockless check of the signaled-bit,
-> which is set under lock protection. This is a race condition which makes
-> the API fragile and has caused at least two bugs already, addressed in:
-> 
-> 	commit c8a5d5ea3ba6 ("nouveau: fix client work fence deletion race")
-> 	commit 7c703a7d3f2b ("drm/amdgpu: Fix one use-after-free of VM")
-> 
-> It has been argued by some that this race cannot be closed for the
-> entire kernel through locking because this would lead to a cache line
-> invalidation for all parties reading that fence. While it remains
-> unclear why these parties don't simply let themselves be notified about
-> the fence being signaled instead of checking this repeatedly manually,
-> there is a way to preserve this behavior in any case:
-> 
-> This patch adds a new flag for dma_fence_init(),
-> DMA_FENCE_INIT_FLAG_RACY_SIGNALED_CHECK. If this flag is not set, the
-> spinlock is taken and dma_fence_is_signaled() becomes perfectly
-> synchronized: it can only return true once signaling of the fence is
-> completed.
-> 
-> Disable the racy check for everyone by default. Should some parties
-> really experience severe performance degredations because of this, they
-> can trivially re-enable the race condition for their driver by setting
-> the flag in dma_fence_init().
-> 
+Hi Michał
 
-My 2 cents - anyone arguing about cachelines probably has broken code to
-begin with. I'd say don't give anyone an option to opt into a racey
-check, if this regressing some peoples code the answer is likely
-structurally fix your broken code.
+I shared and disucssed this AMD developers (Cc'ed). The patch looks 
+correct but limited. They are going to identify the root cause through 
+LTTPR-cap sanitization instead.
 
-Matt
+They expect a solution that will also fix your issues soon. I will keep 
+you posted and perhaps share a patch.
 
-> Signed-off-by: Philipp Stanner <phasta@kernel.org>
+Alex H.
+
+On 10/24/26 16:49, Michał Kopeć wrote:
+> Some retimers report a nonzero PHY repeater count together with an
+> invalid max lane count. One example is the MegaChips (Kinetic) MCDP6000
+> USB-C DP Alt Mode retimer in the Sony PlayStation VR2 PC adapter.
+> dp_is_lttpr_present() then treats the link as having no LTTPR, and both
+> retrieve_link_cap() and the resume path in amdgpu_dm drop the AUX reply
+> timeout from the LTTPR value (3.2 ms) to the default one (552 us).
+> 
+> The retimer is still in the AUX path and relays every transaction. The
+> MCDP6000 datasheet gives 100 us of round-trip AUX latency in its normal
+> latency mode, and recommends that a source using it raise its AUX reply
+> timeout. Reading the LTTPR caps has also told the repeater that the
+> source uses the extended timeout, as required by the DP spec.
+> 
+> With a sink that replies quickly this goes unnoticed, but with a slower
+> downstream device behind the retimer (a USB-C dock driving a monitor),
+> replies miss the 552 us window. Reading the extended receiver caps
+> fails, EDID reads fail, link training fails, and the connector falls
+> back to 640x480:
+> 
+>    LTTPR count is nonzero but invalid lane count reported. Assuming no LTTPR present.
+>    retrieve_link_cap: Read extend caps data failed, use cap from dpcd 0.
+>    EDID err: 2, on connector: DP-1
+>    enabling link 0 failed: 15
+> 
+> Add dp_lttpr_needs_extended_aux_timeout(), which is true whenever a
+> repeater count is reported, and only drop to the default timeout when
+> no repeater is reported at all. Links without a repeater and links with
+> a valid LTTPR behave as before.
+> 
+> Tested on an RX 9070 XT with PSVR2 adapter -> USB-C switch -> USB-C dock
+> -> Dell AW3425DW: EDID is read and the link trains at 3440x1440@240Hz
+> with DSC. The same adapter connected directly to the monitor keeps
+> working.
+> 
+> Signed-off-by: Michał Kopeć <michal@nozomi.space>
 > ---
->  drivers/dma-buf/dma-fence.c |  2 ++
->  include/linux/dma-fence.h   | 22 ++++++++++++++++++++++
->  2 files changed, 24 insertions(+)
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c   |  2 +-
+>   .../display/dc/link/protocols/link_dp_capability.c  | 13 ++++++++++++-
+>   .../display/dc/link/protocols/link_dp_capability.h  |  2 ++
+>   3 files changed, 15 insertions(+), 2 deletions(-)
 > 
-> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-> index f7c084926ae6..1ae8c7aade39 100644
-> --- a/drivers/dma-buf/dma-fence.c
-> +++ b/drivers/dma-buf/dma-fence.c
-> @@ -1119,6 +1119,8 @@ dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops,
->  	/* Mapp the init_flags to the fence-internal flags. */
->  	if (test_bit(DMA_FENCE_INIT_FLAG_SEQNO64, &init_flags))
->  		set_bit(DMA_FENCE_FLAG_SEQNO64_BIT, &fence_flag_bits);
-> +	if (test_bit(DMA_FENCE_INIT_FLAG_RACY_SIGNALED_CHECK, &init_flags))
-> +		set_bit(DMA_FENCE_FLAG_RACY_SIGNALED_CHECK_BIT, &fence_flag_bits);
->  
->  	__dma_fence_init(fence, ops, lock, context, seqno, fence_flag_bits);
->  }
-> diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
-> index 52e7ddfd2d06..ee6e8de3ebc6 100644
-> --- a/include/linux/dma-fence.h
-> +++ b/include/linux/dma-fence.h
-> @@ -115,6 +115,7 @@ enum dma_fence_flag_bits {
->  	DMA_FENCE_FLAG_SIGNALED_BIT,
->  	DMA_FENCE_FLAG_TIMESTAMP_BIT,
->  	DMA_FENCE_FLAG_ENABLE_SIGNAL_BIT,
-> +	DMA_FENCE_FLAG_RACY_SIGNALED_CHECK_BIT,
->  
->  	DMA_FENCE_FLAG_USER_BITS, /* must always be last member */
->  };
-> @@ -124,9 +125,12 @@ enum dma_fence_flag_bits {
->   * These flags can be passed in dma_fence_init().
->   *
->   * @DMA_FENCE_INIT_FLAG_SEQNO64: Use 64-bit sequence numbers.
-> + * @DMA_FENCE_INIT_FLAG_RACY_SIGNALED_CHECK:
-> + * Legacy flag. Enables a race condition in dma_fence_is_signaled().
->   */
->  enum dma_fence_init_flags {
->  	DMA_FENCE_INIT_FLAG_SEQNO64,
-> +	DMA_FENCE_INIT_FLAG_RACY_SIGNALED_CHECK,
->  
->  	/* Must always be last member. */
->  	DMA_FENCE_INIT_FLAG_NR_OF_FLAGs,
-> @@ -568,9 +572,27 @@ dma_fence_is_signaled_locked(struct dma_fence *fence)
->  static inline bool
->  dma_fence_is_signaled(struct dma_fence *fence)
->  {
-> +	const bool racy_check = test_bit(DMA_FENCE_FLAG_RACY_SIGNALED_CHECK_BIT,
-> +					 &fence->flags);
->  	const struct dma_fence_ops *ops;
-> +	bool signaled = false;
-> +	unsigned long flags;
->  
-> +	/*
-> +	 * For legacy reasons, there is a race window here against parties
-> +	 * signaling the fence. They might still be doing that right now.
-> +	 *
-> +	 * For most users, this window shall be closed, but there are parties
-> +	 * for whom the cache-line invalidation by taking the lock might be so
-> +	 * significant that they prefer to accept the race at their own risk.
-> +	 */
-> +	if (!racy_check)
-> +		dma_fence_lock_irqsave(fence, flags);
->  	if (dma_fence_test_signaled_flag(fence))
-> +		signaled = true;
-> +	if (!racy_check)
-> +		dma_fence_unlock_irqrestore(fence, flags);
-> +	if (signaled)
->  		return true;
->  
->  	rcu_read_lock();
-> -- 
-> 2.56.0
-> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index bdabb4bf14dab..35885b6d6f787 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -1333,7 +1333,7 @@ STATIC_IFN_KUNIT void s3_handle_mst(struct drm_device *dev, bool suspend)
+>   			 * CTS 4.2.1.1 regression introduced by CTS specs requirement update.
+>   			 */
+>   			try_to_configure_aux_timeout(aconnector->dc_link->ddc, LINK_AUX_DEFAULT_LTTPR_TIMEOUT_PERIOD);
+> -			if (!dp_is_lttpr_present(aconnector->dc_link))
+> +			if (!dp_lttpr_needs_extended_aux_timeout(aconnector->dc_link))
+>   				try_to_configure_aux_timeout(aconnector->dc_link->ddc, LINK_AUX_DEFAULT_TIMEOUT_PERIOD);
+>   
+>   			/* TODO: move resume_mst_branch_status() into drm mst resume again
+> diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
+> index ad1a499b0d9d2..25e901f23d2db 100644
+> --- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
+> +++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
+> @@ -404,6 +404,17 @@ bool dp_is_lttpr_present(struct dc_link *link)
+>   	return is_lttpr_present;
+>   }
+>   
+> +/*
+> + * A repeater that reports a nonzero count with invalid caps is not used as an
+> + * LTTPR, but it is still in the AUX path and adds relay latency. Reading its
+> + * caps has also told it that the source uses the extended AUX timeout, so keep
+> + * that timeout unless no repeater is reported at all.
+> + */
+> +bool dp_lttpr_needs_extended_aux_timeout(struct dc_link *link)
+> +{
+> +	return dp_parse_lttpr_repeater_count(link->dpcd_caps.lttpr_caps.phy_repeater_cnt) > 0;
+> +}
+> +
+>   /* in DP compliance test, DPR-120 may have
+>    * a random value in its MAX_LINK_BW dpcd field.
+>    * We map it to the maximum supported link rate that
+> @@ -1825,7 +1836,7 @@ static bool retrieve_link_cap(struct dc_link *link)
+>   		return false;
+>   	}
+>   
+> -	if (!dp_is_lttpr_present(link))
+> +	if (!dp_lttpr_needs_extended_aux_timeout(link))
+>   		try_to_configure_aux_timeout(link->ddc, LINK_AUX_DEFAULT_TIMEOUT_PERIOD);
+>   
+>   
+> diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.h b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.h
+> index 6e17f72a752f3..e5c2382390a11 100644
+> --- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.h
+> +++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.h
+> @@ -55,6 +55,8 @@ bool dp_is_sink_present(struct dc_link *link);
+>   
+>   bool dp_is_lttpr_present(struct dc_link *link);
+>   
+> +bool dp_lttpr_needs_extended_aux_timeout(struct dc_link *link);
+> +
+>   bool dp_is_fec_supported(const struct dc_link *link);
+>   
+>   bool is_dp_active_dongle(const struct dc_link *link);
+
