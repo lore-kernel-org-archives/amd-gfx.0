@@ -2,75 +2,50 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3901A606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30880606A31A
 	for <amd-gfx@archiver.kernel.org>; Thu, 29 Oct 2026 08:05:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FVrCRFtP
+	dkim=pass (2048-bit key, unprotected) header.d=cinemaone.ch header.i=@cinemaone.ch header.a=rsa-sha256 header.s=20250113 header.b=UG1qjDwt
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B4F7112095;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66D28112093;
 	Thu, 29 Oct 2026 08:05:23 +0000 (UTC)
-Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com
- [209.85.160.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0253710FE4D
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Oct 2026 20:26:54 +0000 (UTC)
-Received: by mail-qt1-f170.google.com with SMTP id
- d75a77b69052e-5366ae57896so16518251cf.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Oct 2026 13:26:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793219214; x=1793824014; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=f9jMMzsyGE8ik2YKnuDQiwrOshxrPYBlpSuYyxMmgE8=;
- b=FVrCRFtP5Cvg8zhONA7RaLKnajol1nvJUKzlqjMD+o9OZI4/ZbQp9otJyQIBqgnsdI
- tLVyA6qAMueawiKpcw03mdXw77Vsxl1Arg3Qmv47yN4lezyrE4l245tHShuEvABCR29e
- D/uH8XxQtF81Wb4uLIo5WqCzxUv5T7EQVMGlBL0edbtzXOafMS+eBmfGLweQOXvPN8cG
- uoAW3WoZOMWku2yuehx+JA+NUqWI0G7Wui06kk9NDMsUWgKT7PjNkBeRTs143FeWPJX9
- 1oVf8G7rw2RE6iNlf7tgi7qD+vd0oMD5Ae1P3yhnttAWtjlFdp+nltCetS6QDqJfXbQW
- QDhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793219214; x=1793824014;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=f9jMMzsyGE8ik2YKnuDQiwrOshxrPYBlpSuYyxMmgE8=;
- b=vSeWYsj3KmXdRsO7gKg9433TO6B7Xe2X+QcgGsgpERSTDrqfdmh5A5W/jcRBbkxVu6
- Nb3MAOo0GaeFpefPGfrUP+cSF5lDcOe4ktrnoY0JJpJzUFW908YCruzlL74tcIAyi0PK
- HUTCV/bLzGHaNBNB+4pVB60w0UYj7EZOSJFf+jncYZk9964c5xxMdmC2sEwKxo7pUdMI
- /mGhdNrXtBECjwCriK1GuQyfKM2GG95k82yL5MjZgb/qwktD9mwupZ2GKM1kX6G62DLD
- aTXUlb/5YVysgdIytM4E/vQwZsseMAzQIHlnmaAsqVhzkryRKuFrrLut8PFS34TZgooz
- OgzA==
-X-Gm-Message-State: AFq9FYLQ3tHzasfk28wbZHUD8Jw0eMKZzrDR/IAjZmB92rowRgFvHuYH
- roLWMoCIfo9+2sHNJlM+GaYjz02LVQR3OTF+9zhdKYq+vus5Fp7KgCwhFWVujO0pQ/E=
-X-Gm-Gg: AYBFou3yrezqHWkBk7V1GYTu4kh4qmL+iHxmAKHOeHIZA9E22jQieI/bMlvv5Mew5Zt
- CzG+lMWWpsfBv1Y10iCwpKXOxFj0W8hnr4lfmIb20FVzcCcN8F78zqxufbj5fiGeFhHQ17evrai
- HgcGSuHZ4kphc4+nJVoVW1eVELMbQIC4hHq17Z7ZKgB/LOxu0RWD+M4iN7dbB9lSQBNHXwOer9t
- PDWvb9Fsk1RHG1Kj+qO/ZoZdn/dB0LiIfJeKn49NxIu5SNWWF1ygiVMQPYHu4Wv7Taw5HufioDe
- RZj9AlYH+YCV25xVwTBAazeM0jLQtgvE3vn6bd/zP2aht6avwJj4Kg35VuSGni2r+OvVBplGLLL
- lvlxNzOMBR8iwnqP/n8vXPCmIX/eXKziL3wyTQnXttdSijA6BOuksMGNP8BV0ZAu48G/pNtxYuF
- A7vXteDnIUP3ebpHRvwlUJghDKnvfUnPi4NpMJUJO6sWBcVesdQZoEZHDkkizhPFgMpSi7UOI5b
- J9n0Xj4cCMKoQkV9D7o2NYqt2kVkkVr1JwDrT1e46sroilOBfSy2X6t9n76oV54GEyMeDgtOxyR
- teBVBGnaRVhBjQtcl9cso2vsaH+NtwRRnj0=
-X-Received: by 2002:a05:622a:90b:b0:535:cc6:659 with SMTP id
- d75a77b69052e-53fcb7fb52emr58748511cf.37.1793219213813; 
- Wed, 28 Oct 2026 13:26:53 -0700 (PDT)
-Received: from falcon.baltimore.nuwat.tech ([2601:14d:5284:47e0::1262])
- by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-91c8d5ee885sm10190956d6.41.2026.10.28.13.26.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 28 Oct 2026 13:26:53 -0700 (PDT)
-From: Abdulla Bubshait <darkstego@gmail.com>
+X-Greylist: delayed 418 seconds by postgrey-1.36 at gabe;
+ Thu, 29 Oct 2026 07:53:12 UTC
+Received: from smtp-8faf.mail.infomaniak.ch (smtp-8faf.mail.infomaniak.ch
+ [83.166.143.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 657AC112011
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Oct 2026 07:53:12 +0000 (UTC)
+Received: from smtp-3-0001.mail.infomaniak.ch (smtp-3-0001.mail.infomaniak.ch
+ [10.4.36.108])
+ by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jFbrh3KPyz34jW;
+ Thu, 29 Oct 2026 08:46:12 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cinemaone.ch;
+ s=20250113; t=1793259972;
+ bh=ZSvDeKi7+o27GTfQGgjmJGrFhN+1wIZ8f+ftzRFMUhE=;
+ h=From:To:Cc:Subject:Date:From;
+ b=UG1qjDwtYP5hNFVooicEYaOpbk4CAF6ZOKKlKWzH3tBZ4qxscPNTzzpczx/nBSQ+i
+ U8hCiaeQjMUp+iKHg5Q8vAyZwzbc8hh6eiZtEvVevHMzpLrtWQJotwe2Lle3NUR9lF
+ HNtfdGHcC4AyWmxIIpZR0PX+Bmy6upwMvE1tjG/HUVwyKsJCV+LaKZ5KUxK/EB4CJL
+ eTAJsEkibABvNTVB7OWzv4Q9YKOJckYRhUkeWuYQafMdG6iCGTB+7GT4raL5JI5/wR
+ nfhyEk9VVGRFDxtGlChKETTfXsWYBucM9+4wXSHhTpbt/B1mdnP4vOWQ2hmDLT+nyS
+ APoGZR+lucBdQ==
+Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA
+ id 4jFbrg4NkdzXGB; Thu, 29 Oct 2026 08:46:11 +0100 (CET)
+From: Adrian Betschart <adrian.betschart@cinemaone.ch>
 To: amd-gfx@lists.freedesktop.org
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- alexander.deucher@amd.com, dominik.kaszewski@amd.com,
- dri-devel@lists.freedesktop.org, Abdulla Bubshait <darkstego@gmail.com>,
- stable@vger.kernel.org
-Subject: [PATCH] drm/amd/display: Abort DPMS ON when enabling the link fails
-Date: Wed, 28 Oct 2026 16:26:41 -0400
-Message-ID: <20261028202641.549955-1-darkstego@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
+ alexander.deucher@amd.com, stable@vger.kernel.org
+Subject: [PATCH] drm/amd/display: Apply the HDMI RGB range default only to
+ HDMI signals
+Date: Thu, 29 Oct 2026 08:45:58 +0100
+Message-ID: <20261029074558.41383-1-adrian.betschart@cinemaone.ch>
 X-Mailer: git-send-email 2.56.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Infomaniak-Routing: alpha
 X-Mailman-Approved-At: Thu, 29 Oct 2026 08:05:22 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,66 +57,401 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Since commit 843049bac7c0 ("drm/amd/display: Split DPMS ON into
-parts"), link_set_dpms_on_enable_link() returns
-DC_DPMS_FAILED_HANDSHAKE when enable_link() fails and the stream
-enable has to be aborted: any failure other than link training, or a
-link training failure on DP MST. The link has already been disabled at
-that point. The step loop in link_set_dpms_on() treats
-DC_DPMS_FAILED_HANDSHAKE like DC_DPMS_SUCCESS and goes on to
-link_set_dpms_on_post_enable_link().
+Since eb5650d1f367, Broadcast RGB "Automatic" selects limited range on
+CTA modes when display_info.is_hdmi is set. That flag comes from an HDMI
+VSDB in the EDID and says nothing about the link, so a native
+DisplayPort monitor whose EDID carries an HDMI VSDB now gets limited
+range on CTA modes too. Monitors that ignore the DP range signal show
+grey blacks, where 7.2 sent full range.
 
-Before the split, this path returned right after disable_link(),
-because MST displays can't proceed without link training. Now, for
-failed MST handshakes MST slots are still allocated.  When the link
-trains again later, the new payload starts after the leaked slots so
-ACT never completes, and the display stays black until
-reboot. Replugging or power-cycling the monitor does not recover it.
+Require an HDMI signal as well, as the original commit intended. DP++
+passive adapters drive an HDMI signal and keep the HDMI behaviour;
+native DP, DP MST and active DP-to-HDMI converters get full range again.
 
-Seen on Navi 33 (DCN 3.2.1) with a DP 2.1 MST monitor (Odyssey Neo G9)
-at UHBR10 x4 with DSC. Link training sometimes fails on DPMS
-wake. With this change, the failed attempt leaves no payload behind,
-and the next modeset after the sink reconnects bring the monito back
-up.
+Reported and analysed by Andrés Rodríguez in the issue below.
 
-Return early on DC_DPMS_FAILED_HANDSHAKE, as for
-DC_DPMS_SKIPPED_HANDSHAKE. This restores the pre-split behaviour. Link
-training failures on non-MST signals still return DC_DPMS_SUCCESS and
-continue as before.
-
-Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/6047
-Fixes: 843049bac7c0 ("drm/amd/display: Split DPMS ON into parts")
+Fixes: eb5650d1f367 ("drm/amd/display: Default HDMI RGB output to limited range on CTA modes")
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/6052
 Cc: stable@vger.kernel.org # 7.3
-Signed-off-by: Abdulla Bubshait <darkstego@gmail.com>
+Signed-off-by: Adrian Betschart <adrian.betschart@cinemaone.ch>
+Assisted-by: Claude Code:claude-opus-5-5
 ---
- drivers/gpu/drm/amd/display/dc/link/link_dpms.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 14 +--
+ .../display/amdgpu_dm/amdgpu_dm_connector.c   | 16 ++--
+ .../display/amdgpu_dm/amdgpu_dm_connector.h   |  3 +-
+ .../tests/amdgpu_dm_connector_test.c          | 90 ++++++++++++++-----
+ 4 files changed, 89 insertions(+), 34 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-index 75e232ebffe8..b355e29b178d 100644
---- a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-@@ -2813,11 +2813,11 @@ enum dc_status link_set_dpms_on(
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index dfbc384fbbdb..4f6d31812447 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -5216,9 +5216,11 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_commit *state)
+ 		scaling_changed = is_scaling_state_different(dm_new_con_state,
+ 							     dm_old_con_state);
  
- 		switch (step_result) {
- 		case DC_DPMS_SUCCESS:
--		case DC_DPMS_FAILED_HANDSHAKE:
- 			// Enum is ordered from "best" to "worst" results
- 			result = max(result, step_result);
- 			break;
+-		if ((new_con_state->hdmi.broadcast_rgb != old_con_state->hdmi.broadcast_rgb) &&
+-			(dm_old_crtc_state->stream->output_color_space !=
+-				amdgpu_dm_get_output_color_space(&dm_new_crtc_state->stream->timing, new_con_state)))
++		if (new_con_state->hdmi.broadcast_rgb != old_con_state->hdmi.broadcast_rgb &&
++		    dm_old_crtc_state->stream->output_color_space !=
++		    amdgpu_dm_get_output_color_space(&dm_new_crtc_state->stream->timing,
++						     new_con_state,
++						     dm_new_crtc_state->stream->signal))
+ 			output_color_space_changed = true;
  
-+		case DC_DPMS_FAILED_HANDSHAKE:
- 		case DC_DPMS_SKIPPED_HANDSHAKE:
- 			return step_result;
+ 		abm_changed = dm_new_crtc_state->abm_level !=
+@@ -5240,8 +5242,10 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_commit *state)
+ 		}
  
+ 		if (output_color_space_changed) {
+-			dm_new_crtc_state->stream->output_color_space
+-				= amdgpu_dm_get_output_color_space(&dm_new_crtc_state->stream->timing, new_con_state);
++			dm_new_crtc_state->stream->output_color_space =
++				amdgpu_dm_get_output_color_space(&dm_new_crtc_state->stream->timing,
++								 new_con_state,
++								 dm_new_crtc_state->stream->signal);
+ 
+ 			stream_update.output_color_space = &dm_new_crtc_state->stream->output_color_space;
+ 		}
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+index bc5745a5ba37..f663daf19d6a 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+@@ -739,7 +739,8 @@ EXPORT_IF_KUNIT(get_aspect_ratio);
+  * With Broadcast RGB left at Automatic follow that default, as i915 does.
+  */
+ static bool rgb_output_is_limited_range(const struct dc_crtc_timing *dc_crtc_timing,
+-					const struct drm_connector_state *connector_state)
++					const struct drm_connector_state *connector_state,
++					enum signal_type signal)
+ {
+ 	switch (connector_state->hdmi.broadcast_rgb) {
+ 	case DRM_HDMI_BROADCAST_RGB_FULL:
+@@ -747,14 +748,16 @@ static bool rgb_output_is_limited_range(const struct dc_crtc_timing *dc_crtc_tim
+ 	case DRM_HDMI_BROADCAST_RGB_LIMITED:
+ 		return true;
+ 	default:
+-		return connector_state->connector->display_info.is_hdmi &&
++		return dc_is_hdmi_signal(signal) &&
++		       connector_state->connector->display_info.is_hdmi &&
+ 		       dc_crtc_timing->vic > 1;
+ 	}
+ }
+ 
+ enum dc_color_space
+ amdgpu_dm_get_output_color_space(const struct dc_crtc_timing *dc_crtc_timing,
+-				 const struct drm_connector_state *connector_state)
++				 const struct drm_connector_state *connector_state,
++				 enum signal_type signal)
+ {
+ 	enum dc_color_space color_space = COLOR_SPACE_SRGB;
+ 
+@@ -777,7 +780,7 @@ amdgpu_dm_get_output_color_space(const struct dc_crtc_timing *dc_crtc_timing,
+ 	case DRM_MODE_COLORIMETRY_BT2020_RGB:
+ 	case DRM_MODE_COLORIMETRY_BT2020_YCC:
+ 		if (dc_crtc_timing->pixel_encoding == PIXEL_ENCODING_RGB) {
+-			if (rgb_output_is_limited_range(dc_crtc_timing, connector_state))
++			if (rgb_output_is_limited_range(dc_crtc_timing, connector_state, signal))
+ 				color_space = COLOR_SPACE_2020_RGB_LIMITEDRANGE;
+ 			else
+ 				color_space = COLOR_SPACE_2020_RGB_FULLRANGE;
+@@ -789,7 +792,7 @@ amdgpu_dm_get_output_color_space(const struct dc_crtc_timing *dc_crtc_timing,
+ 	default:
+ 		if (dc_crtc_timing->pixel_encoding == PIXEL_ENCODING_RGB) {
+ 			color_space = COLOR_SPACE_SRGB;
+-			if (rgb_output_is_limited_range(dc_crtc_timing, connector_state))
++			if (rgb_output_is_limited_range(dc_crtc_timing, connector_state, signal))
+ 				color_space = COLOR_SPACE_SRGB_LIMITED;
+ 		/*
+ 		 * 27030khz is the separation point between HDTV and SDTV
+@@ -983,7 +986,8 @@ STATIC_IFN_KUNIT void fill_stream_properties_from_drm_display_mode(
+ 	if (is_hdmi_ep)
+ 		adjust_colour_depth_from_display_info(timing_out, info);
+ 
+-	stream->output_color_space = amdgpu_dm_get_output_color_space(timing_out, connector_state);
++	stream->output_color_space = amdgpu_dm_get_output_color_space(timing_out, connector_state,
++								      stream->signal);
+ 	stream->content_type = get_output_content_type(connector_state);
+ }
+ EXPORT_IF_KUNIT(fill_stream_properties_from_drm_display_mode);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.h
+index 7bfbb6853833..496d2037e0c0 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.h
+@@ -129,7 +129,8 @@ int amdgpu_dm_fill_hdr_info_packet(const struct drm_connector_state *state,
+ 
+ enum dc_color_space
+ amdgpu_dm_get_output_color_space(const struct dc_crtc_timing *dc_crtc_timing,
+-		       const struct drm_connector_state *connector_state);
++		       const struct drm_connector_state *connector_state,
++		       enum signal_type signal);
+ 
+ struct drm_display_mode *
+ amdgpu_dm_get_highest_refresh_rate_mode(struct amdgpu_dm_connector *aconnector,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+index acde20241f43..f2d9798667d8 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+@@ -422,7 +422,8 @@ static void dm_test_output_color_space_default_rgb_full(struct kunit *test)
+ 	state.colorspace = DRM_MODE_COLORIMETRY_DEFAULT;
+ 	state.hdmi.broadcast_rgb = DRM_HDMI_BROADCAST_RGB_AUTO;
+ 
+-	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
++								    SIGNAL_TYPE_HDMI_TYPE_A),
+ 			(int)COLOR_SPACE_SRGB);
+ }
+ 
+@@ -439,7 +440,8 @@ static void dm_test_output_color_space_default_rgb_limited(struct kunit *test)
+ 	state.colorspace = DRM_MODE_COLORIMETRY_DEFAULT;
+ 	state.hdmi.broadcast_rgb = DRM_HDMI_BROADCAST_RGB_LIMITED;
+ 
+-	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
++								    SIGNAL_TYPE_HDMI_TYPE_A),
+ 			(int)COLOR_SPACE_SRGB_LIMITED);
+ }
+ 
+@@ -457,7 +459,8 @@ static void dm_test_output_color_space_default_ycbcr709(struct kunit *test)
+ 	timing.flags.Y_ONLY = 0;
+ 	state.colorspace = DRM_MODE_COLORIMETRY_DEFAULT;
+ 
+-	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
++								    SIGNAL_TYPE_HDMI_TYPE_A),
+ 			(int)COLOR_SPACE_YCBCR709);
+ }
+ 
+@@ -476,7 +479,8 @@ static void dm_test_output_color_space_default_ycbcr601_limited(struct kunit *te
+ 	timing.flags.Y_ONLY = 1;
+ 	state.colorspace = DRM_MODE_COLORIMETRY_DEFAULT;
+ 
+-	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
++								    SIGNAL_TYPE_HDMI_TYPE_A),
+ 			(int)COLOR_SPACE_YCBCR601_LIMITED);
+ }
+ 
+@@ -492,7 +496,8 @@ static void dm_test_output_color_space_bt601_y_only(struct kunit *test)
+ 	timing.flags.Y_ONLY = 1;
+ 	state.colorspace = DRM_MODE_COLORIMETRY_BT601_YCC;
+ 
+-	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
++								    SIGNAL_TYPE_HDMI_TYPE_A),
+ 			(int)COLOR_SPACE_YCBCR601_LIMITED);
+ }
+ 
+@@ -508,7 +513,8 @@ static void dm_test_output_color_space_bt601(struct kunit *test)
+ 	timing.flags.Y_ONLY = 0;
+ 	state.colorspace = DRM_MODE_COLORIMETRY_BT601_YCC;
+ 
+-	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
++								    SIGNAL_TYPE_HDMI_TYPE_A),
+ 			(int)COLOR_SPACE_YCBCR601);
+ }
+ 
+@@ -524,7 +530,8 @@ static void dm_test_output_color_space_bt709(struct kunit *test)
+ 	timing.flags.Y_ONLY = 0;
+ 	state.colorspace = DRM_MODE_COLORIMETRY_BT709_YCC;
+ 
+-	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
++								    SIGNAL_TYPE_HDMI_TYPE_A),
+ 			(int)COLOR_SPACE_YCBCR709);
+ }
+ 
+@@ -540,7 +547,8 @@ static void dm_test_output_color_space_bt709_y_only(struct kunit *test)
+ 	timing.flags.Y_ONLY = 1;
+ 	state.colorspace = DRM_MODE_COLORIMETRY_BT709_YCC;
+ 
+-	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
++								    SIGNAL_TYPE_HDMI_TYPE_A),
+ 			(int)COLOR_SPACE_YCBCR709_LIMITED);
+ }
+ 
+@@ -555,7 +563,8 @@ static void dm_test_output_color_space_oprgb(struct kunit *test)
+ 
+ 	state.colorspace = DRM_MODE_COLORIMETRY_OPRGB;
+ 
+-	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
++								    SIGNAL_TYPE_HDMI_TYPE_A),
+ 			(int)COLOR_SPACE_ADOBERGB);
+ }
+ 
+@@ -573,7 +582,8 @@ static void dm_test_output_color_space_bt2020_rgb(struct kunit *test)
+ 	timing.pixel_encoding = PIXEL_ENCODING_RGB;
+ 	state.colorspace = DRM_MODE_COLORIMETRY_BT2020_RGB;
+ 
+-	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
++								    SIGNAL_TYPE_HDMI_TYPE_A),
+ 			(int)COLOR_SPACE_2020_RGB_FULLRANGE);
+ }
+ 
+@@ -590,7 +600,8 @@ static void dm_test_output_color_space_bt2020_rgb_limited(struct kunit *test)
+ 	state.colorspace = DRM_MODE_COLORIMETRY_BT2020_RGB;
+ 	state.hdmi.broadcast_rgb = DRM_HDMI_BROADCAST_RGB_LIMITED;
+ 
+-	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
++								    SIGNAL_TYPE_HDMI_TYPE_A),
+ 			(int)COLOR_SPACE_2020_RGB_LIMITEDRANGE);
+ }
+ 
+@@ -611,7 +622,8 @@ static void dm_test_output_color_space_default_rgb_auto_hdmi_cta(struct kunit *t
+ 	state.colorspace = DRM_MODE_COLORIMETRY_DEFAULT;
+ 	state.hdmi.broadcast_rgb = DRM_HDMI_BROADCAST_RGB_AUTO;
+ 
+-	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
++								    SIGNAL_TYPE_HDMI_TYPE_A),
+ 			(int)COLOR_SPACE_SRGB_LIMITED);
+ }
+ 
+@@ -632,7 +644,8 @@ static void dm_test_output_color_space_default_rgb_auto_hdmi_vga(struct kunit *t
+ 	state.colorspace = DRM_MODE_COLORIMETRY_DEFAULT;
+ 	state.hdmi.broadcast_rgb = DRM_HDMI_BROADCAST_RGB_AUTO;
+ 
+-	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
++								    SIGNAL_TYPE_HDMI_TYPE_A),
+ 			(int)COLOR_SPACE_SRGB);
+ }
+ 
+@@ -652,7 +665,31 @@ static void dm_test_output_color_space_default_rgb_auto_dp_cta(struct kunit *tes
+ 	state.colorspace = DRM_MODE_COLORIMETRY_DEFAULT;
+ 	state.hdmi.broadcast_rgb = DRM_HDMI_BROADCAST_RGB_AUTO;
+ 
+-	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
++								    SIGNAL_TYPE_DISPLAY_PORT),
++			(int)COLOR_SPACE_SRGB);
++}
++
++/**
++ * dm_test_output_color_space_default_rgb_auto_dp_hdmi_vsdb - Automatic on DP stays full range
++ * even when the EDID has an HDMI VSDB
++ * @test: The KUnit test context
++ */
++static void dm_test_output_color_space_default_rgb_auto_dp_hdmi_vsdb(struct kunit *test)
++{
++	struct dc_crtc_timing timing = {};
++	struct drm_connector_state state = {};
++	struct drm_connector *connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
++
++	connector->display_info.is_hdmi = true;
++	timing.pixel_encoding = PIXEL_ENCODING_RGB;
++	timing.vic = 118;
++	state.connector = connector;
++	state.colorspace = DRM_MODE_COLORIMETRY_DEFAULT;
++	state.hdmi.broadcast_rgb = DRM_HDMI_BROADCAST_RGB_AUTO;
++
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
++								    SIGNAL_TYPE_DISPLAY_PORT),
+ 			(int)COLOR_SPACE_SRGB);
+ }
+ 
+@@ -673,7 +710,8 @@ static void dm_test_output_color_space_default_rgb_full_hdmi_cta(struct kunit *t
+ 	state.colorspace = DRM_MODE_COLORIMETRY_DEFAULT;
+ 	state.hdmi.broadcast_rgb = DRM_HDMI_BROADCAST_RGB_FULL;
+ 
+-	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
++								    SIGNAL_TYPE_HDMI_TYPE_A),
+ 			(int)COLOR_SPACE_SRGB);
+ }
+ 
+@@ -694,7 +732,8 @@ static void dm_test_output_color_space_bt2020_rgb_auto_hdmi_cta(struct kunit *te
+ 	state.colorspace = DRM_MODE_COLORIMETRY_BT2020_RGB;
+ 	state.hdmi.broadcast_rgb = DRM_HDMI_BROADCAST_RGB_AUTO;
+ 
+-	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
++								    SIGNAL_TYPE_HDMI_TYPE_A),
+ 			(int)COLOR_SPACE_2020_RGB_LIMITEDRANGE);
+ }
+ 
+@@ -710,7 +749,8 @@ static void dm_test_output_color_space_bt2020_ycc(struct kunit *test)
+ 	timing.pixel_encoding = PIXEL_ENCODING_YCBCR422;
+ 	state.colorspace = DRM_MODE_COLORIMETRY_BT2020_YCC;
+ 
+-	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
++								    SIGNAL_TYPE_HDMI_TYPE_A),
+ 			(int)COLOR_SPACE_2020_YCBCR_LIMITED);
+ }
+ 
+@@ -729,7 +769,8 @@ static void dm_test_output_color_space_default_ycbcr709_y_only(struct kunit *tes
+ 	timing.flags.Y_ONLY = 1;
+ 	state.colorspace = DRM_MODE_COLORIMETRY_DEFAULT;
+ 
+-	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
++								    SIGNAL_TYPE_HDMI_TYPE_A),
+ 			(int)COLOR_SPACE_YCBCR709_LIMITED);
+ }
+ 
+@@ -748,7 +789,8 @@ static void dm_test_output_color_space_default_ycbcr601(struct kunit *test)
+ 	timing.flags.Y_ONLY = 0;
+ 	state.colorspace = DRM_MODE_COLORIMETRY_DEFAULT;
+ 
+-	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
++								    SIGNAL_TYPE_HDMI_TYPE_A),
+ 			(int)COLOR_SPACE_YCBCR601);
+ }
+ 
+@@ -767,7 +809,8 @@ static void dm_test_output_color_space_bt2020_ycc_rgb_encoding(struct kunit *tes
+ 	timing.pixel_encoding = PIXEL_ENCODING_RGB;
+ 	state.colorspace = DRM_MODE_COLORIMETRY_BT2020_YCC;
+ 
+-	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
++								    SIGNAL_TYPE_HDMI_TYPE_A),
+ 			(int)COLOR_SPACE_2020_RGB_FULLRANGE);
+ }
+ 
+@@ -785,7 +828,8 @@ static void dm_test_output_color_space_bt2020_ycc_rgb_encoding_limited(struct ku
+ 	state.colorspace = DRM_MODE_COLORIMETRY_BT2020_YCC;
+ 	state.hdmi.broadcast_rgb = DRM_HDMI_BROADCAST_RGB_LIMITED;
+ 
+-	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
++								    SIGNAL_TYPE_HDMI_TYPE_A),
+ 			(int)COLOR_SPACE_2020_RGB_LIMITEDRANGE);
+ }
+ 
+@@ -802,7 +846,8 @@ static void dm_test_output_color_space_bt2020_rgb_ycc_encoding(struct kunit *tes
+ 	timing.pixel_encoding = PIXEL_ENCODING_YCBCR444;
+ 	state.colorspace = DRM_MODE_COLORIMETRY_BT2020_RGB;
+ 
+-	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
++								    SIGNAL_TYPE_HDMI_TYPE_A),
+ 			(int)COLOR_SPACE_2020_YCBCR_LIMITED);
+ }
+ 
+@@ -10058,6 +10103,7 @@ static struct kunit_case amdgpu_dm_connector_tests[] = {
+ 	KUNIT_CASE(dm_test_output_color_space_default_rgb_auto_hdmi_cta),
+ 	KUNIT_CASE(dm_test_output_color_space_default_rgb_auto_hdmi_vga),
+ 	KUNIT_CASE(dm_test_output_color_space_default_rgb_auto_dp_cta),
++	KUNIT_CASE(dm_test_output_color_space_default_rgb_auto_dp_hdmi_vsdb),
+ 	KUNIT_CASE(dm_test_output_color_space_default_rgb_full_hdmi_cta),
+ 	KUNIT_CASE(dm_test_output_color_space_bt2020_rgb_auto_hdmi_cta),
+ 	KUNIT_CASE(dm_test_output_color_space_bt2020_ycc),
 -- 
 2.56.0
 
