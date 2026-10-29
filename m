@@ -2,94 +2,90 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ACD1606A31A
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Oct 2026 21:58:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CC3E606A31C
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Oct 2026 22:03:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sYS2WfiV
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dSrapWsA
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 155AB11257C;
-	Thu, 29 Oct 2026 21:58:08 +0000 (UTC)
-Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB39C112581
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Oct 2026 21:58:01 +0000 (UTC)
-Received: by mail-dl1-f42.google.com with SMTP id
- a92af1059eb24-150b2fbd784so1062c88.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Oct 2026 14:58:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793311081; cv=none;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8BC7112589;
+	Thu, 29 Oct 2026 22:03:19 +0000 (UTC)
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0E07112589
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Oct 2026 22:03:12 +0000 (UTC)
+Received: by mail-dl1-f48.google.com with SMTP id
+ a92af1059eb24-17e82de56ccso980c88.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Oct 2026 15:03:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793311392; cv=none;
  d=google.com; s=arc-20260327;
- b=rxMYkh5/l6x0rLCjdZ1itRLvAplBuftKAwrwHOmDbYSBncm3TrfP/o8nT4Rfvg6iac
- yTMg9qxxpKSnbuQAbcWkkHKk/gt/GdbqlyT+apCqOYkMzAjZ8kVF2xzJbUHdX57NEhF4
- CkXsIWEjvT9lTCpaLrgUtwmor4FtxYCRhJK0hRi8607aY6mijyJ6lssClfQS85l+ny9F
- BBYfXRmMM8WXi1t5K+Api+DoZpipfmiozsAaC9z1iuLG6TeKNFoxOg9zfIxRM0s9GATv
- FdIjbWLdfVQ/w0cS704ydavG/10PKE4nIqMeP8uBJ7aLTrtL7Gy+0fVTJE1OXtivhIh7
- +CNA==
+ b=dF+2syJoPwKjTz8RkAMPrUhXX+ZuLqyrpK1TcyJaLEZgRjDuX8HlDw0Zbsc27UEDtq
+ kO/mKNDuyetV+WKZ/xvnexaNn31OI85vfh78X22oMR2oyLWUIk3cdfRQuIVjum6pCW80
+ GXuydBACCo6SZjpIlmuU2vnDdBlT5HNO6to8Jrk2KIRnaT+sOfb3NcoYibAp79id1p+C
+ SVsjxD7OzCMgF5JsODFZUx3D5BZIOzNlIWsE7rkUlRYXTDAqgLChFK9NvN/E+lnQzJgC
+ dr8KvqhOOgOY3y0sKBt4pIgKNL398PdBlh7Mgb7Jy63CRUxh0Xmq9bH10ZsefWX0gnc2
+ swjA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=vVmdWIfDqgQ57zGphQvuVSmIneDtL7GjZgKyHckL4FM=;
- fh=jz+yQCQ2HRtIfEfecFFqLIM3ivU7yZlUWDtgMTCW/aQ=;
- b=JhqyOyfMxNXAFb3yufiPN8nKHYIGAMAHKMHivy78JY6FLL7l2dFuCv64NC7sDfySa8
- IkZh/hyJvd6TTMcIrMgcDaHh+Amx0ZY+x9PoNOwJVVwmLy0Hr6RzC1/kqk71v39WfDb+
- daBfTVPzKL/m/7UzNjFGOJzR1Jikv4fRrvkZoXCIRNBDUgrhze6J3k+QdKjNLYZQaN3L
- /0/nWwUuVU8G2fGe2f33QGqM7vQTj8veGeY+iI57OVu69rdTxCmq0XYyZpwip+38Oq19
- 799Fm8CFhZFUqHnxe//V2v3sKgqNPb1V2AcRTIwqEB77yffBzNYVLH7tKjQnEO1XrmYQ
- 4xDA==; darn=lists.freedesktop.org
+ bh=XUfj/pzbBdUsD0WEfywPlbOLwQfu3ocN7pMp3/ZcRLw=;
+ fh=qQPJ2C1cUZTI88KvdTTxpDqLRX3dsSacqfr/T5CS4Tg=;
+ b=Ku3fHYsmR1Q+76dUMB2oOSopH8j9NB94YHk/OfCuO7esjHnvISR5QpQ8agrD9F3TBV
+ QlkJIejt/2lyECIxML4vmth26e33Cb9Rt955lAaYDiTLfLagECIjOCrtSWtVZooDdZsu
+ 9pA54zUG648zg3MEY94kfwOph1fDcFpVYnbe71rKDAZJ9Qct9TNFRJE7US+KUdpp2TcZ
+ 44tkrCACecf0TkLQDdDl6Pa42BII02IYOhAuFhLGgy1ADFltQqMLiiWfqtPbpkPhEXAM
+ 1S4nfp4RlxuQq3Tv8FJE7LpQ2Y9W9wNla4xlh+kN4eugx4dgZ0UOHvKab8B6wKkUwuZZ
+ PhSg==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793311081; x=1793915881; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1793311392; x=1793916192; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=vVmdWIfDqgQ57zGphQvuVSmIneDtL7GjZgKyHckL4FM=;
- b=sYS2WfiVVouqHex7HlXsj34i5akwOxwDXBq9MZ3PtQv/08HKLx2Ue5JVrdAPwB6191
- Rw0Zn8Y3NAeOrajmRYvl2PWu4xvPuaVf791GjVx9TQniBfXi95DtwuK8cEjPyR3FHY67
- CnkZ1PODUKpz22/kQUTNI3YBAZMGHDutLLc/Wd/dEbr1lrPu5eGUvnCX2BRWotQiuF4y
- ZLQXzf04QMrf3NJE9G8gS7yXhiyCNJkzhwlpD7osUVwga003IgUq09ukmkZmRhwAYlgw
- qe7zuyCFxX2P8z2dL71HlZfqZjmmH9kjfZWfbzzyX/cOXu/ioYwyaAdQYpXNoxIchq+W
- YCUA==
+ bh=XUfj/pzbBdUsD0WEfywPlbOLwQfu3ocN7pMp3/ZcRLw=;
+ b=dSrapWsANah3njhQRlp+8y5l2l+UdGL8/ueb9AJIsGDPy07VG1ZBjK/w0Oz+aR1APm
+ HPLz2pb0aiCtjiSC4yufkVcd48zog/oiTXzkgnLaRTXOkJBVrXC9gRx0fPEONLFi87Qs
+ N1cQlbzrJbC9U4SS8Bj+LMgciup0dzN9igvSd56N7HNTrJQ51VaTNhEJuawETYOG1nQW
+ hU8EambevqTQgOeWxLXqmRy8SIE0HNQ4Paw4cSdq2yolgR35sGghlidQfppwtmraxtWN
+ LjAsfRe/yF0NoA1tSuNBs3d8pt73u7wixO6nIzAymGVdHDxkmbVewvqvcVsafYJ61Iru
+ 5eZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793311081; x=1793915881;
+ d=1e100.net; s=20260707; t=1793311392; x=1793916192;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=vVmdWIfDqgQ57zGphQvuVSmIneDtL7GjZgKyHckL4FM=;
- b=OxxUSnI9IezxxRukxZGkwc7lUmZBoGttW0q/Ycl5gOeGqyqDQu6aQ2xP63pKO5fGL2
- 3rItpr2hCyQskoMUtGDjBK3uwB/IbQmRcgazcdNnFPutgB+3kZp0LIiFkPtxlNWVVNBQ
- 6fjEMszx2tlPjoJyK3MlWLIDVqrtq96qHNp3BkdGD+2rCdKO4K6edGayvXCVPOgtufYS
- uLhlY13aUsUegjxmyVH3lZ6c9sYjZwt3yYeMxboG+LmE26SLZIHZ3SJQvBlghxtecaz4
- +wklft1zMgqtQyNjdrc7R25WkDFCMHFEJwQWBFJMiFhviT8jj5UPnRjEUVqsiqhr3yLK
- XjuA==
-X-Gm-Message-State: AFq9FYJzgfORtyBw5fYrVBX1Uig3BoIlPTFffXG5hWbZMYhZWduyN5bp
- 4wbAxLmGnBAzrjOWCwlwUDlkJwc9W6PWj6jSxCc+VkkBYJHpnNLPLxScDW+sqxPFmg/oiB9bSB4
- JKtQb2SkX/M8d6fNsQdhJZh6ks2an7S0=
-X-Gm-Gg: AYBFou1d4gOiAMo7P7VR0qG6noBW1NkXsku9Ek/qogDoM2ckhpCvcEpEQqARvK27MUM
- EXstqa3J6f9RuxNrVGKC8AkIqcfd8m0M/KTEkwudSDWinenKoLcdPmkq2ILN1gxbJx14XMkBba+
- nwC6QBbhYvjhGZrtuXQt/eB8ICNFSDnrFWyul234x4RWn4EifQPGeDufIbjKskUiN+Vwl1p8mH4
- tOhtqeVYImmvfq8tCSYyTkYaRTvDUC+Mvn0tVCxyH0+Nf+2VxCEqkmq2rCMvhpCdMWcTHixH1ke
- DI2sqX5Ubm5ACjV05wqWO8kKVQwV1NBBruDGZHZPBIdTG/GaLsPr7vks7ALTaHfVC2d2wkXqWR9
- XTs6IkQtdD3XXQ4Mv389cTcSC96UagldwL5x1WCbeyTdBYcF4/axz7h7wC+FdGLHA77Iyj1/Vh+
- TuG5uaJ38X3t+Rw0B3+oNM7Vo=
-X-Received: by 2002:a05:7022:c46:b0:1a1:9106:cfff with SMTP id
- a92af1059eb24-1ac5c45fd28mr645027c88.2.1793311081015; Thu, 29 Oct 2026
- 14:58:01 -0700 (PDT)
+ bh=XUfj/pzbBdUsD0WEfywPlbOLwQfu3ocN7pMp3/ZcRLw=;
+ b=dsi6yjH7b2oGkQCBiSAOSAmucpAdRqZJabfGySj9rNtNSAB+FP6YZPxSECAKm4prG4
+ axWoRd07xWqSXaqJ+35yrD0PO3qncooj3MDO3nzxtPTHInhdcIFLQkIwu5B3hKhjg51w
+ YpYQOi5KKZLGERfBvt3TK8mE4ycKZuvBSHV3MsO313O/+J9lIlTzsfXJlPNhZsxH0p0e
+ Xtxqyov+wM/vTTO1WFqQmu/gc2DQzJpCwiQ3vxgExYG+XcOCVceUldV4fSzp/vvq7iiT
+ fuOOCU6G6a73IbfAETHEqghB0q81A58YmEjW50/MdVwpZQvwNgnwXZwVtYb4NCw+tunU
+ /PbA==
+X-Gm-Message-State: AFq9FYKScZNzjBY6cesYoNkRX90lqXWuh5+mf/bUk+yspPaSBO1376Q9
+ hBaDsNsOl6z3oaJxn8wIZckZ9yJjujPEZs2+6raB5BaY6z5qRG8nvRHnGZJDxtITysQwpyHtO4J
+ T2hg3WyT98m4R3yuUMp22+U16T5Ab900=
+X-Gm-Gg: AYBFou1RVqmCJMS5+9fIV/S2MQ0wp/aSqklTnkfC+373K+j8guZggnxC5iO2v/drqQf
+ uD8Mz3fCMBGFspmxWBnCBtGC3FSNLqN3X0aw6tswfAxuJeMrk4L3LoKN3iPsVlJlwCSYZRebk8D
+ hbqcqaPDooJMlhWdSZT8WNZ1XVcOGM6sgVnhSgi2XyXxymHEs0Cg10FzzhlmRfzQCEbPRRYJrK+
+ 3B2rpoB0Fm3GO1hFUvHDbQxnemqW154nxha8fDO0KV4okTC9BYvlm+ROU9EYV8WC04qyXVLyRqf
+ a0l37iZ9BbnZhG4M4WZvlZ2L/VP/ZSBswDyRjjSQeJnmrE5KKqS/LG1eM9Plr7c0TphW8XMxnO7
+ c/ObKLj3XCs9dMrPUQmaqok5UrFqTAJcSiyNCbsYpJsZ08A0NAaR3foEyaimkDunW0oRjQ/h/F4
+ CbFDLga1HzOH8QIMIAJ0BsyMU=
+X-Received: by 2002:a05:7022:b053:20b0:144:fd17:3b21 with SMTP id
+ a92af1059eb24-1ac500d67e6mr814858c88.0.1793311391699; Thu, 29 Oct 2026
+ 15:03:11 -0700 (PDT)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20260916144014.879355-1-ed@aicharmers.com>
-In-Reply-To: <20260916144014.879355-1-ed@aicharmers.com>
+References: <20261025100332.110933-1-erhan.bilgili@gmail.com>
+In-Reply-To: <20261025100332.110933-1-erhan.bilgili@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 29 Oct 2026 17:57:49 -0400
-X-Gm-Features: AclHuK9xVl7f8hieJPy2X3wLzEpfApxWnh2cKeKmKYYgIZ_iAsxEqlD0F7kalKA
-Message-ID: <CADnq5_MsaUDm8rcxr3_0wuEAXywxziAofOO9w-dUxYS9PUoasw@mail.gmail.com>
-Subject: Re: [PATCH v4] drm/amd/pm: defer UCLK DPM on selected Apple Navi GPUs
-To: Ed Schofield <ed@aicharmers.com>, Andre Eikmeyer <dev@deq.rocks>
-Cc: amd-gfx@lists.freedesktop.org, Kenneth Feng <kenneth.feng@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Date: Thu, 29 Oct 2026 18:03:00 -0400
+X-Gm-Features: AclHuK-vekcrun3HTDuTkBiBjRsVddCCwh7kkCaKuiKGSeEDUulWCitY66U_xXM
+Message-ID: <CADnq5_MCvhRKn0QnSJcfYDtzBUzC6BJBiaXEV3woHeB4Lx6QnQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Fix duplicate dependency fence releases
+To: Erhan Bilgili <erhan.bilgili@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
+ christian.koenig@amd.com, Jack.Xiao@amd.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -102,308 +98,67 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-+ Andre
+On Mon, Oct 26, 2026 at 4:43=E2=80=AFAM Erhan Bilgili <erhan.bilgili@gmail.=
+com> wrote:
+>
+> drm_sched_job_add_dependency() consumes its fence reference on success
+> and failure. Do not release the fence again if
+> drm_sched_job_add_dependency() fails.
+>
+> Fixes: 41cc108b2451 ("drm/amdgpu: fix missing dma_fence_put in error path=
+")
+> Fixes: c1c4a8b21721 ("drm/amdgpu: grab extra fence reference for drm_sche=
+d_job_add_dependency")
+> Signed-off-by: Erhan Bilgili <erhan.bilgili@gmail.com>
 
-On Wed, Sep 16, 2026 at 10:51=E2=80=AFAM Ed Schofield <ed@aicharmers.com> w=
-rote:
->
-> From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
->
-> Some Apple Navi GPUs intermittently time out during SMU initialization
-> when EnableAllSmuFeatures includes UCLK DPM. Leave UCLK out of that early
-> request and enable it from Navi post-init, after display hardware init
-> and before the UMC workaround and UMD clock setup.
->
-> Read back the enabled features before rebuilding the memory clock table
-> and sustainable clock limits. Also check the PPT memory states used by
-> display initialization before late enablement. Keep memory-voltage DPM
-> and respect the user's memory-DPM setting and the secure Navi 10 exclusio=
-n.
->
-> Limit this workaround to Apple 7340/0218 revision 41, 7340/0219, and
-> 731b/021a revision 40. Revisions and PCI IDs here are hexadecimal. The
-> underlying initialization dependency behind the timing sensitivity is
-> still unknown.
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+and applied.
 
-@Andre Eikmeyer I think this patch should fix your system as well.
-@Atharva Tiwari are you ok with this patch?
-
-Thanks,
-
-Alex
-
->
-> This builds on Atharva Tiwari's submitted 0219 delayed-UCLK patch
-> and Guna's diagnosis. Ed Schofield moved the enable point into the
-> Navi callback, added state validation and clock-table refresh, and
-> extended the board matching.
-> Independent tests of the related T2 implementation support improved boot
-> reliability on 0219 and 021a; those are not tests of this exact AMD patch=
-.
->
-> Link: https://lore.kernel.org/amd-gfx/20260824190409.1724-1-atharvatiwari=
-linuxdev@gmail.com/
-> Link: https://github.com/t2linux/linux-t2-patches/pull/61#issuecomment-56=
-37976466
-> Link: https://github.com/t2linux/linux-t2-patches/pull/61#issuecomment-56=
-45652752
-> Assisted-by: Codex:GPT-6
-> Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-> Co-developed-by: Ed Schofield <ed@aicharmers.com>
-> Signed-off-by: Ed Schofield <ed@aicharmers.com>
 > ---
-> Hi Alex, hi Atharva,
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c    | 4 +---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c | 1 -
+>  2 files changed, 1 insertion(+), 4 deletions(-)
 >
-> Here is v4 of the delayed-UCLK workaround. Atharva is credited as the
-> author in `From:`, with my rework credited through `Co-developed-by:`.
-> The local development history starts from Atharva's original 0219
-> submission [1], followed by my move to the Navi post-init callback,
-> state validation, clock-table refresh and additional board support. This
-> export is a single replacement patch against AMD staging at `8a4e96cf2`;
-> it is not an incremental patch to apply on top of v2 or Atharva's
-> original patch. (V3 was a local revision that I didn't submit to this
-> list.)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_sync.c
+> index d6ae9974c952..4f31021b2152 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
+> @@ -447,10 +447,8 @@ int amdgpu_sync_push_to_job(struct amdgpu_sync *sync=
+, struct amdgpu_job *job)
 >
-> Atharva, I agree that display initialization may explain the timing
-> dependency. This patch already enables UCLK after display hardware
-> initialization on the normal probe path. It is intended as a targeted
-> workaround for the reported boot failures; it does not establish the
-> underlying cause or address native 5K support. Could you share the exact
-> initialization-ordering diff, kernel version and GPU IDs from your
-> experiment? In the AMD staging tree used for this patch,
-> `dce_v10_0_early_init()` handles Tonga/Fiji, while these Navi boards use
-> the DCN path.
->
-> My goal is to stop the intermittent boot failures on my iMac (0218) and
-> other affected machines. Testing of my related T2 candidate in PR 61
-> [2], which was based on my local v3, is encouraging:
->
-> - Matt Olney's report on 021a [3] records internal-display boot success
->   improving from 2/10 to 10/10, with mixed restart types.
->   External-display results were 4/10 versus 4/5, with uncertain kernel
->   selection on the failed candidate attempt.
-> - Vivek Chauhan's report on 0219 [4] records boot success improving from
->   1/5 to 3/3.
->
-> These results are from the T2 implementation, not this exact AMD v4
-> export. The T2 patch stack also includes a separate correction to its
-> existing fixed allowed-feature mask on 0219, which clean AMD does not
-> need and this patch does not contain. The results support improved boot
-> reliability on these machines, but do not establish full performance or
-> reliability across all display configurations.
->
-> Compared with public v2, v4 adds 731b/021a revision 40, preserves the
-> existing secure-Navi-10 exclusion and generalizes the helper names. It
-> retains 7340/0218 revision 41 and 7340/0219. All IDs and revisions here
-> are hexadecimal.
->
-> Compared with my local v3 / T2 Linux PR #61, v4 excludes 020f: 3v3nFloW
-> reported that initialization completed but the machine subsequently hung
-> under load [5]. Their follow-up testing with a fixed memory-clock level
-> [6] suggests that memory-clock changes cause the hang, but doesn't
-> establish whether GPU load or display activity triggers it. I've also
-> excluded 021b from this version, which we don't yet have testing results
-> for.
->
-> Local build and host checks pass. I am currently travelling without my
-> iMac and have no new v4 hardware results, but I am submitting this
-> version for merging, with the workaround limited to the three board
-> matches supported by the existing evidence from the volunteer testers
-> mentioned above.
->
-> Alex, this patch replaces v2 and applies directly to the AMD staging
-> commit identified above.
->
-> Thanks,
-> Ed
->
-> [1] https://lore.kernel.org/amd-gfx/20260824190409.1724-1-atharvatiwarili=
-nuxdev@gmail.com/
-> [2] https://github.com/t2linux/linux-t2-patches/pull/61
-> [3] https://github.com/t2linux/linux-t2-patches/pull/61#issuecomment-5637=
-976466
-> [4] https://github.com/t2linux/linux-t2-patches/pull/61#issuecomment-5645=
-652752
-> [5] https://github.com/t2linux/linux-t2-patches/pull/61#issuecomment-5646=
-139127
-> [6] https://github.com/t2linux/linux-t2-patches/pull/61#issuecomment-5646=
-438512
->
-> v3 was local, not submitted. Since public v2: add the tested 021a/40
-> match, retain the secure-Navi-10 exclusion, and generalize helper names.
-> Since local v3: remove 020f (load hangs) and 021b (no testing evidence).
-> Base: 8a4e96cf2acd1e0340581df100b559f77ad7d855 (AMD staging).
-> This is a full replacement, not a patch to apply on top of v2.
->
->  .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 100 ++++++++++++++++++
->  1 file changed, 100 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gp=
-u/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> index f8ca5eb9a..3ac2a074c 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> @@ -60,6 +60,37 @@
->
->  static int navi10_init_ppt_limits(struct smu_context *smu);
->
-> +static bool is_asic_secure(struct smu_context *smu);
-> +
-> +static bool navi10_apple_needs_late_uclk(struct smu_context *smu)
-> +{
-> +       struct amdgpu_device *adev =3D smu->adev;
-> +       struct pci_dev *pdev =3D adev->pdev;
-> +
-> +       if (pdev->vendor !=3D PCI_VENDOR_ID_ATI ||
-> +           pdev->subsystem_vendor !=3D PCI_VENDOR_ID_APPLE ||
-> +           !(adev->pm.pp_feature & PP_MCLK_DPM_MASK))
-> +               return false;
-> +
-> +       /* Preserve the existing secure Navi 10 memory-DPM exclusion. */
-> +       if (is_asic_secure(smu) &&
-> +           amdgpu_ip_version(adev, MP1_HWIP, 0) =3D=3D IP_VERSION(11, 0,=
- 0) &&
-> +           adev->rev_id =3D=3D 0)
-> +               return false;
-> +
-> +       switch (pdev->device) {
-> +       case 0x7340:
-> +               return (pdev->subsystem_device =3D=3D 0x0218 &&
-> +                       pdev->revision =3D=3D 0x41) ||
-> +                      pdev->subsystem_device =3D=3D 0x0219;
-> +       case 0x731b:
-> +               return pdev->subsystem_device =3D=3D 0x021a &&
-> +                      pdev->revision =3D=3D 0x40;
-> +       default:
-> +               return false;
-> +       }
-> +}
-> +
->  static const struct smu_feature_bits navi10_dpm_features =3D {
->         .bits =3D {
->                 SMU_FEATURE_BIT_INIT(FEATURE_DPM_PREFETCHER_BIT),
-> @@ -356,6 +387,11 @@ navi10_init_allowed_features(struct smu_context *smu=
-)
->                 smu_feature_list_set_bit(smu, SMU_FEATURE_LIST_ALLOWED, F=
-EATURE_MEM_MVDD_SCALING_BIT);
+>                 dma_fence_get(f);
+>                 r =3D drm_sched_job_add_dependency(&job->base, f);
+> -               if (r) {
+> -                       dma_fence_put(f);
+> +               if (r)
+>                         return r;
+> -               }
 >         }
->
-> +       /* Defer UCLK on the selected Apple boards until IP late init. */
-> +       if (navi10_apple_needs_late_uclk(smu))
-> +               smu_feature_list_clear_bit(smu, SMU_FEATURE_LIST_ALLOWED,
-> +                                          FEATURE_DPM_UCLK_BIT);
-> +
->         if (is_asic_secure(smu) &&
->             (amdgpu_ip_version(adev, MP1_HWIP, 0) =3D=3D IP_VERSION(11, 0=
-, 0)) &&
->             (adev->rev_id =3D=3D 0))
-> @@ -470,6 +506,25 @@ static int navi10_store_powerplay_table(struct smu_c=
-ontext *smu)
 >         return 0;
 >  }
->
-> +/* DCN20 consumes these PPT states before the post-init UCLK enable. */
-> +static int navi10_apple_check_uclk_states(struct smu_context *smu)
-> +{
-> +       PPTable_t *ppt =3D smu->smu_table.driver_pptable;
-> +       unsigned int count, i;
-> +
-> +       if (!navi10_apple_needs_late_uclk(smu))
-> +               return 0;
-> +
-> +       count =3D ppt->DpmDescriptor[PPCLK_UCLK].NumDiscreteLevels;
-> +       if (!count || count > ARRAY_SIZE(ppt->FreqTableUclk))
-> +               return -EINVAL;
-> +       for (i =3D 0; i < count; i++) {
-> +               if (!ppt->FreqTableUclk[i])
-> +                       return -EINVAL;
-> +       }
-> +       return 0;
-> +}
-> +
->  static int navi10_setup_pptable(struct smu_context *smu)
->  {
->         int ret =3D 0;
-> @@ -490,6 +545,10 @@ static int navi10_setup_pptable(struct smu_context *=
-smu)
->         if (ret)
->                 return ret;
->
-> +       ret =3D navi10_apple_check_uclk_states(smu);
-> +       if (ret)
-> +               return ret;
-> +
->         return navi10_init_ppt_limits(smu);
->  }
->
-> @@ -3219,6 +3278,41 @@ static int navi10_enable_mgpu_fan_boost(struct smu=
-_context *smu)
->                                                NULL);
->  }
->
-> +/* IP late init follows display hw_init; refresh clocks before UMC/UMD s=
-etup. */
-> +static int navi10_apple_late_uclk_enable(struct smu_context *smu)
-> +{
-> +       struct smu_11_0_dpm_context *dpm =3D smu->smu_dpm.dpm_context;
-> +       struct smu_dpm_table *table =3D &dpm->dpm_tables.uclk_table;
-> +       PPTable_t *ppt =3D smu->smu_table.driver_pptable;
-> +       struct smu_feature_bits enabled;
-> +       int ret;
-> +
-> +       if (!navi10_apple_needs_late_uclk(smu))
-> +               return 0;
-> +
-> +       ret =3D smu_cmn_feature_set_enabled(smu, SMU_FEATURE_DPM_UCLK_BIT=
-, true);
-> +       if (ret)
-> +               return ret;
-> +       ret =3D smu_cmn_get_enabled_mask(smu, &enabled);
-> +       if (ret)
-> +               return ret;
-> +       if (!smu_feature_bits_is_set(&enabled, FEATURE_DPM_UCLK_BIT))
-> +               return -EIO;
-> +
-> +       smu_feature_list_set_bit(smu, SMU_FEATURE_LIST_SUPPORTED,
-> +                                FEATURE_DPM_UCLK_BIT);
-> +       table->clk_type =3D SMU_UCLK;
-> +       ret =3D smu_v11_0_set_single_dpm_table(smu, SMU_UCLK, table);
-> +       if (ret)
-> +               return ret;
-> +       if (!table->count)
-> +               return -EINVAL;
-> +       if (!ppt->DpmDescriptor[PPCLK_UCLK].SnapToDiscrete)
-> +               table->flags |=3D SMU_DPM_TABLE_FINE_GRAINED;
-> +
-> +       return smu_v11_0_init_max_sustainable_clocks(smu);
-> +}
-> +
->  static int navi10_post_smu_init(struct smu_context *smu)
->  {
->         struct amdgpu_device *adev =3D smu->adev;
-> @@ -3227,6 +3321,12 @@ static int navi10_post_smu_init(struct smu_context=
- *smu)
->         if (amdgpu_sriov_vf(adev))
->                 return 0;
->
-> +       ret =3D navi10_apple_late_uclk_enable(smu);
-> +       if (ret) {
-> +               dev_err(adev->dev, "Failed to enable late UCLK DPM: %d\n"=
-, ret);
-> +               return ret;
-> +       }
-> +
->         ret =3D navi10_run_umc_cdr_workaround(smu);
->         if (ret)
->                 dev_err(adev->dev, "Failed to apply umc cdr workaround!\n=
-");
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_vm_sdma.c
+> index 1f44c1cc2bd5..c44b02580dd2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+> @@ -235,7 +235,6 @@ static int amdgpu_vm_sdma_update(struct amdgpu_vm_upd=
+ate_params *p,
+>                 dma_fence_get(fence);
+>                 r =3D drm_sched_job_add_dependency(&p->job->base, fence);
+>                 if (r) {
+> -                       dma_fence_put(fence);
+>                         dma_resv_iter_end(&cursor);
+>                         return r;
+>                 }
 > --
-> 2.43.0
+> 2.56.0
+>
