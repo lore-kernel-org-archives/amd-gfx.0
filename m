@@ -2,127 +2,123 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 043D9606A31F
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Oct 2026 14:56:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBF1C606A31C
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Oct 2026 15:05:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=JCRwH/1J
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=rj4Qi+/2
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 978A810E112;
-	Thu, 29 Oct 2026 14:56:41 +0000 (UTC)
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010035.outbound.protection.outlook.com
- [40.93.198.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FED310E112
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Oct 2026 14:56:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8489E112385;
+	Thu, 29 Oct 2026 15:05:02 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011035.outbound.protection.outlook.com [52.101.52.35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7FBB5112385
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Oct 2026 15:04:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=r2pHTUaJVVBJ93vTwlwzhvLWJYXjReCje1hg2huk9onUiAy8OjPNCAS3rvMBOiCK4/XT790lPoyTpukSt9iBotWm0fxMWRHvbjxzSY9E/s9q8O/i46o7Vu2V8u21MYZZjf9opU2xwgw4QOXSUqmVt5CaZd/OudzT5iH7SznGQcfwdXSnopW3DzZVBPsc55OpUKzVOFBYv44zwdBZg9GOzrAT+JcjOiHhc46AoLpZckmo14RrL0kl0V/iRfrIxFjC/I0P2Uy16eTZPAzEJpC/uhlsfBx0bRaLuuYVGTSXKG8wNaXmavcPYFmSGz5i0KED9CKYM/nttwGYxFrvQ+I0Qg==
+ b=b0lwJBf0a3lOOFTLcaatwETYOlHgB2K9x3GL43faBMlc4Oa39eY+jgNU0kFJDTgEKKbRvNtYw0bLhct34PtYDjr9UG3DYc87ukQj9LeoCuFzEcWl6OPPTHXEuZoVpfJ/TkK8abASXuT4dDbIOImDMpPXYU1SimjTf17h+ECPuiWZwr/kdmwsgClchBP0NEZUEYa0G3WQO5TrEO2dsc19ZaSLQtvEGxlvUJpmmhjC/JpoLBT5GEpOSoyg1pD6ue0xUYv9bh4oGLxcOIBHYkgAhC6FFWyQzatYbUx0voizdnt5TOlIIOrPje86X2qnDbkei+VAIXY5edmuEBb26qKE9w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1YMcK7shM9MvHBMOXpbGVY3Nldea4FIecN6R917CPEA=;
- b=NkYE9bnlczjaTWQDQAVcQTS/8NdrBqoggeudeLLah6lv5zR71mjGVhiieL3LuhIUeFwex87fkIooDya8K4zjGS0hbjnBF6Ab2Om9KQOJI8YeycVd0M3FBb15K+CVSVGAzl2pD3Pwj6vdMvH1BlTNvXkGgWJWuph8PRNfEqruHgxaRm31H3r8mZwtarS/uFrmF5OLjNaGz0M5wSkBovcMJDXzPw/OYv0J8CrAiccgIj4Zqeb1qkkWbuGiEv0BCD5xHVo+ybr50FyivJMaUJh7Sa0q3PlElj5TzHhdr95fgyX0oDt0IR3LN1f0CqRjtJ8mjktlpvETu2iwn5IzRC0OoQ==
+ bh=tHviPCbQqDeWRlqhDhe1+yKa4PeHp5K5SYr8A8jsX1o=;
+ b=QsjsanDL4AOblwvFWi34WRff0j/loJLjOCCppdz3kFRQbr50h2S7DLrwHb3AeV1mnoVHvBhHrcazyBHEYmJGu6xvm+KuPcEGdtxF4vMdwkEnCEFOLk3vcM43pCzYIK+RpTXkQBCQVerHH85wpxmYgi9f4klmqHwBc1D0Zklm0sN/rvrRvApNVS2+3tWHDJ5qvQmaK1ldiHgM+U/FjDA43h8/XPKMROvAozxpeIIpVC0QSZ1w5kuOPOONDiBKrNmr8dcNpGrOSkjEy0lqZTa4tJoE+7Z0UTHiTJgTlm2E80FIAMu6Ua0wzxFp8xPsMtPyRl2gIbc4QBjEy8qbcd0r8A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1YMcK7shM9MvHBMOXpbGVY3Nldea4FIecN6R917CPEA=;
- b=JCRwH/1J8J8kKAaZVVhptgmZB9bPkPTcZm0iNeOKNi7BoHY8a5sC8/WMsJJFlxtvM/h3a8TLvxhgO9EDPLOpHhAPAq91QY6q1mPh76ui+PtfE+T2G4yx6JaHcxZ5zyi6LD5GcLObjTrapQ5ABe6p/57vBL1rEuQZIqyeQh9NBes=
+ bh=tHviPCbQqDeWRlqhDhe1+yKa4PeHp5K5SYr8A8jsX1o=;
+ b=rj4Qi+/2Q9R5LVKjZKzESHfEm16mcrJVNytLbXn4sU2zeUhfaA8sr57DqeSQS2OXLJAXzInO60XWSyNhRzCjlSw5U3V5b6LA1d5NJvmpDHvk3NHUBlWItfAZ8HcgITcWrNfc+p2M2Fc8XDW3KqWTEUxKbgdi5eThpCUDWneC+Ik=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by PH7PR12MB6788.namprd12.prod.outlook.com (2603:10b6:510:1ae::13)
+ by SJ0PR12MB7008.namprd12.prod.outlook.com (2603:10b6:a03:486::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Thu, 29 Oct
- 2026 14:56:30 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Thu, 29 Oct
+ 2026 15:04:47 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.021; Thu, 29 Oct 2026
- 14:56:29 +0000
-Message-ID: <af5949cb-0cc8-4eca-be00-9a64c9a8ccd3@amd.com>
-Date: Thu, 29 Oct 2026 15:56:26 +0100
+ 15:04:47 +0000
+Message-ID: <0881dbca-445c-4439-bb7f-15882ca36d15@amd.com>
+Date: Thu, 29 Oct 2026 16:04:43 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/5] drm/amdgpu: Implement disabling implicit sync per
- submission.
-To: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-Cc: amd-gfx@lists.freedesktop.org, samuel.pitoiset@gmail.com,
- natalie.vock@gmx.de
-References: <20261022003058.1723817-1-bas@basnieuwenhuizen.nl>
- <20261022003058.1723817-5-bas@basnieuwenhuizen.nl>
- <9222106f-576f-4921-bf2f-ee59105a7d4f@amd.com>
- <CAP+8YyGggpPyVzjRvAnSCD3q3U2Gdtah0LVPBjhyJvsie+=RHQ@mail.gmail.com>
+Subject: Re: [PATCH 1/3] drm/amdgpu: program the SPM VMID for jobs on the
+ reserved VMID again
+To: Jesse Zhang <Jesse.Zhang@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Alexander.Deucher@amd.com, Prike Liang <prike.liang@amd.com>,
+ Sunil Khatri <sunil.khatri@amd.com>
+References: <20261029070403.22012-1-Jesse.Zhang@amd.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <CAP+8YyGggpPyVzjRvAnSCD3q3U2Gdtah0LVPBjhyJvsie+=RHQ@mail.gmail.com>
+In-Reply-To: <20261029070403.22012-1-Jesse.Zhang@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0179.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a0::16) To PH7PR12MB5685.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0141.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b8::9) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH7PR12MB6788:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0b3917c9-aa57-4620-a3e7-08df35ccd068
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ0PR12MB7008:EE_
+X-MS-Office365-Filtering-Correlation-Id: 121296ee-aabe-47e5-f31a-08df35cdf924
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|366016|4143699003|11063799006|56012099006|261009223027099003|261026121527099003|261026140227099003|261028144727099003|261021121427099003|261022075727099003|261021123027099003|261022105027099003|10067099003|22082099003|18002099003|13003099007;
-X-Microsoft-Antispam-Message-Info: 8f4qCSfCFCF22dwXL3Wtbf4Nuq3fHIC8pOk/trnB0fn5sLZsbgLBjXoazK/O66Qv9uY+jKXjs6Ck4mVxSN7bEXR3wRDZMCeoCahNnL39sRNrSS/7oOBALUUTiRWzFff9LIOz/cwzsyCZynx6obtyeLVhAVOopu+4I5OImEYtCjNBAEtp5SZpflsqguRMvIy+ltPDEsVaJeB16OBA8pDDp2EiWMhcX3V8t2f2XlctK4GpxAwxOiSv0UZ+/yxzbgRO145vM8LIDRMp6XhArK/LpCsjkgN5UmTABJtdEepfU8sFW02HZcGt/fBmQFJo4sWp97w8F3MpXusFm8XVQpJi2xltXvXUeMfKBZdcHyn6QIFbagOdF6sV/Buwv0srcH5vG9MNKTAcZnZ9t8hOOWH7wBP/6JscAix8LYoXRtFSpgeTLTemCiSQ8+Pb2HBYX49rQAjDxKmmpCSWSxjNI0qLqLBvHkkeL7ycQCZCk5WNGBR2cSAU0s2PCYLyJlILhYlieLZUPM3eWLeqS6x8d82EXVROhAfohkwmcKjYAaADPRVEO8TxjnxrQH8/BN/EU5UxmYMw2/Cm03fr+jA25mY9xqfe9x0PYf64V1JDEanfD9uOith9MK6ayj+IIuh6y/hr
+ ARA:13230040|366016|1800799024|376014|23010399003|6133799003|18002099003|22082099003|56012099006|11063799006|261028144727099003|10067099003|261022075727099003|261022105027099003|261021121427099003|261021123027099003|261009223027099003|261026121527099003|261026140227099003;
+X-Microsoft-Antispam-Message-Info: so0NQaxt+B+oROnlOVJl6fI/SpQY5iR85d3PdBIPHiOtH/GKqRz4mNkOxZ1EBhlhR4tK3fPKp0IuLjAtO4gXdA27cRi3eHSLqp7f5MP8iGb16s9ZBuwyXtn8UjMednrFy32YrMM/4F0qFmknxRX5VqjR0rMq7l5gvBn5za88VJsRRqcIXXUspE/PxIS7Sts5eWiMsIrwksu0bLaauyRZrgFiZ5dpWoETbzn4uYjN3zc8zqaNcc8NnXZpRJbU94VaYyotrZa3HMvim9ph6n3x4SDRA69g7lHp4rI7kHRexIaAok7Vps+NK5bJABWucNx9bPzHgtW6ke8/5U2CJUg/eofhD8U+fdLbzZusyYO2jCC6osVecjoaIfsnS08Wy9bFOtKkjU69JqpcW2JShQ2bbtbAVIXHnqQHfuCP+85AiRT+ejBHiccjNJaaAT1e5hWNR+jPbZdT/Wu3MRcLvemrb0QL8fWJLOVy/p83sICnCzc3Rtybvv3Q/+ktUd8xjXe3EqSri0S5IBLSc+RjufYKcNEE53mnoXayYN8+PoJvsBjKPCg5zCf2w8WqH5ynO+T0slA/XnU5c5eGil2xWAqk2qIkpwtmbIwPIpndrU8JpIbFhLFla1AOCLhUXYtYDXRj9r78s3S3+U8yvZ2MAVp/yd/Gswobieu5m0ustjAHr2I=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(4143699003)(11063799006)(56012099006)(261009223027099003)(261026121527099003)(261026140227099003)(261028144727099003)(261021121427099003)(261022075727099003)(261021123027099003)(261022105027099003)(10067099003)(22082099003)(18002099003)(13003099007);
+ SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(6133799003)(18002099003)(22082099003)(56012099006)(11063799006)(261028144727099003)(10067099003)(261022075727099003)(261022105027099003)(261021121427099003)(261021123027099003)(261009223027099003)(261026121527099003)(261026140227099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WmFpMkt1YVJlNTlvNmRDdHV2SkgxYStXNGovSUFtWVlHQXNTWFh2Nng5anNi?=
- =?utf-8?B?bUdYYXdOU0tuRCt0YnlDc1pnYUxJWXlQTW9xeHN2czdaNjUvMFgvNzF3MmNY?=
- =?utf-8?B?Q2pkVXBUcXJxZGRQbDdqbnc0NGhqbHExM01obG9oRC80NGUrUFdPRVRFNC9v?=
- =?utf-8?B?MFN6aEk1NVVmSFJBN1kxR2xRM0RjOThJVlRvWkVyV055TlRYVU9SelYrZjZn?=
- =?utf-8?B?TDBoZEJMc0FOMmE4SzFldko5T3l2SUk0aEp4eGxoZVJFWUlzeitwTUVqRVZx?=
- =?utf-8?B?OEVYdUxFUnQvUlNQUlRibUVnWnNqeGhVVjE4ejVKWDduZlEvUVB3N0JKRExj?=
- =?utf-8?B?ODlXVERhR2VWczFTSERWenlQSEdySGNIaTd4U1pPZnhUSHdRdDdJWS8zNEZz?=
- =?utf-8?B?VW9LMVFpNWpOc0txMGh0bEJWc0pGdDIxdTMvZzFneWhwU2xxeXBTanZBanhJ?=
- =?utf-8?B?OXBTOTh2eVN5am44NkpScVgzcDZMRXU0UXJIeUtiekZkazJlUVhvelRyOS9O?=
- =?utf-8?B?cm4raS9TOEgrdnFpL2VSd2ZYVXIyajl2bm5PUFhXQ09ra2laQ0VsMlhzL1pC?=
- =?utf-8?B?UjFxVysrUHprNlJCZnhJMW4rejZReUtlRDdSS0RZZktlYXJxa1N4eWZ0SnVs?=
- =?utf-8?B?VEZhVUFpRU5xWTFlWFNxeTZUcVFab1dtWngwMzZHWVI1QXBRUFNxOXNtdmVX?=
- =?utf-8?B?U2FiOXRNT3hNUnBMd25IaHBzVEM5Q2xhRUNtamJTTkVkZVZnem5DcGVZaDIx?=
- =?utf-8?B?YmcvUjZQWDhFcFdYT01FSE9aTkdpdXI5ZmhhUjZ4STU1ZUFVQ0d5UHZESFNv?=
- =?utf-8?B?Z09JaWw5RUh1ZmhUV0ptSzBWZHlvN3lXYWs2ZHh5WWJtdEErdDg2ZUtlcExw?=
- =?utf-8?B?SDM3YUdKUEpOUENGWFpuWjQzV3R6UktxbG0wM1p5SWl4OXBBUmxFcjN6eExC?=
- =?utf-8?B?SVNGc0NNT1JVcnUzVXVvSHd5Z1lNWC9iTDF4c3ErT2JQMnFEcEFvb2h4YTJT?=
- =?utf-8?B?VEhsVzFydEhtV1RTbU5WZUlnOGlHeTg1OE1DNS9vWkE3Sk1pdzdWWnQzZkhX?=
- =?utf-8?B?WDE3UWo1b0NkZW1oQUNZeVNWVVRycThJZHNyeXQvblVSSTV2Z295azJKRGhu?=
- =?utf-8?B?YmJLcExTOExFemtSZ2EzQlJkRUZ0L2dWc0p2d0w2djhnM1RPSXRIWEREVHFt?=
- =?utf-8?B?cGtKb25CZ2JYNmdHcjIrV0w1Z2luUHNRWjdhcFg3VWsyQ1dldTZvRXlNYlEv?=
- =?utf-8?B?bEVqOVlrWDg3d1Ryd0VZbEg1M2pnc0dXNGJZUHVhWEUxZHVoZkFadjBhVEJ3?=
- =?utf-8?B?K093cWR2UDVaZDAyL0lUQ25yNHlTSUgzZTgzb01WVDZEVFpLRFlqMUtjRVJ4?=
- =?utf-8?B?dmdSQzI5U1FvRTJteUVkc0MreWNpMGpZSGZQeERnbzZ1dlVTUHpOSnpOQ0Vq?=
- =?utf-8?B?STZYOWRUQVN1UGJJVFRvN3Buby9XdTJkaHNPYzFYOVhoaGpzOGJzTlFtdVE2?=
- =?utf-8?B?d2pTSnQxQmplaytFK2hjM3ZCSktSSm1jNG5BMDZtYms4TFJDZUV2QUpZL28z?=
- =?utf-8?B?NnZmNDh3WU9yVVd1UUQyZURuVkt2Z0hzSFZiNStjU0drK0gwZ2l0OXZLRzNh?=
- =?utf-8?B?Tzk4Q3J6Qld1N0MwYWc1aFRuZHlmaSsrS0JBTkIyUys0ek5UTG9zSzJ1ZE1l?=
- =?utf-8?B?L3lxTmFzdkJWc1lnZG5KbytENWZGc2RRaGFac3Nic0ZoVU9IeXpRaDlLZXlF?=
- =?utf-8?B?RE4yWkFjSFhkeVoreFk1eXI4UjRBUWgvNndtT3lNdXV0ano2ZzhDMEg4T3FU?=
- =?utf-8?B?a0QrSlgvYkZXenBjV1VVNXlicWV1QWl3WnlvYWZYT2FKWFBqMEw3ZlB2Z2xG?=
- =?utf-8?B?MG5NeDF4UUpBSDRwNGNUN3NVUFREMDhaT3U2SzRwUWVnUlBjd2x2UHNYcXl4?=
- =?utf-8?B?SENkeWZDRFFxVEtubE01bEFVSjVkL2pqaHBZYXNJTCtwc29lY3IvbkF2UFJu?=
- =?utf-8?B?eUdhdWVhU1I0aW1KQnlZVngzMHpJY1JtVmxmcVNXZStrYjlqSkRlL0tDMFN6?=
- =?utf-8?B?K25KUklPOUFxODYyNm1MY3BHQTA1WSsrSUNYZnBBdnRSMlAwWDNzWWEwTzhz?=
- =?utf-8?B?RmJQd05YTCtYb0NpbzFlTVY1MXNCM1U2MmxCcERGYWw2cDYrMWxQV0xHYnQ3?=
- =?utf-8?B?d1hUUm1adU15OVB0RkIxVmdyQVM5Y05CL1JiQ0VDQ3dYdkJjTEJDOTlSNHFm?=
- =?utf-8?B?K09KcDdyZVExRmNhMEVvUEV5RE5nWEFOK21RVDJCUXhzQ1JjMDNoZUM4Y1pI?=
- =?utf-8?Q?oYV53hbID43xfd9zcu?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VFRFKysrN2p1UGt1ZjBzNFI1V1dJK0FNRHFNMXJ0YzhNV3pCN3J1S285azht?=
+ =?utf-8?B?aWVoUURlS3h3OXRtM2tyaDd6ZzloZVUwMTlnWFNNRUJCeEpqZ2tlMGtKdlFQ?=
+ =?utf-8?B?dDFHM2NaQm1FUVRGMVpjUVNhUW9Jalg0WmVVWU00cnRMZjdLNTlxRVUwYnV1?=
+ =?utf-8?B?SmZwdm5EZzVGYUVnS09OWmZyMG9PbGdLdkI3bTFjWm9za2xVSjc3SFQrcFlT?=
+ =?utf-8?B?Sm9zbnR2TjNCeVN1QjRmTzAxWXBzUW45dzhNZzlUbE9ScFU3MjEvQTBzUXow?=
+ =?utf-8?B?NXkrWWRmanNkWnZwVVRwRGM3L29iTEd6QndxZmdsZWM3SDhrN1Fpa055SEJr?=
+ =?utf-8?B?VmY1Qi9ORzJFOWYxbzdDK3FvcVgwSnJGNHpwaFVBNDcrUTFlOWw0ZjNUSkg5?=
+ =?utf-8?B?ZGZMMjBheDRTZzJtaXpGNi9TSFM3NVNjWEZBVjBaSmRuczhQZTNDT0c3WGRW?=
+ =?utf-8?B?bXo4bHE5cUxKT2tjTStHeGhwN1BzQVRpTUJpeTJzWTY3SmxUTDlSSkt4MkZy?=
+ =?utf-8?B?VmZ1d0wrMEZaOFZMK21MS01wK1hXd2Vkck5xOHp3T3Z3YzdaaDIxSTVzQUV0?=
+ =?utf-8?B?NUtpWStCM1UyazBORElNN2xBTitCMyszVkw2K0dzMmU2czlBWERyZW5LTFBo?=
+ =?utf-8?B?RDRGNDZRMnRpdzgveWY3ZVpXRjRCL2wwdnJEbUtXSDFWbzdtTnZKK25lcGUw?=
+ =?utf-8?B?am5mY0VCWGhVQWpZV2RtWkllU2pvS3lheUtxWUhXSzR6bG1WMjVBYUFBeDl6?=
+ =?utf-8?B?dUY4ODQxb2U5a3FQYlRsVklqbzBwQUprZE4xejlaV0d4TjVDS3YvS05HTFF3?=
+ =?utf-8?B?eXJRZERGbGhqQnRWdVd6OEVGcGxSMUVLY0tORXh5c1kybjNhU2ZLT1Q1dDE2?=
+ =?utf-8?B?RGNlVTljWmNwMW9nMEVSRVdDWTNUSWE3ZGY0aU02UlNlSHJNSWlBcEZjM285?=
+ =?utf-8?B?M1l0RkJoUlNyMlUrbUdxenBtd0JrNGhzZzhCU2h3Q093em5xSDFlakRncUhT?=
+ =?utf-8?B?Uzg1K2RsWTArWXFSQlJUZHlzYkxBV1lFdmtJWGNqS3VpREpTM0NzR3NqUFR6?=
+ =?utf-8?B?NGYvZUtaMjZ3eHd2OG9jK3I0UTdYdWE1VEZWSEdnT2hiV3o4ZHlQaFhCSXBQ?=
+ =?utf-8?B?T0lSTW5LYUtwWUNvanRLYXlRNWFlN3dpSTJnS1dnRlFoQ0FGQTllMmdUUkRh?=
+ =?utf-8?B?UitGc01TbEltQ1ppK0QyMUVmazdIeXE5VzdJUStVd3NORlkwRkRJMXpQc3Uz?=
+ =?utf-8?B?a3Vna2tBSllJaFhmZ295M0Qzb2FHTnloTnF0UDY1T2VveVE4TmRJTHFQYkMv?=
+ =?utf-8?B?MmtkYmd1bGFKTE5MMEgrMnVmK1U2akkvTnBsVXVrOE83MGMyQlk3Rk4vSDBi?=
+ =?utf-8?B?bzZKOEF5aFRUZFh6cHNpOHhEMmd6bkt4VGN1SG5QalNWTWR0Q013Tk9CNlB4?=
+ =?utf-8?B?ZXl0V1NreGp1dFhkR1RNSXR3YnJ5NHFnc3ZZZlVaRUpTV3ppSDFEZjVJNGZF?=
+ =?utf-8?B?c1lIYzFubEw3WXUxdHdvK3ZTbFRsdlFCMlBlRG1HTmgrVGk2Y1FhMlByWW10?=
+ =?utf-8?B?TVM2UCsrSUJ4NmpiTzB0T2gyNlpKMnpJZkxIWENoM3RJYnozRk9EY3F6NWc2?=
+ =?utf-8?B?QnYrOUxVYkw2bURVVlBiUkVnSk1sdDBUd2NxTWNrak50T25UR1ZOTFRVbllI?=
+ =?utf-8?B?NDYrb05hcVhzTUt2SnpnYXJ0b2RGWkNLWXZNVjZnMTdCZGtpcTYwNHJuQlB4?=
+ =?utf-8?B?R1h4djBiRHZGOFZ5T3BhdUFoTFZyOUhxaVFHUFdZMkhMSTY5SU8xbHE3UlFh?=
+ =?utf-8?B?Z0lOZjI3dS9NYzFFWW1mK09mV0kxd2I3VXBGN0cxMGZYQmpjcnV4Q21lcFNX?=
+ =?utf-8?B?K1A5bEs4TzljaHNKbTdHZ1h4aXN4Y2l4WkdrRDZxdTJjYkd1Y3ZvVHpYb0dL?=
+ =?utf-8?B?V3ZGZjByMkZlTFdDM1hUUERscGFNUFlGR3NtVmF0TTcrRkVvQXpsc0xZczNI?=
+ =?utf-8?B?bVZUeU9weHFnSWVQQ3VNbFVwemNTRjIyYnNWcW11SFNtRnBSd29oU0NHVitY?=
+ =?utf-8?B?NkdJMlU5aDZHUWp4MDVOV3Y0Z0F5dk9TOVUwT1BMODZqSUV4dFNKU3hXd3Iy?=
+ =?utf-8?B?M3RrdmtuT3dlWEt4UzdxME1Nd285VEd1TjEycEM0OE1KNXUvV3UxdGp1MTcy?=
+ =?utf-8?B?eThRckJ1bU5ER1hhZFZnb3hsVWkraE1NQXUxVUdjVWwxYkFMUmxlNHlqYU4r?=
+ =?utf-8?B?ZE5qWG85OHAwNytMV3ZjNkVQU0dQWDdvYWJacnBiejFCWUdWWFpIaDRYaU1w?=
+ =?utf-8?Q?OqT4ViONHMAndxS/AO?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0b3917c9-aa57-4620-a3e7-08df35ccd068
+X-MS-Exchange-CrossTenant-Network-Message-Id: 121296ee-aabe-47e5-f31a-08df35cdf924
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 14:56:29.8891 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 15:04:47.6652 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Tz2xVqFBLVx2xdNjx6h6bfmiVutMS8PiAZFb5cjMhWWjtbmav85srv5RxcFbXRgX
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6788
+X-MS-Exchange-CrossTenant-UserPrincipalName: LtjbJnYQiPl3QcSO3r7+4Ns6KvRXkp42sz6mVcJkMnOpNdRyL7rVJxT3vhhxUidk
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7008
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,186 +129,187 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-22.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 10/28/26 20:59, Bas Nieuwenhuizen wrote:
-> On Tue, Oct 27, 2026 at 1:30 PM Christian König <christian.koenig@amd.com <mailto:christian.koenig@amd.com>> wrote:
-> 
->     On 10/22/26 02:30, Bas Nieuwenhuizen wrote:
->     > Implements the UAPI flag to give apps an options to disable
->     > implicit sync per submission.
->     >
->     > v2:
->     >  - signal READ fences for the VM root PD, as some unmapping
->     >    operations only wait for READ and up.
->     >
->     > Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl <mailto:bas@basnieuwenhuizen.nl>>
->     > Reviewed-by: Faith Ekstrand <faith.ekstrand@collabora.com <mailto:faith.ekstrand@collabora.com>>
->     > ---
->     >  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 34 +++++++++++++++++++++-----
->     >  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h |  1 +
->     >  2 files changed, 29 insertions(+), 6 deletions(-)
->     >
->     > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->     > index afcd254c9884..f0fe9d0f1398 100644
->     > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->     > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->     > @@ -49,6 +49,9 @@
->     >  #define AMDGPU_GFX_SDMA_IB_PACKET_SIZE_MAX_DW        0xFFFFF
->     >  #define AMDGPU_MM_IB_PACKET_SIZE_MAX_DW      0x7FFFF0
->     > 
->     > +/* All flags accepted in drm_amdgpu_cs_in.flags */
->     > +#define AMDGPU_CS_FLAGS_MASK AMDGPU_CS_NO_IMPLICIT_SYNC
->     > +
->     >  static u32 amdgpu_cs_ib_packet_size_max_dw(enum amdgpu_ring_type type)
->     >  {
->     >       switch (type) {
->     > @@ -188,9 +191,11 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser *p,
->     >       int ret;
->     >       int i;
->     > 
->     > -     if (cs->in.flags)
->     > +     if (cs->in.flags & ~AMDGPU_CS_FLAGS_MASK)
->     >               return -EINVAL;
->     > 
->     > +     p->flags = cs->in.flags;
->     > +
->     >       chunk_array = memdup_array_user(u64_to_user_ptr(cs->in.chunks),
->     >                                       cs->in.num_chunks,
->     >                                       sizeof(uint64_t));
->     > @@ -1220,16 +1225,19 @@ static int amdgpu_cs_sync_rings(struct amdgpu_cs_parser *p)
->     >       }
->     > 
->     >       drm_exec_for_each_locked_object(&p->exec, obj) {
->     > +             /* Implicitly sync only to KERNEL, WRITE and READ */
->     > +             enum dma_resv_usage usage = DMA_RESV_USAGE_READ;
->     >               struct amdgpu_bo *bo = gem_to_amdgpu_bo(obj);
->     > 
->     >               struct dma_resv *resv = bo->tbo.base.resv;
->     >               enum amdgpu_sync_mode sync_mode;
->     > 
->     > +             if (p->flags & AMDGPU_CS_NO_IMPLICIT_SYNC)
->     > +                     usage = DMA_RESV_USAGE_KERNEL;
-> 
->     Use DMA_RESV_USAGE_WRITE here.
-> 
->     > +
->     >               sync_mode = amdgpu_bo_explicit_sync(bo) ?
->     >                       AMDGPU_SYNC_EXPLICIT : AMDGPU_SYNC_NE_OWNER;
->     > -             /* Implicitly sync only to KERNEL, WRITE and READ */
->     > -             r = amdgpu_sync_resv(p->adev, &p->sync, resv,
->     > -                                  DMA_RESV_USAGE_READ, sync_mode,
->     > +             r = amdgpu_sync_resv(p->adev, &p->sync, resv, usage, sync_mode,
->     >                                    &fpriv->vm);
->     >               if (r)
->     >                       return r;
->     > @@ -1341,9 +1349,23 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
->     > 
->     >       p->fence = dma_fence_get(&leader->base.s_fence->finished);
->     >       drm_exec_for_each_locked_object(&p->exec, gobj) {
->     > +             enum dma_resv_usage read_usage = DMA_RESV_USAGE_READ;
->     > +             enum dma_resv_usage write_usage = DMA_RESV_USAGE_WRITE;
->     > 
->     >               ttm_bo_move_to_lru_tail_unlocked(&gem_to_amdgpu_bo(gobj)->tbo);
->     > 
->     > +             /*
->     > +              * Keep READ/WRITE on the root PD resv:
->     > +              * amdgpu_vm_bo_update(clear=true) only waits on the VM root PD
->     > +              * resv with read and should still sync to avoid unmapping
->     > +              * before the job finishes.
->     > +              */
->     > +             if ((p->flags & AMDGPU_CS_NO_IMPLICIT_SYNC) &&
->     > +                 gobj->resv != vm->root.bo->tbo.base.resv) {
->     > +                     read_usage = DMA_RESV_USAGE_BOOKKEEP;
->     > +                     write_usage = DMA_RESV_USAGE_BOOKKEEP;
->     > +             }
->     > +
-> 
->     Completely drop that.
-> 
->     >               /* Everybody except for the gang leader uses READ */
->     >               for (i = 0; i < p->gang_size; ++i) {
->     >                       if (p->jobs[i] == leader)
->     > @@ -1351,11 +1373,11 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
->     > 
->     >                       dma_resv_add_fence(gobj->resv,
->     >                                          &p->jobs[i]->base.s_fence->finished,
->     > -                                        DMA_RESV_USAGE_READ);
->     > +                                        read_usage);
->     >               }
->     > 
->     >               /* The gang leader as remembered as writer */
->     > -             dma_resv_add_fence(gobj->resv, p->fence, DMA_RESV_USAGE_WRITE);
->     > +             dma_resv_add_fence(gobj->resv, p->fence, write_usage);
-> 
->     Instead just set that here to DMA_RESV_USAGE_READ when the CS is explicitely synced.
-> 
->     This way we get amdgpu nearly back to the usage model all other DRM drivers uses.
-> 
-> 
-> I think this has two problems:
-> 
-> 1. It doesn't fully solve the problem I'm trying to address. In the common Vulkan WSI apps for present signal WRITE  and then wait on READ[1], meaning that the proposed wait on WRITE and signal READ result in submissions from the compositor still fully participating in implicit sync wrt presents. Waiting on KERNEL and signalling BOOKKEEP actually resolves this.
+On 10/29/26 08:03, Jesse Zhang wrote:
+> Commit 38e07c072833 ("drm/amdgpu: remove the now-redundant runtime SPM
+> VMID update") dropped the RLC_SPM_VMID update on submission, as the SPM
+> VMID is fixed and programmed once at init. RLC_SPM_MC_CNTL doesn't keep
+> its value over GFXOFF though, the RLC brings it back as 0 when it powers
+> GFX up again. So once the GPU idled, the job of a process which reserved
+> the VMID for SPM runs with the SPM writing through VMID 0.
 
-Yeah and that was fully intentional. 
+That sounds like a pretty clear bug in the RLC handling to me.
 
-> 2. While the driver landscape is very diverse I think other drivers are actually pretty much moving to KERNEL/BOOKKEEP. In particular:
-> - Xe does the KERNEl/BOOKKEEP[2]
-> - MSMs BO list based path skips waits alltogether with MSM_SUBMIT_NO_IMPLICT [4], though signals READ/WRITE, but its newer VM_BIND based submission path does not have any BO list at all and adds a BOOKKEEP fence to all external BOs imported into the VM[5]
-> - Panthor skips waits alltogether and signals BOOKKEEP[6]
-> 
-> And finally I think KERNEL/BOOKKEEP follows the dma-resv documentation[3]:
-> - DMA_RESV_USAGE_READ: This should only be used for userspace command submissions which add an *implicit read dependency*.
-> - DMA_RESV_USAGE_BOOKKEEP: This should be used by submissions which don't want to participate in any implicit synchronization. The most common cases are preemption fences, page table updates, TLB flushes as well as *explicitly synced user submissions*.
-> 
-> (emphasis mine)
-> 
-> So I'm not sure why we shouldn't stick with KERNEL/BOOKKEEP?
+@Alex do you know where the save/restore register list can be found?
 
-Because of the usage model amdgpu uses I'm still not sure if that will actually work with bookkeep or not.
-
-What might be possible is that we set the owner to NULL/UNKNOWN instead of the VM pointer for the fences when the explicit sync flag is given, this would give us the same semantics other drivers use as well.
-
-I would need something like a day to completely wrap my head around all that stuff again to judge and I absolutely can't find any time at the moment for such stuff.
+This here is not really an option since we want to completely nuke the update_spm_vmid() function.
 
 Regards,
 Christian.
 
-
 > 
->  - Bas
+> On navi48 RLC_SPM_MC_CNTL reads 0xf right after hw_init, 0 once GFXOFF
+> was entered, and stays 0xf with GFXOFF disabled. A COPY_DATA of the
+> register from the IB of a process with a reserved VMID gives 0 instead of
+> the reserved VMID 15:
 > 
-> [1] https://gitlab.freedesktop.org/mesa/mesa/-/blob/main/src/vulkan/wsi/wsi_common_drm.c?ref_type=heads#L48 <https://gitlab.freedesktop.org/mesa/mesa/-/blob/main/src/vulkan/wsi/wsi_common_drm.c?ref_type=heads#L48>
-> [2] https://github.com/torvalds/linux/blob/v7.3-rc4/drivers/gpu/drm/xe/xe_exec.c#L303-L311 <https://github.com/torvalds/linux/blob/v7.3-rc4/drivers/gpu/drm/xe/xe_exec.c#L303-L311> and https://github.com/torvalds/linux/blob/v7.3-rc4/drivers/gpu/drm/xe/xe_exec.c#L335-L337 <https://github.com/torvalds/linux/blob/v7.3-rc4/drivers/gpu/drm/xe/xe_exec.c#L335-L337>
-> [3] https://github.com/torvalds/linux/blob/v7.3-rc4/include/linux/dma-resv.h#L71-L116 <https://github.com/torvalds/linux/blob/v7.3-rc4/include/linux/dma-resv.h#L71-L116>
-> [4] https://github.com/torvalds/linux/blob/v7.3-rc4/drivers/gpu/drm/msm/msm_gem_submit.c#L678-L682 <https://github.com/torvalds/linux/blob/v7.3-rc4/drivers/gpu/drm/msm/msm_gem_submit.c#L678-L682>
-> [5] https://github.com/torvalds/linux/blob/v7.3-rc4/drivers/gpu/drm/msm/msm_gem_submit.c#L410-L413 <https://github.com/torvalds/linux/blob/v7.3-rc4/drivers/gpu/drm/msm/msm_gem_submit.c#L410-L413>
-> [6] https://github.com/torvalds/linux/blob/v7.3-rc4/drivers/gpu/drm/panthor/panthor_sched.c#L4056-L4062 <https://github.com/torvalds/linux/blob/v7.3-rc4/drivers/gpu/drm/panthor/panthor_sched.c#L4056-L4062>
+>   $ umr -i 0 -go 0; umr -i 0 -r '*.*.regRLC_SPM_MC_CNTL'
+>   gfx1201.regRLC_SPM_MC_CNTL => 0x00000000
+>   $ amd_spm --run-subtest reserved-vmid-spm-vmid
+>   RLC_SPM_MC_CNTL in the job: 0x00000000
 > 
+> Update it on submission again, but only for the jobs on the reserved VMID
+> and with the fixed SPM VMID. Unlike before that commit, a GPU reset must
+> not force the update for every job: RLC_SPM_MC_CNTL is shared, and a job
+> of another VM would retarget the SPM of the profiled process to its own
+> VMID. The reserved path requests the update on every submission anyway.
+> With that it's back to 15 inside the job.
 > 
->     Regards,
->     Christian.
+> Fixes: 38e07c072833 ("drm/amdgpu: remove the now-redundant runtime SPM VMID update")
+> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c  |  8 +++++++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c |  1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_job.h |  1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  | 15 ++++++++++++++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h  |  3 ++-
+>  5 files changed, 25 insertions(+), 3 deletions(-)
 > 
->     >       }
->     > 
->     >       seq = amdgpu_ctx_add_fence(p->ctx, p->entities[p->gang_leader_idx],
->     > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h
->     > index 39c33ad100cb..5c2a5f6b1d55 100644
->     > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h
->     > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h
->     > @@ -50,6 +50,7 @@ struct amdgpu_cs_parser {
->     >       struct amdgpu_device    *adev;
->     >       struct drm_file         *filp;
->     >       struct amdgpu_ctx       *ctx;
->     > +     u32                     flags;
->     > 
->     >       /* chunks */
->     >       unsigned                nchunks;
-> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> index f98a7c6797b3..ec0883df91b1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> @@ -126,6 +126,7 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, struct amdgpu_job *job,
+>  	struct amdgpu_fence *af;
+>  	struct amdgpu_fence *vm_af;
+>  	bool need_ctx_switch;
+> +	bool emit_spm_needed = false;
+>  	bool emit_gds_needed = false;
+>  	uint64_t fence_ctx;
+>  	uint32_t status = 0, alloc_size;
+> @@ -194,7 +195,8 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, struct amdgpu_job *job,
+>  
+>  	/* VM sequence */
+>  	vm_af->ib_wptr = ring->wptr;
+> -	amdgpu_vm_flush(ring, job, &need_pipe_sync, &emit_gds_needed);
+> +	amdgpu_vm_flush(ring, job, &need_pipe_sync, &emit_spm_needed,
+> +			&emit_gds_needed);
+>  	vm_af->ib_dw_size =
+>  		amdgpu_ring_get_dw_distance(ring, vm_af->ib_wptr, ring->wptr);
+>  
+> @@ -209,6 +211,10 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, struct amdgpu_job *job,
+>  	if (need_pipe_sync)
+>  		amdgpu_ring_emit_pipeline_sync(ring);
+>  
+> +	if (emit_spm_needed)
+> +		adev->gfx.rlc.funcs->update_spm_vmid(adev, ring->xcc_id,
+> +						     adev->vm_manager.spm_vmid);
+> +
+>  	if (emit_gds_needed)
+>  		amdgpu_ring_emit_gds_switch(ring, job->vmid, job->gds_base,
+>  					    job->gds_size, job->gws_base,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+> index 9c879ac68352..124fb875c651 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+> @@ -434,6 +434,7 @@ static int amdgpu_vmid_grab_reserved(struct amdgpu_vm *vm,
+>  		return r;
+>  
+>  	job->vm_needs_flush = needs_flush;
+> +	job->spm_update_needed = true;
+>  	return 0;
+>  }
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+> index f6577f82e6b9..ae569b4497f6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+> @@ -75,6 +75,7 @@ struct amdgpu_job {
+>  	uint32_t                preemption_status;
+>  	bool                    vm_needs_flush;
+>  	bool			gds_switch_needed;
+> +	bool			spm_update_needed;
+>  	uint64_t		vm_pd_addr;
+>  	unsigned		vmid;
+>  	unsigned		pasid;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index 000c982816a7..7a8e363449a6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -809,12 +809,14 @@ bool amdgpu_vm_need_pipeline_sync(struct amdgpu_ring *ring,
+>   * @ring: ring to use for flush
+>   * @job:  related job
+>   * @need_pipe_sync: is pipe sync needed
+> + * @emit_spm_needed: does the caller need to emit spm
+>   * @emit_gds_needed: does the caller need to emit gds
+>   *
+>   * Emit a VM flush when it is necessary.
+>   */
+>  void amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
+> -		     bool *need_pipe_sync, bool *emit_gds_needed)
+> +		     bool *need_pipe_sync, bool *emit_spm_needed,
+> +		     bool *emit_gds_needed)
+>  {
+>  	struct amdgpu_device *adev = ring->adev;
+>  	struct amdgpu_isolation *isolation =
+> @@ -823,6 +825,8 @@ void amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
+>  	unsigned vmhub = ring->vm_hub;
+>  	struct amdgpu_kq_vmid_mgr *id_mgr = &adev->vm_manager.id_mgr[vmhub];
+>  	struct amdgpu_vmid *id = &id_mgr->ids[job->vmid];
+> +	bool spm_update_needed = adev->gfx.rlc.funcs->update_spm_vmid &&
+> +		job->spm_update_needed;
+>  	bool gds_switch_needed = ring->funcs->emit_gds_switch &&
+>  		job->gds_switch_needed;
+>  	bool vm_flush_needed = job->vm_needs_flush;
+> @@ -845,6 +849,7 @@ void amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
+>  	mutex_unlock(&id_mgr->lock);
+>  
+>  	gds_switch_needed &= !!ring->funcs->emit_gds_switch;
+> +	spm_update_needed &= !!adev->gfx.rlc.funcs->update_spm_vmid;
+>  	vm_flush_needed &= !!ring->funcs->emit_vm_flush  &&
+>  			job->vm_pd_addr != AMDGPU_BO_INVALID_OFFSET;
+>  	pasid_mapping_needed &= adev->gmc.gmc_funcs->emit_pasid_mapping &&
+> @@ -858,6 +863,10 @@ void amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
+>  	emit_fence = vm_flush_needed || pasid_mapping_needed ||
+>  		cleaner_shader_needed;
+>  
+> +	*emit_spm_needed = spm_update_needed;
+> +	if (spm_update_needed && emit_fence)
+> +		*emit_spm_needed = false;
+> +
+>  	*emit_gds_needed = gds_switch_needed;
+>  	if (gds_switch_needed && emit_fence)
+>  		*emit_gds_needed = false;
+> @@ -897,6 +906,10 @@ void amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
+>  	if (pasid_mapping_needed)
+>  		amdgpu_gmc_emit_pasid_mapping(ring, job->vmid, job->pasid);
+>  
+> +	if (spm_update_needed)
+> +		adev->gfx.rlc.funcs->update_spm_vmid(adev, ring->xcc_id,
+> +						     adev->vm_manager.spm_vmid);
+> +
+>  	if (gds_switch_needed)
+>  		amdgpu_ring_emit_gds_switch(ring, job->vmid, job->gds_base,
+>  						    job->gds_size, job->gws_base,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> index 06e0ddd60c7b..973ad7576d9e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> @@ -449,7 +449,8 @@ int amdgpu_vm_validate(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>  		       int (*callback)(void *p, struct amdgpu_bo *bo),
+>  		       void *param);
+>  void amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
+> -		     bool *need_pipe_sync, bool *emit_gds_needed);
+> +		     bool *need_pipe_sync, bool *emit_spm_needed,
+> +		     bool *emit_gds_needed);
+>  int amdgpu_vm_update_pdes(struct amdgpu_device *adev,
+>  			  struct amdgpu_vm *vm, bool immediate);
+>  int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
 
