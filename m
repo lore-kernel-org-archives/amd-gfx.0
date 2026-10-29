@@ -2,98 +2,102 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22088606A31A
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Oct 2026 21:08:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37106606A31A
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Oct 2026 21:39:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=sNOKEp45
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HriQq+W5
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B47AE10E0B8;
-	Thu, 29 Oct 2026 21:08:17 +0000 (UTC)
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010028.outbound.protection.outlook.com [52.101.61.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78F5910E0B8
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Oct 2026 21:08:11 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=b5j8hKha88r/MusE2n+BlagthECw4n9chQC91m5X+7B4irhEvNJK+ay4k6X4tCPlDORYIWhke+MPBDZI3twkRNwpPeFf6QEekg/0wj2hH3+/DOX6J8QnSoQ4spI5d+BT0VUkF/oRdNWKCbYliNGuddVJH4CGSlpCYsqernV2Xwnp7sKF19XvCx3vstASdu7Y6aOFoCKIZ8zMQixuUxJaIWvT6yrDggVidX0gtS8SLzSd0Dtg0hCMF9/sbVgGjveHJjiuSq+iKooAfb5HF/1Rh58jKKWITKpM9p/qKPIVFNocUuL+kDkW6SZ9zY0WjpS5WnKO26n8NSLDZ1HULSDmQQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GDps6W/ZBPAA+hus0nstfMtd9sqDXCO8dmgwKYq5Xak=;
- b=ve1jX4TW7/Vw61anEt7sK59Z+9YZ+w5ZkEswpTcgeUCHyQKRbTAvYYx363kqa64gp+02+80afvXLrWJ9J+yXhWf9Q7IMuNEWwcrTeOO3MBQ+nAvLprIaXOwLc65GgLdjFBaYwhNZupHpRUaPDGRuCj26U0drDLPt2aqPMt8FTJseHxovvETB8gyVJG7RHgIZB4ZrERJun00BWrMpQrSXh7bQCc8rAGG7ywHKqNEGPFSNc/wo20i3kSujAFQeOebj6KJC3WalI114X7mKSORXEOuWQS9iACnQIo3qUuHDXXwDjREjz04JdJhu8wpYbPmVaBWo+WgYNkF4XxLdpxZKyg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GDps6W/ZBPAA+hus0nstfMtd9sqDXCO8dmgwKYq5Xak=;
- b=sNOKEp45MJTvrAlk+3jDSFJQdvqN90OVYXV7iT8Guqczc6RXCG0NhrNs0n0lOdktXwl1db+EuRzoLsbTANYhm4pmHV+VxUxJgVP0Ka+Vsua1D9tKCmGV4ixL9ctAuZF7l2v9464olQokUPmeAuDi5FN047lR2PFa7y2DRAWlkj0=
-Received: from CH2PR18CA0036.namprd18.prod.outlook.com (2603:10b6:610:55::16)
- by DS0PR12MB6437.namprd12.prod.outlook.com (2603:10b6:8:cb::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Thu, 29 Oct
- 2026 21:07:11 +0000
-Received: from CH01EPF000BE944.namprd02.prod.outlook.com
- (2603:10b6:610:55:cafe::16) by CH2PR18CA0036.outlook.office365.com
- (2603:10b6:610:55::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.16 via Frontend Transport; Thu,
- 29 Oct 2026 21:07:11 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH01EPF000BE944.mail.protection.outlook.com (10.167.244.136) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Thu, 29 Oct 2026 21:07:10 +0000
-Received: from alex-sierra-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 29 Oct
- 2026 16:07:07 -0500
-From: Alex Sierra <alex.sierra@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Felix.Kuehling@amd.com>, <Lijo.Lazar@amd.com>, <Mukul.Joshi@amd.com>,
- <Harish.Kasiviswanathan@amd.com>, Alysa Liu <Alysa.Liu@amd.com>
-Subject: [PATCH] drm/amdkfd: Add UALOE and UALINK IO link types
-Date: Thu, 29 Oct 2026 16:02:19 -0500
-Message-ID: <20261029210219.3233503-1-alex.sierra@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261026213820.2979770-1-alex.sierra@amd.com>
-References: <20261026213820.2979770-1-alex.sierra@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B383810E1B5;
+	Thu, 29 Oct 2026 21:39:23 +0000 (UTC)
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com
+ [74.125.82.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A575410E1B5
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Oct 2026 21:39:17 +0000 (UTC)
+Received: by mail-dy1-f180.google.com with SMTP id
+ 5a478bee46e88-36a10095f3aso14888eec.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Oct 2026 14:39:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793309957; cv=none;
+ d=google.com; s=arc-20260327;
+ b=jpGgvVEoVFFzrgAKd6kxhWEaFL/WB1YpIqYyfNV+JM+aZGm3Vfl7GPUqPUPm2d02hu
+ 06AZupUNvJubrZKIBLXay6tJ72y08UyZILxOXq12jtHMyFcbi5D7tx/wkwS7MyEPGJN8
+ J3DwG5gozhiOnCmwM/8xM2jRaErGGGPKCLndB8X/GY4mtxcpjsU1hfyUL2oppzpdZBQu
+ OYCUos85rl/dBNrSL9gEyTt8zJF6wFAdMXeOMbVdCXY/2xgHcHFyKinmXe/mdk+PRIG9
+ ddNq3hR/rLsgHmYIMCV0iu5jj/OyVuEduDqRZjy5iB94XvtESPY5D3+DxWOY3V5eET5h
+ YLNw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=zkrnRdvSnU/Zay+uCxXdk+hxuwoOLZQUn0KaZqCFt6c=;
+ fh=izUnR/BGWTJiF4grqvdHPNgQiNKoXgaxtutSNNXHj/M=;
+ b=JZazLxMWi8dKz2IBdzAJQcT5RFtu1PBMtfI2psb81w1NIhNt86PiCqt49jOqPo7ccw
+ W7M/Ddt3nY0LUuMw08PWN8JUCvSs0y9FvOXdaulrJ6zz/f2Q+R/zdYlYB/QFbYM0sj48
+ JpG1D5z+mva5R90maE4MX9R5xv5h5+DFh7lcsV9icghzepsB0CiFNi2ZwY4dnhENMIwh
+ wxayHj4HjFuZuLM6pPtwR47uFwEtz21PPXAaLzmD49FZivRAkZzoMnzhlEof/V3W0VAM
+ liTfGHKoCMA0DjB8Zu+5Jhk6KqpYDecYfV2yHNaVLrbJLvZk/x7GjhoCwU+4szA/C7q2
+ 5JbQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793309957; x=1793914757; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=zkrnRdvSnU/Zay+uCxXdk+hxuwoOLZQUn0KaZqCFt6c=;
+ b=HriQq+W5sw5tSslvlhcyd79VwYlkKXExl5Md9Bo8dMaiGm/ziCRFlDIFfOiHmoIq7Y
+ xG11lJDouVsqdmNtmzg0c7Q0apNA3mKuH0mZ1wPRHDMdhxuq/rk4QMfQHtKBp3cL/rrO
+ 55cD9Oor1vsDLwH6T/v+hqggxGFNt5zB4u/Z7AUlDuCXI7rMW71pdwXLTBz0f10KK7TJ
+ 0pM8kr7ESMEfBc6VW9N+DWUss1qipdxK1/ICz/iEq/sLC2qZpeniq3oIIrQL80zSM+b3
+ L5SAM7YqTIH2fXmmxisvkrElGSoL+QUMV/7XmUfp65UVqr+uLKS3vtzc5f6GGpRLjSBs
+ 3N0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793309957; x=1793914757;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=zkrnRdvSnU/Zay+uCxXdk+hxuwoOLZQUn0KaZqCFt6c=;
+ b=PE2M7V9mAYHPdgWMliiKFL8eK5I+40WndNKWHPxWQU8gzrvPHmIsw0thx8LbtMcA+i
+ xVRiRJxzyq2xU6bweKWHAGAE8nOLT+dSXEH+rXzCA46Q7UpkJ3ehSNVMp57ZrsODrsdR
+ uv3ouIHLacD7rvtGg5kTXGzmlv2YGAOD7qmdQfEQ0EAOtWPdajG06meg90IxHVQ6sM00
+ n7DyLamSwa9ZUiBiCbNwdDLk127Z1oFbR41ikZ/Mo3C8MpcLsr2C45WcTH6gAVHKRmsp
+ E+W4aePhrM7l3id8peeVciaPzNRz4sm0rlu1loE+GDftzE06elIvxEPlb4eO6wUuZCR3
+ F7lg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxfEEJhkIVOPJ5wrwE3rZTzmNNN7zyKUf58oxeGCfRlKq9v2L7693a9QJsVZYco2gLktbK6cLrK@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLvox9EckDz87QK9prUyIemp4zV28DUWj4JT121zk5H32XLP7ZL
+ 7FOdfpOWgVsxxIDaQfhu/tFnAqOniKRX5fl0TXHTW5JnrCA7WHZtDbw+pXcgZdn8G3cLCK2sBJH
+ rrMEk0XETGLz3ftvNDt7BNu+ZCigKA7c=
+X-Gm-Gg: AYBFou2rhTEriAvwJ3VpKi/Bp2HnaV3t7vajX+uY9k4RnKqhK0zzaoOspRqS4jFEsKQ
+ SsPvqMVEY5OD76XOXIV1kS6uHOOdu0fN3ZQn49llqiz7hQT9a6vq89Blb++A/sqrisYee22bBjz
+ gDFL1C6xOel4K3SlycTR8kTK4OidkvlCxlpKhrb3tjJc97MR8j0NzcNHHfYwhVfkbpSioWhEVEt
+ 51KCEGjwrOYXldQQw+9aDrFjdwvsMIykQYfEw6LYf1VWLIVwau1vfdVglm11Yv2hISMaZeu72Xn
+ z3WpBfXB1NPpbcniVPL/6KlaZ6b9EqYcfYM7qheOVy69SOwl8CaZhpZ3rN8U2sZLVt6LpcQ8NDy
+ wBY/KsC9cRksMq1OeXOpE+KEBdJfQOwlILCg1ZRQD+b9zImv0q5WBGiHwiruQoCK+RaUVvffRHr
+ MuI0KdcX8ytxfymNqZ4NZRQB9f
+X-Received: by 2002:a05:7022:eb46:10b0:14b:edb2:c3bc with SMTP id
+ a92af1059eb24-1ac4fd01362mr764952c88.0.1793309956732; Thu, 29 Oct 2026
+ 14:39:16 -0700 (PDT)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH01EPF000BE944:EE_|DS0PR12MB6437:EE_
-X-MS-Office365-Filtering-Correlation-Id: 85ccbdd9-7d5b-4c93-3c5c-08df36009948
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|82310400026|1800799024|36860700016|261028144727099003|261022105027099003|11063799006|56012099006|261026121527099003|261026140227099003|10067099003|261009223027099003|261021123027099003|261021121427099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: y7Dk3ambicRcyJiuUeEJQNzHPFLzKBNOX8I8f/xRU/yXwk1qtgNyF8Qb+HFUYTUyP+9q2mRIT2RMsMmmAo2FHJvn0jaGovjP8SvVReUvy+8UNQW5uQqsQaKgislO0YtQNNfncJUHW9m0U7gk3xK36E2D1cWlEzGf9DFEu2EwJGjqoG1VMpKHShXaoC/R6O7wDRTOV6oowrMNP0KdsFVOippN3yREMdylVcRmHPwQM9T3k5R7/CR0ZtSKqJwp9GXEGjtc8MGvGrVE2YXAXgkCq4L6g4ecHEYga9nJklcApdqH+n18VwEHgwHpqL5up9FuXvdWE9k4jmsniZLqVIPC9XGvAori0x8AzJCmqZp0yyCrQI7YU55x5OPeBSq9USL+wzNpApa+BEn5/AJRUB+kWx0iAcvWNpji5dzOXaCXhrw+aUAj9uQ4uIDKqwTyx+BOgR2X1VbV18sIuV6VwefG6KNvcgu6cY7Ti2zRgPSbqnbyoYs0sKkb+jWow8QuhjL0F0jPPqIKDjl6MAvi7ct4WFp6kebmUuptZ58gabkcf2iEe7xhJvnGFidByygNXpnm2f3q5ZwqtZe7gtEuVDHxrCenm8YT/xT6VI78VPVJqaVmrL14v52YXDPGWpkBkRYvlDcdyO39C2cXhnEJazxrq8+AO17v0x4/h7b6VvxvDLka9etqHkvX7rV+nGe1xZzB8akb+pUwHm5sy9pvcn0Fsw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(82310400026)(1800799024)(36860700016)(261028144727099003)(261022105027099003)(11063799006)(56012099006)(261026121527099003)(261026140227099003)(10067099003)(261009223027099003)(261021123027099003)(261021121427099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: +KOKoaXbXks/hztmP2YWK72px0ZJKr+F9jXxR15wGh0I+mTt9BweC6U3FXLaFyZvcJZT+cd+oC7mlNdk/rFWSWyjbFjMMF4ppGis7OKh0HLgZdkudTTedmSYucavw7GR7gdExFh4OB0xdNEDodg28pyWCRyXmh4gFTRcXiJwtX9LE3TrM4RKuoPSk0Y3Ml6JvsAqJTyCXAnvS2uLQ1/PjGLXOwO/GDNaTFGtx8AbyPWP81HexbclB5tv0ehtQ64XKNoeNOY0Q3UJAfCf0Dh1/qS4K0MraNERU6JKR0RIB7K2GQ8L1dFXu5Y4cNzlc1BMgpBWm34USTgURjs5OFXVA81VdP+AyfPecsTL/k6E3olNq0itcK/4YKHKDXuOylYOAmgzjV2T2Y76tuTlXHdGQG9WPdgUCVi/KNpBKR1VTWKWF/wgoq6ZDDGj+mHpUDei
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 21:07:10.8696 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 85ccbdd9-7d5b-4c93-3c5c-08df36009948
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH01EPF000BE944.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6437
+References: <20261022080925.13994-1-shidlovskiyilya@gmail.com>
+ <MW4PR12MB6803EF32D2E8C32E163BCB638E642@MW4PR12MB6803.namprd12.prod.outlook.com>
+ <CAGjg405_42ftMLqZ_ttmvbgFLtUZou7vSsxQCo4usUgijes0cQ@mail.gmail.com>
+In-Reply-To: <CAGjg405_42ftMLqZ_ttmvbgFLtUZou7vSsxQCo4usUgijes0cQ@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 29 Oct 2026 17:39:04 -0400
+X-Gm-Features: AclHuK-s99YJLtDsvu1d_dH2NtQb3-6xfVyVT0gtWhF5sjgGQwzviVNNIfdkVds
+Message-ID: <CADnq5_Pv0wkPx9AzooUf=dyWgQuneMc6K9-qcT6PW53Gg4L5rg@mail.gmail.com>
+Subject: Re: [PATCH v2 0/3] drm/amd: fix DCN3.2 flicker/hangs after OD_MCLK
+ (VRAM overclock)
+To: =?UTF-8?B?0JjQu9GM0Y8g0KjQuNC00LvQvtCy0YHQutC40Lk=?=
+ <shidlovskiyilya@gmail.com>
+Cc: "Feng, Kenneth" <Kenneth.Feng@amd.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Li,
+ Sun peng (Leo)" <Sunpeng.Li@amd.com>, 
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Wentland,
+ Harry" <Harry.Wentland@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,219 +108,169 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Alysa Liu <Alysa.Liu@amd.com>
+On Mon, Oct 26, 2026 at 5:01=E2=80=AFAM =D0=98=D0=BB=D1=8C=D1=8F =D0=A8=D0=
+=B8=D0=B4=D0=BB=D0=BE=D0=B2=D1=81=D0=BA=D0=B8=D0=B9
+<shidlovskiyilya@gmail.com> wrote:
+>
+> Hi Kenneth,
+>
+> Yes, confirmed. The v2 series is based on amd-staging-drm-next at
+> 77f548b12 (=E2=80=9Cdrm/amdgpu: keep PRT mappings off the VM state lists
+> again=E2=80=9D, 2026-10-20), which already contains Kevin=E2=80=99s =E2=
+=80=9Cpreserve
+> committed OD features=E2=80=9D changes for SMU 13.0.0/13.0.7 and 14.0.2 (=
+the
+> user_od_feature_mask handling that patch 2/3 relies on). The commit
+> hashes in the public branch differ from the ones you quoted, but the
+> code is the same.
+>
+> Thanks for the review!
 
-When ualink info is available, report the specific link type
-(UALOE or UALINK) instead of XGMI in topology sysfs.
+Can you double check that you sent out the right patches?  This series
+doesn't seem to apply with the aforementioned patches in place.
 
-UALink and UALoE use different link weights so userspace can prefer
-native UALink over UALink-over-Ethernet. UALink links advertise every
-SDMA engine, since those SOCs do not reserve a dedicated xGMI SDMA set.
+Thanks!
 
-Signed-off-by: Alysa Liu <Alysa.Liu@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_crat.c     | 60 +++++++++++++++++++++--
- drivers/gpu/drm/amd/amdkfd/kfd_crat.h     | 13 +++++
- drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 17 +++++--
- include/uapi/linux/kfd_sysfs.h            |  2 +
- 4 files changed, 85 insertions(+), 7 deletions(-)
+Alex
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-index 2c49c3f0789f..35f9d693d2b0 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-@@ -1252,9 +1252,14 @@ static int kfd_parse_subtype_iolink(struct crat_subtype_iolink *iolink,
- 			props->ver_min = iolink->version_minor;
- 			props->iolink_type = iolink->io_interface_type;
- 
-+			/*
-+			 * weight_xgmi stores the link cost for xGMI, UALink,
-+			 * and UALoE. It is selected per link type when the
-+			 * IO link record is built.
-+			 */
- 			if (props->iolink_type == CRAT_IOLINK_TYPE_PCIEXPRESS)
- 				props->weight = 20;
--			else if (props->iolink_type == CRAT_IOLINK_TYPE_XGMI)
-+			else if (crat_iolink_is_xgmi_class(props->iolink_type))
- 				props->weight = iolink->weight_xgmi;
- 			else
- 				props->weight = node_distance(id_from, id_to);
-@@ -2132,6 +2137,26 @@ static void kfd_find_numa_node_in_srat(struct kfd_node *kdev)
- 
- #define KFD_CRAT_INTRA_SOCKET_WEIGHT	13
- #define KFD_CRAT_XGMI_WEIGHT		15
-+/*
-+ * Relative link cost, lower is preferred. PCIe is 20.
-+ * Native UALink is a scale-up load/store fabric in the same class as xGMI.
-+ * UALoE (UALink over Ethernet) is a higher-latency path, so it costs more
-+ * than UALink but stays preferred over PCIe.
-+ */
-+#define KFD_CRAT_UALINK_WEIGHT		15
-+#define KFD_CRAT_UALOE_WEIGHT		18
-+
-+static uint8_t kfd_crat_iolink_base_weight(uint8_t io_type)
-+{
-+	switch (io_type) {
-+	case CRAT_IOLINK_TYPE_UALOE:
-+		return KFD_CRAT_UALOE_WEIGHT;
-+	case CRAT_IOLINK_TYPE_UALINK:
-+		return KFD_CRAT_UALINK_WEIGHT;
-+	default:
-+		return KFD_CRAT_XGMI_WEIGHT;
-+	}
-+}
- 
- /* kfd_fill_gpu_direct_io_link - Fill in direct io link from GPU
-  * to its NUMA node
-@@ -2234,13 +2259,38 @@ static int kfd_fill_gpu_xgmi_link_to_gpu(int *avail_size,
- 	sub_type_hdr->flags |= CRAT_SUBTYPE_FLAGS_ENABLED |
- 			       CRAT_IOLINK_FLAGS_BI_DIRECTIONAL;
- 
--	sub_type_hdr->io_interface_type = CRAT_IOLINK_TYPE_XGMI;
-+	if (kdev->adev->ualink.info) {
-+		switch (kdev->adev->ualink.info->link_type) {
-+		case AMDGPU_UALINK_TYPE_UALOE:
-+			sub_type_hdr->io_interface_type = CRAT_IOLINK_TYPE_UALOE;
-+			break;
-+		case AMDGPU_UALINK_TYPE_UALINK:
-+			sub_type_hdr->io_interface_type = CRAT_IOLINK_TYPE_UALINK;
-+			break;
-+		default:
-+			sub_type_hdr->io_interface_type = CRAT_IOLINK_TYPE_XGMI;
-+			break;
-+		}
-+	} else {
-+		sub_type_hdr->io_interface_type = CRAT_IOLINK_TYPE_XGMI;
-+	}
- 	sub_type_hdr->proximity_domain_from = proximity_domain_from;
- 	sub_type_hdr->proximity_domain_to = proximity_domain_to;
- 
- 	if (use_ta_info) {
--		sub_type_hdr->weight_xgmi = KFD_CRAT_XGMI_WEIGHT *
-+		unsigned int hops =
- 			amdgpu_xgmi_get_hops_count(kdev->adev, peer_kdev->adev);
-+		uint8_t base = kfd_crat_iolink_base_weight(sub_type_hdr->io_interface_type);
-+
-+		/*
-+		 * Hop count comes from the xGMI topology and is zero when the
-+		 * peer is not listed there. A UALink/UALoE direct link still
-+		 * needs its own base weight in that case.
-+		 */
-+		if (!hops && crat_iolink_is_ual(sub_type_hdr->io_interface_type))
-+			hops = 1;
-+
-+		sub_type_hdr->weight_xgmi = base * hops;
- 		amdgpu_xgmi_get_bandwidth(kdev->adev, peer_kdev->adev,
- 					  AMDGPU_XGMI_BW_MODE_PER_PEER,
- 					  AMDGPU_XGMI_BW_UNIT_MBYTES,
-@@ -2248,8 +2298,10 @@ static int kfd_fill_gpu_xgmi_link_to_gpu(int *avail_size,
- 					  &sub_type_hdr->maximum_bandwidth_mbs);
- 	} else {
- 		bool is_single_hop = kdev->kfd == peer_kdev->kfd;
-+		uint8_t link_weight =
-+			kfd_crat_iolink_base_weight(sub_type_hdr->io_interface_type);
- 		int weight = is_single_hop ? KFD_CRAT_INTRA_SOCKET_WEIGHT :
--			(2 * KFD_CRAT_INTRA_SOCKET_WEIGHT) + KFD_CRAT_XGMI_WEIGHT;
-+			(2 * KFD_CRAT_INTRA_SOCKET_WEIGHT) + link_weight;
- 		int mem_bw = 819200;
- 
- 		sub_type_hdr->weight_xgmi = weight;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.h b/drivers/gpu/drm/amd/amdkfd/kfd_crat.h
-index ff6ecae34a5e..f640c0398546 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.h
-@@ -257,8 +257,21 @@ struct crat_subtype_ccompute {
- #define CRAT_IOLINK_TYPE_ETHERNET_RDMA	14
- #define CRAT_IOLINK_TYPE_RDMA_OTHER	15
- #define CRAT_IOLINK_TYPE_OTHER		16
-+#define CRAT_IOLINK_TYPE_UALOE		17
-+#define CRAT_IOLINK_TYPE_UALINK		18
- #define CRAT_IOLINK_TYPE_MAX		255
- 
-+static inline bool crat_iolink_is_ual(uint32_t type)
-+{
-+	return type == CRAT_IOLINK_TYPE_UALOE ||
-+	       type == CRAT_IOLINK_TYPE_UALINK;
-+}
-+
-+static inline bool crat_iolink_is_xgmi_class(uint32_t type)
-+{
-+	return type == CRAT_IOLINK_TYPE_XGMI || crat_iolink_is_ual(type);
-+}
-+
- #define CRAT_IOLINK_RESERVED_LENGTH	24
- 
- struct crat_subtype_iolink {
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-index 5c3a134a9e5c..9fa26a01ebfb 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-@@ -1215,7 +1215,7 @@ static void kfd_set_iolink_no_atomics(struct kfd_topology_device *dev,
- 					struct kfd_iolink_properties *link)
- {
- 	/* xgmi always supports atomics between links. */
--	if (link->iolink_type == CRAT_IOLINK_TYPE_XGMI)
-+	if (crat_iolink_is_xgmi_class(link->iolink_type))
- 		return;
- 
- 	/* check pcie support to set cpu(dev) flags for target_gpu_dev link. */
-@@ -1283,8 +1283,13 @@ static void kfd_set_recommended_sdma_engines(struct kfd_topology_device *to_dev,
- 	uint32_t sdma_eng_id_mask = (1 << num_sdma_engines) - 1;
- 	uint32_t xgmi_sdma_eng_id_mask =
- 			((1 << num_xgmi_sdma_engines) - 1) << num_sdma_engines;
-+	bool ual_link = crat_iolink_is_ual(outbound_link->iolink_type);
- 
--	bool support_rec_eng = !amdgpu_sriov_vf(adev) && to_dev->gpu &&
-+	/*
-+	 * The per-socket recommended-engine map is an xGMI property.
-+	 * UALink SOCs do not reserve dedicated SDMA engines.
-+	 */
-+	bool support_rec_eng = !ual_link && !amdgpu_sriov_vf(adev) && to_dev->gpu &&
- 		adev->aid_mask && num_xgmi_nodes && gpu->kfd->num_nodes == 1 &&
- 		num_xgmi_sdma_engines >= 6 && (!(adev->flags & AMD_IS_APU) &&
- 		num_xgmi_nodes == 8);
-@@ -1305,6 +1310,12 @@ static void kfd_set_recommended_sdma_engines(struct kfd_topology_device *to_dev,
- 		if (inbound_link->rec_sdma_eng_id_mask & sdma_eng_id_mask)
- 			inbound_link->rec_sdma_eng_id_mask = xgmi_sdma_eng_id_mask;
- 
-+	} else if (ual_link) {
-+		/* No dedicated fabric SDMA engines; every engine is usable. */
-+		uint32_t engine_mask = sdma_eng_id_mask | xgmi_sdma_eng_id_mask;
-+
-+		outbound_link->rec_sdma_eng_id_mask = engine_mask;
-+		inbound_link->rec_sdma_eng_id_mask = engine_mask;
- 	} else {
- 		uint32_t engine_mask = (outbound_link->iolink_type == CRAT_IOLINK_TYPE_XGMI &&
- 				num_xgmi_sdma_engines && to_dev->gpu) ? xgmi_sdma_eng_id_mask :
-@@ -1335,7 +1346,7 @@ static void kfd_fill_iolink_non_crat_info(struct kfd_topology_device *dev)
- 
- 		/* Include the CPU peer in GPU hive if connected over xGMI. */
- 		if (!peer_dev->gpu &&
--		    link->iolink_type == CRAT_IOLINK_TYPE_XGMI) {
-+		    crat_iolink_is_xgmi_class(link->iolink_type)) {
- 			/*
- 			 * If the GPU is not part of a GPU hive, use its pci
- 			 * device location as the hive ID to bind with the CPU.
-diff --git a/include/uapi/linux/kfd_sysfs.h b/include/uapi/linux/kfd_sysfs.h
-index 0b6ce2f3c887..b11f9bcae7f8 100644
---- a/include/uapi/linux/kfd_sysfs.h
-+++ b/include/uapi/linux/kfd_sysfs.h
-@@ -114,6 +114,8 @@
- #define HSA_IOLINK_TYPE_ETHERNET_RDMA	14
- #define HSA_IOLINK_TYPE_RDMA_OTHER	15
- #define HSA_IOLINK_TYPE_OTHER		16
-+#define HSA_IOLINK_TYPE_UALOE		17
-+#define HSA_IOLINK_TYPE_UALINK		18
- 
- /* Flag bits in IO link properties (matches CRAT flags, excluding the
-  * bi-directional flag, which is not offially part of the CRAT spec, and
--- 
-2.34.1
 
+>
+> Ilya
+>
+> =D0=BF=D1=82, 23 =D0=BE=D0=BA=D1=82. 2026=E2=80=AF=D0=B3. =D0=B2 05:31, F=
+eng, Kenneth <Kenneth.Feng@amd.com>:
+> >
+> > AMD General
+> >
+> > Could you also please confirm this series is rebased on the below two c=
+ommits?
+> > commit 5cd40ce699014025614140294b8e3b7a847e6472
+> > Author: Kevin Wang <kevin.wang@amd.com>
+> > Date:   Thu Oct 15 14:02:09 2026 +0800
+> >     drm/amd/pm: preserve committed OD features for SMU 13.0.0/13.0.7
+> >
+> > commit 5a3833e7dd532ac02b4747d1b0d717dd49e87aa6
+> > Author: Kevin Wang <kevin.wang@amd.com>
+> > Date:   Thu Oct 15 14:02:31 2026 +0800
+> >     drm/amd/pm: preserve committed OD features for SMU 14.0.2
+> >
+> > These two commits have the related code modified for another issue.
+> >
+> > With this confirmed, Series is Reviewed-by: Kenneth Feng <kenneth.feng@=
+amd.com>
+> >
+> > Thanks.
+> >
+> >
+> > -----Original Message-----
+> > From: Ilya Shidlovskiy <shidlovskiyilya@gmail.com>
+> > Sent: Thursday, October 22, 2026 4:09 PM
+> > To: amd-gfx@lists.freedesktop.org
+> > Cc: Ilya Shidlovskiy <shidlovskiyilya@gmail.com>; Feng, Kenneth <Kennet=
+h.Feng@amd.com>; Li, Sun peng (Leo) <Sunpeng.Li@amd.com>; Deucher, Alexande=
+r <Alexander.Deucher@amd.com>; Wentland, Harry <Harry.Wentland@amd.com>
+> > Subject: [PATCH v2 0/3] drm/amd: fix DCN3.2 flicker/hangs after OD_MCLK=
+ (VRAM overclock)
+> >
+> > [You don't often get email from shidlovskiyilya@gmail.com. Learn why th=
+is is important at https://aka.ms/LearnAboutSenderIdentification ]
+> >
+> > On DCN3.2 (Navi31, RX 7900 GRE here), raising the UCLK max through OD_M=
+CLK makes the display flicker (full-width stripes) and eventually hang the =
+whole system, if the current mode does not allow memory P-state switching. =
+DC reads the UCLK DPM levels from PMFW only in init_hw, so after the OD com=
+mit it keeps asking for the old top level as UCLK hard min ("set UCLK min =
+=3D max"). That is no longer the top level, so PMFW switches UCLK outside o=
+f vblank.
+> >
+> > The series makes DC re-read the UCLK levels (bounding box and WM ranges
+> > included) after an OD commit/restore that changed UCLK, and on resume a=
+fter the user OD settings are restored. It also refreshes the SMU driver's =
+UCLK DPM table, so pp_dpm_mclk shows the real levels.
+> >
+> > Bug report and review of v1: https://gitlab.freedesktop.org/drm/amd/-/i=
+ssues/6009
+> > (v1 was posted there as a comment, not to the list.)
+> >
+> > Changes in v2:
+> > - Only act when the user has customized UCLK (user_od_feature_mask &
+> >   PP_OD_FEATURE_UCLK_BIT), instead of on every OD commit (Kenneth).
+> >   PP_OD_FEATURE_UCLK_BIT is ASIC specific, so the check is done in the
+> >   smu13.0.0 code, which sets a flag that the generic code reads.
+> > - The SMU patch now comes before the DC patch, which depends on it.
+> > - Rebased on amd-staging-drm-next.
+> > - Added Leo's ack for the display parts.
+> >
+> > Testing:
+> > v2 is build-tested against amd-staging-drm-next. The hardware test is o=
+n an equivalent backport to the Ubuntu 7.3.0-9 kernel (same code, plus a sm=
+all local backport of the user_od_feature_mask tracking, which Ubuntu
+> > 7.3 does not have yet).
+> >
+> > Hardware: RX 7900 GRE (Navi31, SMU 13.0.0), 5120x1440@144 (DSC, ODM 4:1=
+)
+> > + 2560x1440@100, UCLK OD max 1124 -> 1300 MHz, toggled via LACT.
+> >
+> > v1 results:
+> > - On OD commit, DC logs the new max UCLK (1300 MHz). pp_dpm_mclk shows
+> >   1300 as the top level, and the current level stays at 1300 (20/20
+> >   samples, no drops to 772).
+> > - About 4 minutes of heavy window switching on the 5120x1440@144 output=
+:
+> >   no stripes, no hang, no amdgpu errors.
+> > - 3 OC on/off toggles: one short flash exactly at the switch (memory
+> >   retraining during scanout, expected), then clean.
+> > - Same scenario with the stock module: stripes, then a full system hang=
+.
+> >
+> > v2 results:
+> > v2 hardware test (same RX 7900 GRE, 5120x1440@144 + 2560x1440@100; v2 b=
+ackported to the Ubuntu 7.3.0-9 amdgpu, LACT applying power cap / voltage o=
+ffset at boot):
+> > - boot and login with stock VRAM: no "DC memclk states refreshed" at al=
+l, so
+> >   non-UCLK OD commits (power cap, voltage offset) no longer touch DC; t=
+he
+> >   short login flash seen with v1 is gone;
+> > - VRAM OC on (OD_MCLK 1300): exactly one refresh, "max UCLK 1300 MHz";
+> >   pp_dpm_mclk top level 1300 and current level 1300 (12/12 samples);
+> > - VRAM OC off: exactly one refresh, "max UCLK 1124 MHz";
+> > - desktop stays clean, no stripes, no hangs.
+> >
+> > Known limitations (unchanged from v1):
+> > - The OD commit itself still happens during scanout, hence the single
+> >   flash at the switch.
+> > - Only DCN3.2/SMU 13.0.0 is handled. Other ASICs with OD_MCLK probably
+> >   need the same hook in their ppt code.
+> >
+> > Ilya Shidlovskiy (3):
+> >   drm/amd/display: dcn32: rebuild WM range table when memclk states
+> >     change
+> >   drm/amd/pm: smu13.0.0: refresh the UCLK DPM table after an OD_MCLK
+> >     change
+> >   drm/amd: let DC re-read UCLK DPM levels after an OD_MCLK change
+> >
+> >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 33 +++++++++++++++++++=
+  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  6 ++++  .../display/dc/c=
+lk_mgr/dcn32/dcn32_clk_mgr.c  |  8 ++---
+> >  drivers/gpu/drm/amd/display/dc/core/dc.c      | 21 ++++++++++++
+> >  drivers/gpu/drm/amd/display/dc/dc.h           |  2 ++
+> >  drivers/gpu/drm/amd/pm/amdgpu_dpm.c           |  7 ++++
+> >  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 19 +++++++++++
+> >  drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  3 ++  .../drm/amd/pm/=
+swsmu/smu13/smu_v13_0_0_ppt.c  | 33 ++++++++++++++++++-
+> >  9 files changed, 127 insertions(+), 5 deletions(-)
+> >
+> >
+> > base-commit: 77f548b127c6de34ce271fa09ba270cb1ef9f2da
+> > --
+> > 2.55.0
+> >
