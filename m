@@ -2,123 +2,98 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CC95606A31A
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Oct 2026 03:17:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 462D7606A322
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Oct 2026 03:28:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=nvGapIqy
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=DQghwr5d
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C07E211262C;
-	Fri, 30 Oct 2026 03:17:34 +0000 (UTC)
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011000.outbound.protection.outlook.com [52.101.62.0])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4129611262C
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Oct 2026 03:17:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B9B06112634;
+	Fri, 30 Oct 2026 03:28:33 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010028.outbound.protection.outlook.com [52.101.85.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C55B4112634
+ for <amd-gfx@lists.freedesktop.org>; Fri, 30 Oct 2026 03:28:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=m68u10rJW9w5T7igk6wqK3o3X9rdW0e5S3u6tyW3tS3/Ek29i8/b177u8ybQHCXofM9tLcFTn4RXHlZcGwy29HU7c0Z2U2N5gBWbIJfzQsyj1vG3Vnc7AUjAKKs97qxWfaa4mIAUxViSerhtg2ySWsA8A3IdcqNGZptLeOk/4C10lSgwj6wltPzY/JiaYEc7l8/zezxu+iRC48dVlS9CFyK+DszmxH/beBXdOssOeiaMeFuXq4mCi6EQj/sK351aBVctb8KCUTTl/ffA1Us2wVmGYlEpnL28bfFlSqI+/3IYj93pxJaIV2SrHaaZaVOQG9uYh17vZ8+BDCC4bXzsDA==
+ b=f0LX1OkS5CUj8jnEJVPn1Yk3HqZCXGMndjlpyQf6hedOO9hA/dTOlKlJFYIkoav/P56YYIn+RFyS9NWNjKyMNNuG8PQCdSJitmlbcsAfp9pAInWTCzXy4Vujph5si0oO/Y6sseOxAtAeHMMOcnpYjDIHIkxSADpo0Uia4Qv+HGcc4AKADu6QP97Ii+AlVy+ZAqkH+QIbVsxDHBuuFlMUqOju1M/RWkcpU9gT2cWRX+EA3GAnwTl+UuKaR97mB9eSpb5eXuKuF/BjIrdQ7SXoETWBqTUQWp9tQecuo0Gd5ZsLhyDDMh7z33BlTbpv26Bd5YCK16/JpASCz+1BSnm8VQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7GtZMv7b5VI3+cIBMTsr74JHlgkBgA2ZguP8OWBmvlM=;
- b=tEl1jeeAdGQ+RWKJ1EVOSZqaZEskTORmb4DGd6U9LiyBS3pU6TUXuDVMQxR0RraDBfdBTi9DHl/xUtOBGKE1yejw7vDczK5BrpbJrTjtGhCGoNk1hUQx3JWHfVWVF91yx8y32A635+BwHJtjGg5DI3hp8RotvPga9Ew7GRKMuDl2l7rucSbVNxNwLSlvrT+sMNOhwaTJcCZYZVF5I5iu927bjmSy4v1NtkFdAqcUYv+4TvB8XkA6CZOnDvDioKtjt4JFx+tfDspVmye0fYi2vJNP6E52Xz/EIjowPRDV0jdsusmZucnAmpXdoYah+/6Lq1Jmjz3opv3A//To4eCxvA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=2M8dClF3XhDMsITmLxW/hjh146rBFfMqdbZydbVBvIk=;
+ b=OADKBym1PLj1gXhBKQbqzDwkyDpJOh5dN9Vbx5wLA75AufYZ2DDmCQHOEA3vdMEHNj4vGIZMlQSOiNMwexN7tCfqiRpE/bM8hTPzVpXGz+JZJtPVfgN0lkXrVWIxrzpaIUp8k8XcJp7x3Fnn4ZVrjJ1LcJV5CVlkQF/FB+dbTIaWkzdQ6cut3GPZiJ1+RV9T4gyPYYNu6TMve7HJlGcjJT2RyooIYchccduziDtbH8UCE0qVjkzBHM7cvAmTrY3sFBGy4gTa8arSAaIOtnvBY4P6alr9YDk3kT/a//HtDbSlqsVhQRTtY8qvn7e9SkTVnYeASiXvPt6tk+meIGG2xA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7GtZMv7b5VI3+cIBMTsr74JHlgkBgA2ZguP8OWBmvlM=;
- b=nvGapIqyRjhXSrK+osyH/C8ZSEb4EKOWBFVazylUeh69h8e+rqWim9XGFJEHogU8h2WF2Nsj+KcAAFLrvhD/VguGFvEs3I7UzOcr1sObC3phOkzn4XUybUR1F21totLRrC+A8oO0I0SMplvvbJ9RCQA1x+/qtcv/R1hwECEzPVY=
-Received: from MN0PR12MB6004.namprd12.prod.outlook.com (2603:10b6:208:380::17)
- by DS0PR12MB7630.namprd12.prod.outlook.com (2603:10b6:8:11d::6) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=2M8dClF3XhDMsITmLxW/hjh146rBFfMqdbZydbVBvIk=;
+ b=DQghwr5dVPjRDjW6v2RazqHEm5ozNckvKys8P+8KUoH5Hhr4IjHwWcj6EAc+FPaCugHKDGxKoThoHQa3gNegeqlMz8PDWUbxctT5jAp4eqW7IWtqdjLNu+cXxBuhZ7HuO5Vk/CwLocge9zD2RwSProyX1yLSoszW9/9dsgAzY1E=
+Received: from SJ0PR03CA0181.namprd03.prod.outlook.com (2603:10b6:a03:2ef::6)
+ by PH0PR12MB7469.namprd12.prod.outlook.com (2603:10b6:510:1e9::10)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
- 2026 03:16:59 +0000
-Received: from MN0PR12MB6004.namprd12.prod.outlook.com
- ([fe80::4579:c97:2cfc:1338]) by MN0PR12MB6004.namprd12.prod.outlook.com
- ([fe80::4579:c97:2cfc:1338%3]) with mapi id 15.21.0569.008; Fri, 30 Oct 2026
- 03:16:58 +0000
-From: "Liang, Prike" <Prike.Liang@amd.com>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>, "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Prosyak,
- Vitaly" <Vitaly.Prosyak@amd.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>,
- "Limonciello, Mario" <Mario.Limonciello@amd.com>
-Subject: RE: [PATCH 1/3] drm/amdgpu: save VKMS modeset state from the system
- PM path only
-Thread-Topic: [PATCH 1/3] drm/amdgpu: save VKMS modeset state from the system
- PM path only
-Thread-Index: AQHdaBkb3dhkbV1XkkqVFGhc4m3VLLcVZxSA
-Date: Fri, 30 Oct 2026 03:16:58 +0000
-Message-ID: <MN0PR12MB6004D22657DB8E0116501056FB6D2@MN0PR12MB6004.namprd12.prod.outlook.com>
-References: <20261030024747.3083509-1-Prike.Liang@amd.com>
-In-Reply-To: <20261030024747.3083509-1-Prike.Liang@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-10-30T03:06:20.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MN0PR12MB6004:EE_|DS0PR12MB7630:EE_
-x-ms-office365-filtering-correlation-id: d044c56d-6408-4ebd-3876-08df3634424e
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|23010399003|18002099003|22082099003|56012099006|11063799006|10067099003|261028144727099003|261022105027099003|261021123027099003|261021121427099003|261026140227099003|261009223027099003|261022075727099003|261026121527099003|38070700021;
-x-microsoft-antispam-message-info: PyxjMQzwAqaEWdh3k6P4Qc/6utNbkfOAsKsybFlrUkmFO0GUO5g0SlhmeMQhmBjzTov7l/RnVqiYre58ltPtWFZBmfgLBLgJoDdRl3qK+i5lrOKZdSuCBoAxUekxW7KauoOeGDJ6CxoxnC9DSsEOzkSGmTP/D4LzN6SW/OY9MDZz8PRdy3OVSjIIhgdMIC/n6+fQUGLuch4VIEJlhlvg289ct0caZOEwPrg8+GhbTa2iAiqRXi7KtKTJPyaSlFIclBKo8bkkxUKaof4jjPTORpgWQnP24Jx++k8Jsj/EfcrO1d48Y4rnTb1XXYbSl5qjyv2Sog91/nBr9CDjCKhYPLGXJEkZialeIVFD5zHL0pqfd6COmAz+aLdO5Mm5QX1iSG1T3eX+6wVVAN/mAZXVO4kiFpg8ENmiRTT8Fzu5auh/eMK3nbISYawap3lZQDynzLunMXL6PeSuDW0VGf3yCWifCoBOShvkAYhhQwbUY/FE8qXgU3UjgkpgQWj9I+yznwYwUmLrS4RSgzzVg6qkFmpy5L6LC5QhzmEzFpfwRdurwnlXJ2JCggsJdqFhJlkpAEUQyWikEDc46s3WUKruK63D7qqH1DXWgPq6NcIilgkRAXwJ366C8PuJzZma6oM5l4C8WAdrkYuCZk8RSibve0oWgefpZ1+0hHzpONUbLbNkBfDAl5oEXzGwbgp0ZCqGLssmaA/li9DMyRKrmb+Lg237GxjAvYtIJqtGipRFCQ0=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN0PR12MB6004.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(18002099003)(22082099003)(56012099006)(11063799006)(10067099003)(261028144727099003)(261022105027099003)(261021123027099003)(261021121427099003)(261026140227099003)(261009223027099003)(261022075727099003)(261026121527099003)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?maQdgc6JiasjAVf6uhsDCwbJn1eKULLsB/FejT89rNXbTX/QTZcp64db1Tkq?=
- =?us-ascii?Q?XfapUo6bLT96eC/Bn+Jm1BgheLl2ProcQvj+m76hwGuhMB3yyKDC4kqUuybp?=
- =?us-ascii?Q?DlIXw5kqiMaU+BCN3Sxq5rrY2GTzq42SY+FjRKdJWOelR9NxJ4MhoZLyfMOX?=
- =?us-ascii?Q?nGdGcarJ5KE2C9fR1Q8IkTO7U9yqpzzI2t8fQJnWRryDuwI8eYiRiLz4L0YI?=
- =?us-ascii?Q?Mt3JW4NILWcYeeKEicP0kBDg5WkdnGOZ1QKveqCrTSD7HWXFGX2K375D+046?=
- =?us-ascii?Q?2WAf5CidKdQY062G4Bgp7MgSk/W/6Sr6oHMEDEv1D43lYZqSz65/Ti2mfOMu?=
- =?us-ascii?Q?1sQ8KtoIFSmzUEA4lamiYP5X7BzDOwrf8c4uBUeVbT8bIAmt1QZaH5vpB4SA?=
- =?us-ascii?Q?XJei9SyGV66XWSzpQsO4hLq4uaCJnG9IvivQsVfFbIIRALkZGEk9fJtBqDBF?=
- =?us-ascii?Q?xb6n79gYcdk0OTrJuLUFqWcyt6AFC/6/cRRS8DrfiSNol7WsOg0cNCK+YII1?=
- =?us-ascii?Q?8HVKgq76BF8myfV8Iam17G2hidQeIIV+jFzMySJgcfRMr/RfMmaoca2Y3cjb?=
- =?us-ascii?Q?Wy/CRLvp8ONLW6SYboUyl/RGKubxSatai3efGEbGAzS14AMreRGyeZkb3PrD?=
- =?us-ascii?Q?/HcEzOJlWZMfCcRkC9E3FsD2p8lfSuwrBHrBBpWG6ipYIRjHlUKIC5quJjj2?=
- =?us-ascii?Q?9K7cf/zK0PqHe3B8kdqRWG5h3HhqkBFDWSu2hDh35I48sy02ccTRg+0FAJ1b?=
- =?us-ascii?Q?JnTEYCBhnX34EGirnFzQ/HtCfOkAAsgCdMd9gFspMIpt5MfcSs4CQTA6RqLh?=
- =?us-ascii?Q?jiTJ56gsCePIU95c26LnrOFKzo36lKuCzXy7F7cy3B4g4Zd6Vg7bfZ8MLW5X?=
- =?us-ascii?Q?F5ykkdC7Zh/n6ZRt4KxmxCFRp+epSQhn3iVpO4AMBgYNLwGQ4qtknmeRd+Jf?=
- =?us-ascii?Q?Xnv/3eN0cb6aRW8DJCpZgL9MpRMWgSXdYEw5Xr5aVNt5NpWxnpCal7Ltpekh?=
- =?us-ascii?Q?fjXhePPyO4E8bOypJJF4FNkVOXV0tarFI0P6627TRNnjmyypWbjAIvtR/frh?=
- =?us-ascii?Q?X4lHThvdAwTVWXz9zS4IXprIDnBebLkMjowYLAkPWxR8zeYIMkkINYSMupxo?=
- =?us-ascii?Q?wPnxMfIUf1oT1X4qhCejMhksfUPAAWe8mZkw6g+F/lgqmek2/QcYmLJfp5g8?=
- =?us-ascii?Q?CG6gSbmeSYRbA8Er42WbhdJaGktWqdPqVn3r1XPTd6wGefuiRdfFtNV549kn?=
- =?us-ascii?Q?Dm9unUHqSgWwGZx+RekFmVKkjp0CLJJKmO7e48/mrqcNww+pYVs/aEsV2oxb?=
- =?us-ascii?Q?7ER2hyKaPFCvdQTL8x0yE8uLeKWf7TIYQNUYA73oq21uVUkRPre6OqaE5MZM?=
- =?us-ascii?Q?VjlJglQln0wAuXA4cMLNctRzD/o4VOtk/xvLiGz1NSEoLYQgzkp8WEdsF95y?=
- =?us-ascii?Q?BVU7KKBUa3LZo2FEypXMzSEa7MkvM89ql9HpzP2+CgJOw4Dz3ztQMmaeN4BO?=
- =?us-ascii?Q?jnxi6/Ztc4YhCpfzMPIPidAHQNNRy7BS5m7nYfsNDr+kjBd7E71PEmBZkLf9?=
- =?us-ascii?Q?e5TW0iAa21ukXTpIAwIzSV3nieAwH8jZ0/2ysBKs3u72dCljosSCtVdugkPE?=
- =?us-ascii?Q?Ftre9qi5K+Ags2AmbRCL8blCA6a/ShPzMRwCFb3lCSBQmBiLAytCA2VoBXBl?=
- =?us-ascii?Q?hswYiPfFd839VFqDvjiSiHGc/kUKlUGVPGkoGEW4fa2HhLJ7?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ 2026 03:28:22 +0000
+Received: from SJ5PEPF000001CA.namprd05.prod.outlook.com
+ (2603:10b6:a03:2ef:cafe::7d) by SJ0PR03CA0181.outlook.office365.com
+ (2603:10b6:a03:2ef::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.19 via Frontend Transport; Fri,
+ 30 Oct 2026 03:28:21 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ5PEPF000001CA.mail.protection.outlook.com (10.167.242.39) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.4 via Frontend Transport; Fri, 30 Oct 2026 03:28:21 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 29 Oct
+ 2026 22:28:20 -0500
+Received: from AB350-desktop.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Thu, 29 Oct 2026 22:28:20 -0500
+From: <vitaly.prosyak@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Vitaly Prosyak <vitaly.prosyak@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Alex Deucher
+ <alexander.deucher@amd.com>, Prike Liang <prike.liang@amd.com>
+Subject: [PATCH] drm/amdgpu/userq: avoid blocking reset lock during eviction
+Date: Thu, 29 Oct 2026 23:27:37 -0400
+Message-ID: <20261030032818.136872-1-vitaly.prosyak@amd.com>
+X-Mailer: git-send-email 2.55.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CA:EE_|PH0PR12MB7469:EE_
+X-MS-Office365-Filtering-Correlation-Id: 988d80ee-6f53-4d62-6961-08df3635d948
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|82310400026|23010399003|376014|1800799024|6133799003|18002099003|56012099006|11063799006|261022075727099003|261028144727099003|10067099003|261021123027099003|261021121427099003|261009221227099003|261009223027099003|261026121527099003|261022105027099003|261026140227099003;
+X-Microsoft-Antispam-Message-Info: N7DYKAiSVXObWN2gU50JXClPiFqqa29iMp6aBrokIpEoQghUVVzub5oPyOIzgI0DqB981z3yrvCmMeqw1KzdI2DwstZQR4PSycpANwCcdfTZ2mzgR8pzT7E4Z4Sy/FShp6PgtDxjCILmSSJ946FZ56S2bsVov+9N3MCbNZMIVJPa9I/HiPsWuvvHB5uov4syv0QfES1aeNKfzKfh/nX5gd7q0S4KGEGOBk+dEChP0e2izUziVKem7PZ+PQm8FljcEH01aoorb2nBSF5q+IPCJ+d5c6GTM2lMSYnngUAnVnQWm/nXVpF4j8ChRwILF0UDW/VxXAsKsQQLxP5jsjH3SPo9dFkC28pWaFjHI8MVXa4M8PfSpFzlC0I74FgPrfC2rL1J8WurcSPtdfyY9njSFdPnfpu0mVfDGEUEqCMy1SLrbqb0O5HWATMt+Tv26a1rJ6Xy1d+QwvXYPTWJt+Qwe/Z9W3TXrkdfX8R2p97Odlgz8Fx3gJ7UW+U6QQSQbPC0+VsbKCjHVXOEaP+2QtsJRMnGt7zoMPdqcwnHC29+I3pTMhAU49BjobQRFSk057cggHELTHlFFnYaN2R7G0SBg2p79lPIrrvbkSSmOVcRS1YJYuTUtvQmx7ktg3XnFLBg0z3vrhyu0J6rN4eKzLXTypUd5OrjkKG6NNPdqy9WDYlXdRCi6VrxaW9Ai1gPd462Ovpq1GVakRbSSBsnn9mhZw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(82310400026)(23010399003)(376014)(1800799024)(6133799003)(18002099003)(56012099006)(11063799006)(261022075727099003)(261028144727099003)(10067099003)(261021123027099003)(261021121427099003)(261009221227099003)(261009223027099003)(261026121527099003)(261022105027099003)(261026140227099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: RHyBgdUm9oy1Ded6Hz+O52G61V0EtCSjyF+uk50q7cJS1eO085kbI2qDX99scOOqla++ZxLNJVREkpNiZxnD0kRcwO6UlGXTkMkPJCHG4+moaxUP5jK8Ctj0Smo+dYLeDXTPox39JDn0bbT+Ny/PhwDywo7g5IQStpdeeJpg/6rjeS2o2E1Brv+FGXFxK5blcHxvxpTbdUra+H4fe0fbviyVq9arVTI9hlUc/c+SIsAAWg5ldBv6CWWUnOzyxUZ/T7zpTq8rhMwqJ80fm/nO3JfDIWHrNpe0SLQJ3E367ouH8BFp0vOki5Jm+SmmbA2eN+fyX9DbXWs+tyY0oMLOj0in3WwGrkrZS2+W6M47yn6MIaid6c2+XD2GCpssdQen2AjEhfRAus1igZsFQWD7SbojM9YtFi4THapkt4hIFQYBr/+3HrtfB77M33KLJmGl
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6004.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d044c56d-6408-4ebd-3876-08df3634424e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Oct 2026 03:16:58.8473 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: YaaCorLpFrneXJbiM8cGrz1qrHrmwla1zMEaOveRSmaFV6OLMX2SiIjivnXfV9PZ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7630
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 03:28:21.5198 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 988d80ee-6f53-4d62-6961-08df3635d948
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001CA.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7469
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,145 +104,351 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-AMD General
+From: Vitaly Prosyak <vitaly.prosyak@amd.com>
 
-I somehow missed Mario's comment in the previous email thread. I'll update =
-the patch based on his feedback and then commit It accordingly.
+The eviction-fence worker runs inside a DMA-fence signalling section.
+Userq eviction can block on reset_domain->sem while GPU recovery holds
+that semaphore and invalidates mappings. Lockdep reports the resulting
+dependency cycle through dma_fence_map.
 
-Regards,
-      Prike
+[  +0.000295] amdgpu 0000:03:00.0: GPU reset begin!. Source:  5
 
-> -----Original Message-----
-> From: Liang, Prike <Prike.Liang@amd.com>
-> Sent: Friday, October 30, 2026 10:48 AM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
-> <Christian.Koenig@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>; Prosyak, Vi=
-taly
-> <Vitaly.Prosyak@amd.com>; Liang, Prike <Prike.Liang@amd.com>; Li, Sun pen=
-g
-> (Leo) <Sunpeng.Li@amd.com>; Limonciello, Mario <Mario.Limonciello@amd.com=
->
-> Subject: [PATCH 1/3] drm/amdgpu: save VKMS modeset state from the system =
-PM
-> path only
->
-> amdgpu_vkms_suspend()/resume() are IP block callbacks shared by system
-> suspend/resume and GPU recovery. Calling drm_mode_config_helper_suspend()
-> and drm_mode_config_helper_resume() from them makes GPU recovery take
-> clientlist_mutex and the modeset locks and duplicate the atomic state whi=
-le holding
-> reset_domain->sem. Lockdep reports:
->
->   Chain exists of:
->     &dev->clientlist_mutex --> &userq_mgr->userq_mutex --> &reset_domain-=
->sem
->
-> VKMS has no hardware state that a reset can lose, so the reset path never=
- needs
-> these helpers. Call them from amdgpu_device_suspend()/resume() instead an=
-d
-> leave the IP callbacks with only the hardware init.
->
-> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
-> Cc: Sun peng Li (Leo) <Sunpeng.Li@amd.com>
-> Cc: Mario Limonciello <mario.limonciello@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 19 ++++++++++++++++++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c   | 14 +-------------
->  2 files changed, 19 insertions(+), 14 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 3ced5c18daaa..65c60b47189f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -4570,9 +4570,16 @@ int amdgpu_device_suspend(struct drm_device *dev,
-> bool notify_clients)
->
->       amdgpu_ras_suspend(adev);
->
-> +     /* VKMS modeset state is saved here, never from the reset path */
-> +     if (adev->enable_virtual_display) {
-> +             r =3D drm_mode_config_helper_suspend(dev);
-> +             if (r)
-> +                     goto unwind_smartshift;
-> +     }
-> +
->       r =3D amdgpu_device_ip_suspend_phase1(adev);
->       if (r)
-> -             goto unwind_smartshift;
-> +             goto unwind_vkms;
->
->       amdgpu_amdkfd_suspend(adev, !amdgpu_sriov_vf(adev) && !adev-
-> >in_runpm);
->       r =3D amdgpu_userq_suspend(adev);
-> @@ -4620,6 +4627,10 @@ int amdgpu_device_suspend(struct drm_device *dev,
-> bool notify_clients)
->               return r;
->       }
->
-> +unwind_vkms:
-> +     if (adev->enable_virtual_display)
-> +             drm_mode_config_helper_resume(dev);
-> +
->  unwind_smartshift:
->       rec =3D amdgpu_acpi_smart_shift_update(adev, AMDGPU_SS_DEV_D0);
->       if (rec) {
-> @@ -4719,6 +4730,12 @@ int amdgpu_device_resume(struct drm_device *dev,
-> bool notify_clients)
->               goto exit;
->       }
->
-> +     if (adev->enable_virtual_display) {
-> +             r =3D drm_mode_config_helper_resume(dev);
-> +             if (r)
-> +                     goto exit;
-> +     }
-> +
->       r =3D amdgpu_amdkfd_resume(adev, !amdgpu_sriov_vf(adev) && !adev-
-> >in_runpm);
->       if (r)
->               goto exit;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-> index d6b51b3f216b..6de33f14d909 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-> @@ -488,24 +488,12 @@ static int amdgpu_vkms_hw_fini(struct amdgpu_ip_blo=
-ck
-> *ip_block)
->
->  static int amdgpu_vkms_suspend(struct amdgpu_ip_block *ip_block)  {
-> -     struct amdgpu_device *adev =3D ip_block->adev;
-> -     int r;
-> -
-> -     r =3D drm_mode_config_helper_suspend(adev_to_drm(adev));
-> -     if (r)
-> -             return r;
-> -
->       return 0;
->  }
->
->  static int amdgpu_vkms_resume(struct amdgpu_ip_block *ip_block)  {
-> -     int r;
-> -
-> -     r =3D amdgpu_vkms_hw_init(ip_block);
-> -     if (r)
-> -             return r;
-> -     return drm_mode_config_helper_resume(adev_to_drm(ip_block->adev));
-> +     return amdgpu_vkms_hw_init(ip_block);
->  }
->
->  static int amdgpu_vkms_set_clockgating_state(struct amdgpu_ip_block *ip_=
-block,
-> --
-> 2.34.1
+[  +0.000233] ======================================================
+[  +0.000001] WARNING: possible circular locking dependency detected
+[  +0.000000] 7.2.0+ #97 Tainted: G        W
+[  +0.000001] ------------------------------------------------------
+[  +0.000001] kworker/u128:1/238 is trying to acquire lock:
+[  +0.000001] ffff897b4fcc2eb8 (&mapping->i_mmap_rwsem){++++}-{4:4}, at: unmap_mapping_pages+0x6a/0xd0
+[  +0.000005]
+              but task is already holding lock:
+[  +0.000001] ffff897b0fd60ec0 (&reset_domain->sem){++++}-{4:4}, at: amdgpu_device_lock_reset_domain+0x1c/0x30 [amdgpu]
+[  +0.000294]
+              which lock already depends on the new lock.
+
+[  +0.000000]
+              the existing dependency chain (in reverse order) is:
+[  +0.000001]
+              -> #3 (&reset_domain->sem){++++}-{4:4}:
+[  +0.000002]        down_read+0x30/0x180
+[  +0.000004]        amdgpu_userq_unmap_helper+0x46/0x290 [amdgpu]
+[  +0.000212]        amdgpu_userq_evict+0x4e/0xf0 [amdgpu]
+[  +0.000198]        amdgpu_eviction_fence_suspend_worker+0x51/0xf0 [amdgpu]
+[  +0.000176]        process_one_work+0x22e/0x760
+[  +0.000003]        worker_thread+0x1db/0x3d0
+[  +0.000001]        kthread+0xfe/0x140
+[  +0.000001]        ret_from_fork+0x3bd/0x470
+[  +0.000002]        ret_from_fork_asm+0x1a/0x30
+[  +0.000002]
+              -> #2 (dma_fence_map){++++}-{0:0}:
+[  +0.000003]        __dma_fence_might_wait+0x42/0xf0
+[  +0.000002]        dma_resv_lockdep+0x26d/0x3b0
+[  +0.000002]        do_one_initcall+0x74/0x3e0
+[  +0.000002]        kernel_init_freeable+0x3f8/0x6d0
+[  +0.000002]        kernel_init+0x1b/0x200
+[  +0.000002]        ret_from_fork+0x3bd/0x470
+[  +0.000001]        ret_from_fork_asm+0x1a/0x30
+[  +0.000002]
+              -> #1 (mmu_notifier_invalidate_range_start){+.+.}-{0:0}:
+[  +0.000002]        __split_huge_pmd+0x86/0x190
+[  +0.000002]        vma_adjust_trans_huge+0x12b/0x1c0
+[  +0.000002]        __split_vma+0x236/0x370
+[  +0.000002]        vms_gather_munmap_vmas+0xe8/0x360
+[  +0.000001]        __mmap_region+0x2ab/0x1060
+[  +0.000001]        mmap_region+0xc4/0x180
+[  +0.000001]        do_mmap+0x48b/0x660
+[  +0.000002]        vm_mmap_pgoff+0x129/0x230
+[  +0.000002]        ksys_mmap_pgoff+0x1a2/0x270
+[  +0.000001]        __x64_sys_mmap+0x33/0x70
+[  +0.000002]        x64_sys_call+0x2194/0x26e0
+[  +0.000001]        do_syscall_64+0x103/0x6d0
+[  +0.000001]        entry_SYSCALL_64_after_hwframe+0x76/0x7e
+[  +0.000002]
+              -> #0 (&mapping->i_mmap_rwsem){++++}-{4:4}:
+[  +0.000002]        __lock_acquire+0x15aa/0x2740
+[  +0.000001]        lock_acquire+0xc4/0x2f0
+[  +0.000002]        down_read+0x30/0x180
+[  +0.000001]        unmap_mapping_pages+0x6a/0xd0
+[  +0.000001]        unmap_mapping_range+0x25/0x40
+[  +0.000002]        amdgpu_device_gpu_recover+0x17a/0x400 [amdgpu]
+[  +0.000168]        amdgpu_debugfs_reset_work+0x68/0x90 [amdgpu]
+[  +0.000167]        process_one_work+0x22e/0x760
+[  +0.000002]        worker_thread+0x1db/0x3d0
+[  +0.000001]        kthread+0xfe/0x140
+[  +0.000001]        ret_from_fork+0x3bd/0x470
+[  +0.000001]        ret_from_fork_asm+0x1a/0x30
+[  +0.000002]
+              other info that might help us debug this:
+
+[  +0.000000] Chain exists of:
+                &mapping->i_mmap_rwsem --> dma_fence_map --> &reset_domain->sem
+
+[  +0.000003]  Possible unsafe locking scenario:
+
+[  +0.000000]        CPU0                    CPU1
+[  +0.000001]        ----                    ----
+[  +0.000001]   lock(&reset_domain->sem);
+[  +0.000001]                                lock(dma_fence_map);
+[  +0.000001]                                lock(&reset_domain->sem);
+[  +0.000001]   rlock(&mapping->i_mmap_rwsem);
+[  +0.000001]
+               *** DEADLOCK ***
+
+[  +0.000000] 3 locks held by kworker/u128:1/238:
+[  +0.000001]  #0: ffff897b50d5f940 ((wq_completion)amdgpu-reset-dev){+.+.}-{0:0}, at: process_one_work+0x4a8/0x760
+[  +0.000003]  #1: ffffce9fc0a13e30 ((work_completion)(&adev->reset_work)){+.+.}-{0:0}, at: process_one_work+0x1ee/0x760
+[  +0.000003]  #2: ffff897b0fd60ec0 (&reset_domain->sem){++++}-{4:4}, at: amdgpu_device_lock_reset_domain+0x1c/0x30 [amdgpu]
+[  +0.000201]
+              stack backtrace:
+[  +0.000001] CPU: 8 UID: 0 PID: 238 Comm: kworker/u128:1 Tainted: G        W           7.2.0+ #97 PREEMPT(full)
+[  +0.000002] Tainted: [W]=WARN
+[  +0.000000] Hardware name: ASUS System Product Name/ROG MAXIMUS Z790 HERO, BIOS 2703 10/17/2024
+[  +0.000001] Workqueue: amdgpu-reset-dev amdgpu_debugfs_reset_work [amdgpu]
+[  +0.000165] Call Trace:
+[  +0.000000]  <TASK>
+[  +0.000001]  dump_stack_lvl+0xa5/0x110
+[  +0.000002]  dump_stack+0x10/0x20
+[  +0.000001]  print_circular_bug+0x285/0x360
+[  +0.000001]  check_noncircular+0x14c/0x170
+[  +0.000002]  __lock_acquire+0x15aa/0x2740
+[  +0.000001]  ? add_lock_to_list+0x35/0x130
+[  +0.000002]  lock_acquire+0xc4/0x2f0
+[  +0.000001]  ? unmap_mapping_pages+0x6a/0xd0
+[  +0.000002]  ? lock_acquire+0xc4/0x2f0
+[  +0.000001]  ? amdgpu_device_lock_reset_domain+0x1c/0x30 [amdgpu]
+[  +0.000196]  down_read+0x30/0x180
+[  +0.000001]  ? unmap_mapping_pages+0x6a/0xd0
+[  +0.000002]  unmap_mapping_pages+0x6a/0xd0
+[  +0.000002]  unmap_mapping_range+0x25/0x40
+[  +0.000001]  amdgpu_device_gpu_recover+0x17a/0x400 [amdgpu]
+[  +0.000163]  amdgpu_debugfs_reset_work+0x68/0x90 [amdgpu]
+[  +0.000169]  process_one_work+0x22e/0x760
+[  +0.000003]  worker_thread+0x1db/0x3d0
+[  +0.000000]  ? __pfx_worker_thread+0x10/0x10
+[  +0.000001]  kthread+0xfe/0x140
+[  +0.000001]  ? __pfx_kthread+0x10/0x10
+[  +0.000001]  ret_from_fork+0x3bd/0x470
+[  +0.000001]  ? __pfx_kthread+0x10/0x10
+[  +0.000001]  ret_from_fork_asm+0x1a/0x30
+[  +0.000002]  </TASK>
+
+Use a try-read-lock for eviction unmaps. If reset owns the semaphore,
+leave the eviction fence unsignaled and retry the worker after a short
+delay. Keep blocking read-locking for other userq unmap paths, which
+must remain serialized with reset.
+
+Convert suspend_work to delayed work so retries can be scheduled and
+flushed during teardown.
+
+Fixes: aebf196c550e ("drm/amdgpu/userq: wait for GPU reset before mapping or unmapping queues")
+
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Prike Liang <prike.liang@amd.com>
+Signed-off-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
+---
+ .../drm/amd/amdgpu/amdgpu_eviction_fence.c    | 22 ++++++++++----
+ .../drm/amd/amdgpu/amdgpu_eviction_fence.h    |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c     | 30 ++++++++++++-------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h     |  2 +-
+ 4 files changed, 38 insertions(+), 18 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
+index a0802012de49..fe45fa164e79 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
+@@ -44,7 +44,7 @@ static bool amdgpu_eviction_fence_enable_signaling(struct dma_fence *f)
+ {
+ 	struct amdgpu_eviction_fence *ev_fence = to_ev_fence(f);
+ 
+-	schedule_work(&ev_fence->evf_mgr->suspend_work);
++	schedule_delayed_work(&ev_fence->evf_mgr->suspend_work, 0);
+ 	return true;
+ }
+ 
+@@ -58,13 +58,15 @@ static void
+ amdgpu_eviction_fence_suspend_worker(struct work_struct *work)
+ {
+ 	struct amdgpu_eviction_fence_mgr *evf_mgr =
+-		container_of(work, struct amdgpu_eviction_fence_mgr,
++		container_of(to_delayed_work(work),
++			     struct amdgpu_eviction_fence_mgr,
+ 			     suspend_work);
+ 	struct amdgpu_fpriv *fpriv =
+ 		container_of(evf_mgr, struct amdgpu_fpriv, evf_mgr);
+ 	struct amdgpu_userq_mgr *uq_mgr = &fpriv->userq_mgr;
+ 	struct dma_fence *ev_fence;
+ 	bool cookie;
++	int ret;
+ 
+ 	mutex_lock(&uq_mgr->userq_mutex);
+ 
+@@ -79,7 +81,14 @@ amdgpu_eviction_fence_suspend_worker(struct work_struct *work)
+ 	cookie = dma_fence_begin_signalling();
+ 
+ 	ev_fence = amdgpu_evf_mgr_get_fence(evf_mgr);
+-	amdgpu_userq_evict(uq_mgr);
++	ret = amdgpu_userq_evict(uq_mgr);
++	if (ret == -EAGAIN) {
++		dma_fence_end_signalling(cookie);
++		dma_fence_put(ev_fence);
++		schedule_delayed_work(&evf_mgr->suspend_work, 1);
++		mutex_unlock(&uq_mgr->userq_mutex);
++		return;
++	}
+ 
+ 	/*
+ 	 * Signaling the eviction fence must be done while holding the
+@@ -167,14 +176,15 @@ void amdgpu_evf_mgr_init(struct amdgpu_eviction_fence_mgr *evf_mgr)
+ 	evf_mgr->ev_fence_ctx = dma_fence_context_alloc(1);
+ 	evf_mgr->ev_fence = dma_fence_get_stub();
+ 
+-	INIT_WORK(&evf_mgr->suspend_work, amdgpu_eviction_fence_suspend_worker);
++	INIT_DELAYED_WORK(&evf_mgr->suspend_work,
++		  amdgpu_eviction_fence_suspend_worker);
+ }
+ 
+ void amdgpu_evf_mgr_shutdown(struct amdgpu_eviction_fence_mgr *evf_mgr)
+ {
+ 	evf_mgr->shutdown = true;
+ 	/* Make sure that the shutdown is visible to the suspend work */
+-	flush_work(&evf_mgr->suspend_work);
++	flush_delayed_work(&evf_mgr->suspend_work);
+ }
+ 
+ void amdgpu_evf_mgr_flush_suspend(struct amdgpu_eviction_fence_mgr *evf_mgr)
+@@ -182,7 +192,7 @@ void amdgpu_evf_mgr_flush_suspend(struct amdgpu_eviction_fence_mgr *evf_mgr)
+ 	dma_fence_wait(rcu_dereference_protected(evf_mgr->ev_fence, true),
+ 		       false);
+ 	/* Make sure that we are done with the last suspend work */
+-	flush_work(&evf_mgr->suspend_work);
++	flush_delayed_work(&evf_mgr->suspend_work);
+ }
+ 
+ void amdgpu_evf_mgr_fini(struct amdgpu_eviction_fence_mgr *evf_mgr)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.h
+index 2a750add4e7b..d3c3d0769864 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.h
+@@ -43,7 +43,7 @@ struct amdgpu_eviction_fence_mgr {
+ 	 * Only signaled while holding the userq mutex.
+ 	 */
+ 	struct dma_fence __rcu	*ev_fence;
+-	struct work_struct	suspend_work;
++	struct delayed_work	suspend_work;
+ 	bool			shutdown;
+ };
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+index ccf0ff490ac2..d652a3a7a2da 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -351,16 +351,22 @@ static int amdgpu_userq_restore_helper(struct amdgpu_usermode_queue *queue)
+ 	return r;
+ }
+ 
+-static int amdgpu_userq_unmap_helper(struct amdgpu_usermode_queue *queue)
++static int amdgpu_userq_unmap_helper(struct amdgpu_usermode_queue *queue,
++				     bool trylock)
+ {
+ 	struct amdgpu_userq_mgr *uq_mgr = queue->userq_mgr;
+ 	struct amdgpu_device *adev = uq_mgr->adev;
+ 	const struct amdgpu_userq_funcs *userq_funcs =
+ 		adev->userq_funcs[queue->queue_type];
+-	int r;
++	int r = 0;
+ 
+ 	/* The reset changes the queue state and the MES is unusable meanwhile */
+-	guard(rwsem_read)(&adev->reset_domain->sem);
++	if (trylock) {
++		if (!down_read_trylock(&adev->reset_domain->sem))
++			return -EAGAIN;
++	} else {
++		down_read(&adev->reset_domain->sem);
++	}
+ 	if ((queue->state == AMDGPU_USERQ_STATE_MAPPED) ||
+ 	    (queue->state == AMDGPU_USERQ_STATE_PREEMPTED)) {
+ 		trace_amdgpu_userq_state_start(queue);
+@@ -369,14 +375,16 @@ static int amdgpu_userq_unmap_helper(struct amdgpu_usermode_queue *queue)
+ 		if (r) {
+ 			trace_amdgpu_userq_state_changed(queue, AMDGPU_USERQ_STATE_HUNG);
+ 			queue->state = AMDGPU_USERQ_STATE_HUNG;
+-			return r;
++			goto unlock;
+ 		} else {
+ 			trace_amdgpu_userq_state_changed(queue, AMDGPU_USERQ_STATE_UNMAPPED);
+ 			queue->state = AMDGPU_USERQ_STATE_UNMAPPED;
+ 		}
+ 	}
+ 
+-	return 0;
++unlock:
++	up_read(&adev->reset_domain->sem);
++	return r;
+ }
+ 
+ static int amdgpu_userq_map_helper(struct amdgpu_usermode_queue *queue)
+@@ -563,7 +571,7 @@ amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_que
+ #if defined(CONFIG_DEBUG_FS)
+ 	debugfs_remove_recursive(queue->debugfs_queue);
+ #endif
+-	r = amdgpu_userq_unmap_helper(queue);
++	r = amdgpu_userq_unmap_helper(queue, false);
+ 	atomic_dec(&uq_mgr->userq_count[queue->queue_type]);
+ 	amdgpu_userq_fence_driver_free(queue);
+ 	queue->fence_drv = NULL;
+@@ -1296,7 +1304,9 @@ amdgpu_userq_evict_all(struct amdgpu_userq_mgr *uq_mgr)
+ 
+ 	/* Try to unmap all the queues in this process ctx */
+ 	xa_for_each(&uq_mgr->userq_xa, queue_id, queue) {
+-		r = amdgpu_userq_unmap_helper(queue);
++		r = amdgpu_userq_unmap_helper(queue, true);
++		if (r == -EAGAIN)
++			return r;
+ 		if (r)
+ 			ret = r;
+ 	}
+@@ -1327,10 +1337,10 @@ amdgpu_userq_wait_for_signal(struct amdgpu_userq_mgr *uq_mgr)
+ 	}
+ }
+ 
+-void
++int
+ amdgpu_userq_evict(struct amdgpu_userq_mgr *uq_mgr)
+ {
+-	amdgpu_userq_evict_all(uq_mgr);
++	return amdgpu_userq_evict_all(uq_mgr);
+ }
+ 
+ int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *userq_mgr, struct drm_file *file_priv,
+@@ -1422,7 +1432,7 @@ int amdgpu_userq_suspend(struct amdgpu_device *adev)
+ 		if (adev->in_s0ix)
+ 			r = amdgpu_userq_preempt_helper(queue);
+ 		else
+-			r = amdgpu_userq_unmap_helper(queue);
++			r = amdgpu_userq_unmap_helper(queue, false);
+ 		if (r)
+ 			return r;
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+index 488dc21d7c81..4dcf6151de6a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+@@ -163,7 +163,7 @@ void amdgpu_userq_mgr_cancel_resume(struct amdgpu_userq_mgr *userq_mgr);
+ void amdgpu_userq_mgr_fini(struct amdgpu_userq_mgr *userq_mgr);
+ 
+ void amdgpu_userq_wait_for_signal(struct amdgpu_userq_mgr *uq_mgr);
+-void amdgpu_userq_evict(struct amdgpu_userq_mgr *uq_mgr);
++int amdgpu_userq_evict(struct amdgpu_userq_mgr *uq_mgr);
+ 
+ void amdgpu_userq_ensure_ev_fence(struct amdgpu_userq_mgr *userq_mgr,
+ 				  struct amdgpu_eviction_fence_mgr *evf_mgr);
+-- 
+2.55.0
 
