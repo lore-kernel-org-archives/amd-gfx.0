@@ -2,77 +2,77 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFE8F606A31A
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Oct 2026 07:57:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 940B2606A31A
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Oct 2026 07:58:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fireburn-co-uk.20260707.gappssmtp.com header.i=@fireburn-co-uk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=NlF4Awt2
+	dkim=pass (2048-bit key, unprotected) header.d=fireburn-co-uk.20260707.gappssmtp.com header.i=@fireburn-co-uk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=r1Pejf5R
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3CC3311268B;
-	Fri, 30 Oct 2026 07:57:52 +0000 (UTC)
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
- [209.85.221.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 206B910E86B
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Oct 2026 07:57:45 +0000 (UTC)
-Received: by mail-wr1-f49.google.com with SMTP id
- ffacd0b85a97d-48e4831c028so407438f8f.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Oct 2026 00:57:45 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 338F5112675;
+	Fri, 30 Oct 2026 07:57:59 +0000 (UTC)
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
+ [209.85.221.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6AA8C11268C
+ for <amd-gfx@lists.freedesktop.org>; Fri, 30 Oct 2026 07:57:52 +0000 (UTC)
+Received: by mail-wr1-f48.google.com with SMTP id
+ ffacd0b85a97d-48e09aa5264so162862f8f.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 30 Oct 2026 00:57:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fireburn-co-uk.20260707.gappssmtp.com; s=20260707; t=1793347063; x=1793951863;
+ d=fireburn-co-uk.20260707.gappssmtp.com; s=20260707; t=1793347071; x=1793951871;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=ObLQIYquGzBiqCTd14UQGXrFZOGeRqctaF0y4LnV60Y=;
- b=NlF4Awt2gv0Ely7SCwTKjZPBQDI4wr9rJv6/qGsj9n0NVtCm6YkvUCzoRFXY4kilhE
- LgDKlFZKUU0BZT5xALI1U4/AIldSC4UAsKZ60ImX1CmTy5+VUg/EyWAFAkML9CE3U+SH
- qDehghVv0/5StHMjiSo4hpIpy7XuN5IoJIGz1ARZur+mP3zMLGhRC5nJyniz120RFpTz
- A3wo8kcVxaAJKxfVdBdGrCaT5+t6VWoeCUE45M984//A0COklZvqX94gkhc/a2oDbYsG
- cvNeoQ6AK8BHHTBbk6HxjbQP6nhRGwU/xrNS0Q8y5iwfKZGxADBiEoIQSBPaaH+oxULM
- LUnw==
+ bh=UeMFe59C+6CGb+6QO+mNSCypQcnt2mUVBf/74RZRjcg=;
+ b=r1Pejf5RTR67g98yPpQUrkH5Lh4XP01C77S4skRSTrHEgg5d1iPvWF+NKR+3G4UiBO
+ 9Pe0vFFiUH3qvqPFmq8bPrRpJ6f0g9MmdP2osGLJQ+lrKT9u4kuQx6VVKvAPWGKq30H0
+ YOvRTIsS6/M6WLPy5tXMZNLaXhxSZ5eifCaTBUwi8YLpu1uGRDmwRFe68kplxZHptt4s
+ 2lZ4E4gnDbHUk+GGgJSYUhqRxeccY4Lvk/hlvJD2HRtMittCor6wyrQKouM7vA1yGSaB
+ ogZEV3WP2L3k4trCAZTIlRuKlWE8fYW7FJ3hjFaRE2cDdNAB6cBgBgjN46lMUH0o+Hbz
+ SBEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793347063; x=1793951863;
+ d=1e100.net; s=20260707; t=1793347071; x=1793951871;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=ObLQIYquGzBiqCTd14UQGXrFZOGeRqctaF0y4LnV60Y=;
- b=zdn7ewHMW8BQ2lReprT+P5zSrmsFlttLZVhoti0NrtZ6Q1oI0t+5efAPBiXYwuTaH+
- PvdtoJnI7qJEqyoE2xixXw5LCjIrbNrW2TNI+KmcB5HoacaKQdDPV7EzGOG5OxDwPMxN
- Nx73hShkbAaP5eNStlyJlYLHRFlfxOn57Lo5HJGLNB6ZYgmphSU4rE6YUF6qTBRCC+gp
- I0GnmKDv3YVf/OG/DBZEfIWU6KXk/nbLPHf+jBPs898sAKJdkUg2sl+0YBqeqzabOybt
- LwBZHv+HBPEc4RbueTJHsmO6Pv4kEZZQA59nSshld2JhStB5yA8/78Q5OfaW4wHyrvR9
- KKtA==
-X-Gm-Message-State: AFq9FYJJ3ix5gCfYWfeNeuSTKeSaoAA2qi68OdTnRe4RJrYYikZ06QN5
- 6DISGXIgqCGgMpr7e/SlfckeFuDJbpI6nP3HUs375YvJhgbSPfWOgFt87oQVa2AYuQ==
-X-Gm-Gg: AYBFou1WiubAB4e+gfx8SRPCBM8cz41+RSq3ETr+uJsgUkCR75NkM42fQNc9Gjtm1iu
- vJgWTxprDGacw1OzM0h1lo+uVWt/DIotexznEL43qqkg0bNiSeVDJnTBYPY4Qhp2PTYJ9AG2cJm
- 2JhAfhW+xcAQmxGcAP2PytyxeAkf8wVnblw8Q5VbzHvU9spDjh67z/CUgTgSGLjYuQOHrGqkfj5
- g95/9LpFmi0tj1w5fjXkiDNux06+8Gs6niUiNOmPIfGchLwzux2f3/I/C+osiQYiOyO/8/6UjUD
- TOk/hrfmTuXLBeHvm4OjZObVQoEnlrMf+xenrQmnRzcJCnUlX/XIS5h2WnKQJ3Bwz3lucGKxN93
- pTHC6Whnxsi6w5CgzgFO9uTv+iEHGpuc4byfj0EfVm8vGmq2kj77MBzY09T6nVqt0pmWD7zBxDk
- pw7ZgNE7VRwrmEBoOTMaYSl7WmUqqx4St0uMqZhLcg8jaCniTM762mJLwjprJ/oZaKJRM/EW4QH
- 3MlkDSIUQYs72TubPI+9gj7wWwhhhs7JP53fJMm+jRsJJtoeGFMTij3BGIvgSo0kdGFoicymZqJ
- tL26SWW0z9Es3UqAXz0CpAZ3OKohiY+qtnWgMqntSb+6ZEW1fq9oQI37xEMM6StIip/AakQ6qF/
- F
-X-Received: by 2002:a05:6000:4a19:b0:48c:4442:54e with SMTP id
- ffacd0b85a97d-48e6e4f4405mr3497370f8f.30.1793347063048; 
- Fri, 30 Oct 2026 00:57:43 -0700 (PDT)
+ bh=UeMFe59C+6CGb+6QO+mNSCypQcnt2mUVBf/74RZRjcg=;
+ b=JC4cyEHKhK1VDZPgqk2hc7EQDEAZQ8ZaCeji6B1UmauETQWPSP4npQqzTVrpoRbyTL
+ JdknylTqRoQRULZVlSass6I5qR2K+2euapWPXnGA/hFkAPOL/UScO4ziHXO1J1KBzT6K
+ 15RqNzxA+eSfnwLdQoRsqds7+kHAcerSVP5w58gBl4I1IhluVodiSpZOJYHIdwLgtoNn
+ pfVruWW1mhc5a3hK/47u/v095f3GiME6OXsZRdNxayHGctt0gs+En+a4fmEtMUk5J8iJ
+ 7N0j+slksPZzOQ0SmuqlJhAue8uxkpntB2LBfy9BrPM0kTitKQR01NHbFUCfCC2LLp0o
+ iTqg==
+X-Gm-Message-State: AFq9FYId9O6gYvHhsr5vunOMosxNOJLQ9oTabBZh4FRm8aFJIk+5+TrU
+ XicBoccHjuGF2AxOXEE4w8a2LzrzSo7xCqp+KroT/PgC9rIHMLbYNZVMZCvtMID4ng==
+X-Gm-Gg: AYBFou23R8Jo3XiRb9RjFI/QgjQxbCA3VAiqtwgqXCZzXJy5JJ0QgF8CqmZIJEKWw4K
+ 5aCojk6zD94+yAYiHH1a1NH0jkFWnPgGZFscfQ2DzViiXFipwJYHB9vnpB4CS5hgugqIOs5krWX
+ frdn59JNoAp+6nWkFQMsDR/+E72RoPWiWQ3t4kwBwxFDmdbhTRDg9hfxQxaY85JwHQMhVb4FB5v
+ 79eaeW9JK55rFGOhXgU8jxC4d5fqrYy4K2qBNrmmqASXaDLimfNBCNESftmRDCSfshpg6ke2fPM
+ Iem+ZSAmgs9tYhEJ0DwEm95/BKEb+Yzepms9fcy5YBUNiEWIUUU96hui1kBhLrjaaJgIBSKLsfR
+ PAIQR4LThYKLwllpp4JzsGbmKtWvVaKqpmZ5FfSV+L0Wwv9Pi9OVeuLVekjZIgi25eRwfn5qIR+
+ NQpNvA35OvQ9roFmqIPkxNl7vkTDHvWq88oDK4Z8BTTf1uufQ9altvzhsJp7RvKGfKEjFV1ISkj
+ ZXQe06jbhi8wtw4sP3E9NWYPtyuX/F96DRyGeOgmc2nv8msOzrQHhKezJ99nnPD5UOYO0fscbmZ
+ 9KB5wJOVZKcggguZl3ymKMXZPCVKkvp8iSw66TvCX2F7WedmBUnOzf9tkd5ujp8XjmwDjRiq+tE
+ p
+X-Received: by 2002:a5d:588e:0:b0:48e:6bbb:c3f3 with SMTP id
+ ffacd0b85a97d-48e6e2fd071mr3556678f8f.28.1793347070787; 
+ Fri, 30 Oct 2026 00:57:50 -0700 (PDT)
 Received: from axion.fireburn.co.uk ([2a01:4b00:d309:1c00:caf1:6b20:8531:818c])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48e71b8bd8esm1675411f8f.42.2026.10.30.00.57.42
+ ffacd0b85a97d-48e71b8bd8esm1676007f8f.42.2026.10.30.00.57.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 30 Oct 2026 00:57:42 -0700 (PDT)
+ Fri, 30 Oct 2026 00:57:50 -0700 (PDT)
 From: Mike Lothian <mike@fireburn.co.uk>
-To: Alex Deucher <alexdeucher@gmail.com>,
- Mario Limonciello <superm1@kernel.org>
+To: Mario Limonciello <superm1@kernel.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>
 Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
  christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
  linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] drm/amdgpu: runtime resume dGPU on ACPI notify from
- its own node
-Date: Fri, 30 Oct 2026 07:57:35 +0000
-Message-ID: <20261030075735.356811-1-mike@fireburn.co.uk>
+Subject: Re: [PATCH 2/2] drm/amdgpu: handle broken dGPU hotplug GPE on ASUS
+ ROG Strix G513QY
+Date: Fri, 30 Oct 2026 07:57:43 +0000
+Message-ID: <20261030075743.356835-1-mike@fireburn.co.uk>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <CADnq5_PbewORwc3Wsqw3VQESz3RNAKJy+KdnWHx9J1rKg35-Hw@mail.gmail.com>
+In-Reply-To: <8072db9e-0df4-4fc5-b86a-cc50ac7934a9@kernel.org>
 References: 
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
@@ -94,34 +94,21 @@ X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, 29 Oct 2026, Alex Deucher wrote:
-> I'm not sure about BACO.  In the BOCO case the OEM has a mux on the HPD
-> pins that redirects them to the EC when the dGPU is powered off.  For
-> BACO it's usually a PCIe add-in board so there is no way to redirect
-> the HPD pins.
+On Thu, 29 Oct 2026, Mario Limonciello wrote:
+> Can you please get an acpidump and put it on a kernel bugzilla or drm
+> bug?  This generally feels like an ACPI interpreter issue to me.
 
-Agreed, and I can't test BACO anyway, so I'll keep it BOCO only in v2
-Mario, sorry, I'll leave your BACO suggestion out unless someone has a
-board that needs it
+Done: https://gitlab.freedesktop.org/drm/amd/-/work_items/6061
 
-> Mike Lothian does your system have ATIF?  This is already code to
-> handle this.  It sounds like it's just registering the wrong ACPI node.
-> You should be able to use the existing handler.
+It has the errors and the tables from /sys/firmware/acpi/tables, minus my
+local override SSDT.  I haven't got acpidump or iasl installed so it's the
+raw files in a tarball rather than a real acpidump, I can redo it if you
+want the proper format
 
-It does, but only on the iGPU: ATIF is in SSDT7 under \_SB.PCI0.GP17.VGA_,
-and the dGPU node (\_SB.PCI0.GPP0.SWUS.SWDS.VGA_) has none
-
-What arrives here isn't an ATIF notification either.  _L05 in SSDT9 is
-just Notify (\_SB.PCI0.GPP0.VGA, 0x81), and that path doesn't exist on
-this board, so the interpreter aborts the method with AE_NOT_FOUND and no
-Notify is delivered to anything.  I've put the tables and the errors in
-a bug: https://gitlab.freedesktop.org/drm/amd/-/work_items/6061
-
-What I haven't checked is whether the firmware would flag a dGPU display
-event in the ATIF SBIOS requests if the Notify did arrive at the right
-node.  If I alias the path so it resolves, I can turn on drm.debug and see
-whether amdgpu_atif_handler() fires and what request flags come back, and
-if ATIF_DGPU_DISPLAY_EVENT is set I'll use the existing handler rather
-than add a new one.  I'll report back
+On the interpreter question: _L05 is only Notify (\_SB.PCI0.GPP0.VGA,
+0x81), and \_SB.PCI0.GPP0.VGA doesn't exist on this board, the dGPU is
+under GPP0.SWUS.SWDS.VGA_.  I don't know what the interpreter is meant to
+do with a Notify to a path that doesn't resolve, which is why I put the
+question in the bug.  Rafael, if there's a better place for it I'll move it
 
 Mike
