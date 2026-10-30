@@ -2,80 +2,69 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 940B2606A31A
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Oct 2026 07:58:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF5C8606A31D
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Oct 2026 08:37:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fireburn-co-uk.20260707.gappssmtp.com header.i=@fireburn-co-uk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=r1Pejf5R
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bFLcJIuz
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 338F5112675;
-	Fri, 30 Oct 2026 07:57:59 +0000 (UTC)
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
- [209.85.221.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6AA8C11268C
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Oct 2026 07:57:52 +0000 (UTC)
-Received: by mail-wr1-f48.google.com with SMTP id
- ffacd0b85a97d-48e09aa5264so162862f8f.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Oct 2026 00:57:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fireburn-co-uk.20260707.gappssmtp.com; s=20260707; t=1793347071; x=1793951871;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=UeMFe59C+6CGb+6QO+mNSCypQcnt2mUVBf/74RZRjcg=;
- b=r1Pejf5RTR67g98yPpQUrkH5Lh4XP01C77S4skRSTrHEgg5d1iPvWF+NKR+3G4UiBO
- 9Pe0vFFiUH3qvqPFmq8bPrRpJ6f0g9MmdP2osGLJQ+lrKT9u4kuQx6VVKvAPWGKq30H0
- YOvRTIsS6/M6WLPy5tXMZNLaXhxSZ5eifCaTBUwi8YLpu1uGRDmwRFe68kplxZHptt4s
- 2lZ4E4gnDbHUk+GGgJSYUhqRxeccY4Lvk/hlvJD2HRtMittCor6wyrQKouM7vA1yGSaB
- ogZEV3WP2L3k4trCAZTIlRuKlWE8fYW7FJ3hjFaRE2cDdNAB6cBgBgjN46lMUH0o+Hbz
- SBEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793347071; x=1793951871;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=UeMFe59C+6CGb+6QO+mNSCypQcnt2mUVBf/74RZRjcg=;
- b=JC4cyEHKhK1VDZPgqk2hc7EQDEAZQ8ZaCeji6B1UmauETQWPSP4npQqzTVrpoRbyTL
- JdknylTqRoQRULZVlSass6I5qR2K+2euapWPXnGA/hFkAPOL/UScO4ziHXO1J1KBzT6K
- 15RqNzxA+eSfnwLdQoRsqds7+kHAcerSVP5w58gBl4I1IhluVodiSpZOJYHIdwLgtoNn
- pfVruWW1mhc5a3hK/47u/v095f3GiME6OXsZRdNxayHGctt0gs+En+a4fmEtMUk5J8iJ
- 7N0j+slksPZzOQ0SmuqlJhAue8uxkpntB2LBfy9BrPM0kTitKQR01NHbFUCfCC2LLp0o
- iTqg==
-X-Gm-Message-State: AFq9FYId9O6gYvHhsr5vunOMosxNOJLQ9oTabBZh4FRm8aFJIk+5+TrU
- XicBoccHjuGF2AxOXEE4w8a2LzrzSo7xCqp+KroT/PgC9rIHMLbYNZVMZCvtMID4ng==
-X-Gm-Gg: AYBFou23R8Jo3XiRb9RjFI/QgjQxbCA3VAiqtwgqXCZzXJy5JJ0QgF8CqmZIJEKWw4K
- 5aCojk6zD94+yAYiHH1a1NH0jkFWnPgGZFscfQ2DzViiXFipwJYHB9vnpB4CS5hgugqIOs5krWX
- frdn59JNoAp+6nWkFQMsDR/+E72RoPWiWQ3t4kwBwxFDmdbhTRDg9hfxQxaY85JwHQMhVb4FB5v
- 79eaeW9JK55rFGOhXgU8jxC4d5fqrYy4K2qBNrmmqASXaDLimfNBCNESftmRDCSfshpg6ke2fPM
- Iem+ZSAmgs9tYhEJ0DwEm95/BKEb+Yzepms9fcy5YBUNiEWIUUU96hui1kBhLrjaaJgIBSKLsfR
- PAIQR4LThYKLwllpp4JzsGbmKtWvVaKqpmZ5FfSV+L0Wwv9Pi9OVeuLVekjZIgi25eRwfn5qIR+
- NQpNvA35OvQ9roFmqIPkxNl7vkTDHvWq88oDK4Z8BTTf1uufQ9altvzhsJp7RvKGfKEjFV1ISkj
- ZXQe06jbhi8wtw4sP3E9NWYPtyuX/F96DRyGeOgmc2nv8msOzrQHhKezJ99nnPD5UOYO0fscbmZ
- 9KB5wJOVZKcggguZl3ymKMXZPCVKkvp8iSw66TvCX2F7WedmBUnOzf9tkd5ujp8XjmwDjRiq+tE
- p
-X-Received: by 2002:a5d:588e:0:b0:48e:6bbb:c3f3 with SMTP id
- ffacd0b85a97d-48e6e2fd071mr3556678f8f.28.1793347070787; 
- Fri, 30 Oct 2026 00:57:50 -0700 (PDT)
-Received: from axion.fireburn.co.uk ([2a01:4b00:d309:1c00:caf1:6b20:8531:818c])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48e71b8bd8esm1676007f8f.42.2026.10.30.00.57.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 30 Oct 2026 00:57:50 -0700 (PDT)
-From: Mike Lothian <mike@fireburn.co.uk>
-To: Mario Limonciello <superm1@kernel.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
- christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
- linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] drm/amdgpu: handle broken dGPU hotplug GPE on ASUS
- ROG Strix G513QY
-Date: Fri, 30 Oct 2026 07:57:43 +0000
-Message-ID: <20261030075743.356835-1-mike@fireburn.co.uk>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <8072db9e-0df4-4fc5-b86a-cc50ac7934a9@kernel.org>
-References: 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FF61112686;
+	Fri, 30 Oct 2026 08:37:21 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1B2910E87F;
+ Fri, 30 Oct 2026 08:37:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793349435; x=1824885435;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=IHJX3cw9JB2XTo1/s4O3fc6EUj3ibpEpcjIPZLJOlg4=;
+ b=bFLcJIuznBcbdbK7OiA+bZG6eBh4/MEQ63rkmJcXCxm4YSLjpTZint/5
+ NGOa4eci5CIRlNBarh4Wks4jwBaPG7NYY9oDxEek7fRlX7duGkLx1lwf3
+ NPk4q+oFb10pGJ1ZXp2RkEcTXa4nfEA15ZyWe4X9X7hQjG6vGVxBROly/
+ yPkDrRUkp4QosZDLwtutbVaJfkOLObrnq4N/k0cY7WFq54y6HlnH111ag
+ nq18B0dCmcnUIQOApk04+KnJMh8K5+PgBh99sKjoNT6S+YrLVD8zlrD6i
+ oFI+7Ivl8RChCXVf4KYwTlkYO7/tvDby5G16nzXB+bxh1PgPEexLtJqs8 w==;
+X-CSE-ConnectionGUID: /IWe+B40RiGQZw6GIaRp6Q==
+X-CSE-MsgGUID: qOr4tCMaQJGbv2o77zromg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="2133090"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2133090"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Oct 2026 01:37:15 -0700
+X-CSE-ConnectionGUID: TW8odKQhTKKIfvCGK54oQA==
+X-CSE-MsgGUID: wI4aNNQ6TmKwNUCTeZif6A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="5457931"
+Received: from aiddamse-mobl3.gar.corp.intel.com (HELO [10.247.212.48])
+ ([10.247.212.48])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Oct 2026 01:37:08 -0700
+Message-ID: <baf11ed8-6a40-495a-ae40-15df5ad50284@linux.intel.com>
+Date: Fri, 30 Oct 2026 14:07:06 +0530
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] drm/xe: Expose retired VRAM pages via drm-ras
+To: "Tauro, Riana" <riana.tauro@intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Jakub Kicinski <kuba@kernel.org>
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ netdev@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ simona.vetter@ffwll.ch, airlied@gmail.com, tejas.upadhyay@intel.com,
+ himal.prasad.ghimiray@intel.com, raag.jadav@intel.com,
+ joshua.santosh.ranjan@intel.com, ashwin.kumar.kulkarni@intel.com,
+ pratik.bari@intel.com, Hawking.Zhang@amd.com, tao.zhou1@amd.com,
+ YiPeng.Chai@amd.com, jinzhou.su@amd.com, cesun102@amd.com,
+ lijo.lazar@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com
+References: <20261007080354.3072751-1-aravind.iddamsetty@linux.intel.com>
+ <20261007080354.3072751-2-aravind.iddamsetty@linux.intel.com>
+ <20261016154913.1af64e88@kernel.org> <atYFYbLXfSIPLTzA@intel.com>
+ <86fb7702-9b70-412c-a8a0-a2d78cb5fae2@intel.com>
+Content-Language: en-US
+From: Aravind Iddamsetty <aravind.iddamsetty@linux.intel.com>
+In-Reply-To: <86fb7702-9b70-412c-a8a0-a2d78cb5fae2@intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,28 +76,119 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, 29 Oct 2026, Mario Limonciello wrote:
-> Can you please get an acpidump and put it on a kernel bugzilla or drm
-> bug?  This generally feels like an ACPI interpreter issue to me.
+Hi Riana,
 
-Done: https://gitlab.freedesktop.org/drm/amd/-/work_items/6061
+On 30-10-2026 11:46, Tauro, Riana wrote:
+> Hi Aravind/Rodrigo
+>
+> How about using a generic telemetry node for this series from
+> https://lore.kernel.org/dri-devel/20261029203000.1763447-1-zachary.mckevitt@oss.qualcomm.com/T/#t
+> instead of a dedicated node for vram-retired-pages?
+I don't think the telemetry node is a good fit for retired-resources,
+the two solve
+fairly different problems:
 
-It has the errors and the tables from /sys/firmware/acpi/tables, minus my
-local override SSDT.  I haven't got acpidump or iasl installed so it's the
-raw files in a tarball rather than a real acpidump, I can redo it if you
-want the proper format
+Telemetry models a fixed, compile-time-known set of named scalar
+readings (temperature, voltage, power, ...), each a single s64
+value, read/written one field at a time via doit. The dump op only
+enumerates the field schema (field id + field-name), it does not
+bulk-return values.
 
-On the interpreter question: _L05 is only Notify (\_SB.PCI0.GPP0.VGA,
-0x81), and \_SB.PCI0.GPP0.VGA doesn't exist on this board, the dGPU is
-under GPP0.SWUS.SWDS.VGA_.  I don't know what the interpreter is meant to
-do with a Notify to a path that doesn't resolve, which is why I put the
-question in the bug.  Rafael, if there's a better place for it I'll move it
+A retired VRAM page is a multi-attribute record (address, size,
+status), discovered at runtime when a page actually faults. There's
+no way to pre-enumerate a fixed "field id" per page the way
+QAIC_DEVINFO_* is enumerated at build time, and the count is
+unbounded  and grows over the life of the device.
 
-Mike
+Trying to map retired pages onto telemetry fields would mean either:
+(a) registering a field per page per attribute ahead of time, which
+isn't possible since addresses aren't known until the fault
+happens, or
+(b) doing N doit round-trips (one per field) to read back what is
+already a single structured dump today.
+
+Our current get-retired-resources dump returns the full list
+(address/size/status, plus a leading max-pages summary) in one
+cursor-paginated sweep, with the cursor keyed by address so it stays
+correct if the list mutates concurrently (pages retiring mid-dump).
+Telemetry's dumpit walks a static array with an index cursor, which
+doesn't give us that property.
+
+So I'd prefer to keep DRM_RAS_NODE_TYPE_RETIRED_RESOURCES as its own
+node type rather than reusing telemetry for it.
+
+Also, RETIRED_RESOURCES is generic node not just limited to VRAM bad pages
+that can extended to support a new type of resource.
+
+Thanks,
+Aravind. 
+>
+> Thanks
+> Riana
+>
+> On 19-10-2026 17:26, Rodrigo Vivi wrote:
+>> On Fri, Oct 16, 2026 at 03:49:13PM -0700, Jakub Kicinski wrote:
+>>> On Wed,  7 Oct 2026 13:33:53 +0530 Aravind Iddamsetty wrote:
+>>>> +  -
+>>>> +    name: retired-resource-attrs
+>>>> +    attributes:
+>>>> +      -
+>>>> +        name: node-id
+>>>> +        type: u32
+>>>> +        doc: Node ID targeted by this retired resource operation.
+>>>> +      -
+>>>> +        name: vram-page
+>>>> +        type: nest
+>>>> +        nested-attributes: vram-page-attrs
+>>> why wrap attrs in a nest? Are you planning to add other resource types
+>>> (than a page)? It's a common anti-pattern in Netlink to over-wrap
+>>> stuff.
+>> we should indeed remove the wrap and have only the page info.
+>>
+>>>> +        doc: >-
+>>>> +             Type-specific payload. The resource type is
+>>>> identified by the
+>>>> +             node (its node-name); each node reports a single
+>>>> resource type.
+>>>> +  -
+>>>> +    name: vram-page-attrs
+>>>> +    attributes:
+>>>> +      -
+>>>> +        name: address
+>>>> +        type: u64
+>>>> +        doc: Device address of the retired VRAM page (e.g. DPA).
+>>>> +      -
+>>>> +        name: size
+>>>> +        type: u64
+>>> prefer uint
+>>>
+>>>> +        doc: Size of the retired VRAM page in bytes.
+>>>> +      -
+>>>> +        name: max-pages
+>>>> +        type: u32
+>>>> +        doc: >-
+>>>> +             Maximum VRAM pages that can be retired. Present only
+>>>> in the
+>>>> +             leading summary entry of the dump (no
+>>>> address/size/status).
+>>>> +      -
+>>>> +        name: status
+>>>> +        type: u32
+>>>> +        doc: Retirement status of the retired VRAM page.
+>>>> +        enum: retired-resource-status
+>>>> +      -
+>>>> +        name: pad
+>>>> +        type: pad
+>>> And then you won't need pad
+>> I noticed this in the review prompts, but I have some reservations here.
+>> We know for sure our value is always u64 because it is our hw
+>> definition.
+>> I don't see a good reason why not use the exact size that matches our
+>> hw.
