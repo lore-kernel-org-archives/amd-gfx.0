@@ -2,48 +2,48 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F6AB606A31D
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Oct 2026 10:41:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06CF4606A325
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Oct 2026 11:30:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mgC9LuFc
+	dkim=pass (2048-bit key, unprotected) header.d=deq.rocks header.i=@deq.rocks header.a=rsa-sha256 header.s=securedbylima-20251205 header.b=VoQ8JOOM
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0384112738;
-	Fri, 30 Oct 2026 10:41:09 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9748112736
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Oct 2026 10:41:03 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7473640295;
- Fri, 30 Oct 2026 10:41:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 865851F0093A;
- Fri, 30 Oct 2026 10:41:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793356863;
- bh=wyEBsu61my2xRcWxxz/2MGS82lQFimJORgTUHt1Bg/U=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=mgC9LuFcRUG1bKE5lPmYGQ3TakPnq4qoAC+LcwGSGVPme/Znv+zFAKN2llpi2uYe2
- U+B2EJH7AmmDDN34aNDqYcJ12FlaNqMuscteVibC+NOWS4dFQGuIWPhys6kWGo/0Tl
- zXUlwdSmRjgaUeI32wTGKH2QPcAU6le5TrYuRwxJM1T1UDxggL9Pv84qJqfpSiLO7/
- qQJgfG/kfEkGCCKvecl+Zrybw/OyslZ7CJXmnZtj7r7Ik9bWy8JywMSLai/6R4tVoK
- BOuxQXKbMH+0oMtWqXOm0JXDg1yK5sFTHUFFINl/veDXpoFsgPgzyQYpTU2CFYh8Sr
- 60Gn1A4WFtDJA==
-From: Sasha Levin <sashal@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Cc: Alex Deucher <alexdeucher@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Kenneth Feng <kenneth.feng@amd.com>, Kevin Wang <kevin.wang@amd.com>,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-next@vger.kernel.org
-Subject: [PATCH linux-next] drm/amd/pm: fix up the amdgpu merge of the smu
- 14.0.2 zero fan restore
-Date: Fri, 30 Oct 2026 06:41:01 -0400
-Message-ID: <20261030104101.3496560-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <auNVlhF6DGyFYx10@sirena.org.uk>
-References: <auNVlhF6DGyFYx10@sirena.org.uk>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98970112763;
+	Fri, 30 Oct 2026 11:30:14 +0000 (UTC)
+Received: from mx5.mail-out.lima-city.de (mx5.mail-out.lima-city.de
+ [91.216.248.207])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60A98112760;
+ Fri, 30 Oct 2026 11:30:08 +0000 (UTC)
+Date: Fri, 30 Oct 2026 12:30:00 +0100
+X-Lima-ML-UUID: cb4c68a3-c4df-444f-b29d-b3be3ecdeeb1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=deq.rocks;
+ s=securedbylima-20251205; t=1793359805;
+ bh=P9F0Hx3zzFPEhRZXhwMxkkF3mMj+Be93AHgQNYo3wK8=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=VoQ8JOOMH4GClI4YH5Jdrqd80ih1F+smHYE6S/wn3HdO5dGjaS6fFjukwafT9J1/I
+ 2XBTymfc6kbY421FW0B6zykjikZmi585nL2hLz5jbIHyk16nW/d0JGJQwGR4LQX9TJ
+ rZUVZCkFHTawB+0W4hZEW2eVb7aXFlksBjAz14PUMXQTAPiuSmlAFIDARByWM8diTH
+ MMAPGlxlL8GaodhSBCoIlNfPjAxrWdExYi1ckCfXixX606/lD86ExLpd5fKMGZz/ol
+ /ly7UgjANuU5qkbC6OdZIX261an5MZBqV29BJGlOTZlZaHEsA07I35KkTVB/un2gEd
+ D8jPXCaYHPpMA==
+From: =?UTF-8?B?QW5kcsOp?= Eikmeyer <dev@deq.rocks>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Ed Schofield <ed@aicharmers.com>, amd-gfx@lists.freedesktop.org, Kenneth
+ Feng <kenneth.feng@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>, Christian
+ =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4] drm/amd/pm: defer UCLK DPM on selected Apple Navi GPUs
+Message-ID: <20261030123000.5573e70f@kait2en-mbp15-1>
+In-Reply-To: <CADnq5_MsaUDm8rcxr3_0wuEAXywxziAofOO9w-dUxYS9PUoasw@mail.gmail.com>
+References: <20260916144014.879355-1-ed@aicharmers.com>
+ <CADnq5_MsaUDm8rcxr3_0wuEAXywxziAofOO9w-dUxYS9PUoasw@mail.gmail.com>
+Organization: KaiT2en
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,50 +54,41 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-23.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-7.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_2
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-After the drm merge, smu_v14_0_2_od_restore_table_single() has two
-PP_OD_EDIT_FAN_ZERO_RPM_STOP_TEMP cases: the drm-next one and the one
-from commit a2eae9f4fa1b ("drm/amd/pm: add zero fan stop temperature
-support on smu 14.0.2") in mainline. The amdgpu merge resolution drops
-the drm-next one and keeps the mainline one, which still sets
-PP_OD_FEATURE_ZERO_FAN_BIT in FeatureCtrlMask.
+On Thu, 29 Oct 2026 17:57:49 -0400
+Alex Deucher <alexdeucher@gmail.com> wrote:
 
-Commit 8d4ce79aff1c ("drm/amd/pm: preserve committed OD features for
-SMU 14.0.2") and its drm-next cherry-pick removed that update from both
-zero fan restore cases. Remove it again so the file matches the amdgpu
-tree.
+> @Andre Eikmeyer I think this patch should fix your system as well.
 
-Fixes: 0575e86c31a9 ("Merge branch 'drm-next' of https://gitlab.freedesktop.org/agd5f/linux.git")
-Link: https://lore.kernel.org/all/auNVlhF6DGyFYx10@sirena.org.uk/
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
-Mark, this applies on top of next-20261029 and is meant to be folded into
-the amdgpu merge resolution.
+Hi Alex,
 
- drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c | 1 -
- 1 file changed, 1 deletion(-)
+I guess you have seen it already but the patch doesn't match the 16,1.
+Its boards are 7340/020f and 7340/0210, and v4 only matches 0218, 0219
+and 021a.
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-index 24a3d61d8ea66..62f16d17e22bc 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-@@ -2606,7 +2606,6 @@ static int smu_v14_0_2_od_restore_table_single(struct smu_context *smu, long inp
- 	case PP_OD_EDIT_FAN_ZERO_RPM_STOP_TEMP:
- 		od_table->OverDriveTable.FanZeroRpmStopTemp =
- 					boot_overdrive_table->OverDriveTable.FanZeroRpmStopTemp;
--		od_table->OverDriveTable.FeatureCtrlMask |= BIT(PP_OD_FEATURE_ZERO_FAN_BIT);
- 		break;
- 	case PP_OD_EDIT_ACOUSTIC_LIMIT:
- 		od_table->OverDriveTable.AcousticLimitRpmThreshold =
+That hang is what I sent a fix for
+https://lore.kernel.org/all/20261024162109.307247-1-dev@deq.rocks/
 
-base-commit: a39c950806213f6861d00f90729acaaa21f2d95a
--- 
-2.53.0
+The VBIOS trains the UMC p-states at different frequencies the pp-table
+lists. The SMU hangs as soon as UCLK switches into level 2. Deferring
+the UCLK enable doesn't change the levels, so the hang just moves from
+boot to later under load.
 
+The two patches can coexist after a trivial rebase.
+
+> ...your system...
+
+I need to clarify here. I actually don't own a 16,1. But I maintain a
+distro (KaiT2en) that specializes on T2 Macs. So the patches I develop
+are extensively tested by the community before submitting. Atharwa is
+part of this community. Ed is not, but Atharwa reviewed and tested the
+code.
+
+Best,
+Andre
