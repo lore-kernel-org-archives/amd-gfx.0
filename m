@@ -2,98 +2,132 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 462D7606A322
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Oct 2026 03:28:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE16F606A31E
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Oct 2026 06:10:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=DQghwr5d
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=4mBXz5dM
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9B06112634;
-	Fri, 30 Oct 2026 03:28:33 +0000 (UTC)
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010028.outbound.protection.outlook.com [52.101.85.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C55B4112634
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Oct 2026 03:28:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47C5510E81A;
+	Fri, 30 Oct 2026 06:10:44 +0000 (UTC)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010066.outbound.protection.outlook.com [52.101.56.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD85C10E81A
+ for <amd-gfx@lists.freedesktop.org>; Fri, 30 Oct 2026 06:10:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=f0LX1OkS5CUj8jnEJVPn1Yk3HqZCXGMndjlpyQf6hedOO9hA/dTOlKlJFYIkoav/P56YYIn+RFyS9NWNjKyMNNuG8PQCdSJitmlbcsAfp9pAInWTCzXy4Vujph5si0oO/Y6sseOxAtAeHMMOcnpYjDIHIkxSADpo0Uia4Qv+HGcc4AKADu6QP97Ii+AlVy+ZAqkH+QIbVsxDHBuuFlMUqOju1M/RWkcpU9gT2cWRX+EA3GAnwTl+UuKaR97mB9eSpb5eXuKuF/BjIrdQ7SXoETWBqTUQWp9tQecuo0Gd5ZsLhyDDMh7z33BlTbpv26Bd5YCK16/JpASCz+1BSnm8VQ==
+ b=stfOqR9dYLr0CX28doqK0WoRuc1MvNI257xP3HIEStxAOWyX/fIagRds+ZFYM7UR2dzG1q68IzjANTb3i4JiWKN1LUwOcJbTr6al3F5lgwRRYGtrsZNs3gofUC3d/R9U+Zx4JNeYtkcuUNg7VGxyPe2GFMOTeYnK2C5hdrH8wgktVHtL7ETlhz//i/pxPo2RX9dnvdLmn4z0axZnM50FDmeI4e9EiVwcLBKmKvDmnROdmrupcecGiMXeVh1MrT4K3XRkmu9/dxZgEgu88kurREEWI6BRBV14/uTLcgyz59/+lJA5F8f9VkRUiuZHtYsKrcbc1WHkYvCFp/b4fZtjEw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2M8dClF3XhDMsITmLxW/hjh146rBFfMqdbZydbVBvIk=;
- b=OADKBym1PLj1gXhBKQbqzDwkyDpJOh5dN9Vbx5wLA75AufYZ2DDmCQHOEA3vdMEHNj4vGIZMlQSOiNMwexN7tCfqiRpE/bM8hTPzVpXGz+JZJtPVfgN0lkXrVWIxrzpaIUp8k8XcJp7x3Fnn4ZVrjJ1LcJV5CVlkQF/FB+dbTIaWkzdQ6cut3GPZiJ1+RV9T4gyPYYNu6TMve7HJlGcjJT2RyooIYchccduziDtbH8UCE0qVjkzBHM7cvAmTrY3sFBGy4gTa8arSAaIOtnvBY4P6alr9YDk3kT/a//HtDbSlqsVhQRTtY8qvn7e9SkTVnYeASiXvPt6tk+meIGG2xA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=50HPnoBzy/oiCzju+nKIE26ZxTx/VMjeFn3vlBYIc14=;
+ b=ZCpndC2Qws1XyzGbADCl7hOlpUKlK85IBBecX3ximQh6tOPALbBkSpD6zv8vo5/DTF9yrmtvrWXd9Sz7xxjuF1hbS5Ubkuc1I4JuGfzT8pwwkUgo6RRqdNDjBCotrbOJqyQJ9a8c9DOYNZO5GK6LtWOI9Q+NIjcJrt0FDYd+QFjUreArVIyqL9/IqMjmao+ng3boLrJt0QT1d2SwBcTBA+JacRkh4+fm34uqlxRrtiYmN8CoPt7FH+a5wjLy/xrp675mwtwLp/6/ipVDAiycjsuTbKZxyeMDwUQk7MSyeVjl5qatTMPfJXIO6tBPGc9bEaftfXGHh7ZFgYUuNZqJPA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2M8dClF3XhDMsITmLxW/hjh146rBFfMqdbZydbVBvIk=;
- b=DQghwr5dVPjRDjW6v2RazqHEm5ozNckvKys8P+8KUoH5Hhr4IjHwWcj6EAc+FPaCugHKDGxKoThoHQa3gNegeqlMz8PDWUbxctT5jAp4eqW7IWtqdjLNu+cXxBuhZ7HuO5Vk/CwLocge9zD2RwSProyX1yLSoszW9/9dsgAzY1E=
-Received: from SJ0PR03CA0181.namprd03.prod.outlook.com (2603:10b6:a03:2ef::6)
- by PH0PR12MB7469.namprd12.prod.outlook.com (2603:10b6:510:1e9::10)
+ bh=50HPnoBzy/oiCzju+nKIE26ZxTx/VMjeFn3vlBYIc14=;
+ b=4mBXz5dMuoRavKqrOUnmL/t9k+tLcWoLNtGOTGWzpBKKF/PDeupWJM6rQBFNUAbP0A0FuO2iAA58rGKSgy/RCAqGn+Ms82OtX4oVfe19yu/+hGlt7D/nPoOJiCcxblLDpk95KwZSRSsku7yFvr1dRmZg0gN1fBBn/yhyVXot0E0=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CH2PR12MB9457.namprd12.prod.outlook.com (2603:10b6:610:27c::7)
+ by MN2PR12MB4439.namprd12.prod.outlook.com (2603:10b6:208:262::17)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
- 2026 03:28:22 +0000
-Received: from SJ5PEPF000001CA.namprd05.prod.outlook.com
- (2603:10b6:a03:2ef:cafe::7d) by SJ0PR03CA0181.outlook.office365.com
- (2603:10b6:a03:2ef::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.19 via Frontend Transport; Fri,
- 30 Oct 2026 03:28:21 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ5PEPF000001CA.mail.protection.outlook.com (10.167.242.39) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Fri, 30 Oct 2026 03:28:21 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 29 Oct
- 2026 22:28:20 -0500
-Received: from AB350-desktop.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Thu, 29 Oct 2026 22:28:20 -0500
-From: <vitaly.prosyak@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Vitaly Prosyak <vitaly.prosyak@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Alex Deucher
- <alexander.deucher@amd.com>, Prike Liang <prike.liang@amd.com>
-Subject: [PATCH] drm/amdgpu/userq: avoid blocking reset lock during eviction
-Date: Thu, 29 Oct 2026 23:27:37 -0400
-Message-ID: <20261030032818.136872-1-vitaly.prosyak@amd.com>
-X-Mailer: git-send-email 2.55.0
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Fri, 30 Oct
+ 2026 06:10:34 +0000
+Received: from CH2PR12MB9457.namprd12.prod.outlook.com
+ ([fe80::85a8:1df:840a:cd4c]) by CH2PR12MB9457.namprd12.prod.outlook.com
+ ([fe80::85a8:1df:840a:cd4c%4]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
+ 06:10:33 +0000
+Content-Type: multipart/alternative;
+ boundary="------------hhns7jLoM6YRxnm7l2rzZBET"
+Message-ID: <a8d8bd34-d0db-4a06-926b-e6c4f27bb8d8@amd.com>
+Date: Fri, 30 Oct 2026 14:10:27 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC 02/10] drm/amdgpu: add device-wide PMC config
+To: James Zhu <jamesz@amd.com>, "Zhu, James" <James.Zhu@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Kuehling, Felix" <Felix.Kuehling@amd.com>
+Cc: "Huang, Ray" <Ray.Huang@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20260922093436.596947-1-lingshan.zhu@amd.com>
+ <20260922093436.596947-3-lingshan.zhu@amd.com>
+ <d3144b38-64a3-4bbe-910f-722912f9fc66@amd.com>
+ <6394fa47-ec53-4e54-9cc9-bbd59b97f174@amd.com>
+ <61ab80af-0a33-4660-9f80-13966c3583a2@amd.com>
+ <c96bc906-c6aa-479b-84d6-75ec1816e853@amd.com>
+ <DM4PR12MB85589778D67BE6864EA41355E46F2@DM4PR12MB8558.namprd12.prod.outlook.com>
+ <f34fe3de-918f-4911-91fd-19b8fb19d8a0@amd.com>
+ <2a1a10f7-6a49-435f-abb2-0894ff804acd@amd.com>
+Content-Language: en-US
+From: "Zhu, Lingshan" <lingshan.zhu@amd.com>
+In-Reply-To: <2a1a10f7-6a49-435f-abb2-0894ff804acd@amd.com>
+X-ClientProxiedBy: SG2PR04CA0203.apcprd04.prod.outlook.com
+ (2603:1096:4:187::22) To CH2PR12MB9457.namprd12.prod.outlook.com
+ (2603:10b6:610:27c::7)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CA:EE_|PH0PR12MB7469:EE_
-X-MS-Office365-Filtering-Correlation-Id: 988d80ee-6f53-4d62-6961-08df3635d948
+X-MS-TrafficTypeDiagnostic: CH2PR12MB9457:EE_|MN2PR12MB4439:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3a0f471d-3f98-4acd-7613-08df364c8200
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|82310400026|23010399003|376014|1800799024|6133799003|18002099003|56012099006|11063799006|261022075727099003|261028144727099003|10067099003|261021123027099003|261021121427099003|261009221227099003|261009223027099003|261026121527099003|261022105027099003|261026140227099003;
-X-Microsoft-Antispam-Message-Info: N7DYKAiSVXObWN2gU50JXClPiFqqa29iMp6aBrokIpEoQghUVVzub5oPyOIzgI0DqB981z3yrvCmMeqw1KzdI2DwstZQR4PSycpANwCcdfTZ2mzgR8pzT7E4Z4Sy/FShp6PgtDxjCILmSSJ946FZ56S2bsVov+9N3MCbNZMIVJPa9I/HiPsWuvvHB5uov4syv0QfES1aeNKfzKfh/nX5gd7q0S4KGEGOBk+dEChP0e2izUziVKem7PZ+PQm8FljcEH01aoorb2nBSF5q+IPCJ+d5c6GTM2lMSYnngUAnVnQWm/nXVpF4j8ChRwILF0UDW/VxXAsKsQQLxP5jsjH3SPo9dFkC28pWaFjHI8MVXa4M8PfSpFzlC0I74FgPrfC2rL1J8WurcSPtdfyY9njSFdPnfpu0mVfDGEUEqCMy1SLrbqb0O5HWATMt+Tv26a1rJ6Xy1d+QwvXYPTWJt+Qwe/Z9W3TXrkdfX8R2p97Odlgz8Fx3gJ7UW+U6QQSQbPC0+VsbKCjHVXOEaP+2QtsJRMnGt7zoMPdqcwnHC29+I3pTMhAU49BjobQRFSk057cggHELTHlFFnYaN2R7G0SBg2p79lPIrrvbkSSmOVcRS1YJYuTUtvQmx7ktg3XnFLBg0z3vrhyu0J6rN4eKzLXTypUd5OrjkKG6NNPdqy9WDYlXdRCi6VrxaW9Ai1gPd462Ovpq1GVakRbSSBsnn9mhZw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(82310400026)(23010399003)(376014)(1800799024)(6133799003)(18002099003)(56012099006)(11063799006)(261022075727099003)(261028144727099003)(10067099003)(261021123027099003)(261021121427099003)(261009221227099003)(261009223027099003)(261026121527099003)(261022105027099003)(261026140227099003);
+ ARA:13230040|1800799024|376014|23010399003|366016|13003099007|18002099003|22082099003|56012099006|4143699003|11063799006|8096899003|261009223027099003|261026121527099003|261026140227099003|261028144727099003|261022105027099003|261021121427099003|10067099003;
+X-Microsoft-Antispam-Message-Info: cb3J6vWlBlTYJGENrEhpY/ILhd1TRH1k/O7DgcgY4n5/0hs/b/It2asaP5XF1E8CtdVeIl2iABNU6SQipP59UkXBNTVcu0MEe+opcekJm4dl28IRQgul7MimCiB4j0aFVzWcBVZDFzO+lldiuJaVGkhmkFwLmpXKbbYk3nQtddatgUPUJSSe0jN8f+n+4ROUnvtpofrvVAl0XkrfV5csys5ZMeyEzAnQDdO2+e79P5eKt0lZAiIcHbnAw5i/qk1jTnyPrmGtJQ/5g6WYS6FM5fv7uDq5W/1a4liqnQk3hIz/JF9D2JI9BCv/87kxHzpFMyPI1fwphT+z0Y6nEEdm6OVyr566XOk4yJMZrUytPA/kR+ySLPvRz90a58DuIXyU3+s3IZSDohv5BO4i28XEfu/m1KGWC5LZB8SZ/0Ui8COJk7inVH+XI4S0FrAJGhA6soEkIq1h9A1V+znW28OlCU+IxZBsFI/Jb/cGfSeCIIlaG7wtJRa5igw2LrRkjFbTfemDccOcRz6bfrS1MyeGBy9Q4MwnUWtcchI9s62Kue5hTDizt2Hvzw5IgIZklGIOkJj1KsxH2cHJB+fsEuCR0Kf84Md6SWf2rWxUwfBCbh8Juxa6jHlgxPdWdiCWs6ZN
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB9457.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(13003099007)(18002099003)(22082099003)(56012099006)(4143699003)(11063799006)(8096899003)(261009223027099003)(261026121527099003)(261026140227099003)(261028144727099003)(261022105027099003)(261021121427099003)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: RHyBgdUm9oy1Ded6Hz+O52G61V0EtCSjyF+uk50q7cJS1eO085kbI2qDX99scOOqla++ZxLNJVREkpNiZxnD0kRcwO6UlGXTkMkPJCHG4+moaxUP5jK8Ctj0Smo+dYLeDXTPox39JDn0bbT+Ny/PhwDywo7g5IQStpdeeJpg/6rjeS2o2E1Brv+FGXFxK5blcHxvxpTbdUra+H4fe0fbviyVq9arVTI9hlUc/c+SIsAAWg5ldBv6CWWUnOzyxUZ/T7zpTq8rhMwqJ80fm/nO3JfDIWHrNpe0SLQJ3E367ouH8BFp0vOki5Jm+SmmbA2eN+fyX9DbXWs+tyY0oMLOj0in3WwGrkrZS2+W6M47yn6MIaid6c2+XD2GCpssdQen2AjEhfRAus1igZsFQWD7SbojM9YtFi4THapkt4hIFQYBr/+3HrtfB77M33KLJmGl
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YUg4MjRyR2hka29YR05hWkVFVzh0N3V3a1A5VkRzaC85dVU4clVYZ2xJdC9C?=
+ =?utf-8?B?Z1orUFVxMVErcHlaMFhHUTRiaU53b0ZWN1pWeFRqbEZtMnIvLzY4TmpHOXVX?=
+ =?utf-8?B?THpSSWtJSFlqb0hkOGRzbHVlbDZBTUhldzlCZGRlSk5tbGxtZzFIOEU0N2pp?=
+ =?utf-8?B?NS82NWl0WVowUEFMeU5BWjZiK2g4bmVNb214Q3MvM0ZEYUF6MlpxRGRhTmdr?=
+ =?utf-8?B?cklqbzBKMEVnRHl2ekE3Qzl6M0tlZ3JYYXVVMmdZTENMVjBhbEE5YjAwWCti?=
+ =?utf-8?B?cXdDRVFJUDJSdmN3aTBvV21kWEhXcFJHNmF3Y0dqN2xwN1loNTJqazVQUFZn?=
+ =?utf-8?B?SXIvSG1QZDZFbDYwUHVvNVl4MlZpRDlQMWZSU2VxdjIxSnVPN3RKc0cvd2Yr?=
+ =?utf-8?B?OXhwakNWcXJoK3ZGcCtRRXhoRVJKbzltcEUzSmFuVW5UM3dhZGI3eWdQYzdj?=
+ =?utf-8?B?bWYwVEJFM2l1elBoNTJMdVFSSXljcTdraHV4ZXFNb2xWZ1dDY09EWXl4dFpW?=
+ =?utf-8?B?ekJwOTRJNW92L2N4RmJiQ2c3Rlk1SE1iV3Z1aXJUWVhoNWUxQlE4eFQ3akxM?=
+ =?utf-8?B?VnpCeHJXWlRSLzB3SGwxcFBYaW53NER0aGk4UWZnaGJpWnJNdC9nZXZQWENt?=
+ =?utf-8?B?clphMTNnQjkrTGhQV0plaHBTN0dweFBtTTNtb0dmRWtXdEF5MWRZWjZYWDNC?=
+ =?utf-8?B?YWkwb1pmcUxSL3p4TklueGc0NTEwL2dyWTdrMWp4UHNHTHZaTmpsa1UwQ3RS?=
+ =?utf-8?B?LytaNkpFTDR5S3JuVTJsUER4czJpN094OWRvdWdaQVova21COTZPNUlBZkdh?=
+ =?utf-8?B?RndScitKWTZvKzk1STBjWU1FSzc1UHlYcnJaZXphd3IwTHNYdEdLS0ExdkQr?=
+ =?utf-8?B?aTg5NEpyalJteVNXa3dFUlc1eGpDSkNoU3Z5b1FaMFZhYzRRRUJET1B1NTBi?=
+ =?utf-8?B?VnU1YUJYdWxCSmxvV1I1R2Rvc1VCMGUyWHFicnhhNWFMZXFvVVhZd3BlUFVK?=
+ =?utf-8?B?eTYzZk5BOGNyZklMR2N0MnRDeGd6bEFERVU1T0FNYWxQTGs3SysyWEJCRGNl?=
+ =?utf-8?B?TERTRy9MTzhrSE9qOEdkZ2h2QmJ6TzN2WUxtRkdFYmFxNjQ5YUV1VURaRDYv?=
+ =?utf-8?B?UWttNlBHdDRFeE42K0o5TVZpVkk3R1BkTWN6SFBDUC9zc1BpTHc0bGl5UkJm?=
+ =?utf-8?B?MHVTYlhNQjBwT0gyQXV1QzVvT09XY0l0cnNhVWF4WklaQXFFdjBaWWZRNzR1?=
+ =?utf-8?B?UmNYL0hMdmNlamxXME5kb1pjamlWbkRpdXZWQnJFSG56VzlpS1N1aFdBWWJU?=
+ =?utf-8?B?Y1htTTFqb1ZhcFFNdDFMTmVHSEtqTlRydjkrKzAvMitnMjBJSENYbDdOV2sv?=
+ =?utf-8?B?cDZDaUhPNDVQeWRMWWsxekp0N1VRVktvazFFb1lrbnhtK2VRYko0R0RmbDI4?=
+ =?utf-8?B?Y1ZpUkE2VEFZM1JwUVBkS0xkSzBVR2Q0R3p6bDlzcmxWbCswUnJSbzh4M2dH?=
+ =?utf-8?B?OWtTZlFlaFcvUmJHSHZkTlV5QnpYUm8zbW1VWmVnQlhEWVRwN0gwNTFKSDZN?=
+ =?utf-8?B?V1BEa1BySlh5UEtMNFM1RjNaOGVvQ0NLOUI1Nmp4VmVsVUNaNTcxeUcrN0Er?=
+ =?utf-8?B?ODZyWHRpMXVMU2hXNnJjZ05SMXoycXZrUURoN2VyN2VYUEtzanBmNnV6czlD?=
+ =?utf-8?B?TEJMZW1kRks4cTI1by8xemRNZWhhdlNuTjh4RXRESk5lU3hMd2d5aUEyYVlz?=
+ =?utf-8?B?bjh6em41VkRSTGNIeDdpUzQxaFF1bHdwMmdxa0hOMDlsYTJOay9YSWhLL2ZC?=
+ =?utf-8?B?eXBJQ3NOY0Z6dHJhSmhERlpRSW1GYzV4M2hZT2hLV25tSFlRNTg1Q2toU3Vu?=
+ =?utf-8?B?eFkzVmRhR3Q5MHFrTXUyU1lXNFJBaVNDc2JiOWpLSjB4bG9ZZ1Rhb0NZY3U1?=
+ =?utf-8?B?SWUrWS9GM2xIS2k5MTVYekJhSHp5RkFQUTJZcFd6c3psUDRmRGF4dXk1Zlp6?=
+ =?utf-8?B?S0QzQ1VoVklER2xNTU9oU1dqOFlUM1BoWWNMTzY1dmRHMVdJcmp1UHB3TFBM?=
+ =?utf-8?B?VkJ1OFZOSlEvODF0M05OVGp4bVpOdDFsb0dLNk5KNFZ1QjBhTkJseWplUnVH?=
+ =?utf-8?B?ak85TjBwTFR1OFJpRDh0djFsVXpiWWd2YVVDcFZNQjlvakpuOXdNR09zVFBS?=
+ =?utf-8?B?d2Vtdk95NXZPU2hiNzBSQ0RNZ2RrZGF4YTBFQlpyRnFaNk9tT1dxaDlTY2pN?=
+ =?utf-8?B?N21pcXlGQUpxM1NhcmlBNDFybHFSK003b1d5UllhRWFqMGFnbHBiTldBWkRV?=
+ =?utf-8?B?dUFvOXVQWm9STk1HZ0NhU1kzb253NVkzUFlGQ1J6TnhMYk9WM3ZmQT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 03:28:21.5198 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 988d80ee-6f53-4d62-6961-08df3635d948
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3a0f471d-3f98-4acd-7613-08df364c8200
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB9457.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 06:10:33.7954 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001CA.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7469
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: zZmnS5MhT8X+z6+1YaviUQK0ngWKX2fRduCP5A4p0Qbwbk0wGQbA3KDEU/04uObImlKpaXLI/A8etOtUMFsEGg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4439
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,351 +138,459 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-14.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	HTML_MESSAGE,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Vitaly Prosyak <vitaly.prosyak@amd.com>
+--------------hhns7jLoM6YRxnm7l2rzZBET
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-The eviction-fence worker runs inside a DMA-fence signalling section.
-Userq eviction can block on reset_domain->sem while GPU recovery holds
-that semaphore and invalidates mappings. Lockdep reports the resulting
-dependency cycle through dma_fence_map.
+On 10/29/2026 9:37 PM, James Zhu wrote:
 
-[  +0.000295] amdgpu 0000:03:00.0: GPU reset begin!. Source:  5
+>
+> On 2026-10-28 23:13, Zhu, Lingshan wrote:
+>> On 10/28/2026 8:53 PM, Zhu, James wrote:
+>>> AMD General
+>>>
+>>> Hi, Lingshan,
+>>>
+>>> Sorry to reply later! Just be back from vacation.
+>>>
+>>> Yes, there is only one set of PMC registers on the device.
+>>> But the minimum control scope is XCC. So, I think we should design
+>>> PMC based on
+>>> Node instead of device. We need not enable the PMC on XCCs which
+>>> have no PMC
+>>> data collection request.
+>>> Since the request is based on render node.
+>> They are per-device registers, so the scope should be the device, not
+>> XCC.
+> [JZ] where did you get this information? From what I know, Compute /
+> Shader PMCs / RLC & SPM Control / //  /  / / PC Sampling are all XCC
+> based.  a are all  are
 
-[  +0.000233] ======================================================
-[  +0.000001] WARNING: possible circular locking dependency detected
-[  +0.000000] 7.2.0+ #97 Tainted: G        W
-[  +0.000001] ------------------------------------------------------
-[  +0.000001] kworker/u128:1/238 is trying to acquire lock:
-[  +0.000001] ffff897b4fcc2eb8 (&mapping->i_mmap_rwsem){++++}-{4:4}, at: unmap_mapping_pages+0x6a/0xd0
-[  +0.000005]
-              but task is already holding lock:
-[  +0.000001] ffff897b0fd60ec0 (&reset_domain->sem){++++}-{4:4}, at: amdgpu_device_lock_reset_domain+0x1c/0x30 [amdgpu]
-[  +0.000294]
-              which lock already depends on the new lock.
+For GFX11/12, the instance number of XCC is 0, therefore their xcc_mask is 1, so the registers are per-device.
+You can read these information from sysfs and debugfs.
 
-[  +0.000000]
-              the existing dependency chain (in reverse order) is:
-[  +0.000001]
-              -> #3 (&reset_domain->sem){++++}-{4:4}:
-[  +0.000002]        down_read+0x30/0x180
-[  +0.000004]        amdgpu_userq_unmap_helper+0x46/0x290 [amdgpu]
-[  +0.000212]        amdgpu_userq_evict+0x4e/0xf0 [amdgpu]
-[  +0.000198]        amdgpu_eviction_fence_suspend_worker+0x51/0xf0 [amdgpu]
-[  +0.000176]        process_one_work+0x22e/0x760
-[  +0.000003]        worker_thread+0x1db/0x3d0
-[  +0.000001]        kthread+0xfe/0x140
-[  +0.000001]        ret_from_fork+0x3bd/0x470
-[  +0.000002]        ret_from_fork_asm+0x1a/0x30
-[  +0.000002]
-              -> #2 (dma_fence_map){++++}-{0:0}:
-[  +0.000003]        __dma_fence_might_wait+0x42/0xf0
-[  +0.000002]        dma_resv_lockdep+0x26d/0x3b0
-[  +0.000002]        do_one_initcall+0x74/0x3e0
-[  +0.000002]        kernel_init_freeable+0x3f8/0x6d0
-[  +0.000002]        kernel_init+0x1b/0x200
-[  +0.000002]        ret_from_fork+0x3bd/0x470
-[  +0.000001]        ret_from_fork_asm+0x1a/0x30
-[  +0.000002]
-              -> #1 (mmu_notifier_invalidate_range_start){+.+.}-{0:0}:
-[  +0.000002]        __split_huge_pmd+0x86/0x190
-[  +0.000002]        vma_adjust_trans_huge+0x12b/0x1c0
-[  +0.000002]        __split_vma+0x236/0x370
-[  +0.000002]        vms_gather_munmap_vmas+0xe8/0x360
-[  +0.000001]        __mmap_region+0x2ab/0x1060
-[  +0.000001]        mmap_region+0xc4/0x180
-[  +0.000001]        do_mmap+0x48b/0x660
-[  +0.000002]        vm_mmap_pgoff+0x129/0x230
-[  +0.000002]        ksys_mmap_pgoff+0x1a2/0x270
-[  +0.000001]        __x64_sys_mmap+0x33/0x70
-[  +0.000002]        x64_sys_call+0x2194/0x26e0
-[  +0.000001]        do_syscall_64+0x103/0x6d0
-[  +0.000001]        entry_SYSCALL_64_after_hwframe+0x76/0x7e
-[  +0.000002]
-              -> #0 (&mapping->i_mmap_rwsem){++++}-{4:4}:
-[  +0.000002]        __lock_acquire+0x15aa/0x2740
-[  +0.000001]        lock_acquire+0xc4/0x2f0
-[  +0.000002]        down_read+0x30/0x180
-[  +0.000001]        unmap_mapping_pages+0x6a/0xd0
-[  +0.000001]        unmap_mapping_range+0x25/0x40
-[  +0.000002]        amdgpu_device_gpu_recover+0x17a/0x400 [amdgpu]
-[  +0.000168]        amdgpu_debugfs_reset_work+0x68/0x90 [amdgpu]
-[  +0.000167]        process_one_work+0x22e/0x760
-[  +0.000002]        worker_thread+0x1db/0x3d0
-[  +0.000001]        kthread+0xfe/0x140
-[  +0.000001]        ret_from_fork+0x3bd/0x470
-[  +0.000001]        ret_from_fork_asm+0x1a/0x30
-[  +0.000002]
-              other info that might help us debug this:
+Please also take a look at KFD implementation at https://lists.freedesktop.org/archives/amd-gfx/2026-February/138408.html
 
-[  +0.000000] Chain exists of:
-                &mapping->i_mmap_rwsem --> dma_fence_map --> &reset_domain->sem
+It says: multiple PMC profilers on the same device can result in corrupted counter data
 
-[  +0.000003]  Possible unsafe locking scenario:
+>>
+>> Another reason is, I assume we don't want one user to sniff another
+>> through PMC.
+> [JZ] if it is true, is it more easy to sniffer  for per device design.
+> the other nodes within the same device will enable PMC unexpectedly.
 
-[  +0.000000]        CPU0                    CPU1
-[  +0.000001]        ----                    ----
-[  +0.000001]   lock(&reset_domain->sem);
-[  +0.000001]                                lock(dma_fence_map);
-[  +0.000001]                                lock(&reset_domain->sem);
-[  +0.000001]   rlock(&mapping->i_mmap_rwsem);
-[  +0.000001]
-               *** DEADLOCK ***
+so we have implemented reservation/locking for PMC.
 
-[  +0.000000] 3 locks held by kworker/u128:1/238:
-[  +0.000001]  #0: ffff897b50d5f940 ((wq_completion)amdgpu-reset-dev){+.+.}-{0:0}, at: process_one_work+0x4a8/0x760
-[  +0.000003]  #1: ffffce9fc0a13e30 ((work_completion)(&adev->reset_work)){+.+.}-{0:0}, at: process_one_work+0x1ee/0x760
-[  +0.000003]  #2: ffff897b0fd60ec0 (&reset_domain->sem){++++}-{4:4}, at: amdgpu_device_lock_reset_domain+0x1c/0x30 [amdgpu]
-[  +0.000201]
-              stack backtrace:
-[  +0.000001] CPU: 8 UID: 0 PID: 238 Comm: kworker/u128:1 Tainted: G        W           7.2.0+ #97 PREEMPT(full)
-[  +0.000002] Tainted: [W]=WARN
-[  +0.000000] Hardware name: ASUS System Product Name/ROG MAXIMUS Z790 HERO, BIOS 2703 10/17/2024
-[  +0.000001] Workqueue: amdgpu-reset-dev amdgpu_debugfs_reset_work [amdgpu]
-[  +0.000165] Call Trace:
-[  +0.000000]  <TASK>
-[  +0.000001]  dump_stack_lvl+0xa5/0x110
-[  +0.000002]  dump_stack+0x10/0x20
-[  +0.000001]  print_circular_bug+0x285/0x360
-[  +0.000001]  check_noncircular+0x14c/0x170
-[  +0.000002]  __lock_acquire+0x15aa/0x2740
-[  +0.000001]  ? add_lock_to_list+0x35/0x130
-[  +0.000002]  lock_acquire+0xc4/0x2f0
-[  +0.000001]  ? unmap_mapping_pages+0x6a/0xd0
-[  +0.000002]  ? lock_acquire+0xc4/0x2f0
-[  +0.000001]  ? amdgpu_device_lock_reset_domain+0x1c/0x30 [amdgpu]
-[  +0.000196]  down_read+0x30/0x180
-[  +0.000001]  ? unmap_mapping_pages+0x6a/0xd0
-[  +0.000002]  unmap_mapping_pages+0x6a/0xd0
-[  +0.000002]  unmap_mapping_range+0x25/0x40
-[  +0.000001]  amdgpu_device_gpu_recover+0x17a/0x400 [amdgpu]
-[  +0.000163]  amdgpu_debugfs_reset_work+0x68/0x90 [amdgpu]
-[  +0.000169]  process_one_work+0x22e/0x760
-[  +0.000003]  worker_thread+0x1db/0x3d0
-[  +0.000000]  ? __pfx_worker_thread+0x10/0x10
-[  +0.000001]  kthread+0xfe/0x140
-[  +0.000001]  ? __pfx_kthread+0x10/0x10
-[  +0.000001]  ret_from_fork+0x3bd/0x470
-[  +0.000001]  ? __pfx_kthread+0x10/0x10
-[  +0.000001]  ret_from_fork_asm+0x1a/0x30
-[  +0.000002]  </TASK>
+Thanks
+Lingshan
 
-Use a try-read-lock for eviction unmaps. If reset owns the semaphore,
-leave the eviction fence unsignaled and retry the worker after a short
-delay. Keep blocking read-locking for other userq unmap paths, which
-must remain serialized with reset.
+>>
+>> Thanks
+>> Lingshan
+>>> Thanks & Best Regards!
+>>>
+>>> James Zhu
+>>>
+>>> --------------------------------------------------------------------------------
+>>>
+>>> *From:* Zhu, Lingshan<Lingshan.Zhu@amd.com>
+>>> *Sent:* Thursday, October 8, 2026 3:50 AM
+>>> *To:* Zhu, James<James.Zhu@amd.com>; Deucher, Alexander
+>>> <Alexander.Deucher@amd.com>; Kuehling, Felix<Felix.Kuehling@amd.com>
+>>> *Cc:* Huang, Ray<Ray.Huang@amd.com>;amd-gfx@lists.freedesktop.org
+>>> <amd- gfx@lists.freedesktop.org>
+>>> *Subject:* Re: [RFC 02/10] drm/amdgpu: add device-wide PMC config
+>>>
+>>> On 9/24/2026 11:40 PM, James Zhu wrote:
+>>>
+>>>> On 2026-09-23 23:23, Zhu, Lingshan wrote:
+>>>>> On 9/23/2026 10:13 PM, James Zhu wrote:
+>>>>>> On 2026-09-22 05:34, Zhu Lingshan wrote:
+>>>>>>> This commit implements a device-wide PMC config
+>>>>>>> for amdgpu, which including the profiling owner,
+>>>>>>> and the profiling enablement indicator.
+>>>>>> [JZ] I think it should be render-node wide, not device-wide
+>>>>> Hi James,
+>>>>>
+>>>>> It could be, but we don't have a requirement document defines the
+>>>>> scope.
+>>>>>
+>>>>> But normally a profiler is a device scope,
+>>>>> I see KFD profiler operates on all queues under the device queue
+>>>>> manager
+>>>> [JZ] One device could be split into multiple nodes with different
+>>>> processes
+>>>> running.
+>>>>
+>>>> I am wondering if this is really we want.  Ben may comment on it.
+>>> Hello James,
+>>>
+>>> Sorry for the late reply, it was mid-autumn festival and national
+>>> holidays.
+>>>
+>>> In my understanding, there is only one set of PMC registers on the
+>>> device, so it should
+>>> be device scope.
+>>>
+>>> Thanks
+>>> Lingshan
+>>>
+>>>>> Thanks
+>>>>> Lingshan
+>>>>>>> Signed-off-by: Zhu Lingshan<lingshan.zhu@amd.com>
+>>>>>>> <mailto:lingshan.zhu@amd.com>
+>>>>>>> ---
+>>>>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu.h        | 8 ++++++++
+>>>>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 +++
+>>>>>>>    2 files changed, 11 insertions(+)
+>>>>>>>
+>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>>>>>> b/drivers/gpu/drm/amd/
+>>>>>>> amdgpu/amdgpu.h
+>>>>>>> index 8eff6b9ebe81..45897dca802f 100644
+>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>>>>>> @@ -620,6 +620,12 @@ enum amdgpu_enforce_isolation_mode {
+>>>>>>>        AMDGPU_ENFORCE_ISOLATION_NO_CLEANER_SHADER = 3,
+>>>>>>>    };
+>>>>>>>    +struct amdgpu_pmc_profiler {
+>>>>>>> +    struct mutex        lock;
+>>>>>>> +    struct drm_file        *owner;
+>>>>>>> +    bool            enable;
+>>>>>>> +};
+>>>>>>> +
+>>>>>>>    struct amdgpu_device {
+>>>>>>>        struct device            *dev;
+>>>>>>>        struct pci_dev            *pdev;
+>>>>>>> @@ -818,6 +824,8 @@ struct amdgpu_device {
+>>>>>>>         */
+>>>>>>>        struct xarray userq_doorbell_xa;
+>>>>>>>    +    struct amdgpu_pmc_profiler    pmc_profiler;
+>>>>>>> +
+>>>>>>>        /* df */
+>>>>>>>        struct amdgpu_df                df;
+>>>>>>>    diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>>>>> b/drivers/gpu/
+>>>>>>> drm/amd/amdgpu/amdgpu_device.c
+>>>>>>> index c924a55fd16f..74ed42e53264 100644
+>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>>>>> @@ -3673,6 +3673,7 @@ int amdgpu_device_init(struct
+>>>>>>> amdgpu_device *adev,
+>>>>>>>        mutex_init(&adev->pm.stable_pstate_ctx_lock);
+>>>>>>>        mutex_init(&adev->benchmark_mutex);
+>>>>>>>        mutex_init(&adev->gfx.reset_sem_mutex);
+>>>>>>> +    mutex_init(&adev->pmc_profiler.lock);
+>>>>>>>          /* Associate locks with lockdep classes for ordering
+>>>>>>> validation */
+>>>>>>>        amdgpu_lockdep_set_class(adev);
+>>>>>>> @@ -4244,6 +4245,8 @@ void amdgpu_device_fini_sw(struct
+>>>>>>> amdgpu_device *adev)
+>>>>>>>        kfree(adev->pci_state);
+>>>>>>>        kfree(adev->pcie_reset_ctx.swds_pcistate);
+>>>>>>>        kfree(adev->pcie_reset_ctx.swus_pcistate);
+>>>>>>> +
+>>>>>>> +    mutex_destroy(&adev->pmc_profiler.lock);
+>>>>>>>    }
+>>>>>>>      /**
+--------------hhns7jLoM6YRxnm7l2rzZBET
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Convert suspend_work to delayed work so retries can be scheduled and
-flushed during teardown.
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <pre class="moz-cite-prefix">On 10/29/2026 9:37 PM, James Zhu wrote:
+</pre>
+    <blockquote type="cite" cite="mid:2a1a10f7-6a49-435f-abb2-0894ff804acd@amd.com">
+      <br>
+      On 2026-10-28 23:13, Zhu, Lingshan wrote:
+      <br>
+      <blockquote type="cite">On 10/28/2026 8:53 PM, Zhu, James wrote:
+        <br>
+        <blockquote type="cite">AMD General
+          <br>
+          <br>
+          Hi, Lingshan,
+          <br>
+          <br>
+          Sorry to reply later! Just be back from vacation.
+          <br>
+          <br>
+          Yes, there is only one set of PMC registers on the device.
+          <br>
+          But the minimum control scope is XCC. So, I think we should
+          design PMC based on
+          <br>
+          Node instead of device. We need not enable the PMC on XCCs
+          which have no PMC
+          <br>
+          data collection request.
+          <br>
+          Since the request is based on render node.
+          <br>
+        </blockquote>
+        They are per-device registers, so the scope should be the
+        device, not XCC.
+        <br>
+      </blockquote>
+      [JZ] where did you get this information? From what I know, Compute
+      / Shader PMCs / RLC &amp; SPM Control&nbsp;/ //&nbsp; /&nbsp; / / PC Sampling are
+      all XCC based. &nbsp;a are all&nbsp; are
+      <br>
+    </blockquote>
+    <pre>For GFX11/12, the instance number of XCC is 0, therefore their xcc_mask is 1, so the registers are per-device.
+You can read these information from sysfs and debugfs.
 
-Fixes: aebf196c550e ("drm/amdgpu/userq: wait for GPU reset before mapping or unmapping queues")
+Please also take a look at KFD implementation at <a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/archives/amd-gfx/2026-February/138408.html">https://lists.freedesktop.org/archives/amd-gfx/2026-February/138408.html</a>
 
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Prike Liang <prike.liang@amd.com>
-Signed-off-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
----
- .../drm/amd/amdgpu/amdgpu_eviction_fence.c    | 22 ++++++++++----
- .../drm/amd/amdgpu/amdgpu_eviction_fence.h    |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c     | 30 ++++++++++++-------
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h     |  2 +-
- 4 files changed, 38 insertions(+), 18 deletions(-)
+It says: multiple PMC profilers on the same device can result in corrupted counter data</pre>
+    <blockquote type="cite" cite="mid:2a1a10f7-6a49-435f-abb2-0894ff804acd@amd.com">
+      <blockquote type="cite">
+        <br>
+        Another reason is, I assume we don't want one user to sniff
+        another through PMC.
+        <br>
+      </blockquote>
+      [JZ] if it is true, is it more easy to sniffer&nbsp; for per device
+      design. the other nodes within the same device will enable PMC
+      unexpectedly.
+      <br>
+    </blockquote>
+    <pre>so we have implemented reservation/locking for PMC.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
-index a0802012de49..fe45fa164e79 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
-@@ -44,7 +44,7 @@ static bool amdgpu_eviction_fence_enable_signaling(struct dma_fence *f)
- {
- 	struct amdgpu_eviction_fence *ev_fence = to_ev_fence(f);
- 
--	schedule_work(&ev_fence->evf_mgr->suspend_work);
-+	schedule_delayed_work(&ev_fence->evf_mgr->suspend_work, 0);
- 	return true;
- }
- 
-@@ -58,13 +58,15 @@ static void
- amdgpu_eviction_fence_suspend_worker(struct work_struct *work)
- {
- 	struct amdgpu_eviction_fence_mgr *evf_mgr =
--		container_of(work, struct amdgpu_eviction_fence_mgr,
-+		container_of(to_delayed_work(work),
-+			     struct amdgpu_eviction_fence_mgr,
- 			     suspend_work);
- 	struct amdgpu_fpriv *fpriv =
- 		container_of(evf_mgr, struct amdgpu_fpriv, evf_mgr);
- 	struct amdgpu_userq_mgr *uq_mgr = &fpriv->userq_mgr;
- 	struct dma_fence *ev_fence;
- 	bool cookie;
-+	int ret;
- 
- 	mutex_lock(&uq_mgr->userq_mutex);
- 
-@@ -79,7 +81,14 @@ amdgpu_eviction_fence_suspend_worker(struct work_struct *work)
- 	cookie = dma_fence_begin_signalling();
- 
- 	ev_fence = amdgpu_evf_mgr_get_fence(evf_mgr);
--	amdgpu_userq_evict(uq_mgr);
-+	ret = amdgpu_userq_evict(uq_mgr);
-+	if (ret == -EAGAIN) {
-+		dma_fence_end_signalling(cookie);
-+		dma_fence_put(ev_fence);
-+		schedule_delayed_work(&evf_mgr->suspend_work, 1);
-+		mutex_unlock(&uq_mgr->userq_mutex);
-+		return;
-+	}
- 
- 	/*
- 	 * Signaling the eviction fence must be done while holding the
-@@ -167,14 +176,15 @@ void amdgpu_evf_mgr_init(struct amdgpu_eviction_fence_mgr *evf_mgr)
- 	evf_mgr->ev_fence_ctx = dma_fence_context_alloc(1);
- 	evf_mgr->ev_fence = dma_fence_get_stub();
- 
--	INIT_WORK(&evf_mgr->suspend_work, amdgpu_eviction_fence_suspend_worker);
-+	INIT_DELAYED_WORK(&evf_mgr->suspend_work,
-+		  amdgpu_eviction_fence_suspend_worker);
- }
- 
- void amdgpu_evf_mgr_shutdown(struct amdgpu_eviction_fence_mgr *evf_mgr)
- {
- 	evf_mgr->shutdown = true;
- 	/* Make sure that the shutdown is visible to the suspend work */
--	flush_work(&evf_mgr->suspend_work);
-+	flush_delayed_work(&evf_mgr->suspend_work);
- }
- 
- void amdgpu_evf_mgr_flush_suspend(struct amdgpu_eviction_fence_mgr *evf_mgr)
-@@ -182,7 +192,7 @@ void amdgpu_evf_mgr_flush_suspend(struct amdgpu_eviction_fence_mgr *evf_mgr)
- 	dma_fence_wait(rcu_dereference_protected(evf_mgr->ev_fence, true),
- 		       false);
- 	/* Make sure that we are done with the last suspend work */
--	flush_work(&evf_mgr->suspend_work);
-+	flush_delayed_work(&evf_mgr->suspend_work);
- }
- 
- void amdgpu_evf_mgr_fini(struct amdgpu_eviction_fence_mgr *evf_mgr)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.h
-index 2a750add4e7b..d3c3d0769864 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.h
-@@ -43,7 +43,7 @@ struct amdgpu_eviction_fence_mgr {
- 	 * Only signaled while holding the userq mutex.
- 	 */
- 	struct dma_fence __rcu	*ev_fence;
--	struct work_struct	suspend_work;
-+	struct delayed_work	suspend_work;
- 	bool			shutdown;
- };
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index ccf0ff490ac2..d652a3a7a2da 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -351,16 +351,22 @@ static int amdgpu_userq_restore_helper(struct amdgpu_usermode_queue *queue)
- 	return r;
- }
- 
--static int amdgpu_userq_unmap_helper(struct amdgpu_usermode_queue *queue)
-+static int amdgpu_userq_unmap_helper(struct amdgpu_usermode_queue *queue,
-+				     bool trylock)
- {
- 	struct amdgpu_userq_mgr *uq_mgr = queue->userq_mgr;
- 	struct amdgpu_device *adev = uq_mgr->adev;
- 	const struct amdgpu_userq_funcs *userq_funcs =
- 		adev->userq_funcs[queue->queue_type];
--	int r;
-+	int r = 0;
- 
- 	/* The reset changes the queue state and the MES is unusable meanwhile */
--	guard(rwsem_read)(&adev->reset_domain->sem);
-+	if (trylock) {
-+		if (!down_read_trylock(&adev->reset_domain->sem))
-+			return -EAGAIN;
-+	} else {
-+		down_read(&adev->reset_domain->sem);
-+	}
- 	if ((queue->state == AMDGPU_USERQ_STATE_MAPPED) ||
- 	    (queue->state == AMDGPU_USERQ_STATE_PREEMPTED)) {
- 		trace_amdgpu_userq_state_start(queue);
-@@ -369,14 +375,16 @@ static int amdgpu_userq_unmap_helper(struct amdgpu_usermode_queue *queue)
- 		if (r) {
- 			trace_amdgpu_userq_state_changed(queue, AMDGPU_USERQ_STATE_HUNG);
- 			queue->state = AMDGPU_USERQ_STATE_HUNG;
--			return r;
-+			goto unlock;
- 		} else {
- 			trace_amdgpu_userq_state_changed(queue, AMDGPU_USERQ_STATE_UNMAPPED);
- 			queue->state = AMDGPU_USERQ_STATE_UNMAPPED;
- 		}
- 	}
- 
--	return 0;
-+unlock:
-+	up_read(&adev->reset_domain->sem);
-+	return r;
- }
- 
- static int amdgpu_userq_map_helper(struct amdgpu_usermode_queue *queue)
-@@ -563,7 +571,7 @@ amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_que
- #if defined(CONFIG_DEBUG_FS)
- 	debugfs_remove_recursive(queue->debugfs_queue);
- #endif
--	r = amdgpu_userq_unmap_helper(queue);
-+	r = amdgpu_userq_unmap_helper(queue, false);
- 	atomic_dec(&uq_mgr->userq_count[queue->queue_type]);
- 	amdgpu_userq_fence_driver_free(queue);
- 	queue->fence_drv = NULL;
-@@ -1296,7 +1304,9 @@ amdgpu_userq_evict_all(struct amdgpu_userq_mgr *uq_mgr)
- 
- 	/* Try to unmap all the queues in this process ctx */
- 	xa_for_each(&uq_mgr->userq_xa, queue_id, queue) {
--		r = amdgpu_userq_unmap_helper(queue);
-+		r = amdgpu_userq_unmap_helper(queue, true);
-+		if (r == -EAGAIN)
-+			return r;
- 		if (r)
- 			ret = r;
- 	}
-@@ -1327,10 +1337,10 @@ amdgpu_userq_wait_for_signal(struct amdgpu_userq_mgr *uq_mgr)
- 	}
- }
- 
--void
-+int
- amdgpu_userq_evict(struct amdgpu_userq_mgr *uq_mgr)
- {
--	amdgpu_userq_evict_all(uq_mgr);
-+	return amdgpu_userq_evict_all(uq_mgr);
- }
- 
- int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *userq_mgr, struct drm_file *file_priv,
-@@ -1422,7 +1432,7 @@ int amdgpu_userq_suspend(struct amdgpu_device *adev)
- 		if (adev->in_s0ix)
- 			r = amdgpu_userq_preempt_helper(queue);
- 		else
--			r = amdgpu_userq_unmap_helper(queue);
-+			r = amdgpu_userq_unmap_helper(queue, false);
- 		if (r)
- 			return r;
- 	}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-index 488dc21d7c81..4dcf6151de6a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-@@ -163,7 +163,7 @@ void amdgpu_userq_mgr_cancel_resume(struct amdgpu_userq_mgr *userq_mgr);
- void amdgpu_userq_mgr_fini(struct amdgpu_userq_mgr *userq_mgr);
- 
- void amdgpu_userq_wait_for_signal(struct amdgpu_userq_mgr *uq_mgr);
--void amdgpu_userq_evict(struct amdgpu_userq_mgr *uq_mgr);
-+int amdgpu_userq_evict(struct amdgpu_userq_mgr *uq_mgr);
- 
- void amdgpu_userq_ensure_ev_fence(struct amdgpu_userq_mgr *userq_mgr,
- 				  struct amdgpu_eviction_fence_mgr *evf_mgr);
--- 
-2.55.0
+Thanks
+Lingshan</pre>
+    <blockquote type="cite" cite="mid:2a1a10f7-6a49-435f-abb2-0894ff804acd@amd.com">
+      <blockquote type="cite">
+        <br>
+        Thanks
+        <br>
+        Lingshan
+        <br>
+        <blockquote type="cite">Thanks &amp; Best Regards!
+          <br>
+          <br>
+          James Zhu
+          <br>
+          <br>
+--------------------------------------------------------------------------------
+          <br>
+          *From:* Zhu, Lingshan<a class="moz-txt-link-rfc2396E" href="mailto:Lingshan.Zhu@amd.com">&lt;Lingshan.Zhu@amd.com&gt;</a>
+          <br>
+          *Sent:* Thursday, October 8, 2026 3:50 AM
+          <br>
+          *To:* Zhu, James<a class="moz-txt-link-rfc2396E" href="mailto:James.Zhu@amd.com">&lt;James.Zhu@amd.com&gt;</a>; Deucher, Alexander
+          <br>
+          <a class="moz-txt-link-rfc2396E" href="mailto:Alexander.Deucher@amd.com">&lt;Alexander.Deucher@amd.com&gt;</a>; Kuehling,
+          Felix<a class="moz-txt-link-rfc2396E" href="mailto:Felix.Kuehling@amd.com">&lt;Felix.Kuehling@amd.com&gt;</a>
+          <br>
+          *Cc:* Huang,
+          Ray<a class="moz-txt-link-rfc2396E" href="mailto:Ray.Huang@amd.com">&lt;Ray.Huang@amd.com&gt;</a>;amd-gfx@lists.freedesktop.org
+          <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx@lists.freedesktop.org">&lt;amd- gfx@lists.freedesktop.org&gt;</a>
+          <br>
+          *Subject:* Re: [RFC 02/10] drm/amdgpu: add device-wide PMC
+          config
+          <br>
+          <br>
+          On 9/24/2026 11:40 PM, James Zhu wrote:
+          <br>
+          <br>
+          <blockquote type="cite">On 2026-09-23 23:23, Zhu, Lingshan
+            wrote:
+            <br>
+            <blockquote type="cite">On 9/23/2026 10:13 PM, James Zhu
+              wrote:
+              <br>
+              <blockquote type="cite">On 2026-09-22 05:34, Zhu Lingshan
+                wrote:
+                <br>
+                <blockquote type="cite">This commit implements a
+                  device-wide PMC config
+                  <br>
+                  for amdgpu, which including the profiling owner,
+                  <br>
+                  and the profiling enablement indicator.
+                  <br>
+                </blockquote>
+                [JZ] I think it should be render-node wide, not
+                device-wide
+                <br>
+              </blockquote>
+              Hi James,
+              <br>
+              <br>
+              It could be, but we don't have a requirement document
+              defines the scope.
+              <br>
+              <br>
+              But normally a profiler is a device scope,
+              <br>
+              I see KFD profiler operates on all queues under the device
+              queue manager
+              <br>
+            </blockquote>
+            [JZ] One device could be split into multiple nodes with
+            different processes
+            <br>
+            running.
+            <br>
+            <br>
+            I am wondering if this is really we want.&nbsp; Ben may comment
+            on it.
+            <br>
+          </blockquote>
+          Hello James,
+          <br>
+          <br>
+          Sorry for the late reply, it was mid-autumn festival and
+          national holidays.
+          <br>
+          <br>
+          In my understanding, there is only one set of PMC registers on
+          the device, so it should
+          <br>
+          be device scope.
+          <br>
+          <br>
+          Thanks
+          <br>
+          Lingshan
+          <br>
+          <br>
+          <blockquote type="cite">
+            <blockquote type="cite">Thanks
+              <br>
+              Lingshan
+              <br>
+              <blockquote type="cite">
+                <blockquote type="cite">Signed-off-by: Zhu
+                  Lingshan<a class="moz-txt-link-rfc2396E" href="mailto:lingshan.zhu@amd.com">&lt;lingshan.zhu@amd.com&gt;</a>
+                  <a class="moz-txt-link-rfc2396E" href="mailto:lingshan.zhu@amd.com">&lt;mailto:lingshan.zhu@amd.com&gt;</a>
+                  <br>
+                  ---
+                  <br>
+                  &nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 8
+                  ++++++++
+                  <br>
+                  &nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 +++
+                  <br>
+                  &nbsp;&nbsp; 2 files changed, 11 insertions(+)
+                  <br>
+                  <br>
+                  diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+                  b/drivers/gpu/drm/amd/
+                  <br>
+                  amdgpu/amdgpu.h
+                  <br>
+                  index 8eff6b9ebe81..45897dca802f 100644
+                  <br>
+                  --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+                  <br>
+                  +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+                  <br>
+                  @@ -620,6 +620,12 @@ enum
+                  amdgpu_enforce_isolation_mode {
+                  <br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_ENFORCE_ISOLATION_NO_CLEANER_SHADER = 3,
+                  <br>
+                  &nbsp;&nbsp; };
+                  <br>
+                  &nbsp;&nbsp; +struct amdgpu_pmc_profiler {
+                  <br>
+                  +&nbsp;&nbsp;&nbsp; struct mutex&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lock;
+                  <br>
+                  +&nbsp;&nbsp;&nbsp; struct drm_file&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *owner;
+                  <br>
+                  +&nbsp;&nbsp;&nbsp; bool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enable;
+                  <br>
+                  +};
+                  <br>
+                  +
+                  <br>
+                  &nbsp;&nbsp; struct amdgpu_device {
+                  <br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct device&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *dev;
+                  <br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct pci_dev&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *pdev;
+                  <br>
+                  @@ -818,6 +824,8 @@ struct amdgpu_device {
+                  <br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */
+                  <br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct xarray userq_doorbell_xa;
+                  <br>
+                  &nbsp;&nbsp; +&nbsp;&nbsp;&nbsp; struct amdgpu_pmc_profiler&nbsp;&nbsp;&nbsp; pmc_profiler;
+                  <br>
+                  +
+                  <br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* df */
+                  <br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_df&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; df;
+                  <br>
+                  &nbsp;&nbsp; diff --git
+                  a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+                  b/drivers/gpu/
+                  <br>
+                  drm/amd/amdgpu/amdgpu_device.c
+                  <br>
+                  index c924a55fd16f..74ed42e53264 100644
+                  <br>
+                  --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+                  <br>
+                  +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+                  <br>
+                  @@ -3673,6 +3673,7 @@ int amdgpu_device_init(struct
+                  amdgpu_device *adev,
+                  <br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  mutex_init(&amp;adev-&gt;pm.stable_pstate_ctx_lock);
+                  <br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_init(&amp;adev-&gt;benchmark_mutex);
+                  <br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_init(&amp;adev-&gt;gfx.reset_sem_mutex);
+                  <br>
+                  +&nbsp;&nbsp;&nbsp; mutex_init(&amp;adev-&gt;pmc_profiler.lock);
+                  <br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Associate locks with lockdep classes for
+                  ordering validation */
+                  <br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_lockdep_set_class(adev);
+                  <br>
+                  @@ -4244,6 +4245,8 @@ void
+                  amdgpu_device_fini_sw(struct amdgpu_device *adev)
+                  <br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(adev-&gt;pci_state);
+                  <br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(adev-&gt;pcie_reset_ctx.swds_pcistate);
+                  <br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(adev-&gt;pcie_reset_ctx.swus_pcistate);
+                  <br>
+                  +
+                  <br>
+                  +&nbsp;&nbsp;&nbsp; mutex_destroy(&amp;adev-&gt;pmc_profiler.lock);
+                  <br>
+                  &nbsp;&nbsp; }
+                  <br>
+                  &nbsp;&nbsp;&nbsp;&nbsp; /**
+                  <br>
+                </blockquote>
+              </blockquote>
+            </blockquote>
+          </blockquote>
+        </blockquote>
+      </blockquote>
+    </blockquote>
+  </body>
+</html>
 
+--------------hhns7jLoM6YRxnm7l2rzZBET--
