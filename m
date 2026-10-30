@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD1CB606A31A
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Oct 2026 14:06:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08BA6606A329
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Oct 2026 14:06:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=QsQKpRRD
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Qrzk9gt7
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 480AA112830;
-	Fri, 30 Oct 2026 14:06:28 +0000 (UTC)
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011009.outbound.protection.outlook.com
- [40.93.194.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DBA4112830
+	by gabe.freedesktop.org (Postfix) with ESMTP id 979A8112838;
+	Fri, 30 Oct 2026 14:06:33 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013063.outbound.protection.outlook.com
+ [40.107.201.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D227F112833
  for <amd-gfx@lists.freedesktop.org>; Fri, 30 Oct 2026 14:06:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UREjOpwNL8u8jXNvmGjbSHGhen32mjvJ7fK98hOlGDWJC2r6Ovd6BesZULFFdOKaxPcAqwClk8ig+ifmKiKgfxWjkFOs82olJKt7FbAXIZGP4QdLbsf/qRhbF4m0JQD6C+PDBR7aNqPktS7qiHgqE4gRCAWYNX5MTzRXTH6uKVXu6/JduDILqKo3heSGZs8feFLn0kseO4EOlVfCCNhWYR9zVcwFgHMkAfFioLbfDnB4CyrU/UF5IfnxPiqBMYbamCpqMS2nRUobDtY62yPhdRQI39o+ikNDQCxu/E5XAKtLFOH/a2XC5WMO8GX8I797fVv54uD4Z7Kj9i1DaYNQ/w==
+ b=xmXL1G0sJgV4T3wEIcY9137b4aZq6Z44ksHKQ97e0xEJ3bKcmsgQJl5WirwlxL6HcCvmAncrTUFPKQ3AT4gYvdYriiN+K6WE9RiV6LXEnm6UNt04iESBCX+M6h4149GUo3pJhr3n+ZjVky8jMnq3sgO5KCwK6oCtjAYz3H9ViaQnXNMsIyE4VtZtXGHlXZVeFsDj4H+n7TiGyR0p5YwerV7vun4/kuWBCwp3d7rAuq+OAEi0ZkHcNRQM+0SfeQORir1r8nKRaMWYNr/+kGCaPNJIIPs/1H+vY/k1su6w9+FJWji04mY/DlC+5tDnJQUmxX8gWtFT4H+WKLksD7Dzaw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EAXmSCBvqOX8Kx5lLHAm91Gie7zNWXKaoedsnvTufSo=;
- b=mV5YMlif3SbtPvL6SlCgxpqbg0da+crq4P8nFj6ND6hMnON2sspDUSA+GfJOFd6H5lnvNZHnTe9eE8W9uzoQM6gxjZyKyt4mf7KkWkIv3KM388pXMEeKH8uNj8rk4z7DeuCKHGIq9Uuk7+MHBwtGkYImJCtSN78uLBYzQMy9XnZqmJRTVur3zHjjUrDtaeFpiuXNuUb8yx++Vipf3jP9sqjc/0LIj1dax4DGnKPqMy4f7FZVn/YJEvxp9eXQkSqFyqINoW6hYq9I5g5nHJAuFPtamUVIfK1l3UAvtF5B6n8mLpQYnWVEDilRPk0w54gaQZ6gYgO8KIX6LgQIYIxhdg==
+ bh=lH+4atkrKu0aJ1tW3DJ29hLql1ZIdW64/zexL+Gb8ts=;
+ b=twL76pVzrB8Mnopay4PFEYZjY8gnAQHb7iF+4XKWooEGVKnnkOTlgXh6/PBfgtUa4/2m0Rz8eXw+t45ylhUbDNmNvw1YFiYs4pyyGmAU7Rr29HxuwDXhKjQB6nQ/ZvKLhWCnDFVj+a/plq+n9LrUW19mlJ6zFf0zvWf1CKNe9RXmiwSihFmMoRw0pOpz/GLVE4xK2i7+uUvODbfSwQwdUJRQSz9TDj6HtymQunhrkJHbAlPQiK2mO6g9EHngwVcuo0lnx3TGlHFPkKbDSlB7Er9jzZCIgQl0liLeWI8NtGbgHSDtH0Gy3y3+sxVr1p3ZQysqQPlBEIa/fIps2fJPxA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EAXmSCBvqOX8Kx5lLHAm91Gie7zNWXKaoedsnvTufSo=;
- b=QsQKpRRDqTlGdWXk8M+iBoEvdHTa1aql87bKGhXQOVZAEgmMHpT+uC8T1bMb4f1ncrJ0b368IX1ODxZfd+ohQ1RD7IrU9EXThlVpIeLrkkasdwpKcV6ENgXWyNIBZqi7xqZ4tbi2mQcR2QHpdUjUY6CkHVB+hMZW8zBjatNZxs4=
-Received: from SJ0PR05CA0039.namprd05.prod.outlook.com (2603:10b6:a03:33f::14)
- by IA1PR12MB8358.namprd12.prod.outlook.com (2603:10b6:208:3fa::17)
+ bh=lH+4atkrKu0aJ1tW3DJ29hLql1ZIdW64/zexL+Gb8ts=;
+ b=Qrzk9gt7AqqP0TMnpHJMwidKO00u6HQQYpBBqGU3Q8KhzZuu4VVWUJ9WttINhMrFInn1QKkvGRKKIPJ4uhP4F+/ieWn9jt7VJypdr4OzOlh2fr4VYFM7EVNvxZnhR/rAYq0hu/A2LX2r1AagkIW49BWJsd745VbIYw3ygA4XQS0=
+Received: from SJ0PR05CA0048.namprd05.prod.outlook.com (2603:10b6:a03:33f::23)
+ by CH3PR12MB8482.namprd12.prod.outlook.com (2603:10b6:610:15b::8)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Fri, 30 Oct
- 2026 14:06:11 +0000
+ 2026 14:06:08 +0000
 Received: from BY1PEPF000264B4.namprd02.prod.outlook.com
- (2603:10b6:a03:33f:cafe::72) by SJ0PR05CA0039.outlook.office365.com
- (2603:10b6:a03:33f::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.4 via Frontend Transport; Fri, 30
- Oct 2026 14:06:10 +0000
+ (2603:10b6:a03:33f:cafe::ad) by SJ0PR05CA0048.outlook.office365.com
+ (2603:10b6:a03:33f::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.5 via Frontend Transport; Fri, 30
+ Oct 2026 14:06:08 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -49,18 +49,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  BY1PEPF000264B4.mail.protection.outlook.com (10.167.242.121) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Fri, 30 Oct 2026 14:06:10 +0000
+ 15.21.569.4 via Frontend Transport; Fri, 30 Oct 2026 14:06:07 +0000
 Received: from fdavid-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 30 Oct
- 2026 09:06:09 -0500
+ 2026 09:06:07 -0500
 From: David Francis <David.Francis@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Felix.Kuehling@amd.com>, <Christian.Koenig@amd.com>, David Francis
  <David.Francis@amd.com>
-Subject: [PATCH v2 3/3] drm/amdkfd: Don't check for vm ready on svm unmap
-Date: Fri, 30 Oct 2026 10:05:50 -0400
-Message-ID: <20261030140550.2524662-4-David.Francis@amd.com>
+Subject: [PATCH v2 1/3] drm/amdkfd: Acquire buffers in CRIU queue restore
+ (again)
+Date: Fri, 30 Oct 2026 10:05:48 -0400
+Message-ID: <20261030140550.2524662-2-David.Francis@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261030140550.2524662-1-David.Francis@amd.com>
 References: <20261030140550.2524662-1-David.Francis@amd.com>
@@ -72,29 +73,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF000264B4:EE_|IA1PR12MB8358:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9439d326-b613-4be6-839e-08df368ef350
+X-MS-TrafficTypeDiagnostic: BY1PEPF000264B4:EE_|CH3PR12MB8482:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9af81a65-57a0-44f9-7480-08df368ef1a8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|23010399003|82310400026|376014|1800799024|261028144727099003|261021121427099003|261021123027099003|261022105027099003|261022075727099003|261009223027099003|261026140227099003|10067099003|11063799006|22082099003|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info: lay2IheA/P5RHcD8xpMeC3fBBdZmERScVab8IibUCzV7LRuWC8HkUS49SNE96nNzY9cZjZ1PmB4nKWp2y0FY9cwBuUTBvnOg8ovRXeHO+yItM8ZEUKGJu0m8p3rQReq2MCNh4wZ8DN321zPvfBy1Vj9lvBhKgJ0prUTVAxbl1TQC9Oeyl5wE3w8yxK4zTEtkH8QAjjc/wequVL53Tilxl2zf4e2ZLAinb5RNJpxIPjH8pkOzDf7nrGKGmRfQHbtJlMWspHKhPE5u66yFYwtsBkMGFkGgfMGswSHT1+SNIWLvv7FE/+wOayJqBIC+s+j9vM95D3jLS4lbFXJHMrWYTytE77SpjPF7YarAAar17YuPNzdxc7Y0L9KkLOvi4KyYXoMFE6hbwW0Thc+pa4ZTe/luvXW69EWccg02/VdUw14FBleMKLeSmg1Cz1FIWvVgwYh+ldTeigKy/pNic2bzqZB8JEEXNvpqbFzQyzPwEXgHc8VZP5PKj07qpTNMo5CPsH+iZ7F60GDJkDLEotG4boB+YHpmd7Rd7OkiGkaaRRL1zizl+nbz3BZ8A5tq5jSPZ16nkBrsXUInxJZdZkCLip2hE6ZQ1yGeT6w/inTwaUbejEXGjieBJyJXhWglibFAFVh+vhKVg9P1ZJbkAms+CDCLNpKmo+fBfFejCet6o9hs1CUQEnzyYLqxuhMDjSsrEyAwsWn3QeUe8zEa6RcmBg==
+ ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|11063799006|56012099006|261009223027099003|261026121527099003|261028144727099003|261026140227099003|261021123027099003|261021121427099003|261022105027099003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: nucmJQmCWw/mgne/F3sdMQXGJNvRMD/zfdEMNtmywAehluBKs7q49A0VCY1c1MgsLupFyzva9nZms5BHD8JQhwUu8lcCSAzfBRGbKwoyPg1PusUWzFl11VG6OvT7/h3C2S5ipx2CsWFpD7wD982rlAOphth7qRYv4nqWKFWo3DaYsM50XX6cX/jHfANY++7+08KcGeKwMnSMZvhttEiNsT666EavWpwCIe2yR+5Kt/bFxs+iklxAr3A/PUjz8jKv5+a8nQTx/dnq+HBeMQdKvcsL3VycmqSyN21iJWXHbu9DEMqrPkpiITX68uLPy2o20jLdA445CVa3fVWfdsDPfrGctIWr2fLSE9OPDK72IjEjy3/vmcsp5gueU885KCx6r8/F+IdUG42C/Ok5i9YVvedM1B42me7WYBbwFFZOdocxgIC2Wwx6vOAOrnMu7s5Jsfb2Sgd8TmKBlEJPk9fMq/XQfdmymGTvN1cRmPoA8w68n38ggnzhgSaY4ggODNsILUiGlZmwVHI+c0k81XSj5RBQs2SBGvIY2VaINaGskYvdYSY7mMhBwEBGCItdTEliJfk4kFwwGHH1ejnHy6FIAIDCqebiZOh2XHhXDXZGLbzx19Lq07m4wM0Bwl+sbFPhXfNtUvJ0tn/zxWhei6t7EDDnkTxFBftrSR11QaGlS2zRJsFTRppuDvb9hXGC8H+SnhxfrvtrC9eKv+AZG4drJg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(23010399003)(82310400026)(376014)(1800799024)(261028144727099003)(261021121427099003)(261021123027099003)(261022105027099003)(261022075727099003)(261009223027099003)(261026140227099003)(10067099003)(11063799006)(22082099003)(18002099003)(56012099006);
+ SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(11063799006)(56012099006)(261009223027099003)(261026121527099003)(261028144727099003)(261026140227099003)(261021123027099003)(261021121427099003)(261022105027099003)(10067099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: DD93JxMQ/eyEz9LpSxvH8pDupf51MgN2VZFMMRYhddTodxDN/RcpKFk4irXlddCXMYcoG8GCDZVYkYgdJ50F2Wotsh7PkLuay2/Z+bhcybEq+JlxHdvELtiUVXtnxiuW0zfzb0QCfNDCVxYmp3QpknEYFEtIzKq7M1yhyChaYwzUeKvVva0yRx7+4waEYSz9j8OUZVNLUkKMD9iVuG1uDD3k7jjy3XG0z2NJOLB0nSVo/jX7c1AS4n5qx6E58C55zOcUmS3ou2YaKOCkkilT4Sy5yrWsb6kCuh/EPBwmVYVqHMZBRC5cGHKnZPDzUscoNWP0ttxm9QlP3joOL1OEhcvJeWfvRZx/jM238pqCLeIPZvFf39sV9tWZvyCUGv9A+EjbGcEfQ0uJMSxDQSLX0QiDoxm816PuVx6NCDDUdoDmYRoZp+7fHh8RwnuAtl/t
+X-MS-Exchange-AntiSpam-MessageData-0: 7J+hJN4XcQ32CAdKWPCq/VeyJwGCpIm3FM9QbR9+1T2R5xlTQVhNvqLgngAxbuBdzFOwOk0TJT54YtglGo6kcJlKAb9MWL3FYHu6ST3sP+5P/F1wXOaJMfrQJe8+I+NLgWT69ZVzxnGGY5v8cMz+fOrUfVHw9etqO5s4pR7zo+6aTeLpAT4vBQDvXC4kg0J09BbpjDR8zhxtkqTddyEsWXj4LMZo4umfiAXJV0EHcxpD0DLPAULXFNrTISwKCt9YqFXHh6j5d6yK/VoEFU7B3AYxudT2BCyrTjtf7imdU99+LqOf+cVyK4u41axKRn8tgR9JNu9h9aRWIVUYIEtIF7wyFdd3e9fXULwwyekszel7GB3YKVYn7mVfnz6uIMFoXwP+N1noj73jq+qNZsidQMibhD2H2Mr5Qxe1OKtLIeExyo/Cwb1UM5GAxXXjFb+R
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 14:06:10.4657 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9439d326-b613-4be6-839e-08df368ef350
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 14:06:07.6492 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9af81a65-57a0-44f9-7480-08df368ef1a8
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BY1PEPF000264B4.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8358
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8482
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,56 +113,146 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-There was an amdgpu_vm_ready check in svm_range_unmap_from_gpu.
+CRIU queue restore doesn't acquire the bo buffers in the same way
+normal queue creation does. In normal queue creation, the driver
+gets an additional reference on the queue's underlying buffers
+that lasts until the queue is destroyed; this prevents the
+queue's buffers from being removed from underneath it.
 
-This is improper, because
-- amdgpu_vm_ready checks for the vm to be locked, and unmap is
-expected to occur without that lock held
-- amdgpu_vm_ready fails if the vm is in the process of eviction,
-but there's no need for unmap during eviction to be an error
-
-Remove it (and swallow the -EBUSY error from eviction in progress)
-
-This change is necessary to avoid dmesg spam from the vm lock
-check; handling eviction may require additional checks
+Acquire them, but don't get the svm bo. SVM isn't yet fully
+restored by this point in CRIU and so there's no svm range to get.
+This will be addressed in the next patch.
 
 Signed-off-by: David Francis <David.Francis@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  2 +-
+ .../amd/amdkfd/kfd_process_queue_manager.c    | 34 +++++++++++++++++--
+ drivers/gpu/drm/amd/amdkfd/kfd_queue.c        |  8 ++++-
+ 4 files changed, 41 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index ed5e3318877be..4c0ccd585ff8e 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -1425,6 +1425,7 @@ svm_range_unmap_from_gpu(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- {
- 	uint64_t init_pte_value = adev->gmc.init_pte_flags;
- 	uint64_t gpu_start, gpu_end;
-+	int ret;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index 6c710e4a5220c..d8233337b8d5e 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -433,7 +433,7 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
+ 		goto err_bind_process;
+ 	}
  
- 	/* Convert CPU page range to GPU page range */
- 	gpu_start = start * AMDGPU_GPU_PAGES_IN_CPU_PAGE;
-@@ -1433,14 +1434,13 @@ svm_range_unmap_from_gpu(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 	pr_debug("CPU[0x%llx 0x%llx] -> GPU[0x%llx 0x%llx]\n", start, last,
- 		gpu_start, gpu_end);
- 
--	if (!amdgpu_vm_ready(vm)) {
--		pr_debug("VM not ready, canceling unmap\n");
--		return -EINVAL;
--	}
--
--	return amdgpu_vm_update_range(adev, vm, false, true, true, false, NULL, gpu_start,
-+	ret = amdgpu_vm_update_range(adev, vm, false, true, true, false, NULL, gpu_start,
- 				      gpu_end, init_pte_value, 0, 0, NULL, NULL,
- 				      fence);
-+	/* EBUSY here means "vm not ready for updates because it in the process of evicting."
-+	 * If that is true, it's safe to not update the range now since the vm is not in use.
-+	 */
-+	return ret == EBUSY ? 0 : ret;
+-	err = kfd_queue_acquire_buffers(pdd, &q_properties);
++	err = kfd_queue_acquire_buffers(pdd, &q_properties, false);
+ 	if (err) {
+ 		pr_debug("failed to acquire user queue buffers\n");
+ 		goto err_acquire_queue_buf;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index f0ce5fc4a138f..eb4d35a42e917 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -1381,7 +1381,7 @@ void print_queue(struct queue *q);
+ int kfd_queue_buffer_get(struct amdgpu_vm *vm, void __user *addr, struct amdgpu_bo **pbo,
+ 			 u64 expected_size);
+ void kfd_queue_buffer_put(struct amdgpu_bo **bo);
+-int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct queue_properties *properties);
++int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct queue_properties *properties, bool is_criu);
+ int kfd_queue_release_buffers(struct kfd_process_device *pdd, struct queue_properties *properties);
+ void kfd_queue_unref_bo_va(struct amdgpu_vm *vm, struct amdgpu_bo **bo);
+ int kfd_queue_unref_bo_vas(struct kfd_process_device *pdd,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+index 4c4a3a8587f46..509529af2dc3c 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+@@ -985,8 +985,14 @@ int kfd_criu_checkpoint_queues(struct kfd_process *p,
  }
  
- static int
+ static void set_queue_properties_from_criu(struct queue_properties *qp,
+-					  struct kfd_criu_queue_priv_data *q_data)
++					   struct kfd_criu_queue_priv_data *q_data,
++					   struct kfd_process_device *pdd)
+ {
++	struct kfd_topology_device *topo_dev;
++	uint32_t num_xcc = NUM_XCC(pdd->dev->xcc_mask);
++
++	topo_dev = kfd_topology_device_by_id(pdd->dev->id);
++
+ 	qp->is_interop = false;
+ 	qp->queue_percent = q_data->q_percent;
+ 	qp->priority = q_data->priority;
+@@ -998,6 +1004,16 @@ static void set_queue_properties_from_criu(struct queue_properties *qp,
+ 	qp->eop_ring_buffer_size = q_data->eop_ring_buffer_size;
+ 	qp->ctx_save_restore_area_address = q_data->ctx_save_restore_area_address;
+ 	qp->ctx_save_restore_area_size = q_data->ctx_save_restore_area_size;
++
++	if (q_data->type == KFD_QUEUE_TYPE_COMPUTE) {
++		if (q_data->ctl_stack_size)
++			qp->ctl_stack_size = q_data->ctl_stack_size / num_xcc;
++		else if (topo_dev)
++			qp->ctl_stack_size = topo_dev->node_props.ctl_stack_size;
++	} else {
++		qp->ctl_stack_size = q_data->ctl_stack_size;
++	}
++
+ 	qp->type = q_data->type;
+ 	qp->format = q_data->format;
+ }
+@@ -1047,7 +1063,13 @@ int kfd_criu_restore_queue(struct kfd_process *p,
+ 	}
+ 
+ 	memset(&qp, 0, sizeof(qp));
+-	set_queue_properties_from_criu(&qp, q_data);
++	set_queue_properties_from_criu(&qp, q_data, pdd);
++
++	if (q_data->type == KFD_QUEUE_TYPE_COMPUTE && !qp.ctl_stack_size) {
++		pr_err("Failed to determine ctl_stack_size for compute queue\n");
++		ret = -EINVAL;
++		goto exit;
++	}
+ 
+ 	/* Per-XCC control stack size from topology, as create-queue requires */
+ 	if (qp.type == KFD_QUEUE_TYPE_COMPUTE && pdd->dev->kfd->cwsr_enabled) {
+@@ -1095,9 +1117,17 @@ int kfd_criu_restore_queue(struct kfd_process *p,
+ 
+ 	print_queue_properties(&qp);
+ 
++	ret = kfd_queue_acquire_buffers(pdd, &qp, true);
++	if (ret) {
++		pr_err("Failed to acquire user queue buffers err:%d\n", ret);
++		goto exit;
++	}
++
+ 	ret = pqm_create_queue(&p->pqm, pdd->dev, &qp, &queue_id, q_data, mqd, ctl_stack, NULL);
+ 	if (ret) {
+ 		pr_err("Failed to create new queue err:%d\n", ret);
++		kfd_queue_unref_bo_vas(pdd, &qp);
++		kfd_queue_release_buffers(pdd, &qp);
+ 		goto exit;
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
+index 6010a5d7a7eb9..18d24ddb455eb 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
+@@ -239,7 +239,7 @@ static void kfd_queue_put_bos(struct queue_properties *properties)
+ 	kfd_queue_buffer_put(&properties->cwsr_bo);
+ }
+ 
+-int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct queue_properties *properties)
++int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct queue_properties *properties, bool is_criu)
+ {
+ 	struct kfd_topology_device *topo_dev;
+ 	u64 expected_queue_size;
+@@ -334,6 +334,12 @@ int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct queue_prope
+ 
+ 	amdgpu_bo_unreserve(vm->root.bo);
+ 
++	/* CRIU svm buffers are restored at a later stage than queues. They'll be in
++	 * before the queue is actually used, so no risk here
++	 */
++	if (is_criu)
++		return 0;
++
+ 	err = kfd_queue_buffer_svm_get(pdd, properties->ctx_save_restore_area_address,
+ 				       total_cwsr_size);
+ 	if (err)
 -- 
 2.34.1
 
