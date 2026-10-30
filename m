@@ -2,132 +2,100 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE16F606A31E
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Oct 2026 06:10:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21856606A31C
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Oct 2026 06:31:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=4mBXz5dM
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=pOAJTN35
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47C5510E81A;
-	Fri, 30 Oct 2026 06:10:44 +0000 (UTC)
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010066.outbound.protection.outlook.com [52.101.56.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD85C10E81A
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Oct 2026 06:10:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A897910E83C;
+	Fri, 30 Oct 2026 06:31:16 +0000 (UTC)
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012011.outbound.protection.outlook.com
+ [40.107.200.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2FE3A10E83C
+ for <amd-gfx@lists.freedesktop.org>; Fri, 30 Oct 2026 06:31:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=stfOqR9dYLr0CX28doqK0WoRuc1MvNI257xP3HIEStxAOWyX/fIagRds+ZFYM7UR2dzG1q68IzjANTb3i4JiWKN1LUwOcJbTr6al3F5lgwRRYGtrsZNs3gofUC3d/R9U+Zx4JNeYtkcuUNg7VGxyPe2GFMOTeYnK2C5hdrH8wgktVHtL7ETlhz//i/pxPo2RX9dnvdLmn4z0axZnM50FDmeI4e9EiVwcLBKmKvDmnROdmrupcecGiMXeVh1MrT4K3XRkmu9/dxZgEgu88kurREEWI6BRBV14/uTLcgyz59/+lJA5F8f9VkRUiuZHtYsKrcbc1WHkYvCFp/b4fZtjEw==
+ b=nEEXAYx0By5JwPqNh/HqSjsWIFq9ENjGSKufuMAzB+Z4TawjInWg9ZnbpgXEgsdkVnK7Tbs+9VUxPV7yDPpI7aCNZHd2F50j8nG/0IvdlfEUrdG11GUVFCZv/DuOZsUu2/D/w950m97RivyPbXq42pHm/iteDIdS/r5yb5iPoRQ14+bxBbjZ/eGUaT9r67IHbOIT8O49/qaY8IyJrVySw7OuIs5PDNHvVY2bX121lnIqYXRpLCr2UVgfc1w2UIO1Sq+ACvKmtVSdZFo6xw5mMCGotpUee5udKqmsckLXG7xhSedfHhIrLkkuT9QVljhtKz19RQf9Ofte/tzQ/1FCgQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=50HPnoBzy/oiCzju+nKIE26ZxTx/VMjeFn3vlBYIc14=;
- b=ZCpndC2Qws1XyzGbADCl7hOlpUKlK85IBBecX3ximQh6tOPALbBkSpD6zv8vo5/DTF9yrmtvrWXd9Sz7xxjuF1hbS5Ubkuc1I4JuGfzT8pwwkUgo6RRqdNDjBCotrbOJqyQJ9a8c9DOYNZO5GK6LtWOI9Q+NIjcJrt0FDYd+QFjUreArVIyqL9/IqMjmao+ng3boLrJt0QT1d2SwBcTBA+JacRkh4+fm34uqlxRrtiYmN8CoPt7FH+a5wjLy/xrp675mwtwLp/6/ipVDAiycjsuTbKZxyeMDwUQk7MSyeVjl5qatTMPfJXIO6tBPGc9bEaftfXGHh7ZFgYUuNZqJPA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=SPZPduaY1V3zmV8/Z5Jhuzb5TwhEc4G1Y+jZRpSEHtQ=;
+ b=qz7vYYM8WF4zPdAykGxk6l4DA/RqWFG7SxdcPVeYcMLUH5Cy6yqU/vk3gjzZKwEQUCFsUL7hK1oMtEMHmuQQIlA6X2L5JJBcDdGrQHnd0GnnGrdP9/bOjCmbLPrh0/vP58IS9ofY6mGrsBbhiYTyLA6LnvMM3aCf3vYiLTSCkzbVbWzcT0y7rvhwZsLdlhrXaz27OXFaOal4Jx1qzDMhv5ivTSjO2ABXSdiTy5kQZRWKVO5Y62H16dy4vBAJR5T+7hHoxvnImItIXrWaefKdUYVnmXceRyChh6DSWjhFiHXhy5xLD2AFGErG1YV/QUcJfu3K+YB+XP3owvCxlKLTNw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=50HPnoBzy/oiCzju+nKIE26ZxTx/VMjeFn3vlBYIc14=;
- b=4mBXz5dMuoRavKqrOUnmL/t9k+tLcWoLNtGOTGWzpBKKF/PDeupWJM6rQBFNUAbP0A0FuO2iAA58rGKSgy/RCAqGn+Ms82OtX4oVfe19yu/+hGlt7D/nPoOJiCcxblLDpk95KwZSRSsku7yFvr1dRmZg0gN1fBBn/yhyVXot0E0=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CH2PR12MB9457.namprd12.prod.outlook.com (2603:10b6:610:27c::7)
- by MN2PR12MB4439.namprd12.prod.outlook.com (2603:10b6:208:262::17)
+ bh=SPZPduaY1V3zmV8/Z5Jhuzb5TwhEc4G1Y+jZRpSEHtQ=;
+ b=pOAJTN35PFGdQ9SP8Xn02dYkklT1V1E+gK9QLyngIwi+KEOpQtZDVvMvd/1CURiKJqSgshs+0Zog2fRynw7K8w5BGesMWOw8s99Xtj7TZVVD9jAH43enfAJhnwfJ0bFwAtX4NnttOcF03KR5yogQtugxFz8C1xM5yKgJLGKzVEM=
+Received: from CY5PR19CA0019.namprd19.prod.outlook.com (2603:10b6:930:15::25)
+ by PH7PR12MB6718.namprd12.prod.outlook.com (2603:10b6:510:1b1::11)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Fri, 30 Oct
- 2026 06:10:34 +0000
-Received: from CH2PR12MB9457.namprd12.prod.outlook.com
- ([fe80::85a8:1df:840a:cd4c]) by CH2PR12MB9457.namprd12.prod.outlook.com
- ([fe80::85a8:1df:840a:cd4c%4]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
- 06:10:33 +0000
-Content-Type: multipart/alternative;
- boundary="------------hhns7jLoM6YRxnm7l2rzZBET"
-Message-ID: <a8d8bd34-d0db-4a06-926b-e6c4f27bb8d8@amd.com>
-Date: Fri, 30 Oct 2026 14:10:27 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 02/10] drm/amdgpu: add device-wide PMC config
-To: James Zhu <jamesz@amd.com>, "Zhu, James" <James.Zhu@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Kuehling, Felix" <Felix.Kuehling@amd.com>
-Cc: "Huang, Ray" <Ray.Huang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20260922093436.596947-1-lingshan.zhu@amd.com>
- <20260922093436.596947-3-lingshan.zhu@amd.com>
- <d3144b38-64a3-4bbe-910f-722912f9fc66@amd.com>
- <6394fa47-ec53-4e54-9cc9-bbd59b97f174@amd.com>
- <61ab80af-0a33-4660-9f80-13966c3583a2@amd.com>
- <c96bc906-c6aa-479b-84d6-75ec1816e853@amd.com>
- <DM4PR12MB85589778D67BE6864EA41355E46F2@DM4PR12MB8558.namprd12.prod.outlook.com>
- <f34fe3de-918f-4911-91fd-19b8fb19d8a0@amd.com>
- <2a1a10f7-6a49-435f-abb2-0894ff804acd@amd.com>
-Content-Language: en-US
-From: "Zhu, Lingshan" <lingshan.zhu@amd.com>
-In-Reply-To: <2a1a10f7-6a49-435f-abb2-0894ff804acd@amd.com>
-X-ClientProxiedBy: SG2PR04CA0203.apcprd04.prod.outlook.com
- (2603:1096:4:187::22) To CH2PR12MB9457.namprd12.prod.outlook.com
- (2603:10b6:610:27c::7)
+ 2026 06:31:04 +0000
+Received: from MWH0EPF000D8953.namprd05.prod.outlook.com
+ (2603:10b6:930:15:cafe::5e) by CY5PR19CA0019.outlook.office365.com
+ (2603:10b6:930:15::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.9 via Frontend Transport; Fri, 30
+ Oct 2026 06:31:03 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ MWH0EPF000D8953.mail.protection.outlook.com (10.167.249.219) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.4 via Frontend Transport; Fri, 30 Oct 2026 06:31:02 +0000
+Received: from ubuntu.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 30 Oct
+ 2026 01:31:00 -0500
+From: Zhu Lingshan <lingshan.zhu@amd.com>
+To: <Alexander.Deucher@amd.com>, <felix.kuehling@amd.com>,
+ <Benjamin.Welton@amd.com>
+CC: <Ray.Huang@amd.com>, <amd-gfx@lists.freedesktop.org>, Zhu Lingshan
+ <lingshan.zhu@amd.com>, Benjamin Welton <benjamin.welton@amd.com>
+Subject: [PATCH V2 RESEND 01/13] drm/amdgpu: implement PMC ioctl framework
+Date: Fri, 30 Oct 2026 14:31:29 +0800
+Message-ID: <20261030063141.2773032-2-lingshan.zhu@amd.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261030063141.2773032-1-lingshan.zhu@amd.com>
+References: <20261030063141.2773032-1-lingshan.zhu@amd.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB9457:EE_|MN2PR12MB4439:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3a0f471d-3f98-4acd-7613-08df364c8200
+X-MS-TrafficTypeDiagnostic: MWH0EPF000D8953:EE_|PH7PR12MB6718:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6824a630-f864-4ab6-57c0-08df364f5ec5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|23010399003|366016|13003099007|18002099003|22082099003|56012099006|4143699003|11063799006|8096899003|261009223027099003|261026121527099003|261026140227099003|261028144727099003|261022105027099003|261021121427099003|10067099003;
-X-Microsoft-Antispam-Message-Info: cb3J6vWlBlTYJGENrEhpY/ILhd1TRH1k/O7DgcgY4n5/0hs/b/It2asaP5XF1E8CtdVeIl2iABNU6SQipP59UkXBNTVcu0MEe+opcekJm4dl28IRQgul7MimCiB4j0aFVzWcBVZDFzO+lldiuJaVGkhmkFwLmpXKbbYk3nQtddatgUPUJSSe0jN8f+n+4ROUnvtpofrvVAl0XkrfV5csys5ZMeyEzAnQDdO2+e79P5eKt0lZAiIcHbnAw5i/qk1jTnyPrmGtJQ/5g6WYS6FM5fv7uDq5W/1a4liqnQk3hIz/JF9D2JI9BCv/87kxHzpFMyPI1fwphT+z0Y6nEEdm6OVyr566XOk4yJMZrUytPA/kR+ySLPvRz90a58DuIXyU3+s3IZSDohv5BO4i28XEfu/m1KGWC5LZB8SZ/0Ui8COJk7inVH+XI4S0FrAJGhA6soEkIq1h9A1V+znW28OlCU+IxZBsFI/Jb/cGfSeCIIlaG7wtJRa5igw2LrRkjFbTfemDccOcRz6bfrS1MyeGBy9Q4MwnUWtcchI9s62Kue5hTDizt2Hvzw5IgIZklGIOkJj1KsxH2cHJB+fsEuCR0Kf84Md6SWf2rWxUwfBCbh8Juxa6jHlgxPdWdiCWs6ZN
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB9457.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(13003099007)(18002099003)(22082099003)(56012099006)(4143699003)(11063799006)(8096899003)(261009223027099003)(261026121527099003)(261026140227099003)(261028144727099003)(261022105027099003)(261021121427099003)(10067099003);
+ ARA:13230040|36860700016|82310400026|23010399003|376014|1800799024|6133799003|10067099003|18002099003|22082099003|3023799007|56012099006|11063799006|261028144727099003|261026121527099003|261026140227099003|261022115727099003|261021123027099003|261021121427099003|261022113327099003|261022105027099003|261022075727099003|261009223027099003|261009221227099003;
+X-Microsoft-Antispam-Message-Info: /L6irRmNpIdM2rMjSYoge0GroPeOv+5WAz9a5Y/hANvu2XooEFkrFaFC+7joKypkU1xfoDE6UwOCOWXcKfIeT+a9c83bSwckD0tK1UF4xA5kGPUA3P+Q4W9slhsanQvEvYQ8rLjcZ2UuVESRJ4x3Dp5D/DPuFoMhmVQcMDzXrsK3I/1/HUNYBj9fp4pK9OR33feTLWns5oh9zGP3YpgqWFvaAiWVglSxBuq6lq2MR0mXpVKh0IAvDNRkaHJJgfKP7z4iJnfUFFpb/11BqyBBgow7KZycSvZQ18jCcQdsXp89q+KYWoCoPM/nbfz2JIz/FaODzuyo4eNzYRScsuAf6u0KV+03BEv4RnfAfyNuETjB78J90uPL/4/Tsq1ws9xrcpCVBnvCx16VP7ZfNMgoq+F/08baQnRGak8SIPI7Q6DkeylWSt0rRO1A1saB1g2oDoRsAC/DzwgY1pBF5uStjF6+mvy4mZE4ueM8awL2e2X880tu4ZxuwRZphknG7y+pF0c6WmbcA3hAXbm89B1XM0vEk0oLzlaGZe4BfjkFjbOobPxA8mE7oOJk/pWbJ+q3R/wuoLiz+VGubKwtPAPkeGAktc3AlUS9Wt4kasPMpzMNKXX8Vc+QkJhS3LHuMAl4uVWcLTvfy3U3YcUlEETGeqwV/EvQ4a0tKAyT0hEja2A8tl7gMiIWibJUCzZ7b8WQ2L4w+SaE8npsmuXhpFwceg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(82310400026)(23010399003)(376014)(1800799024)(6133799003)(10067099003)(18002099003)(22082099003)(3023799007)(56012099006)(11063799006)(261028144727099003)(261026121527099003)(261026140227099003)(261022115727099003)(261021123027099003)(261021121427099003)(261022113327099003)(261022105027099003)(261022075727099003)(261009223027099003)(261009221227099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YUg4MjRyR2hka29YR05hWkVFVzh0N3V3a1A5VkRzaC85dVU4clVYZ2xJdC9C?=
- =?utf-8?B?Z1orUFVxMVErcHlaMFhHUTRiaU53b0ZWN1pWeFRqbEZtMnIvLzY4TmpHOXVX?=
- =?utf-8?B?THpSSWtJSFlqb0hkOGRzbHVlbDZBTUhldzlCZGRlSk5tbGxtZzFIOEU0N2pp?=
- =?utf-8?B?NS82NWl0WVowUEFMeU5BWjZiK2g4bmVNb214Q3MvM0ZEYUF6MlpxRGRhTmdr?=
- =?utf-8?B?cklqbzBKMEVnRHl2ekE3Qzl6M0tlZ3JYYXVVMmdZTENMVjBhbEE5YjAwWCti?=
- =?utf-8?B?cXdDRVFJUDJSdmN3aTBvV21kWEhXcFJHNmF3Y0dqN2xwN1loNTJqazVQUFZn?=
- =?utf-8?B?SXIvSG1QZDZFbDYwUHVvNVl4MlZpRDlQMWZSU2VxdjIxSnVPN3RKc0cvd2Yr?=
- =?utf-8?B?OXhwakNWcXJoK3ZGcCtRRXhoRVJKbzltcEUzSmFuVW5UM3dhZGI3eWdQYzdj?=
- =?utf-8?B?bWYwVEJFM2l1elBoNTJMdVFSSXljcTdraHV4ZXFNb2xWZ1dDY09EWXl4dFpW?=
- =?utf-8?B?ekJwOTRJNW92L2N4RmJiQ2c3Rlk1SE1iV3Z1aXJUWVhoNWUxQlE4eFQ3akxM?=
- =?utf-8?B?VnpCeHJXWlRSLzB3SGwxcFBYaW53NER0aGk4UWZnaGJpWnJNdC9nZXZQWENt?=
- =?utf-8?B?clphMTNnQjkrTGhQV0plaHBTN0dweFBtTTNtb0dmRWtXdEF5MWRZWjZYWDNC?=
- =?utf-8?B?YWkwb1pmcUxSL3p4TklueGc0NTEwL2dyWTdrMWp4UHNHTHZaTmpsa1UwQ3RS?=
- =?utf-8?B?LytaNkpFTDR5S3JuVTJsUER4czJpN094OWRvdWdaQVova21COTZPNUlBZkdh?=
- =?utf-8?B?RndScitKWTZvKzk1STBjWU1FSzc1UHlYcnJaZXphd3IwTHNYdEdLS0ExdkQr?=
- =?utf-8?B?aTg5NEpyalJteVNXa3dFUlc1eGpDSkNoU3Z5b1FaMFZhYzRRRUJET1B1NTBi?=
- =?utf-8?B?VnU1YUJYdWxCSmxvV1I1R2Rvc1VCMGUyWHFicnhhNWFMZXFvVVhZd3BlUFVK?=
- =?utf-8?B?eTYzZk5BOGNyZklMR2N0MnRDeGd6bEFERVU1T0FNYWxQTGs3SysyWEJCRGNl?=
- =?utf-8?B?TERTRy9MTzhrSE9qOEdkZ2h2QmJ6TzN2WUxtRkdFYmFxNjQ5YUV1VURaRDYv?=
- =?utf-8?B?UWttNlBHdDRFeE42K0o5TVZpVkk3R1BkTWN6SFBDUC9zc1BpTHc0bGl5UkJm?=
- =?utf-8?B?MHVTYlhNQjBwT0gyQXV1QzVvT09XY0l0cnNhVWF4WklaQXFFdjBaWWZRNzR1?=
- =?utf-8?B?UmNYL0hMdmNlamxXME5kb1pjamlWbkRpdXZWQnJFSG56VzlpS1N1aFdBWWJU?=
- =?utf-8?B?Y1htTTFqb1ZhcFFNdDFMTmVHSEtqTlRydjkrKzAvMitnMjBJSENYbDdOV2sv?=
- =?utf-8?B?cDZDaUhPNDVQeWRMWWsxekp0N1VRVktvazFFb1lrbnhtK2VRYko0R0RmbDI4?=
- =?utf-8?B?Y1ZpUkE2VEFZM1JwUVBkS0xkSzBVR2Q0R3p6bDlzcmxWbCswUnJSbzh4M2dH?=
- =?utf-8?B?OWtTZlFlaFcvUmJHSHZkTlV5QnpYUm8zbW1VWmVnQlhEWVRwN0gwNTFKSDZN?=
- =?utf-8?B?V1BEa1BySlh5UEtMNFM1RjNaOGVvQ0NLOUI1Nmp4VmVsVUNaNTcxeUcrN0Er?=
- =?utf-8?B?ODZyWHRpMXVMU2hXNnJjZ05SMXoycXZrUURoN2VyN2VYUEtzanBmNnV6czlD?=
- =?utf-8?B?TEJMZW1kRks4cTI1by8xemRNZWhhdlNuTjh4RXRESk5lU3hMd2d5aUEyYVlz?=
- =?utf-8?B?bjh6em41VkRSTGNIeDdpUzQxaFF1bHdwMmdxa0hOMDlsYTJOay9YSWhLL2ZC?=
- =?utf-8?B?eXBJQ3NOY0Z6dHJhSmhERlpRSW1GYzV4M2hZT2hLV25tSFlRNTg1Q2toU3Vu?=
- =?utf-8?B?eFkzVmRhR3Q5MHFrTXUyU1lXNFJBaVNDc2JiOWpLSjB4bG9ZZ1Rhb0NZY3U1?=
- =?utf-8?B?SWUrWS9GM2xIS2k5MTVYekJhSHp5RkFQUTJZcFd6c3psUDRmRGF4dXk1Zlp6?=
- =?utf-8?B?S0QzQ1VoVklER2xNTU9oU1dqOFlUM1BoWWNMTzY1dmRHMVdJcmp1UHB3TFBM?=
- =?utf-8?B?VkJ1OFZOSlEvODF0M05OVGp4bVpOdDFsb0dLNk5KNFZ1QjBhTkJseWplUnVH?=
- =?utf-8?B?ak85TjBwTFR1OFJpRDh0djFsVXpiWWd2YVVDcFZNQjlvakpuOXdNR09zVFBS?=
- =?utf-8?B?d2Vtdk95NXZPU2hiNzBSQ0RNZ2RrZGF4YTBFQlpyRnFaNk9tT1dxaDlTY2pN?=
- =?utf-8?B?N21pcXlGQUpxM1NhcmlBNDFybHFSK003b1d5UllhRWFqMGFnbHBiTldBWkRV?=
- =?utf-8?B?dUFvOXVQWm9STk1HZ0NhU1kzb253NVkzUFlGQ1J6TnhMYk9WM3ZmQT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: ytt9HI4xeFP7ORyIVWcXSDnMB7si5vZQ66W5fgoV/+ehvjTuFcLWty7HEwtiy6wgc8VlnYh0OwHNQQpsBxpNWHExaVkwSh+gt3ZrBO8gsTGmVO9YShCKztpQu6a+JSFR/4Qa5Nz3+zwkJCmOBSesXppPKYLWUtsjCJNpikPQWtjMude3Acanj4yEXtmAsp8NQM9Kco0L88aWXYrs3OT0VZlABZeKqvIG9/r5eLreIyiBEOb4Yz8RnlZB8sdoRVy2fajx4xvT5D2z6BRd0ynsoR5Tts35lrGAMG2KjBgFnUrcCpkES6PNVZAgz0w/Wz1vcJgN5gOyVpxFT/kmX9Htp5J9FYcd03rhGkWfHgGgKXiCSIlR45Tcf7DvFGVbCNaG/k8WlWbI0jhLSzUMHTuP/I3lBVzGtNvN2obA10ZyhknmuzJZ/fNlRmTDF3Fl1SEl
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3a0f471d-3f98-4acd-7613-08df364c8200
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB9457.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 06:10:33.7954 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 06:31:02.8851 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6824a630-f864-4ab6-57c0-08df364f5ec5
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zZmnS5MhT8X+z6+1YaviUQK0ngWKX2fRduCP5A4p0Qbwbk0wGQbA3KDEU/04uObImlKpaXLI/A8etOtUMFsEGg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4439
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000D8953.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6718
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,459 +106,214 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	HTML_MESSAGE,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---------------hhns7jLoM6YRxnm7l2rzZBET
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+This commit implements basic ioctl framework for PMC,
+including basic operations.
 
-On 10/29/2026 9:37 PM, James Zhu wrote:
+This commit also implements AMDGPU_PROFILER_OP_VERSION
+which report profiler version to the user space.
 
->
-> On 2026-10-28 23:13, Zhu, Lingshan wrote:
->> On 10/28/2026 8:53 PM, Zhu, James wrote:
->>> AMD General
->>>
->>> Hi, Lingshan,
->>>
->>> Sorry to reply later! Just be back from vacation.
->>>
->>> Yes, there is only one set of PMC registers on the device.
->>> But the minimum control scope is XCC. So, I think we should design
->>> PMC based on
->>> Node instead of device. We need not enable the PMC on XCCs which
->>> have no PMC
->>> data collection request.
->>> Since the request is based on render node.
->> They are per-device registers, so the scope should be the device, not
->> XCC.
-> [JZ] where did you get this information? From what I know, Compute /
-> Shader PMCs / RLC & SPM Control / //  /  / / PC Sampling are all XCC
-> based.  a are all  are
+Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
+Reviewed-by: Benjamin Welton <benjamin.welton@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/Makefile          |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c      |  2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.c | 44 ++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.h | 33 +++++++++++++++
+ include/uapi/drm/amdgpu_drm.h                | 36 ++++++++++++++++
+ 5 files changed, 116 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.h
 
-For GFX11/12, the instance number of XCC is 0, therefore their xcc_mask is 1, so the registers are per-device.
-You can read these information from sysfs and debugfs.
+diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+index ec199715ee76..7ce3d682eb53 100644
+--- a/drivers/gpu/drm/amd/amdgpu/Makefile
++++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+@@ -72,7 +72,7 @@ amdgpu-y += amdgpu_device.o amdgpu_reg_access.o amdgpu_doorbell_mgr.o amdgpu_kms
+ 	amdgpu_eeprom.o amdgpu_mca.o amdgpu_psp_ta.o amdgpu_lsdma.o amdgpu_lockdep.o \
+ 	amdgpu_ring_mux.o amdgpu_xcp.o amdgpu_seq64.o amdgpu_dev_coredump.o \
+ 	amdgpu_cper.o amdgpu_userq_fence.o amdgpu_eviction_fence.o amdgpu_ip.o \
+-	amdgpu_wb.o amdgpu_trap.o amdgpu_events.o
++	amdgpu_wb.o amdgpu_trap.o amdgpu_events.o amdgpu_profiler.o
+ 
+ amdgpu-$(CONFIG_PROC_FS) += amdgpu_fdinfo.o
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index a93ee106ab92..61ce43dcad68 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -55,6 +55,7 @@
+ #include "amdgpu_trap.h"
+ #include "amdgpu_userq_fence.h"
+ #include "../amdxcp/amdgpu_xcp_drv.h"
++#include "amdgpu_profiler.h"
+ 
+ /*
+  * KMS wrapper.
+@@ -3096,6 +3097,7 @@ const struct drm_ioctl_desc amdgpu_ioctls_kms[] = {
+ 	DRM_IOCTL_DEF_DRV(AMDGPU_USERQ_WAIT, amdgpu_userq_wait_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+ 	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_LIST_HANDLES, amdgpu_gem_list_handles_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+ 	DRM_IOCTL_DEF_DRV(AMDGPU_PROC_OPTIONS, amdgpu_proc_options_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
++	DRM_IOCTL_DEF_DRV(AMDGPU_PROFILER, amdgpu_profiler_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+ };
+ 
+ static const struct drm_driver amdgpu_kms_driver = {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.c
+new file mode 100644
+index 000000000000..04902696adab
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.c
+@@ -0,0 +1,44 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright 2026 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++
++#include <linux/errno.h>
++#include <drm/amdgpu_drm.h>
++#include "amdgpu_profiler.h"
++
++int amdgpu_profiler_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
++{
++	struct drm_amdgpu_profiler_args *args = data;
++
++	switch (args->op) {
++	case AMDGPU_PROFILER_OP_VERSION:
++		args->version = AMDGPU_PROFILER_VERSION_NUM;
++		return 0;
++	case AMDGPU_PROFILER_OP_RESERVE:
++		return -EOPNOTSUPP;
++	case AMDGPU_PROFILER_OP_PMC:
++		return -EOPNOTSUPP;
++	default:
++		return -EINVAL;
++	}
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.h
+new file mode 100644
+index 000000000000..c27b5f9b3ff0
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_profiler.h
+@@ -0,0 +1,33 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright 2026 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++
++#ifndef __AMDGPU_PROFILER_H__
++#define __AMDGPU_PROFILER_H__
++
++#include <drm/drm_device.h>
++#include <drm/drm_file.h>
++
++int amdgpu_profiler_ioctl(struct drm_device *dev, void *data, struct drm_file *filp);
++
++#endif /* __AMDGPU_PROFILER_H__ */
+diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+index 9e5fa6f53e59..b4f160d1ded4 100644
+--- a/include/uapi/drm/amdgpu_drm.h
++++ b/include/uapi/drm/amdgpu_drm.h
+@@ -60,6 +60,7 @@ extern "C" {
+ #define DRM_AMDGPU_GEM_LIST_HANDLES	0x19
+ #define DRM_AMDGPU_PROC_OPTIONS		0x1A
+ #define DRM_AMDGPU_TRAP			0x1B
++#define DRM_AMDGPU_PROFILER		0x1C
+ 
+ #define DRM_IOCTL_AMDGPU_GEM_CREATE	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
+ #define DRM_IOCTL_AMDGPU_GEM_MMAP	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
+@@ -83,6 +84,7 @@ extern "C" {
+ #define DRM_IOCTL_AMDGPU_GEM_LIST_HANDLES DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_LIST_HANDLES, struct drm_amdgpu_gem_list_handles)
+ #define DRM_IOCTL_AMDGPU_PROC_OPTIONS	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_PROC_OPTIONS, struct drm_amdgpu_proc_options)
+ #define DRM_IOCTL_AMDGPU_TRAP	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_TRAP, union drm_amdgpu_trap)
++#define DRM_IOCTL_AMDGPU_PROFILER	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_PROFILER, struct drm_amdgpu_profiler_args)
+ 
+ /**
+  * DOC: memory domains
+@@ -1821,6 +1823,40 @@ struct drm_amdgpu_proc_options {
+ 	} kfd_sigbus_delay;
+ };
+ 
++#define AMDGPU_PROFILER_VERSION_NUM	1
++
++enum amdgpu_profiler_ops {
++	AMDGPU_PROFILER_OP_VERSION = 1,
++	AMDGPU_PROFILER_OP_RESERVE = 2,
++	AMDGPU_PROFILER_OP_PMC = 3,
++};
++
++enum amdgpu_profiler_reserve_ops {
++	/* release the device reservation, only the reservation owner do this */
++	AMDGPU_PROFILER_RELEASE = 0,
++	/* reserve the device profiler */
++	AMDGPU_PROFILER_RESERVE = 1,
++	/* Clear the device profiler reservation, in case the reservation
++	 * owner can no longer release the reservation(e.g., it crashes),
++	 * This operation does not take the reservation nor touch profiler state
++	 */
++	AMDGPU_PROFILER_CLEAR_RESERVATION = 2,
++};
++
++struct drm_amdgpu_profiler_args {
++	/* enum amdgpu_profiler_ops */
++	__u8 op;
++	__u8 pad[3];
++	union {
++		/* AMDGPU_PROFILER_OP_RESERVE: enum amdgpu_profiler_reserve_ops */
++		__u8 reserve;
++		/* AMDGPU_PROFILER_OP_PMC: 1 enable PMC, 0 disable PMC */
++		__u8 perfcount_enable;
++		/* AMDGPU_PROFILER_OP_VERSION: AMDGPU_PROFILER_VERSION_NUM */
++		__u32 version;
++	};
++};
++
+ #if defined(__cplusplus)
+ }
+ #endif
+-- 
+2.53.0
 
-Please also take a look at KFD implementation at https://lists.freedesktop.org/archives/amd-gfx/2026-February/138408.html
-
-It says: multiple PMC profilers on the same device can result in corrupted counter data
-
->>
->> Another reason is, I assume we don't want one user to sniff another
->> through PMC.
-> [JZ] if it is true, is it more easy to sniffer  for per device design.
-> the other nodes within the same device will enable PMC unexpectedly.
-
-so we have implemented reservation/locking for PMC.
-
-Thanks
-Lingshan
-
->>
->> Thanks
->> Lingshan
->>> Thanks & Best Regards!
->>>
->>> James Zhu
->>>
->>> --------------------------------------------------------------------------------
->>>
->>> *From:* Zhu, Lingshan<Lingshan.Zhu@amd.com>
->>> *Sent:* Thursday, October 8, 2026 3:50 AM
->>> *To:* Zhu, James<James.Zhu@amd.com>; Deucher, Alexander
->>> <Alexander.Deucher@amd.com>; Kuehling, Felix<Felix.Kuehling@amd.com>
->>> *Cc:* Huang, Ray<Ray.Huang@amd.com>;amd-gfx@lists.freedesktop.org
->>> <amd- gfx@lists.freedesktop.org>
->>> *Subject:* Re: [RFC 02/10] drm/amdgpu: add device-wide PMC config
->>>
->>> On 9/24/2026 11:40 PM, James Zhu wrote:
->>>
->>>> On 2026-09-23 23:23, Zhu, Lingshan wrote:
->>>>> On 9/23/2026 10:13 PM, James Zhu wrote:
->>>>>> On 2026-09-22 05:34, Zhu Lingshan wrote:
->>>>>>> This commit implements a device-wide PMC config
->>>>>>> for amdgpu, which including the profiling owner,
->>>>>>> and the profiling enablement indicator.
->>>>>> [JZ] I think it should be render-node wide, not device-wide
->>>>> Hi James,
->>>>>
->>>>> It could be, but we don't have a requirement document defines the
->>>>> scope.
->>>>>
->>>>> But normally a profiler is a device scope,
->>>>> I see KFD profiler operates on all queues under the device queue
->>>>> manager
->>>> [JZ] One device could be split into multiple nodes with different
->>>> processes
->>>> running.
->>>>
->>>> I am wondering if this is really we want.  Ben may comment on it.
->>> Hello James,
->>>
->>> Sorry for the late reply, it was mid-autumn festival and national
->>> holidays.
->>>
->>> In my understanding, there is only one set of PMC registers on the
->>> device, so it should
->>> be device scope.
->>>
->>> Thanks
->>> Lingshan
->>>
->>>>> Thanks
->>>>> Lingshan
->>>>>>> Signed-off-by: Zhu Lingshan<lingshan.zhu@amd.com>
->>>>>>> <mailto:lingshan.zhu@amd.com>
->>>>>>> ---
->>>>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu.h        | 8 ++++++++
->>>>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 +++
->>>>>>>    2 files changed, 11 insertions(+)
->>>>>>>
->>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->>>>>>> b/drivers/gpu/drm/amd/
->>>>>>> amdgpu/amdgpu.h
->>>>>>> index 8eff6b9ebe81..45897dca802f 100644
->>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->>>>>>> @@ -620,6 +620,12 @@ enum amdgpu_enforce_isolation_mode {
->>>>>>>        AMDGPU_ENFORCE_ISOLATION_NO_CLEANER_SHADER = 3,
->>>>>>>    };
->>>>>>>    +struct amdgpu_pmc_profiler {
->>>>>>> +    struct mutex        lock;
->>>>>>> +    struct drm_file        *owner;
->>>>>>> +    bool            enable;
->>>>>>> +};
->>>>>>> +
->>>>>>>    struct amdgpu_device {
->>>>>>>        struct device            *dev;
->>>>>>>        struct pci_dev            *pdev;
->>>>>>> @@ -818,6 +824,8 @@ struct amdgpu_device {
->>>>>>>         */
->>>>>>>        struct xarray userq_doorbell_xa;
->>>>>>>    +    struct amdgpu_pmc_profiler    pmc_profiler;
->>>>>>> +
->>>>>>>        /* df */
->>>>>>>        struct amdgpu_df                df;
->>>>>>>    diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>>>>> b/drivers/gpu/
->>>>>>> drm/amd/amdgpu/amdgpu_device.c
->>>>>>> index c924a55fd16f..74ed42e53264 100644
->>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>>>>> @@ -3673,6 +3673,7 @@ int amdgpu_device_init(struct
->>>>>>> amdgpu_device *adev,
->>>>>>>        mutex_init(&adev->pm.stable_pstate_ctx_lock);
->>>>>>>        mutex_init(&adev->benchmark_mutex);
->>>>>>>        mutex_init(&adev->gfx.reset_sem_mutex);
->>>>>>> +    mutex_init(&adev->pmc_profiler.lock);
->>>>>>>          /* Associate locks with lockdep classes for ordering
->>>>>>> validation */
->>>>>>>        amdgpu_lockdep_set_class(adev);
->>>>>>> @@ -4244,6 +4245,8 @@ void amdgpu_device_fini_sw(struct
->>>>>>> amdgpu_device *adev)
->>>>>>>        kfree(adev->pci_state);
->>>>>>>        kfree(adev->pcie_reset_ctx.swds_pcistate);
->>>>>>>        kfree(adev->pcie_reset_ctx.swus_pcistate);
->>>>>>> +
->>>>>>> +    mutex_destroy(&adev->pmc_profiler.lock);
->>>>>>>    }
->>>>>>>      /**
---------------hhns7jLoM6YRxnm7l2rzZBET
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <pre class="moz-cite-prefix">On 10/29/2026 9:37 PM, James Zhu wrote:
-</pre>
-    <blockquote type="cite" cite="mid:2a1a10f7-6a49-435f-abb2-0894ff804acd@amd.com">
-      <br>
-      On 2026-10-28 23:13, Zhu, Lingshan wrote:
-      <br>
-      <blockquote type="cite">On 10/28/2026 8:53 PM, Zhu, James wrote:
-        <br>
-        <blockquote type="cite">AMD General
-          <br>
-          <br>
-          Hi, Lingshan,
-          <br>
-          <br>
-          Sorry to reply later! Just be back from vacation.
-          <br>
-          <br>
-          Yes, there is only one set of PMC registers on the device.
-          <br>
-          But the minimum control scope is XCC. So, I think we should
-          design PMC based on
-          <br>
-          Node instead of device. We need not enable the PMC on XCCs
-          which have no PMC
-          <br>
-          data collection request.
-          <br>
-          Since the request is based on render node.
-          <br>
-        </blockquote>
-        They are per-device registers, so the scope should be the
-        device, not XCC.
-        <br>
-      </blockquote>
-      [JZ] where did you get this information? From what I know, Compute
-      / Shader PMCs / RLC &amp; SPM Control&nbsp;/ //&nbsp; /&nbsp; / / PC Sampling are
-      all XCC based. &nbsp;a are all&nbsp; are
-      <br>
-    </blockquote>
-    <pre>For GFX11/12, the instance number of XCC is 0, therefore their xcc_mask is 1, so the registers are per-device.
-You can read these information from sysfs and debugfs.
-
-Please also take a look at KFD implementation at <a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/archives/amd-gfx/2026-February/138408.html">https://lists.freedesktop.org/archives/amd-gfx/2026-February/138408.html</a>
-
-It says: multiple PMC profilers on the same device can result in corrupted counter data</pre>
-    <blockquote type="cite" cite="mid:2a1a10f7-6a49-435f-abb2-0894ff804acd@amd.com">
-      <blockquote type="cite">
-        <br>
-        Another reason is, I assume we don't want one user to sniff
-        another through PMC.
-        <br>
-      </blockquote>
-      [JZ] if it is true, is it more easy to sniffer&nbsp; for per device
-      design. the other nodes within the same device will enable PMC
-      unexpectedly.
-      <br>
-    </blockquote>
-    <pre>so we have implemented reservation/locking for PMC.
-
-Thanks
-Lingshan</pre>
-    <blockquote type="cite" cite="mid:2a1a10f7-6a49-435f-abb2-0894ff804acd@amd.com">
-      <blockquote type="cite">
-        <br>
-        Thanks
-        <br>
-        Lingshan
-        <br>
-        <blockquote type="cite">Thanks &amp; Best Regards!
-          <br>
-          <br>
-          James Zhu
-          <br>
-          <br>
---------------------------------------------------------------------------------
-          <br>
-          *From:* Zhu, Lingshan<a class="moz-txt-link-rfc2396E" href="mailto:Lingshan.Zhu@amd.com">&lt;Lingshan.Zhu@amd.com&gt;</a>
-          <br>
-          *Sent:* Thursday, October 8, 2026 3:50 AM
-          <br>
-          *To:* Zhu, James<a class="moz-txt-link-rfc2396E" href="mailto:James.Zhu@amd.com">&lt;James.Zhu@amd.com&gt;</a>; Deucher, Alexander
-          <br>
-          <a class="moz-txt-link-rfc2396E" href="mailto:Alexander.Deucher@amd.com">&lt;Alexander.Deucher@amd.com&gt;</a>; Kuehling,
-          Felix<a class="moz-txt-link-rfc2396E" href="mailto:Felix.Kuehling@amd.com">&lt;Felix.Kuehling@amd.com&gt;</a>
-          <br>
-          *Cc:* Huang,
-          Ray<a class="moz-txt-link-rfc2396E" href="mailto:Ray.Huang@amd.com">&lt;Ray.Huang@amd.com&gt;</a>;amd-gfx@lists.freedesktop.org
-          <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx@lists.freedesktop.org">&lt;amd- gfx@lists.freedesktop.org&gt;</a>
-          <br>
-          *Subject:* Re: [RFC 02/10] drm/amdgpu: add device-wide PMC
-          config
-          <br>
-          <br>
-          On 9/24/2026 11:40 PM, James Zhu wrote:
-          <br>
-          <br>
-          <blockquote type="cite">On 2026-09-23 23:23, Zhu, Lingshan
-            wrote:
-            <br>
-            <blockquote type="cite">On 9/23/2026 10:13 PM, James Zhu
-              wrote:
-              <br>
-              <blockquote type="cite">On 2026-09-22 05:34, Zhu Lingshan
-                wrote:
-                <br>
-                <blockquote type="cite">This commit implements a
-                  device-wide PMC config
-                  <br>
-                  for amdgpu, which including the profiling owner,
-                  <br>
-                  and the profiling enablement indicator.
-                  <br>
-                </blockquote>
-                [JZ] I think it should be render-node wide, not
-                device-wide
-                <br>
-              </blockquote>
-              Hi James,
-              <br>
-              <br>
-              It could be, but we don't have a requirement document
-              defines the scope.
-              <br>
-              <br>
-              But normally a profiler is a device scope,
-              <br>
-              I see KFD profiler operates on all queues under the device
-              queue manager
-              <br>
-            </blockquote>
-            [JZ] One device could be split into multiple nodes with
-            different processes
-            <br>
-            running.
-            <br>
-            <br>
-            I am wondering if this is really we want.&nbsp; Ben may comment
-            on it.
-            <br>
-          </blockquote>
-          Hello James,
-          <br>
-          <br>
-          Sorry for the late reply, it was mid-autumn festival and
-          national holidays.
-          <br>
-          <br>
-          In my understanding, there is only one set of PMC registers on
-          the device, so it should
-          <br>
-          be device scope.
-          <br>
-          <br>
-          Thanks
-          <br>
-          Lingshan
-          <br>
-          <br>
-          <blockquote type="cite">
-            <blockquote type="cite">Thanks
-              <br>
-              Lingshan
-              <br>
-              <blockquote type="cite">
-                <blockquote type="cite">Signed-off-by: Zhu
-                  Lingshan<a class="moz-txt-link-rfc2396E" href="mailto:lingshan.zhu@amd.com">&lt;lingshan.zhu@amd.com&gt;</a>
-                  <a class="moz-txt-link-rfc2396E" href="mailto:lingshan.zhu@amd.com">&lt;mailto:lingshan.zhu@amd.com&gt;</a>
-                  <br>
-                  ---
-                  <br>
-                  &nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 8
-                  ++++++++
-                  <br>
-                  &nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 +++
-                  <br>
-                  &nbsp;&nbsp; 2 files changed, 11 insertions(+)
-                  <br>
-                  <br>
-                  diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-                  b/drivers/gpu/drm/amd/
-                  <br>
-                  amdgpu/amdgpu.h
-                  <br>
-                  index 8eff6b9ebe81..45897dca802f 100644
-                  <br>
-                  --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-                  <br>
-                  +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-                  <br>
-                  @@ -620,6 +620,12 @@ enum
-                  amdgpu_enforce_isolation_mode {
-                  <br>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_ENFORCE_ISOLATION_NO_CLEANER_SHADER = 3,
-                  <br>
-                  &nbsp;&nbsp; };
-                  <br>
-                  &nbsp;&nbsp; +struct amdgpu_pmc_profiler {
-                  <br>
-                  +&nbsp;&nbsp;&nbsp; struct mutex&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lock;
-                  <br>
-                  +&nbsp;&nbsp;&nbsp; struct drm_file&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *owner;
-                  <br>
-                  +&nbsp;&nbsp;&nbsp; bool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enable;
-                  <br>
-                  +};
-                  <br>
-                  +
-                  <br>
-                  &nbsp;&nbsp; struct amdgpu_device {
-                  <br>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct device&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *dev;
-                  <br>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct pci_dev&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *pdev;
-                  <br>
-                  @@ -818,6 +824,8 @@ struct amdgpu_device {
-                  <br>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */
-                  <br>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct xarray userq_doorbell_xa;
-                  <br>
-                  &nbsp;&nbsp; +&nbsp;&nbsp;&nbsp; struct amdgpu_pmc_profiler&nbsp;&nbsp;&nbsp; pmc_profiler;
-                  <br>
-                  +
-                  <br>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* df */
-                  <br>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_df&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; df;
-                  <br>
-                  &nbsp;&nbsp; diff --git
-                  a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-                  b/drivers/gpu/
-                  <br>
-                  drm/amd/amdgpu/amdgpu_device.c
-                  <br>
-                  index c924a55fd16f..74ed42e53264 100644
-                  <br>
-                  --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-                  <br>
-                  +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-                  <br>
-                  @@ -3673,6 +3673,7 @@ int amdgpu_device_init(struct
-                  amdgpu_device *adev,
-                  <br>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  mutex_init(&amp;adev-&gt;pm.stable_pstate_ctx_lock);
-                  <br>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_init(&amp;adev-&gt;benchmark_mutex);
-                  <br>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_init(&amp;adev-&gt;gfx.reset_sem_mutex);
-                  <br>
-                  +&nbsp;&nbsp;&nbsp; mutex_init(&amp;adev-&gt;pmc_profiler.lock);
-                  <br>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Associate locks with lockdep classes for
-                  ordering validation */
-                  <br>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_lockdep_set_class(adev);
-                  <br>
-                  @@ -4244,6 +4245,8 @@ void
-                  amdgpu_device_fini_sw(struct amdgpu_device *adev)
-                  <br>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(adev-&gt;pci_state);
-                  <br>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(adev-&gt;pcie_reset_ctx.swds_pcistate);
-                  <br>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(adev-&gt;pcie_reset_ctx.swus_pcistate);
-                  <br>
-                  +
-                  <br>
-                  +&nbsp;&nbsp;&nbsp; mutex_destroy(&amp;adev-&gt;pmc_profiler.lock);
-                  <br>
-                  &nbsp;&nbsp; }
-                  <br>
-                  &nbsp;&nbsp;&nbsp;&nbsp; /**
-                  <br>
-                </blockquote>
-              </blockquote>
-            </blockquote>
-          </blockquote>
-        </blockquote>
-      </blockquote>
-    </blockquote>
-  </body>
-</html>
-
---------------hhns7jLoM6YRxnm7l2rzZBET--
