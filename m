@@ -2,93 +2,122 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 837F6606A31A
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Oct 2026 22:01:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F47B606A31A
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Oct 2026 22:02:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IcsMaIVG
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=HBOjCxph
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B82C710E3CC;
-	Fri, 30 Oct 2026 22:01:13 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31A6D10E3B0;
- Fri, 30 Oct 2026 22:01:07 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6850C60233;
- Fri, 30 Oct 2026 22:01:06 +0000 (UTC)
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1793397666;
- b=1kUCYUf0MZQ3jDaSZ3UMO+6AdDZea3LmoUdVgzj+6CxtSj4DIsV7hLJx56K9vBZb4afR
- 2sGF2teaSc7vVqk1W6aQCniR+HwLajro0cPvRcrQJ/nME/N5uloMOMzQc7sTT4ehLka+J
- y+5MOslnY0B2mn436/xbETMYNdH3Iy2opKbUZDkkTLQ9RsWOzzQfQBGH2SzFkOJEoqpyA
- q0aXCxWiVO2uaXDcqF5XhUQJRrGnKo2RSXIBKOoAxYpSm8bXpwQwv/0wl4BpzR7HIz3dX
- fJX5NAmZWD/MbRmLta09MBj1m7Gt18JHYONDkr0ci8uZm4NN07RmacO4K2l3GpUHCDw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1793397666;
- h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
- Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
- X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=HJ2Gm8VlByqZOvURjQ7L/LFHBQaSpl11FSGZzAYNCLw=;
- b=0DMsEGHoJbfp/SLhysZFVQnn0zFUu9JC8AeEaXqlxfScO28DIxN0cg5TVBQRpJ6j8tFG
- dLtN1/wmzwoonxG8Masqlu0Gymxgh9526tLsbqLAIB4MOum0xkkKkUYrD1jK31wWx8Th4
- Ap0qiQ2IGx4BHbv+RUq6VyS6oXLzPd0BotSDYXJ3Q8PFsd/N/2Ga+Ot8ONnLAUW5XPw7y
- ZJFdRLlMl04ELin0Urogqxw3661OHIVuJZpKKmKKNXuj2TMa4lJwMKAX3w9DnRWRwKXDa
- TZakscdUy5OsXK9Ic1ukzVeGJjJTFkGWkkM4k5kvynW6Gzg3C7tN9yaMDBEZ6P7oF1Q==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
- arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
- (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 24D601F0093A;
- Fri, 30 Oct 2026 22:01:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793397666;
- bh=HJ2Gm8VlByqZOvURjQ7L/LFHBQaSpl11FSGZzAYNCLw=;
- h=From:Date:Subject:To:Cc:Reply-To;
- b=IcsMaIVG89HmI995/PI5mrz7QeYTTn9KsloDc92C2qF/7UCTSYD2klhYM89+PCJkM
- E10r2maO37KyEY1qIFvG9bKwEag/MNWODWFTRYWcJTHMptt5I9HqfEgFZlHsaYrv7s
- RpqtQhAxBOjqMPCtJLwKBIh2RQlljdAY3S1/2S782doH5Irj4cMWOBmliCERuGVV+o
- mqK0TijQGQtQbhNHhBaokNzcsqujr9ZzAgajn0NmBkbJ2EJj5XInTBijhSKUAYjTsD
- wI93o+GXELHqzIyKgLpyAGfFF6VGRv5UydrLMS6Rvn/sUyFvDVLYIZ3+zlL0fj83Ex
- MgImpJdMRNVdQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 78D7E442BA;
- Fri, 30 Oct 2026 22:01:04 +0000 (UTC)
-From: Shivam Kalra via B4 Relay <devnull+shivamkalra98.zohomail.in@kernel.org>
-Date: Sat, 31 Oct 2026 03:28:50 +0530
-Subject: [PATCH] drm/amd/display: use atomic commit for panel power savings
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D40410E51A;
+	Fri, 30 Oct 2026 22:01:57 +0000 (UTC)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010053.outbound.protection.outlook.com [52.101.61.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD8A810E51A
+ for <amd-gfx@lists.freedesktop.org>; Fri, 30 Oct 2026 22:01:50 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nC/FGSuk//NPkAG6HxktLjFyeoana6V5XfR5ynR2CajTc4fvmtxBNk7duXK44Xhg8LstCJ6wLaUDnpo4LJZUZ3Gvk+ZwK39tcaBob5audKfNezhdkkvLvSnU/2CZsBs66CUtQ5V4DC6JysmA5y3JgE8BuiB2erftR3fdKABmis8RcRorlarq3vxRe01UnGPhdv5fLA5+J0uRcPr4HpfHypv5KX4YG6rarMoaANXr1uhKuA9agGB6bcEcLNQyS2A+NeTUWJEwNj/5ksP2eFXRm59746RZ0bISFocRGG8uN9LLMP6r8kbdSGoOnhg4yNjfm6hfm9d/U3Z1V+mFPotDag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EWxU87kc82nUe5P8b/AgrjbZI7JsG22QS7IAGiZRfAg=;
+ b=JvedM0L6tCNuFNKabiS/+tGwdxjYjnzOxfmA3cQOY/hZ3dYzwVD6daRD1Ai/skkgf/R0WjKvj1qa6zigCMYUeuCx7gYugGHt7sEWcPH1URYZ5RkAZZduZSLA67NN/KdyXCqIBDWWPvTWz/Hky1mK9vQLeefDDmcA0RCJdd3pkcIlzBIs530tzyygitjOcZnvR77kyy4z+8AVnm6XT6ODHKipuw68zPwyx3eaFsvY6c7Ncxp/EAX5DeayKvLiAOOTln7JWQn+VRJf2mNUUvMxTTYnHcWtDKSQdnjoR8T+Stm3ZlGEPQM5eFAOkeDnZaE8FI25p+hnPRHFbOmjjHgEtw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EWxU87kc82nUe5P8b/AgrjbZI7JsG22QS7IAGiZRfAg=;
+ b=HBOjCxphye9sNe+sRSURNpyVdigzRORle4syv6PkPxKROzbv2D1oXseU/exr4nWLz7FQFKGuigVH1wq5LjLHkKwjQkPSm7/xakkMkWoIXvjkHkUosWDR93FkRqJuBP1dOMzK72oyaWGXPWkmrXGHIKxGtLy0Abg0bbT8hQMbp6E=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::607) by DS6PR12MB934327.namprd12.prod.outlook.com
+ (2603:10b6:8:4c5::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Fri, 30 Oct
+ 2026 22:01:23 +0000
+Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ ([fe80::67a7:9feb:71ef:964a]) by BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ ([fe80::67a7:9feb:71ef:964a%8]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
+ 22:01:23 +0000
+Message-ID: <f56dc973-5551-4b36-b65c-eb10b6f5aa39@amd.com>
+Date: Fri, 30 Oct 2026 18:01:21 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7] drm/amdgpu: UALink add debugfs selftest
+To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org,
+ Mukul.Joshi@amd.com
+References: <20261030134047.1532210-1-Philip.Yang@amd.com>
+Content-Language: en-US
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+In-Reply-To: <20261030134047.1532210-1-Philip.Yang@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT4PR01CA0093.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:ff::25) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::607)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261031-abm-sysfs-atomic-v1-1-a99068f3b49c@zohomail.in>
-X-B4-Tracking: v=1; b=H4sIABkT5WoC/yXMQQqDMBBA0avIrDuQRGLRq5QuYpzoFNSSUVEkd
- ze2y7f4/wShyCTQFCdE2lh4njL0owA/uKkn5C4bjDKVVqVG144ohwRBt8wje/TP2iobqtIZgpx
- 9IwXef8vX+29Z2w/55f5AShdvtFx9dAAAAA==
-X-Change-ID: 20261031-abm-sysfs-atomic-c79505f63a2e
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>, 
- Mario Limonciello <mario.limonciello@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, David Weber <weber.aulendorf@gmail.com>, 
- Shivam Kalra <shivamkalra98@zohomail.in>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793397663; l=12858;
- i=shivamkalra98@zohomail.in; s=20260402; h=from:subject:message-id;
- bh=jACiQwIUkVzip4GOIHF0xLWEFouP+BbAsfe/i/JrkeI=;
- b=YlU+jkoRUFl1QWKkiZLwFHxNq1W9Ny88KCYR5dgFIH8NS6DbxvdxRYD/BlEIStZhf2QMJGRQq
- EpagiSbvMY5Dw/8IstrIPbInl7iuj2RhIwY4W8T+xGrFvkc+hZBiAKi
-X-Developer-Key: i=shivamkalra98@zohomail.in; a=ed25519;
- pk=U8kQSxcte8P8iZ6zB7phIj+Yl+i/5ntifBGuclgypx8=
-X-Endpoint-Received: by B4 Relay for shivamkalra98@zohomail.in/20260402
- with auth_id=716
-X-Original-From: Shivam Kalra <shivamkalra98@zohomail.in>
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN7PPF5F16C5C9C:EE_|DS6PR12MB934327:EE_
+X-MS-Office365-Filtering-Correlation-Id: 129410b2-6814-4203-4c7d-08df36d155f3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|23010399003|376014|1800799024|261021121427099003|261028144727099003|261021133027099003|261021130227099003|261021123027099003|261022075727099003|261021135927099003|261022115727099003|261022113327099003|261009223027099003|261026121527099003|261026140227099003|261026130827099003|261022105027099003|261026135527099003|10067099003|5023799004|11063799006|3023799007|6133799003|18002099003|22082099003|56012099006;
+X-Microsoft-Antispam-Message-Info: kbb2DFvQeDhpIVHWBQkotZ/tEfpiRZ6q5cLf9gWwC5QVMfSYKUDr6zXQVAsIea4lAOl1Gro1VXCkULHUP/wKttQak9chGmyWARD0vIxXPCUT8lzy1nCxjjgKhm0hIirlOueZi4RNICQSNeE4u2pktd5AnOeZ/beS8NvJjN/NX9DcVYxcfgUy+tP2uOOUaB6lDgsTLucJnkYYw8r2Hl8WurYy35ibrEuY7+6W08zUYzCphzoaEOkdBL/o6H7aT2ZuPZO7PoWZGMc88/GOKE+/san6HRrbnOBhuJRyGTFPIZ5bovsCIJ5SNaeEDgMU2clyJ4h9hP5GenNLv4JvtjJAMDzAfbXIEhcGFzqKWqxLz8cndZU+HJXD52kO78FCCOlwGKRI3OMUZeaWNZaC5p34EYpviizCsUz2PCdh1hLAz6+5swavsI9NMfM7QdICao5t8frndJakq9DaHwYJJQDoxVvPRJO4tavQ0tYSEQ5hNSh1wnZqWzJBLF6jSYD9eTdCMKjc1juiqiOSdnqcPhw0gOxlSQI+cnRgwX+SJRnAUeY3SUvHJSvx8qjp5V5pf5r8ivyQtfM6WO5IxiIYy98Afcmae9NAyrb4yj9Yim7kGDGOHoxd4Uumx7rndcMCChxlniMilWps7T/5rrO/IwiGomftWu0blDlFrFcfuC0xYEU=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN7PPF5F16C5C9C.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(261021121427099003)(261028144727099003)(261021133027099003)(261021130227099003)(261021123027099003)(261022075727099003)(261021135927099003)(261022115727099003)(261022113327099003)(261009223027099003)(261026121527099003)(261026140227099003)(261026130827099003)(261022105027099003)(261026135527099003)(10067099003)(5023799004)(11063799006)(3023799007)(6133799003)(18002099003)(22082099003)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aGl1WkROZExPck5rVlUvL3l6UC85alZ0N2FDYlN4RURhT1htdHh6czdTUkZE?=
+ =?utf-8?B?SytPeWFZUU55bGo3djZqcjNhQkZGbU80d0I1V3B1NVFwYkYrTFRwVGJBYTJo?=
+ =?utf-8?B?K25NaEFBbEZmaDdCZ1NDcnlhMzZCaGVvVS9OQ2w1ekVTbGhhSkhHSzhNa0Iy?=
+ =?utf-8?B?RXgrMmdPdlRLMmhsaWMxT2lBbVBMNFgwZFl1bzdqUkFVck94dzNMUDlYWEhs?=
+ =?utf-8?B?dEhHYW9ZS2J3QXA4UGhRY2ZkMXdyWmE2VFk1cUgxN3RVdnVuclJ5QVM1K2h1?=
+ =?utf-8?B?Tkw4YTVackUzbVY2RVhmZmJqQXV6RjBCdUNMMUljT0NkQWVxRGtPSjhKbU14?=
+ =?utf-8?B?NEdxQVBMK2hSZmlaNm0yY0UxSXphcjVnNHZXTHRoSmtoU3dxamVJa0tFM0hN?=
+ =?utf-8?B?dXN3Nm9oM1JJditRSU1rUnlERGlQNHFhK0dIdUp5eGlkOHRxNXBxQm5yc21T?=
+ =?utf-8?B?MVpCQ3dNQitVVjZ3OWhreU82VWR4KzFBNzcxcWxnZmg4VENiY25VRFVmNGZv?=
+ =?utf-8?B?Sm81MzdhejBXZ1duU2dld2trZkdDc0JDaGdnNVFzaktFdWJaandwYmZ4N0JW?=
+ =?utf-8?B?MDV2UE9PdndTL01nR1I5TE9uZUt4SHJDM0pITEF5MHVlQlBmNDliSjhFY3Ni?=
+ =?utf-8?B?VXFDVkxnRGN2QWREci9hZmdlNnp5cFlXc1pLcEwwYXpnNGl5M2hWK0c4NkVU?=
+ =?utf-8?B?RmsxTUxibXlyNVJOY1hWZUQ0M3haUTFLVUdnaHA1endHUDR1RzliTnJQbzE0?=
+ =?utf-8?B?UGY2Y09tdWJjSFhxVnhOckdDa0tXbkdyU05QY3pBdnMrQTdjeGE5eWpIRC9W?=
+ =?utf-8?B?SldySVNhMGMvWm5FV1AxWEVIOEdyd04ySHNNY3lVSUZlUHFOa3poV04vUHdt?=
+ =?utf-8?B?Z0pFdXZ5ZXhLVGtKZDNPTnRweDAzeURrOWtvVHV2bk83a3dCdFBvQUFCU0ZK?=
+ =?utf-8?B?UklhaUtlY2thenFTa1pZWUI0Wnh6NVk4UWpxVlhQZnEvWE5wdEE0ckxMZ3JP?=
+ =?utf-8?B?Tk1keUpXeXB6NGtCN2hvYnppT1lBaWtzM2kyMkdya21kYkVlZE54UEtEeU1U?=
+ =?utf-8?B?dzA4dkxlSmdHR1h1U2xvZjJNU0d0NE1IbEFvaTQ3bGhxSnUzZGN5dHJSVkFh?=
+ =?utf-8?B?VFZ2blZod1Q1OVk0eUdIWmxJbWhRbFF3a2NacmxPM2hKVjZuRDlrTVI0RzNl?=
+ =?utf-8?B?aU41UkVNdENxNi9acnZxTVBHS3FnazVwa3dkclBDWFRIY1pJWFNjNWdqRmVD?=
+ =?utf-8?B?cUtXR2ROKzltdEFXMCtpZnFEZXhrWFZGTTFwdUZYZzcyVWoybE5QUktpaEhm?=
+ =?utf-8?B?dVRGZVZ3YWxHMjMxWHdJUW5zR3RWaGc0NU1PT1k0NGxGY3dvUnc4a3ZFMFRv?=
+ =?utf-8?B?V3c2NEt6aVJkSDZ6MWgrTnpsZERib2lna0pyUW1NVVk2bG52VFVBYWlNdDI4?=
+ =?utf-8?B?aTVpeDFaTDRIcElQNHZpSTg3dG9aaTVTRVBNdndIUnRTVCtVLzU3RzZ5STBC?=
+ =?utf-8?B?RlNTY2szR0JUQ1UxM2xMYkhMZWJ6Tkk4a2VwNGVqK2JaTlVoTWd2Ujl3Nmln?=
+ =?utf-8?B?ZUZkd2xSMHpwMWV5UFRrR0RlWUVlaFN1RGUxNXZIbDRwRzByZzlxTURwMDhm?=
+ =?utf-8?B?V05iNlpnOXhJMzA4NlJOcXBCYlN5ejZxVWVmZElETk5MZGMzdy83Z3M2Z1gw?=
+ =?utf-8?B?dXVWVlNGUlZTM2xtUGlsNHQyUEthZEFxYVNQaEpkeE9qdlVucjJpMFZ5NDRL?=
+ =?utf-8?B?YlhwTVIzVm5IekFnRk54Y2JjODRWb2VUUnZXc0hhOFl2dzEzU1ZqZmFybjU4?=
+ =?utf-8?B?eXZkdW1ZRjNscjBST3p2REZlUXBTdWJPTHpkM2QwUmpWYXBBdjd4NHMvbGlY?=
+ =?utf-8?B?aUlCU2U4bmVOeVNQM25oZTFzWWF0ZnNCUlNIU25QVFJjSEovUVZTeGJYZTRj?=
+ =?utf-8?B?MVhxcEV0WktVSW8rZXJ0cThpRUJGaHA2Z292aW8yT05aMTlzNUFja0NXSndT?=
+ =?utf-8?B?a0I1NnBqMmNaY1RxSXJjRzdLZWpwVUJqUUdVQ256ZnZoKzFXQ0xVcmx4bENJ?=
+ =?utf-8?B?QnlnT21yTVlHdm5icmxzRUxYKzdqZnkvam1iTHI3STFlOFhSQldkVWg5NzlQ?=
+ =?utf-8?B?UHE0UTBmekN5VUZiTnZvWGxPUTJSN1B1ZHFQbnpGWWkvQ3lNVms2NlFCeXhh?=
+ =?utf-8?B?VUFmRkxPV1VwMjUxMEFweEcwajNUN1h3RmpEcytFQTQ3dHc4OHdvUzUxL0F5?=
+ =?utf-8?B?ZStIWllPSkUvVUI1YTVnR1VVQ3RzaFk1MFVDT3JlRlE4anp2UXlxdmdvRTlC?=
+ =?utf-8?B?QXlwbEJKalJ5QU9zNVFvcytoZVFKWjR1SE81ekxmSEdZOVBld3Mrdz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 129410b2-6814-4203-4c7d-08df36d155f3
+X-MS-Exchange-CrossTenant-AuthSource: BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 22:01:22.9734 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: veJiLHrQo1EfIqALOw6oAee+6Ahz0Q1pdmhqGzwRTsLMUcPGKIdjwk6uPSP0Ab8UTQLTOxL7dGU+99XPctTfMg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR12MB934327
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,352 +127,838 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: shivamkalra98@zohomail.in
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Shivam Kalra <shivamkalra98@zohomail.in>
+On 2026-10-30 09:40, Philip Yang wrote:
+> Driver-side selftests for UALink bring-up: exercise the nHT firmware,
+> remote interrupts, remote TLB shootdown and remote VRAM access without
+> any userspace application.
+>
+> Add debugfs directory "amdgpu_ualink_test" to trigger UALink selftests
+> with these read/write entries:
+>
+>    command          write the test name to run it, read to list the
+>                     valid test names
+>    remote_accel_id  accel_id of the remote GPU used by the tests
+>    test_size        test buffer size in bytes, from 4 to 4096
+>    local_test_data  the local ring buffer the remote GPU accesses
+>    remote_sdma      the remote GPU ring buffer, using sdma
+>    remote_lsdma     the remote GPU ring buffer, using lsdma
+>
+> The data entries take and return binary data, a write shorter than
+> test_size is repeated to fill it, so formatting is left to userspace
+> tools like printf, xxd, od and cmp.
+>
+> Add helper functions: ualink_test_local_data() and
+> ualink_test_remote_rw() for local and remote ring buffer R/W,
+> ualink_test_remote_shootdown() for TLB shootdown,
+> ualink_test_send_hello() for handshake,
+> ualink_test_update_interrupt_wb() and
+> ualink_test_update_shootdown_wb() to read writeback results.
+>
+> v7: Stage the remote DMA in its own IB rather than the local ring buffer,
+>      freed only after the data is copied out, so local_test_data shows
+>      what the remote GPU wrote and nothing else (Felix).
+> v6: ring buffer wptr for itself is used for wptr, don't init to 0xdeadbeef
+> v5: Replace the four remote access commands with local_test_data,
+>      remote_sdma and remote_lsdma entries, to get the test data without
+>      looking at debug logs or using xxd with physical addresses (Felix).
+>      Dump and accept binary data, no parser in the driver (Felix).
+>      Stage the DMA in the local ring buffer instead of the IB, which is
+>      freed before the data is read back.
+> v4: Use a single "command" entry taking the test name, instead of one
+>      entry per test (Felix).
+>      Resync the remote wptr before sending a command, the peer may have
+>      rebooted.
+> v3: Replace the single entry taking a test number with a debugfs
+>      directory and a named entry per command.
+>      Take peer->lock to update the writeback address and selftest_mutex
+>      to read the test parameters.
+> v2: Fix typos and issues from copilot code review.
+>
+> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 
-panel_power_savings_store() mutates connector->state directly and sends a
-hotplug event. This bypasses atomic commit handling, so the new ABM level
-is only applied when userspace happens to perform another modeset, and it
-races with concurrent commits.
-
-Build an atomic state, set the level on the connector state and commit it.
-If the connector is not attached to a CRTC, keep the level in the current
-state so the next modeset picks it up, as before.
-
-A previous attempt to avoid the modeset by calling into DMUB directly was
-reverted because it broke the abm_gradual IGT test (8d20a066fa9b,
-95aaa207e9ef). This version instead uses the normal atomic stream update
-path.
-
-Expose the atomic state update helper for KUnit and extend the tests to
-cover the atomic update and the inactive sysfs path.
-
-Fixes: 63d0b87213a0 ("drm/amd/display: add panel_power_savings sysfs entry to eDP connectors")
-Signed-off-by: Shivam Kalra <shivamkalra98@zohomail.in>
----
-Note: This patch works standalone (applying ABM changes via a modeset), and
-pairs cleanly with David Weber's unmerged series [1] ("drm/amd/display: Skip
-connector updates without a stream" and "drm/amd/display: Avoid modeset for
-ABM changes") to allow non-modeset ABM updates via the stream update path.
-
-[1] https://lore.kernel.org/amd-gfx/20260813112634.11455-1-weber.aulendorf@gmail.com/
-
-Testing:
-- KUnit: the amdgpu_dm_backlight suite passes on amd-staging-drm-next
-  (75/75 tests passed), covering the new atomic update and inactive sysfs
-  tests.
-- Hardware: tested on a 7.1.13-based kernel backport alongside [1]. Before
-  the patch, the store called drm_kms_helper_hotplug_event(), produced two
-  HOTPLUG=1 uevents (triggering 36 GetConnector probes / 20.8 ms stall in
-  Xorg), and the backlight PWM sweep stayed flat at 6998 for levels 0..4.
-  With the patch, ftrace shows panel_power_savings_store() ->
-  drm_atomic_commit() -> amdgpu_dm_atomic_commit_tail() ->
-  dc_update_planes_and_stream() -> dmub_abm_set_level_ex(), with no hotplug
-  event or connector reprobe. The PWM sweep tracks the requested level
-  (11130, 8304, 5782, 3815 and 2782 target for levels 0..4; 75% target
-  reduction at level 4, 73.8% measured).
----
- .../amd/display/amdgpu_dm/amdgpu_dm_backlight.c    | 85 ++++++++++++++++---
- .../amd/display/amdgpu_dm/amdgpu_dm_backlight.h    |  3 +
- .../amdgpu_dm/tests/amdgpu_dm_backlight_test.c     | 95 +++++++++++++++++++++-
- 3 files changed, 172 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-index 27546febf90d..f8d797324319 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-@@ -712,6 +712,31 @@ ssize_t panel_power_savings_show(struct device *device,
- }
- EXPORT_IF_KUNIT(panel_power_savings_show);
- 
-+static int
-+panel_power_savings_set_level(struct dm_connector_state *dm_conn_state, long val)
-+{
-+	if (dm_conn_state->abm_sysfs_forbidden)
-+		return -EBUSY;
-+
-+	dm_conn_state->abm_level = val ?: ABM_LEVEL_IMMEDIATE_DISABLE;
-+
-+	return 0;
-+}
-+
-+STATIC_IFN_KUNIT int
-+panel_power_savings_update_state(struct drm_atomic_commit *state,
-+				 struct drm_connector *connector, long val)
-+{
-+	struct drm_connector_state *conn_state;
-+
-+	conn_state = drm_atomic_get_connector_state(state, connector);
-+	if (IS_ERR(conn_state))
-+		return PTR_ERR(conn_state);
-+
-+	return panel_power_savings_set_level(to_dm_connector_state(conn_state), val);
-+}
-+EXPORT_IF_KUNIT(panel_power_savings_update_state);
-+
- STATIC_IFN_KUNIT
- ssize_t panel_power_savings_store(struct device *device,
- 				 struct device_attribute *attr,
-@@ -719,6 +744,9 @@ ssize_t panel_power_savings_store(struct device *device,
- {
- 	struct drm_connector *connector = dev_get_drvdata(device);
- 	struct drm_device *dev = connector->dev;
-+	struct drm_modeset_acquire_ctx ctx;
-+	struct drm_connector_state *conn_state;
-+	struct drm_atomic_commit *state;
- 	long val;
- 	int ret;
- 
-@@ -730,20 +758,57 @@ ssize_t panel_power_savings_store(struct device *device,
- 	if (val < 0 || val > 4)
- 		return -EINVAL;
- 
--	drm_modeset_lock(&dev->mode_config.connection_mutex, NULL);
--	if (to_dm_connector_state(connector->state)->abm_sysfs_forbidden)
--		ret = -EBUSY;
--	else
--		to_dm_connector_state(connector->state)->abm_level = val ?:
--			ABM_LEVEL_IMMEDIATE_DISABLE;
--	drm_modeset_unlock(&dev->mode_config.connection_mutex);
-+	drm_modeset_acquire_init(&ctx, 0);
-+	state = drm_atomic_commit_alloc(dev);
-+	if (!state) {
-+		ret = -ENOMEM;
-+		goto out_ctx;
-+	}
-+	state->acquire_ctx = &ctx;
- 
-+retry:
-+	ret = panel_power_savings_update_state(state, connector, val);
-+	if (ret == -EDEADLK)
-+		goto backoff;
- 	if (ret)
--		return ret;
-+		goto out_state;
-+
-+	conn_state = drm_atomic_get_new_connector_state(state, connector);
-+	if (!conn_state) {
-+		ret = -EINVAL;
-+		goto out_state;
-+	}
-+
-+	/*
-+	 * Without a CRTC there is no stream to update and nothing to commit.
-+	 * Keep the level in the current state so the next modeset picks it
-+	 * up, matching the behavior of the sysfs interface.
-+	 */
-+	if (!conn_state->crtc) {
-+		to_dm_connector_state(connector->state)->abm_level =
-+			to_dm_connector_state(conn_state)->abm_level;
-+		goto out_state;
-+	}
-+
-+	ret = drm_atomic_commit(state);
-+	if (ret == -EDEADLK)
-+		goto backoff;
-+
-+out_state:
-+	drm_atomic_commit_put(state);
-+out_ctx:
-+	drm_modeset_drop_locks(&ctx);
-+	drm_modeset_acquire_fini(&ctx);
-+
-+	return ret ? ret : count;
- 
--	drm_kms_helper_hotplug_event(dev);
-+backoff:
-+	drm_atomic_commit_clear(state);
-+	ret = drm_modeset_backoff(&ctx);
-+	if (!ret)
-+		goto retry;
- 
--	return count;
-+	goto out_state;
- }
- EXPORT_IF_KUNIT(panel_power_savings_store);
- 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
-index 9ad888d3ae7b..d92ec0789f15 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
-@@ -34,6 +34,7 @@ struct device;
- struct device_attribute;
- struct drm_connector;
- struct attribute_group;
-+struct drm_atomic_commit;
- 
- #define AMDGPU_DM_DEFAULT_MIN_BACKLIGHT 12
- #define AMDGPU_DM_DEFAULT_MAX_BACKLIGHT 255
-@@ -65,6 +66,8 @@ ssize_t panel_power_savings_show(struct device *device,
- ssize_t panel_power_savings_store(struct device *device,
- 				 struct device_attribute *attr,
- 				 const char *buf, size_t count);
-+int panel_power_savings_update_state(struct drm_atomic_commit *state,
-+				     struct drm_connector *connector, long val);
- int get_brightness_range(const struct amdgpu_dm_backlight_caps *caps,
- 			 unsigned int *min, unsigned int *max);
- void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *caps,
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-index c6d15fb8ad98..a482261e85d2 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-@@ -514,6 +514,37 @@ static void dm_test_register_backlight_device_success(struct kunit *test)
- 			adev->dm.backlight_dev[0]), 0);
- }
- 
-+static struct drm_connector_state *
-+dm_test_panel_power_savings_duplicate_state(struct drm_connector *connector)
-+{
-+	struct dm_connector_state *state;
-+
-+	state = kmemdup(to_dm_connector_state(connector->state),
-+			sizeof(*state), GFP_KERNEL);
-+	if (!state)
-+		return NULL;
-+
-+	__drm_atomic_helper_connector_duplicate_state(connector, &state->base);
-+
-+	return &state->base;
-+}
-+
-+static void
-+dm_test_panel_power_savings_destroy_state(struct drm_connector *connector,
-+					  struct drm_connector_state *state)
-+{
-+	__drm_atomic_helper_connector_destroy_state(state);
-+	kfree(to_dm_connector_state(state));
-+}
-+
-+static const struct drm_connector_funcs dm_test_panel_power_savings_connector_funcs = {
-+	.atomic_duplicate_state = dm_test_panel_power_savings_duplicate_state,
-+	.atomic_destroy_state = dm_test_panel_power_savings_destroy_state,
-+};
-+
-+static const struct drm_mode_config_funcs dm_test_panel_power_savings_mode_funcs = {
-+};
-+
- static struct drm_connector *setup_panel_power_savings_connector(struct kunit *test,
- 							 struct device **device_out,
- 							 struct dm_connector_state **state_out)
-@@ -527,6 +558,7 @@ static struct drm_connector *setup_panel_power_savings_connector(struct kunit *t
- 	adev = dm_kunit_alloc_adev(test);
- 	ret = drmm_mode_config_init(&adev->ddev);
- 	KUNIT_ASSERT_EQ(test, ret, 0);
-+	adev->ddev.mode_config.funcs = &dm_test_panel_power_savings_mode_funcs;
- 
- 	connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
- 	device = kunit_kzalloc(test, sizeof(*device), GFP_KERNEL);
-@@ -536,7 +568,11 @@ static struct drm_connector *setup_panel_power_savings_connector(struct kunit *t
- 	KUNIT_ASSERT_NOT_NULL(test, state);
- 
- 	connector->dev = &adev->ddev;
-+	connector->funcs = &dm_test_panel_power_savings_connector_funcs;
-+	connector->index = 0;
-+	kref_init(&connector->base.refcount);
- 	connector->state = &state->base;
-+	state->base.connector = connector;
- 	dev_set_drvdata(device, connector);
- 	*device_out = device;
- 	*state_out = state;
-@@ -614,10 +650,40 @@ static void dm_test_panel_power_savings_store_sets_disable(struct kunit *test)
- 	setup_panel_power_savings_connector(test, &device, &state);
- 
- 	KUNIT_EXPECT_EQ(test, panel_power_savings_store(device, NULL, "0", count),
--			 (ssize_t)count);
-+			(ssize_t)count);
- 	KUNIT_EXPECT_EQ(test, state->abm_level, ABM_LEVEL_IMMEDIATE_DISABLE);
- }
- 
-+static void dm_test_panel_power_savings_update_state_sets_disable(struct kunit *test)
-+{
-+	struct drm_modeset_acquire_ctx ctx;
-+	struct drm_connector_state *conn_state;
-+	struct drm_atomic_commit *atomic;
-+	struct dm_connector_state *state;
-+	struct drm_connector *connector;
-+	struct device *device;
-+	int ret;
-+
-+	connector = setup_panel_power_savings_connector(test, &device, &state);
-+	atomic = drm_atomic_commit_alloc(connector->dev);
-+	KUNIT_ASSERT_NOT_NULL(test, atomic);
-+
-+	drm_modeset_acquire_init(&ctx, 0);
-+	atomic->acquire_ctx = &ctx;
-+
-+	ret = panel_power_savings_update_state(atomic, connector, 0);
-+	KUNIT_EXPECT_EQ(test, ret, 0);
-+
-+	conn_state = drm_atomic_get_new_connector_state(atomic, connector);
-+	KUNIT_ASSERT_NOT_NULL(test, conn_state);
-+	KUNIT_EXPECT_EQ(test, to_dm_connector_state(conn_state)->abm_level,
-+			ABM_LEVEL_IMMEDIATE_DISABLE);
-+
-+	drm_atomic_commit_put(atomic);
-+	drm_modeset_drop_locks(&ctx);
-+	drm_modeset_acquire_fini(&ctx);
-+}
-+
- /**
-  * dm_test_panel_power_savings_store_forbidden - Test forbidden update
-  * @test: The KUnit test context
-@@ -633,6 +699,31 @@ static void dm_test_panel_power_savings_store_forbidden(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, panel_power_savings_store(device, NULL, "1", 1), -EBUSY);
- }
- 
-+static void dm_test_panel_power_savings_update_state_forbidden(struct kunit *test)
-+{
-+	struct drm_modeset_acquire_ctx ctx;
-+	struct drm_atomic_commit *atomic;
-+	struct dm_connector_state *state;
-+	struct drm_connector *connector;
-+	struct device *device;
-+	int ret;
-+
-+	connector = setup_panel_power_savings_connector(test, &device, &state);
-+	state->abm_sysfs_forbidden = true;
-+	atomic = drm_atomic_commit_alloc(connector->dev);
-+	KUNIT_ASSERT_NOT_NULL(test, atomic);
-+
-+	drm_modeset_acquire_init(&ctx, 0);
-+	atomic->acquire_ctx = &ctx;
-+
-+	ret = panel_power_savings_update_state(atomic, connector, 1);
-+	KUNIT_EXPECT_EQ(test, ret, -EBUSY);
-+
-+	drm_atomic_commit_put(atomic);
-+	drm_modeset_drop_locks(&ctx);
-+	drm_modeset_acquire_fini(&ctx);
-+}
-+
- /**
-  * dm_test_panel_power_savings_store_rejects_invalid_text - Test parse failure
-  * @test: The KUnit test context
-@@ -1939,6 +2030,8 @@ static struct kunit_case dm_backlight_test_cases[] = {
- 	KUNIT_CASE(dm_test_panel_power_savings_show_reports_level),
- 	KUNIT_CASE(dm_test_panel_power_savings_store_sets_disable),
- 	KUNIT_CASE(dm_test_panel_power_savings_store_forbidden),
-+	KUNIT_CASE(dm_test_panel_power_savings_update_state_sets_disable),
-+	KUNIT_CASE(dm_test_panel_power_savings_update_state_forbidden),
- 	KUNIT_CASE(dm_test_panel_power_savings_store_rejects_invalid_text),
- 	KUNIT_CASE(dm_test_panel_power_savings_store_rejects_out_of_range),
- 	/* amdgpu_dm_backlight_get_device_index */
-
----
-base-commit: ba496bb837882eb1af58f41572fc289e46c77b8c
-change-id: 20261031-abm-sysfs-atomic-c79505f63a2e
-
-Best regards,
---  
-Shivam Kalra <shivamkalra98@zohomail.in>
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
 
 
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 346 ++++++++++++++++++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.c   |  49 +++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.h   |   1 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c  | 227 ++++++++++++-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h  |  24 +-
+>   5 files changed, 636 insertions(+), 11 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> index 3dc95d9accf2..2d786639d081 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> @@ -2133,9 +2133,336 @@ DEFINE_DEBUGFS_ATTRIBUTE(fops_ib_preempt, NULL,
+>   DEFINE_DEBUGFS_ATTRIBUTE(fops_sclk_set, NULL,
+>   			amdgpu_debugfs_sclk_set, "%llu\n");
+>   
+> +enum amdgpu_ualink_test_cmd {
+> +	UALINK_TEST_SW_INIT,
+> +	UALINK_TEST_SEND_HELLO,
+> +	UALINK_TEST_REMOTE_SHOOTDOWN,
+> +	UALINK_TEST_FLUSH_TLB,
+> +	UALINK_TEST_UPDATE_INTERRUPT_WB,
+> +	UALINK_TEST_UPDATE_SHOOTDOWN_WB,
+> +	UALINK_TEST_LSDMA_SELFTEST,
+> +};
+> +
+> +/* commands talking to a remote accelerator, remote_accel_id must be set */
+> +#define UALINK_TEST_NEEDS_ACCEL_ID					\
+> +	(BIT(UALINK_TEST_SEND_HELLO) | BIT(UALINK_TEST_REMOTE_SHOOTDOWN) | \
+> +	 BIT(UALINK_TEST_UPDATE_INTERRUPT_WB) |				\
+> +	 BIT(UALINK_TEST_UPDATE_SHOOTDOWN_WB))
+> +
+> +static int amdgpu_debugfs_ualink_test_run(struct amdgpu_device *adev,
+> +					  enum amdgpu_ualink_test_cmd cmd)
+> +{
+> +	u32 remote_accel_id = adev->ualink.test_remote_accel_id;
+> +	int r = 0;
+> +
+> +	guard(mutex)(&adev->ualink.selftest_mutex);
+> +
+> +	if ((BIT(cmd) & UALINK_TEST_NEEDS_ACCEL_ID) &&
+> +	    remote_accel_id >= AMDGPU_UALINK_ACCEL_MAX) {
+> +		dev_err(adev->dev, "set remote_accel_id first\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	adev->ualink.selftesting = true;
+> +
+> +	switch (cmd) {
+> +	case UALINK_TEST_SW_INIT:
+> +		if (adev->ualink.remote)
+> +			amdgpu_ualink_sw_fini(adev);
+> +
+> +		dev_dbg(adev->dev, "load metadata init MPNHT firmware\n");
+> +		r = amdgpu_ualink_sw_init(adev);
+> +		break;
+> +	case UALINK_TEST_SEND_HELLO:
+> +		r = ualink_test_send_hello(adev, remote_accel_id);
+> +		break;
+> +	case UALINK_TEST_REMOTE_SHOOTDOWN:
+> +		r = ualink_test_remote_shootdown(adev, remote_accel_id, 1UL << 30,
+> +						 1, TLB_FLUSH_HEAVYWEIGHT);
+> +		break;
+> +	case UALINK_TEST_FLUSH_TLB:
+> +		amdgpu_ualink_flush_tlb(adev, TLB_FLUSH_HEAVYWEIGHT);
+> +		break;
+> +	case UALINK_TEST_UPDATE_INTERRUPT_WB:
+> +		r = ualink_test_update_interrupt_wb(adev, remote_accel_id);
+> +		break;
+> +	case UALINK_TEST_UPDATE_SHOOTDOWN_WB:
+> +		r = ualink_test_update_shootdown_wb(adev, remote_accel_id);
+> +		break;
+> +	case UALINK_TEST_LSDMA_SELFTEST:
+> +		r = adev->lsdma.funcs ? amdgpu_lsdma_selftest(adev) : -EOPNOTSUPP;
+> +		break;
+> +	}
+> +
+> +	adev->ualink.selftesting = false;
+> +
+> +	dev_dbg(adev->dev, "ualink test cmd %d remote_accel_id %u ret %d\n",
+> +		cmd, remote_accel_id, r);
+> +
+> +	return r;
+> +}
+> +
+> +#define UALINK_TEST_CMD_NAME_MAX	32
+> +
+> +static const char * const amdgpu_ualink_test_cmd_name[] = {
+> +	[UALINK_TEST_SW_INIT]			= "sw_init",
+> +	[UALINK_TEST_SEND_HELLO]		= "send_hello",
+> +	[UALINK_TEST_REMOTE_SHOOTDOWN]		= "remote_shootdown",
+> +	[UALINK_TEST_FLUSH_TLB]			= "flush_tlb",
+> +	[UALINK_TEST_UPDATE_INTERRUPT_WB]	= "update_interrupt_wb",
+> +	[UALINK_TEST_UPDATE_SHOOTDOWN_WB]	= "update_shootdown_wb",
+> +	[UALINK_TEST_LSDMA_SELFTEST]		= "lsdma_selftest",
+> +};
+> +
+> +static ssize_t amdgpu_debugfs_ualink_command_read(struct file *file,
+> +						  char __user *ubuf,
+> +						  size_t len, loff_t *offp)
+> +{
+> +	char buf[UALINK_TEST_CMD_NAME_MAX * ARRAY_SIZE(amdgpu_ualink_test_cmd_name)];
+> +	unsigned int i;
+> +	int n = 0;
+> +
+> +	for (i = 0; i < ARRAY_SIZE(amdgpu_ualink_test_cmd_name); i++)
+> +		n += scnprintf(buf + n, sizeof(buf) - n, "%s\n",
+> +			       amdgpu_ualink_test_cmd_name[i]);
+> +
+> +	return simple_read_from_buffer(ubuf, len, offp, buf, n);
+> +}
+> +
+> +static ssize_t amdgpu_debugfs_ualink_command_write(struct file *file,
+> +						   const char __user *ubuf,
+> +						   size_t len, loff_t *offp)
+> +{
+> +	struct amdgpu_device *adev = file->private_data;
+> +	char buf[UALINK_TEST_CMD_NAME_MAX];
+> +	int cmd, r;
+> +
+> +	if (len >= sizeof(buf))
+> +		return -EINVAL;
+> +
+> +	if (copy_from_user(buf, ubuf, len))
+> +		return -EFAULT;
+> +
+> +	buf[len] = '\0';
+> +	cmd = sysfs_match_string(amdgpu_ualink_test_cmd_name, strim(buf));
+> +	if (cmd < 0) {
+> +		dev_err(adev->dev, "unknown ualink test command\n");
+> +		return cmd;
+> +	}
+> +
+> +	r = amdgpu_debugfs_ualink_test_run(adev, cmd);
+> +	if (r)
+> +		return r;
+> +
+> +	return len;
+> +}
+> +
+> +static const struct file_operations amdgpu_ualink_command_fops = {
+> +	.owner	 = THIS_MODULE,
+> +	.open	 = simple_open,
+> +	.read	 = amdgpu_debugfs_ualink_command_read,
+> +	.write	 = amdgpu_debugfs_ualink_command_write,
+> +	.llseek	 = default_llseek,
+> +};
+> +
+> +/* test data buffers, see amdgpu_debugfs_ualink_data_xfer() */
+> +enum amdgpu_ualink_test_buf {
+> +	UALINK_BUF_LOCAL,
+> +	UALINK_BUF_REMOTE_SDMA,
+> +	UALINK_BUF_REMOTE_LSDMA,
+> +};
+> +
+> +static int amdgpu_debugfs_ualink_data_xfer(struct amdgpu_device *adev,
+> +					   enum amdgpu_ualink_test_buf buf,
+> +					   u32 *data, u32 size, bool read)
+> +{
+> +	u32 remote_accel_id = adev->ualink.test_remote_accel_id;
+> +	int r;
+> +
+> +	if (remote_accel_id >= AMDGPU_UALINK_ACCEL_MAX) {
+> +		dev_err(adev->dev, "set remote_accel_id first\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	adev->ualink.selftesting = true;
+> +
+> +	if (buf == UALINK_BUF_LOCAL)
+> +		r = ualink_test_local_data(adev, remote_accel_id, data, size, read);
+> +	else
+> +		r = ualink_test_remote_rw(adev, remote_accel_id, data, size, read,
+> +					  buf == UALINK_BUF_REMOTE_LSDMA);
+> +
+> +	adev->ualink.selftesting = false;
+> +
+> +	return r;
+> +}
+> +
+> +static ssize_t amdgpu_debugfs_ualink_data_read(struct file *file,
+> +					       char __user *ubuf, size_t len,
+> +					       loff_t *offp,
+> +					       enum amdgpu_ualink_test_buf buf)
+> +{
+> +	struct amdgpu_device *adev = file->private_data;
+> +	ssize_t ret;
+> +	u32 size;
+> +	void *data;
+> +	int r;
+> +
+> +	guard(mutex)(&adev->ualink.selftest_mutex);
+> +
+> +	size = adev->ualink.test_size_dwords * 4;
+> +
+> +	data = kmalloc(size, GFP_KERNEL);
+> +	if (!data)
+> +		return -ENOMEM;
+> +
+> +	r = amdgpu_debugfs_ualink_data_xfer(adev, buf, data, size, true);
+> +	ret = r ? r : simple_read_from_buffer(ubuf, len, offp, data, size);
+> +
+> +	kfree(data);
+> +
+> +	return ret;
+> +}
+> +
+> +static ssize_t amdgpu_debugfs_ualink_data_write(struct file *file,
+> +						const char __user *ubuf,
+> +						size_t len, loff_t *offp,
+> +						enum amdgpu_ualink_test_buf buf)
+> +{
+> +	struct amdgpu_device *adev = file->private_data;
+> +	u32 i, size;
+> +	void *data;
+> +	int r;
+> +
+> +	guard(mutex)(&adev->ualink.selftest_mutex);
+> +
+> +	size = adev->ualink.test_size_dwords * 4;
+> +
+> +	if (!len)
+> +		return -EINVAL;
+> +
+> +	len = min_t(size_t, len, size);
+> +
+> +	data = kmalloc(size, GFP_KERNEL);
+> +	if (!data)
+> +		return -ENOMEM;
+> +
+> +	if (copy_from_user(data, ubuf, len)) {
+> +		kfree(data);
+> +		return -EFAULT;
+> +	}
+> +
+> +	/* repeat a short pattern to fill the test size */
+> +	for (i = len; i < size; i += len)
+> +		memcpy(data + i, data, min_t(u32, len, size - i));
+> +
+> +	r = amdgpu_debugfs_ualink_data_xfer(adev, buf, data, size, false);
+> +
+> +	kfree(data);
+> +
+> +	return r ? r : len;
+> +}
+> +
+> +#define UALINK_TEST_DATA_ATTR(name, buf)				\
+> +static ssize_t amdgpu_debugfs_ualink_##name##_read(struct file *file,	\
+> +		char __user *ubuf, size_t len, loff_t *offp)		\
+> +{									\
+> +	return amdgpu_debugfs_ualink_data_read(file, ubuf, len, offp, buf); \
+> +}									\
+> +static ssize_t amdgpu_debugfs_ualink_##name##_write(struct file *file,	\
+> +		const char __user *ubuf, size_t len, loff_t *offp)	\
+> +{									\
+> +	return amdgpu_debugfs_ualink_data_write(file, ubuf, len, offp, buf); \
+> +}									\
+> +static const struct file_operations amdgpu_ualink_##name##_fops = {	\
+> +	.owner	 = THIS_MODULE,						\
+> +	.open	 = simple_open,						\
+> +	.read	 = amdgpu_debugfs_ualink_##name##_read,			\
+> +	.write	 = amdgpu_debugfs_ualink_##name##_write,		\
+> +	.llseek	 = default_llseek,					\
+> +}
+> +
+> +UALINK_TEST_DATA_ATTR(local_test_data, UALINK_BUF_LOCAL);
+> +UALINK_TEST_DATA_ATTR(remote_sdma, UALINK_BUF_REMOTE_SDMA);
+> +UALINK_TEST_DATA_ATTR(remote_lsdma, UALINK_BUF_REMOTE_LSDMA);
+> +
+> +static int amdgpu_debugfs_ualink_accel_id_get(void *data, u64 *val)
+> +{
+> +	struct amdgpu_device *adev = data;
+> +
+> +	guard(mutex)(&adev->ualink.selftest_mutex);
+> +
+> +	*val = adev->ualink.test_remote_accel_id;
+> +
+> +	return 0;
+> +}
+> +
+> +static int amdgpu_debugfs_ualink_accel_id_set(void *data, u64 val)
+> +{
+> +	struct amdgpu_device *adev = data;
+> +
+> +	if (!adev->ualink.info)
+> +		return -EOPNOTSUPP;
+> +
+> +	guard(mutex)(&adev->ualink.selftest_mutex);
+> +
+> +	if (val >= AMDGPU_UALINK_ACCEL_MAX ||
+> +	    !test_bit(val, adev->ualink.info->vpod.active_accel_bits)) {
+> +		dev_err(adev->dev, "invalid remote accel_id %llu\n", val);
+> +		return -EINVAL;
+> +	}
+> +
+> +	if (val == adev->ualink.info->ppod.accel_id) {
+> +		dev_err(adev->dev, "remote accel_id equals to local accel_id\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	adev->ualink.test_remote_accel_id = val;
+> +	dev_info(adev->dev, "set remote accel_id to %llu, local accel_id %u\n",
+> +		 val, adev->ualink.info->ppod.accel_id);
+> +
+> +	return 0;
+> +}
+> +
+> +DEFINE_DEBUGFS_ATTRIBUTE(amdgpu_ualink_accel_id_fops,
+> +			 amdgpu_debugfs_ualink_accel_id_get,
+> +			 amdgpu_debugfs_ualink_accel_id_set, "%llu\n");
+> +
+> +static int amdgpu_debugfs_ualink_test_size_get(void *data, u64 *val)
+> +{
+> +	struct amdgpu_device *adev = data;
+> +
+> +	guard(mutex)(&adev->ualink.selftest_mutex);
+> +
+> +	*val = adev->ualink.test_size_dwords * 4;
+> +
+> +	return 0;
+> +}
+> +
+> +static int amdgpu_debugfs_ualink_test_size_set(void *data, u64 val)
+> +{
+> +	struct amdgpu_device *adev = data;
+> +
+> +	if (val < 4 || val > AMDGPU_UALINK_RB_SIZE)
+> +		return -EINVAL;
+> +
+> +	guard(mutex)(&adev->ualink.selftest_mutex);
+> +
+> +	adev->ualink.test_size_dwords = val / 4;
+> +	dev_dbg(adev->dev, "test buffer size %u bytes\n",
+> +		adev->ualink.test_size_dwords * 4);
+> +
+> +	return 0;
+> +}
+> +
+> +DEFINE_DEBUGFS_ATTRIBUTE(amdgpu_ualink_test_size_fops,
+> +			 amdgpu_debugfs_ualink_test_size_get,
+> +			 amdgpu_debugfs_ualink_test_size_set, "%llu\n");
+> +
+>   int amdgpu_debugfs_init(struct amdgpu_device *adev)
+>   {
+>   	struct dentry *root = adev_to_drm(adev)->primary->debugfs_root;
+> +	struct dentry *ualink_test;
+>   	struct dentry *ent;
+>   	int r, i;
+>   
+> @@ -2246,6 +2573,25 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
+>   	debugfs_create_ulong("amdgpu_ualink_drop_msg_bitmap", 0600, root,
+>   			     &adev->ualink.drop_msg_bitmap);
+>   
+> +	mutex_init(&adev->ualink.selftest_mutex);
+> +	/* 64 bytes test size by default */
+> +	adev->ualink.test_size_dwords = 16;
+> +	adev->ualink.test_remote_accel_id = AMDGPU_UALINK_ACCEL_MAX;
+> +
+> +	ualink_test = debugfs_create_dir("amdgpu_ualink_test", root);
+> +	debugfs_create_file("command", 0600, ualink_test, adev,
+> +			    &amdgpu_ualink_command_fops);
+> +	debugfs_create_file("remote_accel_id", 0600, ualink_test, adev,
+> +			    &amdgpu_ualink_accel_id_fops);
+> +	debugfs_create_file("test_size", 0600, ualink_test, adev,
+> +			    &amdgpu_ualink_test_size_fops);
+> +	debugfs_create_file("local_test_data", 0600, ualink_test, adev,
+> +			    &amdgpu_ualink_local_test_data_fops);
+> +	debugfs_create_file("remote_sdma", 0600, ualink_test, adev,
+> +			    &amdgpu_ualink_remote_sdma_fops);
+> +	debugfs_create_file("remote_lsdma", 0600, ualink_test, adev,
+> +			    &amdgpu_ualink_remote_lsdma_fops);
+> +
+>   	adev->debugfs_vbios_blob.data = adev->bios;
+>   	adev->debugfs_vbios_blob.size = adev->bios_size;
+>   	debugfs_create_blob("amdgpu_vbios", 0444, root,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.c
+> index 05bc281216bf..1f83d9b69135 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.c
+> @@ -97,3 +97,52 @@ int amdgpu_lsdma_fill_mem(struct amdgpu_device *adev,
+>   	mutex_unlock(&adev->lsdma.lock);
+>   	return ret;
+>   }
+> +
+> +int amdgpu_lsdma_selftest(struct amdgpu_device *adev)
+> +{
+> +	struct amdgpu_ib ib;
+> +	int i, r;
+> +	u64 gpu_addr;
+> +	char *p;
+> +	u32 size = 128;
+> +
+> +	memset(&ib, 0, sizeof(ib));
+> +	r = amdgpu_ib_get(adev, NULL, 2 * size, AMDGPU_IB_POOL_DIRECT, &ib);
+> +	if (r)
+> +		return r;
+> +
+> +	gpu_addr = ib.gpu_addr;
+> +	p = (char *)ib.ptr;
+> +	memset(p, 0, 2 * size);
+> +
+> +	for (i = 0; i < size; i++)
+> +		*(p + i) = i;
+> +
+> +	dev_dbg(adev->dev, "copy src 0x%llx dst 0x%llx size %d bytes\n",
+> +		gpu_addr, gpu_addr + size, size);
+> +
+> +	r = amdgpu_lsdma_copy_mem(adev, gpu_addr, gpu_addr + size, size);
+> +	if (r)
+> +		goto out;
+> +
+> +	p += size;
+> +	for (i = 0; i < size; i++) {
+> +		if (*(p + i) != i) {
+> +			dev_dbg(adev->dev, "data mismatch expecting 0x%x but read 0x%x\n",
+> +				i, *(p + i));
+> +			break;
+> +		}
+> +	}
+> +	if (i != size)
+> +		r = -EIO;
+> +
+> +out:
+> +	amdgpu_ib_free(&ib, NULL);
+> +
+> +	if (r)
+> +		dev_dbg(adev->dev, "lsdma selftest failed r=%d\n", r);
+> +	else
+> +		dev_dbg(adev->dev, "lsdma selftest passed\n");
+> +
+> +	return r;
+> +}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.h
+> index 34e92aaa4617..f0a5eeb3529f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.h
+> @@ -46,5 +46,6 @@ int amdgpu_lsdma_fill_mem(struct amdgpu_device *adev, uint64_t dst_addr,
+>   			  uint32_t data, uint64_t mem_size);
+>   int amdgpu_lsdma_wait_for(struct amdgpu_device *adev, uint32_t reg_index,
+>   			  uint32_t reg_val, uint32_t mask);
+> +int amdgpu_lsdma_selftest(struct amdgpu_device *adev);
+>   
+>   #endif
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+> index ca6432610f71..11f022c56667 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+> @@ -39,8 +39,6 @@ static void deactivate_accelerator(struct amdgpu_device *adev);
+>   static int amdgpu_ualink_remote_interrupt(struct amdgpu_device *adev,
+>   				u32 remote_accel_id, u32 dw0, u32 dw1,
+>   				u32 dw2, u32 dw3);
+> -static void amdgpu_ualink_flush_tlb(struct amdgpu_device *adev,
+> -				    u32 flush_type);
+>   static int amdgpu_ualink_reserve_npa_vm_and_bos(struct amdgpu_device *adev,
+>   						struct amdgpu_bo *bos[], u32 n_bos,
+>   						struct drm_exec *exec,
+> @@ -4334,9 +4332,6 @@ void amdgpu_ualink_manager_stop(struct amdgpu_device *adev)
+>    * UALink remote interrupt and shootdown
+>    */
+>   
+> -/* UALINK ring buffer size, same for both remote shootdown and interrupt ring */
+> -#define AMDGPU_UALINK_RB_SIZE	4096
+> -
+>   #define AMDGPU_UALINK_METADATA_HEADER	0x4E485446
+>   
+>   /* 2MB NPA start address for 2MB page mapping */
+> @@ -4583,7 +4578,7 @@ static inline u32 ualink_tlb_wb_offset(struct amdgpu_device *adev, u32 accel_id)
+>   	return ualink_wb_offset(adev, accel_id) + sizeof(struct amdgpu_ualink_wb);
+>   }
+>   
+> -static void amdgpu_ualink_flush_tlb(struct amdgpu_device *adev, u32 flush_type)
+> +void amdgpu_ualink_flush_tlb(struct amdgpu_device *adev, u32 flush_type)
+>   {
+>   	u32 bit;
+>   
+> @@ -5284,7 +5279,8 @@ static int amdgpu_ualink_metadata_init(struct amdgpu_device *adev)
+>   	if (status != AMDGPU_NHT_FW_ST_PREINIT &&
+>   	    status != AMDGPU_NHT_FW_ST_HALT) {
+>   		dev_dbg(adev->dev, "fw status 0x%x not preinit or halt\n", status);
+> -		return -ENODEV;
+> +		if (!adev->ualink.selftesting)
+> +			return -ENODEV;
+>   	}
+>   
+>   	dev_dbg(adev->dev, "accel_id %u addr_mode %d fw status 0x%x\n",
+> @@ -5402,6 +5398,8 @@ static int amdgpu_ualink_metadata_init(struct amdgpu_device *adev)
+>   	r = adev->ualink.msg_ctl->send_metadata(adev,
+>   						    remote->metadata_gpu_addr,
+>   						    AMDGPU_UALINK_ACCEL_MAX << 8);
+> +	if (r && adev->ualink.selftesting)
+> +		r = 0;
+>   
+>   out:
+>   	if (r)
+> @@ -6387,11 +6385,224 @@ void amdgpu_ualink_sw_fini(struct amdgpu_device *adev)
+>   	adev->ualink.remote = NULL;
+>   }
+>   
+> -int ualink_send_hello(struct amdgpu_device *adev, u32 remote_accel_id)
+> +/* byte offset of the local interrupt ring a remote GPU writes to */
+> +static u32 ualink_test_local_rb_offset(u32 remote_accel_id)
+>   {
+> +	u32 rb_size = AMDGPU_GPU_PAGE_ALIGN(2 * AMDGPU_UALINK_RB_SIZE);
+> +
+> +	/* remote shootdown ring is first, remote interrupt ring follows it */
+> +	return rb_size * remote_accel_id + AMDGPU_UALINK_RB_SIZE;
+> +}
+> +
+> +/*
+> + * ualink_test_local_data - read or write the local ring buffer of a remote GPU
+> + *
+> + * The local ring buffer is partitioned per remote GPU, @remote_accel_id selects
+> + * the interrupt ring that remote GPU writes to through its NPA mapping. Read it
+> + * to see what the remote GPU wrote, write it to provide the data it reads.
+> + */
+> +int ualink_test_local_data(struct amdgpu_device *adev, u32 remote_accel_id,
+> +			   void *data, u32 size, bool read)
+> +{
+> +	struct amdgpu_ualink_remote *remote = to_remote(adev);
+> +	void *rb;
+> +
+> +	if (!remote || !remote->rb_cpu_addr)
+> +		return -EINVAL;
+> +
+> +	if (size > AMDGPU_UALINK_RB_SIZE)
+> +		return -EINVAL;
+> +
+> +	rb = remote->rb_cpu_addr + ualink_test_local_rb_offset(remote_accel_id);
+> +
+> +	dev_dbg(adev->dev, "%s local rb of remote %u at 0x%p size 0x%x\n",
+> +		read ? "read" : "write", remote_accel_id, rb, size);
+> +
+> +	if (read)
+> +		memcpy(data, rb, size);
+> +	else
+> +		memcpy(rb, data, size);
+> +
+> +	return 0;
+> +}
+> +
+> +/*
+> + * ualink_test_remote_rw - read or write the remote GPU ring buffer
+> + *
+> + * Copy @size bytes between @data and the remote GPU ring buffer NPA address
+> + * using lsdma or sdma. The DMA engines cannot access @data, a scratch IB is
+> + * used to stage it so that the local ring buffer keeps showing only what the
+> + * remote GPU wrote.
+> + *
+> + * Works with or without MPNHT FW running, the copy does not update wptr and
+> + * does not ring the doorbell.
+> + */
+> +int ualink_test_remote_rw(struct amdgpu_device *adev, u32 remote_accel_id,
+> +			  void *data, u32 size, bool read, bool use_lsdma)
+> +{
+> +	struct amdgpu_ualink_remote *remote = to_remote(adev);
+> +	struct amdgpu_ualink_peer *peer;
+> +	struct amdgpu_ualink_ring *ring;
+> +	struct amdgpu_ib stage = {};
+> +	struct dma_fence *fence;
+> +	struct amdgpu_job *job;
+> +	struct amdgpu_ib *ib;
+> +	u64 npa, local;
+> +	u32 ndw;
+> +	int r;
+> +
+> +	if (!remote)
+> +		return -EINVAL;
+> +
+> +	if (size > AMDGPU_UALINK_RB_SIZE)
+> +		return -EINVAL;
+> +
+> +	peer = &remote->peer[remote_accel_id];
+> +	ring = &peer->interrupt;
+> +
+> +	guard(mutex)(&peer->lock);
+> +
+> +	r = amdgpu_ib_get(adev, NULL, size, AMDGPU_IB_POOL_DIRECT, &stage);
+> +	if (r)
+> +		return r;
+> +
+> +	local = stage.gpu_addr;
+> +	npa = ring->rb_npa_gart;
+> +
+> +	if (!read)
+> +		memcpy(stage.ptr, data, size);
+> +
+> +	remote->use_lsdma = use_lsdma;
+> +
+> +	dev_dbg(adev->dev, "%s remote %u npa 0x%llx local 0x%llx size 0x%x use %s\n",
+> +		read ? "read" : "write", remote_accel_id, npa, local, size,
+> +		use_lsdma ? "lsdma" : "sdma");
+> +
+> +	if (use_lsdma) {
+> +		r = amdgpu_lsdma_copy_mem(adev, read ? npa : local,
+> +					  read ? local : npa, size);
+> +		if (r)
+> +			goto out;
+> +
+> +		goto done;
+> +	}
+> +
+> +	/* sdma linear copy command, align to 8 dwords boundary */
+> +	ndw = ALIGN(adev->mman.buffer_funcs->copy_num_dw, 8);
+> +
+> +	r = amdgpu_job_alloc_with_ib(adev, &peer->entity, AMDGPU_FENCE_OWNER_VM,
+> +				     ndw * 4, AMDGPU_IB_POOL_IMMEDIATE,
+> +				     AMDGPU_KERNEL_JOB_ID_TTM_COPY_BUFFER, &job);
+> +	if (r)
+> +		goto out;
+> +
+> +	ib = job->ibs;
+> +	ib->length_dw = 0;
+> +
+> +	amdgpu_emit_copy_buffer(adev, ib, read ? npa : local,
+> +				read ? local : npa, size, 0);
+> +	amdgpu_ring_pad_ib(&adev->sdma.instance[0].ring, ib);
+> +	WARN_ON(ib->length_dw > ndw);
+> +
+> +	fence = amdgpu_job_submit(job);
+> +
+> +	r = dma_fence_wait_timeout(fence, false, HZ * 10);
+> +	dma_fence_put(fence);
+> +	if (r <= 0) {
+> +		dev_dbg(adev->dev, "remote sdma fence wait timeout %d\n", r);
+> +		dev_dbg(adev->dev, "use lsdma for testing afterwards\n");
+> +		remote->use_lsdma = true;
+> +		r = -ETIME;
+> +		goto out;
+> +	}
+> +
+> +	r = 0;
+> +done:
+> +	if (read)
+> +		memcpy(data, stage.ptr, size);
+> +out:
+> +	amdgpu_ib_free(&stage, NULL);
+> +
+> +	return r;
+> +}
+> +
+> +/* The peer may have rebooted or the vpod was reconfigured, adopt the remote
+> + * wptr before sending a command, same as the handshake does.
+> + */
+> +static int ualink_test_resync_peer(struct amdgpu_device *adev, u32 remote_accel_id)
+> +{
+> +	int r;
+> +
+> +	if (!adev->ualink.remote)
+> +		return -EINVAL;
+> +
+> +	r = amdgpu_ualink_ring_resync_ptrs(adev, remote_accel_id);
+> +	if (r < 0)
+> +		return r;
+> +
+> +	/* Peer moved, drop ready so the next command updates the wb address */
+> +	if (r)
+> +		amdgpu_ualink_reset_peer_rings(adev, remote_accel_id);
+> +
+> +	return 0;
+> +}
+> +
+> +int ualink_test_send_hello(struct amdgpu_device *adev, u32 remote_accel_id)
+> +{
+> +	int r;
+> +
+> +	r = ualink_test_resync_peer(adev, remote_accel_id);
+> +	if (r)
+> +		return r;
+> +
+>   	return amdgpu_ualink_send_hello_msg(adev, remote_accel_id);
+>   }
+>   
+> +int ualink_test_remote_shootdown(struct amdgpu_device *adev, u32 remote_accel_id,
+> +				 u64 addr, u32 size_in_pages, u32 flush_type)
+> +{
+> +	int r;
+> +
+> +	r = ualink_test_resync_peer(adev, remote_accel_id);
+> +	if (r)
+> +		return r;
+> +
+> +	return amdgpu_ualink_remote_shootdown(adev, remote_accel_id, addr,
+> +					      size_in_pages, flush_type);
+> +}
+> +
+> +int ualink_test_update_interrupt_wb(struct amdgpu_device *adev, u32 remote_accel_id)
+> +{
+> +	int r;
+> +
+> +	r = ualink_test_resync_peer(adev, remote_accel_id);
+> +	if (r)
+> +		return r;
+> +
+> +	guard(mutex)(&adev->ualink.remote->peer[remote_accel_id].lock);
+> +
+> +	/* Update interrupt completion write back address */
+> +	r = amdgpu_ualink_update_wb_address(adev, remote_accel_id,
+> +					    RB_TYPE_REMOTE_INTERRUPT);
+> +	return r;
+> +}
+> +
+> +int ualink_test_update_shootdown_wb(struct amdgpu_device *adev, u32 remote_accel_id)
+> +{
+> +	int r;
+> +
+> +	r = ualink_test_resync_peer(adev, remote_accel_id);
+> +	if (r)
+> +		return r;
+> +
+> +	guard(mutex)(&adev->ualink.remote->peer[remote_accel_id].lock);
+> +
+> +	/* Update shootdown completion write back address */
+> +	r = amdgpu_ualink_update_wb_address(adev, remote_accel_id,
+> +					    RB_TYPE_TLB_INV);
+> +	return r;
+> +}
+> +
+>   /*
+>    * The low bits of handle_lo carry the message-header field on the wire.
+>    * Strip those bits and splice in @acc_id to recover the
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
+> index 85c9a9634a4b..90e90cd8b495 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
+> @@ -310,6 +310,9 @@ struct amdgpu_ualink_connection {
+>   	enum amdgpu_ualink_conn_state state;
+>   };
+>   
+> +/* UALINK ring buffer size, same for both remote shootdown and interrupt ring */
+> +#define AMDGPU_UALINK_RB_SIZE	4096
+> +
+>   struct amdgpu_ualink_remote;
+>   
+>   struct amdgpu_ualink_msg_ctl {
+> @@ -333,6 +336,13 @@ struct amdgpu_ualink_mgr {
+>   	/* For remote interrupt and shootdown */
+>   	struct amdgpu_ualink_remote *remote;
+>   
+> +	/* true for selftest driver path, ignore FW error */
+> +	bool selftesting;
+> +	/* serialize the selftest debugfs entries */
+> +	struct mutex selftest_mutex;
+> +	u32 test_size_dwords;
+> +	u32 test_remote_accel_id;
+> +
+>   	/* handle irq from ualink client of remote GPUs */
+>   	struct amdgpu_irq_src irq;
+>   
+> @@ -390,14 +400,22 @@ struct amdgpu_ualink_mgr {
+>   	unsigned long drop_msg_bitmap;
+>   };
+>   
+> +int ualink_test_local_data(struct amdgpu_device *adev, u32 remote_accel_id,
+> +			   void *data, u32 size, bool read);
+> +int ualink_test_remote_rw(struct amdgpu_device *adev, u32 remote_accel_id,
+> +			  void *data, u32 size, bool read, bool use_lsdma);
+> +int ualink_test_send_hello(struct amdgpu_device *adev, u32 remote_accel_id);
+> +int ualink_test_remote_shootdown(struct amdgpu_device *adev, u32 remote_accel_id,
+> +				 u64 addr, u32 size_in_pages, u32 flush_type);
+> +int ualink_test_update_interrupt_wb(struct amdgpu_device *adev, u32 remote_accel_id);
+> +int ualink_test_update_shootdown_wb(struct amdgpu_device *adev, u32 remote_accel_id);
+> +
+>   int amdgpu_ualink_init_interrupt(struct amdgpu_device *adev,
+>   				 unsigned int client_id, unsigned int src_id);
+> -
+> +void amdgpu_ualink_flush_tlb(struct amdgpu_device *adev, u32 flush_type);
+>   int amdgpu_ualink_sw_init(struct amdgpu_device *adev);
+>   void amdgpu_ualink_sw_fini(struct amdgpu_device *adev);
+>   
+> -int ualink_send_hello(struct amdgpu_device *adev, u32 remote_accel_id);
+> -
+>   int amdgpu_ualink_config_update_handler(struct amdgpu_device *adev);
+>   int amdgpu_ualink_pause_handler(struct amdgpu_device *adev);
+>   int amdgpu_ualink_resume_handler(struct amdgpu_device *adev);
