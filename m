@@ -2,87 +2,49 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1754A606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C48CA606A326
 	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 08:06:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Bzk8Uyyx
+	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=cwooper.dev header.i=@cwooper.dev header.a=rsa-sha256 header.s=key1 header.b=vpG1Wqh1
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7EB8710E576;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9CAE10E5C7;
 	Mon,  2 Nov 2026 08:06:53 +0000 (UTC)
-Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com
- [209.85.208.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0971F10E45B
- for <amd-gfx@lists.freedesktop.org>; Sun,  1 Nov 2026 20:05:46 +0000 (UTC)
-Received: by mail-lj1-f174.google.com with SMTP id
- 38308e7fff4ca-3ab1bfd11f9so1994021fa.0
- for <amd-gfx@lists.freedesktop.org>; Sun, 01 Nov 2026 12:05:45 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793563544; cv=none;
- d=google.com; s=arc-20260327;
- b=bVWw/5OlP5MUqoORPJ7N28T5aMgLKtB8ranonh3bIubpCBL69IJ57Y1m/TZoQ57OlB
- FYOdQRjjkeirmy99iUR9y+bYDViMJaaiCaCuLcYgTjztisOyNLLMw7D2keZ6Ldp4ZUTE
- /+X1qvnU5vbMAHGVl1caSIigjRKIWioERgxEc5HAmSZDxfQA6MQx5qd3NbGH3/w6x8hH
- XKxPXiZ64FmKb7tYLCVdHG+GQ6gMNkCZpH1vV4U1SiH3QHxN+CGaJKrtXYVYyyEGig3x
- LanfbV9FyFszYOck6BylngwWohULV8DIcMx3PDYuCV41yaxdzNOtWuC0f0rq+RFBcf/I
- dNhQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=krh4+OoKKCXqNnJY5U556Q+DBROKCm2TWkvzeauItoA=;
- fh=SlT7rtRrqODLZyWKd9yBIFcXroR43G1WlaFIcNpLNTg=;
- b=iCs+x2sQa1vrQkKW7UkPvFKcZ57b+H99QH43iIGkwrcYyJSzHdG+6oRQeFU25Kj/q4
- 7nBqylJO0c6FLA0Rj5VjuT8D2M+rh1PY5qErCS6znVvO1BD5GQM7LNU893cjH0oDNNvM
- /cA355++DTBOLEx+YGcEIABI+1ZbNqTZBa6W3fsDYe5aQMWVtuKHWVXlLaOyOh659Qwk
- Yn6lYGEebR/YxCjS6n5+qa0G8E5nvKW1GAWi5nzqsRofr8HzrPqxErGu4whcmtlllv1H
- 4AMK5ZfmpMWfzEocurnUsleYnU1DBlUu/bhsshON3x3gd+wA5Bopjva0M3mhYyqH35Ot
- JEZA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793563544; x=1794168344; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:mime-version:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=krh4+OoKKCXqNnJY5U556Q+DBROKCm2TWkvzeauItoA=;
- b=Bzk8UyyxkmHdm0NHNY5GfRQ9JuBnpWpQgCm5uBMj7TAmRSvkdngtgFTo8xzl5e0Yjv
- R6yRntNgr+vkD8s5T030gNEeYQ3v6cmqa6N9fLkhip6LLPWNGTO5wkggqfeLK4yscyD9
- bFikNeadpcGZZSKPK0/iO5PK/fnAYJ370tRp0w6r8K0u2SGMcTpdJpWG5LR2mApzInNk
- PpiOcy46PXd0sm5eo/hCcoR4Y44W/bxriyKUDUjBcyMBbAq6FvEQrKGbtSmWRWIiNF1P
- wf5BCxCSNW3at2tRPWP4ByRgxVwm7fcwwAs6K8Ajx7suBja2ww8nXf29pXamNquv4+KR
- akuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793563544; x=1794168344;
- h=content-type:cc:to:subject:message-id:date:from:mime-version
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=krh4+OoKKCXqNnJY5U556Q+DBROKCm2TWkvzeauItoA=;
- b=KtsoGjMpaCH+xcEJdCHsioUOcNfvZMTck/G952wvGxNj3lQHd/shv42SsN68HDnDAC
- FYl+Ccn4tW4aII+t4gUh2eJQaz/R2BGbL+XEAxx6vezDXAo9AKnvICI+NiO4VqQYFx76
- JTcNnWPy7vBhOBc3/hJxZLN97JEm94vhPyWQfBLyAieQT2Gb6gqzQeHsAbsO3A63KSue
- WRuPxW1n8begixlhlJtCt7VTf8En+1Hrr2cBJ3qI1v0ULL/uLUceLJ+B/Kn+fjS3bF9L
- fcmXDY62A28lV/M85xHyPBSJHQk67vWqJqxULKnAs3wUwu0AH/Lw9mdw//4Be05Sg9Ho
- a3vQ==
-X-Gm-Message-State: APuU4Z+E/4Fk4LEEFWFtudhfJv6vNp+s9L5EcYhiKbGsxIBXeOewEaf7
- 51IkW9ssbdQVgPOTFcplPFCkgyvPFQ088YSHPJUlsiHVkU1O4NoDgVrEp6O0hrK2WKmdlvx97D1
- KIC6/HQz2atama4qYhrpehPS9+VKKLjCwVw3E
-X-Gm-Gg: AYBFou3rLc08Obz/ktSHHZKfjMTID5iiBDZDlmfQVojQOlOB7PIAkXwUYwOihwwiord
- FaDnkvFdiU1KE4ioJvFDGCmv1DMLjXz9+3jbfv4agQhioq7p4pQKddy6z4xDjY06nJ78Mcx1E95
- 28e0ECb5ofFDw7XTIAb6HB6jypj/wA4e0iKlNh45vQAqu/VxKXowOTbAKGlC4vC9iRaCU60ohhn
- KbDEcu5x4sY7A3ASiBe2x1G1aVJ6b2DYBmSbLVln5QHX8TYVQ0CCYKGyOmNxC5DvpKYQvHZfjQ7
- ygrtPO+1H43+vWpEfSC9Cap+sQN4JjlqqDgCNd7lhg493QKBd6jLxYoVgf8fExswm56r56Z/PE5
- geATCMasPHq23Q5ZasdF6kHvzpH+6d1IGZ/E7ODShhTd5Fj4RphK8uyS8xk+ISPblCuVnOfD906
- IEMi5/F+UPrvGoiKtVZcop4YZ54uOJCRtePnGF5LE=
-X-Received: by 2002:a05:651c:435a:10b0:3ac:b2df:c518 with SMTP id
- 38308e7fff4ca-3acb788bd42mr13845031fa.0.1793563543902; Sun, 01 Nov 2026
- 12:05:43 -0800 (PST)
+Received: from mta0.migadu.com (out-226.mta0.migadu.com [91.218.175.226])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 42B6E10E079
+ for <amd-gfx@lists.freedesktop.org>; Sat, 31 Oct 2026 04:25:06 +0000 (UTC)
+X-Envelope-To: amd-gfx@lists.freedesktop.org
+DKIM-Signature: a=rsa-sha256; bh=W3RYCzdyOzDqvLgu9ozi/BTEzVvjp21rlibNduXqxDM=; 
+ c=simple/simple; d=cwooper.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793420704; v=1; x=1794025504;
+ b=vpG1Wqh1N27uurFMROnHvsUJU3KT2KzZKzfJZ3TTpo7H/z+Kf3h9mm2ibidcdWZmrHiR0bP4
+ LtTgch/bPVFn3YGJ74tNVZcJigRsoHR2U7rqtRz8Z6DWIoNUeKfLcOdEYhCE3Qa3hLERrlu/S6s
+ ATT3d8bJ/2sAvdGWxxoz9rcALBuDFYCa6kJYCj7R8vcxBSmfjVpJdzWJKBAaFpXTCcPgCEa/ucb
+ vioxsxNSn0d/4P7HXKW9HhbMs/hM8MamSFeNzFcrN/YpJ4snSuVtTCla4K54YjsiWvAsL7YhbKX
+ MVz2zMpT6AlrMXvWTBhoFL0ynQ/MsYlJGUERtQ9ax1+9Q==
+X-Envelope-To: amd-gfx@lists.freedesktop.org
+Received: by smtp.migadu.com with ESMTPS id d31f048f24ec9d98;
+ Sat, 31 Oct 2026 04:19:00 +0000
+X-Mizu-Trace-ID: d31f048f24ec9d98
+X-Migadu-Flow: FLOW_OUT
+From: Cooper Morgan <ext-github@cwooper.dev>
+To: amd-gfx@lists.freedesktop.org
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH 1/2] drm/amd/display: Saturate refresh rates in v1/v2 FreeSync
+ infopackets
+Date: Fri, 30 Oct 2026 21:18:25 -0700
+Message-ID: <20261031041827.162730-2-ext-github@cwooper.dev>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261031041827.162730-1-ext-github@cwooper.dev>
+References: <20261031041827.162730-1-ext-github@cwooper.dev>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-From: Nathan Blomquist <nblomquist@gmail.com>
-Date: Sun, 1 Nov 2026 15:05:32 -0500
-X-Gm-Features: AclHuK-cGdQD9fLfRHMjBN8yhdOQqn7YylAdQSjHpyU0SL6gVHBUJ857D77rcnc
-Message-ID: <CACOV87VBmya0PKjni5xEYxUaEczk9X_UoUHXSR_HDS2kSJnM2g@mail.gmail.com>
-Subject: [REGRESSION] amdgpu: Navi 23 passthrough fails after ef5fcf2a6c32
-To: amd-gfx@lists.freedesktop.org
-Cc: regressions@lists.linux.dev, alexander.deucher@amd.com, 
- christian.koenig@amd.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 02 Nov 2026 08:06:53 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,64 +56,150 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi,
+The v1 and v2 FreeSync infopackets carry the minimum and maximum
+refresh rate in one byte each, and build_vrr_infopacket_data_v1() casts
+the rate in Hz to unsigned char. On a sink whose range goes above
+255 Hz the value wraps: a 320 Hz mode is advertised as a 64 Hz maximum.
 
-I can reproduce a Navi 23 / RX 6600 (1002:73ff) passthrough failure on
-unmodified upstream Linux 7.2.10. It happens during the amdgpu-to-VFIO
-handoff, before any guest code runs.
+Sinks that treat the field as authoritative misbehave once the wrapped
+value lands inside their range. An MSI MAG 271QPX32 (48-320 Hz) over
+native DP looks like a ~720p image upscaled to the full screen at 320 Hz
+and runs its self-test pattern at 305-315 Hz, while 300 Hz (wrapping to
+44 Hz, below its minimum) is fine. Capping the EDID range at 255 Hz, so
+the packet says 255, gives a correct picture at 320 Hz.
 
-Revert/add-back tests on Proxmox kernels isolate ef5fcf2a6c32
-("drm/amdgpu: fix autosuspend cleanup during removal") as the trigger.
-Removing its added call from -20 works; adding it to working -19 fails.
+Saturate the fields at 255 Hz instead of wrapping.
 
-Tracing shows amdgpu_device_baco_exit() returning -ENOTSUPP (-524)
-during runtime resume: the live BACO feature reports supported but
-not enabled. The exit sequence is skipped, and a later bus reset
-leaves both graphics and audio inaccessible.
+Capping v1 at 255 as a fallback was suggested by oystersuki in the linked
+issue.
 
-The candidate below keeps the autosuspend cleanup and allows the exit
-based on the selected runtime mode. In two clean baseline/candidate
-build pairs on upstream 7.2.10, the baseline fails and the candidate
-restores reset recovery and guest graphics/audio initialization.
-Sustained rendering and repeated-reset stability are not yet tested.
+Fixes: 98e6436d3af5 ("drm/amd/display: Refactor FreeSync module")
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5988
+Cc: stable@vger.kernel.org
+Signed-off-by: Cooper Morgan <ext-github@cwooper.dev>
+---
+ .../amdgpu_dm/tests/amdgpu_dm_freesync_test.c | 57 +++++++++++++++++++
+ .../amd/display/modules/freesync/freesync.c   | 12 +++-
+ 2 files changed, 66 insertions(+), 3 deletions(-)
 
-Is the selected runtime mode the right condition to use here?
-
-Full report:
-https://gitlab.freedesktop.org/drm/amd/-/work_items/6076
-
-#regzbot introduced: ef5fcf2a6c320676bf8be2dadac93d9023b468b7
-
-Candidate patch:
-
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -6412,8 +6412,16 @@
- {
-        struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
-        int ret = 0;
--
--       if (!amdgpu_device_supports_baco(adev))
-+       bool runtime_baco = adev->in_runpm &&
-+               (adev->pm.rpm_mode == AMDGPU_RUNPM_BACO ||
-+                adev->pm.rpm_mode == AMDGPU_RUNPM_BAMACO);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_freesync_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_freesync_test.c
+index 710cdc7f4..b603516e2 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_freesync_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_freesync_test.c
+@@ -664,6 +664,62 @@ static void dm_test_update_freesync_state_pcon_default(struct kunit *test)
+ 	dm_test_update_freesync_state_pcon_version(test, 0);
+ }
+ 
++/*
++ * Build the VRR infopacket for a non-PCON, non-Replay sink with VRR inactive
++ * over 48Hz to @mode_hz, the max that mod_freesync_build_vrr_params() clamps
++ * to the mode's rate.
++ */
++static struct dc_info_packet
++dm_test_freesync_packet(struct kunit *test, enum signal_type signal,
++			u8 vsdb_version, int sink_max_hz, int mode_hz)
++{
++	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
++	struct dc_link *link = dm_kunit_alloc_link(test);
++	struct dc_stream_state *stream = dm_kunit_alloc_stream(test, link);
++	struct amdgpu_dm_connector *aconnector;
++	struct mod_vrr_params *vrr;
++	struct amdgpu_crtc *acrtc;
++	struct dm_crtc_state crtc_state = { 0 };
 +
-+       /*
-+        * Runtime PM selected BACO while the device was active. Firmware can
-+        * clear the live feature bit during D3, but the matching exit sequence
-+        * must still run to restore the runtime D3 policy.
-+        */
-+       if (!runtime_baco && !amdgpu_device_supports_baco(adev))
-                return -ENOTSUPP;
++	acrtc = kunit_kzalloc(test, sizeof(*acrtc), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, acrtc);
++	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, aconnector);
++	crtc_state.base.crtc = &acrtc->base;
++	stream->timing.h_total = 2200;
++	stream->timing.v_total = 1125;
++	stream->signal = signal;
++	stream->dm_stream_context = aconnector;
++	aconnector->vsdb_info.amd_vsdb_version = vsdb_version;
++	aconnector->max_vfreq = sink_max_hz;
++	vrr = &acrtc->dm_irq_params.vrr_params;
++	vrr->send_info_frame = true;
++	vrr->state = VRR_STATE_INACTIVE;
++	vrr->min_refresh_in_uhz = 48000000;
++	vrr->max_refresh_in_uhz = mode_hz * 1000000;
++	adev->dm.adev = adev;
++
++	amdgpu_dm_update_freesync_state_on_stream(&adev->dm, &crtc_state, stream, NULL, 0);
++
++	return crtc_state.vrr_infopacket;
++}
++
++/**
++ * dm_test_update_freesync_state_dp_v2_saturates - Test v1 saturates above 255Hz
++ * @test: The KUnit test context
++ *
++ * A VSDB v2 sink keeps the v1 packet, which cannot carry 320Hz.
++ */
++static void dm_test_update_freesync_state_dp_v2_saturates(struct kunit *test)
++{
++	struct dc_info_packet p =
++		dm_test_freesync_packet(test, SIGNAL_TYPE_DISPLAY_PORT, 2, 320, 320);
++
++	KUNIT_EXPECT_EQ(test, p.hb3, 0x04);
++	KUNIT_EXPECT_EQ(test, p.sb[7], 255);
++	KUNIT_EXPECT_EQ(test, p.sb[8], 255);
++}
++
+ /* Tests for amdgpu_dm_update_stream_irq_parameters() */
+ 
+ /**
+@@ -900,6 +956,7 @@ static struct kunit_case amdgpu_dm_freesync_tests[] = {
+ 	KUNIT_CASE(dm_test_update_freesync_state_pcon_v2),
+ 	KUNIT_CASE(dm_test_update_freesync_state_pcon_v3),
+ 	KUNIT_CASE(dm_test_update_freesync_state_pcon_default),
++	KUNIT_CASE(dm_test_update_freesync_state_dp_v2_saturates),
+ 	/* amdgpu_dm_update_stream_irq_parameters */
+ 	KUNIT_CASE(dm_test_update_stream_irq_parameters_no_stream),
+ 	KUNIT_CASE(dm_test_update_stream_irq_parameters_invalid_timing),
+diff --git a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
+index 4bd060e30..af7054668 100644
+--- a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
++++ b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
+@@ -571,6 +571,12 @@ static bool vrr_settings_require_update(struct core_freesync *core_freesync,
+ 	return false;
+ }
+ 
++/* v1/v2 packets hold each rate in one byte; saturate instead of wrapping. */
++static unsigned char vrr_refresh_hz_u8(unsigned int refresh_in_uhz)
++{
++	return min((refresh_in_uhz + 500000) / 1000000, 255U);
++}
++
+ static void build_vrr_infopacket_data_v1(const struct mod_vrr_params *vrr,
+ 		struct dc_info_packet *infopacket,
+ 		bool freesync_on_desktop)
+@@ -614,15 +620,15 @@ static void build_vrr_infopacket_data_v1(const struct mod_vrr_params *vrr,
+ 	/* PB7 = FreeSync Minimum refresh rate (Hz) */
+ 	if (vrr->state == VRR_STATE_ACTIVE_VARIABLE ||
+ 			vrr->state == VRR_STATE_ACTIVE_FIXED) {
+-		infopacket->sb[7] = (unsigned char)((vrr->min_refresh_in_uhz + 500000) / 1000000);
++		infopacket->sb[7] = vrr_refresh_hz_u8(vrr->min_refresh_in_uhz);
+ 	} else {
+-		infopacket->sb[7] = (unsigned char)((vrr->max_refresh_in_uhz + 500000) / 1000000);
++		infopacket->sb[7] = vrr_refresh_hz_u8(vrr->max_refresh_in_uhz);
+ 	}
+ 
+ 	/* PB8 = FreeSync Maximum refresh rate (Hz)
+ 	 * Note: We should never go above the field rate of the mode timing set.
+ 	 */
+-	infopacket->sb[8] = (unsigned char)((vrr->max_refresh_in_uhz + 500000) / 1000000);
++	infopacket->sb[8] = vrr_refresh_hz_u8(vrr->max_refresh_in_uhz);
+ }
+ 
+ static void build_vrr_infopacket_data_v3(const struct mod_vrr_params *vrr,
+-- 
+2.56.0
 
-        ret = amdgpu_dpm_baco_exit(adev);
-
-Thanks,
-Nathan
