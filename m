@@ -2,129 +2,128 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05303606A31A
-	for <amd-gfx@archiver.kernel.org>; Sat, 31 Oct 2026 01:51:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 278DD606A31A
+	for <amd-gfx@archiver.kernel.org>; Sat, 31 Oct 2026 01:58:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=jxCEg+er
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=cMwYP2YK
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 739DE10E901;
-	Sat, 31 Oct 2026 01:51:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B305210E907;
+	Sat, 31 Oct 2026 01:58:31 +0000 (UTC)
 Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012029.outbound.protection.outlook.com
- [40.93.195.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E14FE10E901
- for <amd-gfx@lists.freedesktop.org>; Sat, 31 Oct 2026 01:51:27 +0000 (UTC)
+ (mail-southcentralusazon11012041.outbound.protection.outlook.com
+ [40.93.195.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F94C10E907;
+ Sat, 31 Oct 2026 01:58:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=L2luS/0qKGYwTaI9psdLRjEN+s+5AVN2fcNJjDM3IvUIKA//AuXt1JBJcwH2olJquLnv4+Fijz0DILXYIMz240mYEaJIAyWp8gRHgzNuQ26EHmZkbaIw2QVVnOOSmvf4rAGep8pgGD8SZ0fa0fVkrRYfwizshDFwSjZQWiev4aS4UhD4/9Dfzc5rMM2xYWudbDxhVgQLV2juLpXiz6BWBeATQngMkTiRhkJIRvhPqZa7IhKm58cfL7iEupi4+TKXQs7rXyLFYjp3T/jeLZvslFtzJNWDODgetksSGPxmfc9Z+MqI/cSCkXchUkelEa2DLKtDVGychgVzwSk1A8+MVw==
+ b=Auc+UQWT5RemVozKQODcRDZ/anGxXYIyidwA3r+R+F2UvgrmPbRIyScp6IF/5cSY/D4Wf73SbQthzhYQdX5ZJUW9sNbkvLkWx2u1zbaFOW1aXZSh4TkKIMMeDPR6LpkOuJ8v+E7InvwVBZXX2VbuLIsgmjNYTi0269af2jYmJKT4EPxfWa2Zxxwn+vjX86twgCbBivmlhNG7Hu43Xxyx8mXEVm3n7AkoEqzT7803UM5SZdv1HpR+5UfX0XBQQEnAtMP2FwT9vmpuSnNWwhXBXHnn1yBbbtdJAEjv4/4NPvN6X3+0VOiRFTqCR0qjlODP8p7F+LMgaykQViAK+NXGBQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=o3W7rxLIknfjlc36YOfr3T4Wf8QmxIPywSNj9pfZ2RI=;
- b=Q6Gi6iddhC5ibHniercWtoIkuJfZ6YJVmEpTV5HVtX+44v2X4r4gEvRAwXrt/xR+XLZ3DND1Wi1WrKWe5Nykcr9OhwDz1TkDzGmyw3FSQKt8xVUkx7s7N+OGe4vtVXGNSg/9SgZbWezoSZsIaTyU9TeHUo2tA+det/rsCrnd6tM73o9IzUUIAsfPv2APIYqVI1M//xmmv6o9FSJjtcyseLXt1kkyEGAWaP37AFExZIfdhFqM/ALY1oZNn1vdHIPlUarMC7MBZvGJDzm2I/CnugOLlToGqJx5M+Qu2k/6h6HNA1DSqXQ/zb6QDHNsK/ZVEGfQV4VKM34uP8ObCBinEw==
+ bh=WXPcEx4+VV7OUKEnzoc8JHtbgGVJZOtNhbarnBrVY3g=;
+ b=hOSLJpzlQ6sj4p+QWTPM41n9ldutK7Aud2N2P6A3L6lg62UTmUHjW0+OqGJ1JqzeyJlObbZmJOwd+JWnyxsrSS0gXCuFTy6L2ohautTE4MTgdcTsyk3PeJATf4psdlls1eD41zHgoB3PMCm7h0pnF5XncSdWVmkAs0DawXai9Q++6kKfQDA+ctzw6XP7l+MolXamgf7ahfQ6Sz098MEKRY9RkVSWjoFjrUbvrtGES6l5Ja4MrcSVwovq7bGYSfJOpE5XkaXSw8GedFmQWexSNqMSvCUIHE8sr4IDwCLaCTsu8fTa3K3scL5V94x+GyP80fAUlpm9CI1Ok2DfCn7TNw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=o3W7rxLIknfjlc36YOfr3T4Wf8QmxIPywSNj9pfZ2RI=;
- b=jxCEg+erTE4bNrhQplXqDlv60nDa5Zzn69jOtWHN04yDL/TRDJwuxLcOhW8/AaIz2l46/XUJ3EoQUFA33e+DOTVpih29dZ30yzUBFVN/JWC/+znH+lcGWT3946sW9/OZhr8oFumMPr/1UPXZU2tUR+/VPIW4tAOLMkSbfd2hG00=
+ bh=WXPcEx4+VV7OUKEnzoc8JHtbgGVJZOtNhbarnBrVY3g=;
+ b=cMwYP2YKVWLJ81cys/hUSY7JjAaGIEtk6blqX0kOEnYZSHaiUTrGnZMw9mLCEvA4mk7vCLb2fJyWlU+tZDVPOiTx3bKJ3AB9NkteP2QwiD3AE+UvnIggp+p/8+u11wWtpIvkGoYmQx8UweyLVmsiQw6KmCTpHvl72lECjyruY+I=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from CY0PR12MB226969.namprd12.prod.outlook.com
- (2603:10b6:930:130::18) by SJ0PR12MB6990.namprd12.prod.outlook.com
- (2603:10b6:a03:449::9) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:930:130::18) by SN7PR12MB7420.namprd12.prod.outlook.com
+ (2603:10b6:806:2a7::7) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Sat, 31 Oct
- 2026 01:51:24 +0000
+ 2026 01:58:19 +0000
 Received: from CY0PR12MB226969.namprd12.prod.outlook.com
  ([fe80::f47a:5d4e:f3d5:5b26]) by CY0PR12MB226969.namprd12.prod.outlook.com
  ([fe80::f47a:5d4e:f3d5:5b26%4]) with mapi id 15.21.0569.009; Sat, 31 Oct 2026
- 01:51:23 +0000
-Message-ID: <9bf13eb6-6b56-48dc-a812-cc8574baed2b@amd.com>
-Date: Fri, 30 Oct 2026 19:51:21 -0600
+ 01:58:19 +0000
+Message-ID: <f25f4726-17c1-4fdf-8fd2-d96e73fbb22a@amd.com>
+Date: Fri, 30 Oct 2026 19:58:17 -0600
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: signal PQ EOTF in FreeSync infopacket
- for DP HDR
-To: Melissa Wen <mwen@igalia.com>, harry.wentland@amd.com,
- sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch
-Cc: Xaver Hugl <xaver.hugl@kde.org>, Krunoslav Kovac
- <krunoslav.kovac@amd.com>, Aric Cyr <aric.cyr@amd.com>,
- Daniel Wheeler <daniel.wheeler@amd.com>,
- "Pierre-Loup A. Griffais" <pgriffais@valvesoftware.com>,
- amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com
-References: <20261021123020.53928-1-mwen@igalia.com>
+Subject: Re: [PATCH] drm/amd/display: Don't select zero V_TOTAL_MIN/MAX on
+ DCN2 seamless boot
+To: kyliepc@proton.me, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20261022-dcn2-seamless-vtotal-v1-1-6ceb87f98629@proton.me>
 Content-Language: en-US
 From: Alex Hung <alex.hung@amd.com>
-In-Reply-To: <20261021123020.53928-1-mwen@igalia.com>
+In-Reply-To: <20261022-dcn2-seamless-vtotal-v1-1-6ceb87f98629@proton.me>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW4PR04CA0051.namprd04.prod.outlook.com
- (2603:10b6:303:6a::26) To CY0PR12MB226969.namprd12.prod.outlook.com
+X-ClientProxiedBy: MW4PR04CA0124.namprd04.prod.outlook.com
+ (2603:10b6:303:84::9) To CY0PR12MB226969.namprd12.prod.outlook.com
  (2603:10b6:930:130::18)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY0PR12MB226969:EE_|SJ0PR12MB6990:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3f9e8f7e-207c-4f0e-bd9f-08df36f177b3
+X-MS-TrafficTypeDiagnostic: CY0PR12MB226969:EE_|SN7PR12MB7420:EE_
+X-MS-Office365-Filtering-Correlation-Id: a101b893-1255-4384-077b-08df36f26f6d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|1800799024|366016|18002099003|22082099003|5023799004|11063799006|261028144727099003|10067099003|261022075727099003|261021121427099003|261026121527099003|261021123027099003|261022105027099003|261009223027099003|261026140227099003|56012099006|260925021911599003|260925021311599003|260925022911599003;
-X-Microsoft-Antispam-Message-Info: MAa1Lfu4gU4FOzSsMrL+BYU+xk5w6ZTwUHJYm53dBeXCd/+psw1R3KSb1v4FjVexJIVzd+hyeyWEhxJA6s6Cmg/+cmIOIIS9K1ZrPZymM5CY9RAk2kZqV/pNJxhCzoDTJ9s8WTaOuUgOHtXvOEieJD3gcUA7hvn7p0SsTBT7rReLJx88by7LhJyPhXDRNvH3KUEYHUkFtS9i+VNJWoOVjiqOyIcvCd1CcjgwF2loy25oVBSwul96eupob50pcKslHHtort8/xO+CRBlWxgqYTwvr+JpqeuvIS9YuSR/xnw8OeTewIv1TYh9Pd8MQKpaBObA6+sEB/sZL3zWXHwHvmNMQq2Yg+qr6nQSfVNjpvapGsFWQWPF82v/pBznmdZEcWh31iQeDWevlrVi+O0ferFGTK6mq2wfHe+RidaN6BVWSwg5ORLGuHAGs/cBvojDhly/aVND0tv7HCaC+xVC+opOarU28b/G6etKcCGlCo3Lpi7BvuNQE56iOM7xYxdPhdfSNystgJuM0kh59+5L2Gqfa3vqOYqL3MZ6TjpAw5wewsoyP39YSIXNqFhFBD91w4I909qXzqkVltlf4AuW7XCocfryUl2gZo/4hkjmxdWA=
+ ARA:13230040|1800799024|366016|376014|23010399003|10067099003|11063799006|6133799003|261028144727099003|261009223027099003|261022105027099003|56012099006|261021121427099003|261026121527099003|261026140227099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: YnYNhJc57OBBROPsLsWpcEqdVBFy6mvq/JxRx01fgnA7saT4jZkmWaA3Ao2fyVgQViFAZGirjhfO4f3cuAFzJzd043NOyDsr1gjybvQPFmW4pAs4d0MwvLuby5tLTwqEHmaWdzfKZzlXcQzJuruQS8FaJim2LxHJUuLslURwMrp0Ort5/Yke76jibIPFmOg6QgwW3vVy9Fm8sLscsxV70XM6XaH4iR6tkJaG7d6aOhXL8AkxyyLbbABUZHa+PulvrK0K/8H7AdYLpVS1HJhfQ5tCmZBbL/lHYmojfyYsmgawCpelJsTNrBLeP/WglPWiHgU6eNjnU2mG10KAwiCQB7oCBSsLcUbcshKAE1hQNc00DYV70PfuuEoWiPP/Od9oi7ywmitJQDXL6aTELzri6M7fFfJw6iORFTFtAvGZpnYwwk9WMDe/WBmqZSwVPLGKV7PqliZeCZ10UjXUbP00AwBkKii2qU3F8cCu4egKPI3YpNqrutSQSPKNMBFlRDkQcNDX/9SuReI7EsqTYv8BOuOtI3yxZb9t62tq1FB0XhPv+1sFogqzfxBIqZ6ep1B/OM4hnuADLPch5UJ9JIXIC3zXDfSdBmaKzG1rynu1ihhIBgDMr6bfQjjzg1s3cXKyekpgl37d6cosUwx2DPnF7GI2MGovOmxWof5vJ88BO4Q=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CY0PR12MB226969.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(18002099003)(22082099003)(5023799004)(11063799006)(261028144727099003)(10067099003)(261022075727099003)(261021121427099003)(261026121527099003)(261021123027099003)(261022105027099003)(261009223027099003)(261026140227099003)(56012099006)(260925021911599003)(260925021311599003)(260925022911599003);
+ SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(10067099003)(11063799006)(6133799003)(261028144727099003)(261009223027099003)(261022105027099003)(56012099006)(261021121427099003)(261026121527099003)(261026140227099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SGdzdzJnQS9LQnE1VnBJTnpISWVJZkd6Q0puNjRRcVFJV1FNSG9pUDFDQjRi?=
- =?utf-8?B?R1RQQ3BUUGhhclVtQ0htdDYvU3ovQjFGbU9nVU9zbW1Uc0ZnWlc1d2Z2YWJh?=
- =?utf-8?B?ZkVYZVJwQTZTN3Avdm54cFBYcWc5TVVENFVoMUErdTY5Z0VCRVBrSUM5UWRC?=
- =?utf-8?B?ZFVyMmNFcnZVQ1hJdGpiS0lhdHFBeWFjRDI4Mng5WGVMR1ZSM2ZjU0UycHBj?=
- =?utf-8?B?QlBwa2JaUjVSbk4wR0xyYnFocE52R0ExbnBmSWNTTTgxSDBsemVSOW1tWWd6?=
- =?utf-8?B?MFNVTlJkdGN0YXFnUGRxeTVYei9RZ2hlNHlDdktYNkFsUld5R0lBTUhWL3lV?=
- =?utf-8?B?WERzK3BJSG9vOVBmeTlIb2hqc2k1MWM3ZkxuV215THg1MXVoakZrQWVlVEhP?=
- =?utf-8?B?RFB5UExvNk54NUJHYTU5b1lLOEovYlppOUYybjc3ZHMzTlpjQm84RFh4RWtC?=
- =?utf-8?B?dVRXemR6a0xoN2UvTm40dlo1NjVjV0d4ZUVNWFU3eGtpUlYrcjNuOWhuL3Ny?=
- =?utf-8?B?VGRjN1htbjZnQzhwWHJvYnNjWER2cEJRZTMzaE9rRHp2TXM3blRxRjFYU1Vi?=
- =?utf-8?B?dmFVUGJhRmdIVzFXUjd1R3ZnVXE3MU5QczVXSUdKbFloNUxmdVRkL1JJakVu?=
- =?utf-8?B?TlMyOTVGeG9OVGtiSUZoaFE1MEZ2Q2FXUzhEemN3SDREQVJmUytnOE4xSGIr?=
- =?utf-8?B?bmNTeEdtWWc2dTFPTXJiUVA2bTJoOXkwczhFV1doelpKUkR4UHdFaHJIcXFm?=
- =?utf-8?B?ME9RUnJrNDlYVzNJekFXUWROTDdDaHZWc0lOT3h2cHJoV2dWU2xySFVrOCtu?=
- =?utf-8?B?dnlXa0V6QTRZSWxua0lhYlBqbk1rek9lanF6SWJ4ZVJTZnZoOWNBV0QyV0hN?=
- =?utf-8?B?Qm1DM1F4TXY4K2creGE4R2h4S2p3aXR0UkFDbWhGR0YwbFYrUUw0YmlJYlhS?=
- =?utf-8?B?Y0xFOE5NQlZKbUVjZStiOHA3V3luWjMxMTBUREw3WlB4ZE8vdHRFZ205Szdy?=
- =?utf-8?B?Ri85eHJhYTFHclQyQ0M1UFR4QzFrNDZySHcyZmVpWXBSTk5tZWxkQ2VlZmp2?=
- =?utf-8?B?aVc5SVkvbjVOelhRVUhQOUkwd09NNDZkQ20yQ2t4QXBCVzB4TDE4ci9jakV1?=
- =?utf-8?B?T21rMWVYaG1ONXRMSUZlU0NiQW9BcEtYTmh1U0ZKQUEyVDRkMVdvdzd6anhu?=
- =?utf-8?B?ZDNXanZBd0hKVFh2Zm5pdFYzNjljYnljQ2pIK2JycUJvNG9ZejNVNjFaN3NZ?=
- =?utf-8?B?akpIZmRpQzl5YlM1TExnTEtNS0RYOHZiMkt3TUF4a3NTNGgva0h4d1p4VnlY?=
- =?utf-8?B?VGZhdllmVHBPWGY5dm11Rmp0NVM3d1IvcUJBWjhmRnI2YXVoWjJoMjBsRHhO?=
- =?utf-8?B?bnJDMlo5emVhN05icVhjc3dtMS9HeXR1QTJDOW4yMWwyMVhaZVNJNkF4b1hh?=
- =?utf-8?B?U2dsRkh5S0Nla0RJMWVjamxmTDRKS2pBNTE0elNiSGEwaVRhandiYU5abnZj?=
- =?utf-8?B?SWYyRmxSaVUzWEcwdHlqVURSTHlGQTN5bDBWOGFyQjF0T1NqMUYrbFhNNGly?=
- =?utf-8?B?Tm9tblVhMjUraG82WVU4bThsSXFvUExjRVdwL1RlcmxZbmJLdzVXNFF4dU1m?=
- =?utf-8?B?VzNuUFNnenFyRXcyZ0JDM1FDMnE3bVVZMG5iTCtsTkdWVU5vYUF5VEM3WmV6?=
- =?utf-8?B?Skg5MU82Q0FzeHoyM0NRSVExVDIvNUl0UDAyMjhmcW9NU3huL24vL1IrQ0oy?=
- =?utf-8?B?NFFKazE5T2V4MXVvMDRnbUNLMUhWcUdaWWNIeEN0WWxOSk9RcTcvV0ZKQXpt?=
- =?utf-8?B?ZU9hdEVNZ0NuVWVZeGFqcUJ3T3ZwaFFlWlhiWnc4c0tWY1ZwY2hyTWQrWi8x?=
- =?utf-8?B?TGpjOWtNZjZGdTZBVGNGNWV1RzgzS2J3cTBPTi9ZWWdBVlB4TndsYWZWNVVz?=
- =?utf-8?B?WGZRdTdMZ2hLcXJ1VHBmbVNGZjZ6M09nRzFubmhFQXNtUng4SEJ3aG45L05j?=
- =?utf-8?B?RU94ZFZ3cU9FWTNlOGRzVjRQcTdsQzN5MzZ4WG83YjVrWG41ZC84K3N5U05l?=
- =?utf-8?B?Wmh4ajluYjV5bnErOUNGZGpFTWhzaVpWMURvQkVXRXpEOGV5dTB0TlFLZFdn?=
- =?utf-8?B?MUJiNklRVTkxd01KM0p5ZmN4NytPc2lnN0JkbXpLdi9FdWYzMlZiUjJSWHpJ?=
- =?utf-8?B?ZlU3UFdSRXNiOEppQ2pSOFQxbVQrSXNQY2d5RjRJT2p3aGtFRks3UlovckR4?=
- =?utf-8?B?bmVnMVBpcSt4d2dGbkZGcC9HWFZ2eVExRFJKNHAyS0VzcEo0ZFZ4YkNyR0xL?=
- =?utf-8?Q?2szWtXBJIyzZ7SaGrK?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aksyYytsRUtseGtvQjVFUi9tak1EOUsrYlBwd3ZkckxVeUpMbTJ0WVBMbWlN?=
+ =?utf-8?B?d1J6T1pzZG5sSnBEQVpHYkRJQmxqc3BSRStlV0JXQWJZZ3NXNGo4eFZtdDNZ?=
+ =?utf-8?B?SHRoQTlSSkxPSXhlN2p6eUpKdFNXSi9tV0t2N0NwVG10WHRMaTRYbGtuY00x?=
+ =?utf-8?B?REVvdEMxcUxqanhla2Z0ditPZkJkU05jNXpzTEx1byt3TXhiWExQdFhDN3Uz?=
+ =?utf-8?B?RlhvWDBYa3gwMGJtMmJJeTA4N2hvbVlxSWdQcGFmUDBIclVid3hsZERJUkRl?=
+ =?utf-8?B?U1h2bndQZzhEYnlKUmNVeG8vNGtXRkNmZlNpbUNYSUxDRDVHaUVqWHZPQTNW?=
+ =?utf-8?B?VVRTQXpRaXNManNuSFUycXY1dEprZUpPR2pOaDR2SUR3Zk14WEdMUEFJM2Jk?=
+ =?utf-8?B?cm9rNEZoS1pMOXBhU21LUy8zZWhQVU9XZ3kyeGV3QnhIeHdocVZqTXhoWlFZ?=
+ =?utf-8?B?Q1JKN2cydXFTSk1XT0RsTEV1Y3k5M3dEd1dFbEpsdE5USlc4SFZMVjc1dGlQ?=
+ =?utf-8?B?K3UxVUlxYk1JZWxlVnAxdGt0N2ZkS1d1TjBXeGh5SDVzOXNuQ2xvb3JMYW9W?=
+ =?utf-8?B?OUdSVzRlTmdlSVRIMjNUV2p2V3hlclphcjdsQXFBSGhKQWJ0T1NpSzJJY0pq?=
+ =?utf-8?B?M3FCbXk3K25yTUlkNmdVZVJIckpzblNuWkFHdUhXeVZaSmhyc0RrYm5iN1BN?=
+ =?utf-8?B?d2dnZVVmbWVPL1ZlSzVJZGZrTEZqc0s2T01wODZ0Yk5RV2lSY3VnT1ZtQjNZ?=
+ =?utf-8?B?T2lxZFZKRGJRaTI1VHMvMXd1cG9NNGprZGdEMWJxMjNTQWlCaVMwSkUzMFJH?=
+ =?utf-8?B?OFI5bkUrOHBUaUpZSndJS0l2MUEwMUdYekxLRVN2d3I5SnVZSVJwZ2VsOVh5?=
+ =?utf-8?B?blZ2dGVkeU8vVGc4QnRjMGMwcURKMHhRVnJ2aDBNQ2VMSG9wVWM3Ym9KTXZl?=
+ =?utf-8?B?T3htQnBkRWlWM0x4emV2N3ZtUThjTzN4dlhwck1TTHUyWmN5dWFYQTFHWUZ5?=
+ =?utf-8?B?cmxNYVF4a2lDUVh5NGp6ZEZjN1VBSlcyT2VBSkpQSWpuenk4T3h3Y1kzQ1Nn?=
+ =?utf-8?B?UlNmZldpM0EwYkFWTUZ4QThwRGNFTktES01OSzlNVjd6bGErM0VyRkVwbXhR?=
+ =?utf-8?B?M3N5Ry8rUzVIUDgzQTkwN2JuUnV0LzFGSTdrVDIwZ2RzbWlnNVdNN0QrVzVC?=
+ =?utf-8?B?NnVZNnU3QVYvdzZKMk1LeE5ZdU03RTdYd1MxbUFrbDg3VWs2M2VKL2JROVls?=
+ =?utf-8?B?ZlNuWE9wZ2tIQ1IxNlVpWGdaeGJjYU9sbDQ4SWJtUFdrcTVkUnhCa29tMmV5?=
+ =?utf-8?B?TndMdHNMejhFUit5V0wxQWlDM3lLY0thcjRIeGt5aUNrZHBTMzlvTS9YUW1B?=
+ =?utf-8?B?aHJxUC9BWU5ZaTZLY2NxNnBPMXd5akNEaTJwUkNPL3ErTW4rbEJkZnJHazdq?=
+ =?utf-8?B?NHVFdzN3d2c1THJ0d09JdmVDTndIRnlSRHV3TURNWXYyR2p1NlFSd0NQcFI3?=
+ =?utf-8?B?c1ZvKzZsanF3ZEpwVGFUdWhDYVMrSEpoVEQyVG5YYVBRUGJ1eGRpYm80TVY4?=
+ =?utf-8?B?VjB1NEpOTEVKUTlLZ01QdlVuWUFOK0UyenNlejdqakVkVStFbHhjMG5EQ0NM?=
+ =?utf-8?B?RnNudUNkZ2pRSGtHUm5td094eW5Jb2ovUGlUeXQxcThVL2pNWE1yUFIxckp6?=
+ =?utf-8?B?REFRNXcrMG52dVM5ZHlIdi9Dam4zc1BNc3V6Zk01TmpFUlpUU1l4Y01TdmYx?=
+ =?utf-8?B?M2xvRTBXbmd2UzBuSVhNVDlWS0l4SmJjUDZlL3l6U0hTRGFSdVhBRTh6dWd4?=
+ =?utf-8?B?UkpEcUtjeUpsRlZmWXFJMzFUdUR4MHZ3SzQ1VmRzR0lUNjhybmdJcWU3Mk9x?=
+ =?utf-8?B?c09oMHVEUVB0N09VRlNkUDladEY4VGFVUkZBaDI3TTRxTnBBZjNzVGI3ZnBq?=
+ =?utf-8?B?bWxDdFhXN0JqbERPSG5yQitSb3pJL1pXRWRKeHZxRkRvSjg4Smt2YlZUbEl5?=
+ =?utf-8?B?WThZUjFZV2IzS3Mxb0s2UTlZWjF2dGhpVUE0MzlWY2g2S0Y0UExkbUJZSXV1?=
+ =?utf-8?B?ckdZbG1QRHVhTllBdzc4blRCTHBiNXJ6ZGF4Vi8rRHBVTU1mZG9MSm5hYzFM?=
+ =?utf-8?B?ZFJWVTlsdDNmc01XQjBScVBJSEp2RlluOWlUbTE1RTFYeW9yT0Mya2tkOTVn?=
+ =?utf-8?B?TGJBdkxVS3V5OS82WUZYbTBacllJLzZOb1dJSmxNMTkzbUlYVDQ4WTl3Z2Rl?=
+ =?utf-8?B?blRSZVRDVU1Jb3RGbEJVR3d4SDYzNndoS0QyQ2I3NkRBK3Urek50b1lrMVdO?=
+ =?utf-8?Q?XQ0wA1F4xSwcEb+F7/?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3f9e8f7e-207c-4f0e-bd9f-08df36f177b3
+X-MS-Exchange-CrossTenant-Network-Message-Id: a101b893-1255-4384-077b-08df36f26f6d
 X-MS-Exchange-CrossTenant-AuthSource: CY0PR12MB226969.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Oct 2026 01:51:23.4174 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Oct 2026 01:58:19.0002 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GXLYg8yqONChykV/OJPRULZ8pSClA2IGEcGSsY+h2K4u+PqfgOXPrZAmqN5P/FARH3Aes7epDRIXTeS8EIvs+A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6990
+X-MS-Exchange-CrossTenant-UserPrincipalName: IXsWaWh/5Lia+NYEW7dX88roFMcarB5GlZFl8NffZKYVYDu7zcCVxMN2I++ZPw00Ofd3dHdbu7Gv/HTmQ0On7w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7420
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,84 +137,60 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+This affects more than DCN2, but I can fix patch title by removing "DCN2".
+
 Reviewed-by: Alex Hung <alex.hung@amd.com>
 
-On 10/21/26 06:29, Melissa Wen wrote:
-> Commit c2791297013e ("drm/amd/display: Add color bit info to freesync
-> infoframe") created the app_tf interface for FreeSync HDR and commit
-> c21a764a98cb ("drm/amd/display: Send PQ bit in AMD VSIF") used it to set
-> PB9 bit 5 (PQ EOTF) in v2/v3 AMD Freesync infopacket. However, Linux
-> never made use of this interface: DM ignores what userspace sets
-> regarding HDR and always passes TRANSFER_FUNC_UNKNOWN as app_tf, so the
-> PQ bit is never set in the infopacket received by the eDP panel.
+On 10/22/26 07:30, Kylie C via B4 Relay wrote:
+> [Some people who received this message don't often get email from devnull+kyliepc.proton.me@kernel.org. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
 > 
-> Check the EOTF in the HDR static metadata and set the PQ bit in Freesync
-> infopacket for DP accordingly. This fixes gray-washed HDR on KDE/GNOME
-> on Framework 13 Pro AI 9 HX 370 (DCN 3.5) and may fix similar issues on
-> other VRR-capable panels that advertise Replay in its AMD VSDB.
+> From: Kylie C <kyliepc@proton.me>
 > 
-> It doesn't affect color/EOTF bits on infopackets for SDR and native
-> HDMI.
+> Initialize V_TOTAL_MIN/MAX to V_TOTAL before enabling the selectors if
+> they are still 0, as optc1_program_timing() does without seamless boot.
 > 
-> Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/3200
-> Reported-by: Pierre-Loup A. Griffais <pgriffais@valvesoftware.com>
-> Signed-off-by: Melissa Wen <mwen@igalia.com>
+> Tested on Renoir (DCN 2.1) eDP with amdgpu.seamless=1.
+> 
+> This removes the flash between the bios logo & plymouth on my laptop.
+> 
+> Signed-off-by: Kylie C <kyliepc@proton.me>
 > ---
->   .../display/amdgpu_dm/amdgpu_dm_freesync.c    | 19 ++++++++++++++++++-
->   1 file changed, 18 insertions(+), 1 deletion(-)
+> Fixes the black screen when enabling amdgpu.seamless=1 on Renoir APU
 > 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-> index ab9cfbce8d73..322106d1cce7 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-> @@ -165,6 +165,18 @@ void amdgpu_dm_get_freesync_config_for_crtc(
->   }
->   EXPORT_IF_KUNIT(amdgpu_dm_get_freesync_config_for_crtc);
->   
-> +#define DP_HDR_SDP_EOTF_IDX 2
+> With this plymouth smooth boot is possible on this hardware
+> ---
+>   drivers/gpu/drm/amd/display/dc/optc/dcn20/dcn20_optc.c | 7 +++++++
+>   1 file changed, 7 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn20/dcn20_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn20/dcn20_optc.c
+> index 73cc8a713..2cdfe3d7a 100644
+> --- a/drivers/gpu/drm/amd/display/dc/optc/dcn20/dcn20_optc.c
+> +++ b/drivers/gpu/drm/amd/display/dc/optc/dcn20/dcn20_optc.c
+> @@ -449,6 +449,13 @@ void optc2_lock_doublebuffer_disable(struct timing_generator *optc)
+>   void optc2_setup_manual_trigger(struct timing_generator *optc)
+>   {
+>          struct optc *optc1 = DCN10TG_FROM_TG(optc);
+> +       uint32_t v_total, v_total_max;
 > +
-> +static bool dm_dp_in_hdr_mode(const struct dc_stream_state *stream)
-> +{
-> +	const struct dc_info_packet *hdr = &stream->hdr_static_metadata;
-> +
-> +	if (!dc_is_dp_signal(stream->signal) || !hdr->valid)
-> +		return false;
-> +
-> +	return hdr->sb[DP_HDR_SDP_EOTF_IDX] == HDMI_EOTF_SMPTE_ST2084;
-> +}
-> +
->   void amdgpu_dm_update_freesync_state_on_stream(
->   	struct amdgpu_display_manager *dm,
->   	struct dm_crtc_state *new_crtc_state,
-> @@ -181,6 +193,7 @@ void amdgpu_dm_update_freesync_state_on_stream(
->   	bool pack_sdp_v1_3 = false;
->   	struct amdgpu_dm_connector *aconn;
->   	enum vrr_packet_type packet_type = PACKET_TYPE_VRR;
-> +	enum color_transfer_func app_tf;
->   
->   	if (!new_stream)
->   		return;
-> @@ -232,12 +245,16 @@ void amdgpu_dm_update_freesync_state_on_stream(
->   					&new_stream->adaptive_sync_infopacket);
->   	}
->   
-> +	app_tf =  dm_dp_in_hdr_mode(new_stream) ?
-> +		  TRANSFER_FUNC_PQ2084 :
-> +		  TRANSFER_FUNC_UNKNOWN;
-> +
->   	mod_freesync_build_vrr_infopacket(
->   		dm->freesync_module,
->   		new_stream,
->   		&vrr_params,
->   		packet_type,
-> -		TRANSFER_FUNC_UNKNOWN,
-> +		app_tf,
->   		&vrr_infopacket,
->   		pack_sdp_v1_3);
->   
+> +       REG_GET(OTG_V_TOTAL_MAX, OTG_V_TOTAL_MAX, &v_total_max);
+> +       if (!v_total_max) {
+> +               REG_GET(OTG_V_TOTAL, OTG_V_TOTAL, &v_total);
+> +               optc->funcs->set_vtotal_min_max(optc, v_total, v_total);
+> +       }
+> 
+>          /* Set the min/max selectors unconditionally so that
+>           * DMCUB fw may change OTG timings when necessary
+> 
+> ---
+> base-commit: 77f548b127c6de34ce271fa09ba270cb1ef9f2da
+> change-id: 20261022-dcn2-seamless-vtotal-351d08d2df54
+> 
+> Best regards,
+> --
+> Kylie C <kyliepc@proton.me>
 
