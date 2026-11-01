@@ -2,81 +2,83 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F0BC606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF2F0606A324
 	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 08:07:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PNLJIK9D
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WJG+4LeY
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 404AB10EBE8;
-	Mon,  2 Nov 2026 08:06:54 +0000 (UTC)
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
- [209.85.221.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 430F710E281
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Oct 2026 16:58:52 +0000 (UTC)
-Received: by mail-wr1-f52.google.com with SMTP id
- ffacd0b85a97d-48e46e449e8so618477f8f.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Oct 2026 09:58:52 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DC0F10EBE1;
+	Mon,  2 Nov 2026 08:06:55 +0000 (UTC)
+Received: from mail-wm2-f10.google.com (mail-wm2-f10.google.com
+ [74.125.225.138])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B72FF10EAE3
+ for <amd-gfx@lists.freedesktop.org>; Sun,  1 Nov 2026 23:22:11 +0000 (UTC)
+Received: by mail-wm2-f10.google.com with SMTP id
+ 5b1f17b1804b1-4a16dfb8fa6so13655395e9.1
+ for <amd-gfx@lists.freedesktop.org>; Sun, 01 Nov 2026 15:22:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793379531; x=1793984331; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=8q5+7PBZtozw8r7APGhn8aKv1nVUTP5aRAm+isDToPg=;
- b=PNLJIK9D7czkKlDvj1JYqbCp6SfADefM6UN7T62nE6NUEkltJ7TmbAU+4IdC2ZFEtp
- 9mDaxJWkLZjJXmVDia3CxdM2OAoW/hzAEOqI7o/Xz1WMJR2LYvCPuJoJwmzRfK4AE2tD
- XpcVLn2jKjZo189Q/78SKMU3uehcssSGmiRIqXaWPZaiFm4YIzyMlgrSMHCPSdhQ595Y
- 8FfWx865DGx9peGhh03Y8GG3ehNkJ3s5tzzsET1B1XMywvhNOQN+acA8qTwQz53cjRdN
- 6/NUjDYIOZm3U69xMtGArEW6ss/K7YDkAUf/uwTWKSthw0ugDuK3c7iWtKx2ifffKFDF
- duMg==
+ d=gmail.com; s=20260707; t=1793575330; x=1794180130; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:subject:from:cc:to
+ :content-language:user-agent:mime-version:date:message-id:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=K4MSO6pcyXAftScjjOcAhCdWHBG+owT/f6hFef1DRbg=;
+ b=WJG+4LeYr5qC+XohIR/nDZPKn2ED3DZ8qMQYxSi30CQk71UdtXwa1sifD6k4xgRwap
+ lfLqzJzYKozs1MApC9oDHY0qFQ1nYmU1RYyEpYe4GUdEiQtjDvqOsu3eNYtgaz290/st
+ QtHvntcXVfw0VqxNj6dQiC2aCneV1QXuQONWqSesE0D03IVI1Bc+yR0cqjqfjT0GAHo9
+ 51tXAnTd99HwZcXPV8Ck0z/Zjaq54OhJZVTi85qHMFDc/D+0FL+nEGc1T3wlfTZzBU8D
+ PIzrPRs4d6EgIcVSNSKO/To5TvMET/PL9F9V3N55IS69XNwsPtEu+iQbG7mxzQk87+CH
+ biXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793379531; x=1793984331;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=8q5+7PBZtozw8r7APGhn8aKv1nVUTP5aRAm+isDToPg=;
- b=Iz469yYQ6FBrhLj9SdmT0OWkOyYGBEOya7PbjNsboODs0BLUyjHLfpsf8dAp8PIhFN
- hP44Mwzl3D4GZiurtU17ISzcJu4TucwZaXaJmvC3LIQJ9doXd9gftoxaOVPKKrQ66DAJ
- S9jocA5gYsOyiTW2d6WWghR51PWgzVq6wG2DRVG4P5HN/NvInWfgD5pvGRpgV3EEWlkB
- QQDZiIq/O/We+IKGxPBpTvo/GymrzBcrWTm4zhZ+zdPoSYIBJpeUAcvVB/Ze/iffQkJg
- +v/owQ2TmF1+PzbSx9gDs0JcTuc8GgigFKpWw8XAN5EU8CHvBO9WMqsZp5HXPDR64CO/
- d1Ug==
-X-Gm-Message-State: AFq9FYK5JSsZbgpoLanOA0Tqeh5WdY3oAO3wYN9HFET2fCXH3r5JTefL
- y5lSYzyetHyMLqM7biGJkX5rOLl50AITTBwAO+nTCfqCnA/ZQD8bL0lfIfLSS60YbrXZ6A==
-X-Gm-Gg: AYBFou0VgAIJ4j0xoq+O3ZiWBml6E/2nKsJRYnk1wfqVwCzG7TbZ1j/MRZ9+Maj1o1f
- a+z3IoY+qU8IJinFQ609yHPEOLFIs8qG33igKiHGS7G6AZSqulmzlmsjThDu6aYilej+jT4+aSI
- ao+yvAQsnYQM66fh510JgNBbDFiO6LFGRXUjiOpoCfJ9ou0CtGylRI49EBOhOYZ5aZV4SjZPil1
- AOeSKdog6ide/MD4YbbwmlpreSZFjGavZG1fND9L+zOcQXDT5vRrdwEs6tX4qTSBeDeAv+9G9LN
- Y31X7gxPEoAaay3wLQ20ZrFTUd4lUSE2E2jCRi4pq5/bRh9pIrLJ05dFEsXSiLKOJ1IlgKiukdN
- kxej15UJj7fg6sDVJs03MCakC8f93JGkcNav/ObE1m6dSo2LcaT+MM+fEMOwnvPHGclxsiz6guS
- XYAhbPlMGbj5zN7zjGeqkZJQLNPEefgBZFhQ0veCPwIwrsbxZWn2HPCjLNxTZdtP4nWojDT00Us
- sNdeEhi2wVsrNki2R/cx5oMFFkXpKfyzAQ56na2fo1ujYJRfD2X+JIQd+PfQK/xh1x0IJttj1i8
- FDseEQ+5cSbmyfpb9H2hb+EaB/QL6MQ2eRtPjzKZE9u+PmyTaM7bEU/B+GU4jXLmTPTv0xqfcxu
- wGvdQo5Wami32y3hc7DtVHC8=
-X-Received: by 2002:a05:6000:2dc5:b0:48d:ef0e:b791 with SMTP id
- ffacd0b85a97d-48e6e52c720mr7111596f8f.54.1793379530381; 
- Fri, 30 Oct 2026 09:58:50 -0700 (PDT)
-Received: from tvab-pc (v2202507270734364850.supersrv.de. [152.53.198.198])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48e71ba24f6sm4033465f8f.51.2026.10.30.09.58.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 30 Oct 2026 09:58:50 -0700 (PDT)
-From: Ilya Shidlovskiy <shidlovskiyilya@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: Ilya Shidlovskiy <shidlovskiyilya@gmail.com>,
- Kenneth Feng <kenneth.feng@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, Kevin Wang <kevin.wang@amd.com>
-Subject: [PATCH v3 3/3] drm/amd: let DC re-read UCLK DPM levels after an
- OD_MCLK change
-Date: Fri, 30 Oct 2026 19:58:38 +0300
-Message-ID: <20261030165838.248622-4-shidlovskiyilya@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261030165838.248622-1-shidlovskiyilya@gmail.com>
-References: <CADnq5_Pv0wkPx9AzooUf=dyWgQuneMc6K9-qcT6PW53Gg4L5rg@mail.gmail.com>
- <20261030165838.248622-1-shidlovskiyilya@gmail.com>
+ d=1e100.net; s=20260707; t=1793575330; x=1794180130;
+ h=content-transfer-encoding:content-type:subject:from:cc:to
+ :content-language:user-agent:mime-version:date:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=K4MSO6pcyXAftScjjOcAhCdWHBG+owT/f6hFef1DRbg=;
+ b=ER2577Rj9TyDGiotFrf/CsvijNcnNmMyd4RYFo2O2Wie8bs++HCgYrlj0ezBUjRCze
+ gmHX2G2jwp6G93BKqmWQe4SgmDGu1SGZjAuIfJJY2LxkEs7Wjkoqg0mZEyV72TO+woJE
+ l0XFGuh3M3uOStIvrU+HilM2XSD+mD7fnCHqz4dC2mSDX84WhdIngDXzPC4wzsanedxO
+ U2qLucxuPK3ZbaqvvvfIVVoNyrnz60EUG4rctBponSs8EwTaAhiUTqicuhZlv9qEGTmy
+ filp4Qf+3/eBbj/yMt0Dzl2qWafE/VD6X/JZ3YyZZ9Ms3hb/BvyN84rtvH0GKna24ZuO
+ 7zFw==
+X-Gm-Message-State: AFq9FYKUN1OYK8Vy9Ud3aCKt+PMuJEuF2jEKfLQQXs9VzARC5deHyue3
+ D9NMHiYD12wJecOAnEPgKD2nh72sprNbltGMo2zKhA0C20rIEVh2grsC4sCmnswAOfQ4WA==
+X-Gm-Gg: AYBFou0t1rhH+aKnXYa+kohJHR+VKhyQpPAn7umQ212D5iMIstpLwoyAEBDwS2BQFeb
+ 11EbQzwO1ssngOtLNtoMSvT6k7lOdAbPZ1trOZJzzv/2PLx1eN+QLxqAbDZ6XJlEZgOB2O/ZV2b
+ bJrzuAH0XryTG9oSTcPTZ/CbG0V8nY+s+yTgRPRvmcaEnRynDV177fDk6O+8a7xTlt0gk3Msub2
+ 1Ce3XBno3p3pYWeNOKhEkz1AE2MZ5OFnEi5jZioCLH4bzSMzZVJCcLIcIUVUiFgpmar6M1ZTDml
+ VywiPL1//od9drZyctYEQStRBaRRTF8yeBjl7VEOf/tuqcHDX2cxcv75zWZA7TvNUG0cBnqSJbx
+ JN9aX2zr3Yec4F2zfcXoPLXlfxTxH3jBx+OOjjm6Akm6UgD00A/8/QfJkHy1mwPTIX00g5/srzz
+ hCZbvihfG5DE5yNTFEmsPt3LeWFh+SBo7ZYeZnf3x+RTtjCcURIloffkDfLct8CJ5DNckW1XJjM
+ 1X4Z3Gdj4AfZmVI79KoCCIwtYJ9GHOO25U9/WwFZmGuxk4RSEe20qZRxXkY2rCtsXYPrts4fASa
+ Hj3P3WK5iDva+TfRO11ShntewD7Q1TLZAQ==
+X-Received: by 2002:a05:600c:198c:b0:4a2:5ca:767f with SMTP id
+ 5b1f17b1804b1-4ac151a9a36mr202114225e9.4.1793575329980; 
+ Sun, 01 Nov 2026 15:22:09 -0800 (PST)
+Received: from [192.168.1.7] ([31.94.68.191]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4abf5b27e46sm367155575e9.3.2026.11.01.15.22.08
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 01 Nov 2026 15:22:09 -0800 (PST)
+Message-ID: <9c9310ca-9c2a-4aa3-b03c-83fbaf17710b@gmail.com>
+Date: Sun, 1 Nov 2026 23:22:08 +0000
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Richard Lane <richardlanedev@gmail.com>
+From: Richard Lane <richardlanedev@gmail.com>
+Subject: [PATCH v2 0/3] drm/amd: Enable 2x1 tiled display support on Apple 5K
+ iMacs
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 02 Nov 2026 08:06:53 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,206 +90,84 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-9.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-DC reads the UCLK DPM levels from PMFW only during init_hw
-(dcn32_init_clocks() -> dcn32_get_memclk_states_from_smu()).
-Committing an overdrive table with a different UCLK max (OD_MCLK) changes
-the top UCLK level in PMFW, but nothing tells DC about it. On resume it is
-even worse: DC init_hw reads the stock table and the user OD table is only
-restored afterwards from smu_late_init().
+Hi folks,
 
-With a stale table, DCN3.2 keeps using the stock max_memclk_mhz as the
-UCLK hard min whenever the current mode does not support P-state
-switching ("to disable P-State switching, set UCLK min = max"). After
-raising the UCLK max, that value is no longer the top level, PMFW
-switches UCLK outside of vblank, and the display shows stripes and
-eventually hangs (seen on a Navi31 RX 7900 GRE driving 5120x1440@144
-with ODM 4:1 + 2560x1440@100).
+Apple 27" 5K iMacs (2014-2019, iMac15,1 through Polaris-based iMac19,1)
+drive their internal 5120x2880 panel as a 2x1 tiled display using two
+2560x2880 streams over an internal eDP root link and a secondary DP
+link.
 
-Add dc_refresh_memclk_states(), which re-reads the memclk states (bounding
-box and WM ranges included) through dc_lock_memory_clock_frequency(),
-re-applies the UCLK hard min/max for the current mode and re-sends the WM
-ranges to PMFW. Call it from a new amdgpu_dm_update_memclk_states() helper
-when the SMU reports that an OD commit/restore changed the UCLK levels
-(smu_od_uclk_changed()), after pm.mutex is dropped, and after the user OD
-settings are restored on resume. Limited to DCN3.2/3.21 for now.
+At boot, the Apple EFI firmware initializes only a single 2560x2880 pipe
+and leaves the secondary DP tile unlatched with HPD deasserted. Because
+the secondary tile reports HPD low and requires a vendor-specific DPCD
+handshake before it responds as a DisplayPort sink, amdgpu currently
+fails to detect the second tile, leaving Linux limited to single-tile
+resolutions.
 
-Link: https://gitlab.freedesktop.org/drm/amd/-/issues/6009
-Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
-Acked-by: Leo Li <sunpeng.li@amd.com> # display part
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Ilya Shidlovskiy <shidlovskiyilya@gmail.com>
----
+This series enables full 5120x2880 dual-tile operation on DCE < 12 Apple
+5K iMacs so that the internal 5K panel behaves like a standard DisplayID
+tiled monitor:
 
-Notes:
-    v3:
-    - rebased on top of Kevin Wang's "preserve committed OD features" patches,
-      no changes
-    v2:
-    - call amdgpu_dm_update_memclk_states() only when the SMU reports a UCLK
-      change (Kenneth); the check lives in the swsmu ASIC code, since
-      PP_OD_FEATURE_UCLK_BIT is ASIC specific
-    - display part unchanged from v1, added Leo's Acked-by for it
+1. Calculate the pre-OS framebuffer reservation in GMC v7 and v8 using
+   mmGRPH_PITCH and the mmGRPH_PRIMARY_SURFACE_ADDRESS offset from
+   vram_start so the full [3 MiB, 59.25 MiB) Apple EFI scanout surface
+   is preserved during boot handover without vendor-specific quirks.
+2. Point the secondary DP link to the root eDP link via an EDID quirk on
+   DCE < 12 (covering iMac15,1, iMac17,1, iMac18,3, and Polaris-based
+   iMac19,1), latch the secondary tile via DPCD 0x4F1 on the root eDP
+   link, write the 3-byte Boot Camp source table (0x310) on the
+   secondary link, keep the secondary tile out of D3 power-down, and
+   unlatch the TCON back to single-pipe mode on suspend/shutdown. Once
+   unlocked, DRM's DisplayID parser populates has_tile, tile_group, and
+   tile_is_single_monitor on both connectors natively. (DCE >= 12
+   support for Vega-equipped iMac19,1, iMacPro1,1, and 2020 iMac20,x is
+   noted as TODO.)
+3. Report all_displays_in_sync = true to PowerPlay after
+   dc_commit_streams() whenever all active streams are synchronized into
+   a single timing group by program_timing_sync()
+   (timing_sync_info.group_size == params.stream_count), allowing SMU7
+   to downclock MCLK at idle without modeset underflows.
 
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 33 +++++++++++++++++++
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  6 ++++
- drivers/gpu/drm/amd/display/dc/core/dc.c      | 21 ++++++++++++
- drivers/gpu/drm/amd/display/dc/dc.h           |  2 ++
- drivers/gpu/drm/amd/pm/amdgpu_dpm.c           |  7 ++++
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |  3 ++
- 6 files changed, 72 insertions(+)
+Changes in v2:
+- Patch 1: Replaced the hardcoded 64 MiB Apple quirk in amdgpu_gmc.c
+  with a generic calculation in gmc_v7_0_get_vbios_fb_size() and
+  gmc_v8_0_get_vbios_fb_size() using mmGRPH_PITCH and
+  mmGRPH_PRIMARY_SURFACE_ADDRESS.
+- Patch 2: Dropped the DRM_MODE_CONNECTOR_eDP override in
+  amdgpu_dm_connector.c in favor of DRM's native DisplayID tile
+  properties (has_tile, tile_group, tile_is_single_monitor).
+  Renamed tiled_peer to apple_5k_peer and set it only on the secondary
+  DP link, removing dm_helpers_wire_tiled_peer(),
+  dc_link_is_apple_5k_secondary(), and inline explanatory comments.
+- Patch 3: Made the PowerPlay sync check generic for any combination of
+  synchronized displays by checking timing_sync_info.group_size ==
+  params.stream_count instead of tiled_peer.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index dfbc384fb..370d349cd 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6837,3 +6837,36 @@ void dm_acpi_process_phy_transition_interlock(
- 	// Not yet implemented
- }
- EXPORT_IF_KUNIT(dm_acpi_process_phy_transition_interlock);
-+
-+/**
-+ * amdgpu_dm_update_memclk_states() - re-read the UCLK DPM levels from PMFW
-+ * @adev: amdgpu device
-+ *
-+ * DC reads the UCLK DPM table from PMFW only in init_hw. An overdrive commit
-+ * (or restoring the user OD table on resume) can change the UCLK levels, which
-+ * leaves DC with a stale max_memclk_mhz and bounding box. On DCN3.2 the stale
-+ * max is then used as the UCLK hard min when P-state switching is not
-+ * supported by the current mode, so PMFW is free to switch UCLK outside of
-+ * vblank and the display underflows or hangs.
-+ */
-+void amdgpu_dm_update_memclk_states(struct amdgpu_device *adev)
-+{
-+	struct dc *dc = adev->dm.dc;
-+	unsigned int max_memclk_mhz;
-+
-+	if (!dc)
-+		return;
-+
-+	if (dc->ctx->dce_version != DCN_VERSION_3_2 &&
-+	    dc->ctx->dce_version != DCN_VERSION_3_21)
-+		return;
-+
-+	mutex_lock(&adev->dm.dc_lock);
-+	max_memclk_mhz = dc_refresh_memclk_states(dc);
-+	mutex_unlock(&adev->dm.dc_lock);
-+
-+	if (max_memclk_mhz)
-+		drm_info(adev_to_drm(adev),
-+			 "DC memclk states refreshed, max UCLK %u MHz\n",
-+			 max_memclk_mhz);
-+}
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index 656aa0e46..95a4b0d50 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -1179,6 +1179,12 @@ void dm_free_gpu_mem(struct amdgpu_device *adev,
- 
- bool amdgpu_dm_is_headless(struct amdgpu_device *adev);
- 
-+#if defined(CONFIG_DRM_AMD_DC)
-+void amdgpu_dm_update_memclk_states(struct amdgpu_device *adev);
-+#else
-+static inline void amdgpu_dm_update_memclk_states(struct amdgpu_device *adev) {}
-+#endif
-+
- bool amdgpu_dm_crtc_complete_writeback(struct amdgpu_crtc *acrtc);
- 
- void retrieve_dmi_info(struct amdgpu_display_manager *dm);
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index ae5f03a73..471cb99a1 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -6628,6 +6628,27 @@ void dc_lock_memory_clock_frequency(struct dc *dc)
- 		dc->clk_mgr->funcs->set_hard_max_memclk(dc->clk_mgr);
- }
- 
-+/*
-+ * Re-read the memclk DPM levels from PMFW (e.g. after an overdrive change),
-+ * refresh the bounding box and WM ranges, and re-apply the UCLK hard min/max
-+ * for the current mode. Returns the new max memclk in MHz, 0 if unsupported.
-+ */
-+unsigned int dc_refresh_memclk_states(struct dc *dc)
-+{
-+	if (!dc->clk_mgr || !dc->clk_mgr->bw_params ||
-+	    !dc->clk_mgr->funcs->get_memclk_states_from_smu)
-+		return 0;
-+
-+	dc_exit_ips_for_hw_access(dc);
-+
-+	dc_lock_memory_clock_frequency(dc);
-+
-+	if (dc->clk_mgr->funcs->notify_wm_ranges)
-+		dc->clk_mgr->funcs->notify_wm_ranges(dc->clk_mgr);
-+
-+	return dc->clk_mgr->bw_params->max_memclk_mhz;
-+}
-+
- static void blank_and_force_memclk(struct dc *dc, bool apply, unsigned int memclk_mhz)
- {
- 	(void)apply;
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index d983bab7e..bf8e1aba3 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -3263,6 +3263,8 @@ void dc_unlock_memory_clock_frequency(struct dc *dc);
- /* set min memory clock to the min required for current mode, max to maxDPM */
- void dc_lock_memory_clock_frequency(struct dc *dc);
- 
-+unsigned int dc_refresh_memclk_states(struct dc *dc);
-+
- /* set soft max for memclk, to be used for AC/DC switching clock limitations */
- void dc_enable_dcmode_clk_limit(struct dc *dc, bool enable);
- 
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-index 75d8bb486..afa3d9c7e 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-@@ -1329,6 +1329,7 @@ int amdgpu_dpm_odn_edit_dpm_table(struct amdgpu_device *adev,
- 				  uint32_t size)
- {
- 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
-+	bool uclk_changed = false;
- 	int ret = 0;
- 
- 	if (!pp_funcs->odn_edit_dpm_table)
-@@ -1339,8 +1340,14 @@ int amdgpu_dpm_odn_edit_dpm_table(struct amdgpu_device *adev,
- 					   type,
- 					   input,
- 					   size);
-+	if (is_support_sw_smu(adev))
-+		uclk_changed = smu_od_uclk_changed(adev->powerplay.pp_handle);
- 	mutex_unlock(&adev->pm.mutex);
- 
-+	/* The OD commit changed the UCLK levels, let DC re-read them */
-+	if (!ret && uclk_changed)
-+		amdgpu_dm_update_memclk_states(adev);
-+
- 	return ret;
- }
- 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-index 490640053..5fa7dd570 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -601,6 +601,9 @@ static void smu_restore_dpm_user_profile(struct smu_context *smu)
- 			ret = smu->ppt_funcs->restore_user_od_settings(smu);
- 			if (ret)
- 				dev_err(smu->adev->dev, "Failed to upload customized OD settings\n");
-+			else if (smu_od_uclk_changed(smu))
-+				/* DC read the stock UCLK levels in its init_hw */
-+				amdgpu_dm_update_memclk_states(smu->adev);
- 		}
- 	}
- 
+Regards,
+Richard
+
+Richard Lane (3):
+  drm/amdgpu: use pitch and surface offset for GMC v7/v8 fb size
+  drm/amd/display: unlock secondary tile on Apple 5K iMac panels
+  drm/amd/display: report synced displays to PowerPlay for MCLK switch
+
+ drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c         |  8 +++--
+ drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c         |  8 +++--
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 29 +++++++++++++++++++
+ .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 22 ++++++++++++++
+ drivers/gpu/drm/amd/display/dc/dc.h           |  1 +
+ .../drm/amd/display/dc/link/link_detection.c  |  7 ++++-
+ .../dc/link/protocols/link_dp_capability.c    |  4 +++
+ .../display/dc/link/protocols/link_dp_phy.c   |  3 ++
+ 8 files changed, 75 insertions(+), 7 deletions(-)
+
 -- 
 2.55.0
-
