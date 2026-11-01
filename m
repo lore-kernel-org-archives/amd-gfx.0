@@ -2,83 +2,91 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A520E606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDCCE606A32C
 	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 08:07:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YAE1DLjl
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SjJsJ2PF
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2883110EC05;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A47A10EC07;
 	Mon,  2 Nov 2026 08:07:30 +0000 (UTC)
-Received: from mail-wm2-f10.google.com (mail-wm2-f10.google.com
- [74.125.225.138])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A83510E3B6
- for <amd-gfx@lists.freedesktop.org>; Sun,  1 Nov 2026 23:23:53 +0000 (UTC)
-Received: by mail-wm2-f10.google.com with SMTP id
- 5b1f17b1804b1-49ff9833fedso8332715e9.0
- for <amd-gfx@lists.freedesktop.org>; Sun, 01 Nov 2026 15:23:52 -0800 (PST)
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A07110E3B6
+ for <amd-gfx@lists.freedesktop.org>; Sun,  1 Nov 2026 23:37:25 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-4a2167bd087so19196515e9.3
+ for <amd-gfx@lists.freedesktop.org>; Sun, 01 Nov 2026 15:37:25 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793576244; cv=none;
+ d=google.com; s=arc-20260327;
+ b=EYz/ru8kknv9rV2t3nsWzD6THQLsQq2jU+5ZDfDTZkZLIzrnQKKr17l6YE9VU+Omrl
+ OFaVKRNM+c4u6nG5eXqx6ti5OCZQhZNaiTU4kQxLOBDvLuZccoLY5PEGUgGS8rFUzxBy
+ lzkOrj9lqTvn6DQr6yADwEibegChRQ7HIuy73g/zXCdaGH6Gbfc0M6JS6oQ8qJnuCIhA
+ 86bMl2nrnM6ZGGP4k9QKnYkiamvH0KlHwPm8bSah171gR/5Y3q+68btplT2g2tPND42U
+ C8yMlazOtkgXeKwXDKXVNe6mylVK/lh2M79ZRpRWbufip4RMIWLMSD3TzuuBhl2zg6GA
+ 6QxQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+ bh=uycyJS0DpZnW8iPJ9gPVOdKwEEcjN0iqSHG3ZEmJNDY=;
+ fh=yXVx3fdyNGachXNsXgidlHJkhkdQSLsQK8wg1ZxtFJQ=;
+ b=k5+skekt+9cpo/CTcF9JyvebBoE+uvIy+c/r9ljWpHtIJxXUz4vH4QS/y0sY85sN72
+ 79SA/Q+BJFrXBq35lhFH3RhSQNvWxXBBZvw8pqHjOn8njub32BN//+JO961zBU46g+xU
+ P6/UEmyxPuo8iBbqhd/wH2goK+n8kdzRQDYQzihJdaCy4L3OGVBaI3KPVz8+X1dFA650
+ leKQ//QXY1CtK7mDrp5pn8lha+KoWBrTgk//ua2r34S3HZZEvHDKMGZUX9FoCiy5UlBI
+ vhg8FOwMMDoEjZIcIUkYyLfD/jmyB5xoyM9HJ6uUmfvwXSs8s1uvtNA3p2gt7xX9UDMg
+ Bv9Q==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793575431; x=1794180231; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:subject:from:cc:to
- :content-language:user-agent:mime-version:date:message-id:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=ff70TfoYW5vv+iBaKSoq6x1++Arz0G5jzkSXdb473iw=;
- b=YAE1DLjlpjoLD4eh0XbJZyk+O2f585B3kpcA/XiL8QRnWp8VRuCdZhROWnoCYdhja9
- EdH/pwP0PIt/NrkTIZEp0HLgdn4tiRLFecz7QftLw9txuTCUw5VcTHG9MSb65N/ipv7k
- 4lGcxrtCLRK6NI/k02k+om3UCulS0a0am342w76QPFycVRklgkwt+9WodBCUGl0jLlA2
- kWL6c0M+oyiVfrBrsR9vl1WLZ73H89WdnNcZrX3frtFfRhXX/Kh8lxopnhxo6GOY/vmb
- OAGk2UXFL6Fj+gJpBFwEgFASYhbahlnFpWb7xU0aaJa3mek3j4RuFUwKu2AfB3F817LC
- NDkQ==
+ d=gmail.com; s=20260707; t=1793576244; x=1794181044; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=uycyJS0DpZnW8iPJ9gPVOdKwEEcjN0iqSHG3ZEmJNDY=;
+ b=SjJsJ2PFQa5Bcv7PUbUgpRE0t60QeXfn1ClzbdhA9Qi9Tl0KDw2kpv9ua9eo0ZdxNz
+ sKxOuYKr1iXhy6SrOY/W2yI3nHaxl3S1ivM8gXRo2SgrwkRMBfTaJ0hlAo8HmlCVWLYE
+ gSZljv0oZMaxQXlCqVPsUlYorrm++nL5di9aYZfIXPuPTwIVItUaP+KnXTb1UhR8vPx0
+ SKK7wECon7WtmwzfOToZvckIV0BLTBkpqP1lcbghV0/LxseKw46R5Sb+K5/fbdvrnrXr
+ HH8yeSCkJXd4Cnmwqd/m3f5itOl+gkCUgzkjuR6Gn+u02GDot31FssMjfE/NwtDaDxPa
+ bDSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793575431; x=1794180231;
- h=content-transfer-encoding:content-type:subject:from:cc:to
- :content-language:user-agent:mime-version:date:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=ff70TfoYW5vv+iBaKSoq6x1++Arz0G5jzkSXdb473iw=;
- b=F0L8RZDudfRKQj5Jrct3eDbWR6EeurJ3+wPBrnt7gbPEj1Bs9l5qjgA4xcuE89wgbk
- 1fOoy6HNnZ/UI8V7S1S79IOS0oHdlzXEA0jEenr5n9YooAUqFJIaostc8X+ED4Ak3yyU
- 9M5jgbT3Cw1Wj5xs1MQJfV6hJ6DGK+flkQ1xdUgXaBAO+2fTa670g5fH/25nC6M2RJc9
- FZTWEyaS8x8ARNOJCJtsY8aOAk+b31N/bwVlrIwn3p8Bm7EjodFO8WCOQI9+8ZIJ5AOL
- MLXryAnTFOmVgKvLS3omqCjZC15wlszNDoGRM77/YAeXs2s6nR64pO8RC8zVRcoiTEMF
- 3Xmg==
-X-Gm-Message-State: AFq9FYL8THE5a7jLDqn8DVlLI5hXPfdhYG2M0r8HBYTCDnFOdvo/gfsH
- mGZjjFPOYTJNl6c7piPFBcu0nbnueDiEpek0M1RSYvqBhI1Cf89xkxNkcEOEqRWgNBEXjQ==
-X-Gm-Gg: AYBFou1J/IFSPYOkpYZtgscCy4fzwdzDrEk0SJ9Oi+BhxdkaB5zFL5YHfIFLJS4WrDG
- 4ykZ2f1SWMDwyhdpeKUDpBVwFCxTJOPLqoywjKnsq94UjvQZsdeXUytF1hnTAH/wjTR2ceGtCEa
- 9+S4CGifUbgjdkW0kpfL3xVuziYFhcQ1YRDn4v0JIbFnVxW4O0pVFq/7XaDddsdD4WUn3axq+vR
- 48vCNOzwMtuHQfwpLaBRNT8FOGvtldlfYG7EcB4a3PK/t14xcg2Ar4nSr1rP/KiW2UNejkSbvU/
- PdW43+SacEFkknxHzfHCBHPTyzIDpStlD5OwugrTJ3yvGmC1Eh5zNpSEAxqtQHek+8FBQ2ft5cA
- EtS0a1Bpi6RAglmZ5pgBhSs4E/WFxV14vjYKMN7hU1fGO4Teh7tFeVLmCs2LTcWpzNa+gQNRl2L
- gVXHSiy5c9oNVM+nPpe8DpvxZFs0zatTZCUQAbK95ZU4nnjHTp4rg6RuIwrv3BS3xY/dWuA3sHV
- m4NYV1DaGv+m+XAxl1G51SadPfgqCrKs3K+iaWNy8Xo2xnJToA0Wuu6RDCkoUUlTmSO/Yygcn82
- bmaG7Yxm6HzY2wdWIm6KJ4oFCZcf/WCGfw==
-X-Received: by 2002:a05:600c:3ba0:b0:4a1:e0db:8cf8 with SMTP id
- 5b1f17b1804b1-4ac151a84f0mr192130815e9.3.1793575431515; 
- Sun, 01 Nov 2026 15:23:51 -0800 (PST)
-Received: from [192.168.1.7] ([31.94.68.191]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4aa80f04723sm342967035e9.5.2026.11.01.15.23.49
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 01 Nov 2026 15:23:51 -0800 (PST)
-Message-ID: <54c182e5-1474-47af-ae72-d28560a12bcf@gmail.com>
-Date: Sun, 1 Nov 2026 23:23:49 +0000
+ d=1e100.net; s=20260707; t=1793576244; x=1794181044;
+ h=content-type:cc:to:subject:message-id:date:from:mime-version
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=uycyJS0DpZnW8iPJ9gPVOdKwEEcjN0iqSHG3ZEmJNDY=;
+ b=dN3nN3XDVKiRNP0lY0YWllypELNxTuFQnMV8pbohrT1WOLWdJg0MDKD0i6wEKNMheZ
+ 0FEEWQAm/8OYJy+T0lzwr7t07mDhkjegTbU8g3kWhwWNE9DDxPk4AQzjhQv+fjYzOEAw
+ aCcY/4QQkAaSltN9Ymj1NEVwr8526YCyQ/Pz7V5zC9gRyOkXRlepkVzdm2Jbawv5zRSc
+ jXSBKqIZ92Dsr3YDh02NhmHufNaFt1WVjCttyeg89K/w/SJ5FT2xXiopiR1gMRZkNZYR
+ Gkl4gvVI9FWXMOLYmMuWpFWG4XCyKbT0d19Tea3fXYFqB5tktoq1F8y1Y6cIpXj+ElyF
+ mzVw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxJ3LWVtLmhqrIWTlskvfTj7bw02aKTjWZizpVkwQ5TqsMM50XxZhbLkEQyK+yhlcnL3tj/B2x6@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYL2faVmTPEzAsKNRanttO0YUKmx1CqcCa/KB3bxaLcBM5ZwO9n0
+ LfNSRftlXsfNPjf4RmHcAVETMZuEFSAyM5b2Bju1TBtP2ha4Q4qlSa1MKH+P8tiI3FSMy1Iks4P
+ W4kU9r/yJxsV2uxgbQvot/BHe0kBG8yk=
+X-Gm-Gg: AYBFou1jlt2ccdJUKpZcrXA+hTUQUGKpOwEp4PkWeTP2Ugjx8X/VCf10sBKanLwwC9h
+ bFmR908CzfpJITOFKWLVVCT3AGakYKXIZwMBa0O4zGNRmArjE1urcWf1jQk3g6PgAGyIF8ZiWjR
+ kbdb9yEPaiozXYvmrxOrQ5h1J6cG6JLze1DgXoAvO5yVXJ7xcTveBa88xvqkFyFrHvEMkRE2CR8
+ WI9VPpiiLgIOX7f5lr3sOrLtyQjv5wMVjR/cORohEYiD/kAaZUa0w3vK4kCaX0BrCH2OhbVPZoX
+ vXRaaa7nJzme06Se8TjwOBTchFRE3yi7NtasDIK92t8j/ZXSc44dEb/VLYDsBov8174g49+VDVE
+ gEXwUPwSqmHHeu94XXzz+d38qWb9NfCZdU6+KA4A=
+X-Received: by 2002:a05:600c:6089:b0:4a2:a8c:22b0 with SMTP id
+ 5b1f17b1804b1-4ac14ec75fbmr185544245e9.1.1793576243659; Sun, 01 Nov 2026
+ 15:37:23 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Richard Lane <richardlanedev@gmail.com>
-From: Richard Lane <richardlanedev@gmail.com>
-Subject: [PATCH v2 1/3] drm/amdgpu: use pitch and surface offset for GMC v7/v8
- fb size
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Arnaud BERTRAND <arnaud078@gmail.com>
+Date: Mon, 2 Nov 2026 00:37:11 +0100
+X-Gm-Features: AclHuK9ns4XBGZ7zNo5bqw4a_9l2SxlgD9VWWmJ9YT0QG78bE9OgwzMy8CJwXYU
+Message-ID: <CAGxFSwnBDM93ouN6Aq2ppm5zF1h19XE6NJ92NT2UEhMP1P4xEg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/amdgpu: add firmware file fallback for APU VBIOS
+ discovery
+To: Oz Tiram <oz@shift-computing.de>
+Cc: airlied@gmail.com, alexander.deucher@amd.com, 
+ amd-gfx@lists.freedesktop.org, christian.koenig@amd.com, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ simona@ffwll.ch
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Mon, 02 Nov 2026 08:06:53 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,73 +98,27 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-2.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-gmc_v7_0_get_vbios_fb_size() and gmc_v8_0_get_vbios_fb_size() currently
-calculate the pre-OS framebuffer reservation as VIEWPORT_WIDTH *
-VIEWPORT_HEIGHT * 4, assuming the scanout stride matches the viewport
-width and that the surface starts at offset 0 of VRAM.
+Hello,
 
-On Apple 27" 5K iMacs, EFI initializes a single 2560x2880 viewport at
-boot but allocates a 5120-pixel stride surface (mmGRPH_PITCH = 5120)
-and places mmGRPH_PRIMARY_SURFACE_ADDRESS at a 3 MiB offset (0x300000)
-from vram_start, spanning [3 MiB, 59.25 MiB) in VRAM. Reserving only
-2560 * 2880 * 4 bytes allows permanent TTM driver BOs to overlap the
-active scanout and corrupt the boot splash screen.
-
-Calculate the reservation size using mmGRPH_PITCH instead of
-VIEWPORT_WIDTH and add the mmGRPH_PRIMARY_SURFACE_ADDRESS offset from
-vram_start so the full active pre-OS scanout region is preserved.
-
-Signed-off-by: Richard Lane <richardlanedev@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c | 8 +++++---
- drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c | 8 +++++---
- 2 files changed, 10 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-index c09f5153679e..00704dbfc1bb 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-@@ -929,9 +929,11 @@ static unsigned int gmc_v7_0_get_vbios_fb_size(struct amdgpu_device *adev)
- 	} else {
- 		u32 viewport = RREG32(mmVIEWPORT_SIZE);
- 
--		size = (REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT_HEIGHT) *
--			REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT_WIDTH) *
--			4);
-+		size = REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT_HEIGHT) *
-+		       RREG32(mmGRPH_PITCH) * 4;
-+		if (size)
-+			size += RREG32(mmGRPH_PRIMARY_SURFACE_ADDRESS) -
-+				lower_32_bits(adev->gmc.vram_start);
- 	}
- 
- 	return size;
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-index 15592027e7c0..a64a3cc07858 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-@@ -1037,9 +1037,11 @@ static unsigned int gmc_v8_0_get_vbios_fb_size(struct amdgpu_device *adev)
- 	} else {
- 		u32 viewport = RREG32(mmVIEWPORT_SIZE);
- 
--		size = (REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT_HEIGHT) *
--			REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT_WIDTH) *
--			4);
-+		size = REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT_HEIGHT) *
-+		       RREG32(mmGRPH_PITCH) * 4;
-+		if (size)
-+			size += RREG32(mmGRPH_PRIMARY_SURFACE_ADDRESS) -
-+				lower_32_bits(adev->gmc.vram_start);
- 	}
- 
- 	return size;
--- 
-2.55.0
+I have two dGPUs : a Radeon RX 6800
+XT and a Radeon RX 6800. They both report the same PCI identity
+1002:73bf and each has a different VBIOS.
+I hit the same VFCT bus-number mismatch on 7.2.10, but with a different
+outcome: on my machine the device-identity fallback actively breaks the second
+dGPU.
+I patched my kernel to remove the fallback, but I would like to have a
+better solution for my use case.
+Would it be possible to apply the patch only to APUs ? That would keep
+Oz's APU case working but a dGPU with a stale bus number would fall
+through to its own ROM, which is the source that is
+guaranteed to match the card in the slot.
+I can provide more details if needed, I am out of my depth here.
+Thanks
+Arnaud
