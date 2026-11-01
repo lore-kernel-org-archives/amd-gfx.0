@@ -2,80 +2,88 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B797606A324
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 08:07:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82F1E606A326
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 08:07:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=to6Ubkei
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jcGFSo3n
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8825510EBF1;
-	Mon,  2 Nov 2026 08:06:55 +0000 (UTC)
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
- [209.85.221.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C4A510E214
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Oct 2026 16:58:49 +0000 (UTC)
-Received: by mail-wr1-f53.google.com with SMTP id
- ffacd0b85a97d-48c4be28b82so1017584f8f.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Oct 2026 09:58:49 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E55E010EBF5;
+	Mon,  2 Nov 2026 08:06:58 +0000 (UTC)
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDBEE10E3B6
+ for <amd-gfx@lists.freedesktop.org>; Sun,  1 Nov 2026 23:31:55 +0000 (UTC)
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-48b042c0759so1153738f8f.2
+ for <amd-gfx@lists.freedesktop.org>; Sun, 01 Nov 2026 15:31:55 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793575914; cv=none;
+ d=google.com; s=arc-20260327;
+ b=INQc9DyRjuZBYeXCvAo8XI8fusVHS9EJZDF0is/jtC0QBoFa/Nk240bl2zgQQZwOF5
+ DaCzTFM5yOin9jeLuUQT0Rmtfr29y58/itcgsAFKR/p7ZJ6CBgtu/6wrc5wY3x9OefO4
+ WsBSeFeby3QUC9INg84wM6WnyX5AsEA8D2GPd2I2oa+FB6WVJCVlzVqM2vwQqkwlly5e
+ gmU3oyggxYi1iFnabKgl6VU1kBYQOX1ABeosmuHmKx1Hyrt7hxux4Tfqk2DYd+6M7Bbb
+ 6jTgOR2Bf36+pWmywS34I2VPsb8ZYzxtgUhnVxfskR1SoUW7K3gP8FbfTO5NYxkkb06R
+ Lf5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+ bh=O2dW7ANLcbwksfoB36b2BZaSwVJZbGyuN6/j0lvaHEA=;
+ fh=nmBmiQzXJWXJoT+h+Z3zon4s4UPDGLfqzpmnuvYk1x4=;
+ b=lVjr4BfmSyIkSCggV91uvdjVpocncDD651IstTdrdmQWqB9PjEpMG++n6ppZpohpkQ
+ TahlZMs9nTeQym+7ryKcBQltfORtq6ZYgjRsCDiApnt59iSCxAe4TioIcbSmm9IXL8Qg
+ RMjHqdE7c3sw0iY/QEHXsc5y+SUjWoTmBBEfEg9E9TsYGXt+PYKJV4RBs1RaPzJiLEjR
+ IqD8Fobgp8pqw8BkFFOiZ8QnsB6L1GI1agAJqS2Q4B3C9YZLHeXBOutYXSksX79mYMNC
+ Mt5XUcSYM7LQtjtArYstHI6GUn8zMu6Ipjz73fatfBaowfBMVxJi+21+VMJT38mMo0s6
+ 25zQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793379528; x=1793984328; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=puKOIvaW71S4PGASNevTK0iC6FA0A428gnXHwfGAl+Y=;
- b=to6UbkeitjC1Qtq9LQvTn0pkhT4aEIU6A8QA1e3EDhE4WU5062aZOqy2Y06K2RvUBn
- KmfqEEidu39fja3Jhg+ytg16lbJRels1wMWhwKltsEPjwT/TgT/z2D/gz4e/01JkvLZ9
- aVEieHrKVfZL20uYj5KBNhO+KzlzdoBR0xF3dSYngnc6dMtktH6O0H4bmO0LFNmF+s5Z
- DJqJF2kyg3Jv67qehoNor13Q/jYPLrRhLWnCKANFkltJEFtLRpP3VcHzaEXoQF6VV6Ph
- TSVZQkOWMh18BFmNHm66+Wm8XlkgeFraVnkxBDTLfeFhYH4OwA7S2IborShtNj+jFwjH
- ULwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793379528; x=1793984328;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ d=gmail.com; s=20260707; t=1793575914; x=1794180714; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:mime-version:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=puKOIvaW71S4PGASNevTK0iC6FA0A428gnXHwfGAl+Y=;
- b=zDVkrVs3JNUMjebUOMjgKIO1s1KDDEkc/jZGpmLKRoKZ3CD7jMzNGSttQlD7HBYVBl
- 4zy6GxPK+2E117RqcvPhUvLqQiU2lJGYDdX13O7xS1oJNe7m0H3XILMedZdCl2VpK0Lu
- 9MC1dGwqcbCeCVw7eF1NABMzon6jv9hnkWzvLG8/DF8mbhohq1f+JmpPh406UuieJYOl
- fPOYCRF0HDniCrXYCgCqjMu7aNdxSCIQwyH52fNCgiOLAEG8mfmEYQF2wUayq1B1GU64
- Meb4NZAIdXDW8Iza4oCWLDO2bUY397wKTxX5dJgej16UEntNKjg5zhLXvzqoche+7Td5
- OBgw==
-X-Gm-Message-State: AFq9FYJ5TPy3doEwHVpqYoMYGyirbIatHNLLhx4ykxwSNV2acVxprsPM
- 0dRS6t7KxUD2DMtlfbJ1X5ElxYt3UwukVWFUfdvbwggEcqBOfmcZ84RdvC0Ifr92EQSC/w==
-X-Gm-Gg: AYBFou1klYTzb+zXDWpf9RYpBV7xGUS9tYT+ZQYQ8IsMH6fKrrrVlIE9beD45X7ic1C
- Vfclq5PkMXuvxNoKuDmic4N3uLduuCQzCy3IiC1PfdE/js3uqn3N7ocJhjVCFSDU0jo40CUjmYM
- faRSqtDcJeb/983Fv4xTvY9JbAG+Gibw68hJxNx3/lQUR//aZ36KRDxDr7RZ3pPYyjPVWUsDI+t
- jWsfAi7takywrxBJKS0sQyq+xqb7w2nE2EzTFlLiT4JIOnPxl4tKAw6UngX+33Hyia+DkzSi2kX
- DyD0iPdH5E3eJmD82olU385abYfdD8WROHxJBU2iQ5sdod98wsIc5Bl0ig705I++w7TNngIHhtC
- uUMBiWy3DSGAK9K0M7Ev4W9E9lTu3ILn+CURxeKdEW68w8xEkWCARw2Ff+ZF6n3IYQxPY9etCYv
- IKg4EceUzA/TZ2149lCnsdHEAjiTmOkHd9eHFzmcz29x056z1txCx7LPmQ//tXFLrCP/bvK1p2G
- ICm4KiboiNnrkPdpi2+pmzRdtpZlfA39bp7C/JviYmXfSK6OJr3KcThWVLYQjt80wLL+oA6kMkr
- QuIGn265Atmdx1vclqURJ7Us4NNpm9WNHIpHRLS4sQj16nfMV2UMJxKwVpJVoOKmzSIXADLAAwx
- v+h69oCMnYK6iOzOy/Uuh60g=
-X-Received: by 2002:a5d:64e4:0:b0:48d:fbf4:8961 with SMTP id
- ffacd0b85a97d-48e7377d134mr4069494f8f.23.1793379527518; 
- Fri, 30 Oct 2026 09:58:47 -0700 (PDT)
-Received: from tvab-pc (v2202507270734364850.supersrv.de. [152.53.198.198])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48e71ba24f6sm4033465f8f.51.2026.10.30.09.58.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 30 Oct 2026 09:58:46 -0700 (PDT)
-From: Ilya Shidlovskiy <shidlovskiyilya@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: Ilya Shidlovskiy <shidlovskiyilya@gmail.com>,
- Kenneth Feng <kenneth.feng@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, Kevin Wang <kevin.wang@amd.com>
-Subject: [PATCH v3 0/3] drm/amd: fix DCN3.2 flicker/hangs after OD_MCLK (VRAM
- overclock)
-Date: Fri, 30 Oct 2026 19:58:35 +0300
-Message-ID: <20261030165838.248622-1-shidlovskiyilya@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <CADnq5_Pv0wkPx9AzooUf=dyWgQuneMc6K9-qcT6PW53Gg4L5rg@mail.gmail.com>
-References: <CADnq5_Pv0wkPx9AzooUf=dyWgQuneMc6K9-qcT6PW53Gg4L5rg@mail.gmail.com>
+ bh=O2dW7ANLcbwksfoB36b2BZaSwVJZbGyuN6/j0lvaHEA=;
+ b=jcGFSo3n2t+KEJVvYIn5IGXa3LWNnKCB6QMQ6QlbvkbRsLayfWk3jPiGIpk1vlVtpF
+ 1sUgh8L3R7Gr5iidMWb4G7XG5rYxgjhEjENs7K011hZkyPEYKz3u9nm4m95vPaF00lrT
+ /exVCs+WvsFX+VK4/cyYOD7K74KRZdbTpStboI/yTXx3TlcC1iq8cKBsQPisdObveJVm
+ DlOzVjJzOqC9zhFW/3fP0DGHfc9pN3jm6Mk2+KQmru9PoCGH2rq0RCXa6xcSCF6rKTdd
+ 5xFrngMgDHItnPzKLkxdRhQP6ABJ05YWyGyjvP8zNjmc2VeRA20ljglsAOWHXcN4D7LP
+ 2tTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793575914; x=1794180714;
+ h=content-type:cc:to:subject:message-id:date:from:mime-version
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=O2dW7ANLcbwksfoB36b2BZaSwVJZbGyuN6/j0lvaHEA=;
+ b=uromXZqNN0ZgEHlr+cbdMBYslw7zL1AwoCjZXe+1Dol8NaGFRslMdaZWKnROzRgw5Z
+ PBewBW9HU1g/EuVgh+qZqb1D5qOpiFci8sDoCqybPIjWTadfXc5OuZ14M3fjn2qwt6hm
+ lg2YARpI1KQAbk6ZrwoF8vptQFnNzcSHWdkf0XMsbSxG8lzQZFKCPTW9K1v06+gIu+L2
+ GrEXq8N3iVh3lCmm/JSjmlAEGAKHlVOVZVSVii78KsBSy4p5WwUs5qT7u2EygZ9OKwvd
+ cHi5VADRjLtezkfmE9sxN4oTm3EhvnfrCXwRI0LravwAZMSPWiGxsR/3uzMdeOrcEat6
+ Yc2A==
+X-Gm-Message-State: APuU4Z+Lplz2T28x0gwOGXdvtFtw5Lbudb3Ky59oeEZrNAnYLrwbU6o8
+ pzN4M/XqDXXXtwE27HEG8LjES4KkD2wj2MZ+QAwQH5R0UPDdYnQxOTOBiQxLq/m6vMtMP3AnYmt
+ /9aNBBCs5AgWp5Yr3BiiTHGxNPWvuoaI=
+X-Gm-Gg: AYBFou1vIYpBMtlbRJWfBOYO6eqlSq3+5Eibg+hwwFww6TM6f/2Pb0U6/dvzR3OU0TX
+ 8xzDIb9xeZfm3ldYgBh1K9eI8xtgiPWwdAG+PBp8PUo2FSDim6Fiv3PaQiXlUE2lyndbQpKI/R8
+ 9ILUUSn8R0Kp+p8ldgUUbOhRlPsFEuwOQDHwVoPSitQxYewWicufidxhaep0Qz2VtddnzKewsDe
+ i6IuJqib3qhJFF9/2Wp6z3lXv6wh/0IILVFB6ruThueAUkHCzWUkx7G6yDP0OURdBmC/jU66l89
+ lkjlXXfClBelj9h224qJN1od1SEU6lgV/wEl3EHbtaB/xBmYRmIeoTCb1pjxTqLaVB3Wem5ueel
+ qjqrP6NA0f6mrHMZU4Ii6ZO5uBQ0FQvzwsEacSvP2cG/j9msKPRlA10+sCeoddA==
+X-Received: by 2002:adf:e001:0:10b0:48d:f470:6b3e with SMTP id
+ ffacd0b85a97d-48e6e30722amr14512940f8f.13.1793575914027; Sun, 01 Nov 2026
+ 15:31:54 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: Arnaud BERTRAND <arnaud078@gmail.com>
+Date: Mon, 2 Nov 2026 00:31:42 +0100
+X-Gm-Features: AclHuK_KIdBX_UwH_WtDT3ovTG1iRA6ym5LzcTwWz_yv77CTIDTVYQQiG5byNdY
+Message-ID: <CAGxFSwnJYc03fN+XWU8oLW9EbXhmetQuj1s3-m8UdZHoBdGJ8Q@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amd/amdgpu: add firmware file fallback for APU
+ VBIOS discovery
+To: Mario Limonciello <mario.limonciello@amd.com>,
+ Alex Deucher <alexdeucher@gmail.com>, Oz Tiram <oz@shift-computing.de>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: multipart/alternative; boundary="0000000000003bbed7065f3f6f61"
 X-Mailman-Approved-At: Mon, 02 Nov 2026 08:06:53 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,106 +95,52 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-9.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=1.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FORGED_GMAIL_RCVD,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
 	autolearn_force=no version=4.0.1
+X-Spam-Level: *
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On DCN3.2 (Navi31, RX 7900 GRE here), raising the UCLK max through
-OD_MCLK makes the display flicker (full-width stripes) and eventually hang
-the whole system, if the current mode does not allow memory P-state
-switching. DC reads the UCLK DPM levels from PMFW only in init_hw, so after
-the OD commit it keeps asking for the old top level as UCLK hard min
-("set UCLK min = max"). That is no longer the top level, so PMFW switches
-UCLK outside of vblank.
+--0000000000003bbed7065f3f6f61
+Content-Type: text/plain; charset="UTF-8"
 
-The series makes DC re-read the UCLK levels (bounding box and WM ranges
-included) after an OD commit/restore that changed UCLK, and on resume after
-the user OD settings are restored. It also refreshes the SMU driver's UCLK
-DPM table, so pp_dpm_mclk shows the real levels.
+Hi Mario, Alex,
 
-Bug report and review of v1: https://gitlab.freedesktop.org/drm/amd/-/issues/6009
-(v1 was posted there as a comment, not to the list.)
+I have two dGPUs : a Radeon RX 6800
+XT and a Radeon RX 6800. They both report the same PCI identity
+1002:73bf and each has a different VBIOS.
+I hit the same VFCT bus-number mismatch on 7.2.10, but with a different
+outcome: on my machine the device-identity fallback actively breaks the
+second
+dGPU.
+I patched my kernel to remove the fallback, but I would like to have a
+better solution for my use case.
+Would it be possible to apply the patch only to APUs ? That would keep Oz's
+APU case working but a dGPU with a stale bus number would fall through to
+its own ROM, which is the source that is
+guaranteed to match the card in the slot.
+I can provide more details if needed, I am out of my depth here.
+Thanks
+Arnaud
 
-Changes in v3:
-- Rebased on top of Kevin Wang's "preserve committed OD features" patches
-  for SMU 13.0.0/13.0.7 and 14.0.2. v2 was based on an older
-  amd-staging-drm-next that did not have them yet, so it did not apply;
-  sorry about the wrong confirmation earlier. Only patch 2/3 needed a
-  conflict resolution: the UCLK check now uses Kevin's next_mask, with the
-  same logic as before (details in the patch notes). Kenneth, please
-  double-check that your Reviewed-by still holds for it.
-- Added Kenneth's Reviewed-by.
+--0000000000003bbed7065f3f6f61
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Changes in v2:
-- Only act when the user has customized UCLK (user_od_feature_mask &
-  PP_OD_FEATURE_UCLK_BIT), instead of on every OD commit (Kenneth).
-  PP_OD_FEATURE_UCLK_BIT is ASIC specific, so the check is done in the
-  smu13.0.0 code, which sets a flag that the generic code reads.
-- The SMU patch now comes before the DC patch, which depends on it.
-- Rebased on amd-staging-drm-next.
-- Added Leo's ack for the display parts.
+<div dir=3D"ltr"><div>Hi Mario, Alex,</div><div><br></div><div></div><div>I=
+ have two dGPUs : a Radeon RX 6800</div>XT and a Radeon RX 6800. They both =
+report the same PCI identity<br><div>1002:73bf and each has a different VBI=
+OS.</div>I hit the same VFCT bus-number mismatch on 7.2.10, but with a diff=
+erent<br>outcome: on my machine the device-identity fallback actively break=
+s the second<div>dGPU.=C2=A0</div><div>I patched my kernel to remove the fa=
+llback, but I would like to have a better solution for my use case.</div><d=
+iv>Would it be possible to apply the patch only to APUs ?=C2=A0That would k=
+eep Oz&#39;s APU case working but a dGPU with a stale bus number would fall=
+ through to its own ROM, which is the source that is<br>guaranteed to match=
+ the card in the slot.=C2=A0</div><div>I can provide more details if needed=
+, I am out of my depth here.</div><div>Thanks</div><div>Arnaud</div></div>
 
-Testing:
-v3 is build-tested (W=1, no new warnings) against amd-staging-drm-next
-ba496bb83, which includes Kevin's patches. The hardware test is on
-an equivalent backport to the Ubuntu 7.3.0-9 kernel (same code, plus a
-small local backport of the user_od_feature_mask tracking, which Ubuntu
-7.3 does not have yet).
-
-Hardware: RX 7900 GRE (Navi31, SMU 13.0.0), 5120x1440@144 (DSC, ODM 4:1)
-+ 2560x1440@100, UCLK OD max 1124 -> 1300 MHz, toggled via LACT.
-
-v1 results:
-- On OD commit, DC logs the new max UCLK (1300 MHz). pp_dpm_mclk shows
-  1300 as the top level, and the current level stays at 1300 (20/20
-  samples, no drops to 772).
-- About 4 minutes of heavy window switching on the 5120x1440@144 output:
-  no stripes, no hang, no amdgpu errors.
-- 3 OC on/off toggles: one short flash exactly at the switch (memory
-  retraining during scanout, expected), then clean.
-- Same scenario with the stock module: stripes, then a full system hang.
-
-v2 results:
-v2 hardware test (same RX 7900 GRE, 5120x1440@144 + 2560x1440@100; v2 backported
-to the Ubuntu 7.3.0-9 amdgpu, LACT applying power cap / voltage offset at boot):
-- boot and login with stock VRAM: no "DC memclk states refreshed" at all, so
-  non-UCLK OD commits (power cap, voltage offset) no longer touch DC; the
-  short login flash seen with v1 is gone;
-- VRAM OC on (OD_MCLK 1300): exactly one refresh, "max UCLK 1300 MHz";
-  pp_dpm_mclk top level 1300 and current level 1300 (12/12 samples);
-- VRAM OC off: exactly one refresh, "max UCLK 1124 MHz";
-- desktop stays clean, no stripes, no hangs.
-
-Known limitations (unchanged from v1):
-- The OD commit itself still happens during scanout, hence the single
-  flash at the switch.
-- Only DCN3.2/SMU 13.0.0 is handled. Other ASICs with OD_MCLK probably
-  need the same hook in their ppt code.
-
-Ilya Shidlovskiy (3):
-  drm/amd/display: dcn32: rebuild WM range table when memclk states
-    change
-  drm/amd/pm: smu13.0.0: refresh the UCLK DPM table after an OD_MCLK
-    change
-  drm/amd: let DC re-read UCLK DPM levels after an OD_MCLK change
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 33 +++++++++++++++++++
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  6 ++++
- .../display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c  |  8 ++---
- drivers/gpu/drm/amd/display/dc/core/dc.c      | 21 ++++++++++++
- drivers/gpu/drm/amd/display/dc/dc.h           |  2 ++
- drivers/gpu/drm/amd/pm/amdgpu_dpm.c           |  7 ++++
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 19 +++++++++++
- drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  3 ++
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  | 30 +++++++++++++++++
- 9 files changed, 125 insertions(+), 4 deletions(-)
-
-
-base-commit: ba496bb837882eb1af58f41572fc289e46c77b8c
--- 
-2.55.0
-
+--0000000000003bbed7065f3f6f61--
