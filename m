@@ -2,46 +2,75 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C48CA606A326
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 08:06:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CAAE606A324
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 08:07:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=cwooper.dev header.i=@cwooper.dev header.a=rsa-sha256 header.s=key1 header.b=vpG1Wqh1
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=V9fCngnA
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9CAE10E5C7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E57CD10E5A2;
 	Mon,  2 Nov 2026 08:06:53 +0000 (UTC)
-Received: from mta0.migadu.com (out-226.mta0.migadu.com [91.218.175.226])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 42B6E10E079
- for <amd-gfx@lists.freedesktop.org>; Sat, 31 Oct 2026 04:25:06 +0000 (UTC)
-X-Envelope-To: amd-gfx@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=W3RYCzdyOzDqvLgu9ozi/BTEzVvjp21rlibNduXqxDM=; 
- c=simple/simple; d=cwooper.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793420704; v=1; x=1794025504;
- b=vpG1Wqh1N27uurFMROnHvsUJU3KT2KzZKzfJZ3TTpo7H/z+Kf3h9mm2ibidcdWZmrHiR0bP4
- LtTgch/bPVFn3YGJ74tNVZcJigRsoHR2U7rqtRz8Z6DWIoNUeKfLcOdEYhCE3Qa3hLERrlu/S6s
- ATT3d8bJ/2sAvdGWxxoz9rcALBuDFYCa6kJYCj7R8vcxBSmfjVpJdzWJKBAaFpXTCcPgCEa/ucb
- vioxsxNSn0d/4P7HXKW9HhbMs/hM8MamSFeNzFcrN/YpJ4snSuVtTCla4K54YjsiWvAsL7YhbKX
- MVz2zMpT6AlrMXvWTBhoFL0ynQ/MsYlJGUERtQ9ax1+9Q==
-X-Envelope-To: amd-gfx@lists.freedesktop.org
-Received: by smtp.migadu.com with ESMTPS id d31f048f24ec9d98;
- Sat, 31 Oct 2026 04:19:00 +0000
-X-Mizu-Trace-ID: d31f048f24ec9d98
-X-Migadu-Flow: FLOW_OUT
-From: Cooper Morgan <ext-github@cwooper.dev>
-To: amd-gfx@lists.freedesktop.org
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] drm/amd/display: Saturate refresh rates in v1/v2 FreeSync
- infopackets
-Date: Fri, 30 Oct 2026 21:18:25 -0700
-Message-ID: <20261031041827.162730-2-ext-github@cwooper.dev>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261031041827.162730-1-ext-github@cwooper.dev>
-References: <20261031041827.162730-1-ext-github@cwooper.dev>
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07BD210E24A
+ for <amd-gfx@lists.freedesktop.org>; Sun,  1 Nov 2026 10:48:01 +0000 (UTC)
+Received: by mail-dl1-f52.google.com with SMTP id
+ a92af1059eb24-1931ff67a29so3163363c88.1
+ for <amd-gfx@lists.freedesktop.org>; Sun, 01 Nov 2026 02:48:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793530081; x=1794134881; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=+aTVbnkfZYsolInJM1P7mrXF8suFhh3kNR1fi3nP4Y4=;
+ b=V9fCngnAc65y3frsLHzQNOv++hRbeksVJcw8cGUPdI00cgSBcBT1RUVvbPa4htqBhk
+ QyulD/Dn+vSEp7TU4GrVeuO/PdKCfWWLarMFDRc8AKjp94bvSa13lvuBQ91wSSny3mMB
+ IIMcucoR2uiXUs5joElraGMRVqn8AjQFo5stDRr1Wc0XUBcRVKbIbEqKTH70roZHCCoe
+ +CL7X+yS4VolzaNUvljI2eIUbl11sosFOll3pUbHbcJrHpdF6H49gq4qSt9Ucytst4iq
+ /jGMPu4NsGwyAMyIbSSG8s67U40jL2OMPj2IGHi9/JSJWahX//9uh8WL8EPjTOts5BfQ
+ mOfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793530081; x=1794134881;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=+aTVbnkfZYsolInJM1P7mrXF8suFhh3kNR1fi3nP4Y4=;
+ b=gkbJpsNJMcL0i8LcjOns9Bz3tBQNqnRFEt2Eb5u4FvA4xxY8JqRB1fqkRZszfP8WHX
+ VRIpKEoRrnxzI4o2o3LaY99XaUWp2YRoaFkJvPKnZ4qgo57Xpb3J5krkgZK5yBi4wbJ4
+ bmf+FCIRr7STYZ1HnUM9AMfAHDkyHDIz4FeoDUuqgxDHOZ9dycEYceSD2bTlC4Z1CSha
+ f7Sm2JB7Ix26zr9ZqRq4QX/85bzLvNjmr0AsPBYLnCH8qmywSFaPSqeI0XolaeKECh1T
+ f1M+m0S6E5CqupwwD+HoaOsFJoZiEsDpN/rYu3Vpav7k/B2uSvfZyNOFEdomXKThIZiD
+ djYw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByTDR+BTFah7V+a/BMNjM2ASjKT63f6xTe3P8qZKsmRebGkm62PjkI691UdQtuqOcW3kyd3COYa@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJ9utQc38X0zcWoKUGV1h4mmqM+gFN9/RLniOo9I8ibtJxiG3Kv
+ QbYRGhsxqRzoyCXuCY/OQpUcamI4qnS4cb5Y1MVou+rZVe5/HW3QwQ54
+X-Gm-Gg: AYBFou2zDhJi4Wp75aYnzrwXQvhB42aOinNXql8x1sKzQq7qWgpYzvjEd4Sxkjes2d1
+ 5PNhIIvVQEFs3joSLS/rA2orLJSfOK1/64UBvqKL68tAnM8xzgCOQ45MJGersnopkiJ/LYtvMxU
+ OTtBbd6nplW/9uaLmtIkKnD7yz3xlSjOR/NBQB+6tI72KngxTAEiumAlObydrSdPcijlWI3nbNa
+ 0H9yBWJjND4wsRp+N/IhA9Ig+D/T/ZWiVmyzD33dUB0PHHPpjYNTZqFxYFneC/f0SJkeL0Z5xSg
+ 0hJJyzi/+AvFpEEVRTA7bgPF9HRHAiEIWb4XoNvTtKuA1L+s3Ej0FrgSzWr8O1E2Dt5535OxL/7
+ SUVxUg76QszUVwq0SiqZQj7Nxnb39Nx4/9G41tAw5D2YTbbmQJH97jowiLN/bNPDUTYbE262XYK
+ pjWSjpwaXz4V3zw81sQ0Lr/JkeyV3L0QwWIPLwcXRAJJJ/sMxQzqiXnn5DxNs6fzsI/iAsBeKWn
+ GyWEhd/LZAttoNw1eZdk/MoJCAYgj60wV+RgUPp7qiqcMuablITifL7C9KcvptqIS7IAfZ20AHO
+ IaBsnHXvnowD8AlMR+0A91xvcmjm
+X-Received: by 2002:a05:701b:2050:10b0:152:92c6:8b58 with SMTP id
+ a92af1059eb24-1ac5c555078mr11436993c88.35.1793530080785; 
+ Sun, 01 Nov 2026 02:48:00 -0800 (PST)
+Received: from ubuntu.. ([2405:201:8026:213e:e7f6:4b7d:197f:48c0])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-1ac19c6b969sm23334554c88.14.2026.11.01.02.47.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 01 Nov 2026 02:48:00 -0800 (PST)
+From: mdshahid03@gmail.com
+To: austin.zheng@amd.com,
+	jun.lei@amd.com
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Mohammad Shahid <mdshahid03@gmail.com>
+Subject: [PATCH] drm/amd/display: fix USR retraining support check
+Date: Sun,  1 Nov 2026 16:17:27 +0530
+Message-ID: <20261101104727.141852-1-mdshahid03@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -56,150 +85,43 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The v1 and v2 FreeSync infopackets carry the minimum and maximum
-refresh rate in one byte each, and build_vrr_infopacket_data_v1() casts
-the rate in Hz to unsigned char. On a sink whose range goes above
-255 Hz the value wraps: a 320 Hz mode is advertised as a 64 Hz maximum.
+From: Mohammad Shahid <mdshahid03@gmail.com>
 
-Sinks that treat the field as authoritative misbehave once the wrapped
-value lands inside their range. An MSI MAG 271QPX32 (48-320 Hz) over
-native DP looks like a ~720p image upscaled to the full screen at 320 Hz
-and runs its self-test pattern at 305-315 Hz, while 300 Hz (wrapping to
-44 Hz, below its minimum) is fine. Capping the EDID range at 255 Hz, so
-the packet says 255, gives a correct picture at 320 Hz.
+The USR retraining support check tests the address of
+USRRetrainingSupport[j] instead of its Boolean value.
 
-Saturate the fields at 255 Hz instead of wrapping.
+Since the address of the array element is non-NULL,the
+condition can always true, even when USR retraining is
+required but not supported.
 
-Capping v1 at 255 as a fallback was suggested by oystersuki in the linked
-issue.
+This issue is reported by script test_addr.cocci.
 
-Fixes: 98e6436d3af5 ("drm/amd/display: Refactor FreeSync module")
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5988
-Cc: stable@vger.kernel.org
-Signed-off-by: Cooper Morgan <ext-github@cwooper.dev>
+Signed-off-by: Mohammad Shahid <mdshahid03@gmail.com>
 ---
- .../amdgpu_dm/tests/amdgpu_dm_freesync_test.c | 57 +++++++++++++++++++
- .../amd/display/modules/freesync/freesync.c   | 12 +++-
- 2 files changed, 66 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dml2_0/display_mode_util.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_freesync_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_freesync_test.c
-index 710cdc7f4..b603516e2 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_freesync_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_freesync_test.c
-@@ -664,6 +664,62 @@ static void dm_test_update_freesync_state_pcon_default(struct kunit *test)
- 	dm_test_update_freesync_state_pcon_version(test, 0);
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/display_mode_util.c b/drivers/gpu/drm/amd/display/dc/dml2_0/display_mode_util.c
+index a8519f547dce..74cb65687a50 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/display_mode_util.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/display_mode_util.c
+@@ -412,7 +412,7 @@ void dml_print_mode_support(struct display_mode_lib_st *mode_lib, dml_uint_t j)
+ 	dml_print("DML: MODE SUPPORT:     Host VM or Immediate Flip Supported        : %s\n", ((mode_lib->ms.cache_display_cfg.plane.HostVMEnable == false && !mode_lib->scratch.dml_core_mode_support_locals.ImmediateFlipRequiredFinal) || mode_lib->ms.support.ImmediateFlipSupportedForState[j]) ? "Supported" : "NOT Supported");
+ 	dml_print("DML: MODE SUPPORT:     dram clock change support                  : %s\n", mode_lib->scratch.dml_core_mode_support_locals.dram_clock_change_support == true ? "Supported" : "NOT Supported");
+ 	dml_print("DML: MODE SUPPORT:     f_clock change support                     : %s\n", mode_lib->scratch.dml_core_mode_support_locals.f_clock_change_support == true ? "Supported" : "NOT Supported");
+-	dml_print("DML: MODE SUPPORT:     USR Retraining Support                     : %s\n", (!mode_lib->ms.policy.USRRetrainingRequiredFinal || &mode_lib->ms.support.USRRetrainingSupport[j]) ? "Supported" : "NOT Supported");
++	dml_print("DML: MODE SUPPORT:     USR Retraining Support                     : %s\n", (!mode_lib->ms.policy.USRRetrainingRequiredFinal || mode_lib->ms.support.USRRetrainingSupport[j]) ? "Supported" : "NOT Supported");
+ 	dml_print("DML: MODE SUPPORT: ===============================================\n");
  }
  
-+/*
-+ * Build the VRR infopacket for a non-PCON, non-Replay sink with VRR inactive
-+ * over 48Hz to @mode_hz, the max that mod_freesync_build_vrr_params() clamps
-+ * to the mode's rate.
-+ */
-+static struct dc_info_packet
-+dm_test_freesync_packet(struct kunit *test, enum signal_type signal,
-+			u8 vsdb_version, int sink_max_hz, int mode_hz)
-+{
-+	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
-+	struct dc_link *link = dm_kunit_alloc_link(test);
-+	struct dc_stream_state *stream = dm_kunit_alloc_stream(test, link);
-+	struct amdgpu_dm_connector *aconnector;
-+	struct mod_vrr_params *vrr;
-+	struct amdgpu_crtc *acrtc;
-+	struct dm_crtc_state crtc_state = { 0 };
-+
-+	acrtc = kunit_kzalloc(test, sizeof(*acrtc), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, acrtc);
-+	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, aconnector);
-+	crtc_state.base.crtc = &acrtc->base;
-+	stream->timing.h_total = 2200;
-+	stream->timing.v_total = 1125;
-+	stream->signal = signal;
-+	stream->dm_stream_context = aconnector;
-+	aconnector->vsdb_info.amd_vsdb_version = vsdb_version;
-+	aconnector->max_vfreq = sink_max_hz;
-+	vrr = &acrtc->dm_irq_params.vrr_params;
-+	vrr->send_info_frame = true;
-+	vrr->state = VRR_STATE_INACTIVE;
-+	vrr->min_refresh_in_uhz = 48000000;
-+	vrr->max_refresh_in_uhz = mode_hz * 1000000;
-+	adev->dm.adev = adev;
-+
-+	amdgpu_dm_update_freesync_state_on_stream(&adev->dm, &crtc_state, stream, NULL, 0);
-+
-+	return crtc_state.vrr_infopacket;
-+}
-+
-+/**
-+ * dm_test_update_freesync_state_dp_v2_saturates - Test v1 saturates above 255Hz
-+ * @test: The KUnit test context
-+ *
-+ * A VSDB v2 sink keeps the v1 packet, which cannot carry 320Hz.
-+ */
-+static void dm_test_update_freesync_state_dp_v2_saturates(struct kunit *test)
-+{
-+	struct dc_info_packet p =
-+		dm_test_freesync_packet(test, SIGNAL_TYPE_DISPLAY_PORT, 2, 320, 320);
-+
-+	KUNIT_EXPECT_EQ(test, p.hb3, 0x04);
-+	KUNIT_EXPECT_EQ(test, p.sb[7], 255);
-+	KUNIT_EXPECT_EQ(test, p.sb[8], 255);
-+}
-+
- /* Tests for amdgpu_dm_update_stream_irq_parameters() */
- 
- /**
-@@ -900,6 +956,7 @@ static struct kunit_case amdgpu_dm_freesync_tests[] = {
- 	KUNIT_CASE(dm_test_update_freesync_state_pcon_v2),
- 	KUNIT_CASE(dm_test_update_freesync_state_pcon_v3),
- 	KUNIT_CASE(dm_test_update_freesync_state_pcon_default),
-+	KUNIT_CASE(dm_test_update_freesync_state_dp_v2_saturates),
- 	/* amdgpu_dm_update_stream_irq_parameters */
- 	KUNIT_CASE(dm_test_update_stream_irq_parameters_no_stream),
- 	KUNIT_CASE(dm_test_update_stream_irq_parameters_invalid_timing),
-diff --git a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-index 4bd060e30..af7054668 100644
---- a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-+++ b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-@@ -571,6 +571,12 @@ static bool vrr_settings_require_update(struct core_freesync *core_freesync,
- 	return false;
- }
- 
-+/* v1/v2 packets hold each rate in one byte; saturate instead of wrapping. */
-+static unsigned char vrr_refresh_hz_u8(unsigned int refresh_in_uhz)
-+{
-+	return min((refresh_in_uhz + 500000) / 1000000, 255U);
-+}
-+
- static void build_vrr_infopacket_data_v1(const struct mod_vrr_params *vrr,
- 		struct dc_info_packet *infopacket,
- 		bool freesync_on_desktop)
-@@ -614,15 +620,15 @@ static void build_vrr_infopacket_data_v1(const struct mod_vrr_params *vrr,
- 	/* PB7 = FreeSync Minimum refresh rate (Hz) */
- 	if (vrr->state == VRR_STATE_ACTIVE_VARIABLE ||
- 			vrr->state == VRR_STATE_ACTIVE_FIXED) {
--		infopacket->sb[7] = (unsigned char)((vrr->min_refresh_in_uhz + 500000) / 1000000);
-+		infopacket->sb[7] = vrr_refresh_hz_u8(vrr->min_refresh_in_uhz);
- 	} else {
--		infopacket->sb[7] = (unsigned char)((vrr->max_refresh_in_uhz + 500000) / 1000000);
-+		infopacket->sb[7] = vrr_refresh_hz_u8(vrr->max_refresh_in_uhz);
- 	}
- 
- 	/* PB8 = FreeSync Maximum refresh rate (Hz)
- 	 * Note: We should never go above the field rate of the mode timing set.
- 	 */
--	infopacket->sb[8] = (unsigned char)((vrr->max_refresh_in_uhz + 500000) / 1000000);
-+	infopacket->sb[8] = vrr_refresh_hz_u8(vrr->max_refresh_in_uhz);
- }
- 
- static void build_vrr_infopacket_data_v3(const struct mod_vrr_params *vrr,
 -- 
-2.56.0
+2.43.0
 
