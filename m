@@ -2,128 +2,125 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EFF5606A909
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 17:04:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 992166083E3F
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 17:41:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=QtXMsVV+
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=op6vrdH8
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B12D10E69B;
-	Mon,  2 Nov 2026 17:04:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 37E7A10E45C;
+	Mon,  2 Nov 2026 17:41:50 +0000 (UTC)
 Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011034.outbound.protection.outlook.com [52.101.52.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4761D10E69B;
- Mon,  2 Nov 2026 17:04:41 +0000 (UTC)
+ (mail-eastusazon11011026.outbound.protection.outlook.com [52.101.52.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FC7610E45C
+ for <amd-gfx@lists.freedesktop.org>; Mon,  2 Nov 2026 17:41:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=x+AfY82zEFdgIJDl1P/o+z/EgQ+l0ypOcAkIlrOSW4Q1kjW43sTS26bq4m0PCEMPGqXBpn/hXZWmCeqZzfXj07ryv6kSWLN85UsyWadbyAt55yEfgbpPMEit2QkNXOiJnfh2zO143ov6H8nHj+kXE+8G/Da/+/rQG6WA0aaTPy9Nl/PVIegOTUnbTajSq+MdID19ugYf+F4ukbv7y/5dGnLoLD764IDGfD0CEezB03o20adqeBgaaj+o2vYLlfDTmk7stcsoaUBO0X8EVzTLUOX11VJIWS48esxREbOifawHDGedvwtGbR/6RLBItIveFjGhMg6vLPm6PfZwW2zNXQ==
+ b=o89t46MFodmrspvq0AlTeV66ivaSaQaLkrdtqNCgD/wZzXGe6IA+RgboR2aTQfhVipTMBrW/HSus4XJkMLeK9GIMohOoaiV3rEuIvvtvryDsq8UmwvAXOgX2W7t8kzOUOWulvCkG53YedrLOGBqGC/WQhghoCSAKCRpRU7EMwDABrHScAQod8rMAaqltt3g1IGjHSbhYj1bQVDv/Y/UUlRwA0OPfBSQkPz8GBXCCGO2FDKKibjOP9K8sQ6S6FQbBLx7vuWI/0qRsZEQluSQMeSBxFw89/cBFElhw0XWHmo4kpwQSRdPB4OVSaWwuMMFXB3NaiYThDHmI7MmnyTRKrA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WLi0+v4ms/cGqT+iPFNpIKjYcjqC5r299hphoblLr5E=;
- b=LIf6lAOVzbLc04Abk243MTimn7rGowC20FNpWdoBX/wJ+ii/Az+r/+gMSPapguUdazPneCSEiuReeuEiM2IV5Ae45FKxYdQ00GPe4CzukZnLkg9sYXznuvNLyUFSPkhZY+pnzIk738kbXhxTfs9lFkpiT5ufyPF5ytgbGqTE9bqnbCg5GSHm31430ok1wKQSjilYqtNQ+D2v1qgJK7g2WYnrBGITf3fgto01gjL8+76LMf2lI7bMM+R7PiviFB7w2U6X3yeu5l5BiRf3qlZqVHAa8o9V8AgaAF8rg7M+k9JdtC6V7OkHKQfdmFWpNtZZK29tgDC/dDChhuwSYgobZA==
+ bh=OHfKVcx6pl8l9W3e8iqPzbRCtwsDCxIKtYMDY2c5JIQ=;
+ b=EJIuXTR682pFbajp2C8AgXuEcuDuR5jVytbKJfvaC5Bn2gdBHYSgJMQpsCvep/DDm2HIzyge3jImBsHb5GJD8a40Qz2f9N5gGnmBV3HzGqt0GIF+IzLcgLrxou42Gp4gRkbBB65Z5CuW6gLX59ZantrDlV9h4rm/pTeKlFZJOqvsiZBdQw1bFKYmX+jwk+j9UL6OUilnyffbPjjgaRyhYqBrN6NAYk+PfJhoTKZwRjqJVWJs0IXGK+KmrUjn9AfYdmvmABTzOG56B72gg3ZMoUmJYaDUhoV9hRvSAoQVdSw/NknIKDFpoCPjSZQevioKnEu8M/vo/eZNkLQyNUvG5A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WLi0+v4ms/cGqT+iPFNpIKjYcjqC5r299hphoblLr5E=;
- b=QtXMsVV+3CXaLDYgKrQu9xe0JPQ7s+nkrUKA7ayC0tjcqRectjxs1SXBm5xPakv0GH4bFr+RfqkDQXl8XpeBikAdKhltTWj9lD/45KOBST3c1rsbgvz17gXaCw9uyek7iVF0aFQwJ3vy294C6QcDUZPXkF8Oef1gpu+SJcN9zV4=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by PH6PR12MB902451.namprd12.prod.outlook.com (2603:10b6:510:3df::21)
+ bh=OHfKVcx6pl8l9W3e8iqPzbRCtwsDCxIKtYMDY2c5JIQ=;
+ b=op6vrdH8TzD4jp8tcfli5ZLxOQyVMmuivXk3lAO0UhSB/FjxttysJyiJBJTC+qdHiL0YG2CdTX3Y5dUfBw25w6kZCxyTxOVskLlcnoP7fMSdOhjb4ehbPt2EAcFOtTYJwY4DsvA6p3GsfgXqN8pUtej9KgxPTxnHsZ9SES7kHJw=
+Received: from SJ1PR12MB6121.namprd12.prod.outlook.com (2603:10b6:a03:45c::6)
+ by IA3PR12MB899783.namprd12.prod.outlook.com (2603:10b6:208:621::11)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 17:04:37 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
- 17:04:37 +0000
-Message-ID: <a7bc59fc-0615-41a8-a4df-eff0d8fab8ab@amd.com>
-Date: Mon, 2 Nov 2026 18:04:32 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/5] drm/amdgpu: add wedge event implementation
-To: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Felix Kuehling <Felix.Kuehling@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20261029152000.22001-1-pierre-eric.pelloux-prayer@amd.com>
- <20261029152000.22001-4-pierre-eric.pelloux-prayer@amd.com>
- <0c8f89c5-b02b-491b-99a5-f881ea82a804@amd.com>
- <5d224d9e-514b-4d24-a272-8bf8c1267116@damsy.net>
+ 2026 17:41:39 +0000
+Received: from SJ1PR12MB6121.namprd12.prod.outlook.com
+ ([fe80::3fd:549f:f30:cd67]) by SJ1PR12MB6121.namprd12.prod.outlook.com
+ ([fe80::3fd:549f:f30:cd67%5]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
+ 17:41:39 +0000
+From: "Xie, Chenglei" <Chenglei.Xie@amd.com>
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Skvortsov, Victor" <Victor.Skvortsov@amd.com>, "Luo, Zhigang"
+ <Zhigang.Luo@amd.com>
+Subject: Re: [PATCH v2 2/2] drm/amdgpu: abort SPM VF init when the HBM
+ aperture is missing
+Thread-Topic: [PATCH v2 2/2] drm/amdgpu: abort SPM VF init when the HBM
+ aperture is missing
+Thread-Index: AQHdZ9BSLA5xcHDK5EWJ/SgTc/U/J7caNtKAgADYwBA=
+Date: Mon, 2 Nov 2026 17:41:39 +0000
+Message-ID: <SJ1PR12MB6121D39D1B80B22A317CD00B806A2@SJ1PR12MB6121.namprd12.prod.outlook.com>
+References: <20261022153132.211631-1-Chenglei.Xie@amd.com>
+ <20261029180652.213481-1-Chenglei.Xie@amd.com>
+ <20261029180652.213481-2-Chenglei.Xie@amd.com>
+ <3a518d91-c6ef-4fbf-8525-5a762d465ccb@amd.com>
+In-Reply-To: <3a518d91-c6ef-4fbf-8525-5a762d465ccb@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <5d224d9e-514b-4d24-a272-8bf8c1267116@damsy.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MN2PR18CA0025.namprd18.prod.outlook.com
- (2603:10b6:208:23c::30) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-11-02T17:41:39.148Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
+ General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=1;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard; 
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SJ1PR12MB6121:EE_|IA3PR12MB899783:EE_
+x-ms-office365-filtering-correlation-id: 5feb1631-6b95-49af-4223-08df39088ce1
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|1800799024|23010399003|376014|261102123227099003|38070700021|261021121427099003|11063799006|5023799004|4143699003|56012099006|261009223027099003|261028144727099003|261022105027099003|261021123027099003|261022075727099003|261026140227099003|261026121527099003|10067099003|18002099003|22082099003|6133799003|8096899003;
+x-microsoft-antispam-message-info: aoZv0ncoCC0SZLq7wSD/6RgvPurkn9a9bJsfhS1rnIzaI6xjWNgLOhy/lIKtYABq3pcH6mS2B7gjP56qFTZYPjuFYJTqCmkUaqZcUMb18SezlQUz2CbbprHIdzbihnTJ8AJQ2Z0gjKHue7EsBHdLMmSqezl2hhJ82GREo1r8yD2nYZMEoyhxzUS3b29cFRGFYVHUOnQQbOTo+y7i0tU5+XvbFHHWtZ7IprFGuDvPiEXq+d/iqbR/1ri2joe44oWRuNe3wN6j4CsJepm1kY7OxSQv6QJ6TdMMIYnymHw2B6KDWyQmjbnOegrJ3yFeCO7h+835NiGH+ILmalxnBvGhw24WsGKxdMy4AixuxDY2oE5u1UY/YcAvuiVeBxnekMYgfk9CkhXqsHh/NSyhx57RvXCbeo1l5vQHKCRyqfxT3ZSb+XftDtal0hzA63/MLKlBnj+7o+pMo8muEjilbYAueDF0p5uYc+m/BYh+b2SLPZFOGsRSq9JS7VayKGMxJ/zyY+vKyhCgHu4kyMo5qkb/QI8b8uYviwddW0TPENVWUJ3aKR0zAKetg3uZzK138UVVT0NKddehEMQik2zTtssFmCzhvncgrWKKedqXdRYjJ2efppRlr1pSZkgr5CrOYzL+WP0zpNLDe1Fz/miF/cvRry/jsdTQRvnlV64Z7Q9h0IpW6ue275gGAWqmMUwtfmENoRqAq5M5StZbu0/+QDwqn/nDXlXWywAh+c8rqFk7ckQ=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ1PR12MB6121.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(261102123227099003)(38070700021)(261021121427099003)(11063799006)(5023799004)(4143699003)(56012099006)(261009223027099003)(261028144727099003)(261022105027099003)(261021123027099003)(261022075727099003)(261026140227099003)(261026121527099003)(10067099003)(18002099003)(22082099003)(6133799003)(8096899003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?tzr3wGd0I0qopR4lZd7RxvhaoHcpVseqtmwl+XB+rF82XGrUxO4VLrw6t332?=
+ =?us-ascii?Q?tyTULNBoQ3a/Wiv6fndG3qmcuuOyz6cAnT7dEzwql9jPACInH9/8iJHI+v62?=
+ =?us-ascii?Q?YAbV90HxoY8eUzrIspc4QKL57Y1zZigvlF3cBl2Kym4odEstATlIKVHI9H+l?=
+ =?us-ascii?Q?wQ3VsykAJYXiU7818mYJILd8FUrUEw5sdSvEbYyE2AfqOwmnbfpkC7d02R0J?=
+ =?us-ascii?Q?SAilFCWlQqhUkKSHrHaXSyd3if59iX63YCHgEvUAq701mtrfXzotnh/RK4tS?=
+ =?us-ascii?Q?zXVUbhjoZGiPyNlP8PKEKBSQfZ9/RWRGg/yyrMRadOQEg/YyokHZeF/tIj85?=
+ =?us-ascii?Q?08TzriwLcwc4DYuaHiQgChZbKHLPImuFDYDVHtCd3GLjlCeWmyvVB9n2Usjk?=
+ =?us-ascii?Q?uKZW2aGwc1LDcLR+hhMm6n4WVSrGgvvmD1FAQUyHfDEdC5Kamx1bsiKbFWi9?=
+ =?us-ascii?Q?IxstImAPA1vpN741WRzbTQwynJx0ovOpUFR0FLDmFwXSnodOaJqmgh4xEFN4?=
+ =?us-ascii?Q?sGhkXJNfs04UcMci85d7ZDSwblrOeTFBmSSz0NfdFEFdmilyUpwGePfiHPE5?=
+ =?us-ascii?Q?pOjpH5g35POcJ793006z7sas1S6tyzp1TqXLXarwvyJ4f8UK/SRWjqCgxuDz?=
+ =?us-ascii?Q?JN4KAMJ6BFSRrY/UW8kLVNwJpBfDSqlhDSjPKWaPTOnfu2HYrBEw4OS8329l?=
+ =?us-ascii?Q?mFEN2I3V1DxCW0FO1So/mpUuXJ1/alrOKInhKc6dcKhRzpINs86fqQ7pNH4a?=
+ =?us-ascii?Q?OumBbUvj0hLV4303unbhplsmIFEnW1eXLeCOEZ7sufyi3f/YmSPrCj7KVKFo?=
+ =?us-ascii?Q?6pk0TZ18r19JMrIR4nXjQZynRthAWLi5Q2Mcq4CWhxVQSmtH0b+pQPbISQX9?=
+ =?us-ascii?Q?keU6dBjsyC0Hw9oEvGLskCRXSRtjguEJKSXG3CLIxuzw25Btj0c9USr1+wNd?=
+ =?us-ascii?Q?riYh4QJefS1iWoRoxwh+EwttaQhfsYj/Xw93cua/NgIoYjMhsk78gMUYAivA?=
+ =?us-ascii?Q?WVJ36PgXx3iiNF45kf1M9I5CjZ1beIipVE65rdd4tgUA45JzGh3M0lgsjG8C?=
+ =?us-ascii?Q?/9zTTIZWW3husA16gADq9RSFKKSW4lXnjokLmxyXoqJp3uLsS72zMhniRzXZ?=
+ =?us-ascii?Q?trKOAQY5eGKJfn8O51Hi3BHDKExd60So5JgDgnLHYdxsjfyP3zdp5PD1x7ny?=
+ =?us-ascii?Q?BcJ90DRzdKcIKAzeHEaR7bExgyviMFf4qh8SVTiK/BKSjLapdPxfE9Te8uAj?=
+ =?us-ascii?Q?HQHPTE55G7l25PUOSJvvwkpNcroYDG3Y/Aqto+Ux7RmrvuMj7GC/NFdaUelQ?=
+ =?us-ascii?Q?pFTcgYPTpCYcDrhQqR6cBWBy+OwLFlRbBc0NmeNlQQ4uWE0QV4Cdzvm2Vm/+?=
+ =?us-ascii?Q?xsL3ZNzmOaHC3QP2axjQh5tNikz8uJsffg5An2KAWnHcHvDFZPx67udJuEAG?=
+ =?us-ascii?Q?cqmgkGjHJvGo9zrfvFndup/t5x1geem9/+Dop3rKDuOQzaSfUlw2cDgrk+SJ?=
+ =?us-ascii?Q?800NwcB+tYQQZKj1VnQIla7prM/WIg5ytxleqDosZNiWfkDtlmwNDaCisy6J?=
+ =?us-ascii?Q?69pjBFRmwNHNY4JaSl6fdA50ZrLHLGmzUu+vFLRb18l8/0rzgJHujAjh32GK?=
+ =?us-ascii?Q?RMOERzR7H9QJU+CXTdN1ljyv+YZiz3BkLofbBUthsAfvF6jACkGtEvVfdIsR?=
+ =?us-ascii?Q?LicPmcwLN3jaF1Si3FZ2ai3SnKkrnPfeUlYWFgr2xUOqaUhQ?=
+Content-Type: multipart/alternative;
+ boundary="_000_SJ1PR12MB6121D39D1B80B22A317CD00B806A2SJ1PR12MB6121namp_"
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH6PR12MB902451:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0cbaa82d-da41-4c5d-a5a6-08df39036004
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|23010399003|6133799003|10067099003|22082099003|18002099003|261102123227099003|56012099006|11063799006|4143699003|261021123027099003|261021121427099003|261022075727099003|261009221227099003|261026140227099003|261022105027099003|261026121527099003|261009223027099003|261028144727099003|260925021311599003|260925021911599003|260925022911599003;
-X-Microsoft-Antispam-Message-Info: lKnbYqnqROv0C0ZvM51KdCgC4HbKdWOhD69yguRhF1VFKHZv4KEQ9u6wHJyp+muGDIOauMvvtcdwlw16gsf8GYuVX343zqT/x8445btk8M/6g+nRHqms1f/FT3dV3wYCRhdAMhCI/NOjc0xBA94KMhub6/+8JQfwrh+/KED7VJ5/QgkspEs89ehQezCbO5EJz6ADAo9nGZkmKQGbVw9wn3Le9LLHpAGEH3+ZoCFH/EtFbmdmegEA0bitUgbdNAxDi1VUV9eLBzH/T6mXc/+7cS1ooWkjNo4WB58zt7cmk/UwdvXSy1fVRwUG5Vf5g9usQbfv/KqEsqE+/SkXelP5hTcugIs3C3L7XCXNqdn/bzE+Jqh3493ECvpEOSwMoIbRHKzzZ3X/kXGZ2d1JXu6TLcuCXiXKL5aDDh8bEwwS+tc6gW6BMyJNKwAYHnCbh3JbfY6RBN/mXobWqSGQBBI4ej5RJb47FBA0BdRQKnzsC9SVyXqP3EescAe/f7RXO0lxuEuoMFkhkjtB33bNrUDZlluxAwbydMZ9zoJKgZ2gXVwKBR0C+WGETpmOmyt16EHUqbaI7xP/nTwTsdDHObeG+V94vPgHELlGIjUaVHJ+VCWxMIxuNQhwKykt0Gr7WDzH+zVjfohEbuadAsW9t4zAMWLzH4YXUZfsEA6tyM0xa/E=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(6133799003)(10067099003)(22082099003)(18002099003)(261102123227099003)(56012099006)(11063799006)(4143699003)(261021123027099003)(261021121427099003)(261022075727099003)(261009221227099003)(261026140227099003)(261022105027099003)(261026121527099003)(261009223027099003)(261028144727099003)(260925021311599003)(260925021911599003)(260925022911599003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WXpnL253aTFKVDJvdmFBZTdlaXhMRExnZDlvNXZUNDl6bkdlSHdCclRQTG01?=
- =?utf-8?B?d3IvSlNBVGJLV1NlSjJudDl2RzdJMVRqVDNMcTJydi9VWmp5OTFzc25DQkFS?=
- =?utf-8?B?dHMwNm4zaXBqM1h1WHRFVHA1SVpHSFhaSDdieTB3byt0akJHdDVtZ0N2U1k2?=
- =?utf-8?B?VmJpbzhtWTlGYWp5ZVVadkliNFJRMVg1WGRKVncvY3VkbWg3Q1p5cVJlc0VQ?=
- =?utf-8?B?aHd0cmxoWndvd045S1BZY1lmcUx0WENLWDJIaVF2eW5oWXZKWG9jU2VGZVdQ?=
- =?utf-8?B?dFE1YXN5Y1Jza1h2blVOT0wwSmQ1UUtDRmNKWkt6M2hPWTd3QWZvUHEyV3JU?=
- =?utf-8?B?Qlc1bFk5TlNsS1VGNk9uenROL1IzaVdGSkl3WHJWemtnU0FucEpmU3FLMzVS?=
- =?utf-8?B?UzFLMU9nVmxWenZ1WUdZbXlValRRbkhSaDBBdktqTElNaDVSOEtWTVNCd0c0?=
- =?utf-8?B?ajZDeTd4QlFYK0UrUEg0aDRoZVV5WnJQRzIyaWlJY2VqcWdKQ1d5RjArSTJr?=
- =?utf-8?B?K1huK0hCTVVTWEEwamp1eTg1NXF2ODJFdVVTZjRsOVVRT2lUWk8wZTBiUjJS?=
- =?utf-8?B?Mmw1alZqZTZ2bWRDSmFzTmdEY3ZOTmQ5bWhVVVNabjQrUUJoN3N1NGMxY3oy?=
- =?utf-8?B?N1ZlSEw3ZFBmUXRETGt0Z1lvbVZzS1FHN052Vm9TME1vLzlucWVsZnVKVzln?=
- =?utf-8?B?WjhVN29Ma0V5SVM4TjMzYWhtQ3FJbU83TFdVRWFYK2NTM1hCUjQyNERRNFF4?=
- =?utf-8?B?S29iNDBiR2ZzZ2lVYmVrNGdtWW05TlY3VmxiRzlJS1cvOWREMGk3OWp2aElY?=
- =?utf-8?B?TTJScU52REhBamJ0WUNRblR0ZVJhQ1JWWUNqWmgzVW1IQzFudjhobk1lN2FY?=
- =?utf-8?B?cTNicWJiZDRMYnl0aTBITHJPaUN0aDBPdFNtRVRPYkVSdE5TRmw1cFFMcmN6?=
- =?utf-8?B?UkVSKzZpWlFOajU2N0ZFWHBxZWN1M3pCdHdJdXViVzZDK1NFejlBM2Roajl0?=
- =?utf-8?B?RExteWhWazZMczJFcEsxQ3VTUFBRd05KMC9BL3FpRTlUelZkMVBTNTJCa3RW?=
- =?utf-8?B?clVlZlNOenlWa0VMN3l0Qmw0YlBrQUsvTEsyU1R0cVVVWVRLcUIyakNhRWJV?=
- =?utf-8?B?bHZmQlFVSkVuT1hwNXdXWk1lbUxwLzZwK0tFTm4rL1JsWHp2cTc4NmEzdk1l?=
- =?utf-8?B?TWNXam1TNkVXZWUzSlhONFZENDVxYTFBVHlDQ1lyMWx6SFoxNDhRTUpoMXEr?=
- =?utf-8?B?K0xYUVlCcU1ZNTB0Sm5UQms0OE1yS3JheHk0Q1VDZ2FyRVMyWlN4UzFJWGlo?=
- =?utf-8?B?RDcvWmVwRkFmcmViOS9GY0E3blhCU1NSdlR3UU1hK0xmMU9FS21iTGludnNt?=
- =?utf-8?B?ZzRNR09vdGY4a2F4MXFRM1NVZmpEcnBJVzJCMjZERnB1MnZ6eExOdzNWZ1Zs?=
- =?utf-8?B?N0psMmxuUGthRktSWEtQUjRHblVVcDlUd0Q1T1VWMzZkNWxUcHE4b2VTbllV?=
- =?utf-8?B?Z1pFYml2dnhCd0lwQmNNbUFzSDZpSkJJY1JqRmFNekcybnhGYmpmMnpGdmt4?=
- =?utf-8?B?ajgvNHZaNzB3bWlBSVpiZGZlUzZYMUd4VTlEVUZ0RHRSSGsybENZb0JSc2Mx?=
- =?utf-8?B?N2FmbGI2aFgwOG9ZaWZaK0FuajI3UFRNMHVsVnB2aFZIZ1dDcU1CYXhtUTg1?=
- =?utf-8?B?MUsxUlk0TStBbnkxN2xwakswVlRBSWxhMklrMTFQMmVJWkdPdnljcEhYNUxW?=
- =?utf-8?B?N1kybVNhaDB6Nk51NTZCd2FLZGZRdTIydXJEckxJb3pFTTJjUGsvOE9GQTh6?=
- =?utf-8?B?aHliTHl0ZEVLWmNxZjh0YUs5VGYxRmVGVHpxV0FTS2dDUzBqeUkvTHArSXNz?=
- =?utf-8?B?c1JRRlVUcDczd2JDbDFyTklkSGFsNVRzRzhoVksvVVJMazAyZjdINU9JUW5E?=
- =?utf-8?B?VWl4ZUR5eVcveXdIb3VXOS9kVFMveURicVdmNy8weFVmMTRKOTdNclVpMmZa?=
- =?utf-8?B?cWNwTXF6MTRrUXIxWTVQNldPcFJoV0VFVzNyRkxPVEMycVhtU2dORW5kQXNu?=
- =?utf-8?B?dnRaRWg3MzFzVGxadHdTbHhTS0p3MFFKOVhoZmZFMFRNOHVtajR1ajUvckUx?=
- =?utf-8?B?eW1FSVN5RXdpS290S3cwUjBWOXBSbGNYUGRFeG5ybmlTYTJRcHdaSWhIeVFj?=
- =?utf-8?B?aUlwTEo5bjh4eE51NEdhdFdmRzNJMUNSbHQxeFpEeDg3K3RZQkNxQXJGUHFl?=
- =?utf-8?B?clN1ZmZoeE1QZ01wK0ZXVUZpQ0xYVGNGbFZadk5Vd2NVa2V2T1Z3QkMvTFlS?=
- =?utf-8?Q?XST+bkUAdDYXtJ0jJ6?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0cbaa82d-da41-4c5d-a5a6-08df39036004
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 17:04:37.0786 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uGdt2DjedGnEJZ2aLeUc/FFgrH0h+z9dSCHhJ8VbH0ptHYnRnm8turT6J1l0REm3
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH6PR12MB902451
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PR12MB6121.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5feb1631-6b95-49af-4223-08df39088ce1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Nov 2026 17:41:39.5791 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: kLwGmJxSO3aX7j9f4r1soQ1mC9qPji6qsFu0sa/aheBjxJPt/drWa58N88gud1aLMOwO2Kc/BilUcutw2rM8AA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR12MB899783
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,292 +131,894 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	HTML_MESSAGE,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/2/26 17:44, Pierre-Eric Pelloux-Prayer wrote:
-> Le 02/11/2026 à 16:44, Christian König a écrit :
->> On 10/29/26 16:19, Pierre-Eric Pelloux-Prayer wrote:
->>> When a job times out the kernel tries to reset the GPU to get
->>> the system back to a normal state.
->>> Sometimes it's useful to disable this process - for instance to
->>> be able to inspect the hardware state at the time of the hang.
->>> Since leaving fence unsignalled might affect the system's
->>> stability, this commit enables the drm wedge framework for amdgpu.
->>>
->>> When a hang condition is detected, the GPU isn't reset but all
->>> the pending fences are signalled and the hung GPU cannot receive
->>> new work. For KFD it's implemented by making
->>> kfd_process_device_data_by_id return NULL if the requested GPU
->>> is wedged.
->>>
->>> When the user is done, it's possible to trigger a GPU
->>> reset.
->>>
->>> The auto-recovery is still enabled by default, and to use this
->>> feature one has to either:
->>> * boot with amdgpu.gpu_recovery=0: not recommended as it disables
->>>    recovery for all GPUs
->>> * write 0 to /sys/kernel/debug/dri/X/amdgpu_gpu_recover to disable
->>>    auto-recovery for one GPU only
->>>
->>> Runtime power management is disabled when the device is wedged
->>> (because we can't submit any work to the GPU).
->>>
->>> Assisted-by: LLM
->>> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
->>
->> Looks mostly reasonable to me.
->>
->>> ---
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu.h        | 13 +++++++++
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c     |  3 ++
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  8 +++++
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c    |  8 +++++
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c    |  3 ++
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    | 34 ++++++++++++++++++++--
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c    | 12 ++++++++
->>>   drivers/gpu/drm/amd/amdkfd/kfd_process.c   |  6 +++-
->>>   8 files changed, 83 insertions(+), 4 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->>> index 34bbb30b6f0c..cd4959486c94 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->>> @@ -989,6 +989,13 @@ struct amdgpu_device {
->>>        */
->>>       bool gpu_recovery_enabled;
->>>   +    /* Set to 1 when the device has been declared wedged following a
->>> +     * hang: it no longer accepts new work and pending fences have been
->>> +     * force-signalled. Reset to 0 once the device is reset back to a
->>> +     * working state.
->>> +     */
->>> +    atomic_t wedge_status;
->>> +
->>>       /* KFD
->>>        * Must be last --ends in a flexible-array member.
->>>        */
->>> @@ -1374,4 +1381,10 @@ void amdgpu_device_set_uid(struct amdgpu_uid *uid_info,
->>>                  uint64_t uid);
->>>   uint64_t amdgpu_device_get_uid(struct amdgpu_uid *uid_info,
->>>                      enum amdgpu_uid_type type, uint8_t inst);
->>> +
->>> +static inline bool amdgpu_device_is_wedged(struct amdgpu_device *adev)
->>> +{
->>> +    return atomic_read(&adev->wedge_status);
->>> +}
->>> +
->>>   #endif
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->>> index fa301c71b782..d119de477284 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->>> @@ -1465,6 +1465,9 @@ int amdgpu_cs_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
->>>       if (!adev->accel_working)
->>>           return -EBUSY;
->>>   +    if (amdgpu_device_is_wedged(adev))
->>> +        return -ENODEV;
->>> +
->>>       PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, lock);
->>>         r = PM_RUNTIME_ACQUIRE_ERR(&lock);
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>> index ec2514079919..641b7fe24951 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>> @@ -4110,6 +4110,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
->>>       }
->>>         adev->gpu_recovery_enabled = true;
->>> +    atomic_set(&adev->wedge_status, 0);
->>>     fence_driver_init:
->>>       /* Fence driver */
->>> @@ -4362,6 +4363,9 @@ void amdgpu_device_fini_sw(struct amdgpu_device *adev)
->>>           amdgpu_sync_free(&adev->isolation[i].prev);
->>>       }
->>>   +    if (atomic_xchg(&adev->wedge_status, 0))
->>> +        pm_runtime_put_autosuspend(adev->dev);
->>> +
->>>       amdgpu_reset_fini(adev);
->>>         /* free i2c buses */
->>> @@ -5155,6 +5159,10 @@ int amdgpu_device_reinit_after_reset(struct amdgpu_reset_context *reset_context)
->>>       r = 0;
->>>       list_for_each_entry(tmp_adev, device_list_handle, reset_list) {
->>>           amdgpu_set_init_level(tmp_adev, init_level);
->>> +
->>> +        if (atomic_xchg(&tmp_adev->wedge_status, 0))
->>> +            pm_runtime_put_autosuspend(tmp_adev->dev);
->>> +
->>>           if (full_reset) {
->>>               /* post card */
->>>               amdgpu_reset_set_dpc_status(tmp_adev, false);
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->>> index fb60a99f43c1..617d4eec4e26 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->>> @@ -459,6 +459,9 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
->>>       uint32_t handle, initial_domain;
->>>       int r;
->>>   +    if (amdgpu_device_is_wedged(adev))
->>> +        return -ENODEV;
->>> +
->>>       PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, lock);
->>>         r = PM_RUNTIME_ACQUIRE_ERR(&lock);
->>> @@ -961,6 +964,11 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
->>>           abo = NULL;
->>>       }
->>>   +    if (amdgpu_device_is_wedged(adev)) {
->>> +        r = -ENODEV;
->>> +        goto error_put_gobj;
->>> +    }
->>> +
->>>       PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, lock);
->>>         r = PM_RUNTIME_ACQUIRE_ERR(&lock);
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
->>> index 4204c3c750a8..53fa9fa83ae7 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
->>> @@ -730,6 +730,9 @@ void amdgpu_gmc_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
->>>       struct amdgpu_job *job;
->>>       int r;
->>>   +    if (amdgpu_device_is_wedged(adev))
->>> +        return;
->>> +
->>>       ring = to_amdgpu_ring(adev->mman.buffer_funcs_scheds[0]);
->>>         if (!hub->sdma_invalidation_workaround || vmid ||
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
->>> index 0b8d0a79dd45..f72c9c690c3b 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
->>> @@ -24,6 +24,7 @@
->>>   #include <linux/kthread.h>
->>>   #include <linux/wait.h>
->>>   #include <linux/sched.h>
->>> +#include <linux/pm_runtime.h>
->>>     #include <drm/drm_drv.h>
->>>   @@ -185,9 +186,35 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
->>>           if (r)
->>>               dev_err(adev->dev, "GPU Recovery Failed: %d\n", r);
->>>       } else {
->>> -        drm_sched_suspend_timeout(&ring->sched);
->>> -        if (amdgpu_sriov_vf(adev))
->>> +        if (amdgpu_sriov_vf(adev)) {
->>> +            drm_sched_suspend_timeout(&ring->sched);
->>>               adev->virt.tdr_debug = true;
->>
->> I think we should just completely drop the tdr_debug approach from the VF handling under SRIOV.
-> 
-> 
-> Can this be done in a follow up patchset?
+--_000_SJ1PR12MB6121D39D1B80B22A317CD00B806A2SJ1PR12MB6121namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-No, this here will basically deprecate the existing tdr_debug approach for SRIOV.
+AMD General
 
-Regards,
-Christian.
++err_release_full_gpu:
++ if (amdgpu_sriov_vf(adev)) {
++ /*
++ * Release the access the host is waiting on so it finishes the
++ * handshake instead of timing out and FLR'ing the VF.
++ /
++ if (early_full_gpu_access)
++ amdgpu_virt_release_full_gpu(adev, true);
++
++ /*
++ * Mark the VF inactive so the later fini path does not send a
++ * request the host will never answer.
++ /
++ amdgpu_virt_deactivate(adev);
+>Shouldn't this be called when amdgpu_virt_request_full_gpu fails for
+>early_full_gpu_access case also?
+>Thanks,
+>Lijo
 
-> 
-> Pierre-Eric
-> 
->>
->> The wedge event approach should be completely sufficient to handle all of that.
->>
->> Regards,
->> Christian.
->>
->>> +        } else {
->>> +            struct drm_gpu_scheduler *sched;
->>> +            struct amdgpu_fence *guilty_fence;
->>> +
->>> +            /* Declare the device as wedged if it's not already. */
->>> +            if (!atomic_xchg(&adev->wedge_status, 1)) {
->>> +                /* This ref will be dropped in amdgpu_device_reinit_after_reset. */
->>> +                pm_runtime_get_noresume(adev->dev);
->>> +
->>> +                pci_clear_master(adev->pdev);
->>> +
->>> +                drm_dev_wedged_event(&adev->ddev, DRM_WEDGE_RECOVERY_REBIND, info);
->>> +            }
->>> +
->>> +            guilty_fence = to_amdgpu_job(s_job)->hw_fence;
->>> +
->>> +            sched = &ring->sched;
->>> +
->>> +            /* Prevent anybody else from touching the ring buffer. */
->>> +            drm_sched_wqueue_stop(sched);
->>> +
->>> +            amdgpu_fence_driver_force_completion(ring, &guilty_fence->base);
->>> +
->>> +            /* Start the scheduler again */
->>> +            drm_sched_wqueue_start(sched);
->>> +        }
->>>       }
->>>     exit:
->>> @@ -439,7 +466,8 @@ static struct dma_fence *amdgpu_job_run(struct drm_sched_job *sched_job)
->>>         /* Skip job if VRAM is lost and never resubmit gangs */
->>>       if (job->generation != amdgpu_vm_generation(adev, job->vm) ||
->>> -        (job->job_run_counter && job->gang_submit))
->>> +        (job->job_run_counter && job->gang_submit) ||
->>> +        amdgpu_device_is_wedged(adev))
->>>           dma_fence_set_error(finished, -ECANCELED);
->>>         if (finished->error < 0) {
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
->>> index 14a72a406d37..2393cad36ac0 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
->>> @@ -781,6 +781,9 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
->>>           return copy_to_user(out, &count, min(size, 4u)) ? -EFAULT : 0;
->>>       }
->>>       case AMDGPU_INFO_TIMESTAMP: {
->>> +        if (amdgpu_device_is_wedged(adev))
->>> +            return -ENODEV;
->>> +
->>>           PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, pm);
->>>             ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
->>> @@ -913,6 +916,9 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
->>>           if (info->read_mmr_reg.count > 128)
->>>               return -EINVAL;
->>>   +        if (amdgpu_device_is_wedged(adev))
->>> +            return -ENODEV;
->>> +
->>>           PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, pm);
->>>             ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
->>> @@ -953,6 +959,9 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
->>>           uint64_t vm_size;
->>>           uint32_t pcie_gen_mask, pcie_width_mask;
->>>   +        if (amdgpu_device_is_wedged(adev))
->>> +            return -ENODEV;
->>> +
->>>           /* The clock limits are only available while the SMU is up. */
->>>           PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, pm);
->>>   @@ -1187,6 +1196,9 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
->>>           }
->>>       }
->>>       case AMDGPU_INFO_SENSOR: {
->>> +        if (amdgpu_device_is_wedged(adev))
->>> +            return -ENODEV;
->>> +
->>>           PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, pm);
->>>             ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
->>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->>> index ac18c2be6ecb..b95dddeaccc5 100644
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->>> @@ -2424,8 +2424,12 @@ struct kfd_process_device *kfd_process_device_data_by_id(struct kfd_process *p,
->>>           for (i = 0; i < p->n_pdds; i++) {
->>>               struct kfd_process_device *pdd = p->pdds[i];
->>>   -            if (pdd->user_gpu_id == gpu_id)
->>> +            if (pdd->user_gpu_id == gpu_id) {
->>> +                if (amdgpu_device_is_wedged(pdd->dev->adev))
->>> +                    return NULL;
->>> +
->>>                   return pdd;
->>> +            }
->>>           }
->>>       }
->>>       return NULL;
->>
-> 
+No, it should not be called. If amdgpu_virt_request_full_gpu fails,
+the VF holds no access as the acquire handshake never completed.
+There is nothing to release and RUNTIME was never set,
+so the amdgpu_virt_deactivate() has nothing to clear.
+Jumping to err_release_full_gpu would send a release for access that is nev=
+er granted.
 
+Thanks,
+Chenglei
+
+
+________________________________
+From: Lazar, Lijo <Lijo.Lazar@amd.com>
+Sent: Sunday, November 1, 2026 11:32 PM
+To: Xie, Chenglei <Chenglei.Xie@amd.com>; amd-gfx@lists.freedesktop.org <am=
+d-gfx@lists.freedesktop.org>
+Cc: Skvortsov, Victor <Victor.Skvortsov@amd.com>; Luo, Zhigang <Zhigang.Luo=
+@amd.com>
+Subject: Re: [PATCH v2 2/2] drm/amdgpu: abort SPM VF init when the HBM aper=
+ture is missing
+
+
+
+On 29-Oct-26 11:36 PM, Chenglei Xie wrote:
+> An SPM backed VF has no FB BAR0 and gets its HBM aperture from the ACPI
+> SRAT. When that entry is missing, amdgpu_acpi_find_gpu_memory_in_srat()
+> returns -ENOENT, which the early init IP loop treats as the GMC block
+> being absent. Init keeps going and dies later with a confusing -ENOMEM
+> instead of the real cause.
+>
+> Return -ENODEV from gmc_v12_0_early_init() so the probe aborts at the
+> point where the aperture is actually missing.
+>
+> On a legacy host the VF already holds exclusive GPU access at this point,
+> and the early init error paths returned directly without releasing it, so
+> the host timed out and FLR'd the VF. Route these failures through a new
+> err_release_full_gpu label that releases the access the host is waiting o=
+n.
+>
+> Add amdgpu_virt_deactivate() to clear AMDGPU_SRIOV_CAPS_RUNTIME and drop
+> adev->virt.ops, and call it from the same label, so the later fini path
+> does not send a REQ_GPU_FINI that the host will never answer.
+>
+> Signed-off-by: Chenglei Xie <Chenglei.Xie@amd.com>
+> ---
+> v2: Move the runtime cap and virt ops clearing into a new
+>      amdgpu_virt_deactivate() helper and call it from the label. Drop the
+>      redundant SRAT error log already emitted by
+>      amdgpu_acpi_find_gpu_memory_in_srat().
+>
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 49 ++++++++++++++++------
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c   | 12 ++++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h   |  1 +
+>   drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c     |  7 +++-
+>   4 files changed, 55 insertions(+), 14 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_device.c
+> index 3ced5c18daaa..3b6a3d86348c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -1999,7 +1999,7 @@ static int amdgpu_device_ip_early_init(struct amdgp=
+u_device *adev)
+>
+>                r =3D amdgpu_virt_init_critical_region(adev);
+>                if (r)
+> -                     return r;
+> +                     goto err_release_full_gpu;
+>        }
+>
+>        switch (adev->asic_type) {
+> @@ -2012,7 +2012,7 @@ static int amdgpu_device_ip_early_init(struct amdgp=
+u_device *adev)
+>                adev->family =3D AMDGPU_FAMILY_SI;
+>                r =3D si_set_ip_blocks(adev);
+>                if (r)
+> -                     return r;
+> +                     goto err_release_full_gpu;
+>                break;
+>   #endif
+>   #ifdef CONFIG_DRM_AMDGPU_CIK
+> @@ -2028,7 +2028,7 @@ static int amdgpu_device_ip_early_init(struct amdgp=
+u_device *adev)
+>
+>                r =3D cik_set_ip_blocks(adev);
+>                if (r)
+> -                     return r;
+> +                     goto err_release_full_gpu;
+>                break;
+>   #endif
+>        case CHIP_TOPAZ:
+> @@ -2047,13 +2047,13 @@ static int amdgpu_device_ip_early_init(struct amd=
+gpu_device *adev)
+>
+>                r =3D vi_set_ip_blocks(adev);
+>                if (r)
+> -                     return r;
+> +                     goto err_release_full_gpu;
+>                break;
+>        default:
+>                r =3D amdgpu_discovery_set_ip_blocks(adev);
+>                if (r) {
+>                        adev->num_ip_blocks =3D 0;
+> -                     return r;
+> +                     goto err_release_full_gpu;
+>                }
+>                break;
+>        }
+> @@ -2062,7 +2062,8 @@ static int amdgpu_device_ip_early_init(struct amdgp=
+u_device *adev)
+>        if (amdgpu_ip_version(adev, GC_HWIP, 0) =3D=3D IP_VERSION(9, 4, 3)=
+ &&
+>            !amdgpu_device_get_rev_id(adev)) {
+>                dev_err(adev->dev, "Unsupported A0 hardware\n");
+> -             return -ENODEV; /* device unsupported - no device error */
+> +             r =3D -ENODEV;    /* device unsupported - no device error *=
+/
+> +             goto err_release_full_gpu;
+>        }
+>
+>        if (amdgpu_has_atpx() &&
+> @@ -2123,7 +2124,7 @@ static int amdgpu_device_ip_early_init(struct amdgp=
+u_device *adev)
+>                if (adev->ip_blocks[i].version->type =3D=3D AMD_IP_BLOCK_T=
+YPE_COMMON) {
+>                        r =3D amdgpu_device_parse_gpu_info_fw(adev);
+>                        if (r)
+> -                             return r;
+> +                             goto err_release_full_gpu;
+>
+>                        bios_flags =3D amdgpu_device_get_vbios_flags(adev)=
+;
+>                        skip_bios =3D !!(bios_flags & AMDGPU_VBIOS_SKIP);
+> @@ -2131,8 +2132,10 @@ static int amdgpu_device_ip_early_init(struct amdg=
+pu_device *adev)
+>                        if (!skip_bios) {
+>                                bool optional =3D
+>                                        !!(bios_flags & AMDGPU_VBIOS_OPTIO=
+NAL);
+> -                             if (!amdgpu_get_bios(adev) && !optional)
+> -                                     return -EINVAL;
+> +                             if (!amdgpu_get_bios(adev) && !optional) {
+> +                                     r =3D -EINVAL;
+> +                                     goto err_release_full_gpu;
+> +                             }
+>
+>                                if (optional && !adev->bios)
+>                                        dev_info(
+> @@ -2148,7 +2151,7 @@ static int amdgpu_device_ip_early_init(struct amdgp=
+u_device *adev)
+>                                                        adev,
+>                                                        AMDGIM_ERROR_VF_AT=
+OMBIOS_INIT_FAIL,
+>                                                        0, 0);
+> -                                             return r;
+> +                                             goto err_release_full_gpu;
+>                                        }
+>                                }
+>                        }
+> @@ -2159,14 +2162,16 @@ static int amdgpu_device_ip_early_init(struct amd=
+gpu_device *adev)
+>
+>                }
+>        }
+> -     if (!total)
+> -             return -ENODEV;
+> +     if (!total) {
+> +             r =3D -ENODEV;
+> +             goto err_release_full_gpu;
+> +     }
+>
+>        /* Request full GPU access only for the remaining SR-IOV init work=
+. */
+>        if (amdgpu_sriov_vf(adev) && !early_full_gpu_access) {
+>                r =3D amdgpu_virt_request_full_gpu(adev, true);
+>                if (r)
+> -                     return r;
+> +                     goto err_release_full_gpu;
+>        }
+>
+>        if (adev->gmc.xgmi.supported)
+> @@ -2184,6 +2189,24 @@ static int amdgpu_device_ip_early_init(struct amdg=
+pu_device *adev)
+>        amdgpu_smu_early_init(adev);
+>
+>        return 0;
+> +
+> +err_release_full_gpu:
+> +     if (amdgpu_sriov_vf(adev)) {
+> +             /*
+> +              * Release the access the host is waiting on so it finishes=
+ the
+> +              * handshake instead of timing out and FLR'ing the VF.
+> +              */
+> +             if (early_full_gpu_access)
+> +                     amdgpu_virt_release_full_gpu(adev, true);
+> +
+> +             /*
+> +              * Mark the VF inactive so the later fini path does not sen=
+d a
+> +              * request the host will never answer.
+> +              */
+> +             amdgpu_virt_deactivate(adev);
+
+Shouldn't this be called when amdgpu_virt_request_full_gpu fails for
+early_full_gpu_access case also?
+
+Thanks,
+Lijo
+> +     }
+> +
+> +     return r;
+>   }
+>
+>   static int amdgpu_device_ip_hw_init_phase1(struct amdgpu_device *adev)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_virt.c
+> index 576a818db522..a4dd0299fe11 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> @@ -135,6 +135,18 @@ int amdgpu_virt_release_full_gpu(struct amdgpu_devic=
+e *adev, bool init)
+>        return 0;
+>   }
+>
+> +/*
+> + * amdgpu_virt_deactivate - stop driving an SR-IOV VF after a failed ini=
+t
+> + *
+> + * Clear the runtime capability and drop the virt ops so the teardown pa=
+th
+> + * does not issue host handshakes the host will never answer.
+> + */
+> +void amdgpu_virt_deactivate(struct amdgpu_device *adev)
+> +{
+> +     adev->virt.caps &=3D ~AMDGPU_SRIOV_CAPS_RUNTIME;
+> +     adev->virt.ops =3D NULL;
+> +}
+> +
+>   /**
+>    * amdgpu_virt_reset_gpu() - reset gpu
+>    * @adev:   amdgpu device.
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_virt.h
+> index 3971bcc1ed11..3520af170278 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> @@ -471,6 +471,7 @@ bool amdgpu_virt_mmio_blocked(struct amdgpu_device *a=
+dev);
+>   void amdgpu_virt_init_setting(struct amdgpu_device *adev);
+>   int amdgpu_virt_request_full_gpu(struct amdgpu_device *adev, bool init)=
+;
+>   int amdgpu_virt_release_full_gpu(struct amdgpu_device *adev, bool init)=
+;
+> +void amdgpu_virt_deactivate(struct amdgpu_device *adev);
+>   int amdgpu_virt_reset_gpu(struct amdgpu_device *adev);
+>   void amdgpu_virt_request_init_data(struct amdgpu_device *adev);
+>   int amdgpu_virt_ptl_request(struct amdgpu_device *adev, u32 req_code,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gmc_v12_0.c
+> index cd276a138e10..3bb13cfed92f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+> @@ -667,8 +667,13 @@ static int gmc_v12_0_early_init(struct amdgpu_ip_blo=
+ck *ip_block)
+>
+>                r =3D amdgpu_acpi_find_gpu_memory_in_srat(adev, &aper_base=
+,
+>                                                        &aper_size);
+> +             /*
+> +              * An SPM VF has no FB BAR0 and cannot init without the HBM
+> +              * aperture from the SRAT. Abort this GPU probe instead of
+> +              * limping on as if the GMC block were absent.
+> +              */
+>                if (r)
+> -                     return r;
+> +                     return -ENODEV;
+>
+>                adev->gmc.aper_base =3D aper_base;
+>                adev->gmc.aper_size =3D aper_size;
+
+
+--_000_SJ1PR12MB6121D39D1B80B22A317CD00B806A2SJ1PR12MB6121namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div>
+<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
+; margin-left: 5pt; font-size: 10pt;">
+AMD General</div>
+<br>
+</div>
+<blockquote style=3D"padding-left: 10px; border-left: 3px solid rgb(200, 20=
+0, 200);">
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
++err_release_full_gpu:</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
++ if (amdgpu_sriov_vf(adev)) {</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
++ /*</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
++ * Release the access the host is waiting on so it finishes the</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
++ * handshake instead of timing out and FLR'ing the VF.</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
++ /</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
++ if (early_full_gpu_access)</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
++ amdgpu_virt_release_full_gpu(adev, true);</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
++</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
++ /*</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
++ * Mark the VF inactive so the later fini path does not send a</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
++ * request the host will never answer.</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
++ /</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
++ amdgpu_virt_deactivate(adev);</div>
+</blockquote>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; color: rgb(0, 0, 0=
+);">
+<span style=3D"font-size: 11pt;">&gt;</span><span style=3D"font-size: 12pt;=
+">Shouldn't this be called when amdgpu_virt_request_full_gpu fails for</spa=
+n></div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; color: rgb(0, 0, 0);">
+<span style=3D"font-size: 11pt;">&gt;</span><span style=3D"font-size: 12pt;=
+">early_full_gpu_access case also?</span></div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; color: rgb(0, 0, 0);">
+<span style=3D"font-size: 11pt;">&gt;</span><span style=3D"font-size: 12pt;=
+">Thanks,</span></div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; color: rgb(0, 0, 0);">
+<span style=3D"font-size: 11pt;">&gt;</span><span style=3D"font-size: 12pt;=
+">Lijo</span></div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+No, it should not be called. If amdgpu_virt_request_full_gpu fails,</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+the VF holds no access as the acquire handshake never completed.</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+There is nothing to release and RUNTIME was never set,</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+so the amdgpu_virt_deactivate() has nothing to clear.</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+Jumping to err_release_full_gpu would send a release for access that is nev=
+er granted.</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+Thanks,</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+Chenglei</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Lazar, Lijo &lt;Lijo.=
+Lazar@amd.com&gt;<br>
+<b>Sent:</b> Sunday, November 1, 2026 11:32 PM<br>
+<b>To:</b> Xie, Chenglei &lt;Chenglei.Xie@amd.com&gt;; amd-gfx@lists.freede=
+sktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<b>Cc:</b> Skvortsov, Victor &lt;Victor.Skvortsov@amd.com&gt;; Luo, Zhigang=
+ &lt;Zhigang.Luo@amd.com&gt;<br>
+<b>Subject:</b> Re: [PATCH v2 2/2] drm/amdgpu: abort SPM VF init when the H=
+BM aperture is missing</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText"><br>
+<br>
+On 29-Oct-26 11:36 PM, Chenglei Xie wrote:<br>
+&gt; An SPM backed VF has no FB BAR0 and gets its HBM aperture from the ACP=
+I<br>
+&gt; SRAT. When that entry is missing, amdgpu_acpi_find_gpu_memory_in_srat(=
+)<br>
+&gt; returns -ENOENT, which the early init IP loop treats as the GMC block<=
+br>
+&gt; being absent. Init keeps going and dies later with a confusing -ENOMEM=
+<br>
+&gt; instead of the real cause.<br>
+&gt; <br>
+&gt; Return -ENODEV from gmc_v12_0_early_init() so the probe aborts at the<=
+br>
+&gt; point where the aperture is actually missing.<br>
+&gt; <br>
+&gt; On a legacy host the VF already holds exclusive GPU access at this poi=
+nt,<br>
+&gt; and the early init error paths returned directly without releasing it,=
+ so<br>
+&gt; the host timed out and FLR'd the VF. Route these failures through a ne=
+w<br>
+&gt; err_release_full_gpu label that releases the access the host is waitin=
+g on.<br>
+&gt; <br>
+&gt; Add amdgpu_virt_deactivate() to clear AMDGPU_SRIOV_CAPS_RUNTIME and dr=
+op<br>
+&gt; adev-&gt;virt.ops, and call it from the same label, so the later fini =
+path<br>
+&gt; does not send a REQ_GPU_FINI that the host will never answer.<br>
+&gt; <br>
+&gt; Signed-off-by: Chenglei Xie &lt;Chenglei.Xie@amd.com&gt;<br>
+&gt; ---<br>
+&gt; v2: Move the runtime cap and virt ops clearing into a new<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_virt_deactivate() helper and call=
+ it from the label. Drop the<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; redundant SRAT error log already emitted=
+ by<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_acpi_find_gpu_memory_in_srat().<b=
+r>
+&gt; <br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 49 ++++++++++=
+++++++------<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c&nbsp;&nbsp; | 12 =
+++++++<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h&nbsp;&nbsp; |&nbs=
+p; 1 +<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c&nbsp;&nbsp;&nbsp;&n=
+bsp; |&nbsp; 7 +++-<br>
+&gt;&nbsp;&nbsp; 4 files changed, 55 insertions(+), 14 deletions(-)<br>
+&gt; <br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_device.c<br>
+&gt; index 3ced5c18daaa..3b6a3d86348c 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+&gt; @@ -1999,7 +1999,7 @@ static int amdgpu_device_ip_early_init(struct am=
+dgpu_device *adev)<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; r =3D amdgpu_virt_init_critical_region(adev);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (r)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto err_release_full_g=
+pu;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (adev-&gt;asic_type) =
+{<br>
+&gt; @@ -2012,7 +2012,7 @@ static int amdgpu_device_ip_early_init(struct am=
+dgpu_device *adev)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; adev-&gt;family =3D AMDGPU_FAMILY_SI;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; r =3D si_set_ip_blocks(adev);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (r)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto err_release_full_g=
+pu;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; break;<br>
+&gt;&nbsp;&nbsp; #endif<br>
+&gt;&nbsp;&nbsp; #ifdef CONFIG_DRM_AMDGPU_CIK<br>
+&gt; @@ -2028,7 +2028,7 @@ static int amdgpu_device_ip_early_init(struct am=
+dgpu_device *adev)<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; r =3D cik_set_ip_blocks(adev);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (r)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto err_release_full_g=
+pu;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; break;<br>
+&gt;&nbsp;&nbsp; #endif<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_TOPAZ:<br>
+&gt; @@ -2047,13 +2047,13 @@ static int amdgpu_device_ip_early_init(struct =
+amdgpu_device *adev)<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; r =3D vi_set_ip_blocks(adev);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (r)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto err_release_full_g=
+pu;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; break;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; r =3D amdgpu_discovery_set_ip_blocks(adev);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (r) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&g=
+t;num_ip_blocks =3D 0;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto err_release_full_g=
+pu;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; break;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; @@ -2062,7 +2062,8 @@ static int amdgpu_device_ip_early_init(struct am=
+dgpu_device *adev)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_ip_version(adev, =
+GC_HWIP, 0) =3D=3D IP_VERSION(9, 4, 3) &amp;&amp;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; !amd=
+gpu_device_get_rev_id(adev)) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; dev_err(adev-&gt;dev, &quot;Unsupported A0 hardware\n&q=
+uot;);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; return -ENODEV; /* device unsupported - no device error */<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; r =3D -ENODEV;&nbsp;&nbsp;&nbsp; /* device unsupported - no device erro=
+r */<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; goto err_release_full_gpu;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_has_atpx() &amp;&=
+amp;<br>
+&gt; @@ -2123,7 +2124,7 @@ static int amdgpu_device_ip_early_init(struct am=
+dgpu_device *adev)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (adev-&gt;ip_blocks[i].version-&gt;type =3D=3D AMD_I=
+P_BLOCK_TYPE_COMMON) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D a=
+mdgpu_device_parse_gpu_info_fw(adev);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<=
+br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; goto err_release_full_gpu;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bios_fl=
+ags =3D amdgpu_device_get_vbios_flags(adev);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; skip_bi=
+os =3D !!(bios_flags &amp; AMDGPU_VBIOS_SKIP);<br>
+&gt; @@ -2131,8 +2132,10 @@ static int amdgpu_device_ip_early_init(struct a=
+mdgpu_device *adev)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!sk=
+ip_bios) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool optional =3D<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; !!(bios_flags &amp; AMDGPU_VBIOS_OPTIONAL);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_get_bios(adev) &amp;&amp; !optional)<b=
+r>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; re=
+turn -EINVAL;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_get_bios(adev) &amp;&amp; !optional) {=
+<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =
+=3D -EINVAL;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; go=
+to err_release_full_gpu;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (optional &amp;&amp; !adev-&gt;=
+bios)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; dev_info(<br>
+&gt; @@ -2148,7 +2151,7 @@ static int amdgpu_device_ip_early_init(struct am=
+dgpu_device *adev)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGIM_ERROR_VF_ATOMBIOS_INIT_FAIL,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0, 0);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto err_release_full_gpu;<br=
+>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; @@ -2159,14 +2162,16 @@ static int amdgpu_device_ip_early_init(struct =
+amdgpu_device *adev)<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (!total)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; return -ENODEV;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (!total) {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; r =3D -ENODEV;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; goto err_release_full_gpu;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Request full GPU access o=
+nly for the remaining SR-IOV init work. */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev) &a=
+mp;&amp; !early_full_gpu_access) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; r =3D amdgpu_virt_request_full_gpu(adev, true);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (r)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto err_release_full_g=
+pu;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gmc.xgmi.suppor=
+ted)<br>
+&gt; @@ -2184,6 +2189,24 @@ static int amdgpu_device_ip_early_init(struct a=
+mdgpu_device *adev)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_smu_early_init(adev);=
+<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt; +<br>
+&gt; +err_release_full_gpu:<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev)) {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; /*<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; * Release the access the host is waiting on so it finishes the<br=
+>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; * handshake instead of timing out and FLR'ing the VF.<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; */<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; if (early_full_gpu_access)<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_virt_release_ful=
+l_gpu(adev, true);<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; /*<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; * Mark the VF inactive so the later fini path does not send a<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; * request the host will never answer.<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; */<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; amdgpu_virt_deactivate(adev);<br>
+<br>
+Shouldn't this be called when amdgpu_virt_request_full_gpu fails for <br>
+early_full_gpu_access case also?<br>
+<br>
+Thanks,<br>
+Lijo<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp; static int amdgpu_device_ip_hw_init_phase1(struct amdgpu_d=
+evice *adev)<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_virt.c<br>
+&gt; index 576a818db522..a4dd0299fe11 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c<br>
+&gt; @@ -135,6 +135,18 @@ int amdgpu_virt_release_full_gpu(struct amdgpu_de=
+vice *adev, bool init)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; +/*<br>
+&gt; + * amdgpu_virt_deactivate - stop driving an SR-IOV VF after a failed =
+init<br>
+&gt; + *<br>
+&gt; + * Clear the runtime capability and drop the virt ops so the teardown=
+ path<br>
+&gt; + * does not issue host handshakes the host will never answer.<br>
+&gt; + */<br>
+&gt; +void amdgpu_virt_deactivate(struct amdgpu_device *adev)<br>
+&gt; +{<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;virt.caps &amp;=3D ~AMDGPU_SRIOV_CA=
+PS_RUNTIME;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;virt.ops =3D NULL;<br>
+&gt; +}<br>
+&gt; +<br>
+&gt;&nbsp;&nbsp; /**<br>
+&gt;&nbsp;&nbsp;&nbsp; * amdgpu_virt_reset_gpu() - reset gpu<br>
+&gt;&nbsp;&nbsp;&nbsp; * @adev:&nbsp;&nbsp; amdgpu device.<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_virt.h<br>
+&gt; index 3971bcc1ed11..3520af170278 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h<br>
+&gt; @@ -471,6 +471,7 @@ bool amdgpu_virt_mmio_blocked(struct amdgpu_device=
+ *adev);<br>
+&gt;&nbsp;&nbsp; void amdgpu_virt_init_setting(struct amdgpu_device *adev);=
+<br>
+&gt;&nbsp;&nbsp; int amdgpu_virt_request_full_gpu(struct amdgpu_device *ade=
+v, bool init);<br>
+&gt;&nbsp;&nbsp; int amdgpu_virt_release_full_gpu(struct amdgpu_device *ade=
+v, bool init);<br>
+&gt; +void amdgpu_virt_deactivate(struct amdgpu_device *adev);<br>
+&gt;&nbsp;&nbsp; int amdgpu_virt_reset_gpu(struct amdgpu_device *adev);<br>
+&gt;&nbsp;&nbsp; void amdgpu_virt_request_init_data(struct amdgpu_device *a=
+dev);<br>
+&gt;&nbsp;&nbsp; int amdgpu_virt_ptl_request(struct amdgpu_device *adev, u3=
+2 req_code,<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/gpu/drm/=
+amd/amdgpu/gmc_v12_0.c<br>
+&gt; index cd276a138e10..3bb13cfed92f 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c<br>
+&gt; @@ -667,8 +667,13 @@ static int gmc_v12_0_early_init(struct amdgpu_ip_=
+block *ip_block)<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; r =3D amdgpu_acpi_find_gpu_memory_in_srat(adev, &amp;ap=
+er_base,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;aper_size);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; /*<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; * An SPM VF has no FB BAR0 and cannot init without the HBM<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; * aperture from the SRAT. Abort this GPU probe instead of<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; * limping on as if the GMC block were absent.<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (r)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -ENODEV;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; adev-&gt;gmc.aper_base =3D aper_base;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; adev-&gt;gmc.aper_size =3D aper_size;<br>
+<br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_SJ1PR12MB6121D39D1B80B22A317CD00B806A2SJ1PR12MB6121namp_--
