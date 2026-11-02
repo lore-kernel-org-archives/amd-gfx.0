@@ -2,123 +2,118 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 931B4606A583
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 14:39:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C4C86085554
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 14:47:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=pDhIa4Cu
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=yuwQd7hw
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1768510EF41;
-	Mon,  2 Nov 2026 14:39:36 +0000 (UTC)
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012006.outbound.protection.outlook.com [52.101.48.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47CDB10EF42
- for <amd-gfx@lists.freedesktop.org>; Mon,  2 Nov 2026 14:39:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6F3B10E643;
+	Mon,  2 Nov 2026 14:47:08 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012012.outbound.protection.outlook.com [40.107.209.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74DFF10EF66
+ for <amd-gfx@lists.freedesktop.org>; Mon,  2 Nov 2026 14:47:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XdXqH8DQ5niSywXOvJChfA2gAinHJYbQWlYnjpS0iH4vw6KoKneVgz3JDpuOazzlq5wZJ9cqYJp0mSkAxeDE9/dAuVfcG2Gvkdq3mpYiYuKRVMUEKi+tjtRUmzhJ7kh6RQEJRY4KuI3oaVPC3FgOdDbA/hUctQav7ZQpmCsL0T2u/F0adszABc0meQg/+9W0QbuezAkLcZbijg19gp0B0Va4ElTgHZRKUkJtbzccIWVN2tRcPstVMi1urRZdUOJzeY3lmp4LXzDfI1qvtHn0KsZTNQgVVus/DpxVDVLhAI5QUh+xAN9f7wVQJFMpGwlAUXdm2HhCeVVcj9qtL34lwQ==
+ b=D+yVybf88ASkOtiSN6swO1ckAIMlIOkxkX7qhLfcwL+GwXoVYWLxViKPtpGP0l0wWvZ0TJ0J+UpcQjs27ymYkB8DSB3cu0+RkXHL9ck2QzbyUv/RlCgNyAqojsXjOlM503Pj32sNn6u8+3Fz7s/BzTrOJFaisu0sAmCVcUQjpHd305MCMnOucTZVBo7nkfQEAVtWzVB+uxhFywRH4QAphYwF/+oipozCA9dbVyQJHaiHm7kqAY4ALUEAnHIpybJSq4y2cMRqzwpQA/+3+GKipP3ao0DuvLv3ywEjd5L1ySITHfNz1tT3VgPvxSoQ1nTGJNH1yZvMwwMXwiD79z0oxw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ISyS6Ga3LUrSqYAxz6PG5jep/rnmszYigrIK7mJn7Ug=;
- b=yCzh4YGkHDe6ttUzSDkDHCityuDl9dOPtIG3JXa0FQL7dYE7xC6jAXOWO0ipI53RCN4zz0JHRhfxcfwHqzKWpm5Jj7VYyne/S3VqFvWngBkJ7mC2ME+adMhfSS+tO1GY7zQfSEgwRacr1yysaQLFSXJ0HNFH18Wa1e1AJ6/HoHuRgK7yA7ZiuYCn5JYWnqu4dcl5jrvNex4it87h/2BX3e2eAHbu/qNsHtPUPqIvu4w4ZJSmUwp2J8K6mxTzwVgBSsoTddlQSwkeJ/PJb+oA6UxuCuz5A7s2M5f0FPdi0q0XolEtStq/1g6KzMz9kPXGqfCRY/aryL/a523bi5mDZw==
+ bh=um898+SD0wtyHob7/5IaIco/gO+ORZHr9KlATXJy3h8=;
+ b=V07P3RGKoZoTbi/IfC9MOFU65etP4rz8Rpml3V5zVynAJE+0C6+89atkW7BHAi4C4rxhFqQ+YvCgRgJdJRtd5YHkSRDgCNDJReVGSa7hnR90yplR8ZiYsIFQa30b26+V7gCq1gGxQB2K5UhdSM93xtKjzZVqXe5H9WJodYG7clAmQGOlw9bKdEaIjMNOoBgViPEhAz6y3iup0aBbFqOXHCanbTa8FS4JJBK5DyOci+dQh3+/LjzRRheEId8jakQjmGTM5p6II8tzwrEqqNvCwGG0n5jQ95WYU05WG6GqWStvQx0UVPiLJVl0CQS8ZxhQ1ExZAxPchsOuCWe/yUAYMA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ISyS6Ga3LUrSqYAxz6PG5jep/rnmszYigrIK7mJn7Ug=;
- b=pDhIa4CumFF8ZCf92OyHyz1lPwj6S/dOwpgyyFyZCjcHc5JyCT/FYyREMA/kcQl0jii3BYzlnSJYxWBlm9aX/tIaT9aCqLg6Zbw3BRzfV6zzfZMhX+9ZUsOuVfB/welo/QMHeXk9qMbeexhNgCeX6T2y9hEMp0htgDcaByl7P9s=
-Received: from CHAPR12MB999247.namprd12.prod.outlook.com
- (2603:10b6:610:2ff::7) by SA5PPFCAFD069B8.namprd12.prod.outlook.com
- (2603:10b6:80f:fc04::8e1) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 14:39:26 +0000
-Received: from CHAPR12MB999247.namprd12.prod.outlook.com
- ([fe80::d727:e84d:1883:b74]) by CHAPR12MB999247.namprd12.prod.outlook.com
- ([fe80::d727:e84d:1883:b74%6]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
- 14:39:25 +0000
-From: "Francis, David" <David.Francis@amd.com>
-To: "Kuehling, Felix" <Felix.Kuehling@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Koenig, Christian" <Christian.Koenig@amd.com>
-Subject: Re: [PATCH v2 1/3] drm/amdkfd: Acquire buffers in CRIU queue restore
- (again)
-Thread-Topic: [PATCH v2 1/3] drm/amdkfd: Acquire buffers in CRIU queue restore
- (again)
-Thread-Index: AQHdaHfUSRAEsvFx50uWjyFlJSUj9rcWlrWAgARHa4M=
-Date: Mon, 2 Nov 2026 14:39:25 +0000
-Message-ID: <CHAPR12MB99924757FCFC078459155A971AEF6A2@CHAPR12MB999247.namprd12.prod.outlook.com>
-References: <20261030140550.2524662-1-David.Francis@amd.com>
- <20261030140550.2524662-2-David.Francis@amd.com>
- <bdbac10b-f1c5-4e3c-9e1d-7694b649c448@amd.com>
-In-Reply-To: <bdbac10b-f1c5-4e3c-9e1d-7694b649c448@amd.com>
-Accept-Language: en-US
+ bh=um898+SD0wtyHob7/5IaIco/gO+ORZHr9KlATXJy3h8=;
+ b=yuwQd7hwD5OHM3seLZkqxn9uTnSghfaLL0VytJXziDBaeABBK/VAWT05FxUnhZ+EZiNGgx2JpDn1EIslDPTTke3f5bzSqCGEmWMbpKqxehlb6GsalnpMtDr3iB/fLkufRcKUR+9yZGnxSHzq1yShUSX4WpgTavTB18yMtBc1ABM=
+Received: from CY3PR12MB9631.namprd12.prod.outlook.com (2603:10b6:930:ff::6)
+ by MW6PR12MB8898.namprd12.prod.outlook.com (2603:10b6:303:246::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.21; Mon, 2 Nov
+ 2026 14:46:58 +0000
+Received: from CY3PR12MB9631.namprd12.prod.outlook.com
+ ([fe80::3595:9a8c:8f99:4e55]) by CY3PR12MB9631.namprd12.prod.outlook.com
+ ([fe80::3595:9a8c:8f99:4e55%4]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
+ 14:46:58 +0000
+From: "Liu, Shaoyun" <Shaoyun.Liu@amd.com>
+To: "Sun, Yongqiang" <Yongqiang.Sun@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 1/4] drm/amdgpu: wire mes_dbgext on mes12.1
+Thread-Topic: [PATCH 1/4] drm/amdgpu: wire mes_dbgext on mes12.1
+Thread-Index: AQHdZv5yuxx7iq8TdUGQfHsZhjvDo7cW89BQ
+Date: Mon, 2 Nov 2026 14:46:58 +0000
+Message-ID: <CY3PR12MB963112FBC2A118AC4AAD1445F46A2@CY3PR12MB9631.namprd12.prod.outlook.com>
+References: <20261028170433.462855-1-Yongqiang.Sun@amd.com>
+In-Reply-To: <20261028170433.462855-1-Yongqiang.Sun@amd.com>
+Accept-Language: en-CA, en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-11-02T14:39:25.443Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
- General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=1;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard; 
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-10-31T02:38:24.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
 authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CHAPR12MB999247:EE_|SA5PPFCAFD069B8:EE_
-x-ms-office365-filtering-correlation-id: dbdce71b-7268-4d97-bb3f-08df38ef17df
+x-ms-traffictypediagnostic: CY3PR12MB9631:EE_|MW6PR12MB8898:EE_
+x-ms-office365-filtering-correlation-id: 7b4caacc-e763-4d35-896c-08df38f025be
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|376014|23010399003|1800799024|10067099003|18002099003|22082099003|38070700021|56012099006|4143699003|11063799006|261026121527099003|261022105027099003|261026140227099003|261009223027099003|261028144727099003|261021121427099003|261021123027099003;
-x-microsoft-antispam-message-info: GShIKJn2Ln/neyrvHXhULlRxZUTM3OKq8Bcem0UPcZSs4i0Bs6d+xzsgswGaNgdN8hk3v3zSUXEqctj2MhuKN3aK4g4hVNsKFuJi5IeJueNkQRglTqGDSqZ51Ev3i0IaWKr/EnSuP9U+iV9LTXf92C0X+HZkwTA3fkJiNaMzNdtQBgd5unQcIm6n0sbRIKCVplYublwwF5JT1s1sM1g6JtspfXce15usvj7S3tvl97E+t1aet033bejS5eoDz+yGc0yWPSkV3jDviPDvQh0owVmnl9nRN5tqByf8RxWECRq5/6IARaIuIzourHZugY4QE1B84FbCqR8Fm6m4QAFqmvEOMTwK0ma9i+leZu/kfCon3pulKGWYTla6sNK3sHDc+ukL3ogu8Ue5YKwsnNLHTS3q9ICAnEg8dQ6rnDrYfG2sdv5VZCLnZ2TsAvL0oQPN2N5ovjl/yIlu3zaLgVQAl5eggm1esRP5TuMkPCNl3POW9XDz2EBAH4pBTrpc61EtukcrYR1kDFUbCKxfBahiSBGVbIEOxlqDciAou/pKO2dhYhEzxhzmheYPLUlFXWrOrIxR+SMG4LjcJz5+q0JQ6qgZaRqRwREiEy15zTAI/BbDtNmcLBtwrdyiOtfpWQar7mUHpfchmGtd9Q5UTdaUNz55SKiXH+dj8oah5T2ZlPGP+ZExafKJr3OPS4IgBnSDU9eRgSovLaHX4rfW5oWzoPU7QA1loHmo8el7P3UoV7E=
+ ARA:13230040|23010399003|1800799024|376014|366016|261028144727099003|38070700021|260925021311599003|261026140227099003|260925022911599003|260925021911599003|56012099006|10067099003|261021121427099003|261022075727099003|261022105027099003|11063799006|261021123027099003|261009223027099003|22082099003|261102123227099002|18002099003|261026121527099003|3023799007;
+x-microsoft-antispam-message-info: XlwN/8UuNm9ADq8oGuBxooCvjvPwQ0oycCh3ldqtbFe0hMIBL64J1sUvCF8raulrf+VlxD9uqGPgCKajxjGSK2k76AuGgA4E1fiClWnAzxQaqLt5LTTfm2kdyHtn2jlxmipDhPqwZ8YU2hTVRq/D0XThtZ/iOT3wDNJcClzVOnORR+SqhEJTjmhreE9oqw0d8ePRhha/jIYRByDxvi0r0tqGiBi4NTXZvGOzx4QrVk3DHjZ9v5ml1eOW+wXomUsWtcDCnXmemQqd1B93SdZ/i2g/GoNzhDOw2dapHODTy1YQKgxl2DGPQXo5R9zBXkRI4R7BSCiRrq6IKyeAkeqQwAd0lExo8o0NCbatl4hyc6OqkIgt7228+ozsGTGfnkhuJ0f2tYhcgjSDGnNjsMre0dZcpvqYo+jVCEpAMjB1JzT6jXbVsEKF/4RusgtR8rTy+q+tdEditiM/eRIpO01fg5WeUik/zzeaFcAKkX2ZPZ3XF+qKDzz3qFHvbsyNnHkshpJ+BAPmw0eIegnXYSq/7GPnHeS7DEhzxbsr2Z6isb9Bc7o618msWFLzE4u/7vmOh/k831nlmfU3gthbwBPWtUWgh0SiIMjRdcMh/ebLpB8Ufsn026UQrX6wZzgvDBVvpuXUXmP9Bg9d4OjEGLswh2eGVpWVgOjhUuGzYjdxCDbK3Tql4D3vMw+Nfqif9qKEAE1ePzIwa54nrrk3avAD25Bw8bCctWrFNHqYTMqkBak=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CHAPR12MB999247.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(10067099003)(18002099003)(22082099003)(38070700021)(56012099006)(4143699003)(11063799006)(261026121527099003)(261022105027099003)(261026140227099003)(261009223027099003)(261028144727099003)(261021121427099003)(261021123027099003);
+ IPV:NLI; SFV:NSPM; H:CY3PR12MB9631.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(261028144727099003)(38070700021)(260925021311599003)(261026140227099003)(260925022911599003)(260925021911599003)(56012099006)(10067099003)(261021121427099003)(261022075727099003)(261022105027099003)(11063799006)(261021123027099003)(261009223027099003)(22082099003)(261102123227099002)(18002099003)(261026121527099003)(3023799007);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?iMun2OyvgCmieLln6Rl+1hyQ3nA6a05Oe1RSC3uAgKut/lPV3hPAljc0UjFz?=
- =?us-ascii?Q?KTNuc2B46MheGX6hIn9y6SfkyqjFYdGpxcgETR/6/Bkd7qzqS9WzxY9kwQ+j?=
- =?us-ascii?Q?TfQEb+BEw8EtGo8WLZMpLVUEB1RgoRo36Km4nyub1Zi325+5Dy5FrbIyPsOB?=
- =?us-ascii?Q?qYS4yQa7IxVGLdvCo0ftekd0IxOBVRwpTYEeVVc35xINgRfBdVQYXWxJdwjQ?=
- =?us-ascii?Q?3vc55bfztlYHLz6sMT81t6iLMzVdlsHLv63+UHZZdX/OHY7ztnw5AF4PZWkp?=
- =?us-ascii?Q?ydHJNwzSZnNozAim4IcFFCW1ws7QO7pnVNNSiouatbHmtUlOC9qbLIuqV2d9?=
- =?us-ascii?Q?2AopeWE/ygzshmF8Pqz15PCeKwF0F3fGOov1nrjIFMvmivRtp7bRSPrUI/jb?=
- =?us-ascii?Q?N5xxPsM3fi16Bxr/vT1n2Jqoufir1CqyDRhdNCHW8EOWt0nRS/w3AyhNVQTC?=
- =?us-ascii?Q?VlvxuS2eXla0cDxxdmWfm5tP5pdQWnp64pBuWYc0mM3NBG6ai3akaVf1Wibc?=
- =?us-ascii?Q?LmjqEqOGENoaWOYotWOjUSuwLHO4uzMZ5dESfdp0OH95jc/Sntvdc/2MMie3?=
- =?us-ascii?Q?9ZPbj0HSv7Frj8kaDSaa9AW7o2/RsbXIzAOYn6nQ9wykfO0NS3QCQXWNOsct?=
- =?us-ascii?Q?ubrDt6+5CXpRSZB2Fdl7YMBrK1z42WzCTEozwqN6qxCf69Ph/wrLqNFh6Xbb?=
- =?us-ascii?Q?g6tUaHmeD2x4Msb0kMJH8TwQuxKWQKtAh9IiPSSCwI1aveD5TRSH8WGfHw1Y?=
- =?us-ascii?Q?VVjQ/m1wOzT2Kov4YYEkp9m73i1uZHkEbxdRChXSd4U6E4OvDRU1DeuSVjrR?=
- =?us-ascii?Q?WNDloP35vzDSA3tPds8GrrL0Ej6rsfd7RqlTLMAXYVyMNPCdR5fSeJVp077Y?=
- =?us-ascii?Q?96HGmshg/K/TMgHR4WK5JMU52K8pifN7aa7PqbGWs0KzwzZHsKeBAuwYgmCR?=
- =?us-ascii?Q?5EDOeI1L+kfvA+P2clb2z6TiGRnUJBxa/QgrHpKTOcliXLHjh1MAuK35W+te?=
- =?us-ascii?Q?AZyj2PGLIh1iTbYTiW9JjD9LSjs/CHKVUyzf1+eZJuB6zLfYjCFYU2mb/tKJ?=
- =?us-ascii?Q?UlfsW7UKVc5eX0rwHfospgQa6wXqMQSJFWaqoNmC7mxRpVqZT6rWc4PJc57R?=
- =?us-ascii?Q?bpqsJ+UYvRI5na/u6usFHD/wnwAcbuZtejJITIAtaF5K1VqyJ8Ma/PLWqP9y?=
- =?us-ascii?Q?Yhvs/wAPYWEsnEH1MSpfY5ju91dodVLV2W18cokRObbucoSyfumZ8+CZLVbG?=
- =?us-ascii?Q?4oCZ1W26/zf19hf6HlaWUXTYFZ5R9UzrQKX0go3WaXHqwXlwSw1XZ54EFpNy?=
- =?us-ascii?Q?pjQC/WiuI9OW5PU8ndc/EvnMaTN+WPbn4O+saiG4WFfMJnonE6Cdu9X+Fm+p?=
- =?us-ascii?Q?rnepGMnWCoWGOsdoQhp8dDbiBHJn7HHQ3d0F32S9nQbS0X8txTge18wp0tQN?=
- =?us-ascii?Q?0jVYBK7ZGROKE8bdWY+zIDSQQQaFDD8mkdTtayvXt5fO46aA6TW4ISkpqMI+?=
- =?us-ascii?Q?igvn1MsFs9e6QYo7aDNQCgA0CLPlyT0yLkFBEHbWu48Ye/w5lbjIR1UcyZzV?=
- =?us-ascii?Q?IkKzZhTlHsbqYpJVoRSPZAQ3Q8tsejlT/vD33umjwr9WmCyCyueOciUqcHXW?=
- =?us-ascii?Q?30oLzzTL7EWvVRXxj+R8W9uI3h/tLIYlPmAi3KN16a/KfLg7UqYpqAyRlvQ2?=
- =?us-ascii?Q?WHpG8lHz7vXm37+5neLEEgpzGFT6EfNESyUP93nR0vxhSwam?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?aSEoKHZEuWVG4/Q7CbzrNmAldtqrlILWqcfTgoz6soaCIReu2SrlfRbtmNAe?=
+ =?us-ascii?Q?ZZ79cf6KYkswrg6t/pMbvd9meVyIQAwStD7qeFq/homIQo/MGrPwfe1qDGQT?=
+ =?us-ascii?Q?D9RljOdggatKj1ZLT6N948Gct10Uf5ovg3fmqjWjGOKJdCo1/yUJT/RjzVUL?=
+ =?us-ascii?Q?8W2i6wqcKxiXf9JEnaMMpByjEuDVQMwWa/oAiEJRf7NcpPHImNVMqWjwvLp1?=
+ =?us-ascii?Q?Wz7HBu9J/1Okjc+h7/A8Y/61eLicvMLjl6ethsJaoVId36vu22pIXkdpLDmR?=
+ =?us-ascii?Q?R9ifPzUe/yMhUJRkYGfMSQCfls3PZw9RXHSU7kMestYOhBrzT2fNcFKT68bP?=
+ =?us-ascii?Q?1RFDdumNAkLAuYeb5U8fLfF76J5ljr9+xkV4//D/PwezxJcWXP6dYmMy9Ef2?=
+ =?us-ascii?Q?TJTkUgy+nj4rOdtseSnU2s0CF47iV2kUx91e6xsvEuJKy3jEYJzdMcj3hrPx?=
+ =?us-ascii?Q?ycQaz4/VHEcrAdS3cSVYblxajgysayzO2N/aSYb11cCMt/855d/1a64HlBDG?=
+ =?us-ascii?Q?p0Fh1GwQ+rdqGG6Rz6vWQGb2XJoiQklVSaOUXFTlW9b35LxHiGl0PMgJr1Hj?=
+ =?us-ascii?Q?9U+fYp/Pvl+RoI81QI1TPNS7unsdywsREiXrgd13PIcB93tPQiJvxbJY0Kb2?=
+ =?us-ascii?Q?ECRKx2Gni29BA7EWSKqZ4fHW5r4VQdaUk54TbubXls7Dvuvn7SnRkHNac4gS?=
+ =?us-ascii?Q?Vtnyf2y/Iv/DCevyhofj7sIjkGyo1Z1j1VKEuebv8l1YRRoWVWa1aOt55LhK?=
+ =?us-ascii?Q?E9s7SQ9gR7XmpUZ0q6d4/2dUizsKYDBGSqdivtvHMzgSfdnNSVHg4agnfW25?=
+ =?us-ascii?Q?5i1KobnW7vlAOB+K7Ye6z+lE/3S3N2JEYINw/1wKgY6GXGUEsp/3fkRgEeZy?=
+ =?us-ascii?Q?khxsm8nfwLidoNTxOjonfqsZx+JWTQoy7cmtlSll/LKss9GtheLEiHIC6QOI?=
+ =?us-ascii?Q?V5Ov+jRkpPbZkwEUYSBtmK9M+Gs9IJ4IJlHPX7oJ+aiAhMGHfJyVLxnd0kzF?=
+ =?us-ascii?Q?9QPJfONhrNMbznlcHRH/XdsgpsjtrTDxgz7E8reOFDGGjZw/DeWTUKDvAHLb?=
+ =?us-ascii?Q?rlD4mmOG3MKOs25L2sTIog1Lg2nsep5NPaqs1tpDySXRV7+vYk2CpL6Q/S18?=
+ =?us-ascii?Q?UlWRMmedrfPlc7xCEnv49OqanE00Bk1+DSMninjk5tN4bepOfsJ+m/eHxAIq?=
+ =?us-ascii?Q?4Gnvcomz17UJPX1khqvib+fE4CCh8nNI1SNn8zUDNRNGNIIFj75RC3ahzoX3?=
+ =?us-ascii?Q?fB+Uz6sPN2N6OXHP1/Ps2tmwcaBXy5heipcWVD6C9nKrRjmOUUVtlXrjRiBH?=
+ =?us-ascii?Q?2lBiwTuksHWYFt4k3Vlh9j2XYMIqgPqja7EHcJD3sRjNSWvKXYLhhDimD/nt?=
+ =?us-ascii?Q?M2kcscZGmbnURwBWqEAzMH3RUWayFV+SQA1T2enAUqsdm8FmWyRMoaXlP+V5?=
+ =?us-ascii?Q?UHVMWYidRJVOdXcOqv4yJgGbkrQnEkSMLHGZ5HeQfDRpwzahJ7ge2qRax9C4?=
+ =?us-ascii?Q?FZdzX+h9nPoQEUWab5b9dbDUWMWh0qfcNTlEIr95U5BeWzBrAdFgzrymqW3I?=
+ =?us-ascii?Q?DvCGUabRf8uItBdlDKsxP8EW3jEP/NHe4VjFheOVtP/DM4kCHegtRRnIa7bU?=
+ =?us-ascii?Q?o/Z4IFO6T1NVFenGRgRTEzK1uC/MTDVO01Auv0Zh8wIN/1GYYN93Ct/JS0aw?=
+ =?us-ascii?Q?MRHfr9kfiJ4TUtQ1zlSi4puU3MnyGZqrFZHp36iHShUT0RpZ?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CHAPR12MB999247.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dbdce71b-7268-4d97-bb3f-08df38ef17df
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Nov 2026 14:39:25.8539 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: CY3PR12MB9631.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7b4caacc-e763-4d35-896c-08df38f025be
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Nov 2026 14:46:58.5873 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: AtPIci5yloOVQILKQmMcuCucswSNjjJ2xU6pR7X0FBhmabkpF22CCK1r5+jNJd8H
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPFCAFD069B8
+X-MS-Exchange-CrossTenant-userprincipalname: k4ks1gVrH2GieTno4aMaoW+HTRn/6PsSUxSgD1wie7+soR9SRe2ZzOWtFccNcNpDO49mCJTmF1KoL9LESggkNw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8898
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,216 +131,217 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
->> +
->> +     if (q_data->type =3D=3D KFD_QUEUE_TYPE_COMPUTE) {
->> +             if (q_data->ctl_stack_size)
->> +                     qp->ctl_stack_size =3D q_data->ctl_stack_size / nu=
-m_xcc;
->> +             else if (topo_dev)
->> +                     qp->ctl_stack_size =3D topo_dev->node_props.ctl_st=
-ack_size;
->
->I'm curious what this case is needed for. In what circumstances would a
->CRIU checkpoint contain 0 ctl_stack_size? And is that's the case,
->wouldn't that break restore anyway?
->
+AMD General
 
-A lot of mqd managers don't set mqd->get_checkpoint_info,
-so the ctl_stack_size ends up as 0.
+This serail looks ok to me . You can add me as RB .
 
-kfd_queue_acquire_buffers requires the ctl_stack_size to be equal to
-topo_dev->node_props.ctl_stack_size anyways, so I think it
-makes sense to default to that value if the input is 0.
+Regards
+Shaoyun.liu
 
-David Francis
+-----Original Message-----
+From: Sun, Yongqiang <Yongqiang.Sun@amd.com>
+Sent: Wednesday, October 28, 2026 1:05 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Liu, Shaoyun <Shaoyun.Liu@amd.com>; Sun, Yongqiang <Yongqiang.Sun@amd.c=
+om>
+Subject: [PATCH 1/4] drm/amdgpu: wire mes_dbgext on mes12.1
 
-________________________________________
-From: Kuehling, Felix <Felix.Kuehling@amd.com>
-Sent: Friday, October 30, 2026 5:15 PM
-To: Francis, David; amd-gfx@lists.freedesktop.org
-Cc: Koenig, Christian
-Subject: Re: [PATCH v2 1/3] drm/amdkfd: Acquire buffers in CRIU queue resto=
-re (again)
+Add the per-IP hardware wiring that drives the mes_dbgext core on
+mes12.1 (mes_v12_1 / gfx_v12_1): handle MES_MISC_OP_SETUP_MES_DBGEXT in the=
+ misc-op path, unmask the MES host (TIME_STAMP) interrupt across both
+me3 pipes via the XCC-aware GRBM select, select the zoned buffer format in =
+sw_init(), start/stop the feature from hw_init()/hw_fini(), and drain the l=
+og from the me3 EOP interrupt handler while the feature is active.
 
-On 2026-10-30 10:05, David Francis wrote:
-> CRIU queue restore doesn't acquire the bo buffers in the same way
-> normal queue creation does. In normal queue creation, the driver
-> gets an additional reference on the queue's underlying buffers
-> that lasts until the queue is destroyed; this prevents the
-> queue's buffers from being removed from underneath it.
->
-> Acquire them, but don't get the svm bo. SVM isn't yet fully
-> restored by this point in CRIU and so there's no svm range to get.
-> This will be addressed in the next patch.
->
-> Signed-off-by: David Francis <David.Francis@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  2 +-
->   drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  2 +-
->   .../amd/amdkfd/kfd_process_queue_manager.c    | 34 +++++++++++++++++--
->   drivers/gpu/drm/amd/amdkfd/kfd_queue.c        |  8 ++++-
->   4 files changed, 41 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/a=
-md/amdkfd/kfd_chardev.c
-> index 6c710e4a5220c..d8233337b8d5e 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> @@ -433,7 +433,7 @@ static int kfd_ioctl_create_queue(struct file *filep,=
- struct kfd_process *p,
->               goto err_bind_process;
->       }
->
-> -     err =3D kfd_queue_acquire_buffers(pdd, &q_properties);
-> +     err =3D kfd_queue_acquire_buffers(pdd, &q_properties, false);
->       if (err) {
->               pr_debug("failed to acquire user queue buffers\n");
->               goto err_acquire_queue_buf;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/=
-amdkfd/kfd_priv.h
-> index f0ce5fc4a138f..eb4d35a42e917 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> @@ -1381,7 +1381,7 @@ void print_queue(struct queue *q);
->   int kfd_queue_buffer_get(struct amdgpu_vm *vm, void __user *addr, struc=
-t amdgpu_bo **pbo,
->                        u64 expected_size);
->   void kfd_queue_buffer_put(struct amdgpu_bo **bo);
-> -int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct que=
-ue_properties *properties);
-> +int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct que=
-ue_properties *properties, bool is_criu);
->   int kfd_queue_release_buffers(struct kfd_process_device *pdd, struct qu=
-eue_properties *properties);
->   void kfd_queue_unref_bo_va(struct amdgpu_vm *vm, struct amdgpu_bo **bo)=
-;
->   int kfd_queue_unref_bo_vas(struct kfd_process_device *pdd,
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/dri=
-vers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-> index 4c4a3a8587f46..509529af2dc3c 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-> @@ -985,8 +985,14 @@ int kfd_criu_checkpoint_queues(struct kfd_process *p=
-,
->   }
->
->   static void set_queue_properties_from_criu(struct queue_properties *qp,
-> -                                       struct kfd_criu_queue_priv_data *=
-q_data)
-> +                                        struct kfd_criu_queue_priv_data =
-*q_data,
-> +                                        struct kfd_process_device *pdd)
->   {
-> +     struct kfd_topology_device *topo_dev;
-> +     uint32_t num_xcc =3D NUM_XCC(pdd->dev->xcc_mask);
-> +
-> +     topo_dev =3D kfd_topology_device_by_id(pdd->dev->id);
-> +
->       qp->is_interop =3D false;
->       qp->queue_percent =3D q_data->q_percent;
->       qp->priority =3D q_data->priority;
-> @@ -998,6 +1004,16 @@ static void set_queue_properties_from_criu(struct q=
-ueue_properties *qp,
->       qp->eop_ring_buffer_size =3D q_data->eop_ring_buffer_size;
->       qp->ctx_save_restore_area_address =3D q_data->ctx_save_restore_area=
-_address;
->       qp->ctx_save_restore_area_size =3D q_data->ctx_save_restore_area_si=
-ze;
-> +
-> +     if (q_data->type =3D=3D KFD_QUEUE_TYPE_COMPUTE) {
-> +             if (q_data->ctl_stack_size)
-> +                     qp->ctl_stack_size =3D q_data->ctl_stack_size / num=
-_xcc;
-> +             else if (topo_dev)
-> +                     qp->ctl_stack_size =3D topo_dev->node_props.ctl_sta=
-ck_size;
+Signed-off-by: Yongqiang Sun <Yongqiang.Sun@amd.com>
+Reviewed-by: Shaoyun Liu <Shaoyun.Liu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c | 19 +++++++  drivers/gpu/drm/amd/a=
+mdgpu/mes_v12_1.c | 68 ++++++++++++++++++++++++++
+ 2 files changed, 87 insertions(+)
 
-I'm curious what this case is needed for. In what circumstances would a
-CRIU checkpoint contain 0 ctl_stack_size? And is that's the case,
-wouldn't that break restore anyway?
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c b/drivers/gpu/drm/amd/a=
+mdgpu/gfx_v12_1.c
+index 1589fc6413af5..4449691744a96 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
+@@ -3515,6 +3515,25 @@ static int gfx_v12_1_eop_irq(struct amdgpu_device *a=
+dev,
 
-Other than that, this patch looks good to me.
+        DRM_DEBUG("IH: CP EOP\n");
 
-Regards,
-   Felix
++       if (((entry->ring_id & 0x0c) >> 2) =3D=3D 3) {
++               u32 type =3D amdgpu_mes_ih_int_type(doorbell_offset);
++
++               switch (type) {
++               case AMDGPU_MES_IH_INT_TYPE_DBGMSG:
++                       /*
++                        * MES firmware debug-extension ("mes_dbgext") mess=
+ages are
++                        * delivered as an EOP interrupt from the MES sched=
+uler pipe
++                        * (me 3).  Type is in context dword bits 31:26 (ME=
+S_DBGMSG =3D 7).
++                        */
++                       if (adev->mes.dbgext_active)
++                               amdgpu_mes_dbgext_notify(adev, doorbell_off=
+set);
++                       break;
++               default:
++                       break;
++               }
++               return 0;
++       }
++
+        if (adev->enable_mes && doorbell_offset) {
+                amdgpu_userq_process_fence_irq(adev, doorbell_offset);
+        } else {
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c b/drivers/gpu/drm/amd/a=
+mdgpu/mes_v12_1.c
+index 5573fe981a220..5e4f929ba6b5c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
+@@ -42,6 +42,7 @@ static int mes_v12_1_hw_fini(struct amdgpu_ip_block *ip_b=
+lock);  static int mes_v12_1_kiq_hw_init(struct amdgpu_device *adev, uint32=
+_t xcc_id);  static int mes_v12_1_kiq_hw_fini(struct amdgpu_device *adev, u=
+int32_t xcc_id);  static int mes_v12_1_setup_coop_mode(struct amdgpu_device=
+ *adev, int xcc_id);
++static int mes_v12_1_enable_dbgext_irq(struct amdgpu_mes *mes, bool
++enable);
 
+ #define MES_EOP_SIZE   2048
+ #define MES12_HUNG_DB_OFFSET_ARRAY_SIZE 8 /* [0:3] =3D db offset [4:7] hqd=
+ info */ @@ -639,6 +640,13 @@ static int mes_v12_1_misc_op(struct amdgpu_me=
+s *mes,
+                misc_pkt.change_config.option.bits.limit_single_process =3D
+                        input->change_config.option.limit_single_process;
+                break;
++       case MES_MISC_OP_SETUP_MES_DBGEXT:
++               misc_pkt.opcode =3D MESAPI_MISC__SETUP_MES_DBGEXT;
++               misc_pkt.dbgext_init_data.dbg_ext_mc_addr =3D
++                               input->setup_mes_dbgext.log_buffer_mc_addr;
++               misc_pkt.dbgext_init_data.u64_all =3D
++                               input->setup_mes_dbgext.log_options;
++               break;
+        default:
+                DRM_ERROR("unsupported misc op (%d) \n", input->op);
+                return -EINVAL;
+@@ -962,6 +970,52 @@ static int mes_v12_1_inv_tlbs_pasid(struct amdgpu_mes =
+*mes,
 
-> +     } else {
-> +             qp->ctl_stack_size =3D q_data->ctl_stack_size;
-> +     }
-> +
->       qp->type =3D q_data->type;
->       qp->format =3D q_data->format;
->   }
-> @@ -1047,7 +1063,13 @@ int kfd_criu_restore_queue(struct kfd_process *p,
->       }
->
->       memset(&qp, 0, sizeof(qp));
-> -     set_queue_properties_from_criu(&qp, q_data);
-> +     set_queue_properties_from_criu(&qp, q_data, pdd);
-> +
-> +     if (q_data->type =3D=3D KFD_QUEUE_TYPE_COMPUTE && !qp.ctl_stack_siz=
-e) {
-> +             pr_err("Failed to determine ctl_stack_size for compute queu=
-e\n");
-> +             ret =3D -EINVAL;
-> +             goto exit;
-> +     }
->
->       /* Per-XCC control stack size from topology, as create-queue requir=
-es */
->       if (qp.type =3D=3D KFD_QUEUE_TYPE_COMPUTE && pdd->dev->kfd->cwsr_en=
-abled) {
-> @@ -1095,9 +1117,17 @@ int kfd_criu_restore_queue(struct kfd_process *p,
->
->       print_queue_properties(&qp);
->
-> +     ret =3D kfd_queue_acquire_buffers(pdd, &qp, true);
-> +     if (ret) {
-> +             pr_err("Failed to acquire user queue buffers err:%d\n", ret=
+ }
+
++/*
++ * Enable/disable delivery of the MES firmware host interrupts at the
++CP.  The
++ * MES firmware debug-message ("mes_dbgext") interrupt is delivered to
++the IH
++ * as a CP EOP (src_id 181) on the MES scheduler pipe (me 3) and
++handled in
++ * gfx_v12_1_eop_irq(); it is gated by CPC_INT_CNTL in the me3/MES pipe
++context,
++ * selected via GRBM_GFX_CNTL.  Must run in process context (takes srbm_mu=
+tex).
++ *
++ * Although the firmware C code passes Rs64HostIntrGeneric1IntEnable,
++the RS64
++ * library routine that actually raises the interrupt
++(AsmRs64SetHostIntr)
++ * hardcodes the TIME_STAMP assertion bit (CP_INT_STAT_DEBUG bit 26).
++So
++ * TIME_STAMP_INT_ENABLE - not GENERIC1_INT_ENABLE - is the
++CPC_INT_CNTL bit
++ * that lets the CP forward the assertion to the host IH.  CPC_INT_CNTL
++is
++ * per-(me,pipe); the enable must be set on both me3 pipes (0 and 1),
++matching
++ * the Windows/SR-IOV KMD path - setting it only on the scheduler pipe
++is not
++ * sufficient.  Armed on every XCC, since each runs its own MES and
++logs into
++ * its own per-XCC buffer region.
++ */
++static int mes_v12_1_enable_dbgext_irq(struct amdgpu_mes *mes, bool
++enable) {
++       struct amdgpu_device *adev =3D mes->adev;
++       int num_xcc =3D NUM_XCC(adev->gfx.xcc_mask);
++       u32 cp_int_cntl;
++       int pipe, xcc_id, inst;
++
++       mutex_lock(&adev->srbm_mutex);
++
++       for (xcc_id =3D 0; xcc_id < num_xcc; xcc_id++) {
++               inst =3D GET_INST(GC, xcc_id);
++
++               for (pipe =3D 0; pipe < 2; pipe++) {
++                       soc_v1_0_grbm_select(adev, 3, pipe, 0, 0, inst);
++
++                       cp_int_cntl =3D RREG32_SOC15(GC, inst, regCPC_INT_C=
+NTL);
++                       cp_int_cntl =3D REG_SET_FIELD(cp_int_cntl, CPC_INT_=
+CNTL,
++                                                   TIME_STAMP_INT_ENABLE, =
+enable ? 1 : 0);
++                       WREG32_SOC15(GC, inst, regCPC_INT_CNTL, cp_int_cntl=
 );
-> +             goto exit;
-> +     }
-> +
->       ret =3D pqm_create_queue(&p->pqm, pdd->dev, &qp, &queue_id, q_data,=
- mqd, ctl_stack, NULL);
->       if (ret) {
->               pr_err("Failed to create new queue err:%d\n", ret);
-> +             kfd_queue_unref_bo_vas(pdd, &qp);
-> +             kfd_queue_release_buffers(pdd, &qp);
->               goto exit;
->       }
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c b/drivers/gpu/drm/amd=
-/amdkfd/kfd_queue.c
-> index 6010a5d7a7eb9..18d24ddb455eb 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-> @@ -239,7 +239,7 @@ static void kfd_queue_put_bos(struct queue_properties=
- *properties)
->       kfd_queue_buffer_put(&properties->cwsr_bo);
->   }
->
-> -int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct que=
-ue_properties *properties)
-> +int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct que=
-ue_properties *properties, bool is_criu)
->   {
->       struct kfd_topology_device *topo_dev;
->       u64 expected_queue_size;
-> @@ -334,6 +334,12 @@ int kfd_queue_acquire_buffers(struct kfd_process_dev=
-ice *pdd, struct queue_prope
->
->       amdgpu_bo_unreserve(vm->root.bo);
->
-> +     /* CRIU svm buffers are restored at a later stage than queues. They=
-'ll be in
-> +      * before the queue is actually used, so no risk here
-> +      */
-> +     if (is_criu)
-> +             return 0;
-> +
->       err =3D kfd_queue_buffer_svm_get(pdd, properties->ctx_save_restore_=
-area_address,
->                                      total_cwsr_size);
->       if (err)
++               }
++
++               soc_v1_0_grbm_select(adev, 0, 0, 0, 0, inst);
++       }
++
++       mutex_unlock(&adev->srbm_mutex);
++
++       return 0;
++}
++
+ static const struct amdgpu_mes_funcs mes_v12_1_funcs =3D {
+        .add_hw_queue =3D mes_v12_1_add_hw_queue,
+        .remove_hw_queue =3D mes_v12_1_remove_hw_queue, @@ -973,6 +1027,7 @=
+@ static const struct amdgpu_mes_funcs mes_v12_1_funcs =3D {
+        .reset_hw_queue =3D mes_v12_1_reset_hw_queue,
+        .detect_and_reset_hung_queues =3D mes_v12_1_detect_and_reset_hung_q=
+ueues,
+        .invalidate_tlbs_pasid =3D mes_v12_1_inv_tlbs_pasid,
++       .enable_dbgext_irq =3D mes_v12_1_enable_dbgext_irq,
+ };
+
+ static int mes_v12_1_allocate_ucode_buffer(struct amdgpu_device *adev, @@ =
+-1532,6 +1587,15 @@ static int mes_v12_1_sw_init(struct amdgpu_ip_block *ip=
+_block)
+        adev->mes.kiq_hw_fini =3D &mes_v12_1_kiq_hw_fini;
+        adev->mes.enable_legacy_queue_map =3D true;
+
++       /*
++        * Enable mes_dbgext by default on mes12.1: seed an 8 KB runtime
++        * request so hw_init() -> amdgpu_mes_dbgext_start() brings the log=
+ up at
++        * boot with no mes_dbgext_buffer_size module param needed.  The
++        * collection mode still follows mes_dbgext_options (default bit0 =
+=3D 1,
++        * interrupt-driven).  Both module params continue to override this=
+.
++        */
++       adev->mes.dbgext_runtime_kb =3D 8;
++
+        adev->mes.event_log_size =3D AMDGPU_MAX_MES_PIPES *
+                                   AMDGPU_MES_LOG_BUFFER_SIZE * num_xcc;
+
+@@ -1826,11 +1890,15 @@ static int mes_v12_1_hw_init(struct amdgpu_ip_block=
+ *ip_block)
+                        return r;
+        }
+
++       amdgpu_mes_dbgext_start(adev);
++
+        return 0;
+ }
+
+ static int mes_v12_1_hw_fini(struct amdgpu_ip_block *ip_block)  {
++       amdgpu_mes_dbgext_stop(ip_block->adev);
++
+        return 0;
+ }
+
+--
+2.43.0
+
