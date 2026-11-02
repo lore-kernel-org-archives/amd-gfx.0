@@ -2,101 +2,102 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7994B606A324
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 08:22:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5C78606A324
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 08:25:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Jmak0jAp
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=0V0bGJ+Q
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE2E110E5C8;
-	Mon,  2 Nov 2026 08:22:43 +0000 (UTC)
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013071.outbound.protection.outlook.com
- [40.93.201.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AFEED10EC09
- for <amd-gfx@lists.freedesktop.org>; Mon,  2 Nov 2026 08:22:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25A0E10EC1B;
+	Mon,  2 Nov 2026 08:25:28 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012015.outbound.protection.outlook.com
+ [40.93.195.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9238E10EC17
+ for <amd-gfx@lists.freedesktop.org>; Mon,  2 Nov 2026 08:25:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MM8DWNABGE8oD8cVL3/HcV6aQwSSM5jdrqsOOTD6uw2RCbnhuLavbv/XlAfQnJ/wDXIwwQkekKgFukzrqU5glIx+/egYQjOOGjKUSDAG/JzYvHU+CBWNXH1Pxxkp552Bg96HXABl5IWdNfaRcVSi0AP9WcrMYtYcUCxMUG3V2eYt5FDjESNcTNc9O9mSEoixkeZ381iUMG5mOfsCNO3FvoFGiGa2MfDAF7QEUAneqgYqMRNIRBcCRODmwSHamARRevRdttfRcSKuodRW81XGGCjqB17h+nmb89Dx4fsquDsstAWlXofQZCMMtl1nG6/K6SCso5lp0AcA8V4h/1XtfQ==
+ b=xU2aPUgDFDAZJVeiQD8HMMc8ciHo0isUSOXUcbMoTStarTx1jPiK5ZoA1QJxkDLF6dv2+ABI5mczymFmg4KZS+h9u3EsBK0sZw1Jdjh9qKn6C0fLhLsdOBA7J3VTTb9wRVGe2+IPLjN795NTSWLCaN2JTuhW88vcmKw5gbt4YyPe553Y75PfaTpPCU/EVpXXJKGbQY+a1c6OpFMNnL/Saqf7nSByXqXciNJBiMGAxR5MpfxltfOfpY6pVpySboEL2uU4kquTnB51ZBeyIFSnkzLeIjg/EwTPj/r3tqzq+ALB4cTvkIWQeXTOMO3EhKXHDrmRROYjIj4HuiFW0OQJ1g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LnGITz9f5BJc61UJFFcR7mqOfAqUP1q8RgOOF1chb0s=;
- b=n4u/WAVEO3dxU1jqSilmhahczDpyIKRSm12PLaaANwnXHtG7YvbxKcjRA7inhhtsb+LdCb4KYCkf34wQEr7D4PrMRV4/voTUcGI3Gjhb6CAFg9+BC9uWt4oq3tt5rDBrVkWX62bF9S0JnP/4PyqOnJTDhs6RhS0lNUEI6HKVM3BCNGCNjfaLir4WFionVN9n+Qmk6trOgys7SnVmeS7bHqlmUzzWVYfacm2sMJ6uCTypT+zBAQE2H7kIM2lxkS2U+SMf0doT6ikcQsiVayAtZcjRTNFD4Y22yEktgXu8XK/WeEE3AutUXBwpcBPDpjzFYlH4x03GAXmHeUaqB4GOPQ==
+ bh=7F5WCAAQGu0Un8CIBlbSIWqd5EUOWTCzq8WuIXwTosw=;
+ b=X1K71WdEccwnABGdkvVE+WLlMkLll1LDM2xa4YOcNZ3EVZ8q4lzhOd1c/cv9japTmqFW3UJowJ944AHLYABGweEcBHRneR5oW9X1Pic8I7O0bVftgPhO++dCWpoQKGFxAS3n9bnob5XRbZXapLrUt8edpVIFRzjR94+xEPPbVco1jyeQzaJ+5KkPQKcil2ozMCl9yvbag0ZG9mu8eLRv5TRQNq55S99oJ5pGRwoOa8Xlxtmu05fMsrFPtgWetbObpewQJq1CZoB5YPMxoN2stOH37o6E/5cphbnekrSHt5gDcgFKlbacvrW4f5xH4sqRMi0jIIul56e9D8jtQrS0bg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LnGITz9f5BJc61UJFFcR7mqOfAqUP1q8RgOOF1chb0s=;
- b=Jmak0jApXjWRhtj3W33eJ4JFh8eoMB4/26CpqzmYcT7nX+0ySIGpVQ64ev5dqBase/7qnWl1RqXWYKMZfHINqCKWqPrfl1ayC/+OE8bQR7h79O6JOgMZVrmAGVI6zaLgCjtHOZKR2sPnniK6FIaoNf3rzGR4cJpuygfiCoKwHok=
-Received: from SJ0PR05CA0062.namprd05.prod.outlook.com (2603:10b6:a03:332::7)
- by SA5PPF3C36BFCB5.namprd12.prod.outlook.com
- (2603:10b6:80f:fc04::8c7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Mon, 2 Nov 2026
- 08:22:33 +0000
-Received: from PH5PEPF0000002B.namprd04.prod.outlook.com
- (2603:10b6:a03:332:cafe::a0) by SJ0PR05CA0062.outlook.office365.com
- (2603:10b6:a03:332::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.8 via Frontend Transport; Mon, 2
- Nov 2026 08:22:33 +0000
+ bh=7F5WCAAQGu0Un8CIBlbSIWqd5EUOWTCzq8WuIXwTosw=;
+ b=0V0bGJ+QwjJlj2PuLLj2JDpAAK8Ksyk7D8GnwxUT1wAKizjHA75JjibGQO3vWoastPQg/beLLTviIS9fVtiEgUWLROKg2lHh/mDWDnfrdkG5pJ2BgJwkXnFvjBZLmQ8T3IYPW6NfQ7GWdXK5mlk3A/QcTEfnrGvvPIstAV+amlM=
+Received: from CY8PR11CA0023.namprd11.prod.outlook.com (2603:10b6:930:48::17)
+ by DS2PR12MB9776.namprd12.prod.outlook.com (2603:10b6:8:2bd::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
+ 2026 08:25:17 +0000
+Received: from CY7PEPF000000F3.namprd05.prod.outlook.com
+ (2603:10b6:930:48:cafe::a7) by CY8PR11CA0023.outlook.office365.com
+ (2603:10b6:930:48::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Mon, 2
+ Nov 2026 08:25:17 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- PH5PEPF0000002B.mail.protection.outlook.com (10.167.243.5) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CY7PEPF000000F3.mail.protection.outlook.com (10.167.247.151) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Mon, 2 Nov 2026 08:22:33 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.592.5 via Frontend Transport; Mon, 2 Nov 2026 08:25:17 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 2 Nov
- 2026 02:22:32 -0600
+ 2026 02:25:17 -0600
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 2 Nov
+ 2026 02:25:16 -0600
 Received: from JesseDEV.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Mon, 2 Nov 2026 02:22:30 -0600
+ Transport; Mon, 2 Nov 2026 02:25:15 -0600
 From: Jesse Zhang <Jesse.Zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
- Felix Kuehling <Felix.Kuehling@amd.com>, Jesse Zhang <Jesse.Zhang@amd.com>
-Subject: [PATCH 2/2] drm/amdgpu: unlock the VM and BO when attaching a KFD BO
- fails
-Date: Mon, 2 Nov 2026 16:21:12 +0800
-Message-ID: <20261102082228.2149111-2-Jesse.Zhang@amd.com>
+ Jesse Zhang <Jesse.Zhang@amd.com>
+Subject: [PATCH] drm/amdgpu: rewrite all PTEs of the BOs after a VM reset
+Date: Mon, 2 Nov 2026 16:23:34 +0800
+Message-ID: <20261102082510.2149814-1-Jesse.Zhang@amd.com>
 X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261102082228.2149111-1-Jesse.Zhang@amd.com>
-References: <20261102082228.2149111-1-Jesse.Zhang@amd.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH5PEPF0000002B:EE_|SA5PPF3C36BFCB5:EE_
-X-MS-Office365-Filtering-Correlation-Id: 149f8210-e572-46b2-5c15-08df38ba71c1
+X-MS-TrafficTypeDiagnostic: CY7PEPF000000F3:EE_|DS2PR12MB9776:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0e6f9205-abce-4fca-3337-08df38bad3b9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|82310400026|376014|23010399003|1800799024|22082099003|18002099003|261022105027099003|11063799006|261021123027099003|10067099003|261021121427099003|261009223027099003|261028144727099003|261026140227099003|261026121527099003|56012099006;
-X-Microsoft-Antispam-Message-Info: THhuuQSUv82B4ZYn1AIiL5waMjSj+akwPhMbtbAQN7EOldq5tVbjJdWhR2fm12ubK5J09uf8zysAa1bv4eOYEvHvWfC6/WcpmYsdwSUYZJCIfmWULOHXSQhsx5cZ3GDKuNxqNWLnXdUsfetj5U9yw0mJ5mYyzmdVuYW0nCMa+vJlr+xW2tLFAWpEjXVnLHzsqZb67t+dEtTOKZR+xvGWlt+39Zhrv/09FPDFiBU5/fyqOKqYayClHQJ8S1t6wIkJilN7touVxbZ3Sg0rrqbdlPqG+UR2g0+J9oQYACRXm2CxUhgB5traioTvZWATq/E/FBi/yI40clIqBPxoa19/LVChm/D89e+fHaIjaf899z3lKxcfirx13KfpS1ImKBd8IU3x5J/3AIFbgvDatqDZ8aYKUq1ydPAfQNKnTAIy/v4E6fZuIyQCEtvhUSXI2MD/J3mlYToVVYkAq17pqHT5supZOtpaa5+ow8nPqLuLC43ijxUOvTqNwvVgQRXr2EX5Ni1vYiWDtc2z32hjaCur0DuG1CQqnBGCh7AslkEe4kwjBnc5pW/PMDlJ05YDkD+Rqi/s5HgmBOqJAUBl/jYn+16fQwhD5o60dFtiI8+afiS3DEcg5fsU8I9K5Lk8M8NbuDHlHAJd+YuL9l3WfwicTUQ/jIk2FAnOi8NVaVGohrPmmEgxsbdK7gGN0ld0ifSy
+ ARA:13230040|376014|36860700016|82310400026|1800799024|23010399003|10067099003|18002099003|56012099006|5023799004|11063799006|261021123027099003|261021121427099003|261026121527099003|261026140227099003|261022075727099003|261022105027099003|261009223027099003|261028144727099003;
+X-Microsoft-Antispam-Message-Info: sf2VUY8tEdFUde+z3utJuWdfPK4GWWaSjDAMtx1zTGJoTqx2tIlqJ3nGhKCX7TQHhThoIhCxqqfy7FDRc9mTe3Yj5vRshwaaxvRW4QLqROYhhe1lExZUSCgglKuOcTdbmRYTxGpI+/CbUvLuo1Ufl3V8eTbtJ//i86x3kAAvssnEpVb1ShN0LxEHwXR2870pVwLUyqqqKLHqtUPdiDFRjFDukpfFzN5Gk+5Lp6iuXjF2i/s28ShvTSfTlZdZqGv2IBpLCWgIq0uIC45Fc8tuiNAZxueeJTaB2KR7w8l0LH4VW20e8Xgia4it8ljIoa33s1DlXq0ahNMdEiieH4actkIUiDNUmGJnX58VY+igHL4Ht+cr+tL4SKtc6vZrCmauyFrseJzbThHG1UhE3urGlPW3dXwAVp79oCSZj37Rw+sKLEzb/5S1NrH07Y0i5G6uiCh/hE1/TRds3k3sWc0t/TOlUJrEO2UfUTxtt+RA5uzYREOJHkbjuISLJnjiFaAgH/JUAa14/llLNy41tioMMewIuIrQ/EKcTI3+3wr6nVDmmpbbCsSFBzndDLoevHZA8NrstYbB8Uy0CYXW6vyihz1wY1PlR5NjyhxpbDYUEx2vEt5QJ9wt6zzhXdk/m13OV8NGOJFK1J+X4kYkVVBvwi2xauCboXta4TteWA95eiUd/JAbrlJLpxcw39OnwTf64McrcmSkZUIDaAtgUx9ZOw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(82310400026)(376014)(23010399003)(1800799024)(22082099003)(18002099003)(261022105027099003)(11063799006)(261021123027099003)(10067099003)(261021121427099003)(261009223027099003)(261028144727099003)(261026140227099003)(261026121527099003)(56012099006);
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(36860700016)(82310400026)(1800799024)(23010399003)(10067099003)(18002099003)(56012099006)(5023799004)(11063799006)(261021123027099003)(261021121427099003)(261026121527099003)(261026140227099003)(261022075727099003)(261022105027099003)(261009223027099003)(261028144727099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: mEqHxHYYV1ZOcqEMh9weu6OqR3sjUAg9tZT3e5KZPqK/OjSFJfqR70uTFBRYEJOh+faS/awNUjGxheHy+9o/8DdfQNWttvbmnENfsRzNDNfixXGO6Jwo+dp3Ox17vtaiYV9U8PBrDq1iuYcmq8dEh58XfvewrBqgmeWAIdOOe5vHQnM+utWVv8/kQZCV+SoWqu8ONOJ8gFsaqr5/YqkuAusxe68TL1+pqWUqB1Soja7RDzi/KpzbnS/gHdOn/Mfu15n/JgZHAelb+O4bmpy4oClkudE60NwOwmaAPs4yb5IuNgzAfxaHz4fR25PSvKDkhEhMM8ImkiGYeWCXEtw4nfhnlPtumlyGkDQgD3tg+uKx+vX0w1lG+To2A6RvEEkX7WBfffepuVL1q8ZBPVIWbUV7FHRRqQsl3404JFRAmNolUsmWjrX9nKtCiGb8okfH
+X-MS-Exchange-AntiSpam-MessageData-0: dENsl1Z7Hr37UsjBEeWQ+SoDGGh7eYxRHnVc+TRISz1nkiJrhWmTqQrpGPnSzfXv8uCvP9gKd/ZXcPV0cHMcgMxwT0wScI0mIbhxzxXxz+IVPYORjMQFj1xVYSEu9TQiDHu8JkpleRIDJhMPZxZLHUE6c2cgOg3/EvXiNb/TDVh9iDZ4fcohcJ9ZpwQ4b7ES7bokO4FtxzYC0ZIQNlIPL4bDnIxQuS7YpEWr1Y17rJNDNohUJExhZHMZuuKY7gSqrXPXUJCJ6tnBYO/LHDxeDZTs3JfexdxcvQvq+QDkiiUI9MXMxZI2a7fbfAq0K/yymZ6WA6nf/gDxReChUNaO/JlAxoG3sclERjA3aX3Vu74NsB8kfl3vIuwBH/PrrE1jXiClk5pgR9+qLHYS2sayOQw05t3YhD9FqPQh02w/+qhaxrIQN1H155nzkNGGXec9
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 08:22:33.2349 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 149f8210-e572-46b2-5c15-08df38ba71c1
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 08:25:17.6464 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0e6f9205-abce-4fca-3337-08df38bad3b9
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: PH5PEPF0000002B.namprd04.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY7PEPF000000F3.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPF3C36BFCB5
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9776
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,58 +115,66 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-kfd_mem_attach() locks the page directory and the BO with a drm_exec
-transaction on its stack, but leaves through the unwind label without
-drm_exec_fini() when locking fails, e.g. when MAP_MEMORY_TO_GPU gets a
-signal while the page directory or the BO is busy. Reservations already
-acquired then remain locked with their ww_acquire_ctx pointing into the
-expired stack frame.
+amdgpu_vm_bo_reset_state_machine() moves all idle vm_bos to needs_update
+so that their mappings are written again, e.g. after a GPU reset lost
+VRAM. Since commit 5be7f6720a0f ("drm/amdgpu: Only set bo->moved when
+the BO was actually moved") amdgpu_vm_bo_needs_update() no longer sets
+the moved flag, so amdgpu_vm_bo_update() writes nothing for the kernel
+and always valid BOs. The same applies to vm_bos already on a
+needs_update list, e.g. after an AMDGPU_VM_DELAY_UPDATE mapping, where
+only the new mapping gets written.
 
-With one thread doing GEM_VA map/unmap on the KFD VM and
-another one mapping KFD BOs while getting SIGUSR1 every 20 us:
+An SDMA write to an always valid BO after a VRAM-losing reset faults:
 
-  BUG: KASAN: stack-out-of-bounds in __ww_mutex_lock.constprop.0+0x34f5/0x3da0
-   ww_mutex_lock_interruptible+0x2f/0x150
-   drm_exec_lock_obj+0x107/0x2d0 [drm_exec]
-   kfd_mem_attach+0x4dd/0x1b60 [amdgpu]
+  amdgpu 0000:03:00.0: VRAM is lost due to GPU reset!
+  amdgpu 0000:03:00.0: [gfxhub] page fault (src_id:0 ring:40 vmid:7 pasid:9)
+  amdgpu 0000:03:00.0:   in page starting at address 0x0000000100000000 from client 10
 
-and the process ends up in D state.
+Set the moved flag for all vm_bos on the needs_update lists after moving
+the idle ones there; the root PD still goes back to idle.
 
-Finish the transaction before unwinding.
-
-Fixes: fd1fa48b935f ("drm/amdgpu: lock both VM and BO in amdgpu_gem_object_open")
+Fixes: 5be7f6720a0f ("drm/amdgpu: Only set bo->moved when the BO was actually moved")
 Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 2f8a5e7d3f78..f060b206c255 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -975,11 +975,11 @@ static int kfd_mem_attach(struct amdgpu_device *adev, struct kgd_mem *mem,
- 			ret = amdgpu_vm_lock_pd(vm, &exec, 0);
- 			drm_exec_retry_on_contention(&exec);
- 			if (unlikely(ret))
--				goto unwind;
-+				goto unlock;
- 			ret = drm_exec_lock_obj(&exec, &bo[i]->tbo.base);
- 			drm_exec_retry_on_contention(&exec);
- 			if (unlikely(ret))
--				goto unwind;
-+				goto unlock;
- 		}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 65974c0e7a16..2ba33212d507 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -271,19 +271,27 @@ static void amdgpu_vm_bo_reset_state_machine(struct amdgpu_vm *vm)
  
- 		bo_va = amdgpu_vm_bo_find(vm, bo[i]);
-@@ -1005,6 +1005,8 @@ static int kfd_mem_attach(struct amdgpu_device *adev, struct kgd_mem *mem,
+ 	/*
+ 	 * Don't use list splice here, we need the special handling for the root
+-	 * PD and set the moved flag appropriately.
++	 * PD. All mappings must be written again, also of the vm_bos which are
++	 * already waiting for an update of some of them, e.g. after a map with
++	 * a delayed update, so set the moved flag for everything that needs an
++	 * update.
+ 	 */
+ 	amdgpu_vm_assert_locked(vm);
+ 	list_for_each_entry_safe(vm_bo, tmp, &vm->kernel.idle, vm_status)
+ 		amdgpu_vm_bo_needs_update(vm_bo);
++	list_for_each_entry(vm_bo, &vm->kernel.needs_update, vm_status)
++		vm_bo->moved = true;
++
+ 	list_for_each_entry_safe(vm_bo, tmp, &vm->always_valid.idle, vm_status)
+ 		amdgpu_vm_bo_needs_update(vm_bo);
++	list_for_each_entry(vm_bo, &vm->always_valid.needs_update, vm_status)
++		vm_bo->moved = true;
  
- 	return 0;
+ 	spin_lock(&vm->individual_lock);
+-	list_for_each_entry_safe(vm_bo, tmp, &vm->individual.idle, vm_status) {
+-		vm_bo->moved = true;
++	list_for_each_entry_safe(vm_bo, tmp, &vm->individual.idle, vm_status)
+ 		list_move(&vm_bo->vm_status, &vm->individual.needs_update);
+-	}
++	list_for_each_entry(vm_bo, &vm->individual.needs_update, vm_status)
++		vm_bo->moved = true;
+ 	spin_unlock(&vm->individual_lock);
+ }
  
-+unlock:
-+	drm_exec_fini(&exec);
- unwind:
- 	for (; i >= 0; i--) {
- 		if (!attachment[i])
 -- 
 2.50.1
 
