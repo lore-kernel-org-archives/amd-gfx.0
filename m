@@ -2,101 +2,96 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F07E607993B
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 15:51:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CC38606A5A7
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 16:02:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hNzfbyja
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=sUEs9Yhj
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9989C10E08D;
-	Mon,  2 Nov 2026 15:51:53 +0000 (UTC)
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
- [209.85.214.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A375E10F049
- for <amd-gfx@lists.freedesktop.org>; Mon,  2 Nov 2026 15:51:47 +0000 (UTC)
-Received: by mail-pl1-f180.google.com with SMTP id
- d9443c01a7336-2e853a56bb4so1335285ad.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 02 Nov 2026 07:51:47 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793634707; cv=none;
- d=google.com; s=arc-20260327;
- b=g5g3hkTJCICvm86yX3v2Hb8aWhoLBsML7+PbqVz0/jP8Kmyqb0o+daEr0T8lk19p9z
- 99U/zmctsBrn6ufaqkAgAGyzXcd0GhCxhPZV06/fPgYTl13myZxnj6xEJuT/p2dkG+fp
- 53EAdUqgoQPRd7znK1fI1JV2z0OsLWlthHOMTsPv+567bzw/En2lYP7gdNmitpBBaiEo
- AFMNgSYI3/itlZr02EbSJGHiIJGr9EapBv3X+TV2S+n5b1F9BmFRMB6sEOYfz/BM1Ggz
- TIlwkAm5JZFvhXOhOTyRFsc0oPZ5Nt7QD0gQtLY/9+Er+A6iTNvjl52O+GJoCo+2TQMP
- d9Jg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=nOCgKoJdIhSObbuGxZ7xKscGyZkjtDdaeTHB5AW5EkM=;
- fh=4Bv9XQawu6aFNJ0MIinLl1HlJPyYcdDTjb0EylH3pAo=;
- b=Q5SqmPCwiK2qR66OavXW7es+6jcrg6vkqzaBw4HT0qyG+RBt1V9C/wLib4H7Ura7u/
- BoIz4n7Fqn+vszxhPyhyS2B+wuKrMzsApr+/f2prnSWhXTMq3fxzBRmSXacewAyWGyMU
- i1dtuTDJkoWTEi25R9dst7MC/FYbqzhu1LFa2UiCm5wQD6NthSY8gDIlOLVTRwn7QyhI
- BMnJRzSWfDwxBrTcOP7smgjzay103j0N58ghM19EqSqxUbIEHicP0EJ2UK121BpBT6PK
- XdmRd3yX7ogIxjfNTzYhSCMoA7ELVL/BCiIMpQMAp9Zfs0NkAM0vGQg0Ho+qJvtbC4PQ
- s56Q==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793634707; x=1794239507; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=nOCgKoJdIhSObbuGxZ7xKscGyZkjtDdaeTHB5AW5EkM=;
- b=hNzfbyjatZkU9Hfgbr6Lq6hfSHRcZvlS1JglBDC1CAO6Ygro6i0L1QT/OcOuEsQSq8
- IOPwMM213+NFNMbxK+bYZM010AK2rWK7FyBMfK14N2rjEwLY3ME1ZQX6VHy//+dQHjlw
- csAWDFHET6n2DQVCnOzp9DqCzct4vYsZXCVuEVHBXDgg60QBoIuKCe+jHAWNlTddDmkP
- 5nnS6RPj6mwJ/FgRaLOXcodTTxVuG6trOpg0yTEFTR1vyCT3OFWeZndTF+vvQ7ZIZQx6
- 6GWyuyQ1DInH2tONcIK5D1cin9m9t4AT/cqpTNqM9lEn1km0H1bkpcwyZFeNmtes0DYX
- Kmng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793634707; x=1794239507;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=nOCgKoJdIhSObbuGxZ7xKscGyZkjtDdaeTHB5AW5EkM=;
- b=mQ4lJW+TUs1ashZu0eZZCcgAqcakDon2YPwUYZrdrd0qsOr3X8Y9bZjDLvbGC3vXc0
- /IYkzs8tlhds4KvJGiPuqfU7tSkJsVNgNAVz0ph5e6i5Maw15od1aRyxbYSwRG5eargG
- ESYhlyJPW23KhhWeBHZRDUuzUSNIUjhLDg+SuCUcYM19gF0Bb3plHnCJtZRRgaHifQWx
- lZs9Xd7Ws5AP4fSxCdbemWRD418ULZfyFpbsaeKQHEmfYaU+bYGHm2bKbBvG9mHRRgR5
- D9VazSO2Ctn7M/U8ijiyrxGkcy74L5MZjehG4ZytGqkuHoAYgs4YkKf32DxiF6rgECk5
- AfJA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxfqYVZMbHoeOJa+dyh/KU9XgAKQk9uTXSm72VzZf5goRyXvQ7gxSR5JN573TQWD72/Fo4Mh3Xn@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9vur/tvUbWYAH86GjNiwv6ojwjQL7ATbcKmZ/DkSGl+aVKGzIL
- WQtHQQyNy5UlIALi2IY21IHfazYdtZrnAbsW1I/MLbFUWWl5QNVVcSLhQbQJlRL0nUisc9cEidw
- mmLcOkeVfh0vq9CjIu6cXbzCcHe6eReA=
-X-Gm-Gg: AYBFou2Fg5hM3fE2rDrqqjNetCAQXI6wKzEQbVCzDe8ic22wUFzElSva4ldHDzucrU9
- h+M0Z2iigH1cNeqOwDGGoJTXAdwjre+o3nrvkqinCPlZUXAlXo98upg8Pkh4VxvnCO/rCN6kGlF
- zmC73wFlRlJ4x4H96HVVl6GgXyRcyyRcxZWAbIZF8mEq0fSufhDMriywdC5AZ6eTIkCoSBnFfUc
- qxxeL6c0oJ0jJR5vLBa56S6R0eD4uoGs6zqDY4YfVWMZrJ8y/zXfSZajSOlx/gJ22ldBROf/5xU
- FeKdVbCTjCJWSAHAsR6JUXkqkckeAyKkAESgWV1gzvmc+GawJ4MyrxKzs0QwZunMUOqsC5XbKya
- Yv21UtFD9KWCxbIsm/3Bt1tXPYmRGppeGRcEPK+wChUEfqzIjbhrs16eNj9U7CtvhTr8RPB1t7Q
- a+A93MUUS4nu46qi+bd5HUlvnc
-X-Received: by 2002:a17:903:37cf:b0:2e9:6468:2005 with SMTP id
- d9443c01a7336-2eb3648cd80mr155350785ad.2.1793634707021; Mon, 02 Nov 2026
- 07:51:47 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9A8D10E044;
+	Mon,  2 Nov 2026 16:02:04 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010004.outbound.protection.outlook.com [52.101.201.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5E1610E044
+ for <amd-gfx@lists.freedesktop.org>; Mon,  2 Nov 2026 16:01:58 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QLMQMOqzmhxnroGSckbfNd/7CKJ8M+s0BJabYlq36cwhzinIiD5NKKfYCd0bcTpxsWqzc6NcA66JfbF+TD7mDuGCpfsuOnvWBxKyRvgMnpZlH9Kgw59fgi+wH2ZPgGgNn+brKYxa0X5sl8baI/ZveUUJQ2yD0ZQzRh/ieMSPh40jvIojn3lFNxvZrq3kCbAoNDMnzJvA7H/9Iqzo8b/8M7fHI/Yyz5AqEqPMxI+knSo+OlcQQ9m8uglckMPnk5x15ZyHB5qy6UARy8gDt934AUhPurOZLKrNiAMJLjbX9BcnkNRIzQe70y1qZM4xk4HZPcfBhl031H5oU7ixHn2Ttg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zDy6jdpiSif+p2eohzsGgyewVwkgfrNOTT9AjfZBW0Y=;
+ b=yIjq8gpEV2Md/aCJoHM4SzJ1L3ffEDvMdPs4U9GCcfACMJA2Ot4X3VxzEJ+Y74uFTEr+f63C+kAmEXp8HkxYbpPWgeUA+Itd4Rcpz7WFNKSYMHRigJ8PaBpki8HkU4b+tfXGKbX0cEduJrlVkNA1e/tTGX5+MQuB4UCTQLZlt9nBUcgov51x4509dKJk+rlJHUdNmFwecOUjlxqEQTG3EUpwRpNih0J95dKwjelblZpCG/avjnji0FKU9BmCtH2vPvjgDWih5i9B/TMdiZ6bko89lXZl5im4+/kdgHKWtOAKrMWrfs54iRy4p1CkJ30t5dbWUNOqwTyvRKJ+93Qtug==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zDy6jdpiSif+p2eohzsGgyewVwkgfrNOTT9AjfZBW0Y=;
+ b=sUEs9Yhj1SkkDZosLbT/wT8MRYT6VL079SvPmpBrh273vwIt6WL6LdwpX8GWXjAZIWHATKFgD+4fvBA8vqRNBq35FF/RVb39eLHCGDOTIdO5JDs3GArJNZ+3lJWYjFomuiF5hpK3zILImhpxAh3FCyibmdROGsqT/zD4a/zkymY=
+Received: from BY1P220CA0043.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:59e::11)
+ by IA4PR12MB456107.namprd12.prod.outlook.com (2603:10b6:207:128::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
+ 2026 16:01:55 +0000
+Received: from MWH0EPF000A6733.namprd04.prod.outlook.com
+ (2603:10b6:a03:59e:cafe::55) by BY1P220CA0043.outlook.office365.com
+ (2603:10b6:a03:59e::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Mon, 2
+ Nov 2026 16:01:55 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ MWH0EPF000A6733.mail.protection.outlook.com (10.167.249.25) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.5 via Frontend Transport; Mon, 2 Nov 2026 16:01:55 +0000
+Received: from mukjoshi-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 2 Nov
+ 2026 10:01:54 -0600
+From: Mukul Joshi <mukul.joshi@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Felix.Kuehling@amd.com>, <Harish.Kasiviswanathan@amd.com>,
+ <philip.yang@amd.com>, Mukul Joshi <mukul.joshi@amd.com>
+Subject: [PATCHv3 0/8] Add UALink Loopback support
+Date: Mon, 2 Nov 2026 10:47:46 -0500
+Message-ID: <20261102160125.2743750-1-mukul.joshi@amd.com>
+X-Mailer: git-send-email 2.56.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20260114163807.2525868-1-ingyujang25@korea.ac.kr>
- <20261101132405.1387745-1-ingyujang25@korea.ac.kr>
-In-Reply-To: <20261101132405.1387745-1-ingyujang25@korea.ac.kr>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 2 Nov 2026 10:51:35 -0500
-X-Gm-Features: AclHuK_dNc-WbpSUdvsrzWpZry_6vBxHfWOCNfPxLRPLLxJ6Y7fVPrrrC1rt0jw
-Message-ID: <CADnq5_MU1M1_7gsQFv_+B4r-YNa6yQ0WTCiO1_DAahwmshDWUg@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amd/pm: remove dead code in
- smu7_patch_dependency_tables_with_leakage()
-To: Ingyu Jang <ingyujang25@korea.ac.kr>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Kenneth Feng <kenneth.feng@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000A6733:EE_|IA4PR12MB456107:EE_
+X-MS-Office365-Filtering-Correlation-Id: a7e12b9c-ff04-4bd3-f574-08df38fa9df1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|82310400026|376014|23010399003|1800799024|10067099003|261102123227099003|18002099003|261102130727099003|56012099006|11063799006|261021123027099003|261026121527099003|261022075727099003|261009223027099003|261021121427099003;
+X-Microsoft-Antispam-Message-Info: vvXNMDr4oDp6AkwvCXFMrp0QjzKG+dTu2wf1sSSyqMs46yBWDMgPp8z5RThQvhfm++sI/QQJVu6Fdd52AUm/H6uFi/WYIpeTtGAfuck/9yfC9Id5FSOEoimm1USGS86P4ch1DDZH+B276FLFqLvK/60zk+uwBNYzdDjZIBgiqldYXGf8uwWyY9VJUmzw8OfkXjIozGEQaYPWdw2IbAUj9eLMZRtZufkeYVa+7+GI1izkVNSWqLHRJAEfgZfi7xm/6aHLuI6/uukbvo8Di6u2yVqroZhOaDM5JV2d/UvcVgY5RDE3G6Xo+QLEBW3X/zrC2S/FcKbISTs4jlarlFOQ0s/aRJzmMwxb1iFYO34Hk7R0Rl1pJT9+5UeuLn0+6/G0r6LrN4oe/+IZCZO3Su3kKU+viUX8aFFy+TsHkh6kMhZjmmcMBb6tcXDl3jppl9AMKpzpDxMdhiWI6D+03UxNgeNbesx/g+LdblY7mLven9za1B8ov2KKEuIyC31n5HNu0b8FIr45QgDWZ3V/tO/qo9WkHm561CzqCJOAO51AY16UkcvxaQXLfi1ZrUU+QnqtbzO7NeSydSA4BbaQL9xnXN1/sNTV+aS7xN4rrHtG9uED/P7ZZyqYDj5ecMKLJDbK8oGY4fpTzvkC7frlt3C0SAGrtBW3jOGKHVarZjlTY8k+P6JDAfNOIOhz3IgsWH4BNZzpQvpPmWPbaZmu2iQ75w==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(82310400026)(376014)(23010399003)(1800799024)(10067099003)(261102123227099003)(18002099003)(261102130727099003)(56012099006)(11063799006)(261021123027099003)(261026121527099003)(261022075727099003)(261009223027099003)(261021121427099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: ElgygjdbSspVZeCnorSCwGMI5px+L2+ZUd+sp9t6HZ6BryzSItMtYUGvA3sK+m1li7KfzSLtj4445vBkolzlSYJv05wp5+MytvukVQzLJtvhl7LNlfURbOtuC6pdmMHgxPEt+5KTVxutU9K9f4AoFVtUnXlsfYlY7mz/6eVdeg5h8KdMi6FOdVXw9qka+5Dvl2RLV3TWLPPL32BWjdA9CTn8qpAwzK3IrFVLpQNvHQ1CxZAqWESoTc0cR0G03P7002bDP9bq60BwqcFLZTo6x07bajCYYzVb675LJkKtQIPHte/bNuLP7dYxLmGFNlcSY4QiBCtz5ObKJKtby6dSG2eurIJIvzAjEVEIxP578/WMclrxeyorQj01k66n3Kfx0S9518IHPyPLYhY/PSqVIxSO7+ZnDmRJP0ExIrHXEppMpyPjk67nNmGoZp1CSZAW
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 16:01:55.1991 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a7e12b9c-ff04-4bd3-f574-08df38fa9df1
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000A6733.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR12MB456107
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,326 +102,32 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Sun, Nov 1, 2026 at 8:31=E2=80=AFAM Ingyu Jang <ingyujang25@korea.ac.kr>=
- wrote:
->
-> The smu7_patch_*() helpers called in this function only call the void
-> smu7_patch_ppt_v0_with_vdd_leakage() and always return 0, so the error
-> checks on their return values can never be true.
->
-> Make the helpers and smu7_patch_dependency_tables_with_leakage() return
-> void, and remove the dead checks.
->
-> Signed-off-by: Ingyu Jang <ingyujang25@korea.ac.kr>
+This series of patches adds UALink loopback support. This will be
+used for validating UALink HW path in manufacturing.
 
-Reviewed and applied.  Thanks!
+Mukul Joshi (8):
+  drm/amdgpu: Add UALink loopback infrastructure
+  drm/amdgpu: Support VMID 0 GPUVA completion WB address for UALink
+  drm/amdgpu: Emulate exporter->importer UALink messages in loopback
+  drm/amdgpu: Attribute UALink loopback messages to the correct sender
+  drm/amdgpu: Set up UALink rings and metadata for loopback
+  drm/amdgpu: Enable UALink loopback mode
+  drm/amdgpu: Reject config updates in UALink loopback mode
+  drm/amdgpu: Temporarily enable UALink loopback via module parameter
 
-Alex
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h        |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  13 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 548 +++++++++++++++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h |  29 ++
+ 4 files changed, 506 insertions(+), 85 deletions(-)
 
-> ---
-> Changes in v2:
-> - Make the smu7_patch_*() helpers and
->   smu7_patch_dependency_tables_with_leakage() return void, as suggested
->   by Alex Deucher.
-> - Rebase onto current mainline.
->
-> Link to v1: https://lore.kernel.org/all/20260114163807.2525868-1-ingyujan=
-g25@korea.ac.kr/
->
->  .../drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c   | 117 +++++-------------
->  1 file changed, 30 insertions(+), 87 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/driver=
-s/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-> index bdf1e489369e6..dafe25b1efb65 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-> @@ -2672,8 +2672,8 @@ static void smu7_patch_ppt_v0_with_vdd_leakage(stru=
-ct pp_hwmgr *hwmgr,
->  }
->
->
-> -static int smu7_patch_vddc(struct pp_hwmgr *hwmgr,
-> -                             struct phm_clock_voltage_dependency_table *=
-tab)
-> +static void smu7_patch_vddc(struct pp_hwmgr *hwmgr,
-> +                           struct phm_clock_voltage_dependency_table *ta=
-b)
->  {
->         uint16_t i;
->         struct smu7_hwmgr *data =3D (struct smu7_hwmgr *)(hwmgr->backend)=
-;
-> @@ -2682,12 +2682,10 @@ static int smu7_patch_vddc(struct pp_hwmgr *hwmgr=
-,
->                 for (i =3D 0; i < tab->count; i++)
->                         smu7_patch_ppt_v0_with_vdd_leakage(hwmgr, &tab->e=
-ntries[i].v,
->                                                 &data->vddc_leakage);
-> -
-> -       return 0;
->  }
->
-> -static int smu7_patch_vddci(struct pp_hwmgr *hwmgr,
-> -                              struct phm_clock_voltage_dependency_table =
-*tab)
-> +static void smu7_patch_vddci(struct pp_hwmgr *hwmgr,
-> +                            struct phm_clock_voltage_dependency_table *t=
-ab)
->  {
->         uint16_t i;
->         struct smu7_hwmgr *data =3D (struct smu7_hwmgr *)(hwmgr->backend)=
-;
-> @@ -2696,12 +2694,10 @@ static int smu7_patch_vddci(struct pp_hwmgr *hwmg=
-r,
->                 for (i =3D 0; i < tab->count; i++)
->                         smu7_patch_ppt_v0_with_vdd_leakage(hwmgr, &tab->e=
-ntries[i].v,
->                                                         &data->vddci_leak=
-age);
-> -
-> -       return 0;
->  }
->
-> -static int smu7_patch_vce_vddc(struct pp_hwmgr *hwmgr,
-> -                                 struct phm_vce_clock_voltage_dependency=
-_table *tab)
-> +static void smu7_patch_vce_vddc(struct pp_hwmgr *hwmgr,
-> +                               struct phm_vce_clock_voltage_dependency_t=
-able *tab)
->  {
->         uint16_t i;
->         struct smu7_hwmgr *data =3D (struct smu7_hwmgr *)(hwmgr->backend)=
-;
-> @@ -2710,13 +2706,11 @@ static int smu7_patch_vce_vddc(struct pp_hwmgr *h=
-wmgr,
->                 for (i =3D 0; i < tab->count; i++)
->                         smu7_patch_ppt_v0_with_vdd_leakage(hwmgr, &tab->e=
-ntries[i].v,
->                                                         &data->vddc_leaka=
-ge);
-> -
-> -       return 0;
->  }
->
->
-> -static int smu7_patch_uvd_vddc(struct pp_hwmgr *hwmgr,
-> -                                 struct phm_uvd_clock_voltage_dependency=
-_table *tab)
-> +static void smu7_patch_uvd_vddc(struct pp_hwmgr *hwmgr,
-> +                               struct phm_uvd_clock_voltage_dependency_t=
-able *tab)
->  {
->         uint16_t i;
->         struct smu7_hwmgr *data =3D (struct smu7_hwmgr *)(hwmgr->backend)=
-;
-> @@ -2725,12 +2719,10 @@ static int smu7_patch_uvd_vddc(struct pp_hwmgr *h=
-wmgr,
->                 for (i =3D 0; i < tab->count; i++)
->                         smu7_patch_ppt_v0_with_vdd_leakage(hwmgr, &tab->e=
-ntries[i].v,
->                                                         &data->vddc_leaka=
-ge);
-> -
-> -       return 0;
->  }
->
-> -static int smu7_patch_vddc_shed_limit(struct pp_hwmgr *hwmgr,
-> -                                        struct phm_phase_shedding_limits=
-_table *tab)
-> +static void smu7_patch_vddc_shed_limit(struct pp_hwmgr *hwmgr,
-> +                                      struct phm_phase_shedding_limits_t=
-able *tab)
->  {
->         uint16_t i;
->         struct smu7_hwmgr *data =3D (struct smu7_hwmgr *)(hwmgr->backend)=
-;
-> @@ -2739,12 +2731,10 @@ static int smu7_patch_vddc_shed_limit(struct pp_h=
-wmgr *hwmgr,
->                 for (i =3D 0; i < tab->count; i++)
->                         smu7_patch_ppt_v0_with_vdd_leakage(hwmgr, &tab->e=
-ntries[i].Voltage,
->                                                         &data->vddc_leaka=
-ge);
-> -
-> -       return 0;
->  }
->
-> -static int smu7_patch_samu_vddc(struct pp_hwmgr *hwmgr,
-> -                                  struct phm_samu_clock_voltage_dependen=
-cy_table *tab)
-> +static void smu7_patch_samu_vddc(struct pp_hwmgr *hwmgr,
-> +                                struct phm_samu_clock_voltage_dependency=
-_table *tab)
->  {
->         uint16_t i;
->         struct smu7_hwmgr *data =3D (struct smu7_hwmgr *)(hwmgr->backend)=
-;
-> @@ -2753,12 +2743,10 @@ static int smu7_patch_samu_vddc(struct pp_hwmgr *=
-hwmgr,
->                 for (i =3D 0; i < tab->count; i++)
->                         smu7_patch_ppt_v0_with_vdd_leakage(hwmgr, &tab->e=
-ntries[i].v,
->                                                         &data->vddc_leaka=
-ge);
-> -
-> -       return 0;
->  }
->
-> -static int smu7_patch_acp_vddc(struct pp_hwmgr *hwmgr,
-> -                                 struct phm_acp_clock_voltage_dependency=
-_table *tab)
-> +static void smu7_patch_acp_vddc(struct pp_hwmgr *hwmgr,
-> +                               struct phm_acp_clock_voltage_dependency_t=
-able *tab)
->  {
->         uint16_t i;
->         struct smu7_hwmgr *data =3D (struct smu7_hwmgr *)(hwmgr->backend)=
-;
-> @@ -2767,12 +2755,10 @@ static int smu7_patch_acp_vddc(struct pp_hwmgr *h=
-wmgr,
->                 for (i =3D 0; i < tab->count; i++)
->                         smu7_patch_ppt_v0_with_vdd_leakage(hwmgr, &tab->e=
-ntries[i].v,
->                                         &data->vddc_leakage);
-> -
-> -       return 0;
->  }
->
-> -static int smu7_patch_limits_vddc(struct pp_hwmgr *hwmgr,
-> -                                 struct phm_clock_and_voltage_limits *ta=
-b)
-> +static void smu7_patch_limits_vddc(struct pp_hwmgr *hwmgr,
-> +                                  struct phm_clock_and_voltage_limits *t=
-ab)
->  {
->         uint32_t vddc, vddci;
->         struct smu7_hwmgr *data =3D (struct smu7_hwmgr *)(hwmgr->backend)=
-;
-> @@ -2787,11 +2773,9 @@ static int smu7_patch_limits_vddc(struct pp_hwmgr =
-*hwmgr,
->                                                    &data->vddci_leakage);
->                 tab->vddci =3D vddci;
->         }
-> -
-> -       return 0;
->  }
->
-> -static int smu7_patch_cac_vddc(struct pp_hwmgr *hwmgr, struct phm_cac_le=
-akage_table *tab)
-> +static void smu7_patch_cac_vddc(struct pp_hwmgr *hwmgr, struct phm_cac_l=
-eakage_table *tab)
->  {
->         uint32_t i;
->         uint32_t vddc;
-> @@ -2804,63 +2788,22 @@ static int smu7_patch_cac_vddc(struct pp_hwmgr *h=
-wmgr, struct phm_cac_leakage_ta
->                         tab->entries[i].Vddc =3D (uint16_t)vddc;
->                 }
->         }
-> -
-> -       return 0;
->  }
->
-> -static int smu7_patch_dependency_tables_with_leakage(struct pp_hwmgr *hw=
-mgr)
-> +static void smu7_patch_dependency_tables_with_leakage(struct pp_hwmgr *h=
-wmgr)
->  {
-> -       int tmp;
-> -
-> -       tmp =3D smu7_patch_vddc(hwmgr, hwmgr->dyn_state.vddc_dependency_o=
-n_sclk);
-> -       if (tmp)
-> -               return -EINVAL;
-> -
-> -       tmp =3D smu7_patch_vddc(hwmgr, hwmgr->dyn_state.vddc_dependency_o=
-n_mclk);
-> -       if (tmp)
-> -               return -EINVAL;
-> -
-> -       tmp =3D smu7_patch_vddci(hwmgr, hwmgr->dyn_state.vddci_dependency=
-_on_mclk);
-> -       if (tmp)
-> -               return -EINVAL;
-> -
-> -       tmp =3D smu7_patch_vddc(hwmgr, hwmgr->dyn_state.vddc_dependency_o=
-n_display_clock);
-> -       if (tmp)
-> -               return -EINVAL;
-> -
-> -       tmp =3D smu7_patch_vce_vddc(hwmgr, hwmgr->dyn_state.vce_clock_vol=
-tage_dependency_table);
-> -       if (tmp)
-> -               return -EINVAL;
-> -
-> -       tmp =3D smu7_patch_uvd_vddc(hwmgr, hwmgr->dyn_state.uvd_clock_vol=
-tage_dependency_table);
-> -       if (tmp)
-> -               return -EINVAL;
-> -
-> -       tmp =3D smu7_patch_samu_vddc(hwmgr, hwmgr->dyn_state.samu_clock_v=
-oltage_dependency_table);
-> -       if (tmp)
-> -               return -EINVAL;
-> -
-> -       tmp =3D smu7_patch_acp_vddc(hwmgr, hwmgr->dyn_state.acp_clock_vol=
-tage_dependency_table);
-> -       if (tmp)
-> -               return -EINVAL;
-> -
-> -       tmp =3D smu7_patch_vddc_shed_limit(hwmgr, hwmgr->dyn_state.vddc_p=
-hase_shed_limits_table);
-> -       if (tmp)
-> -               return -EINVAL;
-> -
-> -       tmp =3D smu7_patch_limits_vddc(hwmgr, &hwmgr->dyn_state.max_clock=
-_voltage_on_ac);
-> -       if (tmp)
-> -               return -EINVAL;
-> -
-> -       tmp =3D smu7_patch_limits_vddc(hwmgr, &hwmgr->dyn_state.max_clock=
-_voltage_on_dc);
-> -       if (tmp)
-> -               return -EINVAL;
-> -
-> -       tmp =3D smu7_patch_cac_vddc(hwmgr, hwmgr->dyn_state.cac_leakage_t=
-able);
-> -       if (tmp)
-> -               return -EINVAL;
-> -
-> -       return 0;
-> +       smu7_patch_vddc(hwmgr, hwmgr->dyn_state.vddc_dependency_on_sclk);
-> +       smu7_patch_vddc(hwmgr, hwmgr->dyn_state.vddc_dependency_on_mclk);
-> +       smu7_patch_vddci(hwmgr, hwmgr->dyn_state.vddci_dependency_on_mclk=
-);
-> +       smu7_patch_vddc(hwmgr, hwmgr->dyn_state.vddc_dependency_on_displa=
-y_clock);
-> +       smu7_patch_vce_vddc(hwmgr, hwmgr->dyn_state.vce_clock_voltage_dep=
-endency_table);
-> +       smu7_patch_uvd_vddc(hwmgr, hwmgr->dyn_state.uvd_clock_voltage_dep=
-endency_table);
-> +       smu7_patch_samu_vddc(hwmgr, hwmgr->dyn_state.samu_clock_voltage_d=
-ependency_table);
-> +       smu7_patch_acp_vddc(hwmgr, hwmgr->dyn_state.acp_clock_voltage_dep=
-endency_table);
-> +       smu7_patch_vddc_shed_limit(hwmgr, hwmgr->dyn_state.vddc_phase_she=
-d_limits_table);
-> +       smu7_patch_limits_vddc(hwmgr, &hwmgr->dyn_state.max_clock_voltage=
-_on_ac);
-> +       smu7_patch_limits_vddc(hwmgr, &hwmgr->dyn_state.max_clock_voltage=
-_on_dc);
-> +       smu7_patch_cac_vddc(hwmgr, hwmgr->dyn_state.cac_leakage_table);
->  }
->
->
-> --
-> 2.34.1
->
+-- 
+2.56.0
+
