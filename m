@@ -2,85 +2,59 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97003606A326
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 09:36:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30AA5606A324
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 09:36:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=jahs-net.20260707.gappssmtp.com header.i=@jahs-net.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Ej1F0YGy
+	dkim=pass (2048-bit key, unprotected) header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=YV7AHBTE
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 312D610F49E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A63510F4A2;
 	Tue,  3 Nov 2026 09:36:48 +0000 (UTC)
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
- [209.85.221.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D7EE10E713
- for <amd-gfx@lists.freedesktop.org>; Mon,  2 Nov 2026 23:24:55 +0000 (UTC)
-Received: by mail-wr1-f49.google.com with SMTP id
- ffacd0b85a97d-48e46e449e8so2172059f8f.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 02 Nov 2026 15:24:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=jahs-net.20260707.gappssmtp.com; s=20260707; t=1793661894; x=1794266694;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=BOJF5pQ3Y3qra0fVhUmJwEYQYKAdz/RQknbT5cdg1Y4=;
- b=Ej1F0YGyD4xUB2G4NttxbumzlHVqntpVyAcJaS9FyvS0S/BVFrIsf2E6yBnhlXj2vq
- Nui6I3p9Kb5wDmcujdrbaYd+voOiC/xZgZbATBrpX6gqPio9GNU76LGO/k7TBCfK1mN6
- /kfN59GONMY0ywp+VbHadByf/MnPW/NO3k9h26JL7k7vYBS5QJtkvTss4nVjGpp8X1fH
- AJLdEB7V8zDXrHJxE4ay7mUPHfgW600lOelr0tKYqCsERJ3Pje/W60N4FwOPYH6YBWNZ
- T5UymAk8NmUmtWAhpcZsYShIETTe2pCRS8lsj05toLUBfoz5geBa4j49FQMVbKZj0MiA
- BnBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793661894; x=1794266694;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=BOJF5pQ3Y3qra0fVhUmJwEYQYKAdz/RQknbT5cdg1Y4=;
- b=fN5P/EDjTdeapLl32pPYpTDfGSbiw9vsIO8WXPsHsc+pt39reIsGNmaD6MspglLN3d
- 8MdqVXF90eTZP9gCUJSzT0eaQbn3AoGnCRpk1hlvM8xR220aNh/ydZMMZb0hoTmS48gz
- LYVe8c2LBCUEvZuS04wBnFxNE6hHLw6rshWeg32r2ZYQZkd9GowRaKw22t8MJ9ht6Z34
- CluMrpKRm6pqfRQ/JZc3UF9UvLNZE8LQ4STTw8yXhnfdgn6BsY5MmOB3zaqzDgzZgme3
- aQtBWhbCPQgBCGUs3gg+dpb3oQASgFVBTIMOpHFhJO57hP5vMW7K/4mAZ14QB4aeEkI8
- y2aQ==
-X-Gm-Message-State: APuU4Z/81I/+3zSZ0hzEuTvCgZIHiU9/nkupRMwFnN/0c3A7Inrw05yR
- 1LP/zrhme4bFm+egP1WuM/ImHQy4/pvIKKOk9qSqN3Sz0PPSqGlqLR7yFHONc3XYtA==
-X-Gm-Gg: AYBFou3rTT0etZBMhy/b7ViOajNQNS72GXOL9XV1Go+oDKag2xNEozZ3YFiCNCTrI09
- cfS1mGQfQB+kUe460QTRMj4WE/A/ZUUZQWGWStaroJd/5tYNdngKHrOI6UwCiyqdWrYXEScKUcF
- JWqEz+Dbk5Akzg5FKLG3daRyoNpSNt6EkpeVERyiHNQcErpljzIjQWPp9ttXFe82VuMYdPIC3BX
- Rehs0ervuc918NyBy0GWlr4d3oxwzjhsLJsDeoGkhT3Pj1RN0gWGh6Uh2raPxZvwbUqySD4EuRO
- ENQRf7X2y+hVQieuOG8qXZHphAuWoo6OJRKcoxEwZtYq/SqPewsoqqnYRGhKJEWRSUX6ON4o9Ij
- WqAABFtbxwLM/bs74gD2jdNzSN4BgNVRRtYHaw183Jv7PXFgFD7gSLeOBJq8DQxElEN4s/0VfP3
- NARfcK7+2fZw7w2JXncMHNDkSqO8fOiyWgMyS3UnYjhPpdJFqITNULEEssTEJTTXgZO2Ho4G0dY
- sjuMxL4iciGzjQDjYsWpl1xbmIJPxRVijU3PplZJBJWTgcps6zZAzM+In5BR6P8xmCdekkmxY07
- 3MC/cHT1dNK+xrvDfH69ZpPIBsUEfGLFyzCzF3M3rcwVM2vNykGDRhZW8Bcphw==
-X-Received: by 2002:adf:e19d:0:b0:48d:ffcb:28e1 with SMTP id
- ffacd0b85a97d-48e6e4f570dmr26032786f8f.11.1793661893544; 
- Mon, 02 Nov 2026 15:24:53 -0800 (PST)
-Received: from mbp2019.tail53dac2.ts.net
- ([2a00:23cc:b5dc:701:a5b4:75a8:ede:9f7e])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48e71a4d4f9sm22522868f8f.2.2026.11.02.15.24.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Nov 2026 15:24:52 -0800 (PST)
-From: James Skillen <jahs@jahs.net>
-To: Andre Eikmeyer <dev@deq.rocks>
-Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Kenneth Feng <kenneth.feng@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Jesse Zhang <Jesse.Zhang@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] drm/amd/pm: use the VBIOS trained UCLK levels on the
- MacBookPro16, 1
-Date: Mon,  2 Nov 2026 23:24:50 +0000
-Message-ID: <20261102232450.61301-1-jahs@jahs.net>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261024162109.307247-1-dev@deq.rocks>
-References: <20261024162109.307247-1-dev@deq.rocks>
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 97C8010E05B;
+ Mon,  2 Nov 2026 15:26:45 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4jJFtC0W4XzKn28;
+ Mon, 02 Nov 2026 16:26:43 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
+ t=1793633203;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=nP2e3PGjH3XUNquztLEZ0q/WCiO+28qYpsidPKUHKlc=;
+ b=YV7AHBTE5mbv7+xt+PhpooXgBlcKB/sxubS+DnOWOTpFo3bbtlJmhkmRhkjPs6XVeoXWMe
+ CFPFyNBZ1MPgn9FEDS+8f1Z8cIqJw7WGmFffza3UP412OxxJwIU9zo23GA5Z44namqId1u
+ 0DrJWeD98Be0H8s1EHSwCi9srHMwh0JTS1ceYuKMghdxohN1OL4V/iGCJuZtCmL33gk7Wt
+ iHq2UjgSgp72i60hUZ1dvOAN+HeejZaG3Zif4EfSp91FXQHGAWZR5h0IK7imVPOdBKkUGs
+ 6U0idDFpMqothWuxI6Cfhc1ptrsK91XEZTHSHZwbNyb5KGyMzcwS6w5rTOx4rA==
+Authentication-Results: outgoing_mbo_mout; dkim=none;
+ spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates
+ 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=hugo@hsal.es
+Date: Mon, 2 Nov 2026 15:26:42 +0000 (WET)
+From: Hugo Sales <hugo@hsal.es>
+To: =?UTF-8?Q?Ville_Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, dri-devel@lists.freedesktop.org,
+ airlied@gmail.com, simona@ffwll.ch, harry.wentland@amd.com,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Message-ID: <2112993263.278931.1793633202457@app.mailbox.org>
+In-Reply-To: <auh8pUx_kXUYSdZ8@intel.com>
+References: <20261031161952.660049-1-hugo@hsal.es> <auh8pUx_kXUYSdZ8@intel.com>
+Subject: Re: [PATCH] drm/probe-helper: Sort and set crtcinfo before dropping
+ the modeset locks
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+X-Priority: 3
+Importance: Normal
+X-Mailer: Open-Xchange Mailer v8.53.348
+X-Originating-Client: open-xchange-appsuite
+X-Rspamd-Queue-Id: 4jJFtC0W4XzKn28
 X-Mailman-Approved-At: Tue, 03 Nov 2026 09:36:47 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,58 +66,34 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Sat, 24 Oct 2026 18:21:09 +0200, Andre Eikmeyer wrote:
-> The Radeon Pro 5300M and 5500M of the MacBookPro16,1 (Navi 14 boards
-> 1002:7340/106b:0210 and 1002:7340/106b:020f) stop answering SMU messages
-> as soon as UCLK switches into its third level.
+On 11/02/2026 12:05 PM WET Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.int=
+el.com> wrote:
+> On Sat, Oct 31, 2026 at 04:19:52PM +0000, Hugo Sales wrote:
+> > amdgpu walks connector->modes from its atomic_check, in
+>
+> That is just wrong. connector->modes is protected by mode_config.mutex
 
-This is the hang reported in drm/amd issue 6005, which has the
-umc_info analysis and test results from both boards:
+You're right, I should have fixed the real issue rather than work around
+it. Please drop this one
 
-  https://gitlab.freedesktop.org/drm/amd/-/work_items/6005
+I'll try to fix it in amdgpu instead. atomic_check can't take
+mode_config.mutex there, so amdgpu would pick the mode it needs while
+probing and keep its own copy, like it already does for freesync_vid_base
 
-Could v2 carry a Closes: tag for it?
+> And regardless of changing the locking rules or not, someone
+> should probably sprinkle lockdep asserts to bunch of places
+> where connector->modes is consulted. Perhaps even introduce
+> custom list iterator macros that include the assert...
 
-I tested the patch on a MacBookPro16,1 with the Pro 5300M (1002:7340
-rev 0x43, 106b:0210, VBIOS 113-D32207P1-019), on linux-t2 7.2.11 (Arch
-v7.2.11-arch1 plus the t2linux patches) with this patch on top. The
-userspace pp_table upload from the issue was disabled for these boots,
-so the corrected levels came from the patch alone.
+Makes sense. amdgpu would trip them today, so I'll look at that once
+the amdgpu side is fixed
 
-All at DPM auto unless noted:
-
- - both "UCLK level ..." lines at boot and again after every resume,
-   pp_dpm_mclk 95/496/598/736
- - forced pp_dpm_mclk switches through every level transition, idle
-   and under memtest_vulkan load (57 switches, every 3 s): all landed
- - UCLK pinned at level 2 (598 MHz): llama.cpp benchmark and 180 s of
-   memtest_vulkan, no errors
- - 60 min soak of llama.cpp runs with idle gaps, and 30 min of normal
-   desktop use with the soak running
- - 8 deep suspend/resume cycles (rtcwake, lid, systemctl suspend)
-
-I ran these with the internal panel on the iGPU and again with the
-Radeon driving it (apple-gmux force_igd=n). No "SMU: No response", GPU
-reset, ring timeout or DC errors in any of them. With the stock driver,
-level 2 hung within seconds.
-
-For the runs with the Radeon on the panel I also had
-amdgpu.dcdebugmask=0x1. That is for a separate DC issue (the MPC pipe
-split on the 3072x1920 eDP plane makes DRAM clock change unsupported,
-so UCLK stays at the top level). It is not related to this patch and
-I will report it separately.
-
-Tested-by: James Skillen <jahs@jahs.net> # MacBookPro16,1, Pro 5300M (106b:0210)
-
-The testing above and this reply were prepared with help from
-claude-opus-5-5; I have checked the results and the text.
-
-Thanks,
-James
+Thanks for the review,
+Hugo
