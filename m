@@ -2,108 +2,93 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF7F9606A324
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 14:16:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5437F606A32D
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 14:16:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EJmWxti1
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Q2P8ZK2r
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2B8E10EEFC;
-	Mon,  2 Nov 2026 14:16:02 +0000 (UTC)
-Received: from mail-pj2-f2.google.com (mail-pj2-f2.google.com [74.125.227.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08D6610EDCA
- for <amd-gfx@lists.freedesktop.org>; Mon,  2 Nov 2026 13:02:50 +0000 (UTC)
-Received: by mail-pj2-f2.google.com with SMTP id
- d9443c01a7336-2ea19bc317dso28356065ad.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 02 Nov 2026 05:02:50 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A5DE10EEFD;
+	Mon,  2 Nov 2026 14:16:03 +0000 (UTC)
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D73A10ED97
+ for <amd-gfx@lists.freedesktop.org>; Mon,  2 Nov 2026 12:37:43 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-4a56e05568aso12563285e9.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 02 Nov 2026 04:37:43 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793623061; cv=none;
+ d=google.com; s=arc-20260327;
+ b=YD14tXLyOYKUjexyCOGf6dkkztEOTEZCUKeQ7I+kt0i3sZc9YOSNbazajWljxrdE3C
+ 5+sD6O6DbPbf2lssgJLow5p4yuZrb+fe1BnDvA3XSuvk3pLUJL+DlfxpZ34BD0toB3Dw
+ 1oZvt5c/Z5oGK+HxhcnewK32K1Qf+k4cmQxcWhvm6dXewh0QbmIZFiNnuXxBIfG3krhk
+ gkwsDeUu08T8KSTCdaIX9GxkgZi3aqIA9mZXczUtRJXBI0nF4+t1SmeZ5ZOeBDbGD+Lu
+ w4x8Qh17YlP+OIQ/KpjwsK96/b7C9Wa34Wi0G5AanntJd3II7aMnVzBvAj+b4jjgj+lq
+ iFPw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=P9Xe5ApGw7AVptOI+b4XC9GSYWhLs3jwBpvKf/2EdnM=;
+ fh=y417zpNOsOh+m0otZZgofsLK7wQZkKaRvNPr6IG0q3c=;
+ b=swaO2FLOg3L9+xA3nSvHib5seRirMMsuO9CUTHcgyGnBJB+HGJwnNUo0KkqEEgK5hs
+ x7PWs5D1oFmtxT5UlM8lAAdJUOR3RNoctQxnqkb9cGfJOsoI8gAz1nmd8m0XpgV5gbXO
+ DRJgIQy2Nw+UQBrNiRXpsnW5qTq88QI8C2pxRnofGPeV9V6C+SwL94yu4NdozNT1lC4e
+ RoG97yGfqsTBllVL6jUFUBGDauAaLMhNqkSpaWD1BlG2ODbrfRDEd27RUfmYMsQ7P6y6
+ 8cSCENxx9v9B2HfZ/gohhys2+//rZuTKb8rgDPyTm2tsLtn/AAZUw3hvxy1vjl0Zs5iu
+ mxBQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793624569; x=1794229369; darn=lists.freedesktop.org;
- h=references:in-reply-to:cc:to:message-id:date:from:subject
- :content-transfer-encoding:content-type:mime-version:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=+rVghLVE5+gMoBZCIIvb0ZQoGty/hiEa5No/b+jM194=;
- b=EJmWxti1MnTBeFxvoONDSBdVcyErLp2iFNosSyu+bnTO1cn/XvXFqf8tr1CHCfgDk4
- n+hPK4RjwLARLsHIDIMS2dJzVGfmq6ARZZPKrAN06akaOxD3UsfPSc573SovsybzJJpa
- BZr1+7hI/T8XDlXnQ8lXzArNdoNMDlzsG87XsMjAzWgNj3Imy1FdRzwThqcpDW8Evqxb
- DEkdsbfh3Pok3v+6Z9Z1C0dqQBhGVnGDweh2HXZ2rGAsiXqw/KwmL5EOFVq3qUy+IHYM
- S+a6gxfonjtP4oSKdL6VRphY68/rrXbnneRFqsJ460OCwpqvgy8xe7WHP5wUifDltQBl
- GzoA==
+ d=gmail.com; s=20260707; t=1793623061; x=1794227861; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=P9Xe5ApGw7AVptOI+b4XC9GSYWhLs3jwBpvKf/2EdnM=;
+ b=Q2P8ZK2rIrPwhhE5lCBeZs1v3FZCPmGE3D5ZdYvy19dcbb5C01H60vX62SqzKA4prS
+ c+tRLA4Z8cRpcz6h/zUSEhJnjszOQBoGhAe3fh1LNqXp4IVhIAdzrAS/e4bRrNlrtN4h
+ v1hxEUJ8lgsdCcsomxZ9ZyI68rx+NrJOWbMEKwGQ/JcVo4Rv2zYM7eM5VgoiwTsGPt1A
+ iDUMvKSdS5xWqS77MDMAeRRW2RkpZpHNTp3W7JAvWhzrEXDRoZk8GZ/KyfZ0IxJIbkeb
+ QgsYZTFAF8UGQbL6+Vt6WxgR5a/ZGeBkXgTjAPxkTzzQemcdp/ThgqmxkwrkvbQDbDg6
+ Yd/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793624569; x=1794229369;
- h=references:in-reply-to:cc:to:message-id:date:from:subject
- :content-transfer-encoding:content-type:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=+rVghLVE5+gMoBZCIIvb0ZQoGty/hiEa5No/b+jM194=;
- b=vtrEl5cdIfjAPvlRenSl5UvgBdfdMQ90KnVKYatU+mtiFSmCAMeup34pj0WA7fjGCJ
- qjRoqVtdDz6uvnWjdcOmsAY9+tG2uTn2YM7OZDtCDPWfqBTx4iU6Pd0YG2QPEkrTGDxw
- Jc4SOZp6peDgDl3h1+oj/sGY5tIJ2lKn+JWe/Ezq6/opUdVXIap3yrgxEkK2T9UE+C+b
- 3RCSxwSm4FyoNlHERJ2eY18UQ+eCCA/Oc9+UiWgveOF+m/1hhR4tOWA810alB7HG7cYP
- AqEWVzgyrKsXrNPBzicseqxbR7Y6/jHTRaLT+DGOO51vwg3WKFzMKPxv9bUdUKzueysz
- hQ+A==
+ d=1e100.net; s=20260707; t=1793623061; x=1794227861;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=P9Xe5ApGw7AVptOI+b4XC9GSYWhLs3jwBpvKf/2EdnM=;
+ b=TRV8VXb2ZGL0t9w/7gFjGpOccS4NI78rgBbvS5m124k3DXKfDRK6nTG5q/f1trp5Az
+ lWymQ2LvVH5BVpM1S1mWOhJ2L+MI8zwo3mI1z1vppQ/Jb7vsoX99sVdJmbhH8juWc+i8
+ C2tqGUomaIt6w8Y5mmSJ6Bhy6NrbLYGuba3VhPXonV6PvdIQhf74I9i4Tt14kykiu+p3
+ RfCzcwDBrHj3ClPFpS0D6XetFKy6rrEU2QKhx07nyHxD2JgV7aCZKIz5XWknJ816KG7W
+ d7Jeir1PDU/NK7HYiPMWLkIXjiDfiQvm0qtD8wxnKKFDxYP9zU4naH6hl925KjEIWLKj
+ EW0w==
 X-Forwarded-Encrypted: i=1;
- AKwUvBy/lp/kTv0kre08s4MUtrSrckIbeXgCPhcq8r7+sMlzVokTsWXAA61AF89GY2nRQMM2Ei1X6L4V@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8Sn7jL1jAZhTsJczuc7myE3yNf/LbvjPDEVAjT3UexoPr0iiNm
- tq6j52LFjusASecrwE8nUWf9xcKzmUl66kcH3Ah0CR+E+9vEOohNgrKH
-X-Gm-Gg: AYBFou3VpeZd5tHVmiD7ySBKsjvX4Sq0+TUhlMoSpxyBUYhACa8da5xoAWKwNF+/a2b
- E1J4ssUiHmm8vsr/4TJYUBybelIs1bZvOjIP76QnPXb52kgbuhdJby9glbttkRnNLQ1Kif0qayN
- dfLrbUmGQF87nYTifRmoZg+xG4n9pKXV7Ox/WYFW84LIoG9MPhsTvVijvqOLtq3PWedUHpXDQVh
- K1NU1GXhT4Z9M8/YYp8rqrgk7+nqe0/Y6FZqTfFcb5ZL95kVT5p+XGk+YENFsn98OPDX7qshLRL
- EKd9dLiwxQFNKQFyXQwX5RNsjJsmetkbMIb+YHynWsc66rXsLyTmWEfTCwXG3gUH90zIxJi+2V1
- SoiDFkW4EaHlsOjHNj63hWnlnoLAZnS1qkmI9BAbe7qTB/4tcEYxhOHJi+PEqgWggPt4zNaHRl1
- ZMMsG1yQP6GTdVGd1xvSu7LCCRsHbp8tXFJZf0oMp6i9QcZDq0vAt5Cin8PjDtqcVy7LjJujjCJ
- ECS3rJTrExmcWybj4ZFWAXSAdRCcTUMzfRr4DDtkVoAfhKLZA1rd85Rgi8ONZN8/V5IUzaQ0qnJ
- 8FyIKZ/2t9yBWq7WLB/WoqDzr2qW0uBE7YxD3k/Bdcu5mq61QzAjNuD566ng8INPtlVM+GHwGGy
- cANhJHSJayWIxdqXDcfx/n7iQDU1WvZzuBMbo6Z618n5vyGr/IEOVGY4=
-X-Received: by 2002:a17:902:db01:b0:2e9:8b2f:3561 with SMTP id
- d9443c01a7336-2eb3650034amr96629035ad.54.1793624569079; 
- Mon, 02 Nov 2026 05:02:49 -0800 (PST)
-Received: from [10.131.7.109] (n106-71-19-159.sun21.vic.optusnet.com.au.
- [106.71.19.159]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2eb3922f5dasm27542985ad.25.2026.11.02.05.02.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Nov 2026 05:02:48 -0800 (PST)
+ AKwUvByyCVOiHQsQpThjNKZxpgLA4PF0rFjGSghLOIQoUwyj2gXGI3TGTUyi4edHef98JwQDApOuA3NY@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+Q8jCT/apJ96SaoUCaxkNMFo/SCl56aX8PNYBlZ/oFLF5lldN2
+ yGzDQhNDGDrHUGkn6N0/PJH59fFVUgpjherMfyGAg3TqrP/7ri09qHmiVQZaTbuHMyUB0ryIqDn
+ rySxz/xbjdU1JJLe1/WEurPcrXlo6ZhI=
+X-Gm-Gg: AYBFou3P6o+rsGnqPaDUenTLszqgjneF6lEHFbkY7st8i8W+HjHm1DJAaxHrclNKLYW
+ VdxPnk5noAH4wKU8i2jyCX5JJzifVFnIY/26KeWpzE1XytpBtMueE3FGUCGw5Oj9utJkyANEnuC
+ qIEZsV4vuO+ERI1uHLeKD3bepyNO7ZHj1DnvmKT9mvb3YKqPFwh54pxTgQNzk6ZAOv1uX0F/6Ii
+ FlD/eT+BmLDZyJq+/PpSpBLUv9Kky7t9xI0bhVaoZ7U0/004xB/oFnlb7hmiuiCuQizxgGvqkzY
+ AfwDjnysA8jnUlPqnRfFRGVqlE39jupnG4UDIp5MIEJkOD4nF1767Mv/YesrWeHWNSYZs4dMUMH
+ xVLISpfXB54nS6/d31KTHib1tYToIVgj+mFwyAHUxTGaGPurs2LQU5CVeOSuktvhpF7h91nSwYy
+ Uh/9xhjk904DQN0Rc=
+X-Received: by 2002:adf:e708:0:b0:48a:f41d:83c with SMTP id
+ ffacd0b85a97d-48e6e262d4amr20344295f8f.0.1793623061185; Mon, 02 Nov 2026
+ 04:37:41 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH] mm/hmm: honor write requests for owned device-private
- pages
-From: Aveline Noir <jm5905938@gmail.com>
-Date: Mon, 02 Nov 2026 23:23:28 +1100
-Message-Id: <179362220860.2958105.9509793190720553695.b4-reply@b4>
-To: Jason Gunthorpe <jgg@ziepe.ca>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Felix Kuehling <Felix.Kuehling@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>
-Cc: David Airlie <airlied@gmail.com>, amd-gfx@lists.freedesktop.org, 
- Barry Song <baohua@kernel.org>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Jonathan Corbet <corbet@lwn.net>, Danilo Krummrich <dakr@kernel.org>, 
- David Hildenbrand <david@kernel.org>, Dev Jain <dev.jain@arm.com>, 
- dri-devel@lists.freedesktop.org, 
- Francois Dugast <francois.dugast@intel.com>, Christoph Hellwig <hch@lst.de>, 
- Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>, 
- Honglei Huang <honghuan@amd.com>, Jann Horn <jannh@google.com>, 
- Kiryl Shutsemau <kas@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
- Leon Romanovsky <leon@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
- Lorenzo Stoakes <ljs@kernel.org>, Lyude Paul <lyude@redhat.com>, 
- Matthew Brost <matthew.brost@intel.com>, Michal Hocko <mhocko@suse.com>, 
- Nico Pache <nico.pache@linux.dev>, nouveau@lists.freedesktop.org, 
- Pedro Falcato <pfalcato@suse.de>, Philip Yang <Philip.Yang@amd.com>, 
- Randy Dunlap <rdunlap@infradead.org>, Mike Rapoport <rppt@kernel.org>, 
- Ryan Roberts <ryan.roberts@arm.com>, sashiko-bot@kernel.org, 
- sashiko-reviews@lists.linux.dev, Simona Vetter <simona@ffwll.ch>, 
- Shuah Khan <skhan@linuxfoundation.org>, Sunil Khatri <sunil.khatri@amd.com>, 
- Suren Baghdasaryan <surenb@google.com>, 
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>, 
- Vitaly Prosyak <vitaly.prosyak@amd.com>, Zi Yan <ziy@nvidia.com>
-In-Reply-To: <179352350180.2.12918668886938034091.b4-reply@b4>
-References: <179343062238.2.2773026701442863377@gmail.com>
- <sashiko-outbox-192310@kernel.org>
- <179352350180.2.12918668886938034091.b4-reply@b4>
-X-Mailer: b4 0.16.0
+References: <CACOV87VBmya0PKjni5xEYxUaEczk9X_UoUHXSR_HDS2kSJnM2g@mail.gmail.com>
+ <00da317f-ec33-4084-a48a-1a6b4e10dfc8@leemhuis.info>
+In-Reply-To: <00da317f-ec33-4084-a48a-1a6b4e10dfc8@leemhuis.info>
+From: Nathan Blomquist <nblomquist@gmail.com>
+Date: Mon, 2 Nov 2026 07:37:30 -0500
+X-Gm-Features: AclHuK-Bb80BdPxE_BV90SywTLD5EIBW_cZcuIJ-QheO2IIocit-nkZxgYaYNVg
+Message-ID: <CACOV87VsAxi_xY2Zghysv7hjqL8ppmpaut7S0JEnDHvH8HuKEQ@mail.gmail.com>
+Subject: Re: [REGRESSION] amdgpu: Navi 23 passthrough fails after ef5fcf2a6c32
+To: regressions@leemhuis.info, amd-gfx@lists.freedesktop.org
+Cc: regressions@lists.linux.dev, alexander.deucher@amd.com, 
+ christian.koenig@amd.com
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Mon, 02 Nov 2026 14:15:56 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -115,49 +100,87 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-1.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FORGED_GMAIL_RCVD,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi all,
+Hi Thorsten,
 
-On Sun, 01 Nov 2026 19:58:21 +1100 Aveline Noir wrote:
+On Mon, Nov 2, 2026, Thorsten Leemhuis wrote:
+> Have you tried if 7.3 is affected as well? You also might want to check
+> if 7.4-rc1 might have fixed it.
 
-> Oh, I missed that. I'll try to fix it.
+Thanks for pointing this out. The original regression reproduces on
+unmodified upstream 7.3.1. I also attempted 7.4-rc1, but an earlier host
+GPU initialization failure prevented testing the handoff.
 
-While working on this, I found that the fix reaches well beyond
-mm/hmm.c and would likely need rework in several subsystems, so I'd
-like to hear your views before going further. v1 shouldn't be applied
-as is.
+For 7.3.1, I used the signed kernel.org release source, corresponding
+to commit:
 
-amdkfd holds svms->lock and prange->migrate_mutex across
-hmm_range_fault(), and svm_migrate_to_ram() needs both, so it can't
-migrate the page for the validating task. Migrating under those locks
-can deadlock, since do_swap_page() waits for the device page lock, which
-a concurrent CPU fault can hold while waiting for svms->lock. From
-reading the code, amdkfd also maps such read-only pages writable today,
-as it takes GPU write permission from the VMA rather than from
-HMM_PFN_WRITE, so GPU writes after fork() would be visible to the child.
-I haven't been able to confirm this on hardware.
+    79a907609d53d5cd645b42c11550d295d43abf99
 
-One option I tried is an opt-in HMM flag that returns -EDEADLK and the
-page address instead of faulting, so amdkfd can drop its locks, fault
-the page and validate again. It works with test_hmm, but the amdkfd
-side grew to about 550 lines across the GPU fault handler, the restore
-worker and svm_range_set_attr(), and is only compile-tested. Read-only
-entries also come from NUMA hinting scans and mprotect(), so pages that
-aren't shared would be moved out of VRAM too, and Xe and nouveau would
-see their pages migrated in the same cases.
+The trace shows BACO supported=1 but enabled=0, followed by
+amdgpu_device_baco_exit() returning -524 without ULPS re-arming. Both
+functions subsequently undergo VFIO D3/resume and have valid PCI IDs
+immediately before secondary-bus reset, but both read 0xffffffff
+afterward and the reset helper returns -25.
 
-Would you prefer an opt-in interface like this, a change to the amdkfd
-locking so that migrate_to_ram() can run during validation, or
-something else? I can post the amdkfd part as an RFC if that helps.
+This happens with all guest CPUs held at their reset vectors. The
+trace contains 9,716 events with no lost events or missed probes;
+kernel taint remains zero throughout.
 
-I also found a few smaller related issues, and I'll send fixes for them
-separately.
+For 7.4-rc1, I built Linus's signed tag at:
+
+    6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+
+That attempt failed during host GPU initialization:
+
+    AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0000
+address=0xffa00000 flags=0x0007]
+    PSP load kdb failed!
+    PSP firmware loading failed
+    hw_init of IP block <psp> failed -22
+    Fatal error during GPU init
+
+Failed-probe cleanup then emitted amdgpu_irq_put() warnings, leaving
+taint 512/W. I stopped before starting the VM, so this attempt is
+inconclusive for the original handoff regression. I have not established
+the cause or repeatability of this initialization failure.
+
+Neither build included downstream patches, my candidate correction,
+reset-timing changes, or external modules. Userspace, firmware and guest
+configuration were held fixed between the attempts. Configs and logs
+are available.
+
+Is the 7.4-rc1 initialization failure a known issue, or should I report
+it separately?
 
 Thanks,
-Aveline Noir
+Nathan
+
+
+
+On Mon, 2 Nov 2026 10:01:54 +0100, Thorsten Leemhuis
+<regressions@leemhuis.info> wrote:
+> On 11/1/26 21:05, Nathan Blomquist wrote:
+> >
+> > I can reproduce a Navi 23 / RX 6600 (1002:73ff) passthrough failure on
+> > unmodified upstream Linux 7.2.10. It happens during the amdgpu-to-VFIO
+> > handoff, before any guest code runs.
+> >
+> > Revert/add-back tests on Proxmox kernels isolate ef5fcf2a6c32
+> > ("drm/amdgpu: fix autosuspend cleanup during removal") as the trigger.
+> > Removing its added call from -20 works; adding it to working -19 fails.
+> > [...]
+>
+> ef5fcf2a6c32 is a 7.3 commit, but you only specify that 7.2.y is
+> affected, which might be caused by a failed backport. And 7.2.y is EOL,
+> so it won't be fixed anyway. Hence:
+>
+> Have you tried if 7.3 is affected as well? You also might want to check
+> if 7.4-rc1 might have fixed it.
+>
+> Ciao, Thorsten
