@@ -2,93 +2,56 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5437F606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0571606A324
 	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 14:16:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Q2P8ZK2r
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=It7MZITQ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A5DE10EEFD;
-	Mon,  2 Nov 2026 14:16:03 +0000 (UTC)
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D73A10ED97
- for <amd-gfx@lists.freedesktop.org>; Mon,  2 Nov 2026 12:37:43 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-4a56e05568aso12563285e9.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 02 Nov 2026 04:37:43 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793623061; cv=none;
- d=google.com; s=arc-20260327;
- b=YD14tXLyOYKUjexyCOGf6dkkztEOTEZCUKeQ7I+kt0i3sZc9YOSNbazajWljxrdE3C
- 5+sD6O6DbPbf2lssgJLow5p4yuZrb+fe1BnDvA3XSuvk3pLUJL+DlfxpZ34BD0toB3Dw
- 1oZvt5c/Z5oGK+HxhcnewK32K1Qf+k4cmQxcWhvm6dXewh0QbmIZFiNnuXxBIfG3krhk
- gkwsDeUu08T8KSTCdaIX9GxkgZi3aqIA9mZXczUtRJXBI0nF4+t1SmeZ5ZOeBDbGD+Lu
- w4x8Qh17YlP+OIQ/KpjwsK96/b7C9Wa34Wi0G5AanntJd3II7aMnVzBvAj+b4jjgj+lq
- iFPw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=P9Xe5ApGw7AVptOI+b4XC9GSYWhLs3jwBpvKf/2EdnM=;
- fh=y417zpNOsOh+m0otZZgofsLK7wQZkKaRvNPr6IG0q3c=;
- b=swaO2FLOg3L9+xA3nSvHib5seRirMMsuO9CUTHcgyGnBJB+HGJwnNUo0KkqEEgK5hs
- x7PWs5D1oFmtxT5UlM8lAAdJUOR3RNoctQxnqkb9cGfJOsoI8gAz1nmd8m0XpgV5gbXO
- DRJgIQy2Nw+UQBrNiRXpsnW5qTq88QI8C2pxRnofGPeV9V6C+SwL94yu4NdozNT1lC4e
- RoG97yGfqsTBllVL6jUFUBGDauAaLMhNqkSpaWD1BlG2ODbrfRDEd27RUfmYMsQ7P6y6
- 8cSCENxx9v9B2HfZ/gohhys2+//rZuTKb8rgDPyTm2tsLtn/AAZUw3hvxy1vjl0Zs5iu
- mxBQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793623061; x=1794227861; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=P9Xe5ApGw7AVptOI+b4XC9GSYWhLs3jwBpvKf/2EdnM=;
- b=Q2P8ZK2rIrPwhhE5lCBeZs1v3FZCPmGE3D5ZdYvy19dcbb5C01H60vX62SqzKA4prS
- c+tRLA4Z8cRpcz6h/zUSEhJnjszOQBoGhAe3fh1LNqXp4IVhIAdzrAS/e4bRrNlrtN4h
- v1hxEUJ8lgsdCcsomxZ9ZyI68rx+NrJOWbMEKwGQ/JcVo4Rv2zYM7eM5VgoiwTsGPt1A
- iDUMvKSdS5xWqS77MDMAeRRW2RkpZpHNTp3W7JAvWhzrEXDRoZk8GZ/KyfZ0IxJIbkeb
- QgsYZTFAF8UGQbL6+Vt6WxgR5a/ZGeBkXgTjAPxkTzzQemcdp/ThgqmxkwrkvbQDbDg6
- Yd/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793623061; x=1794227861;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=P9Xe5ApGw7AVptOI+b4XC9GSYWhLs3jwBpvKf/2EdnM=;
- b=TRV8VXb2ZGL0t9w/7gFjGpOccS4NI78rgBbvS5m124k3DXKfDRK6nTG5q/f1trp5Az
- lWymQ2LvVH5BVpM1S1mWOhJ2L+MI8zwo3mI1z1vppQ/Jb7vsoX99sVdJmbhH8juWc+i8
- C2tqGUomaIt6w8Y5mmSJ6Bhy6NrbLYGuba3VhPXonV6PvdIQhf74I9i4Tt14kykiu+p3
- RfCzcwDBrHj3ClPFpS0D6XetFKy6rrEU2QKhx07nyHxD2JgV7aCZKIz5XWknJ816KG7W
- d7Jeir1PDU/NK7HYiPMWLkIXjiDfiQvm0qtD8wxnKKFDxYP9zU4naH6hl925KjEIWLKj
- EW0w==
-X-Forwarded-Encrypted: i=1;
- AKwUvByyCVOiHQsQpThjNKZxpgLA4PF0rFjGSghLOIQoUwyj2gXGI3TGTUyi4edHef98JwQDApOuA3NY@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+Q8jCT/apJ96SaoUCaxkNMFo/SCl56aX8PNYBlZ/oFLF5lldN2
- yGzDQhNDGDrHUGkn6N0/PJH59fFVUgpjherMfyGAg3TqrP/7ri09qHmiVQZaTbuHMyUB0ryIqDn
- rySxz/xbjdU1JJLe1/WEurPcrXlo6ZhI=
-X-Gm-Gg: AYBFou3P6o+rsGnqPaDUenTLszqgjneF6lEHFbkY7st8i8W+HjHm1DJAaxHrclNKLYW
- VdxPnk5noAH4wKU8i2jyCX5JJzifVFnIY/26KeWpzE1XytpBtMueE3FGUCGw5Oj9utJkyANEnuC
- qIEZsV4vuO+ERI1uHLeKD3bepyNO7ZHj1DnvmKT9mvb3YKqPFwh54pxTgQNzk6ZAOv1uX0F/6Ii
- FlD/eT+BmLDZyJq+/PpSpBLUv9Kky7t9xI0bhVaoZ7U0/004xB/oFnlb7hmiuiCuQizxgGvqkzY
- AfwDjnysA8jnUlPqnRfFRGVqlE39jupnG4UDIp5MIEJkOD4nF1767Mv/YesrWeHWNSYZs4dMUMH
- xVLISpfXB54nS6/d31KTHib1tYToIVgj+mFwyAHUxTGaGPurs2LQU5CVeOSuktvhpF7h91nSwYy
- Uh/9xhjk904DQN0Rc=
-X-Received: by 2002:adf:e708:0:b0:48a:f41d:83c with SMTP id
- ffacd0b85a97d-48e6e262d4amr20344295f8f.0.1793623061185; Mon, 02 Nov 2026
- 04:37:41 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 48CE910EEFF;
+	Mon,  2 Nov 2026 14:16:04 +0000 (UTC)
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE66E10ECCA;
+ Mon,  2 Nov 2026 10:46:11 +0000 (UTC)
+Received: from smtp202.mailbox.org (smtp202.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::202])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jJ7fT3m9rzMlD7;
+ Mon, 02 Nov 2026 11:46:09 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1793616369; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=/4xkEfYxqjbXp4Ci01sdrxpkE7UK56jG7PU71QpI0/s=;
+ b=It7MZITQW6cp44q/4p/4z29YR3KERS8hRpIOZkqiw+Cy0DRLmqIrukC/XU8X/N2MWCBP6v
+ RMPxvCVydvnK85osICRqfZ3mkBA+rPuYAtYg+ryRFzs0Z2+eHwepVo+C8T6yKwM/iNxXqo
+ vYEuG9Dj7FouVHIXr70teKd/yO8Y8uKnn/U/evOmsZNX5WFkc9WDI8o356Vbg4a3nI9TT8
+ nfTyctcfqPMs50Y1NQSnRqPPjDoQD5NTPGjpD9pYSJK73OxMTb7Fjpai6ydXLhxjyAa81N
+ 0L3XPokGXHPYsh9yv18AX9Sy0Py5k+Wfoq0/igioNjW2NtnDrUM2N3pijFMT9w==
+Message-ID: <45a8324481c367a69f25e8c395ff6784b441a834.camel@mailbox.org>
+Subject: Re: [PATCH v2 1/2] drm/sched: Fix out of bounds entity priority check
+From: Philipp Stanner <phasta@mailbox.org>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
+ dri-devel@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com, Christian
+ =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Danilo Krummrich
+ <dakr@kernel.org>, Matthew Brost	 <matthew.brost@intel.com>, Philipp
+ Stanner <phasta@kernel.org>, 	stable@vger.kernel.org
+Date: Mon, 02 Nov 2026 11:46:08 +0100
+In-Reply-To: <20261021094227.48034-2-tvrtko.ursulin@igalia.com>
+References: <20261021094227.48034-1-tvrtko.ursulin@igalia.com>
+ <20261021094227.48034-2-tvrtko.ursulin@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <CACOV87VBmya0PKjni5xEYxUaEczk9X_UoUHXSR_HDS2kSJnM2g@mail.gmail.com>
- <00da317f-ec33-4084-a48a-1a6b4e10dfc8@leemhuis.info>
-In-Reply-To: <00da317f-ec33-4084-a48a-1a6b4e10dfc8@leemhuis.info>
-From: Nathan Blomquist <nblomquist@gmail.com>
-Date: Mon, 2 Nov 2026 07:37:30 -0500
-X-Gm-Features: AclHuK-Bb80BdPxE_BV90SywTLD5EIBW_cZcuIJ-QheO2IIocit-nkZxgYaYNVg
-Message-ID: <CACOV87VsAxi_xY2Zghysv7hjqL8ppmpaut7S0JEnDHvH8HuKEQ@mail.gmail.com>
-Subject: Re: [REGRESSION] amdgpu: Navi 23 passthrough fails after ef5fcf2a6c32
-To: regressions@leemhuis.info, amd-gfx@lists.freedesktop.org
-Cc: regressions@lists.linux.dev, alexander.deucher@amd.com, 
- christian.koenig@amd.com
-Content-Type: text/plain; charset="UTF-8"
+X-MBO-RS-ID: be023fd9551cd454391
+X-MBO-RS-META: mryqex7mdyz7hmerchnuaoynbob4gght
 X-Mailman-Approved-At: Mon, 02 Nov 2026 14:15:56 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -99,88 +62,105 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-1.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FORGED_GMAIL_RCVD,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Thorsten,
+On Wed, 2026-10-21 at 10:42 +0100, Tvrtko Ursulin wrote:
+> When the out of range priority at entity init time is clamped to the
+> number of run queues in the supplied scheduler the internal run-queue
+> priority needs to be adjusted as well.
+>=20
+> There is no impact since none of the drivers hit the clamping path, but
+> we still need to address it by moving the entity->rq_priority assignment
+> to after the clamping is done.
+>=20
+> Note that a lot of this will hopefully get removed once again when the
+> single run-queue simplification lands.
 
-On Mon, Nov 2, 2026, Thorsten Leemhuis wrote:
-> Have you tried if 7.3 is affected as well? You also might want to check
-> if 7.4-rc1 might have fixed it.
+So this is no existing bug out there, but merely for formal
+correctness?
 
-Thanks for pointing this out. The original regression reproduces on
-unmodified upstream 7.3.1. I also attempted 7.4-rc1, but an earlier host
-GPU initialization failure prevented testing the handoff.
+>=20
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> Fixes: 2fa4d8e2c109 ("drm/sched: Add fair scheduling policy")
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Cc: Danilo Krummrich <dakr@kernel.org>
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Cc: Philipp Stanner <phasta@kernel.org>
+> Cc: <stable@vger.kernel.org> # v7.2+
+> ---
+> =C2=A0drivers/gpu/drm/scheduler/sched_entity.c | 27 +++++++++++----------=
+---
+> =C2=A01 file changed, 12 insertions(+), 15 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/s=
+cheduler/sched_entity.c
+> index 7be0387bac3c..e12709b7bd0c 100644
+> --- a/drivers/gpu/drm/scheduler/sched_entity.c
+> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
+> @@ -130,10 +130,7 @@ int drm_sched_entity_init(struct drm_sched_entity *e=
+ntity,
+> =C2=A0
+> =C2=A0	INIT_LIST_HEAD(&entity->list);
+> =C2=A0	entity->guilty =3D guilty;
+> -	entity->priority =3D priority;
+> =C2=A0	entity->last_user =3D current->group_leader;
+> -	entity->rq_priority =3D drm_sched_policy =3D=3D DRM_SCHED_POLICY_FAIR ?
+> -			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 DRM_SCHED_PRIORITY_KERNEL : priority;
+> =C2=A0	entity->num_sched_list =3D num_sched_list;
+> =C2=A0	entity->sched_list =3D num_sched_list > 1 ? sched_list : NULL;
+> =C2=A0	RB_CLEAR_NODE(&entity->rb_tree_node);
+> @@ -144,25 +141,25 @@ int drm_sched_entity_init(struct drm_sched_entity *=
+entity,
+> =C2=A0		 * not to do this and to fix their DRM calling order.
+> =C2=A0		 */
+> =C2=A0		pr_warn("%s: called with uninitialized scheduler\n", __func__);
+> -	} else {
+> -		enum drm_sched_priority p =3D entity->priority;
+> -
+> +	} else if (priority >=3D sched_list[0]->num_user_rqs) {
+> =C2=A0		/*
+> =C2=A0		 * The "priority" of an entity cannot exceed the number of
+> =C2=A0		 * run-queues of a scheduler. Protect against num_rqs being 0,
+> =C2=A0		 * by converting to signed. Choose the lowest priority
+> =C2=A0		 * available.
+> =C2=A0		 */
+> -		if (p >=3D sched_list[0]->num_user_rqs) {
+> -			dev_err(sched_list[0]->dev, "entity with out-of-bounds priority:%u nu=
+m_user_rqs:%u\n",
+> -				p, sched_list[0]->num_user_rqs);
+> -			p =3D max_t(s32,
+> -				=C2=A0 (s32)sched_list[0]->num_user_rqs - 1,
+> -				=C2=A0 (s32)DRM_SCHED_PRIORITY_KERNEL);
+> -			entity->priority =3D p;
+> -		}
+> +		dev_err(sched_list[0]->dev, "entity with out-of-bounds priority:%u num=
+_user_rqs:%u\n",
+> +			priority, sched_list[0]->num_user_rqs);
+> +		priority =3D max_t(s32,
+> +				 (s32)sched_list[0]->num_user_rqs - 1,
+> +				 (s32)DRM_SCHED_PRIORITY_KERNEL);
+> +	}
+> +
+> +	entity->priority =3D priority;
+> +	entity->rq_priority =3D drm_sched_policy =3D=3D DRM_SCHED_POLICY_FAIR ?
+> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 DRM_SCHED_PRIORITY_KERNEL : priority;
 
-For 7.3.1, I used the signed kernel.org release source, corresponding
-to commit:
+I guess my main question regarding the code is why you moved those
+lines?
 
-    79a907609d53d5cd645b42c11550d295d43abf99
+> +	if (sched_list[0]->sched_rq)
 
-The trace shows BACO supported=1 but enabled=0, followed by
-amdgpu_device_baco_exit() returning -524 without ULPS re-arming. Both
-functions subsequently undergo VFIO D3/resume and have valid PCI IDs
-immediately before secondary-bus reset, but both read 0xffffffff
-afterward and the reset helper returns -25.
+Couldn't that remain in a terminating `else`, reducing the git churn?
 
-This happens with all guest CPUs held at their reset vectors. The
-trace contains 9,716 events with no lost events or missed probes;
-kernel taint remains zero throughout.
-
-For 7.4-rc1, I built Linus's signed tag at:
-
-    6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-
-That attempt failed during host GPU initialization:
-
-    AMD-Vi: Event logged [IO_PAGE_FAULT domain=0x0000
-address=0xffa00000 flags=0x0007]
-    PSP load kdb failed!
-    PSP firmware loading failed
-    hw_init of IP block <psp> failed -22
-    Fatal error during GPU init
-
-Failed-probe cleanup then emitted amdgpu_irq_put() warnings, leaving
-taint 512/W. I stopped before starting the VM, so this attempt is
-inconclusive for the original handoff regression. I have not established
-the cause or repeatability of this initialization failure.
-
-Neither build included downstream patches, my candidate correction,
-reset-timing changes, or external modules. Userspace, firmware and guest
-configuration were held fixed between the attempts. Configs and logs
-are available.
-
-Is the 7.4-rc1 initialization failure a known issue, or should I report
-it separately?
-
-Thanks,
-Nathan
-
-
-
-On Mon, 2 Nov 2026 10:01:54 +0100, Thorsten Leemhuis
-<regressions@leemhuis.info> wrote:
-> On 11/1/26 21:05, Nathan Blomquist wrote:
-> >
-> > I can reproduce a Navi 23 / RX 6600 (1002:73ff) passthrough failure on
-> > unmodified upstream Linux 7.2.10. It happens during the amdgpu-to-VFIO
-> > handoff, before any guest code runs.
-> >
-> > Revert/add-back tests on Proxmox kernels isolate ef5fcf2a6c32
-> > ("drm/amdgpu: fix autosuspend cleanup during removal") as the trigger.
-> > Removing its added call from -20 works; adding it to working -19 fails.
-> > [...]
->
-> ef5fcf2a6c32 is a 7.3 commit, but you only specify that 7.2.y is
-> affected, which might be caused by a failed backport. And 7.2.y is EOL,
-> so it won't be fixed anyway. Hence:
->
-> Have you tried if 7.3 is affected as well? You also might want to check
-> if 7.4-rc1 might have fixed it.
->
-> Ciao, Thorsten
+> =C2=A0		entity->rq =3D sched_list[0]->sched_rq[entity->rq_priority];
+> -	}
+> =C2=A0
+> =C2=A0	init_completion(&entity->entity_idle);
+> =C2=A0
