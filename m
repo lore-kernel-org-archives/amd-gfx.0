@@ -2,49 +2,66 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAD236070CA9
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 15:22:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAF83608B7D5
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 15:38:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZMsjKUlA
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ksEBhQVW
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44F8910EFE6;
-	Mon,  2 Nov 2026 15:22:24 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E4A410EFDF;
- Mon,  2 Nov 2026 15:22:17 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 83DB8605CA;
- Mon,  2 Nov 2026 15:22:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A4BD1F00A16;
- Mon,  2 Nov 2026 15:22:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793632936;
- bh=C2mBpbnVLemM5L5rEiqeWTkY0TlHmQQvKvlHKTMt9FA=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=ZMsjKUlALHJTXL2C+cLO6xveiEiR41h2heUC87xOvZ90decxtKsVYWOqFBo83XULO
- rBx0IxyjLliwHWXscjG2Z/eX+w9W+L8Oqs1IGFtDDtarKW0unQdzrJBKYC0E+7XwRr
- jOpzvo8+wFLTUuNTWhk+y6bhViXwQ5r3iOc9zqgxafApxfqyI5Mx9EWELTLkWQauCy
- r0bDE+64QMsveuj21znMm8FCo12VY2u2c2Ke37lzWYZqR0AEmuB/aE5SUf42FFnjZu
- i/PssNhfVY7H13cP8xc7H3YtUzxIcySbHT01Z0SAANkQd8RiVbLa0bRzkb13M+EGKk
- /9Adb5zu7qmkA==
-Message-ID: <991e63e4-4230-40c0-a18f-6c0103bd225f@kernel.org>
-Date: Mon, 2 Nov 2026 09:22:12 -0600
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5082410F03A;
+	Mon,  2 Nov 2026 15:38:45 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 595A210F01F;
+ Mon,  2 Nov 2026 15:38:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793633919; x=1825169919;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=hTYZdetg0DVplDyNYLvgAVyDM9iUmyOuE+J0YYj/dX8=;
+ b=ksEBhQVWNbsR7b9vEN+hN45do7VgzKMrSRXYa7Of1orTGCDgmB6eG5yZ
+ SLtThOzrDI/Vg9CSKWDTDIZdh64S440Wqm4iZjr9AY8WfEaf7IcjatPY9
+ UU+QgYaxRCkbAuAp4WT6vNh4BqHIFd8o4VQuc1PYI3SREh8obsvBAVSx6
+ qOsIJaV+bwFwztIVIq7yZ3s/FdJG2K+RVyQM1UxtFgZVfF0u/Sk11euuv
+ Y5nQpy+TC+ak/9D1yuAy451ymYdW5MFry2Is1Q10vcLhp46klejpmb2QG
+ agHgMvL65GBr9di2xs/TPtDWMljHwwdzIPjJHDSz/QWx735ktqjduNnSE g==;
+X-CSE-ConnectionGUID: iC1UHrW5RP6wuWr5COp9ug==
+X-CSE-MsgGUID: iujZY7DvRpWwy1X6ver9dw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2235193"
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="2235193"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Nov 2026 07:38:39 -0800
+X-CSE-ConnectionGUID: k6ktoBSPQW+rVY+t7HSheA==
+X-CSE-MsgGUID: 82Q0zRELTwesE46+ATslGA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="6249005"
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.10])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Nov 2026 07:38:36 -0800
+Date: Mon, 2 Nov 2026 17:38:32 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Hugo Sales <hugo@hsal.es>
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, dri-devel@lists.freedesktop.org,
+ airlied@gmail.com, simona@ffwll.ch, harry.wentland@amd.com,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/probe-helper: Sort and set crtcinfo before dropping
+ the modeset locks
+Message-ID: <auiuePf6RbhdV65A@intel.com>
+References: <20261031161952.660049-1-hugo@hsal.es> <auh8pUx_kXUYSdZ8@intel.com>
+ <2112993263.278931.1793633202457@app.mailbox.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Clamp the ATIF backlight curve to its 99
- points
-Content-Language: en-US
-To: Hugo Sales <hugo@hsal.es>, alexander.deucher@amd.com,
- christian.koenig@amd.com, amd-gfx@lists.freedesktop.org
-Cc: lijo.lazar@amd.com, harry.wentland@amd.com, alex.hung@amd.com,
- kees@kernel.org, airlied@gmail.com, simona@ffwll.ch,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20261031153948.127016-1-hugo@hsal.es>
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <20261031153948.127016-1-hugo@hsal.es>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <2112993263.278931.1793633202457@app.mailbox.org>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,68 +72,40 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 10/31/26 10:39, Hugo Sales wrote:
-> amdgpu_atif_query_backlight_caps() stores the firmware's number_of_points
-> as data_points but copies only the 99 points that luminance_data[] holds.
-> number_of_points is a u8, so a firmware table that claims more makes the
-> custom curve code in amdgpu_dm index past the array, and
-> dm_query_extended_brightness_caps() copy past the end of the
-> data_points[] buffer it fills
+On Mon, Nov 02, 2026 at 03:26:42PM +0000, Hugo Sales wrote:
+> On 11/02/2026 12:05 PM WET Ville Syrjälä <ville.syrjala@linux.intel.com> wrote:
+> > On Sat, Oct 31, 2026 at 04:19:52PM +0000, Hugo Sales wrote:
+> > > amdgpu walks connector->modes from its atomic_check, in
+> >
+> > That is just wrong. connector->modes is protected by mode_config.mutex
 > 
-> Clamp the count to ATIF_QBTC_MAX_DATA_POINTS and warn, since a table
-> that claims more is a firmware bug
+> You're right, I should have fixed the real issue rather than work around
+> it. Please drop this one
 > 
-> Fixes: f729e63743f0 ("drm/amd: Pass luminance data to amdgpu_dm_backlight_caps")
-> Signed-off-by: Hugo Sales <hugo@hsal.es>
-> ---
-> The other ATIF checks log at debug level because they make the call fail
-> and the driver falls back to its defaults. Here the driver keeps going
-> with a truncated curve, so this one warns
+> I'll try to fix it in amdgpu instead. atomic_check can't take
+> mode_config.mutex there, so amdgpu would pick the mode it needs while
+> probing and keep its own copy, like it already does for freesync_vid_base
+
+Yeah, that should be doable.
+
 > 
->   drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 6 +++++-
->   1 file changed, 5 insertions(+), 1 deletion(-)
+> > And regardless of changing the locking rules or not, someone
+> > should probably sprinkle lockdep asserts to bunch of places
+> > where connector->modes is consulted. Perhaps even introduce
+> > custom list iterator macros that include the assert...
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> index 63088c072087a..4874ee864b807 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> @@ -406,7 +406,11 @@ int amdgpu_atif_query_backlight_caps(struct amdgpu_atif *atif)
->   			characteristics.max_input_signal;
->   	atif->backlight_caps.ac_level = characteristics.ac_level;
->   	atif->backlight_caps.dc_level = characteristics.dc_level;
-> -	atif->backlight_caps.data_points = characteristics.number_of_points;
-> +	if (characteristics.number_of_points > ATIF_QBTC_MAX_DATA_POINTS)
-> +		pr_warn(FW_BUG "ATIF: backlight curve has %u points, using the first %u\n",
-> +			characteristics.number_of_points, ATIF_QBTC_MAX_DATA_POINTS);
-> +	atif->backlight_caps.data_points = min_t(u8, characteristics.number_of_points,
-> +						 ATIF_QBTC_MAX_DATA_POINTS);
->   	memcpy(atif->backlight_caps.luminance_data,
->   	       characteristics.data_points,
->   	       sizeof(atif->backlight_caps.luminance_data));
+> Makes sense. amdgpu would trip them today, so I'll look at that once
+> the amdgpu side is fixed
 
-Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
+Sounds good.
 
-Thanks; this makes sense.  I'll get this applied to amd-staging-drm-next.
-
-I would like to know though; did you see this in the wild?  If so I'd 
-like to hear more about the system that had it and the system firmware 
-on it.
-
-What model?
-What APU?
-What system firmware version?
-What AGESA version?
-
-Some systems will publish this to SMBIOS and you'll see it from "dmesg | 
-grep AGESA".
-
-If it's a problem in AMD AGESA I would like to get it fixed for a future 
-AGESA release.
+-- 
+Ville Syrjälä
+Intel
