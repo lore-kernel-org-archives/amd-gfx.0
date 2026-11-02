@@ -2,100 +2,103 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1666606FB59
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 16:03:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C58C607BDF1
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 16:05:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=i54UaPPC
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=itka6e4w
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7983610F03E;
-	Mon,  2 Nov 2026 16:03:31 +0000 (UTC)
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010069.outbound.protection.outlook.com [52.101.61.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 984F110F03E
- for <amd-gfx@lists.freedesktop.org>; Mon,  2 Nov 2026 16:03:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TTucapKnvYSn8iZAdnfbe87bI9OYmtxPCBZnbSXsvgrZCUJHCRGjB5xlPQh6zh6XV0Olh9U06j3HGUKv0e4QjEfu94fPEyAlcr4+YUSyPggBQ96TpfRi5Xn29fckCM1TMBtil9MH7E3CAAQy0R/GH4cjDOByv/wqgD7rZ5aWK5sGammPemXjHk+lZluNhAANm5On2B/oHScqJMiy2X0aVpdfMbJ7Ld/G13vm1nBi0/FkJxMbk5y13WycrHLgbKwpKRPRvpA0sZjpifdNjmYO3U2LG8/hTx63foUug/erx7Z8QeT/LhZ/GdiRJOJ7i8TuHzoHNX7reA/2Wzb7a+C+Rw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Z4ZtO0b9Sf4rklaiaK7EXOw7B1+EYxpCLW6pezPfr7Y=;
- b=OhdqVuKaxCP4zWrhHkpDFb6KmZW3IsY5rQa8u3LdFkq8ChEmOrB89HaaqW6loIK+P/5n62PQw9/cv5yqG2xJ80xT+7cj+mnNTmpxLy2Yo0iYF2kIuIxjCmfwFd8py+rP4Eu9NvkPg2HytMT6jgJMxu9Sa6MiZt2YrFl9USv10RVGSEpHuYw9Ib8Z6b//b08QUOeX/4hljVbLnwZO6yZwdef+gwtOQMP9e+8U9umq4ms2+UaFkQUYNr4S6ssfwKsI+hxNl36Bz9/k3UQ9ASoWDCOp7JK2Yovsjyf355710uIhkTYIKYE7CrnP3oyvQAlAZ2qIL8zLtLW7kysbhhoDuw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Z4ZtO0b9Sf4rklaiaK7EXOw7B1+EYxpCLW6pezPfr7Y=;
- b=i54UaPPCTUKVp7Yj3IpMGIVNVvF8GF9f2bGkoItnpSdoxtbP9tJhf/L6lwD82T5JARK1neOhlutIA+Or26dtm/gFYuiRwnMlKlo52Kb+MlF7zf3oyEaZJ9FESUTAF6NNFMrwp2V8nhMQ3VMc8dmgrDEHKT9IREoSrpi2WhWoDiw=
-Received: from PH7P223CA0026.NAMP223.PROD.OUTLOOK.COM (2603:10b6:510:338::31)
- by DS7PR12MB8419.namprd12.prod.outlook.com (2603:10b6:8:e9::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 16:02:23 +0000
-Received: from MWH0EPF000A672F.namprd04.prod.outlook.com
- (2603:10b6:510:338:cafe::4c) by PH7P223CA0026.outlook.office365.com
- (2603:10b6:510:338::31) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.12 via Frontend Transport; Mon, 2
- Nov 2026 16:02:23 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MWH0EPF000A672F.mail.protection.outlook.com (10.167.249.21) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Mon, 2 Nov 2026 16:02:22 +0000
-Received: from mukjoshi-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 2 Nov
- 2026 10:02:22 -0600
-From: Mukul Joshi <mukul.joshi@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Felix.Kuehling@amd.com>, <Harish.Kasiviswanathan@amd.com>,
- <philip.yang@amd.com>, Mukul Joshi <mukul.joshi@amd.com>, Felix Kuehling
- <felix.kuehling@amd.com>
-Subject: [PATCHv3 8/8] drm/amdgpu: Temporarily enable UALink loopback via
- module parameter
-Date: Mon, 2 Nov 2026 10:47:54 -0500
-Message-ID: <20261102160125.2743750-9-mukul.joshi@amd.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261102160125.2743750-1-mukul.joshi@amd.com>
-References: <20261102160125.2743750-1-mukul.joshi@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D584E10F04A;
+	Mon,  2 Nov 2026 16:05:29 +0000 (UTC)
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4633A10F071
+ for <amd-gfx@lists.freedesktop.org>; Mon,  2 Nov 2026 16:05:23 +0000 (UTC)
+Received: by mail-dl1-f51.google.com with SMTP id
+ a92af1059eb24-1ac926f28c9so217253c88.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 02 Nov 2026 08:05:23 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793635522; cv=none;
+ d=google.com; s=arc-20260327;
+ b=ATV5rCmTTEhE1ijiYPoybOqQ9nW/7NrQiKTDwrx1EHMc9+zVCwtR3BnjGm+cestVX7
+ 5xhBoCAANiL8gWpgvCyFgdmFIryi6j14xg3l8SaGBJdKmBoZOz0dZM4yrXjbNvlxPW5O
+ 2lEjIORxtmOI0QhoKQq47vGCQmSrerey/PT1/YNsIVFOPgr4vAqmuQsOABhwphPGJDKE
+ YzGkVh0kOXSEydk3wSQId3Y9SBhmW2qNwmqSD72Ts71KuM0m597W3G+1hFn93C+iqgte
+ YNwm5LDu9dai0BlQM7ReBom650a+t7Weu6LkWucj0QGzCe9MIhIxPP+CQF7JsB2fbP3t
+ fVRg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=qM2dyLxIJxVzLOT8NAS4jU2rvWxXsjk/TSdQCq7DDTQ=;
+ fh=v8hfTPCRfCGRBhqytfXhDpSJqeKR6pVB9GGkxHWzPBU=;
+ b=muUTJO0D/VCVk+hCIb3cGSWXHFnjJtTSlsLE8n5veR5lVSKX2QbR9TiDPgV1qOOkmx
+ O/Ms+QMW6MkOdeiRms2+pIYTSUy0uPP1dgOqb0DAf1m3+PFWsnXpm1GJrBUwUdnIclXo
+ rGSVasCWOq4gTZq+au3ENsL7HRGXYgFh6RfPj6JFr6Q/D0TlQwYFedNjz8G61BI2jIsa
+ 522M/6i98KSpj0rQ6XNjvdXtLJ2/UAzPmvxmPAjRNGb4oNU0IWvECmpY0Q6UtGotzzCw
+ PYFDIkJ31hyy33E3RTeHOI70+tsoTV/7SJ9ysyOFqWfV9W8vyUXmFeBLAFOveppl/YKc
+ CBvA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793635522; x=1794240322; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=qM2dyLxIJxVzLOT8NAS4jU2rvWxXsjk/TSdQCq7DDTQ=;
+ b=itka6e4w/AXkiyU+zIUWxi+JkxVSE554Fat/hPiC+8urWBL+gYbwEAaMZKX9bTX1y7
+ sB7XAnn3WjDzMBu6klam9lupx/NfIg/lu8p69LFO85HFJU7iTsPzSg9splm1weuqQqr8
+ sYHdHkpGiZaOnJ/NuogjC8Xjixk+6O9kTxHqIHBXjNbkZG+dA0KJ1o1U6hbgd1r7HjAU
+ aALUetuQIeDOFAjoXVMgtvfjquXxzr3Tz9ssIH2QbcNeBNz4Vu0JPwzNIxfU51Ognbgq
+ JD3PY99ESKoM4uqmSHgcFkYU2omM8wUshps6q8c/d2LdGE9u/iyHRJ/fQGASZY7fYjPs
+ +D5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793635522; x=1794240322;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=qM2dyLxIJxVzLOT8NAS4jU2rvWxXsjk/TSdQCq7DDTQ=;
+ b=SSeEjaKSzzbbkrPP3zK3mZAgExKg2rTDzOvaBhUb/HNQMwAPpE0IXAMMl61kXO/XIX
+ DSlHvxoVmAAe8CfjNslsxT398VpXBEQLvIt5POe5mnPSKHggN92LUu3Mk93dotVtpYUD
+ /9wBOTO6woCweJTEWOqyrXKomVfzuU7MlHHLB308Qv2Ko5qNvirMfE0dbPXd8VxSUZIR
+ U5UX65GpXnevOSvkVeomMcxq+4KdSmBdxMGbhLQK82LN8Ib/OK9S86VnrkVnaUPrartP
+ qw2MUaMLoh4QZFP38slLLe2lkXhMw7L6gTJX+z2om+ymaT+ljR4eVi+cE9C7bxvuU/aW
+ 5ISQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxtedI5yfh4py9veJdN3/jn2VpvG8xfjxiim9EPBloUck/q+S1Jg/6wDagQZtE3DjCzKB2kiGkr@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJIaCj2A3iEs+wGZBKhCLKyfkQXE3nKqzguezsl2gPRskPcnB7r
+ 8uhAue9JBnqU5dDponf1xqMz4BJG4cpObgcrm9suBg2foXgzwaNEhLExQyT9YAzzn2SR9KUE6iI
+ Z7YVR1v0D73ycLwij20yOhV8UfHzZgOM=
+X-Gm-Gg: AYBFou28H5DI8Jf6D9VPKZ1uR27chMMLSKBP4yISerg71GAtY3SXyJgZ+Q/T8H5x2uD
+ grM/BsGUDqOAJAhBPAL2i1kA/WmGoKWAKpSUHCFkNlM06JZ8XC+PBlR6E0/GFDU2vjuCYI/+Loo
+ SOZrZlU4mzq97yhMLDoijayTs/ipHE4HMOpYnJs3f9DiCBeyiwycF7zIMa7yR7bdyGX20zAKrtt
+ Z6qGZYcQ1HucMfmUNCbAgKGl7MaYHKnwAT16sFNJWbE7CWHkYvgsyMUN5yRVcQb/1Reo1DnD0EK
+ IT/q5aXdvMZMVlmWurDXivPI5sv7Tr74+06Ca+l0teAhXplXSGCukUdm9ZyR9SNkocDfk0r95NK
+ Llt4OXXZiCHIpvo/heNnT+QlJ3TXHqrt0rAMPWjm4P0QeIxkgKSXhlJ8D6O3PqJRLiR54jer7K7
+ +J+XFQnVS2ieGQuYxPfrlQsGc=
+X-Received: by 2002:a05:7022:7e0c:b0:165:be2f:c56e with SMTP id
+ a92af1059eb24-1ac5b7dcb2bmr26252824c88.2.1793635520495; Mon, 02 Nov 2026
+ 08:05:20 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000A672F:EE_|DS7PR12MB8419:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2d42f4e0-d9a4-4766-3e7e-08df38faae78
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700016|23010399003|376014|1800799024|10067099003|18002099003|22082099003|261102123227099003|261102130727099003|56012099006|11063799006|261026121527099003|261022075727099003|261009223027099003|261021121427099003|261021123027099003;
-X-Microsoft-Antispam-Message-Info: H9whbERXjgMNxiNRZgMmT4tHOyK7sUeQIM+XoARVjRDM1giMJ+YIftBOrJe2KqLFH/ISvewHGSRzSxhFQOvc932BJUSIJyImJYW89n0OfbVynLiFfahmZRqWQT6zgMMn4NWHpcIItt0ZX2kH5JLrZemoTfd2Jf4pqw5Tq3bFrB4lMAu0Q+DOH4uPVnXBfU/o4hWo4STB4PUGy68i9AnnUysTJqmGi4Qq9tXJm9Cup7euXcRUkUEXf0H2zS+rIZb4CjAYYKQZExnui2ZqSmAZT7y1jaz5nQADNi/i6aKwB9sRr2l3fOMPrmvQKouKXXUP2TF3i7VlK7uPqvo92fmDQlyczcm/EZxpnut4l6aTKsyNUd+m0kOxxltf6hN23RDF7LaczxSfbb8k5yF6nSwTVu7gXZYUUh+UF9fbTocHruM8huAjJCMKcArVZWY6LRmMhl0dWL01JqlYUs3Y0QCWfi/puR3XAu8tZg+geD5CACMiFS08C5sjKJ+ArQWnroyz4riv7x6PKi37T/oTax8YTFeU/d+txtz7FqlnVZ+98x3grlhZ6a8gQQwxpVrkhJY3Ue87q7HgD28gb2zLFFsHtio+Mxl3mP8/nShRNsXXQJKZ4Jxtf5JbsCdy9vLBEw7XjkMqywmZ2FniJKkowjp+ioldti2qlCZ9vPMq9+9oV088rAUijOm2bu1AiM8Ndcbmg9NxLo7YQudzrhlrbNwewg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700016)(23010399003)(376014)(1800799024)(10067099003)(18002099003)(22082099003)(261102123227099003)(261102130727099003)(56012099006)(11063799006)(261026121527099003)(261022075727099003)(261009223027099003)(261021121427099003)(261021123027099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: AaiFmFk/sV/Smo+wBQlcULmv15crcX7ais6IrEfhGw7bZ1XlcM16oLXjUeNkNu2uxKH+qoz+Q4cnILegERfyEwjfWw109/FN6e7v/IbppP3E2u8ShTlcabsAMxSplVPaoqrn79rVl20v/jlN7hlYVuCbjvapcndFbcEwb+N50MBDXte+aukDEIT1R5tH4VfXTDH0YtRTQ0WZb7bJJpvKzHsfkiIbJWiL7fvxvF81mUFS4nmcMvt4nLhqTXKm3OUWxMmUW0GOrLRAPPq+//XmodQQfA5jTu9TzmErcoNJy9+bqP9UUfj3Ibm+wFWKIYwJh5IzvBp+pXcwJNS64YSy1Rk/H0Dub4geJbhU64RjLLqLjcFMdRz9NrQXHRE8cSET8xgyQ/tWF4O7D6l6B13ZWCMZolrcnQ14UPANyM4V6pLnX/X4/6cDSZAdYdzPYNJD
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 16:02:22.8870 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2d42f4e0-d9a4-4766-3e7e-08df38faae78
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000A672F.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8419
+References: <25995707c39c0c191e3ac46c4813f55a7f928403.1793131583.git.calvin@wbinvd.org>
+In-Reply-To: <25995707c39c0c191e3ac46c4813f55a7f928403.1793131583.git.calvin@wbinvd.org>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 2 Nov 2026 11:05:08 -0500
+X-Gm-Features: AclHuK_T_9wl2_ge7HTrGL9Ufakev4qpuajb3TNVntCGEszFix2ZV1_vjQMYFjg
+Message-ID: <CADnq5_NuQEvx8OpyPOuXgtzQB67jgaNtwW85X70UraOLaF=M=A@mail.gmail.com>
+Subject: Re: [PATCH] Revert "drm/amd/display: Allocate DCN32/1 dmub memory to
+ GTT"
+To: Calvin Owens <calvin@wbinvd.org>
+Cc: linux-kernel@vger.kernel.org, Harry Wentland <harry.wentland@amd.com>, 
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Alex Hung <alex.hung@amd.com>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, Fangzhi Zuo <Jerry.Zuo@amd.com>, 
+ George Zhang <george.zhang@amd.com>,
+ Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,91 +109,132 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Temporarily add the amdgpu.ualink_loopback module parameter to request
-UALink loopback mode for manufacturing testing, until the final
-mechanism for enabling loopback is in place. Loopback is disabled by
-default.
+Reviewed and applied.  Thanks!
 
-Only amdgpu_ualink_loopback_detect() reads the parameter, so moving to
-the final mechanism only needs to replace it there.
+Alex
 
-Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
-Acked-by: Felix Kuehling <felix.kuehling@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 13 +++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c |  5 +++--
- 3 files changed, 17 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 5a32b54b1e9b..b8be093b8a33 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -270,6 +270,7 @@ extern int amdgpu_rebar;
- extern int amdgpu_wbrf;
- extern int amdgpu_user_queue;
- extern int amdgpu_ptl;
-+extern int amdgpu_ualink_loopback;
- 
- extern uint amdgpu_hdmi_hpd_debounce_delay_ms;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 5e0029530b79..b4aca2def27a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -253,6 +253,7 @@ int amdgpu_rebar = -1; /* auto */
- int amdgpu_user_queue = -1;
- uint amdgpu_hdmi_hpd_debounce_delay_ms;
- int amdgpu_ptl = -1; /* auto */
-+int amdgpu_ualink_loopback;
- 
- DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
- 			"DRM_UT_CORE",
-@@ -1165,6 +1166,18 @@ module_param_named(hdmi_hpd_debounce_delay_ms, amdgpu_hdmi_hpd_debounce_delay_ms
- MODULE_PARM_DESC(ptl, "Enable PTL (-1 = auto, 0 = disable (default), 1 = enable, 2 = permanently disable)");
- module_param_named(ptl, amdgpu_ptl, int, 0444);
- 
-+/**
-+ * DOC: ualink_loopback (int)
-+ * Enable UALink loopback mode for manufacturing testing. In loopback mode a
-+ * single GPU acts as both the exporter (accelerator ID 1) and the importer
-+ * (accelerator ID 0) and loops UALink requests back to itself. Possible values:
-+ *
-+ * - 0 = disable (default)
-+ * - 1 = enable
-+ */
-+MODULE_PARM_DESC(ualink_loopback, "Enable UALink loopback mode (0 = disable (default), 1 = enable)");
-+module_param_named(ualink_loopback, amdgpu_ualink_loopback, int, 0444);
-+
- /* These devices are not supported by amdgpu.
-  * They are supported by the mach64, r128, radeon drivers
-  */
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-index cf2c68cf7115..410222354bd4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-@@ -97,11 +97,12 @@ static int amdgpu_ualink_drm_client_create(struct amdgpu_device *adev)
-  * amdgpu_ualink_loopback_detect - detect UALink loopback mode
-  *
-  * This is the only place that decides whether loopback mode is enabled.
-- * There is no mechanism to request loopback mode yet, so it stays disabled.
-+ * Loopback mode is temporarily requested with the amdgpu.ualink_loopback
-+ * module parameter.
-  */
- static void amdgpu_ualink_loopback_detect(struct amdgpu_device *adev)
- {
--	adev->ualink.loopback.enabled = false;
-+	adev->ualink.loopback.enabled = amdgpu_ualink_loopback == 1;
- }
- 
- /*
--- 
-2.56.0
-
+On Tue, Oct 27, 2026 at 4:36=E2=80=AFPM Calvin Owens <calvin@wbinvd.org> wr=
+ote:
+>
+> After commit a637a140ab860310 ("drm/amd/display: Allocate DCN32/1 dmub
+> memory to GTT"), a machine with a Radeon RX 7900 shows random garbage on
+> the screen. It reproduces sporadically, but at times it is so bad the
+> machine is more or less unusable.
+>
+> The garbage is always horizontal bars extending across the entire
+> screen, always approximately 200 pixels tall on a 3840x2160 screen,
+> for what looks like a single frame. The bars are mostly black, but will
+> sometimes exhibit striping and periodic artifacts which smell like
+> non-framebuffer data is being rendered to the screen.
+>
+> It took some patience on the "good" side, but I was able to nail it down
+> to commit a637a140ab860310818a14fb4d37e39e51a06be4 with this bisect:
+>
+>   bad: [cee9395acd8043be0644b25c34bfa86623f2b935] Linux 7.3-rc1
+>   good: [8d3ae59288f1e7d58d76558a6ee96d533bc5019f] Linux 7.2
+>   good: [55ab7e14222e5f0b0fd9f7711ca391d2924b35e3] Merge tag 'for-7.3/blo=
+ck-20260819' of git://git.kernel.org/pub/scm/linux/kernel/git/axboe/linux
+>   bad: [df51bdc5e80dae43cab81f6cc641e98638303c88] Merge tag 'mtd/for-7.3'=
+ of git://git.kernel.org/pub/scm/linux/kernel/git/mtd/linux
+>   bad: [29daacacf4cd84e6917f09de6a99fb170071c14c] Merge tag 'drm-rust-nex=
+t-2026-08-08' of https://gitlab.freedesktop.org/drm/rust/kernel into drm-ne=
+xt
+>   good: [fff648aec5e2790d117a0ec5c849a284d9d33d70] drm/amdgpu: include am=
+dgpu_video_codecs.h only where needed
+>   bad: [336e0cd576817ac64a4b394ca2b3680029f3e37f] Revert "drm/amdgpu: fix=
+ aperture mapping leak"
+>   bad: [789f7486a384ca58b9d7a76abba5efa0e80e8dab] drm/amd/display: Test p=
+lane colorop helper walkers
+>   good: [e0e426f10ad653c5e9dd33fb4a76d55f06101992] drm/amd/display: Test =
+helper_check_state rejects
+>   bad: [982b2a43682b55e7d9800000f2592832ff2865ba] drm/amdgpu: Fix IP bloc=
+k NULL check during soft reset
+>   bad: [9102b39fa924dcc3dc75a3137bfa9633c40b88c0] drm/amdgpu/userq: fix i=
+ndefinite fence wait during GPU reset
+>   bad: [b23470a026afe64de5c1df4ad181587b49c22923] drm/amd/display: Exit L=
+S for ISHARP before coefficient write
+>   bad: [f02b2e47355e9d381a7f34acc997e1c47879ca21] drm/amd/display: Add KU=
+nit test for wb jobs
+>   bad: [c6a13d145cc811b19c8a0620f25868cf7d5700c0] drm/amd/display: remove=
+ unused dcn42 socbb values
+>   good: [1d8327353de6f1f34063840f362c208c84064f54] drm/amd/display: Fix V=
+ABC Init and OLED Support
+>   bad: [a637a140ab860310818a14fb4d37e39e51a06be4] drm/amd/display: Alloca=
+te DCN32/1 dmub memory to GTT
+>   first 'bad' commit: [a637a140ab860310818a14fb4d37e39e51a06be4] drm/amd/=
+display: Allocate DCN32/1 dmub memory to GTT
+>
+> Sure enough, reverting a637a140ab860310818a14fb4d37e39e51a06be4 on top
+> of v7.3 completely and totally eliminates the problem for me.
+>
+> Mikhail has separately reported this regression:
+>
+>   https://lore.kernel.org/all/20260829010525.29935-1-mikhail.v.gavrilov@g=
+mail.com/
+>
+> ...but it seems to be much more consistent for me than for Mikhail, it's
+> never taken more than 30 minutes even when the machine is completely
+> idle. I've also never been able to reproduce any artifact one single
+> time without commit a637a140, despite a lot of effort.
+>
+> I'm not sure reverting this is the right way forward, since presumably
+> this would re-regress the timing issue Fangzhi alluded to in the
+> original commit. But nobody has proposed anything concrete yet... so
+> let's start the discussion here.
+>
+> I'm happy to help test other better ideas as well :)
+>
+> Signed-off-by: Calvin Owens <calvin@wbinvd.org>
+> ---
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c    | 11 ++---------
+>  1 file changed, 2 insertions(+), 9 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c b/dri=
+vers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
+> index 9ff25bc8ee5ae..870534b7cf46d 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
+> @@ -511,7 +511,6 @@ int dm_dmub_sw_init(struct amdgpu_device *adev)
+>                 DMUB_WINDOW_MEMORY_TYPE_FB,             /* DMUB_WINDOW_CU=
+RSOR_OFFLOAD */
+>         };
+>         int r;
+> -       int mem_domain =3D AMDGPU_GEM_DOMAIN_GTT;
+>
+>         switch (amdgpu_ip_version(adev, DCE_HWIP, 0)) {
+>         case IP_VERSION(2, 1, 0):
+> @@ -648,19 +647,13 @@ int dm_dmub_sw_init(struct amdgpu_device *adev)
+>                 return -EINVAL;
+>         }
+>
+> -       /* Limit to allocate dmub to GTT on DCN32/1
+> -        * TODO: Other asics with GDDR7 may have worse latency
+> -        */
+> -       if (dmub_asic !=3D DMUB_ASIC_DCN32 &&
+> -           dmub_asic !=3D DMUB_ASIC_DCN321)
+> -               mem_domain |=3D AMDGPU_GEM_DOMAIN_VRAM;
+> -
+>         /*
+>          * Allocate a framebuffer based on the total size of all the regi=
+ons.
+>          * TODO: Move this into GART.
+>          */
+>         r =3D amdgpu_bo_create_kernel(adev, region_info.fb_size, PAGE_SIZ=
+E,
+> -                                   mem_domain,
+> +                                   AMDGPU_GEM_DOMAIN_VRAM |
+> +                                   AMDGPU_GEM_DOMAIN_GTT,
+>                                     &adev->dm.dmub_bo,
+>                                     &adev->dm.dmub_bo_gpu_addr,
+>                                     &adev->dm.dmub_bo_cpu_addr);
+> --
+> 2.47.3
+>
