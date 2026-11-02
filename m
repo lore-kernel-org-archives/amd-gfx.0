@@ -2,83 +2,98 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B6C9606A326
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 08:07:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D922606A324
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 08:22:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cJqom64p
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=L2wsbQxE
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A89B910EC03;
-	Mon,  2 Nov 2026 08:07:31 +0000 (UTC)
-Received: from mail-wm2-f6.google.com (mail-wm2-f6.google.com [74.125.225.134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0CD0F10E3B6
- for <amd-gfx@lists.freedesktop.org>; Sun,  1 Nov 2026 23:24:50 +0000 (UTC)
-Received: by mail-wm2-f6.google.com with SMTP id
- 5b1f17b1804b1-4a1d25d7d5dso11304925e9.1
- for <amd-gfx@lists.freedesktop.org>; Sun, 01 Nov 2026 15:24:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793575488; x=1794180288; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:subject:from:cc:to
- :content-language:user-agent:mime-version:date:message-id:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=QOc/+pAAVAzpsjbhDTB2SpKcdDFIk9fN2ZS/vqFolwg=;
- b=cJqom64pV7Xo22do4rvIew30msVL91bGGlHJtxokUIXzoMD2M6rYmEAAJ5xCbtAJK1
- ues82B8xrAasvy9LDg3ez3rlLiCeDrFbyqvyFoRN7238yurVuy1CPtB1g/LXMgXMe5QH
- gROxUWOHGBNMiqAGua8ceU06P5xNCH3nlZIQCV48U/6Kb25cq3cWjlbYxKRAeE+YwfT5
- TcZ0Ypu8YCcYBZy/PpDjosGq9ZRLwPe92BRt7pamvY9SSfZw97KO6LKMEB7EtU5727+8
- i+IXgnvHXKAk6CU/DbQqYMqpkrz8eFn0Hy1l45rvdTp5y9m0SM12kTWnqGJuA1mjAxbL
- h1CQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793575488; x=1794180288;
- h=content-transfer-encoding:content-type:subject:from:cc:to
- :content-language:user-agent:mime-version:date:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=QOc/+pAAVAzpsjbhDTB2SpKcdDFIk9fN2ZS/vqFolwg=;
- b=0ipxUkQ4mIts1XBDnkeFyl2tVhXYRVIjx+HgK80mTqqzEuQV2b+dafNqWWV+us9ERg
- 54gIqrEavcdM6atUxT/hK348jpcQiuPjscaNPYYRdd3tddusiN8BspyjRZ43x5qXjg1L
- PaxE6hr/j8NCBMFj0qikNWe1Uhh5kgxbE7YBFAradxwym1B1jcdQJLncYB3GmiEOobDM
- 4L0iTyts5We7p0j0nacOaYu2LWypxE50mZ2gO/63RpXHC9+oGQ1gb4TaYFuX+kOLVygb
- Z7fGUvYKBXqN5RCluiNTkPZPgW9TTWiQ+Xma+YIxaZVIdrYij2E9XPMry3k/GzhK2IwU
- 8Caw==
-X-Gm-Message-State: AFq9FYLqL/1mtus7zc4Y+3MbMdzuGJSvnUKxqjTBQug5W6VdKTxDgbx/
- l2IGFyRyDTymSvLxeQZ9G7LBtmMZ6OPWHDAAmhFywLuLZtGSoKe2eMIqprrBdWs9elTh7Q==
-X-Gm-Gg: AYBFou1ABzrlOQubC0O3VnIb0kH1g+P1DOqUq2hfMnae2daPA/DsxeGbS4R09ZWohZ2
- pn4ICauj2cczbBHNl5CgBYCn33eA+zn1CVyWvZsqd75bO2DguGwX0X+eAtRCqYa/6oOHY5lr/9R
- GRaCKqKQCooXVIJ2/iJI1Mmx8FhDULbYEBh5llqWfe00XhvD2cZMrQ8nWXW4Z0bKZY0tZWtvWDz
- 8fPOvc2Br+NBqa6zfpxeVMaAcFOXBE9EBN0LhSp1X9XK0+i/FwQp3+gi74vnIDZWKmPQOJLgyKG
- YHGk84uiog55mDAfZ+xJQOo9X9qyMXGMwXJNu8EIFgBWraLtTcC5PECnommRPwDq/qBKPcXWhl7
- KoCek1xeR1SfR0rNjQgxSA8nYuXatTh2aZLP7N4fzQqjzbmUz8x+/Dza1IXT3TD2dU3dx7rHCU8
- uP+MQ0dq693RFzJjMeq8ef7oIBJEcIbibyTp+XqVk5T39D4J3UoB/bFioF14puHIbIM+vY3iA4k
- PA7UY3LyxLLZ38PV0kCi2n+unwaT4yMhXQ/tNqT10jPamxGf+OFDjOifvCZ0eB6XMiP9lnoYBuO
- SVlWi6gWx5Mcku4Md6f++plcIM2M7fcp9oJCeHcIGVb9f7ICJair2/2o
-X-Received: by 2002:a05:600c:811a:b0:4a2:1e1:d55 with SMTP id
- 5b1f17b1804b1-4ac187a6b30mr181861095e9.28.1793575488290; 
- Sun, 01 Nov 2026 15:24:48 -0800 (PST)
-Received: from [192.168.1.7] ([31.94.68.191]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4aa81b7fe80sm341309865e9.11.2026.11.01.15.24.46
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 01 Nov 2026 15:24:46 -0800 (PST)
-Message-ID: <94672259-c526-4ec7-a69c-7dda8d934593@gmail.com>
-Date: Sun, 1 Nov 2026 23:24:45 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C32710E41D;
+	Mon,  2 Nov 2026 08:22:42 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010005.outbound.protection.outlook.com [52.101.85.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF57510E41D
+ for <amd-gfx@lists.freedesktop.org>; Mon,  2 Nov 2026 08:22:35 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DtJ8FiacAeitYxmZv87++6O3lOQcc8TD9qCZVPpxJaqeKVPV+ECGIRNAygsnqGIp2YljW+aaQCXHFC+qo6pK+/lOAwiXuvJsMAUA/+nt0FAUEGZAe6ow5W3Jb4mD1XgVenwWrGn1cGWW41pREWpJHHTt+RS87Tn/Q2nYQPT0Aa9qou4hATW8j7/vjrukCbsRro8O24VGeVshW+GrNhB+0IKIDMFkYh03ijdWWj3/YVIQ+/cgZp7ycSQlLkmCCbA5D+GLBATQVBLsKGKBSwDojsUB+lJkaZzAbsf/NtHS2x/6QwfIc64ULUaLXSd+DMoEKlwK3FB7f4+E1eKl2D9ycg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=crp1s1Jj6wq28PJOs/qAIq3n2AgJE+o5BTuwQjrf2EY=;
+ b=OOjXhZpZjhmL5rCJz2eLENrvjmrC6kVDH85d5g9yfvIdgB0q6fc+7qAVfUPYIvl3FGwFjISmWmulqpLkIvmJoaAm5Lm8HkdfrQXebA/JEcLKCD+KMrzkcol0uCScRyd65VY4fMLGS9QmavPBXmYvW1wma2BcBR/yhfka35erjuu1lWwUDh1RrY57Tj54kLIeJmumn+Ufp9dVD6e3QVxzgh5T76saIT4f692WzUF+lhJkHrH4tXcRY3rkhIw6pGwmR6CD2loHezU3elR22aS3gUPwayn6OTJKiX9SPlbP/pUzolWl7T9hnk2NvZ0WT4Vi8LFR6mUoRI/oxmcjd0WH+Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=crp1s1Jj6wq28PJOs/qAIq3n2AgJE+o5BTuwQjrf2EY=;
+ b=L2wsbQxEA6Eoi+n5RAS7pb4YJnOXlHvbi92xVWQC4WZaNoiP2tsrgTPGgTD436duVWyY4FVe8EqaJ197uAmDpvisJ5NlFoVO+kLHJkT2kdGKpPWyV4Y2Hd38Lizh1JyKW2zuT89vdEaG2fmS+NxILC82TguAwAoGMil3cYIW1HM=
+Received: from SJ0PR05CA0075.namprd05.prod.outlook.com (2603:10b6:a03:332::20)
+ by CY5PR12MB9055.namprd12.prod.outlook.com (2603:10b6:930:35::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
+ 2026 08:22:31 +0000
+Received: from PH5PEPF0000002B.namprd04.prod.outlook.com
+ (2603:10b6:a03:332:cafe::9c) by SJ0PR05CA0075.outlook.office365.com
+ (2603:10b6:a03:332::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.8 via Frontend Transport; Mon, 2
+ Nov 2026 08:22:31 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ PH5PEPF0000002B.mail.protection.outlook.com (10.167.243.5) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.5 via Frontend Transport; Mon, 2 Nov 2026 08:22:30 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 2 Nov
+ 2026 02:22:30 -0600
+Received: from JesseDEV.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Mon, 2 Nov 2026 02:22:29 -0600
+From: Jesse Zhang <Jesse.Zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
+ Felix Kuehling <Felix.Kuehling@amd.com>, Jesse Zhang <Jesse.Zhang@amd.com>
+Subject: [PATCH 1/2] drm/amdgpu: drop the dma-buf reference when a KFD import
+ fails
+Date: Mon, 2 Nov 2026 16:21:11 +0800
+Message-ID: <20261102082228.2149111-1-Jesse.Zhang@amd.com>
+X-Mailer: git-send-email 2.50.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Richard Lane <richardlanedev@gmail.com>
-From: Richard Lane <richardlanedev@gmail.com>
-Subject: [PATCH v2 2/3] drm/amd/display: unlock secondary tile on Apple 5K,
- iMac panels
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Mon, 02 Nov 2026 08:06:53 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH5PEPF0000002B:EE_|CY5PR12MB9055:EE_
+X-MS-Office365-Filtering-Correlation-Id: 05ef520b-69da-43fd-5487-08df38ba7063
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|1800799024|36860700016|376014|23010399003|18002099003|10067099003|56012099006|261022075727099003|261022105027099003|261021121427099003|261009223027099003|11063799006|261028144727099003|261026140227099003|261026121527099003;
+X-Microsoft-Antispam-Message-Info: s5vsexpp0oxVS7yRXrpwKxyWZ8bzHldG+xXE/MQcuR5xE90PfeMCkCo8Fn8jLBf7alf+SRCYSMwhRmWP+oBdv+pqXxyz60Sd7GzkIg4tqj6w8zZn33nEJGv0EGcA9hj1cnSsDzt9SU606O26BR7g8F6fzkTmdOERWywgQ7SJ1XtkoVSQwas/MusDHqmXm/hWvsrA7th5nvccMbfKqcrHc2zGONm2V4rh0Aokr1E7dzL5q6RRgiAowpaAQNbprO2tysjyFVR/EyGKeucl//QGYMS7jCt0ykOv7RHjW8rui7ylEKQLshkiEPyfERRQBKQhqXGNozsyCDL2C238BcGbg9hXXryOH7iZT2o3b0TAWhNN0S6+WwyUQsOOMQwB/7KjC6nZNg3ymMCJPYp9/XeL7w9vRCmwoGq2N14OgDMl0CEPiVMt7kA1fpztcl1bVIqo5VY0+A/sOJStYst/cyc3V7G6lwDjfogjLjssyeeLotF0B/jelFg0qUWMZS9pXVGMijqIjG3tLxK3c8yQZ/hw8Ap7UND7eyxnrRZA1/n0XN//TFUk+0yaVmmOCL1BxDE2N6Qex71LaXFO6BqxzA4jVedSCQKek0xbz4l5ULJ+lLAhW/wrV3LTQaHj4Ft/gZti75xAPgVfbeKjnlzQY8rwyA9PhL6DLoaO83Nw2GO32JXB+T5T/BRVSXDvbTCepLTFIwcS92vmK/tcChPYvgaKWw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(23010399003)(18002099003)(10067099003)(56012099006)(261022075727099003)(261022105027099003)(261021121427099003)(261009223027099003)(11063799006)(261028144727099003)(261026140227099003)(261026121527099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: LYVZbkWxnwLP27gqMCImcUThYSy40wRBYTl9/6Bv4Eqs3jGS/ift6AikoJIq9ZZQCQ5a0nIIghpEdLEWhyVrJ6JTncLRCvzh8BBRjCYAtsqLocxxTg59s+S5hoUJleU/xBYSTBv01FQ4fMTQgcsy4j8iPRupQixczSGqUEtfwhKxbcQd0mfnPL/H1xb6aWnK0GbY67DZ0B6OYbAobnPhJ4+dhzbvf7aiXUfyhFESbUvxwy3jGM9VAy9k22DFSAnW2/ZYRa8zdsQB3UE8j0W9w251yV7KIogDm7/rj4vPnFQxtMkGw7jLRjbcm9NKW8DrwG9X5c+i4MgCEjnzYylh6kGOlliPaltluy1zoCcprYCYNtBaMeTB+2FhiXRZK504hP0nM5t1/PFTfztrn1XetNl1l7PfZ1vuONbzwLlQpwt0ZhoVBPOHN++ww3HKvAv1
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 08:22:30.9887 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 05ef520b-69da-43fd-5487-08df38ba7063
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: PH5PEPF0000002B.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB9055
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,184 +104,48 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Apple 27" 5K iMacs (2014-2019, iMac15,1 through Polaris-based iMac19,1)
-expose their internal 5120x2880 panel as a 2x1 tiled display over an eDP
-root link and a secondary DP link. At boot, the panel TCON operates in
-single-pipe mode and holds the secondary DP link's HPD line low until
-unlocked via DPCD registers.
+import_obj_create() takes a reference on the dma-buf for the new kgd_mem,
+but the error path after validating the BO doesn't drop it. Since the
+validation reserves the BO interruptibly, an import failing with
+-ERESTARTSYS leaks the exported BO with its memory, and keeps the module
+in use.
 
-Enable native tiled detection and link training for DCE < 12 Apple 5K
-panels:
-- Point the secondary DP dc_link to the root eDP dc_link (apple_5k_peer)
-  during EDID quirk matching on DCE < 12 iMac15,1, iMac17,1, iMac18,3,
-  and Polaris-based iMac19,1 (checking connector_signal since panel IDs
-  can flip across the two links after S3 wake). DCE >= 12 support for
-  Vega-based iMac19,1, iMacPro1,1, and iMac20,x is documented as TODO.
-- Avoid falling back to DVI and latch the secondary tile via DPCD 0x4F1
-  on the root eDP link when probing the secondary link, allowing the
-  secondary link to read its EDID and populate DRM's DisplayID tile
-  properties (has_tile, tile_group, and tile_is_single_monitor).
-- Write the 3-byte Boot Camp source table (0x04, 0x1d, 0x03) to DPCD
-  0x310 in dpcd_set_source_specific_data() to unlock the secondary tile.
-- Prevent the secondary tile from entering DP_SET_POWER D3, which causes
-  the TCON to drop HPD and stop responding to AUX transactions.
-- Unlatch both tiles (0x4F1) and clear DP_SOURCE_TABLE_REVISION (0x310)
-  and DP_EDP_CONFIGURATION_SET (0x10A) in dm_suspend() so the TCON
-  returns to single-pipe mode for the EFI boot screen across reboots.
+Importing a 64 MiB VRAM BO in a loop while getting SIGUSR1
+every 20 us and another thread changes the BO's mappings:
 
-Signed-off-by: Richard Lane <richardlanedev@gmail.com>
+  INFO: 171821 imports, VRAM used before 65 MiB, after 129 MiB
+  modprobe: FATAL: Module amdgpu is in use.
+
+Drop the reference, and free the sync object and the mutex of the kgd_mem
+as well. With that VRAM usage returns to 65 MiB after the same test.
+
+Fixes: 0e2e7c5b3d71 ("drm/amdgpu: Attach eviction fence on alloc")
+Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 19 ++++++++++++++++
- .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 22 +++++++++++++++++++
- drivers/gpu/drm/amd/display/dc/dc.h           |  1 +
- .../drm/amd/display/dc/link/link_detection.c  |  7 +++++-
- .../dc/link/protocols/link_dp_capability.c    |  4 ++++
- .../display/dc/link/protocols/link_dp_phy.c   |  3 +++
- 6 files changed, 55 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index bdabb4bf14da..74cd88d8d580 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -1607,6 +1607,23 @@ STATIC_IFN_KUNIT void dm_destroy_cached_state(struct amdgpu_device *adev)
- }
- EXPORT_IF_KUNIT(dm_destroy_cached_state);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index c399b85731b4..2f8a5e7d3f78 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -2475,6 +2475,9 @@ static int import_obj_create(struct amdgpu_device *adev,
  
-+static void amdgpu_dm_apple5k_unlatch(struct dc *dc)
-+{
-+	const u8 zeros[3] = { 0 };
-+
-+	for (int i = 0; i < dc->link_count; i++) {
-+		struct dc_link *link = dc->links[i];
-+
-+		if (link->apple_5k_peer) {
-+			core_link_write_dpcd(link, DP_SOURCE_TABLE_REVISION, zeros, 3);
-+			core_link_write_dpcd(link, DP_EDP_CONFIGURATION_SET, zeros, 1);
-+			core_link_write_dpcd(link, 0x4F1, zeros, 1);
-+			core_link_write_dpcd(link->apple_5k_peer, 0x4F1, zeros, 1);
-+			break;
-+		}
-+	}
-+}
-+
- static int dm_suspend(struct amdgpu_ip_block *ip_block)
- {
- 	struct amdgpu_device *adev = ip_block->adev;
-@@ -1674,6 +1691,8 @@ static int dm_suspend(struct amdgpu_ip_block *ip_block)
- 
- 	amdgpu_dm_hpd_rx_irq_work_suspend(dm);
- 
-+	amdgpu_dm_apple5k_unlatch(dm->dc);
-+
- 	dc_set_power_state(dm->dc, DC_ACPI_CM_POWER_STATE_D3);
- 
- 	if (dm->dc->caps.ips_support && adev->in_s0ix)
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index 9774ea33272d..532748127f72 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -173,6 +173,28 @@ STATIC_IFN_KUNIT void apply_edid_quirks(struct dc_link *link, struct edid *edid,
- 		drm_dbg_driver(dev, "Force FreeSync min to 60 Hz on panel id %X\n", panel_id);
- 		edid_caps->panel_patch.force_freesync_min_hz = 60;
- 		break;
-+	/*
-+	 * Workaround for Apple 27" 5K iMacs which expose a 2x1 tiled internal
-+	 * panel over an eDP root link and a secondary DP link. Point the
-+	 * secondary link to the root link to latch/unlatch the TCON via DPCD,
-+	 * checking connector_signal as panel IDs can flip after wake.
-+	 * IDs (Root/Tile): iMac15,1 (AE01/02), iMac17,1 (AE05/06),
-+	 * iMac18,3 (AE11/12), iMac19,1 (AE25/26); TODO (DCE >= 12): iMac19,1
-+	 * Vega, iMacPro1,1 (AE1D/1E), iMac20,x (AE31/32).
-+	 */
-+	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE01):
-+	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE02):
-+	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE05):
-+	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE06):
-+	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE11):
-+	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE12):
-+	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE25):
-+	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE26):
-+		if (link->connector_signal == SIGNAL_TYPE_EDP &&
-+		    link->ctx->dce_version < DCE_VERSION_12_0 &&
-+		    (link->link_index ^ 1) < link->dc->link_count)
-+			link->dc->links[link->link_index ^ 1]->apple_5k_peer = link;
-+		break;
- 	default:
- 		return;
- 	}
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index f4fefa7c9ab8..aa1a9eea99d1 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -2003,6 +2003,7 @@ struct dc_scratch_space {
- 	bool skip_implict_edp_power_control;
- 	bool forced_psr_active;
- 	enum backlight_control_type backlight_control_type;
-+	struct dc_link *apple_5k_peer;
- };
- 
- struct dc {
-diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-index b4546f93af0c..47755f8b9c3e 100644
---- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-@@ -218,7 +218,7 @@ static enum signal_type link_detect_sink_signal_type(struct dc_link *link,
- 			 * we assume signal is DVI; it could be corrected
- 			 * to HDMI after dongle detection
- 			 */
--			if (!dm_helpers_is_dp_sink_present(link))
-+			if (!link->apple_5k_peer && !dm_helpers_is_dp_sink_present(link))
- 				result = SIGNAL_TYPE_DVI_SINGLE_LINK;
- 		}
- 		break;
-@@ -1625,6 +1625,11 @@ bool link_detect_connection_type(struct dc_link *link, enum dc_connection_type *
- 		}
- 	}
- 
-+	if (*type == dc_connection_none && link->apple_5k_peer) {
-+		core_link_write_dpcd(link->apple_5k_peer, 0x4F1, &(const uint8_t){1}, 1);
-+		*type = dc_connection_single;
-+	}
-+
- 	return true;
- }
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-index ad1a499b0d9d..d646b156c90b 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-@@ -1496,6 +1496,10 @@ void dpcd_set_source_specific_data(struct dc_link *link)
- 				link->dc->vendor_signature.data.raw,
- 				sizeof(link->dc->vendor_signature.data.raw));
- 	}
-+
-+	if (link->apple_5k_peer)
-+		core_link_write_dpcd(link, DP_SOURCE_TABLE_REVISION,
-+				     (const uint8_t[]){0x04, 0x1d, 0x03}, 3);
- }
- 
- void dpcd_write_cable_id_to_dprx(struct dc_link *link)
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
-index 49521ac4b0e8..56fe2710ee2c 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
-@@ -50,6 +50,9 @@ void dpcd_write_rx_power_ctrl(struct dc_link *link, bool on)
- 	if (link->sync_lt_in_progress)
- 		return;
- 
-+	if (!on && link->apple_5k_peer)
-+		return;
-+
- 	core_link_write_dpcd(link, DP_SET_POWER, &state,
- 						 sizeof(state));
- 
+ err_remove_mem:
+ 	remove_kgd_mem_from_kfd_bo_list(*mem, avm->process_info);
++	amdgpu_sync_free(&(*mem)->sync);
++	mutex_destroy(&(*mem)->lock);
++	dma_buf_put(dma_buf);
+ 	drm_vma_node_revoke(&obj->vma_node, drm_priv);
+ err_free_mem:
+ 	kfree(*mem);
 -- 
-2.55.0
+2.50.1
+
