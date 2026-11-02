@@ -2,75 +2,86 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC2FD606A324
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 09:36:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56C5A606A324
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 09:36:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RMZzsZaD
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SpfJT48o
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 787CA10F4A6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA0EE10F4A7;
 	Tue,  3 Nov 2026 09:36:52 +0000 (UTC)
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
- [209.85.167.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B85910E13F
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Nov 2026 00:02:44 +0000 (UTC)
-Received: by mail-lf1-f51.google.com with SMTP id
- 2adb3069b0e04-5be4a2d94adso3346643e87.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 02 Nov 2026 16:02:43 -0800 (PST)
+Received: from mail-pz2-f8.google.com (mail-pz2-f8.google.com [74.125.228.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B19210EF7C
+ for <amd-gfx@lists.freedesktop.org>; Mon,  2 Nov 2026 15:02:48 +0000 (UTC)
+Received: by mail-pz2-f8.google.com with SMTP id
+ 41be03b00d2f7-cd5cd8e8104so552451a12.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 02 Nov 2026 07:02:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793664162; x=1794268962; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=TB2rTonVyZ5fK+KmoRWiGGYGmxLOK69cu5jNgurdHBU=;
- b=RMZzsZaDS2vYS52uFFU386ERJhtBqcXhJRlLYn8C6QyI/VU/fRiY64jwCc1KnChE+9
- 0P0TkSG0x7RweEoB2Zn/tvw7+05HKAymIskvp57jhwlUA23e8oRZCqr3usxB1CpVqJrT
- 4Aj0Evj1v9ssYKxxgc9OZvJ6zg//9B/Kf9FEY1ZJTUCJffGsvpKy1FG0a0bgXCb3zC7W
- Cv3AJM6Vi3OA7BAMbfinmj8fRH09SihDU/XLvDovJl9eN7svIRXSSd0srdvjr+Qimk6R
- wbtrPtHffUQrzpWfPRiQPY075Zxg9uqoArinyVNomRRERKV6zqXYhnzSR0c6Ttnll5Rc
- 2wlg==
+ d=gmail.com; s=20260707; t=1793631767; x=1794236567; darn=lists.freedesktop.org;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=HTYnB64kl/8K8S/l1jw09tVmV1tXPpdfAcVOVpBhqUg=;
+ b=SpfJT48o3RTkxqfrRsZhJ/95X7sIS/1MnPr2h6xr0Tsr6nDYKUVy5j3rrSwbBjnd9m
+ fanixpZsLfumy1W2xIp81Ey+EETCF3f/RyxX5fBbNawHaJkE7Pv7OCwQpMLijVm48bXG
+ QdJ7gV4mV5uAzHz5rv3y9XGsqkapdWYUmhi2Z8UglyHDhmgofcWMnEIO+8/nzHzxhkQG
+ G52nKQ0PVfiyeWM/l2h68w2o90Nd4WhsRo7w0H9GWAGytGRIpjdXGSNe4ss/2belp4fw
+ HpQcxMLgEEqQb343nuRCkuYBLHTIc0gnrzX7u+ozkVw2Hb7DxBeMwpECtzJIioZjhCgO
+ OXhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793664162; x=1794268962;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=TB2rTonVyZ5fK+KmoRWiGGYGmxLOK69cu5jNgurdHBU=;
- b=d45Q80sZ0cTLNKEtKgv3Tuzeiwvj9+1xVyMKgUweU3AUs0J4vEY8GcJUtJl6AEjtcC
- FL5w+n2odXzFnfgZ77Z1DKGBH4smUh3GJa8TZ1/9gfToQ47yhQdnyS2lS/atR49UKNCo
- 5+4v9KFeWq46zXeCrON8KtiNsixYOXOXYyVU659qRuN6bAar6PfZLrO5zU9my+7MuY/E
- LgsvWlKwYwS4UZg5+5bg47hshs3ot43Os77Ne8aCo86JbjfMbJ7/sicUVcAhE+fljVg2
- jWfdd1ypzHyAvZO92+s34pvARpfXZamDo0rnzz0tO5dN9LkDFV8cPNfLOwQ/A867DPXB
- 5+yQ==
-X-Gm-Message-State: APuU4Z8aHuuY2AbKrB4TsXRHKmNLKC1WAq+l+MsOtpomOPPmX0rX7UA9
- ZFbnd356Qvkocdd8ybz15Th6kX8FB6ejv1htiURjGNkM2oauNs/j+qYcnFkQM4WGLznnHAXj/jA
- =
-X-Gm-Gg: AYBFou1OHyyqfzL5OJQnhj2c76Efpw3O4JJnFnFGcah4807JWK8FKb3Lu/Wj78oa+c5
- /sJn3JN2Hvw6HS2qOXhyPjiqAyPjS3YR5b3Fr5k+C+wLXhOYKSm/K8dyYMNAY+BpOgSD68Zjtfz
- 9R/MaOJ8g6TcC6zRrXyBd/GJmN+sxDNoBIXrGNYGqy3XUxmBtnZYiNJlSyO4b4wqiepTC4Zu7RH
- ChNMJtVnRLVUiOUqLEjt0wogbNnJl4ntVAGCnp4SRr9B3hUGaHViPrZziawpLVy8pSsERqjPaOW
- 2R6acTYPBoA8fdyRt9/qHDLKcgjOOR6ffMj8p019TNa6cTBhq1MM6KTfLOAgVerhh7/dZMgyXNV
- XeTU1vdyy31B0VrOU81b1NVfW38K13cm/kLPsXjWj3gcPKfzFdB03eblS8TtigxZQ7Rmk+Iuk58
- 3SgQ0Nlkouw/9P8RVsbcaOWfg09h+Poie7tFY89IdOJXnqEhazpPRn3f7vAVyu921fbV4EdCE1y
- tx2kq8W9f/CfqDdR744kpmN5JIvZCfgLdABMDbNRCHGnGk/wcjjktAPQkMzzWoZhEsk52FJjBby
- aEnzMxIS8IIoWCxgfGHmniSGuRf3VpKwcZ/ZVG3P+vZW1jm5lvpZmHaFVardGgQlhgFhr1B+54+
- dMFoq7g==
-X-Received: by 2002:a05:6512:33d2:b0:5bf:d072:fa3f with SMTP id
- 2adb3069b0e04-5bfd957dd98mr3604984e87.54.1793664161803; 
- Mon, 02 Nov 2026 16:02:41 -0800 (PST)
-Received: from toolbx ([195.65.209.112]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5bfe072c8a5sm1878253e87.36.2026.11.02.16.02.40
+ d=1e100.net; s=20260707; t=1793631767; x=1794236567;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to:content-type;
+ bh=HTYnB64kl/8K8S/l1jw09tVmV1tXPpdfAcVOVpBhqUg=;
+ b=HS3POhZC4seppYZWlY8JRnk/WwB2sXNJTlgNxmEq3HHlxDl72ZzGqNR5qYo4x6bJUH
+ uuQdizm6bCc0yMOR+MYd7hy/gHsphuFqrGzEPDd5QfYHb2M+PjjAcAYEvou5hFshSQCG
+ 8gK1zjpPT4h7e15YrAkhNDBTmmkA0TF0NWgcmhtZEqRX5YSlH2vt01Jg0yL1V04Y9UQw
+ PQ0Wn7N9sFpMILtFQllY6Kt6dZbDdE3iA5jfWOxq5PY4adkXlF5B3EanRoo5GNintVSc
+ bcgJBWoTz5Qt6rOGVz0nXsDwpm+Nh2vpBpLCLq0tf0XyahZlcsHq8G2K7UHa71hifd9y
+ GGyA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzhtNxfVUt32lyWfPmrp36i0fGVpZs4IXn79U1CVo2mRGcA7vhMneHskoxevvENvV6k6qBaIFPu@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJxibwpUw1BvIwKovUBwAkDAZ6F9AErB8wh9T43wbcSBMDfPKFU
+ B9GEcDK6OE7Oe5ZvVp18Y8ALtHKYq284IH8iGGrHCCRpqM1fkJVdcA6L
+X-Gm-Gg: AYBFou0Y0qsihHdKIadeSbycYRNIMZhy7HC0URFvRhrKCHGgQUwBB6dZdwJYjXPonbe
+ igq6DeN+T3/GzAACupp+ZcXcqlbZIK6l8Y6gbpG7Cu48vD3map2Dj9MXjkyMe7iavhgY9j6b2lh
+ 2DS+bsTnU9/aFKuEMIZquyJPpZe1E+5BreuESmugMRjdezm/DXSL2hJqtpOuqCR9Pr9uQKuW/tG
+ wzbyGFQxH784Pkygw0kaif4b3KMlaLUump4EnI98WR6doNibtt0CpydA6qx9uzY+3cQIy/08zup
+ KqMfP4+mNRRH+I9v2QX3Mym0Y23NuwXC5bPnRFuaxp4yXwMqi6Rddxl2XAKT1pJFHFewi5mBsXF
+ 3TeYilb2ugim/YXObdkQ7fZcPF9sZtP1pnzYoxoDhQvi39x97v+lhhbG5B14PMlyBd8Qo4yEeoP
+ qYT9fTWzMZUidxyaS8eG1kK2S9zz7TrgKV/N11ZUqyDXj2CpJDjStqLFT/ac8zhcMAstolpy1B9
+ 9NiDzAw7xoZymhHRD1sz7gMhQu0+WpNZXbNvGwbe5EWiVuJUneHemVy6kIGD8JK55F/mfwWST7p
+ RU0shqa1kqN088Xq9sFQNdcBOYkTp/eV8f07cYi61dIvaZckO/LtE36/Ug4FclfUlYsz/wrQWa8
+ gVogJ523ctSvXpRHNYWOeq4RB5p+a8PEf
+X-Received: by 2002:a05:6a21:4994:b0:3e0:b71b:a8ec with SMTP id
+ adf61e73a8af0-3e928c9f5e6mr7089810637.21.1793631767479; 
+ Mon, 02 Nov 2026 07:02:47 -0800 (PST)
+Received: from [10.131.7.109] (n106-71-19-159.sun21.vic.optusnet.com.au.
+ [106.71.19.159]) by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-cdb09800dc1sm3490669a12.22.2026.11.02.07.02.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Nov 2026 16:02:41 -0800 (PST)
-From: Andrei Krautsou <an9949an@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Kenneth Feng <kenneth.feng@amd.com>, Andrei Krautsou <an9949an@gmail.com>
-Subject: [PATCH] drm/amdgpu: enable MGCG/FGCG/PERF_CLK for GC 11.0.2
-Date: Tue,  3 Nov 2026 03:01:30 +0300
-Message-ID: <20261103000130.282357-1-an9949an@gmail.com>
-X-Mailer: git-send-email 2.56.0
+ Mon, 02 Nov 2026 07:02:46 -0800 (PST)
+From: Aveline Noir <jm5905938@gmail.com>
+Date: Tue, 03 Nov 2026 02:00:19 +1100
+Subject: [PATCH] drm/amdkfd: reject foreign device pages in
+ svm_range_dma_map_dev()
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-kfd-svm-foreign-vram-20261103-v1-1-d6282053cad3@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32MywrCMBBFf6XM2oGkpYr+irjIY9KO0lRmtAil/
+ 26i4NLlufdwVlASJoVTs4LQwspzLmB3DYTR5YGQY2FoTbu31nR4SxF1mTDNQjxkXMRN+HuPgcz
+ B9J3pU4TSuAslfn3658uX9emvFB41Wg3vlNCLy2Gs0/98lWHb3r0d7Zm2AAAA
+X-Change-ID: 20261103-kfd-svm-foreign-vram-20261103-9ce0705305fd
+To: Felix Kuehling <Felix.Kuehling@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: Alex Sierra <alex.sierra@amd.com>, Philip Yang <Philip.Yang@amd.com>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+X-Mailer: b4 0.16.0
 X-Mailman-Approved-At: Tue, 03 Nov 2026 09:36:47 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,74 +96,69 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-GC 11.0.2 (Navi33) never got the GFX MGCG, FGCG and PERF_CLK clock
-gating flags. GC 11.0.0, 11.0.1 and 11.0.4 have all three, GC 11.0.3
-has MGCG. The gfx_v11_0 code behind these flags is shared by all
-GC 11 parts. Enable them for GC 11.0.2, same as for GC 11.0.0.
+svm_range_dma_map_dev() converts every zone device page returned by
+hmm_range_fault() to a VRAM address using prange->svm_bo, and
+svm_range_get_pte_flags() takes the VRAM node from prange->svm_bo too.
 
-Without the flags the driver does not clear the override bits in
-RLC_CGTT_MGCG_OVERRIDE (0x000605e7 under load), so this gating stays
-off. On RX 7600S the GFX clock is limited by the GFX TDC limit
-(68 A), in Linux and in Windows. With the gating off each MHz costs
-more GFX current, so PMFW stops at a lower clock than in Windows.
+The dev_private_owner passed to HMM is per device or XGMI hive, not per
+process, so HMM can also return pages of another svm_bo. For example,
+after fork() the child shares the parent's VRAM pages, and validating
+the child's range returns them. If the child's range has no svm_bo,
+prange->svm_bo is dereferenced as NULL. If its svm_bo is on another
+device in the hive, the address is computed with that device's VRAM
+base and pgmap range instead of the page's.
 
-vkpeak fp32-scalar for 300 s, median after the first 60 s, GFX
-current is about 68 A (TDC limit) in all cases:
+Fail the mapping with -EFAULT for zone device pages outside the pgmap
+of the svm_bo device. Clear the entry before returning, because its old
+DMA mapping, if any, has already been unmapped and must not be unmapped
+again.
 
-                          gfxclk    VDDGFX   GFLOPS
-  current flags           2030 MHz  800 mV    8915
-  + MGCG                  2261 MHz  873 mV    9921
-  + MGCG, FGCG, PERF_CLK  2314 MHz  894 mV   10104
-  Windows 11, AMD driver            910 mV   10157-10186
-
-GFLOPS per MHz is the same, only the current per clock goes down.
-Windows shows other clock sensors, so there I compare GFLOPS only.
-With all three flags vkpeak is within 1% of Windows. MGCG gives most
-of the gain, FGCG and PERF_CLK add about 2% more.
-
-Tested on one laptop, ASUS TUF A16 FA617NS (RX 7600S, PMFW 82.97.0),
-Fedora kernel 7.2.11, Mesa 26.2.5, with the same flags set by a local
-debug patch. One 300 s vkpeak run for each setting and some gaming,
-no amdgpu errors in dmesg. Suspend/resume and long runs are not
-tested yet.
-
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/6082
-Signed-off-by: Andrei Krautsou <an9949an@gmail.com>
+Fixes: 1d5dbfe6c06a ("drm/amdkfd: classify and map mixed svm range pages in GPU")
+Signed-off-by: Aveline Noir <jm5905938@gmail.com>
 ---
-I have only this one Navi33 laptop. I could not find why these flags
-were left off for GC 11.0.2. If there is a hardware reason (errata),
-please tell me. If only FGCG or PERF_CLK is the problem, MGCG alone
-still gives most of the gain (+11% GFLOPS), and I can send a v2 with
-MGCG only.
+Found by source review. Compile-tested only (W=1, no new warnings);
+not tested on AMD hardware, so the fork case has not been reproduced.
 
-Logs, register values and the Windows numbers are in the issue linked
-above.
+KFD SVM is being moved to drm_gpusvm, so this is only meant as a small
+fix for existing kernels.
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
 
- drivers/gpu/drm/amd/amdgpu/soc21.c | 3 +++
- 1 file changed, 3 insertions(+)
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index ed5e3318877b..6e9b9dcaa136 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -181,7 +181,21 @@ svm_range_dma_map_dev(struct amdgpu_device *adev, struct svm_range *prange,
+ 
+ 		page = hmm_pfn_to_page(hmm_pfns[i]);
+ 		if (is_zone_device_page(page)) {
+-			struct amdgpu_device *bo_adev = prange->svm_bo->node->adev;
++			struct amdgpu_device *bo_adev = prange->svm_bo ?
++				prange->svm_bo->node->adev : NULL;
++
++			/*
++			 * The pgmap owner is per device or XGMI hive, so HMM
++			 * may return a page of another svm_bo, e.g. one shared
++			 * with another process after fork(). The VRAM address
++			 * below and svm_range_get_pte_flags() assume the
++			 * svm_bo device.
++			 */
++			if (!bo_adev ||
++			    page_pgmap(page) != &bo_adev->kfd.pgmap) {
++				addr[i] = 0;
++				return -EFAULT;
++			}
+ 
+ 			addr[i] = (hmm_pfns[i] << PAGE_SHIFT) +
+ 				   bo_adev->vm_manager.vram_base_offset -
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
-index 599d47e..635f026 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc21.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
-@@ -599,7 +599,10 @@ static int soc21_common_early_init(struct amdgpu_ip_block *ip_block)
- 		adev->cg_flags =
- 			AMD_CG_SUPPORT_GFX_CGCG |
- 			AMD_CG_SUPPORT_GFX_CGLS |
-+			AMD_CG_SUPPORT_GFX_MGCG |
- 			AMD_CG_SUPPORT_REPEATER_FGCG |
-+			AMD_CG_SUPPORT_GFX_FGCG |
-+			AMD_CG_SUPPORT_GFX_PERF_CLK |
- 			AMD_CG_SUPPORT_VCN_MGCG |
- 			AMD_CG_SUPPORT_JPEG_MGCG |
- 			AMD_CG_SUPPORT_ATHUB_MGCG |
-
-base-commit: ba496bb837882eb1af58f41572fc289e46c77b8c
--- 
-2.56.0
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261103-kfd-svm-foreign-vram-20261103-9ce0705305fd
 
