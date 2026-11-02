@@ -2,39 +2,39 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA452606E031
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 16:50:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16198606E029
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Nov 2026 16:50:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IyGR+Gwk
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bak8PR33
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6997A10F11C;
-	Mon,  2 Nov 2026 16:50:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E22CB10F0D4;
+	Mon,  2 Nov 2026 16:50:08 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3B8010F0C1;
- Mon,  2 Nov 2026 16:49:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82DFB10F0C6;
+ Mon,  2 Nov 2026 16:49:42 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A89564461D;
- Mon,  2 Nov 2026 16:49:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E81231F00A18;
- Mon,  2 Nov 2026 16:49:55 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 6DEE944510;
+ Mon,  2 Nov 2026 16:49:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9D691F00A1A;
+ Mon,  2 Nov 2026 16:49:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793638197;
- bh=NmtGwAXlhFvD+UNjRl7M/VzNaxYayUxKSwqu5orOPA4=;
+ s=k20260515; t=1793638182;
+ bh=hI1MJq4K8L5jI0+LOV3XfRn/TD9k2MaKrMvKNdRDEoU=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=IyGR+GwkGhqjQTLBR/NJwZvOs6FGmvScpW3Rq+7H2H/MHSHy+5roOHnQw60fnorRU
- jJl6IYNXjrl+HOLld6xRVY1xcJEGnT3KP4/2XEaSvZYHlh98xxLVUPFi7Hh5fW91du
- tRKyKn+2AFyeQWQ8qr/fuJwI5VCQXrZGR2VH7My4YSOKlodD3sfpnK+8UGKVxz1LSe
- 0dKJBTK6c0eM4pJb5uDs+M8zDstihk00NoRZyy0JLnn9KgC4fFyRumPyd+JY9nn2wI
- JDXGqdpXqfSOrVLrg3LFBK5lTLAYwVwa4PSAtQuzjOePQU+EFJdQBzE81OnIT/2WrK
- 22FbdchWSp4xg==
+ b=Bak8PR33p6oWgFybUkZoLevJ2evrRwZLe86BX79lDY+3foHj7EE2Zs6nlKZ+K67oc
+ wAKdmTFo/LotMoKeXC8KRqSpoEIpQSpngubonYVfJFzWda/yf9YOoUX8ZPDE7mVlx/
+ OxAV6pAhOPgcn+TNQ1MN+S9ZULeDUAFTET1VqaDy4e+mqQNMOWhrNbPuFvdwh9LKHb
+ 1jwmW4azVC+VLAC3G1H9PN8k8MiftCEX0zrFmGJaj6XZlBKsTiF3qiK2JXyuQ35Y6Q
+ ijGETtfoKU8JQGt3bV694yhBfUToAYTd3wh0NdIOFX8SJ/FE8TSXq5qgO/Dy7S9EjE
+ EXmHIhbwKy6Zg==
 From: "Mario Limonciello (AMD)" <superm1@kernel.org>
-Date: Mon, 02 Nov 2026 10:49:31 -0600
-Subject: [PATCH v10 15/15] drm/solomon: add SSD130x connector luminance support
+Date: Mon, 02 Nov 2026 10:49:23 -0600
+Subject: [PATCH v10 07/15] drm/bridge: add connector luminance operations
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-superm1-backlight-property-v10-15-b2a6f24131f5@kernel.org>
+Message-Id: <20261102-superm1-backlight-property-v10-7-b2a6f24131f5@kernel.org>
 References: <20261102-superm1-backlight-property-v10-0-b2a6f24131f5@kernel.org>
 In-Reply-To: <20261102-superm1-backlight-property-v10-0-b2a6f24131f5@kernel.org>
 To: Maxime Ripard <mripard@kernel.org>, 
@@ -72,210 +72,123 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Mario Limonciello <mario.limonciello@amd.com>
 
-Expose SSD130x contrast through the connector LUMINANCE property when
-DRM_LUMINANCE is enabled. Program contrast directly and retain the
-backlight class interface when BACKLIGHT_CLASS_DEVICE is enabled.
+Allow bridges that own brightness control to advertise a luminance
+operation and its supported relative range.
 
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
 v10:
- * Guard the backlight operations and registration with
-   BACKLIGHT_CLASS_DEVICE
- * Fix Kconfig recursive issue
- * Add the Reviewed-by tag
+ * Split bridge operations out of the combined panel and bridge patch
 ---
- drivers/gpu/drm/solomon/Kconfig   |  2 +-
- drivers/gpu/drm/solomon/ssd130x.c | 79 ++++++++++++++++++++++++++++++---------
- 2 files changed, 62 insertions(+), 19 deletions(-)
+ include/drm/drm_bridge.h | 74 ++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 74 insertions(+)
 
-diff --git a/drivers/gpu/drm/solomon/Kconfig b/drivers/gpu/drm/solomon/Kconfig
-index 400a6cab3a671..76852246eb9c2 100644
---- a/drivers/gpu/drm/solomon/Kconfig
-+++ b/drivers/gpu/drm/solomon/Kconfig
-@@ -1,7 +1,7 @@
- config DRM_SSD130X
- 	tristate "DRM support for Solomon SSD13xx OLED displays"
- 	depends on DRM && MMU
--	select BACKLIGHT_CLASS_DEVICE
-+	depends on DRM_LUMINANCE || BACKLIGHT_CLASS_DEVICE = y || !BACKLIGHT_CLASS_DEVICE
- 	select DRM_CLIENT_SELECTION
- 	select DRM_GEM_SHMEM_HELPER
- 	select DRM_KMS_HELPER
-diff --git a/drivers/gpu/drm/solomon/ssd130x.c b/drivers/gpu/drm/solomon/ssd130x.c
-index ee43cf0da8792..aaf2b194273ba 100644
---- a/drivers/gpu/drm/solomon/ssd130x.c
-+++ b/drivers/gpu/drm/solomon/ssd130x.c
-@@ -1853,7 +1853,8 @@ static void ssd130x_encoder_atomic_enable(struct drm_encoder *encoder,
- 
- 	ssd130x_write_cmd(ssd130x, 1, SSD13XX_DISPLAY_ON);
- 
--	backlight_enable(ssd130x->bl_dev);
-+	if (ssd130x->bl_dev)
-+		backlight_enable(ssd130x->bl_dev);
- 
- 	return;
- 
-@@ -1879,7 +1880,8 @@ static void ssd132x_encoder_atomic_enable(struct drm_encoder *encoder,
- 
- 	ssd130x_write_cmd(ssd130x, 1, SSD13XX_DISPLAY_ON);
- 
--	backlight_enable(ssd130x->bl_dev);
-+	if (ssd130x->bl_dev)
-+		backlight_enable(ssd130x->bl_dev);
- 
- 	return;
- 
-@@ -1904,7 +1906,8 @@ static void ssd133x_encoder_atomic_enable(struct drm_encoder *encoder,
- 
- 	ssd130x_write_cmd(ssd130x, 1, SSD13XX_DISPLAY_ON);
- 
--	backlight_enable(ssd130x->bl_dev);
-+	if (ssd130x->bl_dev)
-+		backlight_enable(ssd130x->bl_dev);
- 
- 	return;
- 
-@@ -1929,7 +1932,8 @@ static void ssd135x_encoder_atomic_enable(struct drm_encoder *encoder,
- 
- 	ssd130x_write_cmd(ssd130x, 1, SSD13XX_DISPLAY_ON);
- 
--	backlight_enable(ssd130x->bl_dev);
-+	if (ssd130x->bl_dev)
-+		backlight_enable(ssd130x->bl_dev);
- 
- 	return;
- 
-@@ -1943,7 +1947,8 @@ static void ssd130x_encoder_atomic_disable(struct drm_encoder *encoder,
- 	struct drm_device *drm = encoder->dev;
- 	struct ssd130x_device *ssd130x = drm_to_ssd130x(drm);
- 
--	backlight_disable(ssd130x->bl_dev);
-+	if (ssd130x->bl_dev)
-+		backlight_disable(ssd130x->bl_dev);
- 
- 	ssd130x_write_cmd(ssd130x, 1, SSD13XX_DISPLAY_OFF);
- 
-@@ -1980,8 +1985,44 @@ static int ssd130x_connector_get_modes(struct drm_connector *connector)
- 	return drm_connector_helper_get_modes_fixed(connector, &ssd130x->mode);
- }
- 
-+static int ssd130x_set_luminance_value(struct ssd130x_device *ssd130x,
-+				       unsigned int luminance)
-+{
-+	int ret;
+diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
+index 1981d24a700d2..95f5c2b8656cd 100644
+--- a/include/drm/drm_bridge.h
++++ b/include/drm/drm_bridge.h
+@@ -62,6 +62,15 @@ enum drm_bridge_attach_flags {
+  * struct drm_bridge_funcs - drm_bridge control functions
+  */
+ struct drm_bridge_funcs {
++	/**
++	 * @set_luminance:
++	 *
++	 * Apply a relative luminance level to a bridge that controls panel
++	 * emission. Bridges implementing this callback shall set
++	 * @DRM_BRIDGE_OP_LUMINANCE.
++	 */
++	void (*set_luminance)(struct drm_bridge *bridge, unsigned int luminance);
 +
-+	ssd130x->contrast = luminance;
+ 	/**
+ 	 * @attach:
+ 	 *
+@@ -1021,6 +1030,11 @@ enum drm_bridge_ops {
+ 	 * &drm_bridge_funcs->hdmi_clear_spd_infoframe callbacks.
+ 	 */
+ 	DRM_BRIDGE_OP_HDMI_SPD_INFOFRAME = BIT(10),
 +
-+	switch (ssd130x->device_info->family_id) {
-+	case SSD133X_FAMILY:
-+		return ssd133x_set_contrast(ssd130x, luminance);
-+	case SSD135X_FAMILY:
-+		return ssd135x_set_contrast(ssd130x, luminance);
-+	default:
-+		ret = ssd130x_write_cmd(ssd130x, 1, SSD13XX_CONTRAST);
-+		if (ret < 0)
-+			return ret;
-+		return ssd130x_write_cmd(ssd130x, 1, luminance);
-+	}
-+}
-+
-+static void ssd130x_connector_set_luminance(const struct drm_connector_state *conn_state)
-+{
-+	struct ssd130x_device *ssd130x = drm_to_ssd130x(conn_state->connector->dev);
-+
-+	ssd130x_set_luminance_value(ssd130x, conn_state->luminance);
-+}
-+
-+static void ssd130x_connector_disable_luminance(const struct drm_connector_state *conn_state)
-+{
-+	struct ssd130x_device *ssd130x = drm_to_ssd130x(conn_state->connector->dev);
-+
-+	ssd130x_set_luminance_value(ssd130x, 0);
-+}
-+
- static const struct drm_connector_helper_funcs ssd130x_connector_helper_funcs = {
- 	.get_modes = ssd130x_connector_get_modes,
-+	.set_luminance = ssd130x_connector_set_luminance,
-+	.disable_luminance = ssd130x_connector_disable_luminance,
++	/**
++	 * @DRM_BRIDGE_OP_LUMINANCE: The bridge controls panel luminance.
++	 */
++	DRM_BRIDGE_OP_LUMINANCE = BIT(11),
  };
  
- static const struct drm_connector_funcs ssd130x_connector_funcs = {
-@@ -2015,23 +2056,13 @@ static const struct drm_driver ssd130x_drm_driver = {
- 	.fops			= &ssd130x_fops,
- };
+ /**
+@@ -1071,6 +1085,12 @@ struct drm_bridge {
+ 	void *driver_private;
+ 	/** @ops: bitmask of operations supported by the bridge */
+ 	enum drm_bridge_ops ops;
++
++	/** @luminance_max: Maximum relative luminance level. */
++	unsigned int luminance_max;
++
++	/** @luminance: Current relative luminance level. */
++	unsigned int luminance;
+ 	/**
+ 	 * @type: Type of the connection at the bridge output
+ 	 * (DRM_MODE_CONNECTOR_*). For bridges at the end of this chain this
+@@ -1522,6 +1542,60 @@ void drm_bridge_hpd_disable(struct drm_bridge *bridge);
+ void drm_bridge_hpd_notify(struct drm_bridge *bridge,
+ 			   enum drm_connector_status status);
  
-+#if IS_ENABLED(CONFIG_BACKLIGHT_CLASS_DEVICE)
- static int ssd130x_update_bl(struct backlight_device *bdev)
- {
- 	struct ssd130x_device *ssd130x = bl_get_data(bdev);
--	int brightness = backlight_get_brightness(bdev);
--	int ret;
--
--	ssd130x->contrast = brightness;
--
--	ret = ssd130x_write_cmd(ssd130x, 1, SSD13XX_CONTRAST);
--	if (ret < 0)
--		return ret;
- 
--	ret = ssd130x_write_cmd(ssd130x, 1, ssd130x->contrast);
--	if (ret < 0)
--		return ret;
--
--	return 0;
-+	return ssd130x_set_luminance_value(ssd130x,
-+					  backlight_get_brightness(bdev));
- }
- 
- static int ssd133x_update_bl(struct backlight_device *bdev)
-@@ -2066,6 +2097,7 @@ static const struct backlight_ops ssd130xfb_bl_ops[] = {
- 		.update_status	= ssd135x_update_bl,
- 	},
- };
++#ifdef CONFIG_DRM_PANEL_BRIDGE
++bool drm_bridge_is_panel(const struct drm_bridge *bridge);
++struct drm_bridge *drm_panel_bridge_add(struct drm_panel *panel);
++struct drm_bridge *drm_panel_bridge_add_typed(struct drm_panel *panel,
++					      u32 connector_type);
++void drm_panel_bridge_remove(struct drm_bridge *bridge);
++int drm_panel_bridge_set_orientation(struct drm_connector *connector,
++				     struct drm_bridge *bridge);
++struct drm_bridge *devm_drm_panel_bridge_add(struct device *dev,
++					     struct drm_panel *panel);
++struct drm_bridge *devm_drm_panel_bridge_add_typed(struct device *dev,
++						   struct drm_panel *panel,
++						   u32 connector_type);
++struct drm_bridge *drmm_panel_bridge_add(struct drm_device *drm,
++					     struct drm_panel *panel);
++struct drm_connector *drm_panel_bridge_connector(struct drm_bridge *bridge);
++#else
++static inline bool drm_bridge_is_panel(const struct drm_bridge *bridge)
++{
++	return false;
++}
++
++static inline int drm_panel_bridge_set_orientation(struct drm_connector *connector,
++						   struct drm_bridge *bridge)
++{
++	return -EINVAL;
++}
++
 +#endif
- 
- static void ssd130x_parse_properties(struct ssd130x_device *ssd130x)
- {
-@@ -2213,6 +2245,13 @@ static int ssd130x_init_modeset(struct ssd130x_device *ssd130x)
- 	}
- 
- 	drm_connector_helper_add(connector, &ssd130x_connector_helper_funcs);
-+	if (IS_ENABLED(CONFIG_DRM_LUMINANCE)) {
-+		ret = drm_connector_attach_luminance_property(connector, 0,
-+							      MAX_CONTRAST,
-+							     ssd130x->contrast);
-+		if (ret)
-+			return ret;
-+	}
- 
- 	ret = drm_connector_attach_encoder(connector, encoder);
- 	if (ret) {
-@@ -2245,7 +2284,9 @@ static int ssd130x_get_resources(struct ssd130x_device *ssd130x)
- struct ssd130x_device *ssd130x_probe(struct device *dev, struct regmap *regmap)
- {
- 	struct ssd130x_device *ssd130x;
-+#if IS_ENABLED(CONFIG_BACKLIGHT_CLASS_DEVICE)
- 	struct backlight_device *bl;
++
++#if defined(CONFIG_OF) && defined(CONFIG_DRM_PANEL_BRIDGE)
++struct drm_bridge *devm_drm_of_get_bridge(struct device *dev, struct device_node *node,
++					  u32 port, u32 endpoint);
++struct drm_bridge *drmm_of_get_bridge(struct drm_device *drm, struct device_node *node,
++					  u32 port, u32 endpoint);
++#else
++static inline struct drm_bridge *devm_drm_of_get_bridge(struct device *dev,
++							struct device_node *node,
++							u32 port,
++							u32 endpoint)
++{
++	return ERR_PTR(-ENODEV);
++}
++
++static inline struct drm_bridge *drmm_of_get_bridge(struct drm_device *drm,
++						     struct device_node *node,
++						     u32 port,
++						     u32 endpoint)
++{
++	return ERR_PTR(-ENODEV);
++}
 +#endif
- 	struct drm_device *drm;
- 	int ret;
++
++void devm_drm_put_bridge(struct device *dev, struct drm_bridge *bridge);
+ void drm_bridge_debugfs_params(struct dentry *root);
+ void drm_bridge_debugfs_encoder_params(struct dentry *root, struct drm_encoder *encoder);
  
-@@ -2270,6 +2311,7 @@ struct ssd130x_device *ssd130x_probe(struct device *dev, struct regmap *regmap)
- 	if (ret)
- 		return ERR_PTR(ret);
- 
-+#if IS_ENABLED(CONFIG_BACKLIGHT_CLASS_DEVICE)
- 	bl = devm_backlight_device_register(dev, dev_name(dev), dev, ssd130x,
- 					    &ssd130xfb_bl_ops[ssd130x->device_info->family_id],
- 					    NULL);
-@@ -2280,6 +2322,7 @@ struct ssd130x_device *ssd130x_probe(struct device *dev, struct regmap *regmap)
- 	bl->props.brightness = ssd130x->contrast;
- 	bl->props.max_brightness = MAX_CONTRAST;
- 	ssd130x->bl_dev = bl;
-+#endif
- 
- 	ret = ssd130x_init_modeset(ssd130x);
- 	if (ret)
 
 -- 
 2.53.0
