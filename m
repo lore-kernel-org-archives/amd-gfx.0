@@ -2,45 +2,85 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8179B606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97003606A326
 	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 09:36:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=VGSKSCza
+	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=jahs-net.20260707.gappssmtp.com header.i=@jahs-net.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Ej1F0YGy
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2363510F499;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 312D610F49E;
 	Tue,  3 Nov 2026 09:36:48 +0000 (UTC)
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 031E410F30B;
- Tue,  3 Nov 2026 01:54:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
- Message-ID; bh=qMUImkOCYgXPrbFnFMSqUf9FeheO8k/SFfBb4PJ0Jc8=; b=V
- GSKSCza0sHIwDgV6vRzpKG66Iomb2PKZCf44eQ8yVc7NYOZQOOg4lVS5twDQiz9I
- msqLsOt9NdW1pFJrg35BZ4GlFw6qwZnWH1t8oujZAfSsZ2pqW8p13ssu3U+Sk229
- DrERfhCmAyGQHwLvSvaQpZJWcJFp99Zq7LNbkaWJbU=
-Date: Tue, 3 Nov 2026 09:54:21 +0800 (CST)
-From: Pan  <rppxj178543@163.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, simona@ffwll.ch
-Cc: linux-kernel@vger.kernel.org, tzimmermann@suse.de,
- timur.kristof@gmail.com, lijo.lazar@amd.com,
- renpanpan <renpanpan@kylinos.cn>, stable@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: Re:[PATCH] drm/amdgpu: Only enable HDMI audio if display supports it
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <20261102094929.251563-1-rppxj178543@163.com>
-References: <20261102094929.251563-1-rppxj178543@163.com>
-X-NTES-SC: AL_Qu2SAfqcv0At5yiYY+kdnEkWg+48XcW2v/wk3Y5Wc+wEvybM+CIYZHZkJHz079+XKR6hjhqHfTZ/++51eaVHHwBxjlNg9ew13BWEip/aSQ==
-Content-Type: multipart/alternative; 
- boundary="----=_Part_23358_503004186.1793670861817"
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
+ [209.85.221.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D7EE10E713
+ for <amd-gfx@lists.freedesktop.org>; Mon,  2 Nov 2026 23:24:55 +0000 (UTC)
+Received: by mail-wr1-f49.google.com with SMTP id
+ ffacd0b85a97d-48e46e449e8so2172059f8f.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 02 Nov 2026 15:24:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=jahs-net.20260707.gappssmtp.com; s=20260707; t=1793661894; x=1794266694;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=BOJF5pQ3Y3qra0fVhUmJwEYQYKAdz/RQknbT5cdg1Y4=;
+ b=Ej1F0YGyD4xUB2G4NttxbumzlHVqntpVyAcJaS9FyvS0S/BVFrIsf2E6yBnhlXj2vq
+ Nui6I3p9Kb5wDmcujdrbaYd+voOiC/xZgZbATBrpX6gqPio9GNU76LGO/k7TBCfK1mN6
+ /kfN59GONMY0ywp+VbHadByf/MnPW/NO3k9h26JL7k7vYBS5QJtkvTss4nVjGpp8X1fH
+ AJLdEB7V8zDXrHJxE4ay7mUPHfgW600lOelr0tKYqCsERJ3Pje/W60N4FwOPYH6YBWNZ
+ T5UymAk8NmUmtWAhpcZsYShIETTe2pCRS8lsj05toLUBfoz5geBa4j49FQMVbKZj0MiA
+ BnBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793661894; x=1794266694;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=BOJF5pQ3Y3qra0fVhUmJwEYQYKAdz/RQknbT5cdg1Y4=;
+ b=fN5P/EDjTdeapLl32pPYpTDfGSbiw9vsIO8WXPsHsc+pt39reIsGNmaD6MspglLN3d
+ 8MdqVXF90eTZP9gCUJSzT0eaQbn3AoGnCRpk1hlvM8xR220aNh/ydZMMZb0hoTmS48gz
+ LYVe8c2LBCUEvZuS04wBnFxNE6hHLw6rshWeg32r2ZYQZkd9GowRaKw22t8MJ9ht6Z34
+ CluMrpKRm6pqfRQ/JZc3UF9UvLNZE8LQ4STTw8yXhnfdgn6BsY5MmOB3zaqzDgzZgme3
+ aQtBWhbCPQgBCGUs3gg+dpb3oQASgFVBTIMOpHFhJO57hP5vMW7K/4mAZ14QB4aeEkI8
+ y2aQ==
+X-Gm-Message-State: APuU4Z/81I/+3zSZ0hzEuTvCgZIHiU9/nkupRMwFnN/0c3A7Inrw05yR
+ 1LP/zrhme4bFm+egP1WuM/ImHQy4/pvIKKOk9qSqN3Sz0PPSqGlqLR7yFHONc3XYtA==
+X-Gm-Gg: AYBFou3rTT0etZBMhy/b7ViOajNQNS72GXOL9XV1Go+oDKag2xNEozZ3YFiCNCTrI09
+ cfS1mGQfQB+kUe460QTRMj4WE/A/ZUUZQWGWStaroJd/5tYNdngKHrOI6UwCiyqdWrYXEScKUcF
+ JWqEz+Dbk5Akzg5FKLG3daRyoNpSNt6EkpeVERyiHNQcErpljzIjQWPp9ttXFe82VuMYdPIC3BX
+ Rehs0ervuc918NyBy0GWlr4d3oxwzjhsLJsDeoGkhT3Pj1RN0gWGh6Uh2raPxZvwbUqySD4EuRO
+ ENQRf7X2y+hVQieuOG8qXZHphAuWoo6OJRKcoxEwZtYq/SqPewsoqqnYRGhKJEWRSUX6ON4o9Ij
+ WqAABFtbxwLM/bs74gD2jdNzSN4BgNVRRtYHaw183Jv7PXFgFD7gSLeOBJq8DQxElEN4s/0VfP3
+ NARfcK7+2fZw7w2JXncMHNDkSqO8fOiyWgMyS3UnYjhPpdJFqITNULEEssTEJTTXgZO2Ho4G0dY
+ sjuMxL4iciGzjQDjYsWpl1xbmIJPxRVijU3PplZJBJWTgcps6zZAzM+In5BR6P8xmCdekkmxY07
+ 3MC/cHT1dNK+xrvDfH69ZpPIBsUEfGLFyzCzF3M3rcwVM2vNykGDRhZW8Bcphw==
+X-Received: by 2002:adf:e19d:0:b0:48d:ffcb:28e1 with SMTP id
+ ffacd0b85a97d-48e6e4f570dmr26032786f8f.11.1793661893544; 
+ Mon, 02 Nov 2026 15:24:53 -0800 (PST)
+Received: from mbp2019.tail53dac2.ts.net
+ ([2a00:23cc:b5dc:701:a5b4:75a8:ede:9f7e])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-48e71a4d4f9sm22522868f8f.2.2026.11.02.15.24.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 02 Nov 2026 15:24:52 -0800 (PST)
+From: James Skillen <jahs@jahs.net>
+To: Andre Eikmeyer <dev@deq.rocks>
+Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ Kenneth Feng <kenneth.feng@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Jesse Zhang <Jesse.Zhang@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] drm/amd/pm: use the VBIOS trained UCLK levels on the
+ MacBookPro16, 1
+Date: Mon,  2 Nov 2026 23:24:50 +0000
+Message-ID: <20261102232450.61301-1-jahs@jahs.net>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261024162109.307247-1-dev@deq.rocks>
+References: <20261024162109.307247-1-dev@deq.rocks>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Message-ID: <2076a0.17fb.1a19f1d53f9.Coremail.rppxj178543@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID: ZygvCgD3l2LNPulqbDVmAA--.1111W
-X-CM-SenderInfo: huss5yirxykkqt6rljoofrz/xtbC6g3X1mrpPs0zGQAA38
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 03 Nov 2026 09:36:47 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -52,162 +92,58 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,HTML_MESSAGE,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-------=_Part_23358_503004186.1793670861817
-Content-Type: text/plain; charset=GBK
-Content-Transfer-Encoding: base64
+On Sat, 24 Oct 2026 18:21:09 +0200, Andre Eikmeyer wrote:
+> The Radeon Pro 5300M and 5500M of the MacBookPro16,1 (Navi 14 boards
+> 1002:7340/106b:0210 and 1002:7340/106b:020f) stop answering SMU messages
+> as soon as UCLK switches into its third level.
 
-CgpUaGlzIGZpeCBpcyBhbHNvIG5lZWRlZCBmb3Igc3RhYmxlIGtlcm5lbHMgKDUuNCspLiBUaGUg
-YnVnIGV4aXN0cwpzaW5jZSB0aGUgbGVnYWN5IERDRSBhdWRpbyBwYXRoIHdhcyBpbnRyb2R1Y2Vk
-IGFuZCBhZmZlY3RzIHVzZXJzIG9uCkxUUyA1LjQga2VybmVscyB3aXRoIEFNRCBTb3V0aGVybiBJ
-c2xhbmRzIC8gQ0lLIC8gVkkgR1BVcyBjb25uZWN0ZWQKdG8gZGlzcGxheXMgd2l0aG91dCBhdWRp
-byBzdXBwb3J0LgoKQ291bGQgeW91IHBsZWFzZSBhZGQgdGhlIGZvbGxvd2luZyBsaW5lIHdoZW4g
-YXBwbHlpbmc/CgogIENjOiBzdGFibGVAdmdlci5rZXJuZWwub3JnICMgNS40KwoKVGhhbmtzLgoK
-CgoKCgoKCgpBdCAyMDI2LTExLTAyIDE3OjQ5OjI5LCBycHB4ajE3ODU0M0AxNjMuY29tIHdyb3Rl
-Ogo+RnJvbTogcmVucGFucGFuIDxyZW5wYW5wYW5Aa3lsaW5vcy5jbj4KPgo+VGhlIGFtZGdwdSBs
-ZWdhY3kgRENFIGF1ZGlvIHBhdGggKGRjZV92Ni92OC92MTApIHVuY29uZGl0aW9uYWxseSBjYWxs
-cwo+YXVkaW9fZW5hYmxlKHBpbiwgdHJ1ZSkgYXQgdGhlIGVuZCBvZiBhZm10X3NldG1vZGUoKSwg
-cmVnYXJkbGVzcyBvZgo+d2hldGhlciB0aGUgY29ubmVjdGVkIGRpc3BsYXkgYWR2ZXJ0aXNlcyBh
-dWRpbyBzdXBwb3J0IGluIGl0cyBFRElELgo+Cj5UaGlzIGNhdXNlcyBhIHBoYW50b20gSERNSSBh
-dWRpbyBvdXRwdXQgdG8gYXBwZWFyIGZvciBkaXNwbGF5cyB0aGF0Cj5oYXZlIG5vIGF1ZGlvIGNh
-cGFiaWxpdHkgKG5vIGJhc2ljIGF1ZGlvIGJpdCwgbm8gQXVkaW8gRGF0YSBCbG9jayBpbgo+RURJ
-RCksIGJlY2F1c2UgdGhlIEdQVSBzZXRzIHRoZSBBVURJT19FTkFCTEVEIHJlZ2lzdGVyIGJpdCwg
-d2hpY2gKPmRyaXZlcyB0aGUgSERBIGNvZGVjJ3MgRUxEViBwaW4gc2Vuc2UsIG1ha2luZyB0aGUg
-Y29kZWMgcmVwb3J0IHRoZQo+amFjayBhcyBhdWRpby1hdmFpbGFibGUuCj4KPlRoZSByYWRlb24s
-IG5vdXZlYXUsIGFuZCBkdy1oZG1pIGRyaXZlcnMgYWxsIGdhdGUgYXVkaW8gZW5hYmxlbWVudCBv
-bgo+ZGlzcGxheV9pbmZvLmhhc19hdWRpby4gQXBwbHkgdGhlIHNhbWUgY2hlY2sgdG8gYW1kZ3B1
-J3MgRENFCj5hZm10X3NldG1vZGUgZnVuY3Rpb25zLgo+Cj5TaWduZWQtb2ZmLWJ5OiByZW5wYW5w
-YW4gPHJlbnBhbnBhbkBreWxpbm9zLmNuPgo+LS0tCj4gZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvZGNlX3YxMF8wLmMgfCA1ICsrKy0tCj4gZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNl
-X3Y2XzAuYyAgfCA1ICsrKy0tCj4gZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNlX3Y4XzAu
-YyAgfCA1ICsrKy0tCj4gMyBmaWxlcyBjaGFuZ2VkLCA5IGluc2VydGlvbnMoKyksIDYgZGVsZXRp
-b25zKC0pCj4KPmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2VfdjEw
-XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2RjZV92MTBfMC5jCj5pbmRleCBmMjk3
-N2ZlNmQ4MjQuLjA0YjE4MDU2YTkwNiAxMDA2NDQKPi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2RjZV92MTBfMC5jCj4rKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2Vf
-djEwXzAuYwo+QEAgLTE3MDUsOCArMTcwNSw5IEBAIHN0YXRpYyB2b2lkIGRjZV92MTBfMF9hZm10
-X3NldG1vZGUoc3RydWN0IGRybV9lbmNvZGVyICplbmNvZGVyLAo+IAlXUkVHMzIobW1BRk1UX1JB
-TVBfQ09OVFJPTDIgKyBkaWctPmFmbXQtPm9mZnNldCwgMHgwMDAwMDAwMSk7Cj4gCVdSRUczMiht
-bUFGTVRfUkFNUF9DT05UUk9MMyArIGRpZy0+YWZtdC0+b2Zmc2V0LCAweDAwMDAwMDAxKTsKPiAK
-Pi0JLyogZW5hYmxlIGF1ZGlvIGFmdGVyIHRvIHNldHRpbmcgdXAgaHcgKi8KPi0JZGNlX3YxMF8w
-X2F1ZGlvX2VuYWJsZShhZGV2LCBkaWctPmFmbXQtPnBpbiwgdHJ1ZSk7Cj4rCS8qIE9ubHkgZW5h
-YmxlIGF1ZGlvIGlmIHRoZSBkaXNwbGF5IHN1cHBvcnRzIGl0ICovCj4rCWlmIChjb25uZWN0b3It
-PmRpc3BsYXlfaW5mby5oYXNfYXVkaW8pCj4rCQlkY2VfdjEwXzBfYXVkaW9fZW5hYmxlKGFkZXYs
-IGRpZy0+YWZtdC0+cGluLCB0cnVlKTsKPiB9Cj4gCj4gc3RhdGljIHZvaWQgZGNlX3YxMF8wX2Fm
-bXRfZW5hYmxlKHN0cnVjdCBkcm1fZW5jb2RlciAqZW5jb2RlciwgYm9vbCBlbmFibGUpCj5kaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNlX3Y2XzAuYyBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2RjZV92Nl8wLmMKPmluZGV4IGM2OGRlMGZlMWQ3ZC4uNTg1YjBh
-NTAyNzlmIDEwMDY0NAo+LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNlX3Y2XzAu
-Ywo+KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNlX3Y2XzAuYwo+QEAgLTE3NDgs
-OCArMTc0OCw5IEBAIHN0YXRpYyB2b2lkIGRjZV92Nl8wX2FmbXRfc2V0bW9kZShzdHJ1Y3QgZHJt
-X2VuY29kZXIgKmVuY29kZXIsCj4gCQlkY2VfdjZfMF9hdWRpb19kcF9lbmFibGUoZW5jb2Rlciwg
-MSk7Cj4gCX0KPiAKPi0JLyogZW5hYmxlIGF1ZGlvIGFmdGVyIHNldHRpbmcgdXAgaHcgKi8KPi0J
-ZGNlX3Y2XzBfYXVkaW9fZW5hYmxlKGFkZXYsIGRpZy0+YWZtdC0+cGluLCB0cnVlKTsKPisJLyog
-T25seSBlbmFibGUgYXVkaW8gaWYgdGhlIGRpc3BsYXkgc3VwcG9ydHMgaXQgKi8KPisJaWYgKGNv
-bm5lY3Rvci0+ZGlzcGxheV9pbmZvLmhhc19hdWRpbykKPisJCWRjZV92Nl8wX2F1ZGlvX2VuYWJs
-ZShhZGV2LCBkaWctPmFmbXQtPnBpbiwgdHJ1ZSk7Cj4gfQo+IAo+IHN0YXRpYyB2b2lkIGRjZV92
-Nl8wX2FmbXRfZW5hYmxlKHN0cnVjdCBkcm1fZW5jb2RlciAqZW5jb2RlciwgYm9vbCBlbmFibGUp
-Cj5kaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNlX3Y4XzAuYyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2RjZV92OF8wLmMKPmluZGV4IGMzOTA2MjcwZjI1ZS4u
-MTM5MGVmYTRlYTUxIDEwMDY0NAo+LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNl
-X3Y4XzAuYwo+KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNlX3Y4XzAuYwo+QEAg
-LTE2NTMsOCArMTY1Myw5IEBAIHN0YXRpYyB2b2lkIGRjZV92OF8wX2FmbXRfc2V0bW9kZShzdHJ1
-Y3QgZHJtX2VuY29kZXIgKmVuY29kZXIsCj4gCVdSRUczMihtbUFGTVRfUkFNUF9DT05UUk9MMiAr
-IG9mZnNldCwgMHgwMDAwMDAwMSk7Cj4gCVdSRUczMihtbUFGTVRfUkFNUF9DT05UUk9MMyArIG9m
-ZnNldCwgMHgwMDAwMDAwMSk7Cj4gCj4tCS8qIGVuYWJsZSBhdWRpbyBhZnRlciBzZXR0aW5nIHVw
-IGh3ICovCj4tCWRjZV92OF8wX2F1ZGlvX2VuYWJsZShhZGV2LCBkaWctPmFmbXQtPnBpbiwgdHJ1
-ZSk7Cj4rCS8qIE9ubHkgZW5hYmxlIGF1ZGlvIGlmIHRoZSBkaXNwbGF5IHN1cHBvcnRzIGl0ICov
-Cj4rCWlmIChjb25uZWN0b3ItPmRpc3BsYXlfaW5mby5oYXNfYXVkaW8pCj4rCQlkY2VfdjhfMF9h
-dWRpb19lbmFibGUoYWRldiwgZGlnLT5hZm10LT5waW4sIHRydWUpOwo+IH0KPiAKPiBzdGF0aWMg
-dm9pZCBkY2VfdjhfMF9hZm10X2VuYWJsZShzdHJ1Y3QgZHJtX2VuY29kZXIgKmVuY29kZXIsIGJv
-b2wgZW5hYmxlKQo+LS0gCj4yLjQzLjAK
-------=_Part_23358_503004186.1793670861817
-Content-Type: text/html; charset=GBK
-Content-Transfer-Encoding: base64
+This is the hang reported in drm/amd issue 6005, which has the
+umc_info analysis and test results from both boards:
 
-PGRpdiBkYXRhLW50ZXM9Im50ZXNfbWFpbF9ib2R5X3Jvb3QiIHN0eWxlPSJsaW5lLWhlaWdodDox
-Ljc7Y29sb3I6IzAwMDAwMDtmb250LXNpemU6MTRweDtmb250LWZhbWlseTpBcmlhbCI+PGRpdiBp
-ZD0ic3BuRWRpdG9yQ29udGVudCI+PGRpdiBzdHlsZT0ibWFyZ2luOiAwOyI+PGJyPjwvZGl2Pjxk
-aXYgc3R5bGU9Im1hcmdpbjogMDsiPlRoaXMgZml4IGlzIGFsc28gbmVlZGVkIGZvciBzdGFibGUg
-a2VybmVscyAoNS40KykuIFRoZSBidWcgZXhpc3RzPGJyPnNpbmNlIHRoZSBsZWdhY3kgRENFIGF1
-ZGlvIHBhdGggd2FzIGludHJvZHVjZWQgYW5kIGFmZmVjdHMgdXNlcnMgb248YnI+TFRTIDUuNCBr
-ZXJuZWxzIHdpdGggQU1EIFNvdXRoZXJuIElzbGFuZHMgLyBDSUsgLyBWSSBHUFVzIGNvbm5lY3Rl
-ZDxicj50byBkaXNwbGF5cyB3aXRob3V0IGF1ZGlvIHN1cHBvcnQuPGJyPjxicj5Db3VsZCB5b3Ug
-cGxlYXNlIGFkZCB0aGUgZm9sbG93aW5nIGxpbmUgd2hlbiBhcHBseWluZz88YnI+PGJyPiZuYnNw
-OyBDYzogc3RhYmxlQHZnZXIua2VybmVsLm9yZyAjIDUuNCs8YnI+PGJyPlRoYW5rcy48L2Rpdj48
-ZGl2IHN0eWxlPSJtYXJnaW46IDA7Ij48YnI+PC9kaXY+PGRpdiBzdHlsZT0ibWFyZ2luOiAwOyI+
-PGJyPjwvZGl2PjxkaXYgc3R5bGU9Im1hcmdpbjogMDsiPjxicj48L2Rpdj48L2Rpdj48ZGl2IHN0
-eWxlPSJwb3NpdGlvbjpyZWxhdGl2ZTt6b29tOjEiPjwvZGl2PjxkaXYgaWQ9ImRpdk5ldGVhc2VN
-YWlsQ2FyZCI+PC9kaXY+PGRpdiBzdHlsZT0ibWFyZ2luOiAwOyI+PGJyPjwvZGl2PjxwcmU+PGJy
-PkF0IDIwMjYtMTEtMDIgMTc6NDk6MjksIHJwcHhqMTc4NTQzQDE2My5jb20gd3JvdGU6CiZndDtG
-cm9tOiByZW5wYW5wYW4gJmx0O3JlbnBhbnBhbkBreWxpbm9zLmNuJmd0OwomZ3Q7CiZndDtUaGUg
-YW1kZ3B1IGxlZ2FjeSBEQ0UgYXVkaW8gcGF0aCAoZGNlX3Y2L3Y4L3YxMCkgdW5jb25kaXRpb25h
-bGx5IGNhbGxzCiZndDthdWRpb19lbmFibGUocGluLCB0cnVlKSBhdCB0aGUgZW5kIG9mIGFmbXRf
-c2V0bW9kZSgpLCByZWdhcmRsZXNzIG9mCiZndDt3aGV0aGVyIHRoZSBjb25uZWN0ZWQgZGlzcGxh
-eSBhZHZlcnRpc2VzIGF1ZGlvIHN1cHBvcnQgaW4gaXRzIEVESUQuCiZndDsKJmd0O1RoaXMgY2F1
-c2VzIGEgcGhhbnRvbSBIRE1JIGF1ZGlvIG91dHB1dCB0byBhcHBlYXIgZm9yIGRpc3BsYXlzIHRo
-YXQKJmd0O2hhdmUgbm8gYXVkaW8gY2FwYWJpbGl0eSAobm8gYmFzaWMgYXVkaW8gYml0LCBubyBB
-dWRpbyBEYXRhIEJsb2NrIGluCiZndDtFRElEKSwgYmVjYXVzZSB0aGUgR1BVIHNldHMgdGhlIEFV
-RElPX0VOQUJMRUQgcmVnaXN0ZXIgYml0LCB3aGljaAomZ3Q7ZHJpdmVzIHRoZSBIREEgY29kZWMn
-cyBFTERWIHBpbiBzZW5zZSwgbWFraW5nIHRoZSBjb2RlYyByZXBvcnQgdGhlCiZndDtqYWNrIGFz
-IGF1ZGlvLWF2YWlsYWJsZS4KJmd0OwomZ3Q7VGhlIHJhZGVvbiwgbm91dmVhdSwgYW5kIGR3LWhk
-bWkgZHJpdmVycyBhbGwgZ2F0ZSBhdWRpbyBlbmFibGVtZW50IG9uCiZndDtkaXNwbGF5X2luZm8u
-aGFzX2F1ZGlvLiBBcHBseSB0aGUgc2FtZSBjaGVjayB0byBhbWRncHUncyBEQ0UKJmd0O2FmbXRf
-c2V0bW9kZSBmdW5jdGlvbnMuCiZndDsKJmd0O1NpZ25lZC1vZmYtYnk6IHJlbnBhbnBhbiAmbHQ7
-cmVucGFucGFuQGt5bGlub3MuY24mZ3Q7CiZndDstLS0KJmd0OyBkcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9kY2VfdjEwXzAuYyB8IDUgKysrLS0KJmd0OyBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9kY2VfdjZfMC5jICB8IDUgKysrLS0KJmd0OyBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9kY2VfdjhfMC5jICB8IDUgKysrLS0KJmd0OyAzIGZpbGVzIGNoYW5nZWQsIDkgaW5zZXJ0aW9u
-cygrKSwgNiBkZWxldGlvbnMoLSkKJmd0OwomZ3Q7ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2RjZV92MTBfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNl
-X3YxMF8wLmMKJmd0O2luZGV4IGYyOTc3ZmU2ZDgyNC4uMDRiMTgwNTZhOTA2IDEwMDY0NAomZ3Q7
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNlX3YxMF8wLmMKJmd0OysrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2RjZV92MTBfMC5jCiZndDtAQCAtMTcwNSw4ICsxNzA1
-LDkgQEAgc3RhdGljIHZvaWQgZGNlX3YxMF8wX2FmbXRfc2V0bW9kZShzdHJ1Y3QgZHJtX2VuY29k
-ZXIgKmVuY29kZXIsCiZndDsgCVdSRUczMihtbUFGTVRfUkFNUF9DT05UUk9MMiArIGRpZy0mZ3Q7
-YWZtdC0mZ3Q7b2Zmc2V0LCAweDAwMDAwMDAxKTsKJmd0OyAJV1JFRzMyKG1tQUZNVF9SQU1QX0NP
-TlRST0wzICsgZGlnLSZndDthZm10LSZndDtvZmZzZXQsIDB4MDAwMDAwMDEpOwomZ3Q7IAomZ3Q7
-LQkvKiBlbmFibGUgYXVkaW8gYWZ0ZXIgdG8gc2V0dGluZyB1cCBodyAqLwomZ3Q7LQlkY2VfdjEw
-XzBfYXVkaW9fZW5hYmxlKGFkZXYsIGRpZy0mZ3Q7YWZtdC0mZ3Q7cGluLCB0cnVlKTsKJmd0OysJ
-LyogT25seSBlbmFibGUgYXVkaW8gaWYgdGhlIGRpc3BsYXkgc3VwcG9ydHMgaXQgKi8KJmd0OysJ
-aWYgKGNvbm5lY3Rvci0mZ3Q7ZGlzcGxheV9pbmZvLmhhc19hdWRpbykKJmd0OysJCWRjZV92MTBf
-MF9hdWRpb19lbmFibGUoYWRldiwgZGlnLSZndDthZm10LSZndDtwaW4sIHRydWUpOwomZ3Q7IH0K
-Jmd0OyAKJmd0OyBzdGF0aWMgdm9pZCBkY2VfdjEwXzBfYWZtdF9lbmFibGUoc3RydWN0IGRybV9l
-bmNvZGVyICplbmNvZGVyLCBib29sIGVuYWJsZSkKJmd0O2RpZmYgLS1naXQgYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9kY2VfdjZfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-ZGNlX3Y2XzAuYwomZ3Q7aW5kZXggYzY4ZGUwZmUxZDdkLi41ODViMGE1MDI3OWYgMTAwNjQ0CiZn
-dDstLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2VfdjZfMC5jCiZndDsrKysgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2VfdjZfMC5jCiZndDtAQCAtMTc0OCw4ICsxNzQ4
-LDkgQEAgc3RhdGljIHZvaWQgZGNlX3Y2XzBfYWZtdF9zZXRtb2RlKHN0cnVjdCBkcm1fZW5jb2Rl
-ciAqZW5jb2RlciwKJmd0OyAJCWRjZV92Nl8wX2F1ZGlvX2RwX2VuYWJsZShlbmNvZGVyLCAxKTsK
-Jmd0OyAJfQomZ3Q7IAomZ3Q7LQkvKiBlbmFibGUgYXVkaW8gYWZ0ZXIgc2V0dGluZyB1cCBodyAq
-LwomZ3Q7LQlkY2VfdjZfMF9hdWRpb19lbmFibGUoYWRldiwgZGlnLSZndDthZm10LSZndDtwaW4s
-IHRydWUpOwomZ3Q7KwkvKiBPbmx5IGVuYWJsZSBhdWRpbyBpZiB0aGUgZGlzcGxheSBzdXBwb3J0
-cyBpdCAqLwomZ3Q7KwlpZiAoY29ubmVjdG9yLSZndDtkaXNwbGF5X2luZm8uaGFzX2F1ZGlvKQom
-Z3Q7KwkJZGNlX3Y2XzBfYXVkaW9fZW5hYmxlKGFkZXYsIGRpZy0mZ3Q7YWZtdC0mZ3Q7cGluLCB0
-cnVlKTsKJmd0OyB9CiZndDsgCiZndDsgc3RhdGljIHZvaWQgZGNlX3Y2XzBfYWZtdF9lbmFibGUo
-c3RydWN0IGRybV9lbmNvZGVyICplbmNvZGVyLCBib29sIGVuYWJsZSkKJmd0O2RpZmYgLS1naXQg
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2VfdjhfMC5jIGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvZGNlX3Y4XzAuYwomZ3Q7aW5kZXggYzM5MDYyNzBmMjVlLi4xMzkwZWZhNGVh
-NTEgMTAwNjQ0CiZndDstLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2VfdjhfMC5j
-CiZndDsrKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2VfdjhfMC5jCiZndDtAQCAt
-MTY1Myw4ICsxNjUzLDkgQEAgc3RhdGljIHZvaWQgZGNlX3Y4XzBfYWZtdF9zZXRtb2RlKHN0cnVj
-dCBkcm1fZW5jb2RlciAqZW5jb2RlciwKJmd0OyAJV1JFRzMyKG1tQUZNVF9SQU1QX0NPTlRST0wy
-ICsgb2Zmc2V0LCAweDAwMDAwMDAxKTsKJmd0OyAJV1JFRzMyKG1tQUZNVF9SQU1QX0NPTlRST0wz
-ICsgb2Zmc2V0LCAweDAwMDAwMDAxKTsKJmd0OyAKJmd0Oy0JLyogZW5hYmxlIGF1ZGlvIGFmdGVy
-IHNldHRpbmcgdXAgaHcgKi8KJmd0Oy0JZGNlX3Y4XzBfYXVkaW9fZW5hYmxlKGFkZXYsIGRpZy0m
-Z3Q7YWZtdC0mZ3Q7cGluLCB0cnVlKTsKJmd0OysJLyogT25seSBlbmFibGUgYXVkaW8gaWYgdGhl
-IGRpc3BsYXkgc3VwcG9ydHMgaXQgKi8KJmd0OysJaWYgKGNvbm5lY3Rvci0mZ3Q7ZGlzcGxheV9p
-bmZvLmhhc19hdWRpbykKJmd0OysJCWRjZV92OF8wX2F1ZGlvX2VuYWJsZShhZGV2LCBkaWctJmd0
-O2FmbXQtJmd0O3BpbiwgdHJ1ZSk7CiZndDsgfQomZ3Q7IAomZ3Q7IHN0YXRpYyB2b2lkIGRjZV92
-OF8wX2FmbXRfZW5hYmxlKHN0cnVjdCBkcm1fZW5jb2RlciAqZW5jb2RlciwgYm9vbCBlbmFibGUp
-CiZndDstLSAKJmd0OzIuNDMuMAo8L3ByZT48L2Rpdj4=
-------=_Part_23358_503004186.1793670861817--
+  https://gitlab.freedesktop.org/drm/amd/-/work_items/6005
 
+Could v2 carry a Closes: tag for it?
+
+I tested the patch on a MacBookPro16,1 with the Pro 5300M (1002:7340
+rev 0x43, 106b:0210, VBIOS 113-D32207P1-019), on linux-t2 7.2.11 (Arch
+v7.2.11-arch1 plus the t2linux patches) with this patch on top. The
+userspace pp_table upload from the issue was disabled for these boots,
+so the corrected levels came from the patch alone.
+
+All at DPM auto unless noted:
+
+ - both "UCLK level ..." lines at boot and again after every resume,
+   pp_dpm_mclk 95/496/598/736
+ - forced pp_dpm_mclk switches through every level transition, idle
+   and under memtest_vulkan load (57 switches, every 3 s): all landed
+ - UCLK pinned at level 2 (598 MHz): llama.cpp benchmark and 180 s of
+   memtest_vulkan, no errors
+ - 60 min soak of llama.cpp runs with idle gaps, and 30 min of normal
+   desktop use with the soak running
+ - 8 deep suspend/resume cycles (rtcwake, lid, systemctl suspend)
+
+I ran these with the internal panel on the iGPU and again with the
+Radeon driving it (apple-gmux force_igd=n). No "SMU: No response", GPU
+reset, ring timeout or DC errors in any of them. With the stock driver,
+level 2 hung within seconds.
+
+For the runs with the Radeon on the panel I also had
+amdgpu.dcdebugmask=0x1. That is for a separate DC issue (the MPC pipe
+split on the 3072x1920 eDP plane makes DRAM clock change unsupported,
+so UCLK stays at the top level). It is not related to this patch and
+I will report it separately.
+
+Tested-by: James Skillen <jahs@jahs.net> # MacBookPro16,1, Pro 5300M (106b:0210)
+
+The testing above and this reply were prepared with help from
+claude-opus-5-5; I have checked the results and the text.
+
+Thanks,
+James
