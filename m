@@ -2,100 +2,115 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA832606A32D
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 15:54:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C12C6606A327
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 15:58:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ShNGHf4F
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=kt5QvJTW
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 550CA10F6AC;
-	Tue,  3 Nov 2026 15:54:19 +0000 (UTC)
-Received: from mail-vs1-f52.google.com (mail-vs1-f52.google.com
- [209.85.217.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 372F110F6AB
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Nov 2026 15:54:13 +0000 (UTC)
-Received: by mail-vs1-f52.google.com with SMTP id
- ada2fe7eead31-7cc30120465so223861137.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 03 Nov 2026 07:54:13 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793721252; cv=none;
- d=google.com; s=arc-20260327;
- b=MrtJWOvRygMe055tQUy6EG490EwsjZ0/I4sPl1YLkkfcKDKdGxLFGl84ICrEu619tP
- a5OwEazFvT04sjLGQd8nSiHzCud2gs6iVmeoBH55XSDZWU63REYWWm3Gwgx7Qo+qJ9nZ
- yRSmXs825wjH+272uTXdXfg6vKPGSDq67SL2Gr0sMbe3xVp9Qesd33hcrow2jM+vIuXO
- AvZ4acRW0g2cgIM4Q35inItJH1CTJKIDUHDDq4P0JtzMps2E3L9TKjwNwTH7tA4bxhVn
- e6m0MS7y4FBeLhgas6YNm2KC3BzTX7cE2wYFKQpkkHpgm0/omROY4/YJvH7ysaHx2QJf
- POBA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=Xb8msZ+fgXjMEHN+Y/BoflVk8iRjVl0Wk5Yh+DJWfoM=;
- fh=3nVxAWQvp4jmEDxlrhphhnZMt7YHMJMl5zZbTEJQzr4=;
- b=SVMRtpzwa4FAgvr/hprRpasYxola4I2UKROkBfCVoygZsFD6bh5Ifa9JOQl99fsYA1
- 7NzeeAx/83HLVZItYeSRiTOIpbZlFiLTynISXAFjwOWGL57AgO1f4E32gSqYCSZt6bF5
- wKQlOBcS1G/XzgeeN0jmNBeehP1crKVObhiPibQBZ1MEJEDBXCmE6U72kXAN7tg7m4pI
- R0w7o9QSA0UJ4g3tFZ+hvVGDABASkOAmQn02ftxEezAzjFYDwIVLX0PCNdwvj3PNZApB
- 3nEBIXdBGvBnvxJz1VgJEckuBzChVHfCjfI6dG90Wq1XzbNqCYV0yx2fmIX/jo76sloU
- Rv/g==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793721252; x=1794326052; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=Xb8msZ+fgXjMEHN+Y/BoflVk8iRjVl0Wk5Yh+DJWfoM=;
- b=ShNGHf4FwOaVWccUlqVifIk7hFxUSwqXwJtRf6H9Rfz5DFwC5tq7RQ5OHYse1yZgdE
- OM7sfKlRN+8gFZIAIfRSnA4mfBZtOuy632HQ6aKB3r6a0R4iDGMAZ7oTxnVsaJ7tkS4r
- f3JTx1olw1hrN1Z7q8A7JhxhdqRW/GuouLvUI+qkm16b7GV8l5htUvO3P9XC9M/jyu6P
- xo5/Fzc+HmNN2ZpU+17HpZXdd66o9PjkfnF3VIWz/A2kTdLh+ipspNU+ewdsFvoZeT4x
- xx5zRfL09RUXTMVF2hRpX+fNiUg+TCApNqttsn+Urp0UoACc+1C2TUtcMljAS7+gpb8D
- tZGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793721252; x=1794326052;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=Xb8msZ+fgXjMEHN+Y/BoflVk8iRjVl0Wk5Yh+DJWfoM=;
- b=vjZIABfsGqBxmisjW6gPgURVaXiXvLluzXan3nwu7zcdER+nh91JIjmUDjPB91dP03
- 3ed7ZUCBiIp1JC6976CCUuISHQmkEZYFfW8WeFM4ODFH1ozPkxXlrc99RlL1M22vaQxe
- iD4LuBDfCI9eiIdaTfTGABnn0azNlcWPGlvxGyu3fO1eEuwyWBkdAzw0Gc6n6CgVsV0e
- YdhHbQhKtIF9d7M4xjRw6L01Tc18vWWLoStx4CsagC0N/u/QsWsC4f82SunRQMaAT5uD
- jSfpYTer52ZgHFlHDr502X8W/737cokyygYak1yabeirivj69LXkVDs0M9QaAwmSBy+k
- Fu0Q==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxyWT0a4jfCjShclIi8irZYtYSSFUE1D6i1mm2JtbSgU7we0HCJNg+x1/ENj1YpGK49AbUwgxHd@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z93yE/U1yph92K5nu6HNrH1IFVtE/zl2pNphYRIWv2vXBevq7Yg
- 77P75mGOwJT4GuguFCRyiYYnDLJ1BDSG49kl0/CkjHw2jAPkWrfQSDqBt7RKUsq9/xOo6ZT6Ry7
- 5qvzKQwBeS5MN9N4uQsmHAeJ7GO4k/Y8=
-X-Gm-Gg: AYBFou0Nax7n8oQqArDMo8nvbuvQOaQsZlPV4Gm7wmpKv/bMAfd3eJRl+pjX2rtGn8f
- VndKU75WdEdHB0w1w7kQwHK9QbC/UfgQpdDEAUEzVWeFWoFP7JrMI+DCE7nPslm69Wxlia1gMpE
- 9P6BofxlG5Xv/CtJlXlo3flq6+iILPXnK4YxcFqRdRbSxK1QO+9wtiC7g5UYEKM3tDjfHJU6GIf
- +ogDc2Rj21ICmOQNX//N6be4WLuEizUerZ2Pmfxi6Hr0JLmuz9thGiCNBqqBEfWwHH2iq1tYQVz
- PFhhq/3aFerXInN2np2JSwX7GLLzhgNV1R3DQ9PTrdxPUIxrpH918VPNikECzIXi3UYHi8QeVln
- 1GS8TyaIxji+GHg4hwEAQvvZyaMta1rj2AnO0P8cBkP9twJrmkSwB72YOBqMP35Do8BJo+DdeYA
- wq+1WVKu6bnCoaiqrZA4GR1/k=
-X-Received: by 2002:a05:6102:6484:20b0:7ca:21e4:8e20 with SMTP id
- ada2fe7eead31-7d072ba07b2mr5499484137.2.1793721252076; Tue, 03 Nov 2026
- 07:54:12 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3336E10E640;
+	Tue,  3 Nov 2026 15:58:30 +0000 (UTC)
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012065.outbound.protection.outlook.com
+ [40.107.200.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE7B110E640;
+ Tue,  3 Nov 2026 15:58:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Vrg0jzHcYqVYPYC/0yPwzGWnhAO/DCdWrFYIw1Crckspcs4glY+Gs10lDzUVVLAprwG2J+B6H6U+xVaCGMz0lYaWbmATo6+FotLCwy5yzfNkSoEhdHlumSXqVv6FrgSwFnCbHIRmPXGGCeHQeW4wSlGJ5Ruv4b4iiINdaVAiwc5v1I3mArWbeagfkDjf5VZhm/TKX4Ixd8ZW3mrk5MqrPJdZA3MKQj//ANl6aDcBNly8rCthvFaqy93FEx/PfPBjfX/HGUy1BmgBT3lwUd1B5ZoxNx+P0nL/x6F6WbuYqYYVLQWT7qIhz/gyVDzsmLhaci6ktoQAhpoQ+nRHDyJcaw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CZAeF5qCrHnvCAjc+m9kuFmGRSwKNVr/a8T5CO/bX2g=;
+ b=HPw/1OsfyC/1+TsfAfbcue8xXIjpTJokAcZRi9jvJAnhCVLPFJBA1Clo2pZ6coMau9oWmxx2vxJ4NhWIZsdviVM+rG4q5fLzrudtHaW3+qucK9ZxMvD7TOk/CgYFTS4jTPW+daI+CoQj2Qtu4cfsvycEEbyAnTNO5Q7UENTpktcfzmZ3gN9gCCyDpAR6hi2+FaKhevqBQzZ1/n6W3o4LqdE61naP4+NBKThubzI5ItRjAiLc1rQjrrKP4YnT1WR8ZcbutO6e7/h7iEse2fpTqozSNKC2sYILFC/rwuCj56R7gyzT57akLyd550yQ0fRDmNkEAi9qLFDspyXVs+MC3g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CZAeF5qCrHnvCAjc+m9kuFmGRSwKNVr/a8T5CO/bX2g=;
+ b=kt5QvJTWHDHlJwZlGTmuKQqrUdFwowCmZMRDe6JaLh891Pn6uWSKFAg2A588S0ZPq7hLmMeJdubJckRjWeAuXRaU+xsUAZK01fOMX0mhvcRC+6cTrqi+5Nge9XM2Uhhig6J35l516Rbzu838RM0lEWE4rLZlLa4YhhveY4NBnO4=
+Received: from DS7P220CA0126.NAMP220.PROD.OUTLOOK.COM (2603:10b6:8:25f::10) by
+ CH3PR12MB8547.namprd12.prod.outlook.com (2603:10b6:610:164::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
+ 2026 15:58:13 +0000
+Received: from BN3PEPF00022BC2.namprd05.prod.outlook.com
+ (2603:10b6:8:25f:cafe::31) by DS7P220CA0126.outlook.office365.com
+ (2603:10b6:8:25f::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.8 via Frontend Transport; Tue, 3
+ Nov 2026 15:58:11 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN3PEPF00022BC2.mail.protection.outlook.com (10.167.248.213) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.5 via Frontend Transport; Tue, 3 Nov 2026 15:58:10 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 3 Nov
+ 2026 09:58:08 -0600
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 3 Nov
+ 2026 09:58:08 -0600
+Received: from [10.254.93.75] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Tue, 3 Nov 2026 09:58:07 -0600
+Message-ID: <139b2703-53a7-4ff3-b6ad-46b047f0f0c6@amd.com>
+Date: Tue, 3 Nov 2026 10:58:06 -0500
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20260916144014.879355-1-ed@aicharmers.com>
- <CADnq5_MsaUDm8rcxr3_0wuEAXywxziAofOO9w-dUxYS9PUoasw@mail.gmail.com>
- <20261030123000.5573e70f@kait2en-mbp15-1>
- <CADnq5_NCB6ur05ZvP0fe9hsgLHM0=y_Wx31G4vkpKH+F7yZ74g@mail.gmail.com>
- <20261103162512.2ec834ac@kait2en-mbp15-1>
-In-Reply-To: <20261103162512.2ec834ac@kait2en-mbp15-1>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 3 Nov 2026 10:53:56 -0500
-X-Gm-Features: AclHuK8XgaXraLodmmVFuSHrr-OuzfGpqPbHuNNCdg5f56R66moLICOm5O2si5g
-Message-ID: <CADnq5_NDJ7V=TQLOJ37msbmhwsVG+70mPKU3ns+xmAu9jxWwcg@mail.gmail.com>
-Subject: Re: [PATCH v4] drm/amd/pm: defer UCLK DPM on selected Apple Navi GPUs
-To: =?UTF-8?Q?Andr=C3=A9_Eikmeyer?= <dev@deq.rocks>
-Cc: Ed Schofield <ed@aicharmers.com>, amd-gfx@lists.freedesktop.org, 
- Kenneth Feng <kenneth.feng@amd.com>, Alex Deucher <alexander.deucher@amd.com>, 
- Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: multipart/mixed; boundary="0000000000000e8f73065f614643"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 03/15] drm/amd: add luminance property support
+To: "Mario Limonciello (AMD)" <superm1@kernel.org>, Maxime Ripard
+ <mripard@kernel.org>, Alex Deucher <alexander.deucher@amd.com>, Jani Nikula
+ <jani.nikula@linux.intel.com>, Javier Martinez Canillas <javierm@redhat.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
+ <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>, Rodrigo Siqueira
+ <siqueira@igalia.com>
+CC: Xaver Hugl <xaver.hugl@gmail.com>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
+ <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <nouveau@lists.freedesktop.org>, Mario Limonciello
+ <mario.limonciello@amd.com>
+References: <20261102-superm1-backlight-property-v10-0-b2a6f24131f5@kernel.org>
+ <20261102-superm1-backlight-property-v10-3-b2a6f24131f5@kernel.org>
+Content-Language: en-US
+From: Leo Li <sunpeng.li@amd.com>
+In-Reply-To: <20261102-superm1-backlight-property-v10-3-b2a6f24131f5@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BC2:EE_|CH3PR12MB8547:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4a864fe3-708e-47bb-1ca7-08df39c34299
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|36860700016|42112799006|7416014|23010399003|376014|1800799024|6133799003|10067099003|22082099003|261102123227099003|18002099003|261102130727099003|921020|56012099006|4143699003|261022105027099003|261021121427099003|261021123027099003|261022075727099003|261026121527099003|261009223027099003|11063799006|261028144727099003|261026140227099003;
+X-Microsoft-Antispam-Message-Info: +FrN461jjYdk+bffRUMrWEEj9qdnUfxOFXNpqPHcH5WARsQquovWWCBt3bDKBe4ZQ37pDRcKyzULc+ieb38XH9hjl/WmB6dRFF+02Ep81W7fcmBws+EolvD/OBhkpdZui37EFa3H2wVcY+fSnNjR4JX4fXTtAjYn4X+BcnYb6eRNp6LwV4y6yDPjGxtmhnsxN35qvNKHYp/3N9ce5TxwOxUOk3PatjIROld16OqRxsdfTJDGAuBaIU17YN3V797ABTPo2WNw39uoi2oExstGozsSRA3AEoZt5RkAOPskFd3XYIViHzq+PkCIfzGPp5HhwX1gQMTd/BG1oHYHgRodkvipTaRWKt30WiaSR6yGS7gKJtdEXkJMYJbDWBGF419Uw63SR88n3icrgSIBmsq0INrdGvfl9vzPmHPRF77CBDuTR+dWCXBt1XCaVceETwdf56jX8oAU3m9pwEbdLEMq3NiVf/M7l7vDU8Kf7aIqbwVIhSAnMts31lTUn4zvFgZ42+M1mKdpFPH6vcsrq0umD5wg/NJ/bMoqKxLJ2bLSvpONMg4dR3Od/V2QXtvPGGxvGdp0cqJlfZXyd4hvJKCp2Q/X55Z6wK7mGFHv/5UTQfBEJyDQEZMXWcRqRvtItfzVQUxE1hDsYBwju8Hk4lcYoH1OTnYvaEXMOktqiOX0h2FYelqFb/5f+scvyYi2Im6O+zcaN5skxFo01ciD/pFYUtgxmQ/8Un4R1mvTNE08ErP7z+dSrhuaeTB41buoj9Nl
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700016)(42112799006)(7416014)(23010399003)(376014)(1800799024)(6133799003)(10067099003)(22082099003)(261102123227099003)(18002099003)(261102130727099003)(921020)(56012099006)(4143699003)(261022105027099003)(261021121427099003)(261021123027099003)(261022075727099003)(261026121527099003)(261009223027099003)(11063799006)(261028144727099003)(261026140227099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: R3zPNGMb8riSVb/TGeVk9SIkQTP0rKcbYDHjmtyP/phqfnT9DV1rKgcMI3lHGEsHKy2M4v1Q6LQklnlyZiaFoK07/uVwINNY4J58bNUXdpG3qNZza4/Rvg1D3e4ryWFsIM+McSAL1F7LxzH4VL8fEo3KQvB3nMAuWpj22vaPwMUjoXQ7UNT5X7clvhTaHDyUinKlGKVBDxg9rFoe1zj/1ZC7ga7/+4lyHCLj2n/yowGVed7vINBXlAAEnZaExDu8jP4FHE8OwbAs3wFgFrvGUSQykRE4YTIOr8yG0XuYkV+rOiLb1RJ/dW0yLL3FnQVhqR14T+qvXMhxT04FzZDXS9GbQEPoMLoJtZsfBplEa6f5rSRsQx+JZn4jn58wrNLgfYlfJw7s/wxrepof6fpM8no6Z9MV9xaXc6HWT81cV3rn3V+WAjdt9Fp4VtWu63Yp
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 15:58:10.8182 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4a864fe3-708e-47bb-1ca7-08df39c34299
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF00022BC2.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8547
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,129 +121,331 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---0000000000000e8f73065f614643
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Nov 3, 2026 at 10:25=E2=80=AFAM Andr=C3=A9 Eikmeyer <dev@deq.rocks>=
- wrote:
->
-> On Tue, 3 Nov 2026 09:30:34 -0500
-> Alex Deucher <alexdeucher@gmail.com> wrote:
->
-> > It is the same issue.  I don't want two fixes for the same issue.
->
-> Understandable, but it is not. Two devs told you the same
-> independently.
-> On another note I reviewed your patch. It only rejects empty or zero
-> levels. On the 16,1 the pptable levels (736/750 MHz) are non-zero.
-> Besides other issues in the code, the commit message says the exact
-> patch wasn't tested, yet v5 extends it to every Apple Navi 1x.
-> I am sorry but your patch is implausible to me.
 
-I forgot to remove the pptable check.  Can you try a simplified
-version of the patch?  I think all you need to do is delay the UCLK
-DPM enablement until late_init.  Something like the attached patch.
+On 2026-11-02 11:49, Mario Limonciello (AMD) wrote:
+> From: Mario Limonciello <mario.limonciello@amd.com>
+> 
+> Expose the DRM LUMINANCE connector property for internal panels when
+> CONFIG_DRM_LUMINANCE is enabled. Keep registering the existing backlight
+> class device otherwise, preserving its userspace ABI.
+> 
+> Use the existing brightness scaling and programming paths from connector
+> helper callbacks in both Display Core and legacy display. Apply atomic
+> luminance after the display pipeline is enabled so changes made while a
+> connector is inactive take effect on the next enable.
+> 
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/Kconfig                 |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c     | 20 +++++++++++
+>  drivers/gpu/drm/amd/amdgpu/atombios_encoders.c     | 17 +++++++--
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 22 +++++++-----
+>  .../amd/display/amdgpu_dm/amdgpu_dm_backlight.c    | 42 ++++++++++++++++++++--
+>  .../amd/display/amdgpu_dm/amdgpu_dm_backlight.h    |  2 ++
+>  .../amd/display/amdgpu_dm/amdgpu_dm_connector.c    |  7 ++--
+>  7 files changed, 96 insertions(+), 16 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig b/drivers/gpu/drm/amd/amdgpu/Kconfig
+> index 50305630f5335..7a6a049aa6e90 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/Kconfig
+> +++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
+> @@ -20,7 +20,7 @@ config DRM_AMDGPU
+>  	select I2C
+>  	select I2C_ALGOBIT
+>  	select CRC16
+> -	select BACKLIGHT_CLASS_DEVICE
+> +	select BACKLIGHT_CLASS_DEVICE if !DRM_LUMINANCE
+>  	select INTERVAL_TREE
+>  	select DRM_BUDDY
+>  	select DRM_SUBALLOC_HELPER
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+> index 92c98e999efe9..209a7a6c246db 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+> @@ -798,11 +798,31 @@ static int amdgpu_connector_set_lcd_property(struct drm_connector *connector,
+>  	return 0;
+>  }
+>  
+> +static void amdgpu_connector_set_luminance(const struct drm_connector_state *conn_state)
+> +{
+> +	struct drm_encoder *encoder =
+> +		amdgpu_connector_best_single_encoder(conn_state->connector);
+> +
+> +	if (encoder)
+> +		amdgpu_atombios_encoder_set_backlight_level(to_amdgpu_encoder(encoder),
+> +							    conn_state->luminance);
+> +}
+> +
+> +static void amdgpu_connector_disable_luminance(const struct drm_connector_state *conn_state)
+> +{
+> +	struct drm_encoder *encoder =
+> +		amdgpu_connector_best_single_encoder(conn_state->connector);
+> +
+> +	if (encoder)
+> +		amdgpu_atombios_encoder_set_backlight_level(to_amdgpu_encoder(encoder), 0);
+> +}
+>  
+>  static const struct drm_connector_helper_funcs amdgpu_connector_lvds_helper_funcs = {
+>  	.get_modes = amdgpu_connector_lvds_get_modes,
+>  	.mode_valid = amdgpu_connector_lvds_mode_valid,
+>  	.best_encoder = amdgpu_connector_best_single_encoder,
+> +	.set_luminance = amdgpu_connector_set_luminance,
+> +	.disable_luminance = amdgpu_connector_disable_luminance,
+>  };
+>  
+>  static const struct drm_connector_funcs amdgpu_connector_lvds_funcs = {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c b/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c
+> index a1d05df0ac99b..dbff532ac1bcd 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c
+> @@ -191,6 +191,21 @@ void amdgpu_atombios_encoder_init_backlight(struct amdgpu_encoder *amdgpu_encode
+>  		goto register_acpi_backlight;
+>  	}
+>  
+> +	dig = amdgpu_encoder->enc_priv;
+> +	if (IS_ENABLED(CONFIG_DRM_LUMINANCE)) {
+> +		unsigned int brightness;
+> +
+> +		brightness = amdgpu_atombios_encoder_get_backlight_level(amdgpu_encoder);
+> +		if (drm_connector_attach_luminance_property(drm_connector, 0,
+> +							    AMDGPU_MAX_BL_LEVEL,
+> +							     brightness))
+> +			return;
+> +
+> +		dig->backlight_level = brightness;
+> +		dig->bl_dev = NULL;
+> +		return;
+> +	}
+> +
+>  	pdata = kmalloc_obj(struct amdgpu_backlight_privdata);
+>  	if (!pdata) {
+>  		DRM_ERROR("Memory allocation failed\n");
+> @@ -211,7 +226,6 @@ void amdgpu_atombios_encoder_init_backlight(struct amdgpu_encoder *amdgpu_encode
+>  
+>  	pdata->encoder = amdgpu_encoder;
+>  
+> -	dig = amdgpu_encoder->enc_priv;
+>  	dig->bl_dev = bd;
+>  
+>  	bd->props.brightness = amdgpu_atombios_encoder_get_backlight_brightness(bd);
+> @@ -2123,4 +2137,3 @@ amdgpu_atombios_encoder_get_dig_info(struct amdgpu_encoder *amdgpu_encoder)
+>  
+>  	return dig;
+>  }
+> -
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 0ea45ab12119c..53ff9a55c3a8e 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -5191,9 +5191,12 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_commit *state)
+>  		}
+>  
+>  		/* Skip any modesets/resets */
+> -		if (!acrtc || drm_atomic_crtc_needs_modeset(new_crtc_state))
+> +		if (!acrtc || !new_crtc_state ||
+> +		    drm_atomic_crtc_needs_modeset(new_crtc_state))
+>  			continue;
+>  
+> +		drm_connector_update_privacy_screen(new_con_state);
+> +
+>  		dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
+>  		dm_old_crtc_state = to_dm_crtc_state(old_crtc_state);
+>  
+> @@ -5273,8 +5276,6 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_commit *state)
+>  					    &stream_update);
+>  		mutex_unlock(&dm->dc_lock);
+>  		kfree(dummy_updates);
+> -
+> -		drm_connector_update_privacy_screen(new_con_state);
+>  	}
+>  
+>  	/**
+> @@ -5397,11 +5398,16 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_commit *state)
+>  	/* Update audio instances for each connector. */
+>  	amdgpu_dm_commit_audio(dev, state);
+>  
+> -	/* restore the backlight level */
+> -	for (i = 0; i < dm->num_of_edps; i++) {
+> -		if (dm->backlight_dev[i] &&
+> -		    (dm->actual_brightness[i] != dm->brightness[i]))
+> -			amdgpu_dm_backlight_set_level(dm, i, dm->brightness[i]);
+> +	if (IS_ENABLED(CONFIG_DRM_LUMINANCE)) {
+> +		/* Apply brightness after the display pipeline is enabled. */
+> +		drm_atomic_helper_commit_luminance_enables(state);
+> +	} else {
+> +		/* Restore the legacy backlight level. */
+> +		for (i = 0; i < dm->num_of_edps; i++) {
+> +			if (dm->backlight_dev[i] &&
+> +			    dm->actual_brightness[i] != dm->brightness[i])
+> +				amdgpu_dm_backlight_set_level(dm, i, dm->brightness[i]);
+> +		}
+>  	}
+>  
+>  	/*
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+> index 0f664c658a127..0857354e7327e 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+> @@ -41,6 +41,7 @@
+>  #include <linux/backlight.h>
+>  #include <linux/minmax.h>
+>  #include <linux/power_supply.h>
+> +#include <drm/drm_connector.h>
+>  #include <drm/drm_edid.h>
+>  #include <drm/drm_panel_quirks.h>
+>  
+> @@ -296,13 +297,17 @@ struct dc_stream_state *dm_find_stream_with_link(
+>  	struct amdgpu_display_manager *dm,
+>  	struct dc_link *link)
+>  {
+> -	struct dc_state *cur_dc_state = dm->dc->current_state;
+> +	struct dc_state *cur_dc_state;
+>  	struct dc_stream_state *stream = NULL;
+>  	int i;
+>  
+> +	if (!dm || !dm->dc || !dm->dc->current_state || !link)
+> +		return NULL;
+> +
+> +	cur_dc_state = dm->dc->current_state;
+>  	for (i = 0; i < cur_dc_state->stream_count; i++) {
+>  		stream = cur_dc_state->streams[i];
+> -		if (stream->link == link)
+> +		if (stream && stream->link == link)
+>  			return stream;
+>  	}
+>  
+> @@ -356,7 +361,7 @@ void amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
+>  
+>  	dm->brightness[bl_idx] = user_brightness;
+>  	/* update scratch register */
+> -	if (bl_idx == 0)
+> +	if (bl_idx == 0 && dm->adev && dm->adev->rmmio && dm->adev->bios_scratch_reg_offset)
+>  		amdgpu_atombios_scratch_regs_set_backlight_level(dm->adev, dm->brightness[bl_idx]);
+>  
+>  	link = (struct dc_link *)dm->backlight_link[bl_idx];
+> @@ -657,6 +662,10 @@ void amdgpu_dm_setup_backlight_device(struct amdgpu_display_manager *dm,
+>  {
+>  	struct dc_link *link = aconnector->dc_link;
+>  	int bl_idx = dm->num_of_edps;
+> +	struct backlight_properties props = { 0 };
+> +	struct amdgpu_dm_backlight_caps *caps;
+> +	struct drm_connector *connector = &aconnector->base;
+> +	int ret;
+>  
+>  	if (!(link->connector_signal & (SIGNAL_TYPE_EDP | SIGNAL_TYPE_LVDS)) ||
+>  	    link->type == dc_connection_none)
+> @@ -675,6 +684,19 @@ void amdgpu_dm_setup_backlight_device(struct amdgpu_display_manager *dm,
+>  
+>  	amdgpu_dm_update_connector_ext_caps(aconnector);
+>  
+> +	caps = &dm->backlight_caps[bl_idx];
+> +	amdgpu_dm_backlight_fill_props(caps, power_supply_is_system_supplied() > 0,
+> +				       !(amdgpu_dc_debug_mask &
+> +					 DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE),
+> +				       &props);
+> +	if (IS_ENABLED(CONFIG_DRM_LUMINANCE)) {
+> +		unsigned int max = props.max_brightness;
+> +		unsigned int value = props.brightness;
+> +
+> +		ret = drm_connector_attach_luminance_property(connector, 0, max, value);
+> +		drm_WARN_ON(adev_to_drm(dm->adev), ret);
+> +	}
+> +
+>  	/* Offer ABM property when user didn't turn off by module parameter.
+>  	 * OLED panels are included to support CACP (Content Adaptive
+>  	 * Contrast and Power) feature via set_abm_level.
+> @@ -686,6 +708,20 @@ void amdgpu_dm_setup_backlight_device(struct amdgpu_display_manager *dm,
+>  }
+>  EXPORT_IF_KUNIT(amdgpu_dm_setup_backlight_device);
+>  
+> +void amdgpu_dm_set_luminance(const struct drm_connector_state *state)
+> +{
+> +	struct amdgpu_dm_connector *aconnector =
+> +		to_amdgpu_dm_connector(state->connector);
+> +	struct amdgpu_display_manager *dm =
+> +		&drm_to_adev(state->connector->dev)->dm;
+> +
+> +	if (aconnector->bl_idx < 0)
+> +		return;
+> +
+> +	amdgpu_dm_backlight_set_level(dm, aconnector->bl_idx,
+> +				      state->luminance);
 
-Alex
+Maybe gate this set behind a comparison with old_state->luminance != state->luminance?
+Setting backlight today may trigger a self-refresh/IPS exit that won't re-enter untill
+the next vblank disable. Would be good to avoid setting the same value if possible. 
 
---0000000000000e8f73065f614643
-Content-Type: text/x-patch; charset="UTF-8"; 
-	name="0001-drm-amd-pm-defer-UCLK-DPM-on-selected-Apple-Navi-GPU.patch"
-Content-Disposition: attachment; 
-	filename="0001-drm-amd-pm-defer-UCLK-DPM-on-selected-Apple-Navi-GPU.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <f_mw0vas0f0>
-X-Attachment-Id: f_mw0vas0f0
+> +}
+> +
+>  /**
+>   * DOC: panel power savings
+>   *
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
+> index 891749322191c..859224cb37988 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
+> @@ -33,6 +33,7 @@ struct dc_stream_state;
+>  struct device;
+>  struct device_attribute;
+>  struct drm_connector;
+> +struct drm_connector_state;
+>  struct attribute_group;
+>  
+>  #define AMDGPU_DM_DEFAULT_MIN_BACKLIGHT 12
+> @@ -47,6 +48,7 @@ void amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
+>  void amdgpu_dm_register_backlight_device(struct amdgpu_dm_connector *aconnector);
+>  void amdgpu_dm_setup_backlight_device(struct amdgpu_display_manager *dm,
+>  			    struct amdgpu_dm_connector *aconnector);
+> +void amdgpu_dm_set_luminance(const struct drm_connector_state *state);
+>  void amdgpu_dm_update_connector_ext_caps(struct amdgpu_dm_connector *aconnector);
+>  bool amdgpu_dm_should_create_sysfs(struct amdgpu_dm_connector *aconnector);
+>  
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> index b498fc5fbb140..f2c2a2e730d3e 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> @@ -1944,7 +1944,8 @@ STATIC_IFN_KUNIT void amdgpu_dm_connector_destroy(struct drm_connector *connecto
+>  	}
+>  
+>  	if (aconnector->bl_idx != -1) {
+> -		backlight_device_unregister(dm->backlight_dev[aconnector->bl_idx]);
+> +		if (dm->backlight_dev[aconnector->bl_idx])
+> +			backlight_device_unregister(dm->backlight_dev[aconnector->bl_idx]);
+>  		dm->backlight_dev[aconnector->bl_idx] = NULL;
+>  	}
+>  
+> @@ -2038,7 +2039,8 @@ amdgpu_dm_connector_late_register(struct drm_connector *connector)
+>  			return r;
+>  	}
+>  
+> -	amdgpu_dm_register_backlight_device(amdgpu_dm_connector);
+> +	if (!IS_ENABLED(CONFIG_DRM_LUMINANCE))
+> +		amdgpu_dm_register_backlight_device(amdgpu_dm_connector);
 
-RnJvbSAwY2Y4YzUwMTA4NzVhMmNmMjU3NGJlMmJmYjY5MGZkODVhMGRhNzQ4IE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBBdGhhcnZhIFRpd2FyaSA8YXRoYXJ2YXRpd2FyaWxpbnV4ZGV2
-QGdtYWlsLmNvbT4KRGF0ZTogV2VkLCAxNiBTZXAgMjAyNiAxNDo0MDoxNCArMDAwMApTdWJqZWN0
-OiBbUEFUQ0hdIGRybS9hbWQvcG06IGRlZmVyIFVDTEsgRFBNIG9uIHNlbGVjdGVkIEFwcGxlIE5h
-dmkgR1BVcwpNSU1FLVZlcnNpb246IDEuMApDb250ZW50LVR5cGU6IHRleHQvcGxhaW47IGNoYXJz
-ZXQ9VVRGLTgKQ29udGVudC1UcmFuc2Zlci1FbmNvZGluZzogOGJpdAoKQXBwbGUgTmF2aSBHUFVz
-IGludGVybWl0dGVudGx5IHRpbWUgb3V0IGR1cmluZyBTTVUgaW5pdGlhbGl6YXRpb24Kd2hlbiBF
-bmFibGVBbGxTbXVGZWF0dXJlcyBpbmNsdWRlcyBVQ0xLIERQTS4gTGVhdmUgVUNMSyBvdXQgb2Yg
-dGhhdCBlYXJseQpyZXF1ZXN0IGFuZCBlbmFibGUgaXQgZnJvbSBOYXZpIHBvc3QtaW5pdCwgYWZ0
-ZXIgZGlzcGxheSBoYXJkd2FyZSBpbml0CmFuZCBiZWZvcmUgdGhlIFVNQyB3b3JrYXJvdW5kIGFu
-ZCBVTUQgY2xvY2sgc2V0dXAuCgpSZWFkIGJhY2sgdGhlIGVuYWJsZWQgZmVhdHVyZXMgYmVmb3Jl
-IHJlYnVpbGRpbmcgdGhlIG1lbW9yeSBjbG9jayB0YWJsZQphbmQgc3VzdGFpbmFibGUgY2xvY2sg
-bGltaXRzLiBBbHNvIGNoZWNrIHRoZSBQUFQgbWVtb3J5IHN0YXRlcyB1c2VkIGJ5CmRpc3BsYXkg
-aW5pdGlhbGl6YXRpb24gYmVmb3JlIGxhdGUgZW5hYmxlbWVudC4gS2VlcCBtZW1vcnktdm9sdGFn
-ZSBEUE0KYW5kIHJlc3BlY3QgdGhlIHVzZXIncyBtZW1vcnktRFBNIHNldHRpbmcgYW5kIHRoZSBz
-ZWN1cmUgTmF2aSAxMCBleGNsdXNpb24uCgpUaGlzIGJ1aWxkcyBvbiBBdGhhcnZhIFRpd2FyaSdz
-IHN1Ym1pdHRlZCAwMjE5IGRlbGF5ZWQtVUNMSyBwYXRjaAphbmQgR3VuYSdzIGRpYWdub3Npcy4g
-RWQgU2Nob2ZpZWxkIG1vdmVkIHRoZSBlbmFibGUgcG9pbnQgaW50byB0aGUKTmF2aSBjYWxsYmFj
-aywgYWRkZWQgc3RhdGUgdmFsaWRhdGlvbi4KSW5kZXBlbmRlbnQgdGVzdHMgb2YgdGhlIHJlbGF0
-ZWQgVDIgaW1wbGVtZW50YXRpb24gc3VwcG9ydCBpbXByb3ZlZCBib290CnJlbGlhYmlsaXR5IG9u
-IDAyMTkgYW5kIDAyMWE7IHRob3NlIGFyZSBub3QgdGVzdHMgb2YgdGhpcyBleGFjdCBBTUQgcGF0
-Y2guCgpMaW5rOiBodHRwczovL2xvcmUua2VybmVsLm9yZy9hbWQtZ2Z4LzIwMjYwODI0MTkwNDA5
-LjE3MjQtMS1hdGhhcnZhdGl3YXJpbGludXhkZXZAZ21haWwuY29tLwpMaW5rOiBodHRwczovL2dp
-dGh1Yi5jb20vdDJsaW51eC9saW51eC10Mi1wYXRjaGVzL3B1bGwvNjEjaXNzdWVjb21tZW50LTU2
-Mzc5NzY0NjYKTGluazogaHR0cHM6Ly9naXRodWIuY29tL3QybGludXgvbGludXgtdDItcGF0Y2hl
-cy9wdWxsLzYxI2lzc3VlY29tbWVudC01NjQ1NjUyNzUyCkNsb3NlczogaHR0cHM6Ly9naXRsYWIu
-ZnJlZWRlc2t0b3Aub3JnL2RybS9hbWQvLS93b3JrX2l0ZW1zLzYwMDUKQXNzaXN0ZWQtYnk6IENv
-ZGV4OkdQVC02CkNjOiBBbmRyw6kgRWlrbWV5ZXIgPGRldkBkZXEucm9ja3M+ClNpZ25lZC1vZmYt
-Ynk6IEF0aGFydmEgVGl3YXJpIDxhdGhhcnZhdGl3YXJpbGludXhkZXZAZ21haWwuY29tPgpDby1k
-ZXZlbG9wZWQtYnk6IEVkIFNjaG9maWVsZCA8ZWRAYWljaGFybWVycy5jb20+ClNpZ25lZC1vZmYt
-Ynk6IEVkIFNjaG9maWVsZCA8ZWRAYWljaGFybWVycy5jb20+ClNpZ25lZC1vZmYtYnk6IEFsZXgg
-RGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KLS0tCiAuLi4vZ3B1L2RybS9hbWQv
-cG0vc3dzbXUvc211MTEvbmF2aTEwX3BwdC5jICAgfCA1NCArKysrKysrKysrKysrKysrKysrCiAx
-IGZpbGUgY2hhbmdlZCwgNTQgaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvcG0vc3dzbXUvc211MTEvbmF2aTEwX3BwdC5jIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9wbS9zd3NtdS9zbXUxMS9uYXZpMTBfcHB0LmMKaW5kZXggMmQwNTA4ODYxOWY2ZC4uNjcyZDc0
-MGU3Mjg4MyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9zd3NtdS9zbXUxMS9u
-YXZpMTBfcHB0LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9zd3NtdS9zbXUxMS9uYXZp
-MTBfcHB0LmMKQEAgLTYwLDYgKzYwLDI1IEBACiAKIHN0YXRpYyBpbnQgbmF2aTEwX2luaXRfcHB0
-X2xpbWl0cyhzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSk7CiAKK3N0YXRpYyBib29sIGlzX2FzaWNf
-c2VjdXJlKHN0cnVjdCBzbXVfY29udGV4dCAqc211KTsKKworc3RhdGljIGJvb2wgbmF2aTEwX2Fw
-cGxlX25lZWRzX2xhdGVfdWNsayhzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSkKK3sKKwlzdHJ1Y3Qg
-YW1kZ3B1X2RldmljZSAqYWRldiA9IHNtdS0+YWRldjsKKwlzdHJ1Y3QgcGNpX2RldiAqcGRldiA9
-IGFkZXYtPnBkZXY7CisKKwlpZiAoIShhZGV2LT5wbS5wcF9mZWF0dXJlICYgUFBfTUNMS19EUE1f
-TUFTSykpCisJCXJldHVybiBmYWxzZTsKKworCS8qIFByZXNlcnZlIHRoZSBleGlzdGluZyBzZWN1
-cmUgTmF2aSAxMCBtZW1vcnktRFBNIGV4Y2x1c2lvbi4gKi8KKwlpZiAoaXNfYXNpY19zZWN1cmUo
-c211KSAmJgorCSAgICBhbWRncHVfaXBfdmVyc2lvbihhZGV2LCBNUDFfSFdJUCwgMCkgPT0gSVBf
-VkVSU0lPTigxMSwgMCwgMCkgJiYKKwkgICAgYWRldi0+cmV2X2lkID09IDApCisJCXJldHVybiBm
-YWxzZTsKKworCXJldHVybiBwZGV2LT5zdWJzeXN0ZW1fdmVuZG9yID09IFBDSV9WRU5ET1JfSURf
-QVBQTEU7Cit9CisKIHN0YXRpYyBjb25zdCBzdHJ1Y3Qgc211X2ZlYXR1cmVfYml0cyBuYXZpMTBf
-ZHBtX2ZlYXR1cmVzID0gewogCS5iaXRzID0gewogCQlTTVVfRkVBVFVSRV9CSVRfSU5JVChGRUFU
-VVJFX0RQTV9QUkVGRVRDSEVSX0JJVCksCkBAIC0zNTYsNiArMzc1LDExIEBAIG5hdmkxMF9pbml0
-X2FsbG93ZWRfZmVhdHVyZXMoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUpCiAJCXNtdV9mZWF0dXJl
-X2xpc3Rfc2V0X2JpdChzbXUsIFNNVV9GRUFUVVJFX0xJU1RfQUxMT1dFRCwgRkVBVFVSRV9NRU1f
-TVZERF9TQ0FMSU5HX0JJVCk7CiAJfQogCisJLyogRGVmZXIgVUNMSyBvbiB0aGUgc2VsZWN0ZWQg
-QXBwbGUgYm9hcmRzIHVudGlsIElQIGxhdGUgaW5pdC4gKi8KKwlpZiAobmF2aTEwX2FwcGxlX25l
-ZWRzX2xhdGVfdWNsayhzbXUpKQorCQlzbXVfZmVhdHVyZV9saXN0X2NsZWFyX2JpdChzbXUsIFNN
-VV9GRUFUVVJFX0xJU1RfQUxMT1dFRCwKKwkJCQkJICAgRkVBVFVSRV9EUE1fVUNMS19CSVQpOwor
-CiAJaWYgKGlzX2FzaWNfc2VjdXJlKHNtdSkgJiYKIAkgICAgKGFtZGdwdV9pcF92ZXJzaW9uKGFk
-ZXYsIE1QMV9IV0lQLCAwKSA9PSBJUF9WRVJTSU9OKDExLCAwLCAwKSkgJiYKIAkgICAgKGFkZXYt
-PnJldl9pZCA9PSAwKSkKQEAgLTMyMTksNiArMzI0MywzMCBAQCBzdGF0aWMgaW50IG5hdmkxMF9l
-bmFibGVfbWdwdV9mYW5fYm9vc3Qoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUpCiAJCQkJCSAgICAg
-ICBOVUxMKTsKIH0KIAorLyogSVAgbGF0ZSBpbml0IGZvbGxvd3MgZGlzcGxheSBod19pbml0OyBy
-ZWZyZXNoIGNsb2NrcyBiZWZvcmUgVU1DL1VNRCBzZXR1cC4gKi8KK3N0YXRpYyBpbnQgbmF2aTEw
-X2FwcGxlX2xhdGVfdWNsa19lbmFibGUoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUpCit7CisJc3Ry
-dWN0IHNtdV9mZWF0dXJlX2JpdHMgZW5hYmxlZDsKKwlpbnQgcmV0OworCisJaWYgKCFuYXZpMTBf
-YXBwbGVfbmVlZHNfbGF0ZV91Y2xrKHNtdSkpCisJCXJldHVybiAwOworCisJcmV0ID0gc211X2Nt
-bl9mZWF0dXJlX3NldF9lbmFibGVkKHNtdSwgU01VX0ZFQVRVUkVfRFBNX1VDTEtfQklULCB0cnVl
-KTsKKwlpZiAocmV0KQorCQlyZXR1cm4gcmV0OworCXJldCA9IHNtdV9jbW5fZ2V0X2VuYWJsZWRf
-bWFzayhzbXUsICZlbmFibGVkKTsKKwlpZiAocmV0KQorCQlyZXR1cm4gcmV0OworCWlmICghc211
-X2ZlYXR1cmVfYml0c19pc19zZXQoJmVuYWJsZWQsIEZFQVRVUkVfRFBNX1VDTEtfQklUKSkKKwkJ
-cmV0dXJuIC1FSU87CisKKwlzbXVfZmVhdHVyZV9saXN0X3NldF9iaXQoc211LCBTTVVfRkVBVFVS
-RV9MSVNUX1NVUFBPUlRFRCwKKwkJCQkgRkVBVFVSRV9EUE1fVUNMS19CSVQpOworCisJcmV0dXJu
-IDA7Cit9CisKIHN0YXRpYyBpbnQgbmF2aTEwX3Bvc3Rfc211X2luaXQoc3RydWN0IHNtdV9jb250
-ZXh0ICpzbXUpCiB7CiAJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBzbXUtPmFkZXY7CkBA
-IC0zMjI3LDYgKzMyNzUsMTIgQEAgc3RhdGljIGludCBuYXZpMTBfcG9zdF9zbXVfaW5pdChzdHJ1
-Y3Qgc211X2NvbnRleHQgKnNtdSkKIAlpZiAoYW1kZ3B1X3NyaW92X3ZmKGFkZXYpKQogCQlyZXR1
-cm4gMDsKIAorCXJldCA9IG5hdmkxMF9hcHBsZV9sYXRlX3VjbGtfZW5hYmxlKHNtdSk7CisJaWYg
-KHJldCkgeworCQlkZXZfZXJyKGFkZXYtPmRldiwgIkZhaWxlZCB0byBlbmFibGUgbGF0ZSBVQ0xL
-IERQTTogJWRcbiIsIHJldCk7CisJCXJldHVybiByZXQ7CisJfQorCiAJcmV0ID0gbmF2aTEwX3J1
-bl91bWNfY2RyX3dvcmthcm91bmQoc211KTsKIAlpZiAocmV0KQogCQlkZXZfZXJyKGFkZXYtPmRl
-diwgIkZhaWxlZCB0byBhcHBseSB1bWMgY2RyIHdvcmthcm91bmQhXG4iKTsKLS0gCjIuNTYuMAoK
---0000000000000e8f73065f614643--
+There are a few places that tries to restore backlight after gpu reset/modeset, depending on if dm->backlight_dev[i] exists.
+I think in those places, we might need a conditional to use drm_atomic_helper_commit_luminance_enables if DRM_LUMINANCE.
+
+- Leo
+
+>  
+>  	if ((connector->connector_type == DRM_MODE_CONNECTOR_DisplayPort) ||
+>  	    (connector->connector_type == DRM_MODE_CONNECTOR_eDP)) {
+> @@ -2701,6 +2703,7 @@ amdgpu_dm_connector_helper_funcs = {
+>  	.get_modes = get_modes,
+>  	.mode_valid = amdgpu_dm_connector_mode_valid,
+>  	.atomic_check = amdgpu_dm_connector_atomic_check,
+> +	.set_luminance = amdgpu_dm_set_luminance,
+>  };
+>  
+>  int amdgpu_dm_convert_dc_color_depth_into_bpc(enum dc_color_depth display_color_depth)
+> 
+
