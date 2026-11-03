@@ -2,101 +2,123 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F09BD606A326
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 14:30:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 991BE606D82E
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 14:31:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NFITT5d5
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=BpMICIty
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 905DD10F5E3;
-	Tue,  3 Nov 2026 14:30:52 +0000 (UTC)
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com
- [74.125.82.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0AD3E10F5E5
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Nov 2026 14:30:47 +0000 (UTC)
-Received: by mail-dy1-f178.google.com with SMTP id
- 5a478bee46e88-36a6b774d12so328159eec.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 03 Nov 2026 06:30:47 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793716246; cv=none;
- d=google.com; s=arc-20260327;
- b=CXjNhfqCNYEWFlR4SWIvxbbFvUCuaCpAGZqD4dvo7hALFw5t7rPLJ9/HOvH1TgKNf+
- xu2g1VpEDmHprzk9bH/vNKHn38PsnhzadYDjrZ5pHbLS+NN7E2350rp2nCmq3jX2TRmG
- qh3/TC7N7FsRvLIds1G6Czej2Enh2Dzl0B5kUJEkJ44xD+wa6j58r6ThSaJd/W8DXuUT
- oAngmwk/S5jIbjLpe1JcEHYMZEwUUil47FHjv/D+79PyU/SMh+n2Ug4vy/kr6fuO07GT
- RKnIbU2PpxWUvTXEc9n617tkBWzQXu7nkWEmI1Qov2006M+CSyZKCQjKeOPqdOaNRrn1
- GEeg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=/OyNH4m47qkiBrtBEXVKxPfbZI/Pm865e0NtmQba4xg=;
- fh=09rAGuKY6oA2KouUTgHQkGbExQ/ewRvzOJJfNO9lXQA=;
- b=qzFKpm34oLRGsIjhtJk3l3Y8G3qJzbbeXAtL6bphP6tFbYsxjp7qQ3je1ddZHW7rZh
- nlP/ZXXKWjRPhGEglZnMGhWsWETlLd4cIDLcPERd8s2pYVhlT+NX70m879rcmOCfE9o4
- wUioWln0e4jFN5pl4nfVvuif+ev7KSpY/oQ/20DrTcBOvDuJYVvy4VnIFgdmeIWCv5Y9
- CDzOw2qn1BJ5BoPAsFWtf6q3f/6cZW0gwtHjHOnZEy21JQcGgKwOH47awJpkd31NafOn
- u82YGWavJ57c6ROWgejJdxpkMakMxbVU2jXygnfyakeXInX4fRGhx4lHM/O08uZ7TC1F
- HfaA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793716246; x=1794321046; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=/OyNH4m47qkiBrtBEXVKxPfbZI/Pm865e0NtmQba4xg=;
- b=NFITT5d5DfgrMMdtdmPlq335LGIMtC/4PSZHttnrb4QT9/6QSXFP2/I/q2z0EP5Fqo
- +IlIUJLGtBfEq81QV/dcPwZDg83fJDxEETuSk3lY/qpQO+Bq20dZ0k9kXpTCrrNBjOTP
- XF3yQ5X8rQlf2TP3c/ZBGh3PYz0dhAsaHf6oPe1LtCDkMpF13d5vPv+9+eH//RakaQlp
- yFAYAUwUOCyCZDL//qgcVjnE9nKuV0pOkgweqRmBEGudVqzLjLkJmfuoXticoOUqO9m+
- oxc2Q5K8pLYY3m4Tk5s1e4pVLb2r5Aj4NL8zeK5GMUmuDuzbdWJQtLindgEXbeaI4Qas
- SG9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793716246; x=1794321046;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=/OyNH4m47qkiBrtBEXVKxPfbZI/Pm865e0NtmQba4xg=;
- b=R2GXcYAH34wC5zAB+hzdzQIgsFD9BcI38ZcLprxJ6f1WqW6CS+BlmONgPEIQModLk8
- /uVrwU+MmjChj8xNC6T9UXQIntV4kVGK15K/3cTuZ1cJVl7UVYc/t+B/gWHMrvme2RIa
- PcMwnpPRCyAV38cHIyx5smwy1qncjX6bZTAoKCnzzkE/piXCcmDK/oehh5DehLprnqxr
- zD0sv0J7RvQsrx/GI8hpKP82lTmj5Xy1VnQQfnZ075WGWHVvjvmf6meIN9L+GpTpU+6B
- 6T1tAB2UNXxwoGKnBgZWKwuCZsnseWbA8+pmB3zicAYId7nRy+un5A/MdvyESzLws16L
- WK/g==
-X-Forwarded-Encrypted: i=1;
- AKwUvByODf/j0/KX6zHqQAsrJPijbjwYxsZQx2dQNvIYw57ZROPx6U2Kmyhdwj7uocCUpeDHcLPFO0E1@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+vdrBs/jEyP7hFyPEPuFuKbwA0BwAeQ1052O4cEFsM5JLJ+Zbx
- juBMUc6Zys/MQvyC7bIUDwUowdaVeCfVqQ+p2V+II9jQTGZExyoay4gk+TgVaNHYn3vSakVXkZd
- qB3IcdYvtJaWk8romBVrGLh/wj0rl5X8=
-X-Gm-Gg: AYBFou208+F7bQM+cmCkKVQ03URfftnnA5sozV0PIwFWxjh75f7QKgFejrGP9//RhtO
- NdKgfQFE/jOQTFH6Z9uZZ8vUUl/eIOFiUDp5I+dCPoNZ7725vn52u59Umb00JB7PhmKHAeXOthn
- 9uUMXW8PCorKPlNk1rwUpYmyJMOBtMazr1UD0EQ0980vZX6s/NbomRLplynY+IR+mOzRnP6wmpC
- wLka9/q2+1+n8QqYFl2LFk8Sku6cvob/RHHbrbDHcEFycnZCt4x/ROTdM8IGdWlsrslBzq985j6
- bcxsDc0Rn0b0Qv8b9s/LpyOCvGiqJo9uSqx7r6NR/gCtnMSGSNGH2MJ0Bcd5S+E6fECWU+0DwSl
- EbTuAX//91LfHnUkfK8vYsfDUXOF6fiHS+Ktz/0XujgHiq4AtBr8E/oSMwyz7PNqRspfC4glKrZ
- U05FTrDpCZDh2JFqyTdyuFMnY=
-X-Received: by 2002:a05:7022:eb46:10b0:14b:edb2:c3bc with SMTP id
- a92af1059eb24-1ac4fd01362mr31568742c88.0.1793716245958; Tue, 03 Nov 2026
- 06:30:45 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3722610F5F9;
+	Tue,  3 Nov 2026 14:31:48 +0000 (UTC)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011065.outbound.protection.outlook.com
+ [40.93.194.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 37FC310F5F9
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Nov 2026 14:31:42 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JEa9ltDivAWUPIGilW7JABEhEhcXuVd6idLTYgR+hzPiizqTgWRzjpLbe12a4HmuzN8SBgvAsQZ5mdnRbmy+bVnYKjBfDd8pOo0AKGPASRz13sOqTecqzwi50k9ILyf0g9a91D1sF2IIfZA5PJqcjF6EocmFnfR9zLBg7dTaWcXiUnTegXys+7aVZOQ0+S4f1SlNH4iWt+HMa5+3yH2a2hJWQzLAeGmbd7R918fuANaOJZr+UtVV+wxa6m2W4JvQXRsRsKneU8fFijoLg2HVFH0M56A3/AFIdDPtLtVnJpO9xWuRrrNSp1yNxcZg+wj8hfnsAKu8D2kJCFcK2yIYfA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rBSrvr2PixpWCaEA6RufBXiG6zyhDyegS/mIlQrRCaE=;
+ b=Btkowbx0PeHjSVGjY9I1oOxrN4ovaDk2LT4G2Q85UW31Kh+e/sZqm/8sE/7pjqbd4q/+A4N3swMEnqHDlWcC9GRKJPKEhTz5WIVFbM1X5xU8y8fIsPdZ3CATBGF1XmqBt9wkb0QUwnddnVcF2N37tXb+wthkgZ9wplFYtXmpeo6pkWcq+RvGh/Mmg7NM0zSQAt9Fofm2okAXlgGXg48nW5KEbBqgYVaMXTfNaHT3H8atoIAyAJfxrItusC8OW2h1eyY46GlP5AYBu1xEKLY0Wyrg/ldta7pC2nOkK41OzzEwPYV27y/l1Pj3J5/NhPmZAufRJs/sFvSpndN3u4CCuQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rBSrvr2PixpWCaEA6RufBXiG6zyhDyegS/mIlQrRCaE=;
+ b=BpMICItyv03HMLhqUrG5YAWwIoj74ME0vA6a1pf99uG3tkPObpHGj4ukrt9LcAPsB6Co87wSK28mOUs9mS2mUk6e8+tCX2vyZxbS+UN5MN8laYK6I6sLjwncw3WcnWpVE9vKelLsnN3N/sI1xhR0ZbGYqfBByTQv3fXaGLagvZM=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB5039.namprd12.prod.outlook.com (2603:10b6:5:38a::18)
+ by DS0PR12MB6415.namprd12.prod.outlook.com (2603:10b6:8:cc::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
+ 2026 14:31:38 +0000
+Received: from DM4PR12MB5039.namprd12.prod.outlook.com
+ ([fe80::762:6408:ca99:701d]) by DM4PR12MB5039.namprd12.prod.outlook.com
+ ([fe80::762:6408:ca99:701d%4]) with mapi id 15.21.0569.011; Tue, 3 Nov 2026
+ 14:31:38 +0000
+Message-ID: <71c2b705-8f43-4588-af24-01d5e36538fc@amd.com>
+Date: Tue, 3 Nov 2026 20:01:32 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] gpu/buddy: find range-biased blocks in the free trees
+To: William Palacek <William.Palacek@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: christian.koenig@amd.com, kent.russell@amd.com
+References: <cover.1793108566.git.William.Palacek@amd.com>
+ <528396fd339c6d7130c896533a621a20f709bd4e.1793108566.git.William.Palacek@amd.com>
+Content-Language: en-US
+From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
+In-Reply-To: <528396fd339c6d7130c896533a621a20f709bd4e.1793108566.git.William.Palacek@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN4P287CA0130.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:c01:2b1::10) To DM4PR12MB5039.namprd12.prod.outlook.com
+ (2603:10b6:5:38a::18)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20260916144014.879355-1-ed@aicharmers.com>
- <CADnq5_MsaUDm8rcxr3_0wuEAXywxziAofOO9w-dUxYS9PUoasw@mail.gmail.com>
- <20261030123000.5573e70f@kait2en-mbp15-1>
-In-Reply-To: <20261030123000.5573e70f@kait2en-mbp15-1>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 3 Nov 2026 09:30:34 -0500
-X-Gm-Features: AclHuK_LxctmigwVoDcx69kjcX_YjAvRxU28VYR1bNj9rG5Y2V1BrN_dTiv7lGw
-Message-ID: <CADnq5_NCB6ur05ZvP0fe9hsgLHM0=y_Wx31G4vkpKH+F7yZ74g@mail.gmail.com>
-Subject: Re: [PATCH v4] drm/amd/pm: defer UCLK DPM on selected Apple Navi GPUs
-To: =?UTF-8?Q?Andr=C3=A9_Eikmeyer?= <dev@deq.rocks>
-Cc: Ed Schofield <ed@aicharmers.com>, amd-gfx@lists.freedesktop.org, 
- Kenneth Feng <kenneth.feng@amd.com>, Alex Deucher <alexander.deucher@amd.com>, 
- Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5039:EE_|DS0PR12MB6415:EE_
+X-MS-Office365-Filtering-Correlation-Id: 45b5eaf0-c459-4a4a-be7f-08df39b72b86
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|366016|376014|1800799024|261022105027099003|261021121427099003|261021123027099003|261022075727099003|261009223027099003|261026140227099003|261026121527099003|261028144727099003|4143699003|11063799006|56012099006|22082099003|261102123227099003|6133799003|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 3PMuuEknhhXwvY8yadb8eK4BCIvxq5xw0LPLzSehkGkkK9mJC/5Nsp0z0/TWIBansmhap+EGz0vK5VOxGHErRF7P03CW4dBjC2xwjDZw1cyrvC6mjflQ0qd5SYZ56fjjVXYQ1xloorqXqQJYUhwty2KGjhn1PnE//L8n/FZZm8dW3zLG3DCkoYRgquIMWKoGjPYbZA25ZWxaIqYXWITqHuNib2PhQYRuDKMrUJffkcWItdcdxhaAgaXh9GZK58rTNhShMtNRlYGY5HEVnNpj6KkNNVzND748Ens4ltQD75aJbkvDQZbjwtuZ0lg3Tp8+lxxPEhm3M9RvI+v+r4UgoT4lFMqgF0mm3rwJ+KRuTjD1wvg/rFFxRlGY+X2RYS47khidgyBP+VgXT29tCgAwVneW4KGYnv/eWO9WSjUG1exDlcjmiwvFm8fNxyHq1FEez+usDBgcJJYR8YMMjomN5gWTOm/DVtERc5AOrqSHrSkpPBwV3sZAbE9XBKU2FucMttR62TzR7uyRhY1B103QLzBDf7FqPQ+c157nSg8Oe1toEPFOd6wd5YfsIgG92+cqr3uIxc8vZwG4ueNowS6/jK71XaE0xfkyReYsZfxFeHt/HR/u3RqHT93Cw6aNL8Y6Wf3osahwBSoM3BFs0czYGaGC3Zol0ZoGeDNXHyfSrfg=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5039.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(261022105027099003)(261021121427099003)(261021123027099003)(261022075727099003)(261009223027099003)(261026140227099003)(261026121527099003)(261028144727099003)(4143699003)(11063799006)(56012099006)(22082099003)(261102123227099003)(6133799003)(10067099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dVRuejhTMHo4OXJyTGcxMWZWb25lUm9rZDJFZEsramVrYUgrK2pqanR2OHk4?=
+ =?utf-8?B?blpyaTBHMlBQSzdLL0t0dk00UVNISkFEVy92TUFobVNES1R4MXhQeDBaamJD?=
+ =?utf-8?B?bVBkZ3RnUTU5OCtOdUVaOXFRbXRWOENOTGkvY0JmYXVGWHBtVDZIQ1R5WTFh?=
+ =?utf-8?B?emRBVmpJT1JUTkVpRDRCUHNGNGdiZkhFaXZKUjlKeVIxdTlScXM0dWtVWHRx?=
+ =?utf-8?B?b3QvQ2ovNTI0ZTNudFU5MHg2MW1VdXB0TGdDYU1JK3A4bDZmWGY4VGMzeTVl?=
+ =?utf-8?B?NWFJVjNuQU1Sa0tGTVc5Z1VDM3hFMU1HRG1VS0t2U0lqU0xwQ1VJTlRpVWJl?=
+ =?utf-8?B?TEJ6cmo3TDlKZnc2OFFMQUhnVlFDOEY4Q0xIbjNFZHA5WWh5Zlhsc3dlWTdS?=
+ =?utf-8?B?MXh6ZjJCYStXZkJGM2ZrK2U2aDQ2UmFicVlGZWJXQ0pwTTZqOE1rdDRMbjdI?=
+ =?utf-8?B?ZUEwNlRwL0NsaXRXQk9reEFjTzZtdzFOQ2U5cnMwVTdyRmJ6S2JtMEhkUVY5?=
+ =?utf-8?B?bEhiWVlLLzdiRkw2NTdrSjhIak1VNG8yUncyVGJ6M3h1Y0NyZnFDZVB2TnR1?=
+ =?utf-8?B?WGp1UzNxUWZFU1lSRGhQQjkxQXV4QkdOOFBScEdCWTBWekJjYzJ0ajlFT3Fz?=
+ =?utf-8?B?RHBWOXFGRDcrNC9lZGtOT3R1UGUzRm43TWo1aE5LWXdMYkdIQUoxeGxhd244?=
+ =?utf-8?B?aHBBL0lYWjRUaE5xVW90WDQ2MzJrQTZ5SVlUaDVJVXp5YWZIUEhnV0t2SFBz?=
+ =?utf-8?B?NTE5anZtZ0o4bWxtUWJma3l3cDJmSE4xVlZsYW43Q1NZK3NiSzAxWnUvengz?=
+ =?utf-8?B?K1pCZGwxZ0p1TnJDd3VWbXdvOGIzcThpSzFXQktld0RnWk5KSlpjQ3ZWcmc3?=
+ =?utf-8?B?MU5zMEJKNklKazZ0b0FTYURNM1p2L2oxelZmN1Y5TmI1M2h2dnYxdFQ4ZmM5?=
+ =?utf-8?B?cXkzWGY1cHYxREhlV0pWdktwcjRMb0JTdDdtRUh2WG43c2E5S2pJWm9rNE8r?=
+ =?utf-8?B?S0ZyVmdzWm5QNDVQWnBnTGNkTG5Yb3BCR2ZodGxnMUhuN1JjVGx1NlFaL3Rh?=
+ =?utf-8?B?NHhEdjN5eEV0ZE9QR3crWEpwT3F2TUlZWHV2aDE1SHBPRXNMNysvY1I1L0gr?=
+ =?utf-8?B?WHYwTEdFby9ud1EreFAwR3FRelFtb0w5YnZuc3RtUFR1M0txaU1Ja1pDTGVz?=
+ =?utf-8?B?U2Zzb2FsOTA1ZXFKUnFGVkFpK2E2N2hmOURYRHJBNmZRUGt1QkppYm13dzlW?=
+ =?utf-8?B?QXZWYjVhbk8xVFJQY3RrQmpvSk9hOEppK0RneXpmRkt4YlJZWjBNY1I5eHdD?=
+ =?utf-8?B?UVNrQTdlZ1NFb1V4ckt5VnY3akhnd2NXVks3UnEwUUVNZzdrR1Zqb3E3cnlU?=
+ =?utf-8?B?QndDY3RHUlplKy83enBlckZVNy85UCs3QXpxcURnN2o2eWd2SmJheHNUNWpr?=
+ =?utf-8?B?Tm84WHdOWDFDTzVTc0Ftb2tTZ3J0QXJaSUduR0s4YTRhcTh4TktjQUFleTZv?=
+ =?utf-8?B?R1F6ZHRVQUNFVElsVldBaVdNUzM1ZjliVE1zeCtJOGttTlVyMUYzc1dUa1pG?=
+ =?utf-8?B?aWQ3eng1QTF2a1YyVTZLdkQ5eGwwUXlmRm0vM0w2a3Z2UkllMThoNldpUXFq?=
+ =?utf-8?B?eXhiVlVQVmtmWVA5VE5KTlV0YXJoMlVmNlY2WWRxUXA2QmJCSGJmTDFZMnVa?=
+ =?utf-8?B?RHFXWkNsTms0UGphRDlJTEZiT0FQR0o3alZXS1dPMURlN3hEYlA5Mk9aa3ZO?=
+ =?utf-8?B?NHlyclh6ZnhPSVk5VlpGakF1RVFUQzlSQjcyWXMxQkdUb2VUenlOQzZWMTFl?=
+ =?utf-8?B?QjB6UVdWOExQYlRpNFpuajBxdkdJNi9ONExIcjdKQUNwNXVGM0V2RWx0OUY1?=
+ =?utf-8?B?TVg2dE4vY3ZqTWR2a1pyWTR6dENxUy81VFVYMm0xSnZLc0lRQU93SVFSRURr?=
+ =?utf-8?B?NUVGeDg1bmNqZkxpQzhtYnErOFpCVzcrV1ZLNmpSNE5yYkFDMnZrTFVFTU52?=
+ =?utf-8?B?alZxM2s4L01Rd21aRDBENHhjdlU0b1ZPSDBXVVVnd0N1QjdYYUw5NTk1WldN?=
+ =?utf-8?B?WENyRVlCbVdFK2RXQlNXdkRqR0Zqam5HUWtHdDdCeUZRUGpKMGxzVVhSQm1j?=
+ =?utf-8?B?aDZXUVVKbmNxZmNnR1BSc2dUT3QwZi96dlBCT0R4N095T3FjYW52TkZwVVlo?=
+ =?utf-8?B?bklzM053RE9GM0RsY3VtaVBqbU43cGk4aENzZFZpcnVWeXN4elc5NWtzVjJi?=
+ =?utf-8?B?M2lEY0JZM3ZaUmlCMVBNYmhYUXBtckdaTUtXbGNMcjl0c2dBblI5cVJ4YkRU?=
+ =?utf-8?B?eHZzMy9JTHhldUxmR3E1K1lQYk1tQ05ZNjlKZGY2Tm5kbXFQSEdzdz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 45b5eaf0-c459-4a4a-be7f-08df39b72b86
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5039.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 14:31:38.5118 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: M2UdWh8IxG5SXpCW0llV3TQxe48kn6Ug9bQafPu5vxA0y0tmUSvMuyo7anpoInu4zureuyiI6gNNMsH6tOVlpw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6415
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,51 +129,130 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri, Oct 30, 2026 at 7:30=E2=80=AFAM Andr=C3=A9 Eikmeyer <dev@deq.rocks>=
- wrote:
->
-> On Thu, 29 Oct 2026 17:57:49 -0400
-> Alex Deucher <alexdeucher@gmail.com> wrote:
->
-> > @Andre Eikmeyer I think this patch should fix your system as well.
->
-> Hi Alex,
->
-> I guess you have seen it already but the patch doesn't match the 16,1.
-> Its boards are 7340/020f and 7340/0210, and v4 only matches 0218, 0219
-> and 021a.
->
-> That hang is what I sent a fix for
-> https://lore.kernel.org/all/20261024162109.307247-1-dev@deq.rocks/
->
-> The VBIOS trains the UMC p-states at different frequencies the pp-table
-> lists. The SMU hangs as soon as UCLK switches into level 2. Deferring
-> the UCLK enable doesn't change the levels, so the hang just moves from
-> boot to later under load.
->
 
-It is the same issue.  I don't want two fixes for the same issue. I
-just sent an updated version of this patch expanded to cover more
-macs.
 
-Alex
+On 10/27/2026 7:49 PM, William Palacek wrote:
+> __gpu_buddy_alloc_range_bias() walks the block tree from the roots and
+> visits every split block overlapping [start, end) until it finds a
+> suitable free block, so a range-restricted allocation costs time linear
+> in the number of live allocations in the range.
+>
+> amdgpu pays this on every VRAM allocation when memory is partitioned
+> (NPS2/NPS4): each BO, including the page-table BOs created when memory
+> is mapped, is restricted to its partition's range, and KFD requests
+> cleared VRAM. On MI300X in CPX/NPS4 the compute partitions that share a
+> memory partition also share the VRAM manager lock, so the walk is
+> serialised across processes. hipMalloc latency grows linearly with the
+> number of live allocations, and vLLM piecewise graph capture slows down
+> with every captured graph.
+>
+> The free trees are already sorted by offset. For each order from the
+> requested one up, look up the lowest free block at or above start,
+> preferred tree first. If it lies wholly inside the range, run the
+> existing walk restricted to that block's extent: it only visits the
+> block's ancestors and keeps the existing split and error handling. The
+> full-range walk remains for space that is only available in blocks
+> straddling the range edges.
+>
+> Behaviour notes:
+> - the smallest order is tried first, lowest offset within an order;
+> - a free block of the other clear state inside the range is preferred
+>    over an edge-straddling block of the requested state, as the existing
+>    fallback pass already accepts either state;
+> - when no free block lies wholly inside the range (range nearly full),
+>    the linear walk still runs.
+>
+> Filling 1 GiB of a 4 GiB manager with 64 KiB range-biased allocations
+> that request cleared memory takes about 1 s and 268M block visits
+> before, 2 ms and 410K visits after.
+> On MI300X CPX/NPS4, 8000 live 2 MiB hipMalloc allocations: median
+> latency of the last 800 over the first 800 is 6.2x before, 1.04x after.
+> vLLM piecewise graph capture of a 70B model with tensor parallelism 64:
+> 57 s for the second graph rising to 113 s for the 17th before, a flat
+> 5-6 s per graph after.
+This targets the old dual-tree layout. We will need an upstream-first 
+version on the new drm-next design (single free_tree  +  
+subtree_block_state ), then backport that to 10.3.
+Please send the upstream version to the drm and Intel mailing lists and 
+Cc Matthew Auld from Intel as well.
+>
+> Signed-off-by: William Palacek <William.Palacek@amd.com>
+> ---
+>   drivers/gpu/buddy.c | 36 ++++++++++++++++++++++++++++++++++++
+>   1 file changed, 36 insertions(+)
+>
+> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+> index a5553fcec28c..3a1fbafe42dc 100644
+> --- a/drivers/gpu/buddy.c
+> +++ b/drivers/gpu/buddy.c
+> @@ -120,6 +120,12 @@ rbtree_last_free_block(struct rb_root *root)
+>   	return rbtree_get_free_block(rb_last(root));
+>   }
+>   
+> +/* rb_find_first() with this returns the lowest free block at or above *start. */
+> +static int rbtree_offset_below_cmp(const void *start, const struct rb_node *node)
+> +{
+> +	return gpu_buddy_block_offset(rbtree_get_free_block(node)) < *(const u64 *)start;
+> +}
+> +
+>   static bool rbtree_is_empty(struct rb_root *root)
+>   {
+>   	return RB_EMPTY_ROOT(root);
+> @@ -846,9 +852,39 @@ __gpu_buddy_alloc_range_bias(struct gpu_buddy *mm,
+>   			     unsigned int order,
+>   			     unsigned long flags)
+>   {
+> +	enum gpu_buddy_free_tree tree = (flags & GPU_BUDDY_CLEAR_ALLOCATION) ?
+> +		GPU_BUDDY_CLEAR_TREE : GPU_BUDDY_DIRTY_TREE;
+>   	struct gpu_buddy_block *block;
+>   	bool fallback = false;
+> +	u64 bstart, bend;
+> +	unsigned int i;
+> +	int pass;
+> +
+> +	/*
+> +	 * Walking [start, end) visits every split block in it, linear in the
+> +	 * live allocations. Instead take the lowest free block wholly inside
+> +	 * the range from the offset-sorted free trees, preferred tree first;
+> +	 * the walk restricted to that block only visits its ancestors.
+> +	 */
+> +	for (pass = 0; pass < GPU_BUDDY_MAX_FREE_TREES; pass++) {
+> +		for (i = order; i <= mm->max_order; i++) {
+> +			block = rbtree_get_free_block(rb_find_first(&start,
+> +								    &mm->free_trees[tree][i],
+> +								    rbtree_offset_below_cmp));
+The fast path always picks the lowest-offset block and ignores 
+GPU_BUDDY_TOPDOWN_ALLOCATION , while the existing walk returns the 
+right-most block.
+So range + topdown would silently flip placement to bottom-most. Since 
+that flag combo comes from the client requests, could the fast path 
+search from the high end when TOPDOWN is set?
 
-> The two patches can coexist after a trivial rebase.
->
-> > ...your system...
->
-> I need to clarify here. I actually don't own a 16,1. But I maintain a
-> distro (KaiT2en) that specializes on T2 Macs. So the patches I develop
-> are extensively tested by the community before submitting. Atharwa is
-> part of this community. Ed is not, but Atharwa reviewed and tested the
-> code.
->
-> Best,
-> Andre
+Regards,
+Arun.
+> +			if (!block)
+> +				continue;
+> +
+> +			bstart = gpu_buddy_block_offset(block);
+> +			bend = bstart + gpu_buddy_block_size(mm, block);
+> +			if (bend <= end)
+> +				return __alloc_range_bias(mm, bstart, bend, order,
+> +							  flags, true);
+> +		}
+> +		tree = (tree == GPU_BUDDY_CLEAR_TREE) ?
+> +			GPU_BUDDY_DIRTY_TREE : GPU_BUDDY_CLEAR_TREE;
+> +	}
+>   
+> +	/* Only space in blocks straddling the range edges is left. */
+>   	block = __alloc_range_bias(mm, start, end, order,
+>   				   flags, fallback);
+>   	if (IS_ERR(block))
+
