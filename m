@@ -2,51 +2,100 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF09D606A32D
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 12:38:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 471AB606A329
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 12:57:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=VAuY6gqx
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=RtsLkgGE
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 874CA10F55F;
-	Tue,  3 Nov 2026 12:38:42 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A7E2C10F55F
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Nov 2026 12:38:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=OtlWmlHV7MMxELT5iswz8Ziag00ZQ0bXWdPnzqz3v+k=; t=1793709515; x=2109069515; 
- b=VAuY6gqx1YQhKz2a/d4qIPzgwmwToyaSR1Q0xwA7wyvb6U8Ahh6irpKQ/5fiet8nFYLswZ8T3uB
- 8oqHzmAmgGAviyYQmWNtawzlohTJV6kb/PWn3Ca5PFk3JDdLR+6EkrUXD9QuqJyANGBtwp6X7aJ7U
- sHsoD1QlKwVy4CgNDc5uE0lRLYXM2QLTe4NZBxm0uXEA1XZKfkJvKak48EyZlFiyGMmvkHgvHHeOr
- K1dY3WxOjzMrCQcSO69BlCWXFT6y6jRw/N1Rg4JWQSFFwzwMIfwudr+wkS8h9KN7AFs3CVvBdW9+5
- SoNyAiADj1k0Ic+w1KrpVpP/4xhWb0aLHp6A==;
-Received: from [81.79.79.1] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1xODmb-001DJK-Hc; Tue, 03 Nov 2026 13:38:33 +0100
-Message-ID: <3cad32b6-d773-4185-a0d9-248cc8a43088@igalia.com>
-Date: Tue, 3 Nov 2026 12:38:32 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id D4E4D10E153;
+	Tue,  3 Nov 2026 12:56:55 +0000 (UTC)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012022.outbound.protection.outlook.com [52.101.48.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 655D210E153;
+ Tue,  3 Nov 2026 12:56:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wBShtWc1hau1NUCXZyBOJsRFIdGBoEcs+z9RYRcxtSaTIEtlNdFbrsa8eTWkVTI5e7lzjR7d06QagtHTuZxSphV4uBr+SdMfyQ45eROomB6mSbLztmnGtkMG24NWct3/X9p5vhJx4m3YqyBuCZFfHmcUd53rA/clmHWdwjphROOEQvC+v+OYsj5C89JGHuXb9ZxWAkOZMYPing2ivdW5Kzrc4140oaYY/hb0I3uYE5kBwGnnLZhzdeV/7PZk78bU2GywWDZ2AoHDxoowVc4//gBYXRq07rBqasL1Dx36PPfiSwOItvpb51cU0hJNKJ5wjEbCzBqu3jOJ2tn0lmufOQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1N7Ajixe5dTJ5KD0RLgFpkfzM1LR6I/jARTKRhkPgms=;
+ b=cJyPO/mEjHccIoZFCiNaE3RcsOHy94OB/YU8DCVDAWqej+XxddOTNPAmxb3fC03gLbc+GRilmhhpXfiI4iADerrMLY/VOlzj7qjDO0c8NNQhKvFUbuCz2Wpu2HyoMxC9nEUGR8clgJsPE0qL5gs+EsHNHnW5yhCTTBnRojcgYERx0BgzcAICw638jehFyzj4HcEyyV0nHnz2fnHXA3GiGvhDFAL1HBsOjuCFQZVwIQ1XFXV1xP9IDEUJPRIXtBXJnfFG7nC1YgINDp+8jB6ZuP6ur348KiXHWY2JBjQDQRbi/EpW5oat/Qhfr5DPelWleMjTPTbglgrt7QiomtxVHg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1N7Ajixe5dTJ5KD0RLgFpkfzM1LR6I/jARTKRhkPgms=;
+ b=RtsLkgGEachbkW/iisyd+XJ43Qmmj7VFZEqSJuxYeBakh0G9oTiLEXEW2a1c0g0cHsf3+Uld/oMN+Q/35CbiPZ5LjEwBkysAcNrUTYj78WyA+IhHQ0M1sjhb377RJfVyvT+3xO+SzGEFpXiL044R3CAwTXEA1wPoQUV3IYIc9ks=
+Received: from PH7P221CA0034.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:33c::11)
+ by SN7PR12MB6713.namprd12.prod.outlook.com (2603:10b6:806:273::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
+ 2026 12:56:44 +0000
+Received: from SJ5PEPF000001CC.namprd05.prod.outlook.com
+ (2603:10b6:510:33c:cafe::3c) by PH7P221CA0034.outlook.office365.com
+ (2603:10b6:510:33c::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.8 via Frontend Transport; Tue, 3
+ Nov 2026 12:56:43 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ5PEPF000001CC.mail.protection.outlook.com (10.167.242.41) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.5 via Frontend Transport; Tue, 3 Nov 2026 12:56:43 +0000
+Received: from rtg-System-Product-Name.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.53; Tue, 3 Nov 2026 06:56:39 -0600
+From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
+To: <matthew.auld@intel.com>, <dri-devel@lists.freedesktop.org>,
+ <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <amd-gfx@lists.freedesktop.org>
+CC: <christian.koenig@amd.com>, <alexander.deucher@amd.com>,
+ <Anand.Raghavendra@amd.com>, Arunpravin Paneer Selvam
+ <Arunpravin.PaneerSelvam@amd.com>
+Subject: [PATCH v3] gpu/buddy: restore two-pass clear/dirty guard for
+ range-biased allocation
+Date: Tue, 3 Nov 2026 18:26:17 +0530
+Message-ID: <20261103125617.2480786-1-arunpravin.paneerselvam@amd.com>
+X-Mailer: git-send-email 2.43.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 5/7] drm/amdgpu: Add a new ioctl for listing client
- contexts
-To: "Francis, David" <David.Francis@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "kernel-dev@igalia.com" <kernel-dev@igalia.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>,
- Alex Deucher <alexdeucher@gmail.com>,
- "Kuehling, Felix" <Felix.Kuehling@amd.com>
-References: <20261019130159.11739-1-tvrtko.ursulin@igalia.com>
- <20261019130159.11739-6-tvrtko.ursulin@igalia.com>
- <CHAPR12MB99924785371BD43E9F3652DB28EF6F2@CHAPR12MB999247.namprd12.prod.outlook.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <CHAPR12MB99924785371BD43E9F3652DB28EF6F2@CHAPR12MB999247.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CC:EE_|SN7PR12MB6713:EE_
+X-MS-Office365-Filtering-Correlation-Id: ee0d8490-ab92-452d-0af0-08df39a9e949
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|82310400026|376014|36860700016|23010399003|18002099003|56012099006|261009223027099003|261102123227099003|261022105027099003|261022075727099003|261021121427099003|261021123027099003|11063799006|10067099003|261026121527099003|261028144727099003|261026140227099003;
+X-Microsoft-Antispam-Message-Info: J5LQbbc6OAZGn7RnJ0p4SeWw49v4iLfJ1sKWSdg8zeckH/t2+IKjCnoP3f2zgLP1jPh+35QJ7SIHLn3m2vzppGAW+/rSa+Qyas31BwCykGQROQVgFD315WyiyeYtG2RdIoI9QTBwXwPeRorlRVQP83g1sL7AZ2EeqxmVOzexrBwLLdd36ESuYNhCDuOQ6sEnGz/w25PuikRdF6CBDhrK9mVjMJM1eh93WOeDwzA4FzMJW/1RVx9Bfe9SKCx7/JjQA42yJndB07lJ6bmtVOB84TXtfO1Rt907W6jfzJuqUXvDu57757R5yOaHX+RnndiPPFIBSF0Y55SBqKuW1OFuufFg9pqi72/0poIInjokt+CTt+5602+hLGIShbeBgBiFfLQmjd6ovwGM3KR9ny2Mslp9D9/YV0CNjULYtjXo9DCH5MupGLECUWKemyLO+srqtQgszMHg+rfpL95ljLMN3eqpt63BqrSvQVrIGVWYhGcZlj2t0cTxfPQ8T+dRvxcLh4USr13jErMB+UItKnpd788oGEJ7EaXyMbmvw65YkXjmRAxBYOB3QHnlb2GI56SQe22pCKY03euAscNCy9m11bAdGXGB0XzOE3CETteD7kItNryXW2XtelLUjYcQUdt6rI6k9SRHcGEYz1nOaSjdJpOm1kg1R6jjgfscDAtx2nxsPi5x9xVYmND2X6oaXckS/RPHG0kgvSgeUOkyX7LXAg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016)(23010399003)(18002099003)(56012099006)(261009223027099003)(261102123227099003)(261022105027099003)(261022075727099003)(261021121427099003)(261021123027099003)(11063799006)(10067099003)(261026121527099003)(261028144727099003)(261026140227099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: W+fTIbhHPZKFsWclYiVPnTXGM3QBNbDokISS4kUOvImOO/HjDOIMK0vTPGAAMMAHt7kQv0qVHOyKuIx1iQK+IVQceHHXW+SGi9bPWTi80GU/Lk+48D2xYQJ2EGcEzUpRbY5oQSi2jKQgDucOcDEsBHgenCq2bCjBStRRW9ReV5sfhNTpLUSMyDSlM1T6p8IBvC8Ysjm80uJ3WGpBXVCXC+P2lK4dGgGeAieah68R5qDPLZkfvIh0dy0UZgbynxMlXPkwYdXfJfG+M9hmjojKXx+/C//Oks7nAAMicVP0eiKNtd3H3SSOpu08DYxUP0ONShTwgMIAvO1GIy5JSds794RnBOc1tdYEZ1RG+wpZGNpGXa/z2/C1Ud03ZR6h1XJeOaRXBcgi0Zk+yyMJlncvsO3hao4UTxlUT6vFw0FyUCP/C65ba05dNlH1T2FYaCas
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 12:56:43.4745 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ee0d8490-ab92-452d-0af0-08df39a9e949
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001CC.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6713
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,294 +106,288 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
 
-On 28/10/2026 18:48, Francis, David wrote:
->> +       xa_lock(&mgr->ctx_handles);
->> +       xa_for_each(&mgr->ctx_handles, id, ctx) {
->> +               struct drm_amdgpu_gem_list_contexts_entry *context;
->> +               enum amd_dpm_forced_level level;
->> +
->> +               if (idx >= num) {
->> +                       ret = -EAGAIN;
->> +                       break;
->> +               }
->> +
->> +               kref_get(&ctx->refcount);
->> +               xa_unlock(&mgr->ctx_handles);
-> 
-> xa_for_each take the read-side xa lock, so not sure if these xa_lock and
-> xa_unlock calls do anything.
+Range-restricted allocations (the visible-VRAM aperture) skip
+dirty_steer_window() and reach __alloc_range_bias() with no clear/dirty
+eligibility guard, so a dirty allocation freely splits clear extents (and
+vice versa), interleaving the two classes until no large same-class run
+survives and a 4K scanout pin fails with -ENOSPC. Use a two-pass range
+search instead: block_incompatible() rejects opposite-class blocks in the
+strict pass and relaxes only when the strict pass returns -ENOSPC, so a
+request still succeeds when only opposite-class space remains. A KUnit
+regression test covers the interleaving pattern and fails without the
+guard.
 
-It's for grabbing the reference safely should userspace try and destroy 
-the context from a parallel thread.
+v2: the strict pass can split a block and then reject both children, so
+    a split no longer implies a compatible block exists. Sashiko reported
+    the resulting leaked splits; fix as suggested by Matthew:
+ - Push the parent back on the DFS stack after each split and merge it
+   back with unsplit_block() if both children are still free.
+ - Make block_incompatible() judge free blocks only (split nodes keep a
+   stale clear bit) and take the requested order, so mixed blocks that
+   can hold a compatible block are descended instead of skipped.
+ - Extend the KUnit test with a coalesced mixed block and a check that
+   a rejected split is merged back.
 
->> +       if (!ret)
->> +               if (copy_to_user(u64_to_user_ptr(args->contexts), contexts,
->> +                                num * sizeof(*contexts)))
->> +                       ret = -EFAULT;
-> 
-> Should be idx, not num, right?
-> 
->>   #define DRM_AMDGPU_GEM_LIST_HANDLES     0x19
->>   #define DRM_AMDGPU_PROC_OPTIONS         0x1A
->>   #define DRM_AMDGPU_UALINK_HANDLE        0x1B
->> +#define DRM_AMDGPU_GEM_LIST_CONTEXTS   0x1C
-> 
-> Might be my e-mail client, but the number of spaces here looks like it doesn't line
-> up to me. If it looks right to you with 8-space tabs it probably is.
+v3: igt@kms_plane@plane-panning-bottom-right failed on Radeon RX 9070 XT
+    with -ENOSPC: the range allocator's strict pass split mixed blocks to
+    look for a wholly-clear (or wholly-dirty) leaf, discarded the mixed
+    leaves it found, and ran unsplit_block to merge the splits back, whose
+    per-allocation cost and residual fragmentation starved the large
+    pipe-A scanout. Fix: accept a mixed block at the requested order as-is
+    (caller re-clears), so the first pass no longer splits and discards
+    mixed blocks. This clear/dirty compatibility relaxation applies only
+    to range-biased allocation, where keeping blocks intact reduces
+    fragmentation and preserves large contiguous spaces. The now-unneeded
+    unsplit_block helper is dropped.
 
-It's a single tab on my end, and in the original patch on the mailing 
-list. Perhaps even Exchange server playing whitespace games on your end?
+Fixes: 1ad5e807f716 ("gpu/buddy: replace dual-tree/force_merge with decoupled dirty tracker")
+Assisted-by: LLM
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Christian König <christian.koenig@amd.com>
+Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+---
+ drivers/gpu/buddy.c                | 75 +++++++++++++-------------
+ drivers/gpu/tests/gpu_buddy_test.c | 84 ++++++++++++++++++++++++++++++
+ 2 files changed, 122 insertions(+), 37 deletions(-)
 
->> +struct drm_amdgpu_gem_list_contexts_entry {
->> +       /* gem context handle */
->> +       __u32 handle;
->> +
->> +       /* AMDGPU_GEM_LIST_CONTEXTS_FLAG_* */
->> +       __u32 flags;
-> 
-> Should probably note that there aren't any of these at the moment
+diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+index 28cff97d57dc..f2914f919b04 100644
+--- a/drivers/gpu/buddy.c
++++ b/drivers/gpu/buddy.c
+@@ -1240,11 +1240,23 @@ static void __gpu_buddy_undo_splits(struct gpu_buddy *mm,
+ 	}
+ }
+ 
++static bool block_incompatible(struct gpu_buddy_block *block, unsigned int flags)
++{
++	bool needs_clear = flags & GPU_BUDDY_CLEAR_ALLOCATION;
++
++	if (!gpu_buddy_block_is_free(block))
++		return false;
++
++	return needs_clear ? !block->has_clear :
++			     gpu_buddy_block_is_clear(block);
++}
++
+ static struct gpu_buddy_block *
+ __alloc_range_bias(struct gpu_buddy *mm,
+ 		   u64 start, u64 end,
+ 		   unsigned int order,
+-		   unsigned long flags)
++		   unsigned long flags,
++		   bool fallback)
+ {
+ 	u64 req_size = mm->chunk_size << order;
+ 	struct gpu_buddy_block *block;
+@@ -1258,9 +1270,7 @@ __alloc_range_bias(struct gpu_buddy *mm,
+ 	 * This range-constrained search hands back the highest/right-most
+ 	 * address that satisfies the request: the roots are seeded high-to-low
+ 	 * and the right (higher-address) child is descended first, making
+-	 * top-down the default placement here. A non-top-down clear request is
+-	 * the only exception, where the descent is biased towards clear or
+-	 * clear-containing subtrees to satisfy the clear preference.
++	 * top-down the default placement here.
+ 	 */
+ 	for (i = mm->n_roots - 1; i >= 0; --i)
+ 		list_add_tail(&mm->roots[i]->tmp_link, &dfs);
+@@ -1298,6 +1308,9 @@ __alloc_range_bias(struct gpu_buddy *mm,
+ 				continue;
+ 		}
+ 
++		if (!fallback && block_incompatible(block, flags))
++			continue;
++
+ 		if (contains(start, end, block_start, block_end) &&
+ 		    order == gpu_buddy_block_order(block)) {
+ 			/*
+@@ -1315,38 +1328,8 @@ __alloc_range_bias(struct gpu_buddy *mm,
+ 				goto err_undo;
+ 		}
+ 
+-		/*
+-		 * Top-down is a strict address-placement policy, so when it is
+-		 * requested we ignore clear steering and simply descend the
+-		 * right (higher-address) child first. Only a non-top-down clear
+-		 * request biases the descent towards clear/has_clear subtrees.
+-		 */
+-		if ((flags & GPU_BUDDY_CLEAR_ALLOCATION) &&
+-		    !(flags & GPU_BUDDY_TOPDOWN_ALLOCATION)) {
+-			struct gpu_buddy_block *prefer;
+-
+-			if (gpu_buddy_block_is_clear(block->right))
+-				prefer = block->right;
+-			else if (gpu_buddy_block_is_clear(block->left))
+-				prefer = block->left;
+-			else if (block->right->has_clear)
+-				prefer = block->right;
+-			else if (block->left->has_clear)
+-				prefer = block->left;
+-			else
+-				prefer = block->right;
+-
+-			if (prefer == block->right) {
+-				list_add(&block->left->tmp_link, &dfs);
+-				list_add(&block->right->tmp_link, &dfs);
+-			} else {
+-				list_add(&block->right->tmp_link, &dfs);
+-				list_add(&block->left->tmp_link, &dfs);
+-			}
+-		} else {
+-			list_add(&block->left->tmp_link, &dfs);
+-			list_add(&block->right->tmp_link, &dfs);
+-		}
++		list_add(&block->left->tmp_link, &dfs);
++		list_add(&block->right->tmp_link, &dfs);
+ 	} while (1);
+ 
+ 	return ERR_PTR(-ENOSPC);
+@@ -1361,6 +1344,24 @@ __alloc_range_bias(struct gpu_buddy *mm,
+ 	return ERR_PTR(err);
+ }
+ 
++static struct gpu_buddy_block *
++__gpu_buddy_alloc_range_bias(struct gpu_buddy *mm,
++			     u64 start, u64 end,
++			     unsigned int order,
++			     unsigned long flags)
++{
++	struct gpu_buddy_block *block;
++	bool fallback = false;
++
++	block = __alloc_range_bias(mm, start, end, order,
++				   flags, fallback);
++	if (IS_ERR(block))
++		return __alloc_range_bias(mm, start, end, order,
++					  flags, !fallback);
++
++	return block;
++}
++
+ /* Return the highest-address free block of at least @order. */
+ static struct gpu_buddy_block *
+ get_maxblock(struct gpu_buddy *mm,
+@@ -1924,7 +1925,7 @@ __gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
+ 
+ 	if (flags & GPU_BUDDY_RANGE_ALLOCATION) {
+ 		/* Allocate traversing within the range */
+-		block = __alloc_range_bias(mm, start, end, order, flags);
++		block = __gpu_buddy_alloc_range_bias(mm, start, end, order, flags);
+ 		if (!IS_ERR(block) || !steered)
+ 			return block;
+ 
+diff --git a/drivers/gpu/tests/gpu_buddy_test.c b/drivers/gpu/tests/gpu_buddy_test.c
+index 2c6f1da1a6d1..9aaca2fc6a02 100644
+--- a/drivers/gpu/tests/gpu_buddy_test.c
++++ b/drivers/gpu/tests/gpu_buddy_test.c
+@@ -1606,6 +1606,89 @@ static int gpu_buddy_suite_init(struct kunit_suite *suite)
+ 	return 0;
+ }
+ 
++static void gpu_test_buddy_alloc_range_clear_guard(struct kunit *test)
++{
++	const unsigned long chunk = SZ_1M, mm_size = SZ_4M;
++	struct gpu_buddy_block *block;
++	LIST_HEAD(low_dirty);
++	LIST_HEAD(high_a);
++	LIST_HEAD(high_b);
++	LIST_HEAD(barrier);
++	LIST_HEAD(dirty_res);
++	LIST_HEAD(clear_res);
++	struct gpu_buddy mm;
++
++	KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_init(&mm, mm_size, chunk),
++			       "buddy_init failed\n");
++
++	/*
++	 * Idea is to lay out a range allocation as a low dirty block, an
++	 * allocated barrier, and a high naturally-aligned clear extent, then
++	 * issue a dirty range allocation. It must take the low dirty block and
++	 * leave the clear extent intact; if it instead cuts the clear extent,
++	 * a following same-class clear allocation can no longer find a
++	 * contiguous clear run and fails with -ENOSPC.
++	 *
++	 *   [0,  1M)   dirty free
++	 *   [1M, 2M)   allocated  (barrier, keeps the halves un-mergeable)
++	 *   [2M, 4M)   clear free (one naturally aligned 2 MiB extent)
++	 */
++	KUNIT_ASSERT_FALSE_MSG(test,
++			       gpu_buddy_alloc_blocks(&mm, 0, chunk, chunk, chunk,
++						      &low_dirty, GPU_BUDDY_RANGE_ALLOCATION),
++			       "alloc [0, 1M) failed\n");
++	KUNIT_ASSERT_FALSE_MSG(test,
++			       gpu_buddy_alloc_blocks(&mm, chunk, 2 * chunk, chunk, chunk,
++						      &barrier, GPU_BUDDY_RANGE_ALLOCATION),
++			       "alloc [1M, 2M) failed\n");
++	KUNIT_ASSERT_FALSE_MSG(test,
++			       gpu_buddy_alloc_blocks(&mm, 2 * chunk, 3 * chunk, chunk, chunk,
++						      &high_a, GPU_BUDDY_RANGE_ALLOCATION),
++			       "alloc [2M, 3M) failed\n");
++	KUNIT_ASSERT_FALSE_MSG(test,
++			       gpu_buddy_alloc_blocks(&mm, 3 * chunk, 4 * chunk, chunk, chunk,
++						      &high_b, GPU_BUDDY_RANGE_ALLOCATION),
++			       "alloc [3M, 4M) failed\n");
++
++	/* [2M, 4M) coalesces into one aligned clear extent; [0, 1M) stays dirty. */
++	gpu_buddy_free_list(&mm, &low_dirty, 0);
++	gpu_buddy_free_list(&mm, &high_a, GPU_BUDDY_CLEARED);
++	gpu_buddy_free_list(&mm, &high_b, GPU_BUDDY_CLEARED);
++
++	/* Dirty 1 MiB range alloc: must land at [0, 1M), not cut the clear extent. */
++	KUNIT_ASSERT_FALSE_MSG(test,
++			       gpu_buddy_alloc_blocks(&mm, 0, mm_size, chunk, chunk,
++						      &dirty_res, GPU_BUDDY_RANGE_ALLOCATION),
++			       "dirty range alloc failed\n");
++	block = list_first_entry(&dirty_res, struct gpu_buddy_block, link);
++	KUNIT_EXPECT_FALSE_MSG(test, gpu_buddy_block_is_clear(block),
++			       "dirty range alloc cut the clear extent (offset=%llx)\n",
++			       gpu_buddy_block_offset(block));
++	KUNIT_EXPECT_EQ(test, gpu_buddy_block_offset(block), 0ULL);
++
++	/*
++	 * The 2 MiB clear extent must still be intact: a clear order-1 range
++	 * allocation has to succeed. Without the guard the extent was cut
++	 * above and this returns -ENOSPC.
++	 */
++	KUNIT_EXPECT_FALSE_MSG(test,
++			       gpu_buddy_alloc_blocks(&mm, 0, mm_size, 2 * chunk, 2 * chunk,
++						      &clear_res,
++						      GPU_BUDDY_RANGE_ALLOCATION |
++						      GPU_BUDDY_CLEAR_ALLOCATION),
++			       "clear 2M range alloc failed: clear extent was fragmented (-ENOSPC)\n");
++	if (!list_empty(&clear_res)) {
++		block = list_first_entry(&clear_res, struct gpu_buddy_block, link);
++		KUNIT_EXPECT_TRUE(test, gpu_buddy_block_is_clear(block));
++		KUNIT_EXPECT_EQ(test, gpu_buddy_block_offset(block), (u64)(2 * chunk));
++	}
++
++	gpu_buddy_free_list(&mm, &clear_res, GPU_BUDDY_CLEARED);
++	gpu_buddy_free_list(&mm, &dirty_res, 0);
++	gpu_buddy_free_list(&mm, &barrier, 0);
++	gpu_buddy_fini(&mm);
++}
++
+ static struct kunit_case gpu_buddy_tests[] = {
+ 	KUNIT_CASE(gpu_test_buddy_alloc_limit),
+ 	KUNIT_CASE(gpu_test_buddy_alloc_optimistic),
+@@ -1615,6 +1698,7 @@ static struct kunit_case gpu_buddy_tests[] = {
+ 	KUNIT_CASE(gpu_test_buddy_alloc_clear),
+ 	KUNIT_CASE(gpu_test_buddy_alloc_range),
+ 	KUNIT_CASE(gpu_test_buddy_alloc_range_bias),
++	KUNIT_CASE(gpu_test_buddy_alloc_range_clear_guard),
+ 	KUNIT_CASE_SLOW(gpu_test_buddy_fragmentation_performance),
+ 	KUNIT_CASE_SLOW(gpu_test_buddy_dirty_tracker_performance),
+ 	KUNIT_CASE(gpu_test_buddy_alloc_exceeds_max_order),
 
-Hmm what was I thinking here.. Probably struct drm_amdgpu_ctx_in.flags 
-and not AMDGPU_GEM_LIST_CONTEXTS_FLAG_*. But you are right, there aren't 
-any of those currently. Can I adjust kerneldoc to point to struct 
-drm_amdgpu_ctx_in->flags.flags? I can send a separate patch which 
-documents there are none up there.
-
-Regards,
-
-Tvrtko
-
-> ________________________________________
-> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Sent: Monday, October 19, 2026 9:01 AM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: kernel-dev@igalia.com; Francis, David; Koenig, Christian; Alex Deucher; Kuehling, Felix; Tvrtko Ursulin
-> Subject: [PATCH v4 5/7] drm/amdgpu: Add a new ioctl for listing client contexts
-> 
-> Similar in principle to DRM_IOCTL_AMDGPU_GEM_LIST_HANDLES, we need a new
-> ioctl to list any contexts created by the client.
-> 
-> Lets add it as DRM_IOCTL_AMDGPU_GEM_LIST_CONTEXTS, and the respective uapi
-> data structures.
-> 
-> Structures contain all information required to re-create the context,
-> modulo the handle id replication, which will be handled in a following
-> patch.
-> 
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 102 ++++++++++++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |   3 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h |   2 +
->   include/uapi/drm/amdgpu_drm.h           |  31 +++++++
->   4 files changed, 137 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-> index 2f0349233695..5eb156d72db9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-> @@ -723,6 +723,108 @@ int amdgpu_ctx_ioctl(struct drm_device *dev, void *data,
->          return r;
->   }
-> 
-> +/**
-> + * amdgpu_gem_list_contexts_ioctl - get information about clients contexts
-> + *
-> + * @dev: drm device pointer
-> + * @data: drm_amdgpu_gem_list_handles
-> + * @filp: drm file pointer
-> + *
-> + * Returns:
-> + * 0 for success, -errno for errors.
-> + */
-> +int amdgpu_gem_list_contexts_ioctl(struct drm_device *dev, void *data,
-> +                                  struct drm_file *filp)
-> +{
-> +       struct drm_amdgpu_gem_list_contexts *args = data;
-> +       struct drm_amdgpu_gem_list_contexts_entry *contexts;
-> +       struct amdgpu_fpriv *fpriv = filp->driver_priv;
-> +       struct amdgpu_ctx_mgr *mgr = &fpriv->ctx_mgr;
-> +       struct amdgpu_device *adev = mgr->adev;
-> +       unsigned long id, idx = 0, num = 0;
-> +       struct amdgpu_ctx *ctx;
-> +       int ret = 0;
-> +
-> +       if (args->padding)
-> +               return -EINVAL;
-> +
-> +       xa_for_each(&mgr->ctx_handles, id, ctx)
-> +               num++;
-> +
-> +       if (num == 0 || args->num_contexts < num) {
-> +               args->num_contexts = num;
-> +               return 0;
-> +       }
-> +
-> +       contexts = kvzalloc_objs(*contexts, num);
-> +       if (!contexts)
-> +               return -ENOMEM;
-> +
-> +       xa_lock(&mgr->ctx_handles);
-> +       xa_for_each(&mgr->ctx_handles, id, ctx) {
-> +               struct drm_amdgpu_gem_list_contexts_entry *context;
-> +               enum amd_dpm_forced_level level;
-> +
-> +               if (idx >= num) {
-> +                       ret = -EAGAIN;
-> +                       break;
-> +               }
-> +
-> +               kref_get(&ctx->refcount);
-> +               xa_unlock(&mgr->ctx_handles);
-> +
-> +               context = &contexts[idx];
-> +
-> +               context->handle = id;
-> +               context->init_priority = ctx->init_priority;
-> +               context->override_priority = ctx->override_priority;
-> +
-> +               mutex_lock(&adev->pm.stable_pstate_ctx_lock);
-> +               if (ctx == adev->pm.stable_pstate_ctx) {
-> +                       level = amdgpu_dpm_get_performance_level(adev);
-> +
-> +                       switch (level) {
-> +                       case AMD_DPM_FORCED_LEVEL_AUTO:
-> +                               context->pstate_flags = AMDGPU_CTX_STABLE_PSTATE_NONE;
-> +                               break;
-> +                       case AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD:
-> +                               context->pstate_flags = AMDGPU_CTX_STABLE_PSTATE_STANDARD;
-> +                               break;
-> +                       case AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK:
-> +                               context->pstate_flags = AMDGPU_CTX_STABLE_PSTATE_MIN_SCLK;
-> +                               break;
-> +                       case AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK:
-> +                               context->pstate_flags = AMDGPU_CTX_STABLE_PSTATE_MIN_MCLK;
-> +                               break;
-> +                       case AMD_DPM_FORCED_LEVEL_PROFILE_PEAK:
-> +                               context->pstate_flags = AMDGPU_CTX_STABLE_PSTATE_PEAK;
-> +                               break;
-> +                       default:
-> +                               ret = -EIO;
-> +                               break;
-> +                       };
-> +
-> +               }
-> +               mutex_unlock(&adev->pm.stable_pstate_ctx_lock);
-> +
-> +               idx++;
-> +               amdgpu_ctx_put(ctx);
-> +               xa_lock(&mgr->ctx_handles);
-> +       }
-> +       xa_unlock(&mgr->ctx_handles);
-> +
-> +       args->num_contexts = idx;
-> +
-> +       if (!ret)
-> +               if (copy_to_user(u64_to_user_ptr(args->contexts), contexts,
-> +                                num * sizeof(*contexts)))
-> +                       ret = -EFAULT;
-> +
-> +       kvfree(contexts);
-> +
-> +       return ret;
-> +}
-> +
->   struct amdgpu_ctx *amdgpu_ctx_get(struct amdgpu_fpriv *fpriv, uint32_t id)
->   {
->          struct amdgpu_ctx *ctx;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index ab6f9131ac11..79d57659d748 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -3139,7 +3139,8 @@ const struct drm_ioctl_desc amdgpu_ioctls_kms[] = {
->          DRM_IOCTL_DEF_DRV(AMDGPU_USERQ_WAIT, amdgpu_userq_wait_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
->          DRM_IOCTL_DEF_DRV(AMDGPU_GEM_LIST_HANDLES, amdgpu_gem_list_handles_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
->          DRM_IOCTL_DEF_DRV(AMDGPU_PROC_OPTIONS, amdgpu_proc_options_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
-> -       DRM_IOCTL_DEF_DRV(AMDGPU_UALINK_HANDLE, amdgpu_gem_ualink_handle_ioctl, DRM_AUTH|DRM_RENDER_ALLOW)
-> +       DRM_IOCTL_DEF_DRV(AMDGPU_UALINK_HANDLE, amdgpu_gem_ualink_handle_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
-> +       DRM_IOCTL_DEF_DRV(AMDGPU_GEM_LIST_CONTEXTS, amdgpu_gem_list_contexts_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
->   };
-> 
->   static const struct drm_driver amdgpu_kms_driver = {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
-> index b558336bc4c6..0e17d9fc665f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
-> @@ -69,6 +69,8 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev, void *data,
->                          struct drm_file *filp);
->   int amdgpu_gem_list_handles_ioctl(struct drm_device *dev, void *data,
->                                    struct drm_file *filp);
-> +int amdgpu_gem_list_contexts_ioctl(struct drm_device *dev, void *data,
-> +                                  struct drm_file *filp);
-> 
->   int amdgpu_gem_metadata_ioctl(struct drm_device *dev, void *data,
->                                  struct drm_file *filp);
-> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-> index 7620d6acfa0a..7f7aae3c2498 100644
-> --- a/include/uapi/drm/amdgpu_drm.h
-> +++ b/include/uapi/drm/amdgpu_drm.h
-> @@ -60,6 +60,7 @@ extern "C" {
->   #define DRM_AMDGPU_GEM_LIST_HANDLES    0x19
->   #define DRM_AMDGPU_PROC_OPTIONS                0x1A
->   #define DRM_AMDGPU_UALINK_HANDLE       0x1B
-> +#define DRM_AMDGPU_GEM_LIST_CONTEXTS   0x1C
-> 
->   #define DRM_IOCTL_AMDGPU_GEM_CREATE    DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
->   #define DRM_IOCTL_AMDGPU_GEM_MMAP      DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
-> @@ -83,6 +84,7 @@ extern "C" {
->   #define DRM_IOCTL_AMDGPU_GEM_LIST_HANDLES DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_LIST_HANDLES, struct drm_amdgpu_gem_list_handles)
->   #define DRM_IOCTL_AMDGPU_PROC_OPTIONS  DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_PROC_OPTIONS, struct drm_amdgpu_proc_options)
->   #define DRM_IOCTL_AMDGPU_UALINK_HANDLE DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_UALINK_HANDLE, union drm_amdgpu_ualink_handle)
-> +#define DRM_IOCTL_AMDGPU_GEM_LIST_CONTEXTS DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_LIST_CONTEXTS, struct drm_amdgpu_gem_list_contexts)
-> 
->   /**
->    * DOC: memory domains
-> @@ -888,6 +890,35 @@ struct drm_amdgpu_gem_list_handles_entry {
->          };
->   };
-> 
-> +struct drm_amdgpu_gem_list_contexts {
-> +       /* User pointer to array of drm_amdgpu_gem_list_contexts_entry */
-> +       __u64 contexts;
-> +
-> +       /* Size of the contexts buffer / Number of contexts in the client (if larger than size of buffer, must retry) */
-> +       __u32 num_contexts;
-> +
-> +       __u32 padding;
-> +};
-> +
-> +struct drm_amdgpu_gem_list_contexts_entry {
-> +       /* gem context handle */
-> +       __u32 handle;
-> +
-> +       /* AMDGPU_GEM_LIST_CONTEXTS_FLAG_* */
-> +       __u32 flags;
-> +
-> +       /* context initial priority */
-> +       __s32 init_priority;
-> +
-> +       /* context override priority */
-> +       __s32 override_priority;
-> +
-> +       /* pstate flags */
-> +       __u32 pstate_flags;
-> +
-> +       __u32 padding;
-> +};
-> +
->   #define AMDGPU_VA_OP_MAP                       1
->   #define AMDGPU_VA_OP_UNMAP                     2
->   #define AMDGPU_VA_OP_CLEAR                     3
-> --
-> 2.56.0
-> 
+base-commit: 6f7098738fff3ec7393f924343188cb8e6ebc5d2
+-- 
+2.43.0
 
