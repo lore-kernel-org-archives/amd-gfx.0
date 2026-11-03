@@ -2,61 +2,62 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4B16606A333
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 11:12:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C700606A332
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 11:12:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=YnV4thnu
+	dkim=pass (2048-bit key, unprotected) header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=IkVau6ia
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 15B6D10FB6A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 142F410FB7A;
 	Wed,  4 Nov 2026 11:12:33 +0000 (UTC)
 Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA0EB10E862;
- Wed,  4 Nov 2026 08:18:32 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org
- [IPv6:2001:67c:2050:b231:465::2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 94C9110F6FF
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Nov 2026 16:31:30 +0000 (UTC)
+Received: from smtp1.mailbox.org (smtp1.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
- by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jKJH968FszMm4v;
- Wed, 04 Nov 2026 09:18:29 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1793780309; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jJvGS2FSvzMlJ5;
+ Tue, 03 Nov 2026 17:31:28 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
+ t=1793723488;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=V7dDBAzV3mcLjs6XCIA+U1la/+cXsiOiJ/OxebKRP7k=;
- b=YnV4thnuEW3PAFCubKZxrgnv2WVq6Snr17C6oCPkZylvXsSeHgDonb8QhccRHYrbqohzzq
- xvstCn4AkHff7cfVZonKCpNz7+aOSHNimGs0XzWwZqePhOV+LthR9AiqcVuejKG6OS7SN4
- oC/eqGnniokUpgTDVeVNhPUGVE0ZNOHRm/EUToZrOY0vv6LfOl8kNcAPWNB7X/1Ma2y7ke
- MqYXMwisCl1bjq+S0JlpVB+um1aCmvIr+5Ke5yzc8l63+W/rfIRBMK28ui+3ayNm5PcU6N
- 9rzeT/X96jb8PkxvGAxJE1c2C9GItxdtNCPaFLYO6Iz4ZkWFKFm1/K5D+qZIWQ==
-Message-ID: <6e9a32c633eec28b9d5e539b9e35c00a26ea5bd4.camel@mailbox.org>
-Subject: Re: [PATCH v2 2/2] drm/sched: Adjust run-queue when changing
- priority at runtime
-From: Philipp Stanner <phasta@mailbox.org>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, phasta@kernel.org, 
- dri-devel@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com, Christian
- =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Danilo Krummrich
- <dakr@kernel.org>, Matthew Brost	 <matthew.brost@intel.com>,
- stable@vger.kernel.org
-Date: Wed, 04 Nov 2026 09:18:25 +0100
-In-Reply-To: <dd6e0f86-67e8-40c0-bf8a-1948623d0646@igalia.com>
-References: <20261021094227.48034-1-tvrtko.ursulin@igalia.com>
- <20261021094227.48034-3-tvrtko.ursulin@igalia.com>
- <84b5777a04dc75c013eb9ac0a44d972cf88db12e.camel@mailbox.org>
- <6e113935-f303-4f49-bc27-e1d85abffa70@igalia.com>
- <72cba5d23a977185696db12ac547174708652bcc.camel@mailbox.org>
- <dd6e0f86-67e8-40c0-bf8a-1948623d0646@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+ bh=i2FCQmEXZxDKQqcnu9pkHrDLOEfTmGF5gpWGt15wdhI=;
+ b=IkVau6iaXCOx1Pj3Y0sI6A3/NUf3Himyi+zzjI3uo/BdJmVYWN4KV/lRsw24HhO1UX0iLn
+ hbjdD6GCQ/CJ1J7RMR/PgE05/WOS1BIhiok+MOIi+rF3E+WNuD3we4ZjlfkgZKWe7uVkI2
+ XFcriqIzYAdSSfs8vh52tawz3hhwFN4Zm6mmEu83mlDdDeiPB2wlTiWFjH0a/RJakW2D5R
+ /k6hmayIIFc6Vd1oPASEvaB8l9/fJwXCgkdq08DKUPbKh/IPAXIzHplG3ScwQQE2dMQ3TC
+ SDCSavXYFyKOzJhZyH4k17A5mb0pM9uqI+lNO0Om+4mwOiLCODK02xE44PvfwQ==
+Authentication-Results: outgoing_mbo_mout; dkim=none;
+ spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates
+ 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=hugo@hsal.es
+From: Hugo Sales <hugo@hsal.es>
+To: alexander.deucher@amd.com, sunpeng.li@amd.com, harry.wentland@amd.com,
+ siqueira@igalia.com, amd-gfx@lists.freedesktop.org
+Subject: [PATCH RFC RFT 2/8] drm/amd/display: Interpolate between backlight
+ LUT entries
+Date: Tue,  3 Nov 2026 16:31:16 +0000
+Message-ID: <20261103-backlight-curve-rfc-v1-2-6e4813a8f2eb@hsal.es>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261103-backlight-curve-rfc-v1-0-6e4813a8f2eb@hsal.es>
+References: <20261103-backlight-curve-rfc-v1-0-6e4813a8f2eb@hsal.es>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-META: 9mcgfcds44eaidqu4m9i6i84qznefcqg
-X-MBO-RS-ID: 77aceeb30479762a143
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3956; i=hugo@hsal.es;
+ h=from:subject:message-id; bh=ZSz/RMblfQ0zJlVinD3vgNgodrBoJz7mNpa5XoTpSXU=;
+ b=owJ4nJvAy8zAJVbLU7f+5A3TBYyn1ZIYsl7xRL1dtzwqReOLy8lXF20XvvQvtDuVk+Vbs2JL0
+ umWFQf7nu3pKGVhEONikBVTZNG94cnAMnHyzJyi50tg5rAygQxh4OIUgIkEXWT4Z+imfsGnWEuW
+ z+C73OQ/vRPMT4nGf5faUd6sKR+1xGpdFiPDtqDC16yRK5TW7WGdc/NFiMX3jKTeTlVHc5E1vJO
+ 4RbcxAAA5pEjS
+X-Developer-Key: i=hugo@hsal.es; a=openpgp;
+ fpr=193D095149CF7E8737B39064D912B0DB205A91C1
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 4jJvGS2FSvzMlJ5
 X-Mailman-Approved-At: Wed, 04 Nov 2026 11:12:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,35 +68,105 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, 2026-11-03 at 16:03 +0000, Tvrtko Ursulin wrote:
-> I'd like to get the fixes in so I can mentally focus on the continuation=
-=20
-> of the bigger story. Not least that not fixing it causes sashiko to flag=
-=20
-> the bugs, either when touching the neighbouring code, or possibly even=
-=20
-> just the logical functionality.
+backlight_millipercent_to_pwm_legacy() takes the floor index into
+backlight_lut, which has one entry per percent of luminance. Any request
+between two whole percents gets the PWM of the lower one, so a PWM panel
+has at most 101 brightness levels however fine the request is
 
+Interpolate linearly between the entries on each side of the request.
+Whole percents still give the LUT entry. The result never decreases as
+the request grows, since validate_ext_backlight_caps() only accepts a
+curve whose signals and luminances strictly increase, so the LUT never
+decreases either. The linear curve bypass and the 100% case are
+unchanged
 
-Fine by me, no major objections :)
+Signed-off-by: Hugo Sales <hugo@hsal.es>
+---
+amdgpu_dm only hands the power module whole percents until patch 4, so
+on its own this patch changes no PWM for it. Coming first keeps patch 4
+from dropping a level to the whole percent below
 
-The only thing that makes me a bit uneasy is
-drm_sched_entity_set_priority()'s semantic. I know it's only used by
-amdgpu, but nevertheless the reader might be tempted to think it should
-only change the priority of an entity within a runqueue.
-Could you add some sort of code or doc comment hinting at there being a
-TODO for the future rework? Good to have that in case any of us is
-assigned to work on different projects in 2 months.
+With patch 4 too, on the GV301QH curve with minimum 12, the 62452 levels
+from user_min to user_max reach the panel as 57821 different PWM values.
+Without the series they give 99, and patch 4 without this patch would
+give 100. The bottom tenth of the scale goes from 18 PWM values to 5434
 
+BACKLIGHT_MILLIPERCENT_MAX is defined at the top of power_abm.c as
+100 * 1000. mod_power_create() sets num_backlight_levels to at least
+101 and allocates backlight_lut with that many entries, and nothing
+changes it afterwards, so index + 1 stays within the LUT. The function
+still returns early with fewer than 2 levels, as
+backlight_pwm_to_millipercent_legacy() already does
 
-Greetings
-P.
+KUnit: dm_test_pwm_lut_between_percents, dm_test_pwm_lut_monotonic and
+dm_test_pwm_lut_min_input_signal from patch 6 fail without this patch
+and pass with it
+---
+ .../gpu/drm/amd/display/modules/power/power_abm.c  | 29 ++++++++++++++++++----
+ 1 file changed, 24 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/modules/power/power_abm.c b/drivers/gpu/drm/amd/display/modules/power/power_abm.c
+index 5e86889eaa841..d9c1f1401b604 100644
+--- a/drivers/gpu/drm/amd/display/modules/power/power_abm.c
++++ b/drivers/gpu/drm/amd/display/modules/power/power_abm.c
+@@ -524,6 +524,9 @@ static unsigned int backlight_millipercent_to_pwm_legacy(
+ {
+ 	unsigned int pwm = (unsigned int)-1;
+ 	unsigned int index = 0;
++	unsigned int lower, upper;
++	unsigned long long scaled;
++	unsigned int remainder;
+ 
+ 	if (core_power == NULL)
+ 		return 0;
+@@ -541,17 +544,33 @@ static unsigned int backlight_millipercent_to_pwm_legacy(
+ 		return pwm;
+ 	}
+ 
+-	if (millipercent >= (100 * 1000))
++	if (millipercent >= BACKLIGHT_MILLIPERCENT_MAX)
+ 		return core_power->bl_prop[inst].backlight_lut[core_power->bl_prop[inst].num_backlight_levels - 1];
+ 
+-	/* This will give the floor index. */
+-	index = ((core_power->bl_prop[inst].num_backlight_levels - 1) *
+-						millipercent) / 100000;
+ 	/* Null check otherwise eDP doesn't lightup when connected to DP1 */
+ 	if (core_power->bl_prop[inst].backlight_lut == NULL)
+ 		return pwm;
+ 
+-	pwm = core_power->bl_prop[inst].backlight_lut[index];
++	if (core_power->bl_prop[inst].num_backlight_levels < 2)
++		return pwm;
++
++	/*
++	 * Interpolate between the two LUT entries around millipercent.
++	 * backlight_lut has num_backlight_levels entries, and millipercent is
++	 * below BACKLIGHT_MILLIPERCENT_MAX here, so index + 1 stays within it
++	 */
++	scaled = (unsigned long long)(core_power->bl_prop[inst].num_backlight_levels - 1) *
++		 millipercent;
++	index = (unsigned int)div_u64_rem(scaled, BACKLIGHT_MILLIPERCENT_MAX, &remainder);
++	lower = core_power->bl_prop[inst].backlight_lut[index];
++	upper = core_power->bl_prop[inst].backlight_lut[index + 1];
++
++	if (upper <= lower)
++		return lower;
++
++	pwm = lower + (unsigned int)div_u64((unsigned long long)(upper - lower) * remainder +
++					    BACKLIGHT_MILLIPERCENT_MAX / 2,
++					    BACKLIGHT_MILLIPERCENT_MAX);
+ 
+ 	return pwm;
+ }
+
+-- 
+2.56.0
+
