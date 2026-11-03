@@ -2,79 +2,78 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32A9B606EE98
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 20:37:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17438606A31B
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 20:39:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XDcvkTtD
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ijJaLywg
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BEC6A10F82D;
-	Tue,  3 Nov 2026 20:37:47 +0000 (UTC)
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
- [209.85.221.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0272F10F825
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Nov 2026 20:37:41 +0000 (UTC)
-Received: by mail-wr1-f42.google.com with SMTP id
- ffacd0b85a97d-48b042c0728so1832f8f.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 03 Nov 2026 12:37:41 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E9FF10F825;
+	Tue,  3 Nov 2026 20:39:05 +0000 (UTC)
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 724A010F825
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Nov 2026 20:38:59 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-4a35ac4475dso33540025e9.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 03 Nov 2026 12:38:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793738260; x=1794343060; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1793738338; x=1794343138; darn=lists.freedesktop.org;
  h=mime-version:user-agent:content-transfer-encoding:content-type
  :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
  :cc:subject:date:message-id:reply-to:content-type;
- bh=i2wVP+UfPvp6WiBhLPo/XrAjuc9P7Sjh+wPdjhJSh6Q=;
- b=XDcvkTtDP/Kk20bixQF/zp6OCvKfDrIEzvLgpZcdLMl3QjGstRZxmPJSBs0ZAc+ija
- GO5aAVTkYVdGC9921tlc5DHDV5iTK/HzofvQwlijp/pOZ/ChI+WxzK8IYyTwGXjQfYat
- JV+EB8Km74OayLqUivDx2tKZywyV0yuxC9XdMgQ39xZ+EfEt1KsBgVb/+IGwAOA6xQzt
- ANYF8GC2Nk3gfwkFXIRfJlaPKijWptr5KoMIG+WmsY+4b6NgSi9kRe3y+UwkZsKD/SLf
- +NKchlN9RT7QC77PEjmVmTua4DsMuUOykejeyKfUklRY17lXwTLZ2wVDG0p5uixUKcEb
- RlMg==
+ bh=P/j1eo49jZRvJQJEyvbp0ZFPMjoz6SFc/JkYiwUaVi0=;
+ b=ijJaLywgWPOn6sHV0hMX5/jnUnpgYBUEBbg0tfO9lnEa6pahHGmYB5Ayx2deo4V5mz
+ lZWsMLSTzFL83R6Zt1C518ECS82HcxIdfkn0HesKNKuOUrsXLAgLP9GBF+aGZ9OEfb8M
+ o3RebH6w38NOUIbWEfWVTt9VikLp3HPz1wbT+tF1oRzjVF97WS/KuAjOFJwsB5uKSSYE
+ Dya5/+UcN3niJkIIRhaUPuBZRyasa/WOb5Og0nWQwH1mdMXo99PqmYOY9d2gcAE2xu/v
+ ZQ+TTfSMx8h4b8oA4T0bGGjD+tyV6gP/sAZQMbz1WePL0bTnYA6eU3bnDqt0b//uvNWp
+ HefQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793738260; x=1794343060;
+ d=1e100.net; s=20260707; t=1793738338; x=1794343138;
  h=mime-version:user-agent:content-transfer-encoding:content-type
  :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=i2wVP+UfPvp6WiBhLPo/XrAjuc9P7Sjh+wPdjhJSh6Q=;
- b=zhNloYBu16tszF6P/cuztnQQA0QsCi0jNLHmAKmh2clHhr/x9c4j26BxKsZE6cmh3Q
- MSRdVgAFkYkuBLvMGzy4NUSlBbY8Krt9YKXB3RDSkwE9WlKWQ/TEDXfD1jmnl/uE+6WA
- t6+0TBY15R5/ni855eTZ0rkbtAt29aiFFdbSZ2TRQBTmps/aP9rOFCi/uF/OzPXnuzO/
- ims20Tm5lf+0/Ac1uAT0fGR8Uwin4jSdNcaXb3pyZsSqNoIMUYIZ/YZLxXN8MbaKaQiL
- UKi6MatA38D9n54LB72ewzkjJORQUwE3S6aXy+vP8n6C6YIV2H0xeWlOdhKwzpOXZgg0
- DYYw==
+ bh=P/j1eo49jZRvJQJEyvbp0ZFPMjoz6SFc/JkYiwUaVi0=;
+ b=LY+9i03AWDkMZgFW/hOQmhn4EtmznpTOTxZFM6V3ziRHJO3MQZSkpuNw/oomwt+6T2
+ DfXzn7vTsAXGEnHa/P/hoB9jMZVYi7pJ59d/CMhhMiQ6UlV17ndcNOl/13kpCHJuoAWV
+ Z227v5DznQhV+v42YeKwt281sScbT+b3sg5+fPEaW+lHEtsqKpsBHbbcXVzTYcsI7J5p
+ 50vKORoXmLIImV7sHU177OLywjDl9hu7ctMZO0FfOPLtIDvZ7+yjFs602XYBlYB3elhS
+ VGxIClrryzf6Sj6BPNgW/0z9acvkvCSD01GwkZpZAt41ypkmw1aaSrWNXrPYhopmUxDv
+ XzYg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBypSeH5iu9NKJoNMUsv6YnsHlIcTtTLiYgB+OoekZfVqVXfFuhzdW52ztIyiPc3fjRlHZNi91d4@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9d0uv7b5YIJil5P8bXL2vMOoc+k1Of14ArRvuQIiEiJh43fDt0
- 3hAjCLjS4KLBKW3DYbkCHdx2ZddW5Q1ZLu+6Tq2YdUVLKIlruPaQTC6O
-X-Gm-Gg: AYBFou0bHHApStLuQxGQ6w2gSnVrWOAkHSRUqZ7hylTKPw16Jx85zZcKPB03Wx4nuIv
- VPUHxeIA22sFZbNNIup6qNZQVP9+IH8kvKseUHOJUBxmL7UKTgZCwb/0JuIwOUXWHYR5UovWRS1
- f8/Ie6S87kWjQerrpfDYdhb4Cf+wR7lIiptax7azW0p6lgNxeVPR95y0waIJSWE5Vl2zGcQBThM
- a/jtFF4Dnm4nqVxPZpotES2eMqVnSor/EDemv2wGrZpA6HqHXe/28+f4ZAZj/0jhqMombKaivCV
- +52fPMZlMONLH46qXiXh0aItOkrbxRhlucHuSMPNQD6Ok+xP1D0C0tRyQ8I4mN+1K2c83+dNhOy
- +ax8dWE9sh8min4QA/x8Y4+YCwjJu166VhxnV5viz/dELPCYbd/RG56ZVCNjuFP3VS2Jn/ep6s/
- b19xcgS89fKGtPRundsNsXkYM6Xo82SvCZkKIAgzHT+azepANK582VV7pkkXLHSEbHBqrspro11
- Dpd1V0TYSevOUQKS97awRX9vDR8mu/6YnMwBBnk1dWzWlY0CZhYo7ZSma3H9N3nW+CsyWuztvx4
- mey3KTWUfD48RPLrYTowzjxbc9/aaCglaBqIG1cKMtuPQQs27biziFefO72YvkV+xvePIHVPQ83
- Q/tjjpv5i
-X-Received: by 2002:a05:6000:4210:b0:48d:f984:4a7f with SMTP id
- ffacd0b85a97d-48e6e2f7356mr34426772f8f.24.1793738260296; 
- Tue, 03 Nov 2026 12:37:40 -0800 (PST)
+ AKwUvBy65q3bewe2065TJvSfifCSrtTdmGs7MhjmYNx0ADgvpSy25RRqzvqzVkQO1LLG3qwoytpgwTK8@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/8PVHe6V+6gROCLpfEceYkDRBWnw/D0BzfomXpUHjol2ZF3RjR
+ aDSmKerYZVWhJf0qmBEm0sum9FS8KcakE8pIWsb2Qt2Qv5W2RCALpfTA
+X-Gm-Gg: AYBFou3feJYjnHoQE1UV65c490xhTQ2qcH/NgbZ8JkP40V0oKQ5qaKdU5aHoVnv5Rs5
+ Vtz9x0KI3ScIifUHkEAkdV7yoWMhywS252khUD8rjZqkhDi5fZIlEBnV8nAqc5h+CRz4AHVxuPO
+ NPTVF7MSqgfL4CdMlgpqD+kJmLirzdrECFtzhUSCjXP0ZHuYBqFGtgpGRgubXSK+8H817jmB4vY
+ 9VeATMOuF5ICMAzV/1PAI3YtBQIcC9/35Vqfq4gBMGx89caaCJgp3SRFtJ3XiA3fIOG1C7FY/vJ
+ FTV8x4VifKF4I/Y/wQNsrTQJw87geLFqW+wxsmYKjoGw0TblXntAWLYgqKYGe9o3Y/ffQ80hkJ+
+ 7TTIpV/4drefTM7UwuJS3wJmoPUQoWeYORwUVigcYQiRE+dA8giGiGZ8EQa3kf1Vv4FTKJA4KdE
+ mQAZDyKOSABRXCAet3HkSazdS+gqDG8AffVAbS2Wjr63DN8K6ADY5L434Eh1l0vXNMI2B56xmFi
+ Ckd1lyFmImmmZtNd59X1FDgzgI0eN7Mci8NfK/xLlY/wCV42IMxbSVrfzzvyhTn+yYNLGaL5bVY
+ UA6CU0BqdSYZ9hioinhhBL6DSLYrH48OiM7CV9fmCxK0NKtfLvPB4gqbMXiixqFILFW3OXYA7do
+ XQbOwiIZ7yA==
+X-Received: by 2002:a05:600c:5397:b0:4a4:7a8d:c736 with SMTP id
+ 5b1f17b1804b1-4ac16acfceamr315330565e9.9.1793738337720; 
+ Tue, 03 Nov 2026 12:38:57 -0800 (PST)
 Received: from [192.168.1.86] (240.red-79-154-229.dynamicip.rima-tde.net.
  [79.154.229.240]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48fcca7cfedsm491845f8f.38.2026.11.03.12.37.39
+ ffacd0b85a97d-48fcc0e459dsm551110f8f.10.2026.11.03.12.38.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 Nov 2026 12:37:39 -0800 (PST)
-Message-ID: <47c1a6eca2bd374f0ac354453630fef1a46a9826.camel@gmail.com>
-Subject: Re: [PATCH v3 11/15] drm/amdgpu/userq: add helpers to keep the user
- queues of one engine across a reset
+ Tue, 03 Nov 2026 12:38:57 -0800 (PST)
+Message-ID: <5b50e068b3a16d7e25af73ecbb61c3e137ecedda.camel@gmail.com>
+Subject: Re: [PATCH v3 12/15] drm/amdgpu/gfx: add a gfx engine soft reset
 From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
 To: Jesse Zhang <Jesse.Zhang@amd.com>, amd-gfx@lists.freedesktop.org
 Cc: Alexander.Deucher@amd.com, Christian Koenig <christian.koenig@amd.com>, 
  Lijo.Lazar@amd.com, Mario.Novales@amd.com, Manu.Rastogi@amd.com, 
  Jiongyu.Zhu@amd.com
-Date: Tue, 03 Nov 2026 21:37:39 +0100
-In-Reply-To: <20261028085736.3808569-11-Jesse.Zhang@amd.com>
+Date: Tue, 03 Nov 2026 21:38:56 +0100
+In-Reply-To: <20261028085736.3808569-12-Jesse.Zhang@amd.com>
 References: <20261028085736.3808569-1-Jesse.Zhang@amd.com>
- <20261028085736.3808569-11-Jesse.Zhang@amd.com>
+ <20261028085736.3808569-12-Jesse.Zhang@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
@@ -99,256 +98,123 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 On Wed, 2026-10-28 at 16:56 +0800, Jesse Zhang wrote:
-> An engine reset, eg. of the gfx engine, only resets the queues of one
-> engine of the GFX IP; the queues of the other engines aren't reset.
-> amdgpu_userq_pre_reset() and amdgpu_userq_post_reset() handle all the
-> user queues for a full reset. Add separate helpers for the queues of
-> one
-> engine, which keep them in the state they had:
+> Add amdgpu_gfx_soft_reset_engine(), the soft_reset_engine() IP block
+> callback of the gfx IPs, around the reset_engine callback. It only
+> supports the graphics engine so far. The IP block soft reset stops,
+> backs up and replays the kernel gfx rings around it; the compute
+> rings
+> aren't stopped.
 >=20
-> - amdgpu_userq_pre_engine_reset(), called after the MES suspend,
-> saves
-> =C2=A0 the ring state of the mapped queues still on a HQD: the reset
-> clears
-> =C2=A0 their HQD, and MES couldn't preempt them into their MQD. The queue=
-s
-> =C2=A0 MES preempted have their state in their MQD already.
-> - amdgpu_userq_post_engine_reset(), called after the reset but before
-> =C2=A0 MES resumes, unmaps those queues, puts the saved ring state in
-> their
-> =C2=A0 MQD and maps them again: MES doesn't map a queue whose HQD the
-> reset
-> =C2=A0 cleared again on its own. The queues keep their state and their
-> work,
-> =C2=A0 except the one the pipe executed: its work in flight depends on
-> pipe
-> =C2=A0 state the reset cleared, it is dropped and its fences signaled. Th=
-e
-> =C2=A0 queue that hung, if any, is unmapped and hung.
-> - amdgpu_userq_cancel_engine_reset() drops the saved ring state for
-> the
-> =C2=A0 full reset that follows a failed engine reset.
+> MES is suspended across the reset, so that it doesn't schedule or map
+> queues while the CP front-end is reset. The compute queues are
+> preempted
+> meanwhile: their work is only paused. MES
+> fetches its commands through the CP front-end though, and a hung gfx
+> stream can keep it from completing the suspend. Reset the engine
+> anyway:
+> the reset frees the front-end.
 >=20
-> The helpers walk the queues and unmap and map them as
-> amdgpu_userq_pre_reset() and amdgpu_userq_post_reset() do. The saved
-> ring state is kept in the gfx IP, per HQD, and matched to a queue by
-> its
-> doorbell and MQD address.
->=20
-> v2: Drop the user queue reset lock and the walk over the queues of
-> one
-> =C2=A0=C2=A0=C2=A0 type (Christian).
+> The reset also clears the HQDs of the gfx user queues. Call
+> amdgpu_userq_pre_engine_reset() after the MES suspend, to save the
+> ring
+> state of the queues still on a HQD, and
+> amdgpu_userq_post_engine_reset()
+> after the reset, before MES resumes, to restore them. @guilty_queue
+> is
+> the gfx user queue that hung, if any: it is hung instead. If the
+> engine
+> reset fails, amdgpu_userq_cancel_engine_reset() drops the saved ring
+> state for the full reset that follows.
 >=20
 > Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
 > ---
-> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h=C2=A0=C2=A0 |=C2=A0=C2=A0 3=
- +
-> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 108
-> ++++++++++++++++++++++
-> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h |=C2=A0=C2=A0 5 +
-> =C2=A03 files changed, 116 insertions(+)
+> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 41
+> +++++++++++++++++++++++++
+> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |=C2=A0 3 ++
+> =C2=A02 files changed, 44 insertions(+)
 >=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> index f750b11f4ad4..6bbf53359a49 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> @@ -518,6 +518,9 @@ struct amdgpu_gfx {
-> =C2=A0
-> =C2=A0	/* reset mask */
-> =C2=A0	uint32_t=C2=A0			gfx_supported_reset;
-> +	/* ring state of the gfx user queues on a HQD, saved by an
-> engine reset */
-> +	struct
-> amdgpu_gfx_hqd_ptrs	engine_reset_hqds[AMDGPU_MAX_GFX_QUEUES];
-> +	u32				num_engine_reset_hqds;
-
-Instead of "engine_reset_hqds", I suggest: "saved_gfx_hqds",
-assuming GFX is different enough from a compute HQD that we won't be
-able to reuse this for compute.
-
-> =C2=A0	uint32_t=C2=A0			compute_supported_reset;
-> =C2=A0
-> =C2=A0	/* gfx off */
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> index 1a2aa85c504e..353c5f7cfcdd 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -1597,3 +1597,111 @@ int amdgpu_userq_post_reset(struct
-> amdgpu_device *adev, bool vram_lost)
-> =C2=A0
-> =C2=A0	return ret;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> index 0ae6e990c310..f1a26e4eb06c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> @@ -2181,6 +2181,47 @@ int amdgpu_gfx_reset_mes_gfx(struct
+> amdgpu_device *adev,
+> =C2=A0	return r;
 > =C2=A0}
-> +
+> =C2=A0
 > +/**
-> + * amdgpu_userq_pre_engine_reset - save the ring state of the user
-> queues
-> + * @adev: amdgpu device
-> + * @queue_type: AMDGPU_HW_IP_* type of the queues on the reset
-> engine
-> + */
-> +void amdgpu_userq_pre_engine_reset(struct amdgpu_device *adev, u32
-> queue_type)
-
-I suggest to rename this to: amdgpu_userq_save_hqds()
-
-> +{
-> +	struct amdgpu_gfx_hqd_ptrs ptrs;
-> +	struct amdgpu_usermode_queue *queue;
-> +	unsigned long queue_id;
-> +
-> +	adev->gfx.num_engine_reset_hqds =3D 0;
-> +	if (!adev->gfx.funcs->read_gfx_hqd_ptrs)
-> +		return;
-> +
-> +	xa_for_each(&adev->userq_doorbell_xa, queue_id, queue) {
-> +		if (adev->gfx.num_engine_reset_hqds >=3D
-> AMDGPU_MAX_GFX_QUEUES)
-> +			break;
-> +		if (queue->queue_type !=3D queue_type ||
-> +		=C2=A0=C2=A0=C2=A0 queue->state !=3D AMDGPU_USERQ_STATE_MAPPED)
-> +			continue;
-> +		if (adev->gfx.funcs->read_gfx_hqd_ptrs(adev, queue-
-> >doorbell_index,
-> +						=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &ptrs) &&
-> ptrs.on_hqd)
-> +			adev->gfx.engine_reset_hqds[adev-
-> >gfx.num_engine_reset_hqds++] =3D ptrs;
-> +	}
-> +}
-> +
-> +static struct amdgpu_gfx_hqd_ptrs *
-> +amdgpu_userq_engine_reset_hqd(struct amdgpu_device *adev,
-> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu_usermode_queue *queue)
-
-This function seems to not reset anything, but just searches in the
-array of saved HQDs. I suggest to rename to:
-"amdgpu_userq_find_saved_hqd"
-
-> +{
-> +	struct amdgpu_gfx_hqd_ptrs *ptrs;
-> +	u32 i;
-> +
-> +	for (i =3D 0; i < adev->gfx.num_engine_reset_hqds; i++) {
-> +		ptrs =3D &adev->gfx.engine_reset_hqds[i];
-> +		/* Check the MQD too: a new queue may reuse the
-> doorbell. */
-> +		if (ptrs->doorbell_index =3D=3D queue->doorbell_index &&
-> +		=C2=A0=C2=A0=C2=A0 ptrs->mqd_addr =3D=3D queue->mqd.gpu_addr)
-> +			return ptrs;
-> +	}
-> +	return NULL;
-> +}
-> +
-> +/**
-> + * amdgpu_userq_post_engine_reset - restore the user queues after an
-> engine reset
-> + * @adev: amdgpu device
-> + * @queue_type: AMDGPU_HW_IP_* type of the queues on the reset
-> engine
-> + * @guilty: the queue that hung, or NULL
+> + * amdgpu_gfx_soft_reset_engine() - Soft reset one engine of the GFX
+> IP.
 > + *
-> + * MES doesn't map a queue whose HQD the reset cleared again on its
-> own: unmap
-> + * it from MES, restore its MQD, and map it again.
+> + * @ip_block: The GFX IP block.
+> + * @engine: The engine to reset.
+> + * @guilty_queue: The user queue that hung, or NULL.
+> + *
+> + * soft_reset_engine() IP block callback around the reset_engine
+> callback,
+> + * which resets the CP of the engine. Only the graphics engine is
+> supported
+> + * so far.
 > + */
-> +void amdgpu_userq_post_engine_reset(struct amdgpu_device *adev, u32
-> queue_type,
-> +				=C2=A0=C2=A0=C2=A0 struct amdgpu_usermode_queue
-> *guilty)
-
-I suggest to rename this to: amdgpu_userq_restore_hqds() to better
-describe what this is doing.
-
+> +int amdgpu_gfx_soft_reset_engine(struct amdgpu_ip_block *ip_block,
+> +				 enum amd_ip_engine engine,
+> +				 struct amdgpu_usermode_queue
+> *guilty_queue)
 > +{
-> +	const struct amdgpu_userq_funcs *userq_funcs =3D adev-
-> >userq_funcs[queue_type];
-> +	struct amdgpu_usermode_queue *queue;
-> +	struct amdgpu_gfx_hqd_ptrs *ptrs;
-> +	unsigned long queue_id;
+> +	struct amdgpu_device *adev =3D ip_block->adev;
 > +	int r;
 > +
-> +	xa_for_each(&adev->userq_doorbell_xa, queue_id, queue) {
-> +		if (queue->queue_type !=3D queue_type ||
-> +		=C2=A0=C2=A0=C2=A0 queue->state !=3D AMDGPU_USERQ_STATE_MAPPED)
-> +			continue;
+> +	if (engine !=3D AMD_IP_ENGINE_GFX || !adev->gfx.funcs-
+> >reset_engine)
+> +		return -EOPNOTSUPP;
 > +
-> +		if (queue =3D=3D guilty) {
-> +			userq_funcs->unmap(queue);
-> +			amdgpu_userq_fence_driver_force_completion(q
-> ueue);
-> +			trace_amdgpu_userq_state_changed(queue,
-> AMDGPU_USERQ_STATE_HUNG);
-> +			queue->state =3D AMDGPU_USERQ_STATE_HUNG;
-> +			continue;
-> +		}
+> +	mutex_lock(&adev->gfx.mec.reset_mutex);
 > +
-> +		ptrs =3D amdgpu_userq_engine_reset_hqd(adev, queue);
-> +		if (!ptrs)
-> +			continue;
-> +
-> +		userq_funcs->unmap(queue);
-> +		if (adev->gfx.funcs->restore_gfx_mqd_ring(adev,
-> queue->mqd.cpu_ptr,
-> +							=C2=A0 queue-
-> >userq_prop->queue_size,
-> +							=C2=A0 ptrs))
-> +			amdgpu_userq_fence_driver_force_completion_w
-> ith_seqno(queue,
-> +							=09
-> 	=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ptrs->wptr);
-> +		r =3D userq_funcs->map(queue);
-> +		if (r) {
-> +			dev_err(adev->dev, "Failed to remap user
-> queue %llu: %d\n",
-> +				queue->doorbell_index, r);
-> +			amdgpu_userq_fence_driver_force_completion(q
-> ueue);
-> +			trace_amdgpu_userq_state_changed(queue,
-> AMDGPU_USERQ_STATE_HUNG);
-> +			queue->state =3D AMDGPU_USERQ_STATE_HUNG;
-> +		}
+> +	/* The suspend may time out while the gfx engine hangs:
+> reset anyway. */
+> +	amdgpu_mes_suspend(adev, 0);
+> +	amdgpu_userq_pre_engine_reset(adev, AMDGPU_HW_IP_GFX);
+> +	r =3D adev->gfx.funcs->reset_engine(adev, engine);
+> +	if (r) {
+> +		amdgpu_userq_cancel_engine_reset(adev,
+> AMDGPU_HW_IP_GFX);
+> +		amdgpu_mes_resume(adev, 0);
+> +		goto exit;
 > +	}
-> +	adev->gfx.num_engine_reset_hqds =3D 0;
-> +}
 > +
-> +/**
-> + * amdgpu_userq_cancel_engine_reset - give up an engine reset
-> + * @adev: amdgpu device
-> + * @queue_type: AMDGPU_HW_IP_* type of the queues on the reset
-> engine
-> + */
-> +void amdgpu_userq_cancel_engine_reset(struct amdgpu_device *adev,
-> +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 u32 queue_type)
-
-amdgpu_userq_clear_hqds
-
-> +{
-> +	adev->gfx.num_engine_reset_hqds =3D 0;
+> +	amdgpu_userq_post_engine_reset(adev, AMDGPU_HW_IP_GFX,
+> guilty_queue);
+> +	r =3D amdgpu_mes_resume(adev, 0);
+> +
+> +exit:
+> +	mutex_unlock(&adev->gfx.mec.reset_mutex);
+> +	return r;
 > +}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-> index 488dc21d7c81..e07c71cd5af5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-> @@ -181,6 +181,11 @@ int
-> amdgpu_userq_start_sched_for_enforce_isolation(struct amdgpu_device
-> *adev,
-> =C2=A0void amdgpu_userq_reset_work(struct work_struct *work);
-> =C2=A0void amdgpu_userq_pre_reset(struct amdgpu_device *adev);
-> =C2=A0int amdgpu_userq_post_reset(struct amdgpu_device *adev, bool
-> vram_lost);
-> +void amdgpu_userq_pre_engine_reset(struct amdgpu_device *adev, u32
-> queue_type);
-> +void amdgpu_userq_post_engine_reset(struct amdgpu_device *adev, u32
-> queue_type,
-> +				=C2=A0=C2=A0=C2=A0 struct amdgpu_usermode_queue
-> *guilty);
-> +void amdgpu_userq_cancel_engine_reset(struct amdgpu_device *adev,
-> +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 u32 queue_type);
-> =C2=A0void amdgpu_userq_start_hang_detect_work(struct
-> amdgpu_usermode_queue *queue);
-> =C2=A0void amdgpu_userq_process_fence_irq(struct amdgpu_device *adev, u32
-> doorbell);
-> =C2=A0
+
+I think the additional functionality should be added to
+the amdgpu_device_ip_soft_reset() function as well.
+
+> +
+> =C2=A0int amdgpu_gfx_mes_reset_queue(struct amdgpu_ring *ring,
+> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int vmid,
+> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu_fence *timedo=
+ut_fence,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> index 6bbf53359a49..d63d9f5f5b96 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> @@ -740,6 +740,9 @@ void amdgpu_gfx_pipe_reset_prepare(struct
+> amdgpu_device *adev,
+> =C2=A0				=C2=A0=C2=A0 struct amdgpu_ring *guilty_ring,
+> =C2=A0				=C2=A0=C2=A0 u32 me, u32 pipe,
+> =C2=A0				=C2=A0=C2=A0 struct amdgpu_gfx_pipe_reset_ctx
+> *ctx);
+> +int amdgpu_gfx_soft_reset_engine(struct amdgpu_ip_block *ip_block,
+> +				 enum amd_ip_engine engine,
+> +				 struct amdgpu_usermode_queue
+> *guilty_queue);
+> =C2=A0int amdgpu_gfx_reset_mes_gfx(struct amdgpu_device *adev,
+> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu_ring *ring,
+> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu_fence *guilty_fence,
