@@ -2,45 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE372606D820
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 14:03:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02FFA606EE8F
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 14:03:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=Tgp8A1P2
+	dkim=pass (2048-bit key, unprotected) header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=SMaQue+S
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C96010F5C9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8211310F5CF;
 	Tue,  3 Nov 2026 14:03:10 +0000 (UTC)
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CAC0010F59A
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43FD910F595
  for <amd-gfx@lists.freedesktop.org>; Tue,  3 Nov 2026 13:16:05 +0000 (UTC)
 Received: from smtp102.mailbox.org (smtp102.mailbox.org
  [IPv6:2001:67c:2050:b231:465::102])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
- by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jJpx038SvzMlq7;
- Tue, 03 Nov 2026 14:16:04 +0100 (CET)
+ by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4jJpwz4j4GzMlSH;
+ Tue, 03 Nov 2026 14:16:03 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
- t=1793711764;
+ t=1793711763;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=pK5t0q/gxE1Nu6Fm0VfdXEgog8ffotRhenMS/ypUv9s=;
- b=Tgp8A1P2S84PfEtYEHzUvaSgO72Dan/HE0W4pBt0cywS7rO11Ns329gEtglyzTWnkuX0QV
- bvFvjWZNdsxa9OYgCtYonp7D6eZMwBo7VuTFGg9LrIsLZ77nEZMZbSv3c1l+w7z9drM9Eh
- xlDnMyKzmtd3c/gYU1F9l7Q/fU6urV4Fq+1S7FEvgg7jSfjvWs38M30MJDqfBebbYQXJL0
- HQXgTKytLsRYJtshlv+0vhuLiDYkIG/Gzn3JWvRGVzhTw88jawrem/MvwPWCknTACXd89/
- liOf4QZ5vfVtnZtr/hH2QydBQDJDIIP8HpxataK8XoU1LOb4UNBAoysUVDE3aA==
+ bh=61OBeqiFBu30MiaeAKFOZife1aseAGNq84UZZcG7jsA=;
+ b=SMaQue+SiFqYGP4UExyOioX2luV+ZmSlGfZ5+W0a3IoBfB3gUWK2mqy0bj+D22Gx5eaOta
+ j8ET1RN8MI6fbpPPkwNkKXTclUuM0Qz+E6TqJHBeSdgYXafVfpugP6oXMdKSnv4XrKDiIl
+ r0oaIZa4tcV8+igX+DggoE56rnY2bti6LBbGiBBfovcJC3GHu1XriFclsEGFVXrF3jWaQB
+ EbZNLfppLNESJi25WHL/8+zEU56+Waach5skT5R+X4YVnoXBhl3nYTyDOIoNq80O30aDhb
+ iwNSRFKMqsTqyTMNLmwOR8MmkDOIn9SUePYUwbiqq6pxvuxMrI7OuQbvrmEdqQ==
 Authentication-Results: outgoing_mbo_mout; dkim=none;
  spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates
  2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=hugo@hsal.es
 From: Hugo Sales <hugo@hsal.es>
 To: alexander.deucher@amd.com, siqueira@igalia.com, harry.wentland@amd.com,
  amd-gfx@lists.freedesktop.org, sunpeng.li@amd.com
-Subject: [PATCH RFT 3/3] drm/amd/display: Add a KUnit test for the custom
- curve minimum
-Date: Tue,  3 Nov 2026 13:15:59 +0000
-Message-ID: <20261103-amdgpu-aux-curve-min-v1-3-62119efdcc6d@hsal.es>
+Subject: [PATCH RFT 2/3] drm/amd/display: Drop the unused min argument of
+ convert_custom_brightness()
+Date: Tue,  3 Nov 2026 13:15:58 +0000
+Message-ID: <20261103-amdgpu-aux-curve-min-v1-2-62119efdcc6d@hsal.es>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261103-amdgpu-aux-curve-min-v1-0-62119efdcc6d@hsal.es>
 References: <20261103-amdgpu-aux-curve-min-v1-0-62119efdcc6d@hsal.es>
@@ -48,16 +48,16 @@ X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3143; i=hugo@hsal.es;
- h=from:subject:message-id; bh=fwMloafcOCb62tF/mTB0iLUFV8bG+uqiU3emqEw7j9A=;
- b=owJ4nJvAy8zAJVbLU7f+5A3TBYyn1ZIYsl7ea97/zJmlxP/AzZzTJ1+YhB740LS9g+PAw0Zr/
- VOv/s6os+vtKGVhEONikBVTZNG94cnAMnHyzJyi50tg5rAygQxh4OIUgIlcbGX47zWh/8OKe7sE
- JswJvvtDftr/vs+75/ZP+cHaIS8vcEzwuA4jwxaxdSynCjXnZ3HwTX7u+CNg8mnbq47vj+uyssz
- 8Ei9SzAQA4HRPIA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5639; i=hugo@hsal.es;
+ h=from:subject:message-id; bh=/7p+iESSZHE/QMZNc977HAfsEuJmUySb0GH+smRVVSc=;
+ b=owJ4nJvAy8zAJVbLU7f+5A3TBYyn1ZIYsl7ea95e3fo8WzOitj5Tx/awceSFa9V24crZ3Bkhp
+ vZx5mnrz3SUsjCIcTHIiimy6N7wZGCZOHlmTtHzJTBzWJlAhjBwcQrARNI5GBn+7VxquGRu7NO8
+ k/vWVd67Lvah5KtV46bWtkZN14Wy/348YGT4uqWgu047r/p1q87LZx0Hzl+TnyPl2vbsvdMDiWN
+ PrzZxAgCFJU68
 X-Developer-Key: i=hugo@hsal.es; a=openpgp;
  fpr=193D095149CF7E8737B39064D912B0DB205A91C1
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4jJpx038SvzMlq7
+X-Rspamd-Queue-Id: 4jJpwz4j4GzMlSH
 X-Mailman-Approved-At: Tue, 03 Nov 2026 14:03:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,76 +76,129 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Check that convert_brightness_from_user() adds the minimum once with a
-custom curve: a request for 0 gives user_min on the AUX and the PWM
-range, and half the AUX range matches a value worked out by hand
+convert_custom_brightness() rescales the curve's output to 0..max since
+the previous patch and no longer reads min
 
 Signed-off-by: Hugo Sales <hugo@hsal.es>
 ---
-KUnit on UML with PROVE_LOCKING: amdgpu_dm_backlight passes 74 of 74.
-Without patch 1 the new test fails with 1998, 131999 and 6023
----
- .../amdgpu_dm/tests/amdgpu_dm_backlight_test.c     | 40 ++++++++++++++++++++++
- 1 file changed, 40 insertions(+)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c  |  5 ++---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h  |  3 +--
+ .../display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c   | 16 ++++++++--------
+ 3 files changed, 11 insertions(+), 13 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+index 8b49cbcde91cd..cef2ad8fea74d 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+@@ -192,8 +192,7 @@ static u32 convert_brightness_to_millipercent(const struct amdgpu_dm_backlight_c
+ 
+ STATIC_IFN_KUNIT
+ void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *caps,
+-			       unsigned int min, unsigned int max,
+-			       uint32_t *user_brightness)
++			       unsigned int max, uint32_t *user_brightness)
+ {
+ 	u32 brightness = scale_input_to_fw(max, *user_brightness);
+ 	u8 lower_signal, upper_signal, upper_lum, lower_lum, lum;
+@@ -265,7 +264,7 @@ u32 convert_brightness_from_user(const struct amdgpu_dm_backlight_caps *caps,
+ 	if (!get_brightness_range(caps, &min, &max))
+ 		return brightness;
+ 
+-	convert_custom_brightness(caps, min, max, &brightness);
++	convert_custom_brightness(caps, max, &brightness);
+ 
+ 	/* Rescale 0..max to min..max */
+ 	return min + DIV_ROUND_CLOSEST_ULL((u64)(max - min) * brightness, max);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
+index 9ad888d3ae7b2..32ba2f8efb33b 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
+@@ -68,8 +68,7 @@ ssize_t panel_power_savings_store(struct device *device,
+ int get_brightness_range(const struct amdgpu_dm_backlight_caps *caps,
+ 			 unsigned int *min, unsigned int *max);
+ void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *caps,
+-			       unsigned int min, unsigned int max,
+-			       uint32_t *user_brightness);
++			       unsigned int max, uint32_t *user_brightness);
+ u32 convert_brightness_from_user(const struct amdgpu_dm_backlight_caps *caps,
+ 				 uint32_t brightness);
+ u32 convert_brightness_to_user(const struct amdgpu_dm_backlight_caps *caps,
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-index f1a558516cd8b..3d00cde8c77bc 100644
+index 2d7a07d9ad874..f1a558516cd8b 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-@@ -1383,6 +1383,45 @@ static void dm_test_brightness_from_user_midrange(struct kunit *test)
- 	KUNIT_EXPECT_LE(test, result, max);
- }
+@@ -1054,7 +1054,7 @@ static void dm_test_custom_brightness_no_data_points(struct kunit *test)
  
-+/**
-+ * dm_test_brightness_from_user_curve_min - Test Custom curve adds the minimum once
-+ * @test: The KUnit test context
-+ *
-+ * On the AUX range of 1..512 nits with points (50, 20%) and (200, 80%), a
-+ * request for 0 must give the 1000 millinit minimum, where adding the
-+ * minimum twice gave 1998. Half the scale is signal 128, luminance 51%,
-+ * so 51 * 128 / 101 = 65 of 255, which is 1000 + 511000 * 65 / 255 =
-+ * 131255. A request for 0 on the PWM range with min_input_signal 12 must
-+ * give 12 * 0x101
-+ */
-+static void dm_test_brightness_from_user_curve_min(struct kunit *test)
-+{
-+	struct amdgpu_dm_backlight_caps caps = {};
-+	uint saved_mask = amdgpu_dm_get_dc_debug_mask();
-+
-+	amdgpu_dm_set_dc_debug_mask(amdgpu_dm_get_dc_debug_mask() &
-+				    ~DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE);
-+
-+	caps.aux_support = true;
-+	caps.aux_min_input_signal = 1;
-+	caps.aux_max_input_signal = 512;
-+	caps.min_input_signal = 12;
-+	caps.max_input_signal = AMDGPU_DM_DEFAULT_MAX_BACKLIGHT;
-+	caps.data_points = 2;
-+	caps.luminance_data[0].input_signal = 50;
-+	caps.luminance_data[0].luminance = 20;
-+	caps.luminance_data[1].input_signal = 200;
-+	caps.luminance_data[1].luminance = 80;
-+
-+	KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, 0), 1000U);
-+	KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, 256000), 131255U);
-+
-+	caps.aux_support = false;
-+	KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, 0), 12U * 0x101);
-+
-+	amdgpu_dm_set_dc_debug_mask(saved_mask);
-+}
-+
- /**
-  * dm_test_brightness_from_user_with_curve - Test Brightness from user with custom curve active
-  * @test: The KUnit test context
-@@ -1976,6 +2015,7 @@ static struct kunit_case dm_backlight_test_cases[] = {
- 	KUNIT_CASE(dm_test_brightness_to_user_above_max),
- 	KUNIT_CASE(dm_test_brightness_from_user_midrange),
- 	KUNIT_CASE(dm_test_brightness_from_user_with_curve),
-+	KUNIT_CASE(dm_test_brightness_from_user_curve_min),
- 	KUNIT_CASE(dm_test_brightness_range_zero_signals),
- 	/* amdgpu_dm_backlight_fill_props */
- 	KUNIT_CASE(dm_test_backlight_fill_props_ac_linear),
+ 	caps.data_points = 0;
+ 
+-	convert_custom_brightness(&caps, 3084, 65535, &brightness);
++	convert_custom_brightness(&caps, 65535, &brightness);
+ 
+ 	/* No data points → no-op */
+ 	KUNIT_EXPECT_EQ(test, brightness, saved);
+@@ -1078,7 +1078,7 @@ static void dm_test_custom_brightness_debug_mask_disables(struct kunit *test)
+ 	/* Set the disable flag */
+ 	amdgpu_dm_set_dc_debug_mask(amdgpu_dm_get_dc_debug_mask() | DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE);
+ 
+-	convert_custom_brightness(&caps, 3084, 65535, &brightness);
++	convert_custom_brightness(&caps, 65535, &brightness);
+ 
+ 	/* Should be no-op due to debug mask */
+ 	KUNIT_EXPECT_EQ(test, brightness, saved);
+@@ -1121,7 +1121,7 @@ static void dm_test_custom_brightness_exact_match(struct kunit *test)
+ 	 */
+ 	brightness = 32896;
+ 
+-	convert_custom_brightness(&caps, min, max, &brightness);
++	convert_custom_brightness(&caps, max, &brightness);
+ 
+ 	/*
+ 	 * Exact match: lum=50, brightness_scaled=128
+@@ -1167,7 +1167,7 @@ static void dm_test_custom_brightness_below_first(struct kunit *test)
+ 	 */
+ 	brightness = 12850;
+ 
+-	convert_custom_brightness(&caps, min, max, &brightness);
++	convert_custom_brightness(&caps, max, &brightness);
+ 
+ 	/*
+ 	 * Below first data point: lum = DIV_ROUND_CLOSEST(40 * 50, 100) = 20
+@@ -1211,7 +1211,7 @@ static void dm_test_custom_brightness_interpolation(struct kunit *test)
+ 	 */
+ 	brightness = 32125;
+ 
+-	convert_custom_brightness(&caps, min, max, &brightness);
++	convert_custom_brightness(&caps, max, &brightness);
+ 
+ 	/*
+ 	 * The function should interpolate between data points and produce
+@@ -1254,7 +1254,7 @@ static void dm_test_custom_brightness_above_last(struct kunit *test)
+ 	 */
+ 	brightness = 56533;
+ 
+-	convert_custom_brightness(&caps, min, max, &brightness);
++	convert_custom_brightness(&caps, max, &brightness);
+ 
+ 	/* Output should differ from input (remapped via curve) */
+ 	KUNIT_EXPECT_TRUE(test, brightness != 56533);
+@@ -1292,7 +1292,7 @@ static void dm_test_custom_brightness_single_data_point(struct kunit *test)
+ 	 */
+ 	brightness = 16448;
+ 
+-	convert_custom_brightness(&caps, min, max, &brightness);
++	convert_custom_brightness(&caps, max, &brightness);
+ 
+ 	KUNIT_EXPECT_TRUE(test, brightness < 16448);
+ 
+@@ -1330,7 +1330,7 @@ static void dm_test_custom_brightness_lower_lum_zero(struct kunit *test)
+ 	 */
+ 	brightness = 32125;
+ 
+-	convert_custom_brightness(&caps, min, max, &brightness);
++	convert_custom_brightness(&caps, max, &brightness);
+ 
+ 	/* Should remap; result should differ from input */
+ 	KUNIT_EXPECT_TRUE(test, brightness != 32125);
 
 -- 
 2.56.0
