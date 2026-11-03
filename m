@@ -2,84 +2,97 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B664606A31B
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 20:41:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2691606A324
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 21:38:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HBgMQiW+
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=L//lKBkL
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D2A3510F835;
-	Tue,  3 Nov 2026 20:41:28 +0000 (UTC)
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0CB0A10F835
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Nov 2026 20:41:23 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-4a4d7ae1ae9so45994825e9.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 03 Nov 2026 12:41:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793738481; x=1794343281; darn=lists.freedesktop.org;
- h=mime-version:user-agent:content-transfer-encoding:content-type
- :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
- :cc:subject:date:message-id:reply-to:content-type;
- bh=EYGOdxC2hYF7pmwkE6PpRPFPK8Zo0dfEfpHkQPL9iSo=;
- b=HBgMQiW+ZRjdaC7XpX07e17y20EaCrOESbTRkuC8NZeMS7xhXtl6iWieprUATHt/DM
- 1djpWSEifAvtTJUgSaAak0xhR2WzbvznaBhwHpg3Iipki09Of77QqnD+X5998hxe4ihA
- Twu0ulWjl+TVwDp2rrwnBV/KzrZxZNwY+/83WWBYI/Jev72dE/jBUAezP9vpTGdd10vx
- 2bxRlKL3IDsMaIKVpF88DQNgjVqdJaM2wXUKOTvUaKxGkFf9KsvLdmowBy1YGgK+bVq+
- bNN8IogBWehKK6JkqeMK/rl7bir0mfdqni+3l3L04iI64hTugdk4c5DgT7bsuqmMhWNP
- SzVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793738481; x=1794343281;
- h=mime-version:user-agent:content-transfer-encoding:content-type
- :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=EYGOdxC2hYF7pmwkE6PpRPFPK8Zo0dfEfpHkQPL9iSo=;
- b=OdXl4od2A6w/T9t+lWKuuz4j5IFMDhfrMCrm3kr24aZpt2tjf+9M3T++xE8kf6ui4a
- 5XgCwm2UHg0JdiX2eT5pTvAOnmuv6QWGfJ78ksYXHoLm5q1oR3mJiDuzfokUvmbtrkKy
- qIwR82dDb65DoURfVjl6aP66e00VzpmQWjOaEeeTA3K1KDBlTBLhc5qxQBmPrkPNnTt9
- niucbW/Wb0Ggeax/6dTi8U0ON8XkWFvqwJT/sQJV34gU4XcwDMY/FBawiwf14N3YoZAW
- hBSei/l6Ooq7oaSIfpND16bFXLG/A9O+t/B+4uZR+UYgXXMgaabd9QHRxvPXRan8vajI
- qe7g==
-X-Forwarded-Encrypted: i=1;
- AKwUvByw4OlXdA7rtV8MXkBxVRMQOlXEtx/w9YhmWcIj6/kTJrPFtT7N7ATBz6WN+Mjko4u/yY5xua7H@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/S9oyukgxfUFhD6GluBgH3wwl9qg2DbwAkOJ3UjHvRuHzY36yD
- qWi2m/c/EZkHaU9Gf+G2JpA4j0THbzNMLagb4y3N7vSB+VYMlwwLaByz
-X-Gm-Gg: AYBFou1pGI37wkgcGnp9Rvf+R0mlD7KdHuU5ZDOxSNWebWWLVolItCCxAR5K8/Maoy8
- tcMaxzR59QdRe8EFFzSU2i6uRAKp32HILhzGmneTYLyNgf5ZKKvnWnqGQoJkwDlmTqzlKsQpIss
- kwIkCBSR0Z1RPynp9o6jSmVAT6n1+NOVoPvIql2jbVBKBsblrZcpusiVKBYH0/r61xCTMpUXwvl
- MbTtFFZHxDLzpS1l0XoEe0maISsyKzGB/ukE3S52WlKDt56xi98t6hk0I1m6RkgPgwEr/IHN+d0
- fGIqdmvusE1beN14BXAOlRjY/LQZH+GWH7ojl7ez1hQlwCt/uW+0uCx4R4nDf+FEjmW1WDVi9TW
- bsqXWeR0/SnwOAj/Dp4N9hvEqT96jjoXXibDw5BTUGJKsyQBhELxjHHeYZkvQWDdEvTFBhiI2vw
- C53J1Cu+NlUa6ZCDY/YeAbXCDCkqkSZ7796A3DpfyQzTkKbYyjFT0Sk9XC22wQfmk5/7Y7JGOWK
- NKAQFV/UNMsNklmpG8XFff9XJtivy33E01BTM5EfHPZ90hksO1oWJheOtz441i7ASntD9eur5h6
- U0OLPdPHULpc8d4FTOL12RpHI6N44S4LRdrhQV3OBXbkqrMH6CyxdGBynqvS3gdSu1ePMgEgkYo
- rG93PM2Ps
-X-Received: by 2002:a05:600c:8183:b0:4a2:1364:252b with SMTP id
- 5b1f17b1804b1-4ac198f7338mr273626695e9.35.1793738481364; 
- Tue, 03 Nov 2026 12:41:21 -0800 (PST)
-Received: from [192.168.1.86] (240.red-79-154-229.dynamicip.rima-tde.net.
- [79.154.229.240]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4b40ff10f88sm6141215e9.0.2026.11.03.12.41.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 Nov 2026 12:41:20 -0800 (PST)
-Message-ID: <06afbec39afd388120e16d63c74080977a017619.camel@gmail.com>
-Subject: Re: [PATCH v3 15/15] drm/amdgpu/gfx11: enable the gfx engine soft
- reset
-From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
-To: Jesse Zhang <Jesse.Zhang@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Alexander.Deucher@amd.com, Christian Koenig <christian.koenig@amd.com>, 
- Lijo.Lazar@amd.com, Mario.Novales@amd.com, Manu.Rastogi@amd.com, 
- Jiongyu.Zhu@amd.com
-Date: Tue, 03 Nov 2026 21:41:19 +0100
-In-Reply-To: <20261028085736.3808569-15-Jesse.Zhang@amd.com>
-References: <20261028085736.3808569-1-Jesse.Zhang@amd.com>
- <20261028085736.3808569-15-Jesse.Zhang@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FF3C10F86E;
+	Tue,  3 Nov 2026 21:38:15 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010050.outbound.protection.outlook.com [52.101.85.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F0F810E1C6;
+ Tue,  3 Nov 2026 21:38:09 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bfWcQ90Wvdt+ZZM02YeNmtTSkgjXAl1jHmpc/NeDbGaqot23VFBlVKFg8+lCrmus/GOuHjarWNg3ZF41ACRV3AxUBRXGO3F9WXBwN1fJMHrTrjxMEGmmPHWDfGzQyvQiommQS8zf4XxsQXNHREmmc/D4zSCLd+apTDGYh1t6zqTy18am4eYlx1QEgaH3Hw0W6bJWSP1w/1pLq5rCgSlKO0oASngdwyYP2YSiIaV79NjuQMrVtt8NRFjW5JsWwyboFBWmeLNiskeWh6XwTuYbLINQaNjlAJxYr1PNGCqqheCSLEylPpa4LXJQn6JHju4fLldUbA3BMEgAi2yVMZozVA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9aYwqWUXZAMt5aZatsLEba12eOIcsF0cg17A+AS4qZI=;
+ b=Morc8P5aWYk0XKnzwzDT91ttCDCdkSkxIkeiispmvDRYqw058syv+QXYUPG+TW3UlCBevoq+Qdz9E3J6xM5NQzUfa3WbToMl4TdcnpUMzulxgAshZ0aulFvTLj4dhObHADTDAP083xD24zgaSyWypUT8uTw8myJdSkLgb0NLCHpNni4wLW5I613RGFdih1IxPgA1C6p1hl48jatNWIT+3Nw0TgiFAG6O4dM9FboZxFVprHZk1uo11kPciCzZ56Jip4DVPqdP4rqLmoi4mvAdPwuGJA+vHSRrAiabszNDhGyQtehpM1LY/c9BoBhPO4eE+gnKyQHM5J+ZJ3c3ZY47LQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9aYwqWUXZAMt5aZatsLEba12eOIcsF0cg17A+AS4qZI=;
+ b=L//lKBkLVvkK5x2jWPatUNbzUQ+Bn76WOyfQvFp7KERPnPNNsrBsAx/kXdadZs89yaRUnZqiTjw3pB0rC3PiOh9echz9EexzRq6nNTFZUdjZBnQgo6bUTLAJfdAlCRpNzKpjbCVs0WJVWQu0bR2/IauzzwmsT4VOjZQ+LoXnx3A=
+Received: from BLAPR03CA0127.namprd03.prod.outlook.com (2603:10b6:208:32e::12)
+ by DSVPR12MB827618.namprd12.prod.outlook.com (2603:10b6:8:3e5::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Tue, 3 Nov 2026
+ 21:38:05 +0000
+Received: from BN1PEPF00018074.namprd04.prod.outlook.com
+ (2603:10b6:208:32e:cafe::13) by BLAPR03CA0127.outlook.office365.com
+ (2603:10b6:208:32e::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.8 via Frontend Transport; Tue, 3
+ Nov 2026 21:38:05 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN1PEPF00018074.mail.protection.outlook.com (10.167.245.202) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.5 via Frontend Transport; Tue, 3 Nov 2026 21:38:04 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 3 Nov
+ 2026 15:38:04 -0600
+Received: from hwentlanryzen (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Tue, 3 Nov 2026 15:38:03 -0600
+From: Harry Wentland <harry.wentland@amd.com>
+To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
+CC: Harry Wentland <harry.wentland@amd.com>, Melissa Wen <mwen@igalia.com>,
+ Autumn Ashton <misyl@froggi.es>, Xaver Hugl <xaver.hugl@gmail.com>
+Subject: [PATCH v1 00/13] Add DRM_COLOROP_3D_LUT_DMA for fast-loading 3D LUT
+Date: Tue, 3 Nov 2026 16:37:43 -0500
+Message-ID: <20261103213756.618024-1-harry.wentland@amd.com>
+X-Mailer: git-send-email 2.56.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00018074:EE_|DSVPR12MB827618:EE_
+X-MS-Office365-Filtering-Correlation-Id: a996e3db-2bc3-4eb9-0b26-08df39f2be72
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|1800799024|376014|82310400026|36860700016|261021123027099003|261009221227099003|11063799006|261009223027099003|261028144727099003|261022105027099003|261102123227099003|261021121427099003|261026140227099003|56012099006|10067099003|18002099003|6133799003|13003099007;
+X-Microsoft-Antispam-Message-Info: FEldCAlIsY5zMH4VsQmwRScAocBQm0yuIld5UwhhnIxPklyKgCKTjuI5uueRPcQIMhTHBi+PbFoV/aA2MEao0VSZx/fPxOX5LSSELzzeuqgK0Y0m9nWyxCvg4ltGuKRPMat0+hfih6iJOb8wF3YCravf7vPZtiiUE3oML8yQ0EmZd2dZy8eS4y3IZQ+0IyuyIaF2IDoDZU5sOL6iWqcm/3iysMj2/8FW9XRrDlO282KNJUWWeF0XqmAsTcAZUayAalOpoelvXLMq8j6htrTuh7l2l2f31yRjna0Irmm280+Krk8AbJAjRKoaCh2wvNvY/NoksyLpmgTQa2CWIj0gJRNpSbQQ7iH3oor4nmhppOZzUa55Kn/WQdTYoxXzm5TAOLGk0+L8ZDmfhkwCGwcEahmJUzRWanfSGMVBrIs44jAUy9qixBDf5wrovwR68OhPAFokuTsd8Ze3ltqK16HpyLSm9Qf0enN1sHa747TetREEwzbCzi+POeQ3QnxAhVJO+RRlSkj+mxFl0KzA0wOjtwxCJnamev/TISaiuBSE6oNBYR/KT1E54T+WpmPyj5Qz/BOvE0EMhm3hhnnDluq7ZlkMOXvftJHTNPcFdyu21GARl2A0XLRRoYuBXsPIDZAUFrmFJMw1woBAprfZPdZllA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(376014)(82310400026)(36860700016)(261021123027099003)(261009221227099003)(11063799006)(261009223027099003)(261028144727099003)(261022105027099003)(261102123227099003)(261021121427099003)(261026140227099003)(56012099006)(10067099003)(18002099003)(6133799003)(13003099007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: xHx6S3WvsTX/UNzJnx+3hrU1o1TdmYZm2iRC4p4T98yxkizgl27s6LqcjS0SKFV7HF/R/fa4bx9aN7PZE2fejV0ikn3gueE7Zhu0hDxKhQru3u837AnVPFM8bIyhR1joX24+UMAA+x0nEn2AEeXmGKqDhgJJ77jaV73/B4WrlKr3lYKMwL34fi1P+f77Y6mkNtnni1S1rXClqUW0YbeEBzRpfnhAdj1lqlICUY9wfEaZf1Q9iX6a8Kwoh+nzAiv7Lbt+Fsdn/fIpNdBZfCjYt+mPDJ0qA3jf/s0+PAikk+3woC/+KOj+SoGFGuymv3LnliVSs2VI904NBL1VpfdHqx7pwVgDFTVF1EbLEtX3UCXrXAwjbFFsbPeXmJROrxglVxchkVxACJ0YwYnFAy3Cjt+uMnGRxsYngrjwtr1ZuaUUNfXrnlCZ8V6+xMJvumQa
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 21:38:04.9473 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a996e3db-2bc3-4eb9-0b26-08df39f2be72
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00018074.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR12MB827618
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,104 +103,93 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, 2026-10-28 at 16:56 +0800, Jesse Zhang wrote:
-> Report AMDGPU_RESET_TYPE_IP_BLOCK_SOFT_RESET for the gfx rings, with
-> amdgpu_gfx_soft_reset_engine() as the soft_reset_engine() callback,
-> when
-> the reset_engine callback can be used: with MES, async gfx rings and
-> the
-> RS64 firmware. The reset restarts PFP and ME from the start of their
-> RS64 firmware, and remaps the kernel gfx queue through MES from its
-> MQD, which the kernel gfx queue only has with async gfx rings. Not on
-> SR-IOV VFs.
->=20
-> The kernel gfx queue and gfx user queue resets then fall back to a
-> soft
-> reset of the gfx engine before a full reset. The IP block soft reset
-> of
-> gfx11 only resets the gfx engine then; the whole IP block
-> soft_reset()
-> isn't used.
->=20
-> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
-> ---
-> =C2=A0drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 16 ++++++++++++++++
-> =C2=A01 file changed, 16 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> index a71dae5d0d3a..41ebd2ead99b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -363,6 +363,7 @@ static void gfx_v11_0_ring_invalidate_tlbs(struct
-> amdgpu_ring *ring,
-> =C2=A0static void gfx_v11_0_set_safe_mode(struct amdgpu_device *adev, int
-> xcc_id);
-> =C2=A0static void gfx_v11_0_unset_safe_mode(struct amdgpu_device *adev,
-> int xcc_id);
-> =C2=A0static void gfx_v11_0_userq_priv_fault_work(struct work_struct
-> *work);
-> +static bool gfx_v11_0_engine_reset_supported(struct amdgpu_device
-> *adev);
-> =C2=A0static int gfx_v11_0_reset_engine(struct amdgpu_device *adev,
-> =C2=A0				=C2=A0 enum amd_ip_engine engine);
-> =C2=A0static bool gfx_v11_0_read_gfx_hqd_ptrs(struct amdgpu_device *adev,
-> @@ -1945,6 +1946,10 @@ static int gfx_v11_0_sw_init(struct
-> amdgpu_ip_block *ip_block)
-> =C2=A0		break;
-> =C2=A0	}
-> =C2=A0
-> +	if (gfx_v11_0_engine_reset_supported(adev) &&
-> +	=C2=A0=C2=A0=C2=A0 !adev->debug_disable_ip_block_soft_reset)
-> +		adev->gfx.gfx_supported_reset |=3D
-> AMDGPU_RESET_TYPE_IP_BLOCK_SOFT_RESET;
-> +
-> =C2=A0	if (!adev->enable_mes_kiq) {
-> =C2=A0		r =3D amdgpu_gfx_kiq_init(adev, GFX11_MEC_HPD_SIZE,
-> 0);
-> =C2=A0		if (r) {
-> @@ -6927,6 +6932,16 @@ static void gfx_v11_0_emit_mem_sync(struct
-> amdgpu_ring *ring)
-> =C2=A0	amdgpu_ring_write(ring, gcr_cntl); /* GCR_CNTL */
-> =C2=A0}
-> =C2=A0
-> +/*
-> + * The reset restarts PFP/ME through their RS64 start addresses, and
-> remaps the
-> + * kernel gfx queue from its MQD, which needs async rings.
-> + */
-> +static bool gfx_v11_0_engine_reset_supported(struct amdgpu_device
-> *adev)
-> +{
-> +	return !amdgpu_sriov_vf(adev) && adev->enable_mes &&
-> +	=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 amdgpu_async_gfx_ring && adev->gfx=
-.rs64_enable;
+Loading a DRM_COLOROP_3D_LUT on AMD HW takes a long time because the
+driver has to load the entire 3D LUT via register writes.
 
-I tried to test this on Strix Halo but it seems it doesn't work, maybe
-due to rs64_enable?
+Starting with DCN 4 the HW has the ability to load a 3D LUT via DMA,
+which only requires an address update for programming the 3D LUT.
 
-Is there any reason to not enable this on GFX11.5 (and GFX11.7)?
+I propose exposing a new DRM_COLOROP_3D_LUT_DMA type to support this DMA
+3D LUT loading mechanism. Users of the DRM_COLOROP_3D_LUT_DMA will parse
+the supported formats via the LUT_3D_FORMATS blob property, select the
+desired format via LUT_3D_FORMAT property, and pass the 3D LUT buffer as
+a drm_framebuffer via FB_ID on the colorop.
 
-> +}
-> +
-> =C2=A0/* Restart the PFP and ME pipes from the start of their RS64
-> firmware. */
-> =C2=A0static void gfx_v11_0_restart_gfx_rs64(struct amdgpu_device *adev)
-> =C2=A0{
-> @@ -7370,6 +7385,7 @@ static const struct amd_ip_funcs
-> gfx_v11_0_ip_funcs =3D {
-> =C2=A0	.resume =3D gfx_v11_0_resume,
-> =C2=A0	.wait_for_idle =3D gfx_v11_0_wait_for_idle,
-> =C2=A0	.soft_reset =3D gfx_v11_0_soft_reset,
-> +	.soft_reset_engine =3D amdgpu_gfx_soft_reset_engine,
-> =C2=A0	.set_clockgating_state =3D gfx_v11_0_set_clockgating_state,
-> =C2=A0	.set_powergating_state =3D gfx_v11_0_set_powergating_state,
-> =C2=A0	.get_clockgating_state =3D gfx_v11_0_get_clockgating_state,
+For details see the patches and/or posted branches.
+
+In addition to the patches posted here the 3d-fl-fixes kernel branch
+contains a number of fixes that will be merged via the usual amdgpu
+display process. It also contains a patch to enable support on Navi 4
+(DCN 4.0.1), which won't be upstreamed since that generation requires a
+userspace workaround. The 3d-fl-workaround IGT branch exists solely for
+that purpose. Nonetheless, Navi 4 can serve as an enablement vehicle for
+anyone who wants to see the new interface working.
+
+The kwin branch makes use of a pipeline with DRM_COLOROP_3D_LUT_DMA if
+such a pipeline is discovered before a pipeline with a
+DRM_COLOROP_3D_LUT.
+
+### Branches
+
+kernel: https://gitlab.freedesktop.org/hwentland/linux/-/commits/3d-fl
+kernel w/ fixes: https://gitlab.freedesktop.org/hwentland/linux/-/commits/3d-fl-fixes
+IGT: https://gitlab.freedesktop.org/hwentland/igt-gpu-tools/-/tree/3d-fl
+IGT Navi 4 w/a: https://gitlab.freedesktop.org/hwentland/igt-gpu-tools/-/tree/3d-fl-workaround
+kwin: https://invent.kde.org/hwentlan/kwin/-/commits/3d-fl
+
+Cc: Melissa Wen <mwen@igalia.com>
+Cc: Autumn Ashton <misyl@froggi.es>
+Cc: Xaver Hugl <xaver.hugl@gmail.com>
+
+Harry Wentland (13):
+  drm/colorop: Add DRM_COLOROP_3D_LUT_DMA
+  drm/colorop: add DRM_COLOROP_3D_LUT_DMA object and state
+  drm/atomic: wire up DMA 3D LUT colorop properties
+  drm/atomic: validate DMA 3D LUT colorop framebuffer
+  drm/atomic: add colorop prepare_fb and cleanup_fb helper hooks
+  drm/tests: test colorop prepare_fb and cleanup_fb helpers
+  drm/amd/display: advertise a DMA 3D LUT color pipeline
+  drm/amd/display: pin the DMA 3D LUT framebuffer
+  drm/amd/display: program the DMA 3D LUT colorop
+  drm/amd/display: add 3D LUT DMA pitch alignment cap
+  drm/amd/display: derive the DMA 3D LUT pitch from DC caps
+  drm/amd/display: reject direct 3D LUT loading mode changes
+  drm/amd/display: add KUnit tests for the DMA 3D LUT colorop
+
+ drivers/gpu/drm/amd/display/Kconfig           |  13 +
+ .../amd/display/amdgpu_dm/amdgpu_dm_color.c   |  68 ++-
+ .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c | 131 +++++-
+ .../amd/display/amdgpu_dm/amdgpu_dm_colorop.h |   8 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   |  71 +++-
+ .../amdgpu_dm/tests/amdgpu_dm_colorop_test.c  | 286 ++++++++++++-
+ .../amdgpu_dm/tests/amdgpu_dm_plane_test.c    |  65 +++
+ drivers/gpu/drm/amd/display/dc/dc.h           |   2 +
+ .../dc/resource/dcn42/dcn42_resource.c        |   2 +
+ .../dc/resource/dcn42b/dcn42b_resource.c      |   2 +
+ drivers/gpu/drm/drm_atomic.c                  |  66 +++
+ drivers/gpu/drm/drm_atomic_helper.c           |  93 ++++
+ drivers/gpu/drm/drm_atomic_uapi.c             |  28 ++
+ drivers/gpu/drm/drm_colorop.c                 |  96 +++++
+ drivers/gpu/drm/drm_framebuffer.c             |  45 +-
+ drivers/gpu/drm/drm_gem_atomic_helper.c       |  81 ++++
+ drivers/gpu/drm/tests/Makefile                |   1 +
+ .../gpu/drm/tests/drm_colorop_helper_test.c   | 397 ++++++++++++++++++
+ include/drm/drm_atomic.h                      |  20 +
+ include/drm/drm_colorop.h                     |  71 ++++
+ include/drm/drm_gem_atomic_helper.h           |  11 +
+ include/drm/drm_modeset_helper_vtables.h      |  62 +++
+ include/uapi/drm/drm.h                        |   7 +-
+ include/uapi/drm/drm_mode.h                   |  79 ++++
+ 24 files changed, 1672 insertions(+), 33 deletions(-)
+ create mode 100644 drivers/gpu/drm/tests/drm_colorop_helper_test.c
+
+--
+2.56.0
+
