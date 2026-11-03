@@ -2,60 +2,86 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8897D606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E99D5606A31B
 	for <amd-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 11:12:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=yGna8NiT
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bODmJkOZ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E815110FB66;
-	Wed,  4 Nov 2026 11:12:38 +0000 (UTC)
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F74410F6FA
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Nov 2026 16:31:27 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org
- [IPv6:2001:67c:2050:b231:465::1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4jJvGP3YX4zKnVD;
- Tue, 03 Nov 2026 17:31:25 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
- t=1793723485;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=tTTrorNZwRFZQ3C5GMIr2j0fiftd0rO3TifOHjXOs+s=;
- b=yGna8NiTXy03DKw5svRR0WBnSqEvfobWc628vh7mUO5vXAnnjMbCmCOB60nJGjzTXj8Fjx
- +XIaxfvmPo2HVIs5qjDlIGKJ9oKVUUbnJu/qcoeArae+J+viMm7zoathc4NCssXPjCPKF1
- IMhWK8WnuCpgyWN987mKdXSMZg3bGDXNGI5Kita+I8xTI0gJ1KQucgHY5u+9fLBWFeZAbo
- ewlNPrVO3ABdUWkG6tDOVfg9qdK5EMBzzAJixl8dExU9TPxLyiugnWvmJ5Ej60tspO89E9
- q3A7r/vGv9jMyOZxph9nQh2HR/zEscokSlVfR2TP8ydMUYf7gptI02QnzWCcuA==
-Authentication-Results: outgoing_mbo_mout; dkim=none;
- spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates
- 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=hugo@hsal.es
-From: Hugo Sales <hugo@hsal.es>
-To: alexander.deucher@amd.com, sunpeng.li@amd.com, harry.wentland@amd.com,
- siqueira@igalia.com, amd-gfx@lists.freedesktop.org
-Subject: [PATCH RFC RFT 0/8] drm/amd/display: Stop rounding backlight levels
- to whole percents
-Date: Tue,  3 Nov 2026 16:31:14 +0000
-Message-ID: <20261103-backlight-curve-rfc-v1-0-6e4813a8f2eb@hsal.es>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5816310FB72;
+	Wed,  4 Nov 2026 11:12:39 +0000 (UTC)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B29BB10F6AC
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Nov 2026 15:53:22 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-4a610c7e61cso6772025e9.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 03 Nov 2026 07:53:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793721201; x=1794326001; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=anB0zTq8jJujneJmcQG5UHQs5K86qJzq/JkXXdegQ0Y=;
+ b=bODmJkOZG3lDFGQUCgje8kJbS2vvb4/N4Ghdr7zTV5NUxM7rn8YMk8GebE+hDMNnA3
+ 2xuubS+YPJo4DRnOh0A2X9en/6npi54h8XfJ8jTn7cMTNKNaxjs13FOqTWa7Bfm1JEPE
+ 2nzQoFs7VAiqGMRlTzkE1io2kw+tbmkYhLn6uDrpqKAaJdyZuNpJOR70G5D5CP5jxXkf
+ ZE8S5VpcHlWZgCrI+LgRNC4o5dg4l48dSVYQpEVsDaGSD9CyBprTtx015aHCt4czqtFm
+ Sza+o6ekOV4Npe+Nq4WsqTNj3iIhwwVcRwxxVIhBqyH+6Qsj0X52VK8hS1Y8UKJD2RC3
+ /aXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793721201; x=1794326001;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=anB0zTq8jJujneJmcQG5UHQs5K86qJzq/JkXXdegQ0Y=;
+ b=JBrHXFyT9s/bD9dYKfCBAx/Oe/dRAhe/vOoGVNQtDkzK31384KXXIIGxSS3EzfsCff
+ VQjsq0tUV/7E55iD0cgyKRSYjDxE6SrTB1+/V/AnJK0WfePrDqL3IA3Gm0tXPCOrzD9k
+ zulE4xIwTRmbGTscKi/NZBQNH3a24MzQKPNWmNOkny2ye+emkJNJfHMnQAs/lvF8EcgI
+ uzAAZu//jODxezJJFE0ojaDrDn8hkcnZKb1fsE4img1dC9irp/evYaCEggeSdjX9Ach2
+ DzSKCkNQWcaOnZFXhwRYA814yywnlSAP+7B7MaMeEG9zeATpllQn4EZe3xu2YHqeQqr/
+ v6Sw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzbWwNubiT2lixv8LdepklMJM3UdA24HpiGZfVJ638kSF9t3Pp6rRJrGy8/NeEEUywQSDV95IMk@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z82Cnk4Qs3yDTBMtU3x1OTibELDMiVsE5hQwdBrbRWik3htUwCc
+ XxDsnslTLtlShUWwi5JeDr0GSc7r2/MHbxC3nNVp51WZCVXZDljd9Tx9
+X-Gm-Gg: AYBFou0FYXGvYgutJboLtzihY0nyElEXZaNchpOj70T2bfp40bZGf7qLi+dY4U9YJSY
+ Ye4E18LD+/jqLBVL1Itdpzxf5jJ8v9XnSArcS+bBP3/mdSSIx7TbWjWnUJi08C1fXHUgAov5fgK
+ Alb6Wf4FtsaVgNxStqz8PUAQ6gFZxI0dnxbfvfI1XxVa9znKoZ0b78BLDz7dkaZC/MGCNYTYagm
+ AUlJnSCQMKwI+Qecd7MY4Kpkj/lmpw46PEqglaKJ+XkFaHDTswxnWuTz+Xy2ciwIZnYztG8yUQF
+ 3XMTU7GpvWHYaOEzDmk6H7tYye8kt5IchXUNYplVHRl0py6gliAzmCHIkqiA+IUvcJgo7xQu5wd
+ GF5MkbIyanXBwBtWXpevMjZPWm9a46x4oHcRLQEoxdXsZjoQIgwXEbzZV07U4grLgTTosvkuqWR
+ YgtI+bAlv1swRKx4PXBAYdw80TmQGwTamowUyeqZyEX/t8GKAW5/mDTu1NBkA/peHa6GmUyB23z
+ 8dOtYDGgmzB9y2Dim8ULBGyx/SQ8+jaA7qKy+G/aljIXxzLt5AWDNk1jvyxnTb6vPK42dwCGBUg
+ oMagebHol6s8sL05n3H/jcgv6+Xh8aFd9d6EOZ+1+2VzIT188pfLf7lBLjptk6lJxGXOxraj
+X-Received: by 2002:a7b:ce0d:0:b0:4a1:715d:1913 with SMTP id
+ 5b1f17b1804b1-4ac177538c5mr237110155e9.1.1793721200982; 
+ Tue, 03 Nov 2026 07:53:20 -0800 (PST)
+Received: from Termis-ROG-FLOW-Z13 ([2001:16a2:4495:e600:1209:ec98:a2b4:9c5a])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4b2a879f401sm63777815e9.5.2026.11.03.07.53.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 03 Nov 2026 07:53:20 -0800 (PST)
+From: Seifelden Abdelmonem <saif.elden.hatim@gmail.com>
+To: Mario Limonciello <superm1@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>, Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Bin Du <bin.du@amd.com>, Nirujogi Pratap <pratap.nirujogi@amd.com>,
+ Benjamin Chan <benjamin.chan@amd.com>, King Li <King.Li@amd.com>,
+ Caspar Adriani <caspar.adriani@proton.me>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>, Arec Kao <arec.kao@intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Seifelden Abdelmonem <saif.elden.hatim@gmail.com>
+Subject: [RFC PATCH 0/3] GZ302 rear camera (OMNI13B1, OV13B10) board data
+Date: Tue,  3 Nov 2026 18:53:10 +0300
+Message-ID: <20261103155313.114347-1-saif.elden.hatim@gmail.com>
 X-Mailer: git-send-email 2.56.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Change-ID: 20261102-backlight-curve-rfc-1bb4b6dee24c
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5393; i=hugo@hsal.es;
- h=from:subject:message-id; bh=PQsx1IGMpofUteuFxti+4cBxlJh3BV6RNADrUVGGk00=;
- b=kA0DAAoWfQx+r8nYNaAByyZiAGrqDFqiD1U5arqjNLF1t7Ag6L4243Zv09upUqhQQSay70qxM
- oh1BAAWCgAdFiEELdhJAASRk5lscuekfQx+r8nYNaAFAmrqDFoACgkQfQx+r8nYNaBOIgEA1pRf
- USzLduOXx5VknDn/4CGSTc9sUZOlqDQnnKXf6lIA/0RZnUq4WkKYzP/nuYMezgAXg3IrREZNWLK
- 7Ku3tMggO
-X-Developer-Key: i=hugo@hsal.es; a=openpgp;
- fpr=193D095149CF7E8737B39064D912B0DB205A91C1
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4jJvGP3YX4zKnVD
 X-Mailman-Approved-At: Wed, 04 Nov 2026 11:12:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,109 +93,114 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FORGED_GMAIL_RCVD,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Both backlight paths in amdgpu_dm_backlight.c map the 16-bit user level
-through the ATIF custom brightness curve, whose points pair an 8-bit
-signal with a whole-percent luminance. Both round the level to one of
-those signals and the luminance to a whole percent first. That hurts
-most at the dim end, where one percent is a large share of the light.
-With the curve of an ASUS ROG Flow X13 GV301QH, minimum 12 and 49
-points:
+This series is NOT meant to be merged yet. It puts the board data of
+the rear camera of the ASUS ROG Flow Z13 (GZ302EA) into patches, so the
+sensor can be enabled once the ISP firmware supports it. In the v6
+thread of the ISP4 driver [1], Mario noted that OMNI13B1 would need a
+new amdgpu entry and the matching GPIO tables; this is that data, plus
+the board configuration and a small sensor-driver change.
 
-- On PWM, the lowest level asks for 2% of full brightness, and the
-  first 2% of the scale steps from there to 3%, 4% and 5%. Each step is
-  50%, 33% and 25% brighter than the one before. The bottom 10% of the
-  scale has 18 different brightness values
-- On AUX, with amdgpu.backlight=1 to force the unsupported AUX path,
-  the 1..512 nits fallback range stays at 1 nit for the bottom 6.1% of
-  the scale, and the next steps go to 3, 5 and 7 nits. The bottom 10%
-  of the scale has 4 different values, and the top stops at 496 nits
+Caspar Adriani already posted an OMNI13B1 amdgpu/amd_isp4 patch in
+his RFC [3] and dropped it after Pratap's reply [2]; credit for the
+first posting goes to him. This series covers the sensor reset GPIO,
+the 24 MHz clock and four lanes in the graph, and an I2C ID table for
+ov13b10, and lists where every value comes from (below).
 
-This series interpolates on the unrounded level and rounds once at the
-end. On PWM, the power module also interpolates between its LUT entries
-now, from millipercent to PWM and back. The bottom 10% of the scale then
-has 6018 different values on PWM instead of 18, and 33311 on AUX instead
-of 4. Level 0 still gives the panel's minimum and the top level gives
-its maximum. On AUX only levels 0 and 1 now sit at the minimum, instead
-of the bottom 6.1% of the scale
+Why not for merging: with isp_4_1_1.bin from linux-firmware,
+SET_STREAM_CONFIG fails with error 6 (UNSUPPORTED_SENSOR) for this
+sensor, as Pratap explained in [2]. Merging patch 3 would make every
+GZ302 show a camera that cannot stream. The stock linux-firmware image
+does not start this sensor; on my machine the camera runs with ISP
+firmware and sensor setup data from my own Windows driver
+installation, read from the Windows partition of that machine. I do
+not redistribute any of it.
 
-- Patch 1 renames the min and max of the user range to user_min and
-  user_max, to avoid confusion with the curve's signal_max and the
-  output_max that patch 4 adds. No functional change
-- Patches 2 and 3 interpolate between the power module's LUT entries,
-  from millipercent to PWM and back
-- Patch 4 stops rounding the PWM path
-- Patches 5 and 6 test the PWM path and the LUT with the GV301QH curve
-- Patch 7 maps AUX through the same curve code as PWM, which reaches
-  max at the top, and removes convert_custom_brightness()
-- Patch 8 tests the AUX path
+The values and where they come from:
 
-Patch 7 changes what an AUX panel gets. Until now an AUX level asked for
-the curve's luminance percentage times the level, so the level went in
-twice. Now it asks for min plus that percentage of the range above min,
-the same luminance the PWM path asks the power module for. On the
-fallback range, half the scale goes from 159 nits to 315 nits. I found
-no reason for the old product, but I may be missing the intent. I also
-can't test it meaningfully, as I don't have a panel with an AUX
-backlight
+- ACPI _HID OMNI13B1: \_SB.CAMB in an SSDT (confirmed).
+- I2C address 0x10: the sensor answers there; the _DSM returns the
+  same value (confirmed).
+- Sensor clock 24 MHz: the rate declared for the OV05C10 platform
+  (assumed).
+- Four CSI-2 lanes at 560 MHz: the ov13b10 full-resolution mode
+  (assumed).
+- Sensor reset, amdisp-pinctrl GPIO 0, active low: tested on the GZ302
+  (confirmed).
+- enable_isp, AMDI0030:00 pin 85: copied from OMNI5C10 (unconfirmed).
+  The capture driver needs it to probe, no ACPI device claims the pin,
+  and the ISP also boots with it left undriven.
 
-The series applies on top of "drm/amd/display: Fix the doubled AUX
-backlight minimum on the custom curve" [1]. That series fixes the
-minimum going in twice on AUX, and asks whether the ATIF curve is meant
-for AUX at all. Patch 7 keeps applying the curve on AUX, as the code
-always has. Since it changes what AUX panels get, it has no Fixes: tags
+Bin, Pratap: the firmware sets up the sensor clock and link, so could
+you confirm the clock rate, the link frequency and whether pin 85 is
+needed on this board?
 
-One question for you: on PWM, above the last point the curve still runs
-to 100% at max_input_signal, as backlight_signal_to_luminance() did,
-while the level maps to the 0..255 signal scale over the whole user
-range. With max_input_signal below 255 the top of the PWM scale is flat
-at full brightness. AUX keeps ending the curve at 255, as it did
-before. Should PWM end at 255 too?
+Sensor model: as Bin and Pratap explained, on Linux the ISP firmware
+controls the sensor, and the reference ov05c10 sensor is not bound by
+a host driver. Patches 2 and 3 fit that model. Patch 1 and the 24 MHz
+dependency below only matter if a host sensor driver is used, which
+is how my out-of-tree setup starts the sensor. Which model will the
+sensor-agnostic driver use for OV13B10? If it is firmware-only, patch
+1 can be dropped.
 
-This is also a request for testing. My laptop drives its panel over PWM,
-and the panel ignores AMD's AUX brightness, so I tested the AUX path
-only with KUnit and with the amdgpu_dm_brightness trace on a forced AUX
-path. If you have a panel with an AUX backlight and an ATIF custom
-curve, a Tested-by on patches 7 and 8 would help. The middle of the
-scale should get brighter, the bottom should no longer sit at the
-minimum and the top should reach full brightness. Patches 1 to 6 don't
-depend on them, so they can go in without the AUX half
+Dependencies before this can be merged:
+- ISP firmware that supports the OV13B10 on this platform.
+- With a host sensor driver only: 24 MHz support in ov13b10, which
+  accepts only a 19.2 MHz external clock today.
+- Patch 3 needs patch 2: the ISP setup in amdgpu uses the software
+  node that amd_isp4 attaches to the ACPI device, as for OMNI5C10.
 
-[1] https://lore.kernel.org/r/20261103-amdgpu-aux-curve-min-v1-0-62119efdcc6d@hsal.es
+Patch 2 copies the software-node graph of the OV05C10 entry. If a
+shared graph builder is preferred, I am happy to rework it that way.
 
-Signed-off-by: Hugo Sales <hugo@hsal.es>
----
-Hugo Sales (8):
-      drm/amd/display: Rename the user brightness range to user_min and user_max
-      drm/amd/display: Interpolate between backlight LUT entries
-      drm/amd/display: Interpolate when reading PWM back as a percentage
-      drm/amd/display: Stop rounding PWM brightness to whole percents
-      drm/amd/display: Add KUnit tests for the custom brightness curve
-      drm/amd/display: Add KUnit tests for backlight LUT interpolation
-      drm/amd/display: Map AUX brightness through the custom curve like PWM
-      drm/amd/display: Add KUnit tests for the AUX custom brightness curve
+Patches 1 and 2 have no user-visible effect on their own; patch 3 is
+the one that makes amdgpu create the ISP for this board.
 
- .../amd/display/amdgpu_dm/amdgpu_dm_backlight.c    | 218 ++---
- .../amd/display/amdgpu_dm/amdgpu_dm_backlight.h    |   6 +-
- .../amdgpu_dm/tests/amdgpu_dm_backlight_test.c     | 923 +++++++++++++++------
- .../gpu/drm/amd/display/modules/power/power_abm.c  |  72 +-
- .../drm/amd/display/modules/power/power_helpers.h  |   4 +
- 5 files changed, 784 insertions(+), 439 deletions(-)
----
-base-commit: ba496bb837882eb1af58f41572fc289e46c77b8c
-change-id: 20261102-backlight-curve-rfc-1bb4b6dee24c
-prerequisite-message-id: <20261103-amdgpu-aux-curve-min-v1-0-62119efdcc6d@hsal.es>
-prerequisite-patch-id: 0eefd25bf4ad8f6d779c7a0b0a63f84969b67fca
-prerequisite-patch-id: 016515673f79f623de1e50dd513e5440587329b6
-prerequisite-patch-id: ba453baf376b5410d66feacb1956eea933042ae8
+Testing: built with W=1 (clang) on next-20261026. Not runtime-tested
+in this form. The same graph, I2C address and reset GPIO work out of
+tree on the GZ302: the board configuration in a patched amd_isp4
+module, the reset GPIO registered from there, and an ACPI override
+that lets the stock amdgpu find the sensor. There the clock is still
+declared as 19.2 MHz and the sensor driver is adapted to 24 MHz. That
+out-of-tree code is in a repository I can share on request. I can
+test patches and firmware on the GZ302 at any time.
 
-Best regards,
---  
-Hugo Sales <hugo@hsal.es>
+Related: two isp4 driver fixes found on this machine were sent to
+linux-media separately [4] and have been reviewed by Bin and Pratap,
+and the GZ302 bring-up is discussed in [3].
+
+AI use: Claude (Claude Code) helped me write these patches and the
+changelogs from the out-of-tree code, and run the checks. I reviewed
+everything.
+
+[1] https://lore.kernel.org/all/3a671359-b05a-4d58-84ca-f29385088e5c@kernel.org/
+[2] https://lore.kernel.org/all/ea758386-13b0-4667-8eca-9aa4efefe92b@amd.com/
+[3] https://lore.kernel.org/all/lWYl1YJwDSh-q2Ew2f8b0BweQ4V-SUnPMSMurU5gT1LkqVdrmWFunj0sSgjC7m66bORBAD_jRCFTt1_ZOkotOMukY46rI4ayYbIfPQq4E9U=@proton.me/
+[4] https://lore.kernel.org/all/20261026182442.229869-1-saif.elden.hatim@gmail.com/
+
+Regards,
+Seifelden
+
+Seifelden Abdelmonem (3):
+  media: i2c: ov13b10: add an I2C device ID table
+  platform/x86: amd_isp4: add the OV13B10 (OMNI13B1) board configuration
+  drm/amdgpu: add the OMNI13B1 (OV13B10) ISP sensor
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c |   1 +
+ drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c  |  13 ++-
+ drivers/media/i2c/ov13b10.c              |   7 ++
+ drivers/platform/x86/amd/amd_isp4.c      | 127 +++++++++++++++++++++++
+ 4 files changed, 147 insertions(+), 1 deletion(-)
+
+
+base-commit: f1ac44c32cba88ad65dcecd4a279661d14e93651
+-- 
+2.56.0
 
