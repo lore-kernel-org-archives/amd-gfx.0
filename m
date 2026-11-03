@@ -2,43 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DDFA606A324
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 02:29:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8348606A326
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 02:30:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=3WcAkLRI
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=wj+CGa84
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8CE5010E17F;
-	Tue,  3 Nov 2026 02:29:50 +0000 (UTC)
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010029.outbound.protection.outlook.com
- [40.93.198.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7EE0F10E17F
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Nov 2026 02:29:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8EFB710E750;
+	Tue,  3 Nov 2026 02:29:55 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011031.outbound.protection.outlook.com [52.101.52.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E39B10E750
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Nov 2026 02:29:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sFLdcmlY77n7IM1Lyc0VprtqoIP2T+mkjHAJHLtrN+6oN0WqwZ4d2yd6Gg3nJrv/bRYPEpf+dV2EiK7oroyQzqEj3MSfVPuaUebfIpVTZBTeljH7r1OSE4BWMC19X3U+0jX+dNsXOEUbDMAwMNURIu93lpXZWyEWD53nH11sbpcA7efF0Brp0wahyLGUCfWBDaUdI8o0HVOHBY42zx8RjAoNrvDeJ+Ceo54ZFfDvwEQXbLfeVQ/lxmUjU6j9GWiqOSw9YPjKnzjbj8gFkTSmKN3xYtZUBWfkaX1Akx0YcaVKSP/vGQD71W45lbaJfwzKAh17i7pEgITfIRsWWhKDBg==
+ b=vi2lcU1FSnzIopYVTK3gi1r+EZcn/dUo4aB2LBjW4qvrpWowOrEa6CszLMM44DuAqalXMv9qCxeU6TiszWw5HyGAJnWzV7NETHV8C35Q3e3Nur+sZw3568vPjqmYOJ5m3Ums2l2txkkKQ5rdMPO1I3qV3GyjrQ1pPEBOdpCb84El7iAAQEt63gTf+HSfwiHDIaxhXSMvdvk2FeD33RHa4/RM+yZF357dkSuxfyn7e3LnLobC10by4lA62OXK97MJiRvLnQkZv+nzOFw2YQ+0yQnK9boTlqwya/3O+xzoPISw+U7JombqE2zhpJGu0cEND7CgdqiBDRWJp2a0PQ/Czg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SBw6DFBQgyn2I6NWS0iHzYc/GCqojxh0eR30cZWGtfU=;
- b=QoKkD/ivpZDVwZ9S4BSOvw2aMsT45xTiHGZ6viIigKMZvgJdpB19PXU2aHTjbuWsl9KK8Zv0AQpe4DDP5O7XnXf8miOBOKjdJcADyJEL9KTEny3qo6QOK8tnksJf2lJG93kF1R/Kz1URKYshwPcFKVX9xLuF1oLbebbWlQaDKRTP0U/Cw6XpTAtd1GFA+RtCsJ+XV3yMgtJkkRtgCuAZJ0hOf420DqTJ2zacfUgsgo2chDWp2Qtnf1fUxXKjk8/TCDPWDTZ6lXJzQQdu2wbItdJAm1oDJcVcYwELwWTQ9Pb3L8kvoTHGC8wmQbasuc66kSfNwuyuCEdOkzTtccaecA==
+ bh=uslKkFLUu8yKHR7dc4eSwRxArhcXahqt+4I4C20U3x8=;
+ b=PlqzkvdzHKLGiFrAibru8SCO6rAZ1YxuQlrKRpuLGaoFexYDas0AKdPqnTa8kVi5whBX1rZrTqC1njZd+Ba+TmUrBuuK+umFrOFwhh7a4ZwcAwWaYECvQ8gT083L+SvQpZnqprz2868HB6kJbjhUmBoMMfxregwRvNQHZk51laxOofv+QfurdiE+dpuLuwPHRWg74Bb5H4KLhTFgjHOkoTWqQVOE3pv4ejtUc1Ap/2qWhmriTIYkGA4l/fSYpnSqVPLBOoiUgMVqXAVQ8wkmYw55KmruVwH5R0sSY6T6Ji8ETWTDXX8jXNOUK/eWh3r7N5eoiVYnFkcTrdhnQJtAOA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SBw6DFBQgyn2I6NWS0iHzYc/GCqojxh0eR30cZWGtfU=;
- b=3WcAkLRI7rbmyArYv8YCQZVY2+Q5LazKZhZ58sHPirhSyVMjWCP6lOuXV4sF1UJPscAISq7CkG+n8ZFRZZDknCADsQODafqGEcUP/wg6S5lXtEjmnEbwKYBOiArqc9lq00zS71JfkNaFTEJr2YB9NyBcKCZk6Prq1YZaGyMqLyk=
-Received: from CH0PR03CA0255.namprd03.prod.outlook.com (2603:10b6:610:e5::20)
- by SA0PR12MB4366.namprd12.prod.outlook.com (2603:10b6:806:72::16)
+ bh=uslKkFLUu8yKHR7dc4eSwRxArhcXahqt+4I4C20U3x8=;
+ b=wj+CGa84uSFDoC+olDtY6IIXuIrnUlCHPXgvdM61CJMKsB7v7/PW+05LMzSft1yHGdu2UJ8h8A4IxvOoMXgUL/gVSC6w6rXUC6rhwH+LJnu0P2tbSjiBI9WvQ8jTlZvSLPxlvl5dFkfKx1D3ixtsi7gSSyPq77oOpfNdsaytb5c=
+Received: from CH0PR03CA0259.namprd03.prod.outlook.com (2603:10b6:610:e5::24)
+ by CYYPR12MB8938.namprd12.prod.outlook.com (2603:10b6:930:c7::11)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
- 2026 02:29:40 +0000
+ 2026 02:29:45 +0000
 Received: from CH01EPF000BE946.namprd02.prod.outlook.com
- (2603:10b6:610:e5:cafe::46) by CH0PR03CA0255.outlook.office365.com
- (2603:10b6:610:e5::20) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:610:e5:cafe::85) by CH0PR03CA0259.outlook.office365.com
+ (2603:10b6:610:e5::24) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.12 via Frontend Transport; Tue, 3
- Nov 2026 02:29:39 +0000
+ Nov 2026 02:29:45 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -49,21 +48,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  CH01EPF000BE946.mail.protection.outlook.com (10.167.244.138) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Tue, 3 Nov 2026 02:29:39 +0000
+ 15.21.592.5 via Frontend Transport; Tue, 3 Nov 2026 02:29:45 +0000
 Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
  satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.53; Mon, 2 Nov 2026 20:29:37 -0600
+ 15.2.2562.53; Mon, 2 Nov 2026 20:29:43 -0600
 From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
  Deucher" <alexander.deucher@amd.com>
-CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
- <srinivasan.shanmugam@amd.com>
-Subject: [PATCH v3 0/7] drm/amdgpu: Add CWSR and second-level trap handler
- support
-Date: Tue, 3 Nov 2026 07:59:17 +0530
-Message-ID: <20261103022924.1495748-1-srinivasan.shanmugam@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Lijo Lazar <lijo.lazar@amd.com>
+Subject: [PATCH v3 3/7] drm/amdgpu: Add CWSR userspace interfaces
+Date: Tue, 3 Nov 2026 07:59:20 +0530
+Message-ID: <20261103022924.1495748-4-srinivasan.shanmugam@amd.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261103022924.1495748-1-srinivasan.shanmugam@amd.com>
+References: <20261103022924.1495748-1-srinivasan.shanmugam@amd.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
@@ -72,29 +71,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH01EPF000BE946:EE_|SA0PR12MB4366:EE_
-X-MS-Office365-Filtering-Correlation-Id: b2850eec-5a5c-47e5-d52b-08df39524f8d
+X-MS-TrafficTypeDiagnostic: CH01EPF000BE946:EE_|CYYPR12MB8938:EE_
+X-MS-Office365-Filtering-Correlation-Id: 96aafa32-0083-476d-d3e3-08df39525330
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|376014|23010399003|36860700016|6133799003|18002099003|56012099006|261102123227099003|13003099007|10067099003|261009223027099003|261022105027099003|261021121427099003|261021123027099003|261022075727099003|11063799006|261028144727099003|261026140227099003;
-X-Microsoft-Antispam-Message-Info: QAdco3lYsGyNN12aHD0YTCUI1l1+ZAxquvbXXPNfBDrQjXJKz2xC3hcL0iSQV620gYH0E4X+Hl5rEJibcV/7aY6afLJKF5vfNPAKxmC3ey7tc15K7I8n8fz458YEC8s3r/mRz0O/UOKMmeeySsgnKknPvvrXaC87Hy/K1CTNckXBPiuY/yl73fPBufONNa+2ip92EgMhKB5D6FelNvMILDRMrsjUjxvIGDQnddd7FvXt+2wpovhfANV7Iu/JFK4RZMZ/pyfS9/WrpDn4HAhMcH9NCiFYQfpGTRavSRYokZ8Rc4MansAOlfUINiGc+0Oyw/iRh7B0IS0Ju3WPvXb2qBo8DUHap2Tss//wERucfa/M5NyOwDI9qOVxKN/7y//vQlG1iunc55chRzFRaYbwdkJQu3HMrW7P/dBpNBsniodLWoumKDxPKRZ1A9ZUqjThM3uuKXss26uIb+ocvo66rW7oUZZevjeltlYFVa4lnkcLvomZ39aBNZkgpNCaq6sDE/lubogSIDz8Q06tzQpT8P5W122rW0ih7LWPhQQHpf18kp/OLiMzpFutssqd1qW38/nvjKrsD7OwFI5of6VDdMEkOoBd8znrrSQK4mY42sRxPVQ2vE+30wIANY0Seyevkd2sSqcGYxdxhb0lKqdKGA==
+ ARA:13230040|36860700016|82310400026|376014|1800799024|23010399003|10067099003|261102123227099003|22082099003|18002099003|3023799007|56012099006|11063799006|261026121527099003|261021121427099003|261026140227099003|261022105027099003|261028144727099003|261009223027099003|261021123027099003|260925022911599003|260925021311599003|260925021911599003;
+X-Microsoft-Antispam-Message-Info: SWDXLCcH12dwzcAdcV4h+QqELRwRpmf/efBrJXsgNzyfhTh5SVOCTUAS8AsnhNb1a3xb+JNEW0OrCukmghkwwM6ps8EwlQf71ZxKNELTJSRuypvYgLBGeNi4v4Y5Z2FDTP7XHSgfZy1jCjhy765r/pxSvG9lsGHu47hIVZ6dR1ZJ6rouUGo0cQBaKydmON9kKVv3k1rFArPSUkh0X6UJcefy5d7yCFmiPJXIVn3SM5bTKvRymSORltuemNpGRsDYDoTVRwLDjjUtj04MQCKoLLMnDlzuXRKe1bKG0MmBdCLldIrbLQaB7pMD//0JedQaFwpveLpAWx/8gDXGIag8grCqgQrLEbKepU3YteRkAu3VpvUbDQQyxw4c/nziMmo8ji8fJv2ckURHZp2SQnvvCV/VudQ11ZMKYF89lzOIo9zpCD+YxlGAEd+LT5U/iPgbJQyZlDkgIZ7n13SNAGSzBwnOwWoxZYOXSet/+O5mSDAVzHldadMSbcaZ3YMBrMizEr4VcShCrs/ehJ0PCGTdVVR1wOOhqbUwwNqIZCOskVsS4sK8SMXF2+rhggGKY+6DwdYTm7S/xQBZQ+Vmr+aUWAV3M3bUSS0Je5sW2ya7YoePTJHb00fXmfrZO0jdK2y8EbLho3O6aDTLJeqJ3Xe+etkm/JHp7CjL4uGaLyN2PPHd6MckE9V98OgAHU2wGaHlS6yOXqar6jCDYQKmM6MZ4g==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(376014)(23010399003)(36860700016)(6133799003)(18002099003)(56012099006)(261102123227099003)(13003099007)(10067099003)(261009223027099003)(261022105027099003)(261021121427099003)(261021123027099003)(261022075727099003)(11063799006)(261028144727099003)(261026140227099003);
+ SFS:(13230040)(36860700016)(82310400026)(376014)(1800799024)(23010399003)(10067099003)(261102123227099003)(22082099003)(18002099003)(3023799007)(56012099006)(11063799006)(261026121527099003)(261021121427099003)(261026140227099003)(261022105027099003)(261028144727099003)(261009223027099003)(261021123027099003)(260925022911599003)(260925021311599003)(260925021911599003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: LY9l5i6BO6gvdTbLlPtbY106fKiuO+iwPD7v59crd4K416gCZ3dlbdWtBTN2MqFVHf3oFPxmLeQOcZo4BaRqNxf7LbcvXiC4OCJMeswXAOk/T7oEPuMvYRWbCS/myRzU0gBn45FSeeaqk4DUtAY9oKTFiT2D1GbfefZjl0zjlxMCZBkHu60WQ68F/e92PzE1Wtsp0e3SlspU9hKB5yc1313IxBZxX2Sc2y6Z2qhMVgxrZ7Rl8hRcMA++GcvTsV/Si46Sawvq8Ht9Pc08Fyck9XqD3pbklBp8D3jDSMKcUDyrbQgHExxpQ/xFmnC/E0SZ0RopU7g3NonD68z5V3ZcSuvby5pvz0dcmvbyO9GwdZLL/3HnSAPnpUzTCzfC5XC2RfDcII9IbB5Zci5YY+vGO29QAu3cshQBk5AkU++bpNWD66i/pcg6IXqa4GfXkOSh
+X-MS-Exchange-AntiSpam-MessageData-0: je1QMQIoyxA81+2C4adQSjPF/KPJbCMAp2DOPp9PRi3g3hqJFy+//4ddImp0fjPLsxi6STUbQ5e7kvl5M1HZbse9+vctzzEGyazShEjx2tLRrIkJDkU6LY+ROUzKj5lGauxvDCRHGZ78ar89p45mZVDJXGlOamBU6/D4IZbk3l3mAYN5IEtCxD/ajqc6NXmsn3VzDw3vBSlAmpKWtNGpzgC71PLOiDFYPUp6KkmJLFCmEyU0ZnrFSe6XhPAuhdbBWjJvbWcu6i6i/nORPxlHtFs1GZUF4ny39mhnF/Ng/nLvpsGGMqkk0beS7JSaMUnCj7XlsDHKTvc4PcP3Y5uxvFfiqgDkLfRtKEVLu+xmA4eo1wN7XIPkGKHTzGIAGHKlnxQnVJAPcpdHpiBS9oqKxaV8vdfaxJ5D6KWVDyA+tbkdfnXHfRCtSGBlJmRN8SBz
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 02:29:39.4161 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b2850eec-5a5c-47e5-d52b-08df39524f8d
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 02:29:45.5144 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 96aafa32-0083-476d-d3e3-08df39525330
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CH01EPF000BE946.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4366
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8938
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,341 +104,145 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi,
-
-This series adds support for Second-Level Trap Handlers (SLTH) for
-AMDGPU user queues.
-
-Today, the kernel provides a first-level trap handler through the
-existing CWSR infrastructure. This series extends that model by allowing
-userspace to install a second-level trap handler on a per-GPUVM basis.
-
-When a trap occurs, execution first enters the kernel-managed first-level
-trap handler. The first-level trap handler then transfers control to a
-userspace-provided second-level trap handler. After the second-level
-handler finishes execution, control returns back to the original shader
-through the normal trap return path.
-
-Changes since v2
-================
-
-  - Fixed second-level trap address validation to correctly validate
-    user-provided TBA/TMA GPUVM mappings.
-  - Simplified the L2 trap UAPI structure layout.
-  - Removed explicit padding fields.
-  - Removed obsolete padding validation checks.
-  - Verified VM ioctl ABI size remains unchanged:
-        sizeof(union drm_amdgpu_vm) = 40
-  - Aligned GFX12.1 trap ISA selection with existing KFD handling.
-  - Replaced obsolete GFX12.1 trap ISA selection with
-    revision-specific trap blobs:
-        cwsr_trap_gfx12_1_0_rev_0_hex
-        cwsr_trap_gfx12_1_0_rev_1_hex
-  - Applied the GFX12.1 update consistently in:
-        amdgpu_cwsr.c
-        amdgpu_trap.c
-  - Additional bring-up, validation and testing.
-
-
-Base Tree
-=========
-
-Series developed on top of:
-  11a08cd5ab25
-  drm/amdgpu: save VKMS modeset state from the system PM path only
-
-Branch:
-  amd-staging-drm-next
-
-
-Validated Patch Series
-======================
-
-  63a8b1c841cf drm/amdgpu: Add CWSR infrastructure for user queues
-  6a009e39acd4 drm/amdgpu: Integrate CWSR with user queues
-  593a519d44f6 drm/amdgpu: Add CWSR userspace interfaces
-  5144dc590439 drm/amdgpu: Add second-level trap handler infrastructure
-  3756d2ce7e0b drm/amdgpu: Make first-level trap state GPUVM-owned
-  0c27773bb8e6 drm/amdgpu: Program trap TBA/TMA for kernel-managed VMIDs
-  19de9a0ed07c drm/amdgpu/uapi: Add SET/CLEAR L2 TRAP to VM ioctl
-
-
-Validation Platform
-===================
-
-GPU:
-  Navi48 (0x746f)
-
-Firmware:
-
-  MES_KIQ feature version: 1
-  MES_KIQ firmware version: 0x00000094
-
-  MES feature version: 1
-  MES firmware version: 0x00000094
-
-  VBIOS version: 113-G2820100-001
-
-
-IGT Validation
-==============
-
-Associated IGT series:
-
-  tests/amdgpu: Add SLTH validation tests for trap handling and trap return
-
-  https://patchwork.freedesktop.org/patch/765208/?series=177473&rev=1
-
-The IGT series adds dedicated validation coverage for:
-
-  - SLTH installation
-  - SLTH removal
-  - Trap invocation
-  - VGPR preservation
-  - Trap return handling
-  - Execution resume after trap
-  - Queue execution recovery
-  - GFX KQ path
-  - GFX UMQ path
-  - Compute KQ path
-
-Validated tests:
-
-  slth-gfx-kq-vgpr-proof
-  slth-gfx-umq-vgpr-proof
-  slth-comp-kq-vgpr-proof
-  slth-comp-kq-returnproof
-
-
-What The Tests Verify
-=====================
-
-slth-gfx-kq-vgpr-proof
-
-  - Installs a second-level trap handler.
-  - Dispatches a workload containing s_trap.
-  - Executes trap handling.
-  - Returns through the trap return path.
-  - Verifies VGPR values after execution resumes.
-  - Verifies the expected proof value.
-
-slth-gfx-umq-vgpr-proof
-
-  - Installs a second-level trap handler.
-  - Executes through the UMQ path.
-  - Exercises queue recovery and resume.
-  - Verifies VGPR preservation.
-  - Verifies the expected proof value.
-
-slth-comp-kq-vgpr-proof
-
-  - Executes SLTH through the compute KQ path.
-  - Verifies trap handling execution.
-  - Verifies VGPR preservation.
-  - Verifies the expected proof value.
-
-slth-comp-kq-returnproof
-
-  - Executes trap handling.
-  - Exercises trap return.
-  - Verifies execution continues after trap return.
-  - Verifies the final proof value after resume.
-
-
-Representative IGT Validation Flow
-==================================
-
-The validation performed by the proof-oriented tests follows:
-
-  Install SLTH
-        ->
-  Dispatch shader workload
-        ->
-  Execute s_trap
-        ->
-  First-level trap handler executes
-        ->
-  Second-level trap handler executes
-        ->
-  Trap return executes
-        ->
-  Execution resumes
-        ->
-  Expected proof value written
-        ->
-  IGT validates result
-        ->
-  Remove SLTH
-
-
-Representative IGT Traces
-=========================
-
-For ex: 
-
-GFX KQ VGPR proof test:
-
-  [IGT] Starting subtest: slth-gfx-kq-vgpr-proof
-
-  [IGT] Installing second-level trap handler
-  [IGT] Dispatching proof workload
-  [IGT] Triggering s_trap
-  [IGT] Waiting for completion
-
-  [IGT] Expected proof value observed
-  [IGT] VGPR validation successful
-
-  [IGT] Clearing second-level trap handler
-  [IGT] Subtest passed
-
-
-GFX UMQ VGPR proof test:
-
-  [IGT] Starting subtest: slth-gfx-umq-vgpr-proof
-
-  [IGT] Installing second-level trap handler
-  [IGT] Dispatching proof workload
-  [IGT] Triggering s_trap
-
-  [IGT] Queue restore completed
-  [IGT] Execution resumed
-
-  [IGT] Expected proof value observed
-  [IGT] VGPR validation successful
-
-  [IGT] Clearing second-level trap handler
-  [IGT] Subtest passed
-
-
-Compute KQ VGPR proof test:
-
-  [IGT] Starting subtest: slth-comp-kq-vgpr-proof
-
-  [IGT] Installing second-level trap handler
-  [IGT] Dispatching proof workload
-
-  [IGT] Expected proof value observed
-  [IGT] VGPR validation successful
-
-  [IGT] Clearing second-level trap handler
-  [IGT] Subtest passed
-
-Representative Kernel Traces
-============================
-
-SLTH installation:
-
-  amdgpu: VM ioctl SET_L2_TRAP
-
-  amdgpu: installing L2 trap handler
-      (tba_va=0x0000010000000000
-       tba_sz=8192
-       tma_va=0x0000010000002000
-       tma_sz=4096)
-
-  amdgpu: updated L2 trap descriptor
-      (tba=0x0000010000000000
-       tma=0x0000010000002000)
-
-These messages confirm that the userspace-provided
-second-level trap handler was successfully installed
-and programmed into the first-level trap descriptor.
-
-SLTH removal:
-
-  amdgpu: VM ioctl CLEAR_L2_TRAP
-
-  amdgpu: clearing L2 trap descriptor
-
-  amdgpu: updated L2 trap descriptor
-      (tba=0x0000000000000000
-       tma=0x0000000000000000)
-
-These messages confirm successful removal of the
-installed second-level trap handler.
-
-
-End-to-End Result
-=================
-
-The validation demonstrates that:
-
-  - Userspace can install a second-level trap handler.
-  - The kernel validates user-provided trap buffers.
-  - The first-level trap handler transfers control to the
-    second-level trap handler.
-  - Trap descriptors are programmed correctly.
-  - The second-level trap handler executes successfully.
-  - Trap return resumes execution correctly.
-  - Queue execution continues after trap processing.
-  - Expected proof values are observed.
-  - VGPR state is preserved across trap handling.
-  - Userspace can successfully remove the installed
-    second-level trap handler.
-
-In simple terms, the series has been validated from
-installation of the second-level trap handler,
-through trap execution and trap return,
-all the way to workload completion and cleanup.
-
-Testing on Navi48 hardware confirms successful
-SLTH installation, trap execution, execution resume,
-proof validation, and SLTH removal.
-
-Thanks,
-Srini
-
-Lijo Lazar (4):
-  drm/amdgpu: Add CWSR infrastructure for user queues
-  drm/amdgpu: Integrate CWSR with user queues
-  drm/amdgpu: Add CWSR userspace interfaces
-  drm/amdgpu: Add second-level trap handler infrastructure
-
-Srinivasan Shanmugam (3):
-  drm/amdgpu: Make first-level trap state GPUVM-owned
-  drm/amdgpu: Program trap TBA/TMA for kernel-managed VMIDs
-  drm/amdgpu/uapi: Add SET/CLEAR L2 TRAP to VM ioctl
-
- drivers/gpu/drm/amd/amdgpu/Makefile         |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu.h         |   5 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.c    | 551 ++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  |  10 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c     |  20 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c     |  31 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h     |   8 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c    | 771 ++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_trap.h    | 148 ++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c   |  24 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h   |   7 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c      |  98 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h      |  17 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h     |  22 +
- drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c      |  14 +
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c       |  28 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c     |  75 +-
- drivers/gpu/drm/amd/amdgpu/gfxhub_v11_5_0.c |  50 ++
- drivers/gpu/drm/amd/amdgpu/gfxhub_v12_0.c   |  50 ++
- drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c   |  61 ++
- drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c    |  47 ++
- drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c    |  59 ++
- drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c    |  50 ++
- drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c    |  50 ++
- drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0.c    |  55 ++
- drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0_3.c  |  55 ++
- drivers/gpu/drm/amd/amdgpu/mes_userqueue.c  | 107 ++-
- include/uapi/drm/amdgpu_drm.h               |  90 +++
- 28 files changed, 2443 insertions(+), 62 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.c
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_trap.c
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_trap.h
-
+From: Lijo Lazar <lijo.lazar@amd.com>
+
+Add an ioctl to return the size information required for CWSR regions.
+
+Add CWSR parameters to the user queue ioctl so userspace can provide
+the GPU virtual address and allocated size of the save/restore buffer.
+The parameters are supported for user compute queues.
+
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c    | 21 +++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 13 +++++++----
+ include/uapi/drm/amdgpu_drm.h              | 27 ++++++++++++++++++++++
+ 3 files changed, 57 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+index fe5e505c6f2b..eedace58eaf8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -1455,6 +1455,27 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 			return -EINVAL;
+ 		}
+ 	}
++	case AMDGPU_INFO_CWSR: {
++		struct drm_amdgpu_info_cwsr cwsr_info;
++		int num_xcc, r;
++
++		fpriv = (struct amdgpu_fpriv *)filp->driver_priv;
++		if (!amdgpu_cwsr_is_enabled(adev) || !fpriv->cwsr_trap)
++			return -EOPNOTSUPP;
++		num_xcc = amdgpu_xcp_get_num_xcc(adev->xcp_mgr, fpriv->xcp_id);
++		cwsr_info.ctl_stack_size =
++			adev->cwsr_info->xcc_ctl_stack_sz * num_xcc;
++		cwsr_info.dbg_mem_size =
++			adev->cwsr_info->xcc_dbg_mem_sz * num_xcc;
++		cwsr_info.min_save_area_size =
++			amdgpu_cwsr_size_needed(adev, num_xcc);
++		r = copy_to_user(out, &cwsr_info,
++				 min((size_t)size, sizeof(cwsr_info))) ?
++			    -EFAULT :
++			    0;
++		return r;
++	}
++
+ 	default:
+ 		DRM_DEBUG_KMS("Invalid request %d\n", info->query);
+ 		return -EINVAL;
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+index 108dced28f97..0ba672ce7e55 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+@@ -466,11 +466,9 @@ static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
+ 			num_xcc = amdgpu_xcp_get_num_xcc(adev->xcp_mgr,
+ 							 fpriv->xcp_id);
+ 			cwsr_params.ctx_save_area_address =
+-				userq_props->ctx_save_area_addr;
++				compute_mqd->ctx_save_area_va;
+ 			cwsr_params.cwsr_sz =
+-				userq_props->ctx_save_area_size;
+-			userq_props->ctl_stack_size =
+-				adev->cwsr_info->xcc_ctl_stack_sz * num_xcc;
++				compute_mqd->ctx_save_area_size;
+ 
+ 			r = amdgpu_bo_reserve(queue->vm->root.bo, false);
+ 			if (r) {
+@@ -485,6 +483,13 @@ static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
+ 				kfree(compute_mqd);
+ 				goto free_mqd;
+ 			}
++
++			userq_props->ctx_save_area_addr =
++				compute_mqd->ctx_save_area_va;
++			userq_props->ctx_save_area_size =
++				compute_mqd->ctx_save_area_size;
++			userq_props->ctl_stack_size =
++				adev->cwsr_info->xcc_ctl_stack_sz * num_xcc;
+ 		}
+ 
+ 		kfree(compute_mqd);
+diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+index 29009f6aabde..9317018330ec 100644
+--- a/include/uapi/drm/amdgpu_drm.h
++++ b/include/uapi/drm/amdgpu_drm.h
+@@ -470,6 +470,17 @@ struct drm_amdgpu_userq_mqd_compute_gfx11 {
+ 	 * to get the size.
+ 	 */
+ 	__u64   eop_va;
++	/**
++	 * @ctx_save_area_va: Virtual address of the GPU memory for save/restore buffer.
++	 * This must be from a separate GPU object, and use AMDGPU_INFO IOCTL
++	 * to get the size. This includes control stack, wave context and debugger memory.
++	 */
++	__u64 ctx_save_area_va;
++	/**
++	 * @ctx_save_area_size: Total size (in bytes) allocated for save/restore buffer.
++	 * Use AMDGPU_INFO IOCTL to get the size.
++	 */
++	__u32 ctx_save_area_size;
+ };
+ 
+ /* userq signal/wait ioctl */
+@@ -1289,6 +1300,8 @@ struct drm_amdgpu_cs_chunk_cp_gfx_shadow {
+ #define AMDGPU_INFO_GPUVM_FAULT			0x23
+ /* query FW object size and alignment */
+ #define AMDGPU_INFO_UQ_FW_AREAS			0x24
++/* query CWSR size and alignment */
++#define AMDGPU_INFO_CWSR			0x25
+ 
+ #define AMDGPU_INFO_MMR_SE_INDEX_SHIFT	0
+ #define AMDGPU_INFO_MMR_SE_INDEX_MASK	0xff
+@@ -1668,6 +1681,20 @@ struct drm_amdgpu_info_uq_metadata {
+ 	};
+ };
+ 
++/**
++ * struct drm_amdgpu_info_cwsr - cwsr information
++ *
++ * Gives cwsr related size details. User needs to allocate buffer based on this.
++ */
++struct drm_amdgpu_info_cwsr {
++	/* Control stack size */
++	__u32 ctl_stack_size;
++	/* Debug memory area size */
++	__u32 dbg_mem_size;
++	/* Minimum save area size required */
++	__u32 min_save_area_size;
++};
++
+ /*
+  * Supported GPU families
+  */
 -- 
 2.34.1
 
