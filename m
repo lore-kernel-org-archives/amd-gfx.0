@@ -2,64 +2,62 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64599606EE8F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE619606A328
 	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 14:03:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b=P37CKcwS
+	dkim=pass (2048-bit key, unprotected) header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=Urmns2br
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0118310E544;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1586510F5A5;
 	Tue,  3 Nov 2026 14:03:05 +0000 (UTC)
-Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.155.102])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9095610E14F
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Nov 2026 11:47:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
- s=iohv2404; t=1793706422;
- bh=jjfU3ITG+1Ysae0i08XoA5rOkoEAvvwcgiCSL+a+RQ4=;
- h=From:To:Subject:Date:Message-Id:MIME-Version;
- b=P37CKcwST8OucMVjNdrIuRes8vH9DHGn3o3AxK+pzs9s6okoEtn0Wkyobx98Uj7RH
- tTCK2rLJ9gMSce67o7G76z4MIoM+0s8MQlDEfwADfnD5ueViWPby/KGVqFZRNzv9IS
- 6P9syEiYkp985xshiXILpEaiQ+aoEw7B1OuO13aM=
-X-QQ-mid: zesmtpip3t1793706055tf286fde0
-X-QQ-Originating-IP: qDU+okGXTubXWh454M3F6joKk3mhoSRF6jYFHwiqPck=
-Received: from workstation-Precision-7920-Towe ( [localhost])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Tue, 03 Nov 2026 19:40:54 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 15823312286614678572
-From: Kang Chen <k.chen@smail.nju.edu.cn>
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/radeon: reject invalid ATRM results
-Date: Tue,  3 Nov 2026 19:40:53 +0800
-Message-Id: <20261103114053.73761-1-k.chen@smail.nju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7686410F594
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Nov 2026 13:16:04 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jJpwy6lQTzMljJ;
+ Tue, 03 Nov 2026 14:16:02 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
+ t=1793711762;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=zVi93CQ//2euCCyPaFsK8UkBI2G8pXdx8HSh695art4=;
+ b=Urmns2brtZlmpum16FqhTULqn5flGANmlAWZuxfXbY0eEZNWTxr2is0kkMXaLZLbrmVZfK
+ qUCObkMGHRjqkZh5/pZO1n0DxKumG3smWlHN4RRHDUGBLQv/vYhKgRqZliKkWIef524646
+ /58jWn8ts9ahoMD8Pk6V+f0P4Q2gguclNhUsfVkCztGEWgIWwGGfVjxPEFF0ancF2vP5Xb
+ xcyQvWchiTwnAvNHh6ID0be0PJNfebLoMRe6k3rz6/Z0mL+S9HQhNl2gKowUUEPCcEDMet
+ ihwdojEIpWAZbOulKWFYvt8VWyt1uKDY2T4GP8pXQtr1Ff/4a7XUKdANuA+GkA==
+Authentication-Results: outgoing_mbo_mout; dkim=none;
+ spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates
+ 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=hugo@hsal.es
+From: Hugo Sales <hugo@hsal.es>
+To: alexander.deucher@amd.com, siqueira@igalia.com, harry.wentland@amd.com,
+ amd-gfx@lists.freedesktop.org, sunpeng.li@amd.com
+Subject: [PATCH RFT 1/3] drm/amd/display: Add the AUX backlight minimum once
+ on the custom curve
+Date: Tue,  3 Nov 2026 13:15:57 +0000
+Message-ID: <20261103-amdgpu-aux-curve-min-v1-1-62119efdcc6d@hsal.es>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261103-amdgpu-aux-curve-min-v1-0-62119efdcc6d@hsal.es>
+References: <20261103-amdgpu-aux-curve-min-v1-0-62119efdcc6d@hsal.es>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4951; i=hugo@hsal.es;
+ h=from:subject:message-id; bh=S1PGp9r4Q3l/5GOSMK/I4o0ZnP86M0ymnis45ePDhss=;
+ b=owJ4nJvAy8zAJVbLU7f+5A3TBYyn1ZIYsl7eazapMs5JWPSrR2j9mySbF1+Ndnwo/v8ltf3sI
+ 4Gaon/v5l7sKGVhEONikBVTZNG94cnAMnHyzJyi50tg5rAygQxh4OIUgImwdDMyvNn1fmOm/K9T
+ nquf7d6trrVgweKvNxdYnpjCdmtT39N9F2UY/hf1bWQ0CKuc+zWGWexFv8KUn2/a1k8vCTC7OyX
+ c956fBBsAXppSkQ==
+X-Developer-Key: i=hugo@hsal.es; a=openpgp;
+ fpr=193D095149CF7E8737B39064D912B0DB205A91C1
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpip:smail.nju.edu.cn:qybglogicsvrgz:qybglogicsvrgz5b-1
-X-QQ-XMAILINFO: MW//binZVb2s8OzTooxAXph2ckOBDM2XFhyr+yvRuLcJrdEf+1nH7x3d
- TvnnEN+dzxIBFLUcsQ0uLbPOqI+sWBUNvimFlR9qtzGeyTkj30/Nj/s3bXzFKKtF6hK6Qbs
- 0OKtCm0PYDnzwYmQfXaST955cqEQNNqzpyrw5Q5JyJO75Ai38A35+mhNZ5cJDLFfoZuK0U1
- HoxawL2qkHdh4Ya4eByFgqfgeRsCjhu1yEEW5a8oTWoVw9XjhBNwMoGVFj7Oqg67J2YeXu/
- mvDHCM6vhz96kdMZZyl3B2GniOanx610LcSkDtg0CVgkTuPrxCXoaN0VVAIDOn8gk1zwHWO
- J4pWwxsdZdounEEkB2x8QkpIsq/kPkkqYbzv1XXK+XY4yqXyKDo0q1A/opU/hseLkBVqe36
- b1TacLEPzoqlxxnA9kX2l8L0ifc371KQi1IwfW7ZuJN3IXsPTyh1tWuCSrcTJfKenh3a6Yw
- fFWYWmDa2dsVmOxu04dGuBQidCyQMWao0SQ/PalyzIAaaVNSwaStTejzOuTkTOuy47VV75u
- ktGRvXyfK+IfMmw7N6jrDsaFNxhHQSnyI/Zf9zqD/XBfRnxySxi/QpQS7X59KBMN+7R91Cw
- HMzZW6/XfAfZnx+ZsbOSt3K6Gc3162ysJ8CgD8/Ghj7pbibeNwkgiMwkMQpN/vkAnl0dROU
- XjpRP7CWoIxzk6uo6CTYcvfqQzbHxQZrmpCGlz5wJ9OdtodqC1nV2hllMhQzH0s5hpxTiSp
- UEB6Y+GTpofM2kXtV8Boh+pLfWojDZl8+KEy/ffHkbm70sGuyLZ2qRFogzQRE2inVyz8/CY
- Im6n4XxvMtJuaFlFzo3CXpDaubw1hP5LfdsAW33pqSXsociZW0LmDXNM2BAsGai1SfadmKu
- /VBLkbhAqYHBf/NNuSi+dWKxNivbH1nuBsOS/8yjjm19LIDnZDN4UrLS5IIFIXtXy02xjO+
- iR3Mb1tjCiNj9RZ+ssY7Rgs+elxX6ZSRdCjvPusdBzxaKufFa723ZN41quzY75jafmEwj1t
- NTXVOIQhAgXR42q/DwBcuvjYg1zMMEXuUgXUZXEQ==
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-QQ-RECHKSPAM: 0
+X-Rspamd-Queue-Id: 4jJpwy6lQTzMljJ
 X-Mailman-Approved-At: Tue, 03 Nov 2026 14:03:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -74,47 +72,106 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,UNPARSEABLE_RELAY,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-radeon_atrm_call() trusts the buffer returned by the ATRM method: it
-copies obj->buffer.length bytes into the VBIOS image without checking
-the object type or that the length fits in the requested chunk.  A
-firmware-provided ATRM method returning a non-buffer object or a buffer
-larger than the requested 4 KiB chunk can write beyond the 256 KiB
-VBIOS allocation.
+On an AUX backlight, convert_brightness_from_user() maps the user level
+through the ATIF custom brightness curve with
+convert_custom_brightness(), which rescales the result to
+user_min..user_max. convert_brightness_from_user() then rescales it
+again, from 0..user_max to user_min..user_max, so the minimum goes in
+twice. On the 1..512 nits AUX fallback range, a request for 0 gives
+1998 millinits instead of 1000
 
-Reject the response unless it is an ACPI buffer no larger than the
-requested chunk.  The only caller always requests ATRM_BIOS_PAGE-sized
-chunks inside the VBIOS allocation, so checking the returned length
-against len is sufficient.
+Rescale the curve's output to 0..user_max and leave the offset to the
+caller
 
-Fixes: c61e2775873f ("drm/radeon: split ATRM support out from the ATPX handler (v3)")
-Signed-off-by: Kang Chen <k.chen@smail.nju.edu.cn>
+Fixes: 16dc8bc27c2aa ("drm/amd/display: Export full brightness range to userspace")
+Signed-off-by: Hugo Sales <hugo@hsal.es>
 ---
- drivers/gpu/drm/radeon/radeon_bios.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+I saw this on my laptop, an ASUS ROG Flow X13 GV301QH, with 7.2.9, when
+PWM still went through this code: the amdgpu_dm_brightness trace showed
+requested=0 converted=6023, where 3084 is the minimum. Commit
+d422a66847a9 ("drm/amd/display: map PWM brightness through custom
+backlight curve"), in 7.2.10, moved PWM off this path, but on current
+kernels it still hits an AUX panel with an ATIF curve. On older stable
+kernels this fixes PWM too
 
-diff --git a/drivers/gpu/drm/radeon/radeon_bios.c b/drivers/gpu/drm/radeon/radeon_bios.c
-index 1da6bf1c17ff..c23892470265 100644
---- a/drivers/gpu/drm/radeon/radeon_bios.c
-+++ b/drivers/gpu/drm/radeon/radeon_bios.c
-@@ -183,7 +183,12 @@ static int radeon_atrm_call(acpi_handle atrm_handle, uint8_t *bios,
- 	}
+With amdgpu.backlight=1, which forces AUX, the GV301QH uses the 1..512
+nits fallback range. There the floor goes from 1998 to 1000 millinits,
+the midpoint from 159999 to 159310 and the top from 496000 to 495968.
+The rounding of the level to 8 bits and of the luminance to a whole
+percent stays as it is
+
+No existing test changes: they all run with a minimum of 0, where adding
+it twice makes no difference. Patch 3 adds one with a non-zero minimum
+---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c    |  9 ++++-----
+ .../amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c | 14 +++++++-------
+ 2 files changed, 11 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+index 27546febf90d3..8b49cbcde91cd 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+@@ -122,10 +122,10 @@ static inline u32 scale_input_to_fw(int max, u64 input)
+ 	return DIV_ROUND_CLOSEST_ULL(input * AMDGPU_MAX_BL_LEVEL, max);
+ }
  
- 	obj = (union acpi_object *)buffer.pointer;
--	memcpy(bios+offset, obj->buffer.pointer, obj->buffer.length);
-+	if (!obj || obj->type != ACPI_TYPE_BUFFER || obj->buffer.length > len) {
-+		kfree(buffer.pointer);
-+		return -ENODEV;
-+	}
-+
-+	memcpy(bios + offset, obj->buffer.pointer, obj->buffer.length);
- 	len = obj->buffer.length;
- 	kfree(buffer.pointer);
- 	return len;
+-/* Rescale from [0..AMDGPU_MAX_BL_LEVEL] to [min..max] */
+-static inline u32 scale_fw_to_input(int min, int max, u64 input)
++/* Rescale from [0..AMDGPU_MAX_BL_LEVEL] to [0..max] */
++static inline u32 scale_fw_to_input(int max, u64 input)
+ {
+-	return min + DIV_ROUND_CLOSEST_ULL(input * (max - min), AMDGPU_MAX_BL_LEVEL);
++	return DIV_ROUND_CLOSEST_ULL(input * max, AMDGPU_MAX_BL_LEVEL);
+ }
+ 
+ static u32 backlight_signal_to_luminance(const struct amdgpu_dm_backlight_caps *caps,
+@@ -251,8 +251,7 @@ void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *caps,
+ 						    (brightness - lower_signal),
+ 						    upper_signal - lower_signal);
+ scale:
+-	*user_brightness = scale_fw_to_input(min, max,
+-					     DIV_ROUND_CLOSEST(lum * brightness, 101));
++	*user_brightness = scale_fw_to_input(max, DIV_ROUND_CLOSEST(lum * brightness, 101));
+ }
+ 
+ EXPORT_IF_KUNIT(convert_custom_brightness);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
+index c6d15fb8ad989..2d7a07d9ad874 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
+@@ -1125,10 +1125,10 @@ static void dm_test_custom_brightness_exact_match(struct kunit *test)
+ 
+ 	/*
+ 	 * Exact match: lum=50, brightness_scaled=128
+-	 * result = scale_fw_to_input(min, max, DIV_ROUND_CLOSEST(50*128, 101))
+-	 *        = scale_fw_to_input(0, 65535, DIV_ROUND_CLOSEST(6400, 101))
+-	 *        = scale_fw_to_input(0, 65535, 63)
+-	 *        = 0 + DIV_ROUND_CLOSEST(63 * 65535, 255) = 16191 (approx)
++	 * result = scale_fw_to_input(max, DIV_ROUND_CLOSEST(50*128, 101))
++	 *        = scale_fw_to_input(65535, DIV_ROUND_CLOSEST(6400, 101))
++	 *        = scale_fw_to_input(65535, 63)
++	 *        = DIV_ROUND_CLOSEST(63 * 65535, 255) = 16191 (approx)
+ 	 */
+ 	KUNIT_EXPECT_TRUE(test, brightness != 32896);
+ 	KUNIT_EXPECT_TRUE(test, brightness < 32896);
+@@ -1171,9 +1171,9 @@ static void dm_test_custom_brightness_below_first(struct kunit *test)
+ 
+ 	/*
+ 	 * Below first data point: lum = DIV_ROUND_CLOSEST(40 * 50, 100) = 20
+-	 * Then: scale_fw_to_input(0, 65535, DIV_ROUND_CLOSEST(20 * 50, 101))
+-	 *      = scale_fw_to_input(0, 65535, DIV_ROUND_CLOSEST(1000, 101))
+-	 *      = scale_fw_to_input(0, 65535, 10)
++	 * Then: scale_fw_to_input(65535, DIV_ROUND_CLOSEST(20 * 50, 101))
++	 *      = scale_fw_to_input(65535, DIV_ROUND_CLOSEST(1000, 101))
++	 *      = scale_fw_to_input(65535, 10)
+ 	 * The output should be significantly less than input.
+ 	 */
+ 	KUNIT_EXPECT_TRUE(test, brightness < 12850);
+
 -- 
-2.34.1
+2.56.0
 
