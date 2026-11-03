@@ -2,102 +2,97 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E13A7606A326
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 14:35:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AAE4606A326
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 14:44:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=usDCqEUF
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=vr4J2XWv
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CD4410E4BE;
-	Tue,  3 Nov 2026 14:35:48 +0000 (UTC)
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com
- [74.125.82.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5487310F61E
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Nov 2026 14:35:42 +0000 (UTC)
-Received: by mail-dy1-f175.google.com with SMTP id
- 5a478bee46e88-3550dd02c9cso360168eec.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 03 Nov 2026 06:35:42 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793716542; cv=none;
- d=google.com; s=arc-20260327;
- b=Ws/7KYciqc3PBDw51x1pR4sWHlaE07BOLNgsGvFn5gIWpwYP5BhLogxWBTwpBMZjT7
- Cq34mJ9lekdXtEWtBLwPM3tMlaAnxW9OlYhvdjD60NhxRRj66Y+KnKbMAyISmJkNGEwH
- s55MPiKzgpNzzo9sOmshy37fW2+VlK3qLni8tdAShk94FdwB3eMBGHWKPW3AREWu9mjs
- BXQlNuElRn58+GxXWjl/em9iTKDLQMYp1jsWnOP4j5jx+A/cFckXMB6uIcy+oOxMXwyY
- jliCF0cjQh7a373dmt5vpe0hxqBvygCoaoCNdQiTp2ZCVSLvWJfi127RTDzMj3oQOO45
- 9eag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=XR0Bzo9nCDXtzTFfI+PIJF4f5OVzgMjX1gFs5CwTiGI=;
- fh=uaMjc875/uE/NCcyPXgYLwUHAXGAtfOdADObQC1LDtc=;
- b=CIIqCfoqn8w2UONTtxGMLxqaUtPK6VYgBTkkg5n/NGCPkB3ZS4R85o+IPNiRHsGyZk
- Rv7mcKsfAb0PWluxa5eVEIIu0pLlUzv9Le9SLfIVttdN/roTEolHFMqqonwqHHYA4547
- 5AdbYpHA3DH70xi5n4OsBtQIzmo2RReTATEpuKBzUc58ywVDYwnUN95TbhsrNkS++F1A
- 57rr0Nj6/XJGtp1D2jZsIYYVfp4XGorFkye0LAkFEWdaEOTVT/3TDQZzQUmYzh2689JA
- SKay/NCPgwn3hxK9JYlVLRP7WZoXb03G4x2AU6daDE59HjSl56GJ39f1TvwP3hcuBU0o
- KNKg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793716541; x=1794321341; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=XR0Bzo9nCDXtzTFfI+PIJF4f5OVzgMjX1gFs5CwTiGI=;
- b=usDCqEUFWoXzQ6/hwKyMl5x9sYpKumcMZfpxKptr1aizHdkSFDQ8PG5gYCvQyy9q6h
- 3KaqdpPlxeTD50ZSWw4PCCriGt+p0i66QM1NNWF8bWvzuSTOrZ8quOpIJDv9hAzv5pX1
- 8clg75QZjYIrgWqHe08KpW+gOXNXeckws4JMLJOC3BQA2qe5dX3+tdRFN96KQmmCE8Fg
- 7k5IwjhRXW4C6ukRZUmwEegeJg+iMpA3wZ/bkVD5sWd93tTDckdVc/Wkzw7dKYGbhx7H
- qzogHrHa0wlCuMzGWBdQGUoGJG5RsWwt6caqmCBF6QWH8PxM6WEd9IviTE/52PdxuzfK
- MZfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793716542; x=1794321342;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=XR0Bzo9nCDXtzTFfI+PIJF4f5OVzgMjX1gFs5CwTiGI=;
- b=wYHeYap8HWVue1RjW2ty+hvhMrgiFC2WlaC9wzYeh7yK3nVIihT7dKlj5PwsEIxF8P
- XdcQU71BE66MaF0SKH/TcPnGXwhshk9QyZdOVKIBk5kAodupLMntBkLn42NlbkwnPUmf
- cgScRiBcti4QdIi3G5I04ZEmGK66ukLj9QImasgCvR1w+EZ9Io1+PHPUAY8vy+/F7DJV
- qHhfW7Po4ZFf85Ih99HYMgDXZWouU8XNzcj7pc3mzMpBHgZ+Z9qlav8Q/mMkwCznChN1
- 43XOR7zYiIJdAPNCly3R4Nc0qtn3hfiLyf5JiKbUym+ljM/dgc7iMvSZz2dwHmgBWgWI
- o8bw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBypbJ12H8Hx6kO9+T3n8ecrrrj1s2JCjjFm/ytA4CmHFHSdekzEzLF78KIqMpKkOGVLsShem++q@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9kg0teiz78fRypqRM0L8CGUcqUEsBBeXjOEdqseA8IvtFf+WeO
- NuITAnlG9e6cZk3DqMbEJw0VYOT0A0pbt5Hvv1FZQ8Q+bcZzjz5oeZ6gBYhHKYWRdq26yLZNPfN
- 667s5m+KjmNmaviCRyb/k5XAeYspHmak=
-X-Gm-Gg: AYBFou1njjElnSb7YQRB2tKIO2Oj4iy0mj7YCFy30lJKjSSBalg1w++/bOJRdESQVWr
- l0EYeUzUcfI4lSrU8PEBED+yCpzTUXLHUU45kMSP50b0hoM0U1eH6wvZRZzKeuC+L1w1IJ4WRmk
- AlAOePOzXMwbepC3izFGxQCIC13Sys+trihKde8JwnB+eWcxhEy6qy/LMj063AvV88MihsrKIb/
- ZbO+bsMG64s3S1RcU+dS6rZWYg3W9AxoQFKERjqWfFkQy7c6TXKQOlO1l6CCu64Yr58nEEcdhCD
- Muh4LBAKuQTkFIedXwidBdCsZHouxausEJvD37C9BmGr0ATM3nX9dVR1QaPwEPMCdxktp3vePhE
- aQX9gkjJk0i1D5eQ78iLcvHf9KJXWeAi+hHyc3qJVgOW+FrwmfTyUplzH7GPQrvUPMO0H+41Zgv
- GhDGLxRnWq53/M1gmtQ4aZITA=
-X-Received: by 2002:a05:7022:b053:20b0:144:fd17:3b21 with SMTP id
- a92af1059eb24-1ac500d67e6mr32546852c88.0.1793716541521; Tue, 03 Nov 2026
- 06:35:41 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0852910F617;
+	Tue,  3 Nov 2026 14:44:17 +0000 (UTC)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012056.outbound.protection.outlook.com [52.101.48.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA5DA10F617
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Nov 2026 14:44:10 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JEMfN0eJzxZjronKMdcw+u5qIdZDVRmbSDo1N2VmRUPgISzlAS/TuIjVhhdVeX/StNDTb4bSp+p+Rt4uEjhNyMLbfiKcjqUO4dcmmGUXG12izffkIoUJ6zw9WpTJXhj9QlDQBss/aeSjNqTd6rVGGOnwpFgWWnZ6T1+wVr1cbxRHo5NP14djWIlIuYt3E9tdGv82bq7AElZ1n1CdZmDkRc6DmpBckJ9rz9WhA6fh72wEzPVdGNyX78CpMOC1CbQUvb7d5qZCiJgO66PTqFGcO1cBwPMJbMWiHYXZye3o4Rt/tG+I5xM8xTifh3jiLRZHOKjU4D0MHzM5Cwi/1OVOuw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pmBEUvrvZqkYtu4WCicS+GbwGXRkKX0b5RB6MApAOx0=;
+ b=a/a3uBy6E37n5TyxRqZXLVH0CuNTrxKmpg2e0AQuHMlQWrSJ9hZv//nVmmg3HnM/gNeIPeButtJrn0pS9A6ICEpjv4JhwEYOeH1JK7ZafPML6/KoJv4YWR94806oGHhCqiBVDaW6Nbx598ok8OCbT5fFuUx7G8TSeXk78159670gow/1Nya5F1WbxJtO8VB3evA55PkNuB7wHbpGAHKoKMHD9I603rNw3TtX8hCBhNIU9MS3N77IWv7+Y+vYmivpza+HZgqOVJNG2FVf0fCRAzdLaiDIgRN6A7EKZFbjIgO1jA1TvQOi0m9d7vXhiB/JgbaXkrdoYv5E+nVVBYQn5w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pmBEUvrvZqkYtu4WCicS+GbwGXRkKX0b5RB6MApAOx0=;
+ b=vr4J2XWvAIyQyBhWKnCZ8i3aassxWWZsILxU2f6tpuGfWAcjJpbfJmb1gGOxEq72HfXM3B9JNex87MeZCclE8Vhh26JxQcxvtqO6MD2F0eLkDHT7Y1/98SEWt5TKfnnluF5BUdpSVBQv8zcR5eZ9aBbPDy8bLPhBaIY6Mmt8y0I=
+Received: from BN0PR03CA0028.namprd03.prod.outlook.com (2603:10b6:408:e6::33)
+ by IA3PR12MB259910.namprd12.prod.outlook.com (2603:10b6:208:70e::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Tue, 3 Nov 2026
+ 14:44:05 +0000
+Received: from BN3PEPF00022BD4.namprd03.prod.outlook.com
+ (2603:10b6:408:e6:cafe::67) by BN0PR03CA0028.outlook.office365.com
+ (2603:10b6:408:e6::33) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.8 via Frontend Transport; Tue, 3
+ Nov 2026 14:44:05 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN3PEPF00022BD4.mail.protection.outlook.com (10.167.248.102) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.5 via Frontend Transport; Tue, 3 Nov 2026 14:44:05 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 3 Nov
+ 2026 08:44:04 -0600
+Received: from RSNDADJELK01.xilinx.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via
+ Frontend Transport; Tue, 3 Nov 2026 08:44:03 -0600
+From: Dejan Andjelkovic <Dejan.Andjelkovic@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, <Lijo.Lazar@amd.com>, <Nikola.Prica@amd.com>, 
+ Dejan Andjelkovic <Dejan.Andjelkovic@amd.com>
+Subject: [PATCH v3 1/2] drm/amdgpu: Enable IP discovery via PSP mailbox
+Date: Tue, 3 Nov 2026 15:44:00 +0100
+Message-ID: <20261103144401.298613-1-Dejan.Andjelkovic@amd.com>
+X-Mailer: git-send-email 2.43.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261024162109.307247-1-dev@deq.rocks>
- <20261102232450.61301-1-jahs@jahs.net>
-In-Reply-To: <20261102232450.61301-1-jahs@jahs.net>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 3 Nov 2026 09:35:29 -0500
-X-Gm-Features: AclHuK8qKEQ3sadc6FgPVgIka6386fD7xEODSenxCq71uFCEpk0SM6ipVCbP90w
-Message-ID: <CADnq5_P5Ly4Pb8WqPaN28yDHG8jSjoEHAfDKAqSgTrSj14Pr1Q@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/pm: use the VBIOS trained UCLK levels on the
- MacBookPro16, 1
-To: James Skillen <jahs@jahs.net>
-Cc: Andre Eikmeyer <dev@deq.rocks>, amd-gfx@lists.freedesktop.org, 
- Alex Deucher <alexander.deucher@amd.com>, Kenneth Feng <kenneth.feng@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Jesse Zhang <Jesse.Zhang@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BD4:EE_|IA3PR12MB259910:EE_
+X-MS-Office365-Filtering-Correlation-Id: aa139869-ec83-4ac3-fa04-08df39b8e8fc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|23010399003|1800799024|82310400026|36860700016|261022105027099003|5023799004|11063799006|56012099006|261009221227099003|261009223027099003|261021130227099003|261021133027099003|261022075727099003|261021121427099003|261022113327099003|261021123027099003|261022115727099003|261021135927099003|261102123227099003|261028144727099003|261026130827099003|261026140227099003|261026135527099003|261026121527099003|10067099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info: Bt5ofJZbdU9+IfQJFzpOeFy7rumX2sQ35lmPCczQQx6ID+4U8+DqIxXzOWgEHCvkuJvpVc4TOy8v5Uq2FORkS20T9EGp6Sf6UcWipzRw9IpVdi2lnngaEG8vCbiiiRLBY9HDLloMmSVz2GaT23sgVCZ35yOZUFwNaH4QZUtW8ZDHObWBrSdSRzNClvWw3vd5xRddZrXjP4ehXOL2J1wpS7lfsJP0WoWyJzB4Pwci1nekps2ZTzoQTLoUpJy0K+oVbM4A/tMhaJF5rCVfTN6OtOQmWs43LUevSSOAvkTvbll3Mxw6LLFCe6v4SxCzW3xTGW3Z/PaL6+L4fIj9lfLJXjjUUq8+r9oNrpCzuoqjBD93KcCzpiIOrHTD+STBQr8dsUX9ApyKUNTSce5yC6dotw6EabdEpT7qnvD7zvBb11sr0RTayGjEZuiyC4FsHM6v9Exi/o4/CUJSz5zUzmD736RnAik+Q0cwAKyMXm5495pTFVGpeU7b/FX4UDybGhE1YSX/0uOUJmi4VkPq8muf/uixg3A5sUPH8crxQbvs/QIWQAxWFxQlF+NZ6s1E2rZ40AmkHFxG20psYP8tyVZVECXbVbANEeLhLXfmGU5NdNhDm7cLOuxZh12m5wx62hPU1vH/aJ5F1kyyr+5MFfFkejZ3raJEgmUvG126gvOSOwOwHSIrqluplFqp6LW5B82oYzbrCliAvzwN58oYCN8r6g==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(1800799024)(82310400026)(36860700016)(261022105027099003)(5023799004)(11063799006)(56012099006)(261009221227099003)(261009223027099003)(261021130227099003)(261021133027099003)(261022075727099003)(261021121427099003)(261022113327099003)(261021123027099003)(261022115727099003)(261021135927099003)(261102123227099003)(261028144727099003)(261026130827099003)(261026140227099003)(261026135527099003)(261026121527099003)(10067099003)(18002099003)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 93mpzJ9BlnXqlQCxmfIxOhB0M1HCrF8GniowvHShXGn8L0Kr7hPu5NgQSkHdTMf0sqHw2OjUk07D8h0OnnH1wBWNmuz+wvGHonjaSqKZ0Doiy6nAkUNhH+qAAH4iawUKpD7aYnC0bq46DtuLAixNYT2Okx0XCPPBqJZfAIO7ps7Detexf0Xrx6VGlI8QkNmPZZOV9IfBepXor+Y7yvFXrvv/EkQSkH1t4BEpIQIHRBmuiy6mQbJ7l6D0Wp3IyHml2IwoZNAQC0CqFJyRc8ypkvfJxYofqI3zzCCTJfLRGYyDAYgRF/PHcbyb+doJKNw8qBvLYdX+W/LscJMO+zbph+HL2NbKfiI/sX+EKZZRZe5FuU8t97iD67u6FZHx0Oe/xrZyVez4NmsO5mIKJ3kMvXsDQdeKATGvucloXPj8gDApPxWMJYLmXcr05ruIIlCP
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 14:44:05.5125 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: aa139869-ec83-4ac3-fa04-08df39b8e8fc
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF00022BD4.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR12MB259910
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,68 +103,169 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Nov 3, 2026 at 3:21=E2=80=AFAM James Skillen <jahs@jahs.net> wrote:
->
-> On Sat, 24 Oct 2026 18:21:09 +0200, Andre Eikmeyer wrote:
-> > The Radeon Pro 5300M and 5500M of the MacBookPro16,1 (Navi 14 boards
-> > 1002:7340/106b:0210 and 1002:7340/106b:020f) stop answering SMU message=
-s
-> > as soon as UCLK switches into its third level.
->
-> This is the hang reported in drm/amd issue 6005, which has the
-> umc_info analysis and test results from both boards:
->
->   https://gitlab.freedesktop.org/drm/amd/-/work_items/6005
->
-> Could v2 carry a Closes: tag for it?
->
-> I tested the patch on a MacBookPro16,1 with the Pro 5300M (1002:7340
-> rev 0x43, 106b:0210, VBIOS 113-D32207P1-019), on linux-t2 7.2.11 (Arch
-> v7.2.11-arch1 plus the t2linux patches) with this patch on top. The
-> userspace pp_table upload from the issue was disabled for these boots,
-> so the corrected levels came from the patch alone.
+Adds support for IP discovery via PSP mailbox using guest phys
+addr for passthrough A+A.
 
-Can you try this patch instead:
-https://patchwork.freedesktop.org/patch/765668/?series=3D174386&rev=3D2
+Signed-off-by: Dejan Andjelkovic <Dejan.Andjelkovic@amd.com>
+---
+v3: Adjust how A+A & passthrough case is detected, moved psp functions
+to amdgpu_psp as suggested by Lijo.Lazar@amd.com.
 
-Alex
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  5 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c |  8 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       | 53 +++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h       |  2 +
+ drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h       |  4 +-
+ 5 files changed, 70 insertions(+), 2 deletions(-)
 
->
-> All at DPM auto unless noted:
->
->  - both "UCLK level ..." lines at boot and again after every resume,
->    pp_dpm_mclk 95/496/598/736
->  - forced pp_dpm_mclk switches through every level transition, idle
->    and under memtest_vulkan load (57 switches, every 3 s): all landed
->  - UCLK pinned at level 2 (598 MHz): llama.cpp benchmark and 180 s of
->    memtest_vulkan, no errors
->  - 60 min soak of llama.cpp runs with idle gaps, and 30 min of normal
->    desktop use with the soak running
->  - 8 deep suspend/resume cycles (rtcwake, lid, systemctl suspend)
->
-> I ran these with the internal panel on the iGPU and again with the
-> Radeon driving it (apple-gmux force_igd=3Dn). No "SMU: No response", GPU
-> reset, ring timeout or DC errors in any of them. With the stock driver,
-> level 2 hung within seconds.
->
-> For the runs with the Radeon on the panel I also had
-> amdgpu.dcdebugmask=3D0x1. That is for a separate DC issue (the MPC pipe
-> split on the 3072x1920 eDP plane makes DRAM clock change unsupported,
-> so UCLK stays at the top level). It is not related to this patch and
-> I will report it separately.
->
-> Tested-by: James Skillen <jahs@jahs.net> # MacBookPro16,1, Pro 5300M (106=
-b:0210)
->
-> The testing above and this reply were prepared with help from
-> claude-opus-5-5; I have checked the results and the text.
->
-> Thanks,
-> James
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 5a32b54b1e9b..20570ab1d2c0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -1019,6 +1019,11 @@ static inline struct amdgpu_device *amdgpu_ttm_adev(struct ttm_device *bdev)
+ 	return container_of(bdev, struct amdgpu_device, mman.bdev);
+ }
+ 
++static inline bool amdgpu_is_spm_passthrough(struct amdgpu_device *adev)
++{
++	return amdgpu_passthrough(adev) && !pci_resource_len(adev->pdev, 0);
++}
++
+ static inline bool amdgpu_is_multi_aid(struct amdgpu_device *adev)
+ {
+ 	return !!adev->aid_mask;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+index 79a2b1268b23..d264a135ad27 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -765,7 +765,13 @@ static int amdgpu_discovery_init(struct amdgpu_device *adev)
+ 	discovery_bin = adev->discovery.bin;
+ 	/* Read from file if it is the preferred option */
+ 	fw_name = amdgpu_discovery_get_fw_name(adev);
+-	if (fw_name != NULL) {
++	if (amdgpu_is_spm_passthrough(adev)) {
++		drm_dbg(&adev->ddev, "use ip discovery information from psp mailbox");
++		r = amdgpu_psp_read_discovery(adev, discovery_bin,
++								GFX_CTRL_ADDR_TYPE_GUEST_PHY_ADDR);
++		if (r)
++			goto out;
++	} else if (fw_name != NULL) {
+ 		drm_dbg(&adev->ddev, "use ip discovery information from file\n");
+ 		r = amdgpu_discovery_read_binary_from_file(adev, discovery_bin,
+ 							   fw_name);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index 01dca6858833..b1492f8d5d92 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -52,6 +52,11 @@
+ 
+ #define PSP_IRQ_DEFAULT_HANDLER_ID 0xFFFFFFFF
+ 
++#define mmMP0_SMN_C2PMSG_64	0x16080
++#define mmMP0_SMN_C2PMSG_69	0x16085
++#define mmMP0_SMN_C2PMSG_70	0x16086
++#define mmMP0_SMN_C2PMSG_71	0x16087
++
+ static int psp_load_smu_fw(struct psp_context *psp);
+ static int psp_rap_terminate(struct psp_context *psp);
+ static int psp_securedisplay_terminate(struct psp_context *psp);
+@@ -3347,6 +3352,54 @@ int psp_securedisplay_invoke(struct psp_context *psp, uint32_t ta_cmd_id)
+ }
+ /* SECUREDISPLAY end */
+ 
++static int amdgpu_psp_mbx_wait_resp(struct amdgpu_device *adev)
++{
++	u32 val;
++	int i;
++
++	for (i = 0; i < adev->usec_timeout; i++) {
++		val = RREG32(mmMP0_SMN_C2PMSG_64);
++		if ((val & 0x8000FFFF) == 0x80000000)
++			return 0;
++		udelay(1);
++	}
++
++	return -ETIMEDOUT;
++}
++
++int amdgpu_psp_read_discovery(struct amdgpu_device *adev, uint8_t *binary,
++			 GFX_CTRL_ADDR_TYPE addr_type)
++{
++	void *cpu_addr;
++	dma_addr_t dma_addr;
++	uint32_t length;
++	int ret;
++
++	cpu_addr = dma_alloc_coherent(adev->dev, adev->discovery.size,
++	&dma_addr, GFP_KERNEL);
++	if (!cpu_addr)
++		return -ENOMEM;
++
++	length = adev->discovery.size;
++	length = (length & 0x0fffffffU) | ((u32)addr_type << 28);
++
++	WREG32(mmMP0_SMN_C2PMSG_69, lower_32_bits((u64)dma_addr));
++	WREG32(mmMP0_SMN_C2PMSG_70, upper_32_bits((u64)dma_addr));
++	WREG32(mmMP0_SMN_C2PMSG_71, length);
++
++	WREG32(mmMP0_SMN_C2PMSG_64, GFX_CTRL_CMD_ID_GET_IP_DISCOVERY);
++
++	ret = amdgpu_psp_mbx_wait_resp(adev);
++	if (ret)
++		dev_err(adev->dev, "ip_discovery: PSP wait timed out\n");
++	else
++		memcpy(binary, cpu_addr, adev->discovery.size);
++
++	dma_free_coherent(adev->dev, adev->discovery.size, cpu_addr, dma_addr);
++
++	return ret;
++}
++
+ int amdgpu_psp_wait_for_bootloader(struct amdgpu_device *adev)
+ {
+ 	struct psp_context *psp = &adev->psp;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+index a4ec60f6c317..3ca2fe9ce94d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+@@ -688,6 +688,8 @@ int psp_memory_partition(struct psp_context *psp, int mode);
+ 
+ int is_psp_fw_valid(struct psp_bin_desc bin);
+ 
++int amdgpu_psp_read_discovery(struct amdgpu_device *adev, uint8_t *binary,
++			 GFX_CTRL_ADDR_TYPE addr_type);
+ int amdgpu_psp_wait_for_bootloader(struct amdgpu_device *adev);
+ bool amdgpu_psp_get_ras_capability(struct psp_context *psp);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h b/drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h
+index 49aa95c76745..e0713e27556f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h
++++ b/drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h
+@@ -49,6 +49,7 @@ enum psp_gfx_crtl_cmd_id
+     GFX_CTRL_CMD_ID_GBR_IH_SET      = 0x00080000,   /* set Gbr IH_RB_CNTL registers */
+     GFX_CTRL_CMD_ID_CONSUME_CMD     = 0x00090000,   /* send interrupt to psp for updating write pointer of vf */
+     GFX_CTRL_CMD_ID_DESTROY_GPCOM_RING = 0x000C0000, /* destroy GPCOM ring */
++    GFX_CTRL_CMD_ID_GET_IP_DISCOVERY   = 0x000D0000,   /**< Copy IP_DISCOVERY_DATA to host-specified address */
+ 
+     GFX_CTRL_CMD_ID_MAX             = 0x000F0000,   /* max command ID */
+ };
+@@ -58,7 +59,8 @@ typedef enum
+     GFX_CTRL_ADDR_TYPE_AUTO_DETECT = 0,
+     GFX_CTRL_ADDR_TYPE_SYS_PHY_ADDR,
+     GFX_CTRL_ADDR_TYPE_GPU_PHY_ADDR,
+-    GFX_CTRL_ADDR_TYPE_GPU_VIRT_ADDR
++    GFX_CTRL_ADDR_TYPE_GPU_VIRT_ADDR,
++    GFX_CTRL_ADDR_TYPE_GUEST_PHY_ADDR
+ }  GFX_CTRL_ADDR_TYPE;
+ 
+ /*-----------------------------------------------------------------------------
+-- 
+2.43.0
+
