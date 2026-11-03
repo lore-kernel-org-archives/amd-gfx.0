@@ -2,135 +2,131 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B44B606A324
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 18:43:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37E1C606D817
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 19:08:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=FyCx05K0
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=3QS1SFed
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 237AE10E5B7;
-	Tue,  3 Nov 2026 18:43:12 +0000 (UTC)
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010029.outbound.protection.outlook.com [52.101.46.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CBF710E5B7
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Nov 2026 18:43:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC23C10F792;
+	Tue,  3 Nov 2026 19:08:35 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013007.outbound.protection.outlook.com
+ [40.107.201.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3BD8510E826
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Nov 2026 19:08:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=H3yCgIkLgYelQMIcNAbj6Ai1E4YbYh/RM5/M6RpoXR+E+1m1C98MXmCrFxiaRfO9YK/h4POn1cRxDsko2mUnWniUugnH7aj7LCQZqFhKr2Nk4sAiGLAQ8U7S5sj90I4KQDyHt1UvSHiINuiJjP0W6JhR/xNF/C53yBBbi5O61SVbGQABDCAhch+oIDFuHiW2Sqkt/tC2x2WUZWziEQll1WRGItfMxxcXuFspOIXfMOUsfHnc3cHT4oSbv2JvP1QJP3yJO3N4ob3gc5D4rpmto+YqS8tgt/RdwTLgypVNHUKBGK3bQDQYXGg34F5hU3eVV0Crtmu1AQo2V3MhAROHwQ==
+ b=szuyCMYsbvdS+56N8fsiRqI08tTUjDIgM/A3aHRdgmEn3+tsQB9551yvn0b1luoDMPo/6Cv/eQmdeDQ5yWbwjnUrc+6MqPXzNSlt7EPBA3zXY5bobPImrdK0z10I/dpZ+6LxopkpOn8U/FhfDPVA8eX4oYkNycr9uXbGcn7u3rWllpBrOKqFT3YJ+bTrOqDvpBOHlSAY0PjoVdw+/M6vkgdhFbMCaUH23T33jXiQMfyYCP7PT4DCVtdYQx9hwzOfbOEG+cHwJpP5qeBErbOMI66GTeXRnY000dMO3t5+uydNYshSqwcMp51ZhFkrM+BrL5IuqcOmwQEIzy7u4+v4mw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qb9U9QZV8odGBMWZMmJtjtsw7wibyjLE6VOPMdSriDY=;
- b=sAOzwdA9noRSsr2xtiGBSn+vdFeSrKAeEm0uYS7u4lm2ZGL4JaGCn1G0sRNg+Oln646PqDgESYGystReOP1821aw5RCeDeVeJZHpiqR5ZFnhMDffKewcMZvyNFvqyGasW59f+Mf/kPASTwipBcphcIg+MSGeMMET4StzTj0hp0JXFSYhY1TdiFcfhaI6cxWR4QoWxMFnNfQb9YOICxrJCt6wJhWK+Z6uWnlcYo9eiKZKAdpHr0itxeECVIkK1SXdFXHLolkJVvP1mkLc/wHkHsFERDpzTK9Yz/1HyYvKchoT+FEgUZKrDI14D9t9DBICedJOSkg3IFMSmKd4YYYX8g==
+ bh=Kh+uke4Osnh2wbgG5okG7Vh+GpX/4gNFRb1dfoJEzRs=;
+ b=SWPZaCCzvQ+gFuhwgFFVItwIjtYL99AFpOE2qZIqCPXUrPYX+K0gRkrQsqk3lQVTDf8hwRXxKiXcn3rRJzbHWpfL6mkz7xUfkSrsepRfIjMt/z12PFrhJpbvMdwdjTvTNp4zxQ9Y9IXuPwfxjK/3iAJveYGt5/MHa0gLMpBClpMcw0alUmHOIxuScIwg83Dkej5vqFPHcKsYSZ3ClVwYAGTBlZ6ZVEhBgWlbCtNKdL+lmAsvpRG7zoxwTYkhHObNbGvu7ID2VXWxgBSf6mnB4U0VXaKH0LioddjVSIxSNkwBTJd7zw/3CM1QRBs+870LM2DMSvIxV9unopuL77sSPg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qb9U9QZV8odGBMWZMmJtjtsw7wibyjLE6VOPMdSriDY=;
- b=FyCx05K0LBmXL0PB8jl8Qf8lmd5EYVrlYd6iPPiDm06ab95uRAPUg03xLwRrU+bvKXWHBPST1capB6ujH9SdMmLzfsJbT76k9TtQv26Yv7G6J/wgTvZc9abUKJm0eeeC8gedbieC+EkUO+AqZEyHyqruz6nVNQv+LnEL9uW3mEA=
+ bh=Kh+uke4Osnh2wbgG5okG7Vh+GpX/4gNFRb1dfoJEzRs=;
+ b=3QS1SFedyUouh7B5Q9aGJbO4d/78oWbjyF4OsbpxXEEqcxeBI14XkQcBnNZT0NFPOx37RvmmeefaTlasSF/lU8+17CnXCrsa/9ZLs7ZQi8bKDwIIoScJ9P9uGKdhzfANgZrSpTshak2+Uuxb2nBjl4CXyLokA8wxEN4ZxhtkrUU=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from IA1PR12MB8517.namprd12.prod.outlook.com (2603:10b6:208:449::8)
- by LY0PR12MB331121.namprd12.prod.outlook.com (2603:10b6:404:226::23)
+Received: from LV8PR12MB9133.namprd12.prod.outlook.com (2603:10b6:408:188::15)
+ by DSVPR12MB803185.namprd12.prod.outlook.com (2603:10b6:8:3ea::7)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
- 2026 18:43:02 +0000
-Received: from IA1PR12MB8517.namprd12.prod.outlook.com
- ([fe80::c47e:c884:f06:1525]) by IA1PR12MB8517.namprd12.prod.outlook.com
- ([fe80::c47e:c884:f06:1525%4]) with mapi id 15.21.0569.011; Tue, 3 Nov 2026
- 18:43:02 +0000
-Message-ID: <fd5bf2a6-6146-499d-9e75-bdcfc51b3ca5@amd.com>
-Date: Tue, 3 Nov 2026 12:43:00 -0600
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Tue, 3 Nov 2026
+ 19:08:25 +0000
+Received: from LV8PR12MB9133.namprd12.prod.outlook.com
+ ([fe80::d29f:9915:159b:b02]) by LV8PR12MB9133.namprd12.prod.outlook.com
+ ([fe80::d29f:9915:159b:b02%4]) with mapi id 15.21.0569.011; Tue, 3 Nov 2026
+ 19:08:25 +0000
+Message-ID: <51f75131-017d-4cf6-a971-b4a9cb5049ab@amd.com>
+Date: Tue, 3 Nov 2026 14:08:23 -0500
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdkfd: Don't reuse a VRAM page that is still
- referenced
-To: Philip Yang <yangp@amd.com>, "Mishra, Apurv" <Apurv.Mishra@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Sierra Guiza, Alejandro (Alex)" <Alex.Sierra@amd.com>,
- "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>,
- "Faizal, Sahil" <Sahil.Faizal@amd.com>
-References: <20261023171722.46301-1-Apurv.Mishra@amd.com>
- <53899e72-b727-42ab-81ee-8587a10f16b7@amd.com>
- <PH9PR12MB135921453E146E0DA733B16DE99F612@PH9PR12MB135921.namprd12.prod.outlook.com>
- <601d1612-ea3d-4379-9336-9c36e9485230@amd.com>
- <PH9PR12MB13592198ABB2BF96C9F290F41D9F6F2@PH9PR12MB135921.namprd12.prod.outlook.com>
- <ee715a81-5643-4da7-a0b9-7205e34758b5@amd.com>
- <PH9PR12MB13592158862738134DABAB73F89F6A2@PH9PR12MB135921.namprd12.prod.outlook.com>
- <39984cf9-fe4a-40e3-b076-20bea95f2127@amd.com>
- <fe5f9b54-0516-4a83-ad54-c982dc161523@amd.com>
- <fe5c2998-f19d-4992-b87c-2a498fa109d0@amd.com>
-Content-Language: en-US
-From: "Chen, Xiaogang" <xiaogang.chen@amd.com>
-In-Reply-To: <fe5c2998-f19d-4992-b87c-2a498fa109d0@amd.com>
+Subject: Re: [RFC] AMD ISP4: OV13B10 (OMNI13B1) rear camera on ASUS ROG Flow
+ Z13 GZ302 - ISP comes up, SET_STREAM_CONFIG fails with error 6
+To: Seifelden Abdelmonem <saif.elden.hatim@gmail.com>,
+ Caspar Adriani <caspar.adriani@proton.me>
+Cc: Nirujogi Pratap <pratap.nirujogi@amd.com>,
+ Benjamin Chan <benjamin.chan@amd.com>, Bin Du <bin.du@amd.com>,
+ King Li <King.Li@amd.com>, Hans de Goede <hansg@kernel.org>,
+ "Adam J . Sypniewski" <ajsyp@syptech.net>, amd-gfx@lists.freedesktop.org,
+ linux-media@vger.kernel.org, platform-driver-x86@vger.kernel.org
+References: <lWYl1YJwDSh-q2Ew2f8b0BweQ4V-SUnPMSMurU5gT1LkqVdrmWFunj0sSgjC7m66bORBAD_jRCFTt1_ZOkotOMukY46rI4ayYbIfPQq4E9U=@proton.me>
+ <ea758386-13b0-4667-8eca-9aa4efefe92b@amd.com>
+ <P9m7agZFwqTsT5eczqDOuUVoP-lGl6Nd8FLvknyAj7gm7R_4cwIpb2_3-DNis287elaS_x5ummKLdOf_rk7LcHZqnrTnjMuzEPcX2syIefg=@proton.me>
+ <20261027093218.35631-1-saif.elden.hatim@gmail.com>
+Content-Language: en-GB
+From: "Nirujogi, Pratap" <pnirujog@amd.com>
+In-Reply-To: <20261027093218.35631-1-saif.elden.hatim@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SN7PR18CA0006.namprd18.prod.outlook.com
- (2603:10b6:806:f3::8) To IA1PR12MB8517.namprd12.prod.outlook.com
- (2603:10b6:208:449::8)
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT4PR01CA0057.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:111::13) To LV8PR12MB9133.namprd12.prod.outlook.com
+ (2603:10b6:408:188::15)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA1PR12MB8517:EE_|LY0PR12MB331121:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5cbe144d-95b4-4ca0-96f5-08df39da4a78
+X-MS-TrafficTypeDiagnostic: LV8PR12MB9133:EE_|DSVPR12MB803185:EE_
+X-MS-Office365-Filtering-Correlation-Id: b84e8bf3-c732-47e3-4e12-08df39ddd604
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|376014|366016|261102123227099003|261021123027099003|56012099006|11063799006|4143699003|5023799004|261009223027099003|261028144727099003|261021135927099003|261026121527099003|261021121427099003|261022105027099003|261026140227099003|261022075727099003|22082099003|18002099003|3023799007|10067099003|13003099007;
-X-Microsoft-Antispam-Message-Info: BOI9Yjm+ZlvHnqS4b+4pMoL9zM+Hc8FqIhxdOeMSE9Y1nVGwGciLFfe7nIk8YkNXDM36h1jrtkzFkzbNpedeQIU/wXY2Puikf/Mloqcas9HtXFkLYPGVmIqqDIHHr97x8EJHsavq/muS1mD7Irda2DISKa15yX1r5ArkJXdPPgT6yV2Nh7XZlQfKJeSrghGvFMqRw2+O1Q+eq7HP/2YY2ooSVVK9RDbdZ5ADdQhiNbGB1io2d+gQDRgPFc+2dmV8YkRDk86OH0WurXCt0NZ5eio7A/aiQ+HASrHWfwGgRscE3fn3qclkrAY3V7OjbuWx+fm/4qMg9JCZFT/DAZc/F5zPdQQIorBPsG/j2A6E+a2beZFR0P08n5VLpELoCstxE30yjfUxN9Uunb/Ou/XEbz19dJFx5ZfKTJHGhVq4NhoUo2NBoFOoLbFEqkE9cH6skFhTRNtcSO5FXOp3lkvgtHMB54MeYSgnvs2ctO1gHDVSjpuwsJ57Nx5FAn+pfP7NE6SiAp9ulUNETBcP/cjH1+hRGFi1pTilR4JgNXu5PR10pmcbUV5SuRnCxzhiXt3hVFR31w4w9E30RFgEdH7d6Oxjs3fg1ynQCA1FmJ2mIrnhEclYwilVaekvSP7Ykdg3
+ ARA:13230040|376014|366016|23010399003|1800799024|261028144727099003|261026121527099003|261026140227099003|261009223027099003|261102123227099003|261021121427099003|261022105027099003|261022115727099003|261022075727099003|261021123027099003|56012099006|11063799006|4143699003|3023799007|6133799003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: wY4lMVuTyhxj/HSdmcF2UtVp9XHJyMg8yGR4dcL3n38CZDdV2ULmlFbgdC3LUpqjUT6mnPHj1+S4xtxKKNYiAvFQV5FpboYsIPdpvpO30WpiqN+3sPR46kGW2t0pgWiD7KxNeI7HSxGrl3KGX9XFlb9UUrTclarBsfyH87Q/gey+Q9wlMWNFLecai10YC84LI1jt/Q9Yz/j48Vcyq7ODdXE/ZYUAgz1wI7sqcrUHscPPv0vUcoeLsZX9YjbZoJwel1PP3s4YjcdKdmxcKiRK7IGsbPB3eyOvW2cd1+slsk1cz/KdbInMS5vX4+oe/q5H82CdqXu0N1YPkVJ5+mCDsMeieumYYgklW/Fc0EDJU/zllNmEaDuE6X4ArNJk3JS0WA0Am6pJKWwhCOnv07S32obkqom7lsmmHVasgta0ytNOt43RkKHZDwMWYwYcZDt5SyZG+cDrRtFf/1c9N4z02aGnB85bwk7NFlhyhcEb+od2CllqSt6kv+eQ/ben8ep3AYt6BTxsD/sv+hWX0ETB8NMOZN9IUmnXzY0prHHdtmQflO5Yp73yis3z+BZvCH83D9iCDDaJi6lhYksr2YPE9q87C5Adw9TUBperf9wuWZFeIP/IuC7xI2voKQx39RgM
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA1PR12MB8517.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(261102123227099003)(261021123027099003)(56012099006)(11063799006)(4143699003)(5023799004)(261009223027099003)(261028144727099003)(261021135927099003)(261026121527099003)(261021121427099003)(261022105027099003)(261026140227099003)(261022075727099003)(22082099003)(18002099003)(3023799007)(10067099003)(13003099007);
+ IPV:NLI; SFV:NSPM; H:LV8PR12MB9133.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(261028144727099003)(261026121527099003)(261026140227099003)(261009223027099003)(261102123227099003)(261021121427099003)(261022105027099003)(261022115727099003)(261022075727099003)(261021123027099003)(56012099006)(11063799006)(4143699003)(3023799007)(6133799003)(10067099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eERFUVhZU2ZmZ1BEbjg3c3B2MXVNWVZMcGVuYkFpN1BmRW5waU4rOWc0SGJs?=
- =?utf-8?B?ajZBTzd4SGpMVldYYW9mdlJDem5FVmoyc0ZEM3U0NzFxall1NGpadmlINGdS?=
- =?utf-8?B?alNZQmxYa3Y2a0Z3anU5RzQ0d0VuMUNObnEyRlBib2QvV2RibEtZbURFUzNx?=
- =?utf-8?B?M2R2L0xFOU1FaDBQdGRyN1hITUFlVGQzd2RUUjdUak9tZmRPMkNNS2wwV0Zx?=
- =?utf-8?B?anc4SEJSS09FYXo0NlJoeXlFQTlEdXc1aXdmZGJQRnVHRmNXUW1tN3pSNmd6?=
- =?utf-8?B?YmZLSmdGa0NyVVdsV2FRc1RJT1I0YitXSnY3S2xFOXh4OTc5eWREV1hxNEFE?=
- =?utf-8?B?TmcwcGU3TlIvcERVQWY4d1NUMFBHN05wR0pjYVAxWnp0YXYwNGdZdXlrREhP?=
- =?utf-8?B?ejhXUWpqbjIxaE0vQ1A2Um81Qk8yNHBjT1hId2o0aGVNYUNSamJYbVNLL25O?=
- =?utf-8?B?dXdvenhZeStveTJCOUI1ME5Eb2xaUFUzUDN6UGRJa1hkU3RvclJJQkEyRHg2?=
- =?utf-8?B?NmRJcWtWT0xmRHgwS3U4aUNRWEFGUzFabUlZTmh2WVNGak9sSEo4SlNtUjg2?=
- =?utf-8?B?eVpkVll0aUhWWm9KRUVvejFOalZkMUlWdWd3SE45MXVnQ1kza0M0S1p4L1Nl?=
- =?utf-8?B?dS9pZzVkaHdodTcvSEdvejR2YngycmN6SWI5NTAvaldzRUF4RTc2cVQ2TUtU?=
- =?utf-8?B?Vm91YVUra09DZTV0YjRKc0FNdmJ6anl6WGt1VU9WN1ZFV1gxRmMzWjhXMHEw?=
- =?utf-8?B?MlZvM2V0TnBFSHozNjVYMmxCYkFPTXIxRER4eUpOU3RoOVVFb3lSRzY3aWZM?=
- =?utf-8?B?SGkweUFkRXhEVW94TkhmekcxMVF4ZEdQSk9ocDJMM3NJRnJ3RGRkUGxoK05a?=
- =?utf-8?B?bEVaaEFBWnk3VVBhWjdycTlGQ3k0OFNpYVRuejVSOTNqNng0VGp2L0tZS2Fh?=
- =?utf-8?B?QkhlOHRUeHZSMENCbHFtcUhoTFZyQmRZZkoyNjRBTHljMHF6SE41WWx2RmhD?=
- =?utf-8?B?bWhNZEdiZTRMS1RwcWZLZ3dCWTk5QVJ4WTRxUEc3OVVkaVgyaE1OdFNiT3pS?=
- =?utf-8?B?YlRDYlh1OHF2czZXQllPc2dJUkNqZERBQWI0SGhoakczZTc4L3FUeGRYT2Uw?=
- =?utf-8?B?bEtxVERKR2RLVWtYUGxJTUdwSkZzQXdiZzRKaEN0V3haTWx0UGFZTzM5M1ov?=
- =?utf-8?B?L2ZWVzl3K0daUEI1ZThDV0YwK1d2cEFkVUtvZWhNeEZlSlE4Q1JGMzF4Sjc3?=
- =?utf-8?B?WmRVeEYwTlNvbU1mKzBSTlBHaUorcVQxY2lUdkd0WEx6TlNBeDdmVFhibzlp?=
- =?utf-8?B?ekdtMG82aThwVUlocG5yRHpsK0NONjhId3V1NXBXaVJCN3dXT08vckhvV1Fj?=
- =?utf-8?B?cWhoZUtNdG05TDhTMDdaemQzMUZBR3pMOUVmc2F0dHd4RzNxQ1hkWGlvYnRQ?=
- =?utf-8?B?Tkx0dFlKOXo0NmJTZTcyU2xsMHZKZTBneFo4TU8yR3FmenQ0NEhORDVucWRt?=
- =?utf-8?B?T2M5TTVpMlp0clNud3Y3dUQrSXNhRXppRVRBN3lyYjgwS2hjYjNYcGM2WlJI?=
- =?utf-8?B?U0FMMEE3ZG03M0toQmVFa05rY1JYRXArWnkzaXlRQXcwVVpqYVlCbVRweVh5?=
- =?utf-8?B?aU85Tk9pSGZMdkVlMUNCM1VCYTVYR0QzZ0VjV0FHTk5NSmpmVjhLVzRTUVVr?=
- =?utf-8?B?RHk3azdXMitjclYvT1liUE9QQlNHMnB0MUtzdkI2OEJXMmtZR3UxQ0U2eENW?=
- =?utf-8?B?ckFQMWVnOTB4U0dYc1dwSjY3Q1dFLzNacUY1Q3BLejhQckZ1YXpRMzFaNkQz?=
- =?utf-8?B?Y3dPeGNzSmQ1bXIzaGZBYUIrMjFaUzNMQXRFZWR0TEVvam05MW44SGZ6c0Z4?=
- =?utf-8?B?TzgzcFVPTWZ0cGJML2hlbUJmbUpEOXo5MGhHcWVPRllmVWVOVTArYTRVSWRh?=
- =?utf-8?B?ZU9YeUNiWnNMWEo4Y2NlcTR6WlJSQlVFQXVIb0JveW5rRnBuL0l1MzVKdkkx?=
- =?utf-8?B?ZHdqSENWdHNWaTNXTFlXMnA4UWxpL21FUFhkN3BSb2JVRFNiMlJiTStwVDc3?=
- =?utf-8?B?eVF1OXowV2phOERJUTloYVVaK3djdllFc2JUS2dTSGczUFlNQXVjSzZmQ3JH?=
- =?utf-8?B?RCtIbHpQYzN6cWZQWjRsNGtpQjZjSTR4dEFzKytqUy9IQ0R2SWkrRUxENW5C?=
- =?utf-8?B?SXhoTUFtU3hGZTd1WGtZOFl3YW1OSU1hSUFKdFB5aW1ZWDZWWWM1ZkoraUJs?=
- =?utf-8?B?R1NHWXlTYUthNGQwOGczQnhhWiszbytvTlBnK2hjdDVrU0hLRi93dGw1SWQw?=
- =?utf-8?Q?62qMJRrNVm0JjEyeyr?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RmZRWGpTWlQwWXNPUlJxZklVRnVVQWRBUzYvNHZKaHFEVmtVb1Z5ME1YWW1O?=
+ =?utf-8?B?amlGdFFuSGMyN0xqSHg0Qi9GSHpRMlE3NGFwK0QyQ0xFdmdLT0t5amVsaU0v?=
+ =?utf-8?B?Y3FHMUhGZVd5VEJpaVNBTEZyRHhKZHhtRllBQ25BVncyTW91eDRxbDRoZkpZ?=
+ =?utf-8?B?NDFSa1pBYVlFbHVPcEVLQjVCZWtXTXdpU3dqdUZiYzl2TTYzb1ZFbUhvclBk?=
+ =?utf-8?B?dkljN0taV1ZLVXNTbWxlYlExcjhTRkcxSUNTZ2pTaWI4Tlg4dlNuMFJVRXVr?=
+ =?utf-8?B?VUw5MEdqMG8xVHdERlJHMUtTcHJ3bk1yVG9iZitiT2V4MTNMWjM2dE92cGIy?=
+ =?utf-8?B?eitCSE96cG1Fb2h6L3JQSmY3R3JpelRFNEs2K0t0WENvQmFveWtocm0zY1JZ?=
+ =?utf-8?B?QkttMndvYzQ4TUFMMHRkcVZxRU5GLzNZQWRBRHZ6R0RHVE5rVWVISUtSNWRK?=
+ =?utf-8?B?MmZsVDh6bWN5R2tieGJTa2ttMk51RnJ1K0FlUmJRN3lhcExxQTBaVng4dith?=
+ =?utf-8?B?VUh3ZlZDVkNydFJsMUg1Q3BDQndYeDZEYlRoUXkyTGZFZlMxNmkrb2RGUjQv?=
+ =?utf-8?B?d2t0UXk4YVNKRHlhd2RqdmJFSm5XNUVWczZPdXB4ODRhWnBGOU5zaSt4QkR5?=
+ =?utf-8?B?UktNZFBuZ0RybnpUN0pXWWQwNFltR2wzbmxEWVo1UUpCb3JEQnpNaEhhUFU1?=
+ =?utf-8?B?amp1Tk14VU9sN2VwWXJxRmJHYWJXcTlCOERhSy96QUNEdjFsY0pzRnVITjNo?=
+ =?utf-8?B?aVRkditrb0dRWG45VEUwSW4raEQxRm9vdHQ4MWRRdjRGdGt0TksxL2xVZHA3?=
+ =?utf-8?B?TmJQanZacTAvWlpFWUpDWU5vazBwUzVjOG1qaVFhZ2dQWE9yb3M4a0padUUw?=
+ =?utf-8?B?OGh5OVVrbHRuZlVkRDhEUmZKY1JDUGZrb2RwUGtzdHhGRWcvczJtd0Jubi9D?=
+ =?utf-8?B?VzlmT09ueTFWRDM1ZmxROE5vakdjaktyOURSdVAyeDk1dGFlRS9BR3AzOWZp?=
+ =?utf-8?B?ZnJoS3I4cmZVYlYxd3FLMlJoeG1mRC9GbVl3RWJ0d2hVaXdDMnVvdEhZQmh1?=
+ =?utf-8?B?b1JWZmFER2RCVjlzV3o3bHFBbEVmVDREeEVGMUFIYU10cHVKcWJpYkx5amFy?=
+ =?utf-8?B?cFI1dHRUd0tmSTZFNmJ3dWY0TVFOYjlBMkJYcFg0TnUvN3RZaUIyVElib0F6?=
+ =?utf-8?B?d1JLTUMxK0JqSDhjdEdLZ2ZGbzlBQ0tSdDI4Zkl3eWpBZ0lLVkZoMVBUdFJj?=
+ =?utf-8?B?WVJhNG5lanVudUExa2VtLy9LM1A2WnpoQUVxdFZmdU9paUpmSThpSnJZU0FM?=
+ =?utf-8?B?YWFNSHBUeVRjMWl5ek9wcEdZYmYyalE5K3p5eGV0YTkwVzVQeEZIdkR1cWhR?=
+ =?utf-8?B?TEVMcDMzRzEwc3VnRDRXSXhvbGV5d3AzYlpsMDU3bHNTUkFmTGdHRG1rWFhW?=
+ =?utf-8?B?Y1QybzdyTHR2b2JDcTVvczhPbGMycythUnhaWXFDMXF1SkxUdU81RXhBODlL?=
+ =?utf-8?B?MFVpRHppN2RVVkc4ZS90Mk1ER1V0OWhUV1RwNXJTYkpTNzk0TlUrOGFaakRm?=
+ =?utf-8?B?dE93bDRsMkNoRXkyUE54TlFkRHljdFBmNjVBTFU3QVp3S2NPbkRoVlQxTm1p?=
+ =?utf-8?B?UHlOaEtKaUhQWWsvb0U1aWo1cDl1VjN2ZE1mdE1LdEFIcGNqU0lDRUZGN1Z6?=
+ =?utf-8?B?ZUFNY2plT05SbVhKSTBrcU1heXpRMEZ2WUJBV0VkQitRWW9aeU50YWZtN1RL?=
+ =?utf-8?B?R0lQZFd0Vk90SW9BUEpwekp1dlcvS0FmOGplQVVtSEcrU1FjTDZKVEJUMWdQ?=
+ =?utf-8?B?RFZDc1UxR0FVK2IzL3FyZTFOSWZMTHc5eXF3MzU1TjFCK25DMmdyTGRHS1pU?=
+ =?utf-8?B?Rlh6d3hTNHMxYUhub2NVbXg3ZjRFWFpFVy9mSVNaRy9YZ0p1cE16ZmV5V2Za?=
+ =?utf-8?B?ZjRDM01CMG1PYmg3ajd0bzNVclJSRUFudTUzWnloRFdMaFlaYm93UHJZeldn?=
+ =?utf-8?B?Z3NvUWJ2MC94cHFEdHZ6bXFmeFgwSE5yeWphaXVnb2pjS1pCU0Z4ejR1Q3k3?=
+ =?utf-8?B?OU1iNjhOaXZ0a3I0ZzdBTGh2T21GZmVTZElZMGJ4TzdkTUhXMnNRSUJEdDU5?=
+ =?utf-8?B?Z1R6UDdHMDRDTmsvMmlVQmhiVnBXa1ZMZjBSR3B3RTE5eHhKZ0F2cTBmc0FX?=
+ =?utf-8?B?b01WUHNzN0l1WXRldWZENjZRREpNWFdndTMrSXhYNHkvdmZXVytwOXNYbWxv?=
+ =?utf-8?B?cVBmVitzNkNYZHFqTkxGMnF0L0FmQkYyZDZGODhtOXhjNXNEMTFBZlBYd3hY?=
+ =?utf-8?B?N09XYWd5aVJueWJQYTBSRUlGMnJPc1dDZDJpZ21TbFBXS1lzRXFjdz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5cbe144d-95b4-4ca0-96f5-08df39da4a78
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB8517.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b84e8bf3-c732-47e3-4e12-08df39ddd604
+X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9133.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 18:43:02.6845 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 19:08:25.2811 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ji3yOeEo+PlCNj4A/VhP4qkqV6SsTvRaZbRF0IJpEr0AdhvPhTKc+M+PVv22FUXg
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LY0PR12MB331121
+X-MS-Exchange-CrossTenant-UserPrincipalName: Y/N6r6XJvoEmssqqLKcz9wQwA1MIUoXFJLco7H5iPf39RWXltDrU1nf9SNgnOG3tekEf00Vrw55OPWwWQXYJ7A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR12MB803185
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,323 +137,87 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+Hi Seifelden,
 
-On 11/3/2026 12:26 PM, Philip Yang wrote:
->
->
-> On 2026-11-03 12:09, Chen, Xiaogang wrote:
->>
->> On 11/3/2026 10:57 AM, Philip Yang wrote:
->>>
->>>
->>> On 2026-11-02 18:32, Mishra, Apurv wrote:
->>>> AMD General
->>>>
->>>> AMD General
->>>>
->>>> Hi, @Chen, Xiaogang <mailto:Xiaogang.Chen@amd.com>, following up on 
->>>> your comment...
->>>>
->>>> P's other user is |do_swap_page()|'s own pin. On Ubuntu 6.8, 
->>>> |do_swap_page()| calls |get_page()|, then |migrate_to_ram()|, then 
->>>> |put_page()| (/mm/memory.c:3861–3864/). The extra reference 
->>>> outlives |migrate_mutex|. By then P's data has already moved to S, 
->>>> and the PTE points to S, so nothing else is wrong.
->>>>
->>>> The wrong place is KFD's reuse. |svm_range_validate_svm_bo()| 
->>>> reuses the |svm_bo| because P's pin keeps it alive. 
->>>> |svm_migrate_copy_to_vram()| then hands out P by offset without 
->>>> checking it, while |zone_device_page_init()| requires the page to 
->>>> be free. The fix adds that check where KFD hands out the page. When 
->>>> the pin is still there, the page stays in system memory with a 
->>>> valid PTE, and the next GPU fault migrates it normally.
->>>>
->>>> Mainline is the same. |do_swap_page()| now holds the page lock 
->>>> across `migrate_to_ram()`, but `zone_device_page_init()` resets the 
->>>> refcount before `lock_page()`. The race remains on mainline, 
->>>> because upstream KFD has no such check. My patch adds it. This has 
->>>> been tested and verified.
->>>>
->>>> Adding @Faizal, Sahil <mailto:Sahil.Faizal@amd.com> for updates as 
->>>> the fix needs to merge soon.
->>> This is the corner case I tried to fix with the patch "drm/amdkfd: 
->>> Fix svm_bo and vram page refcount". That patch was rejected because 
->>> we cannot take a page that is not free and treat it as free and safe 
->>> to use. The approach here makes sense to me: if the page has not 
->>> been freed, we skip it. With that said, this patch is
->>
->> If the page has not been freed HMM page collect will set 
->> (migrate->src[i] & MIGRATE_PFN_MIGRATE) to false. The explanation 
->> from this patch is do_swap_page does not release vram page during cpu 
->> page fault recovery, then page collection by page table walk would 
->> see pte sill point to device memory, then not collect this page.
-> This issue isn't with the source page, it's with the destination VRAM 
-> page, which still has a non-zero refcount after migrating to RAM. We 
-> cannot assume every VRAM page has been freed and zero-initialise it, 
-> so we skip it and map to the GPU with the system page instead.
+On 10/27/2026 5:32 AM, Seifelden Abdelmonem wrote:
+> [You don't often get email from saif.elden.hatim@gmail.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+> 
+> Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
+> 
+> 
+> Hi Caspar, Pratap, all,
+> 
+> I have the same laptop (GZ302EA) and have been working on the rear
+> camera as well. Some results that may help this thread:
+> 
+> The rear camera streams on my machine (NV12 1920x1080, about 30 fps)
+> with an out-of-tree setup. As Pratap explained, the stock
+> linux-firmware image does not start this sensor; on my machine the
+> camera runs with ISP firmware and sensor setup data from my own
+> Windows driver installation, read from the Windows partition of that
+> machine. I do not redistribute any of it. The firmware alone was not
+> enough: getting a picture also took the board configuration and GPIO
+> wiring below, changes in the isp4 capture driver and in the sensor
+> setup, and the two fixes I sent to linux-media (link below).
+> 
+> Board details as seen from Linux on the GZ302:
+> - The sensor is \_SB.CAMB (_HID "OMNI13B1") in an SSDT, without _CRS,
+>    so ACPI describes no GPIO, clock or regulator for it.
+> - I2C on the ISP's bus: the sensor answers at 0x10 once it is powered
+>    and clocked; the focus motor is at 0x0c and the module EEPROM at
+>    0x50, matching Caspar's scan. My guess is that with the stock
+>    firmware the sensor never gets powered, because SET_STREAM_CONFIG
+>    fails before that, which would explain why 0x10 did not ACK.
+> - Sensor reset: amdisp-pinctrl GPIO 0, active low (the "reset" GPIO of
+>    the ov13b10 driver), the same ISP GPIO as the OV05C10 enable line.
+> - enable_isp (AMDI0030:00 pin 85, as for OMNI5C10): not confirmed on
+>    this board. No ACPI device claims the pin, and the ISP also boots
+>    with it left undriven.
+> - Sensor clock: 24 MHz, as declared for the OV05C10 platform on the
+>    same ISP; four CSI-2 lanes.
+> 
+> On the hang Caspar saw when stopping the stream, possibly related: when
+> a stream is running across s2idle (start a stream, then "rtcwake -m
+> mem -s 20"), no further frame arrives after resume, and stopping the
+> stream logs "fail to disable stream" and "fail to stop stream" because
+> the commands time out. On my machine the timeouts return and the
+> device can be closed; the driver has no system-sleep callbacks.
+> Caspar, did your hang happen after a suspend, or also without one, and
+> did you see those two messages?
+> 
+> I sent two small isp4 fixes found on this machine to linux-media:
+> https://lore.kernel.org/all/20261026182442.229869-1-saif.elden.hatim@gmail.com/
+> After the merge window I plan to post the board data above as an RFC
+> (amdgpu OMNI13B1 entry and GPIO lookups, amd_isp4 board configuration),
+> explicitly not for merging until the firmware supports the sensor.
+> 
+> Pratap, you mentioned contacting testers once there is OV13B10
+> firmware or a sensor-agnostic draft: I would be glad to test both on
+> the GZ302 and can share logs, ACPI tables and v4l2-compliance output.
+> My out-of-tree code (capture-driver changes, the board configuration
+> and the test scripts) is in a repository I can share on request.
+> 
+> One question for the sensor-agnostic driver: will a board like this
+> one describe its sensor through amdgpu and amd_isp4 tables as today,
+> or will the firmware take the sensor setup from another source?
+> 
+Yes, even with the sensor-agnostic driver approach, we expect to follow 
+a similar method by describing the sensor in the amdgpu and amd_isp4 
+tables to enable support on AMD STX Halo-based platforms.
 
-When HMM allows sys->vram migration on a vram page this vram page should 
-not be used by someone else. In this case do_swap_page has not release 
-the vram page, then data is still in vram, then collection will not 
-collect the sys page correspondent to the vram page since the vram page 
-is not available and pte at cpu page table still points to the varm page 
-, then not enter svm path of sys->vram for this vram page.
+Thanks again for your support and willingness to help validate the 
+sensor-agnostic ISP driver and firmware once they are ready.
 
-If the explanation in this patch is what happened it is not driver 
-issue. This type vram page ref count is not under driver control. Skip 
-migration just covers the real cause.
+Thanks,
+Pratap
 
-Regards
+> Thanks,
+> Seifelden
 
-Xiaogang
-
->
-> Regards,
-> Philip
->>
->> If this explanation is right it is not drive issue. Driver does data 
->> migration, not decide which page can be migrated. There is contradict 
->> in this explanation. I suspect the real cause is not revealed.
->>
->> Regards
->>
->> Xiaogang
->>
->>>
->>> Reviewed-by: Philip Yang <Philip.Yang@amd.com>
->>>>
->>>> Regards,
->>>> Apurv
->>>>
->>>> ------------------------------------------------------------------------ 
->>>>
->>>> *From:* Chen, Xiaogang <Xiaogang.Chen@amd.com>
->>>> *Sent:* Wednesday, October 28, 2026 6:41 PM
->>>> *To:* Mishra, Apurv <Apurv.Mishra@amd.com>; 
->>>> amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
->>>> *Cc:* Deucher, Alexander <Alexander.Deucher@amd.com>; Sierra Guiza, 
->>>> Alejandro (Alex) <Alex.Sierra@amd.com>; Kasiviswanathan, Harish 
->>>> <Harish.Kasiviswanathan@amd.com>
->>>> *Subject:* Re: [PATCH] drm/amdkfd: Don't reuse a VRAM page that is 
->>>> still referenced
->>>>
->>>> On 10/27/2026 8:19 PM, Mishra, Apurv wrote:
->>>> > AMD General
->>>> >
->>>> > Hi, @Chen, Xiaogang <mailto:Xiaogang.Chen@amd.com 
->>>> <mailto:Xiaogang.Chen@amd.com>>,
->>>> >
->>>> > The migrations don't overlap. |migrate_mutex| serializes them, 
->>>> but it doesn't
->>>> > cover P's last reference:
->>>> >
->>>> >    *
->>>> >      |svm_migrate_to_ram()| releases |prange->migrate_mutex| at /
->>>> >      kfd_migrate.c:1073/, after the VRAM→RAM migration has 
->>>> finished and before
->>>> >      the function returns.
->>>> >    *
->>>> >
->>>> >      |do_swap_page()| drops its own reference on P only after 
->>>> |migrate_to_ram()|
->>>> >      returns, at /mm/memory.c:4851–4853/.
->>>>
->>>> Before do_swap-page drops the last ref on P the cpu mapping of fault
->>>> address has not been changed. Then at following sys->vram the
->>>> migrate_vma_walk_ops->pmd_entry will not collect this source(sys) page
->>>> because the address there still point to device private page(since you
->>>> got cpu page fault it is device private memory). Then 
->>>> (migrate->src[i] &
->>>> MIGRATE_PFN_MIGRATE) is false.
->>>>
->>>> If P got used at sys->vram, but P is still used by someone else
->>>> something wrong is in other places. Skipping migration does not 
->>>> solve it.
->>>>
->>>> Regards
->>>>
->>>> Xiaogang
->>>>
->>>>
->>>> > So, the GPU fault takes |migrate_mutex| legitimately, while P 
->>>> still has |
->>>> > do_swap_page()|'s reference. KFD gets P back without P ever being 
->>>> freed. VRAM
->>>> > destinations come from the |svm_bo| by offset (`cursor.start + 
->>>> j`), not from a
->>>> > pool of free pages. That |svm_bo| is still alive because P holds 
->>>> a reference on
->>>> > it until P is freed, so |svm_range_validate_svm_bo()| reuses it 
->>>> and the same
->>>> > offset gives P again. Nothing checks whether P's previous user is 
->>>> done with it.
->>>> >
->>>> > Regards,
->>>> > Apurv
->>>> >
->>>> >
->>>> > 
->>>> --------------------------------------------------------------------------------
->>>> > *From:* Chen, Xiaogang <Xiaogang.Chen@amd.com>
->>>> > *Sent:* Monday, October 26, 2026 5:27 PM
->>>> > *To:* Mishra, Apurv <Apurv.Mishra@amd.com>; 
->>>> amd-gfx@lists.freedesktop.org <amd-
->>>> > gfx@lists.freedesktop.org>
->>>> > *Cc:* Deucher, Alexander <Alexander.Deucher@amd.com>; Sierra 
->>>> Guiza, Alejandro
->>>> > (Alex) <Alex.Sierra@amd.com>; Kasiviswanathan, Harish
->>>> > <Harish.Kasiviswanathan@amd.com>
->>>> > *Subject:* Re: [PATCH] drm/amdkfd: Don't reuse a VRAM page that 
->>>> is still referenced
->>>> >
->>>> >
->>>> > On 10/26/2026 1:12 PM, Mishra, Apurv wrote:
->>>> >
->>>> >      AMD General Hi, @Chen, Xiaogang 
->>>> <mailto:Xiaogang.Chen@amd.com <mailto:Xiaogang.Chen@amd.com>>
->>>> >      <mailto:Xiaogang.Chen@amd.com 
->>>> <mailto:Xiaogang.Chen@amd.com>>, thank you for the review. The two 
->>>> migrations
->>>> >      don't overlap on that address; they run back-to-back. What 
->>>> overlaps is the
->>>> >      lifetime of the VRAM page. This was reproduced with ASan and 
->>>> XNACK, which
->>>> >      make concurrent CPU and GPU faults on the same ranges 
->>>> frequently. As per the
->>>> >      logs (ROCM-31012 
->>>> <https://amd-hub.atlassian.net/browse/ROCM-31012 
->>>> <https://amd-hub.atlassian.net/browse/ROCM-31012>> <https://
->>>> >      amd-hub.atlassian.net/browse/ROCM-31012>):  * A CPU fault 
->>>> enters /
->>>> >      do_swap_page()/, takes a reference on VRAM page P, and /
->>>> >        svm_migrate_to_ram/() moves the data to system page S. The 
->>>> PTE now points
->>>> >      to    S, but /do_swap_page/() still holds P until 
->>>> /migrate_to_ram/()
->>>> >      returns.  *    About 66 µs later, a GPU retry fault migrates 
->>>> the range back
->>>> >      to VRAM. src =    S with /MIGRATE_PFN_MIGRATE /set is 
->>>> correct here, because
->>>> >      the data really is    in system RAM.  *    KFD reuses the 
->>>> /svm_bo/, which P
->>>> >      keeps alive, and gets P again as the destination. 
->>>> /zone_device_page_init/
->>>> >      (P) runs with ref=1 (traced) and    overwrites the refcount.  *
->>>> >
->>>> > How KFD reuses same P? From the description above CPU fault has 
->>>> not finished
->>>> > because  svm_migrate_to_ram has not returned, P has not been 
->>>> returned to KFD
->>>> > driver, so P still has reference count.
->>>> >
->>>> > Then GPU page fault happen on same range. For each migration on a 
->>>> prange there
->>>> > is prange->migrate_mutex to have migration on the prange happen 
->>>> exclusively.
->>>> > Then how can svm_migrate_to_vram enter migration if 
->>>> prange->migrate_mutex is
->>>> > still hold at svm_migrate_to_ram?
->>>> >
->>>> > My basic concern is a vram page can only be involved at one 
->>>> migration at a
->>>> > moment. If it is getting migrated in two migrations at same time 
->>>> with difference
->>>> > direction there is syn issue. Checking the page ref here to avoid 
->>>> migration is
->>>> > not fixing the root cause.
->>>> >
->>>> > Regards
->>>> >
->>>> > Xiaogang
->>>> >
->>>> >          The CPU fault's /put_page/(P) frees P mid-migration and 
->>>> clears its
->>>> >        mapping. /migrate_vma_finalize/() misses that PTE (263 of 
->>>> 264 restored),
->>>> >      and    it's left pointing at S. S is freed, and the next 
->>>> /hmm_range_fault /
->>>> >      hits the    BUG_ON in /swapops.h:504/. The trace and the 
->>>> panic registers
->>>> >      match this page and S exactly. With the fix, the /refcount 
->>>> /check skipped a
->>>> >      busy page 705 times on the repro host with no panic. 
->>>> Regards, Apurv
->>>> > 
->>>> -------------------------------------------------------------------------------- 
->>>> *From:* Chen, Xiaogang <Xiaogang.Chen@amd.com> 
->>>> <mailto:Xiaogang.Chen@amd.com <mailto:Xiaogang.Chen@amd.com>> 
->>>> *Sent:* Monday, October 26, 2026 10:32 AM *To:* Mishra, Apurv 
->>>> <Apurv.Mishra@amd.com> <mailto:Apurv.Mishra@amd.com 
->>>> <mailto:Apurv.Mishra@amd.com>>; amd-gfx@lists.freedesktop.org 
->>>> <mailto:amd-gfx@lists.freedesktop.org 
->>>> <mailto:amd-gfx@lists.freedesktop.org>> <amd- 
->>>> gfx@lists.freedesktop.org> <mailto:amd-gfx@lists.freedesktop.org 
->>>> <mailto:amd-gfx@lists.freedesktop.org>> *Cc:* Deucher, Alexander 
->>>> <Alexander.Deucher@amd.com> <mailto:Alexander.Deucher@amd.com 
->>>> <mailto:Alexander.Deucher@amd.com>>; Sierra Guiza, Alejandro (Alex) 
->>>> <Alex.Sierra@amd.com> <mailto:Alex.Sierra@amd.com 
->>>> <mailto:Alex.Sierra@amd.com>>; Kasiviswanathan, Harish 
->>>> <Harish.Kasiviswanathan@amd.com> 
->>>> <mailto:Harish.Kasiviswanathan@amd.com 
->>>> <mailto:Harish.Kasiviswanathan@amd.com>> *Subject:* Re: [PATCH] 
->>>> drm/amdkfd: Don't reuse a VRAM page that is still referenced On 
->>>> 10/23/2026 12:17 PM, Apurv Mishra wrote:    In 
->>>> svm_migrate_copy_to_vram(), skip VRAM pages with a non-zero 
->>>> refcount and    leave those pages in system memory for this 
->>>> migration. When an svm_bo is    reused, a VRAM page can still be 
->>>> held by an in-flight CPU fault (do_swap_page -> 
->>>> svm_migrate_to_ram). Migrating to VRAM then re-initializes the page 
->>>> via zone_device_page_init(), resetting its refcount. The fault's    
->>>> late put_page() frees the page mid-migration, so 
->>>> migrate_vma_finalize()    never restores that PTE. It is left 
->>>> pointing at a freed system page and    hmm_range_fault() hits 
->>>> BUG_ON in pfn_swap_entry_to_page() (swapops.h). If there is cpu 
->>>> fault the data is in vram page. If at same time driver is migrating 
->>>> data from sys->vram  migrate->src[i] & MIGRATE_PFN_MIGRATE should 
->>>> be false since the data is already at device side. Then if you got 
->>>> a MIGRATE_PFN_MIGRAT sys ram page at svm_migrate_copy_to_vram after 
->>>> migrate_vma_setup, but cpu page fault also happened on same page 
->>>> there is a contradict. So, I do not see this scenario can happen or 
->>>> the real cause is revealed. Regards Xiaogang    Signed-off-by: 
->>>> Apurv Mishra <Apurv.Mishra@amd.com> <mailto:Apurv.Mishra@amd.com 
->>>> <mailto:Apurv.Mishra@amd.com>> <mailto:Apurv.Mishra@amd.com 
->>>> <mailto:Apurv.Mishra@amd.com>> <mailto:Apurv.Mishra@amd.com 
->>>> <mailto:Apurv.Mishra@amd.com>> --- 
->>>> drivers/gpu/drm/amd/amdkfd/kfd_migrate.c |    20 
->>>> +++++++++++++++----- 1 file changed, 15 insertions(+), 5 
->>>> deletions(-)    diff --git 
->>>> a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c 
->>>> b/drivers/gpu/drm/amd/    amdkfd/kfd_migrate.c index 
->>>> 8b96e1fe741a..1eb92ac6eb05 100644 --- a/drivers/ 
->>>> gpu/drm/amd/amdkfd/kfd_migrate.c +++ 
->>>> b/drivers/gpu/drm/amd/amdkfd/    kfd_migrate.c @@ -297,16 +297,26 
->>>> @@ svm_migrate_copy_to_vram(struct kfd_node *node, struct svm_range 
->>>> *prange, amdgpu_res_first(prange->ttm_res,    ttm_res_offset, 
->>>> npages << PAGE_SHIFT, &cursor); for (i = j = 0; (i < npages)    && 
->>>> (mpages < migrate->cpages); i++) { - struct page *spage; + struct 
->>>> page    *spage = migrate_pfn_to_page(migrate->src[i]); if 
->>>> (migrate->src[i] &    MIGRATE_PFN_MIGRATE) { dst[i] = cursor.start 
->>>> + (j << PAGE_SHIFT); migrate- >dst[i] = 
->>>> svm_migrate_addr_to_pfn(adev, dst[i]); - 
->>>> svm_migrate_get_vram_page(prange, migrate->dst[i]); - 
->>>> migrate->dst[i] =    migrate_pfn(migrate->dst[i]); - mpages++; + /* 
->>>> + * A reused svm_bo page may    still be held by a CPU fault. + * 
->>>> Reinitializing it would free it under this migration, + * so leave 
->>>> this page in system memory. + */ + if 
->>>> (page_ref_count(pfn_to_page(migrate->dst[i]))) { + dst[i] = 0; + 
->>>> migrate-     >dst[i] = 0; + spage = NULL; + } else { + 
->>>> svm_migrate_get_vram_page(prange, migrate->dst[i]); + 
->>>> migrate->dst[i] = migrate_pfn(migrate->dst[i]); + mpages++; + } } - 
->>>> spage = migrate_pfn_to_page(migrate->src[i]); if (spage && 
->>>> !is_zone_device_page(spage)) { src[i] = dma_map_page(dev, spage, 
->>>> 0,    PAGE_SIZE, DMA_BIDIRECTIONAL);
->>>> >
->>>
->
