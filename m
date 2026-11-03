@@ -2,131 +2,84 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37E1C606D817
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 19:08:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34EDF606A324
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 20:12:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=3QS1SFed
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pg4/eJA5
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC23C10F792;
-	Tue,  3 Nov 2026 19:08:35 +0000 (UTC)
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013007.outbound.protection.outlook.com
- [40.107.201.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BD8510E826
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Nov 2026 19:08:29 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=szuyCMYsbvdS+56N8fsiRqI08tTUjDIgM/A3aHRdgmEn3+tsQB9551yvn0b1luoDMPo/6Cv/eQmdeDQ5yWbwjnUrc+6MqPXzNSlt7EPBA3zXY5bobPImrdK0z10I/dpZ+6LxopkpOn8U/FhfDPVA8eX4oYkNycr9uXbGcn7u3rWllpBrOKqFT3YJ+bTrOqDvpBOHlSAY0PjoVdw+/M6vkgdhFbMCaUH23T33jXiQMfyYCP7PT4DCVtdYQx9hwzOfbOEG+cHwJpP5qeBErbOMI66GTeXRnY000dMO3t5+uydNYshSqwcMp51ZhFkrM+BrL5IuqcOmwQEIzy7u4+v4mw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Kh+uke4Osnh2wbgG5okG7Vh+GpX/4gNFRb1dfoJEzRs=;
- b=SWPZaCCzvQ+gFuhwgFFVItwIjtYL99AFpOE2qZIqCPXUrPYX+K0gRkrQsqk3lQVTDf8hwRXxKiXcn3rRJzbHWpfL6mkz7xUfkSrsepRfIjMt/z12PFrhJpbvMdwdjTvTNp4zxQ9Y9IXuPwfxjK/3iAJveYGt5/MHa0gLMpBClpMcw0alUmHOIxuScIwg83Dkej5vqFPHcKsYSZ3ClVwYAGTBlZ6ZVEhBgWlbCtNKdL+lmAsvpRG7zoxwTYkhHObNbGvu7ID2VXWxgBSf6mnB4U0VXaKH0LioddjVSIxSNkwBTJd7zw/3CM1QRBs+870LM2DMSvIxV9unopuL77sSPg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Kh+uke4Osnh2wbgG5okG7Vh+GpX/4gNFRb1dfoJEzRs=;
- b=3QS1SFedyUouh7B5Q9aGJbO4d/78oWbjyF4OsbpxXEEqcxeBI14XkQcBnNZT0NFPOx37RvmmeefaTlasSF/lU8+17CnXCrsa/9ZLs7ZQi8bKDwIIoScJ9P9uGKdhzfANgZrSpTshak2+Uuxb2nBjl4CXyLokA8wxEN4ZxhtkrUU=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from LV8PR12MB9133.namprd12.prod.outlook.com (2603:10b6:408:188::15)
- by DSVPR12MB803185.namprd12.prod.outlook.com (2603:10b6:8:3ea::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Tue, 3 Nov 2026
- 19:08:25 +0000
-Received: from LV8PR12MB9133.namprd12.prod.outlook.com
- ([fe80::d29f:9915:159b:b02]) by LV8PR12MB9133.namprd12.prod.outlook.com
- ([fe80::d29f:9915:159b:b02%4]) with mapi id 15.21.0569.011; Tue, 3 Nov 2026
- 19:08:25 +0000
-Message-ID: <51f75131-017d-4cf6-a971-b4a9cb5049ab@amd.com>
-Date: Tue, 3 Nov 2026 14:08:23 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC] AMD ISP4: OV13B10 (OMNI13B1) rear camera on ASUS ROG Flow
- Z13 GZ302 - ISP comes up, SET_STREAM_CONFIG fails with error 6
-To: Seifelden Abdelmonem <saif.elden.hatim@gmail.com>,
- Caspar Adriani <caspar.adriani@proton.me>
-Cc: Nirujogi Pratap <pratap.nirujogi@amd.com>,
- Benjamin Chan <benjamin.chan@amd.com>, Bin Du <bin.du@amd.com>,
- King Li <King.Li@amd.com>, Hans de Goede <hansg@kernel.org>,
- "Adam J . Sypniewski" <ajsyp@syptech.net>, amd-gfx@lists.freedesktop.org,
- linux-media@vger.kernel.org, platform-driver-x86@vger.kernel.org
-References: <lWYl1YJwDSh-q2Ew2f8b0BweQ4V-SUnPMSMurU5gT1LkqVdrmWFunj0sSgjC7m66bORBAD_jRCFTt1_ZOkotOMukY46rI4ayYbIfPQq4E9U=@proton.me>
- <ea758386-13b0-4667-8eca-9aa4efefe92b@amd.com>
- <P9m7agZFwqTsT5eczqDOuUVoP-lGl6Nd8FLvknyAj7gm7R_4cwIpb2_3-DNis287elaS_x5ummKLdOf_rk7LcHZqnrTnjMuzEPcX2syIefg=@proton.me>
- <20261027093218.35631-1-saif.elden.hatim@gmail.com>
-Content-Language: en-GB
-From: "Nirujogi, Pratap" <pnirujog@amd.com>
-In-Reply-To: <20261027093218.35631-1-saif.elden.hatim@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT4PR01CA0057.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:111::13) To LV8PR12MB9133.namprd12.prod.outlook.com
- (2603:10b6:408:188::15)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0C7010F82F;
+	Tue,  3 Nov 2026 20:12:21 +0000 (UTC)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CB4010E811
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Nov 2026 20:12:15 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-4a549cd7fd2so11226205e9.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 03 Nov 2026 12:12:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793736734; x=1794341534; darn=lists.freedesktop.org;
+ h=mime-version:user-agent:content-transfer-encoding:content-type
+ :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+ :cc:subject:date:message-id:reply-to:content-type;
+ bh=rzfg/h1ayQvCfs+vJ0HflLnTVfKkUhcDdWUVOaA9XrI=;
+ b=pg4/eJA5c9ft1T++QQchf9BWyAL06tkm3azU03r37Rcq47tSA4SGrIPhOspnNyLyrv
+ BhRlR9O3dXg/sUAkm3kHNC/7a+HC3RlU30r64YzNiM+I5iqmabCxRp9CbIXqn8TcZF6Z
+ g+/Jkq0hrgNqzsuK22a41CQjMYvypIpZIPx9hp72Lsnm8N1vmQKW53dGSvqXpBOWYil5
+ 5EChM4F/UGMDgEqAXTQQ65XzHufAKV8s6SplKUlBQ0GZ6DP3tWdRCm7kZomYkzOJisLD
+ p7rUXOQW8qLK94P9nFGpKkbH0Ey3TJFmBa0GKMHE8vNDkhcISS9Q2pTh1oprvm/UD0AA
+ o+WA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793736734; x=1794341534;
+ h=mime-version:user-agent:content-transfer-encoding:content-type
+ :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=rzfg/h1ayQvCfs+vJ0HflLnTVfKkUhcDdWUVOaA9XrI=;
+ b=0Z0ByXwZSmVbf7VhpCNGgQvV3m22FvgfSw8P4aKnw8IcXp3RPKiT1yvRvxavrkCT8W
+ 3gOGcOiVaOvFQjE1g7CEInBwlbvnMXxn46B9R39lGsvMzvxgytaQMLVlHJCv8QRHvVAT
+ DuNAXLXZdD5BWS0RFCTjsy01nfUWIsakVumVtZIykmxLSjziwsWtLW/icIpRTF7jRuNt
+ GuvhywaGu1nEw6AdQ+H2Wc4e3AARGRIckh2JjpM5Eyg3rzEgjumD4F61jOeLqBXGpxZb
+ 1+UUCHxHz86eUJH6UGzwEgQx268aWArEUzckYFBruMN8ctw7/yT00fcuD+189kTh70zO
+ ljXA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxYx51V46ydY6c30aqIAsTz+3Qq5mzg3kHxmjmbT1QwYyWL3nn6gfhTyea/lPDBEmBErIecc9fH@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/u+kS7pp3WdDliOI/gXFwiqAqr/0Rz/C/BLI7XrSv5o3VV8438
+ fohPgSE30Rx5i5yPZeeB+4U8ZGnPbSGV2Nckljk1YkNL16fASwHYEmZT
+X-Gm-Gg: AYBFou3zFbAS3T6IJ9X2FNUzh/txirmnhYbA5tZ/ixOlny8FyWP8RtBzweDmeA/1P3T
+ l+yBIQ3m40qL04wXxdUVBy9Iw/cIeAhtX+oF3Rxh7jbSwqQbR1Yr4u4U8nJcpvcXOsWvNayC+t3
+ z2aiDXnd75RYe+FKB/rkwP1LuFmnDLGZsFZNvoAforGOljL9fXucVSWB5GFRhI2OzyXDsfDa8FC
+ SEa+P01uAdPaiyQG3BNZiwr+GD4fsukDGtv6C4mP2AA0/ntPnGyCOuPAcDFu+DxXN9MinnkXjl2
+ WPD/kCS4dur3/evRHIWZ5nHkl8tFA4XynLWJCO3crA3jAmd4ywfCIDUleslX3ll37+/1nhFQfNn
+ b18rwbWXRENo/uPeQfDw4nHWLl9vA5nInPZBLDGSyZ5NT9FAbmszj88U9GscplwkKOsY8LN6vAf
+ uqFsPmJxkY7VNK/RuMZvsUVF43awHrRTKlahUwzNdbJd1L0xZXRyY0GVcZyE1+TTsP1ocFYkaQY
+ rX7KP/+/Rc4yhwMbtVQpUrier+QO3Ap4HLnLP6/lhP5NXgf4sqco2RGP37mjuIWG0Sn87Maff1X
+ Zykq4HrCiu/fW9IohyJ23Glm7uaeoHWLNRh4eSA8Xzt6Y6pmad/pVG5ZbQY6LtdPnxosVI6HIqk
+ PI74dpn2NPQ==
+X-Received: by 2002:a05:600c:6285:b0:4a1:c6f5:2450 with SMTP id
+ 5b1f17b1804b1-4ac180f07d1mr345213015e9.17.1793736733783; 
+ Tue, 03 Nov 2026 12:12:13 -0800 (PST)
+Received: from [192.168.1.86] (240.red-79-154-229.dynamicip.rima-tde.net.
+ [79.154.229.240]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-48fcca7cf52sm309350f8f.33.2026.11.03.12.12.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 03 Nov 2026 12:12:13 -0800 (PST)
+Message-ID: <d744c7dedfc32ba6f1a66731eb9aa196f46af941.camel@gmail.com>
+Subject: Re: [PATCH v3 02/15] drm/amdgpu: complete the guilty fence at the
+ end of a multi ring reset
+From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
+To: Jesse Zhang <Jesse.Zhang@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Alexander.Deucher@amd.com, Christian Koenig <christian.koenig@amd.com>, 
+ Lijo.Lazar@amd.com, Mario.Novales@amd.com, Manu.Rastogi@amd.com, 
+ Jiongyu.Zhu@amd.com
+Date: Tue, 03 Nov 2026 21:12:12 +0100
+In-Reply-To: <20261028085736.3808569-2-Jesse.Zhang@amd.com>
+References: <20261028085736.3808569-1-Jesse.Zhang@amd.com>
+ <20261028085736.3808569-2-Jesse.Zhang@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PR12MB9133:EE_|DSVPR12MB803185:EE_
-X-MS-Office365-Filtering-Correlation-Id: b84e8bf3-c732-47e3-4e12-08df39ddd604
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|23010399003|1800799024|261028144727099003|261026121527099003|261026140227099003|261009223027099003|261102123227099003|261021121427099003|261022105027099003|261022115727099003|261022075727099003|261021123027099003|56012099006|11063799006|4143699003|3023799007|6133799003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: wY4lMVuTyhxj/HSdmcF2UtVp9XHJyMg8yGR4dcL3n38CZDdV2ULmlFbgdC3LUpqjUT6mnPHj1+S4xtxKKNYiAvFQV5FpboYsIPdpvpO30WpiqN+3sPR46kGW2t0pgWiD7KxNeI7HSxGrl3KGX9XFlb9UUrTclarBsfyH87Q/gey+Q9wlMWNFLecai10YC84LI1jt/Q9Yz/j48Vcyq7ODdXE/ZYUAgz1wI7sqcrUHscPPv0vUcoeLsZX9YjbZoJwel1PP3s4YjcdKdmxcKiRK7IGsbPB3eyOvW2cd1+slsk1cz/KdbInMS5vX4+oe/q5H82CdqXu0N1YPkVJ5+mCDsMeieumYYgklW/Fc0EDJU/zllNmEaDuE6X4ArNJk3JS0WA0Am6pJKWwhCOnv07S32obkqom7lsmmHVasgta0ytNOt43RkKHZDwMWYwYcZDt5SyZG+cDrRtFf/1c9N4z02aGnB85bwk7NFlhyhcEb+od2CllqSt6kv+eQ/ben8ep3AYt6BTxsD/sv+hWX0ETB8NMOZN9IUmnXzY0prHHdtmQflO5Yp73yis3z+BZvCH83D9iCDDaJi6lhYksr2YPE9q87C5Adw9TUBperf9wuWZFeIP/IuC7xI2voKQx39RgM
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LV8PR12MB9133.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(261028144727099003)(261026121527099003)(261026140227099003)(261009223027099003)(261102123227099003)(261021121427099003)(261022105027099003)(261022115727099003)(261022075727099003)(261021123027099003)(56012099006)(11063799006)(4143699003)(3023799007)(6133799003)(10067099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RmZRWGpTWlQwWXNPUlJxZklVRnVVQWRBUzYvNHZKaHFEVmtVb1Z5ME1YWW1O?=
- =?utf-8?B?amlGdFFuSGMyN0xqSHg0Qi9GSHpRMlE3NGFwK0QyQ0xFdmdLT0t5amVsaU0v?=
- =?utf-8?B?Y3FHMUhGZVd5VEJpaVNBTEZyRHhKZHhtRllBQ25BVncyTW91eDRxbDRoZkpZ?=
- =?utf-8?B?NDFSa1pBYVlFbHVPcEVLQjVCZWtXTXdpU3dqdUZiYzl2TTYzb1ZFbUhvclBk?=
- =?utf-8?B?dkljN0taV1ZLVXNTbWxlYlExcjhTRkcxSUNTZ2pTaWI4Tlg4dlNuMFJVRXVr?=
- =?utf-8?B?VUw5MEdqMG8xVHdERlJHMUtTcHJ3bk1yVG9iZitiT2V4MTNMWjM2dE92cGIy?=
- =?utf-8?B?eitCSE96cG1Fb2h6L3JQSmY3R3JpelRFNEs2K0t0WENvQmFveWtocm0zY1JZ?=
- =?utf-8?B?QkttMndvYzQ4TUFMMHRkcVZxRU5GLzNZQWRBRHZ6R0RHVE5rVWVISUtSNWRK?=
- =?utf-8?B?MmZsVDh6bWN5R2tieGJTa2ttMk51RnJ1K0FlUmJRN3lhcExxQTBaVng4dith?=
- =?utf-8?B?VUh3ZlZDVkNydFJsMUg1Q3BDQndYeDZEYlRoUXkyTGZFZlMxNmkrb2RGUjQv?=
- =?utf-8?B?d2t0UXk4YVNKRHlhd2RqdmJFSm5XNUVWczZPdXB4ODRhWnBGOU5zaSt4QkR5?=
- =?utf-8?B?UktNZFBuZ0RybnpUN0pXWWQwNFltR2wzbmxEWVo1UUpCb3JEQnpNaEhhUFU1?=
- =?utf-8?B?amp1Tk14VU9sN2VwWXJxRmJHYWJXcTlCOERhSy96QUNEdjFsY0pzRnVITjNo?=
- =?utf-8?B?aVRkditrb0dRWG45VEUwSW4raEQxRm9vdHQ4MWRRdjRGdGt0TksxL2xVZHA3?=
- =?utf-8?B?TmJQanZacTAvWlpFWUpDWU5vazBwUzVjOG1qaVFhZ2dQWE9yb3M4a0padUUw?=
- =?utf-8?B?OGh5OVVrbHRuZlVkRDhEUmZKY1JDUGZrb2RwUGtzdHhGRWcvczJtd0Jubi9D?=
- =?utf-8?B?VzlmT09ueTFWRDM1ZmxROE5vakdjaktyOURSdVAyeDk1dGFlRS9BR3AzOWZp?=
- =?utf-8?B?ZnJoS3I4cmZVYlYxd3FLMlJoeG1mRC9GbVl3RWJ0d2hVaXdDMnVvdEhZQmh1?=
- =?utf-8?B?b1JWZmFER2RCVjlzV3o3bHFBbEVmVDREeEVGMUFIYU10cHVKcWJpYkx5amFy?=
- =?utf-8?B?cFI1dHRUd0tmSTZFNmJ3dWY0TVFOYjlBMkJYcFg0TnUvN3RZaUIyVElib0F6?=
- =?utf-8?B?d1JLTUMxK0JqSDhjdEdLZ2ZGbzlBQ0tSdDI4Zkl3eWpBZ0lLVkZoMVBUdFJj?=
- =?utf-8?B?WVJhNG5lanVudUExa2VtLy9LM1A2WnpoQUVxdFZmdU9paUpmSThpSnJZU0FM?=
- =?utf-8?B?YWFNSHBUeVRjMWl5ek9wcEdZYmYyalE5K3p5eGV0YTkwVzVQeEZIdkR1cWhR?=
- =?utf-8?B?TEVMcDMzRzEwc3VnRDRXSXhvbGV5d3AzYlpsMDU3bHNTUkFmTGdHRG1rWFhW?=
- =?utf-8?B?Y1QybzdyTHR2b2JDcTVvczhPbGMycythUnhaWXFDMXF1SkxUdU81RXhBODlL?=
- =?utf-8?B?MFVpRHppN2RVVkc4ZS90Mk1ER1V0OWhUV1RwNXJTYkpTNzk0TlUrOGFaakRm?=
- =?utf-8?B?dE93bDRsMkNoRXkyUE54TlFkRHljdFBmNjVBTFU3QVp3S2NPbkRoVlQxTm1p?=
- =?utf-8?B?UHlOaEtKaUhQWWsvb0U1aWo1cDl1VjN2ZE1mdE1LdEFIcGNqU0lDRUZGN1Z6?=
- =?utf-8?B?ZUFNY2plT05SbVhKSTBrcU1heXpRMEZ2WUJBV0VkQitRWW9aeU50YWZtN1RL?=
- =?utf-8?B?R0lQZFd0Vk90SW9BUEpwekp1dlcvS0FmOGplQVVtSEcrU1FjTDZKVEJUMWdQ?=
- =?utf-8?B?RFZDc1UxR0FVK2IzL3FyZTFOSWZMTHc5eXF3MzU1TjFCK25DMmdyTGRHS1pU?=
- =?utf-8?B?Rlh6d3hTNHMxYUhub2NVbXg3ZjRFWFpFVy9mSVNaRy9YZ0p1cE16ZmV5V2Za?=
- =?utf-8?B?ZjRDM01CMG1PYmg3ajd0bzNVclJSRUFudTUzWnloRFdMaFlaYm93UHJZeldn?=
- =?utf-8?B?Z3NvUWJ2MC94cHFEdHZ6bXFmeFgwSE5yeWphaXVnb2pjS1pCU0Z4ejR1Q3k3?=
- =?utf-8?B?OU1iNjhOaXZ0a3I0ZzdBTGh2T21GZmVTZElZMGJ4TzdkTUhXMnNRSUJEdDU5?=
- =?utf-8?B?Z1R6UDdHMDRDTmsvMmlVQmhiVnBXa1ZMZjBSR3B3RTE5eHhKZ0F2cTBmc0FX?=
- =?utf-8?B?b01WUHNzN0l1WXRldWZENjZRREpNWFdndTMrSXhYNHkvdmZXVytwOXNYbWxv?=
- =?utf-8?B?cVBmVitzNkNYZHFqTkxGMnF0L0FmQkYyZDZGODhtOXhjNXNEMTFBZlBYd3hY?=
- =?utf-8?B?N09XYWd5aVJueWJQYTBSRUlGMnJPc1dDZDJpZ21TbFBXS1lzRXFjdz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b84e8bf3-c732-47e3-4e12-08df39ddd604
-X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9133.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 19:08:25.2811 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Y/N6r6XJvoEmssqqLKcz9wQwA1MIUoXFJLco7H5iPf39RWXltDrU1nf9SNgnOG3tekEf00Vrw55OPWwWQXYJ7A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR12MB803185
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,87 +90,134 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Seifelden,
+On Wed, 2026-10-28 at 16:56 +0800, Jesse Zhang wrote:
+> amdgpu_ring_backup_unprocessed_commands() skips the backup of a ring
+> and
+> clears ring->guilty_fence when it sees the same guilty fence again,
+> to
+> avoid replay loops. That happens when the IP block soft reset follows
+> a
+> failed ring reset of the same job.
+> amdgpu_multi_ring_reset_helper_end()
+> then restored the guilty ring with ring->guilty_fence, NULL by then,
+> so
+> neither the guilty fence nor the rest of the ring was completed: the
+> hung
+> job stayed pending until it timed out again.
+>=20
+> Pass the guilty fence to the end helper, and use it for the guilty
+> ring.
+> For the other rings, and when the backup didn't drop it, nothing
+> changes.
+>=20
+> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+> ---
+> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c=C2=A0=C2=A0 |=C2=A0 3 ++-
+> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 13 ++++++++++---
+> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |=C2=A0 3 ++-
+> =C2=A03 files changed, 14 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c
+> index d0b0d3eaffc5..2eea18965fd1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c
+> @@ -469,7 +469,8 @@ int amdgpu_device_ip_soft_reset(struct
+> amdgpu_ring *guilty_ring,
+> =C2=A0
+> =C2=A0	r =3D ip_block->version->funcs->soft_reset(ip_block);
+> =C2=A0
+> -	r =3D amdgpu_multi_ring_reset_helper_end(adev, ring_type_mask,
+> guilty_ring, r);
+> +	r =3D amdgpu_multi_ring_reset_helper_end(adev, ring_type_mask,
+> guilty_ring,
+> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 guilty_fence, r);
+> =C2=A0	amdgpu_device_unlock_reset_domain(adev->reset_domain);
+> =C2=A0
+> =C2=A0	if (r) {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> index edae764eb0c4..7f0f0ae6650a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> @@ -1038,6 +1038,7 @@ void
+> amdgpu_multi_ring_reset_helper_begin(struct amdgpu_device *adev,
+> =C2=A0 * @adev: amdgpu device
+> =C2=A0 * @ring_type_mask: Bitmask of affected ring types
+> =C2=A0 * @guilty_ring: The ring which is guilty of causing a reset, or
+> NULL.
+> + * @guilty_fence: The fence which didn't signal on the guilty ring.
+> =C2=A0 * @ret: Return code from the reset function.
+> =C2=A0 *
+> =C2=A0 * After calling amdgpu_multi_ring_reset_helper_begin()
+> @@ -1050,7 +1051,8 @@ void
+> amdgpu_multi_ring_reset_helper_begin(struct amdgpu_device *adev,
+> =C2=A0 */
+> =C2=A0int amdgpu_multi_ring_reset_helper_end(struct amdgpu_device *adev,
+> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const u32 ring_type_mask,
+> -				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu_ring
+> *guilty_ring, int ret)
+> +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu_ring
+> *guilty_ring,
+> +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu_fence
+> *guilty_fence, int ret)
+> =C2=A0{
+> =C2=A0	struct amdgpu_ring *ring;
+> =C2=A0	int i, r;
+> @@ -1080,8 +1082,13 @@ int amdgpu_multi_ring_reset_helper_end(struct
+> amdgpu_device *adev,
+> =C2=A0		if (!(BIT(ring->funcs->type) & ring_type_mask))
+> =C2=A0			continue;
+> =C2=A0
+> -		/* Restore contents of the ring */
+> -		r =3D amdgpu_ring_reset_helper_end(ring, ring-
+> >guilty_fence);
+> +		/*
+> +		 * Restore contents of the ring. The backup of the
+> guilty ring
+> +		 * may have dropped its guilty fence, eg. after a
+> failed ring
+> +		 * reset with the same fence: still complete it.
+> +		 */
+> +		r =3D amdgpu_ring_reset_helper_end(ring, ring =3D=3D
+> guilty_ring ?
+> +						 guilty_fence :
+> ring->guilty_fence);
 
-On 10/27/2026 5:32 AM, Seifelden Abdelmonem wrote:
-> [You don't often get email from saif.elden.hatim@gmail.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
-> 
-> Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
-> 
-> 
-> Hi Caspar, Pratap, all,
-> 
-> I have the same laptop (GZ302EA) and have been working on the rear
-> camera as well. Some results that may help this thread:
-> 
-> The rear camera streams on my machine (NV12 1920x1080, about 30 fps)
-> with an out-of-tree setup. As Pratap explained, the stock
-> linux-firmware image does not start this sensor; on my machine the
-> camera runs with ISP firmware and sensor setup data from my own
-> Windows driver installation, read from the Windows partition of that
-> machine. I do not redistribute any of it. The firmware alone was not
-> enough: getting a picture also took the board configuration and GPIO
-> wiring below, changes in the isp4 capture driver and in the sensor
-> setup, and the two fixes I sent to linux-media (link below).
-> 
-> Board details as seen from Linux on the GZ302:
-> - The sensor is \_SB.CAMB (_HID "OMNI13B1") in an SSDT, without _CRS,
->    so ACPI describes no GPIO, clock or regulator for it.
-> - I2C on the ISP's bus: the sensor answers at 0x10 once it is powered
->    and clocked; the focus motor is at 0x0c and the module EEPROM at
->    0x50, matching Caspar's scan. My guess is that with the stock
->    firmware the sensor never gets powered, because SET_STREAM_CONFIG
->    fails before that, which would explain why 0x10 did not ACK.
-> - Sensor reset: amdisp-pinctrl GPIO 0, active low (the "reset" GPIO of
->    the ov13b10 driver), the same ISP GPIO as the OV05C10 enable line.
-> - enable_isp (AMDI0030:00 pin 85, as for OMNI5C10): not confirmed on
->    this board. No ACPI device claims the pin, and the ISP also boots
->    with it left undriven.
-> - Sensor clock: 24 MHz, as declared for the OV05C10 platform on the
->    same ISP; four CSI-2 lanes.
-> 
-> On the hang Caspar saw when stopping the stream, possibly related: when
-> a stream is running across s2idle (start a stream, then "rtcwake -m
-> mem -s 20"), no further frame arrives after resume, and stopping the
-> stream logs "fail to disable stream" and "fail to stop stream" because
-> the commands time out. On my machine the timeouts return and the
-> device can be closed; the driver has no system-sleep callbacks.
-> Caspar, did your hang happen after a suspend, or also without one, and
-> did you see those two messages?
-> 
-> I sent two small isp4 fixes found on this machine to linux-media:
-> https://lore.kernel.org/all/20261026182442.229869-1-saif.elden.hatim@gmail.com/
-> After the merge window I plan to post the board data above as an RFC
-> (amdgpu OMNI13B1 entry and GPIO lookups, amd_isp4 board configuration),
-> explicitly not for merging until the firmware supports the sensor.
-> 
-> Pratap, you mentioned contacting testers once there is OV13B10
-> firmware or a sensor-agnostic draft: I would be glad to test both on
-> the GZ302 and can share logs, ACPI tables and v4l2-compliance output.
-> My out-of-tree code (capture-driver changes, the board configuration
-> and the test scripts) is in a repository I can share on request.
-> 
-> One question for the sensor-agnostic driver: will a board like this
-> one describe its sensor through amdgpu and amd_isp4 tables as today,
-> or will the firmware take the sensor setup from another source?
-> 
-Yes, even with the sensor-agnostic driver approach, we expect to follow 
-a similar method by describing the sensor in the amdgpu and amd_isp4 
-tables to enable support on AMD STX Halo-based platforms.
+Can you help me understand what was wrong with the line before?
+I think guilty_fence =3D=3D ring->guilty_fence when ring =3D=3D guilty_ring=
+ no?
 
-Thanks again for your support and willingness to help validate the 
-sensor-agnostic ISP driver and firmware once they are ready.
 
-Thanks,
-Pratap
-
-> Thanks,
-> Seifelden
-
+> =C2=A0		if (r) {
+> =C2=A0			dev_err(adev->dev,
+> =C2=A0				"Failed to recover ring %s after
+> soft reset\n",
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> index 7e6ed43771f2..349c7d503e5f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> @@ -643,7 +643,8 @@ void amdgpu_multi_ring_reset_helper_begin(struct
+> amdgpu_device *adev,
+> =C2=A0					=C2=A0 struct amdgpu_fence
+> *guilty_fence);
+> =C2=A0int amdgpu_multi_ring_reset_helper_end(struct amdgpu_device *adev,
+> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const u32 ring_type_mask,
+> -				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu_ring
+> *guilty_ring, int ret);
+> +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu_ring
+> *guilty_ring,
+> +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu_fence
+> *guilty_fence, int ret);
+> =C2=A0bool amdgpu_ring_is_reset_type_supported(struct amdgpu_ring *ring,
+> =C2=A0					 u32 reset_type);
+> =C2=A0#endif
