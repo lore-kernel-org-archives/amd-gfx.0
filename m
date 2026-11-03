@@ -2,39 +2,39 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A1B5606A338
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 22:42:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36178606D820
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 22:42:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nFWnRh1s
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GwUVdxdX
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4200010F325;
-	Tue,  3 Nov 2026 22:42:24 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E16110E464;
- Tue,  3 Nov 2026 22:42:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5594510F7DE;
+	Tue,  3 Nov 2026 22:42:29 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 268C510F29A;
+ Tue,  3 Nov 2026 22:42:23 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 712B560254;
- Tue,  3 Nov 2026 22:42:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74E441F00919;
- Tue,  3 Nov 2026 22:42:15 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 039A940951;
+ Tue,  3 Nov 2026 22:42:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34C1D1F00A15;
+ Tue,  3 Nov 2026 22:42:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793745737;
- bh=wk90OFMH/tEsorghIHQMEEaSbAMOkWS6It5GiBg/p6w=;
+ s=k20260515; t=1793745742;
+ bh=ONckf1oyDzGCVRUW7BFxneeAYQhrsAxD/nG7vYKe6ds=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=nFWnRh1sUQmwiHM2Y3j302d9hYJyc6EkscYf29bxeLubSe1tGnnJuUAm9jMU2r+mj
- kyNSwLzeLwznc24FcUzE1SRU5UvqoqUvB16VVIQpumYFtaLpbtjTm3QS9MIFLg0wuv
- q6Q2GWXlggwSaI232nDE+jq54Pma/DTJmluHBAaG1H3Y08+j1U+A7Wy7v2qYZszn34
- ymzwwa8uYaP+QhOyr4HU5z6VO+yNciUfE+QyWVI/NVeNiGNg5EWC9XA3DNyjr0TVZi
- 621v4YfP1nRyINM2CbDOLBv/9sMgN4zrc8+sAmq1aVPhSPDivldduaS+XOQeg2DauX
- ElHwYzcvvTWXw==
+ b=GwUVdxdX56V/olAkHYMIK2z+Y19djp/ehwSsWX/0Qc1SJizKw+TSOkmHHduTUan/Q
+ 49VzL4kJ4QSAHI5griUqaXYQU5Sv8vnQUBDvohz45UFEhacT6gPMQZXNArqn/WGBJe
+ IXyYrdK+EXhXpiEVjUsCVn4Vgkkwgt8sU28S7kwmNeBryJE1U3R/Jz0w58pjd/QQLV
+ Qf5VtyULnLXxMkcN1aozWRnhEWnAgr4U/LciifYM2kESz1VKuJxspunJSosUqv3YXe
+ AWpoE3rx/+bGgc28rYGPzVJPW1zT9lTILYT0aScmoza/2tXj/Awb3tWJCJn3TOfqVn
+ 0E5HLjrxntPdQ==
 From: "Mario Limonciello (AMD)" <superm1@kernel.org>
-Date: Tue, 03 Nov 2026 16:42:02 -0600
-Subject: [PATCH v11 01/12] drm: add connector LUMINANCE property
+Date: Tue, 03 Nov 2026 16:42:05 -0600
+Subject: [PATCH v11 04/12] drm/amd: add luminance property support
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-superm1-backlight-property-v11-1-00cce7b2ba22@kernel.org>
+Message-Id: <20261103-superm1-backlight-property-v11-4-00cce7b2ba22@kernel.org>
 References: <20261103-superm1-backlight-property-v11-0-00cce7b2ba22@kernel.org>
 In-Reply-To: <20261103-superm1-backlight-property-v11-0-00cce7b2ba22@kernel.org>
 To: Maxime Ripard <mripard@kernel.org>, 
@@ -72,474 +72,460 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Mario Limonciello <mario.limonciello@amd.com>
 
-Panel brightness is a property of a display, and thus of a DRM
-connector. Add an atomic per-connector LUMINANCE range property so
-compositors can manage relative panel luminance together with the rest
-of the display state.
+Expose the DRM LUMINANCE connector property for internal panels when
+CONFIG_DRM_LUMINANCE is enabled. Keep registering the existing backlight
+class device otherwise, preserving its userspace ABI.
 
-Keep the core backend-agnostic. Drivers create the property with their
-hardware range and implement connector helper callbacks to set luminance
-or disable panel emission. The atomic helpers sequence those callbacks
-around pipeline enable and disable, including luminance-only commits.
-The panel is left lit when the pipeline enters self refresh, and the
-luminance is only reprogrammed when it changes or a modeset enables the
-pipeline.
+Use the existing brightness scaling and programming paths from Display
+Core connector helper callbacks. Apply atomic luminance after the display
+pipeline is enabled so changes made while a connector is inactive take
+effect on the next enable.
 
-The stored property value is independent of display power. A commit made
-while the connector is inactive is retained and applied on the next
-enable; disabling the pipeline does not overwrite it.
+The legacy non-DC display path is not atomic, so it keeps registering the
+backlight class device. Only attach LUMINANCE when ACPI video selects
+native backlight control, otherwise keep the existing acpi_video fallback.
+Reapply the cached level after modesets and GPU resets for both
+interfaces.
 
-LUMINANCE values are relative, driver-defined levels rather than
-absolute luminance in cd/m^2. The interface supports emissive panels as
-well as panels with a separate backlight.
+With LUMINANCE, ATIF panel brightness change requests from firmware are
+not forwarded, since there is no backlight device to update.
 
-Keep the interface behind a default-off DRM_LUMINANCE option. Migrated
-drivers retain their legacy backlight class ABI unless the new interface
-is explicitly selected, allowing the DRM UAPI and legacy compatibility
-policy to remain separate.
+Update the backlight KUnit fixtures to initialise DRM mode configuration,
+connector state and link service mocks needed by the LUMINANCE path.
 
-Acked-by: Javier Martinez Canillas <javierm@redhat.com>
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
 v11:
- * Don't call .disable_luminance when the CRTC enters self refresh (Sashiko)
- * Only call .set_luminance when the luminance changes or on a modeset
-   that isn't a self refresh exit (Leo Li, Sashiko)
- * Fix the .set_luminance self refresh documentation
-v10:
- * Add tag
+ * Drop the legacy (non-DC) changes; that path is not atomic and keeps the
+   backlight class device (Sashiko)
+ * Only attach LUMINANCE when acpi_video_backlight_use_native() allows it,
+   otherwise register the class device or acpi_video fallback (Sashiko)
+ * Restore brightness after GPU reset and modesets for LUMINANCE panels
+   too, seeding dm->brightness[] with the initial value (Leo Li, Sashiko)
+ * Skip programming an unchanged luminance to avoid PSR/Replay/IPS exits
+   (Leo Li, Sashiko)
+ * Keep selecting BACKLIGHT_CLASS_DEVICE (Sashiko)
+ * Seed the property from the hardware level rather than the default
+ * Leave the privacy screen update in commit_tail unchanged
+ * Squash in "drm/amd/display: update KUnit luminance fixtures" so every
+   commit passes KUnit, rebased on drm-tip fixture changes (Intel CI)
+ * Initialise the KUnit test connector with the type matching the link
+   signal to avoid freeing the ID into the wrong IDA (Sashiko)
 ---
- drivers/gpu/drm/Kconfig                    | 14 +++++
- drivers/gpu/drm/drm_atomic_helper.c        | 98 +++++++++++++++++++++++++++++-
- drivers/gpu/drm/drm_atomic_state_helper.c  |  7 +++
- drivers/gpu/drm/drm_atomic_uapi.c          |  5 ++
- drivers/gpu/drm/drm_connector.c            | 57 +++++++++++++++++
- drivers/gpu/drm/tests/drm_connector_test.c | 28 +++++++++
- include/drm/drm_atomic_helper.h            |  3 +
- include/drm/drm_connector.h                | 16 +++++
- include/drm/drm_modeset_helper_vtables.h   | 28 +++++++++
- 9 files changed, 255 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 16 ++---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h  |  7 ++
+ .../amd/display/amdgpu_dm/amdgpu_dm_backlight.c    | 78 +++++++++++++++++++++-
+ .../amd/display/amdgpu_dm/amdgpu_dm_backlight.h    |  3 +
+ .../amd/display/amdgpu_dm/amdgpu_dm_connector.c    |  5 +-
+ .../amdgpu_dm/tests/amdgpu_dm_backlight_test.c     | 68 ++++++++++++++++---
+ .../amdgpu_dm/tests/amdgpu_dm_kunit_helpers.c      |  7 +-
+ 7 files changed, 160 insertions(+), 24 deletions(-)
 
-diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-index 61111d50b1c65..1bbe2c2d7c76f 100644
---- a/drivers/gpu/drm/Kconfig
-+++ b/drivers/gpu/drm/Kconfig
-@@ -33,6 +33,20 @@ endmenu
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 56fca4e22df8d..2a9ddd1dc6f70 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -1976,10 +1976,7 @@ static int dm_resume(struct amdgpu_ip_block *ip_block)
+ 		mutex_unlock(&dm->dc_lock);
  
- if DRM
+ 		/* set the backlight after a reset */
+-		for (i = 0; i < dm->num_of_edps; i++) {
+-			if (dm->backlight_dev[i])
+-				amdgpu_dm_backlight_set_level(dm, i, dm->brightness[i]);
+-		}
++		amdgpu_dm_backlight_restore(dm);
  
-+config DRM_LUMINANCE
-+	bool "DRM connector luminance support"
-+	help
-+	  Expose relative luminance as an atomic DRM connector property. Values
-+	  are driver-defined levels rather than absolute luminance in cd/m^2.
-+	  Drivers provide connector helper callbacks to program their hardware;
-+	  the DRM core does not depend on a particular backend.
-+
-+	  Drivers migrated to this interface will use it instead of registering
-+	  a legacy backlight class device. Leave this disabled to preserve the
-+	  de-facto userspace ABI in /sys/class/backlight.
-+
-+	  If in doubt, say N.
-+
- config DRM_MIPI_DBI
- 	tristate
- 	depends on DRM
-diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
-index 9d006f98413a5..856abc91ec53d 100644
---- a/drivers/gpu/drm/drm_atomic_helper.c
-+++ b/drivers/gpu/drm/drm_atomic_helper.c
-@@ -1375,6 +1375,8 @@ EXPORT_SYMBOL(drm_atomic_helper_commit_encoder_bridge_post_disable);
- static void
- disable_outputs(struct drm_device *dev, struct drm_atomic_commit *state)
- {
-+	drm_atomic_helper_commit_luminance_disables(state);
-+
- 	drm_atomic_helper_commit_encoder_bridge_disable(dev, state);
- 
- 	drm_atomic_helper_commit_encoder_bridge_post_disable(dev, state);
-@@ -1382,6 +1384,54 @@ disable_outputs(struct drm_device *dev, struct drm_atomic_commit *state)
- 	drm_atomic_helper_commit_crtc_disable(dev, state);
+ 		return 0;
+ 	}
+@@ -4802,12 +4799,8 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_commit *state,
+ 	 * level. (the dm->brightness is the correct panel level)
+ 	 * So we set the backlight level with dm->brightness value after set mode
+ 	 */
+-	if (set_backlight_level) {
+-		for (i = 0; i < dm->num_of_edps; i++) {
+-			if (dm->backlight_dev[i])
+-				amdgpu_dm_backlight_set_level(dm, i, dm->brightness[i]);
+-		}
+-	}
++	if (set_backlight_level)
++		amdgpu_dm_backlight_restore(dm);
  }
  
-+/**
-+ * drm_atomic_helper_commit_luminance_disables - disable panel emission
-+ * @state: atomic state object being committed
-+ *
-+ * Invokes each connector driver's luminance disable callback before a
-+ * display pipeline is disabled. The callback is not invoked when the pipeline
-+ * enters self refresh, since the panel keeps displaying the last frame. The
-+ * connector property's stored value is left untouched so it can be restored
-+ * when the pipeline is enabled again.
-+ */
-+void drm_atomic_helper_commit_luminance_disables(struct drm_atomic_commit *state)
-+{
-+	struct drm_connector_state *old_conn_state, *new_conn_state;
-+	struct drm_connector *connector;
-+	int i;
-+
-+	for_each_oldnew_connector_in_state(state, connector, old_conn_state,
-+					   new_conn_state, i) {
-+		const struct drm_connector_helper_funcs *funcs;
-+		struct drm_crtc_state *old_crtc_state, *new_crtc_state = NULL;
-+
-+		if (!connector->luminance_property || !old_conn_state->crtc)
-+			continue;
-+
-+		old_crtc_state =
-+			drm_atomic_get_old_crtc_state(state, old_conn_state->crtc);
-+		if (new_conn_state->crtc)
-+			new_crtc_state =
-+				drm_atomic_get_new_crtc_state(state, new_conn_state->crtc);
-+
-+		if (!crtc_needs_disable(old_crtc_state, new_crtc_state) ||
-+		    !drm_atomic_crtc_needs_modeset(old_conn_state->crtc->state))
-+			continue;
-+
-+		/*
-+		 * Keep the panel lit while entering self refresh, matching the
-+		 * panel bridge which also leaves the panel enabled.
-+		 */
-+		if (new_crtc_state && new_crtc_state->self_refresh_active)
-+			continue;
-+
-+		funcs = connector->helper_private;
-+		if (funcs && funcs->disable_luminance)
-+			funcs->disable_luminance(old_conn_state);
-+	}
-+}
-+EXPORT_SYMBOL(drm_atomic_helper_commit_luminance_disables);
-+
- /**
-  * drm_atomic_helper_update_legacy_modeset_state - update legacy modeset state
-  * @dev: DRM device
-@@ -1771,10 +1821,57 @@ void drm_atomic_helper_commit_modeset_enables(struct drm_device *dev,
+ STATIC_IFN_KUNIT void
+@@ -5413,6 +5406,9 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_commit *state)
+ 	/* Update audio instances for each connector. */
+ 	amdgpu_dm_commit_audio(dev, state);
  
- 	drm_atomic_helper_commit_encoder_bridge_enable(dev, state);
- 
++	/* Apply connector luminance after the display pipeline is enabled. */
 +	drm_atomic_helper_commit_luminance_enables(state);
 +
- 	drm_atomic_helper_commit_writebacks(dev, state);
- }
- EXPORT_SYMBOL(drm_atomic_helper_commit_modeset_enables);
+ 	/* restore the backlight level */
+ 	for (i = 0; i < dm->num_of_edps; i++) {
+ 		if (dm->backlight_dev[i] &&
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index e4fed8c855abe..2e700cae52b67 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -682,6 +682,13 @@ struct amdgpu_display_manager {
+ 	 * last successfully applied backlight values.
+ 	 */
+ 	u32 actual_brightness[AMDGPU_DM_MAX_NUM_EDP];
++	/**
++	 * @luminance:
++	 *
++	 * backlight is controlled through the connector LUMINANCE property
++	 * instead of a backlight class device.
++	 */
++	bool luminance[AMDGPU_DM_MAX_NUM_EDP];
  
-+/**
-+ * drm_atomic_helper_commit_luminance_enables - apply luminance
-+ * @state: atomic state object being committed
-+ *
-+ * Invokes each connector driver's luminance callback after the display
-+ * pipeline has been enabled by a modeset, and for commits changing the
-+ * luminance while the connector remains active. Commits that don't change
-+ * the luminance only invoke the callback for a modeset other than a self
-+ * refresh exit, since the panel is kept lit during self refresh. Changes
-+ * committed while the connector is inactive remain stored in atomic state
-+ * until a later enable.
-+ */
-+void drm_atomic_helper_commit_luminance_enables(struct drm_atomic_commit *state)
+ 	/**
+ 	 * @aux_hpd_discon_quirk:
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+index 0f664c658a127..f61e69bbdf69f 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+@@ -41,6 +41,7 @@
+ #include <linux/backlight.h>
+ #include <linux/minmax.h>
+ #include <linux/power_supply.h>
++#include <drm/drm_connector.h>
+ #include <drm/drm_edid.h>
+ #include <drm/drm_panel_quirks.h>
+ 
+@@ -296,13 +297,17 @@ struct dc_stream_state *dm_find_stream_with_link(
+ 	struct amdgpu_display_manager *dm,
+ 	struct dc_link *link)
+ {
+-	struct dc_state *cur_dc_state = dm->dc->current_state;
++	struct dc_state *cur_dc_state;
+ 	struct dc_stream_state *stream = NULL;
+ 	int i;
+ 
++	if (!dm || !dm->dc || !dm->dc->current_state || !link)
++		return NULL;
++
++	cur_dc_state = dm->dc->current_state;
+ 	for (i = 0; i < cur_dc_state->stream_count; i++) {
+ 		stream = cur_dc_state->streams[i];
+-		if (stream->link == link)
++		if (stream && stream->link == link)
+ 			return stream;
+ 	}
+ 
+@@ -356,7 +361,7 @@ void amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
+ 
+ 	dm->brightness[bl_idx] = user_brightness;
+ 	/* update scratch register */
+-	if (bl_idx == 0)
++	if (bl_idx == 0 && dm->adev && dm->adev->rmmio && dm->adev->bios_scratch_reg_offset)
+ 		amdgpu_atombios_scratch_regs_set_backlight_level(dm->adev, dm->brightness[bl_idx]);
+ 
+ 	link = (struct dc_link *)dm->backlight_link[bl_idx];
+@@ -657,6 +662,10 @@ void amdgpu_dm_setup_backlight_device(struct amdgpu_display_manager *dm,
+ {
+ 	struct dc_link *link = aconnector->dc_link;
+ 	int bl_idx = dm->num_of_edps;
++	struct backlight_properties props = { 0 };
++	struct amdgpu_dm_backlight_caps *caps;
++	struct drm_connector *connector = &aconnector->base;
++	int ret;
+ 
+ 	if (!(link->connector_signal & (SIGNAL_TYPE_EDP | SIGNAL_TYPE_LVDS)) ||
+ 	    link->type == dc_connection_none)
+@@ -675,6 +684,30 @@ void amdgpu_dm_setup_backlight_device(struct amdgpu_display_manager *dm,
+ 
+ 	amdgpu_dm_update_connector_ext_caps(aconnector);
+ 
++	/*
++	 * The property must exist before the device is registered. If ACPI
++	 * video should handle the backlight, leave it to
++	 * amdgpu_dm_register_backlight_device() to register the fallback.
++	 */
++	if (IS_ENABLED(CONFIG_DRM_LUMINANCE) && acpi_video_backlight_use_native()) {
++		caps = &dm->backlight_caps[bl_idx];
++		amdgpu_dm_backlight_fill_props(caps, power_supply_is_system_supplied() > 0,
++					       !(amdgpu_dc_debug_mask &
++						 DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE),
++					       &props);
++		/* Start from the level the hardware is actually at */
++		ret = amdgpu_dm_backlight_get_level(dm, bl_idx);
++		if (ret >= 0 && ret <= props.max_brightness)
++			props.brightness = ret;
++		ret = drm_connector_attach_luminance_property(connector, 0,
++							      props.max_brightness,
++							      props.brightness);
++		if (!drm_WARN_ON(adev_to_drm(dm->adev), ret)) {
++			dm->brightness[bl_idx] = props.brightness;
++			dm->luminance[bl_idx] = true;
++		}
++	}
++
+ 	/* Offer ABM property when user didn't turn off by module parameter.
+ 	 * OLED panels are included to support CACP (Content Adaptive
+ 	 * Contrast and Power) feature via set_abm_level.
+@@ -686,6 +719,45 @@ void amdgpu_dm_setup_backlight_device(struct amdgpu_display_manager *dm,
+ }
+ EXPORT_IF_KUNIT(amdgpu_dm_setup_backlight_device);
+ 
++void amdgpu_dm_set_luminance(const struct drm_connector_state *state)
 +{
-+	struct drm_connector_state *old_conn_state, *new_conn_state;
-+	struct drm_connector *connector;
++	struct amdgpu_dm_connector *aconnector =
++		to_amdgpu_dm_connector(state->connector);
++	struct amdgpu_display_manager *dm =
++		&drm_to_adev(state->connector->dev)->dm;
++
++	int bl_idx = aconnector->bl_idx;
++
++	if (bl_idx < 0)
++		return;
++
++	/* Skip if already applied, e.g. by amdgpu_dm_backlight_restore(). */
++	if (dm->brightness[bl_idx] == state->luminance &&
++	    dm->actual_brightness[bl_idx] == state->luminance)
++		return;
++
++	amdgpu_dm_backlight_set_level(dm, bl_idx, state->luminance);
++}
++
++/**
++ * amdgpu_dm_backlight_restore - reprogram the cached backlight levels
++ * @dm: display manager
++ *
++ * Display Core may reset the panel brightness when committing streams, so
++ * reapply the cached level of every panel whose backlight is controlled by
++ * the driver, either through a backlight class device or through the
++ * connector LUMINANCE property.
++ */
++void amdgpu_dm_backlight_restore(struct amdgpu_display_manager *dm)
++{
 +	int i;
 +
-+	for_each_oldnew_connector_in_state(state, connector, old_conn_state,
-+					   new_conn_state, i) {
-+		const struct drm_connector_helper_funcs *funcs;
-+		struct drm_crtc_state *old_crtc_state, *new_crtc_state;
-+
-+		if (!connector->luminance_property || !new_conn_state->crtc)
-+			continue;
-+
-+		old_crtc_state =
-+			drm_atomic_get_old_crtc_state(state, new_conn_state->crtc);
-+		new_crtc_state =
-+			drm_atomic_get_new_crtc_state(state, new_conn_state->crtc);
-+		if (!new_crtc_state->active)
-+			continue;
-+
-+		if (old_conn_state->luminance == new_conn_state->luminance &&
-+		    (!drm_atomic_crtc_needs_modeset(new_crtc_state) ||
-+		     old_crtc_state->self_refresh_active))
-+			continue;
-+
-+		funcs = connector->helper_private;
-+		if (funcs && funcs->set_luminance)
-+			funcs->set_luminance(new_conn_state);
++	for (i = 0; i < dm->num_of_edps; i++) {
++		if (dm->backlight_dev[i] || dm->luminance[i])
++			amdgpu_dm_backlight_set_level(dm, i, dm->brightness[i]);
 +	}
 +}
-+EXPORT_SYMBOL(drm_atomic_helper_commit_luminance_enables);
-+
- /*
-  * For atomic updates which touch just a single CRTC, calculate the time of the
-  * next vblank, and inform all the fences of the deadline.
-@@ -4187,4 +4284,3 @@ drm_atomic_helper_bridge_get_hdmi_output_bus_fmts(struct drm_bridge *bridge,
- 	return out_fmts;
- }
- EXPORT_SYMBOL(drm_atomic_helper_bridge_get_hdmi_output_bus_fmts);
--
-diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
-index 3534925636d54..bc26683db52c3 100644
---- a/drivers/gpu/drm/drm_atomic_state_helper.c
-+++ b/drivers/gpu/drm/drm_atomic_state_helper.c
-@@ -408,7 +408,14 @@ void
- __drm_atomic_helper_connector_state_init(struct drm_connector_state *conn_state,
- 					 struct drm_connector *connector)
- {
-+	u64 value;
-+
- 	conn_state->connector = connector;
-+	if (connector->luminance_property &&
-+	    !drm_object_property_get_default_value(&connector->base,
-+						   connector->luminance_property,
-+						   &value))
-+		conn_state->luminance = value;
- }
- EXPORT_SYMBOL(__drm_atomic_helper_connector_state_init);
- 
-diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-index 1eebcf6f5e05b..dffc51cd8d13c 100644
---- a/drivers/gpu/drm/drm_atomic_uapi.c
-+++ b/drivers/gpu/drm/drm_atomic_uapi.c
-@@ -30,6 +30,7 @@
- #include <drm/drm_atomic.h>
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_atomic_uapi.h>
-+#include <drm/drm_connector.h>
- #include <drm/drm_framebuffer.h>
- #include <drm/drm_print.h>
- #include <drm/drm_drv.h>
-@@ -969,6 +970,8 @@ static int drm_atomic_connector_set_property(struct drm_connector *connector,
- 		state->hdmi.broadcast_rgb = val;
- 	} else if (property == connector->color_format_property) {
- 		state->color_format = val;
-+	} else if (property == connector->luminance_property) {
-+		state->luminance = val;
- 	} else if (connector->funcs->atomic_set_property) {
- 		return connector->funcs->atomic_set_property(connector,
- 				state, property, val);
-@@ -1056,6 +1059,8 @@ drm_atomic_connector_get_property(struct drm_connector *connector,
- 		*val = state->hdmi.broadcast_rgb;
- 	} else if (property == connector->color_format_property) {
- 		*val = state->color_format;
-+	} else if (property == connector->luminance_property) {
-+		*val = state->luminance;
- 	} else if (connector->funcs->atomic_get_property) {
- 		return connector->funcs->atomic_get_property(connector,
- 				state, property, val);
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index 893716a9e4895..ab75e8bd9991a 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -810,6 +810,47 @@ void drm_connector_attach_edid_property(struct drm_connector *connector)
- }
- EXPORT_SYMBOL(drm_connector_attach_edid_property);
- 
-+/**
-+ * drm_connector_attach_luminance_property - attach luminance property
-+ * @connector: connector to attach the property to
-+ * @min: minimum supported relative brightness
-+ * @max: maximum supported relative brightness
-+ * @value: initial relative brightness
-+ *
-+ * Creates the atomic ``LUMINANCE`` range property for @connector.
-+ * Drivers should call this during connector initialization. The property's
-+ * units are driver-defined; they do not represent absolute luminance.
-+ *
-+ * Returns:
-+ * Zero on success, a negative errno otherwise.
-+ */
-+int drm_connector_attach_luminance_property(struct drm_connector *connector,
-+					    unsigned int min,
-+					    unsigned int max,
-+					    unsigned int value)
-+{
-+	struct drm_property *property;
-+
-+	if (drm_WARN_ON(connector->dev, min > max || value < min || value > max))
-+		return -EINVAL;
-+
-+	if (connector->luminance_property)
-+		return 0;
-+
-+	property = drm_property_create_range(connector->dev, DRM_MODE_PROP_ATOMIC,
-+					     "LUMINANCE", min, max);
-+	if (!property)
-+		return -ENOMEM;
-+
-+	connector->luminance_property = property;
-+	drm_object_attach_property(&connector->base, property, value);
-+	if (connector->state)
-+		connector->state->luminance = value;
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL(drm_connector_attach_luminance_property);
 +
  /**
-  * drm_connector_attach_encoder - attach a connector to an encoder
-  * @connector: connector to attach
-@@ -1681,6 +1722,22 @@ EXPORT_SYMBOL(drm_hdmi_connector_get_output_format_name);
-  * 	Summarizing: Only set "DPMS" when the connector is known to be enabled,
-  * 	assume that a successful SETCONFIG call also sets "DPMS" to on, and
-  * 	never read back the value of "DPMS" because it can be incorrect.
-+ * LUMINANCE:
-+ *     Atomic range property for controlling a panel's relative luminance.
-+ *     The unit and range are driver-defined and do not represent an absolute
-+ *     luminance in cd/m^2. This name therefore also applies to emissive panels
-+ *     that do not contain a separate backlight.
-+ *
-+ *     The property is independent of the connector's display-power state.
-+ *     Changing it while the connector is inactive stores the new value without
-+ *     turning the display on. The atomic helpers apply the stored value after
-+ *     the display pipeline is enabled and invoke a separate driver callback
-+ *     before disabling the pipeline; neither action changes the property value.
-+ *
-+ *     Drivers create the property with
-+ *     drm_connector_attach_luminance_property() and implement the
-+ *     corresponding &drm_connector_helper_funcs callbacks. Connectors that do
-+ *     not support luminance control do not expose the property.
-  * panel_type:
-  * 	Immutable enum property to indicate the type of connected panel.
-  * 	Possible values are "unknown" (default), "OLED", and "LCD".
-diff --git a/drivers/gpu/drm/tests/drm_connector_test.c b/drivers/gpu/drm/tests/drm_connector_test.c
-index 3368aedd4e669..e43692d38ebb8 100644
---- a/drivers/gpu/drm/tests/drm_connector_test.c
-+++ b/drivers/gpu/drm/tests/drm_connector_test.c
-@@ -137,6 +137,33 @@ static void drm_test_drmm_connector_init_null_ddc(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, ret, 0);
- }
+  * DOC: panel power savings
+  *
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
+index 891749322191c..69704e0ff5b25 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
+@@ -33,6 +33,7 @@ struct dc_stream_state;
+ struct device;
+ struct device_attribute;
+ struct drm_connector;
++struct drm_connector_state;
+ struct attribute_group;
  
-+static void drm_test_connector_attach_luminance_property(struct kunit *test)
+ #define AMDGPU_DM_DEFAULT_MIN_BACKLIGHT 12
+@@ -47,6 +48,8 @@ void amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
+ void amdgpu_dm_register_backlight_device(struct amdgpu_dm_connector *aconnector);
+ void amdgpu_dm_setup_backlight_device(struct amdgpu_display_manager *dm,
+ 			    struct amdgpu_dm_connector *aconnector);
++void amdgpu_dm_set_luminance(const struct drm_connector_state *state);
++void amdgpu_dm_backlight_restore(struct amdgpu_display_manager *dm);
+ void amdgpu_dm_update_connector_ext_caps(struct amdgpu_dm_connector *aconnector);
+ bool amdgpu_dm_should_create_sysfs(struct amdgpu_dm_connector *aconnector);
+ 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+index 8db7956c01d32..71f7111dfb268 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+@@ -1969,6 +1969,7 @@ STATIC_IFN_KUNIT void amdgpu_dm_connector_destroy(struct drm_connector *connecto
+ 	if (aconnector->bl_idx != -1) {
+ 		backlight_device_unregister(dm->backlight_dev[aconnector->bl_idx]);
+ 		dm->backlight_dev[aconnector->bl_idx] = NULL;
++		dm->luminance[aconnector->bl_idx] = false;
+ 	}
+ 
+ 	if (aconnector->dc_em_sink)
+@@ -2061,7 +2062,8 @@ amdgpu_dm_connector_late_register(struct drm_connector *connector)
+ 			return r;
+ 	}
+ 
+-	amdgpu_dm_register_backlight_device(amdgpu_dm_connector);
++	if (!connector->luminance_property)
++		amdgpu_dm_register_backlight_device(amdgpu_dm_connector);
+ 
+ 	if ((connector->connector_type == DRM_MODE_CONNECTOR_DisplayPort) ||
+ 	    (connector->connector_type == DRM_MODE_CONNECTOR_eDP)) {
+@@ -2724,6 +2726,7 @@ amdgpu_dm_connector_helper_funcs = {
+ 	.get_modes = get_modes,
+ 	.mode_valid = amdgpu_dm_connector_mode_valid,
+ 	.atomic_check = amdgpu_dm_connector_atomic_check,
++	.set_luminance = amdgpu_dm_set_luminance,
+ };
+ 
+ int amdgpu_dm_convert_dc_color_depth_into_bpc(enum dc_color_depth display_color_depth)
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
+index 8fc1c2f997688..c33c121a19b25 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
+@@ -37,16 +37,39 @@ static const struct drm_connector_funcs dm_backlight_test_connector_funcs = {
+ 	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
+ };
+ 
++static int dm_test_signal_to_connector_type(enum signal_type signal)
 +{
-+	struct drm_connector_init_priv *priv = test->priv;
-+	struct drm_connector *connector = &priv->connector;
-+	struct drm_property *property;
-+	u64 value;
++	switch (signal) {
++	case SIGNAL_TYPE_EDP:
++		return DRM_MODE_CONNECTOR_eDP;
++	case SIGNAL_TYPE_LVDS:
++		return DRM_MODE_CONNECTOR_LVDS;
++	case SIGNAL_TYPE_HDMI_TYPE_A:
++		return DRM_MODE_CONNECTOR_HDMIA;
++	default:
++		return DRM_MODE_CONNECTOR_Unknown;
++	}
++}
++
+ static void setup_test_connector(struct kunit *test,
+ 				 struct dm_backlight_connector_fixture *fixture,
+ 				 int bl_idx, enum signal_type signal)
+ {
+-	fixture->adev = kunit_kzalloc(test, sizeof(*fixture->adev), GFP_KERNEL);
+-	fixture->aconnector = kunit_kzalloc(test, sizeof(*fixture->aconnector), GFP_KERNEL);
 +	int ret;
 +
-+	ret = drmm_connector_init(&priv->drm, connector, &dummy_funcs,
-+				  DRM_MODE_CONNECTOR_eDP, NULL);
++	fixture->adev = dm_kunit_alloc_adev(test);
++	ret = drmm_mode_config_init(&fixture->adev->ddev);
 +	KUNIT_ASSERT_EQ(test, ret, 0);
-+	KUNIT_ASSERT_NULL(test, connector->state);
 +
-+	ret = drm_connector_attach_luminance_property(connector, 10, 100, 50);
++	fixture->aconnector = dm_kunit_alloc_connector(test, fixture->adev, NULL);
+ 	fixture->link = kunit_kzalloc(test, sizeof(*fixture->link), GFP_KERNEL);
+-	KUNIT_ASSERT_NOT_NULL(test, fixture->adev);
+-	KUNIT_ASSERT_NOT_NULL(test, fixture->aconnector);
+ 	KUNIT_ASSERT_NOT_NULL(test, fixture->link);
++	ret = drmm_connector_init(&fixture->adev->ddev,
++				  &fixture->aconnector->base,
++				  &dm_backlight_test_connector_funcs,
++				  dm_test_signal_to_connector_type(signal), NULL);
 +	KUNIT_ASSERT_EQ(test, ret, 0);
-+	property = connector->luminance_property;
-+	KUNIT_ASSERT_NOT_NULL(test, property);
++	drm_atomic_helper_connector_reset(&fixture->aconnector->base);
+ 
+ 	fixture->aconnector->bl_idx = bl_idx;
+ 	fixture->aconnector->dc_link = fixture->link;
+@@ -483,12 +506,17 @@ static void dm_test_register_backlight_device_success(struct kunit *test)
+ 	struct dc_link *link = dm_kunit_alloc_link(test);
+ 	struct drm_minor *primary;
+ 	unsigned int max;
++	int ret;
 +
-+	ret = drm_object_property_get_default_value(&connector->base, property, &value);
++	ret = drmm_mode_config_init(&adev->ddev);
 +	KUNIT_ASSERT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_EQ(test, value, (u64)50);
-+
-+	drm_atomic_helper_connector_reset(connector);
-+	KUNIT_ASSERT_NOT_NULL(test, connector->state);
-+	KUNIT_EXPECT_EQ(test, connector->state->luminance, 50u);
-+}
-+
- /*
-  * Test that the registration of a connector succeeds for all possible
-  * connector types.
-@@ -190,6 +217,7 @@ KUNIT_ARRAY_PARAM(drm_connector_init_type_valid,
- static struct kunit_case drmm_connector_init_tests[] = {
- 	KUNIT_CASE(drm_test_drmm_connector_init),
- 	KUNIT_CASE(drm_test_drmm_connector_init_null_ddc),
-+	KUNIT_CASE(drm_test_connector_attach_luminance_property),
- 	KUNIT_CASE_PARAM(drm_test_drmm_connector_init_type_valid,
- 			 drm_connector_init_type_valid_gen_params),
- 	{ }
-diff --git a/include/drm/drm_atomic_helper.h b/include/drm/drm_atomic_helper.h
-index 4cfeec70d648a..3084dd5cd6a1f 100644
---- a/include/drm/drm_atomic_helper.h
-+++ b/include/drm/drm_atomic_helper.h
-@@ -116,6 +116,9 @@ void drm_atomic_helper_commit_encoder_bridge_enable(struct drm_device *dev,
- void drm_atomic_helper_commit_modeset_enables(struct drm_device *dev,
- 					  struct drm_atomic_commit *old_state);
  
-+void drm_atomic_helper_commit_luminance_disables(struct drm_atomic_commit *state);
-+void drm_atomic_helper_commit_luminance_enables(struct drm_atomic_commit *state);
-+
- int drm_atomic_helper_prepare_planes(struct drm_device *dev,
- 				     struct drm_atomic_commit *state);
- void drm_atomic_helper_unprepare_planes(struct drm_device *dev,
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 2ee7c59329aae..7f7d115b65f9f 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -1369,6 +1369,11 @@ struct drm_connector_state {
- 	 * @drm_atomic_helper_connector_hdmi_check().
- 	 */
- 	struct drm_connector_hdmi_state hdmi;
-+
-+	/**
-+	 * @luminance: Relative panel luminance requested by userspace.
-+	 */
-+	unsigned int luminance;
- };
+ 	setup_test_link_service(test, link);
+ 	link->dc->link_srv->edp_get_backlight_level = dm_test_get_backlight_level_error;
+ 	primary = kunit_kzalloc(test, sizeof(*primary), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, primary);
+ 	adev->ddev.primary = primary;
++	adev->dm.ddev = &adev->ddev;
+ 	adev->dm.backlight_link[0] = link;
  
- struct drm_connector_hdmi_audio_funcs {
-@@ -2714,6 +2719,13 @@ struct drm_connector {
- 	 * @cec: CEC-related data.
- 	 */
- 	struct drm_connector_cec cec;
+ 	aconnector = dm_kunit_alloc_connector(test, adev, link);
+@@ -1667,7 +1695,6 @@ static void dm_test_should_create_sysfs_non_edp(struct kunit *test)
+ 
+ 	amdgpu_dm_set_abm_level_param(-1);
+ 	setup_test_connector(test, &fixture, 0, SIGNAL_TYPE_HDMI_TYPE_A);
+-	fixture.aconnector->base.connector_type = DRM_MODE_CONNECTOR_HDMIA;
+ 
+ 	KUNIT_EXPECT_FALSE(test, amdgpu_dm_should_create_sysfs(fixture.aconnector));
+ 
+@@ -1843,6 +1870,9 @@ static void dm_test_setup_backlight_device_oled_success(struct kunit *test)
+ 	setup_test_connector(test, &fixture, -1, SIGNAL_TYPE_EDP);
+ 	fixture.link->type = dc_connection_single;
+ 	fixture.link->dpcd_sink_ext_caps.bits.oled = 1;
++	setup_test_link_service(test, fixture.link);
++	fixture.link->dc->link_srv->edp_get_backlight_level_nits =
++		dm_test_get_backlight_level_nits;
+ 	dm = &fixture.adev->dm;
+ 	dm->adev = fixture.adev;
+ 	dm->num_of_edps = 0;
+@@ -1872,6 +1902,7 @@ static void dm_test_setup_backlight_device_attaches_abm_property(struct kunit *t
+ 	struct dc_link *link;
+ 	int saved_abm_level = amdgpu_dm_get_abm_level_param();
+ 	int saved_backlight = amdgpu_dm_get_backlight_param();
++	int abm_index;
+ 	int old_count;
+ 	int ret;
+ 
+@@ -1890,25 +1921,44 @@ static void dm_test_setup_backlight_device_attaches_abm_property(struct kunit *t
+ 				   &dm_backlight_test_connector_funcs,
+ 				   DRM_MODE_CONNECTOR_eDP, NULL);
+ 	KUNIT_ASSERT_EQ(test, ret, 0);
++	drm_atomic_helper_connector_reset(&aconnector->base);
+ 
+ 	link = dm_kunit_alloc_link(test);
+ 	link->connector_signal = SIGNAL_TYPE_EDP;
+ 	link->type = dc_connection_single;
++	setup_test_link_service(test, link);
++	link->dc->link_srv->edp_get_backlight_level = dm_test_get_backlight_level_mid;
+ 	aconnector->dc_link = link;
+ 	aconnector->bl_idx = -1;
+ 	dm = &adev->dm;
+ 	dm->adev = adev;
+ 	dm->ddev = &adev->ddev;
+ 	old_count = aconnector->base.base.properties->count;
++	abm_index = old_count + IS_ENABLED(CONFIG_DRM_LUMINANCE);
+ 
+ 	amdgpu_dm_setup_backlight_device(dm, aconnector);
+ 
+ 	KUNIT_EXPECT_EQ(test, dm->num_of_edps, 1);
+ 	KUNIT_EXPECT_EQ(test, aconnector->bl_idx, 0);
+-	KUNIT_EXPECT_EQ(test, aconnector->base.base.properties->count, old_count + 1);
+-	KUNIT_EXPECT_PTR_EQ(test, aconnector->base.base.properties->properties[old_count], prop);
+-	KUNIT_EXPECT_EQ(test, aconnector->base.base.properties->values[old_count],
+-			 (uint64_t)ABM_SYSFS_CONTROL);
++	KUNIT_EXPECT_EQ(test, aconnector->base.base.properties->count,
++			old_count + 1 + IS_ENABLED(CONFIG_DRM_LUMINANCE));
++	if (IS_ENABLED(CONFIG_DRM_LUMINANCE)) {
++		KUNIT_EXPECT_NOT_NULL(test,
++				      aconnector->base.luminance_property);
++		KUNIT_EXPECT_LE(test,
++				aconnector->base.state->luminance,
++				(uint64_t)MAX_BACKLIGHT_LEVEL);
++		/* Restores after reset/modeset must use the initial value */
++		KUNIT_EXPECT_EQ(test, dm->brightness[0],
++				aconnector->base.state->luminance);
++	}
++	KUNIT_EXPECT_EQ(test, dm->luminance[0],
++			IS_ENABLED(CONFIG_DRM_LUMINANCE));
++	KUNIT_EXPECT_PTR_EQ(test,
++			    aconnector->base.base.properties->properties[abm_index],
++			    prop);
++	KUNIT_EXPECT_EQ(test, aconnector->base.base.properties->values[abm_index],
++			(uint64_t)ABM_SYSFS_CONTROL);
+ 
+ 	amdgpu_dm_set_backlight_param(saved_backlight);
+ 	amdgpu_dm_set_abm_level_param(saved_abm_level);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_kunit_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_kunit_helpers.c
+index f844b644bb776..7e9e8b1d0b10d 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_kunit_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_kunit_helpers.c
+@@ -20,6 +20,7 @@
+ 
+ struct amdgpu_device *dm_kunit_alloc_adev(struct kunit *test)
+ {
++	struct amdgpu_device *adev;
+ 	struct drm_device *drm;
+ 	struct device *dev;
+ 
+@@ -32,7 +33,11 @@ struct amdgpu_device *dm_kunit_alloc_adev(struct kunit *test)
+ 						   DRIVER_MODESET | DRIVER_ATOMIC);
+ 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, drm);
+ 
+-	return drm_to_adev(drm);
++	adev = drm_to_adev(drm);
 +
-+	/**
-+	 * @luminance_property: Optional atomic range property for relative panel
-+	 * luminance. Drivers create it with
-+	 * drm_connector_attach_luminance_property().
-+	 */
-+	struct drm_property *luminance_property;
- };
- 
- #define obj_to_connector(x) container_of(x, struct drm_connector, base)
-@@ -2980,6 +2992,10 @@ const char *drm_get_colorspace_name(enum drm_colorspace colorspace);
- 
- int drm_connector_attach_color_format_property(struct drm_connector *connector,
- 					       unsigned long supported_color_formats);
-+int drm_connector_attach_luminance_property(struct drm_connector *connector,
-+					    unsigned int min,
-+					    unsigned int max,
-+					    unsigned int value);
- 
- /**
-  * drm_for_each_connector_iter - connector_list iterator macro
-diff --git a/include/drm/drm_modeset_helper_vtables.h b/include/drm/drm_modeset_helper_vtables.h
-index 60b30cc269404..1c614f44de7ca 100644
---- a/include/drm/drm_modeset_helper_vtables.h
-+++ b/include/drm/drm_modeset_helper_vtables.h
-@@ -1147,6 +1147,34 @@ struct drm_connector_helper_funcs {
- 	void (*atomic_commit)(struct drm_connector *connector,
- 			      struct drm_atomic_commit *state);
- 
-+	/**
-+	 * @set_luminance:
-+	 *
-+	 * Apply &drm_connector_state.luminance to an active panel. The
-+	 * atomic helpers call this after a modeset enabled the display
-+	 * pipeline, and for commits changing the luminance while the connector
-+	 * remains active. It is not called when the luminance is unchanged,
-+	 * unless a modeset other than a self refresh exit happened.
-+	 *
-+	 * This callback is optional and is only used by connectors exposing the
-+	 * ``LUMINANCE`` property.
-+	 */
-+	void (*set_luminance)(const struct drm_connector_state *new_state);
++	mutex_init(&adev->dm.dc_lock);
 +
-+	/**
-+	 * @disable_luminance:
-+	 *
-+	 * Turn panel light emission off before disabling the display pipeline.
-+	 * It is not called when the pipeline enters self refresh.
-+	 * This callback does not change the ``LUMINANCE`` property; the
-+	 * stored value is restored through @set_luminance when the panel
-+	 * is enabled again.
-+	 *
-+	 * This callback is optional and is only used by connectors exposing the
-+	 * ``LUMINANCE`` property.
-+	 */
-+	void (*disable_luminance)(const struct drm_connector_state *old_state);
-+
- 	/**
- 	 * @prepare_writeback_job:
- 	 *
++	return adev;
+ }
+ EXPORT_SYMBOL(dm_kunit_alloc_adev);
+ 
 
 -- 
 2.53.0
