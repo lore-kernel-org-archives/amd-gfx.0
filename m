@@ -2,50 +2,48 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 868F9606A326
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 09:36:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01CA4606A324
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 09:36:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23ADE10F49B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6662F10F49F;
 	Tue,  3 Nov 2026 09:36:48 +0000 (UTC)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 086F910E177;
- Tue,  3 Nov 2026 03:39:29 +0000 (UTC)
-X-UUID: 281454dad73811f19a56ed5b684f684d-20261103
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19, REQID:ecb3a3c8-eaf8-4617-af50-d71875fdc371, IP:0,
- U
- RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
- release,TS:0
-X-CID-META: VersionHash:7db8b62, CLOUDID:880c317100a5532b2ae2cfee77cd42c4,
- BulkI
- D:nil,BulkQuantity:0,SF:102|136|865|898,TC:nil,Content:0|15|50|99,EDM:-3|-
- 100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0
- ,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 281454dad73811f19a56ed5b684f684d-20261103
-X-User: renpanpan@kylinos.cn
-Received: from pan-u.. [(10.44.16.150)] by mailgw.kylinos.cn
- (envelope-from <renpanpan@kylinos.cn>)
- (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
- with ESMTP id 19653449; Tue, 03 Nov 2026 11:39:21 +0800
-From: Panpan Ren <renpanpan@kylinos.cn>
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DA6D10E7A9;
+ Tue,  3 Nov 2026 07:06:22 +0000 (UTC)
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+ by APP-03 (Coremail) with SMTP id rQCowAB3hpfsh+lq8Kw5AA--.4349S2;
+ Tue, 03 Nov 2026 15:06:20 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
 To: alexander.deucher@amd.com,
-	christian.koenig@amd.com,
-	simona@ffwll.ch
+	christian.koenig@amd.com
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, tzimmermann@suse.de,
- timur.kristof@gmail.com, lijo.lazar@amd.com,
- renpanpan <renpanpan@kylinos.cn>
-Subject: [PATCH v2] drm/amdgpu: Only enable HDMI audio if display supports it
-Date: Tue,  3 Nov 2026 11:39:14 +0800
-Message-ID: <20261103033914.21660-1-renpanpan@kylinos.cn>
-X-Mailer: git-send-email 2.43.0
+ linux-kernel@vger.kernel.org, Wentao Liang <vulab@iscas.ac.cn>,
+ stable@vger.kernel.org
+Subject: [PATCH] drm/amdgpu/jpeg: Unwind late software init failures in v2-v4
+Date: Tue,  3 Nov 2026 07:06:29 +0000
+Message-Id: <20261103070629.1083890-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: rQCowAB3hpfsh+lq8Kw5AA--.4349S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxWrW3tr48Ar47CF4xAr4fZrb_yoWrGw17pa
+ yfZF90vr18ArsrtryDX3WUZF4Fgw13XayrWrWUCwnaq3W3Ar95trn7AFWUJ34kGFZ2krs3
+ Jr1DJ3y7uFsFvFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvj14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+ JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+ CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+ 2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r
+ 1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AK
+ xVWUAVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
+ 0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1l
+ IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxV
+ AFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j
+ 6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfUO2
+ NtDUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRQAA2rpWfWRkAAEs0
 X-Mailman-Approved-At: Tue, 03 Nov 2026 09:36:47 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,92 +57,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: renpanpan <renpanpan@kylinos.cn>
+The JPEG 2.0, 3.0 and 4.0 software initialization callbacks create their
+rings before allocating register dump storage and creating the reset
+mask sysfs file. If either of the latter steps fails, the callbacks
+return without releasing the initialized JPEG resources, including the
+ring buffers and vmid_wait fence reference. The IP block's status.sw flag
+has not been set, so the common error cleanup skips its sw_fini callback.
 
-The amdgpu legacy DCE audio path (dce_v6/v8/v10) unconditionally calls
-audio_enable(pin, true) at the end of afmt_setmode(), regardless of
-whether the connected display advertises audio support in its EDID.
+Suspend the JPEG work and release the JPEG software resources on these
+late failures. amdgpu_jpeg_sw_fini() also releases the register dump
+storage if it was successfully allocated before sysfs creation failed.
 
-This causes a phantom HDMI audio output to appear for displays that
-have no audio capability (no basic audio bit, no Audio Data Block in
-EDID), because the GPU sets the AUDIO_ENABLED register bit, which
-drives the HDA codec's ELDV pin sense, making the codec report the
-jack as audio-available.
-
-The radeon, nouveau, and dw-hdmi drivers all gate audio enablement on
-the display's audio capability. Apply the same check to amdgpu's DCE
-afmt_setmode functions, while still respecting the AMDGPU_AUDIO_ENABLE
-override for users who explicitly force audio on.
-
-Fixes: e2cdf640cbb5 ("drm/amdgpu: add display controller implementation for si v10")
+Fixes: 63d5f8db5313 ("drm/amdgpu: Enable devcoredump for JPEG2_0_0")
+Fixes: d949e91b42f2 ("drm/amdgpu: Enable devcoredump for JPEG3_0_0")
+Fixes: c3dddd602967 ("drm/amdgpu: Enable devcoredump for JPEG4_0_0")
 Cc: stable@vger.kernel.org
-Signed-off-by: renpanpan <renpanpan@kylinos.cn>
+Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
-Changes in v2:
-- Respect AMDGPU_AUDIO_ENABLE override for users who force audio on
-- Add Fixes tag and Cc: stable@vger.kernel.org for stable backport
+ drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c | 9 ++++++++-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c | 9 ++++++++-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c | 9 ++++++++-
+ 3 files changed, 24 insertions(+), 3 deletions(-)
 
- drivers/gpu/drm/amd/amdgpu/dce_v10_0.c | 6 ++++--
- drivers/gpu/drm/amd/amdgpu/dce_v6_0.c  | 6 ++++--
- drivers/gpu/drm/amd/amdgpu/dce_v8_0.c  | 6 ++++--
- 3 files changed, 12 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-index f2977fe6d824..69d0c6041d75 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-@@ -1705,8 +1705,10 @@ static void dce_v10_0_afmt_setmode(struct drm_encoder *encoder,
- 	WREG32(mmAFMT_RAMP_CONTROL2 + dig->afmt->offset, 0x00000001);
- 	WREG32(mmAFMT_RAMP_CONTROL3 + dig->afmt->offset, 0x00000001);
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
+index 72069b77f6f1..0707e065160a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
+@@ -115,14 +115,21 @@ static int jpeg_v2_0_sw_init(struct amdgpu_ip_block *ip_block)
  
--	/* enable audio after to setting up hw */
--	dce_v10_0_audio_enable(adev, dig->afmt->pin, true);
-+	/* Only enable audio if the display supports it or is forced on */
-+	if (connector->display_info.has_audio ||
-+	    to_amdgpu_connector(connector)->audio == AMDGPU_AUDIO_ENABLE)
-+		dce_v10_0_audio_enable(adev, dig->afmt->pin, true);
+ 	r = amdgpu_jpeg_reg_dump_init(adev, jpeg_reg_list_2_0, ARRAY_SIZE(jpeg_reg_list_2_0));
+ 	if (r)
+-		return r;
++		goto err_jpeg;
+ 
+ 	adev->jpeg.supported_reset =
+ 		amdgpu_get_soft_full_reset_mask(adev->jpeg.inst[0].ring_dec);
+ 	if (!amdgpu_sriov_vf(adev))
+ 		adev->jpeg.supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
+ 	r = amdgpu_jpeg_sysfs_reset_mask_init(adev);
++	if (r)
++		goto err_jpeg;
++
++	return 0;
+ 
++err_jpeg:
++	amdgpu_jpeg_suspend(adev);
++	amdgpu_jpeg_sw_fini(adev);
+ 	return r;
  }
  
- static void dce_v10_0_afmt_enable(struct drm_encoder *encoder, bool enable)
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-index c68de0fe1d7d..226cfce321ec 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-@@ -1748,8 +1748,10 @@ static void dce_v6_0_afmt_setmode(struct drm_encoder *encoder,
- 		dce_v6_0_audio_dp_enable(encoder, 1);
- 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
+index 564e40899df2..f88200bcb2b2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
+@@ -130,14 +130,21 @@ static int jpeg_v3_0_sw_init(struct amdgpu_ip_block *ip_block)
  
--	/* enable audio after setting up hw */
--	dce_v6_0_audio_enable(adev, dig->afmt->pin, true);
-+	/* Only enable audio if the display supports it or is forced on */
-+	if (connector->display_info.has_audio ||
-+	    amdgpu_connector->audio == AMDGPU_AUDIO_ENABLE)
-+		dce_v6_0_audio_enable(adev, dig->afmt->pin, true);
+ 	r = amdgpu_jpeg_reg_dump_init(adev, jpeg_reg_list_3_0, ARRAY_SIZE(jpeg_reg_list_3_0));
+ 	if (r)
+-		return r;
++		goto err_jpeg;
+ 
+ 	adev->jpeg.supported_reset =
+ 		amdgpu_get_soft_full_reset_mask(adev->jpeg.inst[0].ring_dec);
+ 	if (!amdgpu_sriov_vf(adev))
+ 		adev->jpeg.supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
+ 	r = amdgpu_jpeg_sysfs_reset_mask_init(adev);
++	if (r)
++		goto err_jpeg;
++
++	return 0;
+ 
++err_jpeg:
++	amdgpu_jpeg_suspend(adev);
++	amdgpu_jpeg_sw_fini(adev);
+ 	return r;
  }
  
- static void dce_v6_0_afmt_enable(struct drm_encoder *encoder, bool enable)
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-index c3906270f25e..99f0c5759d75 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-@@ -1653,8 +1653,10 @@ static void dce_v8_0_afmt_setmode(struct drm_encoder *encoder,
- 	WREG32(mmAFMT_RAMP_CONTROL2 + offset, 0x00000001);
- 	WREG32(mmAFMT_RAMP_CONTROL3 + offset, 0x00000001);
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
+index b29ca3a49939..454f16f24d7b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
+@@ -141,14 +141,21 @@ static int jpeg_v4_0_sw_init(struct amdgpu_ip_block *ip_block)
  
--	/* enable audio after setting up hw */
--	dce_v8_0_audio_enable(adev, dig->afmt->pin, true);
-+	/* Only enable audio if the display supports it or is forced on */
-+	if (connector->display_info.has_audio ||
-+	    to_amdgpu_connector(connector)->audio == AMDGPU_AUDIO_ENABLE)
-+		dce_v8_0_audio_enable(adev, dig->afmt->pin, true);
+ 	r = amdgpu_jpeg_reg_dump_init(adev, jpeg_reg_list_4_0, ARRAY_SIZE(jpeg_reg_list_4_0));
+ 	if (r)
+-		return r;
++		goto err_jpeg;
+ 
+ 	adev->jpeg.supported_reset =
+ 		amdgpu_get_soft_full_reset_mask(adev->jpeg.inst[0].ring_dec);
+ 	if (!amdgpu_sriov_vf(adev))
+ 		adev->jpeg.supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
+ 	r = amdgpu_jpeg_sysfs_reset_mask_init(adev);
++	if (r)
++		goto err_jpeg;
++
++	return 0;
+ 
++err_jpeg:
++	amdgpu_jpeg_suspend(adev);
++	amdgpu_jpeg_sw_fini(adev);
+ 	return r;
  }
  
- static void dce_v8_0_afmt_enable(struct drm_encoder *encoder, bool enable)
 -- 
-2.43.0
+2.34.1
 
