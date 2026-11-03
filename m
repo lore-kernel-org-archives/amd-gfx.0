@@ -2,49 +2,62 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A67E4606A326
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 11:12:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51341606A31B
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 11:12:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=D1M3xlTj
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14ACD10FB6F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB15310FB77;
 	Wed,  4 Nov 2026 11:12:39 +0000 (UTC)
-X-Greylist: delayed 364 seconds by postgrey-1.36 at gabe;
- Tue, 03 Nov 2026 16:07:17 UTC
-Received: from mta0.migadu.com (out-71.mta0.migadu.com [91.218.175.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A05C710F6F0
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Nov 2026 16:07:17 +0000 (UTC)
-X-Envelope-To: amd-gfx@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=RNHlMa6RwOm9qVZaoJD2JFv05KQ6puOjifLF8tZtWyk=; 
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793722035; v=1; x=1794326835;
- b=SuWuZ9dRwhQaZbALrfT9ZVbKwyMAUQCm8Ag1skag2VbacK80gP1K4v0tAJ8w8/Pb+RxqD7in
- yV85D4sSvEDBxQdkF80wU4SNAk8z728PrIQL9I3aPkTMCVOV2Sa9qsb5FbZDboLlUvw8ZC7nk1/
- 6fLrQLK9ff4pjX6m90FJqGW8=
-X-Envelope-To: amd-gfx@lists.freedesktop.org
-Received: by smtp.migadu.com with ESMTPS id 9fdc28ca13f7125a;
- Tue, 03 Nov 2026 16:01:11 +0000
-X-Mizu-Trace-ID: 9fdc28ca13f7125a
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <1a4eb0fb-adbe-4884-8f37-b5ffa6782b84@linux.dev>
-Date: Tue, 3 Nov 2026 21:30:55 +0530
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3BE510F704
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Nov 2026 16:31:31 +0000 (UTC)
+Received: from smtp1.mailbox.org (smtp1.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4jJvGT2GxQz8vCB;
+ Tue, 03 Nov 2026 17:31:29 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
+ t=1793723489;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=nEzm0f9wIfJEdapVfEq9CE/LOLIcXbtblnU6tynrdyA=;
+ b=D1M3xlTjFHPBE+/evKcBKiraL9462qwjKaAGy+rfkPauc5Oov1fzBf8JKyX96OgFasycGR
+ 3z1CKUPeyOyuNrdF3EnOoxg3SHWj9j5wwRchkq6YUIm6S0ZYxDkzJbTqQEOGPZhwJsK/eY
+ bjvZ824MldhZukJdWhUQeyhT0BihCbDhEV+h8BoT/o4Qcrd7spjp2jsS2t7ZRKF32GS4wY
+ dyWFkXpeR0Bfd1fhgI5b770RbH/q/oa+8eiRJVvsJXusDt0UjG8An9DQh7qEv3HDArmKK8
+ 5sb1cvQtaPrVdKNKfnIbM38Sy+Pk5oxR4SKYYRCd1Y5YizcTwvShQYmZI3H3OA==
+Authentication-Results: outgoing_mbo_mout; dkim=none;
+ spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates
+ 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=hugo@hsal.es
+From: Hugo Sales <hugo@hsal.es>
+To: alexander.deucher@amd.com, sunpeng.li@amd.com, harry.wentland@amd.com,
+ siqueira@igalia.com, amd-gfx@lists.freedesktop.org
+Subject: [PATCH RFC RFT 3/8] drm/amd/display: Interpolate when reading PWM
+ back as a percentage
+Date: Tue,  3 Nov 2026 16:31:17 +0000
+Message-ID: <20261103-backlight-curve-rfc-v1-3-6e4813a8f2eb@hsal.es>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261103-backlight-curve-rfc-v1-0-6e4813a8f2eb@hsal.es>
+References: <20261103-backlight-curve-rfc-v1-0-6e4813a8f2eb@hsal.es>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] drm/amd/pm: defer UCLK DPM on selected Apple Navi GPUs
-To: Alex Deucher <alexdeucher@gmail.com>,
- Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-Cc: airlied@gmail.com, alexander.deucher@amd.com,
- amd-gfx@lists.freedesktop.org, christian.koenig@amd.com, dev@deq.rocks,
- dri-devel@lists.freedesktop.org, ed@aicharmers.com, kenneth.feng@amd.com,
- linux-kernel@vger.kernel.org, simona@ffwll.ch
-References: <CADnq5_NCB6ur05ZvP0fe9hsgLHM0=y_Wx31G4vkpKH+F7yZ74g@mail.gmail.com>
- <20261103150057.1227-1-atharvatiwarilinuxdev@gmail.com>
- <CADnq5_N-sobVK3qitqABjqMv2HMyGNdxX0XMXa4TZzVnMv8MLA@mail.gmail.com>
-Content-Language: en-US
-From: Aditya Garg <aditya.garg@linux.dev>
-In-Reply-To: <CADnq5_N-sobVK3qitqABjqMv2HMyGNdxX0XMXa4TZzVnMv8MLA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3255; i=hugo@hsal.es;
+ h=from:subject:message-id; bh=HyET8yh6KxhaLvP97OZzQMRmQctJKYkCURBLUwScGt8=;
+ b=owJ4nJvAy8zAJVbLU7f+5A3TBYyn1ZIYsl7xRPkEltiWRfG0eHOvYXr55tJb30cnH2xJlFj40
+ +ixave1zBkdpSwMYlwMsmKKLLo3PBlYJk6emVP0fAnMHFYmkCEMXJwCMBEOM4a/Iu+2PsqboXo7
+ ISDn0OXpZ1QLos9NtDewPxg5JWVTsYDIAUaGqawdHdVKYTeWz+K6LW45f9KStTs27p657GHbvFn
+ XSm/c4AcAZWJMKQ==
+X-Developer-Key: i=hugo@hsal.es; a=openpgp;
+ fpr=193D095149CF7E8737B39064D912B0DB205A91C1
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 4jJvGT2GxQz8vCB
 X-Mailman-Approved-At: Wed, 04 Nov 2026 11:12:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -56,39 +69,88 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+backlight_pwm_to_millipercent_legacy() finds the closest backlight_lut
+entry and returns its whole percent. That was the exact inverse while
+backlight_millipercent_to_pwm_legacy() only returned LUT entries. Now
+that it interpolates, a request of 1.5% programs a PWM halfway between
+two entries, which reads back as 1% or 2%, and setting the value read
+back moves the backlight by up to half a LUT step
 
-Hi Alex
-> On Tue, Nov 3, 2026 at 10:01 AM Atharva Tiwari
-> <atharvatiwarilinuxdev@gmail.com> wrote:
->>
->>> It is the same issue.  I don't want two fixes for the same issue. I
->>> just sent an updated version of this patch expanded to cover more
->>> macs.
->>>
->>> Alex
->>
->> How is the problems same exactly?, Does initializing UCLK later change the
->> PPTable?, and as said this is not even a solution for iMacs, so why are we
->> still trying to upstream this?, and btw initializing UCLK later with 5K,
->> makes it not initialize at all, so the patch is just wrong.
-> 
-> I asked around internally with the windows team about this issue and
-> was told macs needed to enable UCLK DPM later, but no one was aware of
-> any uclk dpm patching.We have filed multiple bug reports regarding the 5K issue on iMacs but they have simply been tagged and left over for many years. Now suddenly one day a person without properly consulting the author sends a patch upstream, inspite of the author himself saying doesn't work.
+Interpolate between the two entries around the PWM instead. A PWM equal
+to a LUT entry still reads back as that entry's whole percent
 
-I own a MacBookPro16,1 and the v5 send doesn't work at all to fix it for me.
+Signed-off-by: Hugo Sales <hugo@hsal.es>
+---
+Converting a percentage to PWM, back, and to PWM again now moves the
+PWM by about a two-thousandth of the LUT step around it, plus rounding.
+On the GV301QH LUT, whose steps are at most 1799, that keeps every PWM
+within 1 of where it started. A curve with much wider steps can move
+further, but by far less than the half step it could before
 
-Since Windows team is willing to help us please fix the 5K issue on iMacs as well. And the devs aim achieve hybrid graphics, which Windows does not support.
+KUnit: dm_test_pwm_lut_readback from patch 6 fails without this patch
+and passes with it
+---
+ .../gpu/drm/amd/display/modules/power/power_abm.c  | 33 ++++++++--------------
+ 1 file changed, 11 insertions(+), 22 deletions(-)
 
-For my testing results, the patch in v5 (https://lore.kernel.org/all/20261103143014.522592-1-alexander.deucher@amd.com/T/#u) doesn't solve what is claims to. It might be possible its needed, but in that case even more workups and patches should also needed to get the GPUs running properly on Linux only.
+diff --git a/drivers/gpu/drm/amd/display/modules/power/power_abm.c b/drivers/gpu/drm/amd/display/modules/power/power_abm.c
+index d9c1f1401b604..83d79c20281ec 100644
+--- a/drivers/gpu/drm/amd/display/modules/power/power_abm.c
++++ b/drivers/gpu/drm/amd/display/modules/power/power_abm.c
+@@ -409,34 +409,23 @@ static unsigned int backlight_pwm_to_millipercent_legacy(
+ 			break;
+ 	}
+ 
+-	/* In this case, exact match is not found. Check if mid/min/max
+-	 * value is actually closer.
+-	 */
++	/* No exact match, so on a sorted LUT lut[max] < pwm < lut[min] */
+ 	if (max < min) {
+-		unsigned int min_delta;
+-		unsigned int mid_delta;
+-		unsigned int max_delta;
+-
+-		min_delta = (core_power->bl_prop[inst].backlight_lut[min] > pwm) ?
+-				core_power->bl_prop[inst].backlight_lut[min] - pwm :
+-				pwm - core_power->bl_prop[inst].backlight_lut[min];
+-
+-		mid_delta = (core_power->bl_prop[inst].backlight_lut[mid] > pwm) ?
+-				core_power->bl_prop[inst].backlight_lut[mid] - pwm :
+-				pwm - core_power->bl_prop[inst].backlight_lut[mid];
++		unsigned int lower = core_power->bl_prop[inst].backlight_lut[max];
++		unsigned int upper = core_power->bl_prop[inst].backlight_lut[min];
++		unsigned long long span, den;
+ 
+-		max_delta = (core_power->bl_prop[inst].backlight_lut[max] > pwm) ?
+-				core_power->bl_prop[inst].backlight_lut[max] - pwm :
+-				pwm - core_power->bl_prop[inst].backlight_lut[max];
++		if (pwm <= lower || pwm >= upper)
++			return BACKLIGHT_MILLIPERCENT_MAX * mid / max_index;
+ 
+-		if ((min_delta < mid_delta) && (min_delta < max_delta))
+-			mid = min;
++		span = upper - lower;
++		den = span * max_index;
+ 
+-		if ((max_delta < mid_delta) && (max_delta < min_delta))
+-			mid = max;
++		/* LUT entries fit in 16 bits, so this stays far below 2^64 */
++		return (unsigned int)div64_u64((max * span + pwm - lower) *
++					       BACKLIGHT_MILLIPERCENT_MAX + den / 2, den);
+ 	}
+ 
+-	/* No interpolation, just take closest index */
+ 	millipercent = BACKLIGHT_MILLIPERCENT_MAX * mid / max_index;
+ 
+ 	return millipercent;
 
-I believe patches submitted by the author himself should be acknowledged. We already are victims of AI cannon, pls don't make things worse.
+-- 
+2.56.0
 
-Nacked-by: Aditya Garg <aditya.garg@linux.dev>
