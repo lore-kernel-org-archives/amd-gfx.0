@@ -2,62 +2,49 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE619606A328
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 14:03:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E476F606D820
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 14:03:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=Urmns2br
+	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=y3g8pQ/p
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1586510F5A5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30C0410F5BB;
 	Tue,  3 Nov 2026 14:03:05 +0000 (UTC)
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7686410F594
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Nov 2026 13:16:04 +0000 (UTC)
-Received: from smtp102.mailbox.org (smtp102.mailbox.org
- [IPv6:2001:67c:2050:b231:465::102])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jJpwy6lQTzMljJ;
- Tue, 03 Nov 2026 14:16:02 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
- t=1793711762;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=zVi93CQ//2euCCyPaFsK8UkBI2G8pXdx8HSh695art4=;
- b=Urmns2brtZlmpum16FqhTULqn5flGANmlAWZuxfXbY0eEZNWTxr2is0kkMXaLZLbrmVZfK
- qUCObkMGHRjqkZh5/pZO1n0DxKumG3smWlHN4RRHDUGBLQv/vYhKgRqZliKkWIef524646
- /58jWn8ts9ahoMD8Pk6V+f0P4Q2gguclNhUsfVkCztGEWgIWwGGfVjxPEFF0ancF2vP5Xb
- xcyQvWchiTwnAvNHh6ID0be0PJNfebLoMRe6k3rz6/Z0mL+S9HQhNl2gKowUUEPCcEDMet
- ihwdojEIpWAZbOulKWFYvt8VWyt1uKDY2T4GP8pXQtr1Ff/4a7XUKdANuA+GkA==
-Authentication-Results: outgoing_mbo_mout; dkim=none;
- spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates
- 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=hugo@hsal.es
-From: Hugo Sales <hugo@hsal.es>
-To: alexander.deucher@amd.com, siqueira@igalia.com, harry.wentland@amd.com,
- amd-gfx@lists.freedesktop.org, sunpeng.li@amd.com
-Subject: [PATCH RFT 1/3] drm/amd/display: Add the AUX backlight minimum once
- on the custom curve
-Date: Tue,  3 Nov 2026 13:15:57 +0000
-Message-ID: <20261103-amdgpu-aux-curve-min-v1-1-62119efdcc6d@hsal.es>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261103-amdgpu-aux-curve-min-v1-0-62119efdcc6d@hsal.es>
-References: <20261103-amdgpu-aux-curve-min-v1-0-62119efdcc6d@hsal.es>
+Received: from mail-4327.protonmail.ch (mail-4327.protonmail.ch [185.70.43.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8543810E7E8
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Nov 2026 11:07:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+ s=protonmail2; t=1793703013; x=1793962213;
+ bh=bk9xmJ/CHw/ZUJ1Dey5/G9hjtl0NWofMk3bhkkdRGjU=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=y3g8pQ/puW0qgWRXimT7OcGCvZd+3zkK0npqEsM5FittYXahBdL6zMdEHG8b2ArBz
+ rcbP4L/EC3uwax3TrNP1orD8zXJ/smO1atsA9+udSsV4CWDtMrWRp8hz0xJeJ1Nd1b
+ 9hjcJOc5EkC6mdc1oj6EczVDpD+o/J/76+KLpn6CgV7p++2HZXeTKh90FocZf7pLIk
+ ONnkb4FXZ31l8O/bHXnvr/kBLIfbgqqA2gWA5iZSE7o8LDVSx1bs25a4mNnevibuMm
+ Cyra+FsZU/Zn/k+DCVn2/EJbVysJSXDVkHHMqTeWAgjWLyDIS7ZAm/FxYiwWcluXbX
+ 5m0tv+LDRqa2Q==
+Date: Tue, 03 Nov 2026 10:50:09 +0000
+To: =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+From: aarthex <aarthex@proton.me>
+Cc: SRINIVASAN SHANMUGAM <srinivasan.shanmugam@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "Felix.Kuehling@amd.com" <Felix.Kuehling@amd.com>,
+ "alexander.deucher@amd.com" <alexander.deucher@amd.com>
+Subject: Re: [RFC] amdkfd: Native integration with DRM fences/syncobjs
+Message-ID: <vHxZms6rrYjnunJpZ8MsMZX6IsaTnKi2Y0ijzijoOMf4Bj-URZ8laaOhNpX-rmrRXt1Y5cVGKHaFsVwXTGh5TSNs1a9odNPfQ8KeuQOE-KY=@proton.me>
+In-Reply-To: <10dd384d-12ec-443c-8f1f-b21c524b10ae@amd.com>
+References: <6LGhg_Yb_ppPcBcic7UenLy4cBVr66GyWswWm0xLqKQZc04YxYzLkPxbPNQj_2LvHWaG-hSzXaFM2ERSYhJbEOEUYXVn_tWBUYfMP_KzQAI=@proton.me>
+ <ba707a14-2802-4a35-a727-c22e749c136d@amd.com>
+ <5e8e8c22-d8c7-4c76-8a88-2a69f920245d@amd.com>
+ <9PPY12T_RVxa1D24UhLqTocmtEOshesvldOUE5OiV3YlaMIUd0DtVNHxD2Ac6YyHHuGwS2VIhLz2LSsb0CH8_DATSblqKlSYg3ldElY2HPo=@proton.me>
+ <10dd384d-12ec-443c-8f1f-b21c524b10ae@amd.com>
+Feedback-ID: 83802568:user:proton
+X-Pm-Message-ID: 6fa7fca8ea22ddc27b902e2a581f037c8f69b9d1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4951; i=hugo@hsal.es;
- h=from:subject:message-id; bh=S1PGp9r4Q3l/5GOSMK/I4o0ZnP86M0ymnis45ePDhss=;
- b=owJ4nJvAy8zAJVbLU7f+5A3TBYyn1ZIYsl7eazapMs5JWPSrR2j9mySbF1+Ndnwo/v8ltf3sI
- 4Gaon/v5l7sKGVhEONikBVTZNG94cnAMnHyzJyi50tg5rAygQxh4OIUgImwdDMyvNn1fmOm/K9T
- nquf7d6trrVgweKvNxdYnpjCdmtT39N9F2UY/hf1bWQ0CKuc+zWGWexFv8KUn2/a1k8vCTC7OyX
- c956fBBsAXppSkQ==
-X-Developer-Key: i=hugo@hsal.es; a=openpgp;
- fpr=193D095149CF7E8737B39064D912B0DB205A91C1
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4jJpwy6lQTzMljJ
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Tue, 03 Nov 2026 14:03:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,109 +56,141 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On an AUX backlight, convert_brightness_from_user() maps the user level
-through the ATIF custom brightness curve with
-convert_custom_brightness(), which rescales the result to
-user_min..user_max. convert_brightness_from_user() then rescales it
-again, from 0..user_max to user_min..user_max, so the minimum goes in
-twice. On the 1..512 nits AUX fallback range, a request for 0 gives
-1998 millinits instead of 1000
+Thank you so much for the explaination, that clarifies things greatly!
 
-Rescale the curve's output to 0..user_max and leave the offset to the
-caller
 
-Fixes: 16dc8bc27c2aa ("drm/amd/display: Export full brightness range to userspace")
-Signed-off-by: Hugo Sales <hugo@hsal.es>
----
-I saw this on my laptop, an ASUS ROG Flow X13 GV301QH, with 7.2.9, when
-PWM still went through this code: the amdgpu_dm_brightness trace showed
-requested=0 converted=6023, where 3084 is the minimum. Commit
-d422a66847a9 ("drm/amd/display: map PWM brightness through custom
-backlight curve"), in 7.2.10, moved PWM off this path, but on current
-kernels it still hits an AUX panel with an ATIF curve. On older stable
-kernels this fixes PWM too
+Sent from Proton Mail for Android.
 
-With amdgpu.backlight=1, which forces AUX, the GV301QH uses the 1..512
-nits fallback range. There the floor goes from 1998 to 1000 millinits,
-the midpoint from 159999 to 159310 and the top from 496000 to 495968.
-The rounding of the level to 8 bits and of the luminance to a whole
-percent stays as it is
+-------- Original Message --------
+On Tuesday, 11/03/26 at 15:10 Christian K=C3=B6nig <christian.koenig@amd.co=
+m> wrote:
+Hi Aarthex,
 
-No existing test changes: they all run with a minimum of 0, where adding
-it twice makes no difference. Patch 3 adds one with a non-zero minimum
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c    |  9 ++++-----
- .../amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c | 14 +++++++-------
- 2 files changed, 11 insertions(+), 12 deletions(-)
+On 11/3/26 09:44, aarthex wrote:
+> Hey Christian and Srinivasan,
+>
+> Thank you for your response. This eventfd solution seems quite promising!
+>
+> As much as I don't want to take too much of your time, could you refer an=
+y discussions on why fences/syncobjs are fundamentally incompatible with am=
+dkfd and such?
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-index 27546febf90d3..8b49cbcde91cd 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-@@ -122,10 +122,10 @@ static inline u32 scale_input_to_fw(int max, u64 input)
- 	return DIV_ROUND_CLOSEST_ULL(input * AMDGPU_MAX_BL_LEVEL, max);
- }
- 
--/* Rescale from [0..AMDGPU_MAX_BL_LEVEL] to [min..max] */
--static inline u32 scale_fw_to_input(int min, int max, u64 input)
-+/* Rescale from [0..AMDGPU_MAX_BL_LEVEL] to [0..max] */
-+static inline u32 scale_fw_to_input(int max, u64 input)
- {
--	return min + DIV_ROUND_CLOSEST_ULL(input * (max - min), AMDGPU_MAX_BL_LEVEL);
-+	return DIV_ROUND_CLOSEST_ULL(input * max, AMDGPU_MAX_BL_LEVEL);
- }
- 
- static u32 backlight_signal_to_luminance(const struct amdgpu_dm_backlight_caps *caps,
-@@ -251,8 +251,7 @@ void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *caps,
- 						    (brightness - lower_signal),
- 						    upper_signal - lower_signal);
- scale:
--	*user_brightness = scale_fw_to_input(min, max,
--					     DIV_ROUND_CLOSEST(lum * brightness, 101));
-+	*user_brightness = scale_fw_to_input(max, DIV_ROUND_CLOSEST(lum * brightness, 101));
- }
- 
- EXPORT_IF_KUNIT(convert_custom_brightness);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-index c6d15fb8ad989..2d7a07d9ad874 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-@@ -1125,10 +1125,10 @@ static void dm_test_custom_brightness_exact_match(struct kunit *test)
- 
- 	/*
- 	 * Exact match: lum=50, brightness_scaled=128
--	 * result = scale_fw_to_input(min, max, DIV_ROUND_CLOSEST(50*128, 101))
--	 *        = scale_fw_to_input(0, 65535, DIV_ROUND_CLOSEST(6400, 101))
--	 *        = scale_fw_to_input(0, 65535, 63)
--	 *        = 0 + DIV_ROUND_CLOSEST(63 * 65535, 255) = 16191 (approx)
-+	 * result = scale_fw_to_input(max, DIV_ROUND_CLOSEST(50*128, 101))
-+	 *        = scale_fw_to_input(65535, DIV_ROUND_CLOSEST(6400, 101))
-+	 *        = scale_fw_to_input(65535, 63)
-+	 *        = DIV_ROUND_CLOSEST(63 * 65535, 255) = 16191 (approx)
- 	 */
- 	KUNIT_EXPECT_TRUE(test, brightness != 32896);
- 	KUNIT_EXPECT_TRUE(test, brightness < 32896);
-@@ -1171,9 +1171,9 @@ static void dm_test_custom_brightness_below_first(struct kunit *test)
- 
- 	/*
- 	 * Below first data point: lum = DIV_ROUND_CLOSEST(40 * 50, 100) = 20
--	 * Then: scale_fw_to_input(0, 65535, DIV_ROUND_CLOSEST(20 * 50, 101))
--	 *      = scale_fw_to_input(0, 65535, DIV_ROUND_CLOSEST(1000, 101))
--	 *      = scale_fw_to_input(0, 65535, 10)
-+	 * Then: scale_fw_to_input(65535, DIV_ROUND_CLOSEST(20 * 50, 101))
-+	 *      = scale_fw_to_input(65535, DIV_ROUND_CLOSEST(1000, 101))
-+	 *      = scale_fw_to_input(65535, 10)
- 	 * The output should be significantly less than input.
- 	 */
- 	KUNIT_EXPECT_TRUE(test, brightness < 12850);
+See the documentation here https://www.kernel.org/doc/html/next/driver-api/=
+dma-buf.html#indefinite-dma-fences
 
--- 
-2.56.0
+"Infinite fences from compute workloads are allowed to depend on DMA fences=
+, but not the other way around."
+
+In other words ROCm submissions can wait for dma_fences inside sync_files o=
+r syncobj (which we partially already support), but you can't signal a dma_=
+fence from a ROCm submission / KFD queue.
+
+Technical background is that in compute frameworks like ROCm or CUDA you ha=
+ve features like long running submissions, page faults, busy waits on CPU a=
+ctivity etc.... all of that is not allowed when you want to signal a dma_fe=
+nce or otherwise you sooner or later run into deadlocks with the core resou=
+rce management.
+> I was under the impression piping GPU events into eventfd is not too diss=
+imilar from piping it into syncobjs and such.
+
+Well what could be done is to signal a syncobj from an eventfd inside the k=
+ernel instead of userspace, we already support that the other way around.
+
+But the problem here is that signaling inside the kernel it is not much bet=
+ter than creating an userspace thread, blocking for the eventfd to signal a=
+nd then manually signal the syncobj.
+
+You only save a mostly negligible kernel/userspace/kernel transition for th=
+e cost of much more complexity and resource handling inside the kernel and =
+that is not really feasible.
+
+> I will admit i am not very knowledgeable about amdgpu's internals.
+
+Well that is not amdgpu related at all, it's just the general dma_fence rul=
+es.
+
+And people get that wrong all the time and are then surprised when stuff is=
+ rejected during upstreaming or falls apart as soon as customers start to u=
+se it in a production environment.
+
+We unfortunately had quite a number of such things in the past.
+
+Regards,
+Christian.
+
+
+> -------- Original Message --------
+> On Tuesday, 11/03/26 at 08:22 SRINIVASAN SHANMUGAM <srinivasan.shanmugam@=
+amd.com> wrote:
+>
+> On 11/2/2026 6:20 PM, Christian K=C3=B6nig wrote:
+>> Hi,
+>>
+>> On 10/31/26 05:28, aarthex wrote:
+>>> Hello people,
+>>>
+>>> Currently, amdkfd provides no native way to integrate itself into a wid=
+er event loop (like epoll or Wayland explicit sync) using standard DRM fenc=
+es or syncobjs.
+>> Yeah that is completely intentional.
+>>
+>> Background is that the semantics of dma_fences/DRM syncobjs are incompat=
+ible with ROCm or more generally any compute stack, Intel (XE) and Nvidia h=
+ave the same limitation.
+>>
+>>> There are some workarounds, like creating a syncobj and then signaling =
+it from the CPU side after the GPU is done, either via polling or hardware =
+interrupts.
+>>>
+>>> But none of these are very tasteful, especially for something that is i=
+deally the driver's job.
+>>>
+>>> I opened a feature request for this on GitLab a bit ago here: https://g=
+itlab.freedesktop.org/drm/amd/-/issues/6013
+>>>
+>>>
+>>> Before I work on implementing it, it would be nice to know if the team =
+was open to accepting this, or if anyone had any thoughts/architectural poi=
+nters to leave.
+>> It's really good that you asked before starting anything because stuff l=
+ike that is completely impossible to get right for dma_fences and DRM synco=
+bs.
+>>
+>> AMD and Intel are working together on a eventfd based approach for their=
+ compute stack to replace AMD specific KFD events. If you are interested Sr=
+ini can point you to the right patches/components on the mailing list and i=
+n code.
+>
+> Hi Christian,
+>
+> Thanks for the context.
+>
+> For reference, we've previously posted prototype work around
+> eventfd-based compute event delivery, WAIT_EVENT infrastructure,
+>
+> - EVENTFD infrastructure:
+>    https://patchwork.freedesktop.org/series/164618/
+>
+> - GPU event producers wired into EVENTFD notifications:
+>    https://patchwork.freedesktop.org/series/170501/
+>
+> - WAIT_EVENT metadata retrieval and consumption:
+>    https://patchwork.freedesktop.org/series/164813/
+>
+> The goal of that work was to explore a generic eventfd-based mechanism
+> for queue completion, reset, and debugger-visible compute events from
+> the render-node side.
+>
+> Regards,
+> Srini
+>
+>
+
 
