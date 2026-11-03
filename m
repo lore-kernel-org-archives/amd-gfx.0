@@ -2,39 +2,39 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 832DB606A328
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 22:42:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 528BD606A33A
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 22:42:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qy5uaxuE
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ERNW35KG
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C62310E9CF;
-	Tue,  3 Nov 2026 22:42:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFB2710F8C1;
+	Tue,  3 Nov 2026 22:42:43 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCBF410F8D2;
- Tue,  3 Nov 2026 22:42:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0C3310F8A8;
+ Tue,  3 Nov 2026 22:42:36 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B27BE43DA7;
- Tue,  3 Nov 2026 22:42:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E152D1F00A02;
- Tue,  3 Nov 2026 22:42:30 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 937FC41AE6;
+ Tue,  3 Nov 2026 22:42:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2BBC1F0093A;
+ Tue,  3 Nov 2026 22:42:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793745752;
- bh=PE3JoFAsPWYzM/2VTWaCcmrBAhB5QjBCHLVh8VYps6c=;
+ s=k20260515; t=1793745756;
+ bh=JDOFP0lBfi8GeV67m9asGivOpxWxqXgZkhYHVbXSUTg=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=Qy5uaxuEVoVv9knelReqa35dRFNHxzX5B85LqHbOGdaT7s+0YzGHAArT67qUaaN4W
- 7phmYSgI6e9NET1p2a/RGn9Ap6FU2e11OfWjhT15pfXExpYJbLJyj3bsdpb2Ofg0QT
- MloHuhWSLb77Zhj9/I/JhQpKDnSE3ynu4b8koy6BKPOb9lOxc7lIGZoZm/z87Hsf4p
- 9unACogQ9zkS+LnNd6z1LB1hCy4ijWf+8fyuh0VLMevjzqPCXcIxIvK6yW5ugxqCel
- 0aFWsd3USz3Bfdo6xz8exXkkttBaIHYILr8hF19ieORtlMx5VWlw3t2jYHJuoKzlo2
- Cj39yBmJzJc3g==
+ b=ERNW35KGsHiVym8/H0/iOko9whJ/J9EGYfN9IFD9bgM6VLE8FcAbzfOHRFKVTiHno
+ nWEj6ogTZeJ6tXM22S+qUWMJlKfSNMa+RMaQzfsPCkjCLYO0m7vb8HpS49DhiwaA70
+ 8fOb2gTU6o09dPsLWNfOfsaZE48wJuMt1eMdJceMb2OCb0wgvs4ib8efRxrl0PJKcG
+ FSoL8QhaXx9Gzo23mcNC+Jb4mPm+j0jEeh2S3NE45/gxa92u/3btja60PVh4Ip3+4c
+ z/q7BPLvalkzh1p10d3J7TBrFjbmg78n6EmoHscHVndp8xxBLop7ZnjAb6SNukDls2
+ TDwj1S6egLjDw==
 From: "Mario Limonciello (AMD)" <superm1@kernel.org>
-Date: Tue, 03 Nov 2026 16:42:10 -0600
-Subject: [PATCH v11 09/12] drm/nouveau: add connector luminance support
+Date: Tue, 03 Nov 2026 16:42:12 -0600
+Subject: [PATCH v11 11/12] drm/bridge: add PS8622 connector luminance support
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-superm1-backlight-property-v11-9-00cce7b2ba22@kernel.org>
+Message-Id: <20261103-superm1-backlight-property-v11-11-00cce7b2ba22@kernel.org>
 References: <20261103-superm1-backlight-property-v11-0-00cce7b2ba22@kernel.org>
 In-Reply-To: <20261103-superm1-backlight-property-v11-0-00cce7b2ba22@kernel.org>
 To: Maxime Ripard <mripard@kernel.org>, 
@@ -72,395 +72,154 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Mario Limonciello <mario.limonciello@amd.com>
 
-Expose Nouveau panel brightness through the connector LUMINANCE property
-when DRM_LUMINANCE is enabled and atomic modesetting is exposed. Reuse
-the existing NV50 and DPCD hardware paths while preserving the backlight
-class interface otherwise, including for pre-NV50 displays.
-
-The panel backlight is probed and the property attached before the DRM
-device is registered. The luminance helpers are called from the NV50
-atomic commit tail.
+Expose PS8622 brightness through bridge luminance operations when
+DRM_LUMINANCE is enabled. Keep registering the backlight class device
+otherwise.
 
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
 v11:
- * Call the luminance commit helpers from nv50_disp_atomic_commit_tail()
-   (Sashiko)
- * Attach the property before drm_dev_register() (Sashiko)
- * Keep the class device for non-atomic NV04 and nouveau.atomic=0
-   (Sashiko)
- * Fix stale brightness on eDP enable for the class device path (Sashiko)
+ * Track internal PWM mode explicitly so it is still configured with
+   LUMINANCE (Sashiko)
+ * Don't access I2C while the bridge is powered down (Sashiko)
  * Keep selecting BACKLIGHT_CLASS_DEVICE (Sashiko)
+ * Program the committed luminance in pre_enable
 ---
- drivers/gpu/drm/nouveau/dispnv50/disp.c     |  13 ++-
- drivers/gpu/drm/nouveau/nouveau_backlight.c | 152 ++++++++++++++++++++++++----
- drivers/gpu/drm/nouveau/nouveau_connector.c |   3 +
- drivers/gpu/drm/nouveau/nouveau_connector.h |  23 +++++
- drivers/gpu/drm/nouveau/nouveau_drm.c       |   6 ++
- 5 files changed, 174 insertions(+), 23 deletions(-)
+ drivers/gpu/drm/bridge/parade-ps8622.c | 66 +++++++++++++++++++++++++++-------
+ 1 file changed, 53 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-index e91130f93db67..57653fe720d95 100644
---- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
-+++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-@@ -1755,6 +1755,7 @@ nv50_sor_atomic_enable(struct drm_encoder *encoder, struct drm_atomic_commit *st
- 	struct nouveau_connector *nv_connector;
- #ifdef CONFIG_DRM_NOUVEAU_BACKLIGHT
- 	struct nouveau_backlight *backlight;
-+	u16 level;
- #endif
- 	struct nvbios *bios = &drm->vbios;
- 	bool lvds_dual = false, lvds_8bpc = false, hda = false;
-@@ -1836,9 +1837,14 @@ nv50_sor_atomic_enable(struct drm_encoder *encoder, struct drm_atomic_commit *st
+diff --git a/drivers/gpu/drm/bridge/parade-ps8622.c b/drivers/gpu/drm/bridge/parade-ps8622.c
+index 3a2ec482037df..c88bd7a97d4a4 100644
+--- a/drivers/gpu/drm/bridge/parade-ps8622.c
++++ b/drivers/gpu/drm/bridge/parade-ps8622.c
+@@ -45,6 +45,8 @@ struct ps8622_bridge {
+ 	struct drm_bridge *panel_bridge;
+ 	struct regulator *v12;
+ 	struct backlight_device *bl;
++	u8 brightness;
++	bool internal_pwm;
  
- #ifdef CONFIG_DRM_NOUVEAU_BACKLIGHT
- 		backlight = nv_connector->backlight;
--		if (backlight && backlight->uses_dpcd)
-+		if (backlight && backlight->uses_dpcd) {
-+			if (backlight->dev)
-+				level = backlight->dev->props.brightness;
-+			else
-+				level = nv_connector->base.state->luminance;
- 			drm_edp_backlight_enable(&nv_connector->aux, &backlight->edp_info,
--						 backlight->dev->props.brightness);
-+						 level);
-+		}
- #endif
+ 	struct gpio_desc *gpio_slp;
+ 	struct gpio_desc *gpio_rst;
+@@ -268,7 +270,7 @@ static int ps8622_send_config(struct ps8622_bridge *ps8622)
+ 		goto error;
  
- 		break;
-@@ -2188,6 +2194,7 @@ nv50_disp_atomic_commit_tail(struct drm_atomic_commit *state)
- 	drm_dp_mst_atomic_wait_for_dependencies(state);
- 	drm_atomic_helper_update_legacy_modeset_state(dev, state);
- 	drm_atomic_helper_calc_timestamping_constants(state);
-+	drm_atomic_helper_commit_luminance_disables(state);
  
- 	if (atom->lock_core)
- 		mutex_lock(&disp->mutex);
-@@ -2370,6 +2377,8 @@ nv50_disp_atomic_commit_tail(struct drm_atomic_commit *state)
- 	if (atom->lock_core)
- 		mutex_unlock(&disp->mutex);
+-	if (ps8622->bl) {
++	if (ps8622->internal_pwm) {
+ 		/* DPCD720, internal PWM */
+ 		err = ps8622_set(cl, 0x01, 0xa5, 0xa0);
+ 		if (err)
+@@ -276,7 +278,7 @@ static int ps8622_send_config(struct ps8622_bridge *ps8622)
  
-+	drm_atomic_helper_commit_luminance_enables(state);
+ 		/* FFh for 100% brightness, 0h for 0% brightness */
+ 		err = ps8622_set(cl, 0x01, 0xa7,
+-				ps8622->bl->props.brightness);
++				ps8622->brightness);
+ 		if (err)
+ 			goto error;
+ 	} else {
+@@ -324,6 +326,8 @@ static int ps8622_backlight_update(struct backlight_device *bl)
+ 	struct ps8622_bridge *ps8622 = dev_get_drvdata(&bl->dev);
+ 	int ret, brightness = backlight_get_brightness(bl);
+ 
++	ps8622->brightness = brightness;
 +
- 	list_for_each_entry_safe(outp, outt, &atom->outp, head) {
- 		list_del(&outp->head);
- 		kfree(outp);
-diff --git a/drivers/gpu/drm/nouveau/nouveau_backlight.c b/drivers/gpu/drm/nouveau/nouveau_backlight.c
-index da1ee24a2531d..2366901581077 100644
---- a/drivers/gpu/drm/nouveau/nouveau_backlight.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_backlight.c
-@@ -234,12 +234,15 @@ nv50_backlight_init(struct nouveau_backlight *bl,
- 		    const struct backlight_ops **ops)
- {
- 	struct nouveau_drm *drm = nouveau_drm(nv_encoder->base.base.dev);
-+	int brightness;
-+
-+	brightness = nvif_outp_bl_get(&nv_encoder->outp);
+ 	if (!ps8622->enabled)
+ 		return -EINVAL;
  
- 	/*
- 	 * Note when this runs the connectors have not been probed yet,
- 	 * so nv_conn->base.status is not set yet.
- 	 */
--	if (nvif_outp_bl_get(&nv_encoder->outp) < 0 ||
-+	if (brightness < 0 ||
- 	    drm_helper_probe_detect(&nv_conn->base, NULL, false) != connector_status_connected)
- 		return -ENODEV;
- 
-@@ -284,11 +287,25 @@ nv50_backlight_init(struct nouveau_backlight *bl,
- 
- 	*ops = &nv50_bl_ops;
- 	props->max_brightness = 100;
-+	props->brightness = brightness;
- 	return 0;
- }
- 
--int
--nouveau_backlight_init(struct drm_connector *connector)
-+/*
-+ * LUMINANCE is an atomic connector property. Pre-NV50 hardware and
-+ * nouveau.atomic=0 don't expose atomic modesetting to userspace (even though
-+ * NV50+ still commits atomically internally), so keep the backlight class
-+ * device there.
-+ */
-+static bool
-+nouveau_backlight_use_luminance(struct drm_device *dev)
-+{
-+	return IS_ENABLED(CONFIG_DRM_LUMINANCE) &&
-+	       drm_core_check_feature(dev, DRIVER_ATOMIC);
-+}
-+
-+static int
-+nouveau_backlight_create(struct drm_connector *connector)
- {
- 	struct nouveau_drm *drm = nouveau_drm(connector->dev);
- 	struct nouveau_backlight *bl;
-@@ -317,6 +334,8 @@ nouveau_backlight_init(struct drm_connector *connector)
- 	bl = kzalloc_obj(*bl);
- 	if (!bl)
- 		return -ENOMEM;
-+	bl->id = -1;
-+	bl->encoder = nv_encoder;
- 
- 	switch (device->info.family) {
- 	case NV_DEVICE_INFO_V0_CURIE:
-@@ -349,26 +368,36 @@ nouveau_backlight_init(struct drm_connector *connector)
- 		goto fail_alloc;
- 	}
- 
--	if (!nouveau_get_backlight_name(backlight_name, bl)) {
--		NV_ERROR(drm, "Failed to retrieve a unique name for the backlight interface\n");
--		goto fail_alloc;
--	}
--
- 	props.type = BACKLIGHT_RAW;
--	bl->dev = backlight_device_register(backlight_name, connector->kdev,
--					    nv_encoder, ops, &props);
--	if (IS_ERR(bl->dev)) {
--		if (bl->id >= 0)
--			ida_free(&bl_ida, bl->id);
--		ret = PTR_ERR(bl->dev);
--		goto fail_alloc;
-+	if (nouveau_backlight_use_luminance(connector->dev)) {
-+		ret = drm_connector_attach_luminance_property(connector, 0, props.max_brightness,
-+							      props.brightness);
-+		if (ret)
-+			goto fail_alloc;
-+	} else {
-+		if (!nouveau_get_backlight_name(backlight_name, bl)) {
-+			NV_ERROR(drm,
-+				 "Failed to retrieve a unique name for the backlight interface\n");
-+			goto fail_alloc;
-+		}
-+
-+		bl->dev = backlight_device_register(backlight_name, connector->kdev,
-+						    nv_encoder, ops, &props);
-+		if (IS_ERR(bl->dev)) {
-+			if (bl->id >= 0)
-+				ida_free(&bl_ida, bl->id);
-+			ret = PTR_ERR(bl->dev);
-+			goto fail_alloc;
-+		}
- 	}
- 
- 	nouveau_connector(connector)->backlight = bl;
--	if (!bl->dev->props.brightness)
--		bl->dev->props.brightness =
--			bl->dev->ops->get_brightness(bl->dev);
--	backlight_update_status(bl->dev);
-+	if (bl->dev) {
-+		if (!bl->dev->props.brightness)
-+			bl->dev->props.brightness =
-+				bl->dev->ops->get_brightness(bl->dev);
-+		backlight_update_status(bl->dev);
-+	}
- 
- 	return 0;
- 
-@@ -384,8 +413,40 @@ nouveau_backlight_init(struct drm_connector *connector)
+@@ -332,6 +336,20 @@ static int ps8622_backlight_update(struct backlight_device *bl)
  	return ret;
  }
  
--void
--nouveau_backlight_fini(struct drm_connector *connector)
-+/* Called from .late_register, the backlight class device needs connector->kdev */
-+int
-+nouveau_backlight_init(struct drm_connector *connector)
++static void ps8622_set_luminance(struct drm_bridge *bridge,
++				 unsigned int luminance)
 +{
-+	if (nouveau_backlight_use_luminance(connector->dev))
-+		return 0;
++	struct ps8622_bridge *ps8622 = bridge_to_ps8622(bridge);
 +
-+	return nouveau_backlight_create(connector);
++	ps8622->brightness = luminance;
++
++	/* Applied by ps8622_send_config() on the next pre_enable */
++	if (!ps8622->enabled)
++		return;
++
++	ps8622_set(ps8622->client, 0x01, 0xa7, luminance);
 +}
 +
-+/* Called before drm_dev_register(), the LUMINANCE property must exist by then */
-+int
-+nouveau_backlight_luminance_init(struct drm_device *dev)
-+{
-+	struct drm_connector_list_iter conn_iter;
+ static const struct backlight_ops ps8622_backlight_ops = {
+ 	.update_status	= ps8622_backlight_update,
+ };
+@@ -340,11 +358,22 @@ static void ps8622_pre_enable(struct drm_bridge *bridge,
+ 			      struct drm_atomic_commit *commit)
+ {
+ 	struct ps8622_bridge *ps8622 = bridge_to_ps8622(bridge);
 +	struct drm_connector *connector;
-+	int ret = 0;
-+
-+	if (!nouveau_backlight_use_luminance(dev))
-+		return 0;
-+
-+	drm_connector_list_iter_begin(dev, &conn_iter);
-+	nouveau_for_each_non_mst_connector_iter(connector, &conn_iter) {
-+		ret = nouveau_backlight_create(connector);
-+		if (ret)
-+			break;
-+	}
-+	drm_connector_list_iter_end(&conn_iter);
-+
-+	return ret;
-+}
-+
-+static void
-+nouveau_backlight_free(struct drm_connector *connector)
- {
- 	struct nouveau_connector *nv_conn = nouveau_connector(connector);
- 	struct nouveau_backlight *bl = nv_conn->backlight;
-@@ -401,6 +462,23 @@ nouveau_backlight_fini(struct drm_connector *connector)
- 	kfree(bl);
- }
+ 	int ret;
  
-+/* Called from .early_unregister */
-+void
-+nouveau_backlight_fini(struct drm_connector *connector)
-+{
-+	/* LUMINANCE state is needed by commits until the connector is destroyed */
-+	if (nouveau_backlight_use_luminance(connector->dev))
-+		return;
+ 	if (ps8622->enabled)
+ 		return;
+ 
++	/* Program the committed luminance from ps8622_send_config() */
++	connector = drm_atomic_get_new_connector_for_encoder(commit, bridge->encoder);
++	if (connector && connector->luminance_property) {
++		const struct drm_connector_state *conn_state =
++			drm_atomic_get_new_connector_state(commit, connector);
 +
-+	nouveau_backlight_free(connector);
-+}
++		if (conn_state)
++			ps8622->brightness = conn_state->luminance;
++	}
 +
-+void
-+nouveau_backlight_destroy(struct drm_connector *connector)
-+{
-+	nouveau_backlight_free(connector);
-+}
-+
- void
- nouveau_backlight_ctor(void)
- {
-@@ -412,3 +490,35 @@ nouveau_backlight_dtor(void)
- {
- 	ida_destroy(&bl_ida);
- }
-+
-+void
-+nouveau_backlight_set_luminance(const struct drm_connector_state *conn_state)
-+{
-+	struct nouveau_connector *nv_connector = nouveau_connector(conn_state->connector);
-+	struct nouveau_backlight *bl = nv_connector->backlight;
-+	unsigned int luminance = conn_state->luminance;
-+
-+	if (!bl)
-+		return;
-+
-+	if (bl->uses_dpcd)
-+		drm_edp_backlight_set_level(&nv_connector->aux, &bl->edp_info,
-+					    luminance);
-+	else
-+		nvif_outp_bl_set(&bl->encoder->outp, luminance);
-+}
-+
-+void
-+nouveau_backlight_disable_luminance(const struct drm_connector_state *conn_state)
-+{
-+	struct nouveau_connector *nv_connector = nouveau_connector(conn_state->connector);
-+	struct nouveau_backlight *bl = nv_connector->backlight;
-+
-+	if (!bl)
-+		return;
-+
-+	if (bl->uses_dpcd)
-+		drm_edp_backlight_disable(&nv_connector->aux, &bl->edp_info);
-+	else
-+		nvif_outp_bl_set(&bl->encoder->outp, 0);
-+}
-diff --git a/drivers/gpu/drm/nouveau/nouveau_connector.c b/drivers/gpu/drm/nouveau/nouveau_connector.c
-index cc3caf8de64b0..cbbdd36f49bb7 100644
---- a/drivers/gpu/drm/nouveau/nouveau_connector.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_connector.c
-@@ -400,6 +400,7 @@ nouveau_connector_destroy(struct drm_connector *connector)
- 	cancel_work_sync(&nv_connector->irq_work);
- 	drm_edid_free(nv_connector->drm_edid);
- 	drm_connector_unregister(connector);
-+	nouveau_backlight_destroy(connector);
- 	drm_connector_cleanup(connector);
- 	if (nv_connector->aux.transfer)
- 		drm_dp_cec_unregister_connector(&nv_connector->aux);
-@@ -1225,6 +1226,8 @@ nouveau_connector_helper_funcs = {
- 	.mode_valid = nouveau_connector_mode_valid,
- 	.best_encoder = nouveau_connector_best_encoder,
- 	.atomic_check = nouveau_connector_atomic_check,
-+	.set_luminance = nouveau_backlight_set_luminance,
-+	.disable_luminance = nouveau_backlight_disable_luminance,
+ 	gpiod_set_value(ps8622->gpio_rst, 0);
+ 
+ 	if (ps8622->v12) {
+@@ -438,6 +467,7 @@ static const struct drm_bridge_funcs ps8622_bridge_funcs = {
+ 	.atomic_disable = ps8622_disable,
+ 	.atomic_post_disable = ps8622_post_disable,
+ 	.attach = ps8622_attach,
++	.set_luminance = ps8622_set_luminance,
  };
  
- static const struct drm_connector_funcs
-diff --git a/drivers/gpu/drm/nouveau/nouveau_connector.h b/drivers/gpu/drm/nouveau/nouveau_connector.h
-index eb292d2ba4bcd..f53107ec0bf3f 100644
---- a/drivers/gpu/drm/nouveau/nouveau_connector.h
-+++ b/drivers/gpu/drm/nouveau/nouveau_connector.h
-@@ -50,6 +50,7 @@ struct nouveau_backlight {
- 	struct backlight_device *dev;
- 
- 	struct drm_edp_backlight_info edp_info;
-+	struct nouveau_encoder *encoder;
- 	bool uses_dpcd : 1;
- 
- 	int id;
-@@ -237,8 +238,12 @@ nouveau_conn_mode_clock_valid(const struct drm_display_mode *,
- #ifdef CONFIG_DRM_NOUVEAU_BACKLIGHT
- extern int nouveau_backlight_init(struct drm_connector *);
- extern void nouveau_backlight_fini(struct drm_connector *);
-+int nouveau_backlight_luminance_init(struct drm_device *dev);
-+void nouveau_backlight_destroy(struct drm_connector *connector);
- extern void nouveau_backlight_ctor(void);
- extern void nouveau_backlight_dtor(void);
-+void nouveau_backlight_set_luminance(const struct drm_connector_state *conn_state);
-+void nouveau_backlight_disable_luminance(const struct drm_connector_state *conn_state);
- #else
- static inline int
- nouveau_backlight_init(struct drm_connector *connector)
-@@ -250,6 +255,16 @@ static inline void
- nouveau_backlight_fini(struct drm_connector *connector) {
- }
- 
-+static inline int
-+nouveau_backlight_luminance_init(struct drm_device *dev)
-+{
-+	return 0;
-+}
-+
-+static inline void
-+nouveau_backlight_destroy(struct drm_connector *connector) {
-+}
-+
- static inline void
- nouveau_backlight_ctor(void) {
- }
-@@ -257,6 +272,14 @@ nouveau_backlight_ctor(void) {
- static inline void
- nouveau_backlight_dtor(void) {
- }
-+
-+static inline void
-+nouveau_backlight_set_luminance(const struct drm_connector_state *conn_state) {
-+}
-+
-+static inline void
-+nouveau_backlight_disable_luminance(const struct drm_connector_state *conn_state) {
-+}
- #endif
- 
- #endif /* __NOUVEAU_CONNECTOR_H__ */
-diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
-index 5e1336615cf6d..53bf7c2caa164 100644
---- a/drivers/gpu/drm/nouveau/nouveau_drm.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
-@@ -673,6 +673,10 @@ nouveau_drm_device_init(struct nouveau_drm *drm)
- 		ret = nouveau_display_init(dev, false, false);
- 		if (ret)
- 			goto fail_dispinit;
-+
-+		ret = nouveau_backlight_luminance_init(dev);
-+		if (ret)
-+			goto fail_backlight;
+ static const struct of_device_id ps8622_devices[] = {
+@@ -502,18 +532,28 @@ static int ps8622_probe(struct i2c_client *client)
+ 		ps8622->lane_count = ps8622->max_lane_count;
  	}
  
- 	nouveau_debugfs_init(drm);
-@@ -697,6 +701,8 @@ nouveau_drm_device_init(struct nouveau_drm *drm)
+-	if (!of_property_read_bool(dev->of_node, "use-external-pwm")) {
+-		ps8622->bl = backlight_device_register("ps8622-backlight",
+-				dev, ps8622, &ps8622_backlight_ops,
+-				NULL);
+-		if (IS_ERR(ps8622->bl)) {
+-			DRM_ERROR("failed to register backlight\n");
+-			ret = PTR_ERR(ps8622->bl);
+-			ps8622->bl = NULL;
+-			return ret;
++	ps8622->brightness = PS8622_MAX_BRIGHTNESS;
++	ps8622->internal_pwm = !of_property_read_bool(dev->of_node,
++						      "use-external-pwm");
++	if (ps8622->internal_pwm) {
++		if (IS_ENABLED(CONFIG_DRM_LUMINANCE)) {
++			ps8622->bridge.ops |= DRM_BRIDGE_OP_LUMINANCE;
++			ps8622->bridge.luminance_max = PS8622_MAX_BRIGHTNESS;
++			ps8622->bridge.luminance = ps8622->brightness;
++		} else {
++			ps8622->bl = backlight_device_register("ps8622-backlight",
++							       dev, ps8622,
++							       &ps8622_backlight_ops,
++							       NULL);
++			if (IS_ERR(ps8622->bl)) {
++				DRM_ERROR("failed to register backlight\n");
++				ret = PTR_ERR(ps8622->bl);
++				ps8622->bl = NULL;
++				return ret;
++			}
++			ps8622->bl->props.max_brightness = PS8622_MAX_BRIGHTNESS;
++			ps8622->bl->props.brightness = ps8622->brightness;
+ 		}
+-		ps8622->bl->props.max_brightness = PS8622_MAX_BRIGHTNESS;
+-		ps8622->bl->props.brightness = PS8622_MAX_BRIGHTNESS;
  	}
  
- 	return 0;
-+fail_backlight:
-+	nouveau_display_fini(dev, false, false);
- fail_dispinit:
- 	nouveau_display_destroy(dev);
- fail_dispctor:
+ 	ps8622->bridge.type = DRM_MODE_CONNECTOR_LVDS;
 
 -- 
 2.53.0
