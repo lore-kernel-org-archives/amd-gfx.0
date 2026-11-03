@@ -2,126 +2,125 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 041F9606A326
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 22:53:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1041A606A326
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 23:04:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=5MKiA0xd
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=oTZutIkR
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C32D10E156;
-	Tue,  3 Nov 2026 22:53:16 +0000 (UTC)
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012033.outbound.protection.outlook.com [40.107.209.33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF33A10E156
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Nov 2026 22:53:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A147C10F90F;
+	Tue,  3 Nov 2026 23:04:19 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013043.outbound.protection.outlook.com
+ [40.107.201.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3E9110F90F
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Nov 2026 23:04:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KtJu2UpXyqjxIGWJzGSphOXlJrGQgDp9RIUf3X+FjviYEyIjHFfHjRFZrCa+1COfXu6TSqUM0M+ovVvWQ550jxId4CxxMshH2drDUhLBzxXEuk4vGVolQlX5JyYO+U/nuI7zDn/ZjqeZfp042QvRmifQgAIZ7x5U6seqrKvsA7Xc1hhMXaKIRkjCJLUKVibaK4nICNSW/ESWrFz97mmJqdfOCeajtHLQZy1RYolkO/5Dv5qmXTlKRkZTrastEQHu6PyMHoCKgNHUezUtW7lrIat08CmlBoCR+N10bLBUEWSUR47pB65SV18xcVdKN542az8zrhgX3EDNmBdRoA/WJw==
+ b=BMOHIjCqaM2nehKrcD5Y0tbF/ZtGWGpdFXTeL0DMTo0mi23zAcfPQIJQC747/retyXMBsmlFTV1wBiZ3z/8EsmFkSB/RpzE/ygATAioz97anUhHsIfW/GOlKhzfEWsVE6wrXXF7tf99PnKpRIJBSE/Hp7pQvIXecGHObfaeySP1IjBwZAfjDVcFtyMGFKaKcPYYDC1mwP8TgxJ3bViTv2T2yxyPvfbvm+JSz68lahJPWR9HfPMFComGujCsUUZwxW2R97MgUSbktrt+oYl/ELQ1O30guNnBsdZl3tIzBkc4brLGO4T8PjFAtSedBVGnnxWeIj/wPQOPEesVly61vbQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fs1GUtT169jsdprvHdAoxrPJAumCEaw/7HV/IQKa12g=;
- b=tJJjvbQocZ2w/BHf2vTRSbvm0EvKtHLc4GqbuiFX1xyNKqs/RcTdcJRgN6nkELCNJ7HPi5EPWmfVIU2kPLzRa4MgBFAooj3Q7NwbvLZF1R+STdMDg46vjGjKOp8RtiFghItZpIDVPO/Rs8XD4z0m765fie/VpjyScOri4AgH4H7KwV6SHQRHiGwMgyzfQwD7FOHQGb/v4XR9kjlBCZdKkEcW8HYejh+lhp0+y+drMqHj/NQHm+QgSO5kXSYD8U+GzbaHS8e+XMSKHji+xY1OXpg2R0ynrD2jpEMC2mI7QOvG7S6+KxymOZ5C9xMS3SO0Mn/urv6HtYgEkzoZlldfqA==
+ bh=d2xAXvrE1NRjmo0R1Ojpyt3BEvq32/ZlGqkCQ44lnXc=;
+ b=f61c3+91Hn0eIORFZCsypUbsN31aELbI+JV5QvkJw1JKxFVHhwEOpj1xD5RYtuG/wGuVce9AJxZVmEzmngzQiaPePtALpIWc8x9dXFyXCEOS/LeS7HVlUD+OODV12WupqtiDJCM1TaQbK1FPCA4kAsZCo2OLxKE647XHD7LVeR++apjzwigB2kgqV1YzBLXq6QvV1poQfluaO5h8cYp0imOg208qW8h8tSaBgL8ah3Eqxy1s1thlgdhE46MtDsqNdEexm2x/7wyQAEAiXf3t5K8qOf6Rj5L8v4TUINm5YSQVNmTqxmykEpuGSbAKw/ODGk+zS7CVF9PIR6jT8Sxe7w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fs1GUtT169jsdprvHdAoxrPJAumCEaw/7HV/IQKa12g=;
- b=5MKiA0xdnIjwd16IqJp9ZyL9R0fYWk0HVWz8f3CiDO4pTue9935rQq4jQzVON/UBWrRgJmUs9mV2IODgFA3+myz6uT2yV9Rwzti1k8OwbfRxsOwSWorP5gmiXjjes1QF8AlMYVU0SBRrErRIjFHjBc1gXvCDBnJAGg58n0wX8ZY=
+ bh=d2xAXvrE1NRjmo0R1Ojpyt3BEvq32/ZlGqkCQ44lnXc=;
+ b=oTZutIkRVdpMonEEducG2VoQTTHIddHqtkiAWr2gn+xKSDvBn6vPCsme2fTees+1kYK3mWMJCfb1aLV05+ppMjHY6SNYmYmFV1PDA4pSE0KVzAqOsWRs8+baycyPMDG0fgsIVZACv6j1xJ77k4B+KSy3+4UjB2wQG5QiuAdo9Fs=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::607) by SJ0PR12MB5611.namprd12.prod.outlook.com
- (2603:10b6:a03:426::17) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:40f:fc02::607) by BN7PPF9507C739C.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::6da) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
- 2026 22:51:02 +0000
+ 2026 23:04:09 +0000
 Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
  ([fe80::67a7:9feb:71ef:964a]) by BN7PPF5F16C5C9C.namprd12.prod.outlook.com
  ([fe80::67a7:9feb:71ef:964a%8]) with mapi id 15.21.0592.007; Tue, 3 Nov 2026
- 22:51:01 +0000
-Message-ID: <a153ce69-60df-4da4-9535-0ec06f89ecb6@amd.com>
-Date: Tue, 3 Nov 2026 17:51:00 -0500
+ 23:04:08 +0000
+Message-ID: <9ad054c5-3540-4c8e-81db-b29989790b71@amd.com>
+Date: Tue, 3 Nov 2026 18:04:06 -0500
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCHv3 2/8] drm/amdgpu: Support VMID 0 GPUVA completion WB
- address for UALink
-To: Philip Yang <yangp@amd.com>, Mukul Joshi <mukul.joshi@amd.com>,
- amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCHv3 4/8] drm/amdgpu: Attribute UALink loopback messages to
+ the correct sender
+To: Mukul Joshi <mukul.joshi@amd.com>, amd-gfx@lists.freedesktop.org
 Cc: Harish.Kasiviswanathan@amd.com, philip.yang@amd.com
 References: <20261102160125.2743750-1-mukul.joshi@amd.com>
- <20261102160125.2743750-3-mukul.joshi@amd.com>
- <125be237-9e6c-4690-9151-dbb535249f93@amd.com>
+ <20261102160125.2743750-5-mukul.joshi@amd.com>
 Content-Language: en-US
 From: Felix Kuehling <felix.kuehling@amd.com>
 Organization: AMD Inc.
-In-Reply-To: <125be237-9e6c-4690-9151-dbb535249f93@amd.com>
+In-Reply-To: <20261102160125.2743750-5-mukul.joshi@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4PR01CA0107.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:d7::16) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT4PR01CA0427.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:10b::18) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
  (2603:10b6:40f:fc02::607)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PPF5F16C5C9C:EE_|SJ0PR12MB5611:EE_
-X-MS-Office365-Filtering-Correlation-Id: 57f14c87-f7a8-48fc-0788-08df39fcef1f
+X-MS-TrafficTypeDiagnostic: BN7PPF5F16C5C9C:EE_|BN7PPF9507C739C:EE_
+X-MS-Office365-Filtering-Correlation-Id: a512467d-b755-4fc5-4226-08df39fec421
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|23010399003|376014|3023799007|10067099003|18002099003|6133799003|22082099003|261102123227099003|56012099006|261022105027099003|4143699003|11063799006|5023799004|261028144727099003|261021121427099003|261021123027099003|261026121527099003|261009223027099003|261026140227099003|261102130727099003;
-X-Microsoft-Antispam-Message-Info: cij+YDw/xojPaY7b7B1iJebOWabnRGctJs9rVASjBs9mUEFIbRg3y3ZZsBE+B8mlHfd7VvpjxxMZqzhXCePpg5CXpyazzc2b4T8blan4SPzEE9ckfsBhWH9pf0q0l1vS0eWHv+27OOXuPVxCwAWjR+RtRUKahuDzOelKOHlPXo9VCSrTAjpsB4UbJpFOZqDTb2k3LOLTW2Vkeq/uV3/yb7JLvmEYrYf28jrBqKyPZKmqzgg6NlsyTJZfb7Pa8/2ofBUY/UIS8Iv7U5/pLwNfpWbJyrpabtNJ415zkIlfuAuRczmp1TQ8RBbkro2SsJaaqsmBpC/icy5VzeBkeZ8U1LNjFKGgkcy+avUmUbw5DIDvJhB9NrthPGL641HuzwA/KVmIjeNMx9tEVRljVmZPTyyq4E+ACVWxVeW84/Q60FdgtdpWhjqWl5izVd0OZ7XCJiSUzbWJC+F8hfa666NXgUGBAEZNrb8jy2jThdXDf6hfKeb2uvPJKSsTIk3v1XQUPL+CkmHet+0kWGnE4akFWucs5LdRQmVqWibBlZbvPNJIoXd06+/0t6eHUQ2EOM9iHQfw74e+HRvFU3Ibz65T1gHCly+3IyoSb7l1eCVg+0QaRrFACu0qZAif/zzFZrfTHeXdx4ZXI8gyp1xPjmyoVElgE5myXHKXNiCndlVCxG4=
+ ARA:13230040|366016|1800799024|23010399003|376014|261021123027099003|4143699003|11063799006|56012099006|261009223027099003|261022075727099003|261021121427099003|261026121527099003|10067099003|18002099003|22082099003|261102123227099003|261102130727099003;
+X-Microsoft-Antispam-Message-Info: fN2SzC7UjS4vCask+YjlRIDOppE1fGnggJOEzSZjIwOi4BbKD9V614FVKcFXW2DkKnxXgMUhnlYjm9fRi3Nu82rHtp/CFlm6CQZN9rnQhgL8QjfTe/Q8bSBYT1jGz48Ona2t6yUPc3hS1tnmZOR73361BWU1VBAxMHfZs4h0KEB7pmyZfO9CajvQ86CPHOdASamIvpaXq6cbXZhTzjD6yTHJk9dFsB9IfQMgnUnW+Psn3No4ob1145NxLOcUDfd2DQIoj4/Ut6jdSr3BUkTrUjLsfAQG0ZiDfl9VYae6YAA/dC7U8htKJeiRt7P9EUgEZ/bJrV788L4eWXkYWv3s//G4jH9YSDzguGklKie7/UKHlmx2GXv69ictbJUSIIFoPj1ltByz2S81Rli2WTxUVcu9qbHt4tSUgzfGMlFyAptaI2k7JJYg+u3by7A3zQ7I759PseJr1CKmJiDajdcv3J/Ua5ijHxrhgjP86jSx/ghKm8H9onslEatj7wLomzCwU174wnA6cB8D6G3MFrnok8/No3QZK1CVzCdHugvVWMBlGSBNXuewHvyHj7vecg6fEpmj3NRy4WMbd5H+qhj5Txfms/zihtglaPnXnjRkP80UCGqE82cqs8WlJyFy++CXR+9E8BUMGOMsNous0m7jDDPUKn2QKietRqILl8zOHZs=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN7PPF5F16C5C9C.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(3023799007)(10067099003)(18002099003)(6133799003)(22082099003)(261102123227099003)(56012099006)(261022105027099003)(4143699003)(11063799006)(5023799004)(261028144727099003)(261021121427099003)(261021123027099003)(261026121527099003)(261009223027099003)(261026140227099003)(261102130727099003);
+ SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(261021123027099003)(4143699003)(11063799006)(56012099006)(261009223027099003)(261022075727099003)(261021121427099003)(261026121527099003)(10067099003)(18002099003)(22082099003)(261102123227099003)(261102130727099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R0REZWhjYmVXaHBRaGs2ZkU3V2I5ajBwbmZBYXhHRFpiV3FadGFPQ0Y5SHFD?=
- =?utf-8?B?VkVOaVpOL1ZTQTNMNzhpVDJBeWxlc2t6QmdSTDhZU1AwZDcrNlk4cE9mL3Rq?=
- =?utf-8?B?RFdzbDNzL0RkeXlSZktNTFgrZ3Bna0JBTm5qOGU2RVQxdWk1ckpNK2NscnN3?=
- =?utf-8?B?Q0ZsR05hSkcxL2tRY2JpQmNCZ2pUbmdNL1NqejlCelQ0cDlsMnk3TnI0UFNZ?=
- =?utf-8?B?aXM5N1BFR1hBcVVFY3NhQWhKcGNuMWRHVlZKT2ppeHdpeHpKT04xTDZkRHll?=
- =?utf-8?B?dGpDUmtMWVZJc3F3bEJKblZvNnd6YkRBbzlPNnVDZW1yRjJCc1JiZnQ5VzFR?=
- =?utf-8?B?YmwzRDdyS3lvamtjOEM3VXdHMDFRWVppQWNEZWFscHRpTWZSZUI4STBiZDAv?=
- =?utf-8?B?RCtjYUhIQWVCREtneDZpMG1YR1VITjJKdFYvYlZkWFRCRDREREFKNld2VTN4?=
- =?utf-8?B?WHBpUk9FVnNqVXR3Q29uL1FaY1R5dnliN21LY0xRQ3IwZjJxSmM4RkFsTmJM?=
- =?utf-8?B?dUZVYncrYkI2QXE3a1QvKytQMDZjSUZKdnJONkRyeWJ1aVEyekVhck85ZzlP?=
- =?utf-8?B?UVFpYmxlYlhtMU9HdU1QdUgwa2gxNHJOMm5yRS90NWxkSm8zOG4razFHdk1Z?=
- =?utf-8?B?bzVpYkpKS1dnTW84UHpMSjNoQ3h3QTRESE1Lay85NXJISHpYdXEyVjVoaXpN?=
- =?utf-8?B?WXM3UzBFTFZCMUFVNDBYOTIvRWlWYkI5cXhYazlIUW41bG9QZXBWUndZQnQ0?=
- =?utf-8?B?bEZRT21oN0tRbzV3TTllcnh4QS9WdGU4Wk9HM0V3eUE2aDlrMzZ3SG9JR0JG?=
- =?utf-8?B?VmVYQjdUaWpWaXlWRmJ2SnBYblpNWFV5eW9RVWxkRVd4RHBNeEpRaFIzN1cv?=
- =?utf-8?B?dEluelNSODhuOE5zb3gvODZWb1VpSGdSQkNFSlYxcXVDb3VjOFlDNGI1REto?=
- =?utf-8?B?UkJ5UlFXeUdJendHYkhrNnJWZzd3M1l6bXlKVnNLYTVZTHpjY09yMklTL01h?=
- =?utf-8?B?WGdHbTNIZXM1R0k4SGlBcFRKQnJoVEY0azZIVlkzU0VuUVJXVE8zQmRoM0ta?=
- =?utf-8?B?UjZTbW9lTG4zMmhXd09hVHBVMzRMNVovazFycTBGVG9KS0FFaHZvNVEvWC95?=
- =?utf-8?B?bzVhaVV2Z2tuVmpsOXZ2eTJQVFR1YkNSUTl0eU9qeElvendNc3lkZmNsQ3JR?=
- =?utf-8?B?TFMzbmsxZ0gvcmxNT2FTbHI1T3FOS1pCOE1pd1V0RFBDTkh2QitWWW1UK3NM?=
- =?utf-8?B?L1lGTzd0T2k3dDNXRVhTNTB0TDZwcEVJaXRubDdYK1lwdTdsdjVkaEdwN0xC?=
- =?utf-8?B?MVZkdnBtSGJwb1pVQlZldnQwUkRVZVI5MW5lSTZubE42c2Z4ZGxsWVBlTkRB?=
- =?utf-8?B?ZEhVSkNaMkhwaUt6RG9YOFp0bmUwUCswT1o1UlBKMGFyZDlqQWlvNFZETkll?=
- =?utf-8?B?WW0yTUxoSFRuMk1rT1IrZUNMbzhlUFhpSk1VM0Q3NzNlY2t0SkhTQzhDckdK?=
- =?utf-8?B?Y1Jua3Bmbk5EVHo2TDR1S3ZHTWNGK2hIUmsxYnBBd2MrYXBiNWZBdHFGUHFN?=
- =?utf-8?B?WWNMVkU4SW5qWWlXK1NBYklWZU5kM2NtQnU2VG5iTWRDZTlCQ0FpV1JyTjZt?=
- =?utf-8?B?OGVpMklaT0tzN3F0QVZsdTFmQUYwVmxyTVpXcDl2cnNETTh3ZUtnalAvcHNx?=
- =?utf-8?B?RUdUR3J1QTRLMGVOYXd4akhyYlluczFRSnNYZ3dHZzF5KzMxRHljbTg2R0Jq?=
- =?utf-8?B?aS9oUlU1SjVvUWZsbzJnSGhIUFlhUGhHNkk2VlhPMmF6T3dNOFNBWVg4Uk55?=
- =?utf-8?B?eDNxSDJtOFBkNHZXQjNqckRvMjNFdmF6eS9UZUJCenpzWEhEaTFualZqOU5k?=
- =?utf-8?B?dWRaZVk4TWNDL0tDYUVqRTJyekFqSUNGL3graGtlMjQyaW5wYjlHQTUxSEc1?=
- =?utf-8?B?ZlgzcXlPa29yTDRvaERFdklWMkpFRzB5S2VnNWE1a080cXZVLzVGNEV0QnRS?=
- =?utf-8?B?Y2RTMlFId2l6Y3ZHYmQ1aTFVMWRMd0t2NlpHM3lxQU1yWStsemFmTEVxamo0?=
- =?utf-8?B?MXh4ZERoRXkyUCtpazBRdjYrT2w0czdYWm12MkxUczZuLzVJNFpQY0s1QS9a?=
- =?utf-8?B?b0R0S1JKR2ZSNFBDM0ZKbnVTbkxZd2xHVWZLYXpGeVM3WWhqdlJlektKMUxi?=
- =?utf-8?B?Wjhva3R3MWt2ZmlNaFdGZEpDUTJ6S3l4WUpmL2N4ajZvcE1wVk5oNk9jeDY4?=
- =?utf-8?B?MXJkSmFudi80enVJYjBVMzJnbnNWc0MwNlppTERmVnpsZGZmb1hlbXcxb3M0?=
- =?utf-8?B?c3A0dmtnY05pUWZZMGpKR0NoWkxwU29LUStocHpwQlFSdDFsY3dlQT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eFNnOEY2L09BZ3RvVlhqdUo1dCtOWWFoM0JUMzR2TnV2ZFpOV0lqbTdDajV2?=
+ =?utf-8?B?a1lKcDN1RXljRlRxcTRCMWRnWk9TdkRpdmJTZXNucWRITVZON3Y1cFZnTHV3?=
+ =?utf-8?B?WDdoNU1OMWZZbVh1MXJ0V05XTTBnWHE1NUJlR1JUd0hpazdDd0hScUpPWHZ3?=
+ =?utf-8?B?cjF1SVBvQ0tDNDh6UytzVmtMMmUva0JOTEdnelVvNUYvSnpVa3FVQVBkNlBH?=
+ =?utf-8?B?ZDY4clFHQlBHa05VSXZNemZOL1N2SmtSWGFDTEtiMFU3aUJyL2g4bVZYdWNo?=
+ =?utf-8?B?T2ZLME5XT3d6cGVQbXoweVdVbXhvVkh5aWg3SW5sTmtKVFZaM3paczh5UG1I?=
+ =?utf-8?B?QVlYWUMvUWFnRmVmMEtEZUFFTm5VWDFQZ2xTdDl3em9TZXZIaUVhaVRCbllF?=
+ =?utf-8?B?Y1lveEI3THJ1RnM0NnBxL2hacmwwQmpLejhZKzFIS3NjWEJXUEViMHZPMG9Y?=
+ =?utf-8?B?alI3WStGNWk5NldDMitiVTVpQ2R0c3RTek0zMDZGWHhBMExRdDRiUWVRWDY1?=
+ =?utf-8?B?TkR5Y3RvV014d21DZ3MrSlRXOGVDWFJZVXVVMlRselFnTjBObG1NRXRwUDJh?=
+ =?utf-8?B?K2VLUGdybktoV3Ircnh1VWFFU1VMd3FkQjBaVDh1VTNOejJ5Y2gyS0pQelR6?=
+ =?utf-8?B?RzFqb3liNGpraWcwamROeU9CbmlvUWVuOGZuUFByajZSRUtFK01XWlRSY0ND?=
+ =?utf-8?B?aEZsRnh2NFdvNkFEc0dZZGxkNmw0V3hLdGhCREtEVFhaZ0ltaFZYaHRURTlU?=
+ =?utf-8?B?Ym5kQ0czQTNYRTZPV2VuT3IzdHZiT0R4WjNSUkhQdUVlVjcwbVI0b1RWVVND?=
+ =?utf-8?B?RVdSOHVEOXE5MDA2Si9MSnJQSkpnVzc4K2NjQnVCTEdhbVRSMU1FN2pyRmFQ?=
+ =?utf-8?B?NHoybGRxUlN2VVNKOTYrMFZmWHY4NDJCLzV2UFdHbFU5aVdxemtBRVd0YXQv?=
+ =?utf-8?B?cUgrYVFqUmVqQWNudjRXRlU0aXdiZW45R0xCMWtXcW53M3lSOVZIUnF4TU00?=
+ =?utf-8?B?MjY5bDZpeXdTVjhmekNabUVZUWw0aFYxdVJUVWlIVWpKcmt2V3lLcjNlN3Zw?=
+ =?utf-8?B?eTl1RTJVVzFtVVdGYk90c0gwbG9YWktjbFQya0FBZGdYWWc5USt3OGNOTWt2?=
+ =?utf-8?B?ZERkaVYrOVJlNkVHeGQ3WUthcitybXl0YWVQU0M0WjdwRjdHRFc2cCtwbDRx?=
+ =?utf-8?B?R2R3T29QY1picVBBTjBSQjZtMWd3WVVCY0tFUy9Ud2NDNmd3M0YwbS95Z2Qw?=
+ =?utf-8?B?Z2RXUjZObml6MWp4eDF2T2loVWtwNjJ3bXV6TU5tek1GemlMUTNlVUlzL2ZB?=
+ =?utf-8?B?REZDa1JSY1JqWXhaa1VMMUNpcnFJTStXZzE0MVNLWitPeUNQKzJXUnRTZ0dN?=
+ =?utf-8?B?MTFwSklYUS9USXFEVGluQnJVYUdETE1GN3M4ejRhNzY1amtLdjcrWVlxcmw4?=
+ =?utf-8?B?OHFzUXVpbnJQczVaWG5LUnNJWk1YTTEvNUFHWG9SRUk4aXk3RDUyRDVLb3RR?=
+ =?utf-8?B?K1VIY3ovQ1RENGxsamQxeHZTK1c1RFJEVHBzM1c5SmlJMm5nQ0gzSEhQNDZz?=
+ =?utf-8?B?R0RVL04xNFB4elFMZDArbWpEbXhHbnVkMTBhUy9nRDdURm1RbmdrUDFBUnhC?=
+ =?utf-8?B?NlpoVXdTZ2FhWFEyZFAzOVo5ejJqeVZGeCs4ZC9JaEhuRlluTEIwTDRJQVlT?=
+ =?utf-8?B?WVNrYXFtK3AwL1F1WE1POU9BbjhlMTYwZmZjODVKS3JmbUZrQzhyRzQranJU?=
+ =?utf-8?B?ampuajdmUGZPQVlmaGJNR0NuY0QrTzIvZDUrK0xLU3BQQSt5T216WWtpUmpx?=
+ =?utf-8?B?RVVhV3F2bVdyMG52cWRITkp5MlhjN3V0RnpyU2FPQ0ZxbktPdi94b052TnlE?=
+ =?utf-8?B?UWovTVBMNGR6bU9QRHF1d3hBc09hT1hYRll0MFN2a0pXaFdsa2oxczlqRkZ1?=
+ =?utf-8?B?SDdSUW5DS2svRnBTeThHUUsvODhjbnJ0QTg1OHZDNmZaSWdLbFBGWnphYnlp?=
+ =?utf-8?B?ZmhrV2p5Zi9rSE5RTmV6dW9DTFdBQ3VDMjU2L2FGQVUyZjR6dVlENksrQ1VE?=
+ =?utf-8?B?UHlHS09qMzZkWTZ3ZmFiNFRpUXpHRDJOakxsblA3OTBTOTdPM3ozbjhZb1JF?=
+ =?utf-8?B?Y2pwTHJaenY4M1NHb0x0NmJHU1VRTlZ4eWpzNXptdENlT0hUYXEzR2VrckdR?=
+ =?utf-8?B?bG9RbjRiK3F6dm4vSW9OUG5MTU40SE9SeTNJSGJBWmZhblNwd2d5TWNWN0F2?=
+ =?utf-8?B?UDUzbVRyQ05MVm1MbG0xQ0V6VVFpQ25idk5vcDBJMmdYWlA0MUNJcmdOT3BW?=
+ =?utf-8?B?Q3pZdC81bEtvUFNyaFZLVjZNUDE3YmtlZnBiVnlaSm1kUWViSHU3QT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 57f14c87-f7a8-48fc-0788-08df39fcef1f
+X-MS-Exchange-CrossTenant-Network-Message-Id: a512467d-b755-4fc5-4226-08df39fec421
 X-MS-Exchange-CrossTenant-AuthSource: BN7PPF5F16C5C9C.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 22:51:01.8206 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 23:04:08.5950 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vXwQwTSd5+T9RaJg/XdvrxxoCKByzqk/ZFxVpHisg6psJ2o4kQvYnpy346XF5Cpa6QNo19jdIm4mSlsbceIfYA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5611
+X-MS-Exchange-CrossTenant-UserPrincipalName: GpePU1kqejgSUHCCvNtXmW+2Pj6uGKS7HBqyohucYfeyjGN+td7D7oA8y691IfNbbTdQCpCtOXRUnA5FaN1Bvg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPF9507C739C
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,174 +139,89 @@ X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-
-On 2026-11-03 17:07, Philip Yang wrote:
+On 2026-11-02 10:47, Mukul Joshi wrote:
+> In UALink loopback mode a single GPU acts as both the exporter and the
+> importer, so the sender accel ID of a message depends on its direction.
 >
+> - Send HELLO as the opposite role of the destination: a message to the
+>    exporter is sent as the importer and vice versa. Outside loopback
+>    this is still the GPU's own accel ID.
 >
-> On 2026-11-02 10:47, Mukul Joshi wrote:
->> The UPDATE_WB_ADDR remote command hands the MP nHT FW the address it
->> writes command completions back to. So far that has always been an NPA.
->>
->> The FW can also take a VMID 0 GPUVA, selected by setting DW4 of the
->> command to 1. Return the VMID 0 GPUVA of the writeback slot from
->> amdgpu_ualink_get_wb_addr() alongside the NPA, and use it in
->> UALink loopback mode. There the HW only carries importer -> exporter
->> traffic, so the FW cannot write the completion back over NPA.
->>
->> Outside loopback the NPA is still used and DW4 stays 0.
->>
->> Signed-off-by: Mukul Joshi<mukul.joshi@amd.com>
->> Reviewed-by: Felix Kuehling<felix.kuehling@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 48 +++++++++++++++-------
->>   1 file changed, 34 insertions(+), 14 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
->> index a98d5bbf0622..29a787979af2 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
->> @@ -5652,9 +5652,9 @@ static void amdgpu_ualink_emit_update_wb_addr(u32 **cpu_addr_p, u32 wb_data,
->>   
->>   	*cpu_addr++ = cmd;
->>   	*cpu_addr++ = wb_data;
->> -	*cpu_addr++ = dw1 & 0xFFFFFFFC;	/* lower32 wb_npa */
->> -	*cpu_addr++ = dw0 & 0xFFFFF;	/* upper32 wb_npa */
->> -	*cpu_addr++ = 0;
->> +	*cpu_addr++ = dw1 & 0xFFFFFFFC;	/* lower32 wb address */
->> +	*cpu_addr++ = dw0 & 0xFFFFF;	/* upper32 wb address */
->> +	*cpu_addr++ = dw2;		/* 1: wb address is VMID 0 GPUVA, 0: NPA */
-> dw0 and dw1 shouldn't have changed — I don't see any difference. Am I 
-> missing something?
-
-The comment changed. The address may now be an NPA address or a VMID 
-GPUVA. Thus the comment shouldn't say that it's an NPA.
-
-
->>   	*cpu_addr++ = 0;
->>   	*cpu_addr++ = 0; /* metadata */
->>   	*cpu_addr++ = 0; /* metadata */
->> @@ -5868,7 +5868,7 @@ static int amdgpu_ualink_send_command(struct amdgpu_device *adev,
->>   static void amdgpu_ualink_get_wb_addr(struct amdgpu_device *adev,
->>   				      u32 remote_accel_id,
->>   				      struct amdgpu_ualink_wb **wb_cpu,
->> -				      u64 *wb_npa, u32 type)
->> +				      u64 *wb_npa, u64 *wb_gpu, u32 type)
->>   {
-> Since wb_npa and wb_gpu are mutually exclusive, this function returns 
-> one or the other, never both. I'd prefer to keep the interface as is 
-> and check whether loopback is enabled inside it, returning the 
-> corresponding wb address.
->>   	struct amdgpu_ualink_remote *remote = to_remote(adev);
->>   	/* The GPUID encoded in the write-back NPA address is the routing target
->> @@ -5881,15 +5881,17 @@ static void amdgpu_ualink_get_wb_addr(struct amdgpu_device *adev,
->>   	u32 accel_id = ualink_exp_accel_id(adev);
->>   	u32 rb_size = AMDGPU_GPU_PAGE_ALIGN(2 * AMDGPU_UALINK_RB_SIZE);
->>   	uintptr_t wb;
->> -	u64 npa;
->> +	u64 gpu, npa;
->>   	u32 offset = 0;
->>   
->>   	if (ualink_addr_mode(adev) == AMDGPU_UALINK_ADDR_MODE_SOURCE_IDENT) {
->>   		wb = (uintptr_t)remote->rb_cpu_addr + rb_size * remote->num_accel;
->> +		gpu = remote->rb_gpu_addr + rb_size * remote->num_accel;
->>   		npa = amdgpu_ualink_npa_addr(adev, RB_TYPE_TAILPTR,
->>   					     remote_accel_id, accel_id);
->>   	} else {
->>   		wb = (uintptr_t)remote->rptr_cpu_addr;
->> +		gpu = remote->rptr_gpu_addr;
->>   		npa = remote->rptr_npa;
->>   		npa |= (u64)accel_id << AMDGPU_UALINK_GART_NPA_ADDR_GPUID_SHIFT;
->>   	}
->> @@ -5902,9 +5904,11 @@ static void amdgpu_ualink_get_wb_addr(struct amdgpu_device *adev,
->>   	*wb_cpu = (struct amdgpu_ualink_wb *)(wb + offset);
->>   	if (wb_npa)
->>   		*wb_npa = npa + offset;
-> *wb_npa = adev->ualink.loopback.enabled ? gpu : npa + offset;
->> +	if (wb_gpu)
->> +		*wb_gpu = gpu + offset;
->>   
->> -	dev_dbg(adev->dev, "source %d remote %d wb npa 0x%llx\n", accel_id,
->> -		remote_accel_id, npa + offset);
->> +	dev_dbg(adev->dev, "source %d remote %d wb npa 0x%llx gpu 0x%llx\n", accel_id,
->> +		remote_accel_id, npa + offset, gpu + offset);
->>   }
->>   
->>   struct amdgpu_ualink_wptr_fence_cb {
->> @@ -6068,9 +6072,9 @@ static int amdgpu_ualink_ring_resync_ptrs(struct amdgpu_device *adev,
->>   		ualink_exp_accel_id(adev), peer->interrupt.wptr, peer->shootdown.wptr,
->>   		remote_accel_id, int_wptr, tlb_wptr);
->>   
->> -	amdgpu_ualink_get_wb_addr(adev, remote_accel_id, &int_wb, NULL,
->> +	amdgpu_ualink_get_wb_addr(adev, remote_accel_id, &int_wb, NULL, NULL,
->>   				  RB_TYPE_REMOTE_INTERRUPT);
->> -	amdgpu_ualink_get_wb_addr(adev, remote_accel_id, &tlb_wb, NULL,
->> +	amdgpu_ualink_get_wb_addr(adev, remote_accel_id, &tlb_wb, NULL, NULL,
->>   				  RB_TYPE_TLB_INV);
->>   
->>   	peer->interrupt.wptr = int_wptr;
->> @@ -6104,7 +6108,8 @@ static int amdgpu_ualink_update_wb_address(struct amdgpu_device *adev,
->>   	struct amdgpu_ualink_peer *peer;
->>   	struct amdgpu_ualink_ring *ring;
->>   	struct amdgpu_ualink_wb *wb_cpu;
->> -	u64 wb_npa;
->> +	u64 wb_npa, wb_gpu, wb_addr;
->> +	u32 wb_vmid0;
->>   	int r;
->>   
->>   	peer = &remote->peer[remote_accel_id];
->> @@ -6116,13 +6121,28 @@ static int amdgpu_ualink_update_wb_address(struct amdgpu_device *adev,
->>   		return -EINVAL;
->>   
->>   	amdgpu_ualink_get_wb_addr(adev, remote_accel_id, &wb_cpu, &wb_npa,
->> -				  ring_type);
->> +				  &wb_gpu, ring_type);
->> +
->> +	/* UALink loopback: HW only carries importer -> exporter traffic, so the
->> +	 * MPNHT FW cannot write the completion back over NPA. Hand it the VMID 0
->> +	 * GPUVA of the writeback instead and flag it in DW4 of the command.
->> +	 */
->> +	if (adev->ualink.loopback.enabled) {
->> +		wb_addr = wb_gpu;
->> +		wb_vmid0 = 1;
->> +	} else {
->> +		wb_addr = wb_npa;
->> +		wb_vmid0 = 0;
->> +	}
->> +
-> then wb_vmid0, wb_gpu and wb_addr aren't needed here.
-
-We still need to tell MP nHT what type of address we are providing. I 
-guess you could just replace wb_vmid0 below with 
-adev->ualink.loopback.enabled. But that makes the code harder to read 
-and maintain because you have conditions or assumptions about the 
-address type in both amdgpu_ualink_update_wb_address and 
-amdgpu_ualink_get_wb_addr. If they get out of sync, things break. I 
-prefer the explicit version that Mukul wrote, where 
-amdgpu_ualink_get_wb_addr returns both addresses, and the choice of 
-which one to use is made in only one place.
-
-Regards,
-   Felix
-
-
+> - The MP nHT stamps the IH cookie of every HW-delivered message with
+>    the GPU ID of the single physical station, the exporter. The only HW
+>    path is importer -> exporter, so attribute these messages to the
+>    importer. SW-emulated exporter -> importer messages carry no IH ring
+>    and already name the exporter as the sender.
 >
->> +	dev_dbg(adev->dev, "remote %u ring type %u wb %s 0x%llx\n",
->> +		remote_accel_id, ring_type, wb_vmid0 ? "gpuva" : "npa", wb_addr);
->>   
->>   	r = amdgpu_ualink_send_command(adev, remote_accel_id, ring, wb_cpu,
->>   				       amdgpu_ualink_emit_update_wb_addr,
->> -				       upper_32_bits(wb_npa),
->> -				       lower_32_bits(wb_npa),
->> -				       0, 0);
->> +				       upper_32_bits(wb_addr),
->> +				       lower_32_bits(wb_addr),
->> +				       wb_vmid0, 0);
+> Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
+> Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 32 +++++++++++++++++++++-
+>   1 file changed, 31 insertions(+), 1 deletion(-)
 >
->                       adev->ualink.loopback.enabled, 0);
->
-> Regards,
-> Philip
->>   	if (!r) {
->>   		ring->wb_cpu = wb_cpu;
->>   		ring->ready = true;
->
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+> index ef133c60bb9a..8558dc1a9e84 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+> @@ -1091,6 +1091,23 @@ static inline u32 ualink_imp_accel_id(struct amdgpu_device *adev)
+>   	return adev->ualink.info->ppod.accel_id;
+>   }
+>   
+> +/*
+> + * amdgpu_ualink_local_sender_accel_id - sender accel_id for an outgoing message
+> + *
+> + * Normally a GPU sends messages as its own (single) accelerator. In loopback
+> + * mode the same GPU plays both roles, so the sender identity depends on the
+> + * destination: a message to the exporter is sent as the importer and vice
+> + * versa. Outside loopback both roles collapse to the GPU's own accel_id.
+> + */
+> +static u32 amdgpu_ualink_local_sender_accel_id(struct amdgpu_device *adev,
+> +					       u32 remote_acc_id)
+> +{
+> +	if (remote_acc_id == ualink_exp_accel_id(adev))
+> +		return ualink_imp_accel_id(adev);
+> +
+> +	return ualink_exp_accel_id(adev);
+> +}
+> +
+>   static bool amdgpu_ualink_is_local_accel(struct amdgpu_device *adev,
+>   					 u32 accel_id)
+>   {
+> @@ -2249,7 +2266,10 @@ static int amdgpu_ualink_send_hello_msg(struct amdgpu_device *adev,
+>   
+>   	dw0 = AMDGPU_UALINK_HELLO_MSG;
+>   	dw0 |= (remote_acc_id << AMDGPU_UALINK_HELLO_MSG_RECV_ACCID_SHIFT);
+> -	dw0 |= (adev->ualink.info->ppod.accel_id <<
+> +	/* In loopback the sender is the opposite role of the destination, so
+> +	 * the exporter side tracks the connection under the importer accel_id.
+> +	 */
+> +	dw0 |= (amdgpu_ualink_local_sender_accel_id(adev, remote_acc_id) <<
+>   		AMDGPU_UALINK_HELLO_MSG_SENDER_ACCID_SHIFT);
+>   
+>   	dev_dbg(adev->dev, "SEND HELLO: HELLO message to remote AccId:%u\n",
+> @@ -6567,6 +6587,16 @@ static int amdgpu_ualink_process_irq(struct amdgpu_device *adev,
+>   		return handled;
+>   	}
+>   
+> +	/* UALink loopback: the MP nHT stamps every HW-delivered message with
+> +	 * the GPU ID of the single physical station, the exporter. The only
+> +	 * HW path is importer -> exporter, so the real sender is the importer.
+> +	 * SW-emulated exporter -> importer messages carry no IH ring and
+> +	 * already name the exporter as sender.
+> +	 */
+> +	if (adev->ualink.loopback.enabled && entry->ih &&
+> +	    src_acc_id == ualink_exp_accel_id(adev))
+> +		src_acc_id = ualink_imp_accel_id(adev);
+
+Small nit-pick: The last part of the condition is redundant. If the 
+src_acc_id is not the exporter ID then it's the importer ID. So in the 
+worst case you overwrite it with the same value. So I'd drop that part 
+of the condition. Still
+
+Reviewed-by: Felix Kuehling <feilx.kuehling@amd.com>
+
+
+> +
+>   	msg_type = dw0 & AMDGPU_UALINK_MESSAGE_HEADER_MASK;
+>   	local_acc_id = adev->ualink.info->ppod.accel_id;
+>   	dev_dbg(adev->dev, "Got MSG: remote acc_id %u msg_type %u\n",
