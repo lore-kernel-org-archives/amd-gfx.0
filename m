@@ -2,92 +2,65 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E8F66082BD6
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 14:03:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74798606D80B
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 14:10:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=specialhomeeducator-com.20260707.gappssmtp.com header.i=@specialhomeeducator-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=DwwaYd3z
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EQoVBF3o
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0B9A10F5C4;
-	Tue,  3 Nov 2026 14:03:15 +0000 (UTC)
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
- [209.85.208.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EAD810F5A5
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Nov 2026 13:39:13 +0000 (UTC)
-Received: by mail-ed1-f42.google.com with SMTP id
- 4fb4d7f45d1cf-6b1afcd2d23so5993251a12.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 03 Nov 2026 05:39:13 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793713151; cv=none;
- d=google.com; s=arc-20260327;
- b=RGfa6KU5ILTg+7hD500H8ENdq/JdP+2aNERoIZgAhOtndBVZunDCTU+Oo+ueE5fa6h
- njqviZtbw1Qsq/NvGAxrSfAv4RDeasqBUzE55cbc+vkTGc/RjwF3LrsEYdd+5xJ5zAVC
- I1QqB9sNQumAIfiE1uXgQYH7zT8PVIqep4XtJ5bhB/Vaeyg7XB3m2qF2AgUMynANOl+8
- 2i5OpjYVEP0Df2bK26dYuJ+GupraGy5mvBM/7yDe1Ju9putON9INNAmb5TZwbYJfj2A3
- mBYcNMT+HWG6ZiwnfAlGq7Iq0NkHHaMjZxJVZbzSdZ+un2h3Yo/jtId0hQY4cI7gZyWc
- G/UA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:to:subject:message-id:date:from
- :mime-version:dkim-signature;
- bh=w7oa9u9irnrQDldieADuHy1w16xCZ8118nTPekByKYs=;
- fh=hs9oynQb3YjZT40omR8IZyt+l0QN8nu4Bye5abBVWug=;
- b=KbXcGJseWodfQMEu5IfEmZQrxlM4ifUf7sJ9cZnSlmpcaebC6Zc2xt3rJOJ3xn3hrF
- zwjf5An9rVyYB9bqo87OnAJNDR3gwvymGiuLEFFNVHrgDmOuyAZKCuaxVUBbqgQNp27B
- tleK3dT3Kgt4h+yIynC/eTRoXNTK7Bsf4+1r4gFrJWGlvs8I9TFkSRBKKHt28mdhOhJQ
- 1pJCmaCM1MYOzMqCDc7nJck2Cb00oSnkxq6u7l4YkaB9JgJVc2yXsliV3FBsAKAb3aNg
- cbof7wFP5GDWMXDWV0NW9Lw2vi267mWFzax15gLXHrliGNgxRmV/e4a2NU1EeKg1kb9m
- SkfQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=specialhomeeducator-com.20260707.gappssmtp.com; s=20260707; t=1793713151;
- x=1794317951; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:to:subject:message-id:date
- :from:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=w7oa9u9irnrQDldieADuHy1w16xCZ8118nTPekByKYs=;
- b=DwwaYd3z4DldSDNYrVlHsj4ezIadzWqVF1qrZ4JNHYdhtkaQY/eQbAyA0BOCc+O+1T
- SmrYI/msSQHRngbHc4pVBabhDyR5fA6biAXF0kcUHgbZz55l6URU2xqwpgJoeFgJcdCW
- Ls7NEF1GWOmtNIEv33tOsEdq6GO/t8DiyG6VqeOBn2PThS9a6Y8FreBuSw590+KMqo3U
- MWRAavTQGWM86sPnHzEh6FBthEzAl+9+oB7jTgRGdcQJLkaR2D8JTB+wPNtK3vB1OPYg
- wiOC8FfAQhe+e8StdXWDub9g6vwmJ99UJppJkGcgY2egO5Mhxu303IsMguFk4OL+mDtE
- 3nhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793713151; x=1794317951;
- h=content-transfer-encoding:content-type:to:subject:message-id:date
- :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=w7oa9u9irnrQDldieADuHy1w16xCZ8118nTPekByKYs=;
- b=gd1GZB/T5bc+p7vH5AGJdowZyO/C/jII0xr1+I+YQ2cek+dHnWAncOOkZf56Arymkp
- glNU+bBYk25/RLWKa5xJ7LUXTJOGyBVWedRfXWv4vqV/4F0ph1G+6njb6AT5Fx9/ZYfu
- YQV5BmtFLMuvtOqic5eY3fqVadoNp31H7z4RPCCsOxfl1FbcrSSRSCby/7RR93i1Mh3h
- iqn2CV2xAMWQmDmVhwxY7FKcr/c5AyAevnkxZw7p/F64UgAQVzmI3fCa2c1sy85p/LIA
- iQdhS3GMR8mDiyQE6ykx+w5BWR/u3zqZMLRZ3O+HnAAo5BlIhWiiGzZvGBO68Xweg1id
- r3XQ==
-X-Gm-Message-State: APuU4Z9vN4sxGcJEeCd596ws1KYVaT4qWYiEB+JXeH2TSujTNQUyN+Cf
- Zd7EQbQlTvw3st8fURHHFJspGK7Oj+iOrURtnOjA7PfspU5jx7pJ39oingi08DygLkLFbklZaqA
- ytLFkEWZjcq4CTLhPhvhkCl2GnWzbpEewIFOPyjTdka0ISzFImyHf
-X-Gm-Gg: AYBFou1S+3PmnSBSrX3ZvpEhygkGS+RlxSFQhzdlm8stvr8qNNST36tJCttXg0oH2AS
- 6sM/tBflrexEjIKIbMI8zomOWMsArgSXdmdmMpu5uOoIUpcI3XyhFtkl/HDdUOYVRbSoj90IS04
- xKsdE/24mslmwJlAcZYmU2uixeN9PlTs93O2hmSa9IoLAcfKh+hNhgqpQZRFeG7XeUA27aE8lq/
- 5KkY6aKHcnvsNsOvT+WiaGOeDmH8F9GMqRiMQk8jhZSpRjhKSRbZ98xijPDrWptBqqROYL4U37H
- UPMqQN4v9kkFhGY+AiXCYDMeysdBNamytVcKZUpHEOuFkCIK7ozYnDfVmbr56qIi7LX6vLQTfiq
- ONsRT9lDlsWE3HmMqJMRTF15COyip21NCkiMOsqbMa7SZSgdIgL+hdJc4ODkryQzEQg==
-X-Received: by 2002:aa7:d690:0:b0:6b1:c7d9:b61e with SMTP id
- 4fb4d7f45d1cf-6b4d46855d7mr6649252a12.22.1793713151392; Tue, 03 Nov 2026
- 05:39:11 -0800 (PST)
-Received: from 337393973955 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 3 Nov 2026 07:39:10 -0600
-Received: from 337393973955 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 3 Nov 2026 07:39:10 -0600
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D5A310F5DB;
+	Tue,  3 Nov 2026 14:10:28 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3941110E80F;
+ Tue,  3 Nov 2026 14:10:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793715018; x=1825251018;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=HsUsQZQEIomTg/niZeDZNePLhqDX9fE6bfwU+cWRxpg=;
+ b=EQoVBF3oALHjGGeY1mxgPsDtHAFQFoik4rzdboU2KycVijvL2aR/d1AC
+ 9p8/vZui2jMfiycnDfxeraoTuSJXVpdLp8bMPoQh3bETDrQdua0+D2X70
+ Yrvu5ToO2Jj81+eLkDnLdUVKZT8X+q2o/4HHFYqUvW5MVjsEvEE26LJED
+ KJTo5/xNfGn8J4rKiroEScPzvNiXaqVUhNnmHOAHRnmfrQrwNQGXow3iY
+ kINY8mmaHKlaJSwC/G7iTXkacru6cer6tT2Bh9FiQFZlkL2e284xlW4NB
+ ZC1b/NP3rD5d1jaZ5VQWhIw5KsuMDAEYtKWwjFWrGO9CBX0FtPtJDOWpA A==;
+X-CSE-ConnectionGUID: NmC4OsJwSXu9A0/5ZiKLZg==
+X-CSE-MsgGUID: FgvlURsYSQ2q0UCNiDhE8Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2331654"
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="2331654"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Nov 2026 06:10:01 -0800
+X-CSE-ConnectionGUID: xIul7NrsQtSH+wx7TOTBiQ==
+X-CSE-MsgGUID: I7G8Fbr0QQOm7qPFKjLjEQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="6315938"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO [10.245.245.160])
+ ([10.245.245.160])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Nov 2026 06:09:59 -0800
+Message-ID: <428f8c9f-5cf8-46f9-8611-52e6aa71a24b@intel.com>
+Date: Tue, 3 Nov 2026 14:09:57 +0000
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-From: Jenny Wise <information@specialhomeeducator.com>
-Date: Tue, 3 Nov 2026 07:39:10 -0600
-X-Gm-Features: AclHuK80atNSYNCwV6JnUSZ9-uoeZYnRvsQkVQNJ4cXz6W27Xi4w0cn4t6aUV7M
-Message-ID: <CAPsb-bp-2AiVxoEfPf=6ONTWLkqyecmt6sSDhv-LiTR8LHX4oA@mail.gmail.com>
-Subject: Follow-Up on Future Planning for Special Needs Children
-To: amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Tue, 03 Nov 2026 14:03:04 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 1/2] gpu/buddy: restore two-pass clear/dirty guard for
+ range-biased allocation
+To: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: christian.koenig@amd.com, alexander.deucher@amd.com,
+ Anand.Raghavendra@amd.com
+References: <20261021121813.1820345-1-arunpravin.paneerselvam@amd.com>
+ <78a6d58b-4fa2-4325-a4c3-3cd732c15288@intel.com>
+ <b32ccb67-0e02-467a-8c29-2ac4c815390d@amd.com>
+Content-Language: en-GB
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <b32ccb67-0e02-467a-8c29-2ac4c815390d@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,22 +71,84 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=1.2 required=3.0 tests=BAYES_40,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
-X-Spam-Level: *
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi there,
+On 03/11/2026 13:23, Arunpravin Paneer Selvam wrote:
+> Hi Matthew,
+> 
+> On 10/21/2026 6:19 PM, Matthew Auld wrote:
+>> On 21/10/2026 13:18, Arunpravin Paneer Selvam wrote:
+>>> From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+>>>
+>>> Range-restricted allocations (the visible-VRAM aperture) skip
+>>> dirty_steer_window() and reach __alloc_range_bias() with no clear/dirty
+>>> eligibility guard, so a dirty allocation freely splits clear extents 
+>>> (and
+>>> vice versa), interleaving the two classes until no large same-class run
+>>> survives and a 4K scanout pin fails with -ENOSPC. Use a two-pass range
+>>> search instead: block_incompatible() rejects opposite-class blocks in 
+>>> the
+>>> strict pass and relaxes only when the strict pass returns -ENOSPC, so a
+>>> request still succeeds when only opposite-class space remains. A KUnit
+>>> regression test covers the interleaving pattern and fails without the
+>>> guard.
+>>>
+>>> v2: the strict pass can split a block and then reject both children, so
+>>>      a split no longer implies a compatible block exists. Sashiko 
+>>> reported
+>>>      the resulting leaked splits; fix as suggested by Matthew:
+>>>   - Push the parent back on the DFS stack after each split and merge it
+>>>     back with unsplit_block() if both children are still free.
+>>>   - Make block_incompatible() judge free blocks only (split nodes keep a
+>>>     stale clear bit) and take the requested order, so mixed blocks that
+>>>     can hold a compatible block are descended instead of skipped.
+>>>   - Extend the KUnit test with a coalesced mixed block and a check that
+>>>     a rejected split is merged back.
+>>>
+>>> Fixes: 1ad5e807f716 ("gpu/buddy: replace dual-tree/force_merge with 
+>>> decoupled dirty tracker")
+>>> Assisted-by: LLM
+>>> Cc: Matthew Auld <matthew.auld@intel.com>
+>>> Cc: Christian König <christian.koenig@amd.com>
+>>> Signed-off-by: Arunpravin Paneer Selvam 
+>>> <Arunpravin.PaneerSelvam@amd.com>
+>>
+>> Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+> This version brought back a DAL CI failure. when the range allocator 
+> wanted a clear (or dirty) block, it would split a mixed block to look 
+> for a pure one, throw away the mixed halves, and then use unsplit_block 
+> to join them again.
+> Doing this on every allocation was costly: even though the merge 
+> cascades back up through all levels, repeating this split-and-unsplit on 
+> every allocation added enough overhead on the display hot path that a 
+> large scanout buffer
+> eventually failed with -ENOSPC (igt@kms_plane@plane-panning-bottom-right 
+> on Radeon RX 9070 XT).
+> 
+> This change relaxes the rule for range allocations only: we just take a 
+> mixed block as it is (the caller clears it if needed), so the first pass 
+> never splits and never has to undo a split. Large same-class blocks stay 
+> whole,
+> so contiguous space is preserved and fragmentation goes down. The 
+> behaviour is still correct, unsplit_block is no longer needed, and a 
+> KUnit test reproduces the problem (it fails without the fix and passes 
+> with it).
+> 
+> Could you please just review v3 of this patch?. It is a bit urgent as we 
+> need it to land the base dirty-tracker patch on our internal branch.
 
-I hope this message finds you well! I wanted to circle back and see if
-you had a chance to consider my article idea about planning for the
-future of children with special needs. It=E2=80=99s a topic I=E2=80=99m pas=
-sionate
-about and believe would resonate with your audience.
+I think sashiko is now complaining about the same thing from before?
 
-If you already responded, thanks for that and sorry for the repeat.
+> 
+> Thanks,
+> Arun.
+>>
+>> Are you just going to push this one by itself?
+> 
 
-Warm regards,
-Jenny
