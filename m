@@ -2,77 +2,86 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFEC7606A326
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 11:12:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01241606A31B
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 11:12:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UKQIHS6I
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TdT1COf4
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25E6C10FB59;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50F8810FB5E;
 	Wed,  4 Nov 2026 11:12:27 +0000 (UTC)
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32E6E10F6CD
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Nov 2026 16:06:05 +0000 (UTC)
-Received: by mail-dl1-f52.google.com with SMTP id
- a92af1059eb24-14fc585291cso3460207c88.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 03 Nov 2026 08:06:05 -0800 (PST)
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3934C10F6AB
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Nov 2026 15:53:33 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-4a68f888a41so7227505e9.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 03 Nov 2026 07:53:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793721964; x=1794326764; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1793721211; x=1794326011; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=hSehECxM5OmeuNZLHLBGBNwYZB+YaKpkw0khTkFJZnw=;
- b=UKQIHS6IVGfgvNGJc+tBH6TTsIRX5SgJ1mGcwrD0ydp28PTMVFlZ29VLbTh5juch6u
- yJYbXGI6V3zoQmv1j/EFMkX5Y4Dii//sSQDhlfahW1oTxNQjw0+wetHhWrxyp+ogvR2a
- Hx2a7KtI3kuQdf4plIuhxIId+WlSisErCzgMa4dY2V2Ur0NKZEfLyfCltPvRNPHncQOo
- afm+prMza5dDg/BJ9ytOIQT1P7Mg7kI6X86zJ9EkAikJGncmm4DLIM4TT0vrHIBAjoud
- d4U74XdARwr6OZYNIRnJQwcNQdxsqOIAlMFdKv9YZ90bGghuVwn61RkglITPbIn8XUOi
- pcpg==
+ bh=N3SYB/BgxSNTh4u+DnHBIGPI0+Di9/c/+FCF8jLlAW8=;
+ b=TdT1COf4c+GZx8PshmWlFJjMdFVHtGspcE48YYoxlk28CWhy4TrM3/lHnCAMG3CoTF
+ p7MkeVJTw5VTvFvYmEUdf/ySt76NuVogprOjMCVFWdq4UjMvm9O8/AFxrdBg9X+V94Ej
+ L/S1d5Xt2Y1/Pofs6fFVDipRW5ozW7407oN8M/ernLsOREowegG6S+E371e6eHQq7wVh
+ tczF9UjOCRSqg7DmRUKttyIm7aPdbXqx6yjV8R6dWs4m1/0yPdIdlIuYbdrhea6ZMmcC
+ tKSSHBbxkkNrxgK0tzkP1KXxfxdnKQVhv7Wy/i6XaGI7k63eWRHcUfGhg6AAdgMS6BlQ
+ 6uog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793721964; x=1794326764;
+ d=1e100.net; s=20260707; t=1793721211; x=1794326011;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=hSehECxM5OmeuNZLHLBGBNwYZB+YaKpkw0khTkFJZnw=;
- b=zMj+YDCPIzP+8Z3t0cld+xgJnahZqUwMp6fk8EayhJurlH0PhBnA8WsGqOcMzPAKjA
- HviW2ItnOX3OSJMRzZaS4oZN5TEKJWIqYgPgP4teNx+uVlsvBc71x6LSiDG2Lr0VWtMo
- 1yqrCZ8HIKjg7zrM+4kPmunWQaVeUVV7+pIe46uA62mvhBNdytzkv6gKeSdmI8+e6HNJ
- HLIDmX1b0Ze+5mFWS2gInZ0GamUyZyPriPagRP80hcB7Kvo7CysC0N342FnfJbHo09Xy
- aRzXTBA1PGDnFuXqvvrWHl2MwxY7mzxu99jAodWfgRUjw/IRWPwVVK/m1ID9l/hnx5eN
- gw4g==
+ bh=N3SYB/BgxSNTh4u+DnHBIGPI0+Di9/c/+FCF8jLlAW8=;
+ b=rjfkzuwRnWm62RyIoL2nNFWFjoyBwBJGs1AoxqEJ88zbKUcB1+5nSuWyL+tCIMeq6n
+ bkTeqn/J924J7z7e++vYtsiVBJQG2mRtSqJiOicoX3qwHqumQ/4jFwJmUlq1IoH1OeYv
+ wWlm5QEkc8Wu1zthPDa4l/i27NxjFwPqx6mJxItktdEYKatEmgLjuHA5xstUK1Bjp/yq
+ /XaX+sE+A4uo5lIhsPdGPpyFaHbf6ZPWAwBCjLtUCJmr7dtINzl2RMSdRTMiwgOqE/vx
+ XQguvE8Ai8WOcySlw8fw9DnoMoU+I5Xv3mn8Oea4hBvKOB6+apFDiZB1t8oZRUClMGw/
+ ZgFQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxJxaH3jP2S6y+kga3GDxWw88uMWgTv7ddAAGu5Vg/PhsCiEC0fo9/n7gJ7kKbOuJMWwgMK1J0k@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+a7kcz6DHntSOA4stTe497R37DsIo0DWKJDTS2Z4O7o7dSWN2b
- gilV/ZjB/eLM0Oa9TxSjWXKIx7xTtzqnWVEn3dyI4hcYcAVOO25GuuY=
-X-Gm-Gg: AYBFou1XlDV7jy4+GL3iWW/e+psgqWFvag4UWej+1tgC7vSP+ds0u+Q8W/S+QOVjiP6
- Y1+AaS74lpII8GB6lLkuw+/hMlYlAiSHNGOYUxQuDNuzIiBi693YDeFrpa0xf2Pc63s7Bjv5Q4t
- X6QC/c8VOWG83hmU/Yl93/lMun8GXcpmu9/+IWyfY2Yi42uKnbJAnBuKaZm78j1MyIL4IKIeK8Y
- 8oNpIAg4LzBa5j7VldBDdScIPN9UJnWk3zEz/PoEgTDx3N4PY6KAuMhDKD7n3ZESrjjRBi41DKX
- 8Qx6Ow9Zmyl32yqXPXolXVblpPAkAG5aWSRRixJh7Yt883dnczlwWTq6sxC6ll58hDQlfMdAFEx
- M55QM8f/xNNhf1FhXDipPCEOqiYmixaSVaMj35UZoQSZKQypjaImNi8e+KOTzBvgImqrDi1mEep
- QCxQAzLm1Hbl7/Ir1GgSVG1tAOm5foq/0t8C19FmW8Hry8qzg4SGb8nVaXJQDbw26xta3G9kses
- A/DlwT1Nc1hKJnBbggylDO2ITaBZFBLHBmZu8rSCAdOnSLG5mBWjd0GqlZkCl4dUR7INIiMxBJg
- D3DZx1+XRV9O48dib+VGT9JdyTvpssG9umRvPpevQWvfkZ8w1IDCPX2ES7jd8w==
-X-Received: by 2002:a05:7022:f20b:b0:136:c443:80e5 with SMTP id
- a92af1059eb24-1ac56d94b0amr21085882c88.6.1793721963966; 
- Tue, 03 Nov 2026 08:06:03 -0800 (PST)
-Received: from at-Standard-PC-Q35-ICH9-2009 ([27.60.19.149])
+ AKwUvBxtNfBw8AaTIlrlwRFRJevB29EEh/AmCaW/HLs56/+tTMXFSa0jWpO7Zv0qW/TM/zT3u7CJsB0b@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/dsDALjbdaEdWA2mVLB7fCbszKRqARLlnaa4M4BnST81PLQ3e5
+ faoU45y2URscOZ0vjfD8/Ffu1pon/MblYrDQIvEAtb48Eyoumgathyyh
+X-Gm-Gg: AYBFou3WOylnYz1FdLCRX5j9YH9blcXmmB/RagN/vla4rN5GOHX6aWRnoI26n/tZrlJ
+ wDeHPnoYB4hWYA/cp+wVnjkGXo2F+6IhKT8QVyPd0pKOoILYMc7+yPOSW2BcGubAkiwiZBHVW//
+ rpWYuf+Tv5Gh1qv3/DTuCtVipaw0ji50p1yxp7ymee6rcNSiD/9YWXsSW84zlu+UC9tR/ogR2fd
+ 9oK0i4eh5w/xXosVsopEIHtOW6y8YXkSaoieE8Oe4XLyFl0hg01HkFsylysQhDvc9abbw1IMY9h
+ bI7BzY7kfKxqQePM9zT+8JdWJN24P1KSAjqLWtcH7v/TQxwaI81Mg/7r1tR079wI4+WkIFewrTJ
+ SUhQq9uQHU+9ZBBu+oJvfVwv8t0D7zJWKOUfE+qjE80Aw3cOxHMostDlLMn+WHIPQ0nc03pkmzS
+ VqNQCJXuzMrZErT4BII1xWTf5KvYJtaU6MbqbJQ2Iv5AGqoYmDM/C0TEJz3/k/EbP0HyKFgCGF2
+ pSv0kWZjVu4d8Ubjl/lcEPPT/aD+EUC41l74kVdJF26qBHhMoNHK8GlhxldE8mUfeeJ31/JSP7h
+ Xxwxe7ToTultk96kKOIJbpv5ZXqCrU27ba+iYHbQIidlegXNfXI=
+X-Received: by 2002:a05:600d:6505:20b0:4b2:3c81:103 with SMTP id
+ 5b1f17b1804b1-4b23c8106abmr73912745e9.2.1793721211351; 
+ Tue, 03 Nov 2026 07:53:31 -0800 (PST)
+Received: from Termis-ROG-FLOW-Z13 ([2001:16a2:4495:e600:1209:ec98:a2b4:9c5a])
  by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-1aed79b3dfcsm47910609c88.12.2026.11.03.08.05.57
+ 5b1f17b1804b1-4b2a879f401sm63777815e9.5.2026.11.03.07.53.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 Nov 2026 08:06:03 -0800 (PST)
-From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-To: alexdeucher@gmail.com
-Cc: airlied@gmail.com, alexander.deucher@amd.com,
- amd-gfx@lists.freedesktop.org, atharvatiwarilinuxdev@gmail.com,
- christian.koenig@amd.com, dev@deq.rocks, dri-devel@lists.freedesktop.org,
- ed@aicharmers.com, kenneth.feng@amd.com, linux-kernel@vger.kernel.org,
- simona@ffwll.ch
-Subject: Re: [PATCH v4] drm/amd/pm: defer UCLK DPM on selected Apple Navi GPUs
-Date: Tue,  3 Nov 2026 11:05:53 -0500
-Message-ID: <20261103160553.1431-1-atharvatiwarilinuxdev@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <CADnq5_NDJ7V=TQLOJ37msbmhwsVG+70mPKU3ns+xmAu9jxWwcg@mail.gmail.com>
-References: <CADnq5_NDJ7V=TQLOJ37msbmhwsVG+70mPKU3ns+xmAu9jxWwcg@mail.gmail.com>
+ Tue, 03 Nov 2026 07:53:30 -0800 (PST)
+From: Seifelden Abdelmonem <saif.elden.hatim@gmail.com>
+To: Mario Limonciello <superm1@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>, Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Bin Du <bin.du@amd.com>, Nirujogi Pratap <pratap.nirujogi@amd.com>,
+ Benjamin Chan <benjamin.chan@amd.com>, King Li <King.Li@amd.com>,
+ Caspar Adriani <caspar.adriani@proton.me>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>, Arec Kao <arec.kao@intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Seifelden Abdelmonem <saif.elden.hatim@gmail.com>
+Subject: [RFC PATCH 3/3] drm/amdgpu: add the OMNI13B1 (OV13B10) ISP sensor
+Date: Tue,  3 Nov 2026 18:53:13 +0300
+Message-ID: <20261103155313.114347-4-saif.elden.hatim@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261103155313.114347-1-saif.elden.hatim@gmail.com>
+References: <20261103155313.114347-1-saif.elden.hatim@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -87,26 +96,86 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-> I forgot to remove the pptable check.  Can you try a simplified
-> version of the patch?  I think all you need to do is delay the UCLK
-> DPM enablement until late_init.  Something like the attached patch.
-> 
-> Alex
+amdgpu creates the ISP 4.1.1 devices only when it finds a sensor from
+isp_sensor_ids, which lists only OMNI5C10. The ASUS ROG Flow Z13
+(GZ302EA) has an OmniVision OV13B10 with _HID "OMNI13B1" on the same
+ISP, so its camera is never set up.
 
-Also, i've tested this patch with the 5K patch, the UCLK then just never
-gets initialized, so this patch is literally incompatible with 5K.
+Add OMNI13B1 and register its GPIO lookups:
 
-And also if ur wondering, what patch am i talking about you can see it here:
-https://github.com/t2linux/linux-t2-patches/blob/main/7003-amdgpu-add-support-for-5K.patch
+- enable_isp on AMDI0030:00 pin 85, as for OMNI5C10. The ISP4 capture
+  driver requests this GPIO and fails to probe without it. On the
+  GZ302 no ACPI device claims the pin, and the ISP also boots with it
+  left undriven, so its function on this board is not confirmed.
+- the sensor reset line on amdisp-pinctrl GPIO 0, active low, under the
+  "reset" name the ov13b10 driver requests. This is the same ISP GPIO
+  as the OV05C10 enable line.
 
-I still need to make combine patch (otherwise bad tearing in gnome/mutter), and i need to
-enable 5K in EFI aswell to remove the shitty quirk to initialize display eariler than smu,
-And make it usable with simpledrm.
+Like the OMNI5C10 tables, they are registered once and stay registered.
+The ISP setup uses the software node that amd_isp4 attaches to the
+ACPI device, so this needs the amd_isp4 board configuration for
+OMNI13B1 to be in place.
+
+Signed-off-by: Seifelden Abdelmonem <saif.elden.hatim@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c |  1 +
+ drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c  | 13 ++++++++++++-
+ 2 files changed, 13 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+index 63088c072..412d3992c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+@@ -1726,6 +1726,7 @@ bool amdgpu_acpi_is_s0ix_active(struct amdgpu_device *adev)
+ #if IS_ENABLED(CONFIG_DRM_AMD_ISP)
+ static const struct acpi_device_id isp_sensor_ids[] = {
+ 	{ "OMNI5C10" },
++	{ "OMNI13B1" },
+ 	{ }
+ };
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c b/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c
+index 363266f3e..7d6072e27 100644
+--- a/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c
+@@ -65,6 +65,14 @@ static struct gpiod_lookup_table isp_sensor_gpio_table = {
+ 	},
+ };
+ 
++static struct gpiod_lookup_table isp_ov13b10_gpio_table = {
++	.dev_id = "i2c-ov13b10",
++	.table = {
++		GPIO_LOOKUP("amdisp-pinctrl", 0, "reset", GPIO_ACTIVE_LOW),
++		{ }
++	},
++};
++
+ static int isp_poweroff(struct generic_pm_domain *genpd)
+ {
+ 	struct amdgpu_isp *isp = container_of(genpd, struct amdgpu_isp, ispgpd);
+@@ -240,10 +248,13 @@ static int isp_v4_1_1_hw_init(struct amdgpu_isp *isp)
+ 		return 0;
+ 	}
+ 
+-	/* add GPIO resources required for OMNI5C10 sensor */
++	/* add GPIO resources required for the sensor */
+ 	if (!strcmp("OMNI5C10", acpi_device_hid(acpi_dev))) {
+ 		gpiod_add_lookup_table(&isp_gpio_table);
+ 		gpiod_add_lookup_table(&isp_sensor_gpio_table);
++	} else if (!strcmp("OMNI13B1", acpi_device_hid(acpi_dev))) {
++		gpiod_add_lookup_table(&isp_gpio_table);
++		gpiod_add_lookup_table(&isp_ov13b10_gpio_table);
+ 	}
+ 
+ 	isp_base = adev->rmmio_base;
+-- 
+2.56.0
+
