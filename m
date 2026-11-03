@@ -2,134 +2,122 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3568E606A331
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 17:10:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3F65606A31B
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Nov 2026 18:17:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=lGsY8sQC
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=3p/rWbzU
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4BEF10E122;
-	Tue,  3 Nov 2026 17:10:09 +0000 (UTC)
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010071.outbound.protection.outlook.com
- [40.93.198.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9CE810E122
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Nov 2026 17:10:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6636F10E04E;
+	Tue,  3 Nov 2026 18:17:28 +0000 (UTC)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010025.outbound.protection.outlook.com [52.101.61.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B8D310E04E
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Nov 2026 18:17:22 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qMRis0ALAQLV6P0IehoO4FXwQS2dz76XEGfsDp2a+VPPQx8A3tFy7MCqEDdtZkB1XM9WJEr1GsNRohyq19myF+EhVrT6gTBJevAx+BKTthcWkt5Zv9Mg5mKPxF8j+bt6LFMMc0aJPjW6xtQLB/Zuts+voSIPJDMPsl7EFa8s+1tC5BRU4Z9nittRqXG8Zg6WJqkVr/ImLFIN72o/vg7K/vK5yfXb6K4HEEJaphEDwvQ1CmXxpo+V8hg7ah2vmW5D7eDq6eo9a2pxXQ3wXsA9D2Ib32+qkQ5hPbqNBm88BX9bRB2ZfejtWZVnZk7o+fFo+VkOFSieRTpuZNxSJ1aDww==
+ b=EfnPEUI35UdcSCJdTu3hFM4GedQItEZiuigyVQPgs72xF1A8jpt25VJa3GTnc0r9WuUfIzc7A6Xev5nCL7WZ52Z5GP8Vk6Dr/PWSQAVwwz2wOR9jI/JdjS7jO5bAIn08w1DRkQDeoE04BQ9/ikcKR9Gj0vgipu0OhSKQKP0XQ7m4EYpBadt44lVAWDRKnYiEVg91q4vOt8aD4Rftq9HsAOi3IK46hGuaI5KeROmFrSc1kfvHUaiVSmFrDe3yLyiG7BwbJRRR0EeNpJYI2DvN6yg8l/L3APq2mvBPjWGOviCY9PqPAtNq0koGtMfK92VP/4k0VXxJ5yP3k1wEti389A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FzYyp3jnjzo5m+EG7ZqHM8xxuzdqVo+8JL36JG0vxGg=;
- b=NKSksZjAJHlf+E90ZdfDhH04t8xcfJK7zbbl4PEYUEGywHn1mS1LUh0XMuChF+a92OWELQC2YMy7ulxdkh3uvFslSAA0hF/Le15P+7YYMK/qvXipn2tL7WjqI/fK7mkaYijlMwVT79wlu5JP9LfQqNap7N8cG7rcBCT4guIE9qs8Llb4KCBS1XEA2PMJHfgDamFdhq8Eid/DLSwiotpEqDFQYivTW5tU6oqhfTxl9GRJiOsUyNXJJWZRZRjtD0tKdQe0mvYpNwxo2FS1+1FbJxpYP2Mqxm20MmoJQVsqdjmoJ2+xIbHNsMjquDyz2PTu2rE4iqvpMy4qg2yl6UFmxw==
+ bh=VzRD+kZoDTjLcV2T3idz/In35OTR33akkNl560jyKB0=;
+ b=Fyi2QqqdLktGMJiyZjE1v76fzjdVv4Awvabx1B6SimIal0Yq73/GIQt78JOxr9Nn3oPow2Db/eivjoUsp9dT6Y70raIVQF8ofdByz3BA9h/swVKbNizo5sfl2txm4cn8Tq9VFcQYDVBQsegaPiJuTsWVxIgFRxlVb2HxOYFtSpvMAIf0ZE3y2qczOunXXfQ0UQ9/QwS7f2dongd4RYbizSxJGHcE5BdHRf7zQ6jIOaYHomSYV09DVuHvgtIgY2VRyxr2Bkqy9Da9oGNpXp5s1rXz9z3ykJVpTN5He4ZS2ObqjTAZPycrACB1dHgiKS+n+LYJGnKjXc4f+jO2qezFxg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FzYyp3jnjzo5m+EG7ZqHM8xxuzdqVo+8JL36JG0vxGg=;
- b=lGsY8sQCsR+klbTpfJa08AMN6tdGcV8szOu4Nk0Qehf7oWLqEt8Wmf49klNmDIbTUhqlbJNGnQyDxHOwV48WbfNwXl+7wKWR/m5VYiWmHCQ46EOWgjauNMeNVlT5eNnLolDo23vNHRFlkCkqWdsGEMPzdtweB4rxRBJbolT+U20=
+ bh=VzRD+kZoDTjLcV2T3idz/In35OTR33akkNl560jyKB0=;
+ b=3p/rWbzUDUeY1XYHvT4eStiB+dIpv0EUWSGKkv+1TjygYcDiPvCVRveXahfuPJpsjD6x6dHpwhcBQkoMiJLe3m5Q0HTEbwcq4onjhD3jvlQXkc3sQAeolcfbv76QvAzTti2x3BLLYcNmvKFrw8vKKTsz1I6Xu9xAEq8oYosdFDk=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from IA1PR12MB8517.namprd12.prod.outlook.com (2603:10b6:208:449::8)
- by DS2PR12MB9591.namprd12.prod.outlook.com (2603:10b6:8:27c::7) with
+Received: from DM4PR12MB5167.namprd12.prod.outlook.com (2603:10b6:5:396::10)
+ by DS2PR12MB9616.namprd12.prod.outlook.com (2603:10b6:8:275::5) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Tue, 3 Nov 2026
- 17:09:56 +0000
-Received: from IA1PR12MB8517.namprd12.prod.outlook.com
- ([fe80::c47e:c884:f06:1525]) by IA1PR12MB8517.namprd12.prod.outlook.com
- ([fe80::c47e:c884:f06:1525%4]) with mapi id 15.21.0569.011; Tue, 3 Nov 2026
- 17:09:55 +0000
-Message-ID: <fe5f9b54-0516-4a83-ad54-c982dc161523@amd.com>
-Date: Tue, 3 Nov 2026 11:09:52 -0600
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
+ 2026 18:17:07 +0000
+Received: from DM4PR12MB5167.namprd12.prod.outlook.com
+ ([fe80::4588:54c1:bc29:2c7c]) by DM4PR12MB5167.namprd12.prod.outlook.com
+ ([fe80::4588:54c1:bc29:2c7c%3]) with mapi id 15.21.0569.011; Tue, 3 Nov 2026
+ 18:17:05 +0000
+Content-Type: multipart/alternative;
+ boundary="------------OPfnF89H390xQZcx79v7BG0M"
+Message-ID: <619d73b1-6dc9-4945-b711-db8c34f379f8@amd.com>
+Date: Tue, 3 Nov 2026 13:17:04 -0500
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdkfd: Don't reuse a VRAM page that is still
- referenced
-To: Philip Yang <yangp@amd.com>, "Mishra, Apurv" <Apurv.Mishra@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Sierra Guiza, Alejandro (Alex)" <Alex.Sierra@amd.com>,
- "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>,
- "Faizal, Sahil" <Sahil.Faizal@amd.com>
-References: <20261023171722.46301-1-Apurv.Mishra@amd.com>
- <53899e72-b727-42ab-81ee-8587a10f16b7@amd.com>
- <PH9PR12MB135921453E146E0DA733B16DE99F612@PH9PR12MB135921.namprd12.prod.outlook.com>
- <601d1612-ea3d-4379-9336-9c36e9485230@amd.com>
- <PH9PR12MB13592198ABB2BF96C9F290F41D9F6F2@PH9PR12MB135921.namprd12.prod.outlook.com>
- <ee715a81-5643-4da7-a0b9-7205e34758b5@amd.com>
- <PH9PR12MB13592158862738134DABAB73F89F6A2@PH9PR12MB135921.namprd12.prod.outlook.com>
- <39984cf9-fe4a-40e3-b076-20bea95f2127@amd.com>
+Subject: Re: [PATCHv3 1/8] drm/amdgpu: Add UALink loopback infrastructure
+To: Mukul Joshi <mukul.joshi@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Felix.Kuehling@amd.com, Harish.Kasiviswanathan@amd.com, philip.yang@amd.com
+References: <20261102160125.2743750-1-mukul.joshi@amd.com>
+ <20261102160125.2743750-2-mukul.joshi@amd.com>
 Content-Language: en-US
-From: "Chen, Xiaogang" <xiaogang.chen@amd.com>
-In-Reply-To: <39984cf9-fe4a-40e3-b076-20bea95f2127@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SA9PR13CA0133.namprd13.prod.outlook.com
- (2603:10b6:806:27::18) To IA1PR12MB8517.namprd12.prod.outlook.com
- (2603:10b6:208:449::8)
+From: Philip Yang <yangp@amd.com>
+In-Reply-To: <20261102160125.2743750-2-mukul.joshi@amd.com>
+X-ClientProxiedBy: YT3PR01CA0063.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:84::28) To DM4PR12MB5167.namprd12.prod.outlook.com
+ (2603:10b6:5:396::10)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA1PR12MB8517:EE_|DS2PR12MB9591:EE_
-X-MS-Office365-Filtering-Correlation-Id: 43291b9e-81b5-4bfe-dd7b-08df39cd47ed
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5167:EE_|DS2PR12MB9616:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5426baf2-579a-41a1-6778-08df39d6aa36
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|366016|1800799024|261022075727099003|5023799004|11063799006|56012099006|4143699003|261022105027099003|261028144727099003|261009223027099003|261102123227099003|261026121527099003|261021123027099003|261021121427099003|261021135927099003|261026140227099003|10067099003|22082099003|18002099003|3023799007|13003099007;
-X-Microsoft-Antispam-Message-Info: bNW4hv0b62cJ24foNi3J4iqh+aWlTwjmtx8bRq5GfDluiOeEvMfthP4bjNqUeRZfZ84lD+aPwe8Zxbw133rgJUsZecCvWf1Qbu3ZG7SThAiU4N0ctQsMQ+2C4nyYWl8jSK/QmTE8zNLt/X/wSjuFzrc9jV7j/842mMOxf2PYNdYW3RaNRzBfs7I/qxtQRePHNni9sK2oHxGJ0uNNrc5UH9xVU+aoYNcZxE73EdyjA5b/0ttVyXRStjx5xL1foz3IKWa/0hfOQ/9mYZwmmsV1+ilgYvlJTHutu8CfV5SlJtMWazDuYIIrXQ0XUPNPIjRlKf9kSpIhBUGTGrkhaHnYEu7VQQnb9zs9f6IFbsY4vPmHRGVhfVctSscZGkxITtSGnfbtnhLP5JCIALCSAxhnnTXk1/qK4CAWrjj+bzETaajY+T9tpOO+eucNy/2MRjibRXOYyySryA0aSr8+wHFS8FB4W4aWqqLXm+0d21APQ504xex0ckjZyacaZeAAMi0mdsE0QL5MyjZ1SKoHwnJ5/NEmom3Dmx05hOLgUX7x8pdITFjyyLEywwuNEUSmljYIdJASQVujN1FP4WEVx3ffshf8NgT2zFA4DL0qJcjiAIlKnnRoFeFUi8BOqBsV8AHJ
+ ARA:13230040|376014|1800799024|366016|23010399003|3023799007|6133799003|10067099003|18002099003|261102123227099003|22082099003|261102130727099003|8096899003|56012099006|11063799006|5023799004|4143699003|261022105027099003|261026121527099003|261021121427099003|261022075727099003|261026140227099003|261009223027099003|261028144727099003|261021123027099003;
+X-Microsoft-Antispam-Message-Info: +oeBBJDwD8ZshZvTBF/RjXVr7fcryG0VZGZgL2DyojymwHOQQkhuY7k3ag+Yz3qp3dSoTchUO92i0Y9tbDcXQs2GxtafYyFrQt4pJ3f9R5WsyAROHefVA4syMnRYjnh0saxw+0rdI7h+4Ynj60QN5fX9dj3keTtzMdxKTkafgrX0V/DRXKDr9OWbZiR22oqMnjPcE8pDbl8zDDIQLu1owpL2OTiKsYFOevM9J1ceZx3V8vf8lVzvo20gcGftprYLvOV3x6NJZkDvZrGWY5McrA7xtB8BWcCjINuuq2P7/hLYQ5BO3OX60MNqO3sWX9Sae0HzK8qUN7H8sX504j0pdXp+5Jk+fIjuWK6JoHyQVCXQjbzWEGwCIli321nIaRT14O/g6zHdeGyWYUIbQNSXLWH5iHS7s1g07aweNlVRaJrKUzkQ59YGZGm8nRdoqlJ88nBzwBLMla5qKJQ4AVFSp0jpCja633+wUjOAVipGwBnT8zpAPy6Sug/tca/rdPlNp3ECrQdKpgynbe8aiN6jgODmnac7mB97jCnrDBM2X0lbi4ykSjehw/tKWIFQ0kNlAhZW4REkf1p6TTOn2LrpGBI96NgKe/dZdlW1PvtrQKC2ZzzjymEkovaNZQk5sDeL/6c72ZG26c4uz8/WxDPc4gHwtoOYD8SPWXIDLWO0nhg=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA1PR12MB8517.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(261022075727099003)(5023799004)(11063799006)(56012099006)(4143699003)(261022105027099003)(261028144727099003)(261009223027099003)(261102123227099003)(261026121527099003)(261021123027099003)(261021121427099003)(261021135927099003)(261026140227099003)(10067099003)(22082099003)(18002099003)(3023799007)(13003099007);
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5167.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(3023799007)(6133799003)(10067099003)(18002099003)(261102123227099003)(22082099003)(261102130727099003)(8096899003)(56012099006)(11063799006)(5023799004)(4143699003)(261022105027099003)(261026121527099003)(261021121427099003)(261022075727099003)(261026140227099003)(261009223027099003)(261028144727099003)(261021123027099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RHlod05ibVM4eFZ0dDNkU1pJbERuajc1K1UrQlJTdUxBVy8rYUk1aUZhbEdF?=
- =?utf-8?B?TDVLUEhwK2hjMFpoWlhBY1kvaXJ0ZEl4eTVhQ0tmTFFzNWJLUjNVZGV0cnpk?=
- =?utf-8?B?bzlEYm1DQkRrMU8yVkVRQmMzWDdxOWQwaW5QZ3hpUStnbDVSWm1QMkF0Sjdk?=
- =?utf-8?B?UHJTTEZ6bS85RG9KWWgrUEVkRTVpSVFTUTFBNjFMczFRSDNWS3c3YytMYklN?=
- =?utf-8?B?QUlVS3hYRkZEekZ6MHhDRmdyQ0F6b2hPTHV2TmJhYm5qUmZ3RHlhRDlIc2Uz?=
- =?utf-8?B?SHM0aU5sWlFlcnFCTEpJKzFibytxUTBwWG9RVmpKUDNOL21jbmhheWRCb2hh?=
- =?utf-8?B?blJrTTZmY2JIVXZzSC9mKzh0VTlUampBeFRSR0d1YWQwZmtVWlNNb0NZcEV5?=
- =?utf-8?B?dklqYVl4dnNjS0FJNUxwcForelNCdkllZk1FZG9SR3BkSWdsbHhOeGp1Rlha?=
- =?utf-8?B?MkhNSVpHTE5keElDMXRKeXB6UDNIbURKMVF1ZnlpeU5HSkxCdFVvRWI1WERp?=
- =?utf-8?B?RjNVSjArb1BPUzhiVHdrakJLWlVIN0xrS3VVS04vTkVLcFZuaVhJSWRIVklB?=
- =?utf-8?B?dG9RQzVOVnZBM0FvMlk0UFN6REJ4RzUzd0pVVjJQR0dveEMrdjN6T1BldWhs?=
- =?utf-8?B?SVVFSWFvZEhQVEYzbVREL2ZPMFp2WGxINDVNbWpQNXcyWVg2L0hSeDMxcFJK?=
- =?utf-8?B?eXB1a3d1cEc1SHlDV01BZklwTEUxMS9rUlA4K3dGOWZhZ3NkQkk5WTN3ZVpZ?=
- =?utf-8?B?SGFSOHhHYnkraFliUUF4TE1lT2VJNysraGxsOTJucDV6a25YVEg2V1FNOXFz?=
- =?utf-8?B?Njg0cXlZTzlQNUNGOWhzYXRsbkpsei96c2hzbVQ2N2Jha3EwNFpGeTZKZGUw?=
- =?utf-8?B?aEtEaG00TFBjajNEWFRab2VNMStidzVDMkFUNEhzTGV1UEY5U0h5L1B1c0VL?=
- =?utf-8?B?cklnRy9EMmMrSjU5bHZiV1MzTEM0UWVlancrS2dCSWd2OENBb2g1RWgzdUR4?=
- =?utf-8?B?V3drM2JIaW9wWDlNbVZzaTBkUGxVM01Uazk5NXVKSk9oV28rREt3VU5EcmNo?=
- =?utf-8?B?OGV2TC90WGFaay9ZL0YxUUg5S2Fnb3VZekNvS1ZLNE5ralpjVEpicXdUVHVQ?=
- =?utf-8?B?V0RmKzlUbk5UL3dYYnhEWlF4QlNVd3JEWDdCUnYvY0lNME9LOFVWTzdZOEgw?=
- =?utf-8?B?S0dGUjcwalVHVUxvcEphZHFYTnZ5YThlTXUyQjFDZERuWFRFM08yMlNubytY?=
- =?utf-8?B?VEZTTnRNUk01bWM3cGVSKy9JUlpXbUZTbDVTbGRONS9jQWJBUXdBTzZtRnpx?=
- =?utf-8?B?cTRMREovWHFtc0h4Y2VQU0ErZ1IxakgzWDFVNFlRaVlHUWxTOHh4ZW8zUHhp?=
- =?utf-8?B?TEFLblgvRWxXZ2ZPY29RaFVJUGxPQ2VBZDg4QlNQa3VWZFFCWTkrTlViZW0v?=
- =?utf-8?B?cFYzcyszSmJKTGdKekYveHNtZ1RxRUhxM0VGZnBsOVVvRWZJTng3MThhaW80?=
- =?utf-8?B?K3ZNdXhoL0Yyempvb1YydDBDNzF1QlVXVWZodW44VFNDRkwvU0RORVNaTVFr?=
- =?utf-8?B?ckcySFJZL2FBUThJelEzdmphSzdqTXhvanhPNW5qZ2lsSnBESkp6ek9FRTBS?=
- =?utf-8?B?cmx3Sk9PaEZXMlUza2ZYSnYzKzBiYUxYbVJZLzNheHovYWFsRVBMZ0Y3QkJT?=
- =?utf-8?B?VmtzbmRuZ1BWOXdPeUxibnJjYVdOT0Yvcy9kVFJFYmx2U0hDZlRXbXI5KzFJ?=
- =?utf-8?B?b3lubjk3UGs5WVpGL3prYytHUHFzSWJYdFpoS3JFK0dUTS8xdjBJWnZmamZr?=
- =?utf-8?B?SUQyUmJQMnBCUldHQzFWV2xsRnN4WGNzWnZPektOUGdJeFpHdlQxRUhuWk5X?=
- =?utf-8?B?dElkZFRUYzduaThXcmVPRFpwSUNXNmdPb1R2SW5QeTBwa2pscUFFaVJJNklr?=
- =?utf-8?B?S01HSFAwYjZJTFVzOWxCT2pIU1NiaTNFY3FRcVZTdXVoaG1MTzd5ZjZXTXpC?=
- =?utf-8?B?WVhpYTJIK1lPcXhKd0NRYm1FeWVISUVIbDJ3UUwrejdlb3l4aVRaZEh0bStB?=
- =?utf-8?B?Z09QVkIwdWpMUittaytkQnhYWU5ULzd0L05CVjNrS2F3Y0dZZUU3MEJ2SXQ1?=
- =?utf-8?B?R2p5K1oyUjU4Q0t6endUaFoxa0JGdnlDajR3TXZZL255VlpqaWgrcUFDNUtk?=
- =?utf-8?B?cWpReTAxN0JSaVVQRmFkR2lxSHVNa3ZZWnpxdTdoL2RrMDE1bFpwZk9UdUY1?=
- =?utf-8?B?cUNyNitjc05taUVPOWg3OStXVmxUdnQ5aHFja0VRcGZuc0xTSFRFUU5CcFlP?=
- =?utf-8?Q?6EGjiGpfBOyUd8CfyY?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OXhXUkM5WnQ1cHo3c3FvK1oveDhjQkhONUZMQStDdlVsU0FlVy90K1pCODcw?=
+ =?utf-8?B?L3RoY3JwTWFia2pWVjc3dEtOR0p2YzN5eS9BRFpVZnZMVUt2UHo3dlhnSkd2?=
+ =?utf-8?B?SGFsdU9DdW1XOUtWN1VSUGZVbVp4U0xkcGFXMDZJQ2dGM215b3p2c2VVSEg5?=
+ =?utf-8?B?WjlPeXExQmRlZlVTSy94YUp1c0xYTktsV040Qmhyc0Ywa1dMNmN5YkdKU3I0?=
+ =?utf-8?B?WThtTXhmZ0lRVXRDaEdHZUV6ZEl4djZDbzR0ekUyb01rUjNIZHo4ZnVwL1hJ?=
+ =?utf-8?B?eUEzNmhkU05FRGlHWXhZTzJQUDdwSGZLYXIxRGVzcm50cTJ5YXNIS3JDaVJZ?=
+ =?utf-8?B?cnVLSXFzMGNXenF2Q3RwcGg0Nmx1S2ROWWx6S0Z5WWZhZXA0V3gxbVA5MnJz?=
+ =?utf-8?B?d2ZZMHdMOWYyYU9WRUVEWThnbVR2SDFmcS82alVVNHNLTlcvMkI1WEV6bGxG?=
+ =?utf-8?B?aWVWcWYxLzBJTVJrVHhkZGwxTmNtQ3Erd0wzbzliblRVWjVXZGtnVE9YeXYw?=
+ =?utf-8?B?U05lOU1HR3VHNGMwQUE1ckY1V3VuQjJFY2FWcE4rKzZCeGpiaGdoeG8rMmZi?=
+ =?utf-8?B?dHJrUHl2dUowYmsveTVNcUduSEt6ZmhoK2IxVmdPMC9ZT0lrNzhncFYzNUZa?=
+ =?utf-8?B?MU9UNkNlcnJ2MXEyYnpqSCtEMmtvQnQ1OXFHSUtoVUZTdk1oMWovSFlkQ29L?=
+ =?utf-8?B?TkhwZGxVc0p6RmdweHU0elE0RC9GQzR5WkdyRlo5Tyt5RVo4c2JlbDUvQXJN?=
+ =?utf-8?B?YXo5Z0JQN09ZMEZOWEpGWmc3Q3Y1eGhFQkZFd0VOUmxxRmd0RnIvWmRrU2JV?=
+ =?utf-8?B?U0RrZGZkVm9kRDdSaWc1LzFFUzJNZ0FrUlJ1S0xvRTkzZkNMYVoxZm1ITTkw?=
+ =?utf-8?B?eHN1NCtyL2QyRFVtQjZQUkx5bTgwNUVDUlNaTGpDTUZwU0h5ODhreDJKTkNI?=
+ =?utf-8?B?MjZ1cU0rT0Ewak84U2Nib3dPTUliWldpT0NmR012UEp6akE4K2J3M2tiMVFR?=
+ =?utf-8?B?QnVpOFE3UlpTaHJUT0NmcU82V3VIMzU4cFM5bnFZTVFCeER1SHJuTFlWeUNy?=
+ =?utf-8?B?SERzajJhcWxqVGFldk5vSUduUVRaMnd5U0s5ejVnQ0V1TjVuMnE5OWZGZk9R?=
+ =?utf-8?B?THErMGZ0eTFVb3l2bTRMQ2FRMlMzVENTRUQyMVQzTlR3VzN6eVY1b0pMTzlw?=
+ =?utf-8?B?Ymx3eklhVUYxK0h5WFN5dlVwSzB6aU9od0NIMFg3Q3AzVVUvUGVoaTFEZm9H?=
+ =?utf-8?B?ZmRCbVJScXAzb0NqTytOR2hLUkpqYUdxMXFwZ1dFTDNwMVRZbHc1VXR5YmI5?=
+ =?utf-8?B?d3VlbUdaRWRibU5EWExXMUJXdXVuLy95YlE1SmI0VWUrZU5CR3RYeW1IMSs5?=
+ =?utf-8?B?OEw5QkQwRHoybUhLQXo0YzlLcWQxK2dPa1hyUENxZ0dydExibktxYXdGTU1q?=
+ =?utf-8?B?UU1FcTIyaTFYY3VrVUtteEJ4YTFvRUMyblNUQ3VxSEdIM01BeUZzajAvVlVq?=
+ =?utf-8?B?WHNQeG1jSXpZbnM1L3Q0VExGODZianJoNkV0MHpycHVjSUFXanBjc3oyMUo3?=
+ =?utf-8?B?YkdCL1FuM1k1eG5UZkRqQVZIdkNLTUFaaXgxZElMaVhaVEJBTnpKT3E5NG1O?=
+ =?utf-8?B?RytTeFgvSXB1UHNObGdxM3ExQyt4K3l3Q0NlbDliQ3hoNDBDdytkczVXQTNv?=
+ =?utf-8?B?TlFSSDAxYUF6dk4xNnExRWExOHgrVWtyNmVkN25RanB2U0pvV3hQQnV2WUtn?=
+ =?utf-8?B?d2lZL1dLcytlQUVpTm5JQjVGdm12MVBndVhvM3Z0VVZFZnB3aXBzOTJubDZC?=
+ =?utf-8?B?enlDakxNaWQ0YkFRN2ZqVk9jWjZBWUNZOW50cnNWZ3NYdjdpeWp6RzNmVXNE?=
+ =?utf-8?B?cEtMUUZsTjBob1dHOTlZNnNoQkpLQVM4WXFXRlV4S0N2MEUxSHdBT2gwSm0x?=
+ =?utf-8?B?Y0tDUmRYY3RGWG5HVjk1bmV4cHhwWjhiWHB4REIrTEhET3cwVlprMHBPTXJW?=
+ =?utf-8?B?NGdTK0Zlcis2clpyNFlDWmYxdHpDK2ZyekNKN3pVNmpuczRQQU96b1c1MCtu?=
+ =?utf-8?B?dk5HWnp6NVR4a1VMZ3YrN1o5TGJ3NXR6QlRoaHNiMExFZFN0QTc2NDAvV1dB?=
+ =?utf-8?B?bWF6TFlRcXJadFpOcXpsazhHWHE0WEF5Zm9tTFRJRXI0ODU4Y1Qzc3grbDl3?=
+ =?utf-8?B?NEIrK2VFclZyWTQybk05U1hBbC9Xc2xTaDJQZG1uMmQyZDloWVNTcWI2SkFO?=
+ =?utf-8?B?OVE2aVJ5TlRJd2YxV1lTbnlKYVpsYXR1OEV4dUxLK3ZhNXRjQjh4dmhKRFM3?=
+ =?utf-8?Q?rrK6F2u3b+a0eznZGG?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 43291b9e-81b5-4bfe-dd7b-08df39cd47ed
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB8517.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5426baf2-579a-41a1-6778-08df39d6aa36
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5167.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 17:09:55.1532 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 18:17:05.4146 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4sb5/XHt5s6fqbnTACzQlgJGFBvVzONMy/eTOhtwTrjNHrluPrjeE9leC3jU8jst
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9591
+X-MS-Exchange-CrossTenant-UserPrincipalName: hQV64nyFMBLLs5S9BNV+uNWRhV8RhU+IZnIZ66mpIOVOPm8fYyc/KO91H1p14Wpg
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9616
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,288 +128,797 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-14.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=4.0.1
+	HTML_MESSAGE,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+--------------OPfnF89H390xQZcx79v7BG0M
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 11/3/2026 10:57 AM, Philip Yang wrote:
+
+
+On 2026-11-02 10:47, Mukul Joshi wrote:
+> Add the infrastructure for UALink loopback mode, where a single GPU
+> plays both the exporter and the importer role under two fixed
+> accelerator IDs:
 >
+> - Add struct amdgpu_ualink_loopback to track the loopback state, along
+>    with the fixed exporter and importer accel IDs.
 >
-> On 2026-11-02 18:32, Mishra, Apurv wrote:
->> AMD General
->>
->> AMD General
->>
->> Hi, @Chen, Xiaogang <mailto:Xiaogang.Chen@amd.com>, following up on 
->> your comment...
->>
->> P's other user is |do_swap_page()|'s own pin. On Ubuntu 6.8, 
->> |do_swap_page()| calls |get_page()|, then |migrate_to_ram()|, then 
->> |put_page()| (/mm/memory.c:3861–3864/). The extra reference outlives 
->> |migrate_mutex|. By then P's data has already moved to S, and the PTE 
->> points to S, so nothing else is wrong.
->>
->> The wrong place is KFD's reuse. |svm_range_validate_svm_bo()| reuses 
->> the |svm_bo| because P's pin keeps it alive. 
->> |svm_migrate_copy_to_vram()| then hands out P by offset without 
->> checking it, while |zone_device_page_init()| requires the page to be 
->> free. The fix adds that check where KFD hands out the page. When the 
->> pin is still there, the page stays in system memory with a valid PTE, 
->> and the next GPU fault migrates it normally.
->>
->> Mainline is the same. |do_swap_page()| now holds the page lock across 
->> `migrate_to_ram()`, but `zone_device_page_init()` resets the refcount 
->> before `lock_page()`. The race remains on mainline, because upstream 
->> KFD has no such check. My patch adds it. This has been tested and 
->> verified.
->>
->> Adding @Faizal, Sahil <mailto:Sahil.Faizal@amd.com> for updates as 
->> the fix needs to merge soon.
-> This is the corner case I tried to fix with the patch "drm/amdkfd: Fix 
-> svm_bo and vram page refcount". That patch was rejected because we 
-> cannot take a page that is not free and treat it as free and safe to 
-> use. The approach here makes sense to me: if the page has not been 
-> freed, we skip it. With that said, this patch is
-
-If the page has not been freed HMM page collect will set 
-(migrate->src[i] & MIGRATE_PFN_MIGRATE) to false. The explanation from 
-this patch is do_swap_page does not release vram page during cpu page 
-fault recovery, then page collection by page table walk would see pte 
-sill point to device memory, then not collect this page.
-
-If this explanation is right it is not drive issue. Driver does data 
-migration, not decide which page can be migrated. There is contradict in 
-this explanation. I suspect the real cause is not revealed.
-
-Regards
-
-Xiaogang
-
+> - Replace ualink_accel_id() with ualink_exp_accel_id() and
+>    ualink_imp_accel_id(), which return the exporter and importer accel
+>    ID in loopback mode.
 >
-> Reviewed-by: Philip Yang <Philip.Yang@amd.com>
->>
->> Regards,
->> Apurv
->>
->> ------------------------------------------------------------------------
->> *From:* Chen, Xiaogang <Xiaogang.Chen@amd.com>
->> *Sent:* Wednesday, October 28, 2026 6:41 PM
->> *To:* Mishra, Apurv <Apurv.Mishra@amd.com>; 
->> amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
->> *Cc:* Deucher, Alexander <Alexander.Deucher@amd.com>; Sierra Guiza, 
->> Alejandro (Alex) <Alex.Sierra@amd.com>; Kasiviswanathan, Harish 
->> <Harish.Kasiviswanathan@amd.com>
->> *Subject:* Re: [PATCH] drm/amdkfd: Don't reuse a VRAM page that is 
->> still referenced
->>
->> On 10/27/2026 8:19 PM, Mishra, Apurv wrote:
->> > AMD General
->> >
->> > Hi, @Chen, Xiaogang <mailto:Xiaogang.Chen@amd.com 
->> <mailto:Xiaogang.Chen@amd.com>>,
->> >
->> > The migrations don't overlap. |migrate_mutex| serializes them, but 
->> it doesn't
->> > cover P's last reference:
->> >
->> >    *
->> >      |svm_migrate_to_ram()| releases |prange->migrate_mutex| at /
->> >      kfd_migrate.c:1073/, after the VRAM→RAM migration has finished 
->> and before
->> >      the function returns.
->> >    *
->> >
->> >      |do_swap_page()| drops its own reference on P only after 
->> |migrate_to_ram()|
->> >      returns, at /mm/memory.c:4851–4853/.
->>
->> Before do_swap-page drops the last ref on P the cpu mapping of fault
->> address has not been changed. Then at following sys->vram the
->> migrate_vma_walk_ops->pmd_entry will not collect this source(sys) page
->> because the address there still point to device private page(since you
->> got cpu page fault it is device private memory). Then (migrate->src[i] &
->> MIGRATE_PFN_MIGRATE) is false.
->>
->> If P got used at sys->vram, but P is still used by someone else
->> something wrong is in other places. Skipping migration does not solve 
->> it.
->>
->> Regards
->>
->> Xiaogang
->>
->>
->> > So, the GPU fault takes |migrate_mutex| legitimately, while P still 
->> has |
->> > do_swap_page()|'s reference. KFD gets P back without P ever being 
->> freed. VRAM
->> > destinations come from the |svm_bo| by offset (`cursor.start + j`), 
->> not from a
->> > pool of free pages. That |svm_bo| is still alive because P holds a 
->> reference on
->> > it until P is freed, so |svm_range_validate_svm_bo()| reuses it and 
->> the same
->> > offset gives P again. Nothing checks whether P's previous user is 
->> done with it.
->> >
->> > Regards,
->> > Apurv
->> >
->> >
->> > 
->> --------------------------------------------------------------------------------
->> > *From:* Chen, Xiaogang <Xiaogang.Chen@amd.com>
->> > *Sent:* Monday, October 26, 2026 5:27 PM
->> > *To:* Mishra, Apurv <Apurv.Mishra@amd.com>; 
->> amd-gfx@lists.freedesktop.org <amd-
->> > gfx@lists.freedesktop.org>
->> > *Cc:* Deucher, Alexander <Alexander.Deucher@amd.com>; Sierra Guiza, 
->> Alejandro
->> > (Alex) <Alex.Sierra@amd.com>; Kasiviswanathan, Harish
->> > <Harish.Kasiviswanathan@amd.com>
->> > *Subject:* Re: [PATCH] drm/amdkfd: Don't reuse a VRAM page that is 
->> still referenced
->> >
->> >
->> > On 10/26/2026 1:12 PM, Mishra, Apurv wrote:
->> >
->> >      AMD General Hi, @Chen, Xiaogang <mailto:Xiaogang.Chen@amd.com 
->> <mailto:Xiaogang.Chen@amd.com>>
->> >      <mailto:Xiaogang.Chen@amd.com <mailto:Xiaogang.Chen@amd.com>>, 
->> thank you for the review. The two migrations
->> >      don't overlap on that address; they run back-to-back. What 
->> overlaps is the
->> >      lifetime of the VRAM page. This was reproduced with ASan and 
->> XNACK, which
->> >      make concurrent CPU and GPU faults on the same ranges 
->> frequently. As per the
->> >      logs (ROCM-31012 
->> <https://amd-hub.atlassian.net/browse/ROCM-31012 
->> <https://amd-hub.atlassian.net/browse/ROCM-31012>> <https://
->> >      amd-hub.atlassian.net/browse/ROCM-31012>):  *    A CPU fault 
->> enters /
->> >      do_swap_page()/, takes a reference on VRAM page P, and /
->> >        svm_migrate_to_ram/() moves the data to system page S. The 
->> PTE now points
->> >      to    S, but /do_swap_page/() still holds P until 
->> /migrate_to_ram/()
->> >      returns.  *    About 66 µs later, a GPU retry fault migrates 
->> the range back
->> >      to VRAM. src =    S with /MIGRATE_PFN_MIGRATE /set is correct 
->> here, because
->> >      the data really is    in system RAM.  *    KFD reuses the 
->> /svm_bo/, which P
->> >      keeps alive, and gets P again as the    destination. 
->> /zone_device_page_init/
->> >      (P) runs with ref=1 (traced) and    overwrites the refcount.  *
->> >
->> > How KFD reuses same P? From the description above CPU fault has not 
->> finished
->> > because  svm_migrate_to_ram has not returned, P has not been 
->> returned to KFD
->> > driver, so P still has reference count.
->> >
->> > Then GPU page fault happen on same range. For each migration on a 
->> prange there
->> > is prange->migrate_mutex to have migration on the prange happen 
->> exclusively.
->> > Then how can svm_migrate_to_vram enter migration if 
->> prange->migrate_mutex is
->> > still hold at svm_migrate_to_ram?
->> >
->> > My basic concern is a vram page can only be involved at one 
->> migration at a
->> > moment. If it is getting migrated in two migrations at same time 
->> with difference
->> > direction there is syn issue. Checking the page ref here to avoid 
->> migration is
->> > not fixing the root cause.
->> >
->> > Regards
->> >
->> > Xiaogang
->> >
->> >          The CPU fault's /put_page/(P) frees P mid-migration and 
->> clears its
->> >        mapping. /migrate_vma_finalize/() misses that PTE (263 of 
->> 264 restored),
->> >      and    it's left pointing at S. S is freed, and the next 
->> /hmm_range_fault /
->> >      hits the    BUG_ON in /swapops.h:504/. The trace and the panic 
->> registers
->> >      match this page and S exactly. With the fix, the /refcount 
->> /check skipped a
->> >      busy page 705 times on the repro host with no panic. Regards, 
->> Apurv
->> > 
->> -------------------------------------------------------------------------------- 
->> *From:* Chen, Xiaogang <Xiaogang.Chen@amd.com> 
->> <mailto:Xiaogang.Chen@amd.com <mailto:Xiaogang.Chen@amd.com>> *Sent:* 
->> Monday, October 26, 2026 10:32 AM *To:* Mishra, Apurv 
->> <Apurv.Mishra@amd.com> <mailto:Apurv.Mishra@amd.com 
->> <mailto:Apurv.Mishra@amd.com>>; amd-gfx@lists.freedesktop.org 
->> <mailto:amd-gfx@lists.freedesktop.org 
->> <mailto:amd-gfx@lists.freedesktop.org>> <amd- 
->> gfx@lists.freedesktop.org> <mailto:amd-gfx@lists.freedesktop.org 
->> <mailto:amd-gfx@lists.freedesktop.org>> *Cc:* Deucher, Alexander 
->> <Alexander.Deucher@amd.com> <mailto:Alexander.Deucher@amd.com 
->> <mailto:Alexander.Deucher@amd.com>>; Sierra Guiza, Alejandro (Alex) 
->> <Alex.Sierra@amd.com> <mailto:Alex.Sierra@amd.com 
->> <mailto:Alex.Sierra@amd.com>>; Kasiviswanathan, Harish 
->> <Harish.Kasiviswanathan@amd.com> 
->> <mailto:Harish.Kasiviswanathan@amd.com 
->> <mailto:Harish.Kasiviswanathan@amd.com>> *Subject:* Re: [PATCH] 
->> drm/amdkfd: Don't reuse a VRAM page that is still referenced On 
->> 10/23/2026 12:17 PM, Apurv Mishra wrote:    In 
->> svm_migrate_copy_to_vram(), skip VRAM pages with a non-zero refcount 
->> and    leave those pages in system memory for this migration. When an 
->> svm_bo is    reused, a VRAM page can still be held by an in-flight 
->> CPU fault    (do_swap_page -> svm_migrate_to_ram). Migrating to VRAM 
->> then re-initializes the page via zone_device_page_init(), resetting 
->> its refcount. The fault's    late put_page() frees the page 
->> mid-migration, so migrate_vma_finalize()    never restores that PTE. 
->> It is left pointing at a freed system page and    hmm_range_fault() 
->> hits BUG_ON in pfn_swap_entry_to_page() (swapops.h). If there is cpu 
->> fault the data is in vram page. If at same time driver is migrating 
->> data from sys->vram  migrate->src[i] & MIGRATE_PFN_MIGRATE should be 
->> false since the data is already at device side. Then if you got a  
->> MIGRATE_PFN_MIGRAT sys ram page at svm_migrate_copy_to_vram after 
->> migrate_vma_setup, but cpu page fault also happened on same page 
->> there is a contradict. So, I do not see this scenario can happen or 
->> the real cause is revealed. Regards Xiaogang    Signed-off-by: Apurv 
->> Mishra <Apurv.Mishra@amd.com> <mailto:Apurv.Mishra@amd.com 
->> <mailto:Apurv.Mishra@amd.com>> <mailto:Apurv.Mishra@amd.com 
->> <mailto:Apurv.Mishra@amd.com>> <mailto:Apurv.Mishra@amd.com 
->> <mailto:Apurv.Mishra@amd.com>> --- 
->> drivers/gpu/drm/amd/amdkfd/kfd_migrate.c |    20 +++++++++++++++----- 
->> 1 file changed, 15 insertions(+), 5 deletions(-)    diff --git 
->> a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/    
->> amdkfd/kfd_migrate.c index 8b96e1fe741a..1eb92ac6eb05 100644 --- 
->> a/drivers/ gpu/drm/amd/amdkfd/kfd_migrate.c +++ 
->> b/drivers/gpu/drm/amd/amdkfd/    kfd_migrate.c @@ -297,16 +297,26 @@ 
->> svm_migrate_copy_to_vram(struct kfd_node    *node, struct svm_range 
->> *prange, amdgpu_res_first(prange->ttm_res,    ttm_res_offset, npages 
->> << PAGE_SHIFT, &cursor); for (i = j = 0; (i < npages)    && (mpages < 
->> migrate->cpages); i++) { - struct page *spage; + struct page    
->> *spage = migrate_pfn_to_page(migrate->src[i]); if (migrate->src[i] 
->> &    MIGRATE_PFN_MIGRATE) { dst[i] = cursor.start + (j << 
->> PAGE_SHIFT); migrate-     >dst[i] = svm_migrate_addr_to_pfn(adev, 
->> dst[i]); - svm_migrate_get_vram_page(prange, migrate->dst[i]); - 
->> migrate->dst[i] =    migrate_pfn(migrate->dst[i]); - mpages++; + /* + 
->> * A reused svm_bo page may    still be held by a CPU fault. + * 
->> Reinitializing it would free it under this migration, + * so leave 
->> this page in system memory. + */ + if 
->> (page_ref_count(pfn_to_page(migrate->dst[i]))) { + dst[i] = 0; + 
->> migrate-     >dst[i] = 0; + spage = NULL; + } else { + 
->> svm_migrate_get_vram_page(prange,    migrate->dst[i]); + 
->> migrate->dst[i] = migrate_pfn(migrate->dst[i]); + mpages++; + } } - 
->> spage = migrate_pfn_to_page(migrate->src[i]); if (spage    && 
->> !is_zone_device_page(spage)) { src[i] = dma_map_page(dev, spage, 
->> 0,    PAGE_SIZE,      DMA_BIDIRECTIONAL);
->> >
+> - Add amdgpu_ualink_loopback_sw_init(), which allocates the ordered
+>    workqueue used to emulate exporter->importer messages from
+>    ualink_ip_sw_init(), and amdgpu_ualink_loopback_fini(), which
+>    destroys it from ualink_ip_sw_fini().
 >
+> Loopback is not enabled yet, and outside loopback both helpers return
+> ppod.accel_id, so there is no functional change.
+>
+> Signed-off-by: Mukul Joshi<mukul.joshi@amd.com>
+> ---
+> v1->v2:
+> - Drop the change in find_peer_adev() as its not needed.
+>
+> v2->v3:
+> - Update src_accel_id to the correct value in amdgpu_ualink_peer_remote_init()
+>    and amdgpu_ualink_peer_remote_fini().
+> - Add the loopback teardown in amdgpu_ualink_loopback_fini() and call it
+>    through ualink_ip_sw_fini().
+>
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 128 +++++++++++++++++----
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h |  29 +++++
+>   2 files changed, 133 insertions(+), 24 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+> index ca6432610f71..a98d5bbf0622 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+> @@ -89,6 +89,41 @@ static int amdgpu_ualink_drm_client_create(struct amdgpu_device *adev)
+>   	return 0;
+>   }
+>   
+> +/*
+> + * amdgpu_ualink_loopback_sw_init - allocate UALink loopback resources
+> + *
+> + * Allocates the ordered workqueue used to emulate exporter->importer
+> + * interrupts in SW. Does nothing unless loopback mode is enabled.
+> + */
+> +static int amdgpu_ualink_loopback_sw_init(struct amdgpu_device *adev)
+> +{
+> +	if (!adev->ualink.loopback.enabled)
+> +		return 0;
+> +
+> +	adev->ualink.loopback.wq =
+> +		alloc_ordered_workqueue("amdgpu_ualink_loopback", 0);
+> +	if (!adev->ualink.loopback.wq)
+> +		return -ENOMEM;
+> +
+> +	return 0;
+> +}
+> +
+> +/*
+> + * amdgpu_ualink_loopback_fini - tear down UALink loopback mode
+> + *
+> + * Destroys the workqueue allocated in amdgpu_ualink_loopback_sw_init().
+> + * destroy_workqueue() drains any pending self-interrupt work first.
+> + */
+> +static void amdgpu_ualink_loopback_fini(struct amdgpu_device *adev)
+> +{
+> +	if (!adev->ualink.loopback.wq)
+> +		return;
+> +
+> +	destroy_workqueue(adev->ualink.loopback.wq);
+> +	adev->ualink.loopback.wq = NULL;
+> +	adev->ualink.loopback.enabled = false;
+> +}
+> +
+>   static void amdgpu_ualink_object_fini(struct amdgpu_device *adev)
+>   {
+>   	if (!adev->ualink.info)
+> @@ -1028,6 +1063,31 @@ static struct amdgpu_device *find_peer_adev(unsigned int accel_id)
+>   	return NULL;
+>   }
+>   
+> +/*
+> + * Physical accelerator roles.
+> + *
+> + * Outside loopback a GPU owns a single accelerator, so both helpers return its
+> + * ppod.accel_id and the exporter/importer distinction collapses. In loopback
+> + * the one physical GPU plays both roles: the exporter owns the MP nHT and
+> + * receives all HW traffic, while the importer is the (virtual) HW sender for
+> + * the importer -> exporter path.
+> + */
+> +static inline u32 ualink_exp_accel_id(struct amdgpu_device *adev)
+> +{
+> +	if (adev->ualink.loopback.enabled)
+> +		return adev->ualink.loopback.exporter_accel_id;
+> +
+> +	return adev->ualink.info->ppod.accel_id;
+> +}
+> +
+Replacing ualink_accel_id with ualink_exp_accel_id is misleading for the 
+non-loopback case, since each device is both an exporter and an importer 
+at the same time. I'd prefer to add the loopback-enabled check inside 
+ualink_accel_id() instead.
+
+It also looks like ualink_imp_accel_id is only used by 
+amdgpu_ualink_process_irq and amdgpu_ualink_remote_interrupt under the 
+loopback-enabled condition, so it could be removed as well. That would 
+simplify the patch and drop all the ualink_accel_id renames.
+
+> +static inline u32 ualink_imp_accel_id(struct amdgpu_device *adev)
+> +{
+> +	if (adev->ualink.loopback.enabled)
+> +		return adev->ualink.loopback.importer_accel_id;
+> +
+> +	return adev->ualink.info->ppod.accel_id;
+> +}
+> +
+>   static bool amdgpu_ualink_is_local_accel(struct amdgpu_device *adev,
+>   					 u32 accel_id)
+>   {
+> @@ -1533,19 +1593,21 @@ int ualink_ip_sw_init(struct amdgpu_ip_block *ip_block)
+>   	struct amdgpu_ualink_ppod_setup *ppod_setup;
+>   	struct amdgpu_device *adev = ip_block->adev;
+>   	struct amdgpu_ualink_info *info;
+> +	int r;
+>   
+>   	info = kzalloc(sizeof(*info), GFP_KERNEL);
+>   	ppod_setup = kzalloc(sizeof(*ppod_setup), GFP_KERNEL);
+>   	vpod_config = kzalloc(sizeof(*vpod_config), GFP_KERNEL);
+>   	stations = kzalloc(sizeof(*stations), GFP_KERNEL);
+>   	if (!info || !ppod_setup || !vpod_config || !stations) {
+> -		kfree(info);
+> -		kfree(ppod_setup);
+> -		kfree(vpod_config);
+> -		kfree(stations);
+> -		return -ENOMEM;
+> +		r = -ENOMEM;
+> +		goto err_free;
+>   	}
+>   
+> +	r = amdgpu_ualink_loopback_sw_init(adev);
+> +	if (r)
+> +		goto err_free;
+> +
+>   	info->ppod.accel_id = 0xffffffff;
+>   	info->ppod.bandwidth = 0xffffffff;
+>   	info->ppod.latency = 0xffffffff;
+> @@ -1568,10 +1630,18 @@ int ualink_ip_sw_init(struct amdgpu_ip_block *ip_block)
+>   	adev->ualink.stations = stations;
+>   
+>   	return 0;
+> +
+> +err_free:
+> +	kfree(info);
+> +	kfree(ppod_setup);
+> +	kfree(vpod_config);
+> +	kfree(stations);
+> +	return r;
+>   }
+>   
+>   int ualink_ip_sw_fini(struct amdgpu_ip_block *ip_block)
+>   {
+> +	amdgpu_ualink_loopback_fini(ip_block->adev);
+>   	amdgpu_ualink_object_fini(ip_block->adev);
+>   	return 0;
+>   }
+> @@ -4487,11 +4557,6 @@ static bool amdgpu_ualink_vpod_membership_changed(struct amdgpu_device *adev)
+>   			     AMDGPU_UALINK_ACCEL_MAX);
+>   }
+>   
+> -static inline u32 ualink_accel_id(struct amdgpu_device *adev)
+> -{
+> -	return adev->ualink.info->ppod.accel_id;
+> -}
+> -
+>   static inline enum amdgpu_ualink_addr_mode ualink_addr_mode(struct amdgpu_device *adev)
+>   {
+>   	return adev->ualink.info->vpod.addr_mode;
+> @@ -4837,7 +4902,7 @@ static void amdgpu_ualink_metadata_npa_unmapping(struct amdgpu_device *adev)
+>   {
+>   	struct amdgpu_ualink_remote *remote = to_remote(adev);
+>   	u64 timeout = msecs_to_jiffies(2000);
+> -	u32 dst_accel_id = ualink_accel_id(adev);
+> +	u32 dst_accel_id = ualink_exp_accel_id(adev);
+>   	struct amdgpu_bo *bos[2];
+>   	u32 n_bos;
+>   	struct dma_fence *fence;
+> @@ -4956,7 +5021,7 @@ static void amdgpu_ualink_metadata_npa_unmapping(struct amdgpu_device *adev)
+>   static int amdgpu_ualink_metadata_npa_mapping(struct amdgpu_device *adev)
+>   {
+>   	struct amdgpu_ualink_remote *remote = to_remote(adev);
+> -	u32 dst_accel_id = ualink_accel_id(adev);
+> +	u32 dst_accel_id = ualink_exp_accel_id(adev);
+>   	u64 timeout = msecs_to_jiffies(2000);
+>   	struct amdgpu_bo *bos[2];
+>   	u32 n_bos;
+> @@ -5241,7 +5306,7 @@ static void amdgpu_ualink_metadata_fini(struct amdgpu_device *adev)
+>   {
+>   	struct amdgpu_ualink_remote *remote = to_remote(adev);
+>   
+> -	dev_dbg(adev->dev, "accel_id %u\n", ualink_accel_id(adev));
+> +	dev_dbg(adev->dev, "accel_id %u\n", ualink_exp_accel_id(adev));
+>   	amdgpu_bo_free_kernel(&remote->rptr_bo, &remote->rptr_gpu_addr,
+>   				      &remote->rptr_cpu_addr);
+>   	amdgpu_bo_free_kernel(&remote->ring_bo, &remote->rb_gpu_addr,
+> @@ -5288,7 +5353,7 @@ static int amdgpu_ualink_metadata_init(struct amdgpu_device *adev)
+>   	}
+>   
+>   	dev_dbg(adev->dev, "accel_id %u addr_mode %d fw status 0x%x\n",
+> -		ualink_accel_id(adev), ualink_addr_mode(adev), status);
+> +		ualink_exp_accel_id(adev), ualink_addr_mode(adev), status);
+>   
+>   	/* Alloc metadata structure for all GPUs */
+>   	metadata_size = sizeof(struct amdgpu_ualink_metadata) * AMDGPU_UALINK_ACCEL_MAX;
+> @@ -5361,12 +5426,12 @@ static int amdgpu_ualink_metadata_init(struct amdgpu_device *adev)
+>   	}
+>   
+>   	if (ualink_addr_mode(adev) == AMDGPU_UALINK_ADDR_MODE_SOURCE_ALIAS)
+> -		wptr_gpu_addr = remote->rb_gpu_addr + rb_size * ualink_accel_id(adev);
+> +		wptr_gpu_addr = remote->rb_gpu_addr + rb_size * ualink_exp_accel_id(adev);
+>   
+>   	for_each_set_bit(accel_id, remote->active_accel_bits, AMDGPU_UALINK_ACCEL_MAX) {
+>   		dev_dbg(adev->dev, "init for accel_id %u\n", accel_id);
+>   
+> -		if (accel_id == ualink_accel_id(adev))
+> +		if (accel_id == ualink_exp_accel_id(adev))
+>   			continue;
+>   
+>   		rb_gpu_addr = remote->rb_gpu_addr + rb_size * accel_id;
+> @@ -5392,7 +5457,7 @@ static int amdgpu_ualink_metadata_init(struct amdgpu_device *adev)
+>   						     ualink_tlb_wptr_offset(adev, accel_id);
+>   
+>   		dev_dbg(adev->dev, "init from accel_id %u to accel_id %u, rb_size 0x%x\n",
+> -			accel_id, ualink_accel_id(adev), metadata[accel_id].rb_size);
+> +			accel_id, ualink_exp_accel_id(adev), metadata[accel_id].rb_size);
+>   		dev_dbg(adev->dev, "rb 0x%llx tlb rb 0x%llx\n",
+>   			metadata[accel_id].ri_rb, metadata[accel_id].tlb_inv_rb);
+>   		dev_dbg(adev->dev, "rb wptr at 0x%llx tlb wptr at 0x%llx\n",
+> @@ -5806,7 +5871,14 @@ static void amdgpu_ualink_get_wb_addr(struct amdgpu_device *adev,
+>   				      u64 *wb_npa, u32 type)
+>   {
+>   	struct amdgpu_ualink_remote *remote = to_remote(adev);
+> -	u32 accel_id = ualink_accel_id(adev);
+> +	/* The GPUID encoded in the write-back NPA address is the routing target
+> +	 * the remote writes the rptr back to, i.e. THIS GPU. It must be the
+> +	 * physically-owned accel_id: outside loopback that is our own accel_id,
+> +	 * and in loopback it is the exporter (the only id the single GPU owns
+> +	 * and can receive on). The importer is only a logical source id for the
+> +	 * forward path and must never appear as an NPA GPUID.
+> +	 */
+Maybe move this into the patch comment.
+
+Regards,
+Philip
+> +	u32 accel_id = ualink_exp_accel_id(adev);
+>   	u32 rb_size = AMDGPU_GPU_PAGE_ALIGN(2 * AMDGPU_UALINK_RB_SIZE);
+>   	uintptr_t wb;
+>   	u64 npa;
+> @@ -5981,19 +6053,19 @@ static int amdgpu_ualink_ring_resync_ptrs(struct amdgpu_device *adev,
+>   						   &peer->shootdown, &tlb_wptr);
+>   	if (r) {
+>   		dev_dbg(adev->dev, "accel_id %u read remote %u wptr failed %d\n",
+> -			ualink_accel_id(adev), remote_accel_id, r);
+> +			ualink_exp_accel_id(adev), remote_accel_id, r);
+>   		return r;
+>   	}
+>   
+>   	if (peer->interrupt.wptr == int_wptr && peer->shootdown.wptr == tlb_wptr) {
+>   		dev_dbg(adev->dev, "accel_id %u wptr 0x%llx 0x%llx is same as remote %u\n",
+> -			ualink_accel_id(adev), int_wptr, tlb_wptr, remote_accel_id);
+> +			ualink_exp_accel_id(adev), int_wptr, tlb_wptr, remote_accel_id);
+>   		return 0;
+>   	}
+>   
+>   	dev_dbg(adev->dev,
+>   		"accel_id %u wptr 0x%llx 0x%llx sync to remote %u wptr 0x%llx 0x%llx\n",
+> -		ualink_accel_id(adev), peer->interrupt.wptr, peer->shootdown.wptr,
+> +		ualink_exp_accel_id(adev), peer->interrupt.wptr, peer->shootdown.wptr,
+>   		remote_accel_id, int_wptr, tlb_wptr);
+>   
+>   	amdgpu_ualink_get_wb_addr(adev, remote_accel_id, &int_wb, NULL,
+> @@ -6164,7 +6236,12 @@ static int amdgpu_ualink_peer_remote_init(struct amdgpu_device *adev)
+>   	struct amdgpu_ualink_peer *peer;
+>   	struct amdgpu_ualink_ring *interrupt;
+>   	struct amdgpu_ualink_ring *shootdown;
+> -	u32 src_accel_id = ualink_accel_id(adev);
+> +	/* This sets up the send rings (local sender -> each remote dst). In
+> +	 * loopback the HW-served direction is importer -> exporter, so the
+> +	 * local sender is the importer; the skip below then skips the importer
+> +	 * and sets up the peer[exporter] ring that the HW path needs.
+> +	 */
+> +	u32 src_accel_id = ualink_imp_accel_id(adev);
+     if (adev->ualink.loopback.enabled)
+src_accel_id= adev->ualink.loopback.importer_accel_id;
+>   	u32 dst_accel_id;
+>   	u64 npa, flags;
+>   	int r = 0;
+> @@ -6287,7 +6364,10 @@ static void amdgpu_ualink_peer_remote_fini(struct amdgpu_device *adev)
+>   {
+>   	u32 rb_pages = AMDGPU_UALINK_RB_SIZE >> AMDGPU_GPU_PAGE_SHIFT;
+>   	struct amdgpu_ualink_remote *remote = to_remote(adev);
+> -	u32 src_accel_id = ualink_accel_id(adev);
+> +	/* Mirror peer_remote_init: in loopback the local sender is the
+> +	 * importer, so unmap the peer[exporter] send ring that was set up.
+> +	 */
+> +	u32 src_accel_id = ualink_imp_accel_id(adev);
+>   	u32 dst_accel_id;
+>   	struct amdgpu_ualink_peer *peer;
+>   	struct amdgpu_ualink_ring *ring;
+> @@ -6374,7 +6454,7 @@ int amdgpu_ualink_sw_init(struct amdgpu_device *adev)
+>    */
+>   void amdgpu_ualink_sw_fini(struct amdgpu_device *adev)
+>   {
+> -	dev_dbg(adev->dev, "halt accel_id %u addr_mode %d\n", ualink_accel_id(adev),
+> +	dev_dbg(adev->dev, "halt accel_id %u addr_mode %d\n", ualink_exp_accel_id(adev),
+>   		ualink_addr_mode(adev));
+>   
+>   	adev->ualink.msg_ctl->send_halt(adev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
+> index 85c9a9634a4b..0b1e8dd38666 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
+> @@ -97,6 +97,17 @@ enum AMDGPU_UALINK_PROTOCOL_MESSAGES {
+>   #define AMDGPU_UALINK_LIGHTWEIGHT_TLB_SHOOTDOWN		0x1
+>   #define AMDGPU_UALINK_HEAVYWEIGHT_TLB_SHOOTDOWN		0x2
+>   
+> +/* UALink loopback support.
+> + *
+> + * In loopback mode a single GPU loops UALink requests back to itself for
+> + * manufacturing testing. The GPU exposes two fixed accelerator IDs: it acts
+> + * as the exporter on one and the importer on the other. Loopback is enabled
+> + * with the amdgpu.ualink_loopback module parameter.
+> + */
+> +/* Fixed accelerator IDs used by a loopback GPU. */
+> +#define AMDGPU_UALINK_LOOPBACK_EXPORTER_ACCID		1
+> +#define AMDGPU_UALINK_LOOPBACK_IMPORTER_ACCID		0
+> +
+>   enum amdgpu_ualink_conn_state {
+>   	AMDGPU_UALINK_CONN_NOT_READY			= 0,
+>   	AMDGPU_UALINK_CONN_IN_PROGRESS			= 1,
+> @@ -319,6 +330,21 @@ struct amdgpu_ualink_msg_ctl {
+>   	int (*send_halt)(struct amdgpu_device *adev);
+>   };
+>   
+> +/* UALink loopback mode state.
+> + *
+> + * When @enabled is true this single GPU acts as both exporter
+> + * (@exporter_accel_id) and importer (@importer_accel_id). There is no second
+> + * physical GPU, so exporter->importer messages cannot be delivered by the
+> + * (single) MP nHT and are instead emulated in SW by feeding them back into
+> + * our own IRQ handler via @wq.
+> + */
+> +struct amdgpu_ualink_loopback {
+> +	bool enabled;
+> +	u32 exporter_accel_id;
+> +	u32 importer_accel_id;
+> +	struct workqueue_struct *wq;
+> +};
+> +
+>   struct amdgpu_ualink_mgr {
+>   	u64 npa_size;
+>   	u32 psp_if_ver;
+> @@ -333,6 +359,9 @@ struct amdgpu_ualink_mgr {
+>   	/* For remote interrupt and shootdown */
+>   	struct amdgpu_ualink_remote *remote;
+>   
+> +	/* UALink loopback mode state (see struct amdgpu_ualink_loopback) */
+> +	struct amdgpu_ualink_loopback loopback;
+> +
+>   	/* handle irq from ualink client of remote GPUs */
+>   	struct amdgpu_irq_src irq;
+>   
+
+--------------OPfnF89H390xQZcx79v7BG0M
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <br>
+    <br>
+    <div class="moz-cite-prefix">On 2026-11-02 10:47, Mukul Joshi wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:20261102160125.2743750-2-mukul.joshi@amd.com">
+      <pre wrap="" class="moz-quote-pre">Add the infrastructure for UALink loopback mode, where a single GPU
+plays both the exporter and the importer role under two fixed
+accelerator IDs:
+
+- Add struct amdgpu_ualink_loopback to track the loopback state, along
+  with the fixed exporter and importer accel IDs.
+
+- Replace ualink_accel_id() with ualink_exp_accel_id() and
+  ualink_imp_accel_id(), which return the exporter and importer accel
+  ID in loopback mode.
+
+- Add amdgpu_ualink_loopback_sw_init(), which allocates the ordered
+  workqueue used to emulate exporter-&gt;importer messages from
+  ualink_ip_sw_init(), and amdgpu_ualink_loopback_fini(), which
+  destroys it from ualink_ip_sw_fini().
+
+Loopback is not enabled yet, and outside loopback both helpers return
+ppod.accel_id, so there is no functional change.
+
+Signed-off-by: Mukul Joshi <a class="moz-txt-link-rfc2396E" href="mailto:mukul.joshi@amd.com">&lt;mukul.joshi@amd.com&gt;</a>
+---
+v1-&gt;v2:
+- Drop the change in find_peer_adev() as its not needed.
+
+v2-&gt;v3:
+- Update src_accel_id to the correct value in amdgpu_ualink_peer_remote_init()
+  and amdgpu_ualink_peer_remote_fini().
+- Add the loopback teardown in amdgpu_ualink_loopback_fini() and call it
+  through ualink_ip_sw_fini().
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 128 +++++++++++++++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h |  29 +++++
+ 2 files changed, 133 insertions(+), 24 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+index ca6432610f71..a98d5bbf0622 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+@@ -89,6 +89,41 @@ static int amdgpu_ualink_drm_client_create(struct amdgpu_device *adev)
+ 	return 0;
+ }
+ 
++/*
++ * amdgpu_ualink_loopback_sw_init - allocate UALink loopback resources
++ *
++ * Allocates the ordered workqueue used to emulate exporter-&gt;importer
++ * interrupts in SW. Does nothing unless loopback mode is enabled.
++ */
++static int amdgpu_ualink_loopback_sw_init(struct amdgpu_device *adev)
++{
++	if (!adev-&gt;ualink.loopback.enabled)
++		return 0;
++
++	adev-&gt;ualink.loopback.wq =
++		alloc_ordered_workqueue(&quot;amdgpu_ualink_loopback&quot;, 0);
++	if (!adev-&gt;ualink.loopback.wq)
++		return -ENOMEM;
++
++	return 0;
++}
++
++/*
++ * amdgpu_ualink_loopback_fini - tear down UALink loopback mode
++ *
++ * Destroys the workqueue allocated in amdgpu_ualink_loopback_sw_init().
++ * destroy_workqueue() drains any pending self-interrupt work first.
++ */
++static void amdgpu_ualink_loopback_fini(struct amdgpu_device *adev)
++{
++	if (!adev-&gt;ualink.loopback.wq)
++		return;
++
++	destroy_workqueue(adev-&gt;ualink.loopback.wq);
++	adev-&gt;ualink.loopback.wq = NULL;
++	adev-&gt;ualink.loopback.enabled = false;
++}
++
+ static void amdgpu_ualink_object_fini(struct amdgpu_device *adev)
+ {
+ 	if (!adev-&gt;ualink.info)
+@@ -1028,6 +1063,31 @@ static struct amdgpu_device *find_peer_adev(unsigned int accel_id)
+ 	return NULL;
+ }
+ 
++/*
++ * Physical accelerator roles.
++ *
++ * Outside loopback a GPU owns a single accelerator, so both helpers return its
++ * ppod.accel_id and the exporter/importer distinction collapses. In loopback
++ * the one physical GPU plays both roles: the exporter owns the MP nHT and
++ * receives all HW traffic, while the importer is the (virtual) HW sender for
++ * the importer -&gt; exporter path.
++ */
++static inline u32 ualink_exp_accel_id(struct amdgpu_device *adev)
++{
++	if (adev-&gt;ualink.loopback.enabled)
++		return adev-&gt;ualink.loopback.exporter_accel_id;
++
++	return adev-&gt;ualink.info-&gt;ppod.accel_id;
++}
++</pre>
+    </blockquote>
+    Replacing ualink_accel_id with ualink_exp_accel_id is misleading for
+    the non-loopback case, since each device is both an exporter and an
+    importer at the same time. I'd prefer to add the loopback-enabled
+    check inside ualink_accel_id() instead.<br>
+    <br>
+    It also looks like ualink_imp_accel_id is only used by
+    amdgpu_ualink_process_irq and amdgpu_ualink_remote_interrupt under
+    the loopback-enabled condition, so it could be removed as well. That
+    would simplify the patch and drop all the ualink_accel_id renames.<br>
+    <br>
+    <blockquote type="cite" cite="mid:20261102160125.2743750-2-mukul.joshi@amd.com">
+      <pre wrap="" class="moz-quote-pre">
++static inline u32 ualink_imp_accel_id(struct amdgpu_device *adev)
++{
++	if (adev-&gt;ualink.loopback.enabled)
++		return adev-&gt;ualink.loopback.importer_accel_id;
++
++	return adev-&gt;ualink.info-&gt;ppod.accel_id;
++}
++
+ static bool amdgpu_ualink_is_local_accel(struct amdgpu_device *adev,
+ 					 u32 accel_id)
+ {
+@@ -1533,19 +1593,21 @@ int ualink_ip_sw_init(struct amdgpu_ip_block *ip_block)
+ 	struct amdgpu_ualink_ppod_setup *ppod_setup;
+ 	struct amdgpu_device *adev = ip_block-&gt;adev;
+ 	struct amdgpu_ualink_info *info;
++	int r;
+ 
+ 	info = kzalloc(sizeof(*info), GFP_KERNEL);
+ 	ppod_setup = kzalloc(sizeof(*ppod_setup), GFP_KERNEL);
+ 	vpod_config = kzalloc(sizeof(*vpod_config), GFP_KERNEL);
+ 	stations = kzalloc(sizeof(*stations), GFP_KERNEL);
+ 	if (!info || !ppod_setup || !vpod_config || !stations) {
+-		kfree(info);
+-		kfree(ppod_setup);
+-		kfree(vpod_config);
+-		kfree(stations);
+-		return -ENOMEM;
++		r = -ENOMEM;
++		goto err_free;
+ 	}
+ 
++	r = amdgpu_ualink_loopback_sw_init(adev);
++	if (r)
++		goto err_free;
++
+ 	info-&gt;ppod.accel_id = 0xffffffff;
+ 	info-&gt;ppod.bandwidth = 0xffffffff;
+ 	info-&gt;ppod.latency = 0xffffffff;
+@@ -1568,10 +1630,18 @@ int ualink_ip_sw_init(struct amdgpu_ip_block *ip_block)
+ 	adev-&gt;ualink.stations = stations;
+ 
+ 	return 0;
++
++err_free:
++	kfree(info);
++	kfree(ppod_setup);
++	kfree(vpod_config);
++	kfree(stations);
++	return r;
+ }
+ 
+ int ualink_ip_sw_fini(struct amdgpu_ip_block *ip_block)
+ {
++	amdgpu_ualink_loopback_fini(ip_block-&gt;adev);
+ 	amdgpu_ualink_object_fini(ip_block-&gt;adev);
+ 	return 0;
+ }
+@@ -4487,11 +4557,6 @@ static bool amdgpu_ualink_vpod_membership_changed(struct amdgpu_device *adev)
+ 			     AMDGPU_UALINK_ACCEL_MAX);
+ }
+ 
+-static inline u32 ualink_accel_id(struct amdgpu_device *adev)
+-{
+-	return adev-&gt;ualink.info-&gt;ppod.accel_id;
+-}
+-
+ static inline enum amdgpu_ualink_addr_mode ualink_addr_mode(struct amdgpu_device *adev)
+ {
+ 	return adev-&gt;ualink.info-&gt;vpod.addr_mode;
+@@ -4837,7 +4902,7 @@ static void amdgpu_ualink_metadata_npa_unmapping(struct amdgpu_device *adev)
+ {
+ 	struct amdgpu_ualink_remote *remote = to_remote(adev);
+ 	u64 timeout = msecs_to_jiffies(2000);
+-	u32 dst_accel_id = ualink_accel_id(adev);
++	u32 dst_accel_id = ualink_exp_accel_id(adev);
+ 	struct amdgpu_bo *bos[2];
+ 	u32 n_bos;
+ 	struct dma_fence *fence;
+@@ -4956,7 +5021,7 @@ static void amdgpu_ualink_metadata_npa_unmapping(struct amdgpu_device *adev)
+ static int amdgpu_ualink_metadata_npa_mapping(struct amdgpu_device *adev)
+ {
+ 	struct amdgpu_ualink_remote *remote = to_remote(adev);
+-	u32 dst_accel_id = ualink_accel_id(adev);
++	u32 dst_accel_id = ualink_exp_accel_id(adev);
+ 	u64 timeout = msecs_to_jiffies(2000);
+ 	struct amdgpu_bo *bos[2];
+ 	u32 n_bos;
+@@ -5241,7 +5306,7 @@ static void amdgpu_ualink_metadata_fini(struct amdgpu_device *adev)
+ {
+ 	struct amdgpu_ualink_remote *remote = to_remote(adev);
+ 
+-	dev_dbg(adev-&gt;dev, &quot;accel_id %u\n&quot;, ualink_accel_id(adev));
++	dev_dbg(adev-&gt;dev, &quot;accel_id %u\n&quot;, ualink_exp_accel_id(adev));
+ 	amdgpu_bo_free_kernel(&amp;remote-&gt;rptr_bo, &amp;remote-&gt;rptr_gpu_addr,
+ 				      &amp;remote-&gt;rptr_cpu_addr);
+ 	amdgpu_bo_free_kernel(&amp;remote-&gt;ring_bo, &amp;remote-&gt;rb_gpu_addr,
+@@ -5288,7 +5353,7 @@ static int amdgpu_ualink_metadata_init(struct amdgpu_device *adev)
+ 	}
+ 
+ 	dev_dbg(adev-&gt;dev, &quot;accel_id %u addr_mode %d fw status 0x%x\n&quot;,
+-		ualink_accel_id(adev), ualink_addr_mode(adev), status);
++		ualink_exp_accel_id(adev), ualink_addr_mode(adev), status);
+ 
+ 	/* Alloc metadata structure for all GPUs */
+ 	metadata_size = sizeof(struct amdgpu_ualink_metadata) * AMDGPU_UALINK_ACCEL_MAX;
+@@ -5361,12 +5426,12 @@ static int amdgpu_ualink_metadata_init(struct amdgpu_device *adev)
+ 	}
+ 
+ 	if (ualink_addr_mode(adev) == AMDGPU_UALINK_ADDR_MODE_SOURCE_ALIAS)
+-		wptr_gpu_addr = remote-&gt;rb_gpu_addr + rb_size * ualink_accel_id(adev);
++		wptr_gpu_addr = remote-&gt;rb_gpu_addr + rb_size * ualink_exp_accel_id(adev);
+ 
+ 	for_each_set_bit(accel_id, remote-&gt;active_accel_bits, AMDGPU_UALINK_ACCEL_MAX) {
+ 		dev_dbg(adev-&gt;dev, &quot;init for accel_id %u\n&quot;, accel_id);
+ 
+-		if (accel_id == ualink_accel_id(adev))
++		if (accel_id == ualink_exp_accel_id(adev))
+ 			continue;
+ 
+ 		rb_gpu_addr = remote-&gt;rb_gpu_addr + rb_size * accel_id;
+@@ -5392,7 +5457,7 @@ static int amdgpu_ualink_metadata_init(struct amdgpu_device *adev)
+ 						     ualink_tlb_wptr_offset(adev, accel_id);
+ 
+ 		dev_dbg(adev-&gt;dev, &quot;init from accel_id %u to accel_id %u, rb_size 0x%x\n&quot;,
+-			accel_id, ualink_accel_id(adev), metadata[accel_id].rb_size);
++			accel_id, ualink_exp_accel_id(adev), metadata[accel_id].rb_size);
+ 		dev_dbg(adev-&gt;dev, &quot;rb 0x%llx tlb rb 0x%llx\n&quot;,
+ 			metadata[accel_id].ri_rb, metadata[accel_id].tlb_inv_rb);
+ 		dev_dbg(adev-&gt;dev, &quot;rb wptr at 0x%llx tlb wptr at 0x%llx\n&quot;,
+@@ -5806,7 +5871,14 @@ static void amdgpu_ualink_get_wb_addr(struct amdgpu_device *adev,
+ 				      u64 *wb_npa, u32 type)
+ {
+ 	struct amdgpu_ualink_remote *remote = to_remote(adev);
+-	u32 accel_id = ualink_accel_id(adev);
++	/* The GPUID encoded in the write-back NPA address is the routing target
++	 * the remote writes the rptr back to, i.e. THIS GPU. It must be the
++	 * physically-owned accel_id: outside loopback that is our own accel_id,
++	 * and in loopback it is the exporter (the only id the single GPU owns
++	 * and can receive on). The importer is only a logical source id for the
++	 * forward path and must never appear as an NPA GPUID.
++	 */</pre>
+    </blockquote>
+    Maybe move this into the patch comment.<br>
+    <br>
+    Regards,<br>
+    Philip
+    <blockquote type="cite" cite="mid:20261102160125.2743750-2-mukul.joshi@amd.com">
+      <pre wrap="" class="moz-quote-pre">
++	u32 accel_id = ualink_exp_accel_id(adev);
+ 	u32 rb_size = AMDGPU_GPU_PAGE_ALIGN(2 * AMDGPU_UALINK_RB_SIZE);
+ 	uintptr_t wb;
+ 	u64 npa;
+@@ -5981,19 +6053,19 @@ static int amdgpu_ualink_ring_resync_ptrs(struct amdgpu_device *adev,
+ 						   &amp;peer-&gt;shootdown, &amp;tlb_wptr);
+ 	if (r) {
+ 		dev_dbg(adev-&gt;dev, &quot;accel_id %u read remote %u wptr failed %d\n&quot;,
+-			ualink_accel_id(adev), remote_accel_id, r);
++			ualink_exp_accel_id(adev), remote_accel_id, r);
+ 		return r;
+ 	}
+ 
+ 	if (peer-&gt;interrupt.wptr == int_wptr &amp;&amp; peer-&gt;shootdown.wptr == tlb_wptr) {
+ 		dev_dbg(adev-&gt;dev, &quot;accel_id %u wptr 0x%llx 0x%llx is same as remote %u\n&quot;,
+-			ualink_accel_id(adev), int_wptr, tlb_wptr, remote_accel_id);
++			ualink_exp_accel_id(adev), int_wptr, tlb_wptr, remote_accel_id);
+ 		return 0;
+ 	}
+ 
+ 	dev_dbg(adev-&gt;dev,
+ 		&quot;accel_id %u wptr 0x%llx 0x%llx sync to remote %u wptr 0x%llx 0x%llx\n&quot;,
+-		ualink_accel_id(adev), peer-&gt;interrupt.wptr, peer-&gt;shootdown.wptr,
++		ualink_exp_accel_id(adev), peer-&gt;interrupt.wptr, peer-&gt;shootdown.wptr,
+ 		remote_accel_id, int_wptr, tlb_wptr);
+ 
+ 	amdgpu_ualink_get_wb_addr(adev, remote_accel_id, &amp;int_wb, NULL,
+@@ -6164,7 +6236,12 @@ static int amdgpu_ualink_peer_remote_init(struct amdgpu_device *adev)
+ 	struct amdgpu_ualink_peer *peer;
+ 	struct amdgpu_ualink_ring *interrupt;
+ 	struct amdgpu_ualink_ring *shootdown;
+-	u32 src_accel_id = ualink_accel_id(adev);
++	/* This sets up the send rings (local sender -&gt; each remote dst). In
++	 * loopback the HW-served direction is importer -&gt; exporter, so the
++	 * local sender is the importer; the skip below then skips the importer
++	 * and sets up the peer[exporter] ring that the HW path needs.
++	 */
++	u32 src_accel_id = ualink_imp_accel_id(adev);</pre>
+    </blockquote>
+    &nbsp; &nbsp; if (adev-&gt;ualink.loopback.enabled)&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<br>
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="white-space: pre-wrap">src_accel_id</span>=
+    adev-&gt;ualink.loopback.importer_accel_id;
+    <blockquote type="cite" cite="mid:20261102160125.2743750-2-mukul.joshi@amd.com">
+      <pre wrap="" class="moz-quote-pre">
+ 	u32 dst_accel_id;
+ 	u64 npa, flags;
+ 	int r = 0;
+@@ -6287,7 +6364,10 @@ static void amdgpu_ualink_peer_remote_fini(struct amdgpu_device *adev)
+ {
+ 	u32 rb_pages = AMDGPU_UALINK_RB_SIZE &gt;&gt; AMDGPU_GPU_PAGE_SHIFT;
+ 	struct amdgpu_ualink_remote *remote = to_remote(adev);
+-	u32 src_accel_id = ualink_accel_id(adev);
++	/* Mirror peer_remote_init: in loopback the local sender is the
++	 * importer, so unmap the peer[exporter] send ring that was set up.
++	 */
++	u32 src_accel_id = ualink_imp_accel_id(adev);
+ 	u32 dst_accel_id;
+ 	struct amdgpu_ualink_peer *peer;
+ 	struct amdgpu_ualink_ring *ring;
+@@ -6374,7 +6454,7 @@ int amdgpu_ualink_sw_init(struct amdgpu_device *adev)
+  */
+ void amdgpu_ualink_sw_fini(struct amdgpu_device *adev)
+ {
+-	dev_dbg(adev-&gt;dev, &quot;halt accel_id %u addr_mode %d\n&quot;, ualink_accel_id(adev),
++	dev_dbg(adev-&gt;dev, &quot;halt accel_id %u addr_mode %d\n&quot;, ualink_exp_accel_id(adev),
+ 		ualink_addr_mode(adev));
+ 
+ 	adev-&gt;ualink.msg_ctl-&gt;send_halt(adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
+index 85c9a9634a4b..0b1e8dd38666 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
+@@ -97,6 +97,17 @@ enum AMDGPU_UALINK_PROTOCOL_MESSAGES {
+ #define AMDGPU_UALINK_LIGHTWEIGHT_TLB_SHOOTDOWN		0x1
+ #define AMDGPU_UALINK_HEAVYWEIGHT_TLB_SHOOTDOWN		0x2
+ 
++/* UALink loopback support.
++ *
++ * In loopback mode a single GPU loops UALink requests back to itself for
++ * manufacturing testing. The GPU exposes two fixed accelerator IDs: it acts
++ * as the exporter on one and the importer on the other. Loopback is enabled
++ * with the amdgpu.ualink_loopback module parameter.
++ */
++/* Fixed accelerator IDs used by a loopback GPU. */
++#define AMDGPU_UALINK_LOOPBACK_EXPORTER_ACCID		1
++#define AMDGPU_UALINK_LOOPBACK_IMPORTER_ACCID		0
++
+ enum amdgpu_ualink_conn_state {
+ 	AMDGPU_UALINK_CONN_NOT_READY			= 0,
+ 	AMDGPU_UALINK_CONN_IN_PROGRESS			= 1,
+@@ -319,6 +330,21 @@ struct amdgpu_ualink_msg_ctl {
+ 	int (*send_halt)(struct amdgpu_device *adev);
+ };
+ 
++/* UALink loopback mode state.
++ *
++ * When @enabled is true this single GPU acts as both exporter
++ * (@exporter_accel_id) and importer (@importer_accel_id). There is no second
++ * physical GPU, so exporter-&gt;importer messages cannot be delivered by the
++ * (single) MP nHT and are instead emulated in SW by feeding them back into
++ * our own IRQ handler via @wq.
++ */
++struct amdgpu_ualink_loopback {
++	bool enabled;
++	u32 exporter_accel_id;
++	u32 importer_accel_id;
++	struct workqueue_struct *wq;
++};
++
+ struct amdgpu_ualink_mgr {
+ 	u64 npa_size;
+ 	u32 psp_if_ver;
+@@ -333,6 +359,9 @@ struct amdgpu_ualink_mgr {
+ 	/* For remote interrupt and shootdown */
+ 	struct amdgpu_ualink_remote *remote;
+ 
++	/* UALink loopback mode state (see struct amdgpu_ualink_loopback) */
++	struct amdgpu_ualink_loopback loopback;
++
+ 	/* handle irq from ualink client of remote GPUs */
+ 	struct amdgpu_irq_src irq;
+ 
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------OPfnF89H390xQZcx79v7BG0M--
