@@ -2,123 +2,78 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E000606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87A79606A31B
 	for <amd-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 13:45:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zg+N9Od5
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HI7WG/M0
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11AAE112442;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64FBF112461;
 	Thu,  5 Nov 2026 13:45:34 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C1258112372;
- Thu,  5 Nov 2026 11:39:25 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9849760F48;
- Thu,  5 Nov 2026 11:39:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 511611F000C1;
- Thu,  5 Nov 2026 11:39:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793878764;
- bh=nBYw1ywhOZ/qkhjAQYbGVUhl6PlTBeWYLHkpD07E2JA=;
- h=From:To:Cc:Subject:Date;
- b=Zg+N9Od5zSsBpPaBLRFCUpb24UpOsG40XB2g0jmYK6PIQt6/NgQ6o2D2xIuTzZ/Yk
- n6qi1h1mcFVesVxnhwbMsmTUH1QB6RESQX4KKKY9qM5V5a1Qt34ympeOCATm10u+Qb
- KsD8LoDt+yYWFple6BRBYHS00aQXSP21UQIPEWU+iZu0aTrXsVViG1oSfnzN4lbid7
- +NtTSPHgZdaPtu4vtc2CGV3LS2PrgEkos8Ndw3PblxkRKOpgx3J0ri4gsEugrTYfHe
- 7DmN1Y0bubaFVVlSZVlcXHAXCWDlBUlRQw5uW10GtWu6zcyakaDEKVloKzQiGJGquJ
- mxbW2ns2oLR1g==
-From: Philipp Stanner <phasta@kernel.org>
-To: Min Ma <mamin506@gmail.com>, Lizhi Hou <lizhi.hou@amd.com>,
- Oded Gabbay <ogabbay@kernel.org>, "Rob Herring (Arm)" <robh@kernel.org>,
- Tomeu Vizoso <tomeu@tomeuvizoso.net>,
- Karol Wachowski <karol.wachowski@linux.intel.com>,
- Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
- Heiko Stuebner <heiko@sntech.de>, Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Philipp Stanner <phasta@kernel.org>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Lucas Stach <l.stach@pengutronix.de>,
- Russell King <linux+etnaviv@armlinux.org.uk>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Alessio Belle <alessio.belle@imgtec.com>,
- Luigi Santivetti <luigi.santivetti@imgtec.com>,
- Qiang Yu <yuq825@gmail.com>, Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>,
- =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>,
- Liviu Dudau <liviu.dudau@arm.com>, Dave Airlie <airlied@redhat.com>,
- Gerd Hoffmann <kraxel@redhat.com>, Matthew Brost <matthew.brost@intel.com>,
- Natalie Vock <nat@pixelcluster.dev>,
- Arun Pravin <arunpravin.paneerselvam@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Melissa Wen <mwen@igalia.com>,
- =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>, Zack Rusin <zack.rusin@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Thierry Reding <thierry.reding@kernel.org>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
- =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Neill Kapron <nkapron@google.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
- Sunil Khatri <sunil.khatri@amd.com>, Prike Liang <Prike.Liang@amd.com>,
- Vitaly Prosyak <vitaly.prosyak@amd.com>, Jesse Zhang <Jesse.Zhang@amd.com>,
- =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- David Rosca <david.rosca@amd.com>,
- Marco Crivellari <marco.crivellari@suse.com>,
- Krzysztof Karas <krzysztof.karas@intel.com>,
- Andi Shyti <andi.shyti@linux.intel.com>,
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
- Shixiong Ou <oushixiong@kylinos.cn>,
- =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
- Joel Fernandes <joelagnelf@nvidia.com>,
- Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Al Viro <viro@zeniv.linux.org.uk>,
- Michael Bommarito <michael.bommarito@gmail.com>, Sam Day <me@samcday.com>,
- Gabriel Prostitis <prostitisgabriel@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- etnaviv@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- imagination@lists.freedesktop.org, lima@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, virtualization@lists.linux.dev,
- spice-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-usb@vger.kernel.org, rust-for-linux@vger.kernel.or
-Subject: [PATCH 0/3] dma-buf: dma-fence: Remove dma_fence_init64()
-Date: Thu,  5 Nov 2026 12:35:27 +0100
-Message-ID: <20261105113529.1989375-2-phasta@kernel.org>
-X-Mailer: git-send-email 2.56.0
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com
+ [74.125.82.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36F3F10FED4
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Nov 2026 20:11:07 +0000 (UTC)
+Received: by mail-dy1-f169.google.com with SMTP id
+ 5a478bee46e88-36a18fc7a38so368623eec.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 04 Nov 2026 12:11:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793823066; x=1794427866; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=axktSpkMz8G9oKTbdKR+y7TQiCVf6bAQxEAR5q4VBnY=;
+ b=HI7WG/M0pf2WfBPgz7XJkqPpLxkDmLtQl8dAw/nIHWWxywZ3U/86kh9IYSB/uO4S9p
+ wG5xV5QOhqRAQEDR7ekDgMt06RGr7fwB0KId3S81Wthz3IKEoKxHKVKPL9HU57HvpuNe
+ WQorkwl2vIpRqgBVgCoOGQKRwmVMoBFdyreu2++AUrIqsw0K5vfHktAUqjnsDXDNrz7y
+ 3422GsqQADisV+TtVHd7l8t+72k7F5mrlU2lh0QJfss615tJ4AQ9zgzdwxxdASEWj5yM
+ ekx11lH7hNCdFB+0v5EHX222XR0+TuLdTRefeEjQ+OwIInFH99tYjAAXLK/zn5P1zIdc
+ NS0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793823066; x=1794427866;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=axktSpkMz8G9oKTbdKR+y7TQiCVf6bAQxEAR5q4VBnY=;
+ b=tyY9pJCMOgELZsbhMRWPF83aUdJlmTWAATpT+ZUz6POPdLQHTqyj8XRgKE/mQNzn02
+ VayWM5vJy/OUWRer2XlfdNzFNIs6Dwvz8H/KvnmwiiSPVF799f45+JH3RSLvlamTbtgZ
+ HZ3opKHJyL/HNy6eDzAd7MHuMvvw7jEnEq482GmQbgT2kNPZgnEwknOZ3GSzlk0bWX/u
+ 6SfjYJ9MPn1ZHlrleuscBe/Dcj/KBM6XFUYfEyltqBk7IsWijWmfvKuRbgEAxkvtG4zN
+ myU5v+KDr6s+z/v7T0zDBMGFikict8s9tYaSd8HJNCLpaTKUpWYt5g8vfCe1XTFLfpZn
+ bt1g==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwaGIZG7ujm2eYh93c0Lk7ZrOaD/sI0XEQQJnCIqYQ/efXdcio0BLEbfLbqbr/w6IT1dHgzuie6@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/BhuaJ25tYTNbzBhieIlL3E5ppFcsu574Y+dx/k2MbRTp4SME2
+ 9U7e9BMl5hFuWF7BLmLUIFksiOW7F0eTLNjj681z23tQSr2sbEozQW0=
+X-Gm-Gg: AYBFou1+Qw8eWSvzr++b5xwHF+202sPSFRLvp3+45QgXnqBoOYLL7Vkep9VNKiX43RP
+ IgARMUD+vp70J6h6kSDqS9FyME5UHyEhkii3MKqIPov0EHdpz4jRG78cVe4ftwlLZjhxsjuKba4
+ x1Gv5bI9B2zMwt0HLaMbTXHANFDd37KxRrPikwnwWaRUDl3inmkmNcmmv15CbfqbkqSPc/evi6v
+ 3PFQLhxSp0a5ICzf0ALL8URle1cbMznw13KC3nzDrOMsXQaxkLe/j2wAwuXiXnjHgwtV0q4kD7h
+ KG1XR3h5gugyWtULJMPSsfigAraJbRKHHCLUGi3gZfW1oOewfb11j5JRb6AbLF5DiOCxR6diuaJ
+ 6lhoN+9uJFi4+PvIiZwWEhxbFpuvEbhsIzxFBPnS21ZJTItuE+xW/Dq+TzBQxC4rWzGxDQ8HNrQ
+ f2hs7R1rFWmFhYgRA1T9Fs/QxnFsVSeafs3Ua4JDxfsXXLizfXX/BrV8Sj0LLfu53JVyPfqvwq0
+ wxL1lZLPS9fFW+9Jr5tzUZ+tIYBaTJVBzYz0o0X1Q/kjhQWyztTapSbm80GeodwqgWhuoiHE1G6
+ gzU6likZkY0X0WjQ9rxBrb8qHYPUxe3GOlspYkMs57lgrpZFHyELotweVUFFybEx
+X-Received: by 2002:a05:7301:2a95:b0:36c:9afe:fcd8 with SMTP id
+ 5a478bee46e88-36c9afefe8dmr5613420eec.30.1793823066322; 
+ Wed, 04 Nov 2026 12:11:06 -0800 (PST)
+Received: from at-Standard-PC-Q35-ICH9-2009 ([106.194.66.249])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-36dd7ec8881sm2731938eec.18.2026.11.04.12.11.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 04 Nov 2026 12:11:05 -0800 (PST)
+From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+To: alexdeucher@gmail.com
+Cc: airlied@gmail.com, alexander.deucher@amd.com,
+ amd-gfx@lists.freedesktop.org, atharvatiwarilinuxdev@gmail.com,
+ christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
+ harry.wentland@amd.com, linux-kernel@vger.kernel.org, simona@ffwll.ch,
+ siqueira@igalia.com, sunpeng.li@amd.com
+Subject: Re: [PATCH] drm/amd/amdgpu: Add 5K Support for iMac20,1 and iMac20,2
+Date: Wed,  4 Nov 2026 15:10:57 -0500
+Message-ID: <20261104201057.8395-1-atharvatiwarilinuxdev@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <CADnq5_PjiWHEDzS5DJgB1wS72_tHp4Ju5Wwr0R0N5EK-i9fXfQ@mail.gmail.com>
+References: <CADnq5_PjiWHEDzS5DJgB1wS72_tHp4Ju5Wwr0R0N5EK-i9fXfQ@mail.gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -133,95 +88,18 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-We recently had a discussion about reworking dma_fence init to close a
-race-window [1].
+> I think the rest of this can be simplified quite a bit.  I'd suggest
+> rebasing this on the other 5K support patches and see how much of that
+> code you can share.
+> https://lists.freedesktop.org/archives/dri-devel/2026-November/610011.html
 
-The community agreement seems to have been that we can get rid of
-dma_fence_init64(), so let's do that already. In the meantime we can
-continue our discussions regarding the race in [1].
-
-This also touches the Rust dma_fence, which actually should use 64-bit
-seqnos (was forgotten so far). Rust fence has no users currently, so
-needs no backporting, so I would like to address that in a distinct
-patch.
-
-Tested on Nouveau with and without the SEQNO64 flag. Nouveau also uses
-the USER flag, so I hope we're fine.
-
-
-P.
-
-[1] https://lore.kernel.org/dri-devel/20261029095542.1526750-3-phasta@kernel.org/
-
-
-Philipp Stanner (3):
-  dma-buf: dma-fence: Add flags parameter to dma_fence_init()
-  dma-buf: Port users of dma_fence_init64()
-  dma-buf: dma-fence: Remove dma_fence_init64()
-
- drivers/accel/amdxdna/amdxdna_ctx.c           |  2 +-
- drivers/accel/ethosu/ethosu_job.c             |  2 +-
- drivers/accel/ivpu/ivpu_job.c                 |  2 +-
- drivers/accel/rocket/rocket_job.c             |  2 +-
- drivers/dma-buf/dma-fence-array.c             |  2 +-
- drivers/dma-buf/dma-fence-chain.c             |  4 +-
- drivers/dma-buf/dma-fence.c                   | 58 +++++++++----------
- drivers/dma-buf/st-dma-fence-chain.c          |  2 +-
- drivers/dma-buf/st-dma-fence-unwrap.c         |  2 +-
- drivers/dma-buf/st-dma-fence.c                |  2 +-
- drivers/dma-buf/st-dma-resv.c                 |  2 +-
- drivers/dma-buf/sw_sync.c                     |  2 +-
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c  |  2 +-
- .../drm/amd/amdgpu/amdgpu_eviction_fence.c    |  7 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c     |  2 +-
- .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   |  5 +-
- .../gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c  |  5 +-
- drivers/gpu/drm/drm_crtc.c                    |  2 +-
- drivers/gpu/drm/drm_writeback.c               |  2 +-
- drivers/gpu/drm/etnaviv/etnaviv_gpu.c         |  2 +-
- drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c  |  2 +-
- drivers/gpu/drm/i915/i915_request.c           |  2 +-
- drivers/gpu/drm/i915/i915_sw_fence_work.c     |  2 +-
- drivers/gpu/drm/i915/i915_vma_resource.c      |  2 +-
- .../gpu/drm/i915/selftests/i915_sw_fence.c    |  2 +-
- drivers/gpu/drm/imagination/pvr_ccb.c         |  2 +-
- drivers/gpu/drm/imagination/pvr_queue.c       |  2 +-
- drivers/gpu/drm/lima/lima_sched.c             |  2 +-
- drivers/gpu/drm/msm/msm_fence.c               |  2 +-
- drivers/gpu/drm/nouveau/nouveau_fence.c       |  4 +-
- drivers/gpu/drm/panfrost/panfrost_job.c       |  2 +-
- drivers/gpu/drm/panthor/panthor_sched.c       |  2 +-
- drivers/gpu/drm/qxl/qxl_release.c             |  2 +-
- drivers/gpu/drm/radeon/radeon_fence.c         |  2 +-
- drivers/gpu/drm/scheduler/sched_fence.c       |  4 +-
- .../gpu/drm/scheduler/tests/mock_scheduler.c  |  2 +-
- drivers/gpu/drm/ttm/tests/ttm_bo_test.c       |  2 +-
- .../gpu/drm/ttm/tests/ttm_bo_validate_test.c  |  2 +-
- drivers/gpu/drm/v3d/v3d_fence.c               |  2 +-
- drivers/gpu/drm/vc4/vc4_gem.c                 |  2 +-
- drivers/gpu/drm/vgem/vgem_fence.c             |  2 +-
- drivers/gpu/drm/virtio/virtgpu_fence.c        |  2 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_fence.c         |  2 +-
- drivers/gpu/drm/xe/xe_hw_fence.c              |  2 +-
- drivers/gpu/drm/xe/xe_oa.c                    |  2 +-
- drivers/gpu/drm/xe/xe_preempt_fence.c         |  2 +-
- drivers/gpu/drm/xe/xe_tlb_inval.c             |  2 +-
- drivers/gpu/host1x/fence.c                    |  2 +-
- drivers/iio/industrialio-buffer.c             |  2 +-
- drivers/usb/gadget/function/f_fs.c            |  2 +-
- include/linux/dma-fence.h                     | 14 +++--
- rust/kernel/dma_buf/dma_fence.rs              |  2 +-
- 52 files changed, 95 insertions(+), 94 deletions(-)
-
-
-base-commit: 8258a37702b9b9cf27f5c0ea07625e3e6bd74f5a
--- 
-2.56.0
-
+The code that i saw, dosent have the ability to change resolutions, and the code
+it self, is basically completely different, for example writing 0 to 0x4F1 completely
+kills 5K forever, you cant alive it again on iMac20,1 and the code does that.
