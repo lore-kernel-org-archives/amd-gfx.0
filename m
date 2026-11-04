@@ -2,66 +2,99 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2BA5606A326
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 13:59:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5172D606A33D
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 14:07:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=qG8csFas
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NrAZImVu
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2078410FC2B;
-	Wed,  4 Nov 2026 13:59:44 +0000 (UTC)
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4046610FAA4;
- Wed,  4 Nov 2026 09:55:22 +0000 (UTC)
-Received: from smtp202.mailbox.org (smtp202.mailbox.org
- [IPv6:2001:67c:2050:b231:465::202])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4jKLQt4xXCz8scv;
- Wed, 04 Nov 2026 10:55:18 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
- t=1793786118;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=tTTrorNZwRFZQ3C5GMIr2j0fiftd0rO3TifOHjXOs+s=;
- b=qG8csFasliUkjr6qLe1MZJQ0AKgWA8Hq+7uAnAky9SA/5QxEyTkfe2klIrFgjQnswbQHih
- g2BQ0aha6vbVFlVQQ6ugRYHYGcC7aooELddgR/mX7K9N5N87RCB0IsS8ha5WHoiQMWfe/C
- /ukb79PeE0eIli1RhIynoxAQTcB3I0e2nf5crOjjSyzmWGLgJpTmAb2gSaUbmZ6WQ4Axb4
- qvz4+P3h0TSGmFBsMbFdWgdP+xEZPTKNAj2h59gUfDlmoaq5cMbJ8efwDERRsWEmfThBPv
- Sd7QmBgVmRiLMGAQ2YmJdaBrHBrb0Bad3g/pUOp6t8hytMltlsiGwmdABkP8BQ==
-Authentication-Results: outgoing_mbo_mout; dkim=none;
- spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates
- 2001:67c:2050:b231:465::202 as permitted sender) smtp.mailfrom=hugo@hsal.es
-From: Hugo Sales <hugo@hsal.es>
-To: alexander.deucher@amd.com, sunpeng.li@amd.com, harry.wentland@amd.com,
- siqueira@igalia.com, amd-gfx@lists.freedesktop.org
-Cc: Hugo Sales <hugo@hsal.es>, ray.wu@amd.com, simona@ffwll.ch,
- alex.hung@amd.com, mario.limonciello@amd.com, linux-kernel@vger.kernel.org,
- lohita.mudimela@amd.com, bhawanpreet.lakha@amd.com,
- dri-devel@lists.freedesktop.org, roman.li@amd.com, airlied@gmail.com,
- christian.koenig@amd.com
-Subject: [PATCH RFC RFT 0/8] drm/amd/display: Stop rounding backlight levels
- to whole percents
-Date: Wed,  4 Nov 2026 09:55:08 +0000
-Message-ID: <20261103-backlight-curve-rfc-v1-0-6e4813a8f2eb@hsal.es>
-X-Mailer: git-send-email 2.56.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6ACC10E7D2;
+	Wed,  4 Nov 2026 14:07:41 +0000 (UTC)
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11D6410FC23
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Nov 2026 14:07:35 +0000 (UTC)
+Received: by mail-dl1-f50.google.com with SMTP id
+ a92af1059eb24-14388db1a6bso20263c88.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 04 Nov 2026 06:07:35 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793801254; cv=none;
+ d=google.com; s=arc-20260327;
+ b=U46grCQJ/Uld1O6ts6o6YmwufWByQ151nF1ApNlE5JdlmNaPgZm74FIkkkyaVm5kZi
+ Veex3Fg60iE8LfiqTQRbOYyvFuTaDjPVvbuRijH+gAOFyWY5fes8a3py/kcacpJ3wRfE
+ LoJ4Uxv8b0aWe/ncz8hm6WgVx2n91/xV734fXCLN9FTlvpDfxUZrq1Q14G66UXxk7erO
+ VfzXuxCtYC4QFNs+UF4UB/0m0lwgFx819ReTu3pKdpbN+NiEIPHG8I1SWPUBkGHDRJXW
+ mNovvwkDP8io5pWk887xdxmA2NbkW7bE0pLXnf9suNc1spQdcvZiwilGHoiADUX4VHae
+ mXlw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=SaAZs9B+UXOHTaRDcZeWz12aXXxWAqfcjHVOwU/3B4c=;
+ fh=rXEUCLqNoEx24E+YUUB+qks4zsucxzaUJYhnqHkIgRU=;
+ b=n0+Fyp0mNs3J5hga+DAxUOQ9rLmPiTdVncvK+WVK2UE40V3g9bqEO4KRcYAEvf7Cch
+ LKv3zUXRXcaIfg1chZtf7HDfVyQD56KRXTax11IOh/9M6xzq/El4GDXhADJVNyBqob7M
+ LLTXRq2GMU4f0W/cM72ULSoLcaUwr5ZfLazrkNh8JQD32KhQLseCIxI9I7Lz+r5QgL7q
+ OIZb8ZhkPIIlBLxz9BC916kzlfPWslZ+ahhWJS42qp05XHZuiyCUdsktlQLD7FZ6whV5
+ sMO3OFJAQjvvsRTFnGwn5oI8tiDcR09SQw1Adsq9cYNUmWI0VRVIxMhZ50U90Sp62fie
+ ohuA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793801254; x=1794406054; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=SaAZs9B+UXOHTaRDcZeWz12aXXxWAqfcjHVOwU/3B4c=;
+ b=NrAZImVu4kh3GlCXEVi4PPeYuNORQgNt/Oj2g3koDQaKVH848xL/0NuDNQ5mwzJiHR
+ TgL1OVQJfBFlXCMFs02oyDkzqO8WjWSwV3iKJa0h3ZVkAyFRqu59LCYeBN/RlEYQRraN
+ E/S29eeyI1R9pWhKGLMPEIp3ogZaorMp0aLMB6ZZ18oyDe8HGZ5znVSEdPDFFg1z67EA
+ Nd09rfuJmRDChEl6lNIK3nAbyMS9uJ5sntsmsCT213CUI4Kg+Rb1ovkY6KAH1Ft9IYxM
+ 1JMlC+t1ytXspQ6m5zPDvYlbnyN7ZBrpJ3HwvU57tTGOfPgWFQoq06WYQIM0s8R94OZE
+ OBew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793801254; x=1794406054;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=SaAZs9B+UXOHTaRDcZeWz12aXXxWAqfcjHVOwU/3B4c=;
+ b=T5x9sRlpYjKfj8tUP8572bGKVjCXROfSquI+HKdgzfWLTu7tejgTgc0mZFsWOi/rQ9
+ j37uKbNVoLE5Ws9/4kgNBv2IPp7SCjcHbb30h5RzMrCnrv1yeIwYC8t7KAgGXWmW+YxT
+ Gb2vF9rq0XY065zjRCrbPAGV2PyxfpEuqYNulFsuUQVVi54ndrn2E3g8XI077JTv4dyC
+ ljJBRpo9vKV43LUikkVcbR51nvRa1Yl6q9mVG6e4gACMyV3URmv4q4V0wl69L5vyINy1
+ SxdiZK9lUBO8SR2e9y3TZVeL3cVgoagLskDXg7wSNVOhKp+XQfA7KwwRJstB03Kkh8/S
+ 8wYg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxeL2TD0mgtlnfOfPP+dZAqEbmTe8u8HdcDSeL4wQ9hxqtP0NG/fYGsrH5pI5gt2GkObMWTody5@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+haUx3IU3mj+2ejwCUb4pKhqj1XPf5VQgpJAC2lzxwcqYH8VK8
+ bCzePTgd1VCqG/hmbRToXfF1AQEXetX3GSAEBkMaiwruVEw4siB63PLtARqpl9GG/V6MxkCFN6S
+ O5Ev3+0AN1Fve9iA5VQwzpUie7tM/ep0=
+X-Gm-Gg: AYBFou0iARb717HkDYfcD4iivQxl6mz5WL74/zTR87mrvGtqr2mDFE180a2aG5gDxoS
+ oORnL3fMrAojTCyIm+zanpyHqR97vxs/SyhIkwTJizduxVCWGqo9aATq8zMoNdI4BXlnRT3hsx0
+ wwi4HDNwhsKnjVnIpD5k3LW1ZJwFt4MlFFAEmKF3ksKCO3dL5D0pusVJ08vcoPSj8cgGra1gt7e
+ R4H4QvSCS0xpC9BNIrFyi3YkO5YA56pjaM8pU6R6Ek767yIFwkiHUTjdjaDK59yCo2wZ8xJQAxH
+ qLJhsGLQGSS5H18tVU0ex15T9KDOWHqoJau3Y+72W9MxvR/J7hUZ2uvJHZCgG+cAXvtelDNgkGZ
+ AKtkJ2jTMhnuLx+o9BeCapHh3cQhsg9fkCgO9e1mH7UpQoUenIdA/vjMxyiuvhP+QgaQPaAhz+x
+ /ie/gzjdGwTIG2ud+2nRBFeSA=
+X-Received: by 2002:a05:7022:7e0c:b0:165:be2f:c56e with SMTP id
+ a92af1059eb24-1ac5b7dcb2bmr39911852c88.2.1793801253717; Wed, 04 Nov 2026
+ 06:07:33 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Change-ID: 20261102-backlight-curve-rfc-1bb4b6dee24c
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5393; i=hugo@hsal.es;
- h=from:subject:message-id; bh=PQsx1IGMpofUteuFxti+4cBxlJh3BV6RNADrUVGGk00=;
- b=kA0DAAoWfQx+r8nYNaAByyZiAGrqDFqiD1U5arqjNLF1t7Ag6L4243Zv09upUqhQQSay70qxM
- oh1BAAWCgAdFiEELdhJAASRk5lscuekfQx+r8nYNaAFAmrqDFoACgkQfQx+r8nYNaBOIgEA1pRf
- USzLduOXx5VknDn/4CGSTc9sUZOlqDQnnKXf6lIA/0RZnUq4WkKYzP/nuYMezgAXg3IrREZNWLK
- 7Ku3tMggO
-X-Developer-Key: i=hugo@hsal.es; a=openpgp;
- fpr=193D095149CF7E8737B39064D912B0DB205A91C1
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4jKLQt4xXCz8scv
-X-Mailman-Approved-At: Wed, 04 Nov 2026 13:59:29 +0000
+References: <CADnq5_NCB6ur05ZvP0fe9hsgLHM0=y_Wx31G4vkpKH+F7yZ74g@mail.gmail.com>
+ <20261103150057.1227-1-atharvatiwarilinuxdev@gmail.com>
+ <CADnq5_N-sobVK3qitqABjqMv2HMyGNdxX0XMXa4TZzVnMv8MLA@mail.gmail.com>
+ <20261104125241.39209-1-ed@charmerstraining.com>
+In-Reply-To: <20261104125241.39209-1-ed@charmerstraining.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 4 Nov 2026 09:07:22 -0500
+X-Gm-Features: AclHuK_mWOgAzCBAJQN1CbtCJxv3h38jD-baiSMS3zvcmQeJZG5v5X7OZiVyOK0
+Message-ID: <CADnq5_N0RFH=n05T_zKSApGB+3o29Nx5rNMOZt5kWzZWxpgsrA@mail.gmail.com>
+Subject: Re: [PATCH v4] drm/amd/pm: defer UCLK DPM on selected Apple Navi GPUs
+To: Ed Schofield <ed@charmerstraining.com>
+Cc: atharvatiwarilinuxdev@gmail.com, dev@deq.rocks, aditya.garg@linux.dev, 
+ alexander.deucher@amd.com, kenneth.feng@amd.com, christian.koenig@amd.com, 
+ airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,111 +105,88 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-7.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-Message-ID: <20261104095508.YSePCLNE-SfXFtD6qFjzh81Dm0NrwxHe3IVs1PQanas@z>
 
-Both backlight paths in amdgpu_dm_backlight.c map the 16-bit user level
-through the ATIF custom brightness curve, whose points pair an 8-bit
-signal with a whole-percent luminance. Both round the level to one of
-those signals and the luminance to a whole percent first. That hurts
-most at the dim end, where one percent is a large share of the light.
-With the curve of an ASUS ROG Flow X13 GV301QH, minimum 12 and 49
-points:
+On Wed, Nov 4, 2026 at 7:52=E2=80=AFAM Ed Schofield <ed@charmerstraining.co=
+m> wrote:
+>
+> Hi Alex, hi Atharva, hi all,
+>
+> Alex, I'd like to withdraw my September v4 submission. I also don't suppo=
+rt
+> applying v5 as posted or the simplified patch you attached later in this
+> thread. Please remove my Co-developed-by and Signed-off-by tags from both
+> versions. I no longer think deferring UCLK is the right approach for the =
+iMacs.
+>
+> I also excluded the MacBookPro16,1 (020f) from v4 deliberately because a =
+tester
+> found that with deferred UCLK it still hung after login, as it does witho=
+ut the
+> patch [1], which seems to fit Andr=C3=A9's PPTable diagnosis.
+>
+> Since then, I've been working with Atharva to get his native-5K iMac supp=
+ort
+> upstream. His patch initializes the display before the SMU, which has als=
+o
+> prevented the boot failures without deferring UCLK. On my iMac20,1 (0218)=
+, 13
+> of 20 warm boots failed with the upstream order; with display first, all =
+40
+> boots passed [4]. Another tester reported one warm and one cold boot, bot=
+h
+> successful, on a 0219 [2]. On an iMac20,2 (021a), changing only the
+> initialization order improved warm boot success from 11 out of 20 to 100 =
+out of
+> 100 [3]. His patch only applies to the iMac20,1 and iMac20,2, so it doesn=
+'t fix
+> the 16,1 either.
+>
+> I don't think the iMacs and the MacBookPro16,1 have the same problem. The
+> iMacs fail while amdgpu is loading: the SMU stops responding to
+> EnableAllSmuFeatures (message 6), and the probe fails with -62. With the
+> display initialized first, the same message succeeds with UCLK included,
+> and the iMac boots normally. The 16,1 loads amdgpu without errors and han=
+gs
+> later, after login, with or without deferred UCLK [1]. So deferring UCLK
+> seems to help the iMacs only because it moves the enable after display
+> init, and it doesn't help the MacBookPro16,1.
+>
+> I have prepared a draft patch with Atharva as author and me as co-develop=
+er,
+> incorporating his review feedback. It combines display-first initializati=
+on and
+> native 5120x2880 support through two tiled connectors with suspend/resume=
+ and
+> display power-management changes. The current draft is here:
+>
+> https://github.com/edschofield/linux-t2-patches/blob/7273823e425200e9f371=
+e9272e02ebf9abb6f1c2/7003-amdgpu-add-support-for-5K.patch
+>
+> This has passed some initial automated testing on my iMac20,1 but I need =
+to do
+> more testing and get Atharva's final review and sign-off.
 
-- On PWM, the lowest level asks for 2% of full brightness, and the
-  first 2% of the scale steps from there to 3%, 4% and 5%. Each step is
-  50%, 33% and 25% brighter than the one before. The bottom 10% of the
-  scale has 18 different brightness values
-- On AUX, with amdgpu.backlight=1 to force the unsupported AUX path,
-  the 1..512 nits fallback range stays at 1 nit for the bottom 6.1% of
-  the scale, and the next steps go to 3, 5 and 7 nits. The bottom 10%
-  of the scale has 4 different values, and the top stops at 496 nits
+There are already patches on the list to support the 5K Macs:
+https://lists.freedesktop.org/archives/dri-devel/2026-November/610011.html
 
-This series interpolates on the unrounded level and rounds once at the
-end. On PWM, the power module also interpolates between its LUT entries
-now, from millipercent to PWM and back. The bottom 10% of the scale then
-has 6018 different values on PWM instead of 18, and 33311 on AUX instead
-of 4. Level 0 still gives the panel's minimum and the top level gives
-its maximum. On AUX only levels 0 and 1 now sit at the minimum, instead
-of the bottom 6.1% of the scale
+Alex
 
-- Patch 1 renames the min and max of the user range to user_min and
-  user_max, to avoid confusion with the curve's signal_max and the
-  output_max that patch 4 adds. No functional change
-- Patches 2 and 3 interpolate between the power module's LUT entries,
-  from millipercent to PWM and back
-- Patch 4 stops rounding the PWM path
-- Patches 5 and 6 test the PWM path and the LUT with the GV301QH curve
-- Patch 7 maps AUX through the same curve code as PWM, which reaches
-  max at the top, and removes convert_custom_brightness()
-- Patch 8 tests the AUX path
-
-Patch 7 changes what an AUX panel gets. Until now an AUX level asked for
-the curve's luminance percentage times the level, so the level went in
-twice. Now it asks for min plus that percentage of the range above min,
-the same luminance the PWM path asks the power module for. On the
-fallback range, half the scale goes from 159 nits to 315 nits. I found
-no reason for the old product, but I may be missing the intent. I also
-can't test it meaningfully, as I don't have a panel with an AUX
-backlight
-
-The series applies on top of "drm/amd/display: Fix the doubled AUX
-backlight minimum on the custom curve" [1]. That series fixes the
-minimum going in twice on AUX, and asks whether the ATIF curve is meant
-for AUX at all. Patch 7 keeps applying the curve on AUX, as the code
-always has. Since it changes what AUX panels get, it has no Fixes: tags
-
-One question for you: on PWM, above the last point the curve still runs
-to 100% at max_input_signal, as backlight_signal_to_luminance() did,
-while the level maps to the 0..255 signal scale over the whole user
-range. With max_input_signal below 255 the top of the PWM scale is flat
-at full brightness. AUX keeps ending the curve at 255, as it did
-before. Should PWM end at 255 too?
-
-This is also a request for testing. My laptop drives its panel over PWM,
-and the panel ignores AMD's AUX brightness, so I tested the AUX path
-only with KUnit and with the amdgpu_dm_brightness trace on a forced AUX
-path. If you have a panel with an AUX backlight and an ATIF custom
-curve, a Tested-by on patches 7 and 8 would help. The middle of the
-scale should get brighter, the bottom should no longer sit at the
-minimum and the top should reach full brightness. Patches 1 to 6 don't
-depend on them, so they can go in without the AUX half
-
-[1] https://lore.kernel.org/r/20261103-amdgpu-aux-curve-min-v1-0-62119efdcc6d@hsal.es
-
-Signed-off-by: Hugo Sales <hugo@hsal.es>
----
-Hugo Sales (8):
-      drm/amd/display: Rename the user brightness range to user_min and user_max
-      drm/amd/display: Interpolate between backlight LUT entries
-      drm/amd/display: Interpolate when reading PWM back as a percentage
-      drm/amd/display: Stop rounding PWM brightness to whole percents
-      drm/amd/display: Add KUnit tests for the custom brightness curve
-      drm/amd/display: Add KUnit tests for backlight LUT interpolation
-      drm/amd/display: Map AUX brightness through the custom curve like PWM
-      drm/amd/display: Add KUnit tests for the AUX custom brightness curve
-
- .../amd/display/amdgpu_dm/amdgpu_dm_backlight.c    | 218 ++---
- .../amd/display/amdgpu_dm/amdgpu_dm_backlight.h    |   6 +-
- .../amdgpu_dm/tests/amdgpu_dm_backlight_test.c     | 923 +++++++++++++++------
- .../gpu/drm/amd/display/modules/power/power_abm.c  |  72 +-
- .../drm/amd/display/modules/power/power_helpers.h  |   4 +
- 5 files changed, 784 insertions(+), 439 deletions(-)
----
-base-commit: ba496bb837882eb1af58f41572fc289e46c77b8c
-change-id: 20261102-backlight-curve-rfc-1bb4b6dee24c
-prerequisite-message-id: <20261103-amdgpu-aux-curve-min-v1-0-62119efdcc6d@hsal.es>
-prerequisite-patch-id: 0eefd25bf4ad8f6d779c7a0b0a63f84969b67fca
-prerequisite-patch-id: 016515673f79f623de1e50dd513e5440587329b6
-prerequisite-patch-id: ba453baf376b5410d66feacb1956eea933042ae8
-
-Best regards,
---  
-Hugo Sales <hugo@hsal.es>
-
+>
+> Alex, thanks for following up on the boot issue and checking with the Win=
+dows
+> team.
+>
+> Best regards,
+> Ed
+>
+> [1] https://github.com/t2linux/linux-t2-patches/pull/61#issuecomment-5646=
+139127
+> [2] https://github.com/t2linux/wiki/issues/743#issuecomment-6083265811
+> [3] https://github.com/t2linux/wiki/issues/743#issuecomment-6131809640
+> [4] https://github.com/t2linux/wiki/issues/743#issuecomment-6163146905
