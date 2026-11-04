@@ -2,66 +2,65 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE745606A328
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 13:59:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2BA5606A326
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 13:59:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=aK5E77qf
+	dkim=pass (2048-bit key, unprotected) header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=qG8csFas
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A113510FC29;
-	Wed,  4 Nov 2026 13:59:43 +0000 (UTC)
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AC1310E87E;
- Wed,  4 Nov 2026 10:31:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2078410FC2B;
+	Wed,  4 Nov 2026 13:59:44 +0000 (UTC)
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4046610FAA4;
+ Wed,  4 Nov 2026 09:55:22 +0000 (UTC)
 Received: from smtp202.mailbox.org (smtp202.mailbox.org
  [IPv6:2001:67c:2050:b231:465::202])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
- by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4jKMDP1NQ6zKpD1;
- Wed, 04 Nov 2026 11:31:17 +0100 (CET)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4jKLQt4xXCz8scv;
+ Wed, 04 Nov 2026 10:55:18 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
- t=1793788277;
+ t=1793786118;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=mpWDUgWNllYmwWDvt+1cOKqE19b+6BZOvtWPf9+ZuFk=;
- b=aK5E77qf73KmN+YPG22apwu/2bqTkeyzt0slNGeQ/r6uuWmGtCN8wPhkc4He1cgO0GrqoS
- /bx/rwKubp62WdH4+mmLF46fCJLRqTmBYvmjt8G79ZkfiKJvWgbdXlpgOMNXTVwaigm2mo
- o3PGYwciV2fX/iXXKD8UgHDhRfd/XXkIrvtXF4YDH411PYWeJMFVhdZ88t2TS/Pyu+IaQ1
- EBLr7DflM+KRzlTk0c9Yo9MIMMS1aJIl9Kh3ABOGUFsEvugr662v5iGujRVlR6BIYU90Ng
- YI6Z+Q2yMSlArBucyXVZrZvvuHVjDADpC58hq/aFG2Q4IzIMWMHNwVCHE+hTLA==
+ content-transfer-encoding:content-transfer-encoding;
+ bh=tTTrorNZwRFZQ3C5GMIr2j0fiftd0rO3TifOHjXOs+s=;
+ b=qG8csFasliUkjr6qLe1MZJQ0AKgWA8Hq+7uAnAky9SA/5QxEyTkfe2klIrFgjQnswbQHih
+ g2BQ0aha6vbVFlVQQ6ugRYHYGcC7aooELddgR/mX7K9N5N87RCB0IsS8ha5WHoiQMWfe/C
+ /ukb79PeE0eIli1RhIynoxAQTcB3I0e2nf5crOjjSyzmWGLgJpTmAb2gSaUbmZ6WQ4Axb4
+ qvz4+P3h0TSGmFBsMbFdWgdP+xEZPTKNAj2h59gUfDlmoaq5cMbJ8efwDERRsWEmfThBPv
+ Sd7QmBgVmRiLMGAQ2YmJdaBrHBrb0Bad3g/pUOp6t8hytMltlsiGwmdABkP8BQ==
 Authentication-Results: outgoing_mbo_mout; dkim=none;
  spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates
  2001:67c:2050:b231:465::202 as permitted sender) smtp.mailfrom=hugo@hsal.es
 From: Hugo Sales <hugo@hsal.es>
-To: harry.wentland@amd.com, siqueira@igalia.com, amd-gfx@lists.freedesktop.org,
- sunpeng.li@amd.com, alexander.deucher@amd.com
-Cc: Hugo Sales <hugo@hsal.es>, mario.limonciello@amd.com,
- christian.koenig@amd.com, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, simona@ffwll.ch, alex.hung@amd.com,
- airlied@gmail.com
-Subject: [PATCH RFC 1/3] drm/amd/display: Repair or drop a bad ATIF backlight
- curve
-Date: Wed,  4 Nov 2026 10:31:10 +0000
-Message-ID: <20261104-backlight-curve-validate-v1-1-10c688880e85@hsal.es>
+To: alexander.deucher@amd.com, sunpeng.li@amd.com, harry.wentland@amd.com,
+ siqueira@igalia.com, amd-gfx@lists.freedesktop.org
+Cc: Hugo Sales <hugo@hsal.es>, ray.wu@amd.com, simona@ffwll.ch,
+ alex.hung@amd.com, mario.limonciello@amd.com, linux-kernel@vger.kernel.org,
+ lohita.mudimela@amd.com, bhawanpreet.lakha@amd.com,
+ dri-devel@lists.freedesktop.org, roman.li@amd.com, airlied@gmail.com,
+ christian.koenig@amd.com
+Subject: [PATCH RFC RFT 0/8] drm/amd/display: Stop rounding backlight levels
+ to whole percents
+Date: Wed,  4 Nov 2026 09:55:08 +0000
+Message-ID: <20261103-backlight-curve-rfc-v1-0-6e4813a8f2eb@hsal.es>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261104-backlight-curve-validate-v1-0-10c688880e85@hsal.es>
-References: <20261104-backlight-curve-validate-v1-0-10c688880e85@hsal.es>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
+X-Change-ID: 20261102-backlight-curve-rfc-1bb4b6dee24c
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3990; i=hugo@hsal.es;
- h=from:subject:message-id; bh=eGsJybhymdSdbkuQZPExKFHX3+TH4+OvLoaQiagrmMo=;
- b=owJ4nJvAy8zAJVbLU7f+5A3TBYyn1ZIYsl5zFtRHpwuUbNVaGlNWendFPMufzJ+uj20tzyyX3
- pjPpT8ruL6jlIVBjItBVkyRRfeGJwPLxMkzc4qeL4GZw8oEMoSBi1MAJmLuxPBX0L44Rudjvt/L
- 3RKTU5gkr72fOMlsYei0OmHWFvnHfy0WMjJcL77CxNEimmT+cJupgs+ekM0886dzbVhxl5Orv67
- Y/icHADBzRZo=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5393; i=hugo@hsal.es;
+ h=from:subject:message-id; bh=PQsx1IGMpofUteuFxti+4cBxlJh3BV6RNADrUVGGk00=;
+ b=kA0DAAoWfQx+r8nYNaAByyZiAGrqDFqiD1U5arqjNLF1t7Ag6L4243Zv09upUqhQQSay70qxM
+ oh1BAAWCgAdFiEELdhJAASRk5lscuekfQx+r8nYNaAFAmrqDFoACgkQfQx+r8nYNaBOIgEA1pRf
+ USzLduOXx5VknDn/4CGSTc9sUZOlqDQnnKXf6lIA/0RZnUq4WkKYzP/nuYMezgAXg3IrREZNWLK
+ 7Ku3tMggO
 X-Developer-Key: i=hugo@hsal.es; a=openpgp;
  fpr=193D095149CF7E8737B39064D912B0DB205A91C1
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4jKMDP1NQ6zKpD1
+X-Rspamd-Queue-Id: 4jKLQt4xXCz8scv
 X-Mailman-Approved-At: Wed, 04 Nov 2026 13:59:29 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,107 +79,104 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+Message-ID: <20261104095508.YSePCLNE-SfXFtD6qFjzh81Dm0NrwxHe3IVs1PQanas@z>
 
-The custom brightness curve code expects the input signals and
-luminances of the ATIF curve to increase monotonically. They come from
-firmware as u8 values, and nothing checks them
+Both backlight paths in amdgpu_dm_backlight.c map the 16-bit user level
+through the ATIF custom brightness curve, whose points pair an 8-bit
+signal with a whole-percent luminance. Both round the level to one of
+those signals and the luminance to a whole percent first. That hurts
+most at the dim end, where one percent is a large share of the light.
+With the curve of an ASUS ROG Flow X13 GV301QH, minimum 12 and 49
+points:
 
-Check the curve once, in amdgpu_dm_validate_backlight_caps(), next to
-the signal range check. If a signal falls, drop the curve and map
-linearly. Cap a luminance over 100% at 100%, and raise a luminance that
-falls back to the one before it. When the check changes the curve, warn
-about a firmware bug
+- On PWM, the lowest level asks for 2% of full brightness, and the
+  first 2% of the scale steps from there to 3%, 4% and 5%. Each step is
+  50%, 33% and 25% brighter than the one before. The bottom 10% of the
+  scale has 18 different brightness values
+- On AUX, with amdgpu.backlight=1 to force the unsupported AUX path,
+  the 1..512 nits fallback range stays at 1 nit for the bottom 6.1% of
+  the scale, and the next steps go to 3, 5 and 7 nits. The bottom 10%
+  of the scale has 4 different values, and the top stops at 496 nits
 
-The curve code only caps its result at 100%. A point over 100% then
-makes the curve reach full brightness before that point and stay flat up
-to it. With the point capped, the curve reaches full brightness at the
-point itself
+This series interpolates on the unrounded level and rounds once at the
+end. On PWM, the power module also interpolates between its LUT entries
+now, from millipercent to PWM and back. The bottom 10% of the scale then
+has 6018 different values on PWM instead of 18, and 33311 on AUX instead
+of 4. Level 0 still gives the panel's minimum and the top level gives
+its maximum. On AUX only levels 0 and 1 now sit at the minimum, instead
+of the bottom 6.1% of the scale
 
-Dropping the curve also changes ABM. The power module rejected a curve
-whose signals fall and built its default quadratic LUT. With no points
-it builds a linear LUT over the firmware's signal range and uses the
-firmware's AC and DC levels, as it does when firmware reports no curve.
-The power module still rejects a capped or raised luminance, as before
+- Patch 1 renames the min and max of the user range to user_min and
+  user_max, to avoid confusion with the curve's signal_max and the
+  output_max that patch 4 adds. No functional change
+- Patches 2 and 3 interpolate between the power module's LUT entries,
+  from millipercent to PWM and back
+- Patch 4 stops rounding the PWM path
+- Patches 5 and 6 test the PWM path and the LUT with the GV301QH curve
+- Patch 7 maps AUX through the same curve code as PWM, which reaches
+  max at the top, and removes convert_custom_brightness()
+- Patch 8 tests the AUX path
+
+Patch 7 changes what an AUX panel gets. Until now an AUX level asked for
+the curve's luminance percentage times the level, so the level went in
+twice. Now it asks for min plus that percentage of the range above min,
+the same luminance the PWM path asks the power module for. On the
+fallback range, half the scale goes from 159 nits to 315 nits. I found
+no reason for the old product, but I may be missing the intent. I also
+can't test it meaningfully, as I don't have a panel with an AUX
+backlight
+
+The series applies on top of "drm/amd/display: Fix the doubled AUX
+backlight minimum on the custom curve" [1]. That series fixes the
+minimum going in twice on AUX, and asks whether the ATIF curve is meant
+for AUX at all. Patch 7 keeps applying the curve on AUX, as the code
+always has. Since it changes what AUX panels get, it has no Fixes: tags
+
+One question for you: on PWM, above the last point the curve still runs
+to 100% at max_input_signal, as backlight_signal_to_luminance() did,
+while the level maps to the 0..255 signal scale over the whole user
+range. With max_input_signal below 255 the top of the PWM scale is flat
+at full brightness. AUX keeps ending the curve at 255, as it did
+before. Should PWM end at 255 too?
+
+This is also a request for testing. My laptop drives its panel over PWM,
+and the panel ignores AMD's AUX brightness, so I tested the AUX path
+only with KUnit and with the amdgpu_dm_brightness trace on a forced AUX
+path. If you have a panel with an AUX backlight and an ATIF custom
+curve, a Tested-by on patches 7 and 8 would help. The middle of the
+scale should get brighter, the bottom should no longer sit at the
+minimum and the top should reach full brightness. Patches 1 to 6 don't
+depend on them, so they can go in without the AUX half
+
+[1] https://lore.kernel.org/r/20261103-amdgpu-aux-curve-min-v1-0-62119efdcc6d@hsal.es
 
 Signed-off-by: Hugo Sales <hugo@hsal.es>
 ---
-The data_points clamp duplicates "drm/amdgpu: Clamp the ATIF backlight
-curve to its 99 points", which fixes the overflow where the ATIF reply
-is read:
-https://lore.kernel.org/r/20261031153948.127016-1-hugo@hsal.es
-This check stays correct whichever of the two lands first
+Hugo Sales (8):
+      drm/amd/display: Rename the user brightness range to user_min and user_max
+      drm/amd/display: Interpolate between backlight LUT entries
+      drm/amd/display: Interpolate when reading PWM back as a percentage
+      drm/amd/display: Stop rounding PWM brightness to whole percents
+      drm/amd/display: Add KUnit tests for the custom brightness curve
+      drm/amd/display: Add KUnit tests for backlight LUT interpolation
+      drm/amd/display: Map AUX brightness through the custom curve like PWM
+      drm/amd/display: Add KUnit tests for the AUX custom brightness curve
 
-The check keeps a repeated signal, which the mapping steps over as
-before. It sits in amdgpu_dm rather than in
-amdgpu_atif_query_backlight_caps() so KUnit on UML, which has no ACPI,
-can reach it
+ .../amd/display/amdgpu_dm/amdgpu_dm_backlight.c    | 218 ++---
+ .../amd/display/amdgpu_dm/amdgpu_dm_backlight.h    |   6 +-
+ .../amdgpu_dm/tests/amdgpu_dm_backlight_test.c     | 923 +++++++++++++++------
+ .../gpu/drm/amd/display/modules/power/power_abm.c  |  72 +-
+ .../drm/amd/display/modules/power/power_helpers.h  |   4 +
+ 5 files changed, 784 insertions(+), 439 deletions(-)
 ---
- .../amd/display/amdgpu_dm/amdgpu_dm_backlight.c    | 44 ++++++++++++++++++++++
- 1 file changed, 44 insertions(+)
+base-commit: ba496bb837882eb1af58f41572fc289e46c77b8c
+change-id: 20261102-backlight-curve-rfc-1bb4b6dee24c
+prerequisite-message-id: <20261103-amdgpu-aux-curve-min-v1-0-62119efdcc6d@hsal.es>
+prerequisite-patch-id: 0eefd25bf4ad8f6d779c7a0b0a63f84969b67fca
+prerequisite-patch-id: 016515673f79f623de1e50dd513e5440587329b6
+prerequisite-patch-id: ba453baf376b5410d66feacb1956eea933042ae8
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-index 358ba0c73d795..3a27fb956627a 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-@@ -52,6 +52,48 @@
- #include "dm_helpers.h"
- 
- #if defined(CONFIG_ACPI) || IS_ENABLED(CONFIG_DRM_AMD_DC_KUNIT_TEST)
-+/*
-+ * The brightness mapping needs signals that never fall from point to point
-+ * and luminance that never falls or passes 100%. Drop a curve whose
-+ * signals fall, and flatten the luminance of the others
-+ */
-+static void backlight_validate_custom_curve(struct amdgpu_display_manager *dm,
-+					    struct amdgpu_dm_backlight_caps *caps)
-+{
-+	struct amdgpu_dm_luminance_data *p = caps->luminance_data;
-+	int over = 0, falling = 0;
-+	int i;
-+
-+	if (caps->data_points > ARRAY_SIZE(caps->luminance_data))
-+		caps->data_points = ARRAY_SIZE(caps->luminance_data);
-+
-+	for (i = 1; i < caps->data_points; i++) {
-+		if (p[i].input_signal < p[i - 1].input_signal) {
-+			drm_warn(adev_to_drm(dm->adev), FW_BUG
-+				 "ATIF: backlight curve signal %u at point %d is below %u, using a linear curve\n",
-+				 p[i].input_signal, i, p[i - 1].input_signal);
-+			caps->data_points = 0;
-+			return;
-+		}
-+	}
-+
-+	for (i = 0; i < caps->data_points; i++) {
-+		if (p[i].luminance > 100) {
-+			p[i].luminance = 100;
-+			over++;
-+		}
-+		if (i && p[i].luminance < p[i - 1].luminance) {
-+			p[i].luminance = p[i - 1].luminance;
-+			falling++;
-+		}
-+	}
-+
-+	if (over || falling)
-+		drm_warn(adev_to_drm(dm->adev), FW_BUG
-+			 "ATIF: backlight curve has %d points over 100%%, set to 100%%, and %d falling points, raised to the point before\n",
-+			 over, falling);
-+}
-+
- STATIC_IFN_KUNIT
- void amdgpu_dm_validate_backlight_caps(struct amdgpu_display_manager *dm, int bl_idx)
- {
-@@ -66,6 +108,8 @@ void amdgpu_dm_validate_backlight_caps(struct amdgpu_display_manager *dm, int bl
- 			    caps->min_input_signal, caps->max_input_signal);
- 		caps->caps_valid = false;
- 	}
-+
-+	backlight_validate_custom_curve(dm, caps);
- }
- EXPORT_IF_KUNIT(amdgpu_dm_validate_backlight_caps);
- #endif
-
--- 
-2.56.0
+Best regards,
+--  
+Hugo Sales <hugo@hsal.es>
 
