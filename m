@@ -2,130 +2,124 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ECFA606A32F
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 16:33:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB33A6070B17
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 17:57:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=I+34NYZE
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=IKqzbv/Z
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1616410E265;
-	Wed,  4 Nov 2026 16:33:54 +0000 (UTC)
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012017.outbound.protection.outlook.com
- [40.93.195.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13B2C10E265
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Nov 2026 16:33:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 57CE810E5C3;
+	Wed,  4 Nov 2026 17:57:44 +0000 (UTC)
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011039.outbound.protection.outlook.com [52.101.57.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC98710E5C3
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Nov 2026 17:57:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HM50mUa9c/JFRzfUSXYwkZ5XB/YBufwOTPbxg6yrRDZDb9l0xF5aajsMkjt4Iw6R8tgHA0XBBevY8zKtL4BO1iXLBwGaX2t76RaVat5kY/Ls+nNdk9mA8beXybpxog0gqaUbO6+SPKa0I5iWQ5GhSpulIwr80vjnnKgfUWngCC19avm/wt5C/HmatE4u+0lu+kY2cZoHAzQUfItacF8xUUleR7MgEUWVVHrJpRQD4vxG+qMjpbahnJeJuFkUbSUdsyJNJUYn5dSFv7AyCeTcaYSrdvhCIvfbqfqarvc8tiNflcb8ElJXvFvBr+kw8hPwnlU5MpiDQ0OPiAdX4cNLPA==
+ b=JhB+m5CmabrQ4nz0STVEE4TXSsD/g0TXHpdo9nYKTbCRW8wx4cXIvj+keXyouJdz1VkjQX5Ji0Nl5vSoKm+ET1Y/Zjy9iPdTvtakiX0Svg4YZAOcv/xCjjfJzavCcp4KFKTr8qJK3FqY1JNUr0OxJ0mo59gbqHVkH1vxhpjkviu7j12j5xfNWR7m/gdZpNpGavBUv74yF8AXnrfRmLPULnNITt3WKGAogT+3wWN9d3fo+3ezx2phB98gLVNP0bO/WyApFhMzlYYW5brDREyz8n+vrCcL0l8DHOTnTtZTE7lokmjzH8ZSCioso3bZI+u3lxs4A5l6GWcOW4yN6780aA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3d+dRViqSX9qkDUjPPcqrIWexrZqymae41C3ocRSjvQ=;
- b=RixdC6StwauOnROTXAvNKIHSaI7pj/wS6Wjh+jV8WedOC4NBjI3fooOKJWY38AjqefS/jHCBzvxA9BHk+akqwdilSn3wrUYoMy0FMpTAfMXWwSjlXTBiO5ynHOFXoD43DPSn/Pb0t76w5DMmYuOShljd3w7oIziVkTe1jJezIcFaN/o99IaPQ9Y6+bU6m0PJJI9CCWqdZ8mrzbKgIi63RbqAeiaDmIfhb1uhO1fxScL7ZGFMFhrNs8k9taiidAXdCle/j7yzGyR6lpF/Lns9R0kOdjgxCg6YViYe/Sz86Brmp6LYX+PeW5yftGkB9Y/ikHGVBluy2Jeor84dvjKOMw==
+ bh=r/muHFaff8eTy51zoYj9+LZPYdGZiUnOn2uespUC9Jc=;
+ b=iPqEJGZs09G87FvnqtHs2FaLLdcR3D7kVAL2xWTRSI/689uwfGk+gIl0WKW+N9614A7o6ywgzhAtmKTrenvjB1zVLplhnBlAMG074b3zLCs7s5wFLzbxvVUqPayNbEX9hgDpuGe2ELSZa4NRh6C0ugTTOCDAhHeqbG2Dp/rBuGMe/xqGDOcB2qr1Ys7hZdUNMXf26yvxdQAmQBO339WRK7jy/V3JIAJt9jF7Dtw7CbIFXWD5xBVzdKzTIG7W+c8LDVI+BKHtDOETJ1im0bUSOcgqQ8xdORaOTgG4a7peRsWK8QqrvZH5ERB4AHXkUwlMvS9w+rE/6YI8EoUlBlTiwg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3d+dRViqSX9qkDUjPPcqrIWexrZqymae41C3ocRSjvQ=;
- b=I+34NYZE73v4yKQ3AyqqXLtqZ8yVWj/sgU14YcZUaKtTLMWIfsGTBH+3DEQgXEgqgVtA8r+X2Zs6XszGavIwkhPt+kCci1/xoJZFymXffHOr0yUr/seGiDAHXaZqqAhMsrh4dU+U+qhE+NjePTWlZwdR7vPzt/b5octKGJ2zmEo=
-Received: from SJ1PR12MB6121.namprd12.prod.outlook.com (2603:10b6:a03:45c::6)
- by BL4PR12MB9479.namprd12.prod.outlook.com (2603:10b6:208:58e::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 4 Nov 2026
- 16:33:42 +0000
-Received: from SJ1PR12MB6121.namprd12.prod.outlook.com
- ([fe80::3fd:549f:f30:cd67]) by SJ1PR12MB6121.namprd12.prod.outlook.com
- ([fe80::3fd:549f:f30:cd67%5]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
- 16:33:41 +0000
-From: "Xie, Chenglei" <Chenglei.Xie@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Skvortsov, Victor" <Victor.Skvortsov@amd.com>, "Luo, Zhigang"
- <Zhigang.Luo@amd.com>
-Subject: Re: [PATCH v2 2/2] drm/amdgpu: abort SPM VF init when the HBM
- aperture is missing
-Thread-Topic: [PATCH v2 2/2] drm/amdgpu: abort SPM VF init when the HBM
- aperture is missing
-Thread-Index: AQHdZ9BSLA5xcHDK5EWJ/SgTc/U/J7caNtKAgADYwBCAANvTgIACGcOigAATgwCAAAl9ng==
-Date: Wed, 4 Nov 2026 16:33:41 +0000
-Message-ID: <SJ1PR12MB61219844F6FC245149306C9D80682@SJ1PR12MB6121.namprd12.prod.outlook.com>
-References: <20261022153132.211631-1-Chenglei.Xie@amd.com>
- <20261029180652.213481-1-Chenglei.Xie@amd.com>
- <20261029180652.213481-2-Chenglei.Xie@amd.com>
- <3a518d91-c6ef-4fbf-8525-5a762d465ccb@amd.com>
- <SJ1PR12MB6121D39D1B80B22A317CD00B806A2@SJ1PR12MB6121.namprd12.prod.outlook.com>
- <4a704ee7-01ef-40e0-8256-d0321914d27a@amd.com>
- <SJ1PR12MB612191850F1E0392C85225F880682@SJ1PR12MB6121.namprd12.prod.outlook.com>
- <94f93ec7-a584-4a98-9c1d-a23056b1af43@amd.com>
-In-Reply-To: <94f93ec7-a584-4a98-9c1d-a23056b1af43@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-11-04T16:33:40.004Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
- General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=1;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard; 
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ bh=r/muHFaff8eTy51zoYj9+LZPYdGZiUnOn2uespUC9Jc=;
+ b=IKqzbv/ZTChHw+pKrZfn2MigaW+7GvU/+GBD4xMWujNpUV0ymIumirr9HaAMK4VNEZxa0ALp3NXRU03mfE/k2VwQS9XqdOxsLSOO3PhBXZjIIa7MOdXbWW8PzRIjjKUkdmw8ZYQou/KQfHE5Oy4J0dJqxtJSz2ZmUE7HonFUdmw=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SJ1PR12MB6121:EE_|BL4PR12MB9479:EE_
-x-ms-office365-filtering-correlation-id: 65f0a4bc-7933-4f1c-ec68-08df3a91630d
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|376014|366016|8096899003|6133799003|22082099003|18002099003|10067099003|261102123227099003|38070700021|4143699003|11063799006|5023799004|261021123027099003|261026121527099003|261022105027099003|261026140227099003|261022075727099003|261028144727099003|56012099006|261009223027099003|261021121427099003;
-x-microsoft-antispam-message-info: LcxC7o9UwzRFiEayl//kRh3ob637hkKIhj/8OOxv8clqKKL3xLGDDlJPvUKGUJNTe9LN8jSSv6utzpf3+WS9i/atQ7P/V4ylFVLNaJtKyde81UDt9iKZvbhf/BimRxmYLXplBYodLNNbn2eK278JVaauLbUZ4G+Eyo/NHGATdaP8qLL6Xiq9W/brBZHcaFDso0eZcpZlXWBn/a6/ltniPhBKjxrJBziZS77yBqlBlguszaZ9ZVkEj2nVIhQAj5IHgF8DW528lCITORPTRXq83RKkCsM3iz+EAyKx/+H7LAI0MxVZ0hrSG+BjDF9t0uekQFLK8tGvqSpp80cl7+5cRMMs38jXXlTis4k41Ur6zFuxruVMSLoVnCIJ8p9VBhL0V473XiV53JUOqkjj0uRrb12R0q04YxHS9W4ZfqFYBM+6JBzct2vFkdfjz42YnjGR5Gk0Pv3AeGK200MUKhJO0Sg9dbsaGfGzCaL3aC0QONmbTdz4S4wDzXkzZD+umMf+/jlphlbm9Ep2KIthUafZWE02moO0sgkZzgex0aaBGrIsT3Pz+ck0z12BYHMNVyko/zMndE+EIUKvCtReEoySJybE7FFMWHSXlHaxVv9hrrnxzjHDZXSQwQPEF/hHRfBchGXLGtfK17TBU3zeU9r5UgsCo0jBAgiE8t1j/CmXeMCHexJRezKsRtKL1xzJSgKzUOnuxsCaP486wOy/FwhzDj4Ex1lfIpDkwMCTEgjjaZI=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ1PR12MB6121.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(8096899003)(6133799003)(22082099003)(18002099003)(10067099003)(261102123227099003)(38070700021)(4143699003)(11063799006)(5023799004)(261021123027099003)(261026121527099003)(261022105027099003)(261026140227099003)(261022075727099003)(261028144727099003)(56012099006)(261009223027099003)(261021121427099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?AVjNAMwvtxTP5EOU5vAaXKUqxKeCND93AFiFP0ulZtbr5HOaXqzGCmfOLzer?=
- =?us-ascii?Q?Mrjuy1RKwrDjrSpkFbwK6LGIO9DD0FqNwn8cDz7kgo16b1ynSNA5ziQHKgSO?=
- =?us-ascii?Q?37aRplqMsEFA0q+jrMZaPh2mUGJ6TkbqavyWD7LLhiZX8NzaMCvIv2z2Jjku?=
- =?us-ascii?Q?UaRi8sAQlcemskzc0VboBrVIi6eE12iJj9aVElBj3kRh5vDlJmNVEH1yCrQM?=
- =?us-ascii?Q?kqZFNauym599rEZA5FDBxCAef9aqE4gKzSNolWrjzF4EWvDZ9WEPRV0uD4wO?=
- =?us-ascii?Q?aBVDZfrNB1f/ty2Ks7JvaKqMFPvAuXpqEAbP1oAj3JkJGq9J7QWichBYqHi0?=
- =?us-ascii?Q?vmjh3UMW2b5ReCUGL7YDl4l7UDv9tI1zTRfYMNenjVNz/hzJWyyE0ru5Lbzc?=
- =?us-ascii?Q?Sh9Ru1/5NCW+uHd5h2TVXzqEqP2OGGK99cjvWpaTRTo5dGFGzevINMjrzxPB?=
- =?us-ascii?Q?7/ujv09TOzAZeWTPYgLSEo/o5b68DidVjy5DJg+euzCxGV++wbeKywwCggSZ?=
- =?us-ascii?Q?61PE4jS3aNT4L4U9732qf3j2qN+nOwqkGJnDC3nfTqKNyy45//+l7xsbTRmT?=
- =?us-ascii?Q?6HXP5w6+oC/brrrniA/h5IcaLimaERH0bmrekDzUJuT4KncHEB1voEYGgxjL?=
- =?us-ascii?Q?OC8jFEdQS1QYl5f8r4MntI+mTw+xhaChAU6Lph/8FoHcFmQPS3eg91jOWRSj?=
- =?us-ascii?Q?yu+aN0VMQWODneTVSE43tWqU9Tr3u5hgEBpvVt8bCvfGmwpDNNz44BjKXOtb?=
- =?us-ascii?Q?uM9ajM1WbD7ZRsUZWvsKgxis/VJWItQ+bxRIYVOEByUSZQlR9fgPcjZxzX7P?=
- =?us-ascii?Q?SdewtX/TUa9fPITtXny0wHznW86OTkV6lbvDVkhL/2B5jaixXRa9+73v3P16?=
- =?us-ascii?Q?Z00l0T1mCh+TnGvs0nzaweuZlTENsMfLVISmT7R7Iyyk2wt3plMh7E/2Dx8G?=
- =?us-ascii?Q?qrQSOlMuRpIesjKtN9cMyUnza+7G8Bca3r0jX1QFnQIPDZ0iDc8IJCXsnSlc?=
- =?us-ascii?Q?UFMgnXBtVo4epU508CTKtd5q11y1DZyMl8QOkMjtCjJn4Ncs5a3sZgsiAfgX?=
- =?us-ascii?Q?W1OWhz2LHAlTNrUd5gXhP96CLFDvCoG/RoG00ZQwDdpJj+OvAQhsPhZas8tM?=
- =?us-ascii?Q?c0OaBArjRS+psDQ9nocEcZkaZcyeXUTlF74uENP1FuHazLUcnNRc5DKCtWXE?=
- =?us-ascii?Q?PQHloBtqeUiOPLn4EoO/i1xkDp5wnJJxpqbx/m7Y4LBkRLP9+KpEkbcwLUy2?=
- =?us-ascii?Q?O2/4ahRJ6M+o9+B6YkIZsO/E3VrrhNztePqQKXRDN1I9NomyXtVsdR/x9cOJ?=
- =?us-ascii?Q?hEqR+I1CInkHOoN7y73Zw4gIOqpcg0hMPTFZb/c/jeT6ymr3ktEMzOB5HiVU?=
- =?us-ascii?Q?4q5s3Fd0+d5OIy9sgLlVviZ8L7KBplAU6ml09q2GbfkGkheJmm9R+twWjy/4?=
- =?us-ascii?Q?/SZbF/9mFiJ+Lc5A/TM8MXEJwROFuBWNG9pGFDzGbfyoQpLKKIAaDVUQWbLb?=
- =?us-ascii?Q?nmpHu/xg6wTSdnqf82t81eI6EQvmmhI84AlYZTI0UVIRB0w6s9LeOT2280JL?=
- =?us-ascii?Q?kbX18RpPQPNeZ3PkNoVRW0zGubIpRTcMp9QzRpJB1uI2iThxKZgxVkWHA4Tr?=
- =?us-ascii?Q?UdWR3InPWYn5EK/COHycNq+rMgPGV/WYYs65qsv8EOe7l69DVjCZ6krxBEwc?=
- =?us-ascii?Q?o84wItdwy8RABWSC4+o4NBOKXE3IlgZaC5TnXlnc6J37A7PO?=
+Received: from DM4PR12MB8558.namprd12.prod.outlook.com (2603:10b6:8:187::22)
+ by BL1PR12MB5972.namprd12.prod.outlook.com (2603:10b6:208:39b::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 4 Nov 2026
+ 17:57:32 +0000
+Received: from DM4PR12MB8558.namprd12.prod.outlook.com
+ ([fe80::1b2b:b6fc:16eb:2422]) by DM4PR12MB8558.namprd12.prod.outlook.com
+ ([fe80::1b2b:b6fc:16eb:2422%3]) with mapi id 15.21.0592.009; Wed, 4 Nov 2026
+ 17:57:32 +0000
 Content-Type: multipart/alternative;
- boundary="_000_SJ1PR12MB61219844F6FC245149306C9D80682SJ1PR12MB6121namp_"
+ boundary="------------zW0lcRTPwVd1N5lj9vvRAxkH"
+Message-ID: <add0b216-7697-47ea-80aa-5216334292e0@amd.com>
+Date: Wed, 4 Nov 2026 12:57:30 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/amdkfd: Force perfmon clock on for profiler PMC
+ requests
+To: Apurv Mishra <Apurv.Mishra@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Alexander.Deucher@amd.com, Bing.Ma@amd.com, Benjamin.Welton@amd.com,
+ James.Zhu@amd.com, Jason.Tang@amd.com
+References: <20261103023145.61021-1-Apurv.Mishra@amd.com>
+Content-Language: en-US
+From: James Zhu <jamesz@amd.com>
+Organization: AMD RTG
+In-Reply-To: <20261103023145.61021-1-Apurv.Mishra@amd.com>
+X-ClientProxiedBy: YT4PR01CA0313.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:10a::23) To DM4PR12MB8558.namprd12.prod.outlook.com
+ (2603:10b6:8:187::22)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB8558:EE_|BL1PR12MB5972:EE_
+X-MS-Office365-Filtering-Correlation-Id: c60c981c-e15d-4330-4db2-08df3a9d1974
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|366016|1800799024|376014|261022115727099003|261009223027099003|261021123027099003|11063799006|261022105027099003|5023799004|56012099006|261028144727099003|261021121427099003|261022075727099003|261026121527099003|261026140227099003|261102123227099003|10067099003|3023799007|18002099003|22082099003|8096899003;
+X-Microsoft-Antispam-Message-Info: nib7++jjSNlaJHv6ILiudi3LAegGAlyl3jVd6ne1brrt+mPQQ8/uTLffSWZTebItiNG+F6lAbu2+8mFjqMw22eVe07ymy7nNR2w8UQceLj1B7Qxjp4whsjB42xhfisPVspl0ECM/5PlgaJie6RnOf+YBb7c13ynsTD6qGtW62gpPKuvardGwKXit3M27QoWhaFry62EiYDZ/f5cy7sN2gGDZqRYCSWwcrWe72WVl2m/FqeF/+/KQ01J6CYtBheo09O4sfFO22kHzEY25ulqIlrCKzy5p2l7yVmDprbnBpZejXRqn2FG4pfdmTgYm+pjI0RF9YJV4OUFfwH/ET3nKtKxmZdrl6nmkIFWex/BcmU4FIi/MiMnUcpJA2a2KDDKY9mueB97bSAG/OK3rLSbw8vd2ZxwBPjdOimtBvG2tzGVlwtHCHHXTF5jwNTRYZDx/0F3AvhuA8+sQWnK6LicFJm/xKstsDNA6mY9IwDTRomCwOMEtYIlhNHZGhMVQms9QaljirmqSic+7VdkwON7Odo09ANGv9MC6hgAIHdf9bCn9ZPzsR/9QBmbsWBXD8s1L6SQPhCGTs+W7mHBCqlQL7e11RbiympJABUSbLvaWM34mGiVQJw/oRpCBOktOsJmP3NISUEbOvp0zx8+6z1H4LXO3uqbJOjNkzGuk3+30Dzc=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB8558.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(261022115727099003)(261009223027099003)(261021123027099003)(11063799006)(261022105027099003)(5023799004)(56012099006)(261028144727099003)(261021121427099003)(261022075727099003)(261026121527099003)(261026140227099003)(261102123227099003)(10067099003)(3023799007)(18002099003)(22082099003)(8096899003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a2U4T3crc3ZOY3lMeXN0ZUJoTEdPQXd1MG9xdGU1dXFkMG9sTi9lTjIwQnNX?=
+ =?utf-8?B?b1VGRWQ3ais1d2ptSDVmWTB4ZytwU2pSVzlEaS9YcHg4bGplODFWSlJERW9F?=
+ =?utf-8?B?SWFnblpCeG9TTVNhUXppdXpPRVlUcUwxdTJManBiRnlkcDhLb3ArTlVHNjlX?=
+ =?utf-8?B?MGFqM3dnOTBhQklFVmNteUo3MldIRCtNT25ZR2VqdW1zUXZmWFpiN1hlU2Q2?=
+ =?utf-8?B?d3ZqT3NKa1JJVndOTlZ0VUdBWXdsYlo1Zmcvd1VMd3ZJTmdiOEF6L1ExejIx?=
+ =?utf-8?B?eGdsODVXUWpRcTZ3K2J1WVlPRllpN1BUNUlkMDFaVHpEMTJtVUlKbFIwaTZE?=
+ =?utf-8?B?V2Z4RkhVRjNFQ2g0RTROQUxUTFFQZ3g1K2dvUEpqTERhNXRBaG1OZm5YNE9m?=
+ =?utf-8?B?MTgxZFNOU2UyamN4NlNFN3BzYWo2ejQyeUhZNEVKaWpPT2RPQ0FCUG1IYlA3?=
+ =?utf-8?B?WlNWZEI2QVNSeDdneHYyU2xKZjBzN2gyc0g1L3JHeXpER1ZWc1JCblJuVWJu?=
+ =?utf-8?B?aDJxTmM5dXZKZWd0enpobnc1eFZWcmJvY1lNeGJBelJ1Y09jTWlveFlEN0xU?=
+ =?utf-8?B?enB5V1JwV2JXUXVOallyaW1IVlFGT3J2c3hIN3dDcFhvOUVnTlA0MW00YlJH?=
+ =?utf-8?B?UWRlblJoMVNsS0F1NlBXZlg1TU44VDZEMVJtODRyV1QyRkIyL2ltOXNRU1FD?=
+ =?utf-8?B?VlROR3I2Q2xxRUMvQ0l6ZHJaRERWclhrVSt0WWFGajQ0VXM1Z2FLc1RtbmZk?=
+ =?utf-8?B?Q1dxOW9FR2FlTFhadlhuMENSR3U2eWFVdno3VFZhdG5pckIxMEJ1dTUxbDR2?=
+ =?utf-8?B?SktvalBMYVl3cFpIb1gzNHcreE1xYWdpTjQvRmdYZ3dwYkZicW9jcG9ONTNx?=
+ =?utf-8?B?bFVLOWNMTzl5L3hKVDRydXFUSlc2K2JUKzROUHR4TW0yaGQ5VlB0WXBNdU9F?=
+ =?utf-8?B?dUFUK1QwK29zby9QYzh5NC9yS3NEK1ZXUDBRb2p1TlFXZitxSW5IbFhmNVFk?=
+ =?utf-8?B?cENVVDVjZ3ErdXcrQzUrNGRtdEhlcTdCV3dob1dHbitEeUdOS2ZQZFdHSTlK?=
+ =?utf-8?B?MWJIU2kvRmpHaysxRUxqY1h4V2hvQkJDZ2NvZmlSMUlrNUVRTGQ1VHIwT1Yr?=
+ =?utf-8?B?RitleTBXZWFJSEc3cXpkeVhUMXQvaCtXZHhPTzVwVWlOOWc1aXViby9Qc0JD?=
+ =?utf-8?B?T0xMSjZoNENxS0tsWGY3YmhDYTFCNG5rQUtPZEVFbGxtZml3TTAzUEVsY2FB?=
+ =?utf-8?B?Q1JFVmp5a0JNSHdMdHlmb3BkZDRiS1FhVFp4alpJSGVWY3VITUsxQmtvbzZN?=
+ =?utf-8?B?RUd2cjkvNjBGb2hvSUVLMFRPVEt2OHg1dmRBdzVvRTJEbU5TQWw5WnNlVDJH?=
+ =?utf-8?B?ZkRvQnVxMmV5R1FSZzdKblRLcWhhK0krQXhRdnlHd3IyYzZTTmE5b3lCMVdV?=
+ =?utf-8?B?Y3RDQzg3ZkZlUzdTTGJ4YTJmZHR1TFlOeThqcjJLK3h5b0Q0Zm1ySkZMLzlp?=
+ =?utf-8?B?bVJZODRkSnRMOWZVMEhNZUFKaUtFVlRnL2c5NDdJbnp6M0RyN0pwWms5aHVL?=
+ =?utf-8?B?LzJXN0hkdEplUThqM1lGYU10aURqRFg4MTFCZ1hDTlAxMnJITW84QmdZTjk4?=
+ =?utf-8?B?LzN0OXpvdktEQjFaajlITnV4alUyOW5Xc0R5WjlYRGI4SURpZTBtTXFTTWZw?=
+ =?utf-8?B?bDFSL2JNTk0rR0xFVzZBQThMYVBTOGJ6K1FQaW44ZVFaejBLK3lCbWlwZ2cv?=
+ =?utf-8?B?bzh6MlVWSUZVL1p0dWN6Y0FFZlpRYmZiQnYyYTdQaUYvTTJpaEJCdThEbFpX?=
+ =?utf-8?B?LzU1M0VKTWMxanJjMWw2Ri9VVXJ2c1I3dktXNktDeFNMelpHTDFrRVhQdHNC?=
+ =?utf-8?B?d3B3alBURDVJKzRwaUhVYWF5UFVEVXJvUHBmUjh4YmlQbm4wd1k1MHRuSXhu?=
+ =?utf-8?B?NEFIa1lJYyt0c1RzKytYYk9DUGJTS0xFVGhIRmVVY1M1RG9BUmlSRjNBRlBX?=
+ =?utf-8?B?d0xJMFlCbFdFOEVZT3NlazMzVnBTSElrSTJEYjF6eUE1eUovTFFjYzdZWFZI?=
+ =?utf-8?B?Tnl4YW9MVk9rS2tDU1pRdFJFY0xyTHh1eWlGQlp0U3NPaFN1Mjlxb1VQb00v?=
+ =?utf-8?B?NmpwWkNJdjQzM29PV2x2NUZqNzR5QmNxclcxN0RRTy93NHgvRGx2anpVdUlr?=
+ =?utf-8?B?MkRUSGtNS3FhUWxjdmMwN09RcDF5Um0ySTJYcUtIRmZxSmp1N1JVM0ZnR1hQ?=
+ =?utf-8?B?Z1hCbUxxZEduWklmQ2JLQUV3N3JySGpXanpGWEI5c1pUZVZ6UlpKZ3A5VlVW?=
+ =?utf-8?Q?KywS+nEbjbn3UFz4cu?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c60c981c-e15d-4330-4db2-08df3a9d1974
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8558.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PR12MB6121.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 65f0a4bc-7933-4f1c-ec68-08df3a91630d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Nov 2026 16:33:41.5991 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 39KUi+1LuElPhgwUIwOWD9wovBATzre2J4FBtlx4829jJER0P111pp8c5GcW9lIDMiKT/7Y7A0NC9XivNWRKQQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9479
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 17:57:32.4629 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: xd1qFJNranbWPXROpQZAIXBr4OuCmNxxk5scd/lBY/kmyKvkpsiTCsYK07BFx4Z0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5972
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,1246 +130,1350 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-14.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	HTML_MESSAGE,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---_000_SJ1PR12MB61219844F6FC245149306C9D80682SJ1PR12MB6121namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-AMD General
-
->If deactivating is harmless in early access also (looks so to me),
->suggest to make the behavior the same in both cases for the sake of
->consistency.
-
->Thanks,
->Lijo
-
-Deactivate is harmless on the early access path too. The only
-catch is the err_release_full_gpu label also releases full GPU access, gate=
-d on
-early_full_gpu_access, which is true there, so a plain goto would release
-access the failed request never acquired. To ensure the consistancy,
-I made a v3 patch to gate the release on full_access_held flag
-set after each successful acquire, and route both
-request failures through the label. So the two cases behave the same now.
-
-Thanks,
-Chenglei
-________________________________
-From: Lazar, Lijo <Lijo.Lazar@amd.com>
-Sent: Wednesday, November 4, 2026 10:50 AM
-To: Xie, Chenglei <Chenglei.Xie@amd.com>; amd-gfx@lists.freedesktop.org <am=
-d-gfx@lists.freedesktop.org>
-Cc: Skvortsov, Victor <Victor.Skvortsov@amd.com>; Luo, Zhigang <Zhigang.Luo=
-@amd.com>
-Subject: Re: [PATCH v2 2/2] drm/amdgpu: abort SPM VF init when the HBM aper=
-ture is missing
+--------------zW0lcRTPwVd1N5lj9vvRAxkH
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
+On 2026-11-02 21:31, Apurv Mishra wrote:
+> Counters and SQ/PC sampling read 0 at DPM AUTO on gfx11/gfx12 because
+> RLC_CGTT_MGCG_OVERRIDE.PERFMON_CLOCK_STATE is gated, and the existing
+> workaround (STABLE_STD) needs root and pins clocks.
+>
+> Add a refcounted amdgpu_gfx_perfmon_clk_override() that forces the
+> perfmon clock on per XCC, keeps GFXOFF disallowed while held, and
+> restores the previous state on last release, resume and reset.
+> perfmon_clk_mutex serializes it with the GFX clock gating sequences
+> and the soc21/soc24 stable pstate hook.
+>
+> Use it from KFD_IOC_PROFILER_PMC, after binding the process to the GPU
+> and under reset_domain->sem:
+> - lock=1 (device mode, CAP_PERFMON): held until unlock or exit.
+> - lock=0, perfcount_enable=1 (dispatch mode): no CAP_PERFMON needed,
+>    held until lock=0, perfcount_enable=0 or process exit.
+>
+> No DPM change, no new ioctl, no struct change. Bump
+> KFD_IOC_PROFILER_VERSION_NUM to 2.
+>
+> v2:
+> - Take GFXOFF outside perfmon_clk_mutex to break a pm.mutex lock cycle
+> - Replace the racy defer() with amdgpu_gfx_perfmon_clk_update(), and hold
+>    perfmon_clk_mutex across the GFX clock gating sequences
+> - Bind the process to the GPU before forcing the perfmon clock on
+> - Take reset_domain->sem before profiler_lock
+> - Release a dispatch-mode hold with lock=0, perfcount_enable=0
+>
+> Signed-off-by: Apurv Mishra<Apurv.Mishra@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  2 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c    | 89 ++++++++++++++++++++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h    | 11 +++
+>   drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c     | 28 +++++--
+>   drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c     | 28 +++++--
+>   drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c     | 28 +++++--
+>   drivers/gpu/drm/amd/amdgpu/soc21.c         |  2 +
+>   drivers/gpu/drm/amd/amdgpu/soc24.c         |  2 +
+>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c   | 63 +++++++++++++++
+>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h      |  2 +
+>   drivers/gpu/drm/amd/amdkfd/kfd_process.c   | 20 +++++
+>   include/uapi/linux/kfd_ioctl.h             | 11 ++-
+>   12 files changed, 261 insertions(+), 25 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 44091ac12fa9..04422c1e1f86 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -2779,6 +2779,7 @@ static int amdgpu_device_ip_late_init(struct amdgpu_device *adev)
+>   
+>   	amdgpu_device_set_cg_state(adev, AMD_CG_STATE_GATE);
+>   	amdgpu_device_set_pg_state(adev, AMD_PG_STATE_GATE);
+> +	amdgpu_gfx_perfmon_clk_restore(adev);
+>   
+>   	amdgpu_device_fill_reset_magic(adev);
+>   
+> @@ -3822,6 +3823,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+>   	mutex_init(&adev->srbm_mutex);
+>   	mutex_init(&adev->gfx.pipe_reserve_mutex);
+>   	mutex_init(&adev->gfx.gfx_off_mutex);
+> +	mutex_init(&adev->gfx.perfmon_clk_mutex);
+>   	mutex_init(&adev->gfx.partition_mutex);
+>   	mutex_init(&adev->grbm_idx_mutex);
+>   	mutex_init(&adev->mn_lock);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> index a6f95ff47d24..c9c4c3d4e88d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> @@ -1015,6 +1015,95 @@ void amdgpu_gfx_off_ctrl_immediate(struct amdgpu_device *adev, bool enable)
+>   	amdgpu_gfx_do_off_ctrl(adev, enable, true);
+>   }
+>   
+> +/*
+> + * Force the perfmon clock on, or restore the saved state; @save records the old
+> + * one. Called with perfmon_clk_mutex held and GFXOFF disallowed.
+> + */
+> +static void amdgpu_gfx_perfmon_clk_program(struct amdgpu_device *adev,
+> +					   bool force_on, bool save)
+> +{
+> +	int i, num_xcc = NUM_XCC(adev->gfx.xcc_mask);
+> [JZ] Nit: lockdep_assert_held(&adev->gfx.perfmon_clk_mutex) here, as amdgpu_gfx_perfmon_clk_update() does.
+> With this update,
 
-On 04-Nov-26 8:44 PM, Xie, Chenglei wrote:
-> AMD General
->
-> On 02-Nov-26 11:11 PM, Xie, Chenglei wrote:
->
->     AMD General
->
->     +err_release_full_gpu:
->     + if (amdgpu_sriov_vf(adev)) {
->     + /*
->     + * Release the access the host is waiting on so it finishes the
->     + * handshake instead of timing out and FLR'ing the VF.
->     + /
->     + if (early_full_gpu_access)
->     + amdgpu_virt_release_full_gpu(adev, true);
->     +
->     + /*
->     + * Mark the VF inactive so the later fini path does not send a
->     + * request the host will never answer.
->     + /
->     + amdgpu_virt_deactivate(adev);
->
->      >Shouldn't this be called when amdgpu_virt_request_full_gpu fails fo=
-r
->      >early_full_gpu_access case also?
->      >Thanks,
->      >Lijo
->
->     No, it should not be called. If amdgpu_virt_request_full_gpu fails,
->     the VF holds no access as the acquire handshake never completed.
->     There is nothing to release and RUNTIME was never set,
->     so the amdgpu_virt_deactivate() has nothing to clear.
->     Jumping to err_release_full_gpu would send a release for access that =
-is
->     never granted.
->
->  > In that case, this code needs to be changed to just return immediately=
-.
->  > if (amdgpu_sriov_vf(adev) && !early_full_gpu_access) {
->  > r =3D amdgpu_virt_request_full_gpu(adev, true);
->  > if (r)
->  > - return r;
->  > + goto err_release_full_gpu;
->
->  >Thanks,
->  >Lijo
->
-> No, the goto is needed here because we need the amdgpu_virt_deactivate()
-> to prevent REQ_GPU_FINI to be sent inside amdgpu_device_fini_hw(). In
-> amdgpu_driver_unload_kms(),
->
->     void amdgpu_driver_unload_kms(struct drm_device dev)
->     {
->     struct amdgpu_device adev =3D drm_to_adev(dev);
->     if (adev =3D=3D NULL || *!adev->num_ip_blocks*)
->     return;
->     amdgpu_unregister_gpu_instance(adev);
->     i f (adev->rmmio =3D=3D NULL)
->     return;
->     if (amdgpu_acpi_smart_shift_update(adev, AMDGPU_SS_DRV_UNLOAD))
->     drm_warn(dev, "smart shift update failed
->     ");
->     amdgpu_acpi_fini(adev);
->     amdgpu_device_fini_hw(adev);
->     }
->
-> it checks if adev->num_ip_blocks is non-zero to proceed with the
-> device_fini.
-> In the early full access case, it runs before IP discovery while
-> num_ip_blocks is still 0.
-> So the amdgpu_driver_unload_kms() returns before the fini. But here it
-> already passed
-> the ip discovery set, so the num_ip_blocks>0 and fini will be executed.
-> Also, release_full_gpu is correctly skipped since early_full_gpu_access
-> is false in this case.
-> ]
+ThispatchisReviewed-by:JamesZhu<James.Zhu@amd.com>
 
-If deactivating is harmless in early access also (looks so to me),
-suggest to make the behavior the same in both cases for the sake of
-consistency.
+> +	for (i = 0; i < num_xcc; i++) {
+> +		bool on = force_on || test_bit(i, &adev->gfx.perfmon_clk_restore_mask);
+> +		bool in_safe_mode = adev->gfx.rlc.in_safe_mode[i];
+> +		bool was_on;
+> +
+> +		if (!in_safe_mode)
+> +			amdgpu_gfx_rlc_enter_safe_mode(adev, i);
+> +		was_on = adev->gfx.funcs->set_perfmon_clk_override(adev, i, on);
+> +		if (!in_safe_mode)
+> +			amdgpu_gfx_rlc_exit_safe_mode(adev, i);
+> +
+> +		if (save)
+> +			assign_bit(i, &adev->gfx.perfmon_clk_restore_mask, was_on);
+> +	}
+> +}
+> +
+> +/*
+> + * Refcounted override that keeps the perfmon clock on for profilers. The last
+> + * put restores the previous state. Each hold keeps GFXOFF disallowed, as a
+> + * GFXOFF exit restores the register. Returns -EOPNOTSUPP if the ASIC can't do it.
+> + *
+> + * GFXOFF control takes pm.mutex, which clock gating holds around
+> + * perfmon_clk_mutex, so it must be called without perfmon_clk_mutex held.
+> + */
+> +int amdgpu_gfx_perfmon_clk_override(struct amdgpu_device *adev, bool enable)
+> +{
+> +	int r = 0;
+> +
+> +	if (amdgpu_sriov_vf(adev) || !adev->gfx.funcs ||
+> +	    !adev->gfx.funcs->set_perfmon_clk_override)
+> +		return -EOPNOTSUPP;
+> +
+> +	if (enable)
+> +		amdgpu_gfx_off_ctrl(adev, false);
+> +
+> +	mutex_lock(&adev->gfx.perfmon_clk_mutex);
+> +	if (enable) {
+> +		if (!adev->gfx.perfmon_clk_override_count++)
+> +			amdgpu_gfx_perfmon_clk_program(adev, true, true);
+> +	} else if (WARN_ON_ONCE(!adev->gfx.perfmon_clk_override_count)) {
+> +		r = -EINVAL;
+> +	} else if (!--adev->gfx.perfmon_clk_override_count) {
+> +		amdgpu_gfx_perfmon_clk_program(adev, false, false);
+> +	}
+> +	mutex_unlock(&adev->gfx.perfmon_clk_mutex);
+> +
+> +	if (!enable && !r)
+> +		amdgpu_gfx_off_ctrl(adev, true);
+> +
+> +	return r;
+> +}
+> +
+> +/*
+> + * Program the perfmon clock for clock gating. While overridden, only record
+> + * the state for the final restore. Called with perfmon_clk_mutex held.
+> + */
+> +void amdgpu_gfx_perfmon_clk_update(struct amdgpu_device *adev, int xcc_id, bool on)
+> +{
+> +	lockdep_assert_held(&adev->gfx.perfmon_clk_mutex);
+> +
+> +	if (adev->gfx.perfmon_clk_override_count)
+> +		assign_bit(xcc_id, &adev->gfx.perfmon_clk_restore_mask, on);
+> +	else
+> +		adev->gfx.funcs->set_perfmon_clk_override(adev, xcc_id, on);
+> +}
+> +
+> +/* Re-apply the override after resume/reset reprogrammed clock gating. */
+> +void amdgpu_gfx_perfmon_clk_restore(struct amdgpu_device *adev)
+> +{
+> +	if (!adev->gfx.funcs || !adev->gfx.funcs->set_perfmon_clk_override)
+> +		return;
+> +
+> +	amdgpu_gfx_off_ctrl(adev, false);
+> +	mutex_lock(&adev->gfx.perfmon_clk_mutex);
+> +	if (adev->gfx.perfmon_clk_override_count)
+> +		amdgpu_gfx_perfmon_clk_program(adev, true, false);
+> +	mutex_unlock(&adev->gfx.perfmon_clk_mutex);
+> +	amdgpu_gfx_off_ctrl(adev, true);
+> +}
+> +
+>   int amdgpu_set_gfx_off_residency(struct amdgpu_device *adev, bool value)
+>   {
+>   	int r = 0;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> index f5fb2e585e8a..1bfd12dd3956 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> @@ -362,6 +362,9 @@ struct amdgpu_gfx_funcs {
+>   				 u32 queue, u32 vmid, u32 xcc_id);
+>   	void (*init_spm_golden)(struct amdgpu_device *adev);
+>   	void (*update_perfmon_mgcg)(struct amdgpu_device *adev, bool enable);
+> +	/* set the perfmon clock, returns its previous state */
+> +	bool (*set_perfmon_clk_override)(struct amdgpu_device *adev, int xcc_id,
+> +					 bool on);
+>   	int (*get_gfx_shadow_info)(struct amdgpu_device *adev,
+>   				   struct amdgpu_gfx_shadow_info *shadow_info,
+>   				   bool skip_check);
+> @@ -500,6 +503,11 @@ struct amdgpu_gfx {
+>   	uint32_t                        gfx_off_residency;  /* last logged residency */
+>   	uint64_t                        gfx_off_entrycount; /* count of times GPU has get into GFXOFF state */
+>   
+> +	/* perfmon clock override for profilers */
+> +	struct mutex			perfmon_clk_mutex;
+> +	uint32_t			perfmon_clk_override_count;
+> +	unsigned long			perfmon_clk_restore_mask; /* per XCC */
+> +
+>   	/* pipe reservation */
+>   	struct mutex			pipe_reserve_mutex;
+>   	DECLARE_BITMAP			(pipe_reserve_bitmap, AMDGPU_MAX_COMPUTE_QUEUES);
+> @@ -632,6 +640,9 @@ void amdgpu_gfx_handle_priv_fault(struct amdgpu_device *adev,
+>   					u8 me_id, u8 pipe_id, u8 queue_id);
+>   void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev, bool enable);
+>   void amdgpu_gfx_off_ctrl_immediate(struct amdgpu_device *adev, bool enable);
+> +int amdgpu_gfx_perfmon_clk_override(struct amdgpu_device *adev, bool enable);
+> +void amdgpu_gfx_perfmon_clk_update(struct amdgpu_device *adev, int xcc_id, bool on);
+> +void amdgpu_gfx_perfmon_clk_restore(struct amdgpu_device *adev);
+>   int amdgpu_get_gfx_off_status(struct amdgpu_device *adev, uint32_t *value);
+>   int amdgpu_gfx_ras_late_init(struct amdgpu_device *adev, struct ras_common_if *ras_block);
+>   void amdgpu_gfx_ras_suspend(struct amdgpu_device *adev, struct ras_common_if *ras_block);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> index a7ed4923857b..a01244621fa3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> @@ -365,6 +365,8 @@ static void gfx_v11_0_unset_safe_mode(struct amdgpu_device *adev, int xcc_id);
+>   static void gfx_v11_0_userq_priv_fault_work(struct work_struct *work);
+>   static void gfx_v11_0_update_perf_clk(struct amdgpu_device *adev,
+>   				      bool enable);
+> +static bool gfx_v11_0_set_perfmon_clk_override(struct amdgpu_device *adev,
+> +					       int xcc_id, bool on);
+>   
+>   static void gfx11_kiq_set_resources(struct amdgpu_ring *kiq_ring, uint64_t queue_mask)
+>   {
+> @@ -1110,6 +1112,7 @@ static const struct amdgpu_gfx_funcs gfx_v11_0_gfx_funcs = {
+>   	.read_wave_vgprs = &gfx_v11_0_read_wave_vgprs,
+>   	.select_me_pipe_q = &gfx_v11_0_select_me_pipe_q,
+>   	.update_perfmon_mgcg = &gfx_v11_0_update_perf_clk,
+> +	.set_perfmon_clk_override = &gfx_v11_0_set_perfmon_clk_override,
+>   	.get_gfx_shadow_info = &gfx_v11_0_get_gfx_shadow_info,
+>   	.get_hdp_flush_mask = &amdgpu_gfx_get_hdp_flush_mask,
+>   };
+> @@ -5457,23 +5460,29 @@ static void gfx_v11_0_unset_safe_mode(struct amdgpu_device *adev, int xcc_id)
+>   	WREG32_SOC15(GC, 0, regRLC_SAFE_MODE, RLC_SAFE_MODE__CMD_MASK);
+>   }
+>   
+> -static void gfx_v11_0_update_perf_clk(struct amdgpu_device *adev,
+> -				      bool enable)
+> +static bool gfx_v11_0_set_perfmon_clk_override(struct amdgpu_device *adev,
+> +					       int xcc_id, bool on)
+>   {
+>   	uint32_t def, data;
+>   
+> -	if (!(adev->cg_flags & AMD_CG_SUPPORT_GFX_PERF_CLK))
+> -		return;
+> -
+>   	def = data = RREG32_SOC15(GC, 0, regRLC_CGTT_MGCG_OVERRIDE);
+>   
+> -	if (enable)
+> -		data &= ~RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
+> -	else
+> +	if (on)
+>   		data |= RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
+> +	else
+> +		data &= ~RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
+>   
+>   	if (def != data)
+>   		WREG32_SOC15(GC, 0, regRLC_CGTT_MGCG_OVERRIDE, data);
+> +
+> +	return !!(def & RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK);
+> +}
+> +
+> +static void gfx_v11_0_update_perf_clk(struct amdgpu_device *adev,
+> +				      bool enable)
+> +{
+> +	if (adev->cg_flags & AMD_CG_SUPPORT_GFX_PERF_CLK)
+> +		amdgpu_gfx_perfmon_clk_update(adev, 0, !enable);
+>   }
+>   
+>   static void gfx_v11_0_update_sram_fgcg(struct amdgpu_device *adev,
+> @@ -5680,6 +5689,8 @@ static void gfx_v11_0_update_coarse_grain_clock_gating(struct amdgpu_device *ade
+>   static int gfx_v11_0_update_gfx_clock_gating(struct amdgpu_device *adev,
+>   					    bool enable)
+>   {
+> +	/* RLC_CGTT_MGCG_OVERRIDE is shared with the perfmon clock override */
+> +	mutex_lock(&adev->gfx.perfmon_clk_mutex);
+>   	amdgpu_gfx_rlc_enter_safe_mode(adev, 0);
+>   
+>   	gfx_v11_0_update_coarse_grain_clock_gating(adev, enable);
+> @@ -5701,6 +5712,7 @@ static int gfx_v11_0_update_gfx_clock_gating(struct amdgpu_device *adev,
+>   	        gfx_v11_0_enable_gui_idle_interrupt(adev, enable);
+>   
+>   	amdgpu_gfx_rlc_exit_safe_mode(adev, 0);
+> +	mutex_unlock(&adev->gfx.perfmon_clk_mutex);
+>   
+>   	return 0;
+>   }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> index ec1e142549c5..9e754c25b15c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> @@ -289,6 +289,8 @@ static void gfx_v12_0_unset_safe_mode(struct amdgpu_device *adev, int xcc_id);
+>   static void gfx_v12_0_userq_priv_fault_work(struct work_struct *work);
+>   static void gfx_v12_0_update_perf_clk(struct amdgpu_device *adev,
+>   				      bool enable);
+> +static bool gfx_v12_0_set_perfmon_clk_override(struct amdgpu_device *adev,
+> +					       int xcc_id, bool on);
+>   
+>   static void gfx_v12_0_kiq_set_resources(struct amdgpu_ring *kiq_ring,
+>   					uint64_t queue_mask)
+> @@ -952,6 +954,7 @@ static const struct amdgpu_gfx_funcs gfx_v12_0_gfx_funcs = {
+>   	.read_wave_vgprs = &gfx_v12_0_read_wave_vgprs,
+>   	.select_me_pipe_q = &gfx_v12_0_select_me_pipe_q,
+>   	.update_perfmon_mgcg = &gfx_v12_0_update_perf_clk,
+> +	.set_perfmon_clk_override = &gfx_v12_0_set_perfmon_clk_override,
+>   	.get_gfx_shadow_info = &gfx_v12_0_get_gfx_shadow_info,
+>   	.get_hdp_flush_mask = &amdgpu_gfx_get_hdp_flush_mask,
+>   };
+> @@ -4045,23 +4048,29 @@ static void gfx_v12_0_unset_safe_mode(struct amdgpu_device *adev,
+>   	WREG32_SOC15(GC, 0, regRLC_SAFE_MODE, RLC_SAFE_MODE__CMD_MASK);
+>   }
+>   
+> -static void gfx_v12_0_update_perf_clk(struct amdgpu_device *adev,
+> -				      bool enable)
+> +static bool gfx_v12_0_set_perfmon_clk_override(struct amdgpu_device *adev,
+> +					       int xcc_id, bool on)
+>   {
+>   	uint32_t def, data;
+>   
+> -	if (!(adev->cg_flags & AMD_CG_SUPPORT_GFX_PERF_CLK))
+> -		return;
+> -
+>   	def = data = RREG32_SOC15(GC, 0, regRLC_CGTT_MGCG_OVERRIDE);
+>   
+> -	if (enable)
+> -		data &= ~RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
+> -	else
+> +	if (on)
+>   		data |= RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
+> +	else
+> +		data &= ~RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
+>   
+>   	if (def != data)
+>   		WREG32_SOC15(GC, 0, regRLC_CGTT_MGCG_OVERRIDE, data);
+> +
+> +	return !!(def & RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK);
+> +}
+> +
+> +static void gfx_v12_0_update_perf_clk(struct amdgpu_device *adev,
+> +				      bool enable)
+> +{
+> +	if (adev->cg_flags & AMD_CG_SUPPORT_GFX_PERF_CLK)
+> +		amdgpu_gfx_perfmon_clk_update(adev, 0, !enable);
+>   }
+>   
+>   static void gfx_v12_0_update_spm_vmid(struct amdgpu_device *adev,
+> @@ -4335,6 +4344,8 @@ static void gfx_v12_0_update_sram_fgcg(struct amdgpu_device *adev,
+>   static int gfx_v12_0_update_gfx_clock_gating(struct amdgpu_device *adev,
+>   					    bool enable)
+>   {
+> +	/* RLC_CGTT_MGCG_OVERRIDE is shared with the perfmon clock override */
+> +	mutex_lock(&adev->gfx.perfmon_clk_mutex);
+>   	amdgpu_gfx_rlc_enter_safe_mode(adev, 0);
+>   
+>   	gfx_v12_0_update_coarse_grain_clock_gating(adev, enable);
+> @@ -4356,6 +4367,7 @@ static int gfx_v12_0_update_gfx_clock_gating(struct amdgpu_device *adev,
+>   		gfx_v12_0_enable_gui_idle_interrupt(adev, enable);
+>   
+>   	amdgpu_gfx_rlc_exit_safe_mode(adev, 0);
+> +	mutex_unlock(&adev->gfx.perfmon_clk_mutex);
+>   
+>   	return 0;
+>   }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
+> index f812d6d81e9c..958b4ad39d9f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
+> @@ -215,6 +215,8 @@ static void gfx_v12_1_update_perf_clk(struct amdgpu_device *adev,
+>   				      bool enable);
+>   static void gfx_v12_1_xcc_update_perf_clk(struct amdgpu_device *adev,
+>   					 bool enable, int xcc_id);
+> +static bool gfx_v12_1_set_perfmon_clk_override(struct amdgpu_device *adev,
+> +					       int xcc_id, bool on);
+>   static int gfx_v12_1_init_cp_compute_microcode_bo(struct amdgpu_device *adev);
+>   static void gfx_v12_1_xcc_update_medium_grain_clock_gating(
+>   	struct amdgpu_device *adev, bool enable, int xcc_id, bool force);
+> @@ -888,6 +890,7 @@ static const struct amdgpu_gfx_funcs gfx_v12_1_gfx_funcs = {
+>   	.read_wave_vgprs = &gfx_v12_1_read_wave_vgprs,
+>   	.select_me_pipe_q = &gfx_v12_1_select_me_pipe_q,
+>   	.update_perfmon_mgcg = &gfx_v12_1_update_perf_clk,
+> +	.set_perfmon_clk_override = &gfx_v12_1_set_perfmon_clk_override,
+>   	.get_xccs_per_xcp = &gfx_v12_1_get_xccs_per_xcp,
+>   	.ih_node_to_logical_xcc = &gfx_v12_1_ih_to_xcc_inst,
+>   };
+> @@ -3471,28 +3474,36 @@ static void gfx_v12_1_xcc_update_sram_fgcg(struct amdgpu_device *adev,
+>   		WREG32_SOC15(GC, GET_INST(GC, xcc_id), regRLC_CGTT_MGCG_OVERRIDE, data);
+>   }
+>   
+> -static void gfx_v12_1_xcc_update_perf_clk(struct amdgpu_device *adev,
+> -					  bool enable, int xcc_id)
+> +static bool gfx_v12_1_set_perfmon_clk_override(struct amdgpu_device *adev,
+> +					       int xcc_id, bool on)
+>   {
+>   	uint32_t def, data;
+>   
+> -	if (!(adev->cg_flags & AMD_CG_SUPPORT_GFX_PERF_CLK))
+> -		return;
+> -
+>   	def = data = RREG32_SOC15(GC, GET_INST(GC, xcc_id), regRLC_CGTT_MGCG_OVERRIDE);
+>   
+> -	if (enable)
+> -		data &= ~RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
+> -	else
+> +	if (on)
+>   		data |= RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
+> +	else
+> +		data &= ~RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
+>   
+>   	if (def != data)
+>   		WREG32_SOC15(GC, GET_INST(GC, xcc_id), regRLC_CGTT_MGCG_OVERRIDE, data);
+> +
+> +	return !!(def & RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK);
+> +}
+> +
+> +static void gfx_v12_1_xcc_update_perf_clk(struct amdgpu_device *adev,
+> +					  bool enable, int xcc_id)
+> +{
+> +	if (adev->cg_flags & AMD_CG_SUPPORT_GFX_PERF_CLK)
+> +		amdgpu_gfx_perfmon_clk_update(adev, xcc_id, !enable);
+>   }
+>   
+>   static int gfx_v12_1_xcc_update_gfx_clock_gating(struct amdgpu_device *adev,
+>   					     bool enable, int xcc_id)
+>   {
+> +	/* RLC_CGTT_MGCG_OVERRIDE is shared with the perfmon clock override */
+> +	mutex_lock(&adev->gfx.perfmon_clk_mutex);
+>   	amdgpu_gfx_rlc_enter_safe_mode(adev, xcc_id);
+>   
+>   	gfx_v12_1_xcc_update_coarse_grain_clock_gating(adev, enable, xcc_id);
+> @@ -3515,6 +3526,7 @@ static int gfx_v12_1_xcc_update_gfx_clock_gating(struct amdgpu_device *adev,
+>   		gfx_v12_1_xcc_enable_gui_idle_interrupt(adev, enable, xcc_id);
+>   
+>   	amdgpu_gfx_rlc_exit_safe_mode(adev, xcc_id);
+> +	mutex_unlock(&adev->gfx.perfmon_clk_mutex);
+>   
+>   	return 0;
+>   }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
+> index 599d47e1d38b..ed10c258703c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/soc21.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
+> @@ -520,6 +520,7 @@ static void soc21_init_doorbell_index(struct amdgpu_device *adev)
+>   static int soc21_update_umd_stable_pstate(struct amdgpu_device *adev,
+>   					  bool enter)
+>   {
+> +	mutex_lock(&adev->gfx.perfmon_clk_mutex);
+>   	if (enter)
+>   		amdgpu_gfx_rlc_enter_safe_mode(adev, 0);
+>   	else
+> @@ -527,6 +528,7 @@ static int soc21_update_umd_stable_pstate(struct amdgpu_device *adev,
+>   
+>   	if (adev->gfx.funcs->update_perfmon_mgcg)
+>   		adev->gfx.funcs->update_perfmon_mgcg(adev, !enter);
+> +	mutex_unlock(&adev->gfx.perfmon_clk_mutex);
+>   
+>   	return 0;
+>   }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/soc24.c b/drivers/gpu/drm/amd/amdgpu/soc24.c
+> index 6c8b8ed4a44d..46d746dd37b2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/soc24.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/soc24.c
+> @@ -302,6 +302,7 @@ static void soc24_init_doorbell_index(struct amdgpu_device *adev)
+>   static int soc24_update_umd_stable_pstate(struct amdgpu_device *adev,
+>   					  bool enter)
+>   {
+> +	mutex_lock(&adev->gfx.perfmon_clk_mutex);
+>   	if (enter)
+>   		amdgpu_gfx_rlc_enter_safe_mode(adev, 0);
+>   	else
+> @@ -309,6 +310,7 @@ static int soc24_update_umd_stable_pstate(struct amdgpu_device *adev,
+>   
+>   	if (adev->gfx.funcs->update_perfmon_mgcg)
+>   		adev->gfx.funcs->update_perfmon_mgcg(adev, !enter);
+> +	mutex_unlock(&adev->gfx.perfmon_clk_mutex);
+>   
+>   	return 0;
+>   }
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> index 7fcfc150a7fc..e4fb9f5aa3b2 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> @@ -3343,20 +3343,29 @@ static inline int profile_lock_device(struct kfd_process *p,
+>   
+>   	mutex_lock(&p->mutex);
+>   	pdd = kfd_process_device_data_by_id(p, gpu_id);
+> +	/* Bind for the runtime PM reference before programming the perfmon clock */
+> +	if (pdd && op == 1)
+> +		pdd = kfd_bind_process_to_device(pdd->dev, p);
+>   	mutex_unlock(&p->mutex);
+>   
+> +	if (IS_ERR(pdd))
+> +		return PTR_ERR(pdd);
+>   	if (!pdd || !pdd->dev || !pdd->dev->kfd)
+>   		return -EINVAL;
+>   
+>   	kfd = pdd->dev->kfd;
+>   	ptl = &pdd->dev->adev->psp.ptl;
+>   
+> +	/* Before profiler_lock, which reset takes in kfd_resume() */
+> +	down_read(&kfd->adev->reset_domain->sem);
+>   	mutex_lock(&kfd->profiler_lock);
+>   	if (op == 1) {
+>   		if (!kfd->profiler_process) {
+>   			kfd->profiler_process = p;
+> +			amdgpu_gfx_perfmon_clk_override(kfd->adev, true);
+>   			status = 0;
+>   			mutex_unlock(&kfd->profiler_lock);
+> +			up_read(&kfd->adev->reset_domain->sem);
+>   			if (ptl->hw_supported_state == AMDGPU_PTL_HW_SUPPORTED) {
+>   				status = kfd_ptl_disable_request(pdd, p);
+>   				if (status != 0)
+> @@ -3372,8 +3381,10 @@ static inline int profile_lock_device(struct kfd_process *p,
+>   		}
+>   	} else if (op == 0 && kfd->profiler_process == p) {
+>   		kfd->profiler_process = NULL;
+> +		amdgpu_gfx_perfmon_clk_override(kfd->adev, false);
+>   		status = 0;
+>   		mutex_unlock(&kfd->profiler_lock);
+> +		up_read(&kfd->adev->reset_domain->sem);
+>   
+>   		if (ptl->hw_supported_state == AMDGPU_PTL_HW_SUPPORTED) {
+>   			status = kfd_ptl_disable_release(pdd, p);
+> @@ -3385,10 +3396,52 @@ static inline int profile_lock_device(struct kfd_process *p,
+>   		return status;
+>   	}
+>   	mutex_unlock(&kfd->profiler_lock);
+> +	up_read(&kfd->adev->reset_domain->sem);
+>   
+>   	return status;
+>   }
+>   
+> +/*
+> + * Take or drop this process's dispatch-mode perfmon clock hold. Taking it again
+> + * is a no-op. Dropping returns -ENOENT without a hold, and for the device lock
+> + * holder, whose lock == 0 must still unlock.
+> + */
+> +static int kfd_profiler_perfmon_clk(struct kfd_process *p, uint32_t gpu_id,
+> +				    bool enable)
+> +{
+> +	struct kfd_process_device *pdd;
+> +	struct kfd_dev *kfd;
+> +	int r = 0;
+> +
+> +	mutex_lock(&p->mutex);
+> +	pdd = kfd_process_device_data_by_id(p, gpu_id);
+> +	/* Bind for the runtime PM reference before programming the perfmon clock */
+> +	if (pdd && enable)
+> +		pdd = kfd_bind_process_to_device(pdd->dev, p);
+> +	mutex_unlock(&p->mutex);
+> +
+> +	if (IS_ERR(pdd))
+> +		return PTR_ERR(pdd);
+> +	if (!pdd || !pdd->dev || !pdd->dev->kfd)
+> +		return -EINVAL;
+> +
+> +	kfd = pdd->dev->kfd;
+> +
+> +	/* Before profiler_lock, which reset takes in kfd_resume() */
+> +	down_read(&kfd->adev->reset_domain->sem);
+> +	mutex_lock(&kfd->profiler_lock);
+> +	if (!enable && (!pdd->perfmon_clk_req || kfd->profiler_process == p))
+> +		r = -ENOENT;
+> +	else if (pdd->perfmon_clk_req != enable)
+> +		r = amdgpu_gfx_perfmon_clk_override(kfd->adev, enable);
+> +	if (!r)
+> +		pdd->perfmon_clk_req = enable;
+> +	mutex_unlock(&kfd->profiler_lock);
+> +	up_read(&kfd->adev->reset_domain->sem);
+> +
+> +	return r;
+> +}
+> +
+>   static inline int kfd_profiler_pmc(struct kfd_process *p,
+>   				   struct kfd_ioctl_pmc_settings *args)
+>   {
+> @@ -3396,6 +3449,16 @@ static inline int kfd_profiler_pmc(struct kfd_process *p,
+>   	struct device_queue_manager *dqm;
+>   	int status;
+>   
+> +	if (!args->lock) {
+> +		/* Dispatch mode: perfmon clock only, no lock, no CAP_PERFMON needed */
+> +		if (args->perfcount_enable)
+> +			return kfd_profiler_perfmon_clk(p, args->gpu_id, true);
+> +
+> +		/* Drop a dispatch-mode hold if there is one, else unlock as before */
+> +		if (!kfd_profiler_perfmon_clk(p, args->gpu_id, false))
+> +			return 0;
+> +	}
+> +
+>   	/* Check if we have the correct permissions. */
+>   	if (!perfmon_capable())
+>   		return -EPERM;
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> index d8631847f0eb..32c3c23d6d14 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> @@ -886,6 +886,8 @@ struct kfd_process_device {
+>   	u32 pasid;
+>   	/* Indicates this process has requested PTL stay disabled */
+>   	bool ptl_disable_req;
+> +	/* Holds a dispatch-mode perfmon clock override until released or exit */
+> +	bool perfmon_clk_req;
+>   };
+>   
+>   #define qpd_to_pdd(x) container_of(x, struct kfd_process_device, qpd)
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> index dd938788bdd9..7ba1c4ab283b 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> @@ -1176,12 +1176,32 @@ static void kfd_process_free_outstanding_kfd_bos(struct kfd_process *p)
+>   
+>   static void kfd_process_profiler_release(struct kfd_process *p, struct kfd_process_device *pdd)
+>   {
+> +	struct amdgpu_device *adev = pdd->dev->adev;
+> +	int puts = 0;
+> +
+>   	mutex_lock(&pdd->dev->kfd->profiler_lock);
+>   	if (pdd->dev->kfd->profiler_process == p) {
+>   		pdd->qpd.dqm->ops.set_perfcount(pdd->qpd.dqm, 0);
+>   		pdd->dev->kfd->profiler_process = NULL;
+> +		puts++;
+> +	}
+> +	if (pdd->perfmon_clk_req) {
+> +		pdd->perfmon_clk_req = false;
+> +		puts++;
+>   	}
+>   	mutex_unlock(&pdd->dev->kfd->profiler_lock);
+> +
+> +	/*
+> +	 * Nothing is held on the kfd_create_process() error path, which holds
+> +	 * kfd_processes_mutex and so must not wait for a reset.
+> +	 */
+> +	if (!puts)
+> +		return;
+> +
+> +	down_read(&adev->reset_domain->sem);
+> +	while (puts--)
+> +		amdgpu_gfx_perfmon_clk_override(adev, false);
+> +	up_read(&adev->reset_domain->sem);
+>   }
+>   
+>   static void kfd_process_destroy_pdds(struct kfd_process *p)
+> diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
+> index 749d196e2114..34f3ffaf1c66 100644
+> --- a/include/uapi/linux/kfd_ioctl.h
+> +++ b/include/uapi/linux/kfd_ioctl.h
+> @@ -1557,7 +1557,16 @@ struct kfd_ioctl_dbg_trap_args {
+>   	};
+>   };
+>   
+> -#define KFD_IOC_PROFILER_VERSION_NUM 1
+> +/*
+> + * KFD_IOC_PROFILER_VERSION_NUM history:
+> + * - 1 - initial version
+> + * - 2 - KFD_IOC_PROFILER_PMC lock also forces the perfmon clock on until the
+> + *       lock is released or the process exits. lock == 0 with
+> + *       perfcount_enable == 1 forces it on without CAP_PERFMON and without
+> + *       locking, until lock == 0 with perfcount_enable == 0 or the process
+> + *       exits
+> + */
+> +#define KFD_IOC_PROFILER_VERSION_NUM 2
+>   enum kfd_profiler_ops {
+>   	KFD_IOC_PROFILER_PMC = 0,
+>   	KFD_IOC_PROFILER_VERSION = 2,
+--------------zW0lcRTPwVd1N5lj9vvRAxkH
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thanks,
-Lijo
-> Thanks,
-> Chenglei
->
->
->
->
-> ------------------------------------------------------------------------
-> *From:* Lazar, Lijo <Lijo.Lazar@amd.com>
-> *Sent:* Tuesday, November 3, 2026 1:35 AM
-> *To:* Xie, Chenglei <Chenglei.Xie@amd.com>; amd-
-> gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-> *Cc:* Skvortsov, Victor <Victor.Skvortsov@amd.com>; Luo, Zhigang
-> <Zhigang.Luo@amd.com>
-> *Subject:* Re: [PATCH v2 2/2] drm/amdgpu: abort SPM VF init when the HBM
-> aperture is missing
->
->
-> On 02-Nov-26 11:11 PM, Xie, Chenglei wrote:
->> AMD General
->>
->>     +err_release_full_gpu:
->>     + if (amdgpu_sriov_vf(adev)) {
->>     + /*
->>     + * Release the access the host is waiting on so it finishes the
->>     + * handshake instead of timing out and FLR'ing the VF.
->>     + /
->>     + if (early_full_gpu_access)
->>     + amdgpu_virt_release_full_gpu(adev, true);
->>     +
->>     + /*
->>     + * Mark the VF inactive so the later fini path does not send a
->>     + * request the host will never answer.
->>     + /
->>     + amdgpu_virt_deactivate(adev);
->>
->>>Shouldn't this be called when amdgpu_virt_request_full_gpu fails for
->>>early_full_gpu_access case also?
->>>Thanks,
->>>Lijo
->>
->> No, it should not be called. If amdgpu_virt_request_full_gpu fails,
->> the VF holds no access as the acquire handshake never completed.
->> There is nothing to release and RUNTIME was never set,
->> so the amdgpu_virt_deactivate() has nothing to clear.
->> Jumping to err_release_full_gpu would send a release for access that is
->> never granted.
->>
->
-> In that case, this code needs to be changed to just return immediately.
->
->   >        if (amdgpu_sriov_vf(adev) && !early_full_gpu_access) {
->   >                r =3D amdgpu_virt_request_full_gpu(adev, true);
->   >                if (r)
->   > -                     return r;
->   > +                     goto err_release_full_gpu;
->
->
-> Thanks,
-> Lijo
->
->> Thanks,
->> Chenglei
->>
->>
->> ------------------------------------------------------------------------
->> *From:* Lazar, Lijo <Lijo.Lazar@amd.com>
->> *Sent:* Sunday, November 1, 2026 11:32 PM
->> *To:* Xie, Chenglei <Chenglei.Xie@amd.com>; amd-
->> gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
->> *Cc:* Skvortsov, Victor <Victor.Skvortsov@amd.com>; Luo, Zhigang
->> <Zhigang.Luo@amd.com>
->> *Subject:* Re: [PATCH v2 2/2] drm/amdgpu: abort SPM VF init when the HBM
->> aperture is missing
->>
->>
->> On 29-Oct-26 11:36 PM, Chenglei Xie wrote:
->>> An SPM backed VF has no FB BAR0 and gets its HBM aperture from the ACPI
->>> SRAT. When that entry is missing, amdgpu_acpi_find_gpu_memory_in_srat()
->>> returns -ENOENT, which the early init IP loop treats as the GMC block
->>> being absent. Init keeps going and dies later with a confusing -ENOMEM
->>> instead of the real cause.
->>>
->>> Return -ENODEV from gmc_v12_0_early_init() so the probe aborts at the
->>> point where the aperture is actually missing.
->>>
->>> On a legacy host the VF already holds exclusive GPU access at this poin=
-t,
->>> and the early init error paths returned directly without releasing it, =
-so
->>> the host timed out and FLR'd the VF. Route these failures through a new
->>> err_release_full_gpu label that releases the access the host is waiting=
- on.
->>>
->>> Add amdgpu_virt_deactivate() to clear AMDGPU_SRIOV_CAPS_RUNTIME and dro=
-p
->>> adev->virt.ops, and call it from the same label, so the later fini path
->>> does not send a REQ_GPU_FINI that the host will never answer.
->>>
->>> Signed-off-by: Chenglei Xie <Chenglei.Xie@amd.com>
->>> ---
->>> v2: Move the runtime cap and virt ops clearing into a new
->>>      amdgpu_virt_deactivate() helper and call it from the label. Drop t=
-he
->>>      redundant SRAT error log already emitted by
->>>      amdgpu_acpi_find_gpu_memory_in_srat().
->>>
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 49 ++++++++++++++++-----=
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2026-11-02 21:31, Apurv Mishra
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:20261103023145.61021-1-Apurv.Mishra@amd.com">
+      <pre wrap="" class="moz-quote-pre">Counters and SQ/PC sampling read 0 at DPM AUTO on gfx11/gfx12 because
+RLC_CGTT_MGCG_OVERRIDE.PERFMON_CLOCK_STATE is gated, and the existing
+workaround (STABLE_STD) needs root and pins clocks.
+
+Add a refcounted amdgpu_gfx_perfmon_clk_override() that forces the
+perfmon clock on per XCC, keeps GFXOFF disallowed while held, and
+restores the previous state on last release, resume and reset.
+perfmon_clk_mutex serializes it with the GFX clock gating sequences
+and the soc21/soc24 stable pstate hook.
+
+Use it from KFD_IOC_PROFILER_PMC, after binding the process to the GPU
+and under reset_domain-&gt;sem:
+- lock=1 (device mode, CAP_PERFMON): held until unlock or exit.
+- lock=0, perfcount_enable=1 (dispatch mode): no CAP_PERFMON needed,
+  held until lock=0, perfcount_enable=0 or process exit.
+
+No DPM change, no new ioctl, no struct change. Bump
+KFD_IOC_PROFILER_VERSION_NUM to 2.
+
+v2:
+- Take GFXOFF outside perfmon_clk_mutex to break a pm.mutex lock cycle
+- Replace the racy defer() with amdgpu_gfx_perfmon_clk_update(), and hold
+  perfmon_clk_mutex across the GFX clock gating sequences
+- Bind the process to the GPU before forcing the perfmon clock on
+- Take reset_domain-&gt;sem before profiler_lock
+- Release a dispatch-mode hold with lock=0, perfcount_enable=0
+
+Signed-off-by: Apurv Mishra <a class="moz-txt-link-rfc2396E" href="mailto:Apurv.Mishra@amd.com">&lt;Apurv.Mishra@amd.com&gt;</a>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c    | 89 ++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h    | 11 +++
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c     | 28 +++++--
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c     | 28 +++++--
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c     | 28 +++++--
+ drivers/gpu/drm/amd/amdgpu/soc21.c         |  2 +
+ drivers/gpu/drm/amd/amdgpu/soc24.c         |  2 +
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c   | 63 +++++++++++++++
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h      |  2 +
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c   | 20 +++++
+ include/uapi/linux/kfd_ioctl.h             | 11 ++-
+ 12 files changed, 261 insertions(+), 25 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 44091ac12fa9..04422c1e1f86 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -2779,6 +2779,7 @@ static int amdgpu_device_ip_late_init(struct amdgpu_device *adev)
+ 
+ 	amdgpu_device_set_cg_state(adev, AMD_CG_STATE_GATE);
+ 	amdgpu_device_set_pg_state(adev, AMD_PG_STATE_GATE);
++	amdgpu_gfx_perfmon_clk_restore(adev);
+ 
+ 	amdgpu_device_fill_reset_magic(adev);
+ 
+@@ -3822,6 +3823,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ 	mutex_init(&amp;adev-&gt;srbm_mutex);
+ 	mutex_init(&amp;adev-&gt;gfx.pipe_reserve_mutex);
+ 	mutex_init(&amp;adev-&gt;gfx.gfx_off_mutex);
++	mutex_init(&amp;adev-&gt;gfx.perfmon_clk_mutex);
+ 	mutex_init(&amp;adev-&gt;gfx.partition_mutex);
+ 	mutex_init(&amp;adev-&gt;grbm_idx_mutex);
+ 	mutex_init(&amp;adev-&gt;mn_lock);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index a6f95ff47d24..c9c4c3d4e88d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -1015,6 +1015,95 @@ void amdgpu_gfx_off_ctrl_immediate(struct amdgpu_device *adev, bool enable)
+ 	amdgpu_gfx_do_off_ctrl(adev, enable, true);
+ }
+ 
++/*
++ * Force the perfmon clock on, or restore the saved state; @save records the old
++ * one. Called with perfmon_clk_mutex held and GFXOFF disallowed.
++ */
++static void amdgpu_gfx_perfmon_clk_program(struct amdgpu_device *adev,
++					   bool force_on, bool save)
++{
++	int i, num_xcc = NUM_XCC(adev-&gt;gfx.xcc_mask);
+[JZ] Nit: lockdep_assert_held(&amp;adev-&gt;gfx.perfmon_clk_mutex) here, as amdgpu_gfx_perfmon_clk_update() does.
+With this update, </pre>
+    </blockquote>
+    <pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">This<span style=" color:#c0c0c0;"> </span>patch<span style=" color:#c0c0c0;"> </span>is<span style=" color:#c0c0c0;"> </span>Reviewed-by:<span style=" color:#c0c0c0;"> </span>James<span style=" color:#c0c0c0;"> </span>Zhu<span style=" color:#c0c0c0;"> </span><a class="moz-txt-link-rfc2396E" href="mailto:James.Zhu@amd.com">&lt;James.Zhu@amd.com&gt;</a></pre>
+    <blockquote type="cite" cite="mid:20261103023145.61021-1-Apurv.Mishra@amd.com">
+      <pre wrap="" class="moz-quote-pre">
++	for (i = 0; i &lt; num_xcc; i++) {
++		bool on = force_on || test_bit(i, &amp;adev-&gt;gfx.perfmon_clk_restore_mask);
++		bool in_safe_mode = adev-&gt;gfx.rlc.in_safe_mode[i];
++		bool was_on;
++
++		if (!in_safe_mode)
++			amdgpu_gfx_rlc_enter_safe_mode(adev, i);
++		was_on = adev-&gt;gfx.funcs-&gt;set_perfmon_clk_override(adev, i, on);
++		if (!in_safe_mode)
++			amdgpu_gfx_rlc_exit_safe_mode(adev, i);
++
++		if (save)
++			assign_bit(i, &amp;adev-&gt;gfx.perfmon_clk_restore_mask, was_on);
++	}
++}
++
++/*
++ * Refcounted override that keeps the perfmon clock on for profilers. The last
++ * put restores the previous state. Each hold keeps GFXOFF disallowed, as a
++ * GFXOFF exit restores the register. Returns -EOPNOTSUPP if the ASIC can't do it.
++ *
++ * GFXOFF control takes pm.mutex, which clock gating holds around
++ * perfmon_clk_mutex, so it must be called without perfmon_clk_mutex held.
++ */
++int amdgpu_gfx_perfmon_clk_override(struct amdgpu_device *adev, bool enable)
++{
++	int r = 0;
++
++	if (amdgpu_sriov_vf(adev) || !adev-&gt;gfx.funcs ||
++	    !adev-&gt;gfx.funcs-&gt;set_perfmon_clk_override)
++		return -EOPNOTSUPP;
++
++	if (enable)
++		amdgpu_gfx_off_ctrl(adev, false);
++
++	mutex_lock(&amp;adev-&gt;gfx.perfmon_clk_mutex);
++	if (enable) {
++		if (!adev-&gt;gfx.perfmon_clk_override_count++)
++			amdgpu_gfx_perfmon_clk_program(adev, true, true);
++	} else if (WARN_ON_ONCE(!adev-&gt;gfx.perfmon_clk_override_count)) {
++		r = -EINVAL;
++	} else if (!--adev-&gt;gfx.perfmon_clk_override_count) {
++		amdgpu_gfx_perfmon_clk_program(adev, false, false);
++	}
++	mutex_unlock(&amp;adev-&gt;gfx.perfmon_clk_mutex);
++
++	if (!enable &amp;&amp; !r)
++		amdgpu_gfx_off_ctrl(adev, true);
++
++	return r;
++}
++
++/*
++ * Program the perfmon clock for clock gating. While overridden, only record
++ * the state for the final restore. Called with perfmon_clk_mutex held.
++ */
++void amdgpu_gfx_perfmon_clk_update(struct amdgpu_device *adev, int xcc_id, bool on)
++{
++	lockdep_assert_held(&amp;adev-&gt;gfx.perfmon_clk_mutex);
++
++	if (adev-&gt;gfx.perfmon_clk_override_count)
++		assign_bit(xcc_id, &amp;adev-&gt;gfx.perfmon_clk_restore_mask, on);
++	else
++		adev-&gt;gfx.funcs-&gt;set_perfmon_clk_override(adev, xcc_id, on);
++}
++
++/* Re-apply the override after resume/reset reprogrammed clock gating. */
++void amdgpu_gfx_perfmon_clk_restore(struct amdgpu_device *adev)
++{
++	if (!adev-&gt;gfx.funcs || !adev-&gt;gfx.funcs-&gt;set_perfmon_clk_override)
++		return;
++
++	amdgpu_gfx_off_ctrl(adev, false);
++	mutex_lock(&amp;adev-&gt;gfx.perfmon_clk_mutex);
++	if (adev-&gt;gfx.perfmon_clk_override_count)
++		amdgpu_gfx_perfmon_clk_program(adev, true, false);
++	mutex_unlock(&amp;adev-&gt;gfx.perfmon_clk_mutex);
++	amdgpu_gfx_off_ctrl(adev, true);
++}
++
+ int amdgpu_set_gfx_off_residency(struct amdgpu_device *adev, bool value)
+ {
+ 	int r = 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+index f5fb2e585e8a..1bfd12dd3956 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+@@ -362,6 +362,9 @@ struct amdgpu_gfx_funcs {
+ 				 u32 queue, u32 vmid, u32 xcc_id);
+ 	void (*init_spm_golden)(struct amdgpu_device *adev);
+ 	void (*update_perfmon_mgcg)(struct amdgpu_device *adev, bool enable);
++	/* set the perfmon clock, returns its previous state */
++	bool (*set_perfmon_clk_override)(struct amdgpu_device *adev, int xcc_id,
++					 bool on);
+ 	int (*get_gfx_shadow_info)(struct amdgpu_device *adev,
+ 				   struct amdgpu_gfx_shadow_info *shadow_info,
+ 				   bool skip_check);
+@@ -500,6 +503,11 @@ struct amdgpu_gfx {
+ 	uint32_t                        gfx_off_residency;  /* last logged residency */
+ 	uint64_t                        gfx_off_entrycount; /* count of times GPU has get into GFXOFF state */
+ 
++	/* perfmon clock override for profilers */
++	struct mutex			perfmon_clk_mutex;
++	uint32_t			perfmon_clk_override_count;
++	unsigned long			perfmon_clk_restore_mask; /* per XCC */
++
+ 	/* pipe reservation */
+ 	struct mutex			pipe_reserve_mutex;
+ 	DECLARE_BITMAP			(pipe_reserve_bitmap, AMDGPU_MAX_COMPUTE_QUEUES);
+@@ -632,6 +640,9 @@ void amdgpu_gfx_handle_priv_fault(struct amdgpu_device *adev,
+ 					u8 me_id, u8 pipe_id, u8 queue_id);
+ void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev, bool enable);
+ void amdgpu_gfx_off_ctrl_immediate(struct amdgpu_device *adev, bool enable);
++int amdgpu_gfx_perfmon_clk_override(struct amdgpu_device *adev, bool enable);
++void amdgpu_gfx_perfmon_clk_update(struct amdgpu_device *adev, int xcc_id, bool on);
++void amdgpu_gfx_perfmon_clk_restore(struct amdgpu_device *adev);
+ int amdgpu_get_gfx_off_status(struct amdgpu_device *adev, uint32_t *value);
+ int amdgpu_gfx_ras_late_init(struct amdgpu_device *adev, struct ras_common_if *ras_block);
+ void amdgpu_gfx_ras_suspend(struct amdgpu_device *adev, struct ras_common_if *ras_block);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+index a7ed4923857b..a01244621fa3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+@@ -365,6 +365,8 @@ static void gfx_v11_0_unset_safe_mode(struct amdgpu_device *adev, int xcc_id);
+ static void gfx_v11_0_userq_priv_fault_work(struct work_struct *work);
+ static void gfx_v11_0_update_perf_clk(struct amdgpu_device *adev,
+ 				      bool enable);
++static bool gfx_v11_0_set_perfmon_clk_override(struct amdgpu_device *adev,
++					       int xcc_id, bool on);
+ 
+ static void gfx11_kiq_set_resources(struct amdgpu_ring *kiq_ring, uint64_t queue_mask)
+ {
+@@ -1110,6 +1112,7 @@ static const struct amdgpu_gfx_funcs gfx_v11_0_gfx_funcs = {
+ 	.read_wave_vgprs = &amp;gfx_v11_0_read_wave_vgprs,
+ 	.select_me_pipe_q = &amp;gfx_v11_0_select_me_pipe_q,
+ 	.update_perfmon_mgcg = &amp;gfx_v11_0_update_perf_clk,
++	.set_perfmon_clk_override = &amp;gfx_v11_0_set_perfmon_clk_override,
+ 	.get_gfx_shadow_info = &amp;gfx_v11_0_get_gfx_shadow_info,
+ 	.get_hdp_flush_mask = &amp;amdgpu_gfx_get_hdp_flush_mask,
+ };
+@@ -5457,23 +5460,29 @@ static void gfx_v11_0_unset_safe_mode(struct amdgpu_device *adev, int xcc_id)
+ 	WREG32_SOC15(GC, 0, regRLC_SAFE_MODE, RLC_SAFE_MODE__CMD_MASK);
+ }
+ 
+-static void gfx_v11_0_update_perf_clk(struct amdgpu_device *adev,
+-				      bool enable)
++static bool gfx_v11_0_set_perfmon_clk_override(struct amdgpu_device *adev,
++					       int xcc_id, bool on)
+ {
+ 	uint32_t def, data;
+ 
+-	if (!(adev-&gt;cg_flags &amp; AMD_CG_SUPPORT_GFX_PERF_CLK))
+-		return;
 -
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c   | 12 ++++++
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h   |  1 +
->>>   drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c     |  7 +++-
->>>   4 files changed, 55 insertions(+), 14 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/d=
-rm/amd/amdgpu/amdgpu_device.c
->>> index 3ced5c18daaa..3b6a3d86348c 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>> @@ -1999,7 +1999,7 @@ static int amdgpu_device_ip_early_init(struct amd=
-gpu_device *adev)
->>>
->>>                r =3D amdgpu_virt_init_critical_region(adev);
->>>                if (r)
->>> -                     return r;
->>> +                     goto err_release_full_gpu;
->>>        }
->>>
->>>        switch (adev->asic_type) {
->>> @@ -2012,7 +2012,7 @@ static int amdgpu_device_ip_early_init(struct amd=
-gpu_device *adev)
->>>                adev->family =3D AMDGPU_FAMILY_SI;
->>>                r =3D si_set_ip_blocks(adev);
->>>                if (r)
->>> -                     return r;
->>> +                     goto err_release_full_gpu;
->>>                break;
->>>   #endif
->>>   #ifdef CONFIG_DRM_AMDGPU_CIK
->>> @@ -2028,7 +2028,7 @@ static int amdgpu_device_ip_early_init(struct amd=
-gpu_device *adev)
->>>
->>>                r =3D cik_set_ip_blocks(adev);
->>>                if (r)
->>> -                     return r;
->>> +                     goto err_release_full_gpu;
->>>                break;
->>>   #endif
->>>        case CHIP_TOPAZ:
->>> @@ -2047,13 +2047,13 @@ static int amdgpu_device_ip_early_init(struct a=
-mdgpu_device *adev)
->>>
->>>                r =3D vi_set_ip_blocks(adev);
->>>                if (r)
->>> -                     return r;
->>> +                     goto err_release_full_gpu;
->>>                break;
->>>        default:
->>>                r =3D amdgpu_discovery_set_ip_blocks(adev);
->>>                if (r) {
->>>                        adev->num_ip_blocks =3D 0;
->>> -                     return r;
->>> +                     goto err_release_full_gpu;
->>>                }
->>>                break;
->>>        }
->>> @@ -2062,7 +2062,8 @@ static int amdgpu_device_ip_early_init(struct amd=
-gpu_device *adev)
->>>        if (amdgpu_ip_version(adev, GC_HWIP, 0) =3D=3D IP_VERSION(9, 4, =
-3) &&
->>>            !amdgpu_device_get_rev_id(adev)) {
->>>                dev_err(adev->dev, "Unsupported A0 hardware\n");
->>> -             return -ENODEV; /* device unsupported - no device error *=
-/
->>> +             r =3D -ENODEV;    /* device unsupported - no device error=
- */
->>> +             goto err_release_full_gpu;
->>>        }
->>>
->>>        if (amdgpu_has_atpx() &&
->>> @@ -2123,7 +2124,7 @@ static int amdgpu_device_ip_early_init(struct amd=
-gpu_device *adev)
->>>                if (adev->ip_blocks[i].version->type =3D=3D AMD_IP_BLOCK=
-_TYPE_COMMON) {
->>>                        r =3D amdgpu_device_parse_gpu_info_fw(adev);
->>>                        if (r)
->>> -                             return r;
->>> +                             goto err_release_full_gpu;
->>>
->>>                        bios_flags =3D amdgpu_device_get_vbios_flags(ade=
-v);
->>>                        skip_bios =3D !!(bios_flags & AMDGPU_VBIOS_SKIP)=
-;
->>> @@ -2131,8 +2132,10 @@ static int amdgpu_device_ip_early_init(struct am=
-dgpu_device *adev)
->>>                        if (!skip_bios) {
->>>                                bool optional =3D
->>>                                        !!(bios_flags & AMDGPU_VBIOS_OPT=
-IONAL);
->>> -                             if (!amdgpu_get_bios(adev) && !optional)
->>> -                                     return -EINVAL;
->>> +                             if (!amdgpu_get_bios(adev) && !optional) =
-{
->>> +                                     r =3D -EINVAL;
->>> +                                     goto err_release_full_gpu;
->>> +                             }
->>>
->>>                                if (optional && !adev->bios)
->>>                                        dev_info(
->>> @@ -2148,7 +2151,7 @@ static int amdgpu_device_ip_early_init(struct amd=
-gpu_device *adev)
->>>                                                        adev,
->>>                                                        AMDGIM_ERROR_VF_=
-ATOMBIOS_INIT_FAIL,
->>>                                                        0, 0);
->>> -                                             return r;
->>> +                                             goto err_release_full_gpu=
-;
->>>                                        }
->>>                                }
->>>                        }
->>> @@ -2159,14 +2162,16 @@ static int amdgpu_device_ip_early_init(struct a=
-mdgpu_device *adev)
->>>
->>>                }
->>>        }
->>> -     if (!total)
->>> -             return -ENODEV;
->>> +     if (!total) {
->>> +             r =3D -ENODEV;
->>> +             goto err_release_full_gpu;
->>> +     }
->>>
->>>        /* Request full GPU access only for the remaining SR-IOV init wo=
-rk. */
->>>        if (amdgpu_sriov_vf(adev) && !early_full_gpu_access) {
->>>                r =3D amdgpu_virt_request_full_gpu(adev, true);
->>>                if (r)
->>> -                     return r;
->>> +                     goto err_release_full_gpu;
->>>        }
->>>
->>>        if (adev->gmc.xgmi.supported)
->>> @@ -2184,6 +2189,24 @@ static int amdgpu_device_ip_early_init(struct am=
-dgpu_device *adev)
->>>        amdgpu_smu_early_init(adev);
->>>
->>>        return 0;
->>> +
->>> +err_release_full_gpu:
->>> +     if (amdgpu_sriov_vf(adev)) {
->>> +             /*
->>> +              * Release the access the host is waiting on so it finish=
-es the
->>> +              * handshake instead of timing out and FLR'ing the VF.
->>> +              */
->>> +             if (early_full_gpu_access)
->>> +                     amdgpu_virt_release_full_gpu(adev, true);
->>> +
->>> +             /*
->>> +              * Mark the VF inactive so the later fini path does not s=
-end a
->>> +              * request the host will never answer.
->>> +              */
->>> +             amdgpu_virt_deactivate(adev);
->>
->> Shouldn't this be called when amdgpu_virt_request_full_gpu fails for
->> early_full_gpu_access case also?
->>
->> Thanks,
->> Lijo
->>> +     }
->>> +
->>> +     return r;
->>>   }
->>>
->>>   static int amdgpu_device_ip_hw_init_phase1(struct amdgpu_device *adev=
-)
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_virt.c
->>> index 576a818db522..a4dd0299fe11 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
->>> @@ -135,6 +135,18 @@ int amdgpu_virt_release_full_gpu(struct amdgpu_dev=
-ice *adev, bool init)
->>>        return 0;
->>>   }
->>>
->>> +/*
->>> + * amdgpu_virt_deactivate - stop driving an SR-IOV VF after a failed i=
-nit
->>> + *
->>> + * Clear the runtime capability and drop the virt ops so the teardown =
-path
->>> + * does not issue host handshakes the host will never answer.
->>> + */
->>> +void amdgpu_virt_deactivate(struct amdgpu_device *adev)
->>> +{
->>> +     adev->virt.caps &=3D ~AMDGPU_SRIOV_CAPS_RUNTIME;
->>> +     adev->virt.ops =3D NULL;
->>> +}
->>> +
->>>   /**
->>>    * amdgpu_virt_reset_gpu() - reset gpu
->>>    * @adev:   amdgpu device.
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_virt.h
->>> index 3971bcc1ed11..3520af170278 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
->>> @@ -471,6 +471,7 @@ bool amdgpu_virt_mmio_blocked(struct amdgpu_device =
-*adev);
->>>   void amdgpu_virt_init_setting(struct amdgpu_device *adev);
->>>   int amdgpu_virt_request_full_gpu(struct amdgpu_device *adev, bool ini=
-t);
->>>   int amdgpu_virt_release_full_gpu(struct amdgpu_device *adev, bool ini=
-t);
->>> +void amdgpu_virt_deactivate(struct amdgpu_device *adev);
->>>   int amdgpu_virt_reset_gpu(struct amdgpu_device *adev);
->>>   void amdgpu_virt_request_init_data(struct amdgpu_device *adev);
->>>   int amdgpu_virt_ptl_request(struct amdgpu_device *adev, u32 req_code,
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/gpu/drm/a=
-md/amdgpu/gmc_v12_0.c
->>> index cd276a138e10..3bb13cfed92f 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
->>> @@ -667,8 +667,13 @@ static int gmc_v12_0_early_init(struct amdgpu_ip_b=
-lock *ip_block)
->>>
->>>                r =3D amdgpu_acpi_find_gpu_memory_in_srat(adev, &aper_ba=
-se,
->>>                                                        &aper_size);
->>> +             /*
->>> +              * An SPM VF has no FB BAR0 and cannot init without the H=
-BM
->>> +              * aperture from the SRAT. Abort this GPU probe instead o=
-f
->>> +              * limping on as if the GMC block were absent.
->>> +              */
->>>                if (r)
->>> -                     return r;
->>> +                     return -ENODEV;
->>>
->>>                adev->gmc.aper_base =3D aper_base;
->>>                adev->gmc.aper_size =3D aper_size;
->>
->
-
-
---_000_SJ1PR12MB61219844F6FC245149306C9D80682SJ1PR12MB6121namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div>
-<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
-; margin-left: 5pt; font-size: 10pt;">
-AMD General</div>
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"min-height: 18px;">
-<div class=3D"elementToProof" style=3D"min-height: 18px;">
-<div class=3D"elementToProof" style=3D"text-align: left; text-indent: 0px; =
-padding-right: 10px; padding-left: 10px; font-family: Aptos, Aptos_Embedded=
-Font, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt;=
- color: rgb(0, 0, 0);">
-&gt;If deactivating is harmless in early access also (looks so to me),<br>
-&gt;suggest to make the behavior the same in both cases for the sake of<br>
-&gt;consistency.<br>
-<br>
-&gt;Thanks,<br>
-&gt;Lijo</div>
-<div class=3D"elementToProof" style=3D"text-align: left; text-indent: 0px; =
-padding-right: 10px; padding-left: 10px; font-family: Aptos, Aptos_Embedded=
-Font, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt;=
- color: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"text-align: left; text-indent: 0px; =
-padding-right: 10px; padding-left: 10px; font-family: Aptos, Aptos_Embedded=
-Font, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt;=
- color: rgb(0, 0, 0);">
-Deactivate is harmless on the early access path too. The only</div>
-</div>
-<div class=3D"elementToProof" style=3D"min-height: 18px;">
-<div class=3D"elementToProof" style=3D"text-align: left; text-indent: 0px; =
-padding-right: 10px; padding-left: 10px; font-family: Aptos, Aptos_Embedded=
-Font, Aptos_MSFontService, Calibri, Helvetica, sans-serif; color: rgb(0, 0,=
- 0);">
-<span style=3D"font-size: 12pt;">catch is the </span><span style=3D"font-si=
-ze: 11pt;">err_release_full_gpu
-</span><span style=3D"font-size: 12pt;">label also releases full GPU access=
-, gated on</span></div>
-</div>
-<div class=3D"elementToProof" style=3D"min-height: 18px;">
-<div class=3D"elementToProof" style=3D"text-align: left; text-indent: 0px; =
-padding-right: 10px; padding-left: 10px; font-family: Aptos, Aptos_Embedded=
-Font, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt;=
- color: rgb(0, 0, 0);">
-early_full_gpu_access, which is true there, so a plain goto would release</=
-div>
-</div>
-<div class=3D"elementToProof" style=3D"min-height: 18px;">
-<div class=3D"elementToProof" style=3D"text-align: left; text-indent: 0px; =
-padding-right: 10px; padding-left: 10px; font-family: Aptos, Aptos_Embedded=
-Font, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt;=
- color: rgb(0, 0, 0);">
-access the failed request never acquired. To ensure the consistancy,</div>
-<div class=3D"elementToProof" style=3D"text-align: left; text-indent: 0px; =
-padding-right: 10px; padding-left: 10px; font-family: Aptos, Aptos_Embedded=
-Font, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt;=
- color: rgb(0, 0, 0);">
-I made a v3 patch to gate the release on full_access_held flag</div>
-<div class=3D"elementToProof" style=3D"text-align: left; text-indent: 0px; =
-padding-right: 10px; padding-left: 10px; font-family: Aptos, Aptos_Embedded=
-Font, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt;=
- color: rgb(0, 0, 0);">
-set after each successful acquire, and route both</div>
-</div>
-</div>
-<div class=3D"elementToProof" style=3D"min-height: 18px;">
-<div class=3D"elementToProof" style=3D"text-align: left; text-indent: 0px; =
-padding-right: 10px; padding-left: 10px; font-family: Aptos, Aptos_Embedded=
-Font, Aptos_MSFontService, Calibri, Helvetica, sans-serif; color: rgb(0, 0,=
- 0);">
-<span style=3D"font-size: 12pt;">request failures through the </span><span =
-style=3D"font-size: 11pt;"></span><span style=3D"font-size: 12pt;">label. S=
-o the two cases behave the same now.</span></div>
-<div class=3D"elementToProof" style=3D"text-align: left; text-indent: 0px; =
-padding-right: 10px; padding-left: 10px; font-family: Aptos, Aptos_Embedded=
-Font, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt;=
- color: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"text-align: left; text-indent: 0px; =
-padding-right: 10px; padding-left: 10px; font-family: Aptos, Aptos_Embedded=
-Font, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt;=
- color: rgb(0, 0, 0);">
-Thanks,</div>
-<div class=3D"elementToProof" style=3D"text-align: left; text-indent: 0px; =
-padding-right: 10px; padding-left: 10px; font-family: Aptos, Aptos_Embedded=
-Font, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt;=
- color: rgb(0, 0, 0);">
-Chenglei</div>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Lazar, Lijo &lt;Lijo.=
-Lazar@amd.com&gt;<br>
-<b>Sent:</b> Wednesday, November 4, 2026 10:50 AM<br>
-<b>To:</b> Xie, Chenglei &lt;Chenglei.Xie@amd.com&gt;; amd-gfx@lists.freede=
-sktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
-<b>Cc:</b> Skvortsov, Victor &lt;Victor.Skvortsov@amd.com&gt;; Luo, Zhigang=
- &lt;Zhigang.Luo@amd.com&gt;<br>
-<b>Subject:</b> Re: [PATCH v2 2/2] drm/amdgpu: abort SPM VF init when the H=
-BM aperture is missing</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText"><br>
-<br>
-On 04-Nov-26 8:44 PM, Xie, Chenglei wrote:<br>
-&gt; AMD General<br>
-&gt; <br>
-&gt; On 02-Nov-26 11:11 PM, Xie, Chenglei wrote:<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; AMD General<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; +err_release_full_gpu:<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; + if (amdgpu_sriov_vf(adev)) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; + /*<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; + * Release the access the host is waiting on =
-so it finishes the<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; + * handshake instead of timing out and FLR'in=
-g the VF.<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; + /<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; + if (early_full_gpu_access)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; + amdgpu_virt_release_full_gpu(adev, true);<br=
->
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; +<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; + /*<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; + * Mark the VF inactive so the later fini pat=
-h does not send a<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; + * request the host will never answer.<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; + /<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; + amdgpu_virt_deactivate(adev);<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &gt;Shouldn't this be called when amdgpu=
-_virt_request_full_gpu fails for<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &gt;early_full_gpu_access case also?<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &gt;Thanks,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &gt;Lijo<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; No, it should not be called. If amdgpu_virt_re=
-quest_full_gpu fails,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; the VF holds no access as the acquire handshak=
-e never completed.<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; There is nothing to release and RUNTIME was ne=
-ver set,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; so the amdgpu_virt_deactivate() has nothing to=
- clear.<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; Jumping to err_release_full_gpu would send a r=
-elease for access that is<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; never granted.<br>
-&gt; <br>
-&gt;&nbsp; &gt; In that case, this code needs to be changed to just return =
-immediately.<br>
-&gt;&nbsp; &gt; if (amdgpu_sriov_vf(adev) &amp;&amp; !early_full_gpu_access=
-) {<br>
-&gt;&nbsp; &gt; r =3D amdgpu_virt_request_full_gpu(adev, true);<br>
-&gt;&nbsp; &gt; if (r)<br>
-&gt;&nbsp; &gt; - return r;<br>
-&gt;&nbsp; &gt; + goto err_release_full_gpu;<br>
-&gt; <br>
-&gt;&nbsp; &gt;Thanks,<br>
-&gt;&nbsp; &gt;Lijo<br>
-&gt; <br>
-&gt; No, the goto is needed here because we need the amdgpu_virt_deactivate=
-()<br>
-&gt; to prevent REQ_GPU_FINI to be sent inside amdgpu_device_fini_hw(). In =
-<br>
-&gt; amdgpu_driver_unload_kms(),<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; void amdgpu_driver_unload_kms(struct drm_devic=
-e dev)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device adev =3D drm_to_adev(dev)=
-;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; if (adev =3D=3D NULL || *!adev-&gt;num_ip_bloc=
-ks*)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; return;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_unregister_gpu_instance(adev);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; i f (adev-&gt;rmmio =3D=3D NULL)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; return;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_acpi_smart_shift_update(adev, AMDGP=
-U_SS_DRV_UNLOAD))<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; drm_warn(dev, &quot;smart shift update failed<=
-br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; &quot;);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_acpi_fini(adev);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_device_fini_hw(adev);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; <br>
-&gt; it checks if adev-&gt;num_ip_blocks is non-zero to proceed with the <b=
-r>
-&gt; device_fini.<br>
-&gt; In the early full access case, it runs before IP discovery while <br>
-&gt; num_ip_blocks is still 0.<br>
-&gt; So the amdgpu_driver_unload_kms() returns before the fini. But here it=
- <br>
-&gt; already passed<br>
-&gt; the ip discovery set, so the num_ip_blocks&gt;0 and fini will be execu=
-ted.<br>
-&gt; Also, release_full_gpu is correctly skipped since early_full_gpu_acces=
-s <br>
-&gt; is false in this case.<br>
-&gt; ]<br>
-<br>
-If deactivating is harmless in early access also (looks so to me), <br>
-suggest to make the behavior the same in both cases for the sake of <br>
-consistency.<br>
-<br>
-Thanks,<br>
-Lijo<br>
-&gt; Thanks,<br>
-&gt; Chenglei<br>
-&gt; <br>
-&gt; <br>
-&gt; <br>
-&gt; <br>
-&gt; ----------------------------------------------------------------------=
---<br>
-&gt; *From:* Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;<br>
-&gt; *Sent:* Tuesday, November 3, 2026 1:35 AM<br>
-&gt; *To:* Xie, Chenglei &lt;Chenglei.Xie@amd.com&gt;; amd- <br>
-&gt; gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
-&gt; *Cc:* Skvortsov, Victor &lt;Victor.Skvortsov@amd.com&gt;; Luo, Zhigang=
- <br>
-&gt; &lt;Zhigang.Luo@amd.com&gt;<br>
-&gt; *Subject:* Re: [PATCH v2 2/2] drm/amdgpu: abort SPM VF init when the H=
-BM <br>
-&gt; aperture is missing<br>
-&gt; <br>
-&gt; <br>
-&gt; On 02-Nov-26 11:11 PM, Xie, Chenglei wrote:<br>
-&gt;&gt; AMD General<br>
-&gt;&gt; <br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; +err_release_full_gpu:<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; + if (amdgpu_sriov_vf(adev)) {<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; + /*<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; + * Release the access the host is waiting=
- on so it finishes the<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; + * handshake instead of timing out and FL=
-R'ing the VF.<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; + /<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; + if (early_full_gpu_access)<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; + amdgpu_virt_release_full_gpu(adev, true)=
-;<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; +<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; + /*<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; + * Mark the VF inactive so the later fini=
- path does not send a<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; + * request the host will never answer.<br=
->
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; + /<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; + amdgpu_virt_deactivate(adev);<br>
-&gt;&gt; <br>
-&gt;&gt;&gt;Shouldn't this be called when amdgpu_virt_request_full_gpu fail=
-s for<br>
-&gt;&gt;&gt;early_full_gpu_access case also?<br>
-&gt;&gt;&gt;Thanks,<br>
-&gt;&gt;&gt;Lijo<br>
-&gt;&gt; <br>
-&gt;&gt; No, it should not be called. If amdgpu_virt_request_full_gpu fails=
-,<br>
-&gt;&gt; the VF holds no access as the acquire handshake never completed.<b=
-r>
-&gt;&gt; There is nothing to release and RUNTIME was never set,<br>
-&gt;&gt; so the amdgpu_virt_deactivate() has nothing to clear.<br>
-&gt;&gt; Jumping to err_release_full_gpu would send a release for access th=
-at is <br>
-&gt;&gt; never granted.<br>
-&gt;&gt; <br>
-&gt; <br>
-&gt; In that case, this code needs to be changed to just return immediately=
-.<br>
-&gt; <br>
-&gt;&nbsp; &nbsp;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_=
-sriov_vf(adev) &amp;&amp; !early_full_gpu_access) {<br>
-&gt;&nbsp; &nbsp;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_virt_request_full_gpu(ade=
-v, true);<br>
-&gt;&nbsp; &nbsp;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
-&gt;&nbsp; &nbsp;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return=
- r;<br>
-&gt;&nbsp; &nbsp;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto e=
-rr_release_full_gpu;<br>
-&gt; <br>
-&gt; <br>
-&gt; Thanks,<br>
-&gt; Lijo<br>
-&gt; <br>
-&gt;&gt; Thanks,<br>
-&gt;&gt; Chenglei<br>
-&gt;&gt; <br>
-&gt;&gt; <br>
-&gt;&gt; ------------------------------------------------------------------=
-------<br>
-&gt;&gt; *From:* Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;<br>
-&gt;&gt; *Sent:* Sunday, November 1, 2026 11:32 PM<br>
-&gt;&gt; *To:* Xie, Chenglei &lt;Chenglei.Xie@amd.com&gt;; amd- <br>
-&gt;&gt; gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br=
->
-&gt;&gt; *Cc:* Skvortsov, Victor &lt;Victor.Skvortsov@amd.com&gt;; Luo, Zhi=
-gang <br>
-&gt;&gt; &lt;Zhigang.Luo@amd.com&gt;<br>
-&gt;&gt; *Subject:* Re: [PATCH v2 2/2] drm/amdgpu: abort SPM VF init when t=
-he HBM <br>
-&gt;&gt; aperture is missing<br>
-&gt;&gt; <br>
-&gt;&gt; <br>
-&gt;&gt; On 29-Oct-26 11:36 PM, Chenglei Xie wrote:<br>
-&gt;&gt;&gt; An SPM backed VF has no FB BAR0 and gets its HBM aperture from=
- the ACPI<br>
-&gt;&gt;&gt; SRAT. When that entry is missing, amdgpu_acpi_find_gpu_memory_=
-in_srat()<br>
-&gt;&gt;&gt; returns -ENOENT, which the early init IP loop treats as the GM=
-C block<br>
-&gt;&gt;&gt; being absent. Init keeps going and dies later with a confusing=
- -ENOMEM<br>
-&gt;&gt;&gt; instead of the real cause.<br>
-&gt;&gt;&gt; <br>
-&gt;&gt;&gt; Return -ENODEV from gmc_v12_0_early_init() so the probe aborts=
- at the<br>
-&gt;&gt;&gt; point where the aperture is actually missing.<br>
-&gt;&gt;&gt; <br>
-&gt;&gt;&gt; On a legacy host the VF already holds exclusive GPU access at =
-this point,<br>
-&gt;&gt;&gt; and the early init error paths returned directly without relea=
-sing it, so<br>
-&gt;&gt;&gt; the host timed out and FLR'd the VF. Route these failures thro=
-ugh a new<br>
-&gt;&gt;&gt; err_release_full_gpu label that releases the access the host i=
-s waiting on.<br>
-&gt;&gt;&gt; <br>
-&gt;&gt;&gt; Add amdgpu_virt_deactivate() to clear AMDGPU_SRIOV_CAPS_RUNTIM=
-E and drop<br>
-&gt;&gt;&gt; adev-&gt;virt.ops, and call it from the same label, so the lat=
-er fini path<br>
-&gt;&gt;&gt; does not send a REQ_GPU_FINI that the host will never answer.<=
-br>
-&gt;&gt;&gt; <br>
-&gt;&gt;&gt; Signed-off-by: Chenglei Xie &lt;Chenglei.Xie@amd.com&gt;<br>
-&gt;&gt;&gt; ---<br>
-&gt;&gt;&gt; v2: Move the runtime cap and virt ops clearing into a new<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_virt_deactivate() helper =
-and call it from the label. Drop the<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; redundant SRAT error log already=
- emitted by<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_acpi_find_gpu_memory_in_s=
-rat().<br>
-&gt;&gt;&gt; <br>
-&gt;&gt;&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 49 ++=
-++++++++++++++------<br>
-&gt;&gt;&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c&nbsp;&nbs=
-p; | 12 ++++++<br>
-&gt;&gt;&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h&nbsp;&nbs=
-p; |&nbsp; 1 +<br>
-&gt;&gt;&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c&nbsp;&nbsp;=
-&nbsp;&nbsp; |&nbsp; 7 +++-<br>
-&gt;&gt;&gt;&nbsp;&nbsp; 4 files changed, 55 insertions(+), 14 deletions(-)=
-<br>
-&gt;&gt;&gt; <br>
-&gt;&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/driv=
-ers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&gt;&gt;&gt; index 3ced5c18daaa..3b6a3d86348c 100644<br>
-&gt;&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&gt;&gt;&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&gt;&gt;&gt; @@ -1999,7 +1999,7 @@ static int amdgpu_device_ip_early_init(s=
-truct amdgpu_device *adev)<br>
-&gt;&gt;&gt;&nbsp;&nbsp; <br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_virt_init_critical_region(adev);<b=
-r>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
-&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
-&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto err_releas=
-e_full_gpu;<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&gt;&gt;&nbsp;&nbsp; <br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (adev-&gt;asi=
-c_type) {<br>
-&gt;&gt;&gt; @@ -2012,7 +2012,7 @@ static int amdgpu_device_ip_early_init(s=
-truct amdgpu_device *adev)<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;family =3D AMDGPU_FAMILY_SI;<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D si_set_ip_blocks(adev);<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
-&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
-&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto err_releas=
-e_full_gpu;<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
-&gt;&gt;&gt;&nbsp;&nbsp; #endif<br>
-&gt;&gt;&gt;&nbsp;&nbsp; #ifdef CONFIG_DRM_AMDGPU_CIK<br>
-&gt;&gt;&gt; @@ -2028,7 +2028,7 @@ static int amdgpu_device_ip_early_init(s=
-truct amdgpu_device *adev)<br>
-&gt;&gt;&gt;&nbsp;&nbsp; <br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D cik_set_ip_blocks(adev);<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
-&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
-&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto err_releas=
-e_full_gpu;<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
-&gt;&gt;&gt;&nbsp;&nbsp; #endif<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_TOPAZ:<br>
-&gt;&gt;&gt; @@ -2047,13 +2047,13 @@ static int amdgpu_device_ip_early_init=
-(struct amdgpu_device *adev)<br>
-&gt;&gt;&gt;&nbsp;&nbsp; <br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D vi_set_ip_blocks(adev);<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
-&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
-&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto err_releas=
-e_full_gpu;<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_discovery_set_ip_blocks(adev);<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; if (r) {<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
- adev-&gt;num_ip_blocks =3D 0;<br>
-&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
-&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto err_releas=
-e_full_gpu;<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&gt;&gt; @@ -2062,7 +2062,8 @@ static int amdgpu_device_ip_early_init(s=
-truct amdgpu_device *adev)<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_ip_versio=
-n(adev, GC_HWIP, 0) =3D=3D IP_VERSION(9, 4, 3) &amp;&amp;<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; !amdgpu_device_get_rev_id(adev)) {<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; dev_err(adev-&gt;dev, &quot;Unsupported A0 hard=
-ware\n&quot;);<br>
-&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; return -ENODEV; /* device unsupported - no device error */<br>
-&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; r =3D -ENODEV;&nbsp;&nbsp;&nbsp; /* device unsupported - no dev=
-ice error */<br>
-&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; goto err_release_full_gpu;<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&gt;&gt;&nbsp;&nbsp; <br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_has_atpx(=
-) &amp;&amp;<br>
-&gt;&gt;&gt; @@ -2123,7 +2124,7 @@ static int amdgpu_device_ip_early_init(s=
-truct amdgpu_device *adev)<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;ip_blocks[i].version-&gt;type =3D=
-=3D AMD_IP_BLOCK_TYPE_COMMON) {<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
- r =3D amdgpu_device_parse_gpu_info_fw(adev);<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
- if (r)<br>
-&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
-&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto err_release_full_gpu;<br>
-&gt;&gt;&gt;&nbsp;&nbsp; <br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
- bios_flags =3D amdgpu_device_get_vbios_flags(adev);<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
- skip_bios =3D !!(bios_flags &amp; AMDGPU_VBIOS_SKIP);<br>
-&gt;&gt;&gt; @@ -2131,8 +2132,10 @@ static int amdgpu_device_ip_early_init(=
-struct amdgpu_device *adev)<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
- if (!skip_bios) {<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool optional =3D<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; !!(bios_flags &amp; AMDGPU_VBIOS_OPTIONAL);<br>
-&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_get_bios(adev) &amp;&amp; !opt=
-ional)<br>
-&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp; return -EINVAL;<br>
-&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_get_bios(adev) &amp;&amp; !opt=
-ional) {<br>
-&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp; r =3D -EINVAL;<br>
-&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp; goto err_release_full_gpu;<br>
-&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&gt;&gt;&nbsp;&nbsp; <br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (optional &amp;&amp; !a=
-dev-&gt;bios)<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; dev_info(<br>
-&gt;&gt;&gt; @@ -2148,7 +2151,7 @@ static int amdgpu_device_ip_early_init(s=
-truct amdgpu_device *adev)<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev,<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGIM_ERROR_VF_ATOMBIOS_INIT_FA=
-IL,<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0, 0);<br>
-&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
-&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto err_release_full=
-_gpu;<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
- }<br>
-&gt;&gt;&gt; @@ -2159,14 +2162,16 @@ static int amdgpu_device_ip_early_init=
-(struct amdgpu_device *adev)<br>
-&gt;&gt;&gt;&nbsp;&nbsp; <br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (!total)<br>
-&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; return -ENODEV;<br>
-&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (!total) {<br>
-&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; r =3D -ENODEV;<br>
-&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; goto err_release_full_gpu;<br>
-&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&gt;&gt;&nbsp;&nbsp; <br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Request full GPU =
-access only for the remaining SR-IOV init work. */<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(=
-adev) &amp;&amp; !early_full_gpu_access) {<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_virt_request_full_gpu(adev, true);=
-<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
-&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
-&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto err_releas=
-e_full_gpu;<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&gt;&gt;&nbsp;&nbsp; <br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gmc.xgm=
-i.supported)<br>
-&gt;&gt;&gt; @@ -2184,6 +2189,24 @@ static int amdgpu_device_ip_early_init(=
-struct amdgpu_device *adev)<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_smu_early_ini=
-t(adev);<br>
-&gt;&gt;&gt;&nbsp;&nbsp; <br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&gt;&gt;&gt; +<br>
-&gt;&gt;&gt; +err_release_full_gpu:<br>
-&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev)) {<br>
-&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; /*<br>
-&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; * Release the access the host is waiting on so it finishe=
-s the<br>
-&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; * handshake instead of timing out and FLR'ing the VF.<br>
-&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; */<br>
-&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; if (early_full_gpu_access)<br>
-&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_virt_rel=
-ease_full_gpu(adev, true);<br>
-&gt;&gt;&gt; +<br>
-&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; /*<br>
-&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; * Mark the VF inactive so the later fini path does not se=
-nd a<br>
-&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; * request the host will never answer.<br>
-&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; */<br>
-&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; amdgpu_virt_deactivate(adev);<br>
-&gt;&gt; <br>
-&gt;&gt; Shouldn't this be called when amdgpu_virt_request_full_gpu fails f=
-or<br>
-&gt;&gt; early_full_gpu_access case also?<br>
-&gt;&gt; <br>
-&gt;&gt; Thanks,<br>
-&gt;&gt; Lijo<br>
-&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&gt;&gt; +<br>
-&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
-&gt;&gt;&gt;&nbsp;&nbsp; }<br>
-&gt;&gt;&gt;&nbsp;&nbsp; <br>
-&gt;&gt;&gt;&nbsp;&nbsp; static int amdgpu_device_ip_hw_init_phase1(struct =
-amdgpu_device *adev)<br>
-&gt;&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/driver=
-s/gpu/drm/amd/amdgpu/amdgpu_virt.c<br>
-&gt;&gt;&gt; index 576a818db522..a4dd0299fe11 100644<br>
-&gt;&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c<br>
-&gt;&gt;&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c<br>
-&gt;&gt;&gt; @@ -135,6 +135,18 @@ int amdgpu_virt_release_full_gpu(struct a=
-mdgpu_device *adev, bool init)<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&gt;&gt;&gt;&nbsp;&nbsp; }<br>
-&gt;&gt;&gt;&nbsp;&nbsp; <br>
-&gt;&gt;&gt; +/*<br>
-&gt;&gt;&gt; + * amdgpu_virt_deactivate - stop driving an SR-IOV VF after a=
- failed init<br>
-&gt;&gt;&gt; + *<br>
-&gt;&gt;&gt; + * Clear the runtime capability and drop the virt ops so the =
-teardown path<br>
-&gt;&gt;&gt; + * does not issue host handshakes the host will never answer.=
-<br>
-&gt;&gt;&gt; + */<br>
-&gt;&gt;&gt; +void amdgpu_virt_deactivate(struct amdgpu_device *adev)<br>
-&gt;&gt;&gt; +{<br>
-&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;virt.caps &amp;=3D ~AMDGPU_=
-SRIOV_CAPS_RUNTIME;<br>
-&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;virt.ops =3D NULL;<br>
-&gt;&gt;&gt; +}<br>
-&gt;&gt;&gt; +<br>
-&gt;&gt;&gt;&nbsp;&nbsp; /**<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp; * amdgpu_virt_reset_gpu() - reset gpu<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp; * @adev:&nbsp;&nbsp; amdgpu device.<br>
-&gt;&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/driver=
-s/gpu/drm/amd/amdgpu/amdgpu_virt.h<br>
-&gt;&gt;&gt; index 3971bcc1ed11..3520af170278 100644<br>
-&gt;&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h<br>
-&gt;&gt;&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h<br>
-&gt;&gt;&gt; @@ -471,6 +471,7 @@ bool amdgpu_virt_mmio_blocked(struct amdgp=
-u_device *adev);<br>
-&gt;&gt;&gt;&nbsp;&nbsp; void amdgpu_virt_init_setting(struct amdgpu_device=
- *adev);<br>
-&gt;&gt;&gt;&nbsp;&nbsp; int amdgpu_virt_request_full_gpu(struct amdgpu_dev=
-ice *adev, bool init);<br>
-&gt;&gt;&gt;&nbsp;&nbsp; int amdgpu_virt_release_full_gpu(struct amdgpu_dev=
-ice *adev, bool init);<br>
-&gt;&gt;&gt; +void amdgpu_virt_deactivate(struct amdgpu_device *adev);<br>
-&gt;&gt;&gt;&nbsp;&nbsp; int amdgpu_virt_reset_gpu(struct amdgpu_device *ad=
-ev);<br>
-&gt;&gt;&gt;&nbsp;&nbsp; void amdgpu_virt_request_init_data(struct amdgpu_d=
-evice *adev);<br>
-&gt;&gt;&gt;&nbsp;&nbsp; int amdgpu_virt_ptl_request(struct amdgpu_device *=
-adev, u32 req_code,<br>
-&gt;&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/=
-gpu/drm/amd/amdgpu/gmc_v12_0.c<br>
-&gt;&gt;&gt; index cd276a138e10..3bb13cfed92f 100644<br>
-&gt;&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c<br>
-&gt;&gt;&gt; +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c<br>
-&gt;&gt;&gt; @@ -667,8 +667,13 @@ static int gmc_v12_0_early_init(struct am=
-dgpu_ip_block *ip_block)<br>
-&gt;&gt;&gt;&nbsp;&nbsp; <br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_acpi_find_gpu_memory_in_srat(adev,=
- &amp;aper_base,<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;aper_size);<br>
-&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; /*<br>
-&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; * An SPM VF has no FB BAR0 and cannot init without the HB=
-M<br>
-&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; * aperture from the SRAT. Abort this GPU probe instead of=
-<br>
-&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; * limping on as if the GMC block were absent.<br>
-&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; */<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
-&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
-&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -ENODEV;=
-<br>
-&gt;&gt;&gt;&nbsp;&nbsp; <br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gmc.aper_base =3D aper_base;<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gmc.aper_size =3D aper_size;<br>
-&gt;&gt; <br>
-&gt; <br>
-<br>
-</div>
-</span></font></div>
-</body>
+ 	def = data = RREG32_SOC15(GC, 0, regRLC_CGTT_MGCG_OVERRIDE);
+ 
+-	if (enable)
+-		data &amp;= ~RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
+-	else
++	if (on)
+ 		data |= RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
++	else
++		data &amp;= ~RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
+ 
+ 	if (def != data)
+ 		WREG32_SOC15(GC, 0, regRLC_CGTT_MGCG_OVERRIDE, data);
++
++	return !!(def &amp; RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK);
++}
++
++static void gfx_v11_0_update_perf_clk(struct amdgpu_device *adev,
++				      bool enable)
++{
++	if (adev-&gt;cg_flags &amp; AMD_CG_SUPPORT_GFX_PERF_CLK)
++		amdgpu_gfx_perfmon_clk_update(adev, 0, !enable);
+ }
+ 
+ static void gfx_v11_0_update_sram_fgcg(struct amdgpu_device *adev,
+@@ -5680,6 +5689,8 @@ static void gfx_v11_0_update_coarse_grain_clock_gating(struct amdgpu_device *ade
+ static int gfx_v11_0_update_gfx_clock_gating(struct amdgpu_device *adev,
+ 					    bool enable)
+ {
++	/* RLC_CGTT_MGCG_OVERRIDE is shared with the perfmon clock override */
++	mutex_lock(&amp;adev-&gt;gfx.perfmon_clk_mutex);
+ 	amdgpu_gfx_rlc_enter_safe_mode(adev, 0);
+ 
+ 	gfx_v11_0_update_coarse_grain_clock_gating(adev, enable);
+@@ -5701,6 +5712,7 @@ static int gfx_v11_0_update_gfx_clock_gating(struct amdgpu_device *adev,
+ 	        gfx_v11_0_enable_gui_idle_interrupt(adev, enable);
+ 
+ 	amdgpu_gfx_rlc_exit_safe_mode(adev, 0);
++	mutex_unlock(&amp;adev-&gt;gfx.perfmon_clk_mutex);
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+index ec1e142549c5..9e754c25b15c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+@@ -289,6 +289,8 @@ static void gfx_v12_0_unset_safe_mode(struct amdgpu_device *adev, int xcc_id);
+ static void gfx_v12_0_userq_priv_fault_work(struct work_struct *work);
+ static void gfx_v12_0_update_perf_clk(struct amdgpu_device *adev,
+ 				      bool enable);
++static bool gfx_v12_0_set_perfmon_clk_override(struct amdgpu_device *adev,
++					       int xcc_id, bool on);
+ 
+ static void gfx_v12_0_kiq_set_resources(struct amdgpu_ring *kiq_ring,
+ 					uint64_t queue_mask)
+@@ -952,6 +954,7 @@ static const struct amdgpu_gfx_funcs gfx_v12_0_gfx_funcs = {
+ 	.read_wave_vgprs = &amp;gfx_v12_0_read_wave_vgprs,
+ 	.select_me_pipe_q = &amp;gfx_v12_0_select_me_pipe_q,
+ 	.update_perfmon_mgcg = &amp;gfx_v12_0_update_perf_clk,
++	.set_perfmon_clk_override = &amp;gfx_v12_0_set_perfmon_clk_override,
+ 	.get_gfx_shadow_info = &amp;gfx_v12_0_get_gfx_shadow_info,
+ 	.get_hdp_flush_mask = &amp;amdgpu_gfx_get_hdp_flush_mask,
+ };
+@@ -4045,23 +4048,29 @@ static void gfx_v12_0_unset_safe_mode(struct amdgpu_device *adev,
+ 	WREG32_SOC15(GC, 0, regRLC_SAFE_MODE, RLC_SAFE_MODE__CMD_MASK);
+ }
+ 
+-static void gfx_v12_0_update_perf_clk(struct amdgpu_device *adev,
+-				      bool enable)
++static bool gfx_v12_0_set_perfmon_clk_override(struct amdgpu_device *adev,
++					       int xcc_id, bool on)
+ {
+ 	uint32_t def, data;
+ 
+-	if (!(adev-&gt;cg_flags &amp; AMD_CG_SUPPORT_GFX_PERF_CLK))
+-		return;
+-
+ 	def = data = RREG32_SOC15(GC, 0, regRLC_CGTT_MGCG_OVERRIDE);
+ 
+-	if (enable)
+-		data &amp;= ~RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
+-	else
++	if (on)
+ 		data |= RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
++	else
++		data &amp;= ~RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
+ 
+ 	if (def != data)
+ 		WREG32_SOC15(GC, 0, regRLC_CGTT_MGCG_OVERRIDE, data);
++
++	return !!(def &amp; RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK);
++}
++
++static void gfx_v12_0_update_perf_clk(struct amdgpu_device *adev,
++				      bool enable)
++{
++	if (adev-&gt;cg_flags &amp; AMD_CG_SUPPORT_GFX_PERF_CLK)
++		amdgpu_gfx_perfmon_clk_update(adev, 0, !enable);
+ }
+ 
+ static void gfx_v12_0_update_spm_vmid(struct amdgpu_device *adev,
+@@ -4335,6 +4344,8 @@ static void gfx_v12_0_update_sram_fgcg(struct amdgpu_device *adev,
+ static int gfx_v12_0_update_gfx_clock_gating(struct amdgpu_device *adev,
+ 					    bool enable)
+ {
++	/* RLC_CGTT_MGCG_OVERRIDE is shared with the perfmon clock override */
++	mutex_lock(&amp;adev-&gt;gfx.perfmon_clk_mutex);
+ 	amdgpu_gfx_rlc_enter_safe_mode(adev, 0);
+ 
+ 	gfx_v12_0_update_coarse_grain_clock_gating(adev, enable);
+@@ -4356,6 +4367,7 @@ static int gfx_v12_0_update_gfx_clock_gating(struct amdgpu_device *adev,
+ 		gfx_v12_0_enable_gui_idle_interrupt(adev, enable);
+ 
+ 	amdgpu_gfx_rlc_exit_safe_mode(adev, 0);
++	mutex_unlock(&amp;adev-&gt;gfx.perfmon_clk_mutex);
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
+index f812d6d81e9c..958b4ad39d9f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
+@@ -215,6 +215,8 @@ static void gfx_v12_1_update_perf_clk(struct amdgpu_device *adev,
+ 				      bool enable);
+ static void gfx_v12_1_xcc_update_perf_clk(struct amdgpu_device *adev,
+ 					 bool enable, int xcc_id);
++static bool gfx_v12_1_set_perfmon_clk_override(struct amdgpu_device *adev,
++					       int xcc_id, bool on);
+ static int gfx_v12_1_init_cp_compute_microcode_bo(struct amdgpu_device *adev);
+ static void gfx_v12_1_xcc_update_medium_grain_clock_gating(
+ 	struct amdgpu_device *adev, bool enable, int xcc_id, bool force);
+@@ -888,6 +890,7 @@ static const struct amdgpu_gfx_funcs gfx_v12_1_gfx_funcs = {
+ 	.read_wave_vgprs = &amp;gfx_v12_1_read_wave_vgprs,
+ 	.select_me_pipe_q = &amp;gfx_v12_1_select_me_pipe_q,
+ 	.update_perfmon_mgcg = &amp;gfx_v12_1_update_perf_clk,
++	.set_perfmon_clk_override = &amp;gfx_v12_1_set_perfmon_clk_override,
+ 	.get_xccs_per_xcp = &amp;gfx_v12_1_get_xccs_per_xcp,
+ 	.ih_node_to_logical_xcc = &amp;gfx_v12_1_ih_to_xcc_inst,
+ };
+@@ -3471,28 +3474,36 @@ static void gfx_v12_1_xcc_update_sram_fgcg(struct amdgpu_device *adev,
+ 		WREG32_SOC15(GC, GET_INST(GC, xcc_id), regRLC_CGTT_MGCG_OVERRIDE, data);
+ }
+ 
+-static void gfx_v12_1_xcc_update_perf_clk(struct amdgpu_device *adev,
+-					  bool enable, int xcc_id)
++static bool gfx_v12_1_set_perfmon_clk_override(struct amdgpu_device *adev,
++					       int xcc_id, bool on)
+ {
+ 	uint32_t def, data;
+ 
+-	if (!(adev-&gt;cg_flags &amp; AMD_CG_SUPPORT_GFX_PERF_CLK))
+-		return;
+-
+ 	def = data = RREG32_SOC15(GC, GET_INST(GC, xcc_id), regRLC_CGTT_MGCG_OVERRIDE);
+ 
+-	if (enable)
+-		data &amp;= ~RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
+-	else
++	if (on)
+ 		data |= RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
++	else
++		data &amp;= ~RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
+ 
+ 	if (def != data)
+ 		WREG32_SOC15(GC, GET_INST(GC, xcc_id), regRLC_CGTT_MGCG_OVERRIDE, data);
++
++	return !!(def &amp; RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK);
++}
++
++static void gfx_v12_1_xcc_update_perf_clk(struct amdgpu_device *adev,
++					  bool enable, int xcc_id)
++{
++	if (adev-&gt;cg_flags &amp; AMD_CG_SUPPORT_GFX_PERF_CLK)
++		amdgpu_gfx_perfmon_clk_update(adev, xcc_id, !enable);
+ }
+ 
+ static int gfx_v12_1_xcc_update_gfx_clock_gating(struct amdgpu_device *adev,
+ 					     bool enable, int xcc_id)
+ {
++	/* RLC_CGTT_MGCG_OVERRIDE is shared with the perfmon clock override */
++	mutex_lock(&amp;adev-&gt;gfx.perfmon_clk_mutex);
+ 	amdgpu_gfx_rlc_enter_safe_mode(adev, xcc_id);
+ 
+ 	gfx_v12_1_xcc_update_coarse_grain_clock_gating(adev, enable, xcc_id);
+@@ -3515,6 +3526,7 @@ static int gfx_v12_1_xcc_update_gfx_clock_gating(struct amdgpu_device *adev,
+ 		gfx_v12_1_xcc_enable_gui_idle_interrupt(adev, enable, xcc_id);
+ 
+ 	amdgpu_gfx_rlc_exit_safe_mode(adev, xcc_id);
++	mutex_unlock(&amp;adev-&gt;gfx.perfmon_clk_mutex);
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
+index 599d47e1d38b..ed10c258703c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc21.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
+@@ -520,6 +520,7 @@ static void soc21_init_doorbell_index(struct amdgpu_device *adev)
+ static int soc21_update_umd_stable_pstate(struct amdgpu_device *adev,
+ 					  bool enter)
+ {
++	mutex_lock(&amp;adev-&gt;gfx.perfmon_clk_mutex);
+ 	if (enter)
+ 		amdgpu_gfx_rlc_enter_safe_mode(adev, 0);
+ 	else
+@@ -527,6 +528,7 @@ static int soc21_update_umd_stable_pstate(struct amdgpu_device *adev,
+ 
+ 	if (adev-&gt;gfx.funcs-&gt;update_perfmon_mgcg)
+ 		adev-&gt;gfx.funcs-&gt;update_perfmon_mgcg(adev, !enter);
++	mutex_unlock(&amp;adev-&gt;gfx.perfmon_clk_mutex);
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc24.c b/drivers/gpu/drm/amd/amdgpu/soc24.c
+index 6c8b8ed4a44d..46d746dd37b2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc24.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc24.c
+@@ -302,6 +302,7 @@ static void soc24_init_doorbell_index(struct amdgpu_device *adev)
+ static int soc24_update_umd_stable_pstate(struct amdgpu_device *adev,
+ 					  bool enter)
+ {
++	mutex_lock(&amp;adev-&gt;gfx.perfmon_clk_mutex);
+ 	if (enter)
+ 		amdgpu_gfx_rlc_enter_safe_mode(adev, 0);
+ 	else
+@@ -309,6 +310,7 @@ static int soc24_update_umd_stable_pstate(struct amdgpu_device *adev,
+ 
+ 	if (adev-&gt;gfx.funcs-&gt;update_perfmon_mgcg)
+ 		adev-&gt;gfx.funcs-&gt;update_perfmon_mgcg(adev, !enter);
++	mutex_unlock(&amp;adev-&gt;gfx.perfmon_clk_mutex);
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index 7fcfc150a7fc..e4fb9f5aa3b2 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -3343,20 +3343,29 @@ static inline int profile_lock_device(struct kfd_process *p,
+ 
+ 	mutex_lock(&amp;p-&gt;mutex);
+ 	pdd = kfd_process_device_data_by_id(p, gpu_id);
++	/* Bind for the runtime PM reference before programming the perfmon clock */
++	if (pdd &amp;&amp; op == 1)
++		pdd = kfd_bind_process_to_device(pdd-&gt;dev, p);
+ 	mutex_unlock(&amp;p-&gt;mutex);
+ 
++	if (IS_ERR(pdd))
++		return PTR_ERR(pdd);
+ 	if (!pdd || !pdd-&gt;dev || !pdd-&gt;dev-&gt;kfd)
+ 		return -EINVAL;
+ 
+ 	kfd = pdd-&gt;dev-&gt;kfd;
+ 	ptl = &amp;pdd-&gt;dev-&gt;adev-&gt;psp.ptl;
+ 
++	/* Before profiler_lock, which reset takes in kfd_resume() */
++	down_read(&amp;kfd-&gt;adev-&gt;reset_domain-&gt;sem);
+ 	mutex_lock(&amp;kfd-&gt;profiler_lock);
+ 	if (op == 1) {
+ 		if (!kfd-&gt;profiler_process) {
+ 			kfd-&gt;profiler_process = p;
++			amdgpu_gfx_perfmon_clk_override(kfd-&gt;adev, true);
+ 			status = 0;
+ 			mutex_unlock(&amp;kfd-&gt;profiler_lock);
++			up_read(&amp;kfd-&gt;adev-&gt;reset_domain-&gt;sem);
+ 			if (ptl-&gt;hw_supported_state == AMDGPU_PTL_HW_SUPPORTED) {
+ 				status = kfd_ptl_disable_request(pdd, p);
+ 				if (status != 0)
+@@ -3372,8 +3381,10 @@ static inline int profile_lock_device(struct kfd_process *p,
+ 		}
+ 	} else if (op == 0 &amp;&amp; kfd-&gt;profiler_process == p) {
+ 		kfd-&gt;profiler_process = NULL;
++		amdgpu_gfx_perfmon_clk_override(kfd-&gt;adev, false);
+ 		status = 0;
+ 		mutex_unlock(&amp;kfd-&gt;profiler_lock);
++		up_read(&amp;kfd-&gt;adev-&gt;reset_domain-&gt;sem);
+ 
+ 		if (ptl-&gt;hw_supported_state == AMDGPU_PTL_HW_SUPPORTED) {
+ 			status = kfd_ptl_disable_release(pdd, p);
+@@ -3385,10 +3396,52 @@ static inline int profile_lock_device(struct kfd_process *p,
+ 		return status;
+ 	}
+ 	mutex_unlock(&amp;kfd-&gt;profiler_lock);
++	up_read(&amp;kfd-&gt;adev-&gt;reset_domain-&gt;sem);
+ 
+ 	return status;
+ }
+ 
++/*
++ * Take or drop this process's dispatch-mode perfmon clock hold. Taking it again
++ * is a no-op. Dropping returns -ENOENT without a hold, and for the device lock
++ * holder, whose lock == 0 must still unlock.
++ */
++static int kfd_profiler_perfmon_clk(struct kfd_process *p, uint32_t gpu_id,
++				    bool enable)
++{
++	struct kfd_process_device *pdd;
++	struct kfd_dev *kfd;
++	int r = 0;
++
++	mutex_lock(&amp;p-&gt;mutex);
++	pdd = kfd_process_device_data_by_id(p, gpu_id);
++	/* Bind for the runtime PM reference before programming the perfmon clock */
++	if (pdd &amp;&amp; enable)
++		pdd = kfd_bind_process_to_device(pdd-&gt;dev, p);
++	mutex_unlock(&amp;p-&gt;mutex);
++
++	if (IS_ERR(pdd))
++		return PTR_ERR(pdd);
++	if (!pdd || !pdd-&gt;dev || !pdd-&gt;dev-&gt;kfd)
++		return -EINVAL;
++
++	kfd = pdd-&gt;dev-&gt;kfd;
++
++	/* Before profiler_lock, which reset takes in kfd_resume() */
++	down_read(&amp;kfd-&gt;adev-&gt;reset_domain-&gt;sem);
++	mutex_lock(&amp;kfd-&gt;profiler_lock);
++	if (!enable &amp;&amp; (!pdd-&gt;perfmon_clk_req || kfd-&gt;profiler_process == p))
++		r = -ENOENT;
++	else if (pdd-&gt;perfmon_clk_req != enable)
++		r = amdgpu_gfx_perfmon_clk_override(kfd-&gt;adev, enable);
++	if (!r)
++		pdd-&gt;perfmon_clk_req = enable;
++	mutex_unlock(&amp;kfd-&gt;profiler_lock);
++	up_read(&amp;kfd-&gt;adev-&gt;reset_domain-&gt;sem);
++
++	return r;
++}
++
+ static inline int kfd_profiler_pmc(struct kfd_process *p,
+ 				   struct kfd_ioctl_pmc_settings *args)
+ {
+@@ -3396,6 +3449,16 @@ static inline int kfd_profiler_pmc(struct kfd_process *p,
+ 	struct device_queue_manager *dqm;
+ 	int status;
+ 
++	if (!args-&gt;lock) {
++		/* Dispatch mode: perfmon clock only, no lock, no CAP_PERFMON needed */
++		if (args-&gt;perfcount_enable)
++			return kfd_profiler_perfmon_clk(p, args-&gt;gpu_id, true);
++
++		/* Drop a dispatch-mode hold if there is one, else unlock as before */
++		if (!kfd_profiler_perfmon_clk(p, args-&gt;gpu_id, false))
++			return 0;
++	}
++
+ 	/* Check if we have the correct permissions. */
+ 	if (!perfmon_capable())
+ 		return -EPERM;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index d8631847f0eb..32c3c23d6d14 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -886,6 +886,8 @@ struct kfd_process_device {
+ 	u32 pasid;
+ 	/* Indicates this process has requested PTL stay disabled */
+ 	bool ptl_disable_req;
++	/* Holds a dispatch-mode perfmon clock override until released or exit */
++	bool perfmon_clk_req;
+ };
+ 
+ #define qpd_to_pdd(x) container_of(x, struct kfd_process_device, qpd)
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index dd938788bdd9..7ba1c4ab283b 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -1176,12 +1176,32 @@ static void kfd_process_free_outstanding_kfd_bos(struct kfd_process *p)
+ 
+ static void kfd_process_profiler_release(struct kfd_process *p, struct kfd_process_device *pdd)
+ {
++	struct amdgpu_device *adev = pdd-&gt;dev-&gt;adev;
++	int puts = 0;
++
+ 	mutex_lock(&amp;pdd-&gt;dev-&gt;kfd-&gt;profiler_lock);
+ 	if (pdd-&gt;dev-&gt;kfd-&gt;profiler_process == p) {
+ 		pdd-&gt;qpd.dqm-&gt;ops.set_perfcount(pdd-&gt;qpd.dqm, 0);
+ 		pdd-&gt;dev-&gt;kfd-&gt;profiler_process = NULL;
++		puts++;
++	}
++	if (pdd-&gt;perfmon_clk_req) {
++		pdd-&gt;perfmon_clk_req = false;
++		puts++;
+ 	}
+ 	mutex_unlock(&amp;pdd-&gt;dev-&gt;kfd-&gt;profiler_lock);
++
++	/*
++	 * Nothing is held on the kfd_create_process() error path, which holds
++	 * kfd_processes_mutex and so must not wait for a reset.
++	 */
++	if (!puts)
++		return;
++
++	down_read(&amp;adev-&gt;reset_domain-&gt;sem);
++	while (puts--)
++		amdgpu_gfx_perfmon_clk_override(adev, false);
++	up_read(&amp;adev-&gt;reset_domain-&gt;sem);
+ }
+ 
+ static void kfd_process_destroy_pdds(struct kfd_process *p)
+diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
+index 749d196e2114..34f3ffaf1c66 100644
+--- a/include/uapi/linux/kfd_ioctl.h
++++ b/include/uapi/linux/kfd_ioctl.h
+@@ -1557,7 +1557,16 @@ struct kfd_ioctl_dbg_trap_args {
+ 	};
+ };
+ 
+-#define KFD_IOC_PROFILER_VERSION_NUM 1
++/*
++ * KFD_IOC_PROFILER_VERSION_NUM history:
++ * - 1 - initial version
++ * - 2 - KFD_IOC_PROFILER_PMC lock also forces the perfmon clock on until the
++ *       lock is released or the process exits. lock == 0 with
++ *       perfcount_enable == 1 forces it on without CAP_PERFMON and without
++ *       locking, until lock == 0 with perfcount_enable == 0 or the process
++ *       exits
++ */
++#define KFD_IOC_PROFILER_VERSION_NUM 2
+ enum kfd_profiler_ops {
+ 	KFD_IOC_PROFILER_PMC = 0,
+ 	KFD_IOC_PROFILER_VERSION = 2,
+</pre>
+    </blockquote>
+  </body>
 </html>
 
---_000_SJ1PR12MB61219844F6FC245149306C9D80682SJ1PR12MB6121namp_--
+--------------zW0lcRTPwVd1N5lj9vvRAxkH--
