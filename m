@@ -2,129 +2,99 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DF86606A326
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 10:03:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4752606A31B
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 10:22:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=2OIuXqXj
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=wzX7YhSb
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B67CC10E88B;
-	Wed,  4 Nov 2026 10:03:16 +0000 (UTC)
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012000.outbound.protection.outlook.com [52.101.43.0])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E9C6410E88B;
- Wed,  4 Nov 2026 10:03:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41DAC10FAEC;
+	Wed,  4 Nov 2026 10:22:38 +0000 (UTC)
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011036.outbound.protection.outlook.com [52.101.57.36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D21610FAEC
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Nov 2026 10:22:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ApM/PMMLp1ou6LCRhQx/fgBoIaZLAjtFgMuNCNE2/CORLpPwiy799hdrFV7T1bnnLntkfRhNcXXrkyBu0AT1dkduqczmmoKtH7xOkiTS7T6OXcaSbxcpIC6lL0dl+UtAtSeidrLeAOwTBI8bdlEihXPWdMHwbfeElBd70Extj4OqnojZmisjjFmipQ1sKGnakH1aEpCGVio0LeEDE49aPXuuWkglS5Mmsm9tyru7MSF9EgtoRfKd9c99tf2QhTWCIZbaZrYl+44Il28pIVFkeoyqEQ6reMUinyT9w5aJCkU9kxCj6gOX+9QrWd/kpBBBXWC/IpNN8LP+BPV8NuJI5w==
+ b=WmkfjSj0fdTFaFY332QSjlKKJdOk7OQekozPzcMLzsTxGGdjJPiHsL+Ew0coNX+td2pbpMdw329Gksg9Lv9Tya5c21XzeNKI3SOBaj6r42JVyv3B3TFYhwoq24CGupmLhwiuXUjkoYyDYs4UEaZxwQWFZG+hXyTBaaErHAWQysjF9d+ahSqY1xs5eHvkuN/jnEZN42mbgYUOGDnS3pm3qpv6lt0GQnUC1UHvHYNgkolt6VPfclJdXo+V1TQDlSwnneGkWYkff1dVd46XMdwwm+NQcJZJZdJ35ZeTEhHKgMUTLV0jJ+ZJ7YdgJSnfe2B3kseYj7vnaZy3hocC4TiRlQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=759lyBRHyJwWW/XpyScVjIlVDOvBHGyKMJeyox8+jRA=;
- b=R6UMN7SgxISYP0aq7z5P6mbaOKqqNipJaX5CEramFhOjZ2U/gWbX+QNrxlB7bBJtM68krFwni5CN2V7Hu5yV9I8r6cVmtCNlQl+tptJEDkLKDkxzP+6kaATYFm3RqlJ0NC2zODlk49HHKbebfg/kW6sXBe62YZu+8uTfjGFs8Qc5fDGvAd0tdwU07eMrY8n5OYD2nAXStploSgaiC1zyeWu85h+DEaEkFvCvOky1fJmHMmKWt1GQqd4G3fhEIZBkGftdVUC8kjubk8dQTVBX0nx382fXOWoDF3LNTLS4gPx5Fg06wwF1VD8X+TipnN77m4+t1sBTxhI7gEa7HlfGVg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=hS+3cWJJs9F403zTTL/u/LeEmFjwMwnO7qZotl+gpBM=;
+ b=uB2aZKizELKXS6lGu2FLcYlVLd+26Hk9Im4xFnM9FSxEb3lEwoZJBA7pTQS34Tw6jbyjXp++0dBF8TypeACWXd5c3RseO55hgQBEoP9KLoo9Xr6hEuSqawQNANC7eM3RwXa2qpFogRgPXxYD3SzzNgnYa3cBriGTm9YLiTI5Gpf+lk39hF+iHDOa6sm+B+aNZf056K6qmvRnFq4TtFw5dQZnPJ4pkiAkDWuzf0GpxEi6X5yk7ZK4q2GvHXDILtLTx93Ix7adDHveW4cFjXgXv/Z6aL7iPr0naW42EpnYhBUnkjyEKBXtRvgZ2VglV8dPLZuzu9uMxQl+UB+/5jJ2Dg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=759lyBRHyJwWW/XpyScVjIlVDOvBHGyKMJeyox8+jRA=;
- b=2OIuXqXjlJlUe4zA8wVleDSwcimT7QmzH8K5/4R3ivQRhjHEAKS8vugWEg3GrcpKAQ2+gadR4/r3AkDVefHqb6fzlKQJaQqJ+yClrWw5KY8TOrmNme6KZ2xBjjvV2sTAMA9wEti+DsLOMNPtXg0kvdN/4+pSusfHi1+8Ddi1RmU=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CHAPR12MB999225.namprd12.prod.outlook.com
- (2603:10b6:610:2fe::11) by IA1PR12MB6529.namprd12.prod.outlook.com
- (2603:10b6:208:3a6::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Wed, 4 Nov
- 2026 10:03:08 +0000
-Received: from CHAPR12MB999225.namprd12.prod.outlook.com
- ([fe80::a4c2:82c3:da88:c585]) by CHAPR12MB999225.namprd12.prod.outlook.com
- ([fe80::a4c2:82c3:da88:c585%6]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
- 10:03:08 +0000
-Message-ID: <91239ec8-4260-4d37-a5f2-50deb912d180@amd.com>
-Date: Wed, 4 Nov 2026 18:03:01 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: Take every stream out of self-refresh
- before a modeset
-To: Hugo Sales <hugo@hsal.es>, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: Chenyu Chen <chen-yu.chen@amd.com>, Hersen Wu <hersenxs.wu@amd.com>,
- Roman Li <Roman.Li@amd.com>, Alex Hung <alex.hung@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20261029165420.2255749-1-hugo@hsal.es>
-Content-Language: en-US
-From: Ray Wu <ray.wu@amd.com>
-In-Reply-To: <20261029165420.2255749-1-hugo@hsal.es>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: TPYP295CA0045.TWNP295.PROD.OUTLOOK.COM (2603:1096:7d0:7::6)
- To CHAPR12MB999225.namprd12.prod.outlook.com
- (2603:10b6:610:2fe::11)
+ bh=hS+3cWJJs9F403zTTL/u/LeEmFjwMwnO7qZotl+gpBM=;
+ b=wzX7YhSbCovMWm5waBHlAiDPRnmGbH3pHX0tKftCzTYtoS1Q4GbdZjKkDtrbH8EWIncllrdWY4NgT0dLxWEjQ91o2id8ek/Ivia5OABYXkkf6z0pTO4+DUicN2eqLGH/7Aj3CtQrs78X0zTU9d6Bilr1gNhLQt4Q2YIGXEgF3Tg=
+Received: from PH0PR07CA0017.namprd07.prod.outlook.com (2603:10b6:510:5::22)
+ by SJ0PR12MB5661.namprd12.prod.outlook.com (2603:10b6:a03:422::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 4 Nov 2026
+ 10:22:26 +0000
+Received: from MWH0EPF000A6732.namprd04.prod.outlook.com
+ (2603:10b6:510:5:cafe::7c) by PH0PR07CA0017.outlook.office365.com
+ (2603:10b6:510:5::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Wed, 4
+ Nov 2026 10:22:26 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ MWH0EPF000A6732.mail.protection.outlook.com (10.167.249.24) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.5 via Frontend Transport; Wed, 4 Nov 2026 10:22:26 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 4 Nov
+ 2026 04:22:25 -0600
+Received: from stxhmapple1.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Wed, 4 Nov 2026 04:22:23 -0600
+From: Priya Hosur <Priya.Hosur@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <Kevin.Wang@amd.com>,
+ <Lijo.Lazar@amd.com>, <Christian.Koenig@amd.com>, <Felix.Kuehling@amd.com>
+CC: <Priya.Hosur@amd.com>, <Pratik.Vishwakarma@amd.com>,
+ <Veerabadhran.Gopalakrishnan@amd.com>
+Subject: [PATCH v4 0/1] drm/amd/pm: restore the forced performance level after
+ a reset
+Date: Wed, 4 Nov 2026 15:52:21 +0530
+Message-ID: <cover.1793787406.git.Priya.Hosur@amd.com>
+X-Mailer: git-send-email 2.43.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CHAPR12MB999225:EE_|IA1PR12MB6529:EE_
-X-MS-Office365-Filtering-Correlation-Id: 16f0fb21-800f-44ba-bd40-08df3a5ad35b
+X-MS-TrafficTypeDiagnostic: MWH0EPF000A6732:EE_|SJ0PR12MB5661:EE_
+X-MS-Office365-Filtering-Correlation-Id: af275a22-5a50-458d-d740-08df3a5d85ea
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|23010399003|56012099006|18002099003|3023799007|22082099003|261009223027099003|261022075727099003|261102123227099003|261022105027099003|261021121427099003|11063799006|10067099003|261028144727099003|261026140227099003|261102130727099003|261026121527099003;
-X-Microsoft-Antispam-Message-Info: 9Y/aCUNrqVwZpH9y9YE5SG5gCF3fNbsN1AnGLZ4961Zvjwpx/2bQ/Mn3VQl71/45K4eSY0N64SQmZqmqXbfcs44p2lWPFfvTQEmA8088pgmz5XGw3+DR7D6hNNKYvgdYbGZ/WQ1ks8RDOPF363UIoUXqMYQNWZUVFFEYTTLsb54++JhwiTM7YZL/zPgbYlSRRY6z1ss8QFoxTrXsC5xiKrFRLoG+St/KixM79Ensf1+gTYHo7fSoTyPqHXo5yDz48xbEkIoeFC6hjfdn1H0vgkSJltrD0Y6GFvmbReiIIqq+F6Fogz9jrvfjgAMtFNXiC2LJsATRfds9CTtGql15I/dTrtT3YC5dvAi0W6Br6aqG0Gbti6Q7R8ou17m7R5BAfffvx4D+SsNlTOhfcxv+BPflQY6o8iPSWkIx11O788ikm3aSaovSXKJDlbQR2H4Koo7PXsmmXawsjWSKgevissWcoPTc0w8eyie4oT27TXpOWZwGufTGRJ77C1zsXIY5QcdhvxWEzOYdwg2/hs1eVfdYenoRJnAhTZeUzNijeLVxGsAYXdxtOV0ejqkt37ziUq8Bg1NX2eFkw6l94lxpcLKLwwgYuakGu+BDUWVLOxaTf1wWO/3rSMOQagmLpzPxQnV+JlHeI9cbaf1M4EXHECQLbsjO5KysDG+rPQlC4dg=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CHAPR12MB999225.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(56012099006)(18002099003)(3023799007)(22082099003)(261009223027099003)(261022075727099003)(261102123227099003)(261022105027099003)(261021121427099003)(11063799006)(10067099003)(261028144727099003)(261026140227099003)(261102130727099003)(261026121527099003);
+ ARA:13230040|82310400026|36860700016|23010399003|1800799024|376014|6133799003|10067099003|18002099003|13003099007|56012099006|11063799006|261021121427099003|261022075727099003|261102123227099003|261022105027099003|261026140227099003|261028144727099003|261026121527099003|261021123027099003|261009221227099003|261009223027099003|260925021311599003|260925021911599003|260925022911599003;
+X-Microsoft-Antispam-Message-Info: +uYvhJoWsU4rNanasuMrrQRlDmdCD+e6D8q4P6mRFXdmyKRBKfCDDLdoUbDTO4coaon/HS860gDlmihD86AvPPac9SJGLJ2vKRow2GKZpeR2HN8K/Z4EYMSw1dWd9lsn6ud17vd/CL6ZHSyMD/ff3xxh1pYK9fFhQnLBymjfV9mxYaT8BxKQc2a+izDgeemquxdCFwS0RsPCvNfyhh5kYnwakO4sOgAHBSXSgonKOFG5pThc/z47d9rwDMKush00QOmnCUIfQclVu6ZqLLjves8al6JtMwLeS9UQtKJ9g+oeZTQVUM8JT6WHkdwLbctPNRom7Ge4YodSfv1NHhroQd4OsOEDAIG4hlCc5z63lDJJHcB0jfPUG8Bkz/Kx+yJez82v4H0dzc/6YoHgMglOdX1/s4kWNswfPJLAPTv3AylhSJThC7/5Xs63O70bov8nXW3Du5ehBaZVEl+ts4zMLtD89F+TJbKJtfOHgm2iAmyoDSvFWh1xYAktOpdBpNdyHx2UHAvmBjxD9Nzr76UIXs3lSCjdEnpEaE7i2+MRHe0CcUaU5rvfSEkUu79+cKYVmaalkbaPk3jvQ7uo3PBHzhCFr02Wu7vY5E9eJ2DZVAxi6T8x3eG1bbgvpLDnH216doDPt+NWM6M099hllRFyMw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700016)(23010399003)(1800799024)(376014)(6133799003)(10067099003)(18002099003)(13003099007)(56012099006)(11063799006)(261021121427099003)(261022075727099003)(261102123227099003)(261022105027099003)(261026140227099003)(261028144727099003)(261026121527099003)(261021123027099003)(261009221227099003)(261009223027099003)(260925021311599003)(260925021911599003)(260925022911599003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eHlkTFdkd2lzL3RObGtuSGNNOG9iTXVEVHYrcDVzVUNrQy9qQWs1ZG9HNHov?=
- =?utf-8?B?TXloa1E5OGZtWTFyZUl5MklSU0o4Sk42Z2F6c1ZEdW4zQ01MT3NnVHlZeitu?=
- =?utf-8?B?UlRJd25PZGpMYnhWVE5xbW1vS2NNM1c5YWE1NlZlTGd5eklXa01qM3NMUzhY?=
- =?utf-8?B?ZnVVUTgzTEZYellYUExsY2RlNkkwVzY5Um1CYlJWMlRPMzIzaVFDdU84R3Fa?=
- =?utf-8?B?OEl6OXhUQ1pKY3R6ZUxKSVlQdC9ZcysyblR2SDQ3YW10dS92SlQxMWZ5a0xF?=
- =?utf-8?B?WFZXOGJRZHh6VTdZb1lWTHZnT3h4LzNOMlBQNXNEUC9jQXlsalJUa2QyQS9k?=
- =?utf-8?B?cW5Oa00wS0wvYjZvMWJESFhPY2hET293b2xpUzdheFNlMnEwSXQ2NWtmY1Ur?=
- =?utf-8?B?aFByak5YaW1ycFBGTVpvOUZEMGNGQlRrb1JlMkV1WnExTnAyNGNSTkNLaGlF?=
- =?utf-8?B?SW5OcGtNT1JYRGFvcjZxRmFmYTZ3TExweCtNVi9IV3A4TzZQRWV1OGppZ0ZZ?=
- =?utf-8?B?TDVZajY2dkUwdWhaa3ZWTjdjSG1TK1RsaGxlRzRJVUxIT0gyeEtCNld1MkVD?=
- =?utf-8?B?cDh6Q1grMmwvaG9KWGU3dG5pM2VSWDJxOWVGeFNqV0t0ZTNyZEp2b2lKeUtD?=
- =?utf-8?B?UzVpMmo4RVY5V2JOc2NqbjYyb0Q1WnoyZWRxQS93azZaR1l6RUpNQkVWSExi?=
- =?utf-8?B?eWxPOFZXcnhadzZuRTlnTkxYZ0hQOWtpYXhOUVhqdDArVk53dUdoQ1Z0RTUx?=
- =?utf-8?B?MCtKUzZFenkwTSsvcTgrYTJLQ05lRlJGcTBGc3JnallsUC83aER3VmVYS2Vs?=
- =?utf-8?B?Mm9ES2FJcVlYOGJxSmdCTEQzS0RJMUJNcDgyWTkvSms0bXVhdjRubFlrSFpu?=
- =?utf-8?B?N3dYOGEweUNtcXBnNlEzZmdoYmZjQlA5eFU0ZFpRbS9EeWwvdUlJRnFrbUJk?=
- =?utf-8?B?SHB5aSttT3V5NHJibFV5VE5vUnNXeklUT2tFUUJzNy9IREh5ZjQ0Mkt0QzFL?=
- =?utf-8?B?QjRvYTgxMEh0YkhCNVczWTdpNVk3UXgxT3drVzFUVGRROHVpbWpQeUF0alll?=
- =?utf-8?B?dGRudkw3djFTSzh5VlZvOGRWekRzNXE2T2F2cjVSUU1LQUpMd2FhNTc2Skw4?=
- =?utf-8?B?MmowVkJEMk95YXhSVjNyY2s5SmpqNnROb1JvdFltMG5JTlFDaU1PaVluTjFr?=
- =?utf-8?B?cU9DbmxLVTdDakFMVGh3eFhUeGNHY05DeGl0SXN5bXJML3hSVXlUaHFmVzRl?=
- =?utf-8?B?YUtaazhCWmhpQ1doSFRQeUdsZGNwaWM0VVlvd1VYd09mM0g4MXFkU2JMZ1gz?=
- =?utf-8?B?YXZwQnVBUjRSM1htV0k3RVU0eFBaTXZnM1dweDhRSkdFZDJsTVpFTE1wSE9x?=
- =?utf-8?B?UWJEMnhVZTB4UWtscDJWc0o5QkxZUUhiZFkvOWZyNWFVK2VrV25xaTNrNFpR?=
- =?utf-8?B?aVNnd2hxVVhUS1kra2thL3VWMXdBTzh2aWhHQTRWWm92emMrYkdmSWRCSjBn?=
- =?utf-8?B?NzNsNVdsYTJwYVFuNXd5V1RCWmlKbUFrbnY3eG9MdnpRbVVZTXNzWjBzTWht?=
- =?utf-8?B?RFpGRm90czdnSVhkalhWUGdtTFc1aWRFSCtQc01iczdZeW1lcFIvRG9TcmtI?=
- =?utf-8?B?WUZHaHRtU01XcUMrRVdzcTRsSHkvZThKQ0lxT2IwMUczL3ZsRjl0QXF3d0oz?=
- =?utf-8?B?OVJCcXRtYThFOUtYd0Z4blVPeUVHSzhSQlhmSzJUUGNkaW93YkFtcUtRU0Yw?=
- =?utf-8?B?WGhoTUZjWjU4bDBVNWZrRENKVFJxamV5NjVFcllScFMzajducStBSm82SkJu?=
- =?utf-8?B?NDZ3MmZaQ1k2aHNXWk91anF4NWZoaFdXeUxSc2tjUkkycHFVWTRaUFRxZ1hs?=
- =?utf-8?B?b3QwMUpncTdodW82Rk42R2Vpc0JZaWxleCswSVRTNUxvR2twdzRobERwcU5I?=
- =?utf-8?B?ZmNOYjIwMnVma3g2Y1I5SnN2blROUk94SDh6Z3lwRHMwTWIzOWpMN3F4blc0?=
- =?utf-8?B?czJ2bHdKQU9TSjRHckdJS2tmaTBmMFBXK3h6aS9XQm9QVFVGNllZRnFhQnZL?=
- =?utf-8?B?OGVpQjRNVFFVOGU2c3hwSVZpRWtUdHpTdjdiYi9NR3h0aWs5YnJKU2ZyQ3hY?=
- =?utf-8?B?Z0M5d0R1alZ3WS9VZ3RlYUkzdHhtNU42bmR2STNLeGJiN1pkT09LRStpS25G?=
- =?utf-8?B?Sk1DL2Zvdy9ZbDRNRW9pREMrOUhqYWREc0c0c0tHOFB4a2VoVDU2MEsxTGdS?=
- =?utf-8?B?Y2pSZ0lrcEE4VlNCcTJjU200SnFUd2tSUmFGeUVuQXhIaTRJT0NEMUJzZjZo?=
- =?utf-8?B?eENIYU03ejdQOEJlSy8xOFFMSE0vVHdZSFc2blJ2TFFMc1d4VENvUT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: qOK7nQkmb4eTTDt2IA+/9SgrDFt/GywW/VfXFxm50qb4vcEsBU6aEqsQWzAcSHYhGyuzCozsF4/JPsQjE70ifc+y5EYoRJezZSnIMtTn79VoJVK+fUITUJqgbdmM3D9Oar+p0aPAwVfnEvQ5ETW3ZkA5mXFTNfqgi7V6mpml80CQXRfVN/IYDlUIooTR0wKTHBWqpD30Wjmzt9WpZ6P0JXwpFG7BF+l9E9RIpRKOBaFy6w+nxN9VD5VYYq27wN3VBrOQrAY+WqiCpOCrmwwOjDAmdAJCeuvporPdsiUnQ1u9mdGm4mNV3u4GjcCevF9+L5QZwoheOnQSHwYKovb3PWYHSZz+Zhn4s92HPioM303uUPcNZe7fReSP8Pv0uQa2UULMwLDgcObXfeZCzXb0gcEDlQDEhTIJy5xH823kIUgrDiejt83FZxNy9d0mX5is
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 16f0fb21-800f-44ba-bd40-08df3a5ad35b
-X-MS-Exchange-CrossTenant-AuthSource: CHAPR12MB999225.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 10:03:08.0011 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 10:22:26.2184 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: af275a22-5a50-458d-d740-08df3a5d85ea
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0VxfWOTkY9a43IAf0JijXcNGi/ls6hmUTxjD9zXV2NKP8vRFmbXwjvUfNZm6UaF/M0XvwAmc3iE5v629ZS9i7Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6529
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000A6732.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5661
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,186 +105,112 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Reviewed-by: Ray Wu <ray.wu@amd.com>
+After a GPU reset the level reported through
+power_dpm_force_performance_level no longer matches the hardware. The reset
+reinitialises PMFW, which comes back on its default curve, while
+smu_dpm.dpm_level still holds the level the user forced. On an SMU 14.0.1
+APU with the level set to high, gfxclk drops from 2.8GHz to 600MHz while
+sysfs still reports high.
 
-On 10/30/2026 12:54 AM, Hugo Sales wrote:
-> Commit 3c108046e1d6 ("drm/amd/display: Add power module on Linux")
-> dropped amdgpu_dm_psr_disable_all() and amdgpu_dm_replay_disable_all()
-> from amdgpu_dm_commit_streams(). Since then, a modeset only disables
-> self-refresh on the CRTCs in the commit, so an eDP on another CRTC stays
-> in PSR through dc_commit_streams()
->
-> Commit 6ee90e88b976 ("drm/amd/display: PSR eDP p-state warning occurs
-> intermittently after unplug DP") added that disable-all for this very
-> case. With it gone, turning off or unplugging an HDMI monitor while the
-> eDP is in PSR hangs DMUB on a Cezanne laptop (DCN 2.1), on the first
-> try:
->
->    dc_dmub_srv_log_diagnostic_data: DMCUB error
->    Error queueing DMUB command: status=2
->
-> The eDP then stays frozen until a GPU reset
->
-> Do the same through the power module's events. When a CRTC that is or
-> was active needs a modeset, raise the PSR and Replay pause events on
-> every stream mod_power tracks and wait for self-refresh to exit, before
-> amdgpu_dm_mod_power_update_streams() changes the stream set. Clear them
-> on the commit's streams after amdgpu_dm_mod_power_setup_streams(), since
-> enabling a stream clears psr_feature_enabled until then. Use
-> psr_event_pause and replay_event_pause rather than the hw_programming
-> events, which a fast update on the eDP can clear in
-> amdgpu_dm_enable_self_refresh() while the modeset is still running
->
-> Fixes: 3c108046e1d6 ("drm/amd/display: Add power module on Linux")
-> Signed-off-by: Hugo Sales <hugo@hsal.es>
-> ---
-> Tested on an ASUS ROG Flow X13 (Cezanne, DMUB 0x0101002B) with PSR 1 on
-> the eDP. That's the only hardware I have, and PSR there needs
-> DC_PSR_MASK and "drm/amd/display: Don't require DMUB PSR caps before
-> DCN 3.0", which I'm sending next. With this patch, 50 HDMI unplugs in a
-> row with the eDP in PSR went through without a DMUB error. The same
-> kernel without it hung on the first
->
-> Ray, Leo: 3c108046e1d6 doesn't say whether leaving the other CRTCs in
-> self-refresh was intended. If newer DMUB firmware copes with an external
-> link going away during PSR, I can limit this to DCN 2.1
->
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 101 ++++++++++++++++++
->   1 file changed, 101 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index dfbc384fbbdb4..54eee9e2393fa 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -4443,6 +4443,105 @@ STATIC_IFN_KUNIT void dm_clear_writeback(struct amdgpu_display_manager *dm,
->   }
->   EXPORT_IF_KUNIT(dm_clear_writeback);
->   
-> +static bool amdgpu_dm_self_refresh_pause_needed(struct drm_atomic_commit *state)
-> +{
-> +	struct drm_crtc_state *old_crtc_state, *new_crtc_state;
-> +	struct drm_crtc *crtc;
-> +	int i;
-> +
-> +	for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state, new_crtc_state, i)
-> +		if (drm_atomic_crtc_needs_modeset(new_crtc_state) &&
-> +		    (old_crtc_state->active || new_crtc_state->active))
-> +			return true;
-> +
-> +	return false;
-> +}
-> +
-> +static bool amdgpu_dm_is_new_modeset_stream(struct drm_atomic_commit *state,
-> +					    const struct dc_stream_state *stream)
-> +{
-> +	struct drm_crtc_state *new_crtc_state;
-> +	struct drm_crtc *crtc;
-> +	int i;
-> +
-> +	for_each_new_crtc_in_state(state, crtc, new_crtc_state, i)
-> +		if (drm_atomic_crtc_needs_modeset(new_crtc_state) &&
-> +		    to_dm_crtc_state(new_crtc_state)->stream == stream)
-> +			return true;
-> +
-> +	return false;
-> +}
-> +
-> +/*
-> + * A modeset CRTC may have no PSR or Replay, such as an HDMI output being
-> + * turned off, while an eDP on another CRTC is still in self-refresh. Pause
-> + * self-refresh on every stream mod_power tracks before
-> + * amdgpu_dm_mod_power_update_streams() changes the set: the old streams of
-> + * the CRTCs in the commit and the unchanged streams of the new state.
-> + * Unlike hw_programming, which a fast update on another CRTC clears, the
-> + * pause holds until amdgpu_dm_resume_self_refresh()
-> + */
-> +static void amdgpu_dm_pause_self_refresh(struct drm_atomic_commit *state,
-> +					 struct amdgpu_display_manager *dm,
-> +					 struct dc_state *dc_state)
-> +{
-> +	struct drm_crtc_state *old_crtc_state;
-> +	struct dc_stream_state *stream;
-> +	struct drm_crtc *crtc;
-> +	int i;
-> +
-> +	if (!amdgpu_dm_self_refresh_pause_needed(state))
-> +		return;
-> +
-> +	guard(mutex)(&dm->dc_lock);
-> +	dc_exit_ips_for_hw_access(dm->dc);
-> +
-> +	for_each_old_crtc_in_state(state, crtc, old_crtc_state, i) {
-> +		stream = to_dm_crtc_state(old_crtc_state)->stream;
-> +		if (!old_crtc_state->active || !stream)
-> +			continue;
-> +
-> +		amdgpu_dm_psr_set_event(dm, stream, true, psr_event_pause, true);
-> +		amdgpu_dm_replay_set_event(dm, stream, true, replay_event_pause, true);
-> +	}
-> +
-> +	for (i = 0; i < dc_state->stream_count; i++) {
-> +		stream = dc_state->streams[i];
-> +		if (amdgpu_dm_is_new_modeset_stream(state, stream))
-> +			continue;
-> +
-> +		amdgpu_dm_psr_set_event(dm, stream, true, psr_event_pause, true);
-> +		amdgpu_dm_replay_set_event(dm, stream, true, replay_event_pause, true);
-> +	}
-> +}
-> +
-> +/*
-> + * Ends amdgpu_dm_pause_self_refresh() on the streams of the commit, which
-> + * mod_power tracks from amdgpu_dm_mod_power_update_streams() on, even if
-> + * dc_commit_streams() failed. mod_power keeps events across
-> + * mod_power_replace_stream(), so the replaced streams carry the pause too.
-> + * Runs after amdgpu_dm_mod_power_setup_streams(), since enabling a stream
-> + * clears psr_feature_enabled and replay_feature_enabled on its link until
-> + * then, and the set_event helpers skip a link without them
-> + */
-> +static void amdgpu_dm_resume_self_refresh(struct drm_atomic_commit *state,
-> +					  struct amdgpu_display_manager *dm,
-> +					  struct dc_state *dc_state)
-> +{
-> +	int i;
-> +
-> +	if (!dc_state || !amdgpu_dm_self_refresh_pause_needed(state))
-> +		return;
-> +
-> +	guard(mutex)(&dm->dc_lock);
-> +	for (i = 0; i < dc_state->stream_count; i++) {
-> +		amdgpu_dm_psr_set_event(dm, dc_state->streams[i], false,
-> +					psr_event_pause, false);
-> +		amdgpu_dm_replay_set_event(dm, dc_state->streams[i], false,
-> +					   replay_event_pause, false);
-> +	}
-> +}
-> +
->   /**
->    * amdgpu_dm_mod_power_update_streams - update mod_power stream state
->    * @state: the drm atomic state
-> @@ -4627,6 +4726,7 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_commit *state,
->   		acrtc->wb_enabled = false;
->   	}
->   
-> +	amdgpu_dm_pause_self_refresh(state, dm, dc_state);
->   	amdgpu_dm_mod_power_update_streams(state, dm);
->   
->   	for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state,
-> @@ -5370,6 +5470,7 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_commit *state)
->   	}
->   
->   	amdgpu_dm_mod_power_setup_streams(state, dm);
-> +	amdgpu_dm_resume_self_refresh(state, dm, dc_state);
->   
->   	for_each_new_crtc_in_state(state, crtc, new_crtc_state, j)
->   		if (new_crtc_state->async_flip)
->
-> base-commit: ba496bb837882eb1af58f41572fc289e46c77b8c
+amdgpu_dpm_reapply_umd_profile() already replays the retained level after
+reset and resume, but only for the PROFILE_* levels.
+
+v4 follows Lijo's review of v3 and restores every level through that
+common path, renamed to amdgpu_dpm_reapply_performance_level(). The
+PROFILE_* levels keep their UMD pstate handling, other levels only replay
+the level itself. smu_reapply_power_state_dynamic() now calls
+smu_adjust_power_state_dynamic(smu, level, true, true).
+
+Tested on an SMU 14.0.1 APU (PMFW 100.113.0) on amd-staging-drm-next,
+triggering resets through debugfs/amdgpu_gpu_recover and reading the level
+and gfxclk before and after each reset.
+
+Changing smu_reapply_power_state_dynamic() alone does not restore high, as
+the reapply path returns early for it:
+
+  level              before    reset 1   reset 2   reset 3
+  high               2448MHz    630MHz    600MHz    600MHz
+
+With this patch:
+
+  level              before    reset 1   reset 2   reset 3
+  high               2444MHz   2794MHz   2796MHz   2796MHz
+  low                1403MHz    604MHz    600MHz    600MHz
+  manual              600MHz    600MHz    600MHz    600MHz
+  profile_peak       1848MHz   2237MHz   2019MHz   2318MHz
+  profile_standard   1265MHz    703MHz    700MHz    700MHz
+  auto                637MHz    600MHz    600MHz    600MHz
+
+The level is retained across every reset. The "before" sample is taken one
+second after the level is written. 18 MODE2 resets over the run, with no
+new messages in the kernel log.
+
+As the reapply path also runs on resume, s2idle was checked as well: high
+2668MHz before suspend and 2799MHz after resume, profile_peak 2508MHz
+before and 2266MHz after, with the level retained in both cases.
+
+Notes:
+  - auto is not replayed, as PMFW comes back in auto after a reset, as it
+    does at probe. This also keeps the probe path, which runs the same
+    function, unchanged.
+  - Replaying manual does not program any clocks. The user clock masks set
+    in manual are restored by smu_restore_dpm_user_profile(), which only
+    runs on resume; restoring them after a reset is not part of this patch.
+  - Only the swSMU path was tested. The powerplay path takes the same
+    route through pp_dpm_reapply_performance_level() but I have no
+    hardware to test it on, nor S3 or runtime PM resume.
+
+v4:
+  - Restore the level through the common reapply path instead of
+    smu_handle_task(), so the level is restored in one place (Lijo)
+  - Rename amdgpu_dpm_reapply_umd_profile() to
+    amdgpu_dpm_reapply_performance_level() and replay non-profile levels
+    directly (Lijo)
+  - Replace the body of smu_reapply_power_state_dynamic() with
+    smu_adjust_power_state_dynamic(smu, level, true, true) (Lijo)
+  - Add the Fixes tag (Kevin)
+  - Add the version changelog to the commit message
+  - Kevin's Reviewed-by on v3 is not carried over, as it was given for
+    his suggested change in smu_handle_task(), which v4 does not use
+  - Add test results for the smu_reapply_power_state_dynamic() change alone
+  - Link: https://lore.kernel.org/amd-gfx/cover.1793689935.git.Priya.Hosur@amd.com/
+
+v3:
+  - Use the existing force_performance_level argument of
+    smu_adjust_power_state_dynamic() for AMD_PP_TASK_COMPLETE_INIT during
+    reset recovery, instead of switching the cached level to AUTO first
+  - Rebased on amd-staging-drm-next, which now includes Kevin's
+    "drm/amd/pm: reapply umd profile state after recovery"
+  - Explain in the commit message why that path does not cover high,
+    low and manual (Kevin's question on v2)
+
+v2:
+  - Restore the forced level after the reset instead of reporting the
+    default, as the driver is expected to keep the level the user asked
+    for and the reset often goes unnoticed (Lijo)
+  - Link: https://lore.kernel.org/amd-gfx/20261008104026.4102222-1-Priya.Hosur@amd.com/
+
+v1:
+  - Reset the cached level to AUTO after a reset so that sysfs reports the
+    level PMFW is actually running at
+  - Link: https://lore.kernel.org/amd-gfx/20261007122103.4019578-1-Priya.Hosur@amd.com/
+
+Priya Hosur (1):
+  drm/amd/pm: restore the forced performance level after a reset
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  4 +--
+ drivers/gpu/drm/amd/pm/amdgpu_dpm.c        | 21 +++++++++---
+ drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h    |  2 +-
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  | 39 ++++------------------
+ 4 files changed, 26 insertions(+), 40 deletions(-)
+
+-- 
+2.43.0
+
