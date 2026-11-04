@@ -2,112 +2,86 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD517606A326
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 13:59:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68FA9606A326
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 13:59:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=N5CbFd5d
+	dkim=pass (2048-bit key, unprotected) header.d=charmerstraining.com header.i=@charmerstraining.com header.a=rsa-sha256 header.s=google header.b=oXzPQ/Aa
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94D1710FC20;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF75210FC22;
 	Wed,  4 Nov 2026 13:59:36 +0000 (UTC)
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C98A610E245
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Nov 2026 13:41:39 +0000 (UTC)
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6A4BihUG458935; Wed, 4 Nov 2026 13:41:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=pp1; bh=4AK69orwZo6JJf71iY8ExQkzOSkO1L
- 3YQu1lTK2Yhbs=; b=N5CbFd5docdAHnj3TTXe0vBen20yA7hSUVJQbrgV0e826m
- ectFUDDjH8F9md1U6WdPOTybiqNLxzabJwULYL8EFZLhy20urBkRt1YPos8NeBe1
- 5Et+G3mnReOeNFXpb0JUOP6KS6c/GumvIr9f5zpRMtnlDBZy6GQ+dAYkQxR/4YA7
- sRBLe47kyCG25VlYjlCDJlt6K8U24GZkbZFQs8TdXPTM5kPGX2mipe6xHz+sAM4s
- I76y3bBuCeB60DkvZpM+mvva8lEcH1RuHx0FMRx0teh30ji/STKrnhlT5sOYZECi
- WSYIQtp50B9xRTifKtYfARfrthVoGacV+UpicE/g==
-Received: from ppma22.wdc07v.mail.ibm.com
- (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn7ys3q2x-1
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
- Wed, 04 Nov 2026 13:41:35 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
- by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6A4BpibR4097815; Wed, 4 Nov 2026 13:41:35 GMT
-Received: from smtprelay02.dal12v.mail.ibm.com ([172.16.1.4])
- by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hqv1ut60h-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 04 Nov 2026 13:41:35 +0000 (GMT)
-Received: from smtpav05.dal12v.mail.ibm.com (smtpav05.dal12v.mail.ibm.com
- [10.241.53.104])
- by smtprelay02.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 6A4DfXrp2556664
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 4 Nov 2026 13:41:33 GMT
-Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id B527258056;
- Wed,  4 Nov 2026 13:41:33 +0000 (GMT)
-Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 1DC6958052;
- Wed,  4 Nov 2026 13:41:29 +0000 (GMT)
-Received: from [9.43.54.216] (unknown [9.43.54.216])
- by smtpav05.dal12v.mail.ibm.com (Postfix) with ESMTP;
- Wed,  4 Nov 2026 13:41:28 +0000 (GMT)
-Content-Type: multipart/alternative;
- boundary="------------GOSIgPe0661OWbYYIPxNLYo1"
-Message-ID: <1c7751d3-ca7d-4a7b-91fa-87762af60095@linux.ibm.com>
-Date: Wed, 4 Nov 2026 19:11:27 +0530
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C2CF10E75B
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Nov 2026 12:52:53 +0000 (UTC)
+Received: by mail-dl1-f53.google.com with SMTP id
+ a92af1059eb24-1adbf62dd31so908001c88.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 04 Nov 2026 04:52:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=charmerstraining.com; s=google; t=1793796772; x=1794401572;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=EPqf68p4zgOm5bk1tzpmfEq+lDmfobnZCEG8E1tQHtw=;
+ b=oXzPQ/AaJBIhfly5dtPs4Bf6Ex6WX2Y88kSYMIjINbyQYpNSvidEcmFVWyDa6YSRjy
+ 8Gcaiw4eFTwj6MsdBSWLnbTWDWco5imG/gdACw3Euxi4jVRbMfjGRbIdD0h1/EmQ7qp4
+ CGEjVvkYZEvABVCmJfFjmCvN/t1JryQcNIeLPYNL30krYUfbAY78YkUVNVNIYdUR6SXc
+ Kl8R0GZ/LYHp2tY/qKqfvxURP6zeuakOZMPUehyVQlwQ6fKg0ZQZ/iac4sdFXqm0yNE6
+ BDL7C37GTt1SpyAXhsXZubEPz36yYTKB/UYwdwbNAtxyK1JaNHYZGo8BOdB4OFRZVGvt
+ fbRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793796772; x=1794401572;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=EPqf68p4zgOm5bk1tzpmfEq+lDmfobnZCEG8E1tQHtw=;
+ b=Kov0jg8v7lbLAiljprvSmxarw1Rr9hdNeSULgy+ArxYY6JKBQ2OrXkUHvyc3moOsR4
+ vrmx9ucxHcthPFsnV/F9kRmGeaBxT4wNyvPcYg3eusO+YB11Dm/lTMD47qff9OR1POly
+ IAUHNM/Wh+Om3wekJ5FbXGSQLG2+0FmlvqwadnROAbXxAcB6jcfV5BB5Umfzh8h4UAfp
+ 5vnSaZJskQTRGjp6K8IhtKSQfv9gf+6CJjMkTXU5KT93PFUNZkAIy3xXY4wFV/T0vz2x
+ G7HpSk21OiTEfQAIZ6VAqrBI+eKvpZ5jTrj1bPZF1Nh8aNJKH3Q10Tw5AF1FnWTPHY3y
+ 2Wgg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBydqidWTzPec71M+aaYRYdZ1v/b9wwlsvJ60kHBpnjkDcpC5wEzlbc/abCR7Y3E1KFPUETbAvxS@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/OUcHT4iE42zcHRzMlYOCsyMx+WIaB9+eIiE9SoYpMK1Bs198K
+ Gt58oQ9gGY1c4gxqhyZc31CD/S4tMX4DMam2kJpV+GKpgmOnc8N9oDEDuVqSvtcVsio=
+X-Gm-Gg: AYBFou1mCa7gQ9iiK87SSYMIbR/cMTHdFMsyv+jn39LbkNvrE7+34jHVCg/jlTn3akP
+ 3oYPMJPqh3WJcv5zyw+TOxZqpMfLvWI9uAYqiBUbcBQ7lLb2qFBC8swP0VCx+lQU7D99FaG/akv
+ 9RJ40paEX/IuKALUyahpXizAcrtLDPovuxPIoYR/hb/bQnzSFfIA+FZQyJq+7+3C0VJk5Wp3fko
+ tSOMqtZL3JEg49cEZ+U+DQy4WWqstZj3ZxLxF3kpztXGztb4vJIYkt6GAYPhLmQTrHkvHRrdHjC
+ iuuRd3jSD9ljavHSnfwc3jyqnxePc8GLC/X/5pYHQSLSmq2+Ja/rbK/MMU2cIKvw127kGJLViBQ
+ We/OYEZ9lO9h5BkK6UfPcxAyOvRJM2izf9tE48C9TaYP3jRGdvPVwhrP0/hWplpG1eW/HE8OPic
+ 4XtzYUoagsl9eJ//Z0NxeDkWetZ1HNtAYF8kHJPg/RYcwOEagmXqy/2Xs3Of6HtkHopMjauPCE6
+ UDvi6XoBvaPqJ6Nr5cy9Z4ivit91Mc//wbr+xzPE8at8ly5KMV1pnr1PU6rY9nN4+I/9kfNOfei
+ 5kosz0XHrgJvUJUhDDpFsH2o0tUZ/OEzp3rGQxDkw0Lf1xc4iJRM+Tz+uTKq0stwz4+IkPB44mo
+ 3s0YB5oUocl2iRachlocAEjwNOwvZFAQ0HK2d30Oc8VYGfrEcaKZFdhcU9CWkdvFBDray5I0=
+X-Received: by 2002:a05:7022:92b:b0:1ab:fe29:5055 with SMTP id
+ a92af1059eb24-1ac5bbb9041mr29240092c88.9.1793796772092; 
+ Wed, 04 Nov 2026 04:52:52 -0800 (PST)
+Received: from ip-192-168-20-3.ap-southeast-2.compute.internal
+ (167-179-142-232.a7b38e.mel.nbn.aussiebb.net. [167.179.142.232])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-1b245c6f0dcsm9787264c88.21.2026.11.04.04.52.45
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Wed, 04 Nov 2026 04:52:50 -0800 (PST)
+From: Ed Schofield <ed@charmerstraining.com>
+To: alexdeucher@gmail.com
+Cc: atharvatiwarilinuxdev@gmail.com, dev@deq.rocks, aditya.garg@linux.dev,
+ alexander.deucher@amd.com, kenneth.feng@amd.com, christian.koenig@amd.com,
+ airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4] drm/amd/pm: defer UCLK DPM on selected Apple Navi GPUs
+Date: Wed,  4 Nov 2026 23:52:41 +1100
+Message-ID: <20261104125241.39209-1-ed@charmerstraining.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <CADnq5_N-sobVK3qitqABjqMv2HMyGNdxX0XMXa4TZzVnMv8MLA@mail.gmail.com>
+References: <CADnq5_NCB6ur05ZvP0fe9hsgLHM0=y_Wx31G4vkpKH+F7yZ74g@mail.gmail.com>
+ <20261103150057.1227-1-atharvatiwarilinuxdev@gmail.com>
+ <CADnq5_N-sobVK3qitqABjqMv2HMyGNdxX0XMXa4TZzVnMv8MLA@mail.gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] drm/amdkfd: Add support for discontiguous and
- CPU-less NUMA topologies
-To: Felix Kuehling <felix.kuehling@amd.com>, Dhruv B <dhruv.b@linux.ibm.com>, 
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Alex Deucher <alexdeucher@gmail.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Philip Yang <yangp@amd.com>
-Cc: David.YatSin@amd.com, Kent.Russell@amd.com,
- Ritesh Harjani <ritesh.list@gmail.com>,
- Vaidyanathan Srinivasan <svaidy@linux.ibm.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- donettom@linux.ibm.com
-References: <20261030083304.9767-1-dhruv.b@linux.ibm.com>
- <20261030083304.9767-3-dhruv.b@linux.ibm.com>
- <70018014-d952-4155-aa36-cf9b39ba8aea@amd.com>
-Content-Language: en-US
-From: Dhruv Bhogaonkar <dhruvb@linux.ibm.com>
-In-Reply-To: <70018014-d952-4155-aa36-cf9b39ba8aea@amd.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=Mcr5KJ/f c=1 sm=1 tr=0 ts=6aeb3610 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=RzCfie-kr_QcCd8fBx8p:22 a=r77TgQKjGQsHNAKrUKIA:9 a=RpNjiQI2AAAA:8
- a=VnNF1IyMAAAA:8 a=L98l0cWOg8O8W7gtHOMA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=zd2uoN0lAAAA:8 a=tl6q02WgS_n34SE7dl0A:9 a=tqdMzFhGG8mD8GCBlf4leDhY3gs=:19
- a=sTxRpBpiy98KL1WkT8X2XIWo+SM=:19 a=GGfwxai0aluIUqL5:21 a=_W_S_7VecoQA:10
- a=lqcHg5cX4UMA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA1MiBTYWx0ZWRfX4Ef/8H44jJXz
- v10d0dMfJOrd0xO22LJowkh2JwXb9JrcHfTPVNhTDICSosDBEKa2BX1QeYd8jok2qQHZs4QDwdT
- irSFK5fE8iVb2a12ZYw2BKhCnkdp09Y=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA1MiBTYWx0ZWRfXxXgKWR0hith7
- 8opDgt9Gv4bqyQtzTPLVuQw2TmdaUrJpi6H4qivMoc2i09lejtEzmnqp3cRN9tboUGpLEctlW7A
- UlZE95GgSiPOt578IRReVom10dLkaX38byt7XJKU4TwhUMJGxL1Zwg4kpeEP92jfD/Q5kwdJ3HL
- UBpewEhNoQbYus+/LMCmfpDRCBH2o1mvjjjQtrdVDhK+BiDaFNcRLyA33HkqgmHYC9cN952tnBa
- mSYk4IULSH/xJQu4m9w60GnLKFYQ6ABagvcAh9EhRaNRNhmm/+JbFAykZTtXZrURD7r1jc/1jMO
- 9Dyhs9q3RONKEIw6q50d+ghjlQUBDGmSzBHICcXXd7VMtOagN7cTedKX1kM9+xdS3mQqXjdp9hE
- Yys9rf+msvIipT7KeyHb3oDiFxtYF6JalPemsCMxWyvrVJYPYutOBMnJZKn36StgUZNvOYAlHla
- oL9c20yjEB9idA0IzUQ==
-X-Proofpoint-GUID: 2vJXLXeCJM5FNaRpN6QcApKchhw6Rki6
-X-Proofpoint-ORIG-GUID: -sFj1z6uAROm5AGssDTpdlgQrSTZ3G65
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-04_04,2026-11-03_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 priorityscore=1501
- clxscore=1015 impostorscore=0 adultscore=0 spamscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611040052
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 04 Nov 2026 13:59:29 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -119,645 +93,60 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,HTML_FONT_LOW_CONTRAST,
-	HTML_MESSAGE,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-This is a multi-part message in MIME format.
---------------GOSIgPe0661OWbYYIPxNLYo1
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+Hi Alex, hi Atharva, hi all,
 
+Alex, I'd like to withdraw my September v4 submission. I also don't support
+applying v5 as posted or the simplified patch you attached later in this
+thread. Please remove my Co-developed-by and Signed-off-by tags from both
+versions. I no longer think deferring UCLK is the right approach for the iMacs.
 
-On 03/11/26 05:55, Felix Kuehling wrote:
-> On 2026-10-30 04:=E2=80=8A33, Dhruv B wrote: On systems with discontiguou=
-s=20
-> NUMA node IDs, the GPU driver fails to load with the following errors:=20
-> [ 5.=E2=80=8A609767] amdgpu 0038:=E2=80=8A12:=E2=80=8A00.=E2=80=8A0: Erro=
-r parsing VCRAT [ 5.=E2=80=8A609781]=20
-> kfd kfd: Error adding device to topology
->=20
-> On 2026-10-30 04:33, Dhruv B wrote:
->> On systems with discontiguous NUMA node IDs, the GPU driver fails to
->> load with the following errors:
->>
->> [    5.609767] amdgpu 0038:12:00.0: Error parsing VCRAT
->> [    5.609781] kfd kfd: Error adding device to topology
->> [    5.609848] kfd kfd: Error initializing KFD node
->>
->> In the current KFD code, proximity domains are created contiguously
->> when generating the VCRAT. With discontiguous NUMA node IDs, this
->> creates a mismatch between the proximity domain ID and the NUMA node ID.
->> For example, if NUMA nodes 0, 2 and 3 are online, the current code
->> assigns proximity domains 0, 1 and 2 to these nodes respectively,
->> instead of domains 0, 2 and 3.
->>
->> The KFD topology uses the NUMA node and proximity domain information to
->> create topology devices representing the CPU and memory resources
->> associated with each NUMA node. This topology is exposed to userspace
->> through sysfs, where the NUMA node and proximity domain information are
->> used to identify the topology devices. The mismatch between the NUMA
->> node ID and proximity domain therefore results in an inconsistent KFD
->> topology and causes topology parsing to fail.
->>
->> Make the proximity domain ID correspond directly to the NUMA node ID by
->> iterating through the complete NUMA node ID range up to the last online
->> node. Account for every node ID when assigning proximity domains, while
->> skipping resource entry creation for offline nodes. This preserves the
->> NUMA-node-to-proximity-domain mapping and allows the KFD topology and
->> its sysfs representation to correctly reflect discontiguous NUMA
->> topologies.
->>
->> A NUMA node may also be CPU-less, memory-less, or both. Only create a
->> Compute Unit CRAT entry if the node has CPUs, and only create a Memory
->> CRAT entry if the node has memory.
->>
->> Additionally, update kfd_parse_subtype_mem() to use simd_count instead
->> of cpu_cores_count to distinguish host nodes from GPU nodes. This ensures
->> that memory on CPU-less host NUMA nodes is correctly classified as
->> system memory (HSA_MEM_HEAP_TYPE_SYSTEM) rather than private GPU
->> framebuffer memory.
->>
->> The placeholder domains created for offline node IDs have no IO links,
->> so skip offline and CPU-less nodes when building the indirect GPU to CPU
->> links.
->>
->> Co-developed-by: Donet Tom<donettom@linux.ibm.com>
->> Signed-off-by: Donet Tom<donettom@linux.ibm.com>
->> Signed-off-by: Dhruv B<dhruv.b@linux.ibm.com>
->> ---
->>   drivers/gpu/drm/amd/amdkfd/kfd_crat.c     | 59 +++++++++++++----------
->>   drivers/gpu/drm/amd/amdkfd/kfd_topology.c |  3 ++
->>   2 files changed, 36 insertions(+), 26 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd=
-/amdkfd/kfd_crat.c
->> index 99b0c7f825fe..bebbc6715b2f 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
->> @@ -1103,8 +1103,10 @@ static int kfd_parse_subtype_mem(struct crat_subt=
-ype_memory *mem,
->>   			mem->proximity_domain);
->>   	list_for_each_entry(dev, device_list, list) {
->>   		if (mem->proximity_domain =3D=3D dev->proximity_domain) {
->> -			/* We're on GPU node */
->> -			if (dev->node_props.cpu_cores_count =3D=3D 0) {
->> +			if (dev->node_props.simd_count =3D=3D 0) {
->> +				heap_type =3D HSA_MEM_HEAP_TYPE_SYSTEM;
->> +			} else {
->> +				/* We're on GPU node */
->>   				/* APU */
->>   				if (mem->visibility_type =3D=3D 0)
->>   					heap_type =3D
->> @@ -1112,8 +1114,7 @@ static int kfd_parse_subtype_mem(struct crat_subty=
-pe_memory *mem,
->>   				/* dGPU */
->>   				else
->>   					heap_type =3D mem->visibility_type;
->> -			} else
->> -				heap_type =3D HSA_MEM_HEAP_TYPE_SYSTEM;
->> +			}
->>  =20
->>   			if (mem->flags & CRAT_MEM_FLAGS_HOT_PLUGGABLE)
->>   				flags |=3D HSA_MEM_FLAGS_HOT_PLUGGABLE;
->> @@ -1899,7 +1900,7 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_=
-image, size_t *size)
->>   	acpi_status status;
->>   	struct crat_subtype_generic *sub_type_hdr;
->>   	int avail_size =3D *size;
->> -	int numa_node_id;
->> +	int numa_node_id, last_node;
->>   #if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
->>   	uint32_t entries =3D 0;
->>   #endif
->> @@ -1935,34 +1936,41 @@ static int kfd_create_vcrat_image_cpu(void *pcra=
-t_image, size_t *size)
->>   	crat_table->num_domains =3D 0;
->>  =20
->>   	sub_type_hdr =3D (struct crat_subtype_generic *)(crat_table+1);
->> +	last_node =3D find_last_bit(node_online_map.bits, MAX_NUMNODES);
->>  =20
->> -	for_each_online_node(numa_node_id) {
->> -		if (kfd_numa_node_to_apic_id(numa_node_id) =3D=3D -1)
->> +	for (numa_node_id =3D 0; numa_node_id <=3D last_node; numa_node_id++) {
->> +		if (!node_online(numa_node_id)) {
->> +			crat_table->num_domains++;
->>   			continue;
->> +		}
->>  =20
->>   		/* Fill in Subtype: Compute Unit */
->> -		ret =3D kfd_fill_cu_for_cpu(numa_node_id, &avail_size,
->> -			crat_table->num_domains,
->> -			(struct crat_subtype_computeunit *)sub_type_hdr);
->> -		if (ret < 0)
->> -			return ret;
->> -		crat_table->length +=3D sub_type_hdr->length;
->> -		crat_table->total_entries++;
->> +		if (kfd_numa_node_to_apic_id(numa_node_id) !=3D -1) {
->> +			ret =3D kfd_fill_cu_for_cpu(numa_node_id, &avail_size,
->> +						  crat_table->num_domains,
->> +						  (struct crat_subtype_computeunit *)sub_type_hdr);
->> +			if (ret < 0)
->> +				return ret;
->> +			crat_table->length +=3D sub_type_hdr->length;
->> +			crat_table->total_entries++;
->>  =20
->> -		sub_type_hdr =3D (typeof(sub_type_hdr))((char *)sub_type_hdr +
->> -			sub_type_hdr->length);
->> +			sub_type_hdr =3D (typeof(sub_type_hdr))((char *)sub_type_hdr +
->> +				sub_type_hdr->length);
->> +		}
->>  =20
->>   		/* Fill in Subtype: Memory */
->> -		ret =3D kfd_fill_mem_info_for_cpu(numa_node_id, &avail_size,
->> -			crat_table->num_domains,
->> -			(struct crat_subtype_memory *)sub_type_hdr);
->> -		if (ret < 0)
->> -			return ret;
->> -		crat_table->length +=3D sub_type_hdr->length;
->> -		crat_table->total_entries++;
->> +		if (node_state(numa_node_id, N_MEMORY)) {
->> +			ret =3D kfd_fill_mem_info_for_cpu(numa_node_id, &avail_size,
->> +							crat_table->num_domains,
->> +							(struct crat_subtype_memory *)sub_type_hdr);
->> +			if (ret < 0)
->> +				return ret;
->> +			crat_table->length +=3D sub_type_hdr->length;
->> +			crat_table->total_entries++;
->>  =20
->> -		sub_type_hdr =3D (typeof(sub_type_hdr))((char *)sub_type_hdr +
->> -			sub_type_hdr->length);
->> +			sub_type_hdr =3D (typeof(sub_type_hdr))((char *)sub_type_hdr +
->> +				sub_type_hdr->length);
->> +		}
->>  =20
->>   		/* Fill in Subtype: IO Link */
->>   #if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
->> @@ -1982,7 +1990,6 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_=
-image, size_t *size)
->>   #else
->>   		pr_info("IO link not available for non x86 platforms\n");
->>   #endif
->> -
->>   		crat_table->num_domains++;
->>   	}
->>  =20
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm=
-/amd/amdkfd/kfd_topology.c
->> index b38d12f3da84..d2fbe73e57ef 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
->> @@ -1419,6 +1419,9 @@ static int kfd_create_indirect_link_prop(struct kf=
-d_topology_device *kdev, int g
->>   				    struct kfd_iolink_properties, list);
->>  =20
->>   	for (i =3D 0; i < num_cpu; i++) {
->> +		if (!node_online(i) || !node_state(i, N_CPU))
->
-> The N_CPU part skips indirect links through CPU-less NUMA nodes. Is=20
-> that correct? For links from the GPU to that memory, I think we need=20
-> the indirect links so the GPU knows that it can access such memory.
->
-> Maybe further down we could enhance the large-bar condition to only=20
-> create indirect CPU->GPU links if that node actually has a CPU:
->
->                  /* for small Bar or CPU-less NUMA nodes, no CPU --> GPU =
-in-direct links */
->                  if (kfd_dev_is_large_bar(kdev->gpu) && node_state(i, N_C=
-PU)) {
-> 			...
+I also excluded the MacBookPro16,1 (020f) from v4 deliberately because a tester
+found that with deferred UCLK it still hung after login, as it does without the
+patch [1], which seems to fit André's PPTable diagnosis.
 
+Since then, I've been working with Atharva to get his native-5K iMac support
+upstream. His patch initializes the display before the SMU, which has also
+prevented the boot failures without deferring UCLK. On my iMac20,1 (0218), 13
+of 20 warm boots failed with the upstream order; with display first, all 40
+boots passed [4]. Another tester reported one warm and one cold boot, both
+successful, on a 0219 [2]. On an iMac20,2 (021a), changing only the
+initialization order improved warm boot success from 11 out of 20 to 100 out of
+100 [3]. His patch only applies to the iMac20,1 and iMac20,2, so it doesn't fix
+the 16,1 either.
 
-Hi Felix,
+I don't think the iMacs and the MacBookPro16,1 have the same problem. The
+iMacs fail while amdgpu is loading: the SMU stops responding to
+EnableAllSmuFeatures (message 6), and the probe fails with -62. With the
+display initialized first, the same message succeeds with UCLK included,
+and the iMac boots normally. The 16,1 loads amdgpu without errors and hangs
+later, after login, with or without deferred UCLK [1]. So deferring UCLK
+seems to help the iMacs only because it moves the enable after display
+init, and it doesn't help the MacBookPro16,1.
 
-Thanks a lot for the reply and the suggestion!
+I have prepared a draft patch with Atharva as author and me as co-developer,
+incorporating his review feedback. It combines display-first initialization and
+native 5120x2880 support through two tiled connectors with suspend/resume and
+display power-management changes. The current draft is here:
 
-Would the following change address your concern? I've removed the
-|N_CPU|check from the loop condition and moved it to the large-BAR
-check so that we retain the indirect links for CPU-less NUMA nodes
-while avoiding CPU =E2=86=92 GPU indirect links for those nodes.
+https://github.com/edschofield/linux-t2-patches/blob/7273823e425200e9f371e9272e02ebf9abb6f1c2/7003-amdgpu-add-support-for-5K.patch
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c=20
-b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-index b38d12f3da84..8f908323d74b 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-@@ -1419,6 +1419,9 @@ static int kfd_create_indirect_link_prop(struct=20
-kfd_topology_device *kdev, int g
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0struct kfd_iolink_properties, list);
+This has passed some initial automated testing on my iMac20,1 but I need to do
+more testing and get Atharva's final review and sign-off.
 
- =C2=A0 =C2=A0 =C2=A0for (i =3D 0; i < num_cpu; i++) {
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!node_online(i))
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 continue;
-+
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* CPU <--> GPU */
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (gpu_link->node_to =3D=3D i)
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0continue;
-@@ -1437,7 +1440,7 @@ static int kfd_create_indirect_link_prop(struct=20
-kfd_topology_device *kdev, int g
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}
+Alex, thanks for following up on the boot issue and checking with the Windows
+team.
 
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!cpu_link)
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return -ENOMEM;
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 continue;
+Best regards,
+Ed
 
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* CPU <--> CPU <--> GPU, GPU node*/
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0props =3D kfd_alloc_struct(props);
-@@ -1459,8 +1462,8 @@ static int kfd_create_indirect_link_prop(struct=20
-kfd_topology_device *kdev, int g
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (ret < 0)
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return ret;
-
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* for small Bar, no CPU --> GPU in-direct lin=
-ks */
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (kfd_dev_is_large_bar(kdev->gpu)) {
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* for small Bar or CPU-less NUMA nodes, no CP=
-U --> GPU=20
-in-direct links */
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (kfd_dev_is_large_bar(kdev->gpu) && node_st=
-ate(i, N_CPU)) {
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* CPU <--> CPU <--> GPU, =
-CPU node*/
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0props2 =3D kfd_alloc_struc=
-t(props2);
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!props2)
---=20
-
-Does this approach look good to you?
-
-Regards,
-Dhruv B
-
-
->
-> Regards,
-> =C2=A0 Felix
->
->
->> +			continue;
->> +
->>   		/* CPU <--> GPU */
->>   		if (gpu_link->node_to =3D=3D i)
->>   			continue;=
-
---------------GOSIgPe0661OWbYYIPxNLYo1
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DUTF-8=
-">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class=3D"moz-cite-prefix">On 03/11/26 05:55, Felix Kuehling
-      wrote:<br>
-    </div>
-    <blockquote type=3D"cite"
-      cite=3D"mid:70018014-d952-4155-aa36-cf9b39ba8aea@amd.com">
-      <!-- BaNnErBlUrFlE-BoDy-start -->
-      <!-- Preheader Text : BEGIN -->
-      <meta http-equiv=3D"content-type" content=3D"text/html; charset=3DUTF=
--8">
-      <div
-style=3D"display:none !important;display:none;visibility:hidden;mso-hide:al=
-l;font-size:1px;color:#ffffff;line-height:1px;max-height:0px;opacity:0;over=
-flow:hidden;">
-        On 2026-10-30 04:=E2=80=8A33, Dhruv B wrote: On systems with
-        discontiguous NUMA node IDs, the GPU driver fails to load with
-        the following errors: [ 5.=E2=80=8A609767] amdgpu 0038:=E2=80=8A12:=
-=E2=80=8A00.=E2=80=8A0: Error
-        parsing VCRAT [ 5.=E2=80=8A609781] kfd kfd: Error adding device to
-        topology</div>
-      <!-- Preheader Text : END -->
-      <!-- Email Banner : BEGIN -->
-      <div
-style=3D"display:none !important;display:none;visibility:hidden;mso-hide:al=
-l;font-size:1px;color:#ffffff;line-height:1px;max-height:0px;opacity:0;over=
-flow:hidden;"></div>
-      <!-- Email Banner : END -->
-      <!-- BaNnErBlUrFlE-BoDy-end -->
-      <!-- BaNnErBlUrFlE-HeAdEr-start -->
-      <style>@scope { #pfptBanner07ma1up { all: revert !important; display:=
- block !important;
-    visibility: visible !important; opacity: 1 !important;
-    background-color: #d0d8dc !important;
-    max-width: none !important; max-height: none !important }.pfptPrimaryBu=
-tton07ma1up:hover, .pfptPrimaryButton07ma1up:focus {
-    background-color: #b4c1c7 !important; }.pfptPrimaryButton07ma1up:active=
- {
-    background-color: #90a4ae !important; }html:root, html:root>body { all:=
- revert !important; display: block !important;
-    visibility: visible !important; opacity: 1 !important; } }</style>
-      <!-- BaNnErBlUrFlE-HeAdEr-end -->
-      <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DUTF=
--8">
-      <div class=3D"moz-cite-prefix">On 2026-10-30 04:33, Dhruv B wrote:<br>
-      </div>
-      <blockquote type=3D"cite"
-        cite=3D"mid:20261030083304.9767-3-dhruv.b@linux.ibm.com">
-        <pre wrap=3D"" class=3D"moz-quote-pre">On systems with discontiguou=
-s NUMA node IDs, the GPU driver fails to
-load with the following errors:
-
-[    5.609767] amdgpu 0038:12:00.0: Error parsing VCRAT
-[    5.609781] kfd kfd: Error adding device to topology
-[    5.609848] kfd kfd: Error initializing KFD node
-
-In the current KFD code, proximity domains are created contiguously
-when generating the VCRAT. With discontiguous NUMA node IDs, this
-creates a mismatch between the proximity domain ID and the NUMA node ID.
-For example, if NUMA nodes 0, 2 and 3 are online, the current code
-assigns proximity domains 0, 1 and 2 to these nodes respectively,
-instead of domains 0, 2 and 3.
-
-The KFD topology uses the NUMA node and proximity domain information to
-create topology devices representing the CPU and memory resources
-associated with each NUMA node. This topology is exposed to userspace
-through sysfs, where the NUMA node and proximity domain information are
-used to identify the topology devices. The mismatch between the NUMA
-node ID and proximity domain therefore results in an inconsistent KFD
-topology and causes topology parsing to fail.
-
-Make the proximity domain ID correspond directly to the NUMA node ID by
-iterating through the complete NUMA node ID range up to the last online
-node. Account for every node ID when assigning proximity domains, while
-skipping resource entry creation for offline nodes. This preserves the
-NUMA-node-to-proximity-domain mapping and allows the KFD topology and
-its sysfs representation to correctly reflect discontiguous NUMA
-topologies.
-
-A NUMA node may also be CPU-less, memory-less, or both. Only create a
-Compute Unit CRAT entry if the node has CPUs, and only create a Memory
-CRAT entry if the node has memory.
-
-Additionally, update kfd_parse_subtype_mem() to use simd_count instead
-of cpu_cores_count to distinguish host nodes from GPU nodes. This ensures
-that memory on CPU-less host NUMA nodes is correctly classified as
-system memory (HSA_MEM_HEAP_TYPE_SYSTEM) rather than private GPU
-framebuffer memory.
-
-The placeholder domains created for offline node IDs have no IO links,
-so skip offline and CPU-less nodes when building the indirect GPU to CPU
-links.
-
-Co-developed-by: Donet Tom <a class=3D"moz-txt-link-rfc2396E"
-        href=3D"mailto:donettom@linux.ibm.com" moz-do-not-send=3D"true">&lt=
-;donettom@linux.ibm.com&gt;</a>
-Signed-off-by: Donet Tom <a class=3D"moz-txt-link-rfc2396E"
-        href=3D"mailto:donettom@linux.ibm.com" moz-do-not-send=3D"true">&lt=
-;donettom@linux.ibm.com&gt;</a>
-Signed-off-by: Dhruv B <a class=3D"moz-txt-link-rfc2396E"
-        href=3D"mailto:dhruv.b@linux.ibm.com" moz-do-not-send=3D"true">&lt;=
-dhruv.b@linux.ibm.com&gt;</a>
----
- drivers/gpu/drm/amd/amdkfd/kfd_crat.c     | 59 +++++++++++++----------
- drivers/gpu/drm/amd/amdkfd/kfd_topology.c |  3 ++
- 2 files changed, 36 insertions(+), 26 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/am=
-dkfd/kfd_crat.c
-index 99b0c7f825fe..bebbc6715b2f 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-@@ -1103,8 +1103,10 @@ static int kfd_parse_subtype_mem(struct crat_subtype=
-_memory *mem,
- 			mem-&gt;proximity_domain);
- 	list_for_each_entry(dev, device_list, list) {
- 		if (mem-&gt;proximity_domain =3D=3D dev-&gt;proximity_domain) {
--			/* We're on GPU node */
--			if (dev-&gt;node_props.cpu_cores_count =3D=3D 0) {
-+			if (dev-&gt;node_props.simd_count =3D=3D 0) {
-+				heap_type =3D HSA_MEM_HEAP_TYPE_SYSTEM;
-+			} else {
-+				/* We're on GPU node */
- 				/* APU */
- 				if (mem-&gt;visibility_type =3D=3D 0)
- 					heap_type =3D
-@@ -1112,8 +1114,7 @@ static int kfd_parse_subtype_mem(struct crat_subtype_=
-memory *mem,
- 				/* dGPU */
- 				else
- 					heap_type =3D mem-&gt;visibility_type;
--			} else
--				heap_type =3D HSA_MEM_HEAP_TYPE_SYSTEM;
-+			}
-=20
- 			if (mem-&gt;flags &amp; CRAT_MEM_FLAGS_HOT_PLUGGABLE)
- 				flags |=3D HSA_MEM_FLAGS_HOT_PLUGGABLE;
-@@ -1899,7 +1900,7 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_ima=
-ge, size_t *size)
- 	acpi_status status;
- 	struct crat_subtype_generic *sub_type_hdr;
- 	int avail_size =3D *size;
--	int numa_node_id;
-+	int numa_node_id, last_node;
- #if defined(CONFIG_X86_64) &amp;&amp; !defined(CONFIG_UML)
- 	uint32_t entries =3D 0;
- #endif
-@@ -1935,34 +1936,41 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_i=
-mage, size_t *size)
- 	crat_table-&gt;num_domains =3D 0;
-=20
- 	sub_type_hdr =3D (struct crat_subtype_generic *)(crat_table+1);
-+	last_node =3D find_last_bit(node_online_map.bits, MAX_NUMNODES);
-=20
--	for_each_online_node(numa_node_id) {
--		if (kfd_numa_node_to_apic_id(numa_node_id) =3D=3D -1)
-+	for (numa_node_id =3D 0; numa_node_id &lt;=3D last_node; numa_node_id++) {
-+		if (!node_online(numa_node_id)) {
-+			crat_table-&gt;num_domains++;
- 			continue;
-+		}
-=20
- 		/* Fill in Subtype: Compute Unit */
--		ret =3D kfd_fill_cu_for_cpu(numa_node_id, &amp;avail_size,
--			crat_table-&gt;num_domains,
--			(struct crat_subtype_computeunit *)sub_type_hdr);
--		if (ret &lt; 0)
--			return ret;
--		crat_table-&gt;length +=3D sub_type_hdr-&gt;length;
--		crat_table-&gt;total_entries++;
-+		if (kfd_numa_node_to_apic_id(numa_node_id) !=3D -1) {
-+			ret =3D kfd_fill_cu_for_cpu(numa_node_id, &amp;avail_size,
-+						  crat_table-&gt;num_domains,
-+						  (struct crat_subtype_computeunit *)sub_type_hdr);
-+			if (ret &lt; 0)
-+				return ret;
-+			crat_table-&gt;length +=3D sub_type_hdr-&gt;length;
-+			crat_table-&gt;total_entries++;
-=20
--		sub_type_hdr =3D (typeof(sub_type_hdr))((char *)sub_type_hdr +
--			sub_type_hdr-&gt;length);
-+			sub_type_hdr =3D (typeof(sub_type_hdr))((char *)sub_type_hdr +
-+				sub_type_hdr-&gt;length);
-+		}
-=20
- 		/* Fill in Subtype: Memory */
--		ret =3D kfd_fill_mem_info_for_cpu(numa_node_id, &amp;avail_size,
--			crat_table-&gt;num_domains,
--			(struct crat_subtype_memory *)sub_type_hdr);
--		if (ret &lt; 0)
--			return ret;
--		crat_table-&gt;length +=3D sub_type_hdr-&gt;length;
--		crat_table-&gt;total_entries++;
-+		if (node_state(numa_node_id, N_MEMORY)) {
-+			ret =3D kfd_fill_mem_info_for_cpu(numa_node_id, &amp;avail_size,
-+							crat_table-&gt;num_domains,
-+							(struct crat_subtype_memory *)sub_type_hdr);
-+			if (ret &lt; 0)
-+				return ret;
-+			crat_table-&gt;length +=3D sub_type_hdr-&gt;length;
-+			crat_table-&gt;total_entries++;
-=20
--		sub_type_hdr =3D (typeof(sub_type_hdr))((char *)sub_type_hdr +
--			sub_type_hdr-&gt;length);
-+			sub_type_hdr =3D (typeof(sub_type_hdr))((char *)sub_type_hdr +
-+				sub_type_hdr-&gt;length);
-+		}
-=20
- 		/* Fill in Subtype: IO Link */
- #if defined(CONFIG_X86_64) &amp;&amp; !defined(CONFIG_UML)
-@@ -1982,7 +1990,6 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_ima=
-ge, size_t *size)
- #else
- 		pr_info("IO link not available for non x86 platforms\n");
- #endif
--
- 		crat_table-&gt;num_domains++;
- 	}
-=20
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/am=
-d/amdkfd/kfd_topology.c
-index b38d12f3da84..d2fbe73e57ef 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-@@ -1419,6 +1419,9 @@ static int kfd_create_indirect_link_prop(struct kfd_t=
-opology_device *kdev, int g
- 				    struct kfd_iolink_properties, list);
-=20
- 	for (i =3D 0; i &lt; num_cpu; i++) {
-+		if (!node_online(i) || !node_state(i, N_CPU))</pre>
-      </blockquote>
-      <p>The N_CPU part skips indirect links through CPU-less NUMA
-        nodes. Is that correct? For links from the GPU to that memory, I
-        think we need the indirect links so the GPU knows that it can
-        access such memory.</p>
-      <p>Maybe further down we could enhance the large-bar condition to
-        only create indirect CPU-&gt;GPU links if that node actually has
-        a CPU:</p>
-      <pre>                /* for small Bar or CPU-less NUMA nodes, no CPU =
---&gt; GPU in-direct links */
-                if (kfd_dev_is_large_bar(kdev-&gt;gpu) &amp;&amp; node_stat=
-e(i, N_CPU)) {
-			...</pre>
-    </blockquote>
-    <p><br>
-    </p>
-    <font face=3D"monospace"><span>Hi Felix,<br>
-      </span><br>
-      <span>Thanks a lot for the reply and the suggestion!<br>
-      </span><br>
-      <span>Would the following change address your concern? I've
-        removed the</span><br>
-      <code dir=3D"ltr"><span>N_CPU</span></code><span><span
-          class=3D"Apple-converted-space">=C2=A0</span>check from the loop
-        condition and moved it to the large-BAR</span><span><br>
-        check so that we retain the indirect links for CPU-less NUMA
-        nodes</span><br>
-      <span>while avoiding CPU =E2=86=92 GPU indirect links for those nodes=
-.<br>
-      </span><br>
-      diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-      b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c<br>
-      index b38d12f3da84..8f908323d74b 100644<br>
-      --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c<br>
-      +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c<br>
-      @@ -1419,6 +1419,9 @@ static int
-      kfd_create_indirect_link_prop(struct kfd_topology_device *kdev,
-      int g<br>
-      =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0struct kfd_iolink_properties, list);<br>
-      =C2=A0<br>
-      =C2=A0 =C2=A0 =C2=A0for (i =3D 0; i &lt; num_cpu; i++) {<br>
-      +=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!node_online(i))<br>
-      +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 continue;<br>
-      +<br>
-      =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* CPU &lt;--&gt; GPU */<br>
-      =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (gpu_link-&gt;node_to =3D=3D i)<=
-br>
-      =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0continue;<br>
-      @@ -1437,7 +1440,7 @@ static int
-      kfd_create_indirect_link_prop(struct kfd_topology_device *kdev,
-      int g<br>
-      =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-      =C2=A0<br>
-      =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!cpu_link)<br>
-      -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return -ENOMEM;<br>
-      +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 continue;<br>
-      =C2=A0<br>
-      =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* CPU &lt;--&gt; CPU &lt;--&gt; GP=
-U, GPU node*/<br>
-      =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0props =3D kfd_alloc_struct(props);<=
-br>
-      @@ -1459,8 +1462,8 @@ static int
-      kfd_create_indirect_link_prop(struct kfd_topology_device *kdev,
-      int g<br>
-      =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (ret &lt; 0)<br>
-      =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return ret;<br>
-      =C2=A0<br>
-      -=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* for small Bar, no CPU --&gt; GPU in-d=
-irect links */<br>
-      -=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (kfd_dev_is_large_bar(kdev-&gt;gpu)) =
-{<br>
-      +=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* for small Bar or CPU-less NUMA nodes,=
- no CPU --&gt;
-      GPU in-direct links */<br>
-      +=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (kfd_dev_is_large_bar(kdev-&gt;gpu) &=
-amp;&amp;
-      node_state(i, N_CPU)) {<br>
-      =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* CPU &lt;--&gt; CPU=
- &lt;--&gt; GPU, CPU node*/<br>
-      =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0props2 =3D kfd_alloc_=
-struct(props2);<br>
-      =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!props2)<br>
-      --=C2=A0<br>
-      <br>
-      <span>Does this approach look good to you?<br>
-      </span><br>
-      <span>Regards,</span><br>
-      <span>Dhruv B</span></font>
-    <p><br>
-    </p>
-    <blockquote type=3D"cite"
-      cite=3D"mid:70018014-d952-4155-aa36-cf9b39ba8aea@amd.com">
-      <pre>
-
-</pre>
-      <p>Regards,<br>
-        =C2=A0 Felix</p>
-      <p><br>
-      </p>
-      <blockquote type=3D"cite"
-        cite=3D"mid:20261030083304.9767-3-dhruv.b@linux.ibm.com">
-        <pre wrap=3D"" class=3D"moz-quote-pre">+			continue;
-+
- 		/* CPU &lt;--&gt; GPU */
- 		if (gpu_link-&gt;node_to =3D=3D i)
- 			continue;
-</pre>
-      </blockquote>
-    </blockquote>
-  </body>
-</html>
-
---------------GOSIgPe0661OWbYYIPxNLYo1--
-
+[1] https://github.com/t2linux/linux-t2-patches/pull/61#issuecomment-5646139127
+[2] https://github.com/t2linux/wiki/issues/743#issuecomment-6083265811
+[3] https://github.com/t2linux/wiki/issues/743#issuecomment-6131809640
+[4] https://github.com/t2linux/wiki/issues/743#issuecomment-6163146905
