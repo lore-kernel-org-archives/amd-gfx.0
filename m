@@ -2,153 +2,46 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D97FA606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A947606A31B
 	for <amd-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 13:45:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=aXt6B05A
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=OOiVutLP
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6531112459;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF64A112458;
 	Thu,  5 Nov 2026 13:45:30 +0000 (UTC)
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011008.outbound.protection.outlook.com
- [40.93.194.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40655112050;
- Thu,  5 Nov 2026 06:42:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sWEjnzJKUuofCN36lT8IfjTD3iLdz/Fj40b40fwzF0AmM8SpkIhQaXk8eZtgwNtJXQytRBz55SSHkwDch7gpX/51s+zVdiUa9Ffya7fDhg/uM9eXuSIVOFIy4pdFR2YhLyUpaRdw+b1oQ+6+7ZD6sDXyUWxCo3pgaXCyC6U3/Xann44SvB9/yTvvYYy/dQioFBwZl+wRWzzQAgRkd3v0aumlgY4HvoU8M2KJXUYeoRILXP6qJSYdhXl8npeobV3ltB10Tma9c0H1MeQfYG+m2l73pcoQ+pc5E6lzmxqWCLlArRvPWghtHEYMJJIt8irCeSCSHVPCXkevmRSaK6zKwQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=V1wc6FZi7FD2Jw3qoczsBVBnO6a9UN4O2E2N8ekamm4=;
- b=H5cg6tJ13NQPsD4RiO+1gOLgyA9v0pQZrFUoRRr3p6VheS+A8skvb1fBFoAbuf5+uPOru9dsY6lASYBDI+KeIcd1dsdbC69XE2HwF7HsENg1yX79jww9eaTUmwqQAtB2yruXRiaA3xc8gkGMrJmwPILuYGucMAJ0xtXIodGHeA0fb03YCIzdIkUJNv+ZSYjn32hmzSrj9rFWZTJ/ar1Hf+W2w4O2An5v0EZ1gIMRfomGXjKuh/dWC6kK91qNG+ZG4Z+tQfTdlYff1Hfzui+j5cUl4d7dcXt6lYLO0dIPzGmxLftMpGPGe2kgkQDxXgm+4YeOuXJaGrgNIxmk/xnRHQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V1wc6FZi7FD2Jw3qoczsBVBnO6a9UN4O2E2N8ekamm4=;
- b=aXt6B05AIdqLvyQUeV8t9bnNz3M/mngkav1Rmprnhwz0M4A47aA5A/ErZl+qiwZGOFqoFhElZBzSUcCLNMrEeX1iLsm95qWK04EoxleoIE4nM7TRC4siD6lX01WoRYnW4Df2SuRVP4W1a26v/PuIKNRKMWGRNURVugX/8iHL5uDbPPL5qKcQ+jsC7OfYQ0E0CxQMSWlSkgUaL+p5OZBzrjaxBZR+KzxnMBOr6A3AWpiq5Yl8b6a7oNXCr10FVjLO5XKuHMamEQOUfEMhtVOpg/u9bSZ1ts3WxXQYlQUJDJuzIjPwI9q+DmgriMxkvqa1p5KIU+waJyZ5X2X3P2HQ4A==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SA3PR12MB598757.namprd12.prod.outlook.com
- (2603:10b6:806:52d::14) by CH1PR12MB9573.namprd12.prod.outlook.com
- (2603:10b6:610:2ae::5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Thu, 5 Nov 2026
- 06:42:00 +0000
-Received: from SA3PR12MB598757.namprd12.prod.outlook.com
- ([fe80::e206:100:5946:a777]) by SA3PR12MB598757.namprd12.prod.outlook.com
- ([fe80::e206:100:5946:a777%5]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
- 06:42:00 +0000
-From: Alistair Popple <apopple@nvidia.com>
-Date: Thu, 05 Nov 2026 17:40:42 +1100
-Subject: [PATCH v2 07/23] dma-buf: Add match set queries for exporter
- placement decisions
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-dma_mapping_type_v4-v2-7-78b8dc9ae80a@nvidia.com>
-References: <20261105-dma_mapping_type_v4-v2-0-78b8dc9ae80a@nvidia.com>
-In-Reply-To: <20261105-dma_mapping_type_v4-v2-0-78b8dc9ae80a@nvidia.com>
-To: =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Simona Vetter <simona.vetter@ffwll.ch>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Vivek Kasireddy <vivek.kasireddy@intel.com>, 
- Dongwon Kim <dongwon.kim@intel.com>, Kevin Tian <kevin.tian@intel.com>, 
- Xu Yilun <yilun.xu@linux.intel.com>, 
- Karl Mehltretter <kmehltretter@gmail.com>, 
- Baolu Lu <baolu.lu@linux.intel.com>, 
- Felix Kuehling <felix.kuehling@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, 
- linux-rdma@vger.kernel.org, iommu@lists.linux.dev, 
- Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
- Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, 
- linux-nvme@lists.infradead.org, "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
- Mina Almasry <almasrymina@google.com>, netdev@vger.kernel.org, 
- Alexey Kardashevskiy <aik@amd.com>, zhipingz@meta.com, treding@nvidia.com, 
- jhubbard@nvidia.com, Jason Gunthorpe <jgg@ziepe.ca>, 
- Leon Romanovsky <leon@kernel.org>
-Cc: Alistair Popple <apopple@nvidia.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793860879; l=3212;
- i=apopple@nvidia.com; s=20261105; h=from:subject:message-id;
- bh=KJypAseily6vdhHOC5nyj+0IcgdXBBY4w3rJAVl1AZc=;
- b=5vXOik/JhMRshU6ZoWxsY1CfycNLdntBg9Ly//e8b1KAi12PB60XO3PGyTTl6xjq5HSuGiUOL
- eDubPOCg3e5A7EU9v5NZvVfZ44wcPZVDLfQoDg6//HaOT2alGf11xKF
-X-Developer-Key: i=apopple@nvidia.com; a=ed25519;
- pk=WdWPT9rAq3YNfXldbGv1NSGVLGxzQGFGJvRUiShhNqs=
-X-ClientProxiedBy: SY5PR01CA0083.ausprd01.prod.outlook.com
- (2603:10c6:10:1f5::17) To SA3PR12MB598757.namprd12.prod.outlook.com
- (2603:10b6:806:52d::14)
+Received: from mta0.migadu.com (out-173.mta0.migadu.com [91.218.175.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2575710E390
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Nov 2026 14:20:25 +0000 (UTC)
+X-Envelope-To: amd-gfx@lists.freedesktop.org
+DKIM-Signature: a=rsa-sha256; bh=m/NZtHpS1SjJGqrEJRDxwvaLB3PXvzyilEksZKPIUz0=; 
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793802024; v=1; x=1794406824;
+ b=OOiVutLPqtKMfhm7QCBtAQw8/Oy6874bvwvjqksp5TemcvKIIFNrJupcCerD7BQcHWT9DDxC
+ sEDyHR1t2vJuHe7gAXflvsiZAx3jRfIe43uUWYT/RR8Iplvdiql50IZCNfq3ArR77DZBu/OyBaL
+ 3CLBBDo6mBc7RH3w2JyRjNys=
+X-Envelope-To: amd-gfx@lists.freedesktop.org
+Received: by mta12.migadu.com with ESMTPS id d550583e712d362a;
+ Wed, 04 Nov 2026 14:20:23 +0000
+X-Mizu-Trace-ID: d550583e712d362a
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+From: Aditya Garg <aditya.garg@linux.dev>
 X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA3PR12MB598757:EE_|CH1PR12MB9573:EE_
-X-MS-Office365-Filtering-Correlation-Id: bc09790a-602c-46b7-ac6c-08df3b07e54e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|7416014|376014|366016|921020|261028144727099003|11063799006|56012099006|261009223027099003|261026121527099003|261102123227099003|261021121427099003|261022105027099003|261102130727099003|261026140227099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: kzrvolOCBpoUOLsEStRHV1oIhefVp8c/xA7X9O4OuNoRpH1pzbBIOTpFScOXCjlKGzQvrWSVAkweXAFzLy9OdHTPcHcsNiIe2JscfKqGomJjSFGEpXEn45yUcHhDhGGbQSWrul53ZQdnCE+6VtIjnPHDpKzC96psI6XnikrkSeMnrUlWTk7qjVTVPe2d4eBXqHHAcy8KGP097FT876ITyxGCbiydZ7JP9RVwLNh4AKOjc7f+XONsDwcXOSQ8LHOu5VaZmHyiCX1q8+KjZy+sSK7czMRriMqfTUhRFhVb0UBL1jCWlRX3dggTDaSHKPcx3u7CINRC4QIKtSZxhW/9zdjQn9PmOCXW/hqiRRctUGKu+AMil+9EoCLnc0hBKTBDTdFDb28nzIZxnwJNdCOMl4rvEapK70hdqfpqHKOg1U3ePMB14Vz7bsGf1boPkWXvVnSDtU4xHjSs1/VDB79qGvQhhU0hUTVZuRkr9tk5RDRmeP0REPAisCI3RNH0KxCXdR2ITorH9LJFu4/bhMqKxAkptMQVLoacMxceCOZ/R7bHIXUKm2zZkL42XTMBWg7sb+bDDW5X1HC1LLEXDVfuDao0jz9kpPlW/5uHLLxxedM2KRd2lN0hZpFzDZgzad46VFiq4/BJPW+EyS1wKvY+AM7AGqWet7oaoF/Xj5bJ0C+RXnf2W/zumaVsI+WGat+huCqpa597xKAy7qhpOsEzYg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA3PR12MB598757.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(7416014)(376014)(366016)(921020)(261028144727099003)(11063799006)(56012099006)(261009223027099003)(261026121527099003)(261102123227099003)(261021121427099003)(261022105027099003)(261102130727099003)(261026140227099003)(10067099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NnU1Ykp6R1c4dDJSbEtycmZwdVc0R0EwdWdZK2dQM3JHaVZCam1KaVVoWjVI?=
- =?utf-8?B?WWFOMUFncnRxbFdXaFVGaGordlBudlZwcXdsL0JiTUd0YkI3ZzVyT2kxVmpp?=
- =?utf-8?B?YXBKWkN1WGY1ckJ4UjFETTZwMzFkUmlCam0wNmxUazIzQURJdjJ0MXoxQUcx?=
- =?utf-8?B?UGExNHhUcmJGcWFTL29BN25Hek51bmVvbjJpOThrZTFWUE5GU0hEY3VVNVlQ?=
- =?utf-8?B?VWpYU3h5UlVrN3dyUVJuUE1XRGU1L2ZYdmxIWU93Yk5Talo5OHBaRjQ1Y2xr?=
- =?utf-8?B?czFTT01CZTBTZjgrYkVyUGxOcy9VMTFLdXJEOFNOUitQbUdKQzFpbXFzbGNk?=
- =?utf-8?B?aFJYSEx1LzVjemc3c2xIbGVkc2c0Q1RTU3VKSVdlYXIzT1JHNmFpODNiQUtH?=
- =?utf-8?B?SUlud0gyV20rWC9DQUlmWnRzQnFuWkpsUDFidzhrUEFYL1ZoQWl5TEZqVHpQ?=
- =?utf-8?B?YnZQeWxBOVl6YVBZSDZOaDZhZXo5SFRXa20vd1d4emNsOUIyUTFHaS9xdEx5?=
- =?utf-8?B?TXlKeklkVWVnaEpyK3BWd2d3aFA2QnlaQkU4L0pMcjMxek5qOGdpMlVobmlp?=
- =?utf-8?B?VktHVWtXU0xOSDNsYk12NzE5VVUxcjBKZHJST3VVNWFEOW8yN2VPL0oyRldE?=
- =?utf-8?B?bllWS1AyZkpGRzFYa1hwSjAvTDI0UFFtSEJNNkFVcitDbVo0NE9va0lZQmJS?=
- =?utf-8?B?NDM3M3FnMUpEcThkUkhWdUNXclhMSmRvWXpraVZRdENSTU96WTg3N1BzR3BO?=
- =?utf-8?B?UThnbWRGNXNrUzlWSHliVld0NWJWMEFnWWJjcTgzQTlxMDloV09RVGRvV2hi?=
- =?utf-8?B?amtjSldNbGFZMjljV3VPK0FjR3dVZGxGWWVFSTV5ZnppbHFDVEdNOFFRK3pk?=
- =?utf-8?B?TFg1Sy9CT0JqQlRIbWF3TEdGSDdaaWZ4c0l2RW56NHRQT3c1WnFUVVNzZVlK?=
- =?utf-8?B?czQwQ0F6MFNmRzQ0NzZ4MXpHOXo1RjlodEJFYjdqc1hHVUQ5SU1oNEdMUnpE?=
- =?utf-8?B?VWRLVk83cG1nQVhKTzdlSWVvcER4K0x2S2tjWUI2TFN0RGdVc08wNTV3dnU3?=
- =?utf-8?B?NTYzeTZNNllXeGYvZXFQbC80UGg2OFNCQkppbmVRM01QZ3pMd2Q3L3Z3b2pn?=
- =?utf-8?B?aXErbTVwK2tMMUZwMmticnpzalMxZWVrZjBRWHN0cUtlWllUUy9VNnh5eGs5?=
- =?utf-8?B?NVN3WEJ6QUs0RVNZc2dUSjlDQy9Ba2l3Njd4ZjR6YVpORkViOUU0R3ZVRTls?=
- =?utf-8?B?QUNLWDkwdnM2TzlYQ0x6K1F3Mk9oZnJDd3ZHQUdXMmdteXppVnBrdVhvbEVh?=
- =?utf-8?B?WHFId2NQL1Foek85c1dEZU40d1BpNnpPV2Y0MVR3SVVzUGNaZ3FXY0swTnFZ?=
- =?utf-8?B?bVVqdnAyaXY2T0VqUzduR3k2UzV1K3RZU3RPRjdPd0NJazBJdTZ4R3U2R2FD?=
- =?utf-8?B?UGRaNSszeCs5d0xEK1o5MVRpbEp5WWNCYnkyYXlaaStralJiaGIwTG40TU95?=
- =?utf-8?B?OWZ6aWpaWmo4ZmNSeHY5YlZ3dUJUNGh6YjIxNG1GbmtxUkFxelNMaDJiQzJV?=
- =?utf-8?B?NVUzc3BSRnlucE1LdUlIekQ0cmZENzJWeE1HZjlodzlFbmhDV2R0aUNhTm1E?=
- =?utf-8?B?dVN2RjkyeHNxSUhwOUh6UmlvdDNFM3hSQ1BpWlMzVWJ4MndVZ2VVeitEM3Zj?=
- =?utf-8?B?blJCdWN4eVhoWHFlYkdBUHhtQ050aEo4N0cycitGNjEwZTFwRFlXbU9GNWl0?=
- =?utf-8?B?Y3ZwT0NJbE5aU2FQZEFEMmFMNy8vZERyWnh1TE9keDZ2WE91bHI0bEppS2M1?=
- =?utf-8?B?YkpuUVZHL2k2RnJZMTNQeWtROEZBRGhOY3EvOFBjMHY1ai8xVmhKcUpiTUJh?=
- =?utf-8?B?WU1ETFRHUVNYR0xPaTNETzdXd3RldTMrZm9pY3dpdXM0Qm9hYWdzRlpOZU1T?=
- =?utf-8?B?RVpseTFoUEhHcFJRYkxFWHcrbkFIdG9UOWhOT3RsckdjWUs0NTE3Z2FIYlE0?=
- =?utf-8?B?WXBERzFxUlYxaDQ4Ty9FT1Z3ZVdTWU93cDJKVXgrRTZ6UDJXYmV1bzBxN1pi?=
- =?utf-8?B?WUloRVZxK2dFT0tSVnVuU0VrOU4zcWtTd3AzUU04clJzcjdaWU91dHJjZGlZ?=
- =?utf-8?B?Sm53TVdDa2kyY1l0aU53MDM5S2VRVFFIRkczMFg5MHh6UFR1RjFLblhtZzRT?=
- =?utf-8?B?eG01SDBRNUYyY2Q4REJWSFNpd3ArK09sSjNpRy9vb3lIcnVuWXJRdXVwVEZQ?=
- =?utf-8?B?WGZoQVhDaWRuTWpFczQraGNDYmFBVTYzWWZ4Nm9QZy9uMG5NVmQ1dXRlVzZn?=
- =?utf-8?Q?GitVl5UYaN/iOedAis?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bc09790a-602c-46b7-ac6c-08df3b07e54e
-X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB598757.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 06:42:00.8463 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JF6oOIcLzMRsUBEferhdlqKNRVAAXZAIoP6uIZVIsuPA6A9T/O1tH7VEiQcs76JE1vM7gbyxBAsZrRpAjtG0Sw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PR12MB9573
+Mime-Version: 1.0 (1.0)
+Subject: Re: [PATCH v4] drm/amd/pm: defer UCLK DPM on selected Apple Navi GPUs
+Date: Wed, 4 Nov 2026 19:50:05 +0530
+Message-Id: <BA55AB79-324D-4CED-8957-3940BD77C541@linux.dev>
+References: <CADnq5_N0RFH=n05T_zKSApGB+3o29Nx5rNMOZt5kWzZWxpgsrA@mail.gmail.com>
+Cc: Ed Schofield <ed@charmerstraining.com>,
+ atharvatiwarilinuxdev@gmail.com, dev@deq.rocks, alexander.deucher@amd.com,
+ kenneth.feng@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+In-Reply-To: <CADnq5_N0RFH=n05T_zKSApGB+3o29Nx5rNMOZt5kWzZWxpgsrA@mail.gmail.com>
+To: Alex Deucher <alexdeucher@gmail.com>
+X-Mailer: iPad Mail (24B119)
 X-Mailman-Approved-At: Thu, 05 Nov 2026 13:45:29 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -160,100 +53,99 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Exporters deciding placement in their pin path walk every attachment
-to determine whether it can take P2P. With selection deferred to pin or
-map an unmapped attachment only holds the exporter's default. Therefore
-determining what is possible requires walking attachments.
 
-Add dma_buf_attach_accepts() and dma_buf_attach_accepts_sgt_p2p() to
-walk the match set and determine if an attachment is possible with P2P.
-A future series will convert P2P into a distinct match type.
 
-Signed-off-by: Alistair Popple <apopple@nvidia.com>
----
- include/linux/dma-buf-mapping.h | 46 +++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 46 insertions(+)
+> On 4 Nov 2026, at 7:37=E2=80=AFPM, Alex Deucher <alexdeucher@gmail.com> wr=
+ote:
+>=20
+> =EF=BB=BFOn Wed, Nov 4, 2026 at 7:52=E2=80=AFAM Ed Schofield <ed@charmerst=
+raining.com> wrote:
+>>=20
+>> Hi Alex, hi Atharva, hi all,
+>>=20
+>> Alex, I'd like to withdraw my September v4 submission. I also don't suppo=
+rt
+>> applying v5 as posted or the simplified patch you attached later in this
+>> thread. Please remove my Co-developed-by and Signed-off-by tags from both=
 
-diff --git a/include/linux/dma-buf-mapping.h b/include/linux/dma-buf-mapping.h
-index 0ee798a5acdd..7140fc13dd00 100644
---- a/include/linux/dma-buf-mapping.h
-+++ b/include/linux/dma-buf-mapping.h
-@@ -138,6 +138,26 @@ int dma_buf_mapping_select(struct dma_buf_attachment *attach);
- void dma_buf_mapping_unselect(struct dma_buf_attachment *attach,
- 			      bool was_selected);
- 
-+/**
-+ * dma_buf_attach_accepts - Is @type in the attachment's match set
-+ * @attach: the attachment
-+ * @type: a mapping type
-+ *
-+ * Called by exporters deciding placement in pin or select_mapping to determine
-+ * whether the importer could be served with @type.
-+ */
-+static inline bool
-+dma_buf_attach_accepts(const struct dma_buf_attachment *attach,
-+		       const struct dma_buf_mapping_type *type)
-+{
-+	unsigned int i;
-+
-+	for (i = 0; i < attach->nr_matches; i++)
-+		if (attach->matches[i].type == type)
-+			return true;
-+	return false;
-+}
-+
- /*
-  * DMA Mapped Scatterlist Type
-  *
-@@ -185,6 +205,10 @@ dma_buf_sgt_dma_device(struct dma_buf_attachment *attach)
-  *
-  * Should be called by exporters, returns true if the exporter's
-  * DMA_SGT_EXPORTER_REQUIRES_P2P_DISTANCE was matched.
-+ *
-+ * Reflects the current selection, so is only meaningful inside the
-+ * exporter's pin and map callbacks. For attachments which may be unmapped use
-+ * dma_buf_attach_accepts_sgt_p2p().
-  */
- static inline bool dma_buf_sgt_p2p_allowed(struct dma_buf_attachment *attach)
- {
-@@ -194,6 +218,28 @@ static inline bool dma_buf_sgt_p2p_allowed(struct dma_buf_attachment *attach)
- 	       DMA_SGT_EXPORTER_REQUIRES_P2P_DISTANCE;
- }
- 
-+/**
-+ * dma_buf_attach_accepts_sgt_p2p - Could this attachment take a P2P SGT?
-+ * @attach: any attachment
-+ *
-+ * Like dma_buf_sgt_p2p_allowed() but valid for attachments that are not mapped.
-+ * Instead determines if p2p is part of the current possible match set rather
-+ * than the current selection. Called by exporters walking all attachments in
-+ * their pin path.
-+ */
-+static inline bool
-+dma_buf_attach_accepts_sgt_p2p(const struct dma_buf_attachment *attach)
-+{
-+	unsigned int i;
-+
-+	for (i = 0; i < attach->nr_matches; i++)
-+		if (attach->matches[i].type == &dma_buf_mapping_sgt_type &&
-+		    attach->matches[i].sgt_data.exporter_requires_p2p ==
-+			    DMA_SGT_EXPORTER_REQUIRES_P2P_DISTANCE)
-+			return true;
-+	return false;
-+}
-+
- static inline const struct dma_buf_mapping_sgt_exp_ops *
- dma_buf_get_sgt_ops(struct dma_buf_attachment *attach)
- {
+>> versions. I no longer think deferring UCLK is the right approach for the i=
+Macs.
+>>=20
+>> I also excluded the MacBookPro16,1 (020f) from v4 deliberately because a t=
+ester
+>> found that with deferred UCLK it still hung after login, as it does witho=
+ut the
+>> patch [1], which seems to fit Andr=C3=A9's PPTable diagnosis.
+>>=20
+>> Since then, I've been working with Atharva to get his native-5K iMac supp=
+ort
+>> upstream. His patch initializes the display before the SMU, which has als=
+o
+>> prevented the boot failures without deferring UCLK. On my iMac20,1 (0218)=
+, 13
+>> of 20 warm boots failed with the upstream order; with display first, all 4=
+0
+>> boots passed [4]. Another tester reported one warm and one cold boot, bot=
+h
+>> successful, on a 0219 [2]. On an iMac20,2 (021a), changing only the
+>> initialization order improved warm boot success from 11 out of 20 to 100 o=
+ut of
+>> 100 [3]. His patch only applies to the iMac20,1 and iMac20,2, so it doesn=
+'t fix
+>> the 16,1 either.
+>>=20
+>> I don't think the iMacs and the MacBookPro16,1 have the same problem. The=
 
--- 
-2.54.0
+>> iMacs fail while amdgpu is loading: the SMU stops responding to
+>> EnableAllSmuFeatures (message 6), and the probe fails with -62. With the
+>> display initialized first, the same message succeeds with UCLK included,
+>> and the iMac boots normally. The 16,1 loads amdgpu without errors and han=
+gs
+>> later, after login, with or without deferred UCLK [1]. So deferring UCLK
+>> seems to help the iMacs only because it moves the enable after display
+>> init, and it doesn't help the MacBookPro16,1.
+>>=20
+>> I have prepared a draft patch with Atharva as author and me as co-develop=
+er,
+>> incorporating his review feedback. It combines display-first initializati=
+on and
+>> native 5120x2880 support through two tiled connectors with suspend/resume=
+ and
+>> display power-management changes. The current draft is here:
+>>=20
+>> https://github.com/edschofield/linux-t2-patches/blob/7273823e425200e9f371=
+e9272e02ebf9abb6f1c2/7003-amdgpu-add-support-for-5K.patch
+>>=20
+>> This has passed some initial automated testing on my iMac20,1 but I need t=
+o do
+>> more testing and get Atharva's final review and sign-off.
+>=20
+> There are already patches on the list to support the 5K Macs:
+> https://lists.freedesktop.org/archives/dri-devel/2026-November/610011.html=
 
+
+Those patches are for older non T2 iMacs. We are discussing iMac20,1 and 20,=
+2 which are T2 Macs.
+>=20
+> Alex
+>=20
+>>=20
+>> Alex, thanks for following up on the boot issue and checking with the Win=
+dows
+>> team.
+>>=20
+>> Best regards,
+>> Ed
+>>=20
+>> [1] https://github.com/t2linux/linux-t2-patches/pull/61#issuecomment-5646=
+139127
+>> [2] https://github.com/t2linux/wiki/issues/743#issuecomment-6083265811
+>> [3] https://github.com/t2linux/wiki/issues/743#issuecomment-6131809640
+>> [4] https://github.com/t2linux/wiki/issues/743#issuecomment-6163146905
