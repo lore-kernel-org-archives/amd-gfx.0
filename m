@@ -2,48 +2,58 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB1C4606A329
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 11:12:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B76F606A32E
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 11:12:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=medichon.fr header.i=@medichon.fr header.a=rsa-sha256 header.s=ovhmo3801317-selector1 header.b=KEWKw7Ed
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1EF3710FB70;
-	Wed,  4 Nov 2026 11:12:39 +0000 (UTC)
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F70D10F98D
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Nov 2026 03:01:08 +0000 (UTC)
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
- by APP-01 (Coremail) with SMTP id qwCowABXhP4rnupqzuQ+AA--.5026S2;
- Wed, 04 Nov 2026 10:53:31 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu/jpeg: unwind late software init failures in v5.0.0
-Date: Wed,  4 Nov 2026 02:53:40 +0000
-Message-Id: <20261104025340.1527373-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB0EC10FB79;
+	Wed,  4 Nov 2026 11:12:32 +0000 (UTC)
+X-Greylist: delayed 13073 seconds by postgrey-1.36 at gabe;
+ Wed, 04 Nov 2026 06:26:22 UTC
+Received: from 7.mo575.mail-out.ovh.net (7.mo575.mail-out.ovh.net
+ [46.105.63.230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28DC710F9C9
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Nov 2026 06:26:21 +0000 (UTC)
+Received: from director10.ghost.mail-out.ovh.net (unknown [10.110.58.112])
+ by mo575.mail-out.ovh.net (Postfix) with ESMTP id 4jK8yM3d7Jz5vy0
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Nov 2026 02:48:27 +0000 (UTC)
+Received: from ghost-submission-7ccd8bbbb6-jz7gr (unknown [10.108.42.75])
+ by director10.ghost.mail-out.ovh.net (Postfix) with ESMTPS id C5C9DC1523;
+ Wed,  4 Nov 2026 02:48:26 +0000 (UTC)
+Received: from medichon.fr ([37.59.142.108])
+ by ghost-submission-7ccd8bbbb6-jz7gr with ESMTPSA
+ id PN3GJPqc6mr/PiYAgOqjLQ
+ (envelope-from <abo@medichon.fr>); Wed, 04 Nov 2026 02:48:26 +0000
+Authentication-Results: garm.ovh; auth=pass
+ (GARM-108S00247644e1e-4f71-4c44-956a-a2de4972a974,
+ 477B2B87E0FA57B148EB530668B90EB0C3478676) smtp.auth=abo@medichon.fr
+X-OVh-ClientIp: 88.190.90.129
+From: Arnaud Bonnet <abo@medichon.fr>
+To: alexander.deucher@amd.com,
+	christian.koenig@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Arnaud Bonnet <abo@medichon.fr>
+Subject: [PATCH] drm/amdgpu: add missing parameter documentation in
+ amdgpu_ttm_map_buffer
+Date: Wed,  4 Nov 2026 03:47:54 +0100
+Message-ID: <20261104024754.166260-1-abo@medichon.fr>
+X-Mailer: git-send-email 2.53.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: qwCowABXhP4rnupqzuQ+AA--.5026S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Kr1kJr4xXw1rZF4xWFWUXFb_yoW8CF18pr
- Wfu34qkry8Zrsrtr1DX3WUX3Z0934fX3yrGrW8Gw1Svw13Jr95tr9rJFyUJryDGrZ7CFsI
- vryDJ3y7ursFvaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUvmb7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
- cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
- AK021l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
- 6r4UJVWxJr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14
- v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xf
- McIj6xIIjxv20xvE14v26rWY6Fy7McIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7x
- kEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0E
- wIxGrwCF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI
- 8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AK
- xVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26ryj6F1UMIIF0xvE2Ix0cI
- 8IcVCY1x0267AKxVW8Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
- 87Iv67AKxVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVWxJr0_GcJvcSsGvfC2KfnxnU
- UI43ZEXa7IUYbiStUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRMBA2rqY-niggAAsi
+x-ovh-tracer-id: 11311634892579298910
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: 0
+X-VR-SPAMCAUSE: dmFkZTEZRCGDjRiIwozqePrIKNfp/DaGmSOhFHm8U6mbmnzcJtMp1uK6Q9RQ6SbzIoDy2BK3V9OqbO2BHan8A7VFlk4YjaKERPB4HICkMvPSXaGrhmb5CAlkAd16RC10x18ilj2AbPr43PJPWPdiZd1Zm9fpf+Kx5BTHRFFfv3kakSkrYvf2T1c64KiAU6cBjtS0VQ7D6jyZ+k/azsjOh6XMHDDgbrC/4RXHKAJ42+mvpEHL8NVNXDsimtgG2DOz+xJtH9u0HHpT4/3tnMq/OskS4O1g1uXTf1f/SJz0vz6fRJgdf6FxaDlg7iGbtG5PE4dxstXmL7nsQcDf5YCrRgZZnHvQsQ65nJQDG0hxWQPsk9myW+AZafdCapLYakiBk/UR9/Qsu5/NabF5HoHbgvv65pADkB24RRPPW4hSYL0nANkQzhrXLwngXERO4Jtyp449fJjz5CUHdWAcPc0QXbSXwhseivBzF/VkN1pRkgZLWUCbzEQaXPeCYtVhD7uH8hNwR+80o7ivwMs8oEj6893nLCRN7093HrPuwCob6WPf+gC3xJI/2SsquljNCYrHyvkTjfbpfqYFoUEZ04/AbXiWEIjpPd3gjrIHh2Fl6plVC7VDETDOV87fQJkPFVwvtEJ7vfsZMREDest9pwJyi+Pn/qCdAswEZKcOqyGVELCtLiMJFA
+DKIM-Signature: a=rsa-sha256; bh=mR5v4li+ptnrKvy6BsEfurDx9PVueMJjS5SmYvSe2WQ=; 
+ c=relaxed/relaxed; d=medichon.fr; h=From;
+ s=ovhmo3801317-selector1; t=1793760507; v=1;
+ b=KEWKw7EdzUNJ1AXmQq9lFx8n35cqeCATvwV6i0Izkr3Vzrk9N8HzdnjEwkTovdHtxH0JnB7o
+ W8cV6FFg33HBRCga5h7VvnOvVi6PRWDSwT6VrZ7kDiu6Mv4+ZfMytgL4Uextg9pOOArHGfKe1CO
+ LuHvHllIzzWcrzZeHEFy3P262hg6GPyUhzrkE/OgcU+ulciTc1vQh3XshwsO5zVIIs0lhnKsz95
+ ZLo0tXBCu4jQ906CZJ14Xc6QaVhe9lhn6q3WbOJjBQ/mYbmk6T5Gggqt5LtxYY+6nLKOPLEIZ3B
+ WSUPhAUSe6+13oei10P6nbgCZQnvTSeuQqneHaXmpZ1Fg==
 X-Mailman-Approved-At: Wed, 04 Nov 2026 11:12:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -55,59 +65,41 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The v5.0.0 software initialization callback creates its ring before
-allocating the register dump storage and creating the reset mask sysfs
-file. If either of the latter steps fails, the callback returns without
-releasing the initialized JPEG resources, including the ring buffers and
-the vmid_wait fence reference. The IP block's status.sw flag has not been
-set, so the common error cleanup skips its sw_fini callback.
+Commit 48c4aaeef621 ("drm/amdgpu/ttm: Make buffer copy source readonly")
+introduces a new parameter @readonly in function amdgpu_ttm_map_buffer()
+but doesn't update the documentation, leading to the following warning:
 
-Suspend the JPEG work and release the JPEG software resources on these
-late failures. amdgpu_jpeg_sw_fini() also releases the register dump
-storage if it was successfully allocated before sysfs creation failed.
+  Warning: drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c:209 function
+  parameter 'readonly' not described in 'amdgpu_ttm_map_buffer'
 
-Fixes: 64dc2f0029ec ("drm/amdgpu: Enable devcoredump for JPEG5_0_0")
-Cc: stable@vger.kernel.org
-Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Add the missing description to the kernel doc comments for the readonly
+parameter.
+
+Signed-off-by: Arnaud Bonnet <abo@medichon.fr>
 ---
- drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
-index dcdb089b4308..1567a4b9129a 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
-@@ -119,14 +119,21 @@ static int jpeg_v5_0_0_sw_init(struct amdgpu_ip_block *ip_block)
- 
- 	r = amdgpu_jpeg_reg_dump_init(adev, jpeg_reg_list_5_0, ARRAY_SIZE(jpeg_reg_list_5_0));
- 	if (r)
--		return r;
-+		goto err_jpeg;
- 
- 	adev->jpeg.supported_reset =
- 		amdgpu_get_soft_full_reset_mask(&adev->jpeg.inst[0].ring_dec[0]);
- 	if (!amdgpu_sriov_vf(adev))
- 		adev->jpeg.supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
- 	r = amdgpu_jpeg_sysfs_reset_mask_init(adev);
-+	if (r)
-+		goto err_jpeg;
-+
-+	return 0;
- 
-+err_jpeg:
-+	amdgpu_jpeg_suspend(adev);
-+	amdgpu_jpeg_sw_fini(adev);
- 	return r;
- }
- 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 0f86777250fc..d3a875a32af1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -195,6 +195,7 @@ amdgpu_ttm_job_submit(struct amdgpu_device *adev, struct amdgpu_ttm_buffer_entit
+  * @addr: resulting address inside the MC address space
+  * @vm_needs_flush: out, set true if a GART window was programmed (VMID 0 flush
+  *		    needed) or false for a direct address
++ * @readonly: true if the mapping should be created with non-writeable pages
+  *
+  * Setup one of the GART windows to access a specific piece of memory or return
+  * the physical address for local memory.
 -- 
-2.34.1
+2.53.0
 
