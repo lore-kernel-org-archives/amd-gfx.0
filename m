@@ -2,56 +2,49 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F951606A32C
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 10:44:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=Cza1Asfe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DB9A606A338
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 11:12:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0C6610E596;
-	Wed,  4 Nov 2026 10:43:54 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2961E10E596;
- Wed,  4 Nov 2026 10:43:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=C1t2w24fWeOoDhxdfcptUtgJ8R2xYuJdVJTWO4qDgQg=; t=1793789029; x=2109149029; 
- b=Cza1AsfeNQgj60oI7iZpquv+sr850LBoMGX8RovsLLQjCBznjrXfuScquE3v5RwR/Mv8jKgkz7C
- RXWIor+k548wQxOtFKvIPCUMhIatHzd3l2JsC2J+9biyssOHosGlqpJ50JP4X/FaIUC4nHPPJM3hx
- C1W3BabltGznChiltiSo087/JHarUYmcUMK4L8rXWW/BCMPEKY/zZlvGkTnVMgtJZX9ME/98oAUBS
- /xBMan2Ff1m7F4xP/va88V6jzqwQ16eEirMVUPdBv0whJDsOckUo1DmOwyjsFvi6OcC7HRHldjgKq
- wp/jS7iY9gmHrJXqq5A5ditQsh09lbpP51VA==;
-Received: from [81.79.79.1] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1xOYT4-002AYb-D5; Wed, 04 Nov 2026 11:43:46 +0100
-Message-ID: <7277f083-2d17-4bed-bdaf-e6c616cc5ec9@igalia.com>
-Date: Wed, 4 Nov 2026 10:43:45 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A17910FB58;
+	Wed,  4 Nov 2026 11:12:27 +0000 (UTC)
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 567BD10F98B
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Nov 2026 03:01:08 +0000 (UTC)
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+ by APP-01 (Coremail) with SMTP id qwCowAAnUfspnupqveQ+AA--.42216S2;
+ Wed, 04 Nov 2026 10:53:29 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu/jpeg: unwind the rings when sw init fails
+Date: Wed,  4 Nov 2026 02:53:38 +0000
+Message-Id: <20261104025338.1527322-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] drm/sched: Adjust run-queue when changing priority
- at runtime
-To: phasta@kernel.org, dri-devel@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Danilo Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- stable@vger.kernel.org
-References: <20261021094227.48034-1-tvrtko.ursulin@igalia.com>
- <20261021094227.48034-3-tvrtko.ursulin@igalia.com>
- <84b5777a04dc75c013eb9ac0a44d972cf88db12e.camel@mailbox.org>
- <6e113935-f303-4f49-bc27-e1d85abffa70@igalia.com>
- <72cba5d23a977185696db12ac547174708652bcc.camel@mailbox.org>
- <dd6e0f86-67e8-40c0-bf8a-1948623d0646@igalia.com>
- <6e9a32c633eec28b9d5e539b9e35c00a26ea5bd4.camel@mailbox.org>
- <64e2b65e-afe3-4fc0-8201-03cb72ae5d32@igalia.com>
- <7327af158cb66e6a5ac59e8fee413d569e85115a.camel@mailbox.org>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <7327af158cb66e6a5ac59e8fee413d569e85115a.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: qwCowAAnUfspnupqveQ+AA--.42216S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Cry7ur4xWw47Zr1kJF1fJFb_yoW8CFy7pF
+ Wfur90kr1rArZrta4DJ3WUXFs8KwnxX3yrGrWxCw4Sqw13ArZYyrn2qFW5JryktFZrCFsx
+ JryDJ3yjvF1qvFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvmb7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+ cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+ AK021l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+ 6r4UJVWxJr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14
+ v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xf
+ McIj6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7x
+ kEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0E
+ wIxGrwCF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI
+ 8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AK
+ xVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26ryj6F1UMIIF0xvE2Ix0cI
+ 8IcVCY1x0267AKxVW8Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
+ 87Iv67AKxVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVWxJr0_GcJvcSsGvfC2KfnxnU
+ UI43ZEXa7IU5gZ2DUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwUBA2rqZFjiNwAAsp
+X-Mailman-Approved-At: Wed, 04 Nov 2026 11:12:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,32 +55,61 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+jpeg_v4_0_5_sw_init() returns directly when
+amdgpu_jpeg_reg_dump_init() or amdgpu_jpeg_sysfs_reset_mask_init()
+fails, after all JPEG rings have been initialized successfully.
+amdgpu_ring_init() allocated the ring buffers, writeback slots and the
+vmid fences, and only amdgpu_ring_fini(), called through
+amdgpu_jpeg_sw_fini(), releases them. Because the IP block's status.sw is
+only set after sw_init() succeeds, the upper layers skip sw_fini() for
+this block and the resources are leaked.
 
-On 04/11/2026 08:48, Philipp Stanner wrote:
-> On Wed, 2026-11-04 at 08:33 +0000, Tvrtko Ursulin wrote:
->> I lost you here - what should the comment say?
-> 
-> Just a "TODO: entity->rq_priority could not be fully removed due to the
-> partial revert of the CFS scheduling rework. For formal correctness, it
-> still has to be adjusted here".
-> 
-> Just so that the reader sees that this is in an intermediate state
-> right now, and so he's incentivized to git-blame the TODO to find the
-> associated commits and mailing-list-archives.
+Unwind with amdgpu_jpeg_sw_fini(), as the other JPEG implementations do.
 
-I would rather not do it in a patch with a Fixes: tag, or actually at 
-all - it feels arbitrary to sprinkle a TODO mentioning future work at a 
-single random place like set_priority(). Could we go with these two as 
-they are and continue from there?
+Fixes: 2b0ccf3923b5 ("drm/amdgpu: Enable devcoredump for JPEG4_0_5")
+Cc: stable@vger.kernel.org
+Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-Regards,
-
-Tvrtko
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c
+index 4da3f9c995c1..fb9bbe93fbe0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c
+@@ -173,7 +173,7 @@ static int jpeg_v4_0_5_sw_init(struct amdgpu_ip_block *ip_block)
+ 
+ 	r = amdgpu_jpeg_reg_dump_init(adev, jpeg_reg_list_4_0_5, ARRAY_SIZE(jpeg_reg_list_4_0_5));
+ 	if (r)
+-		return r;
++		goto err_jpeg;
+ 
+ 	adev->jpeg.supported_reset =
+ 		amdgpu_get_soft_full_reset_mask(&adev->jpeg.inst[0].ring_dec[0]);
+@@ -181,9 +181,14 @@ static int jpeg_v4_0_5_sw_init(struct amdgpu_ip_block *ip_block)
+ 		adev->jpeg.supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
+ 	r = amdgpu_jpeg_sysfs_reset_mask_init(adev);
+ 	if (r)
+-		return r;
++		goto err_jpeg;
+ 
+ 	return 0;
++
++err_jpeg:
++	amdgpu_jpeg_suspend(adev);
++	amdgpu_jpeg_sw_fini(adev);
++	return r;
+ }
+ 
+ /**
+-- 
+2.34.1
 
