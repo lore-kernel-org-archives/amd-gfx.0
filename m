@@ -2,124 +2,135 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB33A6070B17
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 17:57:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C217C606D814
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 18:54:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=IKqzbv/Z
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=UBite/+Z
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57CE810E5C3;
-	Wed,  4 Nov 2026 17:57:44 +0000 (UTC)
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011039.outbound.protection.outlook.com [52.101.57.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC98710E5C3
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Nov 2026 17:57:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D23D10E57C;
+	Wed,  4 Nov 2026 18:54:14 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012038.outbound.protection.outlook.com [52.101.53.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 03C3410E206
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Nov 2026 18:54:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JhB+m5CmabrQ4nz0STVEE4TXSsD/g0TXHpdo9nYKTbCRW8wx4cXIvj+keXyouJdz1VkjQX5Ji0Nl5vSoKm+ET1Y/Zjy9iPdTvtakiX0Svg4YZAOcv/xCjjfJzavCcp4KFKTr8qJK3FqY1JNUr0OxJ0mo59gbqHVkH1vxhpjkviu7j12j5xfNWR7m/gdZpNpGavBUv74yF8AXnrfRmLPULnNITt3WKGAogT+3wWN9d3fo+3ezx2phB98gLVNP0bO/WyApFhMzlYYW5brDREyz8n+vrCcL0l8DHOTnTtZTE7lokmjzH8ZSCioso3bZI+u3lxs4A5l6GWcOW4yN6780aA==
+ b=P7pqwYYnTbT9Tz8VUmsDxxghfwLMytW+b6N9lN6hrYnGGMcVpjX6Z2egq+j3RqKhVvhQEc9bqujmpHl7TXlZp/gKOienDaWGDgrSISAVjpMMj9RT/hAaukU38ehHnqrGiYYrDHn8e5Pnm/O2H0uU/4aB1FJI29gkr8NDB0m54lpjM0PPBhkTFIsEJyHQCXCfZDHyrDkY+UYKBIXciRN0W19QJK3syUePdB7DSoINxRD3aTSxJUh905BML7rQ5jVz7uMGKjMEPMMIc/jVaX3y5dzLQGbY69N7sn3M4UK7ClBwdpim03/hzO6uetKuQX2kSJ8Zfzzhe1EXPAqxeYDd1Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=r/muHFaff8eTy51zoYj9+LZPYdGZiUnOn2uespUC9Jc=;
- b=iPqEJGZs09G87FvnqtHs2FaLLdcR3D7kVAL2xWTRSI/689uwfGk+gIl0WKW+N9614A7o6ywgzhAtmKTrenvjB1zVLplhnBlAMG074b3zLCs7s5wFLzbxvVUqPayNbEX9hgDpuGe2ELSZa4NRh6C0ugTTOCDAhHeqbG2Dp/rBuGMe/xqGDOcB2qr1Ys7hZdUNMXf26yvxdQAmQBO339WRK7jy/V3JIAJt9jF7Dtw7CbIFXWD5xBVzdKzTIG7W+c8LDVI+BKHtDOETJ1im0bUSOcgqQ8xdORaOTgG4a7peRsWK8QqrvZH5ERB4AHXkUwlMvS9w+rE/6YI8EoUlBlTiwg==
+ bh=dbpaKjBl/BJYoKEnYBzM6JQyVnjzsU3+Fc5dbRs6CeQ=;
+ b=wIy7Swy6ZpLL785wkSfGZ7yLdYBx4e3W6jSXcoitHB4yztZzMO9nB5WLfchj0+xDZPwrQifHJFfgu1WplGgTL+i4lywqcNVcLr1F/PRArxCOHsxZEuDtA6xvCpJjwExlV9cy6dl7efDAvXQ4iazaD79af3CrqwQ736N4gdsPTS2kV314bP6w/UAkfpgBR7uyihHaNF44xuH6Cn/m0TOf+0wKMLA5O8PeZACasoMcmIAFVzUP0v3vQdBmgo8Xwie7IYlKgKYBAeZPSBXI6nCzMrWRU9kpX65rAUuHW0xhPKHtdNkf4c9k0qBlqxOz9Yok4b9KUhDJkAkGO/418nGyUQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=r/muHFaff8eTy51zoYj9+LZPYdGZiUnOn2uespUC9Jc=;
- b=IKqzbv/ZTChHw+pKrZfn2MigaW+7GvU/+GBD4xMWujNpUV0ymIumirr9HaAMK4VNEZxa0ALp3NXRU03mfE/k2VwQS9XqdOxsLSOO3PhBXZjIIa7MOdXbWW8PzRIjjKUkdmw8ZYQou/KQfHE5Oy4J0dJqxtJSz2ZmUE7HonFUdmw=
+ bh=dbpaKjBl/BJYoKEnYBzM6JQyVnjzsU3+Fc5dbRs6CeQ=;
+ b=UBite/+ZsiQzDaxbRrv2++EVNEvky+MBZvg3R6S1xeUhcr9Oxi/IyfNIVSdaYaCJDf48cVCEsJiAcyJu2t21dH0WjF+sQKJ2PFE/TI/hi4cQ+q+QQFiX3odj5PiP6lJRI9S+UN4vyoW70boZqo8WwZiUZOEoo7NwGAXSEV5jUXA=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB8558.namprd12.prod.outlook.com (2603:10b6:8:187::22)
- by BL1PR12MB5972.namprd12.prod.outlook.com (2603:10b6:208:39b::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 4 Nov 2026
- 17:57:32 +0000
-Received: from DM4PR12MB8558.namprd12.prod.outlook.com
- ([fe80::1b2b:b6fc:16eb:2422]) by DM4PR12MB8558.namprd12.prod.outlook.com
- ([fe80::1b2b:b6fc:16eb:2422%3]) with mapi id 15.21.0592.009; Wed, 4 Nov 2026
- 17:57:32 +0000
+Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::607) by DS0PR12MB999104.namprd12.prod.outlook.com
+ (2603:10b6:8:2fe::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Wed, 4 Nov
+ 2026 18:54:02 +0000
+Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ ([fe80::67a7:9feb:71ef:964a]) by BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ ([fe80::67a7:9feb:71ef:964a%8]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
+ 18:54:02 +0000
 Content-Type: multipart/alternative;
- boundary="------------zW0lcRTPwVd1N5lj9vvRAxkH"
-Message-ID: <add0b216-7697-47ea-80aa-5216334292e0@amd.com>
-Date: Wed, 4 Nov 2026 12:57:30 -0500
+ boundary="------------AmHGHkiAuwN0uUpEDYP2qyiI"
+Message-ID: <4751bd8c-91e8-4985-bdac-52e35ba7f513@amd.com>
+Date: Wed, 4 Nov 2026 13:54:00 -0500
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amdkfd: Force perfmon clock on for profiler PMC
- requests
-To: Apurv Mishra <Apurv.Mishra@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Alexander.Deucher@amd.com, Bing.Ma@amd.com, Benjamin.Welton@amd.com,
- James.Zhu@amd.com, Jason.Tang@amd.com
-References: <20261103023145.61021-1-Apurv.Mishra@amd.com>
+Subject: Re: [PATCH v3 2/2] drm/amdkfd: Add support for discontiguous and
+ CPU-less NUMA topologies
+To: Dhruv Bhogaonkar <dhruvb@linux.ibm.com>, Dhruv B <dhruv.b@linux.ibm.com>, 
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ Alex Deucher <alexdeucher@gmail.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Philip Yang <yangp@amd.com>
+Cc: David.YatSin@amd.com, Kent.Russell@amd.com,
+ Ritesh Harjani <ritesh.list@gmail.com>,
+ Vaidyanathan Srinivasan <svaidy@linux.ibm.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ donettom@linux.ibm.com
+References: <20261030083304.9767-1-dhruv.b@linux.ibm.com>
+ <20261030083304.9767-3-dhruv.b@linux.ibm.com>
+ <70018014-d952-4155-aa36-cf9b39ba8aea@amd.com>
+ <1c7751d3-ca7d-4a7b-91fa-87762af60095@linux.ibm.com>
+ <04ddca6d-3880-48e0-a64e-a4bbde32e67e@amd.com>
+ <64a82e4a-2855-46f1-8942-3c1b6f8179f3@linux.ibm.com>
 Content-Language: en-US
-From: James Zhu <jamesz@amd.com>
-Organization: AMD RTG
-In-Reply-To: <20261103023145.61021-1-Apurv.Mishra@amd.com>
-X-ClientProxiedBy: YT4PR01CA0313.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:10a::23) To DM4PR12MB8558.namprd12.prod.outlook.com
- (2603:10b6:8:187::22)
+From: "Kuehling, Felix" <felix.kuehling@amd.com>
+In-Reply-To: <64a82e4a-2855-46f1-8942-3c1b6f8179f3@linux.ibm.com>
+X-ClientProxiedBy: YQBPR0101CA0337.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:6b::22) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::607)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB8558:EE_|BL1PR12MB5972:EE_
-X-MS-Office365-Filtering-Correlation-Id: c60c981c-e15d-4330-4db2-08df3a9d1974
+X-MS-TrafficTypeDiagnostic: BN7PPF5F16C5C9C:EE_|DS0PR12MB999104:EE_
+X-MS-Office365-Filtering-Correlation-Id: d59a73ff-220a-492d-c454-08df3aa4fe1e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|1800799024|376014|261022115727099003|261009223027099003|261021123027099003|11063799006|261022105027099003|5023799004|56012099006|261028144727099003|261021121427099003|261022075727099003|261026121527099003|261026140227099003|261102123227099003|10067099003|3023799007|18002099003|22082099003|8096899003;
-X-Microsoft-Antispam-Message-Info: nib7++jjSNlaJHv6ILiudi3LAegGAlyl3jVd6ne1brrt+mPQQ8/uTLffSWZTebItiNG+F6lAbu2+8mFjqMw22eVe07ymy7nNR2w8UQceLj1B7Qxjp4whsjB42xhfisPVspl0ECM/5PlgaJie6RnOf+YBb7c13ynsTD6qGtW62gpPKuvardGwKXit3M27QoWhaFry62EiYDZ/f5cy7sN2gGDZqRYCSWwcrWe72WVl2m/FqeF/+/KQ01J6CYtBheo09O4sfFO22kHzEY25ulqIlrCKzy5p2l7yVmDprbnBpZejXRqn2FG4pfdmTgYm+pjI0RF9YJV4OUFfwH/ET3nKtKxmZdrl6nmkIFWex/BcmU4FIi/MiMnUcpJA2a2KDDKY9mueB97bSAG/OK3rLSbw8vd2ZxwBPjdOimtBvG2tzGVlwtHCHHXTF5jwNTRYZDx/0F3AvhuA8+sQWnK6LicFJm/xKstsDNA6mY9IwDTRomCwOMEtYIlhNHZGhMVQms9QaljirmqSic+7VdkwON7Odo09ANGv9MC6hgAIHdf9bCn9ZPzsR/9QBmbsWBXD8s1L6SQPhCGTs+W7mHBCqlQL7e11RbiympJABUSbLvaWM34mGiVQJw/oRpCBOktOsJmP3NISUEbOvp0zx8+6z1H4LXO3uqbJOjNkzGuk3+30Dzc=
+ ARA:13230040|376014|1800799024|366016|23010399003|6133799003|10067099003|18002099003|22082099003|261102123227099003|8096899003|56012099006|4143699003|261022075727099003|5023799004|261022115727099003|261019150727099003|261019143827099003|11063799006|261026140227099003|261022113327099003|261026121527099003|261019132127099003|261022105027099003|261028144727099003|261009223027099003|261021121427099003|261019141927099003|261021123027099003;
+X-Microsoft-Antispam-Message-Info: Z05tWrD7XjbhdWFneiYr2n+tX4YnYWY6r+z+GMtlkEQZyFvlyJM0vd9WCS5dIxJ18hklOX2EOjLcWJ3Y/9ceEGCrboKOq4G0wdRB24OdN+LeLV9+LeKGmEp6JphJiMl7qGr3S5PaZuK0RD/MWTaGq9xCtqXDvBJF4zhnS+uj3x/R4by9UwlailadiroRAyUN5ywPB5VlFjueuUc6xfW10e9QxlomhwW0hqy9Cz/SEspZ/6Qo3vOAXudoIILq8j2qitM1cu8rFTmysy1tzZyjs4KuQGdzRS0nfnJRSRnzfnMjFQGZsY+5RXkSe+sbmu8n7aNLovqzxEZpY91TGw4PMfzQLOFjtLtkt9TRCrwWJvEgwhDen/5H471WjLQQiw2pp7P69yBPUi731Juoh0crA1DEzXspxwijUM5HbBekWveu3TU4Jq83r7v5UEEjHRfyHkSQiC+8UwR1WnBxYXj1qTzl79ty8RiIug7VnGMMcmW52iuOp80l0eZcNfwg9rsUKBC8VkdYR5iUDoUaK4ILIHiaWC9ndmfcLjlXZHQK+MzEU8YOncYQmxlNKXLdnkkj69Mx53ZQZdKo2eNP8GOaMRhOus6FfR8LTI5t2YG02L1TA+zhguVszOKBYFI1skH5CrezQuzZVyXEZwz7eMBWXqCjg7zyZDLFNJFg5GUdI5E=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB8558.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(261022115727099003)(261009223027099003)(261021123027099003)(11063799006)(261022105027099003)(5023799004)(56012099006)(261028144727099003)(261021121427099003)(261022075727099003)(261026121527099003)(261026140227099003)(261102123227099003)(10067099003)(3023799007)(18002099003)(22082099003)(8096899003);
+ IPV:NLI; SFV:NSPM; H:BN7PPF5F16C5C9C.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(6133799003)(10067099003)(18002099003)(22082099003)(261102123227099003)(8096899003)(56012099006)(4143699003)(261022075727099003)(5023799004)(261022115727099003)(261019150727099003)(261019143827099003)(11063799006)(261026140227099003)(261022113327099003)(261026121527099003)(261019132127099003)(261022105027099003)(261028144727099003)(261009223027099003)(261021121427099003)(261019141927099003)(261021123027099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a2U4T3crc3ZOY3lMeXN0ZUJoTEdPQXd1MG9xdGU1dXFkMG9sTi9lTjIwQnNX?=
- =?utf-8?B?b1VGRWQ3ais1d2ptSDVmWTB4ZytwU2pSVzlEaS9YcHg4bGplODFWSlJERW9F?=
- =?utf-8?B?SWFnblpCeG9TTVNhUXppdXpPRVlUcUwxdTJManBiRnlkcDhLb3ArTlVHNjlX?=
- =?utf-8?B?MGFqM3dnOTBhQklFVmNteUo3MldIRCtNT25ZR2VqdW1zUXZmWFpiN1hlU2Q2?=
- =?utf-8?B?d3ZqT3NKa1JJVndOTlZ0VUdBWXdsYlo1Zmcvd1VMd3ZJTmdiOEF6L1ExejIx?=
- =?utf-8?B?eGdsODVXUWpRcTZ3K2J1WVlPRllpN1BUNUlkMDFaVHpEMTJtVUlKbFIwaTZE?=
- =?utf-8?B?V2Z4RkhVRjNFQ2g0RTROQUxUTFFQZ3g1K2dvUEpqTERhNXRBaG1OZm5YNE9m?=
- =?utf-8?B?MTgxZFNOU2UyamN4NlNFN3BzYWo2ejQyeUhZNEVKaWpPT2RPQ0FCUG1IYlA3?=
- =?utf-8?B?WlNWZEI2QVNSeDdneHYyU2xKZjBzN2gyc0g1L3JHeXpER1ZWc1JCblJuVWJu?=
- =?utf-8?B?aDJxTmM5dXZKZWd0enpobnc1eFZWcmJvY1lNeGJBelJ1Y09jTWlveFlEN0xU?=
- =?utf-8?B?enB5V1JwV2JXUXVOallyaW1IVlFGT3J2c3hIN3dDcFhvOUVnTlA0MW00YlJH?=
- =?utf-8?B?UWRlblJoMVNsS0F1NlBXZlg1TU44VDZEMVJtODRyV1QyRkIyL2ltOXNRU1FD?=
- =?utf-8?B?VlROR3I2Q2xxRUMvQ0l6ZHJaRERWclhrVSt0WWFGajQ0VXM1Z2FLc1RtbmZk?=
- =?utf-8?B?Q1dxOW9FR2FlTFhadlhuMENSR3U2eWFVdno3VFZhdG5pckIxMEJ1dTUxbDR2?=
- =?utf-8?B?SktvalBMYVl3cFpIb1gzNHcreE1xYWdpTjQvRmdYZ3dwYkZicW9jcG9ONTNx?=
- =?utf-8?B?bFVLOWNMTzl5L3hKVDRydXFUSlc2K2JUKzROUHR4TW0yaGQ5VlB0WXBNdU9F?=
- =?utf-8?B?dUFUK1QwK29zby9QYzh5NC9yS3NEK1ZXUDBRb2p1TlFXZitxSW5IbFhmNVFk?=
- =?utf-8?B?cENVVDVjZ3ErdXcrQzUrNGRtdEhlcTdCV3dob1dHbitEeUdOS2ZQZFdHSTlK?=
- =?utf-8?B?MWJIU2kvRmpHaysxRUxqY1h4V2hvQkJDZ2NvZmlSMUlrNUVRTGQ1VHIwT1Yr?=
- =?utf-8?B?RitleTBXZWFJSEc3cXpkeVhUMXQvaCtXZHhPTzVwVWlOOWc1aXViby9Qc0JD?=
- =?utf-8?B?T0xMSjZoNENxS0tsWGY3YmhDYTFCNG5rQUtPZEVFbGxtZml3TTAzUEVsY2FB?=
- =?utf-8?B?Q1JFVmp5a0JNSHdMdHlmb3BkZDRiS1FhVFp4alpJSGVWY3VITUsxQmtvbzZN?=
- =?utf-8?B?RUd2cjkvNjBGb2hvSUVLMFRPVEt2OHg1dmRBdzVvRTJEbU5TQWw5WnNlVDJH?=
- =?utf-8?B?ZkRvQnVxMmV5R1FSZzdKblRLcWhhK0krQXhRdnlHd3IyYzZTTmE5b3lCMVdV?=
- =?utf-8?B?Y3RDQzg3ZkZlUzdTTGJ4YTJmZHR1TFlOeThqcjJLK3h5b0Q0Zm1ySkZMLzlp?=
- =?utf-8?B?bVJZODRkSnRMOWZVMEhNZUFKaUtFVlRnL2c5NDdJbnp6M0RyN0pwWms5aHVL?=
- =?utf-8?B?LzJXN0hkdEplUThqM1lGYU10aURqRFg4MTFCZ1hDTlAxMnJITW84QmdZTjk4?=
- =?utf-8?B?LzN0OXpvdktEQjFaajlITnV4alUyOW5Xc0R5WjlYRGI4SURpZTBtTXFTTWZw?=
- =?utf-8?B?bDFSL2JNTk0rR0xFVzZBQThMYVBTOGJ6K1FQaW44ZVFaejBLK3lCbWlwZ2cv?=
- =?utf-8?B?bzh6MlVWSUZVL1p0dWN6Y0FFZlpRYmZiQnYyYTdQaUYvTTJpaEJCdThEbFpX?=
- =?utf-8?B?LzU1M0VKTWMxanJjMWw2Ri9VVXJ2c1I3dktXNktDeFNMelpHTDFrRVhQdHNC?=
- =?utf-8?B?d3B3alBURDVJKzRwaUhVYWF5UFVEVXJvUHBmUjh4YmlQbm4wd1k1MHRuSXhu?=
- =?utf-8?B?NEFIa1lJYyt0c1RzKytYYk9DUGJTS0xFVGhIRmVVY1M1RG9BUmlSRjNBRlBX?=
- =?utf-8?B?d0xJMFlCbFdFOEVZT3NlazMzVnBTSElrSTJEYjF6eUE1eUovTFFjYzdZWFZI?=
- =?utf-8?B?Tnl4YW9MVk9rS2tDU1pRdFJFY0xyTHh1eWlGQlp0U3NPaFN1Mjlxb1VQb00v?=
- =?utf-8?B?NmpwWkNJdjQzM29PV2x2NUZqNzR5QmNxclcxN0RRTy93NHgvRGx2anpVdUlr?=
- =?utf-8?B?MkRUSGtNS3FhUWxjdmMwN09RcDF5Um0ySTJYcUtIRmZxSmp1N1JVM0ZnR1hQ?=
- =?utf-8?B?Z1hCbUxxZEduWklmQ2JLQUV3N3JySGpXanpGWEI5c1pUZVZ6UlpKZ3A5VlVW?=
- =?utf-8?Q?KywS+nEbjbn3UFz4cu?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TlJ4Y2lzSm9NWGpERnk0NGFYVHN2ZzVVVnJyalZNZEtZRG1zMHJLdzZtMHpS?=
+ =?utf-8?B?Y0lqb1I3akM3cmZvN3p5eCsrdHNzOFR5YitmY0N5YXRxK1ZBM3VxdVpOT09S?=
+ =?utf-8?B?RXg2UjhqL2JqUzhWUHpub1dVY2oyOHc2OGdPK2MwQzRHZmY5VkJLSTljM1Jm?=
+ =?utf-8?B?cXI2K2U4bERYWitBVnBIaFBFenRmU293TjZDSnR2WE5vOTNHNXVsczZLYVVJ?=
+ =?utf-8?B?U3AvYWo2b1o0dGgvcnRhVXFvYms4TUlqdnpROWM2NkpadkNNbUQyQk54TVov?=
+ =?utf-8?B?Ym5BVjlLZWVKOVhGTUhRbXVDa20rU0JlUDBPWVFVZHdSTnRsemtUbGhwV0ZL?=
+ =?utf-8?B?RzcrU3NoZXVKQjhUTTQ2L3lUcDdDT3NTdDlaM1EwMW9LejJqMElRMHpZd3BY?=
+ =?utf-8?B?RDB1Q0lXS2lxL0VpVk1GcTZSQm9DTXhpeHd0ZHQ2RXFQaThia0wvZEdiazFJ?=
+ =?utf-8?B?eFZrTEN0bTRxMmZvakI3eFNvRndpME5KTEg0QmFqUTlrcVdpRWhmdG5ON1hR?=
+ =?utf-8?B?NzlrWm5yZE8wM2hpSVdoZVdrTWN1aThBa3FaYUp6bW5CWVYxRnFteVBCNUVY?=
+ =?utf-8?B?TDI3TVc1QXh4UjlFN2xob1d5K2orS1l3dlYxZS80eTVpU0M4VWdyNjlrb2Fo?=
+ =?utf-8?B?c2NqUS81UWt3STRkQmJUUlpTNDZmOUU4L3FhSk9DbDk0SGcxeVdPWDVpUUtJ?=
+ =?utf-8?B?ZkxsZk04eUhoOHFGWmdWQVk5eUxuSVdmclcvOWIxaVJwMTdGM21SQXNPK0tO?=
+ =?utf-8?B?cXF3elY3Skovc1VBdjRzMG1aUkNrZ1RoYlN0RjhMaU9ocDNnWmZxbWV3TEtJ?=
+ =?utf-8?B?aHRqNlAyRy9tMExpdlRCQ0FJdGN1bHhLUjVseGxxa0tPRDFCUDlxS2diNzYz?=
+ =?utf-8?B?YWtiQktrZVdiRWVYdHp0TnlWU3BJUWk2TmQyaExFc28zSUNJSzh5WkRyZ0FJ?=
+ =?utf-8?B?dDFsalR4RVZWWk04cHcrZjFKT2NKQWNMU0FvNFh5bWpJSTdrMGtNaFlLY3or?=
+ =?utf-8?B?NVdmdzgyZjUxSkVFdDB6dHhiY092Ri9nZWtDZVV3VTZ1dWR6aVh0L3FVcFBn?=
+ =?utf-8?B?VmxtWjB6NjNYVVVwL0VXTXlidTdqTmFxcWM1ZjJHdTFBbzFYS1J2OHlJdlpH?=
+ =?utf-8?B?aWtaRHk2WUF2MVY1VDN5dzNGQ1pOYkJLWHhPNjBUY3g2TkQ1VUZJSzhDY01w?=
+ =?utf-8?B?aU1zd3BVT1lwSG5mWHYzSkJkMjZIWGR3Vlo1Ky9wUms3S3Y3bDJGMGExb01u?=
+ =?utf-8?B?RFF3azdEMFN6alRML3BVRlF6Rmw0TzE2NTgvQXdQdEJHN1lyQUdUd01ZZTVD?=
+ =?utf-8?B?dWt3YjN2MFd3SzhZQVRhemdlMzhxejR1WWkxcmFLWmYxNDZtM0s5VHhSaFBQ?=
+ =?utf-8?B?bFFrd2VnSkp4VGo2Z0ZPeFZCaTlKSm1tWDRhTU81b21WcHZNN3FwSWlHMHFQ?=
+ =?utf-8?B?Uk9XMnNkblhoVER4SWVOZ2VRc21wK0c2YStkUWxmUWRsOERhVy85UnNjd055?=
+ =?utf-8?B?aXlCeXNwMzJMMjFLeVc2THFneFlHbklwa0Rhd0c1eUw5QVlHczZRYlhsMlVC?=
+ =?utf-8?B?VmcxQXZ2S0piaUluSkd2c0RqWmRUWG00ejVETDdONWJ3VTlqamZXMXlEOHZR?=
+ =?utf-8?B?Y0tGMk14UGVvQzJOOWk3SlhnR1ozY1I3WVIvdUc4NUNKSTUzaDFHeEhqWThD?=
+ =?utf-8?B?bEJnNUFqbXZtVldiZGZPK3AxUlNRMlUzbnJrZjVucE9Mc01lSzZTTTZkZGY3?=
+ =?utf-8?B?UUVpRHVqRTFCaXNmTTN6QTRDc09OOHp0SWx5cE5aUmVaeGxIcERRMVpibFBE?=
+ =?utf-8?B?ZHFWc3A2cFpVRk04L3JaVDdYZ3J0R3FPYmVhR1NERzVvMFJDYVdyL3d0cHFE?=
+ =?utf-8?B?RGV5UlRQSWhDVEl3ZEx2eHlGOEVkM3JZVzZMZnQySFFJbkpDeE95cjVJRkdt?=
+ =?utf-8?B?NXJUeG13KzZ6MXJyQnNsZzVWTmJ4MndFTUIzbHRBT2JwaHM4U0xxNkdtNjBG?=
+ =?utf-8?B?VWVEWG9WYmd5eGpMLzRxd2pSdzZUVmpzWXZpUkxkWTNrRm9Rd0V1dU1QZGI2?=
+ =?utf-8?B?ZEtsVFJqd3p6VEw5UjcyYitOWEJucVN0K1ZSWXdUcmVFa29tM3JaT1YzWnZ6?=
+ =?utf-8?B?ZGZ6SGlRRDRDY29ZcVprTXNUSURVRXRFaHN5R1I5T045eWI3Z0JsUkc5UGZy?=
+ =?utf-8?B?em9zd0hwZnZBYlBYNDFQTHpaZXRLaERCZXJlQk9BbWV0aWhoenZ2R1E2a2E2?=
+ =?utf-8?B?cmNyRUUrdGg4UnlHV01UM0JZNG9UZnB1R1dWdXhUWW5lRDdKM01RdHhYbUZC?=
+ =?utf-8?B?aXQzZHZBNkhzOHk3K2tORlladmxFamZJalVTb2ZlUk5hbURmZDM2Zz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c60c981c-e15d-4330-4db2-08df3a9d1974
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8558.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d59a73ff-220a-492d-c454-08df3aa4fe1e
+X-MS-Exchange-CrossTenant-AuthSource: BN7PPF5F16C5C9C.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 17:57:32.4629 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 18:54:02.4243 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xd1qFJNranbWPXROpQZAIXBr4OuCmNxxk5scd/lBY/kmyKvkpsiTCsYK07BFx4Z0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5972
+X-MS-Exchange-CrossTenant-UserPrincipalName: SMIqus6R4V4Tz69yQbSN2pRch6xcURKZbr2yD7qMRzhBoxA54o6z9bXv/OExLw8osmU56+EXl8SACd51gX2Abg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB999104
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,679 +141,333 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	HTML_MESSAGE,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=4.0.1
+	HTML_FONT_LOW_CONTRAST,HTML_MESSAGE,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---------------zW0lcRTPwVd1N5lj9vvRAxkH
+--------------AmHGHkiAuwN0uUpEDYP2qyiI
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 
-On 2026-11-02 21:31, Apurv Mishra wrote:
-> Counters and SQ/PC sampling read 0 at DPM AUTO on gfx11/gfx12 because
-> RLC_CGTT_MGCG_OVERRIDE.PERFMON_CLOCK_STATE is gated, and the existing
-> workaround (STABLE_STD) needs root and pins clocks.
+On 2026-11-04 12:00, Dhruv Bhogaonkar wrote:
 >
-> Add a refcounted amdgpu_gfx_perfmon_clk_override() that forces the
-> perfmon clock on per XCC, keeps GFXOFF disallowed while held, and
-> restores the previous state on last release, resume and reset.
-> perfmon_clk_mutex serializes it with the GFX clock gating sequences
-> and the soc21/soc24 stable pstate hook.
 >
-> Use it from KFD_IOC_PROFILER_PMC, after binding the process to the GPU
-> and under reset_domain->sem:
-> - lock=1 (device mode, CAP_PERFMON): held until unlock or exit.
-> - lock=0, perfcount_enable=1 (dispatch mode): no CAP_PERFMON needed,
->    held until lock=0, perfcount_enable=0 or process exit.
+> On 04/11/26 20:56, Kuehling, Felix wrote:
+>> On 2026-11-04 08: 41, Dhruv Bhogaonkar wrote: On 03/11/26 05: 55, 
+>> Felix Kuehling wrote: On 2026-10-30 04: 33, Dhruv B wrote: On systems 
+>> with discontiguous NUMA node IDs, the GPU driver fails to load with 
+>> the following errors: [ 5. 609767] amdgpu
+>> On 2026-11-04 08:41, Dhruv Bhogaonkar wrote:
+>>>
+>>>
+>>> On 03/11/26 05:55, Felix Kuehling wrote:
+>>>> On 2026-10-30 04: 33, Dhruv B wrote: On systems with discontiguous 
+>>>> NUMA node IDs, the GPU driver fails to load with the following 
+>>>> errors: [ 5. 609767] amdgpu 0038: 12: 00. 0: Error parsing VCRAT [ 
+>>>> 5. 609781] kfd kfd: Error adding device to topology
+>>>> On 2026-10-30 04:33, Dhruv B wrote:
+>>>>> On systems with discontiguous NUMA node IDs, the GPU driver fails to
+>>>>> load with the following errors:
+>>>>>
+>>>>> [    5.609767] amdgpu 0038:12:00.0: Error parsing VCRAT
+>>>>> [    5.609781] kfd kfd: Error adding device to topology
+>>>>> [    5.609848] kfd kfd: Error initializing KFD node
+>>>>>
+>>>>> In the current KFD code, proximity domains are created contiguously
+>>>>> when generating the VCRAT. With discontiguous NUMA node IDs, this
+>>>>> creates a mismatch between the proximity domain ID and the NUMA node ID.
+>>>>> For example, if NUMA nodes 0, 2 and 3 are online, the current code
+>>>>> assigns proximity domains 0, 1 and 2 to these nodes respectively,
+>>>>> instead of domains 0, 2 and 3.
+>>>>>
+>>>>> The KFD topology uses the NUMA node and proximity domain information to
+>>>>> create topology devices representing the CPU and memory resources
+>>>>> associated with each NUMA node. This topology is exposed to userspace
+>>>>> through sysfs, where the NUMA node and proximity domain information are
+>>>>> used to identify the topology devices. The mismatch between the NUMA
+>>>>> node ID and proximity domain therefore results in an inconsistent KFD
+>>>>> topology and causes topology parsing to fail.
+>>>>>
+>>>>> Make the proximity domain ID correspond directly to the NUMA node ID by
+>>>>> iterating through the complete NUMA node ID range up to the last online
+>>>>> node. Account for every node ID when assigning proximity domains, while
+>>>>> skipping resource entry creation for offline nodes. This preserves the
+>>>>> NUMA-node-to-proximity-domain mapping and allows the KFD topology and
+>>>>> its sysfs representation to correctly reflect discontiguous NUMA
+>>>>> topologies.
+>>>>>
+>>>>> A NUMA node may also be CPU-less, memory-less, or both. Only create a
+>>>>> Compute Unit CRAT entry if the node has CPUs, and only create a Memory
+>>>>> CRAT entry if the node has memory.
+>>>>>
+>>>>> Additionally, update kfd_parse_subtype_mem() to use simd_count instead
+>>>>> of cpu_cores_count to distinguish host nodes from GPU nodes. This ensures
+>>>>> that memory on CPU-less host NUMA nodes is correctly classified as
+>>>>> system memory (HSA_MEM_HEAP_TYPE_SYSTEM) rather than private GPU
+>>>>> framebuffer memory.
+>>>>>
+>>>>> The placeholder domains created for offline node IDs have no IO links,
+>>>>> so skip offline and CPU-less nodes when building the indirect GPU to CPU
+>>>>> links.
+>>>>>
+>>>>> Co-developed-by: Donet Tom<donettom@linux.ibm.com>
+>>>>> Signed-off-by: Donet Tom<donettom@linux.ibm.com>
+>>>>> Signed-off-by: Dhruv B<dhruv.b@linux.ibm.com>
+>>>>> ---
+>>>>>   drivers/gpu/drm/amd/amdkfd/kfd_crat.c     | 59 +++++++++++++----------
+>>>>>   drivers/gpu/drm/amd/amdkfd/kfd_topology.c |  3 ++
+>>>>>   2 files changed, 36 insertions(+), 26 deletions(-)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+>>>>> index 99b0c7f825fe..bebbc6715b2f 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+>>>>> @@ -1103,8 +1103,10 @@ static int kfd_parse_subtype_mem(struct crat_subtype_memory *mem,
+>>>>>   			mem->proximity_domain);
+>>>>>   	list_for_each_entry(dev, device_list, list) {
+>>>>>   		if (mem->proximity_domain == dev->proximity_domain) {
+>>>>> -			/* We're on GPU node */
+>>>>> -			if (dev->node_props.cpu_cores_count == 0) {
+>>>>> +			if (dev->node_props.simd_count == 0) {
+>>>>> +				heap_type = HSA_MEM_HEAP_TYPE_SYSTEM;
+>>>>> +			} else {
+>>>>> +				/* We're on GPU node */
+>>>>>   				/* APU */
+>>>>>   				if (mem->visibility_type == 0)
+>>>>>   					heap_type =
+>>>>> @@ -1112,8 +1114,7 @@ static int kfd_parse_subtype_mem(struct crat_subtype_memory *mem,
+>>>>>   				/* dGPU */
+>>>>>   				else
+>>>>>   					heap_type = mem->visibility_type;
+>>>>> -			} else
+>>>>> -				heap_type = HSA_MEM_HEAP_TYPE_SYSTEM;
+>>>>> +			}
+>>>>>   
+>>>>>   			if (mem->flags & CRAT_MEM_FLAGS_HOT_PLUGGABLE)
+>>>>>   				flags |= HSA_MEM_FLAGS_HOT_PLUGGABLE;
+>>>>> @@ -1899,7 +1900,7 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_image, size_t *size)
+>>>>>   	acpi_status status;
+>>>>>   	struct crat_subtype_generic *sub_type_hdr;
+>>>>>   	int avail_size = *size;
+>>>>> -	int numa_node_id;
+>>>>> +	int numa_node_id, last_node;
+>>>>>   #if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
+>>>>>   	uint32_t entries = 0;
+>>>>>   #endif
+>>>>> @@ -1935,34 +1936,41 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_image, size_t *size)
+>>>>>   	crat_table->num_domains = 0;
+>>>>>   
+>>>>>   	sub_type_hdr = (struct crat_subtype_generic *)(crat_table+1);
+>>>>> +	last_node = find_last_bit(node_online_map.bits, MAX_NUMNODES);
+>>>>>   
+>>>>> -	for_each_online_node(numa_node_id) {
+>>>>> -		if (kfd_numa_node_to_apic_id(numa_node_id) == -1)
+>>>>> +	for (numa_node_id = 0; numa_node_id <= last_node; numa_node_id++) {
+>>>>> +		if (!node_online(numa_node_id)) {
+>>>>> +			crat_table->num_domains++;
+>>>>>   			continue;
+>>>>> +		}
+>>>>>   
+>>>>>   		/* Fill in Subtype: Compute Unit */
+>>>>> -		ret = kfd_fill_cu_for_cpu(numa_node_id, &avail_size,
+>>>>> -			crat_table->num_domains,
+>>>>> -			(struct crat_subtype_computeunit *)sub_type_hdr);
+>>>>> -		if (ret < 0)
+>>>>> -			return ret;
+>>>>> -		crat_table->length += sub_type_hdr->length;
+>>>>> -		crat_table->total_entries++;
+>>>>> +		if (kfd_numa_node_to_apic_id(numa_node_id) != -1) {
+>>>>> +			ret = kfd_fill_cu_for_cpu(numa_node_id, &avail_size,
+>>>>> +						  crat_table->num_domains,
+>>>>> +						  (struct crat_subtype_computeunit *)sub_type_hdr);
+>>>>> +			if (ret < 0)
+>>>>> +				return ret;
+>>>>> +			crat_table->length += sub_type_hdr->length;
+>>>>> +			crat_table->total_entries++;
+>>>>>   
+>>>>> -		sub_type_hdr = (typeof(sub_type_hdr))((char *)sub_type_hdr +
+>>>>> -			sub_type_hdr->length);
+>>>>> +			sub_type_hdr = (typeof(sub_type_hdr))((char *)sub_type_hdr +
+>>>>> +				sub_type_hdr->length);
+>>>>> +		}
+>>>>>   
+>>>>>   		/* Fill in Subtype: Memory */
+>>>>> -		ret = kfd_fill_mem_info_for_cpu(numa_node_id, &avail_size,
+>>>>> -			crat_table->num_domains,
+>>>>> -			(struct crat_subtype_memory *)sub_type_hdr);
+>>>>> -		if (ret < 0)
+>>>>> -			return ret;
+>>>>> -		crat_table->length += sub_type_hdr->length;
+>>>>> -		crat_table->total_entries++;
+>>>>> +		if (node_state(numa_node_id, N_MEMORY)) {
+>>>>> +			ret = kfd_fill_mem_info_for_cpu(numa_node_id, &avail_size,
+>>>>> +							crat_table->num_domains,
+>>>>> +							(struct crat_subtype_memory *)sub_type_hdr);
+>>>>> +			if (ret < 0)
+>>>>> +				return ret;
+>>>>> +			crat_table->length += sub_type_hdr->length;
+>>>>> +			crat_table->total_entries++;
+>>>>>   
+>>>>> -		sub_type_hdr = (typeof(sub_type_hdr))((char *)sub_type_hdr +
+>>>>> -			sub_type_hdr->length);
+>>>>> +			sub_type_hdr = (typeof(sub_type_hdr))((char *)sub_type_hdr +
+>>>>> +				sub_type_hdr->length);
+>>>>> +		}
+>>>>>   
+>>>>>   		/* Fill in Subtype: IO Link */
+>>>>>   #if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
+>>>>> @@ -1982,7 +1990,6 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_image, size_t *size)
+>>>>>   #else
+>>>>>   		pr_info("IO link not available for non x86 platforms\n");
+>>>>>   #endif
+>>>>> -
+>>>>>   		crat_table->num_domains++;
+>>>>>   	}
+>>>>>   
+>>>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+>>>>> index b38d12f3da84..d2fbe73e57ef 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+>>>>> @@ -1419,6 +1419,9 @@ static int kfd_create_indirect_link_prop(struct kfd_topology_device *kdev, int g
+>>>>>   				    struct kfd_iolink_properties, list);
+>>>>>   
+>>>>>   	for (i = 0; i < num_cpu; i++) {
+>>>>> +		if (!node_online(i) || !node_state(i, N_CPU))
+>>>>
+>>>> The N_CPU part skips indirect links through CPU-less NUMA nodes. Is 
+>>>> that correct? For links from the GPU to that memory, I think we 
+>>>> need the indirect links so the GPU knows that it can access such 
+>>>> memory.
+>>>>
+>>>> Maybe further down we could enhance the large-bar condition to only 
+>>>> create indirect CPU->GPU links if that node actually has a CPU:
+>>>>
+>>>>                  /* for small Bar or CPU-less NUMA nodes, no CPU --> GPU in-direct links */
+>>>>                  if (kfd_dev_is_large_bar(kdev->gpu) && node_state(i, N_CPU)) {
+>>>> 			...
+>>>
+>>>
+>>> Hi Felix,
+>>>
+>>> Thanks a lot for the reply and the suggestion!
+>>>
+>>> Would the following change address your concern? I've removed the
+>>> |N_CPU|check from the loop condition and moved it to the large-BAR
+>>> check so that we retain the indirect links for CPU-less NUMA nodes
+>>> while avoiding CPU → GPU indirect links for those nodes.
+>>
+>> Yes, this look good. I have one question inline.
+>>
+>>
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c 
+>>> b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+>>> index b38d12f3da84..8f908323d74b 100644
+>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+>>> @@ -1419,6 +1419,9 @@ static int 
+>>> kfd_create_indirect_link_prop(struct kfd_topology_device *kdev, int g
+>>>                      struct kfd_iolink_properties, list);
+>>>
+>>>      for (i = 0; i < num_cpu; i++) {
+>>> +        if (!node_online(i))
+>>> +            continue;
+>>> +
+>>>          /* CPU <--> GPU */
+>>>          if (gpu_link->node_to == i)
+>>>              continue;
+>>> @@ -1437,7 +1440,7 @@ static int 
+>>> kfd_create_indirect_link_prop(struct kfd_topology_device *kdev, int g
+>>>          }
+>>>
+>>>          if (!cpu_link)
+>>> -            return -ENOMEM;
+>>> +            continue;
+>>
+>> I think I'm fine with this change. But the fact that you need this 
+>> tells me that you have some weird topology where the CPUs (and 
+>> CPU-less memory-only) NUMA nodes aren't fully connected. How does 
+>> that happen? Does that point at some problem elsewhere?
+>>
+> Hi Felix,
+> Thanks for the feedback!
 >
-> No DPM change, no new ioctl, no struct change. Bump
-> KFD_IOC_PROFILER_VERSION_NUM to 2.
+> Actually the main reason for the change was:
 >
-> v2:
-> - Take GFXOFF outside perfmon_clk_mutex to break a pm.mutex lock cycle
-> - Replace the racy defer() with amdgpu_gfx_perfmon_clk_update(), and hold
->    perfmon_clk_mutex across the GFX clock gating sequences
-> - Bind the process to the GPU before forcing the perfmon clock on
-> - Take reset_domain->sem before profiler_lock
-> - Release a dispatch-mode hold with lock=0, perfcount_enable=0
+> In|kfd_create_vcrat_image_cpu()|, CPU-to-CPU IO link
+> generation is wrapped in|#if defined(CONFIG_X86_64)|.
+> Consequently,|kfd_fill_iolink_info_for_cpu()|is not
+> compiled on non-x86 platforms, leaving
+> |cpu_dev->io_link_props|empty for all host nodes.
 >
-> Signed-off-by: Apurv Mishra<Apurv.Mishra@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  2 +
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c    | 89 ++++++++++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h    | 11 +++
->   drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c     | 28 +++++--
->   drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c     | 28 +++++--
->   drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c     | 28 +++++--
->   drivers/gpu/drm/amd/amdgpu/soc21.c         |  2 +
->   drivers/gpu/drm/amd/amdgpu/soc24.c         |  2 +
->   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c   | 63 +++++++++++++++
->   drivers/gpu/drm/amd/amdkfd/kfd_priv.h      |  2 +
->   drivers/gpu/drm/amd/amdkfd/kfd_process.c   | 20 +++++
->   include/uapi/linux/kfd_ioctl.h             | 11 ++-
->   12 files changed, 261 insertions(+), 25 deletions(-)
+>  1. For example, on a multi-node non-x86 system where the
+>     GPU is attached to node 2 and CPUs are present on node 0,
+>     |cpu_link|will be NULL.
+>     Returning|-ENOMEM|in this case causes
+>     |kfd_dev_create_p2p_links()|to abort early, potentially
+>     preventing subsequent GPU-to-GPU P2P links from being
+>     created through|kfd_add_peer_prop()|.
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 44091ac12fa9..04422c1e1f86 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -2779,6 +2779,7 @@ static int amdgpu_device_ip_late_init(struct amdgpu_device *adev)
->   
->   	amdgpu_device_set_cg_state(adev, AMD_CG_STATE_GATE);
->   	amdgpu_device_set_pg_state(adev, AMD_PG_STATE_GATE);
-> +	amdgpu_gfx_perfmon_clk_restore(adev);
->   
->   	amdgpu_device_fill_reset_magic(adev);
->   
-> @@ -3822,6 +3823,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
->   	mutex_init(&adev->srbm_mutex);
->   	mutex_init(&adev->gfx.pipe_reserve_mutex);
->   	mutex_init(&adev->gfx.gfx_off_mutex);
-> +	mutex_init(&adev->gfx.perfmon_clk_mutex);
->   	mutex_init(&adev->gfx.partition_mutex);
->   	mutex_init(&adev->grbm_idx_mutex);
->   	mutex_init(&adev->mn_lock);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> index a6f95ff47d24..c9c4c3d4e88d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> @@ -1015,6 +1015,95 @@ void amdgpu_gfx_off_ctrl_immediate(struct amdgpu_device *adev, bool enable)
->   	amdgpu_gfx_do_off_ctrl(adev, enable, true);
->   }
->   
-> +/*
-> + * Force the perfmon clock on, or restore the saved state; @save records the old
-> + * one. Called with perfmon_clk_mutex held and GFXOFF disallowed.
-> + */
-> +static void amdgpu_gfx_perfmon_clk_program(struct amdgpu_device *adev,
-> +					   bool force_on, bool save)
-> +{
-> +	int i, num_xcc = NUM_XCC(adev->gfx.xcc_mask);
-> [JZ] Nit: lockdep_assert_held(&adev->gfx.perfmon_clk_mutex) here, as amdgpu_gfx_perfmon_clk_update() does.
-> With this update,
+> If you are okay with these changes, can I post the
+> next version incorporating them?
 
-ThispatchisReviewed-by:JamesZhu<James.Zhu@amd.com>
+Yes. Thanks for the clarification. If the lack of CPU-CPU links on 
+non-x86 CPUs is a problem, I'd also be open to a fix for that. Up to you.
 
-> +	for (i = 0; i < num_xcc; i++) {
-> +		bool on = force_on || test_bit(i, &adev->gfx.perfmon_clk_restore_mask);
-> +		bool in_safe_mode = adev->gfx.rlc.in_safe_mode[i];
-> +		bool was_on;
-> +
-> +		if (!in_safe_mode)
-> +			amdgpu_gfx_rlc_enter_safe_mode(adev, i);
-> +		was_on = adev->gfx.funcs->set_perfmon_clk_override(adev, i, on);
-> +		if (!in_safe_mode)
-> +			amdgpu_gfx_rlc_exit_safe_mode(adev, i);
-> +
-> +		if (save)
-> +			assign_bit(i, &adev->gfx.perfmon_clk_restore_mask, was_on);
-> +	}
-> +}
-> +
-> +/*
-> + * Refcounted override that keeps the perfmon clock on for profilers. The last
-> + * put restores the previous state. Each hold keeps GFXOFF disallowed, as a
-> + * GFXOFF exit restores the register. Returns -EOPNOTSUPP if the ASIC can't do it.
-> + *
-> + * GFXOFF control takes pm.mutex, which clock gating holds around
-> + * perfmon_clk_mutex, so it must be called without perfmon_clk_mutex held.
-> + */
-> +int amdgpu_gfx_perfmon_clk_override(struct amdgpu_device *adev, bool enable)
-> +{
-> +	int r = 0;
-> +
-> +	if (amdgpu_sriov_vf(adev) || !adev->gfx.funcs ||
-> +	    !adev->gfx.funcs->set_perfmon_clk_override)
-> +		return -EOPNOTSUPP;
-> +
-> +	if (enable)
-> +		amdgpu_gfx_off_ctrl(adev, false);
-> +
-> +	mutex_lock(&adev->gfx.perfmon_clk_mutex);
-> +	if (enable) {
-> +		if (!adev->gfx.perfmon_clk_override_count++)
-> +			amdgpu_gfx_perfmon_clk_program(adev, true, true);
-> +	} else if (WARN_ON_ONCE(!adev->gfx.perfmon_clk_override_count)) {
-> +		r = -EINVAL;
-> +	} else if (!--adev->gfx.perfmon_clk_override_count) {
-> +		amdgpu_gfx_perfmon_clk_program(adev, false, false);
-> +	}
-> +	mutex_unlock(&adev->gfx.perfmon_clk_mutex);
-> +
-> +	if (!enable && !r)
-> +		amdgpu_gfx_off_ctrl(adev, true);
-> +
-> +	return r;
-> +}
-> +
-> +/*
-> + * Program the perfmon clock for clock gating. While overridden, only record
-> + * the state for the final restore. Called with perfmon_clk_mutex held.
-> + */
-> +void amdgpu_gfx_perfmon_clk_update(struct amdgpu_device *adev, int xcc_id, bool on)
-> +{
-> +	lockdep_assert_held(&adev->gfx.perfmon_clk_mutex);
-> +
-> +	if (adev->gfx.perfmon_clk_override_count)
-> +		assign_bit(xcc_id, &adev->gfx.perfmon_clk_restore_mask, on);
-> +	else
-> +		adev->gfx.funcs->set_perfmon_clk_override(adev, xcc_id, on);
-> +}
-> +
-> +/* Re-apply the override after resume/reset reprogrammed clock gating. */
-> +void amdgpu_gfx_perfmon_clk_restore(struct amdgpu_device *adev)
-> +{
-> +	if (!adev->gfx.funcs || !adev->gfx.funcs->set_perfmon_clk_override)
-> +		return;
-> +
-> +	amdgpu_gfx_off_ctrl(adev, false);
-> +	mutex_lock(&adev->gfx.perfmon_clk_mutex);
-> +	if (adev->gfx.perfmon_clk_override_count)
-> +		amdgpu_gfx_perfmon_clk_program(adev, true, false);
-> +	mutex_unlock(&adev->gfx.perfmon_clk_mutex);
-> +	amdgpu_gfx_off_ctrl(adev, true);
-> +}
-> +
->   int amdgpu_set_gfx_off_residency(struct amdgpu_device *adev, bool value)
->   {
->   	int r = 0;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> index f5fb2e585e8a..1bfd12dd3956 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> @@ -362,6 +362,9 @@ struct amdgpu_gfx_funcs {
->   				 u32 queue, u32 vmid, u32 xcc_id);
->   	void (*init_spm_golden)(struct amdgpu_device *adev);
->   	void (*update_perfmon_mgcg)(struct amdgpu_device *adev, bool enable);
-> +	/* set the perfmon clock, returns its previous state */
-> +	bool (*set_perfmon_clk_override)(struct amdgpu_device *adev, int xcc_id,
-> +					 bool on);
->   	int (*get_gfx_shadow_info)(struct amdgpu_device *adev,
->   				   struct amdgpu_gfx_shadow_info *shadow_info,
->   				   bool skip_check);
-> @@ -500,6 +503,11 @@ struct amdgpu_gfx {
->   	uint32_t                        gfx_off_residency;  /* last logged residency */
->   	uint64_t                        gfx_off_entrycount; /* count of times GPU has get into GFXOFF state */
->   
-> +	/* perfmon clock override for profilers */
-> +	struct mutex			perfmon_clk_mutex;
-> +	uint32_t			perfmon_clk_override_count;
-> +	unsigned long			perfmon_clk_restore_mask; /* per XCC */
-> +
->   	/* pipe reservation */
->   	struct mutex			pipe_reserve_mutex;
->   	DECLARE_BITMAP			(pipe_reserve_bitmap, AMDGPU_MAX_COMPUTE_QUEUES);
-> @@ -632,6 +640,9 @@ void amdgpu_gfx_handle_priv_fault(struct amdgpu_device *adev,
->   					u8 me_id, u8 pipe_id, u8 queue_id);
->   void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev, bool enable);
->   void amdgpu_gfx_off_ctrl_immediate(struct amdgpu_device *adev, bool enable);
-> +int amdgpu_gfx_perfmon_clk_override(struct amdgpu_device *adev, bool enable);
-> +void amdgpu_gfx_perfmon_clk_update(struct amdgpu_device *adev, int xcc_id, bool on);
-> +void amdgpu_gfx_perfmon_clk_restore(struct amdgpu_device *adev);
->   int amdgpu_get_gfx_off_status(struct amdgpu_device *adev, uint32_t *value);
->   int amdgpu_gfx_ras_late_init(struct amdgpu_device *adev, struct ras_common_if *ras_block);
->   void amdgpu_gfx_ras_suspend(struct amdgpu_device *adev, struct ras_common_if *ras_block);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> index a7ed4923857b..a01244621fa3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -365,6 +365,8 @@ static void gfx_v11_0_unset_safe_mode(struct amdgpu_device *adev, int xcc_id);
->   static void gfx_v11_0_userq_priv_fault_work(struct work_struct *work);
->   static void gfx_v11_0_update_perf_clk(struct amdgpu_device *adev,
->   				      bool enable);
-> +static bool gfx_v11_0_set_perfmon_clk_override(struct amdgpu_device *adev,
-> +					       int xcc_id, bool on);
->   
->   static void gfx11_kiq_set_resources(struct amdgpu_ring *kiq_ring, uint64_t queue_mask)
->   {
-> @@ -1110,6 +1112,7 @@ static const struct amdgpu_gfx_funcs gfx_v11_0_gfx_funcs = {
->   	.read_wave_vgprs = &gfx_v11_0_read_wave_vgprs,
->   	.select_me_pipe_q = &gfx_v11_0_select_me_pipe_q,
->   	.update_perfmon_mgcg = &gfx_v11_0_update_perf_clk,
-> +	.set_perfmon_clk_override = &gfx_v11_0_set_perfmon_clk_override,
->   	.get_gfx_shadow_info = &gfx_v11_0_get_gfx_shadow_info,
->   	.get_hdp_flush_mask = &amdgpu_gfx_get_hdp_flush_mask,
->   };
-> @@ -5457,23 +5460,29 @@ static void gfx_v11_0_unset_safe_mode(struct amdgpu_device *adev, int xcc_id)
->   	WREG32_SOC15(GC, 0, regRLC_SAFE_MODE, RLC_SAFE_MODE__CMD_MASK);
->   }
->   
-> -static void gfx_v11_0_update_perf_clk(struct amdgpu_device *adev,
-> -				      bool enable)
-> +static bool gfx_v11_0_set_perfmon_clk_override(struct amdgpu_device *adev,
-> +					       int xcc_id, bool on)
->   {
->   	uint32_t def, data;
->   
-> -	if (!(adev->cg_flags & AMD_CG_SUPPORT_GFX_PERF_CLK))
-> -		return;
-> -
->   	def = data = RREG32_SOC15(GC, 0, regRLC_CGTT_MGCG_OVERRIDE);
->   
-> -	if (enable)
-> -		data &= ~RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
-> -	else
-> +	if (on)
->   		data |= RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
-> +	else
-> +		data &= ~RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
->   
->   	if (def != data)
->   		WREG32_SOC15(GC, 0, regRLC_CGTT_MGCG_OVERRIDE, data);
-> +
-> +	return !!(def & RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK);
-> +}
-> +
-> +static void gfx_v11_0_update_perf_clk(struct amdgpu_device *adev,
-> +				      bool enable)
-> +{
-> +	if (adev->cg_flags & AMD_CG_SUPPORT_GFX_PERF_CLK)
-> +		amdgpu_gfx_perfmon_clk_update(adev, 0, !enable);
->   }
->   
->   static void gfx_v11_0_update_sram_fgcg(struct amdgpu_device *adev,
-> @@ -5680,6 +5689,8 @@ static void gfx_v11_0_update_coarse_grain_clock_gating(struct amdgpu_device *ade
->   static int gfx_v11_0_update_gfx_clock_gating(struct amdgpu_device *adev,
->   					    bool enable)
->   {
-> +	/* RLC_CGTT_MGCG_OVERRIDE is shared with the perfmon clock override */
-> +	mutex_lock(&adev->gfx.perfmon_clk_mutex);
->   	amdgpu_gfx_rlc_enter_safe_mode(adev, 0);
->   
->   	gfx_v11_0_update_coarse_grain_clock_gating(adev, enable);
-> @@ -5701,6 +5712,7 @@ static int gfx_v11_0_update_gfx_clock_gating(struct amdgpu_device *adev,
->   	        gfx_v11_0_enable_gui_idle_interrupt(adev, enable);
->   
->   	amdgpu_gfx_rlc_exit_safe_mode(adev, 0);
-> +	mutex_unlock(&adev->gfx.perfmon_clk_mutex);
->   
->   	return 0;
->   }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> index ec1e142549c5..9e754c25b15c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> @@ -289,6 +289,8 @@ static void gfx_v12_0_unset_safe_mode(struct amdgpu_device *adev, int xcc_id);
->   static void gfx_v12_0_userq_priv_fault_work(struct work_struct *work);
->   static void gfx_v12_0_update_perf_clk(struct amdgpu_device *adev,
->   				      bool enable);
-> +static bool gfx_v12_0_set_perfmon_clk_override(struct amdgpu_device *adev,
-> +					       int xcc_id, bool on);
->   
->   static void gfx_v12_0_kiq_set_resources(struct amdgpu_ring *kiq_ring,
->   					uint64_t queue_mask)
-> @@ -952,6 +954,7 @@ static const struct amdgpu_gfx_funcs gfx_v12_0_gfx_funcs = {
->   	.read_wave_vgprs = &gfx_v12_0_read_wave_vgprs,
->   	.select_me_pipe_q = &gfx_v12_0_select_me_pipe_q,
->   	.update_perfmon_mgcg = &gfx_v12_0_update_perf_clk,
-> +	.set_perfmon_clk_override = &gfx_v12_0_set_perfmon_clk_override,
->   	.get_gfx_shadow_info = &gfx_v12_0_get_gfx_shadow_info,
->   	.get_hdp_flush_mask = &amdgpu_gfx_get_hdp_flush_mask,
->   };
-> @@ -4045,23 +4048,29 @@ static void gfx_v12_0_unset_safe_mode(struct amdgpu_device *adev,
->   	WREG32_SOC15(GC, 0, regRLC_SAFE_MODE, RLC_SAFE_MODE__CMD_MASK);
->   }
->   
-> -static void gfx_v12_0_update_perf_clk(struct amdgpu_device *adev,
-> -				      bool enable)
-> +static bool gfx_v12_0_set_perfmon_clk_override(struct amdgpu_device *adev,
-> +					       int xcc_id, bool on)
->   {
->   	uint32_t def, data;
->   
-> -	if (!(adev->cg_flags & AMD_CG_SUPPORT_GFX_PERF_CLK))
-> -		return;
-> -
->   	def = data = RREG32_SOC15(GC, 0, regRLC_CGTT_MGCG_OVERRIDE);
->   
-> -	if (enable)
-> -		data &= ~RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
-> -	else
-> +	if (on)
->   		data |= RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
-> +	else
-> +		data &= ~RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
->   
->   	if (def != data)
->   		WREG32_SOC15(GC, 0, regRLC_CGTT_MGCG_OVERRIDE, data);
-> +
-> +	return !!(def & RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK);
-> +}
-> +
-> +static void gfx_v12_0_update_perf_clk(struct amdgpu_device *adev,
-> +				      bool enable)
-> +{
-> +	if (adev->cg_flags & AMD_CG_SUPPORT_GFX_PERF_CLK)
-> +		amdgpu_gfx_perfmon_clk_update(adev, 0, !enable);
->   }
->   
->   static void gfx_v12_0_update_spm_vmid(struct amdgpu_device *adev,
-> @@ -4335,6 +4344,8 @@ static void gfx_v12_0_update_sram_fgcg(struct amdgpu_device *adev,
->   static int gfx_v12_0_update_gfx_clock_gating(struct amdgpu_device *adev,
->   					    bool enable)
->   {
-> +	/* RLC_CGTT_MGCG_OVERRIDE is shared with the perfmon clock override */
-> +	mutex_lock(&adev->gfx.perfmon_clk_mutex);
->   	amdgpu_gfx_rlc_enter_safe_mode(adev, 0);
->   
->   	gfx_v12_0_update_coarse_grain_clock_gating(adev, enable);
-> @@ -4356,6 +4367,7 @@ static int gfx_v12_0_update_gfx_clock_gating(struct amdgpu_device *adev,
->   		gfx_v12_0_enable_gui_idle_interrupt(adev, enable);
->   
->   	amdgpu_gfx_rlc_exit_safe_mode(adev, 0);
-> +	mutex_unlock(&adev->gfx.perfmon_clk_mutex);
->   
->   	return 0;
->   }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-> index f812d6d81e9c..958b4ad39d9f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-> @@ -215,6 +215,8 @@ static void gfx_v12_1_update_perf_clk(struct amdgpu_device *adev,
->   				      bool enable);
->   static void gfx_v12_1_xcc_update_perf_clk(struct amdgpu_device *adev,
->   					 bool enable, int xcc_id);
-> +static bool gfx_v12_1_set_perfmon_clk_override(struct amdgpu_device *adev,
-> +					       int xcc_id, bool on);
->   static int gfx_v12_1_init_cp_compute_microcode_bo(struct amdgpu_device *adev);
->   static void gfx_v12_1_xcc_update_medium_grain_clock_gating(
->   	struct amdgpu_device *adev, bool enable, int xcc_id, bool force);
-> @@ -888,6 +890,7 @@ static const struct amdgpu_gfx_funcs gfx_v12_1_gfx_funcs = {
->   	.read_wave_vgprs = &gfx_v12_1_read_wave_vgprs,
->   	.select_me_pipe_q = &gfx_v12_1_select_me_pipe_q,
->   	.update_perfmon_mgcg = &gfx_v12_1_update_perf_clk,
-> +	.set_perfmon_clk_override = &gfx_v12_1_set_perfmon_clk_override,
->   	.get_xccs_per_xcp = &gfx_v12_1_get_xccs_per_xcp,
->   	.ih_node_to_logical_xcc = &gfx_v12_1_ih_to_xcc_inst,
->   };
-> @@ -3471,28 +3474,36 @@ static void gfx_v12_1_xcc_update_sram_fgcg(struct amdgpu_device *adev,
->   		WREG32_SOC15(GC, GET_INST(GC, xcc_id), regRLC_CGTT_MGCG_OVERRIDE, data);
->   }
->   
-> -static void gfx_v12_1_xcc_update_perf_clk(struct amdgpu_device *adev,
-> -					  bool enable, int xcc_id)
-> +static bool gfx_v12_1_set_perfmon_clk_override(struct amdgpu_device *adev,
-> +					       int xcc_id, bool on)
->   {
->   	uint32_t def, data;
->   
-> -	if (!(adev->cg_flags & AMD_CG_SUPPORT_GFX_PERF_CLK))
-> -		return;
-> -
->   	def = data = RREG32_SOC15(GC, GET_INST(GC, xcc_id), regRLC_CGTT_MGCG_OVERRIDE);
->   
-> -	if (enable)
-> -		data &= ~RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
-> -	else
-> +	if (on)
->   		data |= RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
-> +	else
-> +		data &= ~RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
->   
->   	if (def != data)
->   		WREG32_SOC15(GC, GET_INST(GC, xcc_id), regRLC_CGTT_MGCG_OVERRIDE, data);
-> +
-> +	return !!(def & RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK);
-> +}
-> +
-> +static void gfx_v12_1_xcc_update_perf_clk(struct amdgpu_device *adev,
-> +					  bool enable, int xcc_id)
-> +{
-> +	if (adev->cg_flags & AMD_CG_SUPPORT_GFX_PERF_CLK)
-> +		amdgpu_gfx_perfmon_clk_update(adev, xcc_id, !enable);
->   }
->   
->   static int gfx_v12_1_xcc_update_gfx_clock_gating(struct amdgpu_device *adev,
->   					     bool enable, int xcc_id)
->   {
-> +	/* RLC_CGTT_MGCG_OVERRIDE is shared with the perfmon clock override */
-> +	mutex_lock(&adev->gfx.perfmon_clk_mutex);
->   	amdgpu_gfx_rlc_enter_safe_mode(adev, xcc_id);
->   
->   	gfx_v12_1_xcc_update_coarse_grain_clock_gating(adev, enable, xcc_id);
-> @@ -3515,6 +3526,7 @@ static int gfx_v12_1_xcc_update_gfx_clock_gating(struct amdgpu_device *adev,
->   		gfx_v12_1_xcc_enable_gui_idle_interrupt(adev, enable, xcc_id);
->   
->   	amdgpu_gfx_rlc_exit_safe_mode(adev, xcc_id);
-> +	mutex_unlock(&adev->gfx.perfmon_clk_mutex);
->   
->   	return 0;
->   }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
-> index 599d47e1d38b..ed10c258703c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/soc21.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
-> @@ -520,6 +520,7 @@ static void soc21_init_doorbell_index(struct amdgpu_device *adev)
->   static int soc21_update_umd_stable_pstate(struct amdgpu_device *adev,
->   					  bool enter)
->   {
-> +	mutex_lock(&adev->gfx.perfmon_clk_mutex);
->   	if (enter)
->   		amdgpu_gfx_rlc_enter_safe_mode(adev, 0);
->   	else
-> @@ -527,6 +528,7 @@ static int soc21_update_umd_stable_pstate(struct amdgpu_device *adev,
->   
->   	if (adev->gfx.funcs->update_perfmon_mgcg)
->   		adev->gfx.funcs->update_perfmon_mgcg(adev, !enter);
-> +	mutex_unlock(&adev->gfx.perfmon_clk_mutex);
->   
->   	return 0;
->   }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/soc24.c b/drivers/gpu/drm/amd/amdgpu/soc24.c
-> index 6c8b8ed4a44d..46d746dd37b2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/soc24.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/soc24.c
-> @@ -302,6 +302,7 @@ static void soc24_init_doorbell_index(struct amdgpu_device *adev)
->   static int soc24_update_umd_stable_pstate(struct amdgpu_device *adev,
->   					  bool enter)
->   {
-> +	mutex_lock(&adev->gfx.perfmon_clk_mutex);
->   	if (enter)
->   		amdgpu_gfx_rlc_enter_safe_mode(adev, 0);
->   	else
-> @@ -309,6 +310,7 @@ static int soc24_update_umd_stable_pstate(struct amdgpu_device *adev,
->   
->   	if (adev->gfx.funcs->update_perfmon_mgcg)
->   		adev->gfx.funcs->update_perfmon_mgcg(adev, !enter);
-> +	mutex_unlock(&adev->gfx.perfmon_clk_mutex);
->   
->   	return 0;
->   }
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> index 7fcfc150a7fc..e4fb9f5aa3b2 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> @@ -3343,20 +3343,29 @@ static inline int profile_lock_device(struct kfd_process *p,
->   
->   	mutex_lock(&p->mutex);
->   	pdd = kfd_process_device_data_by_id(p, gpu_id);
-> +	/* Bind for the runtime PM reference before programming the perfmon clock */
-> +	if (pdd && op == 1)
-> +		pdd = kfd_bind_process_to_device(pdd->dev, p);
->   	mutex_unlock(&p->mutex);
->   
-> +	if (IS_ERR(pdd))
-> +		return PTR_ERR(pdd);
->   	if (!pdd || !pdd->dev || !pdd->dev->kfd)
->   		return -EINVAL;
->   
->   	kfd = pdd->dev->kfd;
->   	ptl = &pdd->dev->adev->psp.ptl;
->   
-> +	/* Before profiler_lock, which reset takes in kfd_resume() */
-> +	down_read(&kfd->adev->reset_domain->sem);
->   	mutex_lock(&kfd->profiler_lock);
->   	if (op == 1) {
->   		if (!kfd->profiler_process) {
->   			kfd->profiler_process = p;
-> +			amdgpu_gfx_perfmon_clk_override(kfd->adev, true);
->   			status = 0;
->   			mutex_unlock(&kfd->profiler_lock);
-> +			up_read(&kfd->adev->reset_domain->sem);
->   			if (ptl->hw_supported_state == AMDGPU_PTL_HW_SUPPORTED) {
->   				status = kfd_ptl_disable_request(pdd, p);
->   				if (status != 0)
-> @@ -3372,8 +3381,10 @@ static inline int profile_lock_device(struct kfd_process *p,
->   		}
->   	} else if (op == 0 && kfd->profiler_process == p) {
->   		kfd->profiler_process = NULL;
-> +		amdgpu_gfx_perfmon_clk_override(kfd->adev, false);
->   		status = 0;
->   		mutex_unlock(&kfd->profiler_lock);
-> +		up_read(&kfd->adev->reset_domain->sem);
->   
->   		if (ptl->hw_supported_state == AMDGPU_PTL_HW_SUPPORTED) {
->   			status = kfd_ptl_disable_release(pdd, p);
-> @@ -3385,10 +3396,52 @@ static inline int profile_lock_device(struct kfd_process *p,
->   		return status;
->   	}
->   	mutex_unlock(&kfd->profiler_lock);
-> +	up_read(&kfd->adev->reset_domain->sem);
->   
->   	return status;
->   }
->   
-> +/*
-> + * Take or drop this process's dispatch-mode perfmon clock hold. Taking it again
-> + * is a no-op. Dropping returns -ENOENT without a hold, and for the device lock
-> + * holder, whose lock == 0 must still unlock.
-> + */
-> +static int kfd_profiler_perfmon_clk(struct kfd_process *p, uint32_t gpu_id,
-> +				    bool enable)
-> +{
-> +	struct kfd_process_device *pdd;
-> +	struct kfd_dev *kfd;
-> +	int r = 0;
-> +
-> +	mutex_lock(&p->mutex);
-> +	pdd = kfd_process_device_data_by_id(p, gpu_id);
-> +	/* Bind for the runtime PM reference before programming the perfmon clock */
-> +	if (pdd && enable)
-> +		pdd = kfd_bind_process_to_device(pdd->dev, p);
-> +	mutex_unlock(&p->mutex);
-> +
-> +	if (IS_ERR(pdd))
-> +		return PTR_ERR(pdd);
-> +	if (!pdd || !pdd->dev || !pdd->dev->kfd)
-> +		return -EINVAL;
-> +
-> +	kfd = pdd->dev->kfd;
-> +
-> +	/* Before profiler_lock, which reset takes in kfd_resume() */
-> +	down_read(&kfd->adev->reset_domain->sem);
-> +	mutex_lock(&kfd->profiler_lock);
-> +	if (!enable && (!pdd->perfmon_clk_req || kfd->profiler_process == p))
-> +		r = -ENOENT;
-> +	else if (pdd->perfmon_clk_req != enable)
-> +		r = amdgpu_gfx_perfmon_clk_override(kfd->adev, enable);
-> +	if (!r)
-> +		pdd->perfmon_clk_req = enable;
-> +	mutex_unlock(&kfd->profiler_lock);
-> +	up_read(&kfd->adev->reset_domain->sem);
-> +
-> +	return r;
-> +}
-> +
->   static inline int kfd_profiler_pmc(struct kfd_process *p,
->   				   struct kfd_ioctl_pmc_settings *args)
->   {
-> @@ -3396,6 +3449,16 @@ static inline int kfd_profiler_pmc(struct kfd_process *p,
->   	struct device_queue_manager *dqm;
->   	int status;
->   
-> +	if (!args->lock) {
-> +		/* Dispatch mode: perfmon clock only, no lock, no CAP_PERFMON needed */
-> +		if (args->perfcount_enable)
-> +			return kfd_profiler_perfmon_clk(p, args->gpu_id, true);
-> +
-> +		/* Drop a dispatch-mode hold if there is one, else unlock as before */
-> +		if (!kfd_profiler_perfmon_clk(p, args->gpu_id, false))
-> +			return 0;
-> +	}
-> +
->   	/* Check if we have the correct permissions. */
->   	if (!perfmon_capable())
->   		return -EPERM;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> index d8631847f0eb..32c3c23d6d14 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> @@ -886,6 +886,8 @@ struct kfd_process_device {
->   	u32 pasid;
->   	/* Indicates this process has requested PTL stay disabled */
->   	bool ptl_disable_req;
-> +	/* Holds a dispatch-mode perfmon clock override until released or exit */
-> +	bool perfmon_clk_req;
->   };
->   
->   #define qpd_to_pdd(x) container_of(x, struct kfd_process_device, qpd)
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> index dd938788bdd9..7ba1c4ab283b 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> @@ -1176,12 +1176,32 @@ static void kfd_process_free_outstanding_kfd_bos(struct kfd_process *p)
->   
->   static void kfd_process_profiler_release(struct kfd_process *p, struct kfd_process_device *pdd)
->   {
-> +	struct amdgpu_device *adev = pdd->dev->adev;
-> +	int puts = 0;
-> +
->   	mutex_lock(&pdd->dev->kfd->profiler_lock);
->   	if (pdd->dev->kfd->profiler_process == p) {
->   		pdd->qpd.dqm->ops.set_perfcount(pdd->qpd.dqm, 0);
->   		pdd->dev->kfd->profiler_process = NULL;
-> +		puts++;
-> +	}
-> +	if (pdd->perfmon_clk_req) {
-> +		pdd->perfmon_clk_req = false;
-> +		puts++;
->   	}
->   	mutex_unlock(&pdd->dev->kfd->profiler_lock);
-> +
-> +	/*
-> +	 * Nothing is held on the kfd_create_process() error path, which holds
-> +	 * kfd_processes_mutex and so must not wait for a reset.
-> +	 */
-> +	if (!puts)
-> +		return;
-> +
-> +	down_read(&adev->reset_domain->sem);
-> +	while (puts--)
-> +		amdgpu_gfx_perfmon_clk_override(adev, false);
-> +	up_read(&adev->reset_domain->sem);
->   }
->   
->   static void kfd_process_destroy_pdds(struct kfd_process *p)
-> diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
-> index 749d196e2114..34f3ffaf1c66 100644
-> --- a/include/uapi/linux/kfd_ioctl.h
-> +++ b/include/uapi/linux/kfd_ioctl.h
-> @@ -1557,7 +1557,16 @@ struct kfd_ioctl_dbg_trap_args {
->   	};
->   };
->   
-> -#define KFD_IOC_PROFILER_VERSION_NUM 1
-> +/*
-> + * KFD_IOC_PROFILER_VERSION_NUM history:
-> + * - 1 - initial version
-> + * - 2 - KFD_IOC_PROFILER_PMC lock also forces the perfmon clock on until the
-> + *       lock is released or the process exits. lock == 0 with
-> + *       perfcount_enable == 1 forces it on without CAP_PERFMON and without
-> + *       locking, until lock == 0 with perfcount_enable == 0 or the process
-> + *       exits
-> + */
-> +#define KFD_IOC_PROFILER_VERSION_NUM 2
->   enum kfd_profiler_ops {
->   	KFD_IOC_PROFILER_PMC = 0,
->   	KFD_IOC_PROFILER_VERSION = 2,
---------------zW0lcRTPwVd1N5lj9vvRAxkH
+Thanks,
+   Felix
+
+
+>
+> Thanks,
+> Dhruv B
+>
+>
+>> Regards,
+>>   Felix
+>>
+>>
+>>>
+>>>          /* CPU <--> CPU <--> GPU, GPU node*/
+>>>          props = kfd_alloc_struct(props);
+>>> @@ -1459,8 +1462,8 @@ static int 
+>>> kfd_create_indirect_link_prop(struct kfd_topology_device *kdev, int g
+>>>          if (ret < 0)
+>>>              return ret;
+>>>
+>>> -        /* for small Bar, no CPU --> GPU in-direct links */
+>>> -        if (kfd_dev_is_large_bar(kdev->gpu)) {
+>>> +        /* for small Bar or CPU-less NUMA nodes, no CPU --> GPU 
+>>> in-direct links */
+>>> +        if (kfd_dev_is_large_bar(kdev->gpu) && node_state(i, N_CPU)) {
+>>>              /* CPU <--> CPU <--> GPU, CPU node*/
+>>>              props2 = kfd_alloc_struct(props2);
+>>>              if (!props2)
+>>> -- 
+>>>
+>>> Does this approach look good to you?
+>>>
+>>> Regards,
+>>> Dhruv B
+>>>
+>>>
+>>>> Regards,
+>>>>   Felix
+>>>>
+>>>>
+>>>>> +			continue;
+>>>>> +
+>>>>>   		/* CPU <--> GPU */
+>>>>>   		if (gpu_link->node_to == i)
+>>>>>   			continue;
+--------------AmHGHkiAuwN0uUpEDYP2qyiI
 Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 <!DOCTYPE html><html><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -810,670 +475,384 @@ Content-Transfer-Encoding: 7bit
   <body>
     <p><br>
     </p>
-    <div class="moz-cite-prefix">On 2026-11-02 21:31, Apurv Mishra
+    <div class="moz-cite-prefix">On 2026-11-04 12:00, Dhruv Bhogaonkar
       wrote:<br>
     </div>
-    <blockquote type="cite" cite="mid:20261103023145.61021-1-Apurv.Mishra@amd.com">
-      <pre wrap="" class="moz-quote-pre">Counters and SQ/PC sampling read 0 at DPM AUTO on gfx11/gfx12 because
-RLC_CGTT_MGCG_OVERRIDE.PERFMON_CLOCK_STATE is gated, and the existing
-workaround (STABLE_STD) needs root and pins clocks.
+    <blockquote type="cite" cite="mid:64a82e4a-2855-46f1-8942-3c1b6f8179f3@linux.ibm.com">
+      
+      <p><br>
+      </p>
+      <div class="moz-cite-prefix">On 04/11/26 20:56, Kuehling, Felix
+        wrote:<br>
+      </div>
+      <blockquote type="cite" cite="mid:04ddca6d-3880-48e0-a64e-a4bbde32e67e@amd.com">
+        <!-- BaNnErBlUrFlE-BoDy-start -->
+        <!-- Preheader Text : BEGIN -->
+        <div style="display:none !important;display:none;visibility:hidden;mso-hide:all;font-size:1px;color:#ffffff;line-height:1px;max-height:0px;opacity:0;overflow:hidden;">
+          On 2026-11-04 08: 41, Dhruv Bhogaonkar wrote: On 03/11/26
+          05: 55, Felix Kuehling wrote: On 2026-10-30 04: 33, Dhruv B
+          wrote: On systems with discontiguous NUMA node IDs, the GPU
+          driver fails to load with the following errors: [ 5. 609767]
+          amdgpu</div>
+        <!-- Preheader Text : END -->
+        <!-- Email Banner : BEGIN -->
+        <!-- Email Banner : END -->
+        <!-- BaNnErBlUrFlE-BoDy-end -->
+        <!-- BaNnErBlUrFlE-HeAdEr-start -->
+        <style>@scope {  }</style>
+        <!-- BaNnErBlUrFlE-HeAdEr-end -->
+        <div class="moz-cite-prefix">On 2026-11-04 08:41, Dhruv
+          Bhogaonkar wrote:<br>
+        </div>
+        <blockquote type="cite" cite="mid:1c7751d3-ca7d-4a7b-91fa-87762af60095@linux.ibm.com">
+          <p><br>
+          </p>
+          <div class="moz-cite-prefix">On 03/11/26 05:55, Felix Kuehling
+            wrote:<br>
+          </div>
+          <blockquote type="cite" cite="mid:70018014-d952-4155-aa36-cf9b39ba8aea@amd.com">
+            <!-- BaNnErBlUrFlE-BoDy-start -->
+            <!-- Preheader Text : BEGIN -->
+            <div style="display:none !important;display:none;visibility:hidden;mso-hide:all;font-size:1px;color:#ffffff;line-height:1px;max-height:0px;opacity:0;overflow:hidden;">
+              On 2026-10-30 04: 33, Dhruv B wrote: On systems with
+              discontiguous NUMA node IDs, the GPU driver fails to load
+              with the following errors: [ 5. 609767] amdgpu
+              0038: 12: 00. 0: Error parsing VCRAT [ 5. 609781] kfd kfd:
+              Error adding device to topology</div>
+            <!-- Preheader Text : END -->
+            <!-- Email Banner : BEGIN -->
+            <!-- Email Banner : END -->
+            <!-- BaNnErBlUrFlE-BoDy-end -->
+            <!-- BaNnErBlUrFlE-HeAdEr-start -->
+            <style>@scope {  }</style>
+            <!-- BaNnErBlUrFlE-HeAdEr-end -->
+            <div class="moz-cite-prefix">On 2026-10-30 04:33, Dhruv B
+              wrote:<br>
+            </div>
+            <blockquote type="cite" cite="mid:20261030083304.9767-3-dhruv.b@linux.ibm.com">
+              <pre wrap="" class="moz-quote-pre">On systems with discontiguous NUMA node IDs, the GPU driver fails to
+load with the following errors:
 
-Add a refcounted amdgpu_gfx_perfmon_clk_override() that forces the
-perfmon clock on per XCC, keeps GFXOFF disallowed while held, and
-restores the previous state on last release, resume and reset.
-perfmon_clk_mutex serializes it with the GFX clock gating sequences
-and the soc21/soc24 stable pstate hook.
+[    5.609767] amdgpu 0038:12:00.0: Error parsing VCRAT
+[    5.609781] kfd kfd: Error adding device to topology
+[    5.609848] kfd kfd: Error initializing KFD node
 
-Use it from KFD_IOC_PROFILER_PMC, after binding the process to the GPU
-and under reset_domain-&gt;sem:
-- lock=1 (device mode, CAP_PERFMON): held until unlock or exit.
-- lock=0, perfcount_enable=1 (dispatch mode): no CAP_PERFMON needed,
-  held until lock=0, perfcount_enable=0 or process exit.
+In the current KFD code, proximity domains are created contiguously
+when generating the VCRAT. With discontiguous NUMA node IDs, this
+creates a mismatch between the proximity domain ID and the NUMA node ID.
+For example, if NUMA nodes 0, 2 and 3 are online, the current code
+assigns proximity domains 0, 1 and 2 to these nodes respectively,
+instead of domains 0, 2 and 3.
 
-No DPM change, no new ioctl, no struct change. Bump
-KFD_IOC_PROFILER_VERSION_NUM to 2.
+The KFD topology uses the NUMA node and proximity domain information to
+create topology devices representing the CPU and memory resources
+associated with each NUMA node. This topology is exposed to userspace
+through sysfs, where the NUMA node and proximity domain information are
+used to identify the topology devices. The mismatch between the NUMA
+node ID and proximity domain therefore results in an inconsistent KFD
+topology and causes topology parsing to fail.
 
-v2:
-- Take GFXOFF outside perfmon_clk_mutex to break a pm.mutex lock cycle
-- Replace the racy defer() with amdgpu_gfx_perfmon_clk_update(), and hold
-  perfmon_clk_mutex across the GFX clock gating sequences
-- Bind the process to the GPU before forcing the perfmon clock on
-- Take reset_domain-&gt;sem before profiler_lock
-- Release a dispatch-mode hold with lock=0, perfcount_enable=0
+Make the proximity domain ID correspond directly to the NUMA node ID by
+iterating through the complete NUMA node ID range up to the last online
+node. Account for every node ID when assigning proximity domains, while
+skipping resource entry creation for offline nodes. This preserves the
+NUMA-node-to-proximity-domain mapping and allows the KFD topology and
+its sysfs representation to correctly reflect discontiguous NUMA
+topologies.
 
-Signed-off-by: Apurv Mishra <a class="moz-txt-link-rfc2396E" href="mailto:Apurv.Mishra@amd.com">&lt;Apurv.Mishra@amd.com&gt;</a>
+A NUMA node may also be CPU-less, memory-less, or both. Only create a
+Compute Unit CRAT entry if the node has CPUs, and only create a Memory
+CRAT entry if the node has memory.
+
+Additionally, update kfd_parse_subtype_mem() to use simd_count instead
+of cpu_cores_count to distinguish host nodes from GPU nodes. This ensures
+that memory on CPU-less host NUMA nodes is correctly classified as
+system memory (HSA_MEM_HEAP_TYPE_SYSTEM) rather than private GPU
+framebuffer memory.
+
+The placeholder domains created for offline node IDs have no IO links,
+so skip offline and CPU-less nodes when building the indirect GPU to CPU
+links.
+
+Co-developed-by: Donet Tom <a class="moz-txt-link-rfc2396E" href="mailto:donettom@linux.ibm.com" moz-do-not-send="true">&lt;donettom@linux.ibm.com&gt;</a>
+Signed-off-by: Donet Tom <a class="moz-txt-link-rfc2396E" href="mailto:donettom@linux.ibm.com" moz-do-not-send="true">&lt;donettom@linux.ibm.com&gt;</a>
+Signed-off-by: Dhruv B <a class="moz-txt-link-rfc2396E" href="mailto:dhruv.b@linux.ibm.com" moz-do-not-send="true">&lt;dhruv.b@linux.ibm.com&gt;</a>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  2 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c    | 89 ++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h    | 11 +++
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c     | 28 +++++--
- drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c     | 28 +++++--
- drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c     | 28 +++++--
- drivers/gpu/drm/amd/amdgpu/soc21.c         |  2 +
- drivers/gpu/drm/amd/amdgpu/soc24.c         |  2 +
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c   | 63 +++++++++++++++
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h      |  2 +
- drivers/gpu/drm/amd/amdkfd/kfd_process.c   | 20 +++++
- include/uapi/linux/kfd_ioctl.h             | 11 ++-
- 12 files changed, 261 insertions(+), 25 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_crat.c     | 59 +++++++++++++----------
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c |  3 ++
+ 2 files changed, 36 insertions(+), 26 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 44091ac12fa9..04422c1e1f86 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2779,6 +2779,7 @@ static int amdgpu_device_ip_late_init(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+index 99b0c7f825fe..bebbc6715b2f 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+@@ -1103,8 +1103,10 @@ static int kfd_parse_subtype_mem(struct crat_subtype_memory *mem,
+ 			mem-&gt;proximity_domain);
+ 	list_for_each_entry(dev, device_list, list) {
+ 		if (mem-&gt;proximity_domain == dev-&gt;proximity_domain) {
+-			/* We're on GPU node */
+-			if (dev-&gt;node_props.cpu_cores_count == 0) {
++			if (dev-&gt;node_props.simd_count == 0) {
++				heap_type = HSA_MEM_HEAP_TYPE_SYSTEM;
++			} else {
++				/* We're on GPU node */
+ 				/* APU */
+ 				if (mem-&gt;visibility_type == 0)
+ 					heap_type =
+@@ -1112,8 +1114,7 @@ static int kfd_parse_subtype_mem(struct crat_subtype_memory *mem,
+ 				/* dGPU */
+ 				else
+ 					heap_type = mem-&gt;visibility_type;
+-			} else
+-				heap_type = HSA_MEM_HEAP_TYPE_SYSTEM;
++			}
  
- 	amdgpu_device_set_cg_state(adev, AMD_CG_STATE_GATE);
- 	amdgpu_device_set_pg_state(adev, AMD_PG_STATE_GATE);
-+	amdgpu_gfx_perfmon_clk_restore(adev);
+ 			if (mem-&gt;flags &amp; CRAT_MEM_FLAGS_HOT_PLUGGABLE)
+ 				flags |= HSA_MEM_FLAGS_HOT_PLUGGABLE;
+@@ -1899,7 +1900,7 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_image, size_t *size)
+ 	acpi_status status;
+ 	struct crat_subtype_generic *sub_type_hdr;
+ 	int avail_size = *size;
+-	int numa_node_id;
++	int numa_node_id, last_node;
+ #if defined(CONFIG_X86_64) &amp;&amp; !defined(CONFIG_UML)
+ 	uint32_t entries = 0;
+ #endif
+@@ -1935,34 +1936,41 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_image, size_t *size)
+ 	crat_table-&gt;num_domains = 0;
  
- 	amdgpu_device_fill_reset_magic(adev);
+ 	sub_type_hdr = (struct crat_subtype_generic *)(crat_table+1);
++	last_node = find_last_bit(node_online_map.bits, MAX_NUMNODES);
  
-@@ -3822,6 +3823,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 	mutex_init(&amp;adev-&gt;srbm_mutex);
- 	mutex_init(&amp;adev-&gt;gfx.pipe_reserve_mutex);
- 	mutex_init(&amp;adev-&gt;gfx.gfx_off_mutex);
-+	mutex_init(&amp;adev-&gt;gfx.perfmon_clk_mutex);
- 	mutex_init(&amp;adev-&gt;gfx.partition_mutex);
- 	mutex_init(&amp;adev-&gt;grbm_idx_mutex);
- 	mutex_init(&amp;adev-&gt;mn_lock);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-index a6f95ff47d24..c9c4c3d4e88d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -1015,6 +1015,95 @@ void amdgpu_gfx_off_ctrl_immediate(struct amdgpu_device *adev, bool enable)
- 	amdgpu_gfx_do_off_ctrl(adev, enable, true);
- }
+-	for_each_online_node(numa_node_id) {
+-		if (kfd_numa_node_to_apic_id(numa_node_id) == -1)
++	for (numa_node_id = 0; numa_node_id &lt;= last_node; numa_node_id++) {
++		if (!node_online(numa_node_id)) {
++			crat_table-&gt;num_domains++;
+ 			continue;
++		}
  
-+/*
-+ * Force the perfmon clock on, or restore the saved state; @save records the old
-+ * one. Called with perfmon_clk_mutex held and GFXOFF disallowed.
-+ */
-+static void amdgpu_gfx_perfmon_clk_program(struct amdgpu_device *adev,
-+					   bool force_on, bool save)
-+{
-+	int i, num_xcc = NUM_XCC(adev-&gt;gfx.xcc_mask);
-[JZ] Nit: lockdep_assert_held(&amp;adev-&gt;gfx.perfmon_clk_mutex) here, as amdgpu_gfx_perfmon_clk_update() does.
-With this update, </pre>
-    </blockquote>
-    <pre style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">This<span style=" color:#c0c0c0;"> </span>patch<span style=" color:#c0c0c0;"> </span>is<span style=" color:#c0c0c0;"> </span>Reviewed-by:<span style=" color:#c0c0c0;"> </span>James<span style=" color:#c0c0c0;"> </span>Zhu<span style=" color:#c0c0c0;"> </span><a class="moz-txt-link-rfc2396E" href="mailto:James.Zhu@amd.com">&lt;James.Zhu@amd.com&gt;</a></pre>
-    <blockquote type="cite" cite="mid:20261103023145.61021-1-Apurv.Mishra@amd.com">
-      <pre wrap="" class="moz-quote-pre">
-+	for (i = 0; i &lt; num_xcc; i++) {
-+		bool on = force_on || test_bit(i, &amp;adev-&gt;gfx.perfmon_clk_restore_mask);
-+		bool in_safe_mode = adev-&gt;gfx.rlc.in_safe_mode[i];
-+		bool was_on;
-+
-+		if (!in_safe_mode)
-+			amdgpu_gfx_rlc_enter_safe_mode(adev, i);
-+		was_on = adev-&gt;gfx.funcs-&gt;set_perfmon_clk_override(adev, i, on);
-+		if (!in_safe_mode)
-+			amdgpu_gfx_rlc_exit_safe_mode(adev, i);
-+
-+		if (save)
-+			assign_bit(i, &amp;adev-&gt;gfx.perfmon_clk_restore_mask, was_on);
-+	}
-+}
-+
-+/*
-+ * Refcounted override that keeps the perfmon clock on for profilers. The last
-+ * put restores the previous state. Each hold keeps GFXOFF disallowed, as a
-+ * GFXOFF exit restores the register. Returns -EOPNOTSUPP if the ASIC can't do it.
-+ *
-+ * GFXOFF control takes pm.mutex, which clock gating holds around
-+ * perfmon_clk_mutex, so it must be called without perfmon_clk_mutex held.
-+ */
-+int amdgpu_gfx_perfmon_clk_override(struct amdgpu_device *adev, bool enable)
-+{
-+	int r = 0;
-+
-+	if (amdgpu_sriov_vf(adev) || !adev-&gt;gfx.funcs ||
-+	    !adev-&gt;gfx.funcs-&gt;set_perfmon_clk_override)
-+		return -EOPNOTSUPP;
-+
-+	if (enable)
-+		amdgpu_gfx_off_ctrl(adev, false);
-+
-+	mutex_lock(&amp;adev-&gt;gfx.perfmon_clk_mutex);
-+	if (enable) {
-+		if (!adev-&gt;gfx.perfmon_clk_override_count++)
-+			amdgpu_gfx_perfmon_clk_program(adev, true, true);
-+	} else if (WARN_ON_ONCE(!adev-&gt;gfx.perfmon_clk_override_count)) {
-+		r = -EINVAL;
-+	} else if (!--adev-&gt;gfx.perfmon_clk_override_count) {
-+		amdgpu_gfx_perfmon_clk_program(adev, false, false);
-+	}
-+	mutex_unlock(&amp;adev-&gt;gfx.perfmon_clk_mutex);
-+
-+	if (!enable &amp;&amp; !r)
-+		amdgpu_gfx_off_ctrl(adev, true);
-+
-+	return r;
-+}
-+
-+/*
-+ * Program the perfmon clock for clock gating. While overridden, only record
-+ * the state for the final restore. Called with perfmon_clk_mutex held.
-+ */
-+void amdgpu_gfx_perfmon_clk_update(struct amdgpu_device *adev, int xcc_id, bool on)
-+{
-+	lockdep_assert_held(&amp;adev-&gt;gfx.perfmon_clk_mutex);
-+
-+	if (adev-&gt;gfx.perfmon_clk_override_count)
-+		assign_bit(xcc_id, &amp;adev-&gt;gfx.perfmon_clk_restore_mask, on);
-+	else
-+		adev-&gt;gfx.funcs-&gt;set_perfmon_clk_override(adev, xcc_id, on);
-+}
-+
-+/* Re-apply the override after resume/reset reprogrammed clock gating. */
-+void amdgpu_gfx_perfmon_clk_restore(struct amdgpu_device *adev)
-+{
-+	if (!adev-&gt;gfx.funcs || !adev-&gt;gfx.funcs-&gt;set_perfmon_clk_override)
-+		return;
-+
-+	amdgpu_gfx_off_ctrl(adev, false);
-+	mutex_lock(&amp;adev-&gt;gfx.perfmon_clk_mutex);
-+	if (adev-&gt;gfx.perfmon_clk_override_count)
-+		amdgpu_gfx_perfmon_clk_program(adev, true, false);
-+	mutex_unlock(&amp;adev-&gt;gfx.perfmon_clk_mutex);
-+	amdgpu_gfx_off_ctrl(adev, true);
-+}
-+
- int amdgpu_set_gfx_off_residency(struct amdgpu_device *adev, bool value)
- {
- 	int r = 0;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-index f5fb2e585e8a..1bfd12dd3956 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-@@ -362,6 +362,9 @@ struct amdgpu_gfx_funcs {
- 				 u32 queue, u32 vmid, u32 xcc_id);
- 	void (*init_spm_golden)(struct amdgpu_device *adev);
- 	void (*update_perfmon_mgcg)(struct amdgpu_device *adev, bool enable);
-+	/* set the perfmon clock, returns its previous state */
-+	bool (*set_perfmon_clk_override)(struct amdgpu_device *adev, int xcc_id,
-+					 bool on);
- 	int (*get_gfx_shadow_info)(struct amdgpu_device *adev,
- 				   struct amdgpu_gfx_shadow_info *shadow_info,
- 				   bool skip_check);
-@@ -500,6 +503,11 @@ struct amdgpu_gfx {
- 	uint32_t                        gfx_off_residency;  /* last logged residency */
- 	uint64_t                        gfx_off_entrycount; /* count of times GPU has get into GFXOFF state */
+ 		/* Fill in Subtype: Compute Unit */
+-		ret = kfd_fill_cu_for_cpu(numa_node_id, &amp;avail_size,
+-			crat_table-&gt;num_domains,
+-			(struct crat_subtype_computeunit *)sub_type_hdr);
+-		if (ret &lt; 0)
+-			return ret;
+-		crat_table-&gt;length += sub_type_hdr-&gt;length;
+-		crat_table-&gt;total_entries++;
++		if (kfd_numa_node_to_apic_id(numa_node_id) != -1) {
++			ret = kfd_fill_cu_for_cpu(numa_node_id, &amp;avail_size,
++						  crat_table-&gt;num_domains,
++						  (struct crat_subtype_computeunit *)sub_type_hdr);
++			if (ret &lt; 0)
++				return ret;
++			crat_table-&gt;length += sub_type_hdr-&gt;length;
++			crat_table-&gt;total_entries++;
  
-+	/* perfmon clock override for profilers */
-+	struct mutex			perfmon_clk_mutex;
-+	uint32_t			perfmon_clk_override_count;
-+	unsigned long			perfmon_clk_restore_mask; /* per XCC */
-+
- 	/* pipe reservation */
- 	struct mutex			pipe_reserve_mutex;
- 	DECLARE_BITMAP			(pipe_reserve_bitmap, AMDGPU_MAX_COMPUTE_QUEUES);
-@@ -632,6 +640,9 @@ void amdgpu_gfx_handle_priv_fault(struct amdgpu_device *adev,
- 					u8 me_id, u8 pipe_id, u8 queue_id);
- void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev, bool enable);
- void amdgpu_gfx_off_ctrl_immediate(struct amdgpu_device *adev, bool enable);
-+int amdgpu_gfx_perfmon_clk_override(struct amdgpu_device *adev, bool enable);
-+void amdgpu_gfx_perfmon_clk_update(struct amdgpu_device *adev, int xcc_id, bool on);
-+void amdgpu_gfx_perfmon_clk_restore(struct amdgpu_device *adev);
- int amdgpu_get_gfx_off_status(struct amdgpu_device *adev, uint32_t *value);
- int amdgpu_gfx_ras_late_init(struct amdgpu_device *adev, struct ras_common_if *ras_block);
- void amdgpu_gfx_ras_suspend(struct amdgpu_device *adev, struct ras_common_if *ras_block);
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-index a7ed4923857b..a01244621fa3 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-@@ -365,6 +365,8 @@ static void gfx_v11_0_unset_safe_mode(struct amdgpu_device *adev, int xcc_id);
- static void gfx_v11_0_userq_priv_fault_work(struct work_struct *work);
- static void gfx_v11_0_update_perf_clk(struct amdgpu_device *adev,
- 				      bool enable);
-+static bool gfx_v11_0_set_perfmon_clk_override(struct amdgpu_device *adev,
-+					       int xcc_id, bool on);
+-		sub_type_hdr = (typeof(sub_type_hdr))((char *)sub_type_hdr +
+-			sub_type_hdr-&gt;length);
++			sub_type_hdr = (typeof(sub_type_hdr))((char *)sub_type_hdr +
++				sub_type_hdr-&gt;length);
++		}
  
- static void gfx11_kiq_set_resources(struct amdgpu_ring *kiq_ring, uint64_t queue_mask)
- {
-@@ -1110,6 +1112,7 @@ static const struct amdgpu_gfx_funcs gfx_v11_0_gfx_funcs = {
- 	.read_wave_vgprs = &amp;gfx_v11_0_read_wave_vgprs,
- 	.select_me_pipe_q = &amp;gfx_v11_0_select_me_pipe_q,
- 	.update_perfmon_mgcg = &amp;gfx_v11_0_update_perf_clk,
-+	.set_perfmon_clk_override = &amp;gfx_v11_0_set_perfmon_clk_override,
- 	.get_gfx_shadow_info = &amp;gfx_v11_0_get_gfx_shadow_info,
- 	.get_hdp_flush_mask = &amp;amdgpu_gfx_get_hdp_flush_mask,
- };
-@@ -5457,23 +5460,29 @@ static void gfx_v11_0_unset_safe_mode(struct amdgpu_device *adev, int xcc_id)
- 	WREG32_SOC15(GC, 0, regRLC_SAFE_MODE, RLC_SAFE_MODE__CMD_MASK);
- }
+ 		/* Fill in Subtype: Memory */
+-		ret = kfd_fill_mem_info_for_cpu(numa_node_id, &amp;avail_size,
+-			crat_table-&gt;num_domains,
+-			(struct crat_subtype_memory *)sub_type_hdr);
+-		if (ret &lt; 0)
+-			return ret;
+-		crat_table-&gt;length += sub_type_hdr-&gt;length;
+-		crat_table-&gt;total_entries++;
++		if (node_state(numa_node_id, N_MEMORY)) {
++			ret = kfd_fill_mem_info_for_cpu(numa_node_id, &amp;avail_size,
++							crat_table-&gt;num_domains,
++							(struct crat_subtype_memory *)sub_type_hdr);
++			if (ret &lt; 0)
++				return ret;
++			crat_table-&gt;length += sub_type_hdr-&gt;length;
++			crat_table-&gt;total_entries++;
  
--static void gfx_v11_0_update_perf_clk(struct amdgpu_device *adev,
--				      bool enable)
-+static bool gfx_v11_0_set_perfmon_clk_override(struct amdgpu_device *adev,
-+					       int xcc_id, bool on)
- {
- 	uint32_t def, data;
+-		sub_type_hdr = (typeof(sub_type_hdr))((char *)sub_type_hdr +
+-			sub_type_hdr-&gt;length);
++			sub_type_hdr = (typeof(sub_type_hdr))((char *)sub_type_hdr +
++				sub_type_hdr-&gt;length);
++		}
  
--	if (!(adev-&gt;cg_flags &amp; AMD_CG_SUPPORT_GFX_PERF_CLK))
--		return;
+ 		/* Fill in Subtype: IO Link */
+ #if defined(CONFIG_X86_64) &amp;&amp; !defined(CONFIG_UML)
+@@ -1982,7 +1990,6 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_image, size_t *size)
+ #else
+ 		pr_info(&quot;IO link not available for non x86 platforms\n&quot;);
+ #endif
 -
- 	def = data = RREG32_SOC15(GC, 0, regRLC_CGTT_MGCG_OVERRIDE);
- 
--	if (enable)
--		data &amp;= ~RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
--	else
-+	if (on)
- 		data |= RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
-+	else
-+		data &amp;= ~RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
- 
- 	if (def != data)
- 		WREG32_SOC15(GC, 0, regRLC_CGTT_MGCG_OVERRIDE, data);
-+
-+	return !!(def &amp; RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK);
-+}
-+
-+static void gfx_v11_0_update_perf_clk(struct amdgpu_device *adev,
-+				      bool enable)
-+{
-+	if (adev-&gt;cg_flags &amp; AMD_CG_SUPPORT_GFX_PERF_CLK)
-+		amdgpu_gfx_perfmon_clk_update(adev, 0, !enable);
- }
- 
- static void gfx_v11_0_update_sram_fgcg(struct amdgpu_device *adev,
-@@ -5680,6 +5689,8 @@ static void gfx_v11_0_update_coarse_grain_clock_gating(struct amdgpu_device *ade
- static int gfx_v11_0_update_gfx_clock_gating(struct amdgpu_device *adev,
- 					    bool enable)
- {
-+	/* RLC_CGTT_MGCG_OVERRIDE is shared with the perfmon clock override */
-+	mutex_lock(&amp;adev-&gt;gfx.perfmon_clk_mutex);
- 	amdgpu_gfx_rlc_enter_safe_mode(adev, 0);
- 
- 	gfx_v11_0_update_coarse_grain_clock_gating(adev, enable);
-@@ -5701,6 +5712,7 @@ static int gfx_v11_0_update_gfx_clock_gating(struct amdgpu_device *adev,
- 	        gfx_v11_0_enable_gui_idle_interrupt(adev, enable);
- 
- 	amdgpu_gfx_rlc_exit_safe_mode(adev, 0);
-+	mutex_unlock(&amp;adev-&gt;gfx.perfmon_clk_mutex);
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-index ec1e142549c5..9e754c25b15c 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-@@ -289,6 +289,8 @@ static void gfx_v12_0_unset_safe_mode(struct amdgpu_device *adev, int xcc_id);
- static void gfx_v12_0_userq_priv_fault_work(struct work_struct *work);
- static void gfx_v12_0_update_perf_clk(struct amdgpu_device *adev,
- 				      bool enable);
-+static bool gfx_v12_0_set_perfmon_clk_override(struct amdgpu_device *adev,
-+					       int xcc_id, bool on);
- 
- static void gfx_v12_0_kiq_set_resources(struct amdgpu_ring *kiq_ring,
- 					uint64_t queue_mask)
-@@ -952,6 +954,7 @@ static const struct amdgpu_gfx_funcs gfx_v12_0_gfx_funcs = {
- 	.read_wave_vgprs = &amp;gfx_v12_0_read_wave_vgprs,
- 	.select_me_pipe_q = &amp;gfx_v12_0_select_me_pipe_q,
- 	.update_perfmon_mgcg = &amp;gfx_v12_0_update_perf_clk,
-+	.set_perfmon_clk_override = &amp;gfx_v12_0_set_perfmon_clk_override,
- 	.get_gfx_shadow_info = &amp;gfx_v12_0_get_gfx_shadow_info,
- 	.get_hdp_flush_mask = &amp;amdgpu_gfx_get_hdp_flush_mask,
- };
-@@ -4045,23 +4048,29 @@ static void gfx_v12_0_unset_safe_mode(struct amdgpu_device *adev,
- 	WREG32_SOC15(GC, 0, regRLC_SAFE_MODE, RLC_SAFE_MODE__CMD_MASK);
- }
- 
--static void gfx_v12_0_update_perf_clk(struct amdgpu_device *adev,
--				      bool enable)
-+static bool gfx_v12_0_set_perfmon_clk_override(struct amdgpu_device *adev,
-+					       int xcc_id, bool on)
- {
- 	uint32_t def, data;
- 
--	if (!(adev-&gt;cg_flags &amp; AMD_CG_SUPPORT_GFX_PERF_CLK))
--		return;
--
- 	def = data = RREG32_SOC15(GC, 0, regRLC_CGTT_MGCG_OVERRIDE);
- 
--	if (enable)
--		data &amp;= ~RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
--	else
-+	if (on)
- 		data |= RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
-+	else
-+		data &amp;= ~RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
- 
- 	if (def != data)
- 		WREG32_SOC15(GC, 0, regRLC_CGTT_MGCG_OVERRIDE, data);
-+
-+	return !!(def &amp; RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK);
-+}
-+
-+static void gfx_v12_0_update_perf_clk(struct amdgpu_device *adev,
-+				      bool enable)
-+{
-+	if (adev-&gt;cg_flags &amp; AMD_CG_SUPPORT_GFX_PERF_CLK)
-+		amdgpu_gfx_perfmon_clk_update(adev, 0, !enable);
- }
- 
- static void gfx_v12_0_update_spm_vmid(struct amdgpu_device *adev,
-@@ -4335,6 +4344,8 @@ static void gfx_v12_0_update_sram_fgcg(struct amdgpu_device *adev,
- static int gfx_v12_0_update_gfx_clock_gating(struct amdgpu_device *adev,
- 					    bool enable)
- {
-+	/* RLC_CGTT_MGCG_OVERRIDE is shared with the perfmon clock override */
-+	mutex_lock(&amp;adev-&gt;gfx.perfmon_clk_mutex);
- 	amdgpu_gfx_rlc_enter_safe_mode(adev, 0);
- 
- 	gfx_v12_0_update_coarse_grain_clock_gating(adev, enable);
-@@ -4356,6 +4367,7 @@ static int gfx_v12_0_update_gfx_clock_gating(struct amdgpu_device *adev,
- 		gfx_v12_0_enable_gui_idle_interrupt(adev, enable);
- 
- 	amdgpu_gfx_rlc_exit_safe_mode(adev, 0);
-+	mutex_unlock(&amp;adev-&gt;gfx.perfmon_clk_mutex);
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-index f812d6d81e9c..958b4ad39d9f 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-@@ -215,6 +215,8 @@ static void gfx_v12_1_update_perf_clk(struct amdgpu_device *adev,
- 				      bool enable);
- static void gfx_v12_1_xcc_update_perf_clk(struct amdgpu_device *adev,
- 					 bool enable, int xcc_id);
-+static bool gfx_v12_1_set_perfmon_clk_override(struct amdgpu_device *adev,
-+					       int xcc_id, bool on);
- static int gfx_v12_1_init_cp_compute_microcode_bo(struct amdgpu_device *adev);
- static void gfx_v12_1_xcc_update_medium_grain_clock_gating(
- 	struct amdgpu_device *adev, bool enable, int xcc_id, bool force);
-@@ -888,6 +890,7 @@ static const struct amdgpu_gfx_funcs gfx_v12_1_gfx_funcs = {
- 	.read_wave_vgprs = &amp;gfx_v12_1_read_wave_vgprs,
- 	.select_me_pipe_q = &amp;gfx_v12_1_select_me_pipe_q,
- 	.update_perfmon_mgcg = &amp;gfx_v12_1_update_perf_clk,
-+	.set_perfmon_clk_override = &amp;gfx_v12_1_set_perfmon_clk_override,
- 	.get_xccs_per_xcp = &amp;gfx_v12_1_get_xccs_per_xcp,
- 	.ih_node_to_logical_xcc = &amp;gfx_v12_1_ih_to_xcc_inst,
- };
-@@ -3471,28 +3474,36 @@ static void gfx_v12_1_xcc_update_sram_fgcg(struct amdgpu_device *adev,
- 		WREG32_SOC15(GC, GET_INST(GC, xcc_id), regRLC_CGTT_MGCG_OVERRIDE, data);
- }
- 
--static void gfx_v12_1_xcc_update_perf_clk(struct amdgpu_device *adev,
--					  bool enable, int xcc_id)
-+static bool gfx_v12_1_set_perfmon_clk_override(struct amdgpu_device *adev,
-+					       int xcc_id, bool on)
- {
- 	uint32_t def, data;
- 
--	if (!(adev-&gt;cg_flags &amp; AMD_CG_SUPPORT_GFX_PERF_CLK))
--		return;
--
- 	def = data = RREG32_SOC15(GC, GET_INST(GC, xcc_id), regRLC_CGTT_MGCG_OVERRIDE);
- 
--	if (enable)
--		data &amp;= ~RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
--	else
-+	if (on)
- 		data |= RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
-+	else
-+		data &amp;= ~RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK;
- 
- 	if (def != data)
- 		WREG32_SOC15(GC, GET_INST(GC, xcc_id), regRLC_CGTT_MGCG_OVERRIDE, data);
-+
-+	return !!(def &amp; RLC_CGTT_MGCG_OVERRIDE__PERFMON_CLOCK_STATE_MASK);
-+}
-+
-+static void gfx_v12_1_xcc_update_perf_clk(struct amdgpu_device *adev,
-+					  bool enable, int xcc_id)
-+{
-+	if (adev-&gt;cg_flags &amp; AMD_CG_SUPPORT_GFX_PERF_CLK)
-+		amdgpu_gfx_perfmon_clk_update(adev, xcc_id, !enable);
- }
- 
- static int gfx_v12_1_xcc_update_gfx_clock_gating(struct amdgpu_device *adev,
- 					     bool enable, int xcc_id)
- {
-+	/* RLC_CGTT_MGCG_OVERRIDE is shared with the perfmon clock override */
-+	mutex_lock(&amp;adev-&gt;gfx.perfmon_clk_mutex);
- 	amdgpu_gfx_rlc_enter_safe_mode(adev, xcc_id);
- 
- 	gfx_v12_1_xcc_update_coarse_grain_clock_gating(adev, enable, xcc_id);
-@@ -3515,6 +3526,7 @@ static int gfx_v12_1_xcc_update_gfx_clock_gating(struct amdgpu_device *adev,
- 		gfx_v12_1_xcc_enable_gui_idle_interrupt(adev, enable, xcc_id);
- 
- 	amdgpu_gfx_rlc_exit_safe_mode(adev, xcc_id);
-+	mutex_unlock(&amp;adev-&gt;gfx.perfmon_clk_mutex);
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
-index 599d47e1d38b..ed10c258703c 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc21.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
-@@ -520,6 +520,7 @@ static void soc21_init_doorbell_index(struct amdgpu_device *adev)
- static int soc21_update_umd_stable_pstate(struct amdgpu_device *adev,
- 					  bool enter)
- {
-+	mutex_lock(&amp;adev-&gt;gfx.perfmon_clk_mutex);
- 	if (enter)
- 		amdgpu_gfx_rlc_enter_safe_mode(adev, 0);
- 	else
-@@ -527,6 +528,7 @@ static int soc21_update_umd_stable_pstate(struct amdgpu_device *adev,
- 
- 	if (adev-&gt;gfx.funcs-&gt;update_perfmon_mgcg)
- 		adev-&gt;gfx.funcs-&gt;update_perfmon_mgcg(adev, !enter);
-+	mutex_unlock(&amp;adev-&gt;gfx.perfmon_clk_mutex);
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc24.c b/drivers/gpu/drm/amd/amdgpu/soc24.c
-index 6c8b8ed4a44d..46d746dd37b2 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc24.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc24.c
-@@ -302,6 +302,7 @@ static void soc24_init_doorbell_index(struct amdgpu_device *adev)
- static int soc24_update_umd_stable_pstate(struct amdgpu_device *adev,
- 					  bool enter)
- {
-+	mutex_lock(&amp;adev-&gt;gfx.perfmon_clk_mutex);
- 	if (enter)
- 		amdgpu_gfx_rlc_enter_safe_mode(adev, 0);
- 	else
-@@ -309,6 +310,7 @@ static int soc24_update_umd_stable_pstate(struct amdgpu_device *adev,
- 
- 	if (adev-&gt;gfx.funcs-&gt;update_perfmon_mgcg)
- 		adev-&gt;gfx.funcs-&gt;update_perfmon_mgcg(adev, !enter);
-+	mutex_unlock(&amp;adev-&gt;gfx.perfmon_clk_mutex);
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 7fcfc150a7fc..e4fb9f5aa3b2 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -3343,20 +3343,29 @@ static inline int profile_lock_device(struct kfd_process *p,
- 
- 	mutex_lock(&amp;p-&gt;mutex);
- 	pdd = kfd_process_device_data_by_id(p, gpu_id);
-+	/* Bind for the runtime PM reference before programming the perfmon clock */
-+	if (pdd &amp;&amp; op == 1)
-+		pdd = kfd_bind_process_to_device(pdd-&gt;dev, p);
- 	mutex_unlock(&amp;p-&gt;mutex);
- 
-+	if (IS_ERR(pdd))
-+		return PTR_ERR(pdd);
- 	if (!pdd || !pdd-&gt;dev || !pdd-&gt;dev-&gt;kfd)
- 		return -EINVAL;
- 
- 	kfd = pdd-&gt;dev-&gt;kfd;
- 	ptl = &amp;pdd-&gt;dev-&gt;adev-&gt;psp.ptl;
- 
-+	/* Before profiler_lock, which reset takes in kfd_resume() */
-+	down_read(&amp;kfd-&gt;adev-&gt;reset_domain-&gt;sem);
- 	mutex_lock(&amp;kfd-&gt;profiler_lock);
- 	if (op == 1) {
- 		if (!kfd-&gt;profiler_process) {
- 			kfd-&gt;profiler_process = p;
-+			amdgpu_gfx_perfmon_clk_override(kfd-&gt;adev, true);
- 			status = 0;
- 			mutex_unlock(&amp;kfd-&gt;profiler_lock);
-+			up_read(&amp;kfd-&gt;adev-&gt;reset_domain-&gt;sem);
- 			if (ptl-&gt;hw_supported_state == AMDGPU_PTL_HW_SUPPORTED) {
- 				status = kfd_ptl_disable_request(pdd, p);
- 				if (status != 0)
-@@ -3372,8 +3381,10 @@ static inline int profile_lock_device(struct kfd_process *p,
- 		}
- 	} else if (op == 0 &amp;&amp; kfd-&gt;profiler_process == p) {
- 		kfd-&gt;profiler_process = NULL;
-+		amdgpu_gfx_perfmon_clk_override(kfd-&gt;adev, false);
- 		status = 0;
- 		mutex_unlock(&amp;kfd-&gt;profiler_lock);
-+		up_read(&amp;kfd-&gt;adev-&gt;reset_domain-&gt;sem);
- 
- 		if (ptl-&gt;hw_supported_state == AMDGPU_PTL_HW_SUPPORTED) {
- 			status = kfd_ptl_disable_release(pdd, p);
-@@ -3385,10 +3396,52 @@ static inline int profile_lock_device(struct kfd_process *p,
- 		return status;
+ 		crat_table-&gt;num_domains++;
  	}
- 	mutex_unlock(&amp;kfd-&gt;profiler_lock);
-+	up_read(&amp;kfd-&gt;adev-&gt;reset_domain-&gt;sem);
  
- 	return status;
- }
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+index b38d12f3da84..d2fbe73e57ef 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+@@ -1419,6 +1419,9 @@ static int kfd_create_indirect_link_prop(struct kfd_topology_device *kdev, int g
+ 				    struct kfd_iolink_properties, list);
  
-+/*
-+ * Take or drop this process's dispatch-mode perfmon clock hold. Taking it again
-+ * is a no-op. Dropping returns -ENOENT without a hold, and for the device lock
-+ * holder, whose lock == 0 must still unlock.
-+ */
-+static int kfd_profiler_perfmon_clk(struct kfd_process *p, uint32_t gpu_id,
-+				    bool enable)
-+{
-+	struct kfd_process_device *pdd;
-+	struct kfd_dev *kfd;
-+	int r = 0;
+ 	for (i = 0; i &lt; num_cpu; i++) {
++		if (!node_online(i) || !node_state(i, N_CPU))</pre>
+            </blockquote>
+            <p>The N_CPU part skips indirect links through CPU-less NUMA
+              nodes. Is that correct? For links from the GPU to that
+              memory, I think we need the indirect links so the GPU
+              knows that it can access such memory.</p>
+            <p>Maybe further down we could enhance the large-bar
+              condition to only create indirect CPU-&gt;GPU links if
+              that node actually has a CPU:</p>
+            <pre>                /* for small Bar or CPU-less NUMA nodes, no CPU --&gt; GPU in-direct links */
+                if (kfd_dev_is_large_bar(kdev-&gt;gpu) &amp;&amp; node_state(i, N_CPU)) {
+			...</pre>
+          </blockquote>
+          <p><br>
+          </p>
+          <font face="monospace"><span>Hi Felix,<br>
+            </span><br>
+            <span>Thanks a lot for the reply and the suggestion!<br>
+            </span><br>
+            <span>Would the following change address your concern? I've
+              removed the</span><br>
+            <code dir="ltr"><span>N_CPU</span></code><span><span class="Apple-converted-space">&nbsp;</span>check from the
+              loop condition and moved it to the large-BAR</span><span><br>
+              check so that we retain the indirect links for CPU-less
+              NUMA nodes</span><br>
+            <span>while avoiding CPU → GPU indirect links for those
+              nodes.<br>
+            </span></font></blockquote>
+        <p>Yes, this look good. I have one question inline.</p>
+        <p><br>
+        </p>
+        <blockquote type="cite" cite="mid:1c7751d3-ca7d-4a7b-91fa-87762af60095@linux.ibm.com"><font face="monospace"><br>
+            diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+            b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c<br>
+            index b38d12f3da84..8f908323d74b 100644<br>
+            --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c<br>
+            +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c<br>
+            @@ -1419,6 +1419,9 @@ static int
+            kfd_create_indirect_link_prop(struct kfd_topology_device
+            *kdev, int g<br>
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;struct kfd_iolink_properties, list);<br>
+            &nbsp;<br>
+            &nbsp; &nbsp; &nbsp;for (i = 0; i &lt; num_cpu; i++) {<br>
+            +&nbsp; &nbsp; &nbsp; &nbsp; if (!node_online(i))<br>
+            +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; continue;<br>
+            +<br>
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* CPU &lt;--&gt; GPU */<br>
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if (gpu_link-&gt;node_to == i)<br>
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;continue;<br>
+            @@ -1437,7 +1440,7 @@ static int
+            kfd_create_indirect_link_prop(struct kfd_topology_device
+            *kdev, int g<br>
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;}<br>
+            &nbsp;<br>
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if (!cpu_link)<br>
+            -&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; return -ENOMEM;<br>
+            +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; continue;<br>
+          </font></blockquote>
+        <p>I think I'm fine with this change. But the fact that you need
+          this tells me that you have some weird topology where the CPUs
+          (and CPU-less memory-only) NUMA nodes aren't fully connected.
+          How does that happen? Does that point at some problem
+          elsewhere?</p>
+      </blockquote>
+      <font face="monospace"><span>Hi Felix,</span><br>
+        <span>Thanks for the feedback!<br>
+          <br>
+          Actually the main reason for the change was:<br>
+          <br>
+          In<span class="Apple-converted-space">&nbsp;</span></span><code dir="ltr"><span>kfd_create_vcrat_image_cpu()</span></code><span>,
+          CPU-to-CPU IO link</span><br>
+        <span>generation is wrapped in<span class="Apple-converted-space">&nbsp;</span></span><code dir="ltr"><span>#if
+            defined(CONFIG_X86_64)</span></code><span>.</span><br>
+        <span>Consequently,<span class="Apple-converted-space">&nbsp;</span></span><code dir="ltr"><span>kfd_fill_iolink_info_for_cpu()</span></code><span><span class="Apple-converted-space">&nbsp;</span>is not</span><br>
+        <span>compiled on non-x86 platforms, leaving</span><br>
+        <code dir="ltr"><span>cpu_dev-&gt;io_link_props</span></code><span><span class="Apple-converted-space">&nbsp;</span>empty for all host
+          nodes.</span></font>
+      <ol data-spread="false" start="1" style="caret-color: rgb(255, 255, 255); color: rgb(255, 255, 255); font-size: medium; font-style: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: none;">
+        <li><font face="monospace"><span>For example, on a multi-node
+              non-x86 system where the</span><br>
+            <span>GPU is attached to node 2 and CPUs are present on node
+              0,</span><br>
+            <code dir="ltr"><span>cpu_link</span></code><span><span class="Apple-converted-space">&nbsp;</span>will be NULL.</span><br>
+            <span>Returning<span class="Apple-converted-space">&nbsp;</span></span><code dir="ltr"><span>-ENOMEM</span></code><span><span class="Apple-converted-space">&nbsp;</span>in this case
+              causes</span><br>
+            <code dir="ltr"><span>kfd_dev_create_p2p_links()</span></code><span><span class="Apple-converted-space">&nbsp;</span>to abort early,
+              potentially</span><br>
+            <span>preventing subsequent GPU-to-GPU P2P links from being</span><br>
+            <span>created through<span class="Apple-converted-space">&nbsp;</span></span><code dir="ltr"><span>kfd_add_peer_prop()</span></code><span>.</span></font></li>
+      </ol>
+      <font face="monospace"><span>If you are okay with these changes,
+          can I post the</span><br>
+        <span>next version incorporating them?<br>
+        </span></font></blockquote>
+    <p>Yes. Thanks for the clarification. If the lack of CPU-CPU links
+      on non-x86 CPUs is a problem, I'd also be open to a fix for that.
+      Up to you.</p>
+    <p>Thanks,<br>
+      &nbsp; Felix</p>
+    <p><br>
+    </p>
+    <blockquote type="cite" cite="mid:64a82e4a-2855-46f1-8942-3c1b6f8179f3@linux.ibm.com"><font face="monospace"><br>
+        <span>Thanks,</span><br>
+        <span>Dhruv B</span></font>
+      <p><br>
+      </p>
+      <blockquote type="cite" cite="mid:04ddca6d-3880-48e0-a64e-a4bbde32e67e@amd.com">
+        <p>Regards,<br>
+          &nbsp; Felix</p>
+        <p><br>
+        </p>
+        <blockquote type="cite" cite="mid:1c7751d3-ca7d-4a7b-91fa-87762af60095@linux.ibm.com"><font face="monospace">&nbsp;<br>
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* CPU &lt;--&gt; CPU &lt;--&gt; GPU, GPU node*/<br>
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;props = kfd_alloc_struct(props);<br>
+            @@ -1459,8 +1462,8 @@ static int
+            kfd_create_indirect_link_prop(struct kfd_topology_device
+            *kdev, int g<br>
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if (ret &lt; 0)<br>
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;return ret;<br>
+            &nbsp;<br>
+            -&nbsp; &nbsp; &nbsp; &nbsp; /* for small Bar, no CPU --&gt; GPU in-direct links
+            */<br>
+            -&nbsp; &nbsp; &nbsp; &nbsp; if (kfd_dev_is_large_bar(kdev-&gt;gpu)) {<br>
+            +&nbsp; &nbsp; &nbsp; &nbsp; /* for small Bar or CPU-less NUMA nodes, no CPU
+            --&gt; GPU in-direct links */<br>
+            +&nbsp; &nbsp; &nbsp; &nbsp; if (kfd_dev_is_large_bar(kdev-&gt;gpu) &amp;&amp;
+            node_state(i, N_CPU)) {<br>
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* CPU &lt;--&gt; CPU &lt;--&gt; GPU, CPU
+            node*/<br>
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;props2 = kfd_alloc_struct(props2);<br>
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if (!props2)<br>
+            --&nbsp;<br>
+            <br>
+            <span>Does this approach look good to you?<br>
+            </span><br>
+            <span>Regards,</span><br>
+            <span>Dhruv B</span></font>
+          <p><br>
+          </p>
+          <blockquote type="cite" cite="mid:70018014-d952-4155-aa36-cf9b39ba8aea@amd.com">
+            <p>Regards,<br>
+              &nbsp; Felix</p>
+            <p><br>
+            </p>
+            <blockquote type="cite" cite="mid:20261030083304.9767-3-dhruv.b@linux.ibm.com">
+              <pre wrap="" class="moz-quote-pre">+			continue;
 +
-+	mutex_lock(&amp;p-&gt;mutex);
-+	pdd = kfd_process_device_data_by_id(p, gpu_id);
-+	/* Bind for the runtime PM reference before programming the perfmon clock */
-+	if (pdd &amp;&amp; enable)
-+		pdd = kfd_bind_process_to_device(pdd-&gt;dev, p);
-+	mutex_unlock(&amp;p-&gt;mutex);
-+
-+	if (IS_ERR(pdd))
-+		return PTR_ERR(pdd);
-+	if (!pdd || !pdd-&gt;dev || !pdd-&gt;dev-&gt;kfd)
-+		return -EINVAL;
-+
-+	kfd = pdd-&gt;dev-&gt;kfd;
-+
-+	/* Before profiler_lock, which reset takes in kfd_resume() */
-+	down_read(&amp;kfd-&gt;adev-&gt;reset_domain-&gt;sem);
-+	mutex_lock(&amp;kfd-&gt;profiler_lock);
-+	if (!enable &amp;&amp; (!pdd-&gt;perfmon_clk_req || kfd-&gt;profiler_process == p))
-+		r = -ENOENT;
-+	else if (pdd-&gt;perfmon_clk_req != enable)
-+		r = amdgpu_gfx_perfmon_clk_override(kfd-&gt;adev, enable);
-+	if (!r)
-+		pdd-&gt;perfmon_clk_req = enable;
-+	mutex_unlock(&amp;kfd-&gt;profiler_lock);
-+	up_read(&amp;kfd-&gt;adev-&gt;reset_domain-&gt;sem);
-+
-+	return r;
-+}
-+
- static inline int kfd_profiler_pmc(struct kfd_process *p,
- 				   struct kfd_ioctl_pmc_settings *args)
- {
-@@ -3396,6 +3449,16 @@ static inline int kfd_profiler_pmc(struct kfd_process *p,
- 	struct device_queue_manager *dqm;
- 	int status;
- 
-+	if (!args-&gt;lock) {
-+		/* Dispatch mode: perfmon clock only, no lock, no CAP_PERFMON needed */
-+		if (args-&gt;perfcount_enable)
-+			return kfd_profiler_perfmon_clk(p, args-&gt;gpu_id, true);
-+
-+		/* Drop a dispatch-mode hold if there is one, else unlock as before */
-+		if (!kfd_profiler_perfmon_clk(p, args-&gt;gpu_id, false))
-+			return 0;
-+	}
-+
- 	/* Check if we have the correct permissions. */
- 	if (!perfmon_capable())
- 		return -EPERM;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index d8631847f0eb..32c3c23d6d14 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -886,6 +886,8 @@ struct kfd_process_device {
- 	u32 pasid;
- 	/* Indicates this process has requested PTL stay disabled */
- 	bool ptl_disable_req;
-+	/* Holds a dispatch-mode perfmon clock override until released or exit */
-+	bool perfmon_clk_req;
- };
- 
- #define qpd_to_pdd(x) container_of(x, struct kfd_process_device, qpd)
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index dd938788bdd9..7ba1c4ab283b 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -1176,12 +1176,32 @@ static void kfd_process_free_outstanding_kfd_bos(struct kfd_process *p)
- 
- static void kfd_process_profiler_release(struct kfd_process *p, struct kfd_process_device *pdd)
- {
-+	struct amdgpu_device *adev = pdd-&gt;dev-&gt;adev;
-+	int puts = 0;
-+
- 	mutex_lock(&amp;pdd-&gt;dev-&gt;kfd-&gt;profiler_lock);
- 	if (pdd-&gt;dev-&gt;kfd-&gt;profiler_process == p) {
- 		pdd-&gt;qpd.dqm-&gt;ops.set_perfcount(pdd-&gt;qpd.dqm, 0);
- 		pdd-&gt;dev-&gt;kfd-&gt;profiler_process = NULL;
-+		puts++;
-+	}
-+	if (pdd-&gt;perfmon_clk_req) {
-+		pdd-&gt;perfmon_clk_req = false;
-+		puts++;
- 	}
- 	mutex_unlock(&amp;pdd-&gt;dev-&gt;kfd-&gt;profiler_lock);
-+
-+	/*
-+	 * Nothing is held on the kfd_create_process() error path, which holds
-+	 * kfd_processes_mutex and so must not wait for a reset.
-+	 */
-+	if (!puts)
-+		return;
-+
-+	down_read(&amp;adev-&gt;reset_domain-&gt;sem);
-+	while (puts--)
-+		amdgpu_gfx_perfmon_clk_override(adev, false);
-+	up_read(&amp;adev-&gt;reset_domain-&gt;sem);
- }
- 
- static void kfd_process_destroy_pdds(struct kfd_process *p)
-diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
-index 749d196e2114..34f3ffaf1c66 100644
---- a/include/uapi/linux/kfd_ioctl.h
-+++ b/include/uapi/linux/kfd_ioctl.h
-@@ -1557,7 +1557,16 @@ struct kfd_ioctl_dbg_trap_args {
- 	};
- };
- 
--#define KFD_IOC_PROFILER_VERSION_NUM 1
-+/*
-+ * KFD_IOC_PROFILER_VERSION_NUM history:
-+ * - 1 - initial version
-+ * - 2 - KFD_IOC_PROFILER_PMC lock also forces the perfmon clock on until the
-+ *       lock is released or the process exits. lock == 0 with
-+ *       perfcount_enable == 1 forces it on without CAP_PERFMON and without
-+ *       locking, until lock == 0 with perfcount_enable == 0 or the process
-+ *       exits
-+ */
-+#define KFD_IOC_PROFILER_VERSION_NUM 2
- enum kfd_profiler_ops {
- 	KFD_IOC_PROFILER_PMC = 0,
- 	KFD_IOC_PROFILER_VERSION = 2,
+ 		/* CPU &lt;--&gt; GPU */
+ 		if (gpu_link-&gt;node_to == i)
+ 			continue;
 </pre>
+            </blockquote>
+          </blockquote>
+        </blockquote>
+      </blockquote>
     </blockquote>
   </body>
 </html>
 
---------------zW0lcRTPwVd1N5lj9vvRAxkH--
+--------------AmHGHkiAuwN0uUpEDYP2qyiI--
