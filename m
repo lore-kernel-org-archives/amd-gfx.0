@@ -2,96 +2,95 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8127C606A31B
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 14:31:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 157C4606A31B
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 14:32:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XQM1W9gf
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BJcqz8A0
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE0E710E131;
-	Wed,  4 Nov 2026 14:30:59 +0000 (UTC)
-Received: from mail-vs1-f46.google.com (mail-vs1-f46.google.com
- [209.85.217.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F185F10E131
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Nov 2026 14:30:53 +0000 (UTC)
-Received: by mail-vs1-f46.google.com with SMTP id
- ada2fe7eead31-7cbbde7dbceso18512137.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 04 Nov 2026 06:30:53 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793802653; cv=none;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B16E910EE0C;
+	Wed,  4 Nov 2026 14:32:45 +0000 (UTC)
+Received: from mail-vk1-f174.google.com (mail-vk1-f174.google.com
+ [209.85.221.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9020510EE3C
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Nov 2026 14:32:39 +0000 (UTC)
+Received: by mail-vk1-f174.google.com with SMTP id
+ 71dfb90a1353d-5eaf36b5c95so22018e0c.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 04 Nov 2026 06:32:39 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793802758; cv=none;
  d=google.com; s=arc-20260327;
- b=TWo9MpZFKqYvoDi9YuTS3bVfqqINL5ET5Jd6xuksqQ4Y8VlWQeje5C+XdHV2hcmSqR
- R4XmjK1yDPUkNZlpIxZscBQWnjQ/aOrjpQSii9iaENZppS6MkEztM+4avlkKILfp/Jsh
- fE1FMBvahcDwi4swdaxuRD5RUbj4NEIzh6Gban32ym0qDxRIZ0jb6lr+Ye2zCKHWqf0i
- P+pVbL9/4yvh6cjM6bSiroVqp1S+IPI9y6lsENusdRhOlo2MpU2dyQIQQJjMvRssTK4J
- GO4v+RyT0IOccpdOe8KOPAi5a9HkFwHBmMffWWsXL1MXjIsRZ5cg0xEu4EHL5cJ/p+c4
- ffrA==
+ b=Ask3sWqusb/phFtQDFpPcnN3LVLjkXXhrMkGD+DVUzk6TTeneQPALf0kr63j8AR/x0
+ GHI5BCegb87Xs6pdNC2qYMWlFAqYBXkh2UB+H7uACsNZTGSagU3Cd3b/RTbXhZEYxw20
+ bY+a31EwF1bDGgDQeLBHy20OD/U7PKmrd8SxBfH+o51IGjBvpTIrCfZjDi/2VXyADOMZ
+ 0AUPnk5xV5rawaQt7XvIkQaDnEpvfE56voM1WNs8tZkl8zcs9h672p5cwFDIfZtutvSM
+ oLDydaGjKogYVOSdpr+Dw4j2z/PWGSda9Ey1KJHjSDy+VmOTrM6r+BBPHCk+XxbpGhiW
+ H/LQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=SiwzsgsFqYp5fdv33nLKshPx8wMfX1sKTYMLElHYMY0=;
- fh=kiYYdWRZpUkLIrTJJfk1hYO1XY0BzQh96R41+D3J4I0=;
- b=Bs3UQIR5DJpglN5XZFsYWvrqHqJ+/xwZb74LgCRD3URyFZDchiSBe80h098soZ4T9A
- h0uDkQ3U6CaCPruYi2npfYLx4v9bXuBplvdM0pGFd1DWwpXJfOYPkNicHtusWWRYB0A6
- IVPCnS4SR0BNhxi6Pexmc4HmshtC6haKsRgBYfS0XYsgzgbIKGlKObLgWXS6afl+3OuD
- eSpZklIdAoIFJvUqctnrSeM8Hkcfeh5plkiLcuZh59daO5NWZAlt/eviDsnbMwbkFu9w
- AOBofdOicvj+yhQvD2C+gxQaDVG/hJhUcbaw340MH43Atx9PhQDdB5A6BqRmWF9EEAJ3
- nZVQ==; darn=lists.freedesktop.org
+ bh=rBCJhchK0NF+Gj+SXhOsU8rPb9pW7B64q/c4ONRSGCE=;
+ fh=Oi9nfaOLTV74BkRQDkkMSy3syYhdJTOMkxVEBZwmwyY=;
+ b=CTYMf43YOZ6usa94AivHSVNp5ss6RjlxX+QySN/NUKBXJbuNej/S1KO5nfPqk+hXcv
+ IWhLN1NS9822QCDRb0e5t61fsXs3kiWbsY9tit/8nFPsJHKR1ngqOkTm04iNIoHogusZ
+ +zIHTffZX5U3MKA2Z3fIB2yrCVwC9kXS9VT4mr/XVbpRfux0fpV7AzDBosfJkTHmljHM
+ ZDGLUm0CpwDdGirGSwjNT8yvaMU3PO08mFsuEDttrRhJ8JKnB0EQM2ddINZb90mhyqk2
+ 19iXETmAVWhLWGiSKCzCA6zbPqOavvMmD8aL2mSsnt4m/PexGK8YBGgpfRvJ0L2rfFs4
+ EqjA==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793802653; x=1794407453; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1793802758; x=1794407558; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=SiwzsgsFqYp5fdv33nLKshPx8wMfX1sKTYMLElHYMY0=;
- b=XQM1W9gfHMephxZsssTgGsyzsfxbbht3+a4F9gT9t65LqhNuf4rWVW/54TOh90JEuV
- hxAfwHRkjz7bIcfYuJa81tanM0tHL6ct4g1yxrIv96wOaxJP1vwOHbgTTDYpgM+dUvWy
- HIRjsTdvzuRY91ENn3Ih383EML6/YGzvbxPlYghTgNJt2eHvK+Sx6W+q9oaIQdGuYFy3
- Dsc1EsGYv71PNJEhwf2Jb+TKf7YPQhGz4QnhZNOXB+k+0qhabbprX2H4+epu+BXFMLIW
- fjN7vtvM5dUntgWx972z66CypkbGnG+004mzfnixOzRwi4Ia8K13cnRT9rc8GFc7lf19
- Ps7g==
+ bh=rBCJhchK0NF+Gj+SXhOsU8rPb9pW7B64q/c4ONRSGCE=;
+ b=BJcqz8A0a8s0Kjkkv0YhIDRf8cY1n+k/EMCSMEgOq9H9YQiK4b+bW3FA17wzJcONpX
+ iQs13gEPNFVwcsHDsgBJsBaiD+UsCk1+3IvpvU74ypHjO8Lzd7xbU7ZdttQjL+Sh9g61
+ glhK03sTesYmpkfY0dNKfGmoB6E6CVEWzUw9OOZIcQc3G2BdRA011ZS1IXky1y6M+7kI
+ 9pZUEKteTnr6lm4QJWv+kQFiSKOzPgvjgJ3oPIUe4UV29M3mSpARMemByCFXTa1BSTed
+ Ovf+Opml+/6HCnsmH9AYnPK2p5PuGQz1v4xSdb9wJyyAPvDcvuE8ba8XKjCtcPsTbOmv
+ uHbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793802653; x=1794407453;
+ d=1e100.net; s=20260707; t=1793802758; x=1794407558;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=SiwzsgsFqYp5fdv33nLKshPx8wMfX1sKTYMLElHYMY0=;
- b=pBeL2Vs2rfJ+gemC/i0YONE+2BW1UAahLblQb0CnSXfwH+3N/wVJCXw+b7GagLInkQ
- IdBZP4ohQOlRQ3QCoT5BlRvsYXG69+//IHwJcccSpuY8Gjx5+x1MApZoeVLYKtTP1cfO
- aLRDCu+z0RnVOh5Ugmv6c7VJ5TXRgJzpeEAWYR0nyiNOzVaZsQaaaT3QJWOmlPSosknm
- aCmxHtSF5uUhbwF+6+pyBM8b2OCBR9UZ/0gTvYF4kv90dq/qhhwI2uJGpNGjJLHYlet7
- an9f8k082igmXxo/A8aypc+UE1RSDtnqpgnPzi7nWDopm3ZUXtF0WoXeg/5ungJWfNUT
- 8gdA==
+ bh=rBCJhchK0NF+Gj+SXhOsU8rPb9pW7B64q/c4ONRSGCE=;
+ b=PD0DRZrYYP0aUvHf2WdoBn4ICd4mByosRTd+NQNjXbuexRUDgRXbCEchjzr2w0QjqJ
+ WKN3ofLx29BnTuAqifjx065GD9RfEMusEdrNCIlt4P9qD33zRx0HGMT5I6AeIVwc8iA3
+ jp2AdER3M4i275LEoqggDH5Nl127NzaMl7bww5ZTI9weF1UY6ehb59X7bQi+iJrn4cjb
+ Udk2fn8sjMc9oMPxrlK85EzIDMMKDBWLXi3Ir7ha+UibThCjFPFkypsVymrfpRKuYBNR
+ nwdfz41cNSfFtzO+8X/8TLsxeYLDzzwJ5LqGkijn1Ab2iYmQZsOD7xzwOHJE/9ZXpBHr
+ dKSg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBx4qQzN0TXmka747f/s4EHzIwSKml7nEbbWcLGrydgRjZWHT+W6eR+97nST/PzE+XPjfoprwvmD@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8m0c9jWpRZ5OgUaHNOqnYl/ABQxZf417qpPatZyczhKfIp0s7N
- 6gGBKrzf7QbySJn8BWULDX9mgdmCiBGqqVaancxYIA6O6yXEixa2St0+QsapH58rdgY5ZuBP65p
- G/SPmVdpoxk8XG7dzZ1+y8CmAUYgMJ+M=
-X-Gm-Gg: AYBFou3Z7bLEeaaG2nsNINDmSPlejJ1N9VVgCbpmfkwgZC0UU7HEPE7QnDDF3W2l9Qc
- ZvfrZvk77UYkUeB663jnf17m/UMCTFXiJsYASAaP7Q0g8Y6YxhQ7Yvly1DdrwpNolK0BBaxe/m/
- KX5IvH/Zm8Y50IMk/a9UTKdCmCcigNTviXcPsS3ZIV55pqlk6W4RFKFpzaxyU2G4cqvIi8x65Ef
- qIRQfC685YcEsO3t1Lz+pLV6wGBW/x4wo0Qqps3zloliz2SfCJMf6HGOpJFiNlOWBqg0LTNMmvr
- /nKMw8juaIaiUmmPN94Ihog86hL2gWQj9qBz2dBh2JIDA8pMoVatP83HfBg6SHxboGci94iEVyP
- pWALJaTCCTqXgwX2OoqJLG7R/JzxSvT9vT7RTXcGuTJypPOQl8XyNxDl/OhpTo4cCGTqop5IX/Q
- /biOw8dwTvAeYXK5G8XAy4iVdYz90icQ65utFOMTCUjn71
-X-Received: by 2002:a05:6102:14c5:b0:7cc:80ba:94ed with SMTP id
- ada2fe7eead31-7d072b6c90fmr6802775137.2.1793802652626; Wed, 04 Nov 2026
- 06:30:52 -0800 (PST)
+ AKwUvBzMP7HthZeo6UnGr07r5bxPydC/atw/HR2ivPv8O0UtwUcY+HcOAFM02/+f+ATgBYQyqKrj2QnM@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/hwxQPxnDBl5Wm/ic88DrYm5zvsXe4rg7DJxmb6hY6d1C8+g8W
+ 3qXPKutcgqLLR8kCmC2ttU43rdoshmI/AptakSD3Na8MpF8/5VCpCHPFJMYvPSJyWjxZwCToqMF
+ nXKwCMocbNU9I5xiCjgoRHFyWmdSHG9E=
+X-Gm-Gg: AYBFou20JMeVnr9lD7Iro09SCq0kCus7WXplFJCT9Ro4x1utJIWaLo1F4Zzis1HuZUG
+ TYy6/nylTJpz1+gxBXk80nPSFQm3zQbQcx0mZF3saLS9W1zZbpe3sPon7QKExU85PUrVeFlXfmB
+ 21QgnNkoJfSLXkvX4iIZBmFyGTveVykzeaxP0mTJZ5Bs3NkZLherqx5OqZuV4omfl3fjS0Cw4CU
+ BpTWi5Mq4/Q9BoVMXulJtRUPayBzwBSuKIuGwk4wtlz5l7dmZcA7GPU6Ewek+2rNZGAWFo47AtA
+ Ti7IgEpudl9gFDAdt3FydBAMdmRtw38AX7twB5/dhdSa2Q32ATFS5EUBqpmL+tX0mTYsVjF8Ocj
+ OFOqfCn3I0S9vCujgqICxhRgxb4wSB5pZPRLLyJRH3PGWH1vTdiRXXOJUH13H62nERRc46+6is4
+ L0WgN9Q+/ZCYoGXGBg3cdFjAo=
+X-Received: by 2002:a05:6122:11ae:b0:5ea:af6f:16e7 with SMTP id
+ 71dfb90a1353d-5ec689382bcmr7635405e0c.4.1793802758252; Wed, 04 Nov 2026
+ 06:32:38 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261103000130.282357-1-an9949an@gmail.com>
- <MW4PR12MB6803349916CEC87B4278FE798E692@MW4PR12MB6803.namprd12.prod.outlook.com>
-In-Reply-To: <MW4PR12MB6803349916CEC87B4278FE798E692@MW4PR12MB6803.namprd12.prod.outlook.com>
+References: <20261104024754.166260-1-abo@medichon.fr>
+ <0566b969-cfee-444c-8a94-5fbb42859e07@amd.com>
+In-Reply-To: <0566b969-cfee-444c-8a94-5fbb42859e07@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 4 Nov 2026 09:30:40 -0500
-X-Gm-Features: AclHuK8DSPPZWlRU397eNtiUNvVTi6MPDtv9LB-JU9WYupiCyLsO5FW_FOvnLj8
-Message-ID: <CADnq5_P1x=6gCGra2dj6z3OypKBz_DArU+CNKc372=cFh4Sprg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: enable MGCG/FGCG/PERF_CLK for GC 11.0.2
-To: "Feng, Kenneth" <Kenneth.Feng@amd.com>
-Cc: Andrei Krautsou <an9949an@gmail.com>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
- "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>
+Date: Wed, 4 Nov 2026 09:32:25 -0500
+X-Gm-Features: AclHuK9ldrrG9D5KOFB1JvP4Sf7ocCzQzX9d16vWTCBxdyyw6VsOZNy538gY8us
+Message-ID: <CADnq5_PvQ+NPJ+nzXD34FJuLpa+rP=qA4ZOdns3QqBaJiHpzRw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: add missing parameter documentation in
+ amdgpu_ttm_map_buffer
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Arnaud Bonnet <abo@medichon.fr>, alexander.deucher@amd.com, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -107,98 +106,59 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 Applied.  Thanks!
 
-On Tue, Nov 3, 2026 at 6:25=E2=80=AFPM Feng, Kenneth <Kenneth.Feng@amd.com>=
- wrote:
+On Wed, Nov 4, 2026 at 4:41=E2=80=AFAM Christian K=C3=B6nig <christian.koen=
+ig@amd.com> wrote:
 >
-> AMD General
+> On 11/4/26 03:47, Arnaud Bonnet wrote:
+> > [Sie erhalten nicht h=C3=A4ufig E-Mails von abo@medichon.fr. Weitere In=
+formationen, warum dies wichtig ist, finden Sie unter https://aka.ms/LearnA=
+boutSenderIdentification ]
+> >
+> > Commit 48c4aaeef621 ("drm/amdgpu/ttm: Make buffer copy source readonly"=
+)
+> > introduces a new parameter @readonly in function amdgpu_ttm_map_buffer(=
+)
+> > but doesn't update the documentation, leading to the following warning:
+> >
+> >   Warning: drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c:209 function
+> >   parameter 'readonly' not described in 'amdgpu_ttm_map_buffer'
+> >
+> > Add the missing description to the kernel doc comments for the readonly
+> > parameter.
+> >
+> > Signed-off-by: Arnaud Bonnet <abo@medichon.fr>
 >
-> Thanks for the fix.
-> I just remember that there was an issue on MGCG so it was not enabled at =
-the beginning, but I forgot the details, apology.
-> Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
+> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
 >
-> -----Original Message-----
-> From: Andrei Krautsou <an9949an@gmail.com>
-> Sent: Tuesday, November 3, 2026 8:02 AM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Ch=
-ristian.Koenig@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>; Andrei Kraut=
-sou <an9949an@gmail.com>
-> Subject: [PATCH] drm/amdgpu: enable MGCG/FGCG/PERF_CLK for GC 11.0.2
->
-> [You don't often get email from an9949an@gmail.com. Learn why this is imp=
-ortant at https://aka.ms/LearnAboutSenderIdentification ]
->
-> GC 11.0.2 (Navi33) never got the GFX MGCG, FGCG and PERF_CLK clock gating=
- flags. GC 11.0.0, 11.0.1 and 11.0.4 have all three, GC 11.0.3 has MGCG. Th=
-e gfx_v11_0 code behind these flags is shared by all GC 11 parts. Enable th=
-em for GC 11.0.2, same as for GC 11.0.0.
->
-> Without the flags the driver does not clear the override bits in RLC_CGTT=
-_MGCG_OVERRIDE (0x000605e7 under load), so this gating stays off. On RX 760=
-0S the GFX clock is limited by the GFX TDC limit
-> (68 A), in Linux and in Windows. With the gating off each MHz costs more =
-GFX current, so PMFW stops at a lower clock than in Windows.
->
-> vkpeak fp32-scalar for 300 s, median after the first 60 s, GFX current is=
- about 68 A (TDC limit) in all cases:
->
->                           gfxclk    VDDGFX   GFLOPS
->   current flags           2030 MHz  800 mV    8915
->   + MGCG                  2261 MHz  873 mV    9921
->   + MGCG, FGCG, PERF_CLK  2314 MHz  894 mV   10104
->   Windows 11, AMD driver            910 mV   10157-10186
->
-> GFLOPS per MHz is the same, only the current per clock goes down.
-> Windows shows other clock sensors, so there I compare GFLOPS only.
-> With all three flags vkpeak is within 1% of Windows. MGCG gives most of t=
-he gain, FGCG and PERF_CLK add about 2% more.
->
-> Tested on one laptop, ASUS TUF A16 FA617NS (RX 7600S, PMFW 82.97.0), Fedo=
-ra kernel 7.2.11, Mesa 26.2.5, with the same flags set by a local debug pat=
-ch. One 300 s vkpeak run for each setting and some gaming, no amdgpu errors=
- in dmesg. Suspend/resume and long runs are not tested yet.
->
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/6082
-> Signed-off-by: Andrei Krautsou <an9949an@gmail.com>
-> ---
-> I have only this one Navi33 laptop. I could not find why these flags were=
- left off for GC 11.0.2. If there is a hardware reason (errata), please tel=
-l me. If only FGCG or PERF_CLK is the problem, MGCG alone still gives most =
-of the gain (+11% GFLOPS), and I can send a v2 with MGCG only.
->
-> Logs, register values and the Windows numbers are in the issue linked abo=
-ve.
->
->  drivers/gpu/drm/amd/amdgpu/soc21.c | 3 +++
->  1 file changed, 3 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amd=
-gpu/soc21.c
-> index 599d47e..635f026 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/soc21.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
-> @@ -599,7 +599,10 @@ static int soc21_common_early_init(struct amdgpu_ip_=
-block *ip_block)
->                 adev->cg_flags =3D
->                         AMD_CG_SUPPORT_GFX_CGCG |
->                         AMD_CG_SUPPORT_GFX_CGLS |
-> +                       AMD_CG_SUPPORT_GFX_MGCG |
->                         AMD_CG_SUPPORT_REPEATER_FGCG |
-> +                       AMD_CG_SUPPORT_GFX_FGCG |
-> +                       AMD_CG_SUPPORT_GFX_PERF_CLK |
->                         AMD_CG_SUPPORT_VCN_MGCG |
->                         AMD_CG_SUPPORT_JPEG_MGCG |
->                         AMD_CG_SUPPORT_ATHUB_MGCG |
->
-> base-commit: ba496bb837882eb1af58f41572fc289e46c77b8c
-> --
-> 2.56.0
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 1 +
+> >  1 file changed, 1 insertion(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_ttm.c
+> > index 0f86777250fc..d3a875a32af1 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> > @@ -195,6 +195,7 @@ amdgpu_ttm_job_submit(struct amdgpu_device *adev, s=
+truct amdgpu_ttm_buffer_entit
+> >   * @addr: resulting address inside the MC address space
+> >   * @vm_needs_flush: out, set true if a GART window was programmed (VMI=
+D 0 flush
+> >   *                 needed) or false for a direct address
+> > + * @readonly: true if the mapping should be created with non-writeable=
+ pages
+> >   *
+> >   * Setup one of the GART windows to access a specific piece of memory =
+or return
+> >   * the physical address for local memory.
+> > --
+> > 2.53.0
+> >
 >
