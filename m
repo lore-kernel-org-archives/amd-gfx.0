@@ -2,99 +2,122 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A841C60D9EAB
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 19:52:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93209606E2F1
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 19:59:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gs1zLql8
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=FiHNmKx3
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4805810FE9F;
-	Wed,  4 Nov 2026 19:52:47 +0000 (UTC)
-Received: from mail-ua1-f41.google.com (mail-ua1-f41.google.com
- [209.85.222.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ABB9A10FEA0
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Nov 2026 19:52:41 +0000 (UTC)
-Received: by mail-ua1-f41.google.com with SMTP id
- a1e0cc1a2514c-998bf545267so41485241.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 04 Nov 2026 11:52:41 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793821960; cv=none;
- d=google.com; s=arc-20260327;
- b=p401yuAl2UrgefzFBDwD9KGs0AriQfm9a5YJeChXTWp9b3KvmWTvGAfba+3mvgz7r/
- GZRGTmzAQwg873Q8uUYZCaitZ9bTp9dkGjN3Ev5IDHwQ4Cge9OQrzZ7V2zAzQU3w85uj
- j3e547vu18brXIYWWJezj7PR5BZLYFktHL3KE5xo9719yA3dL7xDz9yFrGIpIFYLfaT5
- V49wVSAufSVgJ+sV1m6UVYUvG1UmoHUa5vuUx7um5sWmltoKJbOAddLjwZYivH/K/BsG
- vEAZoq+Wyj4W75/deDf9Lm0J49Av6uM2x+ConpLHy1n/TY8gWgL+71/RZa9rR3JIcmqG
- W3uQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=KGbQCndPm+NXMzmldIM5KKcRNjtbYMpkra3Vm9e0WZM=;
- fh=AuzO8uh//8BhmE1HYJsI6leqH9fB5qmEpfSAcW4a+uY=;
- b=lJk9DjwAmdFHICjljvWOSCJA4/UxxKi7ZFvQzJ9x8cU6rssdROjqK/vbIRynmVPqZf
- WLiwXYcKrTISfS7FgtYeBUzGUYqT/9C4gomgqUMVRbmXos6lt855s/Auc5fZvU2g3FcO
- LCtnNwslp6xRhIzSwHIixNOIQ844knElpbqckZ8BeBTOj8NhhoQ/ADo1grejSYdLrQER
- QQuKsgY8UpiVcMtcqdrd28v2HRm5Eu+PW009QTN1HZCAKqXIf6SUzj2s25BqMt6w4OKj
- kXiG+Kvr+2DLyIlAHQ9BUSyuWq8tYuAffhrCJ7UN2adWesQZ9OYM/xAvphbj5tt7VtlZ
- iCrA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793821960; x=1794426760; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=KGbQCndPm+NXMzmldIM5KKcRNjtbYMpkra3Vm9e0WZM=;
- b=gs1zLql8IISnhlNgLhwgcnYHPBDLLP3H65nMLeEoJoi4g+ODJ7a2zWQSujfJBoyIxT
- 9mxZa10HdYV2DJxGYqeJIZBgpoGCg+qq1GVP7g6A56FjzI5VWBjReIdTQTkDiFPk1gxe
- nmG0XIfl+IIiQYRQKHd7E0nVeDAM4o0E8jcRJWBTJttR9asWIzyJURc0ehfbUuQC3rXE
- bcMRNcuupKBMFOkGXbXtMENvjatsTskqR9Tki08kMgL/9YwOHmmHM7kcXB/w43ut+biw
- gr+7EqNlqyyos44Xl1MNcEEJjdkJ3uJVySXm4bAyfnTIYZo/CJdBIbQoUEVh2HcXiM3V
- c1TQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793821960; x=1794426760;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=KGbQCndPm+NXMzmldIM5KKcRNjtbYMpkra3Vm9e0WZM=;
- b=hyFNRGsTjBLDaxllyAwm2iXMu+IzDqM0B8Q7b+R0vS50CjO8BbcVIarUP23ojK1Rbb
- TNHaC7A6dwGtQSqCtad0vgFj3uiu6mcMa20TJ4p9ib8URlksqHz8u9UWtvymwSsPKwMz
- ZC0Aunk5VfEt7HO+GkRikqzsrywwtbBV/oPOZbk+eQz2hKkrwJoPuMMm5UToJm2m/JUq
- 6QzITCH/VIcl30Qz8PcQc3+F1qqZl944nhRWmID/RSghD9UWh6r1g87EO2/leRQH2fnT
- /gV1y25nMHWJnORueNJj6VxG6M87KiRDVoLQm4Mx97xRDbxFwOGmSdZfTTibLn8ACeAn
- kdIg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBx49hdXPLNO6EV5nnD94WfsnLNSgo4aqcIW9Kjxi/qcEP0OaHNghnw2nF2SED+278g6xuP8UlPN@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+eub6AQPXPsb4h/UbrBxQOWeg1QJxgd4yoktCDd8Px580tArCq
- vlA+JDxUWyQplxhPdPl9JpUKMnhTMQIPkC/DG2Au/nQh1P41Y88rIota3Ke4W1rJMobR8lvSn2z
- rLcB4ZHxv8Di1XdT57oZAFXnovIkd+pY=
-X-Gm-Gg: AYBFou1zLTr4vpqdlK7fv3E/geh4lTCjVPIA81EuVAj3qRrI3vs/ehgRXCfGa6pkV64
- GfTd8drLaT8Kj8z5tk7Uiw9zGEA9Z1NTRLNzWikehgWTYsgM97dFeH0e/c+dft/XPG2q75MGrEM
- BjIcXUHdizQt6EJfIq2/rtksatU3DTCuvADXcg+EYT2Ri5kqusEGER1zDydyBNEwn9BA8bEC1PT
- +Tq0fGGqHOSrlK/96N1VuJQ27Rk6SHDEA8A5cwHQK6+faVeaRV1hkd99iexTfGSIi25UkUOThz9
- u8o71e+J3euDGn4zsmj5mxlZi3oXUTZpyO5axGrwSiiymfgxUhBjW8gSMlVNv+cUL5RP97n9Pfg
- dzCJJi4L6VT4rq35d34z1onW/PI+eho5KE31lmUwl1nrj3Zs+eE+aFs++3Ev3etNhVo9IhTeeaY
- zGZnSxJ1LUG/XrGwgfkqQGUUz6WS8EgC9TkBU+7d+88Fnf
-X-Received: by 2002:a67:fb85:0:b0:7d2:7784:23b5 with SMTP id
- ada2fe7eead31-7d2778440a7mr1480180137.1.1793821960026; Wed, 04 Nov 2026
- 11:52:40 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F1FE10FEBA;
+	Wed,  4 Nov 2026 19:58:56 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013039.outbound.protection.outlook.com
+ [40.93.196.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3AE9810FEBA
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Nov 2026 19:58:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LJBRKE9+jwZAre/HvBhan/A1B4jsDYnmMeqJvt7q6xRfBisKtGQSSTcGND80vEcwvyy9rHeSjtkYb9nXbvATmxpqMAoVPO+qxKBM+bCZc3lXSP2q2pcfPtzAK36UC/rtTuOaT50B26xOCYpi17IqKpabXLYPh2Ybd9khyYcXoRX7MYqfuzboBYo9872MzwiaoqXu6uCBB5THTfJJbMzFz/3S1z8VvxoF4iM0lOcSQGKniQ7pSGZ3PhMSEQsCbev8T3+pViQpPr/lAimK1gpt4koQ+fG8kEKF+INksMZyRueW/Z93m9RdU5XvDC2jM37nDPsgTptoePRs97XHNetqlQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7pLuJK3qbKCfQ9/eNDNvNvItmuZLg9pJy0DzuBaVgsA=;
+ b=jygfjRL6FKubVorKW50Nt40CzySivmeNm8XUlmljbbo+VV93O1a06vmw1BWXGz1wopMtSU5ubJPT2uGZVFKkYvlKTO4Ht9zldl8Z+TLxQsHVeRLiEDDDYNblGHrvaT8tSi2u/+HDxiPvuhNe3Lfr02Vw5mRuK+syjqURQX+Z2UXWNcOIT0bud4mP+tK6YzJ3vqNt1WjjWWRhzQBS/Q7/UmCSV7IwkCM8Gerdw8bXsCM6smqyc+IK2T3aW30gMf6Cy0+cnxcXKn4exig/3vnmzll3M8Iiq5ZmMWWp+wT7IUNQXSwmL4KJO1bQgEpEEq7Fjn7QkiyfZWNsTMRI6ZVwfg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7pLuJK3qbKCfQ9/eNDNvNvItmuZLg9pJy0DzuBaVgsA=;
+ b=FiHNmKx3060k3dww+rB2+mXRHa1PDSMBiiLgeBZjpE5hiJb9NwOvDJVkimeFcN/FDDS9Tq06cemQGhOc8kgZaZjNHJISM4AvB12gE68P07ADvKB9bc20nx7GlPzRqBwHSNdblh7mUAIR0LkvCCaBibO8Qziaa/yJoyv5Mf82IkI=
+Received: from CHAPR12MB999247.namprd12.prod.outlook.com
+ (2603:10b6:610:2ff::7) by DS0PR12MB8269.namprd12.prod.outlook.com
+ (2603:10b6:8:fd::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 4 Nov 2026
+ 19:58:44 +0000
+Received: from CHAPR12MB999247.namprd12.prod.outlook.com
+ ([fe80::d727:e84d:1883:b74]) by CHAPR12MB999247.namprd12.prod.outlook.com
+ ([fe80::d727:e84d:1883:b74%6]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
+ 19:58:44 +0000
+From: "Francis, David" <David.Francis@amd.com>
+To: "Kuehling, Felix" <Felix.Kuehling@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH v4 1/2] drm/amdkfd: Acquire buffers in CRIU queue restore
+ (again)
+Thread-Topic: [PATCH v4 1/2] drm/amdkfd: Acquire buffers in CRIU queue restore
+ (again)
+Thread-Index: AQHdbHR+yLHoFkZYykSMxDZ5JG4xtrceUsiAgAACAJE=
+Date: Wed, 4 Nov 2026 19:58:43 +0000
+Message-ID: <CHAPR12MB9992479657C0BC8094D14860F3EF682@CHAPR12MB999247.namprd12.prod.outlook.com>
+References: <20261104155203.3826257-1-David.Francis@amd.com>
+ <05d0a2b7-9469-4c05-b8da-c25ed86feff4@amd.com>
+In-Reply-To: <05d0a2b7-9469-4c05-b8da-c25ed86feff4@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-11-04T19:58:43.396Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
+ General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=1;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard; 
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CHAPR12MB999247:EE_|DS0PR12MB8269:EE_
+x-ms-office365-filtering-correlation-id: 15c9c1f7-abb5-450a-d0db-08df3aae07ce
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|376014|23010399003|366016|38070700021|261022105027099003|11063799006|4143699003|56012099006|261021121427099003|261009223027099003|261021123027099003|261026121527099003|261026140227099003|261102123227099003|261028144727099003|10067099003|22082099003|18002099003;
+x-microsoft-antispam-message-info: ICqodOTIDSuYsZbJbzKoAyAe6TES+3almM9gkvTKRgBdUHU6jCiUOLLt5IbMBDI6qOWMPIJkfWz68m2u5JG4xznWKEDWZYoFTUjoufO7lzljDIUgceXgKl6ZOSTWpfxyvYqS0+Q9z9qIFTREcxxVSYMmNU6/4Pc0X7vrHyIU5dSklthtKfyCsOO28e79qXTQzaRDZPT7bPCL7LsJ7JMANGtmLByodJ+JPz9tGBHcJH4tC2WG5PJ4bplPMDfC49PaPBcQphQcEOLj/Q/G7Hv1ILmqrFSTk9B9wrMrlMQOoPXgZ09CQJ1AjDQb2RXo8OHgC/gzLIgZCfytLKr6CG++wVcts6oeOVsUkoiPoeSYCZiXdFubuC6CHNPC8n7hgq9lUia1M4eFpYlLELesVc2p+Uc3uD8mRvXEI9lOPf/xyu4YlkdBx1bKt3exBWk9KaUu/APwdDCUN7qA0CPqWiz9oaXUiDehrUlhAgoc+rEZFBX8Gx1/ThiAdQAVYda+Ot8HubAKjIZWoZlaJYplQYitOo9bZ3DN0RUNBoacbvvKkkc87wxhY2nc2Id68Fx9qflEXWbk4aAj/TP2jJl9EYXwns4/VS791vjwpJFIKstICAruhPHZcDlxsvbjdM4fNuupJlczikaeAlYoYDqgI63me+uiRoaIbzfms5ssf7DsCWT0bBY/7RFydrbWwWoEnwMjm85pL6fv/HGybutnYWJfKTAAvo06uMGVpptRht1yqSo=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CHAPR12MB999247.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(38070700021)(261022105027099003)(11063799006)(4143699003)(56012099006)(261021121427099003)(261009223027099003)(261021123027099003)(261026121527099003)(261026140227099003)(261102123227099003)(261028144727099003)(10067099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?0IMWMtacNGFl3w2gac8x6jyuTUT44D5TLxzbNS52WdFFrOPr+GbYpth9pmEE?=
+ =?us-ascii?Q?ZP54pCatqITqUsa8TZDjyL/9I1QmdiO93qdNIdmC4OneXVCBei4LiuJPkX69?=
+ =?us-ascii?Q?i2J00GsgGNve2uafwJV+FMsWy3P3C7JIJNXRH45KFMDyumu6CuxchZaswk0+?=
+ =?us-ascii?Q?XV9nA9bBYWWT4YgIxhGWha4VSD81DObRgwx2+pJTRwY15W2I9uCM2XUfR0RW?=
+ =?us-ascii?Q?V9/eQUHe6D3RdkPyiEhdHesGBI7RKVFQdKqPUTgmHBR7/1qjVz0LkQ5lmrvu?=
+ =?us-ascii?Q?rpwfsWhZBOAZWiAHsDe0GxU23R++AJPJj05GJDFe8AkSGMpWxqJHPQBZ+4BK?=
+ =?us-ascii?Q?oY8HcQ2QvJULJ82zvaCjq4IVN8vqqYH8mvPlYh2GG3h766ZjfrEzXQKBYvCl?=
+ =?us-ascii?Q?2PBWpUioxwqngyuluHCP5aJEkCFniwKFTFJBuXrA8brAUtFr1LttyJgXOASp?=
+ =?us-ascii?Q?3TbLCghCYIOhiDOdQ9q+Kgx5dKcqGZSnvi7jKoqgs+8s+OWSKn9hpch2K1yK?=
+ =?us-ascii?Q?NiDxjDiRyVhDbvu92HuDfx2B2g+5rhF2jfDtTkGjeUr3nysCuC8n+f9hhfny?=
+ =?us-ascii?Q?kMPB0pEBaxiXbnEItwQc4xESvgWkaVpoOYQunBZ15FwZrFbMVYn+kBsudDxQ?=
+ =?us-ascii?Q?UX+jcGfbnrWoY0vprO4yOiesKtVkye7ns+5rfdWUWBaHh9vk1iCiWcgF3ea0?=
+ =?us-ascii?Q?uVphlo+/KhvYWTuJx7J7TG8TY7NvQFBjJyFnnTPAbHyb4bZKnUhC9ZNZHKca?=
+ =?us-ascii?Q?F2/TAmRHeQO7PvTsakEwEjho4WeshXjofq4cB1QlYa1mHSqUVbcUikUxsuAG?=
+ =?us-ascii?Q?2oRRbnMGJHgA4rLm3jwY6/z6JnIMbPxlfMOrfhAKoIOsgSui+mqLe2E+hbac?=
+ =?us-ascii?Q?caItwB5VPKZe7og09l382JVN5rk9lMQkWsTvbKCsVFfvv+IUAk322k5xkYUQ?=
+ =?us-ascii?Q?XmK9ELdmA2e4+kLUgbXiiVUDKQGo9mn7vEYbVNWzcyCObRYWdGzKqiNHqd25?=
+ =?us-ascii?Q?LQEvKWt7ZGYSWngUUQA6Iv1CG4e2rTApDr4lBcvgTnLi8HN/nV4cPcD/fHkW?=
+ =?us-ascii?Q?ojSsbPqvaLvUJ4ga83U1qnvJT0idQ9WV9oIIQ93ThAlou0Zn1ehKS/E+sckc?=
+ =?us-ascii?Q?Kags37pdn3s0KEYufrLKyMkCVeSE7EmAI15B0QlbBM9jh/R/cTstV/IZuLux?=
+ =?us-ascii?Q?mQCMEC7PAg/NbTHZsp8AsyY2DSCiZmN+p0/tmoF0kgIsc7qE2UYEXf1h4CQZ?=
+ =?us-ascii?Q?irfRovqGGJvNfa8mqdm0ouvdBePTSubZ9HQkOfJNHODyDQYK7asV7aWDc0zQ?=
+ =?us-ascii?Q?wk41eIFa0LxVsL/IFrFlsrErve7X7GKfxBz9QCOctIcDfHb6wg5ZTMunEa/P?=
+ =?us-ascii?Q?LHY8IaeUCV3O9phN3AA7mhpHfzm+elORYdMcr8dLN1WslVcNTcnQEh9fGZ3m?=
+ =?us-ascii?Q?etOgBbCCPb+wlO8d7n2oCF2dn36zdvxUJubvk5hZfWhKNErv6qMOI+RoTRfd?=
+ =?us-ascii?Q?jUH/mv1lcHZGT2XYLS7RwGFyMCQVx8YDirTARgstcNAoOQ52sguD1bfM48FV?=
+ =?us-ascii?Q?F8XYLM8NTfF9rKuxlslD4/p1TTkHEC+MJmMThcAXkXWAuQPKizHm8mC/BYgt?=
+ =?us-ascii?Q?zfZDADrrsN4NqIh5WWnemW1H4zSydi8xpwgUVcxQhGzRCrSsngbnbgzN/qeL?=
+ =?us-ascii?Q?aBFRsxHUAvlJlOlF/9WXeq6gOdio7gr7Fui3oliQPMdWtQHG?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261104193649.8158-1-atharvatiwarilinuxdev@gmail.com>
-In-Reply-To: <20261104193649.8158-1-atharvatiwarilinuxdev@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 4 Nov 2026 14:52:26 -0500
-X-Gm-Features: AclHuK_rrAS-CKWpRybmZKsWRyObyWh8haU_OQpy2sZkpOQpHv1PlVESzUc-rpo
-Message-ID: <CADnq5_PjiWHEDzS5DJgB1wS72_tHp4Ju5Wwr0R0N5EK-i9fXfQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/amdgpu: Add 5K Support for iMac20,1 and iMac20,2
-To: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CHAPR12MB999247.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 15c9c1f7-abb5-450a-d0db-08df3aae07ce
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Nov 2026 19:58:43.9047 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: jmGP7oOvkKfKISNEY8ACumw44GEhUi3H28c6A16BfAC7pFBEGvMwZYnEcbAx9Sp/
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8269
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,555 +128,151 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, Nov 4, 2026 at 2:46=E2=80=AFPM Atharva Tiwari
-<atharvatiwarilinuxdev@gmail.com> wrote:
+>I think kfd_queue_release_buffers also needs another parameter to tell
+>it not to handle SVM. Otherwise it will call kfd_queue_buffer_svm_put
+>and try to decrement queue refcounts in pranges that weren't incremented.
 >
-> This code adds support for 5K in iMac20,1 and iMac20,2 with
-> support of changing resolutions.
->
+>Regards,
+>   Felix
 
-Please give a better description of what has changed here.
+Good catch, will fix
 
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4455
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4895
+David
+
+________________________________________
+From: Kuehling, Felix <Felix.Kuehling@amd.com>
+Sent: Wednesday, November 4, 2026 2:51 PM
+To: Francis, David; amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH v4 1/2] drm/amdkfd: Acquire buffers in CRIU queue resto=
+re (again)
+
+
+On 2026-11-04 10:52, David Francis wrote:
+> CRIU queue restore doesn't acquire the bo buffers in the same way
+> normal queue creation does. In normal queue creation, the driver
+> gets an additional reference on the queue's underlying buffers
+> that lasts until the queue is destroyed; this prevents the
+> queue's buffers from being removed from underneath it.
 >
-> Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+> Acquire them, but don't get the svm bo. SVM isn't yet fully
+> restored by this point in CRIU and so there's no svm range to get.
+> This will be addressed in the next patch.
+>
+> v2: Don't use checkpoint ctl_stack_size
+>
+> Signed-off-by: David Francis <David.Francis@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 32 ++++++++++++++--
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 26 +++++++++++++
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  7 ++++
->  .../display/amdgpu_dm/amdgpu_dm_connector.c   | 19 +++++++++-
->  .../amd/display/amdgpu_dm/amdgpu_dm_quirks.c  | 29 ++++++++++++++-
->  .../gpu/drm/amd/display/dc/core/dc_resource.c |  8 ++++
->  drivers/gpu/drm/amd/display/dc/dc.h           |  2 +
->  .../amd/display/dc/hwss/dce110/dce110_hwseq.c | 37 +++++++++++++++++--
->  .../drm/amd/display/dc/link/link_detection.c  | 14 ++++++-
->  .../gpu/drm/amd/display/dc/link/link_dpms.c   |  3 ++
->  .../display/dc/link/protocols/link_dp_phy.c   |  5 +++
->  .../dc/link/protocols/link_dp_training.c      |  9 ++++-
->  12 files changed, 180 insertions(+), 11 deletions(-)
+>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c               | 2 +-
+>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h                  | 2 +-
+>   drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c | 8 ++++++++
+>   drivers/gpu/drm/amd/amdkfd/kfd_queue.c                 | 8 +++++++-
+>   4 files changed, 17 insertions(+), 3 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_discovery.c
-> index 890792a94..fc107e4fa 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> @@ -21,6 +21,7 @@
->   *
->   */
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/a=
+md/amdkfd/kfd_chardev.c
+> index 6c710e4a5220c..d8233337b8d5e 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> @@ -433,7 +433,7 @@ static int kfd_ioctl_create_queue(struct file *filep,=
+ struct kfd_process *p,
+>               goto err_bind_process;
+>       }
 >
-> +#include <linux/dmi.h>
->  #include <linux/firmware.h>
->  #include <linux/kernfs.h>
->
-> @@ -3412,6 +3413,22 @@ static int amdgpu_discovery_set_ualink_ip_blocks(s=
-truct amdgpu_device *adev)
->         return 0;
->  }
->
-> +static const struct dmi_system_id imac5k_table[] =3D {
-> +       {
-> +               .matches =3D {
-> +                       DMI_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
-> +                       DMI_MATCH(DMI_PRODUCT_NAME, "iMac20,1"),
-> +               },
-> +       },
-> +       {
-> +               .matches =3D {
-> +                       DMI_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
-> +                       DMI_MATCH(DMI_PRODUCT_NAME, "iMac20,2"),
-> +               },
-> +       },
-> +       {}
-> +};
-> +
->  int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
->  {
->         int r;
-> @@ -4026,15 +4043,24 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_=
-device *adev)
->                 }
->         }
->
-> +       /* TODO: We should enable 5K in EFI and remove this quirk */
-> +       if (unlikely(dmi_check_system(imac5k_table))) {
-> +               r =3D amdgpu_discovery_set_display_ip_blocks(adev);
-> +               if (r)
-> +                       return r;
-> +       }
-
-What's the reason for this change?
-
-> +
->         if (likely(adev->firmware.load_type =3D=3D AMDGPU_FW_LOAD_PSP)) {
->                 r =3D amdgpu_discovery_set_smu_ip_blocks(adev);
->                 if (r)
->                         return r;
->         }
->
-> -       r =3D amdgpu_discovery_set_display_ip_blocks(adev);
-> -       if (r)
-> -               return r;
-> +       if (likely(!dmi_check_system(imac5k_table))) {
-> +               r =3D amdgpu_discovery_set_display_ip_blocks(adev);
-> +               if (r)
-> +                       return r;
-> +       }
->
->         r =3D amdgpu_discovery_set_gc_ip_blocks(adev);
->         if (r)
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 5b634ae07..a88c86051 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -639,6 +639,8 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
->         retrieve_dmi_info(&adev->dm);
->         if (adev->dm.edp0_on_dp1_quirk)
->                 init_data.flags.support_edp0_on_dp1 =3D true;
-> +       if (adev->dm.imac5K_support)
-> +               init_data.flags.imac5K_support =3D true;
->
->         if (adev->dm.bb_from_dmub)
->                 init_data.bb_from_dmub =3D adev->dm.bb_from_dmub;
-> @@ -1967,6 +1969,11 @@ static int dm_resume(struct amdgpu_ip_block *ip_bl=
-ock)
->                 dc_exit_ips_for_hw_access(dm->dc);
->                 WARN_ON(!dc_commit_streams(dm->dc, &commit_params));
->
-> +               if (dm->dc->config.imac5K_using_5K) {
-> +                       const u8 value =3D 1;
-> +
-> +                       core_link_write_dpcd(dm->dc->links[0], 0x4F1, &va=
-lue, 1);
-> +               }
->                 dm_gpureset_commit_state(dm->cached_dc_state, dm);
->
->                 dm_gpureset_toggle_interrupts(adev, dm->cached_dc_state, =
-true);
-> @@ -4739,6 +4746,25 @@ static void amdgpu_dm_commit_streams(struct drm_at=
-omic_commit *state,
->         dc_exit_ips_for_hw_access(dm->dc);
->         WARN_ON(!dc_commit_streams(dm->dc, &params));
->
-> +       if (dm->imac5K_support) {
-> +               for_each_new_crtc_in_state(state, crtc, new_crtc_state, i=
-) {
-> +                       dm_new_crtc_state =3D to_dm_crtc_state(new_crtc_s=
-tate);
-> +
-> +                       if (!dm_new_crtc_state->stream)
-> +                               continue;
-> +
-> +                       if (dm_new_crtc_state->stream->signal !=3D SIGNAL=
-_TYPE_EDP)
-> +                               continue;
-> +
-> +                       if (new_crtc_state->mode.vdisplay =3D=3D 2880 && =
-new_crtc_state->mode.hdisplay =3D=3D 2560) {
-> +                               u8 value =3D 1;
-> +
-> +                               core_link_write_dpcd(dm->dc->links[0], 0x=
-4F1, &value, 1);
-> +                               dm->dc->config.imac5K_using_5K =3D true;
-> +                       } else
-> +                               dm->dc->config.imac5K_using_5K =3D false;
-> +               }
-> +       }
->         bool frl_stream_found =3D false;
->
->         for (i =3D 0; i < params.stream_count; i++) {
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> index 1b91fe4c3..65a2330c6 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> @@ -698,6 +698,13 @@ struct amdgpu_display_manager {
->          */
->         bool edp0_on_dp1_quirk;
->
-> +       /**
-> +        * @imac5K_support:
-> +        *
-> +        * quirk for iMac that support 5K
-> +        */
-> +       bool imac5K_support;
-> +
->         /**
->          * @dpia_aux_lock:
->          *
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c =
-b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> index 2b81396bd..2269b91c3 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> @@ -123,6 +123,13 @@ STATIC_IFN_KUNIT int dm_encoder_helper_atomic_check(=
-struct drm_encoder *encoder,
->                                        drm_mode_vrefresh(adjusted_mode));
->                         dm_new_connector_state->scaling =3D RMX_ASPECT;
->                 }
-> +
-> +               if (aconnector->dc_link && aconnector->dc_link->dc->confi=
-g.imac5K_support) {
-> +                       if (crtc_state->mode.vdisplay !=3D 2880)
-> +                               dm_new_connector_state->scaling =3D RMX_F=
-ULL;
-> +                       else
-> +                               dm_new_connector_state->scaling =3D RMX_O=
-FF;
-> +               }
->                 return 0;
->         }
->
-> @@ -3130,9 +3137,19 @@ STATIC_IFN_KUNIT int amdgpu_dm_connector_get_modes=
-(struct drm_connector *connect
->         const struct drm_edid *drm_edid =3D amdgpu_dm_connector->drm_edid=
+> -     err =3D kfd_queue_acquire_buffers(pdd, &q_properties);
+> +     err =3D kfd_queue_acquire_buffers(pdd, &q_properties, false);
+>       if (err) {
+>               pr_debug("failed to acquire user queue buffers\n");
+>               goto err_acquire_queue_buf;
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/=
+amdkfd/kfd_priv.h
+> index f0ce5fc4a138f..eb4d35a42e917 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> @@ -1381,7 +1381,7 @@ void print_queue(struct queue *q);
+>   int kfd_queue_buffer_get(struct amdgpu_vm *vm, void __user *addr, struc=
+t amdgpu_bo **pbo,
+>                        u64 expected_size);
+>   void kfd_queue_buffer_put(struct amdgpu_bo **bo);
+> -int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct que=
+ue_properties *properties);
+> +int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct que=
+ue_properties *properties, bool is_criu);
+>   int kfd_queue_release_buffers(struct kfd_process_device *pdd, struct qu=
+eue_properties *properties);
+>   void kfd_queue_unref_bo_va(struct amdgpu_vm *vm, struct amdgpu_bo **bo)=
 ;
->         struct dc_link_settings *verified_link_cap =3D &dc_link->verified=
-_link_cap;
->         const struct dc *dc =3D dc_link->dc;
-> +       struct dc_sink *sink =3D amdgpu_dm_connector->dc_sink;
+>   int kfd_queue_unref_bo_vas(struct kfd_process_device *pdd,
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/dri=
+vers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+> index 4c4a3a8587f46..6e19be9e89f57 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+> @@ -1095,9 +1095,17 @@ int kfd_criu_restore_queue(struct kfd_process *p,
 >
->         encoder =3D amdgpu_dm_connector_to_encoder(connector);
+>       print_queue_properties(&qp);
 >
-> +       if (dc->config.imac5K_support && sink &&
-> +           sink->link->link_index =3D=3D 1 && !connector->edid_blob_ptr)=
- {
-> +               const struct drm_edid *kept =3D drm_edid_alloc(sink->dc_e=
-did.raw_edid,
-> +                                                            sink->dc_edi=
-d.length);
-> +
-> +               drm_edid_connector_update(connector, kept);
-> +               drm_edid_free(kept);
-> +       }
-> +
->         if (!drm_edid) {
->                 amdgpu_dm_connector->num_modes =3D
->                                 drm_add_modes_noedid(connector, 640, 480)=
-;
-> @@ -3312,7 +3329,7 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_=
-display_manager *dm,
->                                 adev->mode_info.underscan_vborder_propert=
-y,
->                                 0);
->
-> -       if (!aconnector->mst_root)
-> +       if (!aconnector->mst_root && !(dm->imac5K_support && link_index <=
-=3D 1))
->                 drm_connector_attach_max_bpc_property(&aconnector->base, =
-8, 16);
->
->         aconnector->base.state->max_bpc =3D 16;
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_quirks.c b/d=
-rivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_quirks.c
-> index 259966703..8657dd972 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_quirks.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_quirks.c
-> @@ -33,11 +33,13 @@
->  struct amdgpu_dm_quirks {
->         bool aux_hpd_discon;
->         bool support_edp0_on_dp1;
-> +       bool imac5K_support;
->  };
->
->  static struct amdgpu_dm_quirks quirk_entries =3D {
->         .aux_hpd_discon =3D false,
-> -       .support_edp0_on_dp1 =3D false
-> +       .support_edp0_on_dp1 =3D false,
-> +       .imac5K_support =3D false,
->  };
->
->  static int edp0_on_dp1_callback(const struct dmi_system_id *id)
-> @@ -52,6 +54,12 @@ static int aux_hpd_discon_callback(const struct dmi_sy=
-stem_id *id)
->         return 0;
->  }
->
-> +static int imac5K_support_callback(const struct dmi_system_id *id)
-> +{
-> +       quirk_entries.imac5K_support =3D true;
-> +       return 0;
-> +}
-> +
->  static const struct dmi_system_id dmi_quirk_table[] =3D {
->         {
->                 .callback =3D aux_hpd_discon_callback,
-> @@ -151,6 +159,20 @@ static const struct dmi_system_id dmi_quirk_table[] =
-=3D {
->                         DMI_MATCH(DMI_PRODUCT_NAME, "HP ProBook 465 16 in=
-ch G11 Notebook PC"),
->                 },
->         },
-> +       {
-> +               .callback =3D imac5K_support_callback,
-> +               .matches =3D {
-> +                       DMI_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
-> +                       DMI_MATCH(DMI_PRODUCT_NAME, "iMac20,1"),
-> +               },
-> +       },
-> +       {
-> +               .callback =3D imac5K_support_callback,
-> +               .matches =3D {
-> +                       DMI_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
-> +                       DMI_MATCH(DMI_PRODUCT_NAME, "iMac20,2"),
-> +               },
-> +       },
->         {}
->         /* TODO: refactor this from a fixed table to a dynamic option */
->  };
-> @@ -162,6 +184,7 @@ void retrieve_dmi_info(struct amdgpu_display_manager =
-*dm)
->
->         dm->aux_hpd_discon_quirk =3D false;
->         dm->edp0_on_dp1_quirk =3D false;
-> +       dm->imac5K_support =3D false;
->
->         dmi_id =3D dmi_check_system(dmi_quirk_table);
->
-> @@ -176,6 +199,10 @@ void retrieve_dmi_info(struct amdgpu_display_manager=
- *dm)
->                 dm->edp0_on_dp1_quirk =3D true;
->                 drm_info(dev, "support_edp0_on_dp1 attached\n");
->         }
-> +       if (quirk_entries.imac5K_support) {
-> +               dm->imac5K_support =3D true;
-> +               drm_info(dev, "imac5K_support attached\n");
-> +       }
->  }
->  EXPORT_IF_KUNIT(retrieve_dmi_info);
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/=
-gpu/drm/amd/display/dc/core/dc_resource.c
-> index 187486d97..98f74ffc2 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-> @@ -689,6 +689,14 @@ bool resource_are_streams_timing_synchronizable(
->         struct dc_stream_state *stream1,
->         struct dc_stream_state *stream2)
->  {
-> +
-> +       if (stream1->ctx->dc->config.imac5K_support &&
-> +               ((stream1->signal =3D=3D SIGNAL_TYPE_EDP && stream2->sign=
-al =3D=3D SIGNAL_TYPE_DISPLAY_PORT &&
-> +               stream2->link->link_index =3D=3D 1) ||
-> +               (stream2->signal =3D=3D SIGNAL_TYPE_EDP && stream1->signa=
-l =3D=3D SIGNAL_TYPE_DISPLAY_PORT &&
-> +               stream1->link->link_index =3D=3D 1)))
-> +               return true;
-> +
->         if (stream1->timing.h_total !=3D stream2->timing.h_total)
->                 return false;
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/di=
-splay/dc/dc.h
-> index d3c484f45..a0b746250 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dc.h
-> +++ b/drivers/gpu/drm/amd/display/dc/dc.h
-> @@ -635,6 +635,8 @@ struct dc_config {
->         struct spl_sharpness_range dcn_sharpness_range;
->         struct spl_sharpness_range dcn_override_sharpness_range;
->         bool no_native422_support;
-> +       bool imac5K_support;
-> +       bool imac5K_using_5K;
->  };
->
->  enum visual_confirm {
-> diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c b/=
-drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-> index 7b3aa02dd..aba1dc9b4 100644
-> --- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-> +++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-> @@ -2656,7 +2656,8 @@ enum dc_status dce110_apply_ctx_to_hw(
->         struct dce_hwseq *hws =3D dc->hwseq;
->         struct dc_bios *dcb =3D dc->ctx->dc_bios;
->         enum dc_status status;
-> -       unsigned int i;
-> +       unsigned int i, n, enable_order[MAX_PIPES];
-> +       int primary =3D -1, companion =3D -1;
->         bool was_hpo_acquired =3D resource_is_hpo_acquired(dc->current_st=
-ate);
->         bool is_hpo_acquired =3D resource_is_hpo_acquired(context);
->
-> @@ -2664,6 +2665,32 @@ enum dc_status dce110_apply_ctx_to_hw(
->         if (dc->config.use_pipe_ctx_sync_logic)
->                 reset_syncd_pipes_from_disabled_pipes(dc, context);
->
-> +       for (i =3D 0; i < dc->res_pool->pipe_count; i++) {
-> +               struct pipe_ctx *pipe =3D &context->res_ctx.pipe_ctx[i];
-> +
-> +               enable_order[i] =3D i;
-> +               if (!dc->config.imac5K_support || !pipe->stream ||
-> +                   pipe->top_pipe || pipe->prev_odm_pipe)
-> +                       continue;
-> +               if (pipe->stream->link->link_index =3D=3D 0)
-> +                       primary =3D i;
-> +               else if (pipe->stream->link->link_index =3D=3D 1)
-> +                       companion =3D i;
-> +       }
-> +       if (companion >=3D 0 && primary > companion) {
-> +               enable_order[companion] =3D primary;
-> +               enable_order[primary] =3D companion;
-> +       }
-> +
-> +       if (primary >=3D 0 && companion >=3D 0) {
-> +               struct pipe_ctx *old =3D &dc->current_state->res_ctx.pipe=
-_ctx[primary];
-> +               struct dc_link *right =3D context->res_ctx.pipe_ctx[compa=
-nion].stream->link;
-> +
-> +               if (!old->stream ||
-> +                   pipe_need_reprogram(old, &context->res_ctx.pipe_ctx[p=
-rimary]))
-> +                       right->link_state_valid =3D false;
-> +       }
-> +
->         /* Reset old context */
->         /* look up the targets that have been removed since last commit *=
-/
->         hws->funcs.reset_hw_ctx_wrap(dc, context);
-> @@ -2705,10 +2732,12 @@ enum dc_status dce110_apply_ctx_to_hw(
->                 dc->hwseq->funcs.setup_hpo_hw_control(dc->hwseq, is_hpo_a=
-cquired);
->         }
->
-> -       for (i =3D 0; i < dc->res_pool->pipe_count; i++) {
-> +       for (n =3D 0; n < dc->res_pool->pipe_count; n++) {
->                 struct pipe_ctx *pipe_ctx_old =3D
-> -                                       &dc->current_state->res_ctx.pipe_=
-ctx[i];
-> -               struct pipe_ctx *pipe_ctx =3D &context->res_ctx.pipe_ctx[=
-i];
-> +                       &dc->current_state->res_ctx.pipe_ctx[enable_order=
-[n]];
-> +               struct pipe_ctx *pipe_ctx =3D &context->res_ctx.pipe_ctx[=
-enable_order[n]];
-> +
-> +               i =3D enable_order[n];
->
->                 if (pipe_ctx->stream =3D=3D NULL)
->                         continue;
-> diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c b/drive=
-rs/gpu/drm/amd/display/dc/link/link_detection.c
-> index b4546f93a..a92399753 100644
-> --- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-> +++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-> @@ -1205,7 +1205,10 @@ static bool detect_link_and_local_sink(struct dc_l=
-ink *link,
->                                 if (!link->dpcd_caps.set_power_state_capa=
-ble_edp)
->                                         link->wa_flags.dp_keep_receiver_p=
-owered =3D true;
->                         }
-> -
-> +                       if (dc->config.imac5K_support) {
-> +                               const uint8_t val =3D 1;
-> +                               core_link_write_dpcd(link, 0x4F1, &val, 1=
+> +     ret =3D kfd_queue_acquire_buffers(pdd, &qp, true);
+> +     if (ret) {
+> +             pr_err("Failed to acquire user queue buffers err:%d\n", ret=
 );
-> +                       }
->                         sink_caps.transaction_type =3D DDC_TRANSACTION_TY=
-PE_I2C_OVER_AUX;
->                         sink_caps.signal =3D SIGNAL_TYPE_EDP;
->                         break;
-> @@ -1634,6 +1637,15 @@ bool link_detect(struct dc_link *link, enum dc_det=
-ect_reason reason)
->         bool is_delegated_to_mst_top_mgr =3D false;
->         enum dc_connection_type pre_link_type =3D link->type;
->
-> +       if (link->local_sink &&
-> +                       link->dc->config.imac5K_support &&
-> +                       link->local_sink->link->link_index =3D=3D 1)
-> +               return false;
+> +             goto exit;
+> +     }
 > +
-> +       if (reason =3D=3D DETECT_REASON_BOOT && link->dc->config.imac5K_s=
-upport &&
-> +           link->link_index =3D=3D 1)
-> +               msleep(100);
-> +
->         is_local_sink_detect_success =3D detect_link_and_local_sink(link,=
- reason);
->
->         if (is_local_sink_detect_success && link->local_sink) {
-> diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c b/drivers/gp=
-u/drm/amd/display/dc/link/link_dpms.c
-> index 2aeb9a0e6..3d7d1ddc4 100644
-> --- a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-> +++ b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-> @@ -2084,6 +2084,9 @@ static enum dc_status enable_link_dp(struct dc_stat=
-e *state,
->                         !link->dc->config.enable_dpia_pre_training)
->                 do_fallback =3D true;
->
-> +       if (link->dc->config.imac5K_support && link->link_index =3D=3D 1)
-> +               msleep(100);
-> +
->         /*
->          * Temporary w/a to get DP2.0 link rates to work with SST.
->          * TODO DP2.0 - Workaround: Remove w/a if and when the issue is r=
-esolved.
-> diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c =
-b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
-> index 49521ac4b..e90164a58 100644
-> --- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
-> +++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
-> @@ -53,6 +53,11 @@ void dpcd_write_rx_power_ctrl(struct dc_link *link, bo=
-ol on)
->         core_link_write_dpcd(link, DP_SET_POWER, &state,
->                                                  sizeof(state));
->
-> +       if (on && link->dc->config.imac5K_support &&
-> +           link->connector_signal =3D=3D SIGNAL_TYPE_EDP) {
-> +               state =3D 1;
-> +               core_link_write_dpcd(link, 0x4F1, &state, sizeof(state));
-> +       }
->  }
->
->  void dp_enable_link_phy(
-> diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_traini=
-ng.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c
-> index 3be36d106..4eca11169 100644
-> --- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c
-> +++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c
-> @@ -1540,8 +1540,15 @@ static enum link_training_result dp_transition_to_=
-video_idle(
->                  */
->                 if (link->connector_signal !=3D SIGNAL_TYPE_EDP && status=
- =3D=3D LINK_TRAINING_SUCCESS) {
->                         msleep(5);
-> -                       if (!link->skip_fallback_on_link_loss)
-> +                       if (link->dc->config.imac5K_support && link->link=
-_index =3D=3D 1) {
-> +                               uint8_t lanes;
-> +
-> +                               if (core_link_read_dpcd(link, DP_LANE0_1_=
-STATUS,
-> +                                                       &lanes, 1) !=3D D=
-C_OK)
-> +                                       status =3D LINK_TRAINING_LINK_LOS=
-S;
-> +                       } else if (!link->skip_fallback_on_link_loss) {
->                                 status =3D dp_check_link_loss_status(link=
-, lt_settings);
-> +                       }
->                 }
->                 return status;
->         }
+>       ret =3D pqm_create_queue(&p->pqm, pdd->dev, &qp, &queue_id, q_data,=
+ mqd, ctl_stack, NULL);
+>       if (ret) {
+>               pr_err("Failed to create new queue err:%d\n", ret);
+> +             kfd_queue_unref_bo_vas(pdd, &qp);
+> +             kfd_queue_release_buffers(pdd, &qp);
 
-I think the rest of this can be simplified quite a bit.  I'd suggest
-rebasing this on the other 5K support patches and see how much of that
-code you can share.
-https://lists.freedesktop.org/archives/dri-devel/2026-November/610011.html
+I think kfd_queue_release_buffers also needs another parameter to tell
+it not to handle SVM. Otherwise it will call kfd_queue_buffer_svm_put
+and try to decrement queue refcounts in pranges that weren't incremented.
 
-Alex
+Regards,
+   Felix
 
-> --
-> 2.55.0
+
+>               goto exit;
+>       }
 >
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c b/drivers/gpu/drm/amd=
+/amdkfd/kfd_queue.c
+> index 6010a5d7a7eb9..18d24ddb455eb 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
+> @@ -239,7 +239,7 @@ static void kfd_queue_put_bos(struct queue_properties=
+ *properties)
+>       kfd_queue_buffer_put(&properties->cwsr_bo);
+>   }
+>
+> -int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct que=
+ue_properties *properties)
+> +int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct que=
+ue_properties *properties, bool is_criu)
+>   {
+>       struct kfd_topology_device *topo_dev;
+>       u64 expected_queue_size;
+> @@ -334,6 +334,12 @@ int kfd_queue_acquire_buffers(struct kfd_process_dev=
+ice *pdd, struct queue_prope
+>
+>       amdgpu_bo_unreserve(vm->root.bo);
+>
+> +     /* CRIU svm buffers are restored at a later stage than queues. They=
+'ll be in
+> +      * before the queue is actually used, so no risk here
+> +      */
+> +     if (is_criu)
+> +             return 0;
+> +
+>       err =3D kfd_queue_buffer_svm_get(pdd, properties->ctx_save_restore_=
+area_address,
+>                                      total_cwsr_size);
+>       if (err)
