@@ -2,124 +2,97 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA8B66082BF9
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 20:31:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D76B0606B2E4
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 20:49:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=MJdlA+Kb
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=wirJzX0t
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1ECC110FED9;
-	Wed,  4 Nov 2026 20:31:29 +0000 (UTC)
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010011.outbound.protection.outlook.com [52.101.85.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4391B10FED9
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Nov 2026 20:31:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75EE410E182;
+	Wed,  4 Nov 2026 20:49:48 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013019.outbound.protection.outlook.com
+ [40.93.201.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4100D10E182
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Nov 2026 20:49:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IW+uFy5PxcTw0Bq84nDF8FmGszn1KQBI0UdrkfbKKlOSyAP6OsXFhhnED6x8iEuGXt6rS7QtVdN50raNVaz/EMEXnS6aiVbHjmInCHgO1dVe1NeHmyHX8IMELxU7gBdU/pEpgr1MGMaZsV70G0+0a2ZR19GiuF/bY56J+TjHO8v3vb/RB+t3LiNOCbYxnsfmWzxq34/H8JcSassXJNGEIcqvAKtDTZtVm6n3I9fCva2DM3D3WtyqjFX9hwdVpcf/HXuLysdp9WIuRJ+Z+3Z7kjEWlmuywHjqROH+TXw8ekXEfDGhVoCimaMrL7a6tLsVMRqpEXvxEgaXSJqHZA3LNA==
+ b=l1GQnUjDPrT24mrTpV7zqRH1tY2EKO3rHBl6KLXJwH3qdXiAYvj3SbXMP4SL1OBVzOYPqUBP7b7G/nm6ID5VJ+ogyKtQ0tMl0NBvSxmWwaqXWH81WKp73QGiuWRbuMLOmKHJ74vYBVpOzqE5fRV+qZtTx0MNeapIF15XPX/1bY0Uxs7PMRp7iBZOnpdotrpqD1Jj/mDivrStydrpknYSK5j1hKfkZXi3rt33oaNapp0Gdfh6t7r4oH4rQyDT53/93tL/jylwtFhY2N4iL3NUXviNhLGvs54Bn42IIcE3ONNqo45sONJkBJq16uhU9BbNkQ6H/1ffAWoiTPKzrVst9Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lPsfKI42mc5AM0Px8pjCQzoRvyE0IafE0BZa9IIPSW8=;
- b=bsbrYo3gYPqqT+jJ7xIh/kRHmV3RoBRh8d9sPa3WfkAsOgXNA72h9bXD5HWhL6N0cSaLZh/liXkxil9oBLOymyDvPiKtW8AgB51LbRlQPZ2dG4e05MnQQTi1rKIVRDdzAZzh3jOpQJMXcMQA6bMywbVCDcJDSJaupSmWR0MgsoQ57iPf1PwcFvfzzBE2ROfLPH3Lf556Jb3cfmDq4nx7JP+FIVYVDrn0XW0hvEGlGchhxNo5RRm9SZD4GCc3FL2WsgpeMS3rmezTQnd650N9Qd/bR2+hora42sr2MTHG9e/dv3Z6e/MErJsE8o+l9m6SJ5oA1IcjHkZJ5ybXaVm5zg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=0okaRbZq5vuaQ748m32s2traVjNnXvlf+BKEMnPmwGY=;
+ b=TETaDx/BTQfqzejFKcNiF6ru7vj089qzmfFGFs2jSKTeJCCNFaXMVeTxSlraA60xv0nwMKxFokLlJllYgc6uYjK9NlnEd3SR7T04JlqhAoQpbAYLcfiAzSN93OHuKDakUZsPmM8tXQ3v/gP35F9Nk8coQYmE0CD/T3f+6ipuchdgdFpP8z05gxqYY4+zmEFmIJ86T+Tp61VQK9PyQRPkQZebB/AHCJbRBxgJ/KXnA99z3t14lCYUXW1lPzgMC1aRmGIlhktT12WqWCK1tHh6sL6oMYe1jttaV3ZY8oD5uSr9PfTcQ9iqntH75NXuphns3CNf/kJkm9paRii4cDWOzw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lPsfKI42mc5AM0Px8pjCQzoRvyE0IafE0BZa9IIPSW8=;
- b=MJdlA+Kbj40KGZgF3O+zD2YxAvYKQltHsqItChlcfXZRG+x+a8ppLec70f+FW6ba6EMEXst59LqmSQtODGSfl50tdInGkinAaovalDyfQZvvJPf8keB9Ili/4w42EkJbn2kgMve3hisOko0fT3uu4nLO/iREX2VJ1tKUL8iAeNM=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PHXPR12MB999256.namprd12.prod.outlook.com
- (2603:10b6:510:3ca::15) by LV5PR12MB9779.namprd12.prod.outlook.com
- (2603:10b6:408:301::14) with Microsoft SMTP Server (version=TLS1_2,
+ bh=0okaRbZq5vuaQ748m32s2traVjNnXvlf+BKEMnPmwGY=;
+ b=wirJzX0tlBwtrUrDi0ZenO5hpoF5sWnzLfWZjZg1w2+sDnIJioZnC1XGjqOoHk5uF118SaK+aEKN8GpkD7YaIJ6PXUghDNqhE8ntevVMEysoFoEsE3OT+6+UJbbQ2323Wr9z8CXducjkNcbiqCIMgc3stEFEokdi50QJxQZvOJw=
+Received: from MN2PR07CA0021.namprd07.prod.outlook.com (2603:10b6:208:1a0::31)
+ by DM4PR12MB7526.namprd12.prod.outlook.com (2603:10b6:8:112::20) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 4 Nov 2026
- 20:31:19 +0000
-Received: from PHXPR12MB999256.namprd12.prod.outlook.com
- ([fe80::9cc3:e12c:d992:4ce4]) by PHXPR12MB999256.namprd12.prod.outlook.com
- ([fe80::9cc3:e12c:d992:4ce4%4]) with mapi id 15.21.0592.009; Wed, 4 Nov 2026
- 20:31:19 +0000
-Message-ID: <0cee5aae-2488-4274-896f-b4eaab170c79@amd.com>
-Date: Wed, 4 Nov 2026 15:31:16 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCHv3 3/8] drm/amdgpu: Emulate exporter->importer UALink
- messages in loopback
-To: Philip Yang <yangp@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Felix.Kuehling@amd.com, Harish.Kasiviswanathan@amd.com, philip.yang@amd.com
-References: <20261102160125.2743750-1-mukul.joshi@amd.com>
- <20261102160125.2743750-4-mukul.joshi@amd.com>
- <8cfbb96b-4e87-4744-a56c-3007679e2bc7@amd.com>
-Content-Language: en-CA
-From: Mukul Joshi <mukul.joshi@amd.com>
-In-Reply-To: <8cfbb96b-4e87-4744-a56c-3007679e2bc7@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT3PR01CA0134.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:83::29) To PHXPR12MB999256.namprd12.prod.outlook.com
- (2603:10b6:510:3ca::15)
+ 20:49:37 +0000
+Received: from BN3PEPF00022BC9.namprd05.prod.outlook.com
+ (2603:10b6:208:1a0:cafe::59) by MN2PR07CA0021.outlook.office365.com
+ (2603:10b6:208:1a0::31) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Wed, 4
+ Nov 2026 20:49:37 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN3PEPF00022BC9.mail.protection.outlook.com (10.167.248.218) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.5 via Frontend Transport; Wed, 4 Nov 2026 20:49:37 +0000
+Received: from fdavid-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 4 Nov
+ 2026 14:49:36 -0600
+From: David Francis <David.Francis@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Felix.Kuehling@amd.com>, David Francis <David.Francis@amd.com>
+Subject: [PATCH v5 1/2] drm/amdkfd: Acquire buffers in CRIU queue restore
+ (again)
+Date: Wed, 4 Nov 2026 15:49:22 -0500
+Message-ID: <20261104204923.4011440-1-David.Francis@amd.com>
+X-Mailer: git-send-email 2.34.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PHXPR12MB999256:EE_|LV5PR12MB9779:EE_
-X-MS-Office365-Filtering-Correlation-Id: 01ca7615-17e7-4a64-fdd9-08df3ab2953e
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BC9:EE_|DM4PR12MB7526:EE_
+X-MS-Office365-Filtering-Correlation-Id: e6af7b56-efd1-496d-390f-08df3ab523a3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|23010399003|366016|261022105027099003|11063799006|4143699003|5023799004|56012099006|261021121427099003|261009223027099003|261021123027099003|261026121527099003|261026140227099003|261102123227099003|261028144727099003|261022075727099003|261102130727099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: FdMf0cg1f2yaVfNx8CbLXhpBBu0r00eNCgDrZxa77d7G/pL/rrPy3nGrEnc5ICY3hA9BHmAkI0irXYa4MMFvs2GMdwT/InwfHe6iszOVacSoWI3kepBylycHVrfna/u2rdspykrw5YaQ8b8KxeEnJYoDeS2tmhwCklSylsVh2ypoH/YQB0v78hOf5BtHHaaq1brpq+ZcOp+9CFaKRr0ASd0jnK6YrjrPcfjTt6+6cvC27dYjm62dVuwqb+How0CA/WgZRzM9NMHphTAQe7tTsSgToOZYcpggNeuUrGEyOiLRzagWNv8FXyU2GR/iVrlNlSItC2/taZqHShhhCH6Xdrn7IZB3crNQ06xe/l30WF9gKP8Zwg9/xg5wboYfN5ZF+xQEHoSrHj38Do+B5R6sZM9SzjxYych+xJI0gptsx7iRZDbKDQZ9g1+phkSn1AMRpf5Enq+7yw60cQJG6IibFaub3GfN07SddQCN5VFMIAPxpxlP5IW6QogsetcMtxAbPtQZ14uYL2nietEuAN0if+1WOQ0s3CIGBe6mj0E5JAUJkQpSrozp7oQ09u4s87Nikgh/wb8EvnOdjIt7lkl2rD2oq/7HvlqsIiPN5G2DZ0OehPfAr23joBKxif6IsQZc6Gnate5mkax2CQuVv+rn0JFHAJHLN5i9RCMKlrpOyGQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PHXPR12MB999256.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(261022105027099003)(11063799006)(4143699003)(5023799004)(56012099006)(261021121427099003)(261009223027099003)(261021123027099003)(261026121527099003)(261026140227099003)(261102123227099003)(261028144727099003)(261022075727099003)(261102130727099003)(10067099003)(22082099003)(18002099003);
+ ARA:13230040|376014|23010399003|1800799024|36860700016|82310400026|261021121427099003|11063799006|56012099006|261021123027099003|261009223027099003|261028144727099003|261026121527099003|261022105027099003|261102123227099003|261026140227099003|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info: VxkxPcV99rshtIe7zav0I7Z49tNHAtEcVHW97Apkk9pk8Yci7z2/v1hQwxyu6uQb0gxDKcyjnvyDQfGXi/lkX5K4JYmmlDhGOC0uEKcYgHS8SP4f+Ovr7j+iSwrP7BOmWCA63Hs0JdCIzz38Wlqh9BRqwa0JcWyKKuQuAJFNrLmp3ImtlWzBalkGPTnUmGw9ti3t+Hvk/Ama6eiUmWNh23SiqG1qY0zRcLH3PBvd+MVbnOglOBNRIxQ8BcuUadqtLB2bK+i1X8yo1H0RiTZjyVxjroigYnELsHl400ERRGApDtpLYsbpgbhBMnoCmh61HZBtsvElCfO/h0ldAMI2WX3oH4B2j3xHqUkvNi1qvtQdaPiAPeofnxYp8HipcU/F25FrdX8xOCoToFO56adCzeebtOnzjfefz+hy2lLnuR6x+UZNN7FsLhHGNLf2NT4spOfrvEHiaR9M2eovikAc6VL/UcMzVy140JqEYf0VZARVxTmZ54dVGbVvWhcYlI+3snY9hj/n8ZduKK6IXt+R35J4SUlUZ8Tm05NgfA0yw4HFTV1WkkAf+5J2LwrVBBasb4m3VP++hiHpxRbqoqu5pS/wy2kr9/j5bu7bHc7cJtx716AWSU1iG3eFVb1qI+F8EQEqaSl5NJP8H0zIYrMcX576Or5DYVLZzlh4gPJhxmw2j9HBt6DzW9IjD/wn7kXXkZbM+1Z6Ik/BZTaZWXkRhw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(1800799024)(36860700016)(82310400026)(261021121427099003)(11063799006)(56012099006)(261021123027099003)(261009223027099003)(261028144727099003)(261026121527099003)(261022105027099003)(261102123227099003)(261026140227099003)(10067099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RWNYNDVFSW94a2N0ZzJOMVBwQXJOU3hobVFWWlVHaUdjOG10WU1XekYwUE5X?=
- =?utf-8?B?Qnh6bGNjeTRnTld0TStBK1gyZHFiLzlINWszdEFuaytvc3l4Zi9lMkVKN3lw?=
- =?utf-8?B?RHE4WmYwa1RVeEFSWHpVZ0s1Q1RDQWNFWTlibVBpMEZ2cnY1VjlzcUtKNzVi?=
- =?utf-8?B?R0gwTHRKRzJKOHdvN0ltL1NkUWU0SXpqQ0o2MHRPZTZLYWM2S0lka3UwODdv?=
- =?utf-8?B?NStNL2tFSFVJV0JnN1JUWEFBd254KzJ5Rk0wNjBHcmVQemE0Ym5FODV5b1gz?=
- =?utf-8?B?RnluZXpyWmtHK1pYa25TdVQwRHFzOUgzNUdvc3NRNHVNSVlnVjAvQmt6R1cr?=
- =?utf-8?B?NzJzZ0RFSjl5d3RhWTNaNkd3TG9SUHdkTnVqYmVFWkxVbnN2ejRiL1JRamhn?=
- =?utf-8?B?R25ZcjRGM3VoeXNJd0NOc013Qm1PRmFsajQySTYxM1ZGakhGTzVaU2FlTG5z?=
- =?utf-8?B?MU1aL0h2NHdrKzVTSTRkVmxoc28zekZzSEhHMENiMXdzbitiSVZZMUhtVnZK?=
- =?utf-8?B?L0FQRkJ6ZndHRzBNWHQxSUtzUkU1L1J3QlcvT1hQVFcvdm9PbkNoMlpvVHEv?=
- =?utf-8?B?eFRQcnhoTkV4YStCQ2tFM2dBMG12dHFteTFOMW9TQ3EybkhuWEx1UU52MkR4?=
- =?utf-8?B?VHNIbXE2OCtuNTNobG9jSlF4VFc5QTB4R1dlQVE1R0s1dkdESWkyREpMVHZQ?=
- =?utf-8?B?U05EbVZ3ZFRXZmFabGo4V3pMM1ZVUlFnamZJSkZ2RjVGTUJvVEFJMDN4NFdJ?=
- =?utf-8?B?Sys4cWJFd2V0dmY1MlNaYkdTWU9LeUZEOFhueDJuVVFyejNpQnR6QWV5a2hE?=
- =?utf-8?B?MGUxbTRxYmJlT0o1cmdQR1hGenJ0MmgraVdlVnEzQ1ZpVEgxSU45WCtmUUpx?=
- =?utf-8?B?RXI5cUNOVEVZanRGV1VEd0NUd2Q0NzVUYmhlRlE0ZEY3OXJFNFZpbE1RNklQ?=
- =?utf-8?B?YWpObm1teDhMVDJNaUpIQ205Ukpieml4N3E1dGQvOE1DcHFnYWcyczZMeUJ0?=
- =?utf-8?B?K09WZlZKSHlHZHRIUk9Kc3hXV3RJbHJKd3EwSTcweGFRZDlMN3BpdzU2TXl5?=
- =?utf-8?B?TmY3ZEhJUFFPUUJNd0NaaHpkMVBLb2tPZTcyRW5ZNE9vSFR3bVRVQU5jMk5U?=
- =?utf-8?B?RkdWNzQvT2RSbVlVMG9VV2JIL0ZhOTB5d2tDSUFZOHFITytlTDZrOUlHRWkv?=
- =?utf-8?B?S1hBM2psN0tXNGcxSU0vL0RnWVNsVi9pR3Bpaks0TlhMOGJBQ0ViYzA3Y09M?=
- =?utf-8?B?TnY2eWtUZkN6YW9CZ0l2SzcvbzUzTDlXbGZsajhtRjNpQjYyRUNaaW1pbzJ4?=
- =?utf-8?B?SDlFU2RHQTB2dXVPMUUzcURyWDVReUtRQ1N6aEVGUDUxdWpJOXAybmtPOVhR?=
- =?utf-8?B?cG5nQUdKVUl1OTV5YzRoVm1DckF5c0hxN1ZQakFUSlBlM09DeVlkdDFCZXhY?=
- =?utf-8?B?NWthc3hqOVAvQVhBSG9LYSswRUFYUHFVUnJLVFJQWVhrTDZqUFU0aWYwREtG?=
- =?utf-8?B?b29DQTNHdjBDMlVBU1Y3enJveWxFbkxGVW00MWFBRzBiN1p6N08wYitIcFRh?=
- =?utf-8?B?RVg2emlwaVRzb2JjaFJ1TzdmU2dEZVZFRkxEN240WEF5SDl3d1Q5UUhrUXQ2?=
- =?utf-8?B?dU44NDhQV1V4cVJ4RlROUDJhbHRJWVp2MSt1WXMrak5yOUtnVzkxQ3Y2Sm4y?=
- =?utf-8?B?aXBhOTlnZnRKc1Q3UERNdExYOURzRXU1RE5kcWY0SkYycmdZaEdNM0dEWkFK?=
- =?utf-8?B?WlBubjVtMGphRTZvOUJUQVVOWUZCbVVKRHIrVyt5WVNVVW92d0lzZTU0VGdS?=
- =?utf-8?B?cXNaQ0Z0SHAvRGF0T2c4cDUzUms1RHFla0lkek1KYkVNOW1YN1VQSnNRMnVs?=
- =?utf-8?B?bUVuU3o3Zi9zUVFmVUpXTG9UdXlKY3d6NE5KdFM3dzVlMnArbkppQ1c2T2Z5?=
- =?utf-8?B?dkhmZ3pUWUpZTzh0K05zclFEZmlabVlsTmE2S1VGYWN6RjJjbi90djNPdURC?=
- =?utf-8?B?RlN3U0tFUzR3cERjS05aditjN3NXVWVDVkhwSVN2OWxyeXg5d0JyVGlpelVF?=
- =?utf-8?B?aUtpTXZrNXFkdXp0RGMzMzd6WXBjSXRpaHhGSEZ5c3hQR2FkTWcyR0ZtS1Nq?=
- =?utf-8?B?RTBYRE9iL0FmbVplK3dPT2JEUWFFdFhEeVcyVS9OcWt1bTFnblE4czJxUXdv?=
- =?utf-8?B?SWlNNzlQZHJNNEtIZzNFZVBScmcxbUhUMkVHbS82RHZZekVQL3NUUTUveDRF?=
- =?utf-8?B?MmJoK1AwZGNDVGFid2dHcXNsd3RtTUd1Q0oyS0IxQUNGMTRxMWgvdlFRanZZ?=
- =?utf-8?B?NXFsaks5S0Y5WEU1bFkrSVFQVWdwMlRJK1dJdFk4OEJlZks0bzdrdz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: HIaLgizvo9s7eVCqM9BGlpmITvxGYddsYRtwk0xQnG1ZOYlna6ImQ3KvfcCAkxoJZw9fh09QvS+sGAttgKDrAvuf0xJz14s0MjrBeVTGJiT1NBh9mpB5eIcyhvHJnM9Wa7C5+NihaH7tArB3GOzC6yCcdDxBfWi0Xnl24UP7IY3vcnt3Z0kZqV7uimqpOHesl+htRn5d5ID/DyyoT7MYLhQfcPfemlGnbm8asdUyGGd/OI7KKhm/GZLJUINF5Nm+skpBBwZzmer1Fe46CdrazMSN8j7oLkNtrGOlpp+8dQcfyEkhkkOYODv8mK0eG5qQhEhdFlcX6F1DuXirt3cNEdrB4i1HFQyktzAwQeprRKSw6LilOcgsW7Zv6+16k8vmuMVCMg8I3aVdAugeRGE1R5wz5ZkziLjfhyXD0w1NJ5keDnNMyINb+U7GBAyVseLB
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 01ca7615-17e7-4a64-fdd9-08df3ab2953e
-X-MS-Exchange-CrossTenant-AuthSource: PHXPR12MB999256.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 20:31:19.3111 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 20:49:37.0835 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e6af7b56-efd1-496d-390f-08df3ab523a3
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 45ErjLDRX86VXjAzG0+7RUxIh9fj6T7WkSxsb2VX0lLfYtC7NLt+w/HJagejDAdqHya4idUqTXqsTIfmD9IBcA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV5PR12MB9779
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF00022BC9.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7526
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,166 +103,156 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+CRIU queue restore doesn't acquire the bo buffers in the same way
+normal queue creation does. In normal queue creation, the driver
+gets an additional reference on the queue's underlying buffers
+that lasts until the queue is destroyed; this prevents the
+queue's buffers from being removed from underneath it.
 
-On 11/4/2026 11:10 AM, Philip Yang wrote:
->
->
-> On 2026-11-02 10:47, Mukul Joshi wrote:
->> In UALink loopback mode a single GPU acts as both the exporter and the
->> importer. The exporter is the one physical station, so the only path
->> the HW serves is importer -> exporter. A message the exporter sends to
->> the importer cannot be delivered by the MP nHT.
->>
->> Emulate that direction in SW: when loopback is enabled and a remote
->> interrupt is addressed to the importer, queue it on the loopback
->> ordered workqueue, which feeds it back into amdgpu_ualink_process_irq()
->> as if the exporter had sent it. The ordered workqueue keeps successive
->> messages in order and runs the (possibly sleeping) handlers outside
->> the sender's context.
->>
->> Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
->> ---
->>  drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 82 ++++++++++++++++++++++
->>  1 file changed, 82 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
->> index 29a787979af2..ef133c60bb9a 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
->> @@ -60,6 +60,9 @@ static void amdgpu_ualink_reset_peer_rings(struct amdgpu_device *adev,
->>  					   u32 remote_accel_id);
->>  static int amdgpu_ualink_ring_resync_ptrs(struct amdgpu_device *adev,
->>  					  u32 remote_accel_id);
->> +static int amdgpu_ualink_loopback_self_interrupt(struct amdgpu_device *adev,
->> +						 u32 sender_accel_id, u32 dw0,
->> +						 u32 dw1, u32 dw2, u32 dw3);
->>  
->>  #define STRIP_NPA(addr)						\
->>  	(((u64)(addr) & ~AMDGPU_UALINK_NPA_ADDR_GPUID_MASK))
->> @@ -6220,6 +6223,17 @@ static int amdgpu_ualink_remote_interrupt(struct amdgpu_device *adev,
->>  	struct amdgpu_ualink_ring *ring;
->>  	int r;
->>  
->> +	/* UALink loopback: the single MP nHT can only deliver messages addressed
->> +	 * to the exporter accelerator. Messages addressed to the importer
->> +	 * (exporter->importer direction) cannot be delivered by HW, so emulate
->> +	 * them by feeding the message back into our own IRQ handler.
->> +	 */
->> +	if (adev->ualink.loopback.enabled &&
->> +	    remote_accel_id == ualink_imp_accel_id(adev))
->> +		return amdgpu_ualink_loopback_self_interrupt(adev,
->> +				ualink_exp_accel_id(adev),
->> +				dw0, dw1, dw2, dw3);
->> +
->>  	peer = &remote->peer[remote_accel_id];
->>  	ring = &peer->interrupt;
->>  
->> @@ -6649,6 +6663,74 @@ static int amdgpu_ualink_process_irq(struct amdgpu_device *adev,
->>  	return handled;
->>  }
->>  
->> +/* Work item used to emulate an exporter->importer UALink interrupt in
->> + * loopback mode (see amdgpu_ualink_loopback_self_interrupt()).
->> + */
->> +struct amdgpu_ualink_self_irq_work {
->> +	struct work_struct work;
->> +	struct amdgpu_device *adev;
->> +	u32 sender_accel_id;
->> +	u32 dw[4];
->> +};
->> +
->> +static void amdgpu_ualink_self_irq_worker(struct work_struct *w)
->> +{
->> +	struct amdgpu_ualink_self_irq_work *job =
->> +		container_of(w, struct amdgpu_ualink_self_irq_work, work);
->> +	struct amdgpu_device *adev = job->adev;
->> +	struct amdgpu_iv_entry entry = { };
->> +
->> +	/* Build an IH entry as if the message had been delivered by the MP nHT
->> +	 * from the exporter accelerator. amdgpu_ualink_process_irq() consumes
->> +	 * the sender accel_id from entry->pasid and the four context dwords
->> +	 * from entry->src_data[]. entry->ih must differ from adev->irq.ih so
->> +	 * the message is processed here instead of being delegated to the
->> +	 * UALink soft ring.
->> +	 */
->> +	entry.ih = NULL;
-> Looking at this again, it seems we could use adev->irq.ih here to
-> simulate the message arriving from the real hardware interrupt ring.
-> It would then be delegated to the UALink soft ring and handled in the
-> interrupt worker, which would let us drop the job structure and
-> amdgpu_ualink_self_irq_worker entirely.
->
-> The current approach works fine, but that would be simpler and avoid
-> introducing another job and work item.
->
-We discussed that approach with Felix before and found we need to
-introduce locking to prevent concurrent access and it can lead to
-deadlock if we are expecting a remote interrupt while processing another
-interrupt.
+Acquire them, but don't get the svm bo. SVM isn't yet fully
+restored by this point in CRIU and so there's no svm range to get.
+This will be addressed in the next patch.
 
-Also we need to create the complete IV entry because the delegate call
-will traverse the entire IH/IRQ code path in the driver.
+v2: Don't use checkpoint ctl_stack_size
+v5: Also avoid cwsr in criu failure path
 
-As discussed offline, we are OK with the current approach.
+Signed-off-by: David Francis <David.Francis@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c            |  4 ++--
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h               |  4 ++--
+ .../gpu/drm/amd/amdkfd/kfd_process_queue_manager.c  | 12 ++++++++++--
+ drivers/gpu/drm/amd/amdkfd/kfd_queue.c              | 13 ++++++++++---
+ 4 files changed, 24 insertions(+), 9 deletions(-)
 
-Regards,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index 6c710e4a5220c..cae3767aec567 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -433,7 +433,7 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
+ 		goto err_bind_process;
+ 	}
+ 
+-	err = kfd_queue_acquire_buffers(pdd, &q_properties);
++	err = kfd_queue_acquire_buffers(pdd, &q_properties, false);
+ 	if (err) {
+ 		pr_debug("failed to acquire user queue buffers\n");
+ 		goto err_acquire_queue_buf;
+@@ -478,7 +478,7 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
+ 
+ err_create_queue:
+ 	kfd_queue_unref_bo_vas(pdd, &q_properties);
+-	kfd_queue_release_buffers(pdd, &q_properties);
++	kfd_queue_release_buffers(pdd, &q_properties, false);
+ err_acquire_queue_buf:
+ err_sdma_engine_id:
+ err_bind_process:
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index f0ce5fc4a138f..5f27ea7752349 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -1381,8 +1381,8 @@ void print_queue(struct queue *q);
+ int kfd_queue_buffer_get(struct amdgpu_vm *vm, void __user *addr, struct amdgpu_bo **pbo,
+ 			 u64 expected_size);
+ void kfd_queue_buffer_put(struct amdgpu_bo **bo);
+-int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct queue_properties *properties);
+-int kfd_queue_release_buffers(struct kfd_process_device *pdd, struct queue_properties *properties);
++int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct queue_properties *properties, bool is_criu);
++int kfd_queue_release_buffers(struct kfd_process_device *pdd, struct queue_properties *properties, bool is_criu);
+ void kfd_queue_unref_bo_va(struct amdgpu_vm *vm, struct amdgpu_bo **bo);
+ int kfd_queue_unref_bo_vas(struct kfd_process_device *pdd,
+ 			   struct queue_properties *properties);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+index 4c4a3a8587f46..5741ed95c3817 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+@@ -227,7 +227,7 @@ void pqm_uninit(struct process_queue_manager *pqm)
+ 										     pqm->process);
+ 			if (pdd) {
+ 				kfd_queue_unref_bo_vas(pdd, &pqn->q->properties);
+-				kfd_queue_release_buffers(pdd, &pqn->q->properties);
++				kfd_queue_release_buffers(pdd, &pqn->q->properties, false);
+ 			} else {
+ 				WARN_ON(!pdd);
+ 			}
+@@ -572,7 +572,7 @@ int pqm_destroy_queue(struct process_queue_manager *pqm, unsigned int qid)
+ 				goto err_destroy_queue;
+ 		}
+ 		kfd_procfs_del_queue(pqn->q);
+-		kfd_queue_release_buffers(pdd, &pqn->q->properties);
++		kfd_queue_release_buffers(pdd, &pqn->q->properties, false);
+ 		pqm_clean_queue_resource(pqm, pqn);
+ 		uninit_queue(pqn->q);
+ 	}
+@@ -1095,9 +1095,17 @@ int kfd_criu_restore_queue(struct kfd_process *p,
+ 
+ 	print_queue_properties(&qp);
+ 
++	ret = kfd_queue_acquire_buffers(pdd, &qp, true);
++	if (ret) {
++		pr_err("Failed to acquire user queue buffers err:%d\n", ret);
++		goto exit;
++	}
++
+ 	ret = pqm_create_queue(&p->pqm, pdd->dev, &qp, &queue_id, q_data, mqd, ctl_stack, NULL);
+ 	if (ret) {
+ 		pr_err("Failed to create new queue err:%d\n", ret);
++		kfd_queue_unref_bo_vas(pdd, &qp);
++		kfd_queue_release_buffers(pdd, &qp, true);
+ 		goto exit;
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
+index 6010a5d7a7eb9..9dcf0134f35bc 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
+@@ -239,7 +239,7 @@ static void kfd_queue_put_bos(struct queue_properties *properties)
+ 	kfd_queue_buffer_put(&properties->cwsr_bo);
+ }
+ 
+-int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct queue_properties *properties)
++int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct queue_properties *properties, bool is_criu)
+ {
+ 	struct kfd_topology_device *topo_dev;
+ 	u64 expected_queue_size;
+@@ -334,6 +334,12 @@ int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct queue_prope
+ 
+ 	amdgpu_bo_unreserve(vm->root.bo);
+ 
++	/* CRIU svm buffers are restored at a later stage than queues. They'll be in
++	 * before the queue is actually used, so no risk here
++	 */
++	if (is_criu)
++		return 0;
++
+ 	err = kfd_queue_buffer_svm_get(pdd, properties->ctx_save_restore_area_address,
+ 				       total_cwsr_size);
+ 	if (err)
+@@ -362,7 +368,7 @@ int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct queue_prope
+ 	return err;
+ }
+ 
+-int kfd_queue_release_buffers(struct kfd_process_device *pdd, struct queue_properties *properties)
++int kfd_queue_release_buffers(struct kfd_process_device *pdd, struct queue_properties *properties, bool is_criu)
+ {
+ 	struct kfd_topology_device *topo_dev;
+ 	u64 total_cwsr_size;
+@@ -380,7 +386,8 @@ int kfd_queue_release_buffers(struct kfd_process_device *pdd, struct queue_prope
+ 		return -EINVAL;
+ 	total_cwsr_size = ALIGN(total_cwsr_size, PAGE_SIZE);
+ 
+-	kfd_queue_buffer_svm_put(pdd, properties->ctx_save_restore_area_address, total_cwsr_size);
++	if (!is_criu)
++		kfd_queue_buffer_svm_put(pdd, properties->ctx_save_restore_area_address, total_cwsr_size);
+ 	return 0;
+ }
+ 
+-- 
+2.34.1
 
-Mukul
-
-> Regards,
-> Philip
->> +	entry.pasid = job->sender_accel_id;
->> +	entry.src_data[0] = job->dw[0];
->> +	entry.src_data[1] = job->dw[1];
->> +	entry.src_data[2] = job->dw[2];
->> +	entry.src_data[3] = job->dw[3];
->> +
->> +	amdgpu_ualink_process_irq(adev, &adev->ualink.irq, &entry);
->> +	kfree(job);
->> +}
->> +
->> +/*
->> + * amdgpu_ualink_loopback_self_interrupt - deliver a UALink message to ourselves
->> + *
->> + * Used in loopback mode for the exporter->importer direction, where there is
->> + * no HW path. The message is processed asynchronously on an ordered workqueue
->> + * so ordering between successive messages is preserved and the (potentially
->> + * sleeping) message handlers do not run from the caller's context.
->> + */
->> +static int amdgpu_ualink_loopback_self_interrupt(struct amdgpu_device *adev,
->> +						 u32 sender_accel_id, u32 dw0,
->> +						 u32 dw1, u32 dw2, u32 dw3)
->> +{
->> +	struct amdgpu_ualink_self_irq_work *job;
->> +
->> +	if (!adev->ualink.loopback.wq)
->> +		return -ENODEV;
->> +
->> +	job = kzalloc(sizeof(*job), GFP_KERNEL);
->> +	if (!job)
->> +		return -ENOMEM;
->> +
->> +	job->adev = adev;
->> +	job->sender_accel_id = sender_accel_id;
->> +	job->dw[0] = dw0;
->> +	job->dw[1] = dw1;
->> +	job->dw[2] = dw2;
->> +	job->dw[3] = dw3;
->> +	INIT_WORK(&job->work, amdgpu_ualink_self_irq_worker);
->> +	queue_work(adev->ualink.loopback.wq, &job->work);
->> +
->> +	return 0;
->> +}
->> +
->>  static int amdgpu_ualink_set_irq_state(struct amdgpu_device *adev,
->>  					struct amdgpu_irq_src *source,
->>  					u32 type,
->
