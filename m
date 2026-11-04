@@ -2,66 +2,49 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09C55606A32C
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 13:45:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A982A606A328
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 13:45:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=qd0I7Vod
+	dkim=pass (2048-bit key, unprotected) header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=BLBJ+dS3
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 546CD11245F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F3C511245C;
 	Thu,  5 Nov 2026 13:45:38 +0000 (UTC)
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7EB2810E14B;
- Thu,  5 Nov 2026 13:24:12 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org
- [IPv6:2001:67c:2050:b231:465::1])
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 79C4B10E86F;
+ Wed,  4 Nov 2026 17:08:48 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::102])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
- by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4jL31M2Q9yzKp4M;
- Thu, 05 Nov 2026 14:24:07 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1793885047; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=cr7b357bQF9gcmhhu+T4xYlpo1IDNyxkNJbpgvGxS7k=;
- b=qd0I7VodEh/YGmDacD0GpRjBefhw/+7TY4fYCETDCELlDau43W4Iv1ZAtJX5YQM/vD7F/t
- Io2f6fgGc/1F5ghEf/MwbMRYSvhnO23qAWB8qco1mS8wiPuKLqck7hVRtAjv9KvLCpRwsN
- 5BDGlkKRIyCWuqV/u+BODFeuOQ9d5alieCuk/+Y6suKKqh7/GA3zAEMoUY4UorCuzThBnx
- RAoCZP1x6JKpPOjnRBqcV4hJHO2lbA1oGvP5u59rPEgEaDAqhk/4utGymk+LRznEokAtCo
- zHJ1rjx+Yg28UFnUB1y5TF6dTQ9YwzaheqekvhLUbhZMsDBU6ghGaQzycEEhCw==
-Message-ID: <2fa6e631e133acfc7e7de1b287c8b3983168b1c6.camel@mailbox.org>
-Subject: Re: [PATCH 1/3] dma-buf: dma-fence: Add flags parameter to
- dma_fence_init()
-From: Philipp Stanner <phasta@mailbox.org>
-To: Tvrtko Ursulin <tursulin@ursulin.net>, Christian
- =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Philipp Stanner
- <phasta@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
- etnaviv@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- imagination@lists.freedesktop.org, lima@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org, virtualization@lists.linux.dev, 
- spice-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- linux-tegra@vger.kernel.org, linux-iio@vger.kernel.org, 
- linux-usb@vger.kernel.org
-Date: Thu, 05 Nov 2026 14:24:04 +0100
-In-Reply-To: <b8179edb-bc59-49af-b8d0-f62e39752f3a@ursulin.net>
-References: <20261105113529.1989375-2-phasta@kernel.org>
- <20261105113529.1989375-3-phasta@kernel.org>
- <2f377d0f-2760-4465-ac68-b62210b33bd6@ursulin.net>
- <005b77fd-5bd2-4ae5-a0c0-cff3f1f6c680@amd.com>
- <b8179edb-bc59-49af-b8d0-f62e39752f3a@ursulin.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4jKX316sshz8v5f;
+ Wed, 04 Nov 2026 18:08:45 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
+ t=1793812126;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=h3c/WSm6Brx9RGmPW3KlcJgpIiaebOde6dRyE2+QOgw=;
+ b=BLBJ+dS3KXX3SjcnRv5UYL7ZJABdVZbuwd8exlcfAyUuPeo5yd0qDrcjuliQevP2aKT8KY
+ 8phVtXPUB5QG8Ljo+xg1c66QjibINbTylShaRHjSAK/Wm2OENMfrSD+n/HagXBl0YtX/LO
+ hmwxsgfI5uvAqSxHxl8Ja9qRIt48nKNrR6q0GzETaI0k0pbsLyFkjqhqE4EhfLL7InoTjU
+ nNPIqiO5mk3Alv+Vk98ggx5tj6sEqr/odpJ9U0PB9ROhSgpBQPO3cNswHCdghNNQEZG3gN
+ knQMWvFs6MWbEl5UkURoBmeE3QTnWtg4VeIdVIbwTOHEJIXJFi5P4LNhVBjVSA==
+Authentication-Results: outgoing_mbo_mout; dkim=none;
+ spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates
+ 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=hugo@hsal.es
+From: Hugo Sales <hugo@hsal.es>
+To: igt-dev@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org, chiahsuan.chung@amd.com, sunpeng.li@amd.com,
+ kamil.konieczny@linux.intel.com
+Subject: [PATCH i-g-t] tests/amdgpu/amd_abm: Do a modeset in test_init()
+Date: Wed,  4 Nov 2026 17:08:43 +0000
+Message-ID: <20261104170843.3719734-1-hugo@hsal.es>
+X-Mailer: git-send-email 2.56.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-ID: bba065728d0df46fffa
-X-MBO-RS-META: 6r63pcufosrhwuio4jrkztwnqgi8ttuw
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 4jKX316sshz8v5f
 X-Mailman-Approved-At: Thu, 05 Nov 2026 13:45:29 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,44 +55,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, 2026-11-05 at 12:51 +0000, Tvrtko Ursulin wrote:
-> On 05/11/2026 12:35, Christian K=C3=B6nig wrote:
-> > Well one advantage of the Linux kernel is to avoid such wrappers. I
-> > think having more than one function for the same thing basically
-> > just adds more confusion.
->=20
-> Sure we can churn if we really want. But as 99% of callers will be=20
-> passing 0 it's not even very readable. Another option is variadic like=
-=20
-> kmalloc_objs so flags can be optional. Anyway, for consideration only.
+Since set_abm_level() commits without ALLOW_MODESET, the first commit
+of every subtest fails with -EINVAL when the eDP runs in a mode other
+than the one test_init() picks, for example when video= sets the
+console mode. All five subtests then fail
 
+Commit the test's mode and framebuffer with ALLOW_MODESET at the end of
+test_init(), so the subtests start from the state they commit
 
-It has the advantage of forcing the reader to think about whether he
-wants 64-bit sequence numbers or not. In Rust-fence, for example, we
-completely overlooked that for months:
+Fixes: e63b2671fcdb ("tests/amdgpu/amd_abm: Remove the modeset for ABM level setting")
+Signed-off-by: Hugo Sales <hugo@hsal.es>
+---
+Tested on an ASUS ROG Flow X13 (DCN 2.1, eDP) booted with video= set to
+a non-native mode, on IGT 2.3 with this change and a local fix for the
+card index and backlight name that master now has as:
 
-https://lore.kernel.org/rust-for-linux/20261023175750.2979015-2-phasta@kern=
-el.org/
+  4e939e73adfd ("tests/amdgpu: Resolve DRM card index dynamically instead of hardcoding card0")
+  055ffbee8325 ("tests/amdgpu: Discover amdgpu backlight device dynamically instead of hardcoding amdgpu_bl0")
 
+All five subtests failed with -EINVAL before and pass with this change
+---
+ tests/amdgpu/amd_abm.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Besides unused flags fields are quite common in APIs. As I state in the
-description, this is also for future extensions, see my race-flag (if
-accepted) as one potential example.
+diff --git a/tests/amdgpu/amd_abm.c b/tests/amdgpu/amd_abm.c
+index 7992dfd87..833d950eb 100644
+--- a/tests/amdgpu/amd_abm.c
++++ b/tests/amdgpu/amd_abm.c
+@@ -192,6 +192,9 @@ static void test_init(data_t *data)
+ 	fbmem_draw_smpte_pattern(data->fb_mem, data->w, data->h);
+ 	igt_create_color_fb(data->drm_fd, data->mode->hdisplay,
+ 		data->mode->vdisplay, DRM_FORMAT_XRGB8888, 0, 0.05, 0.05, 0.05, &data->ref_fb2);
++
++	igt_plane_set_fb(data->primary, &data->ref_fb);
++	igt_display_commit_atomic(display, DRM_MODE_ATOMIC_ALLOW_MODESET, 0);
+ }
+ 
+ /* Common test cleanup. */
+-- 
+2.56.0
 
-It could also be used for canonically setting the user-flags, which
-users currently do with a manual set_bit(NR, &fence.base.flags;
-
-So I think it's safe to say that it's the right thing for long-term
-reduction of churn and maintainability.
-
-
-P.
