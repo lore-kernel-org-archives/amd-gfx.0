@@ -2,46 +2,80 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A947606A31B
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 13:45:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6487F606A31B
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 13:45:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=OOiVutLP
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=z2b4S2S7
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF64A112458;
-	Thu,  5 Nov 2026 13:45:30 +0000 (UTC)
-Received: from mta0.migadu.com (out-173.mta0.migadu.com [91.218.175.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2575710E390
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Nov 2026 14:20:25 +0000 (UTC)
-X-Envelope-To: amd-gfx@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=m/NZtHpS1SjJGqrEJRDxwvaLB3PXvzyilEksZKPIUz0=; 
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793802024; v=1; x=1794406824;
- b=OOiVutLPqtKMfhm7QCBtAQw8/Oy6874bvwvjqksp5TemcvKIIFNrJupcCerD7BQcHWT9DDxC
- sEDyHR1t2vJuHe7gAXflvsiZAx3jRfIe43uUWYT/RR8Iplvdiql50IZCNfq3ArR77DZBu/OyBaL
- 3CLBBDo6mBc7RH3w2JyRjNys=
-X-Envelope-To: amd-gfx@lists.freedesktop.org
-Received: by mta12.migadu.com with ESMTPS id d550583e712d362a;
- Wed, 04 Nov 2026 14:20:23 +0000
-X-Mizu-Trace-ID: d550583e712d362a
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-From: Aditya Garg <aditya.garg@linux.dev>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BB9610E48F;
+	Thu,  5 Nov 2026 13:45:32 +0000 (UTC)
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8682010FEC6
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Nov 2026 20:02:10 +0000 (UTC)
+Received: by mail-dl1-f51.google.com with SMTP id
+ a92af1059eb24-1aefd1bf74aso1000801c88.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 04 Nov 2026 12:02:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793822530; x=1794427330; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=snH4D1yne3D/mpsYO+9jWAO5X0a2o/1BALUeP4JZhFE=;
+ b=z2b4S2S7dCHAVIqPziUiUnGvsyS4K0YYbBQgdMNqO5PH09cwJPJWOPN2cvYwxRgpnT
+ D/64ngDMooroJ0m9oOW58Kww49UDC8wQCRDdgZEG6g7TDq9wnJtNRjS/YcG9QswWfbpa
+ 4v/kiIXjb81z6bkraCLSlucp4AqDEk/Vb5Qh7xTePyXGd8yWyo05rAbnyz0d5t1zoyN/
+ dHb/gNtrNhUlcGNOJKQaTZ+O7PNBnc2X0VOrzb8+1iYV1cLqvJKK8j/8Jy6x9fDPBVVV
+ sWq58pZRyhbfEwCJL+VpI7/GXzeZffVjPoALPpGRP+saYhM8VPfnuytrJeubepDvSFtb
+ LIeg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793822530; x=1794427330;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=snH4D1yne3D/mpsYO+9jWAO5X0a2o/1BALUeP4JZhFE=;
+ b=PcMVFbDVwxvA/gsXG4SZv/LHeQ3Z/6xydS3R51/PBM4hEVnb9GLYVNQuB04rgHEB+h
+ cltOnVcsDB5Fq002GuUb1Hc+iCoqgF10bwmUEDFH746xYX3h/n4PqQzgiG2Nygr9IQ/e
+ YMor7WAvY6YX3XFRRFRG1eoqnpqhWxzsC/AvUpiy49thi8nX/eucnRAyi4xnZg3ddN1f
+ pC8KKYuSlk4wscd18p32uAGsId9Ji+A/0PGDEbsfcNBYXnROmke5a8wKscdmzAQJBVSK
+ Xg+Vx2fAT4fGR9OK7IuyF8kyDQXXhDyBgZRWw1M0dUIyu9eFuQN5FhMaiy8NhHxGHTzQ
+ gkOw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBy+Tj0jKQIzUedBR4CUekGiHD1vUw8DdRQ9ppA+IUmV0to4q3QugHOAfdObESGyGIfZmicp6yme@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/wLryeICpLH7SBy5eWZA3Q9uTPuFllQ1yzm1cOaNPfcC0Vxztg
+ yIsCjoakr1Gt47gPsByfhIo8umMm1ezYNqVTBj8LTntmWHxLOtsL3qU=
+X-Gm-Gg: AYBFou11SV246TU6dqA3jsPS6Q7stCJHT2IH1kD1hP4xfa0fdJLPhmq4MHY/YvyFq7p
+ 6O2NLktoyKYz+YpFLDEL2SYBKD/IRzhlzUPRvWD8EiHbx+6qkSeIx4JXrn8MUW3TyObu/Ex9Liv
+ 3x1GTWLl/GWrg9DyPCOq8zPHndXQgwyrH1epwnpzNXGXOS16REzJw/T4qYCkOvmDVB851unJMRa
+ W7D0a9jsyhoxNJBvHMT8HQe5+q9dMEiyMhkyn/wSdZwphddrFGyFLRfVBzI5HbNnPY49CRSv1Sj
+ f5LpFlHNrhBrwaMjDP7IK2GqrDtjnRrGO2YjC5pS5/J8mdRm1JYT7xRL9WEQACBc3hIkjd6u43f
+ 8o94tG4ThASq/tTFhL4a/Iyo+5FK+n/zW67+c+zZUbxEOD+77I5FPLZmoHyhdhYuolv02iwdtn1
+ r7ZG0swjJh21lGAQlse6xckCBVkej0ZfbgLG9dJ8jGNg7VwUL1rfssRGMYBx3yZx3F2buDOt9bE
+ BkKFzKsagDJABHTzfVll0cRwtsXSGeYEKq0H8qOqFs2DgpaeGe4ROmP4BnN1amDC8TDa6rfiGD/
+ N1/guMMyftfiwzxDw2hMaUvLZvqPfteEQwwcMAYQcMXP8VqZvzoVBjsFUL8GLKxD
+X-Received: by 2002:a05:7022:f90d:b0:151:7831:e403 with SMTP id
+ a92af1059eb24-1b24f44df52mr534313c88.13.1793822529479; 
+ Wed, 04 Nov 2026 12:02:09 -0800 (PST)
+Received: from at-Standard-PC-Q35-ICH9-2009 ([106.194.66.249])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-1b245c4706bsm12453149c88.15.2026.11.04.12.02.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 04 Nov 2026 12:02:09 -0800 (PST)
+From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+To: alexdeucher@gmail.com
+Cc: airlied@gmail.com, alexander.deucher@amd.com,
+ amd-gfx@lists.freedesktop.org, atharvatiwarilinuxdev@gmail.com,
+ christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
+ harry.wentland@amd.com, linux-kernel@vger.kernel.org, simona@ffwll.ch,
+ siqueira@igalia.com, sunpeng.li@amd.com
+Subject: Re: [PATCH] drm/amd/amdgpu: Add 5K Support for iMac20,1 and iMac20,2
+Date: Wed,  4 Nov 2026 15:02:01 -0500
+Message-ID: <20261104200201.8358-1-atharvatiwarilinuxdev@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <CADnq5_PjiWHEDzS5DJgB1wS72_tHp4Ju5Wwr0R0N5EK-i9fXfQ@mail.gmail.com>
+References: <CADnq5_PjiWHEDzS5DJgB1wS72_tHp4Ju5Wwr0R0N5EK-i9fXfQ@mail.gmail.com>
 X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0 (1.0)
-Subject: Re: [PATCH v4] drm/amd/pm: defer UCLK DPM on selected Apple Navi GPUs
-Date: Wed, 4 Nov 2026 19:50:05 +0530
-Message-Id: <BA55AB79-324D-4CED-8957-3940BD77C541@linux.dev>
-References: <CADnq5_N0RFH=n05T_zKSApGB+3o29Nx5rNMOZt5kWzZWxpgsrA@mail.gmail.com>
-Cc: Ed Schofield <ed@charmerstraining.com>,
- atharvatiwarilinuxdev@gmail.com, dev@deq.rocks, alexander.deucher@amd.com,
- kenneth.feng@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-In-Reply-To: <CADnq5_N0RFH=n05T_zKSApGB+3o29Nx5rNMOZt5kWzZWxpgsrA@mail.gmail.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-X-Mailer: iPad Mail (24B119)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 05 Nov 2026 13:45:29 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -53,99 +87,20 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+> What's the reason for this change?
 
+This is the code that fixes the SMU boot issue, that we discussed eariler:
 
-> On 4 Nov 2026, at 7:37=E2=80=AFPM, Alex Deucher <alexdeucher@gmail.com> wr=
-ote:
->=20
-> =EF=BB=BFOn Wed, Nov 4, 2026 at 7:52=E2=80=AFAM Ed Schofield <ed@charmerst=
-raining.com> wrote:
->>=20
->> Hi Alex, hi Atharva, hi all,
->>=20
->> Alex, I'd like to withdraw my September v4 submission. I also don't suppo=
-rt
->> applying v5 as posted or the simplified patch you attached later in this
->> thread. Please remove my Co-developed-by and Signed-off-by tags from both=
+https://lore.kernel.org/all/20261103160553.1431-1-atharvatiwarilinuxdev@gmail.com/
 
->> versions. I no longer think deferring UCLK is the right approach for the i=
-Macs.
->>=20
->> I also excluded the MacBookPro16,1 (020f) from v4 deliberately because a t=
-ester
->> found that with deferred UCLK it still hung after login, as it does witho=
-ut the
->> patch [1], which seems to fit Andr=C3=A9's PPTable diagnosis.
->>=20
->> Since then, I've been working with Atharva to get his native-5K iMac supp=
-ort
->> upstream. His patch initializes the display before the SMU, which has als=
-o
->> prevented the boot failures without deferring UCLK. On my iMac20,1 (0218)=
-, 13
->> of 20 warm boots failed with the upstream order; with display first, all 4=
-0
->> boots passed [4]. Another tester reported one warm and one cold boot, bot=
-h
->> successful, on a 0219 [2]. On an iMac20,2 (021a), changing only the
->> initialization order improved warm boot success from 11 out of 20 to 100 o=
-ut of
->> 100 [3]. His patch only applies to the iMac20,1 and iMac20,2, so it doesn=
-'t fix
->> the 16,1 either.
->>=20
->> I don't think the iMacs and the MacBookPro16,1 have the same problem. The=
+Its confirmed to be 0x4F1 as OCLP enables it, and with OCLP and no patches it booted fine.
 
->> iMacs fail while amdgpu is loading: the SMU stops responding to
->> EnableAllSmuFeatures (message 6), and the probe fails with -62. With the
->> display initialized first, the same message succeeds with UCLK included,
->> and the iMac boots normally. The 16,1 loads amdgpu without errors and han=
-gs
->> later, after login, with or without deferred UCLK [1]. So deferring UCLK
->> seems to help the iMacs only because it moves the enable after display
->> init, and it doesn't help the MacBookPro16,1.
->>=20
->> I have prepared a draft patch with Atharva as author and me as co-develop=
-er,
->> incorporating his review feedback. It combines display-first initializati=
-on and
->> native 5120x2880 support through two tiled connectors with suspend/resume=
- and
->> display power-management changes. The current draft is here:
->>=20
->> https://github.com/edschofield/linux-t2-patches/blob/7273823e425200e9f371=
-e9272e02ebf9abb6f1c2/7003-amdgpu-add-support-for-5K.patch
->>=20
->> This has passed some initial automated testing on my iMac20,1 but I need t=
-o do
->> more testing and get Atharva's final review and sign-off.
->=20
-> There are already patches on the list to support the 5K Macs:
-> https://lists.freedesktop.org/archives/dri-devel/2026-November/610011.html=
-
-
-Those patches are for older non T2 iMacs. We are discussing iMac20,1 and 20,=
-2 which are T2 Macs.
->=20
-> Alex
->=20
->>=20
->> Alex, thanks for following up on the boot issue and checking with the Win=
-dows
->> team.
->>=20
->> Best regards,
->> Ed
->>=20
->> [1] https://github.com/t2linux/linux-t2-patches/pull/61#issuecomment-5646=
-139127
->> [2] https://github.com/t2linux/wiki/issues/743#issuecomment-6083265811
->> [3] https://github.com/t2linux/wiki/issues/743#issuecomment-6131809640
->> [4] https://github.com/t2linux/wiki/issues/743#issuecomment-6163146905
+I plan to add 5K support to efi libstub or something in the future, hence the TODO, so we
+get 5K in simpledrm and get rid of this not good looking quirk.
