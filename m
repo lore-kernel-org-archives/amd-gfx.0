@@ -2,122 +2,97 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93209606E2F1
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 19:59:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 454E4606E839
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 20:04:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=FiHNmKx3
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=bt61ZBmo
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F1FE10FEBA;
-	Wed,  4 Nov 2026 19:58:56 +0000 (UTC)
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013039.outbound.protection.outlook.com
- [40.93.196.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3AE9810FEBA
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Nov 2026 19:58:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6E7610FEC9;
+	Wed,  4 Nov 2026 20:04:23 +0000 (UTC)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012049.outbound.protection.outlook.com [52.101.48.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B1E410FEC9
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Nov 2026 20:04:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LJBRKE9+jwZAre/HvBhan/A1B4jsDYnmMeqJvt7q6xRfBisKtGQSSTcGND80vEcwvyy9rHeSjtkYb9nXbvATmxpqMAoVPO+qxKBM+bCZc3lXSP2q2pcfPtzAK36UC/rtTuOaT50B26xOCYpi17IqKpabXLYPh2Ybd9khyYcXoRX7MYqfuzboBYo9872MzwiaoqXu6uCBB5THTfJJbMzFz/3S1z8VvxoF4iM0lOcSQGKniQ7pSGZ3PhMSEQsCbev8T3+pViQpPr/lAimK1gpt4koQ+fG8kEKF+INksMZyRueW/Z93m9RdU5XvDC2jM37nDPsgTptoePRs97XHNetqlQ==
+ b=QP44uHDlesiBifDxjvSYi/YznPPJ8QGL2GeBnpkY10UKABjnew75mq0RKz4JuNovZ3jjV/ptgpcrHHINjRwVokx7boFHR5kWgGV+MT3/f2wISeIUd6rl1NsWaXMrVTMX2+zcEDB3FWZ5BFG4vHA8VTdk6U5p/kb3eWDOpRwaANU5P+geTmYEl0n6rGh6mB3z/YoSuGoGYEwW8Uz2x+fZsIilhSxEvwqNgxrKWVrRDuAPhslvnW7Fd1BgPtcPHnNBprywsKdcnvEnEJlYBl3ydJRnDzI0KUhH4UrB+kGSnry5605SDCNGUAx3X2G4UYmBrE2+BtQxw1OR4wiBvWMXlw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7pLuJK3qbKCfQ9/eNDNvNvItmuZLg9pJy0DzuBaVgsA=;
- b=jygfjRL6FKubVorKW50Nt40CzySivmeNm8XUlmljbbo+VV93O1a06vmw1BWXGz1wopMtSU5ubJPT2uGZVFKkYvlKTO4Ht9zldl8Z+TLxQsHVeRLiEDDDYNblGHrvaT8tSi2u/+HDxiPvuhNe3Lfr02Vw5mRuK+syjqURQX+Z2UXWNcOIT0bud4mP+tK6YzJ3vqNt1WjjWWRhzQBS/Q7/UmCSV7IwkCM8Gerdw8bXsCM6smqyc+IK2T3aW30gMf6Cy0+cnxcXKn4exig/3vnmzll3M8Iiq5ZmMWWp+wT7IUNQXSwmL4KJO1bQgEpEEq7Fjn7QkiyfZWNsTMRI6ZVwfg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=9Gzn6mj3z785LlXiZoOtR0mdx9MTGwTJwkFWjZGP7fY=;
+ b=gT7o9uF6vxj4zyT9pUpTWfHM8Uu2TnwskwQc/RVf08wDuxscJBpnQDuxtZiujBWIkLoudTANy/4MhigDpQko61120ekPwgPalgGffWgQ/yJFvo7GrCrRfR9Hr2uoqBQWrgiKMXhOuLVPKWgblkArTiRVOO/QVUkzBKf60bUi5uVLaXmJfhaAyhrCwzDCRvna6KNrs6MTKDX6npcWaD2MxF0163UKLniJa6PtiVbukJi8LayUwSbIEQUL49ivZKsI21xIRRVHCWfJnhziZEZj4UNi0Ow8Ob9hwSyLATwv2JFmaR5ehguiDbXzk8mTBCTbpSHL6q9woE+vtEjqtMmYQA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7pLuJK3qbKCfQ9/eNDNvNvItmuZLg9pJy0DzuBaVgsA=;
- b=FiHNmKx3060k3dww+rB2+mXRHa1PDSMBiiLgeBZjpE5hiJb9NwOvDJVkimeFcN/FDDS9Tq06cemQGhOc8kgZaZjNHJISM4AvB12gE68P07ADvKB9bc20nx7GlPzRqBwHSNdblh7mUAIR0LkvCCaBibO8Qziaa/yJoyv5Mf82IkI=
-Received: from CHAPR12MB999247.namprd12.prod.outlook.com
- (2603:10b6:610:2ff::7) by DS0PR12MB8269.namprd12.prod.outlook.com
- (2603:10b6:8:fd::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 4 Nov 2026
- 19:58:44 +0000
-Received: from CHAPR12MB999247.namprd12.prod.outlook.com
- ([fe80::d727:e84d:1883:b74]) by CHAPR12MB999247.namprd12.prod.outlook.com
- ([fe80::d727:e84d:1883:b74%6]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
- 19:58:44 +0000
-From: "Francis, David" <David.Francis@amd.com>
-To: "Kuehling, Felix" <Felix.Kuehling@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH v4 1/2] drm/amdkfd: Acquire buffers in CRIU queue restore
- (again)
-Thread-Topic: [PATCH v4 1/2] drm/amdkfd: Acquire buffers in CRIU queue restore
- (again)
-Thread-Index: AQHdbHR+yLHoFkZYykSMxDZ5JG4xtrceUsiAgAACAJE=
-Date: Wed, 4 Nov 2026 19:58:43 +0000
-Message-ID: <CHAPR12MB9992479657C0BC8094D14860F3EF682@CHAPR12MB999247.namprd12.prod.outlook.com>
-References: <20261104155203.3826257-1-David.Francis@amd.com>
- <05d0a2b7-9469-4c05-b8da-c25ed86feff4@amd.com>
-In-Reply-To: <05d0a2b7-9469-4c05-b8da-c25ed86feff4@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-11-04T19:58:43.396Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
- General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=1;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard; 
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CHAPR12MB999247:EE_|DS0PR12MB8269:EE_
-x-ms-office365-filtering-correlation-id: 15c9c1f7-abb5-450a-d0db-08df3aae07ce
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|376014|23010399003|366016|38070700021|261022105027099003|11063799006|4143699003|56012099006|261021121427099003|261009223027099003|261021123027099003|261026121527099003|261026140227099003|261102123227099003|261028144727099003|10067099003|22082099003|18002099003;
-x-microsoft-antispam-message-info: ICqodOTIDSuYsZbJbzKoAyAe6TES+3almM9gkvTKRgBdUHU6jCiUOLLt5IbMBDI6qOWMPIJkfWz68m2u5JG4xznWKEDWZYoFTUjoufO7lzljDIUgceXgKl6ZOSTWpfxyvYqS0+Q9z9qIFTREcxxVSYMmNU6/4Pc0X7vrHyIU5dSklthtKfyCsOO28e79qXTQzaRDZPT7bPCL7LsJ7JMANGtmLByodJ+JPz9tGBHcJH4tC2WG5PJ4bplPMDfC49PaPBcQphQcEOLj/Q/G7Hv1ILmqrFSTk9B9wrMrlMQOoPXgZ09CQJ1AjDQb2RXo8OHgC/gzLIgZCfytLKr6CG++wVcts6oeOVsUkoiPoeSYCZiXdFubuC6CHNPC8n7hgq9lUia1M4eFpYlLELesVc2p+Uc3uD8mRvXEI9lOPf/xyu4YlkdBx1bKt3exBWk9KaUu/APwdDCUN7qA0CPqWiz9oaXUiDehrUlhAgoc+rEZFBX8Gx1/ThiAdQAVYda+Ot8HubAKjIZWoZlaJYplQYitOo9bZ3DN0RUNBoacbvvKkkc87wxhY2nc2Id68Fx9qflEXWbk4aAj/TP2jJl9EYXwns4/VS791vjwpJFIKstICAruhPHZcDlxsvbjdM4fNuupJlczikaeAlYoYDqgI63me+uiRoaIbzfms5ssf7DsCWT0bBY/7RFydrbWwWoEnwMjm85pL6fv/HGybutnYWJfKTAAvo06uMGVpptRht1yqSo=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CHAPR12MB999247.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(38070700021)(261022105027099003)(11063799006)(4143699003)(56012099006)(261021121427099003)(261009223027099003)(261021123027099003)(261026121527099003)(261026140227099003)(261102123227099003)(261028144727099003)(10067099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?0IMWMtacNGFl3w2gac8x6jyuTUT44D5TLxzbNS52WdFFrOPr+GbYpth9pmEE?=
- =?us-ascii?Q?ZP54pCatqITqUsa8TZDjyL/9I1QmdiO93qdNIdmC4OneXVCBei4LiuJPkX69?=
- =?us-ascii?Q?i2J00GsgGNve2uafwJV+FMsWy3P3C7JIJNXRH45KFMDyumu6CuxchZaswk0+?=
- =?us-ascii?Q?XV9nA9bBYWWT4YgIxhGWha4VSD81DObRgwx2+pJTRwY15W2I9uCM2XUfR0RW?=
- =?us-ascii?Q?V9/eQUHe6D3RdkPyiEhdHesGBI7RKVFQdKqPUTgmHBR7/1qjVz0LkQ5lmrvu?=
- =?us-ascii?Q?rpwfsWhZBOAZWiAHsDe0GxU23R++AJPJj05GJDFe8AkSGMpWxqJHPQBZ+4BK?=
- =?us-ascii?Q?oY8HcQ2QvJULJ82zvaCjq4IVN8vqqYH8mvPlYh2GG3h766ZjfrEzXQKBYvCl?=
- =?us-ascii?Q?2PBWpUioxwqngyuluHCP5aJEkCFniwKFTFJBuXrA8brAUtFr1LttyJgXOASp?=
- =?us-ascii?Q?3TbLCghCYIOhiDOdQ9q+Kgx5dKcqGZSnvi7jKoqgs+8s+OWSKn9hpch2K1yK?=
- =?us-ascii?Q?NiDxjDiRyVhDbvu92HuDfx2B2g+5rhF2jfDtTkGjeUr3nysCuC8n+f9hhfny?=
- =?us-ascii?Q?kMPB0pEBaxiXbnEItwQc4xESvgWkaVpoOYQunBZ15FwZrFbMVYn+kBsudDxQ?=
- =?us-ascii?Q?UX+jcGfbnrWoY0vprO4yOiesKtVkye7ns+5rfdWUWBaHh9vk1iCiWcgF3ea0?=
- =?us-ascii?Q?uVphlo+/KhvYWTuJx7J7TG8TY7NvQFBjJyFnnTPAbHyb4bZKnUhC9ZNZHKca?=
- =?us-ascii?Q?F2/TAmRHeQO7PvTsakEwEjho4WeshXjofq4cB1QlYa1mHSqUVbcUikUxsuAG?=
- =?us-ascii?Q?2oRRbnMGJHgA4rLm3jwY6/z6JnIMbPxlfMOrfhAKoIOsgSui+mqLe2E+hbac?=
- =?us-ascii?Q?caItwB5VPKZe7og09l382JVN5rk9lMQkWsTvbKCsVFfvv+IUAk322k5xkYUQ?=
- =?us-ascii?Q?XmK9ELdmA2e4+kLUgbXiiVUDKQGo9mn7vEYbVNWzcyCObRYWdGzKqiNHqd25?=
- =?us-ascii?Q?LQEvKWt7ZGYSWngUUQA6Iv1CG4e2rTApDr4lBcvgTnLi8HN/nV4cPcD/fHkW?=
- =?us-ascii?Q?ojSsbPqvaLvUJ4ga83U1qnvJT0idQ9WV9oIIQ93ThAlou0Zn1ehKS/E+sckc?=
- =?us-ascii?Q?Kags37pdn3s0KEYufrLKyMkCVeSE7EmAI15B0QlbBM9jh/R/cTstV/IZuLux?=
- =?us-ascii?Q?mQCMEC7PAg/NbTHZsp8AsyY2DSCiZmN+p0/tmoF0kgIsc7qE2UYEXf1h4CQZ?=
- =?us-ascii?Q?irfRovqGGJvNfa8mqdm0ouvdBePTSubZ9HQkOfJNHODyDQYK7asV7aWDc0zQ?=
- =?us-ascii?Q?wk41eIFa0LxVsL/IFrFlsrErve7X7GKfxBz9QCOctIcDfHb6wg5ZTMunEa/P?=
- =?us-ascii?Q?LHY8IaeUCV3O9phN3AA7mhpHfzm+elORYdMcr8dLN1WslVcNTcnQEh9fGZ3m?=
- =?us-ascii?Q?etOgBbCCPb+wlO8d7n2oCF2dn36zdvxUJubvk5hZfWhKNErv6qMOI+RoTRfd?=
- =?us-ascii?Q?jUH/mv1lcHZGT2XYLS7RwGFyMCQVx8YDirTARgstcNAoOQ52sguD1bfM48FV?=
- =?us-ascii?Q?F8XYLM8NTfF9rKuxlslD4/p1TTkHEC+MJmMThcAXkXWAuQPKizHm8mC/BYgt?=
- =?us-ascii?Q?zfZDADrrsN4NqIh5WWnemW1H4zSydi8xpwgUVcxQhGzRCrSsngbnbgzN/qeL?=
- =?us-ascii?Q?aBFRsxHUAvlJlOlF/9WXeq6gOdio7gr7Fui3oliQPMdWtQHG?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ bh=9Gzn6mj3z785LlXiZoOtR0mdx9MTGwTJwkFWjZGP7fY=;
+ b=bt61ZBmox1A++hm1jxF0qYuh53jT/xIExLUBNE1mOlHlydaxfseH61n8ittSLHj1+tqIS7ny683DruonsRl1JU/Xv0hxWiLmJK31XdqKY3y54aT+2LmKg3v5wKFLEOG4b6PcbLKrU2FArN4eKK3qcdLomk83ktwKjVMiytotVOE=
+Received: from DS1P220CA0004.NAMP220.PROD.OUTLOOK.COM (2603:10b6:8:455::9) by
+ SA1PR12MB6895.namprd12.prod.outlook.com (2603:10b6:806:24e::5) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.10; Wed, 4 Nov 2026 20:02:10 +0000
+Received: from DM3PEPF000265B9.namprd04.prod.outlook.com
+ (2603:10b6:8:455:cafe::58) by DS1P220CA0004.outlook.office365.com
+ (2603:10b6:8:455::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Wed, 4
+ Nov 2026 20:02:10 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DM3PEPF000265B9.mail.protection.outlook.com (10.167.23.246) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.5 via Frontend Transport; Wed, 4 Nov 2026 20:02:09 +0000
+Received: from MKMZHLUO01.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 4 Nov
+ 2026 14:02:08 -0600
+From: Zhigang Luo <Zhigang.Luo@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, <Christian.Koenig@amd.com>,
+ <Hawking.Zhang@amd.com>, <Lijo.Lazar@amd.com>, Zhigang Luo
+ <Zhigang.Luo@amd.com>
+Subject: [PATCH] drm/amdgpu: keep SPM VF VRAM at GPU address 0
+Date: Wed, 4 Nov 2026 15:01:52 -0500
+Message-ID: <20261104200152.77286-1-Zhigang.Luo@amd.com>
+X-Mailer: git-send-email 2.43.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM3PEPF000265B9:EE_|SA1PR12MB6895:EE_
+X-MS-Office365-Filtering-Correlation-Id: b692e255-a305-4740-240b-08df3aae8279
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|82310400026|1800799024|23010399003|36860700016|6133799003|18002099003|56012099006|261021121427099003|261021123027099003|261009223027099003|261026121527099003|11063799006|10067099003|261102123227099003;
+X-Microsoft-Antispam-Message-Info: 3LfVk6kCFQsJN4A9HwTth51qkDJr4J5tpsuGSY9wO7Y0OV2VddJ+d6a3xLgRAwfSIAGIzdxwQtGUO5Y9ecM41jaIL3SoK0v/GvGzJkLMVwWAf7ClNF+m3bVAYMieB+k4hJ2lWSz9yDps9tWexceDF8L7RlwmgTBRpxLc4osZfyA5pl/oofewMwPunDloJFnRihE/fjo3ZtSIlLhld08P0q0qhJUXL+DjQY7P2QGiC0MGCXRjxeaAQQRAERdtW6Q7ycvAbBFiLOyVgahFx5sbzHxHZsdhNJReUXapWY8cPwIRxOeYKPgWH3fftx+NzOZWTdg4oo/I5U6/5IgoenmaKzlxHbRIaLOJYtgax/R8PLpuZWD0ylOgqoika97phG2B6RGtXQik2XfxrXNGAcVVjUai/awox3C1uSVcFfIGd1DNXiQbBTWypqp7hd5rDg+nWPB3WAKndz6k0NvGTzVFjt2YwPe8RLHAn2WnqMgFqigjySiExWe7p6eXtk1NFi3+6IzALZ3Y+JYkILtUBRzB/GKYz2i5qnONoH3pL9fGrseJhGVmqeBasX/dnhzifD3wrPHmsl3vcJNVFvJS3J/5p1n8Hx+1r+6+3tSFjp0OalDzF4yqNXFZg3n+TkR/v2JJtc3FLzU7PWbI1CsA6CLRLnRsW8GDB66m3+WVhGnKG44FtosfRyNrKHIIOcv5cxsfuLA9rP2bDfaG9hhTB24Mug==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(1800799024)(23010399003)(36860700016)(6133799003)(18002099003)(56012099006)(261021121427099003)(261021123027099003)(261009223027099003)(261026121527099003)(11063799006)(10067099003)(261102123227099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: jzpzIbgLvpKsMCUW7Kr03Z7FsBoRRe8N6gV/KOs+it78J+auYe18kuyBYM1osBxVHjQ2Sr+QfBhh8O583v1FH6cf4rhcFfVAp2uPnqsmjOEPbXwSenUSkglqelOLlMZ+xDzPxW1AzFAfpTR1wC7VJO8u5EK42WfhJSZKMgwb+/y94y1Qp5DOlUoLJw4PycTmKZj+e9/jSk2TKTzMwSA4Ov6ZurYqZH9MmfkUTzaBR8GC5mnhN3SmeG6IuElAkw9yHLn4KSSm4C5OstaYAWM0EGBLgkUeryumfIilCEVL086fgGe3lnZYYNhwsVdBGLDRG3LuUefXGFWw+hD65xiGUtHL4ToqQyCasoCTkOnLZUYkqIF9XIn3QI+Won19HBhRUnU9UWG7hv8+yX+nEfwzuwMEaPK5HwD9W0PXdlzbVwMyT0uI2IMRavEFgLKFoT+k
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CHAPR12MB999247.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 15c9c1f7-abb5-450a-d0db-08df3aae07ce
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Nov 2026 19:58:43.9047 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: jmGP7oOvkKfKISNEY8ACumw44GEhUi3H28c6A16BfAC7pFBEGvMwZYnEcbAx9Sp/
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8269
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 20:02:09.7118 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b692e255-a305-4740-240b-08df3aae8279
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM3PEPF000265B9.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6895
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,151 +103,141 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
->I think kfd_queue_release_buffers also needs another parameter to tell
->it not to handle SVM. Otherwise it will call kfd_queue_buffer_svm_put
->and try to decrement queue refcounts in pranges that weren't incremented.
->
->Regards,
->   Felix
+- bug 'amdgpu_virt_resume': resume added the xGMI node segment on top
+  of the MMHUB FB offset for SPM VRAM; use aper_base and skip the node
+  offset
+- bug 'gmc_v12_0_vram_gtt_location': the initial load path added the
+  same node segment after aper_base; skip it when VRAM is SPM
+- bug 'amdgpu_gmc_sysvm_location': SPM used the hive window and a 4GB
+  GART alignment; zero the VRAM GPU window and place GART after local
+  VRAM on an 8GB PDB0 boundary
+- bug 'amdgpu_gmc_pdb0_alloc': PDB0 covered the hive; size SPM coverage
+  from mc_vram_size
+- bug 'amdgpu_gmc_init_pdb0': SPM subtracted the node segment from
+  aper_base; keep the system physical base
 
-Good catch, will fix
+Signed-off-by: Zhigang Luo <Zhigang.Luo@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 12 +++++++++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c    | 22 ++++++++++++++++------
+ drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c     |  6 ++++--
+ 3 files changed, 29 insertions(+), 11 deletions(-)
 
-David
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 9326f811c500..7a664b7b1ba3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -4677,9 +4677,15 @@ static inline int amdgpu_virt_resume(struct amdgpu_device *adev)
+ 	dev_info(adev->dev, "xgmi node, old id %d, new id %d\n",
+ 		prev_physical_node_id, adev->gmc.xgmi.physical_node_id);
+ 
+-	adev->vm_manager.vram_base_offset = adev->gfxhub.funcs->get_mc_fb_offset(adev);
+-	adev->vm_manager.vram_base_offset +=
+-		adev->gmc.xgmi.physical_node_id * adev->gmc.xgmi.node_segment_size;
++	if (amdgpu_virt_vram_is_spm(adev)) {
++		adev->vm_manager.vram_base_offset = adev->gmc.aper_base;
++	} else {
++		adev->vm_manager.vram_base_offset =
++			adev->gfxhub.funcs->get_mc_fb_offset(adev);
++		adev->vm_manager.vram_base_offset +=
++			adev->gmc.xgmi.physical_node_id *
++			adev->gmc.xgmi.node_segment_size;
++	}
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+index 4204c3c750a8..78fae3fbee11 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+@@ -42,6 +42,8 @@
+ #include <drm/ttm/ttm_tt.h>
+ 
+ static const u64 four_gb = 0x100000000ULL;
++/* PDB0 block size 12 covers one 8GB entry. */
++static const u64 eight_gb = 0x200000000ULL;
+ 
+ bool amdgpu_gmc_is_pdb0_enabled(struct amdgpu_device *adev)
+ {
+@@ -60,7 +62,8 @@ int amdgpu_gmc_pdb0_alloc(struct amdgpu_device *adev)
+ {
+ 	int r;
+ 	struct amdgpu_bo_param bp;
+-	u64 vram_size = adev->gmc.xgmi.node_segment_size * adev->gmc.xgmi.num_physical_nodes;
++	u64 vram_size = amdgpu_virt_vram_is_spm(adev) ? adev->gmc.mc_vram_size :
++		adev->gmc.xgmi.node_segment_size * adev->gmc.xgmi.num_physical_nodes;
+ 	uint32_t pde0_page_shift = adev->gmc.vmid0_page_table_block_size + 21;
+ 	uint32_t npdes = (vram_size + (1ULL << pde0_page_shift) - 1) >> pde0_page_shift;
+ 
+@@ -266,16 +269,21 @@ void amdgpu_gmc_sysvm_location(struct amdgpu_device *adev, struct amdgpu_gmc *mc
+ 	u64 hive_vram_end = mc->xgmi.node_segment_size * mc->xgmi.num_physical_nodes - 1;
+ 	mc->vram_start = mc->xgmi.node_segment_size * mc->xgmi.physical_node_id;
+ 	mc->vram_end = mc->vram_start + mc->xgmi.node_segment_size - 1;
+-	/* node_segment_size may not 4GB aligned on SRIOV, align up is needed. */
+-	mc->gart_start = ALIGN(hive_vram_end + 1, four_gb);
++	/* Round up to a PDB0 entry so GART starts on the page-table PDE. */
++	mc->gart_start = ALIGN(hive_vram_end + 1, eight_gb);
+ 	mc->gart_end = mc->gart_start + mc->gart_size - 1;
+-	if (amdgpu_virt_xgmi_migrate_enabled(adev)) {
++	if (amdgpu_virt_xgmi_migrate_enabled(adev) ||
++	    amdgpu_virt_vram_is_spm(adev)) {
+ 		/* set mc->vram_start to 0 to switch the returned GPU address of
+ 		 * amdgpu_bo_create_reserved() from FB aperture to GART aperture.
+ 		 */
+ 		mc->vram_start = 0;
+ 		mc->vram_end = mc->vram_start + mc->mc_vram_size - 1;
+ 		mc->visible_vram_size = min(mc->visible_vram_size, mc->real_vram_size);
++		if (amdgpu_virt_vram_is_spm(adev)) {
++			mc->gart_start = ALIGN(mc->vram_end + 1, eight_gb);
++			mc->gart_end = mc->gart_start + mc->gart_size - 1;
++		}
+ 	} else {
+ 		mc->fb_start = hive_vram_start;
+ 		mc->fb_end = hive_vram_end;
+@@ -1274,7 +1282,8 @@ void amdgpu_gmc_init_pdb0(struct amdgpu_device *adev)
+ 	uint64_t flags = adev->gart.gart_pte_flags; //TODO it is UC. explore NC/RW?
+ 	/* Each PDE0 (used as PTE) covers (2^vmid0_page_table_block_size)*2M
+ 	 */
+-	u64 vram_size = adev->gmc.xgmi.node_segment_size * adev->gmc.xgmi.num_physical_nodes;
++	u64 vram_size = amdgpu_virt_vram_is_spm(adev) ? adev->gmc.mc_vram_size :
++		adev->gmc.xgmi.node_segment_size * adev->gmc.xgmi.num_physical_nodes;
+ 	u64 pde0_page_size = (1ULL<<adev->gmc.vmid0_page_table_block_size)<<21;
+ 	u64 vram_addr, vram_end;
+ 	u64 gart_ptb_gpu_pa = amdgpu_gmc_vram_pa(adev, adev->gart.bo);
+@@ -1292,7 +1301,8 @@ void amdgpu_gmc_init_pdb0(struct amdgpu_device *adev)
+ 	flags |= AMDGPU_PDE_PTE_FLAG(adev);
+ 
+ 	vram_addr = adev->vm_manager.vram_base_offset;
+-	if (!amdgpu_virt_xgmi_migrate_enabled(adev))
++	if (!amdgpu_virt_xgmi_migrate_enabled(adev) &&
++	    !amdgpu_virt_vram_is_spm(adev))
+ 		vram_addr -= adev->gmc.xgmi.physical_node_id * adev->gmc.xgmi.node_segment_size;
+ 	vram_end = vram_addr + vram_size;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+index cd276a138e10..e37c84f10709 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+@@ -734,8 +734,10 @@ static void gmc_v12_0_vram_gtt_location(struct amdgpu_device *adev,
+ 		adev->vm_manager.vram_base_offset = adev->mmhub.funcs->get_mc_fb_offset(adev);
+ 	}
+ 
+-	adev->vm_manager.vram_base_offset +=
+-		adev->gmc.xgmi.physical_node_id * adev->gmc.xgmi.node_segment_size;
++	if (!amdgpu_virt_vram_is_spm(adev))
++		adev->vm_manager.vram_base_offset +=
++			adev->gmc.xgmi.physical_node_id *
++			adev->gmc.xgmi.node_segment_size;
+ }
+ 
+ /**
+-- 
+2.43.0
 
-________________________________________
-From: Kuehling, Felix <Felix.Kuehling@amd.com>
-Sent: Wednesday, November 4, 2026 2:51 PM
-To: Francis, David; amd-gfx@lists.freedesktop.org
-Subject: Re: [PATCH v4 1/2] drm/amdkfd: Acquire buffers in CRIU queue resto=
-re (again)
-
-
-On 2026-11-04 10:52, David Francis wrote:
-> CRIU queue restore doesn't acquire the bo buffers in the same way
-> normal queue creation does. In normal queue creation, the driver
-> gets an additional reference on the queue's underlying buffers
-> that lasts until the queue is destroyed; this prevents the
-> queue's buffers from being removed from underneath it.
->
-> Acquire them, but don't get the svm bo. SVM isn't yet fully
-> restored by this point in CRIU and so there's no svm range to get.
-> This will be addressed in the next patch.
->
-> v2: Don't use checkpoint ctl_stack_size
->
-> Signed-off-by: David Francis <David.Francis@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c               | 2 +-
->   drivers/gpu/drm/amd/amdkfd/kfd_priv.h                  | 2 +-
->   drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c | 8 ++++++++
->   drivers/gpu/drm/amd/amdkfd/kfd_queue.c                 | 8 +++++++-
->   4 files changed, 17 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/a=
-md/amdkfd/kfd_chardev.c
-> index 6c710e4a5220c..d8233337b8d5e 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> @@ -433,7 +433,7 @@ static int kfd_ioctl_create_queue(struct file *filep,=
- struct kfd_process *p,
->               goto err_bind_process;
->       }
->
-> -     err =3D kfd_queue_acquire_buffers(pdd, &q_properties);
-> +     err =3D kfd_queue_acquire_buffers(pdd, &q_properties, false);
->       if (err) {
->               pr_debug("failed to acquire user queue buffers\n");
->               goto err_acquire_queue_buf;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/=
-amdkfd/kfd_priv.h
-> index f0ce5fc4a138f..eb4d35a42e917 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> @@ -1381,7 +1381,7 @@ void print_queue(struct queue *q);
->   int kfd_queue_buffer_get(struct amdgpu_vm *vm, void __user *addr, struc=
-t amdgpu_bo **pbo,
->                        u64 expected_size);
->   void kfd_queue_buffer_put(struct amdgpu_bo **bo);
-> -int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct que=
-ue_properties *properties);
-> +int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct que=
-ue_properties *properties, bool is_criu);
->   int kfd_queue_release_buffers(struct kfd_process_device *pdd, struct qu=
-eue_properties *properties);
->   void kfd_queue_unref_bo_va(struct amdgpu_vm *vm, struct amdgpu_bo **bo)=
-;
->   int kfd_queue_unref_bo_vas(struct kfd_process_device *pdd,
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/dri=
-vers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-> index 4c4a3a8587f46..6e19be9e89f57 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-> @@ -1095,9 +1095,17 @@ int kfd_criu_restore_queue(struct kfd_process *p,
->
->       print_queue_properties(&qp);
->
-> +     ret =3D kfd_queue_acquire_buffers(pdd, &qp, true);
-> +     if (ret) {
-> +             pr_err("Failed to acquire user queue buffers err:%d\n", ret=
-);
-> +             goto exit;
-> +     }
-> +
->       ret =3D pqm_create_queue(&p->pqm, pdd->dev, &qp, &queue_id, q_data,=
- mqd, ctl_stack, NULL);
->       if (ret) {
->               pr_err("Failed to create new queue err:%d\n", ret);
-> +             kfd_queue_unref_bo_vas(pdd, &qp);
-> +             kfd_queue_release_buffers(pdd, &qp);
-
-I think kfd_queue_release_buffers also needs another parameter to tell
-it not to handle SVM. Otherwise it will call kfd_queue_buffer_svm_put
-and try to decrement queue refcounts in pranges that weren't incremented.
-
-Regards,
-   Felix
-
-
->               goto exit;
->       }
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c b/drivers/gpu/drm/amd=
-/amdkfd/kfd_queue.c
-> index 6010a5d7a7eb9..18d24ddb455eb 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-> @@ -239,7 +239,7 @@ static void kfd_queue_put_bos(struct queue_properties=
- *properties)
->       kfd_queue_buffer_put(&properties->cwsr_bo);
->   }
->
-> -int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct que=
-ue_properties *properties)
-> +int kfd_queue_acquire_buffers(struct kfd_process_device *pdd, struct que=
-ue_properties *properties, bool is_criu)
->   {
->       struct kfd_topology_device *topo_dev;
->       u64 expected_queue_size;
-> @@ -334,6 +334,12 @@ int kfd_queue_acquire_buffers(struct kfd_process_dev=
-ice *pdd, struct queue_prope
->
->       amdgpu_bo_unreserve(vm->root.bo);
->
-> +     /* CRIU svm buffers are restored at a later stage than queues. They=
-'ll be in
-> +      * before the queue is actually used, so no risk here
-> +      */
-> +     if (is_criu)
-> +             return 0;
-> +
->       err =3D kfd_queue_buffer_svm_get(pdd, properties->ctx_save_restore_=
-area_address,
->                                      total_cwsr_size);
->       if (err)
