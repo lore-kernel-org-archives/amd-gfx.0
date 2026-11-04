@@ -2,153 +2,104 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CFA7606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA574606A31B
 	for <amd-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 13:45:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=bthKNio9
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=NjzAJov0
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD26C112465;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E36C7112467;
 	Thu,  5 Nov 2026 13:45:35 +0000 (UTC)
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011062.outbound.protection.outlook.com
- [40.93.194.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E340112081;
- Thu,  5 Nov 2026 06:42:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=m6lRs+yWxwOY/BGJYOES1EVXWzQYQM4dxIj98I4+nKrYHkLM+xJasUaq+ejZXVj1beKyjugxHuf3kNKwN6piBUyazRPqfwEJR+2YsYrc+fu2qO8L90SV7bdSqXVidEC4ERAOMkfca4lvJ8hvEdQUp48N3wfAUXmMomsri6KMg7lCh9YnPIKxJLZiYP8h0VWnVmDj8buHyN3yof19LTQ046QDoi7ueU25nRr6+40Gs/nqedyic3zfJiGt+mmXyKEO+54a69m1nLG2ntLr4ZFtV/uTmWNErz4pLTWa4QppEPIH0L82dnm8bPzH/s2ta8QWk+XDcg1dzZKUrDA+clAmqQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PLYQkqwZDzCmH4BbptjdELdW6CQE7GgCM2mdix1SzJI=;
- b=m3aS9KbW3WOWt3rjYCx+xLdeCK+sHLzd3CjD1b3g3FxmRo4DXX42zsLAMCOZWjStvMQIBTWkxuimCNzXSai68I0cjAnD//zWgJ0nYMdhPaqR+bADccsTUmDOVJxWbhIUD0SOUGiMe326jvqFRLYV+HjBGz8ocpMrs8O8XYs/ObpbsK8aacEehQ/IVJFpXIFs4zs9rcjtckNuTPITgKEPDelxqcaGQVyLze5LlR4RLBJZK6Ps6Qq729QpdEMKln0ZOYa3Y44sPWnm6Dl7VwLvMZsanzGQCHW3ir+4sXZa0d7JuBtuw5aShBB/68hgWvtot8/9QWlkhNy4brifT/aSYg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PLYQkqwZDzCmH4BbptjdELdW6CQE7GgCM2mdix1SzJI=;
- b=bthKNio9XmdKCoVjXlon0+kSeqQQMhp6pkjn8pza6T45bI/SOwimVjewtPmDdmy0cBhiIYmHBvs/QjR1Ks2w19sUenWHdg+UCr/fV38MLy10RUypnh2yTcQjrcvzQgSR730AvQCY++XPiPJzbz21T5hIgm7lz2CADSojrwFXdfTx1bibw4csuJmBhwlc9alFKFtYhb6N3ibJ1UqQJL4WNkBb1jq7eTX1E11aasBs2Nwqoshn7Yhk+MvKg6Au2EgIWzvV1c6fTZIN0FYuntlewdFs8OrRAf09Rx3g/qnfjBumTVGG5o1+VkWfd7TG7OzNLi4HLXCAqwMS9ZfRehfJqw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SA3PR12MB598757.namprd12.prod.outlook.com
- (2603:10b6:806:52d::14) by IA0PR12MB8932.namprd12.prod.outlook.com
- (2603:10b6:208:492::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Thu, 5 Nov 2026
- 06:42:43 +0000
-Received: from SA3PR12MB598757.namprd12.prod.outlook.com
- ([fe80::e206:100:5946:a777]) by SA3PR12MB598757.namprd12.prod.outlook.com
- ([fe80::e206:100:5946:a777%5]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
- 06:42:43 +0000
-From: Alistair Popple <apopple@nvidia.com>
-Date: Thu, 05 Nov 2026 17:40:51 +1100
-Subject: [PATCH v2 16/23] vfio/pci: Change the DMA-buf exporter to use
- mapping_type
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-dma_mapping_type_v4-v2-16-78b8dc9ae80a@nvidia.com>
-References: <20261105-dma_mapping_type_v4-v2-0-78b8dc9ae80a@nvidia.com>
-In-Reply-To: <20261105-dma_mapping_type_v4-v2-0-78b8dc9ae80a@nvidia.com>
-To: =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Simona Vetter <simona.vetter@ffwll.ch>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Vivek Kasireddy <vivek.kasireddy@intel.com>, 
- Dongwon Kim <dongwon.kim@intel.com>, Kevin Tian <kevin.tian@intel.com>, 
- Xu Yilun <yilun.xu@linux.intel.com>, 
- Karl Mehltretter <kmehltretter@gmail.com>, 
- Baolu Lu <baolu.lu@linux.intel.com>, 
- Felix Kuehling <felix.kuehling@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, 
- linux-rdma@vger.kernel.org, iommu@lists.linux.dev, 
- Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
- Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, 
- linux-nvme@lists.infradead.org, "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
- Mina Almasry <almasrymina@google.com>, netdev@vger.kernel.org, 
- Alexey Kardashevskiy <aik@amd.com>, zhipingz@meta.com, treding@nvidia.com, 
- jhubbard@nvidia.com, Jason Gunthorpe <jgg@ziepe.ca>, 
- Leon Romanovsky <leon@kernel.org>
-Cc: Alistair Popple <apopple@nvidia.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793860879; l=2141;
- i=apopple@nvidia.com; s=20261105; h=from:subject:message-id;
- bh=hx1F7Kmn6acBKqA4FiE8vlDa30Cq4vPCVpBLEmUXynQ=;
- b=2QX74a3y0JNAryc3e83cp2IKDIQHhBAG8fPi/A09NbfL++eC+4SrgNyguDHevqWJtPla3rUV7
- Hcl+ZTWOOn/BhbF8+Fs40h6fLHRL7V8hCTRO7qHveCyyxZDi//BvZJD
-X-Developer-Key: i=apopple@nvidia.com; a=ed25519;
- pk=WdWPT9rAq3YNfXldbGv1NSGVLGxzQGFGJvRUiShhNqs=
-X-ClientProxiedBy: SY5P282CA0010.AUSP282.PROD.OUTLOOK.COM
- (2603:10c6:10:208::19) To SA3PR12MB598757.namprd12.prod.outlook.com
- (2603:10b6:806:52d::14)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8FE2E10E8DD
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Nov 2026 19:07:51 +0000 (UTC)
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6A4FiPPe1186416; Wed, 4 Nov 2026 19:07:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+ :content-transfer-encoding:date:from:in-reply-to:message-id
+ :mime-version:references:subject:to; s=pp1; bh=g9PwnE1BUhDKPeRDH
+ zTPg+m34Bd8ISqTGHDwBKjbme4=; b=NjzAJov0MbhYhd6V6B8cfrRsfJsMYntLv
+ mTKGMHc+r2xWl/F6uaOxJBjVlueIyGuEyJYp/fEDCCCdUovvsSs5SagnNCxt9pR6
+ Q66XtPVqzPJ2VvhtiT9FTbAfyeOwjV5ctfqeViUILzjS2HTJa/EkuWaNXn1IYH7Y
+ gQJFuqu39s5QXnwjJRv4k8ONppavvSsnDxe3LoasVFMJWeSfdJwOQKqt7j67IW6i
+ AwG3UOfdb2+SwnX5vMZF28x8PwGgna9XOrbcljvRzVotri6/Q2tWfSIxj/lmy0PA
+ jiL4js2PH12sU0JVmGnYPqEF4VNOsv8V9Hh8yzPtMJ7UV9xKZ8L8Q==
+Received: from ppma21.wdc07v.mail.ibm.com
+ (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn7u3nw7y-1
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+ Wed, 04 Nov 2026 19:07:48 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6A4IeAPh091569; Wed, 4 Nov 2026 19:07:47 GMT
+Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
+ by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hqcrcfufd-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 04 Nov 2026 19:07:47 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com
+ [10.20.54.105])
+ by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 6A4J7htg52429212
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 4 Nov 2026 19:07:43 GMT
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id A53502004D;
+ Wed,  4 Nov 2026 19:07:43 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 9F10A20049;
+ Wed,  4 Nov 2026 19:07:40 +0000 (GMT)
+Received: from localhost.localdomain (unknown [9.43.118.53])
+ by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
+ Wed,  4 Nov 2026 19:07:40 +0000 (GMT)
+From: Dhruv B <dhruv.b@linux.ibm.com>
+To: amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Alex Deucher <alexdeucher@gmail.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Philip Yang <yangp@amd.com>
+Cc: David.YatSin@amd.com, Kent.Russell@amd.com,
+ Ritesh Harjani <ritesh.list@gmail.com>,
+ Vaidyanathan Srinivasan <svaidy@linux.ibm.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ donettom@linux.ibm.com, dhruv.b@linux.ibm.com
+Subject: [PATCH v4 2/2] drm/amdkfd: Add support for discontiguous and CPU-less
+ NUMA topologies
+Date: Thu,  5 Nov 2026 00:37:18 +0530
+Message-ID: <20261104190718.68457-3-dhruv.b@linux.ibm.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261104190718.68457-1-dhruv.b@linux.ibm.com>
+References: <20261104190718.68457-1-dhruv.b@linux.ibm.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA3PR12MB598757:EE_|IA0PR12MB8932:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5d6fd816-e286-455e-1951-08df3b07fef4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|7416014|1800799024|23010399003|22082099003|18002099003|56012099006|261021123027099003|921020|261021121427099003|261022105027099003|261009223027099003|261026140227099003|261026121527099003|10067099003|261028144727099003|11063799006|261102123227099003|261102130727099003;
-X-Microsoft-Antispam-Message-Info: PVKiYhW4240skncVLJxAlmgCtNlrf36Uaj9XaO2mZEOVwPo1Ju2b2hCs46VKbC4rUHWihdAeFLmQFMO4ajGTBrOWRyi5GVpmx5LT8ipmDb1mfwp7nRNPrmh7CRLya805OGlfoFOycCwHSxrgVM0P6/YjCmoC98Ucy6ChQLfpZHQHklezMyyRu1ZlutiLG2uCNU4HFdlhH1/8Vn96ZVFcc9rpYL1eSme6KU6AfEJWWn0xcrDzYd2Icg07A/pMy9PDtbqX6yyhNw9FTfnHMLN/bbJXmjDxX0fHeCnsuam4YSuNgnHOBWcr+X0jOo08PRiNL3jHEnwGlbJi4zggcC4HKMh8IQAVdUtUSu2m+F6PiRmImAx9+CWacm4I+i6ho160EcBjXZ5N0JbffvvHNGU9DBS/G86cDpepk7HbIMHxBAijXGCm4Ucys1+AcNBTCh8iKHf7Ypo/K23uHoapHQ1aGduGz3vF7OhPhCkJlejpLw2QVtMGJoPuHh/pUwfUpYV6IAG1KyL6nrEDIeJ9m5xRZAn2mghr3GyrwZQvrZwjbM26eMDFqz7dNiHTANi2Tauco0AWprZzoNQeyJweX04YYJN83gbNbpkUOLJc8zW0en+4KSPDSISz/6c7dU8uA4a3sCQlDLzSOy85Ud92PTMx0vEBhPxWSAiXreW4i6q3PVCbismtotrYnLFKKYltuMDhcY0n2tCufEQo5/lkgq9lPw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA3PR12MB598757.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(7416014)(1800799024)(23010399003)(22082099003)(18002099003)(56012099006)(261021123027099003)(921020)(261021121427099003)(261022105027099003)(261009223027099003)(261026140227099003)(261026121527099003)(10067099003)(261028144727099003)(11063799006)(261102123227099003)(261102130727099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Sng5NmkzVEk0QXJGT1RDc2ZzZm1YUFVLRWRLTSsxT0pBZE1ZM2JjcFRRSitl?=
- =?utf-8?B?QnBrWEJMbzB3cXRab2ZXdWV4Vmt5NExrd3pWVjlEdHczcU51VG8wcDZtdVlO?=
- =?utf-8?B?ZVY3SWtFNTV2SXRwcTB1ci8rL2dtSVpOejNtbHdzL0hjNDU3bVd6b1RVbGRQ?=
- =?utf-8?B?NmtqWnlKNzl4WG9FSW5ONnZ1dDBEZjNYelYvYzVPVXE0NnhJMnh3Z0dkV0JR?=
- =?utf-8?B?OUlCazRnT1N3T1E4TDlpRGdIUktqS3N4ZFFwd1NsU2hQQ3BndXdTeHFyOVRY?=
- =?utf-8?B?eEcrRERXb0dhQ3ZYTS9BdmFGcElXNllTd2lTKzRCR3NZRkZWNlc5R1ZRaWZF?=
- =?utf-8?B?aU40YVduSWtyM2hCQm5uZ0tFWWtKNitrTnhkdnN5cXJYTTA4eFhJS29YRUpj?=
- =?utf-8?B?U1Zxemk2TzFFMVZSTzcrYkNNUTVkZFg4V3BWSmtaSjJDWGhjUlVldTJPQmxH?=
- =?utf-8?B?cjZnN0dNZXNzdHFPcHQxWENUeUhpQ1M0ZmFma0VQVE9jZXNrY3ZMUGtXUFpO?=
- =?utf-8?B?UTAzbS9tc3JHSFhqSWw1OU96TytqZDJnMk1uOGZ6ZmFZN3hsSmFydzJvZ0RP?=
- =?utf-8?B?SU1YWkNYUngvQWphczhGa0VGRWcrWm8vWndaRXNqVUFScDNMbWJFNlN1SjIr?=
- =?utf-8?B?VlhtNGxyV3ltMUluV2ROOXg3SUx4UFNRbnVOQUVjekg5clU3Y0VTTTEwdXhs?=
- =?utf-8?B?MU9ZSll1b0crZWs2cG5mUUtQZjhtNXFXeDhBNUp5VE1KN0prQWs0dEh0MnIv?=
- =?utf-8?B?N1BEbE8zQmpZZHFIYzNwMXFjZEl4REorK3U2d0MzL1hxZHVkRzAvSW1MSU5N?=
- =?utf-8?B?MVQxS1lETXUydmI2eEpWUkNFcyt1VWxNSzI2Y1poUFllUEVnOFpvU25XbWY0?=
- =?utf-8?B?ZUxIenIxMy9LQ1dzSjgyZ0RqUHVRUXd6NXdTOU5UMGNSRG1zb2p6TGJCeUs2?=
- =?utf-8?B?bVNKTDVxS2lyR2xFUmZ0ak92UTRDVjlLRGlnazdLYVFZcG91UkV2Z0ZWNTVL?=
- =?utf-8?B?WkZGSEJKVFdMd3F3VmNDc1ZnUkljd1FiczJvam05SVZINGljS0JoWFoxSE9r?=
- =?utf-8?B?MnNxSGtiSzBpY1RGZ0t1azFraElveTR0MmlMRS9mSEtnampaMHRucHViQkZQ?=
- =?utf-8?B?NU1MYzlxem5LMDMzWkNQRk5tWWdidHhYaGVkcGtna3I4N1htSnFRWHJ0TEJJ?=
- =?utf-8?B?Y0pSbzBLeTh3Qkg1aHVBeVl5Vlh2enJzNTk0UTBjSDFsU1hpZmxJNHBZRXZz?=
- =?utf-8?B?aDQ5T0poK2hkN1d5UFVRYytPNDhNOW1pbElXaDlESDVJN0tnZGJiQXN5Y1Nl?=
- =?utf-8?B?SzRvL0s1Q0dPVEhyWlNjTTVvVUc0dTBibVlBSTBFTGNWQ0swMjk5SXpzZkx6?=
- =?utf-8?B?bHYxYWdoY2FBZHhkSkN5cU9oUU84MWJLYlp5OHdpcmEwUkJrN0R1RHoybUlr?=
- =?utf-8?B?TldlYUU4L2s2dENFWVhweVR2d0VSUXVyWjBLOXRDVDUxOTE5WW05K09wZlEz?=
- =?utf-8?B?YmpoMDV3L1dxOTM5ZGI4aGV6SGx6MzJvY1ZQWEIwdXJCYnNDcGYrU3RJQm9w?=
- =?utf-8?B?MnRkamhQUTBUeXVvc3RDKzkvVzBiczREZXBzWnBab3Urc1crYUdFOGhyVk5V?=
- =?utf-8?B?WkpyUk9VQUc2V1lJL1JVS3kydDBUb1dhUUlJY05mMFZGRks1OFZJSE9RQVVx?=
- =?utf-8?B?L2dBZ0VnWGJTVlVRNDd3UG1Jc2hwaFZaSHdFeVpXK3Uzd3NJbXRvY1FsejdW?=
- =?utf-8?B?a3dUUXhSYithSnVJMWhhWS9teFVQN05ZaUF6VGlORU5nMUUycWJnZHdBR3Vm?=
- =?utf-8?B?dXZ3bzhWVko4UGV4SytrbnBET1JXZ2haSTJ3Ynk4NFB5RUt3Q3ZQTWtjOHYv?=
- =?utf-8?B?STNhazdrdUM5bVRhNUpNdUgvNHZzekM1QkZEaDg2WUhrVHR0eW1lZFJVd2Fm?=
- =?utf-8?B?WmN0eDQ5b1Q4TzZNellNNnl2ODJreHdnQTNPUG92Z2pRempXZ0U4OHJNZ2ZI?=
- =?utf-8?B?MnJTUm9qaEttcUdLMmJHS0NsbFg2c0h2MzhNYjlJL1U5RnRUTHJpSEttVG1G?=
- =?utf-8?B?QXNLczhvMk9TSzRCdHVYa283SjBRcHRyRTlFUDZGbmJocSs5TVpWa3o3TEpN?=
- =?utf-8?B?M1hZS2w5eGExYlBER3FiRENMYkZCR2huWlA2azZmWTJKdWhIUlg4bDBnUGRh?=
- =?utf-8?B?a2F6ZDlPT0tEV2VCWlh2cHRjUEF2MmVDenlzZ1R3eXFGUVo5dXMrZEVkdnBD?=
- =?utf-8?B?Q1ZnenREREh1MGtiZFo1S3h2NStOZ3BsOVc2eHBvK1FaaHJCd2svV2d0anBH?=
- =?utf-8?B?SUNIa0JEWmZROU5RVTluZkdIMm1zMW5QamtUTm12WHFPcm1GL3haQT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5d6fd816-e286-455e-1951-08df3b07fef4
-X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB598757.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 06:42:43.8670 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CAtWou75313fh1n/PeFSDftrfuMp2rikJHRqrzfaKVvQs/q6ZXLbXbKYpmwkPeklBlYMOf7qhdf+ojF/3dskhQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8932
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=Zsp4uN7G c=1 sm=1 tr=0 ts=6aeb8285 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8 a=jEZll7LtN5u0E8P7Dj0A:9
+X-Proofpoint-ORIG-GUID: c4TPWZavSlail8PqYvnX_C4E9U6b2YVd
+X-Proofpoint-GUID: lMrJKUqHaI6cHyquHE2wcv0oks-tYinD
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA3NCBTYWx0ZWRfX80k3UIe+ZJCj
+ bkhNRa++GVa3DtBF6PIx/il3KFaY2BkFC9EMU8AXdV5Qyq9bs7I7ZWHJ2Xe3syiEVJ9fPKih1XL
+ Sv+cJar/bo3T4XIyCbDTRs4Gc9qOtf2P6GX7pOgz288XuyyCNQg52EBQTH7zCQq3nNem4BMfwdo
+ +BE9oVpsu67y2fIfGYpgr/RWyVvukWW3/jcClQMNAVXppBkZu10YBqZPAdVsNfOi04ihvjpxyvF
+ 7YjhDuIulUlzyPkJ/zF/jScyY9o+5e968TxMu1DmtAMQd43e3EQxAg1d2rITpBiGzkyqwO6m6Ai
+ YI9u46GKBESr4+ZV44dVGytZmVd0DvQ0zLY6JH/LgttelsKAU8U4ShdtZVHvkk6KEi5wUNX/sgU
+ MdrYq9wrtJ4ukG87tHLJClNW16dkLTfk1IZec9hVZpk6Hqm+tfrQnk5jPGWpAwAdbPHlKP9oDfA
+ Gm/wOYbi5/rbS4rlYQg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA3NCBTYWx0ZWRfXyF1mVa5xT2DR
+ O4gGZIyttcdiJGUnrM5fBA8++hBGPtBBRK4BYhdS0wCEG1hZL7ZJmVb9jmdfIzEPkKxZYFKXxBe
+ Zw8/YmqoCgTXDdahjD2dThPlzP22wr0=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-04_05,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 adultscore=0 priorityscore=1501 bulkscore=0 clxscore=1015
+ impostorscore=0 spamscore=0 malwarescore=0 suspectscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611040074
 X-Mailman-Approved-At: Thu, 05 Nov 2026 13:45:29 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -160,77 +111,207 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Jason Gunthorpe <jgg@nvidia.com>
+On systems with discontiguous NUMA node IDs, the GPU driver fails to
+load with the following errors:
 
-Simple conversion to add a match_mapping() callback that offers an
-exporter SGT mapping type. Later patches will add a physical address
-exporter so go straight to adding the match_mapping() function.
+[    5.609767] amdgpu 0038:12:00.0: Error parsing VCRAT
+[    5.609781] kfd kfd: Error adding device to topology
+[    5.609848] kfd kfd: Error initializing KFD node
 
-The check for attachment->peer2peer is replaced with setting
-exporter_requires_p2p=true. VFIO always uses MMIO memory.
+In the current KFD code, proximity domains are created contiguously
+when generating the VCRAT. With discontiguous NUMA node IDs, this
+creates a mismatch between the proximity domain ID and the NUMA node ID.
+For example, if NUMA nodes 0, 2 and 3 are online, the current code
+assigns proximity domains 0, 1 and 2 to these nodes respectively,
+instead of domains 0, 2 and 3.
 
-Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
-Signed-off-by: Alistair Popple <apopple@nvidia.com>
+The KFD topology uses the NUMA node and proximity domain information to
+create topology devices representing the CPU and memory resources
+associated with each NUMA node. This topology is exposed to userspace
+through sysfs, where the NUMA node and proximity domain information are
+used to identify the topology devices. The mismatch between the NUMA
+node ID and proximity domain therefore results in an inconsistent KFD
+topology and causes topology parsing to fail.
+
+Make the proximity domain ID correspond directly to the NUMA node ID by
+iterating through the complete NUMA node ID range up to the last online
+node. Account for every node ID when assigning proximity domains, while
+skipping resource entry creation for offline nodes. This preserves the
+NUMA-node-to-proximity-domain mapping and allows the KFD topology and
+its sysfs representation to correctly reflect discontiguous NUMA
+topologies.
+
+A NUMA node may also be CPU-less, memory-less, or both. Only create a
+Compute Unit CRAT entry if the node has CPUs, and only create a Memory
+CRAT entry if the node has memory.
+
+Additionally, update kfd_parse_subtype_mem() to use simd_count instead
+of cpu_cores_count to distinguish host nodes from GPU nodes. This ensures
+that memory on CPU-less host NUMA nodes is correctly classified as
+system memory (HSA_MEM_HEAP_TYPE_SYSTEM) rather than private GPU
+framebuffer memory.
+
+The placeholder domains created for offline node IDs have no IO links,
+so skip offline nodes when building indirect GPU to CPU links. For Large
+BAR, reverse CPU-to-GPU indirect links are only created if the node has
+CPUs (node_state(i, N_CPU)). Additionally, missing CPU interconnect links
+are skipped so they do not abort GPU-to-GPU P2P link creation.
+
+Co-developed-by: Donet Tom <donettom@linux.ibm.com>
+Signed-off-by: Donet Tom <donettom@linux.ibm.com>
+Signed-off-by: Dhruv B <dhruv.b@linux.ibm.com>
 ---
- drivers/vfio/pci/vfio_pci_dmabuf.c | 26 +++++++++++++++++++++-----
- 1 file changed, 21 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_crat.c     | 59 +++++++++++++----------
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c |  9 ++--
+ 2 files changed, 39 insertions(+), 29 deletions(-)
 
-diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
-index c16f460c01d6..ebbdbcc6ecbf 100644
---- a/drivers/vfio/pci/vfio_pci_dmabuf.c
-+++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
-@@ -27,9 +27,6 @@ static int vfio_pci_dma_buf_attach(struct dma_buf *dmabuf,
- {
- 	struct vfio_pci_dma_buf *priv = dmabuf->priv;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+index 99b0c7f825fe..bebbc6715b2f 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+@@ -1103,8 +1103,10 @@ static int kfd_parse_subtype_mem(struct crat_subtype_memory *mem,
+ 			mem->proximity_domain);
+ 	list_for_each_entry(dev, device_list, list) {
+ 		if (mem->proximity_domain == dev->proximity_domain) {
+-			/* We're on GPU node */
+-			if (dev->node_props.cpu_cores_count == 0) {
++			if (dev->node_props.simd_count == 0) {
++				heap_type = HSA_MEM_HEAP_TYPE_SYSTEM;
++			} else {
++				/* We're on GPU node */
+ 				/* APU */
+ 				if (mem->visibility_type == 0)
+ 					heap_type =
+@@ -1112,8 +1114,7 @@ static int kfd_parse_subtype_mem(struct crat_subtype_memory *mem,
+ 				/* dGPU */
+ 				else
+ 					heap_type = mem->visibility_type;
+-			} else
+-				heap_type = HSA_MEM_HEAP_TYPE_SYSTEM;
++			}
  
--	if (!attachment->peer2peer)
--		return -EOPNOTSUPP;
+ 			if (mem->flags & CRAT_MEM_FLAGS_HOT_PLUGGABLE)
+ 				flags |= HSA_MEM_FLAGS_HOT_PLUGGABLE;
+@@ -1899,7 +1900,7 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_image, size_t *size)
+ 	acpi_status status;
+ 	struct crat_subtype_generic *sub_type_hdr;
+ 	int avail_size = *size;
+-	int numa_node_id;
++	int numa_node_id, last_node;
+ #if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
+ 	uint32_t entries = 0;
+ #endif
+@@ -1935,34 +1936,41 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_image, size_t *size)
+ 	crat_table->num_domains = 0;
+ 
+ 	sub_type_hdr = (struct crat_subtype_generic *)(crat_table+1);
++	last_node = find_last_bit(node_online_map.bits, MAX_NUMNODES);
+ 
+-	for_each_online_node(numa_node_id) {
+-		if (kfd_numa_node_to_apic_id(numa_node_id) == -1)
++	for (numa_node_id = 0; numa_node_id <= last_node; numa_node_id++) {
++		if (!node_online(numa_node_id)) {
++			crat_table->num_domains++;
+ 			continue;
++		}
+ 
+ 		/* Fill in Subtype: Compute Unit */
+-		ret = kfd_fill_cu_for_cpu(numa_node_id, &avail_size,
+-			crat_table->num_domains,
+-			(struct crat_subtype_computeunit *)sub_type_hdr);
+-		if (ret < 0)
+-			return ret;
+-		crat_table->length += sub_type_hdr->length;
+-		crat_table->total_entries++;
++		if (kfd_numa_node_to_apic_id(numa_node_id) != -1) {
++			ret = kfd_fill_cu_for_cpu(numa_node_id, &avail_size,
++						  crat_table->num_domains,
++						  (struct crat_subtype_computeunit *)sub_type_hdr);
++			if (ret < 0)
++				return ret;
++			crat_table->length += sub_type_hdr->length;
++			crat_table->total_entries++;
+ 
+-		sub_type_hdr = (typeof(sub_type_hdr))((char *)sub_type_hdr +
+-			sub_type_hdr->length);
++			sub_type_hdr = (typeof(sub_type_hdr))((char *)sub_type_hdr +
++				sub_type_hdr->length);
++		}
+ 
+ 		/* Fill in Subtype: Memory */
+-		ret = kfd_fill_mem_info_for_cpu(numa_node_id, &avail_size,
+-			crat_table->num_domains,
+-			(struct crat_subtype_memory *)sub_type_hdr);
+-		if (ret < 0)
+-			return ret;
+-		crat_table->length += sub_type_hdr->length;
+-		crat_table->total_entries++;
++		if (node_state(numa_node_id, N_MEMORY)) {
++			ret = kfd_fill_mem_info_for_cpu(numa_node_id, &avail_size,
++							crat_table->num_domains,
++							(struct crat_subtype_memory *)sub_type_hdr);
++			if (ret < 0)
++				return ret;
++			crat_table->length += sub_type_hdr->length;
++			crat_table->total_entries++;
+ 
+-		sub_type_hdr = (typeof(sub_type_hdr))((char *)sub_type_hdr +
+-			sub_type_hdr->length);
++			sub_type_hdr = (typeof(sub_type_hdr))((char *)sub_type_hdr +
++				sub_type_hdr->length);
++		}
+ 
+ 		/* Fill in Subtype: IO Link */
+ #if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
+@@ -1982,7 +1990,6 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_image, size_t *size)
+ #else
+ 		pr_info("IO link not available for non x86 platforms\n");
+ #endif
 -
- 	if (priv->revoked)
- 		return -ENODEV;
+ 		crat_table->num_domains++;
+ 	}
  
-@@ -99,11 +96,30 @@ static void vfio_pci_dma_buf_release(struct dma_buf *dmabuf)
- 	kfree(priv);
- }
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+index b38d12f3da84..8f908323d74b 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+@@ -1419,6 +1419,9 @@ static int kfd_create_indirect_link_prop(struct kfd_topology_device *kdev, int g
+ 				    struct kfd_iolink_properties, list);
  
--static const struct dma_buf_ops vfio_pci_dmabuf_ops = {
--	.attach = vfio_pci_dma_buf_attach,
-+static const struct dma_buf_mapping_sgt_exp_ops vfio_pci_dma_buf_sgt_ops = {
- 	.map_dma_buf = vfio_pci_dma_buf_map,
- 	.unmap_dma_buf = vfio_pci_dma_buf_unmap,
-+};
+ 	for (i = 0; i < num_cpu; i++) {
++		if (!node_online(i))
++			continue;
 +
-+static int vfio_pci_dma_buf_match_mapping(struct dma_buf_match_args *args)
-+{
-+	struct dma_buf_mapping_match sgt_match[1];
-+
-+	/*
-+	 * MMIO, so the importer must accept P2P, but it need not be a PCI
-+	 * device: iommufd attaches with its own non-PCI device and programs
-+	 * physical addresses. Reachability is checked when mapping, by
-+	 * dma_buf_phys_vec_to_sgt().
-+	 */
-+	sgt_match[0] = DMA_BUF_EMAPPING_SGT_REQUIRES_P2P(&vfio_pci_dma_buf_sgt_ops);
-+
-+	return dma_buf_match_mapping(args, sgt_match, ARRAY_SIZE(sgt_match));
-+}
-+
-+static const struct dma_buf_ops vfio_pci_dmabuf_ops = {
-+	.attach = vfio_pci_dma_buf_attach,
- 	.release = vfio_pci_dma_buf_release,
-+	.match_mapping = vfio_pci_dma_buf_match_mapping,
- };
+ 		/* CPU <--> GPU */
+ 		if (gpu_link->node_to == i)
+ 			continue;
+@@ -1437,7 +1440,7 @@ static int kfd_create_indirect_link_prop(struct kfd_topology_device *kdev, int g
+ 		}
  
- /*
-
+ 		if (!cpu_link)
+-			return -ENOMEM;
++			continue;
+ 
+ 		/* CPU <--> CPU <--> GPU, GPU node*/
+ 		props = kfd_alloc_struct(props);
+@@ -1459,8 +1462,8 @@ static int kfd_create_indirect_link_prop(struct kfd_topology_device *kdev, int g
+ 		if (ret < 0)
+ 			return ret;
+ 
+-		/* for small Bar, no CPU --> GPU in-direct links */
+-		if (kfd_dev_is_large_bar(kdev->gpu)) {
++		/* for small Bar or CPU-less NUMA nodes, no CPU --> GPU in-direct links */
++		if (kfd_dev_is_large_bar(kdev->gpu) && node_state(i, N_CPU)) {
+ 			/* CPU <--> CPU <--> GPU, CPU node*/
+ 			props2 = kfd_alloc_struct(props2);
+ 			if (!props2)
 -- 
-2.54.0
+2.56.0
 
