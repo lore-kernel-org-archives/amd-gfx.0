@@ -2,152 +2,82 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FB01606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D0C9606A328
 	for <amd-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 13:45:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=bckz83NI
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SFcjqJvu
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E273311243E;
-	Thu,  5 Nov 2026 13:45:34 +0000 (UTC)
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011008.outbound.protection.outlook.com
- [40.93.194.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D9FF112064;
- Thu,  5 Nov 2026 06:42:36 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gbarRIuc0yAJZ5Cyx892gUIi1a0BhvJcFCLaXBmI9ZfgCpFpgvHhqNQRmLzjsuDteN87tgaIPHfvnsfMZzRAUhXRch42O++WzGSTAtpeea2p6/Drogi6qVoFRQhdv6pBKRmSjQNGEa3fS89tQJaH8YWCHcZCJ8MA9lwJe1hb9t+kKKaAC3aRTb4+45YyWFF5xK00tdnrnn5CeadKvuLoxwbSInh2Q+CLHvEvUTLo6uQOLVbgCTYfMKoWORpehF+G0RLcIm866QQ/LJJfUheb+WaodtxaJI9Jvt1WAjORjg0mbK0gSAL237uIJDyjg7g2/0tOY5jJYZYAKG28eQEbew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=L59wo4PaXs89ZVWJC/mZumnrFEozQFJVheUhVb609hE=;
- b=h6rffw7MA1lVlqXoCyRomH58zGfNLzNFnftjR0t+b1I1PKJ0hb3RXkiOQesaRpBAqQvqZX18Hdg14fgWHBiXI8tujqK2ACjY3ENS8rqqDK+At21SlwKbYAe1i6Aw0tjdPp70LHS+PW/0eB1sVoS+i5ECiGk7zCpk+JKqP+Sxzv7Aj/I/vMAUweeL9T7d4/NWwvs9L6pWmpTVDJQSn8T5KQ6TFFsvVP7/BkaVOrAhapKeohNwT9tThg2pL6CEsPTWlwtsueiqZnufV31gjpRHHZ3R+vh14AV17wsdF/l2KChJOB0TjAo3/bCKcpEeyK0QXtesMSoSA4AqAQdoWZ3rrA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=L59wo4PaXs89ZVWJC/mZumnrFEozQFJVheUhVb609hE=;
- b=bckz83NIjLb6FXiuxwAArBmCSTnmCTAETLfj2DcM3wTJ+CrrDQQW3uTHIw43+T4iDUk1AsLCr57X0Yf6LjW1DmAYP/7E1Ry/wMvW9OCwq8JdEgRWaiXv1BaYYPn4L8TqbloB3AqzTMUfnf412nwZ2R72g+R4BxPxfHuicHaJ9PxFCQ/pLlzM1Tdz5lYv/pn4HGwlHT5OeijbpuCL4uHR7lOhnT5l2MkRB6je+asLgA3El9XahCu3WoUO3zOSZi5qF99Lclr3St3AXzwONdjjw+9BLyIwelXgJVgAC8EAB65GbMJKE97NBJ50Oh+vl0i/P96Xbp15WRqgwEeolcpexA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SA3PR12MB598757.namprd12.prod.outlook.com
- (2603:10b6:806:52d::14) by CH1PR12MB9573.namprd12.prod.outlook.com
- (2603:10b6:610:2ae::5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Thu, 5 Nov 2026
- 06:42:25 +0000
-Received: from SA3PR12MB598757.namprd12.prod.outlook.com
- ([fe80::e206:100:5946:a777]) by SA3PR12MB598757.namprd12.prod.outlook.com
- ([fe80::e206:100:5946:a777%5]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
- 06:42:25 +0000
-From: Alistair Popple <apopple@nvidia.com>
-Date: Thu, 05 Nov 2026 17:40:47 +1100
-Subject: [PATCH v2 12/23] drm/vmwgfx: Use match_mapping instead of dummy calls
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-dma_mapping_type_v4-v2-12-78b8dc9ae80a@nvidia.com>
-References: <20261105-dma_mapping_type_v4-v2-0-78b8dc9ae80a@nvidia.com>
-In-Reply-To: <20261105-dma_mapping_type_v4-v2-0-78b8dc9ae80a@nvidia.com>
-To: =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Simona Vetter <simona.vetter@ffwll.ch>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Vivek Kasireddy <vivek.kasireddy@intel.com>, 
- Dongwon Kim <dongwon.kim@intel.com>, Kevin Tian <kevin.tian@intel.com>, 
- Xu Yilun <yilun.xu@linux.intel.com>, 
- Karl Mehltretter <kmehltretter@gmail.com>, 
- Baolu Lu <baolu.lu@linux.intel.com>, 
- Felix Kuehling <felix.kuehling@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, 
- linux-rdma@vger.kernel.org, iommu@lists.linux.dev, 
- Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
- Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, 
- linux-nvme@lists.infradead.org, "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
- Mina Almasry <almasrymina@google.com>, netdev@vger.kernel.org, 
- Alexey Kardashevskiy <aik@amd.com>, zhipingz@meta.com, treding@nvidia.com, 
- jhubbard@nvidia.com, Jason Gunthorpe <jgg@ziepe.ca>, 
- Leon Romanovsky <leon@kernel.org>
-Cc: Alistair Popple <apopple@nvidia.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793860879; l=2254;
- i=apopple@nvidia.com; s=20261105; h=from:subject:message-id;
- bh=N8Cz8s3LFNUxkaqgxPAF91k6HaUkzBxE7X9L+ZZp09M=;
- b=HtWy2gmp+omTG9BCGfpHD9Bly7JzMVLqx+/9BE5mJ5WF9q3gm0QJhGv/pdJCvvl2GzmjPtlaA
- J0nJsMWRJE5Bz0WtvL6Fl3X5tcOyraRidV8zgn70d+JTxCs424kZuo1
-X-Developer-Key: i=apopple@nvidia.com; a=ed25519;
- pk=WdWPT9rAq3YNfXldbGv1NSGVLGxzQGFGJvRUiShhNqs=
-X-ClientProxiedBy: SY6PR01CA0014.ausprd01.prod.outlook.com
- (2603:10c6:10:e8::19) To SA3PR12MB598757.namprd12.prod.outlook.com
- (2603:10b6:806:52d::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFB00112466;
+	Thu,  5 Nov 2026 13:45:35 +0000 (UTC)
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com
+ [74.125.82.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48F9710E3F8
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Nov 2026 15:06:48 +0000 (UTC)
+Received: by mail-dy1-f170.google.com with SMTP id
+ 5a478bee46e88-33bf40b0c8bso1780478eec.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 04 Nov 2026 07:06:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793804807; x=1794409607; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=srOy3C5I/IQfUjrUYw7AbLY9/VnfU44F/qy2laTqkjs=;
+ b=SFcjqJvuuPjBTflgGSRQ5WXsLIbAknKhwVNBn4ODAymsB58XNnJx5+VM+MGxbTrinr
+ rEU9O3aUkNwz9d3a5IJzzAg9OPdcG7fnVzhCgelI+Y2P3WcUBTYcqOc+/CGiRfTD2+mT
+ 1B4XP8CA/zoBHLHCcBTmQ3sC39wqugMQ1ksKQ7GkKKeriqHC5V8WBDaPAes3rokO4XXs
+ +VGsjFN7wfPlxyryrl5IOhM1DKt2Z0ozn2dIcBxwcl+gNdpV3Vji6jDs5ZRBjq6cLT7a
+ bVTGWcX/beYEZLkvngAFMC9Rm8ocEaSfYIXYQpmYuK3sBkeF5m5SRYHrf8T0YTcxy1JM
+ VR4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793804807; x=1794409607;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=srOy3C5I/IQfUjrUYw7AbLY9/VnfU44F/qy2laTqkjs=;
+ b=wFAoUaQf42owuiLQfRgQBjBOVMQVZ8zfa74ZuTfUOE1p/5QoGXbzUlR2WrYZRjxsR+
+ YymBANExL6i5AUQ1uja2fw8A8jIcW8nSiSKqydnGSmhN+t2wDa0JxagHICavNouIZbmG
+ YViByYd+K8wKwHq3cefJx0jkquFvaqwHysfu7PAlTQ85ynBya5Q0OfLdI4zp6OzXNyg+
+ 0HQVVjATfAEJPpG0lmRhJbJb6dUQjmO66RmC7OvO5W4DZduQwQns3drLZXIrhGe368P4
+ L5J+UY5pJOaE1EYHmO8jcWe4QfpwiVspAteUW9Fiqf1Xdhceyv/KaUELUyz9LOrH7zyO
+ 4d9g==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwHz6i1JDE5JJ8WOjFzTTRalNojCpnMgnu+WUmfbG6q27m49KfnI+gR4msT1gqSkEruj9bkC9DN@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/iQNCb3aAbU/wP/Hgiv7QUKKgh8ZUuZJhPyAtrpPW+lYdOGU+N
+ l7MmekT7Y690BYjPmSwN+flNNMYZTVvy05RMuuYRMCUId0kEZoAEeXbQ
+X-Gm-Gg: AYBFou1CLME1wzBYxKKDECYYZAMB4UcBii/HcZF0+sP1UjEETVwYcu5QJNCZe3sd+Hd
+ bygyBlFbfK+eSsyRyECxIVld6fedbVLTkllTLpXuqzJgWk8PtW0RzJXdAhSqWUth9SkwuS6Z9PJ
+ IKJzD5He1V+vGVAE3PxXUh63PRKIJ2lfQC9Lk1zcbSplv89R0reGdDupYteuLZUg/bsadjreBhu
+ 6oBL3Xb+wzU0gNo96c1g/ksII5ftR0pfVVruuVNtJ3XfaGco0OH+0m9f76ZGWz7Li6UH75bumpJ
+ fUaad/2D1yg+HvxxoIbVSJbjldAjCturkOzaP3qwOJz1OOiS9mTwCj71JkZmKfe7Dtgux24EMGO
+ BShjmj64NHxKdrOav/6dZXGA3N/tWatd5bZBzXFLmARSMAQpfzERXAGAbx6ZS4bIweJ5+G6lhDq
+ GiIky13nZL0Ux+QtAngLknD9VGMjq32FYkPqMk6cM6oVYrh114CLJx5bu6ueFv/kqZ49d137mwc
+ zTd8siD2Z3jle46HgF14FejGl6G2/Ypl37MutFTYhXu6ldt30UofePS2uE8kHPjrlyaOp4jHvPL
+ m6fgvVxJ56eIp6rgepDX8aTWYbhsaCcM9CcPfL62imLTXu8HszkS65xOZmy3YpMWdCzUi030I2+
+ h8pw0w01LsH0RcyFYSCv/Fu/Ubz1A
+X-Received: by 2002:a05:7301:4203:b0:36a:50f4:ed0d with SMTP id
+ 5a478bee46e88-36a50f4ef92mr20087021eec.25.1793804807290; 
+ Wed, 04 Nov 2026 07:06:47 -0800 (PST)
+Received: from localhost.localdomain ([2405:201:301c:f8cd:5040:8550:f5e4:709a])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-36db94376b1sm527287eec.10.2026.11.04.07.06.43
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Wed, 04 Nov 2026 07:06:46 -0800 (PST)
+From: Aryan Sinha <sinha.aryan03@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Aryan Sinha <sinha.aryan03@gmail.com>
+Subject: [PATCH 2/2] drm/amdgpu: use str_enable_disable() in
+ amdgpu_ualink_set_irq_state()
+Date: Wed,  4 Nov 2026 20:36:23 +0530
+Message-ID: <20261104150632.33843-2-sinha.aryan03@gmail.com>
+X-Mailer: git-send-email 2.46.0
+In-Reply-To: <20261104150632.33843-1-sinha.aryan03@gmail.com>
+References: <20261104150632.33843-1-sinha.aryan03@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA3PR12MB598757:EE_|CH1PR12MB9573:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9804e908-8767-4c45-3138-08df3b07f3f6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|7416014|376014|366016|921020|261028144727099003|261021123027099003|11063799006|56012099006|261009223027099003|261026121527099003|261102123227099003|261021121427099003|261022105027099003|261102130727099003|261026140227099003|10067099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info: +uJ+HHwvZUnZk03nVchQzPfxQTASgpeKGXPttUV61aqOys+0AN+u7mucvPgDKfKRXY/qF9NqBEcGGgohq9D8+QRc4spCs324mKtfI99xalt76i8QJbhOckmLmm8oFKFL1j0BH+RhTiq/UZ6tyqcjnttHp9IkKRRaft6Nbl1HhzSOiWJO+2YOGp3DfVa2mtsgm+FxV//nXuR0EhT7wDz5xyxCbESGVYGGFiBy74eCf78K/ZJdf/qWVudbxZb0meC+EZbuKSibhxyRg1UyML63FZ86n5/Wv/cFkjTbAEqaHwSzpRPOb9s6Cyp4d/CUsH0A4zD9MXKm5bPod5r+37U4PaVGPUxMLJXyj1tqINTVrfPJmK4VrHrnR3i7B2DRDs2o4ipDdjgmRgab058I0+ckekLi+aPoQ/dyEW2M5VDwsw7ZfAvFgxySbakdevB2/7Z4FRumyCLhqrHLdr3FKD51TNP+I5XEW5dz1nBVq9lje+Q4wbfmXXftr3Rzggsa6C4Z/RC3iacFAXot0ibTyhD3IdBeZz14gw8Th2xCwj45ZsRnv6RMisPNzOttFQV1HVevqSNx+yDUpvtDSWEiJxHwf6+hu0hh1LnOyKDvT1Uxq64AXlWVFzKtSdzz+eRmdHozHT7dqYGzKBGNKkebIX49zYELgEgf094v8RlxWwvhzQwAR5qnmxnas+eaSf23TTDRAe3lN2BvtQEMYOoMQAd76A==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA3PR12MB598757.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(7416014)(376014)(366016)(921020)(261028144727099003)(261021123027099003)(11063799006)(56012099006)(261009223027099003)(261026121527099003)(261102123227099003)(261021121427099003)(261022105027099003)(261102130727099003)(261026140227099003)(10067099003)(22082099003)(18002099003)(6133799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T2ZyT25DVVJVckVHTEVrSU5qTDdvUW9TQVgwVzVyaVRIQXU0RDZwSXlvZDRl?=
- =?utf-8?B?RDNFR2dEVFFFdUtCNDVyTEF5N1NqbGhGTEt2VlVGODFsN2RkNC8vWnpjdDZn?=
- =?utf-8?B?OGhyKytZTU8rbUhncVNDN0MxOXdZc0h5L1BMNEEvWTVKTmw1YTZtcC9nNmVG?=
- =?utf-8?B?Znl2b2lHQXcwMjdHeUFoK1c4VTk1UXZhczNsbjBnKzdTdXpsbWd3KzViMW5p?=
- =?utf-8?B?U2NMTXFJZnpROFlDNEpha2pDMUYzSTZOV0V3SGczUUhqY1RoR3BzcTZFamNN?=
- =?utf-8?B?S1N1Wm9GcEVmeHlod3VaSXNWeGtKMjRyaVBCM0U2cGozRGsxbDR3MWtZWlZH?=
- =?utf-8?B?WmtxTDJ2SUNmZmtJcUlhaktiSkZvTU5IOENHTWVlVFRzTlFuVFJ6SVFTa05F?=
- =?utf-8?B?YkNOYnQvalhmVzFJZjBZOTlkSGp3VTVYcGEzVjZNZFpOYnNjT2RvQ3pXR0o1?=
- =?utf-8?B?aTluWTliMUN5WHVoOFJpMU9qOUFSQk9sLzdaS1dMU0xrSm5YSVpWcU9MYmdu?=
- =?utf-8?B?YUNmMTM4N2JCcGhwSHRhQkJCTjBhQnY3d1ZvcHlmUy9lM3FYZXRvWk9Ea0hU?=
- =?utf-8?B?QmpTMlB0ck5VSlR3ZGFRNzBtZjg5Z1QyZ1NGakpUMGJZL1hySHFVWUR3M2Ir?=
- =?utf-8?B?TUlOY1ppQjZJdlFYOXJ1UDduS3k5WTZjUzJCK0RHM2V2TDR0OThVMCtpTjE5?=
- =?utf-8?B?MTFrdEFOU1RZNVF1K2Fqb0F6L3ZFa1NIRS9taE92Q1ljVEdJOUVwMFdaZHRj?=
- =?utf-8?B?ekRJOXdySEhIZS9DcGF5YndVNWxzcjRDN1c2R1hOTDRTUnVSdXJRZEhHenBs?=
- =?utf-8?B?bllVZ0pWSnBYNFdLSHhRcGRQNXBCUERvMkg4LzRmWVhnTlBkZEhJRXF1QU8x?=
- =?utf-8?B?cFFlL3YvdG1Pc3pDQkhuQXh0THk2Undvc3BaVzRVa2V6blFlVmRYVlRPZVp2?=
- =?utf-8?B?L2YyN1AybGd2aXIyeTFyQ3c3N2taVWl3QWY2Z0FYMGE4VWVZZmFNa1dmc0hG?=
- =?utf-8?B?czdYQVF1aWlNTlM5aXFEMGd6Q2VLK2tOcG1QRUtUaXovRllpZlNJMmxEMThr?=
- =?utf-8?B?TkV1ZWorenBJdVBpeFdaYWl5TWZFdnBMeFM2VnJmaUpxNXdJVGhwKzMyQXVj?=
- =?utf-8?B?WlBSOW9mYjJqS2U0NS9scWlFd0R1N29vR2V5YnJPaFVmRWJOb0tLcFRBSlpI?=
- =?utf-8?B?UzdOWmg5YVQxTStQckRZclJRbjZFbGV0RVd1KzJQQjFwamViOGp1d2UvRlhT?=
- =?utf-8?B?TWFOUGxmeVJXM3p5VUxOV01BMnRuUnl0SURqeitKZUw2M2d4Z3RadUZUc1VX?=
- =?utf-8?B?a256VEVkQllRMmd6VVYxMFllZU5mejZKWnE4S2hSL1Qxd2Z5M1B4dFFlMmxv?=
- =?utf-8?B?eVhoYzBvS3M3WFpEZWFOc0tUUDIzaHY1bERpcGZCbUlQY1FUTEhQMTFldlNO?=
- =?utf-8?B?dEs1clpzcTYvTlppbVg4NHE4WWhWSGw5VHJTUlBzMDRtUnRvQzYwWTVuUFM5?=
- =?utf-8?B?cmhSaWt6VXpnSzNWaGVYTnlQU3VrV2I0T3lzR0FHYU1za28xMGhEbCtwL0xu?=
- =?utf-8?B?NXQxeTUyMGdCc01FU2FVbWNadDVmcWJRM2swaEc0dGMwQUNZRVAzblo0QlVO?=
- =?utf-8?B?bG9LZ1dzK3k3S3RUd3F6clBidGJNeW1XdytMVHFQMEhhQlp0OGhFK3V5YVZw?=
- =?utf-8?B?WnhnRHoyeS9VaHZzcGwvOXdmN1dWajRMNldvc2FUREIrMHd1K3A2cE9Nalc0?=
- =?utf-8?B?T3N0RmVpUkQ0QVo3L0JONEgrdU1ReklLZkZvcE41WGRCWHlOOXV1R1llSEQx?=
- =?utf-8?B?MUhVem9lR3R4N0dGaHJiakhRK2FFR1NXemR5bFhRcW0wbkt5NnZIMkZ1YlVu?=
- =?utf-8?B?dWd2OFhuVEZ1c0s3a1lVY0E1c1BhVzR1RVZ0UUZXOFBoT1JzQTRmdXhMcGFH?=
- =?utf-8?B?SXFpcWRaZko1RTd1MHJ4bEJIcDJ3aTJsV1NsM1B2bGdPV1dhWWZJL2VKWC9y?=
- =?utf-8?B?L21IakJZMFRxK215aGtpL0ttaCt4Qkg3eUlLc0Q4dkhaSFAwVkdrVmZUb0dr?=
- =?utf-8?B?MzlrZHlzU1J4QVRUYklqSDJyK1NSSU56eVpONWRuQWk0WEw1K012REZnZHZz?=
- =?utf-8?B?cGlTbk9pOXRRRVZuTTRVK29tRzAzdDJGN2VSWExQdTZCSUUrOENkRkx1QmNS?=
- =?utf-8?B?RWNGY0JKME41bFhybG8xamRZZ2NFVkdud09oMEZhYTFPbnJWRFBacEtKMnhi?=
- =?utf-8?B?VXNFRFBjNzJ4MVRZb0h1c2NRYjNxZWVLM2EvWkd6MFRlQ1JJV2QxWDRGRzlP?=
- =?utf-8?B?STJNdU82QW5XT09GeGdhYVlVYk9lcHRzNTRyNkxrcVFpR05ST2xrdz09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9804e908-8767-4c45-3138-08df3b07f3f6
-X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB598757.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 06:42:25.4247 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hKL9BTc4E0zi6omfWECDpvgjj1LDr2bN+mT3ft269fAXXCzKGhtahDSkWSYOGR8GHZE8QK1/jKIedOlVX0e4TA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PR12MB9573
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 05 Nov 2026 13:45:29 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -159,84 +89,43 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Jason Gunthorpe <jgg@nvidia.com>
+Replace the open coded ternary with the helper from the string_choices.h.
+Same output.
 
-vmwgfx is creating a DMA-buf that cannot be attached by providing
-always fail functions for dma_buf_ops.
-
-The attach/detach callbacks are already optional inside DMA-buf, but
-dma_buf_export() is checking for non-null map/unmap callbacks.
-
-Instead use the mapping type interface and provide an always fail
-match_mapping(). Remove the unused SGT and attach/detach functions, they
-can never be called if match_mapping() fails.
-
-Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
-Signed-off-by: Alistair Popple <apopple@nvidia.com>
+Signed-off-by: Aryan Sinha <sinha.aryan03@gmail.com>
 ---
- drivers/gpu/drm/vmwgfx/vmwgfx_prime.c | 32 +++++---------------------------
- 1 file changed, 5 insertions(+), 27 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_prime.c b/drivers/gpu/drm/vmwgfx/vmwgfx_prime.c
-index 598b90ac7590..90e4342a378d 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_prime.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_prime.c
-@@ -35,41 +35,19 @@
- #include "vmwgfx_bo.h"
- #include "ttm_object.h"
- #include <linux/dma-buf.h>
-+#include <linux/dma-buf-mapping.h>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+index f875209e5..a307d165a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+@@ -34,6 +34,7 @@
+ #include <linux/math.h>
+ #include <linux/sysfs.h>
+ #include <linux/string.h>
++#include <linux/string_choices.h>
  
- /*
-- * DMA-BUF attach- and mapping methods. No need to implement
-- * these until we have other virtual devices use them.
-+ * No need to implement these until we have other virtual devices use them.
-  */
--
--static int vmw_prime_map_attach(struct dma_buf *dma_buf,
--				struct dma_buf_attachment *attach)
--{
--	return -ENOSYS;
--}
--
--static void vmw_prime_map_detach(struct dma_buf *dma_buf,
--				 struct dma_buf_attachment *attach)
--{
--}
--
--static struct sg_table *vmw_prime_map_dma_buf(struct dma_buf_attachment *attach,
--					      enum dma_data_direction dir)
--{
--	return ERR_PTR(-ENOSYS);
--}
--
--static void vmw_prime_unmap_dma_buf(struct dma_buf_attachment *attach,
--				    struct sg_table *sgb,
--				    enum dma_data_direction dir)
-+static int vmw_prime_match_mapping(struct dma_buf_match_args *args)
- {
-+	return -EOPNOTSUPP;
+ static void deactivate_accelerator(struct amdgpu_device *adev);
+ static int amdgpu_ualink_remote_interrupt(struct amdgpu_device *adev,
+@@ -6558,7 +6559,7 @@ static int amdgpu_ualink_set_irq_state(struct amdgpu_device *adev,
+ 	 * interrupt driver.
+ 	 */
+ 	dev_dbg(adev->dev, "ualink interrupt %s\n",
+-		state == AMDGPU_IRQ_STATE_ENABLE ? "enable" : "disable");
++		str_enable_disable(state == AMDGPU_IRQ_STATE_ENABLE));
+ 	return 0;
  }
  
- const struct dma_buf_ops vmw_prime_dmabuf_ops =  {
--	.attach = vmw_prime_map_attach,
--	.detach = vmw_prime_map_detach,
--	.map_dma_buf = vmw_prime_map_dma_buf,
--	.unmap_dma_buf = vmw_prime_unmap_dma_buf,
- 	.release = NULL,
-+	.match_mapping = vmw_prime_match_mapping,
- };
- 
- int vmw_prime_fd_to_handle(struct drm_device *dev,
-
 -- 
-2.54.0
+2.46.0
 
