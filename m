@@ -2,134 +2,121 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C33B606A326
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 15:26:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5611E606A326
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Nov 2026 15:31:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=acoNd9gA
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=5OmG+KC5
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C806410FD03;
-	Wed,  4 Nov 2026 15:26:30 +0000 (UTC)
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013000.outbound.protection.outlook.com
- [40.93.196.0])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1EFF10FCFB
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Nov 2026 15:26:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E251810FCFB;
+	Wed,  4 Nov 2026 15:31:35 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010006.outbound.protection.outlook.com [52.101.46.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 77D0210FCFB
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Nov 2026 15:31:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WxQ11sTaDNKcDmCEPNLvfFaV5QL9TScnqPSun79mHmY2q/kjtR9L7ekghJgMDa0ZdAVOPjAaZPamozYwJU1VkC5tzqfSm0XZEZM29PkKRRL+4TWBBlY5sYczU2echyLRpornqJK+kd11VFqDcjw16qH3rWdwJyfcl2shhOFIdCy548fljNjTf1fPCb/oA+6VB40AiptTujQWqx0Y+XvUBoFMOpihpP1d+4nDDYQo0MJIJBGBXByPoQT2At7kilfPUGBmBXGXcHwecrLWK4vt34fRv8WI4FVNOvX0aG2P4XavwNy/uevV6WG8eslJ8Er6TyTaOSzpk1k0Sr+j4+ECxw==
+ b=ALCSP59sqAJ3caggBnOdnpyeUmmC8jPeWRnoxaghVIs/XxiZJ6yAHnkVsN3rFEJN2To6Eggt02y/I3pqGNDWIWjwz2osyP/PfpceniWExlm40n706vMCiQ0KhsPZLUzxPB/e0oZ4HgtzEN7vjVTrkPXnJzET+8+eMnqhj02N+eOZId2pJcoBSCbp/eHtdDeJnXqPWtaJxU8rGfKj0zgHY7gZmONt8i3GkaPMrrazHN/5/NuQi9eGQUpMyIzkoObgR+qZlizgZcuYdCb3a2BvkbGOR+AOHyc3CtTN4rveDTio0U2aM+aoqrfGKS03Q6dbYM0OAASHDFVGEpuiGNPF/A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=v3MH+xHDF7hp82p/hVqeD9NCT3CQKoiJipcOVM9vM0k=;
- b=U9ojeUfQ6z+rR5KTmvITo3LoS9NDxOBNZt3b/dDvHuf8cydKvzR8kUbnq8TbteUkAplO1WgXM/EPACoq3H3DteFlcUze/olddyTDR6TxcTfpPj9Zy6vtm8SBibzKw6mnEmzAIGhAEoQ2e8bGyWGsUD03V9Ze2D1gontbPxchHBWm3TC0M9SwLGU5Swc0f2EG7CuaO3lLd0f0V/odahW3NXfDu+MGsDEyZKNxsBvwqiP9QM/Owh8gN5XT/Z13LVldMZkHdVsul6TAFLZIMQjC7RQvKmI4NIeZLiaTRYYv2W4+Ud3mZuwvJQUcqS5K+9hreBd7MwvJz5dg4xafQInF6g==
+ bh=UjMjh8voEw7n1mxkzDGL8VNnPqCfGv2XkpQF/8TRGsc=;
+ b=d37OD/tqL8SOQzzC5cB2/5BO3rY4mUxlqBuWsYyS3AkaGRgoVOVEQEjvU5qJ06LCG4ag8pl8nYaenLJs40+yL+9nIWjjqlESB84s5yZtDA3kyXavsXZNTdRI/VGlC74mHvgwvVz7Pm5mwJPIRhm2wmNxTYgW3/c4UmhDd1GzR1BMC/MN5YTTbtujuihYSY7lfGyttWHl7LTNDZ7gVPdLoBUA27KK8BMGPEy4e003/XSS1eZzWZqBCJRuDaq71PCTdqO9KEgopBBblsDQ8KUGQ0iHkmxKy/iM2loFiSuoKKXTmgxdxLeLCSjBeGpom7mTPbAY6Ys+/B5NcZ9YNrCp7A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=v3MH+xHDF7hp82p/hVqeD9NCT3CQKoiJipcOVM9vM0k=;
- b=acoNd9gAaJo8b+DekQe+mnn4zLQkpOHL2ADLmBPkp2KZPKffqEQjZaDf1zx7ttbtyj6Y6SAzsZzb8fe8s+rjB06GVWkSGPaYaChi6MYO+sCIKlN6nOOSXd0QVkzKJY9G/vItWNROCXPNsPdwC/G2cYzh5AdoQUKqFytElxuspQ4=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::607) by DS0PR12MB445413.namprd12.prod.outlook.com
- (2603:10b6:8:3de::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Wed, 4 Nov
- 2026 15:26:20 +0000
-Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- ([fe80::67a7:9feb:71ef:964a]) by BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- ([fe80::67a7:9feb:71ef:964a%8]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
- 15:26:20 +0000
-Content-Type: multipart/alternative;
- boundary="------------Xus2phtD0gj0DO2vEGDybvWT"
-Message-ID: <04ddca6d-3880-48e0-a64e-a4bbde32e67e@amd.com>
-Date: Wed, 4 Nov 2026 10:26:17 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] drm/amdkfd: Add support for discontiguous and
- CPU-less NUMA topologies
-To: Dhruv Bhogaonkar <dhruvb@linux.ibm.com>, Dhruv B <dhruv.b@linux.ibm.com>, 
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Alex Deucher <alexdeucher@gmail.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Philip Yang <yangp@amd.com>
-Cc: David.YatSin@amd.com, Kent.Russell@amd.com,
- Ritesh Harjani <ritesh.list@gmail.com>,
- Vaidyanathan Srinivasan <svaidy@linux.ibm.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- donettom@linux.ibm.com
-References: <20261030083304.9767-1-dhruv.b@linux.ibm.com>
- <20261030083304.9767-3-dhruv.b@linux.ibm.com>
- <70018014-d952-4155-aa36-cf9b39ba8aea@amd.com>
- <1c7751d3-ca7d-4a7b-91fa-87762af60095@linux.ibm.com>
+ bh=UjMjh8voEw7n1mxkzDGL8VNnPqCfGv2XkpQF/8TRGsc=;
+ b=5OmG+KC5TKjkM3UdWnr7keSMtg2ba6yUHdMOhxl5y76oJ4rS2WHrBb6bqaz0Vsr8+DiM8kKb1daEglz195numEvT4YkbwFvDNaxdDP8k+Iu3usJpmrxXFWHi6lvo4SrGE5stjrwDHxGiL+3OF0W1u1hdNgSK+Y3p31GZ/hJ6bFw=
+Received: from SA3PR12MB172791.namprd12.prod.outlook.com
+ (2603:10b6:806:589::8) by PH8PR12MB7328.namprd12.prod.outlook.com
+ (2603:10b6:510:214::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 4 Nov 2026
+ 15:31:22 +0000
+Received: from SA3PR12MB172791.namprd12.prod.outlook.com
+ ([fe80::8c42:dd95:4c6d:4f9d]) by SA3PR12MB172791.namprd12.prod.outlook.com
+ ([fe80::8c42:dd95:4c6d:4f9d%5]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
+ 15:31:22 +0000
+From: "Chen, Michael" <Michael.Chen@amd.com>
+To: "Sierra Guiza, Alejandro (Alex)" <Alex.Sierra@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Kuehling, Felix" <Felix.Kuehling@amd.com>, "Zhang, Hawking"
+ <Hawking.Zhang@amd.com>, "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Joshi, Mukul"
+ <Mukul.Joshi@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: reinitialize MES KIQ after partition switch
+Thread-Topic: [PATCH] drm/amdgpu: reinitialize MES KIQ after partition switch
+Thread-Index: AQHdZ+TlwJZ499LvdE2/LddqPgmt6bceEwmr
+Date: Wed, 4 Nov 2026 15:31:22 +0000
+Message-ID: <SA3PR12MB172791CF92846E9AD5E2B16BC894682@SA3PR12MB172791.namprd12.prod.outlook.com>
+References: <20261029203412.3224512-1-alex.sierra@amd.com>
+In-Reply-To: <20261029203412.3224512-1-alex.sierra@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: "Kuehling, Felix" <felix.kuehling@amd.com>
-In-Reply-To: <1c7751d3-ca7d-4a7b-91fa-87762af60095@linux.ibm.com>
-X-ClientProxiedBy: YQZPR01CA0016.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:85::15) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::607)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-11-04T15:31:21.774Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
+ General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=1;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard; 
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SA3PR12MB172791:EE_|PH8PR12MB7328:EE_
+x-ms-office365-filtering-correlation-id: 5055e3d5-d94c-4082-deac-08df3a88ae63
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|1800799024|366016|23010399003|38070700021|261009223027099003|11063799006|56012099006|261102123227099003|261022105027099003|261026140227099003|261026121527099003|261021121427099003|261022075727099003|261028144727099003|10067099003|18002099003|22082099003|8096899003;
+x-microsoft-antispam-message-info: JzAIh4Fh1U2k8AsW3A32dBgeg0n38dXtMv/htIw+QaEGjZRYTFE9fywlHfIk2jcwoZIWRrUN1bpufXSy1Ie9biBDHLSL5gxqwaFspjNH5ZzHd+vEvnt+8fPczPI4gRGrJkU7q+wuywnvmHlDfV1vgznY1wsAkhcWlQ706XsLLfHViCpJ3/aDFWUyY6ISD5BEqLbNM5Z8mrBhtpUaCNQhIUGHuQVbQBA5ZD2iAssB1PyT2q1YMorLE79ROtl+D1I3jrRyhboyCwkD96Bv7WU4J/9/U3iDqyjrJrZNlcLElHT7+pvDYvQLQqAjErvHxAMYMfYAlg290W9DlqRZkOUTxOnrgib3HCceZJ6kKgtlFYl/hgHIqrYtLa5Bz7Psa5GoTb97p7xmZqrGrHlSbEhIhiGJ1ffzvm7yFBNvOR3mGeJKQwy+Ca3wbqpkTJxfDQn4fee30i76Xx+JVokXHJMBZ+pbx0v9Z/YYke0UzVoS//jQY68+8fhjrFo+O8eLleXJppTtlTvzLXPOrIvN/iYlRYVM7/Q90KjIJvyajcqUMuxcmch05CSXN/UK7CL//Eip0qNdCX+l6BCzO/WJ0GbtEw+dK/R6/B1GTfZtAlv7eMo34iUG7FVhjx+6ZvKn2ZQIZYnvv077F3ap3PyU29I3iuOpf/bgnKTTgfy+Jc5joYwM3jf5stgOQ7MhcOggtS8ViPZAixQk9wdH8laOnli6fs7d1iqtpvZMoS7XsOo7S5g=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA3PR12MB172791.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(38070700021)(261009223027099003)(11063799006)(56012099006)(261102123227099003)(261022105027099003)(261026140227099003)(261026121527099003)(261021121427099003)(261022075727099003)(261028144727099003)(10067099003)(18002099003)(22082099003)(8096899003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?bGymukp6Sj1Uc7AFQzzMBIcwHcjY70PdLj2+8VN/Zr3ZNLjqolSgi62dG6DY?=
+ =?us-ascii?Q?seTgRa6CYHO8NCHgrhSWUBqRIVo0KrYsaOi35+uI77N0QlFc99k0/e8goOT8?=
+ =?us-ascii?Q?ZP3HIOm0vR2T47/TKibgp0pjDS5BJ1ZKllaBGOStQRoIRCY/RTEKwcRV2ZMI?=
+ =?us-ascii?Q?tQnn9AzsZnq3HUtIQn9A1yH7w6nIT4e+FpqrTf8z18c9FQp86WXKlxR5vA2M?=
+ =?us-ascii?Q?GoxaY7TOke0yCltiMlYYancHNyd+5mpZzfMEYVDqh3IxWs37QAOeb2hK5e97?=
+ =?us-ascii?Q?Wba5vdP9cHdi6cF1WFxUSv/Py2b6gbpKTJRA6jgqkwDAoF8LFEjLc5chcLC9?=
+ =?us-ascii?Q?8AT2M9wKydCyR91tbRcztK0Yi9gXeegtSay3iJqhFMCxje8JKP3U40m8pBHL?=
+ =?us-ascii?Q?4iw1bWRjyGD29NzzktKaDWJn3h48JzooW8VTM8HuYOmbUkD281uTinzoTvbo?=
+ =?us-ascii?Q?Bvd6AGzwHeKgKlnh/6SZ/7x3hTPdZsTfla4dRfxH64o/TdIK/apjLnLEZwRG?=
+ =?us-ascii?Q?2DgxIV6zfqNCUXpL4eyBDmkuMrUjdX0wEAU6NUWEkT3qPbN3M/TbDDRBM619?=
+ =?us-ascii?Q?SW+YCeRQgSBdY5HU1WFxGjl7xOWyM1xnwS+4t6/TsAo5ZSemG3Ml1KjjHOy2?=
+ =?us-ascii?Q?kZGbUCOTZyaNThnCJEn/SAr+WootnHQz0gyLHGl8YJScv7otd/fSjHvBmOSi?=
+ =?us-ascii?Q?tJQQnQryq78oBRQrZtWqCzDeFo+rQ1hUOnHf8RsJCyZRkOw3wM8uEhev/55+?=
+ =?us-ascii?Q?CopQZhVyrY3i0J2E8lO6yd8LoRygUfm8+5jYL+rC+HRDuk3UvK0sWqFXM3av?=
+ =?us-ascii?Q?USVqqL7/iShipGzKX2x/j3tq41bt3Ai+ijjFjPqSDQzgzLTufDYFheaIYpeW?=
+ =?us-ascii?Q?48JLeWj5tnuLLRSyTudpweGRgiZsQdkBeRrn+v4+8V1bLlmM+hOK0rA9ppt1?=
+ =?us-ascii?Q?btWNAG0eMZvJ3M4NofweNCjUwxYev5VhLFJ5lqroGLY10EoqVw1vHnN+F7NH?=
+ =?us-ascii?Q?th5pGefv+O272xPfLazwgMnGYuUiBPv86hrVIB5TJXwVqvxyD+FJAUDOfOvW?=
+ =?us-ascii?Q?thGgx/A8LShZKAN/YhX2IfWNGmBuMtTRHbYNdbEoyPrxOShyu2IIsJozrZ/x?=
+ =?us-ascii?Q?MLtlJRwi1R7umye3smZBoJiY4+kKPBF5n6+PrrA8GzRy7eB4/Qlq3V+Rtd9p?=
+ =?us-ascii?Q?6q9tSzQzWCs8a7oHeDsZSnFYdAXGp3uRq73Nc+Pce35w10rXCEwE5wXuCB3w?=
+ =?us-ascii?Q?sB2ZLF3vceln9RVM+bKe5d0yEHZsn8R7tedgXzHs/ZsC7Y/GtmOvWtZbgYaf?=
+ =?us-ascii?Q?H1KE7xS9G/aRrjLhpN2QZxu0Co26zdQiIG+IC7ifNuyo/SNkmU3tZf9HSEi0?=
+ =?us-ascii?Q?GzX64Qp4AzJhaj4TK3gO++LA92Lf4oEJXCK19+cNWIzD16iwMPMBDMHGhMFh?=
+ =?us-ascii?Q?NW2pYC2SraXDeGWn7F6YwsN9Yap5B+rp1XTYvgi3/qq5FPMZFr2DocJLYxzV?=
+ =?us-ascii?Q?l2edeksncZV56WuAidTFKfOjq1rQ+OzOrDbbsyPNSRpq/wEfmElj/4pZqBCe?=
+ =?us-ascii?Q?R7V4oweXmbhAOyvGtqIT9XRFbwqMkY9Xe125nU/58YMyzcy596XHIXBo76x0?=
+ =?us-ascii?Q?KRM6pXhq01qSI5hKNdglc5HX9FAkMbeuhuxZwevO4Pt9Dd1ohgdiKQ8VkyII?=
+ =?us-ascii?Q?irKAdm3hNnSIhOOOUVdv/kiNXzfqKu+C5HgMWOakeR7va4rt?=
+Content-Type: multipart/alternative;
+ boundary="_000_SA3PR12MB172791CF92846E9AD5E2B16BC894682SA3PR12MB172791_"
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PPF5F16C5C9C:EE_|DS0PR12MB445413:EE_
-X-MS-Office365-Filtering-Correlation-Id: 160e297b-b811-4327-762f-08df3a87f9fe
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|23010399003|376014|4143699003|5023799004|11063799006|56012099006|261019141927099003|261021121427099003|261019150727099003|261021123027099003|261019132127099003|261019143827099003|261009223027099003|261102123227099003|261026121527099003|261022105027099003|261022075727099003|261022115727099003|261028144727099003|261026140227099003|10067099003|22082099003|18002099003|6133799003|8096899003;
-X-Microsoft-Antispam-Message-Info: epIgFbE4pqYr6HtWVpKeaxZ+bt5Zd53i+3XM6iMKDS5nOPA8mnh9X4+dxOw+LKTuGsHEawA0KRBcPvCJ9i1PJ0OgzAcC/BW+KpgUDY/MxpBZ8JRIaF0N7xC/fUzY3HTvkI63uzaLqroUgoqR54RQfYp9iecfrjOIXHif0RnlsJyNvTf8FPWKpTgpJRcaPH61LpMnL6r9cey444qQgBHohvsWutUGioGsCZ75SSGvoxqbXff0loYo2ZOh9w/DqWz5H5C10q40eVckJ1KPKcaVEJ7y8+BBqDRo1vdRF0E85hezA+QqfsY9lMr5W/GmAj1Fv7+r5EoZDgvFwT+mQCoqzhhrikg9m69GBYxLsxY6dWqD3Spqj4L9WX0MbPPtyhUie2n/F8e5ZUw9esl/MawIJSykBmCLB3ug7l3R7Ukm+ccMv5zLxu6G7/OPfqijnO8WTVNq7xbH02GLjPn/QmSv2X8dilxqrCvF2gf7B8EeSPGzYznUWPqIr7hl4I9bX4EMqlKZUEvjyFF6Whigbv+eRqzxwkoXGAkWyyxrEsbBzWGJHhjZWCzVqsZAFf/HYsbt08RG6VYxZR3reBZEwamVvTeWZ+zGjfD4xyYefy87hvODhwmIVr65OBYFKfPYmFF2E/RXo5PJWp78gDd8ZB7eIDDNR/kKQHR3B/xc6pcrBo8=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN7PPF5F16C5C9C.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(4143699003)(5023799004)(11063799006)(56012099006)(261019141927099003)(261021121427099003)(261019150727099003)(261021123027099003)(261019132127099003)(261019143827099003)(261009223027099003)(261102123227099003)(261026121527099003)(261022105027099003)(261022075727099003)(261022115727099003)(261028144727099003)(261026140227099003)(10067099003)(22082099003)(18002099003)(6133799003)(8096899003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WjBoYUZ4d0t3NVB3U0IrL0hsWFJra08xMm9SenZuZjNlcVB6QWFyT201dlho?=
- =?utf-8?B?MjBWcmUwSGpYRVpTOVdGZ3NSSjRNZ25KK1dia2w3d05kWGhFT1oySCtJNllq?=
- =?utf-8?B?VUJGTExwdDlwVzM0WGM3ZkpVWExGM0JBY3VUQVpJdG5YRFVNbWJ6SjZCcUpk?=
- =?utf-8?B?N09HUWJwMEJKaG1jTDRnKzRBdFN0VWFqQU90bUpuaEo2VThqU2MvNG9SaWh2?=
- =?utf-8?B?U281MFZoeUNqN1l1Q0h2OHJocys3Rkh2Wm1rWG4wblQwbDhONWtGckxoVm9V?=
- =?utf-8?B?aUtFLzg2TzZld1d0QXRjVDYwbldaUHBEelhRODFDZmhxTGduMkVQNzlLVlFB?=
- =?utf-8?B?WTBjeXlSVnY1ZTZJOEN5Qy9xcUlwQldSTDhCUVpJSlpMdjRaWWdFOWVmRm5t?=
- =?utf-8?B?Nmw2Tm5LWDFpSjhKcjR6YkU4anFWb0orNjJqSEhLTDdqaUtyalFtTXpHZ1ZR?=
- =?utf-8?B?Nk5ERS9DdUJ3VzlnS0Fza1R6OFl0ODZ6WGFlMTViTEtOSEphd1FoUlN6WjQy?=
- =?utf-8?B?dFByaHE0L2ZiY2kzc0d3cHBqdTJ3dUt6K04yaEJMMDRWN0dPNGVvdlpoTE5R?=
- =?utf-8?B?RmVLOHdOeitrcGU1TE8vSk9IQWpMK1FyZTJTK0h4Y2ZibUlrTUVrY2ZuWFpL?=
- =?utf-8?B?S05FN3JaeHFRaUZ1c1FYZi9MY3B1cjhVbkZzaTNMTEhTdGliYlZvaHRwem1O?=
- =?utf-8?B?ZEdoMzJLSVRhN0lEZzFhd09jWndXK2J5RnhldERZMHdGU0MvMmUyRUk2YTZC?=
- =?utf-8?B?QkxOT0JvQVJNTDJ1WjEvdlJpVmFNbjkybnl1ekZyVmRncUEvZUY1Vm5hMGFr?=
- =?utf-8?B?QTRyak1vVk02eUFYVVpaVHFWbDlicU1BMTNQNlJ4SnRMMmdCcnB6a3cyZWJ0?=
- =?utf-8?B?YnRPSy9rQldYOWlTaHBaVUlXUzVIeERFNzdRQ3FJS3dlODdESmVmWjN5TVVH?=
- =?utf-8?B?dWQvMGJZKzJoYW9TUG5MZTI2ajk4bTBDWmxjb2ltRmxRVDlvR1NrY2R0MXhN?=
- =?utf-8?B?OVRUWnlwSUo0S0R4U1pRWEZlVWR2WlNxUjkyVWRBSHZIbHMvR05ZTjhpOUpk?=
- =?utf-8?B?M0RNUkJUNGY3ZHU1UDZmSyt3VFljY3dqN3dIeHhreForRHNGL2ZjTC95THMr?=
- =?utf-8?B?KzF2bGJFZkpvRnNZTW1XRjF4c0JsaXpJVUNUa1pZYkQ2LzRCZDZ2b2Z6L1NZ?=
- =?utf-8?B?bnVGZ3Exc2JjbzBJYUhURmZTRlFPTUJRdFM0dUVnSWtQelRURUpDQkJHODg3?=
- =?utf-8?B?amJDY1RZNzlqaDN1RzhFaUlHWTZnQ2ZGMDBQRk5YaXNJNW1PKzNHa2hsdTRv?=
- =?utf-8?B?L1htazl1RHAwTUtvcVRyZ2l6RGFtRVFOaXY2THlXSXhlWEN5UjlnZDNzQkww?=
- =?utf-8?B?TTJmczA3a3F5Y1pHcXBQckxiY3lxc0Z5K3YrUkR6Y3NoRnVYVzRGNUpzaEV1?=
- =?utf-8?B?YXRybnE0cjZqWWJPVXhoUWMzbk5OdENXT0ZIVTVEWjVhMXVCZDArRzM2TDRv?=
- =?utf-8?B?cFZjZUVtNFFUaDYvWTI3SVdQd3BSUHZvWGt4YkJ2K3FUWnhWSGYrdGJWVVMr?=
- =?utf-8?B?WElnQStKRjZUb0s1aXNoanVzVVI5dW5ycmtxQnB6MURBbnhPaFpTaFBoMGJj?=
- =?utf-8?B?NGEzaElKU3NyWE10UzE1VGcveXZ1N3NFaUdJRy81ajNwSDZEUEJvOTl1R293?=
- =?utf-8?B?MWkzNkcxdXhhWjF3ZXFBTlBqR2hLTFp3UDBxTFUwV2FHM0UrQjN4QUVtZXFj?=
- =?utf-8?B?STlLR2RpV0VMdVAvRFUrWjJsOFA5T1JKcjdOYms2NXcyYlgwSksvM1VoQU5U?=
- =?utf-8?B?c0tCdUpHWFNwVVhLekZRRURtdHNhM0FVMlRyTHQ3R3Rta3RocFdYYTFOSHhP?=
- =?utf-8?B?ZTFMRVJ0RUpQckJ4ZnprSzV4aEpjZHdFdXFtNmRzbDVxclNOM243dXQzT3Qz?=
- =?utf-8?B?N1U0ZWpwbXh4QkRGOFcxSzdKdlRCZC80OVZBaUdHc253Y1NPaE4vaDFBOE9m?=
- =?utf-8?B?V0tUa0Y0eDhFRzVaWlRtQWZhNTQwa2pRWkt2b1c0RmN0QThMTFM1ZDlWUnJK?=
- =?utf-8?B?M3cxekpvamwvNlBTWFpFR1d2WVF4aGttTllYMmxBY2U2dzd0NU00UzhOV1BU?=
- =?utf-8?B?SjJ0Q0JUTWNCUFZTakxZZ3lxTzZzOGR3SXF6WCtVcm1LWmJ0dEhuSWVOcjQw?=
- =?utf-8?B?N3VJUmFDWjh6TUhHS01TNFBSOGZ4RXB3b3hob0xneHlRYURSNVlrQU0wSHhQ?=
- =?utf-8?B?SzBNU201QUxmb1hVVDFXUVpxNHV1a3VwaUdMV0NRY1ZlcmFrK0tkb3VjTnZY?=
- =?utf-8?B?RGdGWEVzU1lzQzd2ZENTQTJwYXZiZzZqSG9CTHdHaWk5c29TZ3dNZz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 160e297b-b811-4327-762f-08df3a87f9fe
-X-MS-Exchange-CrossTenant-AuthSource: BN7PPF5F16C5C9C.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 15:26:20.0916 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bxAGG1xwIiO4SbDjYuuxwLK+2DJes1g4waQY+2lM+bHg2P2yIq7S9GrjPP8boIP7aPi17ER/HZioKJICOJH+yA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB445413
+X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB172791.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5055e3d5-d94c-4082-deac-08df3a88ae63
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Nov 2026 15:31:22.5145 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: hPcR6uMGUGfReCpKTX+ceeVf5oV6Ey9EIxqzE2aIgY6ZhaR2pVqqCjQVs6jAijWcK3g8E+KualVLhrmqU4xH5g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7328
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,596 +127,494 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-9.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	HTML_FONT_LOW_CONTRAST,HTML_MESSAGE,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=4.0.1
+	HTML_MESSAGE,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---------------Xus2phtD0gj0DO2vEGDybvWT
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+--_000_SA3PR12MB172791CF92846E9AD5E2B16BC894682SA3PR12MB172791_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On 2026-11-04 08:41, Dhruv Bhogaonkar wrote:
->
->
-> On 03/11/26 05:55, Felix Kuehling wrote:
->> On 2026-10-30 04: 33, Dhruv B wrote: On systems with discontiguous 
->> NUMA node IDs, the GPU driver fails to load with the following 
->> errors: [ 5. 609767] amdgpu 0038: 12: 00. 0: Error parsing VCRAT [ 
->> 5. 609781] kfd kfd: Error adding device to topology
->> On 2026-10-30 04:33, Dhruv B wrote:
->>> On systems with discontiguous NUMA node IDs, the GPU driver fails to
->>> load with the following errors:
->>>
->>> [    5.609767] amdgpu 0038:12:00.0: Error parsing VCRAT
->>> [    5.609781] kfd kfd: Error adding device to topology
->>> [    5.609848] kfd kfd: Error initializing KFD node
->>>
->>> In the current KFD code, proximity domains are created contiguously
->>> when generating the VCRAT. With discontiguous NUMA node IDs, this
->>> creates a mismatch between the proximity domain ID and the NUMA node ID.
->>> For example, if NUMA nodes 0, 2 and 3 are online, the current code
->>> assigns proximity domains 0, 1 and 2 to these nodes respectively,
->>> instead of domains 0, 2 and 3.
->>>
->>> The KFD topology uses the NUMA node and proximity domain information to
->>> create topology devices representing the CPU and memory resources
->>> associated with each NUMA node. This topology is exposed to userspace
->>> through sysfs, where the NUMA node and proximity domain information are
->>> used to identify the topology devices. The mismatch between the NUMA
->>> node ID and proximity domain therefore results in an inconsistent KFD
->>> topology and causes topology parsing to fail.
->>>
->>> Make the proximity domain ID correspond directly to the NUMA node ID by
->>> iterating through the complete NUMA node ID range up to the last online
->>> node. Account for every node ID when assigning proximity domains, while
->>> skipping resource entry creation for offline nodes. This preserves the
->>> NUMA-node-to-proximity-domain mapping and allows the KFD topology and
->>> its sysfs representation to correctly reflect discontiguous NUMA
->>> topologies.
->>>
->>> A NUMA node may also be CPU-less, memory-less, or both. Only create a
->>> Compute Unit CRAT entry if the node has CPUs, and only create a Memory
->>> CRAT entry if the node has memory.
->>>
->>> Additionally, update kfd_parse_subtype_mem() to use simd_count instead
->>> of cpu_cores_count to distinguish host nodes from GPU nodes. This ensures
->>> that memory on CPU-less host NUMA nodes is correctly classified as
->>> system memory (HSA_MEM_HEAP_TYPE_SYSTEM) rather than private GPU
->>> framebuffer memory.
->>>
->>> The placeholder domains created for offline node IDs have no IO links,
->>> so skip offline and CPU-less nodes when building the indirect GPU to CPU
->>> links.
->>>
->>> Co-developed-by: Donet Tom<donettom@linux.ibm.com>
->>> Signed-off-by: Donet Tom<donettom@linux.ibm.com>
->>> Signed-off-by: Dhruv B<dhruv.b@linux.ibm.com>
->>> ---
->>>   drivers/gpu/drm/amd/amdkfd/kfd_crat.c     | 59 +++++++++++++----------
->>>   drivers/gpu/drm/amd/amdkfd/kfd_topology.c |  3 ++
->>>   2 files changed, 36 insertions(+), 26 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
->>> index 99b0c7f825fe..bebbc6715b2f 100644
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
->>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
->>> @@ -1103,8 +1103,10 @@ static int kfd_parse_subtype_mem(struct crat_subtype_memory *mem,
->>>   			mem->proximity_domain);
->>>   	list_for_each_entry(dev, device_list, list) {
->>>   		if (mem->proximity_domain == dev->proximity_domain) {
->>> -			/* We're on GPU node */
->>> -			if (dev->node_props.cpu_cores_count == 0) {
->>> +			if (dev->node_props.simd_count == 0) {
->>> +				heap_type = HSA_MEM_HEAP_TYPE_SYSTEM;
->>> +			} else {
->>> +				/* We're on GPU node */
->>>   				/* APU */
->>>   				if (mem->visibility_type == 0)
->>>   					heap_type =
->>> @@ -1112,8 +1114,7 @@ static int kfd_parse_subtype_mem(struct crat_subtype_memory *mem,
->>>   				/* dGPU */
->>>   				else
->>>   					heap_type = mem->visibility_type;
->>> -			} else
->>> -				heap_type = HSA_MEM_HEAP_TYPE_SYSTEM;
->>> +			}
->>>   
->>>   			if (mem->flags & CRAT_MEM_FLAGS_HOT_PLUGGABLE)
->>>   				flags |= HSA_MEM_FLAGS_HOT_PLUGGABLE;
->>> @@ -1899,7 +1900,7 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_image, size_t *size)
->>>   	acpi_status status;
->>>   	struct crat_subtype_generic *sub_type_hdr;
->>>   	int avail_size = *size;
->>> -	int numa_node_id;
->>> +	int numa_node_id, last_node;
->>>   #if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
->>>   	uint32_t entries = 0;
->>>   #endif
->>> @@ -1935,34 +1936,41 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_image, size_t *size)
->>>   	crat_table->num_domains = 0;
->>>   
->>>   	sub_type_hdr = (struct crat_subtype_generic *)(crat_table+1);
->>> +	last_node = find_last_bit(node_online_map.bits, MAX_NUMNODES);
->>>   
->>> -	for_each_online_node(numa_node_id) {
->>> -		if (kfd_numa_node_to_apic_id(numa_node_id) == -1)
->>> +	for (numa_node_id = 0; numa_node_id <= last_node; numa_node_id++) {
->>> +		if (!node_online(numa_node_id)) {
->>> +			crat_table->num_domains++;
->>>   			continue;
->>> +		}
->>>   
->>>   		/* Fill in Subtype: Compute Unit */
->>> -		ret = kfd_fill_cu_for_cpu(numa_node_id, &avail_size,
->>> -			crat_table->num_domains,
->>> -			(struct crat_subtype_computeunit *)sub_type_hdr);
->>> -		if (ret < 0)
->>> -			return ret;
->>> -		crat_table->length += sub_type_hdr->length;
->>> -		crat_table->total_entries++;
->>> +		if (kfd_numa_node_to_apic_id(numa_node_id) != -1) {
->>> +			ret = kfd_fill_cu_for_cpu(numa_node_id, &avail_size,
->>> +						  crat_table->num_domains,
->>> +						  (struct crat_subtype_computeunit *)sub_type_hdr);
->>> +			if (ret < 0)
->>> +				return ret;
->>> +			crat_table->length += sub_type_hdr->length;
->>> +			crat_table->total_entries++;
->>>   
->>> -		sub_type_hdr = (typeof(sub_type_hdr))((char *)sub_type_hdr +
->>> -			sub_type_hdr->length);
->>> +			sub_type_hdr = (typeof(sub_type_hdr))((char *)sub_type_hdr +
->>> +				sub_type_hdr->length);
->>> +		}
->>>   
->>>   		/* Fill in Subtype: Memory */
->>> -		ret = kfd_fill_mem_info_for_cpu(numa_node_id, &avail_size,
->>> -			crat_table->num_domains,
->>> -			(struct crat_subtype_memory *)sub_type_hdr);
->>> -		if (ret < 0)
->>> -			return ret;
->>> -		crat_table->length += sub_type_hdr->length;
->>> -		crat_table->total_entries++;
->>> +		if (node_state(numa_node_id, N_MEMORY)) {
->>> +			ret = kfd_fill_mem_info_for_cpu(numa_node_id, &avail_size,
->>> +							crat_table->num_domains,
->>> +							(struct crat_subtype_memory *)sub_type_hdr);
->>> +			if (ret < 0)
->>> +				return ret;
->>> +			crat_table->length += sub_type_hdr->length;
->>> +			crat_table->total_entries++;
->>>   
->>> -		sub_type_hdr = (typeof(sub_type_hdr))((char *)sub_type_hdr +
->>> -			sub_type_hdr->length);
->>> +			sub_type_hdr = (typeof(sub_type_hdr))((char *)sub_type_hdr +
->>> +				sub_type_hdr->length);
->>> +		}
->>>   
->>>   		/* Fill in Subtype: IO Link */
->>>   #if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
->>> @@ -1982,7 +1990,6 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_image, size_t *size)
->>>   #else
->>>   		pr_info("IO link not available for non x86 platforms\n");
->>>   #endif
->>> -
->>>   		crat_table->num_domains++;
->>>   	}
->>>   
->>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
->>> index b38d12f3da84..d2fbe73e57ef 100644
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
->>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
->>> @@ -1419,6 +1419,9 @@ static int kfd_create_indirect_link_prop(struct kfd_topology_device *kdev, int g
->>>   				    struct kfd_iolink_properties, list);
->>>   
->>>   	for (i = 0; i < num_cpu; i++) {
->>> +		if (!node_online(i) || !node_state(i, N_CPU))
->>
->> The N_CPU part skips indirect links through CPU-less NUMA nodes. Is 
->> that correct? For links from the GPU to that memory, I think we need 
->> the indirect links so the GPU knows that it can access such memory.
->>
->> Maybe further down we could enhance the large-bar condition to only 
->> create indirect CPU->GPU links if that node actually has a CPU:
->>
->>                  /* for small Bar or CPU-less NUMA nodes, no CPU --> GPU in-direct links */
->>                  if (kfd_dev_is_large_bar(kdev->gpu) && node_state(i, N_CPU)) {
->> 			...
->
->
-> Hi Felix,
->
-> Thanks a lot for the reply and the suggestion!
->
-> Would the following change address your concern? I've removed the
-> |N_CPU|check from the loop condition and moved it to the large-BAR
-> check so that we retain the indirect links for CPU-less NUMA nodes
-> while avoiding CPU → GPU indirect links for those nodes.
+AMD General
 
-Yes, this look good. I have one question inline.
+Reviewed-by: Michael Chen <michael.chen@amd.com>
+________________________________
+From: Sierra Guiza, Alejandro (Alex) <Alex.Sierra@amd.com>
+Sent: Thursday, October 29, 2026 4:34 PM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Kuehling, Felix <Felix.Kuehling@amd.com>; Zhang, Hawking <Hawking.Zhang=
+@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>; Joshi, Mukul <Mukul.Joshi@amd.=
+com>; Chen, Michael <Michael.Chen@amd.com>; Sierra Guiza, Alejandro (Alex) =
+<Alex.Sierra@amd.com>
+Subject: [PATCH] drm/amdgpu: reinitialize MES KIQ after partition switch
 
+A runtime compute partition switch updates the XCP mode and IMU
+partition without passing through MES hw init. The MES KIQ and
+scheduler therefore remain programmed for the previous partition,
+including its cooperative mode.
 
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c 
-> b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> index b38d12f3da84..8f908323d74b 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> @@ -1419,6 +1419,9 @@ static int kfd_create_indirect_link_prop(struct 
-> kfd_topology_device *kdev, int g
->                      struct kfd_iolink_properties, list);
->
->      for (i = 0; i < num_cpu; i++) {
-> +        if (!node_online(i))
-> +            continue;
-> +
->          /* CPU <--> GPU */
->          if (gpu_link->node_to == i)
->              continue;
-> @@ -1437,7 +1440,7 @@ static int kfd_create_indirect_link_prop(struct 
-> kfd_topology_device *kdev, int g
->          }
->
->          if (!cpu_link)
-> -            return -ENOMEM;
-> +            continue;
-
-I think I'm fine with this change. But the fact that you need this tells 
-me that you have some weird topology where the CPUs (and CPU-less 
-memory-only) NUMA nodes aren't fully connected. How does that happen? 
-Does that point at some problem elsewhere?
-
-Regards,
-   Felix
-
-
->
->          /* CPU <--> CPU <--> GPU, GPU node*/
->          props = kfd_alloc_struct(props);
-> @@ -1459,8 +1462,8 @@ static int kfd_create_indirect_link_prop(struct 
-> kfd_topology_device *kdev, int g
->          if (ret < 0)
->              return ret;
->
-> -        /* for small Bar, no CPU --> GPU in-direct links */
-> -        if (kfd_dev_is_large_bar(kdev->gpu)) {
-> +        /* for small Bar or CPU-less NUMA nodes, no CPU --> GPU 
-> in-direct links */
-> +        if (kfd_dev_is_large_bar(kdev->gpu) && node_state(i, N_CPU)) {
->              /* CPU <--> CPU <--> GPU, CPU node*/
->              props2 = kfd_alloc_struct(props2);
->              if (!props2)
-> -- 
->
-> Does this approach look good to you?
->
-> Regards,
-> Dhruv B
->
->
->> Regards,
->>   Felix
->>
->>
->>> +			continue;
->>> +
->>>   		/* CPU <--> GPU */
->>>   		if (gpu_link->node_to == i)
->>>   			continue;
---------------Xus2phtD0gj0DO2vEGDybvWT
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <div class="moz-cite-prefix">On 2026-11-04 08:41, Dhruv Bhogaonkar
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:1c7751d3-ca7d-4a7b-91fa-87762af60095@linux.ibm.com">
-      
-      <p><br>
-      </p>
-      <div class="moz-cite-prefix">On 03/11/26 05:55, Felix Kuehling
-        wrote:<br>
-      </div>
-      <blockquote type="cite" cite="mid:70018014-d952-4155-aa36-cf9b39ba8aea@amd.com">
-        <!-- BaNnErBlUrFlE-BoDy-start -->
-        <!-- Preheader Text : BEGIN -->
-        <div style="display:none !important;display:none;visibility:hidden;mso-hide:all;font-size:1px;color:#ffffff;line-height:1px;max-height:0px;opacity:0;overflow:hidden;">
-          On 2026-10-30 04: 33, Dhruv B wrote: On systems with
-          discontiguous NUMA node IDs, the GPU driver fails to load with
-          the following errors: [ 5. 609767] amdgpu 0038: 12: 00. 0:
-          Error parsing VCRAT [ 5. 609781] kfd kfd: Error adding device
-          to topology</div>
-        <!-- Preheader Text : END -->
-        <!-- Email Banner : BEGIN -->
-        <!-- Email Banner : END -->
-        <!-- BaNnErBlUrFlE-BoDy-end -->
-        <!-- BaNnErBlUrFlE-HeAdEr-start -->
-        <style>@scope {  }</style>
-        <!-- BaNnErBlUrFlE-HeAdEr-end -->
-        <div class="moz-cite-prefix">On 2026-10-30 04:33, Dhruv B wrote:<br>
-        </div>
-        <blockquote type="cite" cite="mid:20261030083304.9767-3-dhruv.b@linux.ibm.com">
-          <pre wrap="" class="moz-quote-pre">On systems with discontiguous NUMA node IDs, the GPU driver fails to
-load with the following errors:
-
-[    5.609767] amdgpu 0038:12:00.0: Error parsing VCRAT
-[    5.609781] kfd kfd: Error adding device to topology
-[    5.609848] kfd kfd: Error initializing KFD node
-
-In the current KFD code, proximity domains are created contiguously
-when generating the VCRAT. With discontiguous NUMA node IDs, this
-creates a mismatch between the proximity domain ID and the NUMA node ID.
-For example, if NUMA nodes 0, 2 and 3 are online, the current code
-assigns proximity domains 0, 1 and 2 to these nodes respectively,
-instead of domains 0, 2 and 3.
-
-The KFD topology uses the NUMA node and proximity domain information to
-create topology devices representing the CPU and memory resources
-associated with each NUMA node. This topology is exposed to userspace
-through sysfs, where the NUMA node and proximity domain information are
-used to identify the topology devices. The mismatch between the NUMA
-node ID and proximity domain therefore results in an inconsistent KFD
-topology and causes topology parsing to fail.
-
-Make the proximity domain ID correspond directly to the NUMA node ID by
-iterating through the complete NUMA node ID range up to the last online
-node. Account for every node ID when assigning proximity domains, while
-skipping resource entry creation for offline nodes. This preserves the
-NUMA-node-to-proximity-domain mapping and allows the KFD topology and
-its sysfs representation to correctly reflect discontiguous NUMA
-topologies.
-
-A NUMA node may also be CPU-less, memory-less, or both. Only create a
-Compute Unit CRAT entry if the node has CPUs, and only create a Memory
-CRAT entry if the node has memory.
-
-Additionally, update kfd_parse_subtype_mem() to use simd_count instead
-of cpu_cores_count to distinguish host nodes from GPU nodes. This ensures
-that memory on CPU-less host NUMA nodes is correctly classified as
-system memory (HSA_MEM_HEAP_TYPE_SYSTEM) rather than private GPU
-framebuffer memory.
-
-The placeholder domains created for offline node IDs have no IO links,
-so skip offline and CPU-less nodes when building the indirect GPU to CPU
-links.
-
-Co-developed-by: Donet Tom <a class="moz-txt-link-rfc2396E" href="mailto:donettom@linux.ibm.com" moz-do-not-send="true">&lt;donettom@linux.ibm.com&gt;</a>
-Signed-off-by: Donet Tom <a class="moz-txt-link-rfc2396E" href="mailto:donettom@linux.ibm.com" moz-do-not-send="true">&lt;donettom@linux.ibm.com&gt;</a>
-Signed-off-by: Dhruv B <a class="moz-txt-link-rfc2396E" href="mailto:dhruv.b@linux.ibm.com" moz-do-not-send="true">&lt;dhruv.b@linux.ibm.com&gt;</a>
+After committing the new mode, tear KIQ down on every XCC, clear the
+KIQ and scheduler rings and their writeback pointers, and initialize
+KIQ again. This remaps both queues and sends SET_HW_RSRC followed by
+SET_HW_RSRC_1 with cooperative mode enabled for SPX, DPX, and QPX and
+disabled for CPX.
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_crat.c     | 59 +++++++++++++----------
- drivers/gpu/drm/amd/amdkfd/kfd_topology.c |  3 ++
- 2 files changed, 36 insertions(+), 26 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h |  5 +++
+ drivers/gpu/drm/amd/amdgpu/mes_v12_1.c  | 54 +++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/soc_v1_0.c   |  9 +++++
+ 3 files changed, 68 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-index 99b0c7f825fe..bebbc6715b2f 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-@@ -1103,8 +1103,10 @@ static int kfd_parse_subtype_mem(struct crat_subtype_memory *mem,
- 			mem-&gt;proximity_domain);
- 	list_for_each_entry(dev, device_list, list) {
- 		if (mem-&gt;proximity_domain == dev-&gt;proximity_domain) {
--			/* We're on GPU node */
--			if (dev-&gt;node_props.cpu_cores_count == 0) {
-+			if (dev-&gt;node_props.simd_count == 0) {
-+				heap_type = HSA_MEM_HEAP_TYPE_SYSTEM;
-+			} else {
-+				/* We're on GPU node */
- 				/* APU */
- 				if (mem-&gt;visibility_type == 0)
- 					heap_type =
-@@ -1112,8 +1114,7 @@ static int kfd_parse_subtype_mem(struct crat_subtype_memory *mem,
- 				/* dGPU */
- 				else
- 					heap_type = mem-&gt;visibility_type;
--			} else
--				heap_type = HSA_MEM_HEAP_TYPE_SYSTEM;
-+			}
- 
- 			if (mem-&gt;flags &amp; CRAT_MEM_FLAGS_HOT_PLUGGABLE)
- 				flags |= HSA_MEM_FLAGS_HOT_PLUGGABLE;
-@@ -1899,7 +1900,7 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_image, size_t *size)
- 	acpi_status status;
- 	struct crat_subtype_generic *sub_type_hdr;
- 	int avail_size = *size;
--	int numa_node_id;
-+	int numa_node_id, last_node;
- #if defined(CONFIG_X86_64) &amp;&amp; !defined(CONFIG_UML)
- 	uint32_t entries = 0;
- #endif
-@@ -1935,34 +1936,41 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_image, size_t *size)
- 	crat_table-&gt;num_domains = 0;
- 
- 	sub_type_hdr = (struct crat_subtype_generic *)(crat_table+1);
-+	last_node = find_last_bit(node_online_map.bits, MAX_NUMNODES);
- 
--	for_each_online_node(numa_node_id) {
--		if (kfd_numa_node_to_apic_id(numa_node_id) == -1)
-+	for (numa_node_id = 0; numa_node_id &lt;= last_node; numa_node_id++) {
-+		if (!node_online(numa_node_id)) {
-+			crat_table-&gt;num_domains++;
- 			continue;
-+		}
- 
- 		/* Fill in Subtype: Compute Unit */
--		ret = kfd_fill_cu_for_cpu(numa_node_id, &amp;avail_size,
--			crat_table-&gt;num_domains,
--			(struct crat_subtype_computeunit *)sub_type_hdr);
--		if (ret &lt; 0)
--			return ret;
--		crat_table-&gt;length += sub_type_hdr-&gt;length;
--		crat_table-&gt;total_entries++;
-+		if (kfd_numa_node_to_apic_id(numa_node_id) != -1) {
-+			ret = kfd_fill_cu_for_cpu(numa_node_id, &amp;avail_size,
-+						  crat_table-&gt;num_domains,
-+						  (struct crat_subtype_computeunit *)sub_type_hdr);
-+			if (ret &lt; 0)
-+				return ret;
-+			crat_table-&gt;length += sub_type_hdr-&gt;length;
-+			crat_table-&gt;total_entries++;
- 
--		sub_type_hdr = (typeof(sub_type_hdr))((char *)sub_type_hdr +
--			sub_type_hdr-&gt;length);
-+			sub_type_hdr = (typeof(sub_type_hdr))((char *)sub_type_hdr +
-+				sub_type_hdr-&gt;length);
-+		}
- 
- 		/* Fill in Subtype: Memory */
--		ret = kfd_fill_mem_info_for_cpu(numa_node_id, &amp;avail_size,
--			crat_table-&gt;num_domains,
--			(struct crat_subtype_memory *)sub_type_hdr);
--		if (ret &lt; 0)
--			return ret;
--		crat_table-&gt;length += sub_type_hdr-&gt;length;
--		crat_table-&gt;total_entries++;
-+		if (node_state(numa_node_id, N_MEMORY)) {
-+			ret = kfd_fill_mem_info_for_cpu(numa_node_id, &amp;avail_size,
-+							crat_table-&gt;num_domains,
-+							(struct crat_subtype_memory *)sub_type_hdr);
-+			if (ret &lt; 0)
-+				return ret;
-+			crat_table-&gt;length += sub_type_hdr-&gt;length;
-+			crat_table-&gt;total_entries++;
- 
--		sub_type_hdr = (typeof(sub_type_hdr))((char *)sub_type_hdr +
--			sub_type_hdr-&gt;length);
-+			sub_type_hdr = (typeof(sub_type_hdr))((char *)sub_type_hdr +
-+				sub_type_hdr-&gt;length);
-+		}
- 
- 		/* Fill in Subtype: IO Link */
- #if defined(CONFIG_X86_64) &amp;&amp; !defined(CONFIG_UML)
-@@ -1982,7 +1990,6 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_image, size_t *size)
- #else
- 		pr_info(&quot;IO link not available for non x86 platforms\n&quot;);
- #endif
--
- 		crat_table-&gt;num_domains++;
- 	}
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-index b38d12f3da84..d2fbe73e57ef 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-@@ -1419,6 +1419,9 @@ static int kfd_create_indirect_link_prop(struct kfd_topology_device *kdev, int g
- 				    struct kfd_iolink_properties, list);
- 
- 	for (i = 0; i &lt; num_cpu; i++) {
-+		if (!node_online(i) || !node_state(i, N_CPU))</pre>
-        </blockquote>
-        <p>The N_CPU part skips indirect links through CPU-less NUMA
-          nodes. Is that correct? For links from the GPU to that memory,
-          I think we need the indirect links so the GPU knows that it
-          can access such memory.</p>
-        <p>Maybe further down we could enhance the large-bar condition
-          to only create indirect CPU-&gt;GPU links if that node
-          actually has a CPU:</p>
-        <pre>                /* for small Bar or CPU-less NUMA nodes, no CPU --&gt; GPU in-direct links */
-                if (kfd_dev_is_large_bar(kdev-&gt;gpu) &amp;&amp; node_state(i, N_CPU)) {
-			...</pre>
-      </blockquote>
-      <p><br>
-      </p>
-      <font face="monospace"><span>Hi Felix,<br>
-        </span><br>
-        <span>Thanks a lot for the reply and the suggestion!<br>
-        </span><br>
-        <span>Would the following change address your concern? I've
-          removed the</span><br>
-        <code dir="ltr"><span>N_CPU</span></code><span><span class="Apple-converted-space">&nbsp;</span>check from the loop
-          condition and moved it to the large-BAR</span><span><br>
-          check so that we retain the indirect links for CPU-less NUMA
-          nodes</span><br>
-        <span>while avoiding CPU → GPU indirect links for those nodes.<br>
-        </span></font></blockquote>
-    <p>Yes, this look good. I have one question inline.</p>
-    <p><br>
-    </p>
-    <blockquote type="cite" cite="mid:1c7751d3-ca7d-4a7b-91fa-87762af60095@linux.ibm.com"><font face="monospace"><br>
-        diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-        b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c<br>
-        index b38d12f3da84..8f908323d74b 100644<br>
-        --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c<br>
-        +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c<br>
-        @@ -1419,6 +1419,9 @@ static int
-        kfd_create_indirect_link_prop(struct kfd_topology_device *kdev,
-        int g<br>
-        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;struct kfd_iolink_properties, list);<br>
-        &nbsp;<br>
-        &nbsp; &nbsp; &nbsp;for (i = 0; i &lt; num_cpu; i++) {<br>
-        +&nbsp; &nbsp; &nbsp; &nbsp; if (!node_online(i))<br>
-        +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; continue;<br>
-        +<br>
-        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* CPU &lt;--&gt; GPU */<br>
-        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if (gpu_link-&gt;node_to == i)<br>
-        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;continue;<br>
-        @@ -1437,7 +1440,7 @@ static int
-        kfd_create_indirect_link_prop(struct kfd_topology_device *kdev,
-        int g<br>
-        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;}<br>
-        &nbsp;<br>
-        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if (!cpu_link)<br>
-        -&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; return -ENOMEM;<br>
-        +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; continue;<br>
-      </font></blockquote>
-    <p>I think I'm fine with this change. But the fact that you need
-      this tells me that you have some weird topology where the CPUs
-      (and CPU-less memory-only) NUMA nodes aren't fully connected. How
-      does that happen? Does that point at some problem elsewhere?</p>
-    <p>Regards,<br>
-      &nbsp; Felix</p>
-    <p><br>
-    </p>
-    <blockquote type="cite" cite="mid:1c7751d3-ca7d-4a7b-91fa-87762af60095@linux.ibm.com"><font face="monospace">&nbsp;<br>
-        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* CPU &lt;--&gt; CPU &lt;--&gt; GPU, GPU node*/<br>
-        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;props = kfd_alloc_struct(props);<br>
-        @@ -1459,8 +1462,8 @@ static int
-        kfd_create_indirect_link_prop(struct kfd_topology_device *kdev,
-        int g<br>
-        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if (ret &lt; 0)<br>
-        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;return ret;<br>
-        &nbsp;<br>
-        -&nbsp; &nbsp; &nbsp; &nbsp; /* for small Bar, no CPU --&gt; GPU in-direct links */<br>
-        -&nbsp; &nbsp; &nbsp; &nbsp; if (kfd_dev_is_large_bar(kdev-&gt;gpu)) {<br>
-        +&nbsp; &nbsp; &nbsp; &nbsp; /* for small Bar or CPU-less NUMA nodes, no CPU --&gt;
-        GPU in-direct links */<br>
-        +&nbsp; &nbsp; &nbsp; &nbsp; if (kfd_dev_is_large_bar(kdev-&gt;gpu) &amp;&amp;
-        node_state(i, N_CPU)) {<br>
-        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* CPU &lt;--&gt; CPU &lt;--&gt; GPU, CPU node*/<br>
-        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;props2 = kfd_alloc_struct(props2);<br>
-        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if (!props2)<br>
-        --&nbsp;<br>
-        <br>
-        <span>Does this approach look good to you?<br>
-        </span><br>
-        <span>Regards,</span><br>
-        <span>Dhruv B</span></font>
-      <p><br>
-      </p>
-      <blockquote type="cite" cite="mid:70018014-d952-4155-aa36-cf9b39ba8aea@amd.com">
-        <p>Regards,<br>
-          &nbsp; Felix</p>
-        <p><br>
-        </p>
-        <blockquote type="cite" cite="mid:20261030083304.9767-3-dhruv.b@linux.ibm.com">
-          <pre wrap="" class="moz-quote-pre">+			continue;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_mes.h
+index 0f368fbd2c80..5a14f4e7b64d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+@@ -141,6 +141,8 @@ struct amdgpu_mes {
+                                                    uint32_t xcc_id);
+         int                             (*kiq_hw_fini)(struct amdgpu_devic=
+e *adev,
+                                                    uint32_t xcc_id);
++       /* Tear down KIQ, clear its rings, and run kiq_hw_init again. */
++       int                             (*kiq_hw_reinit)(struct amdgpu_devi=
+ce *adev);
+
+         /* MES doorbells */
+         uint32_t                        db_start_dw_offset;
+@@ -553,6 +555,9 @@ struct amdgpu_mqd {
+         (adev)->mes.kiq_hw_init((adev), (xcc_id))
+ #define amdgpu_mes_kiq_hw_fini(adev, xcc_id) \
+         (adev)->mes.kiq_hw_fini((adev), (xcc_id))
++#define amdgpu_mes_kiq_hw_reinit(adev) \
++       ((adev)->mes.kiq_hw_reinit ? \
++        (adev)->mes.kiq_hw_reinit(adev) : 0)
+
+ int amdgpu_mes_init_microcode(struct amdgpu_device *adev, int pipe);
+ void amdgpu_mes_validate_fw_version(struct amdgpu_device *adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c b/drivers/gpu/drm/amd/a=
+mdgpu/mes_v12_1.c
+index 5573fe981a22..760c93740a7e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
+@@ -42,6 +42,7 @@ static int mes_v12_1_hw_fini(struct amdgpu_ip_block *ip_b=
+lock);
+ static int mes_v12_1_kiq_hw_init(struct amdgpu_device *adev, uint32_t xcc_=
+id);
+ static int mes_v12_1_kiq_hw_fini(struct amdgpu_device *adev, uint32_t xcc_=
+id);
+ static int mes_v12_1_setup_coop_mode(struct amdgpu_device *adev, int xcc_i=
+d);
++static int mes_v12_1_kiq_hw_reinit(struct amdgpu_device *adev);
+
+ #define MES_EOP_SIZE   2048
+ #define MES12_HUNG_DB_OFFSET_ARRAY_SIZE 8 /* [0:3] =3D db offset [4:7] hqd=
+ info */
+@@ -674,6 +675,14 @@ static int mes_v12_1_set_hw_resources_1(struct amdgpu_=
+mes *mes,
+                         mes->shared_cmd_buf_gpu_addr[MES_PIPE_INST(master_=
+xcc_id, pipe)];
+         }
+
++       dev_dbg(mes->adev->dev,
++               "MES(%d, %d) SET_HW_RSRC_1 coop=3D%u enable_coop=3D%u kiq_v=
+er=3D0x%x mode=3D%s\n",
++               xcc_id, pipe, mes_set_hw_res_1_pkt.mes_coop_mode,
++               mes->enable_coop_mode,
++               mes->kiq_version & AMDGPU_MES_VERSION_MASK,
++               amdgpu_gfx_compute_mode_desc(mes->adev->xcp_mgr ?
++                                            mes->adev->xcp_mgr->mode : -1)=
+);
 +
- 		/* CPU &lt;--&gt; GPU */
- 		if (gpu_link-&gt;node_to == i)
- 			continue;
-</pre>
-        </blockquote>
-      </blockquote>
-    </blockquote>
-  </body>
+         return mes_v12_1_submit_pkt_and_poll_completion(mes, xcc_id, pipe,
+                         &mes_set_hw_res_1_pkt, sizeof(mes_set_hw_res_1_pkt=
+),
+                         offsetof(union MESAPI_SET_HW_RESOURCES_1, api_stat=
+us));
+@@ -1530,6 +1539,7 @@ static int mes_v12_1_sw_init(struct amdgpu_ip_block *=
+ip_block)
+         adev->mes.funcs =3D &mes_v12_1_funcs;
+         adev->mes.kiq_hw_init =3D &mes_v12_1_kiq_hw_init;
+         adev->mes.kiq_hw_fini =3D &mes_v12_1_kiq_hw_fini;
++       adev->mes.kiq_hw_reinit =3D &mes_v12_1_kiq_hw_reinit;
+         adev->mes.enable_legacy_queue_map =3D true;
+
+         adev->mes.event_log_size =3D AMDGPU_MAX_MES_PIPES *
+@@ -1774,6 +1784,50 @@ static int mes_v12_1_setup_coop_mode(struct amdgpu_d=
+evice *adev, int xcc_id)
+         return r;
+ }
+
++/*
++ * Runtime partition switches do not pass through MES IP hw_init. Tear KIQ
++ * down, clear both MES rings, and run kiq_hw_init again. That init maps
++ * the KIQ and scheduler queues and, through setup_coop_mode, programs
++ * mes_coop_mode for the new partition.
++ *
++ * If a scheduler ring is not ready, MES has not been initialized yet and
++ * the kiq_hw_init call from CP resume covers this mode.
++ */
++static int mes_v12_1_kiq_hw_reinit(struct amdgpu_device *adev)
++{
++       int xcc_id, pipe, num_xcc =3D NUM_XCC(adev->gfx.xcc_mask);
++       int r;
++
++       for (xcc_id =3D 0; xcc_id < num_xcc; xcc_id++) {
++               if (!adev->mes.ring[MES_PIPE_INST(xcc_id,
++                                                 AMDGPU_MES_SCHED_PIPE)].s=
+ched.ready)
++                       return 0;
++       }
++
++       for (xcc_id =3D 0; xcc_id < num_xcc; xcc_id++) {
++               r =3D mes_v12_1_kiq_hw_fini(adev, xcc_id);
++               if (r)
++                       return r;
++
++               /*
++                * The firmware restarts with its read pointer at zero, so
++                * leaving the old contents and writeback pointers in place
++                * would make it replay stale packets.
++                */
++               for (pipe =3D 0; pipe < AMDGPU_MAX_MES_PIPES; pipe++)
++                       amdgpu_ring_clear_ring_and_ptrs(
++                               &adev->mes.ring[MES_PIPE_INST(xcc_id, pipe)=
+]);
++       }
++
++       for (xcc_id =3D 0; xcc_id < num_xcc; xcc_id++) {
++               r =3D mes_v12_1_kiq_hw_init(adev, xcc_id);
++               if (r)
++                       return r;
++       }
++
++       return 0;
++}
++
+ static int mes_v12_1_xcc_hw_init(struct amdgpu_ip_block *ip_block, int xcc=
+_id)
+ {
+         int r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c b/drivers/gpu/drm/amd/am=
+dgpu/soc_v1_0.c
+index 506060fc5368..95ebbd4a7369 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
+@@ -1100,6 +1100,15 @@ static int soc_v1_0_switch_partition_mode(struct amd=
+gpu_xcp_mgr *xcp_mgr,
+         *num_xcps =3D num_xcc / num_xcc_per_xcp;
+         amdgpu_xcp_init(xcp_mgr, *num_xcps, mode);
+
++       /*
++        * xcp_mgr->mode is the new partition now. MES KIQ was programmed f=
+or
++        * the previous mode and is not reset by the IMU switch, so tear it
++        * down, clear the rings, and run kiq_hw_init again.
++        */
++       ret =3D amdgpu_mes_kiq_hw_reinit(adev);
++       if (ret)
++               goto out;
++
+         ret =3D amdgpu_xcp_post_partition_switch(xcp_mgr, flags);
+         if (!ret)
+                 __soc_v1_0_update_available_partition_mode(xcp_mgr);
+--
+2.34.1
+
+
+--_000_SA3PR12MB172791CF92846E9AD5E2B16BC894682SA3PR12MB172791_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+<div>
+<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
+; margin-left: 5pt; font-size: 10pt;">
+AMD General</div>
+<br>
+</div>
+Reviewed-by: Michael Chen &lt;michael.chen@amd.com&gt;</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Sierra Guiza, Alejand=
+ro (Alex) &lt;Alex.Sierra@amd.com&gt;<br>
+<b>Sent:</b> Thursday, October 29, 2026 4:34 PM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> Kuehling, Felix &lt;Felix.Kuehling@amd.com&gt;; Zhang, Hawking &=
+lt;Hawking.Zhang@amd.com&gt;; Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;; Joshi=
+, Mukul &lt;Mukul.Joshi@amd.com&gt;; Chen, Michael &lt;Michael.Chen@amd.com=
+&gt;; Sierra Guiza, Alejandro (Alex) &lt;Alex.Sierra@amd.com&gt;<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: reinitialize MES KIQ after partition sw=
+itch</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">A runtime compute partition switch updates the XCP=
+ mode and IMU<br>
+partition without passing through MES hw init. The MES KIQ and<br>
+scheduler therefore remain programmed for the previous partition,<br>
+including its cooperative mode.<br>
+<br>
+After committing the new mode, tear KIQ down on every XCC, clear the<br>
+KIQ and scheduler rings and their writeback pointers, and initialize<br>
+KIQ again. This remaps both queues and sends SET_HW_RSRC followed by<br>
+SET_HW_RSRC_1 with cooperative mode enabled for SPX, DPX, and QPX and<br>
+disabled for CPX.<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h |&nbsp; 5 +++<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/mes_v12_1.c&nbsp; | 54 +++++++++++++++++++=
+++++++<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/soc_v1_0.c&nbsp;&nbsp; |&nbsp; 9 +++++<br>
+&nbsp;3 files changed, 68 insertions(+)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_mes.h<br>
+index 0f368fbd2c80..5a14f4e7b64d 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h<br>
+@@ -141,6 +141,8 @@ struct amdgpu_mes {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; uint32_t xcc_id);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (*ki=
+q_hw_fini)(struct amdgpu_device *adev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; uint32_t xcc_id);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Tear down KIQ, clear its rings, an=
+d run kiq_hw_init again. */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (*kiq_hw_reinit=
+)(struct amdgpu_device *adev);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* MES doorbells */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; db_start_dw_offset;<br>
+@@ -553,6 +555,9 @@ struct amdgpu_mqd {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (adev)-&gt;mes.kiq_hw_init=
+((adev), (xcc_id))<br>
+&nbsp;#define amdgpu_mes_kiq_hw_fini(adev, xcc_id) \<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (adev)-&gt;mes.kiq_hw_fini=
+((adev), (xcc_id))<br>
++#define amdgpu_mes_kiq_hw_reinit(adev) \<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ((adev)-&gt;mes.kiq_hw_reinit ? \<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (adev)-&gt;mes.kiq_hw_reinit(ad=
+ev) : 0)<br>
+&nbsp;<br>
+&nbsp;int amdgpu_mes_init_microcode(struct amdgpu_device *adev, int pipe);<=
+br>
+&nbsp;void amdgpu_mes_validate_fw_version(struct amdgpu_device *adev);<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c b/drivers/gpu/drm/amd/a=
+mdgpu/mes_v12_1.c<br>
+index 5573fe981a22..760c93740a7e 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c<br>
+@@ -42,6 +42,7 @@ static int mes_v12_1_hw_fini(struct amdgpu_ip_block *ip_b=
+lock);<br>
+&nbsp;static int mes_v12_1_kiq_hw_init(struct amdgpu_device *adev, uint32_t=
+ xcc_id);<br>
+&nbsp;static int mes_v12_1_kiq_hw_fini(struct amdgpu_device *adev, uint32_t=
+ xcc_id);<br>
+&nbsp;static int mes_v12_1_setup_coop_mode(struct amdgpu_device *adev, int =
+xcc_id);<br>
++static int mes_v12_1_kiq_hw_reinit(struct amdgpu_device *adev);<br>
+&nbsp;<br>
+&nbsp;#define MES_EOP_SIZE&nbsp;&nbsp; 2048<br>
+&nbsp;#define MES12_HUNG_DB_OFFSET_ARRAY_SIZE 8 /* [0:3] =3D db offset [4:7=
+] hqd info */<br>
+@@ -674,6 +675,14 @@ static int mes_v12_1_set_hw_resources_1(struct amdgpu_=
+mes *mes,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mes-&=
+gt;shared_cmd_buf_gpu_addr[MES_PIPE_INST(master_xcc_id, pipe)];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_dbg(mes-&gt;adev-&gt;dev,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; &quot;MES(%d, %d) SET_HW_RSRC_1 coop=3D%u enable_coop=3D%u kiq_v=
+er=3D0x%x mode=3D%s\n&quot;,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; xcc_id, pipe, mes_set_hw_res_1_pkt.mes_coop_mode,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; mes-&gt;enable_coop_mode,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; mes-&gt;kiq_version &amp; AMDGPU_MES_VERSION_MASK,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; amdgpu_gfx_compute_mode_desc(mes-&gt;adev-&gt;xcp_mgr ?<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mes-&gt;adev-&gt;xcp_mgr-&gt;mode : -1))=
+;<br>
++<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return mes_v12_1_submit_pk=
+t_and_poll_completion(mes, xcc_id, pipe,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;=
+mes_set_hw_res_1_pkt, sizeof(mes_set_hw_res_1_pkt),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; offse=
+tof(union MESAPI_SET_HW_RESOURCES_1, api_status));<br>
+@@ -1530,6 +1539,7 @@ static int mes_v12_1_sw_init(struct amdgpu_ip_block *=
+ip_block)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;mes.funcs =3D &am=
+p;mes_v12_1_funcs;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;mes.kiq_hw_init =
+=3D &amp;mes_v12_1_kiq_hw_init;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;mes.kiq_hw_fini =
+=3D &amp;mes_v12_1_kiq_hw_fini;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;mes.kiq_hw_reinit =3D &amp;m=
+es_v12_1_kiq_hw_reinit;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;mes.enable_legacy=
+_queue_map =3D true;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;mes.event_log_siz=
+e =3D AMDGPU_MAX_MES_PIPES *<br>
+@@ -1774,6 +1784,50 @@ static int mes_v12_1_setup_coop_mode(struct amdgpu_d=
+evice *adev, int xcc_id)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
+&nbsp;}<br>
+&nbsp;<br>
++/*<br>
++ * Runtime partition switches do not pass through MES IP hw_init. Tear KIQ=
+<br>
++ * down, clear both MES rings, and run kiq_hw_init again. That init maps<b=
+r>
++ * the KIQ and scheduler queues and, through setup_coop_mode, programs<br>
++ * mes_coop_mode for the new partition.<br>
++ *<br>
++ * If a scheduler ring is not ready, MES has not been initialized yet and<=
+br>
++ * the kiq_hw_init call from CP resume covers this mode.<br>
++ */<br>
++static int mes_v12_1_kiq_hw_reinit(struct amdgpu_device *adev)<br>
++{<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int xcc_id, pipe, num_xcc =3D NUM_XCC=
+(adev-&gt;gfx.xcc_mask);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (xcc_id =3D 0; xcc_id &lt; num_xc=
+c; xcc_id++) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (!adev-&gt;mes.ring[MES_PIPE_INST(xcc_id,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_MES=
+_SCHED_PIPE)].sched.ready)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (xcc_id =3D 0; xcc_id &lt; num_xc=
+c; xcc_id++) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; r =3D mes_v12_1_kiq_hw_fini(adev, xcc_id);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (r)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; /*<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; * The firmware restarts with its read pointer at zero, so<=
+br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; * leaving the old contents and writeback pointers in place=
+<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; * would make it replay stale packets.<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; for (pipe =3D 0; pipe &lt; AMDGPU_MAX_MES_PIPES; pipe++)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_clea=
+r_ring_and_ptrs(<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;adev-&gt;mes.ring[MES_PIPE_INST(xcc_id=
+, pipe)]);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (xcc_id =3D 0; xcc_id &lt; num_xc=
+c; xcc_id++) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; r =3D mes_v12_1_kiq_hw_init(adev, xcc_id);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (r)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
++}<br>
++<br>
+&nbsp;static int mes_v12_1_xcc_hw_init(struct amdgpu_ip_block *ip_block, in=
+t xcc_id)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c b/drivers/gpu/drm/amd/am=
+dgpu/soc_v1_0.c<br>
+index 506060fc5368..95ebbd4a7369 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c<br>
+@@ -1100,6 +1100,15 @@ static int soc_v1_0_switch_partition_mode(struct amd=
+gpu_xcp_mgr *xcp_mgr,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *num_xcps =3D num_xcc / nu=
+m_xcc_per_xcp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_xcp_init(xcp_mgr, *=
+num_xcps, mode);<br>
+&nbsp;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * xcp_mgr-&gt;mode is the new p=
+artition now. MES KIQ was programmed for<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * the previous mode and is not =
+reset by the IMU switch, so tear it<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * down, clear the rings, and ru=
+n kiq_hw_init again.<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D amdgpu_mes_kiq_hw_reinit(adev=
+);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; goto out;<br>
++<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D amdgpu_xcp_post_pa=
+rtition_switch(xcp_mgr, flags);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!ret)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; __soc_v1_0_update_available_partition_mode(xcp_mgr);<=
+br>
+-- <br>
+2.34.1<br>
+<br>
+</div>
+</span></font></div>
+</body>
 </html>
 
---------------Xus2phtD0gj0DO2vEGDybvWT--
+--_000_SA3PR12MB172791CF92846E9AD5E2B16BC894682SA3PR12MB172791_--
