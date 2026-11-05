@@ -2,79 +2,152 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA6DA606A326
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 13:45:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BF78606A326
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 13:45:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=frZuJEvB
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=OUhSNQyj
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D31C112471;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC84C112472;
 	Thu,  5 Nov 2026 13:45:41 +0000 (UTC)
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com
- [74.125.82.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8EB5B10FCC4
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Nov 2026 15:06:41 +0000 (UTC)
-Received: by mail-dy1-f173.google.com with SMTP id
- 5a478bee46e88-36d6e342f98so630613eec.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 04 Nov 2026 07:06:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793804801; x=1794409601; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=XWmzhsNQRB07nNAqARUA25IM06jzZZBNn2XShTl+N+4=;
- b=frZuJEvB4yHXlSUGJYJ8jAXv++OL7ikleMIGMLGcKqs1fam6whI2n/Xir+YTXFcnuR
- hjV5Rpe6avRriEf1F90kL1x4Bub/jBmhLPSduDpSvbV1Tf3Gm/VITPSIZi3+H7V3t0N8
- T1oJWnpsfocaaHBcKQSa+wUs5wGtOZ//8z14p685BxMDA/sXV5WbvahNMQa7JiM5CeZW
- 7Wi5uF/sEgnTiygerXOYk+Ng6d4NFxabRpG9K7RNX4jHV8bmf+MV/vCAq/AUj+cc1eXy
- 3gtYeN21q5gCKsJVEqZ8edZgWDkq3rQbSbzle1BV+VzMf04LXZAWbZjf/oaxs3FgBvY5
- VDAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793804801; x=1794409601;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=XWmzhsNQRB07nNAqARUA25IM06jzZZBNn2XShTl+N+4=;
- b=b7mYiJ2DTBRKl3jPW1t5IKZepf3oCX4akNENr67mxVFWJjUOiz27hrQvJCtvTiJTJ8
- SBLdrP0RjqRfXQBVEg5sLs7mJCA4LLj0FkWKpqxqM2s0KDNN/r2MVt0egBhgvqf5oNX+
- FBj861QZFjurXaSCkFn7ZBt1M2mxIghFJBp7ufI5MPhwMBjyhF2bc8UjEBj6odIB6AE3
- wYTZnKyg/8q4Ve7N8WifINlSq67wDvlA7StJVO2kp6jK4gfVz3kWnt61J2pCiS57on0W
- T5VmaS0H6Luwl8r499f2K2FYYhRWlxME0tzco5nu7uoaoGBIrw0bVo4lZn7CMpPW+CLt
- XShg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzDfGuUhHuRh12mJ4a0fKTChpXh6SZI5zaeMbJ4T8wVvJE8aDSfQmatQ9pEL4jFPVlqC9uH5y8q@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+w9rWjcbSQTMEzmzYi4ASOF+7d2HZUJt5e/x8Wh6rQI1oekXOW
- guspYEv5i5WhTpHmMXB3Z2xqabaGLBU2VgomqhLM8uWLhy0O8npqeKbW
-X-Gm-Gg: AYBFou2W4jExYAaYcO4bVr7ps90sVIY6Fx2x/jlcbWlgp1WiBJwpAFDvo+8ZTK3ESFq
- XfcMHMK/+xAzW3IpUklokvN5YNRPYudMqX7f9pXX4oIkpF+xGEt7xAkI6lpbRukm+T9DNpgMSOR
- CiZOLwHMvzQ7dgtHJweYNL45UskyO3opn50/VG6B9ItyMRb4uv3Sm4gaItQSKW4P+3+Td51b7xa
- F/QBioXpPGkUpn9Nj/YQUSZY7ZW/qs507WK87WDh0feZx5jtFNFOsUGncyO3SWFCJ/3ujUOEUg9
- azgIOf7VhfVkVuoj9cmMSbhPjowkGhmpnHGv05LDKpMyIqN+5yyUGoPMaP/FJaTgtARcKCOchN+
- coghr1TTC1UUiTcLrcOoUhJU7r9a/0wJM7htjqW4FKjALAH5SyqRBRebBtPZVMlgTLRTvcUQfG6
- JcOm1vBmKuWvtqEVqyYVSNYL1WRuxb0uGIZz4+Yaqv3JXPMa+YeKV369CBdWoadXAXScYLUY2th
- e4Wy9BE0Cvt17JMOJh3h8nSd7EA1QaoFboUnYZ3r2UOei/PHpvFIkMic0TOy7OOv16Qri6m0bCa
- TIa3uYb8QnliRXzWwK3Ymfp3o9XEQ/2KoMgWLAHiEsZzNL8Zm7YJJD37JKPR4gz0pJoKUmJfehq
- NcW8A8p5+ISHRwPRnKQa0/vpYlQBR
-X-Received: by 2002:a05:693c:42cd:b0:34d:755b:d60b with SMTP id
- 5a478bee46e88-36a42435386mr23523976eec.34.1793804800593; 
- Wed, 04 Nov 2026 07:06:40 -0800 (PST)
-Received: from localhost.localdomain ([2405:201:301c:f8cd:5040:8550:f5e4:709a])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-36db94376b1sm527287eec.10.2026.11.04.07.06.36
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Wed, 04 Nov 2026 07:06:39 -0800 (PST)
-From: Aryan Sinha <sinha.aryan03@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Aryan Sinha <sinha.aryan03@gmail.com>,
- kernel test robot <lkp@intel.com>
-Subject: [PATCH 1/2] drm/amdgpu: fix kernel-doc in amdgpu_ualink.c
-Date: Wed,  4 Nov 2026 20:36:22 +0530
-Message-ID: <20261104150632.33843-1-sinha.aryan03@gmail.com>
-X-Mailer: git-send-email 2.46.0
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011008.outbound.protection.outlook.com
+ [40.93.194.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B6E910FF00;
+ Thu,  5 Nov 2026 06:41:44 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Mg3/KIjvvnBcGL+1gk2w9Ar4k+BegJ6d9Y4K5WVKHfz/ahLVECpw6k1AIWTdXUMCAxryFNDHPE7hgLL3qhTFq/DCGA+WDtTA7O3M/G4V6F0ey/RgGOeI297+0XHX7i/B674d2zNbJuMJ3xdfCRTWWtGlacQTLFJFhw5Xe1KAs+TIgUsuzd+kbfkNdIgKMAknRhqpoNCuvprPeRCc1EO74rYAW76YHRbsoICSLwwm50u4tGwkHfCh/JFZPHK8MwxHvLcCUihLTIWwPrWqkk61UaovTR3dusWafueWBy0oodlRibUZGxZtWkIhIj+k7HdEg5+6cT5lvmSVKR6d5P7dWw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zBLKxpSLEBzu0nOge4IXu8c6zgK6r61SwGe1FM/pq84=;
+ b=cRauGKBAF4znfTx7k1ZA8GFN2V3l6iyfXwSv+ZzZT9zE0+LYGVloni0klzEJbNkSUgFcuXwf+d+4laGRlg20beyrIXTrB08QbP5buRjuO6wZhZxMy1eUs/IBHN+u9lmNmCE+sb9vM4mEaarzH0JC5du2O5Tha2uDBtYdRcqFKx4VU1QLntkzgAj2juD6MJZpHrOkYgpqB6AknDx/+8+s2QF7L916dIYZSGeY5wOwqavsfgu0krW+b1F8YJTAsvnqMA+QiHiV/oklfnhoRu2prSqZgtuLokoWnAbfpLLxcbU7eCFKKzQKmSqiYkaaWQjtiAzAqo2R2CZaTfKNSD8raw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zBLKxpSLEBzu0nOge4IXu8c6zgK6r61SwGe1FM/pq84=;
+ b=OUhSNQyjSFzHqYfawVhugiKaGnKDENQpIwO9l3Vz3jhHTVVYqQDkx9MGhQpQmvANULMs/p3jmRt6wNcECasQyduaQntfppaFOWLqlQ2I/TjTQ8LhxoLVwOhu194qxUZHRGntSpb0eLM6pKBZ3udxV6rCJnDWuGUaTFi+xfgOy2P7F28sseck6n5e0HNR+6x7qAR/D2jYNjuI5u4rVZPFS5PRMG5VOQt9YPqNFWoYIuPelRMelHBMLavRQWYOXKwK78486EUPFkm99A1Jm/wJqsfMFAsID1xVnDKBVzH/aO7qmLOoTqxL1538GPnin3ey77d+nfPCnsDHdh71k45vJQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SA3PR12MB598757.namprd12.prod.outlook.com
+ (2603:10b6:806:52d::14) by CH1PR12MB9573.namprd12.prod.outlook.com
+ (2603:10b6:610:2ae::5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Thu, 5 Nov 2026
+ 06:41:36 +0000
+Received: from SA3PR12MB598757.namprd12.prod.outlook.com
+ ([fe80::e206:100:5946:a777]) by SA3PR12MB598757.namprd12.prod.outlook.com
+ ([fe80::e206:100:5946:a777%5]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
+ 06:41:36 +0000
+From: Alistair Popple <apopple@nvidia.com>
+Date: Thu, 05 Nov 2026 17:40:37 +1100
+Subject: [PATCH v2 02/23] dma-buf: Introduce DMA-buf mapping types
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261105-dma_mapping_type_v4-v2-2-78b8dc9ae80a@nvidia.com>
+References: <20261105-dma_mapping_type_v4-v2-0-78b8dc9ae80a@nvidia.com>
+In-Reply-To: <20261105-dma_mapping_type_v4-v2-0-78b8dc9ae80a@nvidia.com>
+To: =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Simona Vetter <simona.vetter@ffwll.ch>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, 
+ Dongwon Kim <dongwon.kim@intel.com>, Kevin Tian <kevin.tian@intel.com>, 
+ Xu Yilun <yilun.xu@linux.intel.com>, 
+ Karl Mehltretter <kmehltretter@gmail.com>, 
+ Baolu Lu <baolu.lu@linux.intel.com>, 
+ Felix Kuehling <felix.kuehling@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, 
+ linux-rdma@vger.kernel.org, iommu@lists.linux.dev, 
+ Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, 
+ linux-nvme@lists.infradead.org, "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+ Mina Almasry <almasrymina@google.com>, netdev@vger.kernel.org, 
+ Alexey Kardashevskiy <aik@amd.com>, zhipingz@meta.com, treding@nvidia.com, 
+ jhubbard@nvidia.com, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Leon Romanovsky <leon@kernel.org>
+Cc: Alistair Popple <apopple@nvidia.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793860879; l=11337;
+ i=apopple@nvidia.com; s=20261105; h=from:subject:message-id;
+ bh=iVoqCdPUrQkik8IfsEGuf01AfNkTL48S5PnMcOf9jaU=;
+ b=L2zUhg2qUxb6L3LsGknzX5geWf0I701CiM880O19wXqyVpGyHVe4sQXYvd7oxAbYJILzZ7ZQ1
+ c1dJTC6zm23AD26LEyG5LFqXU11bdv1ZUv8ZuG/NwqhXnXmWDbtQG/v
+X-Developer-Key: i=apopple@nvidia.com; a=ed25519;
+ pk=WdWPT9rAq3YNfXldbGv1NSGVLGxzQGFGJvRUiShhNqs=
+X-ClientProxiedBy: SY6PR01CA0031.ausprd01.prod.outlook.com
+ (2603:10c6:10:eb::18) To SA3PR12MB598757.namprd12.prod.outlook.com
+ (2603:10b6:806:52d::14)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA3PR12MB598757:EE_|CH1PR12MB9573:EE_
+X-MS-Office365-Filtering-Correlation-Id: f38a420a-f03f-43c5-edd1-08df3b07d6d6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|1800799024|7416014|376014|366016|921020|261028144727099003|261022075727099003|261022113327099003|11063799006|56012099006|261009223027099003|261026121527099003|261102123227099003|261021121427099003|261022105027099003|261102130727099003|261026140227099003|10067099003|3023799007|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info: t0O39Bkk8wRiwevkkIqUUcCf+9EKDRL7JKs+5DyexFKS9fxlB+wYICT2A3PQCByaKf/RGgNr7hijAaImIp9JD6d0KdMJ+A6kB8d5nxqj/CxGXk9SXjLKesor865xd+xvELfSo5qpKwEqs2/H4MrXDQ06a+3+2aOViPP1xKiIoFt0VvNGQ0GPXabS8LGA8MgZXcv4/zgARXDhQnKHaUzsbWnun28Ztdd9dlaQ13eYSZhHdtThbzHeQP78IQbaVB6zm1WAD7mWJnoJXNZNITFa49I5pb5mghLDMu+ah5ynjGQYTH5eo4W0GopDiz+QGfg4+ZaAhsrM3UIEQ4MgUkqGRO0MGQHzxqZfREy9LROaJ+gCgs5NRnua1BVdNtlNhcfWcH3+lepkvSdPPPsa8m38K9BdB9t9QE3Pd1rcLE/zgH5j1wh7Ytwf8adUKTOGP+3OqUum20wdyOIdX23FuYx6ywKJweMNpK1gwIxZVAabF3gJxTgEvyKnMclkXOlTL1UPszTld9w64OQnjH9ywFDVuDjnqtMDDMKhPqumoDpl7lVH7NaN/wkrRj5qgaUT7VvrioCfQfwtUyCNG3vpgTNQbxG8OSrQNKFgxSOLysDgaIeOzBWOqRZTFbMGZyItlYv4ash7UxaiPQE/EtOlEqChFmKst2URCkZYL4Zc4zPrOjq0hrS4W2qCWu0uRI2bc5rXT2ZpwPWQ5Geo0/UMNuUFBA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA3PR12MB598757.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(7416014)(376014)(366016)(921020)(261028144727099003)(261022075727099003)(261022113327099003)(11063799006)(56012099006)(261009223027099003)(261026121527099003)(261102123227099003)(261021121427099003)(261022105027099003)(261102130727099003)(261026140227099003)(10067099003)(3023799007)(22082099003)(18002099003)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Rk1Ka1NMUDA3TDA4aG5WU2tGMnlWSTJvaE5ieTV2ZFJBdmFaZzZQdC96U1gw?=
+ =?utf-8?B?amg5OVRhZEhuQ1JpOFVpTFlqTnRQOHRNdUIyQVpNNEdiZTdxb3ZNU1VqbDZm?=
+ =?utf-8?B?MFc0dUlWV1FTYkc4SjdoNUtWQm0rb1drS0ZRUmZrS0ZwOTlaaEg5bThsSXNX?=
+ =?utf-8?B?c1NGc0tHUU9iUlFwMFQ0dlpLR0luTkk1eUdRM2JDUFU5SnhXUXMwMHZxU1ZG?=
+ =?utf-8?B?M3l2QzBZbEZ3NlI1d0JSVWRjaG5nUVlnaEtjOWJjS3J5dDlRSnJCbTVHTTlO?=
+ =?utf-8?B?RVo5a0hzb04vaWlQN0tNcU9ENnhuOWd6bm8veXFZWEROcHp3ckRzTXYzYW85?=
+ =?utf-8?B?QkIrWnBldWRNK3FKdEw1bmZhVmppL3FIRFhXNngyQnRlNjhNTFZHK09NYno2?=
+ =?utf-8?B?dkt3SmVWd0pPTkcvTHhxeGRlSVJyRjBXZHVZMTZ3Sk9nZVF5RDVWSXlVd0Uy?=
+ =?utf-8?B?ZTArNXl6UUdjQUlqcmlTaWtPZTM1WUc3QW1HZHVXSEZ2RFdXS1RRZm5lQlpV?=
+ =?utf-8?B?RnVqU1RXbG5WcmNJV1ZhQVdPRW9BcndXeE9JNmxxa05uYVpzRldFT3hDU0t2?=
+ =?utf-8?B?T214ZnhsKytwWjRpVFB5L0FxaHptcUlUZGVydnJjRS95d0dueHhiWGxrblZZ?=
+ =?utf-8?B?OHNwMjlKelgycE1RdlYwckJYVElOeFh0UGFvTHhOU1M5MXh5eDY0dzM0dW1R?=
+ =?utf-8?B?WGYyOGI1bjZvcHVsSG50YW91ZU5yZTMxeU5Fc2ovTWhEQnZYbDlrVmlsai9s?=
+ =?utf-8?B?TTkzL1BOdlhDeVZQdExLYnhPS1ZZbENsQjZFS1hFRlV6TnJ4clRlRFM1SmNn?=
+ =?utf-8?B?djh2a1lpR2M4Yy9uR0NEV0FMaWhZODJQR1pMejJrQkwyVU1ramJMb2t3YjZ6?=
+ =?utf-8?B?SXQvMkg1QTRoYWw5N3ZXcmZaWDNhZGpDamp2UXpsMWVsNk5kVlA1cUtPNm5r?=
+ =?utf-8?B?blVBdVU2aTlSc3Ftdmg2elV4d0xCcXpjMWwvbTdCcUluTWRjaDlqOFNJb3ha?=
+ =?utf-8?B?LzQxUzgyM2xSampYY1V2eDVEeDNQYmtYVXRmajFDOU55ZDczemVjbDdmQjVR?=
+ =?utf-8?B?SGUrbFR1RnMvcVo4Y2ozeUtqT2l4dHNKR1VwSjliUEpreWJCS29RSkZ2Ny9j?=
+ =?utf-8?B?eFpYLzhpdFpLN1g1dXBnZitPUm9KVjllNG9TNlNxcVZPckI5UjNZOFNhcGVI?=
+ =?utf-8?B?aHZSYmpSQVhqS0JMSkI5c1RFeXp2U1hFSTFiQ3NxU0xsMnJpOVYycE1HeHNE?=
+ =?utf-8?B?UXcyb1M1a3RUVnJsUEZIbFVLcWpFd3p1VHE1ek5tN3p4OGFlOUUvVzZodVBH?=
+ =?utf-8?B?M1F6akZENFhRazV1eXZ2cDVzaWJObEJSZ0RRTHJxSmlDWUNQdUMxR0FZZ0hP?=
+ =?utf-8?B?RHVBeWhtQlJqbkt0ajFieG5Jek9oNStMNXQrSFZTa2FnVmVIOElXSkJMbjMr?=
+ =?utf-8?B?aFhZU3NhcXd1blpHRW1zbGtXbzc1UmVRZllyclQ1NUh6TklWdmdrcVozTlRU?=
+ =?utf-8?B?VzBhd09IRWxpSVdkb1RFUXg3L2c5R1RkNUJ4MWpSSlVVUlN1Uk44ZG9MRUZB?=
+ =?utf-8?B?UTg4anRZbmNQbkpNM1lnempZZXVzYi9YMTVmc2JIZTdoRzhtNFdrNzdocmNz?=
+ =?utf-8?B?Q2s4Wld3OTl4ZWRBL0F3WlVSSzg1a1AxSjJjTFNWVkdDZkZ1dkpQNTAvdWdB?=
+ =?utf-8?B?TXc4em9tN0Q0U0kvYk5uc29rRTlldHlZeWFHZUMvMVVjVVZuYUhVSUVNTVRX?=
+ =?utf-8?B?bHJaRFhtSVE5UTRCT2hHMndxa3I3YW44Q2luOG9ScGdwREd5SnRQMjIvU0hs?=
+ =?utf-8?B?NFQ4QzIweHpYb0UrY2hJUGRnUmRseW9reStIUHFmMkxxY2VpSWMvVWtlLys3?=
+ =?utf-8?B?cFBNSnJjUlBZZlVSRlNxWEhBZEEvUENZTlVDRXloZXFmcytReFFyaGJjOVM2?=
+ =?utf-8?B?WGRKOFdNSUIwS1U0OGZQSkN1SDJBWHV5TEljU2d3SjlPOEI4WHM2R0NBNzZY?=
+ =?utf-8?B?enJleCtCWkZnMlg4YjVRSWxYQ0JMR29vUFp5VjNoY3dSN0xVcjRuaGZ3bm1t?=
+ =?utf-8?B?RzVSSmRMbnNwSnNjY0FjNjcwdjZzVjRYdTBTM3RCaEh5Y3Z0eWFWTyswQzdO?=
+ =?utf-8?B?VVhKQkZZVmlFYXluT3BZSkQ0K2dIcmFhTzJHSDIvZGY3SFlpODVYRzRlNVZU?=
+ =?utf-8?B?azNEQnByTlB4RFJ4ckwweDhrTGFSNlBOeFlDSVE5blZ4eUlpTFFkTGxoa3Fv?=
+ =?utf-8?B?K0ZIUzZWallyY0taaHlzbjlrNXpjZkN4K055U21rRWNoazRhV24rNThOdWda?=
+ =?utf-8?B?d2l6cEJERkplVVM5d2lWSDF2cDduVHc4ZUo1TmVtSnIxSlZrWkVPZz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f38a420a-f03f-43c5-edd1-08df3b07d6d6
+X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB598757.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 06:41:36.5791 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0cCUv5ENeqitxnKv6lg03+anfs8fQzpqGDhJgzCHksv9Nd+B6ODFzGZC1txZyxAvxHzT02HeIMW21jLKjyELnw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PR12MB9573
 X-Mailman-Approved-At: Thu, 05 Nov 2026 13:45:29 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,72 +159,331 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The two comments do not describe what follows them. The one above
-amdgpu_ualink_npa_vm_unmap_range() is missing the ualink prefix, and the other one for amdgpu_ualink_gart_npa_addr() sits above two defines instead of the function, so kernel-doc attaches it to the first defined one.
+From: Jason Gunthorpe <jgg@nvidia.com>
 
-hence, Move the defines up and fix the name.
-The description also had a stray blank line splitting it in two and said dst_accid_id where it meant dst_accel_id, so join & fix it back up.
+DMA-buf mapping types allow the importer and exporter to negotiate the
+format of the map/unmap to be used during the attachment.
 
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/r/202609241952.zFr1FYRB-lkp@intel.com/
-Signed-off-by: Aryan Sinha <sinha.aryan03@gmail.com>
+Currently DMA-buf only supports struct scatterlist as the attachment map
+operation.  This is not sufficient for all use cases as dma_addr_t is a
+very specific and limited type.
+
+With mapping types the importing driver can declare what it supports. For
+example:
+
+	static const struct dma_buf_mapping_match imp_match[] = {
+		DMA_BUF_IMAPPING_MY_DRIVER(...),
+		DMA_BUF_IMAPPING_SGT(DMA_SGT_NO_P2P),
+	};
+	static const struct dma_buf_attach_ops importer_ops = {
+		.supported_mapping_types = imp_match,
+		.nr_supported_mapping_types = ARRAY_SIZE(imp_match),
+		...
+	};
+	attach = dma_buf_dynamic_attach(dmabuf, dev, &importer_ops, ...)
+
+And the exporting driver can declare what it supports:
+
+int exporter_match_mapping(struct dma_buf_match_args *args)
+{
+	struct dma_buf_mapping_match exp_match[] = {
+		DMA_BUF_EMAPPING_MY_DRIVER(my_ops, dev, ...),
+		DMA_BUF_EMAPPING_SGT(sgt_ops),
+	};
+	return dma_buf_match_mapping(args, exp_match, ...);
+}
+
+During dma_buf_dynamic_attach() the core code records every mutually
+acceptable (exporter entry, importer entry) pair in attach->matches, a
+small fixed-size array in the attachment, in the exporter's order of
+preference. The first entry is the default and is what
+dma_buf_attach_map_type() returns; later patches let the exporter choose a different entry of the set
+at pin or map time, when the buffer's placement and the other attachments
+are known. Importers and exporters that list a single type see exactly one
+entry.
+
+Add the basic types:
+
+struct dma_buf_mapping_type
+   Type tag and ops for each mapping type.
+
+struct dma_buf_mapping_match
+   Entry in a list of importer or exporter match specifications.
+   The match specification can be extended by the mapping type with
+   unique data.
+
+dma_buf_match_mapping() / struct dma_buf_match_args
+   Helper to do the matching. Called by the exporting driver
+   via a dma_buf_ops callback.
+
+struct dma_buf_mapping_exp_ops
+   Base type for the per-mapping type exporter provided functions. This
+   would be the map/unmap callbacks. Each mapping type can provide its own
+   functions for map/unmap type operations with optimal type signatures.
+
+Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+Co-developed-by: Alistair Popple <apopple@nvidia.com>
+Signed-off-by: Alistair Popple <apopple@nvidia.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 17 +++++++----------
- 1 file changed, 7 insertions(+), 10 deletions(-)
+ drivers/dma-buf/dma-buf-mapping.c | 65 +++++++++++++++++++++++++++
+ include/linux/dma-buf-mapping.h   | 95 +++++++++++++++++++++++++++++++++++++++
+ include/linux/dma-buf.h           | 29 ++++++++++++
+ 3 files changed, 189 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-index 6cd3927a7..f875209e5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-@@ -4631,7 +4631,7 @@ static int amdgpu_ualink_npa_vm_map_range(struct amdgpu_device *adev, struct amd
- }
- 
- /**
-- * amdgpu_npa_vm_unmap_range - Unmap a range from the NPA VM
-+ * amdgpu_ualink_npa_vm_unmap_range - Unmap a range from the NPA VM
-  * @adev: amdgpu device pointer
-  * @bo: buffer object backing the mapping
-  * @pte_flags: page table entry flags
-@@ -4727,6 +4727,9 @@ static u64 amdgpu_ualink_npa_addr(struct amdgpu_device *adev, u32 type,
- 	return npa;
- }
- 
-+#define AMDGPU_UALINK_GART_NPA_ADDR_GPUID_SHIFT		41
-+#define AMDGPU_UALINK_GART_NPA_ADDR_GPUID_MASK		GENMASK_ULL(50, 41)
-+
- /**
-  * amdgpu_ualink_gart_npa_addr - Get GART-mapped NPA address for ring buffer
-  * @adev: amdgpu device pointer
-@@ -4734,18 +4737,12 @@ static u64 amdgpu_ualink_npa_addr(struct amdgpu_device *adev, u32 type,
-  * @src_accel_id: Source accelerator ID
-  * @dst_accel_id: Destination accelerator ID
-  *
-- * Computes the NPA address suitable for GART mapping by adding dst_accid_id to
-- * NPA address to access remote by SDMA.
--
-- * clears the source GPU ID bits from the NPA address which is set for
-- * address-identification mode.
-+ * Computes the NPA address suitable for GART mapping by adding dst_accel_id to
-+ * NPA address to access remote by SDMA. It also clears the source GPU ID bits
-+ * from the NPA address which is set for address-identification mode.
-  *
-  * Return: NPA address adjusted for GART mapping
+diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-buf-mapping.c
+index 833be519e1e6..d27f02610c2a 100644
+--- a/drivers/dma-buf/dma-buf-mapping.c
++++ b/drivers/dma-buf/dma-buf-mapping.c
+@@ -5,6 +5,7 @@
   */
--
--#define AMDGPU_UALINK_GART_NPA_ADDR_GPUID_SHIFT		41
--#define AMDGPU_UALINK_GART_NPA_ADDR_GPUID_MASK		GENMASK_ULL(50, 41)
--
- static u64 amdgpu_ualink_gart_npa_addr(struct amdgpu_device *adev, u32 type,
- 					u32 src_accel_id, u32 dst_accel_id)
- {
+ #include <linux/dma-buf-mapping.h>
+ #include <linux/dma-resv.h>
++#include <linux/dma-buf.h>
+ #include <linux/overflow.h>
+ #include <linux/align.h>
+ 
+@@ -257,3 +258,67 @@ void dma_buf_free_sgt(struct dma_buf_attachment *attach, struct sg_table *sgt,
+ 
+ }
+ EXPORT_SYMBOL_NS_GPL(dma_buf_free_sgt, "DMA_BUF");
++
++/**
++ * dma_buf_match_mapping - Record the mapping types agreed upon by exporter
++ *                         and importer
++ * @args: Match arguments from attach
++ * @exp: Array of mapping types supported by the exporter, in priority order
++ * @exp_len: Number of entries in @exp
++ *
++ * Walk the exporter's list in order and, for each entry, find the first
++ * importer entry of the same type that the type's match() callback accepts.
++ * Every such pair is recorded in @args->attach->matches, so the match set
++ * preserves the exporter's priority. The first entry is the default returned
++ * by dma_buf_attach_map_type().
++ *
++ * Because the exporter list is walked in order, the exporter controls the
++ * priority of mapping types.
++ *
++ * Returns: 0 if at least one type matched, -EOPNOTSUPP if the exporter and
++ * importer have no type in common, -EINVAL if either list is empty, -E2BIG if
++ * more than DMA_BUF_MAX_MATCHES types matched, or the error a match() callback
++ * aborted the search with.
++ */
++int dma_buf_match_mapping(struct dma_buf_match_args *args,
++			  const struct dma_buf_mapping_match *exp,
++			  size_t exp_len)
++{
++	const struct dma_buf_mapping_match *exp_end = exp + exp_len;
++	const struct dma_buf_mapping_match *imp_end =
++		args->imp_matches + args->imp_len;
++	struct dma_buf_attachment *attach = args->attach;
++	unsigned int nr = 0;
++	int ret;
++
++	if (!exp_len || !args->imp_len)
++		return -EINVAL;
++
++	for (; exp != exp_end; exp++) {
++		const struct dma_buf_mapping_match *imp = args->imp_matches;
++
++		for (; imp != imp_end; imp++) {
++			if (exp->type != imp->type)
++				continue;
++			if (exp->type->match) {
++				ret = exp->type->match(args, exp, imp);
++				if (ret == -EOPNOTSUPP)
++					continue;
++				if (ret != 0)
++					return ret;
++			}
++			if (nr == ARRAY_SIZE(attach->matches))
++				return -E2BIG;
++			exp->type->finish_match(args, exp, imp,
++						&attach->matches[nr++]);
++			break;
++		}
++	}
++
++	if (!nr)
++		return -EOPNOTSUPP;
++
++	attach->nr_matches = nr;
++	return 0;
++}
++EXPORT_SYMBOL_NS_GPL(dma_buf_match_mapping, "DMA_BUF");
+diff --git a/include/linux/dma-buf-mapping.h b/include/linux/dma-buf-mapping.h
+index 09bde3f748e4..28b3a65c0672 100644
+--- a/include/linux/dma-buf-mapping.h
++++ b/include/linux/dma-buf-mapping.h
+@@ -7,6 +7,83 @@
+ #define __DMA_BUF_MAPPING_H__
+ #include <linux/dma-buf.h>
+ 
++struct device;
++struct dma_buf;
++struct dma_buf_attachment;
++struct dma_buf_mapping_exp_ops;
++
++/* Type tag for all mapping operations */
++struct dma_buf_mapping_exp_ops {};
++
++/*
++ * Internal struct to pass arguments from the attach function to the matching
++ * function
++ */
++struct dma_buf_match_args {
++	struct dma_buf *dmabuf;
++	struct dma_buf_attachment *attach;
++	/* The importing device passed to dma_buf_dynamic_attach() */
++	struct device *dev;
++	const struct dma_buf_mapping_match *imp_matches;
++	size_t imp_len;
++};
++
++/**
++ * struct dma_buf_mapping_type - Operations for a DMA-buf mapping type
++ *
++ * Each mapping type provides a singleton instance of this struct to describe
++ * the mapping type and its operations.
++ */
++struct dma_buf_mapping_type {
++	/**
++	 * @name: Human-readable name for this mapping type, used in debugfs
++	 *        output
++	 */
++	const char *name;
++
++	/**
++	 * @match:
++	 *
++	 * Called during attach from dma_buf_match_mapping(). &exp and &imp are
++	 * single items from the importer and exporter mapping match lists.
++	 * Both will have the same instance of this struct as their type member.
++	 * The importing device is @args->dev; importer entries do not carry
++	 * it, so they can be static tables shared by every attachment.
++	 *
++	 * It determines if the exporter/importer are compatible.
++	 *
++	 * Returns: 0 on success
++	 *   -EOPNOTSUPP means ignore the failure and continue
++	 *   Everything else aborts the search and returns the -errno
++	 */
++	int (*match)(struct dma_buf_match_args *args,
++		     const struct dma_buf_mapping_match *exp,
++		     const struct dma_buf_mapping_match *imp);
++
++	/**
++	 * @finish_match:
++	 *
++	 * Called by dma_buf_match_mapping() after a successful match to fill
++	 * in @match, the entry being added to @args->attach->matches. The
++	 * matched @exp and @imp entries are provided so the callback can copy
++	 * type-specific data into it, along with @args->dev if the type needs
++	 * the importing device later.
++	 */
++	void (*finish_match)(struct dma_buf_match_args *args,
++			     const struct dma_buf_mapping_match *exp,
++			     const struct dma_buf_mapping_match *imp,
++			     struct dma_buf_mapping_match *match);
++
++	/**
++	 * @debugfs_dump:
++	 *
++	 * Optional callback to write mapping-type-specific diagnostic
++	 * information about @attach to the debugfs seq_file @s.
++	 */
++	void (*debugfs_dump)(struct seq_file *s,
++			     struct dma_buf_attachment *attach);
++};
++
+ struct sg_table *dma_buf_phys_vec_to_sgt(struct dma_buf_attachment *attach,
+ 					 struct p2pdma_provider *provider,
+ 					 struct phys_vec *phys_vec,
+@@ -14,4 +91,22 @@ struct sg_table *dma_buf_phys_vec_to_sgt(struct dma_buf_attachment *attach,
+ 					 enum dma_data_direction dir);
+ void dma_buf_free_sgt(struct dma_buf_attachment *attach, struct sg_table *sgt,
+ 		      enum dma_data_direction dir);
++
++int dma_buf_match_mapping(struct dma_buf_match_args *args,
++			  const struct dma_buf_mapping_match *exp_mappings,
++			  size_t exp_len);
++
++/**
++ * dma_buf_attach_map_type - The match this attachment is mapped with
++ * @attach: the attachment
++ *
++ * Returns the entry of @attach->matches in force for the attachment: the
++ * exporter's default, which is the first entry.
++ */
++static inline const struct dma_buf_mapping_match *
++dma_buf_attach_map_type(const struct dma_buf_attachment *attach)
++{
++	return &attach->matches[0];
++}
++
+ #endif
+diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
+index cedeb8ebc99e..81bbcd420d60 100644
+--- a/include/linux/dma-buf.h
++++ b/include/linux/dma-buf.h
+@@ -27,6 +27,28 @@
+ struct device;
+ struct dma_buf;
+ struct dma_buf_attachment;
++struct dma_buf_mapping_type;
++struct dma_buf_mapping_exp_ops;
++
++/*
++ * Upper bound on the number of mapping types an attachment can record as
++ * mutually acceptable. An exporter offering more compatible types than this
++ * to one importer fails the attach with -E2BIG.
++ */
++#define DMA_BUF_MAX_MATCHES 4
++
++/*
++ * Match items are generated by the importer using the DMA_BUF_IMAPPING_*() and
++ * the exporter using the DMA_BUF_EMAPPING_*() functions. Each mapping type
++ * defines its own signature with its own data to make the match and attachment.
++ */
++struct dma_buf_mapping_match {
++	const struct dma_buf_mapping_type *type;
++	const struct dma_buf_mapping_exp_ops *exp_ops;
++	union {
++		/* Each mapping_type has unique match parameters here */
++	};
++};
+ 
+ /**
+  * struct dma_buf_ops - operations possible on struct dma_buf
+@@ -472,6 +494,11 @@ struct dma_buf_attach_ops {
+  * @importer_ops: importer operations for this attachment, if provided
+  * dma_buf_map/unmap_sgt() must be called with the dma_resv lock held.
+  * @importer_priv: importer specific attachment data.
++ * @matches: The match set negotiated at attach time: every mapping type both
++ *           sides accept, in the exporter's order of preference. The first
++ *           entry is the exporter's default; dma_buf_attach_map_type()
++ *           returns the entry the attachment is mapped with.
++ * @nr_matches: Number of valid entries in @matches.
+  *
+  * This structure holds the attachment information between the dma_buf buffer
+  * and its user device(s). The list contains one attachment struct per device
+@@ -490,6 +517,8 @@ struct dma_buf_attachment {
+ 	const struct dma_buf_attach_ops *importer_ops;
+ 	void *importer_priv;
+ 	void *priv;
++	struct dma_buf_mapping_match matches[DMA_BUF_MAX_MATCHES];
++	unsigned int nr_matches;
+ };
+ 
+ /**
+
 -- 
-2.46.0
+2.54.0
 
