@@ -2,42 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09A76606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9122606A31B
 	for <amd-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 03:13:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=pVKeX9BJ
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ch8f0Zqu
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A53910E15B;
-	Thu,  5 Nov 2026 03:13:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F9BA10E282;
+	Thu,  5 Nov 2026 03:13:15 +0000 (UTC)
 Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012044.outbound.protection.outlook.com [52.101.53.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC66910E282
+ (mail-eastusazon11012042.outbound.protection.outlook.com [52.101.53.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68D3C10E15B
  for <amd-gfx@lists.freedesktop.org>; Thu,  5 Nov 2026 03:13:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Je811aC8gS0qVW60brvIe5s5qqmPFp8XmqO+EU4aWYHWknPvmCckaMgVMyKLibKApwDcTiZJdR6kKc9UEDaTWOV98Zw6qlYR9+KY6N7XaxH0oNC1lMoebaAI4OrEdxzPbFlYN4Mv9Cy3AAVbodTJs5NfyLu/MDN2pJHhW5KYvamW+DLrv6KpvR7Urf82asRmklIH0Mn/baUKhgkT/tKslBHrAAcpRfRFmI2c9MC3FqVuDmuiqmVwuEqDetKfmE9HvFaQYf1QDQZTj+DnSFoMeASW+Et7N1kN3hSoHebQ9jT3l11NAkgUJMRcXFT09KNCf+D5Bx0KJxwEtXgYE5u2+g==
+ b=UZQWGOJkb/cQ9uR6/mCXdx7OcUnCMWZ5UUATFy7eq8vvcLw57CQcI4AFlMstycYj1L072ylGU5Z4eIJZHY60pHi0SNo93VSmmae0CrLMVDzo4ix4bQ6C4Ll7W7V55vOy7MQZrQlmh8WLzweQSSI9nhYsxeFaPVf/nNxWzVy/G+P716EV338DbK4tg/WMKry7jLFSBRzKL1OwsJY8/Nf5NjqROnXWDHuF7yStXgchQeQCu0FKnh6Ber2WYGRcFKFgndlE4cd6iOIh6sIpCYqo082LACuDuzLFKSElCOJs7LRvB8n4yfg+IRQBhKqV705DtGnydXKc0xWk5zxORlv/8A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ujotBhNiTzvf8IWn4LJsJZi/aK0dCPkxSskNquw4ZdU=;
- b=dX9j2emOozDVFPE9Aob6GfS+AhdO0u+GLWdKX5Ruqv3zEi2Xc10HEEQ/NnEc6Xv/nNVwmo+ofqFF+JBO+5gtjwM20QGyRtAf0s+YcSmrV43PCfr/kZvXwLAVxukqmlHLZ/dTv9axIFT1pqJU29KV4E5Fh/JfBGvTWHbwE2nzasOYuAg+NHwIl6AMWRC9y68/A7hm3+jYGViSvEmI1rnL/OTStScLHB3oCeCLC01y28GBnsxScw5R3Vvi1w3EhIDIgpy4/73zv8VA56GTz6QM0rccnDeWyEQQvw5o/Sr2SEe3hl5KUxOyW/w/56rq2H6BloV47Ax7VOqfS+lKKUcABQ==
+ bh=4PZp5X/0HklAXuSAydCwIPF2D1UQDD24eimcSPFvmno=;
+ b=ZIcneWIbWnf0TXoQ9UF3u3gYsQ7JezeUVUep4PlGkRw0Ca0qyyKdCpB/JzsErfm06cRLvTyMzxE6lm9Tg25tIG399oHIwxgH50+pitbRMOAH93fzbUdzAYAM8MIJN2Hf4wsKPj0KidwGJHfd8m8iSoTGzDXyrtyeeF6efkKMNOAQj5MxyWz1+5O0mmwKqFjTCVdGUX+eTtIAhD1rTrwASxBLAdinIcSO19gBuU+SqdNxNVCJEFesLfQw9oCZy18EucEYZ8d0g9CoygwOpyShWHVEJTfUZJVgZ2DLGfj+Ek8U4gQV3uRaaBdLN4L5LqbbS8XK7CzBDeiyHtoK6OCb3w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ujotBhNiTzvf8IWn4LJsJZi/aK0dCPkxSskNquw4ZdU=;
- b=pVKeX9BJ/ieewnm55CIqblpoX8TcjETu3hKOBPgRxpp4z1fxaVyi4m4Agx/MkgU233qDloOlMcEanQsNsyJNirEbYT/XKWPxFkvdhYLvhxq8qDcZVhv+g9bWe0vmk7mbCFCedbDNu+5ybiWjprDC+CSTj9qdABdYmkwhc7stfAY=
-Received: from BN1PR12CA0026.namprd12.prod.outlook.com (2603:10b6:408:e1::31)
- by PH7PR12MB8054.namprd12.prod.outlook.com (2603:10b6:510:27f::15)
+ bh=4PZp5X/0HklAXuSAydCwIPF2D1UQDD24eimcSPFvmno=;
+ b=ch8f0ZqufhN1grUsXkafq3vGYmaXlWIbNgNDxHZkhH6fOi8kA9nf3I1OPsT/55/mVvZkDt8VnR45LniCjDSkJeG2i441BldV+Ez9MB5U0ZSKj63WQKRUCGv94UBz+xBRlfIsegpXQsMhSe2Je+b5a6kPpFxiWC6RE2lUfhDJho4=
+Received: from BN1PR12CA0020.namprd12.prod.outlook.com (2603:10b6:408:e1::25)
+ by CY8PR12MB8316.namprd12.prod.outlook.com (2603:10b6:930:7a::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
- 2026 03:13:03 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Thu, 5 Nov 2026
+ 03:13:02 +0000
 Received: from BL6PEPF0006C3E0.namprd02.prod.outlook.com
- (2603:10b6:408:e1:cafe::1a) by BN1PR12CA0026.outlook.office365.com
- (2603:10b6:408:e1::31) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:408:e1:cafe::1d) by BN1PR12CA0020.outlook.office365.com
+ (2603:10b6:408:e1::25) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Thu, 5
- Nov 2026 03:13:03 +0000
+ Nov 2026 03:13:02 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -48,22 +48,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  BL6PEPF0006C3E0.mail.protection.outlook.com (10.167.249.235) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Thu, 5 Nov 2026 03:13:03 +0000
+ 15.21.592.5 via Frontend Transport; Thu, 5 Nov 2026 03:13:01 +0000
 Received: from pyuan-Chachani-VN.amd.com (10.180.168.240) by
  satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.53; Wed, 4 Nov 2026 21:13:01 -0600
+ 15.2.2562.53; Wed, 4 Nov 2026 21:12:59 -0600
 From: Perry Yuan <perry.yuan@amd.com>
 To: <Alexander.Deucher@amd.com>, <Yifan1.Zhang@amd.com>,
  <amd-gfx@lists.freedesktop.org>
 CC: <Christian.Koenig@amd.com>, <perry.yuan@amd.com>
-Subject: [PATCH v2 2/2] drm/amdkfd: preempt the HWS runlist once in
+Subject: [PATCH v2 1/2] drm/amdkfd: fix double lock acquisition in
  set_perfcount
-Date: Thu, 5 Nov 2026 11:12:48 +0800
-Message-ID: <20261105031248.3692763-2-perry.yuan@amd.com>
+Date: Thu, 5 Nov 2026 11:12:47 +0800
+Message-ID: <20261105031248.3692763-1-perry.yuan@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261105031248.3692763-1-perry.yuan@amd.com>
-References: <20261105031248.3692763-1-perry.yuan@amd.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -72,29 +70,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0006C3E0:EE_|PH7PR12MB8054:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8457c447-1e9b-4958-af0c-08df3aeab492
+X-MS-TrafficTypeDiagnostic: BL6PEPF0006C3E0:EE_|CY8PR12MB8316:EE_
+X-MS-Office365-Filtering-Correlation-Id: 526f6d18-57b1-44a0-f6f6-08df3aeab3a0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|82310400026|376014|1800799024|23010399003|18002099003|22082099003|10067099003|11063799006|261022075727099003|261028144727099003|261102123227099003|261026140227099003|261026121527099003|261022105027099003|261021121427099003|56012099006|261021123027099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info: YAy5C7ipbDENCQtf3cjJQKWMUkl+SIIDbufolQlosDyiVO0eh8X54UBpINBCzGg1bF6diy7PQDWb2vB2Wp0PVX+bpu4BQxhbve7RJNMPwfSXfuce64/qaIf9/gMVHZpFa6idMkqzkfOcqvWFlDVGuP+MMObeh477WxIu5QpkMY6ifuYbH1p+8XMBi04FQ6FjNdboZem5WUzbtUfknYMZAjp4gGtUjXUYaDT7zkObKbo0kee9tjp+5x3M/NEkoWj9YV3/DTx4nQ3RyvkU+IKn/UPpsz2HPQqQa6yb6ofEYnnnKtnb99uW8HyEEQe1gKs8Vbf2K4JReLO7l/HdAMv3jIF5H3Gl2dhbdnBqwP7Bj+yZta0xWF6LoDmXeWHbYXi6KVQoLM18u0bWAzrFBAUxn06JJwHtdeVIv94Jw4vCwJKLfPC5ELRV49oZI9Wl0ihgpqkmqXPH6/HzhTpNaxjPr83Lr/ZE5McE8moz1yjMuWC9i4H2+GqrrNbKs/GZpS8zuwO5vbEKnDJNzGVTjL3yAYVQvyFchW15W3q+n3ZAVu4Nq877K26TQb8FNq06Mb65vkpoKB82GnB59O3i/0Lp1dWI/vuDqkFaPunO9klm2qfE2GDNP+MXiesYXPA9lb91gUNqALq5xAfvDA32NLOFOjGKIEHFcMdRZWj4xnMZx/djC9HqBx7Tfot5D9WJU6bdIGijQlkgkubjaiwhP0zbYQ==
+ ARA:13230040|23010399003|1800799024|376014|36860700016|82310400026|261021123027099003|261102123227099003|11063799006|261021121427099003|56012099006|261009223027099003|261026121527099003|261028144727099003|261022105027099003|261026140227099003|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info: xS/Y7dVRCcgqrzmmU4Wua5J3eQRbxBxGKvMjTdM9Rim4/IVsiN59vfaE39Pbo/RD3YgZQyPIe6HDIkfGFdWrb3FM+Kdm2RcvQlKg20vnasohLBgXysuTki/vmjSE6D7Z372Pnz6y6DbSeKAUlDr64HCm5k/HcNNHXYYdIS1cOZqmb4HffHUQ0s/T6og97oUH1Gqv7mAAyZAY9oJw7DFcJAb6ewO6Neqf5QM8uU8a16n7WSLotJyDEuiV333/Eh8S7zGBh1/0nNZ4XUzF7NhzOU2B9zdl2iZHLZeC0VDP+0i414Z4yrMvGCE9Ubi/tIaFyWiMDrYgBABijKuk0e/baSfGFLD59DUTKZZHMCBs2UrdGvIkxMAtTa26yyewX0/o4kgMMtDBn1HcotitkqbqhbPImdKWa9u04uc+BTQTnHSgsBzN2/VLM4gf0aaTB2Y7UyPzmRpXuvggnz2peg3DhWt1xu1Rv4MDNwWCFfiN/dHwsskJb6XhXAqzOyGMTrztiNHAAlvtqe8vf+w6QraA8jtqtGGRdv/oWuTHhW8ZGIMtmscwMkQFcPI+2VQZei/OaHzq/Yu+Sg6nFqDSEJUUCHIGzbqCrAUEWIoULr3yc8adLWlj65+8bL4Fzm/Dpm4PX7hkJZJhAS1GtNRk8+3geU13sYT/4QNBe+MO6qeCPCCz1TZcSELo9p7wR5E1B8FsbOPn+15lhWUHNM9pJqbitw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(82310400026)(376014)(1800799024)(23010399003)(18002099003)(22082099003)(10067099003)(11063799006)(261022075727099003)(261028144727099003)(261102123227099003)(261026140227099003)(261026121527099003)(261022105027099003)(261021121427099003)(56012099006)(261021123027099003)(261009223027099003);
+ SFS:(13230040)(23010399003)(1800799024)(376014)(36860700016)(82310400026)(261021123027099003)(261102123227099003)(11063799006)(261021121427099003)(56012099006)(261009223027099003)(261026121527099003)(261028144727099003)(261022105027099003)(261026140227099003)(10067099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: AxPEfc+LqQugBZVfI2CvrE9Y7TTXKUxzIhX1uvaRONPWOCLN0sySEuunW06XRLtIKZG9A+zWCvhxoX5uO4/z0u4b+C+Pa4GWcBzpchHxh0KexsMyrsUdhFMvLw7YCrfoqx490F6b5oiBcE3MxCP0NGGMFs/oVXnGnljOZ+k8IjfTRmrAsYuxI+dCZezASU6k2vR7Xej8DnWKbs4JECrh3wVmynUiVTLKMFJgXrJE5oE2jay/UU3n6jCDW6Q4KPM/4KjT5x+yth0C++BmH8gxE8Gww8L54t44pZIqS5UCVGjVwUIpSXhY18TjalawqyohtuEmCGEHuoivp3I6X6hS4OrgNG1X+ZAsDaq5Ii/YK2IVOF+4TRDZvqwKc8kU8LeISE8rQNTNTk4PS8Kzbqx2vOwjQ4K45CNmu7zj6Pjxj1sTLxonNx18OtgESTW/61z3
+X-MS-Exchange-AntiSpam-MessageData-0: DzxG0R5/lX6SdOE2mEodnz9QL1u4JG+1/8wuBTscqHTuXf/0cmDCZt8/3Z5hT+RB5lxnAjTFWNb/ufStQbcqPXIa4ZtcyyfEdsbpcxVzJe34ZDqWgBQk240ebZQxoDPtXFYbVUNrg+2DnnZ5H6j02zKbV8eEduWRRSoVjGqbAdsRzAFmbz+j1KQq43acCYVmUtCdIVatfaBlUsv1x7alqDmTQXczYgesp1BAnjLrZNKUJMee9G4NuCtfa0fd8p/86LKanLPxcEWu/tyQS2LSH+VRJu56zpnZtt4/mt6ztrU7GO+leIz4RW7RpHofnPNyWgUHlfJFaO6XcJrwfs4Zub5DgTwu98OGjWh047Ue9O6TzSZeQ49GUCHqMhjauHV5mOIIH+QLnNH5WIOg2zk4OTbOGnhvG7n6w4vRkz7qnzeBix3yV7mnuZRim0LVr4nf
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 03:13:03.5725 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8457c447-1e9b-4958-af0c-08df3aeab492
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 03:13:01.9856 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 526f6d18-57b1-44a0-f6f6-08df3aeab3a0
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0006C3E0.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8054
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8316
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,164 +110,158 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On the non-MES HWS path, set_perfcount() calls update_queue_locked() for
-every user queue. Each call unmaps and remaps all dynamic queues, so a
-single perfcount toggle preempts the runlist once per user queue. This
-adds repeated stalls to compute workloads during profiling setup and
-teardown.
+From: Benjamin Welton <benjamin.welton@amd.com>
 
-Unmap the runlist once, update the compute MQDs, and map it once. Share
-the MQD update and activity/GWS accounting logic with update_queue_locked()
-to preserve queue counts. The MQD callback recomputes is_active, and a
-concurrent UPDATE_QUEUE caller can change queue properties before taking
-the DQM lock, so perfcount updates must still account for activity changes.
+Separate the locking from update_queue() to allow updating queues from
+code that already holds the DQM lock. set_perfcount() takes the DQM lock
+and then calls pqm_update_mqd() for every queue, which ends up in
+update_queue() taking the same lock again and hangs.
 
-Skip processes marked with has_reset_queue after preemption, preserving
-the existing update_queue_locked() guard. Remap after the batch even if
-the last process was skipped. Keep the per-queue update path for MES and
-non-HWS scheduling.
-
-v2:
- - Add Yifan's Reviewed-by
- - Add the missing dependency "drm/amdkfd: fix double lock acquisition
-   in set_perfcount" as patch 1/2
+This change was in the original mailing list commit for set_perfcount
+but was not included in gerrit.
 
 Fixes: a789761de305 ("amd/amdkfd: Add kfd_ioctl_profiler to contain profiler kernel driver changes")
-Signed-off-by: Perry Yuan <perry.yuan@amd.com>
-Reviewed-by: Yifan Zhang <yifan1.zhang@amd.com>
+Signed-off-by: Benjamin Welton <benjamin.welton@amd.com>
+Acked-by: Kent Russell <kent.russell@amd.com>
 ---
- .../drm/amd/amdkfd/kfd_device_queue_manager.c | 85 +++++++++++++------
- 1 file changed, 58 insertions(+), 27 deletions(-)
+ .../drm/amd/amdkfd/kfd_device_queue_manager.c | 72 ++++++++++---------
+ 1 file changed, 39 insertions(+), 33 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index f4fb99b599da..c9a303f536c5 100644
+index ce67e56efa8c..f4fb99b599da 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -1093,6 +1093,41 @@ static int destroy_queue_nocpsch(struct device_queue_manager *dqm,
+@@ -346,29 +346,6 @@ static int remove_queue_mes_on_reset_option(struct device_queue_manager *dqm, st
+ 	return r;
+ }
+ 
+-static void set_perfcount(struct device_queue_manager *dqm, int enable)
+-{
+-	struct device_process_node *cur;
+-	struct qcm_process_device *qpd;
+-	struct queue *q;
+-	struct mqd_update_info minfo = { 0 };
+-
+-	if (!dqm)
+-		return;
+-
+-	minfo.update_flag = (enable == 1 ? UPDATE_FLAG_PERFCOUNT_ENABLE :
+-						 UPDATE_FLAG_PERFCOUNT_DISABLE);
+-	dqm_lock(dqm);
+-	list_for_each_entry(cur, &dqm->queues, list) {
+-		qpd = cur->qpd;
+-		list_for_each_entry(q, &qpd->queues_list, list) {
+-			pqm_update_mqd(qpd->pqm, q->properties.queue_id,
+-						&minfo);
+-		}
+-	}
+-	dqm_unlock(dqm);
+-}
+-
+ static int remove_queue_mes(struct device_queue_manager *dqm, struct queue *q,
+ 			    struct qcm_process_device *qpd)
+ {
+@@ -1116,7 +1093,7 @@ static int destroy_queue_nocpsch(struct device_queue_manager *dqm,
  	return retval;
  }
  
-+/* Caller must hold the DQM lock and ensure the queue is unmapped. */
-+static void update_queue_mqd(struct device_queue_manager *dqm, struct queue *q,
-+			     struct qcm_process_device *qpd,
-+			     struct mqd_update_info *minfo)
-+{
-+	struct mqd_manager *mqd_mgr =
-+		dqm->mqd_mgrs[get_mqd_type_from_queue_type(q->properties.type)];
-+	bool prev_active = q->properties.is_active;
-+
-+	mqd_mgr->update_mqd(mqd_mgr, q->mqd, &q->properties, minfo);
-+
-+	/*
-+	 * Queue properties can change before the updater takes the DQM lock,
-+	 * so even a perfcount update can change queue activity. Keep the
-+	 * counters used to build the runlist in sync with the updated state.
-+	 */
-+	if (q->properties.is_active && !prev_active) {
-+		increment_queue_count(dqm, qpd, q);
-+	} else if (!q->properties.is_active && prev_active) {
-+		decrement_queue_count(dqm, qpd, q);
-+	} else if (q->gws && !q->properties.is_gws) {
-+		if (q->properties.is_active) {
-+			dqm->gws_queue_count++;
-+			qpd->mapped_gws_queue = true;
-+		}
-+		q->properties.is_gws = true;
-+	} else if (!q->gws && q->properties.is_gws) {
-+		if (q->properties.is_active) {
-+			dqm->gws_queue_count--;
-+			qpd->mapped_gws_queue = false;
-+		}
-+		q->properties.is_gws = false;
-+	}
-+}
-+
- static int update_queue_locked(struct device_queue_manager *dqm, struct queue *q,
+-static int update_queue(struct device_queue_manager *dqm, struct queue *q,
++static int update_queue_locked(struct device_queue_manager *dqm, struct queue *q,
  			struct mqd_update_info *minfo)
  {
-@@ -1109,7 +1144,7 @@ static int update_queue_locked(struct device_queue_manager *dqm, struct queue *q
+ 	int retval = 0;
+@@ -1125,11 +1102,9 @@ static int update_queue(struct device_queue_manager *dqm, struct queue *q,
+ 	struct kfd_process_device *pdd;
+ 	bool prev_active = false;
+ 
+-	dqm_lock(dqm);
+ 	pdd = kfd_get_process_device_data(q->device, q->process);
+ 	if (!pdd) {
+-		retval = -ENODEV;
+-		goto out_unlock;
++		return -ENODEV;
+ 	}
  	mqd_mgr = dqm->mqd_mgrs[get_mqd_type_from_queue_type(
  			q->properties.type)];
+@@ -1147,13 +1122,12 @@ static int update_queue(struct device_queue_manager *dqm, struct queue *q,
  
--	/* Save previous activity state for counters */
-+	/* Save the activity state for queue removal. */
- 	prev_active = q->properties.is_active;
+ 		/* queue is reset so inaccessable  */
+ 		if (pdd->has_reset_queue) {
+-			retval = -EACCES;
+-			goto out_unlock;
++			return -EACCES;
+ 		}
  
- 	/* Make sure the queue is unmapped before updating the MQD */
-@@ -1150,31 +1185,7 @@ static int update_queue_locked(struct device_queue_manager *dqm, struct queue *q
+ 		if (retval) {
+ 			dev_err(dev, "unmap queue failed\n");
+-			goto out_unlock;
++			return retval;
+ 		}
+ 	} else if (prev_active &&
+ 		   (q->properties.type == KFD_QUEUE_TYPE_COMPUTE ||
+@@ -1162,7 +1136,7 @@ static int update_queue(struct device_queue_manager *dqm, struct queue *q,
+ 
+ 		if (!dqm->sched_running) {
+ 			WARN_ONCE(1, "Update non-HWS queue while stopped\n");
+-			goto out_unlock;
++			return retval;
+ 		}
+ 
+ 		retval = mqd_mgr->destroy_mqd(mqd_mgr, q->mqd,
+@@ -1172,7 +1146,7 @@ static int update_queue(struct device_queue_manager *dqm, struct queue *q,
+ 				KFD_UNMAP_LATENCY_MS, q->pipe, q->queue);
+ 		if (retval) {
+ 			dev_err(dev, "destroy mqd failed\n");
+-			goto out_unlock;
++			return retval;
  		}
  	}
  
--	mqd_mgr->update_mqd(mqd_mgr, q->mqd, &q->properties, minfo);
--
--	/*
--	 * check active state vs. the previous state and modify
--	 * counter accordingly. map_queues_cpsch uses the
--	 * dqm->active_queue_count to determine whether a new runlist must be
--	 * uploaded.
--	 */
--	if (q->properties.is_active && !prev_active) {
--		increment_queue_count(dqm, &pdd->qpd, q);
--	} else if (!q->properties.is_active && prev_active) {
--		decrement_queue_count(dqm, &pdd->qpd, q);
--	} else if (q->gws && !q->properties.is_gws) {
--		if (q->properties.is_active) {
--			dqm->gws_queue_count++;
--			pdd->qpd.mapped_gws_queue = true;
--		}
--		q->properties.is_gws = true;
--	} else if (!q->gws && q->properties.is_gws) {
--		if (q->properties.is_active) {
--			dqm->gws_queue_count--;
--			pdd->qpd.mapped_gws_queue = false;
--		}
--		q->properties.is_gws = false;
--	}
-+	update_queue_mqd(dqm, q, &pdd->qpd, minfo);
- 
- 	if (dqm->sched_policy != KFD_SCHED_POLICY_NO_HWS) {
- 		if (!dqm->dev->kfd->shared_resources.enable_mes)
-@@ -1215,19 +1226,39 @@ static void set_perfcount(struct device_queue_manager *dqm, int enable)
- 	struct qcm_process_device *qpd;
- 	struct queue *q;
- 	struct mqd_update_info minfo = { 0 };
-+	bool batch;
- 
- 	if (!dqm)
- 		return;
- 
- 	minfo.update_flag = (enable == 1 ? UPDATE_FLAG_PERFCOUNT_ENABLE :
- 						 UPDATE_FLAG_PERFCOUNT_DISABLE);
-+	/* Preempt the non-MES HWS runlist once for all compute MQD updates. */
-+	batch = dqm->sched_policy != KFD_SCHED_POLICY_NO_HWS &&
-+		!dqm->dev->kfd->shared_resources.enable_mes;
-+
- 	dqm_lock(dqm);
-+	if (batch && unmap_queues_cpsch(dqm, KFD_UNMAP_QUEUES_FILTER_DYNAMIC_QUEUES,
-+					0, USE_DEFAULT_GRACE_PERIOD, false))
-+		goto out;
-+
- 	list_for_each_entry(cur, &dqm->queues, list) {
- 		qpd = cur->qpd;
-+		if (batch && qpd_to_pdd(qpd)->has_reset_queue)
-+			continue;
- 		list_for_each_entry(q, &qpd->queues_list, list) {
--			update_queue_locked(dqm, q, &minfo);
-+			if (!batch) {
-+				update_queue_locked(dqm, q, &minfo);
-+				continue;
-+			}
-+			if (q->properties.type == KFD_QUEUE_TYPE_COMPUTE)
-+				update_queue_mqd(dqm, q, qpd, &minfo);
- 		}
+@@ -1220,11 +1194,43 @@ static int update_queue(struct device_queue_manager *dqm, struct queue *q,
+ 						   &q->properties, current->mm);
  	}
+ 
+-out_unlock:
++	return retval;
++}
 +
-+	if (batch)
-+		map_queues_cpsch(dqm);
-+out:
++static int update_queue(struct device_queue_manager *dqm, struct queue *q,
++			struct mqd_update_info *minfo)
++{
++	int retval;
++
++	dqm_lock(dqm);
++	retval = update_queue_locked(dqm, q, minfo);
  	dqm_unlock(dqm);
++
+ 	return retval;
  }
  
++static void set_perfcount(struct device_queue_manager *dqm, int enable)
++{
++	struct device_process_node *cur;
++	struct qcm_process_device *qpd;
++	struct queue *q;
++	struct mqd_update_info minfo = { 0 };
++
++	if (!dqm)
++		return;
++
++	minfo.update_flag = (enable == 1 ? UPDATE_FLAG_PERFCOUNT_ENABLE :
++						 UPDATE_FLAG_PERFCOUNT_DISABLE);
++	dqm_lock(dqm);
++	list_for_each_entry(cur, &dqm->queues, list) {
++		qpd = cur->qpd;
++		list_for_each_entry(q, &qpd->queues_list, list) {
++			update_queue_locked(dqm, q, &minfo);
++		}
++	}
++	dqm_unlock(dqm);
++}
++
+ /* suspend_single_queue does not lock the dqm like the
+  * evict_process_queues_cpsch or evict_process_queues_nocpsch. You should
+  * lock the dqm before calling, and unlock after calling.
 -- 
 2.34.1
 
