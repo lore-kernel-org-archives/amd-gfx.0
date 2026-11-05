@@ -2,91 +2,123 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7C2A606A31B
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 13:54:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8FE7606A32F
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 13:57:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f+SRifPz
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Et+yUqK2
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0600010E2D7;
-	Thu,  5 Nov 2026 13:54:34 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0465010E028;
- Thu,  5 Nov 2026 13:54:27 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id BE12C402D8;
- Thu,  5 Nov 2026 13:54:26 +0000 (UTC)
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1793886866;
- b=V6Nab8cBiXcPHod7306HzbW2wkz/NHl3d8aStSwgLkFfCWCpmDj+Pj2Kiw+6daPvB7ha
- mBjVGICcs6ha0VIBLxFr1iu86Y9t0IG85yZRY65TE1pyVkJ+0kQDSjZaaJVQACDKPyyLJ
- kyXLM5Eu36gr42572AP8igfQSZQReXM7LyCyyvgSz2GgA84zMx29lyfAGeX/tShLRiHOn
- hO1K6UoPn/xbWkh2VGut2WJvBLdp9YVmAeOdKX/3RFYz02SctCrSewY2w7HpljXnJoOI5
- 2gp7ZrCtKez2Sp0Itx0TBnmn6YEbr/iY6UsSXSjvXuMQYS3jbsuLE5EGZQwR1QkA7NA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1793886866;
- h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
- Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
- X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=yMKZ6JiHI9ZTgYnHPLIQ97E5yoAApQzdZxRBIG0Zxlw=;
- b=1VH0bwH1/Am+DeU9azMcrRxJB6p2jRR2clm3Zb9wwxGEjXmkgIC5tZXDzEWa6J0OgtQ2
- zSXsRW1PqGZu7InnWpya8qxqkrXA7FGirHkSnY9YP8pfEcromSEMa2jCAuf0n1ig2Z2AH
- 48LS5YPIGL3cDyqWd3kcs5q8NWzakE5wiebSY536qxuHEJFQ8mctaKiMsTZ2Kqns+7KQj
- jhtkWtrPFYIojP48wMvwnwNfxnslNWiBybnz8uxmWrXq4tWA/QoVqbv+h7ElVUOuF5bid
- 7m6MoWTg+qQV89NkA+OeOFNWW0AP3Cht+6cx9W2+Xrhjl/6kpnxh8EayIqMYcGIzw8Q==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
- arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
- (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id D0FF01F000C1;
- Thu,  5 Nov 2026 13:54:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793886866;
- bh=yMKZ6JiHI9ZTgYnHPLIQ97E5yoAApQzdZxRBIG0Zxlw=;
- h=From:Date:Subject:To:Cc:Reply-To;
- b=f+SRifPzxJvnNJj1h4cE3y3b06TmiN8uzF4q1SwXKEP+TiB4b7xzvw8ew610k058y
- fF1cG/PN/1EF/t6PGShdfYWCeVbmNCcpPPkiHXUkG0x3DcpP4bB+yDVRToydTyH90l
- 1fLlGZKDG/kjzx05WtNnjUPIEp9eW2o6y8sR5Db41OAUynXKqYLb2VH+lVGHkGagFZ
- udXBYlqSppB8bq0AzTmPZ/lZrmbYV9WLxQarrCmQzB+c8R8Kb9Xj1o2y4lfoTERhsZ
- uK0+oxLucW+epnfzoYunvSnoFxjNEEPwMDIn74t5bAh2TDRy+574o/PLFCmiLdJNqc
- HQNhTnmXMllbQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 3039F4729B;
- Thu,  5 Nov 2026 13:54:25 +0000 (UTC)
-From: Shivam Kalra via B4 Relay <devnull+shivamkalra98.zohomail.in@kernel.org>
-Date: Thu, 05 Nov 2026 19:24:20 +0530
-Subject: [PATCH] drm/amdgpu: Don't report stale or empty vm_fault info in
- devcoredump
+	by gabe.freedesktop.org (Postfix) with ESMTP id 37DC9112463;
+	Thu,  5 Nov 2026 13:57:34 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010022.outbound.protection.outlook.com
+ [40.93.198.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 524A611248A
+ for <amd-gfx@lists.freedesktop.org>; Thu,  5 Nov 2026 13:57:28 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=f+gBjOj0ESkAHYqsXDVRGhwM56elRXwQQF0ixIIu4fi0aSUJQ3aPa60QfqNXbUYuiC4TEKPvI+evUjwkgU1TVt4t6MYksFNWMnYbItivA1cOE2YrRDHaJ0uWpyU5F2rhTQTtkyldqLGBrNbWs2WH/EGgY6l5n7apKjW3ZZuiBG1LKqLTZvBT3c+RJ3LF5J0A7R9jkCqv+PzqszScfYq3D+1X1iohEQEXxsm+4WPiig207AbG4Z+OpcPP10xa7H8YKQk2qe5Fc9DYi4ZEE8N4lDa8ZOCZ+35/5F7kHP8qduUPbV2CpCc8syse6l2oIK0cQe13Y5rDK7d1BOaUUdDNBg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zOgx8pgGLmdgx9hy1kQLZLrbdlxfVqcVYqI/nVnXr+o=;
+ b=dRha0r5UmTTZvMN2LAk2S+4I2zIz6dY8DdEbpot2JM2be/BnKMjIiNuF+S0NhuDiUGpVT76GgEJMKCpANWhkUazFaTC4j+/irWV3YlaljEQZX9mkKuUVwur4BZi00LAXLT+FuQf80KcagtlERzO3OMKE7ZGA+fvwdsJWMVwpAeodXPJ2m+8Ex4acOae1ahPFAwGqf4ln0TgQd5oyCS73kfGr1uz/rSNHEScuVoHdivqCKh4yyTNBexsE3091mBJSPE/z7YyGttvr0Zizz/UJAim9MnInKKgH6S/qpBt5fNd+xleTCwcqyKFEc0mciIVSrH0D14mLQAyS/JKIvkMPxg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zOgx8pgGLmdgx9hy1kQLZLrbdlxfVqcVYqI/nVnXr+o=;
+ b=Et+yUqK2PsFueKMCXwyA+ad9xwJB+w7WO1NlE+pABtb4ZByPvH2PxBebx2Cv06CEgqF+VxoNgFB+EIOl9inaq+7UdcJ4O64I5bg53L0hCrsQHbT7o836DFrj2P585IWgtgbVI4Uthyr7Dp2b+VdN07T3wXCnGhoRHvfvgoKavyk=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
+ by DS2PR12MB9800.namprd12.prod.outlook.com (2603:10b6:8:2b5::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
+ 2026 13:57:23 +0000
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc%5]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
+ 13:57:23 +0000
+Message-ID: <e68b5ad7-9d64-4aba-9691-5a549582542a@amd.com>
+Date: Thu, 5 Nov 2026 19:27:16 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: reinitialize MES KIQ across a partition switch
+To: Alex Sierra <alex.sierra@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Felix.Kuehling@amd.com, Mukul.Joshi@amd.com, Harish.Kasiviswanathan@amd.com
+References: <20261029203412.3224512-1-alex.sierra@amd.com>
+ <20261105135053.3501763-1-alex.sierra@amd.com>
+Content-Language: en-US
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <20261105135053.3501763-1-alex.sierra@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5P287CA0061.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1d3::6) To SA0PR12MB7091.namprd12.prod.outlook.com
+ (2603:10b6:806:2d5::17)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261105-amdgpu-devcoredump-fault-info-v1-1-27c8165bfada@zohomail.in>
-X-B4-Tracking: v=1; b=H4sIAIuK7GoC/yXMQQ7CIBAF0Ks0s3aSQsSoVzEuKHzqGAsESmPS9
- O5WXb7NW6miCCpdu5UKFqmS4g516Mg9bBzB4neT7vVJqd6wnfyYG3ssLhX4NmUOtr1mlhgSB3c
- 5D0cYBaNpP3JBkPfvv93/rm14ws3flLbtA9Mg+5SBAAAA
-X-Change-ID: 20261105-amdgpu-devcoredump-fault-info-fc98b4e51e52
-To: Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, 
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>, 
- Shivam Kalra <shivamkalra98@zohomail.in>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793886864; l=9011;
- i=shivamkalra98@zohomail.in; s=20260402; h=from:subject:message-id;
- bh=pxJdK58/DE/CF4k68X1Ta99ypQMPKDBtaSO5Tn3JsCA=;
- b=OE30HWXc+saro0yTGSUaaaSebrlZ9EurHBZcEc2AhuW9pQxNJyOKpk8CGsD3YM9nHfv/Lend9
- L8u8R2METOvCWn0rlnGZdvv3YtgIa2Bm3c3ypDizJQevNwVFlI2svFU
-X-Developer-Key: i=shivamkalra98@zohomail.in; a=ed25519;
- pk=U8kQSxcte8P8iZ6zB7phIj+Yl+i/5ntifBGuclgypx8=
-X-Endpoint-Received: by B4 Relay for shivamkalra98@zohomail.in/20260402
- with auth_id=716
-X-Original-From: Shivam Kalra <shivamkalra98@zohomail.in>
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|DS2PR12MB9800:EE_
+X-MS-Office365-Filtering-Correlation-Id: b82cfecf-fac1-4588-619a-08df3b44b730
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|23010399003|366016|1800799024|22082099003|18002099003|10067099003|56012099006|11063799006|4143699003|261026140227099003|261028144727099003|261021121427099003|261022105027099003|261021123027099003|261026121527099003|261102123227099003|261009223027099003|261022075727099003;
+X-Microsoft-Antispam-Message-Info: BwsW8VOM1bCzAFnRzn7WxC1XQf6wek35XC4VlCb9avfpPF/YBUXys/RBxTyr7sb1KeQVNUDBd/Jxoy2KVfRhdnM4zOjqBSUFvIj96ZTMmGj81th7t8klNQP8lxx4d0j+SZRAaV1wyB3PctnYH5zQagqHMqd1U7DTKWQ/qHPjjAz1L9QzmFlrrJ3L/IWD6gUN1HeBLTkZN8DIpyGyfZob5D2WyXInUi5oEY3RmVdzTUyNV4JmmzQ581T3kzKNOtir5Y4xR2BgfCqBPf/Ql7514IA5wcjM0YQy+923Wm47av3soPlQB98WNpKg8OwAPFQGitJjVldthT9AcdBfWIkuBjrPcpjliYliDfaEHfnBgls43snDBKIhv5XkT3LkeP+Mw47sa96dP2k3MbaDSic74QeoedspiJx7XY3KzUyrHYkOb9c3QW/vmhH6IvpuCY3TbIhV8TjlhVepkcFQ62z4xXlvNrH3lxh0xW8ezMRhNm17LxpipR90x+//DVIQjO0LEeulTqZiAUA2HtJ/ONuBFVhtUIcFS9nnzbn5D81fr57YfvtI3uJTn2L/4xT9lpbwr4oLUOTYwXH8Zk/qBGHQ/V7nMW8RVwCW/PkWXtFAOosKdP7Gm6HdoG44ZrZfBLDs1Rfp6rdlZBIm3ccjCQAhcDZzdnJCvb2mi6ew8W2jDv4=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(22082099003)(18002099003)(10067099003)(56012099006)(11063799006)(4143699003)(261026140227099003)(261028144727099003)(261021121427099003)(261022105027099003)(261021123027099003)(261026121527099003)(261102123227099003)(261009223027099003)(261022075727099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Mk1aWEdlM1BNY085OEZ0cTByKzlSTisxcm53bXgvUWhoeG9tcGo1aFRKRll6?=
+ =?utf-8?B?Z25QdzBIL0Q0dWNtV2xxVDlKaWxYRkhNSVNiLzRjQzVIVnM5dnpJU2RsQmN6?=
+ =?utf-8?B?amphUmErdW1DbzNlSXhvN1dOS0hhN2g2aStxbUZPci80alNnOG1GZmZtNmRj?=
+ =?utf-8?B?ZXIwQ3FSSm1hSEU4MCtCS1NQTUw4VFpWMUU1TlovbE1iaWNIVmExMEgzaDdn?=
+ =?utf-8?B?Q3M4ZU0vYk9rN1BxcitHSE1DMHRPeERmNXFwcXJHZ3VSMWYwVVVZb2JZbDhF?=
+ =?utf-8?B?NGlCNWpBV1pnS21YbkVCVnVYalhWbTdTKzJ3NkY0cURLVmo0dXBJRGg4dEhT?=
+ =?utf-8?B?ckU2c3IveXV0NWRBSnhGU3FMTHdzZUVPQ2pCdytGSW5rTGY0dHpXWUZad3dq?=
+ =?utf-8?B?K2N3b1hjb0tjMTFyR1ZTd2RwdnVJR1U5ak9sMmZZTndhTVk0dUVkYWFrZ2pS?=
+ =?utf-8?B?SWZGbUsyTXFYczA4MGtlaW1POTlCK0c1Ymo0WEZZN013OFFmU3BFckVUa0R6?=
+ =?utf-8?B?bnN2cmlpWDRKdkdxWFVFdW5zbTA4ekVrUVdkUy8xamY1aUR1NHJCOE91OXZr?=
+ =?utf-8?B?dW9lSElnNWp1SGN5ZldoYUJ2cEoyNzBxemEzTlFlblhYRWdXNEpXT1VuaTI4?=
+ =?utf-8?B?bzU0TldGSFI2Ry9SejErME5jb1hGMFBMQlYzenpCb0lGcktsQ2RsM0FRREts?=
+ =?utf-8?B?N250VjJPMEttNTA1dnNGSFBKSVdEL3o3ZG9FUDhUeGV3RlBHT2xUVEJOVUxt?=
+ =?utf-8?B?WDNNZWxuWkZiVnVMRVBkMVhrM3lIUTcrU2VDT1VjcDRYM0R6TUhyQnlicUxj?=
+ =?utf-8?B?Mm5nQnAwcE5Hd3M3aVliZXpPQUY2WkN5UnpWMWVtK3VJVzNNSHFnRDVFSXp1?=
+ =?utf-8?B?Ni9LTndicFpvM3EvMjFsNHZ6YXlOMlBCYytyWVppYWszc2gvUEdHRGZ2dHZU?=
+ =?utf-8?B?ZjNPRklGc2VmdkpxYVV3UER6WFJ0Mmo3eFUwaUMxL290ZnB6N2lNd0hjWUFl?=
+ =?utf-8?B?QUhneDBFcW1pRHUrV0xKMXYxMXg4V1dJZVpqUy9WV2pCRDJUQ1cxZnhoZmRz?=
+ =?utf-8?B?d0NpcTJZU1AxdEhKVkxzMmtkV2p3VThHamZkSXNnOVdlUmx1bmkrWDdaK0h2?=
+ =?utf-8?B?YzRuNUZ2b1hoNDhkdm9RN3JqVkdwQTNWTU1Rd0pxWVhDRm45ck4zNDhoTllE?=
+ =?utf-8?B?YjREYTdCV1l3dWtlVlRkYyt3enM1VTF2dmVxY3RRNHNVREdQV0d1aVBpOUJG?=
+ =?utf-8?B?RHlCZ0lWSms2dFRrVmVKT1NQbnpHc1FWditxNkVRUjBsL1FhZW5FUUFMU1ds?=
+ =?utf-8?B?SEF0TlRPcTVwVHJvTTJBa1R1Y1VtMDRmVjlha2RqNFllWWVvWmF2b2lvY2NU?=
+ =?utf-8?B?V1ovYXlINkxwYUdSWmFxSEFORFJhamZvcTJ4SDV3eUt3a3F6eGcxeWdiazJi?=
+ =?utf-8?B?UVg4WXVNMDVBcnBqT3Ivamg4NVpzaEIrMkwyU0MrTlN1aWR2VlIzemZ0Tkdl?=
+ =?utf-8?B?TTJ6NjhZeGFNWVBwUGpVTXlKcnVQa2RBbGRoQWd2ZHM2bm1hS2UvU1ZoRk9t?=
+ =?utf-8?B?cW9RaUk3djdjTjRZeFlLcFo5T1VOeUxMSzdYQmZFaU03QW9CbGhOd2FlZ2w0?=
+ =?utf-8?B?SHBoR2JYbXZDdUw3bkRobkdpL1FjRTBHeUIwOWxOZm5ha3lZeXBSTmIzRDVJ?=
+ =?utf-8?B?MFB2WVJLbUdOK01tUEhiQThDb1VZSEJoTk1UbWNzaEo4d1R5RXFhTVhzQlZV?=
+ =?utf-8?B?UlhObDFXN0lUUndGVFREaEw3NzhMZzZIL0thVVRGTWJ0WVJiZnB5V1NYZmZM?=
+ =?utf-8?B?cVhTM045VUtRK01Nb2xzVlZWRWMzd2U2S2k1WHZlbzFwTWR2TzFhSHBhcytV?=
+ =?utf-8?B?UkxyKzFPd3hQNnREWWhDcjhsNk00SCs5THNRa3VsRnorc2cxMzZ6dmQ3OW5w?=
+ =?utf-8?B?Qit0WW5OOFZGLzhhSzhSTGhGMWtXMzNBbU9yR01KOTFlT0ZkZVBwdUd3TC81?=
+ =?utf-8?B?VW4wYWUweUJBVzBhK3piTWI1TEVIbi8zNHdJWllzYXBZSElkdUoxZ21vTXY5?=
+ =?utf-8?B?YnB0YWJ4TFh4bmhmbm8yWHJiS3V4NmdGUFc5U2NzSW9LUlZxYURDdWltMFM1?=
+ =?utf-8?B?ZGxxWjJHckg0c3VnVVdOcGVDL1hXS3FUTlFEUFptVk9pNk1JV0ZrWllRQ1Z0?=
+ =?utf-8?B?b0QzdFJKOUowUlRvMExCZmVVeC81NDZ5TVJ6Qzg1aXFTY3JNV25QV0NyQTFu?=
+ =?utf-8?B?V1VRcThaTHlZVmlOakp4ciszZG1ITTB6cXJKV2lNMUNvTG9KZ2h3STY2UW5D?=
+ =?utf-8?Q?v7INcSBsZU3Wuambis?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b82cfecf-fac1-4588-619a-08df3b44b730
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 13:57:23.0568 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: f/3MgsKwm5qNfjc5vN/A6JkfoTZtWnuvQI0PVw1S2cTrdH0+qjgrD3c261JdAMiy
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9800
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,226 +128,271 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: shivamkalra98@zohomail.in
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Shivam Kalra <shivamkalra98@zohomail.in>
 
-amdgpu_devcoredump_format() reads adev->vm_manager.fault_info unlocked
-from the deferred worker and prints the page fault section
-unconditionally. This races with new faults, emits a misleading address
-0x0 / status 0x0 block when no fault occurred, and repeats stale faults
-on subsequent non-fault timeouts.
 
-Add amdgpu_vm_take_fault_info() to atomically snapshot and clear the
-global fault cache under amdgpu_pasid_lock(). Call it before the slow
-dump_ip_state() loop in amdgpu_job_do_core_dump() (or in
-amdgpu_coredump() for non-job resets), store the snapshot in struct
-amdgpu_coredump_info, and only print the fault section when
-fault_info.status != 0.
+On 05-Nov-26 7:20 PM, Alex Sierra wrote:
+> A runtime compute partition switch updates the XCP mode and IMU
+> partition without passing through MES hw init. The MES KIQ and
+> scheduler therefore remain programmed for the previous partition,
+> including its cooperative mode.
+> 
+> Stop KIQ in amdgpu_xcp_pre_partition_switch, while the old partition
+> is still in place. After the new mode is committed, start KIQ again
+> from amdgpu_xcp_post_partition_switch, before KFD recreates queues.
+> That init remaps both queues and sends SET_HW_RSRC followed by
+> SET_HW_RSRC_1 with cooperative mode enabled for SPX, DPX, and QPX and
+> disabled for CPX.
+> 
+> The calls are gated on enable_mes_kiq. If the switch fails after KIQ
+> was stopped, start it again for the mode the switch settles on.
+> 
+> Signed-off-by: Alex Sierra <alex.sierra@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h | 14 +++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c | 51 +++++++++++++++---
+>   drivers/gpu/drm/amd/amdgpu/mes_v12_1.c  | 72 +++++++++++++++++++++++++
+>   3 files changed, 131 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+> index 652cd0950453..cd020959192c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+> @@ -141,6 +141,14 @@ struct amdgpu_mes {
+>                                                      uint32_t xcc_id);
+>   	int                             (*kiq_hw_fini)(struct amdgpu_device *adev,
+>                                                      uint32_t xcc_id);
+> +	/*
+> +	 * Partition switch: stop KIQ before the hardware switch, start it
+> +	 * again once the new mode is committed. kiq_hw_stopped is set by
+> +	 * the pre callback and cleared when post runs.
+> +	 */
+> +	int                             (*kiq_hw_pre_switch)(struct amdgpu_device *adev);
+> +	int                             (*kiq_hw_post_switch)(struct amdgpu_device *adev);
 
-Link: https://lore.kernel.org/amd-gfx/20250521094912.6714-2-pierre-eric.pelloux-prayer@amd.com/
-Suggested-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-Signed-off-by: Shivam Kalra <shivamkalra98@zohomail.in>
----
-Tested on Rembrandt / Yellow Carp (gfx1033) using IGT amd_deadlock:
+Suggest to keep it generic like pre_px_switch and post_px_switch. Other 
+preparations specific to a MES situation (enable_mes_kie etc.) may be 
+handled by the IP specific callback.
 
-1. amdgpu-gfx-illegal-reg-access (no VM fault): no fault block emitted
-2. amdgpu-gfx-illegal-mem-access (VM fault): fault emitted (status 0x640c51)
-3. amdgpu-gfx-illegal-reg-access (post-fault): stale fault cleared, no fault emitted
+> +	bool                            kiq_hw_stopped;
+>   
+>   	/* MES doorbells */
+>   	uint32_t			db_start_dw_offset;
+> @@ -572,6 +580,12 @@ struct amdgpu_mqd {
+>   	(adev)->mes.kiq_hw_init((adev), (xcc_id))
+>   #define amdgpu_mes_kiq_hw_fini(adev, xcc_id) \
+>   	(adev)->mes.kiq_hw_fini((adev), (xcc_id))
+> +#define amdgpu_mes_kiq_hw_pre_switch(adev) \
+> +	((adev)->mes.kiq_hw_pre_switch ? \
+> +	 (adev)->mes.kiq_hw_pre_switch(adev) : 0)
+> +#define amdgpu_mes_kiq_hw_post_switch(adev) \
+> +	((adev)->mes.kiq_hw_post_switch ? \
+> +	 (adev)->mes.kiq_hw_post_switch(adev) : 0)
+>   
+>   int amdgpu_mes_init_microcode(struct amdgpu_device *adev, int pipe);
+>   void amdgpu_mes_validate_fw_version(struct amdgpu_device *adev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+> index c29a60d6f0a6..4bdd9b60a35e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+> @@ -212,6 +212,20 @@ static int __amdgpu_xcp_switch_partition_mode(struct amdgpu_xcp_mgr *xcp_mgr,
+>   		else
+>   			xcp_mgr->mode = curr_mode;
+>   
+> +		/*
+> +		 * pre_partition_switch may have halted MES KIQ. This
+> +		 * failure returned before post_partition_switch, so
+> +		 * start KIQ again for the mode settled above.
+> +		 */
+> +		if (xcp_mgr->adev->mes.kiq_hw_stopped) {
 
-Note: Captures and clears fault_info under amdgpu_pasid_lock() before 
-dump_ip_state() per Christian Konig's review on v1.
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c | 24 +++++++++++++++++-------
- drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h |  4 +++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c       |  3 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c          |  9 ++++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c           | 22 ++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h           |  2 ++
- 6 files changed, 54 insertions(+), 10 deletions(-)
+Ex: this type of check will be inside mes post_switch logic.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-index 30a8b4c5591d..d93b426a87bb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-@@ -30,7 +30,8 @@
- 
- #ifndef CONFIG_DEV_COREDUMP
- void amdgpu_coredump(struct amdgpu_device *adev, bool skip_vram_check,
--		     bool vram_lost, struct amdgpu_job *job)
-+		     bool vram_lost, struct amdgpu_job *job,
-+		     const struct amdgpu_vm_fault_info *fault_info)
- {
- }
- void amdgpu_coredump_init(struct amdgpu_device *adev)
-@@ -418,11 +419,15 @@ amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_coredump_inf
- 	}
- 
- 	/* Add page fault information */
--	fault_info = &coredump->adev->vm_manager.fault_info;
--	drm_printf(&p, "\n[%s] Page fault observed\n",
--		   fault_info->vmhub ? "mmhub" : "gfxhub");
--	drm_printf(&p, "Faulty page starting at address: 0x%016llx\n", fault_info->addr);
--	drm_printf(&p, "Protection fault status register: 0x%x\n\n", fault_info->status);
-+	fault_info = &coredump->fault_info;
-+	if (fault_info->status != 0) {
-+		drm_printf(&p, "\n[%s] Page fault observed\n",
-+			   fault_info->vmhub ? "mmhub" : "gfxhub");
-+		drm_printf(&p, "Faulty page starting at address: 0x%016llx\n",
-+			   fault_info->addr);
-+		drm_printf(&p, "Protection fault status register: 0x%x\n\n",
-+			   fault_info->status);
-+	}
- 
- 	/* dump the ip state for each ip */
- 	drm_printf(&p, "IP Dump\n");
-@@ -542,7 +547,8 @@ static void amdgpu_devcoredump_deferred_work(struct work_struct *work)
- }
- 
- void amdgpu_coredump(struct amdgpu_device *adev, bool skip_vram_check,
--		     bool vram_lost, struct amdgpu_job *job)
-+		     bool vram_lost, struct amdgpu_job *job,
-+		     const struct amdgpu_vm_fault_info *fault_info)
- {
- 	struct drm_device *dev = adev_to_drm(adev);
- 	struct amdgpu_coredump_info *coredump;
-@@ -565,6 +571,10 @@ void amdgpu_coredump(struct amdgpu_device *adev, bool skip_vram_check,
- 
- 	coredump->skip_vram_check = skip_vram_check;
- 	coredump->reset_vram_lost = vram_lost;
-+	if (fault_info)
-+		coredump->fault_info = *fault_info;
-+	else
-+		amdgpu_vm_take_fault_info(adev, &coredump->fault_info);
- 
- 	if (job && job->pasid) {
- 		struct amdgpu_task_info *ti;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h
-index cb874d8c3394..85d476828473 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h
-@@ -50,6 +50,7 @@ struct amdgpu_coredump_info {
- 
- 	bool                            skip_vram_check;
- 	bool                            reset_vram_lost;
-+	struct amdgpu_vm_fault_info     fault_info;
- 	struct amdgpu_ring              *ring;
- 
- 	struct amdgpu_coredump_ring	*rings;
-@@ -69,7 +70,8 @@ struct amdgpu_coredump_info {
- #endif
- 
- void amdgpu_coredump(struct amdgpu_device *adev, bool skip_vram_check,
--		     bool vram_lost, struct amdgpu_job *job);
-+		     bool vram_lost, struct amdgpu_job *job,
-+		     const struct amdgpu_vm_fault_info *fault_info);
- void amdgpu_coredump_init(struct amdgpu_device *adev);
- void amdgpu_coredump_fini(struct amdgpu_device *adev);
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index bcaa59da2369..95fded3757f9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -5218,7 +5218,8 @@ int amdgpu_device_reinit_after_reset(struct amdgpu_reset_context *reset_context)
- 				vram_lost = amdgpu_device_check_vram_lost(tmp_adev);
- 
- 				if (!test_bit(AMDGPU_SKIP_COREDUMP, &reset_context->flags))
--					amdgpu_coredump(tmp_adev, false, vram_lost, reset_context->job);
-+					amdgpu_coredump(tmp_adev, false, vram_lost,
-+							reset_context->job, NULL);
- 
- 				if (vram_lost) {
- 					dev_info(
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-index 9cc210198fa4..c808f59dbe05 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-@@ -36,8 +36,15 @@
- static void amdgpu_job_do_core_dump(struct amdgpu_device *adev,
- 				    struct amdgpu_job *job)
- {
-+	struct amdgpu_vm_fault_info fault_info;
- 	int i;
- 
-+	/*
-+	 * The IP state dump below can take seconds.  Take the snapshot before
-+	 * it, while holding the same lock as the interrupt handler.
-+	 */
-+	amdgpu_vm_take_fault_info(adev, &fault_info);
-+
- 	dev_info(adev->dev, "Dumping IP State\n");
- 	for (i = 0; i < adev->num_ip_blocks; i++)
- 		if (adev->ip_blocks[i].version->funcs->dump_ip_state)
-@@ -45,7 +52,7 @@ static void amdgpu_job_do_core_dump(struct amdgpu_device *adev,
- 				->dump_ip_state((void *)&adev->ip_blocks[i]);
- 	dev_info(adev->dev, "Dumping IP State Completed\n");
- 
--	amdgpu_coredump(adev, true, false, job);
-+	amdgpu_coredump(adev, true, false, job, &fault_info);
- }
- 
- static void amdgpu_job_core_dump(struct amdgpu_device *adev,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 2bd07007def4..ac9bf1991e28 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -3274,6 +3274,28 @@ void amdgpu_vm_update_fault_cache(struct amdgpu_device *adev,
- 	amdgpu_pasid_unlock(flags);
- }
- 
-+/**
-+ * amdgpu_vm_take_fault_info - snapshot and clear the global fault cache
-+ * @adev: amdgpu device pointer
-+ * @fault_info: destination for the fault information
-+ *
-+ * The fault cache is updated by amdgpu_vm_update_fault_cache() under the
-+ * PASID lock.  Take the snapshot and clear the cache in the same critical
-+ * section so that a fault arriving after the snapshot is not overwritten,
-+ * and a consumed fault is not reported again in a later timeout.
-+ */
-+void amdgpu_vm_take_fault_info(struct amdgpu_device *adev,
-+			       struct amdgpu_vm_fault_info *fault_info)
-+{
-+	unsigned long flags;
-+
-+	amdgpu_pasid_lock(&flags);
-+	*fault_info = adev->vm_manager.fault_info;
-+	memset(&adev->vm_manager.fault_info, 0,
-+	       sizeof(adev->vm_manager.fault_info));
-+	amdgpu_pasid_unlock(flags);
-+}
-+
- void amdgpu_vm_print_task_info(struct amdgpu_device *adev,
- 			       struct amdgpu_task_info *task_info)
- {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-index 8e478d3bda1a..f89596ce3879 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-@@ -575,6 +575,8 @@ void amdgpu_vm_update_fault_cache(struct amdgpu_device *adev,
- 				  uint64_t addr,
- 				  uint32_t status,
- 				  unsigned int vmhub);
-+void amdgpu_vm_take_fault_info(struct amdgpu_device *adev,
-+			       struct amdgpu_vm_fault_info *fault_info);
- void amdgpu_vm_tlb_fence_create(struct amdgpu_device *adev,
- 				 struct amdgpu_vm *vm,
- 				 struct dma_fence **fence);
+Other than that, the patch looks good.
 
----
-base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
-change-id: 20261105-amdgpu-devcoredump-fault-info-fc98b4e51e52
+Thanks,
+Lijo
 
-Best regards,
---  
-Shivam Kalra <shivamkalra98@zohomail.in>
-
+> +			int kiq_ret = amdgpu_mes_kiq_hw_post_switch(xcp_mgr->adev);
+> +
+> +			if (kiq_ret)
+> +				dev_err(xcp_mgr->adev->dev,
+> +					"Failed to restore MES KIQ after partition switch failure: %d\n",
+> +					kiq_ret);
+> +		}
+> +
+>   		goto out;
+>   	}
+>   	amdgpu_xcp_sysfs_entries_update(xcp_mgr);
+> @@ -721,27 +735,52 @@ void amdgpu_xcp_update_supported_modes(struct amdgpu_xcp_mgr *xcp_mgr)
+>   
+>   int amdgpu_xcp_pre_partition_switch(struct amdgpu_xcp_mgr *xcp_mgr, u32 flags)
+>   {
+> +	struct amdgpu_device *adev = xcp_mgr->adev;
+>   	int ret = 0;
+>   
+>   	/* TODO:
+>   	 * Stop user queues and threads, and make sure GPU is empty of work.
+>   	 */
+>   
+> -	if (flags & AMDGPU_XCP_OPS_KFD)
+> -		ret = amdgpu_amdkfd_prepare_partition_switch(xcp_mgr->adev);
+> +	if (flags & AMDGPU_XCP_OPS_KFD) {
+> +		ret = amdgpu_amdkfd_prepare_partition_switch(adev);
+> +		if (ret)
+> +			return ret;
+> +	}
+>   
+> -	return ret;
+> +	/*
+> +	 * Halt MES KIQ while the old partition is still programmed.
+> +	 * Devices without MES KIQ leave the callback NULL.
+> +	 */
+> +	if (adev->enable_mes_kiq) {
+> +		ret = amdgpu_mes_kiq_hw_pre_switch(adev);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	return 0;
+>   }
+>   
+>   int amdgpu_xcp_post_partition_switch(struct amdgpu_xcp_mgr *xcp_mgr, u32 flags)
+>   {
+> +	struct amdgpu_device *adev = xcp_mgr->adev;
+>   	int ret = 0;
+>   
+> +	/*
+> +	 * The new partition mode is already committed. Program KIQ
+> +	 * before KFD recreates queues.
+> +	 */
+> +	if (adev->enable_mes_kiq) {
+> +		ret = amdgpu_mes_kiq_hw_post_switch(adev);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+>   	if (flags & AMDGPU_XCP_OPS_KFD) {
+> -		amdgpu_amdkfd_device_probe(xcp_mgr->adev);
+> -		amdgpu_amdkfd_device_init(xcp_mgr->adev);
+> +		amdgpu_amdkfd_device_probe(adev);
+> +		amdgpu_amdkfd_device_init(adev);
+>   		/* If KFD init failed, return failure */
+> -		if (!xcp_mgr->adev->kfd.init_complete)
+> +		if (!adev->kfd.init_complete)
+>   			ret = -EIO;
+>   	}
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c b/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
+> index ec595449963e..0957e56bb069 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
+> @@ -46,6 +46,8 @@ static int mes_v12_1_setup_coop_mode(struct amdgpu_device *adev, int xcc_id);
+>   static int mes_v12_1_enable_dbgext_irq_xcc(struct amdgpu_mes *mes,
+>   					   bool enable, u32 xcc_id);
+>   static int mes_v12_1_enable_dbgext_irq(struct amdgpu_mes *mes, bool enable);
+> +static int mes_v12_1_kiq_hw_pre_switch(struct amdgpu_device *adev);
+> +static int mes_v12_1_kiq_hw_post_switch(struct amdgpu_device *adev);
+>   
+>   #define MES_EOP_SIZE   2048
+>   #define MES12_HUNG_DB_OFFSET_ARRAY_SIZE 8 /* [0:3] = db offset [4:7] hqd info */
+> @@ -689,6 +691,14 @@ static int mes_v12_1_set_hw_resources_1(struct amdgpu_mes *mes,
+>   			mes->shared_cmd_buf_gpu_addr[MES_PIPE_INST(master_xcc_id, pipe)];
+>   	}
+>   
+> +	dev_dbg(mes->adev->dev,
+> +		"MES(%d, %d) SET_HW_RSRC_1 coop=%u enable_coop=%u kiq_ver=0x%x mode=%s\n",
+> +		xcc_id, pipe, mes_set_hw_res_1_pkt.mes_coop_mode,
+> +		mes->enable_coop_mode,
+> +		mes->kiq_version & AMDGPU_MES_VERSION_MASK,
+> +		amdgpu_gfx_compute_mode_desc(mes->adev->xcp_mgr ?
+> +					     mes->adev->xcp_mgr->mode : -1));
+> +
+>   	return mes_v12_1_submit_pkt_and_poll_completion(mes, xcc_id, pipe,
+>   			&mes_set_hw_res_1_pkt, sizeof(mes_set_hw_res_1_pkt),
+>   			offsetof(union MESAPI_SET_HW_RESOURCES_1, api_status));
+> @@ -1611,6 +1621,8 @@ static int mes_v12_1_sw_init(struct amdgpu_ip_block *ip_block)
+>   	adev->mes.funcs = &mes_v12_1_funcs;
+>   	adev->mes.kiq_hw_init = &mes_v12_1_kiq_hw_init;
+>   	adev->mes.kiq_hw_fini = &mes_v12_1_kiq_hw_fini;
+> +	adev->mes.kiq_hw_pre_switch = &mes_v12_1_kiq_hw_pre_switch;
+> +	adev->mes.kiq_hw_post_switch = &mes_v12_1_kiq_hw_post_switch;
+>   	adev->mes.enable_legacy_queue_map = true;
+>   
+>   	/*
+> @@ -1881,6 +1893,66 @@ static int mes_v12_1_setup_coop_mode(struct amdgpu_device *adev, int xcc_id)
+>   	return r;
+>   }
+>   
+> +/*
+> + * Runtime partition switches do not pass through MES IP hw_init. Stop KIQ
+> + * on the pre-switch side, while the old partition is still in place, and
+> + * start it again once the new mode is committed. The post path maps the
+> + * KIQ and scheduler queues and, through setup_coop_mode, programs
+> + * mes_coop_mode for that mode.
+> + *
+> + * If a scheduler ring is not ready, MES has not been initialized yet and
+> + * the kiq_hw_init call from CP resume covers this mode.
+> + */
+> +static int mes_v12_1_kiq_hw_pre_switch(struct amdgpu_device *adev)
+> +{
+> +	int xcc_id, pipe, num_xcc = NUM_XCC(adev->gfx.xcc_mask);
+> +	int r;
+> +
+> +	for (xcc_id = 0; xcc_id < num_xcc; xcc_id++) {
+> +		if (!adev->mes.ring[MES_PIPE_INST(xcc_id,
+> +						  AMDGPU_MES_SCHED_PIPE)].sched.ready)
+> +			return 0;
+> +	}
+> +
+> +	for (xcc_id = 0; xcc_id < num_xcc; xcc_id++) {
+> +		r = mes_v12_1_kiq_hw_fini(adev, xcc_id);
+> +		if (r)
+> +			return r;
+> +
+> +		/*
+> +		 * The firmware restarts with its read pointer at zero, so
+> +		 * leaving the old contents and writeback pointers in place
+> +		 * would make it replay stale packets.
+> +		 */
+> +		for (pipe = 0; pipe < AMDGPU_MAX_MES_PIPES; pipe++)
+> +			amdgpu_ring_clear_ring_and_ptrs(
+> +				&adev->mes.ring[MES_PIPE_INST(xcc_id, pipe)]);
+> +	}
+> +
+> +	adev->mes.kiq_hw_stopped = true;
+> +	return 0;
+> +}
+> +
+> +static int mes_v12_1_kiq_hw_post_switch(struct amdgpu_device *adev)
+> +{
+> +	int xcc_id, num_xcc = NUM_XCC(adev->gfx.xcc_mask);
+> +	int r;
+> +
+> +	if (!adev->mes.kiq_hw_stopped)
+> +		return 0;
+> +
+> +	/* Cleared first so a failed init is not run a second time. */
+> +	adev->mes.kiq_hw_stopped = false;
+> +
+> +	for (xcc_id = 0; xcc_id < num_xcc; xcc_id++) {
+> +		r = mes_v12_1_kiq_hw_init(adev, xcc_id);
+> +		if (r)
+> +			return r;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>   static int mes_v12_1_xcc_hw_init(struct amdgpu_ip_block *ip_block, int xcc_id)
+>   {
+>   	int r;
 
