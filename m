@@ -2,131 +2,130 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B19C3606A326
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 21:32:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7401B606A328
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 21:45:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=3kjHIu3a
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=lT+o72K6
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 566501123F2;
-	Thu,  5 Nov 2026 21:32:01 +0000 (UTC)
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011004.outbound.protection.outlook.com [52.101.57.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 051D210E719
- for <amd-gfx@lists.freedesktop.org>; Thu,  5 Nov 2026 21:31:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EADBE1124C0;
+	Thu,  5 Nov 2026 21:45:47 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011001.outbound.protection.outlook.com [40.107.208.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC1071124C0;
+ Thu,  5 Nov 2026 21:45:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VDEXV/uylTAUDSylxs5pDsEXRgxIsJ7CjxMwEspSFErwAvdUB0jYow/gC5nSrrT5euj5uv/xGHXg6VT5x/AK9EnBustZmGmzasdVyo82YgI+BTyj9AMLUlZh33fm7omnWSGff4aeYkmMv4Y8t+VqZ5DNcbd1wvY7z1vq0kOn6i7Nph1jWIU4cKddrufptYf4Uum7uXhDET5ey7dub/gsW8eU0V/p6fVgwfmjs+XyYX5Ar6QhVuT1Alnvdd9dPTUAI07Wd3DxQmfLEs4xVA+/JHSScJSOyQvWxpolwnV3gyRDs10+Rns+GfNvKK4iDVy9xktExnlAlatrbZAD31YaRA==
+ b=PIQ8maOM2XYQMdEkeuULnFIGOXcI5LXZ10+/YNhgdMg01a6BS9o2KnGgCWRhq0DHdjlJE3OI2OEuxwUlEfjgHbB5moinLouq55+cGBYVDceB2xbw/nuhsNxEL2Mc3FF1nEAk7MEa4ZWtFp7LIypkotFDTugnmgbDpfwf/fcOQFQLCkjrz+/iF549w/5+8QwdcoNIv62JaTVhB/7vLKWok+/taGG7g5XNxiHs6PMGs25YdpwnyyolImQm/ZT1AvhR+pJhTW8yTJZuIWXrL3hG/6EfBxx5cza4ZJGuMkM2Y6llLNrBaIzpkaA6aN27flhEM3uNVy7vgDRYTsKB5yUPFw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VRTim0xDjqWDlS0sCZAnQ8BvJ/wdu/z7UFDxK146MiY=;
- b=hMzoE4D92skVBcDpIV0YpVkcRpjSblnKJeuPyLCtRiQEKJUFjcg3aKTG6+N15PsEAe2bkIOSgF635J3voIaQUUgyDaWYBT1KdyooG/fmjqZvJ2KxmGMBSMP8u+ruQZoR9H3oiKaVsmgNpgbLNztEEKpWF3NAUemPkjqlwNf9gdl2Og+xGcQ2Minx2S75PeQVqzd7MeXopX6Fcr2qJerr/MCYR6arisAaaRPlSFJyQa6CXKK0btHYiownmyYQX7aJHxcR8YrgFMxsXigHYMIiK5SNP3Xj9loV0A5gujxhGx1sYi607BcTisf2pdx4Gx64PPI+qkt/A97wtvmMsoEEoA==
+ bh=f0+3v4W6wkQWh5QYh+XIp7YzkS3NRvXW9BklPZYqiA4=;
+ b=R74SegB233dtR2ObHaf2IW/g2Za7/k+hwdDS8TAgDZnbGQ4/GEWebhYtweQ0c8WODECKtB0+wftTmDfWuncI1L5rCgyXDuktUAjp2iCv+La+nrM1eRnGfylZ6sv57MDT4OEE3OpXphQvNWnjeN+1zV5QCSMXQhbyYBAOYOc4NnRQT+omB2u7Xr7u9llAM7CjcEDhBuIGXIMpZjAWIsTjgBN0o/1111AeSq6nzMi+m5mxPiiHaj0JXV4Bjo74GUhcHIo8yrddVxBWm6WhTNYSbEGCcP2CjBScsnYe8OMNYLthZlD/W0hRuu9T/uWjoef4ecZuAeOtEAfL35lDspNVLw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VRTim0xDjqWDlS0sCZAnQ8BvJ/wdu/z7UFDxK146MiY=;
- b=3kjHIu3aigoJqodOkDiV4F92KIWR7zBfT5fEEueJ/JOh/eZrfhMAXlqM0pnE8pE+ysFdale4sAuVIgkH6ZUTjmOC4/3LTzJUL2hrGY41Mc4RljcUFrzk34gfpqQMGu8Knxul5dAtgZ7FhhszwO21cJ40g0OWGzJgyqyvcaoIgZg=
-Received: from SA6PR12MB999202.namprd12.prod.outlook.com
- (2603:10b6:806:450::12) by DS2PR12MB9712.namprd12.prod.outlook.com
- (2603:10b6:8:275::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Thu, 5 Nov
- 2026 21:31:51 +0000
-Received: from SA6PR12MB999202.namprd12.prod.outlook.com
- ([fe80::547:be9f:5668:4a5c]) by SA6PR12MB999202.namprd12.prod.outlook.com
- ([fe80::547:be9f:5668:4a5c%6]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
- 21:31:51 +0000
-From: "Luo, Zhigang" <Zhigang.Luo@amd.com>
-To: "Koenig, Christian" <Christian.Koenig@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang, Hawking"
- <Hawking.Zhang@amd.com>, "Lazar, Lijo" <Lijo.Lazar@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: keep SPM VF VRAM at GPU address 0
-Thread-Topic: [PATCH] drm/amdgpu: keep SPM VF VRAM at GPU address 0
-Thread-Index: AQHdbJdneZd1gXoFekOjf7vw38fHL7cfWLGAgACexsA=
-Date: Thu, 5 Nov 2026 21:31:50 +0000
-Message-ID: <SA6PR12MB9992027B0CED8C56FD29C4F0F1F1772@SA6PR12MB999202.namprd12.prod.outlook.com>
-References: <20261104200152.77286-1-Zhigang.Luo@amd.com>
- <7d1e794a-a8ec-42d7-81dc-47ed61870f64@amd.com>
-In-Reply-To: <7d1e794a-a8ec-42d7-81dc-47ed61870f64@amd.com>
-Accept-Language: en-US, en-CA
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-11-05T20:57:52.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ bh=f0+3v4W6wkQWh5QYh+XIp7YzkS3NRvXW9BklPZYqiA4=;
+ b=lT+o72K6Qs6lzJ2WKAmf/jRBHNXHn7rEaoDl0ZC5jfF/H9m8zYWhWNe03qqrYQ5Y/qXAUsVi7QfqI4dZwErZ5JZdn15jZBxnKzSdjIqGa1CpWIVPBzLYWypAVu4YpPymYM3iHHif/MH8C89jLFo7ErabFVIr/bNiOEnz9L4sN60=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SA6PR12MB999202:EE_|DS2PR12MB9712:EE_
-x-ms-office365-filtering-correlation-id: 88ec15af-262c-4286-b6d9-08df3b843452
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|23010399003|1800799024|376014|6133799003|10067099003|22082099003|261102123227099003|18002099003|38070700021|261009223027099003|261028144727099003|261022105027099003|11063799006|4143699003|56012099006|261026121527099003|261026140227099003|261021121427099003|261021123027099003;
-x-microsoft-antispam-message-info: VxBQ2Ffam5EfLbhqnJwd4AL9HHfUALLhH+2wEFuy4bGEUC/X49CQQQJtyxnK1CZpwK7o9vi5qRTuaEMwvPyCZhVqSj0O3lMCfV2wdsHpyb1bE8qocqkrdqVW4AtA9lQpRNkKa5IKcNp2AkdDPIgM1s2+3xlxBUaH6Tg55d1c3Lbk2TLsCO7+zjAOeiuKclPtle6+3sVJVLfmBYwFR+zHoqzwcT5kDFtXtijK3ND3vyPkVN95Q8CfHColxCsq5JN2m/IFC1Y4pAH2UP0DejM6SVqbEoBFnHOYbWM+ZmRXUdMU4517sx6awB0IWOct72u6RXzchQqJ32sdZDrEs9evPBa4g05p7ET7GieYbA9jCh6yHajZYwEK5J2wSZBiGrVSPBGcU22IL4N2o2AKBHqVx9KYAdcygGXiJ1tQdd694zyroOohRceMEsv1k6v2DugkrUGSJr4Y4uLi6S1I41VTvoDJ58NFXdRSZ5uY5L2jM0FtpGeS+ZaGHjxPaCouS75+EzSOhgaugjL9SdoeO5lQGAa5BeUDbuD+JfnpyWdWEfDxKmsoiXygAByBPyTr4KeLUv7HP/S5dfpYLpwNzjyZ4zVuw2IbFoIcscibP2Tkq6aX5GVnP4K23oFbp17pTd24+S8JzI/THXel+v5ozBL8pgQWo+5qAuIoNPT6evl1Q1RiRx3CCrR/dsdK9aVtYYtEZUfJkqw/MKx86Jv7bpjCquF47tRKAAtovyy5CepbERk=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA6PR12MB999202.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(6133799003)(10067099003)(22082099003)(261102123227099003)(18002099003)(38070700021)(261009223027099003)(261028144727099003)(261022105027099003)(11063799006)(4143699003)(56012099006)(261026121527099003)(261026140227099003)(261021121427099003)(261021123027099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?cVhwRU5vNFB1VndITzNadGVXaFMwVHBKUUlYZXlid3ByVWdaZGszZWNJTU02?=
- =?utf-8?B?QitSNW1yT3llV0h2dE5WcGVoY0paclc3N1NJajl3K2xiUm9kYTMrZFZYV1dG?=
- =?utf-8?B?MEJpa3AxbkhHRVBGZ1JzckhPWFNYenFOLyttcExsb3BuZDhIU3lNRUtOVjRy?=
- =?utf-8?B?OEYyQzRaYnVKRHMyNFFsdmRhQTVUdW1YNUY3SHNBaE51SmtsT01ncktHZzFD?=
- =?utf-8?B?T1FnczMzVHU3ajRkbXJ2OFFZUDNpNU9ydkpGbXhZTWxQUG00UVZkcWhuVjQx?=
- =?utf-8?B?Y1V2dUVxanhMR3VXdHRwSUxCNGVFcjFoVElkUmd4T1pTMFhaR0piMFI4RmRQ?=
- =?utf-8?B?RFhpKzdlN3lMREE5NGZuWmtpeDI3WHBlRkQvY2NjK3hzdWw3cGdCalFnNEZQ?=
- =?utf-8?B?RE5KSVU1cTc0TjZGL21WcGhsdjg3dmhac1NUUEc1N2lyUVQrTGQ4RGV2Nkpr?=
- =?utf-8?B?cHRUY1J5YzN5aEhvcjgxSXE2YjQ1T3U2RW1xaVRuN2UzazgvQVp5THZiMWNQ?=
- =?utf-8?B?SWEzSWJDZm9WU1pJamxlWmxHTjdXZVdQNWt3RVY0QlltSHhqTmR4QmFhM0lB?=
- =?utf-8?B?a2NKaXBjR0g2dUZhTFNlTS9LZkwybFZVMVRMMklYWkkxV3hsTHdPUm9UTWY5?=
- =?utf-8?B?V3pIdkxXNWloNkdSRVhaYjk4aVpsT3cvZTU1dU1aaWZYaTRtN1N4bjJra24z?=
- =?utf-8?B?T2syRGdzRWYwVzhvbDJSUzBLaDN4cDR6ckdqR3JxeEprWHlkaTBXWkF5bG4r?=
- =?utf-8?B?eWtqSTZ2T0NiK0VGMVdDUHorWE9BczhuZS95YUQxTlZtcFZ2RHZKQWVuV0pH?=
- =?utf-8?B?L3NOaFo5NDlKeWtvNUFCMnl5Wm9YZmpTNEl3OXpoYnEyYU1zR1RKVHJ1c2U0?=
- =?utf-8?B?RWJQamdKNlg2RGJad1FHZW1YUzV0RkZBRW1ZTHlKblo1aHFVekFjMXNFZ0t1?=
- =?utf-8?B?TDRYSXNZKzIvcTZQc2Z6dlNaczgwZXZrVnc5RkpSUzV5M3I3TnRUYmd2UkZO?=
- =?utf-8?B?WjY3cGVVNFF1UXV5ZWlGa2tGSnRiQ1haajd2TGhHbU13K1dIM21jdlR2Z2Z1?=
- =?utf-8?B?bFBreldUZXFaU29kRTc3RGoybVFnVys0dndRYjBEaE1nNlNGb1NxcWFKZElH?=
- =?utf-8?B?cUhRREI5YXJDdWptVnQ4cnlEVXFaOHRiaXlzU25yOFpjdHdCWXNJWENsUWtJ?=
- =?utf-8?B?MzJOZkxHMFRCU0lBRXRxVFR0NXFOb0w4anZ5MDlyeitvSFUxeFY5aTVvQWhL?=
- =?utf-8?B?VlRIRVFaek5vMnppbXdkTUVQdlpaNlNWODdabU92aDl1SW4yWm5hQkJvZ3E0?=
- =?utf-8?B?RkRJQnhMODdjajBZdDVBbGZyNHNxclJDNldmUUhnaG9zQmF2U1g0Sm8yWjFW?=
- =?utf-8?B?dDAzc1FSM0lqcjlXYXp5dGRZR3NnbmpTUUxSdWcrQWduZFM3NmZCSW9jTVV1?=
- =?utf-8?B?eDcvUFFqbkNDOWZwZXRNaVFPRk9sbGdhMjAxNi9oUWVnbzFoRG1URGJkYUZM?=
- =?utf-8?B?aXYxSHh3L2lzWHQ0ME5xdytmaWxTeVNtbjF3eVpHbmlUTytEWmdQN1dJS0xO?=
- =?utf-8?B?WVd6NGxMYm5YanFORkxyUktUWHhrZkZJZUZFS2ptTUlvZjBneFZnR08xWXA0?=
- =?utf-8?B?VU52TDM4SjNKZDlVVGdCZ2RoY1JRZVgxcTduYWFiUi9pVGlXZkZVV0l4ejZy?=
- =?utf-8?B?Sno5ZW8rTThabU9TUWJUeC9WeWo1ZlFSN3h6aUk1TmpTL2ZHcHZobEQ4K0dU?=
- =?utf-8?B?aGsyeEtjZDR6MUoyT3VnL3IyOUtlbkU5NmdNWU9sbkpMbHJKZ2R4QjdPZFRz?=
- =?utf-8?B?eWlabm1OOTEvdFpEMmRIRjY2ZUQxcklEa2FFRmRocWdFQTNpVmtrTHU0VmtM?=
- =?utf-8?B?WEdBVVFLeVVtQ1hGL0lZcnltV3VnS3AwS1hjNS9XTmMvLzZoWkxDS1BwT1Jk?=
- =?utf-8?B?b2ZSRDB1Q0RycmpvYjBlZmNScnZsaG0wMnUxc1VaL0FNZ0JMYXAwRFdMTTdq?=
- =?utf-8?B?dzl6RHpKVEFxcndCaGpiWGtDdCtCbEhBSjNPZGdyakpJVWRCMDlTNmxzTG9P?=
- =?utf-8?B?YlY0ZXFoZmg0SWhabnlGTWJZZVk2dFV2WVVvaXVLTWFaVUJRaFhZdTJ1YWE3?=
- =?utf-8?B?dkJqOTJDRHQwSEtFS2grR0xMK2NBZjI1VDNvRENBN0NYRWt5S3FIdWNTOEVy?=
- =?utf-8?B?ZDhrQnluMTV1VzZiL0pxdWhqNlBnbE1CVFJUUUxqMFZDRG1TazI1cGRuUkdm?=
- =?utf-8?B?ODhibGNMRlhDM2dsUzlBdW43YjMzelRJVVNncFFkWUJrTU5nVytJUUpmYi9J?=
- =?utf-8?Q?3W7DNFFiMIRNK5Pwrn?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from MW6PR12MB8705.namprd12.prod.outlook.com (2603:10b6:303:24c::18)
+ by DM4PR12MB5724.namprd12.prod.outlook.com (2603:10b6:8:5f::9) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.10; Thu, 5 Nov 2026 21:45:35 +0000
+Received: from MW6PR12MB8705.namprd12.prod.outlook.com
+ ([fe80::e75b:745c:ed13:f321]) by MW6PR12MB8705.namprd12.prod.outlook.com
+ ([fe80::e75b:745c:ed13:f321%4]) with mapi id 15.21.0592.007; Thu, 5 Nov 2026
+ 21:45:35 +0000
+Message-ID: <7aec0ed4-1a4d-446b-8971-580770e3de09@amd.com>
+Date: Thu, 5 Nov 2026 15:45:32 -0600
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: use atomic commit for panel power savings
+To: shivamkalra98@zohomail.in, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ "Kazlauskas, Nicholas" <Nicholas.Kazlauskas@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, David Weber <weber.aulendorf@gmail.com>,
+ Wayne Lin <Wayne.Lin@amd.com>
+References: <20261031-abm-sysfs-atomic-v1-1-a99068f3b49c@zohomail.in>
+Content-Language: en-US
+From: Alex Hung <alex.hung@amd.com>
+In-Reply-To: <20261031-abm-sysfs-atomic-v1-1-a99068f3b49c@zohomail.in>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW4P220CA0014.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:303:115::19) To MW6PR12MB8705.namprd12.prod.outlook.com
+ (2603:10b6:303:24c::18)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW6PR12MB8705:EE_|DM4PR12MB5724:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1f69ee0d-0dda-430f-72dd-08df3b861f67
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|1800799024|376014|366016|921020|261022075727099003|261022113327099003|261022105027099003|56012099006|5023799004|11063799006|261026140227099003|261009223027099003|261021121427099003|261026121527099003|261009221227099003|261021123027099003|261102130727099003|261102123227099003|261028144727099003|10067099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info: s0kDjY6yYW786Yw7L5VKex4yILHFhVSf+9j99hCxtfFbCtVMi5yaR0ylrenixtR7RROibtk3vbcRgjvtc+naD4sjlXprZQV8ODHOsLlqwGqwgJSsI/CJj7fzWYOyCvK5QQyBedkjasLCpEtdjBxF9MeKYCW7HAOCxoHkiCDM08BcXj8TOTDMt5NtM8/YqBicb9UsTp0sWGdb1Rkxo+eS7o0ZsOxLJ8FwCkhddSInGFjDWgBQg7gE7JTIYvkQ3Awgv88IJrj52kqqOQgmlRAJqvdlH7tYZ049R7D9Pc7CwHKRrOB6BEs/09GJBdsZQTTSZ/b1FIm7qjXeNhAF6RcUf52QJO02m+SmN2S/RX4EuQAtWhDqQ36MtY+f+Vs3U2ChW0msL/3uCp0QrOoc9KbsFhixoMcGW9WRWdo+ZsgLUFR/b/fHltuh77AvfzHKBuuTEefuWupmlMX1Je1bMlK1klvM7f3RRmw2dGieChIloBKutnkuTJ2PSLJKw2XyVwa9Qvcvo5n1KZQGB2AgrEwMavvzzh/vwJqXbo2OoMJRyc3mzNvXZ8+LNgTrsdcIz8LvnN6R9zKz4aZ73ZixLzEuHTFG/ZvlzWL1MOd0s9d+PLu//5xafzn+/sxKmjgaWI72vvV+VHmiv1LI2TC5cr3hOsIN59wRP1w4CxCaihsmw3Q=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW6PR12MB8705.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(921020)(261022075727099003)(261022113327099003)(261022105027099003)(56012099006)(5023799004)(11063799006)(261026140227099003)(261009223027099003)(261021121427099003)(261026121527099003)(261009221227099003)(261021123027099003)(261102130727099003)(261102123227099003)(261028144727099003)(10067099003)(18002099003)(22082099003)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MmlxalRUemE3cy9DemJXRVRBT1RwaTJUbmU3Qnh6ZEdNNnlDR1R3a2xlRkRI?=
+ =?utf-8?B?WGN4Tlp6WGVHNlNNVXF6cGh5ejdFTE9pUTlOMEtTSWhvRm1Qa3JheTBnbXND?=
+ =?utf-8?B?VnpEWmE5OVkyd0t1Q3NtaTVTNmNvS0Z4aEVLVGhrT2VOVnNQdXM1QUJJcFgr?=
+ =?utf-8?B?WGtQdHowSkx5UGhsalVGVDd4WFZWTzRCMnpwUjJvS3UvUHhacnVlekpWSFN1?=
+ =?utf-8?B?clFaSmpjVW85a0Q2NmttekJMOWdHZzlOODMwSFF6ZDNGOGlPNldJUTdFNnRJ?=
+ =?utf-8?B?OHpmY1hQU2RxUStpNjgwMWtjSnd0dVFUYkFGazFZYllCM2FUZXpmaVcyYzM0?=
+ =?utf-8?B?WlF5WldCMDVhSUErYWYwbEN1cUdwVzR4ek9KVjhGRE04QnlZMjRVVHRvWkRM?=
+ =?utf-8?B?WTRUd2pqdGN3eEttbThTMDhZNExjRHp6N2VrVTNreTc3cEgyeHJ3ekNOV3ZG?=
+ =?utf-8?B?cWlaUUNEZk42eFQ5RG1hQWMvbjdROG5MWEhGZmFtNWUyTjhjZGxZdjdLZHpz?=
+ =?utf-8?B?elYyWk8vdWpHcE5vZ0s5U3FkRE4rRExGOWRNUTRBZVZINWhSV3VHR0VETGVP?=
+ =?utf-8?B?STVXdnBHaDhEVm5UQU1SbGRuakNSSStteG9EUkkzZTc4c3EvV2xwYlBPa0dv?=
+ =?utf-8?B?RGR3YWNFalZpVjFZaVJsYmJRWVRLYlR4STI2b2lQNk1RRFdRalRzWDBQVjRY?=
+ =?utf-8?B?MkQrT0kwbFRXaUJLZlg4cmtNa043THkzVnJlcDJDUVdNeHp6QVpnNFVuRjB0?=
+ =?utf-8?B?SzdGVm8zOERUZERleEI5VXBaOHF4WkFaYTdQR2xESW0vRFgweWl4SGh5c2NP?=
+ =?utf-8?B?TWdzaXRWTzZTYzlmSXpzWE4xV0hLOEZlYVBZcW9KWkhHQkgwZE1DREF2Z3lW?=
+ =?utf-8?B?YU82dGxPcWlmSW1URjNpaitYQnUvWkEvTVUwM3dmYzNnWXdRZTY2ZzRBN1ZN?=
+ =?utf-8?B?R08ySERUTkkxSldTRURjZGpjRklnTUZXdVNpV01RSXZ1eXpWNlpUVFpnNkRX?=
+ =?utf-8?B?SW9RWG5nRm9LWmVtMlE4S2dRY0MrSDRaWTlqSVNzZzBmQitvc3ZuaE1ya2cy?=
+ =?utf-8?B?ZUxHbUJiWTFFMXVpRUx2aXZpMjdYeU9IZ2RiNE9GMDFpMXpJVm1FdXRNaElt?=
+ =?utf-8?B?REN5ZlJXb29tQjIzYVBRYWYzYlR6M0RhQ2xXV0J1MVkwVG8xMi9WVUN5aTlo?=
+ =?utf-8?B?TFhGbVo2N0xWS1V3WmRoMHFaV0ZyOWVzSWl5QnErN1hPbVgvRFhoTldRQ25S?=
+ =?utf-8?B?VzFwWFFaOVFXY0NXSk9IVzlaeU42T3VpSmUxL0RUUVlueHJXNThlVks4UXVL?=
+ =?utf-8?B?ZVpSTFZJV05CMDMwK2RIR0FxVjhIbGhta1ZOa3IzSkNoSnZuMWhIZ2hsL1JI?=
+ =?utf-8?B?azZyUjMveHFPdXEvZXkrdzJTczB0MDVOeDFFRmUxbVRHNGl3NzBnb0tmNUpa?=
+ =?utf-8?B?WitZSVRiOGxuN2ZBaGE2bHV0RC9zcVA5dTYrWWVLOHB2SmZBVUNncWlGSFhW?=
+ =?utf-8?B?cGJiSE81clMwcGEvQVJ5cFU2T2swL0ZIQlBJK2lVM2tCYVR2OUZWZXVlTFZr?=
+ =?utf-8?B?QitzODMvWUJHWEtIdGhmbjNReW5MNmZHSFd4WkwzOWpiNSthVDlKL2hoTVB1?=
+ =?utf-8?B?SDM0akd2UklGeWxJa0NtUytUU3gwY1Y2TVdnZTNTeThickxjVTJmZjBnSHVC?=
+ =?utf-8?B?RkJaazdyQXFYT25Ndjd2UFNFN3lzc0gzQWw0bWpWbUd3cFIzem5EaGFBeWF1?=
+ =?utf-8?B?RTI2dzZCUWJ6R0k2MkZZSDg2bC9qOVpTb241TlFGeTdteGRpdGtPdHBCR2xx?=
+ =?utf-8?B?MllJWGtxSHByR1o4Rmk5TzlybFF1UkN5Q1U0VUpzQnNjeFg4TjJQdEgrcGlo?=
+ =?utf-8?B?RWF2ZHJpa2VGS0VXYmdZdjB3ZGdjeGY3VHQ4SndLczhiT0NWcSt2Y2pFVzN5?=
+ =?utf-8?B?Zms0UjVjUEQrY0dEemVWTHgrcStxSG1jOG9uV0p4NWk1UWdKc1p5T0F3dVJj?=
+ =?utf-8?B?S1RCWi94OWFkOGhHSWtZd0FVUHRLL0pHZ2EzcG5Hb2VCSUx0dUlweERnZ2Jn?=
+ =?utf-8?B?dVMyTnVlaUYyL3pmYjVOZm8zM0xYRXhaWGhxTDBlTHRaWmI0SDBBRGJqakl3?=
+ =?utf-8?B?SmZhOXZTTzV2M013c0pNOVhGbzEyUVEvRHR6Z2JYdDBmdkNMb091dVBZNGls?=
+ =?utf-8?B?NktWM21XR25reXpUc0E2c3ZaM1lsOFgrTW1aQk9KQTRkT0ZYaDJmSWJSQXVV?=
+ =?utf-8?B?TVpUNlhCeGp5OUFRdlBHNDZMc1RKT0hwZVNiK3JFa3JUR3dLM1RzM1F4VktJ?=
+ =?utf-8?Q?ahAML7J//Alhmm/FIa?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1f69ee0d-0dda-430f-72dd-08df3b861f67
+X-MS-Exchange-CrossTenant-AuthSource: MW6PR12MB8705.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SA6PR12MB999202.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 88ec15af-262c-4286-b6d9-08df3b843452
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Nov 2026 21:31:50.9148 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 606ssOG9vf+VFGdSaATWMoWObhMYq57s8V58m5TFINAuujsre1889u+06q8Iw0r/
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9712
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 21:45:35.1986 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: py0ek8+JYhm5wpocZafJr8mLB921MRA+hGDrF9oIouAQgtVGT5OUc0gFYhdxHg8c2q0r75cp/h2LTQ6P9R7L1g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5724
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,166 +136,391 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-QU1EIEdlbmVyYWwNCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBLb2Vu
-aWcsIENocmlzdGlhbiA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPg0KPiBTZW50OiBUaHVyc2Rh
-eSwgTm92ZW1iZXIgNSwgMjAyNiA2OjMwIEFNDQo+IFRvOiBMdW8sIFpoaWdhbmcgPFpoaWdhbmcu
-THVvQGFtZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBDYzogRGV1Y2hl
-ciwgQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPjsgWmhhbmcsIEhhd2tpbmcN
-Cj4gPEhhd2tpbmcuWmhhbmdAYW1kLmNvbT47IExhemFyLCBMaWpvIDxMaWpvLkxhemFyQGFtZC5j
-b20+DQo+IFN1YmplY3Q6IFJlOiBbUEFUQ0hdIGRybS9hbWRncHU6IGtlZXAgU1BNIFZGIFZSQU0g
-YXQgR1BVIGFkZHJlc3MgMA0KPg0KPiBPbiAxMS80LzI2IDIxOjAxLCBaaGlnYW5nIEx1byB3cm90
-ZToNCj4gPiAtIGJ1ZyAnYW1kZ3B1X3ZpcnRfcmVzdW1lJzogcmVzdW1lIGFkZGVkIHRoZSB4R01J
-IG5vZGUgc2VnbWVudCBvbiB0b3ANCj4gPiAgIG9mIHRoZSBNTUhVQiBGQiBvZmZzZXQgZm9yIFNQ
-TSBWUkFNOyB1c2UgYXBlcl9iYXNlIGFuZCBza2lwIHRoZSBub2RlDQo+ID4gICBvZmZzZXQNCj4g
-PiAtIGJ1ZyAnZ21jX3YxMl8wX3ZyYW1fZ3R0X2xvY2F0aW9uJzogdGhlIGluaXRpYWwgbG9hZCBw
-YXRoIGFkZGVkIHRoZQ0KPiA+ICAgc2FtZSBub2RlIHNlZ21lbnQgYWZ0ZXIgYXBlcl9iYXNlOyBz
-a2lwIGl0IHdoZW4gVlJBTSBpcyBTUE0NCj4gPiAtIGJ1ZyAnYW1kZ3B1X2dtY19zeXN2bV9sb2Nh
-dGlvbic6IFNQTSB1c2VkIHRoZSBoaXZlIHdpbmRvdyBhbmQgYQ0KPiA0R0INCj4gPiAgIEdBUlQg
-YWxpZ25tZW50OyB6ZXJvIHRoZSBWUkFNIEdQVSB3aW5kb3cgYW5kIHBsYWNlIEdBUlQgYWZ0ZXIg
-bG9jYWwNCj4gPiAgIFZSQU0gb24gYW4gOEdCIFBEQjAgYm91bmRhcnkNCj4gPiAtIGJ1ZyAnYW1k
-Z3B1X2dtY19wZGIwX2FsbG9jJzogUERCMCBjb3ZlcmVkIHRoZSBoaXZlOyBzaXplIFNQTQ0KPiBj
-b3ZlcmFnZQ0KPiA+ICAgZnJvbSBtY192cmFtX3NpemUNCj4gPiAtIGJ1ZyAnYW1kZ3B1X2dtY19p
-bml0X3BkYjAnOiBTUE0gc3VidHJhY3RlZCB0aGUgbm9kZSBzZWdtZW50IGZyb20NCj4gPiAgIGFw
-ZXJfYmFzZTsga2VlcCB0aGUgc3lzdGVtIHBoeXNpY2FsIGJhc2UNCj4NCj4NCj4gRmlyc3Qgb2Yg
-YWxsIHBsZWFzZSB3cml0ZSBhIHByb3BlciBjb21taXQgbWVzc2FnZS4gVGhhdCBoZXJlIGlzIGNs
-ZWFybHkNCj4gaW5hY2NlcHRhYmxlLg0KDQpXaWxsIHJld3JpdGUgYSBjb21taXQgbWVzc2FnZS4N
-Cg0KPg0KPg0KPiA+DQo+ID4gU2lnbmVkLW9mZi1ieTogWmhpZ2FuZyBMdW8gPFpoaWdhbmcuTHVv
-QGFtZC5jb20+DQo+ID4gLS0tDQo+ID4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9kZXZpY2UuYyB8IDEyICsrKysrKysrKy0tLQ0KPiA+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfZ21jLmMgICAgfCAyMiArKysrKysrKysrKysrKysrLS0NCj4gLS0tLQ0KPiA+
-ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjEyXzAuYyAgICAgfCAgNiArKysrLS0N
-Cj4gPiAgMyBmaWxlcyBjaGFuZ2VkLCAyOSBpbnNlcnRpb25zKCspLCAxMSBkZWxldGlvbnMoLSkN
-Cj4gPg0KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-ZGV2aWNlLmMNCj4gPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2Uu
-Yw0KPiA+IGluZGV4IDkzMjZmODExYzUwMC4uN2E2NjRiN2IxYmEzIDEwMDY0NA0KPiA+IC0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYw0KPiA+ICsrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYw0KPiA+IEBAIC00Njc3LDkg
-KzQ2NzcsMTUgQEAgc3RhdGljIGlubGluZSBpbnQgYW1kZ3B1X3ZpcnRfcmVzdW1lKHN0cnVjdA0K
-PiBhbWRncHVfZGV2aWNlICphZGV2KQ0KPiA+ICAgICBkZXZfaW5mbyhhZGV2LT5kZXYsICJ4Z21p
-IG5vZGUsIG9sZCBpZCAlZCwgbmV3IGlkICVkXG4iLA0KPiA+ICAgICAgICAgICAgIHByZXZfcGh5
-c2ljYWxfbm9kZV9pZCwgYWRldi0+Z21jLnhnbWkucGh5c2ljYWxfbm9kZV9pZCk7DQo+ID4NCj4g
-PiAtICAgYWRldi0+dm1fbWFuYWdlci52cmFtX2Jhc2Vfb2Zmc2V0ID0gYWRldi0+Z2Z4aHViLmZ1
-bmNzLQ0KPiA+Z2V0X21jX2ZiX29mZnNldChhZGV2KTsNCj4gPiAtICAgYWRldi0+dm1fbWFuYWdl
-ci52cmFtX2Jhc2Vfb2Zmc2V0ICs9DQo+ID4gLSAgICAgICAgICAgYWRldi0+Z21jLnhnbWkucGh5
-c2ljYWxfbm9kZV9pZCAqIGFkZXYtDQo+ID5nbWMueGdtaS5ub2RlX3NlZ21lbnRfc2l6ZTsNCj4g
-PiArICAgaWYgKGFtZGdwdV92aXJ0X3ZyYW1faXNfc3BtKGFkZXYpKSB7DQo+ID4gKyAgICAgICAg
-ICAgYWRldi0+dm1fbWFuYWdlci52cmFtX2Jhc2Vfb2Zmc2V0ID0gYWRldi0NCj4gPmdtYy5hcGVy
-X2Jhc2U7DQo+DQo+IFdlbGwgdGhhdCBpcyB0b3RhbGx5IG5vbnNlbnNlIGFzIGZhciBhcyBJIGNh
-biBzZWUuDQo+DQo+IFRoZSB2cmFtX2Jhc2Vfb2Zmc2V0IGFuZCB0aGUgUENJIGFwZXJ0dXJlIGFy
-ZSB0d28gY29tcGxldGVseSBkaWZmZXJlbnQNCj4gdGhpbmdzLg0KPg0KPiBQbGVhc2UgZXhwbGFp
-biB3aGF0IHlvdSB0cnkgdG8gZG8gaGVyZT8NCg0KRm9yIHRoZSBBTURHUFVfVklSVF9WUkFNX0lT
-X1NQTSBjYXNlLCB0aGUgVkYgaGFzIG5vIGZyYW1lYnVmZmVyIEJBUiBhbmQgaXRzIFZSQU0gaXMg
-ZXhwb3NlZCBhcyBTUE0uIFNpbmNlIHRoZXJlIGlzIG5vIFBDSSBCQVIgYWRkcmVzcyB0byByZWNv
-cmQsIGdtYy5hcGVyX2Jhc2UgaXMgcmV1c2VkIHRvIGhvbGQgdGhlIFZGIFZSQU0gc3lzdGVtIHBo
-eXNpY2FsIGFkZHJlc3Mgb2J0YWluZWQgZnJvbSB0aGUgQUNQSSBTUkFUIHRhYmxlLiBUaGlzIGlz
-IGNvbnNpc3RlbnQgd2l0aCB0aGUgZXhpc3RpbmcgYmFyZS1tZXRhbCBnbWMueGdtaS5jb25uZWN0
-ZWRfdG9fY3B1IGNhc2UsIHdoZXJlIGFwZXJfYmFzZSBpcyBhbHNvIG5vdCBhIFBDSSBCQVIgYWRk
-cmVzczsgaXQgaXMgcG9wdWxhdGVkIGZyb20gZ2V0X21jX2ZiX29mZnNldCgpLiBJbiBib3RoIGNh
-c2VzLCBhcGVyX2Jhc2UgcmVwcmVzZW50cyB0aGUgc3lzdGVtIHBoeXNpY2FsIGJhc2Ugb2YgVlJB
-TSByYXRoZXIgdGhhbiBhIFBDSSBmcmFtZWJ1ZmZlciBhcGVydHVyZS4NCg0KPg0KPiA+ICsgICB9
-IGVsc2Ugew0KPiA+ICsgICAgICAgICAgIGFkZXYtPnZtX21hbmFnZXIudnJhbV9iYXNlX29mZnNl
-dCA9DQo+ID4gKyAgICAgICAgICAgICAgICAgICBhZGV2LT5nZnhodWIuZnVuY3MtPmdldF9tY19m
-Yl9vZmZzZXQoYWRldik7DQo+ID4gKyAgICAgICAgICAgYWRldi0+dm1fbWFuYWdlci52cmFtX2Jh
-c2Vfb2Zmc2V0ICs9DQo+ID4gKyAgICAgICAgICAgICAgICAgICBhZGV2LT5nbWMueGdtaS5waHlz
-aWNhbF9ub2RlX2lkICoNCj4gPiArICAgICAgICAgICAgICAgICAgIGFkZXYtPmdtYy54Z21pLm5v
-ZGVfc2VnbWVudF9zaXplOw0KPiA+ICsgICB9DQo+ID4NCj4gPiAgICAgcmV0dXJuIDA7DQo+ID4g
-IH0NCj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dt
-Yy5jDQo+ID4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ21jLmMNCj4gPiBp
-bmRleCA0MjA0YzNjNzUwYTguLjc4ZmFlM2ZiZWUxMSAxMDA2NDQNCj4gPiAtLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ21jLmMNCj4gPiArKysgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfZ21jLmMNCj4gPiBAQCAtNDIsNiArNDIsOCBAQA0KPiA+ICAj
-aW5jbHVkZSA8ZHJtL3R0bS90dG1fdHQuaD4NCj4gPg0KPiA+ICBzdGF0aWMgY29uc3QgdTY0IGZv
-dXJfZ2IgPSAweDEwMDAwMDAwMFVMTDsNCj4gPiArLyogUERCMCBibG9jayBzaXplIDEyIGNvdmVy
-cyBvbmUgOEdCIGVudHJ5LiAqLyBzdGF0aWMgY29uc3QgdTY0DQo+ID4gK2VpZ2h0X2diID0gMHgy
-MDAwMDAwMDBVTEw7DQo+ID4NCj4gPiAgYm9vbCBhbWRncHVfZ21jX2lzX3BkYjBfZW5hYmxlZChz
-dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikgIHsgQEANCj4gPiAtNjAsNyArNjIsOCBAQCBpbnQg
-YW1kZ3B1X2dtY19wZGIwX2FsbG9jKHN0cnVjdCBhbWRncHVfZGV2aWNlDQo+ICphZGV2KQ0KPiA+
-IHsNCj4gPiAgICAgaW50IHI7DQo+ID4gICAgIHN0cnVjdCBhbWRncHVfYm9fcGFyYW0gYnA7DQo+
-ID4gLSAgIHU2NCB2cmFtX3NpemUgPSBhZGV2LT5nbWMueGdtaS5ub2RlX3NlZ21lbnRfc2l6ZSAq
-IGFkZXYtDQo+ID5nbWMueGdtaS5udW1fcGh5c2ljYWxfbm9kZXM7DQo+ID4gKyAgIHU2NCB2cmFt
-X3NpemUgPSBhbWRncHVfdmlydF92cmFtX2lzX3NwbShhZGV2KSA/IGFkZXYtDQo+ID5nbWMubWNf
-dnJhbV9zaXplIDoNCj4gPiArICAgICAgICAgICBhZGV2LT5nbWMueGdtaS5ub2RlX3NlZ21lbnRf
-c2l6ZSAqDQo+ID4gK2FkZXYtPmdtYy54Z21pLm51bV9waHlzaWNhbF9ub2RlczsNCj4NCj4gQ2xl
-YXIgTkFLIGZyb20gbXkgc2lkZSBmb3Igc3VjaCBoYWNrcy4NCj4NCj4gUGxlYXNlIGRlc2NyaWJl
-IHRoZSByZXF1aXJlbWVudHMgYW5kIHByb3BlciBpbnRlZ2FydGUgdGhhdCBpbnRvIHRoZQ0KPiBo
-YW5kbGluZy4NCj4NCj4gUmVnYXJkcywNCj4gQ2hyaXN0aWFuLg0KPg0KDQpPbiBBTURHUFVfVklS
-VF9WUkFNX0lTX1NQTSBjYXNlLCB0aGUgaHlwZXJ2aXNvciByZXBvcnRzIGVhY2ggVkYncyBWUkFN
-IGFkZHJlc3MgaW4gdGhlIEFDUEkgU1JBVCB0YWJsZS4gU28sIGRyaXZlciBjYW4gdXNlIHRoZSBh
-ZGRyZXNzIGRpcmVjdGx5LCB0aGVyZSBpcyBubyBuZWVkIHRvIHVzZSB4Z21pLm5vZGVfc2VnbWVu
-dF9zaXplIHRvIGNhbGN1bGF0ZSB0aGUgVkYncyBWUkFNIHN0YXJ0aW5nIGFkZHJlc3ModGhlIHhH
-TUkgbm9kZSBzZWdtZW50IHNpemUgaXMgbm90IHZhbGlkIGZvciB0aGUgVkYpLg0KDQpUaGFua3Ms
-DQpaaGlnYW5nDQoNCj4gPiAgICAgdWludDMyX3QgcGRlMF9wYWdlX3NoaWZ0ID0gYWRldi0+Z21j
-LnZtaWQwX3BhZ2VfdGFibGVfYmxvY2tfc2l6ZQ0KPiArIDIxOw0KPiA+ICAgICB1aW50MzJfdCBu
-cGRlcyA9ICh2cmFtX3NpemUgKyAoMVVMTCA8PCBwZGUwX3BhZ2Vfc2hpZnQpIC0gMSkgPj4NCj4g
-PiBwZGUwX3BhZ2Vfc2hpZnQ7DQo+ID4NCj4gPiBAQCAtMjY2LDE2ICsyNjksMjEgQEAgdm9pZCBh
-bWRncHVfZ21jX3N5c3ZtX2xvY2F0aW9uKHN0cnVjdA0KPiBhbWRncHVfZGV2aWNlICphZGV2LCBz
-dHJ1Y3QgYW1kZ3B1X2dtYyAqbWMNCj4gPiAgICAgdTY0IGhpdmVfdnJhbV9lbmQgPSBtYy0+eGdt
-aS5ub2RlX3NlZ21lbnRfc2l6ZSAqIG1jLQ0KPiA+eGdtaS5udW1fcGh5c2ljYWxfbm9kZXMgLSAx
-Ow0KPiA+ICAgICBtYy0+dnJhbV9zdGFydCA9IG1jLT54Z21pLm5vZGVfc2VnbWVudF9zaXplICog
-bWMtDQo+ID54Z21pLnBoeXNpY2FsX25vZGVfaWQ7DQo+ID4gICAgIG1jLT52cmFtX2VuZCA9IG1j
-LT52cmFtX3N0YXJ0ICsgbWMtPnhnbWkubm9kZV9zZWdtZW50X3NpemUgLQ0KPiAxOw0KPiA+IC0g
-ICAvKiBub2RlX3NlZ21lbnRfc2l6ZSBtYXkgbm90IDRHQiBhbGlnbmVkIG9uIFNSSU9WLCBhbGln
-biB1cCBpcw0KPiBuZWVkZWQuICovDQo+ID4gLSAgIG1jLT5nYXJ0X3N0YXJ0ID0gQUxJR04oaGl2
-ZV92cmFtX2VuZCArIDEsIGZvdXJfZ2IpOw0KPiA+ICsgICAvKiBSb3VuZCB1cCB0byBhIFBEQjAg
-ZW50cnkgc28gR0FSVCBzdGFydHMgb24gdGhlIHBhZ2UtdGFibGUgUERFLiAqLw0KPiA+ICsgICBt
-Yy0+Z2FydF9zdGFydCA9IEFMSUdOKGhpdmVfdnJhbV9lbmQgKyAxLCBlaWdodF9nYik7DQo+ID4g
-ICAgIG1jLT5nYXJ0X2VuZCA9IG1jLT5nYXJ0X3N0YXJ0ICsgbWMtPmdhcnRfc2l6ZSAtIDE7DQo+
-ID4gLSAgIGlmIChhbWRncHVfdmlydF94Z21pX21pZ3JhdGVfZW5hYmxlZChhZGV2KSkgew0KPiA+
-ICsgICBpZiAoYW1kZ3B1X3ZpcnRfeGdtaV9taWdyYXRlX2VuYWJsZWQoYWRldikgfHwNCj4gPiAr
-ICAgICAgIGFtZGdwdV92aXJ0X3ZyYW1faXNfc3BtKGFkZXYpKSB7DQo+ID4gICAgICAgICAgICAg
-Lyogc2V0IG1jLT52cmFtX3N0YXJ0IHRvIDAgdG8gc3dpdGNoIHRoZSByZXR1cm5lZCBHUFUgYWRk
-cmVzcw0KPiBvZg0KPiA+ICAgICAgICAgICAgICAqIGFtZGdwdV9ib19jcmVhdGVfcmVzZXJ2ZWQo
-KSBmcm9tIEZCIGFwZXJ0dXJlIHRvIEdBUlQNCj4gYXBlcnR1cmUuDQo+ID4gICAgICAgICAgICAg
-ICovDQo+ID4gICAgICAgICAgICAgbWMtPnZyYW1fc3RhcnQgPSAwOw0KPiA+ICAgICAgICAgICAg
-IG1jLT52cmFtX2VuZCA9IG1jLT52cmFtX3N0YXJ0ICsgbWMtPm1jX3ZyYW1fc2l6ZSAtIDE7DQo+
-ID4gICAgICAgICAgICAgbWMtPnZpc2libGVfdnJhbV9zaXplID0gbWluKG1jLT52aXNpYmxlX3Zy
-YW1fc2l6ZSwNCj4gPiBtYy0+cmVhbF92cmFtX3NpemUpOw0KPiA+ICsgICAgICAgICAgIGlmIChh
-bWRncHVfdmlydF92cmFtX2lzX3NwbShhZGV2KSkgew0KPiA+ICsgICAgICAgICAgICAgICAgICAg
-bWMtPmdhcnRfc3RhcnQgPSBBTElHTihtYy0+dnJhbV9lbmQgKyAxLCBlaWdodF9nYik7DQo+ID4g
-KyAgICAgICAgICAgICAgICAgICBtYy0+Z2FydF9lbmQgPSBtYy0+Z2FydF9zdGFydCArIG1jLT5n
-YXJ0X3NpemUgLSAxOw0KPiA+ICsgICAgICAgICAgIH0NCj4gPiAgICAgfSBlbHNlIHsNCj4gPiAg
-ICAgICAgICAgICBtYy0+ZmJfc3RhcnQgPSBoaXZlX3ZyYW1fc3RhcnQ7DQo+ID4gICAgICAgICAg
-ICAgbWMtPmZiX2VuZCA9IGhpdmVfdnJhbV9lbmQ7DQo+ID4gQEAgLTEyNzQsNyArMTI4Miw4IEBA
-IHZvaWQgYW1kZ3B1X2dtY19pbml0X3BkYjAoc3RydWN0DQo+IGFtZGdwdV9kZXZpY2UgKmFkZXYp
-DQo+ID4gICAgIHVpbnQ2NF90IGZsYWdzID0gYWRldi0+Z2FydC5nYXJ0X3B0ZV9mbGFnczsgLy9U
-T0RPIGl0IGlzIFVDLiBleHBsb3JlDQo+IE5DL1JXPw0KPiA+ICAgICAvKiBFYWNoIFBERTAgKHVz
-ZWQgYXMgUFRFKSBjb3ZlcnMNCj4gKDJedm1pZDBfcGFnZV90YWJsZV9ibG9ja19zaXplKSoyTQ0K
-PiA+ICAgICAgKi8NCj4gPiAtICAgdTY0IHZyYW1fc2l6ZSA9IGFkZXYtPmdtYy54Z21pLm5vZGVf
-c2VnbWVudF9zaXplICogYWRldi0NCj4gPmdtYy54Z21pLm51bV9waHlzaWNhbF9ub2RlczsNCj4g
-PiArICAgdTY0IHZyYW1fc2l6ZSA9IGFtZGdwdV92aXJ0X3ZyYW1faXNfc3BtKGFkZXYpID8gYWRl
-di0NCj4gPmdtYy5tY192cmFtX3NpemUgOg0KPiA+ICsgICAgICAgICAgIGFkZXYtPmdtYy54Z21p
-Lm5vZGVfc2VnbWVudF9zaXplICoNCj4gPiArYWRldi0+Z21jLnhnbWkubnVtX3BoeXNpY2FsX25v
-ZGVzOw0KPiA+ICAgICB1NjQgcGRlMF9wYWdlX3NpemUgPSAoMVVMTDw8YWRldi0NCj4gPmdtYy52
-bWlkMF9wYWdlX3RhYmxlX2Jsb2NrX3NpemUpPDwyMTsNCj4gPiAgICAgdTY0IHZyYW1fYWRkciwg
-dnJhbV9lbmQ7DQo+ID4gICAgIHU2NCBnYXJ0X3B0Yl9ncHVfcGEgPSBhbWRncHVfZ21jX3ZyYW1f
-cGEoYWRldiwgYWRldi0+Z2FydC5ibyk7DQo+IEBADQo+ID4gLTEyOTIsNyArMTMwMSw4IEBAIHZv
-aWQgYW1kZ3B1X2dtY19pbml0X3BkYjAoc3RydWN0IGFtZGdwdV9kZXZpY2UNCj4gKmFkZXYpDQo+
-ID4gICAgIGZsYWdzIHw9IEFNREdQVV9QREVfUFRFX0ZMQUcoYWRldik7DQo+ID4NCj4gPiAgICAg
-dnJhbV9hZGRyID0gYWRldi0+dm1fbWFuYWdlci52cmFtX2Jhc2Vfb2Zmc2V0Ow0KPiA+IC0gICBp
-ZiAoIWFtZGdwdV92aXJ0X3hnbWlfbWlncmF0ZV9lbmFibGVkKGFkZXYpKQ0KPiA+ICsgICBpZiAo
-IWFtZGdwdV92aXJ0X3hnbWlfbWlncmF0ZV9lbmFibGVkKGFkZXYpICYmDQo+ID4gKyAgICAgICAh
-YW1kZ3B1X3ZpcnRfdnJhbV9pc19zcG0oYWRldikpDQo+ID4gICAgICAgICAgICAgdnJhbV9hZGRy
-IC09IGFkZXYtPmdtYy54Z21pLnBoeXNpY2FsX25vZGVfaWQgKiBhZGV2LQ0KPiA+Z21jLnhnbWku
-bm9kZV9zZWdtZW50X3NpemU7DQo+ID4gICAgIHZyYW1fZW5kID0gdnJhbV9hZGRyICsgdnJhbV9z
-aXplOw0KPiA+DQo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dt
-Y192MTJfMC5jDQo+ID4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjEyXzAuYw0K
-PiA+IGluZGV4IGNkMjc2YTEzOGUxMC4uZTM3Yzg0ZjEwNzA5IDEwMDY0NA0KPiA+IC0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192MTJfMC5jDQo+ID4gKysrIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvZ21jX3YxMl8wLmMNCj4gPiBAQCAtNzM0LDggKzczNCwxMCBAQCBz
-dGF0aWMgdm9pZCBnbWNfdjEyXzBfdnJhbV9ndHRfbG9jYXRpb24oc3RydWN0DQo+IGFtZGdwdV9k
-ZXZpY2UgKmFkZXYsDQo+ID4gICAgICAgICAgICAgYWRldi0+dm1fbWFuYWdlci52cmFtX2Jhc2Vf
-b2Zmc2V0ID0gYWRldi0+bW1odWIuZnVuY3MtDQo+ID5nZXRfbWNfZmJfb2Zmc2V0KGFkZXYpOw0K
-PiA+ICAgICB9DQo+ID4NCj4gPiAtICAgYWRldi0+dm1fbWFuYWdlci52cmFtX2Jhc2Vfb2Zmc2V0
-ICs9DQo+ID4gLSAgICAgICAgICAgYWRldi0+Z21jLnhnbWkucGh5c2ljYWxfbm9kZV9pZCAqIGFk
-ZXYtDQo+ID5nbWMueGdtaS5ub2RlX3NlZ21lbnRfc2l6ZTsNCj4gPiArICAgaWYgKCFhbWRncHVf
-dmlydF92cmFtX2lzX3NwbShhZGV2KSkNCj4gPiArICAgICAgICAgICBhZGV2LT52bV9tYW5hZ2Vy
-LnZyYW1fYmFzZV9vZmZzZXQgKz0NCj4gPiArICAgICAgICAgICAgICAgICAgIGFkZXYtPmdtYy54
-Z21pLnBoeXNpY2FsX25vZGVfaWQgKg0KPiA+ICsgICAgICAgICAgICAgICAgICAgYWRldi0+Z21j
-LnhnbWkubm9kZV9zZWdtZW50X3NpemU7DQo+ID4gIH0NCj4gPg0KPiA+ICAvKioNCg0K
+
+
+On 10/30/26 15:58, Shivam Kalra via B4 Relay wrote:
+> [Some people who received this message don't often get email from devnull+shivamkalra98.zohomail.in@kernel.org. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+> 
+> From: Shivam Kalra <shivamkalra98@zohomail.in>
+> 
+> panel_power_savings_store() mutates connector->state directly and sends a
+> hotplug event. This bypasses atomic commit handling, so the new ABM level
+> is only applied when userspace happens to perform another modeset, and it
+> races with concurrent commits.
+> 
+> Build an atomic state, set the level on the connector state and commit it.
+> If the connector is not attached to a CRTC, keep the level in the current
+> state so the next modeset picks it up, as before.
+> 
+> A previous attempt to avoid the modeset by calling into DMUB directly was
+> reverted because it broke the abm_gradual IGT test (8d20a066fa9b,
+> 95aaa207e9ef). This version instead uses the normal atomic stream update
+> path.
+> 
+> Expose the atomic state update helper for KUnit and extend the tests to
+> cover the atomic update and the inactive sysfs path.
+> 
+> Fixes: 63d0b87213a0 ("drm/amd/display: add panel_power_savings sysfs entry to eDP connectors")
+> Signed-off-by: Shivam Kalra <shivamkalra98@zohomail.in>
+> ---
+> Note: This patch works standalone (applying ABM changes via a modeset), and
+> pairs cleanly with David Weber's unmerged series [1] ("drm/amd/display: Skip
+> connector updates without a stream" and "drm/amd/display: Avoid modeset for
+> ABM changes") to allow non-modeset ABM updates via the stream update path.
+> 
+
+Hi Shivam,
+
+Thanks for the patch. Moving this to an atomic commit is the right 
+direction, but as it stands every write still ends in a full modeset.
+
+In amdgpu_dm_atomic_check(), any abm_level difference between the old 
+and new connector state sets new_crtc_state->connectors_changed = true. 
+That makes drm_atomic_crtc_needs_modeset() true, and commit_tail skips 
+the abm_changed / stream_update.abm_level fast path. Users would see a 
+blank/flicker on the eDP panel on every power-profile change.
+
+Could you try keeping drm_atomic_get_crtc_state() and setting 
+connectors_changed only for scaling? ABM would then go through the 
+existing stream update with no modeset, like David's [PATCH 2/2] 
+drm/amd/display: Avoid modeset for ABM changes - 
+https://lore.kernel.org/amd-gfx/20260813112634.11455-3-weber.aulendorf@gmail.com/
+
+Please run IGT amd_abm, including abm_gradual, before v2.
+
+Also see inline comments.
+
+> [1] https://lore.kernel.org/amd-gfx/20260813112634.11455-1-weber.aulendorf@gmail.com/
+> 
+> Testing:
+> - KUnit: the amdgpu_dm_backlight suite passes on amd-staging-drm-next
+>    (75/75 tests passed), covering the new atomic update and inactive sysfs
+>    tests.
+> - Hardware: tested on a 7.1.13-based kernel backport alongside [1]. Before
+>    the patch, the store called drm_kms_helper_hotplug_event(), produced two
+>    HOTPLUG=1 uevents (triggering 36 GetConnector probes / 20.8 ms stall in
+>    Xorg), and the backlight PWM sweep stayed flat at 6998 for levels 0..4.
+>    With the patch, ftrace shows panel_power_savings_store() ->
+>    drm_atomic_commit() -> amdgpu_dm_atomic_commit_tail() ->
+>    dc_update_planes_and_stream() -> dmub_abm_set_level_ex(), with no hotplug
+>    event or connector reprobe. The PWM sweep tracks the requested level
+>    (11130, 8304, 5782, 3815 and 2782 target for levels 0..4; 75% target
+>    reduction at level 4, 73.8% measured).
+> ---
+>   .../amd/display/amdgpu_dm/amdgpu_dm_backlight.c    | 85 ++++++++++++++++---
+>   .../amd/display/amdgpu_dm/amdgpu_dm_backlight.h    |  3 +
+>   .../amdgpu_dm/tests/amdgpu_dm_backlight_test.c     | 95 +++++++++++++++++++++-
+>   3 files changed, 172 insertions(+), 11 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+> index 27546febf90d..f8d797324319 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+> @@ -712,6 +712,31 @@ ssize_t panel_power_savings_show(struct device *device,
+>   }
+>   EXPORT_IF_KUNIT(panel_power_savings_show);
+> 
+> +static int
+> +panel_power_savings_set_level(struct dm_connector_state *dm_conn_state, long val)
+> +{
+> +       if (dm_conn_state->abm_sysfs_forbidden)
+> +               return -EBUSY;
+> +
+> +       dm_conn_state->abm_level = val ?: ABM_LEVEL_IMMEDIATE_DISABLE;
+> +
+> +       return 0;
+> +}
+> +
+> +STATIC_IFN_KUNIT int
+> +panel_power_savings_update_state(struct drm_atomic_commit *state,
+> +                                struct drm_connector *connector, long val)
+> +{
+> +       struct drm_connector_state *conn_state;
+> +
+> +       conn_state = drm_atomic_get_connector_state(state, connector);
+> +       if (IS_ERR(conn_state))
+> +               return PTR_ERR(conn_state);
+> +
+> +       return panel_power_savings_set_level(to_dm_connector_state(conn_state), val);
+> +}
+> +EXPORT_IF_KUNIT(panel_power_savings_update_state);
+> +
+>   STATIC_IFN_KUNIT
+>   ssize_t panel_power_savings_store(struct device *device,
+>                                   struct device_attribute *attr,
+> @@ -719,6 +744,9 @@ ssize_t panel_power_savings_store(struct device *device,
+>   {
+>          struct drm_connector *connector = dev_get_drvdata(device);
+>          struct drm_device *dev = connector->dev;
+> +       struct drm_modeset_acquire_ctx ctx;
+> +       struct drm_connector_state *conn_state;
+> +       struct drm_atomic_commit *state;
+>          long val;
+>          int ret;
+> 
+> @@ -730,20 +758,57 @@ ssize_t panel_power_savings_store(struct device *device,
+>          if (val < 0 || val > 4)
+>                  return -EINVAL;
+> 
+> -       drm_modeset_lock(&dev->mode_config.connection_mutex, NULL);
+> -       if (to_dm_connector_state(connector->state)->abm_sysfs_forbidden)
+> -               ret = -EBUSY;
+> -       else
+> -               to_dm_connector_state(connector->state)->abm_level = val ?:
+> -                       ABM_LEVEL_IMMEDIATE_DISABLE;
+> -       drm_modeset_unlock(&dev->mode_config.connection_mutex);
+> +       drm_modeset_acquire_init(&ctx, 0);
+
+Please use drm_modeset_acquire_init(&ctx, 
+DRM_MODESET_ACQUIRE_INTERRUPTIBLE). With 0, the sysfs write can't be 
+interrupted while it waits for the modeset locks.
+
+> +       state = drm_atomic_commit_alloc(dev);
+> +       if (!state) {
+> +               ret = -ENOMEM;
+> +               goto out_ctx;
+> +       }
+> +       state->acquire_ctx = &ctx;
+> 
+> +retry:
+> +       ret = panel_power_savings_update_state(state, connector, val);
+
+nitpick - panel_power_savings_update_state is used once; it can be 
+folded here.
+
+> +       if (ret == -EDEADLK)
+> +               goto backoff;
+>          if (ret)
+> -               return ret;
+> +               goto out_state;
+> +
+> +       conn_state = drm_atomic_get_new_connector_state(state, connector);
+
+drm_atomic_get_new_connector_state() only reads back that same slot as 
+in panel_power_savings_update_state, so the below check is likely not needed
+
+> +       if (!conn_state) {
+> +               ret = -EINVAL;
+> +               goto out_state;
+> +       }
+
+
+> +
+> +       /*
+> +        * Without a CRTC there is no stream to update and nothing to commit.
+> +        * Keep the level in the current state so the next modeset picks it
+> +        * up, matching the behavior of the sysfs interface.
+> +        */
+> +       if (!conn_state->crtc) {
+> +               to_dm_connector_state(connector->state)->abm_level =
+> +                       to_dm_connector_state(conn_state)->abm_level;
+> +               goto out_state;
+> +       }
+> +
+> +       ret = drm_atomic_commit(state);
+> +       if (ret == -EDEADLK)
+> +               goto backoff;
+> +
+> +out_state:
+> +       drm_atomic_commit_put(state);
+> +out_ctx:
+> +       drm_modeset_drop_locks(&ctx);
+> +       drm_modeset_acquire_fini(&ctx);
+> +
+> +       return ret ? ret : count;
+> 
+> -       drm_kms_helper_hotplug_event(dev);
+> +backoff:
+> +       drm_atomic_commit_clear(state);
+> +       ret = drm_modeset_backoff(&ctx);
+> +       if (!ret)
+> +               goto retry;
+> 
+> -       return count;
+> +       goto out_state;
+>   }
+>   EXPORT_IF_KUNIT(panel_power_savings_store);
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
+> index 9ad888d3ae7b..d92ec0789f15 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
+> @@ -34,6 +34,7 @@ struct device;
+>   struct device_attribute;
+>   struct drm_connector;
+>   struct attribute_group;
+> +struct drm_atomic_commit;
+> 
+>   #define AMDGPU_DM_DEFAULT_MIN_BACKLIGHT 12
+>   #define AMDGPU_DM_DEFAULT_MAX_BACKLIGHT 255
+> @@ -65,6 +66,8 @@ ssize_t panel_power_savings_show(struct device *device,
+>   ssize_t panel_power_savings_store(struct device *device,
+>                                   struct device_attribute *attr,
+>                                   const char *buf, size_t count);
+> +int panel_power_savings_update_state(struct drm_atomic_commit *state,
+> +                                    struct drm_connector *connector, long val);
+>   int get_brightness_range(const struct amdgpu_dm_backlight_caps *caps,
+>                           unsigned int *min, unsigned int *max);
+>   void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *caps,
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
+> index c6d15fb8ad98..a482261e85d2 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
+> @@ -514,6 +514,37 @@ static void dm_test_register_backlight_device_success(struct kunit *test)
+>                          adev->dm.backlight_dev[0]), 0);
+>   }
+> 
+> +static struct drm_connector_state *
+> +dm_test_panel_power_savings_duplicate_state(struct drm_connector *connector)
+> +{
+> +       struct dm_connector_state *state;
+> +
+> +       state = kmemdup(to_dm_connector_state(connector->state),
+> +                       sizeof(*state), GFP_KERNEL);
+> +       if (!state)
+> +               return NULL;
+> +
+> +       __drm_atomic_helper_connector_duplicate_state(connector, &state->base);
+> +
+> +       return &state->base;
+> +}
+> +
+> +static void
+> +dm_test_panel_power_savings_destroy_state(struct drm_connector *connector,
+> +                                         struct drm_connector_state *state)
+> +{
+> +       __drm_atomic_helper_connector_destroy_state(state);
+> +       kfree(to_dm_connector_state(state));
+> +}
+> +
+> +static const struct drm_connector_funcs dm_test_panel_power_savings_connector_funcs = {
+> +       .atomic_duplicate_state = dm_test_panel_power_savings_duplicate_state,
+> +       .atomic_destroy_state = dm_test_panel_power_savings_destroy_state,
+> +};
+> +
+> +static const struct drm_mode_config_funcs dm_test_panel_power_savings_mode_funcs = {
+> +};
+> +
+>   static struct drm_connector *setup_panel_power_savings_connector(struct kunit *test,
+>                                                           struct device **device_out,
+>                                                           struct dm_connector_state **state_out)
+> @@ -527,6 +558,7 @@ static struct drm_connector *setup_panel_power_savings_connector(struct kunit *t
+>          adev = dm_kunit_alloc_adev(test);
+>          ret = drmm_mode_config_init(&adev->ddev);
+>          KUNIT_ASSERT_EQ(test, ret, 0);
+> +       adev->ddev.mode_config.funcs = &dm_test_panel_power_savings_mode_funcs;
+> 
+>          connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
+>          device = kunit_kzalloc(test, sizeof(*device), GFP_KERNEL);
+> @@ -536,7 +568,11 @@ static struct drm_connector *setup_panel_power_savings_connector(struct kunit *t
+>          KUNIT_ASSERT_NOT_NULL(test, state);
+> 
+>          connector->dev = &adev->ddev;
+> +       connector->funcs = &dm_test_panel_power_savings_connector_funcs;
+> +       connector->index = 0;
+> +       kref_init(&connector->base.refcount);
+>          connector->state = &state->base;
+> +       state->base.connector = connector;
+>          dev_set_drvdata(device, connector);
+>          *device_out = device;
+>          *state_out = state;
+> @@ -614,10 +650,40 @@ static void dm_test_panel_power_savings_store_sets_disable(struct kunit *test)
+>          setup_panel_power_savings_connector(test, &device, &state);
+> 
+>          KUNIT_EXPECT_EQ(test, panel_power_savings_store(device, NULL, "0", count),
+> -                        (ssize_t)count);
+> +                       (ssize_t)count);
+>          KUNIT_EXPECT_EQ(test, state->abm_level, ABM_LEVEL_IMMEDIATE_DISABLE);
+>   }
+> 
+> +static void dm_test_panel_power_savings_update_state_sets_disable(struct kunit *test)
+> +{
+> +       struct drm_modeset_acquire_ctx ctx;
+> +       struct drm_connector_state *conn_state;
+> +       struct drm_atomic_commit *atomic;
+> +       struct dm_connector_state *state;
+> +       struct drm_connector *connector;
+> +       struct device *device;
+> +       int ret;
+> +
+> +       connector = setup_panel_power_savings_connector(test, &device, &state);
+> +       atomic = drm_atomic_commit_alloc(connector->dev);
+> +       KUNIT_ASSERT_NOT_NULL(test, atomic);
+> +
+> +       drm_modeset_acquire_init(&ctx, 0);
+> +       atomic->acquire_ctx = &ctx;
+> +
+> +       ret = panel_power_savings_update_state(atomic, connector, 0);
+> +       KUNIT_EXPECT_EQ(test, ret, 0);
+> +
+> +       conn_state = drm_atomic_get_new_connector_state(atomic, connector);
+> +       KUNIT_ASSERT_NOT_NULL(test, conn_state);
+> +       KUNIT_EXPECT_EQ(test, to_dm_connector_state(conn_state)->abm_level,
+> +                       ABM_LEVEL_IMMEDIATE_DISABLE);
+> +
+> +       drm_atomic_commit_put(atomic);
+> +       drm_modeset_drop_locks(&ctx);
+> +       drm_modeset_acquire_fini(&ctx);
+> +}
+> +
+>   /**
+>    * dm_test_panel_power_savings_store_forbidden - Test forbidden update
+>    * @test: The KUnit test context
+> @@ -633,6 +699,31 @@ static void dm_test_panel_power_savings_store_forbidden(struct kunit *test)
+>          KUNIT_EXPECT_EQ(test, panel_power_savings_store(device, NULL, "1", 1), -EBUSY);
+>   }
+> 
+> +static void dm_test_panel_power_savings_update_state_forbidden(struct kunit *test)
+> +{
+> +       struct drm_modeset_acquire_ctx ctx;
+> +       struct drm_atomic_commit *atomic;
+> +       struct dm_connector_state *state;
+> +       struct drm_connector *connector;
+> +       struct device *device;
+> +       int ret;
+> +
+> +       connector = setup_panel_power_savings_connector(test, &device, &state);
+> +       state->abm_sysfs_forbidden = true;
+> +       atomic = drm_atomic_commit_alloc(connector->dev);
+> +       KUNIT_ASSERT_NOT_NULL(test, atomic);
+> +
+> +       drm_modeset_acquire_init(&ctx, 0);
+> +       atomic->acquire_ctx = &ctx;
+> +
+> +       ret = panel_power_savings_update_state(atomic, connector, 1);
+> +       KUNIT_EXPECT_EQ(test, ret, -EBUSY);
+> +
+> +       drm_atomic_commit_put(atomic);
+> +       drm_modeset_drop_locks(&ctx);
+> +       drm_modeset_acquire_fini(&ctx);
+> +}
+> +
+>   /**
+>    * dm_test_panel_power_savings_store_rejects_invalid_text - Test parse failure
+>    * @test: The KUnit test context
+> @@ -1939,6 +2030,8 @@ static struct kunit_case dm_backlight_test_cases[] = {
+>          KUNIT_CASE(dm_test_panel_power_savings_show_reports_level),
+>          KUNIT_CASE(dm_test_panel_power_savings_store_sets_disable),
+>          KUNIT_CASE(dm_test_panel_power_savings_store_forbidden),
+> +       KUNIT_CASE(dm_test_panel_power_savings_update_state_sets_disable),
+> +       KUNIT_CASE(dm_test_panel_power_savings_update_state_forbidden),
+>          KUNIT_CASE(dm_test_panel_power_savings_store_rejects_invalid_text),
+>          KUNIT_CASE(dm_test_panel_power_savings_store_rejects_out_of_range),
+>          /* amdgpu_dm_backlight_get_device_index */
+> 
+> ---
+> base-commit: ba496bb837882eb1af58f41572fc289e46c77b8c
+> change-id: 20261031-abm-sysfs-atomic-c79505f63a2e
+> 
+> Best regards,
+> --
+> Shivam Kalra <shivamkalra98@zohomail.in>
+
