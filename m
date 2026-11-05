@@ -2,65 +2,125 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2578606A31B
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 04:40:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 883AE606A326
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 06:01:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XcPPuqyK
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=oyoezxVe
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C48610E910;
-	Thu,  5 Nov 2026 04:39:58 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C8F910E910;
- Thu,  5 Nov 2026 04:39:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793853593; x=1825389593;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=EZ6zco1K1tAz8v13jDM/MgKfVILftAbDKiAEr4ycyCc=;
- b=XcPPuqyKWz7Xcmua5uyh4cQscLLveNvD7Car2g2tbSwFeRLP8WwBcCRX
- AZypicQqiJvnARYUnZ2KiH96QEQkoR/ELkWLBBABt4O0RKyI69lkicvyc
- q9PbAuH6QZOWIh3fmpyZ6uPJVopb08SaVFTt+WBhDZgPhveOw/Od+9b8g
- MgkcCKLxuf5/jlgCPZEstbUOlXd0jvjw3uESHzyxkozGTaQ3wEiLQZWSU
- VDAjnFkvT9mHP1wtr9Zp6eksqHI7sAc00Gmj2spBR8d1SAvEBj6rUh9lL
- jHK7eaolAVe8VV87EV1FEbIEyJVE2tXtqOa5aFomfA7WnFXpmGD615KZX w==;
-X-CSE-ConnectionGUID: Bi3FdHp5SxGFXMQbaZAgvw==
-X-CSE-MsgGUID: rvZ4DQJFQvmIIucR6S5ffw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2721205"
-X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
-   d="scan'208";a="2721205"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2026 20:39:53 -0800
-X-CSE-ConnectionGUID: azbN95y1Tj+RCA6RxL/jEw==
-X-CSE-MsgGUID: brRElNI+Sn2mvd0OtqX5Bg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
-   d="scan'208";a="8669849"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
- by fmviesa012.fm.intel.com with ESMTP; 04 Nov 2026 20:39:50 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1xOpGM-00000000leF-3eaK;
- Thu, 05 Nov 2026 04:39:46 +0000
-Date: Thu, 5 Nov 2026 12:39:45 +0800
-From: kernel test robot <lkp@intel.com>
-To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Felix Kuehling <Felix.Kuehling@amd.com>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 4/5] drm/amdgpu: add wedge event implementation
-Message-ID: <202611051237.oXlTZ7GB-lkp@intel.com>
-References: <20261029152000.22001-4-pierre-eric.pelloux-prayer@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0740F10E223;
+	Thu,  5 Nov 2026 06:01:07 +0000 (UTC)
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010029.outbound.protection.outlook.com
+ [52.101.193.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D35B10E223
+ for <amd-gfx@lists.freedesktop.org>; Thu,  5 Nov 2026 06:01:01 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=IiqkAhqLOde7oaqgRBCWap6+8DqnoBTe/ORfMF0cLI9mU0zMRWrNZOiF4LvSh+A1SywvsfgqKvpzrzX/X3ATPl9LuQ4zud4XRvXSrSrruBifL6EjrRuDaBGGGJRWv0CCXOX8iyHYa06oUHWsTkpkQdaqdQjv3ybcrvtt2ASKiZL4gUGolhVOD3Zbobk/u2wy0r9wWQhxzwKjwXtidJM2nyST+a1uY3FEsnqNiWK1kskB7ayK0OXmi6fXv8q/9fW2apQH25oMiidR+yGBo+jUtqYTSEmEAxYWvX2t/CmTukjXQrKze0XwyfNuzzkxDZRuYrNwUJ5xxRMWgtPCRg7icA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0ZPFYmIJd126r6yQqzm99Z7gynaEkIaPu4SuAGvk3bI=;
+ b=dakMnbkXiRIGD7RplAbgtN2TRxUAwHaejNmuIbdiOIYsviJRMK3G0Z9FjirQtz17P0WXa4CrY5xSGQxJmwtC8NdEiu3Wt6n9X6t9holY5x9VaYLXuRLLPHssUyl2S0GwKkSXzId8H8lSP0LWVQIjf4Gho49Bk2CbLUOWVM+mv7f6yNDjajnnRtNQ3JzvOUM4WPA2yJsH4S6R6/IVL+yeGDdUTUdRWOaYoZOJ5P8dbetS3eHffwuAa9RE7UdznvTDDTkL59HMexVpip2GatTkn8KUcOKhJ5BB4DM0uQ04nfKXsVYGWbIpLBb40GWgZkNRjU+BPFXdx5rhCgj2k/wDVA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0ZPFYmIJd126r6yQqzm99Z7gynaEkIaPu4SuAGvk3bI=;
+ b=oyoezxVe7S48vqdyxTQes0nkKzjE0pi+aav4eLD2jvst/1MK+ReH0UZ7qbcr8g/YEPdnKMSl9hsI3uwU/tVon9XHuscbv8AMJoGAKAPwUCQd+vgmpmg4im+ak+ZNRtXnWPWzJMCRqTnv4+ngab++EVr+DnZyLLxX16cxPDZdYak=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
+ by MW4PR12MB7383.namprd12.prod.outlook.com (2603:10b6:303:219::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
+ 2026 06:00:55 +0000
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc%5]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
+ 06:00:54 +0000
+Message-ID: <c2f078b9-0b5e-4592-b53c-9644307397ab@amd.com>
+Date: Thu, 5 Nov 2026 11:30:48 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/1] drm/amd/pm: restore the forced performance level
+ after a reset
+To: Priya Hosur <Priya.Hosur@amd.com>, amd-gfx@lists.freedesktop.org,
+ Kevin.Wang@amd.com, Christian.Koenig@amd.com, Felix.Kuehling@amd.com
+Cc: Pratik.Vishwakarma@amd.com, Veerabadhran.Gopalakrishnan@amd.com
+References: <cover.1793787406.git.Priya.Hosur@amd.com>
+ <abbf127cdaa05bc133605a961ef912dd773dab29.1793787406.git.Priya.Hosur@amd.com>
+Content-Language: en-US
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <abbf127cdaa05bc133605a961ef912dd773dab29.1793787406.git.Priya.Hosur@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA0PR01CA0065.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:ad::9) To SA0PR12MB7091.namprd12.prod.outlook.com
+ (2603:10b6:806:2d5::17)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029152000.22001-4-pierre-eric.pelloux-prayer@amd.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|MW4PR12MB7383:EE_
+X-MS-Office365-Filtering-Correlation-Id: 80983b57-8fa9-49a2-623e-08df3b022718
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|23010399003|366016|1800799024|18002099003|22082099003|10067099003|56012099006|4143699003|11063799006|261026121527099003|261028144727099003|261022075727099003|261021123027099003|261009223027099003|261026140227099003|261102123227099003|261021121427099003|261022105027099003|261009221227099003;
+X-Microsoft-Antispam-Message-Info: dnhS6VKXr1Ni1zv1Rqvhlz+sHJBnWVU/5kUvdf3aZYuLv2ifHmPTtDa6h+P8YNGztLY7aWtQr556hf4xq9c8Fm+ziOyw/m93bz8G6m1pXYngOvtgOqK+Or+WAy1ruw219rzj8qNXPfqj3Lg+CUrDxCp+DUqXlkzV0q+C3erLdJJ0rtV4QLyOhLBfnMaUBzxkd9q52aLFdyRXRLY0SVJdIP40xwXVf3RIW6cJ+tykGhYRcv/CwYUhX4D6qIiJp582f/Stc/tLO9XyDuokfr4NTE3ULdayou6ogKVzeR0Pu9HSYKWxn8o+92cmu1eE47AisHQCBy0UMUqbqdCAP8Mr03CvkW/1zr8PG2/cJOU5Xa5GfhIgNFLTQLo2na0eFaXD1RDUKqU2GIa/WejAhHNKy+Y6RFUJlWNTys9P87pr2sCxo50KYlsibXWseFpIIofJ+Z679qMIKEOAo4Xkk4CZyOj+d+npTJ2D/bm7FOLjlIJxI1IaHipcuozkgra+wWD6NuNBtzTdtu4pn2nL2k1xy8Qw7Kx0k0V9CS7kxxdzdCKVY3+kiiDxeko7uvw7clmVmstfaPPc5lRVLtE+ErUhln7Omb2MgJlm4bwYMUOn9NpqqnBk+mZ+LfhDun7Cb8PSF5a3Vihctor5FjWLZ8G54vmukE1s/QM2YoD+mbw6qS8=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(18002099003)(22082099003)(10067099003)(56012099006)(4143699003)(11063799006)(261026121527099003)(261028144727099003)(261022075727099003)(261021123027099003)(261009223027099003)(261026140227099003)(261102123227099003)(261021121427099003)(261022105027099003)(261009221227099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bHVFbEY5cVVwSDFSR0NudGcxS0NwMFFwODhQdUxySEx3NEl0ZHc5d2o1R05L?=
+ =?utf-8?B?b0pPeTc5WUNpRDIvNVJEdFV3YVJXYVpZUUdVS2oyN3lHbjJHY0licm4zZXRT?=
+ =?utf-8?B?WWhyVkxIcHNSck1nSnhkUDdzWDdIcG5SdUtnS0w1S0liSzFaMUQ2WVJKQkVK?=
+ =?utf-8?B?RW93eGptUUNLeUZxSEo0MlF6cktYek1udStycU5BS0VKTDdyK1kzR1BCZFMv?=
+ =?utf-8?B?MllJeVpYdG9uR3hiQWNSWTdQRVNHWCs1cU9ZZkNYdU9mU3VwNWRGUlkrUHA3?=
+ =?utf-8?B?V2tKM09DTnNuOHpjT0k2R2RmS1ZVSFl1VzJ4SWppT1hoRDFTdlAvZ0FhT2VW?=
+ =?utf-8?B?T2xsdWFRM3paYkJaMDFIY2NSWmpCRkoxYXNYRWNicUxBS3VDR2FubnNBOXUy?=
+ =?utf-8?B?TTFKb3d1cnpqanZ0WUlGZWMwV1hpaG14RGhMSklhanFnOU9hcDRUVHlyNHhn?=
+ =?utf-8?B?NjJGZ2FiVzJtM1N0dHJFSVVoVGRjSmZQdXBSUUxibGh0RXFxZlp1Q2Z3aDdj?=
+ =?utf-8?B?dzVZREpXcnZLcUo4aU0wY01HTHJOMzlVaUt3OTBpUjRiL01LVWl0d3I0SGRG?=
+ =?utf-8?B?MEloRGZvZVk4ME1UaWIvNjlhUVpNcU5yRU1NUE00QUgvakxzblVQMTg3MXFY?=
+ =?utf-8?B?L1dCam1qRzlnWjBWbXp5dUg4OTNuN2hUSDFpNnA5Si9zMzZtcVhHYTV3d093?=
+ =?utf-8?B?ZHZxU0FsM3JvdngwVk5KQmljcWJNY1Z1NllBZFZyN0lMMnRDajJaaEh1WEJm?=
+ =?utf-8?B?cUZKUVA0OVdzT0VvVU44TldyVGo3bXhEMWZBUkp1Q002T3ZvRnBpTzdpK1dr?=
+ =?utf-8?B?UVJib1pMa0dyclJ3Yk1aclhpdU9RRHpvVWM2SVkzNjF1SkkzRUVReFc4M043?=
+ =?utf-8?B?cWgrcG1EUklueGFJQ0l6aCt6L1RldlprODdlbUlra1ZSRktJNU4xT3FRRitv?=
+ =?utf-8?B?WGZJZE80SkVvWlZZV3ZSTkwxcnlZcnhkNGZua01odFhLdjJVZHhFSS91Nm10?=
+ =?utf-8?B?SmcybThORnRKNGNDdkdzd2J4bCt6VTdyMVVmZlBtOTRFTkM3NXVWaXdTOHNB?=
+ =?utf-8?B?b1dIQ1cxeStnd29hN3JKd2lPeFJXT2Z4YzJUdFdpYXd0a0hwL0hUUVhIMFpT?=
+ =?utf-8?B?Z1RFUTZsTXBWZjB5RGNHOWhoR1NQenJrR1I5aW5jNThITnlrYnVqNmUycHpB?=
+ =?utf-8?B?TGZ3VEhnYnZ1MEthbC9tTU5yWXNIc3F1bERZNitBY0JXQzhqaWZTOVF1c0ty?=
+ =?utf-8?B?Mm91Qk52Zm8xcU1RMndTS1UyZUhiNldMclhPc3RNTlk0b2RSeFUyVWNFemNq?=
+ =?utf-8?B?a1FUVFpLUTBuR1YrQzh1cmVEOUdJOTFHRkIvQzJ2SVp1MUZWSTQ3RnEzaWlS?=
+ =?utf-8?B?L1Y5MWl2SmUzOXlyMFVzOTJmV1RJWW4rdTNTckVMWVdNM2xvbmpIVURLZmdh?=
+ =?utf-8?B?eFk4WVQ2L28yQmRGNFQrbXREVWtYbTRmSGVob2J2d0dWakRVb3ZaaTBIa3VV?=
+ =?utf-8?B?OHNaTWtoY0VuUWtnR0FzblJyWGpmc05QN1NlKzE0MkpmM3plSCtQMERCT3pv?=
+ =?utf-8?B?SG5aTUNmcG1YRTRNSnZqUTdFZ0hIU1k5K1QrWG1nWjlNSFFYQ2t2RWtBUUVD?=
+ =?utf-8?B?K0R1UXBCVnlxaXlxcnF0Z3p2SzZGRWIrWUNRRjBvR0JYSWhDZENlSXpheXRI?=
+ =?utf-8?B?UjJ1bGRvUklsNS9ieDlqWlUxcGhXVTVDT21Pa2tjMGtzbC8xMGxLNmhsZzdl?=
+ =?utf-8?B?dzgvMTZSVVpUWWVGYmtuT3BRRGZ4eWoxdk1XUWdCSXR3aG8zeTlteXhSQ2hH?=
+ =?utf-8?B?ZUQ3NFFFeFU1a2M2NWs4eGsxN0RPTWtyTkhDOUFoRGRXZ0ZxOUhCSjJXU0pX?=
+ =?utf-8?B?bkd1clNZTThlbzh5c2xEcTNPOXV0ZW9SeHg4TW9MN0RxQVN0SzNDMjRDenNw?=
+ =?utf-8?B?KytRSGp4U3kwS2hjbXNsMVpTVlVobTk4VGpwQUU2OTZFbmdhN0xvcCtvbFNE?=
+ =?utf-8?B?ckpyVmhFeG1MaGpxT3JDZzlKOUI2OXRmUVQ4Z3RRRXpLZ1FBejVpUGlHeFVv?=
+ =?utf-8?B?R01mV3psWm9zUDVZWnA3RTgwL3kzdFdTYWc0Z3ViWUcyR0x1aWhHMzNtdjBW?=
+ =?utf-8?B?ZHlTQlNsUXZMaG5BTXdDTENqdlFwdHNCci82d0NnOGVFMmpHNEcrZENCbWNV?=
+ =?utf-8?B?TTZlcGc1aVVuUjFJbU1ScjU5UUMzdVFRdXJ0c0l6NjZ5SjBkUmd3RXdKdE40?=
+ =?utf-8?B?WHRnandBUE13TFU2cjFsc2tRa0lYcjErUEgweDFtMklsbXh3YkYxOEExSzBt?=
+ =?utf-8?Q?xuBeBt8Gu78DDMvRqi?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 80983b57-8fa9-49a2-623e-08df3b022718
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 06:00:54.5269 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: zqNR1t1bjW6srkQ2j1WAjDd/gV3JgRFGsbyYISktaoNBJaZ0kcRwRr1XthU4ya6l
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7383
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,258 +131,208 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Pierre-Eric,
-
-kernel test robot noticed the following build errors:
-
-[auto build test ERROR on next-20261028]
-[cannot apply to drm-misc/drm-misc-next linus/master v7.3 v7.3-rc7 v7.3-rc6 v7.3]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Pierre-Eric-Pelloux-Prayer/drm-amdgpu-add-gpu_recovery_enabled-flag-to-amdgpu_device/20261029-161949
-base:   next-20261028
-patch link:    https://lore.kernel.org/r/20261029152000.22001-4-pierre-eric.pelloux-prayer%40amd.com
-patch subject: [PATCH v3 4/5] drm/amdgpu: add wedge event implementation
-config: loongarch-allmodconfig (https://download.01.org/0day-ci/archive/20261105/202611051237.oXlTZ7GB-lkp@intel.com/config)
-compiler: clang version 19.1.7 (https://github.com/llvm/llvm-project cd708029e0b2869e80abe31ddb175f7c35361f90)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261105/202611051237.oXlTZ7GB-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611051237.oXlTZ7GB-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c:956:3: error: cannot jump from this goto statement to its label
-     956 |                 goto error_put_gobj;
-         |                 ^
-   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c:959:54: note: jump bypasses initialization of variable with __attribute__((cleanup))
-     959 |         PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, lock);
-         |                                                             ^
-   1 error generated.
 
 
-vim +956 drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+On 04-Nov-26 3:52 PM, Priya Hosur wrote:
+> After a GPU reset PMFW is reinitialised and comes back on its default
+> curve, while smu_dpm.dpm_level still holds the level the user forced. On
+> an SMU 14.0.1 APU with the level set to high, gfxclk drops from 2.8GHz to
+> 600MHz while sysfs still reports high. Writing the same level again does
+> not help, as amdgpu_dpm_force_performance_level() returns early when the
+> requested level matches the cached one.
+> 
+> smu_late_init() does not re-program the level either, as the
+> AMD_PP_TASK_COMPLETE_INIT path compares the cached level against itself.
+> 
+> amdgpu_dpm_reapply_umd_profile() replays the retained level after reset
+> and resume, but only for the PROFILE_* levels, and returns early for any
+> other level.
+> 
+> Restore every level through this common path and rename it to
+> amdgpu_dpm_reapply_performance_level(). The PROFILE_* levels keep their
+> UMD pstate handling, other levels only replay the level itself. auto is
+> skipped, as PMFW comes back in auto, as it does at probe. If replaying a
+> non-profile level fails, the failure is logged and the level the user
+> asked for is kept.
+> 
+> smu_reapply_power_state_dynamic() duplicates
+> smu_adjust_power_state_dynamic() with the display settings skipped and
+> the level forced, so call that instead.
+> 
+> v2: restore the forced level instead of reporting the default after the
+>      reset (Lijo).
+> 
+> v3: use the force_performance_level argument of
+>      smu_adjust_power_state_dynamic() instead of switching the cached level
+>      to auto first.
+> 
+> v4: restore the level through the common reapply path instead of
+>      smu_handle_task(), rename amdgpu_dpm_reapply_umd_profile() to
+>      amdgpu_dpm_reapply_performance_level(), replay non-profile levels
+>      directly and replace the body of smu_reapply_power_state_dynamic()
+>      (Lijo). Add the Fixes tag (Kevin).
+> 
+> Fixes: 580ad7cbd4b7 ("drm/amdgpu/swsmu: Only force workload setup on init")
+> Suggested-by: Lijo Lazar <lijo.lazar@amd.com>
+> Signed-off-by: Priya Hosur <Priya.Hosur@amd.com>
 
-   869	
-   870	int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
-   871				  struct drm_file *filp)
-   872	{
-   873		const uint32_t valid_flags = AMDGPU_VM_DELAY_UPDATE |
-   874			AMDGPU_VM_PAGE_READABLE | AMDGPU_VM_PAGE_WRITEABLE |
-   875			AMDGPU_VM_PAGE_EXECUTABLE | AMDGPU_VM_MTYPE_MASK |
-   876			AMDGPU_VM_PAGE_NOALLOC;
-   877		const uint32_t prt_flags = AMDGPU_VM_DELAY_UPDATE |
-   878			AMDGPU_VM_PAGE_PRT;
-   879	
-   880		struct drm_amdgpu_gem_va *args = data;
-   881		struct drm_gem_object *gobj;
-   882		struct amdgpu_device *adev = drm_to_adev(dev);
-   883		struct amdgpu_fpriv *fpriv = filp->driver_priv;
-   884		struct amdgpu_bo *abo;
-   885		struct amdgpu_bo_va *bo_va;
-   886		struct drm_syncobj *timeline_syncobj = NULL;
-   887		struct dma_fence_chain *timeline_chain = NULL;
-   888		struct drm_exec exec;
-   889		uint64_t vm_size, tmp;
-   890		int r = 0;
-   891	
-   892		/* Validate virtual address range against reserved regions. */
-   893		if (args->va_address < AMDGPU_VA_RESERVED_BOTTOM) {
-   894			dev_dbg(dev->dev,
-   895				"va_address 0x%llx is in reserved area 0x%llx\n",
-   896				args->va_address, AMDGPU_VA_RESERVED_BOTTOM);
-   897			return -EINVAL;
-   898		}
-   899	
-   900		if (args->va_address >= AMDGPU_GMC_HOLE_START &&
-   901		    args->va_address < AMDGPU_GMC_HOLE_END) {
-   902			dev_dbg(dev->dev,
-   903				"va_address 0x%llx is in VA hole 0x%llx-0x%llx\n",
-   904				args->va_address, AMDGPU_GMC_HOLE_START,
-   905				AMDGPU_GMC_HOLE_END);
-   906			return -EINVAL;
-   907		}
-   908	
-   909		args->va_address &= AMDGPU_GMC_HOLE_MASK;
-   910	
-   911		vm_size = adev->vm_manager.max_pfn * AMDGPU_GPU_PAGE_SIZE;
-   912		vm_size -= AMDGPU_VA_RESERVED_TOP;
-   913		if (check_add_overflow(args->va_address, args->map_size, &tmp) || tmp > vm_size) {
-   914			dev_dbg(dev->dev,
-   915				"va_address 0x%llx is in top reserved area 0x%llx\n",
-   916				args->va_address + args->map_size, vm_size);
-   917			return -EINVAL;
-   918		}
-   919	
-   920		if ((args->flags & ~valid_flags) && (args->flags & ~prt_flags)) {
-   921			dev_dbg(dev->dev, "invalid flags combination 0x%08X\n",
-   922				args->flags);
-   923			return -EINVAL;
-   924		}
-   925	
-   926		/* Validate operation type. */
-   927		switch (args->operation) {
-   928		case AMDGPU_VA_OP_MAP:
-   929		case AMDGPU_VA_OP_UNMAP:
-   930		case AMDGPU_VA_OP_CLEAR:
-   931		case AMDGPU_VA_OP_REPLACE:
-   932			break;
-   933		default:
-   934			dev_dbg(dev->dev, "unsupported operation %d\n",
-   935				args->operation);
-   936			return -EINVAL;
-   937		}
-   938	
-   939		if (args->flags & AMDGPU_VM_DELAY_UPDATE &&
-   940		    args->vm_timeline_syncobj_out)
-   941			return -EINVAL;
-   942	
-   943		if ((args->operation != AMDGPU_VA_OP_CLEAR) &&
-   944		    !(args->flags & AMDGPU_VM_PAGE_PRT)) {
-   945			gobj = drm_gem_object_lookup(filp, args->handle);
-   946			if (gobj == NULL)
-   947				return -ENOENT;
-   948			abo = gem_to_amdgpu_bo(gobj);
-   949		} else {
-   950			gobj = NULL;
-   951			abo = NULL;
-   952		}
-   953	
-   954		if (amdgpu_device_is_wedged(adev)) {
-   955			r = -ENODEV;
- > 956			goto error_put_gobj;
-   957		}
-   958	
-   959		PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, lock);
-   960	
-   961		r = PM_RUNTIME_ACQUIRE_ERR(&lock);
-   962		if (r)
-   963			goto error_put_gobj;
-   964	
-   965		/* Add input syncobj fences (if any) for synchronization. */
-   966		r = amdgpu_gem_add_input_fence(filp,
-   967					       args->input_fence_syncobj_handles,
-   968					       args->num_syncobj_handles);
-   969		if (r)
-   970			goto error_put_gobj;
-   971	
-   972		drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT |
-   973			      DRM_EXEC_IGNORE_DUPLICATES, 0);
-   974		drm_exec_until_all_locked(&exec) {
-   975			if (gobj) {
-   976				r = drm_exec_lock_obj(&exec, gobj);
-   977				drm_exec_retry_on_contention(&exec);
-   978				if (unlikely(r))
-   979					goto error;
-   980			}
-   981	
-   982			r = amdgpu_vm_lock_pd(&fpriv->vm, &exec, 2);
-   983			drm_exec_retry_on_contention(&exec);
-   984			if (unlikely(r))
-   985				goto error;
-   986		}
-   987	
-   988		/* Resolve the BO-VA mapping for this VM/BO combination. */
-   989		if (abo) {
-   990			bo_va = amdgpu_vm_bo_find(&fpriv->vm, abo);
-   991			if (!bo_va) {
-   992				r = -ENOENT;
-   993				goto error;
-   994			}
-   995		} else if (args->operation != AMDGPU_VA_OP_CLEAR) {
-   996			bo_va = fpriv->prt_va;
-   997		} else {
-   998			bo_va = NULL;
-   999		}
-  1000	
-  1001		/*
-  1002		 * Prepare the timeline syncobj node if the user requested a VM
-  1003		 * timeline update. This only allocates/looks up the syncobj and
-  1004		 * chain node; the actual fence is attached later.
-  1005		 */
-  1006		r = amdgpu_gem_update_timeline_node(filp,
-  1007						    args->vm_timeline_syncobj_out,
-  1008						    args->vm_timeline_point,
-  1009						    &timeline_syncobj,
-  1010						    &timeline_chain);
-  1011		if (r)
-  1012			goto error;
-  1013	
-  1014		switch (args->operation) {
-  1015		case AMDGPU_VA_OP_MAP:
-  1016			r = amdgpu_vm_bo_map(adev, bo_va, args->va_address,
-  1017					     args->offset_in_bo, args->map_size,
-  1018					     args->flags);
-  1019			break;
-  1020		case AMDGPU_VA_OP_UNMAP:
-  1021			r = amdgpu_vm_bo_unmap(adev, bo_va, args->va_address);
-  1022			break;
-  1023	
-  1024		case AMDGPU_VA_OP_CLEAR:
-  1025			r = amdgpu_vm_bo_clear_mappings(adev, &fpriv->vm,
-  1026							args->va_address,
-  1027							args->map_size);
-  1028			break;
-  1029		case AMDGPU_VA_OP_REPLACE:
-  1030			r = amdgpu_vm_bo_replace_map(adev, bo_va, args->va_address,
-  1031						     args->offset_in_bo, args->map_size,
-  1032						     args->flags);
-  1033			break;
-  1034		default:
-  1035			break;
-  1036		}
-  1037	
-  1038		/*
-  1039		 * Once the VA operation is done, update the VM and obtain the fence
-  1040		 * that represents the last relevant update for this mapping. This
-  1041		 * fence can then be exported to the user-visible VM timeline.
-  1042		 */
-  1043		if (!r && !(args->flags & AMDGPU_VM_DELAY_UPDATE) &&
-  1044		    (!adev->debug_vm || timeline_syncobj)) {
-  1045			struct dma_fence *fence;
-  1046	
-  1047			fence = amdgpu_gem_va_update_vm(adev, &fpriv->vm, bo_va,
-  1048							args->operation);
-  1049			if (timeline_syncobj) {
-  1050				if (!args->vm_timeline_point) {
-  1051					/* Replace the existing fence when no point is given. */
-  1052					drm_syncobj_replace_fence(timeline_syncobj,
-  1053								  fence);
-  1054				} else {
-  1055					/* Attach the last-update fence at a specific point. */
-  1056					drm_syncobj_add_point(timeline_syncobj,
-  1057							      timeline_chain,
-  1058							      fence,
-  1059							      args->vm_timeline_point);
-  1060					timeline_chain = NULL;
-  1061				}
-  1062			}
-  1063			dma_fence_put(fence);
-  1064	
-  1065		}
-  1066	
-  1067	error:
-  1068		dma_fence_chain_free(timeline_chain);
-  1069		if (timeline_syncobj)
-  1070			drm_syncobj_put(timeline_syncobj);
-  1071		drm_exec_fini(&exec);
-  1072	error_put_gobj:
-  1073		drm_gem_object_put(gobj);
-  1074		return r;
-  1075	}
-  1076	
+Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Thanks,
+Lijo
+
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  4 +--
+>   drivers/gpu/drm/amd/pm/amdgpu_dpm.c        | 21 +++++++++---
+>   drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h    |  2 +-
+>   drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  | 39 ++++------------------
+>   4 files changed, 26 insertions(+), 40 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 5069042b5279..2f7ef4bb2a65 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -2774,9 +2774,9 @@ static int amdgpu_device_ip_late_init(struct amdgpu_device *adev)
+>   	amdgpu_device_set_cg_state(adev, AMD_CG_STATE_GATE);
+>   	amdgpu_device_set_pg_state(adev, AMD_PG_STATE_GATE);
+>   
+> -	r = amdgpu_dpm_reapply_umd_profile(adev);
+> +	r = amdgpu_dpm_reapply_performance_level(adev);
+>   	if (r) {
+> -		dev_err(adev->dev, "Failed to restore UMD profile state: %d\n", r);
+> +		dev_err(adev->dev, "Failed to restore performance level: %d\n", r);
+>   		return r;
+>   	}
+>   
+> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+> index 75d8bb4868e8..ea698fe48e07 100644
+> --- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+> +++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+> @@ -1083,14 +1083,16 @@ static void amdgpu_dpm_exit_umd_state(struct amdgpu_device *adev)
+>   }
+>   
+>   /**
+> - * amdgpu_dpm_reapply_umd_profile - Restore the active UMD profile
+> + * amdgpu_dpm_reapply_performance_level - Restore the retained DPM level
+>    * @adev: amdgpu device
+>    *
+>    * Resume and reset retain the selected DPM level in software, but the
+> - * underlying GFX and PMFW state is lost. Reapply a retained UMD profile
+> - * after the common resume path has restored its default CG and PG state.
+> + * underlying GFX and PMFW state is lost. Reapply the retained level after
+> + * the common resume path has restored its default CG and PG state. UMD
+> + * profile levels also restore their GFX state, other levels only replay
+> + * the level itself.
+>    */
+> -int amdgpu_dpm_reapply_umd_profile(struct amdgpu_device *adev)
+> +int amdgpu_dpm_reapply_performance_level(struct amdgpu_device *adev)
+>   {
+>   	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+>   	enum amd_dpm_forced_level level;
+> @@ -1120,7 +1122,18 @@ int amdgpu_dpm_reapply_umd_profile(struct amdgpu_device *adev)
+>   	case AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK:
+>   	case AMD_DPM_FORCED_LEVEL_PROFILE_PEAK:
+>   		break;
+> +	case AMD_DPM_FORCED_LEVEL_AUTO:
+> +		/* PMFW comes back in auto, as it does at probe. */
+> +		ret = 0;
+> +		goto unlock;
+>   	default:
+> +		/* No UMD pstate state to restore, only the level itself. */
+> +		ret = pp_funcs->reapply_performance_level(adev->powerplay.pp_handle,
+> +							     level);
+> +		if (ret)
+> +			dev_warn(adev->dev,
+> +				 "Failed to restore performance level %d: %d\n",
+> +				 level, ret);
+>   		ret = 0;
+>   		goto unlock;
+>   	}
+> diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+> index ba8624d28f28..8ae3fcc016f8 100644
+> --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+> +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+> @@ -484,7 +484,7 @@ void amdgpu_dpm_set_power_state(struct amdgpu_device *adev,
+>   enum amd_dpm_forced_level amdgpu_dpm_get_performance_level(struct amdgpu_device *adev);
+>   int amdgpu_dpm_force_performance_level(struct amdgpu_device *adev,
+>   				       enum amd_dpm_forced_level level);
+> -int amdgpu_dpm_reapply_umd_profile(struct amdgpu_device *adev);
+> +int amdgpu_dpm_reapply_performance_level(struct amdgpu_device *adev);
+>   int amdgpu_dpm_get_pp_num_states(struct amdgpu_device *adev,
+>   				 struct pp_states_info *states);
+>   int amdgpu_dpm_dispatch_task(struct amdgpu_device *adev,
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> index a901f8535598..e45aeb2c565b 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> @@ -2507,33 +2507,7 @@ static int
+>   smu_reapply_power_state_dynamic(struct smu_context *smu,
+>   				enum amd_dpm_forced_level level)
+>   {
+> -	struct smu_dpm_context *smu_dpm_ctx = &smu->smu_dpm;
+> -	int ret;
+> -
+> -	ret = smu_apply_clocks_adjust_rules(smu);
+> -	if (ret) {
+> -		dev_err(smu->adev->dev, "Failed to apply clocks adjust rules!");
+> -		return ret;
+> -	}
+> -
+> -	ret = smu_asic_set_performance_level(smu, level);
+> -	if (ret) {
+> -		if (ret == -EOPNOTSUPP)
+> -			dev_info(smu->adev->dev, "set performance level %d not supported",
+> -				 level);
+> -		else
+> -			dev_err(smu->adev->dev, "Failed to set performance level %d",
+> -				level);
+> -		return ret;
+> -	}
+> -
+> -	smu_dpm_ctx->dpm_level = level;
+> -
+> -	if (smu_dpm_ctx->dpm_level == AMD_DPM_FORCED_LEVEL_MANUAL ||
+> -	    smu_dpm_ctx->dpm_level == AMD_DPM_FORCED_LEVEL_PERF_DETERMINISM)
+> -		return 0;
+> -
+> -	return smu_bump_power_profile_mode(smu, NULL, 0);
+> +	return smu_adjust_power_state_dynamic(smu, level, true, true);
+>   }
+>   
+>   static int smu_handle_task(struct smu_context *smu,
+> @@ -2698,21 +2672,20 @@ smu_reapply_performance_level(void *handle,
+>   	if (!smu->is_apu && !smu_dpm_ctx->dpm_context)
+>   		return -EINVAL;
+>   
+> +	if (smu_dpm_ctx->dpm_level != level)
+> +		return -EINVAL;
+> +
+>   	switch (level) {
+>   	case AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD:
+>   	case AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK:
+>   	case AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK:
+>   	case AMD_DPM_FORCED_LEVEL_PROFILE_PEAK:
+> +		smu_enter_umd_pstate(smu);
+>   		break;
+>   	default:
+> -		return -EINVAL;
+> +		break;
+>   	}
+>   
+> -	if (smu_dpm_ctx->dpm_level != level)
+> -		return -EINVAL;
+> -
+> -	smu_enter_umd_pstate(smu);
+> -
+>   	return smu_reapply_power_state_dynamic(smu, level);
+>   }
+>   
+
