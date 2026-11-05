@@ -2,124 +2,65 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B4A2606A31B
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 04:25:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2578606A31B
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 04:40:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Q8t3zkxn
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XcPPuqyK
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D10810E136;
-	Thu,  5 Nov 2026 04:25:35 +0000 (UTC)
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011003.outbound.protection.outlook.com [52.101.52.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E78810E136
- for <amd-gfx@lists.freedesktop.org>; Thu,  5 Nov 2026 04:25:29 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NN7y5WBP9VhcQslqwZbi5UQe8i4CnRM6Y2xanrGJx+MuWtn05ZGH44TXCuHdk5TI3ATLqgseozUIsc17wjzWpjBxw3QsCxfXk3ycPlRyd/V6NxHzAx8hP2fng2wmESZNv6mxce46WpeMV5oOkSQ2zXdmvpyI8SE52vWF9oi5BRDqWC/s/cftuRj3stkHhCLzmYQEH4f9VIymf38KYpVKPMLJBIReaucqGXu5uNCOyTCpJgIIRtsc1IimnoEJ6QMSTxlsqIvqZ4K84Ptk3K/2uDxBkP3iWAHkrf3j1GlWRzrbM+ViE9YMNmUJ3SyRINvedBIx8X8AFcKAFuURIsq/Tw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ccM4MvHYKzXXGeDEuGdEyIwOu9xZ+FZ4bDuyDleq5N0=;
- b=OkLUAIjLmmKMtrjqSl7Xac+bEZoQRakFwjYSysWK1YtEK7ywkl70xq4HrWMO0OIFdr9s5cAOqw0dNklpkNl0ctq799MRyAs741SMp398O6HQsI7wMsjz25b7vFdaQyux9008EuQ5VUS3AG1SsYjIjQOpWAzqWbmsLn/1+Gkt6uuu9DOwpMLhyGHjqSAtS0FsSCITZ+Ou+cZN3FW/aSiF3zyOSWCgAbkQUBDArQrHvZwb6OKBHNlY2ObqBcrAr6PYPn/nykDVwhckr/31B5IUwxjyEy187yYC/f/RTqjrahXS/PMwb0IDPpGeAf+ko7qGPqCzh8bKn2Cx0bCP50I9CA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ccM4MvHYKzXXGeDEuGdEyIwOu9xZ+FZ4bDuyDleq5N0=;
- b=Q8t3zkxnS28xoeQJWJF1g9xTqh8CiBvwXb1A+RBTHApSQMsm07ZF5dfIyUfN1pG4uX6pNNApXndcMdni4wOQGYs0uuO/d7974Z21tezYfW0fpyWzMqWiV8Uw31AHsjIH42r4arNXM5V2ll4923b3251oPvF/geHbCVhUtEPkMsI=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
- by LV2PR12MB999073.namprd12.prod.outlook.com (2603:10b6:408:352::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
- 2026 04:25:25 +0000
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc%5]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
- 04:25:25 +0000
-Message-ID: <19bf8040-a9e3-469d-99bb-119eb333085e@amd.com>
-Date: Thu, 5 Nov 2026 09:55:20 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] drm/amdgpu: abort SPM VF init when the HBM
- aperture is missing
-To: Chenglei Xie <Chenglei.Xie@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Victor.Skvortsov@amd.com, Zhigang.Luo@amd.com
-References: <20261022153132.211631-1-Chenglei.Xie@amd.com>
- <20261104162321.75300-1-Chenglei.Xie@amd.com>
- <20261104162321.75300-2-Chenglei.Xie@amd.com>
-Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20261104162321.75300-2-Chenglei.Xie@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5P287CA0019.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:179::13) To SA0PR12MB7091.namprd12.prod.outlook.com
- (2603:10b6:806:2d5::17)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C48610E910;
+	Thu,  5 Nov 2026 04:39:58 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C8F910E910;
+ Thu,  5 Nov 2026 04:39:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793853593; x=1825389593;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=EZ6zco1K1tAz8v13jDM/MgKfVILftAbDKiAEr4ycyCc=;
+ b=XcPPuqyKWz7Xcmua5uyh4cQscLLveNvD7Car2g2tbSwFeRLP8WwBcCRX
+ AZypicQqiJvnARYUnZ2KiH96QEQkoR/ELkWLBBABt4O0RKyI69lkicvyc
+ q9PbAuH6QZOWIh3fmpyZ6uPJVopb08SaVFTt+WBhDZgPhveOw/Od+9b8g
+ MgkcCKLxuf5/jlgCPZEstbUOlXd0jvjw3uESHzyxkozGTaQ3wEiLQZWSU
+ VDAjnFkvT9mHP1wtr9Zp6eksqHI7sAc00Gmj2spBR8d1SAvEBj6rUh9lL
+ jHK7eaolAVe8VV87EV1FEbIEyJVE2tXtqOa5aFomfA7WnFXpmGD615KZX w==;
+X-CSE-ConnectionGUID: Bi3FdHp5SxGFXMQbaZAgvw==
+X-CSE-MsgGUID: rvZ4DQJFQvmIIucR6S5ffw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2721205"
+X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
+   d="scan'208";a="2721205"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Nov 2026 20:39:53 -0800
+X-CSE-ConnectionGUID: azbN95y1Tj+RCA6RxL/jEw==
+X-CSE-MsgGUID: brRElNI+Sn2mvd0OtqX5Bg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
+   d="scan'208";a="8669849"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+ by fmviesa012.fm.intel.com with ESMTP; 04 Nov 2026 20:39:50 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1xOpGM-00000000leF-3eaK;
+ Thu, 05 Nov 2026 04:39:46 +0000
+Date: Thu, 5 Nov 2026 12:39:45 +0800
+From: kernel test robot <lkp@intel.com>
+To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Felix Kuehling <Felix.Kuehling@amd.com>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 4/5] drm/amdgpu: add wedge event implementation
+Message-ID: <202611051237.oXlTZ7GB-lkp@intel.com>
+References: <20261029152000.22001-4-pierre-eric.pelloux-prayer@amd.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|LV2PR12MB999073:EE_
-X-MS-Office365-Filtering-Correlation-Id: b22957c7-290d-4660-6969-08df3af4d03b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|366016|1800799024|22082099003|18002099003|6133799003|10067099003|56012099006|11063799006|4143699003|261026140227099003|261026121527099003|261028144727099003|261021123027099003|261021121427099003|261022075727099003|261022105027099003|261102123227099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info: h+C8mB2BDnM4WgKoWToCDY8eBZZOq4n1Ok9kcePAH/iaRyi6HAJKiMyVuCzbRQRYdT8E2TYkW7NuvJaVYavzbxBsery5dbBgI+2GSip6Nbsu/IKxdjN8fXlf7fzqwcD1R7avnCmSFolqTsh/d1YXxB/XEkvBA9fnhlIomq/fnmjvw/jfW9P5WHabaxQG/oN5L1AFe8mM7iIrogTHKu6FxVZtdbDeaPmzGTBcBdevlWpIeEUSVfvaPv6eNPPIlFtcG2xELnXwdTJ9WOThoArROJ6VOF7kIbRv0akQlzjghP8g/Pj92x/jR6HkLFtikQQatEHTJ4+h+zgw6C+qJoKTX7GqfSpXyAU0Yjm0yESRFrDFmG+5NYqkE3V71KmlVIJnB9DKQmyCkxf9L1xamIZjagSOYNt5gIIw+pRA7cjXtB9RX1fgyexXhqYLDM4jixJAsTp7KDLuXTI5aEhGnfLiEFg5O7DU7W06cUW/7X/mJCUryy4/nAx3KzfLTRcTgYzRMSpoCPQIPKkIWyfCK8RLsBC7+QAec1EdPttHMXMC1XYyZOTsQCpvFXbOycg75d3JYxIkyO8bznUe34BeRFKAh4WmufA7gbWvRuIqBtw2H27x+/V9TQ4mcJBs8xYQNu+B6tUV2hl8hyAgIFWShDCfoo0OMOOH3XSo1FmbYzc2KII=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(22082099003)(18002099003)(6133799003)(10067099003)(56012099006)(11063799006)(4143699003)(261026140227099003)(261026121527099003)(261028144727099003)(261021123027099003)(261021121427099003)(261022075727099003)(261022105027099003)(261102123227099003)(261009223027099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YVViT0RnWWV2aW9VWUpueFZMOVBoTHBWWGh4WVF3VWxNb3JpM0Z3UmhkMU95?=
- =?utf-8?B?Tk9Eb3I5YWxQaWczZDlteVZ5Mms0RWlPTzNvY0hGNDIvcHZPWkFZcGw4MEt1?=
- =?utf-8?B?MEgySFhCR1JyUHBjZzhSVFBKK1VrSE5lVmxmM3lsRU4ybnZaUi9EZjlnM294?=
- =?utf-8?B?cmJDKzcyT3g2dWhZbHlOKzhOeFl1NzU4Ty9nQmRaMU85dFkyVXh6NHd1Tm9K?=
- =?utf-8?B?UTlJMWNna1NCNlJoNElUTmFXTWd6czZ1elBmL294TGRVTEVYMWpJalo3VDZk?=
- =?utf-8?B?SExucVFTRkV6a29YY2NtVFI1QWRrcjNrRjh0b2xwWlVBUUM1MGxZUGxUU0hp?=
- =?utf-8?B?SmZJOXZ0NDI0KzA2ZG1LdXo3dFBIWXUrTEs4OW91cGo5bndlT1pVUnVZSktt?=
- =?utf-8?B?MVZiVlBoUXpsaXYyLzhtVXBndnY3WWtNZXlXSW1DYm43TzZqMkFnMmlqdThJ?=
- =?utf-8?B?anZEUzI2eVVkZlBtTVIrYXJhT041RFlNVENacmZ2N20vemJ4RTZNN1BnMG9Q?=
- =?utf-8?B?VzM1cWVkV1J4dGdHRk9DZGhBeHcxdGxRdEQ2WjU3VWlzNG9wMVRXc1pvNG5j?=
- =?utf-8?B?dndqWUtySkxKdGpjcWI4STBUeUsyM0FxRjZMWldkRkcxWkJpMng3TzlxR0Jq?=
- =?utf-8?B?T05UWnNMSVI1OUIxaFZzTUlnUG5jY1NvemluL1h2dEk3cjZtMlVyV3Z1REh3?=
- =?utf-8?B?TkM5aFJPYlpJVnBnTmVvbVVISkNMWU9HeDRLV25WdXJQd0VFa25kVmZOQjR1?=
- =?utf-8?B?ZGc4aFJXZHB6MzloWitQK3ZYUjVjUzFCb2ZjcWF0d3VWWHY4c0RiNmVTU0hG?=
- =?utf-8?B?c3BOblBCSmJSakZNYkhIcE9aRUc2TFoxN09xOW9IT1BtQnV6b011S3hGVlRP?=
- =?utf-8?B?NzlTV1k1VDBvZmttMWpxSTV5NndxdDlrLysrZ09TR3VvM0J0Y3pOZW1ocks4?=
- =?utf-8?B?ODViUXQ2aVBub0Mya3dJZWZnMUxwS2lHenVYL29xSWZkU3IwNjVBL1FnS3V6?=
- =?utf-8?B?Zm11blBaSnR5MWVsRGlpdjJQL1dDYTRrQlNMUnROM0RNRnZaRTJNUWwzN3hh?=
- =?utf-8?B?UHRWbzRmSWx0dEVMYmUwbGJHQWIzcUlmZGwwUkhZQVMvRzZBdzdTcDVCY1ZN?=
- =?utf-8?B?VzFucTdlNUV6eFk0eFhTaHVUM3ZzTURSRHZDSkFIWXI1ZFlubkdCcHJFeFdR?=
- =?utf-8?B?VmxSMGpmTGVldGwrbHg1SHhNbEJFbXRacytoeUgxdWRhYTVkM0Vqa1dwYmdr?=
- =?utf-8?B?dEhSVGgveS9IN0E0d09peUZwSTdqWUg0QlNtZFlEZnBydCtkTWEzajNjRnpk?=
- =?utf-8?B?bzRlbnZ2N2F6ZGpXZExNVkFMTVh0aXE0K09lOTl3UkVocGNrempUTUEwOWlF?=
- =?utf-8?B?MXdkVWcvdGxoa2VhbUJMMEhER1p6Q2Z0bGJUMkVkNkpuVU83YkFIZGxYaDlQ?=
- =?utf-8?B?V1lKenVsS3lyOS90VnY1U1NiczJxTGVHVHdaWnJSWnhxQ2FRWE5GcGZGZ0Jk?=
- =?utf-8?B?VEQrQnFvMENYN3ovUlZhOEV4V2dzVzhnUlR0Nk5vRTdwNUdBWmlyNm5QVDVl?=
- =?utf-8?B?UjZoL0VHUjFCMkZvOWdTVTBFVzVxMFBvK1NGeHZsaHFQaTlaeXJxS2JZM3hQ?=
- =?utf-8?B?Vy92MFI1eUkwV00yVFJ2NDdPV1ZVZm41TEkzYmxxM1ZJOGliZ2lvRUFlVjZl?=
- =?utf-8?B?a3lrL2o0TUhLYlpVaThpWmkrdnlNbHNoNlFnZnllZ3Voc050Z0U1dC9QaWdu?=
- =?utf-8?B?eER6d0dFc1lDOWtxSHZieHRCbnhsTWQ2SmlKRFI5Sk5PTUtwVnVacHNlamhO?=
- =?utf-8?B?V1BQbkxyTzZ3Y0IrbFU0b0FiQWlkdzhTM3UzRzRkbXFZblZWQ0E0R3MyeE40?=
- =?utf-8?B?cUdlSFFuZTlldkcyZTJqcm4zZms2Zysvb04yTDFjL2RDNEVEL296ZVFYWlkz?=
- =?utf-8?B?VnlLRUhZcE5WOEtRSzI4WGJ4WGdwZWFSUWRQa3d3VHphaG5HV0NaWFlkelB0?=
- =?utf-8?B?UVprc0d2M2wrVlk1RUVVa3B2cGZPbTI5dnZ0eDFJdmNiU21RNmlPVkd1b0ZX?=
- =?utf-8?B?Q1RITmUwTE11YkM1c2x5aVBZbkhWU2pDWDREZjhrK0NGYS82N25UT3VETE1J?=
- =?utf-8?B?WlRDbWgzK0E5SjJTVlBiVkp0VzJjalNNdm0zRDlNT2cxVEhlTVh5RDZXQW1D?=
- =?utf-8?B?VDJrM2c5VWlGYVVXaTJyMFpIS3pGM1dzSjFrS0JGc2VWclJoM09TSWliYUcz?=
- =?utf-8?B?RnN0TnhTd0pBNmtjNVdkaTZDUTgyTEMvUDVRYTlnT2tIS1doQmY0M0pHVzNL?=
- =?utf-8?Q?iHZJ1Vjm/7u54uXL+Q?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b22957c7-290d-4660-6969-08df3af4d03b
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 04:25:25.0948 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ZFNMl6REVU2wfuwSrW3SdBl6HPc9qUaPuG71Re38jA0nIlnmj6lx1ESHIa3S1Tul
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB999073
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029152000.22001-4-pierre-eric.pelloux-prayer@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,262 +71,258 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=4.0.1
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+Hi Pierre-Eric,
+
+kernel test robot noticed the following build errors:
+
+[auto build test ERROR on next-20261028]
+[cannot apply to drm-misc/drm-misc-next linus/master v7.3 v7.3-rc7 v7.3-rc6 v7.3]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Pierre-Eric-Pelloux-Prayer/drm-amdgpu-add-gpu_recovery_enabled-flag-to-amdgpu_device/20261029-161949
+base:   next-20261028
+patch link:    https://lore.kernel.org/r/20261029152000.22001-4-pierre-eric.pelloux-prayer%40amd.com
+patch subject: [PATCH v3 4/5] drm/amdgpu: add wedge event implementation
+config: loongarch-allmodconfig (https://download.01.org/0day-ci/archive/20261105/202611051237.oXlTZ7GB-lkp@intel.com/config)
+compiler: clang version 19.1.7 (https://github.com/llvm/llvm-project cd708029e0b2869e80abe31ddb175f7c35361f90)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261105/202611051237.oXlTZ7GB-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611051237.oXlTZ7GB-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c:956:3: error: cannot jump from this goto statement to its label
+     956 |                 goto error_put_gobj;
+         |                 ^
+   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c:959:54: note: jump bypasses initialization of variable with __attribute__((cleanup))
+     959 |         PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, lock);
+         |                                                             ^
+   1 error generated.
 
 
-On 04-Nov-26 9:53 PM, Chenglei Xie wrote:
-> An SPM backed VF has no FB BAR0 and gets its HBM aperture from the ACPI
-> SRAT. When that entry is missing, amdgpu_acpi_find_gpu_memory_in_srat()
-> returns -ENOENT, which the early init IP loop treats as the GMC block
-> being absent. Init keeps going and dies later with a confusing -ENOMEM
-> instead of the real cause.
-> 
-> Return -ENODEV from gmc_v12_0_early_init() so the probe aborts at the
-> point where the aperture is actually missing.
-> 
-> On a legacy host the VF already holds exclusive GPU access at this point,
-> and the early init error paths returned directly without releasing it, so
-> the host timed out and FLR'd the VF. Route these failures through a new
-> err_release_full_gpu label that releases the access the host is waiting on.
-> 
-> Add amdgpu_virt_deactivate() to clear AMDGPU_SRIOV_CAPS_RUNTIME and drop
-> adev->virt.ops, and call it from the same label, so the later fini path
-> does not send a REQ_GPU_FINI that the host will never answer.
-> 
-> Signed-off-by: Chenglei Xie <Chenglei.Xie@amd.com>
-> ---
-> v3: Route the initial full GPU access request failure through the
->      err_release_full_gpu label too, and gate the release on a new
->      full_access_held flag so both acquire failures are handled the same
->      way, per review.
-> v2: Move the runtime cap and virt ops clearing into a new
->      amdgpu_virt_deactivate() helper and call it from the label. Drop the
->      redundant SRAT error log already emitted by
->      amdgpu_acpi_find_gpu_memory_in_srat().
-> 
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 55 ++++++++++++++++------
->   drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c   | 12 +++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h   |  1 +
->   drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c     |  7 ++-
->   4 files changed, 59 insertions(+), 16 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 3ced5c18daaa..a0b9cff01bbd 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -1977,7 +1977,7 @@ static void amdgpu_device_init_pcie_links(struct amdgpu_device *adev)
->   static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
->   {
->   	struct amdgpu_ip_block *ip_block;
-> -	bool total, skip_bios, early_full_gpu_access = false;
-> +	bool total, skip_bios, early_full_gpu_access = false, full_access_held = false;
+vim +956 drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
 
-<nit/style> reverse xmas tree order.
+   869	
+   870	int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
+   871				  struct drm_file *filp)
+   872	{
+   873		const uint32_t valid_flags = AMDGPU_VM_DELAY_UPDATE |
+   874			AMDGPU_VM_PAGE_READABLE | AMDGPU_VM_PAGE_WRITEABLE |
+   875			AMDGPU_VM_PAGE_EXECUTABLE | AMDGPU_VM_MTYPE_MASK |
+   876			AMDGPU_VM_PAGE_NOALLOC;
+   877		const uint32_t prt_flags = AMDGPU_VM_DELAY_UPDATE |
+   878			AMDGPU_VM_PAGE_PRT;
+   879	
+   880		struct drm_amdgpu_gem_va *args = data;
+   881		struct drm_gem_object *gobj;
+   882		struct amdgpu_device *adev = drm_to_adev(dev);
+   883		struct amdgpu_fpriv *fpriv = filp->driver_priv;
+   884		struct amdgpu_bo *abo;
+   885		struct amdgpu_bo_va *bo_va;
+   886		struct drm_syncobj *timeline_syncobj = NULL;
+   887		struct dma_fence_chain *timeline_chain = NULL;
+   888		struct drm_exec exec;
+   889		uint64_t vm_size, tmp;
+   890		int r = 0;
+   891	
+   892		/* Validate virtual address range against reserved regions. */
+   893		if (args->va_address < AMDGPU_VA_RESERVED_BOTTOM) {
+   894			dev_dbg(dev->dev,
+   895				"va_address 0x%llx is in reserved area 0x%llx\n",
+   896				args->va_address, AMDGPU_VA_RESERVED_BOTTOM);
+   897			return -EINVAL;
+   898		}
+   899	
+   900		if (args->va_address >= AMDGPU_GMC_HOLE_START &&
+   901		    args->va_address < AMDGPU_GMC_HOLE_END) {
+   902			dev_dbg(dev->dev,
+   903				"va_address 0x%llx is in VA hole 0x%llx-0x%llx\n",
+   904				args->va_address, AMDGPU_GMC_HOLE_START,
+   905				AMDGPU_GMC_HOLE_END);
+   906			return -EINVAL;
+   907		}
+   908	
+   909		args->va_address &= AMDGPU_GMC_HOLE_MASK;
+   910	
+   911		vm_size = adev->vm_manager.max_pfn * AMDGPU_GPU_PAGE_SIZE;
+   912		vm_size -= AMDGPU_VA_RESERVED_TOP;
+   913		if (check_add_overflow(args->va_address, args->map_size, &tmp) || tmp > vm_size) {
+   914			dev_dbg(dev->dev,
+   915				"va_address 0x%llx is in top reserved area 0x%llx\n",
+   916				args->va_address + args->map_size, vm_size);
+   917			return -EINVAL;
+   918		}
+   919	
+   920		if ((args->flags & ~valid_flags) && (args->flags & ~prt_flags)) {
+   921			dev_dbg(dev->dev, "invalid flags combination 0x%08X\n",
+   922				args->flags);
+   923			return -EINVAL;
+   924		}
+   925	
+   926		/* Validate operation type. */
+   927		switch (args->operation) {
+   928		case AMDGPU_VA_OP_MAP:
+   929		case AMDGPU_VA_OP_UNMAP:
+   930		case AMDGPU_VA_OP_CLEAR:
+   931		case AMDGPU_VA_OP_REPLACE:
+   932			break;
+   933		default:
+   934			dev_dbg(dev->dev, "unsupported operation %d\n",
+   935				args->operation);
+   936			return -EINVAL;
+   937		}
+   938	
+   939		if (args->flags & AMDGPU_VM_DELAY_UPDATE &&
+   940		    args->vm_timeline_syncobj_out)
+   941			return -EINVAL;
+   942	
+   943		if ((args->operation != AMDGPU_VA_OP_CLEAR) &&
+   944		    !(args->flags & AMDGPU_VM_PAGE_PRT)) {
+   945			gobj = drm_gem_object_lookup(filp, args->handle);
+   946			if (gobj == NULL)
+   947				return -ENOENT;
+   948			abo = gem_to_amdgpu_bo(gobj);
+   949		} else {
+   950			gobj = NULL;
+   951			abo = NULL;
+   952		}
+   953	
+   954		if (amdgpu_device_is_wedged(adev)) {
+   955			r = -ENODEV;
+ > 956			goto error_put_gobj;
+   957		}
+   958	
+   959		PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, lock);
+   960	
+   961		r = PM_RUNTIME_ACQUIRE_ERR(&lock);
+   962		if (r)
+   963			goto error_put_gobj;
+   964	
+   965		/* Add input syncobj fences (if any) for synchronization. */
+   966		r = amdgpu_gem_add_input_fence(filp,
+   967					       args->input_fence_syncobj_handles,
+   968					       args->num_syncobj_handles);
+   969		if (r)
+   970			goto error_put_gobj;
+   971	
+   972		drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT |
+   973			      DRM_EXEC_IGNORE_DUPLICATES, 0);
+   974		drm_exec_until_all_locked(&exec) {
+   975			if (gobj) {
+   976				r = drm_exec_lock_obj(&exec, gobj);
+   977				drm_exec_retry_on_contention(&exec);
+   978				if (unlikely(r))
+   979					goto error;
+   980			}
+   981	
+   982			r = amdgpu_vm_lock_pd(&fpriv->vm, &exec, 2);
+   983			drm_exec_retry_on_contention(&exec);
+   984			if (unlikely(r))
+   985				goto error;
+   986		}
+   987	
+   988		/* Resolve the BO-VA mapping for this VM/BO combination. */
+   989		if (abo) {
+   990			bo_va = amdgpu_vm_bo_find(&fpriv->vm, abo);
+   991			if (!bo_va) {
+   992				r = -ENOENT;
+   993				goto error;
+   994			}
+   995		} else if (args->operation != AMDGPU_VA_OP_CLEAR) {
+   996			bo_va = fpriv->prt_va;
+   997		} else {
+   998			bo_va = NULL;
+   999		}
+  1000	
+  1001		/*
+  1002		 * Prepare the timeline syncobj node if the user requested a VM
+  1003		 * timeline update. This only allocates/looks up the syncobj and
+  1004		 * chain node; the actual fence is attached later.
+  1005		 */
+  1006		r = amdgpu_gem_update_timeline_node(filp,
+  1007						    args->vm_timeline_syncobj_out,
+  1008						    args->vm_timeline_point,
+  1009						    &timeline_syncobj,
+  1010						    &timeline_chain);
+  1011		if (r)
+  1012			goto error;
+  1013	
+  1014		switch (args->operation) {
+  1015		case AMDGPU_VA_OP_MAP:
+  1016			r = amdgpu_vm_bo_map(adev, bo_va, args->va_address,
+  1017					     args->offset_in_bo, args->map_size,
+  1018					     args->flags);
+  1019			break;
+  1020		case AMDGPU_VA_OP_UNMAP:
+  1021			r = amdgpu_vm_bo_unmap(adev, bo_va, args->va_address);
+  1022			break;
+  1023	
+  1024		case AMDGPU_VA_OP_CLEAR:
+  1025			r = amdgpu_vm_bo_clear_mappings(adev, &fpriv->vm,
+  1026							args->va_address,
+  1027							args->map_size);
+  1028			break;
+  1029		case AMDGPU_VA_OP_REPLACE:
+  1030			r = amdgpu_vm_bo_replace_map(adev, bo_va, args->va_address,
+  1031						     args->offset_in_bo, args->map_size,
+  1032						     args->flags);
+  1033			break;
+  1034		default:
+  1035			break;
+  1036		}
+  1037	
+  1038		/*
+  1039		 * Once the VA operation is done, update the VM and obtain the fence
+  1040		 * that represents the last relevant update for this mapping. This
+  1041		 * fence can then be exported to the user-visible VM timeline.
+  1042		 */
+  1043		if (!r && !(args->flags & AMDGPU_VM_DELAY_UPDATE) &&
+  1044		    (!adev->debug_vm || timeline_syncobj)) {
+  1045			struct dma_fence *fence;
+  1046	
+  1047			fence = amdgpu_gem_va_update_vm(adev, &fpriv->vm, bo_va,
+  1048							args->operation);
+  1049			if (timeline_syncobj) {
+  1050				if (!args->vm_timeline_point) {
+  1051					/* Replace the existing fence when no point is given. */
+  1052					drm_syncobj_replace_fence(timeline_syncobj,
+  1053								  fence);
+  1054				} else {
+  1055					/* Attach the last-update fence at a specific point. */
+  1056					drm_syncobj_add_point(timeline_syncobj,
+  1057							      timeline_chain,
+  1058							      fence,
+  1059							      args->vm_timeline_point);
+  1060					timeline_chain = NULL;
+  1061				}
+  1062			}
+  1063			dma_fence_put(fence);
+  1064	
+  1065		}
+  1066	
+  1067	error:
+  1068		dma_fence_chain_free(timeline_chain);
+  1069		if (timeline_syncobj)
+  1070			drm_syncobj_put(timeline_syncobj);
+  1071		drm_exec_fini(&exec);
+  1072	error_put_gobj:
+  1073		drm_gem_object_put(gobj);
+  1074		return r;
+  1075	}
+  1076	
 
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
-
-Thanks,
-Lijo
-
->   	uint32_t bios_flags;
->   	int i, r;
->   
-> @@ -1994,12 +1994,13 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
->   		if (early_full_gpu_access) {
->   			r = amdgpu_virt_request_full_gpu(adev, true);
->   			if (r)
-> -				return r;
-> +				goto err_release_full_gpu;
-> +			full_access_held = true;
->   		}
->   
->   		r = amdgpu_virt_init_critical_region(adev);
->   		if (r)
-> -			return r;
-> +			goto err_release_full_gpu;
->   	}
->   
->   	switch (adev->asic_type) {
-> @@ -2012,7 +2013,7 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
->   		adev->family = AMDGPU_FAMILY_SI;
->   		r = si_set_ip_blocks(adev);
->   		if (r)
-> -			return r;
-> +			goto err_release_full_gpu;
->   		break;
->   #endif
->   #ifdef CONFIG_DRM_AMDGPU_CIK
-> @@ -2028,7 +2029,7 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
->   
->   		r = cik_set_ip_blocks(adev);
->   		if (r)
-> -			return r;
-> +			goto err_release_full_gpu;
->   		break;
->   #endif
->   	case CHIP_TOPAZ:
-> @@ -2047,13 +2048,13 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
->   
->   		r = vi_set_ip_blocks(adev);
->   		if (r)
-> -			return r;
-> +			goto err_release_full_gpu;
->   		break;
->   	default:
->   		r = amdgpu_discovery_set_ip_blocks(adev);
->   		if (r) {
->   			adev->num_ip_blocks = 0;
-> -			return r;
-> +			goto err_release_full_gpu;
->   		}
->   		break;
->   	}
-> @@ -2062,7 +2063,8 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
->   	if (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 3) &&
->   	    !amdgpu_device_get_rev_id(adev)) {
->   		dev_err(adev->dev, "Unsupported A0 hardware\n");
-> -		return -ENODEV;	/* device unsupported - no device error */
-> +		r = -ENODEV;	/* device unsupported - no device error */
-> +		goto err_release_full_gpu;
->   	}
->   
->   	if (amdgpu_has_atpx() &&
-> @@ -2123,7 +2125,7 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
->   		if (adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_COMMON) {
->   			r = amdgpu_device_parse_gpu_info_fw(adev);
->   			if (r)
-> -				return r;
-> +				goto err_release_full_gpu;
->   
->   			bios_flags = amdgpu_device_get_vbios_flags(adev);
->   			skip_bios = !!(bios_flags & AMDGPU_VBIOS_SKIP);
-> @@ -2131,8 +2133,10 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
->   			if (!skip_bios) {
->   				bool optional =
->   					!!(bios_flags & AMDGPU_VBIOS_OPTIONAL);
-> -				if (!amdgpu_get_bios(adev) && !optional)
-> -					return -EINVAL;
-> +				if (!amdgpu_get_bios(adev) && !optional) {
-> +					r = -EINVAL;
-> +					goto err_release_full_gpu;
-> +				}
->   
->   				if (optional && !adev->bios)
->   					dev_info(
-> @@ -2148,7 +2152,7 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
->   							adev,
->   							AMDGIM_ERROR_VF_ATOMBIOS_INIT_FAIL,
->   							0, 0);
-> -						return r;
-> +						goto err_release_full_gpu;
->   					}
->   				}
->   			}
-> @@ -2159,14 +2163,17 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
->   
->   		}
->   	}
-> -	if (!total)
-> -		return -ENODEV;
-> +	if (!total) {
-> +		r = -ENODEV;
-> +		goto err_release_full_gpu;
-> +	}
->   
->   	/* Request full GPU access only for the remaining SR-IOV init work. */
->   	if (amdgpu_sriov_vf(adev) && !early_full_gpu_access) {
->   		r = amdgpu_virt_request_full_gpu(adev, true);
->   		if (r)
-> -			return r;
-> +			goto err_release_full_gpu;
-> +		full_access_held = true;
->   	}
->   
->   	if (adev->gmc.xgmi.supported)
-> @@ -2184,6 +2191,24 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
->   	amdgpu_smu_early_init(adev);
->   
->   	return 0;
-> +
-> +err_release_full_gpu:
-> +	if (amdgpu_sriov_vf(adev)) {
-> +		/*
-> +		 * Release the access the host is waiting on so it finishes the
-> +		 * handshake instead of timing out and FLR'ing the VF.
-> +		 */
-> +		if (full_access_held)
-> +			amdgpu_virt_release_full_gpu(adev, true);
-> +
-> +		/*
-> +		 * Mark the VF inactive so the later fini path does not send a
-> +		 * request the host will never answer.
-> +		 */
-> +		amdgpu_virt_deactivate(adev);
-> +	}
-> +
-> +	return r;
->   }
->   
->   static int amdgpu_device_ip_hw_init_phase1(struct amdgpu_device *adev)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-> index 576a818db522..a4dd0299fe11 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-> @@ -135,6 +135,18 @@ int amdgpu_virt_release_full_gpu(struct amdgpu_device *adev, bool init)
->   	return 0;
->   }
->   
-> +/*
-> + * amdgpu_virt_deactivate - stop driving an SR-IOV VF after a failed init
-> + *
-> + * Clear the runtime capability and drop the virt ops so the teardown path
-> + * does not issue host handshakes the host will never answer.
-> + */
-> +void amdgpu_virt_deactivate(struct amdgpu_device *adev)
-> +{
-> +	adev->virt.caps &= ~AMDGPU_SRIOV_CAPS_RUNTIME;
-> +	adev->virt.ops = NULL;
-> +}
-> +
->   /**
->    * amdgpu_virt_reset_gpu() - reset gpu
->    * @adev:	amdgpu device.
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-> index 3971bcc1ed11..3520af170278 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-> @@ -471,6 +471,7 @@ bool amdgpu_virt_mmio_blocked(struct amdgpu_device *adev);
->   void amdgpu_virt_init_setting(struct amdgpu_device *adev);
->   int amdgpu_virt_request_full_gpu(struct amdgpu_device *adev, bool init);
->   int amdgpu_virt_release_full_gpu(struct amdgpu_device *adev, bool init);
-> +void amdgpu_virt_deactivate(struct amdgpu_device *adev);
->   int amdgpu_virt_reset_gpu(struct amdgpu_device *adev);
->   void amdgpu_virt_request_init_data(struct amdgpu_device *adev);
->   int amdgpu_virt_ptl_request(struct amdgpu_device *adev, u32 req_code,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-> index cd276a138e10..3bb13cfed92f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-> @@ -667,8 +667,13 @@ static int gmc_v12_0_early_init(struct amdgpu_ip_block *ip_block)
->   
->   		r = amdgpu_acpi_find_gpu_memory_in_srat(adev, &aper_base,
->   							&aper_size);
-> +		/*
-> +		 * An SPM VF has no FB BAR0 and cannot init without the HBM
-> +		 * aperture from the SRAT. Abort this GPU probe instead of
-> +		 * limping on as if the GMC block were absent.
-> +		 */
->   		if (r)
-> -			return r;
-> +			return -ENODEV;
->   
->   		adev->gmc.aper_base = aper_base;
->   		adev->gmc.aper_size = aper_size;
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
