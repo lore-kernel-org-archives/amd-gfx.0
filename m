@@ -2,124 +2,129 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84C78606A326
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 22:13:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AE4A606A31B
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 22:17:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=gD0zJxrI
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=EKnMVzZh
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2273A10E078;
-	Thu,  5 Nov 2026 22:13:30 +0000 (UTC)
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010016.outbound.protection.outlook.com [52.101.85.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3C7610E078
- for <amd-gfx@lists.freedesktop.org>; Thu,  5 Nov 2026 22:13:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C40B10E19A;
+	Thu,  5 Nov 2026 22:17:11 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012037.outbound.protection.outlook.com [40.107.209.37])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 769B710E19A
+ for <amd-gfx@lists.freedesktop.org>; Thu,  5 Nov 2026 22:17:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vrSXf2eYvYjr2hl9eFfyVu+4Kc1HquxEvJ/SpzPABWBYNmTC79qlN3u6pzPcRg9VBcbe4349UOCeYoatO3OD2IZjODW7AdKJkaUVogUhhB0QZX1BZWpi/s9PmaxrhGKs7NL5OTwH0HnveqFjcxwFMVnnaAQvh2FE8ia3g+41FzXpWoRRqstd6vuXJBhFz42sE0J8fDoR70GVJa1pr1p7CH6Koa0gXnypa2OfG86L/Ro/cNz1bjMfeU5RK+qKkZbZqQJAlGO3xFBEDNgOM1D90CnhyitSZ4JMllCNvNVqauTDQRDBOhPtOyClcCk21Slj8l08VB8yO/JxFRQSd21R0w==
+ b=mrmaihIKSbHKqZagMepqk70STjABbcHggWxQp+RLvj9SxFpRP8AvJGML+vH1JHIFcg+lnUK8PxsG21NZKFmOWXDrFoYbdIyFG9vAS10NEs1/HF9CquWMcqG69Al41w+qaPZmjFO2Aj28Qqi107znT2/HWa3fNAQzLOtOIz+NFhHnxlFi9OQU1mqUUAdlJgpHAOG76BmI39+wXk7PpXEqgLavy3YlW8tJoAotALIaeG3JejvdhuKOGh1f9o/Zisd5wcQGYgx001pp/NbaNMeLIDbEHsMGyxOWqUDgzUtg59BAeCVuLbaKtMy7Ouk7cuRPlOKwZZrgZFJ+SKo4ErXZ5w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kCOY14A1fjwJX1oQFU7HE8xhrP5gn9QfKssc+zQNmsM=;
- b=QdpJvV//kz6AvzxBeD7sxlXz9iQ7CcTQxCKuHhw8xRipwvFsGPL/I+Qgp0gWDaDLodicQ6hMoSyA0q3/rWipffp5mUlSnBujdF0OHho3TY9FYgu8jcjzfNPR1dN9K/4rgOUTZJNl86PAWfeY85MqhGLbytUBnxJLHNJEonafoxtqeuWylWNGAa7FrYN6/KqJByX+tU8Dy+5PvblZtWvgxAcbZiqk5Kwkzmz4vsGiKnS9twTngNswDPo6BH/TDS6aLVjcMAk4dizUOU6KoLY/s+7jnCq1/bdejOVcvq/9A8h4W37buTX8aEZkagd6tYuvpqzidPMeGKmqZjN+bYMTNA==
+ bh=NEdQZYayd51jSNmITo5QveZ2vcUIhmPPskDCdl1toas=;
+ b=UE/kZtKj9AmjaRzePzTKSHiaWPz3Rf9938O6i5k/IPzcEN7qS/dbBtHUrd/JUdF2gQhj6YG2n2qpJ4PxfHbkIgonRiE04S9EXsBT/GyT1Dvz4WuYG6pjgFch2WwR6C0f3UgV1DnWliK6KjMyJiszE33n7AQj0j8FLFMqFS4WoBbGI59VcC9HYdE03kIn7c34JrrmmYUDytI1+RcsHWQXQ5o1DL2+7rZSnoqwCS7phIIgkXBdOnXWX1VUXxBwaZjBJytynosn3Isu1ZE7uAbY9f7xkUg8k+e4VJ2+foWLZP66I1yRRpxnwTYz/QQBYQiGsJuvbWp+nPbzusP3Cm0Gsw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kCOY14A1fjwJX1oQFU7HE8xhrP5gn9QfKssc+zQNmsM=;
- b=gD0zJxrIbMfgIsLM/u3bfLpHze6cXeuHXdnFrCrdZHvRC0hYTVD/P80EximbvNMYFgPRifkNERYtr4T5V57fpQ0BlzyuzDJieSVn1hSFFg+xINKvTDR4yIX5WZy17JIJSEK+T6PVFiBaso9uZfWMdYyN7psnPqZfffk756x/T3g=
+ bh=NEdQZYayd51jSNmITo5QveZ2vcUIhmPPskDCdl1toas=;
+ b=EKnMVzZh0KJ6x6mkZ+rTI/6g6UvLZQmCB8QDIF99dPq3Ao9lUVsKCWA7UYja4msnwXj7iEirsA+Kpa2FQgywEnipwAZvOe6h00UKs6W0emO0SI2VTOSoIG9eJa8yI+TYVF/f8WpdXe313qP80Bbxx/JGcVLrxYITLqQpQt9+9ns=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
  (2603:10b6:40f:fc02::607) by FT1PR12MB183566.namprd12.prod.outlook.com
  (2603:10b6:170:2b::5) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
- 2026 22:13:21 +0000
+ 2026 22:17:02 +0000
 Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
  ([fe80::67a7:9feb:71ef:964a]) by BN7PPF5F16C5C9C.namprd12.prod.outlook.com
  ([fe80::67a7:9feb:71ef:964a%8]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
- 22:13:21 +0000
-Message-ID: <416e7bcb-dc8d-445e-af14-914b08005f4c@amd.com>
-Date: Thu, 5 Nov 2026 17:13:21 -0500
+ 22:17:02 +0000
+Message-ID: <5266da9d-0b3d-4f2a-9ad1-68a74e11f866@amd.com>
+Date: Thu, 5 Nov 2026 17:17:01 -0500
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCHv3 5/8] drm/amdgpu: Set up UALink rings and metadata for
- loopback
-To: Mukul Joshi <mukul.joshi@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Harish.Kasiviswanathan@amd.com, philip.yang@amd.com
-References: <20261102160125.2743750-1-mukul.joshi@amd.com>
- <20261102160125.2743750-6-mukul.joshi@amd.com>
- <01e74b6f-3eb4-4ddb-8288-fdabe4efd943@amd.com>
- <c5317b23-66d0-49d2-a011-0c210cb3aa98@amd.com>
+Subject: Re: [PATCH v4 0/2] drm/amdkfd: Add support for discontiguous and
+ CPU-less NUMA topologies
+To: Dhruv B <dhruv.b@linux.ibm.com>, amd-gfx@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Alex Deucher <alexdeucher@gmail.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Philip Yang <yangp@amd.com>
+Cc: David.YatSin@amd.com, Kent.Russell@amd.com,
+ Ritesh Harjani <ritesh.list@gmail.com>,
+ Vaidyanathan Srinivasan <svaidy@linux.ibm.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ donettom@linux.ibm.com
+References: <20261104190718.68457-1-dhruv.b@linux.ibm.com>
 Content-Language: en-US
 From: "Kuehling, Felix" <felix.kuehling@amd.com>
-In-Reply-To: <c5317b23-66d0-49d2-a011-0c210cb3aa98@amd.com>
+In-Reply-To: <20261104190718.68457-1-dhruv.b@linux.ibm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT3PR01CA0018.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:86::22) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT3PR01CA0019.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:86::33) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
  (2603:10b6:40f:fc02::607)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: BN7PPF5F16C5C9C:EE_|FT1PR12MB183566:EE_
-X-MS-Office365-Filtering-Correlation-Id: 62d20ee3-179a-4908-2ad7-08df3b8a00e2
+X-MS-Office365-Filtering-Correlation-Id: 976ac780-e4c6-47b0-206e-08df3b8a8488
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|23010399003|10067099003|11063799006|4143699003|261021123027099003|5023799004|261102130727099003|261009223027099003|56012099006|261021121427099003|261102123227099003|261028144727099003|261026140227099003|261026121527099003|261022105027099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: +2Ec9L1aVdQ8v/NDniKl9Nxy+Y1kCWaamj123Ot33Y9XzpquOCHgo5ynwrh8yPE/sYfP0bGKts+N/F3bqwCVtqQD8BBch66eWnd9scKwzFsr1h6Nzrdg/oRWopQetUakfjFTsxI33hV13jzQmvTK1pxdLccAi8rtGVZ227OEkLfmD5y2+0iltv9yndG9mDxwmaONxkOlxrnFV1jEpudtiD314x8CroYgFBRO/BA96JW3BuUo7T9Nrliv4NEISqFW8fHFlNsZiQr1W/VJQOPBxkUDmUmFn+C65NsT6wCZ9M3WGbHH8hVVsolR1KF1IgdM8ZOiVvVTwbivq/US7nMIEvd07ODrTkxiwhqkaI1EHBOn6bFeiGNIkeMln+jyv+jNVo8M4mNjAmmb372+WkjZN8F8GsWHI3f71ZKxJ/PZtAU8fVFvmaDny9dRwHScWDEAgS/VXHXSAhoTgMBbTQ0/ZKB1LiHvtcoZS7nUBH+fMhGWQPMm9To2L7s0BWARMKnFG9JcnG7166Gowhzm0UsOGhw9jycUMHiIVeJxkDr8LM6CpDJri98iLvtqFu2e3eqHndNibZgUS48tiwgjUXRta5ItBFDOki0gm3RXVTcmTzBFu1t7eSBflq+mCatQL1BHK8tuHNV7BKri6dfpuNevmjNSzEuvCDauoYIPnKPOt6A=
+ ARA:13230040|376014|366016|1800799024|23010399003|10067099003|260925021311599003|260925021911599003|260925022911599003|11063799006|261021123027099003|5023799004|261009223027099003|56012099006|261021121427099003|261102123227099003|261022075727099003|261028144727099003|261026140227099003|261026121527099003|261022105027099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info: QnXe6T8MEPQb/jSLEtWhi5DJiK8dPyljOCwMq9vGa76K64eTHw6Rg1yprCVZkuQo7Kdr1p4AqOFVX2XdHohRf0zRb9Ek8FPe/cRygpfcXOefXyArVcxTjQmLG7Lhh/tKm4a9m3WieUBg3oy1QrM65k3rrWGmuJ1xvgKHCyhN+vS2twTRZ6PDMe/SSBr2M58uMfReTMiacbSOY/lfmfsUeN0XEt5aJ1ld4HagmLmA5fo2yzfpu0Lbpb0cCuo9GUfBuy7qE8ZvVRaNlpzhodBR8nLxoC4kK5fOSRPosdkTe2iG+VZN3cUEH5W1U0BRENGG9Te8LSml+bedJdXKsi62Fiok+So0i5wf9/pgOJNO7a495rCyY3ksJvs3bvC4RDmRgJo44f93pj+42CswOtRMoFPCB4P46w22Mwg5LANJ2jw2tss5rP9QB6O3jEIOjmwo6GkUl482aunJU180oOWyO9gBekmVH0yzuHSIJYRjouOSMH9ZZDnYOxYM2nStDV9NWeR4t8oI00zgXgbAnlZKKhixCUelKYx7AtLCKwyXH8Xzh8/ebgz7tFQgF4JsTPx6QDqFrDo9ntY0ty3w/RFGy7t1M0sHODFafbJ89OIprErPt3sBqUMquL4V2L+PB32B
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN7PPF5F16C5C9C.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(10067099003)(11063799006)(4143699003)(261021123027099003)(5023799004)(261102130727099003)(261009223027099003)(56012099006)(261021121427099003)(261102123227099003)(261028144727099003)(261026140227099003)(261026121527099003)(261022105027099003)(18002099003)(22082099003);
+ SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(10067099003)(260925021311599003)(260925021911599003)(260925022911599003)(11063799006)(261021123027099003)(5023799004)(261009223027099003)(56012099006)(261021121427099003)(261102123227099003)(261022075727099003)(261028144727099003)(261026140227099003)(261026121527099003)(261022105027099003)(18002099003)(22082099003)(6133799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YnpYRUtHRmRZeEs1NFJFdWxNTTFtVm9QU0VSNzRDa0l1T0xPZmFpNGJlN3NW?=
- =?utf-8?B?a3NRWmJBMUd2a251bDZrYlllTWptQXNUMzkwNC8xK0F6dENVUWt3L1ROZk84?=
- =?utf-8?B?QjdwN00vQytWQ2xJSUFkeWVQZ1JrMVc4bWk4TDVsakp4ZGtKWFBkMGFjVUdq?=
- =?utf-8?B?cWViQjRaNHBmMUZDN0hCNkhWRzJrUXZCYjJmZ2V0OHczYm9KTFVHYm13S1Nq?=
- =?utf-8?B?aWI0VUJaZzZtZzNOVmw1MURwcE5uNzRkekFZaEYvQ0RiM3A2MkR0OU0vVnc2?=
- =?utf-8?B?b3FrQnZsTXEwTEJaWWw4WkJnWitNRUFiVEVjS2ZGczhqZ3VOQ21rS0IrZXVy?=
- =?utf-8?B?L0pwbXJrL1hWYUYxWFBSaFlwZmJTTnJxczN6eE9aZFNETzM4QXNtNWxScFZV?=
- =?utf-8?B?WHhZb2RhNnlsUVVES0x4OWF0anNZRG5NcDJoQytoVFg4WnM4M05lb3ZyWXFa?=
- =?utf-8?B?QzZDQ2FYSjJxZWcyOW5OdWNEWkQ2bzhBV3psQ1A5OFdXenJBazNUM3l2Vmg3?=
- =?utf-8?B?N1REZFhVTGg2ckxGV1Z4dHI2c3VIZFZXQnNjQ2NycWxxK3p5ZE9nS1VLc3Z5?=
- =?utf-8?B?LzJlQmUwRmxIMmFvWmpOZ0xrWTRSMFF5SFcvaTkrTHpmNVBKa01IbDlrUUVP?=
- =?utf-8?B?TVBEVlZoY3pnYVdPR3JhVEFqSWc4bkZ4UG43WHJ3c0tqNUwvYW12dDB4NzRH?=
- =?utf-8?B?dktUVmt1bzA0M0dNRWV5ampXU2FGZnFMMzhNSnoxUFIrMmxRdUZRSFc5ejRt?=
- =?utf-8?B?ZkRKMnVXRHYxNFREQnRieG5jUTcyeWtTU3pYYXNzTE5sSlFuSmNnYXQvQTJj?=
- =?utf-8?B?eHhyYytvU2lvS3BiNEpWbFBFYk93eGd5RkJ4OWs3Nzg0VTQxM0dqVG85WFo4?=
- =?utf-8?B?UDRHVjI5Qk5DYnhxQVBUS0ZWS25id1pRR3hmVUFXbVhUamxtS3FWUHIyelVS?=
- =?utf-8?B?Z251aDB3RnZqbUdSSThHKzBYdW85UittVVNqeDRLaVM4bWpaWUlFSkxJRUJQ?=
- =?utf-8?B?ZUhtdlVSdkZGNmxQSHNOamZGeXRtWUdaQVhMOUg2MWZVd0xCQnhTMktiNitW?=
- =?utf-8?B?S0tDTnVxd1FTL2FFRUZLbHBnalIxNjVtZWh3TmQ3MXFpTDMyZVdKN2tMYXVL?=
- =?utf-8?B?bzF5QUhOWFJKVnc0SmZaMFc5VXdLZVJCeUlhWlNjdWtVZnlkRUhadHdpTlNC?=
- =?utf-8?B?aVFXdGQvb1lOWnhOeWcrVjQvbHN2ZXJwS3dsdHVoSDlpSVdBM1dnZjJETjlL?=
- =?utf-8?B?eEtyQWpWcS91NDlseWNDMzRMbWYxbjJyZHI0MmlTSldlMVBHclNvOEpjUE4r?=
- =?utf-8?B?WVJVSU1Gb1VvMm9tVlhLMkl4ZVR2NmRqN3pFQlRjOFZJblBpZHk3b3BubmF0?=
- =?utf-8?B?anRZcWczNmZBeHd1ek1KTWZJbWJWd0xlNjlTSndtU0hEY0h5RGszd3BqTnR4?=
- =?utf-8?B?NVN4YjNtVE84c3JrUUpKWGoyWVduUE9XSkpiZTFTUG5iYVhDK2hSaUdNY0d2?=
- =?utf-8?B?YXVHYnpCdEtQNlFiSGQ5UmcvQklpZVcrWUVqcitIZThMSkQ1L1IxUmZESlVT?=
- =?utf-8?B?d3hyQlZRczVjeUdkSW9IMzh2NEVLakwxc0hnK2I3Q1Y4bG9hZ01RbUs5L1VK?=
- =?utf-8?B?K1M1WUorbGxXWFNOcno5NXdqMDdIUWIvcE9Yb1dGT2FHYWlxL1RCeUFVV0dS?=
- =?utf-8?B?UWFyR2VtK0F3S1AzTUtFbGhjZXZpVlcvK3B6TmRJY1cxUnppS0tFaXJFOHUv?=
- =?utf-8?B?bmk1NFdrZVFLeFJmVFJ1cUI4dENuaVFYcHI4OHR4NUhLT3prbVFjY3JRdUlX?=
- =?utf-8?B?YlF1cGgyTS9aWkl1UHFUMFZmN09MbU1wSDA5c0gyMTRFZHVWSlgwY0RBMmFF?=
- =?utf-8?B?VS9SZWF5NWUvOUxLdVdqMm5jYVU3bW5wQk5MZ1ppRkVqUUdSWldlaEdGcjVD?=
- =?utf-8?B?RDNqaE9zeUNJZWRpTHhTUko0cVpnRmw1aUhUdGowRzVndGFKREdTclJnMlVG?=
- =?utf-8?B?L1RIcmxmYzRHMHk4VUsvSEMzb3BjeHNKUDdhTG5UZE9POGpjTXE5WkhTL3ZH?=
- =?utf-8?B?TWtaU010dVljNzhZM2NEWmNSeGd6V3VkVDM5MjBzUm5DMDhnUmxnc2NKWjVN?=
- =?utf-8?B?a3djL0RKSmlzaGpxTDVVdURkM2Nrc2F6dXhWR3RLZU50OC9mSDRiTTdsQzN6?=
- =?utf-8?B?YXdKNjhOODhvRVRMUVczRWY2N2k4Qm8wSU5WQ3hyWHd6OUtBUGpYME04aXAr?=
- =?utf-8?B?VERncmwrTWNsVWdlWldsVXJaSU5EMHdjR29mMFFEZk9tbHRWOXFTbHJzRU1Z?=
- =?utf-8?B?RGYvYzhEOFV3Y2RjMDRXd0dGZ1hmNkFrRXg1ZkpJeUlrQXVPQ2p2Zz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bEFVZzRtTkFra05XTXhMSkdUY3AxditFaTlPSEVGcTFWSU84NXhIaHlnWHh1?=
+ =?utf-8?B?aDB4V09xZm5WZUc4QWlZc3dGeHh3TjdZQ2FXWm5rZ1VIV0VrdVFCUU5Oei9k?=
+ =?utf-8?B?VkErbnhhQk0ydWNHdHlFd09FZDFsQmlXOGEzZkQreStwYjMvaXkxaTJBU2hI?=
+ =?utf-8?B?VFlQRzVITGZCZ2lLMGFXeW9EOFJYMEdnUElRS2wvcW5HWFBNMmFPMUZ1ZGxu?=
+ =?utf-8?B?KzdxZk0ySmZZNGM0OCt6M25VK3RNcHpaa09NMzdGQWxva0YxbzczdmxSY1d2?=
+ =?utf-8?B?NUluR0p3OHp0R01sODVPSzRNV1pBcjdrK3dGSlNRaG10NDBST0s0UEc4RE9R?=
+ =?utf-8?B?ZFF1NlNCMDlTeHFNWEhaZzJhbExZemZmcWVCb2FIQUJJaE5EMmd3S3ZpK1J4?=
+ =?utf-8?B?L0h4NGpQNXZ4Szhra3NlOTJUaXViZ1UzdmlITWsya2lDaHRrRXpJZmpybW9T?=
+ =?utf-8?B?NjRMai9nNEVDOGx2ZUNnakRjTlVMQytVQ2lsbDlUeW13SHRzVlNxMVp3dUM4?=
+ =?utf-8?B?THBvL2c2SDYwR0pKM1RGUHBtWS9iT0V5SFRRSnRRKzZCaW1LdzhUS3FpRWlW?=
+ =?utf-8?B?akhVWEs1V2tFdzRiSUVMU1VIcnZHUG1uYzg1dHpNR0RtUEN0MVo5Uk9EOEdI?=
+ =?utf-8?B?YlZSZG9BNnp5cmRtZkZZanJPTkRPMkdERVppZktnSW1MZlZqd2t4RGM4K2lC?=
+ =?utf-8?B?OE95SGpzTFdGR3lEQ1hKeUhYb0hpRDhhckczaDlKYzU1eS9zKzFEYmNHRHZr?=
+ =?utf-8?B?VkxHcXhQaEtKRHB5SVU2ckxGbXg0TzF4c1E1TTNaMjl5RTJZVG9sRXY2bVhp?=
+ =?utf-8?B?V2srWHBZT2JoenUxNFJiQTZ5ZS8wT1pXTXNra0Ixbk9yQnc1eXJVMXdaTHJE?=
+ =?utf-8?B?S0VQRitnQkNNc25tTU5sK01kUWxYS2RSRmRMU3huYmVFMlUyS0Izd1FUem44?=
+ =?utf-8?B?bXhwT1UxV2JVNWI3dTNYZkp2R3VhZHBVV2ZiVTNFSWt3QnpqV3pPMFhRRWlq?=
+ =?utf-8?B?RnNWS1lOOGpsLy9DUmI4R05xa1hIcXplOFpUNm92MTFYN05YQi9xYW9ON2lS?=
+ =?utf-8?B?c2JKMENVWUtHZmZxR1Fvak1oWjRwTDBEOCsxK1dCZTVGNjhzTEZraU52WnNs?=
+ =?utf-8?B?Vksxc0JQaHZlV25vcFcwOWVjVUpqS3k5U291Y3BVVDYrWlRmWnB5cXVLWkdr?=
+ =?utf-8?B?a28zUzhLbHhvUDl3SGZ0N2sydGpwci9IM3YzQkcwZlpDSUR0RkRPZEM2MU52?=
+ =?utf-8?B?ZjE5SzRoYmJMTVJXY2RGWGp1ZHZLZTBJbU1JNGFmbVhJc25PL3BWQ1NvK1Fs?=
+ =?utf-8?B?alI0eHRxQXlpUW55a1dGUmZrQVM1WkpNRVNDNzBlZkU4K1V5dEVHdEtwanJr?=
+ =?utf-8?B?RGhLVjIwWnQwd3BvQmhGVXdUczZsWXM5eHc3cmRvR3JRZTJ4L0g5K1B2aXN6?=
+ =?utf-8?B?aE4wTjlmS3pucVNUR0lBQll0emMvRkdMRlk0SEhBdzI5OWVreXZ6a2Y3WkJp?=
+ =?utf-8?B?aFY4ajRGMHFpd0tnaUR0VGVTQVFEbE0xRHVWTXZRSXZsRXduVkU1bWEzWUxY?=
+ =?utf-8?B?bVg5OFMrd2dnWmgyTGFLY01ZMC9YVmVQNzNUcVZKMTFuekE3YmJKclZ3TkVv?=
+ =?utf-8?B?ZjJNTUp2MHhKeDM0ckYvMktqOE4yK29qT0VJME04SW5TRFRIUG1ZU0VZd2dy?=
+ =?utf-8?B?SGNIWGRFeVEzempqbHIzam1DZW1aZlEyZVB4aGNlbEpPeEhLaGVLVWVEeFk5?=
+ =?utf-8?B?UVkyUjdsN1Z5c3N6N01icUo2VTFOWW5jTjJtUXdaNUh4RXVlZ09QOTZFVWl5?=
+ =?utf-8?B?Y25RTlVkeDFhQ1BwVXpnMlRBeGh5cWN4NWFPb0xaZzErZ3pUVDIvQ1RKMVRt?=
+ =?utf-8?B?cEU2UTZLY1g2R25qd1YwRzVlUzJuZnI3L29GZWVuUzV3T0FUc0MxZEJJZ0Z5?=
+ =?utf-8?B?MVdZTFpuV2RqL1dLU2FpRGhXYTcyT1pxRmdSOWN5RExMc1MvM0p6SDRoeW43?=
+ =?utf-8?B?cWVkb2hEQXdwdzZ2U1ZmTzFFN3B4VGJCemZMMUZvU0MwUmpnWStHMFRaYkpF?=
+ =?utf-8?B?cFlQaFVaOW1RSXUzeTB2Si9oOE5UMEpLaVppa0pYdUVrZk9MVWhTcjJhdDc3?=
+ =?utf-8?B?TlhqSWlaMzlMejFwNXVXTEhtcGFQWnZPMXA3akcxWFFaK2duUi8zaU41S3F2?=
+ =?utf-8?B?WStuZFVDYVU1OEtJeStxQWt6a25VTFJlaUJRbWtaY1N5WWpqSkdZSUtVNFQ4?=
+ =?utf-8?B?RWpBVnlKSFJLamdwcDV5T21IeUw0YUczdWVpMVozRFFrcDN2UTg4ZUN0L2Rs?=
+ =?utf-8?B?RW5xS2h6ZlhtZE1GQXBXVkpqRnVycDgzRTMyL0RrT1BZdVlNYVdIdz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 62d20ee3-179a-4908-2ad7-08df3b8a00e2
+X-MS-Exchange-CrossTenant-Network-Message-Id: 976ac780-e4c6-47b0-206e-08df3b8a8488
 X-MS-Exchange-CrossTenant-AuthSource: BN7PPF5F16C5C9C.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 22:13:21.8036 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 22:17:02.7366 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WdzcGTk/Oo9CNezEbY46Uri8ezWN4VrpV0pylkv7EglZG8SMrWxuZ9k21Qd2WEpmZw0uXNv/CxtVi1tqQYRzPA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: ug8HCdUx5mw0nCFr0/yC81O2RHrn7BgO1MktvknY1lww75q/Uw/hRT8as0txUWlzW5EG72l3zFeUhBowK/qnFw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: FT1PR12MB183566
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -139,184 +144,197 @@ X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+On 2026-11-04 14:07, Dhruv B wrote:
+> This series fixes VCRAT generation in AMDKFD for systems that do not
+> provide a CRAT table and where the driver generates a Virtual CRAT
+> (VCRAT) for the CPU topology.
 
-On 2026-11-04 15:20, Mukul Joshi wrote:
-> On 11/3/2026 6:15 PM, Felix Kuehling wrote:
->> On 2026-11-02 10:47, Mukul Joshi wrote:
->>> In UALink loopback mode a single GPU acts as both the exporter and the
->>> importer, and the only path the HW serves is importer -> exporter.
->>> Adjust the per-peer setup accordingly:
->>>
->>> - The importer's doorbell reaches the MP nHT stamped with the GPU ID of
->>>    the exporter, and the FW looks up the metadata entry by that ID. So
->>>    publish the importer's rings and tail pointers in metadata[exporter].
->>>
->>> - Skip the ring pointer resync. Both ends of every ring are on this
->>>    GPU, so there is no remote peer that can reboot and leave the
->>>    pointers stale.
->>>
->>> - Do not take the local dma-buf shortcut on import. It would bypass
->>>    the NPA path that loopback is meant to exercise.
->>>
->>> Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
->>> ---
->>> v2->v3:
->>> - Move updating src_accel_id in peer_remote_init and fini to patch 1.
->>>
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 54 ++++++++++++++++------
->>>   1 file changed, 41 insertions(+), 13 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
->>> index 8558dc1a9e84..74bc8a907f5b 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
->>> @@ -3976,7 +3976,13 @@ int amdgpu_ualink_import_handle(struct drm_device *dev,
->>>   		return -EINVAL;
->>>   	}
->>>   
->>> -	if (amdgpu_ualink_is_local_accel(adev, remote_acc_id))
->>> +	/* In loopback mode the exporter and importer are the same GPU, but the
->>> +	 * import must still go through the full cross-domain NPA path (the
->>> +	 * dma_buf shortcut in amdgpu_ualink_local_import() bypasses NPA). Only
->>> +	 * take the local shortcut for genuine same-pod local accelerators.
->>> +	 */
->>> +	if (!adev->ualink.loopback.enabled &&
->>> +	    amdgpu_ualink_is_local_accel(adev, remote_acc_id))
->>>   		return amdgpu_ualink_local_import(adev, remote_acc_id,
->>>   						  &handle, fd_out);
->>>   
->>> @@ -5452,11 +5458,28 @@ static int amdgpu_ualink_metadata_init(struct amdgpu_device *adev)
->>>   		wptr_gpu_addr = remote->rb_gpu_addr + rb_size * ualink_exp_accel_id(adev);
->>>   
->>>   	for_each_set_bit(accel_id, remote->active_accel_bits, AMDGPU_UALINK_ACCEL_MAX) {
->>> +		struct amdgpu_ualink_metadata *md;
->>> +
->>>   		dev_dbg(adev->dev, "init for accel_id %u\n", accel_id);
->>>   
->>>   		if (accel_id == ualink_exp_accel_id(adev))
->>>   			continue;
->> I think you could drop the condition just below if you change this to
->>
->> 		if (accel_id == ualink_imp_accel_id(adev))
->> 			continue;
->>
->> It makes no difference if loopback is disabled. And with loopback
->> enabled it's the more obvious way to only initialize the ring for the
->> exporter ID. Then all the other changes in this function are unnecessary.
->>
-> Unfortunately, this won't work.
->
-> In the normal (non-loopback) case, when AccId 0 sends a message to AccId
-> 1, it writes the message to the ring buffer and wptr NPA addresses that
-> AccId 1 set up for source AccId 0, and then rings the doorbell.
->
-> The remote interrupt the MPNHT on AccId 1 receives carries AccId 0 as
-> the source, and the MPNHT FW uses that to look up metadata[0], which
-> holds the ring buffer and wptr addresses for AccId 0.
->
-> With loopback it's slightly different. AccId 0 (the importer) still
-> writes to the ring buffer and wptr NPA addresses for source AccId 0 and
-> rings the doorbell.
->
-> However, the interrupt the MPNHT gets reports the source as AccId 1 (the
-> exporter).
->
-> So the MPNHT FW looks up metadata[1], and for it to find the right
-> buffers we have to program the importer's (AccId 0) ring buffer and wptr
-> addresses at index 1.
->
-> If we skipped the importer and ran the loop for the exporter instead,
-> metadata[1] would be filled with AccId 1's own ring buffer and wptr
-> addresses, which the importer never writes to.
->
-> That's why the patch builds the entry from the importer's addresses but
-> stores it at the exporter's index.
->
->
-> Regards,
->
-> Mukul
->
->> Regards,
->>    Felix
->>
->>
->>>   
->>> +		/* In loopback the single MP nHT services the exporter half:
->>> +		 * the only messages delivered over HW are importer -> exporter
->>> +		 * (source = importer accel_id), while the exporter -> importer
->>> +		 * direction is emulated in SW and never reaches the MP nHT.
->>> +		 *
->>> +		 * The importer's doorbell reaches the MP nHT stamped with the
->>> +		 * GPU ID of the single physical station, the exporter, so the
->>> +		 * FW looks up metadata[exporter]. Publish the importer's rings
->>> +		 * and tail pointers in that entry.
->>> +		 */
->>> +		if (adev->ualink.loopback.enabled)
->>> +			md = &metadata[ualink_exp_accel_id(adev)];
->>> +		else
->>> +			md = &metadata[accel_id];
->>> +
->>>   		rb_gpu_addr = remote->rb_gpu_addr + rb_size * accel_id;
->>>   
->>>   		if (ualink_addr_mode(adev) == AMDGPU_UALINK_ADDR_MODE_SOURCE_IDENT) {
->>> @@ -5464,27 +5487,26 @@ static int amdgpu_ualink_metadata_init(struct amdgpu_device *adev)
->>>   			wptr_gpu_addr += wptr_size * accel_id;
->>>   		}
->>>   
->>> -		metadata[accel_id].header = AMDGPU_UALINK_METADATA_HEADER;
->>> -		metadata[accel_id].rb_size = fls(AMDGPU_UALINK_RB_SIZE / 64) - 1;
->>> +		md->header = AMDGPU_UALINK_METADATA_HEADER;
->>> +		md->rb_size = fls(AMDGPU_UALINK_RB_SIZE / 64) - 1;
->>>   
->>>   		/*
->>>   		 * remote shootdown type is 0, remote command type is 1
->>>   		 * with 2MB ring buffer mapping, remote shootdown ring NPA is before interrupt
->>>   		 */
->>> -		metadata[accel_id].ri_rb = rb_gpu_addr + AMDGPU_UALINK_RB_SIZE;
->>> -		metadata[accel_id].tlb_inv_rb = rb_gpu_addr;
->>> +		md->ri_rb = rb_gpu_addr + AMDGPU_UALINK_RB_SIZE;
->>> +		md->tlb_inv_rb = rb_gpu_addr;
->>>   
->>> -		metadata[accel_id].tailptr_ri = wptr_gpu_addr +
->>> -						ualink_wptr_offset(adev, accel_id);
->>> -		metadata[accel_id].tailptr_tlb_inv = wptr_gpu_addr +
->>> -						     ualink_tlb_wptr_offset(adev, accel_id);
->>> +		md->tailptr_ri = wptr_gpu_addr + ualink_wptr_offset(adev, accel_id);
->>> +		md->tailptr_tlb_inv = wptr_gpu_addr +
->>> +				      ualink_tlb_wptr_offset(adev, accel_id);
-
-OK, I missed that it's still using the accel_id here to calculate the 
-offsets. So what I proposed wouldn't work as needed. The comment above 
-explains it too. The patch is
+The series is
 
 Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
 
+I applied it to amd-staging-drm-next. Thank you!
 
->>>   
->>> -		dev_dbg(adev->dev, "init from accel_id %u to accel_id %u, rb_size 0x%x\n",
->>> -			accel_id, ualink_exp_accel_id(adev), metadata[accel_id].rb_size);
->>> +		dev_dbg(adev->dev, "init from accel_id %u to accel_id %u, metadata entry %td, rb_size 0x%x\n",
->>> +			accel_id, ualink_exp_accel_id(adev), md - metadata, md->rb_size);
->>>   		dev_dbg(adev->dev, "rb 0x%llx tlb rb 0x%llx\n",
->>> -			metadata[accel_id].ri_rb, metadata[accel_id].tlb_inv_rb);
->>> +			md->ri_rb, md->tlb_inv_rb);
->>>   		dev_dbg(adev->dev, "rb wptr at 0x%llx tlb wptr at 0x%llx\n",
->>> -			metadata[accel_id].tailptr_ri, metadata[accel_id].tailptr_tlb_inv);
->>> +			md->tailptr_ri, md->tailptr_tlb_inv);
->>>   	}
->>>   
->>>   	r = adev->ualink.msg_ctl->send_metadata(adev,
->>> @@ -6069,6 +6091,12 @@ static int amdgpu_ualink_ring_resync_ptrs(struct amdgpu_device *adev,
->>>   	u64 int_wptr, tlb_wptr;
->>>   	int r;
->>>   
->>> +	/* UALink loopback: both ends of every ring live on this GPU, so there
->>> +	 * is no remote peer that can reboot and leave the pointers stale.
->>> +	 */
->>> +	if (adev->ualink.loopback.enabled)
->>> +		return 0;
->>> +
->>>   	/* ring->wptr and ring->rptr are owned by the send path. */
->>>   	guard(mutex)(&peer->lock);
->>>   
+
+>
+> The current implementation uses for_each_online_node() to iterate over
+> NUMA nodes and assigns proximity domain IDs sequentially (0, 1, 2, ...)
+> regardless of the actual NUMA node IDs. It also assumes that every
+> online NUMA node contains both CPUs and memory, unconditionally
+> emitting Compute Unit and Memory CRAT subtypes for each node.
+>
+> These assumptions break on systems with:
+>
+>    Discontiguous (sparse) NUMA node IDs
+>    CPU-less NUMA nodes
+>    Memory-less NUMA nodes
+>
+> For example:
+>
+>    available: 3 nodes (0,2-3)
+>
+>    node 0: CPUs present
+>    node 2: CPU-less
+>    node 3: CPU-less
+>
+> In this case, the existing code iterates over nodes 0, 2 and 3 and
+> assigns proximity domains 0, 1 and 2 respectively, instead of 0, 2
+> and 3. The mismatch between NUMA node IDs and proximity domain IDs
+> results in an inconsistent KFD topology and causes topology parsing
+> to fail with:
+>
+>    amdgpu: Virtual CRAT table created for GPU
+>    amdgpu: Error parsing VCRAT
+>    kfd: amdgpu: Error adding device to topology
+>    kfd: amdgpu: Error initializing KFD node
+>
+> To fix the proximity domain mismatch, the VCRAT generation loop is
+> changed to iterate over the complete NUMA node ID range up to the
+> last online node, incrementing num_domains for every node ID in the
+> range. This preserves a direct 1:1 mapping between NUMA node ID and
+> proximity domain ID, while skipping resource entry creation for
+> offline or unpopulated node IDs.
+>
+> To fix the unconditional subtype emission, explicit guards are added
+> so that Compute Unit entries are only written for nodes that have
+> CPUs (kfd_numa_node_to_apic_id() != -1), and Memory entries are only
+> written for nodes that contain memory (node_state(numa_node_id, N_MEMORY)).
+>
+> Additionally, kfd_parse_subtype_mem() is updated to use simd_count
+> instead of cpu_cores_count to distinguish host nodes from GPU nodes.
+> This ensures that memory on CPU-less host NUMA nodes (e.g. CXL memory,
+> PMEM, or memory-only NUMA partitions) is correctly classified as
+> system memory (HSA_MEM_HEAP_TYPE_SYSTEM) rather than private GPU
+> framebuffer memory.
+>
+> The placeholder domains created for offline node IDs have no IO links,
+> so skip offline nodes when building indirect GPU to CPU links. For Large
+> BAR, reverse CPU-to-GPU indirect links are only created if the node has
+> CPUs (node_state(i, N_CPU)). Additionally, missing CPU interconnect links
+> are skipped so they do not abort GPU-to-GPU P2P link creation.
+>
+> On a system with contiguous NUMA nodes, numactl reports:
+>
+>    $ numactl -H
+>    available: 4 nodes (0-3)
+>    node 0 cpus: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17
+>             18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33
+>             34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49
+>             50 51 52 53 54 55
+>    node 0 size: 881496 MB
+>    node 1 cpus: 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70
+>             71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86
+>             87 88 89 90 91 92 93 94 95 96 97 98 99 100 101
+>             102 103 104 105 106 107 108 109 110 111
+>    node 1 size: 885640 MB
+>    node 2 cpus: 112 113 114 115 116 117 118 119 120 121 122
+>             123 124 125 126 127 128 129 130 131 132 133 134
+>             135 136 137 138 139 140 141 142 143 144 145 146
+>             147 148 149 150 151 152 153 154 155 156 157 158
+>             159 160 161 162 163 164 165 166 167
+>    node 2 size: 885640 MB
+>    node 3 cpus: 168 169 170 171 172 173 174 175 176 177 178
+>             179 180 181 182 183 184 185 186 187 188 189 190
+>             191 192 193 194 195 196 197 198 199 200 201 202
+>             203 204 205 206 207 208 209 210 211 212 213 214
+>             215 216 217 218 219 220 221 222 223
+>    node 3 size: 885394 MB
+>
+> The KFD topology sysfs reflects all 4 CPU nodes plus 2 GPUs:
+>
+>    /sys/class/kfd/kfd/topology/nodes: 0  1  2  3  4  5
+>
+>    0: cpu_cores_count 56  mem_banks_count 1  io_links_count 0
+>    1: cpu_cores_count 56  mem_banks_count 1  io_links_count 0
+>    2: cpu_cores_count 56  mem_banks_count 1  io_links_count 2
+>    3: cpu_cores_count 56  mem_banks_count 1  io_links_count 0
+>    4: cpu_cores_count 0   simd_count 416     io_links_count 1 (GPU)
+>    5: cpu_cores_count 0   simd_count 416     io_links_count 1 (GPU)
+>
+> On the same system with sparse NUMA nodes, numactl reports:
+>
+>    $ numactl -H
+>    available: 3 nodes (0,2-3)
+>    node 0 cpus: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17
+>             18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33
+>             34 35 36 37 38 39
+>    node 0 size: 519305 MB
+>    node 2 cpus:
+>    node 2 size: 0 MB
+>    node 3 cpus:
+>    node 3 size: 0 MB
+>
+> After this series the KFD topology sysfs correctly reflects all node
+> IDs including the absent node 1 as a placeholder:
+>
+>    /sys/class/kfd/kfd/topology/nodes: 0  1  2  3  4  5
+>
+>    0: cpu_cores_count 40  mem_banks_count 1  io_links_count 0
+>    1: cpu_cores_count 0   mem_banks_count 0  io_links_count 0 (Absent)
+>    2: cpu_cores_count 0   mem_banks_count 0  io_links_count 2 (CPU-less)
+>    3: cpu_cores_count 0   mem_banks_count 0  io_links_count 0 (CPU-less)
+>    4: cpu_cores_count 0   simd_count 416     io_links_count 1 (GPU)
+>    5: cpu_cores_count 0   simd_count 416     io_links_count 1 (GPU)
+>
+> The GPU I/O links correctly reference proximity domain 2, which
+> corresponds directly to NUMA node 2 where the GPUs are physically
+> attached. This is confirmed by the io_links sysfs entries:
+>
+>    node 4 io_link: node_from 4  node_to 2  type 2  max_bandwidth 10000
+>    node 5 io_link: node_from 5  node_to 2  type 2  max_bandwidth 10000
+>
+> Both GPUs report node_to 2, matching the proximity domain of NUMA
+> node 2 (the CPU-less node to which the GPUs are connected).
+>
+> This series consists of the following patches:
+>
+> Patch 1 removes unused code in the CRAT initialization path as a
+> preparatory cleanup.
+>
+> Patch 2 fixes the proximity domain mismatch by iterating through
+> the complete NUMA node ID range and preserving a direct NUMA-node-
+> to-proximity-domain mapping. Emits Compute Unit and Memory CRAT
+> entries only for nodes that have the corresponding resources, updates
+> the memory subtype parser to key off simd_count, and makes
+> kfd_create_indirect_link_prop() skip offline nodes and invalid Large
+> BAR links on CPU-less nodes.
+> ---
+> v3 -> v4
+> - Addressed Felix's review comments:
+>    - Preserved GPU -> CPU-less NUMA node indirect links so the GPU can
+>      access memory on CPU-less nodes (e.g. CXL memory), while restricting
+>      the reverse Large BAR CPU -> GPU link to nodes with CPUs
+>      (node_state(i, N_CPU)).
+>    - Changed missing cpu_link handling in kfd_create_indirect_link_prop()
+>      from returning -ENOMEM to continue so missing CPU interconnects
+>      do not abort GPU-to-GPU P2P link creation.
+>
+> v2 -> v3
+> - Addressed Felix's review comments:
+>    - Fixed a regression in kfd_create_indirect_link_prop(). Placeholder
+>      domains and CPU-less nodes have no CPU IO links, so the lookup failed
+>      with -ENOMEM and all indirect GPU links were silently dropped. Such
+>      nodes are now skipped.
+>    - Updated kfd_parse_subtype_mem() to use simd_count instead of
+>      cpu_cores_count to distinguish host nodes from GPU nodes so that memory
+>      on CPU-less host nodes is correctly classified as HSA_MEM_HEAP_TYPE_SYSTEM.
+>    - Only emit Compute Unit entries for nodes with CPUs, and Memory entries
+>      for nodes with memory.
+>
+> v1 -> v2
+> - Addressed Felix's comment and fixed the incorrect proximity domain mapping
+>    caused due to crat_table->num_domains++ being at the start of the loop.
+>
+> v3 - https://lore.kernel.org/all/20261030083304.9767-1-dhruv.b@linux.ibm.com/
+> v2 - https://lore.kernel.org/all/cover.1791289746.git.dhruv.b@linux.ibm.com/
+> v1 - https://lore.kernel.org/all/cover.1791208447.git.dhruv.b@linux.ibm.com/
+> ---
+> Dhruv B (2):
+>    drm/amdkfd: Remove unused code in CRAT initialization
+>    drm/amdkfd: Add support for discontiguous and CPU-less NUMA topologies
+>
+>   drivers/gpu/drm/amd/amdkfd/kfd_crat.c     | 69 +++++++++++++----------
+>   drivers/gpu/drm/amd/amdkfd/kfd_crat.h     |  2 +-
+>   drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 19 ++++++------------
+>   3 files changed, 45 insertions(+), 45 deletions(-)
+>
