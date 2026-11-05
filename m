@@ -2,117 +2,152 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E790606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8037E606A328
 	for <amd-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 13:45:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=reHeiPrf
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=JqjebT4t
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 142B211247D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1AE1111247E;
 	Thu,  5 Nov 2026 13:45:48 +0000 (UTC)
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99CA710E8DD
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Nov 2026 19:12:26 +0000 (UTC)
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6A4Fj77w1189448; Wed, 4 Nov 2026 19:12:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=pp1; bh=5fPh+pfXZTmkX3T851WZLUYAW4j1ZC
- b48HYamoQyufM=; b=reHeiPrfA5kaFHSlRP8jTikbxQpbW9nP1n9QhDqphGMhlB
- aAWKyEh8Bu1Y4kNxmhMjumRmY1sWk13DpjXGO6kMyrgTMpRNQEpMIfV8whFCTOBB
- rr+ZupbrQduhUHhf1djaZDTaeQ8XVfoKLV0vF0Pzxd4+vDWLMMNqPH3giqoT8Af3
- kA29x5wWIwDtYbLUJUh4pjEnJ8Ixmg7vv4aZZer+Ze1I+FS3ktBEz5+YRiwipyYJ
- o5eW/rSUtKWACr8/ucXnjfUStYgHZ86oNSGpX64bq2yUCv9VYnjelT4nTLZZ3Qx8
- ZP01mn6XaZMWGOlajoYYK1qUliQwRIWCHn3dK2DA==
-Received: from ppma23.wdc07v.mail.ibm.com
- (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn7u3nwr6-1
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
- Wed, 04 Nov 2026 19:12:21 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
- by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6A4ITHRc232342; Wed, 4 Nov 2026 19:12:20 GMT
-Received: from smtprelay04.dal12v.mail.ibm.com ([172.16.1.6])
- by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hnv5h1drc-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 04 Nov 2026 19:12:20 +0000 (GMT)
-Received: from smtpav03.dal12v.mail.ibm.com (smtpav03.dal12v.mail.ibm.com
- [10.241.53.102])
- by smtprelay04.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 6A4JCJg732113214
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 4 Nov 2026 19:12:19 GMT
-Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 51FF85803F;
- Wed,  4 Nov 2026 19:12:19 +0000 (GMT)
-Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 10EA55805A;
- Wed,  4 Nov 2026 19:12:14 +0000 (GMT)
-Received: from [9.43.118.53] (unknown [9.43.118.53])
- by smtpav03.dal12v.mail.ibm.com (Postfix) with ESMTP;
- Wed,  4 Nov 2026 19:12:13 +0000 (GMT)
-Content-Type: multipart/alternative;
- boundary="------------zcNm7SB8aeT02GR0QGedewSR"
-Message-ID: <d05d2131-8559-4c1c-a412-7570a4f0101a@linux.ibm.com>
-Date: Thu, 5 Nov 2026 00:42:12 +0530
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011062.outbound.protection.outlook.com
+ [40.93.194.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2FF8112060;
+ Thu,  5 Nov 2026 06:43:27 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hHYe6ByuK+9g3HaUgoaFLTEAm/UnQmDEvEuejluQLsofodre4Op+R7JxgRsiao6BmTmvgoxKl707vxUWXZeeKhZdohyHv0lblzXa17FvypgqGtgR2jLXzCG7VL4cEM7F+mXyCQVfERv5DRzsr5u2KuH3OlDcXKVyZM+aH9ddfMyVSCXX+85bzP+QqWlx0bNc8usfdrTaMVw5uaArZvtBKCpuX0jQkrMObPs3ofR8pbRvqICQ1DL5M5HHuRFyYhDmUXqMCnA5CcIYFdpj9vnEHKf3I4VkwjaxDALnK8mxsc7egAe3CPR7cyL7vT+vc/20rlcbqpci41LFdBGAPnR4mg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1FaHODCqOvRJPKRwNH8uMbcfJPwXF4sHg5m665p5Xqs=;
+ b=VZOaRDEDrmrV2SrbXNQh0SAgne3zhJieGnbLibFPZDTeKaLA5IsEw/bthxE7hP/fUnc2ufkIx13WsAp0CJOM4sKfi4klkvQPC1v2kBZewfGDdoYH/GHGEGYopwIys9kTPMRIJmbL0g5nmaAbYw4mVf7YSV+hRagxmzVmeO2y4Pv0w8eRmlYCeeyZTARmoZbh5yVRZHKyvNrSlSdFMZMDegn8l6IGe4pM54JT+PWclSU7PbrxPU0lroEH822Yq2fau3rxtL1QZrcvzpnsfTrbZ/j0zfqS9E91+4hzfe1Do+FkVehXhtaclGHYLf24wks6EL3YLfgCyL3Tqa+m7TvsNA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1FaHODCqOvRJPKRwNH8uMbcfJPwXF4sHg5m665p5Xqs=;
+ b=JqjebT4tmOXeKpVZuIhd757HIl5OYYDSbg+xRnIwheb2mdsWDaaeR15f66oKYLg7gkt5PKQChomQEA4KrbqTgSB0xHDMRDRuMUHy8QfLQmG01atqN9u883NGq8LsJiyDjqRrXgTk0KL5+KV5EMyXvPzk/yPXVMjj1SWRY7mxCFeTeqMQliKHPn5UH7Zj54jl1ELxDSAUP9ekXqLMC9AIbV07K5uqJlxtuBC3cj/q7RQ/cP1j6L5YCRcgXjZcZC1RoCaK1AcbH0qKxygK/8+BzL75HLxia/KCd8W1IoFtonUnFlxu0V9ggD+88agfc/tBMJpH1O6OuGgM9D3qF+bBzg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SA3PR12MB598757.namprd12.prod.outlook.com
+ (2603:10b6:806:52d::14) by IA0PR12MB8932.namprd12.prod.outlook.com
+ (2603:10b6:208:492::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Thu, 5 Nov 2026
+ 06:43:18 +0000
+Received: from SA3PR12MB598757.namprd12.prod.outlook.com
+ ([fe80::e206:100:5946:a777]) by SA3PR12MB598757.namprd12.prod.outlook.com
+ ([fe80::e206:100:5946:a777%5]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
+ 06:43:18 +0000
+From: Alistair Popple <apopple@nvidia.com>
+Date: Thu, 05 Nov 2026 17:40:58 +1100
+Subject: [PATCH v2 23/23] dma-buf: Add kunit tests for mapping type selection
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261105-dma_mapping_type_v4-v2-23-78b8dc9ae80a@nvidia.com>
+References: <20261105-dma_mapping_type_v4-v2-0-78b8dc9ae80a@nvidia.com>
+In-Reply-To: <20261105-dma_mapping_type_v4-v2-0-78b8dc9ae80a@nvidia.com>
+To: =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Simona Vetter <simona.vetter@ffwll.ch>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, 
+ Dongwon Kim <dongwon.kim@intel.com>, Kevin Tian <kevin.tian@intel.com>, 
+ Xu Yilun <yilun.xu@linux.intel.com>, 
+ Karl Mehltretter <kmehltretter@gmail.com>, 
+ Baolu Lu <baolu.lu@linux.intel.com>, 
+ Felix Kuehling <felix.kuehling@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, 
+ linux-rdma@vger.kernel.org, iommu@lists.linux.dev, 
+ Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, 
+ linux-nvme@lists.infradead.org, "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+ Mina Almasry <almasrymina@google.com>, netdev@vger.kernel.org, 
+ Alexey Kardashevskiy <aik@amd.com>, zhipingz@meta.com, treding@nvidia.com, 
+ jhubbard@nvidia.com, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Leon Romanovsky <leon@kernel.org>
+Cc: Alistair Popple <apopple@nvidia.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793860879; l=19416;
+ i=apopple@nvidia.com; s=20261105; h=from:subject:message-id;
+ bh=WOUIDU8qRXiUxMPCCcxWVpcYlg9sDT9scbc0nDb0mWg=;
+ b=DynNR9FHKyThOkVXfnzjLjp8xJUchdX24B22H6vemcdT6pTIIOCNtwN3pnPDZfJ70onaRAGuM
+ 7BXS0uGdwzABK4dNtAGo2VZOhhdTERquhdFe+cR9CVU7hr3nxTk2FLm
+X-Developer-Key: i=apopple@nvidia.com; a=ed25519;
+ pk=WdWPT9rAq3YNfXldbGv1NSGVLGxzQGFGJvRUiShhNqs=
+X-ClientProxiedBy: SY5P300CA0048.AUSP300.PROD.OUTLOOK.COM
+ (2603:10c6:10:1fe::17) To SA3PR12MB598757.namprd12.prod.outlook.com
+ (2603:10b6:806:52d::14)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] drm/amdkfd: Add support for discontiguous and
- CPU-less NUMA topologies
-To: "Kuehling, Felix" <felix.kuehling@amd.com>,
- Dhruv B <dhruv.b@linux.ibm.com>, amd-gfx@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>,
- Alex Deucher <alexdeucher@gmail.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Philip Yang <yangp@amd.com>
-Cc: David.YatSin@amd.com, Kent.Russell@amd.com,
- Ritesh Harjani <ritesh.list@gmail.com>,
- Vaidyanathan Srinivasan <svaidy@linux.ibm.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- donettom@linux.ibm.com
-References: <20261030083304.9767-1-dhruv.b@linux.ibm.com>
- <20261030083304.9767-3-dhruv.b@linux.ibm.com>
- <70018014-d952-4155-aa36-cf9b39ba8aea@amd.com>
- <1c7751d3-ca7d-4a7b-91fa-87762af60095@linux.ibm.com>
- <04ddca6d-3880-48e0-a64e-a4bbde32e67e@amd.com>
- <64a82e4a-2855-46f1-8942-3c1b6f8179f3@linux.ibm.com>
- <4751bd8c-91e8-4985-bdac-52e35ba7f513@amd.com>
-Content-Language: en-US
-From: Dhruv Bhogaonkar <dhruvb@linux.ibm.com>
-In-Reply-To: <4751bd8c-91e8-4985-bdac-52e35ba7f513@amd.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=Zsp4uN7G c=1 sm=1 tr=0 ts=6aeb8396 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=iQ6ETzBq9ecOQQE5vZCe:22 a=r77TgQKjGQsHNAKrUKIA:9 a=RpNjiQI2AAAA:8
- a=VnNF1IyMAAAA:8 a=OnU8845ZNW8q8RRgSkUA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=zd2uoN0lAAAA:8 a=JdIoNKOzngq7Mgm-rNAA:9 a=tqdMzFhGG8mD8GCBlf4leDhY3gs=:19
- a=sTxRpBpiy98KL1WkT8X2XIWo+SM=:19 a=qCLHsqe_nAgSfvew:21 a=_W_S_7VecoQA:10
- a=lqcHg5cX4UMA:10
-X-Proofpoint-ORIG-GUID: _DiocADrib6FtMm0_Vs1014aoVJJe-Sk
-X-Proofpoint-GUID: E6maiqd8Xi9erkcMhW-uCYgCJks57Aod
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA3NCBTYWx0ZWRfX7kUguzSYm97y
- UVcdk95hiFnpexXHSdaYw+kW48IqQibjn0QiPOH3rxOqIPCYMcwRqdkSC6B/NK6o0ogQuV2oaMY
- yjKZQ9HPJ92+8IvKznyDrYk3W7nzxXwKRjpwt8paIVMABIrngP9I9GqGnyL/DL5YRrxOvNDf7zZ
- 1gBZyaioeKV5h0r4Iqo0W8MChugw8P/HTye4nThZw1mS8gCAOd90gZzoHlNhF7zuwCN7fVt3/nI
- JgAU5CeBHpUXHlOQ4Ttwx7Q74wlC+3rLq5n4yzPDUyyhAQmpYnFNWHCp+L0kdgBr54rvaIgqn/e
- MPlJYFQBDV8mcnaIELaxuhUSn/I579qHj35X9zjLZDHiWXyxoAnwtGMDGZR/jehphIFtcteSIKc
- WumB62olXcRQUdxuL1Uodh0szpRWjfoIynsVETF0/dF8/+Im/jvHzcQ8aIdCKunV+EGy/4CUkwo
- T5MJkQpcFuUT9A4GwzA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA3NCBTYWx0ZWRfX48kBXZpv1EWh
- SRiba0vrQtxsA+XJnMVzakW/gfbEeMgB1KUu2GsuQT6CRfZsT3W+YAI3fLsQ2AgqCHtRL2mc7Ng
- QNQn0noK2NP+ZkOFHGrdfDYXZAIWWRQ=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-04_05,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 adultscore=0 priorityscore=1501 bulkscore=0 clxscore=1015
- impostorscore=0 spamscore=0 malwarescore=0 suspectscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611040074
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA3PR12MB598757:EE_|IA0PR12MB8932:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6813b2ef-6355-4fca-97df-08df3b0813b2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|366016|7416014|1800799024|23010399003|260925021311599003|22082099003|18002099003|56012099006|260925021911599003|260925022911599003|921020|261021121427099003|261022075727099003|261022105027099003|261009223027099003|261026140227099003|261026121527099003|5023799004|10067099003|261028144727099003|11063799006|261102123227099003|261102130727099003;
+X-Microsoft-Antispam-Message-Info: MZUaED7QDruK5uRcwm5kJPqObKrc+Qojka7+vwfbqT8R3ePOc/hK13M1qXo+WOiqdx5SxzuMy3laFKqevkcFSsE363P42yh/8aeNTSuvWD2Obeb0Hp+TGZzZuwfp32t/87AlzUncLqnqe3Dli2Gvz1y+3VEES8fNmnao7ZPsBuswTBfVY/18xD6iMT4cTYw+NQMWi7hGRuSsynUMhsCXZEqjo3g82eYE09GiF+tOFrrttjN/e3ZTnD9DkQGwMLwNHkFHd1+L1KCjY5/mt4pLX5a7uXO3FIB+5+OPf23vZ7M+FIFrIhYOMHe6sucpUVAyiYYz0HkW99sO9yLRlqEtYwA6X64f3rFyzGMFTgnjk+QckNKO6TJt1YSCTYN+No61YNizWCZSuV8pRy1OQiKzyG5YXwojC+VOCh5NP5BoqDHTKzBh77kIAEJoN4+dcqjujXyxKlLRB6i/EQ1XkKW+gXaVHCJy0iIM5xj/ZYa1gHx28O+yPEsGbKtgA8jsPDRKW/GaFH4fImto121iW5zNZyKSwn/Qa8fGqmuRMcUPAHI7taS0oGcXyGZx6xDzRX7un2qhZTDyhdc13tk2wlLflL+mujSYVx6LNLuv4WW/R3VUO8TudSkGQblqivCyxw+sUihCMiv3SHPivgHjNf/eULC+P5uYu6dTQB7igfm3u6Scsq2z9zKuisKX6X/+My8i3idIXZqhfsDaVx6hYo4uKQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA3PR12MB598757.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(7416014)(1800799024)(23010399003)(260925021311599003)(22082099003)(18002099003)(56012099006)(260925021911599003)(260925022911599003)(921020)(261021121427099003)(261022075727099003)(261022105027099003)(261009223027099003)(261026140227099003)(261026121527099003)(5023799004)(10067099003)(261028144727099003)(11063799006)(261102123227099003)(261102130727099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UURmclNPL0dDbmt6UTdxQ1dPQUFCenBmVEo2amxXYzhFWkdzeWRYNHU0TG9m?=
+ =?utf-8?B?bWpGT2ozR0V1NHdZbjY1c0c4RUZTWjB5REU2VWpIcnNPNGNMSjVhbXg2NDdx?=
+ =?utf-8?B?QnpKYlRpZno1WVJHOUJtVll6L1dkUDVhWUhxTlZXU3JkTzZwend1UUZUN3pl?=
+ =?utf-8?B?SldkVE00Vmp5YzRBV1RHdnMvU3JXWGp2WEdWWlRMTXBvZkw2dEtsT0NtcXV3?=
+ =?utf-8?B?RzR3T2l3eTA5M0FtVGVNMk43bUJ3V1Vid1BPdkEraEVwUmNhNlpWR01hOFpH?=
+ =?utf-8?B?TmQ5eDhMKzJudlBnL3l6aE9XZkNQZWlwbXA2Sm1KWTBPZU1rODJNL3ArTnYy?=
+ =?utf-8?B?UkIwODdFYThwUWdYL0JHR2xvTXVQU3dHa3UxR3NtOEpZUTRneFgyTStJTjhk?=
+ =?utf-8?B?NnZpTitjU3JLQ3UxUDZxaUtvTHFqV2h4SXIra3RNYms4ZHRGcll4SUJ3RTRr?=
+ =?utf-8?B?cGtuZFc4Sm9CaG80UW1sVGprcjdlMm5zYmZaNEM0OWdTSk9tYTJnQWdXY3Zm?=
+ =?utf-8?B?N3hDMk1OYkVqWWJTem0rT05WWmpOcEQzYUlKSFFQVmtNVnNNeW55MVhIL25T?=
+ =?utf-8?B?Z3NDd0YvSTYyMStqamZCVjRaa3dLeTNtNXFPRjFWZ3A2YW9KVFJMckVobjJx?=
+ =?utf-8?B?dzFubWE1RGJ0TDFMb2FpU3piK2krelJUTjhHc3pPL3FCRC9BeEhrY2NlQmpJ?=
+ =?utf-8?B?dy9ZRHlYM3RRTWhTWk1Vdmg5S1hkVXFnSjdWS0dnQjNYYU1WNWx2dWJiK1d4?=
+ =?utf-8?B?bitEcUpGMmZicDM2cGE5ZUJSNTg1TXlaOEwxSHkxMXIxYVdvZnJhd08rT1pI?=
+ =?utf-8?B?UkRPODd0d0JoODJQQkZpZFNOV25DaDlSQ3YxV0R4b2kxNWx4QUs3eFk4ZWZO?=
+ =?utf-8?B?ZDNsQlNNcngxRmQwZ2J1emMwTGxtVUVnMS8wS0VybStkZ0dzeXJYb1E4dXJx?=
+ =?utf-8?B?Y2J5anlJQjNSWk1wUmtEc0ZDclJTakNvRElBSVRINTFFSFVjeHVwMlJ4aGtj?=
+ =?utf-8?B?ak1jZWM1Z3FSV0RKUEtqVUM4NU91SWdkRkNEWGdjUzJzUERSeHNId3VHbEpl?=
+ =?utf-8?B?RVVCeHVBVUR3TE45MmhCTHJza1FMZUVqQ3BCUEFqTXFhV3NWL2ZCSm1yN2VS?=
+ =?utf-8?B?eGJxaUQydjNPazI5bS9vWXV5SlU5MHF0aDV0Y3grbDFKN0hodEFCbmpSTUxt?=
+ =?utf-8?B?OFJnR0Q5bjV0cDJsUmxRRHd6V2lycWlmQ1ZWMEFqMXhSNlh0QkNON1p2ZXV3?=
+ =?utf-8?B?TlJZYXhQajZzQ1paMlhXVGpkK1paNmQvSDN4UVBNWlA4OUY4dzl6bGVDZmZi?=
+ =?utf-8?B?VDloT0QxYmh2MnNTVjBNWmFQRi9WK1RFN2dGZHcybk1jOFgyYWdyUzNtQmRD?=
+ =?utf-8?B?YzBKWVArbzdIYVJZZUxMQmY2d3pyQ0ZqaFc4TnBzb3hxZG5wbE5uUEZQL09C?=
+ =?utf-8?B?U0F0OXlmc3BZeVBEZ1VpblNWK0c1OW5zclE4S0ZNOWxqSXhybWJEcnRqUTdX?=
+ =?utf-8?B?MXhnMGE2RlFLSWdra25mMjd4VjBGMTIwWWp0TzBTNndMNXBwcjY2QnFrQ0Rz?=
+ =?utf-8?B?R0JBdXZzc1RtODBmejVoOFVHWWlqdGNVSU9BVTJEZlZ2WFd6SVc2aHQxQklC?=
+ =?utf-8?B?N2E4YUZUM3ZYTjlZTkFTaXJNdkxaanFoTEw2ak9raDIzZUI2cHlYUWExNWhO?=
+ =?utf-8?B?UGI0dHJYSW1xc2xMcElHRzlZV0RxQ0g5d3kxaUZxRG1PV3ZUN0pyMG0rRW5H?=
+ =?utf-8?B?MTZGZXFmQnhZcExyYnQ2eTQ1MXRXMG9GbXdjanBmWTRybW9vNXFQeDVJS1Bo?=
+ =?utf-8?B?WU9vREtmWEdOZURQckpSckRLTGpZcDA5aGF6bFVUSGZtUFJPMWZ5MmN0OWpR?=
+ =?utf-8?B?SVlJS1MybldlVlRiUXlSVllRUGkxdXByNWtjRndXZWY0dnFaQkhJWUpPZll3?=
+ =?utf-8?B?SXc3c3lHSGg3L2pVL080d042bXJFZ3NNQ3M1QVV5WnlkckpYbzFjLzZqYjN5?=
+ =?utf-8?B?QzVtcEtFUTl3dFlvdlY5NE5nNXNlUGhlNy9HMHpOQkd1NEYyaEhxaU1sK05m?=
+ =?utf-8?B?WnpYVjhOcmVLTjR2MkRBYVg4elppT2dXeEFGc0I1L2NxbXZab29DOG9VeWU4?=
+ =?utf-8?B?d2dLaEluRlZzN3lRZyt0RWszdWoxQU9OYWY4RDdzTStlZzRxWUpsdWhmTWg2?=
+ =?utf-8?B?QkJERWlEdlFkVXVGak1BQXBhdzBZWDUyZXpWTGJObmg2SkxsYTBUQjk5YUt0?=
+ =?utf-8?B?U2ZLOC91eHdHdklnTFJESDI2L1pwTmVtT2RQbk9PSHRnRzVhdDJDUjJvSm1U?=
+ =?utf-8?B?bmNodE1PTmEzMHJ1bEpKUi9MdnVzWUE0bS9ZM3V5RzEwbUJTQkNWdz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6813b2ef-6355-4fca-97df-08df3b0813b2
+X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB598757.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 06:43:18.8275 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: sBkjUgbL+23etT/RJGmKvUYq40Pje1BKsijMPctL6PlAyPyPglzwmh1eB287LFz1nB9PbmcgBgAFa7SL9cBCew==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8932
 X-Mailman-Approved-At: Thu, 05 Nov 2026 13:45:29 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -124,927 +159,578 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,HTML_FONT_LOW_CONTRAST,
-	HTML_MESSAGE,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-This is a multi-part message in MIME format.
---------------zcNm7SB8aeT02GR0QGedewSR
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+Add an offer list and a select_mapping() callback to the mock exporter
+along with map/unmap for the two mock types.
 
+Adds tests for the exporter/importer contract.
 
-On 05/11/26 00:24, Kuehling, Felix wrote:
-> On 2026-11-04 12:=E2=80=8A00, Dhruv Bhogaonkar wrote: On 04/11/26 20:=E2=
-=80=8A56,=20
-> Kuehling, Felix wrote: On 2026-11-04 08: 41, Dhruv Bhogaonkar wrote:=20
-> On 03/11/26 05: 55, Felix Kuehling wrote: On 2026-10-30 04: 33, Dhruv=20
-> B wrote: On systems with discontiguous
->=20
->
->
-> On 2026-11-04 12:00, Dhruv Bhogaonkar wrote:
->>
->>
->> On 04/11/26 20:56, Kuehling, Felix wrote:
->>> On 2026-11-04 08:=E2=80=8A41, Dhruv Bhogaonkar wrote: On 03/11/26 05:=
-=E2=80=8A55,=20
->>> Felix Kuehling wrote: On 2026-10-30 04: 33, Dhruv B wrote: On=20
->>> systems with discontiguous NUMA node IDs, the GPU driver fails to=20
->>> load with the following errors: [ 5. 609767] amdgpu
->>> On 2026-11-04 08:41, Dhruv Bhogaonkar wrote:
->>>>
->>>>
->>>> On 03/11/26 05:55, Felix Kuehling wrote:
->>>>> On 2026-10-30 04:=E2=80=8A33, Dhruv B wrote: On systems with disconti=
-guous=20
->>>>> NUMA node IDs, the GPU driver fails to load with the following=20
->>>>> errors: [ 5.=E2=80=8A609767] amdgpu 0038:=E2=80=8A12:=E2=80=8A00.=E2=
-=80=8A0: Error parsing VCRAT [=20
->>>>> 5.=E2=80=8A609781] kfd kfd: Error adding device to topology
->>>>> On 2026-10-30 04:33, Dhruv B wrote:
->>>>>> On systems with discontiguous NUMA node IDs, the GPU driver fails to
->>>>>> load with the following errors:
->>>>>>
->>>>>> [    5.609767] amdgpu 0038:12:00.0: Error parsing VCRAT
->>>>>> [    5.609781] kfd kfd: Error adding device to topology
->>>>>> [    5.609848] kfd kfd: Error initializing KFD node
->>>>>>
->>>>>> In the current KFD code, proximity domains are created contiguously
->>>>>> when generating the VCRAT. With discontiguous NUMA node IDs, this
->>>>>> creates a mismatch between the proximity domain ID and the NUMA node=
- ID.
->>>>>> For example, if NUMA nodes 0, 2 and 3 are online, the current code
->>>>>> assigns proximity domains 0, 1 and 2 to these nodes respectively,
->>>>>> instead of domains 0, 2 and 3.
->>>>>>
->>>>>> The KFD topology uses the NUMA node and proximity domain information=
- to
->>>>>> create topology devices representing the CPU and memory resources
->>>>>> associated with each NUMA node. This topology is exposed to userspace
->>>>>> through sysfs, where the NUMA node and proximity domain information =
-are
->>>>>> used to identify the topology devices. The mismatch between the NUMA
->>>>>> node ID and proximity domain therefore results in an inconsistent KFD
->>>>>> topology and causes topology parsing to fail.
->>>>>>
->>>>>> Make the proximity domain ID correspond directly to the NUMA node ID=
- by
->>>>>> iterating through the complete NUMA node ID range up to the last onl=
-ine
->>>>>> node. Account for every node ID when assigning proximity domains, wh=
-ile
->>>>>> skipping resource entry creation for offline nodes. This preserves t=
-he
->>>>>> NUMA-node-to-proximity-domain mapping and allows the KFD topology and
->>>>>> its sysfs representation to correctly reflect discontiguous NUMA
->>>>>> topologies.
->>>>>>
->>>>>> A NUMA node may also be CPU-less, memory-less, or both. Only create a
->>>>>> Compute Unit CRAT entry if the node has CPUs, and only create a Memo=
-ry
->>>>>> CRAT entry if the node has memory.
->>>>>>
->>>>>> Additionally, update kfd_parse_subtype_mem() to use simd_count inste=
-ad
->>>>>> of cpu_cores_count to distinguish host nodes from GPU nodes. This en=
-sures
->>>>>> that memory on CPU-less host NUMA nodes is correctly classified as
->>>>>> system memory (HSA_MEM_HEAP_TYPE_SYSTEM) rather than private GPU
->>>>>> framebuffer memory.
->>>>>>
->>>>>> The placeholder domains created for offline node IDs have no IO link=
-s,
->>>>>> so skip offline and CPU-less nodes when building the indirect GPU to=
- CPU
->>>>>> links.
->>>>>>
->>>>>> Co-developed-by: Donet Tom<donettom@linux.ibm.com>
->>>>>> Signed-off-by: Donet Tom<donettom@linux.ibm.com>
->>>>>> Signed-off-by: Dhruv B<dhruv.b@linux.ibm.com>
->>>>>> ---
->>>>>>   drivers/gpu/drm/amd/amdkfd/kfd_crat.c     | 59 +++++++++++++------=
-----
->>>>>>   drivers/gpu/drm/amd/amdkfd/kfd_topology.c |  3 ++
->>>>>>   2 files changed, 36 insertions(+), 26 deletions(-)
->>>>>>
->>>>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm=
-/amd/amdkfd/kfd_crat.c
->>>>>> index 99b0c7f825fe..bebbc6715b2f 100644
->>>>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
->>>>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
->>>>>> @@ -1103,8 +1103,10 @@ static int kfd_parse_subtype_mem(struct crat_=
-subtype_memory *mem,
->>>>>>   			mem->proximity_domain);
->>>>>>   	list_for_each_entry(dev, device_list, list) {
->>>>>>   		if (mem->proximity_domain =3D=3D dev->proximity_domain) {
->>>>>> -			/* We're on GPU node */
->>>>>> -			if (dev->node_props.cpu_cores_count =3D=3D 0) {
->>>>>> +			if (dev->node_props.simd_count =3D=3D 0) {
->>>>>> +				heap_type =3D HSA_MEM_HEAP_TYPE_SYSTEM;
->>>>>> +			} else {
->>>>>> +				/* We're on GPU node */
->>>>>>   				/* APU */
->>>>>>   				if (mem->visibility_type =3D=3D 0)
->>>>>>   					heap_type =3D
->>>>>> @@ -1112,8 +1114,7 @@ static int kfd_parse_subtype_mem(struct crat_s=
-ubtype_memory *mem,
->>>>>>   				/* dGPU */
->>>>>>   				else
->>>>>>   					heap_type =3D mem->visibility_type;
->>>>>> -			} else
->>>>>> -				heap_type =3D HSA_MEM_HEAP_TYPE_SYSTEM;
->>>>>> +			}
->>>>>>  =20
->>>>>>   			if (mem->flags & CRAT_MEM_FLAGS_HOT_PLUGGABLE)
->>>>>>   				flags |=3D HSA_MEM_FLAGS_HOT_PLUGGABLE;
->>>>>> @@ -1899,7 +1900,7 @@ static int kfd_create_vcrat_image_cpu(void *pc=
-rat_image, size_t *size)
->>>>>>   	acpi_status status;
->>>>>>   	struct crat_subtype_generic *sub_type_hdr;
->>>>>>   	int avail_size =3D *size;
->>>>>> -	int numa_node_id;
->>>>>> +	int numa_node_id, last_node;
->>>>>>   #if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
->>>>>>   	uint32_t entries =3D 0;
->>>>>>   #endif
->>>>>> @@ -1935,34 +1936,41 @@ static int kfd_create_vcrat_image_cpu(void *=
-pcrat_image, size_t *size)
->>>>>>   	crat_table->num_domains =3D 0;
->>>>>>  =20
->>>>>>   	sub_type_hdr =3D (struct crat_subtype_generic *)(crat_table+1);
->>>>>> +	last_node =3D find_last_bit(node_online_map.bits, MAX_NUMNODES);
->>>>>>  =20
->>>>>> -	for_each_online_node(numa_node_id) {
->>>>>> -		if (kfd_numa_node_to_apic_id(numa_node_id) =3D=3D -1)
->>>>>> +	for (numa_node_id =3D 0; numa_node_id <=3D last_node; numa_node_id=
-++) {
->>>>>> +		if (!node_online(numa_node_id)) {
->>>>>> +			crat_table->num_domains++;
->>>>>>   			continue;
->>>>>> +		}
->>>>>>  =20
->>>>>>   		/* Fill in Subtype: Compute Unit */
->>>>>> -		ret =3D kfd_fill_cu_for_cpu(numa_node_id, &avail_size,
->>>>>> -			crat_table->num_domains,
->>>>>> -			(struct crat_subtype_computeunit *)sub_type_hdr);
->>>>>> -		if (ret < 0)
->>>>>> -			return ret;
->>>>>> -		crat_table->length +=3D sub_type_hdr->length;
->>>>>> -		crat_table->total_entries++;
->>>>>> +		if (kfd_numa_node_to_apic_id(numa_node_id) !=3D -1) {
->>>>>> +			ret =3D kfd_fill_cu_for_cpu(numa_node_id, &avail_size,
->>>>>> +						  crat_table->num_domains,
->>>>>> +						  (struct crat_subtype_computeunit *)sub_type_hdr);
->>>>>> +			if (ret < 0)
->>>>>> +				return ret;
->>>>>> +			crat_table->length +=3D sub_type_hdr->length;
->>>>>> +			crat_table->total_entries++;
->>>>>>  =20
->>>>>> -		sub_type_hdr =3D (typeof(sub_type_hdr))((char *)sub_type_hdr +
->>>>>> -			sub_type_hdr->length);
->>>>>> +			sub_type_hdr =3D (typeof(sub_type_hdr))((char *)sub_type_hdr +
->>>>>> +				sub_type_hdr->length);
->>>>>> +		}
->>>>>>  =20
->>>>>>   		/* Fill in Subtype: Memory */
->>>>>> -		ret =3D kfd_fill_mem_info_for_cpu(numa_node_id, &avail_size,
->>>>>> -			crat_table->num_domains,
->>>>>> -			(struct crat_subtype_memory *)sub_type_hdr);
->>>>>> -		if (ret < 0)
->>>>>> -			return ret;
->>>>>> -		crat_table->length +=3D sub_type_hdr->length;
->>>>>> -		crat_table->total_entries++;
->>>>>> +		if (node_state(numa_node_id, N_MEMORY)) {
->>>>>> +			ret =3D kfd_fill_mem_info_for_cpu(numa_node_id, &avail_size,
->>>>>> +							crat_table->num_domains,
->>>>>> +							(struct crat_subtype_memory *)sub_type_hdr);
->>>>>> +			if (ret < 0)
->>>>>> +				return ret;
->>>>>> +			crat_table->length +=3D sub_type_hdr->length;
->>>>>> +			crat_table->total_entries++;
->>>>>>  =20
->>>>>> -		sub_type_hdr =3D (typeof(sub_type_hdr))((char *)sub_type_hdr +
->>>>>> -			sub_type_hdr->length);
->>>>>> +			sub_type_hdr =3D (typeof(sub_type_hdr))((char *)sub_type_hdr +
->>>>>> +				sub_type_hdr->length);
->>>>>> +		}
->>>>>>  =20
->>>>>>   		/* Fill in Subtype: IO Link */
->>>>>>   #if defined(CONFIG_X86_64) && !defined(CONFIG_UML)
->>>>>> @@ -1982,7 +1990,6 @@ static int kfd_create_vcrat_image_cpu(void *pc=
-rat_image, size_t *size)
->>>>>>   #else
->>>>>>   		pr_info("IO link not available for non x86 platforms\n");
->>>>>>   #endif
->>>>>> -
->>>>>>   		crat_table->num_domains++;
->>>>>>   	}
->>>>>>  =20
->>>>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu=
-/drm/amd/amdkfd/kfd_topology.c
->>>>>> index b38d12f3da84..d2fbe73e57ef 100644
->>>>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
->>>>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
->>>>>> @@ -1419,6 +1419,9 @@ static int kfd_create_indirect_link_prop(struc=
-t kfd_topology_device *kdev, int g
->>>>>>   				    struct kfd_iolink_properties, list);
->>>>>>  =20
->>>>>>   	for (i =3D 0; i < num_cpu; i++) {
->>>>>> +		if (!node_online(i) || !node_state(i, N_CPU))
->>>>>
->>>>> The N_CPU part skips indirect links through CPU-less NUMA nodes.=20
->>>>> Is that correct? For links from the GPU to that memory, I think we=20
->>>>> need the indirect links so the GPU knows that it can access such=20
->>>>> memory.
->>>>>
->>>>> Maybe further down we could enhance the large-bar condition to=20
->>>>> only create indirect CPU->GPU links if that node actually has a CPU:
->>>>>
->>>>>                  /* for small Bar or CPU-less NUMA nodes, no CPU --> =
-GPU in-direct links */
->>>>>                  if (kfd_dev_is_large_bar(kdev->gpu) && node_state(i,=
- N_CPU)) {
->>>>> 			...
->>>>
->>>>
->>>> Hi Felix,
->>>>
->>>> Thanks a lot for the reply and the suggestion!
->>>>
->>>> Would the following change address your concern? I've removed the
->>>> |N_CPU|check from the loop condition and moved it to the large-BAR
->>>> check so that we retain the indirect links for CPU-less NUMA nodes
->>>> while avoiding CPU =E2=86=92 GPU indirect links for those nodes.
->>>
->>> Yes, this look good. I have one question inline.
->>>
->>>
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c=20
->>>> b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
->>>> index b38d12f3da84..8f908323d74b 100644
->>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
->>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
->>>> @@ -1419,6 +1419,9 @@ static int=20
->>>> kfd_create_indirect_link_prop(struct kfd_topology_device *kdev, int g
->>>> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0struct kfd_iolink_properties, list);
->>>>
->>>> =C2=A0 =C2=A0 =C2=A0for (i =3D 0; i < num_cpu; i++) {
->>>> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!node_online(i))
->>>> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 continue;
->>>> +
->>>> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* CPU <--> GPU */
->>>> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (gpu_link->node_to =3D=3D i)
->>>> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0continue;
->>>> @@ -1437,7 +1440,7 @@ static int=20
->>>> kfd_create_indirect_link_prop(struct kfd_topology_device *kdev, int g
->>>> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}
->>>>
->>>> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!cpu_link)
->>>> -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return -ENOMEM;
->>>> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 continue;
->>>
->>> I think I'm fine with this change. But the fact that you need this=20
->>> tells me that you have some weird topology where the CPUs (and=20
->>> CPU-less memory-only) NUMA nodes aren't fully connected. How does=20
->>> that happen? Does that point at some problem elsewhere?
->>>
->> Hi Felix,
->> Thanks for the feedback!
->>
->> Actually the main reason for the change was:
->>
->> In|kfd_create_vcrat_image_cpu()|, CPU-to-CPU IO link
->> generation is wrapped in|#if defined(CONFIG_X86_64)|.
->> Consequently,|kfd_fill_iolink_info_for_cpu()|is not
->> compiled on non-x86 platforms, leaving
->> |cpu_dev->io_link_props|empty for all host nodes.
->>
->>  1. For example, on a multi-node non-x86 system where the
->>     GPU is attached to node 2 and CPUs are present on node 0,
->>     |cpu_link|will be NULL.
->>     Returning|-ENOMEM|in this case causes
->>     |kfd_dev_create_p2p_links()|to abort early, potentially
->>     preventing subsequent GPU-to-GPU P2P links from being
->>     created through|kfd_add_peer_prop()|.
->>
->> If you are okay with these changes, can I post the
->> next version incorporating them?
->
-> Yes. Thanks for the clarification. If the lack of CPU-CPU links on=20
-> non-x86 CPUs is a problem, I'd also be open to a fix for that. Up to you.
->
+ - test_match_set_is_final: a later importer attaching, even one the
+   exporter answers differently, does not change an existing
+   attachment's match set or default. Later attachments influence what
+   the exporter selects at pin and map time, not previous attachments.
 
-Thanks a lot, Felix, for the suggestion and for being open to
-looking into this!
+ - test_select_at_map: the exporter chooses a non-default entry
+   at the first map and the result is tagged with it. A pin taken
+   under the live mapping inherits the type and the choice survives
+   unmap/remap even though the exporter would answer differently. Only
+   dma_buf_invalidate_mappings() allows the exporter to make a different
+   selection. An -EBUSY from selection leaves nothing established.
 
-We will look into adding CPU-to-CPU IO link support for
-non-x86 architectures and post it as a separate follow-up
-series in the near future.
+ - test_select_at_pin: pin selects, and the choice survives map, unmap
+   and unpin so a pinned importer that is never invalidated keeps its
+   first type for the life of the import.
 
-For now, I have sent out v4 incorporating the discussed
-fixes.
-
-Thanks,
-Dhruv B
->
-> Thanks,
-> =C2=A0 Felix
->
->
->>
->> Thanks,
->> Dhruv B
->>
->>
->>> Regards,
->>> =C2=A0 Felix
->>>
->>>
->>>>
->>>> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* CPU <--> CPU <--> GPU, GPU node*/
->>>> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0props =3D kfd_alloc_struct(props);
->>>> @@ -1459,8 +1462,8 @@ static int=20
->>>> kfd_create_indirect_link_prop(struct kfd_topology_device *kdev, int g
->>>> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (ret < 0)
->>>> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return ret;
->>>>
->>>> -=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* for small Bar, no CPU --> GPU in-direc=
-t links */
->>>> -=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (kfd_dev_is_large_bar(kdev->gpu)) {
->>>> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* for small Bar or CPU-less NUMA nodes, =
-no CPU --> GPU=20
->>>> in-direct links */
->>>> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (kfd_dev_is_large_bar(kdev->gpu) && no=
-de_state(i, N_CPU)) {
->>>> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* CPU <--> CPU <--> G=
-PU, CPU node*/
->>>> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0props2 =3D kfd_alloc_s=
-truct(props2);
->>>> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!props2)
->>>> --=20
->>>>
->>>> Does this approach look good to you?
->>>>
->>>> Regards,
->>>> Dhruv B
->>>>
->>>>
->>>>> Regards,
->>>>> =C2=A0 Felix
->>>>>
->>>>>
->>>>>> +			continue;
->>>>>> +
->>>>>>   		/* CPU <--> GPU */
->>>>>>   		if (gpu_link->node_to =3D=3D i)
->>>>>>   			continue;=
-
---------------zcNm7SB8aeT02GR0QGedewSR
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DUTF-8=
-">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class=3D"moz-cite-prefix">On 05/11/26 00:24, Kuehling, Felix
-      wrote:<br>
-    </div>
-    <blockquote type=3D"cite"
-      cite=3D"mid:4751bd8c-91e8-4985-bdac-52e35ba7f513@amd.com">
-      <!-- BaNnErBlUrFlE-BoDy-start -->
-      <!-- Preheader Text : BEGIN -->
-      <meta http-equiv=3D"content-type" content=3D"text/html; charset=3DUTF=
--8">
-      <div
-style=3D"display:none !important;display:none;visibility:hidden;mso-hide:al=
-l;font-size:1px;color:#ffffff;line-height:1px;max-height:0px;opacity:0;over=
-flow:hidden;">
-        On 2026-11-04 12:=E2=80=8A00, Dhruv Bhogaonkar wrote: On 04/11/26
-        20:=E2=80=8A56, Kuehling, Felix wrote: On 2026-11-04 08: 41, Dhruv
-        Bhogaonkar wrote: On 03/11/26 05: 55, Felix Kuehling wrote: On
-        2026-10-30 04: 33, Dhruv B wrote: On systems with discontiguous</di=
-v>
-      <!-- Preheader Text : END -->
-      <!-- Email Banner : BEGIN -->
-      <div
-style=3D"display:none !important;display:none;visibility:hidden;mso-hide:al=
-l;font-size:1px;color:#ffffff;line-height:1px;max-height:0px;opacity:0;over=
-flow:hidden;"></div>
-      <!-- Email Banner : END -->
-      <!-- BaNnErBlUrFlE-BoDy-end -->
-      <!-- BaNnErBlUrFlE-HeAdEr-start -->
-      <style>@scope { #pfptBannern99zqz3 { all: revert !important; display:=
- block !important;
-    visibility: visible !important; opacity: 1 !important;
-    background-color: #d0d8dc !important;
-    max-width: none !important; max-height: none !important }.pfptPrimaryBu=
-ttonn99zqz3:hover, .pfptPrimaryButtonn99zqz3:focus {
-    background-color: #b4c1c7 !important; }.pfptPrimaryButtonn99zqz3:active=
- {
-    background-color: #90a4ae !important; }html:root, html:root>body { all:=
- revert !important; display: block !important;
-    visibility: visible !important; opacity: 1 !important; } }</style>
-      <!-- BaNnErBlUrFlE-HeAdEr-end -->
-      <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DUTF=
--8">
-      <p><br>
-      </p>
-      <div class=3D"moz-cite-prefix">On 2026-11-04 12:00, Dhruv Bhogaonkar
-        wrote:<br>
-      </div>
-      <blockquote type=3D"cite"
-        cite=3D"mid:64a82e4a-2855-46f1-8942-3c1b6f8179f3@linux.ibm.com">
-        <p><br>
-        </p>
-        <div class=3D"moz-cite-prefix">On 04/11/26 20:56, Kuehling, Felix
-          wrote:<br>
-        </div>
-        <blockquote type=3D"cite"
-          cite=3D"mid:04ddca6d-3880-48e0-a64e-a4bbde32e67e@amd.com">
-          <!-- BaNnErBlUrFlE-BoDy-start -->
-          <!-- Preheader Text : BEGIN -->
-          <div
-style=3D"display:none !important;display:none;visibility:hidden;mso-hide:al=
-l;font-size:1px;color:#ffffff;line-height:1px;max-height:0px;opacity:0;over=
-flow:hidden;">
-            On 2026-11-04 08:=E2=80=8A41, Dhruv Bhogaonkar wrote: On 03/11/=
-26
-            05:=E2=80=8A55, Felix Kuehling wrote: On 2026-10-30 04: 33, Dhr=
-uv B
-            wrote: On systems with discontiguous NUMA node IDs, the GPU
-            driver fails to load with the following errors: [ 5. 609767]
-            amdgpu</div>
-          <!-- Preheader Text : END -->
-          <!-- Email Banner : BEGIN -->
-          <!-- Email Banner : END -->
-          <!-- BaNnErBlUrFlE-BoDy-end -->
-          <!-- BaNnErBlUrFlE-HeAdEr-start -->
-          <style>@scope {  }</style>
-          <!-- BaNnErBlUrFlE-HeAdEr-end -->
-          <div class=3D"moz-cite-prefix">On 2026-11-04 08:41, Dhruv
-            Bhogaonkar wrote:<br>
-          </div>
-          <blockquote type=3D"cite"
-cite=3D"mid:1c7751d3-ca7d-4a7b-91fa-87762af60095@linux.ibm.com">
-            <p><br>
-            </p>
-            <div class=3D"moz-cite-prefix">On 03/11/26 05:55, Felix
-              Kuehling wrote:<br>
-            </div>
-            <blockquote type=3D"cite"
-              cite=3D"mid:70018014-d952-4155-aa36-cf9b39ba8aea@amd.com">
-              <!-- BaNnErBlUrFlE-BoDy-start -->
-              <!-- Preheader Text : BEGIN -->
-              <div
-style=3D"display:none !important;display:none;visibility:hidden;mso-hide:al=
-l;font-size:1px;color:#ffffff;line-height:1px;max-height:0px;opacity:0;over=
-flow:hidden;">
-                On 2026-10-30 04:=E2=80=8A33, Dhruv B wrote: On systems with
-                discontiguous NUMA node IDs, the GPU driver fails to
-                load with the following errors: [ 5.=E2=80=8A609767] amdgpu
-                0038:=E2=80=8A12:=E2=80=8A00.=E2=80=8A0: Error parsing VCRA=
-T [ 5.=E2=80=8A609781] kfd
-                kfd: Error adding device to topology</div>
-              <!-- Preheader Text : END -->
-              <!-- Email Banner : BEGIN -->
-              <!-- Email Banner : END -->
-              <!-- BaNnErBlUrFlE-BoDy-end -->
-              <!-- BaNnErBlUrFlE-HeAdEr-start -->
-              <style>@scope {  }</style>
-              <!-- BaNnErBlUrFlE-HeAdEr-end -->
-              <div class=3D"moz-cite-prefix">On 2026-10-30 04:33, Dhruv B
-                wrote:<br>
-              </div>
-              <blockquote type=3D"cite"
-                cite=3D"mid:20261030083304.9767-3-dhruv.b@linux.ibm.com">
-                <pre wrap=3D"" class=3D"moz-quote-pre">On systems with disc=
-ontiguous NUMA node IDs, the GPU driver fails to
-load with the following errors:
-
-[    5.609767] amdgpu 0038:12:00.0: Error parsing VCRAT
-[    5.609781] kfd kfd: Error adding device to topology
-[    5.609848] kfd kfd: Error initializing KFD node
-
-In the current KFD code, proximity domains are created contiguously
-when generating the VCRAT. With discontiguous NUMA node IDs, this
-creates a mismatch between the proximity domain ID and the NUMA node ID.
-For example, if NUMA nodes 0, 2 and 3 are online, the current code
-assigns proximity domains 0, 1 and 2 to these nodes respectively,
-instead of domains 0, 2 and 3.
-
-The KFD topology uses the NUMA node and proximity domain information to
-create topology devices representing the CPU and memory resources
-associated with each NUMA node. This topology is exposed to userspace
-through sysfs, where the NUMA node and proximity domain information are
-used to identify the topology devices. The mismatch between the NUMA
-node ID and proximity domain therefore results in an inconsistent KFD
-topology and causes topology parsing to fail.
-
-Make the proximity domain ID correspond directly to the NUMA node ID by
-iterating through the complete NUMA node ID range up to the last online
-node. Account for every node ID when assigning proximity domains, while
-skipping resource entry creation for offline nodes. This preserves the
-NUMA-node-to-proximity-domain mapping and allows the KFD topology and
-its sysfs representation to correctly reflect discontiguous NUMA
-topologies.
-
-A NUMA node may also be CPU-less, memory-less, or both. Only create a
-Compute Unit CRAT entry if the node has CPUs, and only create a Memory
-CRAT entry if the node has memory.
-
-Additionally, update kfd_parse_subtype_mem() to use simd_count instead
-of cpu_cores_count to distinguish host nodes from GPU nodes. This ensures
-that memory on CPU-less host NUMA nodes is correctly classified as
-system memory (HSA_MEM_HEAP_TYPE_SYSTEM) rather than private GPU
-framebuffer memory.
-
-The placeholder domains created for offline node IDs have no IO links,
-so skip offline and CPU-less nodes when building the indirect GPU to CPU
-links.
-
-Co-developed-by: Donet Tom <a class=3D"moz-txt-link-rfc2396E"
-                href=3D"mailto:donettom@linux.ibm.com"
-                moz-do-not-send=3D"true">&lt;donettom@linux.ibm.com&gt;</a>
-Signed-off-by: Donet Tom <a class=3D"moz-txt-link-rfc2396E"
-                href=3D"mailto:donettom@linux.ibm.com"
-                moz-do-not-send=3D"true">&lt;donettom@linux.ibm.com&gt;</a>
-Signed-off-by: Dhruv B <a class=3D"moz-txt-link-rfc2396E"
-                href=3D"mailto:dhruv.b@linux.ibm.com"
-                moz-do-not-send=3D"true">&lt;dhruv.b@linux.ibm.com&gt;</a>
+Signed-off-by: Alistair Popple <apopple@nvidia.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_crat.c     | 59 +++++++++++++----------
- drivers/gpu/drm/amd/amdkfd/kfd_topology.c |  3 ++
- 2 files changed, 36 insertions(+), 26 deletions(-)
+ drivers/dma-buf/st-dma-mapping.c | 493 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 493 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/am=
-dkfd/kfd_crat.c
-index 99b0c7f825fe..bebbc6715b2f 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-@@ -1103,8 +1103,10 @@ static int kfd_parse_subtype_mem(struct crat_subtype=
-_memory *mem,
- 			mem-&gt;proximity_domain);
- 	list_for_each_entry(dev, device_list, list) {
- 		if (mem-&gt;proximity_domain =3D=3D dev-&gt;proximity_domain) {
--			/* We're on GPU node */
--			if (dev-&gt;node_props.cpu_cores_count =3D=3D 0) {
-+			if (dev-&gt;node_props.simd_count =3D=3D 0) {
-+				heap_type =3D HSA_MEM_HEAP_TYPE_SYSTEM;
-+			} else {
-+				/* We're on GPU node */
- 				/* APU */
- 				if (mem-&gt;visibility_type =3D=3D 0)
- 					heap_type =3D
-@@ -1112,8 +1114,7 @@ static int kfd_parse_subtype_mem(struct crat_subtype_=
-memory *mem,
- 				/* dGPU */
- 				else
- 					heap_type =3D mem-&gt;visibility_type;
--			} else
--				heap_type =3D HSA_MEM_HEAP_TYPE_SYSTEM;
-+			}
-=20
- 			if (mem-&gt;flags &amp; CRAT_MEM_FLAGS_HOT_PLUGGABLE)
- 				flags |=3D HSA_MEM_FLAGS_HOT_PLUGGABLE;
-@@ -1899,7 +1900,7 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_ima=
-ge, size_t *size)
- 	acpi_status status;
- 	struct crat_subtype_generic *sub_type_hdr;
- 	int avail_size =3D *size;
--	int numa_node_id;
-+	int numa_node_id, last_node;
- #if defined(CONFIG_X86_64) &amp;&amp; !defined(CONFIG_UML)
- 	uint32_t entries =3D 0;
- #endif
-@@ -1935,34 +1936,41 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_i=
-mage, size_t *size)
- 	crat_table-&gt;num_domains =3D 0;
-=20
- 	sub_type_hdr =3D (struct crat_subtype_generic *)(crat_table+1);
-+	last_node =3D find_last_bit(node_online_map.bits, MAX_NUMNODES);
-=20
--	for_each_online_node(numa_node_id) {
--		if (kfd_numa_node_to_apic_id(numa_node_id) =3D=3D -1)
-+	for (numa_node_id =3D 0; numa_node_id &lt;=3D last_node; numa_node_id++) {
-+		if (!node_online(numa_node_id)) {
-+			crat_table-&gt;num_domains++;
- 			continue;
-+		}
-=20
- 		/* Fill in Subtype: Compute Unit */
--		ret =3D kfd_fill_cu_for_cpu(numa_node_id, &amp;avail_size,
--			crat_table-&gt;num_domains,
--			(struct crat_subtype_computeunit *)sub_type_hdr);
--		if (ret &lt; 0)
--			return ret;
--		crat_table-&gt;length +=3D sub_type_hdr-&gt;length;
--		crat_table-&gt;total_entries++;
-+		if (kfd_numa_node_to_apic_id(numa_node_id) !=3D -1) {
-+			ret =3D kfd_fill_cu_for_cpu(numa_node_id, &amp;avail_size,
-+						  crat_table-&gt;num_domains,
-+						  (struct crat_subtype_computeunit *)sub_type_hdr);
-+			if (ret &lt; 0)
-+				return ret;
-+			crat_table-&gt;length +=3D sub_type_hdr-&gt;length;
-+			crat_table-&gt;total_entries++;
-=20
--		sub_type_hdr =3D (typeof(sub_type_hdr))((char *)sub_type_hdr +
--			sub_type_hdr-&gt;length);
-+			sub_type_hdr =3D (typeof(sub_type_hdr))((char *)sub_type_hdr +
-+				sub_type_hdr-&gt;length);
-+		}
-=20
- 		/* Fill in Subtype: Memory */
--		ret =3D kfd_fill_mem_info_for_cpu(numa_node_id, &amp;avail_size,
--			crat_table-&gt;num_domains,
--			(struct crat_subtype_memory *)sub_type_hdr);
--		if (ret &lt; 0)
--			return ret;
--		crat_table-&gt;length +=3D sub_type_hdr-&gt;length;
--		crat_table-&gt;total_entries++;
-+		if (node_state(numa_node_id, N_MEMORY)) {
-+			ret =3D kfd_fill_mem_info_for_cpu(numa_node_id, &amp;avail_size,
-+							crat_table-&gt;num_domains,
-+							(struct crat_subtype_memory *)sub_type_hdr);
-+			if (ret &lt; 0)
-+				return ret;
-+			crat_table-&gt;length +=3D sub_type_hdr-&gt;length;
-+			crat_table-&gt;total_entries++;
-=20
--		sub_type_hdr =3D (typeof(sub_type_hdr))((char *)sub_type_hdr +
--			sub_type_hdr-&gt;length);
-+			sub_type_hdr =3D (typeof(sub_type_hdr))((char *)sub_type_hdr +
-+				sub_type_hdr-&gt;length);
-+		}
-=20
- 		/* Fill in Subtype: IO Link */
- #if defined(CONFIG_X86_64) &amp;&amp; !defined(CONFIG_UML)
-@@ -1982,7 +1990,6 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_ima=
-ge, size_t *size)
- #else
- 		pr_info("IO link not available for non x86 platforms\n");
- #endif
--
- 		crat_table-&gt;num_domains++;
- 	}
-=20
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/am=
-d/amdkfd/kfd_topology.c
-index b38d12f3da84..d2fbe73e57ef 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-@@ -1419,6 +1419,9 @@ static int kfd_create_indirect_link_prop(struct kfd_t=
-opology_device *kdev, int g
- 				    struct kfd_iolink_properties, list);
-=20
- 	for (i =3D 0; i &lt; num_cpu; i++) {
-+		if (!node_online(i) || !node_state(i, N_CPU))</pre>
-              </blockquote>
-              <p>The N_CPU part skips indirect links through CPU-less
-                NUMA nodes. Is that correct? For links from the GPU to
-                that memory, I think we need the indirect links so the
-                GPU knows that it can access such memory.</p>
-              <p>Maybe further down we could enhance the large-bar
-                condition to only create indirect CPU-&gt;GPU links if
-                that node actually has a CPU:</p>
-              <pre>                /* for small Bar or CPU-less NUMA nodes,=
- no CPU --&gt; GPU in-direct links */
-                if (kfd_dev_is_large_bar(kdev-&gt;gpu) &amp;&amp; node_stat=
-e(i, N_CPU)) {
-			...</pre>
-            </blockquote>
-            <p><br>
-            </p>
-            <font face=3D"monospace"><span>Hi Felix,<br>
-              </span><br>
-              <span>Thanks a lot for the reply and the suggestion!<br>
-              </span><br>
-              <span>Would the following change address your concern?
-                I've removed the</span><br>
-              <code dir=3D"ltr"><span>N_CPU</span></code><span><span
-                  class=3D"Apple-converted-space">=C2=A0</span>check from t=
-he
-                loop condition and moved it to the large-BAR</span><span><b=
-r>
-                check so that we retain the indirect links for CPU-less
-                NUMA nodes</span><br>
-              <span>while avoiding CPU =E2=86=92 GPU indirect links for tho=
-se
-                nodes.<br>
-              </span></font></blockquote>
-          <p>Yes, this look good. I have one question inline.</p>
-          <p><br>
-          </p>
-          <blockquote type=3D"cite"
-cite=3D"mid:1c7751d3-ca7d-4a7b-91fa-87762af60095@linux.ibm.com"><font
-              face=3D"monospace"><br>
-              diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-              b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c<br>
-              index b38d12f3da84..8f908323d74b 100644<br>
-              --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c<br>
-              +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c<br>
-              @@ -1419,6 +1419,9 @@ static int
-              kfd_create_indirect_link_prop(struct kfd_topology_device
-              *kdev, int g<br>
-              =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0struct kfd_iolink_properties, list);<br>
-              =C2=A0<br>
-              =C2=A0 =C2=A0 =C2=A0for (i =3D 0; i &lt; num_cpu; i++) {<br>
-              +=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!node_online(i))<br>
-              +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 continue;<br>
-              +<br>
-              =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* CPU &lt;--&gt; GPU */<br>
-              =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (gpu_link-&gt;node_to =
-=3D=3D i)<br>
-              =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0continue;<br>
-              @@ -1437,7 +1440,7 @@ static int
-              kfd_create_indirect_link_prop(struct kfd_topology_device
-              *kdev, int g<br>
-              =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-              =C2=A0<br>
-              =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!cpu_link)<br>
-              -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return -ENOMEM;<br>
-              +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 continue;<br>
-            </font></blockquote>
-          <p>I think I'm fine with this change. But the fact that you
-            need this tells me that you have some weird topology where
-            the CPUs (and CPU-less memory-only) NUMA nodes aren't fully
-            connected. How does that happen? Does that point at some
-            problem elsewhere?</p>
-        </blockquote>
-        <font face=3D"monospace"><span>Hi Felix,</span><br>
-          <span>Thanks for the feedback!<br>
-            <br>
-            Actually the main reason for the change was:<br>
-            <br>
-            In<span class=3D"Apple-converted-space">=C2=A0</span></span><co=
-de
-            dir=3D"ltr"><span>kfd_create_vcrat_image_cpu()</span></code><sp=
-an>,
-            CPU-to-CPU IO link</span><br>
-          <span>generation is wrapped in<span
-              class=3D"Apple-converted-space">=C2=A0</span></span><code
-            dir=3D"ltr"><span>#if defined(CONFIG_X86_64)</span></code><span=
->.</span><br>
-          <span>Consequently,<span class=3D"Apple-converted-space">=C2=A0</=
-span></span><code
-            dir=3D"ltr"><span>kfd_fill_iolink_info_for_cpu()</span></code><=
-span><span
-              class=3D"Apple-converted-space">=C2=A0</span>is not</span><br>
-          <span>compiled on non-x86 platforms, leaving</span><br>
-          <code dir=3D"ltr"><span>cpu_dev-&gt;io_link_props</span></code><s=
-pan><span
-              class=3D"Apple-converted-space">=C2=A0</span>empty for all ho=
-st
-            nodes.</span></font>
-        <ol data-spread=3D"false" start=3D"1"
-style=3D"caret-color: rgb(255, 255, 255); color: rgb(255, 255, 255); font-s=
-ize: medium; font-style: normal; font-variant-caps: normal; font-weight: 40=
-0; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px;=
- text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -=
-webkit-text-stroke-width: 0px; text-decoration: none;">
-          <li><font face=3D"monospace"><span>For example, on a multi-node
-                non-x86 system where the</span><br>
-              <span>GPU is attached to node 2 and CPUs are present on
-                node 0,</span><br>
-              <code dir=3D"ltr"><span>cpu_link</span></code><span><span
-                  class=3D"Apple-converted-space">=C2=A0</span>will be NULL=
-.</span><br>
-              <span>Returning<span class=3D"Apple-converted-space">=C2=A0</=
-span></span><code
-                dir=3D"ltr"><span>-ENOMEM</span></code><span><span
-                  class=3D"Apple-converted-space">=C2=A0</span>in this case
-                causes</span><br>
-              <code dir=3D"ltr"><span>kfd_dev_create_p2p_links()</span></co=
-de><span><span
-                  class=3D"Apple-converted-space">=C2=A0</span>to abort ear=
-ly,
-                potentially</span><br>
-              <span>preventing subsequent GPU-to-GPU P2P links from
-                being</span><br>
-              <span>created through<span class=3D"Apple-converted-space">=
-=C2=A0</span></span><code
-                dir=3D"ltr"><span>kfd_add_peer_prop()</span></code><span>.<=
-/span></font></li>
-        </ol>
-        <font face=3D"monospace"><span>If you are okay with these changes,
-            can I post the</span><br>
-          <span>next version incorporating them?<br>
-          </span></font></blockquote>
-      <p>Yes. Thanks for the clarification. If the lack of CPU-CPU links
-        on non-x86 CPUs is a problem, I'd also be open to a fix for
-        that. Up to you.</p>
-    </blockquote>
-    <p><br>
-    </p>
-    <font face=3D"monospace">Thanks a lot, Felix, for the suggestion and
-      for being open to<br>
-      looking into this!<br>
-      <br>
-      We will look into adding CPU-to-CPU IO link support for<br>
-      non-x86 architectures and post it as a separate follow-up<br>
-      series in the near future.<br>
-      <br>
-      For now, I have sent out v4 incorporating the discussed<br>
-      fixes.<br>
-      <br>
-      Thanks,<br>
-      Dhruv B</font>
-    <blockquote type=3D"cite"
-      cite=3D"mid:4751bd8c-91e8-4985-bdac-52e35ba7f513@amd.com">
-      <p>Thanks,<br>
-        =C2=A0 Felix</p>
-      <p><br>
-      </p>
-      <blockquote type=3D"cite"
-        cite=3D"mid:64a82e4a-2855-46f1-8942-3c1b6f8179f3@linux.ibm.com"><fo=
-nt
-          face=3D"monospace"><br>
-          <span>Thanks,</span><br>
-          <span>Dhruv B</span></font>
-        <p><br>
-        </p>
-        <blockquote type=3D"cite"
-          cite=3D"mid:04ddca6d-3880-48e0-a64e-a4bbde32e67e@amd.com">
-          <p>Regards,<br>
-            =C2=A0 Felix</p>
-          <p><br>
-          </p>
-          <blockquote type=3D"cite"
-cite=3D"mid:1c7751d3-ca7d-4a7b-91fa-87762af60095@linux.ibm.com"><font
-              face=3D"monospace">=C2=A0<br>
-              =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* CPU &lt;--&gt; CPU &lt;-=
--&gt; GPU, GPU node*/<br>
-              =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0props =3D kfd_alloc_struct(=
-props);<br>
-              @@ -1459,8 +1462,8 @@ static int
-              kfd_create_indirect_link_prop(struct kfd_topology_device
-              *kdev, int g<br>
-              =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (ret &lt; 0)<br>
-              =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return ret;<b=
-r>
-              =C2=A0<br>
-              -=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* for small Bar, no CPU --&gt; =
-GPU in-direct
-              links */<br>
-              -=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (kfd_dev_is_large_bar(kdev-&g=
-t;gpu)) {<br>
-              +=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* for small Bar or CPU-less NUM=
-A nodes, no CPU
-              --&gt; GPU in-direct links */<br>
-              +=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (kfd_dev_is_large_bar(kdev-&g=
-t;gpu) &amp;&amp;
-              node_state(i, N_CPU)) {<br>
-              =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* CPU &lt;--=
-&gt; CPU &lt;--&gt; GPU, CPU
-              node*/<br>
-              =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0props2 =3D kf=
-d_alloc_struct(props2);<br>
-              =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!props2)<=
-br>
-              --=C2=A0<br>
-              <br>
-              <span>Does this approach look good to you?<br>
-              </span><br>
-              <span>Regards,</span><br>
-              <span>Dhruv B</span></font>
-            <p><br>
-            </p>
-            <blockquote type=3D"cite"
-              cite=3D"mid:70018014-d952-4155-aa36-cf9b39ba8aea@amd.com">
-              <p>Regards,<br>
-                =C2=A0 Felix</p>
-              <p><br>
-              </p>
-              <blockquote type=3D"cite"
-                cite=3D"mid:20261030083304.9767-3-dhruv.b@linux.ibm.com">
-                <pre wrap=3D"" class=3D"moz-quote-pre">+			continue;
+diff --git a/drivers/dma-buf/st-dma-mapping.c b/drivers/dma-buf/st-dma-mapping.c
+index cbfa99aeb0ff..11010731150a 100644
+--- a/drivers/dma-buf/st-dma-mapping.c
++++ b/drivers/dma-buf/st-dma-mapping.c
+@@ -7,6 +7,7 @@
+ #include <kunit/test.h>
+ #include <linux/dma-buf.h>
+ #include <linux/dma-buf-mapping.h>
++#include <linux/dma-resv.h>
+ #include <linux/errno.h>
+ 
+ /* Mock tracking state -- reset before each test */
+@@ -21,6 +22,19 @@ static const struct dma_buf_match_args *mock_finish_args_arg;
+ static const struct dma_buf_mapping_match *mock_finish_exp_arg;
+ static const struct dma_buf_mapping_match *mock_finish_imp_arg;
+ 
++/* Mapping types the configurable mock exporter currently offers */
++static const struct dma_buf_mapping_match *mock_exp_offer;
++static size_t mock_exp_offer_len;
 +
- 		/* CPU &lt;--&gt; GPU */
- 		if (gpu_link-&gt;node_to =3D=3D i)
- 			continue;
-</pre>
-              </blockquote>
-            </blockquote>
-          </blockquote>
-        </blockquote>
-      </blockquote>
-    </blockquote>
-  </body>
-</html>
++/* Which match set entry the selecting mock exporter picks, or an error */
++static int mock_select_idx;
++static int mock_select_err;
++
++/* Failure injection for the mock types' map and the mock exporter's pin */
++static int mock_map_err;
++static int mock_pin_err;
++static int mock_pin_count;
++
+ static int reset_mock_state(struct kunit *test)
+ {
+ 	mock_match_called = false;
+@@ -32,6 +46,13 @@ static int reset_mock_state(struct kunit *test)
+ 	mock_finish_args_arg = NULL;
+ 	mock_finish_exp_arg = NULL;
+ 	mock_finish_imp_arg = NULL;
++	mock_exp_offer = NULL;
++	mock_exp_offer_len = 0;
++	mock_select_idx = 0;
++	mock_select_err = 0;
++	mock_map_err = 0;
++	mock_pin_err = 0;
++	mock_pin_count = 0;
+ 	return 0;
+ }
+ 
+@@ -370,11 +391,478 @@ static void test_mock_attach(struct kunit *test)
+ 	KUNIT_EXPECT_PTR_EQ(test, dma_buf_attach_map_type(attach)->type,
+ 			    &mock_type_a);
+ 	KUNIT_EXPECT_PTR_EQ(test, mock_match_dev_arg, dev);
++	KUNIT_EXPECT_PTR_EQ(test, mock_match_dev_arg, dev);
+ 
+ 	dma_buf_detach(dmabuf, attach);
+ 	dma_buf_put(dmabuf);
+ }
+ 
++static int mock_dmabuf_offer_match_mapping(struct dma_buf_match_args *args)
++{
++	return dma_buf_match_mapping(args, mock_exp_offer, mock_exp_offer_len);
++}
++
++static const struct dma_buf_ops mock_dmabuf_offer_ops = {
++	.release = mock_dmabuf_release,
++	.match_mapping = mock_dmabuf_offer_match_mapping,
++};
++
++/*
++ * The match set is final once attached. A later importer attaching, even one
++ * the exporter answers differently, must not change an existing attachment.
++ *
++ * Later attachments influence what the exporter selects at pin or map time,
++ * not what was previously negotiated.
++ */
++static void test_match_set_is_final(struct kunit *test)
++{
++	static const struct dma_buf_mapping_match offer_ab[] = {
++		{ .type = &mock_type_a },
++		{ .type = &mock_type_b },
++	};
++	static const struct dma_buf_mapping_match offer_b[] = {
++		{ .type = &mock_type_b },
++	};
++	struct dma_buf_mapping_match imp1[] = {
++		{ .type = &mock_type_a },
++		{ .type = &mock_type_b },
++	};
++	struct dma_buf_mapping_match imp2[] = { { .type = &mock_type_b } };
++	MOCK_IMPORTER_OPS(importer1_ops, imp1);
++	MOCK_IMPORTER_OPS(importer2_ops, imp2);
++	struct dma_buf_attachment *attach1, *attach2;
++	struct dma_buf *dmabuf;
++	struct device *dev;
++
++	dev = kunit_device_register(test, "dma-buf-test");
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
++
++	dmabuf = mock_dmabuf_export(&mock_dmabuf_offer_ops);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dmabuf);
++
++	mock_exp_offer = offer_ab;
++	mock_exp_offer_len = ARRAY_SIZE(offer_ab);
++	attach1 = dma_buf_dynamic_attach(dmabuf, dev, &importer1_ops, NULL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, attach1);
++	KUNIT_ASSERT_EQ(test, attach1->nr_matches, 2);
++	KUNIT_EXPECT_PTR_EQ(test, dma_buf_attach_map_type(attach1)->type,
++			    &mock_type_a);
++
++	/* Exporter's answer for new importers changes; attach1 does not */
++	mock_exp_offer = offer_b;
++	mock_exp_offer_len = ARRAY_SIZE(offer_b);
++	attach2 = dma_buf_dynamic_attach(dmabuf, dev, &importer2_ops, NULL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, attach2);
++	KUNIT_ASSERT_EQ(test, attach2->nr_matches, 1);
++	KUNIT_EXPECT_PTR_EQ(test, dma_buf_attach_map_type(attach2)->type,
++			    &mock_type_b);
++	KUNIT_EXPECT_EQ(test, attach1->nr_matches, 2);
++	KUNIT_EXPECT_PTR_EQ(test, dma_buf_attach_map_type(attach1)->type,
++			    &mock_type_a);
++
++	dma_buf_detach(dmabuf, attach2);
++	KUNIT_EXPECT_EQ(test, attach1->nr_matches, 2);
++	KUNIT_EXPECT_PTR_EQ(test, dma_buf_attach_map_type(attach1)->type,
++			    &mock_type_a);
++
++	dma_buf_detach(dmabuf, attach1);
++	dma_buf_put(dmabuf);
++}
++
++/* Mock mapping result for the generic map path */
++struct mock_mapping {
++	struct dma_buf_mapping base;
++	const struct dma_buf_mapping_type *made_by;
++};
++
++static struct dma_buf_mapping *mock_type_map(struct dma_buf_attachment *attach,
++					     enum dma_data_direction dir)
++{
++	struct mock_mapping *m;
++
++	if (mock_map_err)
++		return ERR_PTR(mock_map_err);
++	m = kzalloc_obj(*m);
++	if (!m)
++		return ERR_PTR(-ENOMEM);
++	m->base.type = dma_buf_attach_map_type(attach)->type;
++	m->made_by = dma_buf_attach_map_type(attach)->type;
++	return &m->base;
++}
++
++static void mock_type_unmap(struct dma_buf_attachment *attach,
++			    struct dma_buf_mapping *mapping,
++			    enum dma_data_direction dir)
++{
++	kfree(container_of(mapping, struct mock_mapping, base));
++}
++
++/* Exporter choosing the match set entry the test asks for */
++static int mock_dmabuf_select_mapping(struct dma_buf_attachment *attach)
++{
++	if (mock_select_err)
++		return mock_select_err;
++	return mock_select_idx;
++}
++
++static int mock_dmabuf_pin(struct dma_buf_attachment *attach)
++{
++	if (mock_pin_err)
++		return mock_pin_err;
++	mock_pin_count++;
++	return 0;
++}
++
++static void mock_dmabuf_unpin(struct dma_buf_attachment *attach)
++{
++	mock_pin_count--;
++}
++
++static const struct dma_buf_ops mock_dmabuf_select_ops = {
++	.release = mock_dmabuf_release,
++	.match_mapping = mock_dmabuf_offer_match_mapping,
++	.select_mapping = mock_dmabuf_select_mapping,
++	.pin = mock_dmabuf_pin,
++	.unpin = mock_dmabuf_unpin,
++};
++
++/*
++ * Exporter decides type at first map from the match set. The result is tagged
++ * with it and the core holds the choice across unmap/remap until the attachment
++ * has been explicitly invalidated.
++ */
++static void test_select_at_map(struct kunit *test)
++{
++	static const struct dma_buf_mapping_match offer_ab[] = {
++		{ .type = &mock_type_a },
++		{ .type = &mock_type_b },
++	};
++	struct dma_buf_mapping_match imp[] = {
++		{ .type = &mock_type_a },
++		{ .type = &mock_type_b },
++	};
++	MOCK_IMPORTER_OPS(importer_ops, imp);
++	struct dma_buf_attachment *attach;
++	struct dma_buf_mapping *mapping;
++	struct dma_buf *dmabuf;
++	struct device *dev;
++
++	mock_type_a.map = mock_type_map;
++	mock_type_a.unmap = mock_type_unmap;
++	mock_type_b.map = mock_type_map;
++	mock_type_b.unmap = mock_type_unmap;
++
++	dev = kunit_device_register(test, "dma-buf-test");
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
++
++	dmabuf = mock_dmabuf_export(&mock_dmabuf_select_ops);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dmabuf);
++
++	mock_exp_offer = offer_ab;
++	mock_exp_offer_len = ARRAY_SIZE(offer_ab);
++	attach = dma_buf_dynamic_attach(dmabuf, dev, &importer_ops, NULL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, attach);
++	KUNIT_EXPECT_FALSE(test, attach->selected);
++	KUNIT_EXPECT_PTR_EQ(test, dma_buf_attach_map_type(attach)->type,
++			    &mock_type_a);
++
++	dma_resv_lock(dmabuf->resv, NULL);
++
++	/* Exporter picks the second entry (mock_type_b) */
++	mock_select_idx = 1;
++	mapping = dma_buf_mapping_map(attach, DMA_BIDIRECTIONAL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, mapping);
++	KUNIT_EXPECT_PTR_EQ(test, mapping->type, &mock_type_b);
++	KUNIT_EXPECT_PTR_EQ(test, dma_buf_attach_map_type(attach)->type,
++			    &mock_type_b);
++	KUNIT_EXPECT_TRUE(test, attach->selected);
++
++	/* A pin taken whilst mapping is live gets the same type */
++	mock_select_idx = 0;
++	KUNIT_EXPECT_EQ(test, dma_buf_pin(attach), 0);
++	KUNIT_EXPECT_PTR_EQ(test, dma_buf_attach_map_type(attach)->type,
++			    &mock_type_b);
++	dma_buf_unpin(attach);
++
++	dma_buf_mapping_unmap(attach, mapping, DMA_BIDIRECTIONAL);
++
++	/*
++	 * Unmapped the exporter would now pick A, but no invalidate has
++	 * happened so remap must get B again to avoid ping-ponging.
++	 */
++	KUNIT_EXPECT_TRUE(test, attach->selected);
++	mapping = dma_buf_mapping_map(attach, DMA_BIDIRECTIONAL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, mapping);
++	KUNIT_EXPECT_PTR_EQ(test, mapping->type, &mock_type_b);
++	dma_buf_mapping_unmap(attach, mapping, DMA_BIDIRECTIONAL);
++
++	/* Only an explicit invalidation allows the type to change */
++	dma_buf_invalidate_mappings(dmabuf);
++	KUNIT_EXPECT_FALSE(test, attach->selected);
++	/* The selection is kept for a pending unmap until the next one */
++	KUNIT_EXPECT_PTR_EQ(test, dma_buf_attach_map_type(attach)->type,
++			    &mock_type_b);
++
++	mapping = dma_buf_mapping_map(attach, DMA_BIDIRECTIONAL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, mapping);
++	KUNIT_EXPECT_PTR_EQ(test, mapping->type, &mock_type_a);
++	dma_buf_mapping_unmap(attach, mapping, DMA_BIDIRECTIONAL);
++
++	/* Exporter cannot serve this importer right now */
++	dma_buf_invalidate_mappings(dmabuf);
++	mock_select_err = -EBUSY;
++	mapping = dma_buf_mapping_map(attach, DMA_BIDIRECTIONAL);
++	KUNIT_EXPECT_EQ(test, PTR_ERR(mapping), -EBUSY);
++	KUNIT_EXPECT_FALSE(test, attach->selected);
++	mock_select_err = 0;
++
++	dma_resv_unlock(dmabuf->resv);
++
++	dma_buf_detach(dmabuf, attach);
++	dma_buf_put(dmabuf);
++
++	mock_type_a.map = NULL;
++	mock_type_a.unmap = NULL;
++	mock_type_b.map = NULL;
++	mock_type_b.unmap = NULL;
++}
++
++/*
++ * Pin selects too and the choice survives map, unmap and unpin. A pinned
++ * importer that is never invalidated keeps its first type for the life of the
++ * attachment.
++ */
++static void test_select_at_pin(struct kunit *test)
++{
++	static const struct dma_buf_mapping_match offer_ab[] = {
++		{ .type = &mock_type_a },
++		{ .type = &mock_type_b },
++	};
++	struct dma_buf_mapping_match imp[] = {
++		{ .type = &mock_type_a },
++		{ .type = &mock_type_b },
++	};
++	MOCK_IMPORTER_OPS(importer_ops, imp);
++	struct dma_buf_attachment *attach;
++	struct dma_buf_mapping *mapping;
++	struct dma_buf *dmabuf;
++	struct device *dev;
++
++	mock_type_a.map = mock_type_map;
++	mock_type_a.unmap = mock_type_unmap;
++	mock_type_b.map = mock_type_map;
++	mock_type_b.unmap = mock_type_unmap;
++
++	dev = kunit_device_register(test, "dma-buf-test");
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
++
++	dmabuf = mock_dmabuf_export(&mock_dmabuf_select_ops);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dmabuf);
++
++	mock_exp_offer = offer_ab;
++	mock_exp_offer_len = ARRAY_SIZE(offer_ab);
++	attach = dma_buf_dynamic_attach(dmabuf, dev, &importer_ops, NULL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, attach);
++
++	dma_resv_lock(dmabuf->resv, NULL);
++
++	mock_select_idx = 1;
++	KUNIT_EXPECT_EQ(test, dma_buf_pin(attach), 0);
++	KUNIT_EXPECT_TRUE(test, attach->selected);
++	KUNIT_EXPECT_PTR_EQ(test, dma_buf_attach_map_type(attach)->type,
++			    &mock_type_b);
++
++	/* Map after pin uses the pinned type regardless of the exporter now */
++	mock_select_idx = 0;
++	mapping = dma_buf_mapping_map(attach, DMA_BIDIRECTIONAL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, mapping);
++	KUNIT_EXPECT_PTR_EQ(test, mapping->type, &mock_type_b);
++	dma_buf_mapping_unmap(attach, mapping, DMA_BIDIRECTIONAL);
++
++	KUNIT_EXPECT_PTR_EQ(test, dma_buf_attach_map_type(attach)->type,
++			    &mock_type_b);
++
++	dma_buf_unpin(attach);
++	KUNIT_EXPECT_TRUE(test, attach->selected);
++	KUNIT_EXPECT_PTR_EQ(test, dma_buf_attach_map_type(attach)->type,
++			    &mock_type_b);
++
++	dma_resv_unlock(dmabuf->resv);
++
++	dma_buf_detach(dmabuf, attach);
++	dma_buf_put(dmabuf);
++
++	mock_type_a.map = NULL;
++	mock_type_a.unmap = NULL;
++	mock_type_b.map = NULL;
++	mock_type_b.unmap = NULL;
++}
++
++/*
++ * A failed pin or map may only undo a selection it made itself. One made by
++ * an earlier pin or map belongs to that pin or mapping and must survive,
++ * otherwise the retry reselects under it without an invalidate. Reproduced
++ * by Karl Mehltretter against the posted series: pin selects B, map fails,
++ * retry selects A with the pin still held.
++ */
++static void test_select_survives_failed_map(struct kunit *test)
++{
++	static const struct dma_buf_mapping_match offer_ab[] = {
++		{ .type = &mock_type_a },
++		{ .type = &mock_type_b },
++	};
++	struct dma_buf_mapping_match imp[] = {
++		{ .type = &mock_type_a },
++		{ .type = &mock_type_b },
++	};
++	MOCK_IMPORTER_OPS(importer_ops, imp);
++	struct dma_buf_attachment *attach;
++	struct dma_buf_mapping *mapping;
++	struct dma_buf *dmabuf;
++	struct device *dev;
++
++	mock_type_a.map = mock_type_map;
++	mock_type_a.unmap = mock_type_unmap;
++	mock_type_b.map = mock_type_map;
++	mock_type_b.unmap = mock_type_unmap;
++
++	dev = kunit_device_register(test, "dma-buf-test");
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
++
++	dmabuf = mock_dmabuf_export(&mock_dmabuf_select_ops);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dmabuf);
++
++	mock_exp_offer = offer_ab;
++	mock_exp_offer_len = ARRAY_SIZE(offer_ab);
++	attach = dma_buf_dynamic_attach(dmabuf, dev, &importer_ops, NULL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, attach);
++
++	dma_resv_lock(dmabuf->resv, NULL);
++
++	/* A map that selected and then failed leaves nothing behind */
++	mock_select_idx = 1;
++	mock_map_err = -EIO;
++	mapping = dma_buf_mapping_map(attach, DMA_BIDIRECTIONAL);
++	KUNIT_EXPECT_EQ(test, PTR_ERR(mapping), -EIO);
++	KUNIT_EXPECT_FALSE(test, attach->selected);
++	KUNIT_EXPECT_PTR_EQ(test, dma_buf_attach_map_type(attach)->type,
++			    &mock_type_a);
++	mock_map_err = 0;
++
++	/* Pin selects B and holds it */
++	KUNIT_EXPECT_EQ(test, dma_buf_pin(attach), 0);
++	KUNIT_EXPECT_TRUE(test, attach->selected);
++	KUNIT_EXPECT_PTR_EQ(test, dma_buf_attach_map_type(attach)->type,
++			    &mock_type_b);
++	KUNIT_EXPECT_EQ(test, mock_pin_count, 1);
++
++	/* A map failing under that pin must not reopen the choice */
++	mock_select_idx = 0;
++	mock_map_err = -EIO;
++	mapping = dma_buf_mapping_map(attach, DMA_BIDIRECTIONAL);
++	KUNIT_EXPECT_EQ(test, PTR_ERR(mapping), -EIO);
++	KUNIT_EXPECT_TRUE(test, attach->selected);
++	KUNIT_EXPECT_PTR_EQ(test, dma_buf_attach_map_type(attach)->type,
++			    &mock_type_b);
++	KUNIT_EXPECT_EQ(test, mock_pin_count, 1);
++	mock_map_err = 0;
++
++	/* The retry gets the pinned type, whatever the exporter answers now */
++	mapping = dma_buf_mapping_map(attach, DMA_BIDIRECTIONAL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, mapping);
++	KUNIT_EXPECT_PTR_EQ(test, mapping->type, &mock_type_b);
++	dma_buf_mapping_unmap(attach, mapping, DMA_BIDIRECTIONAL);
++
++	dma_buf_unpin(attach);
++	KUNIT_EXPECT_EQ(test, mock_pin_count, 0);
++
++	dma_resv_unlock(dmabuf->resv);
++
++	dma_buf_detach(dmabuf, attach);
++	dma_buf_put(dmabuf);
++
++	mock_type_a.map = NULL;
++	mock_type_a.unmap = NULL;
++	mock_type_b.map = NULL;
++	mock_type_b.unmap = NULL;
++}
++
++/*
++ * The same rule for a failing exporter pin: a pin that selected and then
++ * failed leaves nothing behind, one that failed under an existing mapping
++ * leaves the mapping's selection alone.
++ */
++static void test_select_after_failed_pin(struct kunit *test)
++{
++	static const struct dma_buf_mapping_match offer_ab[] = {
++		{ .type = &mock_type_a },
++		{ .type = &mock_type_b },
++	};
++	struct dma_buf_mapping_match imp[] = {
++		{ .type = &mock_type_a },
++		{ .type = &mock_type_b },
++	};
++	MOCK_IMPORTER_OPS(importer_ops, imp);
++	struct dma_buf_attachment *attach;
++	struct dma_buf_mapping *mapping;
++	struct dma_buf *dmabuf;
++	struct device *dev;
++
++	mock_type_a.map = mock_type_map;
++	mock_type_a.unmap = mock_type_unmap;
++	mock_type_b.map = mock_type_map;
++	mock_type_b.unmap = mock_type_unmap;
++
++	dev = kunit_device_register(test, "dma-buf-test");
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
++
++	dmabuf = mock_dmabuf_export(&mock_dmabuf_select_ops);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dmabuf);
++
++	mock_exp_offer = offer_ab;
++	mock_exp_offer_len = ARRAY_SIZE(offer_ab);
++	attach = dma_buf_dynamic_attach(dmabuf, dev, &importer_ops, NULL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, attach);
++
++	dma_resv_lock(dmabuf->resv, NULL);
++
++	/* First pin selects B but the exporter cannot pin: nothing is kept */
++	mock_select_idx = 1;
++	mock_pin_err = -ENOSPC;
++	KUNIT_EXPECT_EQ(test, dma_buf_pin(attach), -ENOSPC);
++	KUNIT_EXPECT_FALSE(test, attach->selected);
++	KUNIT_EXPECT_PTR_EQ(test, dma_buf_attach_map_type(attach)->type,
++			    &mock_type_a);
++	KUNIT_EXPECT_EQ(test, mock_pin_count, 0);
++	mock_pin_err = 0;
++
++	/* A live mapping selects A */
++	mock_select_idx = 0;
++	mapping = dma_buf_mapping_map(attach, DMA_BIDIRECTIONAL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, mapping);
++	KUNIT_EXPECT_PTR_EQ(test, mapping->type, &mock_type_a);
++
++	/* A pin failing under it leaves that selection in place */
++	mock_select_idx = 1;
++	mock_pin_err = -ENOSPC;
++	KUNIT_EXPECT_EQ(test, dma_buf_pin(attach), -ENOSPC);
++	KUNIT_EXPECT_TRUE(test, attach->selected);
++	KUNIT_EXPECT_PTR_EQ(test, dma_buf_attach_map_type(attach)->type,
++			    &mock_type_a);
++	mock_pin_err = 0;
++
++	dma_buf_mapping_unmap(attach, mapping, DMA_BIDIRECTIONAL);
++	dma_resv_unlock(dmabuf->resv);
++
++	dma_buf_detach(dmabuf, attach);
++	dma_buf_put(dmabuf);
++
++	mock_type_a.map = NULL;
++	mock_type_a.unmap = NULL;
++	mock_type_b.map = NULL;
++	mock_type_b.unmap = NULL;
++}
++
+ static const struct dma_exporter dma_exporter_params[] = {
+ 	{ &mock_dmabuf_simple_sgt_ops, "simple_sgt" },
+ 	{ &mock_dmabuf_two_exp_ops, "two_exp" },
+@@ -389,6 +877,11 @@ static struct kunit_case dma_mapping_cases[] = {
+ 	KUNIT_CASE(test_match_importer_priority),
+ 	KUNIT_CASE_PARAM(test_sgt_attach, dma_exporter_gen_params),
+ 	KUNIT_CASE(test_mock_attach),
++	KUNIT_CASE(test_match_set_is_final),
++	KUNIT_CASE(test_select_at_map),
++	KUNIT_CASE(test_select_at_pin),
++	KUNIT_CASE(test_select_survives_failed_map),
++	KUNIT_CASE(test_select_after_failed_pin),
+ 	{}
+ };
+ 
 
---------------zcNm7SB8aeT02GR0QGedewSR--
+-- 
+2.54.0
 
