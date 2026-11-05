@@ -2,50 +2,50 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 396F4606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 840BB606A329
 	for <amd-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 13:45:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ftN5/QwL
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=LxOWU5bd
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF42A112468;
-	Thu,  5 Nov 2026 13:45:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D25D112469;
+	Thu,  5 Nov 2026 13:45:36 +0000 (UTC)
 Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011062.outbound.protection.outlook.com
- [40.93.194.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2525112055;
- Thu,  5 Nov 2026 06:42:56 +0000 (UTC)
+ (mail-southcentralusazon11011008.outbound.protection.outlook.com
+ [40.93.194.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F07E10FF00;
+ Thu,  5 Nov 2026 06:41:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ODSze3fcKAkSsxzxsQpXwnYEUejLTJ5433pIbjuqCSxQxWxR1c1gof/zeKeq1eUKHCDIZLUY2ZqM/yqzbxHKTheBkJ3TAx/LXBzSIwhdOGVKWCOcdcpOPZaIwXCTsYs016TB1KYHmikx1iNJKBU0f0NxA0aMVM6NjSwRiVLWNCBjJrgB3Wf5t2OzdqkiY/fd8tBW6Ho1ATzm4fO4BsKFV7EgWqpeqz1J2hDIwxYVWCCgRcgoe0yzl+rB4mZ6RjKfDIXEc+YTZzjNNe/hFMSIsj0Hd5Kg+OAfgzFcvYYZi6u44dcNZnZul8hzUV9CtqvQn4RDTbhfrrexzVfeF01TFQ==
+ b=MnlgVTmJ0ChpsY+yo/CD06GG/lCKoAnXIm8lTUnxrWKCkGe4TKK3Fs7pJ1DUNB+7jb9CRONdGLylSmz/u0baWQjvDCR5NTWTKVHAfgaYMuLlhYcrZpeCZp6GIr4uWzHzv0lZ5fei5QklM4xBESmO7oKCLI3nQVm1VaNBUiX2B44NNIAeFGRTqu3pWLiUAmAW/N5FiIbmGMWy0fRrYxmO4B+ZOAogfjLx/sorijXT3ySpPKqQwSw8vy+jByHC06Ds4x84WrBjyhXmCSRp5zwwScbcWaiqHxxTP7KhrqHpBbcfNstOv8bJxOR1rt708pFOVv6yyFj+hbNQs4UCkOAOOQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=af3y0HlYYkxHC5UdGIrztB/GP4Dp0U6tXxdZOBU7WZM=;
- b=o6FQix3hwPwhy0eE9MkroFfx04jp5QGDTPp06x75KufzFsZNPdaHo2I198ESUphPVrtGVsLazQxUGPUN50Ep6aRqM5DknB3waMI+rh/HbhhcsfYAkusF7xFI0vU1m3iwoB93oD49Ojv0LfibxM7OeJxBQF4/eRY05VYKGtwlHYCLox0m102ez1mjEodSt9U0/eh/nGoLycWD2kr+ferKzyI3UBQnG48qx27tUSXjed9JZ+fkO+JRw/jIYUGKHjPIh6NqAcEcB3zzU/BpFjLJf/sYUoYJU7PyH99ACJIgzTlOS+eUkKgs6YqyMUwvOI2arB0Lf88KygXXja7b1Tnbeg==
+ bh=UjtDly3wgMjVJnGHR8Hab7K7XcPv5B4fYjxBAyujAQo=;
+ b=A3JLPOn+3qR4KwUrGcQK37s6jYBR71UfDtN9HkY+SCI1YF4ADS/hIOd/DNJMCMi/Vz804oSahdotnhjaYZ9kms4qG6KVMvZtzuHOm69xqGMUErgLTQ3UHNb9aY3ch1b5VFtpEJBJacZlRCtC90dZio3e/OqwlRDh923JzKDbYJiLxrCKZuxRMxwVBEhdJHlGJWVhPZXBWRe6peTWKFTFUiU7KoRj6r9UUrG4yOjDeeMjt3mhg0d/5xbYUWbgydfYARUd8APRPzJSeWlnPIlSFFRHxhSMHiriPmPFiOhhovvGp+CPADKU1ayhlTi7+VViUiFxMMNpaHQ0n/h3Ilnncg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=af3y0HlYYkxHC5UdGIrztB/GP4Dp0U6tXxdZOBU7WZM=;
- b=ftN5/QwLZlxjBjWkbLbk/HBLLL1P0zBwyyC0qOtcHklBpy8nampBDUqUZWeFdgs0amIR1BPc3+1CEZlCeQbJGcauZjzRFwRhY2zvnco4x0O6VZWC2DaXEpXEgxMHw8fjYQZQxm0YeGcXgTt6kReTFp0jKDEFGahfKusE7QJ/68QaBxwSZV724XdoVcLxjZq3F09I6BV/92bh2DqagCEojQ1bkE2gQSX68K2QWmjxP8D1jVtUhth/zfzfMt3fiLKNv5AQpdUI1I4fEkXxYI8E0IXP9T7O1+MwxPc9kydOb6JTVDefmJAMiphmt1Et5/yZemn88OH7m/vFpLMfWQaBGA==
+ bh=UjtDly3wgMjVJnGHR8Hab7K7XcPv5B4fYjxBAyujAQo=;
+ b=LxOWU5bdX/U9r7GNrDEgBrRHrUSP9OpXR7XQR6rZC0icWe/EG2QZFnUbB2qiFxN3HWH/Mh6vi8rzElqBietGu6un2dpJ3b48r/2pG72eBEb7nCX7AlDMFrXuoTIIOe1KQdga/SJYHiBffVCzx+5b8p1OELOyjGQ+DOSXIEJOElmUZDWJdMbRrU5ESC4thwLSgHqTtQtjdnUYkEdpaEyqAkHmGsgmKZNL3sw1s3U4rVWjJHolq7xNM6GkTFBETSgZH7FX+JNXop8n+aEY63VDiDFnB1PvoJ/4RlXASCTuvqcJ3Y1FQH6CvYNuCXiTQV7cnKQxSMVZOPtgVBbazrPFqg==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from SA3PR12MB598757.namprd12.prod.outlook.com
- (2603:10b6:806:52d::14) by IA0PR12MB8932.namprd12.prod.outlook.com
- (2603:10b6:208:492::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Thu, 5 Nov 2026
- 06:42:48 +0000
+ (2603:10b6:806:52d::14) by CH1PR12MB9573.namprd12.prod.outlook.com
+ (2603:10b6:610:2ae::5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Thu, 5 Nov 2026
+ 06:41:41 +0000
 Received: from SA3PR12MB598757.namprd12.prod.outlook.com
  ([fe80::e206:100:5946:a777]) by SA3PR12MB598757.namprd12.prod.outlook.com
  ([fe80::e206:100:5946:a777%5]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
- 06:42:48 +0000
+ 06:41:41 +0000
 From: Alistair Popple <apopple@nvidia.com>
-Date: Thu, 05 Nov 2026 17:40:52 +1100
-Subject: [PATCH v2 17/23] RDMA/uverbs: Use the SGT_P2P mapping type
+Date: Thu, 05 Nov 2026 17:40:38 +1100
+Subject: [PATCH v2 03/23] dma-buf: Add the SGT DMA mapping type
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-dma_mapping_type_v4-v2-17-78b8dc9ae80a@nvidia.com>
+Message-Id: <20261105-dma_mapping_type_v4-v2-3-78b8dc9ae80a@nvidia.com>
 References: <20261105-dma_mapping_type_v4-v2-0-78b8dc9ae80a@nvidia.com>
 In-Reply-To: <20261105-dma_mapping_type_v4-v2-0-78b8dc9ae80a@nvidia.com>
 To: =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
@@ -74,80 +74,80 @@ To: =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  Leon Romanovsky <leon@kernel.org>
 Cc: Alistair Popple <apopple@nvidia.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793860879; l=2351;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793860879; l=11898;
  i=apopple@nvidia.com; s=20261105; h=from:subject:message-id;
- bh=ESeb24BoNKQpZfDwwkGacwOa2G5SDGNGPUZICBgDcJg=;
- b=qaZEhC1VqR5YfOqrSDyl9nhMrwQ+DFbbsCZFjLT0rFzyTtYkl2Jga+02gOMhG1HkAkxnIcugw
- rqS/B8x1UQGBf5IVzZFISF23q7uXAqK0djcZqHs17uxuhUrpbR9Mqie
+ bh=3BY7eLZMiEpA9sxHO7/AOx+KtatLP6Dh4vHTrU3Tlx0=;
+ b=o692wgr4k5Im29GJaU3WVpLeqKLk/6XEa/QId0zRWDVLQdy/L2HuQHcdCn434qV5x98Q4zhrb
+ D/pigfSzXZVBcZpojdeuPCR4DBfFIZ2NmXQ/B1VXjaiZtgLnN1DtHzp
 X-Developer-Key: i=apopple@nvidia.com; a=ed25519;
  pk=WdWPT9rAq3YNfXldbGv1NSGVLGxzQGFGJvRUiShhNqs=
-X-ClientProxiedBy: SY5PR01CA0052.ausprd01.prod.outlook.com
- (2603:10c6:10:1fc::12) To SA3PR12MB598757.namprd12.prod.outlook.com
+X-ClientProxiedBy: SY6PR01CA0038.ausprd01.prod.outlook.com
+ (2603:10c6:10:e9::7) To SA3PR12MB598757.namprd12.prod.outlook.com
  (2603:10b6:806:52d::14)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA3PR12MB598757:EE_|IA0PR12MB8932:EE_
-X-MS-Office365-Filtering-Correlation-Id: b835aeda-25d5-4821-c054-08df3b08018c
+X-MS-TrafficTypeDiagnostic: SA3PR12MB598757:EE_|CH1PR12MB9573:EE_
+X-MS-Office365-Filtering-Correlation-Id: da3a48be-9fd5-4bbe-41e1-08df3b07d9e5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|7416014|1800799024|23010399003|22082099003|18002099003|56012099006|261021123027099003|921020|261021121427099003|261022075727099003|261022105027099003|261009223027099003|261026140227099003|261026121527099003|10067099003|261028144727099003|11063799006|261102123227099003;
-X-Microsoft-Antispam-Message-Info: YhRAjfp2IRAL/y9rgVAtOKHKnUpLMYjVsdg3IqZ68aviJ+RaYykKgwpAJN5xn0BZfSDdO+bVRdFS+vp67WE6PLCYNjm3Np0DZoe8TMHn469hIEHlNrbUTQuYIEOfFjeMCWtjQ+SPCR7gFzsnNu/Ka7vU68+fbTeFSDeovTb04lvXmVEliAV5FkrdFsM2QOLsD0CdJoHz6dudHCk0WYpWGQFkgxAjV95xTMS0YnvU8pLpuCypedv9rChMDlt5LH6fvU9PX/csOUKnORxKtEt/s5SAA+2NBDoZORQ4f94RC7Vz0Eb9muh0EA89AgEh+wCasKeB1w5xGI18owEoi0V8aKNs4A+35pdd+bE7EcFJfcOQNxqx/869TVGqJAa8VkRvJmByXu9yTvVfSQrevbZw/ZRoBjdUTbdxLo4rhKr66/vHmHTB5jW2/tEZcycJMHEx2YCjJF3jRu1Q5UmRi2bDSWB4fh0sQdDnEfIQU3RAjuqGbGYsYdTPZEaMKHvHRjGKDC1BQVPa0Vvd6qWOo9tlm0KLSBYHhEy+aVLJqvEsuPSLnoXuFVLrDEIyiHGWwgyVxVwi+U3HPlqXYw24BBbyJGb94NA5twUWfFaHz4zOC6GVgYEd1XHFUzp6sXGdUHxkGZ+ZsyFr+HNBbBQKw3wAIzMoYxLd9IWwDfTVH8XJjkQrN43peuJthUN9eZL1FvPk6Yj186ceJILLqgyXSSBVrA==
+ ARA:13230040|23010399003|1800799024|7416014|376014|366016|921020|261028144727099003|261021123027099003|261022075727099003|11063799006|5023799004|56012099006|261009223027099003|261026121527099003|261102123227099003|261021121427099003|261022105027099003|261102130727099003|261026140227099003|10067099003|3023799007|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info: i9HvM8iSrds8dDdddKZh44G8MUrYmQU2/1yz7Ii8BqUv3YBvCaQ9rjfHAvcQUA0nrENtVExNceOMzAFBFFLUohlUk6iiG6Ge9tKqIxx/x3faitYowfew/rpumPynaRJi4WkeUVRY2beEx8yuVh9WMq9Il9qm7zEKRrgNcrHTIuhr4eraEb+J4+61/32z5UaQd3AjCoy9q1gJrZ+rSQGsWy9qqTEvEckbhcgfWj83Hqg2d+LrLgPrV/lxAjaidqwScIXUXMdtIvrtzDojP5k8SdQ4+DFGD3O85uS+1yWcnjJSGugPwdPEEqJsZ1OwzSq5uE+2wpcTDCtUpr+0mj1P43QM7cm2F/zuN0SlQdg2/w4oXBZJ0wFaO/Gnj/DmWAPI90Z6E/vlqw0e+DfYIfiQ9CYCtqWI3NZAYmX4jaSJXMGNW1wc2xjm03yNzHXb4MileBL2z66qzCZhSV6NpD5eJ/YX6uM5vOfVDSsH42bBiAIm1BEKGKPZ3i/ZFIov5XQrL+EH2LVg1FrTzRc0jW8E6e66+6qk4+Lm5C9pFYFZE0ZUx8WlwnxBhBQYYvPW7p5cLo1+pbLTF8nGwc6BDvCrSWT89MznjNDumQy4MS+rYwA8xUX9mJgQYfpgoACpWrFU33pMGz4VyXtBm1VlXaghNdSF+iFNFlgZcW7zfTa6tFVxGlgap1JowSVAM46LrfQoSK6hKAHhIkW8yoeVpNK7OA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SA3PR12MB598757.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(7416014)(1800799024)(23010399003)(22082099003)(18002099003)(56012099006)(261021123027099003)(921020)(261021121427099003)(261022075727099003)(261022105027099003)(261009223027099003)(261026140227099003)(261026121527099003)(10067099003)(261028144727099003)(11063799006)(261102123227099003);
+ SFS:(13230040)(23010399003)(1800799024)(7416014)(376014)(366016)(921020)(261028144727099003)(261021123027099003)(261022075727099003)(11063799006)(5023799004)(56012099006)(261009223027099003)(261026121527099003)(261102123227099003)(261021121427099003)(261022105027099003)(261102130727099003)(261026140227099003)(10067099003)(3023799007)(22082099003)(18002099003)(6133799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a1R3ZDIzSTBET1BEQVVsUTVmbW9VNXVGV0ZzT200UVkyNCswUHNJYS8wRjlR?=
- =?utf-8?B?Qy8zeDRmUGhFREpVTzZJOFRLVFJZZGFDNC83Z2d0TEtBT0hiUzRWTWhRWlFy?=
- =?utf-8?B?SmRJZmFFOFdWdHVYd2VWYUh4a092WWtJUGNhTnBqWExDRUk0K3UwRWs2eHJE?=
- =?utf-8?B?cThwdXZWWmhWdDlRY25zbmJPT05ueGxLcmU5cTV0cE1iRXVpSkR1Tm9FNTYy?=
- =?utf-8?B?MVRQdWdLTXJyQzF5MXpjNm1sNVB3ZXhmcWRkZmJCM0pxSWFsWngwcStFM1lB?=
- =?utf-8?B?Tjh0aGRDRE81em0vZFpyNUFNTmhFNjFvcDMrLzBjbEFWdGFuVlB0bzlWTnQx?=
- =?utf-8?B?dE9LV05KTklySXUvS3Y1SjJNQzdSamtURzFOdHBoS2Y3MUZSbUdYd3Z3T3pE?=
- =?utf-8?B?UGJHVnJiKzBiZjV3ZVpsYkZPUE1xaVROb09LRzdCZDB2NGcyNFpsbFYvKzBE?=
- =?utf-8?B?WDlwUDdneG5EaEdWWlpDTXRVVi9zR3hMQ3NSenRyeGYrOGNrdHlGVXdlTXlU?=
- =?utf-8?B?ZUpxZlByQTYyU2ZLQStNUHpHSVE5U1F3MDVCNW1hUW9WdGhzbHlPQWlQWjRs?=
- =?utf-8?B?WW1ld0NvbTJEeFljZkJKZlhQMVBjaHRVZ21LcFdxOXI2dWJYYzl2Z0c4Wjh0?=
- =?utf-8?B?WEpKR3kwd2Mya1hRK2pIVkEyZXhaV2ZvZkpERWRBMzBwV3FuQlh1eDJYZUdu?=
- =?utf-8?B?WGVJQzR0WGRsanJwUllrS2ZQUlJ2ekZHRWVtRzdWQSs4YldBNHQ4ZmVEc3l1?=
- =?utf-8?B?Z0hNbnR5OW9VUnNJK28wM04xSlUyT0x1bUdJK1dUUVVFNEdPanRXMWhEZXow?=
- =?utf-8?B?MkJFSzYxanVWZytiT1pzMlV4VXo0ejBQd1NXdk9uZEpYLytyanVuMDR4OEZD?=
- =?utf-8?B?L2xCREFGTmNYVDdWcm95S09FMVgrbEpqdHZSeVR3eU1ySFd0T3BGanNhZVY3?=
- =?utf-8?B?REkyUVdNMHhac2tuMmYrU1ZER2twaEMwQlRHL3l2MGkvWVJWenA2U0FLRGpm?=
- =?utf-8?B?c0lheUpaYlhZY2NSSFlUK1hzRTRqald5R3JoMXhGV2JzS1ZTVkJEWUhkaE5K?=
- =?utf-8?B?NlpvdkxBQ3VERzNQcjRvUno5RHE5ZlZES0t1TURSajVzOUd3eW5jVjI4cXhE?=
- =?utf-8?B?S2FQQjB3MGozOXh0MFVVNTQyOWZUdEo0MnV0ZzVZeC9JOEV5bi8zU0VLQUxX?=
- =?utf-8?B?ZjBLVXE5R3lKdTNIaEN4REh1YXU3UDBGMGVwSkkvQzZlMjQybnFYajNNVlJY?=
- =?utf-8?B?dm9YYmZwOHhmdWg5anV1SS9RTTByWm5rd0p1U1p5OXNwYVlSRklZd1dmTG85?=
- =?utf-8?B?ZGp2Qkozd0NrSW5Mcm9TZ2xjelh5YkZYQ3N3dGhHTG5uN1ltMktHbmZrZVJ1?=
- =?utf-8?B?dFVaVmorRCs0WGNoV0xTL3M5aFJQUUxIVnc2S1MrVGVRRlJjN25HU0NUY3Yw?=
- =?utf-8?B?cVRPRTQ5S1RYYW11S0FYN1hoQU45NVh5a0ZVbUpKaXNZZFE2bEczUFFIekM3?=
- =?utf-8?B?b2lQUUltZmlVSGhoZkM4QUMyMU81ajR3Q2QwdDRCbENHOHdQQjF0YXFPSGJN?=
- =?utf-8?B?K2gxOFJvaGl6QjRLRFRKdTB4cVRGdWd0b053YWJYYnhZS1BoQyt0RXRlWCtt?=
- =?utf-8?B?VHc5a2RNelJGbHRIcnBQZm1JZnBaRHk0endVQ0NjT1BWRUNWU1RKVDVrQWQ1?=
- =?utf-8?B?eVhJZFd3bldmQkFZY29mck56Ym5WakZoRHBXZHhQYnAvM2dNM2dxaFM5aUFG?=
- =?utf-8?B?VFRSRUZFY3Aya3VkMllHeDBHei9ROEhPS2NsbWJXTWtvSzFZQnkwU2krdmdG?=
- =?utf-8?B?L2hsS29yQlVGSVZ6TkYvaHVRZll1NnVOeEhQSWgrejBIQkpvNG92UVFvYUgv?=
- =?utf-8?B?K1ZNbEFXTG05SFhyQmpRSUpDU00wZi8rc1ExbTlsVXBOV1Y0bDJWL3RFUnNK?=
- =?utf-8?B?ZVNiczVSckduWWtQQ25RSHd2VXNHN1BIMjFOY2JtMHdGR2V2cThMQVVrbm04?=
- =?utf-8?B?SmMrRGYxMzBpSkgzSnlBQVZDYUYxbStHc3RnVjVCSnZra3VlcURFMTl3dDF0?=
- =?utf-8?B?c2RScTd0NE5SWHEzUDRuSmk2WklTMnExM3ZZVmdrQlVaU05NaFJLaDIzY2Rh?=
- =?utf-8?B?UFY5R2hBSHcyckd2QjRoMzhFWXBGY1dwWkdEMXNDb1E0NnBZYkNsRERIcHFS?=
- =?utf-8?B?K1dzaDBNT2VuZDA4MGdqbVRTQ3YwUGthdldsRnNicytoNnM2dEtJbStGbG1E?=
- =?utf-8?B?K0xzcUl4RmNOdmNsVEtLOEdvMlFVRjA5NS9YakdDNXJIK1NDckQ1b1BXazk3?=
- =?utf-8?B?cjdyK2Z4QWZ0SVFnNXRjNWc0dWRFb2JtNmVrREMwSk5TaUFLRnQwZz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q2xyTkV1RC9JR0NSeWVYMUpkZGxoaG9uaTJPU1ZrRGtzdWF3emJpT1ZzZG5N?=
+ =?utf-8?B?N0NxWFNDNlVuQTlzYzQxNVFnQlhnd3ZHZ05vbWF2NlhpdGFjRFdjTjIyLy9U?=
+ =?utf-8?B?b0lsYkdTWW5mWFdRbTRaR0x6ZUl4UStmalFLMEFyNHhKdzdsQW4zZXBIdVBk?=
+ =?utf-8?B?UzB2VENoWElxSmZqNnliYkU5bkNxU0hpQ3NXMzZsY3YrRCs2d1k0RUZZdHZj?=
+ =?utf-8?B?TjB0WVdOUTdoSlJaeGZFcEV3UWcxdnVuNnEyanVjZnJvbXhQU2NxQTNRMDZo?=
+ =?utf-8?B?clVOU1RUa2JHWW12cDFWUExIM3pRVWJ2NzE1S1h6SXVDWFJKUVBEZHUvVTJM?=
+ =?utf-8?B?SWoyUmRGZTRNYWlMbXBNdUJ0dmxXOTBmSGlVNlRidHVNWDAxcm5aaHRtdm5T?=
+ =?utf-8?B?bDkxYnQ5Mm9KcklnR1ZpVTFxSVhRcmdES081dXNucE02M1ZXK1ZBM1NHYmpG?=
+ =?utf-8?B?d0l4NFM3MHNTNFpYeEhxMHZldy9DTVJoSmoxeGxJbHJVVUtpRkFyc095b25i?=
+ =?utf-8?B?RE9HTnRPUy9qSnpjMURXKzhxL3dsZkw0T1lPVlhjYVpXYnA3ZGVUZkR5TXNL?=
+ =?utf-8?B?VXJZVE9la1doSHgrTlozY0I2VTI5NnVqaWNsRTB3OTBPRW5WZmszQVhRS1NP?=
+ =?utf-8?B?bVlUNUZnbmFwUjdNV0RnaWpQQUhGOXFRSnlnV0ovRzRsZTVsVkk0ZkRDWUs4?=
+ =?utf-8?B?TlNGWGtObzBrb1VNUlArNHRzc1JuQ255WUE1ZjkxTDFHOGFVK1VkZjJhZUpl?=
+ =?utf-8?B?QjczVHBMWlduYWpOQVdtTEZyYTdJYjlMZHc1RGNQVkRIakczNEN1V0dFVzE2?=
+ =?utf-8?B?Qkp0N0VYK3hibjV1RzhIZFFscGFmSElGdUJLQjdIUVZnQkRydHRtS1hwU1Iy?=
+ =?utf-8?B?Z2FoNWp0UThtZWVuTENCVzlpUlF2SkhPMVJQSTY5Z3h6eG41VkYyUVJPVzlP?=
+ =?utf-8?B?OFpyZk13VGhwTmFUaHpGZ0M1OHBxQ0FadVdIQVZnNGtOcEcvOWovVWJQTCt5?=
+ =?utf-8?B?SkZ5U1hpU3pDTE9uNWZ1YnN3Ny9xOCtQRDBBSU82dWpHVnVTUDd6WVcxaTBU?=
+ =?utf-8?B?ZXd1SStzWUNmL0RDUHpOL1ROU1BlNmxSNnYweVZFSzhlcUlabUF1U21naHlU?=
+ =?utf-8?B?WVFJV1MrNjU4MklOUmNybno1WVUvZkVDQXM0RU02anBFR3BOeWc0Z3VXbXhC?=
+ =?utf-8?B?SC9hc1lieG9La3ZkWmg2bXNsb0hhekxubTFsNlZuMzNMdjVwejQ3ZEdvR2p3?=
+ =?utf-8?B?U0VBTVEveFpnZk9ZNy9IU2xKaWF2Mko3ZXkzbHFXUWhjOTcwckVhZGNLbHhz?=
+ =?utf-8?B?c2grTmlIWllnd205eGZjTkRWTnpTRTRrNXZDaTJZN1BOYUh0OHJSUTV0ajUr?=
+ =?utf-8?B?ekFGSTRnWkY3Wm55MnpEVHRGV3ZCYjBmZ3dHNGpRVHFUYUtaQmJwM0wycG5T?=
+ =?utf-8?B?clR2bnlRZEpicTdvN20yMmhadEJVR2dYTzdMQkRWRTVlRzc2T2VIQzdGMGJJ?=
+ =?utf-8?B?LzRlM1k2Nml1cHE1REpsbDAxSTluaUpqVU1mM25IZmtzRGREbXJyZTJRUmFG?=
+ =?utf-8?B?NnRjS1ZJUmlzR2dVV0t2M1FFU2ZHdlM1Zy9hdDlUQldDdVI0ZlB2eEtldXls?=
+ =?utf-8?B?Q3Z3aVVaQmV2eTUvTXpRNWJ2U2gvejZnSjEzKzlXRERQMS9IVHNjUVVlbHp1?=
+ =?utf-8?B?UnJraEdlSEIxeFNvNHVmZ1Z2VDRzS2ZMUnZlQzhpRmQweEZkY2owRHlTcnhZ?=
+ =?utf-8?B?QjdrRUkwNHA4VW5aR21UYXBXdXE2YkRUZXRsTVhpUDlJT2tOSU1mZzFPalY2?=
+ =?utf-8?B?MzdvTnhXbWlyODRDcHFxWGZiYUk4Rm9sVldSdlpJN0l1OFJLdFlnMzZNZXlV?=
+ =?utf-8?B?WnVsdmxkcFk3Q0JLc1ZCTE9jNWhLZUhNV0ROeWhIOURsRW51VWMySjdtc0pl?=
+ =?utf-8?B?QmYvUFU4V3hZRkF1NnRFUlV1Ulk2ejZmdWorQ0JnbDNUUjcvbFpVSDA3ZmhP?=
+ =?utf-8?B?dWhIQUFMdlhlQVY4UFA3bkVKUUtGbTgxZ25XcGZxalh1T2V0QWhPanRwTUE4?=
+ =?utf-8?B?VDdCcndkSCt6YjJJaThFVWM2VnVaajFjY3c0NVNKTGZhNGFQSmVYbzdjN3VF?=
+ =?utf-8?B?S0szL25JQXIwVnRIaWh0UnpQRzgxcWRCMmtTNUorQjZPQktCdW14KzNxVmdQ?=
+ =?utf-8?B?QUE1Mzk2bmxQNkpaQ091TkllVjBETzNHVVdXSFJnSTR6SDdBVnRJRGhwSHc2?=
+ =?utf-8?B?VEhpcFR6SGNrRmUxNXNsK2FyZnZKVit6L1ZhY2VkeE1Zd2pka1FVby9GMEJK?=
+ =?utf-8?B?MGgyRlJ4OUVvNm5XMlpmdG42blp1QkNNVDdoTDlBVkNUZnpjMTVwZz09?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b835aeda-25d5-4821-c054-08df3b08018c
+X-MS-Exchange-CrossTenant-Network-Message-Id: da3a48be-9fd5-4bbe-41e1-08df3b07d9e5
 X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB598757.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 06:42:48.2232 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 06:41:41.8573 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: r7ZKJ0Bs5kQ5tenQZslmKaj9VNQVe7WY/XZnljwOE2QCj8wk0hgSrekyt19el7ZPqgE7qtzxqGZh/ddwqt5CWw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8932
+X-MS-Exchange-CrossTenant-UserPrincipalName: rw27poez3ai1qro68+spXxKeKpCoL2X/3d5oZh7ViWtyu+yRfu0hBXBf1/uFoWctPYUd4c8OesyxUdj/jc03Aw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PR12MB9573
 X-Mailman-Approved-At: Thu, 05 Nov 2026 13:45:29 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -169,74 +169,325 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Jason Gunthorpe <jgg@nvidia.com>
 
-Very similar to habana, except the rejection of unsupported
-pci_p2p_dma_distance() is done inside map not attach via
-dma_buf_phys_vec_to_sgt().
+The SGT (Scatter Gather Table) DMA mapping type represents the existing
+sg_table/scatterlist based DMA mapping. It provides a sg_table based
+map/unmap interface that exactly matches how things work today.
 
-Convert this directly to a SGT_P2P match which will prevent matching if
-dma_buf_phys_vec_to_sgt() would fail.
+dma_buf_sgt_exp_compat_match will be used in the next patch to
+transparently wrap an unaware exporter with a mapping type.
 
-Remove the now empty attach function.
+The SGT type handles the allow_peer2peer flag directly through matching
+logic. The importer indicates if it is willing to accept peer2peer and the
+exporter indicates if it requires peer2peer. A required peer2peer exporter
+will not match to an importer that does not accept peer2peer.
 
 Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
 Signed-off-by: Alistair Popple <apopple@nvidia.com>
 ---
- drivers/infiniband/core/uverbs_std_types_dmabuf.c | 30 ++++++++++++++---------
- 1 file changed, 19 insertions(+), 11 deletions(-)
+ drivers/dma-buf/dma-buf-mapping.c | 104 +++++++++++++++++++++++++++++++
+ include/linux/dma-buf-mapping.h   | 127 ++++++++++++++++++++++++++++++++++++++
+ include/linux/dma-buf.h           |  19 +++++-
+ 3 files changed, 249 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/infiniband/core/uverbs_std_types_dmabuf.c b/drivers/infiniband/core/uverbs_std_types_dmabuf.c
-index 8d8c997a4883..0bae578c3d78 100644
---- a/drivers/infiniband/core/uverbs_std_types_dmabuf.c
-+++ b/drivers/infiniband/core/uverbs_std_types_dmabuf.c
-@@ -12,15 +12,6 @@
+diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-buf-mapping.c
+index d27f02610c2a..4eb0ea930900 100644
+--- a/drivers/dma-buf/dma-buf-mapping.c
++++ b/drivers/dma-buf/dma-buf-mapping.c
+@@ -6,6 +6,7 @@
+ #include <linux/dma-buf-mapping.h>
+ #include <linux/dma-resv.h>
+ #include <linux/dma-buf.h>
++#include <linux/seq_file.h>
+ #include <linux/overflow.h>
+ #include <linux/align.h>
  
- MODULE_IMPORT_NS("DMA_BUF");
- 
--static int uverbs_dmabuf_attach(struct dma_buf *dmabuf,
--				struct dma_buf_attachment *attachment)
--{
--	if (!attachment->peer2peer)
--		return -EOPNOTSUPP;
--
--	return 0;
--}
--
- static struct sg_table *
- uverbs_dmabuf_map(struct dma_buf_attachment *attachment,
- 		  enum dma_data_direction dir)
-@@ -95,13 +86,30 @@ static void uverbs_dmabuf_release(struct dma_buf *dmabuf)
- 	uverbs_uobject_put(&priv->uobj);
+@@ -322,3 +323,106 @@ int dma_buf_match_mapping(struct dma_buf_match_args *args,
+ 	return 0;
  }
- 
--static const struct dma_buf_ops uverbs_dmabuf_ops = {
--	.attach = uverbs_dmabuf_attach,
-+static const struct dma_buf_mapping_sgt_exp_ops uverbs_dma_buf_sgt_ops = {
- 	.map_dma_buf = uverbs_dmabuf_map,
- 	.unmap_dma_buf = uverbs_dmabuf_unmap,
-+};
+ EXPORT_SYMBOL_NS_GPL(dma_buf_match_mapping, "DMA_BUF");
 +
-+static int uverbs_dmabuf_match_mapping(struct dma_buf_match_args *args)
++static int dma_buf_sgt_match(struct dma_buf_match_args *args,
++			     const struct dma_buf_mapping_match *exp,
++			     const struct dma_buf_mapping_match *imp)
 +{
-+	struct dma_buf_mapping_match sgt_match[1];
-+
-+	/*
-+	 * MMIO, so the importer must accept P2P. The provider is only valid
-+	 * under the dma_resv lock while not revoked, so the distance check is
-+	 * left to dma_buf_phys_vec_to_sgt() at map time, as before.
-+	 */
-+	sgt_match[0] = DMA_BUF_EMAPPING_SGT_REQUIRES_P2P(&uverbs_dma_buf_sgt_ops);
-+
-+	return dma_buf_match_mapping(args, sgt_match, ARRAY_SIZE(sgt_match));
++	switch (exp->sgt_data.exporter_requires_p2p) {
++	case DMA_SGT_NO_P2P:
++		return 0;
++	case DMA_SGT_EXPORTER_REQUIRES_P2P:
++		if (imp->sgt_data.importer_accepts_p2p !=
++		    DMA_SGT_IMPORTER_ACCEPTS_P2P)
++			return -EOPNOTSUPP;
++		return 0;
++	case DMA_SGT_EXPORTER_REQUIRES_P2P_DISTANCE:
++		if (WARN_ON(!exp->sgt_data.exporting_p2p_device) ||
++		    imp->sgt_data.importer_accepts_p2p !=
++			    DMA_SGT_IMPORTER_ACCEPTS_P2P)
++			return -EOPNOTSUPP;
++		/*
++		 * Not verbose: failing to match P2P is normal when the
++		 * exporter also offers a system memory type.
++		 */
++		if (pci_p2pdma_distance(exp->sgt_data.exporting_p2p_device,
++					args->dev, false) < 0)
++			return -EOPNOTSUPP;
++		return 0;
++	}
++	return 0;
 +}
 +
-+static const struct dma_buf_ops uverbs_dmabuf_ops = {
- 	.pin = uverbs_dmabuf_pin,
- 	.unpin = uverbs_dmabuf_unpin,
- 	.release = uverbs_dmabuf_release,
-+	.match_mapping = uverbs_dmabuf_match_mapping,
++static inline void
++dma_buf_sgt_finish_match(struct dma_buf_match_args *args,
++			 const struct dma_buf_mapping_match *exp,
++			 const struct dma_buf_mapping_match *imp,
++			 struct dma_buf_mapping_match *match)
++{
++	struct dma_buf_attachment *attach = args->attach;
++
++	*match = (struct dma_buf_mapping_match) {
++		.type = &dma_buf_mapping_sgt_type,
++		.exp_ops = exp->exp_ops,
++		.sgt_data = {
++			.importing_dma_device = args->dev,
++			/* exporting_p2p_device is left opaque */
++			.importer_accepts_p2p = imp->sgt_data.importer_accepts_p2p,
++			.exporter_requires_p2p = exp->sgt_data.exporter_requires_p2p,
++		},
++	};
++
++	/*
++	 * Setup the SGT type variables stored in attach because importers and
++	 * exporters that do not natively use mappings expect them to be there.
++	 * When converting to use mappings users should use the match versions
++	 * of these instead.
++	 */
++	attach->dev = args->dev;
++	attach->peer2peer = match->sgt_data.importer_accepts_p2p ==
++			    DMA_SGT_IMPORTER_ACCEPTS_P2P;
++}
++
++static void dma_buf_sgt_debugfs_dump(struct seq_file *s,
++				     struct dma_buf_attachment *attach)
++{
++	seq_printf(s, " %s", dev_name(dma_buf_sgt_dma_device(attach)));
++}
++
++struct dma_buf_mapping_type dma_buf_mapping_sgt_type = {
++	.name = "DMA Mapped Scatter Gather Table",
++	.match = dma_buf_sgt_match,
++	.finish_match = dma_buf_sgt_finish_match,
++	.debugfs_dump = dma_buf_sgt_debugfs_dump,
++};
++EXPORT_SYMBOL_NS_GPL(dma_buf_mapping_sgt_type, "DMA_BUF");
++
++static struct sg_table *
++dma_buf_sgt_compat_map_dma_buf(struct dma_buf_attachment *attach,
++			       enum dma_data_direction dir)
++{
++	return attach->dmabuf->ops->map_dma_buf(attach, dir);
++}
++
++static void dma_buf_sgt_compat_unmap_dma_buf(struct dma_buf_attachment *attach,
++					     struct sg_table *sgt,
++					     enum dma_data_direction dir)
++{
++	attach->dmabuf->ops->unmap_dma_buf(attach, sgt, dir);
++}
++
++/* Route the classic map/unmap ops through the exp ops for old importers */
++static const struct dma_buf_mapping_sgt_exp_ops dma_buf_sgt_compat_exp_ops = {
++	.map_dma_buf = dma_buf_sgt_compat_map_dma_buf,
++	.unmap_dma_buf = dma_buf_sgt_compat_unmap_dma_buf,
++};
++
++/*
++ * This mapping type is used for unaware exporters that do not support
++ * match_mapping(). It wraps the dma_buf ops for SGT mappings into a mapping
++ * type so aware importers can transparently work with unaware exporters. This
++ * does not require p2p because old exporters will check it through the
++ * attach->peer2peer mechanism.
++ */
++const struct dma_buf_mapping_match dma_buf_sgt_exp_compat_match =
++	DMA_BUF_EMAPPING_SGT(&dma_buf_sgt_compat_exp_ops);
+diff --git a/include/linux/dma-buf-mapping.h b/include/linux/dma-buf-mapping.h
+index 28b3a65c0672..69073d589e54 100644
+--- a/include/linux/dma-buf-mapping.h
++++ b/include/linux/dma-buf-mapping.h
+@@ -12,6 +12,24 @@ struct dma_buf;
+ struct dma_buf_attachment;
+ struct dma_buf_mapping_exp_ops;
+ 
++enum dma_sgt_requires_p2p {
++	DMA_SGT_NO_P2P = 0,
++	/*
++	 * Exporter: MMIO, importer must accept P2P and pci_p2pdma_distance()
++	 * from exporting_p2p_device must succeed at match time. The match runs
++	 * without the dma_resv lock whenever an importer attaches, so only use
++	 * this if exporting_p2p_device stays bound to its driver for as long as
++	 * the dma_buf exists. Importers that are not PCI devices never match.
++	 */
++	DMA_SGT_EXPORTER_REQUIRES_P2P_DISTANCE,
++	/*
++	 * Exporter: MMIO, importer must accept P2P. No distance check at match;
++	 * the exporter's map does its own, e.g. via dma_buf_phys_vec_to_sgt().
++	 */
++	DMA_SGT_EXPORTER_REQUIRES_P2P,
++	DMA_SGT_IMPORTER_ACCEPTS_P2P,
++};
++
+ /* Type tag for all mapping operations */
+ struct dma_buf_mapping_exp_ops {};
+ 
+@@ -109,4 +127,113 @@ dma_buf_attach_map_type(const struct dma_buf_attachment *attach)
+ 	return &attach->matches[0];
+ }
+ 
++/*
++ * DMA Mapped Scatterlist Type
++ *
++ * When this type is matched the map/unmap functions are:
++ *
++ *  dma_buf_map_sgt()
++ *  dma_buf_unmap_sgt()
++ *
++ * The struct sg_table returned by those functions has only the DMA portions
++ * available. The caller must not try to use the struct page * information.
++ *
++ * importing_dma_device is the device passed to dma_buf_dynamic_attach(),
++ * recorded at match time, and is passed to the DMA API to provide the
++ * dma_addr_t's.
++ */
++extern struct dma_buf_mapping_type dma_buf_mapping_sgt_type;
++
++struct dma_buf_mapping_sgt_exp_ops {
++	struct dma_buf_mapping_exp_ops ops;
++	struct sg_table *(*map_dma_buf)(struct dma_buf_attachment *attach,
++					enum dma_data_direction dir);
++	void (*unmap_dma_buf)(struct dma_buf_attachment *attach,
++			      struct sg_table *sgt,
++			      enum dma_data_direction dir);
++};
++
++/**
++ * dma_buf_sgt_dma_device - Return the device to use for DMA mapping
++ * @attach: sgt mapping type attachment
++ *
++ * Called by the exporter to get the struct device to pass to the DMA API
++ * during map and unmap callbacks.
++ */
++static inline struct device *
++dma_buf_sgt_dma_device(struct dma_buf_attachment *attach)
++{
++	if (dma_buf_attach_map_type(attach)->type != &dma_buf_mapping_sgt_type)
++		return NULL;
++	return dma_buf_attach_map_type(attach)->sgt_data.importing_dma_device;
++}
++
++/**
++ * dma_buf_sgt_p2p_allowed - True if MMIO memory can be used peer to peer
++ * @attach: sgt mapping type attachment
++ *
++ * Should be called by exporters, returns true if the exporter's
++ * DMA_SGT_EXPORTER_REQUIRES_P2P_DISTANCE was matched.
++ */
++static inline bool dma_buf_sgt_p2p_allowed(struct dma_buf_attachment *attach)
++{
++	if (dma_buf_attach_map_type(attach)->type != &dma_buf_mapping_sgt_type)
++		return false;
++	return dma_buf_attach_map_type(attach)->sgt_data.exporter_requires_p2p ==
++	       DMA_SGT_EXPORTER_REQUIRES_P2P_DISTANCE;
++}
++
++static inline const struct dma_buf_mapping_sgt_exp_ops *
++dma_buf_get_sgt_ops(struct dma_buf_attachment *attach)
++{
++	if (dma_buf_attach_map_type(attach)->type != &dma_buf_mapping_sgt_type)
++		return NULL;
++	return container_of(dma_buf_attach_map_type(attach)->exp_ops,
++			    struct dma_buf_mapping_sgt_exp_ops, ops);
++}
++
++/*
++ * Importer SGT entry. Usable in a static table: the importing device is
++ * supplied by dma_buf_dynamic_attach() and recorded in the matched entry.
++ */
++#define DMA_BUF_IMAPPING_SGT(_importer_accepts_p2p)                         \
++	((struct dma_buf_mapping_match){                                    \
++		.type = &dma_buf_mapping_sgt_type,                          \
++		.sgt_data = { .importer_accepts_p2p = (_importer_accepts_p2p) } })
++#define DMA_BUF_EMAPPING_SGT(_exp_ops)                                      \
++	((struct dma_buf_mapping_match){ .type = &dma_buf_mapping_sgt_type, \
++					 .exp_ops = &((_exp_ops)->ops) })
++
++/*
++ * Only matches if the importing device is P2P capable and the P2P subsystem
++ * says P2P is possible from p2p_device.
++ */
++static inline struct dma_buf_mapping_match
++DMA_BUF_EMAPPING_SGT_P2P(const struct dma_buf_mapping_sgt_exp_ops *exp_ops,
++			 struct pci_dev *p2p_device)
++{
++	struct dma_buf_mapping_match match = DMA_BUF_EMAPPING_SGT(exp_ops);
++
++	match.sgt_data.exporter_requires_p2p =
++		DMA_SGT_EXPORTER_REQUIRES_P2P_DISTANCE;
++	match.sgt_data.exporting_p2p_device = p2p_device;
++	return match;
++}
++
++/*
++ * Only matches if the importer accepts P2P. Whether the importing device can
++ * actually reach the exporter's MMIO is left to the exporter's map, for
++ * exporters whose importers need not be PCI devices.
++ */
++static inline struct dma_buf_mapping_match
++DMA_BUF_EMAPPING_SGT_REQUIRES_P2P(const struct dma_buf_mapping_sgt_exp_ops *exp_ops)
++{
++	struct dma_buf_mapping_match match = DMA_BUF_EMAPPING_SGT(exp_ops);
++
++	match.sgt_data.exporter_requires_p2p = DMA_SGT_EXPORTER_REQUIRES_P2P;
++	return match;
++}
++
++extern const struct dma_buf_mapping_match dma_buf_sgt_exp_compat_match;
++
+ #endif
+diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
+index 81bbcd420d60..de73f931a2f8 100644
+--- a/include/linux/dma-buf.h
++++ b/include/linux/dma-buf.h
+@@ -30,6 +30,7 @@ struct dma_buf_attachment;
+ struct dma_buf_mapping_type;
+ struct dma_buf_mapping_exp_ops;
+ 
++
+ /*
+  * Upper bound on the number of mapping types an attachment can record as
+  * mutually acceptable. An exporter offering more compatible types than this
+@@ -46,7 +47,23 @@ struct dma_buf_mapping_match {
+ 	const struct dma_buf_mapping_type *type;
+ 	const struct dma_buf_mapping_exp_ops *exp_ops;
+ 	union {
+-		/* Each mapping_type has unique match parameters here */
++		/* For dma_buf_mapping_sgt_type */
++		struct {
++			/* Filled from the attaching device, not by importers */
++			struct device *importing_dma_device;
++			/* Only used if DMA_SGT_EXPORTER_REQUIRES_P2P_DISTANCE */
++			struct pci_dev *exporting_p2p_device;
++			/*
++			 * These p2p flags are used to support the hard coded
++			 * mechanism for p2p. If an exporting device knows it
++			 * will put MMIO into the sgt then it should set
++			 * exporter_requires_p2p. Importers should set
++			 * importer_accepts_p2p unless it is known that the
++			 * importing HW never supports P2P because of HW issues.
++			 */
++			u8 importer_accepts_p2p;
++			u8 exporter_requires_p2p;
++		} sgt_data;
+ 	};
  };
  
- static int UVERBS_HANDLER(UVERBS_METHOD_DMABUF_ALLOC)(
 
 -- 
 2.54.0
