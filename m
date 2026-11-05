@@ -2,85 +2,153 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F324A606A326
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 13:45:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5395606A32C
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Nov 2026 13:45:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UpqoqS//
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=pCG47PCg
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B12B112456;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6260B112457;
 	Thu,  5 Nov 2026 13:45:30 +0000 (UTC)
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com
- [209.85.208.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59EAE10E201
- for <amd-gfx@lists.freedesktop.org>; Thu,  5 Nov 2026 11:59:35 +0000 (UTC)
-Received: by mail-ed1-f49.google.com with SMTP id
- 4fb4d7f45d1cf-6b58cb69927so190989a12.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 05 Nov 2026 03:59:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793879974; x=1794484774; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=kajzKvWY75Cu10GQGa9WW0sgGHgnyFOgTW+IibeEeQw=;
- b=UpqoqS//JdRxG5rudHF8mVgY6JVSjLP4VlJLvASTpH24KW+QieGaNqC7PA4hpOT6rX
- tWIMNhm3Tu6jMkpBRO2DkUhGAZG6rRy7op1vFzgsvz9oU5M38OUbC2CJnTO3tRr1g+Aq
- 8Si/GJnk8H1HG5dhCM1HgcTY/zdEprGKLreG/whu1GpDGiuIpVsgarU6LtNl9JoUcj+s
- k6kFXafYZwJz7iDeDZnPwWr38JaQm/QPICktxC6qFurZC7vAvUkEg2iVXjhoU2pV3ZwN
- swpd0X5KdJEoovhlGOHJCFVmw8nAh4FYBD31ZZBaf3GZn4egCMwerWviryEGsf5NHMFU
- lVYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793879974; x=1794484774;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=kajzKvWY75Cu10GQGa9WW0sgGHgnyFOgTW+IibeEeQw=;
- b=DGKV/hHepA0NjaKeNIw4xxdgNrayKlHYDTvGpZY3RN7+agYekv4d3jiw0FEJpdU+Ah
- p6CDfe+FaNTaev542D1Zh4tgytb3wnVtfp0ico1r7jchx/X/XZQjwJShzbS23KIfeg2E
- 4AsAdIgcZpJh0fkHReIDE6ArT6utAmNZ6fJjnIJr5vVkxX9ewnJtGky7ohhapO+BCjO6
- AVXYgqZCrqSOZ0mD5uZBUIscN0mflXiMZtX9qFshsDrRNccFzl1fckzfJyqwtEdFE9Cc
- 3SvGJDfGX2beu776xyFrVkSr136cmMpy7Mqw488bV+YqYv2H9soG5YuxFreT7efi0vNS
- K2sA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxUHJmdmipL8cZiHtShTKMJcbfgE6I+mhr6/Nutod/fhKHhGMQ0R0nw8edADNDZ/jtIz3u1MKfu@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+nVJfXe6KfVlt3aYxlZdkXZUXkzgwtZFqI+CNDnVDxtOUuqke7
- FfJeSMiyQEPzs8dKdY1SuhlcBo6wxQpzOtxxRHuXFBbHquss5r9jv8d79wEL0uhFNyA=
-X-Gm-Gg: AYBFou1PqND2Crj343lXh8YUATL7uFusSzauYcjKE5TVew140xby/BzwEXMB0Pu2QQ8
- ei7QMSYQZJ3NgllNDHXsV2yn9hBeTlmuzyly/coxXCgvsQhqO6kyYoFItCXvgWJjc9IK0067ndb
- l/dpA+cz/5N61YzLoG/B2h/hMjqlYJwIQ3xKJ0xSDKxVTNRE8rnGuA61qhquKywMoA3Q47UP0/Z
- xsiUd+wmtDi3Ywh0xbNFGqv8cYkA9RnVXD2MUUTjl0P4Q9XuD9WogvCobl2NHm0uYIWmlb9s2A7
- GR87PtXBYbBWcMwsirCnGqcwIXnqBCC3Ao1/wgc1poqBuRNz61xssF74f99MKLPD+WGf5iogHYW
- qEKb+G2iSZASsGH3p9HnDjI9Qh1ya3CtCgUxZlbA3QK551jazf86yvhLEJZOOvQTw0cXzt+cmyU
- ZnnQ8mk1IQYyEk78aLnyVnFdPFGcgXfVKnRITE7mTUYrlaO0+GgJy9aJUlBlNxDS/zXCHhkIhXe
- lIt9ycm+Q8K91Y9dB1aRy2W8uojLvKrMNPZYsbGnGsg3SX3tTRdtYjY6+ncI95A7hmHYGDLadOu
- 5ylyR7Id1IdKkBrpYzs9EZ1S6pZngVqSuy4Q372zTVH/ITooIbE=
-X-Received: by 2002:a17:906:c108:b0:c26:1cfd:4244 with SMTP id
- a640c23a62f3a-c4d20659a41mr194875966b.11.1793879973561; 
- Thu, 05 Nov 2026 03:59:33 -0800 (PST)
-Received: from mbp-2015 (46.205.244.1.static.t-mobile.pl. [46.205.244.1])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c4d0e487700sm165375266b.63.2026.11.05.03.59.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Nov 2026 03:59:32 -0800 (PST)
-From: Maciej Kucharek <qchcio@gmail.com>
-To: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Cc: Maciej Kucharek <qchcio@gmail.com>, Brad Drury <drury.brad@gmail.com>,
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Subject: Re: [PATCH v2 1/3] drm/amdgpu: reset SI ASIC on MacBookPros with VRAM
- at 0
-Date: Thu,  5 Nov 2026 12:58:25 +0100
-Message-ID: <20261105115857.6103-1-qchcio@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <oVwVffbwQ9mrJnRml_R8-Q@gmail.com>
-References: <20261015095713.20560-1-qchcio@gmail.com>
- <20261015095713.20560-2-qchcio@gmail.com>
- <20261022073638.724414-1-drury.brad@gmail.com>
- <oVwVffbwQ9mrJnRml_R8-Q@gmail.com>
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011008.outbound.protection.outlook.com
+ [40.93.194.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A74110FF00;
+ Thu,  5 Nov 2026 06:42:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=K8qZ7NT867onnbLIiNmfP92Ace7rSL7URJKCyQT9OndGdLauLBhKrdbCuKpx4OgwVdJCxeNt/YrJ3dZ9EUyvzXrNx8Dd0vhuWU5/IRUgKM9EHaqWmMEaJvg20ihOLLe4yP43/BdVoK5kXut0uBvUFbP22gv/bPPk2zwlI8s0LkAmG3KAhl5Riw0UJx/vrZ/jDnRfh40FGv8FA/P/uOTZdEhOOfJC2/yN4dcTjvSSjrw1/ePvuyldn1TRPuEbjnR9B3Lps9ApW7kbzYL/S1FtT9wSy7yRTfHOkiZAHhL51z5UyrojAyz+sWcP4CumSKANjcyLpPmprBfzTrWHXNkkvA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tfa2O0ag68rnlZjpqrqxgsV5GHa01sPCxmnGKWnJVjk=;
+ b=D8aVe7+rEbpggdyQPHCbFDRdaTcKXS4015O3XIDoOxR63MgYxN4YiCnIJKDxUyOoi43ECKHT5Cm6CN4PngIGVSmAD4tB21N5HMJI6ZW7PMUiZ5o+K/vnT9ra2uBgol6wfBVBNn2/u/qrs5WulggW3gPGq2Svmf+nUFsCQrsPgndjlAbz29KDogUnNUU+SUZxhIKyCv1ePyYjIalqcRrgx8QKWD53IgyNhJ36ZDisQ0NjUUMNDApTyqyJpJG3iw1srUAKXL4cBRyzbewuXvmcBMUJovnyTqFmBdhRQfChixPh3ubaFldaRY6QrvlfBI1XXPMRxpyIL54pFsrNQrDXlQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tfa2O0ag68rnlZjpqrqxgsV5GHa01sPCxmnGKWnJVjk=;
+ b=pCG47PCg7ARfMlsWY3aFUR6evPycV0t8kqkXf0ffjobLGnKklnq473GUC/nWrOz3AAmeAhP36Sp5eYJS9oab2QPDZzGHX5fP6m0u1BPo+taqFKfqZwHw0vNErk2FF2Z53tpjNIiU4tvgKiCDJ8liJl75ZD/x6pvZRnAI/bxS1WWCqfK+eHLbqlj/Fxfk7/EfoxEN0t1Ha9ipFtShID1R+aPX/2ibFWYArVWwHf+FESDP9J6SmDgyxUYjmWq99rh8c9oHxJh8OPqOZgwyaqGPOt7Xh//hNhIC5X4lxcryYU5GRFtk3eyELIXCNI5d8qTACFhwemtjAoO+sVLoWt01XQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SA3PR12MB598757.namprd12.prod.outlook.com
+ (2603:10b6:806:52d::14) by CH1PR12MB9573.namprd12.prod.outlook.com
+ (2603:10b6:610:2ae::5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Thu, 5 Nov 2026
+ 06:42:05 +0000
+Received: from SA3PR12MB598757.namprd12.prod.outlook.com
+ ([fe80::e206:100:5946:a777]) by SA3PR12MB598757.namprd12.prod.outlook.com
+ ([fe80::e206:100:5946:a777%5]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
+ 06:42:05 +0000
+From: Alistair Popple <apopple@nvidia.com>
+Date: Thu, 05 Nov 2026 17:40:43 +1100
+Subject: [PATCH v2 08/23] dma-buf: Add dma_buf_mapping_map() returning a
+ type-tagged mapping
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261105-dma_mapping_type_v4-v2-8-78b8dc9ae80a@nvidia.com>
+References: <20261105-dma_mapping_type_v4-v2-0-78b8dc9ae80a@nvidia.com>
+In-Reply-To: <20261105-dma_mapping_type_v4-v2-0-78b8dc9ae80a@nvidia.com>
+To: =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Simona Vetter <simona.vetter@ffwll.ch>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, 
+ Dongwon Kim <dongwon.kim@intel.com>, Kevin Tian <kevin.tian@intel.com>, 
+ Xu Yilun <yilun.xu@linux.intel.com>, 
+ Karl Mehltretter <kmehltretter@gmail.com>, 
+ Baolu Lu <baolu.lu@linux.intel.com>, 
+ Felix Kuehling <felix.kuehling@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, 
+ linux-rdma@vger.kernel.org, iommu@lists.linux.dev, 
+ Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, 
+ linux-nvme@lists.infradead.org, "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+ Mina Almasry <almasrymina@google.com>, netdev@vger.kernel.org, 
+ Alexey Kardashevskiy <aik@amd.com>, zhipingz@meta.com, treding@nvidia.com, 
+ jhubbard@nvidia.com, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Leon Romanovsky <leon@kernel.org>
+Cc: Alistair Popple <apopple@nvidia.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793860879; l=9057;
+ i=apopple@nvidia.com; s=20261105; h=from:subject:message-id;
+ bh=6tdZMR4D2DxbT51QLTne7z0XiYdcGkIb6GiT9zTavHI=;
+ b=sXkIbu0P3D4YFCiRC0TUVJdAjMKnQgKXhMeApbL8cKAPJzjBHJo/6mSRp1p1ne5meraLBnr3F
+ WWZ+bngikJmAk9f+Ru9Jg+OMGmudBLJbe0lEheogjrCKAaiyC/DT3tP
+X-Developer-Key: i=apopple@nvidia.com; a=ed25519;
+ pk=WdWPT9rAq3YNfXldbGv1NSGVLGxzQGFGJvRUiShhNqs=
+X-ClientProxiedBy: SY5PR01CA0006.ausprd01.prod.outlook.com
+ (2603:10c6:10:1fa::10) To SA3PR12MB598757.namprd12.prod.outlook.com
+ (2603:10b6:806:52d::14)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA3PR12MB598757:EE_|CH1PR12MB9573:EE_
+X-MS-Office365-Filtering-Correlation-Id: 974021b6-ac18-499e-5f96-08df3b07e817
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|1800799024|7416014|376014|366016|921020|261028144727099003|261022075727099003|11063799006|56012099006|261009223027099003|261026121527099003|261102123227099003|261021121427099003|261022105027099003|261102130727099003|261026140227099003|10067099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info: UpjRPC65mD58wkANNym2zRRGmVDmE2aae5n2tykeaXJi/Sf6yhLwp0589NbVMkVLX7hulmNHqw8cJ4lPa35EiIPaE+pC1mQDMXZ1QEyYsvP/mZaF0kJkbf6hRft6qW9FBEcUv2bNCpkKTzxfnE6lMRKGgHhysIn70nVcucb4MnsbTD4j663aKAXFvW3BxM4o8/0ue2hndeHm5ysRVVTdPWaUvKN4SPjO7qDahFVM0NuYD1ejQ+gCADdVycUpm9bQphIzma9WyGMPK5/SofU3dOn7ip5kTnrkbS3/eNG9s5u8JbPZVYRE3xlHf0D0TgrdFWrxLBjDSdo3s4WuoWWCdVFCY/HDr6Zp3u7Eoq/lOVaITEzUyI0IIEO9bfW0yywNKM8dvmGoZN6VI678AmxGr+TI/Gstk1CI7My8W2RgY3mIDKMYvJZyARKWHS6Ta2QPn++FurHiw8szODxwcfTWkNDclhfW0kU8Q1UXgoWxsa/N0ej9fCZ+iZLJk74JXkAyFAbAKGUeGzE0by+Buy3qKtqcgCBPxmz3n0KknEDyO56ENcbZy0glTCAc6lnR3yPin3So7OJ8czbc8zqW+Ej5kjkega8vMKHTSbsMP1zUMPwfrwLizcstDsGCK4/Ekf0ndmMtOlvf2N8Y37e5laPTV9JnEriLgTTZYF4GAnEwmDFdjQyppNJnaLh555OqC8OvILZUKYoDDTGF93TzJT6D7A==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA3PR12MB598757.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(7416014)(376014)(366016)(921020)(261028144727099003)(261022075727099003)(11063799006)(56012099006)(261009223027099003)(261026121527099003)(261102123227099003)(261021121427099003)(261022105027099003)(261102130727099003)(261026140227099003)(10067099003)(22082099003)(18002099003)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SDlaY3ZjcWtuVkFOSStCNndMY1hrMk9hY2pJQ00ybU0yd3phbkVDN2ZWdkE4?=
+ =?utf-8?B?YzBvY3g3UGNsblB2WE5NN3RrRENoME5ZbjBLRTJzR3B4dzJpTlpSTjZHTGFZ?=
+ =?utf-8?B?YzFubE1wMFhyTllIMkFPTHkwY1V4SCtaVnJGbTV4L3NmQVJDMWM3QkR5NWxi?=
+ =?utf-8?B?WVRPQXBJRWE2Z2FFdTNqaUtXRnhuL2NtT1gyWHZCRUEySUU3WTRxRnVPMENE?=
+ =?utf-8?B?TXhSZG05TzJYMFB5RDNnSWtzeFh0N25UQzV3K3haOWpyL1N2WnB1aExNNlpm?=
+ =?utf-8?B?NWdteldnWGZsR2tINmNlK3ZxODBZMmxUUDZFZzRuSTFoUWppUW5WRE1IMFFl?=
+ =?utf-8?B?bFdvaXpObDF3ekFIWG5vRFNnSWMzT3ZVN3ZNODhxazJpNDJlZ0JxYXYwME1W?=
+ =?utf-8?B?MitrS0VhYlh6L2dCVEVnVWUzdFVSeHNLTHNJRUFLdmhOTWp2T2NrVjhkbVFL?=
+ =?utf-8?B?a3JVeWlyVmJldWFFNGZmZnRyUVdvUDBFK0dnSkhtbTRHdWFqVEZtcWIyRlhX?=
+ =?utf-8?B?bXZTZHVFUUU3KzR6WDlFZ295YVVYVGtYcVJqTFNyK0srOEJuUnhMU1BEY1dF?=
+ =?utf-8?B?SHZoYW83VFdVV3NyUUYrN1V0aWJpZUNVY1lxdWYxaDUwL1BQdUU5OGUxZTdp?=
+ =?utf-8?B?Zjg5c2paY1lKV1g1ei85Lzhkdm1wblRLTFZYdEt1ZlJxNndQL1dQRVlacmtr?=
+ =?utf-8?B?QkkvbGcvS3JYNW9WTHdKcStpTXJvdXF2QmNnWmZYUXpabHRQY1gzSkdQUU5M?=
+ =?utf-8?B?Nlh2TW54amxhdzNMK2VEMTF0K2ZxdWVlV1lGcnBtUjY5ei83Mjg5VnhQWm56?=
+ =?utf-8?B?U1JONXB4NEszdk4xc3J6K3VxdnVmYzF2eTdKeVhoT2l1dTJMc1puYmZPUUVz?=
+ =?utf-8?B?ZGpLS3N4ZVBqd2ZKNkpaNmQzVGpPTy9lcjZGNURWYkVXSmVjMU9lTzZiczBH?=
+ =?utf-8?B?T2hzWnRpbFBuSlV4VzY4TWNMUEtmZ3N0Nk1VeVlKUUNja3liZTdGZUdmZmlI?=
+ =?utf-8?B?UXZvVWFjdUlDOGxoUHB1cG1BTDJSQU9KeGxDYXFhaFFBNDJNMDBldGFLa2FI?=
+ =?utf-8?B?SFFpZnJBZTZpUzgzM2lWNStQNWNraS9kTFc1V3JPUnJRZkFFU1pPMERlZ2tX?=
+ =?utf-8?B?Y1Y2NlhwWk1EL05JNFVJdVhWM1VZMkYwM3Y5OU5RbUpGemJGTFhTSkpqalU3?=
+ =?utf-8?B?R3hINGxqNGh0T3ArYitMTUNIekxsaW5NMklIcTgvQ1FPeWFFd05xVkhLSGtw?=
+ =?utf-8?B?NFU3Z3NRaGdUSjNUTHF5Nnp1UUEwNE85V1FjRFc1dWtSVm9QblRTMyt1UUwr?=
+ =?utf-8?B?YWFQWkdqTmxVU2JBbVNYR1ZMcDRuS01ITTJxT2xVTFFnbElpSGJEcjZ2NGY4?=
+ =?utf-8?B?R1JjQTlXNTl2TjNxYVBRS21ZK2I2VFAreThiaW1BTHBaMTNnUVhIYU1PSHVI?=
+ =?utf-8?B?eVczQlBncjRCWUVPMFdTRTRRN0g3TlVZL2ZRSk5xVHAzWjBjdlkwakRlSWtI?=
+ =?utf-8?B?T0c1SEdIRmpUMm9FODRwdCtYMEoza3MrbHNObUlTdUY4S3h6Mkdvc05nS2J1?=
+ =?utf-8?B?SVNYSDFxVWRXcXVZeTM0MXBKTnRYQk5GSnJwZUV4cWJMNEZRdk9sajJmbHNh?=
+ =?utf-8?B?UnkrVDNHUkpxUUg4dUpGR2k2eTcwQXdwWDRiTTgyYlEyOEEwSGlSWWRlSDRG?=
+ =?utf-8?B?SUxBNmVwT0RQTjUrQ1FRQzE0SE4zYVR0eFVKOUdRSXRKbUVyMCtXaHc2VG13?=
+ =?utf-8?B?SmszQlVjUlF6c21CdmEwL2ZHbVk5M1kyelJlSHgzQ0NCREthQ1pmTndjYjVK?=
+ =?utf-8?B?ME9IMWw3Q3dTdFM2Q3RRUFlySWxDZWNEQnNRSlg5MUVzNXhmd2F5bDVsTmtV?=
+ =?utf-8?B?RitkT3MzUldJcjdyWWltMC9RN3hYWDkxZkVLSlB0OUFjMDFyWVRnQndCU3ZR?=
+ =?utf-8?B?Sm5uT3J2ZGx6Rld3RkN1S3I2TzhUelVQUUZqRmR5TjIwNXZNOXZlaVE3dXlG?=
+ =?utf-8?B?bmV6ZGI3Zm1QazVMU3pBbFRacGoyTTdpWkkrVzVwRVRSQXk1T2VwWGJqMSs1?=
+ =?utf-8?B?OUZYb1pZRHN0bmdNajNCamNtb245NFFUbzZQVlZJcHNwQ1orcHRCMlpqQkZm?=
+ =?utf-8?B?dEo1a0V2VGpKZ2pzbXhPNHJQcjJsSk1pSDRPekJ2bUE2K0hBOWliM0Q3THAr?=
+ =?utf-8?B?QXZrd08yWEVuTUQ3em40VHFmV2pMWENGQXNtc3lEaWk0WlVoTjM4ckI4MzZy?=
+ =?utf-8?B?RHM3K3FkeG8veVdjOG5ObWVSWkdpUlJ2S05pUzhjNnhNcnM2WG94YTFJV0tH?=
+ =?utf-8?Q?OahQ92w7bBLWc0QQzo?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 974021b6-ac18-499e-5f96-08df3b07e817
+X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB598757.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 06:42:05.6765 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: tMbMVFssXkQt5qRvVT4pvLIypCCpBdGAm2PKTXmlU6ygNBi0JmO6Kkz+Sc1woOg5WVQ+dFQhDYOP2LRXUsmuaA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PR12MB9573
 X-Mailman-Approved-At: Thu, 05 Nov 2026 13:45:29 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,31 +160,276 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Sun, 25 Oct 2026 18:14:35 +0100, Timur Kristóf wrote:
-> The following patch should fix that:
-> "drm/amdgpu/vce1: Fix checking whether VCE1 is idle"
-> https://lists.freedesktop.org/archives/amd-gfx/2026-October/154367.html
+An importer that lists more than one mapping type cannot know which
+type-specific map function to call, because the exporter selects the
+type at map time. Create a generic entry point to determine the correct
+type.
 
-Thanks, Timur. That matches what I see here.
+dma_buf_mapping_map() selects via dma_buf_mapping_select() and dispatches
+to a map op on struct dma_buf_mapping_type. That returns a struct
+dma_buf_mapping carrying the type, embedded in the type's own
+result struct. dma_buf_mapping_unmap() hands it back through the type's
+unmap op.
 
-On my MacBookPro11,5 (R9 M370X, 1002:6821), 7.2.15 with the SI patch and
-VCE enabled (no amdgpu.ip_block_mask), all 8 of 8 S3 resumes worked,
-with no ring test failures, -110 errors or GPU resets. "VCE busy" was
-logged on every VCE stop: 24 messages, mostly VCE_STATUS=0x100,
-SRBM_STATUS2=0x0, and 3 of VCE_STATUS=0x102, SRBM_STATUS2=0x80 right
-after resume. The stock module, without the reset at load, logged the
-same 0x100 message at load on this machine, so it doesn't come from the
-new VRAM layout.
+To support existing SGT importers the SGT type implements both. Its
+result is struct dma_buf_sgt_mapping with the sg_table reachable through
+dma_buf_sgt_mapping_table(). The sgt map body is shared with the SGT
+type's map function which remains the entry point for importers listing
+only SGT.
 
-With your patch on top, the same test gave 3 messages instead of 24. I
-sent the details and a Tested-by in your thread:
-https://lore.kernel.org/amd-gfx/20261006170352.26722-1-timur.kristof@gmail.com/
+Signed-off-by: Alistair Popple <apopple@nvidia.com>
+---
+ drivers/dma-buf/dma-buf-mapping.c | 78 +++++++++++++++++++++++++++++++++++++++
+ drivers/dma-buf/dma-buf.c         | 33 +++++++++++++++++
+ include/linux/dma-buf-mapping.h   | 63 +++++++++++++++++++++++++++++++
+ 3 files changed, 174 insertions(+)
 
-Maciej
+diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-buf-mapping.c
+index ff2dbcca23d9..264c9293438f 100644
+--- a/drivers/dma-buf/dma-buf-mapping.c
++++ b/drivers/dma-buf/dma-buf-mapping.c
+@@ -388,6 +388,82 @@ void dma_buf_mapping_unselect(struct dma_buf_attachment *attach,
+ 	attach->selected_idx = 0;
+ }
+ 
++/**
++ * dma_buf_mapping_map - Map an attachment with whichever type the exporter
++ *                       selects
++ * @attach: the attachment
++ * @dir: DMA direction
++ *
++ * For importers that listed more than one mapping type. The exporter picks the
++ * type from the possible matches and the result's &dma_buf_mapping.type records
++ * which was used. Must be called with the dma_resv lock held, and the lock must
++ * be held until the result has been acted on. Importers that listed a single
++ * type keep using that type's map function.
++ *
++ * Returns: a &struct dma_buf_mapping to pass to dma_buf_mapping_unmap(), or
++ * an ERR_PTR.
++ */
++struct dma_buf_mapping *dma_buf_mapping_map(struct dma_buf_attachment *attach,
++					    enum dma_data_direction dir)
++{
++	const struct dma_buf_mapping_type *type;
++	struct dma_buf_mapping *mapping;
++	bool selected;
++	int ret;
++
++	might_sleep();
++
++	if (WARN_ON(!attach || !attach->dmabuf))
++		return ERR_PTR(-EINVAL);
++
++	dma_resv_assert_held(attach->dmabuf->resv);
++
++	selected = attach->selected;
++	ret = dma_buf_mapping_select(attach);
++	if (ret)
++		return ERR_PTR(ret);
++
++	type = dma_buf_attach_map_type(attach)->type;
++	if (!type->map) {
++		ret = -EOPNOTSUPP;
++		goto err_release;
++	}
++
++	mapping = type->map(attach, dir);
++	if (IS_ERR(mapping)) {
++		ret = PTR_ERR(mapping);
++		goto err_release;
++	}
++
++	return mapping;
++
++err_release:
++	dma_buf_mapping_unselect(attach, selected);
++	return ERR_PTR(ret);
++}
++EXPORT_SYMBOL_NS_GPL(dma_buf_mapping_map, "DMA_BUF");
++
++/**
++ * dma_buf_mapping_unmap - Release a mapping from dma_buf_mapping_map()
++ * @attach: the attachment
++ * @mapping: what dma_buf_mapping_map() returned
++ * @dir: DMA direction used for the map
++ */
++void dma_buf_mapping_unmap(struct dma_buf_attachment *attach,
++			   struct dma_buf_mapping *mapping,
++			   enum dma_data_direction dir)
++{
++	might_sleep();
++
++	if (WARN_ON(!attach || !attach->dmabuf || !mapping))
++		return;
++
++	dma_resv_assert_held(attach->dmabuf->resv);
++
++	mapping->type->unmap(attach, mapping, dir);
++}
++EXPORT_SYMBOL_NS_GPL(dma_buf_mapping_unmap, "DMA_BUF");
++
+ static int dma_buf_sgt_match(struct dma_buf_match_args *args,
+ 			     const struct dma_buf_mapping_match *exp,
+ 			     const struct dma_buf_mapping_match *imp)
+@@ -458,6 +534,8 @@ struct dma_buf_mapping_type dma_buf_mapping_sgt_type = {
+ 	.match = dma_buf_sgt_match,
+ 	.finish_match = dma_buf_sgt_finish_match,
+ 	.debugfs_dump = dma_buf_sgt_debugfs_dump,
++	.map = dma_buf_sgt_type_map,
++	.unmap = dma_buf_sgt_type_unmap,
+ };
+ EXPORT_SYMBOL_NS_GPL(dma_buf_mapping_sgt_type, "DMA_BUF");
+ 
+diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+index f052184da5ed..fc1e62a0b388 100644
+--- a/drivers/dma-buf/dma-buf.c
++++ b/drivers/dma-buf/dma-buf.c
+@@ -1345,6 +1345,39 @@ struct sg_table *dma_buf_map_sgt(struct dma_buf_attachment *attach,
+ }
+ EXPORT_SYMBOL_NS_GPL(dma_buf_map_sgt, "DMA_BUF");
+ 
++/* &dma_buf_mapping_type.map / .unmap for the SGT type */
++struct dma_buf_mapping *dma_buf_sgt_type_map(struct dma_buf_attachment *attach,
++					     enum dma_data_direction dir)
++{
++	struct dma_buf_sgt_mapping *mapping;
++	int ret;
++
++	mapping = kzalloc_obj(*mapping);
++	if (!mapping)
++		return ERR_PTR(-ENOMEM);
++
++	mapping->base.type = &dma_buf_mapping_sgt_type;
++	mapping->sgt = __dma_buf_map_sgt(attach, dir);
++	if (IS_ERR(mapping->sgt)) {
++		ret = PTR_ERR(mapping->sgt);
++		kfree(mapping);
++		return ERR_PTR(ret);
++	}
++
++	return &mapping->base;
++}
++
++void dma_buf_sgt_type_unmap(struct dma_buf_attachment *attach,
++			    struct dma_buf_mapping *base,
++			    enum dma_data_direction dir)
++{
++	struct dma_buf_sgt_mapping *mapping =
++		container_of(base, struct dma_buf_sgt_mapping, base);
++
++	dma_buf_unmap_sgt(attach, mapping->sgt, dir);
++	kfree(mapping);
++}
++
+ /**
+  * dma_buf_map_sgt_unlocked - Returns the scatterlist table of the attachment;
+  * mapped into _device_ address space. Is a wrapper for map_dma_buf() of the
+diff --git a/include/linux/dma-buf-mapping.h b/include/linux/dma-buf-mapping.h
+index 7140fc13dd00..a961314dbd99 100644
+--- a/include/linux/dma-buf-mapping.h
++++ b/include/linux/dma-buf-mapping.h
+@@ -33,6 +33,16 @@ enum dma_sgt_requires_p2p {
+ /* Type tag for all mapping operations */
+ struct dma_buf_mapping_exp_ops {};
+ 
++/**
++ * struct dma_buf_mapping - header of a mapping made with dma_buf_mapping_map()
++ * @type: The mapping type the exporter selected. Importers that listed more
++ *        than one type switch on this and use the type's accessor to get at
++ *        the type-specific result embedding this header.
++ */
++struct dma_buf_mapping {
++	const struct dma_buf_mapping_type *type;
++};
++
+ /*
+  * Internal struct to pass arguments from the attach function to the matching
+  * function
+@@ -100,8 +110,35 @@ struct dma_buf_mapping_type {
+ 	 */
+ 	void (*debugfs_dump)(struct seq_file *s,
+ 			     struct dma_buf_attachment *attach);
++
++	/**
++	 * @map:
++	 *
++	 * Produce a mapping of this type for @attach, for which this type has
++	 * already been selected. Called by dma_buf_mapping_map()
++	 * with the dma_resv lock held. Responsible for pin-on-map of static
++	 * importers if the type supports them. Optional; a type without it
++	 * can only be used through its own map functions.
++	 */
++	struct dma_buf_mapping *(*map)(struct dma_buf_attachment *attach,
++				       enum dma_data_direction dir);
++
++	/**
++	 * @unmap:
++	 *
++	 * Release a mapping returned by @map.
++	 */
++	void (*unmap)(struct dma_buf_attachment *attach,
++		      struct dma_buf_mapping *mapping,
++		      enum dma_data_direction dir);
+ };
+ 
++struct dma_buf_mapping *dma_buf_mapping_map(struct dma_buf_attachment *attach,
++					    enum dma_data_direction dir);
++void dma_buf_mapping_unmap(struct dma_buf_attachment *attach,
++			   struct dma_buf_mapping *mapping,
++			   enum dma_data_direction dir);
++
+ struct sg_table *dma_buf_phys_vec_to_sgt(struct dma_buf_attachment *attach,
+ 					 struct p2pdma_provider *provider,
+ 					 struct phys_vec *phys_vec,
+@@ -158,6 +195,13 @@ dma_buf_attach_accepts(const struct dma_buf_attachment *attach,
+ 	return false;
+ }
+ 
++/* Internal: &dma_buf_mapping_sgt_type.map / .unmap, implemented in dma-buf.c */
++struct dma_buf_mapping *dma_buf_sgt_type_map(struct dma_buf_attachment *attach,
++					     enum dma_data_direction dir);
++void dma_buf_sgt_type_unmap(struct dma_buf_attachment *attach,
++			    struct dma_buf_mapping *mapping,
++			    enum dma_data_direction dir);
++
+ /*
+  * DMA Mapped Scatterlist Type
+  *
+@@ -175,6 +219,25 @@ dma_buf_attach_accepts(const struct dma_buf_attachment *attach,
+  */
+ extern struct dma_buf_mapping_type dma_buf_mapping_sgt_type;
+ 
++/**
++ * struct dma_buf_sgt_mapping - dma_buf_mapping_map() result for the SGT type
++ * @base: common header, @base.type == &dma_buf_mapping_sgt_type
++ * @sgt: the DMA mapped scatterlist, as the SGT type's own map function
++ *       returns it
++ */
++struct dma_buf_sgt_mapping {
++	struct dma_buf_mapping base;
++	struct sg_table *sgt;
++};
++
++static inline struct sg_table *
++dma_buf_sgt_mapping_table(struct dma_buf_mapping *mapping)
++{
++	if (WARN_ON(mapping->type != &dma_buf_mapping_sgt_type))
++		return NULL;
++	return container_of(mapping, struct dma_buf_sgt_mapping, base)->sgt;
++}
++
+ struct dma_buf_mapping_sgt_exp_ops {
+ 	struct dma_buf_mapping_exp_ops ops;
+ 	struct sg_table *(*map_dma_buf)(struct dma_buf_attachment *attach,
+
+-- 
+2.54.0
+
