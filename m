@@ -2,42 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5D6C606A332
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Nov 2026 22:59:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB0FD606A331
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Nov 2026 22:59:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ba4R1iHH
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=MJE9WRGW
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5012210E4BB;
-	Fri,  6 Nov 2026 22:59:41 +0000 (UTC)
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012053.outbound.protection.outlook.com [52.101.48.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 49BEE10E4BB
- for <amd-gfx@lists.freedesktop.org>; Fri,  6 Nov 2026 22:59:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F4B410E4C2;
+	Fri,  6 Nov 2026 22:59:49 +0000 (UTC)
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011020.outbound.protection.outlook.com [52.101.57.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0EDB10E4C6
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Nov 2026 22:59:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BmVZDBqDcw97mHYhMq0npMEOLzGUq15s6bEW+2D+K/axrqOjYuAdVGIdjCnk/by8RMtZWWsUvFnStu/zQzLrfeigxjbYXseTuljQQFeg0l5DfL4UnI9UG33KjlryCg8Q3edgCGBbhSMsIEcgk9W07aYLhiGYvGjvDIHODcInOlE8UZ/3kml0fJ2VIrC98O+F79IojggDKQcxvRK8hZYT5vOMq34EXdUAaFV28IEI8JH1eg5uZdPfeaFCfBZp/cCl/dKcbQer9C/gXB0frbep0HIonARy3oGz05+QVPnfHxcknQJJI/wGqW9rYFcc2HVJUYNFTwtCxWd/Hp3uqy6BjA==
+ b=psD4krGQZFDELzNaxQdWbF0TS3gV4cAV4MfxbcnugJpSml7Ek9fC+hw+FZt0fTjkoVRDHP27X1ic4k5T9cx2jLl5ZNnYmfkco0jn6aADE7b+OJ4mBcL/UtEtryS8P8cRJYumg9GnDhtH0mrAVP45K9tsSBqXpYdwifJyumBZGHKz2c1JjM5/4+Cbej5TlZZ4YXRiopnvvMIdlTk30ufGFFTg/GUdwj74DK6ABrNgg7DrQnUiNQ4yuE9kNBVeQZmh+dPq6Lm7DkodyfJC3u1+6mTTWHhXi7nGZOL+zrgTKvH0S1OTp3dJRHJ4kFHSCYMQmoNMK9NwG7ozSezxC40joA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cO2MRqDZaGU9Yu5BXb49XX1WVNfHPjAtmsx7ygcobxU=;
- b=IGO6PI/1oEfi9/wahMn5LHxNfp9IM35j82cpVMx/zJQ2/gyzFB7LwgmCbP0ImDEEZtqoKkkn0xLal0bRQ0XZmfZxYUw9wDfeQgU7NTZgQtLK+0AX4L2O5Z/nAwkxLz8+kj+f/I3/XEe+inC+NJD3bBwrWIpExHJwqJu55n3T8UpA1tjOXAgcQ5h53lM/04+6C6GdL0eJL/VGi/A9ism28zgxJrLX1qrCVJrnYssqrxvpKLwP/mGjbn0HLNpa5WOsHR6aoD3fVnRKtnms3xJIw3BGPGawlzDWZV3MlCwcIgWy/0uDL5eWGVPihj/w/rbgYgQZyS0x/cYqYXxY8x3ilQ==
+ bh=jeRs6GcrTFiRJe+c41ygkrnUQztVDvyH2NNsnARw41I=;
+ b=JMh3GKw9I+pT9rgYSsR0YYOpJK3XzlRpHQdag88s2hmUCKZmDhFaEOlijK4MiVs1TsVvh8y5Oh+32OPcvt9vPtiOZlM8xVmXp2BQqDcaHvdSpcs2P/Q+eL3UHuP5G945EPrhVR3uBS1KaRwtJcAYMrOoQUdfQyjvSkMaGgQbl+VkHiLt0v73jNl6MXtvAoWKtaoPNzFdBLsIQre0ZdY12eMwukPebPObFbEKQnICsjjY7dLyUGwQLUZTDivWg2HavcnpFJKGuzKwHhl1qG8FQqIjkjxPe/GyvPzZDirOl9U6hDl0QGXbW4LhRQ4/EEnfZgZ+ssQQyBDmFm4FuVUUQg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cO2MRqDZaGU9Yu5BXb49XX1WVNfHPjAtmsx7ygcobxU=;
- b=ba4R1iHHJha9X2reNWZoO5O8Spu+KU8IZkWOFHrUCccXL8qdEPrq77it36aZOfh9tN0GN8EbzPz5JKz4+FKRjIP3gdCLvNBuobRqz0Bdij+whbWGQfoLo5LMwx4AIYzbUNhlaxOqYNzJVHRVligrcpRd+qyf3aIIAMkKUkNhGAM=
-Received: from BN0PR04CA0015.namprd04.prod.outlook.com (2603:10b6:408:ee::20)
- by MN0PR12MB5883.namprd12.prod.outlook.com (2603:10b6:208:37b::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 6 Nov
- 2026 22:59:28 +0000
-Received: from BN7PEPF000000AA.namprd05.prod.outlook.com
- (2603:10b6:408:ee:cafe::80) by BN0PR04CA0015.outlook.office365.com
- (2603:10b6:408:ee::20) with Microsoft SMTP Server (version=TLS1_3,
+ bh=jeRs6GcrTFiRJe+c41ygkrnUQztVDvyH2NNsnARw41I=;
+ b=MJE9WRGWTDC34Zcqkrvv8cjnMlWKWg5Fryznvfpe8J1f8pcy8oolsa93qSmlz4sXgOP9nZS3c7Kb7R3g6o7GvWEmsj1O3JjC01Icu5aPljdUN/R5iiklIF2l2f8vs+tOYbxnbLWPEvw9cME+czegj+Mahtv6rlno89f2WK4Ne4E=
+Received: from BN9PR03CA0931.namprd03.prod.outlook.com (2603:10b6:408:108::6)
+ by DM4PR12MB5771.namprd12.prod.outlook.com (2603:10b6:8:62::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Fri, 6 Nov
+ 2026 22:59:31 +0000
+Received: from BN7PEPF000000A7.namprd05.prod.outlook.com
+ (2603:10b6:408:108:cafe::92) by BN9PR03CA0931.outlook.office365.com
+ (2603:10b6:408:108::6) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.11 via Frontend Transport; Fri, 6
- Nov 2026 22:59:28 +0000
+ Nov 2026 22:59:30 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -46,23 +46,22 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN7PEPF000000AA.mail.protection.outlook.com (10.167.245.234) with Microsoft
+ BN7PEPF000000A7.mail.protection.outlook.com (10.167.245.231) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 22:59:28 +0000
+ 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 22:59:29 +0000
 Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 6 Nov
- 2026 16:59:27 -0600
+ 2026 16:59:28 -0600
 Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Fri, 6 Nov 2026 16:59:27 -0600
+ Transport; Fri, 6 Nov 2026 16:59:28 -0600
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Frank Min <Frank.Min@amd.com>, Likun Gao <Likun.Gao@amd.com>, "Hawking
- Zhang" <Hawking.Zhang@amd.com>, Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 2/4] drm/amdgpu: add v13_structs.h
-Date: Fri, 6 Nov 2026 17:59:11 -0500
-Message-ID: <20261106225913.3569203-3-alexander.deucher@amd.com>
+CC: Likun Gao <Likun.Gao@amd.com>, Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH 3/4] drm/amdgpu: add new sdma pkt header
+Date: Fri, 6 Nov 2026 17:59:12 -0500
+Message-ID: <20261106225913.3569203-4-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261106225913.3569203-1-alexander.deucher@amd.com>
 References: <20261106225913.3569203-1-alexander.deucher@amd.com>
@@ -72,29 +71,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PEPF000000AA:EE_|MN0PR12MB5883:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7d918b43-0495-40a1-e182-08df3c599c81
+X-MS-TrafficTypeDiagnostic: BN7PEPF000000A7:EE_|DM4PR12MB5771:EE_
+X-MS-Office365-Filtering-Correlation-Id: e86026c3-8b3a-40e3-d0d0-08df3c599d04
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|36860700016|82310400026|23010399003|22082099003|18002099003|11063799006|56012099006|3023799007|261009223027099003|261009221227099003|261102123227099003|261021123027099003|261022105027099003|261022075727099003|261022115727099003|261022113327099003|261021121427099003|261028144727099003|261026140227099003|261026121527099003|10067099003;
-X-Microsoft-Antispam-Message-Info: cFCuVRHgoTkkdBrtvIriAPPmWW/Nt54XKiBmCBa35KQSoamGk0iClysZqeesBWyjbtGZQBuUJN9q4i+aysOToSqUTPF5bFlqGm0RAB7zCcBGfINOJ5Q34WuzNmp1i6YVvBYXZPmoiESi3Sxiz/raZBqvJWpHuOZJUyhE9/W++Y4bZCHqT3lt7CadQrSKxOleqeqdxLBjXbDm+en1LY2nQ2OmNQJ//Os5TsBNvfBp/00wmeoWRu2QnL670FfS0BHk+rJIpTIMZS/OHdqmWgknGRgGmhY2DNScowPPN102UUwIbQ2uQ6MbDxjvf/t5HZYKpDpymbzBYE4+ym/etbeGeik3IT2BL8v1vcnujMhbhBML0gq+N46XZ7mq2xnv5Y1y4aKpu2DtRC3HDA4G0gNGK+OIWRRF8oxaLbQlWeJ9KbFRh2aAE2D4IptJPtXwsWj/p9iCpYw784KosruCdO8ZNFzyq/K0BZgl1NnCpLid+5dK1cK2/6pZtQ5iunRLj+qX5XOFK8nQSVoNc7OTCOO6tuaykIAbJTkPbMs4ffu3peGfB7TivhVWdVfiLs/cozy9khajWqkidzAx2srOvOXQ8muSglfINfhPmRFIA/rwnV239fvdRq+n4Xd3e084/o//kwM3pUnA9TQVU71zeCD72KtA3CIdvuQw6akWGIXs4pPjTsxdk9eytQkThygnJr3ck4GBlIgrU0QXp3Tyyr+j4w==
+ ARA:13230040|36860700016|82310400026|376014|1800799024|23010399003|10067099003|22082099003|18002099003|261102123227099003|3023799007|56012099006|261009223027099003|261026121527099003|11063799006|261028144727099003|261022105027099003|261021121427099003|261026140227099003|261022115727099003|261022113327099003|261022075727099003;
+X-Microsoft-Antispam-Message-Info: rF3YnJ8kB3rv03U3UB28ym42qFmFRNXJLmT+PY9lTwRXmJq9daLkiTHfxuzGFbOe6qsxJ3bCy7dT5FkTuCFRWerj+8c1UmZMumK6iIg+L9MfwYgfnATcWXDAmwVnR1/CZZpMpKbxTorRoDyk9JtoMski4jVDEVFJnj9JZvZ0om7dEyObZrQTxSYoHySg9QbA1E/pWZ+v93sYaxfHeV9PPR+rIxr13sczWl2IN1uNEZYmwph6k84nthF5nJsNZeOBkgxepLSqUIYC+Ht+2H91wRL4UnZfudZ7So+3eVyPr5/K4HTAIexK1mJK/ZyQtqdmecCqXiTHzYMYsuA5JAQZfDaC0BQn+SMeZC8z69Fhk8SmjI4zL27vYsT58NZ+UlH+fEQZW8c+vxgZjOtexHPblG63D2azxeNfNgGIx+SfexiX2d1PekSuWvfdQCQ8akYoPYe+TS9BnTGJ/Vy6lil9SAHqyNx1AXoDLEDnOac0oW3x9BFlTgaFXl0I2SOWOrst+1IZ/BomI0R3bCPxcvSDvWzeJW5Quj8ETk88G3zNjcWVAXoFdaHkJ4W9muIsQkk4XXWHlq5vLoUXRS5rCnaH96+nzeegKbncisAc36I715gqCXb3VhG4Y7EC1x1f2zi7K365/AfApyt0uSCjM3JMJm0Zd7wy51g+E8Y1y4PE3/f+qaX8lZBK7hs7Wcs2FRM9wlGHOIJcSvUjDATsvuW9ng==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(36860700016)(82310400026)(23010399003)(22082099003)(18002099003)(11063799006)(56012099006)(3023799007)(261009223027099003)(261009221227099003)(261102123227099003)(261021123027099003)(261022105027099003)(261022075727099003)(261022115727099003)(261022113327099003)(261021121427099003)(261028144727099003)(261026140227099003)(261026121527099003)(10067099003);
+ SFS:(13230040)(36860700016)(82310400026)(376014)(1800799024)(23010399003)(10067099003)(22082099003)(18002099003)(261102123227099003)(3023799007)(56012099006)(261009223027099003)(261026121527099003)(11063799006)(261028144727099003)(261022105027099003)(261021121427099003)(261026140227099003)(261022115727099003)(261022113327099003)(261022075727099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: UY2oJycWQVu+wfp09NaN1Ta1ExbUfN5Y67LzK3H3INIsipoOitp8jLvKklZ2BzyWobZM7griAQvDrX6GUE62rS5pN4P2sC6C2ybqKHJxoDSGqqhn9qGIjh863S4G9cHbDet1i8GlbUs2sENFpY10iNG+yMPnwXhLlmjYKm8VkcPKuaE3lIInu3XX2oDiz3yXQU4v5LyDFtbvcV8baA0BorIM+WE/7nJLYzpEa5NyXfgU+LvAXmE6rK5lhehH8PkyPgRjJUMrGtJPGQsxdmWpqNupYV83lQ8QnT3TyIcNGpYDj50Ia6EZg6ugRM6DfjVQR+0wUozgiq1bT+BdgsHE2ZSilObYSgNdiSrC71fEhXjQddfoRfxoYZNiRjIqyUEgOwioTFaj3WPbAlCMB9yAlus2o0B4tyWvFNAIJ7nEX9ZV8tm6bSlppd0hyKTvECap
+X-MS-Exchange-AntiSpam-MessageData-0: /oOe4k0uaUHW0yv9JyVG1KQbcb4oG85CimMefYD384OEhdUXmzOLoFW4stlMSjvdqdb7Ph+4l/snAAeyzgd+DIJydzndITTb5RH/IL0LM6FdhIxbnyrMJnM970DxBZPv/KwiTXbozJ/rCKRhc2CPILDZ+6NE1u67y+OOS5J+8USO48AUpCFLwhO5EIpHNneWHoGxgOV1yefDopeHOo21Cq4jUjXc8O58qLyV7NOuWsAAJfC3dGomRo/9hD4fqjndROEigT8t9ddBgAnuAn1bY5mZ2XTTSEfkaSiaStej+uCmPjK7RMBx/BBdQg1UxDEcZbeRSfiMfNRpg4rSEtp8wkNZ6BFxFf6nHptrE+otqm3aJF1WEbXaOQhWNdolq9TMMX2z7dAWk+vEDAalKQrZwkgxP9SPEEV903PQCHa5S5TSc1bDzZ1sNWOnqNmJkbky
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 22:59:28.4975 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7d918b43-0495-40a1-e182-08df3c599c81
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 22:59:29.3543 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e86026c3-8b3a-40e3-d0d0-08df3c599d04
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN7PEPF000000AA.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN7PEPF000000A7.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5883
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5771
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,34 +104,33 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.7 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,UPPERCASE_50_75,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Frank Min <Frank.Min@amd.com>
+From: Likun Gao <Likun.Gao@amd.com>
 
-Add v13 MQD structures.
+Add SDMA package header file for SDMA v8.
 
-v2: squash in updates
+v2: update header (Alex)
 
-Signed-off-by: Frank Min <Frank.Min@amd.com>
 Signed-off-by: Likun Gao <Likun.Gao@amd.com>
-Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/include/v13_structs.h | 2288 +++++++++++++++++++++
- 1 file changed, 2288 insertions(+)
- create mode 100644 drivers/gpu/drm/amd/include/v13_structs.h
+ .../gpu/drm/amd/amdgpu/sdma_v8_0_0_pkt_open.h | 3988 +++++++++++++++++
+ 1 file changed, 3988 insertions(+)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/sdma_v8_0_0_pkt_open.h
 
-diff --git a/drivers/gpu/drm/amd/include/v13_structs.h b/drivers/gpu/drm/amd/include/v13_structs.h
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v8_0_0_pkt_open.h b/drivers/gpu/drm/amd/amdgpu/sdma_v8_0_0_pkt_open.h
 new file mode 100644
-index 0000000000000..704d96bcecf89
+index 0000000000000..f6e08d74c9666
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/include/v13_structs.h
-@@ -0,0 +1,2288 @@
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v8_0_0_pkt_open.h
+@@ -0,0 +1,3988 @@
 +/*
 + * Copyright 2025 Advanced Micro Devices, Inc.
 + *
@@ -155,2272 +153,3972 @@ index 0000000000000..704d96bcecf89
 + * OTHER DEALINGS IN THE SOFTWARE.
 + *
 + */
++#ifndef __SDMA_V8_0_0_PKT_OPEN_H_
++#define __SDMA_V8_0_0_PKT_OPEN_H_
 +
-+#ifndef V13_STRUCTS_H_
-+#define V13_STRUCTS_H_
++#define SDMA_OP_NOP  0
++#define SDMA_OP_COPY  1
++#define SDMA_OP_WRITE  2
++#define SDMA_OP_INDIRECT  4
++#define SDMA_OP_FENCE  5
++#define SDMA_OP_TRAP  6
++#define SDMA_OP_SEM  7
++#define SDMA_OP_POLL_REGMEM  8
++#define SDMA_OP_COND_EXE  9
++#define SDMA_OP_ATOMIC  10
++#define SDMA_OP_CONST_FILL  11
++#define SDMA_OP_PTEPDE  12
++#define SDMA_OP_TIMESTAMP  13
++#define SDMA_OP_SRBM_WRITE  14
++#define SDMA_OP_PRE_EXE  15
++#define SDMA_OP_GPUVM_INV  16
++#define SDMA_OP_GCR_REQ  17
++#define SDMA_OP_DUMMY_TRAP  32
++#define SDMA_SUBOP_TIMESTAMP_SET  0
++#define SDMA_SUBOP_TIMESTAMP_GET  1
++#define SDMA_SUBOP_TIMESTAMP_GET_GLOBAL  2
++#define SDMA_SUBOP_COPY_LINEAR  0
++#define SDMA_SUBOP_COPY_LINEAR_SUB_WIND  4
++#define SDMA_SUBOP_COPY_TILED  1
++#define SDMA_SUBOP_COPY_TILED_SUB_WIND  5
++#define SDMA_SUBOP_COPY_T2T_SUB_WIND  6
++#define SDMA_SUBOP_COPY_SOA  3
++#define SDMA_SUBOP_COPY_DIRTY_PAGE  7
++#define SDMA_SUBOP_COPY_LINEAR_PHY  8
++#define SDMA_SUBOP_COPY_LINEAR_SUB_WIND_LARGE  36
++#define SDMA_SUBOP_WRITE_LINEAR  0
++#define SDMA_SUBOP_WRITE_TILED  1
++#define SDMA_SUBOP_PTEPDE_GEN  0
++#define SDMA_SUBOP_PTEPDE_COPY  1
++#define SDMA_SUBOP_PTEPDE_RMW  2
++#define SDMA_SUBOP_PTEPDE_COPY_BACKWARDS  3
++#define SDMA_SUBOP_MEM_INCR  1
++#define SDMA_SUBOP_DATA_FILL_MULTI  1
++#define SDMA_SUBOP_POLL_REG_WRITE_MEM  1
++#define SDMA_SUBOP_POLL_DBIT_WRITE_MEM  2
++#define SDMA_SUBOP_POLL_MEM_VERIFY  3
++#define SDMA_SUBOP_VM_INVALIDATION  4
++#define HEADER_AGENT_DISPATCH  4
++#define HEADER_BARRIER  5
++#define SDMA_OP_AQL_COPY  0
++#define SDMA_OP_AQL_BARRIER_OR  0
 +
-+struct v13_gfx_mqd {
-+    uint32_t shadow_base_lo; // offset: 0 (0x0)
-+    uint32_t shadow_base_hi; // offset: 1 (0x1)
-+    uint32_t gds_bkup_base_lo; // offset: 2 (0x2)
-+    uint32_t gds_bkup_base_hi; // offset: 3 (0x3)
-+    uint32_t fw_work_area_base_lo; // offset: 4 (0x4)
-+    uint32_t fw_work_area_base_hi; // offset: 5 (0x5)
-+    uint32_t shadow_initialized; // offset: 6 (0x6)
-+    uint32_t ib_vmid; // offset: 7 (0x7)
-+    uint32_t reserved_8; // offset: 8 (0x8)
-+    uint32_t reserved_9; // offset: 9 (0x9)
-+    uint32_t reserved_10; // offset: 10 (0xA)
-+    uint32_t reserved_11; // offset: 11 (0xB)
-+    uint32_t reserved_12; // offset: 12 (0xC)
-+    uint32_t reserved_13; // offset: 13 (0xD)
-+    uint32_t reserved_14; // offset: 14 (0xE)
-+    uint32_t reserved_15; // offset: 15 (0xF)
-+    uint32_t reserved_16; // offset: 16 (0x10)
-+    uint32_t reserved_17; // offset: 17 (0x11)
-+    uint32_t reserved_18; // offset: 18 (0x12)
-+    uint32_t reserved_19; // offset: 19 (0x13)
-+    uint32_t reserved_20; // offset: 20 (0x14)
-+    uint32_t reserved_21; // offset: 21 (0x15)
-+    uint32_t reserved_22; // offset: 22 (0x16)
-+    uint32_t reserved_23; // offset: 23 (0x17)
-+    uint32_t reserved_24; // offset: 24 (0x18)
-+    uint32_t reserved_25; // offset: 25 (0x19)
-+    uint32_t reserved_26; // offset: 26 (0x1A)
-+    uint32_t reserved_27; // offset: 27 (0x1B)
-+    uint32_t reserved_28; // offset: 28 (0x1C)
-+    uint32_t reserved_29; // offset: 29 (0x1D)
-+    uint32_t reserved_30; // offset: 30 (0x1E)
-+    uint32_t reserved_31; // offset: 31 (0x1F)
-+    uint32_t mcbp_status_pfp_ib0_offset; // offset: 32 (0x20)
-+    uint32_t mcbp_status_pfp_ib0_chained_ib_size; // offset: 33 (0x21)
-+    uint32_t mcbp_status_pfp_ib0_chained_ib_address_lo; // offset: 34 (0x22)
-+    uint32_t mcbp_status_pfp_ib0_chained_ib_address_hi; // offset: 35 (0x23)
-+    uint32_t mcbp_status_pfp_ib1_offset; // offset: 36 (0x24)
-+    uint32_t mcbp_status_pfp_ib1_chained_ib_size; // offset: 37 (0x25)
-+    uint32_t mcbp_status_pfp_ib1_chained_ib_address_lo; // offset: 38 (0x26)
-+    uint32_t mcbp_status_pfp_ib1_chained_ib_address_hi; // offset: 39 (0x27)
-+    uint32_t mcbp_status_pfp_rb_preempt; // offset: 40 (0x28)
-+    uint32_t mcbp_status_pfp_completion_status; // offset: 41 (0x29)
-+    uint32_t reserved_42; // offset: 42 (0x2A)
-+    uint32_t reserved_43; // offset: 43 (0x2B)
-+    uint32_t reserved_44; // offset: 44 (0x2C)
-+    uint32_t reserved_45; // offset: 45 (0x2D)
-+    uint32_t reserved_46; // offset: 46 (0x2E)
-+    uint32_t reserved_47; // offset: 47 (0x2F)
-+    uint32_t reserved_48; // offset: 48 (0x30)
-+    uint32_t reserved_49; // offset: 49 (0x31)
-+    uint32_t reserved_50; // offset: 50 (0x32)
-+    uint32_t reserved_51; // offset: 51 (0x33)
-+    uint32_t reserved_52; // offset: 52 (0x34)
-+    uint32_t reserved_53; // offset: 53 (0x35)
-+    uint32_t reserved_54; // offset: 54 (0x36)
-+    uint32_t reserved_55; // offset: 55 (0x37)
-+    uint32_t reserved_56; // offset: 56 (0x38)
-+    uint32_t reserved_57; // offset: 57 (0x39)
-+    uint32_t reserved_58; // offset: 58 (0x3A)
-+    uint32_t reserved_59; // offset: 59 (0x3B)
-+    uint32_t reserved_60; // offset: 60 (0x3C)
-+    uint32_t reserved_61; // offset: 61 (0x3D)
-+    uint32_t reserved_62; // offset: 62 (0x3E)
-+    uint32_t reserved_63; // offset: 63 (0x3F)
-+    uint32_t reserved_64; // offset: 64 (0x40)
-+    uint32_t reserved_65; // offset: 65 (0x41)
-+    uint32_t reserved_66; // offset: 66 (0x42)
-+    uint32_t reserved_67; // offset: 67 (0x43)
-+    uint32_t reserved_68; // offset: 68 (0x44)
-+    uint32_t reserved_69; // offset: 69 (0x45)
-+    uint32_t reserved_70; // offset: 70 (0x46)
-+    uint32_t reserved_71; // offset: 71 (0x47)
-+    uint32_t reserved_72; // offset: 72 (0x48)
-+    uint32_t reserved_73; // offset: 73 (0x49)
-+    uint32_t reserved_74; // offset: 74 (0x4A)
-+    uint32_t reserved_75; // offset: 75 (0x4B)
-+    uint32_t reserved_76; // offset: 76 (0x4C)
-+    uint32_t reserved_77; // offset: 77 (0x4D)
-+    uint32_t reserved_78; // offset: 78 (0x4E)
-+    uint32_t reserved_79; // offset: 79 (0x4F)
-+    uint32_t reserved_80; // offset: 80 (0x50)
-+    uint32_t reserved_81; // offset: 81 (0x51)
-+    uint32_t reserved_82; // offset: 82 (0x52)
-+    uint32_t reserved_83; // offset: 83 (0x53)
-+    uint32_t checksum_lo; // offset: 84 (0x54)
-+    uint32_t checksum_hi; // offset: 85 (0x55)
-+    uint32_t cp_mqd_query_time_lo; // offset: 86 (0x56)
-+    uint32_t cp_mqd_query_time_hi; // offset: 87 (0x57)
-+    uint32_t reserved_88; // offset: 88 (0x58)
-+    uint32_t reserved_89; // offset: 89 (0x59)
-+    uint32_t reserved_90; // offset: 90 (0x5A)
-+    uint32_t reserved_91; // offset: 91 (0x5B)
-+    uint32_t cp_mqd_query_wave_count; // offset: 92 (0x5C)
-+    uint32_t cp_mqd_query_gfx_hqd_rptr; // offset: 93 (0x5D)
-+    uint32_t cp_mqd_query_gfx_hqd_wptr; // offset: 94 (0x5E)
-+    uint32_t cp_mqd_query_gfx_hqd_offset; // offset: 95 (0x5F)
-+    uint32_t reserved_96; // offset: 96 (0x60)
-+    uint32_t reserved_97; // offset: 97 (0x61)
-+    uint32_t reserved_98; // offset: 98 (0x62)
-+    uint32_t reserved_99; // offset: 99 (0x63)
-+    uint32_t reserved_100; // offset: 100 (0x64)
-+    uint32_t reserved_101; // offset: 101 (0x65)
-+    uint32_t reserved_102; // offset: 102 (0x66)
-+    uint32_t reserved_103; // offset: 103 (0x67)
-+    uint32_t task_shader_control_buf_addr_lo; // offset: 104 (0x68)
-+    uint32_t task_shader_control_buf_addr_hi; // offset: 105 (0x69)
-+    uint32_t task_shader_read_rptr_lo; // offset: 106 (0x6A)
-+    uint32_t task_shader_read_rptr_hi; // offset: 107 (0x6B)
-+    uint32_t task_shader_num_entries; // offset: 108 (0x6C)
-+    uint32_t task_shader_num_entries_bits; // offset: 109 (0x6D)
-+    uint32_t task_shader_ring_buffer_addr_lo; // offset: 110 (0x6E)
-+    uint32_t task_shader_ring_buffer_addr_hi; // offset: 111 (0x6F)
-+    uint32_t reserved_112; // offset: 112 (0x70)
-+    uint32_t reserved_113; // offset: 113 (0x71)
-+    uint32_t reserved_114; // offset: 114 (0x72)
-+    uint32_t reserved_115; // offset: 115 (0x73)
-+    uint32_t spill_table_addr_lo; // offset: 116 (0x74)
-+    uint32_t spill_table_addr_hi; // offset: 117 (0x75)
-+    uint32_t spill_table_offset; // offset: 118 (0x76)
-+    uint32_t reserved_119; // offset: 119 (0x77)
-+    uint32_t reserved_120; // offset: 120 (0x78)
-+    uint32_t reserved_121; // offset: 121 (0x79)
-+    uint32_t reserved_122; // offset: 122 (0x7A)
-+    uint32_t reserved_123; // offset: 123 (0x7B)
-+    uint32_t reserved_124; // offset: 124 (0x7C)
-+    uint32_t reserved_125; // offset: 125 (0x7D)
-+    uint32_t reserved_126; // offset: 126 (0x7E)
-+    uint32_t reserved_127; // offset: 127 (0x7F)
-+    uint32_t cp_mqd_base_addr; // offset: 128 (0x80)
-+    uint32_t cp_mqd_base_addr_hi; // offset: 129 (0x81)
-+    uint32_t cp_gfx_hqd_active; // offset: 130 (0x82)
-+    uint32_t cp_gfx_hqd_vmid; // offset: 131 (0x83)
-+    uint32_t reserved_132; // offset: 132 (0x84)
-+    uint32_t reserved_133; // offset: 133 (0x85)
-+    uint32_t cp_gfx_hqd_queue_priority; // offset: 134 (0x86)
-+    uint32_t cp_gfx_hqd_quantum; // offset: 135 (0x87)
-+    uint32_t cp_gfx_hqd_base; // offset: 136 (0x88)
-+    uint32_t cp_gfx_hqd_base_hi; // offset: 137 (0x89)
-+    uint32_t cp_gfx_hqd_rptr; // offset: 138 (0x8A)
-+    uint32_t cp_gfx_hqd_rptr_addr; // offset: 139 (0x8B)
-+    uint32_t cp_gfx_hqd_rptr_addr_hi; // offset: 140 (0x8C)
-+    uint32_t cp_rb_wptr_poll_addr_lo; // offset: 141 (0x8D)
-+    uint32_t cp_rb_wptr_poll_addr_hi; // offset: 142 (0x8E)
-+    uint32_t cp_rb_doorbell_control; // offset: 143 (0x8F)
-+    uint32_t cp_gfx_hqd_offset; // offset: 144 (0x90)
-+    uint32_t cp_gfx_hqd_cntl; // offset: 145 (0x91)
-+    uint32_t reserved_146; // offset: 146 (0x92)
-+    uint32_t reserved_147; // offset: 147 (0x93)
-+    uint32_t cp_gfx_hqd_csmd_rptr; // offset: 148 (0x94)
-+    uint32_t cp_gfx_hqd_wptr; // offset: 149 (0x95)
-+    uint32_t cp_gfx_hqd_wptr_hi; // offset: 150 (0x96)
-+    uint32_t reserved_151; // offset: 151 (0x97)
-+    uint32_t reserved_152; // offset: 152 (0x98)
-+    uint32_t reserved_153; // offset: 153 (0x99)
-+    uint32_t reserved_154; // offset: 154 (0x9A)
-+    uint32_t reserved_155; // offset: 155 (0x9B)
-+    uint32_t cp_gfx_hqd_mapped; // offset: 156 (0x9C)
-+    uint32_t cp_gfx_hqd_que_mgr_control; // offset: 157 (0x9D)
-+    uint32_t reserved_158; // offset: 158 (0x9E)
-+    uint32_t reserved_159; // offset: 159 (0x9F)
-+    uint32_t cp_gfx_hqd_hq_status0; // offset: 160 (0xA0)
-+    uint32_t cp_gfx_hqd_hq_control0; // offset: 161 (0xA1)
-+    uint32_t cp_gfx_mqd_control; // offset: 162 (0xA2)
-+    uint32_t reserved_163; // offset: 163 (0xA3)
-+    uint32_t reserved_164; // offset: 164 (0xA4)
-+    uint32_t reserved_165; // offset: 165 (0xA5)
-+    uint32_t reserved_166; // offset: 166 (0xA6)
-+    uint32_t reserved_167; // offset: 167 (0xA7)
-+    uint32_t reserved_168; // offset: 168 (0xA8)
-+    uint32_t reserved_169; // offset: 169 (0xA9)
-+    uint32_t reserved_170; // offset: 170 (0xAA)
-+    uint32_t reserved_171; // offset: 171 (0xAB)
-+    uint32_t reserved_172; // offset: 172 (0xAC)
-+    uint32_t reserved_173; // offset: 173 (0xAD)
-+    uint32_t reserved_174; // offset: 174 (0xAE)
-+    uint32_t reserved_175; // offset: 175 (0xAF)
-+    uint32_t reserved_176; // offset: 176 (0xB0)
-+    uint32_t reserved_177; // offset: 177 (0xB1)
-+    uint32_t reserved_178; // offset: 178 (0xB2)
-+    uint32_t reserved_179; // offset: 179 (0xB3)
-+    uint32_t reserved_180; // offset: 180 (0xB4)
-+    uint32_t reserved_181; // offset: 181 (0xB5)
-+    uint32_t reserved_182; // offset: 182 (0xB6)
-+    uint32_t reserved_183; // offset: 183 (0xB7)
-+    uint32_t reserved_184; // offset: 184 (0xB8)
-+    uint32_t reserved_185; // offset: 185 (0xB9)
-+    uint32_t reserved_186; // offset: 186 (0xBA)
-+    uint32_t reserved_187; // offset: 187 (0xBB)
-+    uint32_t reserved_188; // offset: 188 (0xBC)
-+    uint32_t reserved_189; // offset: 189 (0xBD)
-+    uint32_t reserved_190; // offset: 190 (0xBE)
-+    uint32_t reserved_191; // offset: 191 (0xBF)
-+    uint32_t reserved_192; // offset: 192 (0xC0)
-+    uint32_t reserved_193; // offset: 193 (0xC1)
-+    uint32_t reserved_194; // offset: 194 (0xC2)
-+    uint32_t reserved_195; // offset: 195 (0xC3)
-+    uint32_t reserved_196; // offset: 196 (0xC4)
-+    uint32_t reserved_197; // offset: 197 (0xC5)
-+    uint32_t reserved_198; // offset: 198 (0xC6)
-+    uint32_t reserved_199; // offset: 199 (0xC7)
-+    uint32_t reserved_200; // offset: 200 (0xC8)
-+    uint32_t reserved_201; // offset: 201 (0xC9)
-+    uint32_t reserved_202; // offset: 202 (0xCA)
-+    uint32_t reserved_203; // offset: 203 (0xCB)
-+    uint32_t reserved_204; // offset: 204 (0xCC)
-+    uint32_t reserved_205; // offset: 205 (0xCD)
-+    uint32_t reserved_206; // offset: 206 (0xCE)
-+    uint32_t reserved_207; // offset: 207 (0xCF)
-+    uint32_t reserved_208; // offset: 208 (0xD0)
-+    uint32_t reserved_209; // offset: 209 (0xD1)
-+    uint32_t reserved_210; // offset: 210 (0xD2)
-+    uint32_t reserved_211; // offset: 211 (0xD3)
-+    uint32_t reserved_212; // offset: 212 (0xD4)
-+    uint32_t reserved_213; // offset: 213 (0xD5)
-+    uint32_t reserved_214; // offset: 214 (0xD6)
-+    uint32_t reserved_215; // offset: 215 (0xD7)
-+    uint32_t reserved_216; // offset: 216 (0xD8)
-+    uint32_t reserved_217; // offset: 217 (0xD9)
-+    uint32_t reserved_218; // offset: 218 (0xDA)
-+    uint32_t reserved_219; // offset: 219 (0xDB)
-+    uint32_t reserved_220; // offset: 220 (0xDC)
-+    uint32_t reserved_221; // offset: 221 (0xDD)
-+    uint32_t reserved_222; // offset: 222 (0xDE)
-+    uint32_t reserved_223; // offset: 223 (0xDF)
-+    uint32_t reserved_224; // offset: 224 (0xE0)
-+    uint32_t reserved_225; // offset: 225 (0xE1)
-+    uint32_t reserved_226; // offset: 226 (0xE2)
-+    uint32_t reserved_227; // offset: 227 (0xE3)
-+    uint32_t reserved_228; // offset: 228 (0xE4)
-+    uint32_t reserved_229; // offset: 229 (0xE5)
-+    uint32_t reserved_230; // offset: 230 (0xE6)
-+    uint32_t reserved_231; // offset: 231 (0xE7)
-+    uint32_t reserved_232; // offset: 232 (0xE8)
-+    uint32_t reserved_233; // offset: 233 (0xE9)
-+    uint32_t reserved_234; // offset: 234 (0xEA)
-+    uint32_t reserved_235; // offset: 235 (0xEB)
-+    uint32_t reserved_236; // offset: 236 (0xEC)
-+    uint32_t reserved_237; // offset: 237 (0xED)
-+    uint32_t reserved_238; // offset: 238 (0xEE)
-+    uint32_t reserved_239; // offset: 239 (0xEF)
-+    uint32_t reserved_240; // offset: 240 (0xF0)
-+    uint32_t reserved_241; // offset: 241 (0xF1)
-+    uint32_t reserved_242; // offset: 242 (0xF2)
-+    uint32_t reserved_243; // offset: 243 (0xF3)
-+    uint32_t reserved_244; // offset: 244 (0xF4)
-+    uint32_t reserved_245; // offset: 245 (0xF5)
-+    uint32_t reserved_246; // offset: 246 (0xF6)
-+    uint32_t reserved_247; // offset: 247 (0xF7)
-+    uint32_t reserved_248; // offset: 248 (0xF8)
-+    uint32_t reserved_249; // offset: 249 (0xF9)
-+    uint32_t reserved_250; // offset: 250 (0xFA)
-+    uint32_t reserved_251; // offset: 251 (0xFB)
-+    uint32_t reserved_252; // offset: 252 (0xFC)
-+    uint32_t reserved_253; // offset: 253 (0xFD)
-+    uint32_t reserved_254; // offset: 254 (0xFE)
-+    uint32_t reserved_255; // offset: 255 (0xFF)
-+    uint32_t reserved_256; // offset: 256 (0x100)
-+    uint32_t reserved_257; // offset: 257 (0x101)
-+    uint32_t reserved_258; // offset: 258 (0x102)
-+    uint32_t reserved_259; // offset: 259 (0x103)
-+    uint32_t reserved_260; // offset: 260 (0x104)
-+    uint32_t reserved_261; // offset: 261 (0x105)
-+    uint32_t reserved_262; // offset: 262 (0x106)
-+    uint32_t reserved_263; // offset: 263 (0x107)
-+    uint32_t reserved_264; // offset: 264 (0x108)
-+    uint32_t reserved_265; // offset: 265 (0x109)
-+    uint32_t reserved_266; // offset: 266 (0x10A)
-+    uint32_t reserved_267; // offset: 267 (0x10B)
-+    uint32_t reserved_268; // offset: 268 (0x10C)
-+    uint32_t reserved_269; // offset: 269 (0x10D)
-+    uint32_t reserved_270; // offset: 270 (0x10E)
-+    uint32_t reserved_271; // offset: 271 (0x10F)
-+    uint32_t dfwx_flags; // offset: 272 (0x110)
-+    uint32_t dfwx_slot; // offset: 273 (0x111)
-+    uint32_t dfwx_client_data_addr_lo; // offset: 274 (0x112)
-+    uint32_t dfwx_client_data_addr_hi; // offset: 275 (0x113)
-+    uint32_t db_summarizer_timeout; // offset: 276 (0x114)
-+    uint32_t vgt_dma_max_size; // offset: 277 (0x115)
-+    uint32_t vgt_dma_num_instances; // offset: 278 (0x116)
-+    uint32_t mcbp_counter; // offset: 279 (0x117)
-+    uint32_t reserved_280; // offset: 280 (0x118)
-+    uint32_t reserved_281; // offset: 281 (0x119)
-+    uint32_t reserved_282; // offset: 282 (0x11A)
-+    uint32_t reserved_283; // offset: 283 (0x11B)
-+    uint32_t reserved_284; // offset: 284 (0x11C)
-+    uint32_t reserved_285; // offset: 285 (0x11D)
-+    uint32_t reserved_286; // offset: 286 (0x11E)
-+    uint32_t reserved_287; // offset: 287 (0x11F)
-+    uint32_t reserved_288; // offset: 288 (0x120)
-+    uint32_t reserved_289; // offset: 289 (0x121)
-+    uint32_t reserved_290; // offset: 290 (0x122)
-+    uint32_t reserved_291; // offset: 291 (0x123)
-+    uint32_t reserved_292; // offset: 292 (0x124)
-+    uint32_t reserved_293; // offset: 293 (0x125)
-+    uint32_t reserved_294; // offset: 294 (0x126)
-+    uint32_t reserved_295; // offset: 295 (0x127)
-+    uint32_t reserved_296; // offset: 296 (0x128)
-+    uint32_t reserved_297; // offset: 297 (0x129)
-+    uint32_t reserved_298; // offset: 298 (0x12A)
-+    uint32_t reserved_299; // offset: 299 (0x12B)
-+    uint32_t reserved_300; // offset: 300 (0x12C)
-+    uint32_t reserved_301; // offset: 301 (0x12D)
-+    uint32_t reserved_302; // offset: 302 (0x12E)
-+    uint32_t reserved_303; // offset: 303 (0x12F)
-+    uint32_t reserved_304; // offset: 304 (0x130)
-+    uint32_t reserved_305; // offset: 305 (0x131)
-+    uint32_t reserved_306; // offset: 306 (0x132)
-+    uint32_t reserved_307; // offset: 307 (0x133)
-+    uint32_t reserved_308; // offset: 308 (0x134)
-+    uint32_t reserved_309; // offset: 309 (0x135)
-+    uint32_t reserved_310; // offset: 310 (0x136)
-+    uint32_t reserved_311; // offset: 311 (0x137)
-+    uint32_t reserved_312; // offset: 312 (0x138)
-+    uint32_t reserved_313; // offset: 313 (0x139)
-+    uint32_t reserved_314; // offset: 314 (0x13A)
-+    uint32_t reserved_315; // offset: 315 (0x13B)
-+    uint32_t reserved_316; // offset: 316 (0x13C)
-+    uint32_t reserved_317; // offset: 317 (0x13D)
-+    uint32_t reserved_318; // offset: 318 (0x13E)
-+    uint32_t reserved_319; // offset: 319 (0x13F)
-+    uint32_t reserved_320; // offset: 320 (0x140)
-+    uint32_t reserved_321; // offset: 321 (0x141)
-+    uint32_t reserved_322; // offset: 322 (0x142)
-+    uint32_t reserved_323; // offset: 323 (0x143)
-+    uint32_t reserved_324; // offset: 324 (0x144)
-+    uint32_t reserved_325; // offset: 325 (0x145)
-+    uint32_t reserved_326; // offset: 326 (0x146)
-+    uint32_t reserved_327; // offset: 327 (0x147)
-+    uint32_t reserved_328; // offset: 328 (0x148)
-+    uint32_t reserved_329; // offset: 329 (0x149)
-+    uint32_t reserved_330; // offset: 330 (0x14A)
-+    uint32_t reserved_331; // offset: 331 (0x14B)
-+    uint32_t reserved_332; // offset: 332 (0x14C)
-+    uint32_t reserved_333; // offset: 333 (0x14D)
-+    uint32_t reserved_334; // offset: 334 (0x14E)
-+    uint32_t reserved_335; // offset: 335 (0x14F)
-+    uint32_t reserved_336; // offset: 336 (0x150)
-+    uint32_t reserved_337; // offset: 337 (0x151)
-+    uint32_t reserved_338; // offset: 338 (0x152)
-+    uint32_t reserved_339; // offset: 339 (0x153)
-+    uint32_t reserved_340; // offset: 340 (0x154)
-+    uint32_t reserved_341; // offset: 341 (0x155)
-+    uint32_t reserved_342; // offset: 342 (0x156)
-+    uint32_t reserved_343; // offset: 343 (0x157)
-+    uint32_t reserved_344; // offset: 344 (0x158)
-+    uint32_t reserved_345; // offset: 345 (0x159)
-+    uint32_t reserved_346; // offset: 346 (0x15A)
-+    uint32_t reserved_347; // offset: 347 (0x15B)
-+    uint32_t reserved_348; // offset: 348 (0x15C)
-+    uint32_t reserved_349; // offset: 349 (0x15D)
-+    uint32_t reserved_350; // offset: 350 (0x15E)
-+    uint32_t reserved_351; // offset: 351 (0x15F)
-+    uint32_t reserved_352; // offset: 352 (0x160)
-+    uint32_t reserved_353; // offset: 353 (0x161)
-+    uint32_t reserved_354; // offset: 354 (0x162)
-+    uint32_t reserved_355; // offset: 355 (0x163)
-+    uint32_t reserved_356; // offset: 356 (0x164)
-+    uint32_t reserved_357; // offset: 357 (0x165)
-+    uint32_t reserved_358; // offset: 358 (0x166)
-+    uint32_t reserved_359; // offset: 359 (0x167)
-+    uint32_t reserved_360; // offset: 360 (0x168)
-+    uint32_t reserved_361; // offset: 361 (0x169)
-+    uint32_t reserved_362; // offset: 362 (0x16A)
-+    uint32_t reserved_363; // offset: 363 (0x16B)
-+    uint32_t reserved_364; // offset: 364 (0x16C)
-+    uint32_t reserved_365; // offset: 365 (0x16D)
-+    uint32_t reserved_366; // offset: 366 (0x16E)
-+    uint32_t reserved_367; // offset: 367 (0x16F)
-+    uint32_t reserved_368; // offset: 368 (0x170)
-+    uint32_t reserved_369; // offset: 369 (0x171)
-+    uint32_t reserved_370; // offset: 370 (0x172)
-+    uint32_t reserved_371; // offset: 371 (0x173)
-+    uint32_t reserved_372; // offset: 372 (0x174)
-+    uint32_t reserved_373; // offset: 373 (0x175)
-+    uint32_t reserved_374; // offset: 374 (0x176)
-+    uint32_t reserved_375; // offset: 375 (0x177)
-+    uint32_t reserved_376; // offset: 376 (0x178)
-+    uint32_t reserved_377; // offset: 377 (0x179)
-+    uint32_t reserved_378; // offset: 378 (0x17A)
-+    uint32_t reserved_379; // offset: 379 (0x17B)
-+    uint32_t reserved_380; // offset: 380 (0x17C)
-+    uint32_t reserved_381; // offset: 381 (0x17D)
-+    uint32_t reserved_382; // offset: 382 (0x17E)
-+    uint32_t reserved_383; // offset: 383 (0x17F)
-+    uint32_t reserved_384; // offset: 384 (0x180)
-+    uint32_t reserved_385; // offset: 385 (0x181)
-+    uint32_t reserved_386; // offset: 386 (0x182)
-+    uint32_t reserved_387; // offset: 387 (0x183)
-+    uint32_t reserved_388; // offset: 388 (0x184)
-+    uint32_t reserved_389; // offset: 389 (0x185)
-+    uint32_t reserved_390; // offset: 390 (0x186)
-+    uint32_t reserved_391; // offset: 391 (0x187)
-+    uint32_t reserved_392; // offset: 392 (0x188)
-+    uint32_t reserved_393; // offset: 393 (0x189)
-+    uint32_t reserved_394; // offset: 394 (0x18A)
-+    uint32_t reserved_395; // offset: 395 (0x18B)
-+    uint32_t reserved_396; // offset: 396 (0x18C)
-+    uint32_t reserved_397; // offset: 397 (0x18D)
-+    uint32_t reserved_398; // offset: 398 (0x18E)
-+    uint32_t reserved_399; // offset: 399 (0x18F)
-+    uint32_t reserved_400; // offset: 400 (0x190)
-+    uint32_t reserved_401; // offset: 401 (0x191)
-+    uint32_t reserved_402; // offset: 402 (0x192)
-+    uint32_t reserved_403; // offset: 403 (0x193)
-+    uint32_t reserved_404; // offset: 404 (0x194)
-+    uint32_t reserved_405; // offset: 405 (0x195)
-+    uint32_t reserved_406; // offset: 406 (0x196)
-+    uint32_t reserved_407; // offset: 407 (0x197)
-+    uint32_t reserved_408; // offset: 408 (0x198)
-+    uint32_t reserved_409; // offset: 409 (0x199)
-+    uint32_t reserved_410; // offset: 410 (0x19A)
-+    uint32_t reserved_411; // offset: 411 (0x19B)
-+    uint32_t reserved_412; // offset: 412 (0x19C)
-+    uint32_t reserved_413; // offset: 413 (0x19D)
-+    uint32_t reserved_414; // offset: 414 (0x19E)
-+    uint32_t reserved_415; // offset: 415 (0x19F)
-+    uint32_t reserved_416; // offset: 416 (0x1A0)
-+    uint32_t reserved_417; // offset: 417 (0x1A1)
-+    uint32_t reserved_418; // offset: 418 (0x1A2)
-+    uint32_t reserved_419; // offset: 419 (0x1A3)
-+    uint32_t reserved_420; // offset: 420 (0x1A4)
-+    uint32_t reserved_421; // offset: 421 (0x1A5)
-+    uint32_t reserved_422; // offset: 422 (0x1A6)
-+    uint32_t reserved_423; // offset: 423 (0x1A7)
-+    uint32_t reserved_424; // offset: 424 (0x1A8)
-+    uint32_t reserved_425; // offset: 425 (0x1A9)
-+    uint32_t reserved_426; // offset: 426 (0x1AA)
-+    uint32_t reserved_427; // offset: 427 (0x1AB)
-+    uint32_t reserved_428; // offset: 428 (0x1AC)
-+    uint32_t reserved_429; // offset: 429 (0x1AD)
-+    uint32_t reserved_430; // offset: 430 (0x1AE)
-+    uint32_t reserved_431; // offset: 431 (0x1AF)
-+    uint32_t reserved_432; // offset: 432 (0x1B0)
-+    uint32_t reserved_433; // offset: 433 (0x1B1)
-+    uint32_t reserved_434; // offset: 434 (0x1B2)
-+    uint32_t reserved_435; // offset: 435 (0x1B3)
-+    uint32_t reserved_436; // offset: 436 (0x1B4)
-+    uint32_t reserved_437; // offset: 437 (0x1B5)
-+    uint32_t reserved_438; // offset: 438 (0x1B6)
-+    uint32_t reserved_439; // offset: 439 (0x1B7)
-+    uint32_t reserved_440; // offset: 440 (0x1B8)
-+    uint32_t reserved_441; // offset: 441 (0x1B9)
-+    uint32_t reserved_442; // offset: 442 (0x1BA)
-+    uint32_t reserved_443; // offset: 443 (0x1BB)
-+    uint32_t reserved_444; // offset: 444 (0x1BC)
-+    uint32_t reserved_445; // offset: 445 (0x1BD)
-+    uint32_t reserved_446; // offset: 446 (0x1BE)
-+    uint32_t reserved_447; // offset: 447 (0x1BF)
-+    uint32_t reserved_448; // offset: 448 (0x1C0)
-+    uint32_t reserved_449; // offset: 449 (0x1C1)
-+    uint32_t reserved_450; // offset: 450 (0x1C2)
-+    uint32_t reserved_451; // offset: 451 (0x1C3)
-+    uint32_t reserved_452; // offset: 452 (0x1C4)
-+    uint32_t reserved_453; // offset: 453 (0x1C5)
-+    uint32_t reserved_454; // offset: 454 (0x1C6)
-+    uint32_t reserved_455; // offset: 455 (0x1C7)
-+    uint32_t reserved_456; // offset: 456 (0x1C8)
-+    uint32_t reserved_457; // offset: 457 (0x1C9)
-+    uint32_t reserved_458; // offset: 458 (0x1CA)
-+    uint32_t reserved_459; // offset: 459 (0x1CB)
-+    uint32_t reserved_460; // offset: 460 (0x1CC)
-+    uint32_t reserved_461; // offset: 461 (0x1CD)
-+    uint32_t reserved_462; // offset: 462 (0x1CE)
-+    uint32_t reserved_463; // offset: 463 (0x1CF)
-+    uint32_t reserved_464; // offset: 464 (0x1D0)
-+    uint32_t reserved_465; // offset: 465 (0x1D1)
-+    uint32_t reserved_466; // offset: 466 (0x1D2)
-+    uint32_t reserved_467; // offset: 467 (0x1D3)
-+    uint32_t reserved_468; // offset: 468 (0x1D4)
-+    uint32_t reserved_469; // offset: 469 (0x1D5)
-+    uint32_t reserved_470; // offset: 470 (0x1D6)
-+    uint32_t reserved_471; // offset: 471 (0x1D7)
-+    uint32_t reserved_472; // offset: 472 (0x1D8)
-+    uint32_t reserved_473; // offset: 473 (0x1D9)
-+    uint32_t reserved_474; // offset: 474 (0x1DA)
-+    uint32_t reserved_475; // offset: 475 (0x1DB)
-+    uint32_t reserved_476; // offset: 476 (0x1DC)
-+    uint32_t reserved_477; // offset: 477 (0x1DD)
-+    uint32_t reserved_478; // offset: 478 (0x1DE)
-+    uint32_t reserved_479; // offset: 479 (0x1DF)
-+    uint32_t reserved_480; // offset: 480 (0x1E0)
-+    uint32_t reserved_481; // offset: 481 (0x1E1)
-+    uint32_t reserved_482; // offset: 482 (0x1E2)
-+    uint32_t reserved_483; // offset: 483 (0x1E3)
-+    uint32_t reserved_484; // offset: 484 (0x1E4)
-+    uint32_t reserved_485; // offset: 485 (0x1E5)
-+    uint32_t reserved_486; // offset: 486 (0x1E6)
-+    uint32_t reserved_487; // offset: 487 (0x1E7)
-+    uint32_t reserved_488; // offset: 488 (0x1E8)
-+    uint32_t reserved_489; // offset: 489 (0x1E9)
-+    uint32_t reserved_490; // offset: 490 (0x1EA)
-+    uint32_t reserved_491; // offset: 491 (0x1EB)
-+    uint32_t reserved_492; // offset: 492 (0x1EC)
-+    uint32_t reserved_493; // offset: 493 (0x1ED)
-+    uint32_t reserved_494; // offset: 494 (0x1EE)
-+    uint32_t reserved_495; // offset: 495 (0x1EF)
-+    uint32_t reserved_496; // offset: 496 (0x1F0)
-+    uint32_t reserved_497; // offset: 497 (0x1F1)
-+    uint32_t reserved_498; // offset: 498 (0x1F2)
-+    uint32_t reserved_499; // offset: 499 (0x1F3)
-+    uint32_t reserved_500; // offset: 500 (0x1F4)
-+    uint32_t reserved_501; // offset: 501 (0x1F5)
-+    uint32_t reserved_502; // offset: 502 (0x1F6)
-+    uint32_t reserved_503; // offset: 503 (0x1F7)
-+    uint32_t reserved_504; // offset: 504 (0x1F8)
-+    uint32_t reserved_505; // offset: 505 (0x1F9)
-+    uint32_t reserved_506; // offset: 506 (0x1FA)
-+    uint32_t reserved_507; // offset: 507 (0x1FB)
-+    uint32_t reserved_508; // offset: 508 (0x1FC)
-+    uint32_t reserved_509; // offset: 509 (0x1FD)
-+    uint32_t reserved_510; // offset: 510 (0x1FE)
-+    uint32_t reserved_511; // offset: 511 (0x1FF)
-+    uint32_t scatter_table_data[2048]; // offset: 512-2559 (0x200-9FF)
-+    uint32_t scatter_filter_enables[64]; // offset: 2560-2623 (0xA00-A3F)
-+    uint32_t scatter_table_flags; // offset: 2624 (0xA40)
-+    uint32_t reserved_2625_reserved_2813[189]; // offset: 2625-2813 (0xA41-AFD)
-+    uint32_t fence_addr_lo; // offset: 2814 (0xAFE)
-+    uint32_t fence_addr_hi; // offset: 2815 (0xAFF)
-+};
++#define SDMA_GCR_RANGE_IS_PA		(1 << 18)
++#define SDMA_GCR_SEQ(x)			(((x) & 0x3) << 16)
++#define SDMA_GCR_GL2_WB			(1 << 15)
++#define SDMA_GCR_GL2_INV		(1 << 14)
++#define SDMA_GCR_GL2_DISCARD		(1 << 13)
++#define SDMA_GCR_GL2_RANGE(x)		(((x) & 0x3) << 11)
++#define SDMA_GCR_GL2_US			(1 << 10)
++#define SDMA_GCR_GL1_INV		(1 << 9)
++#define SDMA_GCR_GLV_INV		(1 << 8)
++#define SDMA_GCR_GLK_INV		(1 << 7)
++#define SDMA_GCR_GLK_WB			(1 << 6)
++#define SDMA_GCR_GLM_INV		(1 << 5)
++#define SDMA_GCR_GLM_WB			(1 << 4)
++#define SDMA_GCR_GL1_RANGE(x)		(((x) & 0x3) << 2)
++#define SDMA_GCR_GLI_INV(x)		(((x) & 0x3) << 0)
 +
-+struct v13_sdma_mqd {
-+    uint32_t sdmax_queuen_rb_cntl; // offset: 0 (0x0)
-+    uint32_t sdmax_queuen_rb_base; // offset: 1 (0x1)
-+    uint32_t sdmax_queuen_rb_base_hi; // offset: 2 (0x2)
-+    uint32_t sdmax_queuen_rb_rptr; // offset: 3 (0x3)
-+    uint32_t sdmax_queuen_rb_rptr_hi; // offset: 4 (0x4)
-+    uint32_t sdmax_queuen_rb_wptr; // offset: 5 (0x5)
-+    uint32_t sdmax_queuen_rb_wptr_hi; // offset: 6 (0x6)
-+    uint32_t sdmax_queuen_rb_rptr_addr_lo; // offset: 7 (0x7)
-+    uint32_t sdmax_queuen_rb_rptr_addr_hi; // offset: 8 (0x8)
-+    uint32_t sdmax_queuen_ib_cntl; // offset: 9 (0x9)
-+    uint32_t sdmax_queuen_ib_rptr; // offset: 10 (0xA)
-+    uint32_t sdmax_queuen_ib_offset; // offset: 11 (0xB)
-+    uint32_t sdmax_queuen_ib_base_lo; // offset: 12 (0xC)
-+    uint32_t sdmax_queuen_ib_base_hi; // offset: 13 (0xD)
-+    uint32_t sdmax_queuen_ib_size; // offset: 14 (0xE)
-+    uint32_t sdmax_queuen_doorbell; // offset: 15 (0xF)
-+    uint32_t sdmax_queuen_doorbell_log; // offset: 16 (0x10)
-+    uint32_t sdmax_queuen_doorbell_offset; // offset: 17 (0x11)
-+    uint32_t sdmax_queuen_csa_addr_lo; // offset: 18 (0x12)
-+    uint32_t sdmax_queuen_csa_addr_hi; // offset: 19 (0x13)
-+    uint32_t sdmax_queuen_schedule_cntl; // offset: 20 (0x14)
-+    uint32_t sdmax_queuen_ib_sub_remain; // offset: 21 (0x15)
-+    uint32_t sdmax_queuen_preempt; // offset: 22 (0x16)
-+    uint32_t sdmax_queuen_dummy_reg; // offset: 23 (0x17)
-+    uint32_t sdmax_queuen_dummy_reg1; // offset: 24 (0x18)
-+    uint32_t sdmax_queuen_dummy_reg2; // offset: 25 (0x19)
-+    uint32_t sdmax_queuen_rb_wptr_poll_addr_lo; // offset: 26 (0x1A)
-+    uint32_t sdmax_queuen_rb_wptr_poll_addr_hi; // offset: 27 (0x1B)
-+    uint32_t sdmax_queuen_rb_aql_cntl; // offset: 28 (0x1C)
-+    uint32_t sdmax_queuen_minor_ptr_update; // offset: 29 (0x1D)
-+    uint32_t sdmax_queuen_mcu_dbg0; // offset: 30 (0x1E)
-+    uint32_t sdmax_queuen_mcu_dbg1; // offset: 31 (0x1F)
-+    uint32_t sdmax_queuen_context_switch_status; // offset: 32 (0x20)
-+    uint32_t sdmax_queuen_midcmd_cntl; // offset: 33 (0x21)
-+    uint32_t sdmax_queuen_midcmd_data0; // offset: 34 (0x22)
-+    uint32_t sdmax_queuen_midcmd_data1; // offset: 35 (0x23)
-+    uint32_t sdmax_queuen_midcmd_data2; // offset: 36 (0x24)
-+    uint32_t sdmax_queuen_midcmd_data3; // offset: 37 (0x25)
-+    uint32_t sdmax_queuen_midcmd_data4; // offset: 38 (0x26)
-+    uint32_t sdmax_queuen_midcmd_data5; // offset: 39 (0x27)
-+    uint32_t sdmax_queuen_midcmd_data6; // offset: 40 (0x28)
-+    uint32_t sdmax_queuen_midcmd_data7; // offset: 41 (0x29)
-+    uint32_t sdmax_queuen_midcmd_data8; // offset: 42 (0x2A)
-+    uint32_t sdmax_queuen_midcmd_data9; // offset: 43 (0x2B)
-+    uint32_t sdmax_queuen_midcmd_data10; // offset: 44 (0x2C)
-+    uint32_t sdmax_queuen_swap; // offset: 45 (0x2D)
-+    uint32_t sdmax_queuen_utilization_lo; // offset: 46 (0x2E)
-+    uint32_t sdmax_queuen_utilization_hi; // offset: 47 (0x2F)
-+    uint32_t sdmax_queuen_wait_unsatisfied_thd; // offset: 48 (0x30)
-+    uint32_t sdmax_queuen_mqd_base_addr_lo; // offset: 49 (0x31)
-+    uint32_t sdmax_queuen_mqd_base_addr_hi; // offset: 50 (0x32)
-+    uint32_t sdmax_queuen_mqd_control; // offset: 51 (0x33)
-+    uint32_t sdmax_queuen_protected_fence_addr_lo; // offset: 52 (0x34)
-+    uint32_t sdmax_queuen_protected_fence_addr_hi; // offset: 53 (0x35)
-+    uint32_t sdmax_queuen_context_status; // offset: 54 (0x36)
-+    uint32_t reserved_55; // offset: 55 (0x37)
-+    uint32_t reserved_56; // offset: 56 (0x38)
-+    uint32_t reserved_57; // offset: 57 (0x39)
-+    uint32_t reserved_58; // offset: 58 (0x3A)
-+    uint32_t reserved_59; // offset: 59 (0x3B)
-+    uint32_t reserved_60; // offset: 60 (0x3C)
-+    uint32_t reserved_61; // offset: 61 (0x3D)
-+    uint32_t reserved_62; // offset: 62 (0x3E)
-+    uint32_t reserved_63; // offset: 63 (0x3F)
-+    uint32_t reserved_64; // offset: 64 (0x40)
-+    uint32_t reserved_65; // offset: 65 (0x41)
-+    uint32_t reserved_66; // offset: 66 (0x42)
-+    uint32_t reserved_67; // offset: 67 (0x43)
-+    uint32_t reserved_68; // offset: 68 (0x44)
-+    uint32_t reserved_69; // offset: 69 (0x45)
-+    uint32_t reserved_70; // offset: 70 (0x46)
-+    uint32_t reserved_71; // offset: 71 (0x47)
-+    uint32_t reserved_72; // offset: 72 (0x48)
-+    uint32_t reserved_73; // offset: 73 (0x49)
-+    uint32_t reserved_74; // offset: 74 (0x4A)
-+    uint32_t reserved_75; // offset: 75 (0x4B)
-+    uint32_t reserved_76; // offset: 76 (0x4C)
-+    uint32_t reserved_77; // offset: 77 (0x4D)
-+    uint32_t reserved_78; // offset: 78 (0x4E)
-+    uint32_t reserved_79; // offset: 79 (0x4F)
-+    uint32_t reserved_80; // offset: 80 (0x50)
-+    uint32_t reserved_81; // offset: 81 (0x51)
-+    uint32_t reserved_82; // offset: 82 (0x52)
-+    uint32_t reserved_83; // offset: 83 (0x53)
-+    uint32_t reserved_84; // offset: 84 (0x54)
-+    uint32_t reserved_85; // offset: 85 (0x55)
-+    uint32_t reserved_86; // offset: 86 (0x56)
-+    uint32_t reserved_87; // offset: 87 (0x57)
-+    uint32_t reserved_88; // offset: 88 (0x58)
-+    uint32_t reserved_89; // offset: 89 (0x59)
-+    uint32_t reserved_90; // offset: 90 (0x5A)
-+    uint32_t reserved_91; // offset: 91 (0x5B)
-+    uint32_t reserved_92; // offset: 92 (0x5C)
-+    uint32_t reserved_93; // offset: 93 (0x5D)
-+    uint32_t reserved_94; // offset: 94 (0x5E)
-+    uint32_t reserved_95; // offset: 95 (0x5F)
-+    uint32_t reserved_96; // offset: 96 (0x60)
-+    uint32_t reserved_97; // offset: 97 (0x61)
-+    uint32_t reserved_98; // offset: 98 (0x62)
-+    uint32_t reserved_99; // offset: 99 (0x63)
-+    uint32_t reserved_100; // offset: 100 (0x64)
-+    uint32_t reserved_101; // offset: 101 (0x65)
-+    uint32_t reserved_102; // offset: 102 (0x66)
-+    uint32_t reserved_103; // offset: 103 (0x67)
-+    uint32_t reserved_104; // offset: 104 (0x68)
-+    uint32_t reserved_105; // offset: 105 (0x69)
-+    uint32_t reserved_106; // offset: 106 (0x6A)
-+    uint32_t reserved_107; // offset: 107 (0x6B)
-+    uint32_t reserved_108; // offset: 108 (0x6C)
-+    uint32_t reserved_109; // offset: 109 (0x6D)
-+    uint32_t reserved_110; // offset: 110 (0x6E)
-+    uint32_t reserved_111; // offset: 111 (0x6F)
-+    uint32_t reserved_112; // offset: 112 (0x70)
-+    uint32_t reserved_113; // offset: 113 (0x71)
-+    uint32_t reserved_114; // offset: 114 (0x72)
-+    uint32_t reserved_115; // offset: 115 (0x73)
-+    uint32_t reserved_116; // offset: 116 (0x74)
-+    uint32_t reserved_117; // offset: 117 (0x75)
-+    uint32_t reserved_118; // offset: 118 (0x76)
-+    uint32_t reserved_119; // offset: 119 (0x77)
-+    uint32_t reserved_120; // offset: 120 (0x78)
-+    uint32_t reserved_121; // offset: 121 (0x79)
-+    uint32_t reserved_122; // offset: 122 (0x7A)
-+    uint32_t reserved_123; // offset: 123 (0x7B)
-+    uint32_t reserved_124; // offset: 124 (0x7C)
-+    uint32_t reserved_125; // offset: 125 (0x7D)
-+    uint32_t reserved_126; // offset: 126 (0x7E)
-+    uint32_t reserved_127; // offset: 127 (0x7F)
-+};
++#define SDMA_DCC_DATA_FORMAT(x) ((x) & 0x3f)
++#define SDMA_DCC_NUM_TYPE(x) (((x) & 0x7) << 9)
++#define SDMA_DCC_READ_CM(x) (((x) & 0x3) << 16)
++#define SDMA_DCC_WRITE_CM(x) (((x) & 0x3) << 18)
++#define SDMA_DCC_MAX_COM(x) (((x) & 0x3) << 24)
++#define SDMA_DCC_MAX_UCOM(x) (((x) & 0x1) << 26)
 +
-+struct v13_compute_mqd {
-+    uint32_t header; // offset: 0 (0x0)
-+    uint32_t compute_dispatch_initiator; // offset: 1 (0x1)
-+    uint32_t compute_dim_x; // offset: 2 (0x2)
-+    uint32_t compute_dim_y; // offset: 3 (0x3)
-+    uint32_t compute_dim_z; // offset: 4 (0x4)
-+    uint32_t compute_start_x; // offset: 5 (0x5)
-+    uint32_t compute_start_y; // offset: 6 (0x6)
-+    uint32_t compute_start_z; // offset: 7 (0x7)
-+    uint32_t compute_num_thread_x; // offset: 8 (0x8)
-+    uint32_t compute_num_thread_y; // offset: 9 (0x9)
-+    uint32_t compute_num_thread_z; // offset: 10 (0xA)
-+    uint32_t compute_pipelinestat_enable; // offset: 11 (0xB)
-+    uint32_t compute_perfcount_enable; // offset: 12 (0xC)
-+    uint32_t compute_pgm_lo; // offset: 13 (0xD)
-+    uint32_t compute_pgm_hi; // offset: 14 (0xE)
-+    uint32_t compute_dispatch_pkt_addr_lo; // offset: 15 (0xF)
-+    uint32_t compute_dispatch_pkt_addr_hi; // offset: 16 (0x10)
-+    uint32_t compute_dispatch_scratch_base_lo; // offset: 17 (0x11)
-+    uint32_t compute_dispatch_scratch_base_hi; // offset: 18 (0x12)
-+    uint32_t compute_pgm_rsrc1; // offset: 19 (0x13)
-+    uint32_t compute_pgm_rsrc2; // offset: 20 (0x14)
-+    uint32_t compute_vmid; // offset: 21 (0x15)
-+    uint32_t compute_resource_limits; // offset: 22 (0x16)
-+    uint32_t compute_tmpring_size; // offset: 23 (0x17)
-+    uint32_t compute_restart_x; // offset: 24 (0x18)
-+    uint32_t compute_restart_y; // offset: 25 (0x19)
-+    uint32_t compute_restart_z; // offset: 26 (0x1A)
-+    uint32_t compute_thread_trace_enable; // offset: 27 (0x1B)
-+    uint32_t compute_misc_reserved; // offset: 28 (0x1C)
-+    uint32_t compute_dispatch_id; // offset: 29 (0x1D)
-+    uint32_t compute_threadgroup_id; // offset: 30 (0x1E)
-+    uint32_t compute_req_ctrl; // offset: 31 (0x1F)
-+    uint32_t compute_user_accum_0; // offset: 32 (0x20)
-+    uint32_t compute_user_accum_1; // offset: 33 (0x21)
-+    uint32_t compute_user_accum_2; // offset: 34 (0x22)
-+    uint32_t compute_user_accum_3; // offset: 35 (0x23)
-+    uint32_t compute_pgm_rsrc3; // offset: 36 (0x24)
-+    uint32_t compute_ddid_index; // offset: 37 (0x25)
-+    uint32_t compute_shader_chksum; // offset: 38 (0x26)
-+    uint32_t compute_dispatch_interleave; // offset: 39 (0x27)
-+    uint32_t reserved_40; // offset: 40 (0x28)
-+    uint32_t reserved_41; // offset: 41 (0x29)
-+    uint32_t reserved_42; // offset: 42 (0x2A)
-+    uint32_t reserved_43; // offset: 43 (0x2B)
-+    uint32_t reserved_44; // offset: 44 (0x2C)
-+    uint32_t reserved_45; // offset: 45 (0x2D)
-+    uint32_t compute_prescaled_dim_x; // offset: 46 (0x2E)
-+    uint32_t compute_prescaled_dim_y; // offset: 47 (0x2F)
-+    uint32_t compute_prescaled_dim_z; // offset: 48 (0x30)
-+    uint32_t compute_static_thread_mgmt_se0; // offset: 49 (0x31)
-+    uint32_t compute_static_thread_mgmt_se1; // offset: 50 (0x32)
-+    uint32_t compute_static_thread_mgmt_se2; // offset: 51 (0x33)
-+    uint32_t compute_static_thread_mgmt_se3; // offset: 52 (0x34)
-+    uint32_t compute_static_thread_mgmt_se4; // offset: 53 (0x35)
-+    uint32_t compute_static_thread_mgmt_se5; // offset: 54 (0x36)
-+    uint32_t compute_static_thread_mgmt_se6; // offset: 55 (0x37)
-+    uint32_t compute_static_thread_mgmt_se7; // offset: 56 (0x38)
-+    uint32_t compute_static_thread_mgmt_se8; // offset: 57 (0x39)
-+    uint32_t reserved_58; // offset: 58 (0x3A)
-+    uint32_t reserved_59; // offset: 59 (0x3B)
-+    uint32_t reserved_60; // offset: 60 (0x3C)
-+    uint32_t reserved_61; // offset: 61 (0x3D)
-+    uint32_t reserved_62; // offset: 62 (0x3E)
-+    uint32_t reserved_63; // offset: 63 (0x3F)
-+    uint32_t tg_counter_id; // offset: 64 (0x40)
-+    uint32_t compute_user_data_0; // offset: 65 (0x41)
-+    uint32_t compute_user_data_1; // offset: 66 (0x42)
-+    uint32_t compute_user_data_2; // offset: 67 (0x43)
-+    uint32_t compute_user_data_3; // offset: 68 (0x44)
-+    uint32_t compute_user_data_4; // offset: 69 (0x45)
-+    uint32_t compute_user_data_5; // offset: 70 (0x46)
-+    uint32_t compute_user_data_6; // offset: 71 (0x47)
-+    uint32_t compute_user_data_7; // offset: 72 (0x48)
-+    uint32_t compute_user_data_8; // offset: 73 (0x49)
-+    uint32_t compute_user_data_9; // offset: 74 (0x4A)
-+    uint32_t compute_user_data_10; // offset: 75 (0x4B)
-+    uint32_t compute_user_data_11; // offset: 76 (0x4C)
-+    uint32_t compute_user_data_12; // offset: 77 (0x4D)
-+    uint32_t compute_user_data_13; // offset: 78 (0x4E)
-+    uint32_t compute_user_data_14; // offset: 79 (0x4F)
-+    uint32_t compute_user_data_15; // offset: 80 (0x50)
-+    uint32_t compute_user_data_16; // offset: 81 (0x51)
-+    uint32_t compute_user_data_17; // offset: 82 (0x52)
-+    uint32_t compute_user_data_18; // offset: 83 (0x53)
-+    uint32_t compute_user_data_19; // offset: 84 (0x54)
-+    uint32_t compute_user_data_20; // offset: 85 (0x55)
-+    uint32_t compute_user_data_21; // offset: 86 (0x56)
-+    uint32_t compute_user_data_22; // offset: 87 (0x57)
-+    uint32_t compute_user_data_23; // offset: 88 (0x58)
-+    uint32_t compute_user_data_24; // offset: 89 (0x59)
-+    uint32_t compute_user_data_25; // offset: 90 (0x5A)
-+    uint32_t compute_user_data_26; // offset: 91 (0x5B)
-+    uint32_t compute_user_data_27; // offset: 92 (0x5C)
-+    uint32_t compute_user_data_28; // offset: 93 (0x5D)
-+    uint32_t compute_user_data_29; // offset: 94 (0x5E)
-+    uint32_t compute_user_data_30; // offset: 95 (0x5F)
-+    uint32_t compute_user_data_31; // offset: 96 (0x60)
-+    uint32_t cp_compute_csinvoc_count_lo; // offset: 97 (0x61)
-+    uint32_t cp_compute_csinvoc_count_hi; // offset: 98 (0x62)
-+    uint32_t cp_compute_asinvoc_count_lo; // offset: 99 (0x63)
-+    uint32_t cp_compute_asinvoc_count_hi; // offset: 100 (0x64)
-+    uint32_t reserved_101; // offset: 101 (0x65)
-+    uint32_t reserved_102; // offset: 102 (0x66)
-+    uint32_t reserved_103; // offset: 103 (0x67)
-+    uint32_t reserved_104; // offset: 104 (0x68)
-+    uint32_t reserved_105; // offset: 105 (0x69)
-+    uint32_t reserved_106; // offset: 106 (0x6A)
-+    uint32_t reserved_107; // offset: 107 (0x6B)
-+    uint32_t reserved_108; // offset: 108 (0x6C)
-+    uint32_t reserved_109; // offset: 109 (0x6D)
-+    uint32_t compute_relaunch; // offset: 110 (0x6E)
-+    uint32_t compute_wave_restore_addr_lo; // offset: 111 (0x6F)
-+    uint32_t compute_wave_restore_addr_hi; // offset: 112 (0x70)
-+    uint32_t compute_relaunch2; // offset: 113 (0x71)
-+    uint32_t cp_pq_exe_status_lo; // offset: 114 (0x72)
-+    uint32_t cp_pq_exe_status_hi; // offset: 115 (0x73)
-+    uint32_t cp_packet_id_lo; // offset: 116 (0x74)
-+    uint32_t cp_packet_id_hi; // offset: 117 (0x75)
-+    uint32_t cp_packet_exe_status_lo; // offset: 118 (0x76)
-+    uint32_t cp_packet_exe_status_hi; // offset: 119 (0x77)
-+    uint32_t reserved_120; // offset: 120 (0x78)
-+    uint32_t reserved_121; // offset: 121 (0x79)
-+    uint32_t reserved_122; // offset: 122 (0x7A)
-+    uint32_t reserved_123; // offset: 123 (0x7B)
-+    uint32_t ctx_save_base_addr_lo; // offset: 124 (0x7C)
-+    uint32_t ctx_save_base_addr_hi; // offset: 125 (0x7D)
-+    uint32_t reserved_126; // offset: 126 (0x7E)
-+    uint32_t reserved_127; // offset: 127 (0x7F)
-+    uint32_t cp_mqd_base_addr_lo; // offset: 128 (0x80)
-+    uint32_t cp_mqd_base_addr_hi; // offset: 129 (0x81)
-+    uint32_t cp_hqd_active; // offset: 130 (0x82)
-+    uint32_t cp_hqd_vmid; // offset: 131 (0x83)
-+    uint32_t cp_hqd_persistent_state; // offset: 132 (0x84)
-+    uint32_t cp_hqd_pipe_priority; // offset: 133 (0x85)
-+    uint32_t cp_hqd_queue_priority; // offset: 134 (0x86)
-+    uint32_t cp_hqd_quantum; // offset: 135 (0x87)
-+    uint32_t cp_hqd_pq_base_lo; // offset: 136 (0x88)
-+    uint32_t cp_hqd_pq_base_hi; // offset: 137 (0x89)
-+    uint32_t cp_hqd_pq_rptr; // offset: 138 (0x8A)
-+    uint32_t cp_hqd_pq_rptr_report_addr_lo; // offset: 139 (0x8B)
-+    uint32_t cp_hqd_pq_rptr_report_addr_hi; // offset: 140 (0x8C)
-+    uint32_t cp_hqd_pq_wptr_poll_addr_lo; // offset: 141 (0x8D)
-+    uint32_t cp_hqd_pq_wptr_poll_addr_hi; // offset: 142 (0x8E)
-+    uint32_t cp_hqd_pq_doorbell_control; // offset: 143 (0x8F)
-+    uint32_t reserved_144; // offset: 144 (0x90)
-+    uint32_t cp_hqd_pq_control; // offset: 145 (0x91)
-+    uint32_t cp_hqd_ib_base_addr_lo; // offset: 146 (0x92)
-+    uint32_t cp_hqd_ib_base_addr_hi; // offset: 147 (0x93)
-+    uint32_t cp_hqd_ib_rptr; // offset: 148 (0x94)
-+    uint32_t cp_hqd_ib_control; // offset: 149 (0x95)
-+    uint32_t cp_hqd_iq_timer; // offset: 150 (0x96)
-+    uint32_t cp_hqd_iq_rptr; // offset: 151 (0x97)
-+    uint32_t cp_hqd_dequeue_request; // offset: 152 (0x98)
-+    uint32_t cp_hqd_dma_offload; // offset: 153 (0x99)
-+    uint32_t cp_hqd_sema_cmd; // offset: 154 (0x9A)
-+    uint32_t cp_hqd_msg_type; // offset: 155 (0x9B)
-+    uint32_t cp_hqd_atomic0_preop_lo; // offset: 156 (0x9C)
-+    uint32_t cp_hqd_atomic0_preop_hi; // offset: 157 (0x9D)
-+    uint32_t cp_hqd_atomic1_preop_lo; // offset: 158 (0x9E)
-+    uint32_t cp_hqd_atomic1_preop_hi; // offset: 159 (0x9F)
-+    uint32_t cp_hqd_hq_status0; // offset: 160 (0xA0)
-+    uint32_t cp_hqd_hq_control0; // offset: 161 (0xA1)
-+    uint32_t cp_mqd_control; // offset: 162 (0xA2)
-+    uint32_t cp_hqd_hq_status1; // offset: 163 (0xA3)
-+    uint32_t cp_hqd_hq_control1; // offset: 164 (0xA4)
-+    uint32_t cp_hqd_eop_base_addr_lo; // offset: 165 (0xA5)
-+    uint32_t cp_hqd_eop_base_addr_hi; // offset: 166 (0xA6)
-+    uint32_t cp_hqd_eop_control; // offset: 167 (0xA7)
-+    uint32_t cp_hqd_eop_rptr; // offset: 168 (0xA8)
-+    uint32_t cp_hqd_eop_wptr; // offset: 169 (0xA9)
-+    uint32_t cp_hqd_eop_done_events; // offset: 170 (0xAA)
-+    uint32_t cp_hqd_ctx_save_base_addr_lo; // offset: 171 (0xAB)
-+    uint32_t cp_hqd_ctx_save_base_addr_hi; // offset: 172 (0xAC)
-+    uint32_t cp_hqd_ctx_save_control; // offset: 173 (0xAD)
-+    uint32_t cp_hqd_cntl_stack_offset; // offset: 174 (0xAE)
-+    uint32_t cp_hqd_cntl_stack_size; // offset: 175 (0xAF)
-+    uint32_t cp_hqd_wg_state_offset; // offset: 176 (0xB0)
-+    uint32_t cp_hqd_ctx_save_size; // offset: 177 (0xB1)
-+    uint32_t cp_hqd_gds_resource_state; // offset: 178 (0xB2)
-+    uint32_t cp_hqd_error; // offset: 179 (0xB3)
-+    uint32_t cp_hqd_eop_wptr_mem; // offset: 180 (0xB4)
-+    uint32_t cp_hqd_aql_control; // offset: 181 (0xB5)
-+    uint32_t cp_hqd_pq_wptr_lo; // offset: 182 (0xB6)
-+    uint32_t cp_hqd_pq_wptr_hi; // offset: 183 (0xB7)
-+    uint32_t cp_hqd_suspend_cntl_stack_offset; // offset: 184 (0xB8)
-+    uint32_t cp_hqd_suspend_cntl_stack_dw_cnt; // offset: 185 (0xB9)
-+    uint32_t cp_hqd_suspend_wg_state_offset; // offset: 186 (0xBA)
-+    uint32_t cp_hqd_ddid_rptr; // offset: 187 (0xBB)
-+    uint32_t cp_hqd_ddid_wptr; // offset: 188 (0xBC)
-+    uint32_t cp_hqd_ddid_inflight_count; // offset: 189 (0xBD)
-+    uint32_t cp_hqd_ddid_delta_rpt_count; // offset: 190 (0xBE)
-+    uint32_t cp_hqd_dequeue_status; // offset: 191 (0xBF)
-+    uint32_t reserved_192; // offset: 192 (0xC0)
-+    uint32_t reserved_193; // offset: 193 (0xC1)
-+    uint32_t reserved_194; // offset: 194 (0xC2)
-+    uint32_t cp_hqd_kd_base; // offset: 195 (0xC3)
-+    uint32_t cp_hqd_kd_base_hi; // offset: 196 (0xC4)
-+    uint32_t cp_hqd_kd_cntl; // offset: 197 (0xC5)
-+    uint32_t reserved_198; // offset: 198 (0xC6)
-+    uint32_t reserved_199; // offset: 199 (0xC7)
-+    uint32_t reserved_200; // offset: 200 (0xC8)
-+    uint32_t reserved_201; // offset: 201 (0xC9)
-+    uint32_t reserved_202; // offset: 202 (0xCA)
-+    uint32_t reserved_203; // offset: 203 (0xCB)
-+    uint32_t reserved_204; // offset: 204 (0xCC)
-+    uint32_t reserved_205; // offset: 205 (0xCD)
-+    uint32_t reserved_206; // offset: 206 (0xCE)
-+    uint32_t reserved_207; // offset: 207 (0xCF)
-+    uint32_t reserved_208; // offset: 208 (0xD0)
-+    uint32_t reserved_209; // offset: 209 (0xD1)
-+    uint32_t reserved_210; // offset: 210 (0xD2)
-+    uint32_t reserved_211; // offset: 211 (0xD3)
-+    uint32_t reserved_212; // offset: 212 (0xD4)
-+    uint32_t reserved_213; // offset: 213 (0xD5)
-+    uint32_t reserved_214; // offset: 214 (0xD6)
-+    uint32_t reserved_215; // offset: 215 (0xD7)
-+    uint32_t reserved_216; // offset: 216 (0xD8)
-+    uint32_t reserved_217; // offset: 217 (0xD9)
-+    uint32_t reserved_218; // offset: 218 (0xDA)
-+    uint32_t reserved_219; // offset: 219 (0xDB)
-+    uint32_t reserved_220; // offset: 220 (0xDC)
-+    uint32_t reserved_221; // offset: 221 (0xDD)
-+    uint32_t reserved_222; // offset: 222 (0xDE)
-+    uint32_t reserved_223; // offset: 223 (0xDF)
-+    uint32_t reserved_224; // offset: 224 (0xE0)
-+    uint32_t reserved_225; // offset: 225 (0xE1)
-+    uint32_t reserved_226; // offset: 226 (0xE2)
-+    uint32_t reserved_227; // offset: 227 (0xE3)
-+    uint32_t set_resources_header; // offset: 228 (0xE4)
-+    uint32_t set_resources_dw1; // offset: 229 (0xE5)
-+    uint32_t set_resources_dw2; // offset: 230 (0xE6)
-+    uint32_t set_resources_dw3; // offset: 231 (0xE7)
-+    uint32_t set_resources_dw4; // offset: 232 (0xE8)
-+    uint32_t set_resources_dw5; // offset: 233 (0xE9)
-+    uint32_t set_resources_dw6; // offset: 234 (0xEA)
-+    uint32_t set_resources_dw7; // offset: 235 (0xEB)
-+    uint32_t reserved_236; // offset: 236 (0xEC)
-+    uint32_t reserved_237; // offset: 237 (0xED)
-+    uint32_t reserved_238; // offset: 238 (0xEE)
-+    uint32_t reserved_239; // offset: 239 (0xEF)
-+    uint32_t queue_doorbell_id0; // offset: 240 (0xF0)
-+    uint32_t queue_doorbell_id1; // offset: 241 (0xF1)
-+    uint32_t queue_doorbell_id2; // offset: 242 (0xF2)
-+    uint32_t queue_doorbell_id3; // offset: 243 (0xF3)
-+    uint32_t queue_doorbell_id4; // offset: 244 (0xF4)
-+    uint32_t queue_doorbell_id5; // offset: 245 (0xF5)
-+    uint32_t queue_doorbell_id6; // offset: 246 (0xF6)
-+    uint32_t queue_doorbell_id7; // offset: 247 (0xF7)
-+    uint32_t queue_doorbell_id8; // offset: 248 (0xF8)
-+    uint32_t queue_doorbell_id9; // offset: 249 (0xF9)
-+    uint32_t queue_doorbell_id10; // offset: 250 (0xFA)
-+    uint32_t queue_doorbell_id11; // offset: 251 (0xFB)
-+    uint32_t queue_doorbell_id12; // offset: 252 (0xFC)
-+    uint32_t queue_doorbell_id13; // offset: 253 (0xFD)
-+    uint32_t queue_doorbell_id14; // offset: 254 (0xFE)
-+    uint32_t queue_doorbell_id15; // offset: 255 (0xFF)
-+    uint32_t control_buf_addr_lo; // offset: 256 (0x100)
-+    uint32_t control_buf_addr_hi; // offset: 257 (0x101)
-+    uint32_t control_buf_wptr_lo; // offset: 258 (0x102)
-+    uint32_t control_buf_wptr_hi; // offset: 259 (0x103)
-+    uint32_t control_buf_dptr_lo; // offset: 260 (0x104)
-+    uint32_t control_buf_dptr_hi; // offset: 261 (0x105)
-+    uint32_t draw_ring_addr_lo; // offset: 262 (0x106)
-+    uint32_t draw_ring_addr_hi; // offset: 263 (0x107)
-+    uint32_t control_buf_num_entries; // offset: 264 (0x108)
-+    uint32_t reserved_265; // offset: 265 (0x109)
-+    uint32_t reserved_266; // offset: 266 (0x10A)
-+    uint32_t reserved_267; // offset: 267 (0x10B)
-+    uint32_t reserved_268; // offset: 268 (0x10C)
-+    uint32_t reserved_269; // offset: 269 (0x10D)
-+    uint32_t reserved_270; // offset: 270 (0x10E)
-+    uint32_t reserved_271; // offset: 271 (0x10F)
-+    uint32_t dfwx_flags; // offset: 272 (0x110)
-+    uint32_t dfwx_slot; // offset: 273 (0x111)
-+    uint32_t dfwx_client_data_addr_lo; // offset: 274 (0x112)
-+    uint32_t dfwx_client_data_addr_hi; // offset: 275 (0x113)
-+    uint32_t dfwx_queue_connect_addr_lo; // offset: 276 (0x114)
-+    uint32_t dfwx_queue_connect_addr_hi; // offset: 277 (0x115)
-+    uint32_t spill_table_addr_lo; // offset: 278 (0x116)
-+    uint32_t spill_table_addr_hi; // offset: 279 (0x117)
-+    uint32_t spill_table_offset; // offset: 280 (0x118)
-+    uint32_t spill_table_loop_count; // offset: 281 (0x119)
-+    uint32_t reserved_282; // offset: 282 (0x11A)
-+    uint32_t reserved_283; // offset: 283 (0x11B)
-+    uint32_t reserved_284; // offset: 284 (0x11C)
-+    uint32_t reserved_285; // offset: 285 (0x11D)
-+    uint32_t reserved_286; // offset: 286 (0x11E)
-+    uint32_t reserved_287; // offset: 287 (0x11F)
-+    uint32_t cp_mqd_query_time_lo; // offset: 288 (0x120)
-+    uint32_t cp_mqd_query_time_hi; // offset: 289 (0x121)
-+    uint32_t cp_mqd_connect_start_time_lo; // offset: 290 (0x122)
-+    uint32_t cp_mqd_connect_start_time_hi; // offset: 291 (0x123)
-+    uint32_t cp_mqd_connect_end_time_lo; // offset: 292 (0x124)
-+    uint32_t cp_mqd_connect_end_time_hi; // offset: 293 (0x125)
-+    uint32_t cp_mqd_connect_end_wf_count; // offset: 294 (0x126)
-+    uint32_t cp_mqd_connect_end_pq_rptr; // offset: 295 (0x127)
-+    uint32_t cp_mqd_connect_end_pq_wptr; // offset: 296 (0x128)
-+    uint32_t cp_mqd_connect_end_ib_rptr; // offset: 297 (0x129)
-+    uint32_t cp_mqd_readindex_lo; // offset: 298 (0x12A)
-+    uint32_t cp_mqd_readindex_hi; // offset: 299 (0x12B)
-+    uint32_t cp_mqd_save_start_time_lo; // offset: 300 (0x12C)
-+    uint32_t cp_mqd_save_start_time_hi; // offset: 301 (0x12D)
-+    uint32_t cp_mqd_save_end_time_lo; // offset: 302 (0x12E)
-+    uint32_t cp_mqd_save_end_time_hi; // offset: 303 (0x12F)
-+    uint32_t cp_mqd_restore_start_time_lo; // offset: 304 (0x130)
-+    uint32_t cp_mqd_restore_start_time_hi; // offset: 305 (0x131)
-+    uint32_t cp_mqd_restore_end_time_lo; // offset: 306 (0x132)
-+    uint32_t cp_mqd_restore_end_time_hi; // offset: 307 (0x133)
-+    uint32_t disable_queue; // offset: 308 (0x134)
-+    uint32_t reserved_309; // offset: 309 (0x135)
-+    uint32_t reserved_310; // offset: 310 (0x136)
-+    uint32_t reserved_311; // offset: 311 (0x137)
-+    uint32_t reserved_312; // offset: 312 (0x138)
-+    uint32_t reserved_313; // offset: 313 (0x139)
-+    uint32_t reserved_314; // offset: 314 (0x13A)
-+    uint32_t reserved_315; // offset: 315 (0x13B)
-+    uint32_t reserved_316; // offset: 316 (0x13C)
-+    uint32_t reserved_317; // offset: 317 (0x13D)
-+    uint32_t reserved_318; // offset: 318 (0x13E)
-+    uint32_t reserved_319; // offset: 319 (0x13F)
-+    uint32_t reserved_320; // offset: 320 (0x140)
-+    uint32_t reserved_321; // offset: 321 (0x141)
-+    uint32_t reserved_322; // offset: 322 (0x142)
-+    uint32_t reserved_323; // offset: 323 (0x143)
-+    uint32_t gds_cs_ctxsw_cnt0; // offset: 324 (0x144)
-+    uint32_t gds_cs_ctxsw_cnt1; // offset: 325 (0x145)
-+    uint32_t gds_cs_ctxsw_cnt2; // offset: 326 (0x146)
-+    uint32_t gds_cs_ctxsw_cnt3; // offset: 327 (0x147)
-+    uint32_t gds_save_base_addr_lo; // offset: 328 (0x148)
-+    uint32_t gds_save_base_addr_hi; // offset: 329 (0x149)
-+    uint32_t gds_save_mask_lo; // offset: 330 (0x14A)
-+    uint32_t gds_save_mask_hi; // offset: 331 (0x14B)
-+    uint32_t reserved_332; // offset: 332 (0x14C)
-+    uint32_t reserved_333; // offset: 333 (0x14D)
-+    uint32_t reserved_334; // offset: 334 (0x14E)
-+    uint32_t reserved_335; // offset: 335 (0x14F)
-+    uint32_t reserved_336; // offset: 336 (0x150)
-+    uint32_t reserved_337; // offset: 337 (0x151)
-+    uint32_t reserved_338; // offset: 338 (0x152)
-+    uint32_t reserved_339; // offset: 339 (0x153)
-+    uint32_t reserved_340; // offset: 340 (0x154)
-+    uint32_t reserved_341; // offset: 341 (0x155)
-+    uint32_t reserved_342; // offset: 342 (0x156)
-+    uint32_t reserved_343; // offset: 343 (0x157)
-+    uint32_t reserved_344; // offset: 344 (0x158)
-+    uint32_t reserved_345; // offset: 345 (0x159)
-+    uint32_t reserved_346; // offset: 346 (0x15A)
-+    uint32_t reserved_347; // offset: 347 (0x15B)
-+    uint32_t reserved_348; // offset: 348 (0x15C)
-+    uint32_t reserved_349; // offset: 349 (0x15D)
-+    uint32_t reserved_350; // offset: 350 (0x15E)
-+    uint32_t reserved_351; // offset: 351 (0x15F)
-+    uint32_t reserved_352; // offset: 352 (0x160)
-+    uint32_t reserved_353; // offset: 353 (0x161)
-+    uint32_t reserved_354; // offset: 354 (0x162)
-+    uint32_t reserved_355; // offset: 355 (0x163)
-+    uint32_t reserved_356; // offset: 356 (0x164)
-+    uint32_t reserved_357; // offset: 357 (0x165)
-+    uint32_t reserved_358; // offset: 358 (0x166)
-+    uint32_t reserved_359; // offset: 359 (0x167)
-+    uint32_t reserved_360; // offset: 360 (0x168)
-+    uint32_t reserved_361; // offset: 361 (0x169)
-+    uint32_t reserved_362; // offset: 362 (0x16A)
-+    uint32_t reserved_363; // offset: 363 (0x16B)
-+    uint32_t reserved_364; // offset: 364 (0x16C)
-+    uint32_t reserved_365; // offset: 365 (0x16D)
-+    uint32_t reserved_366; // offset: 366 (0x16E)
-+    uint32_t reserved_367; // offset: 367 (0x16F)
-+    uint32_t reserved_368; // offset: 368 (0x170)
-+    uint32_t reserved_369; // offset: 369 (0x171)
-+    uint32_t reserved_370; // offset: 370 (0x172)
-+    uint32_t reserved_371; // offset: 371 (0x173)
-+    uint32_t reserved_372; // offset: 372 (0x174)
-+    uint32_t reserved_373; // offset: 373 (0x175)
-+    uint32_t reserved_374; // offset: 374 (0x176)
-+    uint32_t reserved_375; // offset: 375 (0x177)
-+    uint32_t reserved_376; // offset: 376 (0x178)
-+    uint32_t reserved_377; // offset: 377 (0x179)
-+    uint32_t reserved_378; // offset: 378 (0x17A)
-+    uint32_t reserved_379; // offset: 379 (0x17B)
-+    uint32_t reserved_380; // offset: 380 (0x17C)
-+    uint32_t reserved_381; // offset: 381 (0x17D)
-+    uint32_t reserved_382; // offset: 382 (0x17E)
-+    uint32_t reserved_383; // offset: 383 (0x17F)
-+    uint32_t iqtimer_pkt_header; // offset: 384 (0x180)
-+    uint32_t iqtimer_pkt_dw0; // offset: 385 (0x181)
-+    uint32_t iqtimer_pkt_dw1; // offset: 386 (0x182)
-+    uint32_t iqtimer_pkt_dw2; // offset: 387 (0x183)
-+    uint32_t iqtimer_pkt_dw3; // offset: 388 (0x184)
-+    uint32_t iqtimer_pkt_dw4; // offset: 389 (0x185)
-+    uint32_t iqtimer_pkt_dw5; // offset: 390 (0x186)
-+    uint32_t iqtimer_pkt_dw6; // offset: 391 (0x187)
-+    uint32_t iqtimer_pkt_dw7; // offset: 392 (0x188)
-+    uint32_t iqtimer_pkt_dw8; // offset: 393 (0x189)
-+    uint32_t iqtimer_pkt_dw9; // offset: 394 (0x18A)
-+    uint32_t iqtimer_pkt_dw10; // offset: 395 (0x18B)
-+    uint32_t iqtimer_pkt_dw11; // offset: 396 (0x18C)
-+    uint32_t iqtimer_pkt_dw12; // offset: 397 (0x18D)
-+    uint32_t iqtimer_pkt_dw13; // offset: 398 (0x18E)
-+    uint32_t iqtimer_pkt_dw14; // offset: 399 (0x18F)
-+    uint32_t iqtimer_pkt_dw15; // offset: 400 (0x190)
-+    uint32_t iqtimer_pkt_dw16; // offset: 401 (0x191)
-+    uint32_t iqtimer_pkt_dw17; // offset: 402 (0x192)
-+    uint32_t iqtimer_pkt_dw18; // offset: 403 (0x193)
-+    uint32_t iqtimer_pkt_dw19; // offset: 404 (0x194)
-+    uint32_t iqtimer_pkt_dw20; // offset: 405 (0x195)
-+    uint32_t iqtimer_pkt_dw21; // offset: 406 (0x196)
-+    uint32_t iqtimer_pkt_dw22; // offset: 407 (0x197)
-+    uint32_t iqtimer_pkt_dw23; // offset: 408 (0x198)
-+    uint32_t iqtimer_pkt_dw24; // offset: 409 (0x199)
-+    uint32_t iqtimer_pkt_dw25; // offset: 410 (0x19A)
-+    uint32_t iqtimer_pkt_dw26; // offset: 411 (0x19B)
-+    uint32_t iqtimer_pkt_dw27; // offset: 412 (0x19C)
-+    uint32_t iqtimer_pkt_dw28; // offset: 413 (0x19D)
-+    uint32_t iqtimer_pkt_dw29; // offset: 414 (0x19E)
-+    uint32_t iqtimer_pkt_dw30; // offset: 415 (0x19F)
-+    uint32_t iqtimer_pkt_dw31; // offset: 416 (0x1A0)
-+    uint32_t reserved_417; // offset: 417 (0x1A1)
-+    uint32_t reserved_418; // offset: 418 (0x1A2)
-+    uint32_t reserved_419; // offset: 419 (0x1A3)
-+    uint32_t reserved_420; // offset: 420 (0x1A4)
-+    uint32_t reserved_421; // offset: 421 (0x1A5)
-+    uint32_t reserved_422; // offset: 422 (0x1A6)
-+    uint32_t reserved_423; // offset: 423 (0x1A7)
-+    uint32_t reserved_424; // offset: 424 (0x1A8)
-+    uint32_t reserved_425; // offset: 425 (0x1A9)
-+    uint32_t reserved_426; // offset: 426 (0x1AA)
-+    uint32_t reserved_427; // offset: 427 (0x1AB)
-+    uint32_t reserved_428; // offset: 428 (0x1AC)
-+    uint32_t reserved_429; // offset: 429 (0x1AD)
-+    uint32_t reserved_430; // offset: 430 (0x1AE)
-+    uint32_t reserved_431; // offset: 431 (0x1AF)
-+    uint32_t reserved_432; // offset: 432 (0x1B0)
-+    uint32_t reserved_433; // offset: 433 (0x1B1)
-+    uint32_t reserved_434; // offset: 434 (0x1B2)
-+    uint32_t reserved_435; // offset: 435 (0x1B3)
-+    uint32_t reserved_436; // offset: 436 (0x1B4)
-+    uint32_t reserved_437; // offset: 437 (0x1B5)
-+    uint32_t reserved_438; // offset: 438 (0x1B6)
-+    uint32_t reserved_439; // offset: 439 (0x1B7)
-+    uint32_t reserved_440; // offset: 440 (0x1B8)
-+    uint32_t reserved_441; // offset: 441 (0x1B9)
-+    uint32_t reserved_442; // offset: 442 (0x1BA)
-+    uint32_t reserved_443; // offset: 443 (0x1BB)
-+    uint32_t reserved_444; // offset: 444 (0x1BC)
-+    uint32_t reserved_445; // offset: 445 (0x1BD)
-+    uint32_t fence_addr_lo; // offset: 446 (0x1BE)
-+    uint32_t fence_addr_hi; // offset: 447 (0x1BF)
-+    uint32_t gws_val[64]; // offset: 448-511 (0x1C0-1FF)
-+    uint32_t scatter_table_data[256]; // offset: 512-767 (0x200-2FF)
-+    uint32_t scatter_table_filter_enables_0; // offset: 768 (0x300)
-+    uint32_t scatter_table_filter_enables_1; // offset: 769 (0x301)
-+    uint32_t scatter_table_filter_enables_2; // offset: 770 (0x302)
-+    uint32_t scatter_table_filter_enables_3; // offset: 771 (0x303)
-+    uint32_t scatter_table_filter_enables_4; // offset: 772 (0x304)
-+    uint32_t scatter_table_filter_enables_5; // offset: 773 (0x305)
-+    uint32_t scatter_table_filter_enables_6; // offset: 774 (0x306)
-+    uint32_t scatter_table_filter_enables_7; // offset: 775 (0x307)
-+    uint32_t scatter_table_flags_lo; // offset: 776 (0x308)
-+    uint32_t scatter_table_flags_hi; // offset: 777 (0x309)
-+    uint32_t state_disp_fllags_lo; // offset: 778 (0x30A)
-+    uint32_t state_disp_fllags_hi; // offset: 779 (0x30B)
-+    uint32_t staging_dispatch_addr_lo; // offset: 780 (0x30C)
-+    uint32_t staging_dispatch_addr_hi; // offset: 781 (0x30D)
-+    uint32_t staging_dispatch_vmid_priv_lo; // offset: 782 (0x30E)
-+    uint32_t staging_dispatch_vmid_priv_hi; // offset: 783 (0x30F)
-+    uint32_t kd_fetcher_fifo[128]; // offset: 784-911 (0x310-38F)
-+    uint32_t reserved_912; // offset: 912 (0x390)
-+    uint32_t reserved_913; // offset: 913 (0x391)
-+    uint32_t reserved_914; // offset: 914 (0x392)
-+    uint32_t reserved_915; // offset: 915 (0x393)
-+    uint32_t reserved_916; // offset: 916 (0x394)
-+    uint32_t reserved_917; // offset: 917 (0x395)
-+    uint32_t reserved_918; // offset: 918 (0x396)
-+    uint32_t reserved_919; // offset: 919 (0x397)
-+    uint32_t reserved_920; // offset: 920 (0x398)
-+    uint32_t reserved_921; // offset: 921 (0x399)
-+    uint32_t reserved_922; // offset: 922 (0x39A)
-+    uint32_t reserved_923; // offset: 923 (0x39B)
-+    uint32_t reserved_924; // offset: 924 (0x39C)
-+    uint32_t reserved_925; // offset: 925 (0x39D)
-+    uint32_t reserved_926; // offset: 926 (0x39E)
-+    uint32_t reserved_927; // offset: 927 (0x39F)
-+    uint32_t reserved_928; // offset: 928 (0x3A0)
-+    uint32_t reserved_929; // offset: 929 (0x3A1)
-+    uint32_t reserved_930; // offset: 930 (0x3A2)
-+    uint32_t reserved_931; // offset: 931 (0x3A3)
-+    uint32_t reserved_932; // offset: 932 (0x3A4)
-+    uint32_t reserved_933; // offset: 933 (0x3A5)
-+    uint32_t reserved_934; // offset: 934 (0x3A6)
-+    uint32_t reserved_935; // offset: 935 (0x3A7)
-+    uint32_t reserved_936; // offset: 936 (0x3A8)
-+    uint32_t reserved_937; // offset: 937 (0x3A9)
-+    uint32_t reserved_938; // offset: 938 (0x3AA)
-+    uint32_t reserved_939; // offset: 939 (0x3AB)
-+    uint32_t reserved_940; // offset: 940 (0x3AC)
-+    uint32_t reserved_941; // offset: 941 (0x3AD)
-+    uint32_t reserved_942; // offset: 942 (0x3AE)
-+    uint32_t reserved_943; // offset: 943 (0x3AF)
-+    uint32_t reserved_944; // offset: 944 (0x3B0)
-+    uint32_t reserved_945; // offset: 945 (0x3B1)
-+    uint32_t reserved_946; // offset: 946 (0x3B2)
-+    uint32_t reserved_947; // offset: 947 (0x3B3)
-+    uint32_t reserved_948; // offset: 948 (0x3B4)
-+    uint32_t reserved_949; // offset: 949 (0x3B5)
-+    uint32_t reserved_950; // offset: 950 (0x3B6)
-+    uint32_t reserved_951; // offset: 951 (0x3B7)
-+    uint32_t reserved_952; // offset: 952 (0x3B8)
-+    uint32_t reserved_953; // offset: 953 (0x3B9)
-+    uint32_t reserved_954; // offset: 954 (0x3BA)
-+    uint32_t reserved_955; // offset: 955 (0x3BB)
-+    uint32_t reserved_956; // offset: 956 (0x3BC)
-+    uint32_t reserved_957; // offset: 957 (0x3BD)
-+    uint32_t reserved_958; // offset: 958 (0x3BE)
-+    uint32_t reserved_959; // offset: 959 (0x3BF)
-+    uint32_t reserved_960; // offset: 960 (0x3C0)
-+    uint32_t reserved_961; // offset: 961 (0x3C1)
-+    uint32_t reserved_962; // offset: 962 (0x3C2)
-+    uint32_t reserved_963; // offset: 963 (0x3C3)
-+    uint32_t reserved_964; // offset: 964 (0x3C4)
-+    uint32_t reserved_965; // offset: 965 (0x3C5)
-+    uint32_t reserved_966; // offset: 966 (0x3C6)
-+    uint32_t reserved_967; // offset: 967 (0x3C7)
-+    uint32_t reserved_968; // offset: 968 (0x3C8)
-+    uint32_t reserved_969; // offset: 969 (0x3C9)
-+    uint32_t reserved_970; // offset: 970 (0x3CA)
-+    uint32_t reserved_971; // offset: 971 (0x3CB)
-+    uint32_t reserved_972; // offset: 972 (0x3CC)
-+    uint32_t reserved_973; // offset: 973 (0x3CD)
-+    uint32_t reserved_974; // offset: 974 (0x3CE)
-+    uint32_t reserved_975; // offset: 975 (0x3CF)
-+    uint32_t reserved_976; // offset: 976 (0x3D0)
-+    uint32_t reserved_977; // offset: 977 (0x3D1)
-+    uint32_t reserved_978; // offset: 978 (0x3D2)
-+    uint32_t reserved_979; // offset: 979 (0x3D3)
-+    uint32_t reserved_980; // offset: 980 (0x3D4)
-+    uint32_t reserved_981; // offset: 981 (0x3D5)
-+    uint32_t reserved_982; // offset: 982 (0x3D6)
-+    uint32_t reserved_983; // offset: 983 (0x3D7)
-+    uint32_t reserved_984; // offset: 984 (0x3D8)
-+    uint32_t reserved_985; // offset: 985 (0x3D9)
-+    uint32_t reserved_986; // offset: 986 (0x3DA)
-+    uint32_t reserved_987; // offset: 987 (0x3DB)
-+    uint32_t reserved_988; // offset: 988 (0x3DC)
-+    uint32_t reserved_989; // offset: 989 (0x3DD)
-+    uint32_t reserved_990; // offset: 990 (0x3DE)
-+    uint32_t reserved_991; // offset: 991 (0x3DF)
-+    uint32_t reserved_992; // offset: 992 (0x3E0)
-+    uint32_t reserved_993; // offset: 993 (0x3E1)
-+    uint32_t reserved_994; // offset: 994 (0x3E2)
-+    uint32_t reserved_995; // offset: 995 (0x3E3)
-+    uint32_t reserved_996; // offset: 996 (0x3E4)
-+    uint32_t reserved_997; // offset: 997 (0x3E5)
-+    uint32_t reserved_998; // offset: 998 (0x3E6)
-+    uint32_t reserved_999; // offset: 999 (0x3E7)
-+    uint32_t reserved_1000; // offset: 1000 (0x3E8)
-+    uint32_t reserved_1001; // offset: 1001 (0x3E9)
-+    uint32_t reserved_1002; // offset: 1002 (0x3EA)
-+    uint32_t reserved_1003; // offset: 1003 (0x3EB)
-+    uint32_t reserved_1004; // offset: 1004 (0x3EC)
-+    uint32_t reserved_1005; // offset: 1005 (0x3ED)
-+    uint32_t reserved_1006; // offset: 1006 (0x3EE)
-+    uint32_t reserved_1007; // offset: 1007 (0x3EF)
-+    uint32_t reserved_1008; // offset: 1008 (0x3F0)
-+    uint32_t reserved_1009; // offset: 1009 (0x3F1)
-+    uint32_t reserved_1010; // offset: 1010 (0x3F2)
-+    uint32_t reserved_1011; // offset: 1011 (0x3F3)
-+    uint32_t reserved_1012; // offset: 1012 (0x3F4)
-+    uint32_t reserved_1013; // offset: 1013 (0x3F5)
-+    uint32_t reserved_1014; // offset: 1014 (0x3F6)
-+    uint32_t reserved_1015; // offset: 1015 (0x3F7)
-+    uint32_t reserved_1016; // offset: 1016 (0x3F8)
-+    uint32_t reserved_1017; // offset: 1017 (0x3F9)
-+    uint32_t reserved_1018; // offset: 1018 (0x3FA)
-+    uint32_t reserved_1019; // offset: 1019 (0x3FB)
-+    uint32_t reserved_1020; // offset: 1020 (0x3FC)
-+    uint32_t reserved_1021; // offset: 1021 (0x3FD)
-+    uint32_t reserved_1022; // offset: 1022 (0x3FE)
-+    uint32_t reserved_1023; // offset: 1023 (0x3FF)
-+};
++/*
++** Definitions for SDMA_PKT_COPY_LINEAR packet
++*/
 +
-+struct v13_mes_mqd {
-+    uint32_t header; // offset: 0 (0x0)
-+    uint32_t compute_dispatch_initiator; // offset: 1 (0x1)
-+    uint32_t compute_dim_x; // offset: 2 (0x2)
-+    uint32_t compute_dim_y; // offset: 3 (0x3)
-+    uint32_t compute_dim_z; // offset: 4 (0x4)
-+    uint32_t compute_start_x; // offset: 5 (0x5)
-+    uint32_t compute_start_y; // offset: 6 (0x6)
-+    uint32_t compute_start_z; // offset: 7 (0x7)
-+    uint32_t compute_num_thread_x; // offset: 8 (0x8)
-+    uint32_t compute_num_thread_y; // offset: 9 (0x9)
-+    uint32_t compute_num_thread_z; // offset: 10 (0xA)
-+    uint32_t compute_pipelinestat_enable; // offset: 11 (0xB)
-+    uint32_t compute_perfcount_enable; // offset: 12 (0xC)
-+    uint32_t compute_pgm_lo; // offset: 13 (0xD)
-+    uint32_t compute_pgm_hi; // offset: 14 (0xE)
-+    uint32_t compute_dispatch_pkt_addr_lo; // offset: 15 (0xF)
-+    uint32_t compute_dispatch_pkt_addr_hi; // offset: 16 (0x10)
-+    uint32_t compute_dispatch_scratch_base_lo; // offset: 17 (0x11)
-+    uint32_t compute_dispatch_scratch_base_hi; // offset: 18 (0x12)
-+    uint32_t compute_pgm_rsrc1; // offset: 19 (0x13)
-+    uint32_t compute_pgm_rsrc2; // offset: 20 (0x14)
-+    uint32_t compute_vmid; // offset: 21 (0x15)
-+    uint32_t compute_resource_limits; // offset: 22 (0x16)
-+    uint32_t compute_tmpring_size; // offset: 23 (0x17)
-+    uint32_t compute_restart_x; // offset: 24 (0x18)
-+    uint32_t compute_restart_y; // offset: 25 (0x19)
-+    uint32_t compute_restart_z; // offset: 26 (0x1A)
-+    uint32_t compute_thread_trace_enable; // offset: 27 (0x1B)
-+    uint32_t compute_misc_reserved; // offset: 28 (0x1C)
-+    uint32_t compute_dispatch_id; // offset: 29 (0x1D)
-+    uint32_t compute_threadgroup_id; // offset: 30 (0x1E)
-+    uint32_t compute_req_ctrl; // offset: 31 (0x1F)
-+    uint32_t compute_user_accum_0; // offset: 32 (0x20)
-+    uint32_t compute_user_accum_1; // offset: 33 (0x21)
-+    uint32_t compute_user_accum_2; // offset: 34 (0x22)
-+    uint32_t compute_user_accum_3; // offset: 35 (0x23)
-+    uint32_t compute_pgm_rsrc3; // offset: 36 (0x24)
-+    uint32_t compute_ddid_index; // offset: 37 (0x25)
-+    uint32_t compute_shader_chksum; // offset: 38 (0x26)
-+    uint32_t compute_dispatch_interleave; // offset: 39 (0x27)
-+    uint32_t reserved_40; // offset: 40 (0x28)
-+    uint32_t reserved_41; // offset: 41 (0x29)
-+    uint32_t reserved_42; // offset: 42 (0x2A)
-+    uint32_t reserved_43; // offset: 43 (0x2B)
-+    uint32_t reserved_44; // offset: 44 (0x2C)
-+    uint32_t reserved_45; // offset: 45 (0x2D)
-+    uint32_t compute_prescaled_dim_x; // offset: 46 (0x2E)
-+    uint32_t compute_prescaled_dim_y; // offset: 47 (0x2F)
-+    uint32_t compute_prescaled_dim_z; // offset: 48 (0x30)
-+    uint32_t compute_static_thread_mgmt_se0; // offset: 49 (0x31)
-+    uint32_t compute_static_thread_mgmt_se1; // offset: 50 (0x32)
-+    uint32_t compute_static_thread_mgmt_se2; // offset: 51 (0x33)
-+    uint32_t compute_static_thread_mgmt_se3; // offset: 52 (0x34)
-+    uint32_t compute_static_thread_mgmt_se4; // offset: 53 (0x35)
-+    uint32_t compute_static_thread_mgmt_se5; // offset: 54 (0x36)
-+    uint32_t compute_static_thread_mgmt_se6; // offset: 55 (0x37)
-+    uint32_t compute_static_thread_mgmt_se7; // offset: 56 (0x38)
-+    uint32_t compute_static_thread_mgmt_se8; // offset: 57 (0x39)
-+    uint32_t reserved_58; // offset: 58 (0x3A)
-+    uint32_t reserved_59; // offset: 59 (0x3B)
-+    uint32_t reserved_60; // offset: 60 (0x3C)
-+    uint32_t reserved_61; // offset: 61 (0x3D)
-+    uint32_t reserved_62; // offset: 62 (0x3E)
-+    uint32_t reserved_63; // offset: 63 (0x3F)
-+    uint32_t reserved_64; // offset: 64 (0x40)
-+    uint32_t compute_user_data_0; // offset: 65 (0x41)
-+    uint32_t compute_user_data_1; // offset: 66 (0x42)
-+    uint32_t compute_user_data_2; // offset: 67 (0x43)
-+    uint32_t compute_user_data_3; // offset: 68 (0x44)
-+    uint32_t compute_user_data_4; // offset: 69 (0x45)
-+    uint32_t compute_user_data_5; // offset: 70 (0x46)
-+    uint32_t compute_user_data_6; // offset: 71 (0x47)
-+    uint32_t compute_user_data_7; // offset: 72 (0x48)
-+    uint32_t compute_user_data_8; // offset: 73 (0x49)
-+    uint32_t compute_user_data_9; // offset: 74 (0x4A)
-+    uint32_t compute_user_data_10; // offset: 75 (0x4B)
-+    uint32_t compute_user_data_11; // offset: 76 (0x4C)
-+    uint32_t compute_user_data_12; // offset: 77 (0x4D)
-+    uint32_t compute_user_data_13; // offset: 78 (0x4E)
-+    uint32_t compute_user_data_14; // offset: 79 (0x4F)
-+    uint32_t compute_user_data_15; // offset: 80 (0x50)
-+    uint32_t compute_user_data_16; // offset: 81 (0x51)
-+    uint32_t compute_user_data_17; // offset: 82 (0x52)
-+    uint32_t compute_user_data_18; // offset: 83 (0x53)
-+    uint32_t compute_user_data_19; // offset: 84 (0x54)
-+    uint32_t compute_user_data_20; // offset: 85 (0x55)
-+    uint32_t compute_user_data_21; // offset: 86 (0x56)
-+    uint32_t compute_user_data_22; // offset: 87 (0x57)
-+    uint32_t compute_user_data_23; // offset: 88 (0x58)
-+    uint32_t compute_user_data_24; // offset: 89 (0x59)
-+    uint32_t compute_user_data_25; // offset: 90 (0x5A)
-+    uint32_t compute_user_data_26; // offset: 91 (0x5B)
-+    uint32_t compute_user_data_27; // offset: 92 (0x5C)
-+    uint32_t compute_user_data_28; // offset: 93 (0x5D)
-+    uint32_t compute_user_data_29; // offset: 94 (0x5E)
-+    uint32_t compute_user_data_30; // offset: 95 (0x5F)
-+    uint32_t compute_user_data_31; // offset: 96 (0x60)
-+    uint32_t reserved_97; // offset: 97 (0x61)
-+    uint32_t reserved_98; // offset: 98 (0x62)
-+    uint32_t reserved_99; // offset: 99 (0x63)
-+    uint32_t reserved_100; // offset: 100 (0x64)
-+    uint32_t reserved_101; // offset: 101 (0x65)
-+    uint32_t reserved_102; // offset: 102 (0x66)
-+    uint32_t reserved_103; // offset: 103 (0x67)
-+    uint32_t reserved_104; // offset: 104 (0x68)
-+    uint32_t reserved_105; // offset: 105 (0x69)
-+    uint32_t reserved_106; // offset: 106 (0x6A)
-+    uint32_t reserved_107; // offset: 107 (0x6B)
-+    uint32_t reserved_108; // offset: 108 (0x6C)
-+    uint32_t reserved_109; // offset: 109 (0x6D)
-+    uint32_t compute_relaunch; // offset: 110 (0x6E)
-+    uint32_t compute_wave_restore_addr_lo; // offset: 111 (0x6F)
-+    uint32_t compute_wave_restore_addr_hi; // offset: 112 (0x70)
-+    uint32_t compute_relaunch2; // offset: 113 (0x71)
-+    uint32_t cp_pq_exe_status_lo; // offset: 114 (0x72)
-+    uint32_t cp_pq_exe_status_hi; // offset: 115 (0x73)
-+    uint32_t cp_packet_id_lo; // offset: 116 (0x74)
-+    uint32_t cp_packet_id_hi; // offset: 117 (0x75)
-+    uint32_t cp_packet_exe_status_lo; // offset: 118 (0x76)
-+    uint32_t cp_packet_exe_status_hi; // offset: 119 (0x77)
-+    uint32_t reserved_120; // offset: 120 (0x78)
-+    uint32_t reserved_121; // offset: 121 (0x79)
-+    uint32_t reserved_122; // offset: 122 (0x7A)
-+    uint32_t reserved_123; // offset: 123 (0x7B)
-+    uint32_t ctx_save_base_addr_lo; // offset: 124 (0x7C)
-+    uint32_t ctx_save_base_addr_hi; // offset: 125 (0x7D)
-+    uint32_t reserved_126; // offset: 126 (0x7E)
-+    uint32_t reserved_127; // offset: 127 (0x7F)
-+    uint32_t cp_mqd_base_addr_lo; // offset: 128 (0x80)
-+    uint32_t cp_mqd_base_addr_hi; // offset: 129 (0x81)
-+    uint32_t cp_hqd_active; // offset: 130 (0x82)
-+    uint32_t cp_hqd_vmid; // offset: 131 (0x83)
-+    uint32_t cp_hqd_persistent_state; // offset: 132 (0x84)
-+    uint32_t cp_hqd_pipe_priority; // offset: 133 (0x85)
-+    uint32_t cp_hqd_queue_priority; // offset: 134 (0x86)
-+    uint32_t cp_hqd_quantum; // offset: 135 (0x87)
-+    uint32_t cp_hqd_pq_base_lo; // offset: 136 (0x88)
-+    uint32_t cp_hqd_pq_base_hi; // offset: 137 (0x89)
-+    uint32_t cp_hqd_pq_rptr; // offset: 138 (0x8A)
-+    uint32_t cp_hqd_pq_rptr_report_addr_lo; // offset: 139 (0x8B)
-+    uint32_t cp_hqd_pq_rptr_report_addr_hi; // offset: 140 (0x8C)
-+    uint32_t cp_hqd_pq_wptr_poll_addr_lo; // offset: 141 (0x8D)
-+    uint32_t cp_hqd_pq_wptr_poll_addr_hi; // offset: 142 (0x8E)
-+    uint32_t cp_hqd_pq_doorbell_control; // offset: 143 (0x8F)
-+    uint32_t reserved_144; // offset: 144 (0x90)
-+    uint32_t cp_hqd_pq_control; // offset: 145 (0x91)
-+    uint32_t cp_hqd_ib_base_addr_lo; // offset: 146 (0x92)
-+    uint32_t cp_hqd_ib_base_addr_hi; // offset: 147 (0x93)
-+    uint32_t cp_hqd_ib_rptr; // offset: 148 (0x94)
-+    uint32_t cp_hqd_ib_control; // offset: 149 (0x95)
-+    uint32_t cp_hqd_iq_timer; // offset: 150 (0x96)
-+    uint32_t cp_hqd_iq_rptr; // offset: 151 (0x97)
-+    uint32_t cp_hqd_dequeue_request; // offset: 152 (0x98)
-+    uint32_t cp_hqd_dma_offload; // offset: 153 (0x99)
-+    uint32_t cp_hqd_sema_cmd; // offset: 154 (0x9A)
-+    uint32_t cp_hqd_msg_type; // offset: 155 (0x9B)
-+    uint32_t cp_hqd_atomic0_preop_lo; // offset: 156 (0x9C)
-+    uint32_t cp_hqd_atomic0_preop_hi; // offset: 157 (0x9D)
-+    uint32_t cp_hqd_atomic1_preop_lo; // offset: 158 (0x9E)
-+    uint32_t cp_hqd_atomic1_preop_hi; // offset: 159 (0x9F)
-+    uint32_t cp_hqd_hq_status0; // offset: 160 (0xA0)
-+    uint32_t cp_hqd_hq_control0; // offset: 161 (0xA1)
-+    uint32_t cp_mqd_control; // offset: 162 (0xA2)
-+    uint32_t cp_hqd_hq_status1; // offset: 163 (0xA3)
-+    uint32_t cp_hqd_hq_control1; // offset: 164 (0xA4)
-+    uint32_t cp_hqd_eop_base_addr_lo; // offset: 165 (0xA5)
-+    uint32_t cp_hqd_eop_base_addr_hi; // offset: 166 (0xA6)
-+    uint32_t cp_hqd_eop_control; // offset: 167 (0xA7)
-+    uint32_t cp_hqd_eop_rptr; // offset: 168 (0xA8)
-+    uint32_t cp_hqd_eop_wptr; // offset: 169 (0xA9)
-+    uint32_t cp_hqd_eop_done_events; // offset: 170 (0xAA)
-+    uint32_t cp_hqd_ctx_save_base_addr_lo; // offset: 171 (0xAB)
-+    uint32_t cp_hqd_ctx_save_base_addr_hi; // offset: 172 (0xAC)
-+    uint32_t cp_hqd_ctx_save_control; // offset: 173 (0xAD)
-+    uint32_t cp_hqd_cntl_stack_offset; // offset: 174 (0xAE)
-+    uint32_t cp_hqd_cntl_stack_size; // offset: 175 (0xAF)
-+    uint32_t cp_hqd_wg_state_offset; // offset: 176 (0xB0)
-+    uint32_t cp_hqd_ctx_save_size; // offset: 177 (0xB1)
-+    uint32_t reserved_178; // offset: 178 (0xB2)
-+    uint32_t cp_hqd_error; // offset: 179 (0xB3)
-+    uint32_t cp_hqd_eop_wptr_mem; // offset: 180 (0xB4)
-+    uint32_t cp_hqd_aql_control; // offset: 181 (0xB5)
-+    uint32_t cp_hqd_pq_wptr_lo; // offset: 182 (0xB6)
-+    uint32_t cp_hqd_pq_wptr_hi; // offset: 183 (0xB7)
-+    uint32_t cp_hqd_suspend_cntl_stack_offset; // offset: 184 (0xB8)
-+    uint32_t cp_hqd_suspend_cntl_stack_dw_cnt; // offset: 185 (0xB9)
-+    uint32_t cp_hqd_suspend_wg_state_offset; // offset: 186 (0xBA)
-+    uint32_t cp_hqd_ddid_rptr; // offset: 187 (0xBB)
-+    uint32_t cp_hqd_ddid_wptr; // offset: 188 (0xBC)
-+    uint32_t cp_hqd_ddid_inflight_count; // offset: 189 (0xBD)
-+    uint32_t cp_hqd_ddid_delta_rpt_count; // offset: 190 (0xBE)
-+    uint32_t cp_hqd_dequeue_status; // offset: 191 (0xBF)
-+    uint32_t reserved_192; // offset: 192 (0xC0)
-+    uint32_t reserved_193; // offset: 193 (0xC1)
-+    uint32_t reserved_194; // offset: 194 (0xC2)
-+    uint32_t cp_hqd_kd_base; // offset: 195 (0xC3)
-+    uint32_t cp_hqd_kd_base_hi; // offset: 196 (0xC4)
-+    uint32_t cp_hqd_kd_cntl; // offset: 197 (0xC5)
-+    uint32_t reserved_198; // offset: 198 (0xC6)
-+    uint32_t reserved_199; // offset: 199 (0xC7)
-+    uint32_t reserved_200; // offset: 200 (0xC8)
-+    uint32_t reserved_201; // offset: 201 (0xC9)
-+    uint32_t reserved_202; // offset: 202 (0xCA)
-+    uint32_t reserved_203; // offset: 203 (0xCB)
-+    uint32_t reserved_204; // offset: 204 (0xCC)
-+    uint32_t reserved_205; // offset: 205 (0xCD)
-+    uint32_t reserved_206; // offset: 206 (0xCE)
-+    uint32_t reserved_207; // offset: 207 (0xCF)
-+    uint32_t reserved_208; // offset: 208 (0xD0)
-+    uint32_t reserved_209; // offset: 209 (0xD1)
-+    uint32_t reserved_210; // offset: 210 (0xD2)
-+    uint32_t reserved_211; // offset: 211 (0xD3)
-+    uint32_t reserved_212; // offset: 212 (0xD4)
-+    uint32_t reserved_213; // offset: 213 (0xD5)
-+    uint32_t reserved_214; // offset: 214 (0xD6)
-+    uint32_t reserved_215; // offset: 215 (0xD7)
-+    uint32_t reserved_216; // offset: 216 (0xD8)
-+    uint32_t reserved_217; // offset: 217 (0xD9)
-+    uint32_t reserved_218; // offset: 218 (0xDA)
-+    uint32_t reserved_219; // offset: 219 (0xDB)
-+    uint32_t reserved_220; // offset: 220 (0xDC)
-+    uint32_t reserved_221; // offset: 221 (0xDD)
-+    uint32_t reserved_222; // offset: 222 (0xDE)
-+    uint32_t reserved_223; // offset: 223 (0xDF)
-+    uint32_t reserved_224; // offset: 224 (0xE0)
-+    uint32_t reserved_225; // offset: 225 (0xE1)
-+    uint32_t reserved_226; // offset: 226 (0xE2)
-+    uint32_t reserved_227; // offset: 227 (0xE3)
-+    uint32_t set_resources_header; // offset: 228 (0xE4)
-+    uint32_t set_resources_dw1; // offset: 229 (0xE5)
-+    uint32_t set_resources_dw2; // offset: 230 (0xE6)
-+    uint32_t set_resources_dw3; // offset: 231 (0xE7)
-+    uint32_t set_resources_dw4; // offset: 232 (0xE8)
-+    uint32_t set_resources_dw5; // offset: 233 (0xE9)
-+    uint32_t set_resources_dw6; // offset: 234 (0xEA)
-+    uint32_t set_resources_dw7; // offset: 235 (0xEB)
-+    uint32_t reserved_236; // offset: 236 (0xEC)
-+    uint32_t reserved_237; // offset: 237 (0xED)
-+    uint32_t reserved_238; // offset: 238 (0xEE)
-+    uint32_t reserved_239; // offset: 239 (0xEF)
-+    uint32_t reserved_240; // offset: 240 (0xF0)
-+    uint32_t reserved_241; // offset: 241 (0xF1)
-+    uint32_t reserved_242; // offset: 242 (0xF2)
-+    uint32_t reserved_243; // offset: 243 (0xF3)
-+    uint32_t reserved_244; // offset: 244 (0xF4)
-+    uint32_t reserved_245; // offset: 245 (0xF5)
-+    uint32_t reserved_246; // offset: 246 (0xF6)
-+    uint32_t reserved_247; // offset: 247 (0xF7)
-+    uint32_t reserved_248; // offset: 248 (0xF8)
-+    uint32_t reserved_249; // offset: 249 (0xF9)
-+    uint32_t reserved_250; // offset: 250 (0xFA)
-+    uint32_t reserved_251; // offset: 251 (0xFB)
-+    uint32_t reserved_252; // offset: 252 (0xFC)
-+    uint32_t reserved_253; // offset: 253 (0xFD)
-+    uint32_t reserved_254; // offset: 254 (0xFE)
-+    uint32_t reserved_255; // offset: 255 (0xFF)
-+    uint32_t control_buf_addr_lo; // offset: 256 (0x100)
-+    uint32_t control_buf_addr_hi; // offset: 257 (0x101)
-+    uint32_t control_buf_wptr_lo; // offset: 258 (0x102)
-+    uint32_t control_buf_wptr_hi; // offset: 259 (0x103)
-+    uint32_t control_buf_dptr_lo; // offset: 260 (0x104)
-+    uint32_t control_buf_dptr_hi; // offset: 261 (0x105)
-+    uint32_t draw_ring_addr_lo; // offset: 262 (0x106)
-+    uint32_t draw_ring_addr_hi; // offset: 263 (0x107)
-+    uint32_t control_buf_num_entries; // offset: 264 (0x108)
-+    uint32_t reserved_265; // offset: 265 (0x109)
-+    uint32_t reserved_266; // offset: 266 (0x10A)
-+    uint32_t reserved_267; // offset: 267 (0x10B)
-+    uint32_t reserved_268; // offset: 268 (0x10C)
-+    uint32_t reserved_269; // offset: 269 (0x10D)
-+    uint32_t reserved_270; // offset: 270 (0x10E)
-+    uint32_t reserved_271; // offset: 271 (0x10F)
-+    uint32_t dfwx_flags; // offset: 272 (0x110)
-+    uint32_t dfwx_slot; // offset: 273 (0x111)
-+    uint32_t dfwx_client_data_addr_lo; // offset: 274 (0x112)
-+    uint32_t dfwx_client_data_addr_hi; // offset: 275 (0x113)
-+    uint32_t dfwx_queue_connect_addr_lo; // offset: 276 (0x114)
-+    uint32_t dfwx_queue_connect_addr_hi; // offset: 277 (0x115)
-+    uint32_t reserved_278; // offset: 278 (0x116)
-+    uint32_t reserved_279; // offset: 279 (0x117)
-+    uint32_t reserved_280; // offset: 280 (0x118)
-+    uint32_t reserved_281; // offset: 281 (0x119)
-+    uint32_t reserved_282; // offset: 282 (0x11A)
-+    uint32_t reserved_283; // offset: 283 (0x11B)
-+    uint32_t reserved_284; // offset: 284 (0x11C)
-+    uint32_t reserved_285; // offset: 285 (0x11D)
-+    uint32_t reserved_286; // offset: 286 (0x11E)
-+    uint32_t reserved_287; // offset: 287 (0x11F)
-+    uint32_t cp_mqd_query_time_lo; // offset: 288 (0x120)
-+    uint32_t cp_mqd_query_time_hi; // offset: 289 (0x121)
-+    uint32_t cp_mqd_connect_start_time_lo; // offset: 290 (0x122)
-+    uint32_t cp_mqd_connect_start_time_hi; // offset: 291 (0x123)
-+    uint32_t cp_mqd_connect_end_time_lo; // offset: 292 (0x124)
-+    uint32_t cp_mqd_connect_end_time_hi; // offset: 293 (0x125)
-+    uint32_t cp_mqd_connect_end_wf_count; // offset: 294 (0x126)
-+    uint32_t cp_mqd_connect_end_pq_rptr; // offset: 295 (0x127)
-+    uint32_t cp_mqd_connect_end_pq_wptr; // offset: 296 (0x128)
-+    uint32_t cp_mqd_connect_end_ib_rptr; // offset: 297 (0x129)
-+    uint32_t cp_mqd_readindex_lo; // offset: 298 (0x12A)
-+    uint32_t cp_mqd_readindex_hi; // offset: 299 (0x12B)
-+    uint32_t cp_mqd_save_start_time_lo; // offset: 300 (0x12C)
-+    uint32_t cp_mqd_save_start_time_hi; // offset: 301 (0x12D)
-+    uint32_t cp_mqd_save_end_time_lo; // offset: 302 (0x12E)
-+    uint32_t cp_mqd_save_end_time_hi; // offset: 303 (0x12F)
-+    uint32_t cp_mqd_restore_start_time_lo; // offset: 304 (0x130)
-+    uint32_t cp_mqd_restore_start_time_hi; // offset: 305 (0x131)
-+    uint32_t cp_mqd_restore_end_time_lo; // offset: 306 (0x132)
-+    uint32_t cp_mqd_restore_end_time_hi; // offset: 307 (0x133)
-+    uint32_t disable_queue; // offset: 308 (0x134)
-+    uint32_t reserved_309; // offset: 309 (0x135)
-+    uint32_t reserved_310; // offset: 310 (0x136)
-+    uint32_t reserved_311; // offset: 311 (0x137)
-+    uint32_t reserved_312; // offset: 312 (0x138)
-+    uint32_t reserved_313; // offset: 313 (0x139)
-+    uint32_t reserved_314; // offset: 314 (0x13A)
-+    uint32_t reserved_315; // offset: 315 (0x13B)
-+    uint32_t reserved_316; // offset: 316 (0x13C)
-+    uint32_t reserved_317; // offset: 317 (0x13D)
-+    uint32_t tg_counter_id; // offset: 318 (0x13E)
-+    uint32_t cp_compute_csinvoc_count_lo; // offset: 319 (0x13F)
-+    uint32_t cp_compute_csinvoc_count_hi; // offset: 320 (0x140)
-+    uint32_t cp_compute_asinvoc_count_lo; // offset: 321 (0x141)
-+    uint32_t cp_compute_asinvoc_count_hi; // offset: 322 (0x142)
-+    uint32_t reserved_323; // offset: 323 (0x143)
-+    uint32_t reserved_324; // offset: 324 (0x144)
-+    uint32_t reserved_325; // offset: 325 (0x145)
-+    uint32_t reserved_326; // offset: 326 (0x146)
-+    uint32_t reserved_327; // offset: 327 (0x147)
-+    uint32_t reserved_328; // offset: 328 (0x148)
-+    uint32_t reserved_329; // offset: 329 (0x149)
-+    uint32_t reserved_330; // offset: 330 (0x14A)
-+    uint32_t reserved_331; // offset: 331 (0x14B)
-+    uint32_t reserved_332; // offset: 332 (0x14C)
-+    uint32_t reserved_333; // offset: 333 (0x14D)
-+    uint32_t reserved_334; // offset: 334 (0x14E)
-+    uint32_t reserved_335; // offset: 335 (0x14F)
-+    uint32_t reserved_336; // offset: 336 (0x150)
-+    uint32_t reserved_337; // offset: 337 (0x151)
-+    uint32_t reserved_338; // offset: 338 (0x152)
-+    uint32_t reserved_339; // offset: 339 (0x153)
-+    uint32_t reserved_340; // offset: 340 (0x154)
-+    uint32_t reserved_341; // offset: 341 (0x155)
-+    uint32_t reserved_342; // offset: 342 (0x156)
-+    uint32_t reserved_343; // offset: 343 (0x157)
-+    uint32_t reserved_344; // offset: 344 (0x158)
-+    uint32_t reserved_345; // offset: 345 (0x159)
-+    uint32_t reserved_346; // offset: 346 (0x15A)
-+    uint32_t reserved_347; // offset: 347 (0x15B)
-+    uint32_t reserved_348; // offset: 348 (0x15C)
-+    uint32_t reserved_349; // offset: 349 (0x15D)
-+    uint32_t reserved_350; // offset: 350 (0x15E)
-+    uint32_t reserved_351; // offset: 351 (0x15F)
-+    uint32_t reserved_352; // offset: 352 (0x160)
-+    uint32_t reserved_353; // offset: 353 (0x161)
-+    uint32_t reserved_354; // offset: 354 (0x162)
-+    uint32_t reserved_355; // offset: 355 (0x163)
-+    uint32_t reserved_356; // offset: 356 (0x164)
-+    uint32_t reserved_357; // offset: 357 (0x165)
-+    uint32_t reserved_358; // offset: 358 (0x166)
-+    uint32_t reserved_359; // offset: 359 (0x167)
-+    uint32_t reserved_360; // offset: 360 (0x168)
-+    uint32_t reserved_361; // offset: 361 (0x169)
-+    uint32_t reserved_362; // offset: 362 (0x16A)
-+    uint32_t reserved_363; // offset: 363 (0x16B)
-+    uint32_t reserved_364; // offset: 364 (0x16C)
-+    uint32_t reserved_365; // offset: 365 (0x16D)
-+    uint32_t reserved_366; // offset: 366 (0x16E)
-+    uint32_t reserved_367; // offset: 367 (0x16F)
-+    uint32_t reserved_368; // offset: 368 (0x170)
-+    uint32_t reserved_369; // offset: 369 (0x171)
-+    uint32_t reserved_370; // offset: 370 (0x172)
-+    uint32_t reserved_371; // offset: 371 (0x173)
-+    uint32_t reserved_372; // offset: 372 (0x174)
-+    uint32_t reserved_373; // offset: 373 (0x175)
-+    uint32_t reserved_374; // offset: 374 (0x176)
-+    uint32_t reserved_375; // offset: 375 (0x177)
-+    uint32_t reserved_376; // offset: 376 (0x178)
-+    uint32_t reserved_377; // offset: 377 (0x179)
-+    uint32_t reserved_378; // offset: 378 (0x17A)
-+    uint32_t reserved_379; // offset: 379 (0x17B)
-+    uint32_t reserved_380; // offset: 380 (0x17C)
-+    uint32_t reserved_381; // offset: 381 (0x17D)
-+    uint32_t reserved_382; // offset: 382 (0x17E)
-+    uint32_t reserved_383; // offset: 383 (0x17F)
-+    uint32_t iqtimer_pkt_header; // offset: 384 (0x180)
-+    uint32_t iqtimer_pkt_dw0; // offset: 385 (0x181)
-+    uint32_t iqtimer_pkt_dw1; // offset: 386 (0x182)
-+    uint32_t iqtimer_pkt_dw2; // offset: 387 (0x183)
-+    uint32_t iqtimer_pkt_dw3; // offset: 388 (0x184)
-+    uint32_t iqtimer_pkt_dw4; // offset: 389 (0x185)
-+    uint32_t iqtimer_pkt_dw5; // offset: 390 (0x186)
-+    uint32_t iqtimer_pkt_dw6; // offset: 391 (0x187)
-+    uint32_t iqtimer_pkt_dw7; // offset: 392 (0x188)
-+    uint32_t iqtimer_pkt_dw8; // offset: 393 (0x189)
-+    uint32_t iqtimer_pkt_dw9; // offset: 394 (0x18A)
-+    uint32_t iqtimer_pkt_dw10; // offset: 395 (0x18B)
-+    uint32_t iqtimer_pkt_dw11; // offset: 396 (0x18C)
-+    uint32_t iqtimer_pkt_dw12; // offset: 397 (0x18D)
-+    uint32_t iqtimer_pkt_dw13; // offset: 398 (0x18E)
-+    uint32_t iqtimer_pkt_dw14; // offset: 399 (0x18F)
-+    uint32_t iqtimer_pkt_dw15; // offset: 400 (0x190)
-+    uint32_t iqtimer_pkt_dw16; // offset: 401 (0x191)
-+    uint32_t iqtimer_pkt_dw17; // offset: 402 (0x192)
-+    uint32_t iqtimer_pkt_dw18; // offset: 403 (0x193)
-+    uint32_t iqtimer_pkt_dw19; // offset: 404 (0x194)
-+    uint32_t iqtimer_pkt_dw20; // offset: 405 (0x195)
-+    uint32_t iqtimer_pkt_dw21; // offset: 406 (0x196)
-+    uint32_t iqtimer_pkt_dw22; // offset: 407 (0x197)
-+    uint32_t iqtimer_pkt_dw23; // offset: 408 (0x198)
-+    uint32_t iqtimer_pkt_dw24; // offset: 409 (0x199)
-+    uint32_t iqtimer_pkt_dw25; // offset: 410 (0x19A)
-+    uint32_t iqtimer_pkt_dw26; // offset: 411 (0x19B)
-+    uint32_t iqtimer_pkt_dw27; // offset: 412 (0x19C)
-+    uint32_t iqtimer_pkt_dw28; // offset: 413 (0x19D)
-+    uint32_t iqtimer_pkt_dw29; // offset: 414 (0x19E)
-+    uint32_t iqtimer_pkt_dw30; // offset: 415 (0x19F)
-+    uint32_t iqtimer_pkt_dw31; // offset: 416 (0x1A0)
-+    uint32_t reserved_417; // offset: 417 (0x1A1)
-+    uint32_t reserved_418; // offset: 418 (0x1A2)
-+    uint32_t reserved_419; // offset: 419 (0x1A3)
-+    uint32_t reserved_420; // offset: 420 (0x1A4)
-+    uint32_t reserved_421; // offset: 421 (0x1A5)
-+    uint32_t reserved_422; // offset: 422 (0x1A6)
-+    uint32_t reserved_423; // offset: 423 (0x1A7)
-+    uint32_t reserved_424; // offset: 424 (0x1A8)
-+    uint32_t reserved_425; // offset: 425 (0x1A9)
-+    uint32_t reserved_426; // offset: 426 (0x1AA)
-+    uint32_t reserved_427; // offset: 427 (0x1AB)
-+    uint32_t reserved_428; // offset: 428 (0x1AC)
-+    uint32_t reserved_429; // offset: 429 (0x1AD)
-+    uint32_t reserved_430; // offset: 430 (0x1AE)
-+    uint32_t reserved_431; // offset: 431 (0x1AF)
-+    uint32_t reserved_432; // offset: 432 (0x1B0)
-+    uint32_t reserved_433; // offset: 433 (0x1B1)
-+    uint32_t reserved_434; // offset: 434 (0x1B2)
-+    uint32_t reserved_435; // offset: 435 (0x1B3)
-+    uint32_t reserved_436; // offset: 436 (0x1B4)
-+    uint32_t reserved_437; // offset: 437 (0x1B5)
-+    uint32_t reserved_438; // offset: 438 (0x1B6)
-+    uint32_t reserved_439; // offset: 439 (0x1B7)
-+    uint32_t reserved_440; // offset: 440 (0x1B8)
-+    uint32_t reserved_441; // offset: 441 (0x1B9)
-+    uint32_t reserved_442; // offset: 442 (0x1BA)
-+    uint32_t reserved_443; // offset: 443 (0x1BB)
-+    uint32_t reserved_444; // offset: 444 (0x1BC)
-+    uint32_t reserved_445; // offset: 445 (0x1BD)
-+    uint32_t reserved_446; // offset: 446 (0x1BE)
-+    uint32_t reserved_447; // offset: 447 (0x1BF)
-+    uint32_t reserved_448; // offset: 448 (0x1C0)
-+    uint32_t reserved_449; // offset: 449 (0x1C1)
-+    uint32_t reserved_450; // offset: 450 (0x1C2)
-+    uint32_t reserved_451; // offset: 451 (0x1C3)
-+    uint32_t reserved_452; // offset: 452 (0x1C4)
-+    uint32_t reserved_453; // offset: 453 (0x1C5)
-+    uint32_t reserved_454; // offset: 454 (0x1C6)
-+    uint32_t reserved_455; // offset: 455 (0x1C7)
-+    uint32_t reserved_456; // offset: 456 (0x1C8)
-+    uint32_t reserved_457; // offset: 457 (0x1C9)
-+    uint32_t reserved_458; // offset: 458 (0x1CA)
-+    uint32_t reserved_459; // offset: 459 (0x1CB)
-+    uint32_t reserved_460; // offset: 460 (0x1CC)
-+    uint32_t reserved_461; // offset: 461 (0x1CD)
-+    uint32_t reserved_462; // offset: 462 (0x1CE)
-+    uint32_t reserved_463; // offset: 463 (0x1CF)
-+    uint32_t reserved_464; // offset: 464 (0x1D0)
-+    uint32_t reserved_465; // offset: 465 (0x1D1)
-+    uint32_t reserved_466; // offset: 466 (0x1D2)
-+    uint32_t reserved_467; // offset: 467 (0x1D3)
-+    uint32_t reserved_468; // offset: 468 (0x1D4)
-+    uint32_t reserved_469; // offset: 469 (0x1D5)
-+    uint32_t reserved_470; // offset: 470 (0x1D6)
-+    uint32_t reserved_471; // offset: 471 (0x1D7)
-+    uint32_t reserved_472; // offset: 472 (0x1D8)
-+    uint32_t reserved_473; // offset: 473 (0x1D9)
-+    uint32_t reserved_474; // offset: 474 (0x1DA)
-+    uint32_t reserved_475; // offset: 475 (0x1DB)
-+    uint32_t reserved_476; // offset: 476 (0x1DC)
-+    uint32_t reserved_477; // offset: 477 (0x1DD)
-+    uint32_t reserved_478; // offset: 478 (0x1DE)
-+    uint32_t reserved_479; // offset: 479 (0x1DF)
-+    uint32_t reserved_480; // offset: 480 (0x1E0)
-+    uint32_t reserved_481; // offset: 481 (0x1E1)
-+    uint32_t reserved_482; // offset: 482 (0x1E2)
-+    uint32_t reserved_483; // offset: 483 (0x1E3)
-+    uint32_t reserved_484; // offset: 484 (0x1E4)
-+    uint32_t reserved_485; // offset: 485 (0x1E5)
-+    uint32_t reserved_486; // offset: 486 (0x1E6)
-+    uint32_t reserved_487; // offset: 487 (0x1E7)
-+    uint32_t reserved_488; // offset: 488 (0x1E8)
-+    uint32_t reserved_489; // offset: 489 (0x1E9)
-+    uint32_t reserved_490; // offset: 490 (0x1EA)
-+    uint32_t reserved_491; // offset: 491 (0x1EB)
-+    uint32_t reserved_492; // offset: 492 (0x1EC)
-+    uint32_t reserved_493; // offset: 493 (0x1ED)
-+    uint32_t reserved_494; // offset: 494 (0x1EE)
-+    uint32_t reserved_495; // offset: 495 (0x1EF)
-+    uint32_t reserved_496; // offset: 496 (0x1F0)
-+    uint32_t reserved_497; // offset: 497 (0x1F1)
-+    uint32_t reserved_498; // offset: 498 (0x1F2)
-+    uint32_t reserved_499; // offset: 499 (0x1F3)
-+    uint32_t reserved_500; // offset: 500 (0x1F4)
-+    uint32_t reserved_501; // offset: 501 (0x1F5)
-+    uint32_t reserved_502; // offset: 502 (0x1F6)
-+    uint32_t reserved_503; // offset: 503 (0x1F7)
-+    uint32_t reserved_504; // offset: 504 (0x1F8)
-+    uint32_t reserved_505; // offset: 505 (0x1F9)
-+    uint32_t reserved_506; // offset: 506 (0x1FA)
-+    uint32_t reserved_507; // offset: 507 (0x1FB)
-+    uint32_t reserved_508; // offset: 508 (0x1FC)
-+    uint32_t reserved_509; // offset: 509 (0x1FD)
-+    uint32_t reserved_510; // offset: 510 (0x1FE)
-+    uint32_t reserved_511; // offset: 511 (0x1FF)
-+    uint32_t reserved_512; // offset: 512 (0x200)
-+    uint32_t reserved_513; // offset: 513 (0x201)
-+    uint32_t reserved_514; // offset: 514 (0x202)
-+    uint32_t reserved_515; // offset: 515 (0x203)
-+    uint32_t reserved_516; // offset: 516 (0x204)
-+    uint32_t reserved_517; // offset: 517 (0x205)
-+    uint32_t reserved_518; // offset: 518 (0x206)
-+    uint32_t reserved_519; // offset: 519 (0x207)
-+    uint32_t reserved_520; // offset: 520 (0x208)
-+    uint32_t reserved_521; // offset: 521 (0x209)
-+    uint32_t reserved_522; // offset: 522 (0x20A)
-+    uint32_t reserved_523; // offset: 523 (0x20B)
-+    uint32_t reserved_524; // offset: 524 (0x20C)
-+    uint32_t reserved_525; // offset: 525 (0x20D)
-+    uint32_t reserved_526; // offset: 526 (0x20E)
-+    uint32_t reserved_527; // offset: 527 (0x20F)
-+    uint32_t reserved_528; // offset: 528 (0x210)
-+    uint32_t reserved_529; // offset: 529 (0x211)
-+    uint32_t reserved_530; // offset: 530 (0x212)
-+    uint32_t reserved_531; // offset: 531 (0x213)
-+    uint32_t reserved_532; // offset: 532 (0x214)
-+    uint32_t reserved_533; // offset: 533 (0x215)
-+    uint32_t reserved_534; // offset: 534 (0x216)
-+    uint32_t reserved_535; // offset: 535 (0x217)
-+    uint32_t reserved_536; // offset: 536 (0x218)
-+    uint32_t reserved_537; // offset: 537 (0x219)
-+    uint32_t reserved_538; // offset: 538 (0x21A)
-+    uint32_t reserved_539; // offset: 539 (0x21B)
-+    uint32_t reserved_540; // offset: 540 (0x21C)
-+    uint32_t reserved_541; // offset: 541 (0x21D)
-+    uint32_t reserved_542; // offset: 542 (0x21E)
-+    uint32_t reserved_543; // offset: 543 (0x21F)
-+    uint32_t reserved_544; // offset: 544 (0x220)
-+    uint32_t reserved_545; // offset: 545 (0x221)
-+    uint32_t reserved_546; // offset: 546 (0x222)
-+    uint32_t reserved_547; // offset: 547 (0x223)
-+    uint32_t reserved_548; // offset: 548 (0x224)
-+    uint32_t reserved_549; // offset: 549 (0x225)
-+    uint32_t reserved_550; // offset: 550 (0x226)
-+    uint32_t reserved_551; // offset: 551 (0x227)
-+    uint32_t reserved_552; // offset: 552 (0x228)
-+    uint32_t reserved_553; // offset: 553 (0x229)
-+    uint32_t reserved_554; // offset: 554 (0x22A)
-+    uint32_t reserved_555; // offset: 555 (0x22B)
-+    uint32_t reserved_556; // offset: 556 (0x22C)
-+    uint32_t reserved_557; // offset: 557 (0x22D)
-+    uint32_t reserved_558; // offset: 558 (0x22E)
-+    uint32_t reserved_559; // offset: 559 (0x22F)
-+    uint32_t reserved_560; // offset: 560 (0x230)
-+    uint32_t reserved_561; // offset: 561 (0x231)
-+    uint32_t reserved_562; // offset: 562 (0x232)
-+    uint32_t reserved_563; // offset: 563 (0x233)
-+    uint32_t reserved_564; // offset: 564 (0x234)
-+    uint32_t reserved_565; // offset: 565 (0x235)
-+    uint32_t reserved_566; // offset: 566 (0x236)
-+    uint32_t reserved_567; // offset: 567 (0x237)
-+    uint32_t reserved_568; // offset: 568 (0x238)
-+    uint32_t reserved_569; // offset: 569 (0x239)
-+    uint32_t reserved_570; // offset: 570 (0x23A)
-+    uint32_t reserved_571; // offset: 571 (0x23B)
-+    uint32_t reserved_572; // offset: 572 (0x23C)
-+    uint32_t reserved_573; // offset: 573 (0x23D)
-+    uint32_t reserved_574; // offset: 574 (0x23E)
-+    uint32_t reserved_575; // offset: 575 (0x23F)
-+    uint32_t reserved_576; // offset: 576 (0x240)
-+    uint32_t reserved_577; // offset: 577 (0x241)
-+    uint32_t reserved_578; // offset: 578 (0x242)
-+    uint32_t reserved_579; // offset: 579 (0x243)
-+    uint32_t reserved_580; // offset: 580 (0x244)
-+    uint32_t reserved_581; // offset: 581 (0x245)
-+    uint32_t reserved_582; // offset: 582 (0x246)
-+    uint32_t reserved_583; // offset: 583 (0x247)
-+    uint32_t reserved_584; // offset: 584 (0x248)
-+    uint32_t reserved_585; // offset: 585 (0x249)
-+    uint32_t reserved_586; // offset: 586 (0x24A)
-+    uint32_t reserved_587; // offset: 587 (0x24B)
-+    uint32_t reserved_588; // offset: 588 (0x24C)
-+    uint32_t reserved_589; // offset: 589 (0x24D)
-+    uint32_t reserved_590; // offset: 590 (0x24E)
-+    uint32_t reserved_591; // offset: 591 (0x24F)
-+    uint32_t reserved_592; // offset: 592 (0x250)
-+    uint32_t reserved_593; // offset: 593 (0x251)
-+    uint32_t reserved_594; // offset: 594 (0x252)
-+    uint32_t reserved_595; // offset: 595 (0x253)
-+    uint32_t reserved_596; // offset: 596 (0x254)
-+    uint32_t reserved_597; // offset: 597 (0x255)
-+    uint32_t reserved_598; // offset: 598 (0x256)
-+    uint32_t reserved_599; // offset: 599 (0x257)
-+    uint32_t reserved_600; // offset: 600 (0x258)
-+    uint32_t reserved_601; // offset: 601 (0x259)
-+    uint32_t reserved_602; // offset: 602 (0x25A)
-+    uint32_t reserved_603; // offset: 603 (0x25B)
-+    uint32_t reserved_604; // offset: 604 (0x25C)
-+    uint32_t reserved_605; // offset: 605 (0x25D)
-+    uint32_t reserved_606; // offset: 606 (0x25E)
-+    uint32_t reserved_607; // offset: 607 (0x25F)
-+    uint32_t reserved_608; // offset: 608 (0x260)
-+    uint32_t reserved_609; // offset: 609 (0x261)
-+    uint32_t reserved_610; // offset: 610 (0x262)
-+    uint32_t reserved_611; // offset: 611 (0x263)
-+    uint32_t reserved_612; // offset: 612 (0x264)
-+    uint32_t reserved_613; // offset: 613 (0x265)
-+    uint32_t reserved_614; // offset: 614 (0x266)
-+    uint32_t reserved_615; // offset: 615 (0x267)
-+    uint32_t reserved_616; // offset: 616 (0x268)
-+    uint32_t reserved_617; // offset: 617 (0x269)
-+    uint32_t reserved_618; // offset: 618 (0x26A)
-+    uint32_t reserved_619; // offset: 619 (0x26B)
-+    uint32_t reserved_620; // offset: 620 (0x26C)
-+    uint32_t reserved_621; // offset: 621 (0x26D)
-+    uint32_t reserved_622; // offset: 622 (0x26E)
-+    uint32_t reserved_623; // offset: 623 (0x26F)
-+    uint32_t reserved_624; // offset: 624 (0x270)
-+    uint32_t reserved_625; // offset: 625 (0x271)
-+    uint32_t reserved_626; // offset: 626 (0x272)
-+    uint32_t reserved_627; // offset: 627 (0x273)
-+    uint32_t reserved_628; // offset: 628 (0x274)
-+    uint32_t reserved_629; // offset: 629 (0x275)
-+    uint32_t reserved_630; // offset: 630 (0x276)
-+    uint32_t reserved_631; // offset: 631 (0x277)
-+    uint32_t reserved_632; // offset: 632 (0x278)
-+    uint32_t reserved_633; // offset: 633 (0x279)
-+    uint32_t reserved_634; // offset: 634 (0x27A)
-+    uint32_t reserved_635; // offset: 635 (0x27B)
-+    uint32_t reserved_636; // offset: 636 (0x27C)
-+    uint32_t reserved_637; // offset: 637 (0x27D)
-+    uint32_t reserved_638; // offset: 638 (0x27E)
-+    uint32_t reserved_639; // offset: 639 (0x27F)
-+    uint32_t reserved_640; // offset: 640 (0x280)
-+    uint32_t reserved_641; // offset: 641 (0x281)
-+    uint32_t reserved_642; // offset: 642 (0x282)
-+    uint32_t reserved_643; // offset: 643 (0x283)
-+    uint32_t reserved_644; // offset: 644 (0x284)
-+    uint32_t reserved_645; // offset: 645 (0x285)
-+    uint32_t reserved_646; // offset: 646 (0x286)
-+    uint32_t reserved_647; // offset: 647 (0x287)
-+    uint32_t reserved_648; // offset: 648 (0x288)
-+    uint32_t reserved_649; // offset: 649 (0x289)
-+    uint32_t reserved_650; // offset: 650 (0x28A)
-+    uint32_t reserved_651; // offset: 651 (0x28B)
-+    uint32_t reserved_652; // offset: 652 (0x28C)
-+    uint32_t reserved_653; // offset: 653 (0x28D)
-+    uint32_t reserved_654; // offset: 654 (0x28E)
-+    uint32_t reserved_655; // offset: 655 (0x28F)
-+    uint32_t reserved_656; // offset: 656 (0x290)
-+    uint32_t reserved_657; // offset: 657 (0x291)
-+    uint32_t reserved_658; // offset: 658 (0x292)
-+    uint32_t reserved_659; // offset: 659 (0x293)
-+    uint32_t reserved_660; // offset: 660 (0x294)
-+    uint32_t reserved_661; // offset: 661 (0x295)
-+    uint32_t reserved_662; // offset: 662 (0x296)
-+    uint32_t reserved_663; // offset: 663 (0x297)
-+    uint32_t reserved_664; // offset: 664 (0x298)
-+    uint32_t reserved_665; // offset: 665 (0x299)
-+    uint32_t reserved_666; // offset: 666 (0x29A)
-+    uint32_t reserved_667; // offset: 667 (0x29B)
-+    uint32_t reserved_668; // offset: 668 (0x29C)
-+    uint32_t reserved_669; // offset: 669 (0x29D)
-+    uint32_t reserved_670; // offset: 670 (0x29E)
-+    uint32_t reserved_671; // offset: 671 (0x29F)
-+    uint32_t reserved_672; // offset: 672 (0x2A0)
-+    uint32_t reserved_673; // offset: 673 (0x2A1)
-+    uint32_t reserved_674; // offset: 674 (0x2A2)
-+    uint32_t reserved_675; // offset: 675 (0x2A3)
-+    uint32_t reserved_676; // offset: 676 (0x2A4)
-+    uint32_t reserved_677; // offset: 677 (0x2A5)
-+    uint32_t reserved_678; // offset: 678 (0x2A6)
-+    uint32_t reserved_679; // offset: 679 (0x2A7)
-+    uint32_t reserved_680; // offset: 680 (0x2A8)
-+    uint32_t reserved_681; // offset: 681 (0x2A9)
-+    uint32_t reserved_682; // offset: 682 (0x2AA)
-+    uint32_t reserved_683; // offset: 683 (0x2AB)
-+    uint32_t reserved_684; // offset: 684 (0x2AC)
-+    uint32_t reserved_685; // offset: 685 (0x2AD)
-+    uint32_t reserved_686; // offset: 686 (0x2AE)
-+    uint32_t reserved_687; // offset: 687 (0x2AF)
-+    uint32_t reserved_688; // offset: 688 (0x2B0)
-+    uint32_t reserved_689; // offset: 689 (0x2B1)
-+    uint32_t reserved_690; // offset: 690 (0x2B2)
-+    uint32_t reserved_691; // offset: 691 (0x2B3)
-+    uint32_t reserved_692; // offset: 692 (0x2B4)
-+    uint32_t reserved_693; // offset: 693 (0x2B5)
-+    uint32_t reserved_694; // offset: 694 (0x2B6)
-+    uint32_t reserved_695; // offset: 695 (0x2B7)
-+    uint32_t reserved_696; // offset: 696 (0x2B8)
-+    uint32_t reserved_697; // offset: 697 (0x2B9)
-+    uint32_t reserved_698; // offset: 698 (0x2BA)
-+    uint32_t reserved_699; // offset: 699 (0x2BB)
-+    uint32_t reserved_700; // offset: 700 (0x2BC)
-+    uint32_t reserved_701; // offset: 701 (0x2BD)
-+    uint32_t reserved_702; // offset: 702 (0x2BE)
-+    uint32_t reserved_703; // offset: 703 (0x2BF)
-+    uint32_t reserved_704; // offset: 704 (0x2C0)
-+    uint32_t reserved_705; // offset: 705 (0x2C1)
-+    uint32_t reserved_706; // offset: 706 (0x2C2)
-+    uint32_t reserved_707; // offset: 707 (0x2C3)
-+    uint32_t reserved_708; // offset: 708 (0x2C4)
-+    uint32_t reserved_709; // offset: 709 (0x2C5)
-+    uint32_t reserved_710; // offset: 710 (0x2C6)
-+    uint32_t reserved_711; // offset: 711 (0x2C7)
-+    uint32_t reserved_712; // offset: 712 (0x2C8)
-+    uint32_t reserved_713; // offset: 713 (0x2C9)
-+    uint32_t reserved_714; // offset: 714 (0x2CA)
-+    uint32_t reserved_715; // offset: 715 (0x2CB)
-+    uint32_t reserved_716; // offset: 716 (0x2CC)
-+    uint32_t reserved_717; // offset: 717 (0x2CD)
-+    uint32_t reserved_718; // offset: 718 (0x2CE)
-+    uint32_t reserved_719; // offset: 719 (0x2CF)
-+    uint32_t reserved_720; // offset: 720 (0x2D0)
-+    uint32_t reserved_721; // offset: 721 (0x2D1)
-+    uint32_t reserved_722; // offset: 722 (0x2D2)
-+    uint32_t reserved_723; // offset: 723 (0x2D3)
-+    uint32_t reserved_724; // offset: 724 (0x2D4)
-+    uint32_t reserved_725; // offset: 725 (0x2D5)
-+    uint32_t reserved_726; // offset: 726 (0x2D6)
-+    uint32_t reserved_727; // offset: 727 (0x2D7)
-+    uint32_t reserved_728; // offset: 728 (0x2D8)
-+    uint32_t reserved_729; // offset: 729 (0x2D9)
-+    uint32_t reserved_730; // offset: 730 (0x2DA)
-+    uint32_t reserved_731; // offset: 731 (0x2DB)
-+    uint32_t reserved_732; // offset: 732 (0x2DC)
-+    uint32_t reserved_733; // offset: 733 (0x2DD)
-+    uint32_t reserved_734; // offset: 734 (0x2DE)
-+    uint32_t reserved_735; // offset: 735 (0x2DF)
-+    uint32_t reserved_736; // offset: 736 (0x2E0)
-+    uint32_t reserved_737; // offset: 737 (0x2E1)
-+    uint32_t reserved_738; // offset: 738 (0x2E2)
-+    uint32_t reserved_739; // offset: 739 (0x2E3)
-+    uint32_t reserved_740; // offset: 740 (0x2E4)
-+    uint32_t reserved_741; // offset: 741 (0x2E5)
-+    uint32_t reserved_742; // offset: 742 (0x2E6)
-+    uint32_t reserved_743; // offset: 743 (0x2E7)
-+    uint32_t reserved_744; // offset: 744 (0x2E8)
-+    uint32_t reserved_745; // offset: 745 (0x2E9)
-+    uint32_t reserved_746; // offset: 746 (0x2EA)
-+    uint32_t reserved_747; // offset: 747 (0x2EB)
-+    uint32_t reserved_748; // offset: 748 (0x2EC)
-+    uint32_t reserved_749; // offset: 749 (0x2ED)
-+    uint32_t reserved_750; // offset: 750 (0x2EE)
-+    uint32_t reserved_751; // offset: 751 (0x2EF)
-+    uint32_t reserved_752; // offset: 752 (0x2F0)
-+    uint32_t reserved_753; // offset: 753 (0x2F1)
-+    uint32_t reserved_754; // offset: 754 (0x2F2)
-+    uint32_t reserved_755; // offset: 755 (0x2F3)
-+    uint32_t reserved_756; // offset: 756 (0x2F4)
-+    uint32_t reserved_757; // offset: 757 (0x2F5)
-+    uint32_t reserved_758; // offset: 758 (0x2F6)
-+    uint32_t reserved_759; // offset: 759 (0x2F7)
-+    uint32_t reserved_760; // offset: 760 (0x2F8)
-+    uint32_t reserved_761; // offset: 761 (0x2F9)
-+    uint32_t reserved_762; // offset: 762 (0x2FA)
-+    uint32_t reserved_763; // offset: 763 (0x2FB)
-+    uint32_t reserved_764; // offset: 764 (0x2FC)
-+    uint32_t reserved_765; // offset: 765 (0x2FD)
-+    uint32_t reserved_766; // offset: 766 (0x2FE)
-+    uint32_t reserved_767; // offset: 767 (0x2FF)
-+    uint32_t reserved_768; // offset: 768 (0x300)
-+    uint32_t reserved_769; // offset: 769 (0x301)
-+    uint32_t reserved_770; // offset: 770 (0x302)
-+    uint32_t reserved_771; // offset: 771 (0x303)
-+    uint32_t reserved_772; // offset: 772 (0x304)
-+    uint32_t reserved_773; // offset: 773 (0x305)
-+    uint32_t reserved_774; // offset: 774 (0x306)
-+    uint32_t reserved_775; // offset: 775 (0x307)
-+    uint32_t reserved_776; // offset: 776 (0x308)
-+    uint32_t reserved_777; // offset: 777 (0x309)
-+    uint32_t reserved_778; // offset: 778 (0x30A)
-+    uint32_t reserved_779; // offset: 779 (0x30B)
-+    uint32_t reserved_780; // offset: 780 (0x30C)
-+    uint32_t reserved_781; // offset: 781 (0x30D)
-+    uint32_t reserved_782; // offset: 782 (0x30E)
-+    uint32_t reserved_783; // offset: 783 (0x30F)
-+    uint32_t reserved_784; // offset: 784 (0x310)
-+    uint32_t reserved_785; // offset: 785 (0x311)
-+    uint32_t reserved_786; // offset: 786 (0x312)
-+    uint32_t reserved_787; // offset: 787 (0x313)
-+    uint32_t reserved_788; // offset: 788 (0x314)
-+    uint32_t reserved_789; // offset: 789 (0x315)
-+    uint32_t reserved_790; // offset: 790 (0x316)
-+    uint32_t reserved_791; // offset: 791 (0x317)
-+    uint32_t reserved_792; // offset: 792 (0x318)
-+    uint32_t reserved_793; // offset: 793 (0x319)
-+    uint32_t reserved_794; // offset: 794 (0x31A)
-+    uint32_t reserved_795; // offset: 795 (0x31B)
-+    uint32_t reserved_796; // offset: 796 (0x31C)
-+    uint32_t reserved_797; // offset: 797 (0x31D)
-+    uint32_t reserved_798; // offset: 798 (0x31E)
-+    uint32_t reserved_799; // offset: 799 (0x31F)
-+    uint32_t reserved_800; // offset: 800 (0x320)
-+    uint32_t reserved_801; // offset: 801 (0x321)
-+    uint32_t reserved_802; // offset: 802 (0x322)
-+    uint32_t reserved_803; // offset: 803 (0x323)
-+    uint32_t reserved_804; // offset: 804 (0x324)
-+    uint32_t reserved_805; // offset: 805 (0x325)
-+    uint32_t reserved_806; // offset: 806 (0x326)
-+    uint32_t reserved_807; // offset: 807 (0x327)
-+    uint32_t reserved_808; // offset: 808 (0x328)
-+    uint32_t reserved_809; // offset: 809 (0x329)
-+    uint32_t reserved_810; // offset: 810 (0x32A)
-+    uint32_t reserved_811; // offset: 811 (0x32B)
-+    uint32_t reserved_812; // offset: 812 (0x32C)
-+    uint32_t reserved_813; // offset: 813 (0x32D)
-+    uint32_t reserved_814; // offset: 814 (0x32E)
-+    uint32_t reserved_815; // offset: 815 (0x32F)
-+    uint32_t reserved_816; // offset: 816 (0x330)
-+    uint32_t reserved_817; // offset: 817 (0x331)
-+    uint32_t reserved_818; // offset: 818 (0x332)
-+    uint32_t reserved_819; // offset: 819 (0x333)
-+    uint32_t reserved_820; // offset: 820 (0x334)
-+    uint32_t reserved_821; // offset: 821 (0x335)
-+    uint32_t reserved_822; // offset: 822 (0x336)
-+    uint32_t reserved_823; // offset: 823 (0x337)
-+    uint32_t reserved_824; // offset: 824 (0x338)
-+    uint32_t reserved_825; // offset: 825 (0x339)
-+    uint32_t reserved_826; // offset: 826 (0x33A)
-+    uint32_t reserved_827; // offset: 827 (0x33B)
-+    uint32_t reserved_828; // offset: 828 (0x33C)
-+    uint32_t reserved_829; // offset: 829 (0x33D)
-+    uint32_t reserved_830; // offset: 830 (0x33E)
-+    uint32_t reserved_831; // offset: 831 (0x33F)
-+    uint32_t reserved_832; // offset: 832 (0x340)
-+    uint32_t reserved_833; // offset: 833 (0x341)
-+    uint32_t reserved_834; // offset: 834 (0x342)
-+    uint32_t reserved_835; // offset: 835 (0x343)
-+    uint32_t reserved_836; // offset: 836 (0x344)
-+    uint32_t reserved_837; // offset: 837 (0x345)
-+    uint32_t reserved_838; // offset: 838 (0x346)
-+    uint32_t reserved_839; // offset: 839 (0x347)
-+    uint32_t reserved_840; // offset: 840 (0x348)
-+    uint32_t reserved_841; // offset: 841 (0x349)
-+    uint32_t reserved_842; // offset: 842 (0x34A)
-+    uint32_t reserved_843; // offset: 843 (0x34B)
-+    uint32_t reserved_844; // offset: 844 (0x34C)
-+    uint32_t reserved_845; // offset: 845 (0x34D)
-+    uint32_t reserved_846; // offset: 846 (0x34E)
-+    uint32_t reserved_847; // offset: 847 (0x34F)
-+    uint32_t reserved_848; // offset: 848 (0x350)
-+    uint32_t reserved_849; // offset: 849 (0x351)
-+    uint32_t reserved_850; // offset: 850 (0x352)
-+    uint32_t reserved_851; // offset: 851 (0x353)
-+    uint32_t reserved_852; // offset: 852 (0x354)
-+    uint32_t reserved_853; // offset: 853 (0x355)
-+    uint32_t reserved_854; // offset: 854 (0x356)
-+    uint32_t reserved_855; // offset: 855 (0x357)
-+    uint32_t reserved_856; // offset: 856 (0x358)
-+    uint32_t reserved_857; // offset: 857 (0x359)
-+    uint32_t reserved_858; // offset: 858 (0x35A)
-+    uint32_t reserved_859; // offset: 859 (0x35B)
-+    uint32_t reserved_860; // offset: 860 (0x35C)
-+    uint32_t reserved_861; // offset: 861 (0x35D)
-+    uint32_t reserved_862; // offset: 862 (0x35E)
-+    uint32_t reserved_863; // offset: 863 (0x35F)
-+    uint32_t reserved_864; // offset: 864 (0x360)
-+    uint32_t reserved_865; // offset: 865 (0x361)
-+    uint32_t reserved_866; // offset: 866 (0x362)
-+    uint32_t reserved_867; // offset: 867 (0x363)
-+    uint32_t reserved_868; // offset: 868 (0x364)
-+    uint32_t reserved_869; // offset: 869 (0x365)
-+    uint32_t reserved_870; // offset: 870 (0x366)
-+    uint32_t reserved_871; // offset: 871 (0x367)
-+    uint32_t reserved_872; // offset: 872 (0x368)
-+    uint32_t reserved_873; // offset: 873 (0x369)
-+    uint32_t reserved_874; // offset: 874 (0x36A)
-+    uint32_t reserved_875; // offset: 875 (0x36B)
-+    uint32_t reserved_876; // offset: 876 (0x36C)
-+    uint32_t reserved_877; // offset: 877 (0x36D)
-+    uint32_t reserved_878; // offset: 878 (0x36E)
-+    uint32_t reserved_879; // offset: 879 (0x36F)
-+    uint32_t reserved_880; // offset: 880 (0x370)
-+    uint32_t reserved_881; // offset: 881 (0x371)
-+    uint32_t reserved_882; // offset: 882 (0x372)
-+    uint32_t reserved_883; // offset: 883 (0x373)
-+    uint32_t reserved_884; // offset: 884 (0x374)
-+    uint32_t reserved_885; // offset: 885 (0x375)
-+    uint32_t reserved_886; // offset: 886 (0x376)
-+    uint32_t reserved_887; // offset: 887 (0x377)
-+    uint32_t reserved_888; // offset: 888 (0x378)
-+    uint32_t reserved_889; // offset: 889 (0x379)
-+    uint32_t reserved_890; // offset: 890 (0x37A)
-+    uint32_t reserved_891; // offset: 891 (0x37B)
-+    uint32_t reserved_892; // offset: 892 (0x37C)
-+    uint32_t reserved_893; // offset: 893 (0x37D)
-+    uint32_t reserved_894; // offset: 894 (0x37E)
-+    uint32_t reserved_895; // offset: 895 (0x37F)
-+    uint32_t reserved_896; // offset: 896 (0x380)
-+    uint32_t reserved_897; // offset: 897 (0x381)
-+    uint32_t reserved_898; // offset: 898 (0x382)
-+    uint32_t reserved_899; // offset: 899 (0x383)
-+    uint32_t reserved_900; // offset: 900 (0x384)
-+    uint32_t reserved_901; // offset: 901 (0x385)
-+    uint32_t reserved_902; // offset: 902 (0x386)
-+    uint32_t reserved_903; // offset: 903 (0x387)
-+    uint32_t reserved_904; // offset: 904 (0x388)
-+    uint32_t reserved_905; // offset: 905 (0x389)
-+    uint32_t reserved_906; // offset: 906 (0x38A)
-+    uint32_t reserved_907; // offset: 907 (0x38B)
-+    uint32_t reserved_908; // offset: 908 (0x38C)
-+    uint32_t reserved_909; // offset: 909 (0x38D)
-+    uint32_t reserved_910; // offset: 910 (0x38E)
-+    uint32_t reserved_911; // offset: 911 (0x38F)
-+    uint32_t reserved_912; // offset: 912 (0x390)
-+    uint32_t reserved_913; // offset: 913 (0x391)
-+    uint32_t reserved_914; // offset: 914 (0x392)
-+    uint32_t reserved_915; // offset: 915 (0x393)
-+    uint32_t reserved_916; // offset: 916 (0x394)
-+    uint32_t reserved_917; // offset: 917 (0x395)
-+    uint32_t reserved_918; // offset: 918 (0x396)
-+    uint32_t reserved_919; // offset: 919 (0x397)
-+    uint32_t reserved_920; // offset: 920 (0x398)
-+    uint32_t reserved_921; // offset: 921 (0x399)
-+    uint32_t reserved_922; // offset: 922 (0x39A)
-+    uint32_t reserved_923; // offset: 923 (0x39B)
-+    uint32_t reserved_924; // offset: 924 (0x39C)
-+    uint32_t reserved_925; // offset: 925 (0x39D)
-+    uint32_t reserved_926; // offset: 926 (0x39E)
-+    uint32_t reserved_927; // offset: 927 (0x39F)
-+    uint32_t reserved_928; // offset: 928 (0x3A0)
-+    uint32_t reserved_929; // offset: 929 (0x3A1)
-+    uint32_t reserved_930; // offset: 930 (0x3A2)
-+    uint32_t reserved_931; // offset: 931 (0x3A3)
-+    uint32_t reserved_932; // offset: 932 (0x3A4)
-+    uint32_t reserved_933; // offset: 933 (0x3A5)
-+    uint32_t reserved_934; // offset: 934 (0x3A6)
-+    uint32_t reserved_935; // offset: 935 (0x3A7)
-+    uint32_t reserved_936; // offset: 936 (0x3A8)
-+    uint32_t reserved_937; // offset: 937 (0x3A9)
-+    uint32_t reserved_938; // offset: 938 (0x3AA)
-+    uint32_t reserved_939; // offset: 939 (0x3AB)
-+    uint32_t reserved_940; // offset: 940 (0x3AC)
-+    uint32_t reserved_941; // offset: 941 (0x3AD)
-+    uint32_t reserved_942; // offset: 942 (0x3AE)
-+    uint32_t reserved_943; // offset: 943 (0x3AF)
-+    uint32_t reserved_944; // offset: 944 (0x3B0)
-+    uint32_t reserved_945; // offset: 945 (0x3B1)
-+    uint32_t reserved_946; // offset: 946 (0x3B2)
-+    uint32_t reserved_947; // offset: 947 (0x3B3)
-+    uint32_t reserved_948; // offset: 948 (0x3B4)
-+    uint32_t reserved_949; // offset: 949 (0x3B5)
-+    uint32_t reserved_950; // offset: 950 (0x3B6)
-+    uint32_t reserved_951; // offset: 951 (0x3B7)
-+    uint32_t reserved_952; // offset: 952 (0x3B8)
-+    uint32_t reserved_953; // offset: 953 (0x3B9)
-+    uint32_t reserved_954; // offset: 954 (0x3BA)
-+    uint32_t reserved_955; // offset: 955 (0x3BB)
-+    uint32_t reserved_956; // offset: 956 (0x3BC)
-+    uint32_t reserved_957; // offset: 957 (0x3BD)
-+    uint32_t reserved_958; // offset: 958 (0x3BE)
-+    uint32_t reserved_959; // offset: 959 (0x3BF)
-+    uint32_t reserved_960; // offset: 960 (0x3C0)
-+    uint32_t reserved_961; // offset: 961 (0x3C1)
-+    uint32_t reserved_962; // offset: 962 (0x3C2)
-+    uint32_t reserved_963; // offset: 963 (0x3C3)
-+    uint32_t reserved_964; // offset: 964 (0x3C4)
-+    uint32_t reserved_965; // offset: 965 (0x3C5)
-+    uint32_t reserved_966; // offset: 966 (0x3C6)
-+    uint32_t reserved_967; // offset: 967 (0x3C7)
-+    uint32_t reserved_968; // offset: 968 (0x3C8)
-+    uint32_t reserved_969; // offset: 969 (0x3C9)
-+    uint32_t reserved_970; // offset: 970 (0x3CA)
-+    uint32_t reserved_971; // offset: 971 (0x3CB)
-+    uint32_t reserved_972; // offset: 972 (0x3CC)
-+    uint32_t reserved_973; // offset: 973 (0x3CD)
-+    uint32_t reserved_974; // offset: 974 (0x3CE)
-+    uint32_t reserved_975; // offset: 975 (0x3CF)
-+    uint32_t reserved_976; // offset: 976 (0x3D0)
-+    uint32_t reserved_977; // offset: 977 (0x3D1)
-+    uint32_t reserved_978; // offset: 978 (0x3D2)
-+    uint32_t reserved_979; // offset: 979 (0x3D3)
-+    uint32_t reserved_980; // offset: 980 (0x3D4)
-+    uint32_t reserved_981; // offset: 981 (0x3D5)
-+    uint32_t reserved_982; // offset: 982 (0x3D6)
-+    uint32_t reserved_983; // offset: 983 (0x3D7)
-+    uint32_t reserved_984; // offset: 984 (0x3D8)
-+    uint32_t reserved_985; // offset: 985 (0x3D9)
-+    uint32_t reserved_986; // offset: 986 (0x3DA)
-+    uint32_t reserved_987; // offset: 987 (0x3DB)
-+    uint32_t reserved_988; // offset: 988 (0x3DC)
-+    uint32_t reserved_989; // offset: 989 (0x3DD)
-+    uint32_t reserved_990; // offset: 990 (0x3DE)
-+    uint32_t reserved_991; // offset: 991 (0x3DF)
-+    uint32_t reserved_992; // offset: 992 (0x3E0)
-+    uint32_t reserved_993; // offset: 993 (0x3E1)
-+    uint32_t reserved_994; // offset: 994 (0x3E2)
-+    uint32_t reserved_995; // offset: 995 (0x3E3)
-+    uint32_t reserved_996; // offset: 996 (0x3E4)
-+    uint32_t reserved_997; // offset: 997 (0x3E5)
-+    uint32_t reserved_998; // offset: 998 (0x3E6)
-+    uint32_t reserved_999; // offset: 999 (0x3E7)
-+    uint32_t reserved_1000; // offset: 1000 (0x3E8)
-+    uint32_t reserved_1001; // offset: 1001 (0x3E9)
-+    uint32_t reserved_1002; // offset: 1002 (0x3EA)
-+    uint32_t reserved_1003; // offset: 1003 (0x3EB)
-+    uint32_t reserved_1004; // offset: 1004 (0x3EC)
-+    uint32_t reserved_1005; // offset: 1005 (0x3ED)
-+    uint32_t reserved_1006; // offset: 1006 (0x3EE)
-+    uint32_t reserved_1007; // offset: 1007 (0x3EF)
-+    uint32_t reserved_1008; // offset: 1008 (0x3F0)
-+    uint32_t reserved_1009; // offset: 1009 (0x3F1)
-+    uint32_t reserved_1010; // offset: 1010 (0x3F2)
-+    uint32_t reserved_1011; // offset: 1011 (0x3F3)
-+    uint32_t reserved_1012; // offset: 1012 (0x3F4)
-+    uint32_t reserved_1013; // offset: 1013 (0x3F5)
-+    uint32_t reserved_1014; // offset: 1014 (0x3F6)
-+    uint32_t reserved_1015; // offset: 1015 (0x3F7)
-+    uint32_t reserved_1016; // offset: 1016 (0x3F8)
-+    uint32_t reserved_1017; // offset: 1017 (0x3F9)
-+    uint32_t reserved_1018; // offset: 1018 (0x3FA)
-+    uint32_t reserved_1019; // offset: 1019 (0x3FB)
-+    uint32_t reserved_1020; // offset: 1020 (0x3FC)
-+    uint32_t reserved_1021; // offset: 1021 (0x3FD)
-+    uint32_t reserved_1022; // offset: 1022 (0x3FE)
-+    uint32_t reserved_1023; // offset: 1023 (0x3FF)
-+};
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_COPY_LINEAR_HEADER_op_offset 0
++#define SDMA_PKT_COPY_LINEAR_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_COPY_LINEAR_HEADER_op_shift  0
++#define SDMA_PKT_COPY_LINEAR_HEADER_OP(x) (((x) & SDMA_PKT_COPY_LINEAR_HEADER_op_mask) << SDMA_PKT_COPY_LINEAR_HEADER_op_shift)
 +
-+#endif /* V13_STRUCTS_H_ */
++/*define for sub_op field*/
++#define SDMA_PKT_COPY_LINEAR_HEADER_sub_op_offset 0
++#define SDMA_PKT_COPY_LINEAR_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_COPY_LINEAR_HEADER_sub_op_shift  8
++#define SDMA_PKT_COPY_LINEAR_HEADER_SUB_OP(x) (((x) & SDMA_PKT_COPY_LINEAR_HEADER_sub_op_mask) << SDMA_PKT_COPY_LINEAR_HEADER_sub_op_shift)
++
++/*define for tmz field*/
++#define SDMA_PKT_COPY_LINEAR_HEADER_tmz_offset 0
++#define SDMA_PKT_COPY_LINEAR_HEADER_tmz_mask   0x00000001
++#define SDMA_PKT_COPY_LINEAR_HEADER_tmz_shift  18
++#define SDMA_PKT_COPY_LINEAR_HEADER_TMZ(x) (((x) & SDMA_PKT_COPY_LINEAR_HEADER_tmz_mask) << SDMA_PKT_COPY_LINEAR_HEADER_tmz_shift)
++
++/*define for backwards field*/
++#define SDMA_PKT_COPY_LINEAR_HEADER_backwards_offset 0
++#define SDMA_PKT_COPY_LINEAR_HEADER_backwards_mask   0x00000001
++#define SDMA_PKT_COPY_LINEAR_HEADER_backwards_shift  25
++#define SDMA_PKT_COPY_LINEAR_HEADER_BACKWARDS(x) (((x) & SDMA_PKT_COPY_LINEAR_HEADER_backwards_mask) << SDMA_PKT_COPY_LINEAR_HEADER_backwards_shift)
++
++/*define for broadcast field*/
++#define SDMA_PKT_COPY_LINEAR_HEADER_broadcast_offset 0
++#define SDMA_PKT_COPY_LINEAR_HEADER_broadcast_mask   0x00000001
++#define SDMA_PKT_COPY_LINEAR_HEADER_broadcast_shift  27
++#define SDMA_PKT_COPY_LINEAR_HEADER_BROADCAST(x) (((x) & SDMA_PKT_COPY_LINEAR_HEADER_broadcast_mask) << SDMA_PKT_COPY_LINEAR_HEADER_broadcast_shift)
++
++/*define for npd field*/
++#define SDMA_PKT_COPY_LINEAR_HEADER_npd_offset 0
++#define SDMA_PKT_COPY_LINEAR_HEADER_npd_mask   0x00000001
++#define SDMA_PKT_COPY_LINEAR_HEADER_npd_shift  28
++#define SDMA_PKT_COPY_LINEAR_HEADER_NPD(x) (((x) & SDMA_PKT_COPY_LINEAR_HEADER_npd_mask) << SDMA_PKT_COPY_LINEAR_HEADER_npd_shift)
++
++/*define for COUNT word*/
++/*define for count field*/
++#define SDMA_PKT_COPY_LINEAR_COUNT_count_offset 1
++#define SDMA_PKT_COPY_LINEAR_COUNT_count_mask   0x3FFFFFFF
++#define SDMA_PKT_COPY_LINEAR_COUNT_count_shift  0
++#define SDMA_PKT_COPY_LINEAR_COUNT_COUNT(x) (((x) & SDMA_PKT_COPY_LINEAR_COUNT_count_mask) << SDMA_PKT_COPY_LINEAR_COUNT_count_shift)
++
++/*define for PARAMETER word*/
++/*define for dst_uc_sel field*/
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_dst_uc_sel_offset 2
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_dst_uc_sel_mask   0x00000003
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_dst_uc_sel_shift  0
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_DST_UC_SEL(x) (((x) & SDMA_PKT_COPY_LINEAR_PARAMETER_dst_uc_sel_mask) << SDMA_PKT_COPY_LINEAR_PARAMETER_dst_uc_sel_shift)
++
++/*define for src_uc_sel field*/
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_src_uc_sel_offset 2
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_src_uc_sel_mask   0x00000003
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_src_uc_sel_shift  2
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_SRC_UC_SEL(x) (((x) & SDMA_PKT_COPY_LINEAR_PARAMETER_src_uc_sel_mask) << SDMA_PKT_COPY_LINEAR_PARAMETER_src_uc_sel_shift)
++
++/*define for dst_sw field*/
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_dst_sw_offset 2
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_dst_sw_mask   0x00000003
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_dst_sw_shift  16
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_DST_SW(x) (((x) & SDMA_PKT_COPY_LINEAR_PARAMETER_dst_sw_mask) << SDMA_PKT_COPY_LINEAR_PARAMETER_dst_sw_shift)
++
++/*define for dst_scope field*/
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_dst_scope_offset 2
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_dst_scope_mask   0x00000003
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_dst_scope_shift  18
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_DST_SCOPE(x) (((x) & SDMA_PKT_COPY_LINEAR_PARAMETER_dst_scope_mask) << SDMA_PKT_COPY_LINEAR_PARAMETER_dst_scope_shift)
++
++/*define for dst_temportal_hint field*/
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_dst_temportal_hint_offset 2
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_dst_temportal_hint_mask   0x00000007
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_dst_temportal_hint_shift  20
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_DST_TEMPORTAL_HINT(x) (((x) & SDMA_PKT_COPY_LINEAR_PARAMETER_dst_temportal_hint_mask) << SDMA_PKT_COPY_LINEAR_PARAMETER_dst_temportal_hint_shift)
++
++/*define for src_sw field*/
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_src_sw_offset 2
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_src_sw_mask   0x00000003
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_src_sw_shift  24
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_SRC_SW(x) (((x) & SDMA_PKT_COPY_LINEAR_PARAMETER_src_sw_mask) << SDMA_PKT_COPY_LINEAR_PARAMETER_src_sw_shift)
++
++/*define for src_scope field*/
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_src_scope_offset 2
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_src_scope_mask   0x00000003
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_src_scope_shift  26
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_SRC_SCOPE(x) (((x) & SDMA_PKT_COPY_LINEAR_PARAMETER_src_scope_mask) << SDMA_PKT_COPY_LINEAR_PARAMETER_src_scope_shift)
++
++/*define for src_temportal_hint field*/
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_src_temportal_hint_offset 2
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_src_temportal_hint_mask   0x00000007
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_src_temportal_hint_shift  28
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_SRC_TEMPORTAL_HINT(x) (((x) & SDMA_PKT_COPY_LINEAR_PARAMETER_src_temportal_hint_mask) << SDMA_PKT_COPY_LINEAR_PARAMETER_src_temportal_hint_shift)
++
++/*define for DW3 word*/
++/*define for data_format field*/
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_data_format_offset 3
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_data_format_mask   0x0000003F
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_data_format_shift  0
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_DATA_FORMAT(x) (((x) & SDMA_PKT_COPY_LINEAR_PARAMETER_data_format_mask) << SDMA_PKT_COPY_LINEAR_PARAMETER_data_format_shift)
++
++/*define for num_type field*/
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_num_type_offset 3
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_num_type_mask   0x00000007
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_num_type_shift  9
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_NUM_TYPE(x) (((x) & SDMA_PKT_COPY_LINEAR_PARAMETER_num_type_mask) << SDMA_PKT_COPY_LINEAR_PARAMETER_num_type_shift)
++
++/*define for rd_cm field*/
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_rd_cm_offset 3
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_rd_cm_mask   0x00000003
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_rd_cm_shift  16
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_RD_CM(x) (((x) & SDMA_PKT_COPY_LINEAR_PARAMETER_rd_cm_mask) << SDMA_PKT_COPY_LINEAR_PARAMETER_rd_cm_shift)
++
++/*define for wr_cm field*/
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_wr_cm_offset 3
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_wr_cm_mask   0x00000003
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_wr_cm_shift  18
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_WR_CM(x) (((x) & SDMA_PKT_COPY_LINEAR_PARAMETER_wr_cm_mask) << SDMA_PKT_COPY_LINEAR_PARAMETER_wr_cm_shift)
++
++/*define for max_cm field*/
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_max_cm_offset 3
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_max_cm_mask   0x00000003
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_max_cm_shift  24
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_MAX_CM(x) (((x) & SDMA_PKT_COPY_LINEAR_PARAMETER_max_cm_mask) << SDMA_PKT_COPY_LINEAR_PARAMETER_max_cm_shift)
++
++/*define for max_ucm field*/
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_max_ucm_offset 3
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_max_ucm_mask   0x00000001
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_max_ucm_shift  26
++#define SDMA_PKT_COPY_LINEAR_PARAMETER_MAX_UCM(x) (((x) & SDMA_PKT_COPY_LINEAR_PARAMETER_max_ucm_mask) << SDMA_PKT_COPY_LINEAR_PARAMETER_max_ucm_shift)
++
++/*define for SRC_ADDR_LO word*/
++/*define for src_addr_31_0 field*/
++#define SDMA_PKT_COPY_LINEAR_SRC_ADDR_LO_src_addr_31_0_offset 4
++#define SDMA_PKT_COPY_LINEAR_SRC_ADDR_LO_src_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SRC_ADDR_LO_src_addr_31_0_shift  0
++#define SDMA_PKT_COPY_LINEAR_SRC_ADDR_LO_SRC_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_LINEAR_SRC_ADDR_LO_src_addr_31_0_mask) << SDMA_PKT_COPY_LINEAR_SRC_ADDR_LO_src_addr_31_0_shift)
++
++/*define for SRC_ADDR_HI word*/
++/*define for src_addr_63_32 field*/
++#define SDMA_PKT_COPY_LINEAR_SRC_ADDR_HI_src_addr_63_32_offset 5
++#define SDMA_PKT_COPY_LINEAR_SRC_ADDR_HI_src_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SRC_ADDR_HI_src_addr_63_32_shift  0
++#define SDMA_PKT_COPY_LINEAR_SRC_ADDR_HI_SRC_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_LINEAR_SRC_ADDR_HI_src_addr_63_32_mask) << SDMA_PKT_COPY_LINEAR_SRC_ADDR_HI_src_addr_63_32_shift)
++
++/*define for DST_ADDR_LO word*/
++/*define for dst_addr_31_0 field*/
++#define SDMA_PKT_COPY_LINEAR_DST_ADDR_LO_dst_addr_31_0_offset 6
++#define SDMA_PKT_COPY_LINEAR_DST_ADDR_LO_dst_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_DST_ADDR_LO_dst_addr_31_0_shift  0
++#define SDMA_PKT_COPY_LINEAR_DST_ADDR_LO_DST_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_LINEAR_DST_ADDR_LO_dst_addr_31_0_mask) << SDMA_PKT_COPY_LINEAR_DST_ADDR_LO_dst_addr_31_0_shift)
++
++/*define for DST_ADDR_HI word*/
++/*define for dst_addr_63_32 field*/
++#define SDMA_PKT_COPY_LINEAR_DST_ADDR_HI_dst_addr_63_32_offset 7
++#define SDMA_PKT_COPY_LINEAR_DST_ADDR_HI_dst_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_DST_ADDR_HI_dst_addr_63_32_shift  0
++#define SDMA_PKT_COPY_LINEAR_DST_ADDR_HI_DST_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_LINEAR_DST_ADDR_HI_dst_addr_63_32_mask) << SDMA_PKT_COPY_LINEAR_DST_ADDR_HI_dst_addr_63_32_shift)
++
++
++/*
++** Definitions for SDMA_PKT_COPY_PHYSICAL_LINEAR packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_op_offset 0
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_op_shift  0
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_OP(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_op_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_sub_op_offset 0
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_sub_op_shift  8
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_SUB_OP(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_sub_op_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_sub_op_shift)
++
++/*define for tmz field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_tmz_offset 0
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_tmz_mask   0x00000001
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_tmz_shift  18
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_TMZ(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_tmz_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_tmz_shift)
++
++/*define for hi_pri field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_hi_pri_offset 0
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_hi_pri_mask   0x00000001
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_hi_pri_shift  21
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_HI_PRI(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_hi_pri_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_hi_pri_shift)
++
++/*define for nsd field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_nsd_offset 0
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_nsd_mask   0x00000001
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_nsd_shift  28
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_NSD(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_nsd_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_HEADER_nsd_shift)
++
++/*define for COUNT word*/
++/*define for count field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_COUNT_count_offset 1
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_COUNT_count_mask   0x003FFFFF
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_COUNT_count_shift  0
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_COUNT_COUNT(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_COUNT_count_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_COUNT_count_shift)
++
++/*define for addr_pair_num field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_COUNT_addr_pair_num_offset 1
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_COUNT_addr_pair_num_mask   0x000000FF
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_COUNT_addr_pair_num_shift  24
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_COUNT_ADDR_PAIR_NUM(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_COUNT_addr_pair_num_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_COUNT_addr_pair_num_shift)
++
++/*define for PARAMETER word*/
++/*define for dst_uc_sel field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_uc_sel_offset 2
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_uc_sel_mask   0x00000003
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_uc_sel_shift  0
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_DST_UC_SEL(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_uc_sel_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_uc_sel_shift)
++
++/*define for src_uc_sel field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_uc_sel_offset 2
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_uc_sel_mask   0x00000003
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_uc_sel_shift  2
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_SRC_UC_SEL(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_uc_sel_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_uc_sel_shift)
++
++/*define for dst_mtype field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_mtype_offset 2
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_mtype_mask   0x00000003
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_mtype_shift  4
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_DST_MTYPE(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_mtype_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_mtype_shift)
++
++/*define for dst_scope field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_scope_offset 2
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_scope_mask   0x00000003
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_scope_shift  6
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_DST_SCOPE(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_scope_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_scope_shift)
++
++/*define for dst_temp_hint field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_temp_hint_offset 2
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_temp_hint_mask   0x00000007
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_temp_hint_shift  8
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_DST_TEMP_HINT(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_temp_hint_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_temp_hint_shift)
++
++/*define for src_mtype field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_mtype_offset 2
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_mtype_mask   0x00000003
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_mtype_shift  12
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_SRC_MTYPE(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_mtype_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_mtype_shift)
++
++/*define for src_scope field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_scope_offset 2
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_scope_mask   0x00000003
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_scope_shift  14
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_SRC_SCOPE(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_scope_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_scope_shift)
++
++/*define for src_temp_hint field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_temp_hint_offset 2
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_temp_hint_mask   0x00000007
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_temp_hint_shift  16
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_SRC_TEMP_HINT(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_temp_hint_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_temp_hint_shift)
++
++/*define for dst_sys field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_sys_offset 2
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_sys_mask   0x00000001
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_sys_shift  20
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_DST_SYS(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_sys_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_sys_shift)
++
++/*define for dst_snp field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_snp_offset 2
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_snp_mask   0x00000001
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_snp_shift  22
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_DST_SNP(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_snp_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_snp_shift)
++
++/*define for dst_gpa field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_gpa_offset 2
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_gpa_mask   0x00000001
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_gpa_shift  23
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_DST_GPA(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_gpa_snp_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_gpa_snp_shift)
++
++/*define for src_sw field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_sw_offset 2
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_sw_mask   0x00000003
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_sw_shift  24
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_SRC_SW(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_sw_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_sw_shift)
++
++/*define for dst_sw field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_sw_offset 2
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_sw_mask   0x00000003
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_sw_shift  26
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_DST_SW(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_sw_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_dst_sw_shift)
++
++/*define for src_sys field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_sys_offset 2
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_sys_mask   0x00000001
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_sys_shift  28
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_SRC_SYS(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_sys_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_sys_shift)
++
++/*define for src_snp field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_snp_offset 2
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_snp_mask   0x00000001
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_snp_shift  30
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_SRC_SNP(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_snp_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_snp_shift)
++
++/*define for src_gpa field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_gpa_offset 2
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_gpa_mask   0x00000001
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_gpa_shift  31
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_SRC_GPA(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_snp_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_src_snp_shift)
++
++/*define for DW3 word*/
++/*define for data_format field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_data_format_offset 3
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_data_format_mask   0x0000003F
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_data_format_shift  0
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_DATA_FORMAT(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_data_format_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_data_format_shift)
++
++/*define for num_type field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_num_type_offset 3
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_num_type_mask   0x00000007
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_num_type_shift  9
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_NUM_TYPE(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_num_type_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_num_type_shift)
++
++/*define for rd_cm field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_rd_cm_offset 3
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_rd_cm_mask   0x00000003
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_rd_cm_shift  16
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_RD_CM(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_rd_cm_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_rd_cm_shift)
++
++/*define for wr_cm field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_wr_cm_offset 3
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_wr_cm_mask   0x00000003
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_wr_cm_shift  18
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_WR_CM(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_wr_cm_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_wr_cm_shift)
++
++/*define for max_cm field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_max_cm_offset 3
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_max_cm_mask   0x00000003
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_max_cm_shift  24
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_MAX_CM(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_max_cm_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_max_cm_shift)
++
++/*define for max_ucm field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_max_ucm_offset 3
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_max_ucm_mask   0x00000001
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_max_ucm_shift  26
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_MAX_UCM(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_max_ucm_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_PARAMETER_max_ucm_shift)
++
++/*define for SRC_ADDR_LO word*/
++/*define for src_addr_31_0 field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_SRC_ADDR_LO_src_addr_31_0_offset 4
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_SRC_ADDR_LO_src_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_SRC_ADDR_LO_src_addr_31_0_shift  0
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_SRC_ADDR_LO_SRC_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_SRC_ADDR_LO_src_addr_31_0_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_SRC_ADDR_LO_src_addr_31_0_shift)
++
++/*define for SRC_ADDR_HI word*/
++/*define for src_addr_63_32 field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_SRC_ADDR_HI_src_addr_63_32_offset 5
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_SRC_ADDR_HI_src_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_SRC_ADDR_HI_src_addr_63_32_shift  0
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_SRC_ADDR_HI_SRC_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_SRC_ADDR_HI_src_addr_63_32_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_SRC_ADDR_HI_src_addr_63_32_shift)
++
++/*define for DST_ADDR_LO word*/
++/*define for dst_addr_31_0 field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_DST_ADDR_LO_dst_addr_31_0_offset 6
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_DST_ADDR_LO_dst_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_DST_ADDR_LO_dst_addr_31_0_shift  0
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_DST_ADDR_LO_DST_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_DST_ADDR_LO_dst_addr_31_0_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_DST_ADDR_LO_dst_addr_31_0_shift)
++
++/*define for DST_ADDR_HI word*/
++/*define for dst_addr_63_32 field*/
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_DST_ADDR_HI_dst_addr_63_32_offset 7
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_DST_ADDR_HI_dst_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_DST_ADDR_HI_dst_addr_63_32_shift  0
++#define SDMA_PKT_COPY_PHYSICAL_LINEAR_DST_ADDR_HI_DST_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_PHYSICAL_LINEAR_DST_ADDR_HI_dst_addr_63_32_mask) << SDMA_PKT_COPY_PHYSICAL_LINEAR_DST_ADDR_HI_dst_addr_63_32_shift)
++
++
++/*
++** Definitions for SDMA_PKT_COPY_BROADCAST_LINEAR packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_op_offset 0
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_op_shift  0
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_OP(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_op_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_sub_op_offset 0
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_sub_op_shift  8
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_SUB_OP(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_sub_op_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_sub_op_shift)
++
++/*define for tmz field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_tmz_offset 0
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_tmz_mask   0x00000001
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_tmz_shift  18
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_TMZ(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_tmz_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_tmz_shift)
++
++/*define for hi_pri field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_hi_pri_offset 0
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_hi_pri_mask   0x00000001
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_hi_pri_shift  21
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_HI_PRI(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_hi_pri_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_hi_pri_shift)
++
++/*define for backward field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_backward_offset 0
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_backward_mask   0x00000001
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_backward_shift  25
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_BACKWARD(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_backward_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_backward_shift)
++
++/*define for broadcast field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_broadcast_offset 0
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_broadcast_mask   0x00000001
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_broadcast_shift  27
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_BROADCAST(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_broadcast_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_broadcast_shift)
++
++/*define for npd field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_npd_offset 0
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_npd_mask   0x00000001
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_npd_shift  28
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_NPD(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_npd_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_HEADER_npd_shift)
++
++/*define for COUNT word*/
++/*define for count field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_COUNT_count_offset 1
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_COUNT_count_mask   0x3FFFFFFF
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_COUNT_count_shift  0
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_COUNT_COUNT(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_COUNT_count_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_COUNT_count_shift)
++
++/*define for PARAMETER word*/
++/*define for dst_uc_sel field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst_uc_sel_offset 2
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst_uc_sel_mask   0x00000003
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst_uc_sel_shift  0
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_DST_UC_SEL(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst_uc_sel_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst_uc_sel_shift)
++
++/*define for src_uc_sel field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_src_uc_sel_offset 2
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_src_uc_sel_mask   0x00000003
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_src_uc_sel_shift  2
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_SRC_UC_SEL(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_src_uc_sel_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_src_uc_sel_shift)
++
++/*define for dst1_uc_sel field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst1_uc_sel_offset 2
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst1_uc_sel_mask   0x00000003
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst1_uc_sel_shift  4
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_DST1_UC_SEL(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst1_uc_sel_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst1_uc_sel_shift)
++
++/*define for dst1_sw field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst1_sw_offset 2
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst1_sw_mask   0x00000003
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst1_sw_shift  8
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_DST1_SW(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst1_sw_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst1_sw_shift)
++
++/*define for dst1_scope field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst1_scope_offset 2
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst1_scope_mask   0x00000003
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst1_scope_shift  10
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_DST1_SCOPE(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst1_scope_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst1_scope_shift)
++
++/*define for dst1_temp_hint field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst1_temp_hint_offset 2
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst1_temp_hint_mask   0x00000007
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst1_temp_hint_shift  12
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_DST1_TEMP_HINT(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst1_temp_hint_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst1_temp_hint_shift)
++
++/*define for dst_sw field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst_sw_offset 2
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst_sw_mask   0x00000003
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst_sw_shift  16
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_DST_SW(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst_sw_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst_sw_shift)
++
++/*define for dst_scope field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst_scope_offset 2
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst_scope_mask   0x00000003
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst_scope_shift  18
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_DST_SCOPE(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst_scope_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst_scope_shift)
++
++/*define for dst_temp_hint field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst_temp_hint_offset 2
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst_temp_hint_mask   0x00000007
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst_temp_hint_shift  20
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_DST_TEMP_HINT(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst_temp_hint_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_dst_temp_hint_shift)
++
++/*define for src_sw field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_src_sw_offset 2
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_src_sw_mask   0x00000003
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_src_sw_shift  24
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_SRC_SW(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_src_sw_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_src_sw_shift)
++
++/*define for src_scope field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_src_scope_offset 2
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_src_scope_mask   0x00000003
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_src_scope_shift  26
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_SRC_SCOPE(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_src_scope_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_src_scope_shift)
++
++/*define for src_temp_hint field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_src_temp_hint_offset 2
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_src_temp_hint_mask   0x00000007
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_src_temp_hint_shift  28
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_SRC_TEMP_HINT(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_src_temp_hint_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_src_temp_hint_shift)
++
++/*define for DW3 word*/
++/*define for data_format field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_data_format_offset 3
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_data_format_mask   0x0000003F
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_data_format_shift  0
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_DATA_FORMAT(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_data_format_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_data_format_shift)
++
++/*define for num_type field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_num_type_offset 3
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_num_type_mask   0x00000007
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_num_type_shift  9
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_NUM_TYPE(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_num_type_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_num_type_shift)
++
++/*define for rd_cm field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_rd_cm_offset 3
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_rd_cm_mask   0x00000003
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_rd_cm_shift  16
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_RD_CM(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_rd_cm_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_rd_cm_shift)
++
++/*define for wr_cm field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_wr_cm_offset 3
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_wr_cm_mask   0x00000003
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_wr_cm_shift  18
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_WR_CM(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_wr_cm_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_wr_cm_shift)
++
++/*define for max_cm field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_max_cm_offset 3
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_max_cm_mask   0x00000003
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_max_cm_shift  24
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_MAX_CM(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_max_cm_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_max_cm_shift)
++
++/*define for max_ucm field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_max_ucm_offset 3
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_max_ucm_mask   0x00000001
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_max_ucm_shift  26
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_MAX_UCM(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_max_ucm_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_PARAMETER_max_ucm_shift)
++
++/*define for SRC_ADDR_LO word*/
++/*define for src_addr_31_0 field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_SRC_ADDR_LO_src_addr_31_0_offset 4
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_SRC_ADDR_LO_src_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_SRC_ADDR_LO_src_addr_31_0_shift  0
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_SRC_ADDR_LO_SRC_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_SRC_ADDR_LO_src_addr_31_0_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_SRC_ADDR_LO_src_addr_31_0_shift)
++
++/*define for SRC_ADDR_HI word*/
++/*define for src_addr_63_32 field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_SRC_ADDR_HI_src_addr_63_32_offset 5
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_SRC_ADDR_HI_src_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_SRC_ADDR_HI_src_addr_63_32_shift  0
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_SRC_ADDR_HI_SRC_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_SRC_ADDR_HI_src_addr_63_32_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_SRC_ADDR_HI_src_addr_63_32_shift)
++
++/*define for DST1_ADDR_LO word*/
++/*define for dst1_addr_31_0 field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_DST1_ADDR_LO_dst1_addr_31_0_offset 6
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_DST1_ADDR_LO_dst1_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_DST1_ADDR_LO_dst1_addr_31_0_shift  0
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_DST1_ADDR_LO_DST1_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_DST1_ADDR_LO_dst1_addr_31_0_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_DST1_ADDR_LO_dst1_addr_31_0_shift)
++
++/*define for DST1_ADDR_HI word*/
++/*define for dst1_addr_63_32 field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_DST1_ADDR_HI_dst1_addr_63_32_offset 7
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_DST1_ADDR_HI_dst1_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_DST1_ADDR_HI_dst1_addr_63_32_shift  0
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_DST1_ADDR_HI_DST1_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_DST1_ADDR_HI_dst1_addr_63_32_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_DST1_ADDR_HI_dst1_addr_63_32_shift)
++
++/*define for DST2_ADDR_LO word*/
++/*define for dst2_addr_31_0 field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_DST2_ADDR_LO_dst2_addr_31_0_offset 8
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_DST2_ADDR_LO_dst2_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_DST2_ADDR_LO_dst2_addr_31_0_shift  0
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_DST2_ADDR_LO_DST2_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_DST2_ADDR_LO_dst2_addr_31_0_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_DST2_ADDR_LO_dst2_addr_31_0_shift)
++
++/*define for DST2_ADDR_HI word*/
++/*define for dst2_addr_63_32 field*/
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_DST2_ADDR_HI_dst2_addr_63_32_offset 9
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_DST2_ADDR_HI_dst2_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_DST2_ADDR_HI_dst2_addr_63_32_shift  0
++#define SDMA_PKT_COPY_BROADCAST_LINEAR_DST2_ADDR_HI_DST2_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_BROADCAST_LINEAR_DST2_ADDR_HI_dst2_addr_63_32_mask) << SDMA_PKT_COPY_BROADCAST_LINEAR_DST2_ADDR_HI_dst2_addr_63_32_shift)
++
++
++/*
++** Definitions for SDMA_PKT_COPY_LINEAR_SUBWIN packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_op_offset 0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_op_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_OP(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_op_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_sub_op_offset 0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_sub_op_shift  8
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_SUB_OP(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_sub_op_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_sub_op_shift)
++
++/*define for tmz field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_tmz_offset 0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_tmz_mask   0x00000001
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_tmz_shift  18
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_TMZ(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_tmz_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_tmz_shift)
++
++/*define for npd field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_npd_offset 0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_npd_mask   0x00000001
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_npd_shift  28
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_NPD(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_npd_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_npd_shift)
++
++/*define for elementsize field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_elementsize_offset 0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_elementsize_mask   0x00000007
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_elementsize_shift  29
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_ELEMENTSIZE(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_elementsize_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_HEADER_elementsize_shift)
++
++/*define for SRC_ADDR_LO word*/
++/*define for src_addr_31_0 field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_SRC_ADDR_LO_src_addr_31_0_offset 1
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_SRC_ADDR_LO_src_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_SRC_ADDR_LO_src_addr_31_0_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_SRC_ADDR_LO_SRC_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_SRC_ADDR_LO_src_addr_31_0_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_SRC_ADDR_LO_src_addr_31_0_shift)
++
++/*define for SRC_ADDR_HI word*/
++/*define for src_addr_63_32 field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_SRC_ADDR_HI_src_addr_63_32_offset 2
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_SRC_ADDR_HI_src_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_SRC_ADDR_HI_src_addr_63_32_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_SRC_ADDR_HI_SRC_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_SRC_ADDR_HI_src_addr_63_32_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_SRC_ADDR_HI_src_addr_63_32_shift)
++
++/*define for DW_3 word*/
++/*define for src_x field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_3_src_x_offset 3
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_3_src_x_mask   0x00003FFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_3_src_x_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_3_SRC_X(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DW_3_src_x_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DW_3_src_x_shift)
++
++/*define for src_y field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_3_src_y_offset 3
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_3_src_y_mask   0x00003FFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_3_src_y_shift  16
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_3_SRC_Y(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DW_3_src_y_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DW_3_src_y_shift)
++
++/*define for DW_4 word*/
++/*define for src_z field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_4_src_z_offset 4
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_4_src_z_mask   0x00003FFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_4_src_z_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_4_SRC_Z(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DW_4_src_z_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DW_4_src_z_shift)
++
++/*define for src_uc_sel field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_4_src_uc_sel_offset 4
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_4_src_uc_sel_mask   0x00000003
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_4_src_uc_sel_shift  14
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_4_SRC_UC_SEL(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DW_4_src_uc_sel_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DW_4_src_uc_sel_shift)
++
++/*define for src_pitch field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_4_src_pitch_offset 4
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_4_src_pitch_mask   0x0000FFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_4_src_pitch_shift  16
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_4_SRC_PITCH(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DW_4_src_pitch_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DW_4_src_pitch_shift)
++
++/*define for DW_5 word*/
++/*define for src_slice_pitch field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_5_src_slice_pitch_offset 5
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_5_src_slice_pitch_mask   0x0FFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_5_src_slice_pitch_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_5_SRC_SLICE_PITCH(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DW_5_src_slice_pitch_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DW_5_src_slice_pitch_shift)
++
++/*define for DST_ADDR_LO word*/
++/*define for dst_addr_31_0 field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DST_ADDR_LO_dst_addr_31_0_offset 6
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DST_ADDR_LO_dst_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DST_ADDR_LO_dst_addr_31_0_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DST_ADDR_LO_DST_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DST_ADDR_LO_dst_addr_31_0_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DST_ADDR_LO_dst_addr_31_0_shift)
++
++/*define for DST_ADDR_HI word*/
++/*define for dst_addr_63_32 field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DST_ADDR_HI_dst_addr_63_32_offset 7
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DST_ADDR_HI_dst_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DST_ADDR_HI_dst_addr_63_32_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DST_ADDR_HI_DST_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DST_ADDR_HI_dst_addr_63_32_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DST_ADDR_HI_dst_addr_63_32_shift)
++
++/*define for DW_8 word*/
++/*define for dst_x field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_8_dst_x_offset 8
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_8_dst_x_mask   0x00003FFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_8_dst_x_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_8_DST_X(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DW_8_dst_x_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DW_8_dst_x_shift)
++
++/*define for dst_y field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_8_dst_y_offset 8
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_8_dst_y_mask   0x00003FFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_8_dst_y_shift  16
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_8_DST_Y(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DW_8_dst_y_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DW_8_dst_y_shift)
++
++/*define for DW_9 word*/
++/*define for dst_z field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_9_dst_z_offset 9
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_9_dst_z_mask   0x00003FFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_9_dst_z_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_9_DST_Z(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DW_9_dst_z_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DW_9_dst_z_shift)
++
++/*define for dst_uc_sel field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_4_dst_uc_sel_offset 4
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_4_dst_uc_sel_mask   0x00000003
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_4_dst_uc_sel_shift  14
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_4_DST_UC_SEL(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DW_4_dst_uc_sel_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DW_4_dst_uc_sel_shift)
++
++/*define for dst_pitch field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_9_dst_pitch_offset 9
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_9_dst_pitch_mask   0x0000FFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_9_dst_pitch_shift  16
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_9_DST_PITCH(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DW_9_dst_pitch_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DW_9_dst_pitch_shift)
++
++/*define for DW_10 word*/
++/*define for dst_slice_pitch field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_10_dst_slice_pitch_offset 10
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_10_dst_slice_pitch_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_10_dst_slice_pitch_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_10_DST_SLICE_PITCH(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DW_10_dst_slice_pitch_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DW_10_dst_slice_pitch_shift)
++
++/*define for DW_11 word*/
++/*define for rect_x field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_11_rect_x_offset 11
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_11_rect_x_mask   0x0000FFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_11_rect_x_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_11_RECT_X(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DW_11_rect_x_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DW_11_rect_x_shift)
++
++/*define for rect_y field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_11_rect_y_offset 11
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_11_rect_y_mask   0x0000FFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_11_rect_y_shift  16
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_11_RECT_Y(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DW_11_rect_y_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DW_11_rect_y_shift)
++
++/*define for DW_12 word*/
++/*define for rect_z field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_rect_z_offset 12
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_rect_z_mask   0x00003FFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_rect_z_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_RECT_Z(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_rect_z_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_rect_z_shift)
++
++/*define for dst_sw field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_dst_sw_offset 12
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_dst_sw_mask   0x00000003
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_dst_sw_shift  16
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_DST_SW(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_dst_sw_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_dst_sw_shift)
++
++/*define for dst_scope field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_dst_scope_offset 12
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_dst_scope_mask   0x00000003
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_dst_scope_shift  18
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_DST_SCOPE(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_dst_scope__mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_dst_scope__shift)
++
++/*define for dst_temp_hint field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_dst_temp_hint_offset 12
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_dst_temp_hint_mask   0x00000007
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_dst_temp_hint_shift  20
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_DST_TEMP_HINT(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_dst_temp_hint_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_dst_temp_hint_shift)
++
++/*define for src_sw field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_src_sw_offset 12
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_src_sw_mask   0x00000003
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_src_sw_shift  24
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_SRC_SW(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_src_sw_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_src_sw_shift)
++
++/*define for src_scope field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_src_scope_offset 12
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_src_scope_mask   0x00000003
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_src_scope_shift  26
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_SRC_SCOPE(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_src_scope__mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_src_scope__shift)
++
++/*define for src_temp_hint field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_src_temp_hint_offset 12
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_src_temp_hint_mask   0x00000007
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_src_temp_hint_shift  28
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_SRC_TEMP_HINT(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_src_temp_hint_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DW_12_src_temp_hint_shift)
++
++/*define for DW_13 word*/
++/*define for data_format field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_13_data_format_offset 13
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_13_data_format_mask   0x0000003F
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_13_data_format_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_13_DATA_FORMAT(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DW_13_data_format_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DW_13_data_format_shift)
++
++/*define for num_type field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_13_num_type_offset 13
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_13_num_type_mask   0x00000007
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_13_num_type_shift  9
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_13_NUM_TYPE(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DW_13_num_type_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DW_13_num_type_shift)
++
++/*define for rd_cm field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_13_rd_cm_offset 13
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_13_rd_cm_mask   0x00000003
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_13_rd_cm_shift  16
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_13_RD_CM(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DW_13_rd_cm_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DW_13_rd_cm_shift)
++
++/*define for wr_cm field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_13_wr_cm_offset 13
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_13_wr_cm_mask   0x00000003
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_13_wr_cm_shift  18
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_13_WR_CM(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DW_13_wr_cm_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DW_13_wr_cm_shift)
++
++/*define for max_cm field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_13_max_cm_offset 13
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_13_max_cm_mask   0x00000003
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_13_max_cm_shift  24
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_13_MAX_CM(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DW_13_max_cm_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DW_13_max_cm_shift)
++
++/*define for max_ucm field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_13_max_ucm_offset 13
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_13_max_ucm_mask   0x00000001
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_13_max_ucm_shift  26
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_DW_13_MAX_UCM(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_DW_13_max_ucm_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_DW_13_max_ucm_shift)
++
++/*
++** Definitions for SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_op_offset 0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_op_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_OP(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_op_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_sub_op_offset 0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_sub_op_shift  8
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_SUB_OP(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_sub_op_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_sub_op_shift)
++
++/*define for tmz field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_tmz_offset 0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_tmz_mask   0x00000001
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_tmz_shift  18
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_TMZ(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_tmz_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_tmz_shift)
++
++/*define for npd field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_npd_offset 0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_npd_mask   0x00000001
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_npd_shift  28
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_NPD(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_npd_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_npd_shift)
++
++/*define for element_size field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_element_size_offset 0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_element_size_mask   0x00000007
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_element_size_shift  29
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_ELEMENT_SIZE(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_element_size_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_HEADER_element_size_shift)
++
++/*define for SRC_ADDR_LO word*/
++/*define for src_addr_31_0 field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_SRC_ADDR_LO_src_addr_31_0_offset 1
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_SRC_ADDR_LO_src_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_SRC_ADDR_LO_src_addr_31_0_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_SRC_ADDR_LO_SRC_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_SRC_ADDR_LO_src_addr_31_0_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_SRC_ADDR_LO_src_addr_31_0_shift)
++
++/*define for SRC_ADDR_HI word*/
++/*define for src_addr_63_32 field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_SRC_ADDR_HI_src_addr_63_32_offset 2
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_SRC_ADDR_HI_src_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_SRC_ADDR_HI_src_addr_63_32_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_SRC_ADDR_HI_SRC_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_SRC_ADDR_HI_src_addr_63_32_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_SRC_ADDR_HI_src_addr_63_32_shift)
++
++/*define for DW_3 word*/
++/*define for src_x field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_3_src_x_offset 3
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_3_src_x_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_3_src_x_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_3_SRC_X(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_3_src_x_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_3_src_x_shift)
++
++/*define for DW_4 word*/
++/*define for src_y field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_4_src_y_offset 4
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_4_src_y_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_4_src_y_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_4_SRC_Y(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_4_src_y_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_4_src_y_shift)
++
++/*define for DW_5 word*/
++/*define for src_z field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_5_src_z_offset 5
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_5_src_z_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_5_src_z_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_5_SRC_Z(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_5_src_z_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_5_src_z_shift)
++
++/*define for DW_6 word*/
++/*define for src_pitch field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_6_src_pitch_offset 6
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_6_src_pitch_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_6_src_pitch_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_6_SRC_PITCH(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_6_src_pitch_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_6_src_pitch_shift)
++
++/*define for DW_7 word*/
++/*define for src_slice_pitch_31_0 field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_7_src_slice_pitch_31_0_offset 7
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_7_src_slice_pitch_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_7_src_slice_pitch_31_0_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_7_SRC_SLICE_PITCH_31_0(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_7_src_slice_pitch_31_0_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_7_src_slice_pitch_31_0_shift)
++
++/*define for DW_8 word*/
++/*define for src_slice_pitch_47_32 field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_8_src_slice_pitch_47_32_offset 8
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_8_src_slice_pitch_47_32_mask   0x0000FFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_8_src_slice_pitch_47_32_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_8_SRC_SLICE_PITCH_47_32(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_8_src_slice_pitch_47_32_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_8_src_slice_pitch_47_32_shift)
++
++/*define for dst_uc_sel field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_8_dst_uc_sel_offset 8
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_8_dst_uc_sel_mask   0x00000003
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_8_dst_uc_sel_shift  16
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_8_DST_UC_SEL(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_8_dst_uc_sel_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_8_dst_uc_sel_shift)
++
++/*define for src_uc_sel field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_8_src_uc_sel_offset 8
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_8_src_uc_sel_mask   0x00000003
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_8_src_uc_sel_shift  18
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_8_SRC_UC_SEL(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_8_src_uc_sel_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_8_src_uc_sel_shift)
++
++/*define for DST_ADDR_LO word*/
++/*define for dst_addr_31_0 field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DST_ADDR_LO_dst_addr_31_0_offset 9
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DST_ADDR_LO_dst_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DST_ADDR_LO_dst_addr_31_0_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DST_ADDR_LO_DST_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DST_ADDR_LO_dst_addr_31_0_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DST_ADDR_LO_dst_addr_31_0_shift)
++
++/*define for DST_ADDR_HI word*/
++/*define for dst_addr_63_32 field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DST_ADDR_HI_dst_addr_63_32_offset 10
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DST_ADDR_HI_dst_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DST_ADDR_HI_dst_addr_63_32_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DST_ADDR_HI_DST_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DST_ADDR_HI_dst_addr_63_32_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DST_ADDR_HI_dst_addr_63_32_shift)
++
++/*define for DW_11 word*/
++/*define for dst_x field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_11_dst_x_offset 11
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_11_dst_x_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_11_dst_x_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_11_DST_X(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_11_dst_x_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_11_dst_x_shift)
++
++/*define for DW_12 word*/
++/*define for dst_y field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_12_dst_y_offset 12
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_12_dst_y_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_12_dst_y_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_12_DST_Y(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_12_dst_y_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_12_dst_y_shift)
++
++/*define for DW_13 word*/
++/*define for dst_z field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_13_dst_z_offset 13
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_13_dst_z_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_13_dst_z_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_13_DST_Z(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_13_dst_z_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_13_dst_z_shift)
++
++/*define for DW_14 word*/
++/*define for dst_pitch field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_14_dst_pitch_offset 14
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_14_dst_pitch_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_14_dst_pitch_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_14_DST_PITCH(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_14_dst_pitch_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_14_dst_pitch_shift)
++
++/*define for DW_15 word*/
++/*define for dst_slice_pitch_31_0 field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_15_dst_slice_pitch_31_0_offset 15
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_15_dst_slice_pitch_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_15_dst_slice_pitch_31_0_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_15_DST_SLICE_PITCH_31_0(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_15_dst_slice_pitch_31_0_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_15_dst_slice_pitch_31_0_shift)
++
++/*define for DW_16 word*/
++/*define for dst_slice_pitch_47_32 field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_dst_slice_pitch_47_32_offset 16
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_dst_slice_pitch_47_32_mask   0x0000FFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_dst_slice_pitch_47_32_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_DST_SLICE_PITCH_47_32(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_dst_slice_pitch_47_32_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_dst_slice_pitch_47_32_shift)
++
++/*define for dst_sw field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_dst_sw_offset 16
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_dst_sw_mask   0x00000003
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_dst_sw_shift  16
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_DST_SW(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_dst_sw_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_dst_sw_shift)
++
++/*define for dst_scope field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_dst_scope_offset 16
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_dst_scope_mask   0x00000003
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_dst_scope_shift  18
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_DST_SCOPE(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_dst_scope_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_dst_scope_shift)
++
++/*define for dst_temp_hint field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_dst_temp_hint_offset 16
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_dst_temp_hint_mask   0x00000007
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_dst_temp_hint_shift  20
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_DST_TEMP_HINT(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_dst_temp_hint_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_dst_temp_hint_shift)
++
++/*define for src_sw field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_src_sw_offset 16
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_src_sw_mask   0x00000003
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_src_sw_shift  24
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_SRC_SW(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_src_sw_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_src_sw_shift)
++
++/*define for src_scope field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_src_scope_offset 16
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_src_scope_mask   0x00000003
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_src_scope_shift  26
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_SRC_SCOPE(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_src_scope_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_src_scope_shift)
++
++/*define for src_temp_hint field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_src_temp_hint_offset 16
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_src_temp_hint_mask   0x00000007
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_src_temp_hint_shift  28
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_SRC_TEMP_HINT(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_src_temp_hint_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_16_src_temp_hint_shift)
++
++/*define for DW_17 word*/
++/*define for rect_x field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_17_rect_x_offset 17
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_17_rect_x_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_17_rect_x_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_17_RECT_X(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_17_rect_x_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_17_rect_x_shift)
++
++/*define for DW_18 word*/
++/*define for rect_y field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_18_rect_y_offset 18
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_18_rect_y_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_18_rect_y_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_18_RECT_Y(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_18_rect_y_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_18_rect_y_shift)
++
++/*define for DW_19 word*/
++/*define for rect_z field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_19_rect_z_offset 19
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_19_rect_z_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_19_rect_z_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_19_RECT_Z(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_19_rect_z_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_19_rect_z_shift)
++
++/*define for DW_20 word*/
++/*define for data_format field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_20_data_format_offset 20
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_20_data_format_mask   0x0000003F
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_20_data_format_shift  0
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_20_DATA_FORMAT(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_20_data_format_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_20_data_format_shift)
++
++/*define for num_type field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_20_num_type_offset 20
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_20_num_type_mask   0x00000007
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_20_num_type_shift  9
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_20_NUM_TYPE(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_20_num_type_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_20_num_type_shift)
++
++/*define for rd_cm field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_20_rd_cm_offset 20
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_20_rd_cm_mask   0x00000003
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_20_rd_cm_shift  16
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_20_RD_CM(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_20_rd_cm_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_20_rd_cm_shift)
++
++/*define for wr_cm field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_20_wr_cm_offset 20
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_20_wr_cm_mask   0x00000003
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_20_wr_cm_shift  18
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_20_WR_CM(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_20_wr_cm_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_20_wr_cm_shift)
++
++/*define for max_cm field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_20_max_cm_offset 20
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_20_max_cm_mask   0x00000003
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_20_max_cm_shift  24
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_20_MAX_CM(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_20_max_cm_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_20_max_cm_shift)
++
++/*define for max_ucm field*/
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_20_max_ucm_offset 20
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_20_max_ucm_mask   0x00000001
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_20_max_ucm_shift  26
++#define SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_20_MAX_UCM(x) (((x) & SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_20_max_ucm_mask) << SDMA_PKT_COPY_LINEAR_SUBWIN_LARGE_DW_20_max_ucm_shift)
++
++/*
++** Definitions for SDMA_PKT_COPY_TILED packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_COPY_TILED_HEADER_op_offset 0
++#define SDMA_PKT_COPY_TILED_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_COPY_TILED_HEADER_op_shift  0
++#define SDMA_PKT_COPY_TILED_HEADER_OP(x) (((x) & SDMA_PKT_COPY_TILED_HEADER_op_mask) << SDMA_PKT_COPY_TILED_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_COPY_TILED_HEADER_sub_op_offset 0
++#define SDMA_PKT_COPY_TILED_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_COPY_TILED_HEADER_sub_op_shift  8
++#define SDMA_PKT_COPY_TILED_HEADER_SUB_OP(x) (((x) & SDMA_PKT_COPY_TILED_HEADER_sub_op_mask) << SDMA_PKT_COPY_TILED_HEADER_sub_op_shift)
++
++/*define for tmz field*/
++#define SDMA_PKT_COPY_TILED_HEADER_tmz_offset 0
++#define SDMA_PKT_COPY_TILED_HEADER_tmz_mask   0x00000001
++#define SDMA_PKT_COPY_TILED_HEADER_tmz_shift  18
++#define SDMA_PKT_COPY_TILED_HEADER_TMZ(x) (((x) & SDMA_PKT_COPY_TILED_HEADER_tmz_mask) << SDMA_PKT_COPY_TILED_HEADER_tmz_shift)
++
++/*define for f2f field*/
++#define SDMA_PKT_COPY_TILED_HEADER_f2f_offset 0
++#define SDMA_PKT_COPY_TILED_HEADER_f2f_mask   0x00000001
++#define SDMA_PKT_COPY_TILED_HEADER_f2f_shift  26
++#define SDMA_PKT_COPY_TILED_HEADER_F2F(x) (((x) & SDMA_PKT_COPY_TILED_HEADER_f2f_mask) << SDMA_PKT_COPY_TILED_HEADER_f2f_shift)
++
++/*define for broadcast field*/
++#define SDMA_PKT_COPY_TILED_HEADER_broadcast_offset 0
++#define SDMA_PKT_COPY_TILED_HEADER_broadcast_mask   0x00000001
++#define SDMA_PKT_COPY_TILED_HEADER_broadcast_shift  27
++#define SDMA_PKT_COPY_TILED_HEADER_BROADCAST(x) (((x) & SDMA_PKT_COPY_TILED_HEADER_broadcast_mask) << SDMA_PKT_COPY_TILED_HEADER_broadcast_shift)
++
++/*define for detile field*/
++#define SDMA_PKT_COPY_TILED_HEADER_detile_offset 0
++#define SDMA_PKT_COPY_TILED_HEADER_detile_mask   0x00000001
++#define SDMA_PKT_COPY_TILED_HEADER_detile_shift  31
++#define SDMA_PKT_COPY_TILED_HEADER_DETILE(x) (((x) & SDMA_PKT_COPY_TILED_HEADER_detile_mask) << SDMA_PKT_COPY_TILED_HEADER_detile_shift)
++
++/*define for TILED_ADDR_LO word*/
++/*define for tiled_addr_31_0 field*/
++#define SDMA_PKT_COPY_TILED_TILED_ADDR_LO_tiled_addr_31_0_offset 1
++#define SDMA_PKT_COPY_TILED_TILED_ADDR_LO_tiled_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_TILED_TILED_ADDR_LO_tiled_addr_31_0_shift  0
++#define SDMA_PKT_COPY_TILED_TILED_ADDR_LO_TILED_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_TILED_TILED_ADDR_LO_tiled_addr_31_0_mask) << SDMA_PKT_COPY_TILED_TILED_ADDR_LO_tiled_addr_31_0_shift)
++
++/*define for TILED_ADDR_HI word*/
++/*define for tiled_addr_63_32 field*/
++#define SDMA_PKT_COPY_TILED_TILED_ADDR_HI_tiled_addr_63_32_offset 2
++#define SDMA_PKT_COPY_TILED_TILED_ADDR_HI_tiled_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_TILED_TILED_ADDR_HI_tiled_addr_63_32_shift  0
++#define SDMA_PKT_COPY_TILED_TILED_ADDR_HI_TILED_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_TILED_TILED_ADDR_HI_tiled_addr_63_32_mask) << SDMA_PKT_COPY_TILED_TILED_ADDR_HI_tiled_addr_63_32_shift)
++
++/*define for DW_3 word*/
++/*define for width field*/
++#define SDMA_PKT_COPY_TILED_DW_3_width_offset 3
++#define SDMA_PKT_COPY_TILED_DW_3_width_mask   0x00003FFF
++#define SDMA_PKT_COPY_TILED_DW_3_width_shift  0
++#define SDMA_PKT_COPY_TILED_DW_3_WIDTH(x) (((x) & SDMA_PKT_COPY_TILED_DW_3_width_mask) << SDMA_PKT_COPY_TILED_DW_3_width_shift)
++
++/*define for DW_4 word*/
++/*define for height field*/
++#define SDMA_PKT_COPY_TILED_DW_4_height_offset 4
++#define SDMA_PKT_COPY_TILED_DW_4_height_mask   0x00003FFF
++#define SDMA_PKT_COPY_TILED_DW_4_height_shift  0
++#define SDMA_PKT_COPY_TILED_DW_4_HEIGHT(x) (((x) & SDMA_PKT_COPY_TILED_DW_4_height_mask) << SDMA_PKT_COPY_TILED_DW_4_height_shift)
++
++/*define for depth field*/
++#define SDMA_PKT_COPY_TILED_DW_4_depth_offset 4
++#define SDMA_PKT_COPY_TILED_DW_4_depth_mask   0x00001FFF
++#define SDMA_PKT_COPY_TILED_DW_4_depth_shift  16
++#define SDMA_PKT_COPY_TILED_DW_4_DEPTH(x) (((x) & SDMA_PKT_COPY_TILED_DW_4_depth_mask) << SDMA_PKT_COPY_TILED_DW_4_depth_shift)
++
++/*define for DW_5 word*/
++/*define for element_size field*/
++#define SDMA_PKT_COPY_TILED_DW_5_element_size_offset 5
++#define SDMA_PKT_COPY_TILED_DW_5_element_size_mask   0x00000007
++#define SDMA_PKT_COPY_TILED_DW_5_element_size_shift  0
++#define SDMA_PKT_COPY_TILED_DW_5_ELEMENT_SIZE(x) (((x) & SDMA_PKT_COPY_TILED_DW_5_element_size_mask) << SDMA_PKT_COPY_TILED_DW_5_element_size_shift)
++
++/*define for swizzle_mode field*/
++#define SDMA_PKT_COPY_TILED_DW_5_swizzle_mode_offset 5
++#define SDMA_PKT_COPY_TILED_DW_5_swizzle_mode_mask   0x0000001F
++#define SDMA_PKT_COPY_TILED_DW_5_swizzle_mode_shift  3
++#define SDMA_PKT_COPY_TILED_DW_5_SWIZZLE_MODE(x) (((x) & SDMA_PKT_COPY_TILED_DW_5_swizzle_mode_mask) << SDMA_PKT_COPY_TILED_DW_5_swizzle_mode_shift)
++
++/*define for dimension field*/
++#define SDMA_PKT_COPY_TILED_DW_5_dimension_offset 5
++#define SDMA_PKT_COPY_TILED_DW_5_dimension_mask   0x00000003
++#define SDMA_PKT_COPY_TILED_DW_5_dimension_shift  9
++#define SDMA_PKT_COPY_TILED_DW_5_DIMENSION(x) (((x) & SDMA_PKT_COPY_TILED_DW_5_dimension_mask) << SDMA_PKT_COPY_TILED_DW_5_dimension_shift)
++
++/*define for DW_6 word*/
++/*define for x field*/
++#define SDMA_PKT_COPY_TILED_DW_6_x_offset 6
++#define SDMA_PKT_COPY_TILED_DW_6_x_mask   0x0000FFFF
++#define SDMA_PKT_COPY_TILED_DW_6_x_shift  0
++#define SDMA_PKT_COPY_TILED_DW_6_X(x) (((x) & SDMA_PKT_COPY_TILED_DW_6_x_mask) << SDMA_PKT_COPY_TILED_DW_6_x_shift)
++
++/*define for y field*/
++#define SDMA_PKT_COPY_TILED_DW_6_y_offset 6
++#define SDMA_PKT_COPY_TILED_DW_6_y_mask   0x0000FFFF
++#define SDMA_PKT_COPY_TILED_DW_6_y_shift  16
++#define SDMA_PKT_COPY_TILED_DW_6_Y(x) (((x) & SDMA_PKT_COPY_TILED_DW_6_y_mask) << SDMA_PKT_COPY_TILED_DW_6_y_shift)
++
++/*define for DW_7 word*/
++/*define for z field*/
++#define SDMA_PKT_COPY_TILED_DW_7_z_offset 7
++#define SDMA_PKT_COPY_TILED_DW_7_z_mask   0x00003FFF
++#define SDMA_PKT_COPY_TILED_DW_7_z_shift  0
++#define SDMA_PKT_COPY_TILED_DW_7_Z(x) (((x) & SDMA_PKT_COPY_TILED_DW_7_z_mask) << SDMA_PKT_COPY_TILED_DW_7_z_shift)
++
++/*define for linear_sw field*/
++#define SDMA_PKT_COPY_TILED_DW_7_linear_sw_offset 7
++#define SDMA_PKT_COPY_TILED_DW_7_linear_sw_mask   0x00000003
++#define SDMA_PKT_COPY_TILED_DW_7_linear_sw_shift  16
++#define SDMA_PKT_COPY_TILED_DW_7_LINEAR_SW(x) (((x) & SDMA_PKT_COPY_TILED_DW_7_linear_sw_mask) << SDMA_PKT_COPY_TILED_DW_7_linear_sw_shift)
++
++/*define for linear_scope field*/
++#define SDMA_PKT_COPY_TILED_DW_7_linear_scope_offset 7
++#define SDMA_PKT_COPY_TILED_DW_7_linear_scope_mask   0x00000003
++#define SDMA_PKT_COPY_TILED_DW_7_linear_scope_shift  18
++#define SDMA_PKT_COPY_TILED_DW_7_LINEAR_SCOPE(x) (((x) & SDMA_PKT_COPY_TILED_DW_7_linear_scope_mask) << SDMA_PKT_COPY_TILED_DW_7_linear_scope_shift)
++
++/*define for linear_temporal_hint field*/
++#define SDMA_PKT_COPY_TILED_DW_7_linear_temporal_hint_offset 7
++#define SDMA_PKT_COPY_TILED_DW_7_linear_temporal_hint_mask   0x00000007
++#define SDMA_PKT_COPY_TILED_DW_7_linear_temporal_hint_shift  20
++#define SDMA_PKT_COPY_TILED_DW_7_LINEAR_TEMPORAL_HINT(x) (((x) & SDMA_PKT_COPY_TILED_DW_7_linear_temporal_hint_mask) << SDMA_PKT_COPY_TILED_DW_7_linear_temporal_hint_shift)
++
++/*define for tile_sw field*/
++#define SDMA_PKT_COPY_TILED_DW_7_tile_sw_offset 7
++#define SDMA_PKT_COPY_TILED_DW_7_tile_sw_mask   0x00000003
++#define SDMA_PKT_COPY_TILED_DW_7_tile_sw_shift  24
++#define SDMA_PKT_COPY_TILED_DW_7_TILE_SW(x) (((x) & SDMA_PKT_COPY_TILED_DW_7_tile_sw_mask) << SDMA_PKT_COPY_TILED_DW_7_tile_sw_shift)
++
++/*define for tile_scope field*/
++#define SDMA_PKT_COPY_TILED_DW_7_tile_scope_offset 7
++#define SDMA_PKT_COPY_TILED_DW_7_tile_scope_mask   0x00000003
++#define SDMA_PKT_COPY_TILED_DW_7_tile_scope_shift  26
++#define SDMA_PKT_COPY_TILED_DW_7_TILE_SCOPE(x) (((x) & SDMA_PKT_COPY_TILED_DW_7_tile_scope_mask) << SDMA_PKT_COPY_TILED_DW_7_tile_scope_shift)
++
++/*define for tile_temporal_hint field*/
++#define SDMA_PKT_COPY_TILED_DW_7_tile_temporal_hint_offset 7
++#define SDMA_PKT_COPY_TILED_DW_7_tile_temporal_hint_mask   0x00000007
++#define SDMA_PKT_COPY_TILED_DW_7_tile_temporal_hint_shift  28
++#define SDMA_PKT_COPY_TILED_DW_7_TILE_TEMPORAL_HINT(x) (((x) & SDMA_PKT_COPY_TILED_DW_7_tile_temporal_hint_mask) << SDMA_PKT_COPY_TILED_DW_7_tile_temporal_hint_shift)
++
++/*define for LINEAR_ADDR_LO word*/
++/*define for linear_addr_31_0 field*/
++#define SDMA_PKT_COPY_TILED_LINEAR_ADDR_LO_linear_addr_31_0_offset 8
++#define SDMA_PKT_COPY_TILED_LINEAR_ADDR_LO_linear_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_TILED_LINEAR_ADDR_LO_linear_addr_31_0_shift  0
++#define SDMA_PKT_COPY_TILED_LINEAR_ADDR_LO_LINEAR_ADDR_31_0(x) (((x) & SDMA_PKT_COPY_TILED_LINEAR_ADDR_LO_linear_addr_31_0_mask) << SDMA_PKT_COPY_TILED_LINEAR_ADDR_LO_linear_addr_31_0_shift)
++
++/*define for LINEAR_ADDR_HI word*/
++/*define for linear_addr_63_32 field*/
++#define SDMA_PKT_COPY_TILED_LINEAR_ADDR_HI_linear_addr_63_32_offset 9
++#define SDMA_PKT_COPY_TILED_LINEAR_ADDR_HI_linear_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_TILED_LINEAR_ADDR_HI_linear_addr_63_32_shift  0
++#define SDMA_PKT_COPY_TILED_LINEAR_ADDR_HI_LINEAR_ADDR_63_32(x) (((x) & SDMA_PKT_COPY_TILED_LINEAR_ADDR_HI_linear_addr_63_32_mask) << SDMA_PKT_COPY_TILED_LINEAR_ADDR_HI_linear_addr_63_32_shift)
++
++/*define for LINEAR_PITCH word*/
++/*define for linear_pitch field*/
++#define SDMA_PKT_COPY_TILED_LINEAR_PITCH_linear_pitch_offset 10
++#define SDMA_PKT_COPY_TILED_LINEAR_PITCH_linear_pitch_mask   0x0000FFFF
++#define SDMA_PKT_COPY_TILED_LINEAR_PITCH_linear_pitch_shift  0
++#define SDMA_PKT_COPY_TILED_LINEAR_PITCH_LINEAR_PITCH(x) (((x) & SDMA_PKT_COPY_TILED_LINEAR_PITCH_linear_pitch_mask) << SDMA_PKT_COPY_TILED_LINEAR_PITCH_linear_pitch_shift)
++
++/*define for linear_uc_sel field*/
++#define SDMA_PKT_COPY_TILED_LINEAR_PITCH_linear_uc_sel_offset 10
++#define SDMA_PKT_COPY_TILED_LINEAR_PITCH_linear_uc_sel_mask   0x00000003
++#define SDMA_PKT_COPY_TILED_LINEAR_PITCH_linear_uc_sel_shift  16
++#define SDMA_PKT_COPY_TILED_LINEAR_PITCH_LINEAR_UC_SEL(x) (((x) & SDMA_PKT_COPY_TILED_LINEAR_PITCH_linear_uc_sel_mask) << SDMA_PKT_COPY_TILED_LINEAR_PITCH_linear_uc_sel_shift)
++
++/*define for tiled_uc_sel field*/
++#define SDMA_PKT_COPY_TILED_LINEAR_PITCH_tiled_uc_sel_offset 10
++#define SDMA_PKT_COPY_TILED_LINEAR_PITCH_tiled_uc_sel_mask   0x00000003
++#define SDMA_PKT_COPY_TILED_LINEAR_PITCH_tiled_uc_sel_shift  18
++#define SDMA_PKT_COPY_TILED_LINEAR_PITCH_TILED_UC_SEL(x) (((x) & SDMA_PKT_COPY_TILED_LINEAR_PITCH_tiled_uc_sel_mask) << SDMA_PKT_COPY_TILED_LINEAR_PITCH_tiled_uc_sel_shift)
++
++/*define for LINEAR_SLICE_PITCH word*/
++/*define for linear_slice_pitch field*/
++#define SDMA_PKT_COPY_TILED_LINEAR_SLICE_PITCH_linear_slice_pitch_offset 11
++#define SDMA_PKT_COPY_TILED_LINEAR_SLICE_PITCH_linear_slice_pitch_mask   0xFFFFFFFF
++#define SDMA_PKT_COPY_TILED_LINEAR_SLICE_PITCH_linear_slice_pitch_shift  0
++#define SDMA_PKT_COPY_TILED_LINEAR_SLICE_PITCH_LINEAR_SLICE_PITCH(x) (((x) & SDMA_PKT_COPY_TILED_LINEAR_SLICE_PITCH_linear_slice_pitch_mask) << SDMA_PKT_COPY_TILED_LINEAR_SLICE_PITCH_linear_slice_pitch_shift)
++
++/*define for COUNT word*/
++/*define for count field*/
++#define SDMA_PKT_COPY_TILED_COUNT_count_offset 12
++#define SDMA_PKT_COPY_TILED_COUNT_count_mask   0x3FFFFFFF
++#define SDMA_PKT_COPY_TILED_COUNT_count_shift  0
++#define SDMA_PKT_COPY_TILED_COUNT_COUNT(x) (((x) & SDMA_PKT_COPY_TILED_COUNT_count_mask) << SDMA_PKT_COPY_TILED_COUNT_count_shift)
++
++/*define for DW_13 word*/
++/*define for data_format field*/
++#define SDMA_PKT_COPY_TILED_DW_13_data_format_offset 13
++#define SDMA_PKT_COPY_TILED_DW_13_data_format_mask   0x0000003F
++#define SDMA_PKT_COPY_TILED_DW_13_data_format_shift  0
++#define SDMA_PKT_COPY_TILED_DW_13_DATA_FORMAT(x) (((x) & SDMA_PKT_COPY_TILED_DW_13_data_format_mask) << SDMA_PKT_COPY_TILED_DW_13_data_format_shift)
++
++/*define for num_type field*/
++#define SDMA_PKT_COPY_TILED_DW_13_num_type_offset 13
++#define SDMA_PKT_COPY_TILED_DW_13_num_type_mask   0x00000007
++#define SDMA_PKT_COPY_TILED_DW_13_num_type_shift  9
++#define SDMA_PKT_COPY_TILED_DW_13_NUM_TYPE(x) (((x) & SDMA_PKT_COPY_TILED_DW_13_num_type_mask) << SDMA_PKT_COPY_TILED_DW_13_num_type_shift)
++
++/*define for rd_cm field*/
++#define SDMA_PKT_COPY_TILED_DW_13_rd_cm_offset 13
++#define SDMA_PKT_COPY_TILED_DW_13_rd_cm_mask   0x00000003
++#define SDMA_PKT_COPY_TILED_DW_13_rd_cm_shift  16
++#define SDMA_PKT_COPY_TILED_DW_13_RD_CM(x) (((x) & SDMA_PKT_COPY_TILED_DW_13_rd_cm_mask) << SDMA_PKT_COPY_TILED_DW_13_rd_cm_shift)
++
++/*define for wr_cm field*/
++#define SDMA_PKT_COPY_TILED_DW_13_wr_cm_offset 13
++#define SDMA_PKT_COPY_TILED_DW_13_wr_cm_mask   0x00000003
++#define SDMA_PKT_COPY_TILED_DW_13_wr_cm_shift  18
++#define SDMA_PKT_COPY_TILED_DW_13_WR_CM(x) (((x) & SDMA_PKT_COPY_TILED_DW_13_wr_cm_mask) << SDMA_PKT_COPY_TILED_DW_13_wr_cm_shift)
++
++/*define for max_cm field*/
++#define SDMA_PKT_COPY_TILED_DW_13_max_cm_offset 13
++#define SDMA_PKT_COPY_TILED_DW_13_max_cm_mask   0x00000003
++#define SDMA_PKT_COPY_TILED_DW_13_max_cm_shift  24
++#define SDMA_PKT_COPY_TILED_DW_13_MAX_CM(x) (((x) & SDMA_PKT_COPY_TILED_DW_13_max_cm_mask) << SDMA_PKT_COPY_TILED_DW_13_max_cm_shift)
++
++/*define for max_ucm field*/
++#define SDMA_PKT_COPY_TILED_DW_13_max_ucm_offset 13
++#define SDMA_PKT_COPY_TILED_DW_13_max_ucm_mask   0x00000001
++#define SDMA_PKT_COPY_TILED_DW_13_max_ucm_shift  26
++#define SDMA_PKT_COPY_TILED_DW_13_MAX_UCM(x) (((x) & SDMA_PKT_COPY_TILED_DW_13_max_ucm_mask) << SDMA_PKT_COPY_TILED_DW_13_max_ucm_shift)
++
++/*
++** Definitions for SDMA_PKT_WRITE_UNTILED packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_WRITE_UNTILED_HEADER_op_offset 0
++#define SDMA_PKT_WRITE_UNTILED_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_WRITE_UNTILED_HEADER_op_shift  0
++#define SDMA_PKT_WRITE_UNTILED_HEADER_OP(x) (((x) & SDMA_PKT_WRITE_UNTILED_HEADER_op_mask) << SDMA_PKT_WRITE_UNTILED_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_WRITE_UNTILED_HEADER_sub_op_offset 0
++#define SDMA_PKT_WRITE_UNTILED_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_WRITE_UNTILED_HEADER_sub_op_shift  8
++#define SDMA_PKT_WRITE_UNTILED_HEADER_SUB_OP(x) (((x) & SDMA_PKT_WRITE_UNTILED_HEADER_sub_op_mask) << SDMA_PKT_WRITE_UNTILED_HEADER_sub_op_shift)
++
++/*define for tmz field*/
++#define SDMA_PKT_WRITE_UNTILED_HEADER_tmz_offset 0
++#define SDMA_PKT_WRITE_UNTILED_HEADER_tmz_mask   0x00000001
++#define SDMA_PKT_WRITE_UNTILED_HEADER_tmz_shift  18
++#define SDMA_PKT_WRITE_UNTILED_HEADER_TMZ(x) (((x) & SDMA_PKT_WRITE_UNTILED_HEADER_tmz_mask) << SDMA_PKT_WRITE_UNTILED_HEADER_tmz_shift)
++
++/*define for hi_pri field*/
++#define SDMA_PKT_WRITE_UNTILED_HEADER_hi_pri_offset 0
++#define SDMA_PKT_WRITE_UNTILED_HEADER_hi_pri_mask   0x00000001
++#define SDMA_PKT_WRITE_UNTILED_HEADER_hi_pri_shift  21
++#define SDMA_PKT_WRITE_UNTILED_HEADER_HI_PRI(x) (((x) & SDMA_PKT_WRITE_UNTILED_HEADER_hi_pri_mask) << SDMA_PKT_WRITE_UNTILED_HEADER_hi_pri_shift)
++
++/*define for swap field*/
++#define SDMA_PKT_WRITE_UNTILED_HEADER_swap_offset 0
++#define SDMA_PKT_WRITE_UNTILED_HEADER_swap_mask   0x00000003
++#define SDMA_PKT_WRITE_UNTILED_HEADER_swap_shift  24
++#define SDMA_PKT_WRITE_UNTILED_HEADER_SWAP(x) (((x) & SDMA_PKT_WRITE_UNTILED_HEADER_swap_mask) << SDMA_PKT_WRITE_UNTILED_HEADER_swap_shift)
++
++/*define for dst_uc_sel field*/
++#define SDMA_PKT_WRITE_UNTILED_HEADER_dst_uc_sel_offset 0
++#define SDMA_PKT_WRITE_UNTILED_HEADER_dst_uc_sel_mask   0x00000003
++#define SDMA_PKT_WRITE_UNTILED_HEADER_dst_uc_sel_shift  30
++#define SDMA_PKT_WRITE_UNTILED_HEADER_DST_UC_SEL(x) (((x) & SDMA_PKT_WRITE_UNTILED_HEADER_dst_uc_sel_mask) << SDMA_PKT_WRITE_UNTILED_HEADER_dst_uc_sel_shift)
++
++/*define for DST_ADDR_LO word*/
++/*define for dst_addr_31_0 field*/
++#define SDMA_PKT_WRITE_UNTILED_DST_ADDR_LO_dst_addr_31_0_offset 1
++#define SDMA_PKT_WRITE_UNTILED_DST_ADDR_LO_dst_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_WRITE_UNTILED_DST_ADDR_LO_dst_addr_31_0_shift  0
++#define SDMA_PKT_WRITE_UNTILED_DST_ADDR_LO_DST_ADDR_31_0(x) (((x) & SDMA_PKT_WRITE_UNTILED_DST_ADDR_LO_dst_addr_31_0_mask) << SDMA_PKT_WRITE_UNTILED_DST_ADDR_LO_dst_addr_31_0_shift)
++
++/*define for DST_ADDR_HI word*/
++/*define for dst_addr_63_32 field*/
++#define SDMA_PKT_WRITE_UNTILED_DST_ADDR_HI_dst_addr_63_32_offset 2
++#define SDMA_PKT_WRITE_UNTILED_DST_ADDR_HI_dst_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_WRITE_UNTILED_DST_ADDR_HI_dst_addr_63_32_shift  0
++#define SDMA_PKT_WRITE_UNTILED_DST_ADDR_HI_DST_ADDR_63_32(x) (((x) & SDMA_PKT_WRITE_UNTILED_DST_ADDR_HI_dst_addr_63_32_mask) << SDMA_PKT_WRITE_UNTILED_DST_ADDR_HI_dst_addr_63_32_shift)
++
++/*define for DW_3 word*/
++/*define for count field*/
++#define SDMA_PKT_WRITE_UNTILED_DW_3_count_offset 3
++#define SDMA_PKT_WRITE_UNTILED_DW_3_count_mask   0x000FFFFF
++#define SDMA_PKT_WRITE_UNTILED_DW_3_count_shift  0
++#define SDMA_PKT_WRITE_UNTILED_DW_3_COUNT(x) (((x) & SDMA_PKT_WRITE_UNTILED_DW_3_count_mask) << SDMA_PKT_WRITE_UNTILED_DW_3_count_shift)
++
++/*define for sys field*/
++#define SDMA_PKT_WRITE_UNTILED_DW_3_sys_offset 3
++#define SDMA_PKT_WRITE_UNTILED_DW_3_sys_mask   0x00000001
++#define SDMA_PKT_WRITE_UNTILED_DW_3_sys_shift  20
++#define SDMA_PKT_WRITE_UNTILED_DW_3_SYS(x) (((x) & SDMA_PKT_WRITE_UNTILED_DW_3_sys_mask) << SDMA_PKT_WRITE_UNTILED_DW_3_sys_shift)
++
++/*define for snp field*/
++#define SDMA_PKT_WRITE_UNTILED_DW_3_snp_offset 3
++#define SDMA_PKT_WRITE_UNTILED_DW_3_snp_mask   0x00000001
++#define SDMA_PKT_WRITE_UNTILED_DW_3_snp_shift  22
++#define SDMA_PKT_WRITE_UNTILED_DW_3_SNP(x) (((x) & SDMA_PKT_WRITE_UNTILED_DW_3_snp_mask) << SDMA_PKT_WRITE_UNTILED_DW_3_snp_shift)
++
++/*define for gpa field*/
++#define SDMA_PKT_WRITE_UNTILED_DW_3_gpa_offset 3
++#define SDMA_PKT_WRITE_UNTILED_DW_3_gpa_mask   0x00000001
++#define SDMA_PKT_WRITE_UNTILED_DW_3_gpa_shift  23
++#define SDMA_PKT_WRITE_UNTILED_DW_3_GPA(x) (((x) & SDMA_PKT_WRITE_UNTILED_DW_3_gpa_mask) << SDMA_PKT_WRITE_UNTILED_DW_3_gpa_shift)
++
++/*define for mtype field*/
++#define SDMA_PKT_WRITE_UNTILED_DW_3_mtype_offset 3
++#define SDMA_PKT_WRITE_UNTILED_DW_3_mtype_mask   0x00000003
++#define SDMA_PKT_WRITE_UNTILED_DW_3_mtype_shift  24
++#define SDMA_PKT_WRITE_UNTILED_DW_3_MTYPE(x) (((x) & SDMA_PKT_WRITE_UNTILED_DW_3_mtype_mask) << SDMA_PKT_WRITE_UNTILED_DW_3_mtype_shift)
++
++/*define for scope field*/
++#define SDMA_PKT_WRITE_UNTILED_DW_3_scope_offset 3
++#define SDMA_PKT_WRITE_UNTILED_DW_3_scope_mask   0x00000003
++#define SDMA_PKT_WRITE_UNTILED_DW_3_scope_shift  26
++#define SDMA_PKT_WRITE_UNTILED_DW_3_SCOPE(x) (((x) & SDMA_PKT_WRITE_UNTILED_DW_3_scope_mask) << SDMA_PKT_WRITE_UNTILED_DW_3_scope_shift)
++
++/*define for temp_hint field*/
++#define SDMA_PKT_WRITE_UNTILED_DW_3_temp_hint_offset 3
++#define SDMA_PKT_WRITE_UNTILED_DW_3_temp_hint_mask   0x00000003
++#define SDMA_PKT_WRITE_UNTILED_DW_3_temp_hint_shift  26
++#define SDMA_PKT_WRITE_UNTILED_DW_3_TEMP_HINT(x) (((x) & SDMA_PKT_WRITE_UNTILED_DW_3_temp_hint_mask) << SDMA_PKT_WRITE_UNTILED_DW_3_temp_hint_shift)
++
++/*define for DW_4 word*/
++/*define for data_format field*/
++#define SDMA_PKT_WRITE_UNTILED_DW_4_data_format_offset 4
++#define SDMA_PKT_WRITE_UNTILED_DW_4_data_format_mask   0x0000003F
++#define SDMA_PKT_WRITE_UNTILED_DW_4_data_format_shift  0
++#define SDMA_PKT_WRITE_UNTILED_DW_4_DATA_FORMAT(x) (((x) & SDMA_PKT_WRITE_UNTILED_DW_4_data_format_mask) << SDMA_PKT_WRITE_UNTILED_DW_4_data_format_shift)
++
++/*define for num_type field*/
++#define SDMA_PKT_WRITE_UNTILED_DW_4_num_type_offset 4
++#define SDMA_PKT_WRITE_UNTILED_DW_4_num_type_mask   0x00000007
++#define SDMA_PKT_WRITE_UNTILED_DW_4_num_type_shift  9
++#define SDMA_PKT_WRITE_UNTILED_DW_4_NUM_TYPE(x) (((x) & SDMA_PKT_WRITE_UNTILED_DW_4_num_type_mask) << SDMA_PKT_WRITE_UNTILED_DW_4_num_type_shift)
++
++/*define for rd_cm field*/
++#define SDMA_PKT_WRITE_UNTILED_DW_4_rd_cm_offset 4
++#define SDMA_PKT_WRITE_UNTILED_DW_4_rd_cm_mask   0x00000003
++#define SDMA_PKT_WRITE_UNTILED_DW_4_rd_cm_shift  16
++#define SDMA_PKT_WRITE_UNTILED_DW_4_RD_CM(x) (((x) & SDMA_PKT_WRITE_UNTILED_DW_4_rd_cm_mask) << SDMA_PKT_WRITE_UNTILED_DW_4_rd_cm_shift)
++
++/*define for wr_cm field*/
++#define SDMA_PKT_WRITE_UNTILED_DW_4_wr_cm_offset 4
++#define SDMA_PKT_WRITE_UNTILED_DW_4_wr_cm_mask   0x00000003
++#define SDMA_PKT_WRITE_UNTILED_DW_4_wr_cm_shift  18
++#define SDMA_PKT_WRITE_UNTILED_DW_4_WR_CM(x) (((x) & SDMA_PKT_WRITE_UNTILED_DW_4_wr_cm_mask) << SDMA_PKT_WRITE_UNTILED_DW_4_wr_cm_shift)
++
++/*define for max_cm field*/
++#define SDMA_PKT_WRITE_UNTILED_DW_4_max_cm_offset 4
++#define SDMA_PKT_WRITE_UNTILED_DW_4_max_cm_mask   0x00000003
++#define SDMA_PKT_WRITE_UNTILED_DW_4_max_cm_shift  24
++#define SDMA_PKT_WRITE_UNTILED_DW_4_MAX_CM(x) (((x) & SDMA_PKT_WRITE_UNTILED_DW_4_max_cm_mask) << SDMA_PKT_WRITE_UNTILED_DW_4_max_cm_shift)
++
++/*define for max_ucm field*/
++#define SDMA_PKT_WRITE_UNTILED_DW_4_max_ucm_offset 4
++#define SDMA_PKT_WRITE_UNTILED_DW_4_max_ucm_mask   0x00000001
++#define SDMA_PKT_WRITE_UNTILED_DW_4_max_ucm_shift  26
++#define SDMA_PKT_WRITE_UNTILED_DW_4_MAX_UCM(x) (((x) & SDMA_PKT_WRITE_UNTILED_DW_4_max_ucm_mask) << SDMA_PKT_WRITE_UNTILED_DW_4_max_ucm_shift)
++
++/*define for DATA0 word*/
++/*define for data0 field*/
++#define SDMA_PKT_WRITE_UNTILED_DATA0_data0_offset 5
++#define SDMA_PKT_WRITE_UNTILED_DATA0_data0_mask   0xFFFFFFFF
++#define SDMA_PKT_WRITE_UNTILED_DATA0_data0_shift  0
++#define SDMA_PKT_WRITE_UNTILED_DATA0_DATA0(x) (((x) & SDMA_PKT_WRITE_UNTILED_DATA0_data0_mask) << SDMA_PKT_WRITE_UNTILED_DATA0_data0_shift)
++
++/*
++** Definitions for SDMA_PKT_WRITE_TILED packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_WRITE_TILED_HEADER_op_offset 0
++#define SDMA_PKT_WRITE_TILED_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_WRITE_TILED_HEADER_op_shift  0
++#define SDMA_PKT_WRITE_TILED_HEADER_OP(x) (((x) & SDMA_PKT_WRITE_TILED_HEADER_op_mask) << SDMA_PKT_WRITE_TILED_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_WRITE_TILED_HEADER_sub_op_offset 0
++#define SDMA_PKT_WRITE_TILED_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_WRITE_TILED_HEADER_sub_op_shift  8
++#define SDMA_PKT_WRITE_TILED_HEADER_SUB_OP(x) (((x) & SDMA_PKT_WRITE_TILED_HEADER_sub_op_mask) << SDMA_PKT_WRITE_TILED_HEADER_sub_op_shift)
++
++/*define for tmz field*/
++#define SDMA_PKT_WRITE_TILED_HEADER_tmz_offset 0
++#define SDMA_PKT_WRITE_TILED_HEADER_tmz_mask   0x00000001
++#define SDMA_PKT_WRITE_TILED_HEADER_tmz_shift  18
++#define SDMA_PKT_WRITE_TILED_HEADER_TMZ(x) (((x) & SDMA_PKT_WRITE_TILED_HEADER_tmz_mask) << SDMA_PKT_WRITE_TILED_HEADER_tmz_shift)
++
++/*define for dst_uc_sel field*/
++#define SDMA_PKT_WRITE_TILED_HEADER_dst_uc_sel_offset 0
++#define SDMA_PKT_WRITE_TILED_HEADER_dst_uc_sel_mask   0x00000003
++#define SDMA_PKT_WRITE_TILED_HEADER_dst_uc_sel_shift  30
++#define SDMA_PKT_WRITE_TILED_HEADER_DST_UC_SEL(x) (((x) & SDMA_PKT_WRITE_TILED_HEADER_dst_uc_sel_mask) << SDMA_PKT_WRITE_TILED_HEADER_dcpv_shift)
++
++/*define for DST_ADDR_LO word*/
++/*define for dst_addr_31_0 field*/
++#define SDMA_PKT_WRITE_TILED_DST_ADDR_LO_dst_addr_31_0_offset 1
++#define SDMA_PKT_WRITE_TILED_DST_ADDR_LO_dst_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_WRITE_TILED_DST_ADDR_LO_dst_addr_31_0_shift  0
++#define SDMA_PKT_WRITE_TILED_DST_ADDR_LO_DST_ADDR_31_0(x) (((x) & SDMA_PKT_WRITE_TILED_DST_ADDR_LO_dst_addr_31_0_mask) << SDMA_PKT_WRITE_TILED_DST_ADDR_LO_dst_addr_31_0_shift)
++
++/*define for DST_ADDR_HI word*/
++/*define for dst_addr_63_32 field*/
++#define SDMA_PKT_WRITE_TILED_DST_ADDR_HI_dst_addr_63_32_offset 2
++#define SDMA_PKT_WRITE_TILED_DST_ADDR_HI_dst_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_WRITE_TILED_DST_ADDR_HI_dst_addr_63_32_shift  0
++#define SDMA_PKT_WRITE_TILED_DST_ADDR_HI_DST_ADDR_63_32(x) (((x) & SDMA_PKT_WRITE_TILED_DST_ADDR_HI_dst_addr_63_32_mask) << SDMA_PKT_WRITE_TILED_DST_ADDR_HI_dst_addr_63_32_shift)
++
++/*define for DW_3 word*/
++/*define for width field*/
++#define SDMA_PKT_WRITE_TILED_DW_3_width_offset 3
++#define SDMA_PKT_WRITE_TILED_DW_3_width_mask   0x00003FFF
++#define SDMA_PKT_WRITE_TILED_DW_3_width_shift  0
++#define SDMA_PKT_WRITE_TILED_DW_3_WIDTH(x) (((x) & SDMA_PKT_WRITE_TILED_DW_3_width_mask) << SDMA_PKT_WRITE_TILED_DW_3_width_shift)
++
++/*define for DW_4 word*/
++/*define for height field*/
++#define SDMA_PKT_WRITE_TILED_DW_4_height_offset 4
++#define SDMA_PKT_WRITE_TILED_DW_4_height_mask   0x0000FFFF
++#define SDMA_PKT_WRITE_TILED_DW_4_height_shift  0
++#define SDMA_PKT_WRITE_TILED_DW_4_HEIGHT(x) (((x) & SDMA_PKT_WRITE_TILED_DW_4_height_mask) << SDMA_PKT_WRITE_TILED_DW_4_height_shift)
++
++/*define for depth field*/
++#define SDMA_PKT_WRITE_TILED_DW_4_depth_offset 4
++#define SDMA_PKT_WRITE_TILED_DW_4_depth_mask   0x00003FFF
++#define SDMA_PKT_WRITE_TILED_DW_4_depth_shift  16
++#define SDMA_PKT_WRITE_TILED_DW_4_DEPTH(x) (((x) & SDMA_PKT_WRITE_TILED_DW_4_depth_mask) << SDMA_PKT_WRITE_TILED_DW_4_depth_shift)
++
++/*define for DW_5 word*/
++/*define for element_size field*/
++#define SDMA_PKT_WRITE_TILED_DW_5_element_size_offset 5
++#define SDMA_PKT_WRITE_TILED_DW_5_element_size_mask   0x00000007
++#define SDMA_PKT_WRITE_TILED_DW_5_element_size_shift  0
++#define SDMA_PKT_WRITE_TILED_DW_5_ELEMENT_SIZE(x) (((x) & SDMA_PKT_WRITE_TILED_DW_5_element_size_mask) << SDMA_PKT_WRITE_TILED_DW_5_element_size_shift)
++
++/*define for swizzle_mode field*/
++#define SDMA_PKT_WRITE_TILED_DW_5_swizzle_mode_offset 5
++#define SDMA_PKT_WRITE_TILED_DW_5_swizzle_mode_mask   0x0000001F
++#define SDMA_PKT_WRITE_TILED_DW_5_swizzle_mode_shift  3
++#define SDMA_PKT_WRITE_TILED_DW_5_SWIZZLE_MODE(x) (((x) & SDMA_PKT_WRITE_TILED_DW_5_swizzle_mode_mask) << SDMA_PKT_WRITE_TILED_DW_5_swizzle_mode_shift)
++
++/*define for dimension field*/
++#define SDMA_PKT_WRITE_TILED_DW_5_dimension_offset 5
++#define SDMA_PKT_WRITE_TILED_DW_5_dimension_mask   0x00000003
++#define SDMA_PKT_WRITE_TILED_DW_5_dimension_shift  9
++#define SDMA_PKT_WRITE_TILED_DW_5_DIMENSION(x) (((x) & SDMA_PKT_WRITE_TILED_DW_5_dimension_mask) << SDMA_PKT_WRITE_TILED_DW_5_dimension_shift)
++
++/*define for DW_6 word*/
++/*define for x field*/
++#define SDMA_PKT_WRITE_TILED_DW_6_x_offset 6
++#define SDMA_PKT_WRITE_TILED_DW_6_x_mask   0x0000FFFF
++#define SDMA_PKT_WRITE_TILED_DW_6_x_shift  0
++#define SDMA_PKT_WRITE_TILED_DW_6_X(x) (((x) & SDMA_PKT_WRITE_TILED_DW_6_x_mask) << SDMA_PKT_WRITE_TILED_DW_6_x_shift)
++
++/*define for y field*/
++#define SDMA_PKT_WRITE_TILED_DW_6_y_offset 6
++#define SDMA_PKT_WRITE_TILED_DW_6_y_mask   0x0000FFFF
++#define SDMA_PKT_WRITE_TILED_DW_6_y_shift  16
++#define SDMA_PKT_WRITE_TILED_DW_6_Y(x) (((x) & SDMA_PKT_WRITE_TILED_DW_6_y_mask) << SDMA_PKT_WRITE_TILED_DW_6_y_shift)
++
++/*define for DW_7 word*/
++/*define for z field*/
++#define SDMA_PKT_WRITE_TILED_DW_7_z_offset 7
++#define SDMA_PKT_WRITE_TILED_DW_7_z_mask   0x00003FFF
++#define SDMA_PKT_WRITE_TILED_DW_7_z_shift  0
++#define SDMA_PKT_WRITE_TILED_DW_7_Z(x) (((x) & SDMA_PKT_WRITE_TILED_DW_7_z_mask) << SDMA_PKT_WRITE_TILED_DW_7_z_shift)
++
++/*define for sw field*/
++#define SDMA_PKT_WRITE_TILED_DW_7_sw_offset 7
++#define SDMA_PKT_WRITE_TILED_DW_7_sw_mask   0x00000003
++#define SDMA_PKT_WRITE_TILED_DW_7_sw_shift  24
++#define SDMA_PKT_WRITE_TILED_DW_7_SW(x) (((x) & SDMA_PKT_WRITE_TILED_DW_7_sw_mask) << SDMA_PKT_WRITE_TILED_DW_7_sw_shift)
++
++/*define for cache field*/
++#define SDMA_PKT_WRITE_TILED_DW_7_scope_offset 7
++#define SDMA_PKT_WRITE_TILED_DW_7_scope_mask   0x00000003
++#define SDMA_PKT_WRITE_TILED_DW_7_scope_shift  26
++#define SDMA_PKT_WRITE_TILED_DW_7_SCOPE(x) (((x) & SDMA_PKT_WRITE_TILED_DW_7_scope_mask) << SDMA_PKT_WRITE_TILED_DW_7_scope_shift)
++
++/*define for temp_hint field*/
++#define SDMA_PKT_WRITE_TILED_DW_7_temp_hint_offset 7
++#define SDMA_PKT_WRITE_TILED_DW_7_temp_hint_mask   0x00000007
++#define SDMA_PKT_WRITE_TILED_DW_7_temp_hint_shift  28
++#define SDMA_PKT_WRITE_TILED_DW_7_TEMP_HINT(x) (((x) & SDMA_PKT_WRITE_TILED_DW_7_temp_hint_mask) << SDMA_PKT_WRITE_TILED_DW_7_temp_hint_shift)
++
++/*define for COUNT word*/
++/*define for count field*/
++#define SDMA_PKT_WRITE_TILED_COUNT_count_offset 8
++#define SDMA_PKT_WRITE_TILED_COUNT_count_mask   0x000FFFFF
++#define SDMA_PKT_WRITE_TILED_COUNT_count_shift  0
++#define SDMA_PKT_WRITE_TILED_COUNT_COUNT(x) (((x) & SDMA_PKT_WRITE_TILED_COUNT_count_mask) << SDMA_PKT_WRITE_TILED_COUNT_count_shift)
++
++/*define for DW_9 word*/
++/*define for data_format field*/
++#define SDMA_PKT_WRITE_TILED_DW_9_data_format_offset 9
++#define SDMA_PKT_WRITE_TILED_DW_9_data_format_mask   0x0000003F
++#define SDMA_PKT_WRITE_TILED_DW_9_data_format_shift  0
++#define SDMA_PKT_WRITE_TILED_DW_9_DATA_FORMAT(x) (((x) & SDMA_PKT_WRITE_TILED_DW_9_data_format_mask) << SDMA_PKT_WRITE_TILED_DW_9_data_format_shift)
++
++/*define for num_type field*/
++#define SDMA_PKT_WRITE_TILED_DW_9_num_type_offset 9
++#define SDMA_PKT_WRITE_TILED_DW_9_num_type_mask   0x00000007
++#define SDMA_PKT_WRITE_TILED_DW_9_num_type_shift  9
++#define SDMA_PKT_WRITE_TILED_DW_9_NUM_TYPE(x) (((x) & SDMA_PKT_WRITE_TILED_DW_9_num_type_mask) << SDMA_PKT_WRITE_TILED_DW_9_num_type_shift)
++
++/*define for rd_cm field*/
++#define SDMA_PKT_WRITE_TILED_DW_9_rd_cm_offset 9
++#define SDMA_PKT_WRITE_TILED_DW_9_rd_cm_mask   0x00000003
++#define SDMA_PKT_WRITE_TILED_DW_9_rd_cm_shift  16
++#define SDMA_PKT_WRITE_TILED_DW_9_RD_CM(x) (((x) & SDMA_PKT_WRITE_TILED_DW_9_rd_cm_mask) << SDMA_PKT_WRITE_TILED_DW_9_rd_cm_shift)
++
++/*define for wr_cm field*/
++#define SDMA_PKT_WRITE_TILED_DW_9_wr_cm_offset 9
++#define SDMA_PKT_WRITE_TILED_DW_9_wr_cm_mask   0x00000003
++#define SDMA_PKT_WRITE_TILED_DW_9_wr_cm_shift  18
++#define SDMA_PKT_WRITE_TILED_DW_9_WR_CM(x) (((x) & SDMA_PKT_WRITE_TILED_DW_9_wr_cm_mask) << SDMA_PKT_WRITE_TILED_DW_9_wr_cm_shift)
++
++/*define for max_cm field*/
++#define SDMA_PKT_WRITE_TILED_DW_9_max_cm_offset 9
++#define SDMA_PKT_WRITE_TILED_DW_9_max_cm_mask   0x00000003
++#define SDMA_PKT_WRITE_TILED_DW_9_max_cm_shift  24
++#define SDMA_PKT_WRITE_TILED_DW_9_MAX_CM(x) (((x) & SDMA_PKT_WRITE_TILED_DW_9_max_cm_mask) << SDMA_PKT_WRITE_TILED_DW_9_max_cm_shift)
++
++/*define for max_ucm field*/
++#define SDMA_PKT_WRITE_TILED_DW_9_max_ucm_offset 9
++#define SDMA_PKT_WRITE_TILED_DW_9_max_ucm_mask   0x00000001
++#define SDMA_PKT_WRITE_TILED_DW_9_max_ucm_shift  26
++#define SDMA_PKT_WRITE_TILED_DW_9_MAX_UCM(x) (((x) & SDMA_PKT_WRITE_TILED_DW_9_max_ucm_mask) << SDMA_PKT_WRITE_TILED_DW_9_max_ucm_shift)
++
++/*define for DATA0 word*/
++/*define for data0 field*/
++#define SDMA_PKT_WRITE_TILED_DATA0_data0_offset 10
++#define SDMA_PKT_WRITE_TILED_DATA0_data0_mask   0xFFFFFFFF
++#define SDMA_PKT_WRITE_TILED_DATA0_data0_shift  0
++#define SDMA_PKT_WRITE_TILED_DATA0_DATA0(x) (((x) & SDMA_PKT_WRITE_TILED_DATA0_data0_mask) << SDMA_PKT_WRITE_TILED_DATA0_data0_shift)
++
++
++/*
++** Definitions for SDMA_PKT_PTEPDE_COPY packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_PTEPDE_COPY_HEADER_op_offset 0
++#define SDMA_PKT_PTEPDE_COPY_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_PTEPDE_COPY_HEADER_op_shift  0
++#define SDMA_PKT_PTEPDE_COPY_HEADER_OP(x) (((x) & SDMA_PKT_PTEPDE_COPY_HEADER_op_mask) << SDMA_PKT_PTEPDE_COPY_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_PTEPDE_COPY_HEADER_sub_op_offset 0
++#define SDMA_PKT_PTEPDE_COPY_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_PTEPDE_COPY_HEADER_sub_op_shift  8
++#define SDMA_PKT_PTEPDE_COPY_HEADER_SUB_OP(x) (((x) & SDMA_PKT_PTEPDE_COPY_HEADER_sub_op_mask) << SDMA_PKT_PTEPDE_COPY_HEADER_sub_op_shift)
++
++/*define for gen field*/
++#define SDMA_PKT_PTEPDE_COPY_HEADER_gen_offset 0
++#define SDMA_PKT_PTEPDE_COPY_HEADER_gen_mask   0x00000001
++#define SDMA_PKT_PTEPDE_COPY_HEADER_gen_shift  16
++#define SDMA_PKT_PTEPDE_COPY_HEADER_GEN(x) (((x) & SDMA_PKT_PTEPDE_COPY_HEADER_gen_mask) << SDMA_PKT_PTEPDE_COPY_HEADER_gen_shift)
++
++/*define for swap field*/
++#define SDMA_PKT_PTEPDE_COPY_HEADER_swap_offset 0
++#define SDMA_PKT_PTEPDE_COPY_HEADER_swap_mask   0x00000003
++#define SDMA_PKT_PTEPDE_COPY_HEADER_swap_shift  18
++#define SDMA_PKT_PTEPDE_COPY_HEADER_SWAP(x) (((x) & SDMA_PKT_PTEPDE_COPY_HEADER_swap_mask) << SDMA_PKT_PTEPDE_COPY_HEADER_swap_shift)
++
++/*define for scope field*/
++#define SDMA_PKT_PTEPDE_COPY_HEADER_scope_offset 0
++#define SDMA_PKT_PTEPDE_COPY_HEADER_scope_mask   0x00000003
++#define SDMA_PKT_PTEPDE_COPY_HEADER_scope_shift  24
++#define SDMA_PKT_PTEPDE_COPY_HEADER_SCOPE(x) (((x) & SDMA_PKT_PTEPDE_COPY_HEADER_scope_mask) << SDMA_PKT_PTEPDE_COPY_HEADER_scope_shift)
++
++/*define for temp_hint field*/
++#define SDMA_PKT_PTEPDE_COPY_HEADER_temp_hint_offset 0
++#define SDMA_PKT_PTEPDE_COPY_HEADER_temp_hint_mask   0x00000007
++#define SDMA_PKT_PTEPDE_COPY_HEADER_temp_hint_shift  26
++#define SDMA_PKT_PTEPDE_COPY_HEADER_TEMP_HINT(x) (((x) & SDMA_PKT_PTEPDE_COPY_HEADER_temp_hint_mask) << SDMA_PKT_PTEPDE_COPY_HEADER_temp_hint_shift)
++
++/*define for uc_sel field*/
++#define SDMA_PKT_PTEPDE_COPY_HEADER_uc_sel_offset 0
++#define SDMA_PKT_PTEPDE_COPY_HEADER_uc_sel_mask   0x00000003
++#define SDMA_PKT_PTEPDE_COPY_HEADER_uc_sel_shift  29
++#define SDMA_PKT_PTEPDE_COPY_HEADER_UC_SEL(x) (((x) & SDMA_PKT_PTEPDE_COPY_HEADER_uc_sel_mask) << SDMA_PKT_PTEPDE_COPY_HEADER_uc_sel_shift)
++
++/*define for ptepde_op field*/
++#define SDMA_PKT_PTEPDE_COPY_HEADER_ptepde_op_offset 0
++#define SDMA_PKT_PTEPDE_COPY_HEADER_ptepde_op_mask   0x00000001
++#define SDMA_PKT_PTEPDE_COPY_HEADER_ptepde_op_shift  31
++#define SDMA_PKT_PTEPDE_COPY_HEADER_PTEPDE_OP(x) (((x) & SDMA_PKT_PTEPDE_COPY_HEADER_ptepde_op_mask) << SDMA_PKT_PTEPDE_COPY_HEADER_ptepde_op_shift)
++
++/*define for SRC_ADDR_LO word*/
++/*define for src_addr_31_0 field*/
++#define SDMA_PKT_PTEPDE_COPY_SRC_ADDR_LO_src_addr_31_0_offset 1
++#define SDMA_PKT_PTEPDE_COPY_SRC_ADDR_LO_src_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_PTEPDE_COPY_SRC_ADDR_LO_src_addr_31_0_shift  0
++#define SDMA_PKT_PTEPDE_COPY_SRC_ADDR_LO_SRC_ADDR_31_0(x) (((x) & SDMA_PKT_PTEPDE_COPY_SRC_ADDR_LO_src_addr_31_0_mask) << SDMA_PKT_PTEPDE_COPY_SRC_ADDR_LO_src_addr_31_0_shift)
++
++/*define for SRC_ADDR_HI word*/
++/*define for src_addr_63_32 field*/
++#define SDMA_PKT_PTEPDE_COPY_SRC_ADDR_HI_src_addr_63_32_offset 2
++#define SDMA_PKT_PTEPDE_COPY_SRC_ADDR_HI_src_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_PTEPDE_COPY_SRC_ADDR_HI_src_addr_63_32_shift  0
++#define SDMA_PKT_PTEPDE_COPY_SRC_ADDR_HI_SRC_ADDR_63_32(x) (((x) & SDMA_PKT_PTEPDE_COPY_SRC_ADDR_HI_src_addr_63_32_mask) << SDMA_PKT_PTEPDE_COPY_SRC_ADDR_HI_src_addr_63_32_shift)
++
++/*define for DST_ADDR_LO word*/
++/*define for dst_addr_31_0 field*/
++#define SDMA_PKT_PTEPDE_COPY_DST_ADDR_LO_dst_addr_31_0_offset 3
++#define SDMA_PKT_PTEPDE_COPY_DST_ADDR_LO_dst_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_PTEPDE_COPY_DST_ADDR_LO_dst_addr_31_0_shift  0
++#define SDMA_PKT_PTEPDE_COPY_DST_ADDR_LO_DST_ADDR_31_0(x) (((x) & SDMA_PKT_PTEPDE_COPY_DST_ADDR_LO_dst_addr_31_0_mask) << SDMA_PKT_PTEPDE_COPY_DST_ADDR_LO_dst_addr_31_0_shift)
++
++/*define for DST_ADDR_HI word*/
++/*define for dst_addr_63_32 field*/
++#define SDMA_PKT_PTEPDE_COPY_DST_ADDR_HI_dst_addr_63_32_offset 4
++#define SDMA_PKT_PTEPDE_COPY_DST_ADDR_HI_dst_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_PTEPDE_COPY_DST_ADDR_HI_dst_addr_63_32_shift  0
++#define SDMA_PKT_PTEPDE_COPY_DST_ADDR_HI_DST_ADDR_63_32(x) (((x) & SDMA_PKT_PTEPDE_COPY_DST_ADDR_HI_dst_addr_63_32_mask) << SDMA_PKT_PTEPDE_COPY_DST_ADDR_HI_dst_addr_63_32_shift)
++
++/*define for MASK_DW0 word*/
++/*define for mask_dw0 field*/
++#define SDMA_PKT_PTEPDE_COPY_MASK_DW0_mask_dw0_offset 5
++#define SDMA_PKT_PTEPDE_COPY_MASK_DW0_mask_dw0_mask   0xFFFFFFFF
++#define SDMA_PKT_PTEPDE_COPY_MASK_DW0_mask_dw0_shift  0
++#define SDMA_PKT_PTEPDE_COPY_MASK_DW0_MASK_DW0(x) (((x) & SDMA_PKT_PTEPDE_COPY_MASK_DW0_mask_dw0_mask) << SDMA_PKT_PTEPDE_COPY_MASK_DW0_mask_dw0_shift)
++
++/*define for MASK_DW1 word*/
++/*define for mask_dw1 field*/
++#define SDMA_PKT_PTEPDE_COPY_MASK_DW1_mask_dw1_offset 6
++#define SDMA_PKT_PTEPDE_COPY_MASK_DW1_mask_dw1_mask   0xFFFFFFFF
++#define SDMA_PKT_PTEPDE_COPY_MASK_DW1_mask_dw1_shift  0
++#define SDMA_PKT_PTEPDE_COPY_MASK_DW1_MASK_DW1(x) (((x) & SDMA_PKT_PTEPDE_COPY_MASK_DW1_mask_dw1_mask) << SDMA_PKT_PTEPDE_COPY_MASK_DW1_mask_dw1_shift)
++
++/*define for COUNT word*/
++/*define for count field*/
++#define SDMA_PKT_PTEPDE_COPY_COUNT_count_offset 7
++#define SDMA_PKT_PTEPDE_COPY_COUNT_count_mask   0x0007FFFF
++#define SDMA_PKT_PTEPDE_COPY_COUNT_count_shift  0
++#define SDMA_PKT_PTEPDE_COPY_COUNT_COUNT(x) (((x) & SDMA_PKT_PTEPDE_COPY_COUNT_count_mask) << SDMA_PKT_PTEPDE_COPY_COUNT_count_shift)
++
++/*
++** Definitions for SDMA_PKT_PTEPDE_COPY_BACKWARDS packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_op_offset 0
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_op_shift  0
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_OP(x) (((x) & SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_op_mask) << SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_sub_op_offset 0
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_sub_op_shift  8
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_SUB_OP(x) (((x) & SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_sub_op_mask) << SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_sub_op_shift)
++
++/*define for gen field*/
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_gen_offset 0
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_gen_mask   0x00000001
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_gen_shift  16
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_GEN_SIZE(x) (((x) & SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_gen_mask) << SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_gen_shift)
++
++/*define for swap field*/
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_swap_offset 0
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_swap_mask   0x00000003
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_swap_shift  18
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_SWAP_SIZE(x) (((x) & SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_swap_mask) << SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_swap_shift)
++
++/*define for temp_hint field*/
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_temp_hint_offset 0
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_temp_hint_mask   0x00000007
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_temp_hint_shift  20
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_TEMP_HINT_SIZE(x) (((x) & SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_temp_hint_mask) << SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_temp_hint_shift)
++
++/*define for scope field*/
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_scope_offset 0
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_scope_mask   0x00000003
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_scope_shift  24
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_SCOPE_SIZE(x) (((x) & SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_scope_mask) << SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_scope_shift)
++ 
++/*define for uc_sel field*/
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_uc_sel_offset 0
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_uc_sel_mask   0x00000003
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_uc_sel_shift  26
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_UC_SEL_SIZE(x) (((x) & SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_uc_sel_mask) << SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_uc_sel_shift)
++ 
++/*define for pte_size field*/
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_pte_size_offset 0
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_pte_size_mask   0x00000003
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_pte_size_shift  28
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_PTE_SIZE(x) (((x) & SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_pte_size_mask) << SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_pte_size_shift)
++
++/*define for flag field*/
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_flag_offset 0
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_flag_mask   0x00000001
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_flag_shift  30
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_FLAG(x) (((x) & SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_flag_mask) << SDMA_PKT_PTEPDE_COPY_BACKWARDS_HEADER_flag_shift)
++
++/*define for SRC_ADDR_LO word*/
++/*define for src_addr_31_0 field*/
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_SRC_ADDR_LO_src_addr_31_0_offset 1
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_SRC_ADDR_LO_src_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_SRC_ADDR_LO_src_addr_31_0_shift  0
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_SRC_ADDR_LO_SRC_ADDR_31_0(x) (((x) & SDMA_PKT_PTEPDE_COPY_BACKWARDS_SRC_ADDR_LO_src_addr_31_0_mask) << SDMA_PKT_PTEPDE_COPY_BACKWARDS_SRC_ADDR_LO_src_addr_31_0_shift)
++
++/*define for SRC_ADDR_HI word*/
++/*define for src_addr_63_32 field*/
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_SRC_ADDR_HI_src_addr_63_32_offset 2
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_SRC_ADDR_HI_src_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_SRC_ADDR_HI_src_addr_63_32_shift  0
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_SRC_ADDR_HI_SRC_ADDR_63_32(x) (((x) & SDMA_PKT_PTEPDE_COPY_BACKWARDS_SRC_ADDR_HI_src_addr_63_32_mask) << SDMA_PKT_PTEPDE_COPY_BACKWARDS_SRC_ADDR_HI_src_addr_63_32_shift)
++
++/*define for DST_ADDR_LO word*/
++/*define for dst_addr_31_0 field*/
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_DST_ADDR_LO_dst_addr_31_0_offset 3
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_DST_ADDR_LO_dst_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_DST_ADDR_LO_dst_addr_31_0_shift  0
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_DST_ADDR_LO_DST_ADDR_31_0(x) (((x) & SDMA_PKT_PTEPDE_COPY_BACKWARDS_DST_ADDR_LO_dst_addr_31_0_mask) << SDMA_PKT_PTEPDE_COPY_BACKWARDS_DST_ADDR_LO_dst_addr_31_0_shift)
++
++/*define for DST_ADDR_HI word*/
++/*define for dst_addr_63_32 field*/
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_DST_ADDR_HI_dst_addr_63_32_offset 4
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_DST_ADDR_HI_dst_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_DST_ADDR_HI_dst_addr_63_32_shift  0
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_DST_ADDR_HI_DST_ADDR_63_32(x) (((x) & SDMA_PKT_PTEPDE_COPY_BACKWARDS_DST_ADDR_HI_dst_addr_63_32_mask) << SDMA_PKT_PTEPDE_COPY_BACKWARDS_DST_ADDR_HI_dst_addr_63_32_shift)
++
++/*define for MASK_BIT_FOR_DW word*/
++/*define for mask_first_xfer field*/
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_MASK_BIT_FOR_DW_mask_first_xfer_offset 5
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_MASK_BIT_FOR_DW_mask_first_xfer_mask   0x000000FF
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_MASK_BIT_FOR_DW_mask_first_xfer_shift  0
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_MASK_BIT_FOR_DW_MASK_FIRST_XFER(x) (((x) & SDMA_PKT_PTEPDE_COPY_BACKWARDS_MASK_BIT_FOR_DW_mask_first_xfer_mask) << SDMA_PKT_PTEPDE_COPY_BACKWARDS_MASK_BIT_FOR_DW_mask_first_xfer_shift)
++
++/*define for mask_last_xfer field*/
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_MASK_BIT_FOR_DW_mask_last_xfer_offset 5
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_MASK_BIT_FOR_DW_mask_last_xfer_mask   0x000000FF
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_MASK_BIT_FOR_DW_mask_last_xfer_shift  8
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_MASK_BIT_FOR_DW_MASK_LAST_XFER(x) (((x) & SDMA_PKT_PTEPDE_COPY_BACKWARDS_MASK_BIT_FOR_DW_mask_last_xfer_mask) << SDMA_PKT_PTEPDE_COPY_BACKWARDS_MASK_BIT_FOR_DW_mask_last_xfer_shift)
++
++/*define for COUNT_IN_32B_XFER word*/
++/*define for count field*/
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_COUNT_IN_32B_XFER_count_offset 6
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_COUNT_IN_32B_XFER_count_mask   0x0001FFFF
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_COUNT_IN_32B_XFER_count_shift  0
++#define SDMA_PKT_PTEPDE_COPY_BACKWARDS_COUNT_IN_32B_XFER_COUNT(x) (((x) & SDMA_PKT_PTEPDE_COPY_BACKWARDS_COUNT_IN_32B_XFER_count_mask) << SDMA_PKT_PTEPDE_COPY_BACKWARDS_COUNT_IN_32B_XFER_count_shift)
++
++
++/*
++** Definitions for SDMA_PKT_PTEPDE_RMW packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_PTEPDE_RMW_HEADER_op_offset 0
++#define SDMA_PKT_PTEPDE_RMW_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_PTEPDE_RMW_HEADER_op_shift  0
++#define SDMA_PKT_PTEPDE_RMW_HEADER_OP(x) (((x) & SDMA_PKT_PTEPDE_RMW_HEADER_op_mask) << SDMA_PKT_PTEPDE_RMW_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_PTEPDE_RMW_HEADER_sub_op_offset 0
++#define SDMA_PKT_PTEPDE_RMW_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_PTEPDE_RMW_HEADER_sub_op_shift  8
++#define SDMA_PKT_PTEPDE_RMW_HEADER_SUB_OP(x) (((x) & SDMA_PKT_PTEPDE_RMW_HEADER_sub_op_mask) << SDMA_PKT_PTEPDE_RMW_HEADER_sub_op_shift)
++
++/*define for mtype field*/
++#define SDMA_PKT_PTEPDE_RMW_HEADER_mtype_offset 0
++#define SDMA_PKT_PTEPDE_RMW_HEADER_mtype_mask   0x00000003
++#define SDMA_PKT_PTEPDE_RMW_HEADER_mtype_shift  16
++#define SDMA_PKT_PTEPDE_RMW_HEADER_MTYPE(x) (((x) & SDMA_PKT_PTEPDE_RMW_HEADER_mtype_mask) << SDMA_PKT_PTEPDE_RMW_HEADER_mtype_shift)
++
++/*define for swap field*/
++#define SDMA_PKT_PTEPDE_RMW_HEADER_swap_offset 0
++#define SDMA_PKT_PTEPDE_RMW_HEADER_swap_mask   0x00000003
++#define SDMA_PKT_PTEPDE_RMW_HEADER_swap_shift  18
++#define SDMA_PKT_PTEPDE_RMW_HEADER_SWAP(x) (((x) & SDMA_PKT_PTEPDE_RMW_HEADER_swap_mask) << SDMA_PKT_PTEPDE_RMW_HEADER_swap_shift)
++
++/*define for sys field*/
++#define SDMA_PKT_PTEPDE_RMW_HEADER_sys_offset 0
++#define SDMA_PKT_PTEPDE_RMW_HEADER_sys_mask   0x00000001
++#define SDMA_PKT_PTEPDE_RMW_HEADER_sys_shift  20
++#define SDMA_PKT_PTEPDE_RMW_HEADER_SYS(x) (((x) & SDMA_PKT_PTEPDE_RMW_HEADER_sys_mask) << SDMA_PKT_PTEPDE_RMW_HEADER_sys_shift)
++
++/*define for hi_pri field*/
++#define SDMA_PKT_PTEPDE_RMW_HEADER_hi_pri_offset 0
++#define SDMA_PKT_PTEPDE_RMW_HEADER_hi_pri_mask   0x00000001
++#define SDMA_PKT_PTEPDE_RMW_HEADER_hi_pri_shift  21
++#define SDMA_PKT_PTEPDE_RMW_HEADER_HI_PRI(x) (((x) & SDMA_PKT_PTEPDE_RMW_HEADER_hi_pri_mask) << SDMA_PKT_PTEPDE_RMW_HEADER_hi_pri_shift)
++
++/*define for snp field*/
++#define SDMA_PKT_PTEPDE_RMW_HEADER_snp_offset 0
++#define SDMA_PKT_PTEPDE_RMW_HEADER_snp_mask   0x00000001
++#define SDMA_PKT_PTEPDE_RMW_HEADER_snp_shift  22
++#define SDMA_PKT_PTEPDE_RMW_HEADER_SNP(x) (((x) & SDMA_PKT_PTEPDE_RMW_HEADER_snp_mask) << SDMA_PKT_PTEPDE_RMW_HEADER_snp_shift)
++
++/*define for gpa field*/
++#define SDMA_PKT_PTEPDE_RMW_HEADER_gpa_offset 0
++#define SDMA_PKT_PTEPDE_RMW_HEADER_gpa_mask   0x00000001
++#define SDMA_PKT_PTEPDE_RMW_HEADER_gpa_shift  23
++#define SDMA_PKT_PTEPDE_RMW_HEADER_GPA(x) (((x) & SDMA_PKT_PTEPDE_RMW_HEADER_gpa_mask) << SDMA_PKT_PTEPDE_RMW_HEADER_gpa_shift)
++
++/*define for scope field*/
++#define SDMA_PKT_PTEPDE_RMW_HEADER_scope_offset 0
++#define SDMA_PKT_PTEPDE_RMW_HEADER_scope_mask   0x00000003
++#define SDMA_PKT_PTEPDE_RMW_HEADER_scope_shift  24
++#define SDMA_PKT_PTEPDE_RMW_HEADER_SCOPE(x) (((x) & SDMA_PKT_PTEPDE_RMW_HEADER_scope_mask) << SDMA_PKT_PTEPDE_RMW_HEADER_scope_shift)
++
++/*define for temp_hint field*/
++#define SDMA_PKT_PTEPDE_RMW_HEADER_temp_hint_offset 0
++#define SDMA_PKT_PTEPDE_RMW_HEADER_temp_hint_mask   0x00000007
++#define SDMA_PKT_PTEPDE_RMW_HEADER_temp_hint_shift  26
++#define SDMA_PKT_PTEPDE_RMW_HEADER_TEMP_HINT(x) (((x) & SDMA_PKT_PTEPDE_RMW_HEADER_temp_hint_mask) << SDMA_PKT_PTEPDE_RMW_HEADER_temp_hint_shift)
++
++/*define for uc_sel field*/
++#define SDMA_PKT_PTEPDE_RMW_HEADER_uc_sel_offset 0
++#define SDMA_PKT_PTEPDE_RMW_HEADER_uc_sel_mask   0x00000003
++#define SDMA_PKT_PTEPDE_RMW_HEADER_uc_sel_shift  30
++#define SDMA_PKT_PTEPDE_RMW_HEADER_UC_SEL(x) (((x) & SDMA_PKT_PTEPDE_RMW_HEADER_uc_sel_mask) << SDMA_PKT_PTEPDE_RMW_HEADER_uc_sel_shift)
++
++/*define for ADDR_LO word*/
++/*define for addr_31_0 field*/
++#define SDMA_PKT_PTEPDE_RMW_ADDR_LO_addr_31_0_offset 1
++#define SDMA_PKT_PTEPDE_RMW_ADDR_LO_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_PTEPDE_RMW_ADDR_LO_addr_31_0_shift  0
++#define SDMA_PKT_PTEPDE_RMW_ADDR_LO_ADDR_31_0(x) (((x) & SDMA_PKT_PTEPDE_RMW_ADDR_LO_addr_31_0_mask) << SDMA_PKT_PTEPDE_RMW_ADDR_LO_addr_31_0_shift)
++
++/*define for ADDR_HI word*/
++/*define for addr_63_32 field*/
++#define SDMA_PKT_PTEPDE_RMW_ADDR_HI_addr_63_32_offset 2
++#define SDMA_PKT_PTEPDE_RMW_ADDR_HI_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_PTEPDE_RMW_ADDR_HI_addr_63_32_shift  0
++#define SDMA_PKT_PTEPDE_RMW_ADDR_HI_ADDR_63_32(x) (((x) & SDMA_PKT_PTEPDE_RMW_ADDR_HI_addr_63_32_mask) << SDMA_PKT_PTEPDE_RMW_ADDR_HI_addr_63_32_shift)
++
++/*define for MASK_LO word*/
++/*define for mask_31_0 field*/
++#define SDMA_PKT_PTEPDE_RMW_MASK_LO_mask_31_0_offset 3
++#define SDMA_PKT_PTEPDE_RMW_MASK_LO_mask_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_PTEPDE_RMW_MASK_LO_mask_31_0_shift  0
++#define SDMA_PKT_PTEPDE_RMW_MASK_LO_MASK_31_0(x) (((x) & SDMA_PKT_PTEPDE_RMW_MASK_LO_mask_31_0_mask) << SDMA_PKT_PTEPDE_RMW_MASK_LO_mask_31_0_shift)
++
++/*define for MASK_HI word*/
++/*define for mask_63_32 field*/
++#define SDMA_PKT_PTEPDE_RMW_MASK_HI_mask_63_32_offset 4
++#define SDMA_PKT_PTEPDE_RMW_MASK_HI_mask_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_PTEPDE_RMW_MASK_HI_mask_63_32_shift  0
++#define SDMA_PKT_PTEPDE_RMW_MASK_HI_MASK_63_32(x) (((x) & SDMA_PKT_PTEPDE_RMW_MASK_HI_mask_63_32_mask) << SDMA_PKT_PTEPDE_RMW_MASK_HI_mask_63_32_shift)
++
++/*define for VALUE_LO word*/
++/*define for value_31_0 field*/
++#define SDMA_PKT_PTEPDE_RMW_VALUE_LO_value_31_0_offset 5
++#define SDMA_PKT_PTEPDE_RMW_VALUE_LO_value_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_PTEPDE_RMW_VALUE_LO_value_31_0_shift  0
++#define SDMA_PKT_PTEPDE_RMW_VALUE_LO_VALUE_31_0(x) (((x) & SDMA_PKT_PTEPDE_RMW_VALUE_LO_value_31_0_mask) << SDMA_PKT_PTEPDE_RMW_VALUE_LO_value_31_0_shift)
++
++/*define for VALUE_HI word*/
++/*define for value_63_32 field*/
++#define SDMA_PKT_PTEPDE_RMW_VALUE_HI_value_63_32_offset 6
++#define SDMA_PKT_PTEPDE_RMW_VALUE_HI_value_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_PTEPDE_RMW_VALUE_HI_value_63_32_shift  0
++#define SDMA_PKT_PTEPDE_RMW_VALUE_HI_VALUE_63_32(x) (((x) & SDMA_PKT_PTEPDE_RMW_VALUE_HI_value_63_32_mask) << SDMA_PKT_PTEPDE_RMW_VALUE_HI_value_63_32_shift)
++
++/*define for COUNT word*/
++/*define for num_of_pte field*/
++#define SDMA_PKT_PTEPDE_RMW_COUNT_num_of_pte_offset 7
++#define SDMA_PKT_PTEPDE_RMW_COUNT_num_of_pte_mask   0x0007FFFF
++#define SDMA_PKT_PTEPDE_RMW_COUNT_num_of_pte_shift  0
++#define SDMA_PKT_PTEPDE_RMW_COUNT_NUM_OF_PTE(x) (((x) & SDMA_PKT_PTEPDE_RMW_COUNT_num_of_pte_mask) << SDMA_PKT_PTEPDE_RMW_COUNT_num_of_pte_shift)
++
++
++/*
++** Definitions for SDMA_PKT_REGISTER_RMW packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_REGISTER_RMW_HEADER_op_offset 0
++#define SDMA_PKT_REGISTER_RMW_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_REGISTER_RMW_HEADER_op_shift  0
++#define SDMA_PKT_REGISTER_RMW_HEADER_OP(x) (((x) & SDMA_PKT_REGISTER_RMW_HEADER_op_mask) << SDMA_PKT_REGISTER_RMW_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_REGISTER_RMW_HEADER_sub_op_offset 0
++#define SDMA_PKT_REGISTER_RMW_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_REGISTER_RMW_HEADER_sub_op_shift  8
++#define SDMA_PKT_REGISTER_RMW_HEADER_SUB_OP(x) (((x) & SDMA_PKT_REGISTER_RMW_HEADER_sub_op_mask) << SDMA_PKT_REGISTER_RMW_HEADER_sub_op_shift)
++
++/*define for ADDR word*/
++/*define for addr field*/
++#define SDMA_PKT_REGISTER_RMW_ADDR_addr_offset 1
++#define SDMA_PKT_REGISTER_RMW_ADDR_addr_mask   0x000FFFFF
++#define SDMA_PKT_REGISTER_RMW_ADDR_addr_shift  0
++#define SDMA_PKT_REGISTER_RMW_ADDR_ADDR(x) (((x) & SDMA_PKT_REGISTER_RMW_ADDR_addr_mask) << SDMA_PKT_REGISTER_RMW_ADDR_addr_shift)
++
++/*define for aperture_id field*/
++#define SDMA_PKT_REGISTER_RMW_ADDR_aperture_id_offset 1
++#define SDMA_PKT_REGISTER_RMW_ADDR_aperture_id_mask   0x00000FFF
++#define SDMA_PKT_REGISTER_RMW_ADDR_aperture_id_shift  20
++#define SDMA_PKT_REGISTER_RMW_ADDR_APERTURE_ID(x) (((x) & SDMA_PKT_REGISTER_RMW_ADDR_aperture_id_mask) << SDMA_PKT_REGISTER_RMW_ADDR_aperture_id_shift)
++
++/*define for MASK word*/
++/*define for mask field*/
++#define SDMA_PKT_REGISTER_RMW_MASK_mask_offset 2
++#define SDMA_PKT_REGISTER_RMW_MASK_mask_mask   0xFFFFFFFF
++#define SDMA_PKT_REGISTER_RMW_MASK_mask_shift  0
++#define SDMA_PKT_REGISTER_RMW_MASK_MASK(x) (((x) & SDMA_PKT_REGISTER_RMW_MASK_mask_mask) << SDMA_PKT_REGISTER_RMW_MASK_mask_shift)
++
++/*define for VALUE word*/
++/*define for value field*/
++#define SDMA_PKT_REGISTER_RMW_VALUE_value_offset 3
++#define SDMA_PKT_REGISTER_RMW_VALUE_value_mask   0xFFFFFFFF
++#define SDMA_PKT_REGISTER_RMW_VALUE_value_shift  0
++#define SDMA_PKT_REGISTER_RMW_VALUE_VALUE(x) (((x) & SDMA_PKT_REGISTER_RMW_VALUE_value_mask) << SDMA_PKT_REGISTER_RMW_VALUE_value_shift)
++
++/*define for MISC word*/
++/*define for stride field*/
++#define SDMA_PKT_REGISTER_RMW_MISC_stride_offset 4
++#define SDMA_PKT_REGISTER_RMW_MISC_stride_mask   0x000FFFFF
++#define SDMA_PKT_REGISTER_RMW_MISC_stride_shift  0
++#define SDMA_PKT_REGISTER_RMW_MISC_STRIDE(x) (((x) & SDMA_PKT_REGISTER_RMW_MISC_stride_mask) << SDMA_PKT_REGISTER_RMW_MISC_stride_shift)
++
++/*define for num_of_reg field*/
++#define SDMA_PKT_REGISTER_RMW_MISC_num_of_reg_offset 4
++#define SDMA_PKT_REGISTER_RMW_MISC_num_of_reg_mask   0x00000FFF
++#define SDMA_PKT_REGISTER_RMW_MISC_num_of_reg_shift  20
++#define SDMA_PKT_REGISTER_RMW_MISC_NUM_OF_REG(x) (((x) & SDMA_PKT_REGISTER_RMW_MISC_num_of_reg_mask) << SDMA_PKT_REGISTER_RMW_MISC_num_of_reg_shift)
++
++
++/*
++** Definitions for SDMA_PKT_WRITE_INCR packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_WRITE_INCR_HEADER_op_offset 0
++#define SDMA_PKT_WRITE_INCR_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_WRITE_INCR_HEADER_op_shift  0
++#define SDMA_PKT_WRITE_INCR_HEADER_OP(x) (((x) & SDMA_PKT_WRITE_INCR_HEADER_op_mask) << SDMA_PKT_WRITE_INCR_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_WRITE_INCR_HEADER_sub_op_offset 0
++#define SDMA_PKT_WRITE_INCR_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_WRITE_INCR_HEADER_sub_op_shift  8
++#define SDMA_PKT_WRITE_INCR_HEADER_SUB_OP(x) (((x) & SDMA_PKT_WRITE_INCR_HEADER_sub_op_mask) << SDMA_PKT_WRITE_INCR_HEADER_sub_op_shift)
++
++/*define for cache_policy field*/
++#define SDMA_PKT_WRITE_INCR_HEADER_cache_policy_offset 0
++#define SDMA_PKT_WRITE_INCR_HEADER_cache_policy_mask   0x00000007
++#define SDMA_PKT_WRITE_INCR_HEADER_cache_policy_shift  24
++#define SDMA_PKT_WRITE_INCR_HEADER_CACHE_POLICY(x) (((x) & SDMA_PKT_WRITE_INCR_HEADER_cache_policy_mask) << SDMA_PKT_WRITE_INCR_HEADER_cache_policy_shift)
++
++/*define for cpv field*/
++#define SDMA_PKT_WRITE_INCR_HEADER_cpv_offset 0
++#define SDMA_PKT_WRITE_INCR_HEADER_cpv_mask   0x00000001
++#define SDMA_PKT_WRITE_INCR_HEADER_cpv_shift  28
++#define SDMA_PKT_WRITE_INCR_HEADER_CPV(x) (((x) & SDMA_PKT_WRITE_INCR_HEADER_cpv_mask) << SDMA_PKT_WRITE_INCR_HEADER_cpv_shift)
++
++/*define for DST_ADDR_LO word*/
++/*define for dst_addr_31_0 field*/
++#define SDMA_PKT_WRITE_INCR_DST_ADDR_LO_dst_addr_31_0_offset 1
++#define SDMA_PKT_WRITE_INCR_DST_ADDR_LO_dst_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_WRITE_INCR_DST_ADDR_LO_dst_addr_31_0_shift  0
++#define SDMA_PKT_WRITE_INCR_DST_ADDR_LO_DST_ADDR_31_0(x) (((x) & SDMA_PKT_WRITE_INCR_DST_ADDR_LO_dst_addr_31_0_mask) << SDMA_PKT_WRITE_INCR_DST_ADDR_LO_dst_addr_31_0_shift)
++
++/*define for DST_ADDR_HI word*/
++/*define for dst_addr_63_32 field*/
++#define SDMA_PKT_WRITE_INCR_DST_ADDR_HI_dst_addr_63_32_offset 2
++#define SDMA_PKT_WRITE_INCR_DST_ADDR_HI_dst_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_WRITE_INCR_DST_ADDR_HI_dst_addr_63_32_shift  0
++#define SDMA_PKT_WRITE_INCR_DST_ADDR_HI_DST_ADDR_63_32(x) (((x) & SDMA_PKT_WRITE_INCR_DST_ADDR_HI_dst_addr_63_32_mask) << SDMA_PKT_WRITE_INCR_DST_ADDR_HI_dst_addr_63_32_shift)
++
++/*define for MASK_DW0 word*/
++/*define for mask_dw0 field*/
++#define SDMA_PKT_WRITE_INCR_MASK_DW0_mask_dw0_offset 3
++#define SDMA_PKT_WRITE_INCR_MASK_DW0_mask_dw0_mask   0xFFFFFFFF
++#define SDMA_PKT_WRITE_INCR_MASK_DW0_mask_dw0_shift  0
++#define SDMA_PKT_WRITE_INCR_MASK_DW0_MASK_DW0(x) (((x) & SDMA_PKT_WRITE_INCR_MASK_DW0_mask_dw0_mask) << SDMA_PKT_WRITE_INCR_MASK_DW0_mask_dw0_shift)
++
++/*define for MASK_DW1 word*/
++/*define for mask_dw1 field*/
++#define SDMA_PKT_WRITE_INCR_MASK_DW1_mask_dw1_offset 4
++#define SDMA_PKT_WRITE_INCR_MASK_DW1_mask_dw1_mask   0xFFFFFFFF
++#define SDMA_PKT_WRITE_INCR_MASK_DW1_mask_dw1_shift  0
++#define SDMA_PKT_WRITE_INCR_MASK_DW1_MASK_DW1(x) (((x) & SDMA_PKT_WRITE_INCR_MASK_DW1_mask_dw1_mask) << SDMA_PKT_WRITE_INCR_MASK_DW1_mask_dw1_shift)
++
++/*define for INIT_DW0 word*/
++/*define for init_dw0 field*/
++#define SDMA_PKT_WRITE_INCR_INIT_DW0_init_dw0_offset 5
++#define SDMA_PKT_WRITE_INCR_INIT_DW0_init_dw0_mask   0xFFFFFFFF
++#define SDMA_PKT_WRITE_INCR_INIT_DW0_init_dw0_shift  0
++#define SDMA_PKT_WRITE_INCR_INIT_DW0_INIT_DW0(x) (((x) & SDMA_PKT_WRITE_INCR_INIT_DW0_init_dw0_mask) << SDMA_PKT_WRITE_INCR_INIT_DW0_init_dw0_shift)
++
++/*define for INIT_DW1 word*/
++/*define for init_dw1 field*/
++#define SDMA_PKT_WRITE_INCR_INIT_DW1_init_dw1_offset 6
++#define SDMA_PKT_WRITE_INCR_INIT_DW1_init_dw1_mask   0xFFFFFFFF
++#define SDMA_PKT_WRITE_INCR_INIT_DW1_init_dw1_shift  0
++#define SDMA_PKT_WRITE_INCR_INIT_DW1_INIT_DW1(x) (((x) & SDMA_PKT_WRITE_INCR_INIT_DW1_init_dw1_mask) << SDMA_PKT_WRITE_INCR_INIT_DW1_init_dw1_shift)
++
++/*define for INCR_DW0 word*/
++/*define for incr_dw0 field*/
++#define SDMA_PKT_WRITE_INCR_INCR_DW0_incr_dw0_offset 7
++#define SDMA_PKT_WRITE_INCR_INCR_DW0_incr_dw0_mask   0xFFFFFFFF
++#define SDMA_PKT_WRITE_INCR_INCR_DW0_incr_dw0_shift  0
++#define SDMA_PKT_WRITE_INCR_INCR_DW0_INCR_DW0(x) (((x) & SDMA_PKT_WRITE_INCR_INCR_DW0_incr_dw0_mask) << SDMA_PKT_WRITE_INCR_INCR_DW0_incr_dw0_shift)
++
++/*define for INCR_DW1 word*/
++/*define for incr_dw1 field*/
++#define SDMA_PKT_WRITE_INCR_INCR_DW1_incr_dw1_offset 8
++#define SDMA_PKT_WRITE_INCR_INCR_DW1_incr_dw1_mask   0xFFFFFFFF
++#define SDMA_PKT_WRITE_INCR_INCR_DW1_incr_dw1_shift  0
++#define SDMA_PKT_WRITE_INCR_INCR_DW1_INCR_DW1(x) (((x) & SDMA_PKT_WRITE_INCR_INCR_DW1_incr_dw1_mask) << SDMA_PKT_WRITE_INCR_INCR_DW1_incr_dw1_shift)
++
++/*define for COUNT word*/
++/*define for count field*/
++#define SDMA_PKT_WRITE_INCR_COUNT_count_offset 9
++#define SDMA_PKT_WRITE_INCR_COUNT_count_mask   0x0007FFFF
++#define SDMA_PKT_WRITE_INCR_COUNT_count_shift  0
++#define SDMA_PKT_WRITE_INCR_COUNT_COUNT(x) (((x) & SDMA_PKT_WRITE_INCR_COUNT_count_mask) << SDMA_PKT_WRITE_INCR_COUNT_count_shift)
++
++
++/*
++** Definitions for SDMA_PKT_INDIRECT packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_INDIRECT_HEADER_op_offset 0
++#define SDMA_PKT_INDIRECT_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_INDIRECT_HEADER_op_shift  0
++#define SDMA_PKT_INDIRECT_HEADER_OP(x) (((x) & SDMA_PKT_INDIRECT_HEADER_op_mask) << SDMA_PKT_INDIRECT_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_INDIRECT_HEADER_sub_op_offset 0
++#define SDMA_PKT_INDIRECT_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_INDIRECT_HEADER_sub_op_shift  8
++#define SDMA_PKT_INDIRECT_HEADER_SUB_OP(x) (((x) & SDMA_PKT_INDIRECT_HEADER_sub_op_mask) << SDMA_PKT_INDIRECT_HEADER_sub_op_shift)
++
++/*define for vmid field*/
++#define SDMA_PKT_INDIRECT_HEADER_vmid_offset 0
++#define SDMA_PKT_INDIRECT_HEADER_vmid_mask   0x0000000F
++#define SDMA_PKT_INDIRECT_HEADER_vmid_shift  16
++#define SDMA_PKT_INDIRECT_HEADER_VMID(x) (((x) & SDMA_PKT_INDIRECT_HEADER_vmid_mask) << SDMA_PKT_INDIRECT_HEADER_vmid_shift)
++
++/*define for priv field*/
++#define SDMA_PKT_INDIRECT_HEADER_priv_offset 0
++#define SDMA_PKT_INDIRECT_HEADER_priv_mask   0x00000001
++#define SDMA_PKT_INDIRECT_HEADER_priv_shift  31
++#define SDMA_PKT_INDIRECT_HEADER_PRIV(x) (((x) & SDMA_PKT_INDIRECT_HEADER_priv_mask) << SDMA_PKT_INDIRECT_HEADER_priv_shift)
++
++/*define for BASE_LO word*/
++/*define for ib_base_31_0 field*/
++#define SDMA_PKT_INDIRECT_BASE_LO_ib_base_31_0_offset 1
++#define SDMA_PKT_INDIRECT_BASE_LO_ib_base_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_INDIRECT_BASE_LO_ib_base_31_0_shift  0
++#define SDMA_PKT_INDIRECT_BASE_LO_IB_BASE_31_0(x) (((x) & SDMA_PKT_INDIRECT_BASE_LO_ib_base_31_0_mask) << SDMA_PKT_INDIRECT_BASE_LO_ib_base_31_0_shift)
++
++/*define for BASE_HI word*/
++/*define for ib_base_63_32 field*/
++#define SDMA_PKT_INDIRECT_BASE_HI_ib_base_63_32_offset 2
++#define SDMA_PKT_INDIRECT_BASE_HI_ib_base_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_INDIRECT_BASE_HI_ib_base_63_32_shift  0
++#define SDMA_PKT_INDIRECT_BASE_HI_IB_BASE_63_32(x) (((x) & SDMA_PKT_INDIRECT_BASE_HI_ib_base_63_32_mask) << SDMA_PKT_INDIRECT_BASE_HI_ib_base_63_32_shift)
++
++/*define for IB_SIZE word*/
++/*define for ib_size field*/
++#define SDMA_PKT_INDIRECT_IB_SIZE_ib_size_offset 3
++#define SDMA_PKT_INDIRECT_IB_SIZE_ib_size_mask   0x000FFFFF
++#define SDMA_PKT_INDIRECT_IB_SIZE_ib_size_shift  0
++#define SDMA_PKT_INDIRECT_IB_SIZE_IB_SIZE(x) (((x) & SDMA_PKT_INDIRECT_IB_SIZE_ib_size_mask) << SDMA_PKT_INDIRECT_IB_SIZE_ib_size_shift)
++
++/*define for CSA_ADDR_LO word*/
++/*define for csa_addr_31_0 field*/
++#define SDMA_PKT_INDIRECT_CSA_ADDR_LO_csa_addr_31_0_offset 4
++#define SDMA_PKT_INDIRECT_CSA_ADDR_LO_csa_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_INDIRECT_CSA_ADDR_LO_csa_addr_31_0_shift  0
++#define SDMA_PKT_INDIRECT_CSA_ADDR_LO_CSA_ADDR_31_0(x) (((x) & SDMA_PKT_INDIRECT_CSA_ADDR_LO_csa_addr_31_0_mask) << SDMA_PKT_INDIRECT_CSA_ADDR_LO_csa_addr_31_0_shift)
++
++/*define for CSA_ADDR_HI word*/
++/*define for csa_addr_63_32 field*/
++#define SDMA_PKT_INDIRECT_CSA_ADDR_HI_csa_addr_63_32_offset 5
++#define SDMA_PKT_INDIRECT_CSA_ADDR_HI_csa_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_INDIRECT_CSA_ADDR_HI_csa_addr_63_32_shift  0
++#define SDMA_PKT_INDIRECT_CSA_ADDR_HI_CSA_ADDR_63_32(x) (((x) & SDMA_PKT_INDIRECT_CSA_ADDR_HI_csa_addr_63_32_mask) << SDMA_PKT_INDIRECT_CSA_ADDR_HI_csa_addr_63_32_shift)
++
++
++/*
++** Definitions for SDMA_PKT_SEMAPHORE packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_SEMAPHORE_HEADER_op_offset 0
++#define SDMA_PKT_SEMAPHORE_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_SEMAPHORE_HEADER_op_shift  0
++#define SDMA_PKT_SEMAPHORE_HEADER_OP(x) (((x) & SDMA_PKT_SEMAPHORE_HEADER_op_mask) << SDMA_PKT_SEMAPHORE_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_SEMAPHORE_HEADER_sub_op_offset 0
++#define SDMA_PKT_SEMAPHORE_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_SEMAPHORE_HEADER_sub_op_shift  8
++#define SDMA_PKT_SEMAPHORE_HEADER_SUB_OP(x) (((x) & SDMA_PKT_SEMAPHORE_HEADER_sub_op_mask) << SDMA_PKT_SEMAPHORE_HEADER_sub_op_shift)
++
++/*define for write_one field*/
++#define SDMA_PKT_SEMAPHORE_HEADER_write_one_offset 0
++#define SDMA_PKT_SEMAPHORE_HEADER_write_one_mask   0x00000001
++#define SDMA_PKT_SEMAPHORE_HEADER_write_one_shift  29
++#define SDMA_PKT_SEMAPHORE_HEADER_WRITE_ONE(x) (((x) & SDMA_PKT_SEMAPHORE_HEADER_write_one_mask) << SDMA_PKT_SEMAPHORE_HEADER_write_one_shift)
++
++/*define for signal field*/
++#define SDMA_PKT_SEMAPHORE_HEADER_signal_offset 0
++#define SDMA_PKT_SEMAPHORE_HEADER_signal_mask   0x00000001
++#define SDMA_PKT_SEMAPHORE_HEADER_signal_shift  30
++#define SDMA_PKT_SEMAPHORE_HEADER_SIGNAL(x) (((x) & SDMA_PKT_SEMAPHORE_HEADER_signal_mask) << SDMA_PKT_SEMAPHORE_HEADER_signal_shift)
++
++/*define for mailbox field*/
++#define SDMA_PKT_SEMAPHORE_HEADER_mailbox_offset 0
++#define SDMA_PKT_SEMAPHORE_HEADER_mailbox_mask   0x00000001
++#define SDMA_PKT_SEMAPHORE_HEADER_mailbox_shift  31
++#define SDMA_PKT_SEMAPHORE_HEADER_MAILBOX(x) (((x) & SDMA_PKT_SEMAPHORE_HEADER_mailbox_mask) << SDMA_PKT_SEMAPHORE_HEADER_mailbox_shift)
++
++/*define for ADDR_LO word*/
++/*define for addr_31_0 field*/
++#define SDMA_PKT_SEMAPHORE_ADDR_LO_addr_31_0_offset 1
++#define SDMA_PKT_SEMAPHORE_ADDR_LO_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_SEMAPHORE_ADDR_LO_addr_31_0_shift  0
++#define SDMA_PKT_SEMAPHORE_ADDR_LO_ADDR_31_0(x) (((x) & SDMA_PKT_SEMAPHORE_ADDR_LO_addr_31_0_mask) << SDMA_PKT_SEMAPHORE_ADDR_LO_addr_31_0_shift)
++
++/*define for ADDR_HI word*/
++/*define for addr_63_32 field*/
++#define SDMA_PKT_SEMAPHORE_ADDR_HI_addr_63_32_offset 2
++#define SDMA_PKT_SEMAPHORE_ADDR_HI_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_SEMAPHORE_ADDR_HI_addr_63_32_shift  0
++#define SDMA_PKT_SEMAPHORE_ADDR_HI_ADDR_63_32(x) (((x) & SDMA_PKT_SEMAPHORE_ADDR_HI_addr_63_32_mask) << SDMA_PKT_SEMAPHORE_ADDR_HI_addr_63_32_shift)
++
++
++/*
++** Definitions for SDMA_PKT_MEM_INCR packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_MEM_INCR_HEADER_op_offset 0
++#define SDMA_PKT_MEM_INCR_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_MEM_INCR_HEADER_op_shift  0
++#define SDMA_PKT_MEM_INCR_HEADER_OP(x) (((x) & SDMA_PKT_MEM_INCR_HEADER_op_mask) << SDMA_PKT_MEM_INCR_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_MEM_INCR_HEADER_sub_op_offset 0
++#define SDMA_PKT_MEM_INCR_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_MEM_INCR_HEADER_sub_op_shift  8
++#define SDMA_PKT_MEM_INCR_HEADER_SUB_OP(x) (((x) & SDMA_PKT_MEM_INCR_HEADER_sub_op_mask) << SDMA_PKT_MEM_INCR_HEADER_sub_op_shift)
++
++/*define for l2_policy field*/
++#define SDMA_PKT_MEM_INCR_HEADER_l2_policy_offset 0
++#define SDMA_PKT_MEM_INCR_HEADER_l2_policy_mask   0x00000003
++#define SDMA_PKT_MEM_INCR_HEADER_l2_policy_shift  24
++#define SDMA_PKT_MEM_INCR_HEADER_L2_POLICY(x) (((x) & SDMA_PKT_MEM_INCR_HEADER_l2_policy_mask) << SDMA_PKT_MEM_INCR_HEADER_l2_policy_shift)
++
++/*define for llc_policy field*/
++#define SDMA_PKT_MEM_INCR_HEADER_llc_policy_offset 0
++#define SDMA_PKT_MEM_INCR_HEADER_llc_policy_mask   0x00000001
++#define SDMA_PKT_MEM_INCR_HEADER_llc_policy_shift  26
++#define SDMA_PKT_MEM_INCR_HEADER_LLC_POLICY(x) (((x) & SDMA_PKT_MEM_INCR_HEADER_llc_policy_mask) << SDMA_PKT_MEM_INCR_HEADER_llc_policy_shift)
++
++/*define for cpv field*/
++#define SDMA_PKT_MEM_INCR_HEADER_cpv_offset 0
++#define SDMA_PKT_MEM_INCR_HEADER_cpv_mask   0x00000001
++#define SDMA_PKT_MEM_INCR_HEADER_cpv_shift  28
++#define SDMA_PKT_MEM_INCR_HEADER_CPV(x) (((x) & SDMA_PKT_MEM_INCR_HEADER_cpv_mask) << SDMA_PKT_MEM_INCR_HEADER_cpv_shift)
++
++/*define for ADDR_LO word*/
++/*define for addr_31_0 field*/
++#define SDMA_PKT_MEM_INCR_ADDR_LO_addr_31_0_offset 1
++#define SDMA_PKT_MEM_INCR_ADDR_LO_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_MEM_INCR_ADDR_LO_addr_31_0_shift  0
++#define SDMA_PKT_MEM_INCR_ADDR_LO_ADDR_31_0(x) (((x) & SDMA_PKT_MEM_INCR_ADDR_LO_addr_31_0_mask) << SDMA_PKT_MEM_INCR_ADDR_LO_addr_31_0_shift)
++
++/*define for ADDR_HI word*/
++/*define for addr_63_32 field*/
++#define SDMA_PKT_MEM_INCR_ADDR_HI_addr_63_32_offset 2
++#define SDMA_PKT_MEM_INCR_ADDR_HI_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_MEM_INCR_ADDR_HI_addr_63_32_shift  0
++#define SDMA_PKT_MEM_INCR_ADDR_HI_ADDR_63_32(x) (((x) & SDMA_PKT_MEM_INCR_ADDR_HI_addr_63_32_mask) << SDMA_PKT_MEM_INCR_ADDR_HI_addr_63_32_shift)
++
++
++/*
++** Definitions for SDMA_PKT_VM_INVALIDATION packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_VM_INVALIDATION_HEADER_op_offset 0
++#define SDMA_PKT_VM_INVALIDATION_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_VM_INVALIDATION_HEADER_op_shift  0
++#define SDMA_PKT_VM_INVALIDATION_HEADER_OP(x) (((x) & SDMA_PKT_VM_INVALIDATION_HEADER_op_mask) << SDMA_PKT_VM_INVALIDATION_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_VM_INVALIDATION_HEADER_sub_op_offset 0
++#define SDMA_PKT_VM_INVALIDATION_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_VM_INVALIDATION_HEADER_sub_op_shift  8
++#define SDMA_PKT_VM_INVALIDATION_HEADER_SUB_OP(x) (((x) & SDMA_PKT_VM_INVALIDATION_HEADER_sub_op_mask) << SDMA_PKT_VM_INVALIDATION_HEADER_sub_op_shift)
++
++/*define for gfx_eng_id field*/
++#define SDMA_PKT_VM_INVALIDATION_HEADER_gfx_eng_id_offset 0
++#define SDMA_PKT_VM_INVALIDATION_HEADER_gfx_eng_id_mask   0x0000001F
++#define SDMA_PKT_VM_INVALIDATION_HEADER_gfx_eng_id_shift  16
++#define SDMA_PKT_VM_INVALIDATION_HEADER_GFX_ENG_ID(x) (((x) & SDMA_PKT_VM_INVALIDATION_HEADER_gfx_eng_id_mask) << SDMA_PKT_VM_INVALIDATION_HEADER_gfx_eng_id_shift)
++
++/*define for mm_eng_id field*/
++#define SDMA_PKT_VM_INVALIDATION_HEADER_mm_eng_id_offset 0
++#define SDMA_PKT_VM_INVALIDATION_HEADER_mm_eng_id_mask   0x0000001F
++#define SDMA_PKT_VM_INVALIDATION_HEADER_mm_eng_id_shift  24
++#define SDMA_PKT_VM_INVALIDATION_HEADER_MM_ENG_ID(x) (((x) & SDMA_PKT_VM_INVALIDATION_HEADER_mm_eng_id_mask) << SDMA_PKT_VM_INVALIDATION_HEADER_mm_eng_id_shift)
++
++/*define for INVALIDATEREQ word*/
++/*define for invalidatereq field*/
++#define SDMA_PKT_VM_INVALIDATION_INVALIDATEREQ_invalidatereq_offset 1
++#define SDMA_PKT_VM_INVALIDATION_INVALIDATEREQ_invalidatereq_mask   0xFFFFFFFF
++#define SDMA_PKT_VM_INVALIDATION_INVALIDATEREQ_invalidatereq_shift  0
++#define SDMA_PKT_VM_INVALIDATION_INVALIDATEREQ_INVALIDATEREQ(x) (((x) & SDMA_PKT_VM_INVALIDATION_INVALIDATEREQ_invalidatereq_mask) << SDMA_PKT_VM_INVALIDATION_INVALIDATEREQ_invalidatereq_shift)
++
++/*define for ADDRESSRANGELO word*/
++/*define for addressrangelo field*/
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGELO_addressrangelo_offset 2
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGELO_addressrangelo_mask   0xFFFFFFFF
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGELO_addressrangelo_shift  0
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGELO_ADDRESSRANGELO(x) (((x) & SDMA_PKT_VM_INVALIDATION_ADDRESSRANGELO_addressrangelo_mask) << SDMA_PKT_VM_INVALIDATION_ADDRESSRANGELO_addressrangelo_shift)
++
++/*define for ADDRESSRANGEHI word*/
++/*define for invalidateack field*/
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_invalidateack_offset 3
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_invalidateack_mask   0x0000FFFF
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_invalidateack_shift  0
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_INVALIDATEACK(x) (((x) & SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_invalidateack_mask) << SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_invalidateack_shift)
++
++/*define for addressrangehi field*/
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_addressrangehi_offset 3
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_addressrangehi_mask   0x0000001F
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_addressrangehi_shift  16
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_ADDRESSRANGEHI(x) (((x) & SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_addressrangehi_mask) << SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_addressrangehi_shift)
++
++/*define for reserved field*/
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_reserved_offset 3
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_reserved_mask   0x000001FF
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_reserved_shift  23
++#define SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_RESERVED(x) (((x) & SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_reserved_mask) << SDMA_PKT_VM_INVALIDATION_ADDRESSRANGEHI_reserved_shift)
++
++
++/*
++** Definitions for SDMA_PKT_FENCE packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_FENCE_HEADER_op_offset 0
++#define SDMA_PKT_FENCE_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_FENCE_HEADER_op_shift  0
++#define SDMA_PKT_FENCE_HEADER_OP(x) (((x) & SDMA_PKT_FENCE_HEADER_op_mask) << SDMA_PKT_FENCE_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_FENCE_HEADER_sub_op_offset 0
++#define SDMA_PKT_FENCE_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_FENCE_HEADER_sub_op_shift  8
++#define SDMA_PKT_FENCE_HEADER_SUB_OP(x) (((x) & SDMA_PKT_FENCE_HEADER_sub_op_mask) << SDMA_PKT_FENCE_HEADER_sub_op_shift)
++
++/*define for mtype field*/
++#define SDMA_PKT_FENCE_HEADER_mtype_offset 0
++#define SDMA_PKT_FENCE_HEADER_mtype_mask   0x00000007
++#define SDMA_PKT_FENCE_HEADER_mtype_shift  16
++#define SDMA_PKT_FENCE_HEADER_MTYPE(x) (((x) & SDMA_PKT_FENCE_HEADER_mtype_mask) << SDMA_PKT_FENCE_HEADER_mtype_shift)
++
++/*define for gcc field*/
++#define SDMA_PKT_FENCE_HEADER_gcc_offset 0
++#define SDMA_PKT_FENCE_HEADER_gcc_mask   0x00000001
++#define SDMA_PKT_FENCE_HEADER_gcc_shift  19
++#define SDMA_PKT_FENCE_HEADER_GCC(x) (((x) & SDMA_PKT_FENCE_HEADER_gcc_mask) << SDMA_PKT_FENCE_HEADER_gcc_shift)
++
++/*define for sys field*/
++#define SDMA_PKT_FENCE_HEADER_sys_offset 0
++#define SDMA_PKT_FENCE_HEADER_sys_mask   0x00000001
++#define SDMA_PKT_FENCE_HEADER_sys_shift  20
++#define SDMA_PKT_FENCE_HEADER_SYS(x) (((x) & SDMA_PKT_FENCE_HEADER_sys_mask) << SDMA_PKT_FENCE_HEADER_sys_shift)
++
++/*define for snp field*/
++#define SDMA_PKT_FENCE_HEADER_snp_offset 0
++#define SDMA_PKT_FENCE_HEADER_snp_mask   0x00000001
++#define SDMA_PKT_FENCE_HEADER_snp_shift  22
++#define SDMA_PKT_FENCE_HEADER_SNP(x) (((x) & SDMA_PKT_FENCE_HEADER_snp_mask) << SDMA_PKT_FENCE_HEADER_snp_shift)
++
++/*define for gpa field*/
++#define SDMA_PKT_FENCE_HEADER_gpa_offset 0
++#define SDMA_PKT_FENCE_HEADER_gpa_mask   0x00000001
++#define SDMA_PKT_FENCE_HEADER_gpa_shift  23
++#define SDMA_PKT_FENCE_HEADER_GPA(x) (((x) & SDMA_PKT_FENCE_HEADER_gpa_mask) << SDMA_PKT_FENCE_HEADER_gpa_shift)
++
++/*define for l2_policy field*/
++#define SDMA_PKT_FENCE_HEADER_l2_policy_offset 0
++#define SDMA_PKT_FENCE_HEADER_l2_policy_mask   0x00000003
++#define SDMA_PKT_FENCE_HEADER_l2_policy_shift  24
++#define SDMA_PKT_FENCE_HEADER_L2_POLICY(x) (((x) & SDMA_PKT_FENCE_HEADER_l2_policy_mask) << SDMA_PKT_FENCE_HEADER_l2_policy_shift)
++
++/*define for llc_policy field*/
++#define SDMA_PKT_FENCE_HEADER_llc_policy_offset 0
++#define SDMA_PKT_FENCE_HEADER_llc_policy_mask   0x00000001
++#define SDMA_PKT_FENCE_HEADER_llc_policy_shift  26
++#define SDMA_PKT_FENCE_HEADER_LLC_POLICY(x) (((x) & SDMA_PKT_FENCE_HEADER_llc_policy_mask) << SDMA_PKT_FENCE_HEADER_llc_policy_shift)
++
++/*define for cpv field*/
++#define SDMA_PKT_FENCE_HEADER_cpv_offset 0
++#define SDMA_PKT_FENCE_HEADER_cpv_mask   0x00000001
++#define SDMA_PKT_FENCE_HEADER_cpv_shift  28
++#define SDMA_PKT_FENCE_HEADER_CPV(x) (((x) & SDMA_PKT_FENCE_HEADER_cpv_mask) << SDMA_PKT_FENCE_HEADER_cpv_shift)
++
++/*define for ADDR_LO word*/
++/*define for addr_31_0 field*/
++#define SDMA_PKT_FENCE_ADDR_LO_addr_31_0_offset 1
++#define SDMA_PKT_FENCE_ADDR_LO_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_FENCE_ADDR_LO_addr_31_0_shift  0
++#define SDMA_PKT_FENCE_ADDR_LO_ADDR_31_0(x) (((x) & SDMA_PKT_FENCE_ADDR_LO_addr_31_0_mask) << SDMA_PKT_FENCE_ADDR_LO_addr_31_0_shift)
++
++/*define for ADDR_HI word*/
++/*define for addr_63_32 field*/
++#define SDMA_PKT_FENCE_ADDR_HI_addr_63_32_offset 2
++#define SDMA_PKT_FENCE_ADDR_HI_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_FENCE_ADDR_HI_addr_63_32_shift  0
++#define SDMA_PKT_FENCE_ADDR_HI_ADDR_63_32(x) (((x) & SDMA_PKT_FENCE_ADDR_HI_addr_63_32_mask) << SDMA_PKT_FENCE_ADDR_HI_addr_63_32_shift)
++
++/*define for DATA word*/
++/*define for data field*/
++#define SDMA_PKT_FENCE_DATA_data_offset 3
++#define SDMA_PKT_FENCE_DATA_data_mask   0xFFFFFFFF
++#define SDMA_PKT_FENCE_DATA_data_shift  0
++#define SDMA_PKT_FENCE_DATA_DATA(x) (((x) & SDMA_PKT_FENCE_DATA_data_mask) << SDMA_PKT_FENCE_DATA_data_shift)
++
++
++/*
++** Definitions for SDMA_PKT_SRBM_WRITE packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_SRBM_WRITE_HEADER_op_offset 0
++#define SDMA_PKT_SRBM_WRITE_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_SRBM_WRITE_HEADER_op_shift  0
++#define SDMA_PKT_SRBM_WRITE_HEADER_OP(x) (((x) & SDMA_PKT_SRBM_WRITE_HEADER_op_mask) << SDMA_PKT_SRBM_WRITE_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_SRBM_WRITE_HEADER_sub_op_offset 0
++#define SDMA_PKT_SRBM_WRITE_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_SRBM_WRITE_HEADER_sub_op_shift  8
++#define SDMA_PKT_SRBM_WRITE_HEADER_SUB_OP(x) (((x) & SDMA_PKT_SRBM_WRITE_HEADER_sub_op_mask) << SDMA_PKT_SRBM_WRITE_HEADER_sub_op_shift)
++
++/*define for byte_en field*/
++#define SDMA_PKT_SRBM_WRITE_HEADER_byte_en_offset 0
++#define SDMA_PKT_SRBM_WRITE_HEADER_byte_en_mask   0x0000000F
++#define SDMA_PKT_SRBM_WRITE_HEADER_byte_en_shift  28
++#define SDMA_PKT_SRBM_WRITE_HEADER_BYTE_EN(x) (((x) & SDMA_PKT_SRBM_WRITE_HEADER_byte_en_mask) << SDMA_PKT_SRBM_WRITE_HEADER_byte_en_shift)
++
++/*define for ADDR word*/
++/*define for addr field*/
++#define SDMA_PKT_SRBM_WRITE_ADDR_addr_offset 1
++#define SDMA_PKT_SRBM_WRITE_ADDR_addr_mask   0x0003FFFF
++#define SDMA_PKT_SRBM_WRITE_ADDR_addr_shift  0
++#define SDMA_PKT_SRBM_WRITE_ADDR_ADDR(x) (((x) & SDMA_PKT_SRBM_WRITE_ADDR_addr_mask) << SDMA_PKT_SRBM_WRITE_ADDR_addr_shift)
++
++/*define for apertureid field*/
++#define SDMA_PKT_SRBM_WRITE_ADDR_apertureid_offset 1
++#define SDMA_PKT_SRBM_WRITE_ADDR_apertureid_mask   0x00000FFF
++#define SDMA_PKT_SRBM_WRITE_ADDR_apertureid_shift  20
++#define SDMA_PKT_SRBM_WRITE_ADDR_APERTUREID(x) (((x) & SDMA_PKT_SRBM_WRITE_ADDR_apertureid_mask) << SDMA_PKT_SRBM_WRITE_ADDR_apertureid_shift)
++
++/*define for DATA word*/
++/*define for data field*/
++#define SDMA_PKT_SRBM_WRITE_DATA_data_offset 2
++#define SDMA_PKT_SRBM_WRITE_DATA_data_mask   0xFFFFFFFF
++#define SDMA_PKT_SRBM_WRITE_DATA_data_shift  0
++#define SDMA_PKT_SRBM_WRITE_DATA_DATA(x) (((x) & SDMA_PKT_SRBM_WRITE_DATA_data_mask) << SDMA_PKT_SRBM_WRITE_DATA_data_shift)
++
++
++/*
++** Definitions for SDMA_PKT_PRE_EXE packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_PRE_EXE_HEADER_op_offset 0
++#define SDMA_PKT_PRE_EXE_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_PRE_EXE_HEADER_op_shift  0
++#define SDMA_PKT_PRE_EXE_HEADER_OP(x) (((x) & SDMA_PKT_PRE_EXE_HEADER_op_mask) << SDMA_PKT_PRE_EXE_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_PRE_EXE_HEADER_sub_op_offset 0
++#define SDMA_PKT_PRE_EXE_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_PRE_EXE_HEADER_sub_op_shift  8
++#define SDMA_PKT_PRE_EXE_HEADER_SUB_OP(x) (((x) & SDMA_PKT_PRE_EXE_HEADER_sub_op_mask) << SDMA_PKT_PRE_EXE_HEADER_sub_op_shift)
++
++/*define for dev_sel field*/
++#define SDMA_PKT_PRE_EXE_HEADER_dev_sel_offset 0
++#define SDMA_PKT_PRE_EXE_HEADER_dev_sel_mask   0x000000FF
++#define SDMA_PKT_PRE_EXE_HEADER_dev_sel_shift  16
++#define SDMA_PKT_PRE_EXE_HEADER_DEV_SEL(x) (((x) & SDMA_PKT_PRE_EXE_HEADER_dev_sel_mask) << SDMA_PKT_PRE_EXE_HEADER_dev_sel_shift)
++
++/*define for EXEC_COUNT word*/
++/*define for exec_count field*/
++#define SDMA_PKT_PRE_EXE_EXEC_COUNT_exec_count_offset 1
++#define SDMA_PKT_PRE_EXE_EXEC_COUNT_exec_count_mask   0x00003FFF
++#define SDMA_PKT_PRE_EXE_EXEC_COUNT_exec_count_shift  0
++#define SDMA_PKT_PRE_EXE_EXEC_COUNT_EXEC_COUNT(x) (((x) & SDMA_PKT_PRE_EXE_EXEC_COUNT_exec_count_mask) << SDMA_PKT_PRE_EXE_EXEC_COUNT_exec_count_shift)
++
++
++/*
++** Definitions for SDMA_PKT_COND_EXE packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_COND_EXE_HEADER_op_offset 0
++#define SDMA_PKT_COND_EXE_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_COND_EXE_HEADER_op_shift  0
++#define SDMA_PKT_COND_EXE_HEADER_OP(x) (((x) & SDMA_PKT_COND_EXE_HEADER_op_mask) << SDMA_PKT_COND_EXE_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_COND_EXE_HEADER_sub_op_offset 0
++#define SDMA_PKT_COND_EXE_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_COND_EXE_HEADER_sub_op_shift  8
++#define SDMA_PKT_COND_EXE_HEADER_SUB_OP(x) (((x) & SDMA_PKT_COND_EXE_HEADER_sub_op_mask) << SDMA_PKT_COND_EXE_HEADER_sub_op_shift)
++
++/*define for cache_policy field*/
++#define SDMA_PKT_COND_EXE_HEADER_cache_policy_offset 0
++#define SDMA_PKT_COND_EXE_HEADER_cache_policy_mask   0x00000007
++#define SDMA_PKT_COND_EXE_HEADER_cache_policy_shift  24
++#define SDMA_PKT_COND_EXE_HEADER_CACHE_POLICY(x) (((x) & SDMA_PKT_COND_EXE_HEADER_cache_policy_mask) << SDMA_PKT_COND_EXE_HEADER_cache_policy_shift)
++
++/*define for cpv field*/
++#define SDMA_PKT_COND_EXE_HEADER_cpv_offset 0
++#define SDMA_PKT_COND_EXE_HEADER_cpv_mask   0x00000001
++#define SDMA_PKT_COND_EXE_HEADER_cpv_shift  28
++#define SDMA_PKT_COND_EXE_HEADER_CPV(x) (((x) & SDMA_PKT_COND_EXE_HEADER_cpv_mask) << SDMA_PKT_COND_EXE_HEADER_cpv_shift)
++
++/*define for ADDR_LO word*/
++/*define for addr_31_0 field*/
++#define SDMA_PKT_COND_EXE_ADDR_LO_addr_31_0_offset 1
++#define SDMA_PKT_COND_EXE_ADDR_LO_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_COND_EXE_ADDR_LO_addr_31_0_shift  0
++#define SDMA_PKT_COND_EXE_ADDR_LO_ADDR_31_0(x) (((x) & SDMA_PKT_COND_EXE_ADDR_LO_addr_31_0_mask) << SDMA_PKT_COND_EXE_ADDR_LO_addr_31_0_shift)
++
++/*define for ADDR_HI word*/
++/*define for addr_63_32 field*/
++#define SDMA_PKT_COND_EXE_ADDR_HI_addr_63_32_offset 2
++#define SDMA_PKT_COND_EXE_ADDR_HI_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_COND_EXE_ADDR_HI_addr_63_32_shift  0
++#define SDMA_PKT_COND_EXE_ADDR_HI_ADDR_63_32(x) (((x) & SDMA_PKT_COND_EXE_ADDR_HI_addr_63_32_mask) << SDMA_PKT_COND_EXE_ADDR_HI_addr_63_32_shift)
++
++/*define for REFERENCE word*/
++/*define for reference field*/
++#define SDMA_PKT_COND_EXE_REFERENCE_reference_offset 3
++#define SDMA_PKT_COND_EXE_REFERENCE_reference_mask   0xFFFFFFFF
++#define SDMA_PKT_COND_EXE_REFERENCE_reference_shift  0
++#define SDMA_PKT_COND_EXE_REFERENCE_REFERENCE(x) (((x) & SDMA_PKT_COND_EXE_REFERENCE_reference_mask) << SDMA_PKT_COND_EXE_REFERENCE_reference_shift)
++
++/*define for EXEC_COUNT word*/
++/*define for exec_count field*/
++#define SDMA_PKT_COND_EXE_EXEC_COUNT_exec_count_offset 4
++#define SDMA_PKT_COND_EXE_EXEC_COUNT_exec_count_mask   0x00003FFF
++#define SDMA_PKT_COND_EXE_EXEC_COUNT_exec_count_shift  0
++#define SDMA_PKT_COND_EXE_EXEC_COUNT_EXEC_COUNT(x) (((x) & SDMA_PKT_COND_EXE_EXEC_COUNT_exec_count_mask) << SDMA_PKT_COND_EXE_EXEC_COUNT_exec_count_shift)
++
++
++/*
++** Definitions for SDMA_PKT_CONSTANT_FILL packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_CONSTANT_FILL_HEADER_op_offset 0
++#define SDMA_PKT_CONSTANT_FILL_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_CONSTANT_FILL_HEADER_op_shift  0
++#define SDMA_PKT_CONSTANT_FILL_HEADER_OP(x) (((x) & SDMA_PKT_CONSTANT_FILL_HEADER_op_mask) << SDMA_PKT_CONSTANT_FILL_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_CONSTANT_FILL_HEADER_sub_op_offset 0
++#define SDMA_PKT_CONSTANT_FILL_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_CONSTANT_FILL_HEADER_sub_op_shift  8
++#define SDMA_PKT_CONSTANT_FILL_HEADER_SUB_OP(x) (((x) & SDMA_PKT_CONSTANT_FILL_HEADER_sub_op_mask) << SDMA_PKT_CONSTANT_FILL_HEADER_sub_op_shift)
++
++/*define for sw field*/
++#define SDMA_PKT_CONSTANT_FILL_HEADER_sw_offset 0
++#define SDMA_PKT_CONSTANT_FILL_HEADER_sw_mask   0x00000003
++#define SDMA_PKT_CONSTANT_FILL_HEADER_sw_shift  16
++#define SDMA_PKT_CONSTANT_FILL_HEADER_SW(x) (((x) & SDMA_PKT_CONSTANT_FILL_HEADER_sw_mask) << SDMA_PKT_CONSTANT_FILL_HEADER_sw_shift)
++
++/*define for cache_policy field*/
++#define SDMA_PKT_CONSTANT_FILL_HEADER_cache_policy_offset 0
++#define SDMA_PKT_CONSTANT_FILL_HEADER_cache_policy_mask   0x00000007
++#define SDMA_PKT_CONSTANT_FILL_HEADER_cache_policy_shift  24
++#define SDMA_PKT_CONSTANT_FILL_HEADER_CACHE_POLICY(x) (((x) & SDMA_PKT_CONSTANT_FILL_HEADER_cache_policy_mask) << SDMA_PKT_CONSTANT_FILL_HEADER_cache_policy_shift)
++
++/*define for cpv field*/
++#define SDMA_PKT_CONSTANT_FILL_HEADER_cpv_offset 0
++#define SDMA_PKT_CONSTANT_FILL_HEADER_cpv_mask   0x00000001
++#define SDMA_PKT_CONSTANT_FILL_HEADER_cpv_shift  28
++#define SDMA_PKT_CONSTANT_FILL_HEADER_CPV(x) (((x) & SDMA_PKT_CONSTANT_FILL_HEADER_cpv_mask) << SDMA_PKT_CONSTANT_FILL_HEADER_cpv_shift)
++
++/*define for fillsize field*/
++#define SDMA_PKT_CONSTANT_FILL_HEADER_fillsize_offset 0
++#define SDMA_PKT_CONSTANT_FILL_HEADER_fillsize_mask   0x00000003
++#define SDMA_PKT_CONSTANT_FILL_HEADER_fillsize_shift  30
++#define SDMA_PKT_CONSTANT_FILL_HEADER_FILLSIZE(x) (((x) & SDMA_PKT_CONSTANT_FILL_HEADER_fillsize_mask) << SDMA_PKT_CONSTANT_FILL_HEADER_fillsize_shift)
++
++/*define for DST_ADDR_LO word*/
++/*define for dst_addr_31_0 field*/
++#define SDMA_PKT_CONSTANT_FILL_DST_ADDR_LO_dst_addr_31_0_offset 1
++#define SDMA_PKT_CONSTANT_FILL_DST_ADDR_LO_dst_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_CONSTANT_FILL_DST_ADDR_LO_dst_addr_31_0_shift  0
++#define SDMA_PKT_CONSTANT_FILL_DST_ADDR_LO_DST_ADDR_31_0(x) (((x) & SDMA_PKT_CONSTANT_FILL_DST_ADDR_LO_dst_addr_31_0_mask) << SDMA_PKT_CONSTANT_FILL_DST_ADDR_LO_dst_addr_31_0_shift)
++
++/*define for DST_ADDR_HI word*/
++/*define for dst_addr_63_32 field*/
++#define SDMA_PKT_CONSTANT_FILL_DST_ADDR_HI_dst_addr_63_32_offset 2
++#define SDMA_PKT_CONSTANT_FILL_DST_ADDR_HI_dst_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_CONSTANT_FILL_DST_ADDR_HI_dst_addr_63_32_shift  0
++#define SDMA_PKT_CONSTANT_FILL_DST_ADDR_HI_DST_ADDR_63_32(x) (((x) & SDMA_PKT_CONSTANT_FILL_DST_ADDR_HI_dst_addr_63_32_mask) << SDMA_PKT_CONSTANT_FILL_DST_ADDR_HI_dst_addr_63_32_shift)
++
++/*define for DATA word*/
++/*define for src_data_31_0 field*/
++#define SDMA_PKT_CONSTANT_FILL_DATA_src_data_31_0_offset 3
++#define SDMA_PKT_CONSTANT_FILL_DATA_src_data_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_CONSTANT_FILL_DATA_src_data_31_0_shift  0
++#define SDMA_PKT_CONSTANT_FILL_DATA_SRC_DATA_31_0(x) (((x) & SDMA_PKT_CONSTANT_FILL_DATA_src_data_31_0_mask) << SDMA_PKT_CONSTANT_FILL_DATA_src_data_31_0_shift)
++
++/*define for COUNT word*/
++/*define for count field*/
++#define SDMA_PKT_CONSTANT_FILL_COUNT_count_offset 4
++#define SDMA_PKT_CONSTANT_FILL_COUNT_count_mask   0x3FFFFFFF
++#define SDMA_PKT_CONSTANT_FILL_COUNT_count_shift  0
++#define SDMA_PKT_CONSTANT_FILL_COUNT_COUNT(x) (((x) & SDMA_PKT_CONSTANT_FILL_COUNT_count_mask) << SDMA_PKT_CONSTANT_FILL_COUNT_count_shift)
++
++
++/*
++** Definitions for SDMA_PKT_DATA_FILL_MULTI packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_DATA_FILL_MULTI_HEADER_op_offset 0
++#define SDMA_PKT_DATA_FILL_MULTI_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_DATA_FILL_MULTI_HEADER_op_shift  0
++#define SDMA_PKT_DATA_FILL_MULTI_HEADER_OP(x) (((x) & SDMA_PKT_DATA_FILL_MULTI_HEADER_op_mask) << SDMA_PKT_DATA_FILL_MULTI_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_DATA_FILL_MULTI_HEADER_sub_op_offset 0
++#define SDMA_PKT_DATA_FILL_MULTI_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_DATA_FILL_MULTI_HEADER_sub_op_shift  8
++#define SDMA_PKT_DATA_FILL_MULTI_HEADER_SUB_OP(x) (((x) & SDMA_PKT_DATA_FILL_MULTI_HEADER_sub_op_mask) << SDMA_PKT_DATA_FILL_MULTI_HEADER_sub_op_shift)
++
++/*define for cache_policy field*/
++#define SDMA_PKT_DATA_FILL_MULTI_HEADER_cache_policy_offset 0
++#define SDMA_PKT_DATA_FILL_MULTI_HEADER_cache_policy_mask   0x00000007
++#define SDMA_PKT_DATA_FILL_MULTI_HEADER_cache_policy_shift  24
++#define SDMA_PKT_DATA_FILL_MULTI_HEADER_CACHE_POLICY(x) (((x) & SDMA_PKT_DATA_FILL_MULTI_HEADER_cache_policy_mask) << SDMA_PKT_DATA_FILL_MULTI_HEADER_cache_policy_shift)
++
++/*define for cpv field*/
++#define SDMA_PKT_DATA_FILL_MULTI_HEADER_cpv_offset 0
++#define SDMA_PKT_DATA_FILL_MULTI_HEADER_cpv_mask   0x00000001
++#define SDMA_PKT_DATA_FILL_MULTI_HEADER_cpv_shift  28
++#define SDMA_PKT_DATA_FILL_MULTI_HEADER_CPV(x) (((x) & SDMA_PKT_DATA_FILL_MULTI_HEADER_cpv_mask) << SDMA_PKT_DATA_FILL_MULTI_HEADER_cpv_shift)
++
++/*define for memlog_clr field*/
++#define SDMA_PKT_DATA_FILL_MULTI_HEADER_memlog_clr_offset 0
++#define SDMA_PKT_DATA_FILL_MULTI_HEADER_memlog_clr_mask   0x00000001
++#define SDMA_PKT_DATA_FILL_MULTI_HEADER_memlog_clr_shift  31
++#define SDMA_PKT_DATA_FILL_MULTI_HEADER_MEMLOG_CLR(x) (((x) & SDMA_PKT_DATA_FILL_MULTI_HEADER_memlog_clr_mask) << SDMA_PKT_DATA_FILL_MULTI_HEADER_memlog_clr_shift)
++
++/*define for BYTE_STRIDE word*/
++/*define for byte_stride field*/
++#define SDMA_PKT_DATA_FILL_MULTI_BYTE_STRIDE_byte_stride_offset 1
++#define SDMA_PKT_DATA_FILL_MULTI_BYTE_STRIDE_byte_stride_mask   0xFFFFFFFF
++#define SDMA_PKT_DATA_FILL_MULTI_BYTE_STRIDE_byte_stride_shift  0
++#define SDMA_PKT_DATA_FILL_MULTI_BYTE_STRIDE_BYTE_STRIDE(x) (((x) & SDMA_PKT_DATA_FILL_MULTI_BYTE_STRIDE_byte_stride_mask) << SDMA_PKT_DATA_FILL_MULTI_BYTE_STRIDE_byte_stride_shift)
++
++/*define for DMA_COUNT word*/
++/*define for dma_count field*/
++#define SDMA_PKT_DATA_FILL_MULTI_DMA_COUNT_dma_count_offset 2
++#define SDMA_PKT_DATA_FILL_MULTI_DMA_COUNT_dma_count_mask   0xFFFFFFFF
++#define SDMA_PKT_DATA_FILL_MULTI_DMA_COUNT_dma_count_shift  0
++#define SDMA_PKT_DATA_FILL_MULTI_DMA_COUNT_DMA_COUNT(x) (((x) & SDMA_PKT_DATA_FILL_MULTI_DMA_COUNT_dma_count_mask) << SDMA_PKT_DATA_FILL_MULTI_DMA_COUNT_dma_count_shift)
++
++/*define for DST_ADDR_LO word*/
++/*define for dst_addr_31_0 field*/
++#define SDMA_PKT_DATA_FILL_MULTI_DST_ADDR_LO_dst_addr_31_0_offset 3
++#define SDMA_PKT_DATA_FILL_MULTI_DST_ADDR_LO_dst_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_DATA_FILL_MULTI_DST_ADDR_LO_dst_addr_31_0_shift  0
++#define SDMA_PKT_DATA_FILL_MULTI_DST_ADDR_LO_DST_ADDR_31_0(x) (((x) & SDMA_PKT_DATA_FILL_MULTI_DST_ADDR_LO_dst_addr_31_0_mask) << SDMA_PKT_DATA_FILL_MULTI_DST_ADDR_LO_dst_addr_31_0_shift)
++
++/*define for DST_ADDR_HI word*/
++/*define for dst_addr_63_32 field*/
++#define SDMA_PKT_DATA_FILL_MULTI_DST_ADDR_HI_dst_addr_63_32_offset 4
++#define SDMA_PKT_DATA_FILL_MULTI_DST_ADDR_HI_dst_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_DATA_FILL_MULTI_DST_ADDR_HI_dst_addr_63_32_shift  0
++#define SDMA_PKT_DATA_FILL_MULTI_DST_ADDR_HI_DST_ADDR_63_32(x) (((x) & SDMA_PKT_DATA_FILL_MULTI_DST_ADDR_HI_dst_addr_63_32_mask) << SDMA_PKT_DATA_FILL_MULTI_DST_ADDR_HI_dst_addr_63_32_shift)
++
++/*define for BYTE_COUNT word*/
++/*define for count field*/
++#define SDMA_PKT_DATA_FILL_MULTI_BYTE_COUNT_count_offset 5
++#define SDMA_PKT_DATA_FILL_MULTI_BYTE_COUNT_count_mask   0x03FFFFFF
++#define SDMA_PKT_DATA_FILL_MULTI_BYTE_COUNT_count_shift  0
++#define SDMA_PKT_DATA_FILL_MULTI_BYTE_COUNT_COUNT(x) (((x) & SDMA_PKT_DATA_FILL_MULTI_BYTE_COUNT_count_mask) << SDMA_PKT_DATA_FILL_MULTI_BYTE_COUNT_count_shift)
++
++
++/*
++** Definitions for SDMA_PKT_POLL_REGMEM packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_POLL_REGMEM_HEADER_op_offset 0
++#define SDMA_PKT_POLL_REGMEM_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_POLL_REGMEM_HEADER_op_shift  0
++#define SDMA_PKT_POLL_REGMEM_HEADER_OP(x) (((x) & SDMA_PKT_POLL_REGMEM_HEADER_op_mask) << SDMA_PKT_POLL_REGMEM_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_POLL_REGMEM_HEADER_sub_op_offset 0
++#define SDMA_PKT_POLL_REGMEM_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_POLL_REGMEM_HEADER_sub_op_shift  8
++#define SDMA_PKT_POLL_REGMEM_HEADER_SUB_OP(x) (((x) & SDMA_PKT_POLL_REGMEM_HEADER_sub_op_mask) << SDMA_PKT_POLL_REGMEM_HEADER_sub_op_shift)
++
++/*define for cache_policy field*/
++#define SDMA_PKT_POLL_REGMEM_HEADER_cache_policy_offset 0
++#define SDMA_PKT_POLL_REGMEM_HEADER_cache_policy_mask   0x00000007
++#define SDMA_PKT_POLL_REGMEM_HEADER_cache_policy_shift  20
++#define SDMA_PKT_POLL_REGMEM_HEADER_CACHE_POLICY(x) (((x) & SDMA_PKT_POLL_REGMEM_HEADER_cache_policy_mask) << SDMA_PKT_POLL_REGMEM_HEADER_cache_policy_shift)
++
++/*define for cpv field*/
++#define SDMA_PKT_POLL_REGMEM_HEADER_cpv_offset 0
++#define SDMA_PKT_POLL_REGMEM_HEADER_cpv_mask   0x00000001
++#define SDMA_PKT_POLL_REGMEM_HEADER_cpv_shift  24
++#define SDMA_PKT_POLL_REGMEM_HEADER_CPV(x) (((x) & SDMA_PKT_POLL_REGMEM_HEADER_cpv_mask) << SDMA_PKT_POLL_REGMEM_HEADER_cpv_shift)
++
++/*define for hdp_flush field*/
++#define SDMA_PKT_POLL_REGMEM_HEADER_hdp_flush_offset 0
++#define SDMA_PKT_POLL_REGMEM_HEADER_hdp_flush_mask   0x00000001
++#define SDMA_PKT_POLL_REGMEM_HEADER_hdp_flush_shift  26
++#define SDMA_PKT_POLL_REGMEM_HEADER_HDP_FLUSH(x) (((x) & SDMA_PKT_POLL_REGMEM_HEADER_hdp_flush_mask) << SDMA_PKT_POLL_REGMEM_HEADER_hdp_flush_shift)
++
++/*define for func field*/
++#define SDMA_PKT_POLL_REGMEM_HEADER_func_offset 0
++#define SDMA_PKT_POLL_REGMEM_HEADER_func_mask   0x00000007
++#define SDMA_PKT_POLL_REGMEM_HEADER_func_shift  28
++#define SDMA_PKT_POLL_REGMEM_HEADER_FUNC(x) (((x) & SDMA_PKT_POLL_REGMEM_HEADER_func_mask) << SDMA_PKT_POLL_REGMEM_HEADER_func_shift)
++
++/*define for mem_poll field*/
++#define SDMA_PKT_POLL_REGMEM_HEADER_mem_poll_offset 0
++#define SDMA_PKT_POLL_REGMEM_HEADER_mem_poll_mask   0x00000001
++#define SDMA_PKT_POLL_REGMEM_HEADER_mem_poll_shift  31
++#define SDMA_PKT_POLL_REGMEM_HEADER_MEM_POLL(x) (((x) & SDMA_PKT_POLL_REGMEM_HEADER_mem_poll_mask) << SDMA_PKT_POLL_REGMEM_HEADER_mem_poll_shift)
++
++/*define for ADDR_LO word*/
++/*define for addr_31_0 field*/
++#define SDMA_PKT_POLL_REGMEM_ADDR_LO_addr_31_0_offset 1
++#define SDMA_PKT_POLL_REGMEM_ADDR_LO_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_POLL_REGMEM_ADDR_LO_addr_31_0_shift  0
++#define SDMA_PKT_POLL_REGMEM_ADDR_LO_ADDR_31_0(x) (((x) & SDMA_PKT_POLL_REGMEM_ADDR_LO_addr_31_0_mask) << SDMA_PKT_POLL_REGMEM_ADDR_LO_addr_31_0_shift)
++
++/*define for ADDR_HI word*/
++/*define for addr_63_32 field*/
++#define SDMA_PKT_POLL_REGMEM_ADDR_HI_addr_63_32_offset 2
++#define SDMA_PKT_POLL_REGMEM_ADDR_HI_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_POLL_REGMEM_ADDR_HI_addr_63_32_shift  0
++#define SDMA_PKT_POLL_REGMEM_ADDR_HI_ADDR_63_32(x) (((x) & SDMA_PKT_POLL_REGMEM_ADDR_HI_addr_63_32_mask) << SDMA_PKT_POLL_REGMEM_ADDR_HI_addr_63_32_shift)
++
++/*define for VALUE word*/
++/*define for value field*/
++#define SDMA_PKT_POLL_REGMEM_VALUE_value_offset 3
++#define SDMA_PKT_POLL_REGMEM_VALUE_value_mask   0xFFFFFFFF
++#define SDMA_PKT_POLL_REGMEM_VALUE_value_shift  0
++#define SDMA_PKT_POLL_REGMEM_VALUE_VALUE(x) (((x) & SDMA_PKT_POLL_REGMEM_VALUE_value_mask) << SDMA_PKT_POLL_REGMEM_VALUE_value_shift)
++
++/*define for MASK word*/
++/*define for mask field*/
++#define SDMA_PKT_POLL_REGMEM_MASK_mask_offset 4
++#define SDMA_PKT_POLL_REGMEM_MASK_mask_mask   0xFFFFFFFF
++#define SDMA_PKT_POLL_REGMEM_MASK_mask_shift  0
++#define SDMA_PKT_POLL_REGMEM_MASK_MASK(x) (((x) & SDMA_PKT_POLL_REGMEM_MASK_mask_mask) << SDMA_PKT_POLL_REGMEM_MASK_mask_shift)
++
++/*define for DW5 word*/
++/*define for interval field*/
++#define SDMA_PKT_POLL_REGMEM_DW5_interval_offset 5
++#define SDMA_PKT_POLL_REGMEM_DW5_interval_mask   0x0000FFFF
++#define SDMA_PKT_POLL_REGMEM_DW5_interval_shift  0
++#define SDMA_PKT_POLL_REGMEM_DW5_INTERVAL(x) (((x) & SDMA_PKT_POLL_REGMEM_DW5_interval_mask) << SDMA_PKT_POLL_REGMEM_DW5_interval_shift)
++
++/*define for retry_count field*/
++#define SDMA_PKT_POLL_REGMEM_DW5_retry_count_offset 5
++#define SDMA_PKT_POLL_REGMEM_DW5_retry_count_mask   0x00000FFF
++#define SDMA_PKT_POLL_REGMEM_DW5_retry_count_shift  16
++#define SDMA_PKT_POLL_REGMEM_DW5_RETRY_COUNT(x) (((x) & SDMA_PKT_POLL_REGMEM_DW5_retry_count_mask) << SDMA_PKT_POLL_REGMEM_DW5_retry_count_shift)
++
++
++/*
++** Definitions for SDMA_PKT_POLL_REG_WRITE_MEM packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_op_offset 0
++#define SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_op_shift  0
++#define SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_OP(x) (((x) & SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_op_mask) << SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_sub_op_offset 0
++#define SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_sub_op_shift  8
++#define SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_SUB_OP(x) (((x) & SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_sub_op_mask) << SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_sub_op_shift)
++
++/*define for cache_policy field*/
++#define SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_cache_policy_offset 0
++#define SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_cache_policy_mask   0x00000007
++#define SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_cache_policy_shift  24
++#define SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_CACHE_POLICY(x) (((x) & SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_cache_policy_mask) << SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_cache_policy_shift)
++
++/*define for cpv field*/
++#define SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_cpv_offset 0
++#define SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_cpv_mask   0x00000001
++#define SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_cpv_shift  28
++#define SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_CPV(x) (((x) & SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_cpv_mask) << SDMA_PKT_POLL_REG_WRITE_MEM_HEADER_cpv_shift)
++
++/*define for SRC_ADDR word*/
++/*define for addr_31_2 field*/
++#define SDMA_PKT_POLL_REG_WRITE_MEM_SRC_ADDR_addr_31_2_offset 1
++#define SDMA_PKT_POLL_REG_WRITE_MEM_SRC_ADDR_addr_31_2_mask   0x3FFFFFFF
++#define SDMA_PKT_POLL_REG_WRITE_MEM_SRC_ADDR_addr_31_2_shift  2
++#define SDMA_PKT_POLL_REG_WRITE_MEM_SRC_ADDR_ADDR_31_2(x) (((x) & SDMA_PKT_POLL_REG_WRITE_MEM_SRC_ADDR_addr_31_2_mask) << SDMA_PKT_POLL_REG_WRITE_MEM_SRC_ADDR_addr_31_2_shift)
++
++/*define for DST_ADDR_LO word*/
++/*define for addr_31_0 field*/
++#define SDMA_PKT_POLL_REG_WRITE_MEM_DST_ADDR_LO_addr_31_0_offset 2
++#define SDMA_PKT_POLL_REG_WRITE_MEM_DST_ADDR_LO_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_POLL_REG_WRITE_MEM_DST_ADDR_LO_addr_31_0_shift  0
++#define SDMA_PKT_POLL_REG_WRITE_MEM_DST_ADDR_LO_ADDR_31_0(x) (((x) & SDMA_PKT_POLL_REG_WRITE_MEM_DST_ADDR_LO_addr_31_0_mask) << SDMA_PKT_POLL_REG_WRITE_MEM_DST_ADDR_LO_addr_31_0_shift)
++
++/*define for DST_ADDR_HI word*/
++/*define for addr_63_32 field*/
++#define SDMA_PKT_POLL_REG_WRITE_MEM_DST_ADDR_HI_addr_63_32_offset 3
++#define SDMA_PKT_POLL_REG_WRITE_MEM_DST_ADDR_HI_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_POLL_REG_WRITE_MEM_DST_ADDR_HI_addr_63_32_shift  0
++#define SDMA_PKT_POLL_REG_WRITE_MEM_DST_ADDR_HI_ADDR_63_32(x) (((x) & SDMA_PKT_POLL_REG_WRITE_MEM_DST_ADDR_HI_addr_63_32_mask) << SDMA_PKT_POLL_REG_WRITE_MEM_DST_ADDR_HI_addr_63_32_shift)
++
++
++/*
++** Definitions for SDMA_PKT_POLL_DBIT_WRITE_MEM packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_op_offset 0
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_op_shift  0
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_OP(x) (((x) & SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_op_mask) << SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_sub_op_offset 0
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_sub_op_shift  8
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_SUB_OP(x) (((x) & SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_sub_op_mask) << SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_sub_op_shift)
++
++/*define for ea field*/
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_ea_offset 0
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_ea_mask   0x00000003
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_ea_shift  16
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_EA(x) (((x) & SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_ea_mask) << SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_ea_shift)
++
++/*define for cache_policy field*/
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_cache_policy_offset 0
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_cache_policy_mask   0x00000007
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_cache_policy_shift  24
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_CACHE_POLICY(x) (((x) & SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_cache_policy_mask) << SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_cache_policy_shift)
++
++/*define for cpv field*/
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_cpv_offset 0
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_cpv_mask   0x00000001
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_cpv_shift  28
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_CPV(x) (((x) & SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_cpv_mask) << SDMA_PKT_POLL_DBIT_WRITE_MEM_HEADER_cpv_shift)
++
++/*define for DST_ADDR_LO word*/
++/*define for addr_31_0 field*/
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_DST_ADDR_LO_addr_31_0_offset 1
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_DST_ADDR_LO_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_DST_ADDR_LO_addr_31_0_shift  0
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_DST_ADDR_LO_ADDR_31_0(x) (((x) & SDMA_PKT_POLL_DBIT_WRITE_MEM_DST_ADDR_LO_addr_31_0_mask) << SDMA_PKT_POLL_DBIT_WRITE_MEM_DST_ADDR_LO_addr_31_0_shift)
++
++/*define for DST_ADDR_HI word*/
++/*define for addr_63_32 field*/
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_DST_ADDR_HI_addr_63_32_offset 2
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_DST_ADDR_HI_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_DST_ADDR_HI_addr_63_32_shift  0
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_DST_ADDR_HI_ADDR_63_32(x) (((x) & SDMA_PKT_POLL_DBIT_WRITE_MEM_DST_ADDR_HI_addr_63_32_mask) << SDMA_PKT_POLL_DBIT_WRITE_MEM_DST_ADDR_HI_addr_63_32_shift)
++
++/*define for START_PAGE word*/
++/*define for addr_31_4 field*/
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_START_PAGE_addr_31_4_offset 3
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_START_PAGE_addr_31_4_mask   0x0FFFFFFF
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_START_PAGE_addr_31_4_shift  4
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_START_PAGE_ADDR_31_4(x) (((x) & SDMA_PKT_POLL_DBIT_WRITE_MEM_START_PAGE_addr_31_4_mask) << SDMA_PKT_POLL_DBIT_WRITE_MEM_START_PAGE_addr_31_4_shift)
++
++/*define for PAGE_NUM word*/
++/*define for page_num_31_0 field*/
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_PAGE_NUM_page_num_31_0_offset 4
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_PAGE_NUM_page_num_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_PAGE_NUM_page_num_31_0_shift  0
++#define SDMA_PKT_POLL_DBIT_WRITE_MEM_PAGE_NUM_PAGE_NUM_31_0(x) (((x) & SDMA_PKT_POLL_DBIT_WRITE_MEM_PAGE_NUM_page_num_31_0_mask) << SDMA_PKT_POLL_DBIT_WRITE_MEM_PAGE_NUM_page_num_31_0_shift)
++
++
++/*
++** Definitions for SDMA_PKT_POLL_MEM_VERIFY packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_POLL_MEM_VERIFY_HEADER_op_offset 0
++#define SDMA_PKT_POLL_MEM_VERIFY_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_POLL_MEM_VERIFY_HEADER_op_shift  0
++#define SDMA_PKT_POLL_MEM_VERIFY_HEADER_OP(x) (((x) & SDMA_PKT_POLL_MEM_VERIFY_HEADER_op_mask) << SDMA_PKT_POLL_MEM_VERIFY_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_POLL_MEM_VERIFY_HEADER_sub_op_offset 0
++#define SDMA_PKT_POLL_MEM_VERIFY_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_POLL_MEM_VERIFY_HEADER_sub_op_shift  8
++#define SDMA_PKT_POLL_MEM_VERIFY_HEADER_SUB_OP(x) (((x) & SDMA_PKT_POLL_MEM_VERIFY_HEADER_sub_op_mask) << SDMA_PKT_POLL_MEM_VERIFY_HEADER_sub_op_shift)
++
++/*define for cache_policy field*/
++#define SDMA_PKT_POLL_MEM_VERIFY_HEADER_cache_policy_offset 0
++#define SDMA_PKT_POLL_MEM_VERIFY_HEADER_cache_policy_mask   0x00000007
++#define SDMA_PKT_POLL_MEM_VERIFY_HEADER_cache_policy_shift  24
++#define SDMA_PKT_POLL_MEM_VERIFY_HEADER_CACHE_POLICY(x) (((x) & SDMA_PKT_POLL_MEM_VERIFY_HEADER_cache_policy_mask) << SDMA_PKT_POLL_MEM_VERIFY_HEADER_cache_policy_shift)
++
++/*define for cpv field*/
++#define SDMA_PKT_POLL_MEM_VERIFY_HEADER_cpv_offset 0
++#define SDMA_PKT_POLL_MEM_VERIFY_HEADER_cpv_mask   0x00000001
++#define SDMA_PKT_POLL_MEM_VERIFY_HEADER_cpv_shift  28
++#define SDMA_PKT_POLL_MEM_VERIFY_HEADER_CPV(x) (((x) & SDMA_PKT_POLL_MEM_VERIFY_HEADER_cpv_mask) << SDMA_PKT_POLL_MEM_VERIFY_HEADER_cpv_shift)
++
++/*define for mode field*/
++#define SDMA_PKT_POLL_MEM_VERIFY_HEADER_mode_offset 0
++#define SDMA_PKT_POLL_MEM_VERIFY_HEADER_mode_mask   0x00000001
++#define SDMA_PKT_POLL_MEM_VERIFY_HEADER_mode_shift  31
++#define SDMA_PKT_POLL_MEM_VERIFY_HEADER_MODE(x) (((x) & SDMA_PKT_POLL_MEM_VERIFY_HEADER_mode_mask) << SDMA_PKT_POLL_MEM_VERIFY_HEADER_mode_shift)
++
++/*define for PATTERN word*/
++/*define for pattern field*/
++#define SDMA_PKT_POLL_MEM_VERIFY_PATTERN_pattern_offset 1
++#define SDMA_PKT_POLL_MEM_VERIFY_PATTERN_pattern_mask   0xFFFFFFFF
++#define SDMA_PKT_POLL_MEM_VERIFY_PATTERN_pattern_shift  0
++#define SDMA_PKT_POLL_MEM_VERIFY_PATTERN_PATTERN(x) (((x) & SDMA_PKT_POLL_MEM_VERIFY_PATTERN_pattern_mask) << SDMA_PKT_POLL_MEM_VERIFY_PATTERN_pattern_shift)
++
++/*define for CMP0_ADDR_START_LO word*/
++/*define for cmp0_start_31_0 field*/
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_START_LO_cmp0_start_31_0_offset 2
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_START_LO_cmp0_start_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_START_LO_cmp0_start_31_0_shift  0
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_START_LO_CMP0_START_31_0(x) (((x) & SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_START_LO_cmp0_start_31_0_mask) << SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_START_LO_cmp0_start_31_0_shift)
++
++/*define for CMP0_ADDR_START_HI word*/
++/*define for cmp0_start_63_32 field*/
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_START_HI_cmp0_start_63_32_offset 3
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_START_HI_cmp0_start_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_START_HI_cmp0_start_63_32_shift  0
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_START_HI_CMP0_START_63_32(x) (((x) & SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_START_HI_cmp0_start_63_32_mask) << SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_START_HI_cmp0_start_63_32_shift)
++
++/*define for CMP0_ADDR_END_LO word*/
++/*define for cmp0_end_31_0 field*/
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_END_LO_cmp0_end_31_0_offset 4
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_END_LO_cmp0_end_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_END_LO_cmp0_end_31_0_shift  0
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_END_LO_CMP0_END_31_0(x) (((x) & SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_END_LO_cmp0_end_31_0_mask) << SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_END_LO_cmp0_end_31_0_shift)
++
++/*define for CMP0_ADDR_END_HI word*/
++/*define for cmp0_end_63_32 field*/
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_END_HI_cmp0_end_63_32_offset 5
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_END_HI_cmp0_end_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_END_HI_cmp0_end_63_32_shift  0
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_END_HI_CMP0_END_63_32(x) (((x) & SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_END_HI_cmp0_end_63_32_mask) << SDMA_PKT_POLL_MEM_VERIFY_CMP0_ADDR_END_HI_cmp0_end_63_32_shift)
++
++/*define for CMP1_ADDR_START_LO word*/
++/*define for cmp1_start_31_0 field*/
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_START_LO_cmp1_start_31_0_offset 6
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_START_LO_cmp1_start_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_START_LO_cmp1_start_31_0_shift  0
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_START_LO_CMP1_START_31_0(x) (((x) & SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_START_LO_cmp1_start_31_0_mask) << SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_START_LO_cmp1_start_31_0_shift)
++
++/*define for CMP1_ADDR_START_HI word*/
++/*define for cmp1_start_63_32 field*/
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_START_HI_cmp1_start_63_32_offset 7
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_START_HI_cmp1_start_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_START_HI_cmp1_start_63_32_shift  0
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_START_HI_CMP1_START_63_32(x) (((x) & SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_START_HI_cmp1_start_63_32_mask) << SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_START_HI_cmp1_start_63_32_shift)
++
++/*define for CMP1_ADDR_END_LO word*/
++/*define for cmp1_end_31_0 field*/
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_END_LO_cmp1_end_31_0_offset 8
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_END_LO_cmp1_end_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_END_LO_cmp1_end_31_0_shift  0
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_END_LO_CMP1_END_31_0(x) (((x) & SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_END_LO_cmp1_end_31_0_mask) << SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_END_LO_cmp1_end_31_0_shift)
++
++/*define for CMP1_ADDR_END_HI word*/
++/*define for cmp1_end_63_32 field*/
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_END_HI_cmp1_end_63_32_offset 9
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_END_HI_cmp1_end_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_END_HI_cmp1_end_63_32_shift  0
++#define SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_END_HI_CMP1_END_63_32(x) (((x) & SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_END_HI_cmp1_end_63_32_mask) << SDMA_PKT_POLL_MEM_VERIFY_CMP1_ADDR_END_HI_cmp1_end_63_32_shift)
++
++/*define for REC_ADDR_LO word*/
++/*define for rec_31_0 field*/
++#define SDMA_PKT_POLL_MEM_VERIFY_REC_ADDR_LO_rec_31_0_offset 10
++#define SDMA_PKT_POLL_MEM_VERIFY_REC_ADDR_LO_rec_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_POLL_MEM_VERIFY_REC_ADDR_LO_rec_31_0_shift  0
++#define SDMA_PKT_POLL_MEM_VERIFY_REC_ADDR_LO_REC_31_0(x) (((x) & SDMA_PKT_POLL_MEM_VERIFY_REC_ADDR_LO_rec_31_0_mask) << SDMA_PKT_POLL_MEM_VERIFY_REC_ADDR_LO_rec_31_0_shift)
++
++/*define for REC_ADDR_HI word*/
++/*define for rec_63_32 field*/
++#define SDMA_PKT_POLL_MEM_VERIFY_REC_ADDR_HI_rec_63_32_offset 11
++#define SDMA_PKT_POLL_MEM_VERIFY_REC_ADDR_HI_rec_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_POLL_MEM_VERIFY_REC_ADDR_HI_rec_63_32_shift  0
++#define SDMA_PKT_POLL_MEM_VERIFY_REC_ADDR_HI_REC_63_32(x) (((x) & SDMA_PKT_POLL_MEM_VERIFY_REC_ADDR_HI_rec_63_32_mask) << SDMA_PKT_POLL_MEM_VERIFY_REC_ADDR_HI_rec_63_32_shift)
++
++/*define for RESERVED word*/
++/*define for reserved field*/
++#define SDMA_PKT_POLL_MEM_VERIFY_RESERVED_reserved_offset 12
++#define SDMA_PKT_POLL_MEM_VERIFY_RESERVED_reserved_mask   0xFFFFFFFF
++#define SDMA_PKT_POLL_MEM_VERIFY_RESERVED_reserved_shift  0
++#define SDMA_PKT_POLL_MEM_VERIFY_RESERVED_RESERVED(x) (((x) & SDMA_PKT_POLL_MEM_VERIFY_RESERVED_reserved_mask) << SDMA_PKT_POLL_MEM_VERIFY_RESERVED_reserved_shift)
++
++
++/*
++** Definitions for SDMA_PKT_ATOMIC packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_ATOMIC_HEADER_op_offset 0
++#define SDMA_PKT_ATOMIC_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_ATOMIC_HEADER_op_shift  0
++#define SDMA_PKT_ATOMIC_HEADER_OP(x) (((x) & SDMA_PKT_ATOMIC_HEADER_op_mask) << SDMA_PKT_ATOMIC_HEADER_op_shift)
++
++/*define for loop field*/
++#define SDMA_PKT_ATOMIC_HEADER_loop_offset 0
++#define SDMA_PKT_ATOMIC_HEADER_loop_mask   0x00000001
++#define SDMA_PKT_ATOMIC_HEADER_loop_shift  16
++#define SDMA_PKT_ATOMIC_HEADER_LOOP(x) (((x) & SDMA_PKT_ATOMIC_HEADER_loop_mask) << SDMA_PKT_ATOMIC_HEADER_loop_shift)
++
++/*define for tmz field*/
++#define SDMA_PKT_ATOMIC_HEADER_tmz_offset 0
++#define SDMA_PKT_ATOMIC_HEADER_tmz_mask   0x00000001
++#define SDMA_PKT_ATOMIC_HEADER_tmz_shift  18
++#define SDMA_PKT_ATOMIC_HEADER_TMZ(x) (((x) & SDMA_PKT_ATOMIC_HEADER_tmz_mask) << SDMA_PKT_ATOMIC_HEADER_tmz_shift)
++
++/*define for cache_policy field*/
++#define SDMA_PKT_ATOMIC_HEADER_cache_policy_offset 0
++#define SDMA_PKT_ATOMIC_HEADER_cache_policy_mask   0x00000007
++#define SDMA_PKT_ATOMIC_HEADER_cache_policy_shift  20
++#define SDMA_PKT_ATOMIC_HEADER_CACHE_POLICY(x) (((x) & SDMA_PKT_ATOMIC_HEADER_cache_policy_mask) << SDMA_PKT_ATOMIC_HEADER_cache_policy_shift)
++
++/*define for cpv field*/
++#define SDMA_PKT_ATOMIC_HEADER_cpv_offset 0
++#define SDMA_PKT_ATOMIC_HEADER_cpv_mask   0x00000001
++#define SDMA_PKT_ATOMIC_HEADER_cpv_shift  24
++#define SDMA_PKT_ATOMIC_HEADER_CPV(x) (((x) & SDMA_PKT_ATOMIC_HEADER_cpv_mask) << SDMA_PKT_ATOMIC_HEADER_cpv_shift)
++
++/*define for atomic_op field*/
++#define SDMA_PKT_ATOMIC_HEADER_atomic_op_offset 0
++#define SDMA_PKT_ATOMIC_HEADER_atomic_op_mask   0x0000007F
++#define SDMA_PKT_ATOMIC_HEADER_atomic_op_shift  25
++#define SDMA_PKT_ATOMIC_HEADER_ATOMIC_OP(x) (((x) & SDMA_PKT_ATOMIC_HEADER_atomic_op_mask) << SDMA_PKT_ATOMIC_HEADER_atomic_op_shift)
++
++/*define for ADDR_LO word*/
++/*define for addr_31_0 field*/
++#define SDMA_PKT_ATOMIC_ADDR_LO_addr_31_0_offset 1
++#define SDMA_PKT_ATOMIC_ADDR_LO_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_ATOMIC_ADDR_LO_addr_31_0_shift  0
++#define SDMA_PKT_ATOMIC_ADDR_LO_ADDR_31_0(x) (((x) & SDMA_PKT_ATOMIC_ADDR_LO_addr_31_0_mask) << SDMA_PKT_ATOMIC_ADDR_LO_addr_31_0_shift)
++
++/*define for ADDR_HI word*/
++/*define for addr_63_32 field*/
++#define SDMA_PKT_ATOMIC_ADDR_HI_addr_63_32_offset 2
++#define SDMA_PKT_ATOMIC_ADDR_HI_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_ATOMIC_ADDR_HI_addr_63_32_shift  0
++#define SDMA_PKT_ATOMIC_ADDR_HI_ADDR_63_32(x) (((x) & SDMA_PKT_ATOMIC_ADDR_HI_addr_63_32_mask) << SDMA_PKT_ATOMIC_ADDR_HI_addr_63_32_shift)
++
++/*define for SRC_DATA_LO word*/
++/*define for src_data_31_0 field*/
++#define SDMA_PKT_ATOMIC_SRC_DATA_LO_src_data_31_0_offset 3
++#define SDMA_PKT_ATOMIC_SRC_DATA_LO_src_data_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_ATOMIC_SRC_DATA_LO_src_data_31_0_shift  0
++#define SDMA_PKT_ATOMIC_SRC_DATA_LO_SRC_DATA_31_0(x) (((x) & SDMA_PKT_ATOMIC_SRC_DATA_LO_src_data_31_0_mask) << SDMA_PKT_ATOMIC_SRC_DATA_LO_src_data_31_0_shift)
++
++/*define for SRC_DATA_HI word*/
++/*define for src_data_63_32 field*/
++#define SDMA_PKT_ATOMIC_SRC_DATA_HI_src_data_63_32_offset 4
++#define SDMA_PKT_ATOMIC_SRC_DATA_HI_src_data_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_ATOMIC_SRC_DATA_HI_src_data_63_32_shift  0
++#define SDMA_PKT_ATOMIC_SRC_DATA_HI_SRC_DATA_63_32(x) (((x) & SDMA_PKT_ATOMIC_SRC_DATA_HI_src_data_63_32_mask) << SDMA_PKT_ATOMIC_SRC_DATA_HI_src_data_63_32_shift)
++
++/*define for CMP_DATA_LO word*/
++/*define for cmp_data_31_0 field*/
++#define SDMA_PKT_ATOMIC_CMP_DATA_LO_cmp_data_31_0_offset 5
++#define SDMA_PKT_ATOMIC_CMP_DATA_LO_cmp_data_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_ATOMIC_CMP_DATA_LO_cmp_data_31_0_shift  0
++#define SDMA_PKT_ATOMIC_CMP_DATA_LO_CMP_DATA_31_0(x) (((x) & SDMA_PKT_ATOMIC_CMP_DATA_LO_cmp_data_31_0_mask) << SDMA_PKT_ATOMIC_CMP_DATA_LO_cmp_data_31_0_shift)
++
++/*define for CMP_DATA_HI word*/
++/*define for cmp_data_63_32 field*/
++#define SDMA_PKT_ATOMIC_CMP_DATA_HI_cmp_data_63_32_offset 6
++#define SDMA_PKT_ATOMIC_CMP_DATA_HI_cmp_data_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_ATOMIC_CMP_DATA_HI_cmp_data_63_32_shift  0
++#define SDMA_PKT_ATOMIC_CMP_DATA_HI_CMP_DATA_63_32(x) (((x) & SDMA_PKT_ATOMIC_CMP_DATA_HI_cmp_data_63_32_mask) << SDMA_PKT_ATOMIC_CMP_DATA_HI_cmp_data_63_32_shift)
++
++/*define for LOOP_INTERVAL word*/
++/*define for loop_interval field*/
++#define SDMA_PKT_ATOMIC_LOOP_INTERVAL_loop_interval_offset 7
++#define SDMA_PKT_ATOMIC_LOOP_INTERVAL_loop_interval_mask   0x00001FFF
++#define SDMA_PKT_ATOMIC_LOOP_INTERVAL_loop_interval_shift  0
++#define SDMA_PKT_ATOMIC_LOOP_INTERVAL_LOOP_INTERVAL(x) (((x) & SDMA_PKT_ATOMIC_LOOP_INTERVAL_loop_interval_mask) << SDMA_PKT_ATOMIC_LOOP_INTERVAL_loop_interval_shift)
++
++
++/*
++** Definitions for SDMA_PKT_TIMESTAMP_SET packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_TIMESTAMP_SET_HEADER_op_offset 0
++#define SDMA_PKT_TIMESTAMP_SET_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_TIMESTAMP_SET_HEADER_op_shift  0
++#define SDMA_PKT_TIMESTAMP_SET_HEADER_OP(x) (((x) & SDMA_PKT_TIMESTAMP_SET_HEADER_op_mask) << SDMA_PKT_TIMESTAMP_SET_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_TIMESTAMP_SET_HEADER_sub_op_offset 0
++#define SDMA_PKT_TIMESTAMP_SET_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_TIMESTAMP_SET_HEADER_sub_op_shift  8
++#define SDMA_PKT_TIMESTAMP_SET_HEADER_SUB_OP(x) (((x) & SDMA_PKT_TIMESTAMP_SET_HEADER_sub_op_mask) << SDMA_PKT_TIMESTAMP_SET_HEADER_sub_op_shift)
++
++/*define for INIT_DATA_LO word*/
++/*define for init_data_31_0 field*/
++#define SDMA_PKT_TIMESTAMP_SET_INIT_DATA_LO_init_data_31_0_offset 1
++#define SDMA_PKT_TIMESTAMP_SET_INIT_DATA_LO_init_data_31_0_mask   0xFFFFFFFF
++#define SDMA_PKT_TIMESTAMP_SET_INIT_DATA_LO_init_data_31_0_shift  0
++#define SDMA_PKT_TIMESTAMP_SET_INIT_DATA_LO_INIT_DATA_31_0(x) (((x) & SDMA_PKT_TIMESTAMP_SET_INIT_DATA_LO_init_data_31_0_mask) << SDMA_PKT_TIMESTAMP_SET_INIT_DATA_LO_init_data_31_0_shift)
++
++/*define for INIT_DATA_HI word*/
++/*define for init_data_63_32 field*/
++#define SDMA_PKT_TIMESTAMP_SET_INIT_DATA_HI_init_data_63_32_offset 2
++#define SDMA_PKT_TIMESTAMP_SET_INIT_DATA_HI_init_data_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_TIMESTAMP_SET_INIT_DATA_HI_init_data_63_32_shift  0
++#define SDMA_PKT_TIMESTAMP_SET_INIT_DATA_HI_INIT_DATA_63_32(x) (((x) & SDMA_PKT_TIMESTAMP_SET_INIT_DATA_HI_init_data_63_32_mask) << SDMA_PKT_TIMESTAMP_SET_INIT_DATA_HI_init_data_63_32_shift)
++
++
++/*
++** Definitions for SDMA_PKT_TIMESTAMP_GET packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_TIMESTAMP_GET_HEADER_op_offset 0
++#define SDMA_PKT_TIMESTAMP_GET_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_TIMESTAMP_GET_HEADER_op_shift  0
++#define SDMA_PKT_TIMESTAMP_GET_HEADER_OP(x) (((x) & SDMA_PKT_TIMESTAMP_GET_HEADER_op_mask) << SDMA_PKT_TIMESTAMP_GET_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_TIMESTAMP_GET_HEADER_sub_op_offset 0
++#define SDMA_PKT_TIMESTAMP_GET_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_TIMESTAMP_GET_HEADER_sub_op_shift  8
++#define SDMA_PKT_TIMESTAMP_GET_HEADER_SUB_OP(x) (((x) & SDMA_PKT_TIMESTAMP_GET_HEADER_sub_op_mask) << SDMA_PKT_TIMESTAMP_GET_HEADER_sub_op_shift)
++
++/*define for l2_policy field*/
++#define SDMA_PKT_TIMESTAMP_GET_HEADER_l2_policy_offset 0
++#define SDMA_PKT_TIMESTAMP_GET_HEADER_l2_policy_mask   0x00000003
++#define SDMA_PKT_TIMESTAMP_GET_HEADER_l2_policy_shift  24
++#define SDMA_PKT_TIMESTAMP_GET_HEADER_L2_POLICY(x) (((x) & SDMA_PKT_TIMESTAMP_GET_HEADER_l2_policy_mask) << SDMA_PKT_TIMESTAMP_GET_HEADER_l2_policy_shift)
++
++/*define for llc_policy field*/
++#define SDMA_PKT_TIMESTAMP_GET_HEADER_llc_policy_offset 0
++#define SDMA_PKT_TIMESTAMP_GET_HEADER_llc_policy_mask   0x00000001
++#define SDMA_PKT_TIMESTAMP_GET_HEADER_llc_policy_shift  26
++#define SDMA_PKT_TIMESTAMP_GET_HEADER_LLC_POLICY(x) (((x) & SDMA_PKT_TIMESTAMP_GET_HEADER_llc_policy_mask) << SDMA_PKT_TIMESTAMP_GET_HEADER_llc_policy_shift)
++
++/*define for cpv field*/
++#define SDMA_PKT_TIMESTAMP_GET_HEADER_cpv_offset 0
++#define SDMA_PKT_TIMESTAMP_GET_HEADER_cpv_mask   0x00000001
++#define SDMA_PKT_TIMESTAMP_GET_HEADER_cpv_shift  28
++#define SDMA_PKT_TIMESTAMP_GET_HEADER_CPV(x) (((x) & SDMA_PKT_TIMESTAMP_GET_HEADER_cpv_mask) << SDMA_PKT_TIMESTAMP_GET_HEADER_cpv_shift)
++
++/*define for WRITE_ADDR_LO word*/
++/*define for write_addr_31_3 field*/
++#define SDMA_PKT_TIMESTAMP_GET_WRITE_ADDR_LO_write_addr_31_3_offset 1
++#define SDMA_PKT_TIMESTAMP_GET_WRITE_ADDR_LO_write_addr_31_3_mask   0x1FFFFFFF
++#define SDMA_PKT_TIMESTAMP_GET_WRITE_ADDR_LO_write_addr_31_3_shift  3
++#define SDMA_PKT_TIMESTAMP_GET_WRITE_ADDR_LO_WRITE_ADDR_31_3(x) (((x) & SDMA_PKT_TIMESTAMP_GET_WRITE_ADDR_LO_write_addr_31_3_mask) << SDMA_PKT_TIMESTAMP_GET_WRITE_ADDR_LO_write_addr_31_3_shift)
++
++/*define for WRITE_ADDR_HI word*/
++/*define for write_addr_63_32 field*/
++#define SDMA_PKT_TIMESTAMP_GET_WRITE_ADDR_HI_write_addr_63_32_offset 2
++#define SDMA_PKT_TIMESTAMP_GET_WRITE_ADDR_HI_write_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_TIMESTAMP_GET_WRITE_ADDR_HI_write_addr_63_32_shift  0
++#define SDMA_PKT_TIMESTAMP_GET_WRITE_ADDR_HI_WRITE_ADDR_63_32(x) (((x) & SDMA_PKT_TIMESTAMP_GET_WRITE_ADDR_HI_write_addr_63_32_mask) << SDMA_PKT_TIMESTAMP_GET_WRITE_ADDR_HI_write_addr_63_32_shift)
++
++
++/*
++** Definitions for SDMA_PKT_TIMESTAMP_GET_GLOBAL packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_op_offset 0
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_op_shift  0
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_OP(x) (((x) & SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_op_mask) << SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_sub_op_offset 0
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_sub_op_shift  8
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_SUB_OP(x) (((x) & SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_sub_op_mask) << SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_sub_op_shift)
++
++/*define for l2_policy field*/
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_l2_policy_offset 0
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_l2_policy_mask   0x00000003
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_l2_policy_shift  24
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_L2_POLICY(x) (((x) & SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_l2_policy_mask) << SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_l2_policy_shift)
++
++/*define for llc_policy field*/
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_llc_policy_offset 0
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_llc_policy_mask   0x00000001
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_llc_policy_shift  26
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_LLC_POLICY(x) (((x) & SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_llc_policy_mask) << SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_llc_policy_shift)
++
++/*define for cpv field*/
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_cpv_offset 0
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_cpv_mask   0x00000001
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_cpv_shift  28
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_CPV(x) (((x) & SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_cpv_mask) << SDMA_PKT_TIMESTAMP_GET_GLOBAL_HEADER_cpv_shift)
++
++/*define for WRITE_ADDR_LO word*/
++/*define for write_addr_31_3 field*/
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_WRITE_ADDR_LO_write_addr_31_3_offset 1
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_WRITE_ADDR_LO_write_addr_31_3_mask   0x1FFFFFFF
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_WRITE_ADDR_LO_write_addr_31_3_shift  3
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_WRITE_ADDR_LO_WRITE_ADDR_31_3(x) (((x) & SDMA_PKT_TIMESTAMP_GET_GLOBAL_WRITE_ADDR_LO_write_addr_31_3_mask) << SDMA_PKT_TIMESTAMP_GET_GLOBAL_WRITE_ADDR_LO_write_addr_31_3_shift)
++
++/*define for WRITE_ADDR_HI word*/
++/*define for write_addr_63_32 field*/
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_WRITE_ADDR_HI_write_addr_63_32_offset 2
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_WRITE_ADDR_HI_write_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_WRITE_ADDR_HI_write_addr_63_32_shift  0
++#define SDMA_PKT_TIMESTAMP_GET_GLOBAL_WRITE_ADDR_HI_WRITE_ADDR_63_32(x) (((x) & SDMA_PKT_TIMESTAMP_GET_GLOBAL_WRITE_ADDR_HI_write_addr_63_32_mask) << SDMA_PKT_TIMESTAMP_GET_GLOBAL_WRITE_ADDR_HI_write_addr_63_32_shift)
++
++
++/*
++** Definitions for SDMA_PKT_TRAP packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_TRAP_HEADER_op_offset 0
++#define SDMA_PKT_TRAP_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_TRAP_HEADER_op_shift  0
++#define SDMA_PKT_TRAP_HEADER_OP(x) (((x) & SDMA_PKT_TRAP_HEADER_op_mask) << SDMA_PKT_TRAP_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_TRAP_HEADER_sub_op_offset 0
++#define SDMA_PKT_TRAP_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_TRAP_HEADER_sub_op_shift  8
++#define SDMA_PKT_TRAP_HEADER_SUB_OP(x) (((x) & SDMA_PKT_TRAP_HEADER_sub_op_mask) << SDMA_PKT_TRAP_HEADER_sub_op_shift)
++
++/*define for INT_CONTEXT word*/
++/*define for int_context field*/
++#define SDMA_PKT_TRAP_INT_CONTEXT_int_context_offset 1
++#define SDMA_PKT_TRAP_INT_CONTEXT_int_context_mask   0x0FFFFFFF
++#define SDMA_PKT_TRAP_INT_CONTEXT_int_context_shift  0
++#define SDMA_PKT_TRAP_INT_CONTEXT_INT_CONTEXT(x) (((x) & SDMA_PKT_TRAP_INT_CONTEXT_int_context_mask) << SDMA_PKT_TRAP_INT_CONTEXT_int_context_shift)
++
++
++/*
++** Definitions for SDMA_PKT_DUMMY_TRAP packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_DUMMY_TRAP_HEADER_op_offset 0
++#define SDMA_PKT_DUMMY_TRAP_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_DUMMY_TRAP_HEADER_op_shift  0
++#define SDMA_PKT_DUMMY_TRAP_HEADER_OP(x) (((x) & SDMA_PKT_DUMMY_TRAP_HEADER_op_mask) << SDMA_PKT_DUMMY_TRAP_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_DUMMY_TRAP_HEADER_sub_op_offset 0
++#define SDMA_PKT_DUMMY_TRAP_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_DUMMY_TRAP_HEADER_sub_op_shift  8
++#define SDMA_PKT_DUMMY_TRAP_HEADER_SUB_OP(x) (((x) & SDMA_PKT_DUMMY_TRAP_HEADER_sub_op_mask) << SDMA_PKT_DUMMY_TRAP_HEADER_sub_op_shift)
++
++/*define for INT_CONTEXT word*/
++/*define for int_context field*/
++#define SDMA_PKT_DUMMY_TRAP_INT_CONTEXT_int_context_offset 1
++#define SDMA_PKT_DUMMY_TRAP_INT_CONTEXT_int_context_mask   0x0FFFFFFF
++#define SDMA_PKT_DUMMY_TRAP_INT_CONTEXT_int_context_shift  0
++#define SDMA_PKT_DUMMY_TRAP_INT_CONTEXT_INT_CONTEXT(x) (((x) & SDMA_PKT_DUMMY_TRAP_INT_CONTEXT_int_context_mask) << SDMA_PKT_DUMMY_TRAP_INT_CONTEXT_int_context_shift)
++
++
++/*
++** Definitions for SDMA_PKT_GPUVM_INV packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_GPUVM_INV_HEADER_op_offset 0
++#define SDMA_PKT_GPUVM_INV_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_GPUVM_INV_HEADER_op_shift  0
++#define SDMA_PKT_GPUVM_INV_HEADER_OP(x) (((x) & SDMA_PKT_GPUVM_INV_HEADER_op_mask) << SDMA_PKT_GPUVM_INV_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_GPUVM_INV_HEADER_sub_op_offset 0
++#define SDMA_PKT_GPUVM_INV_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_GPUVM_INV_HEADER_sub_op_shift  8
++#define SDMA_PKT_GPUVM_INV_HEADER_SUB_OP(x) (((x) & SDMA_PKT_GPUVM_INV_HEADER_sub_op_mask) << SDMA_PKT_GPUVM_INV_HEADER_sub_op_shift)
++
++/*define for PAYLOAD1 word*/
++/*define for per_vmid_inv_req field*/
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_per_vmid_inv_req_offset 1
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_per_vmid_inv_req_mask   0x0000FFFF
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_per_vmid_inv_req_shift  0
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_PER_VMID_INV_REQ(x) (((x) & SDMA_PKT_GPUVM_INV_PAYLOAD1_per_vmid_inv_req_mask) << SDMA_PKT_GPUVM_INV_PAYLOAD1_per_vmid_inv_req_shift)
++
++/*define for flush_type field*/
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_flush_type_offset 1
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_flush_type_mask   0x00000007
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_flush_type_shift  16
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_FLUSH_TYPE(x) (((x) & SDMA_PKT_GPUVM_INV_PAYLOAD1_flush_type_mask) << SDMA_PKT_GPUVM_INV_PAYLOAD1_flush_type_shift)
++
++/*define for l2_ptes field*/
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_l2_ptes_offset 1
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_l2_ptes_mask   0x00000001
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_l2_ptes_shift  19
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_L2_PTES(x) (((x) & SDMA_PKT_GPUVM_INV_PAYLOAD1_l2_ptes_mask) << SDMA_PKT_GPUVM_INV_PAYLOAD1_l2_ptes_shift)
++
++/*define for l2_pde0 field*/
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_l2_pde0_offset 1
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_l2_pde0_mask   0x00000001
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_l2_pde0_shift  20
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_L2_PDE0(x) (((x) & SDMA_PKT_GPUVM_INV_PAYLOAD1_l2_pde0_mask) << SDMA_PKT_GPUVM_INV_PAYLOAD1_l2_pde0_shift)
++
++/*define for l2_pde1 field*/
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_l2_pde1_offset 1
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_l2_pde1_mask   0x00000001
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_l2_pde1_shift  21
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_L2_PDE1(x) (((x) & SDMA_PKT_GPUVM_INV_PAYLOAD1_l2_pde1_mask) << SDMA_PKT_GPUVM_INV_PAYLOAD1_l2_pde1_shift)
++
++/*define for l2_pde2 field*/
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_l2_pde2_offset 1
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_l2_pde2_mask   0x00000001
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_l2_pde2_shift  22
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_L2_PDE2(x) (((x) & SDMA_PKT_GPUVM_INV_PAYLOAD1_l2_pde2_mask) << SDMA_PKT_GPUVM_INV_PAYLOAD1_l2_pde2_shift)
++
++/*define for l1_ptes field*/
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_l1_ptes_offset 1
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_l1_ptes_mask   0x00000001
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_l1_ptes_shift  23
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_L1_PTES(x) (((x) & SDMA_PKT_GPUVM_INV_PAYLOAD1_l1_ptes_mask) << SDMA_PKT_GPUVM_INV_PAYLOAD1_l1_ptes_shift)
++
++/*define for clr_protection_fault_status_addr field*/
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_clr_protection_fault_status_addr_offset 1
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_clr_protection_fault_status_addr_mask   0x00000001
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_clr_protection_fault_status_addr_shift  24
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_CLR_PROTECTION_FAULT_STATUS_ADDR(x) (((x) & SDMA_PKT_GPUVM_INV_PAYLOAD1_clr_protection_fault_status_addr_mask) << SDMA_PKT_GPUVM_INV_PAYLOAD1_clr_protection_fault_status_addr_shift)
++
++/*define for log_request field*/
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_log_request_offset 1
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_log_request_mask   0x00000001
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_log_request_shift  25
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_LOG_REQUEST(x) (((x) & SDMA_PKT_GPUVM_INV_PAYLOAD1_log_request_mask) << SDMA_PKT_GPUVM_INV_PAYLOAD1_log_request_shift)
++
++/*define for four_kilobytes field*/
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_four_kilobytes_offset 1
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_four_kilobytes_mask   0x00000001
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_four_kilobytes_shift  26
++#define SDMA_PKT_GPUVM_INV_PAYLOAD1_FOUR_KILOBYTES(x) (((x) & SDMA_PKT_GPUVM_INV_PAYLOAD1_four_kilobytes_mask) << SDMA_PKT_GPUVM_INV_PAYLOAD1_four_kilobytes_shift)
++
++/*define for PAYLOAD2 word*/
++/*define for s field*/
++#define SDMA_PKT_GPUVM_INV_PAYLOAD2_s_offset 2
++#define SDMA_PKT_GPUVM_INV_PAYLOAD2_s_mask   0x00000001
++#define SDMA_PKT_GPUVM_INV_PAYLOAD2_s_shift  0
++#define SDMA_PKT_GPUVM_INV_PAYLOAD2_S(x) (((x) & SDMA_PKT_GPUVM_INV_PAYLOAD2_s_mask) << SDMA_PKT_GPUVM_INV_PAYLOAD2_s_shift)
++
++/*define for page_va_42_12 field*/
++#define SDMA_PKT_GPUVM_INV_PAYLOAD2_page_va_42_12_offset 2
++#define SDMA_PKT_GPUVM_INV_PAYLOAD2_page_va_42_12_mask   0x7FFFFFFF
++#define SDMA_PKT_GPUVM_INV_PAYLOAD2_page_va_42_12_shift  1
++#define SDMA_PKT_GPUVM_INV_PAYLOAD2_PAGE_VA_42_12(x) (((x) & SDMA_PKT_GPUVM_INV_PAYLOAD2_page_va_42_12_mask) << SDMA_PKT_GPUVM_INV_PAYLOAD2_page_va_42_12_shift)
++
++/*define for PAYLOAD3 word*/
++/*define for page_va_47_43 field*/
++#define SDMA_PKT_GPUVM_INV_PAYLOAD3_page_va_47_43_offset 3
++#define SDMA_PKT_GPUVM_INV_PAYLOAD3_page_va_47_43_mask   0x0000003F
++#define SDMA_PKT_GPUVM_INV_PAYLOAD3_page_va_47_43_shift  0
++#define SDMA_PKT_GPUVM_INV_PAYLOAD3_PAGE_VA_47_43(x) (((x) & SDMA_PKT_GPUVM_INV_PAYLOAD3_page_va_47_43_mask) << SDMA_PKT_GPUVM_INV_PAYLOAD3_page_va_47_43_shift)
++
++
++/*
++** Definitions for SDMA_PKT_GCR_REQ packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_GCR_REQ_HEADER_op_offset 0
++#define SDMA_PKT_GCR_REQ_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_GCR_REQ_HEADER_op_shift  0
++#define SDMA_PKT_GCR_REQ_HEADER_OP(x) (((x) & SDMA_PKT_GCR_REQ_HEADER_op_mask) << SDMA_PKT_GCR_REQ_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_GCR_REQ_HEADER_sub_op_offset 0
++#define SDMA_PKT_GCR_REQ_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_GCR_REQ_HEADER_sub_op_shift  8
++#define SDMA_PKT_GCR_REQ_HEADER_SUB_OP(x) (((x) & SDMA_PKT_GCR_REQ_HEADER_sub_op_mask) << SDMA_PKT_GCR_REQ_HEADER_sub_op_shift)
++
++/*define for PAYLOAD1 word*/
++/*define for base_va_31_7 field*/
++#define SDMA_PKT_GCR_REQ_PAYLOAD1_base_va_31_7_offset 1
++#define SDMA_PKT_GCR_REQ_PAYLOAD1_base_va_31_7_mask   0x01FFFFFF
++#define SDMA_PKT_GCR_REQ_PAYLOAD1_base_va_31_7_shift  7
++#define SDMA_PKT_GCR_REQ_PAYLOAD1_BASE_VA_31_7(x) (((x) & SDMA_PKT_GCR_REQ_PAYLOAD1_base_va_31_7_mask) << SDMA_PKT_GCR_REQ_PAYLOAD1_base_va_31_7_shift)
++
++/*define for PAYLOAD2 word*/
++/*define for base_va_47_32 field*/
++#define SDMA_PKT_GCR_REQ_PAYLOAD2_base_va_47_32_offset 2
++#define SDMA_PKT_GCR_REQ_PAYLOAD2_base_va_47_32_mask   0x0000FFFF
++#define SDMA_PKT_GCR_REQ_PAYLOAD2_base_va_47_32_shift  0
++#define SDMA_PKT_GCR_REQ_PAYLOAD2_BASE_VA_47_32(x) (((x) & SDMA_PKT_GCR_REQ_PAYLOAD2_base_va_47_32_mask) << SDMA_PKT_GCR_REQ_PAYLOAD2_base_va_47_32_shift)
++
++/*define for gcr_control_15_0 field*/
++#define SDMA_PKT_GCR_REQ_PAYLOAD2_gcr_control_15_0_offset 2
++#define SDMA_PKT_GCR_REQ_PAYLOAD2_gcr_control_15_0_mask   0x0000FFFF
++#define SDMA_PKT_GCR_REQ_PAYLOAD2_gcr_control_15_0_shift  16
++#define SDMA_PKT_GCR_REQ_PAYLOAD2_GCR_CONTROL_15_0(x) (((x) & SDMA_PKT_GCR_REQ_PAYLOAD2_gcr_control_15_0_mask) << SDMA_PKT_GCR_REQ_PAYLOAD2_gcr_control_15_0_shift)
++
++/*define for PAYLOAD3 word*/
++/*define for gcr_control_18_16 field*/
++#define SDMA_PKT_GCR_REQ_PAYLOAD3_gcr_control_18_16_offset 3
++#define SDMA_PKT_GCR_REQ_PAYLOAD3_gcr_control_18_16_mask   0x00000007
++#define SDMA_PKT_GCR_REQ_PAYLOAD3_gcr_control_18_16_shift  0
++#define SDMA_PKT_GCR_REQ_PAYLOAD3_GCR_CONTROL_18_16(x) (((x) & SDMA_PKT_GCR_REQ_PAYLOAD3_gcr_control_18_16_mask) << SDMA_PKT_GCR_REQ_PAYLOAD3_gcr_control_18_16_shift)
++
++/*define for limit_va_31_7 field*/
++#define SDMA_PKT_GCR_REQ_PAYLOAD3_limit_va_31_7_offset 3
++#define SDMA_PKT_GCR_REQ_PAYLOAD3_limit_va_31_7_mask   0x01FFFFFF
++#define SDMA_PKT_GCR_REQ_PAYLOAD3_limit_va_31_7_shift  7
++#define SDMA_PKT_GCR_REQ_PAYLOAD3_LIMIT_VA_31_7(x) (((x) & SDMA_PKT_GCR_REQ_PAYLOAD3_limit_va_31_7_mask) << SDMA_PKT_GCR_REQ_PAYLOAD3_limit_va_31_7_shift)
++
++/*define for PAYLOAD4 word*/
++/*define for limit_va_47_32 field*/
++#define SDMA_PKT_GCR_REQ_PAYLOAD4_limit_va_47_32_offset 4
++#define SDMA_PKT_GCR_REQ_PAYLOAD4_limit_va_47_32_mask   0x0000FFFF
++#define SDMA_PKT_GCR_REQ_PAYLOAD4_limit_va_47_32_shift  0
++#define SDMA_PKT_GCR_REQ_PAYLOAD4_LIMIT_VA_47_32(x) (((x) & SDMA_PKT_GCR_REQ_PAYLOAD4_limit_va_47_32_mask) << SDMA_PKT_GCR_REQ_PAYLOAD4_limit_va_47_32_shift)
++
++/*define for vmid field*/
++#define SDMA_PKT_GCR_REQ_PAYLOAD4_vmid_offset 4
++#define SDMA_PKT_GCR_REQ_PAYLOAD4_vmid_mask   0x0000000F
++#define SDMA_PKT_GCR_REQ_PAYLOAD4_vmid_shift  24
++#define SDMA_PKT_GCR_REQ_PAYLOAD4_VMID(x) (((x) & SDMA_PKT_GCR_REQ_PAYLOAD4_vmid_mask) << SDMA_PKT_GCR_REQ_PAYLOAD4_vmid_shift)
++
++
++/*
++** Definitions for SDMA_PKT_NOP packet
++*/
++
++/*define for HEADER word*/
++/*define for op field*/
++#define SDMA_PKT_NOP_HEADER_op_offset 0
++#define SDMA_PKT_NOP_HEADER_op_mask   0x000000FF
++#define SDMA_PKT_NOP_HEADER_op_shift  0
++#define SDMA_PKT_NOP_HEADER_OP(x) (((x) & SDMA_PKT_NOP_HEADER_op_mask) << SDMA_PKT_NOP_HEADER_op_shift)
++
++/*define for sub_op field*/
++#define SDMA_PKT_NOP_HEADER_sub_op_offset 0
++#define SDMA_PKT_NOP_HEADER_sub_op_mask   0x000000FF
++#define SDMA_PKT_NOP_HEADER_sub_op_shift  8
++#define SDMA_PKT_NOP_HEADER_SUB_OP(x) (((x) & SDMA_PKT_NOP_HEADER_sub_op_mask) << SDMA_PKT_NOP_HEADER_sub_op_shift)
++
++/*define for count field*/
++#define SDMA_PKT_NOP_HEADER_count_offset 0
++#define SDMA_PKT_NOP_HEADER_count_mask   0x00003FFF
++#define SDMA_PKT_NOP_HEADER_count_shift  16
++#define SDMA_PKT_NOP_HEADER_COUNT(x) (((x) & SDMA_PKT_NOP_HEADER_count_mask) << SDMA_PKT_NOP_HEADER_count_shift)
++
++/*define for DATA0 word*/
++/*define for data0 field*/
++#define SDMA_PKT_NOP_DATA0_data0_offset 1
++#define SDMA_PKT_NOP_DATA0_data0_mask   0xFFFFFFFF
++#define SDMA_PKT_NOP_DATA0_data0_shift  0
++#define SDMA_PKT_NOP_DATA0_DATA0(x) (((x) & SDMA_PKT_NOP_DATA0_data0_mask) << SDMA_PKT_NOP_DATA0_data0_shift)
++
++
++/*
++** Definitions for SDMA_AQL_PKT_HEADER packet
++*/
++
++/*define for HEADER word*/
++/*define for format field*/
++#define SDMA_AQL_PKT_HEADER_HEADER_format_offset 0
++#define SDMA_AQL_PKT_HEADER_HEADER_format_mask   0x000000FF
++#define SDMA_AQL_PKT_HEADER_HEADER_format_shift  0
++#define SDMA_AQL_PKT_HEADER_HEADER_FORMAT(x) (((x) & SDMA_AQL_PKT_HEADER_HEADER_format_mask) << SDMA_AQL_PKT_HEADER_HEADER_format_shift)
++
++/*define for barrier field*/
++#define SDMA_AQL_PKT_HEADER_HEADER_barrier_offset 0
++#define SDMA_AQL_PKT_HEADER_HEADER_barrier_mask   0x00000001
++#define SDMA_AQL_PKT_HEADER_HEADER_barrier_shift  8
++#define SDMA_AQL_PKT_HEADER_HEADER_BARRIER(x) (((x) & SDMA_AQL_PKT_HEADER_HEADER_barrier_mask) << SDMA_AQL_PKT_HEADER_HEADER_barrier_shift)
++
++/*define for acquire_fence_scope field*/
++#define SDMA_AQL_PKT_HEADER_HEADER_acquire_fence_scope_offset 0
++#define SDMA_AQL_PKT_HEADER_HEADER_acquire_fence_scope_mask   0x00000003
++#define SDMA_AQL_PKT_HEADER_HEADER_acquire_fence_scope_shift  9
++#define SDMA_AQL_PKT_HEADER_HEADER_ACQUIRE_FENCE_SCOPE(x) (((x) & SDMA_AQL_PKT_HEADER_HEADER_acquire_fence_scope_mask) << SDMA_AQL_PKT_HEADER_HEADER_acquire_fence_scope_shift)
++
++/*define for release_fence_scope field*/
++#define SDMA_AQL_PKT_HEADER_HEADER_release_fence_scope_offset 0
++#define SDMA_AQL_PKT_HEADER_HEADER_release_fence_scope_mask   0x00000003
++#define SDMA_AQL_PKT_HEADER_HEADER_release_fence_scope_shift  11
++#define SDMA_AQL_PKT_HEADER_HEADER_RELEASE_FENCE_SCOPE(x) (((x) & SDMA_AQL_PKT_HEADER_HEADER_release_fence_scope_mask) << SDMA_AQL_PKT_HEADER_HEADER_release_fence_scope_shift)
++
++/*define for reserved field*/
++#define SDMA_AQL_PKT_HEADER_HEADER_reserved_offset 0
++#define SDMA_AQL_PKT_HEADER_HEADER_reserved_mask   0x00000007
++#define SDMA_AQL_PKT_HEADER_HEADER_reserved_shift  13
++#define SDMA_AQL_PKT_HEADER_HEADER_RESERVED(x) (((x) & SDMA_AQL_PKT_HEADER_HEADER_reserved_mask) << SDMA_AQL_PKT_HEADER_HEADER_reserved_shift)
++
++/*define for op field*/
++#define SDMA_AQL_PKT_HEADER_HEADER_op_offset 0
++#define SDMA_AQL_PKT_HEADER_HEADER_op_mask   0x0000000F
++#define SDMA_AQL_PKT_HEADER_HEADER_op_shift  16
++#define SDMA_AQL_PKT_HEADER_HEADER_OP(x) (((x) & SDMA_AQL_PKT_HEADER_HEADER_op_mask) << SDMA_AQL_PKT_HEADER_HEADER_op_shift)
++
++/*define for subop field*/
++#define SDMA_AQL_PKT_HEADER_HEADER_subop_offset 0
++#define SDMA_AQL_PKT_HEADER_HEADER_subop_mask   0x00000007
++#define SDMA_AQL_PKT_HEADER_HEADER_subop_shift  20
++#define SDMA_AQL_PKT_HEADER_HEADER_SUBOP(x) (((x) & SDMA_AQL_PKT_HEADER_HEADER_subop_mask) << SDMA_AQL_PKT_HEADER_HEADER_subop_shift)
++
++/*define for cpv field*/
++#define SDMA_AQL_PKT_HEADER_HEADER_cpv_offset 0
++#define SDMA_AQL_PKT_HEADER_HEADER_cpv_mask   0x00000001
++#define SDMA_AQL_PKT_HEADER_HEADER_cpv_shift  28
++#define SDMA_AQL_PKT_HEADER_HEADER_CPV(x) (((x) & SDMA_AQL_PKT_HEADER_HEADER_cpv_mask) << SDMA_AQL_PKT_HEADER_HEADER_cpv_shift)
++
++
++/*
++** Definitions for SDMA_AQL_PKT_COPY_LINEAR packet
++*/
++
++/*define for HEADER word*/
++/*define for format field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_format_offset 0
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_format_mask   0x000000FF
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_format_shift  0
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_FORMAT(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_HEADER_format_mask) << SDMA_AQL_PKT_COPY_LINEAR_HEADER_format_shift)
++
++/*define for barrier field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_barrier_offset 0
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_barrier_mask   0x00000001
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_barrier_shift  8
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_BARRIER(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_HEADER_barrier_mask) << SDMA_AQL_PKT_COPY_LINEAR_HEADER_barrier_shift)
++
++/*define for acquire_fence_scope field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_acquire_fence_scope_offset 0
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_acquire_fence_scope_mask   0x00000003
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_acquire_fence_scope_shift  9
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_ACQUIRE_FENCE_SCOPE(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_HEADER_acquire_fence_scope_mask) << SDMA_AQL_PKT_COPY_LINEAR_HEADER_acquire_fence_scope_shift)
++
++/*define for release_fence_scope field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_release_fence_scope_offset 0
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_release_fence_scope_mask   0x00000003
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_release_fence_scope_shift  11
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_RELEASE_FENCE_SCOPE(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_HEADER_release_fence_scope_mask) << SDMA_AQL_PKT_COPY_LINEAR_HEADER_release_fence_scope_shift)
++
++/*define for reserved field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_reserved_offset 0
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_reserved_mask   0x00000007
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_reserved_shift  13
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_RESERVED(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_HEADER_reserved_mask) << SDMA_AQL_PKT_COPY_LINEAR_HEADER_reserved_shift)
++
++/*define for op field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_op_offset 0
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_op_mask   0x0000000F
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_op_shift  16
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_OP(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_HEADER_op_mask) << SDMA_AQL_PKT_COPY_LINEAR_HEADER_op_shift)
++
++/*define for subop field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_subop_offset 0
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_subop_mask   0x00000007
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_subop_shift  20
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_SUBOP(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_HEADER_subop_mask) << SDMA_AQL_PKT_COPY_LINEAR_HEADER_subop_shift)
++
++/*define for cpv field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_cpv_offset 0
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_cpv_mask   0x00000001
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_cpv_shift  28
++#define SDMA_AQL_PKT_COPY_LINEAR_HEADER_CPV(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_HEADER_cpv_mask) << SDMA_AQL_PKT_COPY_LINEAR_HEADER_cpv_shift)
++
++/*define for RESERVED_DW1 word*/
++/*define for reserved_dw1 field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW1_reserved_dw1_offset 1
++#define SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW1_reserved_dw1_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW1_reserved_dw1_shift  0
++#define SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW1_RESERVED_DW1(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW1_reserved_dw1_mask) << SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW1_reserved_dw1_shift)
++
++/*define for RETURN_ADDR_LO word*/
++/*define for return_addr_31_0 field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_RETURN_ADDR_LO_return_addr_31_0_offset 2
++#define SDMA_AQL_PKT_COPY_LINEAR_RETURN_ADDR_LO_return_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_COPY_LINEAR_RETURN_ADDR_LO_return_addr_31_0_shift  0
++#define SDMA_AQL_PKT_COPY_LINEAR_RETURN_ADDR_LO_RETURN_ADDR_31_0(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_RETURN_ADDR_LO_return_addr_31_0_mask) << SDMA_AQL_PKT_COPY_LINEAR_RETURN_ADDR_LO_return_addr_31_0_shift)
++
++/*define for RETURN_ADDR_HI word*/
++/*define for return_addr_63_32 field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_RETURN_ADDR_HI_return_addr_63_32_offset 3
++#define SDMA_AQL_PKT_COPY_LINEAR_RETURN_ADDR_HI_return_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_COPY_LINEAR_RETURN_ADDR_HI_return_addr_63_32_shift  0
++#define SDMA_AQL_PKT_COPY_LINEAR_RETURN_ADDR_HI_RETURN_ADDR_63_32(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_RETURN_ADDR_HI_return_addr_63_32_mask) << SDMA_AQL_PKT_COPY_LINEAR_RETURN_ADDR_HI_return_addr_63_32_shift)
++
++/*define for COUNT word*/
++/*define for count field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_COUNT_count_offset 4
++#define SDMA_AQL_PKT_COPY_LINEAR_COUNT_count_mask   0x003FFFFF
++#define SDMA_AQL_PKT_COPY_LINEAR_COUNT_count_shift  0
++#define SDMA_AQL_PKT_COPY_LINEAR_COUNT_COUNT(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_COUNT_count_mask) << SDMA_AQL_PKT_COPY_LINEAR_COUNT_count_shift)
++
++/*define for PARAMETER word*/
++/*define for dst_sw field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_dst_sw_offset 5
++#define SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_dst_sw_mask   0x00000003
++#define SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_dst_sw_shift  16
++#define SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_DST_SW(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_dst_sw_mask) << SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_dst_sw_shift)
++
++/*define for dst_cache_policy field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_dst_cache_policy_offset 5
++#define SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_dst_cache_policy_mask   0x00000007
++#define SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_dst_cache_policy_shift  18
++#define SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_DST_CACHE_POLICY(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_dst_cache_policy_mask) << SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_dst_cache_policy_shift)
++
++/*define for src_sw field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_src_sw_offset 5
++#define SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_src_sw_mask   0x00000003
++#define SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_src_sw_shift  24
++#define SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_SRC_SW(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_src_sw_mask) << SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_src_sw_shift)
++
++/*define for src_cache_policy field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_src_cache_policy_offset 5
++#define SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_src_cache_policy_mask   0x00000007
++#define SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_src_cache_policy_shift  26
++#define SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_SRC_CACHE_POLICY(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_src_cache_policy_mask) << SDMA_AQL_PKT_COPY_LINEAR_PARAMETER_src_cache_policy_shift)
++
++/*define for SRC_ADDR_LO word*/
++/*define for src_addr_31_0 field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_SRC_ADDR_LO_src_addr_31_0_offset 6
++#define SDMA_AQL_PKT_COPY_LINEAR_SRC_ADDR_LO_src_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_COPY_LINEAR_SRC_ADDR_LO_src_addr_31_0_shift  0
++#define SDMA_AQL_PKT_COPY_LINEAR_SRC_ADDR_LO_SRC_ADDR_31_0(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_SRC_ADDR_LO_src_addr_31_0_mask) << SDMA_AQL_PKT_COPY_LINEAR_SRC_ADDR_LO_src_addr_31_0_shift)
++
++/*define for SRC_ADDR_HI word*/
++/*define for src_addr_63_32 field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_SRC_ADDR_HI_src_addr_63_32_offset 7
++#define SDMA_AQL_PKT_COPY_LINEAR_SRC_ADDR_HI_src_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_COPY_LINEAR_SRC_ADDR_HI_src_addr_63_32_shift  0
++#define SDMA_AQL_PKT_COPY_LINEAR_SRC_ADDR_HI_SRC_ADDR_63_32(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_SRC_ADDR_HI_src_addr_63_32_mask) << SDMA_AQL_PKT_COPY_LINEAR_SRC_ADDR_HI_src_addr_63_32_shift)
++
++/*define for DST_ADDR_LO word*/
++/*define for dst_addr_31_0 field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_DST_ADDR_LO_dst_addr_31_0_offset 8
++#define SDMA_AQL_PKT_COPY_LINEAR_DST_ADDR_LO_dst_addr_31_0_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_COPY_LINEAR_DST_ADDR_LO_dst_addr_31_0_shift  0
++#define SDMA_AQL_PKT_COPY_LINEAR_DST_ADDR_LO_DST_ADDR_31_0(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_DST_ADDR_LO_dst_addr_31_0_mask) << SDMA_AQL_PKT_COPY_LINEAR_DST_ADDR_LO_dst_addr_31_0_shift)
++
++/*define for DST_ADDR_HI word*/
++/*define for dst_addr_63_32 field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_DST_ADDR_HI_dst_addr_63_32_offset 9
++#define SDMA_AQL_PKT_COPY_LINEAR_DST_ADDR_HI_dst_addr_63_32_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_COPY_LINEAR_DST_ADDR_HI_dst_addr_63_32_shift  0
++#define SDMA_AQL_PKT_COPY_LINEAR_DST_ADDR_HI_DST_ADDR_63_32(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_DST_ADDR_HI_dst_addr_63_32_mask) << SDMA_AQL_PKT_COPY_LINEAR_DST_ADDR_HI_dst_addr_63_32_shift)
++
++/*define for RESERVED_DW10 word*/
++/*define for reserved_dw10 field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW10_reserved_dw10_offset 10
++#define SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW10_reserved_dw10_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW10_reserved_dw10_shift  0
++#define SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW10_RESERVED_DW10(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW10_reserved_dw10_mask) << SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW10_reserved_dw10_shift)
++
++/*define for RESERVED_DW11 word*/
++/*define for reserved_dw11 field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW11_reserved_dw11_offset 11
++#define SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW11_reserved_dw11_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW11_reserved_dw11_shift  0
++#define SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW11_RESERVED_DW11(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW11_reserved_dw11_mask) << SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW11_reserved_dw11_shift)
++
++/*define for RESERVED_DW12 word*/
++/*define for reserved_dw12 field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW12_reserved_dw12_offset 12
++#define SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW12_reserved_dw12_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW12_reserved_dw12_shift  0
++#define SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW12_RESERVED_DW12(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW12_reserved_dw12_mask) << SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW12_reserved_dw12_shift)
++
++/*define for RESERVED_DW13 word*/
++/*define for reserved_dw13 field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW13_reserved_dw13_offset 13
++#define SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW13_reserved_dw13_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW13_reserved_dw13_shift  0
++#define SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW13_RESERVED_DW13(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW13_reserved_dw13_mask) << SDMA_AQL_PKT_COPY_LINEAR_RESERVED_DW13_reserved_dw13_shift)
++
++/*define for COMPLETION_SIGNAL_LO word*/
++/*define for completion_signal_31_0 field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_COMPLETION_SIGNAL_LO_completion_signal_31_0_offset 14
++#define SDMA_AQL_PKT_COPY_LINEAR_COMPLETION_SIGNAL_LO_completion_signal_31_0_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_COPY_LINEAR_COMPLETION_SIGNAL_LO_completion_signal_31_0_shift  0
++#define SDMA_AQL_PKT_COPY_LINEAR_COMPLETION_SIGNAL_LO_COMPLETION_SIGNAL_31_0(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_COMPLETION_SIGNAL_LO_completion_signal_31_0_mask) << SDMA_AQL_PKT_COPY_LINEAR_COMPLETION_SIGNAL_LO_completion_signal_31_0_shift)
++
++/*define for COMPLETION_SIGNAL_HI word*/
++/*define for completion_signal_63_32 field*/
++#define SDMA_AQL_PKT_COPY_LINEAR_COMPLETION_SIGNAL_HI_completion_signal_63_32_offset 15
++#define SDMA_AQL_PKT_COPY_LINEAR_COMPLETION_SIGNAL_HI_completion_signal_63_32_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_COPY_LINEAR_COMPLETION_SIGNAL_HI_completion_signal_63_32_shift  0
++#define SDMA_AQL_PKT_COPY_LINEAR_COMPLETION_SIGNAL_HI_COMPLETION_SIGNAL_63_32(x) (((x) & SDMA_AQL_PKT_COPY_LINEAR_COMPLETION_SIGNAL_HI_completion_signal_63_32_mask) << SDMA_AQL_PKT_COPY_LINEAR_COMPLETION_SIGNAL_HI_completion_signal_63_32_shift)
++
++
++/*
++** Definitions for SDMA_AQL_PKT_BARRIER_OR packet
++*/
++
++/*define for HEADER word*/
++/*define for format field*/
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_format_offset 0
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_format_mask   0x000000FF
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_format_shift  0
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_FORMAT(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_HEADER_format_mask) << SDMA_AQL_PKT_BARRIER_OR_HEADER_format_shift)
++
++/*define for barrier field*/
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_barrier_offset 0
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_barrier_mask   0x00000001
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_barrier_shift  8
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_BARRIER(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_HEADER_barrier_mask) << SDMA_AQL_PKT_BARRIER_OR_HEADER_barrier_shift)
++
++/*define for acquire_fence_scope field*/
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_acquire_fence_scope_offset 0
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_acquire_fence_scope_mask   0x00000003
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_acquire_fence_scope_shift  9
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_ACQUIRE_FENCE_SCOPE(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_HEADER_acquire_fence_scope_mask) << SDMA_AQL_PKT_BARRIER_OR_HEADER_acquire_fence_scope_shift)
++
++/*define for release_fence_scope field*/
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_release_fence_scope_offset 0
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_release_fence_scope_mask   0x00000003
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_release_fence_scope_shift  11
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_RELEASE_FENCE_SCOPE(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_HEADER_release_fence_scope_mask) << SDMA_AQL_PKT_BARRIER_OR_HEADER_release_fence_scope_shift)
++
++/*define for reserved field*/
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_reserved_offset 0
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_reserved_mask   0x00000007
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_reserved_shift  13
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_RESERVED(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_HEADER_reserved_mask) << SDMA_AQL_PKT_BARRIER_OR_HEADER_reserved_shift)
++
++/*define for op field*/
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_op_offset 0
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_op_mask   0x0000000F
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_op_shift  16
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_OP(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_HEADER_op_mask) << SDMA_AQL_PKT_BARRIER_OR_HEADER_op_shift)
++
++/*define for subop field*/
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_subop_offset 0
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_subop_mask   0x00000007
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_subop_shift  20
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_SUBOP(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_HEADER_subop_mask) << SDMA_AQL_PKT_BARRIER_OR_HEADER_subop_shift)
++
++/*define for cpv field*/
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_cpv_offset 0
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_cpv_mask   0x00000001
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_cpv_shift  28
++#define SDMA_AQL_PKT_BARRIER_OR_HEADER_CPV(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_HEADER_cpv_mask) << SDMA_AQL_PKT_BARRIER_OR_HEADER_cpv_shift)
++
++/*define for RESERVED_DW1 word*/
++/*define for reserved_dw1 field*/
++#define SDMA_AQL_PKT_BARRIER_OR_RESERVED_DW1_reserved_dw1_offset 1
++#define SDMA_AQL_PKT_BARRIER_OR_RESERVED_DW1_reserved_dw1_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_BARRIER_OR_RESERVED_DW1_reserved_dw1_shift  0
++#define SDMA_AQL_PKT_BARRIER_OR_RESERVED_DW1_RESERVED_DW1(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_RESERVED_DW1_reserved_dw1_mask) << SDMA_AQL_PKT_BARRIER_OR_RESERVED_DW1_reserved_dw1_shift)
++
++/*define for DEPENDENT_ADDR_0_LO word*/
++/*define for dependent_addr_0_31_0 field*/
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_0_LO_dependent_addr_0_31_0_offset 2
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_0_LO_dependent_addr_0_31_0_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_0_LO_dependent_addr_0_31_0_shift  0
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_0_LO_DEPENDENT_ADDR_0_31_0(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_0_LO_dependent_addr_0_31_0_mask) << SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_0_LO_dependent_addr_0_31_0_shift)
++
++/*define for DEPENDENT_ADDR_0_HI word*/
++/*define for dependent_addr_0_63_32 field*/
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_0_HI_dependent_addr_0_63_32_offset 3
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_0_HI_dependent_addr_0_63_32_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_0_HI_dependent_addr_0_63_32_shift  0
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_0_HI_DEPENDENT_ADDR_0_63_32(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_0_HI_dependent_addr_0_63_32_mask) << SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_0_HI_dependent_addr_0_63_32_shift)
++
++/*define for DEPENDENT_ADDR_1_LO word*/
++/*define for dependent_addr_1_31_0 field*/
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_1_LO_dependent_addr_1_31_0_offset 4
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_1_LO_dependent_addr_1_31_0_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_1_LO_dependent_addr_1_31_0_shift  0
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_1_LO_DEPENDENT_ADDR_1_31_0(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_1_LO_dependent_addr_1_31_0_mask) << SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_1_LO_dependent_addr_1_31_0_shift)
++
++/*define for DEPENDENT_ADDR_1_HI word*/
++/*define for dependent_addr_1_63_32 field*/
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_1_HI_dependent_addr_1_63_32_offset 5
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_1_HI_dependent_addr_1_63_32_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_1_HI_dependent_addr_1_63_32_shift  0
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_1_HI_DEPENDENT_ADDR_1_63_32(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_1_HI_dependent_addr_1_63_32_mask) << SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_1_HI_dependent_addr_1_63_32_shift)
++
++/*define for DEPENDENT_ADDR_2_LO word*/
++/*define for dependent_addr_2_31_0 field*/
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_2_LO_dependent_addr_2_31_0_offset 6
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_2_LO_dependent_addr_2_31_0_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_2_LO_dependent_addr_2_31_0_shift  0
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_2_LO_DEPENDENT_ADDR_2_31_0(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_2_LO_dependent_addr_2_31_0_mask) << SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_2_LO_dependent_addr_2_31_0_shift)
++
++/*define for DEPENDENT_ADDR_2_HI word*/
++/*define for dependent_addr_2_63_32 field*/
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_2_HI_dependent_addr_2_63_32_offset 7
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_2_HI_dependent_addr_2_63_32_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_2_HI_dependent_addr_2_63_32_shift  0
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_2_HI_DEPENDENT_ADDR_2_63_32(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_2_HI_dependent_addr_2_63_32_mask) << SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_2_HI_dependent_addr_2_63_32_shift)
++
++/*define for DEPENDENT_ADDR_3_LO word*/
++/*define for dependent_addr_3_31_0 field*/
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_3_LO_dependent_addr_3_31_0_offset 8
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_3_LO_dependent_addr_3_31_0_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_3_LO_dependent_addr_3_31_0_shift  0
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_3_LO_DEPENDENT_ADDR_3_31_0(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_3_LO_dependent_addr_3_31_0_mask) << SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_3_LO_dependent_addr_3_31_0_shift)
++
++/*define for DEPENDENT_ADDR_3_HI word*/
++/*define for dependent_addr_3_63_32 field*/
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_3_HI_dependent_addr_3_63_32_offset 9
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_3_HI_dependent_addr_3_63_32_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_3_HI_dependent_addr_3_63_32_shift  0
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_3_HI_DEPENDENT_ADDR_3_63_32(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_3_HI_dependent_addr_3_63_32_mask) << SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_3_HI_dependent_addr_3_63_32_shift)
++
++/*define for DEPENDENT_ADDR_4_LO word*/
++/*define for dependent_addr_4_31_0 field*/
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_4_LO_dependent_addr_4_31_0_offset 10
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_4_LO_dependent_addr_4_31_0_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_4_LO_dependent_addr_4_31_0_shift  0
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_4_LO_DEPENDENT_ADDR_4_31_0(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_4_LO_dependent_addr_4_31_0_mask) << SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_4_LO_dependent_addr_4_31_0_shift)
++
++/*define for DEPENDENT_ADDR_4_HI word*/
++/*define for dependent_addr_4_63_32 field*/
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_4_HI_dependent_addr_4_63_32_offset 11
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_4_HI_dependent_addr_4_63_32_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_4_HI_dependent_addr_4_63_32_shift  0
++#define SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_4_HI_DEPENDENT_ADDR_4_63_32(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_4_HI_dependent_addr_4_63_32_mask) << SDMA_AQL_PKT_BARRIER_OR_DEPENDENT_ADDR_4_HI_dependent_addr_4_63_32_shift)
++
++/*define for CACHE_POLICY word*/
++/*define for cache_policy0 field*/
++#define SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy0_offset 12
++#define SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy0_mask   0x00000007
++#define SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy0_shift  0
++#define SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_CACHE_POLICY0(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy0_mask) << SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy0_shift)
++
++/*define for cache_policy1 field*/
++#define SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy1_offset 12
++#define SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy1_mask   0x00000007
++#define SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy1_shift  5
++#define SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_CACHE_POLICY1(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy1_mask) << SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy1_shift)
++
++/*define for cache_policy2 field*/
++#define SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy2_offset 12
++#define SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy2_mask   0x00000007
++#define SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy2_shift  10
++#define SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_CACHE_POLICY2(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy2_mask) << SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy2_shift)
++
++/*define for cache_policy3 field*/
++#define SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy3_offset 12
++#define SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy3_mask   0x00000007
++#define SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy3_shift  15
++#define SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_CACHE_POLICY3(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy3_mask) << SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy3_shift)
++
++/*define for cache_policy4 field*/
++#define SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy4_offset 12
++#define SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy4_mask   0x00000007
++#define SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy4_shift  20
++#define SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_CACHE_POLICY4(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy4_mask) << SDMA_AQL_PKT_BARRIER_OR_CACHE_POLICY_cache_policy4_shift)
++
++/*define for RESERVED_DW13 word*/
++/*define for reserved_dw13 field*/
++#define SDMA_AQL_PKT_BARRIER_OR_RESERVED_DW13_reserved_dw13_offset 13
++#define SDMA_AQL_PKT_BARRIER_OR_RESERVED_DW13_reserved_dw13_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_BARRIER_OR_RESERVED_DW13_reserved_dw13_shift  0
++#define SDMA_AQL_PKT_BARRIER_OR_RESERVED_DW13_RESERVED_DW13(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_RESERVED_DW13_reserved_dw13_mask) << SDMA_AQL_PKT_BARRIER_OR_RESERVED_DW13_reserved_dw13_shift)
++
++/*define for COMPLETION_SIGNAL_LO word*/
++/*define for completion_signal_31_0 field*/
++#define SDMA_AQL_PKT_BARRIER_OR_COMPLETION_SIGNAL_LO_completion_signal_31_0_offset 14
++#define SDMA_AQL_PKT_BARRIER_OR_COMPLETION_SIGNAL_LO_completion_signal_31_0_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_BARRIER_OR_COMPLETION_SIGNAL_LO_completion_signal_31_0_shift  0
++#define SDMA_AQL_PKT_BARRIER_OR_COMPLETION_SIGNAL_LO_COMPLETION_SIGNAL_31_0(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_COMPLETION_SIGNAL_LO_completion_signal_31_0_mask) << SDMA_AQL_PKT_BARRIER_OR_COMPLETION_SIGNAL_LO_completion_signal_31_0_shift)
++
++/*define for COMPLETION_SIGNAL_HI word*/
++/*define for completion_signal_63_32 field*/
++#define SDMA_AQL_PKT_BARRIER_OR_COMPLETION_SIGNAL_HI_completion_signal_63_32_offset 15
++#define SDMA_AQL_PKT_BARRIER_OR_COMPLETION_SIGNAL_HI_completion_signal_63_32_mask   0xFFFFFFFF
++#define SDMA_AQL_PKT_BARRIER_OR_COMPLETION_SIGNAL_HI_completion_signal_63_32_shift  0
++#define SDMA_AQL_PKT_BARRIER_OR_COMPLETION_SIGNAL_HI_COMPLETION_SIGNAL_63_32(x) (((x) & SDMA_AQL_PKT_BARRIER_OR_COMPLETION_SIGNAL_HI_completion_signal_63_32_mask) << SDMA_AQL_PKT_BARRIER_OR_COMPLETION_SIGNAL_HI_completion_signal_63_32_shift)
++
++
++#endif /* __SDMA_V8_0_0_PKT_OPEN_H_ */
 -- 
 2.56.0
 
