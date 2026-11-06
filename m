@@ -2,123 +2,134 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C55A606A329
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Nov 2026 11:48:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A696606A329
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Nov 2026 11:59:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=foWvJaYU
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=yB7z6EpW;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=iHGBOYvp;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=yB7z6EpW;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=iHGBOYvp
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99D7010E9F3;
-	Fri,  6 Nov 2026 11:48:46 +0000 (UTC)
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010007.outbound.protection.outlook.com [52.101.85.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B4E010E3FC
- for <amd-gfx@lists.freedesktop.org>; Fri,  6 Nov 2026 11:48:40 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=c9mjI5A/aooQlBDr+/mKtqh0ajEMGiHXo9iR2I0Iz5M+8p693kRvCxOE0kVyU4DTPuI9vjEpAY/hHHrL607fSjRqkxiG/t3PAH75bKQ7rweL1Anwiz7FKZ7uB9h3N7T5whDUNzW6/Ni9v5zsLgSvMmJZKJ9eLcv8qv4gjcjB4cHaNeN4mjyKF3sn89SFhUwHCbIDm8o6mTj3J6z94MiyKsth0qxFhO6GT1vIQlTVfTaWj+1D88GbZuV85ixibUuOpASPrgEfyzWUucjCdnv+N8MqlTzPHMJUdrBy+lqvaQhvxEJ92Dgwxrlm3E7aukQMdzsyM6XhyYx4eUAM9Xz5uQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cVRkzGmScJYDadXp6vI6GR7J9qM7KQla8hXKqftdiqc=;
- b=ZhyUwSlI/lKlQO6kD/G3jOfN2tsXl6YIxyMOl9tuFjjIqc/69pIsa6TcUb4LGols6PsL5oADWq9PTq44p4DA4uJVJ9JcYj2eNZQjUGXNVxyCrwCFztEmlr3g9XqirZd/UeWPVItQKpG9L/JbG64UNSiIH3rHwVGlldri0NDSm58klSlEPm+8uUfSnkbeN3brdqXNaHmxnVW23CoypGJEev4tU3xvhxpYITsfeyEWBK65t2qcpXjmPXTgkDBROYUWKIm9ZB6KK6tmaPQoiNb1bYBg2c4rpIxv42YKCFqQtD1gfw1b1O4UF2Z/+gmbyFVGa4yDwk5jE/ZTSL//AO8seQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cVRkzGmScJYDadXp6vI6GR7J9qM7KQla8hXKqftdiqc=;
- b=foWvJaYUqprzNTVqsnwTcX19tOPMf2dCNOHVIP1d1UwfLXporb4YiThATCvLHw0U9dn0jQTp19A9fQ6mtftBMh/57ISY0SE0YIDizmJjQTDlsgvtlnXPeoikK581Ik8991pqRmlaJm6SGDpEqMwXSbxULCc+idX0QQnkp40O9Ac=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS0PR12MB999106.namprd12.prod.outlook.com (2603:10b6:8:301::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 6 Nov
- 2026 11:48:37 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0592.009; Fri, 6 Nov 2026
- 11:48:37 +0000
-Message-ID: <39444677-91c5-4011-a4bc-72b7e948dfc3@amd.com>
-Date: Fri, 6 Nov 2026 12:48:33 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: don't take a per VM kernel BO for a page table
-To: Jesse Zhang <Jesse.Zhang@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Alexander.Deucher@amd.com, Lijo Lazar <lijo.lazar@amd.com>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Sunil Khatri <sunil.khatri@amd.com>
-References: <20261106095608.1538768-1-Jesse.Zhang@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261106095608.1538768-1-Jesse.Zhang@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0084.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9b::11) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE3EB10E332;
+	Fri,  6 Nov 2026 11:58:51 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A95C710E3FC;
+ Fri,  6 Nov 2026 11:58:40 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 38ABE2224F;
+ Fri,  6 Nov 2026 11:58:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1793966319; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=MnP0dT6NT6NLQmi38k1V7n9O9C9IvAcE5LQAbe5tJHs=;
+ b=yB7z6EpW6dlhbtG0t8LFMkJx1IAV82gRW+MiLLqOgIHJUu+7htLztaPiqc5r5BLgfIx8my
+ /t21bknNbax29LAcIX/u6tfDN00K13C7BonAlLa2CHNeR1O1QEueroJB305kbEA7l4BKwd
+ ZsCR4SEjgWc/gCdWtn4LZOO2T/DCi8A=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1793966319;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=MnP0dT6NT6NLQmi38k1V7n9O9C9IvAcE5LQAbe5tJHs=;
+ b=iHGBOYvpIWzqq4QIIYqPtHhWBQ4qUIVEqUCocIfCse7ZVnpcWU+OfmUOOMoPJn0mwOj8CJ
+ 9bvlvgCrWkIFbVBw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1793966319; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=MnP0dT6NT6NLQmi38k1V7n9O9C9IvAcE5LQAbe5tJHs=;
+ b=yB7z6EpW6dlhbtG0t8LFMkJx1IAV82gRW+MiLLqOgIHJUu+7htLztaPiqc5r5BLgfIx8my
+ /t21bknNbax29LAcIX/u6tfDN00K13C7BonAlLa2CHNeR1O1QEueroJB305kbEA7l4BKwd
+ ZsCR4SEjgWc/gCdWtn4LZOO2T/DCi8A=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1793966319;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=MnP0dT6NT6NLQmi38k1V7n9O9C9IvAcE5LQAbe5tJHs=;
+ b=iHGBOYvpIWzqq4QIIYqPtHhWBQ4qUIVEqUCocIfCse7ZVnpcWU+OfmUOOMoPJn0mwOj8CJ
+ 9bvlvgCrWkIFbVBw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D5F20132C9;
+ Fri,  6 Nov 2026 11:58:38 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id gMfiIe7A7WrFVAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 06 Nov 2026 11:58:38 +0000
+Message-ID: <c30bf478-381a-451c-bf7c-111df2b0190f@suse.de>
+Date: Fri, 6 Nov 2026 12:58:38 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS0PR12MB999106:EE_
-X-MS-Office365-Filtering-Correlation-Id: f0441c77-2757-4013-d53c-08df3bfbe4bd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|366016|1800799024|261026121527099003|11063799006|56012099006|261021123027099003|261022075727099003|261009223027099003|261022105027099003|261102123227099003|261028144727099003|261026140227099003|261021121427099003|10067099003|18002099003|22082099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info: sFrck4cwiAiUrJNoRzRrHPhx5E9P/xNM53r89UyhNTyBKI5orY6t1FkmH6tC+Rt/XCiGQdlsY3dGWmQolFxMabQtkpY8/wl1k93xD5CoJhHfKF68kNfm8J5YI0FTQroRziOe4+/mbyVDq9efZ+qwMd+ohbB+6XJ7eCxg5rKAPhRzSZNV4vyb9OqvPi0p0BOTS/9io9Pl2NgutQkE2rV3Z6JSxcjbvy5JgQuVtrO41QBl3uoGf/zoBHC7Na3fjlI20rsDcLzJ6iGT7wB0v2KrkG7pnMfGl19t8hDnEC5+yfzjVFfCIb0KnPwkzr2/ny2OPlPgafGlvREU/0RsLT43MVGD4RbGNwHWufD/7zTVUCkol3rE2xzlvA1gJzeLXpTT0X1ksm/k/T0l47Bmrwe9L0YXA7Vm0vWAaujopR4wcgk2Rs699Mas36QTvW0EHKKk2JYLAaWYEziSDKTbs+yrK5We/svNKGUzo/UQkbjfTvWLehAWbO1R8vzzJJz3jhUtxpSWKjwExiaQm3gCXaKpqjw7pSjVwWVx9llWvQTFrFrN4fMkb5uQoArjvgV6T2qzIhvLiW/d4uDao25CRoDuU0PaU3B3bEZM4fLZJGwGdIPDvyAylywPAWehkPHUeyXrxU2A8BJbm6XIgo8Y7XM/Hs3PDorUfrWq4mQi4U4rD1Y=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(261026121527099003)(11063799006)(56012099006)(261021123027099003)(261022075727099003)(261009223027099003)(261022105027099003)(261102123227099003)(261028144727099003)(261026140227099003)(261021121427099003)(10067099003)(18002099003)(22082099003)(6133799003)(3023799007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bXNMbWxadDVqOCtuYXRmaS9QYmNaR0g1WlcwN2szaEJPQzd3TjlvaFJZL0xl?=
- =?utf-8?B?VVpyRlpBVG1QU1pQSVVVQ0NpdUZMekV2V1pmZGcreGVDQXdEdUlQV2J6V2s4?=
- =?utf-8?B?SkJ5c043K3hkcUFGR1RVTFZFQTBBcXJUMjhqSmFUakVYRHFwOXFkOXMxWjFh?=
- =?utf-8?B?SE5STStoYVFMa2ZhbDhUelBObWtxLzRQSFY2aStCaExaTUUzOVNKQ3Z0Yi9o?=
- =?utf-8?B?QnRXRzVXaytEOEpObTgyVjFRRFU2QzdtS3JCTUREL2NhdElGb3pEblpnL0cr?=
- =?utf-8?B?eEZWVGl2bGtCTWU2Q1pEOWttTHh1d3BxRGFMSFZNOEJJUkJtUytKdm02Vy9S?=
- =?utf-8?B?ZnpwdVA0bmdrMjgxQlp6MmxIVmdJMEdQdGg2alg4UUVMeUoyUFUvdEdDS0JH?=
- =?utf-8?B?Znd4NnhGbTloRFdmUS9IVzZnRThIK3NvTmR6TWs2K1hhQTF2N0t1SUtibENy?=
- =?utf-8?B?ZHpyeDE1NEtId2d0OG5zcFNkbzBpdG0zQitTdFNGTjJuRTAveDJuTDlnNmh2?=
- =?utf-8?B?aXB0VTFLdlEwd1Fra1pEVkg1NGhxdFpndUxMb3Jpc3UyVkZ0V3dwNGl1Z2p3?=
- =?utf-8?B?Y0JpbG5QRG9hK1FYaGg3VlNjUjJHUjlKcVh0bWJnZC9QM3g3dmxCU3ZkZmVn?=
- =?utf-8?B?MTBlVGtnL0doTXZveGJHbzRyRXZXM2MwNG5Fc2xrQlZMRGRTQVRQbDhXcjM5?=
- =?utf-8?B?Ymw5eUNQdmxBQmtQaCtmRnc5YlFuTW5XeitPalRib3FKemhsMVNGQk9qbENq?=
- =?utf-8?B?S00xWTlSZXRqVjFqdkpnRTI5V25hdXc2NFhqa2NiUW9vNU11ZGswcmFUMDRW?=
- =?utf-8?B?UjY1LzFYSWx6Y2Q3UmN3YXBXNEpPbENBMXFEZkU0aDlaUk5KZDNRbmFwUDNW?=
- =?utf-8?B?TWZqV0J0UmJidG5EVTVyc3M0M2RxWDlMUmhkN1h3ZFlDajlTcVpDVXpQMW1w?=
- =?utf-8?B?Mk92aElPRVBIWlRZejhpb3RaVDY5bVdkZE16b1JhTUNKem1HUW5OclFIZ3dG?=
- =?utf-8?B?R3YwNEFreEs1Ujk5Q1oyWlNRYXZoL2JSL3Z3OXJCajVQTjRUM3FwMi9Wa2Nr?=
- =?utf-8?B?ZjQ2dE1pN2lBcUsvU2E3bUZ5N09ZL0Z3M1BEKzg5ZTFkb1Fvd3E1eVd5cG9Q?=
- =?utf-8?B?RSswdnFMRjFLNDd2Zi9QUjhDM3V5WVhaeHpMb2ZvdUVBczM0R1ZsTk9yQklS?=
- =?utf-8?B?Y3NqNTVQaWI4UjJmWGRnREZMeWVId2EvYXBOcUswQ3FIOWRpdk40TUczSEx5?=
- =?utf-8?B?amJHTlRBdmc3SThWa0JLUERqTXJQL2l6YzV6RU9CcW1Pdm9qRnUxWFYrYTJT?=
- =?utf-8?B?WEE0UExHQU1iMXdVNVBPMVhtNm1WL0VlUTJVazFzZFhEV0YzQTFPcWhKeFZh?=
- =?utf-8?B?T1pPQzJ6VG9tdmZUZTFKNm42VUVmMG0wTzBFVFM4NTZRZ1ZpZFhSMmtmbjVE?=
- =?utf-8?B?dnFuc0IwNG1MSnZQTEwyVGFIUnQzRGx1ZG45MEh0MzMwOHJ1ZkZaOVFZQUk4?=
- =?utf-8?B?MTZsRGpRQmpRRkwwRkNrcmc4cnIrKy9pL2l5YjlyOENoZ1JnZVE4ajdtUUh4?=
- =?utf-8?B?QnY0WDBvS0tMSUtTKzVWRmFTRnQ0NXVkQmJkVWVrMFFYSWR3eVQ4NUgzZEVz?=
- =?utf-8?B?WmhzaWFXTzZMVThYQi85d2Zwc0tDN1pIQUVLNE50emtSQitzQlppemhYbXR4?=
- =?utf-8?B?WTdRUEZGMExtSzV5cjdVRDZTeHBIdmU1eWVqTlgxM1Z1TDZzdlU4ZlNuNDB6?=
- =?utf-8?B?R2p1VGxISjVQTFlEckNsbDVtRHdndlN3RERRbHRqZFRFUjV4QjFYT1RuVm1G?=
- =?utf-8?B?Uzd4TjdXbVU2bExtQWIwRm15Y0U2NnpvVWo0VGVGek9IZkZwYXZCYkI5WnBQ?=
- =?utf-8?B?dnhXSHdJMFRQNjFHeVpXN01Qc2tsdXM4MTkwODdaSS80eTZNOERYVFRmenhz?=
- =?utf-8?B?ZHpueHZiaE5KVlVnUDNkL1owbjRCRXBtMG9TdVkzYmRCaHV4dld6Y2NnYzJi?=
- =?utf-8?B?TW1SYmVqNTQvc2J2MHA5WmRKNEJYUWgvMlR0QURWVjVUWHdBMkFvS2NKMFVZ?=
- =?utf-8?B?QWRHVkRpRjVhT3lIRG1iVTZHTVo4cDN6ZXlVenp3VUJoQ25abm8yQTVhNWRR?=
- =?utf-8?B?dDcxOHFyU3hHV3NxS0NWN1ZWeXNDYldveTZEd29TanJxN09MWkN2ZkNZN2Nn?=
- =?utf-8?B?cHBiWTI0ODUrbWtGMmtUQnhLeFQyOHZrRHl4N0NxODhEbnBWSTN6eHRPb2N2?=
- =?utf-8?B?M1VsMzdVWHhDOGllY1UrM0xHWWJ2dFpQZDlRTElodGoyUDBzSmhyQXFPVzR1?=
- =?utf-8?Q?QU8kaW4xIlFwvdFf5Y?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f0441c77-2757-4013-d53c-08df3bfbe4bd
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 11:48:37.1960 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: PK9KTM29r57gMAIGS6LjU/F5mJ7DdIDaX3AAFfrHiYHhAbJENu43/SM9bS8Chzxb
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB999106
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/client: Don't warn when a client's VBLANK wait times
+ out
+To: "Liang, Prike" <Prike.Liang@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+Cc: David Airlie <airlied@redhat.com>,
+ "Wentland, Harry" <Harry.Wentland@amd.com>,
+ "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>
+References: <20261104024106.3109873-1-Prike.Liang@amd.com>
+ <bad6a4e6-bd1f-49de-aa86-a7d8e4eb64f5@suse.de>
+ <PH7PR12MB6000215092E10B0C62D68733FB762@PH7PR12MB6000.namprd12.prod.outlook.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <PH7PR12MB6000215092E10B0C62D68733FB762@PH7PR12MB6000.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Level: 
+X-Spamd-Result: default: False [-13.29 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
+ BAYES_HAM(-3.00)[100.00%]; NEURAL_HAM_LONG(-1.00)[-0.999];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ XM_UA_NO_VERSION(0.01)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ TO_DN_EQ_ADDR_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
+ ARC_NA(0.00)[]; RCPT_COUNT_SEVEN(0.00)[8];
+ RCVD_TLS_ALL(0.00)[]; TO_DN_SOME(0.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ MID_RHS_MATCH_FROM(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, amd.com:email,
+ suse.de:email, bootlin.com:url, suse.com:url]
+X-Spam-Score: -13.29
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,146 +140,154 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
 	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/6/26 10:55, Jesse Zhang wrote:
-> amdgpu_vm_bo_lock_lists() puts every BO which shares the resv of the
-> root PD and is a ttm_bo_type_kernel BO on the page table lists. The
-> CWSR TMA BO which amdgpu_cwsr_alloc() creates for every opened render
-> node is such a BO, so it is treated as a page table: after a VRAM
-> losing reset its bo_va moves to the page tables needing an update, and
-> amdgpu_vm_update_pdes() tries to write its PDE. It has no parent page
-> directory, so that fails, and fails again on every following
-> submission of the file.
-> 
-> On navi48, submitting on a render node, then amdgpu_gpu_recover and
-> submitting again, also with a new context:
-> 
->   amdgpu 0000:03:00.0: VRAM is lost due to GPU reset!
->   amdgpu 0000:03:00.0: GPU reset(1) succeeded!
->   WARNING: amdgpu_vm_pt.c:671 at amdgpu_vm_pde_update+0x329/0x5d0 [amdgpu], CPU#0: vmreinit/2629
->   Call Trace:
->    amdgpu_vm_update_pdes+0x262/0x5e0 [amdgpu]
->    amdgpu_cs_ioctl+0x35c9/0x7a00 [amdgpu]
->    drm_ioctl_kernel+0x180/0x320 [drm]
->    drm_ioctl+0x530/0xcb0 [drm]
-> 
-> and every command submission fails with -EINVAL from then on.
-> 
-> Don't look at the BO type, let the creator of the vm_bo tell whether it
-> is the root PD or a page table, like amdgpu_vm_bo_needs_update() already
-> compares with the root PD instead of looking at the type. The TMA BO
-> stays a kernel BO which userspace can't mmap.
-> 
-> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    | 11 +++++++----
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h    |  6 +++++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c |  2 +-
->  3 files changed, 13 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index 2ba33212d507..a7d6f4b1efd4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -162,7 +162,7 @@ amdgpu_vm_bo_lock_lists(struct amdgpu_vm_bo_base *vm_bo)
->  		/* No extra locking needed, protected by the root PD resv lock */
->  		amdgpu_vm_assert_locked(vm);
->  
-> -		if (bo->tbo.type == ttm_bo_type_kernel)
-> +		if (vm_bo->page_table)
->  			return &vm->kernel;
->  
->  		return &vm->always_valid;
-> @@ -408,15 +408,18 @@ void amdgpu_vm_update_stats(struct amdgpu_vm_bo_base *base,
->   * @base: base structure for tracking BO usage in a VM
->   * @vm: vm to which bo is to be added
->   * @bo: amdgpu buffer object
-> + * @page_table: true if @bo is a PD/PT of @vm
->   *
->   * Initialize a bo_va_base structure and add it to the appropriate lists
->   *
->   */
->  void amdgpu_vm_bo_base_init(struct amdgpu_vm_bo_base *base,
-> -			    struct amdgpu_vm *vm, struct amdgpu_bo *bo)
-> +			    struct amdgpu_vm *vm, struct amdgpu_bo *bo,
-> +			    bool page_table)
->  {
->  	base->vm = vm;
->  	base->bo = bo;
-> +	base->page_table = page_table;
+Hi
 
-I think we should rather have a separate destroy function for page tables in the BO and then identify them by the bo->destroy pointer.
+Am 06.11.26 um 09:28 schrieb Liang, Prike:
+> AMD General
+>
+> Regards,
+>        Prike
+>
+>> -----Original Message-----
+>> From: Thomas Zimmermann <tzimmermann@suse.de>
+>> Sent: Thursday, November 5, 2026 11:04 PM
+>> To: Liang, Prike <Prike.Liang@amd.com>; amd-gfx@lists.freedesktop.org; dri-
+>> devel@lists.freedesktop.org
+>> Cc: David Airlie <airlied@redhat.com>; Wentland, Harry
+>> <Harry.Wentland@amd.com>; Li, Sun peng (Leo) <Sunpeng.Li@amd.com>;
+>> Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
+>> <Christian.Koenig@amd.com>
+>> Subject: Re: [PATCH] drm/client: Don't warn when a client's VBLANK wait times out
+>>
+>> Hi
+>>
+>> Am 04.11.26 um 03:41 schrieb Prike Liang:
+>>> drm_client_modeset_wait_for_vblank() only rate-limits fbdev damage
+>>> updates and serves FBIO_WAITFORVSYNC, but it waits with
+>>> drm_crtc_wait_one_vblank(), which warns if no VBLANK arrives in time.
+>>>
+>>> VBLANK interrupts can stop while the fbdev client keeps running. Since
+>>> commit ebc3351cc4a9 ("drm/amdgpu: remove suspend/resume DRM clients
+>>> during GPU recovery"), amdgpu no longer suspends DRM clients for GPU
+>>> recovery, as that made recovery wait for clientlist_mutex, the console
+>> Isn't that rather a bug in amdgpu?
+> Hi Thomas,
+>
+> Yes, it is a trade-off solution. While the vblank interrupt is disabled during
+> GPU reset, suspending the DRM clients blocks on waits that cause
+> lock-order problems with the reset. Not suspending them avoids those
+> problems, but then the fbdev damage worker's vblank wait times out.
+>
+> I'll look into whether this can be fixed in amdgpu instead, by
+> stopping vblank waits once the display core has disabled the vblank
+> interrupts.
 
-We already do it this way for the user and KFDs svm range BOs, see function amdgpu_bo_is_amdgpu_bo() and the destroy stuff above it.
+What does user space do in the case of a GPU reset?   Ideally, we'd do 
+something similar for kernel clients.
 
-Apart from that the approach looks solid to me.
+We could make waiting for the vblank [1] interruptible in some way.
 
-Regards,
-Christian.
+[1] 
+https://elixir.bootlin.com/linux/v7.3.1/source/drivers/gpu/drm/drm_vblank.c#L1325
 
->  	base->next = NULL;
->  	INIT_LIST_HEAD(&base->vm_status);
->  
-> @@ -1805,7 +1808,7 @@ struct amdgpu_bo_va *amdgpu_vm_bo_add(struct amdgpu_device *adev,
->  	if (bo_va == NULL) {
->  		return NULL;
->  	}
-> -	amdgpu_vm_bo_base_init(&bo_va->base, vm, bo);
-> +	amdgpu_vm_bo_base_init(&bo_va->base, vm, bo, false);
->  
->  	bo_va->ref_count = 1;
->  	bo_va->last_pt_update = dma_fence_get_stub();
-> @@ -2704,7 +2707,7 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->  		goto error_free_delayed;
->  	}
->  
-> -	amdgpu_vm_bo_base_init(&vm->root, vm, root_bo);
-> +	amdgpu_vm_bo_base_init(&vm->root, vm, root_bo, true);
->  	r = dma_resv_reserve_fences(root_bo->tbo.base.resv, 1);
->  	if (r)
->  		goto error_free_root;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> index d8e17f493f61..a58797e2b590 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> @@ -224,6 +224,9 @@ struct amdgpu_vm_bo_base {
->  	/* if the BO was moved and all mappings are invalid
->  	 * protected by the BO being reserved */
->  	bool				moved;
-> +
-> +	/* True for a PD/PT of this VM; constant after initialization. */
-> +	bool				page_table;
->  };
->  
->  /*
-> @@ -470,7 +473,8 @@ int amdgpu_vm_flush_compute_tlb(struct amdgpu_device *adev,
->  				uint32_t flush_type,
->  				uint32_t xcc_mask);
->  void amdgpu_vm_bo_base_init(struct amdgpu_vm_bo_base *base,
-> -			    struct amdgpu_vm *vm, struct amdgpu_bo *bo);
-> +			    struct amdgpu_vm *vm, struct amdgpu_bo *bo,
-> +			    bool page_table);
->  int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->  			   bool immediate, bool unlocked, bool flush_tlb,
->  			   bool allow_override, struct amdgpu_sync *sync,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> index c73eb416c0e2..481f697ce9e3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> @@ -542,7 +542,7 @@ static int amdgpu_vm_pt_alloc(struct amdgpu_vm_update_params *p,
->  	 * freeing them up in the wrong order.
->  	 */
->  	pt_bo->parent = amdgpu_bo_ref(cursor->parent->bo);
-> -	amdgpu_vm_bo_base_init(entry, p->vm, pt_bo);
-> +	amdgpu_vm_bo_base_init(entry, p->vm, pt_bo, true);
->  	r = amdgpu_vm_pt_clear(p->adev, p->vm, pt, p->immediate);
->  	if (r)
->  		goto error_unpin;
+Best regards
+Thomas
+
+>
+> Thanks,
+>     Prike
+>
+>> Best regards
+>> Thomas
+>>
+>>> lock and the damage worker, whose holders can depend on fences that
+>>> only signal after the reset. The display is still shut down for the
+>>> reset, so the damage worker now times out and warns:
+>>>
+>>>     amdgpu 0000:03:00.0: [drm] vblank wait timed out on crtc 0
+>>>     WARNING: drivers/gpu/drm/drm_vblank.c:1320 at
+>> drm_crtc_wait_one_vblank+0x194/0x200
+>>>     Workqueue: events drm_fb_helper_damage_work
+>>>     Call Trace:
+>>>      drm_client_modeset_wait_for_vblank+0x63/0x80
+>>>      drm_fb_helper_damage_work+0x89/0x1a0
+>>>
+>>> Userspace can trigger the same warning with FBIO_WAITFORVSYNC. Wait on
+>>> the VBLANK queue with the same timeout, but log a debug message
+>>> instead of warning when it expires; a missed VBLANK only means the
+>>> update isn't synchronized.
+>>>
+>>> Fixes: d8c4bddcd8bc ("drm/fb-helper: Synchronize dirty worker with
+>>> vblank")
+>>> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+>>> Cc: David Airlie <airlied@redhat.com>
+>>> Cc: dri-devel@lists.freedesktop.org
+>>> Cc: Harry Wentland <harry.wentland@amd.com>
+>>> Cc: Leo Li <sunpeng.li@amd.com>
+>>> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+>>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>>> Cc: Christian König <christian.koenig@amd.com>
+>>> ---
+>>>    drivers/gpu/drm/drm_client_modeset.c | 12 ++++++++++--
+>>>    1 file changed, 10 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/drm_client_modeset.c
+>>> b/drivers/gpu/drm/drm_client_modeset.c
+>>> index 0080a8e9556a..7b3193d73bbf 100644
+>>> --- a/drivers/gpu/drm/drm_client_modeset.c
+>>> +++ b/drivers/gpu/drm/drm_client_modeset.c
+>>> @@ -1301,7 +1301,8 @@ EXPORT_SYMBOL(drm_client_modeset_dpms);
+>>>     *
+>>>     * Block the caller until the given CRTC has seen a VBLANK. Do nothing
+>>>     * if the CRTC is disabled. If there's another DRM master present,
+>>> fail
+>>> - * with -EBUSY.
+>>> + * with -EBUSY. Give up without a warning if no VBLANK arrives within
+>>> + a
+>>> + * second, e.g. while the driver resets the display hardware.
+>>>     *
+>>>     * Returns:
+>>>     * 0 on success, or negative error code otherwise.
+>>> @@ -1328,7 +1329,14 @@ int drm_client_modeset_wait_for_vblank(struct
+>> drm_client_dev *client, unsigned i
+>>>       */
+>>>      ret = drm_crtc_vblank_get(crtc);
+>>>      if (!ret) {
+>>> -           drm_crtc_wait_one_vblank(crtc);
+>>> +           u64 last = drm_crtc_vblank_count(crtc);
+>>> +
+>>> +           /* Unlike drm_crtc_wait_one_vblank(), don't warn if VBLANKs stop. */
+>>> +           if (!wait_event_timeout(*drm_crtc_vblank_waitqueue(crtc),
+>>> +                                   drm_crtc_vblank_count(crtc) != last,
+>>> +                                   msecs_to_jiffies(1000)))
+>>> +                   drm_dbg_vbl(dev, "[CRTC:%d:%s] vblank wait timed out\n",
+>>> +                               crtc->base.id, crtc->name);
+>>>              drm_crtc_vblank_put(crtc);
+>>>      }
+>>>
+>> --
+>> --
+>> Thomas Zimmermann
+>> Graphics Driver Developer
+>> SUSE Software Solutions Germany GmbH
+>> Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+>> GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+>>
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+
 
