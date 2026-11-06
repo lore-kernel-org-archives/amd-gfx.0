@@ -2,127 +2,97 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A099606A337
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Nov 2026 11:29:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E01E606D823
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Nov 2026 11:30:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=h+9MEZBB
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=l3ZvKrIc
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD96410E24A;
-	Fri,  6 Nov 2026 11:29:46 +0000 (UTC)
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011046.outbound.protection.outlook.com
- [40.93.194.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 468E410E49E;
- Fri,  6 Nov 2026 11:29:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E930810E521;
+	Fri,  6 Nov 2026 11:30:10 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010061.outbound.protection.outlook.com [52.101.46.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 861B510E9FD
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Nov 2026 11:30:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LVorNOAX3ha9EM4T493U4Ux2Ly07SEEJoOuNJ9Z3D2H2CRPOnhr6voC4v46TX3987m5cQT4QWCnndnk/ySrac0dB38K90IbhO6zp/QrHLfwA08G88Z85uaLKBX7NTw7zStIRfd0fjbjVeO0g2/aMIbTa7HtUzGNJD7oL6ZbPRsTUfm7iVa+HhNarZWzSayF6ZrSccEYLCEYOXDDajwh6LQD7uQNcy5JYNJdu2n1fd0YwebxfmY3gE551qbIKNZhzzJapO8xgQbr9exxBzHe6CONCCnU/EETCpvTis2ONXdUdotDrT5dRiJ3gBdPd6CT3DR1RtRolbX3qreQ3xS51qg==
+ b=aLBsfuyBWj121fJkKObWGiU+8Fw5tHV7gQZPkSSaQWLO8idzbeqKdaFUINrOt2f3Ow8s48uhjZ3hMhM3WIGAnpzxVhvf1ZqGLuwlqkjqBbVAhiGLDQ5v1tWfpMJyjBDxUJRGk9MZIePM18aV27bpz91TBtKrR8aRZVHgtXKJSTJtbZSRl0UpXHxqA2VecYiDuwVLdD+JMQAIsRHxiu/Th6EwyVWNB9JODnt6GqvbbgRCJZhMNhO4Bh4JvqA991Hym43+JBXTV6VwI/N/my+kVSqP3r8lArVdLdVDnHKDAs4iMUOtsDrFv7M3zZIUMm+16qdPJJc42lv1IAPuoIiMxA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=l9UXl/kTvvZA91WTgQdTTTs6+/hxYzsJR7vRHLbNU4g=;
- b=vqum5/QQIbdpFZOoqpTiyaNeNd+0WJH291nlCU81sBcJ8VFTREiHAzZEVoJkwnYO1ayzz+KJnXjetWPiYYE+f42y466W1stdw0r+ugwURX0RgeSIqZpjssUcV0Nr6mBxybJ6B9D4WzT1u4NhiRHQQGg8ufD2qnBqFcyJ8UhbzHhls5GXDU5jokPKP/SP2FkYnKzE6oNSJni9rzQWHYBvhUlMIlsF6AtVM3WACaqZtbyJz5331JkjhokO8o0ZscUfuBrLhz8Q9hvWn0pAjJEFzH6dyJw+YRJAYg//Q2ataJTAeQv2CD3tsH/ZR4SkV+EjG0XIpK3fEkHI5Tjvo0VxAw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=ahJ8kvXPST4Bw1aPs8oWaqQoWkGZ//xGPbalyyEN+Wc=;
+ b=oh26s3LaBuOjouHq9iU9IqBvyurc9nt9UmGtAo+JUkyUxZZEW5+zUcj8EYOlEH3ozs3bWI+W1wwL5zsn8dg2/+tRTZhxqiG2qgNVKf5Nyb9NBmLs6eUvrx6UCsHwcvj2uNk8Ju3ueDd5tylTZnm/eswMztjUnAcbI9YLo8hw5+uaIz13Xr0s80Doyg0MZsU4coLa20t6xYBP/nh8B6GG3spNEXireVmbbSHs/9kaY3uRDs+M+IBmNfKJ+9e0LdN1xH1ajIoLQNTcYVi4R+8kzCu4QBIOXRGroMSvRREmo/R4WG9GXqXIkfnxIccAa3VOOEGuaQ7bWAqhO9Urlc9ubg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=l9UXl/kTvvZA91WTgQdTTTs6+/hxYzsJR7vRHLbNU4g=;
- b=h+9MEZBB/1637bwnxHgrxK/Q+1Y+cYP9lZSYPQ29nTuCax7Hnu92A9TU6cnJiVGZTPbcgDjdWLX28uE3BdIVwBqpgsp7pU8gZQjo3XD5Vi43XpTp/8hAX09GvH8peBQlBIWEjjEOxoAt03FXPjGcjpuYDf1XVEWyMTlaHMIJvNI=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CY5PR12MB6132.namprd12.prod.outlook.com (2603:10b6:930:24::8)
- by PH0PR12MB7792.namprd12.prod.outlook.com (2603:10b6:510:281::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 6 Nov
- 2026 11:29:35 +0000
-Received: from CY5PR12MB6132.namprd12.prod.outlook.com
- ([fe80::d9ab:4258:a9ef:b8cd]) by CY5PR12MB6132.namprd12.prod.outlook.com
- ([fe80::d9ab:4258:a9ef:b8cd%6]) with mapi id 15.21.0592.010; Fri, 6 Nov 2026
- 11:29:34 +0000
-Message-ID: <82f96eef-bcfd-49e9-a222-be12a45645c6@amd.com>
-Date: Fri, 6 Nov 2026 19:29:05 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: Leave self-refresh before an ABM level
- update
-To: Hugo Sales <hugo@hsal.es>, harry.wentland@amd.com, sunpeng.li@amd.com,
- siqueira@igalia.com, alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org
-Cc: ray.wu@amd.com, Roman.Li@amd.com, nicholas.kazlauskas@amd.com,
- alex.hung@amd.com, bhawanpreet.lakha@amd.com, ivan.lipski@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20261031130002.2335615-1-hugo@hsal.es>
-Content-Language: en-US
-From: "Chen, Chen-Yu" <Chen-Yu.Chen@amd.com>
-In-Reply-To: <20261031130002.2335615-1-hugo@hsal.es>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: TP0P295CA0038.TWNP295.PROD.OUTLOOK.COM
- (2603:1096:910:4::11) To CY5PR12MB6132.namprd12.prod.outlook.com
- (2603:10b6:930:24::8)
+ bh=ahJ8kvXPST4Bw1aPs8oWaqQoWkGZ//xGPbalyyEN+Wc=;
+ b=l3ZvKrIcB5HlvePuQZCXDHJcbSCH9A7mVtezRF7cg2keV9KDVYUUKaLtBGRZcBiTFmUI4lotFJmO/wfP6uPdlyIZdoIYVo9zpGXSsJxRNb7isJ7Ig9zvt8gXU1A4rjk4gSJUohqJHyoW6CqRZZez1kb7JcnkVmieIIupI8upkSU=
+Received: from SJ0PR13CA0133.namprd13.prod.outlook.com (2603:10b6:a03:2c6::18)
+ by CY5PR12MB6249.namprd12.prod.outlook.com (2603:10b6:930:23::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Fri, 6 Nov 2026
+ 11:30:00 +0000
+Received: from SJ1PEPF000037AA.namprd03.prod.outlook.com
+ (2603:10b6:a03:2c6:cafe::a8) by SJ0PR13CA0133.outlook.office365.com
+ (2603:10b6:a03:2c6::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.5 via Frontend Transport; Fri, 6
+ Nov 2026 11:29:59 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ1PEPF000037AA.mail.protection.outlook.com (10.167.244.184) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 11:29:59 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 6 Nov
+ 2026 05:29:58 -0600
+Received: from RSNDADJELK01.xilinx.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via
+ Frontend Transport; Fri, 6 Nov 2026 05:29:57 -0600
+From: Dejan Andjelkovic <Dejan.Andjelkovic@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, <Lijo.Lazar@amd.com>, <Nikola.Prica@amd.com>, 
+ Dejan Andjelkovic <Dejan.Andjelkovic@amd.com>
+Subject: [PATCH v6 1/2] drm/amdgpu: enable IP discovery via PSP mailbox
+Date: Fri, 6 Nov 2026 12:29:49 +0100
+Message-ID: <20261106112950.1281549-1-Dejan.Andjelkovic@amd.com>
+X-Mailer: git-send-email 2.43.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY5PR12MB6132:EE_|PH0PR12MB7792:EE_
-X-MS-Office365-Filtering-Correlation-Id: d4ecd36e-c721-47cc-66fb-08df3bf93b3c
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000037AA:EE_|CY5PR12MB6249:EE_
+X-MS-Office365-Filtering-Correlation-Id: 599b1367-d337-49a0-3464-08df3bf94a8f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|376014|1800799024|11063799006|56012099006|261022105027099003|261022075727099003|261021121427099003|261009223027099003|261102123227099003|261026140227099003|261026121527099003|261028144727099003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: sWiXab0xbI3qCxwU8fsTjnEPZ5GL3UPrrJk3BhSH8stJeLb6OOlBZzIgazSGw/tgkLmarkg4yPENd6zNRAhUmHifjn31+v6jTHttEWUDfH9nAZHVWO6yUHcqV+yOZgRJXU78IEi5/hXqBa3E13N1q+Vo67lwRzkeCOJrfYsSAqDYFOhHnK1QKVU9QkWPQ0lMe35ZBOTo9qBakTficzVcwEQqN5jfB3FqKOCj6eLsdf/JpzcDbFjDYxKYcFgzifEPnStHdbLdaadilek/YMw11XZoY594Z/SitqFgzrHnH9fkOYF9k1F95E8m0Hhy+ex/3NRpSfqq+gsPrg3dGLv+laFY7aLxUvBauDQilGAPMWJjE3nJFlkzZLBuKq9c25VjrqW5mgaplsdDq5D49v9jBa+pWFYrLltFToOCIYMSl0WkvR5fcyP1i4lI8zrli4Hq3orUtiNEkPaHoaOBxWINejElJuZLAvCE321dXGYhgwLaeIwQQvq8CzgiJatA1gZ6AuZEUXVi1HIlieNS+tRoKZF4BUucnpFJau3RlsHYQB0jSj8IH5IC7vhHw6RTunD8EPJzjWooWu2svsfaX19yjNfYpy5O3WiUCaLPLZH4+WuGApKJRS97GC1G8zGa5o1Q
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY5PR12MB6132.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(11063799006)(56012099006)(261022105027099003)(261022075727099003)(261021121427099003)(261009223027099003)(261102123227099003)(261026140227099003)(261026121527099003)(261028144727099003)(10067099003)(18002099003)(22082099003);
+ ARA:13230040|36860700016|82310400026|376014|23010399003|1800799024|10067099003|18002099003|6133799003|261022075727099003|56012099006|261022115727099003|11063799006|5023799004|261022105027099003|261022113327099003|261102123227099003|261026140227099003|261026135527099003|261021133027099003|261028144727099003|261026121527099003|261021130227099003|261009221227099003|261021135927099003|261026130827099003|261009223027099003|261021121427099003|261021123027099003;
+X-Microsoft-Antispam-Message-Info: k5VeRHs26JVP+53SMR6Djxiwb4QYr597vM+M6vL31a+wnNt+0gl5k+HS+oQ59pfM+NymqGhUUqDj67SiBmrEBAbalDqU3I5Utx8biVJFOdXulivO1n2luOZmRsf/7aVaFhLsfIUezwHEoxjPE9sx+3/ulLPrsMMgfRAedP1FTPnu4zcwKzqJ0QC5QDjTVkkRyxzbCgNEOnIg8kh1z7WgEW100KsjIZ6F+zUfsJrdzrg/nhTKHaAEPxDZm5LhHu5VWuNmzCItoQmvMO2GdESSzx5xNh4dvhJnqpo639OWStj4D5qjJFPutvwP7KMlAVBSDyJLGfLO15Kka2TMzZiSp+c/g8BcVvACvl8wjkE7/40ZAqRio6X1kpH/xl/D1Z1czbalt2iDDplkCNpQHxS+Mn0ZIGGq7iZiDbNSON/OfQUnXgebvw98eEUAS8lZoXzFag0lF+yKulFW7kiXDZ2G0Z4cqwmXfP+pJFxCdvFmT8Wqi4tqeeWTQQ6p7EeXtAolLIhLmTFhT3FtRxfNDvk/GWla2306tKixeSaTkY1lC9DerTIDLBTducmEfgqw7LGCH7GADpsrNgtR0g+AoFvg12HrFQC7kKfjs4kmMtOvfAOULsxDT5VG+mlMUKM28ybYurJjKaLF2XXS2fs7iQEPh3lAR9p0YA7lBP3LyCToZ4GNYZ9s2KAN68WaxZ7DvMXMN7jTkULZ9jHdXlN07+GSIg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(82310400026)(376014)(23010399003)(1800799024)(10067099003)(18002099003)(6133799003)(261022075727099003)(56012099006)(261022115727099003)(11063799006)(5023799004)(261022105027099003)(261022113327099003)(261102123227099003)(261026140227099003)(261026135527099003)(261021133027099003)(261028144727099003)(261026121527099003)(261021130227099003)(261009221227099003)(261021135927099003)(261026130827099003)(261009223027099003)(261021121427099003)(261021123027099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Rkp5MDE0M3dJVmhXZzlHdDZFa0lzQ2d4NEdGdXBtNThJVWVtMk1TTWt2anFo?=
- =?utf-8?B?QVlJUGxDdlpGWTdYdStmaXhXV29JYXAzWHoxN3dLVytzT201TmhaOWcwZkN4?=
- =?utf-8?B?ZnRqQ05vemhkeWlHNFJlY0lvalNZT1Azd3Nzb3ZQaEp0Y1R5MHpYV0dldjVJ?=
- =?utf-8?B?VTVFRVZQUE93d1FleVpBRi82V3IwT3lHSElaWHhhbmNHWGV4YmxGZm1QSGNq?=
- =?utf-8?B?Zis1WDhJTHNYWlk4MHVRbkxlc2NxVVc2UEhwa1ZOczJQM0JtTUdHODVpTnZT?=
- =?utf-8?B?a01PU1k1aG5jZmsvRFdyZzhwbmZWNXAvVzRPQnF6cllZZGlnaHozUUZsOUFk?=
- =?utf-8?B?Vm9BNEk5eGpxZU1mSW1CTFphSzhOOWlBK0pQZmNJOC9lcUdpV3d3VTB2d0xh?=
- =?utf-8?B?R1N0QnppT2p1Zm0vNGdxZlRrRmVXeU1CRzlvL0VwajVWM3VhUXR1aERuakl5?=
- =?utf-8?B?MHVnNXBLOTUxNzl1YjJZbHRqNlNKTlFKZTE1L3BzdlZCeDVsYzZqb2RGNEVM?=
- =?utf-8?B?ZVprMzhnaUtuYS80QmQ5TDZKcFZlanFQZWdKdm9RS3NWaWhoczgwZUVkMlp4?=
- =?utf-8?B?LzJwK01Danpud2NPUlJkd0xDbWtEOUUwNjBSRkNtVHZFelpKbUN2d3hIcDJP?=
- =?utf-8?B?cVZ1SHRWYXdXQ0poaUJJZGVRK3VGOEd2cUVBSHJZTWp3S0Q5R2NKOS9JdktU?=
- =?utf-8?B?V2grTzRuTDNzRmsvM3VocC9XYytjMDZmWjdOMURsMlZPbkY5ZWFwUzhZc29Y?=
- =?utf-8?B?UEZteVpWcWhNRkdmaVVJYnV5U25XMEU3ZFgwNkdIWFJIQWFRb2cxTTNyS28x?=
- =?utf-8?B?RG5tb0RCekNBNmUwZ0dWQ0VjNS9BZzhhUHkwQ2NSMzFYWTBkNGRrc05qdmlN?=
- =?utf-8?B?dU04bkhyODZkZXkxSnQrR2tGUlpEZmhzRzNDU1NXeThqU05TRGc0UHcxTDdz?=
- =?utf-8?B?akpzbzYzQkVzaitzTG4zOUdDK0wzU1cwRDVMbXRhR002WEdZdmlzL1EydzRW?=
- =?utf-8?B?c1VLTk5RRjVxY1kzL1phZW5MVEluWFVZY2pUa1Q5eHdENHNSb1J0NmQyMXJs?=
- =?utf-8?B?TnpQRTBrbDlTeGlFWWduZU0wcDlDa3JKVFA4cUJubjd2cmswcHJzSVFERmgx?=
- =?utf-8?B?d3QwcDYrL01LR0t3S2hDcWxnNDVHTy81alkvbE9EYmJoUjlhRGpPMnNyVW1H?=
- =?utf-8?B?UWFsaUtXMXZHYk0wOXEwQnArUEM1YzVMcnBaY29VWm1UczcvazNLcVpNVUQ5?=
- =?utf-8?B?ZEdVSTcraFk3Tnhaam9IWWxjT1FhUGt6by9GZE5GUjBVM2puUlRmWXdoQ0dW?=
- =?utf-8?B?SHpUZFpNMnNJek5CU0U4NFh5MGFoMmYzeWovaWdBZnJ5cHplVEg3RHVkVVF5?=
- =?utf-8?B?OGNGWXJlYU8zeCtNOGJlNkMxbnVMd0JMbDRjTmtxUklQdWsxakRWV2pLem5s?=
- =?utf-8?B?MzVrNEczUGxqQmpTU1pjMjVGWEErRXFjUGYvMlk2Mkw2Wnc1VFE3Z3lXMWVp?=
- =?utf-8?B?eDl4RFdRUUVZeTdSL1l2NVdkcGJxMGttYUV2TlU5YWprOXdBc0w1VkdBVTNL?=
- =?utf-8?B?MnJlSGpRcjEySUUyc3FYVnRmckE5Q0J6eEovMGQ0dFBLL1pvb085QlJNTlJr?=
- =?utf-8?B?bjhMU3NqQ2pZN3F6YUFFbnFTOTR4czcwVDM3bjc5STFmWnI2NlBmenpKWWln?=
- =?utf-8?B?VGxFd2QyWDRpbnNrSFJuN0JhaTY4ZXhyVWpkaEhDTXU5NXNaZTRRaDhMc2w2?=
- =?utf-8?B?bmVlWlRNZlJsYjB2UlRCVUljUWFjbHd6d2t2Q28zMnQ2aVRtVTZ0YlJoQThX?=
- =?utf-8?B?ejVwTkYrZDRRYkpZTHZLaFFDSWxvdW5UbHJXZmpFem14STR0SlVKcHdncTZE?=
- =?utf-8?B?RndSWGZGWEUwenFaaDhjcVU1cTVHK2RKRldQS2NxRFJ2dEZjZ2hEbFA1K2JJ?=
- =?utf-8?B?cEs2MGMyMEdBUkdYeDZqdHpzRTA1RVdJNmE2NGdXRmVXb0FhbmxjRGxRTHRj?=
- =?utf-8?B?S1JYRHBOdE1qRnlCdE5hVlVIdzZQQUhYSVlwNGZ4WVlaN3FYNktYeDkraEIx?=
- =?utf-8?B?T09xZDU5VkxZRllsd2ZibjJXQnN6UHJoUTBMOVFmV2xac1ZoOUc4QkJZQllr?=
- =?utf-8?B?SDh6T3l3bkFGVDNUckZCdTJweVJ5UktJbjBhQk1wNWRjUkp4dnJodFUySWxE?=
- =?utf-8?B?bk13SDNOeGVrT1c5VWlML3VwTDRuK0o2c1hBRVo5S0srYjdDcXcyZUVtNm80?=
- =?utf-8?B?VlYvR3ZqQ01uMTZ6RXFsNzlrS0Q1Z1NKZlkwbWJKSTBLZjl3UEkzcnFqdkJ1?=
- =?utf-8?Q?Dd0jxGdPdQxSyrKEMT?=
+X-MS-Exchange-AntiSpam-MessageData-0: F7ghk5R3zj2KxV0IlcfQVu22OhQzO9M0O2zHhKbHXHjWvti1ZuoQKQUtW3vBUTaUc3BxylHgq1X4Cxm+UPqz3wPl34SRo8Dz/Oe0c/P1KEzQ2ueOxoDzWZhE1sSlVexoaSOm1i1zc+tIOIAwP5nuSf6Cl2VWqz7Hxbd/O0vvVHIi4u0IfnxLTlOk8YYcVLqUdn4dgG/VKVcKRASLa9xFdcZkxc5Y72c7OrLUvViot2XXLVDck7nWhQMwVpFQ3jAcMwFnBYKnXeoK/OwD8AlHPKtoVUUrlUV8ZT3OBRkaIyEimvu5FDfdXeJlvbBaV2E4/Kb0md08spdT/WJJeMLXsOj6Ocv1SLaER4uIJviDuc681IGWIqgVeiwkFsOxihhYLBuIl2ioRp4DaWSODDrwjpyIJx89jx+AMgrPSt3IZdZjK0ubf69XysN545i2SW9M
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d4ecd36e-c721-47cc-66fb-08df3bf93b3c
-X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6132.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 11:29:34.0836 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 11:29:59.2439 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 599b1367-d337-49a0-3464-08df3bf94a8f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Pr/qJpDHR68YorZG57mtMO/2lfuSfwHq81ekTKq395qHZeAxHZNRYbbKKzFait/135TXnY+SAbiEydSjQbsu/A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7792
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000037AA.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6249
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,149 +103,201 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+Adds support for IP discovery via PSP mailbox using guest phys
+addr for passthrough A+A.
 
+Keep the discovery firmware file as the preferred source. Use the
+mailbox only when no firmware file is selected and the device is in
+passthrough with a zero-sized BAR0.
 
-On 10/31/2026 9:00 PM, Hugo Sales wrote:
-> Writing panel_power_savings while the eDP is in PSR hangs DMUB on a
-> Cezanne laptop (DCN 2.1)
+The mailbox registers are fixed MMIO indexes. This runs before IP
+discovery has programmed the hardware register bases.
 
-Hi Hugo,
+Signed-off-by: Dejan Andjelkovic <Dejan.Andjelkovic@amd.com>
+---
+v5 -> v6:
+- Drop the post-wait status read in amdgpu_psp_read_discovery().
 
-Thanks for the patch. We've seen the same DMCUB hang on Renoir
-(DCN 2.1) when an ABM level is sent with PSR still active, so taking
-the panel out of self-refresh before the update is needed.
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  5 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c |  6 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       | 61 +++++++++++++++++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h       |  2 +
+ drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h       |  4 +-
+ 5 files changed, 71 insertions(+), 7 deletions(-)
 
-> 
-> An abm_level change on its own is a fast update, so the commit skips
-> amdgpu_dm_commit_streams() and the self-refresh pause in it. The ABM
-> level then reaches DMUB through amdgpu_dm_commit_planes(), or through the
-> connector update loop in amdgpu_dm_atomic_commit_tail(), with the panel
-> still in self-refresh
-> 
-> Raise the PSR and Replay hw_programming events before both updates. As
-> with a backlight change, the events stay set until the next plane commit
-> clears them in amdgpu_dm_enable_self_refresh()
-
-The problem is leaving them set. amdgpu_dm_enable_self_refresh() only
-clears hw_programming on a later fast update. A panel_power_savings
-write on an idle desktop isn't followed by any commit, so PSR stays off
-until the compositor commits for an unrelated reason. That costs PSR
-residency on every ASIC that uses these events, not only DCN 2.1.
-
-I reproduced this on Strix (DCN 3.5) with this patch and 177461: after
-a write on an idle desktop, PSR didn't come back until an unrelated
-commit. With the events cleared right after the DC update, PSR came
-back by itself.
-Could you clear the events right after the update, still under
-dc_lock? Something like:
-	update_planes_and_stream_adapter(dm->dc, ...);
-	if (bundle->stream_update.abm_level) {
-		amdgpu_dm_psr_set_event(dm, acrtc_state->stream, false,
-			psr_event_hw_programming, false);
-		amdgpu_dm_replay_set_event(dm, acrtc_state->stream, false,
-			replay_event_hw_programming, false);
-	}
-and the same after dc_update_planes_and_stream() in the connector loop
-of amdgpu_dm_atomic_commit_tail() when abm_changed.
-
-Since only DCN 2.1 shows the hang, could you rerun your steps on the
-GV301QH with that change? The case I'd most like confirmed is PSR
-re-entering while the ABM ramp is still running, for example 0 to 4
-and then leaving the screen idle.
-
-Also, 177461 2/5 stops forcing the modeset for property changes, which
-sends those down the same fast path. This patch needs to land before
-2/5, so it would help to say so in 2/5, or to carry both in one series.
-
-Regards,
-Chenyu
-
-> 
-> Fixes: 8c322309e48e ("drm/amd/display: Enable PSR")
-> Signed-off-by: Hugo Sales <hugo@hsal.es>
-> ---
-> Tested on an ASUS ROG Flow X13 (GV301QH, Cezanne, DCN 2.1, PSR1 eDP)
-> with PSR turned on through amdgpu.dcfeaturemask=0xa and "drm/amd/display:
-> Don't require DMUB PSR caps before DCN 3.0" [1], which DCN 2.1 needs for
-> PSR to come up at all, but, as far as I can tell, the same bug would
-> manifest on other DMUB versions that use PSR and ABM
-> 
-> On 7.3 without this patch, writing 3 to panel_power_savings while
-> psr_state reads 6 makes DMUB fail within a second. The log fills with
-> "DMCUB error - collecting diagnostic data" and the panel shows vertical
-> lines. amdgpu doesn't attempt a GPU reset, and the errors go on until a
-> reboot
-> 
-> With the fix, I let psr_state reach 6 before each of these steps:
-> 
-> - turn ABM on, from level 0 to 3
-> - change the level, from 4 to 1
-> - turn ABM off, from 1 to 0, which takes the immediate disable path
-> - switch power-profiles-daemon to balanced and back to power-saver,
->   which sets a new level each time
-> 
-> None of them logged a DMCUB error. Both kernels had [2] applied as well
-> 
-> Commit 8c322309e48e ("drm/amd/display: Enable PSR") only paused PSR for
-> full updates. The power module events used here came with commit
-> 3c108046e1d6 ("drm/amd/display: Add power module on Linux"), so a
-> backport before that needs another way to leave PSR
-> 
-> An HDR static metadata change while HDR stays on is a fast update too,
-> and the connector loop sends the new infopacket with the panel in
-> self-refresh. I have no panel with HDR and PSR or Replay to try it on,
-> and the VRR and AVI infopackets already go out the same way. Does an
-> infoframe update in self-refresh need the same pause?
-> 
-> [1] https://lore.kernel.org/r/20261029171219.2842014-1-hugo@hsal.es
-> [2] https://lore.kernel.org/r/20261029165420.2255749-1-hugo@hsal.es
-> 
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 19 +++++++++++++++++++
->  1 file changed, 19 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index dfbc384fbbdb4..0b40e860734a0 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -4224,6 +4224,19 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
->  			amdgpu_dm_replay_set_event(dm, acrtc_state->stream, true,
->  				replay_event_immediate_flip, true);
->  		}
-> +		/*
-> +		 * An ABM change alone is a fast update, which skips the
-> +		 * self-refresh pause in amdgpu_dm_commit_streams(). As with a
-> +		 * backlight change, amdgpu_dm_enable_self_refresh() clears the
-> +		 * event
-> +		 */
-> +		if (bundle->stream_update.abm_level) {
-> +			dc_exit_ips_for_hw_access(dm->dc);
-> +			amdgpu_dm_psr_set_event(dm, acrtc_state->stream, true,
-> +				psr_event_hw_programming, true);
-> +			amdgpu_dm_replay_set_event(dm, acrtc_state->stream, true,
-> +				replay_event_hw_programming, true);
-> +		}
->  		update_planes_and_stream_adapter(dm->dc,
->  					 planes_count,
->  					 acrtc_state->stream,
-> @@ -5280,6 +5293,12 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_commit *state)
->  
->  		mutex_lock(&dm->dc_lock);
->  		dc_exit_ips_for_hw_access(dm->dc);
-> +		if (abm_changed) {
-> +			amdgpu_dm_psr_set_event(dm, dm_new_crtc_state->stream, true,
-> +				psr_event_hw_programming, true);
-> +			amdgpu_dm_replay_set_event(dm, dm_new_crtc_state->stream, true,
-> +				replay_event_hw_programming, true);
-> +		}
->  		dc_update_planes_and_stream(dm->dc,
->  					    dummy_updates,
->  					    status->plane_count,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 5a32b54b1e9b..20570ab1d2c0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -1019,6 +1019,11 @@ static inline struct amdgpu_device *amdgpu_ttm_adev(struct ttm_device *bdev)
+ 	return container_of(bdev, struct amdgpu_device, mman.bdev);
+ }
+ 
++static inline bool amdgpu_is_spm_passthrough(struct amdgpu_device *adev)
++{
++	return amdgpu_passthrough(adev) && !pci_resource_len(adev->pdev, 0);
++}
++
+ static inline bool amdgpu_is_multi_aid(struct amdgpu_device *adev)
+ {
+ 	return !!adev->aid_mask;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+index 79a2b1268b23..8b976e363f16 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -771,6 +771,12 @@ static int amdgpu_discovery_init(struct amdgpu_device *adev)
+ 							   fw_name);
+ 		if (r)
+ 			goto out;
++	} else if (amdgpu_is_spm_passthrough(adev)) {
++		drm_dbg(&adev->ddev, "use ip discovery information from psp mailbox\n");
++		r = amdgpu_psp_read_discovery(adev, discovery_bin,
++					      GFX_CTRL_ADDR_TYPE_GUEST_PHY_ADDR);
++		if (r)
++			goto out;
+ 	} else {
+ 		drm_dbg(&adev->ddev, "use ip discovery information from memory\n");
+ 		r = amdgpu_discovery_read_binary_from_mem(adev, discovery_bin,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index c0ed3e24b684..50861175d661 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -52,6 +52,12 @@
+ 
+ #define PSP_IRQ_DEFAULT_HANDLER_ID 0xFFFFFFFF
+ 
++/* Note: These are pre-IP-discovery fixed MMIO indexes */
++#define mmMP0_SMN_C2PMSG_64_MMIO	0x16080
++#define mmMP0_SMN_C2PMSG_69_MMIO	0x16085
++#define mmMP0_SMN_C2PMSG_70_MMIO	0x16086
++#define mmMP0_SMN_C2PMSG_71_MMIO	0x16087
++
+ static int psp_load_smu_fw(struct psp_context *psp);
+ static int psp_rap_terminate(struct psp_context *psp);
+ static int psp_securedisplay_terminate(struct psp_context *psp);
+@@ -761,17 +767,13 @@ static int psp_sw_fini(struct amdgpu_ip_block *ip_block)
+ 	return 0;
+ }
+ 
+-int psp_wait_for(struct psp_context *psp, uint32_t reg_index, uint32_t reg_val,
+-		 uint32_t mask, uint32_t flags)
++static int __psp_wait_for(struct amdgpu_device *adev, uint32_t reg_index, uint32_t reg_val,
++			  uint32_t mask, uint32_t flags)
+ {
+ 	bool check_changed = flags & PSP_WAITREG_CHANGED;
+ 	bool verbose = !(flags & PSP_WAITREG_NOVERBOSE);
+ 	uint32_t val;
+ 	int i;
+-	struct amdgpu_device *adev = psp->adev;
+-
+-	if (psp->adev->no_hw_access)
+-		return 0;
+ 
+ 	for (i = 0; i < adev->usec_timeout; i++) {
+ 		val = RREG32(reg_index);
+@@ -793,6 +795,17 @@ int psp_wait_for(struct psp_context *psp, uint32_t reg_index, uint32_t reg_val,
+ 	return -ETIME;
+ }
+ 
++int psp_wait_for(struct psp_context *psp, uint32_t reg_index, uint32_t reg_val,
++		 uint32_t mask, uint32_t flags)
++{
++	struct amdgpu_device *adev = psp->adev;
++
++	if (psp->adev->no_hw_access)
++		return 0;
++
++	return __psp_wait_for(adev, reg_index, reg_val, mask, flags);
++}
++
+ int psp_wait_for_spirom_update(struct psp_context *psp, uint32_t reg_index,
+ 			       uint32_t reg_val, uint32_t mask, uint32_t msec_timeout)
+ {
+@@ -3347,6 +3360,42 @@ int psp_securedisplay_invoke(struct psp_context *psp, uint32_t ta_cmd_id)
+ }
+ /* SECUREDISPLAY end */
+ 
++int amdgpu_psp_read_discovery(struct amdgpu_device *adev, uint8_t *binary,
++			      GFX_CTRL_ADDR_TYPE addr_type)
++{
++	void *cpu_addr;
++	dma_addr_t dma_addr;
++	u32 length;
++	int ret;
++
++	cpu_addr = dma_alloc_coherent(adev->dev, adev->discovery.size,
++				      &dma_addr, GFP_KERNEL);
++	if (!cpu_addr)
++		return -ENOMEM;
++
++	length = adev->discovery.size;
++	length = (length & 0x0fffffffU) | ((u32)addr_type << 28);
++
++	WREG32(mmMP0_SMN_C2PMSG_69_MMIO, lower_32_bits((u64)dma_addr));
++	WREG32(mmMP0_SMN_C2PMSG_70_MMIO, upper_32_bits((u64)dma_addr));
++	WREG32(mmMP0_SMN_C2PMSG_71_MMIO, length);
++
++	WREG32(mmMP0_SMN_C2PMSG_64_MMIO, GFX_CTRL_CMD_ID_GET_IP_DISCOVERY);
++
++	ret = __psp_wait_for(adev, mmMP0_SMN_C2PMSG_64_MMIO,
++			     MBOX_TOS_RESP_FLAG, MBOX_TOS_RESP_MASK,
++			     PSP_WAITREG_NOVERBOSE);
++	if (ret) {
++		dev_err(adev->dev, "ip_discovery: PSP cmd failed\n");
++	} else {
++		memcpy(binary, cpu_addr, adev->discovery.size);
++	}
++
++	dma_free_coherent(adev->dev, adev->discovery.size, cpu_addr, dma_addr);
++
++	return ret;
++}
++
+ int amdgpu_psp_wait_for_bootloader(struct amdgpu_device *adev)
+ {
+ 	struct psp_context *psp = &adev->psp;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+index 975d12359358..fe3d053d9924 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+@@ -688,6 +688,8 @@ int psp_memory_partition(struct psp_context *psp, int mode);
+ 
+ int is_psp_fw_valid(struct psp_bin_desc bin);
+ 
++int amdgpu_psp_read_discovery(struct amdgpu_device *adev, uint8_t *binary,
++			      GFX_CTRL_ADDR_TYPE addr_type);
+ int amdgpu_psp_wait_for_bootloader(struct amdgpu_device *adev);
+ bool amdgpu_psp_get_ras_capability(struct psp_context *psp);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h b/drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h
+index 49aa95c76745..d13ae1756887 100644
+--- a/drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h
++++ b/drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h
+@@ -49,6 +49,7 @@ enum psp_gfx_crtl_cmd_id
+     GFX_CTRL_CMD_ID_GBR_IH_SET      = 0x00080000,   /* set Gbr IH_RB_CNTL registers */
+     GFX_CTRL_CMD_ID_CONSUME_CMD     = 0x00090000,   /* send interrupt to psp for updating write pointer of vf */
+     GFX_CTRL_CMD_ID_DESTROY_GPCOM_RING = 0x000C0000, /* destroy GPCOM ring */
++    GFX_CTRL_CMD_ID_GET_IP_DISCOVERY   = 0x000D0000, /* Copy IP_DISCOVERY_DATA to host-specified address */
+ 
+     GFX_CTRL_CMD_ID_MAX             = 0x000F0000,   /* max command ID */
+ };
+@@ -58,7 +59,8 @@ typedef enum
+     GFX_CTRL_ADDR_TYPE_AUTO_DETECT = 0,
+     GFX_CTRL_ADDR_TYPE_SYS_PHY_ADDR,
+     GFX_CTRL_ADDR_TYPE_GPU_PHY_ADDR,
+-    GFX_CTRL_ADDR_TYPE_GPU_VIRT_ADDR
++    GFX_CTRL_ADDR_TYPE_GPU_VIRT_ADDR,
++    GFX_CTRL_ADDR_TYPE_GUEST_PHY_ADDR
+ }  GFX_CTRL_ADDR_TYPE;
+ 
+ /*-----------------------------------------------------------------------------
+-- 
+2.43.0
 
