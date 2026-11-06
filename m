@@ -2,70 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA768606A330
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Nov 2026 09:26:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F825606A334
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Nov 2026 09:26:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WoMGCBpK
+	dkim=pass (2048-bit key, unprotected) header.d=thundermail.com header.i=@thundermail.com header.a=rsa-sha256 header.s=2025nov03r header.b=LopAVSd+;
+	dkim=pass header.d=thundermail.com header.i=@thundermail.com header.a=ed25519-sha256 header.s=2025nov03e header.b=mp0PCWjL
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D104112C9D;
-	Fri,  6 Nov 2026 09:26:08 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B8E910E814;
- Thu,  5 Nov 2026 16:03:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793894600; x=1825430600;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=5A1ID+DV3XCVNTv9Mjjz9nlWW6YzcsEntOZT7aRGMNk=;
- b=WoMGCBpKXMifHxwx/8YZXa9x0tvX5M3TvMvyccC/Ob2EbUNvzC5ogPUI
- t0KDyOC8ffhc8eyoETsOM0F1YJ1JeYTWLCqEXhJ6I4fbHK/kJodUwsip6
- Pwr7jeFxPL82gI9k2snFfVctTMmGP+c6Uo5bL225L2yL5HnuYIZzridMA
- RgfIEMuiQLJNMOd4YvIXG+3XyyRHOv1FD1I7XR5Uf7A7sTAYo9kuKJ2xS
- oG8aZ4lJh7YMivTA+Qy91YDUQfv+S6QtJ4KeVPGwWV4mMQAXVaEgB5S2x
- BST7FqPnXhblfWjXwShjr28+yQnE+7xMiqz4QG01jUVp7yXYTQ1jD0d3i Q==;
-X-CSE-ConnectionGUID: V6oqMtyYQ9+FHwLqMwp8xA==
-X-CSE-MsgGUID: wdE0iLuPRVqzT4Gx1fDuPA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2706090"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2706090"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Nov 2026 08:03:19 -0800
-X-CSE-ConnectionGUID: C78hwW1aRtiqLgiCJitF4A==
-X-CSE-MsgGUID: p2bUQgOBTUmb6bFfq3fetQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="8795710"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO
- kvehmane-desk1.ger.corp.intel.com) ([10.245.244.200])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Nov 2026 08:03:13 -0800
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Takashi Iwai <tiwai@suse.com>,
- Jaroslav Kysela <perex@perex.cz>, linux-sound@vger.kernel.org,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
- =?UTF-8?q?Tom=C3=A1=C5=A1=20Hnyk?= <tomashnyk@gmail.com>,
- Wim Taymans <wtaymans@redhat.com>, nouveau@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Subject: [PATCH 2/2] drm/i915/audio: Populate ELD Port_ID
-Date: Thu,  5 Nov 2026 18:02:40 +0200
-Message-ID: <20261105160240.2850042-3-kai.vehmanen@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261105160240.2850042-1-kai.vehmanen@linux.intel.com>
-References: <20261105160240.2850042-1-kai.vehmanen@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12C12112CA0;
+	Fri,  6 Nov 2026 09:26:09 +0000 (UTC)
+X-Greylist: delayed 431 seconds by postgrey-1.36 at gabe;
+ Fri, 06 Nov 2026 01:00:44 UTC
+Received: from mail.thundermail.com (smtp000.thundermail.com [5.60.96.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1525610E167
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Nov 2026 01:00:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; s=2025nov03r; d=thundermail.com;
+ c=relaxed/relaxed; 
+ h=Message-ID:Date:Subject:To:From; t=1793926411; bh=hX6fHPoMae6QZG/82DWlelg
+ KW5hA95Bl5//zD2ys9vs=; b=LopAVSd+sMROhEuGBDo86V/m73ISX8thnK3XMlXgBeSrimlJ/N
+ arceM5C11hC4Cu6H0oS/mzVpkA4UyQDeQ6fWEcickP2iqkfguoc5vef+KRDPhdUn8k4lo5Mp/Ic
+ OqoOXKCMH9Iv5ttXgI8sD67xyGm+oo+ZmMxm38sjfYTmnLJ5B0c8yZkx0BSyISdAT15/LxWlu30
+ pB1Ehp624dpUkKg2Pa7q+WJIJRcITkhFoTEluS+Uy7mFA+kaQUrclW2ZESBo48+2dlcnGSN0v+z
+ nfedizJKlvPS70bOgHZPUouh2lHrFXae21Z1elBuKQKGB56fK5pth9cG7buM0AftaSw==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=2025nov03e; d=thundermail.com;
+ c=relaxed/relaxed; 
+ h=Message-ID:Date:Subject:To:From; t=1793926411; bh=hX6fHPoMae6QZG/82DWlelg
+ KW5hA95Bl5//zD2ys9vs=; b=mp0PCWjL02yfBRNcijl39/3I/i4b944Sqqk2etymkjGgFM6IPw
+ AALWBhcvPzY+b13XTwC+ccHbAZOQHJSTN0CQ==;
+From: William WOJCIECHOWSKI <w.woj@thundermail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com,
+ Felix.Kuehling@amd.com, William WOJCIECHOWSKI <w.woj@thundermail.com>
+Subject: [PATCH] drm/amdgpu: enable fence interrupts before KFD init
+Date: Fri,  6 Nov 2026 01:53:19 +0100
+Message-ID: <20261106005319.17428-1-w.woj@thundermail.com>
+X-Mailer: git-send-email 2.55.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -80,47 +50,61 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-i915 never fills in the ELD Port_ID field, so it is always zero, and
-the ELDs of identical monitors connected to different outputs are
-byte-identical. Userspace then cannot tell which HDMI/DP PCM belongs to
-which DRM connector without toggling the connector audio property.
+On Navi 1x, GART TLB flushes go through SDMA once the buffer funcs are
+enabled, and amdgpu_gmc_flush_gpu_tlb() waits for the job to finish.
+KFD init does two GART allocations, so it waits twice, but the fence
+interrupts are only enabled after amdgpu_device_ip_init() returns. Both
+waits end on the fallback timer:
 
-Use drm_eld_set_port_id() when computing the audio config, so the value
-reaches the audio driver through every path: the audio component
-get_eld() callback, the hardware ELD buffer, SDVO and LPE audio.
+  amdgpu 0000:0c:00.0: Fence fallback timer expired on ring sdma0
 
-The value is fixed for the lifetime of the connector, so it does not
-cause extra audio re-enables when the ELD is compared across commits,
-and state readout stays consistent because it is copied from the
-programmed ELD.
+That's about 1 s lost on every boot.
 
-Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16693
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Enable the fence interrupts right after the buffer funcs, before KFD
+init, like amdgpu_device_ip_resume() already does.
+
+Signed-off-by: William WOJCIECHOWSKI <w.woj@thundermail.com>
 ---
- drivers/gpu/drm/i915/display/intel_audio.c | 2 ++
- 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_audio.c b/drivers/gpu/drm/i915/display/intel_audio.c
-index 32f8c5e55319..3277e67748ee 100644
---- a/drivers/gpu/drm/i915/display/intel_audio.c
-+++ b/drivers/gpu/drm/i915/display/intel_audio.c
-@@ -881,6 +881,8 @@ bool intel_audio_compute_config(struct intel_encoder *encoder,
- 	crtc_state->eld[6] = drm_av_sync_delay(connector, adjusted_mode) / 2;
- 	mutex_unlock(&connector->eld_mutex);
+Notes:
+    Tested on an RX 5700 XT (Navi 10) with Debian's 7.2.12 and 7.2.15
+    kernels: both messages are gone and the probe is about 1 s faster.
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 4b0e282b2..ce979a1bb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -2545,6 +2545,11 @@ static int amdgpu_device_ip_init(struct amdgpu_device *adev)
+ 	if (amdgpu_ip_member_of_hwini(adev, AMD_IP_BLOCK_TYPE_SDMA))
+ 		amdgpu_ttm_enable_buffer_funcs(adev);
  
-+	drm_eld_set_port_id(crtc_state->eld, connector);
++	/* KFD init flushes the GART TLB through SDMA on Navi 1x and waits
++	 * for it, so the fence interrupts must already be enabled.
++	 */
++	amdgpu_fence_driver_hw_init(adev);
 +
- 	return true;
- }
+ 	/* Don't init kfd if whole hive need to be reset during init */
+ 	if (adev->init_lvl->level != AMDGPU_INIT_LEVEL_MINIMAL_XGMI) {
+ 		amdgpu_amdkfd_device_init(adev);
+@@ -4135,8 +4140,6 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ 		goto release_ras_con;
+ 	}
  
+-	amdgpu_fence_driver_hw_init(adev);
+-
+ 	dev_info(adev->dev,
+ 		"SE %d, SH per SE %d, CU per SH %d, active_cu_number %d\n",
+ 			adev->gfx.config.max_shader_engines,
 -- 
-2.43.0
-
+2.55.0
