@@ -2,101 +2,103 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D39B606A326
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Nov 2026 22:45:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8205606A326
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Nov 2026 22:46:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=a1cysgfb
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=F1zbPRtb
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C886510E48A;
-	Fri,  6 Nov 2026 22:45:49 +0000 (UTC)
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012004.outbound.protection.outlook.com [52.101.53.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD83A10E48A
- for <amd-gfx@lists.freedesktop.org>; Fri,  6 Nov 2026 22:45:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F9A510E4A2;
+	Fri,  6 Nov 2026 22:46:28 +0000 (UTC)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010059.outbound.protection.outlook.com [52.101.61.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A94310E4A2
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Nov 2026 22:46:22 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ug5Fw3lQG/lYME3HbfXKbe12ttn6GZMWUmWHt0M+lcy6ct8KYfxiVK/RmTE5RNJSwge/IH1u4k86r2C4nWXxrZYHzFgNVaSXxKl/2JVDeGhm0VLBHZ0GtL8J/4gicITZecOw/bPD+amX7jDxxNWzIGDStfU4qHkQ3z56VEgYjSfVLNERQ5T7pM9XW4fDLIynmeqAJlKPg4Mg2wHSf3ekpsyntK0KvB9s/ggrMvJ41XCM9i6YH5YrrMqGJ1GJm9QX8yI1TO6Ps7DUjJpnGYQHMcSpTSpoidMSvDacxl/UQF3cYRFPAyVq4/T+fPUBwFSfbIEWG0pWZI8W1MO4nCNDqg==
+ b=I+PuSk9YJuizKlvV5AoE1GuBzaIww681FyM1DaZRDGDBhiSDxSwuvotOCRXZh7AFSzL0c59+nHMynX4z6ORY4MV29Wrw7I5cxjc/+8UzUFCTOu0Z84AtzaIavN6QWmkrCZvGtAjs2W3hzwUOnNMlW7XulUr1giit4xJECn99k6YTQR9ynYjilxbURDR9Y/zdfDwEulYmpWfnxGFjY8az4vYwShk03EHJejWOouJ3J7HtjIKngJFAfQumVuSFpEmnYrP/eztxU+e4pvnmVNF2D8Mb1I4TDJUfZZeRdDNf0HgZ8z3mX00eRn4gv8LlfIw+9v9vokPcOO9qZa5cK1dbaA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=88PL50I6LQHarx6imPur3/arPquDKkbW11Ia5A9vy6Y=;
- b=b+UG5UqP1Y8oVYHbhcRh+uEdwpaayr1rqm7fRvYjXnw62mw1iHfePAWn06dN2k3T52dX39UQfVc7J9OkBPIRhrhCs2tsJpIlNoK+d5f0LKW9VSRT61PK1kC7nzKFNLmbnk+N5FpLgln3FFf1wygXK8EfGG5bR6XVB4my4MYmkcIXE5Smm8d5Fn5JwADDBWnqL8JfcTHyeyXdgVwtyuV+yqDxSpAwm0wZyHoRXu1n2jdwu79RluvAG4WXLhhfrl+MeI21rMVw38HiTb5HHsC/bn37bs7nEqT+xn0CqFlE0S1JJXnqkKZIJsqV8f4SwsTV3XKhVYTdl8ER7+9sEbhJyQ==
+ bh=xZxr4RPKcuKFMy9Je7w++tNr6P27TL1JawX9VjHBSDk=;
+ b=k+B+cNAMkJcfoYAkksoz/kSox9H4N4lsnNJNHNofLtQh8G8rwiqwXEYMfPBirbDmlnidb6+yU0dRi/Qxrgh6qtqBOoZ4UOPiwR+ySYdfUwyhrajd7ShcX+Lx9vCBEtKlrOyUj5UI9MZ/dfbLz7ItDaj2ye5Yljm8DBntLgY2jrgrBxSjzQEl7LrYjCgP8F+r2rjlcit5PEt1/LkNunY9zeqGJvkWsjD476ig2ljHaSQKdsMzyA3tfeK52eCra3dYVnvoHyGqxx1tqwicTNbFVqP0WkBiR2YRWUxAbZlJHso6FaJUWlRM3cioqRqG9hG0cGo+NMCVBMi2lSs8pPtdug==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=88PL50I6LQHarx6imPur3/arPquDKkbW11Ia5A9vy6Y=;
- b=a1cysgfba5a7NJc89aDOy68aMILEEjF2TgboBgK84rVLeJRdXnNQNcUOCQR3aphAMyV0hr+rPZZ5tccf3fHKh6T4cCekoedPfPFwdSsbQiFj8vwH0blOCiqPadqKoV0gnen4GCd9eI+dW2WGEmLPfph0/bHwezmCEndB2TPYJ5c=
-Received: from DS1PR06CA0015.namprd06.prod.outlook.com (2603:10b6:8:23e::14)
- by MN0PR12MB5881.namprd12.prod.outlook.com (2603:10b6:208:379::12) with
+ bh=xZxr4RPKcuKFMy9Je7w++tNr6P27TL1JawX9VjHBSDk=;
+ b=F1zbPRtbn0bFpon4bkaIxPW5z/3Cw+srO6mBY9OOheThjebr/tVfTS7h2GDe0zISAkJe76nLfdUErFA36bpQUGzRT8MGL5i6qOOgKf0J+s+JiqRajQEm5aWh0mGpOxPbnAlib8SpCr79BOYC6WjniJNk4aDoUbSDRozZFB8A2gk=
+Received: from BN9PR03CA0334.namprd03.prod.outlook.com (2603:10b6:408:f6::9)
+ by PH7PR12MB6907.namprd12.prod.outlook.com (2603:10b6:510:1b9::18) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 6 Nov
- 2026 22:45:38 +0000
-Received: from DM3PEPF000265AD.namprd02.prod.outlook.com
- (2603:10b6:8:23e:cafe::6b) by DS1PR06CA0015.outlook.office365.com
- (2603:10b6:8:23e::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Fri, 6 Nov
+ 2026 22:45:42 +0000
+Received: from BN2PEPF00004FBE.namprd04.prod.outlook.com
+ (2603:10b6:408:f6:cafe::8c) by BN9PR03CA0334.outlook.office365.com
+ (2603:10b6:408:f6::9) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Fri, 6
- Nov 2026 22:45:38 +0000
+ Nov 2026 22:45:41 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- DM3PEPF000265AD.mail.protection.outlook.com (10.167.23.36) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN2PEPF00004FBE.mail.protection.outlook.com (10.167.243.184) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 22:45:37 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 22:45:41 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 6 Nov
- 2026 16:45:35 -0600
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 16:45:37 -0600
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 6 Nov
- 2026 16:45:35 -0600
+ 2026 16:45:36 -0600
 Received: from p8.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Fri, 6 Nov 2026 16:45:35 -0600
+ Transport; Fri, 6 Nov 2026 16:45:36 -0600
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Hawking Zhang <Hawking.Zhang@amd.com>, Alex Deucher
  <alexander.deucher@amd.com>
-Subject: [PATCH 1/3] drm/amdgpu: Add soc v2_0 support
-Date: Fri, 6 Nov 2026 17:45:19 -0500
-Message-ID: <20261106224521.3568803-1-alexander.deucher@amd.com>
+Subject: [PATCH 3/3] drm/amdgpu/discovery: Add soc v2_0 common ip block
+Date: Fri, 6 Nov 2026 17:45:21 -0500
+Message-ID: <20261106224521.3568803-3-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261106224521.3568803-1-alexander.deucher@amd.com>
+References: <20261106224521.3568803-1-alexander.deucher@amd.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PEPF000265AD:EE_|MN0PR12MB5881:EE_
-X-MS-Office365-Filtering-Correlation-Id: c2af7e13-5c16-45e5-14a7-08df3c57ad2f
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBE:EE_|PH7PR12MB6907:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7ff4db1f-4578-4e3c-133c-08df3c57af96
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|82310400026|36860700016|23010399003|18002099003|261022105027099003|3023799007|10067099003|56012099006|11063799006|261026140227099003|261026121527099003|261021123027099003|261028144727099003|261022075727099003|261021121427099003|261022115727099003|261022113327099003|261102123227099003|261009223027099003|6133799003;
-X-Microsoft-Antispam-Message-Info: 72H7jO7wQtUm9/XvW6eQDKQ3kuSX8++dVNGW6r2+xyGyLKJ5lHR6kagQDl4mBkXoBXwU/1BuzC0sH62hnonqA+JZJLVRSLwqz9PGDKVCmKtflzpdQRPzaGlB/NfWRebu8u6SBtHwx7qlS9lnJsrqDMBwyZCgRXeNC5gJwa/p86j5qqD4A6wXlUaVVuj58XwC2QmysNAKkwnFK4kRGSW42zdHpzThCvg9Jy/WHI2EaJzBQWBZ9H0vri9HC5Cf1YMHOCZ1hoSVsNNtCeB1toxvpk7+GjXaqoYhqkHMCECAHkF5sYSgPBKgAXF3RlQKFQkeucgTqW9HdRpvcgu2MZ4IT/o1vCmTdxOp+noNY25b5VGwKNXiSP+He/M7QDSjGllkyYJHWuv0P+KLTkII0taAHnDZr8lW2rinSBB6TfQ5/u7IjD+V6Gccv5VlaChOTHNwEhg91JGg40/0MrA10pfPVjPr0YSUoZK1qTAV32TTIxZkKXXt8JtJEvb9cqDY/r4C0BY9CxY8WSC+nsfOXK+9il7vnwfIGUhVTg4TFa9AUEUFhxKHkYRtiHdCFJ/KLBx0gpG3tK5hbCSsxEUEHcoOYz34NR73EMgVylOixjO+yJxREmSbgg5u71DpUaU4DUIsIOpuzhYlwkPbcdGKAyBUlmMoiqIcUTUGYfKhe6nDBkUQYiuBY0yj9aGnjodW6TYnhd1Yxfd7+X3ZCVsBxinIpw==
+ ARA:13230040|82310400026|36860700016|23010399003|376014|1800799024|22082099003|18002099003|10067099003|261026140227099003|11063799006|261102123227099003|261028144727099003|261022105027099003|261021121427099003|56012099006|261009223027099003;
+X-Microsoft-Antispam-Message-Info: Avsun7AoUhWSgyCi+sH8FOOm7ySj1zb4IYCLxIkAJDcsXkeIpW4Pph1oJJwQkeqTya1iZwkGlkh6Hsj1cGtzJrbKhQigMfVR+M5o1jCEk5qB/lA8a9E51oGyqn33K3G+MmCdpEbjW6leoQlMJSId73c9LZ+ibSG4SMcupxDXVv5xtOOhtpbKMVL98YdelWMKcYeLdhB7zCWO/fTH2lWOL1BrITk/KFi93U2VS5OM+WOMuRfcXK4kWijOiCV85pY4WLX5WXeicHqf5VMrdbhWhTvZbOlXy94nPwGuum3zxNd+Mt0oUgPJvhVZh8AesZOO2N/b5hdVgdZ5qIoVlTEanK5hisWfKsFn9hNigH3visu1TejzujB5p/DHvLSdJk5VMONnPm447y1uz2axw5FJOUDeXakYw01z/bqIKs0oQEU3wMl4p5Y+xlpxz1umX+7UG9oss/Xzlhx+jD7mzmjd975hgdceUPQJAhYpnKESmtaOPTwgqVETagoTdSuzSFh+qxTJmBl32e5jALaD5OIPDxxO5tZRDgd4gmqR+IqMjRH/GvJXDWRfTbFmIv87xH66zh4yqiczXeh0RoKaFvB/o0FFohALE3GOmQ28qQK3vdH9yPMG3eEdITHNSTxlRx9eJ6/XSw4P0wEthfwbGYpha8NfP3YYqDjsFqstOQ1nTimk2AmeshRj9/ftvMQ9HEulXqFIApPLhgQBYFahHerujQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(82310400026)(36860700016)(23010399003)(18002099003)(261022105027099003)(3023799007)(10067099003)(56012099006)(11063799006)(261026140227099003)(261026121527099003)(261021123027099003)(261028144727099003)(261022075727099003)(261021121427099003)(261022115727099003)(261022113327099003)(261102123227099003)(261009223027099003)(6133799003);
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700016)(23010399003)(376014)(1800799024)(22082099003)(18002099003)(10067099003)(261026140227099003)(11063799006)(261102123227099003)(261028144727099003)(261022105027099003)(261021121427099003)(56012099006)(261009223027099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Iz1z8hMuEtkRkzOLqajVc85Mfgcp4UXm0qemsiXjIgzxLLPbodEGy11HtlERZlQAEAAsU191PRwWn4fz30bzZMe2Y3PUiLmMmtiWYA1yAfcbaYOisxTZ/5aJmcXG3sPQ9qel4H1Kv88myeNXNpGRXaCwEt2lhIMgmZVQoXNMCJb3GlqPoq61wNZLo/u/CoTgPLXGKK0vEO7PjUVW9WoGUy4Co4/WRIdxPh0i9I37A46jXAcDw7XjA0lHfdqL15I3NkeRzNySaxJM3Y1i4+csWMRTDLgSldDjN7mBAQsqDqcA05FC6lXhwwhFizQXHDTmUom9ytCmnp3mEYdRhjok2J/4mQnhcYInPjDq79FBDsFp/dgipAdwR66JajMvmwbDj4M0GyClrMIk4VBTOIDm67msw7AUFy2zUF8GC/O9kyDfW+FiCk+0+Z762ZnGIN85
+X-MS-Exchange-AntiSpam-MessageData-0: h6Wzm5HFMEO2TtCs6fsJVo2yIsHdS5sNJhedCM0XLJTUZwY4/qdK7pyEndVtn57ne1nOpFtbHFJAyNtjwiN6QxtBlqOYxXxSVtuCM4IISfxehIn8ELFf4Wiqi70os3ezZrKDk9T1C67lf7XM8DVyeRFZB1k9yuHTXtce8FBrIH9+JgDXITbNm6J8SmZj496I8/tXJR20/0+s9bqSePc23UPGRX8hoZyZcdgGMp//QX3Xqp+5P+yfw64OHeNjuj+IUI0birYcwq7QJ211jf9d47ipekTHxus7TkUjN1zCgwIiSyDS09jFFmRjcvz+n9+qqrHBPLmxrYKryO5wr0+jEkZsb81jNixTx29bsiefZ0wl0k8ZbFuNr1DZcuzEIYa1nSkpOg3E0WfH7DiUUr1M8SOzNc2mkASmm8dqbKjVyb/z4/r0fWIyKxISQYwhp/Vj
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 22:45:37.4843 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c2af7e13-5c16-45e5-14a7-08df3c57ad2f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 22:45:41.5142 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7ff4db1f-4578-4e3c-133c-08df3c57af96
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM3PEPF000265AD.namprd02.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FBE.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5881
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6907
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,629 +118,36 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Hawking Zhang <Hawking.Zhang@amd.com>
 
-Add soc v2_0 implementation
-
-v2: remove need_full_reset part (Jack Gui)
-v3: squash in reset on init patches (Alex)
-v4: squash in various fixes
+Add soc v2_0 common ip block
 
 Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/Makefile   |   2 +-
- drivers/gpu/drm/amd/amdgpu/soc_v2_0.c | 552 ++++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/soc_v2_0.h |  30 ++
- 3 files changed, 583 insertions(+), 1 deletion(-)
- create mode 100644 drivers/gpu/drm/amd/amdgpu/soc_v2_0.c
- create mode 100644 drivers/gpu/drm/amd/amdgpu/soc_v2_0.h
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-index aad4aa8fa1309..1d454d70d246e 100644
---- a/drivers/gpu/drm/amd/amdgpu/Makefile
-+++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-@@ -92,7 +92,7 @@ amdgpu-y += \
- 	sienna_cichlid.o smu_v13_0_10.o nbio_v4_3.o hdp_v6_0.o nbio_v7_7.o hdp_v5_2.o lsdma_v6_0.o \
- 	nbio_v7_9.o aqua_vanjaram.o nbio_v7_11.o lsdma_v7_0.o hdp_v7_0.o nbif_v6_3_1.o \
- 	cyan_skillfish_reg_init.o soc_v1_0.o lsdma_v7_1.o nbio_v6_3_2.o nbio_v7_11_5.o \
--	nbif_v7_10.o hdp_v8_0.o lsdma_v8_0.o nbio_v7_11_4.o
-+	nbif_v7_10.o hdp_v8_0.o lsdma_v8_0.o nbio_v7_11_4.o soc_v2_0.o
- 
- # add DF block
- amdgpu-y += \
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc_v2_0.c b/drivers/gpu/drm/amd/amdgpu/soc_v2_0.c
-new file mode 100644
-index 0000000000000..095d298f68675
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/soc_v2_0.c
-@@ -0,0 +1,552 @@
-+/*
-+ * Copyright 2026 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
-+#include <linux/firmware.h>
-+#include <linux/slab.h>
-+#include <linux/module.h>
-+#include <linux/pci.h>
-+
-+#include "amdgpu.h"
-+#include "amdgpu_ih.h"
-+#include "amdgpu_ucode.h"
-+#include "amdgpu_psp.h"
-+#include "amdgpu_smu.h"
-+#include "atom.h"
-+#include "amd_pcie.h"
-+
-+#include "gc/gc_13_0_1_offset.h"
-+#include "gc/gc_13_0_1_sh_mask.h"
-+#include "mp/mp_15_0_3_offset.h"
-+
-+#include "soc15.h"
-+#include "soc15_common.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+index cd5e447d78e15..bcc400d021105 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -80,6 +80,7 @@
+ #include "soc21.h"
+ #include "soc24.h"
+ #include "soc_v1_0.h"
 +#include "soc_v2_0.h"
-+#include "mxgpu_nv.h"
-+
-+static const struct amd_ip_funcs soc_v2_0_common_ip_funcs;
-+
-+static u32 soc_v2_0_get_config_memsize(struct amdgpu_device *adev)
-+{
-+	return adev->nbio.funcs->get_memsize(adev);
-+}
-+
-+static u32 soc_v2_0_get_xclk(struct amdgpu_device *adev)
-+{
-+	return adev->clock.spll.reference_freq;
-+}
-+
-+void soc_v2_0_grbm_select(struct amdgpu_device *adev,
-+			  u32 me, u32 pipe, u32 queue, u32 vmid)
-+{
-+	u32 grbm_gfx_cntl = 0;
-+	grbm_gfx_cntl = REG_SET_FIELD(grbm_gfx_cntl, GRBM_GFX_CNTL, PIPEID, pipe);
-+	grbm_gfx_cntl = REG_SET_FIELD(grbm_gfx_cntl, GRBM_GFX_CNTL, MEID, me);
-+	grbm_gfx_cntl = REG_SET_FIELD(grbm_gfx_cntl, GRBM_GFX_CNTL, VMID, vmid);
-+	grbm_gfx_cntl = REG_SET_FIELD(grbm_gfx_cntl, GRBM_GFX_CNTL, QUEUEID, queue);
-+
-+	WREG32_SOC15(GC, 0, regGRBM_GFX_CNTL, grbm_gfx_cntl);
-+}
-+
-+static struct soc15_allowed_register_entry soc_v2_0_allowed_read_registers[] = {
-+	{ SOC15_REG_ENTRY(GC, 0, regGRBM_STATUS)},
-+	{ SOC15_REG_ENTRY(GC, 0, regGRBM_STATUS2)},
-+	{ SOC15_REG_ENTRY(GC, 0, regGRBM_STATUS_SE0)},
-+	{ SOC15_REG_ENTRY(GC, 0, regGRBM_STATUS_SE1)},
-+	{ SOC15_REG_ENTRY(GC, 0, regGRBM_STATUS_SE2)},
-+	{ SOC15_REG_ENTRY(GC, 0, regGRBM_STATUS_SE3)},
-+	{ SOC15_REG_ENTRY(SDMA0, 0, regSDMA0_SDMA_STATUS_REG)},
-+	{ SOC15_REG_ENTRY(SDMA1, 0, regSDMA1_SDMA_STATUS_REG)},
-+	{ SOC15_REG_ENTRY(SDMA2, 0, regSDMA2_SDMA_STATUS_REG)},
-+	{ SOC15_REG_ENTRY(SDMA3, 0, regSDMA3_SDMA_STATUS_REG)},
-+	{ SOC15_REG_ENTRY(GC, 0, regCP_STAT)},
-+	{ SOC15_REG_ENTRY(GC, 0, regCP_STALLED_STAT1)},
-+	{ SOC15_REG_ENTRY(GC, 0, regCP_STALLED_STAT2)},
-+	{ SOC15_REG_ENTRY(GC, 0, regCP_STALLED_STAT3)},
-+	{ SOC15_REG_ENTRY(GC, 0, regCP_CPF_BUSY_STAT)},
-+	{ SOC15_REG_ENTRY(GC, 0, regCP_CPF_STALLED_STAT1)},
-+	{ SOC15_REG_ENTRY(GC, 0, regCP_CPF_STATUS)},
-+	{ SOC15_REG_ENTRY(GC, 0, regCP_CPC_BUSY_STAT)},
-+	{ SOC15_REG_ENTRY(GC, 0, regCP_CPC_STALLED_STAT1)},
-+	{ SOC15_REG_ENTRY(GC, 0, regCP_CPC_STATUS)},
-+	{ SOC15_REG_ENTRY(GC, 0, regGB_ADDR_CONFIG)},
-+};
-+
-+static uint32_t soc_v2_0_read_indexed_register(struct amdgpu_device *adev,
-+					       u32 se_num,
-+					       u32 sh_num,
-+					       u32 reg_offset)
-+{
-+	uint32_t val;
-+
-+	mutex_lock(&adev->grbm_idx_mutex);
-+	if (se_num != 0xffffffff || sh_num != 0xffffffff)
-+		amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xffffffff, 0);
-+
-+	val = RREG32(reg_offset);
-+
-+	if (se_num != 0xffffffff || sh_num != 0xffffffff)
-+		amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff, 0);
-+	mutex_unlock(&adev->grbm_idx_mutex);
-+	return val;
-+}
-+
-+static uint32_t soc_v2_0_get_register_value(struct amdgpu_device *adev,
-+					    bool indexed, u32 se_num,
-+					    u32 sh_num, u32 reg_offset)
-+{
-+	if (indexed) {
-+		return soc_v2_0_read_indexed_register(adev, se_num, sh_num, reg_offset);
-+	} else {
-+		if (reg_offset == SOC15_REG_OFFSET(GC, 0, regGB_ADDR_CONFIG) &&
-+		    adev->gfx.config.gb_addr_config)
-+			return adev->gfx.config.gb_addr_config;
-+		return RREG32(reg_offset);
-+	}
-+}
-+
-+static int soc_v2_0_read_register(struct amdgpu_device *adev, u32 se_num,
-+				  u32 sh_num, u32 reg_offset, u32 *value)
-+{
-+	uint32_t i;
-+	struct soc15_allowed_register_entry  *en;
-+
-+	*value = 0;
-+	for (i = 0; i < ARRAY_SIZE(soc_v2_0_allowed_read_registers); i++) {
-+		en = &soc_v2_0_allowed_read_registers[i];
-+		if (!adev->reg_offset[en->hwip][en->inst])
-+			continue;
-+		else if (reg_offset != (adev->reg_offset[en->hwip][en->inst][en->seg]
-+					+ en->reg_offset))
-+			continue;
-+
-+		*value = soc_v2_0_get_register_value(adev,
-+				soc_v2_0_allowed_read_registers[i].grbm_indexed,
-+				se_num, sh_num, reg_offset);
-+		return 0;
-+	}
-+	return -EINVAL;
-+}
-+
-+static enum amd_reset_method soc_v2_0_asic_reset_method(struct amdgpu_device *adev)
-+{
-+	if (amdgpu_reset_method == AMD_RESET_METHOD_MODE0 ||
-+	    amdgpu_reset_method == AMD_RESET_METHOD_MODE2 ||
-+	    amdgpu_reset_method == AMD_RESET_METHOD_BACO)
-+		return amdgpu_reset_method;
-+
-+	if (amdgpu_reset_method != -1)
-+		dev_warn(adev->dev,
-+			 "Specified reset method:%d isn't supported, using AUTO instead.\n",
-+			 amdgpu_reset_method);
-+
-+	switch (amdgpu_ip_version(adev, MP1_HWIP, 0)) {
-+	case IP_VERSION(15, 0, 3):
-+		return AMD_RESET_METHOD_MODE0;
-+	default:
-+		if (amdgpu_dpm_is_baco_supported(adev))
-+			return AMD_RESET_METHOD_BACO;
-+		else
-+			return AMD_RESET_METHOD_MODE0;
-+	}
-+}
-+
-+static int soc_v2_0_asic_reset(struct amdgpu_device *adev)
-+{
-+	int ret = 0;
-+
-+	switch (soc_v2_0_asic_reset_method(adev)) {
-+	case AMD_RESET_METHOD_PCI:
-+		dev_info(adev->dev, "PCI reset\n");
-+		ret = amdgpu_device_pci_reset(adev);
-+		break;
-+	case AMD_RESET_METHOD_BACO:
-+		dev_info(adev->dev, "BACO reset\n");
-+		ret = amdgpu_dpm_baco_reset(adev);
-+		break;
-+	case AMD_RESET_METHOD_MODE2:
-+		dev_info(adev->dev, "MODE2 reset\n");
-+		ret = amdgpu_dpm_mode2_reset(adev);
-+		break;
-+	default:
-+		dev_info(adev->dev, "MODE0 reset\n");
-+		/*TODO: replace mode1 with mode0 */
-+		ret = amdgpu_device_mode1_reset(adev);
-+		break;
-+	}
-+
-+	return ret;
-+}
-+
-+const struct amdgpu_ip_block_version soc_v2_0_common_ip_block = {
-+	.type = AMD_IP_BLOCK_TYPE_COMMON,
-+	.major = 2,
-+	.minor = 0,
-+	.rev = 0,
-+	.funcs = &soc_v2_0_common_ip_funcs,
-+};
-+
-+static bool soc_v2_0_need_reset_on_init(struct amdgpu_device *adev)
-+{
-+	u32 sol_reg;
-+
-+	if (adev->flags & AMD_IS_APU)
-+		return false;
-+
-+	/*
-+	 * Check the sOS sign-of-life register to confirm that the system
-+	 * driver and sOS are already loaded.
-+	 */
-+
-+	sol_reg = RREG32_SOC15(MP0, 0,
-+				regMPASP_PCRU0_MPASP_C2PMSG_81);
-+	if (sol_reg)
-+		return true;
-+
-+	return false;
-+}
-+
-+static void soc_v2_0_init_doorbell_index(struct amdgpu_device *adev)
-+{
-+	adev->doorbell_index.kiq = AMDGPU_NAVI10_DOORBELL_KIQ;
-+	adev->doorbell_index.mec_ring0 = AMDGPU_NAVI10_DOORBELL_MEC_RING0;
-+	adev->doorbell_index.mec_ring1 = AMDGPU_NAVI10_DOORBELL_MEC_RING1;
-+	adev->doorbell_index.mec_ring2 = AMDGPU_NAVI10_DOORBELL_MEC_RING2;
-+	adev->doorbell_index.mec_ring3 = AMDGPU_NAVI10_DOORBELL_MEC_RING3;
-+	adev->doorbell_index.mec_ring4 = AMDGPU_NAVI10_DOORBELL_MEC_RING4;
-+	adev->doorbell_index.mec_ring5 = AMDGPU_NAVI10_DOORBELL_MEC_RING5;
-+	adev->doorbell_index.mec_ring6 = AMDGPU_NAVI10_DOORBELL_MEC_RING6;
-+	adev->doorbell_index.mec_ring7 = AMDGPU_NAVI10_DOORBELL_MEC_RING7;
-+	adev->doorbell_index.userqueue_start = AMDGPU_NAVI10_DOORBELL_USERQUEUE_START;
-+	adev->doorbell_index.userqueue_end = AMDGPU_NAVI10_DOORBELL_USERQUEUE_END;
-+	adev->doorbell_index.gfx_ring0 = AMDGPU_NAVI10_DOORBELL_GFX_RING0;
-+	adev->doorbell_index.gfx_ring1 = AMDGPU_NAVI10_DOORBELL_GFX_RING1;
-+	adev->doorbell_index.gfx_userqueue_start =
-+		AMDGPU_NAVI10_DOORBELL_GFX_USERQUEUE_START;
-+	adev->doorbell_index.gfx_userqueue_end =
-+		AMDGPU_NAVI10_DOORBELL_GFX_USERQUEUE_END;
-+	adev->doorbell_index.mes_ring0 = AMDGPU_NAVI10_DOORBELL_MES_RING0;
-+	adev->doorbell_index.mes_ring1 = AMDGPU_NAVI10_DOORBELL_MES_RING1;
-+	adev->doorbell_index.sdma_engine[0] = AMDGPU_NAVI10_DOORBELL_sDMA_ENGINE0;
-+	adev->doorbell_index.sdma_engine[1] = AMDGPU_NAVI10_DOORBELL_sDMA_ENGINE1;
-+	adev->doorbell_index.sdma_engine[2] = AMDGPU_NAVI10_DOORBELL_sDMA_ENGINE2;
-+	adev->doorbell_index.sdma_engine[3] = AMDGPU_NAVI10_DOORBELL_sDMA_ENGINE3;
-+	adev->doorbell_index.ih = AMDGPU_NAVI10_DOORBELL_IH;
-+	adev->doorbell_index.vcn.vcn_ring0_1 = AMDGPU_NAVI10_DOORBELL64_VCN0_1;
-+	adev->doorbell_index.vcn.vcn_ring2_3 = AMDGPU_NAVI10_DOORBELL64_VCN2_3;
-+	adev->doorbell_index.vcn.vcn_ring4_5 = AMDGPU_NAVI10_DOORBELL64_VCN4_5;
-+	adev->doorbell_index.vcn.vcn_ring6_7 = AMDGPU_NAVI10_DOORBELL64_VCN6_7;
-+	adev->doorbell_index.vpe_ring = AMDGPU_NAVI10_DOORBELL64_VPE;
-+	adev->doorbell_index.first_non_cp = AMDGPU_NAVI10_DOORBELL64_FIRST_NON_CP;
-+	adev->doorbell_index.last_non_cp = AMDGPU_NAVI10_DOORBELL64_LAST_NON_CP;
-+
-+	adev->doorbell_index.max_assignment = AMDGPU_NAVI10_DOORBELL_MAX_ASSIGNMENT << 1;
-+	adev->doorbell_index.sdma_doorbell_range = 20;
-+}
-+
-+static int soc_v2_0_update_umd_stable_pstate(struct amdgpu_device *adev,
-+					     bool enter)
-+{
-+	if (enter)
-+		amdgpu_gfx_rlc_enter_safe_mode(adev, 0);
-+	else
-+		amdgpu_gfx_rlc_exit_safe_mode(adev, 0);
-+
-+	if (adev->gfx.funcs &&
-+	    adev->gfx.funcs->update_perfmon_mgcg)
-+		adev->gfx.funcs->update_perfmon_mgcg(adev, !enter);
-+
-+	return 0;
-+}
-+
-+static void soc_v2_0_get_fw_reserved_info(struct amdgpu_device *adev,
-+					  u64 *reserve_size,
-+					  u64 *offset)
-+{
-+	struct mem_reserved_info_table_v1_0 *table =
-+		adev->discovery.mem_reserved_table;
-+	u64 resv_start = U64_MAX, resv_end = 0;
-+	u64 vram_base, vram_end, start, end, size;
-+	u32 list_num, id, i;
-+
-+	if (!table) {
-+		dev_warn(adev->dev, "MEM_RESERVED_INFO table not available\n");
-+		return;
-+	}
-+
-+	vram_base = adev->gmc.vram_start - adev->mmhub.funcs->get_fb_location(adev);
-+	vram_end = vram_base + adev->gmc.real_vram_size;
-+
-+	list_num = min_t(u32, le32_to_cpu(table->list_num), MAX_MEM_REGION_NUM);
-+	for (i = 0; i < list_num; i++) {
-+		id = le32_to_cpu(table->list[i].reserved_region_id);
-+		size = le64_to_cpu(table->list[i].reserved_region_size);
-+		start = le64_to_cpu(table->list[i].reserved_region_start);
-+
-+		if (id == NO_RESERVED_REGION_ID ||
-+		    id == SPECIFIC_PURPOSE_REGION_ID || !size)
-+			continue;
-+
-+		if (check_add_overflow(start, size, &end))
-+			continue;
-+
-+		if (end <= vram_base || start >= vram_end)
-+			continue;
-+
-+		resv_start = min(resv_start, max(start, vram_base));
-+		resv_end = max(resv_end, min(end, vram_end));
-+	}
-+
-+	if (resv_start >= resv_end) {
-+		dev_warn(adev->dev,
-+			 "no MEM_RESERVED_INFO region inside VRAM [0x%llx, 0x%llx)\n",
-+			 vram_base, vram_end);
-+		return;
-+	}
-+
-+	*offset = resv_start - vram_base;
-+	*reserve_size = resv_end - resv_start;
-+}
-+
-+static const struct amdgpu_asic_funcs soc_v2_0_asic_funcs = {
-+	.read_bios_from_rom = &amdgpu_soc15_read_bios_from_rom,
-+	.read_register = &soc_v2_0_read_register,
-+	.reset = &soc_v2_0_asic_reset,
-+	.reset_method = &soc_v2_0_asic_reset_method,
-+	.get_xclk = &soc_v2_0_get_xclk,
-+	.get_config_memsize = &soc_v2_0_get_config_memsize,
-+	.init_doorbell_index = &soc_v2_0_init_doorbell_index,
-+	.need_reset_on_init = &soc_v2_0_need_reset_on_init,
-+	.supports_baco = &amdgpu_dpm_is_baco_supported,
-+	.update_umd_stable_pstate = &soc_v2_0_update_umd_stable_pstate,
-+	.get_fw_reserved_info = &soc_v2_0_get_fw_reserved_info,
-+};
-+
-+static int soc_v2_0_common_early_init(struct amdgpu_ip_block *ip_block)
-+{
-+	struct amdgpu_device *adev = ip_block->adev;
-+
-+	adev->nbio.funcs->set_reg_remap(adev);
-+	adev->reg.pcie.rreg = &amdgpu_device_indirect_rreg;
-+	adev->reg.pcie.wreg = &amdgpu_device_indirect_wreg;
-+	adev->reg.pcie.rreg_ext = &amdgpu_device_indirect_rreg_ext;
-+	adev->reg.pcie.wreg_ext = &amdgpu_device_indirect_wreg_ext;
-+	adev->reg.pcie.rreg64 = &amdgpu_device_indirect_rreg64;
-+	adev->reg.pcie.wreg64 = &amdgpu_device_indirect_wreg64;
-+	adev->reg.pcie.port_rreg = &amdgpu_device_pcie_port_rreg;
-+	adev->reg.pcie.port_wreg = &amdgpu_device_pcie_port_wreg;
-+
-+	adev->asic_funcs = &soc_v2_0_asic_funcs;
-+
-+	adev->rev_id = amdgpu_device_get_rev_id(adev);
-+	adev->external_rev_id = 0xff;
-+
-+	switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
+ #include "navi10_ih.h"
+ #include "ih_v6_0.h"
+ #include "ih_v6_1.h"
+@@ -2740,6 +2741,9 @@ static int amdgpu_discovery_set_common_ip_blocks(struct amdgpu_device *adev)
+ 	case IP_VERSION(12, 1, 0):
+ 		amdgpu_device_ip_block_add(adev, &soc_v1_0_common_ip_block);
+ 		break;
 +	case IP_VERSION(13, 0, 1):
-+		adev->cg_flags = 0;
-+		adev->pg_flags = 0;
-+		adev->external_rev_id = adev->rev_id + 0x10;
++		amdgpu_device_ip_block_add(adev, &soc_v2_0_common_ip_block);
 +		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	if (amdgpu_sriov_vf(adev)) {
-+		amdgpu_virt_init_setting(adev);
-+		xgpu_nv_mailbox_set_irq_funcs(adev);
-+	}
-+
-+	return 0;
-+}
-+
-+static int soc_v2_0_common_late_init(struct amdgpu_ip_block *ip_block)
-+{
-+	struct amdgpu_device *adev = ip_block->adev;
-+
-+	if (amdgpu_sriov_vf(adev)) {
-+		xgpu_nv_mailbox_get_irq(adev);
-+	} else {
-+		if (adev->nbio.ras &&
-+		    adev->nbio.ras_err_event_athub_irq.funcs)
-+			/* don't need to fail gpu late init
-+			 * if enabling athub_err_event interrupt failed
-+			 * nbif v6_3_1 only support fatal error hanlding
-+			 * just enable the interrupt directly
-+			 */
-+			amdgpu_irq_get(adev, &adev->nbio.ras_err_event_athub_irq, 0);
-+	}
-+
-+	/* Enable selfring doorbell aperture late because doorbell BAR
-+	 * aperture will change if resize BAR successfully in gmc sw_init.
-+	 */
-+	adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, true);
-+
-+	return 0;
-+}
-+
-+static int soc_v2_0_common_sw_init(struct amdgpu_ip_block *ip_block)
-+{
-+	struct amdgpu_device *adev = ip_block->adev;
-+
-+	if (amdgpu_sriov_vf(adev))
-+		xgpu_nv_mailbox_add_irq_id(adev);
-+
-+	return 0;
-+}
-+
-+static int soc_v2_0_common_hw_init(struct amdgpu_ip_block *ip_block)
-+{
-+	struct amdgpu_device *adev = ip_block->adev;
-+
-+	/* setup nbio registers */
-+	if (adev->nbio.funcs &&
-+	    adev->nbio.funcs->init_registers)
-+		adev->nbio.funcs->init_registers(adev);
-+	/* remap HDP registers to a hole in mmio space,
-+	 * for the purpose of expose those registers
-+	 * to process space
-+	 */
-+	if (adev->nbio.funcs &&
-+	    adev->nbio.funcs->remap_hdp_registers)
-+		adev->nbio.funcs->remap_hdp_registers(adev);
-+
-+	if (adev->df.funcs &&
-+	    adev->df.funcs->hw_init)
-+		adev->df.funcs->hw_init(adev);
-+
-+	/* enable the doorbell aperture */
-+	if (adev->nbio.funcs &&
-+	    adev->nbio.funcs->enable_doorbell_aperture)
-+		adev->nbio.funcs->enable_doorbell_aperture(adev, true);
-+
-+	return 0;
-+}
-+
-+static int soc_v2_0_common_hw_fini(struct amdgpu_ip_block *ip_block)
-+{
-+	struct amdgpu_device *adev = ip_block->adev;
-+
-+	/* Disable the doorbell aperture and selfring doorbell aperture
-+	 * separately in hw_fini because soc21_enable_doorbell_aperture
-+	 * has been removed and there is no need to delay disabling
-+	 * selfring doorbell.
-+	 */
-+	if (adev->nbio.funcs &&
-+	    adev->nbio.funcs->enable_doorbell_aperture)
-+		adev->nbio.funcs->enable_doorbell_aperture(adev, false);
-+	if (adev->nbio.funcs &&
-+	    adev->nbio.funcs->enable_doorbell_selfring_aperture)
-+		adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, false);
-+
-+	if (amdgpu_sriov_vf(adev)) {
-+		xgpu_nv_mailbox_put_irq(adev);
-+	} else {
-+		if (adev->nbio.ras &&
-+		    adev->nbio.ras_err_event_athub_irq.funcs)
-+			amdgpu_irq_put(adev, &adev->nbio.ras_err_event_athub_irq, 0);
-+	}
-+
-+	return 0;
-+}
-+
-+static int soc_v2_0_common_suspend(struct amdgpu_ip_block *ip_block)
-+{
-+	return soc_v2_0_common_hw_fini(ip_block);
-+}
-+
-+static int soc_v2_0_common_resume(struct amdgpu_ip_block *ip_block)
-+{
-+	return soc_v2_0_common_hw_init(ip_block);
-+}
-+
-+static int soc_v2_0_common_set_clockgating_state(struct amdgpu_ip_block *ip_block,
-+						 enum amd_clockgating_state state)
-+{
-+	struct amdgpu_device *adev = ip_block->adev;
-+
-+	switch (amdgpu_ip_version(adev, NBIO_HWIP, 0)) {
-+	case IP_VERSION(7, 10, 0):
-+		if (adev->nbio.funcs &&
-+		    adev->nbio.funcs->update_medium_grain_clock_gating)
-+			adev->nbio.funcs->update_medium_grain_clock_gating(adev,
-+							state == AMD_CG_STATE_GATE);
-+		if (adev->nbio.funcs &&
-+		    adev->nbio.funcs->update_medium_grain_light_sleep)
-+			adev->nbio.funcs->update_medium_grain_light_sleep(adev,
-+							state == AMD_CG_STATE_GATE);
-+		if (adev->hdp.funcs &&
-+		    adev->hdp.funcs->update_clock_gating)
-+			adev->hdp.funcs->update_clock_gating(adev,
-+							state == AMD_CG_STATE_GATE);
-+		break;
-+	default:
-+		break;
-+	}
-+	return 0;
-+}
-+
-+static int soc_v2_0_common_set_powergating_state(struct amdgpu_ip_block *ip_block,
-+					      enum amd_powergating_state state)
-+{
-+	struct amdgpu_device *adev = ip_block->adev;
-+
-+	switch (amdgpu_ip_version(adev, LSDMA_HWIP, 0)) {
-+	case IP_VERSION(8, 0, 1):
-+		if (adev->lsdma.funcs &&
-+		    adev->lsdma.funcs->update_memory_power_gating)
-+			adev->lsdma.funcs->update_memory_power_gating(adev,
-+							state == AMD_PG_STATE_GATE);
-+		break;
-+	default:
-+		break;
-+	}
-+
-+	return 0;
-+}
-+
-+static void soc_v2_0_common_get_clockgating_state(struct amdgpu_ip_block *ip_block, u64 *flags)
-+{
-+	struct amdgpu_device *adev = ip_block->adev;
-+
-+	if (adev->nbio.funcs &&
-+	    adev->nbio.funcs->get_clockgating_state)
-+		adev->nbio.funcs->get_clockgating_state(adev, flags);
-+
-+	if (adev->hdp.funcs &&
-+	    adev->hdp.funcs->get_clock_gating_state)
-+		adev->hdp.funcs->get_clock_gating_state(adev, flags);
-+
-+	return;
-+}
-+
-+static const struct amd_ip_funcs soc_v2_0_common_ip_funcs = {
-+	.name = "soc_v2_0_common",
-+	.early_init = soc_v2_0_common_early_init,
-+	.late_init = soc_v2_0_common_late_init,
-+	.sw_init = soc_v2_0_common_sw_init,
-+	.hw_init = soc_v2_0_common_hw_init,
-+	.hw_fini = soc_v2_0_common_hw_fini,
-+	.suspend = soc_v2_0_common_suspend,
-+	.resume = soc_v2_0_common_resume,
-+	.set_clockgating_state = soc_v2_0_common_set_clockgating_state,
-+	.set_powergating_state = soc_v2_0_common_set_powergating_state,
-+	.get_clockgating_state = soc_v2_0_common_get_clockgating_state,
-+};
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc_v2_0.h b/drivers/gpu/drm/amd/amdgpu/soc_v2_0.h
-new file mode 100644
-index 0000000000000..9ef80ffa7a0c4
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/soc_v2_0.h
-@@ -0,0 +1,30 @@
-+/*
-+ * Copyright 2026 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
-+#ifndef __SOC_V2_0_H__
-+#define __SOC_V2_0_H__
-+
-+extern const struct amdgpu_ip_block_version soc_v2_0_common_ip_block;
-+
-+void soc_v2_0_grbm_select(struct amdgpu_device *adev,
-+			  u32 me, u32 pipe, u32 queue, u32 vmid);
-+#endif
+ 	default:
+ 		dev_err(adev->dev,
+ 			"Failed to add common ip block(GC_HWIP:0x%x)\n",
 -- 
 2.56.0
 
