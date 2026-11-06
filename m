@@ -2,87 +2,88 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 671B4606A326
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Nov 2026 21:02:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7297F606A326
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Nov 2026 21:02:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uXa07e2X
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ogmjDFln
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC66110E493;
-	Fri,  6 Nov 2026 21:02:19 +0000 (UTC)
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0243710E493
- for <amd-gfx@lists.freedesktop.org>; Fri,  6 Nov 2026 21:02:12 +0000 (UTC)
-Received: by mail-dl1-f48.google.com with SMTP id
- a92af1059eb24-1b1cc08166bso8730c88.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 06 Nov 2026 13:02:12 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793998932; cv=none;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13BF710E49D;
+	Fri,  6 Nov 2026 21:02:35 +0000 (UTC)
+Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com
+ [209.85.167.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EB1A10E49D
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Nov 2026 21:02:29 +0000 (UTC)
+Received: by mail-oi1-f182.google.com with SMTP id
+ 5614622812f47-4fa872538c2so82473b6e.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 06 Nov 2026 13:02:29 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793998948; cv=none;
  d=google.com; s=arc-20260327;
- b=DvVXTvbOGtU9vZd5QPkkqMvv70nTE7gt7PRT/qRSZl/7N3tP17SXFGHM71aFrjSey0
- SC5asKdij93krOLYwvM5+tiifNM6uONqB/xbfmNOZHne2vVL5jCu7Ipfcc5oYTuSPCCy
- jxoRe4ZSba5Le1aWjOknLe01Y81SUQ3Iq8OvBHgYK3SgXVwruH+QwroM8dLlzx2Ljsxq
- L+nDMT6NMSzBDLRf5lu6Ct6QiI8JOEeGgHWwGzRYxU4VMYtNFMEHkZKsNfG2mfx+c7BT
- isVoj8spc2wgPmqqNKbyZLEN27oc809pQwD9M+haL6BHvD6r4d+8Cb8NXfnoO2NAImba
- uGeg==
+ b=Ehp8IbGy7mjSfraRLvWDmsgUyhDFAvqJ9SU0h8e13ssoIQDo47Jx8zTvURAHQTA/xE
+ 4CjrLrwMPz77UMKk0ldJF7UU86H92w6woYP+MYsIHit8I+l7aq4lgLkkiliH54l8iaH+
+ +VV7cvIHPMe+e89B2VhWVHhkmAq0SG+BLgtU2igHQApkTvHUeIYn8O8nKeggYWdAUu8E
+ NB5zz8SNXadsT8fnyEmCFhGUU7SUW6hX8lsHSWoQEcyPEauF/sld3src4RebUPBVHQpB
+ WbzmCIk4uA/qWw+ObHXZ4L7H+iRT2TR+U1ItG8styqgbopAlBNk7TXbqpBkjRA2nR3VD
+ AMJg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=VAhXOqcTJFDMsa37hIuWQCQp6FXuY2o15iXi8cjYc6s=;
+ bh=GtdQaiNwapbQmSeqAxiFvS+VzpGLuWgfSxYAFQhPQDs=;
  fh=ZxvrC6rNjWHvCh5o5yNM8zSSCYAFdK0GMEIYqGOthl0=;
- b=MnCO5jfS1RKW2Z8ZyZrRbPScMtX5D9/U/UK/xp/AF+EYobefIlgvTQSotasRvgLapD
- UqPZx8BsOTf/4Z7LYXwKzz6UwTxSP6sOrmgWTCppsB7sK7EZ9r8Hm14cDSk3tt79n9tP
- EJuTdfUBgcsStRNEdDwrpp+imxCT7cEZO/LxwtZeHUSG7ICy0HpSjB3Qz9oUqHimaRBv
- nkXGamPd3oQ0HninlNdr8QmRLRTaHyYSD6Cclfi45F1cUuX2KbSM3U7yCiWS3ZUJNxb0
- PqIdWVCzx/Cr+P/4N9Ocr8JBh+qjz1vmITigkRcINHyTHiC+LTyXJvXSTgpdSijv44PQ
- goyA==; darn=lists.freedesktop.org
+ b=CmdCOI/WNxfflkW5piKWIxe6vKYF0DYUxrUDEu/eqWnCB/wszJtWYo2+sZsv57Leag
+ JQ61aGUGiuNivEB3ZA3bocIRaGU329FmLuRbo8tf0e4/91SHRiaweaHTNBQLOXkVnoWr
+ bNvs3vzOIHSXkh/Uhb2FlYPS2l3TZFWX+nsr7ulkOtzXJLhK9UCpGNyEFPkYcoCsg2G1
+ Cmu5TxaPrPq+LSs0TrsoCdI1bAwhtuRKXGCmgJXkrzO3x1QDekMRH+hTKtWHDSqBa80q
+ zLRMAVxSNL+ISkggS+y8bFfqs91GM01H+84ZIRI2BOQiy7nCRh1zHeJbfBWuj2ONVqPL
+ BHXA==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793998932; x=1794603732; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1793998948; x=1794603748; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=VAhXOqcTJFDMsa37hIuWQCQp6FXuY2o15iXi8cjYc6s=;
- b=uXa07e2X6YsR5mjKK8PCJ5qP86DTACFP+zu6tEi5p1gtho1EZ61yYznY5n1LG2YZcg
- Sr/wuWkrHWsdGfUjqJ5+7xZYkIuQYH0yMJlvHlTueO2E9wF8ffZdgkqVo64k3rw2gdxM
- dEOgvwR2+xmVUqVeX9eLuNQkKNLCkz2z6sKCWePY+JdG2PtQV+bbSvdCypGb23Pgefju
- yjmYh4HgyTNDODuOHJbjTH6ygPGhHk7yqIHL6hXUYajwiOHwfeT7gK6ngessQGpFp/cm
- C8p1d7gTQim0HwFKo3qKIbhxqgpaD2pyLBB6vuhCZQBnAruaVhKf1nvuhaJrvAKRcJ5l
- 4lyQ==
+ bh=GtdQaiNwapbQmSeqAxiFvS+VzpGLuWgfSxYAFQhPQDs=;
+ b=ogmjDFlnxlxHCbYF3MIySC3dQInOlnbtrjKdFXA8+w4cqx8mnciO5qFfNTeWexq6Wq
+ F32bBfIC2NyI/qTmjh9hGO/QbhSXoedHDGIY5uWdX+AEX2BGWLdMK82pyxN8sOsy/tza
+ 3tHMEP1SegW3gxLpyDAH/dxV24Ioi4ZlCDdcTd8fdFc3nvAogHRM9DSaKBOdGJkLj9wE
+ UlEj1FLsu1oHy8CvOOTH/V9TvJypT6uZBDVc6T78AKc5Rcyjru+X9OCoGLCcF/turktr
+ a3hydABEoX6CW5cKcZB/6AIZLouFSCUT/9WCw1S+/0RU4+2ILHS+84lTx7VnlP/zEn4J
+ /kBw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793998932; x=1794603732;
+ d=1e100.net; s=20260707; t=1793998948; x=1794603748;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=VAhXOqcTJFDMsa37hIuWQCQp6FXuY2o15iXi8cjYc6s=;
- b=Viq9QF4x4fnModFkeWXHx0alqB89taUC7w21Q1xGPtJCG/VzMFtX9/kOZq78PUEyl9
- RexfaI2jEoc8rv9EAdjC6VvN/JwdU+UFF+PRxnzsoTiOQUe9vOy58+w4iXAUO0H8ELE0
- 3z7j/xSmYyufXeHy7cjTgZUSbq9u/QQ7UonMzXGNtqUrL9h0RgqMx92icxXDsAgHeYCD
- 8Vx0MIg7vD01MSczKZ5DrN/cK/Nr01UvsPOQ8DfGFAnFiOipnc8DC0ubces64+qECxEm
- 3CM9ZTJHWoNF4a229TKcZIbD9lX4kX6Ys+PjjgKyABReYfL98JOXS0OAmUm0bGRpseul
- JFFA==
-X-Gm-Message-State: APuU4Z+U+H23Y2QjN5qD+MxanaUn7XO4qOCZyAXSDCL3vdjuyizUc5Jx
- PPCodpG0qz6v1yQQGKmDsI30JQzwAZhuTCFwtGpCFDPsv83wxU/av8YqHno7cS6QkF72XRZQjj/
- dDF2Czn9gjSr5K9x5HT67PzIcHPsAYCk=
-X-Gm-Gg: AYBFou0Q+RilTv5YJYqgklxhUvH+uEhWbqi9Tdurvt5sWoC1T4/QSoG502efsClNDrY
- trGom0zqT+LXJ0s82rezlqhRNtfYxZdrmnEZDrAlLINDQhHMT21VYxlJ7oH2hDJqBLTGV5hRbYB
- HJNgPLUGxccbkRAPJRlWctuCeDlQV2bZ1yffbjiz17PLFpI7BNw+/CsTZa0b9EIgDm0gb+dA1mR
- jefWzvCUwTIwoW5bRIKBe9/lf8ZXIuhl8XnujqK5XJyMXGl4RgaSEWmCIchXbrPP6J41wGOfRhq
- DDjOrTOVHOjmHREjG4teu3B8uI8F7I6ndnrvrtV/EMf6Bfv4JqXtJZffsQJwCl6WzhtUIbuwpHi
- M+m02/ogb8P/HepGc4e+Rm5o9PLSkiizGDLaACrhN8aH9SEyWGBFQQ2UxO3z7Naq39lzjbgnzmf
- ClE6nIM11SHviEn/9VCbbQByM=
-X-Received: by 2002:a05:7022:295:10b0:1b2:5f0f:4282 with SMTP id
- a92af1059eb24-1b25f0f4be2mr5061399c88.1.1793998931982; Fri, 06 Nov 2026
- 13:02:11 -0800 (PST)
+ bh=GtdQaiNwapbQmSeqAxiFvS+VzpGLuWgfSxYAFQhPQDs=;
+ b=vwitk92nsRU/TaMU+3pKYwA+pg52kyOWVD1m9T3xQoINfrvyOgHqz7QSzHrKHadCRj
+ d1DM8JVEuq2Bp7jx9jxd8kBZUlcCNLc38Lmelh6LHPv52iES893PuRK/EGTf870cZmt0
+ OFv+bFyEPPrYyV71fsxIR5oflOGX8slF9MQ/vCeV5CGXUJcbfOd3UN9GVg1S0pYtkqzx
+ IjuRbi2mWb7IA64DpgPhRcTL8VCdS417gbkW4GspDLH9luEGJncZJfbfnhT5bjLR/Z2T
+ E/Ks6YYYBnLHq6GFT8ZBH5QOuE20iXpDl+tftz3Gd4YjAJpSuOPqyvSJ85VJ4PBvqbZh
+ q81g==
+X-Gm-Message-State: APuU4Z+aRJLKjiTX3tTm6fmcO0d/94hvrVOzyNkT5d9fPaKrc+VwIDzJ
+ DkZjzHGjEYJdKr0vXnIKLZZkknERGWGidGystaLOuPDENNeOgp2Jo1aPE9fvnI7EDvEIIwk3N46
+ kkKmsZblPv/rNO1m++iCjYM3XIr3CHys=
+X-Gm-Gg: AYBFou2o3VwoiYDU4S+er+HgS4PRpi+fQhqSYVAacZRyVt77MHiKLN4uPCg9HO5H16W
+ WNLSouRhYn5AaH9WV1zUZZTQYRGAejLlJkZbiYgcP7EmTooaxySvDGxK4H2q4pW+fPYMt4u7aYW
+ HX99UvQPelk3WPjTE3fuH2HYwHyW8u5ozJWIN18m0SkHWk7ZUoaelBjSZqfELk+fBl4XglOhUP1
+ xdI21KcyTS7MyfIwMziUoT+bTKqCvbj8bR4T2k+Drx685wnr3QbLFiFsZ7/6GbQc7RtIHxw2mxJ
+ vp1rlJriP1IfcqqEJrjb7p+naCp7JCH0edEOcGH4KdT105ymRRDIUBTWbso4yyOigt3zmX0QuXA
+ iEp3YfWU/mqWiIISw5OHPNj7xnAFq2d2dGnjHdlUKU88ddvT9gIPWmefI9xiUVLDHQDg09jrKu7
+ FZMvQWJd4igINByuqlc+olx1uXduEfnsP/AHRAFHj3USK5
+X-Received: by 2002:a05:6808:bd1:b0:4f4:d7:b168 with SMTP id
+ 5614622812f47-567e1038151mr4054525b6e.3.1793998943491; Fri, 06 Nov 2026
+ 13:02:23 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261105000613.3850438-1-alexander.deucher@amd.com>
-In-Reply-To: <20261105000613.3850438-1-alexander.deucher@amd.com>
+References: <20261105000525.3850296-1-alexander.deucher@amd.com>
+In-Reply-To: <20261105000525.3850296-1-alexander.deucher@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 6 Nov 2026 16:01:59 -0500
-X-Gm-Features: AclHuK8OWOtRbMCr-bTvFqfW-g9qbPxXXPsm9tmrTyBBcCkKrnw1es8B7UdGidM
-Message-ID: <CADnq5_NMyjm5irMNDxTZQM=mcfiRes2BS0dBdrciPTpQ_oSEMg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: add helper function to get hdp base addr
+Date: Fri, 6 Nov 2026 16:02:11 -0500
+X-Gm-Features: AclHuK_UE-Uj1GToMd7fTSjTP28Ayd5EIJX9z6CKCVjxudApuB8vNIFpLBDIjP8
+Message-ID: <CADnq5_OURODcuZ0JqM=Sfg+LxRDjS5jPjB=pONY_2=09X4rZcQ@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/amdgpu: update mem rsv table
 To: Alex Deucher <alexander.deucher@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, frank.min@amd.com, Hawking.Zhang@amd.com
 Content-Type: text/plain; charset="UTF-8"
@@ -107,65 +108,36 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 ping?
 
-On Wed, Nov 4, 2026 at 7:06=E2=80=AFPM Alex Deucher <alexander.deucher@amd.=
+On Wed, Nov 4, 2026 at 7:11=E2=80=AFPM Alex Deucher <alexander.deucher@amd.=
 com> wrote:
 >
 > From: Frank Min <Frank.Min@amd.com>
 >
-> Add helper function to get hdp base addr.
->
-> v2: drop debug message
+> 1. enlarge table number into 8
+> 2. add table id filed in table info
 >
 > Signed-off-by: Frank Min <Frank.Min@amd.com>
 > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h |  1 +
->  drivers/gpu/drm/amd/amdgpu/hdp_v8_0.c   | 13 +++++++++++++
->  2 files changed, 14 insertions(+)
+>  drivers/gpu/drm/amd/include/discovery.h | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_hdp.h
-> index d9f488fa76b94..efd6414bbe12e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.h
-> @@ -35,6 +35,7 @@ struct amdgpu_hdp_funcs {
->         void (*update_clock_gating)(struct amdgpu_device *adev, bool enab=
-le);
->         void (*get_clock_gating_state)(struct amdgpu_device *adev, u64 *f=
-lags);
->         void (*init_registers)(struct amdgpu_device *adev);
-> +       u64 (*get_hdp_base)(struct amdgpu_device *adev);
->  };
+> diff --git a/drivers/gpu/drm/amd/include/discovery.h b/drivers/gpu/drm/am=
+d/include/discovery.h
+> index f5629a4ad04a1..0ed270406208b 100644
+> --- a/drivers/gpu/drm/amd/include/discovery.h
+> +++ b/drivers/gpu/drm/amd/include/discovery.h
+> @@ -45,8 +45,9 @@ typedef enum {
+>         VCN_INFO,
+>         MALL_INFO,
+>         NPS_INFO,
+> +       RSV_TABLE,
+>         MEM_RESERVED_INFO,
+> -       TOTAL_TABLES =3D 7
+> +       TOTAL_TABLES =3D 8
+>  } table;
 >
->  struct amdgpu_hdp {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/hdp_v8_0.c b/drivers/gpu/drm/amd/=
-amdgpu/hdp_v8_0.c
-> index 63afdb5de3d4f..36e2bfbe91395 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/hdp_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/hdp_v8_0.c
-> @@ -125,8 +125,21 @@ static void hdp_v8_0_get_clockgating_state(struct am=
-dgpu_device *adev,
->                 *flags |=3D AMD_CG_SUPPORT_HDP_SD;
->  }
->
-> +static u64 hdp_v8_0_get_hdp_base(struct amdgpu_device *adev)
-> +{
-> +       u32 hdp_base_hi, hdp_base_lo;
-> +       u64 hdp_base;
-> +
-> +       hdp_base_hi =3D RREG32_SOC15(HDP, 0, regHDP_NONSURFACE_BASE_HI);
-> +       hdp_base_lo =3D RREG32_SOC15(HDP, 0, regHDP_NONSURFACE_BASE);
-> +       hdp_base =3D ((u64)hdp_base_hi << 40) | ((u64)hdp_base_lo << 8);
-> +
-> +       return hdp_base;
-> +}
-> +
->  const struct amdgpu_hdp_funcs hdp_v8_0_funcs =3D {
->         .flush_hdp =3D amdgpu_hdp_generic_flush,
->         .update_clock_gating =3D hdp_v8_0_update_clock_gating,
->         .get_clock_gating_state =3D hdp_v8_0_get_clockgating_state,
-> +       .get_hdp_base =3D hdp_v8_0_get_hdp_base,
->  };
+>  #pragma pack(1)
 > --
 > 2.56.0
 >
