@@ -2,103 +2,97 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6444606A326
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Nov 2026 21:10:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23836606A329
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Nov 2026 21:32:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=jKQSroqO
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=txvoCOTB
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51D6510E00E;
-	Fri,  6 Nov 2026 21:10:45 +0000 (UTC)
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010057.outbound.protection.outlook.com [52.101.201.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA82910E00E
- for <amd-gfx@lists.freedesktop.org>; Fri,  6 Nov 2026 21:10:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A555E10E481;
+	Fri,  6 Nov 2026 21:31:58 +0000 (UTC)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011062.outbound.protection.outlook.com
+ [40.93.194.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8E7310EA0D
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Nov 2026 21:31:51 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZrkWqGgrG2orydAcSjzaPJzsT4syByDIEmf6CWCKO5e+JCc6S4Of9eK0USSlbJ3d7Z37yYzEK49wy0Y/qlnfo7MqK+3SCA7npr1pndDZMkx18Y1bpzDvrGQtkQSZdBMtDWCYzI9jpkIZjPfRcSwX3Kkre0XZwUi1yUokv/nB2DrZUzVy67bbfgztAcCWj4mc6mjn5f7m2x4U20TQCJXZ5TyihqPQFArfWd2b+81zRXIOrIf3rWrzXh9uSr6U9jNGyzqy0BwPwr9CIWLvqYrpdAMMAWeHEeizCbEGKZ097AKfRfZvLZAR2JXBOJmnLr0qsuPy4AFnP1YSHBCUxnSoPA==
+ b=aFh4x+N+TZTt8XfccM1a+ZiNr5PasJTD261MkLoAMQVM+r/tGlL9cZF1UBpv22emFSmMSeFfEFbuwElMO9BG+LT3jjcUEegMHU4oteWemiZtHrFjzet6vaqKGQ62wtfOeYMFcbCDLNIFVR8asgt4NKp7jtVlHxykDssGugPorE3NVYRM/Jxv+H9B2yENXfJSCPgRpqzIuY1ozkn68KG9AVNe7j5w6n8j8AkmryTOJtPoGeWMK2hL8rI5gzvocBCvl5RyQiGGHK52hzud3QS/zD6tkugLETK47oJMJqb0c9i1wSwYveHZro0NFnzRGeEohDE/xJR/MYHAXdonzxPaCQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ecojZfK2bpBYmDnmqb96aULhEEo1/9eIG8x2f5LKDCA=;
- b=ZXzwn0/nfDRJmI5d4GMMjmRnT9Zxvw2zH96ydVZk6bnluI6gqSOb1EHGY5mttLWJALDBaH44Edslo2J2BDB+F/pN7fYKV5CYmtJrfzd+00VxN2K57H9y4gBzeQO2rDhuYE+Ls9Ulv7lm8kUIj6S1NmwR/0vk4RYMQWxh45ML4PzIZT62M3MjlW4gWXe7wCq0/Pn5rmMQUXbpmNQUA6emy3mBY7uNahT5ys+ZbJBXHCQ9F/Oxx1dazLEI1ceOwDKuAG4LZJDrgNHbsye+lR/Q5Oe9Lbr8kMF1PSfjCSvTeuEht0+jaEbKuw1BNp2dABSSBSIHbRp7aXEhHucSJIWvsw==
+ bh=49JeHUX0hlr4oWEobWfhprK/EJWqi5fIi+hN5cdf+D0=;
+ b=unVpIyBMKPK2B31JV5rLkpWPJ8cZQZ/Yxs2tFZRdNZ6mvRnwb5AlsPXc/h5z6zmsDiDQi/v1XODkrnfa8YCriEuBDNIFbvBmLZYdVpJNSNHWKj8vbYmJGlSQOmS4+8vWsC0uB4JiTuY/xZi3E8W/1kk3nzHzuqiHxaHhpaTr5VucvuL41j1eQfg+creRx54oF8Irgw545pzHXNAlQN/3sQ0gwgJnfQ4tAhrJyn6pBQiJfOI6JQ4wRXb49eeMc4CuunbndU00ddH5NUjATKSyC++jX6VCLV1rDQgU2YgQnYL1eKzBmhLs15hLLBZMl+WRVvEEdQDhI6WqWk+zi3Yl8w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ecojZfK2bpBYmDnmqb96aULhEEo1/9eIG8x2f5LKDCA=;
- b=jKQSroqONT2Vgz+pCvokEsoNEKrFTn5bsIV7UjX4PhO7aubOFtVfSLSAqwy/PNI2QBnQQFChPatn2hE9f1LQ0se8IxuFE/oUyfrIZiWYvgmHBv962gUnEUEaPfQfl+Jf/VPpy2nsGnWVf2p+5CxV/khx4f/wt3GwWYAn+Oh6DTQ=
-Received: from CH2PR17CA0013.namprd17.prod.outlook.com (2603:10b6:610:53::23)
- by MN2PR12MB4471.namprd12.prod.outlook.com (2603:10b6:208:26f::16)
+ bh=49JeHUX0hlr4oWEobWfhprK/EJWqi5fIi+hN5cdf+D0=;
+ b=txvoCOTB6Kn3ewFbYTeaQWxHRguFXwq0ylqOm7/+W2CXxuCArATQuvQstE7pzKOrM5/4XPfGSqQXRQ99QWjiLl42NEgu/bgzlAJPf3ut2RbnwHhODoYqlQ0akfhD1kCGI1ztetFcbfO2mGiQSoQQDm1GagbvieRc/MqhtmLVK5Y=
+Received: from CH2PR15CA0013.namprd15.prod.outlook.com (2603:10b6:610:51::23)
+ by SA1PR12MB7199.namprd12.prod.outlook.com (2603:10b6:806:2bc::21)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.11; Fri, 6 Nov
- 2026 21:08:29 +0000
-Received: from CH01EPF000BE944.namprd02.prod.outlook.com
- (2603:10b6:610:53:cafe::9d) by CH2PR17CA0013.outlook.office365.com
- (2603:10b6:610:53::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 6 Nov
+ 2026 21:29:43 +0000
+Received: from BN2PEPF0000449F.namprd02.prod.outlook.com
+ (2603:10b6:610:51:cafe::13) by CH2PR15CA0013.outlook.office365.com
+ (2603:10b6:610:51::23) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.11 via Frontend Transport; Fri, 6
- Nov 2026 21:08:29 +0000
+ Nov 2026 21:29:42 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CH01EPF000BE944.mail.protection.outlook.com (10.167.244.136) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN2PEPF0000449F.mail.protection.outlook.com (10.167.243.150) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 21:08:29 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 6 Nov
- 2026 15:08:28 -0600
-Received: from roman-vdev.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Fri, 6 Nov 2026 15:08:28 -0600
-From: <Roman.Li@amd.com>
+ 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 21:29:42 +0000
+Received: from epyc-7282-ubuntu-22.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.53; Fri, 6 Nov 2026 15:29:41 -0600
+From: Jay Cornwall <jay.cornwall@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Roman Li <roman.li@amd.com>, Wayne Lin <wayne.lin@amd.com>, Tom Chung
- <chiahsuan.chung@amd.com>, Fangzhi Zuo <jerry.zuo@amd.com>, Dan Wheeler
- <daniel.wheeler@amd.com>, Ray Wu <Ray.Wu@amd.com>, Ivan Lipski
- <ivan.lipski@amd.com>, Alex Hung <alex.hung@amd.com>, James Lin
- <PingLei.Lin@amd.com>, Chenyu Chen <Chen-Yu.Chen@amd.com>, Mario Limonciello
- <mario.limonciello@amd.com>, Ovidiu Bunea <ovidiu.bunea@amd.com>, "Michael
- Strauss" <michael.strauss@amd.com>
-Subject: [PATCH] drm/amd/display: Add support for more PSP footer sizes
-Date: Fri, 6 Nov 2026 16:07:38 -0500
-Message-ID: <20261106210738.668372-1-Roman.Li@amd.com>
-X-Mailer: git-send-email 2.34.1
+CC: Jay Cornwall <jay.cornwall@amd.com>, Lancelot Six <lancelot.six@amd.com>, 
+ Vladimir Indic <vladimir.indic@amd.com>
+Subject: [PATCH] drm/amdkfd: gfx12.1 trap handler LDS store ack workaround
+Date: Fri, 6 Nov 2026 16:29:32 -0500
+Message-ID: <20261106212932.9400-1-jay.cornwall@amd.com>
+X-Mailer: git-send-email 2.43.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH01EPF000BE944:EE_|MN2PR12MB4471:EE_
-X-MS-Office365-Filtering-Correlation-Id: 987140a1-1cb0-4c8f-3203-08df3c4a1b39
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000449F:EE_|SA1PR12MB7199:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4fcd64c7-c979-4fbe-0e39-08df3c4d1209
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|376014|82310400026|36860700016|261102123227099003|261021123027099003|261026135527099003|261022105027099003|261026121527099003|261021121427099003|261022115727099003|56012099006|261021130227099003|261022113327099003|261028144727099003|11063799006|261026140227099003|261021133027099003|261021135927099003|261009223027099003|261022075727099003|261026130827099003|18002099003|10067099003;
-X-Microsoft-Antispam-Message-Info: RvKJwLIm3uvoE5yyomxUXW1oKDLJvhdOY/pWpRMGcWyhR8QxCSInJiZyhuuUnQ9e0zooQMo41Mn/ufn4HWv/vYPQOqhEGcdqE0F7eGLiybGyF2FwLgqUIZQY8YSnVBe/EFDmFflVbUJtqoCNGNJ+EjrQlbaiGPeoywwKHlyE7gODSwHC+VTMnQnj+0kYaC5dMPmD7Hwkc28RZKuygYbFKDscKSHxit7xPLt+rGWOktn/fA4nP+16ptNJFmpUyUR6MUjrS97LS8ZrhCkBBX4AcFFjwJohDe8SLwOYZNd5lRzZaZ8aU8mTFokcBurmRr7QKKh6/5Nie/FOIz/s36MlTFZWKjPXPZK8jEDKrd0yurHFpRKBfhWM2oxUG0VG/QiCjasaRxgHNpTZBlZHHpzhIkOWlnNgtNvauZY8y1E/TVsPJRdiT7nc+uSfR/wY+vAOMI1UGkDiWrU4evqwAEn5sJnNoParYguDkIjFNjwOD/mbhdVgZtcKW82zQ2LQb548C29Z02e4KfrTc9+snwta1aXpA02xXrrSw0crrRcPsKN+MU78RHScztT/qYf/UY/VTThe9eWmPp45VfxpjDF+AoMFqeuBFgINbBhwLZVh9Cdlmo++Np61tSE95tslUydUXeL5GdVYltM8DJ8u7ckzB14/kNDz8fATYy1aLDJwlSV4C/HHsR8Yk243SXWrSUsUamVMg/zG1EJFzzJADEiw7Q==
+ ARA:13230040|1800799024|376014|23010399003|36860700016|82310400026|11063799006|261026121527099003|261026140227099003|56012099006|261021121427099003|261102123227099003|261021123027099003|261022105027099003|261009223027099003|261028144727099003|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 0DlU6OwLqsOauxfcj/5X0/e4xNPOo5JeONRfl8ih8nAiNfUDKMoU2Sc2ij+PXs5nK9uE6cVWqhfMES4OahGTvIaKn5uPXUAx7xqoBngkh0gkO3J07DRlEjwRrE5oXysb8ZV+TrUX0CPNrgIX9xCeCKK50GS45QY5N15u7+HEF1VPczhs9CkvFv5mJkFRRAkdB8xuzX6PLHRBIEMNGdkXj90lQSwcS4K7szJr4fcjsYxJwDORaS7S6uNyEmH/iJvdGlQPsRBhoZjHxxAHKlPBWpvkByolxUmlK2pR/uFWEix6UYA3juVQKkndv3i2TudOPhIrwMjX2pOoMa3zwWq+8jQ/QKkbEXZGQiMUDs2SMMqwwq5rA4jHsVpRcPagZY2h6VkeiPosoMu0RBWmccFwDzpYTDgVDDvTWnqAv3xPZjC4S6wk/lVeTe+xmLeiJPriWGl3raRzMfS7ksqFI9yDh1Ozlg69yNI+x7oIb+htg/M8qMjWl9vZwTuWfxXUXvPNm0I2cx2lrdTXztVMZ2Dl2Qu+YzD6d9FdBlS3bWYJnTfKU21Cikz5eIlYqra6D17EMq4WlIftrpuiLf3dySKwjOp+eBcCk4LZnTsQm/Gkuv7L+K0nymDn6/0Gi+4fptoVFWrSj96M4GZeryAK7aXhv0/20VfxtuDOBSjWecqH0smKUkt1869UTHPEfZ4Xk+Qtx36z4tbaDZavEdus0TIfDg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(376014)(82310400026)(36860700016)(261102123227099003)(261021123027099003)(261026135527099003)(261022105027099003)(261026121527099003)(261021121427099003)(261022115727099003)(56012099006)(261021130227099003)(261022113327099003)(261028144727099003)(11063799006)(261026140227099003)(261021133027099003)(261021135927099003)(261009223027099003)(261022075727099003)(261026130827099003)(18002099003)(10067099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(23010399003)(36860700016)(82310400026)(11063799006)(261026121527099003)(261026140227099003)(56012099006)(261021121427099003)(261102123227099003)(261021123027099003)(261022105027099003)(261009223027099003)(261028144727099003)(10067099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Tg7Jk7VoNodo3++zYJ/OSZgwJ8ifQ9z8WZEbELxkEffifymrXorPG2nK8meh52bmhN2l71Lw8XMR1fpMB3Hb/ezRjFr0FEekcGMdOU3XH3KbhSD2wiX6cw6VtLofhL/+GXlbS7yBGZC2f1gd74rAGaNtDOJAhSQyL4wBVWi5P/yfpRsFpWdoraTlnzGJv8c1IO1m50vsnsPlNaG6JllRg2mDco5mro5s+wI4O+XOTIkGOFpzzOl3oq1Rsf0n63VETxXMYQKN9hBAuT+wm306/VWDf3/qy98R+Yyq6T/tSLZxHUKz8s5zFJfUjkxbmlGyI/N0QR2NrPabn+JsXzXias9006hxKeHdCQkiuRykc5dg/ChcUusE107gpAaGIFk26yi5BQMc8NQGnXGikwwuz9escgdDPhVK0cLTCMOCs5WDUO93qhzvnJ0uXmf/JCMn
+X-MS-Exchange-AntiSpam-MessageData-0: 5ddqvQ/GwF4jdNYlSUL1bNkcIIt+UxHMY5hBF5JhzMYJuwzdfOFhMDM1WlvB4qvlwZg7G9+qT2jyvywb7fw862bONzux+Vp6Kxh5Gi7TObwfa9L0mRVGVrMprHFTWGO6MjkNpavL2vLceNFUdWsJPtJayI1DOf4ZKrz/StaSRHIyvGT24jyZCOqv+nOwsc3JRyDDfhQ6CL9rl9+xws8Ux2pR3llP5ahGwSAzjxWf8ePSuqX6H1C0bqNM6EBdHn9zuUHt94fHjNskB64VmVhKlIvoWKAQgWw3/QgaGRlHOZadXqMtFo9KF1tCnUVvWGsjogXVBe1QF7PKZRZSYkj3MCZGYBO4isA5l2eBq0HAWr6uLN9RUZvgpUtiti6+TinGztU+shaVAMn4r2A2MwgMJY0RqYaQu/Pyo7hCDhqK6r0kkryPk8XbyZ5vjftX2POm
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 21:08:29.1316 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 987140a1-1cb0-4c8f-3203-08df3c4a1b39
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 21:29:42.2205 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4fcd64c7-c979-4fbe-0e39-08df3c4d1209
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH01EPF000BE944.namprd02.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF0000449F.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4471
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7199
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,97 +110,790 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Ovidiu Bunea <ovidiu.bunea@amd.com>
+DS_STORE_B32 does not serialize correctly with S_WAIT_IDLE.
+Use a LDS no-op atomic to enforce serialization.
 
-[why & how]
-PSP footer size may be as big as 1932 bytes.
-
-Add a check for this size so that the DMUB FW meta can
-be properly located.
-
-Cc: Michael Strauss <michael.strauss@amd.com>
-Signed-off-by: Ovidiu Bunea <ovidiu.bunea@amd.com>
-Signed-off-by: Roman Li <roman.li@amd.com>
+Signed-off-by: Jay Cornwall <jay.cornwall@amd.com>
+Cc: Lancelot Six <lancelot.six@amd.com>
+Cc: Vladimir Indic <vladimir.indic@amd.com>
 ---
- drivers/gpu/drm/amd/display/dmub/dmub_srv.h   |  2 +
- .../gpu/drm/amd/display/dmub/src/dmub_srv.c   | 41 ++++++++++++-------
- 2 files changed, 29 insertions(+), 14 deletions(-)
+ .../gpu/drm/amd/amdkfd/cwsr_trap_handler.h    | 656 +++++++++---------
+ .../amd/amdkfd/cwsr_trap_handler_gfx12.asm    |  11 +
+ 2 files changed, 343 insertions(+), 324 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dmub/dmub_srv.h b/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
-index 17579ff2e1bf..84f825c924bc 100644
---- a/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
-+++ b/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
-@@ -76,6 +76,8 @@
+diff --git a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h
+index 5d468460f532..0e7bcfa487ee 100644
+--- a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h
++++ b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h
+@@ -5098,17 +5098,17 @@ static const uint32_t cwsr_trap_gfx12_1_0_rev_0_hex[] = {
+ 	0x018c0000, 0x00030000,
+ 	0x807d847d, 0x8070ff70,
+ 	0x00000400, 0xbf0a7b7d,
+-	0xbfa2ffe9, 0xbfa00184,
++	0xbfa2ffe9, 0xbfa0018b,
+ 	0xbef4007e, 0x8b75ff7f,
+ 	0x01ffffff, 0xbef1007f,
+ 	0xb8f20742, 0x84729972,
+ 	0x8b6eff7f, 0x04000000,
+-	0xbfa10044, 0xbefe00c1,
++	0xbfa1004b, 0xbefe00c1,
+ 	0x857d9972, 0x8b7d817d,
+ 	0xbf06817d, 0xbfa20002,
+ 	0xbeff0080, 0xbfa00001,
+ 	0xbeff00c1, 0xb8ef4306,
+-	0x8b6fc16f, 0xbfa10039,
++	0x8b6fc16f, 0xbfa10040,
+ 	0x846f8a6f, 0xb8f83b05,
+ 	0x80788178, 0xbf0d9972,
+ 	0xbfa20002, 0x84788978,
+@@ -5119,7 +5119,7 @@ static const uint32_t cwsr_trap_gfx12_1_0_rev_0_hex[] = {
+ 	0xbf06817d, 0xbefd0080,
+ 	0xd71f0001, 0x000100c1,
+ 	0xd7200001, 0x000202c1,
+-	0x30020282, 0xbfa20012,
++	0x30020282, 0xbfa20019,
+ 	0x80767874, 0x82778075,
+ 	0xee0a0076, 0x000c0000,
+ 	0x00000000, 0xbf8a0000,
+@@ -5128,178 +5128,182 @@ static const uint32_t cwsr_trap_gfx12_1_0_rev_0_hex[] = {
+ 	0x00000080, 0x807dff7d,
+ 	0x00000080, 0x8078ff78,
+ 	0x00000080, 0xbf0a6f7d,
+-	0xbfa2ffef, 0xbfa00011,
+-	0x80767874, 0x82778075,
+-	0xee0a0076, 0x000c0000,
+-	0x00000000, 0xbf8a0000,
+-	0xd8340000, 0x00000001,
+-	0xd5250001, 0x0001ff01,
+-	0x00000100, 0x807dff7d,
+-	0x00000100, 0x8078ff78,
+-	0x00000100, 0xbf0a6f7d,
+-	0xbfa2ffef, 0xbef80080,
+-	0xbefe00c1, 0x857d9972,
+-	0x8b7d817d, 0xbf06817d,
+-	0xbfa20002, 0xbeff0080,
+-	0xbfa00001, 0xbeff00c1,
+-	0xb8ef3b05, 0x806f816f,
+-	0x846f826f, 0x857d9972,
+-	0x8b7d817d, 0xbf06817d,
+-	0xbfa2002c, 0xbeee0078,
+-	0x8078ff78, 0x00000200,
+-	0xbefd0084, 0x80767874,
+-	0x82778075, 0xee0a0076,
+-	0x000c0000, 0x00000000,
+-	0xee0a0076, 0x000c0001,
+-	0x00008000, 0xee0a0076,
+-	0x000c0002, 0x00010000,
+-	0xee0a0076, 0x000c0003,
+-	0x00018000, 0xbf8a0000,
+-	0x7e008500, 0x7e028501,
+-	0x7e048502, 0x7e068503,
+-	0x807d847d, 0x8078ff78,
+-	0x00000200, 0xbf0a6f7d,
+-	0xbfa2ffe8, 0x80766e74,
+-	0x82778075, 0xee0a0076,
+-	0x000c0000, 0x00000000,
+-	0xee0a0076, 0x000c0001,
+-	0x00008000, 0xee0a0076,
+-	0x000c0002, 0x00010000,
+-	0xee0a0076, 0x000c0003,
+-	0x00018000, 0xbf8a0000,
+-	0xbfa0002d, 0xbeee0078,
+-	0x8078ff78, 0x00000400,
+-	0xbefd0084, 0xbf0a6f7d,
+-	0xbfa10018, 0x80767874,
++	0xbfa2ffef, 0x7e000280,
++	0x7e020280, 0xbefe00bf,
++	0xd8280000, 0x00000001,
++	0xbefe00c1, 0xbfc60000,
++	0xbfa00011, 0x80767874,
+ 	0x82778075, 0xee0a0076,
+ 	0x000c0000, 0x00000000,
+-	0xee0a0076, 0x000c0001,
++	0xbf8a0000, 0xd8340000,
++	0x00000001, 0xd5250001,
++	0x0001ff01, 0x00000100,
++	0x807dff7d, 0x00000100,
++	0x8078ff78, 0x00000100,
++	0xbf0a6f7d, 0xbfa2ffef,
++	0xbef80080, 0xbefe00c1,
++	0x857d9972, 0x8b7d817d,
++	0xbf06817d, 0xbfa20002,
++	0xbeff0080, 0xbfa00001,
++	0xbeff00c1, 0xb8ef3b05,
++	0x806f816f, 0x846f826f,
++	0x857d9972, 0x8b7d817d,
++	0xbf06817d, 0xbfa2002c,
++	0xbeee0078, 0x8078ff78,
++	0x00000200, 0xbefd0084,
++	0x80767874, 0x82778075,
++	0xee0a0076, 0x000c0000,
++	0x00000000, 0xee0a0076,
++	0x000c0001, 0x00008000,
++	0xee0a0076, 0x000c0002,
+ 	0x00010000, 0xee0a0076,
+-	0x000c0002, 0x00020000,
+-	0xee0a0076, 0x000c0003,
+-	0x00030000, 0xbf8a0000,
+-	0x7e008500, 0x7e028501,
+-	0x7e048502, 0x7e068503,
+-	0x807d847d, 0x8078ff78,
+-	0x00000400, 0xbf0a6f7d,
+-	0xbfa2ffe8, 0x80766e74,
+-	0x82778075, 0xee0a0076,
+-	0x000c0000, 0x00000000,
+-	0xee0a0076, 0x000c0001,
++	0x000c0003, 0x00018000,
++	0xbf8a0000, 0x7e008500,
++	0x7e028501, 0x7e048502,
++	0x7e068503, 0x807d847d,
++	0x8078ff78, 0x00000200,
++	0xbf0a6f7d, 0xbfa2ffe8,
++	0x80766e74, 0x82778075,
++	0xee0a0076, 0x000c0000,
++	0x00000000, 0xee0a0076,
++	0x000c0001, 0x00008000,
++	0xee0a0076, 0x000c0002,
+ 	0x00010000, 0xee0a0076,
+-	0x000c0002, 0x00020000,
+-	0xee0a0076, 0x000c0003,
+-	0x00030000, 0xbf8a0000,
+-	0xb8f83b05, 0x80788178,
+-	0xbf0d9972, 0xbfa20002,
+-	0x84788978, 0xbfa00001,
+-	0x84788a78, 0x8078ff78,
+-	0x00000200, 0x80f8ff78,
+-	0x00000060, 0x80767874,
+-	0x82778075, 0xbefd00ff,
+-	0x0000006c, 0xf460403b,
+-	0xf8000000, 0xbf8a0000,
+-	0x80fd847d, 0xbf800000,
+-	0xbe804300, 0xbe824302,
+-	0x80f6a076, 0x82f78077,
+-	0xf460603b, 0xf8000000,
+-	0xbf8a0000, 0x80fd887d,
++	0x000c0003, 0x00018000,
++	0xbf8a0000, 0xbfa0002d,
++	0xbeee0078, 0x8078ff78,
++	0x00000400, 0xbefd0084,
++	0xbf0a6f7d, 0xbfa10018,
++	0x80767874, 0x82778075,
++	0xee0a0076, 0x000c0000,
++	0x00000000, 0xee0a0076,
++	0x000c0001, 0x00010000,
++	0xee0a0076, 0x000c0002,
++	0x00020000, 0xee0a0076,
++	0x000c0003, 0x00030000,
++	0xbf8a0000, 0x7e008500,
++	0x7e028501, 0x7e048502,
++	0x7e068503, 0x807d847d,
++	0x8078ff78, 0x00000400,
++	0xbf0a6f7d, 0xbfa2ffe8,
++	0x80766e74, 0x82778075,
++	0xee0a0076, 0x000c0000,
++	0x00000000, 0xee0a0076,
++	0x000c0001, 0x00010000,
++	0xee0a0076, 0x000c0002,
++	0x00020000, 0xee0a0076,
++	0x000c0003, 0x00030000,
++	0xbf8a0000, 0xb8f83b05,
++	0x80788178, 0xbf0d9972,
++	0xbfa20002, 0x84788978,
++	0xbfa00001, 0x84788a78,
++	0x8078ff78, 0x00000200,
++	0x80f8ff78, 0x00000060,
++	0x80767874, 0x82778075,
++	0xbefd00ff, 0x0000006c,
++	0xf460403b, 0xf8000000,
++	0xbf8a0000, 0x80fd847d,
+ 	0xbf800000, 0xbe804300,
+-	0xbe824302, 0xbe844304,
+-	0xbe864306, 0x80f6c076,
+-	0x82f78077, 0xf460803b,
++	0xbe824302, 0x80f6a076,
++	0x82f78077, 0xf460603b,
+ 	0xf8000000, 0xbf8a0000,
+-	0x80fd907d, 0xbf800000,
++	0x80fd887d, 0xbf800000,
+ 	0xbe804300, 0xbe824302,
+ 	0xbe844304, 0xbe864306,
+-	0xbe884308, 0xbe8a430a,
+-	0xbe8c430c, 0xbe8e430e,
+-	0xbf06807d, 0xbfa1ffef,
+-	0xb980f801, 0x00000000,
+-	0xb8f83b05, 0x80788178,
+-	0xbf0d9972, 0xbfa20002,
+-	0x84788978, 0xbfa00001,
+-	0x84788a78, 0x8078ff78,
+-	0x00000200, 0x80767874,
+-	0x82778075, 0xbeff0071,
+-	0xf4601bfb, 0xf8000000,
+-	0xf4601b3b, 0xf8000004,
+-	0xf4601b7b, 0xf8000008,
+-	0xf4601c3b, 0xf800000c,
+-	0xf4601c7b, 0xf8000010,
+-	0xf4601ebb, 0xf8000014,
+-	0xf4601efb, 0xf8000018,
+-	0xf4601e7b, 0xf800001c,
+-	0xf4601cfb, 0xf8000020,
+-	0xf4601bbb, 0xf8000024,
+-	0xbf8a0000, 0xb96ef814,
+-	0xf4601bbb, 0xf8000028,
+-	0xbf8a0000, 0xb96ef815,
+-	0xf4601bbb, 0xf800002c,
+-	0xbf8a0000, 0xb96ef812,
+-	0xf4601bbb, 0xf8000030,
+-	0xbf8a0000, 0xb96ef813,
+-	0x8b6eff7f, 0x04000000,
+-	0xbfa10022, 0xf4601bbb,
+-	0xf8000038, 0xbf8a0000,
+-	0xbf0d806e, 0xbfa1001d,
+-	0x856e906e, 0x8b6e6e6e,
+-	0xbfa10003, 0xbe804ec1,
+-	0x816ec16e, 0xbfa0fffb,
+-	0xbef800ff, 0x00000080,
+-	0xbefd0081, 0xf4601bbb,
+-	0xf0000000, 0xbfc70000,
+-	0x80788478, 0x937eff6e,
+-	0x00070004, 0x847e907e,
+-	0x8c7d7e7d, 0xbe80517d,
+-	0x917dff7d, 0x007f0000,
+-	0x856e906e, 0x8b6e6e6e,
+-	0xbfa10003, 0xbe804e7d,
+-	0x816ec16e, 0xbfa0fffb,
+-	0x807d817d, 0xbf08907d,
+-	0xbfa1ffec, 0xf4601bbb,
+-	0xf800003c, 0xbfc70000,
+-	0xbf0d806e, 0xbfa1000c,
+-	0xbf0d9a7f, 0xbfa10002,
+-	0xbf068180, 0xbe804fc4,
+-	0xbf94fffc, 0xbfa10006,
+-	0x856e906e, 0x8b6e6e6e,
+-	0xbfa10003, 0xbe804ec3,
+-	0x816ec16e, 0xbfa0fffb,
+-	0xf4601bbb, 0xf8000040,
+-	0xbfc70000, 0xb96ef81a,
+-	0xbefd006f, 0xbefe0070,
+-	0xbeff0071, 0xb979f822,
+-	0xb97b2011, 0x857b867b,
+-	0xb97b0191, 0x857b827b,
+-	0xb97bba11, 0xb973f801,
+-	0xb8ee3b05, 0x806e816e,
+-	0xbf0d9972, 0xbfa20002,
+-	0x846e896e, 0xbfa00001,
+-	0x846e8a6e, 0x806eff6e,
+-	0x000001c0, 0x806e746e,
+-	0x826f8075, 0xf4605c37,
+-	0xf8000010, 0xf4605d37,
+-	0xf8000020, 0xf4601e77,
+-	0xf8000034, 0xbf8a0000,
+-	0x856e9677, 0xb96e04a1,
+-	0x856e9577, 0xb96e0421,
+-	0x856e8e77, 0xb96e3021,
+-	0x8b6dff6d, 0x01ffffff,
+-	0x8bfe7e7e, 0x8bea6a6a,
+-	0xb97af804, 0xb8eef802,
+-	0xbf0c8b6e, 0xbfa20003,
+-	0xbe804fc2, 0xbf94fffe,
+-	0xbfa10001, 0xbe804ec4,
+-	0xbf94fffc, 0x857a897a,
+-	0xb97a0244, 0xbe804a6c,
++	0x80f6c076, 0x82f78077,
++	0xf460803b, 0xf8000000,
++	0xbf8a0000, 0x80fd907d,
++	0xbf800000, 0xbe804300,
++	0xbe824302, 0xbe844304,
++	0xbe864306, 0xbe884308,
++	0xbe8a430a, 0xbe8c430c,
++	0xbe8e430e, 0xbf06807d,
++	0xbfa1ffef, 0xb980f801,
++	0x00000000, 0xb8f83b05,
++	0x80788178, 0xbf0d9972,
++	0xbfa20002, 0x84788978,
++	0xbfa00001, 0x84788a78,
++	0x8078ff78, 0x00000200,
++	0x80767874, 0x82778075,
++	0xbeff0071, 0xf4601bfb,
++	0xf8000000, 0xf4601b3b,
++	0xf8000004, 0xf4601b7b,
++	0xf8000008, 0xf4601c3b,
++	0xf800000c, 0xf4601c7b,
++	0xf8000010, 0xf4601ebb,
++	0xf8000014, 0xf4601efb,
++	0xf8000018, 0xf4601e7b,
++	0xf800001c, 0xf4601cfb,
++	0xf8000020, 0xf4601bbb,
++	0xf8000024, 0xbf8a0000,
++	0xb96ef814, 0xf4601bbb,
++	0xf8000028, 0xbf8a0000,
++	0xb96ef815, 0xf4601bbb,
++	0xf800002c, 0xbf8a0000,
++	0xb96ef812, 0xf4601bbb,
++	0xf8000030, 0xbf8a0000,
++	0xb96ef813, 0x8b6eff7f,
++	0x04000000, 0xbfa10022,
++	0xf4601bbb, 0xf8000038,
++	0xbf8a0000, 0xbf0d806e,
++	0xbfa1001d, 0x856e906e,
++	0x8b6e6e6e, 0xbfa10003,
++	0xbe804ec1, 0x816ec16e,
++	0xbfa0fffb, 0xbef800ff,
++	0x00000080, 0xbefd0081,
++	0xf4601bbb, 0xf0000000,
++	0xbfc70000, 0x80788478,
++	0x937eff6e, 0x00070004,
++	0x847e907e, 0x8c7d7e7d,
++	0xbe80517d, 0x917dff7d,
++	0x007f0000, 0x856e906e,
++	0x8b6e6e6e, 0xbfa10003,
++	0xbe804e7d, 0x816ec16e,
++	0xbfa0fffb, 0x807d817d,
++	0xbf08907d, 0xbfa1ffec,
++	0xf4601bbb, 0xf800003c,
++	0xbfc70000, 0xbf0d806e,
++	0xbfa1000c, 0xbf0d9a7f,
++	0xbfa10002, 0xbf068180,
++	0xbe804fc4, 0xbf94fffc,
++	0xbfa10006, 0x856e906e,
++	0x8b6e6e6e, 0xbfa10003,
++	0xbe804ec3, 0x816ec16e,
++	0xbfa0fffb, 0xf4601bbb,
++	0xf8000040, 0xbfc70000,
++	0xb96ef81a, 0xbefd006f,
++	0xbefe0070, 0xbeff0071,
++	0xb979f822, 0xb97b2011,
++	0x857b867b, 0xb97b0191,
++	0x857b827b, 0xb97bba11,
++	0xb973f801, 0xb8ee3b05,
++	0x806e816e, 0xbf0d9972,
++	0xbfa20002, 0x846e896e,
++	0xbfa00001, 0x846e8a6e,
++	0x806eff6e, 0x000001c0,
++	0x806e746e, 0x826f8075,
++	0xf4605c37, 0xf8000010,
++	0xf4605d37, 0xf8000020,
++	0xf4601e77, 0xf8000034,
++	0xbf8a0000, 0x856e9677,
++	0xb96e04a1, 0x856e9577,
++	0xb96e0421, 0x856e8e77,
++	0xb96e3021, 0x8b6dff6d,
++	0x01ffffff, 0x8bfe7e7e,
++	0x8bea6a6a, 0xb97af804,
+ 	0xb8eef802, 0xbf0c8b6e,
+ 	0xbfa20003, 0xbe804fc2,
+ 	0xbf94fffe, 0xbfa10001,
+ 	0xbe804ec4, 0xbf94fffc,
+-	0xbfb10000, 0xbf9f0000,
++	0x857a897a, 0xb97a0244,
++	0xbe804a6c, 0xb8eef802,
++	0xbf0c8b6e, 0xbfa20003,
++	0xbe804fc2, 0xbf94fffe,
++	0xbfa10001, 0xbe804ec4,
++	0xbf94fffc, 0xbfb10000,
+ 	0xbf9f0000, 0xbf9f0000,
+ 	0xbf9f0000, 0xbf9f0000,
++	0xbf9f0000, 0x00000000,
+ };
  
- #define PSP_HEADER_BYTES_256 0x100 // 256 bytes
- #define PSP_FOOTER_BYTES_256 0x100 // 256 bytes
-+#define PSP_FOOTER_BYTES_512 0x200 // 512 bytes
-+#define PSP_FOOTER_BYTES_1932 0x78C // 1932 bytes
+ static const uint32_t cwsr_trap_gfx12_1_0_rev_1_hex[] = {
+@@ -5791,17 +5795,17 @@ static const uint32_t cwsr_trap_gfx12_1_0_rev_1_hex[] = {
+ 	0x018c0000, 0x00030000,
+ 	0x807d847d, 0x8070ff70,
+ 	0x00000400, 0xbf0a7b7d,
+-	0xbfa2ffe9, 0xbfa00184,
++	0xbfa2ffe9, 0xbfa0018b,
+ 	0xbef4007e, 0x8b75ff7f,
+ 	0x01ffffff, 0xbef1007f,
+ 	0xb8f20742, 0x84729972,
+ 	0x8b6eff7f, 0x04000000,
+-	0xbfa10044, 0xbefe00c1,
++	0xbfa1004b, 0xbefe00c1,
+ 	0x857d9972, 0x8b7d817d,
+ 	0xbf06817d, 0xbfa20002,
+ 	0xbeff0080, 0xbfa00001,
+ 	0xbeff00c1, 0xb8ef4306,
+-	0x8b6fc16f, 0xbfa10039,
++	0x8b6fc16f, 0xbfa10040,
+ 	0x846f8a6f, 0xb8f83b05,
+ 	0x80788178, 0xbf0d9972,
+ 	0xbfa20002, 0x84788978,
+@@ -5812,7 +5816,7 @@ static const uint32_t cwsr_trap_gfx12_1_0_rev_1_hex[] = {
+ 	0xbf06817d, 0xbefd0080,
+ 	0xd71f0001, 0x000100c1,
+ 	0xd7200001, 0x000202c1,
+-	0x30020282, 0xbfa20012,
++	0x30020282, 0xbfa20019,
+ 	0x80767874, 0x82778075,
+ 	0xee0a0076, 0x000c0000,
+ 	0x00000000, 0xbf8a0000,
+@@ -5821,176 +5825,180 @@ static const uint32_t cwsr_trap_gfx12_1_0_rev_1_hex[] = {
+ 	0x00000080, 0x807dff7d,
+ 	0x00000080, 0x8078ff78,
+ 	0x00000080, 0xbf0a6f7d,
+-	0xbfa2ffef, 0xbfa00011,
+-	0x80767874, 0x82778075,
+-	0xee0a0076, 0x000c0000,
+-	0x00000000, 0xbf8a0000,
+-	0xd8340000, 0x00000001,
+-	0xd5250001, 0x0001ff01,
+-	0x00000100, 0x807dff7d,
+-	0x00000100, 0x8078ff78,
+-	0x00000100, 0xbf0a6f7d,
+-	0xbfa2ffef, 0xbef80080,
+-	0xbefe00c1, 0x857d9972,
+-	0x8b7d817d, 0xbf06817d,
+-	0xbfa20002, 0xbeff0080,
+-	0xbfa00001, 0xbeff00c1,
+-	0xb8ef3b05, 0x806f816f,
+-	0x846f826f, 0x857d9972,
+-	0x8b7d817d, 0xbf06817d,
+-	0xbfa2002c, 0xbeee0078,
+-	0x8078ff78, 0x00000200,
+-	0xbefd0084, 0x80767874,
+-	0x82778075, 0xee0a0076,
+-	0x000c0000, 0x00000000,
+-	0xee0a0076, 0x000c0001,
+-	0x00008000, 0xee0a0076,
+-	0x000c0002, 0x00010000,
+-	0xee0a0076, 0x000c0003,
+-	0x00018000, 0xbf8a0000,
+-	0x7e008500, 0x7e028501,
+-	0x7e048502, 0x7e068503,
+-	0x807d847d, 0x8078ff78,
+-	0x00000200, 0xbf0a6f7d,
+-	0xbfa2ffe8, 0x80766e74,
+-	0x82778075, 0xee0a0076,
+-	0x000c0000, 0x00000000,
+-	0xee0a0076, 0x000c0001,
+-	0x00008000, 0xee0a0076,
+-	0x000c0002, 0x00010000,
+-	0xee0a0076, 0x000c0003,
+-	0x00018000, 0xbf8a0000,
+-	0xbfa0002d, 0xbeee0078,
+-	0x8078ff78, 0x00000400,
+-	0xbefd0084, 0xbf0a6f7d,
+-	0xbfa10018, 0x80767874,
++	0xbfa2ffef, 0x7e000280,
++	0x7e020280, 0xbefe00bf,
++	0xd8280000, 0x00000001,
++	0xbefe00c1, 0xbfc60000,
++	0xbfa00011, 0x80767874,
+ 	0x82778075, 0xee0a0076,
+ 	0x000c0000, 0x00000000,
+-	0xee0a0076, 0x000c0001,
++	0xbf8a0000, 0xd8340000,
++	0x00000001, 0xd5250001,
++	0x0001ff01, 0x00000100,
++	0x807dff7d, 0x00000100,
++	0x8078ff78, 0x00000100,
++	0xbf0a6f7d, 0xbfa2ffef,
++	0xbef80080, 0xbefe00c1,
++	0x857d9972, 0x8b7d817d,
++	0xbf06817d, 0xbfa20002,
++	0xbeff0080, 0xbfa00001,
++	0xbeff00c1, 0xb8ef3b05,
++	0x806f816f, 0x846f826f,
++	0x857d9972, 0x8b7d817d,
++	0xbf06817d, 0xbfa2002c,
++	0xbeee0078, 0x8078ff78,
++	0x00000200, 0xbefd0084,
++	0x80767874, 0x82778075,
++	0xee0a0076, 0x000c0000,
++	0x00000000, 0xee0a0076,
++	0x000c0001, 0x00008000,
++	0xee0a0076, 0x000c0002,
+ 	0x00010000, 0xee0a0076,
+-	0x000c0002, 0x00020000,
+-	0xee0a0076, 0x000c0003,
+-	0x00030000, 0xbf8a0000,
+-	0x7e008500, 0x7e028501,
+-	0x7e048502, 0x7e068503,
+-	0x807d847d, 0x8078ff78,
+-	0x00000400, 0xbf0a6f7d,
+-	0xbfa2ffe8, 0x80766e74,
+-	0x82778075, 0xee0a0076,
+-	0x000c0000, 0x00000000,
+-	0xee0a0076, 0x000c0001,
++	0x000c0003, 0x00018000,
++	0xbf8a0000, 0x7e008500,
++	0x7e028501, 0x7e048502,
++	0x7e068503, 0x807d847d,
++	0x8078ff78, 0x00000200,
++	0xbf0a6f7d, 0xbfa2ffe8,
++	0x80766e74, 0x82778075,
++	0xee0a0076, 0x000c0000,
++	0x00000000, 0xee0a0076,
++	0x000c0001, 0x00008000,
++	0xee0a0076, 0x000c0002,
+ 	0x00010000, 0xee0a0076,
+-	0x000c0002, 0x00020000,
+-	0xee0a0076, 0x000c0003,
+-	0x00030000, 0xbf8a0000,
+-	0xb8f83b05, 0x80788178,
+-	0xbf0d9972, 0xbfa20002,
+-	0x84788978, 0xbfa00001,
+-	0x84788a78, 0x8078ff78,
+-	0x00000200, 0x80f8ff78,
+-	0x00000060, 0x80767874,
+-	0x82778075, 0xbefd00ff,
+-	0x0000006c, 0xf460403b,
+-	0xf8000000, 0xbf8a0000,
+-	0x80fd847d, 0xbf800000,
+-	0xbe804300, 0xbe824302,
+-	0x80f6a076, 0x82f78077,
+-	0xf460603b, 0xf8000000,
+-	0xbf8a0000, 0x80fd887d,
++	0x000c0003, 0x00018000,
++	0xbf8a0000, 0xbfa0002d,
++	0xbeee0078, 0x8078ff78,
++	0x00000400, 0xbefd0084,
++	0xbf0a6f7d, 0xbfa10018,
++	0x80767874, 0x82778075,
++	0xee0a0076, 0x000c0000,
++	0x00000000, 0xee0a0076,
++	0x000c0001, 0x00010000,
++	0xee0a0076, 0x000c0002,
++	0x00020000, 0xee0a0076,
++	0x000c0003, 0x00030000,
++	0xbf8a0000, 0x7e008500,
++	0x7e028501, 0x7e048502,
++	0x7e068503, 0x807d847d,
++	0x8078ff78, 0x00000400,
++	0xbf0a6f7d, 0xbfa2ffe8,
++	0x80766e74, 0x82778075,
++	0xee0a0076, 0x000c0000,
++	0x00000000, 0xee0a0076,
++	0x000c0001, 0x00010000,
++	0xee0a0076, 0x000c0002,
++	0x00020000, 0xee0a0076,
++	0x000c0003, 0x00030000,
++	0xbf8a0000, 0xb8f83b05,
++	0x80788178, 0xbf0d9972,
++	0xbfa20002, 0x84788978,
++	0xbfa00001, 0x84788a78,
++	0x8078ff78, 0x00000200,
++	0x80f8ff78, 0x00000060,
++	0x80767874, 0x82778075,
++	0xbefd00ff, 0x0000006c,
++	0xf460403b, 0xf8000000,
++	0xbf8a0000, 0x80fd847d,
+ 	0xbf800000, 0xbe804300,
+-	0xbe824302, 0xbe844304,
+-	0xbe864306, 0x80f6c076,
+-	0x82f78077, 0xf460803b,
++	0xbe824302, 0x80f6a076,
++	0x82f78077, 0xf460603b,
+ 	0xf8000000, 0xbf8a0000,
+-	0x80fd907d, 0xbf800000,
++	0x80fd887d, 0xbf800000,
+ 	0xbe804300, 0xbe824302,
+ 	0xbe844304, 0xbe864306,
+-	0xbe884308, 0xbe8a430a,
+-	0xbe8c430c, 0xbe8e430e,
+-	0xbf06807d, 0xbfa1ffef,
+-	0xb980f801, 0x00000000,
+-	0xb8f83b05, 0x80788178,
+-	0xbf0d9972, 0xbfa20002,
+-	0x84788978, 0xbfa00001,
+-	0x84788a78, 0x8078ff78,
+-	0x00000200, 0x80767874,
+-	0x82778075, 0xbeff0071,
+-	0xf4601bfb, 0xf8000000,
+-	0xf4601b3b, 0xf8000004,
+-	0xf4601b7b, 0xf8000008,
+-	0xf4601c3b, 0xf800000c,
+-	0xf4601c7b, 0xf8000010,
+-	0xf4601ebb, 0xf8000014,
+-	0xf4601efb, 0xf8000018,
+-	0xf4601e7b, 0xf800001c,
+-	0xf4601cfb, 0xf8000020,
+-	0xf4601bbb, 0xf8000024,
+-	0xbf8a0000, 0xb96ef814,
+-	0xf4601bbb, 0xf8000028,
+-	0xbf8a0000, 0xb96ef815,
+-	0xf4601bbb, 0xf800002c,
+-	0xbf8a0000, 0xb96ef812,
+-	0xf4601bbb, 0xf8000030,
+-	0xbf8a0000, 0xb96ef813,
+-	0x8b6eff7f, 0x04000000,
+-	0xbfa10022, 0xf4601bbb,
+-	0xf8000038, 0xbf8a0000,
+-	0xbf0d806e, 0xbfa1001d,
+-	0x856e906e, 0x8b6e6e6e,
+-	0xbfa10003, 0xbe804ec1,
+-	0x816ec16e, 0xbfa0fffb,
+-	0xbef800ff, 0x00000080,
+-	0xbefd0081, 0xf4601bbb,
+-	0xf0000000, 0xbfc70000,
+-	0x80788478, 0x937eff6e,
+-	0x00070004, 0x847e907e,
+-	0x8c7d7e7d, 0xbe80517d,
+-	0x917dff7d, 0x007f0000,
+-	0x856e906e, 0x8b6e6e6e,
+-	0xbfa10003, 0xbe804e7d,
+-	0x816ec16e, 0xbfa0fffb,
+-	0x807d817d, 0xbf08907d,
+-	0xbfa1ffec, 0xf4601bbb,
+-	0xf800003c, 0xbfc70000,
+-	0xbf0d806e, 0xbfa1000c,
+-	0xbf0d9a7f, 0xbfa10002,
+-	0xbf068180, 0xbe804fc4,
+-	0xbf94fffc, 0xbfa10006,
+-	0x856e906e, 0x8b6e6e6e,
+-	0xbfa10003, 0xbe804ec3,
+-	0x816ec16e, 0xbfa0fffb,
+-	0xf4601bbb, 0xf8000040,
+-	0xbfc70000, 0xb96ef81a,
+-	0xbefd006f, 0xbefe0070,
+-	0xbeff0071, 0xb979f822,
+-	0xb97b2011, 0x857b867b,
+-	0xb97b0191, 0x857b827b,
+-	0xb97bba11, 0xb973f801,
+-	0xb8ee3b05, 0x806e816e,
+-	0xbf0d9972, 0xbfa20002,
+-	0x846e896e, 0xbfa00001,
+-	0x846e8a6e, 0x806eff6e,
+-	0x000001c0, 0x806e746e,
+-	0x826f8075, 0xf4605c37,
+-	0xf8000010, 0xf4605d37,
+-	0xf8000020, 0xf4601e77,
+-	0xf8000034, 0xbf8a0000,
+-	0x856e9677, 0xb96e04a1,
+-	0x856e9577, 0xb96e0421,
+-	0x856e8e77, 0xb96e3021,
+-	0x8b6dff6d, 0x01ffffff,
+-	0x8bfe7e7e, 0x8bea6a6a,
+-	0xb97af804, 0xb8eef802,
+-	0xbf0c8b6e, 0xbfa20003,
+-	0xbe804fc2, 0xbf94fffe,
+-	0xbfa10001, 0xbe804ec4,
+-	0xbf94fffc, 0x857a897a,
+-	0xb97a0244, 0xbe804a6c,
++	0x80f6c076, 0x82f78077,
++	0xf460803b, 0xf8000000,
++	0xbf8a0000, 0x80fd907d,
++	0xbf800000, 0xbe804300,
++	0xbe824302, 0xbe844304,
++	0xbe864306, 0xbe884308,
++	0xbe8a430a, 0xbe8c430c,
++	0xbe8e430e, 0xbf06807d,
++	0xbfa1ffef, 0xb980f801,
++	0x00000000, 0xb8f83b05,
++	0x80788178, 0xbf0d9972,
++	0xbfa20002, 0x84788978,
++	0xbfa00001, 0x84788a78,
++	0x8078ff78, 0x00000200,
++	0x80767874, 0x82778075,
++	0xbeff0071, 0xf4601bfb,
++	0xf8000000, 0xf4601b3b,
++	0xf8000004, 0xf4601b7b,
++	0xf8000008, 0xf4601c3b,
++	0xf800000c, 0xf4601c7b,
++	0xf8000010, 0xf4601ebb,
++	0xf8000014, 0xf4601efb,
++	0xf8000018, 0xf4601e7b,
++	0xf800001c, 0xf4601cfb,
++	0xf8000020, 0xf4601bbb,
++	0xf8000024, 0xbf8a0000,
++	0xb96ef814, 0xf4601bbb,
++	0xf8000028, 0xbf8a0000,
++	0xb96ef815, 0xf4601bbb,
++	0xf800002c, 0xbf8a0000,
++	0xb96ef812, 0xf4601bbb,
++	0xf8000030, 0xbf8a0000,
++	0xb96ef813, 0x8b6eff7f,
++	0x04000000, 0xbfa10022,
++	0xf4601bbb, 0xf8000038,
++	0xbf8a0000, 0xbf0d806e,
++	0xbfa1001d, 0x856e906e,
++	0x8b6e6e6e, 0xbfa10003,
++	0xbe804ec1, 0x816ec16e,
++	0xbfa0fffb, 0xbef800ff,
++	0x00000080, 0xbefd0081,
++	0xf4601bbb, 0xf0000000,
++	0xbfc70000, 0x80788478,
++	0x937eff6e, 0x00070004,
++	0x847e907e, 0x8c7d7e7d,
++	0xbe80517d, 0x917dff7d,
++	0x007f0000, 0x856e906e,
++	0x8b6e6e6e, 0xbfa10003,
++	0xbe804e7d, 0x816ec16e,
++	0xbfa0fffb, 0x807d817d,
++	0xbf08907d, 0xbfa1ffec,
++	0xf4601bbb, 0xf800003c,
++	0xbfc70000, 0xbf0d806e,
++	0xbfa1000c, 0xbf0d9a7f,
++	0xbfa10002, 0xbf068180,
++	0xbe804fc4, 0xbf94fffc,
++	0xbfa10006, 0x856e906e,
++	0x8b6e6e6e, 0xbfa10003,
++	0xbe804ec3, 0x816ec16e,
++	0xbfa0fffb, 0xf4601bbb,
++	0xf8000040, 0xbfc70000,
++	0xb96ef81a, 0xbefd006f,
++	0xbefe0070, 0xbeff0071,
++	0xb979f822, 0xb97b2011,
++	0x857b867b, 0xb97b0191,
++	0x857b827b, 0xb97bba11,
++	0xb973f801, 0xb8ee3b05,
++	0x806e816e, 0xbf0d9972,
++	0xbfa20002, 0x846e896e,
++	0xbfa00001, 0x846e8a6e,
++	0x806eff6e, 0x000001c0,
++	0x806e746e, 0x826f8075,
++	0xf4605c37, 0xf8000010,
++	0xf4605d37, 0xf8000020,
++	0xf4601e77, 0xf8000034,
++	0xbf8a0000, 0x856e9677,
++	0xb96e04a1, 0x856e9577,
++	0xb96e0421, 0x856e8e77,
++	0xb96e3021, 0x8b6dff6d,
++	0x01ffffff, 0x8bfe7e7e,
++	0x8bea6a6a, 0xb97af804,
+ 	0xb8eef802, 0xbf0c8b6e,
+ 	0xbfa20003, 0xbe804fc2,
+ 	0xbf94fffe, 0xbfa10001,
+ 	0xbe804ec4, 0xbf94fffc,
+-	0xbfb10000, 0xbf9f0000,
++	0x857a897a, 0xb97a0244,
++	0xbe804a6c, 0xb8eef802,
++	0xbf0c8b6e, 0xbfa20003,
++	0xbe804fc2, 0xbf94fffe,
++	0xbfa10001, 0xbe804ec4,
++	0xbf94fffc, 0xbfb10000,
+ 	0xbf9f0000, 0xbf9f0000,
+ 	0xbf9f0000, 0xbf9f0000,
++	0xbf9f0000, 0x00000000,
+ };
+diff --git a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx12.asm b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx12.asm
+index 1e248af0e9e9..89844d08f3ce 100644
+--- a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx12.asm
++++ b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx12.asm
+@@ -48,6 +48,7 @@
+ #define WAVE32_ONLY (ASIC_FAMILY >= CHIP_GC_12_0_3_REV_0)
+ #define SAVE_TTMPS_IN_SGPR_BLOCK (ASIC_FAMILY >= CHIP_GC_12_0_3_REV_0)
+ #define VMEM_ON_TRAP_ENTRY_WA (ASIC_FAMILY >= CHIP_GC_12_0_3_REV_0)
++#define HAVE_LDS_STORE_ACK_WA (ASIC_FAMILY >= CHIP_GC_12_0_3_REV_0)
  
- /* Forward declarations */
- struct dmub_srv;
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-index 41b14b137643..72fc28feefb2 100644
---- a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-+++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-@@ -173,30 +173,43 @@ dmub_srv_get_fw_meta_info_from_raw_fw(struct dmub_srv_fw_meta_info_params *param
- 	uint32_t inst_const_size_temp = params->inst_const_size;
- 
- 	/* First try custom psp footer size, if present */
--	if (params->custom_psp_footer_size) {
--		params->inst_const_size -= params->custom_psp_footer_size;
-+	if (params->custom_psp_footer_size && inst_const_size_temp > params->custom_psp_footer_size) {
-+		params->inst_const_size = inst_const_size_temp - params->custom_psp_footer_size;
- 		fw_info = dmub_get_fw_meta_info(params);
- 		if (fw_info) {
- 			memcpy(fw_info_out, fw_info, sizeof(*fw_info));
- 			return DMUB_STATUS_OK;
- 		}
--		params->inst_const_size = inst_const_size_temp;
- 	}
- 
- 	/* Try 256-byte psp footer size */
--	params->inst_const_size -= PSP_FOOTER_BYTES_256;
--	fw_info = dmub_get_fw_meta_info(params);
--	if (fw_info) {
--		memcpy(fw_info_out, fw_info, sizeof(*fw_info));
--		return DMUB_STATUS_OK;
-+	if (inst_const_size_temp > PSP_FOOTER_BYTES_256) {
-+		params->inst_const_size = inst_const_size_temp - PSP_FOOTER_BYTES_256;
-+		fw_info = dmub_get_fw_meta_info(params);
-+		if (fw_info) {
-+			memcpy(fw_info_out, fw_info, sizeof(*fw_info));
-+			return DMUB_STATUS_OK;
-+		}
- 	}
- 
--	/* Try 512-byte psp footer size - final attempt */
--	params->inst_const_size -= PSP_FOOTER_BYTES_256; // 256 bytes already subtracted, subtract 256 again
--	fw_info = dmub_get_fw_meta_info(params);
--	if (fw_info) {
--		memcpy(fw_info_out, fw_info, sizeof(*fw_info));
--		return DMUB_STATUS_OK;
-+	/* Try 512-byte psp footer size */
-+	if (inst_const_size_temp > PSP_FOOTER_BYTES_512) {
-+		params->inst_const_size = inst_const_size_temp - PSP_FOOTER_BYTES_512;
-+		fw_info = dmub_get_fw_meta_info(params);
-+		if (fw_info) {
-+			memcpy(fw_info_out, fw_info, sizeof(*fw_info));
-+			return DMUB_STATUS_OK;
-+		}
-+	}
+ #if HAVE_XNACK && !WAVE32_ONLY
+ # error
+@@ -1015,6 +1016,16 @@ L_RESTORE_LDS_LOOP_W32:
+ 	s_add_u32	s_restore_mem_offset, s_restore_mem_offset, 128		//mem offset increased by 128DW
+ 	s_cmp_lt_u32	m0, s_restore_alloc_size				//scc=(m0 < s_restore_alloc_size) ? 1 : 0
+ 	s_cbranch_scc1	L_RESTORE_LDS_LOOP_W32					//LDS restore is complete?
 +
-+	/* Try 1932-byte psp footer size */
-+	if (inst_const_size_temp > PSP_FOOTER_BYTES_1932) {
-+		params->inst_const_size = inst_const_size_temp - PSP_FOOTER_BYTES_1932;
-+		fw_info = dmub_get_fw_meta_info(params);
-+		if (fw_info) {
-+			memcpy(fw_info_out, fw_info, sizeof(*fw_info));
-+			return DMUB_STATUS_OK;
-+		}
- 	}
++#if HAVE_LDS_STORE_ACK_WA
++	v_mov_b32	v0, 0
++	v_mov_b32	v1, 0
++	s_mov_b32	exec_lo, 0x3F
++	ds_or_b32	v1, v0
++	s_mov_b32	exec_lo, -1
++	s_wait_dscnt	0x0
++#endif
++
+ 	s_branch	L_RESTORE_VGPR
  
- 	/* Restore original inst_const_size and subtract default PSP footer size - default behaviour */
+ L_RESTORE_LDS_LOOP_W64:
 -- 
-2.34.1
+2.43.0
 
