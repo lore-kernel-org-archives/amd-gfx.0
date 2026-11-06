@@ -2,72 +2,72 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F018606A335
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Nov 2026 22:44:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C80DF606A32F
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Nov 2026 22:44:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ssRSfXZS
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=xHk+WioS
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A38B210E49B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 694B010E489;
 	Fri,  6 Nov 2026 22:44:13 +0000 (UTC)
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011057.outbound.protection.outlook.com
- [40.93.194.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1475E10E489
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010010.outbound.protection.outlook.com
+ [40.93.198.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 935E910E48A
  for <amd-gfx@lists.freedesktop.org>; Fri,  6 Nov 2026 22:44:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Rc31MQ9DmwJg8RMgqGUE6WL1ng3pPyaAwYvC1IkeadZNbjs80HyXbpokEe6q+HrUU17M5d+L1oSpDsRFQESUOP04N6Q+26JS9Lkox3veorrTlJq70hP5ufKlLr+1jpxg/RTfjAGdTmpZ9qk3CRmkd7L3Ksu2RBqndoLpXfhf/L7VA7s0MoPiV2lcPHOj5tVZehL7cv/6uDxXm9k+nX1GFDnHl7IvS41/rWp3C0gyXA63lagSGSYvfE2BeF1s3V/8Bcqf4TgXkVA2tfjPtKq2jPn3QtRfhcDC/E6DRZTadQLJBHNezdUoShS/9P9KAQP68YidQc2r8z1dtB9nRt6k/w==
+ b=qrJkTeKeCGZXi3wm48tngtHLMNFzduHZb6BZCLpp36OFdGzjlHjGOIO9o6cYiwnmhQhbrPio4CnkPCzXor/2p7Fubh6YbKuGUnDrkEXqi9JGp6lxymydRU2LZbQVz7FntlNtP0KxRg2IILEty1MMR+zQHRiuRzp41WwxOH6Hki5t8myFmSAVX4UBujFffrLX86ge458Ue+cmjQtyLkr+vUea1aw6J+7jXvvjhrvYwJhy6HwnifLg19m1y7OqOyys6E6wfJR2DTYDss1Y5BePx1HQWYxIdIF2DKkA7W662kCpJfZe7jFqucZ1ZVlaFwZG9pucr8BMUhdwRRnQsy/iOg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xdbWYM0v7xrNEK2xFmES9yOYMiOsOVsj1/qnCIMjVbQ=;
- b=vKrRUy5/O/E4pOxBLaB1EVviPhjHH+baScHyjQX+RhFFNz0RlCCmtN8sJobhJpExyswM74Y7HLfMyirHLc0c4zsvgx1q4Dq9Ytwh8URl/TOIxw0xD8AeGanmrfW2wHIbltsiNpygkc7xgDXo4sEDOCExXFBe0ckqKVS9u8QQW1ZT7hwju8zg8JEMh0wMGDUNc+GvnJmeZznUc+BzvwUC4bVyhk561o+VsgjKmoBjVIw2Ey311gVt6JDzaJqq5TtRR7vsPyH6IoWHQjlMMqc8jFBFkIFYGP0FVsQE4bbzYjtMQagQ5amPha3ws3Jo51wXTWJxjI0h3Do1A9Hpr9p0yg==
+ bh=LyAMRfaPZ0sxGatejPN2E/xXUYIX02YzzSbquE0l9Dk=;
+ b=K9qMYwKAAqYps3GQcn97hq8xym+amZYRNgLyUqbVRyNS1649o9GUFJSZcLesNHVVDbJ8t7wlXSdOfm7arL9kdKxX37oz+LfdrBPmOkjKWzp0ZdGqOUjZJg7IO10PY3Lfu/cv9i53HHVR6uSfwGSGmtq3VfiSD8vkqtQKBdTnsOKX0vZMJ1xnicBG9FfGcpc/inb1Tw5bbVHJay6CdboPfwTwBQGMasqnZzqOv91gcUYjsNYiZSM3qpdnXGEwyDZqDiVWBJeuN0hRQJLXdbwrp7ERjgoyIDw50HSt7BUrxl7vNIgW/oynlI3nxzt1RpgcM1UPkg4lxPai0XnuT88B4w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xdbWYM0v7xrNEK2xFmES9yOYMiOsOVsj1/qnCIMjVbQ=;
- b=ssRSfXZS72kZasxc9jZ8x72m0YIlZoCac2vulMa3QpsFRmSrIohbCs4Y1lR3VXS0dVC1CuwsSZUGVpEimZM+jpB+nB1qVp9wnk1yxNlDNQzgfyF9CZH4ypoqhjWyj/SrD8WOHEok/Z0nIFsqNB1Am6rOOLs7P5uSL+i6RaM7bsc=
-Received: from CH0PR08CA0023.namprd08.prod.outlook.com (2603:10b6:610:33::28)
- by CH3PR12MB9251.namprd12.prod.outlook.com (2603:10b6:610:1bd::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Fri, 6 Nov
- 2026 22:44:02 +0000
-Received: from CH01EPF000BE941.namprd02.prod.outlook.com
- (2603:10b6:610:33:cafe::77) by CH0PR08CA0023.outlook.office365.com
- (2603:10b6:610:33::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.11 via Frontend Transport; Fri, 6
- Nov 2026 22:44:02 +0000
+ bh=LyAMRfaPZ0sxGatejPN2E/xXUYIX02YzzSbquE0l9Dk=;
+ b=xHk+WioS5tYjb+/Z3aWKPZIYmiyGjzMQBBVSkqinChuXySIQj7cnq3UDVxp1ysDWgHsrjhaYRX+TjLE8+6LObgimfQnhIiRsJvShZG9ytVJKLLsJ8JCrkH2BYCi2H5R7uCxIf3Rjk5e+jeXpFUSursVGNl/OrSmhNZQuju9RPAs=
+Received: from BN9PR03CA0478.namprd03.prod.outlook.com (2603:10b6:408:139::33)
+ by DS7PR12MB5936.namprd12.prod.outlook.com (2603:10b6:8:7f::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.11; Fri, 6 Nov 2026 22:44:00 +0000
+Received: from BN2PEPF00004FC0.namprd04.prod.outlook.com
+ (2603:10b6:408:139:cafe::37) by BN9PR03CA0478.outlook.office365.com
+ (2603:10b6:408:139::33) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Fri, 6
+ Nov 2026 22:44:00 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CH01EPF000BE941.mail.protection.outlook.com (10.167.244.133) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN2PEPF00004FC0.mail.protection.outlook.com (10.167.243.186) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 22:44:01 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 22:44:00 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 6 Nov
- 2026 16:44:00 -0600
+ 2026 16:43:59 -0600
 Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
  (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 6 Nov
- 2026 16:44:00 -0600
+ 2026 16:43:59 -0600
 Received: from p8.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Fri, 6 Nov 2026 16:43:59 -0600
+ Transport; Fri, 6 Nov 2026 16:43:58 -0600
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Hawking Zhang <Hawking.Zhang@amd.com>, Alex Deucher
  <alexander.deucher@amd.com>
-Subject: [PATCH 4/4] drm/amdgpu/discovery: Add gmc v13_0 ip block
-Date: Fri, 6 Nov 2026 17:43:50 -0500
-Message-ID: <20261106224350.3568574-4-alexander.deucher@amd.com>
+Subject: [PATCH 3/4] drm/amdgpu: Add gmc v13_0 support
+Date: Fri, 6 Nov 2026 17:43:49 -0500
+Message-ID: <20261106224350.3568574-3-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261106224350.3568574-1-alexander.deucher@amd.com>
 References: <20261106224350.3568574-1-alexander.deucher@amd.com>
@@ -77,29 +77,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH01EPF000BE941:EE_|CH3PR12MB9251:EE_
-X-MS-Office365-Filtering-Correlation-Id: fdb1238d-3e97-4e59-efe1-08df3c577438
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FC0:EE_|DS7PR12MB5936:EE_
+X-MS-Office365-Filtering-Correlation-Id: a495e685-8ee2-4192-1d4a-08df3c57731e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700016|1800799024|376014|23010399003|18002099003|22082099003|10067099003|11063799006|261102123227099003|261026140227099003|261028144727099003|261021121427099003|261022105027099003|56012099006|261009223027099003;
-X-Microsoft-Antispam-Message-Info: yJHgGE/LXSHmLPYo3MGUEFp4elKJxsUGaRV6PgYBT0NIxA7WAcCAR0a52WRtynM+43ul3iQpI2inTterxRFnhMvg9PupcptXpsy/h/X/6VeS/v/MHb+z2zH4SDcBHaO4RHqCQAyWyp7yjXp4w3F+Dv0IX0JT+Jj+Eu47khC7JGtXhkla9os2RuabjEF2vzbN5hE9kygbuN0q/7AJpg5ePxE9bpT0lQk60RXsBSotf9kwYh2mNQZBf0pM5zFBZlUGaxWlyjy6PKcCECDQIZUyXUFmOhoTYNfhBozqfyKXNIbV7F4w4WPumfBgH7H/yY4z4OUw7fkZkp9rXr2fgMSipLvJGEWwnihZe0I2cEz+TosJdTs2MDnc5Hes/Zxq74uJoknmhuPIGR57Xemb4+kYWiuOlZGOZbJKONeFcZtWkoR/DFZH7yF+dRwTAn2ww5c8L4rVb4ublJO+kFmAJ4mbkraud0xZ3a9gZu+nqy6VWy69FGYaeYMADee0fzXX2fUtlB5tWNnGXml97tcqo+AOOuCxDtWbRGmFi0tHXG7JZQjtO/A2lEV0scNtM3GiIGWlGt0HVqcfAz0J5cEkS5Km+GvJL47eUXR+Bj67EvRW8uLeeq8pZ6vZOscswLGE89H3eS+NWjvyxK+u7oPogJn+l2JmWMw7M9KZIWNibtEcxjwfVf8KTi8iGvGg/l8XjbcW8ovZbQZg9nmpDsyZ4khiPg==
+ ARA:13230040|82310400026|36860700016|376014|23010399003|1800799024|22082099003|18002099003|6133799003|10067099003|3023799007|261026140227099003|11063799006|261102123227099003|261026121527099003|261028144727099003|261022105027099003|261022113327099003|261022115727099003|261021121427099003|261021123027099003|261022075727099003|56012099006|261009223027099003;
+X-Microsoft-Antispam-Message-Info: JXXEd8roSMmQvX9ICLSK7TURPSpjMSVgireRjTTK274Rx5D6HOcOfBsC7HY/npC4KFUNU3xcXCZw/LcTlELFGzdrUw6RagBHj2GuIaf6gp69u9WZNp7xSjeXXmziUlB4EkCczhfqClNzTnJbrP/qiBqeDgqGQ/Oq7Jf/CR+dSXwm7pE4ZgrgVM6jtKS++TJU8xkeZuQLO28Gr/qOy4RPbdsCBWU83rrJgz9tU7DtovRd2yashRW1PWtyQ0zEIRQTEHzeI6pOovntodUR6YoJK/LeCB7z0rpQcVf6DH8pBBW3MB85kOR+3EECKuPdNM/xwsiZ2nHSblXtrzJa+g1wh+vTH3xuhOf7E2Zj3Nlbu2WS56XiHAkAHi2SQHdfSuEYmTcephFoxMu7BT6ShpzgbeofA24sMIHMqQOYW+9dEV/d8KTfcpMbR8lCwAyvkUSjVLxTU5j2uoinCF08H1lEW+Vq+bKcsZCASFw40MvTJIOrn9voJNFnO2KVFdkiqVgPCrrRxlie7j65nu827hGNkTNdYX+AX7e4fpcuYdAAiJnjl2yvgdGhwyAkMI+GFgkf3SgVjk0qkmd7gT7HNpavk6R5r7EQ5swqExief2fSxAs0GM13jcM0vMnZpM0EJd54kE+0tNi7M5LGcKXDAixKKYTUXwfEXFfO92W8K1gEwuXQtbFUkwoS8N5I4960EF49iYUAC0fqw/tqiLgXF8Z1Pg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700016)(1800799024)(376014)(23010399003)(18002099003)(22082099003)(10067099003)(11063799006)(261102123227099003)(261026140227099003)(261028144727099003)(261021121427099003)(261022105027099003)(56012099006)(261009223027099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700016)(376014)(23010399003)(1800799024)(22082099003)(18002099003)(6133799003)(10067099003)(3023799007)(261026140227099003)(11063799006)(261102123227099003)(261026121527099003)(261028144727099003)(261022105027099003)(261022113327099003)(261022115727099003)(261021121427099003)(261021123027099003)(261022075727099003)(56012099006)(261009223027099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: KiN+QzWtKCXjpnoQs4Z+h0F5BilkKJ0bcNha+kjCjGvHMkOxynygd2ZKIXIKvqNFnLOIJIeiwn7ncib2Y/n6FmVPjGaKDTN0cs7zMoAm10FH6n/gSJC3vXhny3u+U1gaypp2dFyaObANkCj2ONEHhuUalbZ8ZCULWnyVIgr12buXSPs+iZNFxckcNATLj3zNGzImtoFqflQWqN2SWrbW9G7VUwpiae3CMkNBaLsm51eqF9qpl+d9QgzIpweiRpIZXMCjFKE7uhm8pJLa+d+iQ9I2s8BJvD6nfIBGv+AedudDmgo02XHkQCJeCQwcATr09qig6IHEmfDjijbNA6yxSuMjwE/j90wZbkqm4zk3q1OJj7kfT4TFzrUVZUDpyKcIxTjfM+aG6uPChrMm7ZfiWuay7IX9InSZHbaHfYZEHXY8tZ2XQfiP4lRLU0MfRySP
+X-MS-Exchange-AntiSpam-MessageData-0: 1Qq2ozxq4lo/yDTQB29bTfZhvVQuDb55oYafE0udbmonHq90B8Uv+DD/BeVJuBM9N1ZkC8+M5790MSowy1G1TFISZJwU6yAli90eysJ8AspQm/PJKtVmcwwMDdBDMK9kZj8y2n88O8OOOmYZ/+Mt4HaYjBYEvJKj6XHb6QKAGF76nRSJo9CwJJTVnyUur9uJ48mekHY8ROt8nLme8gJLGk+V+wRuVp9mzNgUvKy0hgaZ2nNYaMPcvrVD8DmFoUFGLFZlnbK09mXuimRBingvuCZ2nffWMGOvIcRf64YSeLix5ISv72nBcbl7DDNJA6UcLuPB6r6iBQG2d2F4bwq4S3H7r5a0o94nyTob8BZKlxrUTUhcfHL2sFyyOO3TD0NR4oSMBySoBnSQLxb4iF8HhzwPC9QazrR2o4m2WnBympSg8QrtfDBcvF1Bii7e1wed
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 22:44:01.9053 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fdb1238d-3e97-4e59-efe1-08df3c577438
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 22:44:00.0633 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a495e685-8ee2-4192-1d4a-08df3c57731e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH01EPF000BE941.namprd02.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FC0.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9251
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5936
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,36 +119,1077 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Hawking Zhang <Hawking.Zhang@amd.com>
 
-Add gmc v13_0 ip block
+Add initial implementation for the new generation of gmc
+
+v2: switch to soc_v2_0 ih clientid
+v3: rebase
+v4: squash in various fixes
 
 Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/Makefile    |   3 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v13_0.c | 999 +++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/gmc_v13_0.h |  30 +
+ 3 files changed, 1031 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/gmc_v13_0.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/gmc_v13_0.h
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-index 351a1e61f525e..cd5e447d78e15 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-@@ -61,6 +61,7 @@
- #include "gmc_v10_0.h"
- #include "gmc_v11_0.h"
- #include "gmc_v12_0.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+index e930e4a000550..aad4aa8fa1309 100644
+--- a/drivers/gpu/drm/amd/amdgpu/Makefile
++++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+@@ -111,7 +111,8 @@ amdgpu-y += \
+ 	mmhub_v1_7.o gfxhub_v3_0.o mmhub_v3_0.o mmhub_v3_0_2.o gmc_v11_0.o \
+ 	mmhub_v3_0_1.o gfxhub_v3_0_3.o gfxhub_v1_2.o mmhub_v1_8.o mmhub_v3_3.o \
+ 	gfxhub_v11_5_0.o mmhub_v4_1_0.o gfxhub_v12_0.o gmc_v12_0.o \
+-	mmhub_v4_2_0.o gfxhub_v12_1.o gmc_v12_1.o mmhub_v5_0.o gfxhub_v13_0.o
++	mmhub_v4_2_0.o gfxhub_v12_1.o gmc_v12_1.o mmhub_v5_0.o gfxhub_v13_0.o \
++	gmc_v13_0.o
+ 
+ # add UMC block
+ amdgpu-y += \
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v13_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v13_0.c
+new file mode 100644
+index 0000000000000..cf76b0efe9fe1
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v13_0.c
+@@ -0,0 +1,999 @@
++/*
++ * Copyright 2025 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++#include <linux/firmware.h>
++#include <linux/pci.h>
++
++#include <drm/drm_cache.h>
++
++#include "amdgpu.h"
++#include "amdgpu_atomfirmware.h"
 +#include "gmc_v13_0.h"
- #include "gfxhub_v2_0.h"
- #include "mmhub_v2_0.h"
- #include "nbio_v2_3.h"
-@@ -2800,6 +2801,9 @@ static int amdgpu_discovery_set_gmc_ip_blocks(struct amdgpu_device *adev)
- 	case IP_VERSION(12, 1, 0):
- 		amdgpu_device_ip_block_add(adev, &gmc_v12_0_ip_block);
- 		break;
-+	case IP_VERSION(13, 0, 1):
-+		amdgpu_device_ip_block_add(adev, &gmc_v13_0_ip_block);
++#include "oss/osssys_8_0_1_offset.h"
++#include "ivsrcid/vmc/irqsrcs_vmc_1_0.h"
++#include "soc24_enum.h"
++#include "soc15_common.h"
++#include "gfxhub_v13_0.h"
++#include "mmhub_v5_0.h"
++
++static int gmc_v13_0_ecc_interrupt_state(struct amdgpu_device *adev,
++					 struct amdgpu_irq_src *src,
++					 unsigned type,
++					 enum amdgpu_interrupt_state state)
++{
++	return 0;
++}
++
++static int gmc_v13_0_vm_fault_interrupt_state(struct amdgpu_device *adev,
++					      struct amdgpu_irq_src *src, unsigned type,
++					      enum amdgpu_interrupt_state state)
++{
++	switch (state) {
++	case AMDGPU_IRQ_STATE_DISABLE:
++		/* MM HUB */
++		amdgpu_gmc_set_vm_fault_masks(adev, AMDGPU_MMHUB0(0), false);
++		/* GFX HUB */
++		/* This works because this interrupt is only
++		 * enabled at init/resume and disabled in
++		 * fini/suspend, so the overall state doesn't
++		 * change over the course of suspend/resume.
++		 */
++		if (!adev->in_s0ix)
++			amdgpu_gmc_set_vm_fault_masks(adev, AMDGPU_GFXHUB(0), false);
 +		break;
- 	default:
- 		dev_err(adev->dev, "Failed to add gmc ip block(GC_HWIP:0x%x)\n",
- 			amdgpu_ip_version(adev, GC_HWIP, 0));
++	case AMDGPU_IRQ_STATE_ENABLE:
++		/* MM HUB */
++		amdgpu_gmc_set_vm_fault_masks(adev, AMDGPU_MMHUB0(0), true);
++		/* GFX HUB */
++		/* This works because this interrupt is only
++		 * enabled at init/resume and disabled in
++		 * fini/suspend, so the overall state doesn't
++		 * change over the course of suspend/resume.
++		 */
++		if (!adev->in_s0ix)
++			amdgpu_gmc_set_vm_fault_masks(adev, AMDGPU_GFXHUB(0), true);
++		break;
++	default:
++		break;
++	}
++
++	return 0;
++}
++
++static int gmc_v13_0_process_interrupt(struct amdgpu_device *adev,
++				       struct amdgpu_irq_src *source,
++				       struct amdgpu_iv_entry *entry)
++{
++	struct amdgpu_vmhub *hub;
++	uint32_t status = 0;
++	u64 addr;
++
++	addr = (u64)entry->src_data[0] << 12;
++	addr |= ((u64)entry->src_data[1] & 0xf) << 44;
++
++	if (entry->client_id == SOC_V2_0_IH_CLIENTID_VMC)
++		hub = &adev->vmhub[AMDGPU_MMHUB0(0)];
++	else
++		hub = &adev->vmhub[AMDGPU_GFXHUB(0)];
++
++	if (!amdgpu_sriov_vf(adev)) {
++		/*
++		 * Issue a dummy read to wait for the status register to
++		 * be updated to avoid reading an incorrect value due to
++		 * the new fast GRBM interface.
++		 */
++		if (entry->vmid_src == AMDGPU_GFXHUB(0))
++			RREG32(hub->vm_l2_pro_fault_status);
++
++		status = RREG32(hub->vm_l2_pro_fault_status);
++		WREG32_P(hub->vm_l2_pro_fault_cntl, 1, ~1);
++
++		amdgpu_vm_update_fault_cache(adev, entry->pasid, addr, status,
++					     entry->vmid_src ? AMDGPU_MMHUB0(0) : AMDGPU_GFXHUB(0));
++	}
++
++	if (printk_ratelimit()) {
++		struct amdgpu_task_info *task_info;
++
++		dev_err(adev->dev,
++			"[%s] page fault (src_id:%u ring:%u vmid:%u pasid:%u)\n",
++			entry->vmid_src ? "mmhub" : "gfxhub",
++			entry->src_id, entry->ring_id, entry->vmid, entry->pasid);
++		task_info = amdgpu_vm_get_task_info_pasid(adev, entry->pasid);
++		if (task_info) {
++			amdgpu_vm_print_task_info(adev, task_info);
++			amdgpu_vm_put_task_info(task_info);
++		}
++
++		dev_err(adev->dev, "in page starting at address 0x%016llx from client %d\n",
++				addr, entry->client_id);
++
++		/* Only print L2 fault status if the status register could be read and
++		 * contains useful information
++		 */
++		if (status != 0)
++			hub->vmhub_funcs->print_l2_protection_fault_status(adev, status);
++	}
++
++	return 0;
++}
++
++static const struct amdgpu_irq_src_funcs gmc_v13_0_irq_funcs = {
++	.set = gmc_v13_0_vm_fault_interrupt_state,
++	.process = gmc_v13_0_process_interrupt,
++};
++
++static const struct amdgpu_irq_src_funcs gmc_v13_0_ecc_funcs = {
++	.set = gmc_v13_0_ecc_interrupt_state,
++	.process = amdgpu_umc_process_ecc_irq,
++};
++
++static void gmc_v13_0_set_irq_funcs(struct amdgpu_device *adev)
++{
++	adev->gmc.vm_fault.num_types = 1;
++	adev->gmc.vm_fault.funcs = &gmc_v13_0_irq_funcs;
++
++	if (!amdgpu_sriov_vf(adev)) {
++		adev->gmc.ecc_irq.num_types = 1;
++		adev->gmc.ecc_irq.funcs = &gmc_v13_0_ecc_funcs;
++	}
++}
++
++/**
++ * gmc_v13_0_use_invalidate_semaphore - judge whether to use semaphore
++ *
++ * @adev: amdgpu_device pointer
++ * @vmhub: vmhub type
++ *
++ */
++static bool gmc_v13_0_use_invalidate_semaphore(struct amdgpu_device *adev,
++					       uint32_t vmhub)
++{
++	return ((vmhub == AMDGPU_MMHUB0(0)) &&
++		(!amdgpu_sriov_vf(adev)));
++}
++
++static bool gmc_v13_0_get_vmid_pasid_mapping_info(struct amdgpu_device *adev,
++						  uint8_t vmid, uint16_t *p_pasid)
++{
++	*p_pasid = RREG32(SOC15_REG_OFFSET(OSSSYS, 0, regIH_VMID_0_LUT) + vmid) & 0xffff;
++
++	return !!(*p_pasid);
++}
++
++/*
++ * GART
++ * VMID 0 is the physical GPU addresses as used by the kernel.
++ * VMIDs 1-15 are used for userspace clients and are handled
++ * by the amdgpu vm/hsa code.
++ */
++
++static void gmc_v13_0_flush_vm_hub(struct amdgpu_device *adev, uint32_t vmid,
++				   unsigned int vmhub, uint32_t flush_type)
++{
++	bool use_semaphore = gmc_v13_0_use_invalidate_semaphore(adev, vmhub);
++	struct amdgpu_vmhub *hub = &adev->vmhub[vmhub];
++	u32 inv_req = hub->vmhub_funcs->get_invalidate_req(vmid, flush_type);
++	u32 tmp;
++	/* Use register 17 for GART */
++	const unsigned eng = 17;
++	unsigned int i;
++	unsigned char hub_ip = 0;
++
++	hub_ip = (vmhub == AMDGPU_GFXHUB(0)) ?
++		   GC_HWIP : MMHUB_HWIP;
++
++	spin_lock(&adev->gmc.invalidate_lock);
++	/*
++	 * It may lose gpuvm invalidate acknowldege state across power-gating
++	 * off cycle, add semaphore acquire before invalidation and semaphore
++	 * release after invalidation to avoid entering power gated state
++	 * to WA the Issue
++	 */
++
++	/* TODO: It needs to continue working on debugging with semaphore for GFXHUB as well. */
++	if (use_semaphore) {
++		for (i = 0; i < adev->usec_timeout; i++) {
++			/* a read return value of 1 means semaphore acuqire */
++			tmp = RREG32_RLC_NO_KIQ(hub->vm_inv_eng0_sem +
++					    hub->eng_distance * eng, hub_ip);
++			if (tmp & 0x1)
++				break;
++			udelay(1);
++		}
++
++		if (i >= adev->usec_timeout)
++			dev_err(adev->dev,
++				"Timeout waiting for sem acquire in VM flush!\n");
++	}
++
++	WREG32_RLC_NO_KIQ(hub->vm_inv_eng0_req + hub->eng_distance * eng, inv_req, hub_ip);
++
++	/* Wait for ACK with a delay.*/
++	for (i = 0; i < adev->usec_timeout; i++) {
++		tmp = RREG32_RLC_NO_KIQ(hub->vm_inv_eng0_ack +
++					hub->eng_distance * eng, hub_ip);
++		tmp &= 1 << vmid;
++		if (tmp)
++			break;
++
++		udelay(1);
++	}
++
++	/* TODO: It needs to continue working on debugging with semaphore for GFXHUB as well. */
++	if (use_semaphore)
++		/*
++		 * add semaphore release after invalidation,
++		 * write with 0 means semaphore release
++		 */
++		WREG32_RLC_NO_KIQ(hub->vm_inv_eng0_sem +
++				  hub->eng_distance * eng, 0, hub_ip);
++
++	/* Issue additional private vm invalidation to MMHUB */
++	if ((vmhub != AMDGPU_GFXHUB(0)) &&
++	    (hub->vm_l2_bank_select_reserved_cid2) &&
++	    !amdgpu_sriov_vf(adev)) {
++		inv_req = RREG32_NO_KIQ(hub->vm_l2_bank_select_reserved_cid2);
++		/* bit 25: RSERVED_CACHE_PRIVATE_INVALIDATION */
++		inv_req |= (1 << 25);
++		/* Issue private invalidation */
++		WREG32_NO_KIQ(hub->vm_l2_bank_select_reserved_cid2, inv_req);
++		/* Read back to ensure invalidation is done*/
++		RREG32_NO_KIQ(hub->vm_l2_bank_select_reserved_cid2);
++	}
++
++	spin_unlock(&adev->gmc.invalidate_lock);
++
++	if (i < adev->usec_timeout)
++		return;
++
++	dev_err(adev->dev, "Timeout waiting for VM flush ACK!\n");
++}
++
++/**
++ * gmc_v13_0_flush_gpu_tlb - gart tlb flush callback
++ *
++ * @adev: amdgpu_device pointer
++ * @vmid: vm instance to flush
++ * @vmhub: which hub to flush
++ * @flush_type: the flush type
++ *
++ * Flush the TLB for the requested page table.
++ */
++static void gmc_v13_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
++				    uint32_t vmhub, uint32_t flush_type)
++{
++	if ((vmhub == AMDGPU_GFXHUB(0)) && !adev->gfx.is_poweron)
++		return;
++
++	/* flush hdp cache */
++	amdgpu_device_flush_hdp(adev, NULL);
++
++	/* This is necessary for SRIOV as well as for GFXOFF to function
++	 * properly under bare metal
++	 */
++	if ((adev->gfx.kiq[0].ring.sched.ready || adev->mes.ring[0].sched.ready) &&
++	    (amdgpu_sriov_runtime(adev) || !amdgpu_sriov_vf(adev))) {
++		struct amdgpu_vmhub *hub = &adev->vmhub[vmhub];
++		const unsigned eng = 17;
++		u32 inv_req = hub->vmhub_funcs->get_invalidate_req(vmid, flush_type);
++		u32 req = hub->vm_inv_eng0_req + hub->eng_distance * eng;
++		u32 ack = hub->vm_inv_eng0_ack + hub->eng_distance * eng;
++
++		amdgpu_gmc_fw_reg_write_reg_wait(adev, req, ack, inv_req,
++				1 << vmid, GET_INST(GC, 0));
++		return;
++	}
++
++	gmc_v13_0_flush_vm_hub(adev, vmid, vmhub, 0);
++	return;
++}
++
++/**
++ * gmc_v13_0_flush_gpu_tlb_pasid - tlb flush via pasid
++ *
++ * @adev: amdgpu_device pointer
++ * @pasid: pasid to be flush
++ * @flush_type: the flush type
++ * @all_hub: flush all hubs
++ * @inst: is used to select which instance of KIQ to use for the invalidation
++ *
++ * Flush the TLB for the requested pasid.
++ */
++static void gmc_v13_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
++					  uint16_t pasid, uint32_t flush_type,
++					  bool all_hub, uint32_t inst)
++{
++	uint16_t queried;
++	int vmid, i;
++
++	for (vmid = 1; vmid < 16; vmid++) {
++		bool valid;
++
++		valid = gmc_v13_0_get_vmid_pasid_mapping_info(adev, vmid,
++							      &queried);
++		if (!valid || queried != pasid)
++			continue;
++
++		if (all_hub) {
++			for_each_set_bit(i, adev->vmhubs_mask,
++					 AMDGPU_MAX_VMHUBS)
++				gmc_v13_0_flush_gpu_tlb(adev, vmid, i,
++							flush_type);
++		} else {
++			gmc_v13_0_flush_gpu_tlb(adev, vmid, AMDGPU_GFXHUB(0),
++						flush_type);
++		}
++	}
++}
++
++static uint64_t gmc_v13_0_emit_flush_gpu_tlb(struct amdgpu_ring *ring,
++					     unsigned vmid, uint64_t pd_addr)
++{
++	bool use_semaphore = gmc_v13_0_use_invalidate_semaphore(ring->adev, ring->vm_hub);
++	struct amdgpu_vmhub *hub = &ring->adev->vmhub[ring->vm_hub];
++	uint32_t req = hub->vmhub_funcs->get_invalidate_req(vmid, 0);
++	unsigned eng = ring->vm_inv_eng;
++
++	/*
++	 * It may lose gpuvm invalidate acknowldege state across power-gating
++	 * off cycle, add semaphore acquire before invalidation and semaphore
++	 * release after invalidation to avoid entering power gated state
++	 * to WA the Issue
++	 */
++
++	/* TODO: It needs to continue working on debugging with semaphore for GFXHUB as well. */
++	if (use_semaphore)
++		/* a read return value of 1 means semaphore acuqire */
++		amdgpu_ring_emit_reg_wait(ring,
++					  hub->vm_inv_eng0_sem +
++					  hub->eng_distance * eng, 0x1, 0x1);
++
++	amdgpu_ring_emit_wreg(ring, hub->ctx0_ptb_addr_lo32 +
++			      (hub->ctx_addr_distance * vmid),
++			      lower_32_bits(pd_addr));
++
++	amdgpu_ring_emit_wreg(ring, hub->ctx0_ptb_addr_hi32 +
++			      (hub->ctx_addr_distance * vmid),
++			      upper_32_bits(pd_addr));
++
++	amdgpu_ring_emit_reg_write_reg_wait(ring, hub->vm_inv_eng0_req +
++					    hub->eng_distance * eng,
++					    hub->vm_inv_eng0_ack +
++					    hub->eng_distance * eng,
++					    req, 1 << vmid);
++
++	/* TODO: It needs to continue working on debugging with semaphore for GFXHUB as well. */
++	if (use_semaphore)
++		/*
++		 * add semaphore release after invalidation,
++		 * write with 0 means semaphore release
++		 */
++		amdgpu_ring_emit_wreg(ring, hub->vm_inv_eng0_sem +
++				      hub->eng_distance * eng, 0);
++
++	return pd_addr;
++}
++
++static void gmc_v13_0_emit_pasid_mapping(struct amdgpu_ring *ring, unsigned vmid,
++					 unsigned pasid)
++{
++	struct amdgpu_device *adev = ring->adev;
++	uint32_t reg;
++
++	if (ring->vm_hub == AMDGPU_GFXHUB(0))
++		reg = SOC15_REG_OFFSET(OSSSYS, 0, regIH_VMID_0_LUT) + vmid;
++	else
++		reg = SOC15_REG_OFFSET(OSSSYS, 0, regIH_VMID_0_LUT_MM) + vmid;
++
++	amdgpu_ring_emit_wreg(ring, reg, pasid);
++}
++
++/*
++ * PTE format:
++ * 63 P
++ * 62:59 reserved
++ * 58 D
++ * 57 G
++ * 56 T
++ * 55:54 M
++ * 53:52 SW
++ * 51:48 reserved for future
++ * 47:12 4k physical page base address
++ * 11:7 fragment
++ * 6 write
++ * 5 read
++ * 4 exe
++ * 3 Z
++ * 2 snooped
++ * 1 system
++ * 0 valid
++ *
++ * PDE format:
++ * 63 P
++ * 62:58 block fragment size
++ * 57 reserved
++ * 56 A
++ * 55:54 M
++ * 53:52 reserved
++ * 51:48 reserved for future
++ * 47:6 physical base address of PD or PTE
++ * 5:3 reserved
++ * 2 C
++ * 1 system
++ * 0 valid
++ */
++
++#if 0
++static uint64_t gmc_v13_0_map_mtype(struct amdgpu_device *adev, uint32_t flags)
++{
++	switch (flags) {
++	case AMDGPU_VM_MTYPE_DEFAULT:
++		return AMDGPU_PTE_MTYPE_GFX12(0ULL, MTYPE_NC);
++	case AMDGPU_VM_MTYPE_NC:
++		return AMDGPU_PTE_MTYPE_GFX12(0ULL, MTYPE_NC);
++	case AMDGPU_VM_MTYPE_UC:
++		return AMDGPU_PTE_MTYPE_GFX12(0ULL, MTYPE_UC);
++	default:
++		return AMDGPU_PTE_MTYPE_GFX12(0ULL, MTYPE_NC);
++	}
++}
++#endif
++
++static void gmc_v13_0_get_vm_pde(struct amdgpu_device *adev, int level,
++				 uint64_t *addr, uint64_t *flags)
++{
++	if (!(*flags & AMDGPU_PDE_PTE_GFX12) && !(*flags & AMDGPU_PTE_SYSTEM))
++		*addr = adev->vm_manager.vram_base_offset + *addr -
++			adev->gmc.vram_start;
++	BUG_ON(*addr & 0xFFFF00000000003FULL);
++
++	if (!adev->gmc.translate_further)
++		return;
++
++	if (level == AMDGPU_VM_PDB1) {
++		/* Set the block fragment size */
++		if (!(*flags & AMDGPU_PDE_PTE_GFX12))
++			*flags |= AMDGPU_PDE_BFS_GFX12(0x9);
++
++	} else if (level == AMDGPU_VM_PDB0) {
++		if (*flags & AMDGPU_PDE_PTE_GFX12)
++			*flags &= ~AMDGPU_PDE_PTE_GFX12;
++	}
++}
++
++static void gmc_v13_0_get_vm_pte(struct amdgpu_device *adev,
++				 struct amdgpu_vm *vm,
++				 struct amdgpu_bo *bo,
++				 uint32_t vm_flags,
++				 uint64_t *flags)
++{
++	if (vm_flags & AMDGPU_VM_PAGE_EXECUTABLE)
++		*flags |= AMDGPU_PTE_EXECUTABLE;
++	else
++		*flags &= ~AMDGPU_PTE_EXECUTABLE;
++
++	switch (vm_flags & AMDGPU_VM_MTYPE_MASK) {
++	case AMDGPU_VM_MTYPE_DEFAULT:
++		*flags = AMDGPU_PTE_MTYPE_GFX12(*flags, MTYPE_NC);
++		break;
++	case AMDGPU_VM_MTYPE_NC:
++	default:
++		*flags = AMDGPU_PTE_MTYPE_GFX12(*flags, MTYPE_NC);
++		break;
++	case AMDGPU_VM_MTYPE_UC:
++		*flags = AMDGPU_PTE_MTYPE_GFX12(*flags, MTYPE_UC);
++		break;
++	}
++
++	if (vm_flags & AMDGPU_VM_PAGE_NOALLOC)
++		*flags |= AMDGPU_PTE_NOALLOC;
++	else
++		*flags &= ~AMDGPU_PTE_NOALLOC;
++
++	if (vm_flags & AMDGPU_VM_PAGE_PRT) {
++		*flags |= AMDGPU_PTE_PRT_GFX12;
++		*flags |= AMDGPU_PTE_SNOOPED;
++		*flags |= AMDGPU_PTE_SYSTEM;
++		*flags |= AMDGPU_PTE_IS_PTE;
++		*flags &= ~AMDGPU_PTE_VALID;
++	}
++
++	if (bo && bo->flags & AMDGPU_GEM_CREATE_GFX12_DCC)
++		*flags |= AMDGPU_PTE_DCC;
++
++	if (bo && bo->flags & AMDGPU_GEM_CREATE_UNCACHED)
++		*flags = AMDGPU_PTE_MTYPE_GFX12(*flags, MTYPE_UC);
++}
++
++static unsigned gmc_v13_0_get_vbios_fb_size(struct amdgpu_device *adev)
++{
++	return 0;
++}
++
++static unsigned int gmc_v13_0_get_dcc_alignment(struct amdgpu_device *adev)
++{
++	unsigned int max_tex_channel_caches, alignment;
++
++	max_tex_channel_caches = adev->gfx.config.max_texture_channel_caches;
++	if (is_power_of_2(max_tex_channel_caches))
++		alignment = (unsigned int)(max_tex_channel_caches / SZ_4);
++	else
++		alignment = roundup_pow_of_two(max_tex_channel_caches);
++
++	return (unsigned int)(alignment * max_tex_channel_caches * SZ_1K);
++}
++
++static const struct amdgpu_gmc_funcs gmc_v13_0_gmc_funcs = {
++	.flush_gpu_tlb = gmc_v13_0_flush_gpu_tlb,
++	.flush_gpu_tlb_pasid = gmc_v13_0_flush_gpu_tlb_pasid,
++	.emit_flush_gpu_tlb = gmc_v13_0_emit_flush_gpu_tlb,
++	.emit_pasid_mapping = gmc_v13_0_emit_pasid_mapping,
++	.get_vm_pde = gmc_v13_0_get_vm_pde,
++	.get_vm_pte = gmc_v13_0_get_vm_pte,
++	.get_vbios_fb_size = gmc_v13_0_get_vbios_fb_size,
++	.get_dcc_alignment = gmc_v13_0_get_dcc_alignment,
++};
++
++static void gmc_v13_0_set_gmc_funcs(struct amdgpu_device *adev)
++{
++	adev->gmc.gmc_funcs = &gmc_v13_0_gmc_funcs;
++}
++
++static void gmc_v13_0_set_umc_funcs(struct amdgpu_device *adev)
++{
++}
++
++static void gmc_v13_0_set_mmhub_funcs(struct amdgpu_device *adev)
++{
++	switch (amdgpu_ip_version(adev, MMHUB_HWIP, 0)) {
++	case IP_VERSION(5, 0, 1):
++		adev->mmhub.funcs = &mmhub_v5_0_funcs;
++		break;
++	default:
++		break;
++	}
++}
++
++static void gmc_v13_0_set_gfxhub_funcs(struct amdgpu_device *adev)
++{
++	switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
++	case IP_VERSION(13, 0, 1):
++		adev->gfxhub.funcs = &gfxhub_v13_0_funcs;
++		break;
++	default:
++		break;
++	}
++}
++
++static int gmc_v13_0_early_init(struct amdgpu_ip_block *ip_block)
++{
++	struct amdgpu_device *adev = ip_block->adev;
++
++	gmc_v13_0_set_gfxhub_funcs(adev);
++	gmc_v13_0_set_mmhub_funcs(adev);
++	gmc_v13_0_set_gmc_funcs(adev);
++	gmc_v13_0_set_irq_funcs(adev);
++	gmc_v13_0_set_umc_funcs(adev);
++
++	adev->gmc.shared_aperture_start = 0x2000000000000000ULL;
++	adev->gmc.shared_aperture_end =
++		adev->gmc.shared_aperture_start + (4ULL << 30) - 1;
++	adev->gmc.private_aperture_start = 0x1000000000000000ULL;
++	adev->gmc.private_aperture_end =
++		adev->gmc.private_aperture_start + (1ULL << 57) - 1;
++
++	return 0;
++}
++
++static int gmc_v13_0_late_init(struct amdgpu_ip_block *ip_block)
++{
++	struct amdgpu_device *adev = ip_block->adev;
++	int r;
++
++	r = amdgpu_gmc_allocate_vm_inv_eng(adev);
++	if (r)
++		return r;
++
++	return amdgpu_irq_get(adev, &adev->gmc.vm_fault, 0);
++}
++
++static void gmc_v13_0_vram_gtt_location(struct amdgpu_device *adev, struct amdgpu_gmc *mc, u64 base, u64 offset)
++{
++	amdgpu_gmc_set_agp_default(adev, mc);
++	amdgpu_gmc_vram_location(adev, mc, base);
++	amdgpu_gmc_gart_location(adev, mc, AMDGPU_GART_PLACEMENT_LOW);
++	if (!amdgpu_sriov_vf(adev) && (amdgpu_agp == 1))
++		amdgpu_gmc_agp_location(adev, mc);
++
++	/* base offset of vram pages */
++	if (amdgpu_sriov_vf(adev))
++		adev->vm_manager.vram_base_offset = 0;
++	else
++		adev->vm_manager.vram_base_offset = adev->mmhub.funcs->get_mc_fb_offset(adev) + offset;
++}
++
++/**
++ * gmc_v13_0_mc_init - initialize the memory controller driver params
++ *
++ * @adev: amdgpu_device pointer
++ *
++ * Look up the amount of vram, vram width, and decide how to place
++ * vram and gart within the GPU's physical address space.
++ * Returns 0 for success.
++ */
++static int gmc_v13_0_mc_init(struct amdgpu_device *adev)
++{
++	u64 base, hdp_base, mc_vram_offset = 0;
++	int r;
++
++	/* size in MB on si */
++	adev->gmc.mc_vram_size =
++		adev->nbio.funcs->get_memsize(adev) * 1024ULL * 1024ULL;
++	base = adev->mmhub.funcs->get_fb_location(adev);
++	hdp_base = adev->hdp.funcs->get_hdp_base(adev);
++
++	if (!amdgpu_sriov_vf(adev)) {
++		if (hdp_base < base || hdp_base - base >= adev->gmc.mc_vram_size) {
++			dev_err(adev->dev, "HDP base 0x%016llx outside VRAM at 0x%016llx size 0x%llx\n",
++				hdp_base, base, adev->gmc.mc_vram_size);
++			return -EINVAL;
++		}
++
++		mc_vram_offset = hdp_base - base;
++		adev->gmc.mc_vram_size -= mc_vram_offset;
++		base = hdp_base;
++	}
++	adev->gmc.real_vram_size = adev->gmc.mc_vram_size;
++
++	if (!(adev->flags & AMD_IS_APU)) {
++		r = amdgpu_device_resize_fb_bar(adev);
++		if (r)
++			return r;
++	}
++
++	adev->gmc.aper_base = pci_resource_start(adev->pdev, 0);
++	adev->gmc.aper_size = pci_resource_len(adev->pdev, 0);
++
++#ifdef CONFIG_X86_64
++	if ((adev->flags & AMD_IS_APU) && !amdgpu_passthrough(adev)) {
++		adev->gmc.aper_base = adev->mmhub.funcs->get_mc_fb_offset(adev);
++		adev->gmc.aper_size = adev->gmc.real_vram_size;
++	}
++#endif
++	/* In case the PCI BAR is larger than the actual amount of vram */
++	adev->gmc.visible_vram_size = adev->gmc.aper_size;
++	if (adev->gmc.visible_vram_size > adev->gmc.real_vram_size)
++		adev->gmc.visible_vram_size = adev->gmc.real_vram_size;
++
++	/* set the gart size */
++	amdgpu_gmc_set_gart_size(adev, SZ_512M);
++
++	gmc_v13_0_vram_gtt_location(adev, &adev->gmc, base, mc_vram_offset);
++
++	return 0;
++}
++
++static int gmc_v13_0_gart_init(struct amdgpu_device *adev)
++{
++	int r;
++
++	if (adev->gart.bo) {
++		WARN(1, "PCIE GART already initialized\n");
++		return 0;
++	}
++
++	/* Initialize common gart structure */
++	r = amdgpu_gart_init(adev);
++	if (r)
++		return r;
++
++	adev->gart.table_size = adev->gart.num_gpu_pages * 8;
++	adev->gart.gart_pte_flags = AMDGPU_PTE_MTYPE_GFX12(0ULL, MTYPE_UC) |
++				    AMDGPU_PTE_EXECUTABLE |
++				    AMDGPU_PTE_IS_PTE;
++
++	return amdgpu_gart_table_vram_alloc(adev);
++}
++
++static int gmc_v13_0_sw_init(struct amdgpu_ip_block *ip_block)
++{
++	int r, vram_width = 0, vram_type = 0, vram_vendor = 0;
++	struct amdgpu_device *adev = ip_block->adev;
++	unsigned int last_kq_vmid;
++
++	adev->mmhub.funcs->init(adev);
++
++	adev->gfxhub.funcs->init(adev);
++
++	spin_lock_init(&adev->gmc.invalidate_lock);
++
++	r = amdgpu_atomfirmware_get_vram_info(adev,
++					      &vram_width, &vram_type, &vram_vendor);
++	adev->gmc.vram_width = vram_width;
++
++	adev->gmc.vram_type = vram_type;
++	adev->gmc.vram_vendor = vram_vendor;
++
++	switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
++	case IP_VERSION(13, 0, 1):
++		set_bit(AMDGPU_GFXHUB(0), adev->vmhubs_mask);
++		set_bit(AMDGPU_MMHUB0(0), adev->vmhubs_mask);
++		/*
++		 * To fulfill 4-level page support,
++		 * vm size is 256TB (48bit), maximum size,
++		 * block size 512 (9bit)
++		 */
++		amdgpu_vm_adjust_size(adev, 256 * 1024, 9, 3, 48);
++		break;
++	default:
++		break;
++	}
++
++	/* This interrupt is VMC page fault.*/
++	r = amdgpu_irq_add_id(adev, SOC_V2_0_IH_CLIENTID_VMC,
++			      VMC_1_0__SRCID__VM_FAULT,
++			      &adev->gmc.vm_fault);
++
++	if (r)
++		return r;
++
++	r = amdgpu_irq_add_id(adev, SOC_V2_0_IH_CLIENTID_GC_UTCL2,
++			      UTCL2_1_0__SRCID__FAULT,
++			      &adev->gmc.vm_fault);
++	if (r)
++		return r;
++
++	if (!amdgpu_sriov_vf(adev)) {
++		/* interrupt sent to DF. */
++		r = amdgpu_irq_add_id(adev, SOC_V2_0_IH_CLIENTID_DF, 0,
++				      &adev->gmc.ecc_irq);
++		if (r)
++			return r;
++	}
++
++	/*
++	 * Set the internal MC address mask This is the max address of the GPU's
++	 * internal address space.
++	 */
++	adev->gmc.mc_mask = 0xffffffffffffULL; /* 48 bit MC */
++	adev->gmc.pte_addr_mask = 0x0000FFFFFFFFF000ULL; /* 48 bit PA */
++
++	r = dma_set_mask_and_coherent(adev->dev, DMA_BIT_MASK(44));
++	if (r) {
++		printk(KERN_WARNING "amdgpu: No suitable DMA available.\n");
++		return r;
++	}
++
++	adev->need_swiotlb = drm_need_swiotlb(44);
++
++	r = gmc_v13_0_mc_init(adev);
++	if (r)
++		return r;
++
++	/* Memory manager */
++	r = amdgpu_bo_init(adev);
++	if (r)
++		return r;
++
++	r = gmc_v13_0_gart_init(adev);
++	if (r)
++		return r;
++
++	/*
++	 * number of VMs
++	 * VMID 0 is reserved for System
++	 * amdgpu graphics/compute kernel queues will use VMIDs 1-7
++	 * amdkfd/MES user queues will use VMIDs 8-15.
++	 */
++	last_kq_vmid = adev->gfx.disable_kq ? 0 : 7;
++
++	amdgpu_vmid_mgr_set_vmid_mask(adev, GENMASK(last_kq_vmid, 1),
++				      GENMASK(AMDGPU_NUM_VMID - 1, 1));
++
++	amdgpu_vm_manager_init(adev);
++
++	r = amdgpu_gmc_ras_sw_init(adev);
++	if (r)
++		return r;
++
++	return 0;
++}
++
++/**
++ * gmc_v13_0_gart_fini - vm fini callback
++ *
++ * @adev: amdgpu_device pointer
++ *
++ * Tears down the driver GART/VM setup (CIK).
++ */
++static void gmc_v13_0_gart_fini(struct amdgpu_device *adev)
++{
++	amdgpu_gart_table_vram_free(adev);
++}
++
++static int gmc_v13_0_sw_fini(struct amdgpu_ip_block *ip_block)
++{
++	struct amdgpu_device *adev = ip_block->adev;
++
++	amdgpu_vm_manager_fini(adev);
++	gmc_v13_0_gart_fini(adev);
++	amdgpu_gem_force_release(adev);
++	amdgpu_bo_fini(adev);
++
++	return 0;
++}
++
++static void gmc_v13_0_init_golden_registers(struct amdgpu_device *adev)
++{
++}
++
++/**
++ * gmc_v13_0_gart_enable - gart enable
++ *
++ * @adev: amdgpu_device pointer
++ */
++static int gmc_v13_0_gart_enable(struct amdgpu_device *adev)
++{
++	int r;
++	bool value;
++
++	if (adev->gart.bo == NULL) {
++		dev_err(adev->dev, "No VRAM object for PCIE GART.\n");
++		return -EINVAL;
++	}
++
++	amdgpu_gtt_mgr_recover(&adev->mman.gtt_mgr);
++
++	r = adev->mmhub.funcs->gart_enable(adev);
++	if (r)
++		return r;
++
++	/* Flush HDP after it is initialized */
++	amdgpu_device_flush_hdp(adev, NULL);
++
++	value = (amdgpu_vm_fault_stop == AMDGPU_VM_FAULT_STOP_ALWAYS) ?
++		false : true;
++
++	adev->mmhub.funcs->set_fault_enable_default(adev, value);
++	gmc_v13_0_flush_gpu_tlb(adev, 0, AMDGPU_MMHUB0(0), 0);
++
++	dev_info(adev->dev, "PCIE GART of %uM enabled (table at 0x%016llX).\n",
++		 (unsigned)(adev->gmc.gart_size >> 20),
++		 (unsigned long long)amdgpu_bo_gpu_offset(adev->gart.bo));
++
++	return 0;
++}
++
++static int gmc_v13_0_hw_init(struct amdgpu_ip_block *ip_block)
++{
++	int r;
++	struct amdgpu_device *adev = ip_block->adev;
++
++	/* The sequence of these two function calls matters.*/
++	gmc_v13_0_init_golden_registers(adev);
++
++	r = gmc_v13_0_gart_enable(adev);
++	if (r)
++		return r;
++
++	if (adev->umc.funcs &&
++	    adev->umc.funcs->init_registers)
++		adev->umc.funcs->init_registers(adev);
++
++	return 0;
++}
++
++/**
++ * gmc_v13_0_gart_disable - gart disable
++ *
++ * @adev: amdgpu_device pointer
++ *
++ * This disables all VM page table.
++ */
++static void gmc_v13_0_gart_disable(struct amdgpu_device *adev)
++{
++	adev->mmhub.funcs->gart_disable(adev);
++}
++
++static int gmc_v13_0_hw_fini(struct amdgpu_ip_block *ip_block)
++{
++	struct amdgpu_device *adev = ip_block->adev;
++
++	if (amdgpu_sriov_vf(adev))
++		return 0;
++
++	amdgpu_irq_put(adev, &adev->gmc.vm_fault, 0);
++
++	if (adev->gmc.ecc_irq.funcs &&
++	    amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__UMC))
++		amdgpu_irq_put(adev, &adev->gmc.ecc_irq, 0);
++
++	gmc_v13_0_gart_disable(adev);
++
++	return 0;
++}
++
++static int gmc_v13_0_suspend(struct amdgpu_ip_block *ip_block)
++{
++	gmc_v13_0_hw_fini(ip_block);
++
++	return 0;
++}
++
++static int gmc_v13_0_resume(struct amdgpu_ip_block *ip_block)
++{
++	int r;
++
++	r = gmc_v13_0_hw_init(ip_block);
++	if (r)
++		return r;
++
++	amdgpu_vmid_reset_all(ip_block->adev);
++
++	return 0;
++}
++
++static int gmc_v13_0_wait_for_idle(struct amdgpu_ip_block *ip_block)
++{
++	return 0;
++}
++
++static int gmc_v13_0_set_clockgating_state(struct amdgpu_ip_block *ip_block,
++					   enum amd_clockgating_state state)
++{
++	return 0;
++}
++
++static void gmc_v13_0_get_clockgating_state(struct amdgpu_ip_block *ip_block, u64 *flags)
++{
++}
++
++static int gmc_v13_0_set_powergating_state(struct amdgpu_ip_block *ip_block,
++					   enum amd_powergating_state state)
++{
++	return 0;
++}
++
++const struct amd_ip_funcs gmc_v13_0_ip_funcs = {
++	.name = "gmc_v13_0",
++	.early_init = gmc_v13_0_early_init,
++	.sw_init = gmc_v13_0_sw_init,
++	.hw_init = gmc_v13_0_hw_init,
++	.late_init = gmc_v13_0_late_init,
++	.sw_fini = gmc_v13_0_sw_fini,
++	.hw_fini = gmc_v13_0_hw_fini,
++	.suspend = gmc_v13_0_suspend,
++	.resume = gmc_v13_0_resume,
++	.wait_for_idle = gmc_v13_0_wait_for_idle,
++	.set_clockgating_state = gmc_v13_0_set_clockgating_state,
++	.set_powergating_state = gmc_v13_0_set_powergating_state,
++	.get_clockgating_state = gmc_v13_0_get_clockgating_state,
++};
++
++const struct amdgpu_ip_block_version gmc_v13_0_ip_block = {
++	.type = AMD_IP_BLOCK_TYPE_GMC,
++	.major = 13,
++	.minor = 0,
++	.rev = 0,
++	.funcs = &gmc_v13_0_ip_funcs,
++};
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v13_0.h b/drivers/gpu/drm/amd/amdgpu/gmc_v13_0.h
+new file mode 100644
+index 0000000000000..22f3c756d50af
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v13_0.h
+@@ -0,0 +1,30 @@
++/*
++ * Copyright 2025 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++
++#ifndef __GMC_V13_0_H__
++#define __GMC_V13_0_H__
++
++extern const struct amd_ip_funcs gmc_v13_0_ip_funcs;
++extern const struct amdgpu_ip_block_version gmc_v13_0_ip_block;
++
++#endif
 -- 
 2.56.0
 
