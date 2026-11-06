@@ -2,51 +2,75 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DF1E606A326
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Nov 2026 14:57:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD531606A33F
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Nov 2026 15:12:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=JxzsWmmG
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CnPXfDJH
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 562B710F72E;
-	Fri,  6 Nov 2026 14:57:26 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 753A910EA7E;
- Fri,  6 Nov 2026 14:57:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:From:Reply-To;
- bh=kke7mX9E+sbBJZCpeJEimA7sW8qvrrhtDygsM+pOJpE=; t=1793977030; x=2109337030; 
- b=JxzsWmmGnSMRqt4FFYYZB4LHbZnTclX0wWXLoWuMdEOxjqMJIienG4GgGyjJC2t5CKhbCxSC8vA
- 6fyjVDCBeBS0QMUYKySMTkN3QDnEYFJRyiCRjPkCWrq7E6cS5JjFMptsEqYvIJQzppKNDqD/jHdUg
- WdV8RBlGFUjV4E9MQyV2P2g5lyB47a/ZcQPzbUfxJMWUD5y7t6Z9Xp+eh/JFxGaoUTsVDDbYa1uV/
- 97JgYjQGF5kyzg9J0857c3l9gTJQMo2g28Kb1deXLYu6iNtH0Tx5AAs9kFLp2jUJ0t0sCYIXkhgp6
- Ps4WB2p/i1yhVJRur9kKr6cSZ2zPilSLtDAg==;
-Received: from [81.79.79.1] (helo=localhost)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xPLNL-004Vmq-0Q; Fri, 06 Nov 2026 15:57:07 +0100
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-To: amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Luben Tuikov <ltuikov89@gmail.com>,
- Matthew Brost <matthew.brost@intel.com>, Simona Vetter <simona@ffwll.ch>,
- Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
- "Cc: Tomeu Vizoso" <tomeu@tomeuvizoso.net>,
- Sidong Yang <sidong.yang@furiosa.ai>
-Subject: [PATCH 4/7] drm/sched: Remove the single scheduler special case
-Date: Fri,  6 Nov 2026 14:56:59 +0000
-Message-ID: <20261106145702.61640-5-tvrtko.ursulin@igalia.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261106145702.61640-1-tvrtko.ursulin@igalia.com>
-References: <20261106145702.61640-1-tvrtko.ursulin@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 213BF10EA8A;
+	Fri,  6 Nov 2026 15:11:56 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74D4F112BCD;
+ Fri,  6 Nov 2026 15:11:50 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 4F52843461;
+ Fri,  6 Nov 2026 15:11:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC6971F008A5;
+ Fri,  6 Nov 2026 15:11:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793977910;
+ bh=5PCTieHW/ReyuPu3rgS6AWSeGEwuh1j7rISPeH6NvNg=;
+ h=From:Subject:Date:To:Cc;
+ b=CnPXfDJHvTmNpxdFueJtgjRlF0M0E/s0rJjfBSE9wslFwp15tBShMfKIZmwJvZdg4
+ GTyzPyQSMWiVPqzOW5xRf2GTl7mgG3zzydxC8zS4/RWTycfvP3x/pQaj3D1rnyIAcD
+ c3CINNjVgSwcoEVR7dNWNa+6/ZIH+bu3FXaPjIIVP94KprzlLZRmwz1RKtiAUoA61R
+ cNEJOGUVDhZjz+XHklcWjFZneRgG5bPe/HpSREuPU4QRzersLeQ/GkgZwZ5aHKvxnf
+ iSzpw0a1gKeaXhPVL03oYyjtTLOcvIL9pyiajhIQLf/weljgb1igmhkmhOlNmVfPdo
+ jhl+XMPLtKhPw==
+From: Maxime Ripard <mripard@kernel.org>
+Subject: [PATCH v8 0/7] drm: Add DRM_MODE_ATOMIC_RESET flag
+Date: Fri, 06 Nov 2026 16:11:38 +0100
+Message-Id: <20261106-drm-reset-state-flag-v8-0-50fd046b705f@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/4XSTWrDMBAF4KsYrTNlJFk/9qr3KF3I1sgRje1Wc
+ k1LyN2LndIkGNPtwHxvGN6ZZUqRMquLM0s0xxzHgdWFPRSsPbqhI4ie1QUTKDQatOBTD4kyTZA
+ nNxGEk+tAhEY0ynAeKsMOBXtPFOLXyr68Hgp2jHka0/eaMvNl+g84c0BopfFtZVVplX9+ozTQ6
+ WlMHVvEWdwUy8WOIgCBKt0Sl5Ibv1XkTal2b5GAUKFSBoO0xpUbpbxT+J5SAoJynqOWBgOqjaL
+ +FI5c7ygKELzzwuuy0ZVsNoq+U8TeXzQgBKm9LrExZPRGMXeKxB3FAEJJSpEjR9rKB+VyrUGij
+ 8+Y43TtAmtcJmjHvo9TXXjhbEtU8Sa4pTU95ezWxtXFGs1RrdHDCP2YlsUhxO73krUiPCjrOUk
+ pLT7GX34A3PLEJNsCAAA=
+X-Change-ID: 20260708-drm-reset-state-flag-2fb2b5711f97
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Louis Chauvet <louis.chauvet@bootlin.com>, 
+ Haneen Mohammed <hamohammed.sa@gmail.com>, 
+ Melissa Wen <melissa.srw@gmail.com>
+Cc: Daniel Stone <daniels@collabora.com>, 
+ Harry Wentland <harry.wentland@amd.com>, 
+ Jocelyn Falempe <jfalempe@redhat.com>, 
+ =?utf-8?q?Jonas_=C3=85dahl?= <jadahl@redhat.com>, 
+ =?utf-8?q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
+ Pekka Paalanen <pekka.paalanen@collabora.com>, 
+ Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
+ Victoria Brekenfeld <victoria@system76.com>, 
+ Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>, 
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ amd-gfx@lists.freedesktop.org, Daniel Stone <daniel@fooishbar.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=11163; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=D+cXHWB3ZYIbADwVy64IUvfY1S88A4r6Lt+bz906HkI=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlv3+k9fKnI86ZK5O/7mw0TlF5XvE1+XrdGJutL/0V+Z
+ f8r+W4TOqayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBEFFwYG96kmfCn2fW8PrP4
+ 8gPFyp1ng3RXep6cFLzd8GWEyN45h4M+Cneb1UxpTryizB6tyTa9ibGGszWcyejaidzdfwz/y6/
+ pdbks1T9nD3PvlPI1Qs+M7iTW8h35nX1w1tXgCrEKPpYdB6cBAA==
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,235 +81,224 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
 	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Long time ago in commit
-b3ac17667f11 ("drm/scheduler: rework entity creation")
-a change was made which prevented priority changes for entities with only
-one assigned scheduler.
+Hi,
 
-That commit reduced drm_sched_entity_set_priority() to simply update the
-entities priority, but the run queue selection logic in
-drm_sched_entity_select_rq() was never able to actually change the
-originally assigned run queue.
+Userspace currently has no atomic way to bring a display pipeline back
+to a pristine state. A compositor that wants to start from a known
+baseline must explicitly set every property on every KMS object to its
+default value, which requires tracking which properties exist and what
+their defaults are. This is fragile and must be updated every time a
+new property is added to the kernel.
 
-In practice that only affected amdgpu, being the only driver which can do
-dynamic priority changes, and it appears it was attempted to rectify this
-in commit
-2316a86bde49 ("drm/amdgpu: change hw sched list on ctx priority override")
-.
+This series introduces a new DRM_MODE_ATOMIC_RESET flag for the
+atomic ioctl. When set, the kernel fills the commit with default
+states for all KMS objects before applying the properties supplied in
+the request. Properties not explicitly included remain at their
+defaults. This allows userspace to describe the desired end state
+declaratively, without caring about the current state or the full set
+of properties.
 
-A few unresolved problems however remained:
+The bulk of the series extracts the state insertion logic from each
+drm_atomic_get_*_state() into standalone helpers, since the
+fill_with_defaults path creates states through atomic_create_state()
+rather than atomic_duplicate_state() and cannot reuse the existing
+functions directly.
 
-The above only fixed drm_sched_entity_set_priority()
-if drm_sched_entity_modify_sched() was called first which was not
-documented anywhere.
+A driver-specific property is added to vkms planes for testing.
+Standard properties are impractical for this: compositors like Mutter
+enumerate all known properties, making it hard to isolate the reset
+behavior in a test.
 
-Secondly, that only worked if drm_sched_entity_modify_sched() is actually
-called, which in amdgpu's case is true only for gfx and compute. Priority
-changes for other engines, which have only one scheduler assigned such as
-jpeg and video decode still did not work.
+Mutter has a working implementation using the new flag, with a
+vkms-based test exercising the reset behavior:
+https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/5309
 
-(Note that this was also noticed in 981b04d96856 ("drm/sched: improve docs
-around drm_sched_entity").)
+And we have IGT tests as well:
+https://lore.kernel.org/r/20261030105135.268065-1-mripard@kernel.org
 
-Completely different set of non-obvious confusion was that, whereas
-drm_sched_entity_init() was not keeping the passed in list of schedulers
-(courtesy of commit
-8c23056bdc7a ("drm/scheduler: do not keep a copy of sched list")
-), drm_sched_entity_modify_sched() was disagreeing with that and
-would simply assign the single item list. That incosistency appears to
-have been semi-silently fixed in commit
-ac4eb83ab255 ("drm/sched: select new rq even if there is only one v3")
-.
+This series relies on all drivers implementing atomic_create_state.
+The conversion is in progress but not yet complete.
 
-What was also not documented is why it was important to not keep the list
-of schedulers when there is only one scheduler given. This was in fact due
-many of the callers passing in a stack container for this case. For the
-multiple schedulers on the other hand amdgpu and rocket are the only such
-callers and there the container is not on the stack but correctly follows
-the lifetime requirement. Keeping a stack backed list in the entity would
-obviously be undefined behaviour if the list was kept.
+Let me know what you think,
+Maxime
 
-Having said that, amdgpu however did only stop passing in stack backed
-container for the more than one scheduler case in commit
-977f7e1068be ("drm/amdgpu: allocate entities on demand")
-. Until then dereferencing freed stack from drm_sched_entity_select_rq()
-was a possibility.
-
-In order to untangle all this lets make this area behave consistently and
-store the single scheduler case directly in the entity. We can do that
-easily by creating an union between the current pointer to a list of
-schedulers, and a new pointer to the single scheduler.
-
-This allows removal of the special cases which artificially cleared
-entity->sched_list for a single scheduler case and fixes the amdgpu
-dynamic priority changes for the single IP instances.
-
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Fixes: b3ac17667f11 ("drm/scheduler: rework entity creation")
-References: 8c23056bdc7a ("drm/scheduler: do not keep a copy of sched list")
-References: 977f7e1068be ("drm/amdgpu: allocate entities on demand")
-References: 2316a86bde49 ("drm/amdgpu: change hw sched list on ctx priority override")
-References: ac4eb83ab255 ("drm/sched: select new rq even if there is only one v3")
-References: 981b04d96856 ("drm/sched: improve docs around drm_sched_entity")
-References: 77a6809f1dc3 ("drm/sched: Remove FIFO and RR and simplify to a single run queue")
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Luben Tuikov <ltuikov89@gmail.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: Danilo Krummrich <dakr@kernel.org>
-Cc: Philipp Stanner <phasta@kernel.org>
-Cc: Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>
-Cc: Sidong Yang <sidong.yang@furiosa.ai>
-Cc: amd-gfx@lists.freedesktop.org
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/scheduler/sched_entity.c | 30 ++++++++++-------
- include/drm/gpu_scheduler.h              | 42 ++++++++++++++----------
- 2 files changed, 44 insertions(+), 28 deletions(-)
+Changes in v8:
+- Fix more leases issues
+- Drop applied patches
+- Link to v7: https://lore.kernel.org/r/20261030-drm-reset-state-flag-v7-0-4e55eaeae683@kernel.org
 
-diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
-index 2a827522e23f..3495153ad4e5 100644
---- a/drivers/gpu/drm/scheduler/sched_entity.c
-+++ b/drivers/gpu/drm/scheduler/sched_entity.c
-@@ -102,7 +102,9 @@ ktime_t drm_sched_entity_stats_job_add_gpu_time(struct drm_sched_job *job)
-  * @guilty: atomic_t set to 1 when a job on this queue
-  *          is found to be guilty causing a timeout
-  *
-- * Note that the &sched_list must have at least one element to schedule the entity.
-+ * Note that the &sched_list must have exactly one element to schedule the
-+ * entity. Callers which pass more than one scheduler on the @sched_list must
-+ * ensure the list remains valid for the lifetime of the entity.
-  *
-  * For changing @priority later on at runtime see
-  * drm_sched_entity_set_priority(). For changing the set of schedulers
-@@ -139,7 +141,10 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
- 	entity->guilty = guilty;
- 	entity->last_user = current->group_leader;
- 	entity->num_sched_list = num_sched_list;
--	entity->sched_list = num_sched_list > 1 ? sched_list : NULL;
-+	if (num_sched_list == 1)
-+		entity->sched = sched_list[0];
-+	else
-+		entity->sched_list = sched_list;
- 	RB_CLEAR_NODE(&entity->rb_tree_node);
- 
- 	if (priority >= sched_list[0]->num_user_rqs) {
-@@ -178,6 +183,9 @@ EXPORT_SYMBOL(drm_sched_entity_init);
-  *		 existing entity->sched_list
-  * @num_sched_list: number of drm sched in sched_list
-  *
-+ * Callers which pass more than one scheduler on the @sched_list must
-+ * ensure the list remains valid for the lifetime of the entity.
-+ *
-  * Note that this must be called under the same common lock for @entity as
-  * drm_sched_job_arm() and drm_sched_entity_push_job(), or the driver needs to
-  * guarantee through some other means that this is never called while new jobs
-@@ -198,7 +206,10 @@ void drm_sched_entity_modify_sched(struct drm_sched_entity *entity,
- 	}
- 
- 	spin_lock(&entity->lock);
--	entity->sched_list = sched_list;
-+	if (num_sched_list == 1)
-+		entity->sched = sched_list[0];
-+	else
-+		entity->sched_list = sched_list;
- 	entity->num_sched_list = num_sched_list;
- 	spin_unlock(&entity->lock);
- }
-@@ -587,10 +598,6 @@ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
- 	struct drm_gpu_scheduler *sched;
- 	struct drm_sched_rq *rq;
- 
--	/* single possible engine and already selected */
--	if (!entity->sched_list)
--		return;
--
- 	/* queue non-empty, stay on the same engine */
- 	if (spsc_queue_count(&entity->job_queue))
- 		return;
-@@ -607,16 +614,17 @@ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
- 	if (fence && !dma_fence_is_signaled(fence))
- 		goto out;
- 
--	sched = drm_sched_pick_best(entity->sched_list, entity->num_sched_list);
-+	if (entity->num_sched_list == 1)
-+		sched = entity->sched;
-+	else
-+		sched = drm_sched_pick_best(entity->sched_list,
-+					    entity->num_sched_list);
- 	rq = sched ? sched->sched_rq[entity->rq_priority] : NULL;
- 	if (rq != entity->rq) {
- 		drm_sched_rq_remove_entity(entity->rq, entity);
- 		entity->rq = rq;
- 	}
- 
--	if (entity->num_sched_list == 1)
--		entity->sched_list = NULL;
--
- out:
- 	spin_unlock(&entity->lock);
- }
-diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-index c89a581f54bf..dfa399ace89f 100644
---- a/include/drm/gpu_scheduler.h
-+++ b/include/drm/gpu_scheduler.h
-@@ -120,23 +120,31 @@ struct drm_sched_entity {
- 	 */
- 	struct drm_sched_entity_stats	*stats;
- 
--	/**
--	 * @sched_list:
--	 *
--	 * A list of schedulers (struct drm_gpu_scheduler).  Jobs from this entity can
--	 * be scheduled on any scheduler on this list.
--	 *
--	 * This can be modified by calling drm_sched_entity_modify_sched().
--	 * Locking is entirely up to the driver, see the above function for more
--	 * details.
--	 *
--	 * This will be set to NULL if &num_sched_list equals 1 and @rq has been
--	 * set already.
--	 *
--	 * FIXME: This means priority changes through
--	 * drm_sched_entity_set_priority() will be lost henceforth in this case.
--	 */
--	struct drm_gpu_scheduler        **sched_list;
-+	union {
-+		/**
-+		 * @sched_list:
-+		 *
-+		 * A list of schedulers (struct drm_gpu_scheduler).  Jobs from
-+		 * this entity can be scheduled on any scheduler on this list.
-+		 *
-+		 * This can be modified by calling
-+		 * drm_sched_entity_modify_sched(). Locking is entirely up to
-+		 * the driver, see the above function for more details.
-+		 */
-+		struct drm_gpu_scheduler        **sched_list;
-+
-+		/**
-+		 * @sched:
-+		 *
-+		 * A single struct drm_gpu_scheduler jobs from this entity will
-+		 * be scheduled on.
-+		 *
-+		 * This can be modified by calling
-+		 * drm_sched_entity_modify_sched(). Locking is entirely up to
-+		 * the driver, see the above function for more details.
-+		 */
-+		struct drm_gpu_scheduler        *sched;
-+	};
- 
- 	/**
- 	 * @num_sched_list:
+Changes in v7:
+- Fix a whole bunch of sashiko issues to deal with color_mgmt_changed,
+  leases, partially leased devices (like a plane leased but it's crtc
+  isn't) and the interaction with PAGE_FLIP_EVENT better
+- Fix crtc create_state implementation for ssd130x
+- Actually make it possible for a compositor to recreate the same whole
+  state without passing ALLOW_MODESET
+- Fix EDEADLK bugs with kunit tests
+- Don't report DRM_CAP_ATOMIC_RESET on !atomic drivers
+- Fix error handling in vkms for the new property
+- Add more kunit tests for the new corner cases
+- Link to v6: https://lore.kernel.org/r/20261022-drm-reset-state-flag-v6-0-f36d640b7e76@kernel.org
+
+Changes in v6:
+- If using a lease, only considered the leased objects
+- Fix amdgpu plane atomic_create_state implementation
+- Link to v5: https://lore.kernel.org/r/20261016-drm-reset-state-flag-v5-0-dad2d64b693b@kernel.org
+
+Changes in v5:
+- Fix bisection issue
+- Improve the documentation
+- Fix connector hotplugging issue
+- Added kunit tests for drm_atomic_commit_fill_with_defaults()
+- Link to v4: https://lore.kernel.org/r/20260918-drm-reset-state-flag-v4-0-5ad106370f05@kernel.org
+
+Changes in v4:
+- Improve the drm_atomic_get_private_obj_state and
+  drm_atomic_get_connector_state array reallocations
+- Return void on functions to insert an object state into a commit when
+  it cannot fail
+- Rename drm_atomic_can_create_state() into
+  drm_atomic_implements_create_state()
+- Move capability check from drm_atomic_commit_fill_with_defaults to its
+  caller 
+- Added IGT test
+- Link to v3: https://lore.kernel.org/r/20260908-drm-reset-state-flag-v3-0-905570f387a4@kernel.org
+
+Changes in v3:
+- Rebased on top of the latest atomic_create_state series
+- Sebastian Wick created and tested this work with mutter and vkms
+- Fix colorop locking
+- Link to v2: https://lore.kernel.org/r/20260812-drm-reset-state-flag-v2-0-e96ce13317dd@kernel.org
+
+Changes in v2:
+- Fix bisection
+- Add capability to let userspace know if it can reset the state
+- Link to v1: https://lore.kernel.org/r/20260708-drm-reset-state-flag-v1-0-c37dc985485d@kernel.org
+
+---
+Maxime Ripard (6):
+      drm/amd/display: Fix planes atomic_create_state implementation
+      drm/atomic: Add drm_atomic_implements_create_state() helper
+      drm/lease: Add a helper to tell whether a lease was revoked
+      drm/atomic: Allow filling a commit with pristine object states
+      drm/tests: atomic: Add tests for drm_atomic_commit_fill_with_defaults()
+      drm/vkms: Add driver-specific plane property for testing
+
+Sebastian Wick (1):
+      drm/atomic-uapi: Add DRM_MODE_ATOMIC_RESET flag
+
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c    |   3 -
+ drivers/gpu/drm/drm_atomic.c                       | 407 +++++++++++++++++++++
+ drivers/gpu/drm/drm_atomic_uapi.c                  |  44 ++-
+ drivers/gpu/drm/drm_ioctl.c                        |   5 +
+ drivers/gpu/drm/drm_lease.c                        |  26 ++
+ drivers/gpu/drm/tests/drm_atomic_test.c            | 322 +++++++++++++++-
+ drivers/gpu/drm/vkms/vkms_drv.h                    |   3 +
+ drivers/gpu/drm/vkms/vkms_plane.c                  |  63 +++-
+ include/drm/drm_atomic.h                           |   4 +
+ include/drm/drm_lease.h                            |   2 +
+ include/uapi/drm/drm.h                             |  10 +
+ include/uapi/drm/drm_mode.h                        |  17 +-
+ 12 files changed, 895 insertions(+), 11 deletions(-)
+---
+base-commit: d2a8cee91bfa8616f713c7c8f539a81e8e3554ea
+change-id: 20260708-drm-reset-state-flag-2fb2b5711f97
+prerequisite-message-id: 20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org
+prerequisite-patch-id: 3fd105fbfdbb4eee1f8ae9682b359477d5c2d610
+prerequisite-patch-id: ed1d1dd244e64b18c5682800b546ebb2d0f44ec8
+prerequisite-patch-id: 6b00324107d28bfe6ccd346730c6370d8f8362c4
+prerequisite-patch-id: bac8bfa53c3c77a832500f711322530e39d26c74
+prerequisite-patch-id: 60002e0ea0141b4051f2062152244b545450ffdf
+prerequisite-patch-id: a82ef0b22909efd3a2f1a779e27ad60b08554203
+prerequisite-patch-id: 4d4db6fb993ce12a03f5f22e07b060defc28b7d8
+prerequisite-patch-id: 7a716ac0b6df5a2d9423bfa09457e7c2ae11e35f
+prerequisite-patch-id: 35c60176b5a45a76a30285767fba4f83c5059868
+prerequisite-patch-id: 23ef4052a7a932ec4611b640d4323e0f93760a6d
+prerequisite-patch-id: f6a08bc40145c9a61508a37fe632e007c58566b9
+prerequisite-patch-id: 942ec51b8579c4a7d5652d390dbcaa6fe1ef35bb
+prerequisite-patch-id: cac9b8740c50ed002bdb7df8471c4493a53948b0
+prerequisite-patch-id: 083d50c81b3609bc6756a2b9c89b30c5918dbcd3
+prerequisite-patch-id: 97dd764d28e34d6c1fd346602931c1688aa4fe8d
+prerequisite-patch-id: 566c8a35a9734a8e8a254afcc0fbd9765c980334
+prerequisite-patch-id: a2ae7568eef2833217f55eb9528e2f846c73f993
+prerequisite-patch-id: 4bdc653ad663151585ed7d71ed9f70ac702301fa
+prerequisite-patch-id: ee3f427f087dde1290f0c0a3e821379427552961
+prerequisite-patch-id: d14cd6008b88c7c9b61ca5241c961c4747a6fdfe
+prerequisite-patch-id: c642e4fcebdbfc0ab86bba68c957ad5bbe62ef58
+prerequisite-patch-id: 71afb7db95568dfa686ab670039ba60faeb91914
+prerequisite-patch-id: 6557c88b83cd8d2ded0e4d70378c9a868659fea0
+prerequisite-patch-id: 4020d12428794416f75edb398d84a6a14905f588
+prerequisite-patch-id: a4806b41921baa3b8a3039d5431e099138fe6fa6
+prerequisite-patch-id: 7a742e65aa5d69a733376641d0eb45281239b866
+prerequisite-patch-id: ba3e625c15aa8e34747292c95ea9158b0cb98b34
+prerequisite-patch-id: ba92010fead3c007e2cbaeb15bce922eb304ccac
+prerequisite-patch-id: 2fc97bb7478092919001b21d2455a73373a5ba73
+prerequisite-patch-id: 97a28c8af17b043429e3b40325576f74518ff802
+prerequisite-patch-id: 37ae6417556eea439aab01725cfd920c1107e630
+prerequisite-patch-id: 3f8725771832d7cccd8c88a33b4fac362a2a1221
+prerequisite-patch-id: 5d51033ca88aa46e8347396cdc17fd5473636c13
+prerequisite-patch-id: 983be3e35801efe3052f0983d728a9703e7ded88
+prerequisite-patch-id: 20f874f2f1b44d9a27824a2e3944477fc3c02af5
+prerequisite-patch-id: fc7f1510621f228d42bf1666c06f34926f3e10f4
+prerequisite-patch-id: b9e987299142a89ca3a7bfb5b0335a215c7cdd52
+prerequisite-patch-id: 1d11dea3090f6b72322c3827bd260ed3d12e1201
+prerequisite-patch-id: 4182aa31cbc4b985e3a628c3dc9a2fd039188f7e
+prerequisite-patch-id: 7b7f07b1c57398f185a93d6b3212394753292be7
+prerequisite-patch-id: e6bd5afbc9593e93203caa0ae9f08545511e2bf2
+prerequisite-patch-id: c6d466588800f94684ebf9fb785ce085510c8f93
+prerequisite-patch-id: 5f8a9d6fd20c05d708df6424102575251d32331f
+prerequisite-patch-id: 18c2d823dc5b44514c0b2278986933a1a9834f02
+prerequisite-patch-id: a8c4944302cbea92690957fd18162ca303757874
+prerequisite-patch-id: 962e6cc26e53a3319302fd4c2aae2bc4b593f4be
+prerequisite-patch-id: 366fc63bc744ea4a2af4f16befaa1d7e8c66bf84
+prerequisite-patch-id: 33c4fd1e1ccd1eac9fde961a0f7ed8509e713c7e
+prerequisite-patch-id: 496318ad0a87ec138780d4a50a2f8a49ca126ca6
+prerequisite-patch-id: f85ec023f5ab9903987d867c330bde94b3c24c55
+prerequisite-patch-id: 34fc06cb69e34ec4d67015187969e8d2c0c56660
+prerequisite-patch-id: 3b789a4e47c47f855c44c125a75de3a79709d411
+prerequisite-patch-id: b03787ca5a3d60d4ad5682313424a114c1862fb0
+prerequisite-patch-id: 4ec079edf0025f849b1b8c7e3beb47db057ab6d2
+prerequisite-patch-id: b44382d38528c92150f2d7cac5722cf8e09c0fab
+prerequisite-patch-id: 02e42a505f17dbf5bc3e85b55d5df716e3819141
+prerequisite-patch-id: faf2c686c253faa5a81801f78ba955d3ae8c0c4f
+prerequisite-patch-id: 6407fec511e4d3bf785c3be581b828abac884ba7
+prerequisite-patch-id: 1a9fc394fdf6b19434652a4c137a0ea819702325
+prerequisite-patch-id: 6de415eec4ab2f2b8dec1f194fb89cfe01568f9b
+prerequisite-patch-id: 73e1360c2be46882c0ca58d6d60f0c394f1d47f4
+prerequisite-patch-id: fada6f5ef59f7119d5b202b64ce2184795428d7c
+prerequisite-patch-id: 7f31438e1f326350688f7aa7169038a7a33b4ddc
+prerequisite-patch-id: a9940a88c19f95573008a9e2bd950a43c12b7e3c
+prerequisite-patch-id: 2d5e46c029b523f6d6f13a0716e56267691757cf
+prerequisite-patch-id: 7aa60266913380f85e46f8dc71885356e3d7902a
+prerequisite-patch-id: cd12813a72a4c558660f8f8d093928533ddbf5ee
+prerequisite-patch-id: 186129fe8188f5b7cb6fef2701400fc6772aaf2e
+prerequisite-patch-id: c99a84af1b60e1c8f80168706f5ed600a6eb4553
+prerequisite-patch-id: 598515adbecc5c14e8ffe631206a906fb2c9f59c
+prerequisite-patch-id: cf84de09ca65f4577268e9a4a8a166436735b7da
+prerequisite-patch-id: cfd9ec749b0f3c78e0a64a73756f978bfd853391
+prerequisite-patch-id: 87104eb556b1cef43ded0979f0b806f35ec819bb
+prerequisite-patch-id: 5536c46e78e53cc31224b2730ca5fb454cd17761
+prerequisite-patch-id: 48e3546e357a8e68e4abaeb2faf1081afb8f3ae3
+prerequisite-patch-id: be78356c5aabcd0e68c61b2bc785c73a0c2edff9
+prerequisite-patch-id: 7192a8aa88903ca758655dea8eaac94b98481e82
+prerequisite-patch-id: f28910d02bfc6e11c1ecc2ce03db57ccaba0d185
+prerequisite-patch-id: 48fc2a91c98aac131457deed8d9c2965eaffd1fb
+prerequisite-patch-id: 0c829edd4d3d8cb4765d649411dec1124fd20fbd
+prerequisite-patch-id: e994569657dc0537d6d3b9f7cd4d919ba2602126
+prerequisite-patch-id: bce46caeb9616651be519c0474855ce9341de611
+prerequisite-patch-id: a2a70a62d2684c072e3927abeb7a9e86dbec759b
+
+Best regards,
 -- 
-2.56.0
+Maxime Ripard <mripard@kernel.org>
 
