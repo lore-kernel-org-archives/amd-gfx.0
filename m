@@ -2,90 +2,75 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6368C606CE50
-	for <amd-gfx@archiver.kernel.org>; Sat,  7 Nov 2026 15:04:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DBDA606A31C
+	for <amd-gfx@archiver.kernel.org>; Sun,  8 Nov 2026 15:02:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=00dtEYtU
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cH2IRBdr
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DBA210EB9C;
-	Sat,  7 Nov 2026 15:04:14 +0000 (UTC)
-Received: from mail-oi1-f176.google.com (mail-oi1-f176.google.com
- [209.85.167.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5902E10EAA8
- for <amd-gfx@lists.freedesktop.org>; Fri,  6 Nov 2026 16:25:31 +0000 (UTC)
-Received: by mail-oi1-f176.google.com with SMTP id
- 5614622812f47-4ed6d69bdfaso502189b6e.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 06 Nov 2026 08:25:31 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793982330; cv=none;
- d=google.com; s=arc-20260327;
- b=RqptOIqr5hwhAtIHwbnpugUq0Mp40rRDzUlrZWgrGfSUcOzWS3qwcQXQ7N2oYGBeCc
- AEpLqni8M7f1gTF08owJZ+DeFkoLaV3mtPjqys7Wrb/0ud0TuHZOEHttVwCW8dBUmMte
- 7tmQ1+8CqgHJeoDLXh2m3+61gwmRzxnn8IX6BB1FHTxt1aIfkfK6sH+Sz2QeBDzWdEK+
- InNvoxL68YFX5B0gPjQMniQM/7c+SXwSfa7Ix/aVp1Px8qJCOcuFQ8ZiLwbHsCnBSBCQ
- RXCPEJwj4lJD2IjHcyiVbrDFsl12iRKviH6OkiJjp2+6p+9tHF1Xk91ovOHe+BQ1Xkli
- 80HQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=DJ0d0h72fqSWvtMIpeQzTHGWj3XUsIGrYIUYA578KNw=;
- fh=hs9oynQb3YjZT40omR8IZyt+l0QN8nu4Bye5abBVWug=;
- b=szXzsfkGnsYp6zNluTJ7+/ob70W9y+9CNqATjWSEYaNxpTG8L8DdAG+Dq1cwMaLijA
- u2HCz2yb9vG9olL6r+aysgCMFvh4MhZ9u5Qiq22hM9Ye5zZOCP2Emu38baULi/vGgZcX
- k7p71L/uqM1vK6GWFtpYx5u53Lynfl5VxeBrsc5npqdXMgqA2HXIVEM/9lEGCsdB/pLD
- OgLiXXUtW0F01NtKJW2QdqKeNGXRMiJ/uwvavymNByNSZzHBRY/3qn8i+Bp5EDv+Ohwg
- zQs/Ase3lRzBm9xHoyVLGrxEzG4I8LBkqnvdVtai0eol2Gxm88xW4y9ZQD2TAt4pxgYi
- LLKw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A1C910E538;
+	Sun,  8 Nov 2026 15:02:43 +0000 (UTC)
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
+ [209.85.221.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7F9710E2B1
+ for <amd-gfx@lists.freedesktop.org>; Sat,  7 Nov 2026 20:48:05 +0000 (UTC)
+Received: by mail-wr1-f53.google.com with SMTP id
+ ffacd0b85a97d-490f38e9688so52279f8f.0
+ for <amd-gfx@lists.freedesktop.org>; Sat, 07 Nov 2026 12:48:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793982330; x=1794587130; darn=lists.freedesktop.org;
- h=content-type:to:subject:message-id:date:from:mime-version:from:to
- :cc:subject:date:message-id:reply-to:content-type;
- bh=DJ0d0h72fqSWvtMIpeQzTHGWj3XUsIGrYIUYA578KNw=;
- b=00dtEYtUeyjUGwHOuuWf6CV4IZU4XJR7vAiXLYK8UdzpGZtSGHTxYzGFW/13PkVXOF
- 2LjubekKnSMOmDC+xKCbv6qeWP/xZqP71KTVCznpmeLAh0/PeCGCyxZVK/rrOMKcxI+U
- vEw1/Ak/+rxw6zSw4Gf2mFdGENiN7znUmGZCf/EfH44hNYvbDbGlBBSZ1a1n6qieIUOi
- ZMKhhQHgbAzZaIlN9v/JrA65PahM9UOjqkqm1DR9kA8Vq2YmGuf64bOKoDBseVXS0X5d
- BSGGp2CsVCaCYiqonG6LSLKm1VUEsCzkSC/Ezw6Pm2OLbU3ThU9Vgx3NSnoq8jfPGMVk
- LVfQ==
+ d=gmail.com; s=20260707; t=1794084484; x=1794689284; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=dEK4DMTI3KM8bcuTj0Liw5CczqSbiD66MDHm6KNtTVw=;
+ b=cH2IRBdrL+oyAXXwvy/DvVp3ZE+q+5HvEgYgAOlEiZrSCxsNyifiGGRubs6wJI3EZc
+ JrXLqh0FnyngC+y3Fwyp6qeTxTQ6Z3dchOkKnZuj/Aq+oxAjr0P3lPGv7RnPTwVSyQW7
+ bCqOFaVngcIZAqvFVe9wSuScHEwgkqkc1MCWlLgw+vbyKiBLXybpwOCQPxleGi58dEQe
+ fJBWe4dOBM4ReItg7JFuB1aNMi/jC8B+5OOe7uyv4HciyCXjYHS2sBrP5pOZJ5cAQ2WY
+ tcl4ItF2CZthxq6cDTRhbiwvnPJ+YyfJVOPjl+cZkVx5v1HjeZw/2ftCPn4RnP6Fc3td
+ PgVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793982330; x=1794587130;
- h=content-type:to:subject:message-id:date:from:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=DJ0d0h72fqSWvtMIpeQzTHGWj3XUsIGrYIUYA578KNw=;
- b=t+2kLNflOp+luGJQjmMJ3yScnbg0e8/3k7sPpNE1k9vV/s0JdBxcLke11KUS8rlDNa
- gSFRDOcgFV1hYzVzmurQf7agOrEWo/xfchsEiZhZ9iFkhZeKk9YBbCzm+4BFtVFVM8k4
- 2HC73SyLAZfB8RdTcfWwB+KsqchqJOEdWXPzdMsBWg/AFNrP103YWm6au6gqvVuf3OsS
- SNiXhCKV7MDS0wy8qf4TMP3rGgyf7QIRhUX8LPTANVzBTxYNqJLmyWMrebgAgMGaJFZc
- x81dBT+H1/LaTvW7KfuO27lIYUufXNLaNgUFQEWgFqka4wUgVKhW7zf3hjUIQPPD07cQ
- 5MCQ==
-X-Gm-Message-State: APuU4Z8DcKD9x3Q2esYNj06xl9MZ1hU0AorW0LKHVQYrzrF/mN6AATVF
- QkXhG1eVsEWDgZjSsRE87WDeSRlxrgSc2oFLtErsubT9jZl/KxU46Hs0XR1hXBJjJEDBng46/Lb
- T65C0NXR1Iheh6SC2cBnlpPREUK2UKay0zw==
-X-Gm-Gg: AYBFou0lisRIlgcDI1ylO/UgZSJLXH2uCHb2lOHFdpFy4OTPIXdNfK4K7q3uT8rundx
- 6SPhU5dUm2fhgv9tN0Xs1FsLnJui26sfAQ9unqCWjUkXFVj7n50PN0lnXCKNOt3ExUE5lDYc4TH
- cfaAc0Jb/pDBX//c+qidFUJBFozc7zd8YuBsAfxsbIPBYfCQ1Tq/J9WpA0K0vNXMRmYbyZaBzmP
- VDEIKWHcxCh+QgfsXY7pCqYZOJ3is5Vt4v5H3vwXJk1WxDNPN2ctZ7K/uKjy8sodRA0PfBsEDWw
- aNHr1A4Q3DVK0vyZRIBSgwJ4YofkiGhBMcyW/8iP/z7hMLbvhSzXGuPXmTbhHnyuh9QNRSnryIi
- ul8tvXpvC7395jy7UFwOQLa8TUDZLGNppGks=
-X-Received: by 2002:a05:6808:3088:b0:4f8:4ec9:b170 with SMTP id
- 5614622812f47-567e0997aa3mr2751605b6e.2.1793982330246; Fri, 06 Nov 2026
- 08:25:30 -0800 (PST)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST; 
- Fri, 6 Nov 2026 08:25:29 -0800
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST; 
- Fri, 6 Nov 2026 08:25:29 -0800
+ d=1e100.net; s=20260707; t=1794084484; x=1794689284;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=dEK4DMTI3KM8bcuTj0Liw5CczqSbiD66MDHm6KNtTVw=;
+ b=b3c+2qqTSENHMaQUdA2Nhm1GVKvdaPOVBQYvZt3t1UmO47h3C3YKwNYzJcnjnqj/oS
+ KgYRCqXlWhru4RiF08sTXCBvgxuCqiUBqHVa/2aAUfrd+VzK8opj+kmjAGzrowRWVk/G
+ a0gLj3Xt+7hLtofvYtlkC6zA02C9RXo5XV6/JW7Z86owXCKtqeQyBpKyOut4G8Ou8OdV
+ uwoMVq28KOovBL5mbzJLJRbJHWwBiwcgWNPcyWOxZOG+5fpYaOMtDKmCAbHuJOwcNS9C
+ oao1mkHkMAB4skQS4ajh155kDYoaXRCxM3r+RtgPwryTI97mvWeja1DkwtEfVEJOW8O4
+ 0D8g==
+X-Gm-Message-State: APuU4Z8/+YXmaU6i/yV3g0eJODV6dxAcyYrs3PB4h0VgNlb6q6Ug2+iw
+ WDTt3MI03kZr9BOizG6YheVSspzJxIcJiV8ZLBWcdhbfQGdq4C6eKFAL4xx9waxLoTc=
+X-Gm-Gg: AYBFou2XAf7VHNMm+LFbg9oYZ6l0iQKlvWLbxOwxvW3eNqqEs5QYl2j1rMzo6Zq+hgO
+ qET4mHnR6tkldiETEQwr5+lh1s7C8tiNk9WriH8IzqYBegVnuzF5lx+JC2B+HZG2mdwvAahjpK9
+ +TGVSrCgm2MFeLMQh5LWCCUliDNCf70Wdk8nyYoo1u7qZJ78cKnwn+No7hTCNFIvg8T9PaAwVcP
+ 5iS+EdlWIqtCrymyOtoTa3m01sPNOkdgsYDO1koYY0SL/ICukKjhHuJJgbBLUNu38HZV93B505q
+ vWLQocn+t8duTT7NAwkvYSPnOHZfkKaqoGR9vGDaed+01fua88aWBtoz3BVDPJ/NvbGZeO17K0V
+ GU+/N5+fSKrNfEhlIetGfZ6xKQ6KeNvoLMHq3TW+S1yEwPHNAZlKuwFbbwgjNnijzOdCJE/585z
+ qToILOr6eMLLry/SAN1CSA1v9jYib43ptMGQYWDuAUQWyxGMHTxlb7p7sWaal88aLMbvyNTjlU7
+ t761VWCntUsuKNYBoeeA4OyBB6SpMJ56XL7Mo1dvVwNmMzSLgKl1veoAEcX7877hHBltCzh3J0A
+ 1+NVQFgEewRPPOp8AUou5O7Cfq2rhFbakJYilCvzV3qZnD5TCc6jSC9qxbE2cpNXY47LRmpej4C
+ VauF0w+dgYexKO+4=
+X-Received: by 2002:a5d:5d83:0:b0:492:aff5:da60 with SMTP id
+ ffacd0b85a97d-494233d76c0mr4817982f8f.13.1794084483900; 
+ Sat, 07 Nov 2026 12:48:03 -0800 (PST)
+Received: from archBTW.Dlink ([176.194.224.120])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-495966f3163sm59372f8f.11.2026.11.07.12.48.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 07 Nov 2026 12:48:03 -0800 (PST)
+From: Maxim Sokolov <raymondjup46@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, kenneth.feng@amd.com,
+ lijo.lazar@amd.com, Tim.Huang@amd.com
+Subject: [PATCH] drm/amd/pm: skip MP1 unload on S4 after S0i3 on SMU 13.0.4
+Date: Sat,  7 Nov 2026 23:48:01 +0300
+Message-ID: <20261107204801.624322-1-raymondjup46@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-From: Nazar Kazakov <kazakov.2000.nazar@gmail.com>
-Date: Fri, 6 Nov 2026 08:25:29 -0800
-X-Gm-Features: AclHuK_ChBOb2AL10fTKmLkiGVhsy-_kfJPafd26dtT6atYaMQXQ2EOs75Qp3vE
-Message-ID: <CALJcJEUEYjBW22UyOc4kiptRp2BFwxtgFXf6UY+V5OC4GpOBKQ@mail.gmail.com>
-Subject: =?UTF-8?Q?=5BNavi22_=2F_RX_6700_XT=5D_Repeated_UTCL2=2FTCP_GPUVM_fault?=
- =?UTF-8?Q?s_=E2=80=94_request_for_kernel=2Dside_triage_guidance?=
-To: amd-gfx@lists.freedesktop.org
-Content-Type: multipart/alternative; boundary="000000000000871c7a065f9e0fdc"
-X-Mailman-Approved-At: Sat, 07 Nov 2026 15:04:12 +0000
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Sun, 08 Nov 2026 15:02:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,118 +81,90 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=0.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-14.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FORGED_GMAIL_RCVD,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---000000000000871c7a065f9e0fdc
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+After a suspend-to-idle cycle, PMFW on SMU 13.0.4 no longer
+answers GfxDeviceDriverReset, and the whole SoC hangs when hibernate
+sends it before PrepareMp1ForUnload.
 
-Hello AMDGPU maintainers,
+Track whether PMFW has been through S0i3 since it was last unloaded.
+If it has, skip the GFX reset and MP1 unload for S4. The platform
+powers off after the hibernate image is written and PMFW cold-boots
+before restore. S0i3 already leaves PMFW running on GFX11 APUs.
 
-I=E2=80=99m investigating recurring GPUVM faults on an RX 6700 XT (Navi 22)=
-, with
-symptoms closely matching the October 5 report about UTCL2/TCP permission
-faults on the same GPU.
+Tested on a Redmi Book 15 Pro 2023(Ryzen 7 7840HS, BIOS RMAPH5B0P0909):
+s2idle followed by hibernate no longer hangs.
 
-The issue has persisted across two physical RX 6700 XT cards, multiple
-kernel/Mesa/firmware versions, KDE Plasma and Hyprland. Our retained
-evidence index identifies 33 separate gfxhub fault episodes through
-November 5, 2026.
+Fixes: fedb6ae49758 ("drm/amd/pm: fixes a random hang in S4 for SMU v13.0.4/11")
+Signed-off-by: Maxim Sokolov <raymondjup46@gmail.com>
+---
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c            |  3 +++
+ drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h        |  2 ++
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c | 11 +++++++++++
+ 3 files changed, 16 insertions(+)
 
-Recurring signature:
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index 86e34e814fe..4988f85526b 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -2247,6 +2247,9 @@ static int smu_hw_fini(struct amdgpu_ip_block *ip_block)
+ 
+ 	adev->pm.dpm_enabled = false;
+ 
++	if (adev->in_s0ix)
++		smu->pmfw_s0ix_since_unload = true;
++
+ 	ret = smu_smc_hw_cleanup(smu);
+ 	if (ret)
+ 		return ret;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+index 2a0cdc6e805..b0232ccbe1e 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+@@ -766,6 +766,8 @@ struct smu_context {
+ 	long *custom_profile_params;
+ 	bool pm_enabled;
+ 	bool is_apu;
++	/* PMFW has been through S0i3 since it was last unloaded */
++	bool pmfw_s0ix_since_unload;
+ 
+ 	/* Power dependency link from an integrated xHCI controller to the GPU */
+ 	struct device_link		*usb_power_link;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c
+index a9d558f5b73..35274c5c67d 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c
+@@ -230,6 +230,15 @@ static int smu_v13_0_4_system_features_control(struct smu_context *smu, bool en)
+ 	int ret = 0;
+ 
+ 	if (!en && !adev->in_s0ix) {
++		/*
++		 * After an S0i3 cycle PMFW does not answer GfxDeviceDriverReset.
++		 * Leave PMFW running, as is already done for S0i3 on GFX11 APUs.
++		 */
++		if (adev->in_s4 && smu->pmfw_s0ix_since_unload) {
++			dev_dbg(adev->dev, "Skipping MP1 unload for S4 after S0i3\n");
++			return 0;
++		}
++
+ 		if (adev->in_s4) {
+ 			/* Adds a GFX reset as workaround just before sending the
+ 			 * MP1_UNLOAD message to prevent GC/RLC/PMFW from entering
+@@ -242,6 +251,8 @@ static int smu_v13_0_4_system_features_control(struct smu_context *smu, bool en)
+ 		}
+ 
+ 		ret = smu_cmn_send_smc_msg(smu, SMU_MSG_PrepareMp1ForUnload, NULL);
++		if (!ret)
++			smu->pmfw_s0ix_since_unload = false;
+ 	}
+ 
+ 	return ret;
+-- 
+2.56.0
 
-   - gfxhub, UTCL2/TCP shader client
-   - Non-zero PASID/VMID
-   - READ faults with PERMISSION_FAULTS=3D0x3
-   - WRITE faults with PERMISSION_FAULTS=3D0x5
-   - MAPPING_ERROR=3D0
-   - gfx ring timeout typically 10=E2=80=9312 seconds after the first fault=
-,
-   sometimes followed by MODE1 reset and VRAM loss
-
-On October 13, a GPUVM lifecycle trace captured 18,386 events without
-reported loss, starting before VM creation. It did not show a software
-mapping/PTE update for the first faulting VA (0x800901108000, PASID 14,
-VMID 3). However, we cannot confirm the actual hardware PTE/TLB state, or
-which shader instruction issued the access.
-
-We have also built an isolated RadeonSI command/descriptor recorder and
-verified it with a real EGL test, but have not yet captured the operation
-responsible for a desktop fault.
-
-Mesa report: https://gitlab.freedesktop.org/mesa/mesa/-/work_items/16584
-
-Related Navi 22 report:
-https://mail-archive.com/amd-gfx@lists.freedesktop.org/msg152661.html
-
-Could you advise:
-
-   1. Does this signature suggest an invalid shader-generated VA, a
-   GPUVM/PTE update or invalidation race, or a known Navi 22 issue?
-   2. Which kernel tracepoints or diagnostics would reliably establish PTE
-   update and TLB invalidation completion for the faulting PASID?
-   3. Is there a known patch or a targeted, reversible workaround worth
-   testing?
-
-We can provide sanitized journal excerpts, incident timelines and selected
-devcoredump metadata. We would prefer not to publish raw VRAM or
-user-memory contents.
-
-Thank you.
-
---000000000000871c7a065f9e0fdc
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<p>Hello AMDGPU maintainers,</p>
-<p>I=E2=80=99m investigating recurring GPUVM faults on an RX 6700 XT (Navi =
-22), with symptoms closely matching the October 5 report about UTCL2/TCP pe=
-rmission faults on the same GPU.</p>
-<p>The issue has persisted across two physical RX 6700 XT cards, multiple k=
-ernel/Mesa/firmware versions, KDE Plasma and Hyprland. Our retained evidenc=
-e index identifies 33 separate gfxhub fault episodes through November 5, 20=
-26.</p>
-<p>Recurring signature:</p>
-<ul>
-<li>gfxhub, UTCL2/TCP shader client</li>
-<li>Non-zero PASID/VMID</li>
-<li>READ faults with PERMISSION_FAULTS=3D0x3</li>
-<li>WRITE faults with PERMISSION_FAULTS=3D0x5</li>
-<li>MAPPING_ERROR=3D0</li>
-<li>gfx ring timeout typically 10=E2=80=9312 seconds after the first fault,=
- sometimes followed by MODE1 reset and VRAM loss</li>
-</ul>
-<p>On October 13, a GPUVM lifecycle trace captured 18,386 events without re=
-ported loss, starting before VM creation. It did not show a software mappin=
-g/PTE update for the first faulting VA (0x800901108000, PASID 14, VMID 3). =
-However, we cannot confirm the actual hardware PTE/TLB state, or which shad=
-er instruction issued the access.</p>
-<p>We have also built an isolated RadeonSI command/descriptor recorder and =
-verified it with a real EGL test, but have not yet captured the operation r=
-esponsible for a desktop fault.</p>
-<p>Mesa report: <a href=3D"https://gitlab.freedesktop.org/mesa/mesa/-/work_=
-items/16584">https://gitlab.freedesktop.org/mesa/mesa/-/work_items/16584</a=
-></p>
-<p>Related Navi 22 report: <a href=3D"https://mail-archive.com/amd-gfx@list=
-s.freedesktop.org/msg152661.html">https://mail-archive.com/amd-gfx@lists.fr=
-eedesktop.org/msg152661.html</a></p>
-<p>Could you advise:</p>
-<ol>
-<li>Does this signature suggest an invalid shader-generated VA, a GPUVM/PTE=
- update or invalidation race, or a known Navi 22 issue?</li>
-<li>Which kernel tracepoints or diagnostics would reliably establish PTE up=
-date and TLB invalidation completion for the faulting PASID?</li>
-<li>Is there a known patch or a targeted, reversible workaround worth testi=
-ng?</li>
-</ol>
-<p>We can provide sanitized journal excerpts, incident timelines and select=
-ed devcoredump metadata. We would prefer not to publish raw VRAM or user-me=
-mory contents.</p>
-<p>Thank you.</p>
-
---000000000000871c7a065f9e0fdc--
