@@ -2,85 +2,76 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D557606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75C5B606A320
 	for <amd-gfx@archiver.kernel.org>; Sun,  8 Nov 2026 15:02:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LEjNCV10
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z+/xRGNJ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDE9510E7DF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF7C310E802;
 	Sun,  8 Nov 2026 15:02:48 +0000 (UTC)
-Received: from mail-qk2-f1.google.com (mail-qk2-f1.google.com [74.125.230.193])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F61710EB9E
- for <amd-gfx@lists.freedesktop.org>; Sun,  8 Nov 2026 05:24:53 +0000 (UTC)
-Received: by mail-qk2-f1.google.com with SMTP id
- d75a77b69052e-534b7b19206so2850661cf.0
- for <amd-gfx@lists.freedesktop.org>; Sat, 07 Nov 2026 21:24:53 -0800 (PST)
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E43C210E639
+ for <amd-gfx@lists.freedesktop.org>; Sat,  7 Nov 2026 17:46:19 +0000 (UTC)
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-48e09aa5264so870342f8f.2
+ for <amd-gfx@lists.freedesktop.org>; Sat, 07 Nov 2026 09:46:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794115492; x=1794720292; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=lk+rm88B0oTn3JFpBCPa55zvIWRJD/9kM2yE66jnksQ=;
- b=LEjNCV10UK6/GCLJc/4BqEDm0d+JOgCUQDZLCpXidzeyWrAYB2Epb8YXaay6/qQLRM
- HWeSJC6DrnEWAeSqxYB30Ls2iGyaKr6BTvpzSmss+EQEVri0I5v7pPa1uDx8QK1fPR+i
- gYcI74qeT9AQ3jgY7LnQberOAtHrYWhs4LqE+aghLj+svBoflBw9RK1tCg1s41lzvWKt
- bzCL6Nilu8hb9B2lCIQ6CnT8kmtTV5DdNCMXqlAOPpmLIlDuocxdtTc5XGb5E2pw2GZJ
- PzAStS5PNcGXKsmNUQkXEkKT76SfXwUScvl2tgiGHlP17DHaeOktAr9AnbaGxMeLnWYd
- QNGw==
+ d=gmail.com; s=20260707; t=1794073578; x=1794678378; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=BICHTACzcYBYNKwFNl6UZpjtKoThY04fDneyezGDUuQ=;
+ b=Z+/xRGNJBRU3WvFCxstjmD0q+HMpLXsSw/uVAF1a6qwM5Lm6neFszAfekko4vrP6kc
+ rmltSiBK4p6qe+OKpaEYo7zLi4NBqYpCz5k9Bslud5+49UEKwdnQfA7KsMve76EkboG2
+ 31g0Sp/bEFu0df6GMT0T2xZDHbJtGI1VJMqLW2oPeqRDit8BYCUOM8/hNmI811kSdxCv
+ VUS3utlvf9crncF8HUvslavqRD8nzLPReB1qFo1GNNdj+YcPfTxHTkA9qM2gtLAyhY5n
+ Xvxk5tT8bNhvYY8Uv8vWHoO7WOkDrmSKHz9D3kX/onF9MeeL+3f7BXKtyUkA1knwYnAh
+ Wzmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794115492; x=1794720292;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=lk+rm88B0oTn3JFpBCPa55zvIWRJD/9kM2yE66jnksQ=;
- b=hT+QqZxk8pE/8HmN+BWWMzOa/gvknPjOBIdhgysP4q/CBMBaqR6hFIuQJit5Fi+asZ
- odDmKYP+p6f9e6hfRx89QqFxCfAkURLHq4LPomTCJE9FV7e92KQVH4gMx8Xh+cIUUOeT
- gHW4CbANwohLe6E7aemGfWYh7xMBj9ku9Dpr0DuM18WXGzUBraTO2VsenEhfEpsJhhWb
- lRgGPQ6tlM9gh1MrppbL/2qb2AlF5rRYAxHUPd4vzURMMrbKRkqGjY9JRHIY01N0a4u5
- s0B+zHlb9bkdQsP1lNeSec6ArPpe+cUPjFoDo9anFsVZzztdeZ4XZ8AxpjU09VmDZQkw
- sULA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBx3C44jpJeFPOaXS8vhen/Gtd1VNi43cg4YZF7aMCqdLBfTysEU/OgTEzZMzNqqQMGLC2XNGp71@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+WXeU92fNJGrk1Q6tnHv/HcR9OJffTrNsgcO9I5UC6ZWziExE7
- D9aTu9tlJtX8oi2LRJcw+skCVakK3zaRfDvPnZ+HKE5B1vALq/QbjOPz
-X-Gm-Gg: AYBFou1tJPHV1ZV014L6LuZT18ogHgw0Rq24uZFXHhzl59aQq9NnBXIbo4vSHSh6bXS
- sXP5Vw1VUyEFz/76ZZdSx5TDK7lv9wCMdn2JMm3J/9nvxzERFlnc+0acGPqfrzqCCOrzsRDkROu
- Mb+yl6vkKVNulagsM5tEHFF4m1yM5NzRPXPszJzEzzKuPRrwrQyMcxNg/PTCA96T0KTB2F8BaHr
- lM5qis6ajyrzlSMNwvdnC2WimO3EYsyLXa3PxhA3ov6cbonBWXfVGqYaQooGxXgxT6IbGVJR84e
- ycWyIj4efpUqcyRvvQQ9wivabEjaei9oIzwVSdNoQnG3/tiUgGn/Dx0EnxnDV5TnDDMCQmqPLlk
- 7mgr9EXUEHaph7hI3e2x37kfT6NmsrdMc+VnLWQ7N0CnYK1jkSXENAdPG48atYyc7TFD6L/LXRA
- KMraCBuYawGehP9JU07UmyZ4P5LU0MuOu3eUvqAGqDZ6TP6CwJRDbn/LPf1nkJpGGNE0sw48swN
- N2rIrWNJBh2LIfLw4UJE73zQYvxNSkR3TlEcANGsEb5gITlbDQNDU8q9QJ7ObwlvQLpsoccfb1q
- Sw2PGzNeRHhrMBB57W6VzJH5IYhmVsr5X5xJc1K9QagOsj3AnFti+CU6bt2UrpfUxAfGKmy5kRR
- Eks0DPFJ3UdJRPUVj2yzFQuHy5g==
-X-Received: by 2002:a05:622a:1c0e:b0:536:65fb:fff5 with SMTP id
- d75a77b69052e-552a59777b8mr7617241cf.60.1794115491901; 
- Sat, 07 Nov 2026 21:24:51 -0800 (PST)
-Received: from [192.168.50.20] (42-98-155-143.static.netvigator.com.
- [42.98.155.143]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-55264249f97sm10491941cf.14.2026.11.07.21.24.41
+ d=1e100.net; s=20260707; t=1794073578; x=1794678378;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=BICHTACzcYBYNKwFNl6UZpjtKoThY04fDneyezGDUuQ=;
+ b=vydEylz7rQoTFurIacoQH7qdwxYNBdHhp5P5Gzge2o8m7+0V3AhFhKQqIYg+/IGkUg
+ SRtRdHPJIa6nDNdqOQUFbcUr0Jzu9RysBZkM7gVZJxZ9dgwM1MkLD5kGXJwcI3kTDWG6
+ kTApxus/NhR8YqYfz6oM+HYaVB3Sfd/Q4ZeQJ6ePQEfwO49jXXHj3QKIen7T/jhqO+/k
+ HCOlnU8m1/5i3Ag6EwRUsQ3BGgZJODyi7kSDNLzK8UZAt1RQDNERwaKt01Cl/dJCejo1
+ LcBTt+IdY5VXamLJpKFzz9eM+EtDPaYjKmzXL7ryW1UG9zk4D3dp6l6eNUoL0w8+G+4a
+ 5IrA==
+X-Gm-Message-State: APuU4Z+kqYrjzEnwv46n8ZJkKt2qOTRVcg/FEtL7B2BwynR7jl2TXS1F
+ InOdAExzPZWQmcKVBTOXWtZrJOQqoCu11bpyXE5cQpA9Q1C6b4T9ejqG
+X-Gm-Gg: AYBFou1ojnLBVeq5AbuvtmdeqfTzYIMdzUcoqboxtwpPkXYYFqsQE/LFCV9hsr9AQjm
+ no3iKZZ0GAOfb1Y1jpV/C4OUvIuWn5RJB4/meBjug6PBXA1w3mr8bsSHrv2vZYcIwIhH9LMlBNe
+ pqtmno9SNRDIQBMn0AIugjnlRH3Y75mnW2Wsp+dmvEdc9ot1hFhr/gD/0JRYqQE5Khz0Q+CNXZ/
+ KOvkg7FmTvWFhS8zdyuul4KnhEuhX2Z8X8NBGi6cmsiUdd19VH5Nr/JmZXlbReT1832mQEMlrPw
+ UlWPMrVEB4LWbc8Nyb2t64Da7KCoLbF7/lgJ4Kw7o/mrHRdix4CT/i9rIIrzoqaAJ29wsQrqEBB
+ 9B/Np+4oxTnwWUh9p95i/ke07TrPRwOXF4uS6kpSRpJr+kOsxI8oTrbCL+6eLYk53FLgGwtt7vz
+ M3WRa9MA9SS9g7rDEKtDBCjnNMbHawl+i9gWV1oDuhtvTSEB5pKnymEwWgbzIJ91pAkIadgZBE6
+ vEwzkGeaqQWIgb9EqoyWl0ekHLHRVvfZCSX5Gm1UGtDqKl2b4ZeoVO8DZCbmhlDZOaglxN4kUr2
+ mv8CumH712tOA9wt+9rWh9cVQMqJgjEoIsa2WzlY2Q==
+X-Received: by 2002:a05:6000:4690:b0:48d:f851:ee5f with SMTP id
+ ffacd0b85a97d-4927721a2b2mr7918701f8f.24.1794073577747; 
+ Sat, 07 Nov 2026 09:46:17 -0800 (PST)
+Received: from cachyos-x8664.local ([188.127.103.167])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-492d770248esm11055718f8f.42.2026.11.07.09.46.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 07 Nov 2026 21:24:51 -0800 (PST)
-From: Aveline Noir <jm5905938@gmail.com>
-Date: Sun, 08 Nov 2026 16:13:34 +1100
-Subject: [PATCH 2/2] drm/amdkfd: check HMM errors before testing range validity
+ Sat, 07 Nov 2026 09:46:16 -0800 (PST)
+From: aic0d3r <igotmysoul@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, aic0d3r <igotmysoul@gmail.com>
+Subject: [PATCH] drm: panel-backlight-quirks: Add ASUS ROG Flow Z13 (GZ302)
+Date: Sat,  7 Nov 2026 18:45:53 +0100
+Message-ID: <20261107174553.123652-1-igotmysoul@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261108-kfd-svm-baseline-errors-20261107-v1-2-9ef4008019ab@gmail.com>
-References: <20261108-kfd-svm-baseline-errors-20261107-v1-0-9ef4008019ab@gmail.com>
-In-Reply-To: <20261108-kfd-svm-baseline-errors-20261107-v1-0-9ef4008019ab@gmail.com>
-To: Felix Kuehling <Felix.Kuehling@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Philip Yang <Philip.Yang@amd.com>, Sunil Khatri <sunil.khatri@amd.com>, 
- honghuan@amd.com, honglei1.huang@amd.com, psirt@amd.com, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-X-Mailer: b4 0.16.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 08 Nov 2026 15:02:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -100,34 +91,46 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-If the first PFN-array allocation in amdgpu_hmm_range_get_pages() fails,
-the allocated HMM range still has a NULL notifier. The validity condition
-in svm_range_validate_and_map() calls amdgpu_hmm_range_valid() before
-checking the error, dereferencing that NULL notifier.
+The firmware (ATIF) minimum backlight on the 2025 ASUS ROG Flow Z13
+(GZ302, Strix Halo) with its TMA 0x0803 panel is fairly bright: at the
+lowest brightness level actual_brightness reads 539 of 65535, which is
+uncomfortable in a dark room.
 
-Check the error first so failed requests retain their original error and
-reach the existing cleanup without testing an uninitialized HMM range.
+Lower min_input_signal to 1 via a min_brightness quirk. With it the
+lowest level reads back 0 and the panel is still lit and readable, so
+the usable range extends noticeably below the firmware floor.
 
-Fixes: c0de552910bb ("drm/amdkfd: clean up the code to free hmm_range")
-Signed-off-by: Aveline Noir <jm5905938@gmail.com>
+Match on the product family rather than the product name, since the
+product name carries the SKU ("ROG Flow Z13 GZ302EA_GZ302EA"), and on the
+panel ID so other panels in the family are unaffected.
+
+Tested on a GZ302EA with BIOS GZ302EA.314 on 7.3.1.
+
+Signed-off-by: aic0d3r <igotmysoul@gmail.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/drm_panel_backlight_quirks.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 8184cbbb829e..79455e23a030 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -1901,7 +1901,7 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
- 		 * Override return value to TRY AGAIN only if prior returns
- 		 * were successful
- 		 */
--		if (range && !amdgpu_hmm_range_valid(range) && !r) {
-+		if (!r && range && !amdgpu_hmm_range_valid(range)) {
- 			pr_debug("hmm update the range, need validate again\n");
- 			r = -EAGAIN;
- 		}
-
+diff --git a/drivers/gpu/drm/drm_panel_backlight_quirks.c b/drivers/gpu/drm/drm_panel_backlight_quirks.c
+index dcb91e12b..fa5897bb2 100644
+--- a/drivers/gpu/drm/drm_panel_backlight_quirks.c
++++ b/drivers/gpu/drm/drm_panel_backlight_quirks.c
+@@ -68,6 +68,15 @@ static const struct drm_get_panel_backlight_quirk drm_panel_min_backlight_quirks
+ 		.dmi_match_other.value = "Galileo",
+ 		.quirk = { .min_brightness = 1, },
+ 	},
++	/* ASUS ROG Flow Z13 (2025, GZ302) */
++	{
++		.dmi_match.field = DMI_SYS_VENDOR,
++		.dmi_match.value = "ASUSTeK COMPUTER INC.",
++		.dmi_match_other.field = DMI_PRODUCT_FAMILY,
++		.dmi_match_other.value = "ROG Flow Z13",
++		.ident.panel_id = drm_edid_encode_panel_id('T', 'M', 'A', 0x0803),
++		.quirk = { .min_brightness = 2, },
++	},
+ 	/* Have OLED Panels with brightness issue when last byte is 0/1 */
+ 	{
+ 		.dmi_match.field = DMI_SYS_VENDOR,
 -- 
 2.56.0
 
