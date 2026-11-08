@@ -2,62 +2,63 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 220F6606D803
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB2C0606A33A
 	for <amd-gfx@archiver.kernel.org>; Mon,  9 Nov 2026 14:09:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=cY7a9U0r
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=GCojNfz9
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB21C10F32E;
-	Mon,  9 Nov 2026 14:09:36 +0000 (UTC)
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com
- [74.125.82.200])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89EE610E2EB
- for <amd-gfx@lists.freedesktop.org>; Sun,  8 Nov 2026 22:39:55 +0000 (UTC)
-Received: by mail-dy1-f200.google.com with SMTP id
- 5a478bee46e88-36ecd5db581so237301eec.0
- for <amd-gfx@lists.freedesktop.org>; Sun, 08 Nov 2026 14:39:55 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 019C810F335;
+	Mon,  9 Nov 2026 14:09:37 +0000 (UTC)
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com
+ [74.125.82.197])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DED5F10E111
+ for <amd-gfx@lists.freedesktop.org>; Sun,  8 Nov 2026 22:39:46 +0000 (UTC)
+Received: by mail-dy1-f197.google.com with SMTP id
+ 5a478bee46e88-3724667bc16so320737eec.1
+ for <amd-gfx@lists.freedesktop.org>; Sun, 08 Nov 2026 14:39:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20260707; t=1794177595; x=1794782395;
+ d=google.com; s=20260707; t=1794177586; x=1794782386;
  darn=lists.freedesktop.org; 
  h=content-type:cc:to:from:subject:message-id:references:mime-version
  :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=Vy7610mZpT38CbXCq7RNEhhWWcPldBtQplNazUNUwLE=;
- b=cY7a9U0rIB8PIAsHl4SSZaUy80Au26AM+AjkdaxScVgKdmW8prvTt5W/t/8X6zcDb2
- aMRb1Frz8CInoRCFGPwvdpnrAyR5B7yOZKNAbox18JGCZoBtlYn0iqKAp16QsrVJEA2B
- 7q/vn0NVyoNLBEUHZLBsetJXr3YBtBIg+5quYkRZ8wELSUnC1AO8MHtagmW5hZh0RH8p
- 4Z1fODMzRWSKOSVZnmLa78R4TfaBFdUY28vF57dOS6Gu0PEqmn7IehdsV284Aa7YN83O
- 1sgq5fnCn2TLJ8JHHbPsWKyfmVtyiidIzxHt7T1GbI37gggrN07pDhAtYbVAFjJycY68
- BVqQ==
+ :content-type; bh=xwXDua19Tz/IicJklctcGTeEqQvEHLiE8QZruqc+WN4=;
+ b=GCojNfz9hW/94pt4pOCvqXASs0Wb5wbP+N9NIUihplJKFdb/6UHcbF2M/0mDiGYi/f
+ jC8uRChq1So/dxMyWQrwEgkI19P336hOOwArts0xGaiN09YrCM/QpUIlp28axp+H0frz
+ x/YiiOej7HpGpMNa8BZSZeEazFtPzo/GP3Nd1dP7JSPI2ydrLt9W6bQVnJYzXPOW3Aw4
+ 0nueGpdvY/KB77iT7Rn7wEkx2T7mKcREBisISfhmIlP5Cb9t6m/2CQeitwJRk1Xh2LXW
+ JO4wgPbH+J8pWdsmCI1oSfqCAMFJBLu0jO29JuQZbgsqw7jaVIlxsrcXMoHDWeeQkfHB
+ lJ3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794177595; x=1794782395;
+ d=1e100.net; s=20260707; t=1794177586; x=1794782386;
  h=content-type:cc:to:from:subject:message-id:references:mime-version
  :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=Vy7610mZpT38CbXCq7RNEhhWWcPldBtQplNazUNUwLE=;
- b=M78RyUv6PdIo1RnDZp9HEpx9KlsAIzaKVEVsJ7jFRnFFyXlKk0g1LtKuoXsZrYF6wn
- cdPr9ewgy+vLLkVX9fCq/6l4L8f6cwXHuQU0eOr/JCDsW4GJnSqxQh3oXimvJ9VRbPgk
- gl+iTtXvrIkZ2uZNjeSNcfJq0Hrd0GTFYLyNiCZuwRT0HwnVbBLwz1D/rC0JCJO2zVcp
- 0tWFo0ImAE9BWdfozwu00+hy0KvpNHpkmmvk0Z3e4RwDPGSUrUK+/rYptAIke3id1n+0
- R6B6kSykEP6ekiHfE4B2B89xH8rb7cZwA2G/7+SVW/1Ng1GT+44rDD505L6Rzc7/zraD
- FY+A==
+ bh=xwXDua19Tz/IicJklctcGTeEqQvEHLiE8QZruqc+WN4=;
+ b=qQt2nRjFlcysZSLXf/3Yx146HHxDTnixESYIMAtNR7/f3zkPmve13H29f95LLmlLBH
+ 5q/GgimVve2TfM8hQFCvm7B1Ao4u8kTj0Yqqj3VrI0Ls2pv/9QPI7fOFB8q8F2U7Ach7
+ a+K+1/br90qSnCxGPz6KFH+yk0CLEdXtKd43JVGN/iyzXUz+pBhoyymd7V94uYo6lfQs
+ ibe80aETGRLub9hUvGsyHrpFz8PSY6/7eOux0vUufMBW9YqFMx3gckjqTeiSZY9GYqs5
+ MDSVvzf2ee1aQy9GoIEMbQVVMGf+dXHzS7BimwYufGzi1LnvUfo+C1TLrvY7l3jpPD3K
+ +QZA==
 X-Forwarded-Encrypted: i=1;
- AL+hErG73i6qOeCb6P9wuQ8kBtVSbzB3JcXm0aBMFzeHfTCs4MbrSAnWW7K4d5yZUD7fZJIN2Y/mwL9E@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+YGhOJ6wQfaLzcH8oh99f6L8Et2CVR1YFnD6N6aQZb1VutU+n6
- JCBlrlvBe8KXac7oWbwYKvKVmjF+eGEqY3Xf7KPBN006BWO/3i0afBUQgIMWx/auvDbegkBeYnf
- vTW8kg75EEA==
-X-Received: from dyblf39.prod.google.com ([2002:a05:7301:a27:b0:373:6c70:7c9c])
+ AL+hErE+py+JEyo4MNZtKuiu38htl0NAFbgbBEkZr6d23GUy8lGQsJqxZzfANcxHTGPC5xWt4pVqVIDJ@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8d2wXZ8lUsH6MAML4bHsAOBuMcdom+9lxTsnh/0nBWEjqVPCT+
+ w5s/N6FVtjtf5F1arvQFl9o42PV2DYZ8L3nti7Bk3ul6FpVMY+c5rmamGvXIA+Dd/RBGrAtNdmj
+ if7s/wMBdCA==
+X-Received: from dyx10.prod.google.com ([2002:a05:693c:820a:b0:36a:eec:f68c])
  (user=irogers job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7300:d584:b0:36c:9f1a:30b8
- with SMTP id 5a478bee46e88-3725661520amr5331882eec.31.1794177594363; Sun, 08
- Nov 2026 14:39:54 -0800 (PST)
-Date: Sun,  8 Nov 2026 14:39:11 -0800
+ 2002:a05:7300:c00c:10b0:36d:dcdb:70c5
+ with SMTP id 5a478bee46e88-370f7b8f918mr9710009eec.20.1794177585797; Sun, 08
+ Nov 2026 14:39:45 -0800 (PST)
+Date: Sun,  8 Nov 2026 14:39:07 -0800
 In-Reply-To: <20261108223913.3624571-1-irogers@google.com>
 X-Archived-By: <archiver.kernel.org>
 Mime-Version: 1.0
 References: <20261108223913.3624571-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.455.g6c5a503b38-goog
-Message-ID: <20261108223913.3624571-8-irogers@google.com>
-Subject: [PATCH v3 7/9] ubifs: sysfs: Use kset_create_and_add() for ubifs_kset
+Message-ID: <20261108223913.3624571-4-irogers@google.com>
+Subject: [PATCH v3 3/9] sh: sq: Add missing kobject release callback to
+ ktype_percpu_entry
 From: Ian Rogers <irogers@google.com>
 To: Danilo Krummrich <dakr@kernel.org>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
@@ -111,74 +112,37 @@ X-Spam-Status: No, score=-26.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-ubifs_kset was a static struct kset using a custom ubifs_ktype that
-had no default_groups and no .release callback. With
-CONFIG_DEBUG_KOBJECT_RELEASE=y, unloading the ubifs module while delayed
-kobject release is pending causes a use-after-free on the static kset.
+In sq_dev_add(), sq_kobject[cpu] is dynamically allocated with
+kzalloc_obj() and initialized with ktype_percpu_entry. When
+sq_dev_remove() calls kobject_put(kobj), the kobject is never freed
+because ktype_percpu_entry lacks a .release callback.
 
-Replace the static ubifs_kset and empty ubifs_ktype with a dynamically
-allocated kset via kset_create_and_add().
+Provide a sq_kobj_release() callback that calls kfree(kobj).
 
-Fixes: 203a55f04f66 ("ubifs: Fix memory leak in ubifs_sysfs_init()")
-Tested-by: Zhihao Cheng <chengzhihao1@huawei.com>
-Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
+Fixes: d7c30c682a27 ("sh: Store Queue API rework.")
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- fs/ubifs/sysfs.c | 24 +++++++-----------------
- 1 file changed, 7 insertions(+), 17 deletions(-)
+ arch/sh/kernel/cpu/sh4/sq.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/fs/ubifs/sysfs.c b/fs/ubifs/sysfs.c
-index dbf967dcf26e..e20931e3a62f 100644
---- a/fs/ubifs/sysfs.c
-+++ b/fs/ubifs/sysfs.c
-@@ -80,13 +80,7 @@ static const struct kobj_type ubifs_sb_ktype = {
- 	.release	= ubifs_sb_release,
+diff --git a/arch/sh/kernel/cpu/sh4/sq.c b/arch/sh/kernel/cpu/sh4/sq.c
+index 908a8e09113b..f33864958487 100644
+--- a/arch/sh/kernel/cpu/sh4/sq.c
++++ b/arch/sh/kernel/cpu/sh4/sq.c
+@@ -331,7 +331,13 @@ static const struct sysfs_ops sq_sysfs_ops = {
+ 	.store	= sq_sysfs_store,
  };
  
--static const struct kobj_type ubifs_ktype = {
--	.sysfs_ops	= &ubifs_attr_ops,
--};
--
--static struct kset ubifs_kset = {
--	.kobj	= {.ktype = &ubifs_ktype},
--};
-+static struct kset *ubifs_kset;
- 
- int ubifs_sysfs_register(struct ubifs_info *c)
- {
-@@ -107,7 +101,7 @@ int ubifs_sysfs_register(struct ubifs_info *c)
- 		goto out_free;
- 	}
- 
--	c->kobj.kset = &ubifs_kset;
-+	c->kobj.kset = ubifs_kset;
- 	init_completion(&c->kobj_unregister);
- 
- 	ret = kobject_init_and_add(&c->kobj, &ubifs_sb_ktype, NULL,
-@@ -139,18 +133,14 @@ void ubifs_sysfs_unregister(struct ubifs_info *c)
- 
- int __init ubifs_sysfs_init(void)
- {
--	int ret;
-+	ubifs_kset = kset_create_and_add("ubifs", NULL, fs_kobj);
-+	if (!ubifs_kset)
-+		return -ENOMEM;
- 
--	kobject_set_name(&ubifs_kset.kobj, "ubifs");
--	ubifs_kset.kobj.parent = fs_kobj;
--	ret = kset_register(&ubifs_kset);
--	if (ret)
--		kset_put(&ubifs_kset);
--
--	return ret;
-+	return 0;
- }
- 
- void ubifs_sysfs_exit(void)
- {
--	kset_unregister(&ubifs_kset);
-+	kset_unregister(ubifs_kset);
- }
++static void sq_kobj_release(struct kobject *kobj)
++{
++	kfree(kobj);
++}
++
+ static struct kobj_type ktype_percpu_entry = {
++	.release	= sq_kobj_release,
+ 	.sysfs_ops	= &sq_sysfs_ops,
+ 	.default_groups	= sq_sysfs_groups,
+ };
 -- 
 2.56.0.455.g6c5a503b38-goog
 
