@@ -2,48 +2,51 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D72E2606A31C
-	for <amd-gfx@archiver.kernel.org>; Sun,  8 Nov 2026 15:02:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4DD5606A31C
+	for <amd-gfx@archiver.kernel.org>; Sun,  8 Nov 2026 17:38:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=seu.edu.cn header.i=@seu.edu.cn header.a=rsa-sha256 header.s=default header.b=mcFEHqRF
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EfBxpVIm
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52C0710E11B;
-	Sun,  8 Nov 2026 15:02:54 +0000 (UTC)
-X-Greylist: delayed 303 seconds by postgrey-1.36 at gabe;
- Sun, 08 Nov 2026 11:01:27 UTC
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com
- [45.254.49.198])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33A8210E034;
- Sun,  8 Nov 2026 11:01:27 +0000 (UTC)
-Received: from LAPTOP-99KJFSET (unknown [223.75.64.82])
- by smtp.qiye.163.com (Hmail) with ESMTP id 53e3dfdd4;
- Sun, 8 Nov 2026 18:56:19 +0800 (GMT+08:00)
-From: Hongyan Xu <getshell@seu.edu.cn>
-To: Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Christian Koenig <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Hongyan Xu <getshell@seu.edu.cn>
-Subject: [PATCH] drm/amdkfd: fix use-after-free in create_process() error path
-Date: Sun,  8 Nov 2026 18:56:17 +0800
-Message-ID: <20261108105617.1309-1-getshell@seu.edu.cn>
-X-Mailer: git-send-email 2.50.1.windows.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21AB710E178;
+	Sun,  8 Nov 2026 17:38:37 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 73FEB10E178
+ for <amd-gfx@lists.freedesktop.org>; Sun,  8 Nov 2026 17:38:31 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 2DEBC61124;
+ Sun,  8 Nov 2026 17:38:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDDB31F0089F;
+ Sun,  8 Nov 2026 17:38:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794159509;
+ bh=wWvFBng8dsYu30P88LFuSskBm0sLigIa38Aeo9k91og=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=EfBxpVImSPRTGcwDZaAaE1p9J4B84iojZ7WITFE8ZVBv4gMmxFNBC50MD3cDyL/k0
+ RsASnJwFqrhkgZBFhdlEmsDNbu0uoZF3142e0NLJRao7QPBVNC95pDRV1gGorzkln6
+ ZlGOr4edXmmd17WJV0lRW3Zn8E8OS1SJhS9oyR9NRzWxkVGXzxgI3gtIUEA7ORUnuS
+ OH/ghcQfrRbTkbBzrpUnBV5i58RnlclbNEMuSy5m3Je8foR6p6dTrtdUpoeaZ67TTo
+ vDurIdHK9BWqGtBQ8FmRcd8uwy1lL/LrlVY67S27SqCfjTpaQd46AUaWZBWGU/neHi
+ btRJEVIQEs3SQ==
+Message-ID: <6adeab8a-316e-4107-be7e-5072484b0fc5@kernel.org>
+Date: Sun, 8 Nov 2026 11:38:25 -0600
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1bacd4ba303a1kunm2cabcdaace62f
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTElPVk0ZGRoZSRoZHkoeQ1YeHw
- 5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVTE5VTU9VQ0lZV1kWGg8SFR0UWUFZT0tIVUpLSUJDQ0
- xVSktLVUtZBg++
-DKIM-Signature: a=rsa-sha256;
- b=mcFEHqRFpau+wg/fQNt+tNfumMVFWV3R/lwdCO/yVAMQgcDAWUpkmDSeZxOM7I5eeMdgwHh4hWtpiZlqclgjFFMEHa31l4uM+kKxFtVUpyhIf/6xKBouGo1fgl51BwivVCOJsNmXzsulbYCfatGS9gHvPieRpC7nv2ogYcpEEso=;
- s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1; 
- bh=e9Dpgey3aCA/wo/6U2AQsfdlzUC0B34C1vFmZygVNXA=;
- h=date:mime-version:subject:message-id:from;
-X-Mailman-Approved-At: Sun, 08 Nov 2026 15:02:42 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: Add support for more PSP footer sizes
+Content-Language: en-US
+To: Roman.Li@amd.com, amd-gfx@lists.freedesktop.org
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>,
+ Fangzhi Zuo <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>,
+ Ray Wu <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>,
+ Alex Hung <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>,
+ Chenyu Chen <Chen-Yu.Chen@amd.com>, Ovidiu Bunea <ovidiu.bunea@amd.com>,
+ Michael Strauss <michael.strauss@amd.com>
+References: <20261106210738.668372-1-Roman.Li@amd.com>
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <20261106210738.668372-1-Roman.Li@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,172 +57,110 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-create_process() publishes the process in kfd_processes_table before its
-last failing call (alloc_notifier() must find it there), and its error path
-frees it with a bare kfree(), ignoring the refcount.  find_process() takes
-its reference inside the sRCU critical section but callers use the process
-after leaving it, so synchronize_srcu() misses them, and the error path
-cannot unref once either: it holds two (kref_init() and the one keeping
-free_notifier() from starting kfd_process_wq_release()).
 
-Release the process as soon as it is visible: take the lead thread
-reference right after lead_thread is assigned, run ida_init() before
-mmu_notifier_get(), so the release work is safe on a half-built object.
-The published error paths unlink with hash_del_rcu(), synchronize_srcu()
-and drop both references, so the last one runs kfd_process_wq_release().
-Both labels hold exactly two references, so nothing is freed early and no
-path falls into the unwind the unpublished labels keep, now with
-put_task_struct()).  Restore pqm_uninit() (kfd_process_queue_manager.c):
-pqm_init()'s 128 byte queue slot bitmap leaked per failure.  Match
-kfd_debugfs_remove_process() by process, not pid.
 
-Fixes: 3248b6d3cbcd ("drm/amdkfd: Use mmu_notifier_get")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
----
- drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c | 12 ++++++-
- drivers/gpu/drm/amd/amdkfd/kfd_process.c | 46 ++++++++++++++++++++++--
- 2 files changed, 54 insertions(+), 4 deletions(-)
+On 11/6/26 15:07, Roman.Li@amd.com wrote:
+> From: Ovidiu Bunea <ovidiu.bunea@amd.com>
+> 
+> [why & how]
+> PSP footer size may be as big as 1932 bytes.
+> 
+> Add a check for this size so that the DMUB FW meta can
+> be properly located.
+> 
+> Cc: Michael Strauss <michael.strauss@amd.com>
+> Signed-off-by: Ovidiu Bunea <ovidiu.bunea@amd.com>
+> Signed-off-by: Roman Li <roman.li@amd.com>
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c b/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
-index 7d4e07452cdb..a17a3a307266 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
-@@ -33,6 +33,7 @@ static struct list_head procs;
- struct debugfs_proc_entry {
- 	struct list_head list;
- 	struct dentry *proc_dentry;
-+	struct kfd_process *process;
- 	pid_t pid;
- };
- 
-@@ -151,6 +152,7 @@ void kfd_debugfs_add_process(struct kfd_process *p)
- 		return;
- 
- 	list_add(&entry->list, &procs);
-+	entry->process = p;
- 	entry->pid = p->lead_thread->pid;
- 	snprintf(name, MAX_DEBUGFS_FILENAME_LEN, "%d",
- 		 (int)entry->pid);
-@@ -174,9 +176,17 @@ void kfd_debugfs_remove_process(struct kfd_process *p)
- {
- 	struct debugfs_proc_entry *entry, *next;
- 
-+	/*
-+	 * Match the entry that was added for this process and not one that
-+	 * merely has the same pid: kfd_process_wq_release() also runs for a
-+	 * process that failed in create_process() and never got an entry,
-+	 * and after an exec(3) the old and the new primary kfd_process of a
-+	 * process have the same lead thread while a file descriptor keeps
-+	 * the old one alive.
-+	 */
- 	mutex_lock(&kfd_processes_mutex);
- 	list_for_each_entry_safe(entry, next, &procs, list) {
--		if (entry->pid != p->lead_thread->pid)
-+		if (entry->process != p)
- 			continue;
- 
- 		debugfs_remove_recursive(entry->proc_dentry);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index 12e24fbf8c46..f118f7f03de7 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -1600,6 +1600,11 @@ struct kfd_process *create_process(const struct task_struct *thread, bool primar
- 	mutex_init(&process->mutex);
- 	process->mm = thread->mm;
- 	process->lead_thread = thread->group_leader;
-+	/*
-+	 * Take the reference on the lead thread before the process can be
-+	 * released through kfd_process_wq_release(), which drops it again.
-+	 */
-+	get_task_struct(process->lead_thread);
- 	process->n_pdds = 0;
- 	process->queues_paused = false;
- 
-@@ -1648,13 +1653,17 @@ struct kfd_process *create_process(const struct task_struct *thread, bool primar
- 	 */
- 	if (primary) {
- 		process->context_id = KFD_CONTEXT_ID_PRIMARY;
-+		/*
-+		 * Must be initialized before the process can be given to
-+		 * kfd_process_wq_release(), which destroys it.
-+		 */
-+		ida_init(&process->id_table);
- 		mn = mmu_notifier_get(&kfd_process_mmu_notifier_ops, process->mm);
- 		if (IS_ERR(mn)) {
- 			err = PTR_ERR(mn);
- 			goto err_register_notifier;
- 		}
- 		BUG_ON(mn != &process->mmu_notifier);
--		ida_init(&process->id_table);
- 	}
- 
- 	err = kfd_process_alloc_id(process);
-@@ -1664,7 +1673,6 @@ struct kfd_process *create_process(const struct task_struct *thread, bool primar
- 	}
- 
- 	kfd_unref_process(process);
--	get_task_struct(process->lead_thread);
- 
- 	INIT_WORK(&process->debug_event_workarea, debug_event_write_work_handler);
- 
-@@ -1673,8 +1681,39 @@ struct kfd_process *create_process(const struct task_struct *thread, bool primar
- err_alloc_id:
- 	kfd_process_free_id(process);
- err_register_notifier:
-+	/*
-+	 * The process is already in kfd_processes_table, so find_process()
-+	 * may have handed it out with a reference taken on it.  Unlink it
-+	 * and wait for the readers that are still walking the table before
-+	 * dropping the references held here: afterwards no new reference
-+	 * can be taken and the ones already taken keep the process alive.
-+	 * The memory is then freed by kfd_process_wq_release() when the
-+	 * last reference is dropped.
-+	 */
- 	hash_del_rcu(&process->kfd_processes);
--	svm_range_list_fini(process);
-+	synchronize_srcu(&kfd_processes_srcu);
-+
-+	/*
-+	 * kfd_process_wq_release() frees the memory, but it does not
-+	 * destroy the queue manager: on the normal path that is done by
-+	 * kfd_process_notifier_release_internal(), which neither of these
-+	 * two error paths can reach, because no mmu notifier was
-+	 * registered for the process.  The process is unlinked and no
-+	 * reader can reach the pqm any more, so destroy it here, before
-+	 * the references are dropped.
-+	 */
-+	pqm_uninit(&process->pqm);
-+
-+	/*
-+	 * Drop the reference that keeps a failing free_notifier() from
-+	 * starting kfd_process_wq_release() and the one taken by
-+	 * kref_init().
-+	 */
-+	kfd_unref_process(process);
-+	kfd_unref_process(process);
-+
-+	return ERR_PTR(err);
-+
- err_init_svm_range_list:
- 	kfd_process_free_outstanding_kfd_bos(process);
- 	kfd_process_destroy_pdds(process);
-@@ -1684,6 +1723,7 @@ struct kfd_process *create_process(const struct task_struct *thread, bool primar
- 	kfd_event_free_process(process);
- err_event_init:
- 	mutex_destroy(&process->mutex);
-+	put_task_struct(process->lead_thread);
- 	kfree(process);
- err_alloc_process:
- 	return ERR_PTR(err);
--- 
-2.50.1.windows.1
+Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+Tested-by: Mario Limonciello (AMD) <superm1@kernel.org>
+
+> ---
+>   drivers/gpu/drm/amd/display/dmub/dmub_srv.h   |  2 +
+>   .../gpu/drm/amd/display/dmub/src/dmub_srv.c   | 41 ++++++++++++-------
+>   2 files changed, 29 insertions(+), 14 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dmub/dmub_srv.h b/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
+> index 17579ff2e1bf..84f825c924bc 100644
+> --- a/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
+> +++ b/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
+> @@ -76,6 +76,8 @@
+>   
+>   #define PSP_HEADER_BYTES_256 0x100 // 256 bytes
+>   #define PSP_FOOTER_BYTES_256 0x100 // 256 bytes
+> +#define PSP_FOOTER_BYTES_512 0x200 // 512 bytes
+> +#define PSP_FOOTER_BYTES_1932 0x78C // 1932 bytes
+>   
+>   /* Forward declarations */
+>   struct dmub_srv;
+> diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
+> index 41b14b137643..72fc28feefb2 100644
+> --- a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
+> +++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
+> @@ -173,30 +173,43 @@ dmub_srv_get_fw_meta_info_from_raw_fw(struct dmub_srv_fw_meta_info_params *param
+>   	uint32_t inst_const_size_temp = params->inst_const_size;
+>   
+>   	/* First try custom psp footer size, if present */
+> -	if (params->custom_psp_footer_size) {
+> -		params->inst_const_size -= params->custom_psp_footer_size;
+> +	if (params->custom_psp_footer_size && inst_const_size_temp > params->custom_psp_footer_size) {
+> +		params->inst_const_size = inst_const_size_temp - params->custom_psp_footer_size;
+>   		fw_info = dmub_get_fw_meta_info(params);
+>   		if (fw_info) {
+>   			memcpy(fw_info_out, fw_info, sizeof(*fw_info));
+>   			return DMUB_STATUS_OK;
+>   		}
+> -		params->inst_const_size = inst_const_size_temp;
+>   	}
+>   
+>   	/* Try 256-byte psp footer size */
+> -	params->inst_const_size -= PSP_FOOTER_BYTES_256;
+> -	fw_info = dmub_get_fw_meta_info(params);
+> -	if (fw_info) {
+> -		memcpy(fw_info_out, fw_info, sizeof(*fw_info));
+> -		return DMUB_STATUS_OK;
+> +	if (inst_const_size_temp > PSP_FOOTER_BYTES_256) {
+> +		params->inst_const_size = inst_const_size_temp - PSP_FOOTER_BYTES_256;
+> +		fw_info = dmub_get_fw_meta_info(params);
+> +		if (fw_info) {
+> +			memcpy(fw_info_out, fw_info, sizeof(*fw_info));
+> +			return DMUB_STATUS_OK;
+> +		}
+>   	}
+>   
+> -	/* Try 512-byte psp footer size - final attempt */
+> -	params->inst_const_size -= PSP_FOOTER_BYTES_256; // 256 bytes already subtracted, subtract 256 again
+> -	fw_info = dmub_get_fw_meta_info(params);
+> -	if (fw_info) {
+> -		memcpy(fw_info_out, fw_info, sizeof(*fw_info));
+> -		return DMUB_STATUS_OK;
+> +	/* Try 512-byte psp footer size */
+> +	if (inst_const_size_temp > PSP_FOOTER_BYTES_512) {
+> +		params->inst_const_size = inst_const_size_temp - PSP_FOOTER_BYTES_512;
+> +		fw_info = dmub_get_fw_meta_info(params);
+> +		if (fw_info) {
+> +			memcpy(fw_info_out, fw_info, sizeof(*fw_info));
+> +			return DMUB_STATUS_OK;
+> +		}
+> +	}
+> +
+> +	/* Try 1932-byte psp footer size */
+> +	if (inst_const_size_temp > PSP_FOOTER_BYTES_1932) {
+> +		params->inst_const_size = inst_const_size_temp - PSP_FOOTER_BYTES_1932;
+> +		fw_info = dmub_get_fw_meta_info(params);
+> +		if (fw_info) {
+> +			memcpy(fw_info_out, fw_info, sizeof(*fw_info));
+> +			return DMUB_STATUS_OK;
+> +		}
+>   	}
+>   
+>   	/* Restore original inst_const_size and subtract default PSP footer size - default behaviour */
 
