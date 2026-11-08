@@ -2,85 +2,92 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3F58606A320
-	for <amd-gfx@archiver.kernel.org>; Sun,  8 Nov 2026 15:02:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D587606A31C
+	for <amd-gfx@archiver.kernel.org>; Sun,  8 Nov 2026 15:02:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qV0mMbut
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Rsb/fwgv
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8178E10E0F6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9195610E5E4;
 	Sun,  8 Nov 2026 15:02:43 +0000 (UTC)
-Received: from mail-pi2-f6.google.com (mail-pi2-f6.google.com [74.125.227.198])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20AF010E256
- for <amd-gfx@lists.freedesktop.org>; Sun,  8 Nov 2026 05:23:49 +0000 (UTC)
-Received: by mail-pi2-f6.google.com with SMTP id
- 41be03b00d2f7-cdb536daf59so102845a12.0
- for <amd-gfx@lists.freedesktop.org>; Sat, 07 Nov 2026 21:23:49 -0800 (PST)
+Received: from mail-pj2-f9.google.com (mail-pj2-f9.google.com [74.125.227.137])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 654A010E444
+ for <amd-gfx@lists.freedesktop.org>; Sun,  8 Nov 2026 09:33:47 +0000 (UTC)
+Received: by mail-pj2-f9.google.com with SMTP id
+ d9443c01a7336-2e97ddaf3c4so1932235ad.1
+ for <amd-gfx@lists.freedesktop.org>; Sun, 08 Nov 2026 01:33:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794115428; x=1794720228; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=nPcc1C6VpjmCET3tBtMp/wreo0ZSVB6OHb06Azdk0dk=;
- b=qV0mMbutnaItxUe5JxptVO5bLEfKpy6Vg3UERY7pMc85uKwt0wwQ6D0vhBihBzPs0T
- VEyOpesuDtuOg+QYK03E49SylxwOEcWzuvg2gMW4QJi7XWYTQNu0w2bYrAP5UpraiimJ
- tUnFNMsE3YTmEJkliwauXaebFUNMPkaxYp0Y1U77DXIeqrVAFfAKbLiEQwQc8UalLNZL
- 12bfQlNHE8XQrvBTGLAe763d8AJWAOFC+c9EETZXZOlfWDNFyfdC2ax2EDyOPR1KP0Ex
- YRQL0CaT88LgnAlOCaqsKp+seckab0geM6NcPAWDGMWBzF9E9oI9aFDgx0Mg43pdTfXt
- qyUA==
+ d=gmail.com; s=20260707; t=1794130427; x=1794735227; darn=lists.freedesktop.org;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=L1j8Lq8aH3eQS1NmaOYlRxmMWR7OBcOWfEbp3qYjkPs=;
+ b=Rsb/fwgv3bvt1i6bvF5bJo2sDueN38+HYOEx+YeQXrs3i6iXjQrJpijVcPtMWdJvt8
+ qHU/CFgRDLpnhfhtH9lhx66LMvophAbIlG2dUBcz6lKXUUJnL2WJm2Fp/D0JSNhnvGMc
+ o11/tsZcJWrtGaCEn7f3gGk3rIf5u9spKLdUhD1pJeTEeusG66AwiugQdvelcLUvAT46
+ 7VjxehOLD41JSme3QW74bW9+Le3ykt306Po8U4HZYu6q2mRGx4QG0JLiQx+S98bvvcVc
+ X3KC95GTU4AB9+II4Xp10O6URObh1gMYu1mNdVXQmdvLlRkQ5RdLxanES0wexz3zqgcD
+ 1LmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794115428; x=1794720228;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=nPcc1C6VpjmCET3tBtMp/wreo0ZSVB6OHb06Azdk0dk=;
- b=1IEhgv9uLXQ468xk/8SYmg+0iQv1Q9cm/q78ufISo8xCicU7jpQZdb33J306T2YrQR
- O/lesyd09ERTqkx8RjHRR1R8GVydLfbONxWnzi867u9wS9qKCXvdb1+yCrsnX0jUpYbI
- G44qDgYu+KgG6XV+/ULksmCcc1mB1LfFamN/Lx0ch70u6HpaDxGO2afVWjJEOmNi5h9G
- UYN6ThnKsKGwccHTfqtCKKkEYJGKBDWmkEqGWg6+yIQHlM4h6xpCBkVrJEAi6thbt0D4
- Z6PYIhQ27CtCRfMcnaDs/dFMvNpmuHooY2HVtwVDExqZVt+OyFCIU4ODYithm2dK1y9M
- z0qg==
+ d=1e100.net; s=20260707; t=1794130427; x=1794735227;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to:content-type;
+ bh=L1j8Lq8aH3eQS1NmaOYlRxmMWR7OBcOWfEbp3qYjkPs=;
+ b=tErS4edc5ta6+g7CJTi2Ai4yoGLXbf8D10hRdUHy87HRDpM7EpQkEK1qxE0o3NvuRq
+ 3o7pJD4QpkYYHBMwdvCB8Y4wuLA+sY+bpAPzCLjymohvS4RME3whFhMtT0S6g2iHZeme
+ 1qWPKwRpV53K0G5uXk1q2TspIJArGT8ipAuCIcZlO6rxnqXl95CxLFqik9DtH+tPVEzS
+ xZTCpFzOE9gdEBwzFqfmrxs3aMNcvMKWVq6otRZP7lfFZC2B+onzkxHKxzzTNSXbvNa9
+ eqOGf9CimpW9SD4xEgcgeagrnssCVBvKFHM5VFQJlj4jT3U9lkXOuhwieENtrDws3XSZ
+ tYUQ==
 X-Forwarded-Encrypted: i=1;
- AL+hErE4oLqbHdDqx0V8qwrKWk229txCYcfQ6QrH9gfCEYcLn/EnT/iPSdKc99/poIhVb6xX7Yb3oQCR@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+J+PwuPOImXbBc4dHjiRYhjSEQhXrG3/4A3d4sCOE8I0Drxn/U
- VtYjHJcbUike/VzdoPdcEEqVai7TTJNBxFm+ku8UZ7rEx9WN9VgFOQLt
-X-Gm-Gg: AYBFou3PWebfenzROxcIybp73XQ7dSS0EUXqBFAMPU6uqLBW5LyQ2da/v2c0ZOSoujL
- iwCzCFXlhYIeviALqTqKNR1JQZT/rUg6aCrGx7akKOl8jPgBeSRNTygT5VALcRMClEn17GWY8MP
- IS2v1pIuV4B36a0QpCXRApcPFIJiuKPDDPMBz0I5Y22eJykCcJzHtn9ZfqXZmFdxpYcRtbTiAfU
- kAfbrt1CRzZ/2JnyGqkx8YS6TC1riV3FU7iINZbcC5FE4IE3yfa2lmxsKb/SZMomGRPSojPIDvN
- 0d3StIM8VCJbQMSSz8Mwp3htK5FHDCZLdOc5g5crp4pRHk2zLvnbuHL9QNbHjInKxcfxyroOPdn
- 3X6bfQ2rOiVi7wdjyd25Kf2M5WPFyhEAS5BuXcKffa6ixX7B9L2oNhceS1D7RlC7cRxn6oGGlC7
- K0JDp0PbX0Qr57lHQ+xeIJLj5xaPxXi8e2mW5IC1p+zRwCt7vAsVOVX9csg1N52rQdT20LB7Ux3
- +wzVkh2/DfssXZ0J13m/CHmf5ZQQww8GPC6PKkzYuzAk8N5nf1V6f5hkJvpK/HoXzTDfofEip+M
- iFcMTnC7TfRdqyTOkSOhrnCsCvfcozb/NwwXBkHAy/bqABK0g8eXUd8yQhsxdl0w6G2T4cZ/J4+
- rTVC5l/5+uoCTWA868N4U+ygMBysvXVP5x2C0MsZxrSUH53A=
-X-Received: by 2002:a05:6a00:3313:b0:890:a995:1f61 with SMTP id
- d2e1a72fcca58-8b66ef0603fmr596011b3a.15.1794115428353; 
- Sat, 07 Nov 2026 21:23:48 -0800 (PST)
-Received: from [192.168.50.20] (42-98-155-143.static.netvigator.com.
- [42.98.155.143]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-8b646bd4af6sm281341b3a.2.2026.11.07.21.23.34
+ AL+hErFFmwAs/AB6f44iWPCvB/CuYkhPyPPwWtPvjUXWWPsburDPszbk1RRkqV4pXZR1MyWQbjtv/fn0@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+MgqI0nRYqguD/AlfGdYrkPhc2TrMVD4q0hgPKZ8uJiHCga/0g
+ SBEng7J8L1GspfZw2a9lLI0TVTwXhZWU59VutRM8mZBgQzvhN28zNnkG
+X-Gm-Gg: AYBFou0OCf2odkYJpLDGjnH96Hbq5cjd/70OejG5ee+BPpOottrYeWq4FjOYnM+Nl/o
+ 6lAI+jvDkrd28E/gTdWy0ico7qS+aOpXrYouWs/ROyJ+BrS+S4S+OBzNdswG/uclu/hOtWoWWV8
+ yHeUEvMg1vUEvP0DOExp+Ed3I5gcCDGMqEWwS5aNSR7jrC44cIv6H3XwrbNacG5B5A6MlNaYUB5
+ XgZCanW5rIUP0jaiD5xLy72chIAZdgAXAsWcPXJr6kgsZZTOQQpCfgrNyr0eDzp/LRSmqTOGIwf
+ hGF74nrtcxYZk/h2EU33Zc+oXHexBBT7xgmU8bg22Bm+rFIobm8RV09ppjkF588UE2bqrxa5ya5
+ 3i2EMgpVKt2oFcucQIVnmOkIS3065eJXoR0KY/uwPTOjaH0ucnUzJdGyLTwe2/fSV9vNYanW7K8
+ DTpLu0vlo3eWRXMzQX5XkL3qQTlQerPOMnNpZDXtAslpNDFV1F2O54eITsra9Nu7i9iEKPteA41
+ o/mRgcuQvJtSwXpiWsfSOeD4AR+DHXe6sGCsMzfemtjAcBkslwP1K29WywZNmwmOrMmEc7oJry7
+ VT5szLXsYUvrzP4/rI8M/Nld05b9Llbhi0WuMx0Rn5KDQHKvIc9z8OHQ9nTn
+X-Received: by 2002:a05:6a21:485:b0:3de:71c4:a228 with SMTP id
+ adf61e73a8af0-3eed232050bmr1065043637.15.1794130426673; 
+ Sun, 08 Nov 2026 01:33:46 -0800 (PST)
+Received: from [192.168.50.20] ([50.7.253.42])
+ by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-cdb969314a5sm558346a12.17.2026.11.08.01.33.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 07 Nov 2026 21:23:48 -0800 (PST)
+ Sun, 08 Nov 2026 01:33:46 -0800 (PST)
 From: Aveline Noir <jm5905938@gmail.com>
-Date: Sun, 08 Nov 2026 16:13:33 +1100
-Subject: [PATCH 1/2] drm/amdkfd: handle SVM interval notifier registration
- failures
+Date: Sun, 08 Nov 2026 20:15:39 +1100
+Subject: [PATCH] drm/amdkfd: preserve the byte address when removing retry
+ faults
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261108-kfd-svm-baseline-errors-20261107-v1-1-9ef4008019ab@gmail.com>
-References: <20261108-kfd-svm-baseline-errors-20261107-v1-0-9ef4008019ab@gmail.com>
-In-Reply-To: <20261108-kfd-svm-baseline-errors-20261107-v1-0-9ef4008019ab@gmail.com>
+Message-Id: <20261108-kfd-fault-filter-address-20261108-v1-1-ef13f9dd24e4@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/z2N3QrCMAxGX0VybWAtMn9eRbxI19RFZyfJNoSxd
+ 3dV2OX5+DhnBmMVNrjsZlCexKTPK7j9DpqW8p1R4srgK187V53wmSImGrsBk3QDK1KMyma4PQ6
+ pOtfJB0+OYPW8lZN8fo3r7c82hgc3QxGXRyBjDEq5actUEja9sMydZEZW7XUrHGFZvmGsM4y4A
+ AAA
+X-Change-ID: 20261108-kfd-fault-filter-address-20261108-4f096f2b2a1a
 To: Felix Kuehling <Felix.Kuehling@amd.com>, 
  Alex Deucher <alexander.deucher@amd.com>, 
  =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Philip Yang <Philip.Yang@amd.com>, Sunil Khatri <sunil.khatri@amd.com>, 
- honghuan@amd.com, honglei1.huang@amd.com, psirt@amd.com, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
+Cc: David Airlie <airlied@gmail.com>, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, honghuan@amd.com, honglei1.huang@amd.com, 
+ linux-kernel@vger.kernel.org, 
+ Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>, 
+ Natalie Vock <nat@pixelcluster.dev>, Philip Yang <Philip.Yang@amd.com>, 
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>, 
+ Prike Liang <Prike.Liang@amd.com>, psirt@amd.com, sashiko-bot@kernel.org, 
+ sashiko-reviews@lists.linux.dev, Simona Vetter <simona@ffwll.ch>, 
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>, 
+ Sunil Khatri <sunil.khatri@amd.com>, 
+ =?utf-8?q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
 X-Mailer: b4 0.16.0
 X-Mailman-Approved-At: Sun, 08 Nov 2026 15:02:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -93,170 +100,111 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,SUBJECT_DRUG_GAP_L,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The first interval notifier registration for an mm can fail while
-initializing the interval tree. svm_range_add_notifier_locked() ignores
-that error, so SET_ATTR and retry-fault handling can publish an SVM range
-without a registered notifier. Subsequent HMM access can then dereference
-an uninitialized notifier.
+svm_range_restore_pages() receives a CPU page number, but passes it
+unchanged to amdgpu_gmc_filter_faults_remove() when recovery is deferred
+or returns -EAGAIN. The software fault filter uses a byte address and
+PASID as its key, so this can leave the fault filtered until the entry
+ages out.
 
-Propagate the registration error and register staged ranges before
-publishing the SET_ATTR transaction. Remove successful registrations on
-failure before freeing the staged ranges, preserving the original ranges
-and the existing memory-accounting rollback. Also free an unpublished
-retry-fault range and return its registration error.
+Pass the original byte address to svm_range_restore_pages() and derive
+the CPU page number locally for range operations. Use the original
+address for both filter removals. This also preserves the GPU subpage
+offset when CPU pages are larger than the 4 KiB GPU page size.
 
-Fixes: b1c46c7d622b ("drm/amdkfd: validate svm range system memory")
+Fixes: b3dc91f97317 ("drm/amdkfd: enable subsequent retry fault")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/r/sashiko-outbox-203586@kernel.org
 Signed-off-by: Aveline Noir <jm5905938@gmail.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 56 +++++++++++++++++++++++++++---------
- 1 file changed, 43 insertions(+), 13 deletions(-)
+No testing on AMD hardware. Any test will be appreciated.
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c   | 7 ++++---
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.h   | 4 ++--
+ 3 files changed, 7 insertions(+), 6 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index c41e9c0916b7..86ef849097fa 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -3092,7 +3092,7 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+ 		drm_exec_fini(&exec);
+ 
+ 		if (!svm_range_restore_pages(adev, pasid, vmid,
+-					     node_id, addr >> PAGE_SHIFT, ts, write_fault))
++					     node_id, addr, ts, write_fault))
+ 			return true;
+ 
+ 		/* Re-acquire the VM lock, could be that the VM was freed in between. */
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index ed5e3318877b..8184cbbb829e 100644
+index 79455e23a030..c85d6bb73629 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -106,16 +106,21 @@ static void svm_range_unlink(struct svm_range *prange)
- 		interval_tree_remove(&prange->it_node, &prange->svms->objects);
- }
- 
--static void
-+static int
- svm_range_add_notifier_locked(struct mm_struct *mm, struct svm_range *prange)
+@@ -3130,8 +3130,9 @@ svm_fault_allowed(struct vm_area_struct *vma, bool write_fault)
+ int
+ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
+ 			uint32_t vmid, uint32_t node_id,
+-			uint64_t addr, uint64_t ts, bool write_fault)
++			uint64_t fault_addr, uint64_t ts, bool write_fault)
  {
-+	int r;
-+
- 	pr_debug("svms 0x%p prange 0x%p [0x%lx 0x%lx]\n", prange->svms,
- 		 prange, prange->start, prange->last);
++	uint64_t addr = fault_addr >> PAGE_SHIFT;
+ 	unsigned long start, last, size;
+ 	struct mm_struct *mm = NULL;
+ 	struct svm_range_list *svms;
+@@ -3249,7 +3250,7 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
+ 	mutex_lock(&prange->migrate_mutex);
  
--	mmu_interval_notifier_insert_locked(&prange->notifier, mm,
-+	r = mmu_interval_notifier_insert_locked(&prange->notifier, mm,
- 				     prange->start << PAGE_SHIFT,
- 				     prange->npages << PAGE_SHIFT,
- 				     &svm_range_mn_ops);
-+	if (r)
-+		prange->notifier.mm = NULL;
-+	return r;
+ 	if (svm_range_skip_recover(prange)) {
+-		amdgpu_gmc_filter_faults_remove(node->adev, addr, pasid);
++		amdgpu_gmc_filter_faults_remove(node->adev, fault_addr, pasid);
+ 		r = 0;
+ 		goto out_unlock_range;
+ 	}
+@@ -3353,7 +3354,7 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
+ 
+ 	if (r == -EAGAIN) {
+ 		pr_debug("recover vm fault later\n");
+-		amdgpu_gmc_filter_faults_remove(node->adev, addr, pasid);
++		amdgpu_gmc_filter_faults_remove(node->adev, fault_addr, pasid);
+ 		r = 0;
+ 	}
+ 	return r;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+index c7d7adae4476..38744e716f74 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+@@ -178,7 +178,7 @@ int svm_range_vram_node_new(struct kfd_node *node, struct svm_range *prange,
+ 			    bool clear);
+ void svm_range_vram_node_free(struct svm_range *prange);
+ int svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
+-			    uint32_t vmid, uint32_t node_id, uint64_t addr, uint64_t ts,
++			    uint32_t vmid, uint32_t node_id, uint64_t fault_addr, uint64_t ts,
+ 			    bool write_fault);
+ int svm_range_evict_svm_bo(struct amdgpu_bo *bo);
+ 
+@@ -230,7 +230,7 @@ static inline void svm_range_list_fini(struct kfd_process *p)
+ static inline int svm_range_restore_pages(struct amdgpu_device *adev,
+ 					  unsigned int pasid,
+ 					  uint32_t client_id, uint32_t node_id,
+-					  uint64_t addr, uint64_t ts, bool write_fault)
++					  uint64_t fault_addr, uint64_t ts, bool write_fault)
+ {
+ 	return -EFAULT;
  }
- 
- /**
-@@ -2257,6 +2262,7 @@ svm_range_split_new(struct svm_range_list *svms, uint64_t start, uint64_t last,
- /**
-  * svm_range_add - add svm range and handle overlap
-  * @p: the range add to this process svms
-+ * @mm: the process address space, write locked by the caller
-  * @start: page size aligned
-  * @size: page size aligned
-  * @nattr: number of attributes
-@@ -2285,7 +2291,8 @@ svm_range_split_new(struct svm_range_list *svms, uint64_t start, uint64_t last,
-  * 0 - OK, otherwise error code
-  */
- static int
--svm_range_add(struct kfd_process *p, uint64_t start, uint64_t size,
-+svm_range_add(struct kfd_process *p, struct mm_struct *mm,
-+	      uint64_t start, uint64_t size,
- 	      uint32_t nattr, struct kfd_ioctl_svm_attribute *attrs,
- 	      struct list_head *update_list, struct list_head *insert_list,
- 	      struct list_head *remove_list, struct list_head *remap_list)
-@@ -2373,17 +2380,38 @@ svm_range_add(struct kfd_process *p, uint64_t start, uint64_t size,
- 	}
- 
- 	/* add a final range at the end if needed */
--	if (start <= last)
-+	if (start <= last) {
- 		r = svm_range_split_new(svms, start, last,
- 					READ_ONCE(max_svm_range_pages),
- 					&new_list, update_list);
-+		if (r)
-+			goto out;
-+	}
-+
-+	/* Register all notifiers before publishing any of the new ranges. */
-+	list_for_each_entry(prange, &new_list, list) {
-+		r = svm_range_add_notifier_locked(mm, prange);
-+		if (r)
-+			goto out;
-+	}
-+	list_for_each_entry(prange, insert_list, list) {
-+		r = svm_range_add_notifier_locked(mm, prange);
-+		if (r)
-+			goto out;
-+	}
- 
- out:
- 	if (r) {
--		list_for_each_entry_safe(prange, tmp, insert_list, list)
-+		list_for_each_entry_safe(prange, tmp, insert_list, list) {
-+			if (prange->notifier.mm)
-+				mmu_interval_notifier_remove(&prange->notifier);
- 			svm_range_free(prange, false);
--		list_for_each_entry_safe(prange, tmp, &new_list, list)
-+		}
-+		list_for_each_entry_safe(prange, tmp, &new_list, list) {
-+			if (prange->notifier.mm)
-+				mmu_interval_notifier_remove(&prange->notifier);
- 			svm_range_free(prange, true);
-+		}
- 	} else {
- 		list_splice(&new_list, insert_list);
- 	}
-@@ -3011,8 +3039,12 @@ svm_range *svm_range_create_unregistered_range(struct kfd_node *node,
- 	if (is_heap_stack)
- 		prange->preferred_loc = KFD_IOCTL_SVM_LOCATION_SYSMEM;
- 
-+	r = svm_range_add_notifier_locked(mm, prange);
-+	if (r) {
-+		svm_range_free(prange, true);
-+		return ERR_PTR(r);
-+	}
- 	svm_range_add_to_svms(prange);
--	svm_range_add_notifier_locked(mm, prange);
- 
- 	return prange;
- }
-@@ -3203,11 +3235,11 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
- 			goto retry_write_locked;
- 		}
- 		prange = svm_range_create_unregistered_range(node, p, mm, addr);
--		if (!prange) {
-+		if (IS_ERR_OR_NULL(prange)) {
- 			pr_debug("failed to create unregistered range svms 0x%p address [0x%llx]\n",
- 				 svms, addr);
- 			mmap_write_downgrade(mm);
--			r = -EFAULT;
-+			r = prange ? PTR_ERR(prange) : -EFAULT;
- 			goto out_unlock_svms;
- 		}
- 	}
-@@ -3839,7 +3871,7 @@ svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
- 	mutex_lock(&svms->lock);
- 
- 	/* Add new range and split existing ranges as needed */
--	r = svm_range_add(p, start, size, nattr, attrs, &update_list,
-+	r = svm_range_add(p, mm, start, size, nattr, attrs, &update_list,
- 			  &insert_list, &remove_list, &remap_list);
- 	if (r) {
- 		mutex_unlock(&svms->lock);
-@@ -3847,10 +3879,8 @@ svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
- 		goto out;
- 	}
- 	/* Apply changes as a transaction */
--	list_for_each_entry_safe(prange, next, &insert_list, list) {
-+	list_for_each_entry_safe(prange, next, &insert_list, list)
- 		svm_range_add_to_svms(prange);
--		svm_range_add_notifier_locked(mm, prange);
--	}
- 
- 	list_for_each_entry(prange, &update_list, update_list)
- 		svm_range_apply_attrs(p, prange, nattr, attrs, &update_mapping);
 
--- 
-2.56.0
+---
+base-commit: 403b3d68346d7ba25f474f0686ad1d05feb65b7c
+change-id: 20261108-kfd-fault-filter-address-20261108-4f096f2b2a1a
+
+Best regards,
+--  
+Aveline Noir <jm5905938@gmail.com>
 
