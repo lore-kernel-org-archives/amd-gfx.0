@@ -2,79 +2,97 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C38E606D80F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9735606D811
 	for <amd-gfx@archiver.kernel.org>; Mon,  9 Nov 2026 14:09:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iftOHngw
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=FDGzeAln
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A07010F33B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D4D310F33C;
 	Mon,  9 Nov 2026 14:09:37 +0000 (UTC)
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FEFF10E6E5
- for <amd-gfx@lists.freedesktop.org>; Mon,  9 Nov 2026 03:30:52 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-4a35ac4475dso2253425e9.2
- for <amd-gfx@lists.freedesktop.org>; Sun, 08 Nov 2026 19:30:52 -0800 (PST)
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com
+ [74.125.82.198])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E68C10E46D
+ for <amd-gfx@lists.freedesktop.org>; Sun,  8 Nov 2026 22:39:57 +0000 (UTC)
+Received: by mail-dy1-f198.google.com with SMTP id
+ 5a478bee46e88-36cec75d8caso401709eec.0
+ for <amd-gfx@lists.freedesktop.org>; Sun, 08 Nov 2026 14:39:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794195050; x=1794799850; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:subject:from:to
- :content-language:user-agent:mime-version:date:message-id:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=Cbxye5JecZHBie41NuQhf3Blu0dcrMpG3JLSckRterw=;
- b=iftOHngwIbu6C8erZ1MWIEriROwY2Cxq49Fd5p8C0rFTEguUOYLZ9wJ+nWMC+PMkak
- mnVGpZfhV7iP8UvKtr9jolgdZAJm69Zlg+220te8FQEHHdBGF2UPsmhZ285mnqBcwa8s
- v5MlFRRVNG/9YEZnOOywDAJPlKOebBPJGXNngWsC6iFK7MOWP6jgeFdoj67z7rIltk+D
- ZRIqruNmC6LZgg0zZfG1iFvkXwOXcEzEg7gENJgdtmbj2pZ1GBN5pSH7IP6vouASm33z
- PKmZst5kRJL46RHEKCxMUwywZ4JjQJCD6Zmr0rGe/pIERD9H7b4h7luKvA26gjzMnnDt
- D75Q==
+ d=google.com; s=20260707; t=1794177597; x=1794782397;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=SmJ3SdTe6uZnhzgZJuKjeaRKDfWwuPiS9sl/mhr3vm4=;
+ b=FDGzeAlnaD3LYG9ZZnM8NBgNpLuFx75d+FeWeJBv80SncJ34+QTWO8+Ma2/YEizLNG
+ 5jJFTxK7Ea8bdQLkybGQPFWaTLTfhXERuu42FxHRwAlna9gePgJp3Yiu8zzZkD1cVmay
+ Z4fLB7w28jJsoPlCub9Q9zZdSYhtZL39/2BBI3g0Yu+WerXRO8dm+UdhyjAcHxEwI4N6
+ nIu8koJc4Pl0Z7DnEChszRBtMI09k/1bO6Pg108eF7BxpXZ1i+yg5EOPayyTW2BRgQU/
+ UYEbDHa0CMUdksLkb5TTLnzxFWi3eaoGKs4KCDe9ooYITggS05O3Hj9gC95FeicLVp2+
+ 10FA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794195050; x=1794799850;
- h=content-transfer-encoding:content-type:subject:from:to
- :content-language:user-agent:mime-version:date:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=Cbxye5JecZHBie41NuQhf3Blu0dcrMpG3JLSckRterw=;
- b=WqAlTkX+kaTciHF4RuikNEdKivSsUv4iEsxSk+bRgcpG6hzcaN11O8issPIPRVOs8i
- 5tAQ/KVSeHGp9HVHMWnujcM0OGB29klmKYH6oLI3f+NRXYnPzuElGTfuWIcc/vV85Pzs
- D8O2j+kvQmC+bfKEHIQh7iwzyqJ5nPvimlRV+c72/oINmz+jsrGzXPuvr0AHXJM8ivo5
- Cwc8uHZHqYZ8YK98ISMibe9TbXAWVyGOY/9438fSKYDdrdKZlma6X1xkCH1xUSy7nJOR
- fsm6TQGUmzMXxwyVEbbRswk38PbQdfRaOP88EGgseJ/lgEVgrzoSogSCxuv3Y6fst8TP
- rtmA==
-X-Gm-Message-State: APuU4Z9kx6GAAR+12JI6Ma90F3WgJ8a/sWxwYmkciFOQ3+6/gyZ9cKPj
- KCXYckAHEOcXcK0/y0sfd3OQHD1PA/JH9y7z+8vtXY+lOldcTSjgzNi5a50bkcyX
-X-Gm-Gg: AYBFou18ydmyOhBQFAPzKF+7bJbcmvhc5bZN1Y1oCbu7wemqL9QHHhsPY7TtY2iawmv
- Mvr59rNrz4iaK3UC+aWKzlbjEPUhdBzH0tLFQZ+ySC1s6r3iRnoPXJj5w4pw/uC3LMsXIkI6sPT
- nmXmb3Wn/oiRs8/yPw1RMev9LE4oFqf0nqMmlsAGP4vN/Axo8A/8//aT1cOM8ECrlU1mso7aOB/
- 1TqY0XWJ/2cCS1NgLGGykK9M3VRUUM/+VpkvRMgquEc0rjdDzvO/1D5Sk7PuMUjZyJMYiGrLb0D
- te1qk7jWfioA3BpL4o+SxQRp3U8fW3bIWwHyUSD4hg06xlzcQTM99ZinqNQ5EPXumhGtYLghMDM
- 6uveIk9J6wdwTmMveFQySAi1+ZtiXOVdEgeKSmGh54c6Ler9b2RpAOn/rDCDckyPEiBOHrwKuf2
- 9+m8V5ZxCV8goxInRuOe3uhg497Arph1QPHsX0/rTMORMm1f/X7YMwrtK2WQPSW50mTCzYcvbEO
- 4MPUFGyNxv6jo+z4QxeQLQHf2hAjU9MJOdG5zeViX5jO+gqTuga9z8lX7oSdaWojYiGBmfgExa2
- 3qd0H56jusP4c7wy66NBCXLgkwBVbk47fBpmutgMP8N4XQWb3vr/vrpkT81Lvbx/k+AEZctFdpj
- WXp0=
-X-Received: by 2002:a05:600c:4eca:b0:4a7:6425:c274 with SMTP id
- 5b1f17b1804b1-4b94d7630d0mr50379315e9.2.1794195050313; 
- Sun, 08 Nov 2026 19:30:50 -0800 (PST)
-Received: from ?IPV6:2a00:1d36:5f19:6e00:eb69:2262:593:ab12?
- ([2a00:1d36:5f19:6e00:eb69:2262:593:ab12])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4b7efb0d7a7sm193859095e9.9.2026.11.08.19.30.48
- for <amd-gfx@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 08 Nov 2026 19:30:49 -0800 (PST)
-Message-ID: <a9fd74e7-6c18-46a1-a101-d4dcfd45c3ad@gmail.com>
-Date: Mon, 9 Nov 2026 06:30:47 +0300
+ d=1e100.net; s=20260707; t=1794177597; x=1794782397;
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=SmJ3SdTe6uZnhzgZJuKjeaRKDfWwuPiS9sl/mhr3vm4=;
+ b=J9cVzsg83XwnNfnlGC4DAm9ZKLFIooIkM/OxacNsKlfkJF0GJrLMeGB3VGolCvWzHV
+ W0yfmD3QvUCYBItJm5uIriKZG2tgQIDiV6j/BkfZPi/z2YJlfmie01zuAzIfIp5nvaAT
+ mNGkui7UaLDqFHd/EYq0Elef4Xlkx821Sm4eE7vGHKh6dze8oeAltj2x7xO0EDtvaSTE
+ Pb3NJvoHt+i121UJRPWzZGzZ2qrZi0CLgYryxi9JFSkRiaeJl8YLtoQkrunO9TltvOpW
+ 8r3+H8euq8hzi3d8xRN4kR3SuUShU3ctCfaHG5Bnbx6Fmc0WA6a7Uj4YcqIZQayKGLvI
+ ImUw==
+X-Forwarded-Encrypted: i=1;
+ AL+hErFo4YecunDFnjIRGfhPraVZROsChz2oTypYaS8xH09lMV5YVleu3KhewsmMK7VK85D8YlatNecq@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9WX57VNV6mDDsXCOABdcW5rnhl28f1b9hKMjXVTLsGxQofZHWK
+ VyPqjIUovvyD8GVPDZupCVPnZNCROkiIgQCgEgdN4NjXSmWLhCrumMzUrWtW9zFoydGz/mLVjTw
+ 9wYgBcsLU1w==
+X-Received: from dyz23.prod.google.com ([2002:a05:693c:4097:b0:369:7ef0:57b0])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7301:9a90:b0:36d:38e0:79f3
+ with SMTP id 5a478bee46e88-370f8170ddamr8689075eec.25.1794177596308; Sun, 08
+ Nov 2026 14:39:56 -0800 (PST)
+Date: Sun,  8 Nov 2026 14:39:12 -0800
+In-Reply-To: <20261108223913.3624571-1-irogers@google.com>
 X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: amd-gfx@lists.freedesktop.org
-From: =?UTF-8?B?QXRhIMSwbGhhbiBLw7ZrdMO8cms=?= <atailhan2006@gmail.com>
-Subject: [REGRESSION] amdgpu: Raven/Picasso MCLK stays at 1200 MHz after
- Chromium exits
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+References: <20261108223913.3624571-1-irogers@google.com>
+X-Mailer: git-send-email 2.56.0.455.g6c5a503b38-goog
+Message-ID: <20261108223913.3624571-9-irogers@google.com>
+Subject: [PATCH v3 8/9] drm/amdkfd: Free queue in procfs_queue_type kobject
+ release callback
+From: Ian Rogers <irogers@google.com>
+To: Danilo Krummrich <dakr@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Kees Cook <kees@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+ "Rafael J . Wysocki" <rafael@kernel.org>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, 
+ Nicholas Piggin <npiggin@gmail.com>, Christophe Leroy <chleroy@kernel.org>,
+ Nayna Jain <nayna@linux.ibm.com>, 
+ Srish Srinivasan <ssrish@linux.ibm.com>, Mimi Zohar <zohar@linux.ibm.com>, 
+ Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, 
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+ Juergen Gross <jgross@suse.com>, 
+ Stefano Stabellini <sstabellini@kernel.org>, 
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Nathan Chancellor <nathan@kernel.org>, 
+ Nick Desaulniers <ndesaulniers@google.com>,
+ Viresh Kumar <viresh.kumar@linaro.org>, 
+ Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>,
+ Alexander Aring <aahringo@redhat.com>, 
+ Felix Kuehling <felix.kuehling@amd.com>, 
+ "=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>,
+ Zhihao Cheng <chengzhihao1@huawei.com>, 
+ Sumanth Korikkar <sumanthk@linux.ibm.com>, Bill Wendling <morbo@google.com>, 
+ Justin Stitt <justinstitt@google.com>, driver-core@lists.linux.dev,
+ llvm@lists.linux.dev, 
+ linux-hardening@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-acpi@vger.kernel.org, 
+ linux-pm@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+ linux-sh@vger.kernel.org, linux-s390@vger.kernel.org, gfs2@lists.linux.dev, 
+ xen-devel@lists.xenproject.org, linux-mtd@lists.infradead.org, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Ian Rogers <irogers@google.com>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Mon, 09 Nov 2026 14:09:35 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,106 +104,91 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-4.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-26.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT,USER_IN_DEF_DKIM_WL autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi,
+struct queue embeds a struct kobject (q->kobj) for procfs entries, but
+procfs_queue_type had no .release callback and uninit_queue() freed q
+immediately after kfd_procfs_del_queue() called kobject_put(&q->kobj).
+With CONFIG_DEBUG_KOBJECT_RELEASE=y, this causes a use-after-free.
 
-On a Picasso/Raven2 laptop, MCLK stays pinned at its highest level
-(1200 MHz) after a Chromium-based browser (Brave) has used the GPU and
-been closed. I could not find where the state is set or released from
-the driver side, so I am asking whether this is known and what else I
-should collect. I have the kernel tree and can test patches.
+Add kfd_procfs_queue_release() to free struct queue from the kobject
+release callback, change kfd_procfs_del_queue() to only remove the
+kobject from sysfs via kobject_del(), and drop the final reference in
+uninit_queue() via kobject_put(). Check q->kobj.state_in_sysfs before
+calling kobject_del() in kfd_procfs_del_queue() to avoid warnings if
+sysfs creation previously failed.
 
-== System ==
+Fixes: 6d220a7e7971 ("drm/amdkfd: Add queue information to sysfs")
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+Signed-off-by: Ian Rogers <irogers@google.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c | 12 +++++++++---
+ drivers/gpu/drm/amd/amdkfd/kfd_queue.c   |  5 ++++-
+ 2 files changed, 13 insertions(+), 4 deletions(-)
 
-Laptop:  Huawei MateBook D14 (NBLK-WAX9X), Ryzen 5 3500U,
-          Picasso/Raven2 1002:15d8 rev c2
-Distro:  Fedora 44, Sway 1.11 on Wayland
-Kernel:  7.2.13-200.fc44.x86_64 (Fedora kernel, not tested on drm-next)
-amdgpu 3.64.0, DCN 1.0, SMU10, VCN 1.0 (ENC 1.15 DEC 3 VEP 0 Rev 9)
-Mesa 26.2.5, libva 2.23.0
-Boot:    amdgpu.noretry=0 amdgpu.ppfeaturemask=0xffffffff
-	 amdgpu.gpu_recovery=1 amdgpu.vcnfw_log=1
-	 amdgpu.dcdebugmask=0x10
-Userspace: no daemon or tool writes to amdgpu sysfs.
-
-== Symptom ==
-
-Idle: pp_dpm_mclk shows "0: 667Mhz *".
-
-After WebGL (WebGL Aquarium, sometimes this doesn't trigger?) or
-VA-API video (YouTube, VP9 1080p) in Brave, and closing the tab
-or the whole browser, pp_dpm_mclk shows "3: 1200Mhz *" indefinitely,
-with GPU load 0% and SCLK back at idle. amdgpu_pm_info reports
-"VCN: Powered down". Battery drain is about 5 W higher, (which for
-my machine it makes about 1.5 hour at my daily usage).
-
-- Persists across tab close, browser kill -9, all fds closed, VT switch.
-- power_dpm_force_performance_level stays "auto" and
-   pp_power_profile_mode stays BOOTUP_DEFAULT throughout.
-- While latched, writing "low" or manual MCLK levels does not move it.
-   After it is cleared, MCLK follows low/manual requests normally.
-- Cleared by: amdgpu_gpu_recover (debugfs), or by playing a video in
-   Firefox (MCLK goes to 667 MHz -sometimes 933 MHz- during playback).
-- Firefox itself does not trigger it.
-
-== What triggers it ==
-
-- WebGL alone in Brave latches it, with VCN powered down the whole
-   time. So this is not specific to a VCN decode teardown path.
-   A clean Brave without custom flags behaves the same.
-- VA-API video decode in Brave latches it with VaapiVideoDecoder
-   confirmed active in media-internals, in each of these variants:
-   default flags, --use-angle=gl,
-   --disable-features=UseMultiPlaneFormatForHardwareVideo,
-   --disable-features=VaapiIgnoreDriverChecks, even I run with
-   temp user directory with no flags, VA-API decoding ran and same issue
-   continued.
-- mpv --hwdec=vaapi on the same file: MCLK is 933 MHz during playback.
-
-== Kernel-side ==
-
-I attached bpftrace kprobes (with kstack) to smum_send_msg_to_smc and
-smum_send_msg_to_smc_with_parameter and ran: Brave WebGL, Brave
-YouTube, close (latched), Firefox WebGL, Firefox video (released),
-then amdgpu_gpu_recover.
-
-- Before the latch was first observed: 152 SMU messages, all either
-   GFXOFF enable/disable (smu10_gfx_off_control) or two VCN power
-   up/down pairs (smu10_powergate_vcn). No smu10_dpm_force_dpm_level,
-   no hard-min, active-display-count or deep-sleep messages.
-- Between the latched read and the released read (Firefox): again only
-   GFXOFF toggles and two balanced VCN up/down pairs. Brave's video
-   session produces the same two pairs and does not release.
-- A kprobe on rv1_update_clocks never fires during any browser
-   activity, only during gpu_recover.
-- Each read of pp_dpm_sclk/pp_dpm_mclk issues an SMU query
-   (smu10_emit_clock_levels), so the reported value is live.
-
-So neither setting nor releasing the state is visible on the SMU
-mailbox through these wrappers. This would not show direct register or
-table writes. I cannot tell whether the state lives in SMU firmware,
-in the display/data fabric p-state handshake, or elsewhere.
-
-== Questions ==
-
-1. Is this a known issue on Raven/Picasso?
-2. On SMU10, what other path can hold FCLK/MCLK high that does not go
-    through the mailbox (DCN hubbub watermarks, DF p-state, firmware
-    internal state)?
-3. What should I trace next? amdgpu_dm_dtn_log returns EPERM here even
-    as root (probably lockdown); I can boot without Secure Boot if that
-    output would help.
-
-Full trace logs and brave://media-internals output are available; I can
-attach them if asked.
-
-Thanks,
-Ata
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index 6663718fb83c..b349e0d8d47b 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -512,7 +512,15 @@ static const struct sysfs_ops procfs_queue_ops = {
+ 	.show = kfd_procfs_queue_show,
+ };
+ 
++static void kfd_procfs_queue_release(struct kobject *kobj)
++{
++	struct queue *q = container_of(kobj, struct queue, kobj);
++
++	kfree(q);
++}
++
+ static const struct kobj_type procfs_queue_type = {
++	.release = kfd_procfs_queue_release,
+ 	.sysfs_ops = &procfs_queue_ops,
+ 	.default_groups = procfs_queue_groups,
+ };
+@@ -552,7 +560,6 @@ int kfd_procfs_add_queue(struct queue *q)
+ 	if (ret < 0) {
+ 		pr_warn("Creating proc/<pid>/queues/%u failed",
+ 			q->properties.queue_id);
+-		kobject_put(&q->kobj);
+ 		return ret;
+ 	}
+ 
+@@ -697,11 +704,10 @@ static void kfd_procfs_add_sysfs_files(struct kfd_process *p)
+ 
+ void kfd_procfs_del_queue(struct queue *q)
+ {
+-	if (!q || !q->process->kobj)
++	if (!q || !q->process || !q->process->kobj || !q->kobj.state_in_sysfs)
+ 		return;
+ 
+ 	kobject_del(&q->kobj);
+-	kobject_put(&q->kobj);
+ }
+ 
+ int kfd_process_create_wq(void)
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
+index 6010a5d7a7eb..f7413d651620 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
+@@ -83,7 +83,10 @@ int init_queue(struct queue **q, const struct queue_properties *properties)
+ 
+ void uninit_queue(struct queue *q)
+ {
+-	kfree(q);
++	if (q && q->kobj.state_initialized)
++		kobject_put(&q->kobj);
++	else
++		kfree(q);
+ }
+ 
+ #if IS_ENABLED(CONFIG_HSA_AMD_SVM)
+-- 
+2.56.0.455.g6c5a503b38-goog
 
