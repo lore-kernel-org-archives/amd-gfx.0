@@ -2,91 +2,96 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6383606D804
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Nov 2026 14:09:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E2C8606D836
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Nov 2026 14:09:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=jahs-net.20260707.gappssmtp.com header.i=@jahs-net.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=EsPShtvr
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=o31pebMA
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C233910F2EC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2E5C10F30A;
 	Mon,  9 Nov 2026 14:09:36 +0000 (UTC)
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2307510E0EA
- for <amd-gfx@lists.freedesktop.org>; Sun,  8 Nov 2026 22:15:44 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-4b7252a32c8so2553415e9.0
- for <amd-gfx@lists.freedesktop.org>; Sun, 08 Nov 2026 14:15:43 -0800 (PST)
+Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 410BA10E1B5
+ for <amd-gfx@lists.freedesktop.org>; Sun,  8 Nov 2026 22:39:43 +0000 (UTC)
+Received: by mail-dl1-f72.google.com with SMTP id
+ a92af1059eb24-154e9d2d94fso923115c88.0
+ for <amd-gfx@lists.freedesktop.org>; Sun, 08 Nov 2026 14:39:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=jahs-net.20260707.gappssmtp.com; s=20260707; t=1794176142; x=1794780942;
+ d=google.com; s=20260707; t=1794177582; x=1794782382;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=Uvr+F/2JK1AaGLCznMP5hvSKtAyjP1MI/tlzlJAmTmQ=;
- b=EsPShtvrddRy4MozG9bxhIGQvspAT9/aY6Uyni0mAGtrDBvE8aSMbZhb3/C4MZ30Vq
- IIe87UbEloT+pecaweaW3Dw2zr6V5Shv6nW5Yl5Ggwq9+oU32kS9RrrUIpuz4jnL7xOK
- aswkvH+v9Y/uL0p1at5wCc43/JSprK781fy6AozS58EVHaZCQLtPqHZGCgCGigslrlND
- MU+EZnuVsdyIEdD6M1t4UJl0gm7lXS+R4j9ZL1p7XaPz4PffgfDsBmP3yWS2O7gVKdz0
- TLGgk/5TAkGUzfHk9LYhw23oDkof7brq9x9dna3g82BCZVR0qdwGAKYDhZ/odPkzYSmr
- u9gQ==
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=AHLMqwM6/67Zcd/LOxQ2+hhUbtfPU/BOw3z2THUGUxg=;
+ b=o31pebMAQum3nNzX5yCHucrSsF6MRbMCBh/Z/9ffQ/TRYSyxJY5+X1zdW6Q9ZaVtvb
+ nHmMvjvS+KHRVq99LkRApBuE0jOe/YNkeISnpkgDqsi6na+TZZIHtGfsFzWy1OOxY9gg
+ 36/xTmN1UrHFVPw/WwQn1Db7MGiBuARRDnsCE1Ti2lgKZg8CGtbsd6Gsx5Ix0rJpru/4
+ SOM7BxOrtwmCHVYFCmSQgNO57YbKJRSJg1bCicenB0BgqOjEO8HZ1I6lZwnG7LEivlgs
+ bGCoaX2wRerVpQshhz5Yw3imaf31ssqIpk/Fr8eVraYRCB/S+leTx1GCIuCiztm9/Prr
+ bMDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794176142; x=1794780942;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=Uvr+F/2JK1AaGLCznMP5hvSKtAyjP1MI/tlzlJAmTmQ=;
- b=VyRzvgvbYO/znRAtiqaGpIQBGsqlPy4MxGZgG+/OK4Uz7nQ8O679UZK/DaHgw+fOF/
- /oIDJkuatl/NuErbSQ6QHYGydx9yI26DwN45Bpmn6Vy22/GUNzr5EfxDyIRg4Jye+QWI
- dWSF5oqn2AxO3chbeS/5Bh0287ww1vQ5rC5tlETmj/3msi7zcXIUzdUk9k3AkXCvKqW9
- bjOgT1CEYirmroc30JOtDjiW16Or6XGNZpOxsFT1PYzaRh+/yVZeN2iqqG6JllnPUaGK
- n7kRdhjmLx/KUo1JCad5NmlZtkiVIZl4kJw2yd6Qe6NCcwL/zARNleEMI3C2tKazER86
- 19qg==
+ d=1e100.net; s=20260707; t=1794177582; x=1794782382;
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=AHLMqwM6/67Zcd/LOxQ2+hhUbtfPU/BOw3z2THUGUxg=;
+ b=Jw2GrMdBWJzR4q8gWm0puq/YAAKt2FXkL5Y43+3JXSaPdT4MYkH1jvY5cGsXfo/T5d
+ XftNWu6AD8uSu0mTFEJjS2uNG/3UGSElVTk+n+qWZgi9V+vI7Ud5tn/r9lgKiMYhutcc
+ v9472VSuwt9CiS49ObXOzPQt69BW50MQqMJG2me2D11myE5cf8OEgp5XMlSa4pkw22wZ
+ mLxZAh6zDq2J/OekIYZETqn/Y6S1YzNcDb1lNdxA2WlCQaVsEW1t1JkS1+9mGS1NYxqf
+ MKqetcQNu5Ql3ip73JtwsX9VOj13mqx77BIYt5uIr2eiUEm+oP/ji/o/xvxbDcD8FQ5A
+ 7tIQ==
 X-Forwarded-Encrypted: i=1;
- AL+hErFDiYKRE5ylns/rnVl3CjkwBL+T4rikpgk3m2orXF3nbzLl7UnLrYLnIRQ3jUlNBzW7uCLwi2HI@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8r7bFUXUFlMDjYKayrooiPPU+A8tQcyKtUV5UeB7NcTmjyqb5q
- iG26CUsQJLwdRvnFMUXbp2z1Vsio811MQG9gGDaX61lCFT2DmT49S30w9asdAVYeeg==
-X-Gm-Gg: AYBFou3lhvdTqna/J1h5Pq135iOPhOQ4hnl9GBQVHwE7qBe+daWioG/vCexZlLdTmTL
- E0PC47K8pyWsCGjzHgZyPMLvUYwh4AQncCxfmE8HtIEr6tQHCy43dbvPqyLbFVLo8hd1jeCYw2f
- yFEN0OKmN702hDAsp+6dMl0z9dAbWr307lo8oyJHrQBDZKsBqiZY2opqJzYv9T3nQnvpl+bJhIY
- qY9pDZUW4tiAJIkaboC7mjXkxrCKbEf1H5ACzJFNm0LrXIt7RNnsnITlf5kexEjs0LS5Csirrh7
- v/m6czC8kiC+KMXOEGQQ8jaKFe18qqn8b4XAdK/7L/iIEtwpExrgemUNDS7OAphOETkD3e8h/pF
- tTB9TeZaTUDGflW+pJPrmuWDA21dWFVL/8DHp5eWq4jg1+y+k1zSKAyQZzrOFmAtKNQqMf3MVFF
- o/mpzyTPNzJshsP6mxZkQCdWhfkX0T7oL8FqkDR2bMg7+9YppbIY34fg9FkmbanXTwTB8jeMuBB
- bM6HXchB/Fr7IvJCaUzSFZ3stnJ93eySV85db8JEdVSAX2d61CBly830KKSOLNur/WLOuU4/t9s
- iIn/Vj9s1D6j/VSG9+2nzfCiUp8xsyCaWunhzXpw
-X-Received: by 2002:a05:600c:4e87:b0:4a1:e69d:90e8 with SMTP id
- 5b1f17b1804b1-4b963c8e6e7mr40922425e9.22.1794176141294; 
- Sun, 08 Nov 2026 14:15:41 -0800 (PST)
-Received: from mbp2019.tail53dac2.ts.net
- ([2a00:23cc:b5dc:701:a5b4:75a8:ede:9f7e])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4b7bb101537sm76735525e9.0.2026.11.08.14.15.39
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 08 Nov 2026 14:15:40 -0800 (PST)
-From: James Skillen <jahs@jahs.net>
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Andre Eikmeyer <dev@deq.rocks>,
- Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Kenneth Feng <kenneth.feng@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Jesse Zhang <Jesse.Zhang@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] drm/amd/pm: use the VBIOS trained UCLK levels on the
- MacBookPro16, 1
-Date: Sun,  8 Nov 2026 22:15:38 +0000
-Message-ID: <20261108221538.32132-1-jahs@jahs.net>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <CADnq5_P5Ly4Pb8WqPaN28yDHG8jSjoEHAfDKAqSgTrSj14Pr1Q@mail.gmail.com>
-References: <20261024162109.307247-1-dev@deq.rocks>
- <20261102232450.61301-1-jahs@jahs.net>
- <CADnq5_P5Ly4Pb8WqPaN28yDHG8jSjoEHAfDKAqSgTrSj14Pr1Q@mail.gmail.com>
+ AL+hErGLnRYAZs8KoYsgv88PDnvDoMKdJvv38eKARTEzTyybtS+pjY5U/9IQ9WpBBH7rmR7HI+xpK1q5@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9WRcPehlTNcq9TahIhhUd6NjaGCfM15935bseDDRmSMHWh0I4f
+ JeTJwbMv6SXE3HSzeU97wykai14nuoCt+CpmLEbqV3LaBvetLZG5pNvKHx9nqOKTerJlXZ1z1lq
+ hpoXdoV+dDw==
+X-Received: from dlbox21.prod.google.com
+ ([2002:a05:7022:1215:b0:1ab:fb55:f657])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7022:b884:b0:1b2:695b:79f0
+ with SMTP id a92af1059eb24-1b39fef03f3mr3576923c88.32.1794177581955; Sun, 08
+ Nov 2026 14:39:41 -0800 (PST)
+Date: Sun,  8 Nov 2026 14:39:05 -0800
+In-Reply-To: <20261108223913.3624571-1-irogers@google.com>
 X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261108223913.3624571-1-irogers@google.com>
+X-Mailer: git-send-email 2.56.0.455.g6c5a503b38-goog
+Message-ID: <20261108223913.3624571-2-irogers@google.com>
+Subject: [PATCH v3 1/9] Compiler Attributes: Add __must_init macro
+From: Ian Rogers <irogers@google.com>
+To: Danilo Krummrich <dakr@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Kees Cook <kees@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+ "Rafael J . Wysocki" <rafael@kernel.org>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, 
+ Nicholas Piggin <npiggin@gmail.com>, Christophe Leroy <chleroy@kernel.org>,
+ Nayna Jain <nayna@linux.ibm.com>, 
+ Srish Srinivasan <ssrish@linux.ibm.com>, Mimi Zohar <zohar@linux.ibm.com>, 
+ Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, 
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+ Juergen Gross <jgross@suse.com>, 
+ Stefano Stabellini <sstabellini@kernel.org>, 
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Nathan Chancellor <nathan@kernel.org>, 
+ Nick Desaulniers <ndesaulniers@google.com>,
+ Viresh Kumar <viresh.kumar@linaro.org>, 
+ Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>,
+ Alexander Aring <aahringo@redhat.com>, 
+ Felix Kuehling <felix.kuehling@amd.com>, 
+ "=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>,
+ Zhihao Cheng <chengzhihao1@huawei.com>, 
+ Sumanth Korikkar <sumanthk@linux.ibm.com>, Bill Wendling <morbo@google.com>, 
+ Justin Stitt <justinstitt@google.com>, driver-core@lists.linux.dev,
+ llvm@lists.linux.dev, 
+ linux-hardening@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-acpi@vger.kernel.org, 
+ linux-pm@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+ linux-sh@vger.kernel.org, linux-s390@vger.kernel.org, gfs2@lists.linux.dev, 
+ xen-devel@lists.xenproject.org, linux-mtd@lists.infradead.org, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Ian Rogers <irogers@google.com>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Mon, 09 Nov 2026 14:09:35 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -98,75 +103,113 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no
+X-Spam-Status: No, score=-31.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT,
+	USER_IN_DEF_DKIM_WL autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Alex,
+Clang supports the 'require_explicit_initialization' attribute on struct
+fields to indicate that a field must be initialized explicitly by the
+user when the object is constructed. When an aggregate initializer or
+uninitialized variable omits an annotated field, Clang emits a
+-Wuninitialized-explicit-init warning (enabled by default).
 
-On Tue, 3 Nov 2026 09:35:29 -0500, Alex Deucher wrote:
-> Can you try this patch instead:
-> https://patchwork.freedesktop.org/patch/765668/?series=174386&rev=2
+Add the __must_init macro to include/linux/compiler_attributes.h (which
+is included by include/linux/compiler_types.h and
+include/linux/compiler.h) so kernel structs with error-prone
+initialization (such as mandatory callbacks or cleanup handlers) can
+enforce explicit initialization at compile time, as discussed at the
+Linux Plumbers Conference. The shorter __must_init spelling, rather than
+the attribute's full name, keeps annotated struct members readable and
+was suggested by Greg Kroah-Hartman.
 
-Many thanks for following this up, and for checking with the Windows
-team.
+Note that Clang versions prior to the fix for
+https://github.com/llvm/llvm-project/issues/232483 do not diagnose
+file-scope objects declared without any initializer (initializers at
+file scope that omit the field are diagnosed).
 
-I tested v5 ("drm/amd/pm: defer UCLK DPM on selected Apple Navi
-GPUs") on the same MacBookPro16,1 (Pro 5300M, 1002:7340 rev 0x43,
-106b:0210, VBIOS 113-D32207P1-019). Kernel 7.3.3 plus the t2linux
-patches, v5 applied unmodified. Its navi10_ppt.c differs from
-amd-staging-drm-next 178d00b only in the error returns of
-navi10_force_clk_levels ("return 0" vs "return ret"); none of these
-tests took an error path there. Panel on the Radeon, dcdebugmask=0x1
-as before, and SMU messages logged with
-amdgpu.dyndbg="file smu_cmn.c +p".
+Also teach Sphinx (Documentation/conf.py), kernel-doc
+(tools/lib/python/kdoc/xforms_lists.py), and checkpatch.pl about the new
+attribute macro.
 
-v5 works as described: UCLK is left out of the allowed mask at init
-(SetAllowedFeaturesMaskLow 0xa7dfbfb3, stock 0xa7dfbfbb) and enabled
-with EnableSmuFeaturesLow(0x8) about 1.2 s after DC init. It boots
-cleanly, as stock does on this board. It does not change the UCLK
-levels, and the hang is in level 2:
+Link: https://lpc.events/event/20/contributions/2392/
+Link: https://lore.kernel.org/lkml/2026101532-fantastic-deafness-e04c@gregkh/
+Acked-by: Miguel Ojeda <ojeda@kernel.org>
+Reviewed-by: Nick Desaulniers <ndesaulniers@google.com>
+Reviewed-by: Nathan Chancellor <nathan@kernel.org>
+Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Reviewed-by: Kees Cook <kees@kernel.org>
+Signed-off-by: Ian Rogers <irogers@google.com>
+---
+ Documentation/conf.py                 |  1 +
+ include/linux/compiler_attributes.h   | 12 ++++++++++++
+ scripts/checkpatch.pl                 |  1 +
+ tools/lib/python/kdoc/xforms_lists.py |  1 +
+ 4 files changed, 15 insertions(+)
 
-                     UCLK levels       UCLK level 2 pinned at idle,
-                     (MHz)             ~5 min after boot
-  stock 7.3.3        95/496/736/750    SMU no response after 3.4 s,
-                                       GPU reset fails, machine hangs
-  v5                 95/496/736/750    SMU no response after 3.5 s,
-                                       same
-  v5 + trained       95/496/598/736    ok, also under load (below)
-  levels
+diff --git a/Documentation/conf.py b/Documentation/conf.py
+index 5ab26ce89daf..baaa4035258c 100644
+--- a/Documentation/conf.py
++++ b/Documentation/conf.py
+@@ -203,6 +203,7 @@ c_id_attributes = [
+     "__noreturn",
+     "__packed",
+     "__pure",
++    "__must_init",
+     "__section",
+     "__always_unused",
+     "__maybe_unused",
+diff --git a/include/linux/compiler_attributes.h b/include/linux/compiler_attributes.h
+index 476c4c560d17..b9c0b56dd22e 100644
+--- a/include/linux/compiler_attributes.h
++++ b/include/linux/compiler_attributes.h
+@@ -322,6 +322,18 @@
+  */
+ #define __pure                          __attribute__((__pure__))
+ 
++/*
++ * Optional: not supported by gcc
++ * Optional: only supported since clang >= 20.0
++ *
++ * clang: https://clang.llvm.org/docs/AttributeReference.html#require-explicit-initialization
++ */
++#if __has_attribute(__require_explicit_initialization__)
++# define __must_init __attribute__((__require_explicit_initialization__))
++#else
++# define __must_init
++#endif
++
+ /*
+  *   gcc: https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html#index-section-function-attribute
+  *   gcc: https://gcc.gnu.org/onlinedocs/gcc/Common-Variable-Attributes.html#index-section-variable-attribute
+diff --git a/scripts/checkpatch.pl b/scripts/checkpatch.pl
+index b8b64f720191..6a091c45b1a1 100755
+--- a/scripts/checkpatch.pl
++++ b/scripts/checkpatch.pl
+@@ -6888,6 +6888,7 @@ sub process {
+ 				"noreturn"			=> "__noreturn",
+ 				"packed"			=> "__packed",
+ 				"pure"				=> "__pure",
++				"require_explicit_initialization" => "__must_init",
+ 				"section"			=> "__section",
+ 				"used"				=> "__used",
+ 				"weak"				=> "__weak"
+diff --git a/tools/lib/python/kdoc/xforms_lists.py b/tools/lib/python/kdoc/xforms_lists.py
+index db23fb650ea8..42956b98aae3 100644
+--- a/tools/lib/python/kdoc/xforms_lists.py
++++ b/tools/lib/python/kdoc/xforms_lists.py
+@@ -36,6 +36,7 @@ class CTransforms:
+         (CMatch("CRYPTO_MINALIGN_ATTR"), ""),
+         (CMatch("__private"), ""),
+         (CMatch("__rcu"), ""),
++        (CMatch("__must_init"), ""),
+         (CMatch("____cacheline_aligned_in_smp"), ""),
+         (CMatch("____cacheline_aligned"), ""),
+         (CMatch("__cacheline_group_(?:begin|end)"), ""),
+-- 
+2.56.0.455.g6c5a503b38-goog
 
-"Machine hangs": a heartbeat sent over the network every 5 s stopped
-within ~10 s of the failed GPU reset in both runs, so it was the whole
-machine, not only the display.
-
-v5, SMU messages around the pin:
-
-  [311.750451] smu send message: SetSoftMaxByFreq(27), resp: 0x00000001
-               in params:000202e0
-  [311.750635] smu send message: SetSoftMinByFreq(26), resp: 0x00000001
-               in params:000202e0
-  [315.231058] SMU: No response msg_reg: 12 resp_reg: 0
-
-For the last row the levels came from a pp_table upload with the
-umc_info training points, the values Andre's patch sets in the
-driver. v5's late enable ran again after the SMU restart. Forced
-switches through every level transition at idle, level 2 pinned under
-llama.cpp and memtest_vulkan, memtest_vulkan with forced switches
-every 3 s, and a load run at DPM auto all passed, with no SMU or ring
-errors. So on this board v5 and the corrected levels work together.
-
-The root cause is in the board's VBIOS: its pptable UCLK levels
-(736/750 MHz) don't match the umc_info training points (598/736 MHz).
-A corrected VBIOS would be the clean fix; failing that, a driver check
-that uses umc_info when the two disagree (a no-op on a correct VBIOS)
-seems the practical one.
-
-The testing above and this reply were prepared with help from
-claude-opus-5-5; I have checked the results and the text.
-
-Kind regards,
-James
