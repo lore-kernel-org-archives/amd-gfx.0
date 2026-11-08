@@ -2,78 +2,76 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C9DC606A31C
-	for <amd-gfx@archiver.kernel.org>; Sun,  8 Nov 2026 15:02:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D557606A31C
+	for <amd-gfx@archiver.kernel.org>; Sun,  8 Nov 2026 15:02:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UT8guxzx
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LEjNCV10
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B99510E7B7;
-	Sun,  8 Nov 2026 15:02:47 +0000 (UTC)
-Received: from mail-pj2-f3.google.com (mail-pj2-f3.google.com [74.125.227.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0097810EAB2
- for <amd-gfx@lists.freedesktop.org>; Sun,  8 Nov 2026 05:22:15 +0000 (UTC)
-Received: by mail-pj2-f3.google.com with SMTP id
- 98e67ed59e1d1-3adc0ac3566so92385a91.1
- for <amd-gfx@lists.freedesktop.org>; Sat, 07 Nov 2026 21:22:15 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDE9510E7DF;
+	Sun,  8 Nov 2026 15:02:48 +0000 (UTC)
+Received: from mail-qk2-f1.google.com (mail-qk2-f1.google.com [74.125.230.193])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F61710EB9E
+ for <amd-gfx@lists.freedesktop.org>; Sun,  8 Nov 2026 05:24:53 +0000 (UTC)
+Received: by mail-qk2-f1.google.com with SMTP id
+ d75a77b69052e-534b7b19206so2850661cf.0
+ for <amd-gfx@lists.freedesktop.org>; Sat, 07 Nov 2026 21:24:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794115335; x=1794720135; darn=lists.freedesktop.org;
- h=cc:to:content-transfer-encoding:content-type:mime-version
- :message-id:date:subject:from:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=eohJ0DCIaSvFxowjPTLeEGZzQ8vwQ/i8uAHLdRHVZ2Q=;
- b=UT8guxzx05fEHM/mLbLNvwRLnwMlhEwaLwmC403+1QWxyO0QgopblsVHuK/ahqGOLr
- kgvFQP5ch7sgyd8immYI+ZuaTWMxK5QQMNmmIS4ucAeYRJNSwg4Mbu27FFtJc8Vio7at
- PtZug1pWf+vCW9ekqAxHa9ZmjidQ2jG7s0vEwVP0kq0y2jWgPjFtz7qnbSRtNBdTDg1w
- ICAsNdgxiF8zlXrjK4/zl7dNMrxMOPFj0wSftHZDQGcyeja/XuQsmeBoERcfozBUzPYD
- 8KrIDxTmerjDurN2Yhfr9dsm2p9MW5zZcU75klRLjSnWKH1Zfz0ahUpcYCoDwQedCA5k
- PAWg==
+ d=gmail.com; s=20260707; t=1794115492; x=1794720292; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=lk+rm88B0oTn3JFpBCPa55zvIWRJD/9kM2yE66jnksQ=;
+ b=LEjNCV10UK6/GCLJc/4BqEDm0d+JOgCUQDZLCpXidzeyWrAYB2Epb8YXaay6/qQLRM
+ HWeSJC6DrnEWAeSqxYB30Ls2iGyaKr6BTvpzSmss+EQEVri0I5v7pPa1uDx8QK1fPR+i
+ gYcI74qeT9AQ3jgY7LnQberOAtHrYWhs4LqE+aghLj+svBoflBw9RK1tCg1s41lzvWKt
+ bzCL6Nilu8hb9B2lCIQ6CnT8kmtTV5DdNCMXqlAOPpmLIlDuocxdtTc5XGb5E2pw2GZJ
+ PzAStS5PNcGXKsmNUQkXEkKT76SfXwUScvl2tgiGHlP17DHaeOktAr9AnbaGxMeLnWYd
+ QNGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794115335; x=1794720135;
- h=cc:to:content-transfer-encoding:content-type:mime-version
- :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=eohJ0DCIaSvFxowjPTLeEGZzQ8vwQ/i8uAHLdRHVZ2Q=;
- b=ANV/u0mQ/SOn8y1B2QkxuiqRNG1YX4O2Ucg0BlUYxAQ5rnuCObZQWp618ICU4+rTzK
- ADogmarX5Ckltvt5Fu01MFvqpXNFhLptgwZsJAFMpjhPC8Ir8CTY46iD2VQxgjb0+6LE
- mZITXLZqprzXVRLy9g4KgIBnxcHpwz51Tg8mH9hiU0+zndVfeuliHIanH53csOSAlTrw
- Gp7nAyEHDpAWOMtefmk/u/6xvqtGdd/uNW9rJxFwfadeqnBFsGY9TDdZXW0IaPXoRK+L
- X5JrplnW6s2XMjdfYYJhxFgB+Vtgh5tYoQIAQbqvyiF0Q5f25uyeBm1FqfLSbFgFObve
- jn+g==
+ d=1e100.net; s=20260707; t=1794115492; x=1794720292;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=lk+rm88B0oTn3JFpBCPa55zvIWRJD/9kM2yE66jnksQ=;
+ b=hT+QqZxk8pE/8HmN+BWWMzOa/gvknPjOBIdhgysP4q/CBMBaqR6hFIuQJit5Fi+asZ
+ odDmKYP+p6f9e6hfRx89QqFxCfAkURLHq4LPomTCJE9FV7e92KQVH4gMx8Xh+cIUUOeT
+ gHW4CbANwohLe6E7aemGfWYh7xMBj9ku9Dpr0DuM18WXGzUBraTO2VsenEhfEpsJhhWb
+ lRgGPQ6tlM9gh1MrppbL/2qb2AlF5rRYAxHUPd4vzURMMrbKRkqGjY9JRHIY01N0a4u5
+ s0B+zHlb9bkdQsP1lNeSec6ArPpe+cUPjFoDo9anFsVZzztdeZ4XZ8AxpjU09VmDZQkw
+ sULA==
 X-Forwarded-Encrypted: i=1;
- AL+hErGdlTh14c8p6gPpTJQ4EB4RLweJ4WSl1EW3kiEADqNl1NZn3oDHfuqugy87/dHu8NYXEBNgPXzj@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9irk1Qpw2bdnQTr6BtumHhpchhZt+/M1maEKv2OfixSb1eSNes
- hTjCnH6OGzE/pg7Xz7jpX7DGY/LqwaLRZs3G+RozpIhKJ+66m2hk+HAv
-X-Gm-Gg: AYBFou2BCPnzW+RZJUKpSLNux08SAhAi4S1vwfvzI/zrwdXBGFteYasdhhaXKLPwplk
- Ha/CPp2WzwnHr6KID/vOMu/o7fWT8vSVTx7hcJulrLRwLhc9fpBIg+yTcInNlFoS9NxbbDf5x/1
- hB2bol0t3dC614O+WEvFcu85au3MZMbOQwABqgNwfTtEjlQxRY7HPdItqLNKXC2OnP64DhsMz9Q
- 7c4jTHFlffMLvWG/7ldb+RQxTsVsHaEo7LHv4+Os9EhVhFX/xJHU5RhICFbUFT8ipbpQBEkKZJZ
- n8ByUyH+0twOrCav0HzYUeEvYtOCctIKdX+DAiH5PWm+lW0e73L+Wl7S2Y6zJHgKKgQmVoOPUt+
- gdFuP7R+6E6SqCozaL90OriAnPI46a+xxfnC4YsG7KTaGUjIJVe5a1UTkU8mIld2EJtu2gpg7B5
- sIhjTGYQG/+DfOLkAmDIcGL23H3eH1cmT06b6UxltQOm/JxHOXSpShkbQpzDq3J19AOp5nCjXbs
- 9HsFeLrVihVUV7ypI5GOUyXvrTMfRI+j+gTf1XbE0kY2JtjoBCBpyg7XTfuxGesNB5z2kuW2g1u
- /HiU1KXwAIxcnNY4MUxHrtvHktUG4uuGIZUCKeiF4Xh4tVHk+vaILo9V4GOeZEOfiot5muG3i35
- /0tjYiWuzaMfR+wC7KHROr+sB2w==
-X-Received: by 2002:a17:90b:5903:b0:3b0:9bfa:72b1 with SMTP id
- 98e67ed59e1d1-3b12d4dafb6mr493467a91.49.1794115335433; 
- Sat, 07 Nov 2026 21:22:15 -0800 (PST)
+ AKwUvBx3C44jpJeFPOaXS8vhen/Gtd1VNi43cg4YZF7aMCqdLBfTysEU/OgTEzZMzNqqQMGLC2XNGp71@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+WXeU92fNJGrk1Q6tnHv/HcR9OJffTrNsgcO9I5UC6ZWziExE7
+ D9aTu9tlJtX8oi2LRJcw+skCVakK3zaRfDvPnZ+HKE5B1vALq/QbjOPz
+X-Gm-Gg: AYBFou1tJPHV1ZV014L6LuZT18ogHgw0Rq24uZFXHhzl59aQq9NnBXIbo4vSHSh6bXS
+ sXP5Vw1VUyEFz/76ZZdSx5TDK7lv9wCMdn2JMm3J/9nvxzERFlnc+0acGPqfrzqCCOrzsRDkROu
+ Mb+yl6vkKVNulagsM5tEHFF4m1yM5NzRPXPszJzEzzKuPRrwrQyMcxNg/PTCA96T0KTB2F8BaHr
+ lM5qis6ajyrzlSMNwvdnC2WimO3EYsyLXa3PxhA3ov6cbonBWXfVGqYaQooGxXgxT6IbGVJR84e
+ ycWyIj4efpUqcyRvvQQ9wivabEjaei9oIzwVSdNoQnG3/tiUgGn/Dx0EnxnDV5TnDDMCQmqPLlk
+ 7mgr9EXUEHaph7hI3e2x37kfT6NmsrdMc+VnLWQ7N0CnYK1jkSXENAdPG48atYyc7TFD6L/LXRA
+ KMraCBuYawGehP9JU07UmyZ4P5LU0MuOu3eUvqAGqDZ6TP6CwJRDbn/LPf1nkJpGGNE0sw48swN
+ N2rIrWNJBh2LIfLw4UJE73zQYvxNSkR3TlEcANGsEb5gITlbDQNDU8q9QJ7ObwlvQLpsoccfb1q
+ Sw2PGzNeRHhrMBB57W6VzJH5IYhmVsr5X5xJc1K9QagOsj3AnFti+CU6bt2UrpfUxAfGKmy5kRR
+ Eks0DPFJ3UdJRPUVj2yzFQuHy5g==
+X-Received: by 2002:a05:622a:1c0e:b0:536:65fb:fff5 with SMTP id
+ d75a77b69052e-552a59777b8mr7617241cf.60.1794115491901; 
+ Sat, 07 Nov 2026 21:24:51 -0800 (PST)
 Received: from [192.168.50.20] (42-98-155-143.static.netvigator.com.
  [42.98.155.143]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3b1058a7b29sm5647629a91.10.2026.11.07.21.22.00
+ d75a77b69052e-55264249f97sm10491941cf.14.2026.11.07.21.24.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 07 Nov 2026 21:22:15 -0800 (PST)
+ Sat, 07 Nov 2026 21:24:51 -0800 (PST)
 From: Aveline Noir <jm5905938@gmail.com>
-Subject: [PATCH 0/2] drm/amdkfd: fix SVM error handling
-Date: Sun, 08 Nov 2026 16:13:32 +1100
-Message-Id: <20261108-kfd-svm-baseline-errors-20261107-v1-0-9ef4008019ab@gmail.com>
+Date: Sun, 08 Nov 2026 16:13:34 +1100
+Subject: [PATCH 2/2] drm/amdkfd: check HMM errors before testing range validity
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/zWNyw6CMBBFf4XM2kl4iKi/YlyUdoBRac2MEhPCv
- 9uiLM/NzTkzKAmTwjmbQWhi5eAjFLsM7GB8T8guMpR5eSiK/Ij3zqFOI7ZG6cGekESCKP4PDVZ
- 1bSqX231zKiFqnkIdf9bE5fpjfbc3sq/kTY+kwlaMt0OatkIXhLj3OIkZN321dmFZvi4pfai5A
- AAA
-X-Change-ID: 20261108-kfd-svm-baseline-errors-20261107-355a3d0c4792
+Message-Id: <20261108-kfd-svm-baseline-errors-20261107-v1-2-9ef4008019ab@gmail.com>
+References: <20261108-kfd-svm-baseline-errors-20261107-v1-0-9ef4008019ab@gmail.com>
+In-Reply-To: <20261108-kfd-svm-baseline-errors-20261107-v1-0-9ef4008019ab@gmail.com>
 To: Felix Kuehling <Felix.Kuehling@amd.com>, 
  Alex Deucher <alexander.deucher@amd.com>, 
  =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
@@ -94,35 +92,42 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-These patches fix two error paths found while reviewing KFD SVM range
-handling. A failed interval notifier registration can leave a published
-range without a notifier, and an HMM allocation failure can lead to a
-NULL notifier dereference during validation.
+If the first PFN-array allocation in amdgpu_hmm_range_get_pages() fails,
+the allocated HMM range still has a NULL notifier. The validity condition
+in svm_range_validate_and_map() calls amdgpu_hmm_range_valid() before
+checking the error, dereferencing that NULL notifier.
 
-The fixes were tested with targeted KUnit tests under KVM with KASAN and
-lockdep. The error paths use injected failures or equivalent failure
-states; no AMD GPU was tested.
+Check the error first so failed requests retain their original error and
+reach the existing cleanup without testing an uninitialized HMM range.
 
+Fixes: c0de552910bb ("drm/amdkfd: clean up the code to free hmm_range")
+Signed-off-by: Aveline Noir <jm5905938@gmail.com>
 ---
-Aveline Noir (2):
-      drm/amdkfd: handle SVM interval notifier registration failures
-      drm/amdkfd: check HMM errors before testing range validity
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 58 +++++++++++++++++++++++++++---------
- 1 file changed, 44 insertions(+), 14 deletions(-)
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261108-kfd-svm-baseline-errors-20261107-355a3d0c4792
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index 8184cbbb829e..79455e23a030 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -1901,7 +1901,7 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
+ 		 * Override return value to TRY AGAIN only if prior returns
+ 		 * were successful
+ 		 */
+-		if (range && !amdgpu_hmm_range_valid(range) && !r) {
++		if (!r && range && !amdgpu_hmm_range_valid(range)) {
+ 			pr_debug("hmm update the range, need validate again\n");
+ 			r = -EAGAIN;
+ 		}
 
-Best regards,
---  
-Aveline Noir <jm5905938@gmail.com>
+-- 
+2.56.0
 
