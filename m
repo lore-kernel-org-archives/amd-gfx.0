@@ -2,74 +2,96 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D9A26082BFD
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Nov 2026 14:09:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 220F6606D803
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Nov 2026 14:09:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FrnSNDup
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=cY7a9U0r
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAA8710F32B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB21C10F32E;
 	Mon,  9 Nov 2026 14:09:36 +0000 (UTC)
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3EC910E2C5
- for <amd-gfx@lists.freedesktop.org>; Sun,  8 Nov 2026 17:05:31 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-4a2072b9832so1145645e9.1
- for <amd-gfx@lists.freedesktop.org>; Sun, 08 Nov 2026 09:05:31 -0800 (PST)
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com
+ [74.125.82.200])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89EE610E2EB
+ for <amd-gfx@lists.freedesktop.org>; Sun,  8 Nov 2026 22:39:55 +0000 (UTC)
+Received: by mail-dy1-f200.google.com with SMTP id
+ 5a478bee46e88-36ecd5db581so237301eec.0
+ for <amd-gfx@lists.freedesktop.org>; Sun, 08 Nov 2026 14:39:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794157530; x=1794762330; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:to
- :from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=FFR0uDsZ0vcaqqudLRrM2lEhcImE1k0yTsEtJlz4Lw8=;
- b=FrnSNDupuLrg5K6qk761xaUn1JVzWJsz4pVpIKHxllkjy9OynTrnZp1QHbJ9xQwSa3
- 63lJNAelgKoQ87jiKHKWA3MxzHALJ32fTa9SeSxlS/Zsrih3nxI54oi2Q2eUQqQGic+y
- NKePBDew7HotchqFpl7nlXXsxs2VUtSaSpXXJIKSn42etIdRbCZLSBiEjGFIrHcbqywd
- C35wmI+SDbtiopwtBumX4vcf669zBFONHYTJRv8FJdRTLFzm/6yn0CO30QxchRQKYgjb
- Mk8xtaJM9TcbyaIn7FCNbyzsze0/jrXhatz3SvpVt26TgccLpwbOW60GyjKK/EAEnnv+
- G70A==
+ d=google.com; s=20260707; t=1794177595; x=1794782395;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=Vy7610mZpT38CbXCq7RNEhhWWcPldBtQplNazUNUwLE=;
+ b=cY7a9U0rIB8PIAsHl4SSZaUy80Au26AM+AjkdaxScVgKdmW8prvTt5W/t/8X6zcDb2
+ aMRb1Frz8CInoRCFGPwvdpnrAyR5B7yOZKNAbox18JGCZoBtlYn0iqKAp16QsrVJEA2B
+ 7q/vn0NVyoNLBEUHZLBsetJXr3YBtBIg+5quYkRZ8wELSUnC1AO8MHtagmW5hZh0RH8p
+ 4Z1fODMzRWSKOSVZnmLa78R4TfaBFdUY28vF57dOS6Gu0PEqmn7IehdsV284Aa7YN83O
+ 1sgq5fnCn2TLJ8JHHbPsWKyfmVtyiidIzxHt7T1GbI37gggrN07pDhAtYbVAFjJycY68
+ BVqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794157530; x=1794762330;
- h=content-transfer-encoding:mime-version:message-id:date:subject:to
- :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=FFR0uDsZ0vcaqqudLRrM2lEhcImE1k0yTsEtJlz4Lw8=;
- b=ThWScOMUEZVyz0NIdUaOEk34FTdCZGqw+UWuJmihb7ljBRzzmmBnvffC2GgOf87nev
- n8UwDVMOLoDRlgdoe9WcxIZgnZp4RaZf2oY5PTnkvf1ocu+137OZ+lOnmuW700gjwsgl
- lDuCarsw9Ofi7ifJr0RFLQyO4R/uWVXYv5oSavfkSWFrNt8JxiHwp1dbKHy/W0G9nf3s
- x2cEcyFC0HxDwRzvfLwvEhcg6iEesBR6ovb421D9Nv1JUb7b5TfXdccALlXe/JaoHA5K
- OHukF0sz7+6FLQMXe793iNQ2bg+8fmNkI7Kcj5MTHgSuL0gqbWvBsYGmnnCVJy1ACJaG
- Ps7w==
-X-Gm-Message-State: APuU4Z8u/OoKi5FaUS7zY3XT7YVp28G2jZfgalxfY8rUtjDVPjUtYLM8
- 9U00+M7QouyBIhGUmxwtVxjDht29ATZTYZ3GnOGdHHtRoGkLjTQJDt+QOzhXoVFd
-X-Gm-Gg: AYBFou3f8+dNigHDbv3MrCEErrXuoEyzxaAi5f/ojzl0M8aMJbivEGwh2qhnBe79X79
- 7d1W0i0h7NuTLWAtJ7Ul20+/UV0drULFvn6eWPECeJuFXsby4ha/L2HmfR4xjohIIO16kwnhRwp
- Hk6XMkWqUbFAIdGSjVnJbukyWofvvj5JJvTA+cTydZcUHO3RXG+2rhkySTLDvXe2j1oMtgaZOWS
- mC6v6oLJaiXPrdvqury02X8St7dSG8wfEoj8tRwNOeqd3uD9oc4v/fMNsFSTJhY+38UkABYqPH+
- ruRcKAdGz1ZMPCXsPc944+YOR1y1OEAIzH9vQCzduSXI6dbVQeHCh/K9J8n+CenxkjuZkzs0DV3
- NUWTSv3heriqvC5KadQ+I21VZft/eTyOkbmCsN8gDqlB6KYYpxpyHyKPP7vSNRZpVjLa1UxQbl3
- CAu2XC+3fM14xOX5A/gAv2Qe1y3NkNn81j/QdHhggOB65Sm45iYE4YSeunXS74k7pi3ibcp6xM3
- iDlUR1xgX5oujXq0flrOFF1vhcmWRVwemWcatuuXQDiq2nkhrr2ZS/PYbMZGkdEIzQ2hE3dV9q2
- 18sfCpcr0J+ZYpZZxWkAzw7+pfrVKwunvB6xoSSoG1xhGMLO6Q5ycormzA==
-X-Received: by 2002:a05:600c:350b:b0:4a3:5da2:38ae with SMTP id
- 5b1f17b1804b1-4b963c758e6mr41413975e9.14.1794157530159; 
- Sun, 08 Nov 2026 09:05:30 -0800 (PST)
-Received: from NBLK-WAX9X.tail75a68b.ts.net
- ([2a00:1d36:5f19:6e00:eb69:2262:593:ab12])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4b76cb76697sm99640985e9.0.2026.11.08.09.05.28
- for <amd-gfx@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 08 Nov 2026 09:05:29 -0800 (PST)
-From: =?UTF-8?q?Ata=20=C4=B0lhan=20K=C3=B6kt=C3=BCrk?= <atailhan2006@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [BUG] Raven/Picasso (SMU10): MCLK stays at 1200 MHz after a Chromium
- GPU workload exits; cleared only by gpu_recover or a Firefox video
-Date: Sun,  8 Nov 2026 20:05:26 +0300
-Message-ID: <20261108170526.28744-1-atailhan2006@gmail.com>
-X-Mailer: git-send-email 2.56.0
+ d=1e100.net; s=20260707; t=1794177595; x=1794782395;
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Vy7610mZpT38CbXCq7RNEhhWWcPldBtQplNazUNUwLE=;
+ b=M78RyUv6PdIo1RnDZp9HEpx9KlsAIzaKVEVsJ7jFRnFFyXlKk0g1LtKuoXsZrYF6wn
+ cdPr9ewgy+vLLkVX9fCq/6l4L8f6cwXHuQU0eOr/JCDsW4GJnSqxQh3oXimvJ9VRbPgk
+ gl+iTtXvrIkZ2uZNjeSNcfJq0Hrd0GTFYLyNiCZuwRT0HwnVbBLwz1D/rC0JCJO2zVcp
+ 0tWFo0ImAE9BWdfozwu00+hy0KvpNHpkmmvk0Z3e4RwDPGSUrUK+/rYptAIke3id1n+0
+ R6B6kSykEP6ekiHfE4B2B89xH8rb7cZwA2G/7+SVW/1Ng1GT+44rDD505L6Rzc7/zraD
+ FY+A==
+X-Forwarded-Encrypted: i=1;
+ AL+hErG73i6qOeCb6P9wuQ8kBtVSbzB3JcXm0aBMFzeHfTCs4MbrSAnWW7K4d5yZUD7fZJIN2Y/mwL9E@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+YGhOJ6wQfaLzcH8oh99f6L8Et2CVR1YFnD6N6aQZb1VutU+n6
+ JCBlrlvBe8KXac7oWbwYKvKVmjF+eGEqY3Xf7KPBN006BWO/3i0afBUQgIMWx/auvDbegkBeYnf
+ vTW8kg75EEA==
+X-Received: from dyblf39.prod.google.com ([2002:a05:7301:a27:b0:373:6c70:7c9c])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7300:d584:b0:36c:9f1a:30b8
+ with SMTP id 5a478bee46e88-3725661520amr5331882eec.31.1794177594363; Sun, 08
+ Nov 2026 14:39:54 -0800 (PST)
+Date: Sun,  8 Nov 2026 14:39:11 -0800
+In-Reply-To: <20261108223913.3624571-1-irogers@google.com>
 X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261108223913.3624571-1-irogers@google.com>
+X-Mailer: git-send-email 2.56.0.455.g6c5a503b38-goog
+Message-ID: <20261108223913.3624571-8-irogers@google.com>
+Subject: [PATCH v3 7/9] ubifs: sysfs: Use kset_create_and_add() for ubifs_kset
+From: Ian Rogers <irogers@google.com>
+To: Danilo Krummrich <dakr@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Kees Cook <kees@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+ "Rafael J . Wysocki" <rafael@kernel.org>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, 
+ Nicholas Piggin <npiggin@gmail.com>, Christophe Leroy <chleroy@kernel.org>,
+ Nayna Jain <nayna@linux.ibm.com>, 
+ Srish Srinivasan <ssrish@linux.ibm.com>, Mimi Zohar <zohar@linux.ibm.com>, 
+ Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, 
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+ Juergen Gross <jgross@suse.com>, 
+ Stefano Stabellini <sstabellini@kernel.org>, 
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Nathan Chancellor <nathan@kernel.org>, 
+ Nick Desaulniers <ndesaulniers@google.com>,
+ Viresh Kumar <viresh.kumar@linaro.org>, 
+ Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>,
+ Alexander Aring <aahringo@redhat.com>, 
+ Felix Kuehling <felix.kuehling@amd.com>, 
+ "=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>,
+ Zhihao Cheng <chengzhihao1@huawei.com>, 
+ Sumanth Korikkar <sumanthk@linux.ibm.com>, Bill Wendling <morbo@google.com>, 
+ Justin Stitt <justinstitt@google.com>, driver-core@lists.linux.dev,
+ llvm@lists.linux.dev, 
+ linux-hardening@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-acpi@vger.kernel.org, 
+ linux-pm@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+ linux-sh@vger.kernel.org, linux-s390@vger.kernel.org, gfs2@lists.linux.dev, 
+ xen-devel@lists.xenproject.org, linux-mtd@lists.infradead.org, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Ian Rogers <irogers@google.com>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Mon, 09 Nov 2026 14:09:35 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -81,102 +103,82 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-26.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT,USER_IN_DEF_DKIM_WL autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi,
+ubifs_kset was a static struct kset using a custom ubifs_ktype that
+had no default_groups and no .release callback. With
+CONFIG_DEBUG_KOBJECT_RELEASE=y, unloading the ubifs module while delayed
+kobject release is pending causes a use-after-free on the static kset.
 
-On a Picasso/Raven2 laptop, MCLK stays pinned at its highest level
-(1200 MHz) after a Chromium-based browser (Brave) has used the GPU and
-been closed. I could not find where the state is set or released from
-the driver side, so I am asking whether this is known and what else I
-should collect. I have the kernel tree and can test patches.
+Replace the static ubifs_kset and empty ubifs_ktype with a dynamically
+allocated kset via kset_create_and_add().
 
-== System ==
+Fixes: 203a55f04f66 ("ubifs: Fix memory leak in ubifs_sysfs_init()")
+Tested-by: Zhihao Cheng <chengzhihao1@huawei.com>
+Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
+Signed-off-by: Ian Rogers <irogers@google.com>
+---
+ fs/ubifs/sysfs.c | 24 +++++++-----------------
+ 1 file changed, 7 insertions(+), 17 deletions(-)
 
-Laptop:  Huawei MateBook D14 (NBLK-WAX9X), Ryzen 5 3500U,
-         Picasso/Raven2 1002:15d8 rev c2
-Distro:  Fedora 44, Sway 1.11 on Wayland
-Kernel:  7.2.13-200.fc44.x86_64 (Fedora kernel, at most 1-2 releases
-         behind the current stable; not tested on drm-next)
-amdgpu 3.64.0, DCN 1.0, SMU10, VCN 1.0 (ENC 1.15 DEC 3 VEP 0 Rev 9)
-Mesa 26.2.5, libva 2.23.0
-Boot:    amdgpu.noretry=0 amdgpu.ppfeaturemask=0xffffffff
-	 amdgpu.gpu_recovery=1 amdgpu.vcnfw_log=1
-	 amdgpu.dcdebugmask=0x10
-Userspace: no daemon or tool writes to amdgpu sysfs.
+diff --git a/fs/ubifs/sysfs.c b/fs/ubifs/sysfs.c
+index dbf967dcf26e..e20931e3a62f 100644
+--- a/fs/ubifs/sysfs.c
++++ b/fs/ubifs/sysfs.c
+@@ -80,13 +80,7 @@ static const struct kobj_type ubifs_sb_ktype = {
+ 	.release	= ubifs_sb_release,
+ };
+ 
+-static const struct kobj_type ubifs_ktype = {
+-	.sysfs_ops	= &ubifs_attr_ops,
+-};
+-
+-static struct kset ubifs_kset = {
+-	.kobj	= {.ktype = &ubifs_ktype},
+-};
++static struct kset *ubifs_kset;
+ 
+ int ubifs_sysfs_register(struct ubifs_info *c)
+ {
+@@ -107,7 +101,7 @@ int ubifs_sysfs_register(struct ubifs_info *c)
+ 		goto out_free;
+ 	}
+ 
+-	c->kobj.kset = &ubifs_kset;
++	c->kobj.kset = ubifs_kset;
+ 	init_completion(&c->kobj_unregister);
+ 
+ 	ret = kobject_init_and_add(&c->kobj, &ubifs_sb_ktype, NULL,
+@@ -139,18 +133,14 @@ void ubifs_sysfs_unregister(struct ubifs_info *c)
+ 
+ int __init ubifs_sysfs_init(void)
+ {
+-	int ret;
++	ubifs_kset = kset_create_and_add("ubifs", NULL, fs_kobj);
++	if (!ubifs_kset)
++		return -ENOMEM;
+ 
+-	kobject_set_name(&ubifs_kset.kobj, "ubifs");
+-	ubifs_kset.kobj.parent = fs_kobj;
+-	ret = kset_register(&ubifs_kset);
+-	if (ret)
+-		kset_put(&ubifs_kset);
+-
+-	return ret;
++	return 0;
+ }
+ 
+ void ubifs_sysfs_exit(void)
+ {
+-	kset_unregister(&ubifs_kset);
++	kset_unregister(ubifs_kset);
+ }
+-- 
+2.56.0.455.g6c5a503b38-goog
 
-== Symptom ==
-
-Idle: pp_dpm_mclk shows "0: 667Mhz *".
-
-After WebGL (WebGL Aquarium) or VA-API video (YouTube, VP9 1080p) in
-Brave, and closing the tab or the whole browser, pp_dpm_mclk shows
-"3: 1200Mhz *" indefinitely, with GPU load 0% and SCLK back at idle.
-amdgpu_pm_info reports "VCN: Powered down". Battery drain is about
-5 W higher, (which for my machine it makes about 1.5 hour at my daily usage).
-
-- Persists across tab close, browser kill -9, all fds closed, VT switch.
-- power_dpm_force_performance_level stays "auto" and
-  pp_power_profile_mode stays BOOTUP_DEFAULT throughout.
-- While latched, writing "low" or manual MCLK levels does not move it.
-  After it is cleared, MCLK follows low/manual requests normally.
-- Cleared by: amdgpu_gpu_recover (debugfs), or by playing a video in
-  Firefox (MCLK goes to 933 MHz during playback).
-- Firefox itself does not trigger it.
-
-== What triggers it ==
-
-- WebGL alone in Brave latches it, with VCN powered down the whole
-  time. So this is not specific to a VCN decode teardown path.
-  A clean Brave without custom flags behaves the same.
-- VA-API video decode in Brave latches it with VaapiVideoDecoder
-  confirmed active in media-internals, in each of these variants:
-  default flags, --use-angle=gl,
-  --disable-features=UseMultiPlaneFormatForHardwareVideo,
-  --disable-features=VaapiIgnoreDriverChecks
-- mpv --hwdec=vaapi on the same file: MCLK is 933 MHz during playback.
-
-== Kernel-side evidence ==
-
-I attached bpftrace kprobes (with kstack) to smum_send_msg_to_smc and
-smum_send_msg_to_smc_with_parameter and ran: Brave WebGL, Brave
-YouTube, close (latched), Firefox WebGL, Firefox video (released),
-then amdgpu_gpu_recover.
-
-- Before the latch was first observed: 152 SMU messages, all either
-  GFXOFF enable/disable (smu10_gfx_off_control) or two VCN power
-  up/down pairs (smu10_powergate_vcn). No smu10_dpm_force_dpm_level,
-  no hard-min, active-display-count or deep-sleep messages.
-- Between the latched read and the released read (Firefox): again only
-  GFXOFF toggles and two balanced VCN up/down pairs. Brave's video
-  session produces the same two pairs and does not release.
-- A kprobe on rv1_update_clocks never fires during any browser
-  activity, only during gpu_recover.
-- Each read of pp_dpm_sclk/pp_dpm_mclk issues an SMU query
-  (smu10_emit_clock_levels), so the reported value is live.
-
-So neither setting nor releasing the state is visible on the SMU
-mailbox through these wrappers. This would not show direct register or
-table writes. I cannot tell whether the state lives in SMU firmware,
-in the display/data fabric p-state handshake, or elsewhere.
-
-== Questions ==
-
-1. Is this a known issue on Raven/Picasso?
-2. On SMU10, what other path can hold FCLK/MCLK high that does not go
-   through the mailbox (DCN hubbub watermarks, DF p-state, firmware
-   internal state)?
-3. What should I trace next? amdgpu_dm_dtn_log returns EPERM here even
-   as root (probably lockdown); I can boot without Secure Boot if that
-   output would help.
-
-Full trace logs and brave://media-internals output are available; I can
-attach them if asked.
-
-Thanks,
-Ata
