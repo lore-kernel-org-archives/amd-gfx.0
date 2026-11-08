@@ -2,76 +2,47 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75C5B606A320
-	for <amd-gfx@archiver.kernel.org>; Sun,  8 Nov 2026 15:02:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D72E2606A31C
+	for <amd-gfx@archiver.kernel.org>; Sun,  8 Nov 2026 15:02:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z+/xRGNJ
+	dkim=pass (1024-bit key, unprotected) header.d=seu.edu.cn header.i=@seu.edu.cn header.a=rsa-sha256 header.s=default header.b=mcFEHqRF
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF7C310E802;
-	Sun,  8 Nov 2026 15:02:48 +0000 (UTC)
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
- [209.85.221.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E43C210E639
- for <amd-gfx@lists.freedesktop.org>; Sat,  7 Nov 2026 17:46:19 +0000 (UTC)
-Received: by mail-wr1-f51.google.com with SMTP id
- ffacd0b85a97d-48e09aa5264so870342f8f.2
- for <amd-gfx@lists.freedesktop.org>; Sat, 07 Nov 2026 09:46:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794073578; x=1794678378; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=BICHTACzcYBYNKwFNl6UZpjtKoThY04fDneyezGDUuQ=;
- b=Z+/xRGNJBRU3WvFCxstjmD0q+HMpLXsSw/uVAF1a6qwM5Lm6neFszAfekko4vrP6kc
- rmltSiBK4p6qe+OKpaEYo7zLi4NBqYpCz5k9Bslud5+49UEKwdnQfA7KsMve76EkboG2
- 31g0Sp/bEFu0df6GMT0T2xZDHbJtGI1VJMqLW2oPeqRDit8BYCUOM8/hNmI811kSdxCv
- VUS3utlvf9crncF8HUvslavqRD8nzLPReB1qFo1GNNdj+YcPfTxHTkA9qM2gtLAyhY5n
- Xvxk5tT8bNhvYY8Uv8vWHoO7WOkDrmSKHz9D3kX/onF9MeeL+3f7BXKtyUkA1knwYnAh
- Wzmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794073578; x=1794678378;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=BICHTACzcYBYNKwFNl6UZpjtKoThY04fDneyezGDUuQ=;
- b=vydEylz7rQoTFurIacoQH7qdwxYNBdHhp5P5Gzge2o8m7+0V3AhFhKQqIYg+/IGkUg
- SRtRdHPJIa6nDNdqOQUFbcUr0Jzu9RysBZkM7gVZJxZ9dgwM1MkLD5kGXJwcI3kTDWG6
- kTApxus/NhR8YqYfz6oM+HYaVB3Sfd/Q4ZeQJ6ePQEfwO49jXXHj3QKIen7T/jhqO+/k
- HCOlnU8m1/5i3Ag6EwRUsQ3BGgZJODyi7kSDNLzK8UZAt1RQDNERwaKt01Cl/dJCejo1
- LcBTt+IdY5VXamLJpKFzz9eM+EtDPaYjKmzXL7ryW1UG9zk4D3dp6l6eNUoL0w8+G+4a
- 5IrA==
-X-Gm-Message-State: APuU4Z+kqYrjzEnwv46n8ZJkKt2qOTRVcg/FEtL7B2BwynR7jl2TXS1F
- InOdAExzPZWQmcKVBTOXWtZrJOQqoCu11bpyXE5cQpA9Q1C6b4T9ejqG
-X-Gm-Gg: AYBFou1ojnLBVeq5AbuvtmdeqfTzYIMdzUcoqboxtwpPkXYYFqsQE/LFCV9hsr9AQjm
- no3iKZZ0GAOfb1Y1jpV/C4OUvIuWn5RJB4/meBjug6PBXA1w3mr8bsSHrv2vZYcIwIhH9LMlBNe
- pqtmno9SNRDIQBMn0AIugjnlRH3Y75mnW2Wsp+dmvEdc9ot1hFhr/gD/0JRYqQE5Khz0Q+CNXZ/
- KOvkg7FmTvWFhS8zdyuul4KnhEuhX2Z8X8NBGi6cmsiUdd19VH5Nr/JmZXlbReT1832mQEMlrPw
- UlWPMrVEB4LWbc8Nyb2t64Da7KCoLbF7/lgJ4Kw7o/mrHRdix4CT/i9rIIrzoqaAJ29wsQrqEBB
- 9B/Np+4oxTnwWUh9p95i/ke07TrPRwOXF4uS6kpSRpJr+kOsxI8oTrbCL+6eLYk53FLgGwtt7vz
- M3WRa9MA9SS9g7rDEKtDBCjnNMbHawl+i9gWV1oDuhtvTSEB5pKnymEwWgbzIJ91pAkIadgZBE6
- vEwzkGeaqQWIgb9EqoyWl0ekHLHRVvfZCSX5Gm1UGtDqKl2b4ZeoVO8DZCbmhlDZOaglxN4kUr2
- mv8CumH712tOA9wt+9rWh9cVQMqJgjEoIsa2WzlY2Q==
-X-Received: by 2002:a05:6000:4690:b0:48d:f851:ee5f with SMTP id
- ffacd0b85a97d-4927721a2b2mr7918701f8f.24.1794073577747; 
- Sat, 07 Nov 2026 09:46:17 -0800 (PST)
-Received: from cachyos-x8664.local ([188.127.103.167])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-492d770248esm11055718f8f.42.2026.11.07.09.46.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 07 Nov 2026 09:46:16 -0800 (PST)
-From: aic0d3r <igotmysoul@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, aic0d3r <igotmysoul@gmail.com>
-Subject: [PATCH] drm: panel-backlight-quirks: Add ASUS ROG Flow Z13 (GZ302)
-Date: Sat,  7 Nov 2026 18:45:53 +0100
-Message-ID: <20261107174553.123652-1-igotmysoul@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52C0710E11B;
+	Sun,  8 Nov 2026 15:02:54 +0000 (UTC)
+X-Greylist: delayed 303 seconds by postgrey-1.36 at gabe;
+ Sun, 08 Nov 2026 11:01:27 UTC
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com
+ [45.254.49.198])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33A8210E034;
+ Sun,  8 Nov 2026 11:01:27 +0000 (UTC)
+Received: from LAPTOP-99KJFSET (unknown [223.75.64.82])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 53e3dfdd4;
+ Sun, 8 Nov 2026 18:56:19 +0800 (GMT+08:00)
+From: Hongyan Xu <getshell@seu.edu.cn>
+To: Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Christian Koenig <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Hongyan Xu <getshell@seu.edu.cn>
+Subject: [PATCH] drm/amdkfd: fix use-after-free in create_process() error path
+Date: Sun,  8 Nov 2026 18:56:17 +0800
+Message-ID: <20261108105617.1309-1-getshell@seu.edu.cn>
+X-Mailer: git-send-email 2.50.1.windows.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa1bacd4ba303a1kunm2cabcdaace62f
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTElPVk0ZGRoZSRoZHkoeQ1YeHw
+ 5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVTE5VTU9VQ0lZV1kWGg8SFR0UWUFZT0tIVUpLSUJDQ0
+ xVSktLVUtZBg++
+DKIM-Signature: a=rsa-sha256;
+ b=mcFEHqRFpau+wg/fQNt+tNfumMVFWV3R/lwdCO/yVAMQgcDAWUpkmDSeZxOM7I5eeMdgwHh4hWtpiZlqclgjFFMEHa31l4uM+kKxFtVUpyhIf/6xKBouGo1fgl51BwivVCOJsNmXzsulbYCfatGS9gHvPieRpC7nv2ogYcpEEso=;
+ s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1; 
+ bh=e9Dpgey3aCA/wo/6U2AQsfdlzUC0B34C1vFmZygVNXA=;
+ h=date:mime-version:subject:message-id:from;
 X-Mailman-Approved-At: Sun, 08 Nov 2026 15:02:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,54 +54,172 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The firmware (ATIF) minimum backlight on the 2025 ASUS ROG Flow Z13
-(GZ302, Strix Halo) with its TMA 0x0803 panel is fairly bright: at the
-lowest brightness level actual_brightness reads 539 of 65535, which is
-uncomfortable in a dark room.
+create_process() publishes the process in kfd_processes_table before its
+last failing call (alloc_notifier() must find it there), and its error path
+frees it with a bare kfree(), ignoring the refcount.  find_process() takes
+its reference inside the sRCU critical section but callers use the process
+after leaving it, so synchronize_srcu() misses them, and the error path
+cannot unref once either: it holds two (kref_init() and the one keeping
+free_notifier() from starting kfd_process_wq_release()).
 
-Lower min_input_signal to 1 via a min_brightness quirk. With it the
-lowest level reads back 0 and the panel is still lit and readable, so
-the usable range extends noticeably below the firmware floor.
+Release the process as soon as it is visible: take the lead thread
+reference right after lead_thread is assigned, run ida_init() before
+mmu_notifier_get(), so the release work is safe on a half-built object.
+The published error paths unlink with hash_del_rcu(), synchronize_srcu()
+and drop both references, so the last one runs kfd_process_wq_release().
+Both labels hold exactly two references, so nothing is freed early and no
+path falls into the unwind the unpublished labels keep, now with
+put_task_struct()).  Restore pqm_uninit() (kfd_process_queue_manager.c):
+pqm_init()'s 128 byte queue slot bitmap leaked per failure.  Match
+kfd_debugfs_remove_process() by process, not pid.
 
-Match on the product family rather than the product name, since the
-product name carries the SKU ("ROG Flow Z13 GZ302EA_GZ302EA"), and on the
-panel ID so other panels in the family are unaffected.
-
-Tested on a GZ302EA with BIOS GZ302EA.314 on 7.3.1.
-
-Signed-off-by: aic0d3r <igotmysoul@gmail.com>
+Fixes: 3248b6d3cbcd ("drm/amdkfd: Use mmu_notifier_get")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
 ---
- drivers/gpu/drm/drm_panel_backlight_quirks.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c | 12 ++++++-
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c | 46 ++++++++++++++++++++++--
+ 2 files changed, 54 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_panel_backlight_quirks.c b/drivers/gpu/drm/drm_panel_backlight_quirks.c
-index dcb91e12b..fa5897bb2 100644
---- a/drivers/gpu/drm/drm_panel_backlight_quirks.c
-+++ b/drivers/gpu/drm/drm_panel_backlight_quirks.c
-@@ -68,6 +68,15 @@ static const struct drm_get_panel_backlight_quirk drm_panel_min_backlight_quirks
- 		.dmi_match_other.value = "Galileo",
- 		.quirk = { .min_brightness = 1, },
- 	},
-+	/* ASUS ROG Flow Z13 (2025, GZ302) */
-+	{
-+		.dmi_match.field = DMI_SYS_VENDOR,
-+		.dmi_match.value = "ASUSTeK COMPUTER INC.",
-+		.dmi_match_other.field = DMI_PRODUCT_FAMILY,
-+		.dmi_match_other.value = "ROG Flow Z13",
-+		.ident.panel_id = drm_edid_encode_panel_id('T', 'M', 'A', 0x0803),
-+		.quirk = { .min_brightness = 2, },
-+	},
- 	/* Have OLED Panels with brightness issue when last byte is 0/1 */
- 	{
- 		.dmi_match.field = DMI_SYS_VENDOR,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c b/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
+index 7d4e07452cdb..a17a3a307266 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
+@@ -33,6 +33,7 @@ static struct list_head procs;
+ struct debugfs_proc_entry {
+ 	struct list_head list;
+ 	struct dentry *proc_dentry;
++	struct kfd_process *process;
+ 	pid_t pid;
+ };
+ 
+@@ -151,6 +152,7 @@ void kfd_debugfs_add_process(struct kfd_process *p)
+ 		return;
+ 
+ 	list_add(&entry->list, &procs);
++	entry->process = p;
+ 	entry->pid = p->lead_thread->pid;
+ 	snprintf(name, MAX_DEBUGFS_FILENAME_LEN, "%d",
+ 		 (int)entry->pid);
+@@ -174,9 +176,17 @@ void kfd_debugfs_remove_process(struct kfd_process *p)
+ {
+ 	struct debugfs_proc_entry *entry, *next;
+ 
++	/*
++	 * Match the entry that was added for this process and not one that
++	 * merely has the same pid: kfd_process_wq_release() also runs for a
++	 * process that failed in create_process() and never got an entry,
++	 * and after an exec(3) the old and the new primary kfd_process of a
++	 * process have the same lead thread while a file descriptor keeps
++	 * the old one alive.
++	 */
+ 	mutex_lock(&kfd_processes_mutex);
+ 	list_for_each_entry_safe(entry, next, &procs, list) {
+-		if (entry->pid != p->lead_thread->pid)
++		if (entry->process != p)
+ 			continue;
+ 
+ 		debugfs_remove_recursive(entry->proc_dentry);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index 12e24fbf8c46..f118f7f03de7 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -1600,6 +1600,11 @@ struct kfd_process *create_process(const struct task_struct *thread, bool primar
+ 	mutex_init(&process->mutex);
+ 	process->mm = thread->mm;
+ 	process->lead_thread = thread->group_leader;
++	/*
++	 * Take the reference on the lead thread before the process can be
++	 * released through kfd_process_wq_release(), which drops it again.
++	 */
++	get_task_struct(process->lead_thread);
+ 	process->n_pdds = 0;
+ 	process->queues_paused = false;
+ 
+@@ -1648,13 +1653,17 @@ struct kfd_process *create_process(const struct task_struct *thread, bool primar
+ 	 */
+ 	if (primary) {
+ 		process->context_id = KFD_CONTEXT_ID_PRIMARY;
++		/*
++		 * Must be initialized before the process can be given to
++		 * kfd_process_wq_release(), which destroys it.
++		 */
++		ida_init(&process->id_table);
+ 		mn = mmu_notifier_get(&kfd_process_mmu_notifier_ops, process->mm);
+ 		if (IS_ERR(mn)) {
+ 			err = PTR_ERR(mn);
+ 			goto err_register_notifier;
+ 		}
+ 		BUG_ON(mn != &process->mmu_notifier);
+-		ida_init(&process->id_table);
+ 	}
+ 
+ 	err = kfd_process_alloc_id(process);
+@@ -1664,7 +1673,6 @@ struct kfd_process *create_process(const struct task_struct *thread, bool primar
+ 	}
+ 
+ 	kfd_unref_process(process);
+-	get_task_struct(process->lead_thread);
+ 
+ 	INIT_WORK(&process->debug_event_workarea, debug_event_write_work_handler);
+ 
+@@ -1673,8 +1681,39 @@ struct kfd_process *create_process(const struct task_struct *thread, bool primar
+ err_alloc_id:
+ 	kfd_process_free_id(process);
+ err_register_notifier:
++	/*
++	 * The process is already in kfd_processes_table, so find_process()
++	 * may have handed it out with a reference taken on it.  Unlink it
++	 * and wait for the readers that are still walking the table before
++	 * dropping the references held here: afterwards no new reference
++	 * can be taken and the ones already taken keep the process alive.
++	 * The memory is then freed by kfd_process_wq_release() when the
++	 * last reference is dropped.
++	 */
+ 	hash_del_rcu(&process->kfd_processes);
+-	svm_range_list_fini(process);
++	synchronize_srcu(&kfd_processes_srcu);
++
++	/*
++	 * kfd_process_wq_release() frees the memory, but it does not
++	 * destroy the queue manager: on the normal path that is done by
++	 * kfd_process_notifier_release_internal(), which neither of these
++	 * two error paths can reach, because no mmu notifier was
++	 * registered for the process.  The process is unlinked and no
++	 * reader can reach the pqm any more, so destroy it here, before
++	 * the references are dropped.
++	 */
++	pqm_uninit(&process->pqm);
++
++	/*
++	 * Drop the reference that keeps a failing free_notifier() from
++	 * starting kfd_process_wq_release() and the one taken by
++	 * kref_init().
++	 */
++	kfd_unref_process(process);
++	kfd_unref_process(process);
++
++	return ERR_PTR(err);
++
+ err_init_svm_range_list:
+ 	kfd_process_free_outstanding_kfd_bos(process);
+ 	kfd_process_destroy_pdds(process);
+@@ -1684,6 +1723,7 @@ struct kfd_process *create_process(const struct task_struct *thread, bool primar
+ 	kfd_event_free_process(process);
+ err_event_init:
+ 	mutex_destroy(&process->mutex);
++	put_task_struct(process->lead_thread);
+ 	kfree(process);
+ err_alloc_process:
+ 	return ERR_PTR(err);
 -- 
-2.56.0
+2.50.1.windows.1
 
