@@ -2,51 +2,87 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD47E606A31C
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Nov 2026 14:46:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 221D8606A31C
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Nov 2026 14:54:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=Tog7+VH0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uULtK6Kd
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 708DF10F3DB;
-	Mon,  9 Nov 2026 14:45:57 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AFC610E7D2;
- Mon,  9 Nov 2026 14:45:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=h+GkudQWo+SK1Si/H8t6duIVnLCqHVmI1n70EBgg3BI=; t=1794235551; x=2109595551; 
- b=Tog7+VH0ZXE5Bn4jw2rfhtL182jP6m5xPrXN8fs6KQhqMXVZ0YjHDp57VUoziz+aAiJWa4Y8azP
- FQYduHDrlEW/Ox3lZ2MG7JeUK91E4YrYsdul8HvFv11u6k8va1aUxlyRwQ4yE6dqfZJWMDFrucxLK
- 0902bqiBrJuAIXGbCxtG3EQ76zkTOiGMkbJLrDFMn9QkVKyfd+bOyuPbzKMJ8iNcNaHmT/oLoP+Kj
- uHulqrS9ZzUjWu2wmpQAU98X/dRIBnDGs9K+Xho6IQQrnnKiiA67Hw8bwWBDxPtvn4rbnDLJafeoy
- Gczr744T3UFczm3rc1jVyDIJnzv4zsGWQDsA==;
-Received: from [81.79.79.1] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1xQQd2-007NMC-J0; Mon, 09 Nov 2026 15:45:48 +0100
-Message-ID: <55a418ad-2d18-4996-be3d-833ee143eb1a@igalia.com>
-Date: Mon, 9 Nov 2026 14:45:47 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8466910E066;
+	Mon,  9 Nov 2026 14:54:26 +0000 (UTC)
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com
+ [209.85.222.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6F6510E066
+ for <amd-gfx@lists.freedesktop.org>; Mon,  9 Nov 2026 14:54:19 +0000 (UTC)
+Received: by mail-qk1-f182.google.com with SMTP id
+ af79cd13be357-93e7ad9f78dso110769285a.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 09 Nov 2026 06:54:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1794236059; x=1794840859; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=tuL9LFe+O74d4FgTqP6A3o2VKesHrJf5tidJluC7W+0=;
+ b=uULtK6Kd5DJ6Tlm2oLc+lP93ZZfTO5UEpzF3IRGYd5bU7C37An8wJ1TKhOL7nHncRv
+ dFV765yhm8vOcWP0kRXmFtCWJN+/rPRVxiDFuO46SWi3Oded9Ah7vqAq0qqCavyZK909
+ VlBqCcMgmGIJh/XuDkScrBVqgkJpZrU9QfF3SmR5MBvut/p6aTef/gjsteo4G8Rql0gF
+ uMyjHt1y4mygQlo7/anK8Jqp9GXle3VzKTYMfTqef5YdGFORv2fLzKd+3DBHozmY4AHw
+ Cwq2piRHC+P0ZOHtVvL9FicHc4uN0dUgHw/MpY+Qj3zn1eGmmdjqRhzJKgUChXEsLavP
+ yP3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794236059; x=1794840859;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=tuL9LFe+O74d4FgTqP6A3o2VKesHrJf5tidJluC7W+0=;
+ b=Q/KR9woiGQL/9Ltm7+x32qImKTzL416OTcw/P54OS1r84Ei5ZFXGfAxZo7e1oOqmaO
+ 5/i+ZNNyGdGGMuxwXKj/kI5qSGHy0ta0N8gWBBrzBoT9CpYwc351cDNfXj1mCt8qYIjs
+ QzjSnjWB9kG3q7dTIp47QXn389dG+oB/Gcom9eVtDsanwqxeDP1ZkbO/TdbbBh6qTb9D
+ hUmhgNYuux2Rfyv0GrmN/xkfIMOQxoTz8mpLUA0oOjho+y5IvijFr1Xgt+8NT7N6ZxSX
+ jI76nNChbgoKdE3cLp4j2ZvfAGLgqiIrHpatJbJVm91YthCxkxmEtoXXhpTJW+QmyCrn
+ sOmA==
+X-Forwarded-Encrypted: i=1;
+ AL+hErEgQyZeaVluf34uPL5iXrKPqayRBPz0oDlhUPr/06eyrRYCy1aqqxJFxXRW10WWAo2e7Bhw98Jm@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/PnxYwFQ6P+Kt2x3lRqq86CwmyfYo80gxbLi6b7AnS2v57A3jm
+ AfUyQtCIprFTQHQlLjAvjg2ldEMnwJSlxPr5ec4bhJsZTjrHUrjTAqMO
+X-Gm-Gg: AYBFou3yHOk2jZJuv8VMXM/Ix0sM1PHkkYW0CsEZMrhUD+3pjBiXJHpegFuFTvw8h70
+ idpB1ZoehJGAJi3dnVl2SyfwABBzCZaSj4hzFVpXOKRMVTeLMZbbRfAy0g5YrKqvSaBwP+BUTPs
+ LNgq1Qrgwrp98IELzuumikSkVj4iH6eK2vIRdg1vP7z5dWuEl430Ou6SGK7wBI+hTeP6DvibZjH
+ dpVIPLZXAAEXmoyPJy8ANLm4PyBVJoYWtg/MuLMm2mpiU0Z4WnGhfkObFMuOltFQI/TNNBuCjrZ
+ pjb9Hkg98RtmurZmtdT21h0KcL/3SZDTloMv854hdFV37mHavpl8/2bLYA4mgizhH8DjwkT0DOC
+ 0MdzRlyCHKBnQEHQpJQ+ok4orAx07t8D0yAMyqKBR5n+N+eLGyG1FiHUR0imLQaK7HaCR4rjYU8
+ nCI8xG0T7gm6yOL4Ts1/u9a1knu6LuP3MOdrP5glwvKqqHJzhYra26bJnXEc3z/DThDXmonAtJv
+ m/1HuPtDT9WkeDsDYFEy7qUSdPElFzJHgecbww0t3qzKKDC0ZAkyL5XsoUbR5AGuFuEhqG+Hygn
+ D4kEugs6BQj2stoMLrozvE2SehnzlJWWzWysZmoW1rzXfsRIt1Y40zv4
+X-Received: by 2002:a05:620a:4507:b0:93e:942f:b8a5 with SMTP id
+ af79cd13be357-947841ea2f8mr676769685a.14.1794236058922; 
+ Mon, 09 Nov 2026 06:54:18 -0800 (PST)
+Received: from [10.254.154.43] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-94782da5b6asm486801985a.25.2026.11.09.06.54.16
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 09 Nov 2026 06:54:18 -0800 (PST)
+Message-ID: <52d41d99-90f0-40d1-828e-0456dad433b6@gmail.com>
+Date: Mon, 9 Nov 2026 15:54:15 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 5/7] drm/amdgpu: Rework the
  amdgpu_job_stop_all_jobs_on_sched() hack
-To: phasta@kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  Hawking Zhang <Hawking.Zhang@amd.com>,
- Matthew Brost <matthew.brost@intel.com>, Simona Vetter <simona@ffwll.ch>,
- Danilo Krummrich <dakr@kernel.org>
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: kernel-dev@igalia.com, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Matthew Brost <matthew.brost@intel.com>,
+ Simona Vetter <simona@ffwll.ch>, Danilo Krummrich <dakr@kernel.org>,
+ Philipp Stanner <phasta@kernel.org>
 References: <20261106145702.61640-1-tvrtko.ursulin@igalia.com>
  <20261106145702.61640-6-tvrtko.ursulin@igalia.com>
- <e857e8e7edfe4c91aeda47478d6512a9d3ff5fe4.camel@mailbox.org>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <e857e8e7edfe4c91aeda47478d6512a9d3ff5fe4.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20261106145702.61640-6-tvrtko.ursulin@igalia.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -58,111 +94,202 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-14.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-
-On 09/11/2026 12:46, Philipp Stanner wrote:
-> On Fri, 2026-11-06 at 14:57 +0000, Tvrtko Ursulin wrote:
->> -/*
->> - * This is a duplicate function from DRM scheduler sched_internal.h.
->> - * Plan is to remove it when amdgpu_job_stop_all_jobs_on_sched is removed, due
->> - * latter being incorrect and racy.
->> - *
->> - * See https://lore.kernel.org/amd-gfx/44edde63-7181-44fb-a4f7-94e50514f539@amd.com/
->> - */
->>   static struct drm_sched_job *
->>   drm_sched_entity_queue_pop(struct drm_sched_entity *entity)
+On 11/6/26 15:57, Tvrtko Ursulin wrote:
+> amdgpu_job_stop_all_jobs_on_sched is a semi broken hack used on only one
+> platform which suffers from several problems as mentioned in
+> https://lore.kernel.org/amd-gfx/44edde63-7181-44fb-a4f7-94e50514f539@amd.com/.
 > 
-> Why remove that comment? A reader will still wonder why a drm_sched
-> function is defined here.
-
-It effectively moved down in the diff.
-
->>   {
->> @@ -476,28 +469,66 @@ drm_sched_entity_queue_pop(struct drm_sched_entity *entity)
->>   	return container_of(node, struct drm_sched_job, queue_node);
->>   }
->>   
->> -void amdgpu_job_stop_all_jobs_on_sched(struct drm_gpu_scheduler *sched)
->> +static struct drm_sched_entity *
->> +get_entity_with_jobs(struct drm_gpu_scheduler *sched) __acquires(&entity->lock)
+> Until it can be fully removed, given that it directly acceses DRM scheduler
+> internals which want to be changed, we need to rework it to allow for
+> replacing the SPSC queue with a standard spin locked list.
 > 
-> […]
+> Problem at hand is the lock inversion between the run-queue and entity
+> lock which becomes apparent once locking is added to the job queue
+> amdgpu_job_stop_all_jobs_on_sched().
 > 
->> +retry:
->>   	for (i = DRM_SCHED_PRIORITY_KERNEL; i < sched->num_rqs; i++) {
->>   		struct drm_sched_rq *rq = sched->sched_rq[i];
->> +
->>   		spin_lock(&rq->lock);
->> -		list_for_each_entry(s_entity, &rq->entities, list) {
->> -			while ((s_job = drm_sched_entity_queue_pop(s_entity))) {
->> -				struct drm_sched_fence *s_fence = s_job->s_fence;
->> +		list_for_each_entry(entity, &rq->entities, list) {
->> +			/*
->> +			 * This can false negative, but so could the previous
->> +			 * approach of scanning the run-queues once when
->> +			 * nothing prevents userspace to queue more jobs.
->> +			 */
->> +			if (!spsc_queue_count(&entity->job_queue))
->> +				continue;
->>   
->> -				dma_fence_signal(&s_fence->scheduled);
->> -				dma_fence_set_error(&s_fence->finished, -EHWPOISON);
->> -				dma_fence_signal(&s_fence->finished);
->> +			/*
->> +			 * We must trylock because normal locking order is
->> +			 * entity then rq and here we already have rq locked
->> +			 * in order to be able to walk the entities.
->> +			 */
->> +			if (spin_trylock(&entity->lock)) {
->> +				/* Returns with a locked entity. */
->> +				spin_unlock(&rq->lock);
->> +				return entity;
+> To work around it we change the approach of how queued jobs are drained by
+> using trylock and restarting on locked entities until all queued jobs from
+> all active entities are removed.
 > 
-> Ah, now I understand.
+> This slightly widens the existing scope for a live lock in case of
+> userspace actively submitting new jobs. Whereas the current code can keep
+> processing the single busy entity, this new implementation can retry on the
+> entities which it previously processed.
 > 
-> Hmm. I guess considering the circumstances we're in that's the best-ish
-> option we have?
+> Since userspace submitting jobs so rapidly the GPU reset cannot finish and
+> the problem already exists, plus the plan is to remove this code
+> altogether, we can say this is acceptable in order to unblock the DRM
+> scheduler rework.
 > 
-> I hope the AMD folks can't see technical blockers.
+> While at it we add the assert scheduler workqueue has been stopped by the
+> caller and also correct the wrong order of signalling already submitted
+> and queued fences.
 
-Yeah I think it's the best before AMD follows up with the promised 
-complete rework of how this is handled.
+I think that is generally the wrong approach.
 
-I am hoping this hacky rework, assuming it is no more broken by the 
-original, and that AMD can test it (I don't have the required hardware), 
-can be a motivator. :)
+See function amdgpu_ras_need_emergency_restart() who triggers the behavior when returning true:
 
->> +			} else {
->> +				/*
->> +				 * Busy entity - we will try again looking for a
->> +				 * window where trylock will succeed.
->> +				 */
->> +				spin_unlock(&rq->lock);
->> +				goto retry;
-> 
-> In classic anti-deadlock strategies, wouldn't you want some random
-> delay here to avoid cycling?
+        if (adev->asic_type == CHIP_VEGA20 &&
+            adev->pm.fw_version <= 0x283400) {
+                return !(amdgpu_asic_reset_method(adev) == AMD_RESET_METHOD_BACO) &&
+                                amdgpu_ras_intr_triggered();
+        }
+        return false;
 
-I did not see a reason to not make this thread the most greedy it can 
-be. Because the longer it runs the more potential for livelock has.
+So only on Vega 20 with an outdated power management FW version we use this hack to clean up the DRM scheduler jobs.
 
-Same is true for the existing solution to be clear, but this patch does 
-increase the window a bit by adding trylock and restart. I think. Or 
-perhaps it is the same potential because all that is required in the 
-current code is for an entity to keep submitting and 
-amdgpu_job_stop_all_jobs_on_sched() never exits the pop loop. With this 
-patch any entity doing a submit can trigger a re-scan of all entities, 
-so any submitting anything new will be handled, until the time this 
-loops needs to finish the re-scan is lower than the submit frequency. 
-Hence I thought the faster it goes the better.
+My educated guess is the code wasn't used in at least the last 5-6 years :)
+
+I think we should rather completely remove the amdgpu_job_stop_all_jobs_on_sched() hack and just print a big warning in the system log when we detect an outdated firmware.
+
+Hawking and Alex any objections to that?
 
 Regards,
+Christian.
 
-Tvrtko
+> 
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> References: https://lore.kernel.org/amd-gfx/44edde63-7181-44fb-a4f7-94e50514f539@amd.com/
+> Cc: Christian König <christian.koenig@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Hawking Zhang <Hawking.Zhang@amd.com>
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Cc: Simona Vetter <simona@ffwll.ch>
+> Cc: Danilo Krummrich <dakr@kernel.org>
+> Cc: Philipp Stanner <phasta@kernel.org>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 86 ++++++++++++++++++++-----
+>  1 file changed, 69 insertions(+), 17 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> index 8689a3c933b2..1f4a4a5a978d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> @@ -457,13 +457,6 @@ static struct dma_fence *amdgpu_job_run(struct drm_sched_job *sched_job)
+>  	return fence;
+>  }
+>  
+> -/*
+> - * This is a duplicate function from DRM scheduler sched_internal.h.
+> - * Plan is to remove it when amdgpu_job_stop_all_jobs_on_sched is removed, due
+> - * latter being incorrect and racy.
+> - *
+> - * See https://lore.kernel.org/amd-gfx/44edde63-7181-44fb-a4f7-94e50514f539@amd.com/
+> - */
+>  static struct drm_sched_job *
+>  drm_sched_entity_queue_pop(struct drm_sched_entity *entity)
+>  {
+> @@ -476,28 +469,66 @@ drm_sched_entity_queue_pop(struct drm_sched_entity *entity)
+>  	return container_of(node, struct drm_sched_job, queue_node);
+>  }
+>  
+> -void amdgpu_job_stop_all_jobs_on_sched(struct drm_gpu_scheduler *sched)
+> +static struct drm_sched_entity *
+> +get_entity_with_jobs(struct drm_gpu_scheduler *sched) __acquires(&entity->lock)
+>  {
+> -	struct drm_sched_job *s_job;
+> -	struct drm_sched_entity *s_entity = NULL;
+> +	struct drm_sched_entity *entity;
+>  	int i;
+>  
+> -	/* Signal all jobs not yet scheduled */
+> +retry:
+>  	for (i = DRM_SCHED_PRIORITY_KERNEL; i < sched->num_rqs; i++) {
+>  		struct drm_sched_rq *rq = sched->sched_rq[i];
+> +
+>  		spin_lock(&rq->lock);
+> -		list_for_each_entry(s_entity, &rq->entities, list) {
+> -			while ((s_job = drm_sched_entity_queue_pop(s_entity))) {
+> -				struct drm_sched_fence *s_fence = s_job->s_fence;
+> +		list_for_each_entry(entity, &rq->entities, list) {
+> +			/*
+> +			 * This can false negative, but so could the previous
+> +			 * approach of scanning the run-queues once when
+> +			 * nothing prevents userspace to queue more jobs.
+> +			 */
+> +			if (!spsc_queue_count(&entity->job_queue))
+> +				continue;
+>  
+> -				dma_fence_signal(&s_fence->scheduled);
+> -				dma_fence_set_error(&s_fence->finished, -EHWPOISON);
+> -				dma_fence_signal(&s_fence->finished);
+> +			/*
+> +			 * We must trylock because normal locking order is
+> +			 * entity then rq and here we already have rq locked
+> +			 * in order to be able to walk the entities.
+> +			 */
+> +			if (spin_trylock(&entity->lock)) {
+> +				/* Returns with a locked entity. */
+> +				spin_unlock(&rq->lock);
+> +				return entity;
+> +			} else {
+> +				/*
+> +				 * Busy entity - we will try again looking for a
+> +				 * window where trylock will succeed.
+> +				 */
+> +				spin_unlock(&rq->lock);
+> +				goto retry;
+>  			}
+>  		}
+>  		spin_unlock(&rq->lock);
+>  	}
+>  
+> +	return NULL;
+> +}
+> +
+> +/*
+> + * amdgpu_job_stop_all_jobs_on_sched has a single purpose which is an
+> + * unreliable and racy, as described in:
+> + *  https://lore.kernel.org/amd-gfx/44edde63-7181-44fb-a4f7-94e50514f539@amd.com/.
+> + *
+> + * Plan is to remove it, together with the above open coded DRM scheduler
+> + * helpers, and replace with a proper solution.
+> + */
+> +void amdgpu_job_stop_all_jobs_on_sched(struct drm_gpu_scheduler *sched)
+> +{
+> +	struct drm_sched_job *s_job, *next;
+> +	struct drm_sched_entity *s_entity;
+> +	LIST_HEAD(queued);
+> +
+> +	WARN_ON_ONCE(!sched->pause_submit);
+> +
+>  	/* Signal all jobs already scheduled to HW */
+>  	list_for_each_entry(s_job, &sched->pending_list, list) {
+>  		struct drm_sched_fence *s_fence = s_job->s_fence;
+> @@ -505,6 +536,27 @@ void amdgpu_job_stop_all_jobs_on_sched(struct drm_gpu_scheduler *sched)
+>  		dma_fence_set_error(&s_fence->finished, -EHWPOISON);
+>  		dma_fence_signal(&s_fence->finished);
+>  	}
+> +
+> +	/*
+> +	 * Signal all jobs not yet scheduled - note that the entity trylock loop
+> +	 * can in theory livelock if userspace keeps submitting new jobs more
+> +	 * rapidly than the loop can do a full pass over all run-queues and
+> +	 * entities.
+> +	 */
+> +	while ((s_entity = get_entity_with_jobs(sched)) != NULL) {
+> +		while ((s_job = drm_sched_entity_queue_pop(s_entity)))
+> +			list_add_tail(&s_job->list, &queued);
+> +		spin_unlock(&s_entity->lock);
+> +	}
+> +
+> +	list_for_each_entry_safe(s_job, next, &queued, list) {
+> +		struct drm_sched_fence *s_fence = s_job->s_fence;
+> +
+> +		list_del(&s_job->list);
+> +		dma_fence_signal(&s_fence->scheduled);
+> +		dma_fence_set_error(&s_fence->finished, -EHWPOISON);
+> +		dma_fence_signal(&s_fence->finished);
+> +	}
+>  }
+>  
+>  const struct drm_sched_backend_ops amdgpu_sched_ops = {
 
