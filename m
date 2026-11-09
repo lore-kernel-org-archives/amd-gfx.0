@@ -2,88 +2,102 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 221D8606A31C
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Nov 2026 14:54:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1111B606A321
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Nov 2026 14:57:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uULtK6Kd
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=kPS3t1Om
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8466910E066;
-	Mon,  9 Nov 2026 14:54:26 +0000 (UTC)
-Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com
- [209.85.222.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6F6510E066
- for <amd-gfx@lists.freedesktop.org>; Mon,  9 Nov 2026 14:54:19 +0000 (UTC)
-Received: by mail-qk1-f182.google.com with SMTP id
- af79cd13be357-93e7ad9f78dso110769285a.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 09 Nov 2026 06:54:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794236059; x=1794840859; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=tuL9LFe+O74d4FgTqP6A3o2VKesHrJf5tidJluC7W+0=;
- b=uULtK6Kd5DJ6Tlm2oLc+lP93ZZfTO5UEpzF3IRGYd5bU7C37An8wJ1TKhOL7nHncRv
- dFV765yhm8vOcWP0kRXmFtCWJN+/rPRVxiDFuO46SWi3Oded9Ah7vqAq0qqCavyZK909
- VlBqCcMgmGIJh/XuDkScrBVqgkJpZrU9QfF3SmR5MBvut/p6aTef/gjsteo4G8Rql0gF
- uMyjHt1y4mygQlo7/anK8Jqp9GXle3VzKTYMfTqef5YdGFORv2fLzKd+3DBHozmY4AHw
- Cwq2piRHC+P0ZOHtVvL9FicHc4uN0dUgHw/MpY+Qj3zn1eGmmdjqRhzJKgUChXEsLavP
- yP3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794236059; x=1794840859;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=tuL9LFe+O74d4FgTqP6A3o2VKesHrJf5tidJluC7W+0=;
- b=Q/KR9woiGQL/9Ltm7+x32qImKTzL416OTcw/P54OS1r84Ei5ZFXGfAxZo7e1oOqmaO
- 5/i+ZNNyGdGGMuxwXKj/kI5qSGHy0ta0N8gWBBrzBoT9CpYwc351cDNfXj1mCt8qYIjs
- QzjSnjWB9kG3q7dTIp47QXn389dG+oB/Gcom9eVtDsanwqxeDP1ZkbO/TdbbBh6qTb9D
- hUmhgNYuux2Rfyv0GrmN/xkfIMOQxoTz8mpLUA0oOjho+y5IvijFr1Xgt+8NT7N6ZxSX
- jI76nNChbgoKdE3cLp4j2ZvfAGLgqiIrHpatJbJVm91YthCxkxmEtoXXhpTJW+QmyCrn
- sOmA==
-X-Forwarded-Encrypted: i=1;
- AL+hErEgQyZeaVluf34uPL5iXrKPqayRBPz0oDlhUPr/06eyrRYCy1aqqxJFxXRW10WWAo2e7Bhw98Jm@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/PnxYwFQ6P+Kt2x3lRqq86CwmyfYo80gxbLi6b7AnS2v57A3jm
- AfUyQtCIprFTQHQlLjAvjg2ldEMnwJSlxPr5ec4bhJsZTjrHUrjTAqMO
-X-Gm-Gg: AYBFou3yHOk2jZJuv8VMXM/Ix0sM1PHkkYW0CsEZMrhUD+3pjBiXJHpegFuFTvw8h70
- idpB1ZoehJGAJi3dnVl2SyfwABBzCZaSj4hzFVpXOKRMVTeLMZbbRfAy0g5YrKqvSaBwP+BUTPs
- LNgq1Qrgwrp98IELzuumikSkVj4iH6eK2vIRdg1vP7z5dWuEl430Ou6SGK7wBI+hTeP6DvibZjH
- dpVIPLZXAAEXmoyPJy8ANLm4PyBVJoYWtg/MuLMm2mpiU0Z4WnGhfkObFMuOltFQI/TNNBuCjrZ
- pjb9Hkg98RtmurZmtdT21h0KcL/3SZDTloMv854hdFV37mHavpl8/2bLYA4mgizhH8DjwkT0DOC
- 0MdzRlyCHKBnQEHQpJQ+ok4orAx07t8D0yAMyqKBR5n+N+eLGyG1FiHUR0imLQaK7HaCR4rjYU8
- nCI8xG0T7gm6yOL4Ts1/u9a1knu6LuP3MOdrP5glwvKqqHJzhYra26bJnXEc3z/DThDXmonAtJv
- m/1HuPtDT9WkeDsDYFEy7qUSdPElFzJHgecbww0t3qzKKDC0ZAkyL5XsoUbR5AGuFuEhqG+Hygn
- D4kEugs6BQj2stoMLrozvE2SehnzlJWWzWysZmoW1rzXfsRIt1Y40zv4
-X-Received: by 2002:a05:620a:4507:b0:93e:942f:b8a5 with SMTP id
- af79cd13be357-947841ea2f8mr676769685a.14.1794236058922; 
- Mon, 09 Nov 2026 06:54:18 -0800 (PST)
-Received: from [10.254.154.43] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- af79cd13be357-94782da5b6asm486801985a.25.2026.11.09.06.54.16
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 09 Nov 2026 06:54:18 -0800 (PST)
-Message-ID: <52d41d99-90f0-40d1-828e-0456dad433b6@gmail.com>
-Date: Mon, 9 Nov 2026 15:54:15 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C5E010E1F8;
+	Mon,  9 Nov 2026 14:57:44 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013003.outbound.protection.outlook.com
+ [40.93.201.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5A4F10E1F8
+ for <amd-gfx@lists.freedesktop.org>; Mon,  9 Nov 2026 14:57:38 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=snOrJ8ga+mtsvymx6Vj/g7mfkYnQNXTYV3P5WEXcqqE7KgaLfx+aO7fq2IUobZ0MtroqCpGiMRhHUuAOeGYakna0jgkZa5JFzIRKjmk1AP972zb54n2ywBH5wQmaruQMcRYAiSlJJjBl1JNkQN1FaUAUh/M7N60ywZk73d0TGQoliqiBqUCZ+rD5b3fKftAlrl5QspbFGZ+Xff5r3uSzuW72K4iuAq3nzKLJOdGSJV7FTMIsxwaYBTqlLx75efMh2fJQMXODvrwm+WJhCWjdbdCB+YlaF87kvMYEC6p+66HlT157HPlx8itI8zqKjfq7CrAB6DRGNrEtwUabml1vMQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=u2IQDXBe/F75ZLqPfMTTqcloi+OkVgTsOxfMNcpbIWA=;
+ b=nQW7yY9k2NugNbiOMRtl2aF/T+XBdtIuydqDlZT5edN2la9GfJdMgm4UKYDZ37DUMo9cwoV813nSyIp6L+WRpatyVFsoG7hiU1KADg8aakrTlzGaAdSivqfKvi23MQ7BoQsKWQ4ibIk0EUEZMOIN+h/v/KNp9Kt73TX+Mc/M+aKndFJtxXtDcxHgIacDLBK4nBuE3UmJ/a1XDJMSCAFIevKuyLIV3u1oLNlJs4hS3yXU/ZsXmXZPC1xfm3gAvsPKn90Iu/948qymsO1ma8bia0dxh29xdhlfYa0PNVGQ1PbijgAQiTLFkSIOa0LnhLzHXjY/4XdpfBrSk2Um8LqjjA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=u2IQDXBe/F75ZLqPfMTTqcloi+OkVgTsOxfMNcpbIWA=;
+ b=kPS3t1OmpcDduswc6yDy+3lvl9e6PWdJgt8dbQ3nv0W1yBmQxjH/39yPvehspxPX/G/9N5mLYBYXGfap1F57mPfIbvFYAqsIw/YHL3AzBmFB0N84RycvHNKBU0WyzQBbQ7bv+zZrwBnRIdkCxCjBmwOyNEQg1AZLDS3uOKQiIRE=
+Received: from SJ0PR03CA0181.namprd03.prod.outlook.com (2603:10b6:a03:2ef::6)
+ by CY1PR12MB9675.namprd12.prod.outlook.com (2603:10b6:930:105::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Mon, 9 Nov
+ 2026 14:57:34 +0000
+Received: from MWH0EPF000C6184.namprd02.prod.outlook.com
+ (2603:10b6:a03:2ef:cafe::ae) by SJ0PR03CA0181.outlook.office365.com
+ (2603:10b6:a03:2ef::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.8 via Frontend Transport; Mon, 9
+ Nov 2026 14:57:34 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ MWH0EPF000C6184.mail.protection.outlook.com (10.167.249.116) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Mon, 9 Nov 2026 14:57:33 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 9 Nov
+ 2026 08:57:32 -0600
+Received: from bencheng-dev (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Mon, 9 Nov 2026 08:57:31 -0600
+From: Benjamin Cheng <benjamin.cheng@amd.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ <amd-gfx@lists.freedesktop.org>
+CC: Sunil Khatri <sunil.khatri@amd.com>, Benjamin Cheng
+ <benjamin.cheng@amd.com>
+Subject: [PATCH v3 1/2] drm/amdgpu: wait for tlb flush before freeing BO
+Date: Mon, 9 Nov 2026 09:57:17 -0500
+Message-ID: <20261109145718.91381-1-benjamin.cheng@amd.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261014022107.2511834-1-benjamin.cheng@amd.com>
+References: <20261014022107.2511834-1-benjamin.cheng@amd.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/7] drm/amdgpu: Rework the
- amdgpu_job_stop_all_jobs_on_sched() hack
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Hawking Zhang <Hawking.Zhang@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: kernel-dev@igalia.com, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Matthew Brost <matthew.brost@intel.com>,
- Simona Vetter <simona@ffwll.ch>, Danilo Krummrich <dakr@kernel.org>,
- Philipp Stanner <phasta@kernel.org>
-References: <20261106145702.61640-1-tvrtko.ursulin@igalia.com>
- <20261106145702.61640-6-tvrtko.ursulin@igalia.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20261106145702.61640-6-tvrtko.ursulin@igalia.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000C6184:EE_|CY1PR12MB9675:EE_
+X-MS-Office365-Filtering-Correlation-Id: fee0595e-6231-4602-dbd4-08df3e71c909
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|82310400026|36860700016|376014|1800799024|18002099003|22082099003|6133799003|10067099003|5023799004|11063799006|261028144727099003|261102123227099003|261022075727099003|261022105027099003|261021123027099003|56012099006|261021121427099003|261026140227099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info: Hv8vB79Kolmz+8QRU8pHjpiFTNcPDGQGO86A6kC8sWljOmPD5sb56Lzl0ZPczIvX/qJU2Z/X/EmC6IrKze9BsVMt+/Jt6W+VoFLhQhMpn5969q5HkGnr4VLd2XMqUQCYIZZY53lO4kVfK+StjlvwtQwjf5ixH+kX3OLBoAxwG1QZWDnRrUhy0kYMMaOEGi6U9/f8/UeyiMVY2uKAcW8Bbvn91G4xP8ViWDbTNN+IWweBSrKj37wzac5e/vaFBexQdrw+m/sBRGSZ48GMZWAP1aIhAtlY5zDPAUlOSQc0HXgUz/l5xQfTpy56bRwlZNwmsFliOSGbIGAZJn8fSiLw71c1nn92/04NZ68OVsyx7LbLqhXymvd8XFwZYWxBABRSXUMQVwM8HcZPsPLgiRhjAyzKqQqlWAi/c1+V+PdvsPnWKurOBDqje3Hgrt9qf1ZJeCfMW0mEyVyerrDE7nc/yT6khdbSpsiA++yVcEW4fmAVj77uRd36o/DYFI5RGLzvIYL6/4XoXJ4ZeagQGmpGpA/Y/+i+Tf6HqMJmz9Vf9/y0ymbyy9/DPRvNQhpO9YpwfIRfKKdT/k1nsBa3GtttHvLVa+QeSTAW5Ev7UDUqdqfNt+3UEz0Ng9X0nds1jx2GZTY4cDF595sCrHPSgFXR5pMf9msUdwsFCc32rl+azs6l4HokHbN5Y8wRe1YxnB6fPebuSKDNDzpD7X0i5aOH0Q==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(82310400026)(36860700016)(376014)(1800799024)(18002099003)(22082099003)(6133799003)(10067099003)(5023799004)(11063799006)(261028144727099003)(261102123227099003)(261022075727099003)(261022105027099003)(261021123027099003)(56012099006)(261021121427099003)(261026140227099003)(261009223027099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: sk3uogUQ7VF33AuSE0aSHq/03L+V8zY/kxAQUpSdY+chqxBGzaiNEonvfpL/icGxjCu6a7Ry6/bFfvdGnVKeRgVEaAtguv0y36Y1bSeZkb3CWwdbuFjKKOUu3PSPeipFXQf/EKYkCUizOW643jqlAA5jDj/WsT4bhK47Jl8j5QqoUEeP5dzMyGmL7vxAt57C9JYbzb8OPxIMQmba+K8o87Rp9sZ0w5XBCreygpJPdfRQjJ0P4jKBTchu3GkABq+l5b4CpqXppqP/UHGV6C0wjNc8AzlHBQNTYpngyZL9EIiqU0WJBuHy4ya4lDvBVRzgh7PCpqUqBZ4l2cNtmVD1YeL4sYzXHoaSns26lMiza58w5VOYn14Of8wYEO+98MW5pUxXNwYBKb5cClr5u2tXRV/WTpTpFlTvjDUMPkWy5b9trPbF0F3KtDrNqSnYHjvR
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 14:57:33.3662 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fee0595e-6231-4602-dbd4-08df3e71c909
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000C6184.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9675
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,202 +108,62 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/6/26 15:57, Tvrtko Ursulin wrote:
-> amdgpu_job_stop_all_jobs_on_sched is a semi broken hack used on only one
-> platform which suffers from several problems as mentioned in
-> https://lore.kernel.org/amd-gfx/44edde63-7181-44fb-a4f7-94e50514f539@amd.com/.
-> 
-> Until it can be fully removed, given that it directly acceses DRM scheduler
-> internals which want to be changed, we need to rework it to allow for
-> replacing the SPSC queue with a standard spin locked list.
-> 
-> Problem at hand is the lock inversion between the run-queue and entity
-> lock which becomes apparent once locking is added to the job queue
-> amdgpu_job_stop_all_jobs_on_sched().
-> 
-> To work around it we change the approach of how queued jobs are drained by
-> using trylock and restarting on locked entities until all queued jobs from
-> all active entities are removed.
-> 
-> This slightly widens the existing scope for a live lock in case of
-> userspace actively submitting new jobs. Whereas the current code can keep
-> processing the single busy entity, this new implementation can retry on the
-> entities which it previously processed.
-> 
-> Since userspace submitting jobs so rapidly the GPU reset cannot finish and
-> the problem already exists, plus the plan is to remove this code
-> altogether, we can say this is acceptable in order to unblock the DRM
-> scheduler rework.
-> 
-> While at it we add the assert scheduler workqueue has been stopped by the
-> caller and also correct the wrong order of signalling already submitted
-> and queued fences.
+On gem object close, we previously only attached the fence of its own
+clear_freed() call to the BO's resv. If an unmap of this BO happened
+prior to the close call, clear_freed() would be invoked, leaving
+vm->freed empty, and no meaningful fence to be attached to the resv.
+Because of that the memory may be freed before the TLB flush is
+complete, and give a running userq potential access to a stale
+address translation.
 
-I think that is generally the wrong approach.
+Fix this by attaching the last_tlb_inv fence to the BO's resv.
 
-See function amdgpu_ras_need_emergency_restart() who triggers the behavior when returning true:
+Fixes: a1d201e16940 ("drm/amdgpu: enable GFX-V11 userqueue support")
+Signed-off-by: Benjamin Cheng <benjamin.cheng@amd.com>
+---
+v3:
+- reserve the extra fence under lock instead of relying on
+  amdgpu_bo_fence() as Christian pointed out
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-        if (adev->asic_type == CHIP_VEGA20 &&
-            adev->pm.fw_version <= 0x283400) {
-                return !(amdgpu_asic_reset_method(adev) == AMD_RESET_METHOD_BACO) &&
-                                amdgpu_ras_intr_triggered();
-        }
-        return false;
-
-So only on Vega 20 with an outdated power management FW version we use this hack to clean up the DRM scheduler jobs.
-
-My educated guess is the code wasn't used in at least the last 5-6 years :)
-
-I think we should rather completely remove the amdgpu_job_stop_all_jobs_on_sched() hack and just print a big warning in the system log when we detect an outdated firmware.
-
-Hawking and Alex any objections to that?
-
-Regards,
-Christian.
-
-> 
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> References: https://lore.kernel.org/amd-gfx/44edde63-7181-44fb-a4f7-94e50514f539@amd.com/
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Hawking Zhang <Hawking.Zhang@amd.com>
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: Simona Vetter <simona@ffwll.ch>
-> Cc: Danilo Krummrich <dakr@kernel.org>
-> Cc: Philipp Stanner <phasta@kernel.org>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 86 ++++++++++++++++++++-----
->  1 file changed, 69 insertions(+), 17 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> index 8689a3c933b2..1f4a4a5a978d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> @@ -457,13 +457,6 @@ static struct dma_fence *amdgpu_job_run(struct drm_sched_job *sched_job)
->  	return fence;
->  }
->  
-> -/*
-> - * This is a duplicate function from DRM scheduler sched_internal.h.
-> - * Plan is to remove it when amdgpu_job_stop_all_jobs_on_sched is removed, due
-> - * latter being incorrect and racy.
-> - *
-> - * See https://lore.kernel.org/amd-gfx/44edde63-7181-44fb-a4f7-94e50514f539@amd.com/
-> - */
->  static struct drm_sched_job *
->  drm_sched_entity_queue_pop(struct drm_sched_entity *entity)
->  {
-> @@ -476,28 +469,66 @@ drm_sched_entity_queue_pop(struct drm_sched_entity *entity)
->  	return container_of(node, struct drm_sched_job, queue_node);
->  }
->  
-> -void amdgpu_job_stop_all_jobs_on_sched(struct drm_gpu_scheduler *sched)
-> +static struct drm_sched_entity *
-> +get_entity_with_jobs(struct drm_gpu_scheduler *sched) __acquires(&entity->lock)
->  {
-> -	struct drm_sched_job *s_job;
-> -	struct drm_sched_entity *s_entity = NULL;
-> +	struct drm_sched_entity *entity;
->  	int i;
->  
-> -	/* Signal all jobs not yet scheduled */
-> +retry:
->  	for (i = DRM_SCHED_PRIORITY_KERNEL; i < sched->num_rqs; i++) {
->  		struct drm_sched_rq *rq = sched->sched_rq[i];
-> +
->  		spin_lock(&rq->lock);
-> -		list_for_each_entry(s_entity, &rq->entities, list) {
-> -			while ((s_job = drm_sched_entity_queue_pop(s_entity))) {
-> -				struct drm_sched_fence *s_fence = s_job->s_fence;
-> +		list_for_each_entry(entity, &rq->entities, list) {
-> +			/*
-> +			 * This can false negative, but so could the previous
-> +			 * approach of scanning the run-queues once when
-> +			 * nothing prevents userspace to queue more jobs.
-> +			 */
-> +			if (!spsc_queue_count(&entity->job_queue))
-> +				continue;
->  
-> -				dma_fence_signal(&s_fence->scheduled);
-> -				dma_fence_set_error(&s_fence->finished, -EHWPOISON);
-> -				dma_fence_signal(&s_fence->finished);
-> +			/*
-> +			 * We must trylock because normal locking order is
-> +			 * entity then rq and here we already have rq locked
-> +			 * in order to be able to walk the entities.
-> +			 */
-> +			if (spin_trylock(&entity->lock)) {
-> +				/* Returns with a locked entity. */
-> +				spin_unlock(&rq->lock);
-> +				return entity;
-> +			} else {
-> +				/*
-> +				 * Busy entity - we will try again looking for a
-> +				 * window where trylock will succeed.
-> +				 */
-> +				spin_unlock(&rq->lock);
-> +				goto retry;
->  			}
->  		}
->  		spin_unlock(&rq->lock);
->  	}
->  
-> +	return NULL;
-> +}
-> +
-> +/*
-> + * amdgpu_job_stop_all_jobs_on_sched has a single purpose which is an
-> + * unreliable and racy, as described in:
-> + *  https://lore.kernel.org/amd-gfx/44edde63-7181-44fb-a4f7-94e50514f539@amd.com/.
-> + *
-> + * Plan is to remove it, together with the above open coded DRM scheduler
-> + * helpers, and replace with a proper solution.
-> + */
-> +void amdgpu_job_stop_all_jobs_on_sched(struct drm_gpu_scheduler *sched)
-> +{
-> +	struct drm_sched_job *s_job, *next;
-> +	struct drm_sched_entity *s_entity;
-> +	LIST_HEAD(queued);
-> +
-> +	WARN_ON_ONCE(!sched->pause_submit);
-> +
->  	/* Signal all jobs already scheduled to HW */
->  	list_for_each_entry(s_job, &sched->pending_list, list) {
->  		struct drm_sched_fence *s_fence = s_job->s_fence;
-> @@ -505,6 +536,27 @@ void amdgpu_job_stop_all_jobs_on_sched(struct drm_gpu_scheduler *sched)
->  		dma_fence_set_error(&s_fence->finished, -EHWPOISON);
->  		dma_fence_signal(&s_fence->finished);
->  	}
-> +
-> +	/*
-> +	 * Signal all jobs not yet scheduled - note that the entity trylock loop
-> +	 * can in theory livelock if userspace keeps submitting new jobs more
-> +	 * rapidly than the loop can do a full pass over all run-queues and
-> +	 * entities.
-> +	 */
-> +	while ((s_entity = get_entity_with_jobs(sched)) != NULL) {
-> +		while ((s_job = drm_sched_entity_queue_pop(s_entity)))
-> +			list_add_tail(&s_job->list, &queued);
-> +		spin_unlock(&s_entity->lock);
-> +	}
-> +
-> +	list_for_each_entry_safe(s_job, next, &queued, list) {
-> +		struct drm_sched_fence *s_fence = s_job->s_fence;
-> +
-> +		list_del(&s_job->list);
-> +		dma_fence_signal(&s_fence->scheduled);
-> +		dma_fence_set_error(&s_fence->finished, -EHWPOISON);
-> +		dma_fence_signal(&s_fence->finished);
-> +	}
->  }
->  
->  const struct drm_sched_backend_ops amdgpu_sched_ops = {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+index 6137ab4211be..c9a84257ae5f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+@@ -340,7 +340,7 @@ static void amdgpu_gem_object_close(struct drm_gem_object *obj,
+ 
+ 	drm_exec_init(&exec, DRM_EXEC_IGNORE_DUPLICATES, 0);
+ 	drm_exec_until_all_locked(&exec) {
+-		r = drm_exec_prepare_obj(&exec, &bo->tbo.base, 1);
++		r = drm_exec_prepare_obj(&exec, &bo->tbo.base, 2); /* clear_freed + last_tlb_inv */
+ 		drm_exec_retry_on_contention(&exec);
+ 		if (unlikely(r))
+ 			goto out_unlock;
+@@ -371,11 +371,14 @@ static void amdgpu_gem_object_close(struct drm_gem_object *obj,
+ 		dev_err(adev->dev, "failed to clear page "
+ 			"tables on GEM object close (%ld)\n", r);
+ 	if (r || !fence)
+-		goto out_unlock;
++		goto out_tlb;
+ 
+ 	amdgpu_bo_fence(bo, fence, true);
+ 	dma_fence_put(fence);
+ 
++out_tlb:
++	amdgpu_bo_fence(bo, vm->last_tlb_inv, true);
++
+ out_unlock:
+ 	if (r && !drm_dev_is_unplugged(adev_to_drm(adev)))
+ 		dev_err(adev->dev, "leaking bo va (%ld)\n", r);
+-- 
+2.56.0
 
