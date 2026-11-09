@@ -2,127 +2,92 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2263D60A2600
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A81E960A2608
 	for <amd-gfx@archiver.kernel.org>; Tue, 10 Nov 2026 11:44:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=EeBwMfDh
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zDHAWkDa
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EFE5A10F20B;
-	Tue, 10 Nov 2026 11:44:09 +0000 (UTC)
-Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com
- [209.85.160.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B1DD10E116
- for <amd-gfx@lists.freedesktop.org>; Mon,  9 Nov 2026 22:30:09 +0000 (UTC)
-Received: by mail-qt1-f174.google.com with SMTP id
- d75a77b69052e-535f598d126so39581cf.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 09 Nov 2026 14:30:09 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794263408; cv=none;
- d=google.com; s=arc-20260327;
- b=B6wmq76REmJxUKxyWIB3dN4hE4uccHhxzz5By8TKJ0kh3HyWWDyuubfUWnQbUAdkpH
- NhPOrMgnyDmjkAtbuYEIuj468Cu7dTmcGaqphSRsuxb8mJ3a8H0xUAHzz8BXm594J+yT
- RVdog9I+q8wt46vXBkb+NmGken/UhYiYWvsF78Vx5PwZuikel09ioRlZxSAZ0EbMtbdH
- wV8c/alpdOWvKvz+ffoj/G2APLxvYdXQjUpfGZwXwSBrCwFNOx4+utSI3QVL4rjvk5xw
- AYPL39TC3buQzECq0UM1NRGfwi9l9GCTYU0zoKsUY6DAQ+VgWNai0K4ChNWImvGSh+MZ
- H/AQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=S6J9qhUwfhfejNNDnNi/t39zME3R/+tshu3QmKCryWs=;
- fh=1ZAhpGtsUE/20poXUbgmDJ9HmFBsKM317Akvg14p7F8=;
- b=ncX95ei/UFxM5k5k9LNWHLkX4p+GbP6EZIIUeHX1D6TlXwWha+KBl0qhslT77LXBtw
- fhrbiGIcgQiTaTKeJWnW/V/V/BEwL/c7DysLICkhS6/LVs3iz1nRINXWsbfIWVpRCcp1
- CRTCT2NbSZrvGXAtey3SfRvo6eEIsUV+qZ0kSCH6SjaIKy6roNqRvkpVL0Uz2PlPvgfz
- 3OI134fzVXBxaByTgJxReQAodED1zEaXP7gc9rWyH+ToMSdVrcZxqlqwJbcWkEBzpZot
- oH09qNBoyQ/nCsLbpWKGt0lFGbUCkpxmTqKjyE/6VT9nfCsSNBtL4m0BnKcpUpxx4ZVN
- k9Ew==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24F9710F252;
+	Tue, 10 Nov 2026 11:44:10 +0000 (UTC)
+Received: from mail-pj2-f1.google.com (mail-pj2-f1.google.com [74.125.227.129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 923AC10F437
+ for <amd-gfx@lists.freedesktop.org>; Mon,  9 Nov 2026 17:00:14 +0000 (UTC)
+Received: by mail-pj2-f1.google.com with SMTP id
+ d9443c01a7336-2ed3c66713cso3540035ad.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 09 Nov 2026 09:00:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20260707; t=1794263408; x=1794868208;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=S6J9qhUwfhfejNNDnNi/t39zME3R/+tshu3QmKCryWs=;
- b=EeBwMfDh4Cmh6OOfmPKYL5tG9yOeAoN7gd5IF8LUkWrJHrIj5iW/kTKa8Quc+0t0e7
- v0x73wPQ7RtCBIrsiV8DPFS64Oa105vPLa8/BRpY5LGTg1V0ihVDCSsn5+Py+cdoq7CD
- mTpSKeeqfa6cIQbIcGl4chBPlaDeEEWtZWlsALFUnl2QVNOSQybSRz+m1qPt3pv6BIIX
- 5oFa13ayFtQgLs9xmH/hOlsQnoRziO8vbQF5tXz91ezbJ+BLNlsy1aOiux0zs9al03aT
- X+63FU3gZC+LO7y2XbRrq8Pwskb8n6MA4SEM4uwxw6Ei3a+7TeEoK54Ly2n9dNW52YpC
- 6Neg==
+ d=gmail.com; s=20260707; t=1794243614; x=1794848414; darn=lists.freedesktop.org;
+ h=references:in-reply-to:cc:to:message-id:date:from:subject
+ :content-transfer-encoding:content-type:mime-version:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=wxnu2gHDTAVcZYWFHFKD1h1xosiRimMJGhZuilr5Ql8=;
+ b=zDHAWkDai/BmFVDxwfGJi1H+jG1q/TRMbLjglyFEzjj7viDclNOPSnBB4Yxfx1vZ2r
+ rAv8oSeIgPaheFHhSnCbBIoUW6FGtNht5tbY/QFaxexuuFabd7yezvdfKmWhBaEDb/uu
+ hdmaa28liT4oY2dl38UjW1l2hCTY1yeronFVs2z6rqQwoIfbQRZYAIm7wlYG8NCKRgNR
+ h+Aso1c3AweXMZoob8kHLPnWJRcy/WhBWhTuR0ALFAFP1euaJys6j+kYkWgqPIvtC0dj
+ RNEi56tRoztdLwTHBQihngUiiGHukNz3edK5EVAUtm8Yb9Y9RM1V/bFcNKfjDM4DeaRI
+ Akfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794263408; x=1794868208;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
+ d=1e100.net; s=20260707; t=1794243614; x=1794848414;
+ h=references:in-reply-to:cc:to:message-id:date:from:subject
+ :content-transfer-encoding:content-type:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=S6J9qhUwfhfejNNDnNi/t39zME3R/+tshu3QmKCryWs=;
- b=pireC/RjWfqEMwrxi2+lCypFV6Wmlf7TFGotS9s+FlgJxIBHnDO3cFK+bsKts+RJjt
- REDeyCQvPyYDXFyUR387qkAoFI61Jp/oTOdU6xlL70VgrPJVDDwnEgC+V0cEU77EVbHn
- UB/auuW8D+yIhGkYwMNW4BaHYVoK/sQn2aZ3izLIjupCwZV6Cc9BvkaUWgY5JmochNrs
- u8ajEQbA00KJAUOEOTHZoILhNa2IbvEMZTKiQ5z8DZY5JBHNmGP3Tu3SFqeBuATujSbF
- CnszBUFyjNpIhZuQS+cwoWRApcJcCt0EXDfjx/0+N7bw1+7Sw6yeIx02wEJI1c7lv4Yn
- qFHA==
+ bh=wxnu2gHDTAVcZYWFHFKD1h1xosiRimMJGhZuilr5Ql8=;
+ b=Uza8guKRWu+bwVECHo2vvRKPvJtVfmHIT1/d3mrS5BXsV2e63txYeuQrrQWdsjbKeQ
+ t6+sd9DGb3jPsh7n3V0bH3qfXm3nrSHYXcU32NdzY2CyIl6WzGtIkV56v2FyZZUeeqP3
+ +S3UZz8gDWwEXDGu9BPIdmvzOufASXKbH3D+fv1FQeh4M4+Rzhsm4fD1jGfQNhqP2s9a
+ N5qO/fChKm0eSdR2mlmqfljhKwSHaFARhdA+NChyYnZKYW0TNvrF6MGHWrvzcvh0y0on
+ 9XKn0h0TZYpE2IVmjnJ9/BI5vYduioaariyDtOR1qbikQhGRt4jx6Dw7xu+fMCwVQwJy
+ Eleg==
 X-Forwarded-Encrypted: i=1;
- AL+hErFX9zpSjpYqSUqzDE5icqzvpR5odmFLIxXw05AErOzO1TRNO3noxyszyZuHPBJFHlI1VRfAtpa9@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8Bmi+M6J6MNmjPegj5EwYGfz75MIbHolqgAw1WnwTlKuoleFTP
- WBC+ZM37zRO8tSuYHwDg8jWtislwjkrcOugp/yNRW5LiQJ351TjCUUavFE7KEUVB24V4RaYwS8E
- 6lMAKV4CTMi1UOPX//dZYD+YRnRk9Se/sjoKrnJfJ
-X-Gm-Gg: AYBFou2YxOUXHsyZzJI1dten5oa53nBkcqBqWlXROwyJg+9X9ARql3ez4yFMmLpzHi1
- H5F9WlGThsqgGL+fUAeSQeVf5MdiWJrt9avDuC4Q/urw1VunDoboUIZ/V3nVHs+KCU6aCtLPVfL
- 5/XEFEYFivOJz6JNAaLZOORtHIJZZ1IdhfTlHvim/Wk+CmFlZAbECkwHqMJER03BcjSn7eofCtB
- /PQ5KFnTpSccOLs4mRSDZHACf9cXYZCHj05SLDEo6d6L+cjDKyY5cjhwiqQZWY5cvPp+rc9Qjvi
- wvDPthRmS1sShE1yUiD078vrOiiNydi0tyBNbnZ14Emo1AsUa9N7KdFafjyYETamsONKSxmxUTt
- 4LowGTZkb18IgQAKNajONxsY40qEouqlfhnmsnSVt5FVDOGtY56L7/mgfaPq4raQJ1D0=
-X-Received: by 2002:a05:622a:1b16:b0:530:e00f:7768 with SMTP id
- d75a77b69052e-555290bb288mr6464421cf.0.1794263407457; Mon, 09 Nov 2026
- 14:30:07 -0800 (PST)
+ AL+hErFBKRjdIhOrLKivVX/x/Cd2gwvQlvRndJdPlto5y28WyLwyhhn2lSQ0qVErOEFpGenaI+kOLosZ@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+GN8sRR/H/By5aYsLGSv/5DXTle0gYcc2u6clu1PuU8utMn+5q
+ YBVUhWyMqCM8Ka2N0ixRrwtL7xXzz/JwgjIBrpHmEwC5Uv3Is3PefxaB
+X-Gm-Gg: AYBFou1r5SZ/zC5dIru7x3vLD+cWbnbgwQ2A1aeNd1kCI9mb07X7KZ4iYeJmm5g3Rhm
+ pvAMYB3kEJx51H+vVp1oUBUhE6KMyLUbF6o6yfJIJMR6CUlDxOSIkufTSHnNMPHm9fsUtuqgSXT
+ O9N39slHTJI3K3ahfpL6cGdWQOmXbcI19z5HyJCpjf23wX982eHLY66nGgfjwTQXImtdXrzi8ES
+ T85XOtDZAMJdEwl/R2ujXTQFMUk1WGzdhpbYl31uoRCPi0uxOEp/lsXa+pe04WsyCY32hXa8OK5
+ wwklUQMq0PXSEJSgGE0UsjxVYqE6r657Yf1RIYwEreEUnyzv4WBuo2F8EdChwvHcZuK5S+kTMys
+ ObYQSMGLd020CJ4XUDGwd8XrIRmFz5YQe9tqmlq6Wmsvyp2+0tUnd/Fd2AnVfwGHwk218DoqCFs
+ VebCCLYUohqYCB/c4ZKKwAKWVSz+fNSy4sBx6b8QmTBGZxH8OhQRmS/SC6zV6uOm8Y0x2qssGtu
+ JyQAhRDzNW7KN4wKd0/KxuBp6gZOT5w9Dv/JTIby35ZKLetIqkRXmultZyuRg30f4ufTKxe4Yqz
+ 1sFEQpyAu+kwF9zD6yKMl4u/HiPwwVUcHcodm5lSawr0xhmu4h/QP/PqgPZyGiAv5eAESaZsUaX
+ wtaauVbXAkext/zHgHdibVYrdEWfZuVzf
+X-Received: by 2002:a17:902:e5cf:b0:2ed:3db6:2eb0 with SMTP id
+ d9443c01a7336-2ed83784f45mr49805195ad.48.1794243613903; 
+ Mon, 09 Nov 2026 09:00:13 -0800 (PST)
+Received: from [100.64.227.9] (n106-71-19-159.sun21.vic.optusnet.com.au.
+ [106.71.19.159]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2edb6d7bb58sm325405ad.33.2026.11.09.08.59.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 09 Nov 2026 09:00:13 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261108223913.3624571-1-irogers@google.com>
- <20261108223913.3624571-7-irogers@google.com>
- <b8d171de-52fe-474e-96db-d119840c6240@suse.com>
-In-Reply-To: <b8d171de-52fe-474e-96db-d119840c6240@suse.com>
-From: Ian Rogers <irogers@google.com>
-Date: Mon, 9 Nov 2026 14:29:55 -0800
-X-Gm-Features: AclHuK-dlWDp0B4FdK6V9QBR5LM_sA67_T-19O3ovPwDJ5RdBpzojQ18ICzxF_E
-Message-ID: <CAP-5=fXd640kfaR+soPdiEV2mfqCPGDANCt04KzaXBphYP4Htg@mail.gmail.com>
-Subject: Re: [PATCH v3 6/9] xen/sys-hypervisor: Add release callback to
- hyp_sysfs_kobj_type
-To: Juergen Gross <jgross@suse.com>
-Cc: Danilo Krummrich <dakr@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Kees Cook <kees@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
- "Rafael J . Wysocki" <rafael@kernel.org>,
- Madhavan Srinivasan <maddy@linux.ibm.com>, 
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
- Christophe Leroy <chleroy@kernel.org>, Nayna Jain <nayna@linux.ibm.com>, 
- Srish Srinivasan <ssrish@linux.ibm.com>, Mimi Zohar <zohar@linux.ibm.com>, 
- Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, 
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- Stefano Stabellini <sstabellini@kernel.org>, 
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Nathan Chancellor <nathan@kernel.org>, 
- Nick Desaulniers <ndesaulniers@google.com>,
- Viresh Kumar <viresh.kumar@linaro.org>, 
- Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>,
- Alexander Aring <aahringo@redhat.com>, 
- Felix Kuehling <felix.kuehling@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Zhihao Cheng <chengzhihao1@huawei.com>,
- Sumanth Korikkar <sumanthk@linux.ibm.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- driver-core@lists.linux.dev, 
- llvm@lists.linux.dev, linux-hardening@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-acpi@vger.kernel.org, linux-pm@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, linux-sh@vger.kernel.org, 
- linux-s390@vger.kernel.org, gfs2@lists.linux.dev, 
- xen-devel@lists.xenproject.org, linux-mtd@lists.infradead.org, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v10 10/22] drm/amdgpu: implement SVM initialization and
+ lifecycle
+From: Aveline Noir <jm5905938@gmail.com>
+Date: Tue, 10 Nov 2026 03:59:27 +1100
+Message-Id: <179424356769.208802.11801490347938606155.b4-reply@b4>
+To: Huang Rui <ray.huang@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ Alice Ryhl <aliceryhl@google.com>, amd-gfx@lists.freedesktop.org, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Danilo Krummrich <dakr@kernel.org>, dri-devel@lists.freedesktop.org, 
+ Felix Kuehling <felix.kuehling@amd.com>, Honglei Huang <honghuan@amd.com>, 
+ Honglei Huang <honglei1.huang@amd.com>, Jenny Liu <Jenny-Jing.Liu@amd.com>, 
+ Junhua Shen <Junhua.Shen@amd.com>, Zhu Lingshan <lingshan.zhu@amd.com>, 
+ Matthew Brost <matthew.brost@intel.com>, Oak Zeng <Oak.Zeng@amd.com>, 
+ Philip Yang <Philip.Yang@amd.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Xiaogang Chen <xiaogang.chen@amd.com>, Yiru Ma <yiru.ma@amd.com>
+In-Reply-To: <20261021025915.2433837-11-ray.huang@amd.com>
+References: <20261021025915.2433837-1-ray.huang@amd.com>
+ <20261021025915.2433837-11-ray.huang@amd.com>
+X-Mailer: b4 0.16.0
 X-Mailman-Approved-At: Tue, 10 Nov 2026 11:44:03 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -134,88 +99,29 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-23.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_IN_DEF_DKIM_WL autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Sun, Nov 8, 2026 at 10:56=E2=80=AFPM Juergen Gross <jgross@suse.com> wro=
-te:
->
-> On 08.11.26 23:39, Ian Rogers wrote:
-> > hypervisor_init() in drivers/base/hypervisor.c creates hypervisor_kobj
-> > with kobject_create_and_add() (which allocates a dynamic kobject using
-> > dynamic_kobj_ktype), and hypervisor_subsys_init() in
-> > drivers/xen/sys-hypervisor.c then overwrites hypervisor_kobj->ktype wit=
-h
-> > &hyp_sysfs_kobj_type, which had no .release callback.
-> >
-> > Add hyp_sysfs_release() calling kfree(kobj) to preserve the dynamic
-> > kobject release behavior.
-> >
-> > Fixes: cff7e81b3dd7 ("xen: add /sys/hypervisor support")
-> > Signed-off-by: Ian Rogers <irogers@google.com>
-> > ---
-> >   drivers/xen/sys-hypervisor.c | 6 ++++++
-> >   1 file changed, 6 insertions(+)
-> >
-> > diff --git a/drivers/xen/sys-hypervisor.c b/drivers/xen/sys-hypervisor.=
-c
-> > index 91923242a5ae..0e8a2cd69fd6 100644
-> > --- a/drivers/xen/sys-hypervisor.c
-> > +++ b/drivers/xen/sys-hypervisor.c
-> > @@ -659,7 +659,13 @@ static const struct sysfs_ops hyp_sysfs_ops =3D {
-> >       .store =3D hyp_sysfs_store,
-> >   };
-> >
-> > +static void hyp_sysfs_release(struct kobject *kobj)
-> > +{
-> > +     kfree(kobj);
-> > +}
-> > +
-> >   static const struct kobj_type hyp_sysfs_kobj_type =3D {
-> > +     .release =3D hyp_sysfs_release,
-> >       .sysfs_ops =3D &hyp_sysfs_ops,
-> >   };
-> >
->
-> Wouldn't it make sense to have a common function for just kfree(kobj)?
->
-> In your series there are 3 instances of .release just doing kfree(kobj).
->
-> In case this is not wanted or with using the suggested common .release
-> helper you can add my
->
-> Reviewed-by: Juergen Gross <jgross@suse.com>
+Hi Ray,
 
-Thanks Juergen!
+On Wed, 21 Oct 2026 10:58:49 +0800 Huang Rui wrote:
 
-lib/kobject.c already has a static dynamic_kobj_release() that does
-this (and there are ~15 other places in the tree open-coding a static
-kfree(kobj) release wrapper), so include/linux/kobject.h +
-lib/kobject.c would be the natural home if we exported one.
+> +	if (new_attrs->prefetch_loc != AMDGPU_SVM_LOCATION_UNDEFINED &&
+> +	    new_attrs->prefetch_loc != AMDGPU_SVM_LOCATION_SYSMEM)
+> +		trigger |= AMDGPU_SVM_ATTR_TRIGGER_PREFETCH;
 
-I kept them as local static functions here for two reasons:
+I'm not sure about excluding SYSMEM here... The proposed libhsakmt
+adaptation maps a CPU prefetch target to SYSMEM. If the pages are in
+VRAM and the update fully covers an existing mapped SVM range, nothing
+gets mapped or migrated eagerly. The GPU PTEs can be zapped, but the
+pages stay in VRAM even though SET_ATTR can return success.
 
-1. Patches 2/9, 3/9, and 6/9 carry Fixes: tags, and keeping the small
-   local callbacks avoids a dependency on a new driver-core export for
-   backports.
-2. Since kobjects are normally embedded in a larger struct and freed via
-   container_of(), I wasn't sure whether Greg and Danilo would view an
-   exported kfree(kobj) release helper (especially alongside
-   __must_init) as an invitation for misuse on embedded kobjects.
-
-Unless Greg or Danilo would like dynamic_kobj_release() (or similar)
-exported now, I'll plan to keep the local callbacks for this series
-and can send a follow-up cleanup for the tree-wide callers if
-driver-core maintainers think a shared helper makes sense.
+Is SYSMEM prefetch meant to move pages back to RAM, or only to set the
+attribute for a later CPU fault?
 
 Thanks,
-Ian
-
->
->
-> Juergen
+Aveline Noir
