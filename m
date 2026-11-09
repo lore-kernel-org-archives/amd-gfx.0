@@ -2,58 +2,78 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37461608360A
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Nov 2026 14:09:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5723606D820
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Nov 2026 14:09:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=F79Wccyn
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WjEBiJ2G
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D689010F351;
-	Mon,  9 Nov 2026 14:09:42 +0000 (UTC)
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C98FE10F266;
- Mon,  9 Nov 2026 12:46:11 +0000 (UTC)
-Received: from smtp102.mailbox.org (smtp102.mailbox.org
- [IPv6:2001:67c:2050:b231:465::102])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4jNTzh0plZz8sXC;
- Mon, 09 Nov 2026 13:46:08 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1794228368; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Jf9U5zrpXnbFDIZWPqGV/mQ8FsXDvGQkaTzi+dX+5UI=;
- b=F79Wccyn3Q/SoGOOEhWLafnX1m2xnOJ7nVUi21UUiwRi0/gkwbE99cew76S/pA7tHJdyD8
- IVQHPDvO5h4ABHQ36vMwItCjMGGBsWtsOCEIsblE4JaLGux6/w8B2JWlQCqDiCD/u1ReEL
- L8cX3qgBoyIhw39eWkdiLHPa1c+iJCdaVSp+JkHBiHa9l37sIXYYjDGT9yjkulm/bk/nd3
- tSkA2OgiCWWkhRfG6DPUNf9zzbwWv8QBRC6G9PuPNMbFgBWwJslASwIpzoHI5ky/dTVo0O
- YUkwhnXpmqtvW/U2dv8fzAkftBg3QetT5nGR1wcpSJy24Z+jL6FqtIVgqTewNQ==
-Message-ID: <e857e8e7edfe4c91aeda47478d6512a9d3ff5fe4.camel@mailbox.org>
-Subject: Re: [PATCH 5/7] drm/amdgpu: Rework the
- amdgpu_job_stop_all_jobs_on_sched() hack
-From: Philipp Stanner <phasta@mailbox.org>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- amd-gfx@lists.freedesktop.org, 	dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Christian =?ISO-8859-1?Q?K=F6nig?=	
- <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>, 
- Hawking Zhang <Hawking.Zhang@amd.com>, Matthew Brost
- <matthew.brost@intel.com>, Simona Vetter <simona@ffwll.ch>,  Danilo
- Krummrich	 <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>
-Date: Mon, 09 Nov 2026 13:46:04 +0100
-In-Reply-To: <20261106145702.61640-6-tvrtko.ursulin@igalia.com>
-References: <20261106145702.61640-1-tvrtko.ursulin@igalia.com>
- <20261106145702.61640-6-tvrtko.ursulin@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id E953610F348;
+	Mon,  9 Nov 2026 14:09:47 +0000 (UTC)
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 17DDA10E827
+ for <amd-gfx@lists.freedesktop.org>; Mon,  9 Nov 2026 07:57:18 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-4a35d5d4a20so6380615e9.2
+ for <amd-gfx@lists.freedesktop.org>; Sun, 08 Nov 2026 23:57:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1794211036; x=1794815836; darn=lists.freedesktop.org;
+ h=content-type:mime-version:cc:to:from:importance:subject:date
+ :savedfromemail:message-id:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=oSZtnQqmO91815YCl6w8B1jBmlR+NMPXcHdswCv7Md0=;
+ b=WjEBiJ2GB6oq2KmkWhP99b8yRXj2ZNyW9ITjF4Z/R0/786NlJ2NHFr7SM7W0Qi2SHy
+ ZOorG0qm9L9CvrQKCKzApS6Em4Yd15lT3B9bKqMps9MmdDBj3lH55HOodmuq4NN48+U7
+ KRN5xYjwQWCcvSqsqWQ9P8YCrCtJgydHq0ZS1xTTGP455Xkpfm8xAzI4icCGnRA8NFnn
+ 0xiOztgkpuLktQQ8AKwww7adJ4GsJKEd3VkgSt7CnHRB6or7KtWpNxr2pw+5Ob1obHgg
+ CaF014VZ9WSZxSGfLdMcOJF6ngB/ehUUBQtXvGwF4YA5W0mkVXZTneXZbQIWgb2RO9ZB
+ NemQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794211036; x=1794815836;
+ h=content-type:mime-version:cc:to:from:importance:subject:date
+ :savedfromemail:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=oSZtnQqmO91815YCl6w8B1jBmlR+NMPXcHdswCv7Md0=;
+ b=f5bcHwsDLQW/jjyiCOG5P3chLObpFTf2IMkSEVuO8WS/BGJLqyqhYH1Zjat1tIaakW
+ n6Af03OVHccbTKFxd0bIiHJOQtL/Y7aj1LR/pbTwknuZrig+RtG1qPRSZpQuXCJOPSiW
+ bTocoI7dnJ2W40U56UYX+XU54i2Lm8r8vdNMioKRg8i0SC+nwRU3IUhnBdXxp2Sn+Xkd
+ iFH65qNYFl/9TlM7wrjQQuJ17l/VMFGvBQLkVOof0DWCAO6cszIFn1AUd5mGIXeNEqfc
+ CLvqMwDb4n4v0OZehPYmg0JRfVCheEebQvjlktXqJrsYvSyd+8lcNyGkLfQC+XmZ0heU
+ twJA==
+X-Gm-Message-State: APuU4Z8gF2X6B8OSsrvvgBlxro1pz3+n8GUY/NqHn7u42Cj4c6FqkXQs
+ ENZy7mdHe3I5Zqy7B+qg1Fv+1bUg217NKQLTlA2vrCXuaAYXusdgl06sD++Mxpto
+X-Gm-Gg: AYBFou1Jbi3D8GajRfpPpvxcrtbRtrfJ4LyIExrWYIKpf7vPkDxyrjJpNzd4KPIQHGM
+ rVKm/336+6DHMepSk/4v3MxUqQ6vgOvv1fXMSjnIRqsXJpxYHDZ/DzuUB3yW54OSDt3U+MuK0iO
+ 9LIppFLKdJvF9UJBFrBahmLLjlWiIzPuN+ohRa11vvucFTQW/hoM42SCtPLhylY7WggzdUHLK2M
+ AAxIy1tBlPwzbwCzeIMSkSx9aEtX/5lfA2W9PGpg7r1aVPHjIP1MDbpAMiGIFWd2R/q2T2YzUwM
+ s2y3HPO5WVD5MvfB4WMKz7frjJpobdNWzCY8wG4dNj+VvjVmq2J70b7fagxspPbCOcmyKAf5NBD
+ W0vAlE2wJz7IIBpKyO2NXLmxBen3kzHQ8xZGOeUO2X/Gp7vfp3JesgSyFZ2Wt+EdTaRNWxMmGJA
+ g1QM1T8tPIuXkGaS3GRmOvWDdAQX8lFlqARInICDlfgh6xCD5177SLIAFeWvU1u49P3+hqk5ULP
+ DK8h/8ojT1dOGZHUN2dF4n6gL/ArtNLOV5gvq0i520AZPQ9/R8ehhlTr6LyYRQxdK47NIvQJTlZ
+ /2biNpcg3LAOJamn8hxL7V8HDzgJYlI0D0FN8laZCMHoEsKYq5xLxoKcdKNyVoCRGREfzyZSETn
+ nCCc=
+X-Received: by 2002:a05:600c:8b61:b0:4a1:f99e:f22d with SMTP id
+ 5b1f17b1804b1-4b963c664e5mr55374945e9.6.1794211036241; 
+ Sun, 08 Nov 2026 23:57:16 -0800 (PST)
+Received: from ?IPv6:2a00:1d36:5f19:6e00:ecb3:a0a0:381:92f5?
+ ([2a00:1d36:5f19:6e00:ecb3:a0a0:381:92f5])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4b7a0e1f298sm141274445e9.4.2026.11.08.23.57.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 08 Nov 2026 23:57:15 -0800 (PST)
+Message-ID: <6af17cdb.63afbf66.14af03.b907@mx.google.com>
+SavedFromEmail: atailhan2006@gmail.com
+Date: Mon, 09 Nov 2026 10:57:13 +0300
+Subject: [REGRESSION] amdgpu: Raven/Picasso MCLK stays at 1200 MHz after
+ Chromium exits
+Importance: normal
+From: =?UTF-8?Q?Ata_=C4=B0lhan_K=C3=B6kt=C3=BCrk?= <atailhan2006@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-ID: 3687b2b71c76b728946
-X-MBO-RS-META: aut6tot8nkuuden31dy3cn4e4o551kis
+Content-Type: multipart/alternative;
+ boundary="--_com.samsung.android.email_409555773741660"
 X-Mailman-Approved-At: Mon, 09 Nov 2026 14:09:35 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,92 +84,200 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=0.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri, 2026-11-06 at 14:57 +0000, Tvrtko Ursulin wrote:=C2=A0
-> -/*
-> - * This is a duplicate function from DRM scheduler sched_internal.h.
-> - * Plan is to remove it when amdgpu_job_stop_all_jobs_on_sched is remove=
-d, due
-> - * latter being incorrect and racy.
-> - *
-> - * See https://lore.kernel.org/amd-gfx/44edde63-7181-44fb-a4f7-94e50514f=
-539@amd.com/
-> - */
-> =C2=A0static struct drm_sched_job *
-> =C2=A0drm_sched_entity_queue_pop(struct drm_sched_entity *entity)
+----_com.samsung.android.email_409555773741660
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: base64
 
-Why remove that comment? A reader will still wonder why a drm_sched
-function is defined here.
+SGksT24gYSBQaWNhc3NvL1JhdmVuMiBsYXB0b3AsIE1DTEsgc3RheXMgcGlubmVkIGF0IGl0cyBo
+aWdoZXN0IGxldmVsKDEyMDAgTUh6KSBhZnRlciBhIENocm9taXVtLWJhc2VkIGJyb3dzZXIgKEJy
+YXZlKSBoYXMgdXNlZCB0aGUgR1BVIGFuZGJlZW4gY2xvc2VkLiBJIGNvdWxkIG5vdCBmaW5kIHdo
+ZXJlIHRoZSBzdGF0ZSBpcyBzZXQgb3IgcmVsZWFzZWQgZnJvbXRoZSBkcml2ZXIgc2lkZSwgc28g
+SSBhbSBhc2tpbmcgd2hldGhlciB0aGlzIGlzIGtub3duIGFuZCB3aGF0IGVsc2UgSXNob3VsZCBj
+b2xsZWN0LiBJIGhhdmUgdGhlIGtlcm5lbCB0cmVlIGFuZCBjYW4gdGVzdCBwYXRjaGVzLj09IFN5
+c3RlbSA9PUxhcHRvcDrCoCBIdWF3ZWkgTWF0ZUJvb2sgRDE0IChOQkxLLVdBWDlYKSwgUnl6ZW4g
+NSAzNTAwVSzCoMKgwqDCoMKgwqDCoMKgwqAgUGljYXNzby9SYXZlbjIgMTAwMjoxNWQ4IHJldiBj
+MkRpc3RybzrCoCBGZWRvcmEgNDQsIFN3YXkgMS4xMSBvbiBXYXlsYW5kS2VybmVsOsKgIDcuMi4x
+My0yMDAuZmM0NC54ODZfNjQgKEZlZG9yYSBrZXJuZWwsIG5vdCB0ZXN0ZWQgb24gZHJtLW5leHQp
+YW1kZ3B1IDMuNjQuMCwgRENOIDEuMCwgU01VMTAsIFZDTiAxLjAgKEVOQyAxLjE1IERFQyAzIFZF
+UCAwIFJldiA5KU1lc2EgMjYuMi41LCBsaWJ2YSAyLjIzLjBCb290OsKgwqDCoCBhbWRncHUubm9y
+ZXRyeT0wIGFtZGdwdS5wcGZlYXR1cmVtYXNrPTB4ZmZmZmZmZmYJIGFtZGdwdS5ncHVfcmVjb3Zl
+cnk9MSBhbWRncHUudmNuZndfbG9nPTEJIGFtZGdwdS5kY2RlYnVnbWFzaz0weDEwVXNlcnNwYWNl
+OiBubyBkYWVtb24gb3IgdG9vbCB3cml0ZXMgdG8gYW1kZ3B1IHN5c2ZzLj09IFN5bXB0b20gPT1J
+ZGxlOiBwcF9kcG1fbWNsayBzaG93cyAiMDogNjY3TWh6ICoiLkFmdGVyIFdlYkdMIChXZWJHTCBB
+cXVhcml1bSwgc29tZXRpbWVzIHRoaXMgZG9lc24ndCB0cmlnZ2VyPykgb3JWQS1BUEkgdmlkZW8g
+KFlvdVR1YmUsIFZQOSAxMDgwcCkgaW4gQnJhdmUsIGFuZCBjbG9zaW5nIHRoZSB0YWJvciB0aGUg
+d2hvbGUgYnJvd3NlciwgcHBfZHBtX21jbGsgc2hvd3MgIjM6IDEyMDBNaHogKiIgaW5kZWZpbml0
+ZWx5LHdpdGggR1BVIGxvYWQgMCUgYW5kIFNDTEsgYmFjayBhdCBpZGxlLiBhbWRncHVfcG1faW5m
+byByZXBvcnRzIlZDTjogUG93ZXJlZCBkb3duIi4gQmF0dGVyeSBkcmFpbiBpcyBhYm91dCA1IFcg
+aGlnaGVyLCAod2hpY2ggZm9ybXkgbWFjaGluZSBpdCBtYWtlcyBhYm91dCAxLjUgaG91ciBhdCBt
+eSBkYWlseSB1c2FnZSkuLSBQZXJzaXN0cyBhY3Jvc3MgdGFiIGNsb3NlLCBicm93c2VyIGtpbGwg
+LTksIGFsbCBmZHMgY2xvc2VkLCBWVCBzd2l0Y2guLSBwb3dlcl9kcG1fZm9yY2VfcGVyZm9ybWFu
+Y2VfbGV2ZWwgc3RheXMgImF1dG8iIGFuZMKgwqAgcHBfcG93ZXJfcHJvZmlsZV9tb2RlIHN0YXlz
+IEJPT1RVUF9ERUZBVUxUIHRocm91Z2hvdXQuLSBXaGlsZSBsYXRjaGVkLCB3cml0aW5nICJsb3ci
+IG9yIG1hbnVhbCBNQ0xLIGxldmVscyBkb2VzIG5vdCBtb3ZlIGl0LsKgwqAgQWZ0ZXIgaXQgaXMg
+Y2xlYXJlZCwgTUNMSyBmb2xsb3dzIGxvdy9tYW51YWwgcmVxdWVzdHMgbm9ybWFsbHkuLSBDbGVh
+cmVkIGJ5OiBhbWRncHVfZ3B1X3JlY292ZXIgKGRlYnVnZnMpLCBvciBieSBwbGF5aW5nIGEgdmlk
+ZW8gaW7CoMKgIEZpcmVmb3ggKE1DTEsgZ29lcyB0byA2NjcgTUh6IC1zb21ldGltZXMgOTMzIE1I
+ei0gZHVyaW5nIHBsYXliYWNrKS4tIEZpcmVmb3ggaXRzZWxmIGRvZXMgbm90IHRyaWdnZXIgaXQu
+PT0gV2hhdCB0cmlnZ2VycyBpdCA9PS0gV2ViR0wgYWxvbmUgaW4gQnJhdmUgbGF0Y2hlcyBpdCwg
+d2l0aCBWQ04gcG93ZXJlZCBkb3duIHRoZSB3aG9sZcKgwqAgdGltZS4gU28gdGhpcyBpcyBub3Qg
+c3BlY2lmaWMgdG8gYSBWQ04gZGVjb2RlIHRlYXJkb3duIHBhdGguwqDCoCBBIGNsZWFuIEJyYXZl
+IHdpdGhvdXQgY3VzdG9tIGZsYWdzIGJlaGF2ZXMgdGhlIHNhbWUuLSBWQS1BUEkgdmlkZW8gZGVj
+b2RlIGluIEJyYXZlIGxhdGNoZXMgaXQgd2l0aCBWYWFwaVZpZGVvRGVjb2RlcsKgwqAgY29uZmly
+bWVkIGFjdGl2ZSBpbiBtZWRpYS1pbnRlcm5hbHMsIGluIGVhY2ggb2YgdGhlc2UgdmFyaWFudHM6
+wqDCoCBkZWZhdWx0IGZsYWdzLCAtLXVzZS1hbmdsZT1nbCzCoMKgIC0tZGlzYWJsZS1mZWF0dXJl
+cz1Vc2VNdWx0aVBsYW5lRm9ybWF0Rm9ySGFyZHdhcmVWaWRlbyzCoMKgIC0tZGlzYWJsZS1mZWF0
+dXJlcz1WYWFwaUlnbm9yZURyaXZlckNoZWNrcywgZXZlbiBJIHJ1biB3aXRowqDCoCB0ZW1wIHVz
+ZXIgZGlyZWN0b3J5IHdpdGggbm8gZmxhZ3MsIFZBLUFQSSBkZWNvZGluZyByYW4gYW5kIHNhbWUg
+aXNzdWXCoMKgIGNvbnRpbnVlZC4tIG1wdiAtLWh3ZGVjPXZhYXBpIG9uIHRoZSBzYW1lIGZpbGU6
+IE1DTEsgaXMgOTMzIE1IeiBkdXJpbmcgcGxheWJhY2suPT0gS2VybmVsLXNpZGUgPT1JIGF0dGFj
+aGVkIGJwZnRyYWNlIGtwcm9iZXMgKHdpdGgga3N0YWNrKSB0byBzbXVtX3NlbmRfbXNnX3RvX3Nt
+YyBhbmRzbXVtX3NlbmRfbXNnX3RvX3NtY193aXRoX3BhcmFtZXRlciBhbmQgcmFuOiBCcmF2ZSBX
+ZWJHTCwgQnJhdmVZb3VUdWJlLCBjbG9zZSAobGF0Y2hlZCksIEZpcmVmb3ggV2ViR0wsIEZpcmVm
+b3ggdmlkZW8gKHJlbGVhc2VkKSx0aGVuIGFtZGdwdV9ncHVfcmVjb3Zlci4tIEJlZm9yZSB0aGUg
+bGF0Y2ggd2FzIGZpcnN0IG9ic2VydmVkOiAxNTIgU01VIG1lc3NhZ2VzLCBhbGwgZWl0aGVywqDC
+oCBHRlhPRkYgZW5hYmxlL2Rpc2FibGUgKHNtdTEwX2dmeF9vZmZfY29udHJvbCkgb3IgdHdvIFZD
+TiBwb3dlcsKgwqAgdXAvZG93biBwYWlycyAoc211MTBfcG93ZXJnYXRlX3ZjbikuIE5vIHNtdTEw
+X2RwbV9mb3JjZV9kcG1fbGV2ZWwswqDCoCBubyBoYXJkLW1pbiwgYWN0aXZlLWRpc3BsYXktY291
+bnQgb3IgZGVlcC1zbGVlcCBtZXNzYWdlcy4tIEJldHdlZW4gdGhlIGxhdGNoZWQgcmVhZCBhbmQg
+dGhlIHJlbGVhc2VkIHJlYWQgKEZpcmVmb3gpOiBhZ2FpbiBvbmx5wqDCoCBHRlhPRkYgdG9nZ2xl
+cyBhbmQgdHdvIGJhbGFuY2VkIFZDTiB1cC9kb3duIHBhaXJzLiBCcmF2ZSdzIHZpZGVvwqDCoCBz
+ZXNzaW9uIHByb2R1Y2VzIHRoZSBzYW1lIHR3byBwYWlycyBhbmQgZG9lcyBub3QgcmVsZWFzZS4t
+IEEga3Byb2JlIG9uIHJ2MV91cGRhdGVfY2xvY2tzIG5ldmVyIGZpcmVzIGR1cmluZyBhbnkgYnJv
+d3NlcsKgwqAgYWN0aXZpdHksIG9ubHkgZHVyaW5nIGdwdV9yZWNvdmVyLi0gRWFjaCByZWFkIG9m
+IHBwX2RwbV9zY2xrL3BwX2RwbV9tY2xrIGlzc3VlcyBhbiBTTVUgcXVlcnnCoMKgIChzbXUxMF9l
+bWl0X2Nsb2NrX2xldmVscyksIHNvIHRoZSByZXBvcnRlZCB2YWx1ZSBpcyBsaXZlLlNvIG5laXRo
+ZXIgc2V0dGluZyBub3IgcmVsZWFzaW5nIHRoZSBzdGF0ZSBpcyB2aXNpYmxlIG9uIHRoZSBTTVVt
+YWlsYm94IHRocm91Z2ggdGhlc2Ugd3JhcHBlcnMuIFRoaXMgd291bGQgbm90IHNob3cgZGlyZWN0
+IHJlZ2lzdGVyIG9ydGFibGUgd3JpdGVzLiBJIGNhbm5vdCB0ZWxsIHdoZXRoZXIgdGhlIHN0YXRl
+IGxpdmVzIGluIFNNVSBmaXJtd2FyZSxpbiB0aGUgZGlzcGxheS9kYXRhIGZhYnJpYyBwLXN0YXRl
+IGhhbmRzaGFrZSwgb3IgZWxzZXdoZXJlLj09IFF1ZXN0aW9ucyA9PTEuIElzIHRoaXMgYSBrbm93
+biBpc3N1ZSBvbiBSYXZlbi9QaWNhc3NvPzIuIE9uIFNNVTEwLCB3aGF0IG90aGVyIHBhdGggY2Fu
+IGhvbGQgRkNMSy9NQ0xLIGhpZ2ggdGhhdCBkb2VzIG5vdCBnb8KgwqDCoCB0aHJvdWdoIHRoZSBt
+YWlsYm94IChEQ04gaHViYnViIHdhdGVybWFya3MsIERGIHAtc3RhdGUsIGZpcm13YXJlwqDCoMKg
+IGludGVybmFsIHN0YXRlKT8zLiBXaGF0IHNob3VsZCBJIHRyYWNlIG5leHQ/IGFtZGdwdV9kbV9k
+dG5fbG9nIHJldHVybnMgRVBFUk0gaGVyZSBldmVuwqDCoMKgIGFzIHJvb3QgKHByb2JhYmx5IGxv
+Y2tkb3duKTsgSSBjYW4gYm9vdCB3aXRob3V0IFNlY3VyZSBCb290IGlmIHRoYXTCoMKgwqAgb3V0
+cHV0IHdvdWxkIGhlbHAuRnVsbCB0cmFjZSBsb2dzIGFuZCBicmF2ZTovL21lZGlhLWludGVybmFs
+cyBvdXRwdXQgYXJlIGF2YWlsYWJsZTsgSSBjYW5hdHRhY2ggdGhlbSBpZiBhc2tlZC5UaGFua3Ms
+QXRh
 
-> =C2=A0{
-> @@ -476,28 +469,66 @@ drm_sched_entity_queue_pop(struct drm_sched_entity =
-*entity)
-> =C2=A0	return container_of(node, struct drm_sched_job, queue_node);
-> =C2=A0}
-> =C2=A0
-> -void amdgpu_job_stop_all_jobs_on_sched(struct drm_gpu_scheduler *sched)
-> +static struct drm_sched_entity *
-> +get_entity_with_jobs(struct drm_gpu_scheduler *sched) __acquires(&entity=
-->lock)
+----_com.samsung.android.email_409555773741660
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: base64
 
-[=E2=80=A6]
+PGh0bWw+PGhlYWQ+PG1ldGEgaHR0cC1lcXVpdj0iQ29udGVudC1UeXBlIiBjb250ZW50PSJ0ZXh0
+L2h0bWw7IGNoYXJzZXQ9VVRGLTgiPjwvaGVhZD48Ym9keSBkaXI9ImF1dG8iPkhpLDxiciBkaXI9
+ImF1dG8iPjxiciBkaXI9ImF1dG8iPk9uIGEgUGljYXNzby9SYXZlbjIgbGFwdG9wLCBNQ0xLIHN0
+YXlzIHBpbm5lZCBhdCBpdHMgaGlnaGVzdCBsZXZlbDxiciBkaXI9ImF1dG8iPigxMjAwIE1Ieikg
+YWZ0ZXIgYSBDaHJvbWl1bS1iYXNlZCBicm93c2VyIChCcmF2ZSkgaGFzIHVzZWQgdGhlIEdQVSBh
+bmQ8YnIgZGlyPSJhdXRvIj5iZWVuIGNsb3NlZC4gSSBjb3VsZCBub3QgZmluZCB3aGVyZSB0aGUg
+c3RhdGUgaXMgc2V0IG9yIHJlbGVhc2VkIGZyb208YnIgZGlyPSJhdXRvIj50aGUgZHJpdmVyIHNp
+ZGUsIHNvIEkgYW0gYXNraW5nIHdoZXRoZXIgdGhpcyBpcyBrbm93biBhbmQgd2hhdCBlbHNlIEk8
+YnIgZGlyPSJhdXRvIj5zaG91bGQgY29sbGVjdC4gSSBoYXZlIHRoZSBrZXJuZWwgdHJlZSBhbmQg
+Y2FuIHRlc3QgcGF0Y2hlcy48YnIgZGlyPSJhdXRvIj48YnIgZGlyPSJhdXRvIj49PSBTeXN0ZW0g
+PT08YnIgZGlyPSJhdXRvIj48YnIgZGlyPSJhdXRvIj5MYXB0b3A6Jm5ic3A7IEh1YXdlaSBNYXRl
+Qm9vayBEMTQgKE5CTEstV0FYOVgpLCBSeXplbiA1IDM1MDBVLDxiciBkaXI9ImF1dG8iPiZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBQaWNhc3Nv
+L1JhdmVuMiAxMDAyOjE1ZDggcmV2IGMyPGJyIGRpcj0iYXV0byI+RGlzdHJvOiZuYnNwOyBGZWRv
+cmEgNDQsIFN3YXkgMS4xMSBvbiBXYXlsYW5kPGJyIGRpcj0iYXV0byI+S2VybmVsOiZuYnNwOyA3
+LjIuMTMtMjAwLmZjNDQueDg2XzY0IChGZWRvcmEga2VybmVsLCBub3QgdGVzdGVkIG9uIGRybS1u
+ZXh0KTxiciBkaXI9ImF1dG8iPmFtZGdwdSAzLjY0LjAsIERDTiAxLjAsIFNNVTEwLCBWQ04gMS4w
+IChFTkMgMS4xNSBERUMgMyBWRVAgMCBSZXYgOSk8YnIgZGlyPSJhdXRvIj5NZXNhIDI2LjIuNSwg
+bGlidmEgMi4yMy4wPGJyIGRpcj0iYXV0byI+Qm9vdDombmJzcDsmbmJzcDsmbmJzcDsgYW1kZ3B1
+Lm5vcmV0cnk9MCBhbWRncHUucHBmZWF0dXJlbWFzaz0weGZmZmZmZmZmPGJyIGRpcj0iYXV0byI+
+CSBhbWRncHUuZ3B1X3JlY292ZXJ5PTEgYW1kZ3B1LnZjbmZ3X2xvZz0xPGJyIGRpcj0iYXV0byI+
+CSBhbWRncHUuZGNkZWJ1Z21hc2s9MHgxMDxiciBkaXI9ImF1dG8iPlVzZXJzcGFjZTogbm8gZGFl
+bW9uIG9yIHRvb2wgd3JpdGVzIHRvIGFtZGdwdSBzeXNmcy48YnIgZGlyPSJhdXRvIj48YnIgZGly
+PSJhdXRvIj49PSBTeW1wdG9tID09PGJyIGRpcj0iYXV0byI+PGJyIGRpcj0iYXV0byI+SWRsZTog
+cHBfZHBtX21jbGsgc2hvd3MgIjA6IDY2N01oeiAqIi48YnIgZGlyPSJhdXRvIj48YnIgZGlyPSJh
+dXRvIj5BZnRlciBXZWJHTCAoV2ViR0wgQXF1YXJpdW0sIHNvbWV0aW1lcyB0aGlzIGRvZXNuJ3Qg
+dHJpZ2dlcj8pIG9yPGJyIGRpcj0iYXV0byI+VkEtQVBJIHZpZGVvIChZb3VUdWJlLCBWUDkgMTA4
+MHApIGluIEJyYXZlLCBhbmQgY2xvc2luZyB0aGUgdGFiPGJyIGRpcj0iYXV0byI+b3IgdGhlIHdo
+b2xlIGJyb3dzZXIsIHBwX2RwbV9tY2xrIHNob3dzICIzOiAxMjAwTWh6ICoiIGluZGVmaW5pdGVs
+eSw8YnIgZGlyPSJhdXRvIj53aXRoIEdQVSBsb2FkIDAlIGFuZCBTQ0xLIGJhY2sgYXQgaWRsZS4g
+YW1kZ3B1X3BtX2luZm8gcmVwb3J0czxiciBkaXI9ImF1dG8iPiJWQ046IFBvd2VyZWQgZG93biIu
+IEJhdHRlcnkgZHJhaW4gaXMgYWJvdXQgNSBXIGhpZ2hlciwgKHdoaWNoIGZvcjxiciBkaXI9ImF1
+dG8iPm15IG1hY2hpbmUgaXQgbWFrZXMgYWJvdXQgMS41IGhvdXIgYXQgbXkgZGFpbHkgdXNhZ2Up
+LjxiciBkaXI9ImF1dG8iPjxiciBkaXI9ImF1dG8iPi0gUGVyc2lzdHMgYWNyb3NzIHRhYiBjbG9z
+ZSwgYnJvd3NlciBraWxsIC05LCBhbGwgZmRzIGNsb3NlZCwgVlQgc3dpdGNoLjxiciBkaXI9ImF1
+dG8iPi0gcG93ZXJfZHBtX2ZvcmNlX3BlcmZvcm1hbmNlX2xldmVsIHN0YXlzICJhdXRvIiBhbmQ8
+YnIgZGlyPSJhdXRvIj4mbmJzcDsmbmJzcDsgcHBfcG93ZXJfcHJvZmlsZV9tb2RlIHN0YXlzIEJP
+T1RVUF9ERUZBVUxUIHRocm91Z2hvdXQuPGJyIGRpcj0iYXV0byI+LSBXaGlsZSBsYXRjaGVkLCB3
+cml0aW5nICJsb3ciIG9yIG1hbnVhbCBNQ0xLIGxldmVscyBkb2VzIG5vdCBtb3ZlIGl0LjxiciBk
+aXI9ImF1dG8iPiZuYnNwOyZuYnNwOyBBZnRlciBpdCBpcyBjbGVhcmVkLCBNQ0xLIGZvbGxvd3Mg
+bG93L21hbnVhbCByZXF1ZXN0cyBub3JtYWxseS48YnIgZGlyPSJhdXRvIj4tIENsZWFyZWQgYnk6
+IGFtZGdwdV9ncHVfcmVjb3ZlciAoZGVidWdmcyksIG9yIGJ5IHBsYXlpbmcgYSB2aWRlbyBpbjxi
+ciBkaXI9ImF1dG8iPiZuYnNwOyZuYnNwOyBGaXJlZm94IChNQ0xLIGdvZXMgdG8gNjY3IE1IeiAt
+c29tZXRpbWVzIDkzMyBNSHotIGR1cmluZyBwbGF5YmFjaykuPGJyIGRpcj0iYXV0byI+LSBGaXJl
+Zm94IGl0c2VsZiBkb2VzIG5vdCB0cmlnZ2VyIGl0LjxiciBkaXI9ImF1dG8iPjxiciBkaXI9ImF1
+dG8iPj09IFdoYXQgdHJpZ2dlcnMgaXQgPT08YnIgZGlyPSJhdXRvIj48YnIgZGlyPSJhdXRvIj4t
+IFdlYkdMIGFsb25lIGluIEJyYXZlIGxhdGNoZXMgaXQsIHdpdGggVkNOIHBvd2VyZWQgZG93biB0
+aGUgd2hvbGU8YnIgZGlyPSJhdXRvIj4mbmJzcDsmbmJzcDsgdGltZS4gU28gdGhpcyBpcyBub3Qg
+c3BlY2lmaWMgdG8gYSBWQ04gZGVjb2RlIHRlYXJkb3duIHBhdGguPGJyIGRpcj0iYXV0byI+Jm5i
+c3A7Jm5ic3A7IEEgY2xlYW4gQnJhdmUgd2l0aG91dCBjdXN0b20gZmxhZ3MgYmVoYXZlcyB0aGUg
+c2FtZS48YnIgZGlyPSJhdXRvIj4tIFZBLUFQSSB2aWRlbyBkZWNvZGUgaW4gQnJhdmUgbGF0Y2hl
+cyBpdCB3aXRoIFZhYXBpVmlkZW9EZWNvZGVyPGJyIGRpcj0iYXV0byI+Jm5ic3A7Jm5ic3A7IGNv
+bmZpcm1lZCBhY3RpdmUgaW4gbWVkaWEtaW50ZXJuYWxzLCBpbiBlYWNoIG9mIHRoZXNlIHZhcmlh
+bnRzOjxiciBkaXI9ImF1dG8iPiZuYnNwOyZuYnNwOyBkZWZhdWx0IGZsYWdzLCAtLXVzZS1hbmds
+ZT1nbCw8YnIgZGlyPSJhdXRvIj4mbmJzcDsmbmJzcDsgLS1kaXNhYmxlLWZlYXR1cmVzPVVzZU11
+bHRpUGxhbmVGb3JtYXRGb3JIYXJkd2FyZVZpZGVvLDxiciBkaXI9ImF1dG8iPiZuYnNwOyZuYnNw
+OyAtLWRpc2FibGUtZmVhdHVyZXM9VmFhcGlJZ25vcmVEcml2ZXJDaGVja3MsIGV2ZW4gSSBydW4g
+d2l0aDxiciBkaXI9ImF1dG8iPiZuYnNwOyZuYnNwOyB0ZW1wIHVzZXIgZGlyZWN0b3J5IHdpdGgg
+bm8gZmxhZ3MsIFZBLUFQSSBkZWNvZGluZyByYW4gYW5kIHNhbWUgaXNzdWU8YnIgZGlyPSJhdXRv
+Ij4mbmJzcDsmbmJzcDsgY29udGludWVkLjxiciBkaXI9ImF1dG8iPi0gbXB2IC0taHdkZWM9dmFh
+cGkgb24gdGhlIHNhbWUgZmlsZTogTUNMSyBpcyA5MzMgTUh6IGR1cmluZyBwbGF5YmFjay48YnIg
+ZGlyPSJhdXRvIj48YnIgZGlyPSJhdXRvIj49PSBLZXJuZWwtc2lkZSA9PTxiciBkaXI9ImF1dG8i
+PjxiciBkaXI9ImF1dG8iPkkgYXR0YWNoZWQgYnBmdHJhY2Uga3Byb2JlcyAod2l0aCBrc3RhY2sp
+IHRvIHNtdW1fc2VuZF9tc2dfdG9fc21jIGFuZDxiciBkaXI9ImF1dG8iPnNtdW1fc2VuZF9tc2df
+dG9fc21jX3dpdGhfcGFyYW1ldGVyIGFuZCByYW46IEJyYXZlIFdlYkdMLCBCcmF2ZTxiciBkaXI9
+ImF1dG8iPllvdVR1YmUsIGNsb3NlIChsYXRjaGVkKSwgRmlyZWZveCBXZWJHTCwgRmlyZWZveCB2
+aWRlbyAocmVsZWFzZWQpLDxiciBkaXI9ImF1dG8iPnRoZW4gYW1kZ3B1X2dwdV9yZWNvdmVyLjxi
+ciBkaXI9ImF1dG8iPjxiciBkaXI9ImF1dG8iPi0gQmVmb3JlIHRoZSBsYXRjaCB3YXMgZmlyc3Qg
+b2JzZXJ2ZWQ6IDE1MiBTTVUgbWVzc2FnZXMsIGFsbCBlaXRoZXI8YnIgZGlyPSJhdXRvIj4mbmJz
+cDsmbmJzcDsgR0ZYT0ZGIGVuYWJsZS9kaXNhYmxlIChzbXUxMF9nZnhfb2ZmX2NvbnRyb2wpIG9y
+IHR3byBWQ04gcG93ZXI8YnIgZGlyPSJhdXRvIj4mbmJzcDsmbmJzcDsgdXAvZG93biBwYWlycyAo
+c211MTBfcG93ZXJnYXRlX3ZjbikuIE5vIHNtdTEwX2RwbV9mb3JjZV9kcG1fbGV2ZWwsPGJyIGRp
+cj0iYXV0byI+Jm5ic3A7Jm5ic3A7IG5vIGhhcmQtbWluLCBhY3RpdmUtZGlzcGxheS1jb3VudCBv
+ciBkZWVwLXNsZWVwIG1lc3NhZ2VzLjxiciBkaXI9ImF1dG8iPi0gQmV0d2VlbiB0aGUgbGF0Y2hl
+ZCByZWFkIGFuZCB0aGUgcmVsZWFzZWQgcmVhZCAoRmlyZWZveCk6IGFnYWluIG9ubHk8YnIgZGly
+PSJhdXRvIj4mbmJzcDsmbmJzcDsgR0ZYT0ZGIHRvZ2dsZXMgYW5kIHR3byBiYWxhbmNlZCBWQ04g
+dXAvZG93biBwYWlycy4gQnJhdmUncyB2aWRlbzxiciBkaXI9ImF1dG8iPiZuYnNwOyZuYnNwOyBz
+ZXNzaW9uIHByb2R1Y2VzIHRoZSBzYW1lIHR3byBwYWlycyBhbmQgZG9lcyBub3QgcmVsZWFzZS48
+YnIgZGlyPSJhdXRvIj4tIEEga3Byb2JlIG9uIHJ2MV91cGRhdGVfY2xvY2tzIG5ldmVyIGZpcmVz
+IGR1cmluZyBhbnkgYnJvd3NlcjxiciBkaXI9ImF1dG8iPiZuYnNwOyZuYnNwOyBhY3Rpdml0eSwg
+b25seSBkdXJpbmcgZ3B1X3JlY292ZXIuPGJyIGRpcj0iYXV0byI+LSBFYWNoIHJlYWQgb2YgcHBf
+ZHBtX3NjbGsvcHBfZHBtX21jbGsgaXNzdWVzIGFuIFNNVSBxdWVyeTxiciBkaXI9ImF1dG8iPiZu
+YnNwOyZuYnNwOyAoc211MTBfZW1pdF9jbG9ja19sZXZlbHMpLCBzbyB0aGUgcmVwb3J0ZWQgdmFs
+dWUgaXMgbGl2ZS48YnIgZGlyPSJhdXRvIj48YnIgZGlyPSJhdXRvIj5TbyBuZWl0aGVyIHNldHRp
+bmcgbm9yIHJlbGVhc2luZyB0aGUgc3RhdGUgaXMgdmlzaWJsZSBvbiB0aGUgU01VPGJyIGRpcj0i
+YXV0byI+bWFpbGJveCB0aHJvdWdoIHRoZXNlIHdyYXBwZXJzLiBUaGlzIHdvdWxkIG5vdCBzaG93
+IGRpcmVjdCByZWdpc3RlciBvcjxiciBkaXI9ImF1dG8iPnRhYmxlIHdyaXRlcy4gSSBjYW5ub3Qg
+dGVsbCB3aGV0aGVyIHRoZSBzdGF0ZSBsaXZlcyBpbiBTTVUgZmlybXdhcmUsPGJyIGRpcj0iYXV0
+byI+aW4gdGhlIGRpc3BsYXkvZGF0YSBmYWJyaWMgcC1zdGF0ZSBoYW5kc2hha2UsIG9yIGVsc2V3
+aGVyZS48YnIgZGlyPSJhdXRvIj48YnIgZGlyPSJhdXRvIj49PSBRdWVzdGlvbnMgPT08YnIgZGly
+PSJhdXRvIj48YnIgZGlyPSJhdXRvIj4xLiBJcyB0aGlzIGEga25vd24gaXNzdWUgb24gUmF2ZW4v
+UGljYXNzbz88YnIgZGlyPSJhdXRvIj4yLiBPbiBTTVUxMCwgd2hhdCBvdGhlciBwYXRoIGNhbiBo
+b2xkIEZDTEsvTUNMSyBoaWdoIHRoYXQgZG9lcyBub3QgZ288YnIgZGlyPSJhdXRvIj4mbmJzcDsm
+bmJzcDsmbmJzcDsgdGhyb3VnaCB0aGUgbWFpbGJveCAoRENOIGh1YmJ1YiB3YXRlcm1hcmtzLCBE
+RiBwLXN0YXRlLCBmaXJtd2FyZTxiciBkaXI9ImF1dG8iPiZuYnNwOyZuYnNwOyZuYnNwOyBpbnRl
+cm5hbCBzdGF0ZSk/PGJyIGRpcj0iYXV0byI+My4gV2hhdCBzaG91bGQgSSB0cmFjZSBuZXh0PyBh
+bWRncHVfZG1fZHRuX2xvZyByZXR1cm5zIEVQRVJNIGhlcmUgZXZlbjxiciBkaXI9ImF1dG8iPiZu
+YnNwOyZuYnNwOyZuYnNwOyBhcyByb290IChwcm9iYWJseSBsb2NrZG93bik7IEkgY2FuIGJvb3Qg
+d2l0aG91dCBTZWN1cmUgQm9vdCBpZiB0aGF0PGJyIGRpcj0iYXV0byI+Jm5ic3A7Jm5ic3A7Jm5i
+c3A7IG91dHB1dCB3b3VsZCBoZWxwLjxiciBkaXI9ImF1dG8iPjxiciBkaXI9ImF1dG8iPkZ1bGwg
+dHJhY2UgbG9ncyBhbmQgYnJhdmU6Ly9tZWRpYS1pbnRlcm5hbHMgb3V0cHV0IGFyZSBhdmFpbGFi
+bGU7IEkgY2FuPGJyIGRpcj0iYXV0byI+YXR0YWNoIHRoZW0gaWYgYXNrZWQuPGJyIGRpcj0iYXV0
+byI+PGJyIGRpcj0iYXV0byI+VGhhbmtzLDxiciBkaXI9ImF1dG8iPkF0YTxiciBkaXI9ImF1dG8i
+PjwvYm9keT48L2h0bWw+
 
-> +retry:
-> =C2=A0	for (i =3D DRM_SCHED_PRIORITY_KERNEL; i < sched->num_rqs; i++) {
-> =C2=A0		struct drm_sched_rq *rq =3D sched->sched_rq[i];
-> +
-> =C2=A0		spin_lock(&rq->lock);
-> -		list_for_each_entry(s_entity, &rq->entities, list) {
-> -			while ((s_job =3D drm_sched_entity_queue_pop(s_entity))) {
-> -				struct drm_sched_fence *s_fence =3D s_job->s_fence;
-> +		list_for_each_entry(entity, &rq->entities, list) {
-> +			/*
-> +			 * This can false negative, but so could the previous
-> +			 * approach of scanning the run-queues once when
-> +			 * nothing prevents userspace to queue more jobs.
-> +			 */
-> +			if (!spsc_queue_count(&entity->job_queue))
-> +				continue;
-> =C2=A0
-> -				dma_fence_signal(&s_fence->scheduled);
-> -				dma_fence_set_error(&s_fence->finished, -EHWPOISON);
-> -				dma_fence_signal(&s_fence->finished);
-> +			/*
-> +			 * We must trylock because normal locking order is
-> +			 * entity then rq and here we already have rq locked
-> +			 * in order to be able to walk the entities.
-> +			 */
-> +			if (spin_trylock(&entity->lock)) {
-> +				/* Returns with a locked entity. */
-> +				spin_unlock(&rq->lock);
-> +				return entity;
+----_com.samsung.android.email_409555773741660--
 
-Ah, now I understand.
-
-Hmm. I guess considering the circumstances we're in that's the best-ish
-option we have?
-
-I hope the AMD folks can't see technical blockers.
-
-> +			} else {
-> +				/*
-> +				 * Busy entity - we will try again looking for a
-> +				 * window where trylock will succeed.
-> +				 */
-> +				spin_unlock(&rq->lock);
-> +				goto retry;
-
-In classic anti-deadlock strategies, wouldn't you want some random
-delay here to avoid cycling?
-
-
-
-P.
