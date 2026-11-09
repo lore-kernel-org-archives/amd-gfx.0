@@ -2,76 +2,93 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41DC1606A33E
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Nov 2026 11:44:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DC9B606A331
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Nov 2026 11:44:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cloudlinux.com header.i=@cloudlinux.com header.a=rsa-sha256 header.s=google header.b=VXYWJ++t
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v0HmoPaT
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7CCD10F130;
-	Tue, 10 Nov 2026 11:44:04 +0000 (UTC)
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0CD4910E168
- for <amd-gfx@lists.freedesktop.org>; Mon,  9 Nov 2026 15:52:22 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-4afe2d546f9so15192555e9.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 09 Nov 2026 07:52:21 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CF6D10F0CC;
+	Tue, 10 Nov 2026 11:44:05 +0000 (UTC)
+Received: from mail-pf1-f193.google.com (mail-pf1-f193.google.com
+ [209.85.210.193])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E0B7010F446
+ for <amd-gfx@lists.freedesktop.org>; Mon,  9 Nov 2026 16:55:41 +0000 (UTC)
+Received: by mail-pf1-f193.google.com with SMTP id
+ d2e1a72fcca58-8b5efadd183so487184b3a.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 09 Nov 2026 08:55:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cloudlinux.com; s=google; t=1794239540; x=1794844340;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=y58qGbx1bt3ohAjkcIc78J8UW3dBJ8T2wsogW/UvgDY=;
- b=VXYWJ++tfX4w0m1lNCAeAdbFuSL/on35UBRSOXlLT5y24WIuVI4yTPf3eEUqAp9410
- q0pH5D370P6B/w/veSw/NXSiTd1DxkPQrq+My6XVGFIlnrwapZ3WIA2DlWqJVGkxC5Uk
- vIgnZhxVBab07nWaR2KKYsgzGba6kCd4F56DnDeX5pTQHbaNTpIy0ExfpnM5W5u+IKXx
- mAahvMKXk/k9Bp4TOPueRBKzlHmQsT13zFCaYHhP/SMr78NQzkY+wnBB6GHHPQvPvmJG
- mRQi4i2o79K/hePwNGnNyPjCO6wDwb5/sS9qYjpymt8t4WjVq74BrFGaAG/2dCt3TWSg
- lXPg==
+ d=gmail.com; s=20260707; t=1794243341; x=1794848141; darn=lists.freedesktop.org;
+ h=references:in-reply-to:cc:to:message-id:date:from:subject
+ :content-transfer-encoding:content-type:mime-version:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=mhYIqd6kntPK5D0yp8ryiSLq5VGJ1a18DOD+oetciCw=;
+ b=v0HmoPaTVCpDVyMZmcuwaPWGNx9bhm5VPPYcjAOI40Nu8RuGPUtOWUfIPf+H3AFfiB
+ etVrbS+Y1cI4Y8tbQg/YBxKpJYXUfzSfa1S8uQzhuj2lRxFbPJu8DyrFKUty4QImAeG/
+ S0YnZ1fbw/P4bMeAPk2AIdxign6JAS7hUpxDwecLOQrN1nnPbM0E1mzkwiokUToypWwf
+ 6qhJzzm+UdnHPPV3BFD0pEJs51KaYaGL3weHQ+3XkQ+zaY1sF8CCohxrHT1Ao6+MolwQ
+ k1dviX7BI3ZWEuQyBv78zZmLaGCkNOy/oSpER8lNLC/754N+HzgKYsF/AwTfVpjZc/36
+ JzuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794239540; x=1794844340;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=y58qGbx1bt3ohAjkcIc78J8UW3dBJ8T2wsogW/UvgDY=;
- b=DBwJp54pwN/56gMAeA+P639N/uYhoiZd3c/IqQydIjmPPaSi0NGPLYvuOZNOlInwJ6
- vPNPPkcC9rqYImp1Z2BbXxGgSVggPXqJxU5SBPCfb+hZvKwMBhw/qAS51uFmsfYjGiZv
- LRRjhh8ke7iwo6QzTACY7oaueST9//k+Fuw2AjKiWlbtwyZPnDQLpPPFameB9knAM88b
- Gur6xkJtOkERHw2oOPiwZauaNUfqEh6FCCcLdbX6pOkrpOgHYYTQ9EeQJULF/laqXEvr
- maaSmURFMRkOJhdwVwgQAcHPqqqf1B3I/lh5qN3NMM9eFxwa7kR9Gtg89fKNJeqC8Imx
- Y1lQ==
-X-Gm-Message-State: APuU4Z+kDhoTV3stKTY/0Wc2+QWb6KUEKl/07rAbVMrchWi/cqrkBp3a
- w3K5SGt6YZoGbqq/weINni4xP164/nJ7rZvNa+24aaFYTuLvaFVDS/y2FMZDJEA3WNY=
-X-Gm-Gg: AYBFou1jkCQn8H7KhyVxyAG2VljHDQFF7R7hqCn1rNUQRIYO1xPXtbiJ2mmcZHCENwO
- zHmmwGbiTGtrnJIhZyMFGvNiTJyuA270Ct0YyzryZ3TwDqBTziJOxvFZlPgrfSLHu6O0Yn3D7kv
- ThwHXh2M6puvN+dgptN0LNyDThn9AvdtBM5Z+FkDjNoDREXCvc9zjOk/18j6p2eB1GQgNkqJcpB
- 86A6pcUYcCzC1kOeotvqrUL9dy0YsYsNVFt0hsIoBaBxKuyBCBNg1a6j/5D5U0gvYs7lSIZ5RPa
- wJOQ5hLaNaKH3zJelltOa7O8B9/kqG+sa4J0xnOSVCL2TjytTIF5iSoxb/HUQfSfS5QecDwfBJD
- /LBneeQT8O0w7jc9K0H+F8icyGRNAXdvBQGNmrv7x3v5w29f90IyNo3K4pKPgZpyuiaY6tvMeKW
- 3eAmzZWpjzDBpwanUqT24FymGh+uLu2YryO9ex06ShMb3UeElhQyzym3WMleELAdjAz+D99+7YC
- j5IQ9IPrCfn0oMS1om3cmbnhNk4vDgF8P9uvh8RxTrblzWqPF4LfOVjOHLe2L4ZHGflYo5geoR1
- Q5wi0Ok1GsyxBvQUQ6eNCNif
-X-Received: by 2002:a05:600c:4eca:b0:4a2:5267:3cd4 with SMTP id
- 5b1f17b1804b1-4b94d762f4dmr78506415e9.3.1794239540400; 
- Mon, 09 Nov 2026 07:52:20 -0800 (PST)
-Received: from dev1.kernelcare.com ([2a01:4f8:172:1c85::2])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4b9f93c04afsm91196685e9.3.2026.11.09.07.52.19
+ d=1e100.net; s=20260707; t=1794243341; x=1794848141;
+ h=references:in-reply-to:cc:to:message-id:date:from:subject
+ :content-transfer-encoding:content-type:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=mhYIqd6kntPK5D0yp8ryiSLq5VGJ1a18DOD+oetciCw=;
+ b=OAmdK+IgBK7wSaFuXMCcurUpRYO11FDl7l3oEi1hmPJSfOIqE+A+XRKKZ8uumEQyHl
+ 6SIWAB6C9m9hKngx9HKGsIaBROjNrXavAq1VFVITdVoC2aA/Y6ASuXCdXqsAaMiXnYqb
+ DJHTfV9QFp85oY1nRmHowijdIhHbSYNRLcFzW3A603HDMeVhkkJ9QnR1EPGYcLW49/1k
+ itUIUEv+roU8X/PYvgkFvmMN4EtWU3fNfqXuEe2+AjKgNvb3UqzvaO/M3ULDzsQPM+6F
+ 2jAaQRHRGxF60NxGN5leT93JOqV6zByaS7xMDkn9kvVkczuqApb6aZqxHOjHY3QgMOmi
+ nPYQ==
+X-Forwarded-Encrypted: i=1;
+ AL+hErFr12ByW/VUhfQeAx4slDXiU7G1cD2SuLCw+oA5G6Ppw30hwYm6JMJr2ENRSgsjHfDrIN/FXVAF@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+e9PgIi4mWyY8hCs0MS+Va0UEhZqpcSyuCjASMcs4P8KodYQu5
+ 6OYJ/jvStXLWiMeQmuicFm9fSJEnhr5YZY+HqA5RN2zOnOdv8jX6wTCz
+X-Gm-Gg: AYBFou2d+sRGZvpYFNY0aqvS3RQxR69WyRBCMoJSQ4qS0azUJAbMdrzQeuCnC6DG66v
+ ZGkFXYMR5IWSJ0mTNBtSNvOzVNpvGfsayUL+qxHRh+gkQn96VlRabl06GqbXQgDs8IuZlBLSaMb
+ mqsujrek7r5IoFS/4Tsh+Xz9ThtKM4L/fTnGJSXI9wAjk8MBC/hmnl6jPp0dx82w/FjMIpXZAxO
+ W3YeaIbSX3FUn/kQ8f6ftYAVOkf8dVYijAE5wgaQ3wZvRhW/vmjO0SUHjRIrvs2DNinsVGDzJZy
+ hAdhSfg6FeNW7+Kv7b7M4ER5naYKBb0D5aX4rP4s6Duo9dJfp5mGJXNuQoOIT8KJYgMrfzyTFjQ
+ I5Whp3WLcprWjAgCKVR1TRvm8LZ9116i25ssTvJ9es8gy4Ts+0nBYPqkZrFU7vjdGwOtQgck3F0
+ KlHx7yBlInRMgcoPFxnZMpNlgkO055599TcYUrN008c4cDCUSLNItnp0ikb2dJlZYwm8bFGl5QN
+ YypRXGzoNN3sZ4nzy5umrc3cIOcI4iClo4cy6s5iqdnyA2XkeojHFJD5u18Jb0OBoO3Bhz0m3B3
+ R5RdAUMaR70HOTO7O94fGyAgm/MIjqnu4zE+g+QHqyESXOYWX72UUUjv3xCBD2VYmoTzpkOnumr
+ 3BLn4ndivT5Ae/IltLN5w76KS/KIqNMvY
+X-Received: by 2002:a05:6a00:1402:b0:8b9:a5ee:cf05 with SMTP id
+ d2e1a72fcca58-8ba97ab7f9cmr1152b3a.17.1794243341050; 
+ Mon, 09 Nov 2026 08:55:41 -0800 (PST)
+Received: from [100.64.227.9] (n106-71-19-159.sun21.vic.optusnet.com.au.
+ [106.71.19.159]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-8b648e54ddesm1624865b3a.10.2026.11.09.08.55.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Nov 2026 07:52:19 -0800 (PST)
-From: Andrey Misiurov <amisiurov@cloudlinux.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH] drm/radeon: Bound GPIO I2C table entry count from VBIOS
-Date: Mon,  9 Nov 2026 16:52:15 +0100
-Message-ID: <20261109155215.3946844-1-amisiurov@cloudlinux.com>
-X-Mailer: git-send-email 2.43.7
+ Mon, 09 Nov 2026 08:55:40 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v10 03/22] drm/amdgpu: implement SVM attribute tree and
+ helper functions
+From: Aveline Noir <jm5905938@gmail.com>
+Date: Tue, 10 Nov 2026 03:54:43 +1100
+Message-Id: <179424328378.201169.1999994927528686770.b4-reply@b4>
+To: =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ Alice Ryhl <aliceryhl@google.com>, amd-gfx@lists.freedesktop.org, 
+ Danilo Krummrich <dakr@kernel.org>, dri-devel@lists.freedesktop.org, 
+ Felix Kuehling <felix.kuehling@amd.com>, Honglei Huang <honghuan@amd.com>, 
+ Honglei Huang <honglei1.huang@amd.com>, Jenny Liu <Jenny-Jing.Liu@amd.com>, 
+ Junhua Shen <Junhua.Shen@amd.com>, Zhu Lingshan <lingshan.zhu@amd.com>, 
+ Matthew Brost <matthew.brost@intel.com>, Oak Zeng <Oak.Zeng@amd.com>, 
+ Philip Yang <Philip.Yang@amd.com>, Huang Rui <ray.huang@amd.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Simona Vetter <simona@ffwll.ch>, 
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Xiaogang Chen <xiaogang.chen@amd.com>, Yiru Ma <yiru.ma@amd.com>
+In-Reply-To: <d6275052-1715-4066-9291-4f4cce9c017a@amd.com>
+References: <20261021025915.2433837-1-ray.huang@amd.com>
+ <20261021025915.2433837-4-ray.huang@amd.com>
+ <d6275052-1715-4066-9291-4f4cce9c017a@amd.com>
+X-Mailer: b4 0.16.0
 X-Mailman-Approved-At: Tue, 10 Nov 2026 11:44:03 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,83 +100,32 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-radeon_atombios_i2c_init() derives the number of GPIO I2C entries from
-the size field of the VBIOS GPIO_I2C_Info table and stores a bus for
-every valid entry in rdev->i2c_bus[i], which has RADEON_MAX_I2C_BUS
-(16) slots.  A table that claims more than 16 entries makes it write
-past the end of the array into the rest of struct radeon_device.  A
-size smaller than the common header wraps the subtraction and the loop
-walks far past the table.  radeon_lookup_i2c_gpio() uses the same
-calculation.
+Hi Christian,
 
-Reject undersized tables and cap the entry count at
-RADEON_MAX_I2C_BUS.
+On Mon, 09 Nov 2026 13:41:48 +0100 Christian König wrote:
 
-Fixes: f376b94fbc0a ("drm/radeon/kms: unify i2c handling")
-Cc: stable@vger.kernel.org
-Signed-off-by: Andrey Misiurov <amisiurov@cloudlinux.com>
----
-Found by code inspection.  Not reproduced at runtime; it needs a VBIOS
-with a malformed GPIO_I2C_Info table.
+> I think this whole block of functions can be static, but not 100% sure.
+>
+> If they are used outside of this C file please add kerneldoc for them.
 
- drivers/gpu/drm/radeon/radeon_atombios.c | 22 ++++++++++++++++++----
- 1 file changed, 18 insertions(+), 4 deletions(-)
+Several of them are used by other SVM files, so maybe those can't be static.
+amdgpu_svm_attr_find_locked() seems to be the exception, since I only
+see it used in this file. And yes, they should have kerneldoc, ideally
+with the locking requirements.
 
-diff --git a/drivers/gpu/drm/radeon/radeon_atombios.c b/drivers/gpu/drm/radeon/radeon_atombios.c
-index 3dd9724..c4e1272 100644
---- a/drivers/gpu/drm/radeon/radeon_atombios.c
-+++ b/drivers/gpu/drm/radeon/radeon_atombios.c
-@@ -125,6 +125,22 @@ static struct radeon_i2c_bus_rec radeon_get_bus_rec_for_i2c_gpio(ATOM_GPIO_I2C_A
- 	return i2c;
- }
- 
-+/*
-+ * The VBIOS table size is not checked against the image; cap the
-+ * entry count to RADEON_MAX_I2C_BUS, the size of rdev->i2c_bus[].
-+ */
-+static int radeon_atombios_gpio_i2c_num_entries(uint16_t size)
-+{
-+	u32 bytes;
-+
-+	if (size < sizeof(ATOM_COMMON_TABLE_HEADER))
-+		return 0;
-+
-+	bytes = size - sizeof(ATOM_COMMON_TABLE_HEADER);
-+	return min_t(u32, bytes / sizeof(ATOM_GPIO_I2C_ASSIGMENT),
-+		     RADEON_MAX_I2C_BUS);
-+}
-+
- static struct radeon_i2c_bus_rec radeon_lookup_i2c_gpio(struct radeon_device *rdev,
- 							       uint8_t id)
- {
-@@ -142,8 +158,7 @@ static struct radeon_i2c_bus_rec radeon_lookup_i2c_gpio(struct radeon_device *rd
- 	if (atom_parse_data_header(ctx, index, &size, NULL, NULL, &data_offset)) {
- 		i2c_info = (struct _ATOM_GPIO_I2C_INFO *)(ctx->bios + data_offset);
- 
--		num_indices = (size - sizeof(ATOM_COMMON_TABLE_HEADER)) /
--			sizeof(ATOM_GPIO_I2C_ASSIGMENT);
-+		num_indices = radeon_atombios_gpio_i2c_num_entries(size);
- 
- 		gpio = &i2c_info->asGPIO_Info[0];
- 		for (i = 0; i < num_indices; i++) {
-@@ -176,8 +191,7 @@ void radeon_atombios_i2c_init(struct radeon_device *rdev)
- 	if (atom_parse_data_header(ctx, index, &size, NULL, NULL, &data_offset)) {
- 		i2c_info = (struct _ATOM_GPIO_I2C_INFO *)(ctx->bios + data_offset);
- 
--		num_indices = (size - sizeof(ATOM_COMMON_TABLE_HEADER)) /
--			sizeof(ATOM_GPIO_I2C_ASSIGMENT);
-+		num_indices = radeon_atombios_gpio_i2c_num_entries(size);
- 
- 		gpio = &i2c_info->asGPIO_Info[0];
- 		for (i = 0; i < num_indices; i++) {
--- 
-2.43.7
+> Writing that I added Aveline on CC, it would be really cool if you
+> could take a look as well.
 
+Thanks for adding :) I have some comments on 08/22, 10/22 and 11/22
+and will reply on those patches. Sadly I don't have a setup to test
+this on a GPU, so any testing would be very welcome :)
+
+Thanks,
+Aveline Noir
