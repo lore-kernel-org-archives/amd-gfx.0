@@ -2,61 +2,74 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 687A8606A338
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D20AF606A338
 	for <amd-gfx@archiver.kernel.org>; Tue, 10 Nov 2026 11:44:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=zohomail.in header.i=@zohomail.in header.a=rsa-sha256 header.s=zoho header.b=Rwtmn6Ow
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MuNWd4Ej
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC70610F210;
-	Tue, 10 Nov 2026 11:44:08 +0000 (UTC)
-X-Greylist: delayed 909 seconds by postgrey-1.36 at gabe;
- Mon, 09 Nov 2026 20:30:59 UTC
-Received: from sender-pp-o91.zoho.in (sender-pp-o91.zoho.in [103.117.158.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C35E410E8C3;
- Mon,  9 Nov 2026 20:30:59 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1794255338; cv=none; d=zohomail.in; s=zohoarc; 
- b=erZCLL66+1fQWRpIBiKg7j2TY+gkw0XD9MSe3JsdLfzxr3QrarZlJxkbEExc7Gx4NHRhYJ8tvkucNf1feY22oo+QhL/WuTc8AZF1U+dizXT6YdrccE6nAy/44tt1B5YOiDp+apVnJg2tvzQ6p7mWj0ow3sW7O8YoHS0E1v8LMLA=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.in;
- s=zohoarc; t=1794255338;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=NiNGA3mEEis6nXV+E7BAIEjBtF0Ivfk/UEX6Eg2U/Zo=; 
- b=MNLBKj+29IHllT8rF0ru1Yj3gzXURUaFibyJCUEZ8dXEBORGGIL95Y7GYvlcLqKKeNIse7Yky7gp0Mxsyi0C6yFOAnZmXSsuhrI3a4FNTmdu+Ki77XMAKYTadLLYYOmkK706CTjcC7rWYcjjVyW/lqSlBnQDHZ8gmQazjHEr/Dk=
-ARC-Authentication-Results: i=1; mx.zohomail.in;
- dkim=pass  header.i=zohomail.in;
- spf=pass  smtp.mailfrom=shivamkalra98@zohomail.in;
- dmarc=pass header.from=<shivamkalra98@zohomail.in>
-DKIM-Signature: a=rsa-sha256;
- b=Rwtmn6OwsUENniwoHLto46EAP445ByULk+e8+bpaVkbyd6d6LRJvz8Xc5ZJcoNHc5PoqZuJj/ZOVP9BWtinIgWs5Afr2JeVUvDSJGW/r0/YOMCiEgv46MBQa1sefpkaXaUJg63rwLtyUqSVnpYOCHotLVmvjxI9HpcLlRNEJ/u4=;
- c=relaxed/relaxed; s=zoho; d=zohomail.in; v=1;
- bh=NiNGA3mEEis6nXV+E7BAIEjBtF0Ivfk/UEX6Eg2U/Zo=;
- h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zoho.in with SMTPS id 1794255336648577.8557176644065;
- Tue, 10 Nov 2026 01:45:36 +0530 (IST)
-Message-ID: <2caf9f85-8d5d-482a-8479-dd682cbf96fa@zohomail.in>
-Date: Tue, 10 Nov 2026 01:45:35 +0530
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4044210F241;
+	Tue, 10 Nov 2026 11:44:09 +0000 (UTC)
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com
+ [74.125.82.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE48710E2B5
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 Nov 2026 01:13:43 +0000 (UTC)
+Received: by mail-dy1-f177.google.com with SMTP id
+ 5a478bee46e88-36a315ed211so1736311eec.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 09 Nov 2026 17:13:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1794273223; x=1794878023; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Asvo/JWf9IudVRqIRZvrwZdNjM8xuitU/qHAWd3ZeV4=;
+ b=MuNWd4EjBAy2UaTZZEJTAMkd/pS8Ka2Zpqfg9VMO4a1vLd57FfGF5lWVnmXYkoo6cP
+ 7y675s5Vbc4NIrO2w2ynMvYVq1rTEdAkcoAtRssEDsW1Q40E531sxNxHkmu1wzLzVsCv
+ BafxnXKAC/ZTPwPHYxzVGRyapsFhbvI/q01c71JayPUpIP/k+EicoT8Ri4otkj601H8D
+ R8PtFvUUhscx5k3N2sUJ1sz9qA99I4yGHv44JxXtDnpot0ASiUqdG/k76AHVetM4srwQ
+ WR0+J7kVI6P1PP8E563lxoYNxR61BCtjXdjQ4w4qCgTi3miC5KBrXFiIydz+OpVEj91M
+ Tsqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794273223; x=1794878023;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Asvo/JWf9IudVRqIRZvrwZdNjM8xuitU/qHAWd3ZeV4=;
+ b=iwMAJnk/gpreKp6+gZymc2OSf8YBoZAnhx9X7Utr5hsj+Pj1U72QyusI6LLQdvGPrg
+ /2jso44cwLwqrjZ+TBcSipj65WYmH2dvAV2XPMXydJ4dV3QHQIFIaxDcXwBcucZO1O+e
+ jOYHCXG+1tXexwgDv4ZG4XIvlktwdwvsh18qfs3MqitjdmGcH8H86cBh2mkNNFLUMnvU
+ T/542zG/r7/rM2oldpjueZ+3/6zXcB3c81T9u6tqsuUg0zQ+ahMpVnn1CPJ6se9mgSxT
+ 3zq6NLWsjlYfbTbmLdbJZHohOUfmbwmG+AjJaIHPHl3mwBQDo+RXBa0I1oXxKqlh8Xsp
+ rPcw==
+X-Gm-Message-State: APuU4Z9Bqxx878oC/NY28/OlfyN9SKQdog8o7XhZAdVr8IU6NY1KekPU
+ 4saKTICaFKuMSRQ25v6gdhnk7+iwsn++QS3kDxwiLjjfRCYXIWFas63ye39nea0u
+X-Gm-Gg: AYBFou2eGSSTvoJA3WA6Rb+SQ+7EIaNKmDxjDJqgEhRF43Bm/J2WsYEtV19MDScNT/g
+ ZYFtUL4jQ/9EUboyXh0ul9CLzHburboMWBRE5ouq1YeYwHyp2eLhKig9SUqqUDJ/Lck33z3/YXt
+ 8eXsh8vk/sBr+qpVtO8GX2W0VpW86emwEoe5uVjwdjm/pYAZw8wIzitIPbf2uky6ruXIinozv94
+ qzAy+lUFQU11Gx0yfetUR/zxnAY2mqPeAF2lQE+S5J6sACfcqp3DxC3ObndXAYnXsy80qTfOvO1
+ +UlJpFXksWlJfLOT82JZbWUYtnzb0gb3dh6K4SZ8Oic6+5tdf1TUzTND0HsxgeY1lbkzSC0TL+V
+ nGE0UpumakDMX0FnMfXq4nGEgsJgrf2rhCCvmsV04I27UvCHUSTDf9eIh+BIzTAu2ZOMtVMg4dj
+ hqJ9orWRoNa18yspe1sdUS6aZGIXmskz49e2HNQQ8KNg3s+2yPj/YDwFMur5pjWvQPPhVTnSGBd
+ 8Ne7go/5942E53lBiv3jEP4lnSsRF9g7pmicBPdUgxzJ9Xk0m9pOhl54MlW978Q7Vpdfazneho+
+ OHvWCUxRVLR4CkzD
+X-Received: by 2002:a05:693c:20ca:20b0:375:11dc:7222 with SMTP id
+ 5a478bee46e88-37511dc7739mr1460603eec.21.1794273222784; 
+ Mon, 09 Nov 2026 17:13:42 -0800 (PST)
+Received: from evangelion-g ([2a09:bac5:40e1:11cd::1c6:7])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-37520512b6asm2043005eec.10.2026.11.09.17.13.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 09 Nov 2026 17:13:42 -0800 (PST)
+From: Ayush <ayush37735@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Ayush <ayush37735@gmail.com>
+Subject: [PATCH] drm/amdgpu: fix kernel-doc in amdgpu_gfx.h
+Date: Tue, 10 Nov 2026 06:42:56 +0530
+Message-ID: <20261110011256.157652-1-ayush37735@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: use atomic commit for panel power savings
-To: Alex Hung <alex.hung@amd.com>, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- "Kazlauskas, Nicholas" <Nicholas.Kazlauskas@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, David Weber <weber.aulendorf@gmail.com>,
- Wayne Lin <Wayne.Lin@amd.com>
-References: <20261031-abm-sysfs-atomic-v1-1-a99068f3b49c@zohomail.in>
- <7aec0ed4-1a4d-446b-8971-580770e3de09@amd.com>
-Content-Language: en-US
-From: Shivam Kalra <shivamkalra98@zohomail.in>
-In-Reply-To: <7aec0ed4-1a4d-446b-8971-580770e3de09@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 10 Nov 2026 11:44:03 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,29 +81,94 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 06/11/26 03:15, Alex Hung wrote:
-> 
-> 
-> On 10/30/26 15:58, Shivam Kalra via B4 Relay wrote:
-> 
-> Hi Shivam,
-> 
-> Thanks for the patch. Moving this to an atomic commit is the right direction, but as it stands every write still ends in a full modeset.
-> 
-> In amdgpu_dm_atomic_check(), any abm_level difference between the old and new connector state sets new_crtc_state->connectors_changed = true. That makes drm_atomic_crtc_needs_modeset() true, and commit_tail skips the abm_changed / stream_update.abm_level fast path. Users would see a blank/flicker on the eDP panel on every power-profile change.
-> 
-> Could you try keeping drm_atomic_get_crtc_state() and setting connectors_changed only for scaling? ABM would then go through the existing stream update with no modeset, like David's [PATCH 2/2] drm/amd/display: Avoid modeset for ABM changes - https://lore.kernel.org/amd-gfx/20260813112634.11455-3-weber.aulendorf@gmail.com/
-> 
-> Please run IGT amd_abm, including abm_gradual, before v2.
-> 
-> Also see inline comments.
-> 
-Thanks for review! I will send out v2 shortly.
+Fix kernel-doc warnings in drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h by
+adding the missing 'struct' keyword to amdgpu_rb_config, properly
+formatting and aligning member documentation comments, and adding
+an explicit Return: block for amdgpu_gfx_create_bitmask().
+
+Validated with ./scripts/kernel-doc -v -none -Wall -Werror.
+
+Signed-off-by: Ayush <ayush37735@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h | 31 +++++++++++--------------
+ 1 file changed, 13 insertions(+), 18 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+index 5939e1fb3..96f4e4ce2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+@@ -181,7 +181,7 @@ struct amdgpu_kiq {
+ #define AMDGPU_GFX_MAX_SH_PER_SE 2
+ 
+ /**
+- * amdgpu_rb_config - Configure a single Render Backend (RB)
++ * struct amdgpu_rb_config - Configure a single Render Backend (RB)
+  *
+  * Bad RBs are fused off and there is a harvest register the driver reads to
+  * determine which RB(s) are fused off so that the driver can configure the
+@@ -191,34 +191,28 @@ struct amdgpu_kiq {
+  */
+ struct amdgpu_rb_config {
+ 	/**
+-	 * @rb_backend_disable:
+-	 *
+-	 * The value captured from register RB_BACKEND_DISABLE indicates if the
+-	 * RB backend is disabled or not.
++	 * @rb_backend_disable: The value captured from register
++	 * RB_BACKEND_DISABLE indicates if the RB backend is disabled or not.
+ 	 */
+ 	uint32_t rb_backend_disable;
+ 
+ 	/**
+-	 * @user_rb_backend_disable:
+-	 *
+-	 * The value captured from register USER_RB_BACKEND_DISABLE indicates
+-	 * if the User RB backend is disabled or not.
++	 * @user_rb_backend_disable: The value captured from register
++	 * USER_RB_BACKEND_DISABLE indicates if the User RB backend is disabled
++	 * or not.
+ 	 */
+ 	uint32_t user_rb_backend_disable;
+ 
+ 	/**
+-	 * @raster_config:
+-	 *
+-	 * To set up all of the states, it is necessary to have two registers
+-	 * to keep all of the states. This field holds the first register.
++	 * @raster_config: To set up all of the states, it is necessary to have
++	 * two registers to keep all of the states. This field holds the first
++	 * register.
+ 	 */
+ 	uint32_t raster_config;
+ 
+ 	/**
+-	 * @raster_config_1:
+-	 *
+-	 * To set up all of the states, it is necessary to have two registers
+-	 * to keep all of the states. This field holds the second register.
++	 * @raster_config_1: This field holds the second register for setting
++	 * up the raster states.
+ 	 */
+ 	uint32_t raster_config_1;
+ };
+@@ -587,7 +581,8 @@ struct amdgpu_gfx_ras_mem_id_entry {
+  * @bit_width: length of the mask
+  *
+  * create a variable length bit mask.
+- * Returns the bitmask.
++ *
++ * Return: The generated bitmask.
+  */
+ static inline u32 amdgpu_gfx_create_bitmask(u32 bit_width)
+ {
+-- 
+2.53.0
 
