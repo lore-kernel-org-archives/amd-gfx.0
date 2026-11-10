@@ -2,92 +2,63 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE896606A9D0
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Nov 2026 04:22:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00799606A330
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Nov 2026 06:17:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JAwBvzOh
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iPQfytdY
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF49F10E8FB;
-	Tue, 10 Nov 2026 04:22:32 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 48F9F10E45A;
- Tue, 10 Nov 2026 04:22:26 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B3B1263703;
- Tue, 10 Nov 2026 04:22:25 +0000 (UTC)
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1794284545;
- b=SVsumiAxBr7CMW93I5R0hwja85kIgsZT/mbHxdEeLZvvRFMAATZuJxibjA1BVtHCAOEz
- 4II1390e0rlSsmkKg86IJLKrBVLGhc6KIOU454VNVGO8nDQIiD162qnS6ZGbENVcnKShT
- xzkYnO1KemsHSXWhbcOu3F9C4mbNrrm5UVFSZaBwOqh7P2SzoX+cZkbMEhywssrjOFsBu
- hLpIVJfWAxfPyemeiEpJdnGxMy2FFEM6s6v4kWVJQX/hm1fmjIN49+espl3oVq8VcWMzm
- Rz9n7Nqf5jq4OPEC+hyd9qZUn4ydyGEEoYN7QRQkFSZxYZvFmnZ8tLvIrBozVXouzsg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1794284545;
- h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
- Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
- X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=jp0ZJsgUnuRxHl8bEw52yuvQWXxPTZTnQu+LDpLRt9c=;
- b=p3Tc0ZpcNC+5KDsQczhdw8vSyVMNVVjwf/YGArSsg+rW76WEkUKd3zC5J/PPytit5PSt
- uC/7Va5UAVR+d8CzfMO4O9ruZnfvAr1HcEuDCrzKBLfKOq0erEfAj8lw49zg10xpTOcx1
- tPcw8R6sGwAoPalIiaIjbhMCuWShNbNvKWryX0boCs5+4UxD9gstr3SbONB9g4MavvMqR
- 9g5Ta+07UxSoFsJlG5zWi3SPmLWto7wltCLnAP/I1hlI0Zs5H5KgAhvqgbxk4EMwCKcNX
- tQ3hWThab/MjynYOKx9P5rWUS785vk0YGe9iLNcJufDhMTNKhl7egx4Az3wY4ycUlEA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
- arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
- (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 0C82E1F008A2;
- Tue, 10 Nov 2026 04:22:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794284545;
- bh=jp0ZJsgUnuRxHl8bEw52yuvQWXxPTZTnQu+LDpLRt9c=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=JAwBvzOhBdUj3MqbmPVM/hLA8nF0CetYlew087Eq1Znz9/SVceGdK8bVj7YzaqQpL
- y/iK0RlD8NM/4vFNMN338JDjgzjcc0WytIQDtkVqLb+OVCAr1vgowoEUjh85MRL1PO
- vOUp0anHMcfCxAaVcmdOaUIOB15I9hm7tYTXJDuyX0WoceaTHrix/mzedDoPlWCBUm
- 2HWlEDP4Qzd0Ksy0ApjBHPL/NtoAalpKiHtr1kol69h75kBpMAXeEOc92lPjkApN5i
- VFEOfI3pKowQC1oJyQIgzIOhZPByd0emo5NYH2aTyXSRvBwIvNRUvOkH2iQY3uxZQY
- 9IRXcaEKpyd5w==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 6D8E84883D;
- Tue, 10 Nov 2026 04:22:23 +0000 (UTC)
-From: =?utf-8?q?Eren_=C3=96zen_via_B4_Relay?=
- <devnull+erenozen.protonmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 07:21:56 +0300
-Subject: [PATCH 1/3] drm/amd/display: Initialize FRL status polling work
- once at DM init
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47C5210EE13;
+	Tue, 10 Nov 2026 06:17:03 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63EC310E1AE;
+ Tue, 10 Nov 2026 06:16:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1794291416; x=1825827416;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=cm3IqdqaTmBiSSYtxE7H1ViyE7GZRQgg5cV+/V8g9bQ=;
+ b=iPQfytdYKWRJDjHaH3wVKsY9VtHAg6p1cHXCVbAEfGUjs6OaJ2cFeMNM
+ 0uqtlgN283TqfI9A7g8UtU0QBenpLuZk0UiBJPDE2ag3J+5emeE4cSGtP
+ rpSpPS9j4GuNsqrCaWiKB10bONR3uO2XSCj/LPWxNNkN8NemQGd3AEIHd
+ dKhBccDTI45qhvdWzoCGZvLFZjim9z/rRRaPzWo40rzxrvl9bR8RtZtsZ
+ 91pmBziXeU2q+JCv5SMP2HOMTX/w7khf6DV46lbUXQZHqOfWgz7Y6p8hi
+ pAmUKTMk3MRAIlaAa9aaqp5OPOAKtnz4f+Qe1Q0doGlDsPLGo93365BLg A==;
+X-CSE-ConnectionGUID: Pi2Kh2QdSrupYqg30OOEWA==
+X-CSE-MsgGUID: ZK1cISL2Qs68SM2f/nLUMQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3020905"
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="3020905"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Nov 2026 22:16:55 -0800
+X-CSE-ConnectionGUID: AZOeAwC9RgyKAVcptfOVig==
+X-CSE-MsgGUID: nW87YRJVR++h+MhDXW6PQA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="7930910"
+Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.10])
+ by orviesa004.jf.intel.com with ESMTP; 09 Nov 2026 22:16:49 -0800
+From: Suraj Kandpal <suraj.kandpal@intel.com>
+To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: dmitry.baryshkov@oss.qualcomm.com, John.Harrison@Igalia.com,
+ kernel-dev@igalia.com, alex.hung@amd.com, liviu.dudau@arm.com,
+ louis.chauvet@bootlin.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, laurent.pinchart+renesas@ideasonboard.com,
+ tomi.valkeinen+renesas@ideasonboard.com,
+ kieran.bingham+renesas@ideasonboard.com, dave.stevenson@raspberrypi.com,
+ mcanal@igalia.com, kernel-list@raspberrypi.com, uma.shankar@intel.com,
+ arun.r.murthy@intel.com, Suraj Kandpal <suraj.kandpal@intel.com>
+Subject: [PATCH v7 0/8] Refactor drm_writeback_connector structure
+Date: Tue, 10 Nov 2026 11:46:29 +0530
+Message-Id: <20261110061637.2500929-1-suraj.kandpal@intel.com>
+X-Mailer: git-send-email 2.34.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-frl-polling-wq-teardown-v1-1-0ff028d5c35b@protonmail.com>
-References: <20261110-frl-polling-wq-teardown-v1-0-0ff028d5c35b@protonmail.com>
-In-Reply-To: <20261110-frl-polling-wq-teardown-v1-0-0ff028d5c35b@protonmail.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Fangzhi Zuo <Jerry.Zuo@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, 
- =?utf-8?q?Eren_=C3=96zen?= <erenozen@protonmail.com>, 
- timur.kristof@gmail.com
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794284542; l=2549;
- i=erenozen@protonmail.com; s=20261110; h=from:subject:message-id;
- bh=4zCR7FWd/Rw2U/71QTZKamg0Naz8wle0ENFip0uSKOY=;
- b=WVNoWmMUWIbkrp0eWabJ8ElOrvblUBCy1lVLDi0tnKc1rpDNNaabvHBdCeJOEzD8zvPY+pgrj
- dJdF8fCvoJ9DGCJVKEb0C6RfMSTvFOYJ8cQ2rN5tkg2vjy3Wly9dzUj
-X-Developer-Key: i=erenozen@protonmail.com; a=ed25519;
- pk=tPAwfVmIbYF3QziJ3LcoTIZDU12BsjVK+EkAB9nN1gA=
-X-Endpoint-Received: by B4 Relay for erenozen@protonmail.com/20261110 with
- auth_id=1479
-X-Original-From: =?utf-8?q?Eren_=C3=96zen?= <erenozen@protonmail.com>
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -98,7 +69,6 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: erenozen@protonmail.com
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
@@ -108,60 +78,76 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Eren Özen <erenozen@protonmail.com>
+Some drivers cannot work with the current design where the connector
+is embedded within the drm_writeback_connector such as intel and
+some drivers that can get it working end up adding a lot of checks
+all around the code to check if it's a writeback conenctor or not.
+This is due to the inheritance limitation in C.
+This series intends to solve it by moving the drm_writeback_connector
+within the drm_connector and remove the drm_connector base which was in
+drm_writeback_connector. This is done in union with hdmi connector
+within drm_connector to save memory and since drm_connector cannot be
+both hdmi and writeback it serves is well.
+A RFC version was floated and discussion had taken place at [1] which
+kicked of this more cleaner series.
+We do all other required modifications that come with these changes
+along with addition of new function which returns the drm_connector when
+drm_writeback_connector is present.
+This series also contains some writeback API cleanups as a consequence
+of writeback connector moving into drm_connector
+All drivers will be expected to allocate the drm_connector.
+This discussion was tiggered from [2] and sits on top of Dmitry's series
+see [3].
 
-hdmi_frl_status_polling_work is a single delayed work item shared by the
-whole display manager, but it is initialized from
-amdgpu_dm_connector_init_helper(), which runs once for every connector.
-That helper is also called at runtime from dm_dp_add_mst_connector()
-when a DisplayPort MST branch device is plugged in. If an HDMI FRL
-stream is active at that moment, the polling work is queued and
-re-arming itself every 200ms, and INIT_DELAYED_WORK() on it
-reinitializes the timer and work entry of a pending item, which can
-corrupt the timer and workqueue state.
+[1] https://patchwork.freedesktop.org/series/152758/
+[2] https://patchwork.freedesktop.org/series/152106/
+[3] https://patchwork.freedesktop.org/series/152420/
 
-The work item belongs to the display manager, not to a connector, so
-initialize it, along with its polling delay, once in amdgpu_dm_init()
-next to the workqueue it runs on.
+Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
 
-Fixes: 5c9b8b27a883 ("drm/amd/display: Tie FRL support into amdgpu_dm")
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Eren Özen <erenozen@protonmail.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c           | 4 ++++
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c | 2 --
- 2 files changed, 4 insertions(+), 2 deletions(-)
+Dmitry Baryshkov (1):
+  drm: writeback: drop excess connector initialization functions
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 33c73ca9cf..bf2f74d7d9 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -774,6 +774,10 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
- 
- 		dc_init_callbacks(adev->dm.dc, &init_params);
- 	}
-+
-+	adev->dm.hdmi_frl_status_polling_delay_ms = 200;
-+	INIT_DELAYED_WORK(&adev->dm.hdmi_frl_status_polling_work,
-+			  hdmi_frl_status_polling_work);
- 	if (adev->dm.dc->caps.max_links > 0) {
- 		adev->dm.hdmi_frl_status_polling_wq =
- 			create_singlethread_workqueue("hdmi_frl_status_polling_wq");
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-index e8f050feb6..b1bdb94d74 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-@@ -3327,8 +3327,6 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
- 		aconnector->hdmi_hpd_debounce_delay_ms = 0;
- 	}
- 
--	dm->hdmi_frl_status_polling_delay_ms = 200;
--	INIT_DELAYED_WORK(&dm->hdmi_frl_status_polling_work, hdmi_frl_status_polling_work);
- 	/*
- 	 * configure support HPD hot plug connector_>polled default value is 0
- 	 * which means HPD hot plug not supported
+Suraj Kandpal (7):
+  drm: writeback: Refactor drm_writeback_connector structure
+  drm: writeback: Modify writeback init helpers
+  drm: writeback: Modify drm_writeback_queue_job helper
+  drm: writeback: Modify drm_writeback_signal_completion helper
+  drm: writeback: Modify drm_writeback_get_out_fence helper
+  drm: writeback: Modify prepare_writeback_job helper
+  drm: writeback: Modify cleanup_writeback_job helper
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   8 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   3 +-
+ .../display/amdgpu_dm/amdgpu_dm_connector.c   |   4 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c  |  37 ++--
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_wb.h  |   4 +-
+ .../tests/amdgpu_dm_connector_test.c          |   6 +-
+ .../display/amdgpu_dm/tests/amdgpu_dm_test.c  |   2 +-
+ .../amdgpu_dm/tests/amdgpu_dm_wb_test.c       |  10 +-
+ .../gpu/drm/arm/display/komeda/komeda_crtc.c  |   2 +-
+ .../gpu/drm/arm/display/komeda/komeda_kms.h   |   9 +-
+ .../arm/display/komeda/komeda_wb_connector.c  |  37 ++--
+ drivers/gpu/drm/arm/malidp_crtc.c             |   2 +-
+ drivers/gpu/drm/arm/malidp_drv.h              |   3 +-
+ drivers/gpu/drm/arm/malidp_mw.c               |  32 ++-
+ drivers/gpu/drm/drm_atomic_uapi.c             |   4 +-
+ drivers/gpu/drm/drm_connector.c               |   3 +
+ drivers/gpu/drm/drm_crtc_internal.h           |   3 +
+ drivers/gpu/drm/drm_writeback.c               | 193 ++++++------------
+ .../drm/msm/disp/dpu1/dpu_encoder_phys_wb.c   |   9 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c |  10 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.h |   4 +-
+ .../gpu/drm/renesas/rcar-du/rcar_du_crtc.h    |   8 +-
+ .../drm/renesas/rcar-du/rcar_du_writeback.c   |  44 ++--
+ drivers/gpu/drm/vc4/vc4_txp.c                 |  16 +-
+ drivers/gpu/drm/vkms/vkms_drv.h               |   2 +-
+ drivers/gpu/drm/vkms/vkms_writeback.c         |  15 +-
+ include/drm/drm_connector.h                   |  69 ++++++-
+ include/drm/drm_modeset_helper_vtables.h      |   4 +-
+ include/drm/drm_writeback.h                   |  98 +--------
+ 29 files changed, 307 insertions(+), 334 deletions(-)
 
 -- 
-2.56.0
-
+2.34.1
 
