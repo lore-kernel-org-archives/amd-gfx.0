@@ -2,92 +2,98 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04F43606A31C
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Nov 2026 14:07:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5264D606A332
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Nov 2026 14:45:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IRnVvi0y
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=gNYXq+Dy
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6454E10F710;
-	Tue, 10 Nov 2026 14:07:48 +0000 (UTC)
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C67B10E013
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Nov 2026 13:54:55 +0000 (UTC)
-Received: by mail-dl1-f45.google.com with SMTP id
- a92af1059eb24-15ea896ddc8so3316362c88.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Nov 2026 05:54:55 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794318895; cv=none;
- d=google.com; s=arc-20260327;
- b=Z3xBxoTuE6oacTcHFFeFcVMMLD0kTvlUalo2XtssphsRHWMPDhjiEPHRBo8V1OOSYL
- mSaYvM3TIpz3Xv5kMvbUomN8Y2QwGYmqsHEv7JIbQQGI6xk+ZohFmOV+RrmSBwch3X7y
- wztGtuDt+BnTPXKXrjDfggSXHnL14AVmRWxrrfrUNuGLptAV13du0Vmc7kCi00V17Sqa
- m+SSQSU/F7tHG9kiN9fXQNLgwAQpZxE6RounBL6OBpHTQp4fBCzLoYhraiXhuidZ29OE
- /8bnvP947FGz0cDhOakgWjjPsUF4egK48enKOUTAP8x+gyd83Ji+VH96tKS0Xxw3HLQ5
- i2ag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=DqnGBDj+8F1Y/oWXY/oJDLw+ryRi3kCbJ0uvQjf0h+Y=;
- fh=7H1mJI6nF2oozFUJL+8O4S1rRY+f13KGb3HI1JPwHRo=;
- b=MX4gl/nRH4gej+IyR/oqkdRuqw1YtRZaLCfOiIOryPkO0Hbqs3eSUxwEPpTWf0M2z1
- j/fYDS1g3oVK33y5FDxx8Sqz6BnaZBiJyxdTXx1PJE+9SjB4eWnXN8BlLq8ZAaja56pV
- ECWyFnQ0GWIMd0vawHu1lyakYfp9EV9OM70Kz4uCirAY2yDlm1gRG7/EBfiUB1tDnYjH
- Aaiw1zh3xJq8zQ5pbnRGztcp8YW941S5yfSv8Fk2Uk1E/QfzKVQU4JYOS/8lP3aEiSUT
- wNjwWJC/GTqvhOehnFjX5fgvIlAmTkFmEph4SLupcG3eMpYHV9blfwoDRNerufpkqfIP
- 918g==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794318894; x=1794923694; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=DqnGBDj+8F1Y/oWXY/oJDLw+ryRi3kCbJ0uvQjf0h+Y=;
- b=IRnVvi0y/C1O438SReMjoCB/hB/6dG8D0mNB+bywOHBRe14T1ZKuEAJ+DKtmoHxriT
- xyOL0OqEZi1np94pKYa7JLKrQncIzPb9uXTUyivp24oAEWomthBUjfAy5yc4QLWD8m8h
- NMGn3zgfYk0ufFlHLpMGQAWinBkmixkQLrd2xObzUNgQfVd/IRjGpiK2ZPUU/ERTRBOe
- lx1ybYog5kkPzIsx32wBZE/YBkj7UlC5tVnxU8tzda0DzfJLtnE+VOCVwSAPDX9cvSxN
- 4cAfzoI8kMlFXguQxNZng37Zw146L4YZ9DH7MwTzyEvEuH8wUQKxr7fZiQlK7XtWMyZu
- ae0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794318895; x=1794923695;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=DqnGBDj+8F1Y/oWXY/oJDLw+ryRi3kCbJ0uvQjf0h+Y=;
- b=EW9ZnE9nUMaZGSQLpklzYuxdNQk7lnRFvaIF7ydzpgX/Hp0QaIT/eo7HqI1oDz6h++
- gvYAA1SH+V7kRcSXPsjMoJa+GJ8fodYmXFyVM+5FG5iYZd7subbRPbkZrZ6aZs0bFjs3
- PuPpQW+OP9C/IFZ5TXf3IkyVFmtGZwXjXGKX2y25xj7dkcC4SXs4rnfBt0qZxI0RMDvZ
- f8MPiBQmtkH25lo5mvApUFZK3ydr6sy5oaj1u0xlpxI2ElL1NQL0A2BmBQxjFw+qFabo
- Cd55+8j9Ck6ZcfWwC7PoHfDy6QeUlOj5flifbYccdyxbpf/p61ubT5AQwe4kOVU8iyoM
- w6pg==
-X-Gm-Message-State: APuU4Z8ZHSm4Vi+dkfq6O9IzwCH3V+yOMHe1tOebF5M8a+clbEXTITVO
- /PDtt6Xw9/cEaFewpXuNlcJ9dWaFfCrplGWsJYOvd0LoAOnKYYsttBc4kE4zDocCvcDckOpPmNP
- /5+7UIYKeRWrRVcFG9EOU+oQ3KLl+ZjTprcor6e/510d0
-X-Gm-Gg: AYBFou2nxfECgur3N9lVo8CGBzbs3YIg16T6F3YoATpFjhHXnVSRNl/K0Gj3UcBjejU
- mwBBdVOnWyZxHjTHWlOojstA7W2W2sp3aCG7muY46EpYyjbIJx8UAD/ckPvZ6PeQwBCOWTz15U3
- 92QXmTEVUp8SEyHa+xaWWYGC0PsIz7/1AFCHBfdTGTnvsSObd16lxoRE+JiSUS87w+0T51y+j31
- 0+cDHHQtUvBg0+MRtYduHfkB5BdkccVdKoWmsP+eIUhHgh7K9ABqg420hOUxtwr/QPM3boZyR4/
- UdEISlOlXmaLgaTIJAV7dYgAp3aCMXdePs14n8FnKdnLIYyZ+S5TBKfJjfjyvG37geIizQevMVf
- zgkWOcmfLRhmPBpb/esVvz4UHrxVn4KUuNuAQFrpAPJ70A/y8jCnOa7B1hc0v82JL4NdQybLbTK
- zqVqMG8amYZGb5Ye2CHteQsbCpWo5LAZyHvQL/XmusfXwH8xD+g+/NxA==
-X-Received: by 2002:a05:7022:f8a:b0:1a7:7160:ffc8 with SMTP id
- a92af1059eb24-1b3b60039e7mr4605593c88.10.1794318894291; Tue, 10 Nov 2026
- 05:54:54 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBE4C10F744;
+	Tue, 10 Nov 2026 14:45:33 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011008.outbound.protection.outlook.com [52.101.52.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D97210F744
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 Nov 2026 14:45:28 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qw3hl4XtZQCr5Opv+TJ8hIe9bAeXzM8tJMCeo5qsUbIDPPxIktTBq9s/g+HEAX7St97BO4JyymlNbxmXe87DVtZR27sP188HT3dHjdXbMeqqRnoAfQ47SFKrfugV/AT/buMypUZLeryIlavsbxeNbvw9q9p0V2VnzGI5PqA63F8tAdfIueCniW/w76H+Dbvk519XRUE2417gYI+mNJ+iZMmsasQtSvssRfmb5eDEnhYXiOdovl3ncQ8ize4MJiES/FlafTQdbBhMl/rKWtk7DfHGIBv2mnxpOr4Z2GBj0cx3oXL2FWpWH9Rv8G8d4VJ9kJD8JVihmQW9fMfMyuq1fQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WLgTls4dzXV3u22PLXGqZJeABmEPiNwGNLAZcsLFqYU=;
+ b=x5niSNYfNY2G99wFMksa6SKkV0lEkmuYJBWc4wJ7hH3BC9vX0ARuLHgFGYtCOXXlfdygBPOrj+k78JtsyLvRzjfj1jmXPSMUIbLwfpiGTbHLfCrKMeDr7Mycn02FqsyJxs8PZ6YVOZQ1ZsyK6JS7vXeOVEbtZbcln4nTJkbjczlV1ZrFnqTEuWMyMNjsQ/+Ru3I73LsNHg36EwMDesphtZFF19REpR4yYf87vftc14mwBvF1kke4ClkIuU+Ex7zu4Tnv+LIEETXkhsJITIuznOaZZRGKDDNW4UYLRYmQlPAgj1om47xYpsl+fjNSu3Yhrrr50b4GznpL7Csffh/R8w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WLgTls4dzXV3u22PLXGqZJeABmEPiNwGNLAZcsLFqYU=;
+ b=gNYXq+DyexFFXSQAe3mHK0cO8XYLvMOuBccZGOr7EOPJCQyiVWbZbm7gyxfojc9Untt8NlITF0XVICKxpTm3Wm1YDwCG/9bidjJ0yK4G/N14XV1eomC7CQZoh5QVku5C1ypVsLqiEzZZmgBPwF5MqH1I0SNTZBELf5GBNVy8jUk=
+Received: from CH0PR03CA0442.namprd03.prod.outlook.com (2603:10b6:610:10e::32)
+ by BN3PR12MB9571.namprd12.prod.outlook.com (2603:10b6:408:2ca::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
+ 2026 14:45:21 +0000
+Received: from CH1PEPF0000A346.namprd04.prod.outlook.com
+ (2603:10b6:610:10e:cafe::7) by CH0PR03CA0442.outlook.office365.com
+ (2603:10b6:610:10e::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Tue, 10
+ Nov 2026 14:45:21 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH1PEPF0000A346.mail.protection.outlook.com (10.167.244.11) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Tue, 10 Nov 2026 14:45:21 +0000
+Received: from krussell.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 10 Nov
+ 2026 08:45:18 -0600
+From: Kent Russell <kent.russell@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <jay.cornwall@amd.com>, <gang.ba@amd.com>, Kent Russell
+ <kent.russell@amd.com>
+Subject: [PATCH 3/3] drm/amdgpu: Handle fault cleaner race condition
+Date: Tue, 10 Nov 2026 09:45:06 -0500
+Message-ID: <20261110144506.3946989-3-kent.russell@amd.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261110144506.3946989-1-kent.russell@amd.com>
+References: <20261110144506.3946989-1-kent.russell@amd.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261109230147.16302-1-claudioforain@gmail.com>
-In-Reply-To: <20261109230147.16302-1-claudioforain@gmail.com>
-From: =?UTF-8?Q?Cl=C3=A1udio_Forain?= <claudioforain@gmail.com>
-Date: Tue, 10 Nov 2026 07:54:42 -0600
-X-Gm-Features: AclHuK-3CNOIAx6d73x-TgXb1mwKho28x2ys-H0_-pwHs0pp2n1EZgwORe-Jqh0
-Message-ID: <CAOKbSHTuinvW_q-eqCaYeD75t1nLEdxLp5ot5HNkR5SHvUB9eg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Only allow idle optimizations when all
- CRTCs are idle
-To: amd-gfx@lists.freedesktop.org
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com, 
- ray.wu@amd.com, superm1@kernel.org, siqueira@igalia.com, 
- dri-devel@lists.freedesktop.org
-Content-Type: multipart/alternative; boundary="0000000000004eddd4065fec6c36"
-X-Mailman-Approved-At: Tue, 10 Nov 2026 14:07:42 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000A346:EE_|BN3PR12MB9571:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0bffd4f9-450f-490c-1551-08df3f393f18
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|23010399003|1800799024|376014|82310400026|261009223027099003|10067099003|261102123227099003|261026121527099003|261022075727099003|261021121427099003|261021123027099003|56012099006|5023799004|11063799006|6133799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: J76VbLTyrWCZ1TNADHZJLySJPV4aVCJaygdGHIRfViD1AyDKVrXZfNrUlaTvPbj4mbFpYHCDqI/HpLCaDh4CgMUB9ZeaeszwdNvn9SNGX+Avw34kFYh539nubGGnMpdiLG6bov9hmGpeYVvfIWJHZ6baODwh+ruTFcrWbpNsnFeZ1mWLRuti79nqrMx751H4quT8nbYlCoPLRQPbiyVsFXXunJ91/f9vH8rGGC26M2OPgPAp57Z22LRIXs3NNj6cTd+hT5unCL0cq7EVQVFiutOrrwj6eWfiuMOER2NgVpjrDYktiX7x9JsV5IJ9vPPQE6i1AwD6Yp1cY9O2xFbhMySyAGhQeW/iczZCrHWdUNltNHuM8fLse6sOoP1kOROW7OXhpEP/MWK8I28U1FPi6n0fYxF+tN3ThCaGP6wpLvscoLxDQjzU+aNOZLOp+yy20YLGdtL9rbockznmh/du/MlHaOKUKvSDfpYULzSPRZO221GifNeBFVEhCZHdHkvigk6kAzDAViNh91xD1c+WyxVMOQNEs1okMopn79JSrTABN+Gqp0xMnvSSKf8cgrLQWGh7UZwpxpHc/TSOUxstOijoiQAHz+mj5DZhgY/Jv6R5tO6UP8dp91r0LHv2LOJVz+Ewl949RbzbK4yu3IZFNaFducTeKzH0K/8lsGq6PY5qvFtcBIReHrbN8wIvkwUdXBNUD1SA7me4LJYFXCNcuA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(23010399003)(1800799024)(376014)(82310400026)(261009223027099003)(10067099003)(261102123227099003)(261026121527099003)(261022075727099003)(261021121427099003)(261021123027099003)(56012099006)(5023799004)(11063799006)(6133799003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: mWw7nFpxnWx++QHBDV7MHhMKeS6RDlehrLq9T1yW+K/bC6iGPrHOcqKHsYkICRsD18KoxAwdS7COtpvnEcLYFHrlshZIg628InsEUBUdutfiKISqLNNdj22F8lee9/RqIqTUzsm1VuIF0uqypBShAe5k2O5iVwmIXLjBuwMp3alcnMtTMSSQXFCN2kVeLNioemsJWuOBtPDnVNHKyRAqnPAuhQcSbUi0VBCjTnFFZiKIo6RLCBCmSM3pEfhJVgpLAdyfqf/Bq8X/0qVtDR25Gak7NdDL4IMlvXnlLuLG6JdpFqwWbr6ZcSipyy0LoGbpkq8/c3fPvx28cva5W+CbpHNwlOPTY8xGk2EIsIpJjHBNGB80QBNyS3967sS+S4nvaw6ewv1WKaFtX9bObRpibMsSL21c4CJK7Tty64f1Jqn+xaUXMbr5wICd+m9lV6Uh
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 14:45:21.3562 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0bffd4f9-450f-490c-1551-08df3f393f18
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000A346.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN3PR12MB9571
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,398 +104,71 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-9.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	T_KAM_HTML_FONT_INVALID autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---0000000000004eddd4065fec6c36
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+clean_process_queues_cpsch will exit early if the memory is evicted,
+which means that we can miss running the shader cleaner if the memory
+was evicted at the time. Run the cleaner when the memory is restored to
+handle this condition
 
-Please don't apply this version.
+Signed-off-by: Kent Russell <kent.russell@amd.com>
+---
+ .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c    | 12 +++++++++++-
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h                |  5 +++++
+ 2 files changed, 16 insertions(+), 1 deletion(-)
 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index 86b70748617b..a67db9d31cc0 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -1571,8 +1571,11 @@ static int clean_process_queues_cpsch(struct device_queue_manager *dqm,
+ 	int retval = 0;
+ 
+ 	dqm_lock(dqm);
+-	if (qpd->evicted++ > 0) /* already evicted, do nothing */
++	if (qpd->evicted++ > 0) {
++		/* Already evicted; defer fault clean to restore time */
++		qpd->fault_pending = true;
+ 		goto out;
++	}
+ 
+ 	pdd = qpd_to_pdd(qpd);
+ 
+@@ -1763,6 +1766,13 @@ static int restore_process_queues_cpsch(struct device_queue_manager *dqm,
+ 			}
+ 		}
+ 	}
++
++	/* Handle deferred fault cleaning from racing clean_process_queues_cpsch */
++	if (qpd->fault_pending) {
++		qpd->fault_pending = false;
++		dqm->dev->kfd2kgd->hqd_gfx_clean_fault(dqm->dev->adev);
++	}
++
+ 	if (!dqm->dev->kfd->shared_resources.enable_mes)
+ 		retval = execute_queues_cpsch(dqm,
+ 					      KFD_UNMAP_QUEUES_FILTER_DYNAMIC_QUEUES, 0, USE_DEFAULT_GRACE_PERIOD);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index 158fa70a1a8e..5cd8f55f589c 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -695,6 +695,11 @@ struct qcm_process_device {
+ 	bool is_debug;
+ 	unsigned int evicted; /* eviction counter, 0=active */
+ 
++	/* Set when fault cleaning was requested but skipped due to eviction.
++	 * Checked at restore time to ensure the fault is cleaned.
++	 */
++	bool fault_pending;
++
+ 	/* This flag tells if we should reset all wavefronts on
+ 	 * process termination
+ 	 */
+-- 
+2.43.0
 
-The automated review at sashiko.dev found three real problems, which I
-have confirmed against the source:
-
-- dm_ism_all_crtcs_idle() reads crtc->state of other CRTCs under only
-  dc_lock. A concurrent atomic commit on another CRTC can swap and free
-  that state, so this can be a use-after-free.
-- A CRTC that is enabled or resumed and stays static without ever taking
-  a vblank reference remains in FULL_POWER_RUNNING, so idle
-  optimizations could never be allowed again (a power regression).
-- It uses adev_to_drm(dm->adev) instead of dm->ddev, which breaks the
-  ISM KUnit commit tests.
-
-The diagnosis in the changelog still stands: a static CRTC's ISM
-enables HW-wide idle optimizations while another CRTC is receiving
-legacy cursor updates. I'll send a v2 with a different approach, tested
-with KUnit and across suspend/resume.
-
-Thanks,
-Claudio
-
-
-On Mon, Nov 9, 2026 at 5:02=E2=80=AFPM Claudio Forain <claudioforain@gmail.=
-com>
-wrote:
-
-> [Why]
-> Idle optimizations are HW-wide, but the Idle State Manager (ISM) runs per
-> CRTC. When a CRTC's ISM reaches OPTIMIZED_IDLE it enables idle
-> optimizations globally as long as no CRTC holds a vblank reference
-> (dm->active_vblank_irq_count =3D=3D 0). It does not check whether the ISM=
-s
-> of the other CRTCs are idle.
->
-> With two displays on X11, one static and one receiving cursor updates,
-> the static CRTC's ISM enables idle optimizations while the cursor CRTC is
-> busy. Legacy cursor updates do not take a vblank reference, so nothing
-> vetoes it. On ASICs that set debug.exit_idle_opt_for_cursor_updates
-> (DCN30x, DCN32x, DCN401, ...), every call to
-> dc_stream_program_cursor_attributes() and
-> dc_stream_program_cursor_position() then exits and re-enters idle
-> optimizations itself. That is up to four synchronous DMUB commands per
-> cursor update, each taking up to ~1.6 ms on DCN401, all under dc_lock in
-> the X server's input thread. The cursor visibly speeds up and slows down
-> while the desktop is otherwise idle.
->
-> Measured on RX 9070 XT (DCN401), 240 Hz + 60 Hz displays, Xorg, cursor
-> moving continuously for 15 s (ftrace, cursor handler entry to
-> dc_stream_program_cursor_position entry):
->
->                                  before      after
->   cursor updates/s                1686        2572
->   latency median / P95 / P99    144/858/927  17/19/87 us
->   samples > 500 us                5460           0
->   idle opt calls from cursor   58093           0
->     programming
->   dcn401_apply_idle_power_
->     optimizations calls          58198           6
->
-> With a single display, or with any vblank requestor active, the issue
-> does not occur. Commit a1fc7bf6677e ("drm/amd/display: Restore 5s vbl
-> offdelay for NV3x+ DGPUs") hid the issue by keeping vblank enabled on the
-> cursor CRTC; it reappeared with commit f39283eab44f ("Revert
-> "drm/amd/display: Restore 5s vbl offdelay for NV3x+ DGPUs"").
->
-> [How]
-> Before allowing idle optimizations, also require every CRTC with an
-> active stream to be in OPTIMIZED_IDLE or OPTIMIZED_IDLE_SSO. The ISM
-> updates current_state before dispatching, so the last CRTC to go idle
-> still allows idle optimizations and no idle entry is lost. Idle
-> optimizations are still entered on a static desktop (173 entries in a
-> 15 s static capture with the patch applied), idle GPU power is
-> unchanged (25.9 W before, 25.8 W after), and vblank enable/disable is
-> unchanged.
->
-> The problem was found and the fix written with an AI coding assistant,
-> working from ftrace captures taken on the affected system: function
-> tracer counts and caller attribution, and function_graph durations of
-> the cursor, ISM and DMUB paths. The assistant proposed the change and
-> drafted this changelog; the submitter reproduced the issue, built and
-> ran each test kernel, and confirmed the results.
->
-> Fixes: 754003486c3c ("drm/amd/display: Add Idle state manager(ISM)")
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/6115
-> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/4906
-> Assisted-by: claude-opus-5-5
-> Signed-off-by: Claudio Forain <claudioforain@gmail.com>
-> ---
-> Testing and limitations:
-> - Reproduced and tested on v7.3.3 (Gentoo) with RX 9070 XT (DCN401),
->   Xorg, two DP displays (240 Hz + 60 Hz). The issue reproduces only with
->   both displays active; disabling one makes stock 7.3.3 behave.
-> - Built and booted on v7.3.3. This posting is rebased onto
->   amd-staging-drm-next, where it applies cleanly, but it has not been
->   built or run on that tree.
-> - Not tested: other DCN generations, APUs, PSR/Replay panels (the
->   OPTIMIZED_IDLE_SSO path), Wayland compositors, hotplug and
->   suspend/resume with the patch, and the ISM KUnit tests.
-> - Idle GPU power on a static desktop (hwmon power1_average, 40 x 1 s):
->   25.9 W before, 25.8 W after. Only checked on this setup.
-> - crtc->state is read under dc_lock only, like the existing
->   to_dm_crtc_state(acrtc->base.state) in amdgpu_dm_ism_commit_event().
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
-> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
-> index 127eaba..79546ad 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
-> @@ -276,6 +276,32 @@ bool dm_ism_trigger_event(struct amdgpu_dm_ism *ism,
->  EXPORT_IF_KUNIT(dm_ism_trigger_event);
->
->
-> +/*
-> + * Idle optimizations are HW-wide, but each CRTC runs its own ISM. Only
-> allow
-> + * them once every active CRTC's ISM has reached an optimized idle state=
-,
-> so a
-> + * static CRTC cannot enable idle optimizations while another CRTC is
-> still busy
-> + * (e.g. receiving cursor updates without a vblank reference). Otherwise
-> every
-> + * cursor update on the busy CRTC must exit and re-enter idle through
-> DMUB.
-> + */
-> +static bool dm_ism_all_crtcs_idle(struct amdgpu_display_manager *dm)
-> +{
-> +       struct drm_crtc *crtc;
-> +
-> +       drm_for_each_crtc(crtc, adev_to_drm(dm->adev)) {
-> +               struct amdgpu_crtc *acrtc =3D to_amdgpu_crtc(crtc);
-> +               struct dm_crtc_state *state =3D
-> to_dm_crtc_state(crtc->state);
-> +
-> +               if (!state || !state->stream)
-> +                       continue;
-> +
-> +               if (acrtc->ism.current_state !=3D
-> DM_ISM_STATE_OPTIMIZED_IDLE &&
-> +                   acrtc->ism.current_state !=3D
-> DM_ISM_STATE_OPTIMIZED_IDLE_SSO)
-> +                       return false;
-> +       }
-> +
-> +       return true;
-> +}
-> +
->  static void dm_ism_commit_idle_optimization_state(struct amdgpu_dm_ism
-> *ism,
->                                              struct dc_stream_state
-> *stream,
->                                              bool vblank_enabled,
-> @@ -326,7 +352,8 @@ static void
-> dm_ism_commit_idle_optimization_state(struct amdgpu_dm_ism *ism,
->          * optimizations at the start of this func -- we should disallow
->          * whenever there's *an* active CRTC.
->          */
-> -       if (!vblank_enabled && dm->active_vblank_irq_count =3D=3D 0) {
-> +       if (!vblank_enabled && dm->active_vblank_irq_count =3D=3D 0 &&
-> +           dm_ism_all_crtcs_idle(dm)) {
->                 dc_post_update_surfaces_to_stream(dm->dc);
->                 dc_allow_idle_optimizations(dm->dc, true);
->         }
-> --
-> 2.x
->
-
---0000000000004eddd4065fec6c36
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><span style=3D"background-color:initial;color:inherit;font=
--size:0.9em">Please don&#39;t apply this version.</span><pre style=3D"overf=
-low-x:auto;color:rgb(191,191,191);background:none 0% 0%/auto repeat scroll =
-padding-box border-box rgb(36,37,38);box-sizing:border-box;border-radius:4p=
-x;max-width:100%;margin:0px;padding:8px;font-size:13px"><code style=3D"colo=
-r:inherit;background:0px 0px;padding:0px;border-radius:3px;word-break:break=
--word;font-size:0.9em">
-The automated review at <a href=3D"http://sashiko.dev">sashiko.dev</a> foun=
-d three real problems, which I
-have confirmed against the source:
-
-- dm_ism_all_crtcs_idle() reads crtc-&gt;state of other CRTCs under only
-  dc_lock. A concurrent atomic commit on another CRTC can swap and free
-  that state, so this can be a use-after-free.
-- A CRTC that is enabled or resumed and stays static without ever taking
-  a vblank reference remains in FULL_POWER_RUNNING, so idle
-  optimizations could never be allowed again (a power regression).
-- It uses adev_to_drm(dm-&gt;adev) instead of dm-&gt;ddev, which breaks the
-  ISM KUnit commit tests.
-
-The diagnosis in the changelog still stands: a static CRTC&#39;s ISM
-enables HW-wide idle optimizations while another CRTC is receiving
-legacy cursor updates. I&#39;ll send a v2 with a different approach, tested
-with KUnit and across suspend/resume.
-
-Thanks,
-Claudio</code></pre></div><br><div class=3D"gmail_quote gmail_quote_contain=
-er"><div dir=3D"ltr" class=3D"gmail_attr">On Mon, Nov 9, 2026 at 5:02=E2=80=
-=AFPM Claudio Forain &lt;<a href=3D"mailto:claudioforain@gmail.com">claudio=
-forain@gmail.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" =
-style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);pa=
-dding-left:1ex">[Why]<br>
-Idle optimizations are HW-wide, but the Idle State Manager (ISM) runs per<b=
-r>
-CRTC. When a CRTC&#39;s ISM reaches OPTIMIZED_IDLE it enables idle<br>
-optimizations globally as long as no CRTC holds a vblank reference<br>
-(dm-&gt;active_vblank_irq_count =3D=3D 0). It does not check whether the IS=
-Ms<br>
-of the other CRTCs are idle.<br>
-<br>
-With two displays on X11, one static and one receiving cursor updates,<br>
-the static CRTC&#39;s ISM enables idle optimizations while the cursor CRTC =
-is<br>
-busy. Legacy cursor updates do not take a vblank reference, so nothing<br>
-vetoes it. On ASICs that set debug.exit_idle_opt_for_cursor_updates<br>
-(DCN30x, DCN32x, DCN401, ...), every call to<br>
-dc_stream_program_cursor_attributes() and<br>
-dc_stream_program_cursor_position() then exits and re-enters idle<br>
-optimizations itself. That is up to four synchronous DMUB commands per<br>
-cursor update, each taking up to ~1.6 ms on DCN401, all under dc_lock in<br=
->
-the X server&#39;s input thread. The cursor visibly speeds up and slows dow=
-n<br>
-while the desktop is otherwise idle.<br>
-<br>
-Measured on RX 9070 XT (DCN401), 240 Hz + 60 Hz displays, Xorg, cursor<br>
-moving continuously for 15 s (ftrace, cursor handler entry to<br>
-dc_stream_program_cursor_position entry):<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0before=C2=A0 =C2=A0 =C2=A0 aft=
-er<br>
-=C2=A0 cursor updates/s=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 1686=C2=A0 =C2=A0 =C2=A0 =C2=A0 2572<br>
-=C2=A0 latency median / P95 / P99=C2=A0 =C2=A0 144/858/927=C2=A0 17/19/87 u=
-s<br>
-=C2=A0 samples &gt; 500 us=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 5460=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00<br>
-=C2=A0 idle opt calls from cursor=C2=A0 =C2=A058093=C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A00<br>
-=C2=A0 =C2=A0 programming<br>
-=C2=A0 dcn401_apply_idle_power_<br>
-=C2=A0 =C2=A0 optimizations calls=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 58198=
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A06<br>
-<br>
-With a single display, or with any vblank requestor active, the issue<br>
-does not occur. Commit a1fc7bf6677e (&quot;drm/amd/display: Restore 5s vbl<=
-br>
-offdelay for NV3x+ DGPUs&quot;) hid the issue by keeping vblank enabled on =
-the<br>
-cursor CRTC; it reappeared with commit f39283eab44f (&quot;Revert<br>
-&quot;drm/amd/display: Restore 5s vbl offdelay for NV3x+ DGPUs&quot;&quot;)=
-.<br>
-<br>
-[How]<br>
-Before allowing idle optimizations, also require every CRTC with an<br>
-active stream to be in OPTIMIZED_IDLE or OPTIMIZED_IDLE_SSO. The ISM<br>
-updates current_state before dispatching, so the last CRTC to go idle<br>
-still allows idle optimizations and no idle entry is lost. Idle<br>
-optimizations are still entered on a static desktop (173 entries in a<br>
-15 s static capture with the patch applied), idle GPU power is<br>
-unchanged (25.9 W before, 25.8 W after), and vblank enable/disable is<br>
-unchanged.<br>
-<br>
-The problem was found and the fix written with an AI coding assistant,<br>
-working from ftrace captures taken on the affected system: function<br>
-tracer counts and caller attribution, and function_graph durations of<br>
-the cursor, ISM and DMUB paths. The assistant proposed the change and<br>
-drafted this changelog; the submitter reproduced the issue, built and<br>
-ran each test kernel, and confirmed the results.<br>
-<br>
-Fixes: 754003486c3c (&quot;drm/amd/display: Add Idle state manager(ISM)&quo=
-t;)<br>
-Closes: <a href=3D"https://gitlab.freedesktop.org/drm/amd/-/issues/6115" re=
-l=3D"noreferrer" target=3D"_blank">https://gitlab.freedesktop.org/drm/amd/-=
-/issues/6115</a><br>
-Link: <a href=3D"https://gitlab.freedesktop.org/drm/amd/-/issues/4906" rel=
-=3D"noreferrer" target=3D"_blank">https://gitlab.freedesktop.org/drm/amd/-/=
-issues/4906</a><br>
-Assisted-by: claude-opus-5-5<br>
-Signed-off-by: Claudio Forain &lt;<a href=3D"mailto:claudioforain@gmail.com=
-" target=3D"_blank">claudioforain@gmail.com</a>&gt;<br>
----<br>
-Testing and limitations:<br>
-- Reproduced and tested on v7.3.3 (Gentoo) with RX 9070 XT (DCN401),<br>
-=C2=A0 Xorg, two DP displays (240 Hz + 60 Hz). The issue reproduces only wi=
-th<br>
-=C2=A0 both displays active; disabling one makes stock 7.3.3 behave.<br>
-- Built and booted on v7.3.3. This posting is rebased onto<br>
-=C2=A0 amd-staging-drm-next, where it applies cleanly, but it has not been<=
-br>
-=C2=A0 built or run on that tree.<br>
-- Not tested: other DCN generations, APUs, PSR/Replay panels (the<br>
-=C2=A0 OPTIMIZED_IDLE_SSO path), Wayland compositors, hotplug and<br>
-=C2=A0 suspend/resume with the patch, and the ISM KUnit tests.<br>
-- Idle GPU power on a static desktop (hwmon power1_average, 40 x 1 s):<br>
-=C2=A0 25.9 W before, 25.8 W after. Only checked on this setup.<br>
-- crtc-&gt;state is read under dc_lock only, like the existing<br>
-=C2=A0 to_dm_crtc_state(acrtc-&gt;base.state) in amdgpu_dm_ism_commit_event=
-().<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c b/driver=
-s/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c<br>
-index 127eaba..79546ad 100644<br>
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c<br>
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c<br>
-@@ -276,6 +276,32 @@ bool dm_ism_trigger_event(struct amdgpu_dm_ism *ism,<b=
-r>
-=C2=A0EXPORT_IF_KUNIT(dm_ism_trigger_event);<br>
-<br>
-<br>
-+/*<br>
-+ * Idle optimizations are HW-wide, but each CRTC runs its own ISM. Only al=
-low<br>
-+ * them once every active CRTC&#39;s ISM has reached an optimized idle sta=
-te, so a<br>
-+ * static CRTC cannot enable idle optimizations while another CRTC is stil=
-l busy<br>
-+ * (e.g. receiving cursor updates without a vblank reference). Otherwise e=
-very<br>
-+ * cursor update on the busy CRTC must exit and re-enter idle through DMUB=
-.<br>
-+ */<br>
-+static bool dm_ism_all_crtcs_idle(struct amdgpu_display_manager *dm)<br>
-+{<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0struct drm_crtc *crtc;<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0drm_for_each_crtc(crtc, adev_to_drm(dm-&gt;adev=
-)) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct amdgpu_crtc =
-*acrtc =3D to_amdgpu_crtc(crtc);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct dm_crtc_stat=
-e *state =3D to_dm_crtc_state(crtc-&gt;state);<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!state || !stat=
-e-&gt;stream)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0continue;<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (acrtc-&gt;ism.c=
-urrent_state !=3D DM_ISM_STATE_OPTIMIZED_IDLE &amp;&amp;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0acrtc=
--&gt;ism.current_state !=3D DM_ISM_STATE_OPTIMIZED_IDLE_SSO)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0return false;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0return true;<br>
-+}<br>
-+<br>
-=C2=A0static void dm_ism_commit_idle_optimization_state(struct amdgpu_dm_is=
-m *ism,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0struct dc_stream_state *stream,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0bool vblank_enabled,<br>
-@@ -326,7 +352,8 @@ static void dm_ism_commit_idle_optimization_state(struc=
-t amdgpu_dm_ism *ism,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* optimizations at the start of this func=
- -- we should disallow<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* whenever there&#39;s *an* active CRTC.<=
-br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0*/<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0if (!vblank_enabled &amp;&amp; dm-&gt;active_vb=
-lank_irq_count =3D=3D 0) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (!vblank_enabled &amp;&amp; dm-&gt;active_vb=
-lank_irq_count =3D=3D 0 &amp;&amp;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dm_ism_all_crtcs_idle(dm)) {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 dc_post_update_surf=
-aces_to_stream(dm-&gt;dc);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 dc_allow_idle_optim=
-izations(dm-&gt;dc, true);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
--- <br>
-2.x<br>
-</blockquote></div>
-
---0000000000004eddd4065fec6c36--
