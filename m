@@ -2,132 +2,83 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9806A606A320
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Nov 2026 15:19:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BF4A60A2625
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Nov 2026 16:03:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hotmail.com header.i=@hotmail.com header.a=rsa-sha256 header.s=selector1 header.b=Vx8cyqUK
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=omU/YTns
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E29610E120;
-	Tue, 10 Nov 2026 15:19:27 +0000 (UTC)
-Received: from TY3P286CU002.outbound.protection.outlook.com
- (mail-japaneastazolkn19010023.outbound.protection.outlook.com [52.103.43.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF48210E120
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Nov 2026 15:19:20 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kd7IeALG9R+q8DVYH8Yht59hLm/GGeLscOLieipwh+cOqg8yMKeE4UcnWbHdgsVDVtCaV2DtXiP/KXkEv2A07wr1xlZkKtDepTFDjUZ5TcOfKZnpRg0UoAlnr1m5ZSpuCRup+bYm3dZY7VFDe/HJSczX9LAtOcbVdHLTFgTS3VCRzl7pRhmTSLkvviiszKlIAffyBPJ16XqXu3ESfQorfnGrpuU48rAzm4fRL07xVlU5GVF8QuIB1vXAD4CCEdWH57VoTLTW2UXCGY3ZWBVylPUU8TMk22GR7YJS4UqAmgdimFip9nxpApuxXPBXROLwh2FVCCiHpEZZ4BbX50A42A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MlY+eQtiVHtc5wICa1O8X07AP4bdEJFT9bygK7EDJ4k=;
- b=auXK0ORUhi2TH7XlaT3O0HAqELQtcjaWIFw/BJdYjkUSk6Odgy5jVvdYM+o/nPp0AbsndNyoxYuFHd6VXRAgh5OWwtQq/oAdzCrsWUTnjaAYhsMXDtsbIBGbxrS/yE4peQkjNnjsseu6PYaA3wSAq+OcU92B2QbOGg50yPbR1X7HbexJEav6Fn9SF7pF4+gOP5FiN0nyh3Q0TU0ln6CqTy1VNBABhDB5AdrLTdZjcWfCUmUnv2q/Ek3eNebtFV2WB/oQUpAmHP087ybKx5DlGkncBaWjDcMJ2CD7JXOBehWBrj0E/0IYMYMrOi0VtEixTsPZDCMerfusaIKmAXXlkw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MlY+eQtiVHtc5wICa1O8X07AP4bdEJFT9bygK7EDJ4k=;
- b=Vx8cyqUKiRZFTdCdII8KbtrhqljEdcYGgPjPMmtAXasBK9jPYhwL8rF9vZfvAY2K9d62PlpmVS9vY1nwhsH1SYqWJqQ+pgifyGZ2ulCMLNq7zPqJ+ZbnjsXfvHC+s4dNME/0BKOBO2Cg4MOisuLjysyUrUX2s4P8+MXjONntuG2mVZ3N3Ta47Qt+2exOdFFZN9xkfScLFst5O0KWNfXaHwbcpO6EfPVdvf9pZO3vYMEATJRKdaXGvG7n49ekKXfu6K4zzUgbtGA8S5nFMkCcp3+IJRWc0gOHKUvNm2Xm/GuFVo5Gz7NOZhk7EwY1cZsH0v5rj14Ei6+kDRxWvFMDCg==
-Received: from OS3PR01MB10251.jpnprd01.prod.outlook.com (2603:1096:604:1e1::9)
- by TYCPR01MB9587.jpnprd01.prod.outlook.com (2603:1096:400:194::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
- 2026 15:19:16 +0000
-Received: from OS3PR01MB10251.jpnprd01.prod.outlook.com
- ([fe80::7edc:2a40:7b8f:56f9]) by OS3PR01MB10251.jpnprd01.prod.outlook.com
- ([fe80::7edc:2a40:7b8f:56f9%4]) with mapi id 15.21.0615.007; Tue, 10 Nov 2026
- 15:19:15 +0000
-From: "Jiaming Fan" <fan.jiaming@hotmail.com>
-Subject: [PATCH] drm/radeon: only unregister the ATPX handler if we registered
- it
-Message-ID: <OS3PR01MB102512A4873E4DCA42A648069E7722@OS3PR01MB10251.jpnprd01.prod.outlook.com>
-To: <amd-gfx@lists.freedesktop.org>
-Cc: "Alex Deucher" <alexander.deucher@amd.com>, 
- "=?utf-8?Q?Christian_K=C3=B6nig?=" <christian.koenig@amd.com>, 
- "Mario Limonciello (AMD)" <superm1@kernel.org>
-Date: Tue, 10 Nov 2026 15:19:10 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: TPYP295CA0003.TWNP295.PROD.OUTLOOK.COM
- (2603:1096:7d0:9::14) To OS3PR01MB10251.jpnprd01.prod.outlook.com
- (2603:1096:604:1e1::9)
-X-Microsoft-Original-Message-ID: <d5684278-c5ee-4af4-89b7-72b93ad3a200@milk.local>
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABF5B10E305;
+	Tue, 10 Nov 2026 16:03:06 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 81D5810E147;
+ Tue, 10 Nov 2026 16:03:00 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id C6C0563886;
+ Tue, 10 Nov 2026 16:02:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C75281F008A1;
+ Tue, 10 Nov 2026 16:02:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794326579;
+ bh=FNDkv1ehDTThxTyLiL7N4PRTTUcXYC87Y8d7JcOanSU=;
+ h=From:Subject:Date:To:Cc;
+ b=omU/YTnsN8DeTUBFFZt9RAto/OMxKndbUD6R759+tVvrl+ImYEPhulSCB3dS4ScnA
+ ORyLRG9uDUFp1YAdejWQwWz/NkGcK/21EOEAzEGZRJN1uzQOq3Ecr13TBoZ6YtqxkP
+ ufFqI/RE616wWW7UAmbSCd/oAJa6hKmjmWoHloUyqlbjaIj4pDpZwyCHAIPOpa3Dxr
+ +ZBXvdhu9jnRk7ympnrCgzR4tYT9TwLP+/zoVyFdCboNmBzcCcAeCFCoRtXeM3dw+/
+ Rhy6pIlZ5b/kxSQY41Ms15TfyvdBd+pGunG6O67Sc6ZXWuBcx+sf7k9FrdOQKr/wAI
+ b5gTpyORN2NKg==
+From: Maxime Ripard <mripard@kernel.org>
+Subject: [PATCH v9 00/10] drm: Add DRM_MODE_ATOMIC_RESET flag
+Date: Tue, 10 Nov 2026 17:02:47 +0100
+Message-Id: <20261110-drm-reset-state-flag-v9-0-ddb0e26324a0@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OS3PR01MB10251:EE_|TYCPR01MB9587:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3c9d4b1a-161d-4d7e-1d6f-08df3f3dfb7b
-X-Microsoft-Antispam: BCL:0;
- ARA:14566002|19110799012|15080799012|6090799003|5062599005|8060799015|24121999003|22091999003|41001999006|25031999004|5072599009|23021999003|51005399006|24021099003|55001999006|25010399006|440099028|3412199025|4302099013|1602099012|10035399007|40105399003;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?ZytVVFYyL1pMNXlUYTJRNGlENzd5VkhnWUZpemN1aFdvMlk3M3hPeGlJZjB4?=
- =?utf-8?B?a2FmZnlnQWpEa2g0N094U0F6ODFySVZINEt0eXl3aEN4L3UwWGJxci9FZjRv?=
- =?utf-8?B?dFhNakRHcXZVRGpOM1NmRC92SFdkSGpnbTFBWjZTR3FKdmtSMHAxVXBsWkNW?=
- =?utf-8?B?b0tqelJma0hjQkJPNTBON3dMM280R05LNmZLYWw5YkdnRjhsTHVOYlh3Vmht?=
- =?utf-8?B?YjY1TjQrVit5cldXZmxaWFliZVdBTEZBcG9BQkoremlNNjdrNCtIOFk2dlla?=
- =?utf-8?B?cWFxTHpKOU44NHF6UDF6MW56WEE5T3h6NzdMdWZEeEVJT284R3I4cFdwdDVl?=
- =?utf-8?B?WGh6WE1KQnFjN0J2WnBkYlVJUHlDOUU3eW5iWVQrSEhFVU9DUmRLOVFXMld2?=
- =?utf-8?B?ZFNWRXE4anRqcFU0MTYrajZpTFppQnRBS3lvSFk1K3k3dkI0bldBbjEvQzdz?=
- =?utf-8?B?SzFlQzJSQkdOOWF1NldMcUNUaHNubTZjTCtsTktBL21qMndidER3dTE0Y2Ja?=
- =?utf-8?B?QWZjOHJ1ZHhWV3Y0L1pHY3RlRTNxMzJXU1R1QlF3Zml5aFZiM3VUNzlrRlg5?=
- =?utf-8?B?Yk5naXpDREJrMjlxdmNCcktsVkQwR3Y4UTVVc0lVMnR0Tk1qcTVocW9mM2dL?=
- =?utf-8?B?cEN1MXd3eXE0SE4ycmV6cWp6dHgvcVZOeXZiUU1WaVN6bzIwekUycEN2dlFi?=
- =?utf-8?B?YW4wZm1CSWI0U3FjL050WnplbERxNmR2ck14TVBtaVY1ZWpSZmJxZ0lpb2l0?=
- =?utf-8?B?NHRGZkUvQ1puekdYS3RvcUJlODhJQnpyeVBLbTUyRFd6NE1HZWRNam1CR2pv?=
- =?utf-8?B?TXV3Nys2ZEZKQ3daL1JRbldrd09OVjNxbHp3K0YvVHBxd1Q0aS95MG9TYmN4?=
- =?utf-8?B?ZStxZCtqUjJJU3RBMzIrME9oM25HMndaZlg1VTJkNmF2QTJvNW1DVVZJQVpS?=
- =?utf-8?B?am42MVZObHh3dkljSFViQ1BSM29VM0dYSjRsUC9OZTUxODdscVV1Q2Q3ZE5B?=
- =?utf-8?B?YnhRRjIwOURyUkpPZVQ5UWpVVHFuLzk5UmJYY24zVkFmOTk1Zy94L1h5a2l4?=
- =?utf-8?B?TGROZ2RTUEsxTWRFd0ZwcnVkcHpnMGdDNG9TTXdYOGQ1VklnVENWTkpYWEph?=
- =?utf-8?B?eDdlaHlvZHh4YXBuckVYMk5LVHdGbEZKamliUUp0Z29OUnVNU2g2OW1yTXFp?=
- =?utf-8?B?a0RoV3hDcnM5akRycWlGRFN3Zk1LQSttRno4MHlZc09lVU9NSmJkeU9EcmVB?=
- =?utf-8?B?ME5PZk1PdGhOQi9qS0ZhNkN6eG9lL0FwbkFiaUxHbnNpb0hpNUtkZ3dHNS93?=
- =?utf-8?B?VDIzSUxMRHFzYXJKWW9keDJnNEdNWk5hbU5aMnhiS25xeUREVjZ3eGhsZXNP?=
- =?utf-8?B?WTVuaUVGcmtJVHlUY1FTSTdEU3NTQjFiei9hQUprUlUrWU5sSnU1dkFsaWZi?=
- =?utf-8?B?aWZRWDVQTEkyakRCNEwreEYzSkdMZnRxUWVvckZIQTgyT1VTZjk0YjZTTkVQ?=
- =?utf-8?B?aENQS0paUTJkZDJyTlNSOVlFdVdDRkU1K21MVEFzRFpzdnhiNSszckNDRTZk?=
- =?utf-8?Q?laXTK299cBQxF4VNhhKP6L2/9+BMmTpsS3AbctBw9v0N86?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TWNIWEo5bzdZVVVTUEdmNk5uUjJCdUZzWm5NbWxaemJXNVlRTzdTdU5SazNC?=
- =?utf-8?B?S2xTT2k1amVTUHJJRFdSMmZDRU0zMmhTS0JSYzNnZitpVEM4aFNteXo1K0Nu?=
- =?utf-8?B?QUQyR3hWUXFzMlJXdmZIc2lTOTdZRFFZZW91ZzBJZ2pnSFRKVk44eC9uODNa?=
- =?utf-8?B?Und4UFZ0ZWZTRjFRdnpNbnNZQXh3YkNhQkx2WUlHYlAxbjVOTHgwQnpJWTZH?=
- =?utf-8?B?ZFJWbWZGVVZlM0JsSDh6bnk0TE5QWk5qZ3dIY1BZS2tUdnJSWHRMdVAzRjBt?=
- =?utf-8?B?S1IrOTNvcHNKNGgvWG1lQ0VpZDUxbUZDQVVEcG5LWStXWlIxbHJZOW93T0RC?=
- =?utf-8?B?aXhjLytoRnpwS1ZOb0dyZzlqQjU0TklvdzJrS01Ncy9heWxBanhXTlVHWVBj?=
- =?utf-8?B?OHd0RTZialJ1YnBYSkFaazdVQmVsV1NmRXFWY3F4Y282K3k3bEt3SkJPRnBL?=
- =?utf-8?B?L0tkbml1TzNLc1l6TW9qZmdBeFZuL2hOekdsOFFCMS8wc0wrWTBVYzBhelQ1?=
- =?utf-8?B?bjVPdURMcTdDWVVqZ3k2SFZwVlAwUXJyRFZNa1hvc3hoZ1NuNVlYY1QrM3VK?=
- =?utf-8?B?ZkVRdEFNTXY5dnU4ajhzT2tuS2swRzlnN1RPR05hWlR6QlJVcU9sQmMrUzgz?=
- =?utf-8?B?QmtEdFBjYytadWd0QUdEY0E2WnMwQXo5TDg4SzVuQTVlbzUxSWphWkg4d0Zs?=
- =?utf-8?B?aGkzQnVaVjlxYXFtMHlsYXlXSFlzMmZkRVJzdlJOa0V3REdQdllpeitPbm9J?=
- =?utf-8?B?b092V2UzYmxBcm8rbkc3ZHA4QkdXSmxWRHJHc0EyQWtrQ0Fzc0FiazQ5QjU0?=
- =?utf-8?B?RVpic0lCdHpsUFIwNkRUN1gybHBYcmRCRjNUaU9IeWFNTXBpNC85SEVhV3hR?=
- =?utf-8?B?L0JqSTZrVGdWMStocDhuWHVJR0hGbE5hWDBhZUYxYnVRLzl3ZDcrYVNoR28r?=
- =?utf-8?B?azZLeGR5bmtybDZreDltTnpJc3JlZXhMWVlDMEIxaFlndFVSSHFUR3RuR0ZS?=
- =?utf-8?B?VEFONStHa08vdzU4TXVmYzRKZ21NcnkrTHZOYmNEaGdyQ0p5TlhLMFJlbk9U?=
- =?utf-8?B?TkpBdy9ndzZyV25aRWtCaFBUK0dUUXBOYkVpYnRPNmcydnBBNWxaMUFzMVh1?=
- =?utf-8?B?LzBlNk1US0xlcjcvNTJONlpFV2ZYRnJwb1BSNElPazNtL0xFRFhXWVpCRlZW?=
- =?utf-8?B?WG1MSjRjQnN0dnZCRk5KMWdYVnFYWi8xMDljTUZVOUtxbWNPdFp0aTRFRllZ?=
- =?utf-8?B?TVFpNFprVUZJZ3dVZk1saXNYaVhiUHM0R1NxTG1PSjRTazluYnUzTEdwVlpN?=
- =?utf-8?B?U1h1UE5PRDJVbXBKRGhEV3U4ZXYxODhoWFArbFFjM1kxSzczWkNiMDRJTlN0?=
- =?utf-8?B?bll0dUpzRHZrQThoZ0doZ2VMNWd3SmhobkNTbS91ME9PVmh2aENIVzZKdGEr?=
- =?utf-8?B?cjBVbWJrRThTRDZENlBCTXZuTVdlazFuY3ZGOHZYK3pQamttVUQ1T21POExh?=
- =?utf-8?B?b2UrNzgxZ2MwOElWNUozbmJpdG14YVg1Mk5rWm03NWp1QmYyMGgzeVgrWHRQ?=
- =?utf-8?B?NVR2L1M1cVg2ZjN1ajU5WWVUNmx4QkNxUkt5N0RSRUZvTlMwa1VwVzkxa0lh?=
- =?utf-8?B?Tk1TQmFnOEZmUkJzVHd1NHBUcFlVeUNaZXJraWp2WmdQRFd0Uk1MeE1hRFZC?=
- =?utf-8?B?ZTFZVERLMGM1UDdmVjJLbEFROEcvc2N1MWZOYllDU1R0V2ZnZk9PRmF0bnRY?=
- =?utf-8?B?U1VPcDczK2tqNXNSMFFNME9yVTlhRVYxbkxJUGJQVVBFWXNXU1BCWkIyQVJt?=
- =?utf-8?B?bDQ1eXBETDcveGFlUnU4UlVYblRPRUk2bHZLL3grbVpkSkRrZ2NHS2NrNThY?=
- =?utf-8?B?bWpod1BnMXBUVWxoRzJQVDlBRWlmYWZaOGVTRDVJdVhPQ3c9PQ==?=
-X-OriginatorOrg: sct-15-20-9412-3-msonline-outlook-b83fc.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3c9d4b1a-161d-4d7e-1d6f-08df3f3dfb7b
-X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB10251.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 15:19:15.7695 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB9587
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/4XSTW6DMBAF4KsgrzPV2MY/sOo9qi4MHhOrBVqbo
+ lZR7l5BoiYRQt1amu+NR+/EMqVImdXFiSWaY47jwOqiOhSsPbqhI4ie1QUTKDQatOBTD4kyTZA
+ nNxGEd9eBCI1olOE8VIYdCvaRKMTvlX15PRTsGPM0pp81ZebL6z/gzAGhlca3lVWlVf75jdJA7
+ 09j6tgizuKmWC52FAEIVOmWuJTc+K0ib0q1u4sEhAqVMhikNa7cKOWdwveUEhCU8xy1NBhQbRT
+ 1p3DkekdRgOCdF16Xja5ks1H0nSL27qIBIUjtdYmNIaM3irlTJO4oBhBKUoocOdJWbhR7Uzju/
+ cgud8HgsdSNQRUelPOlTIk+v2KO06VRrHGZoB37Pk514YWzLVHFm+CW7vWUs1t7WxfXaLVGDyP
+ 0Y1oGhxC76yZr0XhQ1nOSUlp8jD//AhzQEhMhAwAA
+X-Change-ID: 20260708-drm-reset-state-flag-2fb2b5711f97
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Louis Chauvet <louis.chauvet@bootlin.com>, 
+ Haneen Mohammed <hamohammed.sa@gmail.com>, 
+ Melissa Wen <melissa.srw@gmail.com>
+Cc: Daniel Stone <daniels@collabora.com>, 
+ Harry Wentland <harry.wentland@amd.com>, 
+ Jocelyn Falempe <jfalempe@redhat.com>, 
+ =?utf-8?q?Jonas_=C3=85dahl?= <jadahl@redhat.com>, 
+ =?utf-8?q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
+ Pekka Paalanen <pekka.paalanen@collabora.com>, 
+ Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
+ Victoria Brekenfeld <victoria@system76.com>, 
+ Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>, 
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ amd-gfx@lists.freedesktop.org, Daniel Stone <daniel@fooishbar.org>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, freedreno@lists.freedesktop.org, 
+ Oarora Etimis <oaroraetimis@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=12127; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=8vJQnn2EAAkvlxffHeIvhrGIT8fQH1P77I5id6Kf1is=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFmfHbSPGivfM47W7tDe3b9hV4Wi4JJ70tePTVZ4dUf4H
+ N+6bwsWdkxlYRDmZJAVU2R5IhN2enn74ioH+5U/YOawMoEMYeDiFICJfMlnbFhonxB/ev21xXPX
+ +N7dNXXnrqsL12r3KSseYJ1zh/+L/YqO2Onl+/Z8uR225fc8/j/xe7czNjyOXXJqke3y0tX3bpT
+ s3rli6/trJ/e+vmRdbSHuNqX306kZV7skf9yXr417uCHjENfcbkUA
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,83 +89,241 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-radeon_register_atpx_handler() registers the ATPX handler with
-vga_switcheroo only when ATPX is detected, and ignores the result:
-vga_switcheroo has a single handler slot and refuses a second handler
-with -EINVAL. radeon_unregister_atpx_handler() calls
-vga_switcheroo_unregister_handler() in either case, and that clears the
-slot no matter who set it.
+Hi,
 
-So unloading radeon removes a handler registered by another driver, such
-as apple-gmux. No Radeon GPU is needed for this; loading and unloading
-radeon is enough. amdgpu is another such driver: when radeon and amdgpu
-are both loaded and both detect ATPX, only the first one gets the slot,
-and unloading the other one clears it. Afterwards vga_switcheroo can no
-longer switch outputs, and a client that uses the vga_switcheroo runtime
-PM domain, such as nouveau on a non-Optimus machine with a v1 DSM, can
-dereference the now NULL handler during runtime suspend.
+Userspace currently has no atomic way to bring a display pipeline back
+to a pristine state. A compositor that wants to start from a known
+baseline must explicitly set every property on every KMS object to its
+default value, which requires tracking which properties exist and what
+their defaults are. This is fragile and must be updated every time a
+new property is added to the kernel.
 
-Record whether the registration succeeded and unregister only in that
-case. amdgpu has the same problem and gets the same fix.
+This series introduces a new DRM_MODE_ATOMIC_RESET flag for the
+atomic ioctl. When set, the kernel fills the commit with default
+states for all KMS objects before applying the properties supplied in
+the request. Properties not explicitly included remain at their
+defaults. This allows userspace to describe the desired end state
+declaratively, without caring about the current state or the full set
+of properties.
 
-Fixes: 6a9ee8af344e ("vga_switcheroo: initial implementation (v15)")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiaming Fan <fan.jiaming@hotmail.com>
+The bulk of the series extracts the state insertion logic from each
+drm_atomic_get_*_state() into standalone helpers, since the
+fill_with_defaults path creates states through atomic_create_state()
+rather than atomic_duplicate_state() and cannot reuse the existing
+functions directly.
+
+A driver-specific property is added to vkms planes for testing.
+Standard properties are impractical for this: compositors like Mutter
+enumerate all known properties, making it hard to isolate the reset
+behavior in a test.
+
+Mutter has a working implementation using the new flag, with a
+vkms-based test exercising the reset behavior:
+https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/5309
+
+And we have IGT tests as well:
+https://lore.kernel.org/r/20261030105135.268065-1-mripard@kernel.org
+
+This series relies on all drivers implementing atomic_create_state.
+The conversion is in progress but not yet complete.
+
+Let me know what you think,
+Maxime
+
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-The amdgpu counterpart is patch 1 of this series:
-https://lists.freedesktop.org/archives/amd-gfx/2026-November/157097.html
+Changes in v9:
+- Add a flag to know if leases have been revoked or are empty
+- Handle the situation where a leased plane or connector being reset
+  would disable an unleased CRTC
+- Add more kunit tests to cover the new issues reported by sashiko
+- Fix reset-related bugs in amdgpu, vc4 and msm DPU
+- Add a vc4 kunit test for its reset related bug
+- Link to v8: https://lore.kernel.org/r/20261106-drm-reset-state-flag-v8-0-50fd046b705f@kernel.org
 
- drivers/gpu/drm/radeon/radeon_atpx_handler.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+Changes in v8:
+- Fix more leases issues
+- Drop applied patches
+- Link to v7: https://lore.kernel.org/r/20261030-drm-reset-state-flag-v7-0-4e55eaeae683@kernel.org
 
-diff --git a/drivers/gpu/drm/radeon/radeon_atpx_handler.c b/drivers/gpu/drm=
-/radeon/radeon_atpx_handler.c
-index f557535..9ed75c6 100644
---- a/drivers/gpu/drm/radeon/radeon_atpx_handler.c
-+++ b/drivers/gpu/drm/radeon/radeon_atpx_handler.c
-@@ -34,6 +34,7 @@ struct radeon_atpx {
- static struct radeon_atpx_priv {
- 	bool atpx_detected;
- 	bool bridge_pm_usable;
-+	bool handler_registered;
- 	/* handle for device - and atpx */
- 	acpi_handle dhandle;
- 	struct radeon_atpx atpx;
-@@ -605,7 +606,8 @@ void radeon_register_atpx_handler(void)
- 	if (!r)
- 		return;
-=20
--	vga_switcheroo_register_handler(&radeon_atpx_handler, handler_flags);
-+	if (!vga_switcheroo_register_handler(&radeon_atpx_handler, handler_flags)=
-)
-+		radeon_atpx_priv.handler_registered =3D true;
- }
-=20
- /**
-@@ -615,5 +617,14 @@ void radeon_register_atpx_handler(void)
-  */
- void radeon_unregister_atpx_handler(void)
- {
-+	/*
-+	 * vga_switcheroo has a single handler slot and unregistering clears it
-+	 * no matter who set it, so leave a handler registered by another
-+	 * driver, such as amdgpu or apple-gmux, in place.
-+	 */
-+	if (!radeon_atpx_priv.handler_registered)
-+		return;
-+
- 	vga_switcheroo_unregister_handler();
-+	radeon_atpx_priv.handler_registered =3D false;
- }
---=20
-2.56.0
+Changes in v7:
+- Fix a whole bunch of sashiko issues to deal with color_mgmt_changed,
+  leases, partially leased devices (like a plane leased but it's crtc
+  isn't) and the interaction with PAGE_FLIP_EVENT better
+- Fix crtc create_state implementation for ssd130x
+- Actually make it possible for a compositor to recreate the same whole
+  state without passing ALLOW_MODESET
+- Fix EDEADLK bugs with kunit tests
+- Don't report DRM_CAP_ATOMIC_RESET on !atomic drivers
+- Fix error handling in vkms for the new property
+- Add more kunit tests for the new corner cases
+- Link to v6: https://lore.kernel.org/r/20261022-drm-reset-state-flag-v6-0-f36d640b7e76@kernel.org
 
+Changes in v6:
+- If using a lease, only considered the leased objects
+- Fix amdgpu plane atomic_create_state implementation
+- Link to v5: https://lore.kernel.org/r/20261016-drm-reset-state-flag-v5-0-dad2d64b693b@kernel.org
+
+Changes in v5:
+- Fix bisection issue
+- Improve the documentation
+- Fix connector hotplugging issue
+- Added kunit tests for drm_atomic_commit_fill_with_defaults()
+- Link to v4: https://lore.kernel.org/r/20260918-drm-reset-state-flag-v4-0-5ad106370f05@kernel.org
+
+Changes in v4:
+- Improve the drm_atomic_get_private_obj_state and
+  drm_atomic_get_connector_state array reallocations
+- Return void on functions to insert an object state into a commit when
+  it cannot fail
+- Rename drm_atomic_can_create_state() into
+  drm_atomic_implements_create_state()
+- Move capability check from drm_atomic_commit_fill_with_defaults to its
+  caller 
+- Added IGT test
+- Link to v3: https://lore.kernel.org/r/20260908-drm-reset-state-flag-v3-0-905570f387a4@kernel.org
+
+Changes in v3:
+- Rebased on top of the latest atomic_create_state series
+- Sebastian Wick created and tested this work with mutter and vkms
+- Fix colorop locking
+- Link to v2: https://lore.kernel.org/r/20260812-drm-reset-state-flag-v2-0-e96ce13317dd@kernel.org
+
+Changes in v2:
+- Fix bisection
+- Add capability to let userspace know if it can reset the state
+- Link to v1: https://lore.kernel.org/r/20260708-drm-reset-state-flag-v1-0-c37dc985485d@kernel.org
+
+---
+Maxime Ripard (9):
+      drm/amd/display: Fix planes atomic_create_state implementation
+      drm/atomic: Add drm_atomic_implements_create_state() helper
+      drm/lease: Add a helper to tell whether a lease was revoked
+      drm/atomic: Allow filling a commit with pristine object states
+      drm/tests: atomic: Add tests for drm_atomic_commit_fill_with_defaults()
+      drm/amd/display: Take over the current stream and dc_state
+      drm/vc4: Carry the HVS channel over to created CRTC states
+      drm/msm/dpu1: Carry the mixers over to created CRTC states
+      drm/vkms: Add driver-specific plane property for testing
+
+Sebastian Wick (1):
+      drm/atomic-uapi: Add DRM_MODE_ATOMIC_RESET flag
+
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  50 +++
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c    |   3 -
+ drivers/gpu/drm/drm_atomic.c                       | 482 +++++++++++++++++++++
+ drivers/gpu/drm/drm_atomic_uapi.c                  |  56 ++-
+ drivers/gpu/drm/drm_ioctl.c                        |   5 +
+ drivers/gpu/drm/drm_lease.c                        |  30 ++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c           |  21 +
+ drivers/gpu/drm/tests/drm_atomic_test.c            | 325 +++++++++++++-
+ drivers/gpu/drm/vc4/tests/vc4_test_pv_muxing.c     | 105 +++++
+ drivers/gpu/drm/vc4/vc4_kms.c                      |  16 +-
+ drivers/gpu/drm/vkms/vkms_drv.h                    |   3 +
+ drivers/gpu/drm/vkms/vkms_plane.c                  |  63 ++-
+ include/drm/drm_atomic.h                           |   4 +
+ include/drm/drm_auth.h                             |  11 +
+ include/drm/drm_lease.h                            |   2 +
+ include/uapi/drm/drm.h                             |  10 +
+ include/uapi/drm/drm_mode.h                        |  17 +-
+ 17 files changed, 1190 insertions(+), 13 deletions(-)
+---
+base-commit: d2a8cee91bfa8616f713c7c8f539a81e8e3554ea
+change-id: 20260708-drm-reset-state-flag-2fb2b5711f97
+prerequisite-message-id: 20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org
+prerequisite-patch-id: 3fd105fbfdbb4eee1f8ae9682b359477d5c2d610
+prerequisite-patch-id: ed1d1dd244e64b18c5682800b546ebb2d0f44ec8
+prerequisite-patch-id: 6b00324107d28bfe6ccd346730c6370d8f8362c4
+prerequisite-patch-id: bac8bfa53c3c77a832500f711322530e39d26c74
+prerequisite-patch-id: 60002e0ea0141b4051f2062152244b545450ffdf
+prerequisite-patch-id: a82ef0b22909efd3a2f1a779e27ad60b08554203
+prerequisite-patch-id: 4d4db6fb993ce12a03f5f22e07b060defc28b7d8
+prerequisite-patch-id: 7a716ac0b6df5a2d9423bfa09457e7c2ae11e35f
+prerequisite-patch-id: 35c60176b5a45a76a30285767fba4f83c5059868
+prerequisite-patch-id: 23ef4052a7a932ec4611b640d4323e0f93760a6d
+prerequisite-patch-id: f6a08bc40145c9a61508a37fe632e007c58566b9
+prerequisite-patch-id: 942ec51b8579c4a7d5652d390dbcaa6fe1ef35bb
+prerequisite-patch-id: cac9b8740c50ed002bdb7df8471c4493a53948b0
+prerequisite-patch-id: 083d50c81b3609bc6756a2b9c89b30c5918dbcd3
+prerequisite-patch-id: 97dd764d28e34d6c1fd346602931c1688aa4fe8d
+prerequisite-patch-id: 566c8a35a9734a8e8a254afcc0fbd9765c980334
+prerequisite-patch-id: a2ae7568eef2833217f55eb9528e2f846c73f993
+prerequisite-patch-id: 4bdc653ad663151585ed7d71ed9f70ac702301fa
+prerequisite-patch-id: ee3f427f087dde1290f0c0a3e821379427552961
+prerequisite-patch-id: d14cd6008b88c7c9b61ca5241c961c4747a6fdfe
+prerequisite-patch-id: c642e4fcebdbfc0ab86bba68c957ad5bbe62ef58
+prerequisite-patch-id: 71afb7db95568dfa686ab670039ba60faeb91914
+prerequisite-patch-id: 6557c88b83cd8d2ded0e4d70378c9a868659fea0
+prerequisite-patch-id: 4020d12428794416f75edb398d84a6a14905f588
+prerequisite-patch-id: a4806b41921baa3b8a3039d5431e099138fe6fa6
+prerequisite-patch-id: 7a742e65aa5d69a733376641d0eb45281239b866
+prerequisite-patch-id: ba3e625c15aa8e34747292c95ea9158b0cb98b34
+prerequisite-patch-id: ba92010fead3c007e2cbaeb15bce922eb304ccac
+prerequisite-patch-id: 2fc97bb7478092919001b21d2455a73373a5ba73
+prerequisite-patch-id: 97a28c8af17b043429e3b40325576f74518ff802
+prerequisite-patch-id: 37ae6417556eea439aab01725cfd920c1107e630
+prerequisite-patch-id: 3f8725771832d7cccd8c88a33b4fac362a2a1221
+prerequisite-patch-id: 5d51033ca88aa46e8347396cdc17fd5473636c13
+prerequisite-patch-id: 983be3e35801efe3052f0983d728a9703e7ded88
+prerequisite-patch-id: 20f874f2f1b44d9a27824a2e3944477fc3c02af5
+prerequisite-patch-id: fc7f1510621f228d42bf1666c06f34926f3e10f4
+prerequisite-patch-id: b9e987299142a89ca3a7bfb5b0335a215c7cdd52
+prerequisite-patch-id: 1d11dea3090f6b72322c3827bd260ed3d12e1201
+prerequisite-patch-id: 4182aa31cbc4b985e3a628c3dc9a2fd039188f7e
+prerequisite-patch-id: 7b7f07b1c57398f185a93d6b3212394753292be7
+prerequisite-patch-id: e6bd5afbc9593e93203caa0ae9f08545511e2bf2
+prerequisite-patch-id: c6d466588800f94684ebf9fb785ce085510c8f93
+prerequisite-patch-id: 5f8a9d6fd20c05d708df6424102575251d32331f
+prerequisite-patch-id: 18c2d823dc5b44514c0b2278986933a1a9834f02
+prerequisite-patch-id: a8c4944302cbea92690957fd18162ca303757874
+prerequisite-patch-id: 962e6cc26e53a3319302fd4c2aae2bc4b593f4be
+prerequisite-patch-id: 366fc63bc744ea4a2af4f16befaa1d7e8c66bf84
+prerequisite-patch-id: 33c4fd1e1ccd1eac9fde961a0f7ed8509e713c7e
+prerequisite-patch-id: 496318ad0a87ec138780d4a50a2f8a49ca126ca6
+prerequisite-patch-id: f85ec023f5ab9903987d867c330bde94b3c24c55
+prerequisite-patch-id: 34fc06cb69e34ec4d67015187969e8d2c0c56660
+prerequisite-patch-id: 3b789a4e47c47f855c44c125a75de3a79709d411
+prerequisite-patch-id: b03787ca5a3d60d4ad5682313424a114c1862fb0
+prerequisite-patch-id: 4ec079edf0025f849b1b8c7e3beb47db057ab6d2
+prerequisite-patch-id: b44382d38528c92150f2d7cac5722cf8e09c0fab
+prerequisite-patch-id: 02e42a505f17dbf5bc3e85b55d5df716e3819141
+prerequisite-patch-id: faf2c686c253faa5a81801f78ba955d3ae8c0c4f
+prerequisite-patch-id: 6407fec511e4d3bf785c3be581b828abac884ba7
+prerequisite-patch-id: 1a9fc394fdf6b19434652a4c137a0ea819702325
+prerequisite-patch-id: 6de415eec4ab2f2b8dec1f194fb89cfe01568f9b
+prerequisite-patch-id: 73e1360c2be46882c0ca58d6d60f0c394f1d47f4
+prerequisite-patch-id: fada6f5ef59f7119d5b202b64ce2184795428d7c
+prerequisite-patch-id: 7f31438e1f326350688f7aa7169038a7a33b4ddc
+prerequisite-patch-id: a9940a88c19f95573008a9e2bd950a43c12b7e3c
+prerequisite-patch-id: 2d5e46c029b523f6d6f13a0716e56267691757cf
+prerequisite-patch-id: 7aa60266913380f85e46f8dc71885356e3d7902a
+prerequisite-patch-id: cd12813a72a4c558660f8f8d093928533ddbf5ee
+prerequisite-patch-id: 186129fe8188f5b7cb6fef2701400fc6772aaf2e
+prerequisite-patch-id: c99a84af1b60e1c8f80168706f5ed600a6eb4553
+prerequisite-patch-id: 598515adbecc5c14e8ffe631206a906fb2c9f59c
+prerequisite-patch-id: cf84de09ca65f4577268e9a4a8a166436735b7da
+prerequisite-patch-id: cfd9ec749b0f3c78e0a64a73756f978bfd853391
+prerequisite-patch-id: 87104eb556b1cef43ded0979f0b806f35ec819bb
+prerequisite-patch-id: 5536c46e78e53cc31224b2730ca5fb454cd17761
+prerequisite-patch-id: 48e3546e357a8e68e4abaeb2faf1081afb8f3ae3
+prerequisite-patch-id: be78356c5aabcd0e68c61b2bc785c73a0c2edff9
+prerequisite-patch-id: 7192a8aa88903ca758655dea8eaac94b98481e82
+prerequisite-patch-id: f28910d02bfc6e11c1ecc2ce03db57ccaba0d185
+prerequisite-patch-id: 48fc2a91c98aac131457deed8d9c2965eaffd1fb
+prerequisite-patch-id: 0c829edd4d3d8cb4765d649411dec1124fd20fbd
+prerequisite-patch-id: e994569657dc0537d6d3b9f7cd4d919ba2602126
+prerequisite-patch-id: bce46caeb9616651be519c0474855ce9341de611
+prerequisite-patch-id: a2a70a62d2684c072e3927abeb7a9e86dbec759b
+
+Best regards,
+-- 
+Maxime Ripard <mripard@kernel.org>
 
