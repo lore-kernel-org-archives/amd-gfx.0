@@ -2,82 +2,136 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6152606A330
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Nov 2026 08:42:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E5F7606A32A
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Nov 2026 08:49:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nGQ1O3hb
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=dXWL2rmz
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5450D10E0CE;
-	Tue, 10 Nov 2026 08:42:02 +0000 (UTC)
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D0E4410E2C4
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Nov 2026 08:41:55 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-4a1b07c3c5fso16745185e9.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Nov 2026 00:41:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794300114; x=1794904914; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=XNkCQILAXP1Eo9beHnDt/Q1b8ghx6MubpuM7dfUl1+I=;
- b=nGQ1O3hbbUXNeE3RyBAUWI1HetBtQl5LepaN7QPDJsfEage87RyInW3aDkdC7UuYv4
- D35EUZNyFPp4B08APx+dqp+qZXin55s5mQRZU6Ec0+VfRSLvlsAMQxgwI6zogkzwsTpU
- SbQJg4HEfXy2M5/yOyG5IsFmU+tH30YyFDY/OoAqClDsAAZkw0z6woPAYDUU4FoiAfrk
- Oh8OaDy6TjJLxSrS/12pr2RHT4gcOFHA5lfi3RkmAIBMF20Od4pEVUYtD63jWk8o90a6
- KEBwLTBlEy5wuKeookkqNWJS6x7Wgyf2z+xPh4cnWHY2eBZnBl5ieMJve5JNle1SyulP
- FgbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794300114; x=1794904914;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=XNkCQILAXP1Eo9beHnDt/Q1b8ghx6MubpuM7dfUl1+I=;
- b=CE2LCqhaMPS2u/4JbEPbCkmpu4nUWuQocBkGjQbeK7u0qI05ZaUPTq0b7wtVNjvVJF
- fU3QW+ryE5/z+SLl//Crb+sqWmFIME6nksJMiiootfYrOLEMltzfUQc4x6b7CSyYcJjq
- atIPXT+FEcruGF46xs3DKPYVbL2qDnpnU1a6WU3GTzC7bzoK1D7/yxWfrMncS+zK1C10
- FbSnM7GnpUd06kgOtV2V/byose3Wb7F2x5YVREyHepznCbQDTsGq/aBeqhkqKnDp9fQX
- DE+2eUw1CN/Ccu+e+WdqVIUrnpR9Wrznmfm3JVMOl5d0m95J0Pu5LMQU7FmU8d3sIVLP
- 2Gsw==
-X-Forwarded-Encrypted: i=1;
- AL+hErGGJ3vpUEIuvaeMKt8ZPNvZjr9v4UFnxbUSQANgp8dwdD8eEsPIo/wfgsl7+anR088eQRHBaOp9@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+22JgeaF6zV7nJM6Cp7WA9790SAZeG2ocRC+2zKHRDUJ0mmVo4
- tiKvWiushzud4fhCh+rOpCV9IGmsyJYQPJCJI24eARjSfyLcqmKwbZc1
-X-Gm-Gg: AYBFou09AIxXIR32JwtFa+oPR85aq2zbKsE992q6ahbeflxm3vBfHAueJVuI9WUpAr4
- uxx7BJeuE5hQGclAIgx9Ml8L3PA4k6Y3r0DBqSqMxgUKQDrq1KIXBS+0QCZJ+0dQJ3LxGtd8Dpm
- Wvi6TMBsKezTP2C+Pnd39sKdWdKf+eQeXyMWvU6Np9hykANr04PDkDdazJ+w/xSKQw9OGp5hLlJ
- PwebiN1qLeKniNuVw6AntIfAADIH+FjyECA5hUMLeRN8G5aanyokwTuYKBI19NiZkhx208akIFE
- 6JrQan2h38eBrY8DMIB6HbRZ584U5hAETZDiumDthjWVgc18WW1rHKdIx/xOy2VxGrnHS9wzoEm
- YV54bOgKH1mTULVxiOLLz5bzMCY030Vp6wa7lcEFGPJuszQ9wwB5eMcvypvJuXBe03MagkU4aNK
- kJqYZQSEYZXy+ttWGTLS2RsSZZ8T5lQVkFOhyuNwXpNL2WDPaOGomXMCxOY8icqA8VzO8xnhhMQ
- FAabgT9zc4VzyltYn4g5uINo2cgVZ9M4DWi9A+FwAfvyt1zFXCbi7triov0kmudsL4UHaeomVZV
- TVJGhCya6O9wwqTHQYWSx/cvH2Rt1PpU9rDx+zHm1n7I+QBt+QiRKuujzg==
-X-Received: by 2002:a05:600c:4e55:b0:4a0:23f:8b0d with SMTP id
- 5b1f17b1804b1-4ba023050eamr30232295e9.2.1794300113964; 
- Tue, 10 Nov 2026 00:41:53 -0800 (PST)
-Received: from [10.254.154.46] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4ba02387ad9sm57325905e9.5.2026.11.10.00.41.53
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 10 Nov 2026 00:41:53 -0800 (PST)
-Message-ID: <15ad805c-2b0e-4c83-9d79-323442c3a239@gmail.com>
-Date: Tue, 10 Nov 2026 09:41:53 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id B1B4D10EEAD;
+	Tue, 10 Nov 2026 08:49:31 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011039.outbound.protection.outlook.com [52.101.62.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B10DC10EEAD;
+ Tue, 10 Nov 2026 08:49:25 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qsxXt+siY8/AkH2V7PESR+QCmcl3saJpGSecDvuTPc+w4kZIwgWwp8/k5kvD9NnUvBuEPoMbuh1TI23OxxWJL2saZGCa7rMFjSBpcsPIjoTNJkcAwx/aXOXbl+BXsFNQaTCzK13kNxWDsLmL6MqtJFoXw4TrZebsCstcql5YZxokqLgk6ib3pl/wVvQ46DEnkV1AfdLGpsZJJ6xueOnmpGBSQfOR0QdJ0S1Fxx/m6UgzG72yO0Px0+UYfMEARkLQR6U+nm2c+WlS6x9UKqzVK7hoBaN62IlupaiaOtKrAtZyOgB0QovKCOfuIj2jNc/6n+0vRSv2/B5reW46fcl0eA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FuTERlj8mrPvIDetW39we38yPvkuWFM9P09SiWG8mkA=;
+ b=Vc1gJtBNsOfQ6zgHqvE//c08GM2h+sWMzXlwq/9yNasbzRyTzUjM/4MHkuCw4C1/UZEbY0F+raiVACCLCIhEDOfBExy4kJk9umEN9o7x72bIXiGc2eb5mZG/ab2Hh7ScTkx88Zbe5FBKyUNDflQY7PMnaEWH1y++9yduxpHOFGIv0v1xhCconHQMN/CensHW97CWFijZQxzaQ0ns6cbrB8wHVPE9zyQgTAlJ1/r1zgSGeP0ZGEgYm+SA8mMwIqH9snN1FYY42PCBBxaKoyfsj4PXmVSc/ZPCGliGIjA9+cq0O5k4dq6uiu2GsVP8TQLHX8n5EUOzKlVN39W5bcme4g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FuTERlj8mrPvIDetW39we38yPvkuWFM9P09SiWG8mkA=;
+ b=dXWL2rmzDnX2zA9jJ/NCKKwCfavPPgUwWjAaJg9B7FTnri0OSNCLvoXoLjxf71lNnr9LUtaiJZHJXkRqu0keoj8K2TOGO5atAWyfUX7YY7rUMekgDOlwoD+NHONYwtGjbFs+O6o3xhPv+26FboB9UuinVPVBHTPbYyfT70QM/6E=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CY8PR12MB7170.namprd12.prod.outlook.com (2603:10b6:930:5a::18)
+ by DS0PR12MB8020.namprd12.prod.outlook.com (2603:10b6:8:14f::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
+ 2026 08:48:57 +0000
+Received: from CY8PR12MB7170.namprd12.prod.outlook.com
+ ([fe80::7565:bdd3:383a:de5f]) by CY8PR12MB7170.namprd12.prod.outlook.com
+ ([fe80::7565:bdd3:383a:de5f%3]) with mapi id 15.21.0592.012; Tue, 10 Nov 2026
+ 08:48:57 +0000
+Message-ID: <1c55cca0-6e80-4704-8192-352704748d98@amd.com>
+Date: Tue, 10 Nov 2026 16:48:48 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 10/22] drm/amdgpu: implement SVM initialization and
+ lifecycle
+To: Aveline Noir <jm5905938@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Alice Ryhl <aliceryhl@google.com>, amd-gfx@lists.freedesktop.org,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Danilo Krummrich <dakr@kernel.org>, dri-devel@lists.freedesktop.org,
+ Felix Kuehling <felix.kuehling@amd.com>,
+ Honglei Huang <honglei1.huang@amd.com>, Jenny Liu <Jenny-Jing.Liu@amd.com>,
+ Junhua Shen <Junhua.Shen@amd.com>, Zhu Lingshan <lingshan.zhu@amd.com>,
+ Matthew Brost <matthew.brost@intel.com>, Oak Zeng <Oak.Zeng@amd.com>,
+ Philip Yang <Philip.Yang@amd.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Xiaogang Chen <xiaogang.chen@amd.com>, Yiru Ma <yiru.ma@amd.com>,
+ Huang Rui <ray.huang@amd.com>
+References: <20261021025915.2433837-1-ray.huang@amd.com>
+ <20261021025915.2433837-11-ray.huang@amd.com>
+ <179424356769.208802.11801490347938606155.b4-reply@b4>
+Content-Language: en-US
+From: "Huang, Honglei" <honghuan@amd.com>
+In-Reply-To: <179424356769.208802.11801490347938606155.b4-reply@b4>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SI1PR02CA0060.apcprd02.prod.outlook.com
+ (2603:1096:4:1f5::17) To CY8PR12MB7170.namprd12.prod.outlook.com
+ (2603:10b6:930:5a::18)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] drm/amdgpu: keep the A+A VF VRAM base at the SRAT
- address
-To: Zhigang Luo <Zhigang.Luo@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, Hawking.Zhang@amd.com, Lijo.Lazar@amd.com
-References: <20261109162615.167236-1-Zhigang.Luo@amd.com>
- <20261109162615.167236-4-Zhigang.Luo@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20261109162615.167236-4-Zhigang.Luo@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY8PR12MB7170:EE_|DS0PR12MB8020:EE_
+X-MS-Office365-Filtering-Correlation-Id: e1146272-2c46-42c5-6206-08df3f07751c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|23010399003|4143699003|5023799004|11063799006|56012099006|261021121427099003|10067099003|261102123227099003|261009223027099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info: 978d9xlIuaoDU36tdW46sSxuwnDFYoZ96EOpc7P4eWdspljofwnALLbEOkOTtSJXZSjdB2SfRhfhx5C6y7pKy4mrBlawIIDfnjmgYH5cJQwipvMLcNr2ELRqN2W9AC8BbKpDkNmAiBvybJsAFJb8QH5V+WMq4R35Ut/mO6YIKaH+38NBFEdCJafho16NghYbn7I6q8wVr71/29NNtDh252Y9IFnWk41MpNzyfvN1JS5k0UEUy89p668vYEzKqyvl3+v09qhkywYL7ERg8IXZdS866chSo0puiGYPEeENfhsfWuurelJCbuSoudh+YtvuMQE9tfjCZ+MSGUW5YA8I21mbRhpKyuHNjk44TdaZKomNBZv46Fe7l4Wgpz6wFifbz/9L1SMSH9nmzsFTNSdAre/TwU4vvE6h67ESHAZ8Zb4QKTLgUecleNBPdZqbcJpvRqjPb7SKpV1lDOYqiPYDy3yqTtwf3nkGjqA2tQgXn/2ydTNbsQGG1Z9efUzDVwxQl/Cvsrs2FSfEakC5Y1aejCUjah9vYw0OejmmHaDYbXQW/Qgpr9tQ/Wrxa5vd4v3rE/ubDvziKHEoUOQk7wRGj+NE35mzd1Tf+Bci0RoKw9rrLtSm+KQiIRXzxSBQ6PlCG9F/f/ZU9Y26nXi9BVjJ3GsMqpzfPQN/lvoxNhdPFT4=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY8PR12MB7170.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(4143699003)(5023799004)(11063799006)(56012099006)(261021121427099003)(10067099003)(261102123227099003)(261009223027099003)(22082099003)(18002099003)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eENLL0VxN0VUMjJSdXp4S1lQQWlYSlF4WitHREVEVDRiUUVaUlFHTUtSUE9E?=
+ =?utf-8?B?Q0RBVGRJTE8zWXpuZnhGS0ZrVFJybDBiQjMrekFPMDdmSVJhS0JuT1lNNVpP?=
+ =?utf-8?B?YjNHc3RhUjZCTGtSVnQ5b2xmeDNuNklzTXRmc3JCRnFCWHdxRUM0TTBpdldS?=
+ =?utf-8?B?N3BVTVNZVm9WVXRsZkRkMFRYMXRkbVhrREdrcUtJOXBuNThoVEpoRWVxRVV3?=
+ =?utf-8?B?Nzh4dGRvQ3FkN0hUYmk0aERkZHFXei9YeDdXREppSnlCTU5SMk9IUk11R2J6?=
+ =?utf-8?B?QTUxZUV0QW5ORWFCdXl3Rnk2OXNTalpSN1hFZDI0L3Q4OUZsMnBvYmNqTWZz?=
+ =?utf-8?B?cGZYbk1oNDgrN3VmUXFjdDN1cjlqOHhubDVSeThlK01aQ3JJYno2czNuczlK?=
+ =?utf-8?B?MmZ3bCt2YXJScldvQXpSSE1jUEgvalp2N2JmdHUvbGVkb2RQRTZKWGhrK0Z4?=
+ =?utf-8?B?bmlaQ2lLTEZKNGQzU2gzYkl6MmhJSmFxTTRXM3B3MkphWkRuekQ1amZUd3ZJ?=
+ =?utf-8?B?Y1NDSjJiT0lhdW5oSHNGY2FsRHBZSHFOcVgxTDhVRzE4TVFtS3NrdXFyalVK?=
+ =?utf-8?B?eDhMa3B0MXhLRXNudENBRDZnVzVyNDd4M0NJRWNKUWFQbHJhemFvTFdkNjI5?=
+ =?utf-8?B?eHZWcjhHM1ZQOUtMd3RNMUNrWkJLVkdnZ3MwZXovQUFqWnpEbEhKV25ZeWZ1?=
+ =?utf-8?B?aVBaN2hEc0o4RXNhU2Z4OTc3SS9aR3VNOXdURnNUR1gxSU9LODc5YmtwMmxN?=
+ =?utf-8?B?MUhBVnVVNEdIMzgyYjVFeEYzWEw0UmJRUHJWRWFmS2xEVnFFbnNkdjE0QW55?=
+ =?utf-8?B?R05lMzVaYVlGRWZOQmY3SUM2Tnl0bmRBdmR4T1JsbDllNThxTy9Fc2x5U0RS?=
+ =?utf-8?B?Zy9CdUl3QmdVK2dya2Z1SE1qdU9qODJEWVVUbjloWmJWeC9RbHBvRm9ORHJD?=
+ =?utf-8?B?c3lnd2J2bkRocWtKNitsTEtId2NXNHJLY3NDQStFKzRFNXdsbkRWV2hEVGRn?=
+ =?utf-8?B?dTdGWmZ4ZjV0emhOclBoNnFXQ2MxOWtTUEVZQTYvUXBEZkU4TGFLcmJUcHRn?=
+ =?utf-8?B?VHBJVDhaalZSK21BcXJJS2RvdWxmZ3ZBRWllNHlQdXFRVGVEeXZrMXIwRmVo?=
+ =?utf-8?B?N2tMNGZQUDRjL1d3UHU4SEIvTmIrLzVTKzVHM0M5TjZRUVcyZ0R5eW55R1JQ?=
+ =?utf-8?B?NlVrMjRneEx1b3hydDJESlVueE9wdS9iOHhOR1Y1NTcxbWNJRG5Kem85ck1p?=
+ =?utf-8?B?aitFZVdzSGJTY2hxUFRiNjU3SVFOdk5yclQrdjdObDlWSEFKR1pGVHQ2dk4v?=
+ =?utf-8?B?TGtYbElDdE42TkduTHBGTmtRbVpjVklVckdrZ3I5dU9SdkgyNlFzK3p2a3RW?=
+ =?utf-8?B?VXkwNG00cDJZQXdKeHNRWDl3V1cwdmErdHpyVnpxYWx0ZG5vSjRkVGFDbGdt?=
+ =?utf-8?B?SnVHdmNXamFSZlpRQW5qeGJRTVNUSnA1a2NOR3RjNW8rT2xTN1Foa0hHQmxY?=
+ =?utf-8?B?TWtiS21aSjJTVmJCQnhyTUhGNkJpWndCdmJRMlllT1orenhKRXVtcmo0ZkVm?=
+ =?utf-8?B?M2w5d2Fub2RMS1lYL1dkeHl6L2hCSWpWTDVERlZqamhBQmtqK2RibzdwQUs0?=
+ =?utf-8?B?MEZWMHUxYmZLM2xxSzl0VERWb1dyWnA4bWhlbHRwNXlwb012b2xGYnc4eHVN?=
+ =?utf-8?B?aWpFVXBUZjZHdjRXcVhDQVp4eCsvZUZxc0U2OHhNeW5aSXAvd1lGMFJmYk1D?=
+ =?utf-8?B?aFJqWlFWZDNsNjRZdmNBR0xVYjA4R3VjQWozOUNGR0ZUQmR2bkE2OE1EQ2w5?=
+ =?utf-8?B?Vk1aVldwY0h1My9haHFWMThNM0hyYk1rYlU5MEliZ2JLUnZWSXhwOG5rc3lR?=
+ =?utf-8?B?WkJUeng4ZHFUbEVMa3dwK0pQRWlCMGxxc3NwRy9GMFBLb0s0NXpJQVFVdHRY?=
+ =?utf-8?B?QTZPNmF3ZWptVzkwSHlhOTQ1Z2N6VDNuWXF1dmRjTzdoKytMbHZVclpkeW5O?=
+ =?utf-8?B?U2srMU92VXJhYXZQSnFWUnZnaFhpYVpCd2xpSy95RjV2V2Jiak91Zk1HSHZS?=
+ =?utf-8?B?Nlg0YUwzbGlCTkZ1dVVpdDFNaHFraWxnZWFKOC8xZnN4NWltMy96TDYyTENr?=
+ =?utf-8?B?eTdIQmhPSG1Pa0owSFUrN25oc2xweVM5ZFRORnZINS8ybmE0V2lVMjBIeTlI?=
+ =?utf-8?B?VzF5RURDUWhZQUxEVlBUSUF3NTkwbjQzY0h3V2RNazVZRXpjUnYxK1FrSm01?=
+ =?utf-8?B?S0paMXJjRHR0OGJaaFUvbnN4K3cyWGpSN0FZeUdwUmNKVlJFOWhlZWVaRytl?=
+ =?utf-8?Q?D2jVmFATVfpRZApSIp?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e1146272-2c46-42c5-6206-08df3f07751c
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7170.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 08:48:57.4945 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Uth9yc7gQel5cZvRoG0LfNZxmv2UXEI1UUBS+f9WX1tC2NUhPublqfkJWcSARmXLCjePMX5FVHA1+CuCoUOnug==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8020
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,167 +142,40 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=4.0.1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 
 
-On 11/9/26 17:26, Zhigang Luo wrote:
-> On the A+A VF the hypervisor reports each VF's VRAM address in the
-> ACPI SRAT table, and that address is stored in aper_base. The XGMI
-> node segment does not describe the VF, so physical_node_id *
-> node_segment_size is not a valid VRAM starting address.
+On 11/10/2026 12:59 AM, Aveline Noir wrote:
+> Hi Ray,
 > 
-> gmc_v12_0_vram_gtt_location() and amdgpu_virt_resume() still added
-> that offset on top of aper_base, which moved the SPM PDB0 system PTEs
-> off the VF's HBM. Leave vram_base_offset at aper_base on both paths.
-> Size PDB0 from the VF's local VRAM and place GART after that window,
-> aligned to 8GB. That alignment is one PDB0 entry when
-> vmid0_page_table_block_size is 12, and it applies to every PDB0
-> placement.
+> On Wed, 21 Oct 2026 10:58:49 +0800 Huang Rui wrote:
 > 
-> v2:
-> - Explain that the SRAT address is already the VF VRAM base and must
->   not be adjusted by the XGMI node segment.
+>> +	if (new_attrs->prefetch_loc != AMDGPU_SVM_LOCATION_UNDEFINED &&
+>> +	    new_attrs->prefetch_loc != AMDGPU_SVM_LOCATION_SYSMEM)
+>> +		trigger |= AMDGPU_SVM_ATTR_TRIGGER_PREFETCH;
 > 
-> Signed-off-by: Zhigang Luo <zhigang.luo@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 12 +++++++++---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c    | 22 ++++++++++++++++------
->  drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c     |  6 ++++--
->  3 files changed, 29 insertions(+), 11 deletions(-)
+> I'm not sure about excluding SYSMEM here... The proposed libhsakmt
+> adaptation maps a CPU prefetch target to SYSMEM. If the pages are in
+> VRAM and the update fully covers an existing mapped SVM range, nothing
+> gets mapped or migrated eagerly. The GPU PTEs can be zapped, but the
+> pages stay in VRAM even though SET_ATTR can return success.
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 9326f811c500..7a664b7b1ba3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -4677,9 +4677,15 @@ static inline int amdgpu_virt_resume(struct amdgpu_device *adev)
->  	dev_info(adev->dev, "xgmi node, old id %d, new id %d\n",
->  		prev_physical_node_id, adev->gmc.xgmi.physical_node_id);
->  
-> -	adev->vm_manager.vram_base_offset = adev->gfxhub.funcs->get_mc_fb_offset(adev);
-> -	adev->vm_manager.vram_base_offset +=
-> -		adev->gmc.xgmi.physical_node_id * adev->gmc.xgmi.node_segment_size;
-> +	if (amdgpu_virt_vram_is_spm(adev)) {
-> +		adev->vm_manager.vram_base_offset = adev->gmc.aper_base;
-> +	} else {
-> +		adev->vm_manager.vram_base_offset =
-> +			adev->gfxhub.funcs->get_mc_fb_offset(adev);
-> +		adev->vm_manager.vram_base_offset +=
-> +			adev->gmc.xgmi.physical_node_id *
-> +			adev->gmc.xgmi.node_segment_size;
+> Is SYSMEM prefetch meant to move pages back to RAM, or only to set the
+> attribute for a later CPU fault?
 
-This is a massive NAK. That needs to be handled in get_mc_fb_offset().
-
-See how aper_base is initialized on APUS as well:
-
-#ifdef CONFIG_X86_64
-        if ((adev->flags & AMD_IS_APU) && !amdgpu_passthrough(adev)) {
-                adev->gmc.aper_base = adev->mmhub.funcs->get_mc_fb_offset(adev);
-                adev->gmc.aper_size = adev->gmc.real_vram_size;
-        }               
-#endif
-
-
-
-> +	}
->  
->  	return 0;
->  }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> index f76da74abfec..96075db3b9ac 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> @@ -42,6 +42,8 @@
->  #include <drm/ttm/ttm_tt.h>
->  
->  static const u64 four_gb = 0x100000000ULL;
-> +/* PDB0 block size 12 covers one 8GB entry. */
-> +static const u64 eight_gb = 0x200000000ULL;
->  
->  bool amdgpu_gmc_is_pdb0_enabled(struct amdgpu_device *adev)
->  {
-> @@ -60,7 +62,8 @@ int amdgpu_gmc_pdb0_alloc(struct amdgpu_device *adev)
->  {
->  	int r;
->  	struct amdgpu_bo_param bp;
-> -	u64 vram_size = adev->gmc.xgmi.node_segment_size * adev->gmc.xgmi.num_physical_nodes;
-> +	u64 vram_size = amdgpu_virt_vram_is_spm(adev) ? adev->gmc.mc_vram_size :
-> +		adev->gmc.xgmi.node_segment_size * adev->gmc.xgmi.num_physical_nodes;
-
-Same here. I need to double check but we probably need a new callback for this.
+This is indeed a issue, will add local system into prefetch in next version.
 
 Regards,
-Christian.
+Honglei
 
->  	uint32_t pde0_page_shift = adev->gmc.vmid0_page_table_block_size + 21;
->  	uint32_t npdes = (vram_size + (1ULL << pde0_page_shift) - 1) >> pde0_page_shift;
->  
-> @@ -261,16 +264,21 @@ void amdgpu_gmc_sysvm_location(struct amdgpu_device *adev, struct amdgpu_gmc *mc
->  	u64 hive_vram_end = mc->xgmi.node_segment_size * mc->xgmi.num_physical_nodes - 1;
->  	mc->vram_start = mc->xgmi.node_segment_size * mc->xgmi.physical_node_id;
->  	mc->vram_end = mc->vram_start + mc->xgmi.node_segment_size - 1;
-> -	/* node_segment_size may not 4GB aligned on SRIOV, align up is needed. */
-> -	mc->gart_start = ALIGN(hive_vram_end + 1, four_gb);
-> +	/* Round up to a PDB0 entry so GART starts on the page-table PDE. */
-> +	mc->gart_start = ALIGN(hive_vram_end + 1, eight_gb);
->  	mc->gart_end = mc->gart_start + mc->gart_size - 1;
-> -	if (amdgpu_virt_xgmi_migrate_enabled(adev)) {
-> +	if (amdgpu_virt_xgmi_migrate_enabled(adev) ||
-> +	    amdgpu_virt_vram_is_spm(adev)) {
->  		/* set mc->vram_start to 0 to switch the returned GPU address of
->  		 * amdgpu_bo_create_reserved() from FB aperture to GART aperture.
->  		 */
->  		mc->vram_start = 0;
->  		mc->vram_end = mc->vram_start + mc->mc_vram_size - 1;
->  		mc->visible_vram_size = min(mc->visible_vram_size, mc->real_vram_size);
-> +		if (amdgpu_virt_vram_is_spm(adev)) {
-> +			mc->gart_start = ALIGN(mc->vram_end + 1, eight_gb);
-> +			mc->gart_end = mc->gart_start + mc->gart_size - 1;
-> +		}
->  	} else {
->  		mc->fb_start = hive_vram_start;
->  		mc->fb_end = hive_vram_end;
-> @@ -1269,7 +1277,8 @@ void amdgpu_gmc_init_pdb0(struct amdgpu_device *adev)
->  	uint64_t flags = adev->gart.gart_pte_flags; //TODO it is UC. explore NC/RW?
->  	/* Each PDE0 (used as PTE) covers (2^vmid0_page_table_block_size)*2M
->  	 */
-> -	u64 vram_size = adev->gmc.xgmi.node_segment_size * adev->gmc.xgmi.num_physical_nodes;
-> +	u64 vram_size = amdgpu_virt_vram_is_spm(adev) ? adev->gmc.mc_vram_size :
-> +		adev->gmc.xgmi.node_segment_size * adev->gmc.xgmi.num_physical_nodes;
->  	u64 pde0_page_size = (1ULL<<adev->gmc.vmid0_page_table_block_size)<<21;
->  	u64 vram_addr, vram_end;
->  	u64 gart_ptb_gpu_pa = amdgpu_gmc_vram_pa(adev, adev->gart.bo);
-> @@ -1287,7 +1296,8 @@ void amdgpu_gmc_init_pdb0(struct amdgpu_device *adev)
->  	flags |= AMDGPU_PDE_PTE_FLAG(adev);
->  
->  	vram_addr = adev->vm_manager.vram_base_offset;
-> -	if (!amdgpu_virt_xgmi_migrate_enabled(adev))
-> +	if (!amdgpu_virt_xgmi_migrate_enabled(adev) &&
-> +	    !amdgpu_virt_vram_is_spm(adev))
->  		vram_addr -= adev->gmc.xgmi.physical_node_id * adev->gmc.xgmi.node_segment_size;
->  	vram_end = vram_addr + vram_size;
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-> index cd276a138e10..e37c84f10709 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-> @@ -734,8 +734,10 @@ static void gmc_v12_0_vram_gtt_location(struct amdgpu_device *adev,
->  		adev->vm_manager.vram_base_offset = adev->mmhub.funcs->get_mc_fb_offset(adev);
->  	}
->  
-> -	adev->vm_manager.vram_base_offset +=
-> -		adev->gmc.xgmi.physical_node_id * adev->gmc.xgmi.node_segment_size;
-> +	if (!amdgpu_virt_vram_is_spm(adev))
-> +		adev->vm_manager.vram_base_offset +=
-> +			adev->gmc.xgmi.physical_node_id *
-> +			adev->gmc.xgmi.node_segment_size;
->  }
->  
->  /**
+
+> 
+> Thanks,
+> Aveline Noir
 
