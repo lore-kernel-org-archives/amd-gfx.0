@@ -2,51 +2,51 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C550E606A321
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Nov 2026 10:30:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6FB7606A325
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Nov 2026 10:41:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=AKQ8nHHE
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=u8GWEAtX
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2852D10EF81;
-	Tue, 10 Nov 2026 10:30:03 +0000 (UTC)
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013046.outbound.protection.outlook.com
- [40.93.201.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2278C10EF83
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Nov 2026 10:29:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7638910EFA4;
+	Tue, 10 Nov 2026 10:40:58 +0000 (UTC)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010056.outbound.protection.outlook.com [52.101.61.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E23F10EFA4
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 Nov 2026 10:40:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Bfx3Hy2x5LFj11VcU4+J6B3ztYYmEmyGsr6OthjLZuRjNu3kuYA2i1gZHLZUwJ843ZVx7kGo9+x6NtdXxfrdP4RR+Cwv9190WTbwkZHZgoxKaErijZD2hRVWYR3BKCtvanPPVavMd2Equ7C3OCnrruBu36KA+/6ygfUiLNtXL0uF0BCWWgsfir8dY9Yo2WFipkHkEJzXOb3yWwlhItquPTL2DL3vOZYR1Bd00inJk8MMOfKXX5U2KLe6T7Mcn5nhEfA/TFvxRe9iSJ0AJ04aQglYLArCjgXQuUnAjRrTucD+T5ceVQVMpL3QbJr1sCoUWWti9DlzHqqtu9a/YMLYnw==
+ b=I5vCjfEIrwdS8EprpybRX/aH/zY4FHLZj/nvdR8tkZA4iGa99pwly5EBB0ZNA3a2qINZBe6CFx8195feVB1NTY/8kxDy2aHddg/gu0oDgL77l2yCupJFsi0Vtu2FWecbB0CfoYtKBGhZE30MC44ZG/Ocqy9seRBukUo+asAokKs1q96NDK5vaqEnHF9syfqfAxpePSuha2x+WPoLGGz3+XZ6HFfhrr1ftHelFUsop+GvG86yvG/adfyr1p3A3t7aEVvSfAG+xJqVFU0BQXjaYrDvFUmFHZXhnMtGNEPIIfrH7KyaPtl8dYAHcsF1KM8foHvxCTtQihYUXNOrxTlVpA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=p2RiMO8kZyC2DNH4yTUB3RenB5Aj36kL9X/zXvzMzmc=;
- b=q49xX0gE97nFYHOM4MWyBkWO3fBrVr9Wfky4+XTCN4CendBcKJhwSUdpYUO4H/NypndyG+Eu14WLOAtRooD87KIac9vdVziP27ZkMTmE542StGccpxRV9n1D3bw9GTzkVQ0DZlcFq7PkRHftV7/HDg1KMWHnpsMSrzwHCfaFToFyhzjmSX8R01xICAqzznzDKdEGkj/9TGxcnWy89JRQl9Th+vlyYaHeKQW75p62f7TgCkWh81fUVV/4nIoaclhk7JTb+h5CHX9ktggrcsNqfgKkMH5iaf1HDVpUxO5mmBCyLoLlwBIuGpm9Zl74KXyoC2AWUr2ilTinIC9Q84wuRA==
+ bh=wz79o9wWhXdiNVlOc0HE69heYuiAiZtZVnpFecZf7qc=;
+ b=j+iZKPkdDUjeQqCBzskm+92kz9VDCB5r0pHzlkvi9b8Cq61GXNgMH5eWKkgZXpafdc0TOCw98LSplOFg1buoQ+3zAJVHk9vFm5OmUfrEdaACyWOYjDSbMMdeOVyneGXHO0k7oTvbfwnPZoXFwHu8Vfk375Jg1QIdKTryyq/DXhPjE+amNbBH49hJ+PKYWp6G6yXCFJV0vlMWGGkFGSFa0nQCo+AqVXwwbBWEG/omYgYIFqHUL3f8H3hiy0cK8DyrelVFQumC7IFM5LmUdWxQLdIoWieSy98xZyJa1+6IqwFiHYzpJXaMThbgxICdW+4QzQhNgLVuNI1VQBYkVg0Dfw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=p2RiMO8kZyC2DNH4yTUB3RenB5Aj36kL9X/zXvzMzmc=;
- b=AKQ8nHHEFcBdDMbW8eVB48FezdpNrwv3QoPPw/aWJ3RPqWBRnXVMCSAp9Hv8+qtk95bDPvULyIgBwPoTBqTanX6DvGS1mBbB98MkQiIE6/oNxDAiZ74KbyS5G2sIIbSCRqu8QcidYl01TFNhqIIP3mn8w3n+z9CigYx4HUescvM=
+ bh=wz79o9wWhXdiNVlOc0HE69heYuiAiZtZVnpFecZf7qc=;
+ b=u8GWEAtXYXaoBN/BeenVZEZ0ogPIhc5cebSgDg42Un9FPO0NSk1DmtXe05BapAUGwqi9D1XojWT+uiay7LdGVB1gxk2VrgejFmu+ODPUM6O0A3iGB21bijiCE87dvtLSxYod4GZkHj6XTtuLB1fJQnLAOi7WSJX1upaJXloq1Oc=
 Received: from MW3PR12MB4572.namprd12.prod.outlook.com (2603:10b6:303:5e::7)
- by CH3PR12MB9219.namprd12.prod.outlook.com (2603:10b6:610:197::20) with
+ by BN7PPF48E601ED5.namprd12.prod.outlook.com (2603:10b6:40f:fc02::6ce) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
- 2026 10:29:53 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Tue, 10 Nov
+ 2026 10:40:15 +0000
 Received: from MW3PR12MB4572.namprd12.prod.outlook.com
  ([fe80::79cb:c567:1825:51fc]) by MW3PR12MB4572.namprd12.prod.outlook.com
  ([fe80::79cb:c567:1825:51fc%6]) with mapi id 15.21.0615.007; Tue, 10 Nov 2026
- 10:29:53 +0000
+ 10:40:15 +0000
 From: "Mu, Zihao" <Zihao.Mu@amd.com>
 To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>, Thadeu Lima de Souza Cascardo
- <cascardo@igalia.com>
-Subject: [RFC] drm/amdgpu: handling PTE backend update errors
-Thread-Topic: [RFC] drm/amdgpu: handling PTE backend update errors
-Thread-Index: Ad1w+33CPBXpwtqiSCW+OBsyK5Biog==
-Date: Tue, 10 Nov 2026 10:29:53 +0000
-Message-ID: <MW3PR12MB4572FABB93F6676FDBA1D2479E722@MW3PR12MB4572.namprd12.prod.outlook.com>
+ <Christian.Koenig@amd.com>, "Zhang, Ning(Jason)" <Ning.Zhang2@amd.com>
+Subject: [RFC PATCH] drm/amdgpu: avoid generic CPU VM waits without KERNEL
+ fences
+Thread-Topic: [RFC PATCH] drm/amdgpu: avoid generic CPU VM waits without
+ KERNEL fences
+Thread-Index: Ad1w+33C1/bTUuZbRTOohYPYUNXvbw==
+Date: Tue, 10 Nov 2026 10:40:15 +0000
+Message-ID: <MW3PR12MB45725A7F0AC045DB29F7CD649E722@MW3PR12MB4572.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -55,47 +55,47 @@ authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-exchange-messagesentrepresentingtype: 1
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MW3PR12MB4572:EE_|CH3PR12MB9219:EE_
-x-ms-office365-filtering-correlation-id: 021b4750-9752-40b3-567a-08df3f158f0a
+x-ms-traffictypediagnostic: MW3PR12MB4572:EE_|BN7PPF48E601ED5:EE_
+x-ms-office365-filtering-correlation-id: 5414448e-fb21-49db-6c5a-08df3f170183
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|23010399003|376014|366016|1800799024|38070700021|5023799004|11063799006|56012099006|261022105027099003|261022075727099003|261021121427099003|261021123027099003|261026121527099003|261028144727099003|261102123227099003|261009223027099003|261026140227099003|10067099003|18002099003|6133799003;
-x-microsoft-antispam-message-info: NEyZURYJWAi1vAO1CXeb0SMGt4Xcsr7ZVbctOtdfjrINRtUh4SG3XwRwAI8OBBzZmG/fFcNHbQ0u1Jvzza5Hy/cvR3RxBfF/EnQG1J7PrXJNVRmcTtOLQxDPbzLwU5FeQGCySXGicIzdgSqAJMpwjqQI27H+X8Q50nVnuRXc1W04KhziRSOFYVWugx4UK+Q/Poxmee0XR/7Qr0B98tjhOxJ44ky+NhZK19naHu6j11Zj9PxaK1O9QUpxF7ZugpPqIn7JdNO0Vn3ed4vMZ4lWSZ0GXZAr96ls+wa8a8QsmmmAb5AjNVrpzk6Zn6zxKfcMPrsMezhkLwLD5iryIzhP4uQ76Ikz/SJf9pz3SEz7P8Us0XewPyfAUqKDd8YaExmSJGLKXrZK464q3LvWXG85zasLaXbqwcHjQQQTjI7bh21nEF2r8sziQaFCzswBPQo3J8uXfepwlxqtNt1XEohvF20g4Q7KVWTHVuzbt7p8Zf/IC/hfp1sE91ipC8vBlfnz7UgCkP7XkrC3WU4ez0iIjgcSrDjCWIHyS+DO9ORmnTDKbWqUmTasEENTCQTCC5RWxFiTzl6ymoWSab8b7qw4NB++iLmZ/fUBBDlWvycQzML/MAZGWzEDapAlx9ftlo5mlZGay5cX0uqRPn1aYvvmbPim2FWVN8+HiHcHTE8p5Ls=
+ ARA:13230040|376014|23010399003|1800799024|366016|38070700021|261026140227099003|261028144727099003|11063799006|56012099006|261022075727099003|261021121427099003|261022105027099003|261021123027099003|261009221227099003|261009220027099003|261009223327099003|261102123227099003|261009221727099003|261009223027099003|261026121527099003|10067099003|18002099003|6133799003;
+x-microsoft-antispam-message-info: LH40KQw+a90d6LGVZ5A+XM/5ti6D8n2Y2TPZ7Xer9TAv4J+zVc9s0E0bfKwimGaLvbYG0b0HHQP25NRHfzWo371hklIce0EtEaHFkphBpsMvWhPfZ6wb/KfvfX5Bo53tIZo2VgMxufhiWyL+bofoM80UEvfgHiUCrn2clz3utQTYUtMv4A1Nwqt16agnEA9pnHKyX4TibXQT6hm3NW90GRESryEDiy/9cCvTiMqzVTHX4Dx2oUbn/aOYgXNQRc2GNeF3bbkuzJnpZ8SowemipkKa0Bh1Q0dduY0QTOSfMi5+tSkZnm0DZhEi0RY9EJpXwJkqA1vzNLGpO04FIsP3FoH+XcDgYVIAk+hI6iFPwQs8xUx2U75lnzaZK41c0DGiv/lkUmRzP9qyWmYLB9tSodQ7oNNlqNSJURKVNRgE50C3DuB2Wk6y6FTns9EILGf1CqO6rwetYSagnw/e9jFFbcl5NSRiutn9PBW0XhP5RwRcf7pcADqEYMdcfC3/yGab6axCWWkxUWTVG/IQ5T/YqbrPGOJHz9fnkYQRsHcO57ytc0qm8cUdpd/FQxCIPiday3PkJqeY7yXqe8ljoK+U0yOfJQOrRQecP6o7058sA/RNJHPlQfxdJaNDHBWZ2/ZSLb2tRy2jxLByM0pFO1odiBgVcdy9dUzm7fDlhKD4YwfUmvVraDZ1R/pH70VQALl3Jv6n1NJ3RZuvg+kFeLPqVTNtmG9MBlTfSo2bspeZZ4s=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MW3PR12MB4572.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(38070700021)(5023799004)(11063799006)(56012099006)(261022105027099003)(261022075727099003)(261021121427099003)(261021123027099003)(261026121527099003)(261028144727099003)(261102123227099003)(261009223027099003)(261026140227099003)(10067099003)(18002099003)(6133799003);
+ SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(38070700021)(261026140227099003)(261028144727099003)(11063799006)(56012099006)(261022075727099003)(261021121427099003)(261022105027099003)(261021123027099003)(261009221227099003)(261009220027099003)(261009223327099003)(261102123227099003)(261009221727099003)(261009223027099003)(261026121527099003)(10067099003)(18002099003)(6133799003);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?uMsA+PnUrIG3nBf5F3MBHXTQwhYKNwEFu3MFcRLa9JHJcSxjqViF+pnqDFBh?=
- =?us-ascii?Q?sTZBWFgaiJo3C0zUDeVz6Sl58dSP/OISWPhRcGp1hIOasPaIzCcwncU4pCMz?=
- =?us-ascii?Q?sPgGAoFU7cfqWKh3bX/OFBJagEws48xLKzguBZsh3JosrFCbmLEGHH7vvJQl?=
- =?us-ascii?Q?CXoP4dFqAPE45dDJ3bgrfcVeKzO3MMlUnA2pIov2brpUZaKsJ+IFbamBq/Hz?=
- =?us-ascii?Q?qXS77TUkMQk/ADc3AFibjdfRJpMF2FW+Ya+2+HbhJ4eVwyTyQi5PT+V9s5H6?=
- =?us-ascii?Q?woaxKWbN8rGCSzL4Q1V2QLSWOgQAfvWzatTB2OUt6K9SSza42h+nuX5/s7/K?=
- =?us-ascii?Q?yaJYYgMxtDIY5CEn8lISvb44H5mQyuPj3KUWmnscP4QoH63jBwmpi4AURdP0?=
- =?us-ascii?Q?KJSLV8kyk5THdlV8uYT2EeiB9jXvt0NmViN0AGmy59AnYXJ3rEF5KUxtu5Vs?=
- =?us-ascii?Q?VjtoKStBC90y7nd+s5QykOaLkRbIYHh/gK/KVOmDLsTFPv00eZBURxMwnEHV?=
- =?us-ascii?Q?9hOufiS5Lt0OpSSAzLCd+9nQUg4TVfjN9ONNUjcnMXHUtThm39wc3gUi8ebe?=
- =?us-ascii?Q?vYx7XQdKvC6jiSkSHq4WOiZx9aJkpWaw/vbrEkBZLRXdCH+yQvFnN3ocd2zI?=
- =?us-ascii?Q?L8p881eN0efNX9eeAfo5R0sxG3d060xRLLYPCR22zKoGUl91YSE+BgypbUKC?=
- =?us-ascii?Q?fHw3DdbkdueHRRPAgKL86PrEaBKJb8rz57Xz9TKNeDPoyidR6F9T7Y7rVpbU?=
- =?us-ascii?Q?Kwc9z71m6o6zOsAyppyViU5P9cZvbXRo1KUP+Te09RpDcenNbSBMZ8O305sX?=
- =?us-ascii?Q?DCSCDMxhExxPDUxHDUG90XxE+26PJ6YjwsBC1GT1qFcC1mERNEVvDc0QMj9r?=
- =?us-ascii?Q?apeI2YGIWAC20TZvR65+6RnH520plqQWWAh4C40C9SxKWSWTw/PWSOZbXBGp?=
- =?us-ascii?Q?c5vgCILGg+6OkFXQ+WbuGVuu4KJbWuPaq7N9vIm0GWJVzShdL4CWERsbiy7E?=
- =?us-ascii?Q?ofd9uUKvf8lXyb5/Yde2og5BjcYPu9FWYHVhiWVl6XR3SSPf4dcbsQYinbWL?=
- =?us-ascii?Q?JboHB0pF28zP7XnfrxF33Pot1LcLFmaP8IxpFfFsSbngIo5jjkjUi00VOHak?=
- =?us-ascii?Q?ZDz5faKyFN0vuHN+6YYt0bjFU5fHlOwK2LZ/Lsgt0YQrFWaZ2ddHr1mEQoJQ?=
- =?us-ascii?Q?Z1CZD2Mk5zUL0YljNma+TQeMm8xv4Eu4EMle+neCPrapD1ChZndRPochcods?=
- =?us-ascii?Q?4cITcQPbAcg9OYiheoSkE06HeVWzrzXpmIJ9rHZ+6wYQURmd67PO2kgWSwJF?=
- =?us-ascii?Q?ryip4KZqX1jdrN6M0pF/cUOPcLpBbsP6+ooHmx5hKdAYLh+DTznj5b9+xbte?=
- =?us-ascii?Q?Q+KQoKYZBKX/uciyfvMo3NxCtpS8cbQtuBVNBLTcwkfZ7OXjCML/suqDZLFR?=
- =?us-ascii?Q?TYUrWHls5QSiM7BjANdbxGnDIi7SfP8QE/1mHqdCia2k1KHxpmW2U1LVnLKS?=
- =?us-ascii?Q?OIzJv5faV3l3xrC/+tcjfwRE30QsLRwhSx61QVonsX/I0EmQgBOGHjiTTWrP?=
- =?us-ascii?Q?jxdZBpe6X5jlYb6hV8LndmlKrHJ/tL6KSrq/PTLtcCWV/NsFPx5gTXswPEF2?=
- =?us-ascii?Q?Un6XyztDt5hjVTMp90upVhzwBs5capYoHTXMJvy0zpPfFYve4BGbdhJ8gA+8?=
- =?us-ascii?Q?zNZ9tKFsPVpJ8zYmqsUzewIvCww=3D?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?h7+XoBjm1L5vMf9kIveAd2GJteqpqv5AQAUabVynH+jOhLNBMc6AL4VjRNk7?=
+ =?us-ascii?Q?uJ2H3fwsRv+A9s2kWAJ/A/oeZ3VvuOeMG3Rfm9LuL+kh7/VFDdlFBLUk3W74?=
+ =?us-ascii?Q?su+YtVgzJ2mJZjOLlKjv9ZAX4NhKl7ZX5zkRyUsdsgsRTPZn5e6DSQe+49v+?=
+ =?us-ascii?Q?Xv5uRBpbq+rZeb793vMH8sI7bOgo/3yXDBxweKfy2imCe0hlmQsv348B4497?=
+ =?us-ascii?Q?txuRBF5xcQ12/vtd71LFRBvFyONI8TY3GAyGZr0QwKu2SQXDUjBHjrKcE1Gc?=
+ =?us-ascii?Q?Rm7KQE0XyhIxrrAyq65uM11t0JZyLQimAti5BHDha1cACOAD7me9R4uMR8l8?=
+ =?us-ascii?Q?xyRR0c5+jRrqcH/yBdpbQ3TNSUgJjgDkmEVea9llVIoJlqpkUShzgXqkdgiU?=
+ =?us-ascii?Q?sBNtDtJABZY1ECCwpXX03Et7dZx+mIsjzWukTib5xdyUFvu1v0nBiZ1OCRsC?=
+ =?us-ascii?Q?ZroBGdJXMAtoL1FI9z0UA56vf7W0LysbCiUTiDUJKusR7uRY8bYB5oiHjGWZ?=
+ =?us-ascii?Q?8T4kiOYmBbC/h05YMRwrWs1bvelcDECc38DKLZK5gJDcEtyGOALv3yD+ptVt?=
+ =?us-ascii?Q?XmqHIzSuvLgyfsXKy90RKw+qFxiU0FYt5ZkVdTzxyShqh3TC83hO4xpLjPtd?=
+ =?us-ascii?Q?ST/ExIVrtjw6B17FfusrTOjGeqtkpNpJNPdJ2V3qzWfO8UtqL+E9nO31oORw?=
+ =?us-ascii?Q?DE0h2/VLlleZfD10/W8kR0iFKUSnozcBwmACh4PVuEBm3anfg+caBV1ojrH9?=
+ =?us-ascii?Q?4DXedii1DhIG8iO8r8f6NX2dh4pU5qPx3FVMTlyu64vmJVxix2RVHeKy+H5Q?=
+ =?us-ascii?Q?1I5REBLWj5cVjmR4NhTrw+Eo3h/8Gv1QtlLX4B0YySvdZ+BkAkG2HAswTWuC?=
+ =?us-ascii?Q?s0RLmnZKnIUHq88VIxYaCCG5FoDypK/Ky6uYx+IOvAiIQ/I21kqk1XgESc5z?=
+ =?us-ascii?Q?dbw/SqkUqx3sYPwdY8Xkt9IuXxIWEKH9wPADi5xHZ2U6uQIfcqBuPRakdVUQ?=
+ =?us-ascii?Q?KgQWC8X+8wK/SjX6jKaumQeAibvK9896oiDgIZE3pQKYnCZb5mxeNXRklwnW?=
+ =?us-ascii?Q?TXVyKxLbvG5Qib6XciMv0K05bemePZ4G4nyrQxx5f0cnFo1B1a3KGYxhdS2V?=
+ =?us-ascii?Q?2OdNbw2Gv21o6XBBjiZoqWrjY/a2FRmH7MEYmOOaTxbcBe/sgZaX1C3PtEkU?=
+ =?us-ascii?Q?sumQLuDwETqeX7UNVwTjQJtktlGhv6Q0uaFQ9DJ22S/6jZffNjTZozD06Q2j?=
+ =?us-ascii?Q?tocaaKONjzWcwkFWVAcli/hGWyb3c3gOGtwgpV5dOpdC4NYJhZRr99/JhEvC?=
+ =?us-ascii?Q?AWNM2WM9ONRFEBhkN+x4qDMHlSZ0IcfNk+hY+QrjPTaovZhMpp5ly66w1Vyj?=
+ =?us-ascii?Q?SfW5LoJWsdyDdYHEoR+zsEgThUb5YLkvaMypCAgAPLevWC7VosGYGcqq6/FO?=
+ =?us-ascii?Q?bGJ8yOG4wIG/tQpf9HsZ+m7PKpGikMLNLhbmkJsmFMYw6LYWnHLXZiOJukma?=
+ =?us-ascii?Q?3hrcVAXQJWIGeeQQ1aSOHPjeAm2gVzS+jqpFRLHIk3NXWFC8nYETP2+bnE/2?=
+ =?us-ascii?Q?jJbsj1mQ7Yz7o3xHkI3391sCBqxjuT9/AdlF4gmmV3R+9ugNIiam7sItJ+sf?=
+ =?us-ascii?Q?swlSJNbX+4PEhu2YgVJ9O4aEC8eoV1ppDaLbg//h6Q/vjCy19erC2p76bdi+?=
+ =?us-ascii?Q?7lkC20PMYeZPbaPSUcN+fETlH8g=3D?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 X-Archived-By: <archiver.kernel.org>
@@ -103,13 +103,13 @@ MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: MW3PR12MB4572.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 021b4750-9752-40b3-567a-08df3f158f0a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Nov 2026 10:29:53.6167 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5414448e-fb21-49db-6c5a-08df3f170183
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Nov 2026 10:40:15.1120 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: YgzMD0fRyZdNl+Ga7oocBnsEPYHjcqDZA2hj5pITGHTvI8gBsgSjoLd5qkpfhReX
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9219
+X-MS-Exchange-CrossTenant-userprincipalname: 0EF8QkNjsj/1HLWZLHNMUk3xKzgPn81iucfNn6LSfreuOiJmJG8V7zt8X6CKdv01
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPF48E601ED5
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,130 +130,116 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: zihaomu <zmu@amd.com>
 
-Hello Alex, Christian and Cascardo,
+The CPU backend checks KERNEL dependencies before every PTE batch. The
+generic reservation waiter uses an unlocked iterator, which takes and
+drops fence references and polls their state before filtering by usage.
+A reserved VM with only BOOKKEEP entries repeats this work for every
+batch even though those entries are not dependencies of this query.
 
-I would like guidance on propagating PTE backend update errors and how
-that should interact with the no-fail unmap contract.
+Page tables share the root reservation, which is held for updates with
+unlocked=3Dfalse. Use the locked iterator to check whether any KERNEL
+entry exists. If none exists, return the original waiter's positive
+success value without acquiring temporary references or polling
+unrelated fences.
 
-At drm-amdgpu-next commit 5349075eac14, the void helper
-amdgpu_vm_pte_update_flags() calls update_funcs->update() but drops its
-int return value. The CPU backend can report an interrupted fence wait;
-the SDMA backend can report a dependency or replacement-job allocation
-failure. The PTE walker can then advance past unwritten entries, invoke
-the backend again, and return success for an incomplete mapping.
+Keep the full generic wait when any KERNEL entry exists, including an
+already signaled one, and for unlocked updates. Check each batch afresh
+so dependencies added between calls remain visible. The PTE write,
+flags and commit code is unchanged.
 
-The illustrative diff below returns that error and stops the walker.
-It is not a complete fix for merging: propagating failures also needs
-correct finalization of partially written PTEs, pending SDMA work, TLB
-handling and the stack-local tlb_flush_waitlist.
-
-The local RFC has two cleanup prerequisites adapted from Cascardo's
-September series [1]: handle missing/empty SDMA jobs, and finish partial
-range updates while preserving the original error. The ignored backend
-return was also raised by Sashiko in that discussion [2]. I am not
-claiming the earlier cleanup work or the observation as new.
-
-I have excluded the earlier mapping-retention proposal, which Christian
-explicitly NAKed [3]. amdgpu_vm_clear_freed() remains unchanged, and a
-KFD caller still discards its result. The remaining contract questions
-are therefore important before proposing this for merging:
-
-1. Should errors during clear/unmap be prevented or completed inside
-   the backend before the PTE walker can propagate failures?
-2. Is there a current map/unmap split or successor series that this
-   work should be based on?
-
-On the native base above, isolated models using extracted functions
-passed 5 PTE, 17 range/finalization and 2 SDMA ownership scenarios,
-including baseline failure and deliberately broken controls, with no
-ASan/UBSan reports. GCC 13.3.0 compiled amdgpu_vm.o, amdgpu_vm_pt.o and
-amdgpu_vm_sdma.o with CONFIG_DRM_AMDGPU=3Dm. These are modeled errors and
-object builds, not live kernel fault injection or hardware validation.
-There is no claim that this resolves the original GPU queue stalls.
-
-For background, the earlier vendor-tree PR is [4]. Its four commits
-are not the proposed native submission, and the independent CPU fence
-scan optimization is outside this discussion.
-
-[1] https://www.mail-archive.com/dri-devel@lists.freedesktop.org/msg635900.=
-html
-[2] https://www.mail-archive.com/dri-devel@lists.freedesktop.org/msg635904.=
-html
-[3] https://www.mail-archive.com/dri-devel@lists.freedesktop.org/msg638593.=
-html
-[4] https://github.com/ROCm/amdgpu/pull/243
+This adds a locked lookup before the generic wait when KERNEL entries
+are present. It targets the no-KERNEL case rather than reducing the
+number of batches or caching dependency checks.
 
 Signed-off-by: zihaomu <zmu@amd.com>
 ---
-Illustrative error-propagation diff only; cleanup prerequisites and
-agreement on the unmap failure contract are still required.
+RFC: this is an independent performance proposal, based on
+drm-amdgpu-next 5349075eac146ae0511d8929fc24451e4d9a4b7e.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_vm_pt.c
-index c73eb416c0e2..d9cfced93081 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-@@ -701,12 +701,12 @@ static void amdgpu_vm_pte_update_noretry_flags(struct=
- amdgpu_device *adev,
-  *
-  * Make sure to set the right flags for the PTEs at the desired level.
-  */
--static void amdgpu_vm_pte_update_flags(struct amdgpu_vm_update_params *par=
-ams,
--				       struct amdgpu_bo_vm *pt,
--				       unsigned int level,
--				       uint64_t pe, uint64_t addr,
--				       unsigned int count, uint32_t incr,
--				       uint64_t flags)
-+static int amdgpu_vm_pte_update_flags(struct amdgpu_vm_update_params *para=
-ms,
-+				      struct amdgpu_bo_vm *pt,
-+				      unsigned int level,
-+				      u64 pe, u64 addr,
-+				      unsigned int count, u32 incr,
-+				      u64 flags)
- {
- 	struct amdgpu_device *adev =3D params->adev;
-=20
-@@ -735,8 +735,8 @@ static void amdgpu_vm_pte_update_flags(struct amdgpu_vm=
-_update_params *params,
- 	if (level =3D=3D AMDGPU_VM_PTB)
- 		amdgpu_vm_pte_update_noretry_flags(adev, &flags);
-=20
--	params->vm->update_funcs->update(params, pt, pe, addr, count, incr,
--					 flags);
-+	return params->vm->update_funcs->update(params, pt, pe, addr, count, incr=
-,
-+					      flags);
+I would appreciate feedback on whether the no-KERNEL case justifies
+the extra locked lookup on calls that do contain KERNEL entries, and
+whether this optimization belongs here or in the reservation helper.
+
+The locked iterator is used only when unlocked=3Dfalse and the shared
+root reservation is held. The full waiter is retained for every other
+case, including a signaled KERNEL entry. Each batch checks the current
+list again, so no result is cached across PTE batches.
+
+Offline operation counts illustrate both sides of the tradeoff:
+- 64 batches, one BOOKKEEP entry: list reads remain 64; fence get,
+  put and poll operations each fall from 64 to 0.
+- 64 batches, four mixed entries including a signaled KERNEL entry:
+  list reads rise from 256 to 512; the original 256 get/put/poll
+  operations are retained.
+These are model operation counts, not a measured speedup. The fast
+path still scans entries and does not reduce the number of batches.
+
+Local validation using functions extracted from this native tree:
+- 28 deterministic scenarios.
+- 128000 bounded modeled schedules / 256000 actual-function runs,
+  40 checks adding dependencies between batches, and two deliberately
+  broken controls that were detected. ASan/UBSan reported no errors.
+- amdgpu_vm_cpu.o compiled with GCC 13 and CONFIG_DRM_AMDGPU=3Dm in an
+  isolated build directory. Strict checkpatch: 0 errors/warnings/checks.
+
+This has not been linked into a full module, loaded, or tested in a
+live candidate-driver A/B. The models do not establish real kernel
+concurrency correctness or wall-clock benefit. There is no claim that
+this eliminates the original multi-second GPU queue stalls.
+
+The implementation is available on my fork (no GitHub PR opened):
+https://github.com/zihaomu/amdgpu/tree/perf/vm-cpu-no-kernel-fastpath
+It is separate from the PTE backend error-propagation RFC.
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c | 25 +++++++++++++++++++++++--
+ 1 file changed, 23 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_vm_cpu.c
+index d03b9bbe2..5712ec48a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
+@@ -58,6 +58,28 @@ static int amdgpu_vm_cpu_prepare(struct amdgpu_vm_update=
+_params *p,
+ 	return amdgpu_sync_wait(sync, true);
  }
 =20
++static long amdgpu_vm_cpu_wait(struct amdgpu_vm_update_params *p,
++			       struct amdgpu_bo_vm *vmbo)
++{
++	struct dma_resv *resv =3D vmbo->bo.tbo.base.resv;
++	struct dma_resv_iter cursor;
++
++	if (!p->unlocked) {
++		/*
++		 * Page tables share the locked root reservation. The locked
++		 * iterator borrows its references and filters by usage without
++		 * polling unrelated fences. Check each batch afresh, since the
++		 * owner may add new dependencies between calls.
++		 */
++		dma_resv_iter_begin(&cursor, resv, DMA_RESV_USAGE_KERNEL);
++		if (!dma_resv_iter_first(&cursor))
++			return MAX_SCHEDULE_TIMEOUT;
++	}
++
++	return dma_resv_wait_timeout(resv, DMA_RESV_USAGE_KERNEL,
++				     true, MAX_SCHEDULE_TIMEOUT);
++}
++
  /**
-@@ -812,7 +812,7 @@ static void amdgpu_vm_pte_fragment(struct amdgpu_vm_upd=
-ate_params *params,
-  * Update the page tables in the range @start - @end.
+  * amdgpu_vm_cpu_update - helper to update page tables via CPU
   *
-  * Returns:
-- * 0 for success, -EINVAL for failure.
-+ * 0 for success, negative errno for failure.
-  */
- int amdgpu_vm_ptes_update(struct amdgpu_vm_update_params *params,
- 			  uint64_t start, uint64_t end,
-@@ -921,9 +921,11 @@ int amdgpu_vm_ptes_update(struct amdgpu_vm_update_para=
-ms *params,
- 			trace_amdgpu_vm_update_ptes(params, frag_start, upd_end,
- 						    min(nptes, 32u), dst, incr,
- 						    upd_flags);
--			amdgpu_vm_pte_update_flags(params, to_amdgpu_bo_vm(pt),
--						   cursor.level, pe_start, dst,
--						   nptes, incr, upd_flags);
-+			r =3D amdgpu_vm_pte_update_flags(params, to_amdgpu_bo_vm(pt),
-+						       cursor.level, pe_start, dst,
-+						       nptes, incr, upd_flags);
-+			if (r)
-+				return r;
+@@ -80,8 +102,7 @@ static int amdgpu_vm_cpu_update(struct amdgpu_vm_update_=
+params *p,
+ 	uint64_t value;
+ 	long r;
 =20
- 			pe_start +=3D nptes * 8;
- 			dst +=3D nptes * incr;
+-	r =3D dma_resv_wait_timeout(vmbo->bo.tbo.base.resv, DMA_RESV_USAGE_KERNEL=
+,
+-				  true, MAX_SCHEDULE_TIMEOUT);
++	r =3D amdgpu_vm_cpu_wait(p, vmbo);
+ 	if (r < 0)
+ 		return r;
+=20
 --=20
 2.43.0
-
