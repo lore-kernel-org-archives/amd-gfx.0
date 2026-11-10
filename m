@@ -2,86 +2,49 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 574AF606E47B
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Nov 2026 13:15:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78223606A326
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Nov 2026 14:07:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cOTFS3pU
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=nz6tNWem
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC8C210F6CF;
-	Tue, 10 Nov 2026 13:15:44 +0000 (UTC)
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
- [209.85.218.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76D7510F6D4
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Nov 2026 13:15:36 +0000 (UTC)
-Received: by mail-ej1-f54.google.com with SMTP id
- a640c23a62f3a-c45551fa84eso288303466b.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Nov 2026 05:15:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794316535; x=1794921335; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=PFzJ9u6YQvTMb93owgIg27Pbi0f8hK4InZkJZISUcYQ=;
- b=cOTFS3pUbEhQOUeTyVxJ3WIA+KeAcxB2JexFv37o99Eh5s1sgZ3QEWf5o1WMQhmDAj
- Ikuma2um0NH79oAPLWhsQaV9kTIElYJX4Ukwh/WvyvYmoXGKoPRZwO08sBLc+RrRFg6B
- +s+prOZTP+tz09wdN5aqZOhGS4mIIk8X2QryVDBkiqj5WzzmioUT+KH+Tg0OfQ3XqukL
- 4LIihse/ZJ7GyKUWhCre9tPUN6DE3wt3hxOgve0M9dpM0VMCGv1YJ4/YUgJiSrSt/K8y
- Smd01Jr315VF11hm+i8t4lB30o9KTCuDH9Azd9PDi+/J8ik7FvKXaVnvSodJb9LkpLgb
- bc9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794316535; x=1794921335;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=PFzJ9u6YQvTMb93owgIg27Pbi0f8hK4InZkJZISUcYQ=;
- b=1EKzyd+kL3IMaPSNZU4fxCD7MNki32wsz58XLVRpGqqGJoz4r1IyhGp2Ce18WgCS7W
- olLPiPOwkDeKVphFD5AlviogCnLdoP6WQJKs28VOdioW8dn/xgRxeybW7F+IcmtvAmMZ
- MLeAk+NIajaE5hzzvb1Op/re7iPAf7hIsJ+i3mM+hmeF2O0qUCg85JLyHCkPdVnQrL1K
- /pm4ZpMgQ+sKC6glrsA9oU/mh4MVzGgm2PbpgFu3nb6MvwGp0rzv10Tc1gJHy94+toPg
- 701WMjHXLpwpMDjk9Vfz/9WqYjSoWJr2GyAA66/hm8GgE77X94tzcQkuA0Wk6qc2/8wa
- UsEQ==
-X-Gm-Message-State: APuU4Z+SkpeKupJbQrV4NBMdAXDKk6+jjZ7xv50VIc/Ha5EnbkxESDdo
- dhiSbwH67/tmsN6+33U2g2l/g7+LZrnVwxB9XApXkEFUIOzJBQcvLr31o6YvRynj8Z0=
-X-Gm-Gg: AYBFou2+CIn7s3kHddAk2VINtPVOwXVVnC44VF9wOLumKqeLrgJ1/FfEXtxYH21dMO7
- g29Jt8yaKGW0grd5MEEYeRack0FFSRHFBCDxRYq+I31Q5Y18Im0jJh0vFX4uYLbT2CLJ03hRUMp
- rl5HsDruEwQe3CkLLudenaWgZghcQ9fszFIw30dKjsAFTPEC9NQLSGWFK2MOlQdNitcSkp94Pfl
- Dg7EpkVgToxO8Cy7rzQ5+BANLOmXfDcTMbIjmNcOvsAypm6tVNTikhDb84VYK52dDyb6BP5dBrF
- vsW5qG8qQt3jA79CoZglKsXi8Tuf11psvnqJ3M5GqConYMIVOko1HHlUTrta8JzCS2yXw8rifxX
- F9OkDkTxld8brRVry42OPzZ3SsAnqZ3wU602hKksIkSla915+SGbctMfhDrtqeR+fSS6DgS9rxi
- D7TyY/OxOaj6gtStizuOOuol2w/1Kvtz+PhwI0tpkBvWJuJEwhpsd47ISxADCbaiO7aU+/+G4Xj
- /vGNKZiYX3klECHCojFW3d/a8cKLeLoYCAZY31VSNKSREVKAonVH0zNLuUz8JAMO5a+Pk2t+phi
- E15NqazlCBMY4+8LRejYWmYtO34BxrIbGWvV8oYa7EuHpWKRj9TVnQArSH8jZaxYg5VfHN4ktr4
- =
-X-Received: by 2002:a17:907:3ea4:b0:c41:61b9:6ef6 with SMTP id
- a640c23a62f3a-c50495c8f3emr210672966b.27.1794316534613; 
- Tue, 10 Nov 2026 05:15:34 -0800 (PST)
-Received: from desktop.home ([46.205.207.69]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6b75790353asm1126372a12.31.2026.11.10.05.15.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 10 Nov 2026 05:15:34 -0800 (PST)
-From: =?UTF-8?q?Andrzej=20Pi=C4=85tyszek?= <andrzej.piatyszek@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Fangzhi Zuo <Jerry.Zuo@amd.com>, Relja Vojvodic <Relja.Vojvodic@amd.com>,
- Ilya Bakoulin <Ilya.Bakoulin@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org,
- =?UTF-8?q?Andrzej=20Pi=C4=85tyszek?= <andrzej.piatyszek@gmail.com>
-Subject: [PATCH 3/3] drm/amd/display: Retry the same FRL rate after a sink
- timeout
-Date: Tue, 10 Nov 2026 14:09:56 +0100
-Message-ID: <20261110130956.160024-4-andrzej.piatyszek@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261110130956.160024-1-andrzej.piatyszek@gmail.com>
-References: <20261110130956.160024-1-andrzej.piatyszek@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E181510E14B;
+	Tue, 10 Nov 2026 14:07:42 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82F8110EF81
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 Nov 2026 10:29:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Subject:Cc:To:From:Date:From:Reply-To;
+ bh=uXa4i3xL+C3KXA9TbDJjQ0HAP9I1aTzs5qeuaq9PqJE=; t=1794306596; x=2109666596; 
+ b=nz6tNWemAdczVwJERTAo4iMsJd7vHrwc+sSM1cSxMa19SOXl1EnCvHtZ+SmG2sB8S7R+km63q8v
+ f5tNXhggKEYgkBJ+8mnk+rDEd/aNdSynkmXlIkZz2A/Juv0Ky7kvbvGtXTPtcvIvslG/CjBZH1q2O
+ xaec/1BJaSfjLuvtzBMptDymjfUxGA+Ieg4qgKlnrpIFlwtzMCOyx0jWA2H6UZse1G5d04Du/Rkwc
+ GizSY8V1WPZDx6nyM2HCcN2Rl6c5Ib/WVKufjGyLrBWuHcRqrRb7O/6Z+37EKfKLRmFKZ1jHRWwKi
+ qAI9fkd8A0FVH02XlRV8YjBkSq+0ONQWodUw==;
+Received: from 179-125-72-1-dinamico.pombonet.net.br ([179.125.72.1]
+ helo=quatroqueijos.cascardo.eti.br)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1xQj6w-0083xX-0w; Tue, 10 Nov 2026 11:29:54 +0100
+Date: Tue, 10 Nov 2026 07:29:49 -0300
+From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Benjamin Cheng <benjamin.cheng@amd.com>,
+ Shahyan Soltani <shahyan.soltani@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH 1/2] drm/amdgpu/vm: free pte update job on error
+Message-ID: <avLyHUZ4NMWMQ5U7@quatroqueijos.cascardo.eti.br>
+References: <20261105210020.3852328-1-benjamin.cheng@amd.com>
+ <20261105210020.3852328-2-benjamin.cheng@amd.com>
+ <de2d1b55-bfad-47bd-843d-2ce98006103d@amd.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <de2d1b55-bfad-47bd-843d-2ce98006103d@amd.com>
+X-Mailman-Approved-At: Tue, 10 Nov 2026 14:07:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,68 +56,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-hdmi_frl_perform_link_training_with_fallback() lowers the rate after any
-failed attempt, even when the sink never answered. The enable path,
-hdmi_frl_perform_link_training_with_retries(), tries the same rate again
-instead.
+On Fri, Nov 06, 2026 at 09:55:36AM +0100, Christian König wrote:
+> On 11/5/26 22:00, Benjamin Cheng wrote:
+> > In the happy path, the job gets freed when the job is submitted.
+> > However, if amdgpu_vm_ptes_update failed, we don't submit the job, so we
+> > would leak the job.
+> 
+> Yeah that was already brought up upstream as well, but that here is the wrong approach to fixing this.
+> 
+> Thadeu Lima de Souza Cascardo <cascardo@igalia.com> came up with a few patches on the public mailing list to tackle this as well.
+> 
+> Essentially we need to commit PTE updates before we allocate any new PT, background is not only that allocating PTs can fail but also that we need to drop the lock for this and that can make the PTEs we already constructed in the SDMA IB invalid.
+> 
+> I wanted to get that fixed for weeks but couldn't find time for it. Can you guys together look into that?
+> 
+> Thanks in advance,
+> Christian.
+> 
 
-After waking up, a Samsung QE65Q80T (2020) can stay silent at
-10 Gbps x 4 for a few seconds and then train in about 33 ms. Link
-verification moves to a lower rate before that happens.
+Hey, Christian.
 
-After a timeout, try the same rate again, up to max_retries times per
-verification, as the enable path does. A sink that never answers costs
-up to three extra attempts.
+I have been looking at this and trying to find out the best shape of the vm
+hooks and other helpers we might want to introduce here.
 
-Fixes: cbb8e2044b9e ("drm/amd/display: Add DC link support for FRL")
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Andrzej PiÄ…tyszek <andrzej.piatyszek@gmail.com>
----
- .../amd/display/dc/link/protocols/link_hdmi_frl.c  | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+But first I tried to work on a reproducer and I realized that we have two
+situations:
 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_hdmi_frl.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_hdmi_frl.c
-index 97b2b9b74..129834d6d 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_hdmi_frl.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_hdmi_frl.c
-@@ -818,9 +818,14 @@ enum link_result hdmi_frl_perform_link_training_with_fallback(
- 	enum clock_source_id frl_phy_clock_source_id)
- {
- 	enum link_result status = LINK_RESULT_UNKNOWN;
-+	unsigned int retries = 0;
-+	unsigned int max_retries = 3;
- 
- 	DC_LOGGER_INIT(link->ctx->logger);
- 
-+	if (link->preferred_hdmi_frl_settings.valid)
-+		max_retries = link->preferred_hdmi_frl_settings.max_retries;
-+
- 	/* FRL Link Training */
- 	while (status != LINK_RESULT_FALLBACK) {
- 		if (link->frl_link_settings.frl_link_rate ==
-@@ -846,6 +851,15 @@ enum link_result hdmi_frl_perform_link_training_with_fallback(
- 		if (status == LINK_RESULT_SUCCESS)
- 			break;
- 
-+		/*
-+		 * A sink that is still waking up may not answer at all. Retry the
-+		 * same rate before going lower, as many times as link enable does.
-+		 */
-+		if (status == LINK_RESULT_TIMEOUT && retries < max_retries) {
-+			retries++;
-+			continue;
-+		}
-+
- 		link->frl_link_settings.frl_link_rate--;
- 		if (link->frl_link_settings.frl_link_rate <
- 				HDMI_FRL_LINK_RATE_6GBPS_4LANE)
--- 
-2.56.0
+1) In the case of DRM, the BO should be locked, so there should not be any
+eviction of move, so the entries in the IB should still be valid.
 
+2) In the case of SVM, there is the prange lock. Does it still protect the
+range, and, then, would the entries be still valid?
+
+Is this related to what you propose at [1], where you mention:
+
+"
+This allows to remove the buggy SVM range lock, but that's not part of
+this patch set.
+"
+
+Please, let me know if I am missing something or am working with the wrong
+assumptions.
+
+Thanks.
+Cascardo.
+
+[1] https://lore.kernel.org/amd-gfx/20260930133315.12270-7-christian.koenig@amd.com/
+
+> > 
+> > Fixes: 009f401fb98b ("drm/amdgpu: move amdgpu_vm_bo_update() call into correct location")
+> > Signed-off-by: Benjamin Cheng <benjamin.cheng@amd.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 5 ++++-
+> >  1 file changed, 4 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> > index 2ba33212d507..f6cb2b5854dd 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> > @@ -1274,8 +1274,11 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+> >  
+> >  		tmp = start + num_entries;
+> >  		r = amdgpu_vm_ptes_update(&params, start, tmp, addr, flags);
+> > -		if (r)
+> > +		if (r) {
+> > +			if (params.job)
+> > +				amdgpu_job_free(params.job);
+> >  			goto error_free;
+> > +		}
+> >  
+> >  		amdgpu_res_next(&cursor, num_entries * AMDGPU_GPU_PAGE_SIZE);
+> >  		start = tmp;
+> 
