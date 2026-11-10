@@ -2,99 +2,103 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EC5B606A31C
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Nov 2026 22:20:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DA3A606A31C
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Nov 2026 22:50:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LImKCfbG
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Zk5bjUVs
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1FDF10E38A;
-	Tue, 10 Nov 2026 22:20:47 +0000 (UTC)
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
- [209.85.208.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAF6C10E38A
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Nov 2026 22:20:41 +0000 (UTC)
-Received: by mail-ed1-f42.google.com with SMTP id
- 4fb4d7f45d1cf-6b56bbf8330so3348373a12.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Nov 2026 14:20:41 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794349240; cv=none;
- d=google.com; s=arc-20260327;
- b=BtJblNWuMch9+7lfmAfi8p6SJq5FnOUyZA3C2PLHp95yMaY0TGEaL7P6ux2v3M9Y3C
- QJYIGm98nTmg8GbdXHtFzX5o9VWR1vPrZYEWkWXNzUOEBBfF/4PxmmsF79nf5xKUfdrv
- YBxnw15SzBYBW7oAUDveIaux9K0EIS2dOr305MOycr2DMPlTlBzH/si6KHT1dwZF7E/e
- oVGr97z4/IejlRw9bsky4gQUtzwz1aH8pbz1rzNWrSGaHsluHnqHlZcj08TQcWeV6sQj
- C1LA94XQ35g+QUK5d+4YuE/AKcrwwjRzquod7xSmiISjkv0TvKxK7+8FM7HkaJ1qMHPg
- YHUA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=m99sVTP2KDQCUkIDg8pOb2kGKHgwxWRF675z9CkWM7I=;
- fh=LRBbj0l23OwlZT5gs0XhYX2ByiDRTxV+wO8PvOABuKY=;
- b=caM1O4m7WVJYAMlGlmRxtqCj5UX0PGcPI4ZU1IvCJIevT4PAocXxWq7W0i6i9q6KRx
- pKBP0wXU1wUSsVS7z+pNEtxkURLKjc31DNRoX/JkRIIZyhf4Se4XI9DOyQm1U6DM9UfR
- O6JcPh4HkFC4x5lz8ijpxv3Znur9J9NMW3JCECl3v9HdnIixEQbYIlnPixVg46AAug8g
- 5GKzhL3oGPMdDc/CJScIMQMSpQaadgejticTFE0thX4fl+umWqdg1Qiw4qgmVsxzUXC1
- kzDf9AUWsDrpAE74t1P3AYtKbSTvLKw1rPza0V11Mc4pbup/aWhKoQZ42dWgCaei66Ys
- l3hA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794349240; x=1794954040; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=m99sVTP2KDQCUkIDg8pOb2kGKHgwxWRF675z9CkWM7I=;
- b=LImKCfbGmx+1FDeOMzEPrJOGjTdFIiXW4T8Z5MlBotn71iOBONrZf9sK/XjLaVNj/z
- rVZKRnFFc+WpOWMdgwddBMlllDTPKMbwWwmcxzIwTWhtQ8u46TPyI9BaFUZg3IrAZ9d2
- yvrbQpNeESO24wOgFY9S7IO23PaaNxAbO1ZDUBEy0QnfdQZPquaZngncJVvaoTSZxwFH
- 0vK0SnlG0SpkgGdpCedd7M67t4mD3JC1HHV8X1B1FZnoxavmIJ5qcSaMGlnSwHy6jqNA
- ZOTZ+NI42qvfZ88JwqZmtgaK3+7JBMX6OmHgKMf3H8t/CdfJeH2bodKnb19GYih2Vdwb
- aJTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794349240; x=1794954040;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=m99sVTP2KDQCUkIDg8pOb2kGKHgwxWRF675z9CkWM7I=;
- b=HoK2G7iSuPqRJDJoBwQQFoQD1L7NpvDUtZdkkmzaR2JMXEo2PmKZZkthLS+fVlxuvh
- eCuon6aQ8lPjD0aQLnLbGip34t1QtCWMVcIfqcrIWwxO6PHwvoIdeS4pTm4fEYxMc2X+
- ISNRgXaDOwxr80lXpErBPXygHeAe4cT/2SWjNb27tDq0TWqfDXUsLCaMf4oBFvUkSBN8
- aOcljkC65JhjkDHi03jgnjEjtnF5sBaWNyMjV04R6EQqkkXv9LqI+2dpEj1CJRwwzhUn
- 60R2PAvVvhMl5Ly6edrdI4sXCrNfIVahwlQivF3amKODK/7BhVdzV72EJEC+FhA/PaUD
- clfA==
-X-Gm-Message-State: APuU4Z/TfCs3EBW0soMKZiUkH3O3G7m6Ol9blOBOBTrwJZV8TDu91/6E
- XTrdZ5zJyLYCAEdsj84Ls9Xn8B4abPGM54QXUE3+BgG45PzkLUW3Q7o+C1Btx1VkyrrClI/Yw7a
- lG9ykIBpCKnHVCFYfKIkaeeXjuxRoUFgQ5O1JKOrwnw==
-X-Gm-Gg: AYBFou3xT0L5eFUTO8O3ZAe0DAWItAidbpy0QbIrljqzARCT1yQbLf2TDW9uL6nt3I3
- rbOAZlJ+hDkjtz7f1BlApZSD/n5py6V5UWiDqCXeUNbZlLGAXbK1WufanL10FpF9NBfemQ8leW8
- zf7KBg/OSo1EFWd9G+jLQkLJJLRPaXN9GYy+VFoRAmsBa2HCXX7+1M3gXfzPyMQmAzQPlqqsW8G
- uSHC+u4Dcq6DTq/NWChk2E/K2zLIcl9LPARlDh4h0vmmirAiXqP1W54K/O7jwj7KpolDTxLHyiw
- F8ku1OGFCbvsiOuqXVfwmUnk0o8auzwjOnKLfaGXA7MCCmSCwEdlNNms/cpJI3f0TwiYT2Ok7H0
- a+C7sRTHqhNvqPJP54+Tiz9SdOVEC29GyX7N39o3ob8g2NM3A7uDVdYfdfNMxPLCYFvFoMYnA
-X-Received: by 2002:a05:6402:2279:b0:6b4:e433:ee16 with SMTP id
- 4fb4d7f45d1cf-6b777832d28mr414278a12.43.1794349239980; Tue, 10 Nov 2026
- 14:20:39 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 15DFE10E1EC;
+	Tue, 10 Nov 2026 22:50:26 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013040.outbound.protection.outlook.com
+ [40.107.201.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B49910E0D8;
+ Tue, 10 Nov 2026 22:50:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ozW8YdRGisvmGPpvKsH75WKlrpV49GsBRX20hkSCYdySdccxVXgw7sykBOeW6P6we/qW21Nik789WQ6tU47hsNKHwOGuTcd4COJGB5ssvlO3pUeHmM/wvJKahs7as08Svgqv0uXvmWGepDlH9eRTvrx11ID1Tf6OzLbW2QAqzJ+G+1BvhijhyXK0RKq8Xu+g9yc+VbdvkJLAllREKfeH6z6oLT7PVNvMmButjGPuL1m79cdyV3TfkaibeHV5DXmAeZhcnuHwk3YX/Ongd8wWnpAOuWF14fBDpkiF0N0a8pb5Re/EgCyKGPxbf7GCmK8gcnRlEGlGWzMwnNT3+Tfulg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=T3VoH+xe57aqoNovlPb+sFFzUTF2Qj3qJ4mpVhCpzVM=;
+ b=Px/8jPwQe2EdrYATVymXQ79PSJN0oFK+qtUlJA4y8JMLh2ZGZ90z0PymOo1E6LeIeErbvDeBNE4bdBnjO86iAFpwu/CnNWJx+McByzySnTMNyJJfRca4ifQQnulGmdAwk8pm7rptKiL9oFXivJHa+Sx0IqgrS4MzU0znvQDcsROBvTw/lyl6v/IRR58NIi4/sHBvwE1fbnZziEdT4B28PWfdr8ccy1LuGg6hZXasePp5PXrCXGbbaHpgkR5yAdBggJV8CGhoiVctIFFWhDPokMsaBUWPxL3pLhnxp+HB1nWtJfnqrP6n3PKVwgJbrRFLUXLzCSOR1acIh6aK+d53/A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=T3VoH+xe57aqoNovlPb+sFFzUTF2Qj3qJ4mpVhCpzVM=;
+ b=Zk5bjUVsImFbM+xSJE78tQzVvRS4kwZTp7ESiEfUDw0f2hs0jT7Rh0DVnSA9KDXbhagK07pRJK0NVHnRwwRGcLSICVPmDobexlodYtI6bAwpT54BaoepXmmcGXYVVzSoBStO2xaXaaoZGZPzeJRRgfDbV+GsHK1LRfsuKIbA768=
+Received: from BN9PR03CA0549.namprd03.prod.outlook.com (2603:10b6:408:138::14)
+ by IA3PR12MB899783.namprd12.prod.outlook.com (2603:10b6:208:621::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
+ 2026 22:50:16 +0000
+Received: from BN3PEPF00022BC0.namprd04.prod.outlook.com
+ (2603:10b6:408:138:cafe::74) by BN9PR03CA0549.outlook.office365.com
+ (2603:10b6:408:138::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Tue, 10
+ Nov 2026 22:50:15 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN3PEPF00022BC0.mail.protection.outlook.com (10.167.248.123) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Tue, 10 Nov 2026 22:50:15 +0000
+Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 10 Nov
+ 2026 16:50:08 -0600
+From: Mario Limonciello <mario.limonciello@amd.com>
+Date: Tue, 10 Nov 2026 16:48:21 -0600
+Subject: [PATCH v5 1/3] PCI: Cache bridge firmware secondary bus number
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261110130956.160024-1-andrzej.piatyszek@gmail.com>
-In-Reply-To: <20261110130956.160024-1-andrzej.piatyszek@gmail.com>
-From: =?UTF-8?Q?Andrzej_Pi=C4=85tyszek?= <andrzej.piatyszek@gmail.com>
-Date: Tue, 10 Nov 2026 23:20:03 +0100
-X-Gm-Features: AclHuK9T0jEWuuyeKcsaFJF8n0gaPG1UTvH-Fz13rz1eUpDPmmJS8CQsHVhEDC4
-Message-ID: <CABwS-fbOhshTN1KQV81LNRmyZ9cOvJsHgyYnOQvosLUF87iAog@mail.gmail.com>
-Subject: Re: [PATCH 0/3] drm/amd/display: HDMI FRL training fixes for slow
- sinks
-To: amd-gfx@lists.freedesktop.org
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Fangzhi Zuo <Jerry.Zuo@amd.com>, Relja Vojvodic <Relja.Vojvodic@amd.com>, 
- Ilya Bakoulin <Ilya.Bakoulin@amd.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261110-vfct-regression-v5-1-f49fae981bf3@amd.com>
+References: <20261110-vfct-regression-v5-0-f49fae981bf3@amd.com>
+In-Reply-To: <20261110-vfct-regression-v5-0-f49fae981bf3@amd.com>
+To: Bjorn Helgaas <helgaas@kernel.org>, Alex Deucher
+ <alexander.deucher@amd.com>, =?utf-8?q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>
+CC: Oz Tiram <oz@shift-computing.de>, <linux-pci@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, Mario Limonciello
+ <mario.limonciello@amd.com>
+X-Mailer: b4 0.16.0
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BC0:EE_|IA3PR12MB899783:EE_
+X-MS-Office365-Filtering-Correlation-Id: 73bdc05a-f72d-4bae-1a6b-08df3f7cfcd0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|1800799024|376014|23010399003|36860700016|10067099003|3023799007|261102123227099003|261026121527099003|261021121427099003|261022075727099003|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: zaU4hvgPvJtRqtRnZEP0J5mkRFn4glgN+6LWZzyZZYVEA8a2Cor4kX2WSTgDczQyqGA92/GTZG8sj44XswlaY/uhJwCy1Lj85csVnKdUmxf56Vk9NP4Wrg8p8Z3qMCsD3LXCcCM4fWsoH28AiEgd3KlciNqwFeJ6bNiZMiHdsilTnqEQEO+3nQZA+Ecnq0G7XZ2hEGlPZ/pGptOTSynDrKqwdcGqCo8IkTVVnzOE9HwMTTLIaxuyp2teXuH/bX29PHXqNG0R4tXT5RP3yY3hyebFS7KFzV48gHmu3eb4W6L/6ijgqRzRTcu5Oe+EK9wi42yw6OMmTb0xzxrEPPJu24hZWIOjc4gFVRgiIiTicgks3n54M9K7TXFbY9xa9CT9TNjeo+fNBu+FZk/dnl/Ab6gue//ms/M9e4mFKzLKujBFCgInv2VTZxhl+OqAZaxKkg1tAQ8j2kt0AsrDhWD2hsnlMU3iKMBj3xHUdH0/fOYZ+oydD7ezWDkQoyUVLLyulSCNrDUqxDA6zKHy2kcLJ+GzhFdBuw1/ubrFSR4WHkMeQ6r5yEywOb1vZvQ1eEiev0puug4wQ4FpEWsI8ORaFGY7jmwvvtLS7/Es8jhDBJklvCHAzG5a1yPiCxEnmVw/9hogNwFwBH/z4iEl8hETv44s1CEmpz2XQ5fmzyU4uJsLp16rIGNV9H2MzJwZ8u3+XpsjfUcv9OMSev9bkpnitw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(376014)(23010399003)(36860700016)(10067099003)(3023799007)(261102123227099003)(261026121527099003)(261021121427099003)(261022075727099003)(56012099006)(11063799006)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: HKuUhB/wDiBJv0ajsuZg3c0oiMD/lqOcLQ/gyy/gvnbMrca7ah+Hjz4X5kUJidai4HiReWCbsL3ubw3NgNkRMtCRZ1jamUuFF488dTnQLSqnVa59Ppy5HIulMhH5LfCpeSRqWCOn7r9MsD3YeHA8zrmV3o/d1/jOdeyY7FfrAfBxEqlEoJe8SXhJUFZHVvPPY67H3XHdlVUZOfLC6DyhVJzawfvAY6TptIyXDHi9YgI4X458EsHw37LI6cltwBAlNz1jmnv/WUIQzrmiGwc930TFjbf/DOl6rs8Z178xdx5/GtZcTGLoHLltVa363pNMCrE3oJUSGi7oX6CKka7lKzEU46zjXa3Ebhnv+DTFWmS2OVXgQfDzRnVc3yBFs6Ec7MVsPiK9KyHUeiuukG1djkUn3wBHvHv2WYKqL2PDAOA0XL84XfoGcwXzvSyUl9io
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 22:50:15.9449 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 73bdc05a-f72d-4bae-1a6b-08df3f7cfcd0
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF00022BC0.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR12MB899783
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,60 +109,65 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Please drop this series.
+Bridge scans are split into two passes when bus numbers need reassigning.
+Save the firmware secondary bus number on the bridge pci_dev during pass 0,
+before the bridge is disabled, and keep it for pass 1 so devices discovered
+there can read the original bus number via their upstream bridge.
 
-As Sashiko pointed out, patch 2 raises the LTS:3 timeout past the HDMI
-T_FLT limit, which commits f38686268b0d and 007834be6760 tuned for
-compliance. I'll send a v2 that keeps patch 1 as a general fix and
-enables the rest only for the affected TV, through an EDID quirk.
+Guard the cached value with a validity flag so later rescans do not overwrite
+it with the renumbered runtime value.
 
-Thanks,
-Andrzej
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ drivers/pci/probe.c | 4 ++++
+ include/linux/pci.h | 3 +++
+ 2 files changed, 7 insertions(+)
 
+diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
+index 27008e2ea5afc..14b3dd7dac271 100644
+--- a/drivers/pci/probe.c
++++ b/drivers/pci/probe.c
+@@ -1418,6 +1418,10 @@ static int pci_scan_bridge_extend(struct pci_bus *bus, struct pci_dev *dev,
+ 
+ 	pci_dbg(dev, "scanning [bus %02x-%02x] behind bridge, pass %d\n",
+ 		secondary, subordinate, pass);
++	if (!pass && !dev->fw_sec_busnr_valid) {
++		dev->fw_sec_busnr = secondary;
++		dev->fw_sec_busnr_valid = true;
++	}
+ 
+ 	if (!primary && (primary != bus->number) && secondary && subordinate) {
+ 		pci_warn(dev, "Primary bus is hard wired to 0\n");
+diff --git a/include/linux/pci.h b/include/linux/pci.h
+index 5ffcf5ce8c966..b942dbb4edf57 100644
+--- a/include/linux/pci.h
++++ b/include/linux/pci.h
+@@ -363,6 +363,8 @@ struct pci_dev {
+ 	struct pci_slot	*slot;		/* Physical slot this device is in */
+ 
+ 	unsigned int	devfn;		/* Encoded device & function index */
++	/* Firmware secondary bus number saved across bridge scan passes */
++	unsigned char	fw_sec_busnr;
+ 	unsigned short	vendor;
+ 	unsigned short	device;
+ 	unsigned short	subsystem_vendor;
+@@ -414,6 +416,7 @@ struct pci_dev {
+ 	unsigned int	pme_poll:1;	/* Poll device's PME status bit */
+ 	unsigned int	pinned:1;	/* Whether this dev is pinned */
+ 	unsigned int	config_rrs_sv:1; /* Config RRS software visibility */
++	unsigned int	fw_sec_busnr_valid:1;
+ 	unsigned int	imm_ready:1;	/* Supports Immediate Readiness */
+ 	unsigned int	d1_support:1;	/* Low power state D1 is supported */
+ 	unsigned int	d2_support:1;	/* Low power state D2 is supported */
 
-wt., 10 lis 2026 o 14:15 Andrzej Pi=C4=85tyszek
-<andrzej.piatyszek@gmail.com> napisa=C5=82(a):
->
-> With FRL on by default since commit 5fd3b60d9b80 ("drm/amd/display:
-> Enable HDMI FRL by default"), an RX 9070 XT mostly trains a Samsung
-> QE65Q80T (2020) at 6 Gbps x 3, where 4K 120 Hz needs DSC. Windows on
-> the same machine trains it at 10 Gbps x 4.
->
-> The TV needs one TxFFE step at 10 Gbps x 4, but requested levels never
-> reach the PHY; with patch 1, the driver programs them right away. The
-> TV sometimes answers an LTP request only after up to 967 ms, while the
-> driver waits only 220 ms in LTS:3; patch 2 raises the limit to 1 s.
-> After waking up, the TV can stay silent at 10 Gbps x 4 for up to about
-> four seconds, but link verification gives up on that rate after one
-> attempt; with patch 3, verification tries the same rate again first, as
-> the enable path does.
->
-> Tested on 7.3 with an equivalent backport. Without the series, 4 of 6
-> boots and TV wake-ups ended at 6 Gbps x 3. With patches 1 and 2, 16 of
-> 20 reached 10 Gbps x 4, and the other 4 are the case patch 3 handles.
-> With all three, all 63 boots and TV wake-ups over 12 days reached
-> 10 Gbps x 4. In 13 of them the sink stayed silent at first during link
-> verification and answered after one to three more attempts at the same
-> rate. On amd-staging-drm-next the series is build-tested only.
->
-> Andrzej Pi=C4=85tyszek (3):
->   drm/amd/display: Apply requested TxFFE level right away in FRL
->     training
->   drm/amd/display: Wait up to 1 s for slow sinks in FRL link training
->   drm/amd/display: Retry the same FRL rate after a sink timeout
->
->  .../display/dc/link/protocols/link_hdmi_frl.c | 56 +++++++++++--------
->  1 file changed, 33 insertions(+), 23 deletions(-)
->
->
-> base-commit: 47df73aa49d1988c8f684b7caf8be6570e966844
-> --
-> 2.56.0
->
+-- 
+2.43.0
+
