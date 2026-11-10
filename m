@@ -2,127 +2,48 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6088606A33B
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 09:06:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C429D606A326
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 09:13:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ag1RwMwp
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=CgV8TBAL
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4127D10E9DD;
-	Wed, 11 Nov 2026 09:06:31 +0000 (UTC)
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013000.outbound.protection.outlook.com
- [40.93.196.0])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 993B410E9DD
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Nov 2026 09:06:24 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nlvNksVeDehgMj7/sNclqKNoq1DpWU2S2U+eof5L4LrDJl2eFAR33p3uoLc5rPn4mqORDF5TlfkbSq2iBh0YIO8BEoHR7oPqFDxT+jSfgJOBGeTInBjjlvojYHXpE2f4d4+hUBAlF6kkgYSiAzAGg/f620qTwhF/ERDv7x0Mjn4Bl4NC9gRg0Viso9CFPKTHNsx6olu/nhjFbkqIcrjO20kFoEig/hvt/AXBiQkuAkWPG3YWvrJI4GsXqxTy5P0w3YRcuv954us9TkH1Rk+Q5WKYFUk60pG5xOMM49q+9FBMiXPkCDCHSj02gI8uj/5d5FjNeS1O0MQIUNL6qw91tw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=18s2nGRfv43WZZtSlqmlZLgFFpWZDYcpmzSj//Dj+t0=;
- b=IitzUewRsttqnXc51m1mIiJKg8vihlfLebIztsUABB7y7Yxr422yd6fviDprrnbXMxOBw33637MTa5H8tI+V4MbAvIGYTY6Boxoyz44ftm0o7tgj8ilfUCX9uLY2nSG9HbaJ3P5BSQ1BJ+AI94aEIuOIwTuWAFVtKK+IgHtjo7y7IKIZLIf4hjs7ZJQBz+PItUCJy4dUG/hmkiXTKt2H6mRcu8vrJuWfTkvG7NdVh9mhgOmAx6IkzHoVXs18cVplt1uw1w1xrVeDAyEhOoBA1n6fsHrU0VA7PlX3jLbNli3sJA3rZYOSiZX0fmrH7wJA5yyC6Yn4A5jtcNo5O4m0oA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=18s2nGRfv43WZZtSlqmlZLgFFpWZDYcpmzSj//Dj+t0=;
- b=ag1RwMwpPXQYg1dgkuabVngE9A8WjjTNYs8dJkO+QU110615K4hCPoEGua8kByDIUQkDINJzmum67xosOBJTNFPp6jJQPgqeojD5zbJoqGWvvszoLqpqRdr7AAFMgU/DSaqGxt+FwLkXNmT8wSbNIxQmEqeEVpCcvDUNGHgllho=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SN7PR12MB8789.namprd12.prod.outlook.com (2603:10b6:806:34b::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
- 2026 09:06:21 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
- 09:06:20 +0000
-Message-ID: <938026a1-3b02-40b4-98e3-a0a22f045f82@amd.com>
-Date: Wed, 11 Nov 2026 10:06:17 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] drm/amdgpu: make CPU page-table update waits
- uninterruptible
-To: "Mu, Zihao" <Zihao.Mu@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-References: <MW3PR12MB4572FABB93F6676FDBA1D2479E722@MW3PR12MB4572.namprd12.prod.outlook.com>
- <4edd67f7-381a-4446-9509-552739c8f016@amd.com>
- <MW3PR12MB4572A08ADA8CB7BA9F83AF519E712@MW3PR12MB4572.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <MW3PR12MB4572A08ADA8CB7BA9F83AF519E712@MW3PR12MB4572.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0076.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1f::14) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 356C310E3AE;
+	Wed, 11 Nov 2026 09:13:14 +0000 (UTC)
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+ by gabe.freedesktop.org (Postfix) with ESMTP id D1EC810E33C;
+ Tue, 10 Nov 2026 20:59:42 +0000 (UTC)
+Received: by linux.microsoft.com (Postfix, from userid 1216)
+ id D469A20B7169; Tue, 10 Nov 2026 12:59:39 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com D469A20B7169
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+ s=default; t=1794344379;
+ bh=hqEoXUSKFKGUg4QQgsXBLzMoojP6WQd1py1huwZKVyM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=CgV8TBALRe9PmD4BW9hQlDbLI6nY1UF7MLw/zlWsYa0lYfP8nPVNw7/jTQdw3zyF/
+ qMf34L7kUupiyUn3jiB93NtuLb66NFIIB534lqZ99YvFe730bnpmPhYMG56JV15PlU
+ WrhlGgwIVY1VmbTtvEIX1EOi7pTFbBOmh37iueFQ=
+Date: Tue, 10 Nov 2026 15:59:39 -0500
+From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: shivamkalra98@zohomail.in, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, David Weber <weber.aulendorf@gmail.com>,
+ Alex Hung <alex.hung@amd.com>
+Subject: Re: [PATCH v2] drm/amd/display: use atomic commit for panel power
+ savings
+Message-ID: <avOFuxeIiMRr2V0p@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+References: <20261111-abm-sysfs-atomic-v2-1-6dfb19c51ebe@zohomail.in>
+ <e925978e-7b1a-4780-9e0c-616b9455058b@amd.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SN7PR12MB8789:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2eb2124b-8c90-43b1-b776-08df3fd30d49
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|23010399003|366016|10067099003|261009223027099003|261026140227099003|261028144727099003|261021121427099003|261021123027099003|261022075727099003|261102123227099003|261022105027099003|261026121527099003|56012099006|11063799006|5023799004|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: G8YBBUpKByRgkGYBBGPtq5YqQrPGwcdp6/yKJVQfVN6Sotf+2igGH1SvkPyjsDp0THbyBodKrZDHRjKhqtjMUPNreDJU9fzaU+sBQg1nX3BQecJKmE87K3E/xWVN8T8UEoVp35KevyGSzTjS1oINewEqIeNW7Zbu1IHuw59kKHEjDF7eWKemirh77dnUJzCfOIEk6wKMkostqDcLQUGgpDyJH3aMNmrzQCDE1BP3Fx/P9rIywqgLr+xQlgt5mDvUefHBT1pTjCBPExtTDOR2N8Rx+DIAMPmOkV66VrMBpYPLrtA5esil7sxz1kvp0RoK5UWoqB2kyv0EUupn2GmkyJaoyUbEp/XPnQ3kpGW/c5aVb5HY3WNyjHkGxU3tg+5cuU/hxBGeUf8n4it8lUtDGwZGnIdd3ZoM6nSepU1Ku25ZK5etusakm1OPD2PWsP5KBtpzfHMIuXaHELAMaW23tLbi4ml0XuxuHGfk89+TutuUn9RxvgBVMiD/EkwwF+2cqJQVBtDiRZlcgzpqwCz10SPC4WaViKmBz/iN5yztm5wFAO4bzmKgtOM/IcKhD/w5udGentxgE/+plhFUJbYlOQM/5pEzN8LT5TNithtkgMfLoaqJSCID6XVIEjfAw/Zj
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(10067099003)(261009223027099003)(261026140227099003)(261028144727099003)(261021121427099003)(261021123027099003)(261022075727099003)(261102123227099003)(261022105027099003)(261026121527099003)(56012099006)(11063799006)(5023799004)(4143699003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aGxwWk13emp4RVJ2R0M2QldseVJjUmF1WGFxcnFYOVZTN0VxVkpWaHNiV0E1?=
- =?utf-8?B?dnJjZUtXWmppVFJXdFVSUTRxcjlxcmMrYjkzL21scnpUY3QzYW8zZzdiZmtp?=
- =?utf-8?B?TWpMSDk3Nnl2Q2s4NzFkZzBkcGRodXp5Vkd1NEpmem5XbDl5R2lDeUNVc3A1?=
- =?utf-8?B?NWxtQW1XYWtGT2ZxREJNMUNpSkJaWCsvN0htZ2lRTmF0UmJtb2FMdjZPR3cz?=
- =?utf-8?B?dEttcjhTTEdjb2VxK2RXSEJXdDFFaG85ZVh2NFdYYVJ1dExoTzZ3T282eVhR?=
- =?utf-8?B?YUp1Y3VLaThEeVZaMlVJOFYwY0owcktxbEJPSG9CcFJBY2dRR0doSW1lVEhO?=
- =?utf-8?B?OWs5dkZPUmY3KzYzc2k4bDdKNHROcHhHYVV2VnZIbG1MQ3lLOW11TGlhOThj?=
- =?utf-8?B?dmFNdDdWTVowd1BhQkNWdlF1NDlOU3lzQmZjcFRjMlpaaHNObEkydGtsLyth?=
- =?utf-8?B?RHlzeitmTlloVXNnS2RBak9tTVNLSEkxUHg1dzhBeFVjc082T0lMbmVoNEhK?=
- =?utf-8?B?dVp5RU9Cb3k3SUVDM1V6SHUvUDd3cnpoQnRqdCtMRWN5Q2p5SU5HZGpvZmww?=
- =?utf-8?B?aVdkR0x0UXU1aXRyOFY1UER0VkRpTmxoWDFZaDR3QVBncE83TkFpZTR1L1Qy?=
- =?utf-8?B?SkxvaTNIcktadUNpMnhlSHVXc0xickhZL1ZlYXJESXcxZWtPTnNpQ2VnWFlC?=
- =?utf-8?B?Q1BCUjZLalIyL2FRSTkwR3c0N0tOWi9WWFJLV0ltakllSCtMeUtlL3UzSnhZ?=
- =?utf-8?B?WWoyWCt4dDhCVlZrWXF6SEVrWXh0NmFGMHpiQkkxWDdhalp1RGlEbStjY2FP?=
- =?utf-8?B?MUNDQmlDODFFZi8vNWZ1bnlTWTJGZzlLNVRvQndWUVlZKzhyZWNpVUpITHNo?=
- =?utf-8?B?WjFFS1RsY1pxTlA1RHZNbzNwT2s3dVFNN21ZTm5MODlhYUoycW5Rd2hvb2p2?=
- =?utf-8?B?bkNGOHlhUXdmaDBRUmpKQWxwVnhBVzBuOTQ2UzhicTlSYXY5aGtlN1JYaXJ3?=
- =?utf-8?B?eVdRL0NTY3ZKcnBxRXdsdGl0NkRLeTdsd3AwYUdGWGVMK3ZWbUl4Q2tkMU5G?=
- =?utf-8?B?cU1DMXIxVUhMQ0FEbGxHbXZwa1ppaXNPZzVkcVNlZHU5VTB3aXlNRTBjL3Fh?=
- =?utf-8?B?Qk9CRWEvWHh3aVBPMEtscTMzeUpTSFJ2Z3kvdFNVa2FDLzVRZUJ2OWt6MjJY?=
- =?utf-8?B?RE5aNUhOaGcwNDk2L3B2YVdKZWsyRDRUUGhyNG8zRElpUU1BK1drMXdvQUFS?=
- =?utf-8?B?OHVoK0dYd215MkliYUtFOVg2di92YzkvU0lucjViSnQ3TG5QalhHT2NYamlH?=
- =?utf-8?B?ajFGQnp4Ri9adW9pek5CeG1PK3JvNFVsV0NJYUkxV3JsVkxZYi9oTGMxeTZz?=
- =?utf-8?B?OU9vMVZ2VUcwSUFHVkd4S3NNdXNQdGtTQ1JIeUkyQjRCVDJxZDl4M1lzL1Q4?=
- =?utf-8?B?ZUtKbmtLWFNIZC9ITWFPaGpYMzdLUkFMbW1DQS9vOEUrL2w2dUxQdjB3VzVO?=
- =?utf-8?B?TGR2MXRIRklYaGF5NGlTbTNGc0ZpM3lUUHN1bUpISVN1aUdHbXFaY1BEemJa?=
- =?utf-8?B?VTEwZVp4QnNhcGI4VTdsNEdJTjZzRXB3dTF1cE9tcHZ1dnlXNm8zYWI2R1VN?=
- =?utf-8?B?SG5iUTNReXhDVkcvcm5oMkJESHlHM0FmNXBqbEdiZ2dacjZtUHYxL2wxRE9q?=
- =?utf-8?B?MXE2djZCNk1sUWRnNnZPejNjcUg4cWEyYVBXSzVDRTkvb0FjZmpHTzVOTk5i?=
- =?utf-8?B?OHdWN25zNUloelhaVEM3R1JUd29TQWphdWoxTm5adFlMbjk2ZEc0VWRWbSt1?=
- =?utf-8?B?TjFuMFdyN0VCb3AyeFpKMEhvSFd3YmFmT1p5WFlHZWFCb1VxRmRwaE9QbFEv?=
- =?utf-8?B?QUp5RkNRdDlLM0Z6dHVianA1dzRSb0hvMEtXUjFnam9CTmM2d1hSVGxLYXh0?=
- =?utf-8?B?bElKZmlldU1OdG4welJQcG5BWVZvYUVzM1VVVFBQMWl6NU9YT0xYTExJMXhJ?=
- =?utf-8?B?TnIvamZneTNjc0FpQWlLRjNITDFRWEYvMVBhTnY5Z3Y3dVdnSnhjamRDdURV?=
- =?utf-8?B?YWF6aFYwVXBWWkRlc2xDTFNiTXpDb0FZcDhBeWRPL0VPRXpLWGNWMksvc2xL?=
- =?utf-8?B?M096b25OSURMYTJ5TW5Tc0RUUTFtSnNUK2dHbkJqRWJtRmd1MmQ0NUkxTUky?=
- =?utf-8?B?WlpJL2I5VHZ6dHhLL2I3b3J6SDh5MFprWml1bkx5NEY5bEtzR1VkOWQ4Unlx?=
- =?utf-8?B?UGV5SXorTFNMS0hIMFdXa08wRUowYzdYdHFzVmgzVmx4WXUzdHIyenRDQlpR?=
- =?utf-8?Q?btOoZexZAQJ0D+QGwm?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2eb2124b-8c90-43b1-b776-08df3fd30d49
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 09:06:20.6043 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: YNeDowtJ/1HtOHzski41HHUNDXEL86xDQGZyQuBuOKBNH34k99617rx11ryXlUsL
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8789
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e925978e-7b1a-4780-9e0c-616b9455058b@amd.com>
+X-Mailman-Approved-At: Wed, 11 Nov 2026 09:13:13 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,110 +54,304 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=4.0.1
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/11/26 06:39, Mu, Zihao wrote:
-> From: zihaomu <zmu@amd.com>
+On Tue, Nov 10, 2026 at 02:30:04PM -0600, Mario Limonciello wrote:
 > 
-> The CPU update callback waits for KERNEL fences before writing a batch
-> of page-table entries. A pending signal can interrupt that wait and
-> return -ERESTARTSYS without writing the entries. The PTE walker ignores
-> the callback's result and advances past that batch.
 > 
-> Page-table updates must complete instead of abandoning writes because
-> of a signal. Make the dependency wait uninterruptible and remove the
-> interruption error path from the CPU update callback. The dependencies
-> are still waited on before any entry is written.
+> On 11/10/26 13:24, Shivam Kalra via B4 Relay wrote:
+> > From: Shivam Kalra <shivamkalra98@zohomail.in>
+> > 
+> > panel_power_savings_store() mutates connector->state directly and sends a
+> > hotplug event. This bypasses atomic commit handling, so the new ABM level
+> > is only applied when userspace happens to perform another modeset, and it
+> > races with concurrent commits.
+> > 
+> > Build an atomic state, set the level on the connector state and commit it.
+> > If the connector is not attached to a CRTC, keep the level in the current
+> > state so the next modeset picks it up, as before.
+> > 
+> > In amdgpu_dm_atomic_check(), drm_atomic_get_crtc_state() already adds the
+> > CRTC to the atomic state so dm_update_crtc_state() can propagate abm_level
+> > to the CRTC state. Stop setting new_crtc_state->connectors_changed for ABM
+> > changes and keep it only for scaling changes, allowing ABM updates to go
+> > through the existing non-modeset stream update path without blanking the
+> > panel.
+> > 
+> > A previous attempt to avoid the modeset by calling into DMUB directly was
+> > reverted because it broke the abm_gradual IGT test (8d20a066fa9b,
+> > 95aaa207e9ef). This version instead uses the normal atomic stream update
+> > path.
+> > 
+> > Extend the backlight KUnit tests to cover the atomic commit and inactive
+> > connector sysfs paths.
+> > 
+> > Fixes: 63d0b87213a0 ("drm/amd/display: add panel_power_savings sysfs entry to eDP connectors")
+> > Signed-off-by: Shivam Kalra <shivamkalra98@zohomail.in>
 > 
-> Keep the shared update callback type, the preparation phase, and the
-> SDMA backend unchanged. The CPU callback still returns zero through the
-> existing interface.
+> Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
 > 
-> Link: https://lore.kernel.org/r/4edd67f7-381a-4446-9509-552739c8f016@amd.com
-> Signed-off-by: zihaomu <zmu@amd.com>
+> Others should comment before merging though too.
 
-The Signed-off-by line should be your full legal name, e.g. similar to a signature. At least of hand zihaomu doesn't looks correct.
+I would suggest running this through the weekly promotion before
+merging. As I can recall there were a number of edge cases that
+prevented this approach in the past (mostly concerning display off and
+DC oddities).
 
-> ---
-> Hi Christian,
-> 
->> Yeah we need to remove those error codes. PTE updates generally can't fail.
-> 
-> Thanks for clarifying. I have replaced the propagation proposal with
-> this focused first step for the CPU update callback. It waits for the
-> KERNEL dependencies without allowing a signal to abandon the PTE writes.
-> 
-> This is based on drm-amdgpu-next at a6836fcbb5b2. The previous walker
-> error-propagation diff and its cleanup prerequisites are not included.
-> 
-> This is not a complete conversion of all VM operations to a no-fail
-> interface. The CPU preparation wait remains interruptible before the
-> update phase. The shared callback type and SDMA backend are unchanged;
-> SDMA dependency registration and replacement-job allocations can still
-> fail. I have not hidden those failures behind a void callback or added
-> an unbounded allocation retry loop.
-> 
-> For the remaining SDMA work, is there a reserved-resource or map/unmap
-> split series I should build on? Job, scheduler-fence and IB allocations
-> need a forward-progress design before the remaining errors can be
-> removed safely.
-> 
-> Validation of this patch:
-> - 28 modeled dependency scenarios and 384 parameter combinations, using
->   the native CPU update and reservation traversal function bodies with
->   simulated fence/storage primitives. Both the original omitted-write
->   behavior and a deliberately broken swallow-the-error control were
->   detected. ASan/UBSan reported no errors.
-> - amdgpu_vm_cpu.o compiled with GCC 13.3.0 and CONFIG_DRM_AMDGPU=m in a
->   fresh private build directory. Strict checkpatch: 0 errors/warnings/checks.
-> 
-> The PTE write/flags/commit code is unchanged. This has not been linked
-> into a full module or loaded on hardware, and it does not establish a
-> fix for the original multi-second queue stalls. The independent CPU
-> fence-scan performance proposal is not included here.
-> 
-> Regards,
-> Zihao
-> 
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c | 8 +++-----
->  1 file changed, 3 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
-> index d03b9bbe20c..dc1cebbc0d9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
-> @@ -78,12 +78,10 @@ static int amdgpu_vm_cpu_update(struct amdgpu_vm_update_params *p,
->  {
->  	unsigned int i;
->  	uint64_t value;
-> -	long r;
->  
-> -	r = dma_resv_wait_timeout(vmbo->bo.tbo.base.resv, DMA_RESV_USAGE_KERNEL,
-> -				  true, MAX_SCHEDULE_TIMEOUT);
-> -	if (r < 0)
-> -		return r;
-> +	/* Page-table updates must not skip writes because of a signal. */
-> +	dma_resv_wait_timeout(vmbo->bo.tbo.base.resv, DMA_RESV_USAGE_KERNEL,
-> +			      false, MAX_SCHEDULE_TIMEOUT);
-
-The problem is rather that we shouldn't call dma_resv_wait_timeout() here in the first place.
-
-That should be done in amdgpu_vm_cpu_prepare() instead but currently can't be done there because we don't call commit/prepare around page table allocation.
-
-So we need to fix that first and then fix this bug here.
-
-Regards,
-Christian.
-
->  
->  	pe += (unsigned long)amdgpu_bo_kptr(&vmbo->bo);
->  
-> 
-> base-commit: a6836fcbb5b22968019256025321d655b78bc49c
-
+> > ---
+> > Changes in v2:
+> > - Avoid forcing a modeset for ABM-only changes, matching David Weber's
+> >    patch [1] (Alex Hung; issue also noted by Sashiko).
+> > - Make modeset-lock acquisition interruptible (Alex Hung).
+> > - Inline the state update and remove the redundant connector-state
+> >    lookup (Alex Hung).
+> > - Reuse existing connector-state helpers in KUnit (Sashiko).
+> > - Add a KUnit test for the sysfs commit branch with an attached CRTC.
+> > - Run the amd_abm IGT suite, including abm_gradual.
+> > - Link to v1: https://lore.kernel.org/r/20261031-abm-sysfs-atomic-v1-1-a99068f3b49c@zohomail.in
+> > 
+> > [1] https://lore.kernel.org/amd-gfx/20260813112634.11455-3-weber.aulendorf@gmail.com/
+> > 
+> > Testing:
+> > - KUnit: amdgpu_dm_backlight, 74/74 tests passed.
+> > 
+> > - Hardware: v2 backported to 7.1.13-stable-manual on Rembrandt
+> >    (DCN 3.1.2, eDP-1). All five amd_abm IGT subtests passed, including
+> >    abm_gradual. No HOTPLUG=1 events were captured.
+> > ---
+> >   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  3 +-
+> >   .../amd/display/amdgpu_dm/amdgpu_dm_backlight.c    | 64 +++++++++++++++---
+> >   .../amdgpu_dm/tests/amdgpu_dm_backlight_test.c     | 79 +++++++++++++++++++++-
+> >   3 files changed, 132 insertions(+), 14 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > index dfbc384fbbdb..256699cdd0b5 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > @@ -6304,8 +6304,7 @@ STATIC_IFN_KUNIT int amdgpu_dm_atomic_check(struct drm_device *dev,
+> >   			goto fail;
+> >   		}
+> > -		if (dm_old_con_state->abm_level != dm_new_con_state->abm_level ||
+> > -		    dm_old_con_state->scaling != dm_new_con_state->scaling)
+> > +		if (dm_old_con_state->scaling != dm_new_con_state->scaling)
+> >   			new_crtc_state->connectors_changed = true;
+> >   	}
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+> > index 27546febf90d..97684a58cd3d 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+> > @@ -719,31 +719,73 @@ ssize_t panel_power_savings_store(struct device *device,
+> >   {
+> >   	struct drm_connector *connector = dev_get_drvdata(device);
+> >   	struct drm_device *dev = connector->dev;
+> > +	struct drm_modeset_acquire_ctx ctx;
+> > +	struct drm_connector_state *conn_state;
+> > +	struct dm_connector_state *dm_conn_state;
+> > +	struct drm_atomic_commit *state;
+> > +	u8 abm_level;
+> >   	long val;
+> >   	int ret;
+> >   	ret = kstrtol(buf, 0, &val);
+> > -
+> >   	if (ret)
+> >   		return ret;
+> >   	if (val < 0 || val > 4)
+> >   		return -EINVAL;
+> > -	drm_modeset_lock(&dev->mode_config.connection_mutex, NULL);
+> > -	if (to_dm_connector_state(connector->state)->abm_sysfs_forbidden)
+> > +	abm_level = val ?: ABM_LEVEL_IMMEDIATE_DISABLE;
+> > +
+> > +	drm_modeset_acquire_init(&ctx, DRM_MODESET_ACQUIRE_INTERRUPTIBLE);
+> > +	state = drm_atomic_commit_alloc(dev);
+> > +	if (!state) {
+> > +		ret = -ENOMEM;
+> > +		goto out_ctx;
+> > +	}
+> > +	state->acquire_ctx = &ctx;
+> > +
+> > +retry:
+> > +	conn_state = drm_atomic_get_connector_state(state, connector);
+> > +	if (IS_ERR(conn_state)) {
+> > +		ret = PTR_ERR(conn_state);
+> > +		goto out_backoff;
+> > +	}
+> > +
+> > +	dm_conn_state = to_dm_connector_state(conn_state);
+> > +	if (dm_conn_state->abm_sysfs_forbidden) {
+> >   		ret = -EBUSY;
+> > -	else
+> > -		to_dm_connector_state(connector->state)->abm_level = val ?:
+> > -			ABM_LEVEL_IMMEDIATE_DISABLE;
+> > -	drm_modeset_unlock(&dev->mode_config.connection_mutex);
+> > +		goto out_state;
+> > +	}
+> > -	if (ret)
+> > -		return ret;
+> > +	dm_conn_state->abm_level = abm_level;
+> > +
+> > +	/*
+> > +	 * Without a CRTC there is no stream to update and nothing to commit.
+> > +	 * Keep the level in the current state so the next modeset picks it
+> > +	 * up, matching the behavior of the sysfs interface.
+> > +	 */
+> > +	if (!conn_state->crtc) {
+> > +		to_dm_connector_state(connector->state)->abm_level = abm_level;
+> > +		goto out_state;
+> > +	}
+> > +
+> > +	ret = drm_atomic_commit(state);
+> > +
+> > +out_backoff:
+> > +	if (ret == -EDEADLK) {
+> > +		drm_atomic_commit_clear(state);
+> > +		ret = drm_modeset_backoff(&ctx);
+> > +		if (!ret)
+> > +			goto retry;
+> > +	}
+> > -	drm_kms_helper_hotplug_event(dev);
+> > +out_state:
+> > +	drm_atomic_commit_put(state);
+> > +out_ctx:
+> > +	drm_modeset_drop_locks(&ctx);
+> > +	drm_modeset_acquire_fini(&ctx);
+> > -	return count;
+> > +	return ret ? ret : count;
+> >   }
+> >   EXPORT_IF_KUNIT(panel_power_savings_store);
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
+> > index c6d15fb8ad98..586e838a8f63 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
+> > @@ -20,6 +20,7 @@
+> >   #include "amdgpu_mode.h"
+> >   #include "amdgpu_dm.h"
+> >   #include "amdgpu_dm_backlight.h"
+> > +#include "amdgpu_dm_connector.h"
+> >   #include "amdgpu_dm_kunit_test_helpers.h"
+> >   #include "amd_shared.h"
+> >   #include "link_service.h"
+> > @@ -514,6 +515,43 @@ static void dm_test_register_backlight_device_success(struct kunit *test)
+> >   			adev->dm.backlight_dev[0]), 0);
+> >   }
+> > +static int
+> > +dm_test_panel_power_savings_atomic_commit(struct drm_device *dev,
+> > +					  struct drm_atomic_commit *state,
+> > +					  bool nonblock)
+> > +{
+> > +	struct drm_connector_state *new_conn_state;
+> > +	struct drm_connector *connector;
+> > +	int i;
+> > +
+> > +	for_each_new_connector_in_state(state, connector, new_conn_state, i)
+> > +		to_dm_connector_state(connector->state)->abm_level =
+> > +			to_dm_connector_state(new_conn_state)->abm_level;
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +static const struct drm_connector_funcs dm_test_panel_power_savings_connector_funcs = {
+> > +	.atomic_duplicate_state = amdgpu_dm_connector_atomic_duplicate_state,
+> > +	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
+> > +};
+> > +
+> > +static const struct drm_mode_config_funcs dm_test_panel_power_savings_mode_funcs = {
+> > +	.atomic_commit = dm_test_panel_power_savings_atomic_commit,
+> > +};
+> > +
+> > +static void
+> > +dm_test_panel_power_savings_crtc_destroy(struct drm_crtc *crtc)
+> > +{
+> > +	drm_crtc_cleanup(crtc);
+> > +}
+> > +
+> > +static const struct drm_crtc_funcs dm_test_panel_power_savings_crtc_funcs = {
+> > +	.destroy = dm_test_panel_power_savings_crtc_destroy,
+> > +	.atomic_duplicate_state = drm_atomic_helper_crtc_duplicate_state,
+> > +	.atomic_destroy_state = drm_atomic_helper_crtc_destroy_state,
+> > +};
+> > +
+> >   static struct drm_connector *setup_panel_power_savings_connector(struct kunit *test,
+> >   							 struct device **device_out,
+> >   							 struct dm_connector_state **state_out)
+> > @@ -527,6 +565,7 @@ static struct drm_connector *setup_panel_power_savings_connector(struct kunit *t
+> >   	adev = dm_kunit_alloc_adev(test);
+> >   	ret = drmm_mode_config_init(&adev->ddev);
+> >   	KUNIT_ASSERT_EQ(test, ret, 0);
+> > +	adev->ddev.mode_config.funcs = &dm_test_panel_power_savings_mode_funcs;
+> >   	connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
+> >   	device = kunit_kzalloc(test, sizeof(*device), GFP_KERNEL);
+> > @@ -536,7 +575,11 @@ static struct drm_connector *setup_panel_power_savings_connector(struct kunit *t
+> >   	KUNIT_ASSERT_NOT_NULL(test, state);
+> >   	connector->dev = &adev->ddev;
+> > +	connector->funcs = &dm_test_panel_power_savings_connector_funcs;
+> > +	connector->index = 0;
+> > +	kref_init(&connector->base.refcount);
+> >   	connector->state = &state->base;
+> > +	state->base.connector = connector;
+> >   	dev_set_drvdata(device, connector);
+> >   	*device_out = device;
+> >   	*state_out = state;
+> > @@ -614,10 +657,43 @@ static void dm_test_panel_power_savings_store_sets_disable(struct kunit *test)
+> >   	setup_panel_power_savings_connector(test, &device, &state);
+> >   	KUNIT_EXPECT_EQ(test, panel_power_savings_store(device, NULL, "0", count),
+> > -			 (ssize_t)count);
+> > +			(ssize_t)count);
+> >   	KUNIT_EXPECT_EQ(test, state->abm_level, ABM_LEVEL_IMMEDIATE_DISABLE);
+> >   }
+> > +/**
+> > + * dm_test_panel_power_savings_store_commits_with_crtc - Test store with CRTC
+> > + * @test: The KUnit test context
+> > + */
+> > +static void dm_test_panel_power_savings_store_commits_with_crtc(struct kunit *test)
+> > +{
+> > +	struct dm_connector_state *state;
+> > +	struct drm_connector *connector;
+> > +	struct drm_crtc *crtc;
+> > +	struct device *device;
+> > +	size_t count = strlen("3");
+> > +	int ret;
+> > +
+> > +	connector = setup_panel_power_savings_connector(test, &device, &state);
+> > +
+> > +	crtc = kunit_kzalloc(test, sizeof(*crtc), GFP_KERNEL);
+> > +	KUNIT_ASSERT_NOT_NULL(test, crtc);
+> > +	ret = drm_crtc_init_with_planes(connector->dev, crtc, NULL, NULL,
+> > +					&dm_test_panel_power_savings_crtc_funcs,
+> > +					NULL);
+> > +	KUNIT_ASSERT_EQ(test, ret, 0);
+> > +	drm_atomic_helper_crtc_reset(crtc);
+> > +	KUNIT_ASSERT_NOT_NULL(test, crtc->state);
+> > +	state->base.crtc = crtc;
+> > +
+> > +	KUNIT_EXPECT_EQ(test, panel_power_savings_store(device, NULL, "3", count),
+> > +			(ssize_t)count);
+> > +	KUNIT_EXPECT_EQ(test, state->abm_level, 3);
+> > +
+> > +	state->base.crtc = NULL;
+> > +	drm_crtc_cleanup(crtc);
+> > +}
+> > +
+> >   /**
+> >    * dm_test_panel_power_savings_store_forbidden - Test forbidden update
+> >    * @test: The KUnit test context
+> > @@ -1939,6 +2015,7 @@ static struct kunit_case dm_backlight_test_cases[] = {
+> >   	KUNIT_CASE(dm_test_panel_power_savings_show_reports_level),
+> >   	KUNIT_CASE(dm_test_panel_power_savings_store_sets_disable),
+> >   	KUNIT_CASE(dm_test_panel_power_savings_store_forbidden),
+> > +	KUNIT_CASE(dm_test_panel_power_savings_store_commits_with_crtc),
+> >   	KUNIT_CASE(dm_test_panel_power_savings_store_rejects_invalid_text),
+> >   	KUNIT_CASE(dm_test_panel_power_savings_store_rejects_out_of_range),
+> >   	/* amdgpu_dm_backlight_get_device_index */
+> > 
+> > ---
+> > base-commit: ba496bb837882eb1af58f41572fc289e46c77b8c
+> > change-id: 20261031-abm-sysfs-atomic-c79505f63a2e
+> > 
+> > Best regards,
+> > --
+> > Shivam Kalra <shivamkalra98@zohomail.in>
