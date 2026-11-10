@@ -2,71 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D20AF606A338
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Nov 2026 11:44:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MuNWd4Ej
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FCF860A2605
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Nov 2026 11:44:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4044210F241;
-	Tue, 10 Nov 2026 11:44:09 +0000 (UTC)
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com
- [74.125.82.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE48710E2B5
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Nov 2026 01:13:43 +0000 (UTC)
-Received: by mail-dy1-f177.google.com with SMTP id
- 5a478bee46e88-36a315ed211so1736311eec.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 09 Nov 2026 17:13:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794273223; x=1794878023; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=Asvo/JWf9IudVRqIRZvrwZdNjM8xuitU/qHAWd3ZeV4=;
- b=MuNWd4EjBAy2UaTZZEJTAMkd/pS8Ka2Zpqfg9VMO4a1vLd57FfGF5lWVnmXYkoo6cP
- 7y675s5Vbc4NIrO2w2ynMvYVq1rTEdAkcoAtRssEDsW1Q40E531sxNxHkmu1wzLzVsCv
- BafxnXKAC/ZTPwPHYxzVGRyapsFhbvI/q01c71JayPUpIP/k+EicoT8Ri4otkj601H8D
- R8PtFvUUhscx5k3N2sUJ1sz9qA99I4yGHv44JxXtDnpot0ASiUqdG/k76AHVetM4srwQ
- WR0+J7kVI6P1PP8E563lxoYNxR61BCtjXdjQ4w4qCgTi3miC5KBrXFiIydz+OpVEj91M
- Tsqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794273223; x=1794878023;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Asvo/JWf9IudVRqIRZvrwZdNjM8xuitU/qHAWd3ZeV4=;
- b=iwMAJnk/gpreKp6+gZymc2OSf8YBoZAnhx9X7Utr5hsj+Pj1U72QyusI6LLQdvGPrg
- /2jso44cwLwqrjZ+TBcSipj65WYmH2dvAV2XPMXydJ4dV3QHQIFIaxDcXwBcucZO1O+e
- jOYHCXG+1tXexwgDv4ZG4XIvlktwdwvsh18qfs3MqitjdmGcH8H86cBh2mkNNFLUMnvU
- T/542zG/r7/rM2oldpjueZ+3/6zXcB3c81T9u6tqsuUg0zQ+ahMpVnn1CPJ6se9mgSxT
- 3zq6NLWsjlYfbTbmLdbJZHohOUfmbwmG+AjJaIHPHl3mwBQDo+RXBa0I1oXxKqlh8Xsp
- rPcw==
-X-Gm-Message-State: APuU4Z9Bqxx878oC/NY28/OlfyN9SKQdog8o7XhZAdVr8IU6NY1KekPU
- 4saKTICaFKuMSRQ25v6gdhnk7+iwsn++QS3kDxwiLjjfRCYXIWFas63ye39nea0u
-X-Gm-Gg: AYBFou2eGSSTvoJA3WA6Rb+SQ+7EIaNKmDxjDJqgEhRF43Bm/J2WsYEtV19MDScNT/g
- ZYFtUL4jQ/9EUboyXh0ul9CLzHburboMWBRE5ouq1YeYwHyp2eLhKig9SUqqUDJ/Lck33z3/YXt
- 8eXsh8vk/sBr+qpVtO8GX2W0VpW86emwEoe5uVjwdjm/pYAZw8wIzitIPbf2uky6ruXIinozv94
- qzAy+lUFQU11Gx0yfetUR/zxnAY2mqPeAF2lQE+S5J6sACfcqp3DxC3ObndXAYnXsy80qTfOvO1
- +UlJpFXksWlJfLOT82JZbWUYtnzb0gb3dh6K4SZ8Oic6+5tdf1TUzTND0HsxgeY1lbkzSC0TL+V
- nGE0UpumakDMX0FnMfXq4nGEgsJgrf2rhCCvmsV04I27UvCHUSTDf9eIh+BIzTAu2ZOMtVMg4dj
- hqJ9orWRoNa18yspe1sdUS6aZGIXmskz49e2HNQQ8KNg3s+2yPj/YDwFMur5pjWvQPPhVTnSGBd
- 8Ne7go/5942E53lBiv3jEP4lnSsRF9g7pmicBPdUgxzJ9Xk0m9pOhl54MlW978Q7Vpdfazneho+
- OHvWCUxRVLR4CkzD
-X-Received: by 2002:a05:693c:20ca:20b0:375:11dc:7222 with SMTP id
- 5a478bee46e88-37511dc7739mr1460603eec.21.1794273222784; 
- Mon, 09 Nov 2026 17:13:42 -0800 (PST)
-Received: from evangelion-g ([2a09:bac5:40e1:11cd::1c6:7])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-37520512b6asm2043005eec.10.2026.11.09.17.13.38
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Nov 2026 17:13:42 -0800 (PST)
-From: Ayush <ayush37735@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Ayush <ayush37735@gmail.com>
-Subject: [PATCH] drm/amdgpu: fix kernel-doc in amdgpu_gfx.h
-Date: Tue, 10 Nov 2026 06:42:56 +0530
-Message-ID: <20261110011256.157652-1-ayush37735@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5587110F418;
+	Tue, 10 Nov 2026 11:44:14 +0000 (UTC)
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51CC710EE26;
+ Tue, 10 Nov 2026 08:35:12 +0000 (UTC)
+X-UUID: a06c9c5edce111f19a56ed5b684f684d-20261110
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19, REQID:e1ddb994-8e84-42b9-9870-bea375e14735, IP:0,
+ U
+ RL:55,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
+ ON:release,TS:30
+X-CID-META: VersionHash:7db8b62, CLOUDID:dbf12460f72f4573f8c7665d24b8f6e9,
+ BulkI
+ D:nil,BulkQuantity:0,SF:102|123|850|865|898,TC:nil,Content:0|15|50|99,EDM:
+ -3,IP:nil,URL:99|11|13|91|81|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL
+ :0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULN
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: a06c9c5edce111f19a56ed5b684f684d-20261110
+X-User: jiangwang@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+ (envelope-from <jiangwang@kylinos.cn>)
+ (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+ with ESMTP id 496395729; Tue, 10 Nov 2026 16:35:04 +0800
+From: jiangwang@kylinos.cn
+To: alexander.deucher@amd.com,
+	christian.koenig@amd.com
+Cc: airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Wang Jiang <jiangwang@kylinos.cn>
+Subject: [PATCH] drm/amdgpu/gfx_v9_0: Add gfxoff quirk for Lenovo Picasso 318F
+Date: Tue, 10 Nov 2026 16:34:53 +0800
+Message-Id: <20261110083453.1008827-1-jiangwang@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -81,94 +55,57 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,T_PDS_OTHER_BAD_TLD,
+	UNPARSEABLE_RELAY,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Fix kernel-doc warnings in drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h by
-adding the missing 'struct' keyword to amdgpu_rb_config, properly
-formatting and aligning member documentation comments, and adding
-an explicit Return: block for amdgpu_gfx_create_bitmask().
+From: Wang Jiang <jiangwang@kylinos.cn>
 
-Validated with ./scripts/kernel-doc -v -none -Wall -Werror.
+GFXOFF causes gfx ring timeout and desktop freeze on Lenovo 90NYA05DCD
+(Ryzen 5 3400G, Picasso). Add a quirk entry with ANY_REV marker to
+disable gfxoff for subsystem 17aa:318f regardless of chip revision.
 
-Signed-off-by: Ayush <ayush37735@gmail.com>
+Signed-off-by: Wang Jiang <jiangwang@kylinos.cn>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h | 31 +++++++++++--------------
- 1 file changed, 13 insertions(+), 18 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-index 5939e1fb3..96f4e4ce2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-@@ -181,7 +181,7 @@ struct amdgpu_kiq {
- #define AMDGPU_GFX_MAX_SH_PER_SE 2
- 
- /**
-- * amdgpu_rb_config - Configure a single Render Backend (RB)
-+ * struct amdgpu_rb_config - Configure a single Render Backend (RB)
-  *
-  * Bad RBs are fused off and there is a harvest register the driver reads to
-  * determine which RB(s) are fused off so that the driver can configure the
-@@ -191,34 +191,28 @@ struct amdgpu_kiq {
-  */
- struct amdgpu_rb_config {
- 	/**
--	 * @rb_backend_disable:
--	 *
--	 * The value captured from register RB_BACKEND_DISABLE indicates if the
--	 * RB backend is disabled or not.
-+	 * @rb_backend_disable: The value captured from register
-+	 * RB_BACKEND_DISABLE indicates if the RB backend is disabled or not.
- 	 */
- 	uint32_t rb_backend_disable;
- 
- 	/**
--	 * @user_rb_backend_disable:
--	 *
--	 * The value captured from register USER_RB_BACKEND_DISABLE indicates
--	 * if the User RB backend is disabled or not.
-+	 * @user_rb_backend_disable: The value captured from register
-+	 * USER_RB_BACKEND_DISABLE indicates if the User RB backend is disabled
-+	 * or not.
- 	 */
- 	uint32_t user_rb_backend_disable;
- 
- 	/**
--	 * @raster_config:
--	 *
--	 * To set up all of the states, it is necessary to have two registers
--	 * to keep all of the states. This field holds the first register.
-+	 * @raster_config: To set up all of the states, it is necessary to have
-+	 * two registers to keep all of the states. This field holds the first
-+	 * register.
- 	 */
- 	uint32_t raster_config;
- 
- 	/**
--	 * @raster_config_1:
--	 *
--	 * To set up all of the states, it is necessary to have two registers
--	 * to keep all of the states. This field holds the second register.
-+	 * @raster_config_1: This field holds the second register for setting
-+	 * up the raster states.
- 	 */
- 	uint32_t raster_config_1;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index c3322058720f..0cec645710b6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -1365,6 +1365,9 @@ struct amdgpu_gfxoff_quirk {
+ 	u8 revision;
  };
-@@ -587,7 +581,8 @@ struct amdgpu_gfx_ras_mem_id_entry {
-  * @bit_width: length of the mask
-  *
-  * create a variable length bit mask.
-- * Returns the bitmask.
-+ *
-+ * Return: The generated bitmask.
-  */
- static inline u32 amdgpu_gfx_create_bitmask(u32 bit_width)
- {
+ 
++/* Match any chip revision in amdgpu_gfxoff_quirk.revision */
++#define AMDGPU_GFXOFF_QUIRK_ANY_REV	0xff
++
+ static const struct amdgpu_gfxoff_quirk amdgpu_gfxoff_quirk_list[] = {
+ 	/* https://bugzilla.kernel.org/show_bug.cgi?id=204689 */
+ 	{ 0x1002, 0x15dd, 0x1002, 0x15dd, 0xc8 },
+@@ -1374,6 +1377,7 @@ static const struct amdgpu_gfxoff_quirk amdgpu_gfxoff_quirk_list[] = {
+ 	{ 0x1002, 0x15dd, 0x1002, 0x15dd, 0xc6 },
+ 	/* Apple MacBook Pro (15-inch, 2019) Radeon Pro Vega 20 4 GB */
+ 	{ 0x1002, 0x69af, 0x106b, 0x019a, 0xc0 },
++	{ 0x1002, 0x15d8, 0x17aa, 0x318f, AMDGPU_GFXOFF_QUIRK_ANY_REV },
+ 	/* https://bbs.openkylin.top/t/topic/171497 */
+ 	{ 0x1002, 0x15d8, 0x19e5, 0x3e14, 0xc2 },
+ 	/* HP 705G4 DM with R5 2400G */
+@@ -1390,7 +1394,8 @@ static bool gfx_v9_0_should_disable_gfxoff(struct pci_dev *pdev)
+ 		    pdev->device == p->chip_device &&
+ 		    pdev->subsystem_vendor == p->subsys_vendor &&
+ 		    pdev->subsystem_device == p->subsys_device &&
+-		    pdev->revision == p->revision) {
++		    (p->revision == AMDGPU_GFXOFF_QUIRK_ANY_REV ||
++		     pdev->revision == p->revision)) {
+ 			return true;
+ 		}
+ 		++p;
 -- 
-2.53.0
+2.25.1
 
