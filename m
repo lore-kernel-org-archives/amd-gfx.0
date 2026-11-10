@@ -2,48 +2,75 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78223606A326
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Nov 2026 14:07:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2EDB606A339
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Nov 2026 14:07:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=nz6tNWem
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=W4W3Ie/Z
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E181510E14B;
-	Tue, 10 Nov 2026 14:07:42 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82F8110EF81
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Nov 2026 10:29:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Subject:Cc:To:From:Date:From:Reply-To;
- bh=uXa4i3xL+C3KXA9TbDJjQ0HAP9I1aTzs5qeuaq9PqJE=; t=1794306596; x=2109666596; 
- b=nz6tNWemAdczVwJERTAo4iMsJd7vHrwc+sSM1cSxMa19SOXl1EnCvHtZ+SmG2sB8S7R+km63q8v
- f5tNXhggKEYgkBJ+8mnk+rDEd/aNdSynkmXlIkZz2A/Juv0Ky7kvbvGtXTPtcvIvslG/CjBZH1q2O
- xaec/1BJaSfjLuvtzBMptDymjfUxGA+Ieg4qgKlnrpIFlwtzMCOyx0jWA2H6UZse1G5d04Du/Rkwc
- GizSY8V1WPZDx6nyM2HCcN2Rl6c5Ib/WVKufjGyLrBWuHcRqrRb7O/6Z+37EKfKLRmFKZ1jHRWwKi
- qAI9fkd8A0FVH02XlRV8YjBkSq+0ONQWodUw==;
-Received: from 179-125-72-1-dinamico.pombonet.net.br ([179.125.72.1]
- helo=quatroqueijos.cascardo.eti.br)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xQj6w-0083xX-0w; Tue, 10 Nov 2026 11:29:54 +0100
-Date: Tue, 10 Nov 2026 07:29:49 -0300
-From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: Benjamin Cheng <benjamin.cheng@amd.com>,
- Shahyan Soltani <shahyan.soltani@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-Subject: Re: [PATCH 1/2] drm/amdgpu/vm: free pte update job on error
-Message-ID: <avLyHUZ4NMWMQ5U7@quatroqueijos.cascardo.eti.br>
-References: <20261105210020.3852328-1-benjamin.cheng@amd.com>
- <20261105210020.3852328-2-benjamin.cheng@amd.com>
- <de2d1b55-bfad-47bd-843d-2ce98006103d@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60B8C10F70A;
+	Tue, 10 Nov 2026 14:07:45 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D60D10E92E;
+ Tue, 10 Nov 2026 12:02:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1794312173; x=1825848173;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=HhAUpNuzDozuVjdF12LqWeLLpGws7iUzN3G4eEtCwpk=;
+ b=W4W3Ie/ZTOhfDceUYt/hfGTR9WEnF3IxHLCZROpY0nzYhYadsW0UBL22
+ FJZMVpnqdZGL8YulX+F93KbHjrzM0s/dQsXWktfqmBAOydBOizj03Shz0
+ 9+Ie+4gytcOFmzh/2qWXKB378vCqnsZJ2L6c8fUe9wL2ku/aYTiN4ELGK
+ BCDYqpcE2F6Y/KHOrN0HuBWMTjMotGO/WonZQ1GoY+BZOzx+CG7Zx7W2s
+ 9jXxNH6dBpXb9afRxeScTYil3WsLKsFToTPsO0FkrN0G14Ms5zENofq88
+ kEW3RQdQ5mGJBD16qMeNgQWfPZQYX6+3mMA6mCRpAiSQ+gPpmuRV/Rhph Q==;
+X-CSE-ConnectionGUID: ez5JUFkETcGzr1sYwGdvZA==
+X-CSE-MsgGUID: jlWoQf7LSY25ZGGnPoplbA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3156165"
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="3156165"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Nov 2026 04:02:53 -0800
+X-CSE-ConnectionGUID: ZqmuHCDMTKyLwUC/7lBmqg==
+X-CSE-MsgGUID: A8Fj9ojISPexeUfkUXUf7A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="8174905"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com)
+ ([10.245.245.11])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Nov 2026 04:02:48 -0800
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+ by kekkonen.fi.intel.com (Postfix) with SMTP id 0CCB6121B7B;
+ Tue, 10 Nov 2026 14:02:46 +0200 (EET)
+Date: Tue, 10 Nov 2026 14:02:46 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Seifelden Abdelmonem <saif.elden.hatim@gmail.com>
+Cc: Mario Limonciello <superm1@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>, Hans de Goede <hansg@kernel.org>,
+ Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Bin Du <bin.du@amd.com>, Nirujogi Pratap <pratap.nirujogi@amd.com>,
+ Benjamin Chan <benjamin.chan@amd.com>, King Li <King.Li@amd.com>,
+ Caspar Adriani <caspar.adriani@proton.me>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Arec Kao <arec.kao@intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 2/3] platform/x86: amd_isp4: add the OV13B10
+ (OMNI13B1) board configuration
+Message-ID: <avMH5glolytc9L86@kekkonen.localdomain>
+References: <20261103155313.114347-1-saif.elden.hatim@gmail.com>
+ <20261103155313.114347-3-saif.elden.hatim@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <de2d1b55-bfad-47bd-843d-2ce98006103d@amd.com>
+In-Reply-To: <20261103155313.114347-3-saif.elden.hatim@gmail.com>
 X-Mailman-Approved-At: Tue, 10 Nov 2026 14:07:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -55,82 +82,26 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri, Nov 06, 2026 at 09:55:36AM +0100, Christian König wrote:
-> On 11/5/26 22:00, Benjamin Cheng wrote:
-> > In the happy path, the job gets freed when the job is submitted.
-> > However, if amdgpu_vm_ptes_update failed, we don't submit the job, so we
-> > would leak the job.
-> 
-> Yeah that was already brought up upstream as well, but that here is the wrong approach to fixing this.
-> 
-> Thadeu Lima de Souza Cascardo <cascardo@igalia.com> came up with a few patches on the public mailing list to tackle this as well.
-> 
-> Essentially we need to commit PTE updates before we allocate any new PT, background is not only that allocating PTs can fail but also that we need to drop the lock for this and that can make the PTEs we already constructed in the SDMA IB invalid.
-> 
-> I wanted to get that fixed for weeks but couldn't find time for it. Can you guys together look into that?
-> 
-> Thanks in advance,
-> Christian.
-> 
+Hi Seifelden,
 
-Hey, Christian.
+Thanks for the set.
 
-I have been looking at this and trying to find out the best shape of the vm
-hooks and other helpers we might want to introduce here.
+On Tue, Nov 03, 2026 at 06:53:12PM +0300, Seifelden Abdelmonem wrote:
+> +#define AMDISP_OV13B10_HID		"OMNI13B1"
 
-But first I tried to work on a reproducer and I realized that we have two
-situations:
+Any idea who allocates these HIDs? Omnivision ACPI ID prefix is "OVTI" and
+"OMNI" is indeed unallocated. I presume these HIDs have been "allocated" by
+AMD? This is not the first time something like this happens but it would be
+good to avoid it from happening in the future.
 
-1) In the case of DRM, the BO should be locked, so there should not be any
-eviction of move, so the entries in the IB should still be valid.
+-- 
+Regards,
 
-2) In the case of SVM, there is the prange lock. Does it still protect the
-range, and, then, would the entries be still valid?
-
-Is this related to what you propose at [1], where you mention:
-
-"
-This allows to remove the buggy SVM range lock, but that's not part of
-this patch set.
-"
-
-Please, let me know if I am missing something or am working with the wrong
-assumptions.
-
-Thanks.
-Cascardo.
-
-[1] https://lore.kernel.org/amd-gfx/20260930133315.12270-7-christian.koenig@amd.com/
-
-> > 
-> > Fixes: 009f401fb98b ("drm/amdgpu: move amdgpu_vm_bo_update() call into correct location")
-> > Signed-off-by: Benjamin Cheng <benjamin.cheng@amd.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 5 ++++-
-> >  1 file changed, 4 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> > index 2ba33212d507..f6cb2b5854dd 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> > @@ -1274,8 +1274,11 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
-> >  
-> >  		tmp = start + num_entries;
-> >  		r = amdgpu_vm_ptes_update(&params, start, tmp, addr, flags);
-> > -		if (r)
-> > +		if (r) {
-> > +			if (params.job)
-> > +				amdgpu_job_free(params.job);
-> >  			goto error_free;
-> > +		}
-> >  
-> >  		amdgpu_res_next(&cursor, num_entries * AMDGPU_GPU_PAGE_SIZE);
-> >  		start = tmp;
-> 
+Sakari Ailus
