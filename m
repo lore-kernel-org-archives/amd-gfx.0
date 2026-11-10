@@ -2,92 +2,49 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A81E960A2608
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Nov 2026 11:44:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zDHAWkDa
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2574C606A33E
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Nov 2026 11:44:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 24F9710F252;
-	Tue, 10 Nov 2026 11:44:10 +0000 (UTC)
-Received: from mail-pj2-f1.google.com (mail-pj2-f1.google.com [74.125.227.129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 923AC10F437
- for <amd-gfx@lists.freedesktop.org>; Mon,  9 Nov 2026 17:00:14 +0000 (UTC)
-Received: by mail-pj2-f1.google.com with SMTP id
- d9443c01a7336-2ed3c66713cso3540035ad.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 09 Nov 2026 09:00:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794243614; x=1794848414; darn=lists.freedesktop.org;
- h=references:in-reply-to:cc:to:message-id:date:from:subject
- :content-transfer-encoding:content-type:mime-version:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=wxnu2gHDTAVcZYWFHFKD1h1xosiRimMJGhZuilr5Ql8=;
- b=zDHAWkDai/BmFVDxwfGJi1H+jG1q/TRMbLjglyFEzjj7viDclNOPSnBB4Yxfx1vZ2r
- rAv8oSeIgPaheFHhSnCbBIoUW6FGtNht5tbY/QFaxexuuFabd7yezvdfKmWhBaEDb/uu
- hdmaa28liT4oY2dl38UjW1l2hCTY1yeronFVs2z6rqQwoIfbQRZYAIm7wlYG8NCKRgNR
- h+Aso1c3AweXMZoob8kHLPnWJRcy/WhBWhTuR0ALFAFP1euaJys6j+kYkWgqPIvtC0dj
- RNEi56tRoztdLwTHBQihngUiiGHukNz3edK5EVAUtm8Yb9Y9RM1V/bFcNKfjDM4DeaRI
- Akfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794243614; x=1794848414;
- h=references:in-reply-to:cc:to:message-id:date:from:subject
- :content-transfer-encoding:content-type:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=wxnu2gHDTAVcZYWFHFKD1h1xosiRimMJGhZuilr5Ql8=;
- b=Uza8guKRWu+bwVECHo2vvRKPvJtVfmHIT1/d3mrS5BXsV2e63txYeuQrrQWdsjbKeQ
- t6+sd9DGb3jPsh7n3V0bH3qfXm3nrSHYXcU32NdzY2CyIl6WzGtIkV56v2FyZZUeeqP3
- +S3UZz8gDWwEXDGu9BPIdmvzOufASXKbH3D+fv1FQeh4M4+Rzhsm4fD1jGfQNhqP2s9a
- N5qO/fChKm0eSdR2mlmqfljhKwSHaFARhdA+NChyYnZKYW0TNvrF6MGHWrvzcvh0y0on
- 9XKn0h0TZYpE2IVmjnJ9/BI5vYduioaariyDtOR1qbikQhGRt4jx6Dw7xu+fMCwVQwJy
- Eleg==
-X-Forwarded-Encrypted: i=1;
- AL+hErFBKRjdIhOrLKivVX/x/Cd2gwvQlvRndJdPlto5y28WyLwyhhn2lSQ0qVErOEFpGenaI+kOLosZ@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+GN8sRR/H/By5aYsLGSv/5DXTle0gYcc2u6clu1PuU8utMn+5q
- YBVUhWyMqCM8Ka2N0ixRrwtL7xXzz/JwgjIBrpHmEwC5Uv3Is3PefxaB
-X-Gm-Gg: AYBFou1r5SZ/zC5dIru7x3vLD+cWbnbgwQ2A1aeNd1kCI9mb07X7KZ4iYeJmm5g3Rhm
- pvAMYB3kEJx51H+vVp1oUBUhE6KMyLUbF6o6yfJIJMR6CUlDxOSIkufTSHnNMPHm9fsUtuqgSXT
- O9N39slHTJI3K3ahfpL6cGdWQOmXbcI19z5HyJCpjf23wX982eHLY66nGgfjwTQXImtdXrzi8ES
- T85XOtDZAMJdEwl/R2ujXTQFMUk1WGzdhpbYl31uoRCPi0uxOEp/lsXa+pe04WsyCY32hXa8OK5
- wwklUQMq0PXSEJSgGE0UsjxVYqE6r657Yf1RIYwEreEUnyzv4WBuo2F8EdChwvHcZuK5S+kTMys
- ObYQSMGLd020CJ4XUDGwd8XrIRmFz5YQe9tqmlq6Wmsvyp2+0tUnd/Fd2AnVfwGHwk218DoqCFs
- VebCCLYUohqYCB/c4ZKKwAKWVSz+fNSy4sBx6b8QmTBGZxH8OhQRmS/SC6zV6uOm8Y0x2qssGtu
- JyQAhRDzNW7KN4wKd0/KxuBp6gZOT5w9Dv/JTIby35ZKLetIqkRXmultZyuRg30f4ufTKxe4Yqz
- 1sFEQpyAu+kwF9zD6yKMl4u/HiPwwVUcHcodm5lSawr0xhmu4h/QP/PqgPZyGiAv5eAESaZsUaX
- wtaauVbXAkext/zHgHdibVYrdEWfZuVzf
-X-Received: by 2002:a17:902:e5cf:b0:2ed:3db6:2eb0 with SMTP id
- d9443c01a7336-2ed83784f45mr49805195ad.48.1794243613903; 
- Mon, 09 Nov 2026 09:00:13 -0800 (PST)
-Received: from [100.64.227.9] (n106-71-19-159.sun21.vic.optusnet.com.au.
- [106.71.19.159]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2edb6d7bb58sm325405ad.33.2026.11.09.08.59.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Nov 2026 09:00:13 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 892BC10F20C;
+	Tue, 10 Nov 2026 11:44:15 +0000 (UTC)
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A71210E939;
+ Tue, 10 Nov 2026 07:02:42 +0000 (UTC)
+X-UUID: b5846462dcd411f19a56ed5b684f684d-20261110
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19, REQID:9be663ea-f5de-4dbf-9979-2add6c209046, IP:0,
+ U
+ RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+ release,TS:0
+X-CID-META: VersionHash:7db8b62, CLOUDID:c5ca694d64765e5f5568255934526006,
+ BulkI
+ D:nil,BulkQuantity:0,SF:102|123|850|865|898,TC:nil,Content:0|15|50|99,EDM:
+ -3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,
+ AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: b5846462dcd411f19a56ed5b684f684d-20261110
+X-User: yaolu@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+ (envelope-from <yaolu@kylinos.cn>)
+ (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+ with ESMTP id 1689587472; Tue, 10 Nov 2026 15:02:36 +0800
+From: yaolu@kylinos.cn
+To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com
+Cc: siqueira@igalia.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Lu Yao <yaolu@kylinos.cn>
+Subject: [PATCH] drm/amd/display: Don't free devres-owned i2c adapter on init
+ failure
+Date: Tue, 10 Nov 2026 15:02:03 +0800
+Message-Id: <20261110070204.307887-1-yaolu@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v10 10/22] drm/amdgpu: implement SVM initialization and
- lifecycle
-From: Aveline Noir <jm5905938@gmail.com>
-Date: Tue, 10 Nov 2026 03:59:27 +1100
-Message-Id: <179424356769.208802.11801490347938606155.b4-reply@b4>
-To: Huang Rui <ray.huang@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- Alice Ryhl <aliceryhl@google.com>, amd-gfx@lists.freedesktop.org, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Danilo Krummrich <dakr@kernel.org>, dri-devel@lists.freedesktop.org, 
- Felix Kuehling <felix.kuehling@amd.com>, Honglei Huang <honghuan@amd.com>, 
- Honglei Huang <honglei1.huang@amd.com>, Jenny Liu <Jenny-Jing.Liu@amd.com>, 
- Junhua Shen <Junhua.Shen@amd.com>, Zhu Lingshan <lingshan.zhu@amd.com>, 
- Matthew Brost <matthew.brost@intel.com>, Oak Zeng <Oak.Zeng@amd.com>, 
- Philip Yang <Philip.Yang@amd.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Xiaogang Chen <xiaogang.chen@amd.com>, Yiru Ma <yiru.ma@amd.com>
-In-Reply-To: <20261021025915.2433837-11-ray.huang@amd.com>
-References: <20261021025915.2433837-1-ray.huang@amd.com>
- <20261021025915.2433837-11-ray.huang@amd.com>
-X-Mailer: b4 0.16.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 10 Nov 2026 11:44:03 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -99,29 +56,38 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Ray,
+From: Lu Yao <yaolu@kylinos.cn>
 
-On Wed, 21 Oct 2026 10:58:49 +0800 Huang Rui wrote:
+amdgpu_dm_connector_init() registers the i2c adapter with
+devm_i2c_add_adapter().It will be released by devres on teardown, so
+we don't need to free it when failed.
 
-> +	if (new_attrs->prefetch_loc != AMDGPU_SVM_LOCATION_UNDEFINED &&
-> +	    new_attrs->prefetch_loc != AMDGPU_SVM_LOCATION_SYSMEM)
-> +		trigger |= AMDGPU_SVM_ATTR_TRIGGER_PREFETCH;
+Fixes: 5b3eca05cfb0 ("drm/amd/display: Use devm_i2c_add_adapter to simplify i2c cleanup logic")
+Signed-off-by: Lu Yao <yaolu@kylinos.cn>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-I'm not sure about excluding SYSMEM here... The proposed libhsakmt
-adaptation maps a CPU prefetch target to SYSMEM. If the pages are in
-VRAM and the update fully covers an existing mapped SVM range, nothing
-gets mapped or migrated eagerly. The GPU PTEs can be zapped, but the
-pages stay in VRAM even though SET_ATTR can return success.
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+index b498fc5fbb14..ccbda54c3add 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+@@ -3514,7 +3514,7 @@ int amdgpu_dm_connector_init(struct amdgpu_display_manager *dm,
+ 	if (res) {
+ 		drm_err(adev_to_drm(dm->adev), "connector_init failed\n");
+ 		aconnector->connector_id = -1;
+-		goto out_free;
++		return res;
+ 	}
+ 
+ 	drm_connector_helper_add(
+-- 
+2.25.1
 
-Is SYSMEM prefetch meant to move pages back to RAM, or only to set the
-attribute for a later CPU fault?
-
-Thanks,
-Aveline Noir
