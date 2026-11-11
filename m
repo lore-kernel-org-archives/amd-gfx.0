@@ -2,29 +2,29 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8512606A32A
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 16:09:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39CEF606A32E
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 16:09:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=Yof3OXJ7
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=so4YXkvF
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 251F510FD69;
-	Wed, 11 Nov 2026 16:09:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 554AA10FDCA;
+	Wed, 11 Nov 2026 16:09:13 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E39410FD69;
- Wed, 11 Nov 2026 16:08:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F12BB10FD40;
+ Wed, 11 Nov 2026 16:09:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=EF6YJlWcMIKeRWjHSiUzXMiAlNQMPhIfJbX3+58lWy4=;
- t=1794413336; x=2109773336; b=Yof3OXJ7zQscAtjegjRPscOLZSlQ/HS5AaKcWP0st/Qveod
- s5p2J/jQKbyQuP2E8z68Q0KWD150k/vpPdqZSCa06Rw2rzHUwbmWZbfDLqeZ2py+CHH8jMZuHPpXI
- wZK3pVdZ3rUHCjTviddIx/+lMXxO9xXD1PCyYq8/A2OelGf+d3Kn5g+QvQx3X06CvTwsUGn+r4IHi
- KZjW0uucN/o2aAFGbMo1HeSUF9AFiD5BtJcEfZwgc/Zq3Xc5wL5ZY0sfht21dYGtifgVpbH/FJHU5
- 0LWDifI3/ZkQ85Phid2NEwXQb2KUO9HQS41iLA6g/jAudWqrofR1zowLB6ppg9BQ==;
+ Cc:To:From:From:Reply-To; bh=/y5qYFZc99vTFQFHCcGT764DjvoopXBmEK09vTZo0IY=;
+ t=1794413340; x=2109773340; b=so4YXkvFWmWNf2gV40cp06gV/k3bRlaDadkLRoKv6ep60Fn
+ MQ8/cu+TicuK/ngM5IR1l2rpEYiBk186JoYwrlCAvV0R5Inyh+zHWBSELiw17dZEXYnM6RJ1o2+gz
+ O2Q9xTlpmrYwoy0g1N9fWDyksBXe8TSoCFf7Q1Sdp8Zp2jL0Qs+HzcrR6AAeaaC3/IgXr/jTwNslN
+ xMn9IhZbgo3i6xGhN1PMhvMLydPyTq46dHCWCGTUImz1dAzgHsl6Wa4QL48smGpuvghdfo1HwJd/7
+ hR+IKoUkJfjxF9cudgwi+HZLqlYUWPv+uPICBy2CLSfuByzBPEUCYHaZkckUcayg==;
 Received: from 193.red-79-147-123.dynamicip.rima-tde.net ([79.147.123.193]
  helo=killbill) by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xRAsF-008u8Y-Uj; Wed, 11 Nov 2026 17:08:36 +0100
+ id 1xRAsJ-008u8Y-9m; Wed, 11 Nov 2026 17:08:39 +0100
 From: Melissa Wen <mwen@igalia.com>
 To: airlied@gmail.com, alexander.deucher@amd.com, alex.hung@amd.com,
  aurabindo.pillai@amd.com, christian.koenig@amd.com, contact@emersion.fr,
@@ -45,10 +45,10 @@ Cc: Uma Shankar <uma.shankar@intel.com>,
  intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, louis.chauvet@bootlin.com,
  John Harrison <John.Harrison@igalia.com>
-Subject: [PATCH v5 06/15] drm/atomic: reject colorop update from inactive
- color pipeline
-Date: Wed, 11 Nov 2026 17:05:19 +0100
-Message-ID: <20261111160814.21326-7-mwen@igalia.com>
+Subject: [PATCH v5 09/15] drm/amd/display: truly bypass plane colorop 3x4
+ matrix and hdr mult
+Date: Wed, 11 Nov 2026 17:05:22 +0100
+Message-ID: <20261111160814.21326-10-mwen@igalia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261111160814.21326-1-mwen@igalia.com>
 References: <20261111160814.21326-1-mwen@igalia.com>
@@ -73,124 +73,54 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-A colorop can only be changed while it is part of an active color
-pipeline, or in the same commit that activates or deactivates that
-pipeline. Enforce this contract by checking that the colorop belongs to
-the color pipeline of a plane in its current, new or old state, and
-rejecting the state change otherwise. Do the check in
-drm_atomic_check_only() rather than when the colorop property is set, so
-it doesn't depend on the order userspace sets properties within a
-commit.
+Latent issue as the driver is currently just skipping programming 3x4
+matrix and hdr multiplier blocks on bypass. Reset to default values if
+the bypass property is set true.
 
-Link: https://lore.kernel.org/dri-devel/20260519211111.228303-1-mwen@igalia.com/
-Suggested-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+Fixes: 16e0f785b87f ("drm/amd/display: add 3x4 matrix colorop")
+Fixes: de0b0eb2e045 ("drm/amd/display: add multiplier colorop")
 Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- drivers/gpu/drm/drm_atomic.c | 76 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 76 insertions(+)
+ .../amd/display/amdgpu_dm/amdgpu_dm_color.c    | 18 ++++++++++++++----
+ 1 file changed, 14 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index 2e82c06166be..36c9550c2749 100644
---- a/drivers/gpu/drm/drm_atomic.c
-+++ b/drivers/gpu/drm/drm_atomic.c
-@@ -986,6 +986,71 @@ drm_atomic_add_pipeline_colorops(struct drm_atomic_commit *state,
- 	return 0;
- }
- 
-+/*
-+ * drm_atomic_colorop_check - check new colorop state
-+ * @new_colorop_state: new colorop state to check
-+ *
-+ * Ensure that the colorop in @new_colorop_state belongs to an active color
-+ * pipeline, i.e. it's in the chain of colorops set to the color_pipeline
-+ * property of current, old or new plane state.
-+ *
-+ * Userspace is allowed to finalize colorop's settings in the same commit that
-+ * deactivates its pipeline, and the changes should persist for when that
-+ * pipeline is reactivated later. So changes to colorop in the old plane
-+ * state's pipeline are accepted even though it won't drive hardware updates.
-+ *
-+ * Skip this check for duplicated state, since all colorop states must persist
-+ * in suspend/resume regardless of whether it belongs to an active color
-+ * pipeline or not.
-+ *
-+ * Returns: 0 on success, -EINVAL otherwise.
-+ */
-+static int drm_atomic_colorop_check(const struct drm_colorop_state *new_colorop_state)
-+{
-+	struct drm_atomic_commit *state = new_colorop_state->state;
-+	struct drm_plane *plane = new_colorop_state->colorop->plane;
-+	struct drm_plane_state *new_plane_state, *old_plane_state;
-+	struct drm_colorop *colorop;
-+
-+	if (state->duplicated)
-+		return 0;
-+
-+	/* Not a plane colorop */
-+	if (!plane)
-+		return 0;
-+
-+	new_plane_state = drm_atomic_get_new_plane_state(state, plane);
-+	old_plane_state = drm_atomic_get_old_plane_state(state, plane);
-+
-+	/* No changes in the plane state. Check current-committed plane state */
-+	if (!new_plane_state) {
-+		drm_for_each_colorop_in_pipeline(colorop, plane->state->color_pipeline)
-+			if (colorop == new_colorop_state->colorop)
-+				return 0;
-+		return -EINVAL;
-+	}
-+
-+	if (WARN_ON(!old_plane_state))
-+		return -EINVAL;
-+
-+	/* Check if the colorop is active in the new plane state */
-+	drm_for_each_colorop_in_pipeline(colorop, new_plane_state->color_pipeline)
-+		if (colorop == new_colorop_state->colorop)
-+			return 0;
-+
-+	/* Same color pipeline as new; no point walking old. Colorop isn't active */
-+	if (new_plane_state->color_pipeline == old_plane_state->color_pipeline)
-+		return -EINVAL;
-+
-+	/* Check if the colorop was active in the old plane state */
-+	drm_for_each_colorop_in_pipeline(colorop, old_plane_state->color_pipeline)
-+		if (colorop == new_colorop_state->colorop)
-+			return 0;
-+
-+	/* Colorop is not part of an active color pipeline. */
-+	return -EINVAL;
-+}
-+
- static void drm_atomic_colorop_print_state(struct drm_printer *p,
- 					   const struct drm_colorop_state *state)
- {
-@@ -1869,6 +1934,8 @@ int drm_atomic_check_only(struct drm_atomic_commit *state)
- 	struct drm_plane *plane;
- 	struct drm_plane_state *old_plane_state;
- 	struct drm_plane_state *new_plane_state;
-+	struct drm_colorop *colorop;
-+	struct drm_colorop_state *new_colorop_state;
- 	struct drm_crtc *crtc;
- 	struct drm_crtc_state *old_crtc_state;
- 	struct drm_crtc_state *new_crtc_state;
-@@ -1885,6 +1952,15 @@ int drm_atomic_check_only(struct drm_atomic_commit *state)
- 			requested_crtc |= drm_crtc_mask(crtc);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+index ebb05a20aa0c..59dfae5a4a26 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+@@ -1693,7 +1693,13 @@ __set_dm_plane_colorop_3x4_matrix(struct drm_plane_state *plane_state,
+ 		}
  	}
  
-+	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
-+		ret = drm_atomic_colorop_check(new_colorop_state);
-+		if (ret) {
-+			drm_dbg_atomic(dev, "[COLOROP:%d:%d] isn't in an active color pipeline.\n",
-+				       colorop->base.id, colorop->type);
-+			return ret;
+-	if (colorop_state && !colorop_state->bypass && colorop->type == DRM_COLOROP_CTM_3X4) {
++	if (colorop_state && colorop->type == DRM_COLOROP_CTM_3X4) {
++		if (colorop_state->bypass) {
++			dc_plane_state->gamut_remap_matrix.enable_remap = false;
++			dc_plane_state->input_csc_color_matrix.enable_adjustment = false;
++			return 0;
 +		}
-+	}
 +
- 	for_each_oldnew_plane_in_state(state, plane, old_plane_state, new_plane_state, i) {
- 		ret = drm_atomic_plane_check(old_plane_state, new_plane_state);
- 		if (ret) {
+ 		drm_dbg(dev, "3x4 matrix colorop with ID: %d\n", colorop->base.id);
+ 		blob = colorop_state->data;
+ 		if (blob->length == sizeof(struct drm_color_ctm_3x4)) {
+@@ -1733,9 +1739,13 @@ __set_dm_plane_colorop_multiplier(struct drm_plane_state *plane_state,
+ 		}
+ 	}
+ 
+-	if (colorop_state && !colorop_state->bypass && colorop->type == DRM_COLOROP_MULTIPLIER) {
+-		drm_dbg(dev, "Multiplier colorop with ID: %d\n", colorop->base.id);
+-		dc_plane_state->hdr_mult = amdgpu_dm_fixpt_from_s3132(colorop_state->multiplier);
++	if (colorop_state && colorop->type == DRM_COLOROP_MULTIPLIER) {
++		if (colorop_state->bypass) {
++			dc_plane_state->hdr_mult = dc_fixpt_one;
++		} else {
++			drm_dbg(dev, "Multiplier colorop with ID: %d\n", colorop->base.id);
++			dc_plane_state->hdr_mult = amdgpu_dm_fixpt_from_s3132(colorop_state->multiplier);
++		}
+ 	}
+ 
+ 	return 0;
 -- 
 2.53.0
 
