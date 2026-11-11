@@ -2,45 +2,93 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6024A606A326
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 16:33:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 530C4606A324
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 16:36:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WuZ2mHz7
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F2MsOQzh
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBDF310EA6D;
-	Wed, 11 Nov 2026 16:33:13 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 48F6E10FC1C
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Nov 2026 16:33:07 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1A1D242434;
- Wed, 11 Nov 2026 16:33:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C28991F00A05;
- Wed, 11 Nov 2026 16:33:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794414787;
- bh=mCFpWH8Egprip+nPkF+upU3madeAyNskc/OlHH+A1NA=;
- h=Date:Subject:To:References:From:In-Reply-To;
- b=WuZ2mHz7EIsMiRjO3ZNpE59lX0zX8maGy+mNzefKYCC3BuxotSBEvUJQ1+YmWO6op
- n5F8EYJHtHFbAvI9zdNXDzQzAAi+9uc0j/Jun0LsKT48S8kn1tbYvdCZBNfDaY/nIj
- Gt/kSd4VrwI8D814ak9mVVC4Mg8GkaCxmWTUz6BoF9tejDhur1QnIraPDVjLGq41UW
- MjO0pV5O5N27F10zDyfU0jwf1Hvd8KOI4OELvJE++RJ8sQJJJKtfnpYGSmyjBVdPNU
- 1F3YpdO1FQV37rb4NedrfTRwwJHVRS1trj9wZaVm4M36fzregB7F3nJ6h6hvevHyMq
- xAqFuuvhEeCnA==
-Message-ID: <5291c76d-1ea8-4614-a517-e69b033f3486@kernel.org>
-Date: Wed, 11 Nov 2026 10:33:04 -0600
+	by gabe.freedesktop.org (Postfix) with ESMTP id E077C10FC69;
+	Wed, 11 Nov 2026 16:36:24 +0000 (UTC)
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com
+ [74.125.82.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 99A0810FC85
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Nov 2026 16:36:18 +0000 (UTC)
+Received: by mail-dy1-f178.google.com with SMTP id
+ 5a478bee46e88-36dc4797082so103223eec.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Nov 2026 08:36:18 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794414978; cv=none;
+ d=google.com; s=arc-20260327;
+ b=pwOh8WUz7LWmOFPJ6D/O1Ic32Z9VaaRJWQqDuoLmlN1kdaeQKLyg0vCtQhryY7o2UL
+ VMn+vBNJiD0GUJMdqfMY6aaBTI4M1W/FFXU7ZqyntjWPBsb3U0eI3tTyqCkina5tymz2
+ b9Enou4KnPIE772srkNLnAugNJ3cSI0fitcATk+6gwFSbYss9mrKGF1xpKc4ty6DtqoR
+ EF5B0kA+DyDXc/aG5LtbnPWmNVSy646rttFNF7UTGifeTEJqyuUIBmpFG6VVr9JxiJm6
+ K2d5yn9+OqHOGCNIcIZ1QN8bJ2dNsg3UKvlGofgoyYXUMmlqHn8hW4nFlSzaks09VzwT
+ Jo/g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=Rii2pBwnuI2lntVcwEuArsZ4V6Lz/RZtRogeQ1tXXaw=;
+ fh=34o6HRZfg4mVNFG8m3TZG9D91r26CMVAuVKBA4HjbQg=;
+ b=GCzvZePU+JzzStbdcphwehrmhL/bLjwwQCyjvBzXpnKEuUUAjgwQD7g4fZQlr47uu9
+ zknBAXVMtU68c0hjgWaPc190iZ1WJirD7iZT22V/8efpSVxhzVlN1tAZgu3m/ERSX1Do
+ o8VIANlIgsGHDqnyT0wRhIpz43Ys/MgS01AgJtn2yjlHS2/L1DvzFzJLWGfQBEymS8fx
+ hCkiU+DGt8BlZZf0FffZEEFpmnDiJJa3JHjmFnfeH4tS3ToiIrZb+mjuqpXQs1Xephir
+ UP3A/KhkVtoBuG21E2x9wFVtiz2dMncgC87Cf9w2jID5rnBmO5l8HuTAEtcb4GrGMYP2
+ PFfw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1794414978; x=1795019778; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=Rii2pBwnuI2lntVcwEuArsZ4V6Lz/RZtRogeQ1tXXaw=;
+ b=F2MsOQzhXFCdpVQ3zEOUtsB7WBjjeRz++41A1YsGK5hMilue+9pRsNxiGWMjmKwGki
+ p2P8bFPdjmpPfR/3SlT6xzlQWb6QYj3VIYk5FDVgD51Zruz/ZpPQBEm2vrzp5Q4oUIXm
+ 46u5Fhln+2dPQoMci9pjcBOUKg9xZQRd6t8k7hybecbDSHKfxQXZrumyzgNl8sF7hz12
+ vxJtaK8YlYfbNLtKMpNjXVjMOPok1bChD4SwDdeAAIDLhH9XeVemTYEbvUup3ehZGj2v
+ LEO/hBT8zyHFMifpoRGAJX0wm/n4Nb4nCArEsG0INRwH643ReBLJnwoNX7A2XgwGzhxt
+ 96KQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794414978; x=1795019778;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=Rii2pBwnuI2lntVcwEuArsZ4V6Lz/RZtRogeQ1tXXaw=;
+ b=Od8u0HyAwSVrG3wikp8poQWHm9NoMHg5ulxYxf4EZGqgLWzlXfm4Xvy8itOnYJztOY
+ 3ZRvfG8dLVQ3PewTAfh1GB/7pITZmVhvC7ju7MKMG8i4/bqXSsb+zF3PHYND3YUOhEsL
+ j5YeIcDlRWJT41OWUZJC0DRgsn4TQL6APYMRbuHJIzq3C+VVmEPFm5PQQxFQltGUj0Wd
+ y8q1IAL5Q6443q9HfHbgncWreihVcFOR467xpkh6zMXzVPtXD5hC7pdPWuomyvIdsAm/
+ U9LZmoEwrigS3yl0uLiy4jve48WdZ/qDiGltISVhtb/m6tXmnzzlVQZ+Q+Cwp1MCYMQC
+ qgag==
+X-Gm-Message-State: APuU4Z/nIJX+eymuTZ9ucvfcPnoh8081zGJBPtn5I/Y1mOqr9FauAVJF
+ 0d9z2yOxoF29WXCftYZZ/J/8OBdML3SpUFWKxxSVCJ8hHaPc2svoQRBmc6N2hu/Nffabqecb5GO
+ XC8XHzlFAkcGkmnTD1pM7b5SNzXCrdvI=
+X-Gm-Gg: AYBFou1cFIJbwj55fhMzMX9AU7qYGNVv/TdcrY1bBMcy7LyYpPWBYLOUoiLvvhYlAsC
+ uJLkzDcuLzTEEIv9OyTzlMlmxjA5B+yDtApfOYy/R1BJVOVKiXO3cuAqMkK1gCrWzbKhIg2cKR+
+ VTIp4rxxXmnF5zEK2Fpg0j13TQddvKzcgHIMYVCOGph6FW0rQqgcxGT8Fo5kU8aZ7+bgVBCqem1
+ q8Q6HhN/VwG3Me30FV07Nt6Jn+ssOlIZoLxeWtnltdWj3UsR0PeTeIfuHbttKe7MYLNS0Gmae5E
+ 2RruWiGGxAXVusmoNpWWULp3k2z4wEZmWw7tWPMHsLEvin5JWqHZYFW2Ps8qkdGdD1QK8nfrcvG
+ hwBge/V1Gl4z/tmJOu/H7VSh8Vyq18LwAsczetmkqG8RVsDblv1WYIIurVPoPPpcYCX4CqyL4bZ
+ 0z4XFmMeAE1r1zVBkzygr7rCFMFtiny+1p+h4a6mpAychyXx/CsqjY2Oe75b0=
+X-Received: by 2002:a05:701b:42c7:20b0:1b2:5884:a039 with SMTP id
+ a92af1059eb24-1b3c0151554mr4497497c88.0.1794414977726; Wed, 11 Nov 2026
+ 08:36:17 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: bypass IMU ucode loading for GC 11 APU
-Content-Language: en-US
-To: Suresh Guttula <suresh.guttula@amd.com>, Alexander.Deucher@amd.com,
- amd-gfx@lists.freedesktop.org
-References: <20261111154606.1172642-1-suresh.guttula@amd.com>
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <20261111154606.1172642-1-suresh.guttula@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261106005319.17428-1-w.woj@thundermail.com>
+In-Reply-To: <20261106005319.17428-1-w.woj@thundermail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 11 Nov 2026 11:36:04 -0500
+X-Gm-Features: AclHuK9r7dntpX32eQ_EvIQm-E8gDHgffx9Dqi7fjFQKcxAg7b12edfEvogzdss
+Message-ID: <CADnq5_MU=CgRSw6XX2FTNrwudatBWVCXOdWAbo04QR_aFgUyuw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: enable fence interrupts before KFD init
+To: William WOJCIECHOWSKI <w.woj@thundermail.com>
+Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
+ christian.koenig@amd.com, Felix.Kuehling@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,58 +99,72 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+Reviewed and applied.  Thanks!
 
+Alex
 
-On 11/11/26 09:46, Suresh Guttula wrote:
-> For GC 11,IMU ucode is part of IFWI and ASP would load it by default.
-> 
-> Signed-off-by: Suresh Guttula <suresh.guttula@amd.com>
-
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
-Tested-by: Mario Limonciello (AMD) <superm1@kernel.org> # gfx1170, gfx1103
-
+On Fri, Nov 6, 2026 at 4:36=E2=80=AFAM William WOJCIECHOWSKI
+<w.woj@thundermail.com> wrote:
+>
+> On Navi 1x, GART TLB flushes go through SDMA once the buffer funcs are
+> enabled, and amdgpu_gmc_flush_gpu_tlb() waits for the job to finish.
+> KFD init does two GART allocations, so it waits twice, but the fence
+> interrupts are only enabled after amdgpu_device_ip_init() returns. Both
+> waits end on the fallback timer:
+>
+>   amdgpu 0000:0c:00.0: Fence fallback timer expired on ring sdma0
+>
+> That's about 1 s lost on every boot.
+>
+> Enable the fence interrupts right after the buffer funcs, before KFD
+> init, like amdgpu_device_ip_resume() already does.
+>
+> Signed-off-by: William WOJCIECHOWSKI <w.woj@thundermail.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/imu_v11_0.c | 13 +++++++++++--
->   1 file changed, 11 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/imu_v11_0.c b/drivers/gpu/drm/amd/amdgpu/imu_v11_0.c
-> index 09dc01a425d1..e2b3f46bbc64 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/imu_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/imu_v11_0.c
-> @@ -52,16 +52,25 @@ static int imu_v11_0_init_microcode(struct amdgpu_device *adev)
->   	int err;
->   	const struct imu_firmware_header_v1_0 *imu_hdr;
->   	struct amdgpu_firmware_info *info = NULL;
-> +	bool imu_in_ifwi;
-> +	enum amdgpu_ucode_required required;
->   
->   	DRM_DEBUG("\n");
->   
-> +	/* On GFX 11 APUs, ASP loads the IFWI IMU ucode by default. */
-> +	imu_in_ifwi = adev->firmware.load_type == AMDGPU_FW_LOAD_PSP &&
-> +		      (adev->flags & AMD_IS_APU);
-> +	required = imu_in_ifwi ? AMDGPU_UCODE_OPTIONAL : AMDGPU_UCODE_REQUIRED;
+>
+> Notes:
+>     Tested on an RX 5700 XT (Navi 10) with Debian's 7.2.12 and 7.2.15
+>     kernels: both messages are gone and the probe is about 1 s faster.
+>
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_device.c
+> index 4b0e282b2..ce979a1bb 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -2545,6 +2545,11 @@ static int amdgpu_device_ip_init(struct amdgpu_dev=
+ice *adev)
+>         if (amdgpu_ip_member_of_hwini(adev, AMD_IP_BLOCK_TYPE_SDMA))
+>                 amdgpu_ttm_enable_buffer_funcs(adev);
+>
+> +       /* KFD init flushes the GART TLB through SDMA on Navi 1x and wait=
+s
+> +        * for it, so the fence interrupts must already be enabled.
+> +        */
+> +       amdgpu_fence_driver_hw_init(adev);
 > +
->   	amdgpu_ucode_ip_version_decode(adev, GC_HWIP, ucode_prefix, sizeof(ucode_prefix));
->   	if (amdgpu_is_kicker_fw(adev))
-> -		err = amdgpu_ucode_request(adev, &adev->gfx.imu_fw, AMDGPU_UCODE_REQUIRED,
-> +		err = amdgpu_ucode_request(adev, &adev->gfx.imu_fw, required,
->   					   "amdgpu/%s_imu_kicker.bin", ucode_prefix);
->   	else
-> -		err = amdgpu_ucode_request(adev, &adev->gfx.imu_fw, AMDGPU_UCODE_REQUIRED,
-> +		err = amdgpu_ucode_request(adev, &adev->gfx.imu_fw, required,
->   					   "amdgpu/%s_imu.bin", ucode_prefix);
-> +	if (err == -ENODEV && imu_in_ifwi)
-> +		return 0;
->   	if (err)
->   		goto out;
->   
-
+>         /* Don't init kfd if whole hive need to be reset during init */
+>         if (adev->init_lvl->level !=3D AMDGPU_INIT_LEVEL_MINIMAL_XGMI) {
+>                 amdgpu_amdkfd_device_init(adev);
+> @@ -4135,8 +4140,6 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+>                 goto release_ras_con;
+>         }
+>
+> -       amdgpu_fence_driver_hw_init(adev);
+> -
+>         dev_info(adev->dev,
+>                 "SE %d, SH per SE %d, CU per SH %d, active_cu_number %d\n=
+",
+>                         adev->gfx.config.max_shader_engines,
+> --
+> 2.55.0
