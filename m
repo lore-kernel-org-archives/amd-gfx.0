@@ -2,44 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE2B6606A321
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 13:56:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68219606A31C
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 13:56:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OWCjr9mn
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gyAGYXu0
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4457D112148;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5CC59112149;
 	Thu, 12 Nov 2026 13:56:08 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F7CE10E4A6;
- Wed, 11 Nov 2026 23:48:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D34F610E4C0;
+ Wed, 11 Nov 2026 23:48:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794440921; x=1825976921;
+ t=1794440918; x=1825976918;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=LbqPMUJ9s/Em7VE9Jtp+i/h5pc5nAbcke2q0A+92Q/4=;
- b=OWCjr9mn2nrc02WoAPRWSRHQ9v37iSYqrxZTgxm7zYLIhNxZ4zNc87vu
- 6qfa9ss42iJOsMKDH9GZffzbf/3z7ogkk56r8Ni2hrtRSfScDlbTYpxOJ
- xrpWwziBFXuPjubyOxhRM3Uf7QvDILGYfOnBkaO0M5IV+ZdIWNcOPsVRX
- S0ACPrVm+zNuiu2fb95TtznXI4hZh8+/pYoljn/WmkGhDZRJitRGqHoz/
- Mhs7hKorIkR6gQwy3buCs2VEjXaoTl4cUH5k/JWOebinWHKDhaya+DEZP
- TprKFgtL9Xako1nM0X+99rzX3vCj7c3htLcfPCocA9/HoybdbYHthsctn w==;
-X-CSE-ConnectionGUID: AO8tgB1OTvyDPmCEYWB7Tw==
-X-CSE-MsgGUID: eRNMNVU1RKOioT0o3N41aw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3226644"
+ bh=qiTprQcvixtyWKG6YcvfO8nQP3PU4VUrniMboE6NSkI=;
+ b=gyAGYXu0++GouxpOqlvz4AE0UESwZiHddy1GtCYInd4ZlrehbkYhRlUS
+ 6e8Hz+pLp5W/fJ0NWTiK65HE6GIAwM+0my0QS1OF8JzK44J4ot8aBYyb7
+ i+9SWp2KFqMCwzNFDgR5HpO8wntHWySXxhDftp7AFRBzXi4JzSmu0FFyS
+ oHsM8lPMo4g81t6nzOB3Pmg8mJIrPwn0LnJ1oHHp+2HDWskrfoGr9dm5y
+ 0+0jdhqTvxnTEyLyEssOJ7pa7dcljB2d1gqYbY8TR/aXHxfWzgrRFowpQ
+ RcqorQm77jx+WDNuJsF1sesslbNczN3ECI+rn+Il94jv94TGlZZua77fi A==;
+X-CSE-ConnectionGUID: cpNKlzRGSuKr5BbO1WHA+g==
+X-CSE-MsgGUID: 4HmpEg5HRv2dG7CjLscvMA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3226625"
 X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
-   d="scan'208";a="3226644"
+   d="scan'208";a="3226625"
 Received: from orviesa002.jf.intel.com ([10.64.159.142])
  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Nov 2026 15:48:40 -0800
-X-CSE-ConnectionGUID: /wS0d+LcQ1G5pwpb06qR5Q==
-X-CSE-MsgGUID: CH9XoWbpTHm6yFq5s4nd8A==
+ 11 Nov 2026 15:48:37 -0800
+X-CSE-ConnectionGUID: VLtbyyzhTuu5gT0SuDLr3w==
+X-CSE-MsgGUID: LreG1qb0TWiBf5byqg7Q0g==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
-   d="scan'208";a="8512393"
+   d="scan'208";a="8512387"
 Received: from pavel-dev.sc.intel.com (HELO pepopov-mobl2.intel.com)
  ([10.3.206.11])
- by orviesa002.jf.intel.com with ESMTP; 11 Nov 2026 15:48:37 -0800
+ by orviesa002.jf.intel.com with ESMTP; 11 Nov 2026 15:48:34 -0800
 From: Pavel Popov <pavel.e.popov@intel.com>
 To: "Rafael J. Wysocki" <rafael@kernel.org>,
  Viresh Kumar <viresh.kumar@linaro.org>,
@@ -66,10 +66,10 @@ Cc: Pavel Popov <pavel.e.popov@intel.com>, Leon Romanovsky <leon@kernel.org>,
  linux-integrity@vger.kernel.org, linux-crypto@vger.kernel.org,
  linux-arch@vger.kernel.org, linux-pci@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH 5/7] platform/x86: Include <asm/cpu_device_id.h>
- unconditionally in soc.h
-Date: Wed, 11 Nov 2026 16:48:18 -0700
-Message-ID: <20261111234821.4814-6-pavel.e.popov@intel.com>
+Subject: [PATCH 4/7] cpufreq: ondemand: Include <asm/cpu_device_id.h>
+ unconditionally
+Date: Wed, 11 Nov 2026 16:48:17 -0700
+Message-ID: <20261111234821.4814-5-pavel.e.popov@intel.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261111234821.4814-1-pavel.e.popov@intel.com>
 References: <20261111234821.4814-1-pavel.e.popov@intel.com>
@@ -96,12 +96,9 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 <asm/cpu_device_id.h> now has a generic version, so the #ifdef
-CONFIG_X86 around the include is no longer needed. The include of
-<linux/device-id/x86_cpu.h>, which is generic, moves out of the
-#ifdef as well.
+CONFIG_X86 around the include is no longer needed.
 
-The soc_intel_is_*() helpers still need CONFIG_X86 for the INTEL_*
-model defines.
+od_should_io_be_busy() still needs CONFIG_X86 for boot_cpu_data.
 
 Signed-off-by: Pavel Popov <pavel.e.popov@intel.com>
 ---
@@ -110,29 +107,31 @@ it is in mainline.
 
 [1] https://lore.kernel.org/r/20261111234439.4098-1-pavel.e.popov@intel.com
 
- include/linux/platform_data/x86/soc.h | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ drivers/cpufreq/cpufreq_ondemand.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/include/linux/platform_data/x86/soc.h b/include/linux/platform_data/x86/soc.h
-index a6a6b313dfa..ee696e576a0 100644
---- a/include/linux/platform_data/x86/soc.h
-+++ b/include/linux/platform_data/x86/soc.h
-@@ -9,13 +9,12 @@
- #define __PLATFORM_DATA_X86_SOC_H
+diff --git a/drivers/cpufreq/cpufreq_ondemand.h b/drivers/cpufreq/cpufreq_ondemand.h
+index 2ca8f1aaf2e..0e33865f9d3 100644
+--- a/drivers/cpufreq/cpufreq_ondemand.h
++++ b/drivers/cpufreq/cpufreq_ondemand.h
+@@ -6,6 +6,8 @@
+  * Author: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+  */
  
- #include <linux/types.h>
--
--#if IS_ENABLED(CONFIG_X86)
--
- #include <linux/device-id/x86_cpu.h>
- 
- #include <asm/cpu_device_id.h>
- 
-+#if IS_ENABLED(CONFIG_X86)
++#include <asm/cpu_device_id.h>
 +
- #define SOC_INTEL_IS_CPU(soc, type)				\
- static inline bool soc_intel_is_##soc(void)			\
- {								\
+ #include "cpufreq_governor.h"
+ 
+ struct od_policy_dbs_info {
+@@ -26,8 +28,6 @@ struct od_dbs_tuners {
+ };
+ 
+ #ifdef CONFIG_X86
+-#include <asm/cpu_device_id.h>
+-
+ /*
+  * Not all CPUs want IO time to be accounted as busy; this depends on
+  * how efficient idling at a higher frequency/voltage is.
 -- 
 2.54.0
 
