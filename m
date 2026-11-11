@@ -2,29 +2,29 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4BF5606A326
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 16:09:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5E01606A32D
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 16:09:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=X5Ekwrqx
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=OoUwzJmE
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 831B610FDA8;
-	Wed, 11 Nov 2026 16:09:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F16910FDA4;
+	Wed, 11 Nov 2026 16:09:03 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DFFB10FD2E;
- Wed, 11 Nov 2026 16:08:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6790110FD65;
+ Wed, 11 Nov 2026 16:08:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=ahgdmGX1NnxGKma3T6uHxi+lbLDI5gQToqr2EieprXo=;
- t=1794413332; x=2109773332; b=X5EkwrqxPz7uo0kZEANDt94P6vvIope3v3UxwA6ntnk/cYq
- o636/Jh53U8GJo3kVw8p7crbFmyxv975dOZ0ZtXwb8FQ5aZxyrhSvWyw11fOcLzlZteFbZl7KVcm1
- jFkP1VQ3EheyLFqE8GKYGNc0DFr39ssj0EaCgQL3eHB+hbQQ9JMtHHdVdXmUA9eAYHPERQSJp3PIx
- jrIejDEEqc5bOPtDLITe7vXNS+nMgqavHMEZM3U11KbC5rGsqEcdNRviX1FKxXQHt+QXrUyQrz9Lm
- vrdzK7ky3Ah1OpWrEaTdyRimQtGRAkqlcjzV3kilIm0G2WAVMhmTbfAQyqA3Werw==;
+ Cc:To:From:From:Reply-To; bh=5V9JPEyXmx4Ck08XXdEaQ0TsoDd90x2aTAlF0PCEJS0=;
+ t=1794413336; x=2109773336; b=OoUwzJmEHHUp9QUrh4wn9rpabTqq7cmJY3rfCTPigycqtRe
+ j6hMvn+M29jzCVET9kS0w8nUHuOLW240jESsn+/xmkFI9N4Lg5Y9X3ywW7AILGffjmKwCwZp3lRpJ
+ FmojUxcIIewobqlp0xxueFjL+petOJ2T2NcS0w3yyARN0e4hldXyLjLkMnYx72fiYQ3migP3AVC8y
+ ePYoMn0XykLmX+QMQSj1qp8ciq6EfQQwVbaH+WRTSf8SqEgAjS1AgcfdjBvSctAGiilaRzmRLA3l9
+ h4wNNFOY88zNYmy5M7MmTpDgWuXC4DI33RmjeyRMM2SGtJkcuyq8+pjMatyRbPmA==;
 Received: from 193.red-79-147-123.dynamicip.rima-tde.net ([79.147.123.193]
  helo=killbill) by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xRAsA-008u8Y-5A; Wed, 11 Nov 2026 17:08:30 +0100
+ id 1xRAsC-008u8Y-Il; Wed, 11 Nov 2026 17:08:32 +0100
 From: Melissa Wen <mwen@igalia.com>
 To: airlied@gmail.com, alexander.deucher@amd.com, alex.hung@amd.com,
  aurabindo.pillai@amd.com, christian.koenig@amd.com, contact@emersion.fr,
@@ -44,12 +44,11 @@ Cc: Uma Shankar <uma.shankar@intel.com>,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, louis.chauvet@bootlin.com,
- John Harrison <John.Harrison@igalia.com>,
- John Harrison <John.Harrison@Igalia.com>
-Subject: [PATCH v5 01/15] drm/amd/display: Update colorop pipeline tests for
- new fixed matrix op
-Date: Wed, 11 Nov 2026 17:05:14 +0100
-Message-ID: <20261111160814.21326-2-mwen@igalia.com>
+ John Harrison <John.Harrison@igalia.com>
+Subject: [PATCH v5 03/15] drm/atomic: only add states of active or transient
+ active colorops
+Date: Wed, 11 Nov 2026 17:05:16 +0100
+Message-ID: <20261111160814.21326-4-mwen@igalia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261111160814.21326-1-mwen@igalia.com>
 References: <20261111160814.21326-1-mwen@igalia.com>
@@ -74,58 +73,109 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: John Harrison <John.Harrison@Igalia.com>
+Only consider affected colorop states those that are part of an active
+color pipeline or a pipeline that is about to be activated or
+deactivated in the same atomic commit, i.e., colorop is in the chain of
+old/new plane color pipeline property. To cover color_pipeline
+deactivation, remove the condition for plane_state->color_pipeline.
 
-A bunch of tests verify that the pipeline created by the driver
-matches an expected pipeline hard coded into the test. The below patch
-added a new op into the driver's pipeline but did not update the tests
-to match. So add it in.
-
-Fixes: 6d103ad11583 ("drm/amd/display: Add fixed matrix colorop to color pipeline")
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Alex Hung <alex.hung@amd.com>
-Signed-off-by: John Harrison <John.Harrison@Igalia.com>
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- .../drm/amd/display/amdgpu_dm/tests/amdgpu_dm_colorop_test.c  | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/drm_atomic.c | 59 +++++++++++++++++++++++++++++++++---
+ include/drm/drm_colorop.h    |  3 ++
+ 2 files changed, 57 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_colorop_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_colorop_test.c
-index 90cc5592ef5d..00f1d5b33b1f 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_colorop_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_colorop_test.c
-@@ -192,6 +192,7 @@ static void dm_expect_colorop_pipeline(struct kunit *test, struct drm_device *dr
- static void dm_test_initialize_default_pipeline(struct kunit *test)
+diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+index 81591173265d..2e82c06166be 100644
+--- a/drivers/gpu/drm/drm_atomic.c
++++ b/drivers/gpu/drm/drm_atomic.c
+@@ -935,6 +935,57 @@ static int drm_atomic_plane_check(const struct drm_plane_state *old_plane_state,
+ 	return 0;
+ }
+ 
++/*
++ * This function walks old and new plane state color pipelines and adds all
++ * colorops in use by @plane to the atomic configuration @state. This is useful
++ * when an atomic commit needs to check all currently enabled or about to be
++ * enabled colorop on @plane, e.g. when changing the mode. This also avoids
++ * including colorop states that are not part of the atomic state.
++ *
++ * Returns:
++ * 0 on success or can fail with -EDEADLK or -ENOMEM. When the error is EDEADLK
++ * then the w/w mutex code has detected a deadlock and the entire atomic
++ * sequence must be restarted. All other errors are fatal.
++ */
++static int
++drm_atomic_add_pipeline_colorops(struct drm_atomic_commit *state,
++				 struct drm_plane *plane)
++{
++	struct drm_colorop *colorop;
++	struct drm_colorop_state *colorop_state;
++	struct drm_plane_state *new_plane_state, *old_plane_state;
++
++	new_plane_state = drm_atomic_get_new_plane_state(state, plane);
++	old_plane_state = drm_atomic_get_old_plane_state(state, plane);
++
++	if (WARN_ON(!new_plane_state || !old_plane_state))
++		return -EINVAL;
++
++	drm_dbg_atomic(plane->dev,
++		       "Adding old+new pipeline colorops for [PLANE:%d:%s]\n",
++		       plane->base.id, plane->name);
++
++	drm_for_each_colorop_in_pipeline(colorop,
++					 new_plane_state->color_pipeline) {
++		colorop_state = drm_atomic_get_colorop_state(state, colorop);
++		if (IS_ERR(colorop_state))
++			return PTR_ERR(colorop_state);
++	}
++
++	/* Same color pipeline as new; no point walking old. */
++	if (new_plane_state->color_pipeline == old_plane_state->color_pipeline)
++		return 0;
++
++	drm_for_each_colorop_in_pipeline(colorop,
++					 old_plane_state->color_pipeline) {
++		colorop_state = drm_atomic_get_colorop_state(state, colorop);
++		if (IS_ERR(colorop_state))
++			return PTR_ERR(colorop_state);
++	}
++
++	return 0;
++}
++
+ static void drm_atomic_colorop_print_state(struct drm_printer *p,
+ 					   const struct drm_colorop_state *state)
  {
- 	static const enum drm_colorop_type expected[] = {
-+		DRM_COLOROP_FIXED_MATRIX,
- 		DRM_COLOROP_1D_CURVE,	/* degam TF */
- 		DRM_COLOROP_MULTIPLIER,
- 		DRM_COLOROP_CTM_3X4,
-@@ -257,6 +258,7 @@ static void dm_test_initialize_default_pipeline_caps(struct kunit *test,
- static void dm_test_initialize_default_pipeline_dpp_3d_lut(struct kunit *test)
- {
- 	static const enum drm_colorop_type expected[] = {
-+		DRM_COLOROP_FIXED_MATRIX,
- 		DRM_COLOROP_1D_CURVE,
- 		DRM_COLOROP_MULTIPLIER,
- 		DRM_COLOROP_CTM_3X4,
-@@ -278,6 +280,7 @@ static void dm_test_initialize_default_pipeline_dpp_3d_lut(struct kunit *test)
- static void dm_test_initialize_default_pipeline_mpc_preblend(struct kunit *test)
- {
- 	static const enum drm_colorop_type expected[] = {
-+		DRM_COLOROP_FIXED_MATRIX,
- 		DRM_COLOROP_1D_CURVE,
- 		DRM_COLOROP_MULTIPLIER,
- 		DRM_COLOROP_CTM_3X4,
-@@ -299,6 +302,7 @@ static void dm_test_initialize_default_pipeline_mpc_preblend(struct kunit *test)
- static void dm_test_initialize_default_pipeline_no_3d_lut(struct kunit *test)
- {
- 	static const enum drm_colorop_type expected[] = {
-+		DRM_COLOROP_FIXED_MATRIX,
- 		DRM_COLOROP_1D_CURVE,
- 		DRM_COLOROP_MULTIPLIER,
- 		DRM_COLOROP_CTM_3X4,
+@@ -1746,11 +1797,9 @@ drm_atomic_add_affected_planes(struct drm_atomic_commit *state,
+ 		if (IS_ERR(plane_state))
+ 			return PTR_ERR(plane_state);
+ 
+-		if (plane_state->color_pipeline) {
+-			ret = drm_atomic_add_affected_colorops(state, plane);
+-			if (ret)
+-				return ret;
+-		}
++		ret = drm_atomic_add_pipeline_colorops(state, plane);
++		if (ret)
++			return ret;
+ 	}
+ 	return 0;
+ }
+diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
+index 26ef67c835e2..11a88e9477f1 100644
+--- a/include/drm/drm_colorop.h
++++ b/include/drm/drm_colorop.h
+@@ -583,6 +583,9 @@ static inline unsigned int drm_colorop_index(const struct drm_colorop *colorop)
+ #define drm_for_each_colorop(colorop, dev) \
+ 	list_for_each_entry(colorop, &(dev)->mode_config.colorop_list, head)
+ 
++#define drm_for_each_colorop_in_pipeline(colorop, pipeline) \
++	for ((colorop) = (pipeline); (colorop); (colorop) = (colorop)->next)
++
+ /**
+  * drm_get_colorop_type_name - return a string for colorop type
+  * @type: colorop type to compute name of
 -- 
 2.53.0
 
