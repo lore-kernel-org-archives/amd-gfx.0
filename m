@@ -2,42 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05145606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA1C1606A31C
 	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 01:43:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=aCidnbLi
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=oQToIl/T
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7BA1A10F8E2;
-	Wed, 11 Nov 2026 01:43:48 +0000 (UTC)
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010038.outbound.protection.outlook.com [52.101.56.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ADF3910F8E3
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Nov 2026 01:43:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45BD410F8E3;
+	Wed, 11 Nov 2026 01:43:49 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011040.outbound.protection.outlook.com [40.107.208.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69F0210F8E2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Nov 2026 01:43:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PC90oVHS+xHiMB05O+x0h8y1/qzCmqFlSVWXjqBPYPFzV9qxivO2qgQm0A+OIPR+vqHbnNn76ik4nlOLrCZ3XDTibuDJB3VLvCmqe90y+6oph4dvRWb7d0Re1zxEbdKGpUfDJdUBJdwrW7PNqU65k7cbpVhfM+XknSjg8tjKjTSqpY51RIf37YaT25N1hvV0hP8gAs/519z1XUm5W0Y2VCGBBpIyzYtZCyCJtuHp5kv2ioXWf6yHMoeuiBmIpYIvdOTqIMgHWNk4IhkFOz6NI06doJFGTMx6zZOMvH+JjR2EkgS6+lE2ga8tTRJGsgO3rvNhBe0SGzbqbLkcI5RfEQ==
+ b=hf0RvtK7wDktO+ynzTKkCgYp2EJPjGrLj1SiSbdi34QE26ijcd13mDTgXmuGKqU/21t7gyCcRxkWeC8RHwtdwdnw1dukQFDlQp/9jbWRVRZCjptvqinOZdvOrRBWtL5z3lFg5/NM/3zMV0h6fk3cR4D8uc096h+pNxW+VKbHXXSrxRVSOTJnp8+T65ZCr4sKy76YT+Th0v1r6AiW4DKoHqCICOlsbXdNhHFXqKSosY4iTboxrr9V+0KxdA4tG6V2zwmMaA7qQw+wdnJ8JWu9smtoXjWZseC1K6oDW7Fp+IfretnKOvD0nDXWq7PCxUJknHZ+9QQC7BsFIdNXb/Yy6A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fsKl3nBPnPPsJGknXFeg8NH8ShTl0uIsPd9VDpHeexI=;
- b=mx8G9AMl2vuz/K89ztSv3yS6nCpE5xaOyp6FjF4q/7xeDe4GIqKt3tBdCL+Fj7B4Cng5AOer1+7L/2YS6iEU+ROq2YuulrebsR7WE/kJ7z3xSSdNzHPrAIezPLE9hFCEG0yTscDHqVYtQabE3HEJCJ8Trq5XhB/Y2v11loOw0vTf62B7v0iDsk7xp226pJxSyy8AyOKPAdmT567p3UnE/MHdsiPCxzw228pb+D6znt7JrOFBrPqfhbQcUKY/GTNaQVlBtTqAtBmFKrZsnH0vkP8H9JyPUXKIWvnc9ZW6aykGP+NMg644lCWH5T5LtNJ+bw/7niRU6Mcw73dwamhGcw==
+ bh=7MvWt6XIpp6fg8caEngOFw66sIVvOUJrTxlFS8jEpK0=;
+ b=WyxWbYvpt0fgoggCZZQ40C8KlYFJibuJdPapGwzK1DMfKCrO9YW1ahE1hOki9XeG1tY7BPAys+3vS5Ms1ezbHYiBO4sl/kuSJEFxMRTQbQB5ixfyXwT7sCujkE3J+CSxPtetFRHE2rpLnSUiMu2/4WoWquCTwZ9lC1U1ACUvgU3TzY0krKfNK3B3kXbZZWu9M2VjZ6wLsGxCxmaV3Yyq6qxnG2aEBmgjle5G7Q+8Kch34JUDsNYxnFhzneHqIioxkSB3bFobLaRyWcE3JUIJvtgcjmNT9OV7gg1vXSLHswoKOH2AZIJ+e0w7VdfXeDVW7K+oNGK4h/O6MA3AP9B8TA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fsKl3nBPnPPsJGknXFeg8NH8ShTl0uIsPd9VDpHeexI=;
- b=aCidnbLiwoXnfzOfF/OCb9SUskHhcn/iDAs9ZCJNXlVoKvzrPD/O538nOqtnwEHA8NDM7oMFQEOiW997HL2fzLOvaH/k+wbAeYgvlEE41sMn1aGCzLLp3C8hMc4v40JF7KB30EpkGHEPzHtnDlRL2MlNYGCKFOQSyoDNCQDmVuo=
-Received: from SJ0PR03CA0031.namprd03.prod.outlook.com (2603:10b6:a03:33e::6)
- by PH7PR12MB6491.namprd12.prod.outlook.com (2603:10b6:510:1f4::14)
+ bh=7MvWt6XIpp6fg8caEngOFw66sIVvOUJrTxlFS8jEpK0=;
+ b=oQToIl/To5yZ5speVApK/7kYz41C8PkNSQWrnN1sgZQOgXJuVRr4ohYt+bmB5OFUAO999k8ZGbMgKqsV02EYCW0gVBMLN1+t7cKfA91AxfRCK4nT35DR0MJgk1DraEiSTL0HqsMlkq4msRFmduunThECwrg2TBpKTqEbWUon+ss=
+Received: from SJ0PR13CA0074.namprd13.prod.outlook.com (2603:10b6:a03:2c4::19)
+ by DS0PR12MB329683.namprd12.prod.outlook.com (2603:10b6:8:4e9::15)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
- 2026 01:43:36 +0000
-Received: from SJ5PEPF0000020A.namprd05.prod.outlook.com
- (2603:10b6:a03:33e:cafe::9f) by SJ0PR03CA0031.outlook.office365.com
- (2603:10b6:a03:33e::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.11 via Frontend Transport; Wed,
- 11 Nov 2026 01:43:35 +0000
+ 2026 01:41:33 +0000
+Received: from SJ1PEPF0000231B.namprd03.prod.outlook.com
+ (2603:10b6:a03:2c4:cafe::e) by SJ0PR13CA0074.outlook.office365.com
+ (2603:10b6:a03:2c4::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Wed, 11
+ Nov 2026 01:41:32 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -46,20 +46,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ5PEPF0000020A.mail.protection.outlook.com (10.167.244.43) with Microsoft
+ SJ1PEPF0000231B.mail.protection.outlook.com (10.167.242.232) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Wed, 11 Nov 2026 01:43:35 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ 15.21.615.4 via Frontend Transport; Wed, 11 Nov 2026 01:41:32 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 10 Nov
- 2026 19:43:34 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 10 Nov
- 2026 19:43:34 -0600
+ 2026 19:41:28 -0600
 Received: from wayne-dev-lnx.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Tue, 10 Nov 2026 19:43:31 -0600
+ Transport; Tue, 10 Nov 2026 19:41:24 -0600
 From: Wayne Lin <Wayne.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -68,11 +64,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Dillon Varone <dillon.varone@amd.com>
-Subject: [PATCH 49/74] drm/amd/display: Use expanded DMUB-provided SoC BB and
- IP caps
-Date: Wed, 11 Nov 2026 09:28:55 +0800
-Message-ID: <20261111014100.3596072-50-Wayne.Lin@amd.com>
+ <Chen-Yu.Chen@amd.com>, Piotr Maziarz <piotr.maziarz@amd.com>, Alvin Lee
+ <alvin.lee2@amd.com>
+Subject: [PATCH 17/74] drm/amd/display: Resolve clk_mgr DPP DTO targets when
+ the sequence is built
+Date: Wed, 11 Nov 2026 09:28:23 +0800
+Message-ID: <20261111014100.3596072-18-Wayne.Lin@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261111014100.3596072-1-Wayne.Lin@amd.com>
 References: <20261111014100.3596072-1-Wayne.Lin@amd.com>
@@ -82,29 +79,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF0000020A:EE_|PH7PR12MB6491:EE_
-X-MS-Office365-Filtering-Correlation-Id: 15f7cc18-3c0a-493a-fee7-08df3f953372
+X-MS-TrafficTypeDiagnostic: SJ1PEPF0000231B:EE_|DS0PR12MB329683:EE_
+X-MS-Office365-Filtering-Correlation-Id: 047610fb-8c6c-483c-4600-08df3f94ea4d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|1800799024|30052699003|23010399003|36860700016|6133799003|261009223027099003|10067099003|3023799007|261026121527099003|261022075727099003|261021123027099003|261021121427099003|261102123227099003|11063799006|5023799004|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: tbXpoCXAMmuskbw584pjZTrZVwRF7Ut8QFvrIQn3vf+UtwGOYJTBw610l1LqHcs70KhTYD6G5z+XD4jWBf2NcsPJVLQshq4Xop0rxrvJbb6NfR5RULRvs27IJhdvNmn/Cl2AlAW+bEOl1zEuMgR+fkhqCige8H9JpCwt52ofn8ADyzYxB25BpsGUxeKu5UkuaQpeD8BEhIqj6H3X9h1uMHXqlTVArbQylkbMe3Xqi2sXac44xpZFVEoumjMa4/ZKe7aZBrPctYKTGdGBrPZu+6pynk4c3GrZfF1JQYWxvZDOxAq6emk79s6xt3VpWFQ0R7paAWphf5MqOc91h4IF/VPuccDkMyruP1yNsYC3bCJHYVkoiz2YFk14dq2G7WHYKYC3J+l510+94gVoYG/4W/GUNeGwfYM0R8QA00aNQLKZAXZ99MLcTNO5RQkehDD4lyTBHshMTJJv/V6nOSxyh+IKdp9p18ocXoJ2jE0VLncJnQ60J7YoauLvORJWJhcHE2gPsB5hE0NEoYo1LzPEoC2g9wEKj4e2+ziGLatAKS5jx4J9ohtQyJaBgyiHQeKgh+2gVFoSay/CETpaMPk7Np/65H6KQ+BWrNUrdc9lUkZ52ocBZeBEIOMQmwI+MHRwmiVbraZPSPJovz5OTPKCVTf0jUGaqNd2rYjx36RciKxYCqr+tAy1qWooXD2BTu+FejROMHDoi+YNMrqimslSHA==
+ ARA:13230040|376014|1800799024|23010399003|82310400026|36860700016|11063799006|56012099006|261021123027099003|261022105027099003|261022113327099003|261026140227099003|261102123227099003|261028144727099003|261021121427099003|10067099003|261009223027099003|22082099003|18002099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info: SNZND7g+0dxwYymd5uf+s2Pw8AxERJwKysGkA0CkCxGaAJ6Y8p2dYuURslGdep6TYzAZ3jh5VyFHXNo495GGEeqIwmm1ANUI7Ry6eXMIkIpT0PZrZxJ7fJE1cohIaOfQtz4hRWtOzgd1OBz/TgScsv91wYvsGtNB11RDJzqU4Q6TWneVp/QJ5gItmIqjumkJAerXSS3um8/Zl9NassPVwswzB0YuVRq5oPXhsPnhiuAdtE16EiAy2dMxCt30xfrjdsyeNudN6Seyj8eZonJMJzca3ajZao6wCLpmJ7falsrpmjwjkivfshFveOH4dfSqxuo8520ctD2GqIDrPpLAFUzxCYH2bF0DsuIFckm3kgB8r0B26g6SJERtji+i6pQdn6++EsVZTJ9l8lZ/isa1FLHqyR3uFXWkchsAho/Yp/HGyjQCSiGoJHzDd3jGJ67Z/ur4i/QKWfsDaNoFD827a3XdMyo8JLR7rBtlJ+7MuxXSSr5EYCqMYwfQb2riLEnNOWxWz5bEHgs4zgU9Of9NpEQcEDPqfRTLlJ0AWyKschrwJ42x6xPTg05Sapt3TX2Xt36ceuCfRT/jWKP6ETSQnCdJ6aYq0Ng8CSmpjFhXrYmHeBea4gIzvY1G4VqTLcRLDQxAZ9ndbGFeVfQNpAC7OiYbb46X4lE2Zlfs7f2N6+QGN7IxffIZ9Y+6GHys00yXeM+ZcF+SlpeoVdtpWKyt4A==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(1800799024)(30052699003)(23010399003)(36860700016)(6133799003)(261009223027099003)(10067099003)(3023799007)(261026121527099003)(261022075727099003)(261021123027099003)(261021121427099003)(261102123227099003)(11063799006)(5023799004)(56012099006)(18002099003)(22082099003);
+ SFS:(13230040)(376014)(1800799024)(23010399003)(82310400026)(36860700016)(11063799006)(56012099006)(261021123027099003)(261022105027099003)(261022113327099003)(261026140227099003)(261102123227099003)(261028144727099003)(261021121427099003)(10067099003)(261009223027099003)(22082099003)(18002099003)(6133799003)(3023799007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: E6mA8pHT0llP76DSMx7ho2zsSAU9fnXqBuM8DdeOnQmhIEl96F05HPtQKAaxPBxeQYfXVkHfTrljhJMM1m55TL60WxCfpjmaIgXXN/cSkBSAD8jhU9aTngbNbMPzk1dj5pw1MA+dq+4HBWLrXRY/W5upzSrTsrjtOPzXPQVtbD4clrBaktYCTPELGzBOKKYVlR1zmNjIJgOXEmScAc7uImvWnJ+UAU0zzv55XlCpk4twNnLZUo3LUpgaMOJP/xFh6berj8j3YpPehTbJyHm0gaYXCW9nunTBZgsdy/eSDahy2L3oUeVc7LDKZoJeOzV/cXqvN+fVvt0OqsfAPdbFWvZkTLPzijPhGmN6FNvIq7PvJ2qSLsUmxDjbAGshTqT+29B3FAeBpdoaphWdpWQNnWusolPvbyBV+wEQwXRD1zhJHWH4j2WIIB7aSDHQ3WcJ
+X-MS-Exchange-AntiSpam-MessageData-0: iMFcnAgw2bT0EV6JYFB0++k/8ujw1KP05PepDEf3icvPm3IuEEPCvmR262JQQByvIjA2DXjdk+gkBUNq8poC2n9k4R8WpAOaGyUoOG0xLSLWisdhOamAM17nRS3eGIIe8Rnq34A54J3At5ZuXF+9FJisFssegUxiS9GyxUEYGHpy/oiMekDj5lQ3DNs2xPx1LoT+yJpDSKXeZ5fos2Mb+6BjE4O+eF+lBTDg6Es+hIdAdjjsxYuCotuaqv5IEF7g6DxvdmVuQSe2gO2PQHgjTjJsisDSPsb2z1G90/bb+9eXhh2bnzoAC3UQVmSbt2E6f0PMh31qGAoKoty66JHBKHZJpZSYwSQbwEP7Sh7825iLxAs6k46rkwKg53kP5bVj6NRx0cYVvkfWlJ0WJQ4CY+hMEBCorpaG1FVN8otWxAEjqOXBXcD3igyPKRhmiDu0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 01:43:35.4488 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 15f7cc18-3c0a-493a-fee7-08df3f953372
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 01:41:32.7275 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 047610fb-8c6c-483c-4600-08df3f94ea4d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF0000020A.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF0000231B.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6491
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB329683
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,224 +119,347 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Ivan Lipski <ivan.lipski@amd.com>
+From: Piotr Maziarz <piotr.maziarz@amd.com>
 
-[Why]
-Some SoC bounding box and IP capability values must be provided by
-VBIOS through DMUB for the display to light up.
+[WHY]
+The DCN401 and DCN60 clk_mgr block sequences keep a dc_state pointer
+in the DPPCLK DTO step and walk res_ctx, dc->res_pool and the pipe's DPP
+when the step executes. The step therefore depends on state outside its
+parameters, and on that state still being valid when the sequence runs.
 
-[How]
-- Pass dml2_configuration_options to get_ip_caps so translators can
-  read the DMUB bounding box, and update all implementations.
-- Take the urgent bandwidth targets, max outstanding requests, return
-  bus width and alternate DRAM carveout size from DMUB when provided.
-- Override each IP cap with its DMUB value when provided (non-zero);
-  otherwise keep the default.
+[HOW]
+Add clk_mgr_build_dpp_dto_targets(), which records each pipe's DPP instance
+and DPP clock while the sequence is built, and clk_mgr_program_dpp_dto(),
+which programs them. The step carries the targets instead of the dc_state.
+The reference clock stays a pointer into clk_mgr's own clocks, because an
+earlier step in the same sequence stores the PMFW-granted DPPCLK there.
 
-Cc: Dillon Varone <dillon.varone@amd.com>
-Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
+Cc: Alvin Lee <alvin.lee2@amd.com>
+Signed-off-by: Piotr Maziarz <piotr.maziarz@amd.com>
 Signed-off-by: Wayne Lin <wayne.lin@amd.com>
 ---
- .../dml21_wrapper/dml21_translation_helper.c  |  2 +-
- .../display/dc/inc/soc_and_ip_translator.h    |  4 +-
- .../dcn401/dcn401_soc_and_ip_translator.c     |  4 +-
- .../dcn42/dcn42_soc_and_ip_translator.c       |  4 +-
- .../dcn42b/dcn42b_soc_and_ip_translator.c     |  4 +-
- .../dcn60/dcn60_soc_and_ip_translator.c       | 96 ++++++++++++++++++-
- 6 files changed, 108 insertions(+), 6 deletions(-)
+ .../gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c  | 46 ++++++++++++++++
+ .../dc/clk_mgr/dcn401/dcn401_clk_mgr.c        | 54 ++++---------------
+ .../dc/clk_mgr/dcn401/dcn401_clk_mgr.h        |  4 +-
+ .../display/dc/clk_mgr/dcn60/dcn60_clk_mgr.c  | 54 ++++---------------
+ .../display/dc/clk_mgr/dcn60/dcn60_clk_mgr.h  |  4 +-
+ .../amd/display/dc/inc/hw/clk_mgr_internal.h  | 22 ++++++++
+ 6 files changed, 90 insertions(+), 94 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_wrapper/dml21_wrapper/dml21_translation_helper.c b/drivers/gpu/drm/amd/display/dc/dml2_wrapper/dml21_wrapper/dml21_translation_helper.c
-index 2e3ad7152f3f..a7d6ff59870a 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_wrapper/dml21_wrapper/dml21_translation_helper.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_wrapper/dml21_wrapper/dml21_translation_helper.c
-@@ -79,7 +79,7 @@ void dml21_populate_dml_init_params(struct dml2_initialize_instance_in_out *dml_
- 
- 	if (config->use_native_soc_bb_construction) {
- 		in_dc->soc_and_ip_translator->translator_funcs->get_soc_bb(&dml_init->soc_bb, in_dc, config);
--		in_dc->soc_and_ip_translator->translator_funcs->get_ip_caps(&dml_init->ip_caps);
-+		in_dc->soc_and_ip_translator->translator_funcs->get_ip_caps(&dml_init->ip_caps, config);
- 	} else {
- 		dml_init->soc_bb = config->external_socbb_ip_params->soc_bb;
- 		dml_init->ip_caps = config->external_socbb_ip_params->ip_params;
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/soc_and_ip_translator.h b/drivers/gpu/drm/amd/display/dc/inc/soc_and_ip_translator.h
-index 5dcb9f8f4daf..13d59cc082f0 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/soc_and_ip_translator.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/soc_and_ip_translator.h
-@@ -13,7 +13,9 @@ struct soc_and_ip_translator_funcs {
- 			struct dml2_soc_bb *soc_bb,
- 			const struct dc *dc,
- 			const struct dml2_configuration_options *config);
--	void (*get_ip_caps)(struct dml2_ip_capabilities *dml_ip_caps);
-+	void (*get_ip_caps)(
-+			struct dml2_ip_capabilities *dml_ip_caps,
-+			const struct dml2_configuration_options *config);
- };
- 
- struct soc_and_ip_translator {
-diff --git a/drivers/gpu/drm/amd/display/dc/soc_and_ip_translator/dcn401/dcn401_soc_and_ip_translator.c b/drivers/gpu/drm/amd/display/dc/soc_and_ip_translator/dcn401/dcn401_soc_and_ip_translator.c
-index c3dfcf2a73e3..a0181bbb2865 100644
---- a/drivers/gpu/drm/amd/display/dc/soc_and_ip_translator/dcn401/dcn401_soc_and_ip_translator.c
-+++ b/drivers/gpu/drm/amd/display/dc/soc_and_ip_translator/dcn401/dcn401_soc_and_ip_translator.c
-@@ -307,8 +307,10 @@ void dcn401_get_soc_bb(struct dml2_soc_bb *soc_bb, const struct dc *dc, const st
- 	apply_soc_bb_updates(soc_bb, dc, config);
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c
+index bdc755be7bf6..cf1f1c8761c6 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c
+@@ -98,6 +98,52 @@ int clk_mgr_helper_get_active_plane_cnt(
+ 	return total_plane_count;
  }
  
--static void dcn401_get_ip_caps(struct dml2_ip_capabilities *ip_caps)
-+static void dcn401_get_ip_caps(struct dml2_ip_capabilities *ip_caps,
-+		const struct dml2_configuration_options *config)
- {
-+	(void)config;
- 	*ip_caps = dml2_dcn401_max_ip_caps;
- }
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/soc_and_ip_translator/dcn42/dcn42_soc_and_ip_translator.c b/drivers/gpu/drm/amd/display/dc/soc_and_ip_translator/dcn42/dcn42_soc_and_ip_translator.c
-index c6c1b19b7370..0e9fd4d177d3 100644
---- a/drivers/gpu/drm/amd/display/dc/soc_and_ip_translator/dcn42/dcn42_soc_and_ip_translator.c
-+++ b/drivers/gpu/drm/amd/display/dc/soc_and_ip_translator/dcn42/dcn42_soc_and_ip_translator.c
-@@ -180,8 +180,10 @@ void dcn42_get_soc_bb(struct dml2_soc_bb *soc_bb, const struct dc *dc, const str
- 	dcn42_apply_soc_bb_updates(soc_bb, dc, config);
- }
- 
--static void dcn42_get_ip_caps(struct dml2_ip_capabilities *ip_caps)
-+static void dcn42_get_ip_caps(struct dml2_ip_capabilities *ip_caps,
-+		const struct dml2_configuration_options *config)
- {
-+	(void)config;
- 	*ip_caps = dml2_dcn42_max_ip_caps;
- }
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/soc_and_ip_translator/dcn42b/dcn42b_soc_and_ip_translator.c b/drivers/gpu/drm/amd/display/dc/soc_and_ip_translator/dcn42b/dcn42b_soc_and_ip_translator.c
-index 50669f458e23..e7efca1f0ab1 100644
---- a/drivers/gpu/drm/amd/display/dc/soc_and_ip_translator/dcn42b/dcn42b_soc_and_ip_translator.c
-+++ b/drivers/gpu/drm/amd/display/dc/soc_and_ip_translator/dcn42b/dcn42b_soc_and_ip_translator.c
-@@ -26,8 +26,10 @@ void dcn42b_get_soc_bb(struct dml2_soc_bb *soc_bb, const struct dc *dc, const st
- 	dcn42_apply_soc_bb_updates(soc_bb, dc, config);
- }
- 
--static void dcn42b_get_ip_caps(struct dml2_ip_capabilities *ip_caps)
-+static void dcn42b_get_ip_caps(struct dml2_ip_capabilities *ip_caps,
-+		const struct dml2_configuration_options *config)
- {
-+	(void)config;
- 	*ip_caps = dml2_dcn42b_max_ip_caps;
- }
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/soc_and_ip_translator/dcn60/dcn60_soc_and_ip_translator.c b/drivers/gpu/drm/amd/display/dc/soc_and_ip_translator/dcn60/dcn60_soc_and_ip_translator.c
-index aef527c7584b..f33e818d1b1e 100644
---- a/drivers/gpu/drm/amd/display/dc/soc_and_ip_translator/dcn60/dcn60_soc_and_ip_translator.c
-+++ b/drivers/gpu/drm/amd/display/dc/soc_and_ip_translator/dcn60/dcn60_soc_and_ip_translator.c
-@@ -65,6 +65,19 @@ static void dcn60_update_soc_bb_with_values_from_dmub(struct dml2_soc_bb *soc_bb
- 	if (dmub_bb_params->g7_temperature_read_blackout_ns > 0)
- 		soc_bb->power_management_parameters.g7_temperature_read_blackout_us =
- 				(double) dmub_bb_params->g7_temperature_read_blackout_ns / 1000.0;
-+	if (dmub_bb_params->fraction_of_urgent_bandwidth_nominal_target > 0)
-+		soc_bb->fraction_of_urgent_bandwidth_nominal_target =
-+				(double) dmub_bb_params->fraction_of_urgent_bandwidth_nominal_target / 1000.0;
-+	if (dmub_bb_params->fraction_of_urgent_bandwidth_flip_target > 0)
-+		soc_bb->fraction_of_urgent_bandwidth_flip_target =
-+				(double) dmub_bb_params->fraction_of_urgent_bandwidth_flip_target / 1000.0;
-+	if (dmub_bb_params->max_outstanding_reqs > 0)
-+		soc_bb->max_outstanding_reqs = dmub_bb_params->max_outstanding_reqs;
-+	if (dmub_bb_params->return_bus_width_bytes > 0)
-+		soc_bb->return_bus_width_bytes = dmub_bb_params->return_bus_width_bytes;
-+	if (dmub_bb_params->alternate_dram_carveout_size_mb > 0)
-+		soc_bb->power_management_parameters.alternate_dram_carveout_size_mb =
-+				dmub_bb_params->alternate_dram_carveout_size_mb;
- 
- 	/* populate alt-channel info */
- 	for (i = 0; i < 2; i++) {
-@@ -141,9 +154,90 @@ static void dcn60_get_soc_bb(struct dml2_soc_bb *soc_bb, const struct dc *dc, co
- 
- }
- 
--static void dcn60_get_ip_caps(struct dml2_ip_capabilities *ip_caps)
-+static void dcn60_update_ip_caps_with_values_from_dmub(struct dml2_ip_capabilities *ip_caps,
-+		const struct dml2_configuration_options *config)
++void clk_mgr_build_dpp_dto_targets(
++		const struct dc *dc,
++		const struct dc_state *context,
++		bool safe_to_lower,
++		struct clk_mgr_dpp_dto_targets *targets)
 +{
-+	const struct dmub_soc_bb_params *dmub_ip =
-+			(const struct dmub_soc_bb_params *)config->bb_from_dmub;
++	unsigned int i;
 +
-+	if (dmub_ip == NULL)
-+		return;
++	targets->safe_to_lower = safe_to_lower;
++	targets->count = 0;
 +
-+	//only update if value is provided
-+	if (dmub_ip->pipe_count > 0)
-+		ip_caps->pipe_count = dmub_ip->pipe_count;
-+	if (dmub_ip->otg_count > 0)
-+		ip_caps->otg_count = dmub_ip->otg_count;
-+	if (dmub_ip->num_dsc > 0)
-+		ip_caps->num_dsc = dmub_ip->num_dsc;
-+	if (dmub_ip->TDLUT_33cube_count > 0)
-+		ip_caps->TDLUT_33cube_count = dmub_ip->TDLUT_33cube_count;
-+	if (dmub_ip->max_num_dp2p0_streams > 0)
-+		ip_caps->max_num_dp2p0_streams = dmub_ip->max_num_dp2p0_streams;
-+	if (dmub_ip->max_num_hdmi_frl_outputs > 0)
-+		ip_caps->max_num_hdmi_frl_outputs = dmub_ip->max_num_hdmi_frl_outputs;
-+	if (dmub_ip->max_num_dp2p0_outputs > 0)
-+		ip_caps->max_num_dp2p0_outputs = dmub_ip->max_num_dp2p0_outputs;
-+	if (dmub_ip->rob_buffer_size_kbytes > 0)
-+		ip_caps->rob_buffer_size_kbytes = dmub_ip->rob_buffer_size_kbytes;
-+	if (dmub_ip->config_return_buffer_size_in_kbytes > 0)
-+		ip_caps->config_return_buffer_size_in_kbytes =
-+				dmub_ip->config_return_buffer_size_in_kbytes;
-+	if (dmub_ip->config_return_buffer_segment_size_in_kbytes > 0)
-+		ip_caps->config_return_buffer_segment_size_in_kbytes =
-+				dmub_ip->config_return_buffer_segment_size_in_kbytes;
-+	if (dmub_ip->meta_fifo_size_in_kentries > 0)
-+		ip_caps->meta_fifo_size_in_kentries = dmub_ip->meta_fifo_size_in_kentries;
-+	if (dmub_ip->compressed_buffer_segment_size_in_kbytes > 0)
-+		ip_caps->compressed_buffer_segment_size_in_kbytes =
-+				dmub_ip->compressed_buffer_segment_size_in_kbytes;
-+	if (dmub_ip->cursor_buffer_size > 0)
-+		ip_caps->cursor_buffer_size = dmub_ip->cursor_buffer_size;
-+	if (dmub_ip->max_flip_time_us > 0)
-+		ip_caps->max_flip_time_us = dmub_ip->max_flip_time_us;
-+	if (dmub_ip->max_flip_time_lines > 0)
-+		ip_caps->max_flip_time_lines = dmub_ip->max_flip_time_lines;
-+	/* 0 is a valid hostvm_mode */
-+	ip_caps->hostvm_mode = dmub_ip->hostvm_mode;
-+	if (dmub_ip->max_vactive_det_fill_delay_us > 0)
-+		ip_caps->max_vactive_det_fill_delay_us = dmub_ip->max_vactive_det_fill_delay_us;
-+	if (dmub_ip->ppt_max_allow_delay_us > 0)
-+		ip_caps->ppt_max_allow_delay_us = dmub_ip->ppt_max_allow_delay_us;
-+	if (dmub_ip->temp_read_max_allow_delay_us > 0)
-+		ip_caps->temp_read_max_allow_delay_us = dmub_ip->temp_read_max_allow_delay_us;
-+	if (dmub_ip->vblank_nom_default_us > 0)
-+		ip_caps->vblank_nom_default_us = dmub_ip->vblank_nom_default_us;
++	for (i = 0; i < dc->res_pool->pipe_count; i++) {
++		const struct pipe_ctx *pipe = &context->res_ctx.pipe_ctx[i];
++		int dppclk_khz = pipe->plane_res.bw.dppclk_khz;
 +
-+	if (dmub_ip->fams2_max_allow_delay_us > 0)
-+		ip_caps->fams2.max_allow_delay_us = dmub_ip->fams2_max_allow_delay_us;
-+	if (dmub_ip->fams2_scheduling_delay_us > 0)
-+		ip_caps->fams2.scheduling_delay_us = dmub_ip->fams2_scheduling_delay_us;
-+	if (dmub_ip->fams2_vertical_interrupt_ack_delay_us > 0)
-+		ip_caps->fams2.vertical_interrupt_ack_delay_us =
-+				dmub_ip->fams2_vertical_interrupt_ack_delay_us;
-+	if (dmub_ip->fams2_allow_programming_delay_us > 0)
-+		ip_caps->fams2.allow_programming_delay_us = dmub_ip->fams2_allow_programming_delay_us;
-+	if (dmub_ip->fams2_min_allow_width_us > 0)
-+		ip_caps->fams2.min_allow_width_us = dmub_ip->fams2_min_allow_width_us;
-+	if (dmub_ip->fams2_subvp_df_throttle_delay_us > 0)
-+		ip_caps->fams2.subvp_df_throttle_delay_us = dmub_ip->fams2_subvp_df_throttle_delay_us;
-+	if (dmub_ip->fams2_subvp_programming_delay_us > 0)
-+		ip_caps->fams2.subvp_programming_delay_us = dmub_ip->fams2_subvp_programming_delay_us;
-+	if (dmub_ip->fams2_drr_programming_delay_us > 0)
-+		ip_caps->fams2.drr_programming_delay_us = dmub_ip->fams2_drr_programming_delay_us;
-+	if (dmub_ip->fams2_lock_timeout_us > 0)
-+		ip_caps->fams2.lock_timeout_us = dmub_ip->fams2_lock_timeout_us;
-+	if (dmub_ip->fams2_recovery_timeout_us > 0)
-+		ip_caps->fams2.recovery_timeout_us = dmub_ip->fams2_recovery_timeout_us;
-+	if (dmub_ip->fams2_flip_programming_delay_us > 0)
-+		ip_caps->fams2.flip_programming_delay_us = dmub_ip->fams2_flip_programming_delay_us;
++		if (!pipe->plane_res.dpp) {
++			/* A harvested pipe has neither a DPP nor a DPP clock. */
++			ASSERT(dppclk_khz == 0);
++			continue;
++		}
++
++		targets->pipes[targets->count].pipe_idx = i;
++		targets->pipes[targets->count].dpp_inst = pipe->plane_res.dpp->inst;
++		targets->pipes[targets->count].dppclk_khz = dppclk_khz;
++		targets->count++;
++	}
 +}
 +
-+static void dcn60_get_ip_caps(struct dml2_ip_capabilities *ip_caps,
-+		const struct dml2_configuration_options *config)
++void clk_mgr_program_dpp_dto(
++		struct dccg *dccg,
++		int ref_dppclk_khz,
++		const struct clk_mgr_dpp_dto_targets *targets)
++{
++	unsigned int i;
++
++	dccg->ref_dppclk = ref_dppclk_khz;
++	for (i = 0; i < targets->count; i++) {
++		int dppclk_khz = targets->pipes[i].dppclk_khz;
++
++		/* Unless lowering is safe, only raise over what DCCG last programmed. */
++		if (targets->safe_to_lower ||
++				dccg->pipe_dppclk_khz[targets->pipes[i].pipe_idx] < dppclk_khz)
++			dccg->funcs->update_dpp_dto(dccg, targets->pipes[i].dpp_inst, dppclk_khz);
++	}
++}
++
+ void clk_mgr_exit_optimized_pwr_state(const struct dc *dc, struct clk_mgr *clk_mgr)
  {
- 	dcn6_test_initialize_ip_caps(ip_caps);
-+	dcn60_update_ip_caps_with_values_from_dmub(ip_caps, config);
+ 	struct dc_link *edp_links[MAX_NUM_EDP];
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.c
+index 03aec7f4df7b..d609f77d5298 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.c
+@@ -560,40 +560,6 @@ static void dcn401_update_clocks_update_dtb_dto(struct clk_mgr_internal *clk_mgr
+ 	}
  }
  
- static struct soc_and_ip_translator_funcs dcn60_translator_funcs = {
+-static void dcn401_update_clocks_update_dpp_dto(struct clk_mgr_internal *clk_mgr,
+-		struct dc_state *context, bool safe_to_lower, int ref_dppclk_khz)
+-{
+-	uint32_t i;
+-
+-	clk_mgr->dccg->ref_dppclk = ref_dppclk_khz;
+-	for (i = 0; i < clk_mgr->base.ctx->dc->res_pool->pipe_count; i++) {
+-		int dpp_inst = 0, dppclk_khz, prev_dppclk_khz;
+-
+-		dppclk_khz = context->res_ctx.pipe_ctx[i].plane_res.bw.dppclk_khz;
+-
+-		if (context->res_ctx.pipe_ctx[i].plane_res.dpp)
+-			dpp_inst = context->res_ctx.pipe_ctx[i].plane_res.dpp->inst;
+-		else if (!context->res_ctx.pipe_ctx[i].plane_res.dpp && dppclk_khz == 0) {
+-			/* dpp == NULL && dppclk_khz == 0 is valid because of pipe harvesting.
+-			 * In this case just continue in loop
+-			 */
+-			continue;
+-		} else if (!context->res_ctx.pipe_ctx[i].plane_res.dpp && dppclk_khz > 0) {
+-			/* The software state is not valid if dpp resource is NULL and
+-			 * dppclk_khz > 0.
+-			 */
+-			ASSERT(false);
+-			continue;
+-		}
+-
+-		prev_dppclk_khz = clk_mgr->dccg->pipe_dppclk_khz[i];
+-
+-		if (safe_to_lower || prev_dppclk_khz < dppclk_khz)
+-			clk_mgr->dccg->funcs->update_dpp_dto(
+-							clk_mgr->dccg, dpp_inst, dppclk_khz);
+-	}
+-}
+-
+ static int dcn401_set_hard_min_by_freq_optimized(struct clk_mgr_internal *clk_mgr, PPCLK_e clk, int requested_clk_khz)
+ {
+ 	if (!clk_mgr->smu_present || !dcn401_is_ppclk_dpm_enabled(clk_mgr, clk))
+@@ -739,11 +705,9 @@ static void dcn401_execute_block_sequence(struct clk_mgr *clk_mgr_base, unsigned
+ 					params->indicate_drr_status_params.mod_drr_for_pstate);
+ 			break;
+ 		case CLK_MGR401_UPDATE_DPPCLK_DTO:
+-			dcn401_update_clocks_update_dpp_dto(
+-					clk_mgr_internal,
+-					params->update_dppclk_dto_params.context,
+-					params->update_dppclk_dto_params.safe_to_lower,
+-					*params->update_dppclk_dto_params.ref_dppclk_khz);
++			clk_mgr_program_dpp_dto(clk_mgr_internal->dccg,
++					*params->update_dppclk_dto_params.ref_dppclk_khz,
++					&params->update_dppclk_dto_params.targets);
+ 			break;
+ 		case CLK_MGR401_UPDATE_DTBCLK_DTO:
+ 			dcn401_update_clocks_update_dtb_dto(
+@@ -1186,9 +1150,9 @@ static unsigned int dcn401_build_update_display_clocks_sequence(
+ 	if (dc->config.forced_clocks == false || (force_reset && safe_to_lower)) {
+ 		if (dppclk_lowered) {
+ 			/* if clock is being lowered, increase DTO before lowering refclk */
+-			block_sequence[num_steps].params.update_dppclk_dto_params.context = context;
+ 			block_sequence[num_steps].params.update_dppclk_dto_params.ref_dppclk_khz = &clk_mgr_base->clks.dppclk_khz;
+-			block_sequence[num_steps].params.update_dppclk_dto_params.safe_to_lower = safe_to_lower;
++			clk_mgr_build_dpp_dto_targets(dc, context, safe_to_lower,
++					&block_sequence[num_steps].params.update_dppclk_dto_params.targets);
+ 			block_sequence[num_steps].func = CLK_MGR401_UPDATE_DPPCLK_DTO;
+ 			num_steps++;
+ 
+@@ -1203,9 +1167,9 @@ static unsigned int dcn401_build_update_display_clocks_sequence(
+ 				block_sequence[num_steps].func = CLK_MGR401_UPDATE_HARDMIN_PPCLK_OPTIMIZED;
+ 				num_steps++;
+ 
+-				block_sequence[num_steps].params.update_dppclk_dto_params.context = context;
+ 				block_sequence[num_steps].params.update_dppclk_dto_params.ref_dppclk_khz = &clk_mgr_base->clks.actual_dppclk_khz;
+-				block_sequence[num_steps].params.update_dppclk_dto_params.safe_to_lower = safe_to_lower;
++				clk_mgr_build_dpp_dto_targets(dc, context, safe_to_lower,
++						&block_sequence[num_steps].params.update_dppclk_dto_params.targets);
+ 				block_sequence[num_steps].func = CLK_MGR401_UPDATE_DPPCLK_DTO;
+ 				num_steps++;
+ 			}
+@@ -1225,9 +1189,9 @@ static unsigned int dcn401_build_update_display_clocks_sequence(
+ 				num_steps++;
+ 			}
+ 
+-			block_sequence[num_steps].params.update_dppclk_dto_params.context = context;
+ 			block_sequence[num_steps].params.update_dppclk_dto_params.ref_dppclk_khz = &clk_mgr_base->clks.actual_dppclk_khz;
+-			block_sequence[num_steps].params.update_dppclk_dto_params.safe_to_lower = safe_to_lower;
++			clk_mgr_build_dpp_dto_targets(dc, context, safe_to_lower,
++					&block_sequence[num_steps].params.update_dppclk_dto_params.targets);
+ 			block_sequence[num_steps].func = CLK_MGR401_UPDATE_DPPCLK_DTO;
+ 			num_steps++;
+ 		}
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.h b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.h
+index d4cd69a5a8dd..7f03a30546a2 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.h
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.h
+@@ -53,9 +53,9 @@ union dcn401_clk_mgr_block_sequence_params {
+ 	} indicate_drr_status_params;
+ 	struct {
+ 		/* inputs */
+-		struct dc_state *context;
++		/* clk_mgr's own clocks; an earlier step may store the PMFW-granted DPPCLK there. */
+ 		int *ref_dppclk_khz;
+-		bool safe_to_lower;
++		struct clk_mgr_dpp_dto_targets targets;
+ 	} update_dppclk_dto_params;
+ 	struct {
+ 		/* inputs */
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn60/dcn60_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn60/dcn60_clk_mgr.c
+index 4242a4b5c902..6f16bc33b6af 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn60/dcn60_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn60/dcn60_clk_mgr.c
+@@ -183,40 +183,6 @@ static bool dcn60_check_native_scaling(struct pipe_ctx *pipe)
+ 	return is_native_scaling;
+ }
+ 
+-static void dcn60_update_clocks_update_dpp_dto(struct clk_mgr_internal *clk_mgr,
+-	struct dc_state *context, bool safe_to_lower, int ref_dppclk_khz)
+-{
+-	uint32_t i;
+-
+-	clk_mgr->dccg->ref_dppclk = ref_dppclk_khz;
+-	for (i = 0; i < clk_mgr->base.ctx->dc->res_pool->pipe_count; i++) {
+-		int dpp_inst = 0, dppclk_khz, prev_dppclk_khz;
+-
+-		dppclk_khz = context->res_ctx.pipe_ctx[i].plane_res.bw.dppclk_khz;
+-
+-		if (context->res_ctx.pipe_ctx[i].plane_res.dpp)
+-			dpp_inst = context->res_ctx.pipe_ctx[i].plane_res.dpp->inst;
+-		else if (!context->res_ctx.pipe_ctx[i].plane_res.dpp && dppclk_khz == 0) {
+-			/* dpp == NULL && dppclk_khz == 0 is valid because of pipe harvesting.
+-			 * In this case just continue in loop
+-			 */
+-			continue;
+-		} else if (!context->res_ctx.pipe_ctx[i].plane_res.dpp && dppclk_khz > 0) {
+-			/* The software state is not valid if dpp resource is NULL and
+-			 * dppclk_khz > 0.
+-			 */
+-			ASSERT(false);
+-			continue;
+-		}
+-
+-		prev_dppclk_khz = clk_mgr->dccg->pipe_dppclk_khz[i];
+-
+-		if (safe_to_lower || prev_dppclk_khz < dppclk_khz)
+-			clk_mgr->dccg->funcs->update_dpp_dto(
+-				clk_mgr->dccg, dpp_inst, dppclk_khz);
+-	}
+-}
+-
+ static int dcn60_set_clock_freq_optimized(struct clk_mgr_internal *clk_mgr, PPCLK_e clk, int requested_clk_khz)
+ {
+ 	if (!clk_mgr->smu_present || !dcn60_is_ppclk_dpm_enabled(clk_mgr, clk))
+@@ -383,9 +349,9 @@ static unsigned int dcn60_build_update_display_clocks_sequence(
+ 	if (dc->config.forced_clocks == false || (force_reset && safe_to_lower)) {
+ 		if (dppclk_lowered) {
+ 			/* if clock is being lowered, increase DTO before lowering refclk */
+-			block_sequence[num_steps].params.update_dppclk_dto_params.context = context;
+ 			block_sequence[num_steps].params.update_dppclk_dto_params.ref_dppclk_khz = &clk_mgr_base->clks.dppclk_khz;
+-			block_sequence[num_steps].params.update_dppclk_dto_params.safe_to_lower = safe_to_lower;
++			clk_mgr_build_dpp_dto_targets(dc, context, safe_to_lower,
++					&block_sequence[num_steps].params.update_dppclk_dto_params.targets);
+ 			block_sequence[num_steps].func = CLK_MGR60_UPDATE_DPPCLK_DTO;
+ 			num_steps++;
+ 
+@@ -396,9 +362,9 @@ static unsigned int dcn60_build_update_display_clocks_sequence(
+ 				block_sequence[num_steps].func = CLK_MGR60_SET_PPCLK_OPTIMIZED;
+ 				num_steps++;
+ 
+-				block_sequence[num_steps].params.update_dppclk_dto_params.context = context;
+ 				block_sequence[num_steps].params.update_dppclk_dto_params.ref_dppclk_khz = &clk_mgr_base->clks.actual_dppclk_khz;
+-				block_sequence[num_steps].params.update_dppclk_dto_params.safe_to_lower = safe_to_lower;
++				clk_mgr_build_dpp_dto_targets(dc, context, safe_to_lower,
++						&block_sequence[num_steps].params.update_dppclk_dto_params.targets);
+ 				block_sequence[num_steps].func = CLK_MGR60_UPDATE_DPPCLK_DTO;
+ 				num_steps++;
+ 			}
+@@ -412,9 +378,9 @@ static unsigned int dcn60_build_update_display_clocks_sequence(
+ 				num_steps++;
+ 			}
+ 
+-			block_sequence[num_steps].params.update_dppclk_dto_params.context = context;
+ 			block_sequence[num_steps].params.update_dppclk_dto_params.ref_dppclk_khz = &clk_mgr_base->clks.actual_dppclk_khz;
+-			block_sequence[num_steps].params.update_dppclk_dto_params.safe_to_lower = safe_to_lower;
++			clk_mgr_build_dpp_dto_targets(dc, context, safe_to_lower,
++					&block_sequence[num_steps].params.update_dppclk_dto_params.targets);
+ 			block_sequence[num_steps].func = CLK_MGR60_UPDATE_DPPCLK_DTO;
+ 			num_steps++;
+ 		}
+@@ -1225,11 +1191,9 @@ static void dcn60_execute_block_sequence(struct clk_mgr *clk_mgr_base, unsigned
+ 					params->indicate_pstate_status_params.alt_ch_enable);
+ 			break;
+ 		case CLK_MGR60_UPDATE_DPPCLK_DTO:
+-			dcn60_update_clocks_update_dpp_dto(
+-					clk_mgr_internal,
+-					params->update_dppclk_dto_params.context,
+-					params->update_dppclk_dto_params.safe_to_lower,
+-					*params->update_dppclk_dto_params.ref_dppclk_khz);
++			clk_mgr_program_dpp_dto(clk_mgr_internal->dccg,
++					*params->update_dppclk_dto_params.ref_dppclk_khz,
++					&params->update_dppclk_dto_params.targets);
+ 			break;
+ 		case CLK_MGR60_UPDATE_DTBCLK_DTO:
+ 			dcn60_update_clocks_update_dtb_dto(
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn60/dcn60_clk_mgr.h b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn60/dcn60_clk_mgr.h
+index 0625f060e8c6..6d96ec8440a2 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn60/dcn60_clk_mgr.h
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn60/dcn60_clk_mgr.h
+@@ -45,9 +45,9 @@ union dcn60_clk_mgr_block_sequence_params {
+ 	} indicate_pstate_status_params;
+ 	struct {
+ 		/* inputs */
+-		struct dc_state *context;
++		/* clk_mgr's own clocks; an earlier step may store the PMFW-granted DPPCLK there. */
+ 		int *ref_dppclk_khz;
+-		bool safe_to_lower;
++		struct clk_mgr_dpp_dto_targets targets;
+ 	} update_dppclk_dto_params;
+ 	struct {
+ 		/* inputs */
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr_internal.h b/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr_internal.h
+index 68fd92258e8c..c6c087197f82 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr_internal.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr_internal.h
+@@ -602,6 +602,28 @@ int clk_mgr_helper_get_active_plane_cnt(
+ 		struct dc *dc,
+ 		struct dc_state *context);
+ 
++/* Per-pipe DPP DTO programming resolved from dc_state when a clock update is built. */
++struct clk_mgr_dpp_dto_targets {
++	bool safe_to_lower;
++	unsigned int count;
++	struct {
++		unsigned int pipe_idx;
++		int dpp_inst;
++		int dppclk_khz;
++	} pipes[MAX_PIPES];
++};
++
++void clk_mgr_build_dpp_dto_targets(
++		const struct dc *dc,
++		const struct dc_state *context,
++		bool safe_to_lower,
++		struct clk_mgr_dpp_dto_targets *targets);
++
++void clk_mgr_program_dpp_dto(
++		struct dccg *dccg,
++		int ref_dppclk_khz,
++		const struct clk_mgr_dpp_dto_targets *targets);
++
+ 
+ 
+ #endif //__DAL_CLK_MGR_INTERNAL_H__
 -- 
 2.43.0
 
