@@ -2,60 +2,65 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40C01606A320
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 01:44:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7CC9606A320
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 01:44:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=2NlrHXXM
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=rXU2mRdW
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70B8810F8E4;
-	Wed, 11 Nov 2026 01:44:18 +0000 (UTC)
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010009.outbound.protection.outlook.com [52.101.201.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1A9C10F8E4
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Nov 2026 01:44:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2715110F8EE;
+	Wed, 11 Nov 2026 01:44:27 +0000 (UTC)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011058.outbound.protection.outlook.com
+ [40.93.194.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 670A810F8EE
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Nov 2026 01:44:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bLkDwgSx5EHpjpVFacqVFvTJg3jvy+ZaVNfFDiVr3WtgnGkyJVcqYQfznECpPpfMX1NukwYMDEXJffkchOkLpOZHFuwho1eoYt7pCyChTJxKKYPP26ojuaJ8SrcW8YG55FBW5ygq9cDFFDzA2492FFSeX0o5IyrooRdDUhJWNH9ib2hOWIaowCQ+Wr4JsCXuc4HtMAVFuRKcd3PiapvATxi28E/+9+feEUC0OlPFKAmGR8dxmp8iR9FE2d3VZ0aTDndULpfcYrcTuuKXg+au3wRrF7U2YEkKJx8t/5bkXavUsnhsoKJGA+sLbWugezcRKYqU+8AdMdynpmAqgCEW6w==
+ b=uYtN3TfIEZVTkqtUEd1m8hLdXjV46ToCAXjRKKC7Qf22kz+g/jN9VBpCKN/AnpiDANCzd1pQVWCaF93nqIQPpZfwl0qrPdyEMiZMc4GiX+xQIK0P9vY0unBMzOGTY7hfglBZwCJxlzh1KZrFPfLGsSTQf7Xaqvv03mz1qtIt9SQNGYDNUNrV6st/y1nwCjFfqvdWDOOJj0nBQemGG6x+DtvK5C0kmBbzv8ZRFbuGclilrLeQ0Cl5xKOM/mV1ZWsekn8rML8tS/BzdsjaiLiYcrnuetcPHsq0vw5buOjRdbRAJN0zwIL4ABKm08cIE7ZnTsPXE5pme4J3znq/sai1QQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=I1clpqhiAex7f1tdI6V+sZeAFJOrz+k2ohLWvzBP6RM=;
- b=Zr8ximf5qmDxcyPaLyEZEve7JMlyPgioAeoWpZncMYK7+9jA4GAjW7NjluT0RNbCinLSL3ZSTXjs8lP6nVzGplyTlVZMR+5JRNbWmtweGjuGckpqeDzfe6T8rnb6Q239s4nwfTJsz72kWcDIHoRE3nUaYxVXN6lqa2stwXgVorVOV5EMySfCAmOuILYabX7xs/5kq6CCB36kvT62UmMGco2R8wJWxFpwdlaqztzfCSziUDtoqxgUHllJH7wmMdWiKUvmTPJsyGqqqDH3gIEMxZFRW4zJuzTdPJzqIkZD7ZF3/Nu7nPhevilgrPHoYDpxb8d2BAzTuTNYelj1RiRoeQ==
+ bh=6t8ghOG5Fi6nhob/cr7mudblBwVH4uh9QnEezo5zlXA=;
+ b=asnB+MKv82Evmk3eLJ3yHEukKPlrszj/4y3OqTUg3Yu/MMiw+pYO+ojPsYutlcr3+F7NnQhr3g/rILp/gOqa9TEtBinLlHmGvtEx1sXjPt9szzBGmFNdiAjCHx/yzSm4mCygcOwNwQHU7YJBPwpNcXiiwqHVwi15scRjjVEPeae4CBq+o36Dk+6Sfy/En2qvmkKvGibuM47+MQSz4NpXwy7h/9obeACm1TXNr4cbTfngZ2HUIO4bsrWz1qnBK5kP6RrrL0JvMV0mfsolGfqCJ/99hjxPBa0Lt8QU9EKoMl6DbApz3xiRmcVkKxMnQ09yk7p3bqVF1gFMsS66R7fRZQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=I1clpqhiAex7f1tdI6V+sZeAFJOrz+k2ohLWvzBP6RM=;
- b=2NlrHXXMWbe/Ld4cvTRDR25QutwTlGBeLG/S84E/O76cD743BFSe0DMByuR5m6xf0oDL56x3QZTMDGm9NIQ1As7hEBlSSkOWcm7vovrJEExvUERVQxwrLtSp7ywO7zB7r5bckJCei55q+jraE89JRJrnaMTJjc999iktoeWUQw0=
-Received: from MW4PR04CA0272.namprd04.prod.outlook.com (2603:10b6:303:89::7)
- by IA0PR12MB7579.namprd12.prod.outlook.com (2603:10b6:208:43c::14) with
+ bh=6t8ghOG5Fi6nhob/cr7mudblBwVH4uh9QnEezo5zlXA=;
+ b=rXU2mRdWF4zoyAaYhci6NPjv/IqVIe4UdrtTIk4WM76Qcsw2tJLarg9QCXZ5IBGznH6jZrRC4lkIOsOEvPFrdzQuxB8+i9CAR6JKYG6Q0nxH1aTgl+EbW2CjGwT5Z1r+7QxH7tICoQ59IKZLkoiHA28dVHRn6uwM2lt4eXUOkeg=
+Received: from CY8PR12CA0011.namprd12.prod.outlook.com (2603:10b6:930:4e::14)
+ by DM4PR12MB6182.namprd12.prod.outlook.com (2603:10b6:8:a8::15) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
- 2026 01:44:07 +0000
-Received: from SJ5PEPF00000206.namprd05.prod.outlook.com
- (2603:10b6:303:89:cafe::94) by MW4PR04CA0272.outlook.office365.com
- (2603:10b6:303:89::7) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 01:44:16 +0000
+Received: from EA8PEPF00000006.namprd05.prod.outlook.com
+ (2603:10b6:930:4e:cafe::73) by CY8PR12CA0011.outlook.office365.com
+ (2603:10b6:930:4e::14) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Wed, 11
- Nov 2026 01:44:06 +0000
+ Nov 2026 01:44:16 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ5PEPF00000206.mail.protection.outlook.com (10.167.244.39) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ EA8PEPF00000006.mail.protection.outlook.com (10.167.249.229) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Wed, 11 Nov 2026 01:44:06 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.615.4 via Frontend Transport; Wed, 11 Nov 2026 01:44:16 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 10 Nov
- 2026 19:44:05 -0600
+ 2026 19:44:15 -0600
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 10 Nov
+ 2026 19:44:14 -0600
 Received: from wayne-dev-lnx.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Tue, 10 Nov 2026 19:44:01 -0600
+ Transport; Tue, 10 Nov 2026 19:44:05 -0600
 From: Wayne Lin <Wayne.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -64,12 +69,14 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Gabriel Abarca <Gabriel.Abarca@amd.com>, "Dillon
- Varone" <dillon.varone@amd.com>
-Subject: [PATCH 57/74] drm/amd/display: Increase state if dcfclk deep sleep
- needed exceeds dcfclk
-Date: Wed, 11 Nov 2026 09:29:03 +0800
-Message-ID: <20261111014100.3596072-58-Wayne.Lin@amd.com>
+ <Chen-Yu.Chen@amd.com>, Austin Zheng <Austin.Zheng@amd.com>, Dillon Varone
+ <dillon.varone@amd.com>, Mario Limonciello <mario.limonciello@amd.com>, "Alex
+ Deucher" <alexander.deucher@amd.com>, <stable@vger.kernel.org>, Wayne Lin
+ <Wayne.Lin@amd.com>
+Subject: [PATCH 58/74] drm/amd/display: Flip
+ dml2_core_utils_get_segment_horizontal_contiguous() Inputs
+Date: Wed, 11 Nov 2026 09:29:04 +0800
+Message-ID: <20261111014100.3596072-59-Wayne.Lin@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261111014100.3596072-1-Wayne.Lin@amd.com>
 References: <20261111014100.3596072-1-Wayne.Lin@amd.com>
@@ -79,29 +86,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF00000206:EE_|IA0PR12MB7579:EE_
-X-MS-Office365-Filtering-Correlation-Id: d51495f6-4553-47cd-f3c8-08df3f9545cf
+X-MS-TrafficTypeDiagnostic: EA8PEPF00000006:EE_|DM4PR12MB6182:EE_
+X-MS-Office365-Filtering-Correlation-Id: 16d167fd-45c8-42c8-e233-08df3f954ba7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|376014|36860700016|82310400026|30052699003|20052099010|261009223027099003|10067099003|3023799007|261028144727099003|261102123227099003|261026140227099003|261021123027099003|261021121427099003|261022105027099003|5023799004|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: L8AjAwjp6hl7XYBIEmGAaX56vEmtAPKwowH5zTBaTNF78gHxjkAp6N8rWoFjZKPQMdEQhsjnymnPZwtbVlaTgVyrH1yJi7HTRcGFaty/qSYVR8HhklMcFKnnWh0HN9yAbvd75qFo47bqwUFVVfhxa/64SwMcBPBZlWu/IzwCoVHs1U9n5lLqbCTZ5lRAx4oiC/YV2u28qRhX0dFRJ7io/gKA3wOibryzmx7eQGJmUzZbkbYZusGfPXqoMGPqd6ulyhJ4RzP2ril2M3GH2zpYJU2UoaIbCpCb+GWb99KuwF9Q//XzuPoJO3TWnbQVZIwGAbmXP3VzL2huoeIWO7eGlukXXpVZVlYt/ncV5W8C9GeXar2fwX+RF07jR380b+ouhMGM06ra9G2HtlACROt1xyEWFo9WYGCgy8svGeynG8ohA0OxTmITAvbxnvEDaeyyb1FCHvazEXu6Be26Pe8QR0UanlQ8E2h/qNc9hghCbpN00i5tJkk3IiR1dsikhRLsfHtvX5g3Zw+y/Au1QSnymlz+4Hu2IRVYlLgHvleOJXpUsLP/TPoM/8jg2KqD6BSYmkM2H8hil8wLGllJtrVzTTwRkybU0nRmXub9MML2YRwLMIFW39UaS75Mq7XkJW21sql0jF8WQ/G7ng8Gsl26FJE+EkwdP+GeTwkPAuBJBUbZooPvJ3fG8Lf5kpVsbn0Jomc+cgTULdlR4rKvHYSseA==
+ ARA:13230040|36860700016|23010399003|82310400026|376014|1800799024|18002099003|22082099003|6133799003|3023799007|11063799006|56012099006|261102123227099003|261009223027099003|261021121427099003|261021123027099003|261022075727099003|10067099003;
+X-Microsoft-Antispam-Message-Info: 9vlncgXkaXO52qVuGHvUERhCtumiI2U+HUq/t+pmr2lTGZv5KShbsByVfL4x66v1xNfRGAfPdnT6dhybojGMw2nWxKg5XngLiZC1/3H590zuwW6dXKTkqYhKvaIeu3ElUvVdAFWGELuruQC3xw5HeczJOM5J+ayrwz/Xb1mQQphLiMalzpWDT2Faymir41qKUYLCZ0Z0aigYFheH+SCkc5VZcJMF1mfgKXWvRD77RAqEu7T6UxpnMQUUOq4KIvjpgHXPbVburRrtGNG3jW/W679dw+DEuXzV4QSbSqQJPX1WxC/j9iZRZSZsdrzkI+m3QOVo0HS5ATO96upunpEllWQD4nNc4Py/MYVxfCPH1Sh1ZDMSeO48pzj1QzDYX87HkGPPrV/6jy4wfHvHZnfj25M/btXhC7eVQqVZmlEgmyNIvqfAwwkdP8olOrXJVrzUO3buEfba+J9W/VdbJIDImEpOhlmi08kv4kAW8FSMeuGkiy/ulwLIa23g/FhUkwWVX/y6NbvCWlJi5yzqYL4itY5wxzZ1pJmKO5vLo5ZnsL1IvRdgUr9IqNwUGwcP0RfHkw6g1dalhovCSNmA6PuiGWlKQHk8AjFgIrXdmm4oZFfSQZtRXoZjV6p2suQpVdad8vYSXhE4gwuS6/c2i/Rc7hvGYZiCcMA/hgTdYZkqCA8gzPuPJZgPtbjINuskvnVFXgYbp/wVAnCDFMKY2H7ZZg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(376014)(36860700016)(82310400026)(30052699003)(20052099010)(261009223027099003)(10067099003)(3023799007)(261028144727099003)(261102123227099003)(261026140227099003)(261021123027099003)(261021121427099003)(261022105027099003)(5023799004)(11063799006)(56012099006)(22082099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(23010399003)(82310400026)(376014)(1800799024)(18002099003)(22082099003)(6133799003)(3023799007)(11063799006)(56012099006)(261102123227099003)(261009223027099003)(261021121427099003)(261021123027099003)(261022075727099003)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: BCVaZeF3WCfQNFp33yLaNt46MMEFaEync0m0ZdP9KhqjDESZWisJfSx3g0IcXfa0o5pJqwz1E3kARR2hI+y1lSkk0XPvOfdYVzGNxiF6aswUM3O4Bxml4DtKUKDlKYe5D8pgQKeLue7rNM8PjkwV4tQEtoShnUyW4bIgUIWLvuD1tLThIM0hYb6BVvf3uCJTvgH/e6FaCofgZzJROhqUXHRD0Vn4W6S39qwj8JQpoysgj9QWBiR8F8q5SvmCDleSx9B9llHy+dCyZHTQ/oYueW8WnFzAY6ZUU7CAK+WArChiK2+DeH7vvEZRvkZwHvoJTOLFi7ghVq7nYpaz6C7EuDI12a6gbzw9Mf9IeC+F45HD2mFRssmsiAm9PVvWDyUv62TCcosCOdNWXRbQRY0FzVEpUyElZwkwsRlnishFfDNmPKsixBw2J8UTRlDdDz4H
+X-MS-Exchange-AntiSpam-MessageData-0: JRlCC8vDyAbdBkq3v0Tdeo5+Gg/vxKLQtkn/1DZ6lUONR4DxbvxkYLE/2TQmYB4g7D2F7nV4Buhca4guAgVp3aahhqbqb+Lr6JiWg1QNfnIAe3qOQuU1F0Q9TdBcFv7AEwjqhiNCsJa+uCTM6+x4VzvCfiJF4SWr0pUDrS+mM0eSHy+y2BpEGGCXUVSVCUa/LZaJE5qBVLflaEY/QLqGDTT1WGzNh2/ibJD2uHQRoSMqbZbQtGe8yF5NBI0WeFv5XOVPcy3PHU32nBBdxHyS9bsIogR9MO9JnL5NgwbqUjbKhTVdlgb9cTXRhZv9DLi8KIDMf/D1+X0amQ73O/tr3SGTyivHoKXQubOq7nn3R89WS/C0oBb1uI77gvLORVtebc+xcbv2oGUeFto9FHNe6EFHr540T4cYqhFKYAiSF/Vr7l3NcL/Abejd7aub6L6W
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 01:44:06.2569 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d51495f6-4553-47cd-f3c8-08df3f9545cf
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 01:44:16.0524 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 16d167fd-45c8-42c8-e233-08df3f954ba7
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF00000206.namprd05.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: EA8PEPF00000006.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7579
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6182
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,127 +122,61 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Gabriel Abarca <Gabriel.Abarca@amd.com>
+From: Austin Zheng <Austin.Zheng@amd.com>
 
-For dcn6, take out dcfclk_deepsleep path to line transfer time.
-Increase the state if dcfclk deep sleep needed is more than dcfclk.
+[Why/How]
+Parameters for dml2_core_utils_get_segment_horizontal_contiguous() should be flipped.
+Should be swizzle mode then bytes per pixel.
 
 Cc: Dillon Varone <dillon.varone@amd.com>
-Signed-off-by: Gabriel Abarca <Gabriel.Abarca@amd.com>
-Signed-off-by: Wayne Lin <wayne.lin@amd.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Austin Zheng <Austin.Zheng@amd.com>
+Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
 ---
- .../amd/display/dc/dml2_0/dml21/inc/dml_top_types.h    |  1 +
- .../dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c  |  2 ++
- .../dml2_core/dml2_core_dcn6_funcs_mode_programming.c  |  4 +++-
- .../src/dml2_core/dml2_core_dcn6_funcs_mode_support.c  | 10 +++++++++-
- .../dml21/src/dml2_core/dml2_core_shared_types.h       |  1 +
- .../dc/dml2_0/dml21/src/dml2_core/dml2_core_utils.c    |  4 ++++
- 6 files changed, 20 insertions(+), 2 deletions(-)
+ .../dml21/src/dml2_core/dml2_core_dcn5_calcs_dchub.c      | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/dml_top_types.h b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/dml_top_types.h
-index fd7ccefc7fb7..4f4bfa58284a 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/dml_top_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/dml_top_types.h
-@@ -382,6 +382,7 @@ struct dml2_mode_support_info {
- 	bool temp_read_or_ppt_support;
- 	bool qos_bandwidth_support;
- 	bool dcfclk_support;
-+	bool dcfclk_deep_sleep_support;
- 	bool alternate_channel_size_support;
- 	bool EnoughUrgentLatencyHidingSupport;
- 	bool DSCSlicesODMModeSupported;
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-index c84cbad7fde1..a497a75ff9ac 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-@@ -13249,6 +13249,8 @@ void dml2_core_calcs_get_informative(const struct dml2_core_internal_display_mod
- 	out->informative.mode_support_info.ViewportSizeSupport = mode_lib->ms.support.ViewportSizeSupport;
- 	out->informative.mode_support_info.qos_bandwidth_support = mode_lib->ms.support.qos_bandwidth_support;
- 	out->informative.mode_support_info.dcfclk_support = mode_lib->ms.support.dcfclk_support;
-+	out->informative.mode_support_info.dcfclk_deep_sleep_support = mode_lib->ms.support.dcfclk_deep_sleep_support;
-+
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn5_calcs_dchub.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn5_calcs_dchub.c
+index 09cfb5046c81..569ab02ea080 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn5_calcs_dchub.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn5_calcs_dchub.c
+@@ -836,7 +836,7 @@ void dcn5_calculate_swath_and_det_configuration(struct dml2_core_internal_scratc
+ 			p->SwathHeightC[k] = MaximumSwathHeightC[k];
+ 			RoundedUpSwathSizeBytesY[k] = p->full_swath_bytes_l[k] / 2;
+ 			RoundedUpSwathSizeBytesC[k] = p->full_swath_bytes_c[k];
+-			p->request_size_bytes_luma[k] = dml2_core_utils_get_segment_horizontal_contiguous(p->BytePerPixY[k], p->display_cfg->plane_descriptors[k].surface.tiling)
++			p->request_size_bytes_luma[k] = dml2_core_utils_get_segment_horizontal_contiguous(p->display_cfg->plane_descriptors[k].surface.tiling, p->BytePerPixY[k])
+ 				== dml2_core_utils_is_vertical_rotation(p->display_cfg->plane_descriptors[k].composition.rotation_angle) ? 64 : 128;
+ 			p->request_size_bytes_chroma[k] = 256;
  
- 	for (k = 0; k < out->display_config.num_planes; k++) {
+@@ -846,7 +846,7 @@ void dcn5_calculate_swath_and_det_configuration(struct dml2_core_internal_scratc
+ 			RoundedUpSwathSizeBytesY[k] = p->full_swath_bytes_l[k];
+ 			RoundedUpSwathSizeBytesC[k] = p->full_swath_bytes_c[k] / 2;
+ 			p->request_size_bytes_luma[k] = 256;
+-			p->request_size_bytes_chroma[k] = dml2_core_utils_get_segment_horizontal_contiguous(p->BytePerPixC[k], p->display_cfg->plane_descriptors[k].surface.tiling)
++			p->request_size_bytes_chroma[k] = dml2_core_utils_get_segment_horizontal_contiguous(p->display_cfg->plane_descriptors[k].surface.tiling, p->BytePerPixC[k])
+ 				== dml2_core_utils_is_vertical_rotation(p->display_cfg->plane_descriptors[k].composition.rotation_angle) ? 64 : 128;
  
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn6_funcs_mode_programming.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn6_funcs_mode_programming.c
-index b46b396f45d4..464b7b00e8c2 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn6_funcs_mode_programming.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn6_funcs_mode_programming.c
-@@ -110,7 +110,9 @@ static void dcn6_mp_calculate_pixel_delivery_times(struct dml2_core_calculate_mp
- 			inputs->PSCL_THROUGHPUT,
- 			inputs->PSCL_THROUGHPUT_CHROMA,
- 			inputs->Dppclk,
--			inputs->DCFCLKDeepSleep,
-+		// It is unnecessary and circular to use dcfclk_deepsleep here because dcfclk_deepsleep is derived from the line transferr time
-+		// dcfclk is a better value here
-+			inputs->Dcfclk,
- 			inputs->BytePerPixelY,
- 			inputs->BytePerPixelC,
- 			inputs->req_per_swath_ub_l,
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn6_funcs_mode_support.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn6_funcs_mode_support.c
-index 157b579073b6..c1cb43386473 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn6_funcs_mode_support.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn6_funcs_mode_support.c
-@@ -3434,6 +3434,9 @@ bool dcn6_ms_check_mode_support(
- 		goto fail;
- 	if (inputs->support.dcfclk_support == false)
- 		goto fail;
-+	// it is better to increase the state than to clamp dcfclk deep sleep to dcfclk, so we check if the dcfclk deep sleep is less than or equal to dcfclk
-+	if (inputs->support.dcfclk_deep_sleep_support == false)
-+		goto fail;
- 	if (inputs->support.qos_bandwidth_support == false)
- 		goto fail;
- 	if (inputs->support.global_dram_clock_change_supported == false)
-@@ -3679,12 +3682,17 @@ bool dcn6_ms_check_dcfclk_support(
- 			&& inputs->DCFCLK <= soc_bb->max_dcfclk_khz / 1000.0
- 			&& inputs->DCFCLK >= soc_bb->min_dcfclk_khz / 1000.0;
+ 		} else {
+@@ -854,9 +854,9 @@ void dcn5_calculate_swath_and_det_configuration(struct dml2_core_internal_scratc
+ 			p->SwathHeightC[k] = MaximumSwathHeightC[k] / 2;
+ 			RoundedUpSwathSizeBytesY[k] = p->full_swath_bytes_l[k] / 2;
+ 			RoundedUpSwathSizeBytesC[k] = p->full_swath_bytes_c[k] / 2;
+-			p->request_size_bytes_luma[k] = dml2_core_utils_get_segment_horizontal_contiguous(p->BytePerPixY[k], p->display_cfg->plane_descriptors[k].surface.tiling)
++			p->request_size_bytes_luma[k] = dml2_core_utils_get_segment_horizontal_contiguous(p->display_cfg->plane_descriptors[k].surface.tiling, p->BytePerPixY[k])
+ 				== dml2_core_utils_is_vertical_rotation(p->display_cfg->plane_descriptors[k].composition.rotation_angle) ? 64 : 128;
+-			p->request_size_bytes_chroma[k] = dml2_core_utils_get_segment_horizontal_contiguous(p->BytePerPixC[k], p->display_cfg->plane_descriptors[k].surface.tiling)
++			p->request_size_bytes_chroma[k] = dml2_core_utils_get_segment_horizontal_contiguous(p->display_cfg->plane_descriptors[k].surface.tiling, p->BytePerPixC[k])
+ 				== dml2_core_utils_is_vertical_rotation(p->display_cfg->plane_descriptors[k].composition.rotation_angle) ? 64 : 128;
+ 		}
  
-+	// it is better to increase the state than to clamp dcfclk deep sleep to dcfclk, so we check if the dcfclk deep sleep is less than or equal to dcfclk
-+	outputs->support.dcfclk_deep_sleep_support = inputs->dcfclk_deepsleep <= inputs->DCFCLK;
-+
- 	DML_LOG_VERBOSE("outputs->support.dcfclk_support = %s\n", outputs->support.dcfclk_support ? "true" : "false");
-+	DML_LOG_VERBOSE("outputs->support.dcfclk_deepsleep_support = %s\n", outputs->support.dcfclk_deep_sleep_support ? "true" : "false");
- 
- 	DML_LOG_DEBUG_BOOL(outputs->support.dcfclk_support);
-+	DML_LOG_DEBUG_BOOL(outputs->support.dcfclk_deep_sleep_support);
- 	DML_LOG_FUNC_EXIT();
- 
--	return outputs->support.dcfclk_support;
-+	return outputs->support.dcfclk_support && outputs->support.dcfclk_deep_sleep_support;
- }
- 
- void dcn6_ms_check_alternate_channel_size_support(
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_shared_types.h b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_shared_types.h
-index 9eabee1fc001..4848dbffc184 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_shared_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_shared_types.h
-@@ -356,6 +356,7 @@ struct dml2_core_internal_mode_support_info {
- 
- 	struct dml2_core_internal_watermarks watermarks;
- 	bool dcfclk_support;
-+	bool dcfclk_deep_sleep_support;
- 	bool qos_bandwidth_support;
- 	bool alternate_channel_size_support;
- };
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_utils.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_utils.c
-index 4f5533dc0430..7cc3a4b4b3b7 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_utils.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_utils.c
-@@ -306,6 +306,10 @@ void dml2_core_utils_print_mode_support_info(const struct dml2_core_internal_mod
- 		DML_LOG_VERBOSE("DML: support: ExceededMALLSize = %d\n", support->ExceededMALLSize);
- 	if (!fail_only || support->g6_temp_read_support == 0)
- 		DML_LOG_VERBOSE("DML: support: g6_temp_read_support = %d\n", support->g6_temp_read_support);
-+	if (!fail_only || support->dcfclk_support == 0)
-+		DML_LOG_VERBOSE("DML: support: dcfclk_support = %d\n", support->dcfclk_support);
-+	if (!fail_only || support->dcfclk_deep_sleep_support == 0)
-+		DML_LOG_VERBOSE("DML: support: dcfclk_deepsleep_support = %d\n", support->dcfclk_deep_sleep_support);
- 	if (!fail_only || (support->global_dram_clock_change_supported == 0 && support->global_dram_clock_change_support_required))
- 		DML_LOG_VERBOSE("DML: support: dram_clock_change_support = %d\n", support->global_dram_clock_change_supported);
- 	if (!fail_only || support->ImmediateFlipSupport == 0)
 -- 
 2.43.0
 
