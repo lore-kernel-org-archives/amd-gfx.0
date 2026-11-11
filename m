@@ -2,52 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 594E2606A881
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 11:55:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E33B606A321
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 11:56:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Qn98YMx6
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=JJsYEkWI
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA9BF10FB70;
-	Wed, 11 Nov 2026 11:55:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFBA110FB50;
+	Wed, 11 Nov 2026 11:55:57 +0000 (UTC)
 Received: from SJ2PR03CU001.outbound.protection.outlook.com
  (mail-westusazon11012034.outbound.protection.outlook.com [52.101.43.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7334D10FB70
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Nov 2026 11:55:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7CDAA10FB50
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Nov 2026 11:55:51 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Chdbt7F7JapYBXp51EUldSwZjwK8vTkByoXEBGeRaic2a9LmyxEaIrgYQh2S/T1lB8Zb4UDLBl8jdNj8d1ugzQfVzcnGa+4DuF2hdEgmctdiM/wHMNDn5E0d0DnaLWaaeNWPO75cX6bZWXhOJdLeS6vD4CsZbla1l5lkjMnTEb6kuitFE+5tS80/xvnpSilnxDZ6TnWAhWSISqzEJHblnkoU6nSPqTOST8/z1R3xlVFGoXgZleD7g+nTXFwLfWcEDWD6oEcTWPjmkogcaaNyNhoYAibTw/qrBP3jQ1InsF+PpCSIGF6YVKltrB42JupETyg0wXlCFmdm+6zuyBcp5g==
+ b=msgBFlafpQ92zCmcwTAvBYFo5h6Yc7rea70dR7yGOSTFOgCd+zxLgHkTffHAALVtyTHgQVWSR/nn90MiTkGHr85hzVfwpd+Eyicel8M0L1+FEUGXkpfNhDqKHAs70lnhwIEuqGRbK4eF2/0RjCBmxJ1DrBoPePnLB4Ts2ZxRR+UyiqTRQiPJXUu/qQmjj8OBASGBPQl2BEpt8g4knDXrGhdFMypYhQG+MGmmiRtIjGJcuWa4V8x1bvrHSyAm/2XMvXB8OCbCIiP+uUToC2UC2Mnh+4ZvCeNe8eCeJcImlm7tGqHVh+qihx4W2MrAnZhbIQXGCsfadLacOA7jZeEYrw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bxmmJpx6R46yiPHx59LbQN67ERXjHfGzuVXZJdfJFUE=;
- b=UQDv5JeCkf8jwDpFg1oCTZ+1Fu/whP5rPCEDQz3Mdm+Yod8uaS3pdUg8z0kVZFa/hDXVysnJLV34S0UoK7QYHiPOIG1FiBQH7E0U2wIp1uf8tj8JhrcW+Gf38bMknVXPVopRRVcRmO4qFYGcj0fl00nXMhJBIyVEWL38IN1v+gls4Q23RVapQnJCT0eolUaE6U16aW4Tr0zxwESETbCULOBwsb+rvFEemJLYbXlahzWyfau4rQ1D4JrZYPRHflWK/OAWdwZX97CfsuecsEqCY6bnhi5H4O/v++WeVps3T7TLZIA0ci5qTOA2yxCZW2FhWuEE9FEDIvkkGTaNWGhfyQ==
+ bh=imHeQqrEqjL6SGT8lSNws0S2v9y8Zqw9ZxW77gVmvxY=;
+ b=wi+36FydUvCxLxyfCBBKttHN4mF0MIo8Pz/8NVElg5SBVKVSNx1Csu4FaIDajqy24gZfUZlMtRp/RekuUGqItd/lwtJNPdcTb+x/Lut5ubZzHlpE8A+z54UZkVPV28cSTgT1CfWwXN7JpYzNCtTjBaWVLWzBPhyJrCfAH9Ox/CjBmjvpcZ6xDkqzpfifdoJ/7vmAnvGuDSWriS3pi+KkAYF3dW24fk0IOKle6fyIfZwzP4h4MuQaDPZcaiEiWG6LQTcBoKiiHahDzsYpT8dPXsNy1/xTaheBrEfkw2sRRZdC61gWR2ZdePljIDJcPJ0Vub4eK9VwKXM6m3RKFYfymA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bxmmJpx6R46yiPHx59LbQN67ERXjHfGzuVXZJdfJFUE=;
- b=Qn98YMx6pHOmPkhAd+q/uRIwJCeqKCGknzW58oGCs78s+NxoiJPGdByZhBMaJDHETnF5Of96AU9NGCVhIJXiyzGQXQbhSHnLdpheIB44kHFUMDEP0J/UI/SVp1+aUaFvJ+8q4xf2FkOZ0d+UKnq3ODzYfBfps4ds4Y7X3zL8044=
+ bh=imHeQqrEqjL6SGT8lSNws0S2v9y8Zqw9ZxW77gVmvxY=;
+ b=JJsYEkWIJBVHpAFWHHkIUHkB7s79wo3RxyEXHCRkaYPuzZ06Q8dkAUHn4xHEfqsVIFk0mBe6pFr4F6ijhmgjeDeQ+rTD0gJaQGTQDmUo8BjVfB/E+z271lvQW0lnqxJEsOYC8OtZWzlK67RbY7rgtPoem3Wvv+AXtS5vmRxCaDw=
 Received: from MW3PR12MB4572.namprd12.prod.outlook.com (2603:10b6:303:5e::7)
  by LV1PR12MB999279.namprd12.prod.outlook.com (2603:10b6:408:3f7::13) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Wed, 11 Nov
- 2026 11:55:43 +0000
+ 2026 11:55:47 +0000
 Received: from MW3PR12MB4572.namprd12.prod.outlook.com
  ([fe80::79cb:c567:1825:51fc]) by MW3PR12MB4572.namprd12.prod.outlook.com
  ([fe80::79cb:c567:1825:51fc%6]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
- 11:55:43 +0000
+ 11:55:47 +0000
 From: "Mu, Zihao" <Zihao.Mu@amd.com>
 To: "Koenig, Christian" <Christian.Koenig@amd.com>,
  "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, Thadeu Lima de Souza
  Cascardo <cascardo@igalia.com>
-Subject: [RFC PATCH v2 1/6] drm/amdgpu: handle missing or empty SDMA VM update
- jobs
-Thread-Topic: [RFC PATCH v2 1/6] drm/amdgpu: handle missing or empty SDMA VM
- update jobs
-Thread-Index: AQHdcdOUVb/T9QOe9ESQcBzNZgoZ8w==
-Date: Wed, 11 Nov 2026 11:55:43 +0000
-Message-ID: <MW3PR12MB4572DD8FCA6028A2156F0B639E712@MW3PR12MB4572.namprd12.prod.outlook.com>
+Subject: [RFC PATCH v2 2/6] drm/amdgpu: track internal completion of SDMA VM
+ updates
+Thread-Topic: [RFC PATCH v2 2/6] drm/amdgpu: track internal completion of SDMA
+ VM updates
+Thread-Index: AQHdcdOW23Lsb4vRtE6s9n8SpgQy5w==
+Date: Wed, 11 Nov 2026 11:55:47 +0000
+Message-ID: <MW3PR12MB4572053D50BE077A8D682DB19E712@MW3PR12MB4572.namprd12.prod.outlook.com>
 References: <MW3PR12MB4572FABB93F6676FDBA1D2479E722@MW3PR12MB4572.namprd12.prod.outlook.com>
  <4edd67f7-381a-4446-9509-552739c8f016@amd.com>
  <MW3PR12MB4572A08ADA8CB7BA9F83AF519E712@MW3PR12MB4572.namprd12.prod.outlook.com>
@@ -62,46 +62,46 @@ authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
 x-ms-exchange-messagesentrepresentingtype: 1
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: MW3PR12MB4572:EE_|LV1PR12MB999279:EE_
-x-ms-office365-filtering-correlation-id: 582d893e-ac0b-4633-df40-08df3feab6cf
+x-ms-office365-filtering-correlation-id: fcc617f4-bd3f-4c54-d498-08df3feab938
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|23010399003|376014|18002099003|22082099003|6133799003|10067099003|3023799007|38070700021|4143699003|261102123227099003|11063799006|261009223027099003|261022105027099003|261022075727099003|261021121427099003|261021123027099003|261026140227099003|261026121527099003|56012099006|261028144727099003;
-x-microsoft-antispam-message-info: vDoucMRIyFN9A2/t7cpIKeHcns10U0JS/V/sPmIx8ShYXIW7wzEhT2IW11GssXAgFA3ZRuvqwgCPV2NlaWY3vMiOyFswkXWeeTuQkv3VG0uOhO5GBLUb8liAgG1kyfuT+gDWdrLN+Pp1WN3AXyyleebkbTVrt+86bj/JS0Pbij/sqkgMXD5DdaNRTLcrKNMHmLm/xeK2B9VWhZLYDPZVa2n5L7IyhfLJXC1zIZokqewrYGIVNJUtkAikwNfmvDosO6FRcYXK3wTMbcvil348L6/7z14QwvB6NJ15M9xl2GEo9xQVzALgSL3eNb/y3TLLrK+gIsjvRKzVU4xqaF7229hn7DHzUWao4KW6hlN5RTjF3LDT7/NdSpppWDO7WWBUP/vgnpzWDmaAHfnyE4ORHGsOH9i15EX90raaa6qcF8Kykk9QHl/X0HnyR7dXK5ad39Ea83xP6D+NKVhE6zPxr/MmPULxIPkgxVvo7d7AAQgrqHBQdI3ye1X681tHC6OHRqgVRhOazD2Nit0hERXcDsmQ9lZnQP7UdVhyG/599EisDYcjLzbo11hwdt69TrY4ZCLSMPlI40Sk2RJ4JpWe6VrD1ncVLJd45rCpg2PVdZw8A3LvWbeu8Xvu0dgJ0t2oBohxAw6wPloiGbinWfyVo0ilyfr9nlvTd4+qs/jAY78=
+ ARA:13230040|366016|1800799024|23010399003|376014|18002099003|22082099003|10067099003|3023799007|38070700021|4143699003|261102123227099003|11063799006|261009223027099003|261022105027099003|261021121427099003|261021123027099003|261026140227099003|261026121527099003|56012099006|261028144727099003;
+x-microsoft-antispam-message-info: LDKExWJTOzrXViOeRPS3YOYdsH2JEiKPTOC+fZwgxoEqSbjC+B0d6iOc9vMjvforc/hYkxxlJy+RXjMX2W0kWzqzxZ6tno8/n57DG+88nN2G7mC1BksgEbSUF9rro/dZni622jXjGKO+Phe29HkthmRa7uFgAC0RPPp2DvkLPmIReebLDvnlLbuQX9m3xGENNBMRS+aC+n9sdkIuPlX4gVcj4UF2vohrM2tEDGK0SGUPLGAIB2xi59lyD7WmwhXA6HiBd1IM9fAipABeAUm83wYB6zvInHwIZ8fNlWkHgvT+UcdwbcBXzAq9r5zLhNNYFDBfqDrmn6Gd3wsoDVETKUHoASJbgzRcHXQTonU+BdE4egLTauFQp/HiFO4Z4gerpSTepqDKcCzW7shhitH279q2+j0v+wPWmEJtybW/TgBMfrMh8Q/q2gn5+p1jyAQAR6cxq9znx/u/EoWDec+Q4Zi3ALQW/QoYxLVPzO4kXOYxSVTqIfUtHMrP8KWiApaNpf7PhOoPxBzKCXYxCC+BpX6dFJLtGsNg/O0FW9K1Etk5VA2Y59ReMQKZzqmM/f32nH2Wa0CyhbEz2rj9cbU04rFHgv7/pdBYXMcGqsBO1pGEIyLBNazvzPiWDXLb+8pQodCv1rGFoM7//knxmAkhc5oQMgl1xz6EU/U3kaSOVHPRQdSUMpt57A+FIOhjzqYYSFWEWorvKK9UMnbq1/Tm5G+CehQejqbaDctKasHIa8E=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MW3PR12MB4572.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(18002099003)(22082099003)(6133799003)(10067099003)(3023799007)(38070700021)(4143699003)(261102123227099003)(11063799006)(261009223027099003)(261022105027099003)(261022075727099003)(261021121427099003)(261021123027099003)(261026140227099003)(261026121527099003)(56012099006)(261028144727099003);
+ SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(18002099003)(22082099003)(10067099003)(3023799007)(38070700021)(4143699003)(261102123227099003)(11063799006)(261009223027099003)(261022105027099003)(261021121427099003)(261021123027099003)(261026140227099003)(261026121527099003)(56012099006)(261028144727099003);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?eS+Cy+ZyVRRaXJEEVSYXXv4229K/E2r4rFWxLdxwJ1DHBFoH8qEBM7+jhCqo?=
- =?us-ascii?Q?3J6pM/xV4hMy6N8jEgiABA0NmkICGWFZhO6QIXvAdWmzFIMTmc9nz5lYBNHg?=
- =?us-ascii?Q?trll/0pdPq9x8QSsvsBRTjLo8/ONcOZamzAlP/Zj7m8v3L5qbE5BrHPv3Zvx?=
- =?us-ascii?Q?pIpapPInuyB5XEIkmyQPwpgdYf/eMU7CdD2SPoX7HDVJeMFYmQqAJDDg2yp/?=
- =?us-ascii?Q?wjX9odc0ZlbagIdovUPfAY2tBoiEpH99WTw+wCp5KC5vzcrehzbPZjnXkBCt?=
- =?us-ascii?Q?fsfW4IeFIY/6S53tNH/KRUPLqUJSuqv/LaiCc7UNVdqtAGtGjLkjm9MCbXXG?=
- =?us-ascii?Q?3Rc3xQJ2X2p4R2wGZ/2vbPLFbUe90ZSZSrN78ffe1H/gXBNviEvFRm1KMS+y?=
- =?us-ascii?Q?zxzuV6VjhXfvVnwHZdMN5W9Ic7xztcPCJvTi6B4fH0oDdyj+9Pe+Fl4SBPMJ?=
- =?us-ascii?Q?stqEA8Dvi1NGXeXKJuf6dPCJJFYN3gwUmcra066XgrbChLlBkAmRt30uJixP?=
- =?us-ascii?Q?YPDXtrlnYVihrHbM0FVi3BRbDKjf4HqFQAWh7yCBos8SYvbhXIp6NBd3x3Rf?=
- =?us-ascii?Q?gMIUDWjgs4oEU3D3pb86L8TeDCalI3+Vjk7svxzAZESdXYiX6w1YkSNa74+O?=
- =?us-ascii?Q?d56I2VXc4qZs26nfeziPmm7DuMxIH9BInrQ0MZ33HGUx4x8+laS/aBL1UtHf?=
- =?us-ascii?Q?iquFh23ngiT72VcsUgGCRNY22sPnCwyzwAk3J1YQwFbDFoVv7q8wGgtyaebJ?=
- =?us-ascii?Q?VrQcbYRdoZNTjQzi3q/g/XOLPbY19+nCkwKlcHX0uoGeufYNNYVSIAqQV7kM?=
- =?us-ascii?Q?j1asDbcD5W/YStvseZAlVYeEuHgVvXWCT9INdyHS8xp5D67Kq92n7MbDP99f?=
- =?us-ascii?Q?TgbXHyRaZgsZKAYm6WidDABXfgHO6vEfdsiL9bP0mfN2dLeIDK9SOmhPgkvK?=
- =?us-ascii?Q?g/2Z1P+UIjjlEiMWESCKFQUQ5wMzr6vuS5ZvP4+dLXp6gUPN8cLFRDo/uHQJ?=
- =?us-ascii?Q?rWAuB2DyVeKHPF7SzbuqBGa1VCw4Y3L7CkXfCBI0BiymkB3rYaop92hIgkwr?=
- =?us-ascii?Q?oZJqrsK7ESp1AS+oFPI9ZOYdPIHn9BaUI+Iarv82Z/+v5f4skD7mw/20aOcY?=
- =?us-ascii?Q?Glys3xBu486lKa5bAdqlJrAzj+TOUZjDyJDSsNkmns1r/e0/Eq5Zlxsg+GLU?=
- =?us-ascii?Q?mcV3muAMhDKFVLBBaMfOsEdV0JevrLwM3Ydr9IZnCwp9brdS8Kr7qWLaGVtD?=
- =?us-ascii?Q?mNja3is8Fev+k1/7vmrhtRQaJUCrbQe9E1mhxOrtHwk7GKhxX+70p0Ft9l8H?=
- =?us-ascii?Q?+x4H05kHr4HL3UbLo1OeQutcs3g2Z7yFDTVqI35LpZSCWzKPzOoTUTn7Fi06?=
- =?us-ascii?Q?T+Py+gu0+6N/0tFMAMvic48YRFpKxm64K2S3InItGUwHGoc1HahTjxCD3Smz?=
- =?us-ascii?Q?N7nNMwEAeOK4xssYt+toEQud46QGlaWchA5Xqv36I8sQZlIG2TkOR/s0cwMG?=
- =?us-ascii?Q?aKyUHdFTfR3dijPfZVijCb4aAohWPtisAp6zx8eU/5+pDuaVcZCOfv/Atqr4?=
- =?us-ascii?Q?Et12q8fYQFmh8smnBEHLCxbKZB45KuRKqM/C0ydAfzcP//Y5co25+lbRpRJa?=
- =?us-ascii?Q?D+VizHBWTqSIRd7dV0smUfcXZ10fVer5timlldw8gkd9wWtwt20HR3hBxJZw?=
- =?us-ascii?Q?CIZrpqwf1KiO/4OC1h5jJM6Cxuo=3D?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?vyXjvGrcYiZMP+r7o1moaJhOTsqTMPetN20gyFHp0ZzoZiDW3/ho6aYMZNkl?=
+ =?us-ascii?Q?vhhgb/Kl+ut92OS5D1QZH9jZ1vaZTNTM5JN75g0djaWBbqCP8OmS59n0HKAX?=
+ =?us-ascii?Q?fwScPNgSLaMKssTs2oDCCTNj2PazGTCj3porgCOfoUn8n1iGLbpItbsjuJOw?=
+ =?us-ascii?Q?zyt9i7BYIvni1O7QcXr+hj4U5P5ihayhkpC/G2REtuMzabjRnIZDkbzi5BJY?=
+ =?us-ascii?Q?j0diJIVntdmQRx28difG2Qv4KMfYgetiwZOXt18lzGuOLsqpTRlAwoKeDqXk?=
+ =?us-ascii?Q?LsMWsWUhB0PQBl9WKQsJJvEZHIqaY83QiGjVt3qSkrrEMn/Ff23F6piU4uFq?=
+ =?us-ascii?Q?bOx5rxuNieG3Nu7p6YuzJHBCRz+Qoh/u30lgP89fNbSHnlq968hMODXDm2nF?=
+ =?us-ascii?Q?xN1d3WNZQudXle6OtIEf6eNtUdtCKnt3bbKcIP8WI1yZPerlWQpGgGsB7yGt?=
+ =?us-ascii?Q?+jkOM4nzxUDTmLm49VocPfHvNBLheEDXyKGdoxiJPRXRmWmzF2iKEwZkvtmp?=
+ =?us-ascii?Q?EuyPA+cSfqlyotlpUbJbUd8TLXIOBAwURPOmCQdhbgv8/WNFZ9M0KK+bvftT?=
+ =?us-ascii?Q?XWE+QWSakjJWvpHUUgBFou/bFNdY1wmSgNUx2+fdwRZPwyyX8lbrdgUBZiaa?=
+ =?us-ascii?Q?ZNHZiTro0s5sWPwvxXGSyr0yAazWdPoNMc98+XLTO/Tb1hlaadxW7tHqvzJO?=
+ =?us-ascii?Q?DIZiUgi4L8gxURQ1Up0ge8+fpDPdMD1SQHAMtOqbsRhnvTxdcbgCkHMeZ6Vj?=
+ =?us-ascii?Q?paCQx7rFKrAq4ng229Zk0aeulAbVOwkSuQjBxfvOaA5B93lRujHBhh/hGpOr?=
+ =?us-ascii?Q?DcJeBq6EBssuNc61qUapMCgnfQ1iP2JjT0a/wCyfaNezJnLAr5KjODx82KdY?=
+ =?us-ascii?Q?/9o5XAaeBAX8WVetYZLKBYPT0sJObc/ljGPVql/8s/Ih+q6LDyF25S6tEyz2?=
+ =?us-ascii?Q?lEVeNUof8p5UZA6/OFPPdlIGBFb1DHDBs+YRw1HnnEAhoJ72jPSuNtOWhFBL?=
+ =?us-ascii?Q?QA87Dc3CzbYlyotIDAr55rqtjYC6ktcTkxRPnH74pmB0OtjBCkzqwFUKXcXy?=
+ =?us-ascii?Q?N49bxQwpE/m7qTj/s3hfa8t63ASQaw5phcJsGLQZ/YiEGq3/VGs7EUPUcq7z?=
+ =?us-ascii?Q?mIevLoqIwopanHV7DCNx9fS6ZjhYjw33bmbp2vAhhOUEGu3kIgrxg/YnVn+l?=
+ =?us-ascii?Q?bdkTlujxe6UWHQk6KBU6mncvct7GIvg5o/lqQ1UFfm50zoRHma1Lpvby/SoL?=
+ =?us-ascii?Q?aO02JzcjJLHt9Fk9+PAYUfjDm+77vxPB7wwOgp26lsasfNJkG2UhBmRKEuQb?=
+ =?us-ascii?Q?HyOv+jIz9of5T7PMGNwhlkkeja9/BpbP3nZz+VPogt2smSeG2kunivMhJ61T?=
+ =?us-ascii?Q?XcGyHkDlUJ+QzmCT4t9VsRZ4c+xYVjoeHG+jjQ1ZiA66lBb/INAF9SZ9AXg0?=
+ =?us-ascii?Q?K5ifJOz3LYA9otTtTUUCT9Ih8kVpF88aPry8dPlZPTkt3GeQSTwhkD418cNp?=
+ =?us-ascii?Q?PxoNDdkkCf/k+RHl2bWsMJ2Zuh3WSw+v74F3EimG6uF1ihs0Tqu97cVQ+yeV?=
+ =?us-ascii?Q?pkat1BqQXZCJRhu++LvBk6H0/KqLXae4q1AB1VQSRtBcB6ZLAWOgFiBqF1f+?=
+ =?us-ascii?Q?p9OCTYB8raFvfveUwDR4z+goDtvHvvMZrLfzjlmmXkKUcdfDXsAc3/sytGDT?=
+ =?us-ascii?Q?35SU+AP/7T4v090Nx1pYyE1DPmk=3D?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 X-Archived-By: <archiver.kernel.org>
@@ -109,12 +109,12 @@ MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: MW3PR12MB4572.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 582d893e-ac0b-4633-df40-08df3feab6cf
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Nov 2026 11:55:43.1228 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fcc617f4-bd3f-4c54-d498-08df3feab938
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Nov 2026 11:55:47.1827 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: R42cZYR5aTJCPRI0C+g/WEB9ZOiO93/L2t8r9MIAnJDEGgeEyJ2Gg7bW3UVFAfHO
+X-MS-Exchange-CrossTenant-userprincipalname: 4T8Jggtm1mCoXf4uaPineTDp+TVisZn1tiNTYZwk6Lq9itJ+7tTLSNyxCfUE4fGF
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV1PR12MB999279
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -133,75 +133,187 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+From: Zihao Mu <zmu@amd.com>
 
-A failed PTE walk can leave an allocated SDMA job with no commands, or
-no current job after submitting a full IB and failing to allocate its
-replacement. A final commit of partial work must handle both states.
+The public output fence is intentionally not updated for immediate VM
+updates. It can also be omitted on intermediate IB submissions. Neither
+case removes the need to order a later TLB invalidation after the SDMA
+commands have completed.
 
-Return without submitting when there is no job, and free an empty job
-instead of emitting an empty IB. Clear the job pointer after freeing
-or submitting it so that a later final commit cannot consume it twice.
+Keep an owned reference to the latest submission in the update context,
+including immediate and rollover submissions. Use that internal fence
+for range TLB handling and release it when each context is destroyed.
+Leave the public output-fence condition and DONT_PIPELINE policy alone.
+Return a nested table clear completion to its outer context so an early
+exit can also wait for that clear before finalizing the range.
 
-Based on Cascardo's earlier NULL/empty-job patch. Retain the current
-int-returning commit callback and scheduler layout.
+This establishes completion tracking before adding partial-error range
+finalization, so that finalization never depends on a later patch to
+recover an already submitted IB's fence.
 
-[zmu: Clear the job pointer after submission and retain the current API.]
-Link: https://lore.kernel.org/amd-gfx/20260914-amdgpu_vm_fixes-v1-1-d6d8355=
-91e0f@igalia.com/
-Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 Signed-off-by: Zihao Mu <zmu@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c          | 10 +++++++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h |  8 +++++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c       | 12 +++++++++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c     |  2 ++
+ 4 files changed, 25 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_vm_sdma.c
-index d3a5e848741..ade6c7aa15c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-@@ -91,6 +91,7 @@ static int amdgpu_vm_sdma_prepare(struct amdgpu_vm_update=
-_params *p,
- 	if (r) {
- 		p->num_dw_left =3D 0;
- 		amdgpu_job_free(p->job);
-+		p->job =3D NULL;
- 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/a=
+mdgpu/amdgpu_vm.c
+index 94b1cfe05e3..1e41f159ced 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -658,7 +658,9 @@ int amdgpu_vm_validate(struct amdgpu_device *adev, stru=
+ct amdgpu_vm *vm,
+ 		bo_base->moved =3D true;
+=20
+ 		if (vm->generation !=3D new_vm_generation) {
+-			r =3D amdgpu_vm_pt_clear(adev, vm, to_amdgpu_bo_vm(bo_base->bo), false)=
+;
++			r =3D amdgpu_vm_pt_clear(adev, vm,
++					       to_amdgpu_bo_vm(bo_base->bo),
++					       false, NULL);
+ 			if (r)
+ 				return r;
+ 		}
+@@ -1081,6 +1083,7 @@ int amdgpu_vm_update_pdes(struct amdgpu_device *adev,
+ 		amdgpu_vm_bo_idle(entry);
+=20
+ error:
++	dma_fence_put(params.last_update);
+ 	drm_dev_exit(idx);
  	return r;
  }
-@@ -107,14 +108,23 @@ static int amdgpu_vm_sdma_prepare(struct amdgpu_vm_up=
-date_params *p,
- static int amdgpu_vm_sdma_commit(struct amdgpu_vm_update_params *p,
- 				 struct dma_fence **fence)
+@@ -1286,7 +1289,7 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev=
+, struct amdgpu_vm *vm,
+ 		goto error_free;
+=20
+ 	if (params.needs_flush) {
+-		amdgpu_vm_tlb_flush(&params, *fence, tlb_cb);
++		amdgpu_vm_tlb_flush(&params, params.last_update, tlb_cb);
+ 		tlb_cb =3D NULL;
+ 	}
+=20
+@@ -1294,6 +1297,7 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev=
+, struct amdgpu_vm *vm,
+=20
+ error_free:
+ 	kfree(tlb_cb);
++	dma_fence_put(params.last_update);
+ 	amdgpu_vm_end_critical(&params);
+ 	drm_dev_exit(idx);
+ 	return r;
+@@ -2710,7 +2714,7 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct=
+ amdgpu_vm *vm,
+ 	if (r)
+ 		goto error_free_root;
+=20
+-	r =3D amdgpu_vm_pt_clear(adev, vm, root, false);
++	r =3D amdgpu_vm_pt_clear(adev, vm, root, false, NULL);
+ 	if (r)
+ 		goto error_free_root;
+=20
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h b/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_vm_internal.h
+index 8ebb0b03329..71fc1fffaa6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h
+@@ -77,6 +77,11 @@ struct amdgpu_vm_update_params {
+ 	 */
+ 	struct amdgpu_job *job;
+=20
++	/**
++	 * @last_update: owned reference to the last SDMA completion fence
++	 */
++	struct dma_fence *last_update;
++
+ 	/**
+ 	 * @num_dw_left: number of dw left for the IB
+ 	 */
+@@ -116,7 +121,8 @@ struct amdgpu_vm_update_funcs {
+ };
+=20
+ int amdgpu_vm_pt_clear(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+-		       struct amdgpu_bo_vm *vmbo, bool immediate);
++		       struct amdgpu_bo_vm *vmbo, bool immediate,
++		       struct dma_fence **last_update);
+ int amdgpu_vm_pt_create(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 			int level, bool immediate, struct amdgpu_bo_vm **vmbo,
+ 			int32_t xcp_id);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_vm_pt.c
+index c73eb416c0e..9955be111ce 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+@@ -353,6 +353,7 @@ static void amdgpu_vm_pt_next_dfs(struct amdgpu_device =
+*adev,
+  * @vm: VM to clear BO from
+  * @vmbo: BO to clear
+  * @immediate: use an immediate update
++ * @last_update: optional output for the internal clear completion fence
+  *
+  * Root PD needs to be reserved when calling this.
+  *
+@@ -360,7 +361,8 @@ static void amdgpu_vm_pt_next_dfs(struct amdgpu_device =
+*adev,
+  * 0 on success, errno otherwise.
+  */
+ int amdgpu_vm_pt_clear(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+-		       struct amdgpu_bo_vm *vmbo, bool immediate)
++		       struct amdgpu_bo_vm *vmbo, bool immediate,
++		       struct dma_fence **last_update)
  {
--	struct amdgpu_ib *ib =3D p->job->ibs;
-+	struct amdgpu_ib *ib;
- 	struct amdgpu_ring *ring;
- 	struct dma_fence *f;
+ 	unsigned int level =3D adev->vm_manager.root_level;
+ 	struct ttm_operation_ctx ctx =3D { true, false };
+@@ -390,11 +392,11 @@ int amdgpu_vm_pt_clear(struct amdgpu_device *adev, st=
+ruct amdgpu_vm *vm,
+ 	if (!drm_dev_enter(adev_to_drm(adev), &idx))
+ 		return -ENODEV;
 =20
-+	if (!p->job)
-+		return 0;
-+
-+	ib =3D p->job->ibs;
-+	if (!ib->length_dw) {
-+		amdgpu_job_free(p->job);
-+		p->job =3D NULL;
-+		return 0;
-+	}
-+
- 	ring =3D container_of(p->vm->delayed.rq->sched, struct amdgpu_ring,
- 			    sched);
++	memset(&params, 0, sizeof(params));
+ 	r =3D vm->update_funcs->map_table(vmbo);
+ 	if (r)
+ 		goto exit;
 =20
--	WARN_ON(ib->length_dw =3D=3D 0);
- 	amdgpu_ring_pad_ib(ring, ib);
+-	memset(&params, 0, sizeof(params));
+ 	params.adev =3D adev;
+ 	params.vm =3D vm;
+ 	params.immediate =3D immediate;
+@@ -429,6 +431,9 @@ int amdgpu_vm_pt_clear(struct amdgpu_device *adev, stru=
+ct amdgpu_vm *vm,
 =20
- 	if (p->needs_flush)
-@@ -122,6 +132,7 @@ static int amdgpu_vm_sdma_commit(struct amdgpu_vm_updat=
+ 	r =3D vm->update_funcs->commit(&params, &vm->last_update);
+ exit:
++	if (last_update && params.last_update)
++		swap(*last_update, params.last_update);
++	dma_fence_put(params.last_update);
+ 	drm_dev_exit(idx);
+ 	return r;
+ }
+@@ -543,7 +548,8 @@ static int amdgpu_vm_pt_alloc(struct amdgpu_vm_update_p=
+arams *p,
+ 	 */
+ 	pt_bo->parent =3D amdgpu_bo_ref(cursor->parent->bo);
+ 	amdgpu_vm_bo_base_init(entry, p->vm, pt_bo);
+-	r =3D amdgpu_vm_pt_clear(p->adev, p->vm, pt, p->immediate);
++	r =3D amdgpu_vm_pt_clear(p->adev, p->vm, pt, p->immediate,
++			       &p->last_update);
+ 	if (r)
+ 		goto error_unpin;
+=20
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_vm_sdma.c
+index ade6c7aa15c..02f3271d96a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+@@ -133,6 +133,8 @@ static int amdgpu_vm_sdma_commit(struct amdgpu_vm_updat=
 e_params *p,
-=20
  	WARN_ON(ib->length_dw > p->num_dw_left);
  	f =3D amdgpu_job_submit(p->job);
-+	p->job =3D NULL;
+ 	p->job =3D NULL;
++	dma_fence_put(p->last_update);
++	p->last_update =3D dma_fence_get(f);
 =20
  	if (p->unlocked) {
  		struct dma_fence *tmp =3D dma_fence_get(f);
