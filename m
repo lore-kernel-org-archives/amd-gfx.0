@@ -2,29 +2,29 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C32B606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2EC6606A335
 	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 16:09:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=lzjeIqu+
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=ZnulfA9B
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF04710FDE7;
-	Wed, 11 Nov 2026 16:09:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E67510FDE9;
+	Wed, 11 Nov 2026 16:09:24 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C769010FD62;
- Wed, 11 Nov 2026 16:09:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 21D7010FD98;
+ Wed, 11 Nov 2026 16:09:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=IH1IrCh1AI5My9yEGrI2C/SDhX0IyneiDvEbL4p4nLg=;
- t=1794413342; x=2109773342; b=lzjeIqu+dRTexTYq9BVvjii6GF5RHnEDBqs1lAU8qREtYCG
- btb/VE+9vc/AYyy0IDtYEXzbVQdz6sXDrwVPxXXBl6Sbt6b52CymeYI3QkcDHefx4yl9FVDuMDzEU
- EmyB95EyyNus8mJU9GQ8IM8b7coahBuuhnw7e9dCS6R3xzfbiREwkqHmrrkt4b8i0LppOkD1sEyvV
- AEAaeZMYbIyfVOKrgham6mOmRg2Qc60fJ6vhE7RmmZJfpSkcDgwTO/hSUN9+tQurJziSwv87low/l
- Aj+71ACVJZxdHFqxmfHY7YyM81NHoOTCPJJoHqd8ZyW3HCzhZq5f/l4nxbfadmbQ==;
+ Cc:To:From:From:Reply-To; bh=7iO8yRKiK2KoQa6hRzM46vYrUp4atmnTKqY7wydsfBM=;
+ t=1794413340; x=2109773340; b=ZnulfA9BclFj1rztN/UgjUak9LmgNkigRlsNzhVeucMrMwL
+ 9/Jd5YPWukuhv0N+6+pQNRztnQjG/YVe3PSXR6NC0r4KnthWyeQJEaPm6z9hP/XVpK16oER8vXeHB
+ 6Bp0i4ZkivVbvYKeTiF1AgrDEEGpEMQp8dfqYs33tNgiCdrVc/3kiC8k9znOCdFv218R7dB5ggNUE
+ E9JnCk8yIzFcUI2iOMxULfuucCpGoPWkQUAQggCWQCM5Dy2grpQHcKsDtRnbBJGRlBhMknyl+Jv+P
+ oZHwFBWiqrjBDkbtJ0eYFKic77Lby/I6usI+T7j2h5aS94K/TTmcB1LzJcyuUIbA==;
 Received: from 193.red-79-147-123.dynamicip.rima-tde.net ([79.147.123.193]
  helo=killbill) by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xRAsK-008u8Y-AZ; Wed, 11 Nov 2026 17:08:40 +0100
+ id 1xRAsI-008u8Y-8x; Wed, 11 Nov 2026 17:08:38 +0100
 From: Melissa Wen <mwen@igalia.com>
 To: airlied@gmail.com, alexander.deucher@amd.com, alex.hung@amd.com,
  aurabindo.pillai@amd.com, christian.koenig@amd.com, contact@emersion.fr,
@@ -45,9 +45,10 @@ Cc: Uma Shankar <uma.shankar@intel.com>,
  intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, louis.chauvet@bootlin.com,
  John Harrison <John.Harrison@igalia.com>
-Subject: [PATCH v5 10/15] drm/amd/display: make shaper bypass mode cleaner
-Date: Wed, 11 Nov 2026 17:05:23 +0100
-Message-ID: <20261111160814.21326-11-mwen@igalia.com>
+Subject: [PATCH v5 08/15] drm/atomic: check if an active colorop has a blob if
+ its type requires one
+Date: Wed, 11 Nov 2026 17:05:21 +0100
+Message-ID: <20261111160814.21326-9-mwen@igalia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261111160814.21326-1-mwen@igalia.com>
 References: <20261111160814.21326-1-mwen@igalia.com>
@@ -72,62 +73,94 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Start shaper transfer function setup in bypass mode, i.e. tf->type ==
-TF_TYPE_BYPASS and let the helper checks set it to a different mode
-according to userspace request. It's aligned with current blend setup.
+If colorop TYPE requires a data blob, userspace have to set a blob
+whenever enables this colorop, i.e. when setting this colorop bypass
+property to false. Clarify this in the documentation and reject the
+atomic commit if colorop TYPE requires a DATA but set bypass to false
+and no blob submitted.
 
+Fixes: e5719e7f1900 ("drm/colorop: Add 3x4 CTM type")
 Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_color.c   | 15 +++++----------
- 1 file changed, 5 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/drm_atomic.c  | 22 ++++++++++++++++++++--
+ drivers/gpu/drm/drm_colorop.c |  5 ++++-
+ include/drm/drm_colorop.h     |  6 ++++--
+ 3 files changed, 28 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-index 59dfae5a4a26..6455898e2da9 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-@@ -1766,10 +1766,12 @@ __set_dm_plane_colorop_shaper(struct drm_plane_state *plane_state,
- 	struct dc_transfer_func *tf = &dc_plane_state->cm.shaper_func;
- 	const struct drm_color_lut32 *shaper_lut;
- 	struct drm_device *dev = colorop->dev;
--	bool enabled = false;
- 	u32 shaper_size;
- 	int i = 0, ret = 0;
+diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+index 36c9550c2749..d8b56fa47d45 100644
+--- a/drivers/gpu/drm/drm_atomic.c
++++ b/drivers/gpu/drm/drm_atomic.c
+@@ -990,8 +990,13 @@ drm_atomic_add_pipeline_colorops(struct drm_atomic_commit *state,
+  * drm_atomic_colorop_check - check new colorop state
+  * @new_colorop_state: new colorop state to check
+  *
+- * Ensure that the colorop in @new_colorop_state belongs to an active color
+- * pipeline, i.e. it's in the chain of colorops set to the color_pipeline
++ * Check that a colorop whose TYPE requires a data blob has one when it's
++ * enabled, i.e. userspace can't clear (or never set) the DATA property while
++ * taking the colorop out of bypass, since drivers would have nothing to
++ * program.
++ *
++ * Also ensure that the colorop in @new_colorop_state belongs to an active
++ * color pipeline, i.e. it's in the chain of colorops set to the color_pipeline
+  * property of current, old or new plane state.
+  *
+  * Userspace is allowed to finalize colorop's settings in the same commit that
+@@ -1015,6 +1020,19 @@ static int drm_atomic_colorop_check(const struct drm_colorop_state *new_colorop_
+ 	if (state->duplicated)
+ 		return 0;
  
-+	tf->type = TF_TYPE_BYPASS;
-+	dc_plane_state->cm.flags.bits.shaper_enable = 0;
++	/*
++	 * Reject if colorop TYPE requires a DATA but set bypass to false and
++	 * no blob submitted
++	 */
++	if (new_colorop_state->colorop->data_property &&
++	    !new_colorop_state->bypass && !new_colorop_state->data) {
++		drm_dbg_atomic(new_colorop_state->colorop->dev,
++			       "[COLOROP:%d:%d] enabled without a DATA blob\n",
++			       new_colorop_state->colorop->base.id,
++			       new_colorop_state->colorop->type);
++		return -EINVAL;
++	}
 +
- 	/* 1D Curve - SHAPER TF: find state */
- 	old_colorop = colorop;
- 	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
-@@ -1803,7 +1805,7 @@ __set_dm_plane_colorop_shaper(struct drm_plane_state *plane_state,
- 		ret = __set_output_tf(tf, 0, 0, false);
- 		if (ret)
- 			return ret;
--		enabled = true;
-+		dc_plane_state->cm.flags.bits.shaper_enable = 1;
- 	}
- 
- 	if (lut_state && !lut_state->bypass) {
-@@ -1819,17 +1821,10 @@ __set_dm_plane_colorop_shaper(struct drm_plane_state *plane_state,
- 			ret = __set_output_tf_32(tf, shaper_lut, shaper_size, false);
- 			if (ret)
- 				return ret;
--			enabled = true;
-+			dc_plane_state->cm.flags.bits.shaper_enable = 1;
- 		}
- 	}
- 
--	if (!enabled) {
--		tf->type = TF_TYPE_BYPASS;
--		dc_plane_state->cm.flags.bits.shaper_enable = 0;
--	} else {
--		dc_plane_state->cm.flags.bits.shaper_enable = 1;
--	}
--
- 	return 0;
- }
- 
+ 	/* Not a plane colorop */
+ 	if (!plane)
+ 		return 0;
+diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
+index 95da03d6c65c..842fd7dc31e6 100644
+--- a/drivers/gpu/drm/drm_colorop.c
++++ b/drivers/gpu/drm/drm_colorop.c
+@@ -55,7 +55,10 @@
+  * enumerated 1D curves, 1D LUTs, 3D LUTs, matrices, etc. See the
+  * &drm_colorop_type documentation for information on each type.
+  *
+- * If a colorop advertises the BYPASS property it can be bypassed.
++ * If a colorop advertises the BYPASS property it can be bypassed. If a
++ * colorop advertises DATA and BYPASS properties, BYPASS can only be set to
++ * false if DATA contains a blob. An atomic commit that leaves such a
++ * colorop enabled without a blob will fail, returning -EINVAL.
+  *
+  * Information about colorop and color pipeline design decisions can be
+  * found at rfc/color_pipeline.rst, but note that this document will
+diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
+index 11a88e9477f1..952c30b06d83 100644
+--- a/include/drm/drm_colorop.h
++++ b/include/drm/drm_colorop.h
+@@ -283,8 +283,10 @@ struct drm_colorop_state {
+ 	/**
+ 	 * @data:
+ 	 *
+-	 * Data blob for any TYPE that requires such a blob. The
+-	 * interpretation of the blob is TYPE-specific.
++	 * Data blob for any TYPE that requires such a blob. The interpretation
++	 * of the blob is TYPE-specific. Whenever @bypass is false, @data must
++	 * be provided; otherwise, the atomic check will reject an active
++	 * colorop without a blob.
+ 	 *
+ 	 * See the &drm_colorop_type documentation for how blob is laid
+ 	 * out.
 -- 
 2.53.0
 
