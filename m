@@ -2,98 +2,126 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61CA1606A321
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 17:07:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92CD5606A31C
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 17:10:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GAKNXSQX
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=tsziDafB
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE8BD10FC99;
-	Wed, 11 Nov 2026 17:07:47 +0000 (UTC)
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com
- [74.125.82.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73EA510FC79
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Nov 2026 17:07:41 +0000 (UTC)
-Received: by mail-dy1-f174.google.com with SMTP id
- 5a478bee46e88-37605faade6so91405eec.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Nov 2026 09:07:41 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794416861; cv=none;
- d=google.com; s=arc-20260327;
- b=Fwoo4gGShf62WBYC9Be5UgVlcuYnQ4yl8TuqDOzo1Cx08BDZwPUUPcou96X988PFpE
- +hsMcfoT6hWaS96ZgTo0cQ3kQ4Lh5VzNX7dEohYCcQJjlVlLz+kmDGEzYsPw+ZYXDw+c
- ntcc8uPeM7H6cf/wbDwXeWhF8LJD/XzBISL0HrL9FOlF4KVlwnjlS8GIGm0mz6lUKnm8
- Ki4QICxtwIkqge/yOZNIoKgrq4b/WWbAWmCnGD7EWOFkHL6lSqUnDs23u6Rq1M9hyTpx
- zYd2QQ9kURG4qpXIbS5t74p5RdRHE91l0DL4IOT/l0EPjCd7NspZ+TglyzrLs7EVgnJa
- xScA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=m8C3iSuJZb/bfGc8EsYwKela7J4KFddbxGMaPc1LKNI=;
- fh=GZo5ZrplEoxCrb3VjtF9b+EdUWu37jlPswdCleFi1lg=;
- b=A37ceH4BnowQek9Tv08gdZ3v7suKphKeDTEraWDaoVFLa4nFe8MvqqvT+eGHcjQBnI
- JxqG7VZa7B3G79k+HsQpIUnM5feNDpI0e3dOwQSSOBnzHgRPLVMrVI9NoEY04UTu6ka1
- XMukm+UPfEFNcMClunsBi/zZaHGoacVGuMh8blD7WCTtjYtv0nCdZ6n5KnjwGzz8UbEb
- RZu+DPMg3w9F4NIyVby93Qdla8TM50uKnYmbkl/HhDw1NCVDYipBIsYFthJvrJXZI2Ca
- swIHaHdmM88QORz3Up9AUGSpks3owvxQZxmleeS9K4VrbThDXZa6USEpePJidYnHs1Fw
- Fn0Q==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794416861; x=1795021661; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=m8C3iSuJZb/bfGc8EsYwKela7J4KFddbxGMaPc1LKNI=;
- b=GAKNXSQXoFG3nw+yvoepzj24227Y9kdfP4f8jx6+VjzjaxSRGj3XSE3pQjSnZ/PVj6
- s0mKXRlpDJAggiaWAhVFWiAW74mJpH4SEjlOepwXpVdo6Yv50eKL0BCp7rwPMXB7CKJF
- +t+V1rLO+PXbsv61KxGrDFxI4RYN3+BUrKcAMZeMr7HGSpe5p1yWgpeARjeXKJSbJxUE
- 98Tkyq8J3m7g0bNGOG/D6nj3jh7MjJW13/K2DJdvQGR4jt5762fuBcF/O/J3VU6Za7qS
- mgi8Ze+ypRqhtiyhoPVdvMqCroWTUQq61HpqvCHrMHZBM1SQ+LIBjLdGFobgBg+/fKPs
- 2+zg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794416861; x=1795021661;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=m8C3iSuJZb/bfGc8EsYwKela7J4KFddbxGMaPc1LKNI=;
- b=OJ0nrgYmBVStYisUPY/40ju80P5BUmpmvyN1VxQkvTcFYxYKdp8t2lYdUUdCl4kbhP
- Bg9HxEbwVKNnKqZqAvqp47OhcYJpBkbieKa0TfCs9dh2msdvUzGQbGtQEQhT0d8HuutX
- lif8b3dE/WrfFKvSlgopxy89kTuwhuREL5/w6Kbg0Uoyk7S2cPZQgEup4tqZVaV1+GWv
- GrmppwaDE8b59BuwP1apvFsZeC0EWCYGAhuSOWFCqZxGnck5UC7pOgtZY2vjEWzosCOf
- t39DOFyZ5RjW+EdEhzaMTfliKFoigLxT/Uos15SwMwYxvOIEFky67N5NVL86oaV6RCGi
- ARWw==
-X-Forwarded-Encrypted: i=1;
- AL+hErESlWmvBwmL4nlSMSdXuz2+p6GR96kcEeutu2jwDSgYiAa/UhSP2mk91J1OaIz9kcbQsccHDJ5+@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/chNkxZR38VEuW1Zzv1g0A2Xgu9yCSFlEnlSPNjJBmiANdFPFo
- 1mkn7xUZW4FwAWMqnCtpdAn0Izg1kWUBjAFhxrW/zY1QxqjAEb2vP+RmxWCtfEa8pDUYDWLS8So
- T5PtTsBYXuIcBWKsfXodtgnanqP5BDF4=
-X-Gm-Gg: AYBFou2HQqapvzJ0EKHkyC4G4HlVzujg4ksDiFb5ivzz0TTRUzrgEUNmeBCy3RIqV70
- SgpdsQAcxW9Z1WoHVjb9iB68mSrvoBdkPJxoWCYhLICv0Pd3rUDoWoG4mrQM7NBCb2KSE5rAFGU
- 3UyNPwn80fDP4UZR0oRHH41k1hU3wkvkLi1cFkayXSxx/TVUVjeihFRup3kdXsL0B3oOJndV7Es
- woMo027mmIr3tMSA0ZFjlnC/XyMKy4O/OO/wIGVRtmDrI36IL03zMLxjAi+jl/VYkE72jr3hPvp
- 12gK46Ibm/WWhLKCJQDFILJq1aDxCmBjVsykzKS/XPUwEh34MMLnswMs+3AfotgWCKQKredQhPw
- VjTfCMsbbLSYBoWTKpSla4NujwFR0VB3fnVrwpYGpTPyUOvFBjfgglj25U05coRLppaYeDnE1yA
- xbaB2ILsv7hbVMUdcJxIilGxlarGws2jw0mDIeQCcznAxNU3YobvvFTMtv8Q0=
-X-Received: by 2002:a05:7022:3a86:b0:143:5c2a:e45f with SMTP id
- a92af1059eb24-1b3c01600d4mr4530976c88.0.1794416860548; Wed, 11 Nov 2026
- 09:07:40 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31C8710FCB6;
+	Wed, 11 Nov 2026 17:10:28 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013009.outbound.protection.outlook.com
+ [40.107.201.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F6D710FC71;
+ Wed, 11 Nov 2026 17:10:21 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gD0hWWhO9C1DpJ/FrSA9/MIfGbc943JIxWUwN/fsS3xKXPqZMV674F7B/NfXKfkh0unh7EcYv87qe7MhiO4yDxBmbKv8uxgGqf8tWmCyquUkRmTtFs3Dg7XGGB6m/JwahJQ+sTQlT2gizPLk4MlS08dGadJDlr1SXVjcuA2VDP6Zju+GfjM3mC+0sHDJfrOR2iptf+kWraILuI8jqexMGatkXIZsMZfVTXMBaWsPrMoSIZJajA4n3MH5xVKMfh0xJRaYLnZDk1+FZfGVJJDWDouTmte0JEJfuu549wi7qhcSHOhVs+zVPr2L/jTyKrWYNTkvWMivVLIW2GESsyNruQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=i9uyzYOsKSWL8nda0trx7hUSH0pbxRL3k184tQVm6Go=;
+ b=EzRnq/9lbPhSJ9nmzAowaNAGjePS79sIOYUhlltS8nYUJ0aTqqicudnStO1A+qOt0EEfoH6F7aycs5fdAGgSQPQ4IH3N7p9+ciwsD/y+S1R7IVbYXqI5vicDd+Bp/QuumCg92yNYE4O8ripvnC857pR5uK3DzJ6/mfvWPacLpqsV/Qvn1JJmuUEqZM2hsOkeZDLqk873NZ4ZpV0DaHFz2ASevm/eZyCOt7ta+sAwCC7g/9If0Ru7rmXGxmA+fW45xfrJmQgoXSFciAWwPTDsJILseO6Z8p+PQFMs9iOGGQdfZ3qvoLW1CZq/+TOE+WZZZ0iXRy8TkLvsopnIvKvPgg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=i9uyzYOsKSWL8nda0trx7hUSH0pbxRL3k184tQVm6Go=;
+ b=tsziDafB/NFo6mrhoEL5pUrXGwwOfBYrvtO28yPq+1ugjNOs99E8rmJUMwbNFIxbXsuL01QoSgP/Z/nAYYU662M3T7s/dvRJJBn8Ql/BbD4pZ/vHVm2cshogsTZDmUWCQozfocs31q8ZjYD604LxSm605bqQkJMERS81Y0vsr98=
+Received: from PH7PR12MB6812.namprd12.prod.outlook.com (2603:10b6:510:1b6::15)
+ by CH9PR12MB987669.namprd12.prod.outlook.com (2603:10b6:610:312::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Wed, 11 Nov
+ 2026 17:10:18 +0000
+Received: from PH7PR12MB6812.namprd12.prod.outlook.com
+ ([fe80::a6a8:1bde:c3fb:1069]) by PH7PR12MB6812.namprd12.prod.outlook.com
+ ([fe80::a6a8:1bde:c3fb:1069%4]) with mapi id 15.21.0615.008; Wed, 11 Nov 2026
+ 17:10:17 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "jiangwang@kylinos.cn" <jiangwang@kylinos.cn>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>
+CC: "airlied@gmail.com" <airlied@gmail.com>, "simona@ffwll.ch"
+ <simona@ffwll.ch>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH] drm/amdgpu/gfx_v9_0: Add gfxoff quirk for Lenovo Picasso
+ 318F
+Thread-Topic: [PATCH] drm/amdgpu/gfx_v9_0: Add gfxoff quirk for Lenovo Picasso
+ 318F
+Thread-Index: AQHdcO5qImP/P7aB6Ueq8Af3p5CPT7cpHRfw
+Date: Wed, 11 Nov 2026 17:10:17 +0000
+Message-ID: <PH7PR12MB68127DC58AC94207ED76ACB6F7712@PH7PR12MB6812.namprd12.prod.outlook.com>
+References: <20261110083453.1008827-1-jiangwang@kylinos.cn>
+In-Reply-To: <20261110083453.1008827-1-jiangwang@kylinos.cn>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Enabled=True;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SetDate=2026-11-11T17:10:02.0000000Z;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Name=AMD Public
+ v26; MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_ContentBits=3;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Method=Privileged
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH7PR12MB6812:EE_|CH9PR12MB987669:EE_
+x-ms-office365-filtering-correlation-id: 4b73a3a2-455b-4100-93b8-08df4016a8ff
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|23010399003|376014|366016|1800799024|38070700021|260925021311599003|260925021911599003|260925022911599003|10067099003|11063799006|56012099006|261022105027099003|261021123027099003|261021121427099003|261026121527099003|261026140227099003|261028144727099003|261102123227099003|261009223027099003|22082099003|18002099003;
+x-microsoft-antispam-message-info: v6hLZxYqEq1LPDP4KGtknDdlDA8vqRCBOKIYazLbqSyEKz2VdYHQHzXiGvcMBQ3YM+l0IbVHU8pUREmZYk2PmdLITshOykRS8NaiXVNlUBloKYEdPj85F/A5Ff5kO63w6KTTberUetLb3JFIEOgQ6ZMpiHjLZIo2RObPzckS7f58fNT/pE2dp5jncABV/qqlwnhrz2cf3gQaXbbsHU+4iw4QDaSy0iTGQs/GiOyryEyu/sXkQj660qfKBsa/rNbQwtVr45+bN1T/mHzkDSH8vrG3fvCoWfVwE6fMTukyQ9kuSlRF0j6tKIzIf8RCz81xZ5/6f21GDYZNVboGubrN8hH+Fca8J/kTqsXav0c4QuSx+C1H1GVS752efRQwBMu8QmGDJi7uQmw/zl+coNLrj+jxG8MR9EKyYX9CdcMgq1rHCIbQ0OK33ob9vXtspBm9VizQyweDH2BIFO+f7r5Vxxd4Jk457NfH7NCyvirU5K4Bne9wTOKQ870s/jcNi6tsdg5GnqtVrqwhX/mnY3bz4BJbvpC4zBhXnMyZZtP2667wiKL0UZKuOgzeOYHH5HNGCmqNaRQPGFkN5HNMN+SFMpGM8f4U9ShFxareKz3iVI/gAv567QUvhOinLW6xq+TGcp0r6iq9KcrBfiS14SmSLxFQmdfQu/kByEHlLP0DKeg=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB6812.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(38070700021)(260925021311599003)(260925021911599003)(260925022911599003)(10067099003)(11063799006)(56012099006)(261022105027099003)(261021123027099003)(261021121427099003)(261026121527099003)(261026140227099003)(261028144727099003)(261102123227099003)(261009223027099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?u5/ZdspY5hsPGpPflxlUVkmCqRSRi8T/DeyG5UkX5JYqIWUiP4I6/i02Ar/a?=
+ =?us-ascii?Q?MUeSoSlsvu8zijKUTicemi/H5dALnxbo0PDod5ai6tvuqQ1hwxAkz/SlDc0S?=
+ =?us-ascii?Q?twFiIM8x2FVhluoEGKhFf7VZGoP5Y+zPWnT24K2FCCyGcnaIUidbNdfV/GIO?=
+ =?us-ascii?Q?AFjkVQbxgKBZYl7FLqpadooCou0QKjKSf1wKrSIj0aarQSSXpA3GhGdt5bPN?=
+ =?us-ascii?Q?AnHXg3nzgO0rkBU8PARvPpFlUC6xjG0fNMUX/FDDUvCga6NYMX23chBBggJl?=
+ =?us-ascii?Q?ulVXGKaggMrNh7QCApop7vYniGvE0aktS6QdVIKrWrjPbf5eHQv1l3cHIut1?=
+ =?us-ascii?Q?Dq/v9bn+NzbTG2Ka4Z8RYk23W1dB4B6Xoq4yXUqtFHu6fpQFldBFUqqUfDDL?=
+ =?us-ascii?Q?IIcqAOP/qys4EQdglkr7yWL4xaPtRL7UDIPBxEXpgL3HF25HcvYGNwPpc2Uv?=
+ =?us-ascii?Q?LFd15n+BlHBm+Htn8KZdj1J362hleBDdiWodSAO9IWF1UpaXk0m9oAU8+mA6?=
+ =?us-ascii?Q?PFQMjnCqByFGGMvSyeWxVggsFIeal1Xx2ZRVG7pv5Ykzv0HaXdm0vx6wuJlQ?=
+ =?us-ascii?Q?/g6S39hS9WOByWqnXY5vDEv70nMpFxui5f8rIKH6jYDv3fHgcSjuR3Y0uPLM?=
+ =?us-ascii?Q?AronAqyrPXSh+Ja6w+2rF5flgw3hW7YiNLFIoMp6Fbk0jttbg6RryZJF2Kog?=
+ =?us-ascii?Q?nFC1+3Qibf67gBWWFZgqIhwci1bCMNkVwH83a8GxSD6EAyiHhytjwepRKI/4?=
+ =?us-ascii?Q?MZHfggNjb1CDCMWUCC90OLKuKqz0CoRCXHoxawYba4vxWgLpkMzxt0G9Wv/l?=
+ =?us-ascii?Q?2v16JFTzzvdjR1jGYKYwDazIJ9dHs5bUyI79UNJQmS5PuUNBRq6KBaZohd89?=
+ =?us-ascii?Q?EJrAV5pxIKBh9t3theQJrsfmubVy/t0FrO0TOuuv5KX8woDD+bjsxID216jP?=
+ =?us-ascii?Q?8LC4YBDqbYQvWf1AhMy+6h5w+wY4fsIKniK2ln+JeaIo+xJ3Tpa/7PMLpQv0?=
+ =?us-ascii?Q?BvS2LOLXTn4qmxsPVZ1/xj6nI4pXtr4rxsR1uWcYfPia/hpsIKUU8zV9G0zx?=
+ =?us-ascii?Q?lp9gK70WiSto5clZdhT4t8uXYSyd2pkwg1gVNgoxZlosez8D2wup69frnZoA?=
+ =?us-ascii?Q?5eJuiQwdTCY0zt9wNhjKbkve5BSgUW/on7OKmrTdTR979papF8YvDvngjyEm?=
+ =?us-ascii?Q?cr3l9yzgbAfLO6T4aC45kviRzx9A7rxCz7Fnha82UqqhSPdgxbNaKoWIf3zq?=
+ =?us-ascii?Q?sq5vRRACWGU1Gem5zxtlLiNTaWA9t8FSh2LvlgzAfH9Dg48GzsC1tIPNP/o2?=
+ =?us-ascii?Q?2Au3kVxj2cvLGt2DJ/GzTYnBekdmTjW7n9TyMdlDQuOICf3jcS5sCnfjcN+g?=
+ =?us-ascii?Q?IfCy08SmBKC392aVdOKLqgqYuz+ZhqJlU8DCTedl/UAxwv9qaDd25WmYA5wi?=
+ =?us-ascii?Q?R7Q45OetncLO/YWbHXLN04RaScw2kyexI0E1lyWwesGjwgBJ/LPY8FuP+XRI?=
+ =?us-ascii?Q?uyqUMOFIfSqIj7XcrSMOS67E/JjRFo0Fgh2MVRTFQ9lzHO0KlH0bUxdCrYm1?=
+ =?us-ascii?Q?zE8uap25WyzDHRUiNQnKlY6qjrzbFKhMHQLZi11JodSUn+ppba7m/fTZkIOi?=
+ =?us-ascii?Q?MdIY/AWxwQgp8XQYDirsK6SSWKU3cre1JkgJR97jY8mz0vbJnu537y5lL4Ji?=
+ =?us-ascii?Q?iBwJ472nO1EVBlSaUj1Ew3L/Dltlo5q4UObzgZTMYBtinNAQ?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261109155215.3946844-1-amisiurov@cloudlinux.com>
-In-Reply-To: <20261109155215.3946844-1-amisiurov@cloudlinux.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 11 Nov 2026 12:07:28 -0500
-X-Gm-Features: AclHuK-_9BWEPd6xXKjNjzph_kbOJc93rFAg-o-qHWWs0SN7OfCKCcfKPgpijZs
-Message-ID: <CADnq5_N=v=k0e=+aqwohNMoKEmoCbMj5PyEM38_fKa=h6O1Z=A@mail.gmail.com>
-Subject: Re: [PATCH] drm/radeon: Bound GPIO I2C table entry count from VBIOS
-To: Andrey Misiurov <amisiurov@cloudlinux.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB6812.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4b73a3a2-455b-4100-93b8-08df4016a8ff
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Nov 2026 17:10:17.8308 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: auGR3ys3dwuXVbqwWsmuQ9K9ikHjowEXoXToiy6hPqdJwg1DEBKX/dGinFVQCG3o95axsl8DTR3I3F+/MkIO+A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH9PR12MB987669
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,102 +132,80 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,T_PDS_OTHER_BAD_TLD autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Reviewed and applied.  Thanks!
+Public
 
-On Tue, Nov 10, 2026 at 3:41=E2=80=AFAM Andrey Misiurov
-<amisiurov@cloudlinux.com> wrote:
+> -----Original Message-----
+> From: jiangwang@kylinos.cn <jiangwang@kylinos.cn>
+> Sent: Tuesday, November 10, 2026 3:35 AM
+> To: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
+> <Christian.Koenig@amd.com>
+> Cc: airlied@gmail.com; simona@ffwll.ch; amd-gfx@lists.freedesktop.org; dr=
+i-
+> devel@lists.freedesktop.org; linux-kernel@vger.kernel.org; Wang Jiang
+> <jiangwang@kylinos.cn>
+> Subject: [PATCH] drm/amdgpu/gfx_v9_0: Add gfxoff quirk for Lenovo Picasso
+> 318F
 >
-> radeon_atombios_i2c_init() derives the number of GPIO I2C entries from
-> the size field of the VBIOS GPIO_I2C_Info table and stores a bus for
-> every valid entry in rdev->i2c_bus[i], which has RADEON_MAX_I2C_BUS
-> (16) slots.  A table that claims more than 16 entries makes it write
-> past the end of the array into the rest of struct radeon_device.  A
-> size smaller than the common header wraps the subtraction and the loop
-> walks far past the table.  radeon_lookup_i2c_gpio() uses the same
-> calculation.
+> From: Wang Jiang <jiangwang@kylinos.cn>
 >
-> Reject undersized tables and cap the entry count at
-> RADEON_MAX_I2C_BUS.
+> GFXOFF causes gfx ring timeout and desktop freeze on Lenovo 90NYA05DCD
+> (Ryzen 5 3400G, Picasso). Add a quirk entry with ANY_REV marker to disabl=
+e
+> gfxoff for subsystem 17aa:318f regardless of chip revision.
 >
-> Fixes: f376b94fbc0a ("drm/radeon/kms: unify i2c handling")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Andrey Misiurov <amisiurov@cloudlinux.com>
+> Signed-off-by: Wang Jiang <jiangwang@kylinos.cn>
+
+Reviewed and applied.
+
+Thanks,
+
 > ---
-> Found by code inspection.  Not reproduced at runtime; it needs a VBIOS
-> with a malformed GPIO_I2C_Info table.
+>  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
 >
->  drivers/gpu/drm/radeon/radeon_atombios.c | 22 ++++++++++++++++++----
->  1 file changed, 18 insertions(+), 4 deletions(-)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> index c3322058720f..0cec645710b6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> @@ -1365,6 +1365,9 @@ struct amdgpu_gfxoff_quirk {
+>       u8 revision;
+>  };
 >
-> diff --git a/drivers/gpu/drm/radeon/radeon_atombios.c b/drivers/gpu/drm/r=
-adeon/radeon_atombios.c
-> index 3dd9724..c4e1272 100644
-> --- a/drivers/gpu/drm/radeon/radeon_atombios.c
-> +++ b/drivers/gpu/drm/radeon/radeon_atombios.c
-> @@ -125,6 +125,22 @@ static struct radeon_i2c_bus_rec radeon_get_bus_rec_=
-for_i2c_gpio(ATOM_GPIO_I2C_A
->         return i2c;
->  }
->
-> +/*
-> + * The VBIOS table size is not checked against the image; cap the
-> + * entry count to RADEON_MAX_I2C_BUS, the size of rdev->i2c_bus[].
-> + */
-> +static int radeon_atombios_gpio_i2c_num_entries(uint16_t size)
-> +{
-> +       u32 bytes;
+> +/* Match any chip revision in amdgpu_gfxoff_quirk.revision */
+> +#define AMDGPU_GFXOFF_QUIRK_ANY_REV  0xff
 > +
-> +       if (size < sizeof(ATOM_COMMON_TABLE_HEADER))
-> +               return 0;
-> +
-> +       bytes =3D size - sizeof(ATOM_COMMON_TABLE_HEADER);
-> +       return min_t(u32, bytes / sizeof(ATOM_GPIO_I2C_ASSIGMENT),
-> +                    RADEON_MAX_I2C_BUS);
-> +}
-> +
->  static struct radeon_i2c_bus_rec radeon_lookup_i2c_gpio(struct radeon_de=
-vice *rdev,
->                                                                uint8_t id=
-)
->  {
-> @@ -142,8 +158,7 @@ static struct radeon_i2c_bus_rec radeon_lookup_i2c_gp=
-io(struct radeon_device *rd
->         if (atom_parse_data_header(ctx, index, &size, NULL, NULL, &data_o=
-ffset)) {
->                 i2c_info =3D (struct _ATOM_GPIO_I2C_INFO *)(ctx->bios + d=
-ata_offset);
->
-> -               num_indices =3D (size - sizeof(ATOM_COMMON_TABLE_HEADER))=
- /
-> -                       sizeof(ATOM_GPIO_I2C_ASSIGMENT);
-> +               num_indices =3D radeon_atombios_gpio_i2c_num_entries(size=
-);
->
->                 gpio =3D &i2c_info->asGPIO_Info[0];
->                 for (i =3D 0; i < num_indices; i++) {
-> @@ -176,8 +191,7 @@ void radeon_atombios_i2c_init(struct radeon_device *r=
-dev)
->         if (atom_parse_data_header(ctx, index, &size, NULL, NULL, &data_o=
-ffset)) {
->                 i2c_info =3D (struct _ATOM_GPIO_I2C_INFO *)(ctx->bios + d=
-ata_offset);
->
-> -               num_indices =3D (size - sizeof(ATOM_COMMON_TABLE_HEADER))=
- /
-> -                       sizeof(ATOM_GPIO_I2C_ASSIGMENT);
-> +               num_indices =3D radeon_atombios_gpio_i2c_num_entries(size=
-);
->
->                 gpio =3D &i2c_info->asGPIO_Info[0];
->                 for (i =3D 0; i < num_indices; i++) {
+>  static const struct amdgpu_gfxoff_quirk amdgpu_gfxoff_quirk_list[] =3D {
+>       /* https://bugzilla.kernel.org/show_bug.cgi?id=3D204689 */
+>       { 0x1002, 0x15dd, 0x1002, 0x15dd, 0xc8 }, @@ -1374,6 +1377,7 @@
+> static const struct amdgpu_gfxoff_quirk amdgpu_gfxoff_quirk_list[] =3D {
+>       { 0x1002, 0x15dd, 0x1002, 0x15dd, 0xc6 },
+>       /* Apple MacBook Pro (15-inch, 2019) Radeon Pro Vega 20 4 GB */
+>       { 0x1002, 0x69af, 0x106b, 0x019a, 0xc0 },
+> +     { 0x1002, 0x15d8, 0x17aa, 0x318f, AMDGPU_GFXOFF_QUIRK_ANY_REV
+> },
+>       /* https://bbs.openkylin.top/t/topic/171497 */
+>       { 0x1002, 0x15d8, 0x19e5, 0x3e14, 0xc2 },
+>       /* HP 705G4 DM with R5 2400G */
+> @@ -1390,7 +1394,8 @@ static bool gfx_v9_0_should_disable_gfxoff(struct
+> pci_dev *pdev)
+>                   pdev->device =3D=3D p->chip_device &&
+>                   pdev->subsystem_vendor =3D=3D p->subsys_vendor &&
+>                   pdev->subsystem_device =3D=3D p->subsys_device &&
+> -                 pdev->revision =3D=3D p->revision) {
+> +                 (p->revision =3D=3D AMDGPU_GFXOFF_QUIRK_ANY_REV ||
+> +                  pdev->revision =3D=3D p->revision)) {
+>                       return true;
+>               }
+>               ++p;
 > --
-> 2.43.7
->
+> 2.25.1
+
