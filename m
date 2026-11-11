@@ -2,52 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B3B7606A31C
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 11:55:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 594E2606A881
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 11:55:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=XdQYUPoI
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Qn98YMx6
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BE8F10FB67;
-	Wed, 11 Nov 2026 11:55:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA9BF10FB70;
+	Wed, 11 Nov 2026 11:55:51 +0000 (UTC)
 Received: from SJ2PR03CU001.outbound.protection.outlook.com
  (mail-westusazon11012034.outbound.protection.outlook.com [52.101.43.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4589D10FB67
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Nov 2026 11:55:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7334D10FB70
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Nov 2026 11:55:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HuoFFgzqWEdhE2NPtd28jqk15JXBMUo/X29yr9CM3ZhdXN+jWQs5z5ChN74/CfWbcVYdUV5Z+KWc8COShkpNFR8b/Od0CkCgVEOLEEtjHYb86HnDYxXwrGqpfFflVcGkdOpdIJE9trXidkDRYeeS1TEj1uoHgpvNU57uMrDJKHat27DpJ+FkqqN7uCWOYsAtQvMtC+a0w9LWwLiEE3FodKDciEvE3RIoR2nPNaICZlr5O4mmzk/Aq5ZWgkYijrN3KuzQFtgBVXiLzK9HRmzcJ7u7+k8fOxTGiQa1mISKNKku//JQEddJJKphan/ehAa4ssfDXUa4AceVsoCglwrcRQ==
+ b=Chdbt7F7JapYBXp51EUldSwZjwK8vTkByoXEBGeRaic2a9LmyxEaIrgYQh2S/T1lB8Zb4UDLBl8jdNj8d1ugzQfVzcnGa+4DuF2hdEgmctdiM/wHMNDn5E0d0DnaLWaaeNWPO75cX6bZWXhOJdLeS6vD4CsZbla1l5lkjMnTEb6kuitFE+5tS80/xvnpSilnxDZ6TnWAhWSISqzEJHblnkoU6nSPqTOST8/z1R3xlVFGoXgZleD7g+nTXFwLfWcEDWD6oEcTWPjmkogcaaNyNhoYAibTw/qrBP3jQ1InsF+PpCSIGF6YVKltrB42JupETyg0wXlCFmdm+6zuyBcp5g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=x6KCSdRjL4XcJ47NJc/XgMqxqJ0DfiCUrguU7pCDSpQ=;
- b=KmBLwFxWLYKACtiZ/56v03TsgcJuW6nO4C8OrYl9ovvsEHERw5gfpaSxZ3/w9SMM5bQhbWESBatDtn4PKUndVkuhEf//vq7GqvgGjC8gfD1Vq7g/vP0WyOIO95rcCIFgVsqy4yucjPmLPgpN2rbCC4cIe0/r1XdMJSUCFRj6aQYFaAn8p4pr0O5tJxKzaTU6TVuSQR4WLoVOJRIScMmrlgdYr5szSkmDwylclszIZFXMkI1jp5dnYy59n7dJtMqlVCgK+HMygG4yQ/+QBIr7CuOwNm2LybfwqshmL9dVHYWG4FegS/kYtRwNRQopnijCTz5X06bglBl6B4cEPdo5IQ==
+ bh=bxmmJpx6R46yiPHx59LbQN67ERXjHfGzuVXZJdfJFUE=;
+ b=UQDv5JeCkf8jwDpFg1oCTZ+1Fu/whP5rPCEDQz3Mdm+Yod8uaS3pdUg8z0kVZFa/hDXVysnJLV34S0UoK7QYHiPOIG1FiBQH7E0U2wIp1uf8tj8JhrcW+Gf38bMknVXPVopRRVcRmO4qFYGcj0fl00nXMhJBIyVEWL38IN1v+gls4Q23RVapQnJCT0eolUaE6U16aW4Tr0zxwESETbCULOBwsb+rvFEemJLYbXlahzWyfau4rQ1D4JrZYPRHflWK/OAWdwZX97CfsuecsEqCY6bnhi5H4O/v++WeVps3T7TLZIA0ci5qTOA2yxCZW2FhWuEE9FEDIvkkGTaNWGhfyQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=x6KCSdRjL4XcJ47NJc/XgMqxqJ0DfiCUrguU7pCDSpQ=;
- b=XdQYUPoIl39ah7VIvL8HGWtCNK6K+Fr8nCG3hbR+wL/xKvzA7SnNL2IFXyo5m18Yd/pUaHxaH/oyU68J5fHc3igDOgHGB77asOFJG4clW2GyE2b02gO9mKPOghlhmJMdazjNHgFqoSM67DMD3jrTJJPa1hsOzBuQhYNiuMl4OfA=
+ bh=bxmmJpx6R46yiPHx59LbQN67ERXjHfGzuVXZJdfJFUE=;
+ b=Qn98YMx6pHOmPkhAd+q/uRIwJCeqKCGknzW58oGCs78s+NxoiJPGdByZhBMaJDHETnF5Of96AU9NGCVhIJXiyzGQXQbhSHnLdpheIB44kHFUMDEP0J/UI/SVp1+aUaFvJ+8q4xf2FkOZ0d+UKnq3ODzYfBfps4ds4Y7X3zL8044=
 Received: from MW3PR12MB4572.namprd12.prod.outlook.com (2603:10b6:303:5e::7)
  by LV1PR12MB999279.namprd12.prod.outlook.com (2603:10b6:408:3f7::13) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Wed, 11 Nov
- 2026 11:55:36 +0000
+ 2026 11:55:43 +0000
 Received: from MW3PR12MB4572.namprd12.prod.outlook.com
  ([fe80::79cb:c567:1825:51fc]) by MW3PR12MB4572.namprd12.prod.outlook.com
  ([fe80::79cb:c567:1825:51fc%6]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
- 11:55:36 +0000
+ 11:55:43 +0000
 From: "Mu, Zihao" <Zihao.Mu@amd.com>
 To: "Koenig, Christian" <Christian.Koenig@amd.com>,
  "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, Thadeu Lima de Souza
  Cascardo <cascardo@igalia.com>
-Subject: [RFC PATCH v2 0/6] drm/amdgpu: prepare updates across page-table
- allocation
-Thread-Topic: [RFC PATCH v2 0/6] drm/amdgpu: prepare updates across page-table
- allocation
-Thread-Index: AQHdcdOQy0slTmsHNUq2B6pm8TN2vw==
-Date: Wed, 11 Nov 2026 11:55:36 +0000
-Message-ID: <MW3PR12MB4572FFD141B046B9CE8F5FE49E712@MW3PR12MB4572.namprd12.prod.outlook.com>
+Subject: [RFC PATCH v2 1/6] drm/amdgpu: handle missing or empty SDMA VM update
+ jobs
+Thread-Topic: [RFC PATCH v2 1/6] drm/amdgpu: handle missing or empty SDMA VM
+ update jobs
+Thread-Index: AQHdcdOUVb/T9QOe9ESQcBzNZgoZ8w==
+Date: Wed, 11 Nov 2026 11:55:43 +0000
+Message-ID: <MW3PR12MB4572DD8FCA6028A2156F0B639E712@MW3PR12MB4572.namprd12.prod.outlook.com>
 References: <MW3PR12MB4572FABB93F6676FDBA1D2479E722@MW3PR12MB4572.namprd12.prod.outlook.com>
  <4edd67f7-381a-4446-9509-552739c8f016@amd.com>
  <MW3PR12MB4572A08ADA8CB7BA9F83AF519E712@MW3PR12MB4572.namprd12.prod.outlook.com>
@@ -62,46 +62,46 @@ authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
 x-ms-exchange-messagesentrepresentingtype: 1
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: MW3PR12MB4572:EE_|LV1PR12MB999279:EE_
-x-ms-office365-filtering-correlation-id: cfbebbe9-90e0-40ca-b093-08df3feab2e0
+x-ms-office365-filtering-correlation-id: 582d893e-ac0b-4633-df40-08df3feab6cf
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
  ARA:13230040|366016|1800799024|23010399003|376014|18002099003|22082099003|6133799003|10067099003|3023799007|38070700021|4143699003|261102123227099003|11063799006|261009223027099003|261022105027099003|261022075727099003|261021121427099003|261021123027099003|261026140227099003|261026121527099003|56012099006|261028144727099003;
-x-microsoft-antispam-message-info: 9eojjjm84Zk57dQ1tm7lfGhYm0y0GkDSG8VTCw+8Vocn0pODgz1VI8U2AqrAdvWUTDH2wf/rHnthpYGJiJpYsTeWR2q54DIzji2Qw6SMDKujeKkPYgKiACD6/FMd6UvtrEtY3d+Kk69UmdHLYtrdlHbypR7BNjGkqaZ6ZEY4mvfB94Hr3y+N8F9xoqp+XGxdux1gHpm2DSQS8IQs4rJSo5THcjkMTcqFuATxdTj/so0AQCmn33E1Tj4Gi5oantGZBuwULxilzF0elZcxEcAUrzK0LCYj3hf1TNp+by3fQg9OOysjF/FqiproLBLE7Ap9Jw3wFJvNCw4oRJ6bEGxHMbswA8oyAnP9A207BwmFjJ8+5k7i/I5vcWoFEZB6UhhEyF9J2ukv4C3CUW43Tzn80lpZvb/VcLN8cxfkmO4uaD66Fx9Ob1cUPD/soH1QYro/WvpNpyV56lDn+wof86U4zWSDsBM1xNgrFz4TXwHYhjWTs1gdcBNVa9wjHJApNHOw2xkkxxKULL4Ghr9qwS1yato8m+TgXLngw3hkLb59++QIeoytCPcmPL3aIw4x+yzdPMBL560F4JoQJ4gc5vxUiEHaBG15Vzq5m7pey/HES+pzNp/fQu59wyNFmSp3vo7NVtOMEAKldArfeZj2heEAIkLwujRtaqI+4Ga8S1O2WnM=
+x-microsoft-antispam-message-info: vDoucMRIyFN9A2/t7cpIKeHcns10U0JS/V/sPmIx8ShYXIW7wzEhT2IW11GssXAgFA3ZRuvqwgCPV2NlaWY3vMiOyFswkXWeeTuQkv3VG0uOhO5GBLUb8liAgG1kyfuT+gDWdrLN+Pp1WN3AXyyleebkbTVrt+86bj/JS0Pbij/sqkgMXD5DdaNRTLcrKNMHmLm/xeK2B9VWhZLYDPZVa2n5L7IyhfLJXC1zIZokqewrYGIVNJUtkAikwNfmvDosO6FRcYXK3wTMbcvil348L6/7z14QwvB6NJ15M9xl2GEo9xQVzALgSL3eNb/y3TLLrK+gIsjvRKzVU4xqaF7229hn7DHzUWao4KW6hlN5RTjF3LDT7/NdSpppWDO7WWBUP/vgnpzWDmaAHfnyE4ORHGsOH9i15EX90raaa6qcF8Kykk9QHl/X0HnyR7dXK5ad39Ea83xP6D+NKVhE6zPxr/MmPULxIPkgxVvo7d7AAQgrqHBQdI3ye1X681tHC6OHRqgVRhOazD2Nit0hERXcDsmQ9lZnQP7UdVhyG/599EisDYcjLzbo11hwdt69TrY4ZCLSMPlI40Sk2RJ4JpWe6VrD1ncVLJd45rCpg2PVdZw8A3LvWbeu8Xvu0dgJ0t2oBohxAw6wPloiGbinWfyVo0ilyfr9nlvTd4+qs/jAY78=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MW3PR12MB4572.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(18002099003)(22082099003)(6133799003)(10067099003)(3023799007)(38070700021)(4143699003)(261102123227099003)(11063799006)(261009223027099003)(261022105027099003)(261022075727099003)(261021121427099003)(261021123027099003)(261026140227099003)(261026121527099003)(56012099006)(261028144727099003);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?U4DTFLRZKXAAu76BBQVK5W1kJE/Poh6My6CnH4TOfedrhhnAmPEX/muLcoLC?=
- =?us-ascii?Q?+DXBiNzZGOxsGLQ+25+YD+g3Eb4uz2ingjftRjgrxkK8ED2efm/gWhcVJ18F?=
- =?us-ascii?Q?XF6maqd9GQW9g+zcb7MR749OSwJDUqkBtbXUe6ia9+UmNOHwVNTkHJnoOU+A?=
- =?us-ascii?Q?1zn4bYmUtnhqWz3o4xnpYZn/Ko3fvgEUxcFtf85C11bAY9csi8/BHjRH+kCc?=
- =?us-ascii?Q?HMC3vNjVT/Kbz/jP4Dr66S+FuzkbxQhg7NteeP+Odr7n+cZa6bRWamCGCYZz?=
- =?us-ascii?Q?kiK1wxS5jhmUcKMMTv+MqBQWNn2b38wx2vqy55VdAg4PO6FPtkTnsNNWETmK?=
- =?us-ascii?Q?ZllGHqvvqlamCQWYRqQAT675ztVl8x9aNW9F1OtgXuQS2tTSd+hrWGdMPNRV?=
- =?us-ascii?Q?45xyv0/jxHlVK3brkPyP18f9g8UTVYv1mYQeSs/qye9kRSnQVAYpTvGNRY0S?=
- =?us-ascii?Q?g0khcJ+peNFvonPawfwRENbSUuno/jMu0xCG8R07QolLDNL5sENE/MYvf/gB?=
- =?us-ascii?Q?LQfWYAjmlwIEr+dKCv8T1wy5zsMpYPASync2ZBZHupkcS3U2lep9VsW+hxQZ?=
- =?us-ascii?Q?OPfm4YZAHkia++yFbsqM/ZIvMKi47kFEZjQq/jt9s9v8KEQGwMiaR04A/0ZE?=
- =?us-ascii?Q?fL4kkEC16A+96oG4RAYSnPC1m9UVL6pK3wwmEL0Cmhi2lfRrW0AvWL3uSOlT?=
- =?us-ascii?Q?z83twTiT3lyZOYzwRj5dyyOtEIHze0MOJ2EF6dpkCZzz9Kdj8y0Kk8FNhj3h?=
- =?us-ascii?Q?dVmgsPGmrLwCrhkh6SaYdYvxibpZhlOF5lmxc9UYbLTZof9Dc2QDJuYMwoNY?=
- =?us-ascii?Q?lTiNL+H51xkMuCvf1bU6iuuIgCZDWaLAXq49gnQR7epiVLRZzWE5A7VgyZt0?=
- =?us-ascii?Q?lwp/eCxsLprDtvZnBsPKMmIanob1xbAhBSy5M2TYyPUbZxJfCES0mFo5y/e2?=
- =?us-ascii?Q?dyxsxqDk/N5MZCLVytUIEzUBfPIJZw0y4wodMTyRhogFsmO/aP5tkYhcKQmH?=
- =?us-ascii?Q?7uWf55Q345Go2ikUlQer+ncgfVJonL25ZfmSRx5BRPLR2XnCtPlWvw8d0oL0?=
- =?us-ascii?Q?0l+9lIjxeqMI3H3Nm/TxrXvZg5TjHe3Uy9SuFJ7bLjffG/SIX6pGPbrNWypf?=
- =?us-ascii?Q?Yty3UfaZHPGg+IlU+01kzfx1l7tPpshlo25nb+9IdTkHAHf9lVSYxTgjloJo?=
- =?us-ascii?Q?wSpSjg4gFIb1kuYTvTobVtsfOgv+Ir+5e76MV428XnKD9qO2zD0P+tifxOGd?=
- =?us-ascii?Q?O2CCBCtGjswAKRTNSvMoD7e32BixZsL8t69QX27wbKUPYXL31yfBLdNIkHIX?=
- =?us-ascii?Q?MFQA4d+SgqPv4uDKiFJnDq+/RNTgCdiPTHhi6ITcmTeRsLq5pSfwI5F77HUI?=
- =?us-ascii?Q?MOFzkimrF+ILRcjTgDyWn4T07Ft2zOY9vuDKJ0W549R+AFCisMxppYHj+3RU?=
- =?us-ascii?Q?QLZItKOLY/si7OOG3QxkQzFzt+VRq0/f78Uatzpujjue99u0ONRLI3ZT84G9?=
- =?us-ascii?Q?QnpSzY3ZmzJUtkTE6ovTjMKyRfRyxRwCNiB5qaKzgAZh92ktHyF3gmZLFUzG?=
- =?us-ascii?Q?ohm04xaPpIrOzGPyC7Omh0jUJEUBw/H4/MULJNkRV2imREsm0yoyeMO5YYs5?=
- =?us-ascii?Q?8XyBVKxIkyLZIFmHKZxhebxpTShyd3Ypecpk+fS7KgIToF2yqpSnXS3Y89AM?=
- =?us-ascii?Q?IMOjXmn/LD41P5g3Q11laukZe0gq0qvE62dEGdqLcVzW4N7P?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?eS+Cy+ZyVRRaXJEEVSYXXv4229K/E2r4rFWxLdxwJ1DHBFoH8qEBM7+jhCqo?=
+ =?us-ascii?Q?3J6pM/xV4hMy6N8jEgiABA0NmkICGWFZhO6QIXvAdWmzFIMTmc9nz5lYBNHg?=
+ =?us-ascii?Q?trll/0pdPq9x8QSsvsBRTjLo8/ONcOZamzAlP/Zj7m8v3L5qbE5BrHPv3Zvx?=
+ =?us-ascii?Q?pIpapPInuyB5XEIkmyQPwpgdYf/eMU7CdD2SPoX7HDVJeMFYmQqAJDDg2yp/?=
+ =?us-ascii?Q?wjX9odc0ZlbagIdovUPfAY2tBoiEpH99WTw+wCp5KC5vzcrehzbPZjnXkBCt?=
+ =?us-ascii?Q?fsfW4IeFIY/6S53tNH/KRUPLqUJSuqv/LaiCc7UNVdqtAGtGjLkjm9MCbXXG?=
+ =?us-ascii?Q?3Rc3xQJ2X2p4R2wGZ/2vbPLFbUe90ZSZSrN78ffe1H/gXBNviEvFRm1KMS+y?=
+ =?us-ascii?Q?zxzuV6VjhXfvVnwHZdMN5W9Ic7xztcPCJvTi6B4fH0oDdyj+9Pe+Fl4SBPMJ?=
+ =?us-ascii?Q?stqEA8Dvi1NGXeXKJuf6dPCJJFYN3gwUmcra066XgrbChLlBkAmRt30uJixP?=
+ =?us-ascii?Q?YPDXtrlnYVihrHbM0FVi3BRbDKjf4HqFQAWh7yCBos8SYvbhXIp6NBd3x3Rf?=
+ =?us-ascii?Q?gMIUDWjgs4oEU3D3pb86L8TeDCalI3+Vjk7svxzAZESdXYiX6w1YkSNa74+O?=
+ =?us-ascii?Q?d56I2VXc4qZs26nfeziPmm7DuMxIH9BInrQ0MZ33HGUx4x8+laS/aBL1UtHf?=
+ =?us-ascii?Q?iquFh23ngiT72VcsUgGCRNY22sPnCwyzwAk3J1YQwFbDFoVv7q8wGgtyaebJ?=
+ =?us-ascii?Q?VrQcbYRdoZNTjQzi3q/g/XOLPbY19+nCkwKlcHX0uoGeufYNNYVSIAqQV7kM?=
+ =?us-ascii?Q?j1asDbcD5W/YStvseZAlVYeEuHgVvXWCT9INdyHS8xp5D67Kq92n7MbDP99f?=
+ =?us-ascii?Q?TgbXHyRaZgsZKAYm6WidDABXfgHO6vEfdsiL9bP0mfN2dLeIDK9SOmhPgkvK?=
+ =?us-ascii?Q?g/2Z1P+UIjjlEiMWESCKFQUQ5wMzr6vuS5ZvP4+dLXp6gUPN8cLFRDo/uHQJ?=
+ =?us-ascii?Q?rWAuB2DyVeKHPF7SzbuqBGa1VCw4Y3L7CkXfCBI0BiymkB3rYaop92hIgkwr?=
+ =?us-ascii?Q?oZJqrsK7ESp1AS+oFPI9ZOYdPIHn9BaUI+Iarv82Z/+v5f4skD7mw/20aOcY?=
+ =?us-ascii?Q?Glys3xBu486lKa5bAdqlJrAzj+TOUZjDyJDSsNkmns1r/e0/Eq5Zlxsg+GLU?=
+ =?us-ascii?Q?mcV3muAMhDKFVLBBaMfOsEdV0JevrLwM3Ydr9IZnCwp9brdS8Kr7qWLaGVtD?=
+ =?us-ascii?Q?mNja3is8Fev+k1/7vmrhtRQaJUCrbQe9E1mhxOrtHwk7GKhxX+70p0Ft9l8H?=
+ =?us-ascii?Q?+x4H05kHr4HL3UbLo1OeQutcs3g2Z7yFDTVqI35LpZSCWzKPzOoTUTn7Fi06?=
+ =?us-ascii?Q?T+Py+gu0+6N/0tFMAMvic48YRFpKxm64K2S3InItGUwHGoc1HahTjxCD3Smz?=
+ =?us-ascii?Q?N7nNMwEAeOK4xssYt+toEQud46QGlaWchA5Xqv36I8sQZlIG2TkOR/s0cwMG?=
+ =?us-ascii?Q?aKyUHdFTfR3dijPfZVijCb4aAohWPtisAp6zx8eU/5+pDuaVcZCOfv/Atqr4?=
+ =?us-ascii?Q?Et12q8fYQFmh8smnBEHLCxbKZB45KuRKqM/C0ydAfzcP//Y5co25+lbRpRJa?=
+ =?us-ascii?Q?D+VizHBWTqSIRd7dV0smUfcXZ10fVer5timlldw8gkd9wWtwt20HR3hBxJZw?=
+ =?us-ascii?Q?CIZrpqwf1KiO/4OC1h5jJM6Cxuo=3D?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 X-Archived-By: <archiver.kernel.org>
@@ -109,12 +109,12 @@ MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: MW3PR12MB4572.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cfbebbe9-90e0-40ca-b093-08df3feab2e0
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Nov 2026 11:55:36.5765 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 582d893e-ac0b-4633-df40-08df3feab6cf
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Nov 2026 11:55:43.1228 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: HzqulGB6OPrdGBVMHwSCiPujQIs1YxAVnRPanW7AzQvWPNZ2vZKGyWIvoaRLK5fp
+X-MS-Exchange-CrossTenant-userprincipalname: R42cZYR5aTJCPRI0C+g/WEB9ZOiO93/L2t8r9MIAnJDEGgeEyJ2Gg7bW3UVFAfHO
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV1PR12MB999279
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -126,98 +126,85 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Christian, Alex and Cascardo,
+From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 
-This v2 replaces my posted interrupt-flag-only RFC. I first bracket
-page-table allocation with commit/prepare, then move the CPU KERNEL
-dependency wait into prepare, as requested. My author and sign-off name
-is corrected to Zihao Mu.
+A failed PTE walk can leave an allocated SDMA job with no commands, or
+no current job after submitting a full IB and failing to allocate its
+replacement. A final commit of partial work must handle both states.
 
-The six patches are based on drm-amdgpu-next a6836fcbb5b2:
+Return without submitting when there is no job, and free an empty job
+instead of emitting an empty IB. Clear the job pointer after freeing
+or submitting it so that a later final commit cannot consume it twice.
 
-1. Handle missing/empty SDMA jobs and consume each job once.
-2. Track internal SDMA completion independently of the public output
-   fence, including immediate submissions, IB rollover and nested clears.
-3. Finalize partial range updates on error, preserving the first error
-   and using the preceding internal completion for TLB ordering.
-4. Unwind failed page-table initialization through the VM entry teardown;
-   finish the clear's current work before returning its original error.
-5. Commit before allocation and re-prepare after clearing the new table,
-   preserving the original sync even when the old phase had an empty job.
-6. Wait for shared root KERNEL dependencies in CPU prepare, including
-   NULL-sync calls; remove the reservation wait from CPU update.
+Based on Cascardo's earlier NULL/empty-job patch. Retain the current
+int-returning commit callback and scheduler layout.
 
-Patches 1 and 3 adapt Cascardo's earlier cleanup proposals, retaining his
-authorship and original sign-off. I am not claiming that work as new.
-The internal completion prerequisite comes before partial-error range
-finalization, so an earlier submitted IB is already tracked if allocating
-its replacement fails. A clear completion is also retained if the outer
-prepare fails. The public !immediate output condition and DONT_PIPELINE
-policy are unchanged. PDE error handling is outside this series.
+[zmu: Clear the job pointer after submission and retain the current API.]
+Link: https://lore.kernel.org/amd-gfx/20260914-amdgpu_vm_fixes-v1-1-d6d8355=
+91e0f@igalia.com/
+Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+Signed-off-by: Zihao Mu <zmu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
 
-The KERNEL wait keeps its original interruptible policy. Interruption now
-fails prepare before that phase starts writing; previous phases have
-been committed and receive partial-range finalization. Allocation drops
-the eviction lock and can introduce new move dependencies, which is why
-the next phase must prepare again. The CPU write/flags/commit tail is
-unchanged.
-
-This does not reintroduce the old PTE-walker error-propagation proposal,
-mapping retention or the independent no-KERNEL scan fastpath. SDMA
-allocations can still fail. This is not a complete conversion of all
-mapping/unmapping operations to a no-fail interface.
-
-Local validation:
-- All six intermediate source states compiled amdgpu_vm.o,
-  amdgpu_vm_pt.o, amdgpu_vm_sdma.o and amdgpu_vm_cpu.o with GCC 13.3.0
-  and CONFIG_DRM_AMDGPU=3Dm.
-- Each intermediate state passed its applicable extracted-function
-  checks. The final state passed 106 successful range/backend cases,
-  149 failure cases and 2 successful PDE cases. SDMA fences remain
-  pending at submit; the native TLB callback and worker bodies run with
-  both worker-first and GPU-first simulated completion schedules.
-- Two older source states reproduce the missing completion dependency;
-  four deliberate mutations detect missing nested completion, prepare,
-  sync and allocation boundaries.
-- 960 CPU phase/parameter cases preserve PTE values/flags, with two
-  KERNEL-wait interruption cases, one explicit-sync interruption case
-  and two detected missing-wait controls. A 64-batch single-phase model
-  calls the reservation wait once instead of 64 times; this is a call
-  count, not a timing result. ASan/UBSan reported no errors.
-
-The GPU, scheduler, fence primitives, BO/TTM lifetime and PTE/PDE walker
-orchestration in those checks are simulated. They do not prove kernel
-concurrency or hardware ordering. No full module link, driver load, live
-fault injection or hardware A/B has been done. This does not establish
-a fix for the original multi-second GPU queue stalls.
-
-Please review the phase boundaries and internal completion ownership,
-especially immediate SDMA submissions and errors after a nested clear.
-
-Changes from the posted RFC:
-- Establish allocation boundaries before moving the CPU wait.
-- Remove the wait from update instead of making that wait uninterruptible.
-- Add narrowly scoped job, completion and initialization prerequisites.
-- Correct my full author/sign-off name and retain prior-work attribution.
-
-Earlier cleanup proposals:
-https://lore.kernel.org/amd-gfx/20260914-amdgpu_vm_fixes-v1-1-d6d835591e0f@=
-igalia.com/
-https://lore.kernel.org/amd-gfx/20260914-amdgpu_vm_fixes-v1-4-d6d835591e0f@=
-igalia.com/
-Latest review:
-https://lore.kernel.org/r/938026a1-3b02-40b4-98e3-a0a22f045f82@amd.com
-
-Regards,
-Zihao
-
-base-commit: a6836fcbb5b22968019256025321d655b78bc49c
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_vm_sdma.c
+index d3a5e848741..ade6c7aa15c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+@@ -91,6 +91,7 @@ static int amdgpu_vm_sdma_prepare(struct amdgpu_vm_update=
+_params *p,
+ 	if (r) {
+ 		p->num_dw_left =3D 0;
+ 		amdgpu_job_free(p->job);
++		p->job =3D NULL;
+ 	}
+ 	return r;
+ }
+@@ -107,14 +108,23 @@ static int amdgpu_vm_sdma_prepare(struct amdgpu_vm_up=
+date_params *p,
+ static int amdgpu_vm_sdma_commit(struct amdgpu_vm_update_params *p,
+ 				 struct dma_fence **fence)
+ {
+-	struct amdgpu_ib *ib =3D p->job->ibs;
++	struct amdgpu_ib *ib;
+ 	struct amdgpu_ring *ring;
+ 	struct dma_fence *f;
+=20
++	if (!p->job)
++		return 0;
++
++	ib =3D p->job->ibs;
++	if (!ib->length_dw) {
++		amdgpu_job_free(p->job);
++		p->job =3D NULL;
++		return 0;
++	}
++
+ 	ring =3D container_of(p->vm->delayed.rq->sched, struct amdgpu_ring,
+ 			    sched);
+=20
+-	WARN_ON(ib->length_dw =3D=3D 0);
+ 	amdgpu_ring_pad_ib(ring, ib);
+=20
+ 	if (p->needs_flush)
+@@ -122,6 +132,7 @@ static int amdgpu_vm_sdma_commit(struct amdgpu_vm_updat=
+e_params *p,
+=20
+ 	WARN_ON(ib->length_dw > p->num_dw_left);
+ 	f =3D amdgpu_job_submit(p->job);
++	p->job =3D NULL;
+=20
+ 	if (p->unlocked) {
+ 		struct dma_fence *tmp =3D dma_fence_get(f);
 --=20
 2.43.0
+
