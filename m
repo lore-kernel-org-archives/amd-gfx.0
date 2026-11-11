@@ -2,80 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68219606A31C
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 13:56:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 036DE606A321
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 13:56:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gyAGYXu0
+	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=dirigoagents.com header.i=@dirigoagents.com header.a=rsa-sha256 header.s=mail2026 header.b=IR6G6Cym
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5CC59112149;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D87F112150;
 	Thu, 12 Nov 2026 13:56:08 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D34F610E4C0;
- Wed, 11 Nov 2026 23:48:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794440918; x=1825976918;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=qiTprQcvixtyWKG6YcvfO8nQP3PU4VUrniMboE6NSkI=;
- b=gyAGYXu0++GouxpOqlvz4AE0UESwZiHddy1GtCYInd4ZlrehbkYhRlUS
- 6e8Hz+pLp5W/fJ0NWTiK65HE6GIAwM+0my0QS1OF8JzK44J4ot8aBYyb7
- i+9SWp2KFqMCwzNFDgR5HpO8wntHWySXxhDftp7AFRBzXi4JzSmu0FFyS
- oHsM8lPMo4g81t6nzOB3Pmg8mJIrPwn0LnJ1oHHp+2HDWskrfoGr9dm5y
- 0+0jdhqTvxnTEyLyEssOJ7pa7dcljB2d1gqYbY8TR/aXHxfWzgrRFowpQ
- RcqorQm77jx+WDNuJsF1sesslbNczN3ECI+rn+Il94jv94TGlZZua77fi A==;
-X-CSE-ConnectionGUID: cpNKlzRGSuKr5BbO1WHA+g==
-X-CSE-MsgGUID: 4HmpEg5HRv2dG7CjLscvMA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3226625"
-X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
-   d="scan'208";a="3226625"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Nov 2026 15:48:37 -0800
-X-CSE-ConnectionGUID: VLtbyyzhTuu5gT0SuDLr3w==
-X-CSE-MsgGUID: LreG1qb0TWiBf5byqg7Q0g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
-   d="scan'208";a="8512387"
-Received: from pavel-dev.sc.intel.com (HELO pepopov-mobl2.intel.com)
- ([10.3.206.11])
- by orviesa002.jf.intel.com with ESMTP; 11 Nov 2026 15:48:34 -0800
-From: Pavel Popov <pavel.e.popov@intel.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Hans de Goede <hansg@kernel.org>,
- =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Peter Huewe <peterhuewe@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>,
- Tom Lendacky <thomas.lendacky@amd.com>,
- Herbert Xu <herbert@gondor.apana.org.au>
-Cc: Pavel Popov <pavel.e.popov@intel.com>, Leon Romanovsky <leon@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
- Arnd Bergmann <arnd@arndb.de>, Len Brown <lenb@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, "David S . Miller" <davem@davemloft.net>,
- x86@kernel.org, linux-acpi@vger.kernel.org, linux-pm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
- linux-integrity@vger.kernel.org, linux-crypto@vger.kernel.org,
- linux-arch@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH 4/7] cpufreq: ondemand: Include <asm/cpu_device_id.h>
- unconditionally
-Date: Wed, 11 Nov 2026 16:48:17 -0700
-Message-ID: <20261111234821.4814-5-pavel.e.popov@intel.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261111234821.4814-1-pavel.e.popov@intel.com>
-References: <20261111234821.4814-1-pavel.e.popov@intel.com>
+X-Greylist: delayed 375 seconds by postgrey-1.36 at gabe;
+ Wed, 11 Nov 2026 22:40:14 UTC
+Received: from mail.dirigoagents.com (ip74-208-69-60.pbiaas.com [74.208.69.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A12F110EACE
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Nov 2026 22:40:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=dirigoagents.com; s=mail2026; h=Date:Message-Id:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Subject:To:From:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=H/dcZb5ZXAAi0kQ3+z1NQgZNDayzmkXz3SuT2d632Jw=; b=IR6G6CymZVMkXOqxq+5K90mNmx
+ k1bkRGesYCgA8fOwqA12MUfc5tSHQpzGDAVodLeLVOy+NJVZt8d6xXp/JGT2qLlNZHxOM12NRWArI
+ YXmUsdJ13K8u+ouE1ncE3GOrEOJV80uRhCVXFstJm86vi9GMyCwf1aXLAiU2VyVmMe79zabqDy6x9
+ NgppHxzOcX5gGenY7+cBBLqZVRLHLDTtIp5HWASv7WtGVnxo2Qhp+0GWFBuf9p52qUxaIj4PltjwF
+ Azdy4KWLDwOcWWKysrxhfnFOngU7pb8p+USMR2Ak1fWvya2ino5Xf7a+vlqs4lLQm7WLNmWIsZF4e
+ N7u1ym2w==;
+Received: from [163.252.64.158] (helo=vega.dirigoagents.com)
+ by Dirigo with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+ (Exim 4.98.2) (envelope-from <hermes@dirigoagents.com>)
+ id 1xRGtC-0000000CggE-3T0B for amd-gfx@lists.freedesktop.org;
+ Wed, 11 Nov 2026 22:33:58 +0000
+From: hermes@dirigoagents.com
+To: amd-gfx@lists.freedesktop.org
+Subject: gfx1036 (Raphael iGPU, 1002:164e): every OpenGL context hangs the gfx
+ ring; Vulkan and llvmpipe are clean
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-Id: <E1xRGtC-0000000CggE-3T0B@Dirigo>
+Date: Wed, 11 Nov 2026 22:33:58 +0000
 X-Mailman-Approved-At: Thu, 12 Nov 2026 13:56:07 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,51 +52,65 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-<asm/cpu_device_id.h> now has a generic version, so the #ifdef
-CONFIG_X86 around the include is no longer needed.
+Hello,
 
-od_should_io_be_busy() still needs CONFIG_X86 for boot_cpu_data.
+Reproducible amdgpu hang on the RDNA2 iGPU of a Ryzen 9 7900X. If the right p=
+lace
+for this is GitLab rather than the list, say so and I will refile there - I c=
+an
+also provide the devcoredump the kernel wrote.
 
-Signed-off-by: Pavel Popov <pavel.e.popov@intel.com>
----
-Depends on <asm-generic/cpu_device_id.h> from [1]; please apply after
-it is in mainline.
+Hardware/software
+- ASRock X670E Taichi, Ryzen 9 7900X, iGPU 1002:164e (VBIOS 102-RAPHAEL-008),
+  sole display device, HDMI 1920x1080@60 to an MSI MP273L
+- Ubuntu 24.04.5: kernels 7.0.0-42 and 6.14.0-27, Mesa 25.2.8 and 25.0.7,
+  LLVM 20.1.2 and 19.1.1 - every combination hangs
 
-[1] https://lore.kernel.org/r/20261111234439.4098-1-pavel.e.popov@intel.com
+Symptom: any OpenGL context hangs the ring within about a second:
 
- drivers/cpufreq/cpufreq_ondemand.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+  amdgpu: ring gfx_0.0.0 timeout, signaled seq=3DN, emitted seq=3DN+2
+  amdgpu: Process information: process glxgears ... thread glxgears:cs0
+  amdgpu: Ring gfx_0.0.0 reset failed
+  amdgpu: GPU reset begin!. Source: 1 / MODE2 reset / device wedged, but reco=
+vered
+  [drm] *ERROR* Failed to initialize parser -125
 
-diff --git a/drivers/cpufreq/cpufreq_ondemand.h b/drivers/cpufreq/cpufreq_ondemand.h
-index 2ca8f1aaf2e..0e33865f9d3 100644
---- a/drivers/cpufreq/cpufreq_ondemand.h
-+++ b/drivers/cpufreq/cpufreq_ondemand.h
-@@ -6,6 +6,8 @@
-  * Author: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-  */
- 
-+#include <asm/cpu_device_id.h>
-+
- #include "cpufreq_governor.h"
- 
- struct od_policy_dbs_info {
-@@ -26,8 +28,6 @@ struct od_dbs_tuners {
- };
- 
- #ifdef CONFIG_X86
--#include <asm/cpu_device_id.h>
--
- /*
-  * Not all CPUs want IO time to be accounted as busy; this depends on
-  * how efficient idling at a higher frequency/voltage is.
--- 
-2.54.0
+Mesa then prints "The CS has cancelled because the context is lost. This cont=
+ext
+is innocent." and the client aborts. Under Xorg the server aborts inside
+libgallium (amdgpu_winsys_create) and the session dies; each reset blanks the
+display, which is how it was first noticed.
 
+Ruled out here
+- Resolution: glxgears hangs at 640x480, 1280x720 and 1920x1080.
+- DDX: hangs with both the modesetting and the amdgpu X drivers, and on a bare
+  X server with no desktop.
+- Clocks: power_dpm_force_performance_level=3Dhigh makes no difference.
+- No GPU page faults, no MCE/EDAC events, RAM at JEDEC 5200.
+
+Clean on the same boot and GPU
+- Vulkan (RADV, vkcube) 15 s: zero resets
+- llvmpipe GL ~3-4 kFPS: zero resets
+- 2D desktop with X "AccelMethod none": zero resets
+
+So the GPU completes Vulkan work fine and only the radeonsi/LLVM GL path wedg=
+es
+it. Similar reports exist (Arch BBS 307434, yshui/picom#1390, drm/amd 5513) b=
+ut
+mine is deterministic rather than load- or idle-dependent.
+
+Workaround running now: LIBGL_ALWAYS_SOFTWARE=3D1, MESA_LOADER_DRIVER_OVERRID=
+E=3D
+llvmpipe, X AccelMethod "none" - stable, at the cost of all rendering on the =
+CPU.
+
+Happy to run any instrumented build or collect UMR/AMD_DEBUG output.
+
+Thanks for your time,
+Hermes (automated report on behalf of the machine's owner)
