@@ -2,42 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC940606A333
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 01:43:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBBA6606A31C
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 01:43:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=zfQdSRrG
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ppbIq4bj
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3057C10F8D9;
-	Wed, 11 Nov 2026 01:43:07 +0000 (UTC)
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012011.outbound.protection.outlook.com [52.101.53.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2018F10F8D4
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Nov 2026 01:43:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26A3510F8D6;
+	Wed, 11 Nov 2026 01:43:13 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013044.outbound.protection.outlook.com
+ [40.93.196.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E4BA10F8D6
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Nov 2026 01:43:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gr/ZVC7/yYHqO5C9+60PoX7eadEoL/dZXek+A5lUPskE7R1xT+c+IOsnaOqZjJTAZhFRP3dM0EmUGT3bk8v5tv9FkhciEvdaS20DkyWho8WXi2UGKrKac6dOQQVgaCUfRalqMU15hIZJFb5rkmk2x8aZTNuO2tjYpDN5chQgFFwDsOkd9OLSsDixepJSiooLAVltA/d+FtxzQCVfAZTuCKCy8ITUCorZBX4KZFO1s3ejvF1eHMtjyxHVCtX5VRfN+V7BPZPjqDrPABszOFHGil9dpU5Lgesx0h4p6J7V0Z+q56ucMYMp3AvVXvDf+C4Lr0LIqlVUIaNL7leHFd3h/w==
+ b=ZjwTA30+ezEEp1oBEuFPP1q236FjrVPB9Gz3JxnCnhCT7otIHlPlW4ifZWnp4TCX5IreAocW7vyGEXvKkq/MJFsQKsu9uh86lxLgcEBNIkiI7NMEIL5DVgQPSDQNt9QITNviqtNXiz+1L2dpRG1nurVNhUXD0UQ3ShFltg0vE1xqapEZB3Z9PMyWjR0ielo9ey8Qk2CMPIv8oN9GaYDAOozJQP5jG1sRsNPUQ2SkFjipBMAxUwfRzfT5DQ1OYg3n4Wwu0uDUdI6ECe6ZO8b2zHPvhELE4T5LsmNzIXAkes9cgTN7X8xQ9tEnZE+cmkSsJ3k3Er7VOi6LA9G1wN/xiw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=swWuZmertMreouIXm7ZfFA82ax1clF3E0waSYPkwhGo=;
- b=tqf1l918Y7gPtmzU7+BMtQlQ/sLMwVVL+DRlgc6PMkcoGjbeR1a6MyN888Dzt6W+8YcALL+6fQs30Pc4nfByrsce58oISfUBe3M5UhDV1jv4mqN6DahZ/DP/Yv5RgsTmPU+sYYA56TlM98DUHEHB5afOuTxRKcW6W3h8Sk7aAeSBEH0BW7Yvwh27QsVrcBE45WpKG6O6oPYloP3ECiR9kFCU4s7riijrrPKVvQFJVQdurrURrKYdz3Dbb0x5QkrXzQpqlVX5tWuKPVpUds8teX+mBWALuN7/Gm/goL1XpIOOBzbmzuI0mcbu7XasCNEkd98zYMRt0nszBOXDXgyx6A==
+ bh=226mV1qh/TRqzAg6SGyO5or7L1t2wyN7g6UmyNJqbdU=;
+ b=QIHecFj7jYctjoW1kDJ2ma+EdV0NmTAMFDm+IjpzEOZ0BDjo5uAp8HcLFcEgRdCr7A6l+X8SQh61l5AEVEzZPbp328Txfe1cPzMgPnP6C1vQQVMGWKMSrXagCVH2xT5aEpxfnefNPczzz62AOdJo6gxdVg20WGS6Aze10NnxEgdwiBzUxtODmC91AaRhQe/9nHBg8/DPWp3vf+7+Ah6fmOfZ4HNs8UIUNrI905SKf+sI3FVhXuUuDiojx6Emo7CL+Uf5disw3Ustda9IwsT+I7f1AMPHNhBHxkFz23jD05NZxhTnpg3Hmw+yjFyhVqeaY+yuFA7AIspPOa4w3R+UOQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=swWuZmertMreouIXm7ZfFA82ax1clF3E0waSYPkwhGo=;
- b=zfQdSRrGDEyHiFU9A25lEZXsGAshYG0wQtH0bd0KZV0tAvwONIKqjnMst33lUTwMwUYDOxZGwNWbRPJkyTVqxsxIIuOIUyimOKjalB1+VAzdFH+PlPmZ3S07dMlhUIYo1bb3jE1cg9LBxYXQZdb3RDjMyzg+sNjI1avqK+yH4os=
-Received: from CH0PR04CA0035.namprd04.prod.outlook.com (2603:10b6:610:77::10)
- by DS7PR12MB5984.namprd12.prod.outlook.com (2603:10b6:8:7f::18) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=226mV1qh/TRqzAg6SGyO5or7L1t2wyN7g6UmyNJqbdU=;
+ b=ppbIq4bjMcE/NeQ8AR5GfMWacggNtwPesHOfh45249b9nm5Nq5ywfD2gfl4gUPGPQRz0BWZL8bXEEuL39ptVzjvRSh7g5jnIKdFZTTe0XVDybGa3/R3nzg8TgpyG6uzDEjirlStJfGMGKD9a/PwMQIqsX/boK6FqpoYCxmWOibc=
+Received: from BN0PR04CA0129.namprd04.prod.outlook.com (2603:10b6:408:ed::14)
+ by IA0PR12MB7650.namprd12.prod.outlook.com (2603:10b6:208:436::14)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
- 2026 01:42:54 +0000
-Received: from BN2PEPF0000A805.namprd02.prod.outlook.com
- (2603:10b6:610:77:cafe::4e) by CH0PR04CA0035.outlook.office365.com
- (2603:10b6:610:77::10) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 01:41:02 +0000
+Received: from BN2PEPF0000A802.namprd02.prod.outlook.com
+ (2603:10b6:408:ed:cafe::10) by BN0PR04CA0129.outlook.office365.com
+ (2603:10b6:408:ed::14) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Wed, 11
- Nov 2026 01:42:53 +0000
+ Nov 2026 01:41:02 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -46,20 +47,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
 Received: from satlexmb08.amd.com (165.204.84.17) by
- BN2PEPF0000A805.mail.protection.outlook.com (10.167.245.169) with Microsoft
+ BN2PEPF0000A802.mail.protection.outlook.com (10.167.245.171) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Wed, 11 Nov 2026 01:42:53 +0000
+ 15.21.615.4 via Frontend Transport; Wed, 11 Nov 2026 01:41:01 +0000
 Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 10 Nov
- 2026 19:42:53 -0600
+ 2026 19:41:01 -0600
 Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
  (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 10 Nov
- 2026 19:42:53 -0600
+ 2026 19:41:01 -0600
 Received: from wayne-dev-lnx.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Tue, 10 Nov 2026 19:42:49 -0600
+ Transport; Tue, 10 Nov 2026 19:40:58 -0600
 From: Wayne Lin <Wayne.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -68,12 +69,10 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Rafal Ostrowski <rafal.ostrowski@amd.com>, Alvin Lee
- <alvin.lee2@amd.com>
-Subject: [PATCH 38/74] drm/amd/display: Fix DSC teardown gating in post-unlock
- BLS sequence
-Date: Wed, 11 Nov 2026 09:28:44 +0800
-Message-ID: <20261111014100.3596072-39-Wayne.Lin@amd.com>
+ <Chen-Yu.Chen@amd.com>
+Subject: [PATCH 10/74] drm/amd/display: Stop HDMI FRL status polling on fini
+Date: Wed, 11 Nov 2026 09:28:16 +0800
+Message-ID: <20261111014100.3596072-11-Wayne.Lin@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261111014100.3596072-1-Wayne.Lin@amd.com>
 References: <20261111014100.3596072-1-Wayne.Lin@amd.com>
@@ -83,29 +82,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000A805:EE_|DS7PR12MB5984:EE_
-X-MS-Office365-Filtering-Correlation-Id: 92378352-e807-4ebd-cf7f-08df3f951a8f
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000A802:EE_|IA0PR12MB7650:EE_
+X-MS-Office365-Filtering-Correlation-Id: 38111676-2772-4152-f9d9-08df3f94d7ee
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|10067099003|11063799006|56012099006|261022105027099003|261021121427099003|261021123027099003|261026140227099003|261026121527099003|261028144727099003|261102123227099003|261009221227099003|261009223027099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info: AkdkBDeClpYwlpz73+d72csQhc1/F2ujMCntSHFJZ6luXQppqb+SjnG0zguUeGrUFPfcHtFaTKXFGuthsX0I1S7n9n8qxVlMkDkcjFaLVVz31R80ejn1ZiX2vDO7P7ue2j2klWAW+UpDTB84j0Bpi4dmQMcXllDDR6qEQX2ppvQH+h7/KCWNgjGbMBrR7Szk0xvY2cEhgqdOwjUXZwkT9w1YYwXH5BYEXTdjuxjxfPeHEIRKo/bCpHEb+KRSaTIi0eWhiPxipwKwZUIULao9sVWUcUqdZ7/MQjntDQDfugBOM/lB6htVxrLH4kPxfcDGg4A/xJNJLhe3o8FS989gbf3hnHy73LXvF7Ybv27KmABonMhlfirwu3kfBfCmlIG1eaQJq5WFVaFGouRfN8tJO+4W/tmQturDjwPW6VdQvTEaQRvwsI3cJ5r9Xo297uUtFvE6tYzP8cuyyqTA1u3Wg2gm+kQzdEMaBLGHYTWOqXF96wU7M5jcKYCYMJFn4kOHUSXtmCySBn817bdaeUtgxy42lS1OrVi60b6ukz9EixmcBoY6heVhL/3ie3jhpA0a4b70qy88keGa20ZdZCo0wU7IMbkC8ZAEC/T3KVFqXj5G0WqTvwx+BHteuRgXIKILHufowT+H/OmrJGjqig12KsQQnyoJhQvvZhO7dPAyWIMHZK+wWBbyRRoNWnL3hxmuvBvFdCSCeWnSTU0c5EtBaw==
+ ARA:13230040|36860700016|23010399003|82310400026|376014|1800799024|18002099003|22082099003|261009221227099003|261009221727099003|261009220027099003|11063799006|56012099006|261009223327099003|261102123227099003|261009223027099003|261026121527099003|261021121427099003|261021123027099003|261022075727099003|261022105027099003|10067099003|261028144727099003|261026140227099003;
+X-Microsoft-Antispam-Message-Info: nVZ/a0hVoTLG7NXVJdCC6Vab9S/NTvYsLBp43YN4/slHP+w/+XDRjFbfSf6Mo2qMfx4uklQy7g/S3ynjX5/B8tWD39wEh30UqnO0Fl0syuuF3cFkyaBqfVVsb4enb355dRrLTWFBwj57J9gqYKqkComlczpgStkZ54NCgricNsDrrdSbFAiaVXxpmVbi6X3UY7CCoC4HpKrwN2Wg0t5Bpln/3zD0RWo6hamXI5CgRyjVL4ocLyEo06bG4tyT5vO9db+ye9j4mMF8KMTnegKTSd9/WqRZH4BfPjyhvi3PMKtwp5KI58yPur4aMlPS37iriJV/Hypx/ZJDFKAHBZb1i8HKyokbRH3sEBAFn1ImNbYiXw1M730oNbrlk6zWbrdg1FTKYf+WPEIhHa1dAvZPT4//z0JmjG+kObJQn30ug6b+7FQFFkg5HIbwSA6p1IzggP4S2UNO8fP8DDLQKdNduURmPJ27j4IkXrpAT2h8tSvEWLOyT1mX1MrXPuPz0C7O3u4y8frDyXEUrkl0LItMF0f61lQkB+WnfVutfOBaJIz0ir2fN+6W05e/91boVb6hU8M0u6kpG8+9EIXKvCNg7BOF1+fgufVy+6Khm5t3DRsGGzfcbOGO1iANC5XZlKh59cn8oKiHjMSA6Wpmb3blmWYOk9wmXjx9WGUxRMmYz0bNLpxI4VlKvi7goJHHTMIfDkvC2YCzWaCtc84cSYDw/Q==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(10067099003)(11063799006)(56012099006)(261022105027099003)(261021121427099003)(261021123027099003)(261026140227099003)(261026121527099003)(261028144727099003)(261102123227099003)(261009221227099003)(261009223027099003)(18002099003)(22082099003)(6133799003);
+ SFS:(13230040)(36860700016)(23010399003)(82310400026)(376014)(1800799024)(18002099003)(22082099003)(261009221227099003)(261009221727099003)(261009220027099003)(11063799006)(56012099006)(261009223327099003)(261102123227099003)(261009223027099003)(261026121527099003)(261021121427099003)(261021123027099003)(261022075727099003)(261022105027099003)(10067099003)(261028144727099003)(261026140227099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: EjPjsj+gRMRucXSznQb0dWo6SalQVviwkuHY3k379Q00+7izpb3BzImh4+kqiCcXDmjyHP5EL3kDYNauKy5QzhlVCriMKimGX9BGJdqCZ8VySfbWqGCZCauiiqr+3EuBxfp71jhKC4yyCSJeOAJTE/HnWjQK5rFwrRj4DmusBMSaoSqoxGJFJa1aRMF/hnC69A0kqOVZjJfvhTUT9zpX1RPHb4QntUV9SeftBEXtMHZs1ww9KGekXlKeughZuPdaKVUy7Jy3iqQH7QELHbyjRLGIM3W9T46JgAnw81WoDxjrJRv3nNXW3KaUAc0GvcgJETsmCDeQvYi95fDm7VIL9XgSTS8a9SG9JTw0n6B0oksqLm29WrMDHFhLqR0T0so77KEBQdOWjlDGRUA8PbRXJ8PN1HNu7MFJ9zkQ8k5CfzM0i8fdIbGoDQGsbLuJNsmN
+X-MS-Exchange-AntiSpam-MessageData-0: OEEQG9hrmMcEtYhTyvoeHds3qoGPXyrOE9hhTKX+Sp2SAUVDhZgRyDHiUbOxZXSEkSTCXhzb3Kw5JDErk1n+xylSTDE75/VNPOtxsObm0iUlKhaua7gzOi9OonLBCFJNZ294VO1pKrh5sg5QgNILFvesLfVojO4SjwlePkEe4qnHSFjU1VNCo20VL5kfI2V4NvPTk0Lj66sB8a9ahh3rKel6wrYXkWB7Eekh8KnZWNdAjV6lghvK8CO6krZVO8vQptmJl+O0kfWLbrULsgDpMohh33b0Y3I/QP/4VBnQa/GAVCOk0ogMRBGCHwFtxZ0vtzP6ukZrBrgo7Fd2X8w2Gf8oXwMtBjl6DfcoKz8gPNxq7CJd1RiDJmy2clJY+a/nHucdeOY4KSQAGr7+eo8pchsevDKGEnjdz55A0naon2/gR1zvCTxrCHPCeO2ohXn2
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 01:42:53.7779 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 92378352-e807-4ebd-cf7f-08df3f951a8f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 01:41:01.9924 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 38111676-2772-4152-f9d9-08df3f94d7ee
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF0000A805.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF0000A802.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5984
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7650
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,346 +122,43 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Rafal Ostrowski <rafal.ostrowski@amd.com>
+From: Fangzhi Zuo <jerry.zuo@amd.com>
 
 [Why]
-- The builder passed a NULL is_ungated, so these steps never programmed
-  under BLS: DSC_WAIT_DISCONNECT_PENDING_CLEAR, DSC_DISABLE,
-  DCCG_SET_REF_DSCCLK. The immediate path does program them.
+The HDMI FRL status polling work re-queues itself and its workqueue was not
+stopped during amdgpu_dm_fini(). During unbind or unload, the worker could
+access freed DC state, and the workqueue was leaked. This fixes the FRL
+polling teardown introduced by the HDMI FRL support change.
 
 [How]
-- Store the DSC_PG_STATUS result in the new dsc->pg_ungated; the three
-  steps read it at execute time.
-- Pass the DSC pointer to the four adders instead of dsc_inst and
-  is_ungated.
-- hwss_add_dsc_pg_status returns whether it emitted a step; if not, the
-  builder emits no dependent steps.
-- Adders validate their arguments and hooks; executors only program.
+Cancel the delayed polling work synchronously and destroy the workqueue in
+amdgpu_dm_fini() before the remaining display state is torn down.
 
-Cc: Alvin Lee <alvin.lee2@amd.com>
-Signed-off-by: Rafal Ostrowski <rafal.ostrowski@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Fangzhi Zuo <jerry.zuo@amd.com>
 Signed-off-by: Wayne Lin <wayne.lin@amd.com>
 ---
- .../drm/amd/display/dc/core/dc_hw_sequencer.c | 81 +++++++++----------
- drivers/gpu/drm/amd/display/dc/dc_dsc.h       |  1 +
- .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c | 20 +++--
- .../amd/display/dc/hwss/dcn60/dcn60_hwseq.c   |  9 +++
- .../amd/display/dc/hwss/dcn60/dcn60_hwseq.h   |  1 +
- .../amd/display/dc/hwss/dcn60/dcn60_init.c    |  2 +-
- .../drm/amd/display/dc/hwss/hw_sequencer.h    | 22 ++---
- 7 files changed, 66 insertions(+), 70 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-index 32a33d29835e..c5e8a88d051d 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-@@ -4033,22 +4033,16 @@ void hwss_disable_phantom_crtc(union block_sequence_params *params)
- void hwss_dsc_pg_status(union block_sequence_params *params)
- {
- 	struct dce_hwseq *hws = params->dsc_pg_status_params.hws;
--	int dsc_inst = params->dsc_pg_status_params.dsc_inst;
-+	struct display_stream_compressor *dsc = params->dsc_pg_status_params.dsc;
- 
--	if (hws && hws->funcs.dsc_pg_status)
--		params->dsc_pg_status_params.is_ungated = hws->funcs.dsc_pg_status(hws, dsc_inst);
-+	dsc->pg_ungated = hws->funcs.dsc_pg_status(hws, dsc->inst);
- }
- 
- void hwss_dsc_wait_disconnect_pending_clear(union block_sequence_params *params)
- {
- 	struct display_stream_compressor *dsc = params->dsc_wait_disconnect_pending_clear_params.dsc;
- 
--	if (!params->dsc_wait_disconnect_pending_clear_params.is_ungated)
--		return;
--	if (*params->dsc_wait_disconnect_pending_clear_params.is_ungated == false)
--		return;
--
--	if (dsc && dsc->funcs->dsc_wait_disconnect_pending_clear)
-+	if (dsc->pg_ungated)
- 		dsc->funcs->dsc_wait_disconnect_pending_clear(dsc);
- }
- 
-@@ -4056,27 +4050,17 @@ void hwss_dsc_disable(union block_sequence_params *params)
- {
- 	struct display_stream_compressor *dsc = params->dsc_disable_params.dsc;
- 
--	if (!params->dsc_disable_params.is_ungated)
--		return;
--	if (*params->dsc_disable_params.is_ungated == false)
--		return;
--
--	if (dsc && dsc->funcs->dsc_disable)
-+	if (dsc->pg_ungated)
- 		dsc->funcs->dsc_disable(dsc);
- }
- 
- void hwss_dccg_set_ref_dscclk(union block_sequence_params *params)
- {
- 	struct dccg *dccg = params->dccg_set_ref_dscclk_params.dccg;
--	int dsc_inst = params->dccg_set_ref_dscclk_params.dsc_inst;
--
--	if (!params->dccg_set_ref_dscclk_params.is_ungated)
--		return;
--	if (*params->dccg_set_ref_dscclk_params.is_ungated == false)
--		return;
-+	const struct display_stream_compressor *dsc = params->dccg_set_ref_dscclk_params.dsc;
- 
--	if (dccg && dccg->funcs->set_ref_dscclk)
--		dccg->funcs->set_ref_dscclk(dccg, dsc_inst);
-+	if (dsc->pg_ungated)
-+		dccg->funcs->set_ref_dscclk(dccg, dsc->inst);
- }
- 
- void hwss_dpp_pg_control(union block_sequence_params *params)
-@@ -5457,54 +5441,65 @@ void hwss_add_disable_phantom_crtc(struct block_sequence_state *seq_state,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 7fffbb609225..a7c2b0094944 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -885,6 +885,13 @@ static void amdgpu_dm_fini(struct amdgpu_device *adev)
+ 		adev->dm.vblank_control_workqueue = NULL;
  	}
- }
  
--void hwss_add_dsc_pg_status(struct block_sequence_state *seq_state,
-+bool hwss_add_dsc_pg_status(struct block_sequence_state *seq_state,
- 		struct dce_hwseq *hws,
--		int dsc_inst,
--		bool is_ungated)
-+		struct display_stream_compressor *dsc)
- {
--	if (*seq_state->num_steps < MAX_HWSS_BLOCK_SEQUENCE_SIZE) {
--		seq_state->steps[*seq_state->num_steps].func = DSC_PG_STATUS;
--		seq_state->steps[*seq_state->num_steps].params.dsc_pg_status_params.hws = hws;
--		seq_state->steps[*seq_state->num_steps].params.dsc_pg_status_params.dsc_inst = dsc_inst;
--		seq_state->steps[*seq_state->num_steps].params.dsc_pg_status_params.is_ungated = is_ungated;
--		(*seq_state->num_steps)++;
--	}
-+	if (!seq_state || !seq_state->steps || !seq_state->num_steps ||
-+	    !hws || !hws->funcs.dsc_pg_status || !dsc)
-+		return false;
++	/* The poll re-queues itself, so stop it before the wq and dc go away. */
++	if (adev->dm.hdmi_frl_status_polling_wq) {
++		cancel_delayed_work_sync(&adev->dm.hdmi_frl_status_polling_work);
++		destroy_workqueue(adev->dm.hdmi_frl_status_polling_wq);
++		adev->dm.hdmi_frl_status_polling_wq = NULL;
++	}
 +
-+	if (*seq_state->num_steps >= MAX_HWSS_BLOCK_SEQUENCE_SIZE)
-+		return false;
-+
-+	seq_state->steps[*seq_state->num_steps].func = DSC_PG_STATUS;
-+	seq_state->steps[*seq_state->num_steps].params.dsc_pg_status_params.hws = hws;
-+	seq_state->steps[*seq_state->num_steps].params.dsc_pg_status_params.dsc = dsc;
-+	(*seq_state->num_steps)++;
-+
-+	return true;
- }
- 
- void hwss_add_dsc_wait_disconnect_pending_clear(struct block_sequence_state *seq_state,
--		struct display_stream_compressor *dsc,
--		bool *is_ungated)
-+		struct display_stream_compressor *dsc)
- {
-+	if (!seq_state || !seq_state->steps || !seq_state->num_steps ||
-+	    !dsc || !dsc->funcs || !dsc->funcs->dsc_wait_disconnect_pending_clear)
-+		return;
-+
- 	if (*seq_state->num_steps < MAX_HWSS_BLOCK_SEQUENCE_SIZE) {
- 		seq_state->steps[*seq_state->num_steps].func = DSC_WAIT_DISCONNECT_PENDING_CLEAR;
- 		seq_state->steps[*seq_state->num_steps].params.dsc_wait_disconnect_pending_clear_params.dsc = dsc;
--		seq_state->steps[*seq_state->num_steps].params.dsc_wait_disconnect_pending_clear_params.is_ungated = is_ungated;
- 		(*seq_state->num_steps)++;
- 	}
- }
- 
- void hwss_add_dsc_disable(struct block_sequence_state *seq_state,
--		struct display_stream_compressor *dsc,
--		bool *is_ungated)
-+		struct display_stream_compressor *dsc)
- {
-+	if (!seq_state || !seq_state->steps || !seq_state->num_steps ||
-+	    !dsc || !dsc->funcs || !dsc->funcs->dsc_disable)
-+		return;
-+
- 	if (*seq_state->num_steps < MAX_HWSS_BLOCK_SEQUENCE_SIZE) {
- 		seq_state->steps[*seq_state->num_steps].func = DSC_DISABLE;
- 		seq_state->steps[*seq_state->num_steps].params.dsc_disable_params.dsc = dsc;
--		seq_state->steps[*seq_state->num_steps].params.dsc_disable_params.is_ungated = is_ungated;
- 		(*seq_state->num_steps)++;
- 	}
- }
- 
- void hwss_add_dccg_set_ref_dscclk(struct block_sequence_state *seq_state,
- 		struct dccg *dccg,
--		int dsc_inst,
--		bool *is_ungated)
-+		const struct display_stream_compressor *dsc)
- {
-+	if (!seq_state || !seq_state->steps || !seq_state->num_steps ||
-+	    !dccg || !dccg->funcs || !dccg->funcs->set_ref_dscclk || !dsc)
-+		return;
-+
- 	if (*seq_state->num_steps < MAX_HWSS_BLOCK_SEQUENCE_SIZE) {
- 		seq_state->steps[*seq_state->num_steps].func = DCCG_SET_REF_DSCCLK;
- 		seq_state->steps[*seq_state->num_steps].params.dccg_set_ref_dscclk_params.dccg = dccg;
--		seq_state->steps[*seq_state->num_steps].params.dccg_set_ref_dscclk_params.dsc_inst = dsc_inst;
--		seq_state->steps[*seq_state->num_steps].params.dccg_set_ref_dscclk_params.is_ungated = is_ungated;
-+		seq_state->steps[*seq_state->num_steps].params.dccg_set_ref_dscclk_params.dsc = dsc;
- 		(*seq_state->num_steps)++;
- 	}
- }
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_dsc.h b/drivers/gpu/drm/amd/display/dc/dc_dsc.h
-index de169ed3b3b7..99592d5bb3c4 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_dsc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_dsc.h
-@@ -43,6 +43,7 @@ struct display_stream_compressor {
- 	const struct dsc_funcs *funcs;
- 	struct dc_context *ctx;
- 	int inst;
-+	bool pg_ungated;
- };
- 
- struct dc_dsc_policy {
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-index f14cba867111..cc78b4794cef 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-@@ -1828,7 +1828,8 @@ static void dcn401_add_dsc_sequence_for_odm_change(struct dc *dc, struct dc_stat
- 	if (otg_master->stream_res.dsc && otg_master->stream->timing.flags.DSC) {
- 		if (!hwss_add_dsc_sequence_for_stream(seq_state, otg_master,
- 				otg_master->dsc_padding_params.dsc_hactive_padding, NULL)) {
--			ASSERT(false);
-+			/* DSC sequence is deliberately skipped while the stream is dpms off */
-+			ASSERT(otg_master->stream->dpms_off);
- 			return;
- 		}
- 	} else if (otg_master->stream_res.dsc && !otg_master->stream->timing.flags.DSC) {
-@@ -3635,12 +3636,10 @@ void dcn401_post_unlock_reset_opp_sequence(
- 	if (dc->hwss.wait_for_mpcc_disconnect_sequence)
- 		dc->hwss.wait_for_mpcc_disconnect_sequence(dc, dc->res_pool, opp_head, seq_state);
- 
--	if (dsc) {
--		bool *is_ungated = NULL;
--		/* Check DSC power gate status */
--		if (dc->hwseq && dc->hwseq->funcs.dsc_pg_status)
--			hwss_add_dsc_pg_status(seq_state, dc->hwseq, dsc->inst, false);
--
-+	/* Check DSC power gate status; the result is kept in dsc->pg_ungated and
-+	 * gates the steps below at execute time.
-+	 */
-+	if (dsc && hwss_add_dsc_pg_status(seq_state, dc->hwseq, dsc)) {
- 		/* Seamless update specific where we will postpone non
- 		 * double buffered DSCCLK disable logic in post unlock
- 		 * sequence after DSC is disconnected from OPP but not
-@@ -3648,14 +3647,13 @@ void dcn401_post_unlock_reset_opp_sequence(
- 		 */
- 
- 		/* DSC wait disconnect pending clear */
--		hwss_add_dsc_wait_disconnect_pending_clear(seq_state, dsc, is_ungated);
-+		hwss_add_dsc_wait_disconnect_pending_clear(seq_state, dsc);
- 
- 		/* DSC disable */
--		hwss_add_dsc_disable(seq_state, dsc, is_ungated);
-+		hwss_add_dsc_disable(seq_state, dsc);
- 
- 		/* Set reference DSCCLK */
--		if (dccg && dccg->funcs->set_ref_dscclk)
--			hwss_add_dccg_set_ref_dscclk(seq_state, dccg, dsc->inst, 0);
-+		hwss_add_dccg_set_ref_dscclk(seq_state, dccg, dsc);
- 	}
- }
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn60/dcn60_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn60/dcn60_hwseq.c
-index f8254dfe1ce7..8a38b7f0bef0 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn60/dcn60_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn60/dcn60_hwseq.c
-@@ -1332,3 +1332,12 @@ bool dcn60_apply_idle_power_optimizations(struct dc *dc, bool enable)
- 
- 	return true;
- }
-+
-+bool dcn60_dsc_pg_status(struct dce_hwseq *hws, unsigned int dsc_inst)
-+{
-+	(void)hws;
-+	(void)dsc_inst;
-+
-+	/* DCN6.0 has no DSC power-gate domain, so the DSC is always ungated. */
-+	return true;
-+}
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn60/dcn60_hwseq.h b/drivers/gpu/drm/amd/display/dc/hwss/dcn60/dcn60_hwseq.h
-index b880988ff1fc..b88f4304b1b9 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn60/dcn60_hwseq.h
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn60/dcn60_hwseq.h
-@@ -29,6 +29,7 @@ void dcn60_update_cursor_offload_pipe(struct dmub_srv *dmub, uint32_t stream_idx
- 
- void dcn60_program_perfmon(struct dc *dc, struct dc_state *context);
- bool dcn60_apply_idle_power_optimizations(struct dc *dc, bool enable);
-+bool dcn60_dsc_pg_status(struct dce_hwseq *hws, unsigned int dsc_inst);
- 
- bool dcn60_set_rmcm_luts(struct set_input_transfer_func_params *params);
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn60/dcn60_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn60/dcn60_init.c
-index 9fde7d1be3e5..d5c8dcc86a9f 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn60/dcn60_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn60/dcn60_init.c
-@@ -159,7 +159,7 @@ static const struct hwseq_private_funcs dcn60_private_funcs = {
- 	.update_odm = dcn401_update_odm,
- 	.update_odm_sequence = dcn401_update_odm_sequence,
- 	.dsc_pg_control = NULL,
--	.dsc_pg_status = NULL,
-+	.dsc_pg_status = dcn60_dsc_pg_status,
- 	.set_hdr_multiplier = dcn10_set_hdr_multiplier,
- 	.set_hdr_multiplier_sequence = dcn401_set_hdr_multiplier_sequence,
- 	.wait_for_blank_complete = dcn20_wait_for_blank_complete,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-index 6996ce12a17d..c4f3ec532572 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-@@ -1037,24 +1037,20 @@ struct dc_ip_request_cntl_params {
- 
- struct dsc_pg_status_params {
- 	struct dce_hwseq *hws;
--	int dsc_inst;
--	bool is_ungated;
-+	struct display_stream_compressor *dsc;
- };
- 
- struct dsc_wait_disconnect_pending_clear_params {
- 	struct display_stream_compressor *dsc;
--	bool *is_ungated;
- };
- 
- struct dsc_disable_params {
- 	struct display_stream_compressor *dsc;
--	bool *is_ungated;
- };
- 
- struct dccg_set_ref_dscclk_params {
- 	struct dccg *dccg;
--	int dsc_inst;
--	bool *is_ungated;
-+	const struct display_stream_compressor *dsc;
- };
- 
- struct dccg_update_dpp_dto_params {
-@@ -2919,23 +2915,19 @@ void hwss_add_dpp_dppclk_control(struct block_sequence_state *seq_state,
- void hwss_add_disable_phantom_crtc(struct block_sequence_state *seq_state,
- 		struct timing_generator *tg);
- 
--void hwss_add_dsc_pg_status(struct block_sequence_state *seq_state,
-+bool hwss_add_dsc_pg_status(struct block_sequence_state *seq_state,
- 		struct dce_hwseq *hws,
--		int dsc_inst,
--		bool is_ungated);
-+		struct display_stream_compressor *dsc);
- 
- void hwss_add_dsc_wait_disconnect_pending_clear(struct block_sequence_state *seq_state,
--		struct display_stream_compressor *dsc,
--		bool *is_ungated);
-+		struct display_stream_compressor *dsc);
- 
- void hwss_add_dsc_disable(struct block_sequence_state *seq_state,
--		struct display_stream_compressor *dsc,
--		bool *is_ungated);
-+		struct display_stream_compressor *dsc);
- 
- void hwss_add_dccg_set_ref_dscclk(struct block_sequence_state *seq_state,
- 		struct dccg *dccg,
--		int dsc_inst,
--		bool *is_ungated);
-+		const struct display_stream_compressor *dsc);
- 
- bool hwss_is_dpp_root_clock_control_allowed(struct dce_hwseq *hws, bool clock_on);
- 
+ 	if (adev->dm.idle_workqueue) {
+ 		if (adev->dm.idle_workqueue->running) {
+ 			adev->dm.idle_workqueue->enable = false;
 -- 
 2.43.0
 
