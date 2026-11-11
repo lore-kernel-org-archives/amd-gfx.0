@@ -2,49 +2,79 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06151606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99260606A334
 	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 13:56:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=eAxqybbY
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MyDwC8CY
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47CAD11212C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67B6B112141;
 	Thu, 12 Nov 2026 13:56:21 +0000 (UTC)
-Received: from mail-4321.protonmail.ch (mail-4321.protonmail.ch [185.70.43.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 03A1110E1DE
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Nov 2026 07:23:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
- s=protonmail3; t=1794467851; x=1794727051;
- bh=QW4sENIMwR8MNEKJj6gHiTwQIJhtyyl5wg/RcVDWz2o=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=eAxqybbYdRlzx+gH63jGpYf9B9S7crMeprqJgXwPmf13TiKtT1PcIgva7sEcAkS7d
- K7uFPlZxe8YojsFNQH/4jLqdsrfKTUwMsEAjAzmBZjQZmUjHleDT8VzgaLdYGBv13N
- JwHeTcD2LMHNFFmMGvUZvaUzWDZXQ/wVG7FU914T2tbF64hf9Y6pPQ32Qb2OY+0/Vd
- Jp3G+B9c42qUtDd2m8W/vWcl4IVc8sUDFcn0HpNaldWa9UyinwGjNw1/cuVAnBVHfs
- qJ5lvcgtskMHLhCjj7prVHsKb+5g5PxKazGtqw26c2wjRB28MIZwgoMQj7d4zfxBkd
- zWTIMnCjmy2yg==
-Date: Thu, 12 Nov 2026 07:17:27 +0000
-To: Wayne Lin <Wayne.Lin@amd.com>
-From: =?utf-8?Q?Eren_=C3=96zen?= <erenozen@protonmail.com>
-Cc: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Roman Li <roman.li@amd.com>, Tom Chung <chiahsuan.chung@amd.com>,
- Fangzhi Zuo <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>,
- Ray Wu <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>,
- Alex Hung <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>,
- Chenyu Chen <Chen-Yu.Chen@amd.com>, Tony Qi <haoming.qi@amd.com>
-Subject: Re: [PATCH 44/74] drm/amd/display: Fix KUnit tiled EDID size
-Message-ID: <lUsA9VgO10K5HoejQbJb_cHwktMV2xMLFEqiWTN6siXkWFpXozVjkiP04I3UPUje1vVwTt7d3eUDc6s70KLVR9bstdtphhfTML9bzO45LNo=@protonmail.com>
-In-Reply-To: <20261111014100.3596072-45-Wayne.Lin@amd.com>
-References: <20261111014100.3596072-1-Wayne.Lin@amd.com>
- <20261111014100.3596072-45-Wayne.Lin@amd.com>
-Feedback-ID: 19860221:user:proton
-X-Pm-Message-ID: c58cbbd5a2d06962b640185349f11325a21f981d
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFDFE10EAC1;
+ Wed, 11 Nov 2026 23:48:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1794440928; x=1825976928;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=nn492t9vwWyNrSlbHv+ImXuNJXcsvtoFtn2kqzaYrJE=;
+ b=MyDwC8CYx58Gq1PPnGXos1jG0sRdsLBAZkO4R6vtLizUvYgnf+cBUBc3
+ iime9MArLvER9vGVqyWYWf14A2ZaQs4FPUFGUvasqPLNy4F++bb2zsOXP
+ vZ6BMaicqrY2qPOnavtZO+dZxmU8qTFtSZiAfaMZqa1iVgkXVnh8Zemym
+ xqq+4DxxDyOm61u8DDb/2Zt2pNn7+9C8Xw9jg0VzoIwb/hfRUQGVDkSp9
+ fPrR28e8LkPb17HhzvI/d9IhCNHLfqUkI8PoLMnRk2s/rTzmmFH1/eAFG
+ 5Sz4b/gQrcWo6+O85yx+bNU9fwLotYyUqpkM4hna+Wku7usmfPeWXgAcD g==;
+X-CSE-ConnectionGUID: cykHXQgrSdi0CRgyW8pq4A==
+X-CSE-MsgGUID: SWwFr7mdSLiKQjYWxHBWqw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3226682"
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="3226682"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Nov 2026 15:48:47 -0800
+X-CSE-ConnectionGUID: meJAifVaQEOpz/aGc9pt4Q==
+X-CSE-MsgGUID: YrrcqYuLTPOSRGb2SidOoA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="8512421"
+Received: from pavel-dev.sc.intel.com (HELO pepopov-mobl2.intel.com)
+ ([10.3.206.11])
+ by orviesa002.jf.intel.com with ESMTP; 11 Nov 2026 15:48:44 -0800
+From: Pavel Popov <pavel.e.popov@intel.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Peter Huewe <peterhuewe@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>,
+ Tom Lendacky <thomas.lendacky@amd.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>
+Cc: Pavel Popov <pavel.e.popov@intel.com>, Leon Romanovsky <leon@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
+ Arnd Bergmann <arnd@arndb.de>, Len Brown <lenb@kernel.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, "David S . Miller" <davem@davemloft.net>,
+ x86@kernel.org, linux-acpi@vger.kernel.org, linux-pm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
+ linux-integrity@vger.kernel.org, linux-crypto@vger.kernel.org,
+ linux-arch@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH 7/7] crypto: ccp - Drop unused <asm/cpu_device_id.h> include
+Date: Wed, 11 Nov 2026 16:48:20 -0700
+Message-ID: <20261111234821.4814-8-pavel.e.popov@intel.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261111234821.4814-1-pavel.e.popov@intel.com>
+References: <20261111234821.4814-1-pavel.e.popov@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 12 Nov 2026 13:56:07 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -56,25 +86,37 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, Nov 11, 2026 at 09:28:50AM +0800, Wayne Lin wrote:
-> dm_test_detect_hides_secondary_tile fails because its synthesized
-> DisplayID tiled display block is 21 bytes, built around an 8-byte
-> topology ID.
+Nothing in ccp-dev.c uses <asm/cpu_device_id.h>; the CPU match table
+it was included for is long gone. Drop the include and the #ifdef
+CONFIG_X86 around it.
 
-I hit this failure too. Ran the amdgpu_dm KUnit suite on UML
-(kunit.py, amdgpu_dm/tests .kunitconfig, GCC 16, CONFIG_GCOV=3Dn) on
-amd-staging-drm-next 47df73aa49:
+Signed-off-by: Pavel Popov <pavel.e.popov@intel.com>
+---
+ drivers/crypto/ccp/ccp-dev.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-  before: 1910/1912 passed (detect returned connected, expected
-          disconnected)
-  after this patch and 63/74: 1912/1912 passed
-
-Tested-by: Eren =C3=96zen <erenozen@protonmail.com>
+diff --git a/drivers/crypto/ccp/ccp-dev.c b/drivers/crypto/ccp/ccp-dev.c
+index 41d9bdac95d..017e7a6551f 100644
+--- a/drivers/crypto/ccp/ccp-dev.c
++++ b/drivers/crypto/ccp/ccp-dev.c
+@@ -21,9 +21,6 @@
+ #include <linux/hw_random.h>
+ #include <linux/cpu.h>
+ #include <linux/atomic.h>
+-#ifdef CONFIG_X86
+-#include <asm/cpu_device_id.h>
+-#endif
+ #include <linux/ccp.h>
+ 
+ #include "ccp-dev.h"
+-- 
+2.54.0
 
