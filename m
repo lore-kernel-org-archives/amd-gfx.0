@@ -2,102 +2,99 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A0CA606A334
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 16:44:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AB5D606A336
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 16:50:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=uN7dyTP2
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jz+/4+YE
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1196810FCDA;
-	Wed, 11 Nov 2026 16:44:21 +0000 (UTC)
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010043.outbound.protection.outlook.com [52.101.61.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92AF110FCD6;
- Wed, 11 Nov 2026 16:44:14 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xYvu7nemI5IHCG1zVEQhjqyh1/0PchBru5f1PpMhgJMrcBgzmuw9TWbTd+AdSZJGw9/mxRIg43vd9p1zDMqt69xcPtAS9TTV6PbFKwt4r1ZcV8+idzebsNuY/FP2iIJd/pI8Rb5S4nAdxGF2epLbfsoxAOBYSxI1/S2V5eXUEv2OI8NBG5qdGNnAt9ACa6wvDl5+d6BBapHncyLVQDDlPFi+ulonSsuwTmYEsW1asuTX0DblGZ/jscD5YFn2U9Q/IwdpBprtUyX+41N19dY4LoMOqComSWws8OcmfNHBp+GOnQ/zHqgtKHd+6A1KUkatkWyKYZA4j6jMnme+JLul3Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=k5wy3FkSEjxSvPOk06r2FZAEDkpjh8xts2NVrDb1/Ew=;
- b=s46ZKFHw4nJozV7JtDfpmBM0MzsafopeMFcGuCrhBkxPo7c9K1TXoMPp/pelzptX0AjGZgWwofTvw6Mwyecm6izrhFMLrZlpqD3113WaStWC3JVeARo8pgn9n/5TpgBsXdw+Z5wMNp265LNLu95mQsnAU+cOgp5dPn4kSIwtTP6Bs0z+yipFb+ZI4YNmkhcRoqNpNk9lx3BVt6pQ2e5uqBqHfnHXzP97zIJTdRM/AxImCWiJqIUEG7czcD5eqgEEORAuJRz5EVr1EVSVyqiMLd+gJMajFME8tK8G7zWjXnSLHQ7e5/O8INEN3LTPOu7+yyOCAtfTnzRhP/JifEmC9Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=k5wy3FkSEjxSvPOk06r2FZAEDkpjh8xts2NVrDb1/Ew=;
- b=uN7dyTP2IHcB0mJzZY5fJwnWBZAaSh1T1xC7YH8+jP09/JGoVoKsk5gqUDYSR+NcYRtckLQr5qp9v4ytgXdwWEFyq4oXzQq+BAkFoKiDdRKKYb/caQDdeZXv/T6e79W5Ku3U4Ob57jI+OAS4eCNWVlHWtqsFTK0yWWS+svtUULs=
-Received: from MW4PR03CA0002.namprd03.prod.outlook.com (2603:10b6:303:8f::7)
- by PH7PR12MB5853.namprd12.prod.outlook.com (2603:10b6:510:1d4::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
- 2026 16:43:44 +0000
-Received: from CO1PEPF00018868.namprd03.prod.outlook.com (2603:10b6:303:8f::4)
- by MW4PR03CA0002.outlook.office365.com (2603:10b6:303:8f::7) with
- Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9
- via Frontend Transport; Wed, 11 Nov 2026 16:43:44 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CO1PEPF00018868.mail.protection.outlook.com (10.167.249.153) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Wed, 11 Nov 2026 16:43:43 +0000
-Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 11 Nov
- 2026 10:43:40 -0600
-From: Mario Limonciello <mario.limonciello@amd.com>
-Date: Wed, 11 Nov 2026 10:43:20 -0600
-Subject: [PATCH v6 1/3] PCI: Cache bridge firmware secondary bus number
+	by gabe.freedesktop.org (Postfix) with ESMTP id 024F710FC1F;
+	Wed, 11 Nov 2026 16:49:56 +0000 (UTC)
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com
+ [74.125.82.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 87F6110EA98
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Nov 2026 16:49:49 +0000 (UTC)
+Received: by mail-dy1-f180.google.com with SMTP id
+ 5a478bee46e88-36e90071735so121546eec.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Nov 2026 08:49:49 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794415789; cv=none;
+ d=google.com; s=arc-20260327;
+ b=YN3omURWzZoGAJUTyHTi2mK7U0JYh24yOjjiU5XyEQ2qYaVtbU+hDTslJ1czVWNQCP
+ f97yt1M0GVO66UOmeKmKk+9ID+Uxk+J2QKJtw8vg/C5jQqQNp3Vm5IJclFRC1PNreVed
+ cQCkFcBkp7uYGdjeZpM5hIN2uJlMvWDz3QeUmuDFkr1qdKLHaidANQ/YRYibHJT6DcC3
+ 6q/8CUAgSGir03bs0z6klTnmOcP2NVedmZ3s/crcpqb3k8Z6uRvnroUy1RjpAR7ToSrf
+ FXs3hsfB3FF+zpYaBHQSyENvuxqXiWjkHnBmCaIXslePrCtULm4BEFiQQXxGjUR0ljrB
+ RDpQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=3KSf5oiA7fw5PXAhjW9yvUP7uWd8t/r+AFUdm9OF7lQ=;
+ fh=mu3vZXYZmZ8C5zo51o6kmAvMuWwdMezUK+4D5afwl+U=;
+ b=nb2RBhm1YelSlN+7L9Uolt3kcOBzTrXAv2BDew+v4CAcjjL3b+3cXZO+z6rQYv4owj
+ 8eg8RMyKsC6oox+eGrQGLX4fqwCVRZGEkFpJ1OVz3CsCCne0dDb/iqZV22ce5zGJnHvW
+ yhkCr1n4tywySFEL/sJBZ42ElXWr12Z2A0UL8CkWpjlFXX85LG5tRFpjdZFGaDAzTAGI
+ NBS7WzZsg3LOyOGwi6ShXkUaNPiLlvmKLRlWskJ+ZW0cIHwMirOZuB8gHk2ef0EVCfb+
+ dlAyxG08xjfQcU+3Hm2N+NZGQIXxynJnR4ZKNcYwPOiMDHjcDdQ9GWJ7AXvrlox5aISi
+ NRbg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1794415789; x=1795020589; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=3KSf5oiA7fw5PXAhjW9yvUP7uWd8t/r+AFUdm9OF7lQ=;
+ b=jz+/4+YEKdKN68vAsvlrCelY0c0B+zvqJKTgQG3LS1+m7/4Xu9L+D2Mu7bpDuyE5/i
+ rEPnVGJmnqXoymerFQXrn+FiU7PqbopJ0ChkMRmNKsX1v1xr+xJgEWPZUMbG6or/GSHW
+ dXvWs4guNRaNRTk0zlN4EViBLqiNEm0UdmG/Apbv/4hCO5GR8CoNBd2QdsDmdD5w2fKP
+ qV82tYXfswSnt6napNfX2oNUOyGxLPHAXJnVHx2cUn9QkwWN+FoNjvYXcb7LRFopFdZQ
+ Fs03W1B6rd4h0PfjeWmqHMMNy+jnS4C+jqo/58muOILYD3fCegBm5V4als0mgNN13wJE
+ +35Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794415789; x=1795020589;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=3KSf5oiA7fw5PXAhjW9yvUP7uWd8t/r+AFUdm9OF7lQ=;
+ b=Vhl8qW20n9e7tj8zz/xYnsRJAxX7VxiMYToBQRSqIeB8DI1HB4d9gLvdeKZ92tDrE/
+ U3sS6oltkJt7tUbWpe5Mr31pxcsbdsdCm4s0FuI+bltbdpNBDlQcU75rRR9yuzUXjL4D
+ zVP60oKm4rVNYMZxTPG6+0WSEUWob37Zmnr2KSz8FBqpKz/E81pJFpXpwiHPVUm/i+IA
+ k2FR2ehaJmCLhbPiIAl+oFGNHZ1ThgiZXy6ur3Sko907O6a5C86B3G9vujI1+uGfgn2a
+ 835XtmtRPUXdRWUhua0dF8OSkpDCkLzsxyr1nYbwwuJbvm4zzMDpQru/uwnyIqhEuRJC
+ er1A==
+X-Forwarded-Encrypted: i=1;
+ AL+hErFuo7A3Euwgdce5G5GJ30rnG7Ta9SRZlGhhYGUxAQP4IK1vz32J8DP3Dslz+B+1ShAiNr1iMCA7@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9EdAU5c6TXRk+UqhUA5jInZlZlx/DfvfDTBbULUxvNEKChAOBy
+ 7VJ4R1wd07axfzsDD1Nk+AK7sNeWLS8CTFo8tQq3EFDqgnD2nTFrVSiCyX1Wo9Lweqi54CgFrUw
+ i2XcqE69iAVDCdO3fWAe5n9rxXHPmjo0=
+X-Gm-Gg: AYBFou3PpYy3WrH1iU3FbU0iO44u0Rkh3hEOsUthv4wr7FISRrK1jQSpFNnc87lSsUQ
+ MBtz6KG3AJ66RseU+ZEmGo1itI69qgutXtWPdmu46K56IQJHmp47RTZjXZBUVBdqozK6Bu1jWub
+ 4fz5xLdAUfMbomWYI/GD9SKHa3LS0fPvYRqOE41rSanxYfvbIyZYmAhiNecbyXSCcUlJfknn3h7
+ HKbTeFRQPr9RuHhwAQYnMteezDA0tHOWDLOPdpfN+LwfvE7vS1FiinlCwBUwuLBGbmKznI/IL9b
+ 2kbCeSwn5PbfQGT3XtRZD0Vuzsr0OgZ5xtlQ5VFeNbVa2QfmWQyVRHst19LPcSYUQY1/BO0jy5J
+ ovQdmxHVsmQbO/BW5mATELT1qqTyy2Mw9GGt7tbvc9wDbsM8oA56xuRzsRVGiOZRx9kXEFBmyIy
+ A0u7X01WZPbTNCQKcW3nTDKoMSfQmKOpwqPkUZu8eiyBQLXnidYFBHkMGkVUg=
+X-Received: by 2002:a05:701b:2402:b0:1b3:a881:a67b with SMTP id
+ a92af1059eb24-1b3c02dedc1mr4147363c88.1.1794415788453; Wed, 11 Nov 2026
+ 08:49:48 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261111-vfct-regression-v6-1-393797bbb6e3@amd.com>
-References: <20261111-vfct-regression-v6-0-393797bbb6e3@amd.com>
-In-Reply-To: <20261111-vfct-regression-v6-0-393797bbb6e3@amd.com>
-To: Bjorn Helgaas <helgaas@kernel.org>, Alex Deucher
- <alexander.deucher@amd.com>, =?utf-8?q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>
-CC: Oz Tiram <oz@shift-computing.de>, <linux-pci@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, Mario Limonciello
- <mario.limonciello@amd.com>
-X-Mailer: b4 0.16.0
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF00018868:EE_|PH7PR12MB5853:EE_
-X-MS-Office365-Filtering-Correlation-Id: 14de68ab-c7c5-45f6-6f9e-08df4012f30c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|82310400026|23010399003|36860700016|261009223027099003|10067099003|261026121527099003|3023799007|261022075727099003|261021121427099003|261021123027099003|261102123227099003|11063799006|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: EamC+/K0CP2ahX1WxC4Vu6Uiz26DkIdZcdGQ7ndJ0jWDqdgQgZ9zd2SZiQuVj6PdXcJMLBCgOxxfuwE6CpaNz3tDztfkOOOYyKaTOy6q5x7ktvY5GX1oY/QA4oBP0J6kZGIuz64ufkcozdWiKtflUqI8UwdHl25nE1eUnrC7cNTn3Hvu+g+vyxRI+fv+yj9mHx6yhw1aoNmUs/b0qK3QvMNzQDoC+1D/LhH87PrlFSpojnjTYc69whaxpI35bCg62ihUJLUQxvB0n/NTMWQK6IWYPpH1wiFyIHv1XFvxR/ISkgqLFs3B7qqzkI4tQAlLF2HoJSmwcPGI/np3uNY+9MRD0Xq9VrRAjXg/3fHNty+8CXggSlmKtbzEuVnaIqqFLs5oTGpuWBoVlbOkwQRK4ix1KtQznHiMvdQ6UKrMenepw5GLNM6vB/7G2MmpU1+8qaJSiwxPDN/DG0W4eAgtsay1auLfqZzmKzlvJRT1JUV+pwo2vEuZa0UpICLKpPnWMU1cHnqc5CYPeCPa6iU7E/I4t0akqsxSsYiSef0IBCV0g2Ze3GPi6tbYTuTns1RRWDR/Fk5CH/bM0UWARBWkVtjJUoRBR3g5atkJW6IKN1pL8sx6bHXcykKJFWdc9fExqeNI9OOuXe4E9EshiECMgZIDjc7eBV0/wLesFb95h5pVURUv3pVCrAKQbHevl6N1C768C5hwc/Rqtjl9TZCnAg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(82310400026)(23010399003)(36860700016)(261009223027099003)(10067099003)(261026121527099003)(3023799007)(261022075727099003)(261021121427099003)(261021123027099003)(261102123227099003)(11063799006)(56012099006)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: RLwx6QpL/+N7Iy4AGJXMd+vtukC3SL+/Xwi2iT03fuZxCzNRt93fCVon1dtsua8nX5BCm4qQLvgX61RtO184BXYeRoMo3C+nQdPmMKWxeXQ/KA0YChou/CoS6Y33R2YtKP8TlhXWc4VWAHjRiXsNuvQzsnL/7te52YUzc9o2uSgjIAjCciXaqJipyIJthVys63V2PZ8RfOIxTpkYdHVddiNq9eonIml5y9/IKrtC8BZLcqayxmipzmT8mKqxWPteBSpnSCk2oyrbsxOQ0+WeqvPDPSeMmw3HtagHzQO2fYtzo8C9IpqeYWGDyXof/RoehzdQQlJalCpxV8WUGWYuXXYofSliRXWY8QinKJJygwkWbejMQoncyAcRHCE/R/PuNyAcxBi69weMHTIgFo4iNjfHQkNbCmNgvDTYPGo2oOk9//S8zFFVxk53ZqB6VB70
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 16:43:43.9797 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 14de68ab-c7c5-45f6-6f9e-08df4012f30c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF00018868.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5853
+References: <20261106-amdgpu-dumb-map-offset-v2-1-0abfb77a84b8@gmail.com>
+In-Reply-To: <20261106-amdgpu-dumb-map-offset-v2-1-0abfb77a84b8@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 11 Nov 2026 11:49:36 -0500
+X-Gm-Features: AclHuK_GNVp6DqhleU8mNCij6RwE_xjeXa2cpadCyUXA99oBGwkzHbdnsMQTCJY
+Message-ID: <CADnq5_OvGqVWG4BRi64EKO3_qEmS7VJiTuG158Og=XUPhYHJ_Q@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amdgpu: use drm_gem_ttm_dumb_map_offset() for
+ dumb_map_offset
+To: saad <primecoder8@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,87 +105,168 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Bridge scans are split into two passes when bus numbers need reassigning.
-Save the firmware secondary bus number on the bridge pci_dev during pass
-0, before the bridge is disabled, and keep it for pass 1 so devices
-discovered there can read the original bus number via their upstream
-bridge.
+Reviewed and applied.  Thanks!
 
-Guard the cached value with a validity flag so later rescans do not
-overwrite it with the renumbered runtime value. Ignore unconfigured
-secondaries and remember that pass 0 has already run so we do not
-record runtime-assigned numbers on subsequent rescans.
+Alex
 
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
- drivers/pci/probe.c | 16 ++++++++++++++--
- include/linux/pci.h |  4 ++++
- 2 files changed, 18 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
-index 27008e2ea5afc..f20a4b8f7a23b 100644
---- a/drivers/pci/probe.c
-+++ b/drivers/pci/probe.c
-@@ -505,14 +505,26 @@ static void pci_read_bridge_mmio_pref(struct pci_dev *dev, struct resource *res,
- static void pci_read_bridge_windows(struct pci_dev *bridge)
+On Fri, Nov 6, 2026 at 4:56=E2=80=AFAM saad <primecoder8@gmail.com> wrote:
+>
+> As part of the DRM TODO item "Remove custom dumb_map_offset
+> implementations", switch amdgpu's &drm_driver.dumb_map_offset callback
+> from the driver-specific amdgpu_mode_dumb_mmap() to the generic TTM
+> helper drm_gem_ttm_dumb_map_offset(), for both amdgpu_kms_driver and
+> amdgpu_partition_driver.
+>
+> amdgpu_mode_dumb_mmap() additionally rejected userptr BOs and BOs
+> created with AMDGPU_GEM_CREATE_NO_CPU_ACCESS with -EPERM. Dropping
+> those checks from the dumb path does not allow such BOs to be mapped:
+> returning an offset does not create a mapping, and the actual mmap()
+> goes through drm_gem_mmap() -> amdgpu_gem_object_mmap(), which performs
+> the same two checks and still returns -EPERM. The only user-visible
+> difference is that DRM_IOCTL_MODE_MAP_DUMB on such a handle now succeeds
+> and the subsequent mmap() fails, instead of the ioctl failing. Dumb
+> buffers created by amdgpu_mode_dumb_create() are never userptr BOs and
+> always have AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED set, so they are not
+> affected.
+>
+> With that, amdgpu_gem_mmap_ioctl() is the only remaining user of
+> amdgpu_mode_dumb_mmap(), so fold it into the ioctl and drop its
+> prototype from amdgpu_gem.h. DRM_IOCTL_AMDGPU_GEM_MMAP, used by
+> libdrm_amdgpu and Mesa, keeps the userptr and NO_CPU_ACCESS checks
+> and behaves as before.
+>
+> Build-tested with CONFIG_DRM_AMDGPU=3Dm (W=3D1 for amdgpu_drv.o and
+> amdgpu_gem.o), no new warnings. Not runtime tested.
+>
+> The code change was written by hand and reviewed with the help of
+> Claude (AI coding assistant); the commit message was written by Claude.
+>
+> Signed-off-by: saad <primecoder8@gmail.com>
+> ---
+> Changes in v2:
+> - Fold amdgpu_mode_dumb_mmap() into amdgpu_gem_mmap_ioctl() and drop its
+>   prototype, as it has no other users (Sashiko)
+> - Link to v1: https://lore.kernel.org/r/20261105-amdgpu-dumb-map-offset-v=
+1-1-7299d94ede11@gmail.com
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  5 +++--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 23 +++++++++--------------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h |  3 ---
+>  3 files changed, 12 insertions(+), 19 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_drv.c
+> index 731fe8f9e..134d2fe4b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -27,6 +27,7 @@
+>  #include <drm/drm_drv.h>
+>  #include <drm/drm_fbdev_ttm.h>
+>  #include <drm/drm_gem.h>
+> +#include <drm/drm_gem_ttm_helper.h>
+>  #include <drm/drm_managed.h>
+>  #include <drm/drm_pciids.h>
+>  #include <drm/drm_probe_helper.h>
+> @@ -3151,7 +3152,7 @@ static const struct drm_driver amdgpu_kms_driver =
+=3D {
+>         .ioctls =3D amdgpu_ioctls_kms,
+>         .num_ioctls =3D ARRAY_SIZE(amdgpu_ioctls_kms),
+>         .dumb_create =3D amdgpu_mode_dumb_create,
+> -       .dumb_map_offset =3D amdgpu_mode_dumb_mmap,
+> +       .dumb_map_offset =3D drm_gem_ttm_dumb_map_offset,
+>         DRM_FBDEV_TTM_DRIVER_OPS,
+>         .fops =3D &amdgpu_driver_kms_fops,
+>         .release =3D &amdgpu_driver_release_kms,
+> @@ -3177,7 +3178,7 @@ const struct drm_driver amdgpu_partition_driver =3D=
  {
- 	u32 buses;
-+	u8 secondary;
-+	u8 subordinate;
- 	u16 io;
- 	u32 pmem, tmp;
- 	struct resource res;
- 
- 	pci_read_config_dword(bridge, PCI_PRIMARY_BUS, &buses);
- 	res.flags = IORESOURCE_BUS;
--	res.start = FIELD_GET(PCI_SECONDARY_BUS_MASK, buses);
--	res.end = FIELD_GET(PCI_SUBORDINATE_BUS_MASK, buses);
-+	secondary = FIELD_GET(PCI_SECONDARY_BUS_MASK, buses);
-+	subordinate = FIELD_GET(PCI_SUBORDINATE_BUS_MASK, buses);
-+	res.start = secondary;
-+	res.end = subordinate;
-+
-+	if (!bridge->fw_sec_bus_sampled) {
-+		bridge->fw_sec_bus_sampled = true;
-+		if (secondary > 0 && secondary < 0xff) {
-+			bridge->fw_sec_busnr = secondary;
-+			bridge->fw_sec_bus_valid = true;
-+		}
-+	}
- 	pci_info(bridge, "PCI bridge to %pR%s\n", &res,
- 		 bridge->transparent ? " (subtractive decode)" : "");
- 
-diff --git a/include/linux/pci.h b/include/linux/pci.h
-index 5ffcf5ce8c966..045157488b8e7 100644
---- a/include/linux/pci.h
-+++ b/include/linux/pci.h
-@@ -363,6 +363,8 @@ struct pci_dev {
- 	struct pci_slot	*slot;		/* Physical slot this device is in */
- 
- 	unsigned int	devfn;		/* Encoded device & function index */
-+	/* Firmware secondary bus number saved across bridge scan passes */
-+	unsigned char	fw_sec_busnr;
- 	unsigned short	vendor;
- 	unsigned short	device;
- 	unsigned short	subsystem_vendor;
-@@ -414,6 +416,8 @@ struct pci_dev {
- 	unsigned int	pme_poll:1;	/* Poll device's PME status bit */
- 	unsigned int	pinned:1;	/* Whether this dev is pinned */
- 	unsigned int	config_rrs_sv:1; /* Config RRS software visibility */
-+	unsigned int	fw_sec_bus_valid:1; /* Firmware secondary bus number usable */
-+	unsigned int	fw_sec_bus_sampled:1; /* Firmware secondary bus number captured */
- 	unsigned int	imm_ready:1;	/* Supports Immediate Readiness */
- 	unsigned int	d1_support:1;	/* Low power state D1 is supported */
- 	unsigned int	d2_support:1;	/* Low power state D2 is supported */
-
--- 
-2.43.0
-
+>         .ioctls =3D amdgpu_ioctls_kms,
+>         .num_ioctls =3D ARRAY_SIZE(amdgpu_ioctls_kms),
+>         .dumb_create =3D amdgpu_mode_dumb_create,
+> -       .dumb_map_offset =3D amdgpu_mode_dumb_mmap,
+> +       .dumb_map_offset =3D drm_gem_ttm_dumb_map_offset,
+>         DRM_FBDEV_TTM_DRIVER_OPS,
+>         .fops =3D &amdgpu_driver_kms_fops,
+>         .release =3D &amdgpu_driver_release_kms,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_gem.c
+> index 4ed1706d8..2a72bdf2d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> @@ -644,13 +644,16 @@ int amdgpu_gem_userptr_ioctl(struct drm_device *dev=
+, void *data,
+>         return r;
+>  }
+>
+> -int amdgpu_mode_dumb_mmap(struct drm_file *filp,
+> -                         struct drm_device *dev,
+> -                         uint32_t handle, uint64_t *offset_p)
+> +int amdgpu_gem_mmap_ioctl(struct drm_device *dev, void *data,
+> +                         struct drm_file *filp)
+>  {
+> +       union drm_amdgpu_gem_mmap *args =3D data;
+> +       uint32_t handle =3D args->in.handle;
+>         struct drm_gem_object *gobj;
+>         struct amdgpu_bo *robj;
+>
+> +       memset(args, 0, sizeof(*args));
+> +
+>         gobj =3D drm_gem_object_lookup(filp, handle);
+>         if (!gobj)
+>                 return -ENOENT;
+> @@ -661,19 +664,11 @@ int amdgpu_mode_dumb_mmap(struct drm_file *filp,
+>                 drm_gem_object_put(gobj);
+>                 return -EPERM;
+>         }
+> -       *offset_p =3D amdgpu_bo_mmap_offset(robj);
+> -       drm_gem_object_put(gobj);
+> -       return 0;
+> -}
+>
+> -int amdgpu_gem_mmap_ioctl(struct drm_device *dev, void *data,
+> -                         struct drm_file *filp)
+> -{
+> -       union drm_amdgpu_gem_mmap *args =3D data;
+> -       uint32_t handle =3D args->in.handle;
+> +       args->out.addr_ptr =3D amdgpu_bo_mmap_offset(robj);
+> +       drm_gem_object_put(gobj);
+>
+> -       memset(args, 0, sizeof(*args));
+> -       return amdgpu_mode_dumb_mmap(filp, dev, handle, &args->out.addr_p=
+tr);
+> +       return 0;
+>  }
+>
+>  /**
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_gem.h
+> index b558336bc..718ffe229 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
+> @@ -49,9 +49,6 @@ int amdgpu_gem_object_create(struct amdgpu_device *adev=
+, unsigned long size,
+>  int amdgpu_mode_dumb_create(struct drm_file *file_priv,
+>                             struct drm_device *dev,
+>                             struct drm_mode_create_dumb *args);
+> -int amdgpu_mode_dumb_mmap(struct drm_file *filp,
+> -                         struct drm_device *dev,
+> -                         uint32_t handle, uint64_t *offset_p);
+>
+>  int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
+>                             struct drm_file *filp);
+>
+> ---
+> base-commit: 279235273fc6c0a33df863b4a1cc52ec1e73aba5
+> change-id: 20261105-amdgpu-dumb-map-offset-6fa41e8d3fb5
+>
+> Best regards,
+> --
+> saad <primecoder8@gmail.com>
+>
