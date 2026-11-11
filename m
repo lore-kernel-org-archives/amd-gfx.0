@@ -2,42 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02079606A321
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 01:42:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35912606A31C
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 01:42:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=5fAv4uPH
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=W8J/Hj5c
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B7F910F8C6;
-	Wed, 11 Nov 2026 01:41:58 +0000 (UTC)
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011066.outbound.protection.outlook.com [52.101.52.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1221010F8C6
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Nov 2026 01:41:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA2F810F8C8;
+	Wed, 11 Nov 2026 01:42:01 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012041.outbound.protection.outlook.com
+ [40.93.195.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC6A010F8C8
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Nov 2026 01:41:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ld/WWSZ2fjoJumenFjcfVv0n3h8kmRZDNx9S+NuAAEIXtRtSh0ZvxRzAznsEiuRy1H7RY9t1qsBFPrv4Zqtytb/8t5aR9X8qt42cOetuwZabzB9hT8jn/KXwBpc9LPAzDUd6jeUva9Bk0wKrd3rNr973Kh0Lfsu8r+LMAwQCembGYg1H5P7S7kjTGqq4wqGKvbnQs0J3oMqBMXNhLTFmSLQGt65Sk3Znfryrm5NpKXIFFLmRGOanxyE+8dWp+UWXfEcwHoR3ZFwqo5QaMDEC4huhERSQqOKi11591+jEO7RrAdI33oLgeFxgLSQoReuWyJb0PwK0KYzzE3at9oHE6g==
+ b=VkDESkiWyq49OlQ+csL4hirniHLAPHr1YqTbO9Ton5N+Ji0FiNqjGwhl4kjfMJO2EmeZHyz0Lp3J9An3Wyla88Nq5to29lM8PsCB4vWUNkJH954t55/629lKU2RA96x9Awm+PjJSOER+5fV+RpjlxxZjxYXJsA45RW0c+S7skpSALWS5ylJwGqGn56cX0BYBelt1pEO/xZWIUOsjCNAsu7twenVbnOgkI+ilNoLzm2p4M3L9gR0WpoXsJqucDHbqiXmeLHupPf6LqxpNQ0lABNewLEPjkeHQg1CGJUy8b5fqmPcCjlnIJes4jUBNJEi+SodU8iZtSaQmoaP6ReTj5Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aFQzLghXs3Mpragp9paiXbobfamxb+f07m3FxxrZoAM=;
- b=ZqB2BBpBAVhYmyhTeo/j3QC9A/okjW9GvxyfbXo4Tgw+3xSbxGJr6qJjSOB4owu+V8Wp1dk95MEdAJcVkciFfEGYZfcTxbQ/xfncptr5Vjd8+HDU7DUXfEsltN/PCM1Kp94KQf80ldMdtWdTNixt1Pu0jmlvce9rr/qHeOGPDcKJD0MpCdSSaokIOinT+r25zXo5BTNcvQk08os4H2TpwflEqzorfwI381CMoh9HCXYsf5wcd/94l6f+owblUigW9HfNGmIS1863d+BHavhZ5VGTTtx6nIoQB8L1CF46WmS6D+pJ2Te34wwY5d3aBIz0bL38BU2Veag/JpJ97nRfEA==
+ bh=Ti2vjsE+CGSUaULvY6IzGyE3erAAZIR36zKe2BjagXU=;
+ b=s0aCuFUhmrbcVKi7lfB4alT8Co2I86XqbTJirfknZY385fC8a4rKpPkyj8/BLcN8jKofrblQV6nzIEXAIHPxsuvvybvkvm/IZd85vVBMOF6q2MizGCRcaBL0MU0zntyvQlPK40YQRSUaBwIrd/EL9Y+6zNfKuif8cJkblkKXR+IsbcLHDcaG2bOEy0U0B/+afhkUHXKITCuR0nCBKnjS0zG1wGxeoa/QagaXY1H15hOzXeF7qdSaIQZwRJpzwh74ifCYNBpfK4K2q5dkpISXvq4IpV7aJCWxX+/HA2Bn8eQjR/xwjYgWNO5jQIz22LtUtHSxGs+l27fYw0g7nGEK+A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aFQzLghXs3Mpragp9paiXbobfamxb+f07m3FxxrZoAM=;
- b=5fAv4uPH9tU2G6t5WjCVAzGt1q2fQpq5Ys53H/C2pslZLncIArgcwyISlBt89pd9v9FCebyG6ZNKU8pIdzfPxpGONyqIlN/Qx+GGkxnRl6vDlzTGvAIvDFe+5VsBCzYEVOsOjhrCRhd+CegZF8ZYtV/FdNDYZHr2qysicC1Rrz0=
-Received: from BY3PR05CA0006.namprd05.prod.outlook.com (2603:10b6:a03:254::11)
- by CY8PR12MB7730.namprd12.prod.outlook.com (2603:10b6:930:85::17)
+ bh=Ti2vjsE+CGSUaULvY6IzGyE3erAAZIR36zKe2BjagXU=;
+ b=W8J/Hj5cPIYP1yThlXnN30YnQH4KZ1LN5NJ+njt5xrA0By7cVbibvo0L8P3ZuTpGVaCRqIy49VfN4D1Md+8GCUGN2QIHFDLc6J+xZm9QxFIG1dDDiObS4vFEEViyURdL0JblxzrOnNd+KQkbBuIXV8vTTnTw+JdmY9xuPy0v6Vo=
+Received: from BY3PR05CA0008.namprd05.prod.outlook.com (2603:10b6:a03:254::13)
+ by CH2PR12MB9517.namprd12.prod.outlook.com (2603:10b6:610:27f::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Wed, 11 Nov
- 2026 01:41:48 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Wed, 11 Nov
+ 2026 01:41:52 +0000
 Received: from SJ1PEPF0000231C.namprd03.prod.outlook.com
- (2603:10b6:a03:254:cafe::21) by BY3PR05CA0006.outlook.office365.com
- (2603:10b6:a03:254::11) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:a03:254:cafe::86) by BY3PR05CA0008.outlook.office365.com
+ (2603:10b6:a03:254::13) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Wed, 11
- Nov 2026 01:41:48 +0000
+ Nov 2026 01:41:51 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -48,14 +49,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  SJ1PEPF0000231C.mail.protection.outlook.com (10.167.242.233) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Wed, 11 Nov 2026 01:41:48 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ 15.21.615.4 via Frontend Transport; Wed, 11 Nov 2026 01:41:51 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 10 Nov
- 2026 19:41:46 -0600
+ 2026 19:41:51 -0600
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 10 Nov
+ 2026 19:41:50 -0600
 Received: from wayne-dev-lnx.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Tue, 10 Nov 2026 19:41:43 -0600
+ Transport; Tue, 10 Nov 2026 19:41:47 -0600
 From: Wayne Lin <Wayne.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -64,12 +69,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Alvin Lee <Alvin.Lee2@amd.com>, Charlene Liu
- <charlene.liu@amd.com>
-Subject: [PATCH 22/74] drm/amd/display: Update DP HPO to use correct APG
- instance
-Date: Wed, 11 Nov 2026 09:28:28 +0800
-Message-ID: <20261111014100.3596072-23-Wayne.Lin@amd.com>
+ <Chen-Yu.Chen@amd.com>, Dillon Varone <Dillon.Varone@amd.com>, Aric Cyr
+ <aric.cyr@amd.com>
+Subject: [PATCH 23/74] drm/amd/display: cleanup tiling and address formats
+Date: Wed, 11 Nov 2026 09:28:29 +0800
+Message-ID: <20261111014100.3596072-24-Wayne.Lin@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261111014100.3596072-1-Wayne.Lin@amd.com>
 References: <20261111014100.3596072-1-Wayne.Lin@amd.com>
@@ -79,29 +83,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF0000231C:EE_|CY8PR12MB7730:EE_
-X-MS-Office365-Filtering-Correlation-Id: 034a9625-5c5c-4d09-e9ca-08df3f94f3ba
+X-MS-TrafficTypeDiagnostic: SJ1PEPF0000231C:EE_|CH2PR12MB9517:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7237e976-33c7-4d6e-7be9-08df3f94f5b3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|261102123227099003|56012099006|11063799006|261021121427099003|261009223027099003|261021123027099003|261022075727099003|22082099003|18002099003|10067099003;
-X-Microsoft-Antispam-Message-Info: ESgjnHglXv/Y5FCAUv+sLf6qRx252KgbTyTnEXp+Na7YpBYTaOw5xA1i8rUJe/hYvrKtjKvaCF0qPqU3y6phsSL4NmbRNnFrqrT6KEkDsDBoicf+oSH+6NKLzgTWk2/zhozabtlIMWDY3JhbUPerZmykX8ExK6FO30e2m/owEHlaXiXmXPoEX/Dha7eOo0XjH9/UwyriOYGxR13LYxYImKyLLbeGGkohZtnwfppAYrPczHeqJB4//fdsqEhKdDSg+7noQ4zOGWiOxD0vzg9qd7w/ODZLRCwP+tjRc3d3/o0q18UbzlIceltMgYwIF2pCxJeFqlNWtzYXVGpwpqJ/8C2D/rn/SV9Cak2KZKcwpli9ahdhMg3ctEtRnMqk1D8u9X95o8VLJ9gszuLThdr8CwzWVCecXJshrlqSVo0HQIS9iWkwQh6wIaQA8xkfB6H7ahBX8wDe+rzkAlMNQ8WBqW5aKiyGpRzzOSNf8pFZN/BwmIDMcvIF6qgGZsSOMWOsrtbsTTOS8zoyVbaljw7KrSNRRpD/iLRvYPVo7ku5i6U8SCqXfFyv7bisQJSPUub1oiTbQMdhMd32ocl2CGWpMTJRZFpQw3tn9i7QgEht89sXOiBOZ335R6ltF5yhcRNoD/juEhLX25tpkvFFShql7SuO3Ztu/ZylniFFT/IVljilwvVYAosiV2Bw8s7tQaFd2n70E1A9qZsfBJXFdk5yBg==
+ ARA:13230040|23010399003|36860700016|82310400026|376014|1800799024|22082099003|18002099003|10067099003|11063799006|56012099006|261102123227099003|261026121527099003|261021130227099003|261022113327099003|261022105027099003|261026130827099003|261021121427099003|261021123027099003|261021133027099003|261022115727099003|261026140227099003|261009223027099003|261022075727099003|261026135527099003|261021135927099003|261028144727099003;
+X-Microsoft-Antispam-Message-Info: T7u5Q0Vn0CdINLG32a2141onimp6MIa7G0hPPmR9ANUDiq2suo8b5klEfOXDGE1cOFJrP/jOEU9zoKe+w+1Tp7lI8JMw/fj1j3uEoeY/bqhs5l3xCiu5IzLioQ1CI/7INg5kd3+TjgTXo9CIYiwFYugNpsEKK43VFrAiNDgLmJavOnnJOZVtoVA9us3lLxE1rTfEc9LgT1FbrzKDtdgGVMpu3SVfqnVre7qY1qRJmcQRZoHFv9FikieTJRm30hXUP4C1jSc2JdvVAcVVjWylVQEdSDmIo6P215KBvog3daUI+aGLPDhWJMPGtCF15YdF/T5QDaHoGEDDq1W7nOc8YAUp6F+229JG3YIDIQvOaRq6rp3ldwmx65BVbbGX/qg6uOvRc6kKtMCfymQIIHZLlD5DEUsQO7YVPn24TNkXkMRRIpu/Ezv9AoBeI+uIhoQP5XuWAnf7sK+AMPLSf3N42QMtKy1i+5BmI1VM+zXxwkVjMtm2p8+kr+65CGEaKPahQaqW7BeSW9Z9Cx/tmvCS5if2a9L59LGXrigXh9yoyaAT77MEyeYl0RZ4kq2k1T+4RuRNp/Byw5ZiMbmTjL7arWvtpxLxhhqatf4z+2DekbD1RN/xRlGntg+S4xPksJjybNEIytF+1qdCwNUlYQ380Bl8ce+MPX9WNUQYkEqfRx/URpgF4jFOd7bAhH9cYWiSOAHJ8bEXJisEdE3xGGgbag==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(261102123227099003)(56012099006)(11063799006)(261021121427099003)(261009223027099003)(261021123027099003)(261022075727099003)(22082099003)(18002099003)(10067099003);
+ SFS:(13230040)(23010399003)(36860700016)(82310400026)(376014)(1800799024)(22082099003)(18002099003)(10067099003)(11063799006)(56012099006)(261102123227099003)(261026121527099003)(261021130227099003)(261022113327099003)(261022105027099003)(261026130827099003)(261021121427099003)(261021123027099003)(261021133027099003)(261022115727099003)(261026140227099003)(261009223027099003)(261022075727099003)(261026135527099003)(261021135927099003)(261028144727099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Ot0k1TJDelLiZEm9pYhvEPqd/BLqOiY1kyeVlmq/r0KFmwCuw66gx6xF/0wB96v8TWtd5mClGyOxGzgSGfVMvX5DsDzVPNptDN4BD+MqJ+hHixnwYwxuY62j8Ra1pESB4RMEqi7Z0jIzsFSmw0PYNL5mQSlhM25ffEM5Jc6fAgbokuueDNv3s4qYwgQUsFg8FEwDNDhByyT6NAPc7Wx/WDE/bLjiU0M9e7ipnGsVun+Jqu/Z+ZmhImb6S0RzBjR4JKT6rg1egYxPI+4NOeoDiqar+cK+aXYky3S7Bef8ukFLpB/UgxDDnjAlUUpFf5+yuyX/CIZYa1FZswQn4/8ieMDJ5K4ztypOUpF+TtxoZgv27blfg3XlOCsWeJxa9d0ARce4ymHuPcSB/fbUPYdmmW/nwPOh6sxRBYJrZymzcuoWReor35qseK+dTsLYf7Ed
+X-MS-Exchange-AntiSpam-MessageData-0: hHz7FYs22BaXKo6Tfa6adVk92EoHclwDrxSrcyswrAcG3h3jMns6NeI8COSfjrgu4UcFJvcw10xblcXd4NUuP6+pafyZL6Atc0wLA8fc4G7VsLJeg6fzlC9ddwFRZ4HpIzaH+3ABNDf5848nk7S9y6uooOSmKff4lPoKoF3X6weCzfrqKfSa1YfOiNxVGgII2t4c+GNh/sI4mRY2JZMXnM2rf+NCqvIWkqY9CPtZ9Qv2TBMaSB5cz0+VCdbCN9f+xD7EIcoatCHuGgHaIJ74Pzhs6+tj+opGBxQEa9YylIIMxcQ05BCyIzqZq7zFpeG9Zv4yKFJUYqvsbWT8rRaSJXamxZXnbsMO6EPT6voQq3eg0vBE0cd8RtVvzbaxpbkTmr7VE5VViB7coxZU3AbJ8JkXN02lokXS660g4wGHxGH7Sg415BWLMPSP1gzxSSjI
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 01:41:48.5329 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 034a9625-5c5c-4d09-e9ca-08df3f94f3ba
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 01:41:51.8523 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7237e976-33c7-4d6e-7be9-08df3f94f5b3
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF0000231C.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7730
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB9517
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,75 +123,126 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Alvin Lee <Alvin.Lee2@amd.com>
+From: Dillon Varone <Dillon.Varone@amd.com>
 
-[Description]
-DP HPO uses APG instance 5 - 8. In total their are 9 APG instances
-for DCN6.
+[WHY&HOW]
+Cleanup unused tiling and address cases and improve version enum.
 
-Cc: Charlene Liu <charlene.liu@amd.com>
-Signed-off-by: Alvin Lee <Alvin.Lee2@amd.com>
+Cc: Aric Cyr <aric.cyr@amd.com>
+Signed-off-by: Dillon Varone <Dillon.Varone@amd.com>
 Signed-off-by: Wayne Lin <wayne.lin@amd.com>
 ---
- .../dc/resource/dcn60/dcn60_resource.c        | 26 +++++++++++--------
- 1 file changed, 15 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dc_hw_types.h  | 16 +++---
+ .../dc/dml2_wrapper/dml2_mall_phantom.c       |  1 -
+ .../amd/display/dc/hubp/dcn50/dcn50_hubp.c    | 52 ++-----------------
+ 3 files changed, 13 insertions(+), 56 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn60/dcn60_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn60/dcn60_resource.c
-index f192c95952ab..d068d5682619 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn60/dcn60_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn60/dcn60_resource.c
-@@ -291,7 +291,7 @@ static const struct dcn31_vpg_mask vpg_mask = {
- #define apg_regs_init(id)\
- 	APG_DCN31_REG_LIST_RI(id)
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_hw_types.h b/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
+index eb9effb22658..20504dfb1b13 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
+@@ -390,14 +390,14 @@ enum swizzle_mode_addr3_values {
+ 	DC_ADDR3_SW_UNKNOWN = DC_ADDR3_SW_MAX
+ };
  
--static struct dcn31_apg_registers apg_regs[5];
-+static struct dcn31_apg_registers apg_regs[9];
+-enum dc_gfxversion {
+-	DcGfxVersion7 = 0,
+-	DcGfxVersion8,
+-	DcGfxVersion9,
+-	DcGfxVersion10,
+-	DcGfxVersion11,
+-	DcGfxAddr3,
+-	DcGfxVersionUnknown
++enum dc_gfx_addr_version {
++	DcGfxVersion7 = 0x0700,
++	DcGfxVersion8 = 0x0800,
++	DcGfxVersion9 = 0x0900,
++	DcGfxVersion10 = 0x0A00,
++	DcGfxVersion11 = 0x0B00,
++	DcGfxAddr3 = 0x0C00,
++	DcGfxVersionUnknown = 0xFFFF
+ };
  
- static const struct dcn31_apg_shift apg_shift = {
- 	DCN31_APG_MASK_SH_LIST(__SHIFT)
-@@ -1394,7 +1394,11 @@ static struct apg *dcn60_apg_create(
- 	apg_regs_init(1),
- 	apg_regs_init(2),
- 	apg_regs_init(3),
--	apg_regs_init(4);
-+	apg_regs_init(4),
-+	apg_regs_init(5),
-+	apg_regs_init(6),
-+	apg_regs_init(7),
-+	apg_regs_init(8);
+  struct dc_tiling_info {
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_wrapper/dml2_mall_phantom.c b/drivers/gpu/drm/amd/display/dc/dml2_wrapper/dml2_mall_phantom.c
+index edc4dcdde952..bd2c2b82b176 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_wrapper/dml2_mall_phantom.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2_wrapper/dml2_mall_phantom.c
+@@ -808,7 +808,6 @@ static void enable_phantom_plane(struct dml2_context *ctx,
+ 		memcpy(&phantom_plane->tiling_info, &curr_pipe->plane_state->tiling_info,
+ 				sizeof(phantom_plane->tiling_info));
+ 		memcpy(&phantom_plane->dcc, &curr_pipe->plane_state->dcc, sizeof(phantom_plane->dcc));
+-		//phantom_plane->tiling_info.gfx10compatible.compat_level = curr_pipe->plane_state->tiling_info.gfx10compatible.compat_level;
+ 		phantom_plane->format = curr_pipe->plane_state->format;
+ 		phantom_plane->rotation = curr_pipe->plane_state->rotation;
+ 		phantom_plane->visible = curr_pipe->plane_state->visible;
+diff --git a/drivers/gpu/drm/amd/display/dc/hubp/dcn50/dcn50_hubp.c b/drivers/gpu/drm/amd/display/dc/hubp/dcn50/dcn50_hubp.c
+index ba86e30b1180..ceea0b766f5b 100644
+--- a/drivers/gpu/drm/amd/display/dc/hubp/dcn50/dcn50_hubp.c
++++ b/drivers/gpu/drm/amd/display/dc/hubp/dcn50/dcn50_hubp.c
+@@ -217,57 +217,15 @@ static void hubp50_program_tiling(
+ 	const enum surface_pixel_format pixel_format)
+ {
+ 	(void)pixel_format;
+-	/* Tiling address-generation compatibility level programmed into the
+-	 * DCSURF_TILING_CONFIG.COMPAT_LEVEL register field:
+-	 *   0 - gfx8 bank_height == 1
+-	 *   1 - gfx8 bank_height == 2
+-	 *   2 - gfx9/10/11
+-	 *   5 - gfx addr3
+-	 */
+-	unsigned int compat_level = 0;
++
+ 	enum swizzle_mode_values swizzle_mode;
  
- 	apg31_construct(apg60, ctx, inst,
- 			&apg_regs[inst],
-@@ -1525,20 +1529,20 @@ static struct hpo_dp_stream_encoder *dcn60_hpo_dp_stream_encoder_create(
- 	hpo_dp_inst = eng_id - ENGINE_ID_HPO_DP_0;
+-	switch (info->gfxversion) {
+-	case DcGfxVersion7:
+-	case DcGfxVersion8:
+-
+-		REG_UPDATE_8(DCSURF_LEGACY_ADDR_CONFIG,
+-			LEGACY_NUM_BANKS, info->gfx8.num_banks,
+-			BANK_WIDTH, info->gfx8.bank_width,
+-			BANK_HEIGHT, info->gfx8.bank_height,
+-			MACRO_TILE_ASPECT, info->gfx8.tile_aspect,
+-			TILE_SPLIT, info->gfx8.tile_split,
+-			MICRO_TILE_MODE_NEW, info->gfx8.tile_mode,
+-			PIPE_CONFIG, info->gfx8.pipe_config,
+-			ARRAY_MODE, info->gfx8.array_mode);
+-		if (info->gfx8.bank_height == 1) {
+-			compat_level = 0;
+-		} else if (info->gfx8.bank_height == 2) {
+-			compat_level = 1;
+-		}
+-		break;
+-
+-	case DcGfxVersion9:
+-	case DcGfxVersion10:
+-	case DcGfxVersion11:
+-		REG_UPDATE_4(DCSURF_ADDR_CONFIG,
+-			NUM_PIPES, log_2(info->gfx9.num_pipes),
+-			PIPE_INTERLEAVE, info->gfx9.pipe_interleave,
+-			MAX_COMPRESSED_FRAGS, log_2(info->gfx9.max_compressed_frags),
+-			NUM_PKRS, log_2(info->gfx9.num_pkrs));
+-		REG_UPDATE(DCSURF_TILING_CONFIG, SW_MODE, info->gfx9.swizzle);
+-		compat_level = 2;
+-
+-		break;
+-	case DcGfxAddr3:
+-		swizzle_mode = hubp50_addr3_to_swizzle_mode_mapping(info->gfx_addr3.swizzle);
+-		REG_UPDATE(DCSURF_TILING_CONFIG, SW_MODE, swizzle_mode);
+-		compat_level = 5;
+-		break;
+-	}
++	ASSERT(info->gfxversion == DcGfxAddr3);
  
- 	/* Mapping of VPG register blocks to HPO DP block instance:
--	 * VPG[6] -> HPO_DP[0]
--	 * VPG[7] -> HPO_DP[1]
--	 * VPG[8] -> HPO_DP[2]
--	 * VPG[9] -> HPO_DP[3]
-+	 * VPG[5] -> HPO_DP[0]
-+	 * VPG[6] -> HPO_DP[1]
-+	 * VPG[7] -> HPO_DP[2]
-+	 * VPG[8] -> HPO_DP[3]
- 	 */
- 	vpg_inst = hpo_dp_inst + 5;
- 
- 	/* Mapping of APG register blocks to HPO DP block instance:
--	 * APG[0] -> HPO_DP[0]
--	 * APG[1] -> HPO_DP[1]
--	 * APG[2] -> HPO_DP[2]
--	 * APG[3] -> HPO_DP[3]
-+	 * APG[5] -> HPO_DP[0]
-+	 * APG[6] -> HPO_DP[1]
-+	 * APG[7] -> HPO_DP[2]
-+	 * APG[8] -> HPO_DP[3]
- 	 */
--	apg_inst = hpo_dp_inst;
-+	apg_inst = hpo_dp_inst + 5;
- 
- 	/* allocate HPO stream encoder and create VPG sub-block */
- 	hpo_dp_enc60 = kzalloc(sizeof(struct dcn31_hpo_dp_stream_encoder), GFP_KERNEL);
+-	REG_UPDATE(DCSURF_TILING_CONFIG, COMPAT_LEVEL, compat_level);
++	swizzle_mode = hubp50_addr3_to_swizzle_mode_mapping(info->gfx_addr3.swizzle);
++	REG_UPDATE(DCSURF_TILING_CONFIG, SW_MODE, swizzle_mode);
+ }
++
+ static void hubp50_program_pixel_format(
+ 	struct hubp *hubp,
+ 	enum surface_pixel_format format)
 -- 
 2.43.0
 
