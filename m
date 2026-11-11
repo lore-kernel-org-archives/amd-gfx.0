@@ -2,61 +2,61 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD111606A324
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 01:42:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 441C2606A326
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 01:43:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=4Js4Usg3
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=jkJDitwk
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B1D410F8D3;
-	Wed, 11 Nov 2026 01:42:51 +0000 (UTC)
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013010.outbound.protection.outlook.com
- [40.107.201.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E01AC10F8D4
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Nov 2026 01:42:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC7C910F8D7;
+	Wed, 11 Nov 2026 01:43:00 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013014.outbound.protection.outlook.com
+ [40.93.196.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E89710F8D4
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Nov 2026 01:42:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pYUc0D7UsULUDOj26/7WhHnIdUtVNd3YXM9mm+lT44uqXOVOZauZnozf8GOkZWA/aHUOAe4Xh1Fk1/Tayu0bYdLZRGVcaWUldJ17xjJ9CdhLAD/SUarYkQKfVCJRvvD/kDS9J++4q+RKHYFuwQwWg3eqrj0BCizWNuq3dzs2ZmcdgVFDdi27eBdG7GwgdzsBUBuQ8QEQNCt8AihmBUXcx53o8XUjYY7rIk7eKVE1wCERb7PTjRxN5Mqz84SRpMqAuWWudtAy2M/38Nr64gs16Jhe+z/kJNHWkI5761zswmlrYuZi4SxxW6bNoZ0ZSlrgjuj2NR2lk5nvOuOJryX5pA==
+ b=a/Q7QeUl+F87y1sWbNSRpHhziUMYqKKo1Mc1+FaxH9O4xhSY7GnrXUQX3K8JSP3IAKuwprzt57Z7ccTa+bZmJzdW453Tgri6Df3NxaNwCk+5U7PMzCtfK5bIL/ODzWilhK+gbj7Prg5g5eOWmRdrOGD/HCriJxhsXIpQHsn4XO7/60/TulD+JLoCHwto4SYjKrOepCsGS8SLQm+cxTFVRMx7vGbZ6latbjKG3TiGWRuBnysIJpn5uZtg9EL+y3SIJv7YEdAcgGsCNWjAwYn6N5hDWr60ZScbYz1tWH6OiZC0v13WYjtmA1JObXE+Laqj/fzHJ2M2NqmsncQE8c5FnA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=F6fmpV98xMSjA/TzZS+skTojFGE620BPdo1l8swHI7k=;
- b=A8iO37Fy+utabOn35/tkG6I5idgokM0cE8fJs0E37S+yjguQTKiAcicX2KrlfLNPTG8SEXulM2BeqyqigXhmcJDxmoWd4gVxhNoa3v5KjDhvfN25CiBa+5vz6wPH8Zkgl++JtuQJvcuxCZclKyzdxJbynoslCfgxo7u+HbCusarkMKrHMONQE87hCbtX6MRm68u2SfdcaWbptTx3NB0H2yX+kxZjE7a1LX++znT4zmaX1BPg0LTM1M09ylOG7JjrfOL9Alsn3+CxHEtV9+d5EiNnIDF2fqHo+Y1OAtFzDceLsLtailivbGJeUGkzYp4UPvlW9jEDV++ABnTZvbC4Wg==
+ bh=VYtTsZEMcYSF5YwAISc7cl4dQoQddy8Wn0UmKjA22s8=;
+ b=YDD2Q9VkuZN8kH+9bEzazQup+rfPzybOr+LEh2CPAFPDKK5vcC/uCuVQQNUKz4TX0nPhbRDH1WTOoNR0PgSHI6TlQwjlnWGwYf/IYzlP4v8fFQVbmsh9gHq0H9HvMZRymTRElWB+GUxHOvqvvoygRnNXXZi8GRfJPi563tcV2HWQkSfHHOeSl0XWCz2qpSyPQ1qn34uXY+PdXz8X9yJklAFacjg68djmEwAbd1+f/joXQcVrZ7IL+fcQ742J6XJdkOAjKPGtG8x1gM3iQTvEA5VkAs22vSkMk78zoOPErUPo02sYHty+E3kN2c8vIFQ8J/m3BgilpbkScFPZDulDtw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=F6fmpV98xMSjA/TzZS+skTojFGE620BPdo1l8swHI7k=;
- b=4Js4Usg3BIxIASc0MbAAkuRNEIN5CwCUA0GxPDh/YxddAuMwf7HGydcQ9FMLKHGjG6NJw2O3x6LLcH0Aqj1l4mMDifrAHC4in63BXlkbZoH6eq2Kcc3EGNau8ixcWFWTFfAW4tEH0neIwzcTKBWlavc1S4kuNMlD6t55KEDgg3o=
-Received: from SJ0PR05CA0140.namprd05.prod.outlook.com (2603:10b6:a03:33d::25)
- by CH3PR12MB9729.namprd12.prod.outlook.com (2603:10b6:610:253::20)
+ bh=VYtTsZEMcYSF5YwAISc7cl4dQoQddy8Wn0UmKjA22s8=;
+ b=jkJDitwk10AWTs1ZRadYA08//jD0w0Uy+1omdsQP1Q1M++dg9xn7hgjHsV5gMadmg3zgxg2phWdxnSmOsGSWi2vI+vvV6g3u9MxKmUPWkYNhNDIzLv5n52IDwxJHDc41a95pgfI2Sdu6zuok0cS85B7y7VBHyzP6xHVqboK9oE8=
+Received: from CH5P220CA0002.NAMP220.PROD.OUTLOOK.COM (2603:10b6:610:1ef::10)
+ by LV3PR12MB9404.namprd12.prod.outlook.com (2603:10b6:408:219::9)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Wed, 11 Nov
- 2026 01:42:41 +0000
-Received: from SJ1PEPF0000231A.namprd03.prod.outlook.com
- (2603:10b6:a03:33d:cafe::af) by SJ0PR05CA0140.outlook.office365.com
- (2603:10b6:a03:33d::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.5 via Frontend Transport; Wed, 11
- Nov 2026 01:42:41 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
+ 2026 01:42:50 +0000
+Received: from BN2PEPF0000A7FE.namprd02.prod.outlook.com
+ (2603:10b6:610:1ef:cafe::93) by CH5P220CA0002.outlook.office365.com
+ (2603:10b6:610:1ef::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Wed, 11
+ Nov 2026 01:42:49 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF0000231A.mail.protection.outlook.com (10.167.242.231) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN2PEPF0000A7FE.mail.protection.outlook.com (10.167.245.165) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Wed, 11 Nov 2026 01:42:41 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.615.4 via Frontend Transport; Wed, 11 Nov 2026 01:42:49 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 10 Nov
- 2026 19:42:40 -0600
+ 2026 19:42:49 -0600
 Received: from wayne-dev-lnx.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Tue, 10 Nov 2026 19:42:37 -0600
+ Transport; Tue, 10 Nov 2026 19:42:40 -0600
 From: Wayne Lin <Wayne.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -65,12 +65,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Sreeja Golui <Sreeja.Golui@amd.com>, Dillon Varone
- <dillon.varone@amd.com>
-Subject: [PATCH 36/74] drm/amd/display: detect static screen state and
- propagate
-Date: Wed, 11 Nov 2026 09:28:42 +0800
-Message-ID: <20261111014100.3596072-37-Wayne.Lin@amd.com>
+ <Chen-Yu.Chen@amd.com>, Ray Wu <ray.wu@amd.com>, Hugo Sales <hugo@hsal.es>
+Subject: [PATCH 37/74] drm/amd/display: Allow DC_PSR_MASK to enable PSR
+ without DMUB PSR cap
+Date: Wed, 11 Nov 2026 09:28:43 +0800
+Message-ID: <20261111014100.3596072-38-Wayne.Lin@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261111014100.3596072-1-Wayne.Lin@amd.com>
 References: <20261111014100.3596072-1-Wayne.Lin@amd.com>
@@ -80,29 +79,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF0000231A:EE_|CH3PR12MB9729:EE_
-X-MS-Office365-Filtering-Correlation-Id: ec094b0d-ef2e-4192-4dba-08df3f951328
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000A7FE:EE_|LV3PR12MB9404:EE_
+X-MS-Office365-Filtering-Correlation-Id: 90f8018d-20ab-41cc-b19c-08df3f951835
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|36860700016|82310400026|261102123227099003|11063799006|261021121427099003|261022105027099003|261026140227099003|261009223027099003|56012099006|261028144727099003|18002099003|22082099003|10067099003|3023799007;
-X-Microsoft-Antispam-Message-Info: WYFRRrtqirl99gcdGaidDXbl1dTI4tuJHniB5cEtPdBMXkFTCG0e3Ksd2zDsjDGwj47wHdSG/XnrgNywV1heEQW2NBf7iWW3UgrEf0i1Dg8b3S6oPnuti1i85eyuKKO1dh93m8dqlJPOrvEaibmjTSZwrKIYP+QzmNM49bB04eoUPZKx2sQsb79SONVePOHfOdkGxAFYC42sJv/G5qbfbmACvodzkSZyQbE9KX11MacYqfqszmbo9Fvufvzgt3p3Z+KD2NvwWNqT3VJWi/eCvhX1oVVm3CwuD84hwWGJWb0Q6xnqMCF1OLZYwGyXRZozxfwm5daqrDWwqvkT8K1zLDThIMzqf6CKi2tyN2SsDFxWkfJLRcwiBEgKS2Kun0FHSDAL/NFO2rtFXrqDF3oEPUFW8ds7Y1Ci5po0Nzj6CbNmYFW630x+NlayspFN0z+Z0V0Y/ipp+mEO7iP2hKeC8i60G5sQpp+1MAzU8B3OjvG7MJdlRT5S8Emt0Ck2mgVnHxKPpcRyVEy4x1e3ToWArkmGJTgoNbcjlOT84ZPeDlvAXmndQ6kQwqiKfMBErckFbZw/ldPmRiIbvMq6D3RVh4rxOmnomy4fC9LzSoD7C3+uKA1yVo/Lx05ZXylA/1JCxqXddFQCFSbtKIAZ6rsYVvvD8iu54iNlnxM5unDq2wMGeKy++8S6v00yBuFWIWx3nXlskYHkwXz9B9gmu0CiwA==
+ ARA:13230040|82310400026|36860700016|1800799024|23010399003|376014|11063799006|56012099006|22082099003|18002099003|10067099003|261009223027099003|261026121527099003|261102123227099003|261021121427099003|261021123027099003;
+X-Microsoft-Antispam-Message-Info: W6oAdQ4PEuJW+X8PM6PHA8h1xN5+9LO9HMDhePEkbuH9zqqxDZfvbbW4LNebR+A4vMYIZWCyMibdMlwTu4iDhOj9gJAvuNLJVqW7rd9BsXqJpJLKGHGIE+NzSi0ig6xJe+w7jOY2K08UcZpMU5v81gdP6aM3BNjC4wlS1KEN/Oxhxtb3i9N4NTcb5xiH5+QL4F51zJ74vq0PZ9zAJrRGIMQWIokikCG39qnsvTBud7aVi7z25R9B/NQMMWwMBdJmPlSPcScU+C8YQGl/m1h5DJp18zBwMty+jCC2hQR0sm947dB5n5wqQs/r6ghv/OvOE77jaJN6139ofw9esB11VCTt+oDgT2/rQqxaNoX1mk4cTUMRSHlUB6HFg0aCi5ysWoKyWo1x7b6DiZ1eHnZxbOGM/dHbgqqTF9AOuz+r1FWu6udr+rD74w4ygrKH9avY9Cft4fYiKzFkY0oaymPM/b1+LHGAZmi9XdFsla0z5tAaPEQkEn8/5MxzcQnp8ErCaMwhppmrfL9b9Kvaa3jvSua72N5JYgHRUrYEttFvAl4CNA3Bun0UL6q6Ag8ZS/QIwcbvgrDFaOHSf5mnQQKlMsXh4TzXnVtQMvs1rZOml+/XlLErr8wUzZaLydF9hM6bKWgxJ/L3H63cXN8K12u4GHIsQ9X0iFBhPGVQekOVM0DCAiNzZQWX2wi+pv3VVbjmFNuI5BbVXthd2Npi7qtJWQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(36860700016)(82310400026)(261102123227099003)(11063799006)(261021121427099003)(261022105027099003)(261026140227099003)(261009223027099003)(56012099006)(261028144727099003)(18002099003)(22082099003)(10067099003)(3023799007);
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700016)(1800799024)(23010399003)(376014)(11063799006)(56012099006)(22082099003)(18002099003)(10067099003)(261009223027099003)(261026121527099003)(261102123227099003)(261021121427099003)(261021123027099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 5j9JNq/518WRy7GutuGbhbD7a27L7/t34zP5w7RzNGVzjpc2/4jL1bpVuZDXbNONwJiYVlaF3a7CLIy8qkSSC9vD3nlC59Vlssw5Cv2gtG2jbbtsC0lGaTd+7IyvdGiIs1C58ma/E211XlnSF8jiXBJqdBgicRq/JXjfrmiLJU1RTiJNW39qK9KZc7GfXHlhlb8rKEOF0rVHeW9jfcuPFbadBGZ3q2LtSxLoA+oVs4y2IkguYbtCbejmsWeoB1qEeNZZbwHrAhN/w2zB5144JPRqoJxK3okJX0PTsTK3tXAnFdAGRZMtpFuQXEQ5uA18B1irt7HjMxX/AXawKIPEP5MaYQPlMYBo7u2YpCBfBKK3MhbfcoH3Z3MloJcsIFj7Mpbty9JXnAqGqt5c2M+FelOYfiHrma0GGhWiL+0k0c+vGvRACyJH4TboOx1nJhy4
+X-MS-Exchange-AntiSpam-MessageData-0: 9XqiB108PaVOMeA36Wy2E1xWrb53bv7wTdnkc61uVT21c+Pdu7nuOpy68j2ICuwafra4cB4lGfsdFkCP0Hcj1PMbTnwy1slh5H5Ol334tPpY8CwEHlQJQTAI+chP5oCripAZgWOfETD+CjjhycHJiRukeAL2sSIr3e2A+0lerpnT1H60qNOzAk94TXltLxt2UILBZmrN3HS6JeC7DahHMLppLZIBvzaDQTV1IIyxdE/brWmyCtzjlwzuj+lBGvW99XjWCHrid4+nc2a2TGrH+cIheXP1zIVKaZKz5z7Zdvg1EOYn2EaoV/cExnrpdzLNbhYovkwNzNrPltD9cvCBS/ghl9XQ38Jj3gfKXB3iiii9rgMYvGuFEYiii0CPAjvTLtBIOHQ0DnoPslKm/Z3P6ZVy7tjoUoxZhYfk6MWKpLlZSkPylT8/fddIQWazB3fZ
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 01:42:41.2703 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ec094b0d-ef2e-4192-4dba-08df3f951328
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 01:42:49.8233 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 90f8018d-20ab-41cc-b19c-08df3f951835
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF0000231A.namprd03.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF0000A7FE.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9729
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9404
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,83 +119,102 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Sreeja Golui <Sreeja.Golui@amd.com>
+From: Ray Wu <ray.wu@amd.com>
 
-Why:
-Need an extra flag to track when vblank is being stretched in idle
-scenarios
+[Why]
+amdgpu_dm_set_psr_caps() requires dc->caps.dmub_caps.psr, which is only
+populated on DCN IPs that query DMUB feature caps in init_hw. DCN 1.x,
+2.x and 3.0.1 never do, so PSR can no longer be enabled there even with
+amdgpu.dcfeaturemask=0x8.
 
-How:
-Track static screen with the new flag and pass it to dml layer.
-Requires the DML DRR member and stutter-gate change in dml.
+[How]
+Skip the DMUB PSR cap check when DC_PSR_MASK is set, and add a KUnit
+case for this path.
 
-Cc: Dillon Varone <dillon.varone@amd.com>
-Signed-off-by: Sreeja Golui <Sreeja.Golui@amd.com>
+Tested-by: Hugo Sales <hugo@hsal.es>
+Cc: ChiaHsuan Chung <chiahsuan.chung@amd.com>
+Signed-off-by: Ray Wu <ray.wu@amd.com>
 Signed-off-by: Wayne Lin <wayne.lin@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c                   | 7 +++++++
- drivers/gpu/drm/amd/display/dc/dc_stream.h                 | 3 +++
- .../dml2_wrapper/dml21_wrapper/dml21_translation_helper.c  | 1 +
- 3 files changed, 11 insertions(+)
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c |  3 +-
+ .../amdgpu_dm/tests/amdgpu_dm_psr_test.c      | 35 ++++++++++++++++++-
+ 2 files changed, 36 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index fd382363a0ea..6f2f219a928a 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -3300,6 +3300,10 @@ static struct dc_update_descriptor check_update_surfaces_for_stream(
- 				stream_update->vrr_active_variable || stream_update->vrr_active_fixed))
- 			su_flags->bits.fams_changed = 1;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
+index dbad0a6d3a2b..295b1c307fa3 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
+@@ -111,7 +111,8 @@ bool amdgpu_dm_set_psr_caps(struct dc_link *link, struct amdgpu_dm_connector *ac
+ 	/* Reset psr version first */
+ 	link->psr_settings.psr_version = DC_PSR_VERSION_UNSUPPORTED;
  
-+		/* Static-screen transitions change DML stutter constraints even if VRR stays variable. */
-+		if (stream_update->vrr_active_idle_static_screen)
-+			su_flags->bits.fams_changed = 1;
+-	if (!dc->caps.dmub_caps.psr)
++	/* DCN IPs that never query DMUB feature caps rely on DC_PSR_MASK to opt in */
++	if (!dc->caps.dmub_caps.psr && !(amdgpu_dc_feature_mask & DC_PSR_MASK))
+ 		return false;
+ 
+ 	if (!(link->connector_signal & SIGNAL_TYPE_EDP))
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_psr_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_psr_test.c
+index 0a484ea7c0e8..c084e4f85f95 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_psr_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_psr_test.c
+@@ -230,15 +230,47 @@ static void dm_test_set_psr_caps_no_dmub_psr(struct kunit *test)
+ {
+ 	struct dc_link *link = alloc_test_psr_caps_link(test);
+ 	struct amdgpu_dm_connector *aconnector = alloc_test_aconnector(test);
++	unsigned int old_feature_mask;
++	bool ret;
+ 
+ 	link->psr_settings.psr_version = DC_PSR_VERSION_1;
+ 	link->ctx->dc->caps.dmub_caps.psr = false;
+ 
+-	KUNIT_EXPECT_FALSE(test, amdgpu_dm_set_psr_caps(link, aconnector));
++	old_feature_mask = amdgpu_dm_psr_get_dc_feature_mask();
++	amdgpu_dm_psr_set_dc_feature_mask(old_feature_mask & ~DC_PSR_MASK);
 +
- 		if (stream_update->scaler_sharpener_update) {
- 			su_flags->bits.scaler_sharpener = 1;
- 			elevate_update_type(&overall_type, UPDATE_TYPE_FULL, LOCK_DESCRIPTOR_STREAM);
-@@ -3669,6 +3673,9 @@ static void copy_stream_update_to_stream(struct dc *dc,
- 	if (update->vrr_active_fixed)
- 		stream->vrr_active_fixed = *update->vrr_active_fixed;
- 
-+	if (update->vrr_active_idle_static_screen)
-+		stream->vrr_active_idle_static_screen = *update->vrr_active_idle_static_screen;
++	ret = amdgpu_dm_set_psr_caps(link, aconnector);
++	amdgpu_dm_psr_set_dc_feature_mask(old_feature_mask);
 +
- 	if (update->crtc_timing_adjust) {
- 		if (stream->adjust.v_total_min != update->crtc_timing_adjust->v_total_min ||
- 			stream->adjust.v_total_max != update->crtc_timing_adjust->v_total_max)
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_stream.h b/drivers/gpu/drm/amd/display/dc/dc_stream.h
-index 7999a7d84a77..94eccb87cbde 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_stream.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_stream.h
-@@ -256,6 +256,8 @@ struct dc_stream_state {
- 	bool vrr_active_variable;
- 	bool freesync_on_desktop;
- 	bool vrr_active_fixed;
-+	/* Ramless Idle static screen; variable VRR still permits cursor boosting. */
-+	bool vrr_active_idle_static_screen;
++	KUNIT_EXPECT_FALSE(test, ret);
+ 	KUNIT_EXPECT_EQ(test, link->psr_settings.psr_version,
+ 			DC_PSR_VERSION_UNSUPPORTED);
+ }
  
- 	bool converter_disable_audio;
- 	uint8_t qs_bit;
-@@ -367,6 +369,7 @@ struct dc_stream_update {
- 	bool *allow_freesync;
- 	bool *vrr_active_variable;
- 	bool *vrr_active_fixed;
-+	bool *vrr_active_idle_static_screen;
- 
- 	struct colorspace_transform *gamut_remap;
- 	enum dc_color_space *output_color_space;
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_wrapper/dml21_wrapper/dml21_translation_helper.c b/drivers/gpu/drm/amd/display/dc/dml2_wrapper/dml21_wrapper/dml21_translation_helper.c
-index dc65750a7fe3..2e3ad7152f3f 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_wrapper/dml21_wrapper/dml21_translation_helper.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_wrapper/dml21_wrapper/dml21_translation_helper.c
-@@ -170,6 +170,7 @@ static void populate_dml21_timing_config_from_stream_state(struct dml2_timing_cf
- 	timing->drr_config.enabled = stream->ignore_msa_timing_param;
- 	timing->drr_config.drr_active_variable = stream->vrr_active_variable;
- 	timing->drr_config.drr_active_fixed = stream->vrr_active_fixed;
-+	timing->drr_config.drr_active_idle_static_screen = stream->vrr_active_idle_static_screen;
- 	timing->drr_config.disallowed = !stream->allow_freesync;
- 
- 	/* limit min refresh rate to DC cap */
++/**
++ * dm_test_set_psr_caps_feature_mask_no_dmub_psr() - DC_PSR_MASK opts in without DMUB PSR cap.
++ * @test: KUnit test context.
++ */
++static void dm_test_set_psr_caps_feature_mask_no_dmub_psr(struct kunit *test)
++{
++	struct dc_link *link = alloc_test_psr_caps_link(test);
++	struct amdgpu_dm_connector *aconnector = alloc_test_aconnector(test);
++	unsigned int old_feature_mask;
++	bool ret;
++
++	link->ctx->dc->caps.dmub_caps.psr = false;
++
++	old_feature_mask = amdgpu_dm_psr_get_dc_feature_mask();
++	amdgpu_dm_psr_set_dc_feature_mask(old_feature_mask | DC_PSR_MASK);
++
++	ret = amdgpu_dm_set_psr_caps(link, aconnector);
++	amdgpu_dm_psr_set_dc_feature_mask(old_feature_mask);
++
++	KUNIT_EXPECT_TRUE(test, ret);
++	KUNIT_EXPECT_NE(test, link->psr_settings.psr_version,
++			DC_PSR_VERSION_UNSUPPORTED);
++}
++
+ /**
+  * dm_test_set_psr_caps_non_edp() - Only eDP links can enable PSR.
+  * @test: KUnit test context.
+@@ -712,6 +744,7 @@ static struct kunit_case dm_psr_test_cases[] = {
+ 	KUNIT_CASE(dm_test_set_psr_caps_null_link),
+ 	KUNIT_CASE(dm_test_set_psr_caps_null_connector),
+ 	KUNIT_CASE(dm_test_set_psr_caps_no_dmub_psr),
++	KUNIT_CASE(dm_test_set_psr_caps_feature_mask_no_dmub_psr),
+ 	KUNIT_CASE(dm_test_set_psr_caps_non_edp),
+ 	KUNIT_CASE(dm_test_set_psr_caps_disconnected),
+ 	KUNIT_CASE(dm_test_set_psr_caps_no_dpcd_psr),
 -- 
 2.43.0
 
