@@ -2,93 +2,102 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E676B606A31C
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 17:18:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B08D2606A31C
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 17:19:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VivWzSxD
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PYKl5tOU
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 83C3310FCFD;
-	Wed, 11 Nov 2026 17:18:30 +0000 (UTC)
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com
- [74.125.82.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6711E10FCFD
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Nov 2026 17:18:24 +0000 (UTC)
-Received: by mail-dy1-f178.google.com with SMTP id
- 5a478bee46e88-36d1b3b9974so83780eec.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Nov 2026 09:18:24 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794417504; cv=none;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CEEE10FD01;
+	Wed, 11 Nov 2026 17:19:38 +0000 (UTC)
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com
+ [74.125.82.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA95E10E431
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Nov 2026 17:19:32 +0000 (UTC)
+Received: by mail-dy1-f182.google.com with SMTP id
+ 5a478bee46e88-376a4059061so92156eec.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Nov 2026 09:19:32 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794417572; cv=none;
  d=google.com; s=arc-20260327;
- b=W2eEfrzXVu4qxqUZpw6W/aSSor0TO0dZbdGDcN14U0rAwDt9yuKgnekpxaQygFv2jm
- m9iUo3fOT4Ige5RzX0tEG7mOHVaxwrRk88URwYVpXN2jTJ0eQ2Uhpa32s7B7uYCJc09w
- sZeXmoDkMi7ckAbrf5trShYuRkeQ0GJTPxYQ2baPaCpdm5/HRnqxeLdbNTIqlnb7YE76
- Zp9OnEKrCMBADoNo0Ghp6atSUieCMWePKafmvkiYcLbadLRLRasf0d1sK7xR67lHaeuR
- JOzmEX56RzyBFiCI2MXtmrBa5iMlVN1o2KrnM7MYmP/U0hzFE/5M6f7D7o3IjQPyFxz5
- YUmA==
+ b=gDjwQ6V7sG4GN+Njsf3rhSIV86eK5fmFCBWKln/JyqhcWVYh2iYY6suK/VNScrOxm9
+ 0YnauUNtigkGSPcVFGIC5g3vnF8OCr2UzK53qJFcwy1Veeibu/hLBQ1MPaULd9MPi4Mr
+ vk7VzuVLoxMqTW02FRTGotK4mzHIxhqxNIEehr/9nt1uiJFSqQt/3O4B5aQK3FxF8LFt
+ P6vtgFWRhOZN2Mv9Jf9nghNDVGKnd+UP1ceZ985j5s5E+/MHjHxW1V/JEMXkLAAkTxsu
+ SFnnWoM6MO+HHeWFKw2HXZfzTwwu/zUmJPf4NHB/dc/Ms4/3WGufsDhZQbwrOckrgR23
+ WxDA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=kw0jfgt7++kJag8Rb81aSS+ViRwdZQnoobcBhHYL/qc=;
- fh=s9r4zmmxy4zoS0d5gCkQdxJ0YISpXfLFxZpdPI0Ri2Y=;
- b=I2xcc06jcPB6sLGX/pITfE06ZKgBDwSe2zpxqFBKeYMyJsmkA7x2Y6Qi046d+P80sx
- /Dvc/l/rRfGFtTK/ALio+nkW6d69WEgsks2nxLM5Z0kYEZ7MY0cbjEhRH4eENg/0JiNo
- isOlw8hHF8blY3k/KXmOOL/m0IOhEAE82sqXdhymnj66CEEDMku6IiiuyIM0bETAhYdL
- vM5SY5Pmam/gck0KR53MJXahmM5UdBp8dYRbjxVHtjiWQV8Z19gYb2YTxD10+NnOYZTD
- jioykL5sAlL7JuGKJedy8QG6wskYpHNZfMnA69dAkuQJ1hj0+bFYNES/UwcRIlMtSnW3
- GMXg==; darn=lists.freedesktop.org
+ bh=KrAwE14sLjPV1wagWRb3nhUSBxA8ruoUwCfDea/0XLY=;
+ fh=LILuGwAQevK6+EUT0j7Bg6PbYODygoeRpyTPOFQg4No=;
+ b=IY62rHlpa7JzpScOj9hZjJLMw/E5ALgzk8Xxjmw2rFLni++RTUblsulQa0Rx82thtW
+ uiN61VYW2YMN6MQJOCbW5hyoipX8Fw43bvad0SlybKBemo+rfWjlfs6BqEGWxif7k6qB
+ OdlRl1XcWvPQD556Aw0lqgqUfKYX+wXPwqdp8pGBU3atk3EFZLWRAt7qmmrXVvhpgLP2
+ XesYikWHwmzxE7twDYC4JgwpcmgkhCmPl01Hi6cnOoWYiSJJ739Z6+dNoanv4WM0lfNo
+ b0jYpybgkCUJgs8TSTVcsUeLvEqrvJHQ9et/Y0IdENtysxOEaa6wObk4M+Lb1r7K4dOs
+ xfWg==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794417504; x=1795022304; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1794417572; x=1795022372; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=kw0jfgt7++kJag8Rb81aSS+ViRwdZQnoobcBhHYL/qc=;
- b=VivWzSxDKyt7m3aKiucHCcNdwU5vR3PZbT4i3FbiL0hUzrpy6Ag+C4uX+NMGHZKqnL
- qHMuYhyxu+tBh5dScySZ2PVMV6c6cMJSaRGoQSRkKD8g/cvlwliEGgVq71U4tBOIVxCG
- 16UUekzXN9Sj0ybOV6Ay0msrTiREQ8JzOb4LWudBviOuOUv3p8y/1ndh0+hUEMceLhor
- ro/km56gjvdg0QTIT6EvGXzaCtuVhWoHscoaNACiH4WmRCJJ4iU+lveWKizNUTe0e8vN
- xgvnDv7wWXS54BuglqcE9nirbZZOudI1KSVz+o9xtSoxOU1dWbyBF9SYuqDinnFnjQn0
- C/qQ==
+ bh=KrAwE14sLjPV1wagWRb3nhUSBxA8ruoUwCfDea/0XLY=;
+ b=PYKl5tOUE0BJabRDqvQv2Y/QIsGMiiIVqFIBOMdnnnrwqUaY03dHtP3ELPpzxDFI3i
+ Pt0m6LMz+PJui5rXv3m6W1iYHm8b+bGp4AdXwJrl2Af0uR2DV8FrZ10P/Gsen0vQA3io
+ ABc3/3xqHlE16commgyN2I3q7T1/r7ApluMEMuABwGJb66nDK1QSxH8zlp/lFUGz1mRn
+ LS0gTMa4tCM5v0jFdJ021M3BkHCOoRfAlU9h6IQWAKetVkxRd96p8dzb1xB/vK+ab41z
+ t0RJrP1g3nVRD5E8cVYTFgoqsExF/lv9pVTgryfckLMXN5aF/PDZ2jE3efrMUYWOYfQq
+ NIBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794417504; x=1795022304;
+ d=1e100.net; s=20260707; t=1794417572; x=1795022372;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=kw0jfgt7++kJag8Rb81aSS+ViRwdZQnoobcBhHYL/qc=;
- b=TP+RkDQQyTn7/DuuNPT267AQiGJv6Czn+cPtXstGlfscbeEw6HtOhoBnqBjeOA5kxe
- la/a60lKQzVfS8FBq6yi9Cug2JB/LdfBNIapfzbqQFW0O1bUvvB6p0TlvQPEJ0bzx2P8
- ruFOPWGLos8/JVpgIYYn52OUmGOVKlKlUUl4wV9hx2oIWXWiKyZz/8XtrbdIUOLbZUZk
- P36+IgtbLX3tJdLL+Ld3gcIc3aZr5IjQHkmNfkcJCFouUoVr1b0pbhmMiWfwp9EyGS4N
- ZmZ10xeW2LhEkNVPrwNylaKsMBl+YkOFbaeKEY8UKmDe0mFCQqILtfPcTsnw7Mde0X7e
- pfOw==
-X-Gm-Message-State: APuU4Z+a1qMHvNgfDN4UVj8W7Y2Cq3RkzM1+0i5eV2fB4EG/Ay2ibUEM
- rYBq3O5XbhLucfbKXyYM8ETLrfcRmcOffuNMDEc0SplnQPJH21DektnEaThPo4iwJSkyUYes50q
- ELVoK/2Gq8jeaNuc+ErJj3bJSqzb2WEQL2A==
-X-Gm-Gg: AYBFou0db86Y/Wc+2miXVgMrnMdF84a1KWhThSU2k6m97JftBzItTKsZl8BseRcpjjV
- 7bjfzxRknJBvfzGLmnoEkJwDZ6wj7idvckvmhzX5oZ6+Ims7vaWFYKLbzmcrK4NTDT89LHEhrKN
- 2xLWtYwSA4Ca9Iuta0JqjaKrTjIwXCtyAqyRGSnA1Z0y5MOe4ICMCF1q3zEJCyUlf+YrkAUektO
- ApiaQLjOuEvSoL1bjgeWLe0HFhBBtiaz86uS1BZQ0Q97spk5Ks1LCOX2M41yLlM0q9Ify3zCOqI
- txIETyPmHg4ZDiHFGjvdsmCmKkZS0t2LX1l3+6sQ3s3eXsO8JZEut8Bd6EZvffiInuwOa0heU7/
- omzXjIA4WRcLl0AQ0I5KgGG/h1XFN+35XhT/Vqrp6ioWsx8ZZISXc5tizKiDDEU8V+q40EXhBZX
- kGoqfJ3jPkH8TYISmT9Cpv0Eskx2XqkselJ13omAT9wmHM5NVQlOW1aEohE5E=
-X-Received: by 2002:a05:701b:21c3:b0:183:d275:cf76 with SMTP id
- a92af1059eb24-1b3c02fe0abmr4070035c88.2.1794417503678; Wed, 11 Nov 2026
- 09:18:23 -0800 (PST)
+ bh=KrAwE14sLjPV1wagWRb3nhUSBxA8ruoUwCfDea/0XLY=;
+ b=ynQMjkU9clJ30U/Y1Y1etl4kem3FZq6Jqt34gEgtCH6CE5AaVhZ5ANv9bgwRrwMtYp
+ xgtD5swGGSDtIhw7tZCTWvleS/E4go1lNlP8AtixDY+whOVl8ZhvWDdpR0fvlprTPEu4
+ TJMHl88DvWiu8UAKcXgwCBa+rjtTT/64A0+4qoJEeto+GZg8M+gRADa21eexd4WiiWUg
+ Tv/A4UokzqUFZULdrXWJtjol2gFojahZaNPkpF7a5MLMSg2FP7NMNmrXhSsAMM/hak9f
+ L0Yf0EcahRvWGeee+BFdvpmF/TYtzoJ1ghzLk2VRTBqE4pVqYZ83iOqLYZ18nUI2oHee
+ EQqw==
+X-Forwarded-Encrypted: i=1;
+ AL+hErGeBjjqas9W7i75GMfWsD40RmT5gDMWGO24fAsUtMXCUxonGmI2B1kouC9r9rkg6i143merY+tK@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/qEx8m4JVUw8qVwcK8FR0y/p/0lId1pHuqtmZpyktAGrlt2584
+ sXWqG8WSjz34NTzGssYrIC0fyc46dEyJ48XxzZNW+35Ciwm9jbv58s8la6b+UD9GXJOOe3929hU
+ IonXPTaTYaD57k6qu9KK7DVdC0fSx2hE=
+X-Gm-Gg: AYBFou0eFsZw4Fot9OHP7zQ2531wS6Vr65olFVr2NnvjIcYT2rpvdF96q5db75QyDLa
+ n512t+gWZYrq5G7x039jL0wDMGH+AC3VlluIAFag1jihLSuuOCZz5vZYXcl/47uVjVbkVf9hIsH
+ Fa2VSkU9eThFlXctFR6It4RRiS0G5QGWbXTxMK0eKk6u+L1zZep0rKoMYiZsfnQcPRuYPUMFRQ/
+ JgRrYMn3i/m0vwy9ue3W/uOmy0iH0yDQgdXmcvY8Q/vwcskfEcNXgVyKrD3/QEV7Mn0pa6IFFFw
+ E0FkiiFfaS5lxbsR+/DJXLEd3f4Y2UrJvW+/CGw0QWFW7gcKynqlE6G9JiPSH58IEAP/80GmGso
+ tHpjP63q347fkE4FRxMVRHYQ/ZKfUEbR9lLFJ/rRjIZ6q6n5g7lvhVt7tTNEp2Cuh+fjdN+DBVh
+ hA6j+MfpsOqir6KKE9q8H54IOepQlxn8SiKVYPljEKyMbqdsucWKUI4IlRI2s=
+X-Received: by 2002:a05:7022:3a86:b0:143:5c2a:e45f with SMTP id
+ a92af1059eb24-1b3c01600d4mr4568870c88.0.1794417571814; Wed, 11 Nov 2026
+ 09:19:31 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <OS3PR01MB102512A4873E4DCA42A648069E7722@OS3PR01MB10251.jpnprd01.prod.outlook.com>
-In-Reply-To: <OS3PR01MB102512A4873E4DCA42A648069E7722@OS3PR01MB10251.jpnprd01.prod.outlook.com>
+References: <20261110215334.947250-1-colin.i.king@gmail.com>
+In-Reply-To: <20261110215334.947250-1-colin.i.king@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 11 Nov 2026 12:18:11 -0500
-X-Gm-Features: AclHuK-ZRh2e0fWOIUsPc0nxQ2eBDRgCD8Cdo-GGx5U88w9KRwlyo863aeYY-fQ
-Message-ID: <CADnq5_OW3v4oLBhH6Gev4jzaXvrR=VM7rfqjRwgknLbvvSWZqw@mail.gmail.com>
-Subject: Re: [PATCH] drm/radeon: only unregister the ATPX handler if we
- registered it
-To: Jiaming Fan <fan.jiaming@hotmail.com>
-Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
+Date: Wed, 11 Nov 2026 12:19:19 -0500
+X-Gm-Features: AclHuK9Ltzz1VkoOh3Aq7MLGRPgESiTW_dVehgDaxaFmKVDwtYC6QW68oRx-BvE
+Message-ID: <CADnq5_PSk1mPj0t24ZjQfR5STAnVFvsB9wz-K6PqHjeWzoTS-Q@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: remove extra trailing semicolon from a
+ couple of statements
+To: Colin Ian King <colin.i.king@gmail.com>
+Cc: Austin Zheng <austin.zheng@amd.com>, Jun Lei <jun.lei@amd.com>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- "Mario Limonciello (AMD)" <superm1@kernel.org>
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Dillon Varone <Dillon.Varone@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -104,89 +113,58 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Reviewed and applied.
+Reviewed and applied.  Thanks!
 
-Thanks,
-
-On Tue, Nov 10, 2026 at 10:56=E2=80=AFAM Jiaming Fan <fan.jiaming@hotmail.c=
-om> wrote:
+On Tue, Nov 10, 2026 at 5:11=E2=80=AFPM Colin Ian King <colin.i.king@gmail.=
+com> wrote:
 >
-> radeon_register_atpx_handler() registers the ATPX handler with
-> vga_switcheroo only when ATPX is detected, and ignores the result:
-> vga_switcheroo has a single handler slot and refuses a second handler
-> with -EINVAL. radeon_unregister_atpx_handler() calls
-> vga_switcheroo_unregister_handler() in either case, and that clears the
-> slot no matter who set it.
+> There are a couple of statements that are terminated with ;; - fix this
+> by removing the extra redundant semicolon.
 >
-> So unloading radeon removes a handler registered by another driver, such
-> as apple-gmux. No Radeon GPU is needed for this; loading and unloading
-> radeon is enough. amdgpu is another such driver: when radeon and amdgpu
-> are both loaded and both detect ATPX, only the first one gets the slot,
-> and unloading the other one clears it. Afterwards vga_switcheroo can no
-> longer switch outputs, and a client that uses the vga_switcheroo runtime
-> PM domain, such as nouveau on a non-Optimus machine with a v1 DSM, can
-> dereference the now NULL handler during runtime suspend.
->
-> Record whether the registration succeeded and unregister only in that
-> case. amdgpu has the same problem and gets the same fix.
->
-> Fixes: 6a9ee8af344e ("vga_switcheroo: initial implementation (v15)")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jiaming Fan <fan.jiaming@hotmail.com>
+> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
 > ---
-> The amdgpu counterpart is patch 1 of this series:
-> https://lists.freedesktop.org/archives/amd-gfx/2026-November/157097.html
+>  .../dml21/src/dml2_core/dml2_core_dcn6_funcs_mode_support.c   | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 >
->  drivers/gpu/drm/radeon/radeon_atpx_handler.c | 13 ++++++++++++-
->  1 file changed, 12 insertions(+), 1 deletion(-)
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dm=
+l2_core_dcn6_funcs_mode_support.c b/drivers/gpu/drm/amd/display/dc/dml2_0/d=
+ml21/src/dml2_core/dml2_core_dcn6_funcs_mode_support.c
+> index 71d14fb8c830..5dd22003f165 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core=
+_dcn6_funcs_mode_support.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core=
+_dcn6_funcs_mode_support.c
+> @@ -328,7 +328,7 @@ void dcn6_ms_calculate_writeback_bandwidth(
+>                 }
+>         }
 >
-> diff --git a/drivers/gpu/drm/radeon/radeon_atpx_handler.c b/drivers/gpu/d=
-rm/radeon/radeon_atpx_handler.c
-> index f557535..9ed75c6 100644
-> --- a/drivers/gpu/drm/radeon/radeon_atpx_handler.c
-> +++ b/drivers/gpu/drm/radeon/radeon_atpx_handler.c
-> @@ -34,6 +34,7 @@ struct radeon_atpx {
->  static struct radeon_atpx_priv {
->         bool atpx_detected;
->         bool bridge_pm_usable;
-> +       bool handler_registered;
->         /* handle for device - and atpx */
->         acpi_handle dhandle;
->         struct radeon_atpx atpx;
-> @@ -605,7 +606,8 @@ void radeon_register_atpx_handler(void)
->         if (!r)
->                 return;
->
-> -       vga_switcheroo_register_handler(&radeon_atpx_handler, handler_fla=
-gs);
-> +       if (!vga_switcheroo_register_handler(&radeon_atpx_handler, handle=
-r_flags))
-> +               radeon_atpx_priv.handler_registered =3D true;
+> -       DML_LOG_DEBUG_2D_ARRAY_DOUBLE(outputs->WriteBandwidth, display_cf=
+g->num_planes, DML2_MAX_WRITEBACK);;
+> +       DML_LOG_DEBUG_2D_ARRAY_DOUBLE(outputs->WriteBandwidth, display_cf=
+g->num_planes, DML2_MAX_WRITEBACK);
+>         DML_LOG_FUNC_EXIT();
 >  }
 >
->  /**
-> @@ -615,5 +617,14 @@ void radeon_register_atpx_handler(void)
->   */
->  void radeon_unregister_atpx_handler(void)
->  {
-> +       /*
-> +        * vga_switcheroo has a single handler slot and unregistering cle=
-ars it
-> +        * no matter who set it, so leave a handler registered by another
-> +        * driver, such as amdgpu or apple-gmux, in place.
-> +        */
-> +       if (!radeon_atpx_priv.handler_registered)
-> +               return;
-> +
->         vga_switcheroo_unregister_handler();
-> +       radeon_atpx_priv.handler_registered =3D false;
->  }
+> @@ -4255,7 +4255,7 @@ enum dml2_status dml2_core_dcn6_funcs_validate_solu=
+tion(struct dml2_core_instanc
+>         enum dml2_status status =3D DML2_STATUS_OK;
+>         struct dml2_core_calculate_ms_context *calc_ms_ctx =3D &core->scr=
+atch.mode_support_locals.calc_ms_ctx;
+>         struct dml2_calculate_mcache_allocation_in_out *calc_mcache_alloc=
+ation_params =3D
+> -                       &core->scratch.mode_support_locals.calc_mcache_al=
+location_params;;
+> +                       &core->scratch.mode_support_locals.calc_mcache_al=
+location_params;
+>         struct dml2_core_internal_display_mode_lib *mode_lib =3D &core->c=
+lean_me_up.mode_lib;
+>         unsigned int i;
+>
 > --
-> 2.56.0
->
+> 2.55.0
 >
