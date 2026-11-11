@@ -2,99 +2,57 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD8B3606A326
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 15:52:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57ACF606A32D
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 16:09:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fv47qaTm
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=Q2JoTB4J
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4859E10E41C;
-	Wed, 11 Nov 2026 15:52:07 +0000 (UTC)
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com
- [74.125.82.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43EB410E41C
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Nov 2026 15:52:01 +0000 (UTC)
-Received: by mail-dy1-f180.google.com with SMTP id
- 5a478bee46e88-36e895f329cso40753eec.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Nov 2026 07:52:01 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794412320; cv=none;
- d=google.com; s=arc-20260327;
- b=Us0bMAF6D+QKFojtDVtTfgzUUsLKW48hTxttpvEfmxbRhi9cEpl1JPGe+nk4dp4tMO
- +REairb/43goQLCqmUxCTbjc2Pfkq9WRGlIeIi8mj2ovygxqmErnzPcdvLlbhuOQLD/+
- 5gs5LyztwHllMFYiZCFy07Ql5h9IeH0BIosu0UCqxwSK99qUBfsiEOROPMucMzfhot77
- 8xQ1WzTsoXacWaVJDzqVjBqZvuFSIZu1uWPD2XupSvHcS47mNjiyLGOP2YKkkwCDUioU
- a5FAneDcoejFNXYjLL/FCiCCle/QGT1vlmlgeVW93GAWDht4gLeAYm5QI9QdFXY1aycj
- 1eQA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=KBQmXpergQV0k3yAGb4YmxsK7ApjQIjQQTJj+akkdKY=;
- fh=j/X3BLMtn55FUm26zUqcpkE9pc9BYxMS7DRBhrxEDXY=;
- b=dhURqgmp3Gwrz2YJhv5J0gRkvVgeAHpk7tsX2zF3eDsgLLeqTDrgZFz9QgI6XNoB6Z
- /cw+QzaDpQM4QwSvJLb57rIVz/D6MV+nHkl7EMKVtfmMDnAEppVo9FIL1ntRKOlh/qeM
- c3RLOCj4OOFEBI/bW2BnnunIBIFyDFKcMzjqolpNPAjzywof1mJ4HBN8M3hz+jARAYwn
- ypnQx0I2KDSwiEeBT44ez56pHnkT0l+326Xg+3DcngaZevLJQbnannCHQl9vOZoGM0hu
- hqEelEbzfJZDlxXuDAkztbfu6kygb6v2cWIlXh0CNgdcFs+Q87VLUSyNWmL+nfPwbbIx
- 18JA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794412320; x=1795017120; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=KBQmXpergQV0k3yAGb4YmxsK7ApjQIjQQTJj+akkdKY=;
- b=fv47qaTmBvXEMPG79Z3ghFoNqIxWFhQQ3rx3YmAVERLqUJ2SMxEw1K47eILxKKY3wb
- Hdku5bzxOvzB9LXRgL3U1WXKFdJVs9kp5JNPbtIWfrK2fM05MEf1XC+ww6nJXU01wTd/
- 7TjHSeGG8bGyB6rsW306vampTxQ0Ix1J2e3r4lhO0f7ATISF+ONCyK96D1LxJn1gK9HG
- qyn0cAMpEvzUpTOLgfXpXhtNxt+qBBi5vYA3Mmh3L96Vc+tPtYXkpeQ/F98GNz/HLRC4
- 6m/MdV+Q19E0ToxubIOJqvD+hTQn2Vb9TsJXYL6Xxj4imep5g7xGR7p2pgTXpnolT5Cf
- Zw/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794412320; x=1795017120;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=KBQmXpergQV0k3yAGb4YmxsK7ApjQIjQQTJj+akkdKY=;
- b=NkWKRaqKDuKz77uOAL71mwtPPh2ZhaMNK85CIoCzEYWjezOIWH4I2goZxUwg/jwzq0
- 3ZBN4p6JNcGF9gLrpBMztj7qE9YjV/ugcvgl2VRJkIjHBFxYgtg2G0gGVtpnqoP0easG
- U8B+TxUBoG1wRX8EN400vgIdjhT8fYxThyoQB04fgSzjs3wQmCPaoA88EjwiSgLn4deH
- BGnau57mAfNXe21W33K41IIZYlyIsAsgau4VDdSuTRspOGAPbfwP0Luj4Dv/NQGpoLgu
- AiapGN/dnCe7k2giLK2cinAHbD2sZbLqhiautuXW1PZtSiylXUVayJHpTx/ziv7/gnp0
- wGjg==
-X-Forwarded-Encrypted: i=1;
- AL+hErHb8rETCRVzwDsRSWQOqBjsKulZh6vVW2bML9cuA85pNZT/UJJcj60FgF5c64hSZz8ouPR7ik07@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z88O/fXO4dLDlqVbFzrDgK9T/mGWVnAcl0QBoXjs1U3XZrmzdFy
- G7adKmakrYqTWqgI2rPggV2eLfbYxzWc/9INQPx/VbW7EvuiiojbKkia2qwGzCJ2HmlxHHQilbB
- +ui/j9NVyf71W2tRTQE08NF3JzqgaOmQ=
-X-Gm-Gg: AYBFou2YAXsZWbGYXVNE0y3ZrGtU4TCvW63Wk6IKN2zHnfZUog7fizfxu1DHAZzYg6p
- CbGnbNTgzZrWzeQQ591as0uQWV5fMDrK/EjN5C3PX1rCdchgNoiHriSBHXncvI6V3+8MQKG56ty
- bTEYFdfNfUcdo6NuTU00sbkpf/hUXmswFs4VfjJtR9KgVmrtcoJoMkJXTDN38zosLOKUGokkQhM
- b5o3C7eZ4l/ci2dIEMufJrEeAM588lXaIyEN673E29AhuC0572jZq6THtBszHmSdsbCr9DRoQk4
- Huyrriahqm4/MxTrYe2M+zwkVa36221nCsUIMKBNaVVaw2UMdsVBPo1c9dUuRse3YnLi/3J617U
- y5xJ6+obs9J/M4X5q9lecE/F7x/UUwTIPzkR4fwx5pVXgM05oh93pGh8ZgkdgM8btE+Ie752eBq
- ZC1DtOzRz6UgN6IhLf1SCxB/GU6a6PRqMPBhIJ63z+DobEbyFUwWLLZx/g4zs=
-X-Received: by 2002:a05:7022:5f1c:b0:165:be2f:c56e with SMTP id
- a92af1059eb24-1b3c02e9530mr3474381c88.2.1794412320307; Wed, 11 Nov 2026
- 07:52:00 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0A7310FD77;
+	Wed, 11 Nov 2026 16:08:57 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFF4210FD40;
+ Wed, 11 Nov 2026 16:08:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
+ Cc:To:From:From:Reply-To; bh=RO865FpgI8SUnM8VBsvjl2ol1ZFGSrSMCGa3F96x8cU=;
+ t=1794413330; x=2109773330; b=Q2JoTB4JFjne4RBGp6MlN4MiPGD0fHlLNFFaYXVznUzRoa2
+ Fm3vlO5Vg4N+77On1VeYf8kvY968QL1TbbbBLUwnPyANE4c68TMCUUHE6jhDFQez2CAwV2mZ8+wS8
+ pQTdjQ5Oc5V0HThBCxyoi0LMK8EeTbv18PFiMUX+RRj9AEdzrBkgjLIXavYZWxV3L8kVSgnfwsxY4
+ qfGKyRSAev7L2kzl1jqUG4AAh4Lgq46/jcgVuXLsv1AIxi8fZFwSThSPy29YrFbwgce7wAjHOcFpc
+ Ca1/Z9lnZwQ7cDoa8pKMZV1faYOMxeiEHElXJ4OMuZKuPC6d6iiOrCerU0szmrTg==;
+Received: from 193.red-79-147-123.dynamicip.rima-tde.net ([79.147.123.193]
+ helo=killbill) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1xRArz-008u8Y-RS; Wed, 11 Nov 2026 17:08:19 +0100
+From: Melissa Wen <mwen@igalia.com>
+To: airlied@gmail.com, alexander.deucher@amd.com, alex.hung@amd.com,
+ aurabindo.pillai@amd.com, christian.koenig@amd.com, contact@emersion.fr,
+ daniels@collabora.com, harry.wentland@amd.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, mwen@igalia.com,
+ sebastian.wick@redhat.com, simona@ffwll.ch, siqueira@igalia.com,
+ sunpeng.li@amd.com, tzimmermann@suse.de
+Cc: Uma Shankar <uma.shankar@intel.com>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ Xaver Hugl <xaver.hugl@gmail.com>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Matthew Schwartz <matthew.schwartz@linux.dev>,
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, louis.chauvet@bootlin.com,
+ John Harrison <John.Harrison@igalia.com>
+Subject: [PATCH v5 00/15] drm/atomic: only add states of active or transient
+ active colorops 
+Date: Wed, 11 Nov 2026 17:05:13 +0100
+Message-ID: <20261111160814.21326-1-mwen@igalia.com>
+X-Mailer: git-send-email 2.53.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261110120326.538252-1-tzimmermann@suse.de>
- <CADnq5_NCF2J0Dzea5swubs+eEKBLq+8ontc5n=kihYZVA3A1aw@mail.gmail.com>
- <cd49a9ea-a992-4b38-a5d7-d46d1647010f@suse.de>
-In-Reply-To: <cd49a9ea-a992-4b38-a5d7-d46d1647010f@suse.de>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 11 Nov 2026 10:51:47 -0500
-X-Gm-Features: AclHuK-V9rhzh3ZjlBaGulsYdclwg7wvF6eK8h0-zGf088bOkC0LAbbJi1wg6Ks
-Message-ID: <CADnq5_Oi3-zGYV_BiuJzV5VQvxTSTLN1btqFFH7JYz0ra+dP0g@mail.gmail.com>
-Subject: Re: [PATCH 0/5] drm/amdgpu,radeon: Inline drm_crtc_init()
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, 
- simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- sashiko-reviews@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,98 +63,138 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, Nov 11, 2026 at 4:35=E2=80=AFAM Thomas Zimmermann <tzimmermann@suse=
-.de> wrote:
->
-> Hi
->
-> Am 10.11.26 um 22:49 schrieb Alex Deucher:
-> > On Tue, Nov 10, 2026 at 7:11=E2=80=AFAM Thomas Zimmermann <tzimmermann@=
-suse.de> wrote:
-> >> The helper drm_crtc_init() sets up a CRTC with a primary plane for
-> >> non-atomic mode setting. Only drivers for some AMD hardware still
-> >> use it.
-> >>
-> >> Inline drm_crtc_init() into amdgpu and radeon and remove it from
-> >> DRM. All new code implements atomic mode setting, which does not
-> >> use drm_crtc_init().
-> >>
-> > I'd like to drop all of the old amdgpu non-DC code since DC is now the
-> > default, and we have an LTS kernel now.  I'm planning to send these
-> > out in the near future:
-> > https://gitlab.freedesktop.org/agd5f/linux/-/commits/remove-non-dc-disp=
-lay?ref_type=3Dheads
->
-> That's even better. :) Do you have an ETA for this work? Resolving
-> drm_crtc_init() is required for that series I referred to at [1].
+This series is a follow-up of what was discussed in [1] and on #wayland
+IRC channel regarding policy and userspace expectations on changes in
+colorop properties and the current status of the color pipeline in which
+the colorop is part of. In short, we agreed that userspace can change
+properties of colorops that are currently part of an active color
+pipeline or when the pipeline is switching status in the same commit.
+However, userspace cannot change colorop properties of inactive color
+pipeline in the expactation that it will be activated at some point in
+the future.
 
-Just sent them out.
+Userspace also expects persistence of color pipeline already set, even
+if it becomes inactive for a while, when activated, colorop settings
+previouly set should be preserved.
 
-Thanks,
+This series uncovered some bugs on IGT tests that were already fixed [2]
+and applied. The bad merge conflict resolution mentioned in the previous
+version [v3] is already resolved. On the other hand, when rebasing this
+series on drm-misc, other issues on AMD KUnit tests appeared due to the
+introduction of the new FIXED_MATRIX colorop type. As a result, the
+first two new patches address them.
 
-Alex
+I also tried to address some Sashiko's complaints on pre-existent issues
+that affects the stability of this series, but not all since I want to
+keep a healthy scope for reviews. Now some AMD fixes in this series are
+attached to the DRM changes, so better apply the whole serie in a single
+branch and hope that this doesn't get deleted in the event of a merge
+conflict.
 
->
->
-> > So that just leaves radeon.
->
-> I'll fix the Sashiko report and send this out in a separate patch.
->
-> Best regards
-> Thomas
->
-> >
-> > Alex
-> >
-> >> DRM support for kernel panic is only implemented in amdgpu. Take
-> >> the panic helpers from drm_crtc_init() in amdgpu, but clean it up
-> >> in radeon.
-> >>
-> >> With this series in place, DRM's helpers for drawing panic screens
-> >> can be further integrated with other drawing helpers, as outlined
-> >> in [1].
-> >>
-> >> Tested on radeon with a Radeon HD 6570.
-> >>
-> >> [1] https://lore.kernel.org/dri-devel/20261019154612.777074-1-tzimmerm=
-ann@suse.de/
-> >>
-> >> Thomas Zimmermann (5):
-> >>    drm/amdgpu: dce_v6_0: Inline drm_crtc_init()
-> >>    drm/amdgpu: dce_v8_0: Inline drm_crtc_init()
-> >>    drm/amdgpu: dce_v10_0: Inline drm_crtc_init()
-> >>    drm/radeon: Inline drm_crtc_init()
-> >>    drm: Remove drm_crtc_init()
-> >>
-> >>   drivers/gpu/drm/amd/amdgpu/dce_v10_0.c  | 44 ++++++++++++++-
-> >>   drivers/gpu/drm/amd/amdgpu/dce_v6_0.c   | 44 ++++++++++++++-
-> >>   drivers/gpu/drm/amd/amdgpu/dce_v8_0.c   | 44 ++++++++++++++-
-> >>   drivers/gpu/drm/drm_crtc.c              | 26 +++------
-> >>   drivers/gpu/drm/drm_modeset_helper.c    | 74 -----------------------=
---
-> >>   drivers/gpu/drm/radeon/radeon_display.c | 47 +++++++++++++---
-> >>   include/drm/drm_modeset_helper.h        |  3 -
-> >>   include/drm/drm_plane.h                 |  5 --
-> >>   8 files changed, 170 insertions(+), 117 deletions(-)
-> >>
-> >> --
-> >> 2.56.0
-> >>
->
-> --
-> --
-> Thomas Zimmermann
-> Graphics Driver Developer
-> SUSE Software Solutions Germany GmbH
-> Frankenstr. 146, 90461 N=C3=BCrnberg, Germany, www.suse.com
-> GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG N=C3=BCrnbe=
-rg)
->
->
+[v1] https://lore.kernel.org/dri-devel/20260526142940.504911-1-mwen@igalia.com/
+Changes:
+- define a macro to walk in the color pipeline (Alex H.)
+- fix checkpatch warning (Alex H.)
+
+[v2] https://lore.kernel.org/dri-devel/20260604180457.1110110-1-mwen@igalia.com/
+Changes:
+- [Drop] drm/atomic: duplicate state of all colorops
+  If inactive colorops state are duplicated on resume, the commit will be
+  rejected. 
+- [New] Four new patches to make AMD driver match the policy of colorop
+  updates only for colorops in active color pipelines plus individual
+  colorop updates. It also tries to untangle COLOR_PIPELINE = Bypass from
+  colorop BYPASS prop = true. I think patches 3-5 can be cherry-picked and
+  applied if it looks correct for AMD, I just included them here for
+  context (for example, Sashiko reported an issue in the previous version
+  of this series).
+
+[v3] https://lore.kernel.org/dri-devel/20260609121230.1358786-1-mwen@igalia.com/
+Changes:
+- make drm_atomic_add_affected_colorops static and move to
+  drm_atomic_helper.c (John H.)
+- skip check when just duplicating state for suspend/resume persistence.
+- [re-add] drm/atomic: duplicate state of all colorops to preserve all
+  colorop status in a suspend/resume
+- rewite commit message and better explain what's considered an active
+  colorop (John H.)
+- [new] drm/atomic: check if an active colorop has a blob if its type
+  requires one
+- drop the ternary and add just a warn_on since both current callers
+  iterate planes already in the atomic state in AMD's active pipeline
+  check (John H.)
+- explain the reason to use commited colorop in AMD's active pipeline
+  check (John H.)
+- [new] drm/amd/display: don't ignore failure on blend colorop setup
+- [new] drm/amd/display: distinguish colorop setup error from no colorop support
+
+[v4] https://lore.kernel.org/dri-devel/20260811171011.184964-1-mwen@igalia.com/
+Changes:
+- Fixes for Kunit tests related to FIXED_MATRIX type
+  - [new] drm/amd/display: Update colorop pipeline tests for new fixed matrix op
+  - [new] drm/amd/display: add missing FIXED_MATRIX colorop to AMD KUnit tests
+- Fixes for KUnit tests with the new policy in place:
+  - [new] drm/amd/display: add plane to commit on KUnit cursor mode tests
+- post-pone making drm_atomic_add_affected_colorops static to a point in this
+  series in which this is not needed by AMD anymore (Harry):
+  - In drm/amd/display: allow individual colorop change, drop the
+    drm_atomic_add_affected_colorops() call from dm_update_plane_state(),
+    since the colorop helpers now fall back to the committed state
+  - [new] drm/atomic: make drm_atomic_add_affected_colorops() static
+- check colorop type when allowing individual changes (Harry)
+- update __set_dm_plane_colorop_fixed_matrix to get the commited state if no
+  new state as for other colorop individual changes (Harry)
+- update KUnit tests accordingly (Harry)
+- [moved] drm/amd/display: only check colorops of an active color pipeline
+
+[1] https://lore.kernel.org/dri-devel/20260519211111.228303-1-mwen@igalia.com/
+[2] https://lore.kernel.org/igt-dev/20261021151929.62529-1-mwen@igalia.com/
+
+Best Regards,
+
+Melissa
+
+John Harrison (1):
+  drm/amd/display: Update colorop pipeline tests for new fixed matrix op
+
+Melissa Wen (14):
+  drm/amd/display: add missing FIXED_MATRIX colorop to AMD KUnit tests
+  drm/atomic: only add states of active or transient active colorops
+  drm/amd/display: add plane to commit on KUnit cursor mode tests
+  drm/amd/display: only check colorops of an active color pipeline
+  drm/atomic: reject colorop update from inactive color pipeline
+  drm/atomic: duplicate state of all colorops
+  drm/atomic: check if an active colorop has a blob if its type requires
+    one
+  drm/amd/display: truly bypass plane colorop 3x4 matrix and hdr mult
+  drm/amd/display: make shaper bypass mode cleaner
+  drm/amd/display: make blnd bypass mode clearer
+  drm/amd/display: don't ignore failure on blend colorop setup
+  drm/amd/display: allow individual colorop changes
+  drm/atomic: make drm_atomic_add_affected_colorops() static
+  drm/amd/display: distinguish colorop setup error from no colorop
+    support
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  13 -
+ .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 236 ++++++++----------
+ .../amd/display/amdgpu_dm/amdgpu_dm_cursor.c  |  26 +-
+ .../amdgpu_dm/tests/amdgpu_dm_color_test.c    | 118 +++++----
+ .../amdgpu_dm/tests/amdgpu_dm_colorop_test.c  |   4 +
+ .../amdgpu_dm/tests/amdgpu_dm_cursor_test.c   |  49 ++++
+ drivers/gpu/drm/drm_atomic.c                  | 199 +++++++++++----
+ drivers/gpu/drm/drm_atomic_helper.c           |  59 ++++-
+ drivers/gpu/drm/drm_colorop.c                 |   5 +-
+ include/drm/drm_atomic.h                      |   4 -
+ include/drm/drm_colorop.h                     |   9 +-
+ 11 files changed, 456 insertions(+), 266 deletions(-)
+
+-- 
+2.53.0
+
