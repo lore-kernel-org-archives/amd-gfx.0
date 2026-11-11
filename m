@@ -2,29 +2,29 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F990606A321
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 16:09:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC51A606A32A
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 16:09:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=rzmEcRsB
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=Kd9S55L5
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A98510FDB8;
-	Wed, 11 Nov 2026 16:09:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0619A10FDB4;
+	Wed, 11 Nov 2026 16:09:09 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB77910FD92;
- Wed, 11 Nov 2026 16:08:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7355A10FD67;
+ Wed, 11 Nov 2026 16:08:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=vhJpOnyWAz5uiZosJGVLwxlp+dogNJrP1/dgdKqGrCU=;
- t=1794413339; x=2109773339; b=rzmEcRsBG1a6yKIhuTuqNWR738+UeQVzmcbTVJA4tz3bxl7
- wdqhkkAtGQ8OfhqS+sDrSVGuQQ1wS4w6cMi4TmjW8szBI7BZJB2i48UR1wHWEIoHdmshtoqjuyzoD
- G1Jh5VBDxtgLbkAmcUnm0m3YgNVq4NplkNOfBLyXy3FDxi5naGCxCIRR740JJSROlCrqUho3VrLhb
- w7+PexxP2HLP86N0S4Q7Y2rQmRqRyuwy5jzlewW37yo0zB/QBdFSYthYneIzYWLOsL001F1vY7AtX
- UqmDNAlPmVGA7xHQwNjitFzGv5ahZipfPHQmmNrBgFbvzhim9G+V4+2JHZ+QOBOg==;
+ Cc:To:From:From:Reply-To; bh=rlH4vov5RMimytemQtB5DfU12GPz12p9a3viIykG/aY=;
+ t=1794413336; x=2109773336; b=Kd9S55L59zHTcYrAjStvupfhDz/rj/oeIGuWvxHHWBUvfWQ
+ 0K/ZF4PYn4TSZn4w05ugzcZygEE473hzgKI+CrcB6s4CQ1vFzZS3W14DiPwKo+nyTP5CLvvfIDmk2
+ b5ylSCCIeGRWnezw/bTbZhust4iHjpRMTzMhRFF2KoufkXiKeeHcpnQT8IhbvuOQ3OGWOl9t+Tpsb
+ hlbwjELOzY7BzwReyEDuXLk+ylqrnnXZB+qYYHiGPCa5mC1mvgi20zMD6Dp4wV+82Sf/ITd68RBmq
+ LepNfCkOwiXNHW/d3Ek9TVYBTXhtPMYKKJbZlKslhXqmaIE1v78dkcEoYpTqmwSw==;
 Received: from 193.red-79-147-123.dynamicip.rima-tde.net ([79.147.123.193]
  helo=killbill) by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xRAsL-008u8Y-D3; Wed, 11 Nov 2026 17:08:41 +0100
+ id 1xRAsH-008u8Y-2d; Wed, 11 Nov 2026 17:08:37 +0100
 From: Melissa Wen <mwen@igalia.com>
 To: airlied@gmail.com, alexander.deucher@amd.com, alex.hung@amd.com,
  aurabindo.pillai@amd.com, christian.koenig@amd.com, contact@emersion.fr,
@@ -45,9 +45,9 @@ Cc: Uma Shankar <uma.shankar@intel.com>,
  intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, louis.chauvet@bootlin.com,
  John Harrison <John.Harrison@igalia.com>
-Subject: [PATCH v5 11/15] drm/amd/display: make blnd bypass mode clearer
-Date: Wed, 11 Nov 2026 17:05:24 +0100
-Message-ID: <20261111160814.21326-12-mwen@igalia.com>
+Subject: [PATCH v5 07/15] drm/atomic: duplicate state of all colorops
+Date: Wed, 11 Nov 2026 17:05:20 +0100
+Message-ID: <20261111160814.21326-8-mwen@igalia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261111160814.21326-1-mwen@igalia.com>
 References: <20261111160814.21326-1-mwen@igalia.com>
@@ -72,31 +72,40 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-If userspace set blnd colorop to bypass, AMD driver just skips blnd
-transfer function configuration. Currently, this is not an issue since
-dc plane state is a reset/default state, but it's not fully correct and
-doesn't mirror shaper tf helper. Make bypass mode setup clear by
-initially set tf->type as BYPASS and let the helper change its type
-according to userspace requests.
+Userspace expects that colorop settings of an inactive color pipeline
+persist, so that, when the color pipeline is activated again, preserves
+the values they had when it was deactivated. Colorop setup is expected
+to persist even during a suspend/resume. To snapshot colorop settings
+correctly, duplicate state of all colorops in a given plane, regardless
+of whether color pipeline is active. Depends on skipping
+drm_atomic_colorop_check() for duplicated state done in previous commit.
 
 Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/drm_atomic_helper.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-index 6455898e2da9..686f718bd155 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-@@ -1938,6 +1938,7 @@ __set_dm_plane_colorop_blend(struct drm_plane_state *plane_state,
- 	uint32_t blend_size = 0;
- 	int i = 0;
+diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
+index ccfe3840d505..60e69061faa9 100644
+--- a/drivers/gpu/drm/drm_atomic_helper.c
++++ b/drivers/gpu/drm/drm_atomic_helper.c
+@@ -3758,12 +3758,9 @@ drm_atomic_helper_duplicate_state(struct drm_device *dev,
+ 			goto free;
+ 		}
  
-+	tf->type = TF_TYPE_BYPASS;
- 	dc_plane_state->cm.flags.bits.blend_enable = 0;
+-		if (plane_state->color_pipeline) {
+-			err = drm_atomic_add_affected_colorops(state, plane);
+-			if (err)
+-				goto free;
+-		}
+-
++		err = drm_atomic_add_affected_colorops(state, plane);
++		if (err)
++			goto free;
+ 	}
  
- 	/* 1D Curve - BLND TF: find state */
+ 	drm_connector_list_iter_begin(dev, &conn_iter);
 -- 
 2.53.0
 
