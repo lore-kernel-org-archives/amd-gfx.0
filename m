@@ -2,165 +2,103 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E821606A31C
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 00:44:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93574606A320
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 01:40:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=h9zqxJjF;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=DKs5OlGs
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=282m1yZH
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA87110F886;
-	Wed, 11 Nov 2026 00:44:01 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4AE5710F87C
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Nov 2026 00:43:28 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6AAMKdKG1113749
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Nov 2026 00:43:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- SdrgOO1kZ/LJgG/yaXawlqaJ5/GwT+jqCvdWQyL4krg=; b=h9zqxJjFYhD28UvK
- Ij1h7eXNmw3UsK6AJTLnInELHhMXwJV4xlb5zOl7B0hwd5BQUQVMFEm3m+6hKpAm
- PgoplbjppNcWr0Hma8+6CyRL9XWbceQW5EHbX/4uGZW6DT9fMcNpLd1G/qA1Rzt7
- 0ZA8eGER2mgnTZkIc+/Lj6Rpke/j/hwkD80D5tjMoa98fSC5LGBwjIgAUR8duttr
- vriHmTxpxCbOOONW94S7mTbSuC9YCp04TzdEgPIDdtdVVp6U88RMZag48Ny4dA88
- B2n8s7+LCLRufK69P4G65o8EVywqZtEYW9+mJ8TutVO2mLi6qW1vbhAII8928jR8
- TgkXAA==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hv97c955r-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Nov 2026 00:43:27 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id
- 6a1803df08f44-91ec6cd898eso49940166d6.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Nov 2026 16:43:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1794357807; x=1794962607;
- darn=lists.freedesktop.org; 
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=SdrgOO1kZ/LJgG/yaXawlqaJ5/GwT+jqCvdWQyL4krg=;
- b=DKs5OlGsM2oRymJOxpEoE45X7zLrMoN7Ajf83V8p/VWQJ5jD+7RtRfUSnSuxApURTw
- jYmE6BJYsPakZzmnBsYAu45xjVptFhx+KcnKGrrVvaESaTWvFr/F84yYp+wOYsoUn5QC
- WMAu8KaFsmnd2kAPPnfv3ogPLjBVqFM6kJNbCAlCfQWDkLw1JoI12CSxPYhNYY8Lu88G
- IJ2w1aaKzY525iU7OsMWdU20DFKz9bWXtVT7rz7Yz28R/frMMvr8fh2VyG1upfyS5p4j
- 12YnlUl3mYtd0ZD7jLX5AB1sV/4D/p9RidyJoWqiEhUkpJWY5tP7lcECNvZt++cSv27h
- 54nA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794357807; x=1794962607;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=SdrgOO1kZ/LJgG/yaXawlqaJ5/GwT+jqCvdWQyL4krg=;
- b=Y9kQyLz8HDMWbfzjD1NdtWUr8IQX7OYGSxWlUhirP46Yce0yazXpOyc9X3i5nRjoDJ
- 0NtnCXw/PpDKJ/HyZ9RwC6PSZAgj9rxftn0D16n84LQVEmoZSoRk9E+LLuJxI560mwcZ
- dtV1foVuKukVZ4XD98V0iumi96ppm1RoZ0H1Nrg/WyUpsh6SIYwddTKTa7y86y1HY/Zm
- W/DzJ3a0PR27rvEHw6iJ71x3pfBdSCYGWzDbqwODhi5z4uMavkCAZCf+/bkKtgsh/9ow
- QkItaaZ1H/ci9Ia04Xfm2sWUFJWOBIlsw4OPQ+e1LmYF7UIbKCCZ5lIy22omsc1hek2o
- 5r8w==
-X-Forwarded-Encrypted: i=1;
- AL+hErEGfZp+wE22rukCXYxGOXpNrxmgArVc/XZP7OKFPVbEBG9CwZOAINxdQ01BVTDY3NqZv2zbIYDP@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8L1E71xJ7/y7P0QrhOZ3UQ/EqvQ32zp9YmC7avcYVOxnKizi+7
- 4kvFkLHAZO+Wlej0JBUDc0u7aRhuyvS2RlIDu2WY3e6c+7YKAAxEOCZSDYAdt9L9mhcgPLo7qHP
- fSSEocr0jIRsLTpZLf5UVp3meB52xONiPG6kkMhwLuaqOBorhAxGhCxl9dC59/t5RGGce
-X-Gm-Gg: AYBFou1EzHDtKsm/thM4xQj8f7/TuYR7dlGuKGbCvbf4YUMG/2zTsAchUSik+agX0Ql
- 2gf9LiiLaV6H2s3oz8jj6naA5wqdz0PUXk3lxiN5fKUYGS0bsnhRLABSS4cl74DSWqGBq0n2x/z
- tVefXtlFZJ7DPJQM0bZ+7owUZRhTxHgHXdebcpTg9lbpC5pBQDZSIrvx5ScA0TiGMyWqDHs/LgW
- x4xZL3GwA6v0yCfAbgicgix/RT4T3NgndOl86knZeGZ8Y3+qXe8bBf6vE5GwqSYbLYq2aGXNig1
- hLdVubJ6LMCFGBqZ/NRsbFRqW4X8wok0TpeE07R9p5/Xp4w3r56T/yFxvMd05vL74FNpETMI91P
- ln1L6fRQuYGXNxmVBfVfFLPf5Z6x430oRvIbnjHzMF6O09mcZF1d50iVuhgkMIGxec2lz1Dpix0
- a9AAPmid4ZzT4iL3k7nmxZqmPAK5AUJ+H1YkoiFEeyEZkSpYbAQDRx8/jCI4ZMBw==
-X-Received: by 2002:a05:6214:529b:b0:91b:8025:6827 with SMTP id
- 6a1803df08f44-91f0411d3a5mr17363726d6.21.1794357806551; 
- Tue, 10 Nov 2026 16:43:26 -0800 (PST)
-X-Received: by 2002:a05:6214:529b:b0:91b:8025:6827 with SMTP id
- 6a1803df08f44-91f0411d3a5mr17363256d6.21.1794357805821; 
- Tue, 10 Nov 2026 16:43:25 -0800 (PST)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3ae092896d8sm7499011fa.32.2026.11.10.16.43.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 10 Nov 2026 16:43:24 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Wed, 11 Nov 2026 02:42:38 +0200
-Subject: [PATCH v8 09/10] drm: writeback: clean up writeback connectors in
- drm_connector_cleanup()
+	by gabe.freedesktop.org (Postfix) with ESMTP id E66DE10F8AA;
+	Wed, 11 Nov 2026 01:40:32 +0000 (UTC)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011050.outbound.protection.outlook.com
+ [40.93.194.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 578D810F8A4
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Nov 2026 01:40:26 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VGfq08kELzh8bM6fVcQTiYKC3WDl9aaMUeIfMupMX6bZK27dS8KFnp75Xwgxqun7TEQJQudwF7jMJKAERYIxtJRdJWg9iue7lSNDC9Nyob5yWiKiCJrkgIsymkVqe6XMZTuQMfd7BAELd0TEQs7TTRKCVIcxQYVhHWcZyEIS8BW8Kh1lbJAA6fnePY6RjwyefGj4xqm26W7v0NWkn16br+xhjSrdzTWllmZHg2O+dll1wFTZIEw69uySiHEgJ7lDSwfz5UDYFptsXcATc/Uyz9JOw3eseUKOLiWoz2/zYmUblrFM+YCRCnBpdwWD3ovNfyxargBiJvC9UbpoOqmgyA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9qco5EP8nH3/FMBRPcja9DQUPvH6MAjSuoGSk/ABrCU=;
+ b=sQ1DaGd9VO4fCYAwgZwR1tvpWZJNSmx3kwLes3qbDrXX0txmAbJ2p2AIW9qvDm3rxYYQjwpgXCVnqJdwGAnMffZBt9Wg15kvRA56YHeSqlJRmfv47SFn+LVKIjQZ/zVBomo7A9dRP94fmvC2+CSUOydB+hlPBJnQiaSdHz7Fp2ZyQjwf4VevY2gOJ9CUtBsOT/shpa//fGcywJGOAPyLO171AjQ9O89NfhOuY5B7H3TDOISel17p6WboYuorfnJ04YrgCqsZGe6DNIuCDcAqydx/O0i+W27oC6CUGvxroEUOJrW9B+SACVz10XG5fNX0m1Z6a0ug7ui+AcomdSUOcA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9qco5EP8nH3/FMBRPcja9DQUPvH6MAjSuoGSk/ABrCU=;
+ b=282m1yZHYSv9h0gRJfQdtk/AhDNQTqr+zGPllf/GmivApLxF8mou6tlXDs1uRGNQJ8XkryLjf9oKCd0nifz1NIDrQoHNh6+5g1+Gnew3uur4iTJfoaXLT0X7mS1k44jLCGVg11gk0aPgygCUoHlIMnfxZPyQOj+aojuAxAZur5g=
+Received: from SJ0PR05CA0121.namprd05.prod.outlook.com (2603:10b6:a03:33d::6)
+ by CYYPR12MB8856.namprd12.prod.outlook.com (2603:10b6:930:c0::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
+ 2026 01:40:19 +0000
+Received: from SJ1PEPF0000231E.namprd03.prod.outlook.com
+ (2603:10b6:a03:33d:cafe::87) by SJ0PR05CA0121.outlook.office365.com
+ (2603:10b6:a03:33d::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Wed, 11
+ Nov 2026 01:40:19 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF0000231E.mail.protection.outlook.com (10.167.242.230) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Wed, 11 Nov 2026 01:40:19 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 10 Nov
+ 2026 19:40:18 -0600
+Received: from wayne-dev-lnx.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Tue, 10 Nov 2026 19:40:10 -0600
+From: Wayne Lin <Wayne.Lin@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
+ Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
+ Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
+ <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
+ <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
+ <Chen-Yu.Chen@amd.com>, Wayne Lin <Wayne.Lin@amd.com>
+Subject: [PATCH 00/74] DC Patches November 16, 2026
+Date: Wed, 11 Nov 2026 09:28:06 +0800
+Message-ID: <20261111014100.3596072-1-Wayne.Lin@amd.com>
+X-Mailer: git-send-email 2.43.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-wb-drop-encoder-v8-9-62948ed87d13@oss.qualcomm.com>
-References: <20261111-wb-drop-encoder-v8-0-62948ed87d13@oss.qualcomm.com>
-In-Reply-To: <20261111-wb-drop-encoder-v8-0-62948ed87d13@oss.qualcomm.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- John Harrison <John.Harrison@igalia.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Liviu Dudau <liviu.dudau@arm.com>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>,
- Mihail Atanassov <mihail.atanassov@arm.com>, Eric Anholt <eric@anholt.net>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Brian Starkey <brian.starkey@arm.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6133;
- i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=BrJAtr2wc8dHMLrCB0wAes1muKcDYhiw7YM4ATkNvko=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBq87oUuxLWwzl7qKvchquyNbQBCvVpstIV7joS1
- cWcAHzvWOiJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCavO6FAAKCRCLPIo+Aiko
- 1Wv8B/sGJZubZyrWIr8blvtjJMU8+jiAyHEiOmDkjw8ca+3HLKX5PXHhdcyvjOJV0zMGRqIsYjc
- QvO2VpNtsYZsGNufKKGpkIn2XxThPyValQg4HBWRAJO6QyKRisuON4TTSWX5tfJ62QiOFljnxTe
- JHXbO7pwXsDTEJTI0+ul5F3/NaPUs0AewITBLCbBYAolgEb1UJKRtxDQpFbt/iPoUp0crdAv/AU
- +ol29ENhA+qhWWYHzEM1GwZjozk5EvSxoJ6ggs8hRMAiNcJW3fhI+pWnmG3q7AaOJGpX32LYz9n
- cAPm24H35pLd6+L3IDtHQmYkBsDrpgm0Uh/8OTJgCQMXRulk
-X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDAwMSBTYWx0ZWRfX5fQw1kXOL+bs
- +L4PBnm2QqY4dF8x9DUKkpny4+osrvLCWZMe9dRe1GQeFhRkyl7axffOGw9ZXoGaMCH2Xa6qZUI
- 3DaHMwZ3h43vvdiQmHaJePiZjF0TDt18AmY83XBKS5IcQHCLs/fOA9hLqJFKpit9qV9JDzNJ2oq
- 4rb6Y9jXOXzOxdrmB1YhYNmdtzl6MMGHawBlZ6bMrNc2181xJK3vsofeZDqL1DlcoPvbqs1kQFe
- 4Y++65T+n1Of44xD/i2Mj1J1Vw2lctHLc4T2ZG8HSdHER/mzL+q++2G/O9Xt7T9IdtceCsG8yb4
- 5qu5KIihLjlBGlODs1UcgQ3sXmUHp1AVVZZwVk6x5I85KE3JndMf3/3HD/xBhkhCCXdAV1kc59f
- 09o4y+Nutz0wemoSCreO8dZjvQ2Agk6drTBBbbWOAq2DVBScd1ApdKK7LXhsweJVqvIgSVALpIi
- uwvx3bHBhL/ynHj1B7g==
-X-Authority-Analysis: v=2.4 cv=cJl1IVeN c=1 sm=1 tr=0 ts=6af3ba2f cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
- a=6GQbiVArWzZUabU3hp4A:9 a=QEXdDO2ut3YA:10 a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-GUID: oKGret9_BK3XlK_nMwFZiJeczPZ-uMjS
-X-Proofpoint-ORIG-GUID: oKGret9_BK3XlK_nMwFZiJeczPZ-uMjS
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDAwMSBTYWx0ZWRfXxJzZf84ONdCp
- OPEj83HXxOQa5eEvlnuXWSiIErp9Tx431GJRDa8BsEQCce1hfMz/02XKSs5lda5CqZ9fIHumudq
- njDJRzMrMozPqON7L0gYLP74+tZknJg=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-10_07,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0 malwarescore=0 phishscore=0 suspectscore=0
- priorityscore=1501 spamscore=0 clxscore=1015 adultscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110001
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF0000231E:EE_|CYYPR12MB8856:EE_
+X-MS-Office365-Filtering-Correlation-Id: 353f514d-fa54-4498-91c4-08df3f94be70
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|376014|1800799024|23010399003|36860700016|10067099003|261009223027099003|261026140227099003|3023799007|261028144727099003|261022113327099003|261021121427099003|261021123027099003|261022075727099003|261102123227099003|261022105027099003|261026121527099003|56012099006|11063799006|5023799004|18002099003;
+X-Microsoft-Antispam-Message-Info: izP7cftzZh/KJzHW4wflmTihXkzVHPVZ7nzry/wteIrX4ecIEzxFQ4QOZQP3lMZdZCJ1xes/cbViE6rvbI3ck/kfjm78GtrpGsK8yUbLlr1FBW+LDd996RLKmotAupHM7BODaD6mA9CGjqTE4xjFXL0hXOVz6N0ztwdD0HF2oRzHvm4hGxQxc9rZbEJb0okqlZ8oNpXkweEUtXeda/gx8CAJ9MsMQrM5C5rFyNKo/FvNPRyc/ig5geAt9Jf+IGUPqZsuEEJfhKRAowme+j63D2u4rSbS+9fJUFK+pucA9yiUzFdzeeLhxOTJogrH2XsrK62VJhlGSI40FyXRlZFX7nmouxkyQw6HoA4GPBMhdeOoRcUagFzxj2oDV2t3WOVwlcTYnNMbYPIWX+3qXp6HZz3K2zmsoRq3TiPSdjtQ0zz0uOyNAmL3KaAMhh0ZydlYyYnAgjL3S+gvB7+tVDfTo+/FEgogsZH+c0ndhQgWgIMu0AW5UQA7iKofeaCBqjTY8LvoOVXVNYvJjiuD0Z/dudpDmFbut+VJ7iXtKw243E9sZQTgcS6xtjQdwxqNjbgD9pkCloI5e5aLcJc40PGOMDXAsydpsu59cuBcVf7xssS5HYOZcfQEufJYVP6MkMb3CR0EwkEnuzK4xacZPW0AXGVxYF7aFpvb8Xph1ciAvV7WsIwEA3DbxREKeTwl1pj+MT8STaSfqtFzn1H8oiF+yQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(376014)(1800799024)(23010399003)(36860700016)(10067099003)(261009223027099003)(261026140227099003)(3023799007)(261028144727099003)(261022113327099003)(261021121427099003)(261021123027099003)(261022075727099003)(261102123227099003)(261022105027099003)(261026121527099003)(56012099006)(11063799006)(5023799004)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: Jp2Ynuukum3hU2TNm0a8LpOOmiRYvJzezP7BbINb/NOwcs0+PXARf2V6B71d29Ow5rNErkul+O788ImPk/THn8vwBVr0W6Tlc4A/evKCyQpOdKRLjeniRV55miyFgp5HXLsXAjcHaCQTmdq8QZtP9fFnzm0uOgd4YlXY7oaj4tiqjWGqmW2xXjSxsJ/EmpIzxntc2EIryxhnVYqt5Z5o5ET1LO7GCIjeV+AcNA/cUFgWlLODouA2WQJjppN6+WBkXUSCzHc8XSY+/yQCCRfOptB1cC4d9RpPGfqwB+kBoo8FmYsYa3wIuvtZO6RbERSQyzb4rUZl0gxq6+q7DhNl9m2t1Fc5TZ6tXZSic8+zX3tN5PDDaGAD9eWpNqw9/kt71RIkGEXjMfpsfZaVZadePnbnJeTLfcd+JNwlWZuCjbKg9GQtT0VsX/YF9WDCca5v
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 01:40:19.1881 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 353f514d-fa54-4498-91c4-08df3f94be70
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF0000231E.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8856
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -171,173 +109,348 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Only drmm_writeback_connector_init() registers
-drm_writeback_connector_cleanup(). Connectors set up with
-drm_writeback_connector_init() (amdgpu, komeda, malidp, rcar-du, vc4)
-never drop the formats blob or free the jobs still on the queue, leaking
-them together with their framebuffer and fence references.
+This DC patchset brings improvements in multiple areas. In summary, we highlight:
 
-Call drm_writeback_connector_cleanup() from drm_connector_cleanup() so it
-runs for both kinds of initialization, the same way the HDMI audio and
-SCDC state is torn down there. It downcasts the connector to its
-drm_writeback_connector wrapper, which is only valid when the connector
-really is embedded in one. A plain drm_connector (or a different wrapper
-struct) may be initialized with DRM_MODE_CONNECTOR_WRITEBACK without being
-a writeback connector, as several KUnit tests do, so keying the cleanup
-off the connector type would read out of bounds. Track genuine writeback
-initialization with a drm_connector::wb_initialized flag set by
-__drm_writeback_connector_init() and clean up based on it instead. The
-drmm action now just wraps the helper; clearing the flag makes the second
-invocation a no-op and also covers drm_connector_cleanup() being called
-after a failed __drm_writeback_connector_init().
+- Build DCN401 virtual commits and seamless plane updates in DC2, and
+  dispatch the hardware span of a commit through dc2_funcs.
+- Add the leaf block-sequence entries a virtual commit needs, and read
+  the accelerated-mode bit through a query builder.
+- Resolve watermark policy and the DPP, DTBCLK and DCN401 DENTIST
+  targets when the sequence is built.
+- Fix DSC teardown gating in the post-unlock sequence.
+- Move HDMI FRL status polling outside dc_lock and stop it on fini.
+- Relax stutter constraints for DRR streams, including ramless idle,
+  track static-screen idle, and enable the relaxation on DCN42. Raise
+  the DCN42 DDR5 stutter latency.
+- Let DC_PSR_MASK enable PSR without a DMUB PSR cap.
+- Enable HDCP on DCN6 and the DF C-state vote on DCN42B.
+- Enable SST PCON FRL DSC passthrough and program the correct DP HPO
+  APG instance.
+- Exit IPS before checking flip pending, and keep the HPD IRQ reset
+  path from taking dc_lock.
+- Skip UPSP programming when the registers are absent, and skip
+  visual confirm color programming when firmware owns it.
+- Align DCN42B with DCN42 and extend the IOMMU mismatch workaround to
+  DCN42B. Restore the missing DCN6 vtotal cap and vstartup assignment.
+- Update the DMUB interface to 0.1.83.0 with an extended SoC bounding
+  box, RAMLESS_LOBF commands, and a seamless-boot eDP request.
+- Initialize the DMUB LSDMA ring, accept a 1932-byte PSP footer, and
+  update the default VCO frequency.
+- Fix the FFE link-rate change path and the p-state enable sequence.
+  Commit the validated target when a minimal transition cannot be
+  built.
+- Fix KUnit tiled EDID size
+- fix hubbub read state logging
+- skip_lcdvdd_off for eDP link lost retrain
+- Don't shrink zero-area recout in full viewport visual confirm
+- panel specific wa not fall back to tmds
+- Use expanded DMUB-provided SoC BB and IP caps
+- Only force P-State on first plane if TTU is below WM
+- Program the kept-plane scaler in DC2
+- Add and remove two MPO planes in DC2
+- Add DC2 state facts and split the builders
+- Program DC2 commit stereo once
+- Maximum SOP states is 8
+- Use soc_bb hostvm fraction instead of hardcoded value
+- Increase state if dcfclk deep sleep needed exceeds dcfclk
+- Flip dml2_core_utils_get_segment_horizontal_contiguous() Inputs
+- Update DCN6 Calcs
+- Add effective_number_of_dpp parameter
+- Read DRAM channel width from SMU init table
+- Update DCN42B stutter latency to match DCN42
+- Expect VRAM|GTT for the DMUB framebuffer
+- Report QoS latency bounds and request
+- upsp fixes
+- Limit VRAM aperture retrieval to DCN6
+- Make DPP_PG_CONTROL and HUBP_PG_CONTROL BLS compliant
+- Seed boot clocks to avoid lowering pre-OS display clocks
+- Account for split pipe overlap in alt channel copy size
+- Get OPP heads and DPP pipes by stream in dc_resource
+- Program ODM 2:1 and 3:1 on one stream in DC2
+- Enable Replay timing sync by default
+- Various cleanups.
 
-Fixes: 935774cd71fe ("drm: Add writeback connector type")
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/gpu/drm/drm_connector.c     |  3 +++
- drivers/gpu/drm/drm_crtc_internal.h |  3 +++
- drivers/gpu/drm/drm_writeback.c     | 30 ++++++++++++++++++++++++------
- include/drm/drm_connector.h         | 12 ++++++++++++
- 4 files changed, 42 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index d66188521881..da0b16f25ac4 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -921,6 +921,9 @@ void drm_connector_cleanup(struct drm_connector *connector)
- 	if (connector->hdmi.scdc_work_initialized)
- 		cancel_delayed_work_sync(&connector->hdmi.scdc_work);
- 
-+	if (connector->wb_initialized)
-+		drm_writeback_connector_cleanup(connector);
-+
- 	platform_device_unregister(connector->hdmi_audio.codec_pdev);
- 
- 	if (connector->privacy_screen) {
-diff --git a/drivers/gpu/drm/drm_crtc_internal.h b/drivers/gpu/drm/drm_crtc_internal.h
-index 3492787c3697..f60216adcd31 100644
---- a/drivers/gpu/drm/drm_crtc_internal.h
-+++ b/drivers/gpu/drm/drm_crtc_internal.h
-@@ -329,4 +329,7 @@ static inline void drm_panic_unregister(struct drm_device *dev) {}
- static inline void drm_panic_init(void) {}
- #endif
- 
-+/* drm_writeback.c */
-+void drm_writeback_connector_cleanup(struct drm_connector *connector);
-+
- #endif /* __DRM_CRTC_INTERNAL_H__ */
-diff --git a/drivers/gpu/drm/drm_writeback.c b/drivers/gpu/drm/drm_writeback.c
-index 6487f4a104f2..6ea3e55a1962 100644
---- a/drivers/gpu/drm/drm_writeback.c
-+++ b/drivers/gpu/drm/drm_writeback.c
-@@ -21,6 +21,8 @@
- #include <drm/drm_property.h>
- #include <drm/drm_writeback.h>
- 
-+#include "drm_crtc_internal.h"
-+
- /**
-  * DOC: overview
-  *
-@@ -215,6 +217,8 @@ static int __drm_writeback_connector_init(struct drm_device *dev,
- 				   blob->base.id);
- 	wb_connector->pixel_formats_blob_ptr = blob;
- 
-+	connector->wb_initialized = true;
-+
- 	return 0;
- }
- 
-@@ -271,22 +275,28 @@ EXPORT_SYMBOL(drm_writeback_connector_init);
- 
- /**
-  * drm_writeback_connector_cleanup - Cleanup the writeback connector
-- * @dev: DRM device
-- * @data: Pointer to the writeback connector to clean up
-+ * @connector: Writeback connector to clean up
-  *
-  * This will decrement the reference counter of blobs. It will also clean the
-  * remaining jobs in this writeback connector. Caution: This helper will not
-  * clean up the attached encoder and the drm_connector.
-+ *
-+ * Called from drm_connector_cleanup() for all writeback connectors.
-  */
--static void drm_writeback_connector_cleanup(struct drm_device *dev,
--					    void *data)
-+void drm_writeback_connector_cleanup(struct drm_connector *connector)
- {
--	struct drm_writeback_connector *wb_connector = data;
-+	struct drm_writeback_connector *wb_connector =
-+		drm_connector_to_writeback(connector);
- 	struct drm_writeback_job *pos, *n;
- 	unsigned long flags;
- 	LIST_HEAD(jobs);
- 
-+	if (!connector->wb_initialized)
-+		return;
-+	connector->wb_initialized = false;
-+
- 	drm_property_blob_put(wb_connector->pixel_formats_blob_ptr);
-+	wb_connector->pixel_formats_blob_ptr = NULL;
- 
- 	spin_lock_irqsave(&wb_connector->job_lock, flags);
- 	list_splice_init(&wb_connector->job_queue, &jobs);
-@@ -298,6 +308,14 @@ static void drm_writeback_connector_cleanup(struct drm_device *dev,
- 	}
- }
- 
-+static void drm_writeback_connector_cleanup_action(struct drm_device *dev,
-+						   void *data)
-+{
-+	struct drm_writeback_connector *wb_connector = data;
-+
-+	drm_writeback_connector_cleanup(&wb_connector->base);
-+}
-+
- /**
-  * drmm_writeback_connector_init - Initialize a writeback connector
-  *
-@@ -336,7 +354,7 @@ int drmm_writeback_connector_init(struct drm_device *dev,
- 	if (ret)
- 		return ret;
- 
--	ret = drmm_add_action_or_reset(dev, drm_writeback_connector_cleanup,
-+	ret = drmm_add_action_or_reset(dev, drm_writeback_connector_cleanup_action,
- 				       wb_connector);
- 	if (ret)
- 		return ret;
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index f656ed8324d3..07218ab26c9e 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -2688,6 +2688,18 @@ struct drm_connector {
- 	 */
- 	struct llist_node free_node;
- 
-+	/**
-+	 * @wb_initialized:
-+	 *
-+	 * Set when the connector is embedded in a &struct
-+	 * drm_writeback_connector that has been initialized through
-+	 * __drm_writeback_connector_init(). A plain &struct drm_connector may
-+	 * be created with DRM_MODE_CONNECTOR_WRITEBACK without being a
-+	 * writeback connector, so drm_connector_cleanup() keys the writeback
-+	 * teardown off this flag rather than the connector type.
-+	 */
-+	bool wb_initialized;
-+
- 	/**
- 	 * @hdmi: HDMI-related variable and properties.
- 	 */
+Alex Hung (2):
+  drm/amd/display: Fix elapsed time indentation
+  drm/amd/display: Fix KUnit tiled EDID size
+
+Allen Pan (1):
+  drm/amd/display: Update DCN42B stutter latency to match DCN42
+
+Alvin Lee (4):
+  drm/amd/display: Update indicate pstate enable sequence
+  drm/amd/display: Update DP HPO to use correct APG instance
+  drm/amd/display: Updating missing assignments for DCN6
+  drm/amd/display: Don't shrink zero-area recout in full viewport visual
+    confirm
+
+Aric Cyr (1):
+  drm/amd/display: Ensure exit IPS before checking flip status
+
+Ashwin Santhosh (2):
+  drm/amd/display: Skip visual confirm color programming when FW owns it
+  drm/amd/display: Account for split pipe overlap in alt channel copy
+    size
+
+Austin Zheng (5):
+  drm/amd/display: Fix Stage Optimizer Parameter Naming
+  drm/amd/display: Read DCN6 SOP constraints from the idle row
+  drm/amd/display: Use soc_bb hostvm fraction instead of hardcoded value
+  drm/amd/display: Flip
+    dml2_core_utils_get_segment_horizontal_contiguous() Inputs
+  drm/amd/display: Add effective_number_of_dpp parameter
+
+Charlene Liu (6):
+  drm/amd/display: Extend the IOMMU mismatch workaround to DCN42B
+  drm/amd/display: update dcn42b based on dcn42
+  drm/amd/display: enable DF C-state vote on DCN42B
+  drm/amd/display: Increase the DCN42 DDR5 stutter latency
+  drm/amd/display: Keep panel power across link-loss retrain
+  drm/amd/display: Keep patched HDMI panels on FRL across detect
+
+Dillon Varone (3):
+  drm/amd/display: Relax stutter constraints for DRR streams
+  drm/amd/display: cleanup tiling and address formats
+  drm/amd/display: Enable DRR stutter constraint relaxation on DCN42
+
+Eric Bernstein (1):
+  drm/amd/display: Skip UPSP programming when UPSP regs are absent
+
+Fangzhi Zuo (4):
+  drm/amd/display: Correct the forced YCbCr420 comment
+  drm/amd/display: Move HDMI FRL Polling Outside dc_lock
+  drm/amd/display: Stop HDMI FRL status polling on fini
+  drm/amd/display: Enable SST PCON FRL DSC passthrough
+
+Gabriel Abarca (2):
+  drm/amd/display: Increase state if dcfclk deep sleep needed exceeds
+    dcfclk
+  drm/amd/display: Update DCN6 Calcs
+
+George Zhang (1):
+  drm/amd/display: Don't let HPD IRQ handler take dc_lock in reset
+
+Ilya Bakoulin (1):
+  drm/amd/display: Fix FFE test automation link rate change
+
+Ivan Lipski (4):
+  drm/amd/display: Initialize DMUB LSDMA ring buffer
+  drm/amd/display: Enable HDCP on DCN6
+  drm/amd/display: Use expanded DMUB-provided SoC BB and IP caps
+  drm/amd/display: Limit VRAM aperture retrieval to DCN6
+
+James Lin (1):
+  drm/amd/display: commit validated target when minimal transition
+    cannot be built
+
+Jing Zhou (1):
+  drm/amd/display: Seed boot clocks to avoid lowering pre-OS display
+    clocks
+
+Karen Chen (1):
+  drm/amd/display: fix hubbub read state logging
+
+Nevenko Stupar (1):
+  drm/amd/display: Update default VCO frequency
+
+Ovidiu Bunea (1):
+  drm/amd/display: Only force P-State on first plane if TTU is below WM
+
+Piotr Maziarz (3):
+  drm/amd/display: Resolve clk_mgr DPP DTO targets when the sequence is
+    built
+  drm/amd/display: Resolve clk_mgr DTBCLK DTO targets when the sequence
+    is built
+  drm/amd/display: Resolve the DCN401 DENTIST divider when the sequence
+    is built
+
+Rafal Ostrowski (4):
+  drm/amd/display: Remove duplicate block sequence leftovers
+  drm/amd/display: HWSS Refactor - Watermarks
+  drm/amd/display: Fix DSC teardown gating in post-unlock BLS sequence
+  drm/amd/display: Make DPP_PG_CONTROL and HUBP_PG_CONTROL BLS compliant
+
+Ray Wu (2):
+  drm/amd/display: Allow DC_PSR_MASK to enable PSR without DMUB PSR cap
+  drm/amd/display: Enable Replay timing sync by default
+
+Sreeja Golui (2):
+  drm/amd/display: Include Ramless Idle in stutter relaxation
+  drm/amd/display: detect static screen state and propagate
+
+Sridevi Arvindekar (1):
+  drm/amd/display: Bypass chroma upsampling without the DPP cap
+
+Taimur Hassan (4):
+  drm/amd/display: [FW Promotion] Release 0.1.83.0
+  drm/amd/display: Promote DC to 3.2.406
+  drm/amd/display: [FW Promotion] Release 0.1.84.0
+  drm/amd/display: Promote DC to 3.2.407
+
+Tony Cheng (13):
+  drm/amd/display: Dispatch commit_state_hw through dc2_funcs
+  drm/amd/display: Add leaf BLS entries for a virtual commit
+  drm/amd/display: Build the dcn401 virtual commit natively
+  drm/amd/display: Build the dcn401 seamless update in DC2
+  drm/amd/display: Read accelerated mode through a query builder
+  drm/amd/display: Build the kept-plane surface update in DC2
+  drm/amd/display: Skip first-enable steps on a kept plane
+  drm/amd/display: Program the kept-plane scaler in DC2
+  drm/amd/display: Add and remove two MPO planes in DC2
+  drm/amd/display: Add DC2 state facts and split the builders
+  drm/amd/display: Program DC2 commit stereo once
+  drm/amd/display: Get OPP heads and DPP pipes by stream in dc_resource
+  drm/amd/display: Program ODM 2:1 and 3:1 on one stream in DC2
+
+Wayne Lin (1):
+  drm/amd/display: Expect VRAM|GTT for the DMUB framebuffer
+
+Wenjing Liu (2):
+  drm/amd/display: Read DRAM channel width from SMU init table
+  drm/amd/display: Report QoS latency bounds and request
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   17 +-
+ .../display/amdgpu_dm/amdgpu_dm_connector.c   |   16 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_dmub.c    |   15 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_hdcp.c    |    3 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |    9 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c |   10 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c |    3 +-
+ .../tests/amdgpu_dm_connector_test.c          |    9 +-
+ .../amdgpu_dm/tests/amdgpu_dm_dmub_test.c     |   45 +-
+ .../amdgpu_dm/tests/amdgpu_dm_hdcp_test.c     |   27 +
+ .../amdgpu_dm/tests/amdgpu_dm_irq_test.c      |    6 +
+ .../amdgpu_dm/tests/amdgpu_dm_psr_test.c      |   35 +-
+ drivers/gpu/drm/amd/display/dc/Makefile       |    3 +
+ .../amd/display/dc/bls_builder/bls_builder.h  |    6 +-
+ .../dc/bls_builder/bls_builder_internal.h     |    2 +
+ .../bls_builder/bls_builder_private_types.h   |  137 +
+ .../dc/bls_builder/dcn401_builder_internal.h  |  110 +
+ .../dc/bls_builder/dcn401_init_builder.c      |   36 +
+ .../bls_builder/dcn401_non_seamless_builder.c |  501 ++++
+ .../dc/bls_builder/dcn401_seamless_builder.c  | 2235 +++++++++++++++++
+ .../display/dc/bls_executor/bls_executor.c    | 1076 ++++++++
+ .../gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c  |   83 +
+ .../dc/clk_mgr/dcn401/dcn401_clk_mgr.c        |  170 +-
+ .../dc/clk_mgr/dcn401/dcn401_clk_mgr.h        |   15 +-
+ .../display/dc/clk_mgr/dcn42/dcn42_clk_mgr.c  |   31 +-
+ .../dc/clk_mgr/dcn42b/dcn42b_clk_mgr.c        |   25 +-
+ .../dc/clk_mgr/dcn42b/dcn42b_clk_mgr.h        |    1 +
+ .../drm/amd/display/dc/clk_mgr/dcn60/dalsmc.h |    3 +-
+ .../display/dc/clk_mgr/dcn60/dcn60_clk_mgr.c  |  157 +-
+ .../display/dc/clk_mgr/dcn60/dcn60_clk_mgr.h  |   14 +-
+ drivers/gpu/drm/amd/display/dc/core/dc.c      |  115 +-
+ .../drm/amd/display/dc/core/dc_hw_sequencer.c |  317 ++-
+ .../gpu/drm/amd/display/dc/core/dc_resource.c |   48 +-
+ .../amd/display/dc/core/dc_resource_helper.c  |    7 +-
+ .../gpu/drm/amd/display/dc/core2/dc_core2.c   |  341 ++-
+ .../gpu/drm/amd/display/dc/core2/dc_core2.h   |    1 +
+ .../drm/amd/display/dc/core2/dc_core2_init.c  |    2 +-
+ .../display/dc/core2/dc_core2_legacy_init.c   |    2 +-
+ drivers/gpu/drm/amd/display/dc/dc.h           |    2 +-
+ .../amd/display/dc/dc_api_dispatch/api_shim.c |   25 +
+ .../amd/display/dc/dc_api_dispatch/api_shim.h |    9 +-
+ drivers/gpu/drm/amd/display/dc/dc_dsc.h       |    1 +
+ .../gpu/drm/amd/display/dc/dc_hdmi_types.h    |    1 +
+ drivers/gpu/drm/amd/display/dc/dc_hw_types.h  |   16 +-
+ .../gpu/drm/amd/display/dc/dc_spl_translate.c |    8 +-
+ drivers/gpu/drm/amd/display/dc/dc_stream.h    |    3 +
+ .../dml21/inc/bounding_boxes/dcn42_soc_bb.h   |    4 +-
+ .../dml21/inc/bounding_boxes/dcn42b_soc_bb.h  |    4 +-
+ .../dml21/inc/dml_top_display_cfg_types.h     |    1 +
+ .../dc/dml2_0/dml21/inc/dml_top_types.h       |    2 +
+ .../src/dml2_core/dml2_core_dcn4_calcs.c      |    2 +
+ .../dml2_core/dml2_core_dcn5_calcs_dchub.c    |   75 +-
+ .../dml2_core/dml2_core_dcn6_calcs_dchub.c    |   30 +-
+ .../dml2_core_dcn6_funcs_mode_programming.c   |   34 +-
+ .../dml2_core_dcn6_funcs_mode_support.c       |   19 +-
+ .../src/dml2_core/dml2_core_shared_types.h    |    3 +
+ .../dml21/src/dml2_core/dml2_core_utils.c     |    4 +
+ .../dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.c  |   20 +-
+ .../dml2_0/dml21/src/dml2_pmo/dml2_pmo_dcn5.h |    4 +-
+ .../dml2_0/dml21/src/dml2_pmo/dml2_pmo_dcn6.h |    8 +-
+ .../dml2_utm_soc_bb/dml2_utm_soc_bb_dcn6.c    |   19 +-
+ .../src/inc/dml2_internal_shared_types.h      |    4 +-
+ .../dml21_wrapper/dml21_translation_helper.c  |   17 +-
+ .../dc/dml2_wrapper/dml2_mall_phantom.c       |    1 -
+ .../display/dc/dml2_wrapper/dml2_wrapper.h    |    1 +
+ .../drm/amd/display/dc/dpp/dcn60/dcn60_dpp.c  |    2 +-
+ .../amd/display/dc/dpp/dcn60/dcn60_dpp_dscl.c |    4 +
+ .../display/dc/hubbub/dcn10/dcn10_hubbub.c    |    3 +-
+ .../display/dc/hubbub/dcn10/dcn10_hubbub.h    |    1 +
+ .../display/dc/hubbub/dcn20/dcn20_hubbub.c    |    8 +-
+ .../display/dc/hubbub/dcn201/dcn201_hubbub.c  |    3 +-
+ .../display/dc/hubbub/dcn21/dcn21_hubbub.c    |    3 +-
+ .../display/dc/hubbub/dcn21/dcn21_hubbub.h    |    1 +
+ .../display/dc/hubbub/dcn30/dcn30_hubbub.c    |    5 +-
+ .../display/dc/hubbub/dcn30/dcn30_hubbub.h    |    1 +
+ .../display/dc/hubbub/dcn31/dcn31_hubbub.c    |    5 +-
+ .../display/dc/hubbub/dcn32/dcn32_hubbub.c    |   23 +-
+ .../display/dc/hubbub/dcn35/dcn35_hubbub.c    |    7 +-
+ .../display/dc/hubbub/dcn35/dcn35_hubbub.h    |    1 +
+ .../display/dc/hubbub/dcn401/dcn401_hubbub.c  |   12 +-
+ .../display/dc/hubbub/dcn401/dcn401_hubbub.h  |    3 +-
+ .../display/dc/hubbub/dcn42/dcn42_hubbub.c    |   20 +-
+ .../display/dc/hubbub/dcn60/dcn60_hubbub.c    |    3 +-
+ .../amd/display/dc/hubp/dcn50/dcn50_hubp.c    |   52 +-
+ .../amd/display/dc/hwss/dcn10/dcn10_hwseq.c   |   61 +-
+ .../amd/display/dc/hwss/dcn10/dcn10_hwseq.h   |    9 +-
+ .../amd/display/dc/hwss/dcn20/dcn20_hwseq.c   |   48 +-
+ .../amd/display/dc/hwss/dcn20/dcn20_hwseq.h   |    9 +-
+ .../amd/display/dc/hwss/dcn302/dcn302_hwseq.c |   15 +-
+ .../amd/display/dc/hwss/dcn302/dcn302_hwseq.h |    6 +-
+ .../amd/display/dc/hwss/dcn303/dcn303_hwseq.c |   11 +-
+ .../amd/display/dc/hwss/dcn303/dcn303_hwseq.h |    6 +-
+ .../amd/display/dc/hwss/dcn31/dcn31_hwseq.c   |    8 +-
+ .../amd/display/dc/hwss/dcn31/dcn31_hwseq.h   |    3 +-
+ .../amd/display/dc/hwss/dcn314/dcn314_hwseq.c |   15 +-
+ .../amd/display/dc/hwss/dcn314/dcn314_hwseq.h |    3 +-
+ .../amd/display/dc/hwss/dcn32/dcn32_hwseq.c   |    7 +-
+ .../amd/display/dc/hwss/dcn32/dcn32_hwseq.h   |    3 +-
+ .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c |  180 +-
+ .../amd/display/dc/hwss/dcn401/dcn401_hwseq.h |    2 +
+ .../amd/display/dc/hwss/dcn401/dcn401_init.c  |    2 +
+ .../amd/display/dc/hwss/dcn60/dcn60_hwseq.c   |    9 +
+ .../amd/display/dc/hwss/dcn60/dcn60_hwseq.h   |    1 +
+ .../amd/display/dc/hwss/dcn60/dcn60_init.c    |    2 +-
+ .../drm/amd/display/dc/hwss/hw_sequencer.h    |  422 +++-
+ .../display/dc/hwss/hw_sequencer_private.h    |   14 +-
+ .../amd/display/dc/inc/dc_core_interface.h    |   12 +
+ .../amd/display/dc/inc/hw/clk_mgr_internal.h  |   38 +
+ .../gpu/drm/amd/display/dc/inc/hw/dchubbub.h  |   22 +-
+ drivers/gpu/drm/amd/display/dc/inc/resource.h |   21 +-
+ .../display/dc/inc/soc_and_ip_translator.h    |    4 +-
+ .../drm/amd/display/dc/link/link_detection.c  |   26 +
+ .../dc/link/protocols/link_dp_irq_handler.c   |    8 +-
+ .../display/dc/link/protocols/link_hdmi_frl.c |   30 +-
+ .../dc/resource/dcn42/dcn42_resource.c        |    2 +
+ .../dc/resource/dcn42b/dcn42b_resource.c      |    5 +-
+ .../dc/resource/dcn60/dcn60_resource.c        |   30 +-
+ .../dcn401/dcn401_soc_and_ip_translator.c     |    4 +-
+ .../dcn42/dcn42_soc_and_ip_translator.c       |    4 +-
+ .../dcn42b/dcn42b_soc_and_ip_translator.c     |    4 +-
+ .../dcn60/dcn60_soc_and_ip_translator.c       |   96 +-
+ .../amd/display/dc/state_facts/state_facts.c  |  294 +++
+ .../amd/display/dc/state_facts/state_facts.h  |  132 +
+ .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |  213 +-
+ .../amd/display/modules/power/power_replay.c  |    2 +-
+ 125 files changed, 6985 insertions(+), 905 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/display/dc/bls_builder/bls_builder_private_types.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/bls_builder/dcn401_builder_internal.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/bls_builder/dcn401_non_seamless_builder.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/bls_builder/dcn401_seamless_builder.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/state_facts/state_facts.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/state_facts/state_facts.h
 
 -- 
-2.47.3
+2.43.0
 
