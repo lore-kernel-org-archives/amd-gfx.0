@@ -2,120 +2,86 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B4F2606A31C
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 09:37:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2132D606A326
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 09:37:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=td12n49U
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=eQIgQn/B
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B26A10FA2D;
-	Wed, 11 Nov 2026 09:37:24 +0000 (UTC)
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD74710F99A;
- Wed, 11 Nov 2026 08:53:42 +0000 (UTC)
-Received: from smtp102.mailbox.org (smtp102.mailbox.org
- [IPv6:2001:67c:2050:b231:465::102])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4jPckV706vzKsYn;
- Wed, 11 Nov 2026 09:53:38 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1794387219; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=VRiZhzrsDkrLspAml0XRBl5rak3lI4bTzhSsupMJ/y8=;
- b=td12n49UKDo56vCxSTn09U/FbdYGCk/hjrgkPwsYYmfR0Gs5QBppPCBDtVxxLchIEUwdQb
- qOgaQ7bu4TKe2ydp1VVhzS3MjouOIvhK3svhqAqL4/zeXX6snq3K7vPx9e14jLpaWSPfrN
- CC8kqaWegcbNN3dhGKGxAUSh8tFn4cT6u0zUeVOhFHv7yRgcI2X3Hx2TJKeot6Qlqt1EwC
- lXHAwJBaYus+xC2WzZaQgsfOSySsNxfufDkkyksnvgI5eJB6EDfy5i8Q8e6p4IJt1EIvEW
- KDNGmFpUTrOi351V8lzioglBOuHpSOovM/WIAIwzWjYiS+xktKSPpS25dn1MEg==
-Message-ID: <a2e7519ab463dec876aa806d91961456f31a725a.camel@mailbox.org>
-Subject: Re: [PATCH 0/3] dma-buf: dma-fence: Remove dma_fence_init64()
-From: Philipp Stanner <phasta@mailbox.org>
-To: Philipp Stanner <phasta@kernel.org>, Min Ma <mamin506@gmail.com>, Lizhi
- Hou	 <lizhi.hou@amd.com>, Oded Gabbay <ogabbay@kernel.org>, "Rob Herring
- (Arm)"	 <robh@kernel.org>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Karol
- Wachowski	 <karol.wachowski@linux.intel.com>, Andrzej Kacprowski	
- <andrzej.kacprowski@linux.intel.com>, Heiko Stuebner <heiko@sntech.de>, 
- Sumit Semwal <sumit.semwal@linaro.org>, Christian =?ISO-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>,  Felix Kuehling <Felix.Kuehling@amd.com>, Alex
- Deucher <alexander.deucher@amd.com>, David Airlie	 <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst	
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Lucas Stach
- <l.stach@pengutronix.de>, Russell King	 <linux+etnaviv@armlinux.org.uk>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,  Jani Nikula
- <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Alessio Belle	
- <alessio.belle@imgtec.com>, Luigi Santivetti <luigi.santivetti@imgtec.com>,
- Qiang Yu <yuq825@gmail.com>, Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov	 <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang	 <jesszhan0024@gmail.com>, Sean
- Paul <sean@poorly.run>, Marijn Suijten	 <marijn.suijten@somainline.org>,
- Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, Boris
- Brezillon <boris.brezillon@collabora.com>, Steven Price	
- <steven.price@arm.com>, =?ISO-8859-1?Q?Adri=E1n?= Larumbe	
- <adrian.larumbe@collabora.com>, Liviu Dudau <liviu.dudau@arm.com>, Dave
- Airlie	 <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>, Matthew
- Brost	 <matthew.brost@intel.com>, Natalie Vock <nat@pixelcluster.dev>, Arun
- Pravin	 <arunpravin.paneerselvam@amd.com>, Matthew Auld
- <matthew.auld@intel.com>,  Thomas =?ISO-8859-1?Q?Hellstr=F6m?=	
- <thomas.hellstrom@linux.intel.com>, Melissa Wen <mwen@igalia.com>, 
- =?ISO-8859-1?Q?Ma=EDra?= Canal	 <mcanal@igalia.com>, Dave Stevenson
- <dave.stevenson@raspberrypi.com>,  Raspberry Pi Kernel Maintenance	
- <kernel-list@raspberrypi.com>, Dmitry Osipenko
- <dmitry.osipenko@collabora.com>,  Gurchetan Singh
- <gurchetansingh@chromium.org>, Chia-I Wu <olvaffe@gmail.com>, Zack Rusin
- <zack.rusin@broadcom.com>,  Broadcom internal kernel review list	
- <bcm-kernel-feedback-list@broadcom.com>, Thierry Reding	
- <thierry.reding@kernel.org>, Mikko Perttunen <mperttunen@nvidia.com>, 
- Jonathan Cameron	 <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?=	 <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Neill Kapron	 <nkapron@google.com>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, Alice Ryhl
- <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng
- <boqun@kernel.org>,  Gary Guo <gary@garyguo.net>, =?ISO-8859-1?Q?Bj=F6rn?=
- Roy Baron <bjorn3_gh@protonmail.com>,  Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>,
- Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein
- <tamird@kernel.org>, Alexandre Courbot	 <acourbot@nvidia.com>, Onur
- =?ISO-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,  Sunil Khatri
- <sunil.khatri@amd.com>, Prike Liang <Prike.Liang@amd.com>, Vitaly Prosyak	
- <vitaly.prosyak@amd.com>, Jesse Zhang <Jesse.Zhang@amd.com>, Timur
- =?ISO-8859-1?Q?Krist=F3f?=	 <timur.kristof@gmail.com>, Srinivasan Shanmugam
- <srinivasan.shanmugam@amd.com>,  David Rosca <david.rosca@amd.com>, Marco
- Crivellari <marco.crivellari@suse.com>, Krzysztof Karas	
- <krzysztof.karas@intel.com>, Andi Shyti <andi.shyti@linux.intel.com>,
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>, Shixiong Ou
- <oushixiong@kylinos.cn>, Jouni =?ISO-8859-1?Q?H=F6gander?=	
- <jouni.hogander@intel.com>, Joel Fernandes <joelagnelf@nvidia.com>, Thadeu
- Lima de Souza Cascardo	 <cascardo@igalia.com>, Pierre-Eric Pelloux-Prayer	
- <pierre-eric.pelloux-prayer@amd.com>, Al Viro <viro@zeniv.linux.org.uk>, 
- Michael Bommarito <michael.bommarito@gmail.com>, Sam Day <me@samcday.com>,
- Gabriel Prostitis	 <prostitisgabriel@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
- etnaviv@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- imagination@lists.freedesktop.org, lima@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org, virtualization@lists.linux.dev, 
- spice-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- linux-tegra@vger.kernel.org, linux-iio@vger.kernel.org, 
- linux-usb@vger.kernel.org
-Date: Wed, 11 Nov 2026 09:53:25 +0100
-In-Reply-To: <20261105113529.1989375-2-phasta@kernel.org>
-References: <20261105113529.1989375-2-phasta@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9983689ABE;
+	Wed, 11 Nov 2026 09:37:25 +0000 (UTC)
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3484010E9DD
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Nov 2026 09:04:49 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-4a1b07c3c5fso28187685e9.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Nov 2026 01:04:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre.com; s=google; t=1794387887; x=1794992687;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=sP7k6XjcVumCLj2NxGQn6KKl25HOAblRp6pXpTH9GPw=;
+ b=eQIgQn/BEHgv1PIxN/oPQH+GEMlJj8Ic1Qly6o2qIW5ZA6OFX0i1+Wb09yfE4JTXa3
+ iwHv6HO6jukke0JK4qskPzi/03ek3vYFjgYzZqCgGqQmghb9LUx/gP6IbNzkycVnq1Lc
+ ZFs+8P1FwKr3uCXQYRQ+eapHHF2h0KhHIC5hMEXxOlCqcXo9d4CX2LQZbMaLnQL+w74d
+ qSZzF9z4q7XhxJi4YNbX3wm7Te/kPnxesk8fG4Cye4H97JUoP3BieAYvy/L0pSX7NYlN
+ hLMBuDBOGOeOvPU2IjPjyzvV2A15QWp31lSajjtfB2roR+42zYItBtz0HTp/GGCpVPKq
+ q1DA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794387887; x=1794992687;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=sP7k6XjcVumCLj2NxGQn6KKl25HOAblRp6pXpTH9GPw=;
+ b=S1klbouyot8FKLQt5bxUESVSa70Mfr0ST8VhPKpqRPiaciC26l3+MascVrzzHxY4yn
+ pG25eXhEGL5TRs/uGA+razD6M53lABXbIjwExrhYa1nxnQz5ynMatljxDpzI10VAaZzu
+ VlKQVdNnOjh2RGzE3bn6URYu8rnxWCNlRl/c7fj2/qBsYpCSSfm/okNz/MkoR/CCTm7Z
+ Xetn+mrF7GVnJVAnhkW8rPG93ve1EkI3ml9fo+PvJGBaf69bTDxE7bm1fOZNXhs311Po
+ x7nCtn276I+Ztaw5Ud7UnDuxV0AZQI0ILlANtQWZVlz15HrZd9W8WTzFQdJtePWR0GiR
+ NK5w==
+X-Gm-Message-State: APuU4Z9mKtzTU+7UxReMdv1VJEl8DIw5kpR6d5db2DhWGFCkkAPDPbFQ
+ yyjOeDhOU8PLJC0+dKNBV6IpuJUr+wBK3NvpnOL3BerkYnb4lQx7rzcY6llQX6yVR/U=
+X-Gm-Gg: AYBFou2d6bB9LLejFtYpQil+ky8QldN+pdZ1EL6ayffmk4mZnL/diE9OQnD1MqadvjC
+ 6r4OmfIG31KbHweIea0Kku34AVV80hgsYAQYGvcGKOWrNf5Xxg5drl+0jIz4V0zIA7L4DYpKKeQ
+ kfr7XCEc/6/k3k+Qc7bOvNEmvKZ5OWm1EIET0mgdSbvJC0nF2YFRHPYRLvor3G4DhQdDJhMYKY/
+ ULP/CV6p/5EF4vsrSpeN/glBIY24gVIBNuNV+VUgxDSCpaq+zcC2ng8LmhkF3+UqsVCx947jPDR
+ 4pPDnQu4YUZVoZXpaqrFTW4K7fHeU9SBwZPwkzeKxylh3lxA/cScNSd1UTMgaRf1I2CrAPA+qGh
+ x25PTPtjqO35zKQ6PCnlNXxlSoC4DCgN9rKAcceSIj8gVrNU+YRKbCowhdP8R6XgK+aJR9dty5g
+ BhIgM4Pe0tMooHsAmbbPUasTtmNm1sculbnxuB1Y8LfYn3CgClxRe7Q6NtfpWMfGgKwDtcrsiZF
+ rnYRswfwVcLzV3BbEG/roqoo9xYzbbjV1bIKZ8GF3xFFHYMCy+mKyHMgAdR/fZ2vc3t5Y8VE7wN
+ VefOkJ+lnWqU8emKP25vl8bmfOME8C1kOsYhbmJCiE6+AtWV7OKAVyy93l4tObPVjZ3R53wLO1f
+ OQGOMqkpKA06RzGz650D1kpny13zG7scI5VA=
+X-Received: by 2002:a05:600c:4e87:b0:49f:e772:6ddf with SMTP id
+ 5b1f17b1804b1-4ba0938ae31mr28591735e9.32.1794387887546; 
+ Wed, 11 Nov 2026 01:04:47 -0800 (PST)
+Received: from localhost
+ (p200300f65f19a90460510dd506fc51af.dip0.t-ipconnect.de.
+ [2003:f6:5f19:a904:6051:dd5:6fc:51af])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-4ba09509c74sm24119845e9.2.2026.11.11.01.04.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 11 Nov 2026 01:04:46 -0800 (PST)
+Date: Wed, 11 Nov 2026 10:04:44 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
+ <u.kleine-koenig@baylibre.com>
+To: Alex Deucher <alexander.deucher@amd.com>, 
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Markus Schneider-Pargmann <msp@baylibre.com>
+Subject: Re: [PATCH] drm/radeon: Consistently define pci_device_ids using
+ named initializers
+Message-ID: <avQvaiaEyWDUQsZz@monoceros>
+References: <20260430102958.136859-2-u.kleine-koenig@baylibre.com>
+ <aimXCmtgcejwInNg@monoceros>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-ID: bc6accce8d8b9e73737
-X-MBO-RS-META: pdph9mgme6uj6kihqyt55uq9zqcpmeni
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="pma5azs7fhrm2bnu"
+Content-Disposition: inline
+In-Reply-To: <aimXCmtgcejwInNg@monoceros>
 X-Mailman-Approved-At: Wed, 11 Nov 2026 09:37:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -126,44 +92,73 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, 2026-11-05 at 12:35 +0100, Philipp Stanner wrote:
-> We recently had a discussion about reworking dma_fence init to close a
-> race-window [1].
->=20
-> The community agreement seems to have been that we can get rid of
-> dma_fence_init64(), so let's do that already. In the meantime we can
-> continue our discussions regarding the race in [1].
->=20
-> This also touches the Rust dma_fence, which actually should use 64-bit
-> seqnos (was forgotten so far). Rust fence has no users currently, so
-> needs no backporting, so I would like to address that in a distinct
-> patch.
->=20
-> Tested on Nouveau with and without the SEQNO64 flag. Nouveau also uses
-> the USER flag, so I hope we're fine.
->=20
->=20
-> P.
->=20
-> [1] https://lore.kernel.org/dri-devel/20261029095542.1526750-3-phasta@ker=
-nel.org/
->=20
->=20
-> Philipp Stanner (3):
-> =C2=A0 dma-buf: dma-fence: Add flags parameter to dma_fence_init()
-> =C2=A0 dma-buf: Port users of dma_fence_init64()
-> =C2=A0 dma-buf: dma-fence: Remove dma_fence_init64()
 
-@Christian, what do you think, shall we go on with this one?
+--pma5azs7fhrm2bnu
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] drm/radeon: Consistently define pci_device_ids using
+ named initializers
+MIME-Version: 1.0
 
+On Wed, Jun 10, 2026 at 06:56:35PM +0200, Uwe Kleine-K=F6nig (The Capable H=
+ub) wrote:
+> Hello,
+>=20
+> On Thu, Apr 30, 2026 at 12:29:57PM +0200, Uwe Kleine-K=F6nig (The Capable=
+ Hub) wrote:
+> > ... and PCI device helpers.
+> >=20
+> > The struct pci_device_id array of supported device was initialized
+> > by list expressions. This isn't easily readable if you're not into PCI.
+> >=20
+> > Use PCI_DEVICE* helper macros and named initializers which is more
+> > explicit and thus easier to parse. Also skip explicit assignments of 0
+> > (which the compiler then takes care of).
+> >=20
+> > The secret plan is to make struct pci_device_id::driver_data an
+> > anonymous union (similar to
+> > https://lore.kernel.org/all/cover.1776579304.git.u.kleine-koenig@baylib=
+re.com/)
+> > and that requires named initializers. But it's also a nice cleanup on
+> > its own.
+> >=20
+> > This change doesn't introduce changes to the compiled pci_device_id
+> > array. Tested on x86 and arm64.
+> >=20
+> > Signed-off-by: Uwe Kleine-K=F6nig (The Capable Hub) <u.kleine-koenig@ba=
+ylibre.com>
+>=20
+> Similar to the amdgpu driver patch I just pinged, this patch would also
+> be great if it made it in for 7.2-rc1. Please?
 
-P.
+That didn't work and it failed to go into 7.4-rc1 either :-\ It still
+applies to next-20261110, is it still on your radar?
+
+Best regards
+Uwe
+
+--pma5azs7fhrm2bnu
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmr0L6kACgkQj4D7WH0S
+/k4KfAf/f5q3Vl7EnPVZaB/M3tX4n0SFtnKOCJkLtj4107/VpJ+jLb3mrCXFulXy
+Z1rgfK86pXvaFuknlwOCHRZ6mpoZCgbp7YQYcc1+hWncLfLYFcnGvQKoZLKP8RK6
+yHLzpWaGzaZvH7Q6DBQurfqIwGwTNRrFyZzi4ILzOS2nIhFGSsDwCxKAlkX1OrEp
+d1wJQgg7dLK5dcHAoejIUCKED5kOVs+Sh81KFrkkgvyDB6FunShTz3T3Q0BhTALD
+c1MP6XcJaHm5IpB4yWysfiiuKeYcO45KZSSKa0XoBjpmhXooicsJk6ggWaQbxElk
+MUXB5eCUZ9TeWy82BMLT7UZrHZzvRA==
+=gtpi
+-----END PGP SIGNATURE-----
+
+--pma5azs7fhrm2bnu--
