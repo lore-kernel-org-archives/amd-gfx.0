@@ -2,87 +2,127 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2132D606A326
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 09:37:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59D8E606A324
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 09:39:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=eQIgQn/B
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=eMw+WO8W
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9983689ABE;
-	Wed, 11 Nov 2026 09:37:25 +0000 (UTC)
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3484010E9DD
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Nov 2026 09:04:49 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-4a1b07c3c5fso28187685e9.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Nov 2026 01:04:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1794387887; x=1794992687;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=sP7k6XjcVumCLj2NxGQn6KKl25HOAblRp6pXpTH9GPw=;
- b=eQIgQn/BEHgv1PIxN/oPQH+GEMlJj8Ic1Qly6o2qIW5ZA6OFX0i1+Wb09yfE4JTXa3
- iwHv6HO6jukke0JK4qskPzi/03ek3vYFjgYzZqCgGqQmghb9LUx/gP6IbNzkycVnq1Lc
- ZFs+8P1FwKr3uCXQYRQ+eapHHF2h0KhHIC5hMEXxOlCqcXo9d4CX2LQZbMaLnQL+w74d
- qSZzF9z4q7XhxJi4YNbX3wm7Te/kPnxesk8fG4Cye4H97JUoP3BieAYvy/L0pSX7NYlN
- hLMBuDBOGOeOvPU2IjPjyzvV2A15QWp31lSajjtfB2roR+42zYItBtz0HTp/GGCpVPKq
- q1DA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794387887; x=1794992687;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=sP7k6XjcVumCLj2NxGQn6KKl25HOAblRp6pXpTH9GPw=;
- b=S1klbouyot8FKLQt5bxUESVSa70Mfr0ST8VhPKpqRPiaciC26l3+MascVrzzHxY4yn
- pG25eXhEGL5TRs/uGA+razD6M53lABXbIjwExrhYa1nxnQz5ynMatljxDpzI10VAaZzu
- VlKQVdNnOjh2RGzE3bn6URYu8rnxWCNlRl/c7fj2/qBsYpCSSfm/okNz/MkoR/CCTm7Z
- Xetn+mrF7GVnJVAnhkW8rPG93ve1EkI3ml9fo+PvJGBaf69bTDxE7bm1fOZNXhs311Po
- x7nCtn276I+Ztaw5Ud7UnDuxV0AZQI0ILlANtQWZVlz15HrZd9W8WTzFQdJtePWR0GiR
- NK5w==
-X-Gm-Message-State: APuU4Z9mKtzTU+7UxReMdv1VJEl8DIw5kpR6d5db2DhWGFCkkAPDPbFQ
- yyjOeDhOU8PLJC0+dKNBV6IpuJUr+wBK3NvpnOL3BerkYnb4lQx7rzcY6llQX6yVR/U=
-X-Gm-Gg: AYBFou2d6bB9LLejFtYpQil+ky8QldN+pdZ1EL6ayffmk4mZnL/diE9OQnD1MqadvjC
- 6r4OmfIG31KbHweIea0Kku34AVV80hgsYAQYGvcGKOWrNf5Xxg5drl+0jIz4V0zIA7L4DYpKKeQ
- kfr7XCEc/6/k3k+Qc7bOvNEmvKZ5OWm1EIET0mgdSbvJC0nF2YFRHPYRLvor3G4DhQdDJhMYKY/
- ULP/CV6p/5EF4vsrSpeN/glBIY24gVIBNuNV+VUgxDSCpaq+zcC2ng8LmhkF3+UqsVCx947jPDR
- 4pPDnQu4YUZVoZXpaqrFTW4K7fHeU9SBwZPwkzeKxylh3lxA/cScNSd1UTMgaRf1I2CrAPA+qGh
- x25PTPtjqO35zKQ6PCnlNXxlSoC4DCgN9rKAcceSIj8gVrNU+YRKbCowhdP8R6XgK+aJR9dty5g
- BhIgM4Pe0tMooHsAmbbPUasTtmNm1sculbnxuB1Y8LfYn3CgClxRe7Q6NtfpWMfGgKwDtcrsiZF
- rnYRswfwVcLzV3BbEG/roqoo9xYzbbjV1bIKZ8GF3xFFHYMCy+mKyHMgAdR/fZ2vc3t5Y8VE7wN
- VefOkJ+lnWqU8emKP25vl8bmfOME8C1kOsYhbmJCiE6+AtWV7OKAVyy93l4tObPVjZ3R53wLO1f
- OQGOMqkpKA06RzGz650D1kpny13zG7scI5VA=
-X-Received: by 2002:a05:600c:4e87:b0:49f:e772:6ddf with SMTP id
- 5b1f17b1804b1-4ba0938ae31mr28591735e9.32.1794387887546; 
- Wed, 11 Nov 2026 01:04:47 -0800 (PST)
-Received: from localhost
- (p200300f65f19a90460510dd506fc51af.dip0.t-ipconnect.de.
- [2003:f6:5f19:a904:6051:dd5:6fc:51af])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-4ba09509c74sm24119845e9.2.2026.11.11.01.04.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Nov 2026 01:04:46 -0800 (PST)
-Date: Wed, 11 Nov 2026 10:04:44 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
- <u.kleine-koenig@baylibre.com>
-To: Alex Deucher <alexander.deucher@amd.com>, 
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Markus Schneider-Pargmann <msp@baylibre.com>
-Subject: Re: [PATCH] drm/radeon: Consistently define pci_device_ids using
- named initializers
-Message-ID: <avQvaiaEyWDUQsZz@monoceros>
-References: <20260430102958.136859-2-u.kleine-koenig@baylibre.com>
- <aimXCmtgcejwInNg@monoceros>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7B0A10FA56;
+	Wed, 11 Nov 2026 09:39:53 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012065.outbound.protection.outlook.com
+ [40.93.195.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8EAD10FA30;
+ Wed, 11 Nov 2026 09:39:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YuUVjhzjMTPvmxbkAKZRMdQSaAQmmAtcMqalyYIL4x9fFWDHOSvbT0wNixeKAGs5lt1ERQKLi1eC0Sr2hvBhakJYO3CTFkNm80cHKKf/lPlXTjpB28ihcJqWzilEj7FlFDQemgLc65XPUqb/Y1V51sbx9e1mOUcjHjbPTmKq+MdJrVFg3tUlsEXs/kPRZcMeVXvlhc+uILiRquTZMgEEwErzpn0kEXAecaC+A/rI8OaOlb6Hbsv/7zadFomhIMkH/NmdFQ6TQM0tF9AZ/MWJMprvGzU4cHoKsSGrdD6l650E46uvlQoBIcGC+scvRkW0uI9HBqCIgZnKlZIT5vhZFw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=v2FPxoJNWaKDQy4+r4KNmMjOyvKqcAfha4gtN9JkWR4=;
+ b=EDhNKOruUDriqtRuwLwf3nxdaW3mcaPtRr0cXXaEPXujZ7fbDdKYRFphZjNkh7q8022rDnELzWxK4CNY5Doc3H8kl+7k5X2MNQijQinuIAzxy08cMYAIWbc7h542OXVrLIU8wLK3eA7rWYjFFNhVqOEMzRzNXumhvMMnMqdPi+BDdNHgSKi+99Awnvnn+cml4WWH9Sp2Vu3FlVv86TSiim/qAc2f6u0ay15MgJP5XuCOaoac9dSb8GQl37+D+H6WoVLlRgNdchn6EAsry08zLxuVN7s/9sBb7oLip0ZsVG0TgFMsAYdJqJ8HMvO1q6n8E4JaD0RwhyZ3pCw0Up/taQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=v2FPxoJNWaKDQy4+r4KNmMjOyvKqcAfha4gtN9JkWR4=;
+ b=eMw+WO8WVyeU5P8fCCHPlNU2LlWxcxYILJ0dq8nF6mhaLLFGN0oHbBC31SdnwWjGYYvJ2+nd+pNw3VIeOFv2OjxQSTVsepNszCiLFbP6LSrgLjcbq3m+jZk7SG+8G2y64cFDQHd1voxExEpd5/s0blbVwEKkTvNJRDmCawPcNsM=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CHAPR12MB999225.namprd12.prod.outlook.com
+ (2603:10b6:610:2fe::11) by CH1PPF73CDB1C12.namprd12.prod.outlook.com
+ (2603:10b6:61f:fc00::615) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
+ 2026 09:39:44 +0000
+Received: from CHAPR12MB999225.namprd12.prod.outlook.com
+ ([fe80::a4c2:82c3:da88:c585]) by CHAPR12MB999225.namprd12.prod.outlook.com
+ ([fe80::a4c2:82c3:da88:c585%6]) with mapi id 15.21.0615.008; Wed, 11 Nov 2026
+ 09:39:44 +0000
+Message-ID: <7e02d6ff-4278-4d57-90fc-97d7fd665b02@amd.com>
+Date: Wed, 11 Nov 2026 17:39:38 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 2/3] drm/amd/display: Add KUnit tests for the ATIF
+ backlight curve check
+To: Hugo Sales <hugo@hsal.es>, harry.wentland@amd.com, siqueira@igalia.com,
+ amd-gfx@lists.freedesktop.org, sunpeng.li@amd.com, alexander.deucher@amd.com
+Cc: mario.limonciello@amd.com, christian.koenig@amd.com,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ simona@ffwll.ch, alex.hung@amd.com, airlied@gmail.com
+References: <20261104-backlight-curve-validate-v1-0-10c688880e85@hsal.es>
+ <20261104-backlight-curve-validate-v1-2-10c688880e85@hsal.es>
+Content-Language: en-US
+From: Ray Wu <ray.wu@amd.com>
+In-Reply-To: <20261104-backlight-curve-validate-v1-2-10c688880e85@hsal.es>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: TPYP295CA0018.TWNP295.PROD.OUTLOOK.COM
+ (2603:1096:7d0:a::19) To CHAPR12MB999225.namprd12.prod.outlook.com
+ (2603:10b6:610:2fe::11)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="pma5azs7fhrm2bnu"
-Content-Disposition: inline
-In-Reply-To: <aimXCmtgcejwInNg@monoceros>
-X-Mailman-Approved-At: Wed, 11 Nov 2026 09:37:24 +0000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CHAPR12MB999225:EE_|CH1PPF73CDB1C12:EE_
+X-MS-Office365-Filtering-Correlation-Id: 22d871dd-8b90-4740-d45b-08df3fd7b7c2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|366016|1800799024|376014|18002099003|22082099003|4143699003|10067099003|11063799006|261026140227099003|261102123227099003|261028144727099003|261022075727099003|261021121427099003|56012099006|261022105027099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info: Yj6OSVABA+O60f9/U4m7Cz8b8Wl80F3TYy4XiPTo5g2GprEo0GvIvCzd5nki8WGrkTEGbFOesPEHPhbhxGrgqRz7RnnnGXyw8SNfEulW8ZnhTFlhbZtBJcXbHqKhDwH+63IbJFsMIofHqlfUVE9BT2MSLLjF1ejkY1OTNoHzLw4NO9+Qch6axAHumk3h0HqWoqXIuAw1+8YUR3hiyV32iQnW704phSt7cXmh1QcAFYPl3/+YJzoTywVYBs3TM5UTB8W1Hl7rMDG3pYoY/CmlbJDaGbnPupOxnbb7K45K3k8OgX8oQkNA8P1L2FTzrdwl8f6213dv2hUw6QpG8yhFGnLk/UM8TKpvKDLYToM6irD4jyAIyxo8s8BizLFP2CsqkPEcPccflKx7pWqtt6JdG1DYMwPIGfZ9IXyPr0wnUjLg7XqA/7u9TziWPylop04EJRiIeg28TjEMpr9xbjW/C+/O4qGkF/gdll5Y2SQZzkRVKXOiWww9Drx/EVpWUh83ZGe9KOPex85ZroO7wICU/iPKmenJgxEaulMnLMfHN7ZFU20ukVVCKXgxYFAByiRJYJJV5ixfS1J9HzIbT5BwVWf2RNdrJjNH/UCgUsABMBXelTG4W903t1rsHEtZqGZQI5UCjhGdhlfOvc55u31iqNHxfOMX0WnDqJEYyyFeS3E=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CHAPR12MB999225.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(18002099003)(22082099003)(4143699003)(10067099003)(11063799006)(261026140227099003)(261102123227099003)(261028144727099003)(261022075727099003)(261021121427099003)(56012099006)(261022105027099003)(261009223027099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TXJ5VjJkMU1lbVFLVzFvZm9NQzJOdllNSkt3dy9FRGJGYXMzbi9IdEhKblZK?=
+ =?utf-8?B?bVdVQlZHOWMyZFM0VU01MlNkclpCNkM2N3NIaHcydFJNWlliREpmM1NsQXRv?=
+ =?utf-8?B?NWIwV0h2aUlKRjFjREROem9qZFRDQ0ZPUjdHUWlMck5WS0pGNWtxcTg3WS8y?=
+ =?utf-8?B?Y2pUR2I4L0NQMU1iYlNjRjNDdS9qdzN1WVBoZktVVEFiRFVVUG11ZktrejRV?=
+ =?utf-8?B?Nnk4TnVpQXFmNm0yUnhnR2ZSNjFPUUYrYnNPNnRYdmRUekxTVDdudDFBd1VI?=
+ =?utf-8?B?dEtnK0tpVFBjT0d1VGdFeFdIWnBEZEM2MVp6OWorcTNWZHp6d2lyTkw3ZFVt?=
+ =?utf-8?B?NXlwNXNnWThERDd3bVhZY3E1b296NENSbkR2THFHdkkwOFVmZDhpaFVrQ0RK?=
+ =?utf-8?B?cEgwckZTNzFySVdtdVQwMW11bDVCdSswS0F2bkptQ3lSZTNzOUFmMXA1OTNV?=
+ =?utf-8?B?UEtpVGFqdUl5NXpoSDNWT1dMN3crbjFzcFIwTTFTQ21ZQXNNWUR2b3Jtdndo?=
+ =?utf-8?B?QjNmZ0MwSDNxL2NEc2lEb1Z5YkNHV0VZN1hsV09aS3ZTUzhJVU9DdVZKSnBY?=
+ =?utf-8?B?OXNxVVNmRUpaNTMyU1k0RGNkbU9FQ3JwQyt2VDh4NDFFaC9LWG45TytqQklF?=
+ =?utf-8?B?bk5jUUx2RDZGeDdEdWRqRWhxMnpwcjVpdloxZVpWTSttNytOTHhtcDJuRm1E?=
+ =?utf-8?B?L2hERndsMTVINkNHU25CQUhzRmsxdEtESEpYK1FiZFM5ei85U2VUejZ5SWxM?=
+ =?utf-8?B?eUZIYjVWUU12Z2RQeXRpMkl6SDJma1pxRTNJQ3NlMW9xSzZ3dEdzdXdSbVJO?=
+ =?utf-8?B?dE5zaE5YTnNPZGVHMHlDQ0p2d2d0SUxuNlNvVGlJS2RwQkJ5V3Q0QU1DWkZr?=
+ =?utf-8?B?Q1BiU3lJRGRoNEI3WXdrYmFWeFg1SXBBTGxIRjBMK0dPdGhHR0xuQkRTTElX?=
+ =?utf-8?B?dVYvZ1luT3NnL1dDV1ZSbFJma3E0ZjBDNGlzaWFONmYyU3FVWVBibWxTMTRX?=
+ =?utf-8?B?eFJMdjZhVzVIMkRQeUpGVlE5cUhFQktodXlmL0psRkNsb0NveHBBSEF3ODVV?=
+ =?utf-8?B?bWdjVC8rK25SanlQaU96Sm8xTDRWcU9oOWc0R3dLc2dUSjUzZTZhN1NIZmU1?=
+ =?utf-8?B?NEN4eTJaeU9JaTZQYVpDT094Wm5CRG1SZFJQdjE1RzJQbVAycmlRc1F1SzNJ?=
+ =?utf-8?B?MWg2cUcwbXZ2MklXTlFjTmF1amg2V3NLb21xSmt1VVZZTHRQUk5aMXQvNE5l?=
+ =?utf-8?B?STdQYytFNGp3UDJlV0d5YVpPUkpvSGQwWkNMdGRGcGMzWGZhcVRrb1Y1OGZL?=
+ =?utf-8?B?RUhZZEtKQzJ1eDQxL3RGUmw4NDhud1p3NXMvN2ZkZ1l2dnJlUDdBRWxzeUFY?=
+ =?utf-8?B?R1FrWUhKM0ZoTlFzYlFaMkNQVmZEQXVGMWtCUlNoZld3L0h4dm5UWjBSMUtu?=
+ =?utf-8?B?RUdVdkFYd2dqYTd0aTFmc2dDM3hmK09UZFZFS0RtdDVCMllCNVp5eG9aTUFY?=
+ =?utf-8?B?a1p2RmtvaVF6UFVLdzQ3NmdnYXRTL1lER2VJa3RqaEg2T0xITmxPVHArQkxw?=
+ =?utf-8?B?R1B0ay9rd1JUL1pIMDkwMDBmeW1iOHhFQ1RQS25NMzFYZXB4VEJsajl4N1Vr?=
+ =?utf-8?B?d3dzdDhQMm52TjhnY1FLdVYzNDluTFFtRGszN3Bia0o4VDZ2VnNzN1h1Qkcx?=
+ =?utf-8?B?RHdzTDkvQ2piYnE2QkFJNTNUblNqUHBkWW5JVG9mVFJlSVB3VUdBY3RtblNM?=
+ =?utf-8?B?c2hxN3k1YnhFM2hvbmI5NVVQblBiTDhEZ2t0Y3ZCTjRWbnBoRlV6dUU4cTFi?=
+ =?utf-8?B?VHdmQlJQQUhwUWpPTndYU0xYSjg1T0o1cXhuNitKSnZoaXJQQy9UVlZVWUFZ?=
+ =?utf-8?B?NzV6eHZBSVQ5dzMzWlBJSTUzNWU4ZCtmOWc4RFV4S0Y1SDQ5d0JoNWRFTjRh?=
+ =?utf-8?B?ejJWRm9yb2xpU3RFS1JQMzc0SmJzakswYVd4VXZWa0p0N2tnZUNvd2JYd2Fp?=
+ =?utf-8?B?T0wzTG1QV2ZGZU5lRVl0OTFoUWE3cWpWcWJaSlI4TjlGQkxUVEttOHBUaTgv?=
+ =?utf-8?B?UVNhT00vS1g4Y0RWVGpocmgwUjlqUkhaWGNBcWRlN3JWbElobEIxQTlGR3J6?=
+ =?utf-8?B?ekp4SXg2czNCZldKdUE3eG5BdC9obkQ0WHpZRlBuUVM4V3R6MG45SWYyc2hy?=
+ =?utf-8?B?Y1VXcXk4Rm0vOVFld09TcE9LeUxXSHJmUWl5b2w3ZmtTdG9OS3U5OWN1QTBN?=
+ =?utf-8?B?b2J3S3dFejRIM2JNU1p5UVFyaDB0eEttWWQ1TDJjaldvQW5HazRBYVlrQk8x?=
+ =?utf-8?B?dk1ORmJ4REJDSFNjN1JJbVhPdmhLR2d0b3hZR2t1Y1RRb0xJeThFUT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 22d871dd-8b90-4740-d45b-08df3fd7b7c2
+X-MS-Exchange-CrossTenant-AuthSource: CHAPR12MB999225.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 09:39:44.5992 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: F+zqH/7XNiBvhKtMLHPl+IZiYbQaME04dXFHMf5I8KgqJYOMHCu/XlxCj9Fak2L7QqIGJuTT+JuswX7GiugvoQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPF73CDB1C12
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,72 +133,247 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+Hi Hugo,
 
---pma5azs7fhrm2bnu
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] drm/radeon: Consistently define pci_device_ids using
- named initializers
-MIME-Version: 1.0
+Thanks for this.
 
-On Wed, Jun 10, 2026 at 06:56:35PM +0200, Uwe Kleine-K=F6nig (The Capable H=
-ub) wrote:
-> Hello,
->=20
-> On Thu, Apr 30, 2026 at 12:29:57PM +0200, Uwe Kleine-K=F6nig (The Capable=
- Hub) wrote:
-> > ... and PCI device helpers.
-> >=20
-> > The struct pci_device_id array of supported device was initialized
-> > by list expressions. This isn't easily readable if you're not into PCI.
-> >=20
-> > Use PCI_DEVICE* helper macros and named initializers which is more
-> > explicit and thus easier to parse. Also skip explicit assignments of 0
-> > (which the compiler then takes care of).
-> >=20
-> > The secret plan is to make struct pci_device_id::driver_data an
-> > anonymous union (similar to
-> > https://lore.kernel.org/all/cover.1776579304.git.u.kleine-koenig@baylib=
-re.com/)
-> > and that requires named initializers. But it's also a nice cleanup on
-> > its own.
-> >=20
-> > This change doesn't introduce changes to the compiled pci_device_id
-> > array. Tested on x86 and arm64.
-> >=20
-> > Signed-off-by: Uwe Kleine-K=F6nig (The Capable Hub) <u.kleine-koenig@ba=
-ylibre.com>
->=20
-> Similar to the amdgpu driver patch I just pinged, this patch would also
-> be great if it made it in for 7.2-rc1. Please?
+With the backlight update in the other thread, amdgpu_dm no longer maps
+brightness through the ATIF curve; only the power module uses it, and it
+validates the curve itself. So 1/3 and 2/3 are no longer needed. I have
+replied to 3/3 with my Reviewed-by.
 
-That didn't work and it failed to go into 7.4-rc1 either :-\ It still
-applies to next-20261110, is it still on your radar?
+Thanks,
+Ray
 
-Best regards
-Uwe
-
---pma5azs7fhrm2bnu
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmr0L6kACgkQj4D7WH0S
-/k4KfAf/f5q3Vl7EnPVZaB/M3tX4n0SFtnKOCJkLtj4107/VpJ+jLb3mrCXFulXy
-Z1rgfK86pXvaFuknlwOCHRZ6mpoZCgbp7YQYcc1+hWncLfLYFcnGvQKoZLKP8RK6
-yHLzpWaGzaZvH7Q6DBQurfqIwGwTNRrFyZzi4ILzOS2nIhFGSsDwCxKAlkX1OrEp
-d1wJQgg7dLK5dcHAoejIUCKED5kOVs+Sh81KFrkkgvyDB6FunShTz3T3Q0BhTALD
-c1MP6XcJaHm5IpB4yWysfiiuKeYcO45KZSSKa0XoBjpmhXooicsJk6ggWaQbxElk
-MUXB5eCUZ9TeWy82BMLT7UZrHZzvRA==
-=gtpi
------END PGP SIGNATURE-----
-
---pma5azs7fhrm2bnu--
+On 11/4/2026 6:31 PM, Hugo Sales wrote:
+> Test the curve check in amdgpu_dm_validate_backlight_caps():
+>
+> - the GV301QH curve stays as it is
+> - a luminance over 100% becomes 100%
+> - a falling luminance rises to the point before
+> - a curve whose signals fall gets dropped
+> - a repeated signal stays
+> - a curve with more points than luminance_data holds is cut to fit
+>
+> Also check the brightness the PWM and AUX paths give on the checked
+> curves
+>
+> Signed-off-by: Hugo Sales <hugo@hsal.es>
+> ---
+> KUnit: dm_test_validate_custom_curve_unsorted and the luminance checks
+> in the falling test fail without patch 1
+> ---
+>   .../amdgpu_dm/tests/amdgpu_dm_backlight_test.c     | 184 +++++++++++++++++++++
+>   1 file changed, 184 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
+> index b3e6a96320164..d76527e49acf2 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
+> @@ -1696,6 +1696,185 @@ static void dm_test_brightness_curve_pwm_luminance_over_100(struct kunit *test)
+>   	KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, 225000), 255000U);
+>   }
+>   
+> +/* Tests for the custom curve check in amdgpu_dm_validate_backlight_caps() */
+> +
+> +static struct amdgpu_display_manager *alloc_validate_dm(struct kunit *test)
+> +{
+> +	struct amdgpu_display_manager *dm = dm_kunit_alloc_dm(test);
+> +
+> +	dm->adev = dm_kunit_alloc_adev(test);
+> +	/* drm_warn() prints the curve warnings against this device */
+> +	KUNIT_ASSERT_NOT_NULL(test, adev_to_drm(dm->adev)->dev);
+> +
+> +	return dm;
+> +}
+> +
+> +static struct amdgpu_dm_backlight_caps *
+> +validate_custom_curve(struct amdgpu_display_manager *dm,
+> +		      const struct amdgpu_dm_luminance_data *points, int n)
+> +{
+> +	struct amdgpu_dm_backlight_caps *caps = &dm->backlight_caps[0];
+> +
+> +	set_custom_curve_caps(caps, points, n);
+> +	caps->caps_valid = true;
+> +	amdgpu_dm_validate_backlight_caps(dm, 0);
+> +
+> +	return caps;
+> +}
+> +
+> +/**
+> + * dm_test_validate_custom_curve_gv301qh - Test a good ATIF curve is left alone
+> + * @test: The KUnit test context
+> + *
+> + * The GV301QH curve rises and stays within 100%, so the check must keep
+> + * every point as it is
+> + */
+> +static void dm_test_validate_custom_curve_gv301qh(struct kunit *test)
+> +{
+> +	struct amdgpu_display_manager *dm = alloc_validate_dm(test);
+> +	struct amdgpu_dm_backlight_caps *caps = &dm->backlight_caps[0];
+> +
+> +	set_gv301qh_caps(caps, false);
+> +	caps->caps_valid = true;
+> +	amdgpu_dm_validate_backlight_caps(dm, 0);
+> +
+> +	KUNIT_EXPECT_TRUE(test, caps->caps_valid);
+> +	KUNIT_ASSERT_EQ(test, caps->data_points, ARRAY_SIZE(gv301qh_curve));
+> +	KUNIT_EXPECT_MEMEQ(test, caps->luminance_data, gv301qh_curve, sizeof(gv301qh_curve));
+> +}
+> +
+> +/**
+> + * dm_test_validate_custom_curve_luminance_over_100 - Test ATIF luminance over 100% becomes 100%
+> + * @test: The KUnit test context
+> + *
+> + * Points (100, 50), (200, 150) and (250, 120) become (100, 50), (200, 100)
+> + * and (250, 100). Level 150 is then 50 + 50 * 50 / 100 = 75% and level 200
+> + * is full brightness. Over AUX, 301176 of 512000 is just below signal 150,
+> + * so it lands one below 75% of 1000..512000, at 384249
+> + */
+> +static void dm_test_validate_custom_curve_luminance_over_100(struct kunit *test)
+> +{
+> +	static const struct amdgpu_dm_luminance_data points[] = {
+> +		{ .input_signal = 100, .luminance = 50 },
+> +		{ .input_signal = 200, .luminance = 150 },
+> +		{ .input_signal = 250, .luminance = 120 },
+> +	};
+> +	struct amdgpu_display_manager *dm = alloc_validate_dm(test);
+> +	struct amdgpu_dm_backlight_caps *caps;
+> +
+> +	dm_test_enable_custom_curve(test);
+> +	caps = validate_custom_curve(dm, points, ARRAY_SIZE(points));
+> +
+> +	KUNIT_ASSERT_EQ(test, caps->data_points, 3);
+> +	KUNIT_EXPECT_EQ(test, caps->luminance_data[0].luminance, 50);
+> +	KUNIT_EXPECT_EQ(test, caps->luminance_data[1].luminance, 100);
+> +	KUNIT_EXPECT_EQ(test, caps->luminance_data[2].luminance, 100);
+> +
+> +	KUNIT_EXPECT_EQ(test, convert_brightness_from_user(caps, 150 * 0x101), 49151U);
+> +	KUNIT_EXPECT_EQ(test, convert_brightness_from_user(caps, 200 * 0x101), 65535U);
+> +	KUNIT_EXPECT_EQ(test, convert_brightness_to_millipercent(caps, 150 * 0x101), 75000U);
+> +	KUNIT_EXPECT_EQ(test, convert_brightness_to_millipercent(caps, 200 * 0x101), 100000U);
+> +
+> +	caps->aux_support = true;
+> +	caps->aux_min_input_signal = 1;
+> +	caps->aux_max_input_signal = 512;
+> +	KUNIT_EXPECT_EQ(test, convert_brightness_from_user(caps, 301176), 384249U);
+> +}
+> +
+> +/**
+> + * dm_test_validate_custom_curve_falling - Test a falling ATIF point is raised
+> + * @test: The KUnit test context
+> + *
+> + * In (50, 30), (100, 60), (150, 40) and (200, 80), the point at 150 is
+> + * raised to 60%, so the curve is flat from 100 to 150. Level 125 is 60% on
+> + * both paths, which over AUX is 307600 in 1000..512000
+> + */
+> +static void dm_test_validate_custom_curve_falling(struct kunit *test)
+> +{
+> +	static const struct amdgpu_dm_luminance_data points[] = {
+> +		{ .input_signal = 50, .luminance = 30 },
+> +		{ .input_signal = 100, .luminance = 60 },
+> +		{ .input_signal = 150, .luminance = 40 },
+> +		{ .input_signal = 200, .luminance = 80 },
+> +	};
+> +	struct amdgpu_display_manager *dm = alloc_validate_dm(test);
+> +	struct amdgpu_dm_backlight_caps *caps;
+> +
+> +	dm_test_enable_custom_curve(test);
+> +	caps = validate_custom_curve(dm, points, ARRAY_SIZE(points));
+> +
+> +	KUNIT_ASSERT_EQ(test, caps->data_points, 4);
+> +	KUNIT_EXPECT_EQ(test, caps->luminance_data[1].luminance, 60);
+> +	KUNIT_EXPECT_EQ(test, caps->luminance_data[2].luminance, 60);
+> +	KUNIT_EXPECT_EQ(test, caps->luminance_data[3].luminance, 80);
+> +
+> +	KUNIT_EXPECT_EQ(test, convert_brightness_from_user(caps, 125 * 0x101), 39321U);
+> +	KUNIT_EXPECT_EQ(test, convert_brightness_to_millipercent(caps, 125 * 0x101), 60000U);
+> +
+> +	caps->aux_support = true;
+> +	caps->aux_min_input_signal = 1;
+> +	caps->aux_max_input_signal = 512;
+> +	KUNIT_EXPECT_EQ(test, convert_brightness_from_user(caps, 250980), 307600U);
+> +}
+> +
+> +/**
+> + * dm_test_validate_custom_curve_unsorted - Test a curve whose signals fall is dropped
+> + * @test: The KUnit test context
+> + *
+> + * A signal below the one before leaves no curve, so the mapping is
+> + * linear. A repeated signal is a step: the curve stays, and level 100 is
+> + * at the later point's 60%
+> + */
+> +static void dm_test_validate_custom_curve_unsorted(struct kunit *test)
+> +{
+> +	static const struct amdgpu_dm_luminance_data falling[] = {
+> +		{ .input_signal = 100, .luminance = 40 },
+> +		{ .input_signal = 80, .luminance = 60 },
+> +	};
+> +	static const struct amdgpu_dm_luminance_data repeated[] = {
+> +		{ .input_signal = 50, .luminance = 20 },
+> +		{ .input_signal = 100, .luminance = 40 },
+> +		{ .input_signal = 100, .luminance = 60 },
+> +	};
+> +	struct amdgpu_display_manager *dm = alloc_validate_dm(test);
+> +	struct amdgpu_dm_backlight_caps *caps;
+> +
+> +	dm_test_enable_custom_curve(test);
+> +
+> +	caps = validate_custom_curve(dm, falling, ARRAY_SIZE(falling));
+> +	KUNIT_EXPECT_EQ(test, caps->data_points, 0);
+> +	KUNIT_EXPECT_EQ(test, convert_brightness_from_user(caps, 32768), 32768U);
+> +
+> +	caps = validate_custom_curve(dm, repeated, ARRAY_SIZE(repeated));
+> +	KUNIT_EXPECT_EQ(test, caps->data_points, 3);
+> +	KUNIT_EXPECT_EQ(test, convert_brightness_to_millipercent(caps, 100 * 0x101), 60000U);
+> +}
+> +
+> +/**
+> + * dm_test_validate_custom_curve_too_many_points - Test data_points is cut to the array
+> + * @test: The KUnit test context
+> + *
+> + * data_points is a u8 from firmware, so it can claim more points than
+> + * luminance_data holds. The check keeps the points that fit
+> + */
+> +static void dm_test_validate_custom_curve_too_many_points(struct kunit *test)
+> +{
+> +	struct amdgpu_display_manager *dm = alloc_validate_dm(test);
+> +	struct amdgpu_dm_backlight_caps *caps = &dm->backlight_caps[0];
+> +	int i;
+> +
+> +	set_gv301qh_caps(caps, false);
+> +	for (i = 0; i < ARRAY_SIZE(caps->luminance_data); i++) {
+> +		caps->luminance_data[i].input_signal = 2 * i;
+> +		caps->luminance_data[i].luminance = i;
+> +	}
+> +	caps->data_points = 255;
+> +	caps->caps_valid = true;
+> +	amdgpu_dm_validate_backlight_caps(dm, 0);
+> +
+> +	KUNIT_EXPECT_EQ(test, caps->data_points, ARRAY_SIZE(caps->luminance_data));
+> +}
+> +
+>   /**
+>    * dm_test_brightness_range_zero_signals - Test Brightness range with zero min and max signals
+>    * @test: The KUnit test context
+> @@ -2365,6 +2544,11 @@ static struct kunit_case dm_backlight_test_cases[] = {
+>   	KUNIT_CASE(dm_test_backlight_caps_aux_support_noop),
+>   	/* amdgpu_dm_validate_backlight_caps */
+>   	KUNIT_CASE_PARAM(dm_test_validate_backlight_caps, dm_validate_caps_gen_params),
+> +	KUNIT_CASE(dm_test_validate_custom_curve_gv301qh),
+> +	KUNIT_CASE(dm_test_validate_custom_curve_luminance_over_100),
+> +	KUNIT_CASE(dm_test_validate_custom_curve_falling),
+> +	KUNIT_CASE(dm_test_validate_custom_curve_unsorted),
+> +	KUNIT_CASE(dm_test_validate_custom_curve_too_many_points),
+>   	/* get_brightness_range */
+>   	KUNIT_CASE(dm_test_brightness_range_null_caps),
+>   	KUNIT_CASE(dm_test_brightness_range_pwm),
+>
