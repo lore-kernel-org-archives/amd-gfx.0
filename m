@@ -2,110 +2,49 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5887D606A321
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 01:47:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCA4A606A31C
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Nov 2026 02:40:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=QKa+BJ7B
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fbnD2TDo
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C1CB010E060;
-	Wed, 11 Nov 2026 01:46:54 +0000 (UTC)
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010054.outbound.protection.outlook.com
- [52.101.193.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7954610E060
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Nov 2026 01:46:48 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=S7T3qR4OyqS5dmv9cDUwgdJqPUQ+DZGXVqkcNeC6ySJRcO3TIFRhRX8NzWgLn/Lc04pO7Ka8ULCFmQJy76jcJLa6TetWujwJdhSOnqK3XRzCY9YzkQC6qk53mIjzL5HmmEQsijQrQn8N3k8hJXD9rLXoTqkp2IRK9dDHeBE91OnGmuQwdrwTzw0z19mi5s9sBkY93mLaMCKuM9Fuf7u+OXXqO1YlI0dUTooL0H5jN/eFwzp5ILTTo0SMf0gVC3Bo/mD48u3Vuj4TKPgwCCwGWPyWgoSpeRdfT9XkwO903GzclCkM3RtsW2kDphSH3NHvnAooqXgIkfy1UCUluS5efA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=V/X6QKLy0fkSkIHIsTgGELjckId/eH534uykQq/Lcbs=;
- b=cOZA9PAs/xJzqnA2veQZ3nYnZvS3Dx61zPehw2Ph2HVL+kEAAf4ZMZqtuPXyvqX0sqhGeW5dTKi+PucS6WHmVGYBfIQ4oLNuIWosAg7L/tIrSYJ1V9VwBI/icSL2AtAvscqT0Y6OjlmJodaq8+iz2krV+PxdI5zW5TX344oIcb6jZwxtIFaqcFgEaBttPz8B0Hi4wb9TnF1udpMZHxqktrwEP/qjKsgGhVqQAg7KnGE3kPOchA3H9K+DIx3hgjdemOjMbcJj8Xv4uNgsZB/YLkEsSw30j3cjzeDq6HbO1DqizCFDONTjcWrZJkoBmmmLikx9rnhIQw04ntzAghcNTA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V/X6QKLy0fkSkIHIsTgGELjckId/eH534uykQq/Lcbs=;
- b=QKa+BJ7BprDcMPSFiXdwMYx9YAIbwRJ5QwCTbk9xjl6xjPkrhZRlnxjKYlft9aSbQ0MxWfTSDbwcWb1bzBynKtiJFty0dt1HvqR+ijoiQmq9WSoPmVPsRuEmaBLPAPrWJRC5RBHhg3ohuCj5lAFuHHcOGI3dCtniPF9DvF7evkk=
-Received: from SJ0PR03CA0055.namprd03.prod.outlook.com (2603:10b6:a03:33e::30)
- by CY5PR12MB6429.namprd12.prod.outlook.com (2603:10b6:930:3b::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
- 2026 01:44:43 +0000
-Received: from SJ5PEPF0000020A.namprd05.prod.outlook.com
- (2603:10b6:a03:33e:cafe::5d) by SJ0PR03CA0055.outlook.office365.com
- (2603:10b6:a03:33e::30) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.11 via Frontend Transport; Wed,
- 11 Nov 2026 01:44:43 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ5PEPF0000020A.mail.protection.outlook.com (10.167.244.43) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Wed, 11 Nov 2026 01:44:43 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 10 Nov
- 2026 19:44:42 -0600
-Received: from wayne-dev-lnx.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Tue, 10 Nov 2026 19:44:32 -0600
-From: Wayne Lin <Wayne.Lin@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
- Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
- Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
- <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
- <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Allen Pan <Allen.Pan@amd.com>, Dillon Varone
- <dillon.varone@amd.com>, Charlene Liu <charlene.liu@amd.com>, "Mario
- Limonciello" <mario.limonciello@amd.com>, Alex Deucher
- <alexander.deucher@amd.com>, <stable@vger.kernel.org>, Wayne Lin
- <Wayne.Lin@amd.com>
-Subject: [PATCH 62/74] drm/amd/display: Update DCN42B stutter latency to match
- DCN42
-Date: Wed, 11 Nov 2026 09:29:08 +0800
-Message-ID: <20261111014100.3596072-63-Wayne.Lin@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261111014100.3596072-1-Wayne.Lin@amd.com>
-References: <20261111014100.3596072-1-Wayne.Lin@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0408D10E233;
+	Wed, 11 Nov 2026 02:40:41 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C909410E233
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Nov 2026 02:40:34 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 6006843F83;
+ Wed, 11 Nov 2026 02:40:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 592001F0089F;
+ Wed, 11 Nov 2026 02:40:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794364834;
+ bh=7WX1G6+ktrzrYe81d7r8LDzTp8bhfw3CI+SJD6UOSx8=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=fbnD2TDo3nIPlZPLq77gTlkKiW32wuwflv7k/RYG+fX5rpoK5K+UnMOYffoxMCvpB
+ QjoZHUoLm477ErGm8kHNSLV6T5IY+zo6dRFlW0efUpiqBPUqnF6wZDZXp3N28QLtEf
+ cDK2kpvRhtDXwNYQAt3zInpc2q+hHyWieyuTBT2A3wq1zmb+GqVA1saVuKf8MlWjwJ
+ pyFpiOai+0hImMYeE3heFWfIdGDFIsZV5x1CnBPUA9Wl2iBUHhFfXKkA2h5OCJ0yox
+ 7qr6Ik3lKV3N/XhnZhaxXrDJkhQhZpitGzlkgxtlFx9B/h6KNAo7y5r0rbUK8Sk7Mf
+ +BoUEqwowTfsA==
+From: Sasha Levin <sashal@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Cc: Alex Deucher <alexdeucher@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Ilya Shidlovskiy <shidlovskiyilya@gmail.com>,
+ Kenneth Feng <kenneth.feng@amd.com>, Kevin Wang <kevin.wang@amd.com>,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-next@vger.kernel.org
+Subject: [PATCH linux-next] drm/amd/pm: bring back od_uclk_changed dropped by
+ the amdgpu merge
+Date: Tue, 10 Nov 2026 21:40:32 -0500
+Message-ID: <20261111024032.760400-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <avNxxfHK_Zh2GN2o@sirena.org.uk>
+References: <avNxxfHK_Zh2GN2o@sirena.org.uk>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF0000020A:EE_|CY5PR12MB6429:EE_
-X-MS-Office365-Filtering-Correlation-Id: 28507e30-9ed6-4156-b676-08df3f955bbb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|82310400026|23010399003|36860700016|261009223027099003|10067099003|261102123227099003|261021123027099003|261021121427099003|261026121527099003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: p3JOtXrN3CtxQxitlyGWF5SzaYAMSzM1V7VOUrOlUP7RKTVqfeipdMA+v4ZoS02BF7MQtKZCI7eZLLYLBoXmTpImyMSYQdVFNNXVuu6brtATBJ0htjp4PFdyF5pWh4azw29JV5f2fJc6G3D7u+unxgm85r6kNb+CQAxXdZnwkei3XolonnCQxsbJqLw6o10IorJbx3DWYK+NDZtX2N3XkLNTR/YD9joSfaDai5DeX6JpfDelu1e2aZ3EaHB4dO1WMYR6NjW0IoB9kZanIyeH2462mVDUherUd5SqKMWK8rkND2PqBveq3FJzNFZlVmA0Jq9pVxS8xSeDoKXZf3g5DSt0mJl/DtffvJGmBi1+2uJRQH3uYxHMKyCSDr8aLMajWr/jie/ITDDwrnJ0BkEG1ukD6vv1ds+Q95BSFTNEeqXi0ChugWYSpJCEMafe4nCA2gEWANAyH4KthEwYjPp9QbhMHFYyfrJvifZTt7kT1aib22f9t+gEC1JAVwzoDt1E6k2C5DQ+vePlACnyBXvRaPMtXG1G8yoETLzxcPGBwYe7uYYUWsuSJ4xUlJX5BEcIFs6L0LxoImsq1KIZ7DtbkREvR7oheUTxdC2aq6U5xtjUqGJAU2KtNFo2sXd5auYAQQYzeYADXV0Tq8FirAHjDa6MdXAf2mpksyceCPiUI5K/gItDaWXW5eZuEKuPKEJ9TNFPsJjil0BSlANUG9Mp/Q==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(82310400026)(23010399003)(36860700016)(261009223027099003)(10067099003)(261102123227099003)(261021123027099003)(261021121427099003)(261026121527099003)(56012099006)(11063799006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: /lzuTzsgczFfmjCLp1OoSEcWLKacH7WE1A2EdfSwk+28kFBrQwNyjgATZO6j8+p+p/D37Z1Qc9UpYH4MGKaMUhNFKC30U+a54C+tUb4ca0ggJ2IM9IjmZk7KsctjZ30DF90YvJwUBhmSTYOR0Ls4erjvJz2CINdgJi8u92yiw1Q3A8vqfCVBjOFBpKywBPFwdLKH3nc10k4CwjdmR03DILemcJIG/qCoDQzSu1ZQGAAnVtVFNY3oh9IBYwlujDgrHocyhXgsjum2cGaPSeNJNLAiB4T8Rn5jiEb/yxZip4IHhED0hhNuID4Ci5YIzYbVZ7qC96pjGDwHaKeGr3Z/q0tAPT9OUg4BcUqA1iEtPZobp7RZEpdfEhKW7gODhSHPOLQNw0ADsNh8p/NIkn7Yonjsp/bKFd+3/EaQdWIeu3jzDWi5lkdUBC7b97SBIbtq
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 01:44:43.0326 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 28507e30-9ed6-4156-b676-08df3f955bbb
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF0000020A.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6429
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,50 +55,101 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-23.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Allen Pan <Allen.Pan@amd.com>
+The amdgpu tree adds od_uclk_changed to struct smu_table_context in
+commit 62d932f72037 ("drm/amd/pm: smu13.0.0: refresh the UCLK DPM table
+after an OD_MCLK change"). It sits right next to user_od_feature_mask,
+which mainline added too, so amdgpu_smu.h conflicts, and the merge
+dropped the new field.
 
-[Why]
-The DCN42B stutter latencies do not match DCN42, which can lead to
-underflow and stutter issues.
+After that, commit c62c2736d82f ("amdgpu: Merge merge merge cherry-pick
+cherry-pick cherry-pick") made smu_od_uclk_changed() return false and
+removed the code that sets the flag. So DC never re-reads the UCLK
+levels after an overdrive change, which is the whole point of
+commit b7483797b085 ("drm/amd: let DC re-read UCLK DPM levels after an
+OD_MCLK change").
 
-[How]
-Update the DCN42B LPDDR5/LPCAMM2 stutter latencies to the same
-values DCN42 already uses.
+Keep both fields and put the removed code back.
 
-Cc: Dillon Varone <dillon.varone@amd.com>
-Cc: Charlene Liu <charlene.liu@amd.com>
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Allen Pan <Allen.Pan@amd.com>
-Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
+Fixes: af8e519642bd ("Merge branch 'drm-next' of https://gitlab.freedesktop.org/agd5f/linux.git")
+Link: https://lore.kernel.org/all/avNxxfHK_Zh2GN2o@sirena.org.uk/
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../dc/dml2_0/dml21/inc/bounding_boxes/dcn42b_soc_bb.h        | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Mark, this is against next-20261110. Please fold it into the amdgpu merge;
+it replaces the smu_od_uclk_changed() part of c62c2736d82f.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/bounding_boxes/dcn42b_soc_bb.h b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/bounding_boxes/dcn42b_soc_bb.h
-index e83a9ac018db..07f1bffc75ca 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/bounding_boxes/dcn42b_soc_bb.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/bounding_boxes/dcn42b_soc_bb.h
-@@ -188,8 +188,8 @@ static const struct dml2_soc_bb dml2_socbb_dcn42b = {
- 		.dram_clk_change_blackout_us = 36,
- 		.fclk_change_blackout_us = 0,
- 		.g7_ppt_blackout_us = 0,
--		.stutter_enter_plus_exit_latency_us = 14,
--		.stutter_exit_latency_us = 12,
-+		.stutter_enter_plus_exit_latency_us = 15.5,
-+		.stutter_exit_latency_us = 13.5,
- 		.z8_stutter_enter_plus_exit_latency_us = 300,
- 		.z8_stutter_exit_latency_us = 200,
- 	},
+With this the three files are the same as in the amdgpu tree.
+
+Found by comparing with our llminus-assisted integration tree. Build tested
+only.
+
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c            | 9 ++++++++-
+ drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h        | 2 ++
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c | 2 ++
+ 3 files changed, 12 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index ff51ff875bfed..86e34e814fe6a 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -601,6 +601,9 @@ static void smu_restore_dpm_user_profile(struct smu_context *smu)
+ 			ret = smu->ppt_funcs->restore_user_od_settings(smu);
+ 			if (ret)
+ 				dev_err(smu->adev->dev, "Failed to upload customized OD settings\n");
++			else if (smu_od_uclk_changed(smu))
++				/* DC read the stock UCLK levels in its init_hw */
++				amdgpu_dm_update_memclk_states(smu->adev);
+ 		}
+ 	}
+ 
+@@ -3701,7 +3704,11 @@ static int smu_baco_set_state(void *handle, int state)
+  */
+ bool smu_od_uclk_changed(struct smu_context *smu)
+ {
+-	return false;
++	bool changed = smu->smu_table.od_uclk_changed;
++
++	smu->smu_table.od_uclk_changed = false;
++
++	return changed;
+ }
+ 
+ bool smu_mode1_reset_is_support(struct smu_context *smu)
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+index 41d665591d62a..2a0cdc6e80596 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+@@ -434,6 +434,8 @@ struct smu_table_context {
+ 	void				*user_overdrive_table;
+ 
+ 	uint32_t			user_od_feature_mask;
++	/* Set when an OD commit/restore changed the UCLK levels */
++	bool				od_uclk_changed;
+ 
+ 	struct smu_driver_table driver_tables[SMU_DRIVER_TABLE_COUNT];
+ };
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+index 02bd2b15066cc..1a02ba70d3000 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+@@ -1306,6 +1306,8 @@ static void smu_v13_0_0_od_refresh_uclk_table(struct smu_context *smu)
+ 		dev_err(smu->adev->dev, "Failed to refresh UCLK dpm table!\n");
+ 		return;
+ 	}
++
++	smu->smu_table.od_uclk_changed = true;
+ }
+ 
+ static int smu_v13_0_0_emit_clk_levels(struct smu_context *smu,
+
+base-commit: 793807ca13bf3072fc6d16ce6d90e9ab9beff2a5
 -- 
-2.43.0
+2.53.0
 
