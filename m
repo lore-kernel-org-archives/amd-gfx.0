@@ -2,77 +2,58 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7C80606A327
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Nov 2026 13:44:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C1BA606A32E
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Nov 2026 13:44:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=antheas.dev header.i=@antheas.dev header.a=rsa-sha256 header.s=default header.b=LGMzw5wf
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=eU7tMJiT
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33E11112586;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 496B3112588;
 	Fri, 13 Nov 2026 13:44:25 +0000 (UTC)
-X-Greylist: delayed 350 seconds by postgrey-1.36 at gabe;
- Thu, 12 Nov 2026 20:55:03 UTC
-Received: from relay12.grserver.gr (relay12.grserver.gr [88.99.38.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BC3710E6D5
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Nov 2026 20:55:03 +0000 (UTC)
-Received: from relay12 (localhost [127.0.0.1])
- by relay12.grserver.gr (Proxmox) with ESMTP id 8D0E9BC45F
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Nov 2026 22:49:11 +0200 (EET)
-Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C953D11217B;
+ Thu, 12 Nov 2026 14:09:46 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by relay12.grserver.gr (Proxmox) with ESMTPS id 23AA2BC5D3
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Nov 2026 22:49:11 +0200 (EET)
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
- [209.85.214.179])
- by linux3247.grserver.gr (Postfix) with ESMTPSA id 90FCF1FF203
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Nov 2026 22:49:10 +0200 (EET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
- s=default; t=1794516550;
- bh=9ma6amb3jVGx0bKJXzm3aPnEA8Ez1v4zIZS13LyEIGc=;
- h=Received:From:Subject:To;
- b=LGMzw5wfLgAf6Uku+US6Vm3b+iysZtzTUPsGNxGcsBaCdUnafHkWf7fXTJFhxDBCh
- NLMje34OkDgO6oyQV9yKMQN5YUIuF8ORQbd/CZpZ6SLanH2qlHxXh4fdPG6UC1uhRV
- 9Jd7SS+oQnwezk3hv0DBkr7eFGauXwICp/86h4o1SD3UmI7mFgfh6+wUVChTC9Alow
- NkKEsCwOB50dgv4lL63W+3C6KY+SWipdLz6qtzt1uH60Lodw23oLjZAGiNmlNN31/M
- mqLVvp+4XtrebThC2dhS9Zmv2LoWCFBV+y0gPiu2AdfslLyUR0NIpb1x3jONI0qZI3
- xP9k0iyHLdhvw==
-Authentication-Results: linux3247.grserver.gr;
- spf=pass (sender IP is 209.85.214.179) smtp.mailfrom=lkml@antheas.dev
- smtp.helo=mail-pl1-f179.google.com
-Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
-Received: by mail-pl1-f179.google.com with SMTP id
- d9443c01a7336-2eb18f4da15so1369155ad.1
- for <amd-gfx@lists.freedesktop.org>;
- Thu, 12 Nov 2026 12:49:10 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AL+hErFHmd19xsSMcL6RVG4/rZ5Qn/2GN/8d2V5aqP1DYT7Wp/0vDTpSoR1tPdMJ6ukoxeFII8YME7AT@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/oZLcKm7pR1og72NaiMnGe6FQOX4zE6569x/Rfe9+j1TUFeipH
- 22hroUM9jf5CA3nnf2k1D6xIFgnGZU6lGlxqmwC2m4TxD/LHmgEJfouzF+oJY6rq5DMusqZoBe0
- fbzScaxtce2BcSj8uoY3CS9LLFqODmSY=
-X-Received: by 2002:a05:6a21:6e8d:b0:3eb:5240:b62 with SMTP id
- adf61e73a8af0-3f7a8cd6faemr250802637.78.1794516549069; Thu, 12 Nov 2026
- 12:49:09 -0800 (PST)
+ key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4jQMhl5r53zMlL5;
+ Thu, 12 Nov 2026 15:09:43 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1794492583; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=NmpbvxhqufdtRVMryu+ho3EOV8ZMnvgHsUDI7nScZBI=;
+ b=eU7tMJiT2PsaJpqB0lERUx10JPv7uTONSwlRiDXXMCqKzgPK024hhOao//ZldwYIdOZaDi
+ sEeE9BX7HjMAMDQev7rFymFMo2JAz8sWY5rcnaUZvLK8DHT1aNXPAXnFKDbXCPQ0+vyFhQ
+ 0KY0YZyZ+C71aBRUb7oKPm0DGxPSd/wetulFmqXJaymSWGGVl7kUvS1g85t0H3z9bSM1t8
+ afxQY8+TbojtMarx0ami2PiETZeOkVChuN/5Ptc8z3dR7f7sLbsKM9ib9JSKq/mmpafft8
+ Upnk9mgrcEvpP6MliVfzGW6agdXxNqlglll3bAXVxc4aKcHCZxV2ifl9LU+Lyg==
+Message-ID: <019c8094079a02f582804e735fd73058d5189225.camel@mailbox.org>
+Subject: Re: [PATCH 6/7] drm/sched: Replace the SPSC queue with a list and a
+ spinlock
+From: Philipp Stanner <phasta@mailbox.org>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, phasta@kernel.org, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Christian =?ISO-8859-1?Q?K=F6nig?=	
+ <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>, Matthew
+ Brost	 <matthew.brost@intel.com>
+Date: Thu, 12 Nov 2026 15:09:41 +0100
+In-Reply-To: <f5e91cef-a9af-4839-b7b7-45351d59d881@igalia.com>
+References: <20261106145702.61640-1-tvrtko.ursulin@igalia.com>
+ <20261106145702.61640-7-tvrtko.ursulin@igalia.com>
+ <c3e0decc799da64c09689b85c3db49b0b0a437b4.camel@mailbox.org>
+ <f5e91cef-a9af-4839-b7b7-45351d59d881@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261112-dg310-pcon-vrr-v1-1-4888b7097218@gmail.com>
-In-Reply-To: <20261112-dg310-pcon-vrr-v1-1-4888b7097218@gmail.com>
-From: Antheas Kapenekakis <lkml@antheas.dev>
-Date: Thu, 12 Nov 2026 21:48:56 +0100
-X-Gmail-Original-Message-ID: <CAGwozwFhgPDdjYba7+dWNK+ny6AP9fcKtatjng+AQoyOWuZz2w@mail.gmail.com>
-X-Gm-Features: AclHuK_xIPmQ2z2HO_DxO1WqNN4hcRgv4_7ApKQev4NGykxq_WmKXFHFinV8QNg
-Message-ID: <CAGwozwFhgPDdjYba7+dWNK+ny6AP9fcKtatjng+AQoyOWuZz2w@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Add ASUS ROG Bulwark DG310 PCON to
- FreeSync allowlist
-To: jkpair@gmail.com
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- amd-gfx@lists.freedesktop.org, Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-X-PPP-Message-ID: <179451655080.1500951.13605205427223573225@linux3247.grserver.gr>
-X-PPP-Vhost: antheas.dev
-X-Virus-Scanned: clamav-milter 1.4.6 at linux3247.grserver.gr
-X-Virus-Status: Clean
+X-MBO-RS-ID: bff49bcf0a05f426723
+X-MBO-RS-META: 3bqe4er3tp8p8hiqjgypk8rd9b46fmkz
 X-Mailman-Approved-At: Fri, 13 Nov 2026 13:44:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,89 +64,134 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, 12 Nov 2026 at 21:46, Jameson Pair via B4 Relay
-<devnull+jkpair.gmail.com@kernel.org> wrote:
->
-> From: Jameson Pair <jkpair@gmail.com>
->
-> The ASUS ROG Bulwark DG310 dock exposes its HDMI 2.1 output through a
-> DP-to-HDMI PCON with branch OUI bc:be:fb. The PCON sets
-> MSA_TIMING_PAR_IGNORED and ADAPTIVE_SYNC_SDP_SUPPORTED, but it is not in
-> dm_freesync_pcon_whitelist[], so FreeSync is never enabled on sinks
-> behind it.
+On Thu, 2026-11-12 at 12:59 +0000, Tvrtko Ursulin wrote:
+> Since this is a lock inversion site we cannot lock
 
-> Branch DPCD 0x500-0x50b: bc be fb fb 48 44 4d 49 62 01 40 84
-> (device id "\xfbHDMIb", hw rev 0x01, fw rev 0x40 0x84)
->
-> Tested on an ASUS ROG Xbox Ally X20 -> DG310 -> Samsung S90F (AMD VSDB
-> v3, 48-144 Hz) with a 7.3-based kernel that also finds the AMD VSDB in
-> every CTA extension, as the common EDID parser does since commit
-> ac10a874fc8a ("drm/edid: Parse AMD VSDB for FreeSync refresh range").
-> With this change VRR is reported capable and works; without it the
-> connector stays VRR-incapable.
+Which deadlock-circumvention strategies have you tried?
 
-Move these 2 paragraphs to below the trailer
+Pseudocode:
 
-> Assisted-by: Claude:claude-opus-5-5
+bool drm_sched_can_queue(struct drm_gpu_scheduler *sched,
+			 struct drm_sched_entity *entity)
+{
+	struct drm_sched_job *s_job;
 
-Remove this tag, it is not used anymore
++	lockdep_assert_held(&entity->lock)
 
-Wait for others to chime in before sending v2, your first paragraph
-might need some tuning as well.
+	s_job =3D drm_sched_entity_queue_peek(entity);
 
-Best,
-Antheas
 
-> Signed-off-by: Jameson Pair <jkpair@gmail.com>
-> ---
-> One-line allowlist addition for the DP-to-HDMI PCON in the ASUS ROG
-> Bulwark DG310 dock, so FreeSync works on HDMI sinks behind it.
-> ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 1 +
->  drivers/gpu/drm/amd/display/include/ddc_service_types.h   | 1 +
->  2 files changed, 2 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> index 3067ac5bb0cd..0c0d7b850c04 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> @@ -1712,6 +1712,7 @@ STATIC_IFN_KUNIT const uint32_t dm_freesync_pcon_whitelist[] = {
->         DP_BRANCH_DEVICE_ID_90CC24,
->         DP_BRANCH_DEVICE_ID_001CF8,
->         DP_BRANCH_DEVICE_ID_001FF2,
-> +       DP_BRANCH_DEVICE_ID_BCBEFB,
->  };
->  EXPORT_IF_KUNIT(dm_freesync_pcon_whitelist);
->
-> diff --git a/drivers/gpu/drm/amd/display/include/ddc_service_types.h b/drivers/gpu/drm/amd/display/include/ddc_service_types.h
-> index 827e9bd7c5cf..dafecbd606a5 100644
-> --- a/drivers/gpu/drm/amd/display/include/ddc_service_types.h
-> +++ b/drivers/gpu/drm/amd/display/include/ddc_service_types.h
-> @@ -37,6 +37,7 @@
->  #define DP_BRANCH_DEVICE_ID_001CF8 0x001CF8
->  #define DP_BRANCH_DEVICE_ID_0060AD 0x0060AD
->  #define DP_BRANCH_DEVICE_ID_001FF2 0x001FF2
-> +#define DP_BRANCH_DEVICE_ID_BCBEFB 0xBCBEFB
->  #define DP_BRANCH_HW_REV_10 0x10
->  #define DP_BRANCH_HW_REV_20 0x20
->
->
-> ---
-> base-commit: 47df73aa49d1988c8f684b7caf8be6570e966844
-> change-id: 20261112-dg310-pcon-vrr-427977a452ff
->
-> Best regards,
-> --
-> Jameson Pair <jkpair@gmail.com>
->
->
->
+drm_sched_rq_select_entity(=E2=80=A6)
+{
+retry:
+	spin_lock(&rq->lock);
+=09
+	walk_tree(=E2=80=A6) {
+		if (!spin_trylock(&entity->lock) {
+			spin_unlock(&rq-lock);
+			udelay(20);
+			goto retry;
+		}
+		ready =3D !list_empty(&entity->job_list);
+	}
+}
 
+
+It appears very undesirable for someone to re-walk that tree, I get
+that. But do we even know whether that would be a measurable problem in
+practice? How often would it occur?
+
+
+Alternatively, all the other paths that do entity_lock -> rq_lock could
+be tested with trylock-patterns. They might be less impacted.
+
+In drm_sched_entity_push_job(), for example, only occasionally are both
+locks actually needed, when a job is the first job.
+
+>  but truly have to have an unlocked solution.
+
+How do you know that?
+
+
+> This is effectively replacing one unlocked read (spsc_queue_peek) with a=
+=20
+> different one (READ_ONCE(entity->job_credits)). Something unlocked is
+> unavoidable here and I think this is more elegant and simple.
+
+Code full of ACCESS_ONCE and RCU that is not RCU is most certainly not
+elegant.
+
+This is elegant:
+
+spin_lock()
+list_del()
+spin_unlock()
+
+
+With ACCESS_ONCE, manual barriers etc. pp. no one ever knows what's
+accessed where with what ordering and why. It would then be better to
+have the problem remain centralized in spsc_queue.h
+
+As you say yourself, this here replaces the half-locked hard to reason
+about spsc queue (we don't even know whether that thing is formally
+correct) with a half-locked "locked" linked list.
+
+It's no improvement in any way regarding our shared goal, which is a=20
+consistently locked codebase that finally rids us of the race
+conditions which are plagueing this system for >10 years
+
+
+There is really no other way than either redesigning drm_sched so that
+the lock inversion disappears altogether, or to address the inversion
+with strategies well established in CS.
+
+>=20
+> And because it is an unlocked read it has to be annotated with=20
+> READ_ONCE(). Which means the write side, even though it is done under
+> the lock, is paired up and marked with WRITE_ONCE().
+>=20
+> 2. drm_sched_entity_pop_job()
+>=20
+> This is not a lock inversion site but needs to call sleepable things=20
+> while considering the head of the job queue (->prepare_job()).
+>=20
+> This one is the only remaining reason I used list_add_tail_rcu and=20
+> list_del_rcu, just so from here we can safely touch the first entry=20
+> while elsewhere more are being added.
+>=20
+> It is possible to do it, as you suggest, by dropping and re-acquiring
+> the lock. Note however that too would need a big fat comment why it is=
+=20
+> safe.
+
+Sure, one can write code comments. No big deal. The job is not in the
+list anymore. The list is lock-protected. No one can race it.
+
+There's only one worker popping. This must always be that way, the
+entire drm_sched design is founded on that principle.
+
+>  At which point, since both cases have a big fat comment explaining=20
+> the same thing apart from the implementation details, I do not see the=
+=20
+> advantage of pointless lock cycling. READ_ONCE and WRITE_ONCE you=20
+> dislike would still remain.
+>=20
+> As a side note it would be really good to eliminate the prepare_job=20
+> callback
+
+Yes, the user should prepare everything needed before even submitting a
+job. Maybe we can begin by marking it as deprecated.
+
+
+
+
+P.
