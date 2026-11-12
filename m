@@ -2,42 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE6DD606A321
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 16:53:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACFB1606A31C
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 17:22:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UZNmttFK
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FFTwiiGM
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34B0E112230;
-	Thu, 12 Nov 2026 16:53:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 479CE112277;
+	Thu, 12 Nov 2026 17:22:17 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43182112230
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Nov 2026 16:52:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 41DC9112277
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Nov 2026 17:22:10 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id F209745678;
- Thu, 12 Nov 2026 16:52:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEA4C1F000C4;
- Thu, 12 Nov 2026 16:52:58 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 26FD54187C;
+ Thu, 12 Nov 2026 17:22:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D45941F000C4;
+ Thu, 12 Nov 2026 17:22:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794502378;
- bh=g5KPTtRgdX1QKi9K8WqUQ7NMuZEeDpZKd6mNfUCgFL4=;
+ s=k20260515; t=1794504130;
+ bh=vUFPXZ7lMfNDmTxa1ApyKCDwFSzhVcH7S0SBJ3kUmAs=;
  h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=UZNmttFKLSUe4kPgUMSTMdAKMDOEWmPsuUkTYB90Hh/Xcnm5URmgZs94575r+6dRk
- JwOx+YI7BCopaHFFFCSz/O5jO1hOlino1m8JqV6E5Q57+pPHj9LhELovAPMGKDC9Mi
- uBz7BXuJJ4LT9xOoETNauWDh56pE+7UhTcgv7AYRHrJ1/UpYa7nq0Krlpr4yPPu0do
- FCp6D+9e/hFHY3yumINduRVqfsC9MfQ2SMBYPCelqtu1DWyNvRNgHaoFGcwKGqKBfs
- QJFv9D957LjSYlF1lPyLxmGKlih43QGz0h7pV3NccDu32af8e0I4G+bYeS6DVq+uXO
- oNoLqwasLoJgA==
-Message-ID: <sashiko-outbox-211541@kernel.org>
+ b=FFTwiiGMO6K5yQpLLvzYUyp8meEogwzcT7AeFWUwNrWC9MuK6mEFtwJyX8Lqd+XU5
+ Kz4HvzfRUZ8w6b/GuhQUC03Jy1Jkipt6DNxjJ42gDTn2frfl2WyBeZGJ7btHzcf0Eo
+ QVr3tacX/vKMCcX2ss4H9rjSQex06aVO0H0KGT5Al21bZJu1q65lGPjLVjYHjzTpQg
+ cjWV2qpb0D7h6djTCGyejA0Mqjzh8ucVLpQhEg5QqvT6ulnCAEBcTLGfG6LzMQp6YB
+ GOrRBb8rNfQnNYiCwPWcWAWvHLCouic7fbKOUq+bfCM9fSYWWjpTOEHlmxCSLBrien
+ pLpMQI50eZlPA==
+Message-ID: <sashiko-outbox-211584@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] drm/amdgpu/object: get rid of amdgpu_bo_fence
+Subject: Re: [PATCH 1/3] drm/amdgpu/vm: stop using amdgpu_bo_fence
 To: "Benjamin Cheng" <benjamin.cheng@amd.com>, amd-gfx@lists.freedesktop.org
-In-Reply-To: <20261112164408.1748006-4-benjamin.cheng@amd.com>
+In-Reply-To: <20261112164408.1748006-1-benjamin.cheng@amd.com>
 References: <20261014022107.2511834-1-benjamin.cheng@amd.com>
  <20261112164408.1748006-1-benjamin.cheng@amd.com>
- <20261112164408.1748006-4-benjamin.cheng@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 12 Nov 2026 16:52:58 +0000
+Date: Thu, 12 Nov 2026 17:22:09 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,71 +58,64 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [High] drm/amdgpu: build failure due to remaining amdgpu_bo_fence()
-  call
+- [High] drm/amdgpu/vm: insufficient fence slots in
+  amdgpu_vm_update_range() after PT alloc
 --
 
-commit ad8f0288ef23c9d2bb8ccdc99b45b97d28e2518c
+commit feeae3416bee7b1cf2e4fcd3fbeec98eb2fba53d
 Author: Benjamin Cheng <benjamin.cheng@amd.com>
 
-drm/amdgpu/object: get rid of amdgpu_bo_fence
+drm/amdgpu/vm: stop using amdgpu_bo_fence
 
-This commit removes the amdgpu_bo_fence() helper and its declaration.
+This commit replaces amdgpu_bo_fence() in amdgpu_vm_update_range() with
+dma_resv_reserve_fences() and dma_resv_add_fence() using
+DMA_RESV_USAGE_BOOKKEEP.
 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_object.c
-> index 6aa895f63aeaf..7fc43363ec626 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> @@ -1441,31 +1441,6 @@ vm_fault_t amdgpu_bo_fault_reserve_notify(struct t=
-tm_buffer_object *bo)
->  	return 0;
->  }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_vm.c
+> index 2ba33212d5071..2da64e2cfda47 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -1212,10 +1212,18 @@ int amdgpu_vm_update_range(struct amdgpu_device *=
+adev, struct amdgpu_vm *vm,
+>  	if (r)
+>  		goto error_free;
 > =20
-> -/**
-> - * amdgpu_bo_fence - add fence to buffer object
-> - *
-> - * @bo: buffer object in question
-> - * @fence: fence to add
-> - * @shared: true if fence should be added shared
-> - *
-> - */
-> -void amdgpu_bo_fence(struct amdgpu_bo *bo, struct dma_fence *fence,
-> -		     bool shared)
-> -{
-> -	struct dma_resv *resv =3D bo->tbo.base.resv;
-> -	int r;
-> -
-> -	r =3D dma_resv_reserve_fences(resv, 1);
-> -	if (r) {
-> -		/* As last resort on OOM we block for the fence */
-> -		dma_fence_wait(fence, false);
-> -		return;
-> -	}
-> -
-> -	dma_resv_add_fence(resv, fence, shared ? DMA_RESV_USAGE_READ :
-> -			   DMA_RESV_USAGE_WRITE);
-> -}
+> +	if (!unlocked) {
+> +		/* last_unlocked + SDMA commit + TLB flush */
+> +		r =3D dma_resv_reserve_fences(vm->root.bo->tbo.base.resv, 3);
+> +		if (r)
+> +			goto error_free;
+> +	}
 
 [Severity: High]
-Does removing amdgpu_bo_fence() break the build in
-amdgpu_gem_object_close()?
+Can reserving the SDMA commit and TLB flush fence slots before
+amdgpu_vm_ptes_update() leave vm->root.bo->tbo.base.resv with no free
+slot when a new page table BO is allocated?
 
-drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c:amdgpu_gem_object_close() {
-    ...
-	if (r || !fence)
-		goto out_unlock;
+When amdgpu_vm_ptes_update() allocates a new PT BO via
+amdgpu_vm_pt_alloc(), the new BO shares vm->root.bo->tbo.base.resv.
+During validation, ttm_bo_add_pipelined_eviction_fences() adds eviction
+fences to that shared dma_resv and ends with:
 
-	amdgpu_bo_fence(bo, fence, true);
-	dma_fence_put(fence);
-    ...
+drivers/gpu/drm/ttm/ttm_bo.c:ttm_bo_add_pipelined_eviction_fences() {
+	...
+	/* TODO: this call should be removed. */
+	return dma_resv_reserve_fences(bo->base.resv, 1);
 }
 
-amdgpu_gem_object_close() still calls amdgpu_bo_fence(), which causes an
-implicit function declaration error when compiling amdgpu_gem.c.  Since
-amdgpu_gem_object_close() already reserves a fence slot via
-drm_exec_prepare_obj(), that caller can use dma_resv_add_fence() directly.
+Because dma_resv_reserve_fences() is not additive, this only guarantees a
+single free slot if the eviction fences filled all but one of the existing
+slots.  amdgpu_vm_pt_alloc() then immediately calls amdgpu_vm_pt_clear(),
+whose SDMA commit adds a fence on vm->delayed (or vm->immediate) without
+reserving a slot, consuming that last free slot.
+
+When amdgpu_vm_update_range() later calls vm->update_funcs->commit(), that
+fence is replaced in-place on the same scheduler context, but
+amdgpu_vm_tlb_flush() then adds a fence on vm->tlb_fence_context with zero
+free slots remaining, hitting BUG_ON(fobj->num_fences >=3D fobj->max_fences)
+in dma_resv_add_fence().
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112164408.1748=
-006-1-benjamin.cheng@amd.com?part=3D3
+006-1-benjamin.cheng@amd.com?part=3D1
