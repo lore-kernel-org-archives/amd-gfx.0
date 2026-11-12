@@ -2,101 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17FF4606A330
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 22:25:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EBA8606A32D
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 22:34:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VDlylGF0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eYC8DtAd
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A109B10E6A7;
-	Thu, 12 Nov 2026 22:25:35 +0000 (UTC)
-Received: from mail-oo1-f52.google.com (mail-oo1-f52.google.com
- [209.85.161.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0CDA0112334
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Nov 2026 22:25:30 +0000 (UTC)
-Received: by mail-oo1-f52.google.com with SMTP id
- 006d021491bc7-6dc6099b5f1so29816eaf.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Nov 2026 14:25:29 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794522329; cv=none;
- d=google.com; s=arc-20260327;
- b=oQNlQMZaigZlDAuViQJOQKs13kEyh6TurZjKfR7c1jrjS9asVUrT56+SSLAJhOwGlm
- 9DVlwezNhxWW3ZPGBwURDYJjYOoUDnACyFxHxG3XHOEC3z1g9wjSzApDVP7IEYTrJnXU
- fypckdy9rVjPiL2UlTf6+LQ5Acbxj8C58qcSg2RkzlM2h9mEHoAtrPGqM7EWUcJIBqET
- Cb6jtGD76kjaj/lEVoR0jmHfQhmuXsSvpElXU41O41gTf31ZHV+cy3X+1qnBVYGsxYVq
- 4pTzrMb5JkGbUzThR1fiQ0gP9Xa8CHTkROcLCsWgn2z5DPOJvcOofy8UUrgcFB8TJEYS
- AiZg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=7MKTVXjppM6Sj39d72sw6FHgn0wjt/0qge0qOjFaJdY=;
- fh=CBx/t1HZI3mVenaNHmzLyuUtDGXZCj/phlCfKtEmyqY=;
- b=efDLKhJjdUc4jRwM2UF5ZCdtdCjN/kuWCmfnaqDRh7cXfWhx/4w4h/jmgudxGyMszf
- dxE0B7YApmqkPuAsmWyFg9bRrNPYiIo2eqrJTAinhnn3AfceFwBrJhSYsHWSkLAwZuOm
- Z8M8fv/ufQ6yCvq6MewTrBG3bEQcUEKsCYzUBpoGhrIXSYMyEt1A1NBh5mx9LmKuduEk
- /WU+S2zbzgym7LHDZ9zd6+3o6uSQSj1SnojB/6uX8OZseIw2zSNyMVCoJtLqZGXstyCh
- 4XpwAUAkM1mmQzA+mCDgOGGcLMfO8hRP2JoS5bvmjQrunESbNrO5XytUvdUq/ON55HHd
- p2VQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794522329; x=1795127129; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=7MKTVXjppM6Sj39d72sw6FHgn0wjt/0qge0qOjFaJdY=;
- b=VDlylGF0t4AKPWWtFJih+ABv4J68nAGaSEEp+l2+whjIS5HDQ7DEyFDd0xbQyYIoUX
- 2BoC6OFCfxU3Q5wFa2RjZzKjzvDeJ2EilWxXpPwNlxnfWDxV8yEgkhhlxXeicWEiQ6xl
- Up1itUKsUWUA8Gd5EOq+IsTOztLh9DpJq9oxlVHNJ0mrRb6qB/5y9FPnQIyoz7CM53jr
- SnTcD370NTPgzVFqzxZ1gfEWP80liJHHNA5YZqT1paW8sGuKjPhA6et78uHMfbUrwI6q
- x1ICXmBSvzZ3ggEbNlGczd98RYGXy5EuVvaerf8yFBRfqPi/48b851DQ4lW3QYEV4CM9
- W5ZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794522329; x=1795127129;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=7MKTVXjppM6Sj39d72sw6FHgn0wjt/0qge0qOjFaJdY=;
- b=dW7KmCE1T0zhic4LHc26zEvnjeH0xVv9WoTepSEqTpt7rk3LED62wegVPhStGf4l1L
- e2UBWxSvF0rAJIExxXzDdYBfie76YnJBh5BiDjuChA2/tDauNdXkilBLkagm64vIOSF5
- SNNT5YuSPrk4KkWdw8TkbRY0iQ0MA8oYqFzfrkXXUvKbjznIkjUjhKRnrxNBfprkxpef
- BlsYtPQAaicaiZs7UQPyDOrxu+Qet+m1f95/gLZHGQxZEYQtLboFAEL3qxQU+lo88Dvm
- AgAMCpsrb6Jkn1otvhFMBRwB8kSL53wi6ZMfYqdqYxiv6RLdHjL5AoegeKgGuu4GTqNn
- Zfcg==
-X-Forwarded-Encrypted: i=1;
- AL+hErEGMxxYJasPWojRm3OYdyl/NkhzFvetnpuGqGkP1bmUYmaNKa/oIRTAkZlxMGZqhpeEwaAfLGf9@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/zhRRHDN+9WG6VE9CDQXHsk79XLxAwi5npTdrP7cNzLUFVSTo1
- H9HHN/J57wcH9Z2zmtuTVwTzjCZfPeWMk1r3mPLb/zY0KMD78p3UO7jT+icTgccfls/6j2r3/8I
- sGZznEHchHbuQx+FpTOmki7M47IpNM+Y=
-X-Gm-Gg: AYBFou2d8oeW94l2Vs4otOx3XHyGPRprqABqph18BdCsq6DL8ujhQ1WMxgvWvbEmKRK
- LhDLKUrMuJlrJE2vpZKNeatNGzfYj8ilx+6tBMAF5RJUNjDCbapYBfSCG6fhjNEalyrt+97Qvny
- 6TFc3k5OXaaBb/Cyu0Th3JqNLnidb+SXpRo45oeHhVtmXQqDBsA4k5d66hGxBXSW2ww9ngFIYcs
- zKJvlLee+dLN8hsbHmlqIIO4mswgM8Psr1v5t77SigcSZucMpms2xkBJy1ewDP9EpH3XNkAkNew
- MsEjTW0u9wultljFAwg1Lru0KA3Gte6moEy1IYP9Chv3B5daeFRXPl+rJMQig+PXg/bBO/E8ZWW
- 7/+GEew+/Ph0kL909glmi+D3A2bKWwwzuduHsOSGDKFmBo5kAHcQ54YP420MIL5/+AbJYlGz34C
- MXddl5kotRgkNP+xUUydTSN5kK87FDQFNtd1BskS6NUOQdCcuAOsL82vTgyQ==
-X-Received: by 2002:a05:6808:1927:b0:549:e9e3:9460 with SMTP id
- 5614622812f47-56e5cff3837mr1010087b6e.0.1794522328745; Thu, 12 Nov 2026
- 14:25:28 -0800 (PST)
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-References: <cover.1794469153.git.u.kleine-koenig@baylibre.com>
-In-Reply-To: <cover.1794469153.git.u.kleine-koenig@baylibre.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 12 Nov 2026 17:25:17 -0500
-X-Gm-Features: AclHuK89_7-xJ0fNP96-d-HS0yUpV4nDEkjT1yR4ni6ZgFZbGukqx6Zkpd666p4
-Message-ID: <CADnq5_NFNbQF4F---Y8f-K4ZGb8q6=CdDtM0K5BL_nhsNbd47w@mail.gmail.com>
-Subject: Re: [PATCH v2 0/3] drm/radeon: Cleanups around <drm/drm_pciids.h>
-To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig_=28The_Capable_Hub=29?=
- <u.kleine-koenig@baylibre.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- "Mario Limonciello (AMD)" <superm1@kernel.org>,
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
- Mario Limonciello <mario.limonciello@amd.com>, Perry Yuan <perry.yuan@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id B03D111238E;
+	Thu, 12 Nov 2026 22:34:11 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 40F8311238E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Nov 2026 22:34:05 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 6892E6118D;
+ Thu, 12 Nov 2026 22:34:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAA431F000C4;
+ Thu, 12 Nov 2026 22:34:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794522844;
+ bh=xVr2B9zktoyKnvav6UVF7nxeeYW7hQjAGaWcLYXQSYY=;
+ h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
+ b=eYC8DtAdxPbihau37UtjdtktnE33aAY9V/rmwW/G3lzVw9ZyM/RQqW8SKokQ3Haq3
+ NAtc4SZl+I7J8XjIl5GTDxD/VlLahe6G3a8omQmyn0el3VwJ+hyeW1pPo1yrgLDuf1
+ GS9sJEE8ToJXA4FFhJTKM0Tr4K7QWSYgzzcW953v4E9o2rKGueeuy1HhRd+5WEDNU6
+ K4N9vjJeDduvRQCvUS0wnhkjgNft3SAixTRLYn05KahxaigvLe7m1k/HsTWjEUY4LA
+ UW1kakhSXvvXHa527P/DG9jNCsqWDW+8hJAWrXLpqb9vR15QVVdLoW6CqcJFEjPKJb
+ P+Kc+C+TdidBw==
+Message-ID: <sashiko-outbox-211914@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/amdgpu: bring back the ring parameter for
+ update_spm_vmid()
+To: "Alex Deucher" <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+In-Reply-To: <20261112212417.1769071-1-alexander.deucher@amd.com>
+References: <20261112212417.1769071-1-alexander.deucher@amd.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Thu, 12 Nov 2026 22:34:03 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,61 +46,175 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Thu, Nov 12, 2026 at 3:06=E2=80=AFAM Uwe Kleine-K=C3=B6nig (The Capable =
-Hub)
-<u.kleine-koenig@baylibre.com> wrote:
->
-> Hello,
->
-> patches 1 and 2 were already sent before
-> (https://lore.kernel.org/3205129f75aba48bd1ad8fc810cf6a18e718206d.1777545=
-446.git.u.kleine-koenig@baylibre.com
-> and
-> https://lore.kernel.org/20260430102958.136859-2-u.kleine-koenig@baylibre.=
-com
-> respectively). Alex asked to resend as they fell through the cracks. My
-> motivation here is to have the pci_device_id items defined using named
-> initializers to be able to modify struct pci_device_id. See
-> https://lore.kernel.org/all/cover.1780048925.git.u.kleine-koenig@baylibre=
-.com/
-> for the general idea.
->
-> Note that patch 3 depends on patches 1 and 2, so if amdgpu and radeon go
-> in via different trees or branches, patch 3 has to wait.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [High] drm/amdgpu: update_spm_vmid() ring emission gated on SR-IOV
+  one-VF mode
+- [Medium] drm/amdgpu: unskipped MMIO path and shadowed reg in
+  gfx_v12_1_update_spm_vmid()
+It also noticed 1 related pre-existing issue this patch does not
+introduce:
+- [Critical] drm/amdgpu: null pointer dereference in amdgpu_vm_flush()
+  [1]
+--
 
-Series is:
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-And applied.
+commit 6992ee0f5dfcb4a6c2339de5ec059b2331ca4d48
+Author: Alex Deucher <alexander.deucher@amd.com>
 
-Thanks!
+drm/amdgpu: bring back the ring parameter for update_spm_vmid()
 
->
-> Best regards
-> Uwe
->
-> Uwe Kleine-K=C3=B6nig (The Capable Hub) (3):
->   drm/amdgpu: Drop unused include of <drm/drm_pciids.h>
->   drm/radeon: Consistently define pci_device_ids using named
->     initializers
->   drm/radeon: Fold <drm/drm_pciids.h> into its only consumer
->
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |   1 -
->  drivers/gpu/drm/radeon/radeon_drv.c     | 702 +++++++++++++++++++++++-
->  include/drm/drm_pciids.h                | 702 ------------------------
->  3 files changed, 700 insertions(+), 705 deletions(-)
->  delete mode 100644 include/drm/drm_pciids.h
->
->
-> base-commit: aaa2f954c21b205a0bcd0961e5b2be4e82e58455
-> --
-> 2.56.0.rc1
->
+This commit restores the ring parameter to the RLC update_spm_vmid() callba=
+ck
+so that amdgpu_ib_schedule() can emit the SPM VMID update on the ring inste=
+ad
+of via MMIO.
+
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_ib.c
+> index 6210edf1937aa..a24cdf5852a32 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> @@ -213,7 +213,7 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, stru=
+ct amdgpu_job *job,
+>  		amdgpu_ring_emit_pipeline_sync(ring);
+> =20
+>  	if (emit_spm_needed)
+> -		adev->gfx.rlc.funcs->update_spm_vmid(adev, ring->xcc_id,
+> +		adev->gfx.rlc.funcs->update_spm_vmid(adev, ring->xcc_id, ring,
+>  						     adev->vm_manager.spm_vmid);
+> =20
+>  	if (emit_gds_needed)
+
+[Severity: Critical]
+This problem wasn't introduced by this patch, but can [1]
+amdgpu_ib_schedule() dereference a NULL adev->gfx.rlc.funcs pointer when
+initializing emit_spm_needed?
+
+drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c:amdgpu_ib_schedule() {
+    ...
+	bool emit_spm_needed =3D adev->gfx.rlc.funcs->update_spm_vmid &&
+		(ring->funcs->type =3D=3D AMDGPU_RING_TYPE_COMPUTE ||
+		 ring->funcs->type =3D=3D AMDGPU_RING_TYPE_GFX);
+    ...
+}
+
+On hardware configurations where adev->gfx.rlc.funcs is not initialized,
+evaluating adev->gfx.rlc.funcs->update_spm_vmid during IB submission causes=
+ a
+NULL pointer dereference and kernel panic.
+
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gfx_v11_0.c
+> index 5d068a9d9c72c..ac814c12d60f2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+
+[ ... ]
+
+> @@ -5615,12 +5616,21 @@ static int gfx_v11_0_update_gfx_clock_gating(stru=
+ct amdgpu_device *adev,
+>  }
+> =20
+>  static void gfx_v11_0_update_spm_vmid(struct amdgpu_device *adev, int xc=
+c_id,
+> -		unsigned int vmid)
+> +		struct amdgpu_ring *ring, unsigned vmid)
+>  {
+>  	u32 reg, pre_data, data;
+> =20
+> -	amdgpu_gfx_off_ctrl(adev, false);
+>  	reg =3D SOC15_REG_OFFSET(GC, 0, regRLC_SPM_MC_CNTL);
+> +
+> +	if (ring && amdgpu_sriov_is_pp_one_vf(adev) &&
+> +	    ((ring->funcs->type =3D=3D AMDGPU_RING_TYPE_GFX) ||
+> +	     (ring->funcs->type =3D=3D AMDGPU_RING_TYPE_COMPUTE))) {
+> +		data =3D (vmid & RLC_SPM_MC_CNTL__RLC_SPM_VMID_MASK) << RLC_SPM_MC_CNT=
+L__RLC_SPM_VMID__SHIFT;
+> +		amdgpu_ring_emit_wreg(ring, reg, data);
+> +		return;
+> +	}
+> +
+> +	amdgpu_gfx_off_ctrl(adev, false);
+
+[Severity: High]
+Does gating the ring emission on amdgpu_sriov_is_pp_one_vf(adev) prevent
+gfx_v11_0_update_spm_vmid(), gfx_v12_0_update_spm_vmid(), and
+gfx_v12_1_update_spm_vmid() from ever emitting the SPM update on the ring or
+skipping the MMIO path on bare metal?
+
+amdgpu_sriov_is_pp_one_vf(adev) checks AMDGIM_FEATURE_PP_ONE_VF, which is
+only set in SR-IOV single-VF mode and is false on bare metal.  When
+amdgpu_ib_schedule() passes a non-NULL ring on bare-metal systems, this
+condition evaluates to false and execution falls through to the synchronous
+amdgpu_gfx_off_ctrl() and MMIO path on every GFX and compute IB submission.
+If GFXOFF engages after amdgpu_ib_schedule() re-enables GFXOFF on the CPU a=
+nd
+before the GPU executes the queued IB, regRLC_SPM_MC_CNTL is cleared by
+GFXOFF and never restored by the ring.
+
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c b/drivers/gpu/drm/amd=
+/amdgpu/gfx_v12_1.c
+> index 1f57d0fa2c044..2bbe83d98563a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
+
+[ ... ]
+
+> @@ -2945,7 +2945,8 @@ static void gfx_v12_1_update_perf_clk(struct amdgpu=
+_device *adev,
+> =20
+>  static void gfx_v12_1_update_spm_vmid(struct amdgpu_device *adev,
+>  				      int xcc_id,
+> -				      unsigned int vmid)
+> +				      struct amdgpu_ring *ring,
+> +				      unsigned vmid)
+>  {
+>  	u32 reg, data;
+> =20
+> @@ -2962,6 +2963,14 @@ static void gfx_v12_1_update_spm_vmid(struct amdgp=
+u_device *adev,
+>  		WREG32_SOC15_NO_KIQ(GC, GET_INST(GC, xcc_id), regRLC_SPM_MC_CNTL, data=
+);
+>  	else
+>  		WREG32_SOC15(GC, GET_INST(GC, xcc_id), regRLC_SPM_MC_CNTL, data);
+> +
+> +	if (ring
+> +	    && amdgpu_sriov_is_pp_one_vf(adev)
+> +	    && ((ring->funcs->type =3D=3D AMDGPU_RING_TYPE_GFX)
+> +		|| (ring->funcs->type =3D=3D AMDGPU_RING_TYPE_COMPUTE))) {
+> +		uint32_t reg =3D SOC15_REG_OFFSET(GC, GET_INST(GC, xcc_id), regRLC_SPM=
+_MC_CNTL);
+> +		amdgpu_ring_emit_wreg(ring, reg, data);
+> +	}
+>  }
+
+[Severity: Medium]
+Should the ring emission check in gfx_v12_1_update_spm_vmid() run and return
+before the MMIO read and write, as in gfx_v11_0_update_spm_vmid() and
+gfx_v12_0_update_spm_vmid()?
+
+Placing the ring check at the end of the function leaves the MMIO accesses =
+to
+regRLC_SPM_MC_CNTL unconditional whenever a ring is passed from
+amdgpu_ib_schedule().  The inner uint32_t reg declaration also shadows the
+outer u32 reg variable that is already initialized to the same offset.
+
+[1] https://sashiko.dev/#/bug/linux-c7bb3824-c8ad-4019-945c-0cd80d5a9da3
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112212417.1769=
+071-1-alexander.deucher@amd.com?part=3D1
