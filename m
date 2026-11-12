@@ -2,58 +2,78 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C1BA606A32E
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Nov 2026 13:44:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F3EA606A323
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Nov 2026 13:44:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=eU7tMJiT
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sNrfPReu
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 496B3112588;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AAFBC11258B;
 	Fri, 13 Nov 2026 13:44:25 +0000 (UTC)
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C953D11217B;
- Thu, 12 Nov 2026 14:09:46 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org
- [IPv6:2001:67c:2050:b231:465::2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4jQMhl5r53zMlL5;
- Thu, 12 Nov 2026 15:09:43 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1794492583; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=NmpbvxhqufdtRVMryu+ho3EOV8ZMnvgHsUDI7nScZBI=;
- b=eU7tMJiT2PsaJpqB0lERUx10JPv7uTONSwlRiDXXMCqKzgPK024hhOao//ZldwYIdOZaDi
- sEeE9BX7HjMAMDQev7rFymFMo2JAz8sWY5rcnaUZvLK8DHT1aNXPAXnFKDbXCPQ0+vyFhQ
- 0KY0YZyZ+C71aBRUb7oKPm0DGxPSd/wetulFmqXJaymSWGGVl7kUvS1g85t0H3z9bSM1t8
- afxQY8+TbojtMarx0ami2PiETZeOkVChuN/5Ptc8z3dR7f7sLbsKM9ib9JSKq/mmpafft8
- Upnk9mgrcEvpP6MliVfzGW6agdXxNqlglll3bAXVxc4aKcHCZxV2ifl9LU+Lyg==
-Message-ID: <019c8094079a02f582804e735fd73058d5189225.camel@mailbox.org>
-Subject: Re: [PATCH 6/7] drm/sched: Replace the SPSC queue with a list and a
- spinlock
-From: Philipp Stanner <phasta@mailbox.org>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, phasta@kernel.org, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Christian =?ISO-8859-1?Q?K=F6nig?=	
- <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>, Matthew
- Brost	 <matthew.brost@intel.com>
-Date: Thu, 12 Nov 2026 15:09:41 +0100
-In-Reply-To: <f5e91cef-a9af-4839-b7b7-45351d59d881@igalia.com>
-References: <20261106145702.61640-1-tvrtko.ursulin@igalia.com>
- <20261106145702.61640-7-tvrtko.ursulin@igalia.com>
- <c3e0decc799da64c09689b85c3db49b0b0a437b4.camel@mailbox.org>
- <f5e91cef-a9af-4839-b7b7-45351d59d881@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com
+ [209.85.218.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19DF911240A
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Nov 2026 23:39:52 +0000 (UTC)
+Received: by mail-ej1-f44.google.com with SMTP id
+ a640c23a62f3a-c40f29667e6so46892866b.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Nov 2026 15:39:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1794526790; x=1795131590; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=nQIfwkswx6HF89WCxtEHrFaYfww+N5ri/gLQMPAhHEs=;
+ b=sNrfPReuGksFdy/wHH6QS1BBqX6S/JFPwtVm0RRzgWWBozMTwepNPhnuLHiLP2KKCe
+ TzrIjpDykuzHQZDxCxjrnrxyOct9VYtQh32bgPCu4O4pjvlmJ39tZPJOAhA/u1lZbjzD
+ Wfce15wtZKvuMSrnpHGcnQ+evllUXP2YPSd6Ycd4bKah5v/xHsWBKjXkBjqn2SIJ9ePn
+ hGtpHTcAYGujQWsij7nO+jK+Fi7xaQ1MGv1x9yVQvERu2SSboBbGJXFAUwFhYCdAgd1K
+ dTufU9EtasNEJJFQDZVWd2YZByFioxx4aC1lqLpUQVRURGvECMM0SWijliybktI9wOSY
+ aZ4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794526790; x=1795131590;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=nQIfwkswx6HF89WCxtEHrFaYfww+N5ri/gLQMPAhHEs=;
+ b=uZzfQFa7MdJ1JH3/kGF4AWViH/2BibVi0CNDu0wbYD8oPzE0WC1lcRCmCqHqVq3KnO
+ V6450k7XFhK9nLLZI8KEiARxb/N9leFuLBCyuk3UVYXoSvDlTof1uSTflFk1DwIxCTmF
+ G+ZfyJ/epbh6NUGSidGTejgxsxIXvXE0M9hGXR5eD7Bqn8k90w3SEHOk/+VE0jlOC57a
+ rZMx+NGAWqiQEL56klMsUrOqc6gQKlosN2cAnbd9roB+3seSID9ZcFmJUsGY9o0vJb+K
+ yHeeaxt7rRgO+3qKEt8IIg6ez3ca2j+yCWYWCcYgFIu1VGeAFLZBEGBgYAgeA72J5n2z
+ s3KQ==
+X-Gm-Message-State: APuU4Z8bMLhbZ8HmSWkWQVOgfyI+DH5rI4L1LhdaMo9jrltlttRgNEVi
+ FEZGe2TbihUeIEThs0Ef/4YAAnuAgCgwah1EANzs+PP7T8e8IKshKyccgHWAiNHQ
+X-Gm-Gg: AYBFou1gFzwB7st1okisQ7edTjT/1Dt7+yagge5epoOESwfYXbiwZd/WJF+twzG4LaT
+ uRBHwLH0Xf4dU0tALZKHxS1PPQckZjaeBqBj2rcNk1Z5k1AcjavwJPrZGoTsVQjxRvgUeG8VUaz
+ V82eNDSBU6rKKKbv3GOyaKHBu/cl4Wr5DM5o5YhwcnHVGmnOfn4JQM6oC96OO/0V8/MXa7a1dR2
+ xpdkZBm4+6Tanjj1J4BPm2KweXSC5wbrqe5vxICEVE690dw7Vo3clzlg3kFNCUGcqykCrMmr/gv
+ STpXvpNK4otJwrCLOw2hOCSXZz8EFfKJZd+0eSTucbfaiTVQsGWG/LscsbWHkzNPi7RiqXj3BoR
+ McQXXPPWRmNnFGKF5Curvgc8Pj5ippydED4AkfumdilZJI7nXjZsF9/5HXhumYQDdt2w9LwiS9R
+ V6VytczAUiAoexvodTDe9L9HMYjp4kxzGrMEqTzUa2fkqKbeKCVH7qV0KI3BhAoGpknADW0lQAg
+ E1Pw3rkRwiyNZFvygt6oLfJA6Y8CXrgr18bJIlR02sGatuTPm7Xw3T1KghEoQ5iGRZUCZCwr84h
+ 1xvgUtyRTdOWLLr+JJljhPZVVWqvgKdO4Rt2l1+1dnbByD0MIB5wsct0nrgt8eYnwixEaXX+6DH
+ 6Rep+nPBjFHnRhmCmJjWmxDTBxqp6pkTsC+aAPypZPPkkQ21igeYlynkb5yiE26U+gZgiqWpdiG
+ n3o/Yflo/PeIq3ifKcEO0YvIA2p5CzyEP3j4RxdkcrsUfioFUoCDRRBCqQfcxA5YA5vnKdXQJsf
+ ZRN6UKqanc20ZQdDzvdbmXm4RWaRLU069siUhf6WirZbMIGDrFmcYUyNgElqcGLt6W53hTr4oI/
+ YBnrFDr/bDed3H6hja4fLkIzaCcB6vPAOAXL56ZQNebeu2VNDOgPvStys/nW8tguoUIlAsqBwfJ
+ rhTvGV60IBK325ie8GIk36o4nBjus1MhyDz+D4cRHQQ==
+X-Received: by 2002:a17:907:60d3:b0:c31:8441:35ff with SMTP id
+ a640c23a62f3a-c50968355eemr63383066b.48.1794526790323; 
+ Thu, 12 Nov 2026 15:39:50 -0800 (PST)
+Received: from albatros (ip-091-065-217-039.vkd74.pools.vodafone-ip.de.
+ [91.65.217.39]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c5095b5ac2asm27449466b.55.2026.11.12.15.39.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 12 Nov 2026 15:39:48 -0800 (PST)
+From: Erhan Bilgili <erhan.bilgili@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com,
+ Erhan Bilgili <erhan.bilgili@gmail.com>
+Subject: [PATCH] drm/amdgpu: Fix UserQ fence iterator cleanup
+Date: Fri, 13 Nov 2026 00:37:22 +0100
+Message-ID: <20261112233722.172499-1-erhan.bilgili@gmail.com>
+X-Mailer: git-send-email 2.56.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-ID: bff49bcf0a05f426723
-X-MBO-RS-META: 3bqe4er3tp8p8hiqjgypk8rd9b46fmkz
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 13 Nov 2026 13:44:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,134 +84,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, 2026-11-12 at 12:59 +0000, Tvrtko Ursulin wrote:
-> Since this is a lock inversion site we cannot lock
+If a fallback wait is interrupted, USERQ_WAIT leaves the unwrap loop
+without releasing the reference taken by dma_fence_unwrap_first().
+That reference is normally dropped by dma_fence_chain_walk().
 
-Which deadlock-circumvention strategies have you tried?
+Drop iter.chain before returning the error.
 
-Pseudocode:
+Fixes: 15e30a6e4792 ("drm/amdgpu: Add wait IOCTL timeline syncobj support")
+Signed-off-by: Erhan Bilgili <erhan.bilgili@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-bool drm_sched_can_queue(struct drm_gpu_scheduler *sched,
-			 struct drm_sched_entity *entity)
-{
-	struct drm_sched_job *s_job;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+index dd976a50e053..e7b63c227421 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+@@ -796,6 +796,7 @@ amdgpu_userq_wait_return_fence_info(struct drm_device *dev, struct drm_file *fil
+ 			r = amdgpu_userq_wait_add_fence(wait_info, fences,
+ 							&num_fences, f);
+ 			if (r) {
++				dma_fence_put(iter.chain);
+ 				dma_fence_put(fence);
+ 				goto free_fences;
+ 			}
+-- 
+2.56.1
 
-+	lockdep_assert_held(&entity->lock)
-
-	s_job =3D drm_sched_entity_queue_peek(entity);
-
-
-drm_sched_rq_select_entity(=E2=80=A6)
-{
-retry:
-	spin_lock(&rq->lock);
-=09
-	walk_tree(=E2=80=A6) {
-		if (!spin_trylock(&entity->lock) {
-			spin_unlock(&rq-lock);
-			udelay(20);
-			goto retry;
-		}
-		ready =3D !list_empty(&entity->job_list);
-	}
-}
-
-
-It appears very undesirable for someone to re-walk that tree, I get
-that. But do we even know whether that would be a measurable problem in
-practice? How often would it occur?
-
-
-Alternatively, all the other paths that do entity_lock -> rq_lock could
-be tested with trylock-patterns. They might be less impacted.
-
-In drm_sched_entity_push_job(), for example, only occasionally are both
-locks actually needed, when a job is the first job.
-
->  but truly have to have an unlocked solution.
-
-How do you know that?
-
-
-> This is effectively replacing one unlocked read (spsc_queue_peek) with a=
-=20
-> different one (READ_ONCE(entity->job_credits)). Something unlocked is
-> unavoidable here and I think this is more elegant and simple.
-
-Code full of ACCESS_ONCE and RCU that is not RCU is most certainly not
-elegant.
-
-This is elegant:
-
-spin_lock()
-list_del()
-spin_unlock()
-
-
-With ACCESS_ONCE, manual barriers etc. pp. no one ever knows what's
-accessed where with what ordering and why. It would then be better to
-have the problem remain centralized in spsc_queue.h
-
-As you say yourself, this here replaces the half-locked hard to reason
-about spsc queue (we don't even know whether that thing is formally
-correct) with a half-locked "locked" linked list.
-
-It's no improvement in any way regarding our shared goal, which is a=20
-consistently locked codebase that finally rids us of the race
-conditions which are plagueing this system for >10 years
-
-
-There is really no other way than either redesigning drm_sched so that
-the lock inversion disappears altogether, or to address the inversion
-with strategies well established in CS.
-
->=20
-> And because it is an unlocked read it has to be annotated with=20
-> READ_ONCE(). Which means the write side, even though it is done under
-> the lock, is paired up and marked with WRITE_ONCE().
->=20
-> 2. drm_sched_entity_pop_job()
->=20
-> This is not a lock inversion site but needs to call sleepable things=20
-> while considering the head of the job queue (->prepare_job()).
->=20
-> This one is the only remaining reason I used list_add_tail_rcu and=20
-> list_del_rcu, just so from here we can safely touch the first entry=20
-> while elsewhere more are being added.
->=20
-> It is possible to do it, as you suggest, by dropping and re-acquiring
-> the lock. Note however that too would need a big fat comment why it is=
-=20
-> safe.
-
-Sure, one can write code comments. No big deal. The job is not in the
-list anymore. The list is lock-protected. No one can race it.
-
-There's only one worker popping. This must always be that way, the
-entire drm_sched design is founded on that principle.
-
->  At which point, since both cases have a big fat comment explaining=20
-> the same thing apart from the implementation details, I do not see the=
-=20
-> advantage of pointless lock cycling. READ_ONCE and WRITE_ONCE you=20
-> dislike would still remain.
->=20
-> As a side note it would be really good to eliminate the prepare_job=20
-> callback
-
-Yes, the user should prepare everything needed before even submitting a
-job. Maybe we can begin by marking it as deprecated.
-
-
-
-
-P.
