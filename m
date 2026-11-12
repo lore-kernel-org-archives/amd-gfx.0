@@ -2,128 +2,89 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7680606A31C
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 20:32:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29A9C606A331
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 20:46:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=xRFgB/0J
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q+n5XFq4
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6899010E650;
-	Thu, 12 Nov 2026 20:32:01 +0000 (UTC)
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011027.outbound.protection.outlook.com [52.101.52.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C5F110E650;
- Thu, 12 Nov 2026 20:31:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ov7X7QigIX2OBlYtVM3fUkIB0n+kIWLxxkGHBtFS0E5X07eA6MKjCYgDTBLh+C7Po5wDaWKPZwvdOYZDDfLG8aNb6rLUvcgUdjVmOROhZIWgT0BTAY37ZtFRjHO2IzOkrNRl+Lrg4eL0noiy6CH7o2oyx8i+7vPYw8fFM+9NekfIniPiSukyAO0jMxOMOumYLKKDpQ9MOwW5Kvi/Pby/OrLGD7wW9314rOMRnrhKPpZJ5pq5m+56RCUh1GJLCEQPud5vbUEN+s/bOAJbmNQ89zKIB5qgvX5X6OaDq2dozat+o0ghASgw6kv0h2Dlzz7H3FPnKz4deNNzN0Ha4LLbfA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/hugmw+zz17xAATfmlEg3iGqApO5X5JOS2k7qdjrMcE=;
- b=HorNjh66qFTCzVlU3Pk4lK6m2nq9x+9icJ+jt0haBIleLiFMuldoUeWGEQb7hemK7PwcOkMRrjO8126hmzmyJpXfVr32qn2EZ0x0gOWmryDRYtfaZlk8EH4LyNvVl8PgXi8yfNSTNmXpdGyPL03xSFNg35OR+MLRDSIVhsvDnr2xfbjS8m6Zpvmc0Un8bJS2HR7P1Ofu3Uy3o+Ptlt6VeHQkOPyf/XA3TLdAVYg2pSp5GyWRoHzK6Vlis5QMFYYgFGjXDfPIsxTfmX4kc9HoOSTZquSHUzp5BhJtxfB2f7wTi9Cu41RwSiEUj7kJr6CDfGC+Aiu8+c/Yh64KfEweXg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/hugmw+zz17xAATfmlEg3iGqApO5X5JOS2k7qdjrMcE=;
- b=xRFgB/0J/MSY4j1aWhVd7DabEe8QX4Zz5Cml0r9v6YlemfxgYWLWm1RCmeEkCfUOM0GsnjdAFDltzYDTsyqLhw9T8JDyW0JzzOAVHAWGFH3mW+LNpBSNtPhHuTNDgU/fhMogu9rkXj8RyuDJHHT+SvhHJ4EpkQ4RtWQ1dre3Eww=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from IA6PR12MB893085.namprd12.prod.outlook.com
- (2603:10b6:208:601::18) by FT1PR12MB777854.namprd12.prod.outlook.com
- (2603:10b6:170:24::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Thu, 12 Nov
- 2026 20:31:52 +0000
-Received: from IA6PR12MB893085.namprd12.prod.outlook.com
- ([fe80::3f4e:1f38:3db2:270a]) by IA6PR12MB893085.namprd12.prod.outlook.com
- ([fe80::3f4e:1f38:3db2:270a%5]) with mapi id 15.21.0615.009; Thu, 12 Nov 2026
- 20:31:52 +0000
-Message-ID: <9ba0ef86-2e60-406a-a390-f989e4ed2237@amd.com>
-Date: Thu, 12 Nov 2026 15:31:50 -0500
-User-Agent: Mozilla Thunderbird
-From: Harry Wentland <harry.wentland@amd.com>
-Subject: Re: [PATCH 18/19] drm/amd/display: Replace dc_get_config with
- per-option config reads
-To: airlied@redhat.com
-Cc: Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Austin Zheng <austin.zheng@amd.com>,
- Jun Lei <jun.lei@amd.com>, Kenneth Feng <kenneth.feng@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-References: <20261112-amdgpu-dc-cleanup-v1-0-0fae41718ad2@redhat.com>
- <20261112-amdgpu-dc-cleanup-v1-18-0fae41718ad2@redhat.com>
-Content-Language: en-US
-In-Reply-To: <20261112-amdgpu-dc-cleanup-v1-18-0fae41718ad2@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT4PR01CA0323.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:10a::29) To IA6PR12MB893085.namprd12.prod.outlook.com
- (2603:10b6:208:601::18)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A550410E6BE;
+	Thu, 12 Nov 2026 20:46:40 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22BE710E6BE
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Nov 2026 20:46:34 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id E549F4461D;
+ Thu, 12 Nov 2026 20:46:33 +0000 (UTC)
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+ t=1794516393;
+ b=dS8daodbhVPbMz6sVZFe2ClEvSjDxfLyeCo2CHidsD2WWXALuOzLBqi+ewUKJlBu3cB9
+ bWln72sQ7lCH3DJ9pRyZIfjx5WLs/l29spY4WnNtfo4LssmFHhxB7cn8xMeS9Ox0v2qsS
+ 6FnG7sa/9wUIXJsJM0mNys2xjl6f3AM238B8EAWw+YePXUD5tIELaWy/oJXRCqVlaA2k5
+ yka/Nm14AIIDdU9JIN4qoeZFIjlXN7bYkNrZgMcgpYQQ7fRARRwPyH8npa21wL25Fgsrn
+ iuHNkgGfFqg6uFCTJSmmtrW5As6xTTYZqFyKxWpwSoEy2a3l0Ms4uccrrqtrcHrQgfw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+ c=relaxed/relaxed; t=1794516393;
+ h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+ Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+ X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+ X-Original-From:Reply-To:Content-Transfer-Encoding;
+ bh=bhU8z/CBubfLQRWKxYA6pZiIC3DUL7PeabLeVW6uC9M=;
+ b=Fw8znp9VeZe8Zqfgs0fo6F4l/KVlkkkv7nUtuOlrobPe2W1OcIrzDZAyXJ0K3obf/3l2
+ IPxNb2bx/QNaEN6dRxbErI6Tt+PiLX9LN/9rBsCoWz/MK213m0iiumx6Xw3yoZlayhUDm
+ vcJVakTk78BstssNsDOZBvDS+mb3WNA41Gcy/j+s7dYmz8SegUSmFZF2uTii6FKgULtD7
+ HIgNfSZVITMhcL73v/TVHfwR2L+s5PpqY0W+Afg8mKG37htreButNJyJoyjRIJyNYxWHw
+ BhYL6YBIQLLcjxfrrksLwnXp+F1oAa/qa+XAdR2mPylnxYMJ8vJOw38sIlKEWpvT7hg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+ arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+ (No client certificate requested)
+ by smtp.kernel.org (Postfix) with ESMTPS id 4FF5F1F000C4;
+ Thu, 12 Nov 2026 20:46:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794516393;
+ bh=bhU8z/CBubfLQRWKxYA6pZiIC3DUL7PeabLeVW6uC9M=;
+ h=From:Date:Subject:To:Cc:Reply-To;
+ b=Q+n5XFq4WoZxnFdGO8/Bqq3ObpatbHrfgboZc5cgkIW2UaMyPMsY35utuxaWxUH7t
+ 6O+eXNFfbHC24/BgkFN8zKc9E0rb0Myn0vT9MviRipo4xIJ5KNiWNolLqCuzigZEpN
+ g5d6n5AmIxWOcg95Bfhrr6INgUPywaoTCj780YpnoZxreCQb3+1iBY2nVoubEgFBrp
+ r7+5YoZH1AdxsAVffOeGZyYWO4ZLEAQQg1NSTnpk+3Hy0qqJfoDh5foNr/Q1hA98WT
+ 5ZbM/8wmVQhnbmxxU2U0DTdk62SeKprKQEUg33cFhnMUN1jMDrQUMaqY0p3RLtPv++
+ +Zt/i9kyYkv1Q==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+ by lkml.kernel.org (Postfix) with ESMTP id C4591474DE;
+ Thu, 12 Nov 2026 20:46:32 +0000 (UTC)
+From: Jameson Pair via B4 Relay <devnull+jkpair.gmail.com@kernel.org>
+Date: Thu, 12 Nov 2026 14:46:05 -0600
+Subject: [PATCH] drm/amd/display: Add ASUS ROG Bulwark DG310 PCON to
+ FreeSync allowlist
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA6PR12MB893085:EE_|FT1PR12MB777854:EE_
-X-MS-Office365-Filtering-Correlation-Id: c6bf6edd-deff-47ac-5919-08df40fbfc37
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|23010399003|18002099003|22082099003|6133799003|261009223027099003|11063799006|56012099006|10067099003|4143699003|261102123227099003|261102130727099003|261022105027099003|261026121527099003|261022075727099003|261028144727099003|261021121427099003|261026140227099003;
-X-Microsoft-Antispam-Message-Info: xj5lAYAuwlcO31hR+4V6UCb8F/jbXVL4TznhJ4W5qjfPYQ5cPEqg5OeHmZ6AGi+cSlEyqzDQtD49hPomT6jGQCQGs+jrVnozzhUbrF5x4At6CBZvyiM8B7/J4RddY6sh63zSKsXFG//Ode80PTzdjgLIC9EtLyFoeyKS+ZYKWxMrrkqaVsENbY6CDE5TEVfdLrp1ndz183IGV2hWofZifJSxSVFC79xvigTrcv20jGRmPNJJk4Uv1XL3b/YCgLpRq9T0SFSqCVDIyyN4a0V5jGlJx98uuwajkT5jugEmqC5cp+nT+NpDU6A3SxNxC/RlTlnrHVD5BbdMZRTKA/TWPW39XoJyWC0hYLMPRZF7RW42NO5VUub8nkzK5+/QSXtQiXG8eHAi2qMphwQGll3vbV7GLUSCEt6lLmQavzTe81x0bUYm5IK5Rm4Uc9PMnhqtjv6CF6caRAZNCoIAOrQAJI3VmwjFTNT060AXxIyKpzTKWyVUPX+gXP/kCG8BrGiKxxTd12hi+FrbIlKGewDn0bEhu9JP5GdlSDkNWgB5eETiAMVF3OYfauS/vGhft4pjF+/6ZfLX7WqOk6JFQYjf8sn/cShk5iy2yoWIjHGmGS5popDvoNqosMSJy1T9vTdK1Vjp0LqbXuyYAsMKRpYKjc8C7xKPU/v4JEuMbDSshRA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA6PR12MB893085.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(18002099003)(22082099003)(6133799003)(261009223027099003)(11063799006)(56012099006)(10067099003)(4143699003)(261102123227099003)(261102130727099003)(261022105027099003)(261026121527099003)(261022075727099003)(261028144727099003)(261021121427099003)(261026140227099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bTVtNExWaTdyeTVwR3VEVlhHcmZuTGFhb1FjdWl5TlNadEVZazhPclluREh3?=
- =?utf-8?B?dGs4VlhaTW5STkdvd0Z6R1doUGdoWnozMEFmeXp3aEkrVDNhVDJkRWR6ZC90?=
- =?utf-8?B?SDJFamJzNjMvQTdMWTlBRmF1RlhndXlJR2szWHY2NEY0TWp5MGpVTUhDOHpw?=
- =?utf-8?B?YTk4RlNMRGhUK0VNMForZ282cmNxMmlkSjhiRDhkUWpKOUkzQWlvTGxhZkRs?=
- =?utf-8?B?MWtoQjU0MHBCNTJwaldyR2NDcWZJUzZrKzNIRjBqVVBvdGk2UDA0UW9iV0Ns?=
- =?utf-8?B?Mm52cG1qY25SM001L0puQUEwSFozTTBIUGtEVlRDZUJCenQyNUNubm5wZ3FZ?=
- =?utf-8?B?NEI0enk0TjNaTjZQU2Z6b3h1V0lvWTlEdUNFRGNsTTlvRjNOK2czOUhtM3B0?=
- =?utf-8?B?emk5aHdnVmVuc05udEhrcjBnSVlJeWtNUnhSQ1dPRXRoVTdSbUV3OGJ2c0tU?=
- =?utf-8?B?Zk0vOXo1bWdzak5yOHp1WE93NDJOT0RTMWE0VEVEQlhVbTB1RDdPQzY0VXN2?=
- =?utf-8?B?QjBlTHlockY3T2tEd1NNbTBNSENoVmlKYWxDODgreWtZSXRnaVhFN1d6K01x?=
- =?utf-8?B?SzVXZXpYMFI1K2dZZk9nM1lqRnpzVHk3WnNFSU9kZ1dVbi8xYkZBSlFQNDFk?=
- =?utf-8?B?U2cyVnZHL0RaUkxscjF4T1JuQ0tDYndWMlA3ODR5bHQzT0p3QnlOMS8zNXNr?=
- =?utf-8?B?MERrQkZqZGpMTXRIY2ZkQVc2ajNyRCtRM2c1bmgyTXJ3VFdjWkNEa1dnTGVz?=
- =?utf-8?B?NWczNGpDeFQwbzVRZythTFJVNHJzQ3h6a2pKelF3V29qaDM0dHZhc1hUVzNl?=
- =?utf-8?B?VUJqSFFWRlpWRWlyM2gwZzlDWVVKQ1lVR05FU3l5b1B2aVFmbENydGNCZDND?=
- =?utf-8?B?TnhMUVJCVmJDMjZZelM1NVVsTllzbFJXNjJHWTRHeVJSZnJVRmVLaVVtOW5P?=
- =?utf-8?B?RkpIRDhtSGY5a1ZjekZkUjBRWnUvc3ltdVpLQ3l3Nk9jZTNaTmdOempVR21H?=
- =?utf-8?B?MTV3VTZYZ1lDc3RDMHdpYXRHbFhoZGRickxmN2twakI1L2paZEVHUHRlNVFs?=
- =?utf-8?B?V2VTbEsyVWRvMk8zM2xqR2RvT1FYMHd6ZDBmdWkyRkxkUHBZQ0FkRldCOXEv?=
- =?utf-8?B?Ym9LV0JYM3JUd0htN09EeUV2a0RRMlF5WXdPektCK3ljbGxpTlZhNzlDQzRB?=
- =?utf-8?B?Mm02dVM2UExySTJJU3ZkQ2dLcEgwampMRWNodkhKZjF1SDVvUmVWd1V1MUtw?=
- =?utf-8?B?UHFKRnA5bUExajExOUpYZjNKR2dnSmhpdTRTT1YrSlNNaWw5ekpaR1NVY2pa?=
- =?utf-8?B?Q2ZGRjNYakJJMjBUcDBGK0p0WGRXeFNUdEU1d05iWEYrYkswNXZVbW0zTFRJ?=
- =?utf-8?B?TVZZVStPZ1pTYnBFQXBGY1N6ZTVwa2lJVEdjQnBoTmxGN2NMWnlDaUgwbHd6?=
- =?utf-8?B?NUp3aXdEc3gyMnNKNlhvbE1vZERXeVBPd205a3RlZTUvK0tDajZHbFZJMTVa?=
- =?utf-8?B?emN0ZmtoMEw2ZHdlc2hVeUord05hdE9UalJzUGtaRUx0SC9XSHlvVWNaU29O?=
- =?utf-8?B?UU13aThMeWtMOWlmNUE0K2szbzF5VjZlZ28rWG41Rk1NQ1JuVnVGdU1zaU9K?=
- =?utf-8?B?Z1hLQzZaOGR5cTh4ZVBBRnlqelpSS05KRU1pdm42OHhJYng2UmFsK2tkeE9R?=
- =?utf-8?B?S2szeXBjQndpM3NCUGZ0czZFMjNkV252M2ExTmJQYUMvYzhaQVJqNFE5ZlBS?=
- =?utf-8?B?WlpXc2hGVHFTOEJIRHNaTGxpcXpVenJkVEpEYXRJWTgxK0g1akIzZDJJM3Qx?=
- =?utf-8?B?NjVpVVVFQzhDZkRJMFpuUFJoUUdaTVJ2V1ppZS8vSmJCVm0rZkRpenFLT3Rm?=
- =?utf-8?B?cjF2bmNRdGJOMUhscS9aNXB5SkFRcVlYcUg2Zm9rOWpDNHZ1RWlJVzFUbnFQ?=
- =?utf-8?B?TXZwR1hSSURDVGQvYTRlREFSY1dWY0Y0YldkVmE0MUdWSE9HRkc5blE4QVB3?=
- =?utf-8?B?T2NxTERseC95RHN0U1VSSlVSOFB3bk1Hdi9vY0VLWVp5eFJXTERrcWZhTDJx?=
- =?utf-8?B?R2MzdnV2ajdpNWg5TnN2NEFNZFQ3L2JXTURaSEdFMnJHajlXUlV4MmRnVnN2?=
- =?utf-8?B?UlpWdXBnbk1aZ0ZHblJwT0VNanA1Q3hyUDJadlRBKy9DQnVaVFVUclhuMW1U?=
- =?utf-8?B?TTVUV0dDWmR1VnVRTUV4a1l1TDdpRG9qd1lZRmhJb20yMFJhaWRrM09LRWVU?=
- =?utf-8?B?dnZ4U1hUbW1ObzQ4TkFtS24ybHhrU3JFU0JWc09BWjROOE1QdmZWQ1NISG01?=
- =?utf-8?B?OXY1SXExcC9Na2dra0ErRy93ejNJcWx0Y3RtejZ1ZEZyUlVjaDlFQT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c6bf6edd-deff-47ac-5919-08df40fbfc37
-X-MS-Exchange-CrossTenant-AuthSource: IA6PR12MB893085.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 20:31:52.4096 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: o0d68wLg/ax19OEvcOYrrWX6+uXB6QxfGHAh9eaX82qoaR4kWxi8I/RRfLxrY2GMSCr2bLnLIt5adFxZreZKyQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: FT1PR12MB777854
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261112-dg310-pcon-vrr-v1-1-4888b7097218@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/yXMwQ6CMAwA0F9peqYJrejifsVwwNFhPQzSKSEh/
+ LtRj+/ydqzqphUj7Oi6WrW5YARuANNjKJOSjRgBpZULMwuN04lbWtJcaHWnTsI1hKE7S87YAC6
+ u2bZfeOv/ru/7U9Pru+BxfAAxIWJ2cgAAAA==
+X-Change-ID: 20261112-dg310-pcon-vrr-427977a452ff
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ amd-gfx@lists.freedesktop.org
+Cc: Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ Antheas Kapenekakis <lkml@antheas.dev>, Jameson Pair <jkpair@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794516392; l=2493;
+ i=jkpair@gmail.com; s=20261112; h=from:subject:message-id;
+ bh=IaHtGZwdEM/yO/9DxMrgKbM58p1r4Zl9A8RjAoZx16k=;
+ b=iowwwB+Cy2pUmh2L/LEBmRWRiZaCMSqauWHoCFrUBz2dTP8vuv6NwHxqu0KaHbiPcq78BpOqg
+ 8gjvHU7Q9eoDNOIGWxjdW1NiOLKfbLLpz9TFlDgJwU8/iFwP2X4tTmu
+X-Developer-Key: i=jkpair@gmail.com; a=ed25519;
+ pk=GeD1yXy+BumOgxcXosI+5+L+1j8T0KNZzjWrBe1gnqQ=
+X-Endpoint-Received: by B4 Relay for jkpair@gmail.com/20261112 with
+ auth_id=1504
+X-Original-From: Jameson Pair <jkpair@gmail.com>
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,70 +94,74 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: jkpair@gmail.com
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/11/26 20:43, Dave Airlie via B4 Relay wrote:
-> From: Dave Airlie <airlied@redhat.com>
->
-> The only external reads of struct dc_config were five runtime-mutable
-> options. Give each a purpose-built getter (dc_get_disable_ips,
-> dc_get_enable_frl, dc_get_consolidated_dpia_dp_lt,
-> dc_get_usb4_bw_alloc_support, dc_get_allow_edp_hotplug_detection,
-> complementing the existing setter) and drop the dc_get_config view.
-> KUnit tests install the options through dc_test_set_* setters.
->
-> No code outside the dc directory references struct dc_config in
-> production anymore.
->
-> Part of making the struct dc sub-structures opaque outside DC.
->
-> Signed-off-by: Dave Airlie <airlied@redhat.com>
-> ---
+From: Jameson Pair <jkpair@gmail.com>
 
-<snip>
+The ASUS ROG Bulwark DG310 dock exposes its HDMI 2.1 output through a
+DP-to-HDMI PCON with branch OUI bc:be:fb. The PCON sets
+MSA_TIMING_PAR_IGNORED and ADAPTIVE_SYNC_SDP_SUPPORTED, but it is not in
+dm_freesync_pcon_whitelist[], so FreeSync is never enabled on sinks
+behind it.
 
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_test.c b/drivers/gpu/drm/amd/display/dc/core/dc_test.c
-> index 04c799ae33d3..6431afb2b5b1 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_test.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_test.c
-> @@ -105,17 +105,36 @@ void dc_test_set_idle_optimizations_allowed(struct dc *dc, bool allowed)
->  }
->  EXPORT_SYMBOL(dc_test_set_idle_optimizations_allowed);
->  
-> +void dc_test_set_disable_ips(struct dc *dc, unsigned int disable_ips)
-> +{
-> +	dc->config.disable_ips = disable_ips;
-> +}
-> +EXPORT_SYMBOL(dc_test_set_disable_ips);
-> +
-> +void dc_test_set_enable_frl(struct dc *dc, bool enable)
-> +{
-> +	dc->config.enable_frl = enable;
-> +}
-> +EXPORT_SYMBOL(dc_test_set_enable_frl);
-> +
-> +void dc_test_set_consolidated_dpia_dp_lt(struct dc *dc, bool enable)
-> +{
-> +	dc->config.consolidated_dpia_dp_lt = enable;
-> +}
-> +EXPORT_SYMBOL(dc_test_set_consolidated_dpia_dp_lt);
-> +
-> +void dc_test_set_usb4_bw_alloc_support(struct dc *dc, bool enable)
-> +{
-> +	dc->config.usb4_bw_alloc_support = enable;
-> +}
-> +EXPORT_SYMBOL(dc_test_set_usb4_bw_alloc_support);
-> +
+Branch DPCD 0x500-0x50b: bc be fb fb 48 44 4d 49 62 01 40 84
+(device id "\xfbHDMIb", hw rev 0x01, fw rev 0x40 0x84)
 
-Similar to the comment on Patch 19/19, this creates a bit of API
-bloat. Something like `dc_test_set_config(dc, config)` might be
-better.
+Tested on an ASUS ROG Xbox Ally X20 -> DG310 -> Samsung S90F (AMD VSDB
+v3, 48-144 Hz) with a 7.3-based kernel that also finds the AMD VSDB in
+every CTA extension, as the common EDID parser does since commit
+ac10a874fc8a ("drm/edid: Parse AMD VSDB for FreeSync refresh range").
+With this change VRR is reported capable and works; without it the
+connector stays VRR-incapable.
 
-Harry
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Jameson Pair <jkpair@gmail.com>
+---
+One-line allowlist addition for the DP-to-HDMI PCON in the ASUS ROG
+Bulwark DG310 dock, so FreeSync works on HDMI sinks behind it.
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 1 +
+ drivers/gpu/drm/amd/display/include/ddc_service_types.h   | 1 +
+ 2 files changed, 2 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index 3067ac5bb0cd..0c0d7b850c04 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -1712,6 +1712,7 @@ STATIC_IFN_KUNIT const uint32_t dm_freesync_pcon_whitelist[] = {
+ 	DP_BRANCH_DEVICE_ID_90CC24,
+ 	DP_BRANCH_DEVICE_ID_001CF8,
+ 	DP_BRANCH_DEVICE_ID_001FF2,
++	DP_BRANCH_DEVICE_ID_BCBEFB,
+ };
+ EXPORT_IF_KUNIT(dm_freesync_pcon_whitelist);
+ 
+diff --git a/drivers/gpu/drm/amd/display/include/ddc_service_types.h b/drivers/gpu/drm/amd/display/include/ddc_service_types.h
+index 827e9bd7c5cf..dafecbd606a5 100644
+--- a/drivers/gpu/drm/amd/display/include/ddc_service_types.h
++++ b/drivers/gpu/drm/amd/display/include/ddc_service_types.h
+@@ -37,6 +37,7 @@
+ #define DP_BRANCH_DEVICE_ID_001CF8 0x001CF8
+ #define DP_BRANCH_DEVICE_ID_0060AD 0x0060AD
+ #define DP_BRANCH_DEVICE_ID_001FF2 0x001FF2
++#define DP_BRANCH_DEVICE_ID_BCBEFB 0xBCBEFB
+ #define DP_BRANCH_HW_REV_10 0x10
+ #define DP_BRANCH_HW_REV_20 0x20
+ 
+
+---
+base-commit: 47df73aa49d1988c8f684b7caf8be6570e966844
+change-id: 20261112-dg310-pcon-vrr-427977a452ff
+
+Best regards,
+--  
+Jameson Pair <jkpair@gmail.com>
+
+
