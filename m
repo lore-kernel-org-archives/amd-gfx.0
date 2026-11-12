@@ -2,68 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA4EB606A321
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 01:44:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A90D5606A31C
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 01:44:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NWCmK5Ly
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YynLZdWV
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A7F810FED5;
-	Thu, 12 Nov 2026 01:44:04 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3509910EB29;
- Thu, 12 Nov 2026 01:43:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3446910EB18;
+	Thu, 12 Nov 2026 01:44:05 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2768110EB11;
+ Thu, 12 Nov 2026 01:43:53 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1678540546;
- Thu, 12 Nov 2026 01:43:54 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 8D0936373A;
+ Thu, 12 Nov 2026 01:43:52 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1794447834;
- b=CY9AgdMHsj1WAUW+iIRlhbzpLKl3jI+Q5yCuwaO1TkkWtksYk5xuYQVxsd4waV1O6QcO
- NJfkUqPbNQy6dXTSdBv7dWyOy7fjPcxft6twHD5ieNYw1/41+Q1Qz3/11bKCxUYclFnoq
- zGZG9SSwlASRqCikF5Q9rmmFj/bzjI7QXR7RqHhDVsNefZHvk8tDZIrOtFye3BJq7rD+D
- gNw6MibrmQsFPQ9xT5HtoaMs2Id3atnVA8UNrk5ewJMKBVFKHcQYvhT1B5L+cTZGiwdJq
- mcqnb/fpJOHLk/Bij/mi1QBcZW2uukRqTs+owUI5yoN7KfpXOgYC/Mtm8C8IQxpkGdg==
+ t=1794447832;
+ b=DfEU/df9Gb9xBfkm43x3Z2Xxfqe1jn2WM4u0pG+XRpgA+VeCd5fw2FXqBN1un14/zLk7
+ A04faaQCP/4VaZPSpSy3oZKkRSK045ehZsdHpMHA3DV++34S5A1uCm7v2HTatfk1IyIGr
+ U7a//O+iZNdTLsDo/A2o8HSJdpezDLxiGvZpIw6AylTnvAOGD3FiFC/ls4j51b9YvqwOd
+ 98wSoliAV1mi5EiDWm197GrrYRHzC3IXGBzws8EcHVAkkb1Jdf3AuiBk+eJw4jDrtNDCX
+ SkkH1rkWs/x93Gih7bRJW0JHd111S0vDFGfR/w4DsLRsDhqQHfn2fmePaPqf8vLQWfA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1794447834;
+ c=relaxed/relaxed; t=1794447832;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=vPgp7ZPywdn/3IgSlgKblBnXHdugnrWyF8BU3xuvMJ0=;
- b=QjZXgUKr8xxpFQvv92wekswIWjcx9geL3YVSDt7Yf7lG/VlnuyfsGsnCySiTI4pBPNN8
- ionHRvwYRSSEv3W00epZnLO8s2A+3cB33VKsNrsOc5U7OCpSONgms5SVfM0wzD2ius60i
- XVPNn2EUX90O7w9N+FRHaVMzNmYCOWwXxw6ALIrKQXCph5mxIjlla/9okJsGoRAfFTixw
- ulzziArfuCqsPZ8FcEDi3E4vVr1jTXHJn04f+IrV7av4bEu9iCm+HjG71+765yNJWh2zO
- 3fEiwaJPg30KHACsvR9THpqv5lrZ/bHuu4uyZD6y4P2/kQdRhmAlOf9qi2Ikbm9yu9w==
+ bh=L5tf1/s9iKQNhb+4DGq0HEktvNPoLXRrCErcYFrWVnM=;
+ b=svi84yoFgjxt2/wqups/DFTyuS0F8o1/ecl1qKbnooFXP/eRpUdM1acEkU5IoD9g17yO
+ 1YQ6wgSSFYLJX2CmqNDvy6OHU7z6oEVn97s1tY+72C4Gt68yAveYpn0gmIJD/v/Fx3EcG
+ 4C28UfeKgg591dDlD6rlbZv6CotrmuLq8YW+6GIMqL/NCTSzRu61/5KKfGybAf9ns2I4e
+ UmYf2ONk9Yy/GCT/3Ot8xEWGtE9cE57zPu5BJJpsflNp7+pmkVEZutzqEZxMprTohePks
+ kwuyQZpNLwpXqQX4E8UEpaKia8to03JBm1PrCQaJRNSMFKkDz/aPl62+NQddaIGXsVg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 288BD1F00A12;
- Thu, 12 Nov 2026 01:43:51 +0000 (UTC)
+ by smtp.kernel.org (Postfix) with ESMTPS id A7D4E1F00A0D;
+ Thu, 12 Nov 2026 01:43:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794447833;
- bh=vPgp7ZPywdn/3IgSlgKblBnXHdugnrWyF8BU3xuvMJ0=;
+ s=k20260515; t=1794447832;
+ bh=L5tf1/s9iKQNhb+4DGq0HEktvNPoLXRrCErcYFrWVnM=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=NWCmK5LyxFO4BrkoZZMy7CGbglieqfZDJUgZSGAMY65qacdX6awHAmNEuz7fVCFyh
- fqNYhZnsvOK19F1bamUDbgem+5Jka1ReaHqpV8MrXWYw44aCXS9zg39zKyqLHbP8m3
- 7vltEVJi9G1Mgb8lANYRZ5fCSpXGEYplKOCAUONXPoa5OJeGEmPoDnikPGszO+x6I5
- cYSGve+izjxChPQqwljcRW6r+zjTNUnSIrLnBkPyOpE6G99yDm+yI7sqYL284PU/77
- T/rexOExHldotmOBIEULrevjHdahqbh1UCwqCjLH1m0FmslFOpgpzm4DL/0AbOTgTX
- ONGemf+Mfjh3Q==
+ b=YynLZdWVOrsba4kBcklhkoZHKQCqyleikYoYdqzaRXa07Z5uB3zB07wBvi+IirAKA
+ zCItYlkAjPbBPORkKeF9ewbN3a/DTIHFgf/5rjvOK+cMpOxukG6cqE7lENOccUAV5w
+ UaTq4f+059+63e/TNygMINx04OvB5BduJfH6nu3kGHWudrnDQq/Ho5jfLINuTMIo51
+ jT4v0hqaHlb/ykiEwvuTiZWap6wJsCGTnat2k5X0+Q5svz4UsWH49v8qScsbzcOdGT
+ KqRLltOMPfrh3SO2/6aM1Liv6dxLVBuBygDbAYgeZVhCdqdyQrW/FkXT3s5ZAH9wpw
+ NHrHvZFcOQHdA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 57911491D6;
+ by lkml.kernel.org (Postfix) with ESMTP id 30976491CE;
  Thu, 12 Nov 2026 01:43:49 +0000 (UTC)
 From: Dave Airlie via B4 Relay <devnull+airlied.redhat.com@kernel.org>
-Date: Thu, 12 Nov 2026 11:43:40 +1000
-Subject: [PATCH 05/19] drm/amd/display/amdgpu_dm: Use DC accessors in
- psr/replay/dmub/hdcp/irq paths
+Date: Thu, 12 Nov 2026 11:43:38 +1000
+Subject: [PATCH 03/19] drm/amd/display: Take struct dc in public DSC
+ compute helpers
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-amdgpu-dc-cleanup-v1-5-0fae41718ad2@redhat.com>
+Message-Id: <20261112-amdgpu-dc-cleanup-v1-3-0fae41718ad2@redhat.com>
 References: <20261112-amdgpu-dc-cleanup-v1-0-0fae41718ad2@redhat.com>
 In-Reply-To: <20261112-amdgpu-dc-cleanup-v1-0-0fae41718ad2@redhat.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
@@ -75,21 +75,21 @@ To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
  Dave Airlie <airlied@redhat.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=19612;
- i=airlied@redhat.com; h=from:subject:message-id;
- bh=6a/YqPSTy1vgUxCsZOjr+QwHswyf6cWD4E2N8Gw6QFU=;
- b=owEBbQKS/ZANAwAKAQx081l5xIa+AcsmYgBq9RnPJ1JwI7/zpazaYYOznIaBAOneSwZ7B18MW
- pWk9GgpShKJAjMEAAEKAB0WIQQQptkdobBb0p9t66wMdPNZecSGvgUCavUZzwAKCRAMdPNZecSG
- vqmdEACraGyJ3yI+Z592ki7FPHPkpEOJNXv/go8bkaobgFVr7Qj6YMj+FbBU/l5/epqs/Phne+p
- B1Zdad3fjj2BrTVWiE4C7p966mNahIepFXpMYJuP8u8DfzUAedxvtOJfb/jOzz7qjHr4VRg/MJb
- 8oxWTyNCdqp9z42eppev8Yz/wwry0fHVFXFoNSMzPTV2tYpLjw1urgwuc93KY7FIKw7bCgNFlT0
- rSERjVF8y7Y8Nqz6RvParKrMZsrPwiqlWtfRBqIxfcW6PkUad8PjtFIwnLyNEeLkGLGXucy/cQs
- LVSgLnFmLaTovza+pv7oT6uQpUaHtXGEfaSaRa7XdWo+TuVvaF4XaPBcAt/fITAfkZMUK3g7K8Y
- b788esGaOl7Lc3HiqKSEXpwr8zQoTQJfAq+eO0AzFH3ogIIiFukhUCzWGr23Ig5Dx9qYFanzxwe
- m4C2F/xcEgDC2xpBcbiV51BafEkbq6y1M1Xg3IsN48tLLZgOHGOWyZ5UiZwkfbeAy1ETDlMGcOI
- KrXy4/53fax6rBFE4wSqmDywcNKtd4bwDv3z0iyF/cih8OKSkGB2ptTXI8f/8ibnC7G9rdpyh25
- cN7Rqb4XBFXGrMZ7WHfm29AWDKUfiBcYym8vCvteVSk2n1uvQ1ymbDJvbNx/PBYjlCIUW4r6EFQ
- rh/JaV0/FRfgvqw==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9476; i=airlied@redhat.com;
+ h=from:subject:message-id;
+ bh=KleHrsn8jn4Xkzu0KD5D+9d34cBgi8hCZwvwMZjdwA4=;
+ b=owEBbQKS/ZANAwAKAQx081l5xIa+AcsmYgBq9RnOXJX+F56mjVpZLj8cC8d9xmzugcCU7L1kR
+ vYlk072WcyJAjMEAAEKAB0WIQQQptkdobBb0p9t66wMdPNZecSGvgUCavUZzgAKCRAMdPNZecSG
+ vuJrD/9+LX6pwxfc0yhSLYbwSmMBPF/txBJbP95EbOIu4Nl5GGHx/MNyscz5Uy7KIHtVqZvtfkC
+ QOmVK+D+ehMdhYhzSOGGT8yvPmquIcaUFP7l/L3kAm6lQFldrZJCBIAOa9ihn4hH9g60vZ8g2j4
+ ZSovwJpHZXhYNElmZMd1CNH2pA1ScowNRvAn/j0EtzRpelGMllIkYrYpNhdI+94Tq0K3CbPiGgS
+ t4cfW86ZJhewJLVYUS0/coGIXu5G8u5tFer0HOp9vW8rbCHuszJ51Dg9DalP4eAahh+w5PS/j61
+ PMDSJnNlrPP+sDaT1E/o0B3CGBfL8aS3fBHDIgzaaJCHwKPN1ZMZd77FpczS0b621UMOWQV6MUF
+ zLL1bGCgic6gcfJDsLtwywoWPFjjo84i+Jb9vv8qAVVZzAQNc1RGwJ5S+4ssnhRPilqkHxWzl/F
+ EXOvE4qZXqMpwk4jm+VFgtbmgyd6KkayOaIxzxh76uaXmFq0wr84nAhCEfQQsldkEdw4UhCZotT
+ hwbdOtSv6tkj59TYxRgVarmY6ykW3NUEN4u1iW7p1Gm0c53qLGNZNrbJD8LI6/+7tD1pKQKxZX3
+ BxPfBg9KeF9mkX+GWb7WjwXb+gZJQPnsZxcHQzATRBD17gk0jsv9rK/8xl0X78ER7jAggiZzxSJ
+ pw8zioAjuOP97kg==
 X-Developer-Key: i=airlied@redhat.com; a=openpgp;
  fpr=10A6D91DA1B05BD29F6DEBAC0C74F35979C486BE
 X-Endpoint-Received: by B4 Relay for airlied@redhat.com/default with
@@ -116,446 +116,219 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Dave Airlie <airlied@redhat.com>
 
-Replace direct struct dc member dereferences with the DC accessor
-layer in amdgpu_dm_psr.c, amdgpu_dm_replay.c, amdgpu_dm_dmub.c,
-amdgpu_dm_hdcp.c and amdgpu_dm_irq.c.
+dc_dsc_compute_bandwidth_range() and dc_dsc_compute_config() took a
+display_stream_compressor pointer that every caller fetched with
+dc->res_pool->dscs[0]. The implementations immediately derive the dc
+from dsc->ctx->dc anyway, so take struct dc directly and let DC pick
+the DSC engine internally.
 
-Add dc_get_dce_version() for the frequent ctx->dce_version reads and
-split the debug options accessor into a const read view
-(dc_get_debug_options) and an interim writable view
-(dc_get_debug_options_mutable) for the remaining module parameter and
-debugfs write sites.
-
-Also constify the dc_color_caps consumers in the color module so
-dc_get_caps() read views can flow through them.
-
-Part of making struct dc private to DC.
+This removes all res_pool->dscs[0] dereferences from amdgpu_dm and is
+a step towards not exposing struct dc outside DC.
 
 Signed-off-by: Dave Airlie <airlied@redhat.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c | 41 ++++++++++++----------
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c | 39 ++++++++++----------
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c  | 22 ++++++------
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c  | 10 +++---
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c   | 10 +++---
- drivers/gpu/drm/amd/display/dc/core/dc_accessors.c | 12 ++++++-
- drivers/gpu/drm/amd/display/dc/dc.h                | 10 ++++--
- 7 files changed, 85 insertions(+), 59 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c | 12 ++++++------
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c | 14 +++++++-------
+ drivers/gpu/drm/amd/display/dc/dc_dsc.h                 |  4 ++--
+ drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c             | 17 +++++++++++++++--
+ 4 files changed, 30 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
-index 0ea8f9a582cc..af2cda9080d9 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
-@@ -179,6 +179,7 @@ dm_get_alt_channel_pstate_switch_aperture(struct amdgpu_device *adev,
- 		G7_PSTATE_APERTURE2_ID,
- 	};
- 	struct mem_reserved_info apertures[ARRAY_SIZE(region_ids)];
-+	struct dml2_soc_alt_ch_info alt_ch_cfg = {0};
- 	u64 aperture_mc_bases[ARRAY_SIZE(region_ids)];
- 	u32 i;
- 	int r;
-@@ -214,11 +215,13 @@ dm_get_alt_channel_pstate_switch_aperture(struct amdgpu_device *adev,
- 		hw_params->soc_fb_info.alt_channel_region_size[i] =
- 			apertures[i].reserved_region_size;
- 		/* DML consumes the MC base address bits [47:16]. */
--		adev->dm.dc->dml2_options.alt_ch_cfg.region_base_addr_47_16[i] =
-+		alt_ch_cfg.region_base_addr_47_16[i] =
- 				(u32)(aperture_mc_bases[i] >> 16);
--		adev->dm.dc->dml2_options.alt_ch_cfg.region_size_bytes[i] =
-+		alt_ch_cfg.region_size_bytes[i] =
- 				(u32)apertures[i].reserved_region_size;
- 	}
-+
-+	dc_set_dml2_alt_ch_cfg(adev->dm.dc, &alt_ch_cfg);
- }
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+index dee06fefdd1d..d334391bcbae 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+@@ -1229,7 +1229,7 @@ static void apply_dsc_policy_for_edp(struct amdgpu_dm_connector *aconnector,
+ 	if (edp_max_bpp_x16 < edp_min_bpp_x16)
+ 		edp_min_bpp_x16 = edp_max_bpp_x16;
  
+-	if (dc_dsc_compute_bandwidth_range(dc->res_pool->dscs[0],
++	if (dc_dsc_compute_bandwidth_range(dc,
+ 				dc->debug.dsc_min_slice_height_override,
+ 				edp_min_bpp_x16, edp_max_bpp_x16,
+ 				dsc_caps,
+@@ -1238,7 +1238,7 @@ static void apply_dsc_policy_for_edp(struct amdgpu_dm_connector *aconnector,
+ 				&bw_range)) {
  
-@@ -229,9 +232,10 @@ int dm_dmub_hw_init(struct amdgpu_device *adev)
- 	struct dmub_srv_fb_info *fb_info = adev->dm.dmub_fb_info;
- 	const struct firmware *dmub_fw = adev->dm.dmub_fw;
- 	struct dc *dc = adev->dm.dc;
--	struct dmcu *dmcu = adev->dm.dc->res_pool->dmcu;
--	struct abm *abm = adev->dm.dc->res_pool->abm;
--	struct dc_context *ctx = adev->dm.dc->ctx;
-+	struct resource_pool *res_pool = dc_get_res_pool(dc);
-+	struct dmcu *dmcu = res_pool->dmcu;
-+	struct abm *abm = res_pool->abm;
-+	struct dc_context *ctx = dc_get_ctx(adev->dm.dc);
- 	struct dmub_srv_hw_params hw_params;
- 	enum dmub_status status;
- 	const unsigned char *fw_inst_const, *fw_bss_data;
-@@ -335,14 +339,15 @@ int dm_dmub_hw_init(struct amdgpu_device *adev)
- 	hw_params.fb_info = fb_info;
- 
- 	/* Enable usb4 dpia in the FW APU */
--	if (dc->caps.is_apu &&
--		dc->res_pool->usb4_dpia_count != 0 &&
--		!dc->debug.dpia_debug.bits.disable_dpia) {
-+	if (dc_get_caps(dc)->is_apu &&
-+		dc_get_res_pool(dc)->usb4_dpia_count != 0 &&
-+		!dc_get_debug_options(dc)->dpia_debug.bits.disable_dpia) {
- 		hw_params.dpia_supported = true;
--		hw_params.disable_dpia = dc->debug.dpia_debug.bits.disable_dpia;
-+		hw_params.disable_dpia = dc_get_debug_options(dc)->dpia_debug.bits.disable_dpia;
- 		hw_params.dpia_hpd_int_enable_supported = false;
--		hw_params.enable_non_transparent_setconfig = dc->config.consolidated_dpia_dp_lt;
--		hw_params.disable_dpia_bw_allocation = !dc->config.usb4_bw_alloc_support;
-+		hw_params.enable_non_transparent_setconfig =
-+			dc_get_config(dc)->consolidated_dpia_dp_lt;
-+		hw_params.disable_dpia_bw_allocation = !dc_get_config(dc)->usb4_bw_alloc_support;
- 	}
- 
- 	switch (amdgpu_ip_version(adev, DCE_HWIP, 0)) {
-@@ -375,9 +380,9 @@ int dm_dmub_hw_init(struct amdgpu_device *adev)
- 		abm->dmcu_is_running = dmcu->funcs->is_dmcu_initialized(dmcu);
- 	}
- 
--	if (!adev->dm.dc->ctx->dmub_srv)
--		adev->dm.dc->ctx->dmub_srv = dc_dmub_srv_create(adev->dm.dc, dmub_srv);
--	if (!adev->dm.dc->ctx->dmub_srv) {
-+	if (!dc_get_ctx(adev->dm.dc)->dmub_srv)
-+		dc_get_ctx(adev->dm.dc)->dmub_srv = dc_dmub_srv_create(adev->dm.dc, dmub_srv);
-+	if (!dc_get_ctx(adev->dm.dc)->dmub_srv) {
- 		drm_err(adev_to_drm(adev), "Couldn't allocate DC DMUB server!\n");
- 		return -ENOMEM;
- 	}
-@@ -401,13 +406,13 @@ int dm_dmub_hw_init(struct amdgpu_device *adev)
- 		if (adev->dm.dmcub_fw_version &&
- 		    adev->dm.dmcub_fw_version >= DMUB_FW_VERSION(4, 0, 0) &&
- 		    adev->dm.dmcub_fw_version < DMUB_FW_VERSION(4, 0, 59))
--			adev->dm.dc->debug.sanity_checks = true;
-+			dc_get_debug_options_mutable(adev->dm.dc)->sanity_checks = true;
- 		break;
- 	case IP_VERSION(3, 1, 4):
- 		if (adev->dm.dmcub_fw_version &&
- 		    adev->dm.dmcub_fw_version >= DMUB_FW_VERSION(4, 0, 0) &&
- 		    adev->dm.dmcub_fw_version < DMUB_FW_VERSION(8, 0, 16))
--			adev->dm.dc->debug.sanity_checks = true;
-+			dc_get_debug_options_mutable(adev->dm.dc)->sanity_checks = true;
- 		break;
- 	default:
- 		break;
-@@ -565,7 +570,7 @@ STATIC_IFN_KUNIT uint32_t amdgpu_dm_dmub_reg_read(void *ctx, uint32_t address)
- {
- 	struct amdgpu_device *adev = ctx;
- 
--	return dm_read_reg(adev->dm.dc->ctx, address);
-+	return dm_read_reg(dc_get_ctx(adev->dm.dc), address);
- }
- EXPORT_IF_KUNIT(amdgpu_dm_dmub_reg_read);
- 
-@@ -574,7 +579,7 @@ STATIC_IFN_KUNIT void amdgpu_dm_dmub_reg_write(void *ctx, uint32_t address,
- {
- 	struct amdgpu_device *adev = ctx;
- 
--	return dm_write_reg(adev->dm.dc->ctx, address, value);
-+	return dm_write_reg(dc_get_ctx(adev->dm.dc), address, value);
- }
- EXPORT_IF_KUNIT(amdgpu_dm_dmub_reg_write);
- 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
-index 47cbc826ed45..73b56e078cbe 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
-@@ -43,7 +43,7 @@ STATIC_IFN_KUNIT bool lp_write_i2c(void *handle, uint32_t address, const uint8_t
- 	struct dc_link *link = handle;
- 	struct i2c_payload i2c_payloads[] = {{true, address, size, (void *)data} };
- 	struct i2c_command cmd = {i2c_payloads, 1, I2C_COMMAND_ENGINE_HW,
--				  link->dc->caps.i2c_speed_in_khz};
-+				  dc_get_caps(link->dc)->i2c_speed_in_khz};
- 
- 	return dm_helpers_submit_i2c(link->ctx, link, &cmd);
- }
-@@ -56,7 +56,7 @@ STATIC_IFN_KUNIT bool lp_read_i2c(void *handle, uint32_t address, uint8_t offset
- 	struct i2c_payload i2c_payloads[] = {{true, address, 1, &offset},
- 					     {false, address, size, data} };
- 	struct i2c_command cmd = {i2c_payloads, 2, I2C_COMMAND_ENGINE_HW,
--				  link->dc->caps.i2c_speed_in_khz};
-+				  dc_get_caps(link->dc)->i2c_speed_in_khz};
- 
- 	return dm_helpers_submit_i2c(link->ctx, link, &cmd);
- }
-@@ -308,9 +308,9 @@ void hdcp_update_display(struct hdcp_workqueue *hdcp_work,
- 	hdcp_w->aconnector[conn_index] = aconnector;
- 
- 	hdcp_get_link_display_adjustments(enable_encryption, content_type,
--			dc->caps.fused_io_supported,
--			dc->debug.hdcp_lc_force_fw_enable,
--			dc->debug.hdcp_lc_enable_sw_fallback,
-+			dc_get_caps(dc)->fused_io_supported,
-+			dc_get_debug_options(dc)->hdcp_lc_force_fw_enable,
-+			dc_get_debug_options(dc)->hdcp_lc_enable_sw_fallback,
- 			&link_adjust, &display_adjust);
- 	hdcp_update_display_encryption_control(hdcp_work, hdcp_w, conn_index,
- 					      enable_encryption);
-@@ -676,8 +676,11 @@ void update_config(void *handle, struct cp_psp_stream_config *config)
- 	link->adjust.auth_delay = 2;
- 	link->adjust.retry_limit = MAX_NUM_OF_ATTEMPTS;
- 	link->adjust.hdcp1.disable = 0;
--	link->adjust.hdcp2.use_fw_locality_check = (dc->caps.fused_io_supported || dc->debug.hdcp_lc_force_fw_enable);
--	link->adjust.hdcp2.use_sw_locality_fallback = dc->debug.hdcp_lc_enable_sw_fallback;
-+	link->adjust.hdcp2.use_fw_locality_check =
-+		(dc_get_caps(dc)->fused_io_supported ||
-+		 dc_get_debug_options(dc)->hdcp_lc_force_fw_enable);
-+	link->adjust.hdcp2.use_sw_locality_fallback =
-+		dc_get_debug_options(dc)->hdcp_lc_enable_sw_fallback;
- 	hdcp_w->encryption_status[display->index] = MOD_HDCP_ENCRYPTION_STATUS_HDCP_OFF;
- 
- 	DRM_DEBUG_DRIVER("[HDCP_DM] display %d, CP %d, type %d\n", aconnector->base.index,
-@@ -839,7 +842,7 @@ static const struct bin_attribute data_attr = {
- struct hdcp_workqueue *hdcp_create_workqueue(struct amdgpu_device *adev,
- 					     struct cp_psp *cp_psp, struct dc *dc)
- {
--	int max_caps = dc->caps.max_links;
-+	int max_caps = dc_get_caps(dc)->max_links;
- 	struct hdcp_workqueue *hdcp_work;
- 	int i = 0;
- 
-@@ -874,16 +877,16 @@ struct hdcp_workqueue *hdcp_create_workqueue(struct amdgpu_device *adev,
- 		struct mod_hdcp_ddc_funcs *ddc_funcs = &config->ddc.funcs;
- 
- 		config->psp.handle = &adev->psp;
--		if (dc->ctx->dce_version == DCN_VERSION_3_1  ||
--		    dc->ctx->dce_version == DCN_VERSION_3_14 ||
--		    dc->ctx->dce_version == DCN_VERSION_3_15 ||
--		    dc->ctx->dce_version == DCN_VERSION_3_16 ||
--		    dc->ctx->dce_version == DCN_VERSION_3_2  ||
--		    dc->ctx->dce_version == DCN_VERSION_3_21 ||
--		    dc->ctx->dce_version == DCN_VERSION_3_5  ||
--		    dc->ctx->dce_version == DCN_VERSION_3_51 ||
--		    dc->ctx->dce_version == DCN_VERSION_3_6  ||
--		    dc->ctx->dce_version == DCN_VERSION_4_01)
-+		if (dc_get_dce_version(dc) == DCN_VERSION_3_1  ||
-+		    dc_get_dce_version(dc) == DCN_VERSION_3_14 ||
-+		    dc_get_dce_version(dc) == DCN_VERSION_3_15 ||
-+		    dc_get_dce_version(dc) == DCN_VERSION_3_16 ||
-+		    dc_get_dce_version(dc) == DCN_VERSION_3_2  ||
-+		    dc_get_dce_version(dc) == DCN_VERSION_3_21 ||
-+		    dc_get_dce_version(dc) == DCN_VERSION_3_5  ||
-+		    dc_get_dce_version(dc) == DCN_VERSION_3_51 ||
-+		    dc_get_dce_version(dc) == DCN_VERSION_3_6  ||
-+		    dc_get_dce_version(dc) == DCN_VERSION_4_01)
- 			config->psp.caps.dtm_v3_supported = 1;
- 
- 		config->ddc.handle = dc_get_link_at_index(dc, i);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-index 5b4ff079cd55..a7ee30c66a48 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-@@ -808,7 +808,7 @@ static inline int dm_irq_state(struct amdgpu_device *adev,
- 
- 	st = (state == AMDGPU_IRQ_STATE_ENABLE);
- 
--	if (dc && dc->caps.ips_support && dc->idle_optimizations_allowed)
-+	if (dc && dc_get_caps(dc)->ips_support && dc_is_idle_optimizations_allowed(dc))
- 		dc_allow_idle_optimizations(dc, false);
- 
- 	amdgpu_dm_irq_set(adev, irq_source, st);
-@@ -989,8 +989,8 @@ void amdgpu_dm_hpd_init(struct amdgpu_device *adev)
- 	 * has rather than over the whole enum: the unused slots of the DC
- 	 * interrupt table hold dummy handlers that assert when touched.
- 	 */
--	for (i = 0; i < adev->dm.dc->link_count; i++) {
--		const struct dc_link *link = adev->dm.dc->links[i];
-+	for (i = 0; i < dc_get_link_count(adev->dm.dc); i++) {
-+		const struct dc_link *link = dc_get_link_at_index(adev->dm.dc, i);
- 
- 		if (link->irq_source_hpd != DC_IRQ_SOURCE_INVALID &&
- 		    !amdgpu_dm_irq_set(adev, link->irq_source_hpd, false))
-@@ -1226,7 +1226,7 @@ EXPORT_IF_KUNIT(dm_handle_hpd_rx_offload_work);
- struct hpd_rx_irq_offload_work_queue *amdgpu_dm_hpd_rx_irq_create_workqueue(struct amdgpu_device *adev)
- {
- 	struct dc *dc = adev->dm.dc;
--	int max_caps = dc->caps.max_links;
-+	int max_caps = dc_get_caps(dc)->max_links;
- 	int i = 0;
- 	struct hpd_rx_irq_offload_work_queue *hpd_rx_offload_wq = NULL;
- 
-@@ -1265,7 +1265,7 @@ void amdgpu_dm_hpd_rx_irq_work_suspend(struct amdgpu_display_manager *dm)
- 	int i;
- 
- 	if (dm->hpd_rx_offload_wq) {
--		for (i = 0; i < dm->dc->caps.max_links; i++)
-+		for (i = 0; i < dc_get_caps(dm->dc)->max_links; i++)
- 			flush_workqueue(dm->hpd_rx_offload_wq[i].wq);
- 	}
- }
-@@ -1321,7 +1321,7 @@ void amdgpu_dm_hdmi_hpd_debounce_work(struct work_struct *work)
- 
- 	/* Re-detect the display */
- 	scoped_guard(mutex, &adev->dm.dc_lock) {
--		if (dc->caps.ips_support && dc->ctx->dmub_srv->idle_allowed) {
-+		if (dc_get_caps(dc)->ips_support && dc_get_ctx(dc)->dmub_srv->idle_allowed) {
- 			dc_allow_idle_optimizations(dc, false);
- 			reallow_idle = true;
+ 		if (bw_range.max_kbps < link_bw_in_kbps) {
+-			if (dc_dsc_compute_config(dc->res_pool->dscs[0],
++			if (dc_dsc_compute_config(dc,
+ 					dsc_caps,
+ 					&dsc_options,
+ 					0,
+@@ -1253,7 +1253,7 @@ static void apply_dsc_policy_for_edp(struct amdgpu_dm_connector *aconnector,
  		}
-@@ -1359,7 +1359,7 @@ void amdgpu_dm_hdmi_hpd_debounce_work(struct work_struct *work)
  	}
  
- 	scoped_guard(mutex, &adev->dm.dc_lock) {
--		if (reallow_idle && dc->caps.ips_support)
-+		if (reallow_idle && dc_get_caps(dc)->ips_support)
- 			dc_allow_idle_optimizations(dc, true);
- 	}
- }
-@@ -1668,7 +1668,7 @@ STATIC_IFN_KUNIT void dmub_hpd_callback(struct amdgpu_device *adev,
- 	}
+-	if (dc_dsc_compute_config(dc->res_pool->dscs[0],
++	if (dc_dsc_compute_config(dc,
+ 				dsc_caps,
+ 				&dsc_options,
+ 				link_bw_in_kbps,
+@@ -1309,7 +1309,7 @@ static void apply_dsc_policy_for_stream(struct amdgpu_dm_connector *aconnector,
  
- 	link_index = notify->link_index;
--	link = adev->dm.dc->links[link_index];
-+	link = dc_get_link_at_index(adev->dm.dc, link_index);
- 	dev = adev->dm.ddev;
+ 	} else if (sink->sink_signal == SIGNAL_TYPE_DISPLAY_PORT) {
+ 		if (sink->link->dpcd_caps.dongle_type == DISPLAY_DONGLE_NONE) {
+-			if (dc_dsc_compute_config(aconnector->dc_link->ctx->dc->res_pool->dscs[0],
++			if (dc_dsc_compute_config(dc,
+ 						dsc_caps,
+ 						&dsc_options,
+ 						link_bandwidth_kbps,
+@@ -1339,7 +1339,7 @@ static void apply_dsc_policy_for_stream(struct amdgpu_dm_connector *aconnector,
+ 			if (timing_bw_in_kbps > max_supported_bw_in_kbps &&
+ 					max_supported_bw_in_kbps > 0 &&
+ 					dsc_max_supported_bw_in_kbps > 0)
+-				if (dc_dsc_compute_config(aconnector->dc_link->ctx->dc->res_pool->dscs[0],
++				if (dc_dsc_compute_config(dc,
+ 						dsc_caps,
+ 						&dsc_options,
+ 						dsc_max_supported_bw_in_kbps,
+@@ -1368,7 +1368,7 @@ static void apply_dsc_policy_for_stream(struct amdgpu_dm_connector *aconnector,
  
- 	drm_connector_list_iter_begin(dev, &iter);
-@@ -2362,7 +2362,7 @@ int amdgpu_dm_dce110_register_irq_handlers(struct amdgpu_device *adev)
- 	unsigned int client_id = AMDGPU_IRQ_CLIENTID_LEGACY;
- 	/* Use different interrupts for VBLANK on DCE 6 vs. newer. */
- 	const unsigned int vblank_d1 =
--		adev->dm.dc->ctx->dce_version >= DCE_VERSION_8_0
-+		dc_get_dce_version(adev->dm.dc) >= DCE_VERSION_8_0
- 		? VISLANDS30_IV_SRCID_D1_VERTICAL_INTERRUPT0 : 1;
+ 		if ((timing_bw_in_kbps > link_bandwidth_kbps && dsc_sink_bw_in_kbps > 0) ||
+ 		    (dsc_policy.enable_dsc_when_not_needed || dsc_options.force_dsc_when_not_needed)) {
+-			if (dc_dsc_compute_config(aconnector->dc_link->ctx->dc->res_pool->dscs[0],
++			if (dc_dsc_compute_config(dc,
+ 					dsc_caps,
+ 					&dsc_options,
+ 					dsc_sink_bw_in_kbps,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+index 5697645ef7cc..a3877ef767ec 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+@@ -980,7 +980,7 @@ static void set_dsc_configs_from_fairness_vars(struct dsc_mst_fairness_params *p
  
- 	if (adev->family >= AMDGPU_FAMILY_AI)
-@@ -2413,7 +2413,7 @@ int amdgpu_dm_dce110_register_irq_handlers(struct amdgpu_device *adev)
- 			return -ENOMEM;
- 	}
+ 		memset(&params[i].timing->dsc_cfg, 0, sizeof(params[i].timing->dsc_cfg));
+ 		if (vars[i + k].dsc_enabled && dc_dsc_compute_config(
+-					params[i].sink->ctx->dc->res_pool->dscs[0],
++					params[i].sink->ctx->dc,
+ 					&params[i].sink->dsc_caps.dsc_dec_caps,
+ 					&dsc_options,
+ 					0,
+@@ -1033,7 +1033,7 @@ static int bpp_x16_from_pbn(struct dsc_mst_fairness_params param, int pbn)
  
--	if (dc_supports_vrr(adev->dm.dc->ctx->dce_version)) {
-+	if (dc_supports_vrr(dc_get_dce_version(adev->dm.dc))) {
- 		/* Use VUPDATE interrupt */
- 		for (i = 0; i < adev->mode_info.num_crtc; i++) {
- 			src_id = VISLANDS30_IV_SRCID_D1_V_UPDATE_INT + i * 2;
-@@ -2626,7 +2626,7 @@ int amdgpu_dm_register_outbox_irq_handlers(struct amdgpu_device *adev)
- 		return r;
- 	}
+ 	kbps = div_u64((u64)pbn * 994 * 8 * 54, 64);
+ 	dc_dsc_compute_config(
+-			param.sink->ctx->dc->res_pool->dscs[0],
++			param.sink->ctx->dc,
+ 			&param.sink->dsc_caps.dsc_dec_caps,
+ 			&dsc_options,
+ 			(int) kbps, param.timing,
+@@ -1278,7 +1278,7 @@ static void build_frl_mst_dsc_params(struct amdgpu_dm_connector *aconnector,
+ 			stream->sink->edid_caps.panel_patch.max_dsc_target_bpp_limit * 16;
  
--	if (dc->ctx->dmub_srv) {
-+	if (dc_get_ctx(dc)->dmub_srv) {
- 		i = DCN_1_0__SRCID__DMCUB_OUTBOX_LOW_PRIORITY_READY_INT;
- 		int_params.int_context = INTERRUPT_LOW_IRQ_CONTEXT;
- 		int_params.irq_source =
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
-index dbad0a6d3a2b..f71f66b04d5e 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
-@@ -37,10 +37,10 @@ bool link_supports_psrsu(struct dc_link *link)
- {
- 	struct dc *dc = link->ctx->dc;
+ 	if (dc_dsc_compute_config(
+-			stream->sink->ctx->dc->res_pool->dscs[0],
++			stream->sink->ctx->dc,
+ 			&stream->sink->dsc_caps.dsc_dec_caps,
+ 			&dsc_options,
+ 			frl_conv_dsc_bw_in_kbps,
+@@ -1398,7 +1398,7 @@ static int compute_mst_dsc_configs_for_link(struct drm_atomic_commit *state,
+ 				stream->sink->dsc_caps.dsc_dec_caps.is_frl)
+ 			build_frl_mst_dsc_params(aconnector, stream, &dsc_policy, &params[count], frl_conv_dsc_bw_in_kbps);
+ 		if (!dc_dsc_compute_bandwidth_range(
+-				stream->sink->ctx->dc->res_pool->dscs[0],
++				stream->sink->ctx->dc,
+ 				stream->sink->ctx->dc->debug.dsc_min_slice_height_override,
+ 				min_target_bpp_x16,
+ 				max_target_bpp_x16,
+@@ -1651,7 +1651,7 @@ int compute_mst_dsc_configs_for_state(struct drm_atomic_commit *state,
  
--	if (!dc->caps.dmcub_support)
-+	if (!dc_get_caps(dc)->dmcub_support)
- 		return false;
+ 	for (i = 0; i < dc_state->stream_count; i++) {
+ 		stream = dc_state->streams[i];
+-		res_pool = stream->ctx->dc->res_pool;
++		res_pool = dc_get_res_pool(stream->ctx->dc);
  
--	if (dc->ctx->dce_version < DCN_VERSION_3_1)
-+	if (dc_get_dce_version(dc) < DCN_VERSION_3_1)
- 		return false;
- 
- 	if (!is_psr_su_specific_panel(link))
-@@ -111,7 +111,7 @@ bool amdgpu_dm_set_psr_caps(struct dc_link *link, struct amdgpu_dm_connector *ac
- 	/* Reset psr version first */
- 	link->psr_settings.psr_version = DC_PSR_VERSION_UNSUPPORTED;
- 
--	if (!dc->caps.dmub_caps.psr)
-+	if (!dc_get_caps(dc)->dmub_caps.psr)
- 		return false;
- 
- 	if (!(link->connector_signal & SIGNAL_TYPE_EDP))
-@@ -148,8 +148,8 @@ bool amdgpu_dm_psr_is_active_allowed(struct amdgpu_display_manager *dm)
- {
- 	unsigned int i;
- 
--	for (i = 0; i < dm->dc->current_state->stream_count; i++) {
--		const struct dc_link *link = dm->dc->current_state->streams[i]->link;
-+	for (i = 0; i < dc_get_current_state(dm->dc)->stream_count; i++) {
-+		const struct dc_link *link = dc_get_current_state(dm->dc)->streams[i]->link;
- 
- 		if (!link)
+ 		if (stream->signal != SIGNAL_TYPE_DISPLAY_PORT_MST)
  			continue;
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c
-index ee2e4754b089..6441212f93a1 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c
-@@ -97,8 +97,8 @@ bool amdgpu_dm_set_replay_caps(struct dc_link *link, struct amdgpu_dm_connector
- 	if (!amdgpu_dm_link_supports_replay(link, aconnector))
- 		return false;
+@@ -1943,7 +1943,7 @@ static bool is_dsc_common_config_possible(struct dc_stream_state *stream,
+ 	bool is_dsc_possible;
  
--	if (!dc->ctx->dmub_srv || !dc->ctx->dmub_srv->dmub ||
--		!dc->ctx->dmub_srv->dmub->feature_caps.replay_supported)
-+	if (!dc_get_ctx(dc)->dmub_srv || !dc_get_ctx(dc)->dmub_srv->dmub ||
-+		!dc_get_ctx(dc)->dmub_srv->dmub->feature_caps.replay_supported)
- 		return false;
+ 	dc_dsc_get_policy_for_timing(&stream->timing, 0, &dsc_policy, dc_link_get_highest_encoding_format(stream->link));
+-	is_dsc_possible = dc_dsc_compute_bandwidth_range(stream->sink->ctx->dc->res_pool->dscs[0],
++	is_dsc_possible = dc_dsc_compute_bandwidth_range(stream->sink->ctx->dc,
+ 							 stream->sink->ctx->dc->debug.dsc_min_slice_height_override,
+ 							 dsc_policy.min_target_bpp * 16,
+ 							 dsc_policy.max_target_bpp * 16,
+@@ -2108,7 +2108,7 @@ enum dc_status dm_dp_mst_is_port_support_mode(
+ 		/*Confirm if we can obtain dsc config*/
+ 		dc_dsc_get_default_config_option(stream->link->dc, &dsc_options);
+ 		dsc_options.max_target_bpp_limit_override_x16 = aconnector->base.display_info.max_dsc_bpp * 16;
+-		if (dc_dsc_compute_config(stream->sink->ctx->dc->res_pool->dscs[0],
++		if (dc_dsc_compute_config(stream->sink->ctx->dc,
+ 				&stream->sink->dsc_caps.dsc_dec_caps,
+ 				&dsc_options,
+ 				end_to_end_bw_in_kbps,
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dsc.h b/drivers/gpu/drm/amd/display/dc/dc_dsc.h
+index de169ed3b3b7..7e1a5cd6d2aa 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dsc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_dsc.h
+@@ -77,7 +77,7 @@ bool dc_dsc_parse_dsc_edid(const struct dc *dc,
+ 		struct dsc_dec_dpcd_caps *dsc_sink_caps);
  
- 	/* Mark Replay is supported in link and update related attributes
-@@ -121,8 +121,10 @@ bool amdgpu_dm_set_replay_caps(struct dc_link *link, struct amdgpu_dm_connector
+ bool dc_dsc_compute_bandwidth_range(
+-		const struct display_stream_compressor *dsc,
++		const struct dc *dc,
+ 		uint32_t dsc_min_slice_height_override,
+ 		uint32_t min_bpp_x16,
+ 		uint32_t max_bpp_x16,
+@@ -87,7 +87,7 @@ bool dc_dsc_compute_bandwidth_range(
+ 		struct dc_dsc_bw_range *range);
  
- 	debug_flags = (union replay_debug_flags *)&pr_config.debug_flags;
- 	debug_flags->u32All = 0;
--	debug_flags->bitfields.visual_confirm =	dc->debug.visual_confirm == VISUAL_CONFIRM_REPLAY;
--	debug_flags->bitfields.skip_crtc_disabled = dc->debug.replay_skip_crtc_disabled;
-+	debug_flags->bitfields.visual_confirm =
-+		dc_get_debug_options(dc)->visual_confirm == VISUAL_CONFIRM_REPLAY;
-+	debug_flags->bitfields.skip_crtc_disabled =
-+		dc_get_debug_options(dc)->replay_skip_crtc_disabled;
+ bool dc_dsc_compute_config(
+-		const struct display_stream_compressor *dsc,
++		const struct dc *dc,
+ 		const struct dsc_dec_dpcd_caps *dsc_sink_caps,
+ 		const struct dc_dsc_config_options *options,
+ 		uint32_t target_bandwidth_kbps,
+diff --git a/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c b/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
+index 45ef1f745c7d..56db43d1b072 100644
+--- a/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
++++ b/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
+@@ -924,7 +924,7 @@ bool dc_dsc_parse_dsc_edid(const struct dc *dc, const struct dc_edid_caps *edid_
+  * If DSC is not possible, leave '*range' untouched.
+  */
+ bool dc_dsc_compute_bandwidth_range(
+-		const struct display_stream_compressor *dsc,
++		const struct dc *dc,
+ 		uint32_t dsc_min_slice_height_override,
+ 		uint32_t min_bpp_x16,
+ 		uint32_t max_bpp_x16,
+@@ -939,6 +939,12 @@ bool dc_dsc_compute_bandwidth_range(
+ 	struct dsc_enc_caps dsc_common_caps;
+ 	struct dc_dsc_config config = {0};
+ 	struct dc_dsc_config_options options = {0};
++	const struct display_stream_compressor *dsc;
++
++	if (!dc || !dc->res_pool)
++		return false;
++
++	dsc = dc->res_pool->dscs[0];
  
- 	init_replay_config(link, &pr_config);
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_accessors.c b/drivers/gpu/drm/amd/display/dc/core/dc_accessors.c
-index 8aa2364b714e..15a203fbae81 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_accessors.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_accessors.c
-@@ -42,6 +42,11 @@ struct dc_context *dc_get_ctx(const struct dc *dc)
- 	return dc->ctx;
+ 	options.dsc_min_slice_height_override = dsc_min_slice_height_override;
+ 	options.max_target_bpp_limit_override_x16 = max_bpp_x16;
+@@ -2020,7 +2026,7 @@ static bool setup_dsc_config(
  }
  
-+enum dce_version dc_get_dce_version(const struct dc *dc)
-+{
-+	return dc->ctx->dce_version;
-+}
+ bool dc_dsc_compute_config(
+-		const struct display_stream_compressor *dsc,
++		const struct dc *dc,
+ 		const struct dsc_dec_dpcd_caps *dsc_sink_caps,
+ 		const struct dc_dsc_config_options *options,
+ 		uint32_t target_bandwidth_kbps,
+@@ -2031,6 +2037,13 @@ bool dc_dsc_compute_config(
+ 	bool is_dsc_possible = false;
+ 	struct dsc_enc_caps dsc_enc_caps;
+ 	unsigned int min_dsc_slice_count;
++	const struct display_stream_compressor *dsc;
 +
- const struct dc_caps *dc_get_caps(const struct dc *dc)
- {
- 	return &dc->caps;
-@@ -52,7 +57,12 @@ const struct dc_config *dc_get_config(const struct dc *dc)
- 	return &dc->config;
- }
- 
--struct dc_debug_options *dc_get_debug_options(struct dc *dc)
-+const struct dc_debug_options *dc_get_debug_options(const struct dc *dc)
-+{
-+	return &dc->debug;
-+}
++	if (!dc || !dc->res_pool)
++		return false;
 +
-+struct dc_debug_options *dc_get_debug_options_mutable(struct dc *dc)
- {
- 	return &dc->debug;
- }
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index f0c84abab0fb..9592a95544ea 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -2479,14 +2479,20 @@ uint8_t dc_get_link_count(const struct dc *dc);
- /* The DC context (logging, register access, dmub service). */
- struct dc_context *dc_get_ctx(const struct dc *dc);
- 
-+/* The ASIC display engine version. */
-+enum dce_version dc_get_dce_version(const struct dc *dc);
++	dsc = dc->res_pool->dscs[0];
 +
- /* Capabilities detected at dc_create() time. Read-only. */
- const struct dc_caps *dc_get_caps(const struct dc *dc);
+ 	get_dsc_enc_caps(dsc, &dsc_enc_caps, timing->pix_clk_100hz);
  
- /* Configuration captured at dc_create() time. Read-only. */
- const struct dc_config *dc_get_config(const struct dc *dc);
- 
--/* Debug overrides (module parameters, debugfs). Writable. */
--struct dc_debug_options *dc_get_debug_options(struct dc *dc);
-+/* Debug overrides (module parameters, debugfs). Read-only view. */
-+const struct dc_debug_options *dc_get_debug_options(const struct dc *dc);
-+
-+/* Debug overrides; writable view for module parameter and debugfs writes. */
-+struct dc_debug_options *dc_get_debug_options_mutable(struct dc *dc);
- 
- /* The currently committed state. Owned by DC; read-only for DM. */
- struct dc_state *dc_get_current_state(const struct dc *dc);
+ 	min_dsc_slice_count = get_min_dsc_slice_count_for_odm(dsc, &dsc_enc_caps, timing);
 
 -- 
 2.56.0
