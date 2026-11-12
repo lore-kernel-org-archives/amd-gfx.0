@@ -2,52 +2,83 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04913606A323
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 15:38:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 686E060A2600
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 16:32:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=cwT8wYSK
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PIuygEsE
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 75D98112162;
-	Thu, 12 Nov 2026 15:38:00 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20BB2112162;
- Thu, 12 Nov 2026 15:37:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=IyenNfTn35QAlDuaurUhdJEkInjbRyAHP3Qk1Ps3q+Q=; t=1794497874; x=2109857874; 
- b=cwT8wYSKuGRUrpqao3zaY2XhU6opTgqcD9VwL6BbwKWvebsZMKJX/ZvXtjw4kOCYQdpVBd8aKXz
- Z956/ddytI63YJ6u51DcZDbUSfPohfuK3yG4yPSbNJvufJ6rDV9Yu35a6d7NKUxBE/mti+maVxTsF
- BEUwCoq2xbnl9MB+mlOhoghUdxC62Usi3EmwaNf1Q5ZoY6LY+I/PeNZgb+5j5Ryt2c+LNxeoLl5u0
- dNgwHYXRV/z8bIbQWXMEiNtR9iSZ7jtY+m+AL6Qd8WxcH+R/3Z4F5lRs5wTJwoDrH0o/vvYjMUWJg
- mdFU75YnvfZGU7TN5PohdRw6jq06Rvj7yjgg==;
-Received: from [81.79.79.1] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1xRWs3-009bk7-D5; Thu, 12 Nov 2026 16:37:51 +0100
-Message-ID: <6d89e4a9-ce29-4c8f-80c8-75b713b3ac61@igalia.com>
-Date: Thu, 12 Nov 2026 15:37:50 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE18610EBA1;
+	Thu, 12 Nov 2026 16:32:12 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74ABF10EBA1;
+ Thu, 12 Nov 2026 16:32:06 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 97C446232D;
+ Thu, 12 Nov 2026 16:32:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 960FC1F000C4;
+ Thu, 12 Nov 2026 16:32:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794501125;
+ bh=6K4hT+jPGed+pnulpF1nT8q2qX2nK3v6UKMk0/YPnOU=;
+ h=From:Subject:Date:To:Cc;
+ b=PIuygEsEnSUxctCH9fcljf2ud2iq8Zuj6bs7uDC225V+lG93vz5ZqPKU1ZvtY+uzW
+ 4+Y1TuHCwi9PxrmhRqIIPfB2TFTsd1BJ64O97oLs+XPAMKjNduG6Rc+NhhAInMmY36
+ R35SEjFm0zcTtv7Dayq73J1JuRxvIfH+KJaDs7JFPwazi9otN/PRzYzXXhtOFdRvqc
+ WBnHMLn3EcO0nEsC1URKay+K5sidyxC8f+gYq7GcxkidWjgjEK7b1xXMihkd3bOypV
+ ZyWJkjgpa8+y3L9uDrrHajkwmaepLPP8JkHh7ONkyN3TAN5DrQz0AZYLw94nJln+7Q
+ rZTv3efteGJPQ==
+From: Maxime Ripard <mripard@kernel.org>
+Subject: [PATCH v10 0/9] drm: Add DRM_MODE_ATOMIC_RESET flag
+Date: Thu, 12 Nov 2026 17:31:49 +0100
+Message-Id: <20261112-drm-reset-state-flag-v10-0-cefaa1ed056d@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/7] drm/sched: Replace the SPSC queue with a list and a
- spinlock
-To: phasta@kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>
-References: <20261106145702.61640-1-tvrtko.ursulin@igalia.com>
- <20261106145702.61640-7-tvrtko.ursulin@igalia.com>
- <c3e0decc799da64c09689b85c3db49b0b0a437b4.camel@mailbox.org>
- <f5e91cef-a9af-4839-b7b7-45351d59d881@igalia.com>
- <019c8094079a02f582804e735fd73058d5189225.camel@mailbox.org>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <019c8094079a02f582804e735fd73058d5189225.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/4XSTU7DMBAF4KtEXnfQ+N/OinugLux43FrQBpwQg
+ areHaWVaFAUsZ3FN2+e5sIGqoUG1jYXVmkqQ+nPrG047hrWHcP5QFASaxsmUBi06CDVE1QaaIR
+ hDCNBfgsHEDmKqC3n2Vu2a9h7pVy+bu7LftewYxnGvn7f1kx8nv4DThwQOmlT551WTqfnV6pne
+ nvq64HN4iQeiuNiQxGAQN50xKXkNq0V+VD8ZhYJCB61tpils0GtFLVQ+JaiAEGHxNFIixn1StG
+ /CkduNhQNCCkkkYyKxsu4UsxCEVu9GEDI0iSjMFqyZqXYhSJxQ7GAoEhrChTIOLlS3EPhuHWRm
+ 3vBnFCZaFHnleIXCt/K4udeUkQSRgoV8I9yvb9kpY/PMpTx/pcshoGg60+nMrZNEsF1RJ7HHNj
+ +ev0BRklquhoDAAA=
+X-Change-ID: 20260708-drm-reset-state-flag-2fb2b5711f97
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Louis Chauvet <louis.chauvet@bootlin.com>, 
+ Haneen Mohammed <hamohammed.sa@gmail.com>, 
+ Melissa Wen <melissa.srw@gmail.com>
+Cc: Daniel Stone <daniels@collabora.com>, 
+ Harry Wentland <harry.wentland@amd.com>, 
+ Jocelyn Falempe <jfalempe@redhat.com>, 
+ =?utf-8?q?Jonas_=C3=85dahl?= <jadahl@redhat.com>, 
+ =?utf-8?q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
+ Pekka Paalanen <pekka.paalanen@collabora.com>, 
+ Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
+ Victoria Brekenfeld <victoria@system76.com>, 
+ Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>, 
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ amd-gfx@lists.freedesktop.org, Daniel Stone <daniel@fooishbar.org>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, freedreno@lists.freedesktop.org, 
+ Oarora Etimis <oaroraetimis@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6301; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=yFUI28/KQzIod1ZO3EwGt8fAsj8Y7KwGIU7bhHx5l3M=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlfX/69GJvBu3pJ3mdzYYtDKruL9jGp5f3es4E7tJj9u
+ Z3Rg+7GjqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjARb17GhhmybdtuWX04eWFZ
+ 6KKTVs/M6vndCzjE37oudH+559pLac/nfddnfNz0/uvU1y/6lp1nZ2JsmB8WyiOrvCzxZjtf/fb
+ GxuQfxX/Cvm5N5b9Vfm/NE6Ur9ipKK64HXmPZe7+lMVj20swQAA==
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,160 +89,150 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+Hi,
 
-On 12/11/2026 14:09, Philipp Stanner wrote:
-> On Thu, 2026-11-12 at 12:59 +0000, Tvrtko Ursulin wrote:
->> Since this is a lock inversion site we cannot lock
-> 
-> Which deadlock-circumvention strategies have you tried?
-> 
-> Pseudocode:
-> 
-> bool drm_sched_can_queue(struct drm_gpu_scheduler *sched,
-> 			 struct drm_sched_entity *entity)
-> {
-> 	struct drm_sched_job *s_job;
-> 
-> +	lockdep_assert_held(&entity->lock)
-> 
-> 	s_job = drm_sched_entity_queue_peek(entity);
-> 
-> 
-> drm_sched_rq_select_entity(…)
-> {
-> retry:
-> 	spin_lock(&rq->lock);
-> 	
-> 	walk_tree(…) {
-> 		if (!spin_trylock(&entity->lock) {
-> 			spin_unlock(&rq-lock);
-> 			udelay(20);
-> 			goto retry;
-> 		}
-> 		ready = !list_empty(&entity->job_list);
-> 	}
-> }
-> 
-> 
-> It appears very undesirable for someone to re-walk that tree, I get
-> that. But do we even know whether that would be a measurable problem in
-> practice? How often would it occur?
+Userspace currently has no atomic way to bring a display pipeline back
+to a pristine state. A compositor that wants to start from a known
+baseline must explicitly set every property on every KMS object to its
+default value, which requires tracking which properties exist and what
+their defaults are. This is fragile and must be updated every time a
+new property is added to the kernel.
 
-Problem there is adding trylock+backoff to achieve MPMC which the 
-scheduler is designed not to be. Without changing the whole design to 
-truly be MPMC, making the locking MPMC is just overhead. Do you see a 
-route to achieve full MPMC? Do you plan to pursue it?
+This series introduces a new DRM_MODE_ATOMIC_RESET flag for the
+atomic ioctl. When set, the kernel fills the commit with default
+states for all KMS objects before applying the properties supplied in
+the request. Properties not explicitly included remain at their
+defaults. This allows userspace to describe the desired end state
+declaratively, without caring about the current state or the full set
+of properties.
 
-> Alternatively, all the other paths that do entity_lock -> rq_lock could
-> be tested with trylock-patterns. They might be less impacted.
-> 
-> In drm_sched_entity_push_job(), for example, only occasionally are both
-> locks actually needed, when a job is the first job.
-> 
->>   but truly have to have an unlocked solution.
-> 
-> How do you know that?
+A driver-specific property is added to vkms planes for testing.
+Standard properties are impractical for this: compositors like Mutter
+enumerate all known properties, making it hard to isolate the reset
+behavior in a test.
 
-Please don't cut too much context. I guess you were in a way alluding 
-again to your trylock proposal.
+Mutter has a working implementation using the new flag, with a
+vkms-based test exercising the reset behavior:
+https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/5309
 
->> This is effectively replacing one unlocked read (spsc_queue_peek) with a
->> different one (READ_ONCE(entity->job_credits)). Something unlocked is
->> unavoidable here and I think this is more elegant and simple.
-> 
-> Code full of ACCESS_ONCE and RCU that is not RCU is most certainly not
-> elegant.
-> 
-> This is elegant:
-> 
-> spin_lock()
-> list_del()
-> spin_unlock()
-> 
-> 
-> With ACCESS_ONCE, manual barriers etc. pp. no one ever knows what's
-> accessed where with what ordering and why. It would then be better to
-> have the problem remain centralized in spsc_queue.h
-> 
-> As you say yourself, this here replaces the half-locked hard to reason
-> about spsc queue (we don't even know whether that thing is formally
-> correct) with a half-locked "locked" linked list.
-> 
-> It's no improvement in any way regarding our shared goal, which is a
-> consistently locked codebase that finally rids us of the race
-> conditions which are plagueing this system for >10 years
+And we have IGT tests as well:
+https://lore.kernel.org/r/20261112162147.766264-1-mripard@kernel.org/
 
-How it is not an improvement in _any_ way if in your own words we can 
-remove the hand rolled single kernel user spsc which we don't even know 
-is formally correct?
+Let me know what you think,
+Maxime
 
-> There is really no other way than either redesigning drm_sched so that
-> the lock inversion disappears altogether, or to address the inversion
-> with strategies well established in CS.
-> 
->>
->> And because it is an unlocked read it has to be annotated with
->> READ_ONCE(). Which means the write side, even though it is done under
->> the lock, is paired up and marked with WRITE_ONCE().
->>
->> 2. drm_sched_entity_pop_job()
->>
->> This is not a lock inversion site but needs to call sleepable things
->> while considering the head of the job queue (->prepare_job()).
->>
->> This one is the only remaining reason I used list_add_tail_rcu and
->> list_del_rcu, just so from here we can safely touch the first entry
->> while elsewhere more are being added.
->>
->> It is possible to do it, as you suggest, by dropping and re-acquiring
->> the lock. Note however that too would need a big fat comment why it is
->> safe.
-> 
-> Sure, one can write code comments. No big deal. The job is not in the
-> list anymore. The list is lock-protected. No one can race it.
-> 
-> There's only one worker popping. This must always be that way, the
-> entire drm_sched design is founded on that principle.
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
+---
+Changes in v10:
+- Stop trying to make partial lease work, they aren't meant to exist, so
+  we can simply error out when they happen
+- More tests for zpos and color management
+- Fix DPU1 issues reported by sashiko
+- Link to v9: https://lore.kernel.org/r/20261110-drm-reset-state-flag-v9-0-ddb0e26324a0@kernel.org
 
-That was my point. :) Same comment applies to both patterns. The rest is 
-just implementation details. Then what remains is the question of what 
-is the least bad pattern, is it trylock+back-off & re-locking, or is it 
-list_add_tail_rcu & remove the need to access the queue in most places 
-to begin with.
+Changes in v9:
+- Add a flag to know if leases have been revoked or are empty
+- Handle the situation where a leased plane or connector being reset
+  would disable an unleased CRTC
+- Add more kunit tests to cover the new issues reported by sashiko
+- Fix reset-related bugs in amdgpu, vc4 and msm DPU
+- Add a vc4 kunit test for its reset related bug
+- Link to v8: https://lore.kernel.org/r/20261106-drm-reset-state-flag-v8-0-50fd046b705f@kernel.org
 
-Anyway, it seems to two main points of view you expressed is to either 
-do it with trylock+backoff or to redesign the whole scheduler to 
-eliminate entity and run-queue locking need/order. Latter I thought it 
-was agreed is not feasible and that instead a new scheduler will be 
-written for new and firmware drivers so they can migrate to it. Equally 
-as attempts to split the current one into frontend/backend parts was 
-rejected. So I honestly don't know what is the plan any more.
+Changes in v8:
+- Fix more leases issues
+- Drop applied patches
+- Link to v7: https://lore.kernel.org/r/20261030-drm-reset-state-flag-v7-0-4e55eaeae683@kernel.org
 
-Regards,
+Changes in v7:
+- Fix a whole bunch of sashiko issues to deal with color_mgmt_changed,
+  leases, partially leased devices (like a plane leased but it's crtc
+  isn't) and the interaction with PAGE_FLIP_EVENT better
+- Fix crtc create_state implementation for ssd130x
+- Actually make it possible for a compositor to recreate the same whole
+  state without passing ALLOW_MODESET
+- Fix EDEADLK bugs with kunit tests
+- Don't report DRM_CAP_ATOMIC_RESET on !atomic drivers
+- Fix error handling in vkms for the new property
+- Add more kunit tests for the new corner cases
+- Link to v6: https://lore.kernel.org/r/20261022-drm-reset-state-flag-v6-0-f36d640b7e76@kernel.org
 
-Tvrtko
+Changes in v6:
+- If using a lease, only considered the leased objects
+- Fix amdgpu plane atomic_create_state implementation
+- Link to v5: https://lore.kernel.org/r/20261016-drm-reset-state-flag-v5-0-dad2d64b693b@kernel.org
 
-> 
->>   At which point, since both cases have a big fat comment explaining
->> the same thing apart from the implementation details, I do not see the
->> advantage of pointless lock cycling. READ_ONCE and WRITE_ONCE you
->> dislike would still remain.
->>
->> As a side note it would be really good to eliminate the prepare_job
->> callback
-> 
-> Yes, the user should prepare everything needed before even submitting a
-> job. Maybe we can begin by marking it as deprecated.
-> 
-> 
-> 
-> 
-> P.
+Changes in v5:
+- Fix bisection issue
+- Improve the documentation
+- Fix connector hotplugging issue
+- Added kunit tests for drm_atomic_commit_fill_with_defaults()
+- Link to v4: https://lore.kernel.org/r/20260918-drm-reset-state-flag-v4-0-5ad106370f05@kernel.org
+
+Changes in v4:
+- Improve the drm_atomic_get_private_obj_state and
+  drm_atomic_get_connector_state array reallocations
+- Return void on functions to insert an object state into a commit when
+  it cannot fail
+- Rename drm_atomic_can_create_state() into
+  drm_atomic_implements_create_state()
+- Move capability check from drm_atomic_commit_fill_with_defaults to its
+  caller 
+- Added IGT test
+- Link to v3: https://lore.kernel.org/r/20260908-drm-reset-state-flag-v3-0-905570f387a4@kernel.org
+
+Changes in v3:
+- Rebased on top of the latest atomic_create_state series
+- Sebastian Wick created and tested this work with mutter and vkms
+- Fix colorop locking
+- Link to v2: https://lore.kernel.org/r/20260812-drm-reset-state-flag-v2-0-e96ce13317dd@kernel.org
+
+Changes in v2:
+- Fix bisection
+- Add capability to let userspace know if it can reset the state
+- Link to v1: https://lore.kernel.org/r/20260708-drm-reset-state-flag-v1-0-c37dc985485d@kernel.org
+
+---
+Maxime Ripard (8):
+      drm/amd/display: Fix planes atomic_create_state implementation
+      drm/atomic: Add drm_atomic_implements_create_state() helper
+      drm/atomic: Allow filling a commit with pristine object states
+      drm/tests: atomic: Add tests for drm_atomic_commit_fill_with_defaults()
+      drm/amd/display: Take over the current stream and dc_state
+      drm/vc4: Carry the HVS channel over to created CRTC states
+      drm/msm/dpu1: Carry the mixers over to created CRTC states
+      drm/vkms: Add driver-specific plane property for testing
+
+Sebastian Wick (1):
+      drm/atomic-uapi: Add DRM_MODE_ATOMIC_RESET flag
+
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  50 +++
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c    |   3 -
+ drivers/gpu/drm/drm_atomic.c                       | 337 ++++++++++++++++
+ drivers/gpu/drm/drm_atomic_uapi.c                  |  44 ++-
+ drivers/gpu/drm/drm_ioctl.c                        |   5 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c           |  23 ++
+ drivers/gpu/drm/tests/drm_atomic_test.c            | 435 ++++++++++++++++++++-
+ drivers/gpu/drm/vc4/tests/vc4_test_pv_muxing.c     | 105 +++++
+ drivers/gpu/drm/vc4/vc4_kms.c                      |  16 +-
+ drivers/gpu/drm/vkms/vkms_drv.h                    |   3 +
+ drivers/gpu/drm/vkms/vkms_plane.c                  |  63 ++-
+ include/drm/drm_atomic.h                           |   4 +
+ include/uapi/drm/drm.h                             |  10 +
+ include/uapi/drm/drm_mode.h                        |  22 +-
+ 14 files changed, 1107 insertions(+), 13 deletions(-)
+---
+base-commit: d2a8cee91bfa8616f713c7c8f539a81e8e3554ea
+change-id: 20260708-drm-reset-state-flag-2fb2b5711f97
+
+Best regards,
+-- 
+Maxime Ripard <mripard@kernel.org>
 
