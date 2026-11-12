@@ -2,70 +2,73 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB554606A31C
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 01:44:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51794606A31C
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 01:44:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SLWNzUls
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YN0eUdU4
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 615F510FED2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B982D10FED3;
 	Thu, 12 Nov 2026 01:44:03 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 901B710FED3;
- Thu, 12 Nov 2026 01:43:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B417010EAF6;
+ Thu, 12 Nov 2026 01:43:52 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 43DC46399A;
- Thu, 12 Nov 2026 01:43:55 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 2A89962CCE;
+ Thu, 12 Nov 2026 01:43:52 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1794447835;
- b=YRRdIBNrwpirhfwI7u4J9ey+766UIqe17hf2HHTgEfKMx+Vzg5WqcL54VMbxH93/57Mj
- MDGwnxgwlso8zdlT6+mCCgPNMVg4fKQgmSdm9pc6/99OuIe6cvufb8ZgVzUpNmVm7JtY8
- gvcPo89PHJ5PtRFwx/AqAWPB9fFchM3KIS3ToOSf3UxcIQWszWYmqGO3piQ1q4K9jTxnv
- pPJh7GEGCOcFz12iRRnuuOBMcQUSTG5SRHqgRSrl/6rRhgNS6MOPEJwI3Vp2itYZLHRMA
- NO3dcP2PuDTg2sRkEEwo3G0c/HsOllhSrlGnr6ZB8m6n54bljEAYwLQ+MFqSRcAfiVg==
+ t=1794447831;
+ b=mTClu7NxsaShaw+38KErEoPi+mOfkQqn7xI69xkyO0g/3St0uAT5pxRa9dGssTcpPE8n
+ 8ggvDvvBynzj3MSdoevbnhaSSdStnc/658zo6FTh+ImgWOwjh6Ea4EEF7HPDtj4SEVk75
+ r098HnrlFuhdgFxdmTEm/ydqbOtyykUZ9mFUtv4a1S/Jwy6Ns8IwroZMVN1Z1CtpIi7kr
+ RjR5raNpDwIqPpaDU5YpxT8UFaV7+5S0W36Op1KuQuz4ZbcY2vr6ydNI5CLzNusLgbkRp
+ nSIRlYF71lV4UoKNZ7g657VjxizTdftXHNYJRJwlESJXdG7uLJS0RsUOwAEwU/85iMA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1794447835;
- h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
- Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
- X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=ZQLs79IR+i7rPnbRDp5LM9SgIweawn+w1wupA6KeoJs=;
- b=u/yIVN/y7UU47lnqjC+gklz7lydnOpmulxcRBitppu8wnahLiJLQg74D4X1vkCU3m0FF
- EA/m1DVtKFAN2P9cqA3ifBb3p0YzB5VgNaaJTMZwFvJx40Su1tWwa2HTiEvMt7MdZwLsk
- oTVnCO4PQsO5J6/6kLDqVbZnFnU4GL1bjnGzBoGzQfAzDCgXYz5kg5Ndk930dG5zz6Ft2
- 0NF+nOgGo+C7DlAoG0g88LufcviVh+OeGMHCb/qPLeV80F2Z5LiC+IyOP5jPVbuhAHBX6
- /ENZmUHgHU9hjUONC7MOEfpR8h3VoSGOTMqAasrHnD7v0hqsDV/C5qZB42kVwuIaebw==
+ c=relaxed/relaxed; t=1794447831;
+ h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+ Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+ Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+ X-Original-From:Reply-To;
+ bh=KgdEWMaaokVMPsOUbpi30JvX+zu3YYlWw0Wpq+qlP6g=;
+ b=uVJX8HDCu0Ymj9oxK2F6myS8TOKn8i4chwwv0QUgEKQ1ap64kHz7R6e8ueVaDwkoCx34
+ t8Zig9M2TteJzPrRtK+mJ/cJ+ISaSdpBizBCZtYVxWl/0U8LWpP12YT0ko1C3WTwvBCRX
+ jJ8ZWm67xwLXUp1+Fv0VrJ7mLivoikJg287DeLYjQypCko8KYUJARCOrD2qtPJSS5ZKmX
+ lyq0EdHct0tyDkX4FCYxzmxGvaNQP0yPv+z9VorB3sCpQmucE852PjkaIHVmKVL8BDITc
+ a1zHR60U0T+lfW0bIkjmWJywU/UstLbML+kmq1FMu5puSYmi5j/RF4pp8mHT6FYgDQQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 2C0721F00A13;
- Thu, 12 Nov 2026 01:43:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794447834;
- bh=ZQLs79IR+i7rPnbRDp5LM9SgIweawn+w1wupA6KeoJs=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=SLWNzUlsvSRgsgQGYALp8kJYTGMpEc2Zkyc0w0ZlEL4UE6XkWQg/roV06pumIR6tB
- zDUBQdSmW7nTYH3pC8w3knUj+CbWXL8p0OSobYqubrORMOiSXxWKj5lpQC18R6Qwdm
- vmWUmgCotqy59FwYP/9BU3u9dj3I/+j/fpcpVf0ToUCXhBUSV2uaSoqpUewsIasNDb
- G9kU1+KnVn7HwyVlm2e27RMFy+VdJpfJeWn21SO3OA6FTm+pVyEqeVE27vtiQVLq5D
- UIhZY9qHizydzON77MFyDMwFF4JcyRdUAqt3Lzwxd2jpeR0Zu5RFNBIZ6kIA6Bm/cM
- pgYHDyuhXJ8Gw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 6A769491DA;
+ by smtp.kernel.org (Postfix) with ESMTPS id 979BA1F00A0A;
  Thu, 12 Nov 2026 01:43:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794447831;
+ bh=KgdEWMaaokVMPsOUbpi30JvX+zu3YYlWw0Wpq+qlP6g=;
+ h=From:Subject:Date:To:Cc:Reply-To;
+ b=YN0eUdU4w4o2Dtb2cYARQxZioc+fi+vFIHrSRCub102/F4jwhMkHPup1RlJSlaTxX
+ csWvOj/jpLH7fAoMxvbfzNYO0FbS7bjIGQcptoat+c7O9bOxOOsTDh6MDEzgcSdzol
+ r2RK7wjG+fvyXnZRKNh6ahM88WlmPRLVLi7EcOAmADeBsgm2MBI2rB+z1fZs8TPzMW
+ cN+TThG/xH+QhhPxVpu3EFpFaeOBC33odoNh5IMEF709vL5wdeT+juRIJoU0qUWZPT
+ BDZubPdD2pqmU2Eiqk7KYqETuD38N8pfwReuU3qpTQLjPBcj0Sn1SeCrvCYYdtobl2
+ 4WUWe9yrq4tUg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+ by lkml.kernel.org (Postfix) with ESMTP id E7207491BF;
+ Thu, 12 Nov 2026 01:43:48 +0000 (UTC)
 From: Dave Airlie via B4 Relay <devnull+airlied.redhat.com@kernel.org>
-Date: Thu, 12 Nov 2026 11:43:41 +1000
-Subject: [PATCH 06/19] drm/amd/display/amdgpu_dm: Use DC accessors in
- plane/crtc/helpers paths
+Subject: [PATCH 00/19] drm/amd/display: refactor DC interfaces to abstract
+ it better.
+Date: Thu, 12 Nov 2026 11:43:35 +1000
+Message-Id: <20261112-amdgpu-dc-cleanup-v1-0-0fae41718ad2@redhat.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-amdgpu-dc-cleanup-v1-6-0fae41718ad2@redhat.com>
-References: <20261112-amdgpu-dc-cleanup-v1-0-0fae41718ad2@redhat.com>
-In-Reply-To: <20261112-amdgpu-dc-cleanup-v1-0-0fae41718ad2@redhat.com>
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MSwqAMAwA0atI1gZMQUGvIi76iRrQWloqQvHuF
+ pdvMVMgcRROMDUFIt+S5PIV1DZgd+03RnHVoDo1EJFCfbotZHQW7cHa54DG9oZHGjtHBLULkVd
+ 5/ue8vO8HMb4rZGMAAAA=
+X-Change-ID: 20261112-amdgpu-dc-cleanup-bc5be9190d11
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
  Rodrigo Siqueira <siqueira@igalia.com>, 
  Alex Deucher <alexander.deucher@amd.com>, 
@@ -75,27 +78,26 @@ To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
  Dave Airlie <airlied@redhat.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=11828;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=25013;
  i=airlied@redhat.com; h=from:subject:message-id;
- bh=X5vxAemYcBpcnHPBvguvgKLi49d8QdgA0aUdt0m/rYU=;
- b=owEBbQKS/ZANAwAKAQx081l5xIa+AcsmYgBq9RnPPN+xoE6Iy+p3RCgW6xEXTHNMl9dhcDXwG
- CP0fZ1zx8mJAjMEAAEKAB0WIQQQptkdobBb0p9t66wMdPNZecSGvgUCavUZzwAKCRAMdPNZecSG
- vjhkEACJilVK+HxFzSbImhEi2XdsRNwgNP9z9rjEs/FvqJCNp89kSg1Jjazafwd3VEoSJCKWHRv
- T1HY8i4F0vsk+6IpkptqumrmBhdNU3SkCdPdGiOz09lfdeaZE5AVpSv4/+DYVaQRU16fUCpS6Wx
- 8Lgl5NX5vuMuQzS1dpETa3TseZeZ7eS3R+ZqBDh6xaZMC9olx19u9RcMuxq1xyJ497IUVLXi2bx
- gFaZHuYfYDQu1kRaw/qgAG+1lXVStASZ/tktLUWcYhTn9ltzU7LyRUlFIdPc98u1sCDTh6NzRhf
- RTOP6Cmgty64d/s8rSWLLrq2dglTFrIHzzLmSy2247agNMqwCFWJhgBIl/3kcnkxH5Nc47ZMeCN
- +El4X3RPOV4d3xmkLqTZE5AQZb3p1kDUjTaBdgzP4NcvnKBVP/tb65UFbQin2X843eQh6I4j6YB
- lrirtY0ih2ujT/PNkNon6mspPq0E5IQ/lEyWmoBbbZJfQLzyJ6CXOssUUtf3sepqCXIuccG3GuV
- 6GmQxZ1MPcAw06EmqhU8ekR/EGf0th5vLHBAbpwznZPUitdMYhMDsEpSTPvC/PuNqI9WJuyjZHl
- Jk5mGa3XtMBsDCGFbMYvoteC/CFu6nHhjqlUXKv3dxt9asZ4lrF7+oGlJf9SUsuaclPvmdSNXtS
- HygHw6TQ7SAXvCg==
+ bh=EhUeBsCO+cU1/rVHwXnz9Mnn1sI2JdDlW/XL/ajVbpA=;
+ b=owEBbQKS/ZANAwAKAQx081l5xIa+AcsmYgBq9RnKy9GZVpPclBMO7zvQOZW3HOC0ele9cEP4w
+ BnJ1ok+NdWJAjMEAAEKAB0WIQQQptkdobBb0p9t66wMdPNZecSGvgUCavUZygAKCRAMdPNZecSG
+ vjUHEACpwsE09mlhmhcmTDXN8jlOkZqVnQSq1rYxXWJYdK9enQoD+l4v1WDX9UZW2m2pY2rFWfg
+ cqYFUZepAHxvujitITp5svD0hTuTgUXccJxMM8UuI4Jn7G6qopdSmWHC+sfxGh0ObycyXq8HGka
+ EIy/4rct4qsGdrivG/iM+nhh+2ZJ291UbcGr03QeY/sq1eEbQxHZS6cZpbcy6UlkQqKrIjzH+4+
+ 2gK6uxzuwg70W0tWiTBWMTfmv38HZfxjx3zTBH9n9+x2UJTuP2Lwlw/SuIvT0f74txd6hmE7k1g
+ UwwptCOba/OfzWHv1TwN4624w6U+0rljoAN+zEq4KlGyJHMByCxseITNSZG7lwn1AsFTPyomeKF
+ xxV2xIDUmgAiMkBTS2xZ3nIVCQNkD7Z8iWtow2QpCXvivn7JZ6T6byJF4zkbdkQYEDarW57424B
+ Qe78Mh7TafHBDtMCmosVxcloeRXMjavfTye+3lCxY7R/HVbo82GH+oaJdA0Cawwe8TO2fZph9XE
+ 6mW3WTfox2IkfSm18mMzh/BvT8TVWuVdZsp3Gk/R+ddhUcRlSQ2Qf1EyJFOp3IoOhY3XIownWol
+ AzeP5ehHJN63/fvKzRTh6j+iz/HAsYVlA6/k6c2fMkDh7jQb0Gf0vpn035jiKk16uoFAmxPH118
+ ZSe73BAkr+54SVw==
 X-Developer-Key: i=airlied@redhat.com; a=openpgp;
  fpr=10A6D91DA1B05BD29F6DEBAC0C74F35979C486BE
 X-Endpoint-Received: by B4 Relay for airlied@redhat.com/default with
  auth_id=1321
 X-Original-From: Dave Airlie <airlied@redhat.com>
-Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,255 +112,429 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Dave Airlie <airlied@redhat.com>
+I recently was looking into refactoring some things and noticed
+that "struct dc" leaks outside of dc a lot, and this is a large
+messy struct and if say someone wanted to use bindgen anywhere
+near this code it would be a nightmare.
 
-Replace direct struct dc member dereferences with the DC accessor
-layer in amdgpu_dm_plane.c, amdgpu_dm_crtc.c and amdgpu_dm_helpers.c,
-including the cap_funcs DCC query (dc_get_dcc_compression_cap), the
-hwss prepare_ddc sequence (dc_prepare_ddc) and the clk_mgr use in the
-DP compliance test path (dc_get_clk_mgr).
+Then I thought, struct dc isn't meant to be like this, so I spent
+some time with an LLM refactoring it so that it's hidden again.
 
-Part of making struct dc private to DC.
+This series does that, it starts by dropping some dead code,
+adding some DC accessors, using them in various places.
+
+It then moves dc.h and then a hacky patch to stop dc includes from leaking
+out again.
+
+Then it does it all again for some other dc structs that are private.
+
+Some things are a bit messy, especially the ABM calculations, and things
+in modules not being quite separated enough, but I've tried to keep the
+solutions sane.
+
+Dave.
 
 Signed-off-by: Dave Airlie <airlied@redhat.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c | 16 +++++++--------
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  | 24 ++++++++++++----------
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c    | 21 ++++++++-----------
- 3 files changed, 30 insertions(+), 31 deletions(-)
+Dave Airlie (19):
+      drm/amd/display: Drop the dead vmid module
+      drm/amd/display: Add DC accessors as the first step to opaque struct dc
+      drm/amd/display: Take struct dc in public DSC compute helpers
+      drm/amd/display/amdgpu_dm: Use DC accessors in audio/color/backlight paths
+      drm/amd/display/amdgpu_dm: Use DC accessors in psr/replay/dmub/hdcp/irq paths
+      drm/amd/display/amdgpu_dm: Use DC accessors in plane/crtc/helpers paths
+      drm/amd/display/amdgpu_dm: Use DC accessors in connector paths
+      drm/amd/display: Use DC accessors in DAL modules
+      drm/amd/display/amdgpu_dm: Use DC accessors in debugfs paths
+      drm/amd/display/amdgpu_dm: Use DC accessors in the DM core paths
+      drm/amd/display/amdgpu_dm: Finish DC accessor migration for non-test code
+      drm/amd/display: Migrate amdgpu_dm KUnit tests off struct dc internals
+      drm/amd/display: Move struct dc out of the public dc.h
+      drm/amd/display: Restrict the dc directory root to DC-internal builds
+      drm/amd/display: Add dc_force_max_dramclk for the DP compliance workaround
+      drm/amd/display: Add DC primitives for ABM hardware programming
+      drm/amd/display: Replace the dc_get_res_pool accessor with purpose APIs
+      drm/amd/display: Replace dc_get_config with per-option config reads
+      drm/amd/display: Replace dc_get_caps with purpose-built capability queries
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-index 3e0128a29d77..334e33b1c4f4 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-@@ -180,7 +180,7 @@ STATIC_IFN_KUNIT void amdgpu_dm_idle_worker(struct work_struct *work)
- 	while (idle_work->enable) {
- 		fsleep(HPD_DETECTION_PERIOD_uS);
- 		mutex_lock(&idle_work->dm->dc_lock);
--		if (!idle_work->dm->dc->idle_optimizations_allowed) {
-+		if (!dc_is_idle_optimizations_allowed(idle_work->dm->dc)) {
- 			mutex_unlock(&idle_work->dm->dc_lock);
- 			break;
- 		}
-@@ -308,8 +308,8 @@ static inline int amdgpu_dm_crtc_set_vblank(struct drm_crtc *crtc, bool enable)
- 		 * Call this function to estimate missed vblanks by using timestamps and
- 		 * update the vblank counter in DRM.
- 		 */
--		if (dc->caps.ips_support &&
--			dc->config.disable_ips != DMUB_IPS_DISABLE_ALL &&
-+		if (dc_get_caps(dc)->ips_support &&
-+			dc_get_config(dc)->disable_ips != DMUB_IPS_DISABLE_ALL &&
- 			sr_supported && vblank->config.disable_immediate)
- 			drm_crtc_vblank_restore(crtc);
- 	}
-@@ -327,7 +327,7 @@ static inline int amdgpu_dm_crtc_set_vblank(struct drm_crtc *crtc, bool enable)
- 			rc = amdgpu_irq_put(adev, &adev->vupdate_irq, irq_type);
- 			drm_dbg_vbl(crtc->dev, "Put vupdate_irq ret=%d\n", rc);
- 		}
--	} else if (dc_supports_vrr(dm->dc->ctx->dce_version)) {
-+	} else if (dc_supports_vrr(dc_get_dce_version(dm->dc))) {
- 		if (enable) {
- 			/* vblank irq on -> Only need vupdate irq in vrr mode
- 			 * Not ref-counted since we need explicit enable/disable
-@@ -530,7 +530,7 @@ dm_crtc_additional_color_mgmt(struct drm_crtc *crtc)
- {
- 	struct amdgpu_device *adev = drm_to_adev(crtc->dev);
- 
--	if (adev->dm.dc->caps.color.mpc.ogam_ram)
-+	if (dc_get_caps(adev->dm.dc)->color.mpc.ogam_ram)
- 		drm_object_attach_property(&crtc->base,
- 					   adev->mode_info.regamma_tf_property,
- 					   AMDGPU_TRANSFER_FUNCTION_DEFAULT);
-@@ -813,8 +813,8 @@ int amdgpu_dm_crtc_init(struct amdgpu_display_manager *dm,
- 		acrtc->base.state = crtc_state;
- 	}
- 
--	acrtc->max_cursor_width = dm->adev->dm.dc->caps.max_cursor_size;
--	acrtc->max_cursor_height = dm->adev->dm.dc->caps.max_cursor_size;
-+	acrtc->max_cursor_width = dc_get_caps(dm->adev->dm.dc)->max_cursor_size;
-+	acrtc->max_cursor_height = dc_get_caps(dm->adev->dm.dc)->max_cursor_size;
- 
- 	acrtc->crtc_id = crtc_index;
- 	acrtc->base.enabled = false;
-@@ -830,7 +830,7 @@ int amdgpu_dm_crtc_init(struct amdgpu_display_manager *dm,
- 	 * or the COLOR_PIPELINE property. An atomic commit which attempts to enable
- 	 * both is rejected.
- 	 */
--	has_degamma = dm->adev->dm.dc->caps.color.dpp.dcn_arch &&
-+	has_degamma = dc_get_caps(dm->adev->dm.dc)->color.dpp.dcn_arch &&
- 		      dm->adev->dm.dc->ctx->dce_version != DCN_VERSION_4_01;
- 
- 	drm_crtc_enable_color_mgmt(&acrtc->base, has_degamma ? MAX_COLOR_LUT_ENTRIES : 0,
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index 3067ac5bb0cd..02a8cfde9f1a 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -136,7 +136,8 @@ STATIC_IFN_KUNIT void apply_edid_quirks(struct dc_link *link, struct edid *edid,
- 		if (dc_is_embedded_signal(link->connector_signal)) {
- 			drm_dbg_driver(dev, "Force PHY power down/up level 2 on panel id %X\n",
- 				       panel_id);
--			link->ctx->dc->debug.psr_phy_force_phy_power_down_up_level_2 = true;
-+			dc_get_debug_options_mutable(link->ctx->dc)->
-+					psr_phy_force_phy_power_down_up_level_2 = true;
- 		}
- 		break;
- 	/* Workaround for monitors that get corrupted by the PHY SSC reduction */
-@@ -227,7 +228,9 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
- 
- 	if (edid_caps->edid_hdmi) {
- 		edid_caps->qs_bit = connector->display_info.rgb_quant_range_selectable;
--		populate_hdmi_info_from_connector(link->dc->config.enable_frl, &connector->display_info.hdmi, edid_caps);
-+		populate_hdmi_info_from_connector(
-+			dc_get_config(link->dc)->enable_frl,
-+			&connector->display_info.hdmi, edid_caps);
- 		drm_dbg_driver(connector->dev, "%s: HDMI_FRL [%s] max_frl_rate %d\n", __func__, connector->name, edid_caps->max_frl_rate);
- 		if (edid_caps->frl_dsc_support)
- 			drm_dbg_driver(connector->dev, "%s: HDMI_FRL_DSC [%s] frl_dsc_10bpc %d, frl_dsc_12bpc %d, frl_dsc_all_bpp %d, frl_dsc_native_420 %d, frl_dsc_max_slices %d, frl_dsc_max_frl_rate %d, frl_dsc_total_chunk_kbytes %d\n",
-@@ -236,8 +239,8 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
- 					edid_caps->frl_dsc_max_frl_rate, edid_caps->frl_dsc_total_chunk_kbytes);
- 		if (aconnector->hdmi_comp_auto) {
- 			edid_caps->panel_patch.hdmi_comp_auto = true;
--			link->ctx->dc->debug.force_frl_max = true;
--			link->ctx->dc->debug.force_frl_dsc = true;
-+			dc_get_debug_options_mutable(link->ctx->dc)->force_frl_max = true;
-+			dc_get_debug_options_mutable(link->ctx->dc)->force_frl_dsc = true;
- 			drm_dbg_driver(connector->dev, "%s: HDMI_FRL [%s] hdmi_comp_auto --> enabled\n", __func__, connector->name);
- 		}
- 	}
-@@ -1291,8 +1294,7 @@ enum dc_edid_status dm_helpers_read_local_edid(
- 	else
- 		ddc = &aconnector->i2c->base;
- 
--	if (link->dc->hwss.prepare_ddc)
--		link->dc->hwss.prepare_ddc(link);
-+	dc_prepare_ddc(link);
- 
- 	dm_helpers_wait_for_edid_ready(link, ddc);
- 
-@@ -1552,12 +1554,12 @@ bool dm_helpers_dp_handle_test_pattern_request(
- 			DP_TEST_PATTERN_COLOR_SPACE_UNDEFINED;
- 	enum dc_color_depth requestColorDepth = COLOR_DEPTH_UNDEFINED;
- 	enum dc_pixel_encoding requestPixelEncoding = PIXEL_ENCODING_UNDEFINED;
--	struct pipe_ctx *pipes = link->dc->current_state->res_ctx.pipe_ctx;
-+	struct pipe_ctx *pipes = dc_get_current_state(link->dc)->res_ctx.pipe_ctx;
- 	struct pipe_ctx *pipe_ctx = NULL;
- 	struct amdgpu_dm_connector *aconnector = link->priv;
- 	struct drm_device *dev = aconnector->base.dev;
--	struct dc_state *dc_state = ctx->dc->current_state;
--	struct clk_mgr *clk_mgr = ctx->dc->clk_mgr;
-+	struct dc_state *dc_state = dc_get_current_state(ctx->dc);
-+	struct clk_mgr *clk_mgr = dc_get_clk_mgr(ctx->dc);
- 	int i;
- 
- 	for (i = 0; i < MAX_PIPES; i++) {
-@@ -1663,8 +1665,8 @@ bool dm_helpers_dp_handle_test_pattern_request(
- 	dc_state->bw_ctx.bw.dcn.clk.dramclk_khz = clk_mgr->dc_mode_softmax_enabled ?
- 		clk_mgr->bw_params->dc_mode_softmax_memclk : clk_mgr->bw_params->max_memclk_mhz;
- 	dc_state->bw_ctx.bw.dcn.clk.idle_dramclk_khz = dc_state->bw_ctx.bw.dcn.clk.dramclk_khz;
--	ctx->dc->clk_mgr->funcs->update_clocks(
--			ctx->dc->clk_mgr,
-+	dc_get_clk_mgr(ctx->dc)->funcs->update_clocks(
-+			dc_get_clk_mgr(ctx->dc),
- 			dc_state,
- 			false);
- 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index b224d9596fd2..eba044bc47df 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -306,9 +306,6 @@ STATIC_IFN_KUNIT int amdgpu_dm_plane_validate_dcc(struct amdgpu_device *adev,
- 	    format >= SURFACE_PIXEL_FORMAT_VIDEO_BEGIN)
- 		return -EINVAL;
- 
--	if (!dc->cap_funcs.get_dcc_compression_cap)
--		return -EINVAL;
--
- 	input.format = format;
- 	input.surface_size.width = plane_size->surface_size.width;
- 	input.surface_size.height = plane_size->surface_size.height;
-@@ -319,7 +316,7 @@ STATIC_IFN_KUNIT int amdgpu_dm_plane_validate_dcc(struct amdgpu_device *adev,
- 	else if (rotation == ROTATION_ANGLE_90 || rotation == ROTATION_ANGLE_270)
- 		input.scan = SCAN_DIRECTION_VERTICAL;
- 
--	if (!dc->cap_funcs.get_dcc_compression_cap(dc, &input, &output))
-+	if (!dc_get_dcc_compression_cap(dc, &input, &output))
- 		return -EINVAL;
- 
- 	if (!output.capable)
-@@ -1337,7 +1334,7 @@ STATIC_IFN_KUNIT void amdgpu_dm_plane_get_min_max_dc_plane_scaling(struct drm_de
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	struct dc *dc = adev->dm.dc;
- 	/* Caps for all supported planes are the same on DCE and DCN 1 - 3 */
--	struct dc_plane_cap *plane_cap = &dc->caps.planes[0];
-+	const struct dc_plane_cap *plane_cap = &dc_get_caps(dc)->planes[0];
- 
- 	switch (fb->format->format) {
- 	case DRM_FORMAT_P010:
-@@ -1697,7 +1694,7 @@ void amdgpu_dm_plane_handle_cursor_update(struct drm_plane *plane,
- 	 * legacy gamma setup.
- 	 */
- 	if (crtc_state->cm_is_degamma_srgb &&
--	    adev->dm.dc->caps.color.dpp.gamma_corr)
-+	    dc_get_caps(adev->dm.dc)->color.dpp.gamma_corr)
- 		attributes.attribute_flags.bits.ENABLE_CURSOR_DEGAMMA = 1;
- 
- 	if (afb)
-@@ -1977,7 +1974,7 @@ dm_atomic_plane_attach_color_mgmt_properties(struct amdgpu_display_manager *dm,
- 					     struct drm_plane *plane)
- {
- 	struct amdgpu_mode_info mode_info = dm->adev->mode_info;
--	struct dpp_color_caps dpp_color_caps = dm->dc->caps.color.dpp;
-+	struct dpp_color_caps dpp_color_caps = dc_get_caps(dm->dc)->color.dpp;
- 
- 	/* Check HW color pipeline capabilities on DPP block (pre-blending)
- 	 * before exposing related properties.
-@@ -1999,11 +1996,11 @@ dm_atomic_plane_attach_color_mgmt_properties(struct amdgpu_display_manager *dm,
- 				   AMDGPU_HDR_MULT_DEFAULT);
- 
- 	/* Only enable plane CTM if both DPP and MPC gamut remap is available. */
--	if (dm->dc->caps.color.mpc.gamut_remap)
-+	if (dc_get_caps(dm->dc)->color.mpc.gamut_remap)
- 		drm_object_attach_property(&plane->base,
- 					   dm->adev->mode_info.plane_ctm_property, 0);
- 
--	if (dpp_color_caps.hw_3d_lut || dm->dc->caps.color.mpc.preblend) {
-+	if (dpp_color_caps.hw_3d_lut || dc_get_caps(dm->dc)->color.mpc.preblend) {
- 		drm_object_attach_property(&plane->base,
- 					   mode_info.plane_shaper_lut_property, 0);
- 		drm_object_attach_property(&plane->base,
-@@ -2019,7 +2016,7 @@ dm_atomic_plane_attach_color_mgmt_properties(struct amdgpu_display_manager *dm,
- 					   MAX_COLOR_3DLUT_SIZE);
- 	}
- 
--	if (dpp_color_caps.ogam_ram || dm->dc->caps.color.mpc.preblend) {
-+	if (dpp_color_caps.ogam_ram || dc_get_caps(dm->dc)->color.mpc.preblend) {
- 		drm_object_attach_property(&plane->base,
- 					   mode_info.plane_blend_lut_property, 0);
- 		drm_object_attach_property(&plane->base,
-@@ -2171,7 +2168,7 @@ dm_plane_init_colorops(struct drm_plane *plane)
- 		return 0;
- 
- 	/* initialize pipeline */
--	if (dc->ctx->dce_version >= DCN_VERSION_3_0) {
-+	if (dc_get_dce_version(dc) >= DCN_VERSION_3_0) {
- 		ret = amdgpu_dm_initialize_default_pipeline(plane, &pipelines[len]);
- 		if (ret) {
- 			drm_err(plane->dev, "Failed to create color pipeline for plane %d: %pe\n",
-@@ -2218,7 +2215,7 @@ int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
- 	int res = -EPERM;
- 	unsigned int supported_rotations;
- 	uint64_t *modifiers = NULL;
--	unsigned int primary_zpos = dm->dc->caps.max_slave_planes;
-+	unsigned int primary_zpos = dc_get_caps(dm->dc)->max_slave_planes;
- 
- 	num_formats = amdgpu_dm_plane_get_plane_formats(plane, plane_cap, formats,
- 							ARRAY_SIZE(formats));
+ drivers/gpu/drm/amd/amdgpu/Makefile                |   1 -
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 172 ++++----
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c    |   8 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_backlight.c    |  12 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_color.c    |  40 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_color.h    |   4 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c  |   7 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_connector.c    |  49 +--
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c |  25 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c  | 132 +++---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c |  61 +--
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c |  39 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  |  30 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c  |  30 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    |  44 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c    |  33 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c  |  10 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c   |  12 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h    |   4 +-
+ .../gpu/drm/amd/display/amdgpu_dm/tests/Makefile   |   1 -
+ .../display/amdgpu_dm/tests/amdgpu_dm_audio_test.c |  51 +--
+ .../amdgpu_dm/tests/amdgpu_dm_backlight_test.c     |  73 ++--
+ .../display/amdgpu_dm/tests/amdgpu_dm_color_test.c |  25 +-
+ .../amdgpu_dm/tests/amdgpu_dm_colorop_test.c       |   8 +-
+ .../amdgpu_dm/tests/amdgpu_dm_connector_test.c     |  80 ++--
+ .../display/amdgpu_dm/tests/amdgpu_dm_crc_test.c   |   7 +-
+ .../display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c  |  66 +--
+ .../display/amdgpu_dm/tests/amdgpu_dm_dmub_test.c  |  86 ++--
+ .../amdgpu_dm/tests/amdgpu_dm_freesync_test.c      |   7 +-
+ .../display/amdgpu_dm/tests/amdgpu_dm_hdcp_test.c  |  23 +-
+ .../amdgpu_dm/tests/amdgpu_dm_helpers_test.c       |  74 ++--
+ .../display/amdgpu_dm/tests/amdgpu_dm_irq_test.c   | 201 +++++-----
+ .../display/amdgpu_dm/tests/amdgpu_dm_ism_test.c   |  31 +-
+ .../amdgpu_dm/tests/amdgpu_dm_kunit_helpers.c      |  39 +-
+ .../amdgpu_dm/tests/amdgpu_dm_kunit_test_helpers.h |   3 +
+ .../amdgpu_dm/tests/amdgpu_dm_mst_types_test.c     |  90 +++--
+ .../display/amdgpu_dm/tests/amdgpu_dm_plane_test.c |  75 ++--
+ .../display/amdgpu_dm/tests/amdgpu_dm_psr_test.c   |  21 +-
+ .../amd/display/amdgpu_dm/tests/amdgpu_dm_test.c   |  55 ++-
+ .../display/amdgpu_dm/tests/amdgpu_dm_wb_test.c    |   6 +-
+ drivers/gpu/drm/amd/display/dc/Makefile            |  16 +
+ drivers/gpu/drm/amd/display/dc/basics/dce_calcs.c  |   1 +
+ drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c |   1 +
+ .../gpu/drm/amd/display/dc/bios/command_table2.c   |   1 +
+ .../drm/amd/display/dc/bls_builder/bls_builder.c   |   1 +
+ .../dc/bls_builder/bls_builder_legacy_init.h       |   2 +-
+ .../display/dc/bls_builder/dcn401_init_builder.c   |   1 +
+ .../dc/bls_builder/dcn401_init_builder_legacy.c    |   1 +
+ .../drm/amd/display/dc/bls_executor/bls_executor.c |   1 +
+ drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c   |   1 +
+ .../amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c    |   1 +
+ .../amd/display/dc/clk_mgr/dce110/dce110_clk_mgr.c |   1 +
+ .../amd/display/dc/clk_mgr/dce112/dce112_clk_mgr.c |   1 +
+ .../amd/display/dc/clk_mgr/dce120/dce120_clk_mgr.c |   1 +
+ .../amd/display/dc/clk_mgr/dcn10/dcn10_clk_mgr.c   |   1 +
+ .../drm/amd/display/dc/clk_mgr/dcn10/rv1_clk_mgr.c |   1 +
+ .../dc/clk_mgr/dcn10/rv1_clk_mgr_vbios_smu.c       |   1 +
+ .../amd/display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c   |   1 +
+ .../amd/display/dc/clk_mgr/dcn201/dcn201_clk_mgr.c |   1 +
+ .../drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c  |   1 +
+ .../dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu.c        |   1 +
+ .../amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c   |   1 +
+ .../drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c |   1 +
+ .../amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c   |   1 +
+ .../drm/amd/display/dc/clk_mgr/dcn31/dcn31_smu.c   |   1 +
+ .../amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c |   1 +
+ .../drm/amd/display/dc/clk_mgr/dcn314/dcn314_smu.c |   1 +
+ .../amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c |   1 +
+ .../drm/amd/display/dc/clk_mgr/dcn315/dcn315_smu.c |   1 +
+ .../amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c |   1 +
+ .../drm/amd/display/dc/clk_mgr/dcn316/dcn316_smu.c |   1 +
+ .../amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c   |   1 +
+ .../amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c   |   1 +
+ .../drm/amd/display/dc/clk_mgr/dcn35/dcn35_smu.c   |   1 +
+ .../amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.c |   1 +
+ .../amd/display/dc/clk_mgr/dcn42/dcn42_clk_mgr.c   |   1 +
+ .../drm/amd/display/dc/clk_mgr/dcn42/dcn42_smu.c   |   1 +
+ .../amd/display/dc/clk_mgr/dcn42b/dcn42b_clk_mgr.c |   1 +
+ .../amd/display/dc/clk_mgr/dcn60/dcn60_clk_mgr.c   |   1 +
+ drivers/gpu/drm/amd/display/dc/core/dc.c           |  23 ++
+ drivers/gpu/drm/amd/display/dc/core/dc_abm.c       | 132 ++++++
+ drivers/gpu/drm/amd/display/dc/core/dc_accessors.c | 313 +++++++++++++++
+ drivers/gpu/drm/amd/display/dc/core/dc_debug.c     |   1 +
+ .../gpu/drm/amd/display/dc/core/dc_hw_sequencer.c  |   1 +
+ .../gpu/drm/amd/display/dc/core/dc_link_enc_cfg.c  |   1 +
+ .../gpu/drm/amd/display/dc/core/dc_link_exports.c  |  86 ++++
+ drivers/gpu/drm/amd/display/dc/core/dc_resource.c  |  11 +
+ drivers/gpu/drm/amd/display/dc/core/dc_stat.c      |   3 +-
+ drivers/gpu/drm/amd/display/dc/core/dc_state.c     |   1 +
+ drivers/gpu/drm/amd/display/dc/core/dc_stream.c    |   1 +
+ drivers/gpu/drm/amd/display/dc/core/dc_surface.c   |   1 +
+ drivers/gpu/drm/amd/display/dc/core/dc_test.c      | 155 +++++++
+ drivers/gpu/drm/amd/display/dc/core/dc_vm_helper.c |   1 +
+ drivers/gpu/drm/amd/display/dc/core2/dc_core2.h    |   2 +-
+ .../drm/amd/display/dc/dc_api_dispatch/api_shim.c  |   2 +-
+ .../drm/amd/display/dc/dc_api_dispatch/api_shim.h  |   3 +-
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c       |   1 +
+ drivers/gpu/drm/amd/display/dc/dc_priv.h           | 186 +++++++++
+ drivers/gpu/drm/amd/display/dc/dc_spl_translate.c  |   1 +
+ .../gpu/drm/amd/display/dc/dccg/dcn31/dcn31_dccg.c |   1 +
+ .../drm/amd/display/dc/dccg/dcn314/dcn314_dccg.c   |   1 +
+ .../gpu/drm/amd/display/dc/dccg/dcn35/dcn35_dccg.c |   1 +
+ .../drm/amd/display/dc/dccg/dcn401/dcn401_dccg.c   |   1 +
+ .../gpu/drm/amd/display/dc/dccg/dcn42/dcn42_dccg.c |   1 +
+ drivers/gpu/drm/amd/display/dc/dce/dce_aux.c       |   1 +
+ drivers/gpu/drm/amd/display/dc/dce/dce_aux.h       |   2 +-
+ .../gpu/drm/amd/display/dc/dce/dce_clock_source.c  |   1 +
+ drivers/gpu/drm/amd/display/dc/dce/dce_dmcu.c      |   1 +
+ drivers/gpu/drm/amd/display/dc/dce/dce_i2c.c       |   1 +
+ drivers/gpu/drm/amd/display/dc/dce/dce_i2c.h       |   2 +-
+ drivers/gpu/drm/amd/display/dc/dce/dce_i2c_hw.c    |   1 +
+ .../gpu/drm/amd/display/dc/dce/dce_link_encoder.c  |   1 +
+ drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c |   1 +
+ drivers/gpu/drm/amd/display/dc/dce/dce_transform.c |   1 +
+ drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c      |   1 +
+ drivers/gpu/drm/amd/display/dc/dce/dmub_abm_cacp.c |   1 +
+ drivers/gpu/drm/amd/display/dc/dce/dmub_abm_lcd.c  |   1 +
+ .../gpu/drm/amd/display/dc/dce/dmub_hw_lock_mgr.c  |   1 +
+ drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c      |   1 +
+ drivers/gpu/drm/amd/display/dc/dce/dmub_replay.c   |   1 +
+ .../drm/amd/display/dc/dce110/dce110_mem_input_v.c |   3 +-
+ .../drm/amd/display/dc/dce110/dce110_transform_v.c |   1 +
+ .../display/dc/dcn10/dcn10_hw_sequencer_debug.c    |   1 +
+ .../amd/display/dc/dcn201/dcn201_link_encoder.c    |   1 +
+ .../drm/amd/display/dc/dcn21/dcn21_link_encoder.c  |   1 +
+ drivers/gpu/drm/amd/display/dc/dcn31/dcn31_afmt.c  |   3 +-
+ .../drm/amd/display/dc/dcn31/dcn31_panel_cntl.c    |   1 +
+ drivers/gpu/drm/amd/display/dc/dcn31/dcn31_vpg.c   |   3 +-
+ .../amd/display/dc/dio/dcn10/dcn10_link_encoder.c  |   1 +
+ .../display/dc/dio/dcn10/dcn10_stream_encoder.c    |   1 +
+ .../amd/display/dc/dio/dcn20/dcn20_link_encoder.c  |   1 +
+ .../display/dc/dio/dcn20/dcn20_stream_encoder.c    |   1 +
+ .../display/dc/dio/dcn30/dcn30_dio_link_encoder.c  |   1 +
+ .../dc/dio/dcn30/dcn30_dio_stream_encoder.c        |   1 +
+ .../dc/dio/dcn301/dcn301_dio_link_encoder.c        |   1 +
+ .../display/dc/dio/dcn31/dcn31_dio_link_encoder.c  |   1 +
+ .../dc/dio/dcn314/dcn314_dio_stream_encoder.c      |   1 +
+ .../display/dc/dio/dcn32/dcn32_dio_link_encoder.c  |   1 +
+ .../dc/dio/dcn32/dcn32_dio_stream_encoder.c        |   1 +
+ .../dc/dio/dcn321/dcn321_dio_link_encoder.c        |   1 +
+ .../display/dc/dio/dcn35/dcn35_dio_link_encoder.c  |   1 +
+ .../dc/dio/dcn35/dcn35_dio_stream_encoder.c        |   1 +
+ .../dc/dio/dcn401/dcn401_dio_link_encoder.c        |   1 +
+ .../dc/dio/dcn401/dcn401_dio_stream_encoder.c      |   1 +
+ .../display/dc/dio/dcn42/dcn42_dio_link_encoder.c  |   1 +
+ .../dc/dio/dcn42/dcn42_dio_stream_encoder.c        |   1 +
+ .../display/dc/dio/dcn60/dcn60_dio_link_encoder.c  |   1 +
+ .../dc/dio/dcn60/dcn60_dio_stream_encoder.c        |   1 +
+ .../gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c   |   1 +
+ .../gpu/drm/amd/display/dc/dml/dcn10/dcn10_fpu.c   |   1 +
+ .../gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c   |   1 +
+ .../gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.c   |   1 +
+ .../gpu/drm/amd/display/dc/dml/dcn301/dcn301_fpu.c |   1 +
+ .../gpu/drm/amd/display/dc/dml/dcn302/dcn302_fpu.c |   1 +
+ .../gpu/drm/amd/display/dc/dml/dcn303/dcn303_fpu.c |   1 +
+ .../gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c   |   1 +
+ .../gpu/drm/amd/display/dc/dml/dcn314/dcn314_fpu.c |   1 +
+ .../gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c   |   1 +
+ .../gpu/drm/amd/display/dc/dml/dcn321/dcn321_fpu.c |   1 +
+ .../gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c   |   1 +
+ .../gpu/drm/amd/display/dc/dml/dcn351/dcn351_fpu.c |   1 +
+ .../dml21_wrapper/dml21_translation_helper.c       |   1 +
+ .../dc/dml2_wrapper/dml21_wrapper/dml21_utils.c    |   1 +
+ .../dml2_wrapper/dml21_wrapper/dml21_wrapper_fpu.c |   1 +
+ .../dc/dml2_wrapper/dml2_dc_resource_mgmt.c        |   1 +
+ .../display/dc/dml2_wrapper/dml2_mall_phantom.c    |   1 +
+ .../dc/dml2_wrapper/dml2_translation_helper.c      |   1 +
+ .../drm/amd/display/dc/dml2_wrapper/dml2_utils.c   |   1 +
+ .../drm/amd/display/dc/dml2_wrapper/dml2_wrapper.c |   1 +
+ .../amd/display/dc/dml2_wrapper/dml2_wrapper_fpu.c |   1 +
+ .../gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp.c   |   1 +
+ .../drm/amd/display/dc/dpp/dcn10/dcn10_dpp_dscl.c  |   1 +
+ .../drm/amd/display/dc/dpp/dcn20/dcn20_dpp_cm.c    |   1 +
+ .../gpu/drm/amd/display/dc/dpp/dcn201/dcn201_dpp.c |   1 +
+ .../gpu/drm/amd/display/dc/dpp/dcn30/dcn30_dpp.c   |   1 +
+ .../drm/amd/display/dc/dpp/dcn30/dcn30_dpp_cm.c    |   1 +
+ .../amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c    |   1 +
+ .../drm/amd/display/dc/dpp/dcn60/dcn60_dpp_cm.c    |   1 +
+ .../drm/amd/display/dc/dpp/dcn60/dcn60_dpp_dscl.c  |   1 +
+ drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c        |  18 +-
+ drivers/gpu/drm/amd/display/dc/hdcp/hdcp_msg.c     |   1 +
+ .../dc/hpo/dcn30/dcn30_hpo_frl_link_encoder.c      |   1 +
+ .../drm/amd/display/dc/hubbub/dcn10/dcn10_hubbub.c |   1 +
+ .../drm/amd/display/dc/hubbub/dcn20/dcn20_hubbub.c |   1 +
+ .../amd/display/dc/hubbub/dcn201/dcn201_hubbub.c   |   1 +
+ .../drm/amd/display/dc/hubbub/dcn21/dcn21_hubbub.c |   1 +
+ .../drm/amd/display/dc/hubbub/dcn30/dcn30_hubbub.c |   1 +
+ .../drm/amd/display/dc/hubbub/dcn31/dcn31_hubbub.c |   1 +
+ .../drm/amd/display/dc/hubbub/dcn32/dcn32_hubbub.c |   1 +
+ .../drm/amd/display/dc/hubbub/dcn35/dcn35_hubbub.c |   1 +
+ .../amd/display/dc/hubbub/dcn401/dcn401_hubbub.c   |   1 +
+ .../drm/amd/display/dc/hubbub/dcn42/dcn42_hubbub.c |   1 +
+ .../drm/amd/display/dc/hubbub/dcn60/dcn60_hubbub.c |   1 +
+ .../gpu/drm/amd/display/dc/hubp/dcn21/dcn21_hubp.c |   1 +
+ .../gpu/drm/amd/display/dc/hubp/dcn35/dcn35_hubp.c |   1 +
+ .../gpu/drm/amd/display/dc/hubp/dcn42/dcn42_hubp.c |   1 +
+ .../gpu/drm/amd/display/dc/hwss/dce/dce_hwseq.c    |   1 +
+ .../drm/amd/display/dc/hwss/dce100/dce100_hwseq.c  |   1 +
+ .../drm/amd/display/dc/hwss/dce110/dce110_hwseq.c  |   1 +
+ .../drm/amd/display/dc/hwss/dce112/dce112_hwseq.c  |   1 +
+ .../drm/amd/display/dc/hwss/dce120/dce120_hwseq.c  |   1 +
+ .../drm/amd/display/dc/hwss/dce60/dce60_hwseq.c    |   1 +
+ .../drm/amd/display/dc/hwss/dce80/dce80_hwseq.c    |   1 +
+ .../drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c    |   1 +
+ .../gpu/drm/amd/display/dc/hwss/dcn10/dcn10_init.c |   3 +-
+ .../drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c    |   3 +-
+ .../gpu/drm/amd/display/dc/hwss/dcn20/dcn20_init.c |   1 +
+ .../drm/amd/display/dc/hwss/dcn201/dcn201_hwseq.c  |   1 +
+ .../drm/amd/display/dc/hwss/dcn201/dcn201_init.c   |   1 +
+ .../drm/amd/display/dc/hwss/dcn21/dcn21_hwseq.c    |   1 +
+ .../gpu/drm/amd/display/dc/hwss/dcn21/dcn21_init.c |   1 +
+ .../drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c    |   1 +
+ .../gpu/drm/amd/display/dc/hwss/dcn30/dcn30_init.c |   1 +
+ .../drm/amd/display/dc/hwss/dcn301/dcn301_init.c   |   1 +
+ .../drm/amd/display/dc/hwss/dcn302/dcn302_hwseq.c  |   1 +
+ .../drm/amd/display/dc/hwss/dcn302/dcn302_init.c   |   1 +
+ .../drm/amd/display/dc/hwss/dcn303/dcn303_init.c   |   1 +
+ .../drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c    |   3 +-
+ .../gpu/drm/amd/display/dc/hwss/dcn31/dcn31_init.c |   1 +
+ .../drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.c  |   3 +-
+ .../drm/amd/display/dc/hwss/dcn314/dcn314_init.c   |   1 +
+ .../drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c    |   1 +
+ .../gpu/drm/amd/display/dc/hwss/dcn32/dcn32_init.c |   1 +
+ .../drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c    |   3 +-
+ .../drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.h    |   2 +-
+ .../gpu/drm/amd/display/dc/hwss/dcn35/dcn35_init.c |   1 +
+ .../drm/amd/display/dc/hwss/dcn351/dcn351_hwseq.c  |   1 +
+ .../drm/amd/display/dc/hwss/dcn351/dcn351_init.c   |   1 +
+ .../drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c  |   1 +
+ .../drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.h  |   2 +-
+ .../drm/amd/display/dc/hwss/dcn401/dcn401_init.c   |   1 +
+ .../drm/amd/display/dc/hwss/dcn42/dcn42_hwseq.c    |   1 +
+ .../gpu/drm/amd/display/dc/hwss/dcn42/dcn42_init.c |   1 +
+ .../drm/amd/display/dc/hwss/dcn42b/dcn42b_hwseq.c  |   1 +
+ .../drm/amd/display/dc/hwss/dcn42b/dcn42b_init.c   |   1 +
+ .../drm/amd/display/dc/hwss/dcn50/dcn50_hwseq.c    |   1 +
+ .../drm/amd/display/dc/hwss/dcn50/dcn50_hwseq.h    |   2 +-
+ .../drm/amd/display/dc/hwss/dcn60/dcn60_hwseq.c    |   1 +
+ .../drm/amd/display/dc/hwss/dcn60/dcn60_hwseq.h    |   2 +-
+ .../gpu/drm/amd/display/dc/hwss/dcn60/dcn60_init.c |   1 +
+ drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h |  16 +-
+ drivers/gpu/drm/amd/display/dc/inc/core_types.h    |   8 +-
+ drivers/gpu/drm/amd/display/dc/{ => inc}/dc.h      | 446 ++++++++++++++-------
+ .../drm/amd/display/dc/{ => inc}/dc_bios_types.h   |   0
+ .../drm/amd/display/dc/{ => inc}/dc_ddc_types.h    |   0
+ .../gpu/drm/amd/display/dc/{ => inc}/dc_dmub_srv.h |   0
+ .../gpu/drm/amd/display/dc/{ => inc}/dc_dp_types.h |   0
+ drivers/gpu/drm/amd/display/dc/{ => inc}/dc_dsc.h  |   4 +-
+ .../gpu/drm/amd/display/dc/{ => inc}/dc_fused_io.h |   0
+ .../drm/amd/display/dc/{ => inc}/dc_hdmi_types.h   |   0
+ .../gpu/drm/amd/display/dc/{ => inc}/dc_hw_types.h |   0
+ .../drm/amd/display/dc/{ => inc}/dc_memory_pool.h  |   0
+ .../gpu/drm/amd/display/dc/{ => inc}/dc_plane.h    |   0
+ .../gpu/drm/amd/display/dc/{ => inc}/dc_probe.h    |   0
+ drivers/gpu/drm/amd/display/dc/{ => inc}/dc_stat.h |   0
+ .../gpu/drm/amd/display/dc/{ => inc}/dc_state.h    |   2 +-
+ .../gpu/drm/amd/display/dc/{ => inc}/dc_stream.h   |   0
+ drivers/gpu/drm/amd/display/dc/inc/dc_test.h       |  85 ++++
+ .../gpu/drm/amd/display/dc/{ => inc}/dc_trace.h    |   0
+ .../gpu/drm/amd/display/dc/{ => inc}/dc_types.h    |   0
+ drivers/gpu/drm/amd/display/dc/inc/dcn_calcs.h     |   2 +-
+ .../gpu/drm/amd/display/dc/{ => inc}/dm_cp_psp.h   |   0
+ .../gpu/drm/amd/display/dc/{ => inc}/dm_helpers.h  |   0
+ .../gpu/drm/amd/display/dc/{ => inc}/dm_pp_smu.h   |   0
+ .../gpu/drm/amd/display/dc/{ => inc}/dm_services.h |  16 +
+ .../amd/display/dc/{ => inc}/dm_services_types.h   |   0
+ drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h   |   2 +-
+ drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h       |   4 +-
+ drivers/gpu/drm/amd/display/dc/inc/hw/mcif_wb.h    |   2 +-
+ drivers/gpu/drm/amd/display/dc/inc/hw/mem_input.h  |   4 +-
+ drivers/gpu/drm/amd/display/dc/inc/hw/transform.h  |   2 +-
+ .../gpu/drm/amd/display/dc/{ => inc}/irq_types.h   |   0
+ .../gpu/drm/amd/display/dc/{ => inc}/os_types.h    |   0
+ .../amd/display/dc/irq/dce110/irq_service_dce110.c |   1 +
+ .../amd/display/dc/link/accessories/link_dp_cts.c  |   1 +
+ .../display/dc/link/accessories/link_dp_trace.c    |   1 +
+ .../drm/amd/display/dc/link/hwss/link_hwss_dio.c   |   1 +
+ .../link/hwss/link_hwss_dio_fixed_vs_pe_retimer.c  |   1 +
+ .../drm/amd/display/dc/link/hwss/link_hwss_dpia.c  |   1 +
+ .../amd/display/dc/link/hwss/link_hwss_hpo_dp.c    |   1 +
+ .../hwss/link_hwss_hpo_fixed_vs_pe_retimer_dp.c    |   1 +
+ .../amd/display/dc/link/hwss/link_hwss_hpo_frl.c   |   1 +
+ .../gpu/drm/amd/display/dc/link/link_detection.c   |   1 +
+ drivers/gpu/drm/amd/display/dc/link/link_dpms.c    |   1 +
+ drivers/gpu/drm/amd/display/dc/link/link_factory.c |   1 +
+ .../gpu/drm/amd/display/dc/link/link_resource.c    |   1 +
+ .../gpu/drm/amd/display/dc/link/link_validation.c  |   1 +
+ .../drm/amd/display/dc/link/protocols/link_ddc.c   |   1 +
+ .../display/dc/link/protocols/link_dp_capability.c |   1 +
+ .../amd/display/dc/link/protocols/link_dp_dpia.c   |   2 +-
+ .../display/dc/link/protocols/link_dp_dpia_bw.c    |   1 +
+ .../dc/link/protocols/link_dp_irq_handler.c        |   1 +
+ .../dc/link/protocols/link_dp_panel_replay.c       |   3 +-
+ .../amd/display/dc/link/protocols/link_dp_phy.c    |   1 +
+ .../display/dc/link/protocols/link_dp_training.c   |   1 +
+ .../dc/link/protocols/link_dp_training_128b_132b.c |   1 +
+ .../dc/link/protocols/link_dp_training_8b_10b.c    |   1 +
+ .../dc/link/protocols/link_dp_training_dpia.c      |   3 +-
+ .../link_dp_training_fixed_vs_pe_retimer.c         |   1 +
+ .../dc/link/protocols/link_edp_panel_control.c     |   3 +-
+ .../amd/display/dc/link/protocols/link_hdmi_frl.c  |   1 +
+ .../gpu/drm/amd/display/dc/mpc/dcn20/dcn20_mpc.c   |   1 +
+ .../gpu/drm/amd/display/dc/mpc/dcn30/dcn30_mpc.c   |   1 +
+ .../gpu/drm/amd/display/dc/mpc/dcn32/dcn32_mpc.c   |   1 +
+ .../gpu/drm/amd/display/dc/mpc/dcn401/dcn401_mpc.c |   1 +
+ .../gpu/drm/amd/display/dc/mpc/dcn60/dcn60_mpc.c   |   1 +
+ .../gpu/drm/amd/display/dc/opp/dcn10/dcn10_opp.c   |   1 +
+ .../gpu/drm/amd/display/dc/opp/dcn20/dcn20_opp.c   |   1 +
+ .../gpu/drm/amd/display/dc/optc/dcn30/dcn30_optc.c |   1 +
+ .../gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.c |   1 +
+ .../gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c |   1 +
+ .../drm/amd/display/dc/optc/dcn401/dcn401_optc.c   |   1 +
+ .../gpu/drm/amd/display/dc/optc/dcn42/dcn42_optc.c |   1 +
+ .../drm/amd/display/dc/pg/dcn35/dcn35_pg_cntl.c    |   1 +
+ .../drm/amd/display/dc/pg/dcn42/dcn42_pg_cntl.c    |   1 +
+ .../display/dc/resource/dce100/dce100_resource.c   |   1 +
+ .../display/dc/resource/dce110/dce110_resource.c   |   1 +
+ .../display/dc/resource/dce112/dce112_resource.c   |   1 +
+ .../display/dc/resource/dce120/dce120_resource.c   |   1 +
+ .../amd/display/dc/resource/dce60/dce60_resource.c |   1 +
+ .../amd/display/dc/resource/dce80/dce80_resource.c |   1 +
+ .../amd/display/dc/resource/dcn10/dcn10_resource.c |   1 +
+ .../amd/display/dc/resource/dcn20/dcn20_resource.c |   1 +
+ .../display/dc/resource/dcn201/dcn201_resource.c   |   1 +
+ .../amd/display/dc/resource/dcn21/dcn21_resource.c |   1 +
+ .../amd/display/dc/resource/dcn30/dcn30_resource.c |   1 +
+ .../display/dc/resource/dcn301/dcn301_resource.c   |   1 +
+ .../display/dc/resource/dcn302/dcn302_resource.c   |   1 +
+ .../display/dc/resource/dcn303/dcn303_resource.c   |   1 +
+ .../amd/display/dc/resource/dcn31/dcn31_resource.c |   1 +
+ .../display/dc/resource/dcn314/dcn314_resource.c   |   1 +
+ .../display/dc/resource/dcn315/dcn315_resource.c   |   1 +
+ .../display/dc/resource/dcn316/dcn316_resource.c   |   1 +
+ .../amd/display/dc/resource/dcn32/dcn32_resource.c |   1 +
+ .../dc/resource/dcn32/dcn32_resource_helpers.c     |   1 +
+ .../display/dc/resource/dcn321/dcn321_resource.c   |   1 +
+ .../amd/display/dc/resource/dcn35/dcn35_resource.c |   1 +
+ .../display/dc/resource/dcn351/dcn351_resource.c   |   1 +
+ .../amd/display/dc/resource/dcn36/dcn36_resource.c |   1 +
+ .../display/dc/resource/dcn401/dcn401_resource.c   |   1 +
+ .../amd/display/dc/resource/dcn42/dcn42_resource.c |   1 +
+ .../display/dc/resource/dcn42/dcn42_resource_fpu.c |   1 +
+ .../display/dc/resource/dcn42b/dcn42b_resource.c   |   1 +
+ .../amd/display/dc/resource/dcn60/dcn60_resource.c |   1 +
+ .../gpu/drm/amd/display/dc/rmcm/dcn42/dcn42_rmcm.c |   1 +
+ .../gpu/drm/amd/display/dc/rmcm/dcn60/dcn60_rmcm.c |   1 +
+ .../dcn401/dcn401_soc_and_ip_translator.c          |   1 +
+ .../dcn42/dcn42_soc_and_ip_translator.c            |   1 +
+ .../dcn60/dcn60_soc_and_ip_translator.c            |   1 +
+ drivers/gpu/drm/amd/display/dmub/dmub_srv.h        |   2 +-
+ drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.c  |   2 +-
+ drivers/gpu/drm/amd/display/dmub/src/dmub_dcn35.c  |   2 +-
+ .../gpu/drm/amd/display/include/logger_interface.h |  13 +-
+ .../drm/amd/display/modules/color/color_gamma.c    |   2 +-
+ .../drm/amd/display/modules/color/color_gamma.h    |   2 +-
+ .../drm/amd/display/modules/freesync/freesync.c    |  14 +-
+ .../gpu/drm/amd/display/modules/inc/mod_freesync.h |   2 +
+ .../gpu/drm/amd/display/modules/inc/mod_stats.h    |  75 ----
+ drivers/gpu/drm/amd/display/modules/inc/mod_vmid.h |  46 ---
+ drivers/gpu/drm/amd/display/modules/power/power.c  |   6 +-
+ .../gpu/drm/amd/display/modules/power/power_abm.c  | 168 +++-----
+ .../drm/amd/display/modules/power/power_helpers.h  |  17 +-
+ .../gpu/drm/amd/display/modules/power/power_psr.c  |  12 +-
+ .../drm/amd/display/modules/power/power_replay.c   |  27 +-
+ drivers/gpu/drm/amd/display/modules/vmid/vmid.c    | 178 --------
+ drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h      |   2 +-
+ 366 files changed, 2633 insertions(+), 1508 deletions(-)
+---
+base-commit: a6836fcbb5b22968019256025321d655b78bc49c
+change-id: 20261112-amdgpu-dc-cleanup-bc5be9190d11
 
+Best regards,
 -- 
-2.56.0
+Dave Airlie <airlied@redhat.com>
 
 
