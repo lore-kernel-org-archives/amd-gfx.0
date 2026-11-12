@@ -2,110 +2,50 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDE48606A327
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 12:51:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 886FF606A889
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 13:00:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=xbB1mSzr;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ssbJevsD;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=xbB1mSzr;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ssbJevsD
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=F0a/wLBZ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B8731120D0;
-	Thu, 12 Nov 2026 12:51:17 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D0F21120D0;
- Thu, 12 Nov 2026 12:51:05 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 1A4E61F788;
- Thu, 12 Nov 2026 12:50:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1794487848; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=9W4psehBgtKcKqzw/2hJYghsWntjeVpzZt5TW1sjsRQ=;
- b=xbB1mSzrPXmLEaRKUdQkXyFXbBDJRk4km39O1qUnxmJ2wT5UC6qHdQH4Rrp0D1ZHMMECFP
- h7skdSla6eR5deXcY0seQ1plmEeahhJUpFZTVP4IkO9+fXTyVcl6gh/jpCLFtdhRqQ1KvQ
- 2+b0Hg4kHSkOgBsk/q77D/AzrAi/thQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1794487848;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=9W4psehBgtKcKqzw/2hJYghsWntjeVpzZt5TW1sjsRQ=;
- b=ssbJevsDGCxK5wwSo2tf1vQ01OXsbWwxn/OCS0TSBC9AYmiU2P/ad4/UNIlv1RUOCSJJIx
- GXYrRy87ctlYQEAQ==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=xbB1mSzr;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=ssbJevsD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1794487848; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=9W4psehBgtKcKqzw/2hJYghsWntjeVpzZt5TW1sjsRQ=;
- b=xbB1mSzrPXmLEaRKUdQkXyFXbBDJRk4km39O1qUnxmJ2wT5UC6qHdQH4Rrp0D1ZHMMECFP
- h7skdSla6eR5deXcY0seQ1plmEeahhJUpFZTVP4IkO9+fXTyVcl6gh/jpCLFtdhRqQ1KvQ
- 2+b0Hg4kHSkOgBsk/q77D/AzrAi/thQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1794487848;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=9W4psehBgtKcKqzw/2hJYghsWntjeVpzZt5TW1sjsRQ=;
- b=ssbJevsDGCxK5wwSo2tf1vQ01OXsbWwxn/OCS0TSBC9AYmiU2P/ad4/UNIlv1RUOCSJJIx
- GXYrRy87ctlYQEAQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AD6E113432;
- Thu, 12 Nov 2026 12:50:47 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id +57mLya29WrBWgAAD6G6ig:T3
- (envelope-from <tzimmermann@suse.de>); Thu, 12 Nov 2026 12:50:47 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- sashiko-reviews@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH v2 2/2] drm: Remove drm_crtc_init()
-Date: Thu, 12 Nov 2026 13:45:09 +0100
-Message-ID: <20261112125039.66082-3-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261112125039.66082-1-tzimmermann@suse.de>
-References: <20261112125039.66082-1-tzimmermann@suse.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF21911210F;
+	Thu, 12 Nov 2026 13:00:00 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6541211210D;
+ Thu, 12 Nov 2026 12:59:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=AWXOHB4eq07srq9BA8SlrXqaufF/LfzAKHpn7R5j6K4=; t=1794488394; x=2109848394; 
+ b=F0a/wLBZklfnSbAXtgR7stklIjueVqTeMwB6kYk9kmrweSQLC0yZHPofGu9tkHVJd+r1tiQrffB
+ A7uuVtYEQF8MAqJEwP8BYRRPIUe+UlKJV2eZC+GaIalpHbKqFQcaWt1cSAteYtZ42jlCe+4gkpnjQ
+ GXTHCNAN91hXESoE9A+QZ3PaLrBHg8/fOlUPkShaLu8p9A0xgMSGNRH7aWmxMHsxlD4eJc9YQtN8c
+ al0tkAuzvi3MxWXeFxF1roNXiSON4rhXrv/AoDW3qV7EoyfEpi5qzD1B4UA7iSzxvQl4Y5jJkqsDI
+ ziW1MbHMRqo7hJlHPz3j8WcodAhIMRshsKNQ==;
+Received: from [81.79.79.1] (helo=[192.168.0.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1xRUPA-009Y5y-19; Thu, 12 Nov 2026 13:59:52 +0100
+Message-ID: <f5e91cef-a9af-4839-b7b7-45351d59d881@igalia.com>
+Date: Thu, 12 Nov 2026 12:59:51 +0000
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6/7] drm/sched: Replace the SPSC queue with a list and a
+ spinlock
+To: phasta@kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>
+References: <20261106145702.61640-1-tvrtko.ursulin@igalia.com>
+ <20261106145702.61640-7-tvrtko.ursulin@igalia.com>
+ <c3e0decc799da64c09689b85c3db49b0b0a437b4.camel@mailbox.org>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <c3e0decc799da64c09689b85c3db49b0b0a437b4.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 1A4E61F788
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-12.01 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
- BAYES_HAM(-3.00)[100.00%]; MID_CONTAINS_FROM(1.00)[];
- NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- FREEMAIL_TO(0.00)[amd.com,gmail.com,ffwll.ch,linux.intel.com,kernel.org];
- MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DKIM_TRACE(0.00)[suse.de:+]; TO_DN_SOME(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; RCVD_TLS_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- RCPT_COUNT_SEVEN(0.00)[10]; RCVD_VIA_SMTP_AUTH(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]
-X-Spam-Score: -12.01
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,197 +56,195 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+X-Spam-Status: No, score=-11.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-There are no remaining users of drm_crtc_init(), so remove the helper
-and the internal data structures for the primary plane that the helper
-creates.
 
-Also remove the format_default flag from struct drm_plane. Without
-drm_crtc_init(), no drivers set it to true.
+On 10/11/2026 15:49, Philipp Stanner wrote:
+> Just taking a closer look now since I assumed this is some sort of RFC
+> for AMD to look first.
+> 
+> On Fri, 2026-11-06 at 14:57 +0000, Tvrtko Ursulin wrote:
+>> Migrate the entity job queue from the single user SPSC queue (single
+>> producer, single consumer) to the standard list_head plus a spinlock in
+>> order to make it easier to argue about correctnes and bring the code base
+>> close to the usual kernel patterns.
+>>
+>> The main thing which needs to be mentioned is the seeming usage of RCU,
+>> which isn't really so, but only for two trivial reasons:
+> 
+> If that were really the only way then we would, unfortunately, not at
+> all end up with "usual kernel patterns" :(
+> 
+>>
+>> 1.
+>> We need to use the list operations which are safe for unlocked access to
+>> the list head, while parallel (locked) threads can be appending other
+>> jobs.
+>>
+>> This so the run job worker is able to process the job dependencies which
+>> includes it calling a potentially sleeping prepare_job() callback. Hence
+>> it is not possible to hold the entity->lock during that stage.
+> 
+> Why can't it pull a job from the list, release the lock and then do
+> that? There is only ever 1 worker at a time.
+> 
+>> 2.
+>> We need to work around the infamous entity<->rq locking inversion which
+>> would now trigger slightly earlier in the run job worker, from the entity
+>> selection stage, where there was previosuly the other "spsc queue peek"
+>> call site.
+> 
+> Is spsc_queue_peek() the only place where an inversion would occur?
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Acked-by: Maxime Ripard <mripard@kernel.org>
----
- drivers/gpu/drm/drm_crtc.c           | 26 +++-------
- drivers/gpu/drm/drm_modeset_helper.c | 74 ----------------------------
- include/drm/drm_modeset_helper.h     |  3 --
- include/drm/drm_plane.h              |  5 --
- 4 files changed, 7 insertions(+), 101 deletions(-)
+Ignoring amdgpu yes.
 
-diff --git a/drivers/gpu/drm/drm_crtc.c b/drivers/gpu/drm/drm_crtc.c
-index 5295ec122e0d..b7cf18b79b1d 100644
---- a/drivers/gpu/drm/drm_crtc.c
-+++ b/drivers/gpu/drm/drm_crtc.c
-@@ -334,10 +334,7 @@ static int __drm_crtc_init_with_planes(struct drm_device *dev, struct drm_crtc *
-  * @funcs: callbacks for the new CRTC
-  * @name: printf style format string for the CRTC name, or NULL for default name
-  *
-- * Inits a new object created as base part of a driver crtc object. Drivers
-- * should use this function instead of drm_crtc_init(), which is only provided
-- * for backwards compatibility with drivers which do not yet support universal
-- * planes).
-+ * Inits a new object created as base part of a driver crtc object.
-  * The &drm_crtc_funcs.destroy hook should call drm_crtc_cleanup() and kfree()
-  * the crtc structure. The crtc structure should not be allocated with
-  * devm_kzalloc().
-@@ -417,10 +414,7 @@ static int __drmm_crtc_init_with_planes(struct drm_device *dev,
-  * @funcs: callbacks for the new CRTC
-  * @name: printf style format string for the CRTC name, or NULL for default name
-  *
-- * Inits a new object created as base part of a driver crtc object. Drivers
-- * should use this function instead of drm_crtc_init(), which is only provided
-- * for backwards compatibility with drivers which do not yet support universal
-- * planes).
-+ * Inits a new object created as base part of a driver crtc object.
-  *
-  * Cleanup is automatically handled through registering
-  * drmm_crtc_cleanup() with drmm_add_action(). The crtc structure should
-@@ -806,18 +800,12 @@ int drm_mode_setcrtc(struct drm_device *dev, void *data,
- 
- 		/*
- 		 * Check whether the primary plane supports the fb pixel format.
--		 * Drivers not implementing the universal planes API use a
--		 * default formats list provided by the DRM core which doesn't
--		 * match real hardware capabilities. Skip the check in that
--		 * case.
- 		 */
--		if (!plane->format_default) {
--			if (!drm_plane_has_format(plane, fb->format->format, fb->modifier)) {
--				drm_dbg_kms(dev, "Invalid pixel format %p4cc, modifier 0x%llx\n",
--					    &fb->format->format, fb->modifier);
--				ret = -EINVAL;
--				goto out;
--			}
-+		if (!drm_plane_has_format(plane, fb->format->format, fb->modifier)) {
-+			drm_dbg_kms(dev, "Invalid pixel format %p4cc, modifier 0x%llx\n",
-+				    &fb->format->format, fb->modifier);
-+			ret = -EINVAL;
-+			goto out;
- 		}
- 
- 		ret = drm_crtc_check_viewport(crtc, crtc_req->x, crtc_req->y,
-diff --git a/drivers/gpu/drm/drm_modeset_helper.c b/drivers/gpu/drm/drm_modeset_helper.c
-index cca623eb23e5..d462b347bde6 100644
---- a/drivers/gpu/drm/drm_modeset_helper.c
-+++ b/drivers/gpu/drm/drm_modeset_helper.c
-@@ -101,80 +101,6 @@ void drm_helper_mode_fill_fb_struct(struct drm_device *dev,
- }
- EXPORT_SYMBOL(drm_helper_mode_fill_fb_struct);
- 
--/*
-- * This is the minimal list of formats that seem to be safe for modeset use
-- * with all current DRM drivers.  Most hardware can actually support more
-- * formats than this and drivers may specify a more accurate list when
-- * creating the primary plane.
-- */
--static const uint32_t safe_modeset_formats[] = {
--	DRM_FORMAT_XRGB8888,
--	DRM_FORMAT_ARGB8888,
--};
--
--static const struct drm_plane_funcs primary_plane_funcs = {
--	DRM_PLANE_NON_ATOMIC_FUNCS,
--	DRM_PANIC_PLANE_FUNCS,
--};
--
--/**
-- * drm_crtc_init - Legacy CRTC initialization function
-- * @dev: DRM device
-- * @crtc: CRTC object to init
-- * @funcs: callbacks for the new CRTC
-- *
-- * Initialize a CRTC object with a default helper-provided primary plane and no
-- * cursor plane.
-- *
-- * Note that we make some assumptions about hardware limitations that may not be
-- * true for all hardware:
-- *
-- * 1. Primary plane cannot be repositioned.
-- * 2. Primary plane cannot be scaled.
-- * 3. Primary plane must cover the entire CRTC.
-- * 4. Subpixel positioning is not supported.
-- * 5. The primary plane must always be on if the CRTC is enabled.
-- *
-- * This is purely a backwards compatibility helper for old drivers. Drivers
-- * should instead implement their own primary plane. Atomic drivers must do so.
-- *
-- * Returns:
-- * Zero on success, error code on failure.
-- */
--int drm_crtc_init(struct drm_device *dev, struct drm_crtc *crtc,
--		  const struct drm_crtc_funcs *funcs)
--{
--	struct drm_plane *primary;
--	int ret;
--
--	/* possible_crtc's will be filled in later by crtc_init */
--	primary = __drm_universal_plane_alloc(dev, sizeof(*primary), 0, 0,
--					      &primary_plane_funcs,
--					      safe_modeset_formats,
--					      ARRAY_SIZE(safe_modeset_formats),
--					      NULL, DRM_PLANE_TYPE_PRIMARY, NULL);
--	if (IS_ERR(primary))
--		return PTR_ERR(primary);
--
--	/*
--	 * Remove the format_default field from drm_plane when dropping
--	 * this helper.
--	 */
--	primary->format_default = true;
--
--	ret = drm_crtc_init_with_planes(dev, crtc, primary, NULL, funcs, NULL);
--	if (ret)
--		goto err_drm_plane_cleanup;
--
--	return 0;
--
--err_drm_plane_cleanup:
--	drm_plane_cleanup(primary);
--	kfree(primary);
--	return ret;
--}
--EXPORT_SYMBOL(drm_crtc_init);
--
- /**
-  * drm_mode_config_helper_suspend - Modeset suspend helper
-  * @dev: DRM device
-diff --git a/include/drm/drm_modeset_helper.h b/include/drm/drm_modeset_helper.h
-index 7e3d4c5a7f66..6b9421aee536 100644
---- a/include/drm/drm_modeset_helper.h
-+++ b/include/drm/drm_modeset_helper.h
-@@ -37,9 +37,6 @@ void drm_helper_mode_fill_fb_struct(struct drm_device *dev,
- 				    const struct drm_format_info *info,
- 				    const struct drm_mode_fb_cmd2 *mode_cmd);
- 
--int drm_crtc_init(struct drm_device *dev, struct drm_crtc *crtc,
--		  const struct drm_crtc_funcs *funcs);
--
- int drm_mode_config_helper_suspend(struct drm_device *dev);
- int drm_mode_config_helper_resume(struct drm_device *dev);
- 
-diff --git a/include/drm/drm_plane.h b/include/drm/drm_plane.h
-index 410d7b02b77a..3f6a1408cf5e 100644
---- a/include/drm/drm_plane.h
-+++ b/include/drm/drm_plane.h
-@@ -738,11 +738,6 @@ struct drm_plane {
- 	uint32_t *format_types;
- 	/** @format_count: Size of the array pointed at by @format_types. */
- 	unsigned int format_count;
--	/**
--	 * @format_default: driver hasn't supplied supported formats for the
--	 * plane. Used by the non-atomic driver compatibility wrapper only.
--	 */
--	bool format_default;
- 
- 	/** @modifiers: array of modifiers supported by this plane */
- 	uint64_t *modifiers;
--- 
-2.56.0
+Regarding spsc_queue_peek(), the current code has three of those:
+
+1. drm_sched_rq_pop_entity()
+
+This call site is not a lock inversion site.
+
+Instead of the peek, the next job now gets passed in by the caller, 
+drm_sched_entity_pop_job(), which is correctly holding entity->lock.
+
+2. drm_sched_can_queue()
+
+This is a lock inversion site since it runs under the rq->lock during 
+entity selection phase of drm_sched_run_job_work().
+
+The purpose of the peek is to answer "does the first queued job for this 
+entity required less or equal to credits than this scheduler instance 
+can queue".
+
+Since this is a lock inversion site we cannot lock but truly have to 
+have an unlocked solution. In this patch I removed the requirement to 
+look at the job queue by tracking the credits requirement of the first 
+job in the entity itself (entity->job_credits).
+
+This is effectively replacing one unlocked read (spsc_queue_peek) with a 
+different one (READ_ONCE(entity->job_credits)). Something unlocked is 
+unavoidable here and I think this is more elegant and simple.
+
+And because it is an unlocked read it has to be annotated with 
+READ_ONCE(). Which means the write side, even though it is done under 
+the lock, is paired up and marked with WRITE_ONCE().
+
+2. drm_sched_entity_pop_job()
+
+This is not a lock inversion site but needs to call sleepable things 
+while considering the head of the job queue (->prepare_job()).
+
+This one is the only remaining reason I used list_add_tail_rcu and 
+list_del_rcu, just so from here we can safely touch the first entry 
+while elsewhere more are being added.
+
+It is possible to do it, as you suggest, by dropping and re-acquiring 
+the lock. Note however that too would need a big fat comment why it is 
+safe. At which point, since both cases have a big fat comment explaining 
+the same thing apart from the implementation details, I do not see the 
+advantage of pointless lock cycling. READ_ONCE and WRITE_ONCE you 
+dislike would still remain.
+
+As a side note it would be really good to eliminate the prepare_job 
+callback but I haven't look how feasible that would be troughout the 
+tree in around two years. Back then I tried to call it earlier, and put 
+the fence in the normal dependency array, but that did not work at least 
+for amdgpu.
+
+>> All the list_*_rcu usage stem from those two requirements and there are no
+>> actual RCU requirements.
+> 
+> IDK, having RCU functions (and all those ACCESS_ONCEs!) in the code
+> base that is now supposed to be a simple lock + list does not sound
+> like a good idea for maintainability at all, especially if it's RCU
+> that is no actual RCU.
+
+For this and the following questions, I've tried to explain everything 
+in the consolidated paragraph just above.
+
+Regards,
+
+Tvrtko
+
+> 
+> […]
+> 
+> 
+>>   static struct drm_sched_job *
+>>   drm_sched_entity_queue_pop(struct drm_sched_entity *entity)
+>>   {
+>> -	struct spsc_node *node;
+>> +	struct drm_sched_job *next_job, *sched_job;
+>>   
+>> -	node = spsc_queue_pop(&entity->job_queue);
+>> -	if (!node)
+>> +	lockdep_assert_held(&entity->lock);
+>> +
+>> +	sched_job = list_first_entry_or_null(&entity->job_queue,
+>> +					     typeof(*sched_job), queue_link);
+>> +	if (!sched_job)
+>>   		return NULL;
+>>   
+>> -	return container_of(node, struct drm_sched_job, queue_node);
+>> +	list_del_rcu(&sched_job->queue_link);
+>> +
+>> +#if IS_ENABLED(CONFIG_TRACEPOINTS) || IS_ENABLED(CONFIG_DRM_SCHED_KUNIT_TEST)
+>> +	WRITE_ONCE(entity->job_count, entity->job_count - 1);
+> 
+> You're literally holding the entity->lock, what do you need read once
+> for?
+> 
+>> +#endif
+>> +
+>> +	next_job = list_first_entry_or_null(&entity->job_queue,
+>> +					    typeof(*next_job), queue_link);
+>> +	if (next_job)
+>> +		WRITE_ONCE(entity->job_credits, next_job->credits);
+>> +	else
+>> +		WRITE_ONCE(entity->job_credits, 0);
+> 
+> Same.
+> 
+>> +
+>> +	return sched_job;
+>>   }
+>>   
+>>
+> 
+> […]
+> 
+> 
+>>   EXPORT_SYMBOL(drm_sched_entity_kill);
+>> @@ -557,10 +556,20 @@ struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
+>>   	/* Helper to avoid dropping the reference while the entity lock is held,
+>>   	 * just to have some more robustness.
+>>   	 */
+>> +	struct drm_sched_job *sched_job, *next_job;
+>>   	struct dma_fence *prev_last_scheduled;
+>> -	struct drm_sched_job *sched_job;
+>>   
+>> -	sched_job = drm_sched_entity_queue_peek(entity);
+>> +	/*
+>> +	 * We cannot lock the entity at this point since processing dependencies
+>> +	 * needs to be able to call a sleeping ops->prepare_job(). Note that RCU
+>> +	 * lock is not stricly required since single workqueue is the only
+>> +	 * caller and that guarantees a single consumer. Ie. the job cannot
+>> +	 * disappear on us.
+>> +	 */
+>> +	rcu_read_lock();
+>> +	sched_job = list_first_or_null_rcu(&entity->job_queue,
+>> +					   typeof(*sched_job), queue_link);
+>> +	rcu_read_unlock();
+> 
+> You can take the lock, take the job, release the lock, do your sleeping
+> actions, and then take the lock again, can't you?
+> 
+> 
+> P.
 
