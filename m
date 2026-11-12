@@ -2,78 +2,82 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4ACA606A323
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 13:56:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A44B606A31C
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 13:56:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uTovLjrJ
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=j0HYexEU
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D310B11213D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC22F10F5E3;
 	Thu, 12 Nov 2026 13:56:07 +0000 (UTC)
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
- [209.85.218.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8F99112037
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Nov 2026 11:42:10 +0000 (UTC)
-Received: by mail-ej1-f49.google.com with SMTP id
- a640c23a62f3a-c445c95d553so54584066b.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Nov 2026 03:42:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794483729; x=1795088529; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=iiTq5jxGUFxvsq1kUCHUV3RAjcxHJF+gW2Fj5QoC1YA=;
- b=uTovLjrJrt2bc70j6rcCDD4yj3VCF+RIsCUUvMHX/RzV6lS2O9B47Nto4A99omFCzW
- 0L6K3OmED3IHCTDqG7vMOxqIoe6vn5+3sy/bA6ZPTEctkwOLDyx6ggc+xbiu13nNa6Sm
- PzaS3M80fJGIx4tJoAy1MHFJwKbpd55IzjNEYFuAs20NtLqtUdfO6MNMBhKBYs7fEJ/W
- c9ziPwy8UmceTkeUhltHxr4k/1nPOo/j5DiewIZDQfpuNTdVvUVObXHNZ+0Zf4C4K0rE
- 9cLUK0D8lTDskyZROy4N/V8bPVfsL6nYbbsuVruZCrVmpgR2D1SfeQmkTPHoEFeG2Xqf
- bYDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794483729; x=1795088529;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=iiTq5jxGUFxvsq1kUCHUV3RAjcxHJF+gW2Fj5QoC1YA=;
- b=UAzMh29F7Aj3E0amsmqUjmRAo6ByAZvcaFKj+Zr9CsOw7oRIDv2f5B1/i2/Kyvpi5h
- 0RMpEBMoQNytXrK1TtatD0yW8AytZBy2D/pT4qGZNjQzvyLDB/evHfDcZYxRwlWfoLl5
- evw1uf/qiLli76qMx4R5LBV/X0nw4oiHmxX34jaRPT/6heZgs/Qc/BcnszkDf0Sf7LWw
- vEpzU9bAt0aHdmQaS3zdM1smKWzQxCtAzCLsyoEMO+0Axe1RIzxw5vhXn4VGjsp3O2WD
- G/nPeT61lXLXFaYfzWliU+E4Hsy7J9MncuLNZWSFpTU8EdBwcGWqeHgzoSPf3BnOwYFW
- YzDA==
-X-Gm-Message-State: APuU4Z96jkUl8fn5pWr2r+OFnZRhkdqPna+Rm62gjp8K7HO424tpzMMB
- niXnk0/ErI1dCmZTSebuNOqJL5o3mPSgP+Gs9nAwqusITEfXO+OepfgRbbwCVBMq
-X-Gm-Gg: AYBFou3I2jSv/rxQCmY4xqJ/MFs+AEItSmK2fr0xOwksC4p7xm11au+fyqCjWOy7Ob/
- NcfouYqH+x7qOvV/S8TyHthBZaR5UYfjKbZynUVQ8ewFeGSHHGkTnhMf6VwuKqpwI3ICmh270hg
- PInrONbWZYqneqXlMkq9kRtIjPjgyZtyPDBl/IuBqmJLlZU+Lh9TDdY6s0PrdUmdxORBqA6vtqK
- MbUk6CNAUzkfFq9co0PFs0F5vXjvTE+5jVANQoi0Al9RpUR4rYstKva+dm1a0EGt5Uxc7i4EBtN
- 6mjtL5MHjOEWA7VCVvWb2e0tZxVsAQ2KyGn6RgJFIiNdWy2sUeWiatono+aN6vFYfRAsk7zCC0l
- 5MdBbOX+n7k4ZrUC7Es+spOcOd5ZBWOle96gt+vm6s9ldg95mnPRWpo/wEkWO1XBi+mJQeqr6oB
- /c6mdLK4AjsMgCU4Glb/ATuevufMF9HTyxi9IK80eXdgYhUyQM/tMoCLlAYmrzX0vkipeRvJmxO
- SmTBAqQHCyX4JlE8sW9xGXWTcbfwrvCR++ywUZJsxVcQYC76RkG2u/n/x53ibPzXvqQ7dHDjqmV
- GPC9s2wXjzwziMH2KmU/UaU822Wz/cGffAseU83AUV8xt/Qzg70jpTg0+oUXGWbxwE1wtJrXnhU
- 0HcV/UkANf5gB70CTotXwiiPGUPfLEYh2Suxb8UxJgTlxmAOY7DmkUfQEnax6spgrgNk0cnDUHE
- FfFXKitbbxveox4EJ+g77Yl6PUONFAcBvtViFNKP8JIPk5tc0gflGg94MrQkhc4JH81x86EzHfG
- +MeOZTFphMNmROHas6jC1ub27mJ4RPvYKu+/05eySKVPRNmHNYyK3/94y8bGy1Dm4TyeSjc4QMG
- ALR+8wGvmQm/uS82geBf/MplGTd6DwmM0A6PmzXc6K4TUAOE3XX1SDUvLInwCQHIIY4qZ4XpDCB
- AQ3v0i5fhl5Tn2vf4LpLISA==
-X-Received: by 2002:a17:907:96a5:b0:c41:e75e:5889 with SMTP id
- a640c23a62f3a-c5066b5bba0mr436488366b.33.1794483728981; 
- Thu, 12 Nov 2026 03:42:08 -0800 (PST)
-Received: from albatros (ip-091-065-217-039.vkd74.pools.vodafone-ip.de.
- [91.65.217.39]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c504a3a6bc5sm337618166b.3.2026.11.12.03.42.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Nov 2026 03:42:08 -0800 (PST)
-From: Erhan Bilgili <erhan.bilgili@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, jesse.zhang@amd.com,
- Erhan Bilgili <erhan.bilgili@gmail.com>
-Subject: [PATCH] drm/amdgpu: Fix UserQ slot availability checks
-Date: Thu, 12 Nov 2026 12:40:49 +0100
-Message-ID: <20261112114049.327046-1-erhan.bilgili@gmail.com>
-X-Mailer: git-send-email 2.56.1
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1866C10EA5A;
+ Thu, 12 Nov 2026 04:41:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1794458519; x=1825994519;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=to9WP0yYAsg2FwMUJoPAJl9KXn//Llym/25xqUG9m3o=;
+ b=j0HYexEUv97gtHZ64HDRAPDkdXQSrCwRqokDMo4PofFUgp0aGVabSlR5
+ FpHoBadUy7O2D3nY9+lMQo1ZDdydZjKs0BcTj5lB1Roe5Xgs1F64/3YDS
+ yLosYWMo7SUad6SxxMCgoq9INuA1fWfIxkEjDt1sfNYlIsgOU2l+BrHMY
+ fc1Z1qFPhRWld1yFH/oYJjmXk9ab+jqrB+Ysb2AExkPWZvhwsMaDKq9qJ
+ rX0aPbqRaHFC9CYZDh8LADPMQArxF3PeRPvDrr7XKtUXG+BZq33cy30Uo
+ XVFzHsBjPstV2oRL82QurujZsRR61qLMuXfm8enXEA//KFeQGj5uip2QA g==;
+X-CSE-ConnectionGUID: +9s4O1T6SRervPfbLOWBiQ==
+X-CSE-MsgGUID: FVcy2mHZSOOA0i+RWjNwBw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3112113"
+X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
+   d="scan'208";a="3112113"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Nov 2026 20:41:58 -0800
+X-CSE-ConnectionGUID: +omkRXtHQhGqp8nFWjl2Wg==
+X-CSE-MsgGUID: PkOyTieZTVC7Yy4/j9hDKQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; d="scan'208";a="10451688"
+Received: from black.igk.intel.com ([10.91.253.5])
+ by fmviesa013.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Nov 2026 20:41:51 -0800
+Date: Thu, 12 Nov 2026 05:41:48 +0100
+From: Raag Jadav <raag.jadav@intel.com>
+To: Pavel Popov <pavel.e.popov@intel.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Hans de Goede <hansg@kernel.org>,
+ Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Peter Huewe <peterhuewe@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>,
+ Tom Lendacky <thomas.lendacky@amd.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Logan Gunthorpe <logang@deltatee.com>,
+ Arnd Bergmann <arnd@arndb.de>, Len Brown <lenb@kernel.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ "David S . Miller" <davem@davemloft.net>, x86@kernel.org,
+ linux-acpi@vger.kernel.org, linux-pm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
+ linux-integrity@vger.kernel.org, linux-crypto@vger.kernel.org,
+ linux-arch@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org, andriy.shevchenko@linux.intel.com
+Subject: Re: [PATCH 2/7] drm/i915: Include <asm/cpu_device_id.h>
+ unconditionally
+Message-ID: <avVDjIW5jd4rHw11@black.igk.intel.com>
+References: <20261111234821.4814-1-pavel.e.popov@intel.com>
+ <20261111234821.4814-3-pavel.e.popov@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111234821.4814-3-pavel.e.popov@intel.com>
 X-Mailman-Approved-At: Thu, 12 Nov 2026 13:56:07 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,48 +89,54 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The compute and DMA queries check each other's disable_uq flags.
-When the flags differ, this can hide available slots or report slots
-for disabled UserQs.
+Cc: Andy
 
-Check gfx.disable_uq for compute and sdma.disable_uq for DMA.
+On Wed, Nov 11, 2026 at 04:48:15PM -0700, Pavel Popov wrote:
+> <asm/cpu_device_id.h> now has a generic version, so the #ifdef
+> CONFIG_X86 around the include is no longer needed.
+> 
+> <asm/intel-family.h> is included by <asm/cpu_device_id.h>. The CPU
+> match table still needs CONFIG_X86 for the INTEL_* model defines.
+> 
+> Signed-off-by: Pavel Popov <pavel.e.popov@intel.com>
 
-Fixes: 78d0a27ae0e2 ("drm/amdgpu: Add user queue instance count in HW IP info")
-Signed-off-by: Erhan Bilgili <erhan.bilgili@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Reviewed-by: Raag Jadav <raag.jadav@intel.com>
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index 14a72a406d37..c026a07bc050 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -474,7 +474,7 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *adev,
- 			    !adev->gfx.compute_ring[i].no_user_submission)
- 				++num_rings;
- 
--		if (!adev->sdma.disable_uq) {
-+		if (!adev->gfx.disable_uq) {
- 			for (i = 0; i < AMDGPU_MES_MAX_COMPUTE_PIPES; i++)
- 				num_slots += hweight32(adev->mes.compute_hqd_mask[i]);
- 		}
-@@ -489,7 +489,7 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *adev,
- 			    !adev->sdma.instance[i].ring.no_user_submission)
- 				++num_rings;
- 
--		if (!adev->gfx.disable_uq) {
-+		if (!adev->sdma.disable_uq) {
- 			for (i = 0; i < AMDGPU_MES_MAX_SDMA_PIPES; i++)
- 				num_slots += hweight32(adev->mes.sdma_hqd_mask[i]);
- 		}
--- 
-2.56.1
-
+> ---
+> Depends on <asm-generic/cpu_device_id.h> from [1]; please apply after
+> it is in mainline.
+> 
+> [1] https://lore.kernel.org/r/20261111234439.4098-1-pavel.e.popov@intel.com
+> 
+>  drivers/gpu/drm/i915/intel_cpu_info.c | 5 ++---
+>  1 file changed, 2 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/intel_cpu_info.c b/drivers/gpu/drm/i915/intel_cpu_info.c
+> index e52d0ac713a..a6b46cc841a 100644
+> --- a/drivers/gpu/drm/i915/intel_cpu_info.c
+> +++ b/drivers/gpu/drm/i915/intel_cpu_info.c
+> @@ -6,12 +6,11 @@
+>   * intel_device_info.h by having a separate file.
+>   */
+>  
+> +#include <asm/cpu_device_id.h>
+> +
+>  #include "intel_cpu_info.h"
+>  
+>  #ifdef CONFIG_X86
+> -#include <asm/cpu_device_id.h>
+> -#include <asm/intel-family.h>
+> -
+>  static const struct x86_cpu_id g8_cpu_ids[] = {
+>  	X86_MATCH_VFM(INTEL_ALDERLAKE,		NULL),
+>  	X86_MATCH_VFM(INTEL_ALDERLAKE_L,	NULL),
+> -- 
+> 2.54.0
+> 
