@@ -2,68 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3917606A321
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 01:44:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4222606A31C
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 01:44:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f7szU47t
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fay9OMhv
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91F1D10EB29;
-	Thu, 12 Nov 2026 01:44:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49CA410FED9;
+	Thu, 12 Nov 2026 01:44:07 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6DAB410EB17;
- Thu, 12 Nov 2026 01:43:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5016910FED9;
+ Thu, 12 Nov 2026 01:43:58 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D0974637CE;
- Thu, 12 Nov 2026 01:43:52 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 9308F60E11;
+ Thu, 12 Nov 2026 01:43:57 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1794447832;
- b=ZQVgNZhv/wOCwcMUgtk4LJ3ivUktE48GCPSb08nLPcBInUjVOlB9eZ0BwnrHXKa1aZuN
- wYowvZmgyVmuPeHx6I8FeCDqcVQpdjUQvJYg8CIbd2U9qmH3zmwrhjIaLSc4O9de2g0VH
- RrHQlq8/73BUTYc3WdqcGkn4Yv9xiYw98tALO6Nux4yyA+c9L67RegXJ8iromaHDy2USI
- 8viqJjb9z/CBsOhXYlMtVcIW0DHwr6LHwpDc+URy8Wrq3qMIz1Ixtk/EMhsfRh70jVjgM
- rBCAZfANnqZmX6vu3OQHkfwIe9xKLhGpW/vpH2kVdRVFQ0jyfIxVHEs8xpB84j+hsDQ==
+ t=1794447837;
+ b=PG6GzkkHOILRX6TjfDGFX5n0FWwwga/tpejrtNpKOTbVwQwXGy+MFBVYptoqp4RIGtxA
+ vh31LMjE5NkZr5Pxvj3bZJraNP7kxcl8v2pKMnuxQitm+qeWwxJ29XU3m+u0QRTMfiOt5
+ TVZcOhz+Nln09PMCIkAP2DoziaAwqssGsY8fXBqdUmfFqHEjMleiFhaCie4iLHdkKJ3Iv
+ ownU0d0AMQvB1IAIiTsALG6HziE84G6RGjmuy52Uk/rVCpMeA4I5Sku0LLLQW69/BZGRu
+ CTjs4Fgs7+G+Nj4xmIGletm4mFPFBYmajCdAGJWo9s4zm7HUqhdPOxe/1Rs3Toz8D8g==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1794447832;
+ c=relaxed/relaxed; t=1794447837;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=tb4BkL0r+kOc9TwFv9MZ7uOtqMl3NgIeEWjxiQmMDWk=;
- b=SQsqad+d/52CNMYI+i/VLCTY5pbu0t0lviOomuP/hKdjh1X7dN5Kxu216zHUQ7qkodsH
- AFiYXdKdXfmUwB723HVt2bdsiatjhOjPXPhBFlij79N/gvXFITOvJG2zQ3lpOdPzDuXx9
- sHYi16Zqs1luZ6PqGOM+oM8m3lAxrpuCdsH/UW2L7HpnZVepLOCJR1GrR7r3LwZOCZreR
- F1Vbw4fd+qNP02hGtLHNwp7+UFp/IJEVzcTGsH4sCW+/oJi5i2MMyp/nSNab1kJLSHmCS
- OvHysT+s4UBRZpuw/hARK1LYTO3wgA8SGL5t0ETMgNHqT8cP7noEXd2nrRy/hu9uDCQ==
+ bh=cvkdaaF5+jAlzK3s3OBmGqC4K6rvMXUle1Lq7Ce2+Mg=;
+ b=TJlps3xJ3nSIlu0cAJ6xWmWiZoCnPjxERe6N0KW6yW7pSnRS2FPis4HWPfKKlOsS0nnB
+ +zSn+cMXhFWVxHyGYPrrKd75egnzD50XrBH05p7suNPX1mKO17MnIRhYPTqCBVjPyhDwi
+ J63luHL3aRo/9tZ/QOEUxKtbG3L0s3dBHrfzOpR5zfhdOIQvQG3beu/GicU/XL4MTVgmT
+ PIIKLr6jQ3mkOMR/UUa6BwyEHrtsirceb6GsXhmV6VG9DUNlC7UA+DhR1j/7MTjdGde9l
+ Q1LkxWsXS/8ia4W3pHx6n58U3KkDL7nrwT2anIqwxpnUQMJYtryFvBdLJnFnJteKJAA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 97CB91F00A0C;
- Thu, 12 Nov 2026 01:43:49 +0000 (UTC)
+ by smtp.kernel.org (Postfix) with ESMTPS id BE8D61F00A0B;
+ Thu, 12 Nov 2026 01:43:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794447832;
- bh=tb4BkL0r+kOc9TwFv9MZ7uOtqMl3NgIeEWjxiQmMDWk=;
+ s=k20260515; t=1794447837;
+ bh=cvkdaaF5+jAlzK3s3OBmGqC4K6rvMXUle1Lq7Ce2+Mg=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=f7szU47tdIXMw5N0WSb7exMi2qm3iiIKtp0ug2Q7euB3X9MRbr+K63XwOmQUWmcBL
- 70EDndPx5f0j9IjkKSJ2Wkqry0a63HxzyYj8ZlW75N15ZC6ABhjbMyivKun5BDOxYk
- MYgfOejaawxK0e2AcsSgASGJ+oz/E8SLRvw70d90jpcRIqAO76PeFGLRja9CMtF0KC
- FtTqttQqzemoowlyMR8ILZt2vCdCUCflbzaaOkb8iHdd21qQuVSgg27r5skzfvhjmn
- VzF7ovDDECU2yg03zKDtVzSH9oedykQhvOGOmqZ3tyrH0rkwzXMiqeAGzy2aBCOHth
- SAvjUSTVxICFQ==
+ b=fay9OMhvdP6wdgTifmlEFhw1n0myZAMv9l0wtPf7rUGgEDawZ+XBdagvxhFxm4aQn
+ lM5XrrdKbp7NvFe30SkcfPYZCJonEDtCFpPhzcbqXZi0q9cPmzBVYBARbLmsES9kYx
+ 0MYnjLb7kS7UoOtkJAkzgWkCIXj9mg0p6s65XM6uwllbJCO6EmLL8fxCapyv1b4e2m
+ MSZIhFXf7+FWxSxklkQHA0wJE4biCHlVud1XOdivb3oRfWJI1lPEJnlZ5yXMWiWvmT
+ g7OrHM4StSr8IfaQREa9MoZcyyy69ZxHahUyj8MuIFgU3rTzREsqiPJbFhkHR778oI
+ 8W/fWExHgzNsQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 1CF05491CA;
- Thu, 12 Nov 2026 01:43:49 +0000 (UTC)
+ by lkml.kernel.org (Postfix) with ESMTP id 281FC491FE;
+ Thu, 12 Nov 2026 01:43:50 +0000 (UTC)
 From: Dave Airlie via B4 Relay <devnull+airlied.redhat.com@kernel.org>
-Date: Thu, 12 Nov 2026 11:43:37 +1000
-Subject: [PATCH 02/19] drm/amd/display: Add DC accessors as the first step
- to opaque struct dc
+Date: Thu, 12 Nov 2026 11:43:50 +1000
+Subject: [PATCH 15/19] drm/amd/display: Add dc_force_max_dramclk for the DP
+ compliance workaround
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-amdgpu-dc-cleanup-v1-2-0fae41718ad2@redhat.com>
+Message-Id: <20261112-amdgpu-dc-cleanup-v1-15-0fae41718ad2@redhat.com>
 References: <20261112-amdgpu-dc-cleanup-v1-0-0fae41718ad2@redhat.com>
 In-Reply-To: <20261112-amdgpu-dc-cleanup-v1-0-0fae41718ad2@redhat.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
@@ -75,21 +75,21 @@ To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
  Dave Airlie <airlied@redhat.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=15743;
- i=airlied@redhat.com; h=from:subject:message-id;
- bh=1LtED0nwoQ8ppce0T0uuihoA1JhOh04sCVHjlh+aSNk=;
- b=owEBbQKS/ZANAwAKAQx081l5xIa+AcsmYgBq9RnOJAvPFh+I4llhXBABZTtTi59S/OSHkZmkS
- eE1pdZJp3qJAjMEAAEKAB0WIQQQptkdobBb0p9t66wMdPNZecSGvgUCavUZzgAKCRAMdPNZecSG
- vg91EACdC6ohVepgbNzs2or/fhyh2rtWU87Y78wXOJ5yZ8daAy0YDWSOKEXFgqRoqL2GlFJ7Wit
- GFS73vJ7nw/EwlRjmJMEmnWbpDNL/BtSFd67IXySWZ7YP9JEj2yMXL47dh7Hs8M55V5+o2/78Vn
- WIHzwyZPc8SLXiPUdHbUqKQMdHaBnHOykgnxqiBFsGCvskma6Y8UYOSwindv//JMsqtTD2JW3PD
- nPZwnoNT+/nzA9jCh+xd0B/klDaFjflC9q1rO/qo3Yu4oEVPhIoSKl4L+NOIeoJqViNWYz5LRuN
- +8nzB33UbSP7TY4wJ7Ea2XwPDKQlpI5xMYjpflsrImNpq2qpefg8R/3Bdh04oQpTizY5wKBasNv
- MW15mGBawcJU9UN90BwC1hDi9yJnQubkUNhzr1UP3IGTrAZEvDVxA2BDjJtZ41e1tjP+UQoLrmy
- xZmSyyhVCxil9E7NBQ2dgUHDnlbvb7NdfDCH41WeSEDrRqpHjkhULMqc+aZZc3am/x/20tUo8Ez
- xK4rJ5mRpPdR9U4ENNmVui7ZvXpDTonNap9NU8ZnvAduZw1d5wpFjR/hdiwej678Bz+Mif/5Vb3
- oEybsmLAmCzaPVFNiyZ3atssdEgltcf5SEWhVBqXjsPIcCwV4ZBGtk4BvJ1aSHhe0XQ8KhkATT6
- HO8xueJ/9NzI1Nw==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5999; i=airlied@redhat.com;
+ h=from:subject:message-id;
+ bh=oxGfusjNFZadXwTyytZ61lMqTjT74yVsnVzM9eucT3E=;
+ b=owEBbQKS/ZANAwAKAQx081l5xIa+AcsmYgBq9RnQLYIF3OTV2w21pGcXUATeHPs5WlsS5JwE8
+ yQ6T9efB0mJAjMEAAEKAB0WIQQQptkdobBb0p9t66wMdPNZecSGvgUCavUZ0AAKCRAMdPNZecSG
+ vlQjD/40pq0Ho9P9867n7acS6MUkBe5/KXys4AV+gxQ8aCKOw7dGdCagXbyA2lG8gyTqUyBYPde
+ F+44vLbf+YDpdDvyY0yCwWeHJFi4U9cj7Ji/r2mP0l4X+eYmS0lXi8HVoXxk1kqhPHxwMtLeyhI
+ OyFClodbO3l01CnRz9/bJ2Onqq7d20JuNawAPsoAxzdW629sh4xsBAXRmFYjcf7M2D/eftMYVH/
+ JVvuO6vh1GN0zVQKirjAOxlOd0F3F4ZI0WtzyQ5pswJAU81gfSRC6vmIQfEtuCJkZmLjdIhg+Mw
+ OOO5TA3VVG9Yr6C/WtMrEX9IC96a4drKAtehVy6r31WV1azL2y9qv9t8pxrgHhNZP4/sBPIxwYn
+ TnPtbim2VsdSihMzStl5nCFKVXBNg8Aocy/PIvGC/qGseJswYfoiMrZrq+H9e3r4vopSTXiB8ww
+ /eIGBA5eZriKRRTt1nvOIIBLo6VpNfscZO7s0kdeY7DPUNnD82+ikMrXkXgArohTFcRKn/wFr4I
+ WjNedBcoWGmKxBj7tBnyh0S7xLzqYrxhGZ30+yNKzvqbAzSyH0MfeHCWiRIN6WUxwW8HrxgF5kP
+ hgqTmbiCV8QKVUzkNvQTuUF0kyBlKIKLCV5vY81pAS4ttnTgcQNL7nAMWcMwJeTR8PNn3cFl+i6
+ ghdIKONH56NxkHg==
 X-Developer-Key: i=airlied@redhat.com; a=openpgp;
  fpr=10A6D91DA1B05BD29F6DEBAC0C74F35979C486BE
 X-Endpoint-Received: by B4 Relay for airlied@redhat.com/default with
@@ -116,473 +116,133 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Dave Airlie <airlied@redhat.com>
 
-struct dc is defined in dc.h which is included by DM and DAL modules,
-so any of them can dereference dc members directly. As a first step
-towards making struct dc private to DC, add an accessor layer:
+The DP compliance test pattern workaround in
+dm_helpers_dp_handle_test_pattern_request() reached into the clock
+manager (dc_get_clk_mgr) to read the softmax memory clock limits and
+to invoke the clock update. Move the whole sequence into DC as
+dc_force_max_dramclk() and drop the dc_get_clk_mgr accessor; no code
+outside DC references struct clk_mgr anymore.
 
-- Introspection accessors (link count, ctx, caps, config, debug
-  options, current state, idle optimizations, resource pool, clock
-  manager) implemented in a new dc/core/dc_accessors.c which is the
-  single place mapping accessor names onto struct dc fields.
-- hwss/cap_funcs wrappers for log_hw_state, get_dcc_en_bits,
-  prepare_ddc, get_dcc_compression_cap and get_subvp_en.
-- FBC and DML2 alternate channel configuration helpers.
-- link_service wrappers in dc/core/dc_link_exports.c for the entry
-  points that DM and DAL modules reach through dc->link_srv today,
-  violating the link_service.h usage policy.
-
-The accessors are additive; no consumer is migrated yet.
+Part of making the struct dc sub-structures opaque outside DC.
 
 Signed-off-by: Dave Airlie <airlied@redhat.com>
 ---
- drivers/gpu/drm/amd/display/dc/Makefile            |   1 +
- drivers/gpu/drm/amd/display/dc/core/dc_accessors.c | 136 ++++++++++++++++
- .../gpu/drm/amd/display/dc/core/dc_link_exports.c  |  85 ++++++++++
- drivers/gpu/drm/amd/display/dc/dc.h                | 174 +++++++++++++++++++++
- 4 files changed, 396 insertions(+)
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  | 10 +---------
+ .../display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c  |  1 -
+ drivers/gpu/drm/amd/display/dc/core/dc.c           | 23 ++++++++++++++++++++++
+ drivers/gpu/drm/amd/display/dc/core/dc_accessors.c |  5 -----
+ drivers/gpu/drm/amd/display/dc/inc/dc.h            |  8 ++++++--
+ 5 files changed, 30 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/Makefile b/drivers/gpu/drm/amd/display/dc/Makefile
-index 84c68b87210f..0f39a15dfc60 100644
---- a/drivers/gpu/drm/amd/display/dc/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/Makefile
-@@ -68,6 +68,7 @@ FILES += dc_fused_io.o
- FILES += dc_helper.o
- FILES += dc_memory_pool.o
- FILES += core/dc.o
-+FILES += core/dc_accessors.o
- FILES += dc_api_dispatch/api_shim.o
- FILES += core/dc_debug.o
- FILES += core/dc_hw_sequencer.o
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_accessors.c b/drivers/gpu/drm/amd/display/dc/core/dc_accessors.c
-new file mode 100644
-index 000000000000..8aa2364b714e
---- /dev/null
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_accessors.c
-@@ -0,0 +1,136 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright 2026 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ * Authors: AMD
-+ *
-+ */
-+
-+/* FILE POLICY AND INTENDED USAGE:
-+ * This file implements the struct dc accessors declared in dc.h. struct dc
-+ * is private to DC; this file is the single place that maps public accessor
-+ * names onto struct dc fields. Keep it free of functional behavior so the
-+ * mapping stays obvious and auditable.
-+ */
-+#include "dc.h"
-+
-+uint8_t dc_get_link_count(const struct dc *dc)
-+{
-+	return dc->link_count;
-+}
-+
-+struct dc_context *dc_get_ctx(const struct dc *dc)
-+{
-+	return dc->ctx;
-+}
-+
-+const struct dc_caps *dc_get_caps(const struct dc *dc)
-+{
-+	return &dc->caps;
-+}
-+
-+const struct dc_config *dc_get_config(const struct dc *dc)
-+{
-+	return &dc->config;
-+}
-+
-+struct dc_debug_options *dc_get_debug_options(struct dc *dc)
-+{
-+	return &dc->debug;
-+}
-+
-+struct dc_state *dc_get_current_state(const struct dc *dc)
-+{
-+	return dc->current_state;
-+}
-+
-+bool dc_is_idle_optimizations_allowed(const struct dc *dc)
-+{
-+	return dc->idle_optimizations_allowed;
-+}
-+
-+struct resource_pool *dc_get_res_pool(const struct dc *dc)
-+{
-+	return dc->res_pool;
-+}
-+
-+struct clk_mgr *dc_get_clk_mgr(struct dc *dc)
-+{
-+	return dc->clk_mgr;
-+}
-+
-+bool dc_get_dcc_compression_cap(const struct dc *dc,
-+		const struct dc_dcc_surface_param *input,
-+		struct dc_surface_dcc_cap *output)
-+{
-+	if (!dc->cap_funcs.get_dcc_compression_cap)
-+		return false;
-+
-+	return dc->cap_funcs.get_dcc_compression_cap(dc, input, output);
-+}
-+
-+bool dc_get_subvp_en(struct dc *dc, struct dc_state *context)
-+{
-+	if (!dc->cap_funcs.get_subvp_en)
-+		return false;
-+
-+	return dc->cap_funcs.get_subvp_en(dc, context);
-+}
-+
-+bool dc_log_hw_state(struct dc *dc, struct dc_log_buffer_ctx *log_ctx)
-+{
-+	if (!dc->hwss.log_hw_state)
-+		return false;
-+
-+	dc->hwss.log_hw_state(dc, log_ctx);
-+	return true;
-+}
-+
-+bool dc_get_dcc_en_bits(struct dc *dc, int *dcc_en_bits)
-+{
-+	if (!dc->hwss.get_dcc_en_bits)
-+		return false;
-+
-+	dc->hwss.get_dcc_en_bits(dc, dcc_en_bits);
-+	return true;
-+}
-+
-+void dc_prepare_ddc(struct dc_link *link)
-+{
-+	if (link->dc->hwss.prepare_ddc)
-+		link->dc->hwss.prepare_ddc(link);
-+}
-+
-+bool dc_is_fbc_compressor_available(const struct dc *dc)
-+{
-+	return dc->fbc_compressor != NULL;
-+}
-+
-+void dc_set_fbc_gpu_addr(struct dc *dc, uint64_t gpu_addr)
-+{
-+	dc->ctx->fbc_gpu_addr = gpu_addr;
-+}
-+
-+void dc_set_dml2_alt_ch_cfg(struct dc *dc,
-+		const struct dml2_soc_alt_ch_info *alt_ch_cfg)
-+{
-+	dc->dml2_options.alt_ch_cfg = *alt_ch_cfg;
-+}
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_exports.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_exports.c
-index 5926e8a4f95a..d2f52e4839fe 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link_exports.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_exports.c
-@@ -545,6 +545,91 @@ void dc_link_edp_replay_residency(const struct dc_link *link,
- 		link->dc->link_srv->edp_replay_residency(link, residency, is_start, mode);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index b5b3269f3d97..542f9c4cb7e4 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -1559,7 +1559,6 @@ bool dm_helpers_dp_handle_test_pattern_request(
+ 	struct amdgpu_dm_connector *aconnector = link->priv;
+ 	struct drm_device *dev = aconnector->base.dev;
+ 	struct dc_state *dc_state = dc_get_current_state(ctx->dc);
+-	struct clk_mgr *clk_mgr = dc_get_clk_mgr(ctx->dc);
+ 	int i;
+ 
+ 	for (i = 0; i < MAX_PIPES; i++) {
+@@ -1661,14 +1660,7 @@ bool dm_helpers_dp_handle_test_pattern_request(
+ 	pipe_ctx->stream->test_pattern.color_space = test_pattern_color_space;
+ 
+ 	/* Temp W/A for compliance test failure */
+-	dc_state->bw_ctx.bw.dcn.clk.p_state_change_support = false;
+-	dc_state->bw_ctx.bw.dcn.clk.dramclk_khz = clk_mgr->dc_mode_softmax_enabled ?
+-		clk_mgr->bw_params->dc_mode_softmax_memclk : clk_mgr->bw_params->max_memclk_mhz;
+-	dc_state->bw_ctx.bw.dcn.clk.idle_dramclk_khz = dc_state->bw_ctx.bw.dcn.clk.dramclk_khz;
+-	dc_get_clk_mgr(ctx->dc)->funcs->update_clocks(
+-			dc_get_clk_mgr(ctx->dc),
+-			dc_state,
+-			false);
++	dc_force_max_dramclk(ctx->dc, dc_state);
+ 
+ 	dc_link_dp_set_test_pattern(
+ 		(struct dc_link *) link,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c
+index c4f703980d1e..4543b0b0f993 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c
+@@ -732,7 +732,6 @@ static void dm_test_idle_worker_enabled_runs_body(struct kunit *test)
+ 	dc_get_ctx(adev->dm.dc)->logger = logger;
+ 	/* dc_allow() only flips the flag when clk_mgr and apply() are present. */
+ 	dc_test_set_clk_mgr(adev->dm.dc, dm_kunit_alloc_clk_mgr(test));
+-	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dc_get_clk_mgr(adev->dm.dc));
+ 	dc_test_hwss(adev->dm.dc)->apply_idle_power_optimizations = dm_test_idle_apply_flip;
+ 
+ 	idle_work = kunit_kzalloc(test, sizeof(*idle_work), GFP_KERNEL);
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 8344d821d2e8..15379b186a91 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -7357,6 +7357,29 @@ void dc_set_edp_power(const struct dc *dc, struct dc_link *edp_link,
+ 	edp_link->dc->link_srv->edp_set_panel_power(edp_link, powerOn);
  }
  
-+void dc_link_edp_get_psr_residency(const struct dc_link *link,
-+		uint32_t *residency, enum psr_residency_mode mode)
++/**
++ * dc_force_max_dramclk() - raise the memory clock for DP compliance tests
++ * @dc: Current DC state
++ * @context: The state whose clocks are programmed
++ *
++ * Temporary workaround for DP compliance test failures: disallow p-state
++ * switching for the given state, raise the memory clock to the maximum
++ * supported level and apply the resulting clocks immediately.
++ */
++void dc_force_max_dramclk(struct dc *dc, struct dc_state *context)
 +{
-+	if (link && link->dc && link->dc->link_srv)
-+		link->dc->link_srv->edp_get_psr_residency(link, residency, mode);
++	context->bw_ctx.bw.dcn.clk.p_state_change_support = false;
++	context->bw_ctx.bw.dcn.clk.dramclk_khz =
++			dc->clk_mgr->dc_mode_softmax_enabled ?
++			dc->clk_mgr->bw_params->dc_mode_softmax_memclk :
++			dc->clk_mgr->bw_params->max_memclk_mhz;
++	context->bw_ctx.bw.dcn.clk.idle_dramclk_khz =
++			context->bw_ctx.bw.dcn.clk.dramclk_khz;
++
++	if (dc->clk_mgr && dc->clk_mgr->funcs->update_clocks)
++		dc->clk_mgr->funcs->update_clocks(dc->clk_mgr, context, false);
 +}
 +
-+bool dc_link_edp_set_sink_vtotal_in_psr_active(const struct dc_link *link,
-+		uint16_t psr_vtotal_idle, uint16_t psr_vtotal_su)
-+{
-+	if (!link || !link->dc || !link->dc->link_srv)
-+		return false;
-+
-+	return link->dc->link_srv->edp_set_sink_vtotal_in_psr_active(
-+			link, psr_vtotal_idle, psr_vtotal_su);
-+}
-+
-+bool dc_link_edp_send_replay_cmd(struct dc_link *link,
-+		enum replay_FW_Message_type msg,
-+		union dmub_replay_cmd_set *cmd_data)
-+{
-+	if (!link || !link->dc || !link->dc->link_srv)
-+		return false;
-+
-+	return link->dc->link_srv->edp_send_replay_cmd(link, msg, cmd_data);
-+}
-+
-+bool dc_link_edp_set_coasting_vtotal(struct dc_link *link,
-+		uint32_t coasting_vtotal, uint16_t frame_skip_number)
-+{
-+	if (!link || !link->dc || !link->dc->link_srv)
-+		return false;
-+
-+	return link->dc->link_srv->edp_set_coasting_vtotal(
-+			link, coasting_vtotal, frame_skip_number);
-+}
-+
-+bool dc_link_edp_replay_get_cumulative_residency(const struct dc_link *link,
-+		uint32_t *residency_milli_pct)
-+{
-+	if (!link || !link->dc || !link->dc->link_srv)
-+		return false;
-+
-+	return link->dc->link_srv->edp_replay_get_cumulative_residency(
-+			link, residency_milli_pct);
-+}
-+
-+bool dc_link_edp_set_replay_power_opt_and_coasting_vtotal(
-+		struct dc_link *link, const unsigned int *power_opts,
-+		uint32_t coasting_vtotal, uint16_t frame_skip_number)
-+{
-+	if (!link || !link->dc || !link->dc->link_srv)
-+		return false;
-+
-+	return link->dc->link_srv->edp_set_replay_power_opt_and_coasting_vtotal(
-+			link, power_opts, coasting_vtotal, frame_skip_number);
-+}
-+
-+bool dc_link_dp_setup_replay(struct dc_link *link,
-+		const struct dc_stream_state *stream)
-+{
-+	if (!link || !link->dc || !link->dc->link_srv)
-+		return false;
-+
-+	return link->dc->link_srv->dp_setup_replay(link, stream);
-+}
-+
-+uint8_t dc_link_get_ddc_aux_inst(const struct dc_link *link)
-+{
-+	if (!link || !link->dc || !link->dc->link_srv)
-+		return 0;
-+
-+	return link->dc->link_srv->get_ddc_aux_inst(link);
-+}
-+
-+enum dp_link_encoding dc_link_dp_get_encoding_format(
-+		const struct dc_link *link)
-+{
-+	if (!link || !link->dc || !link->dc->link_srv)
-+		return DP_8b_10b_ENCODING;
-+
-+	return link->dc->link_srv->dp_get_encoding_format(
-+			&link->verified_link_cap);
-+}
-+
- bool dc_link_get_pr_state(const struct dc_link *link, uint64_t *state)
- {
- 	return link->dc->link_srv->dp_pr_get_state(link, state);
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 916fa87d0dbc..f0c84abab0fb 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -2464,6 +2464,92 @@ uint32_t dc_bandwidth_in_kbps_from_timing(
- 		const struct dc_crtc_timing *timing,
- 		const enum dc_link_encoding_format link_encoding);
- 
-+/*
-+ * DC accessors.
-+ *
-+ * struct dc is private to DC. These accessors are the supported way for
-+ * DM and DAL modules to query DC-wide state. Some of them return pointers
-+ * to still-public sub-structures; treat those as read-only unless the
-+ * documentation says otherwise.
-+ */
-+
-+/* Number of links; valid indices for dc_get_link_at_index(). */
-+uint8_t dc_get_link_count(const struct dc *dc);
-+
-+/* The DC context (logging, register access, dmub service). */
-+struct dc_context *dc_get_ctx(const struct dc *dc);
-+
-+/* Capabilities detected at dc_create() time. Read-only. */
-+const struct dc_caps *dc_get_caps(const struct dc *dc);
-+
-+/* Configuration captured at dc_create() time. Read-only. */
-+const struct dc_config *dc_get_config(const struct dc *dc);
-+
-+/* Debug overrides (module parameters, debugfs). Writable. */
-+struct dc_debug_options *dc_get_debug_options(struct dc *dc);
-+
-+/* The currently committed state. Owned by DC; read-only for DM. */
-+struct dc_state *dc_get_current_state(const struct dc *dc);
-+
-+/* Whether DC may enter idle power optimizations right now. */
-+bool dc_is_idle_optimizations_allowed(const struct dc *dc);
-+
-+/*
-+ * The hardware resource pool (DSC engines, audio instances, DMCU/ABM...).
-+ * Interim accessor; prefer purpose-built DC interfaces where available.
-+ */
-+struct resource_pool *dc_get_res_pool(const struct dc *dc);
-+
-+/* The clock manager. Interim accessor. */
-+struct clk_mgr *dc_get_clk_mgr(struct dc *dc);
-+
-+/*
-+ * Query DCC compression support for a surface.
-+ * return false - when the asic does not implement the query.
-+ */
-+bool dc_get_dcc_compression_cap(const struct dc *dc,
-+		const struct dc_dcc_surface_param *input,
-+		struct dc_surface_dcc_cap *output);
-+
-+/*
-+ * Whether SubVP is enabled in the given state.
-+ * return false - when the asic does not support SubVP.
-+ */
-+bool dc_get_subvp_en(struct dc *dc, struct dc_state *context);
-+
-+/*
-+ * Dump hardware state into the log buffer, or into the kernel log when
-+ * log_ctx is NULL.
-+ * return false - when the asic does not implement the dump.
-+ */
-+bool dc_log_hw_state(struct dc *dc, struct dc_log_buffer_ctx *log_ctx);
-+
-+/*
-+ * Read the per-pipe DCC enable bits.
-+ * return false - when the asic does not implement the query.
-+ */
-+bool dc_get_dcc_en_bits(struct dc *dc, int *dcc_en_bits);
-+
-+/*
-+ * Run the DDC prepare sequence on the link ahead of aux transactions that
-+ * require a prepared DDC line. Optional; silently skipped when the asic
-+ * does not implement it.
-+ */
-+void dc_prepare_ddc(struct dc_link *link);
-+
-+/* Whether an FBC compressor is instantiated for this DC. */
-+bool dc_is_fbc_compressor_available(const struct dc *dc);
-+
-+/*
-+ * Provide the GPU address of the FBC compression buffer that DM allocated.
-+ * Only meaningful while an FBC compressor is instantiated.
-+ */
-+void dc_set_fbc_gpu_addr(struct dc *dc, uint64_t gpu_addr);
-+
-+/* Configure the alternate channel aperture consumed by DML2. */
-+void dc_set_dml2_alt_ch_cfg(struct dc *dc,
-+		const struct dml2_soc_alt_ch_info *alt_ch_cfg);
-+
- /* Link Interfaces */
- /* Return an enumerated dc_link.
-  * dc_link order is constant and determined at
-@@ -3019,6 +3105,94 @@ bool dc_link_set_pr_general_cmd(struct dc_link *link,
- void dc_link_edp_replay_residency(const struct dc_link *link,
- 		unsigned int *residency, bool is_start, enum pr_residency_mode mode);
- 
-+/*
-+ * Measure PSR residency for the given link.
-+ * mode: PSR_RESIDENCY_MODE_PHY, PSR_RESIDENCY_MODE_ALPM, or
-+ *       PSR_RESIDENCY_MODE_ENABLEMENT_PERIOD
-+ */
-+void dc_link_edp_get_psr_residency(const struct dc_link *link,
-+		uint32_t *residency, enum psr_residency_mode mode);
-+
-+/*
-+ * Set the sink vtotal in psr active to restore sink timing after
-+ * exit psr with firmware initiated mode switching.
-+ * return false - if the setting is not applied by firmware.
-+ */
-+bool dc_link_edp_set_sink_vtotal_in_psr_active(const struct dc_link *link,
-+		uint16_t psr_vtotal_idle, uint16_t psr_vtotal_su);
-+
-+/*
-+ * Send general command to Panel Replay firmware:
-+ *
-+ * @link: link to send the replay command on
-+ * @msg: message type which indicates the variable passed to DMUB
-+ * @cmd_data: payload for message types that carry one
-+ *
-+ * return: true if successful, false otherwise
-+ */
-+bool dc_link_edp_send_replay_cmd(struct dc_link *link,
-+		enum replay_FW_Message_type msg,
-+		union dmub_replay_cmd_set *cmd_data);
-+
-+/*
-+ * Set panel replay coasting vtotal.
-+ *
-+ * @link: link to set the coasting vtotal on
-+ * @coasting_vtotal: coasting vtotal to program
-+ * @frame_skip_number: number of frames to skip
-+ *
-+ * return: true if successful, false otherwise
-+ */
-+bool dc_link_edp_set_coasting_vtotal(struct dc_link *link,
-+		uint32_t coasting_vtotal, uint16_t frame_skip_number);
-+
-+/*
-+ * Measure cumulative Panel Replay residency for the given link.
-+ *
-+ * @link: pointer to the dc_link struct instance
-+ * @residency_milli_pct: residency in milli-percentage
-+ *
-+ * return: true if successful, false otherwise
-+ */
-+bool dc_link_edp_replay_get_cumulative_residency(const struct dc_link *link,
-+		uint32_t *residency_milli_pct);
-+
-+/*
-+ * Set panel replay power optimization and coasting vtotal together.
-+ *
-+ * @link: link to configure
-+ * @power_opts: power optimization bits to enable
-+ * @coasting_vtotal: coasting vtotal to program
-+ * @frame_skip_number: number of frames to skip
-+ *
-+ * return: true if successful, false otherwise
-+ */
-+bool dc_link_edp_set_replay_power_opt_and_coasting_vtotal(
-+		struct dc_link *link, const unsigned int *power_opts,
-+		uint32_t coasting_vtotal, uint16_t frame_skip_number);
-+
-+/*
-+ * Set up the link for panel replay.
-+ *
-+ * @link: link to configure
-+ * @stream: stream to enable panel replay for
-+ *
-+ * return: true if successful, false otherwise
-+ */
-+bool dc_link_dp_setup_replay(struct dc_link *link,
-+		const struct dc_stream_state *stream);
-+
-+/*
-+ * Get the instance id of the DDC aux service backing the link.
-+ */
-+uint8_t dc_link_get_ddc_aux_inst(const struct dc_link *link);
-+
-+/*
-+ * Get the DP link encoding format of the link's verified link settings.
-+ */
-+enum dp_link_encoding dc_link_dp_get_encoding_format(
-+		const struct dc_link *link);
-+
- /*
-  * Get Panel Replay state:
+ /**
+  * dc_get_power_profile_for_dc_state() - extracts power profile from dc state
   *
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_accessors.c b/drivers/gpu/drm/amd/display/dc/core/dc_accessors.c
+index 23aced5d5eef..9e8dffadfaec 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_accessors.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_accessors.c
+@@ -94,11 +94,6 @@ struct resource_pool *dc_get_res_pool(const struct dc *dc)
+ }
+ EXPORT_IF_KUNIT(dc_get_res_pool);
+ 
+-struct clk_mgr *dc_get_clk_mgr(struct dc *dc)
+-{
+-	return dc->clk_mgr;
+-}
+-EXPORT_IF_KUNIT(dc_get_clk_mgr);
+ 
+ bool dc_get_dcc_compression_cap(const struct dc *dc,
+ 		const struct dc_dcc_surface_param *input,
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/dc.h b/drivers/gpu/drm/amd/display/dc/inc/dc.h
+index d20180a449d5..1cb97c7b6c16 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/dc.h
+@@ -2382,8 +2382,12 @@ bool dc_is_idle_optimizations_allowed(const struct dc *dc);
+  */
+ struct resource_pool *dc_get_res_pool(const struct dc *dc);
+ 
+-/* The clock manager. Interim accessor. */
+-struct clk_mgr *dc_get_clk_mgr(struct dc *dc);
++/*
++ * Temporary workaround for DP compliance test failures: disallow p-state
++ * switching for the given state, raise the memory clock to the maximum
++ * supported level and apply the resulting clocks immediately.
++ */
++void dc_force_max_dramclk(struct dc *dc, struct dc_state *context);
+ 
+ /*
+  * Query DCC compression support for a surface.
 
 -- 
 2.56.0
