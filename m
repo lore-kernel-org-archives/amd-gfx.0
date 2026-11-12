@@ -2,42 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47BE5606A321
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 14:15:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B445606D567
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 14:18:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k8X7NYCd
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RFmkVrF+
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AC9B10E502;
-	Thu, 12 Nov 2026 14:15:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02C8E10E4E2;
+	Thu, 12 Nov 2026 14:18:47 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 48F3E10E502
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Nov 2026 14:15:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E20310E4E2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Nov 2026 14:18:41 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 02A6E42DDD;
- Thu, 12 Nov 2026 14:15:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C59D31F00A08;
- Thu, 12 Nov 2026 14:15:41 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 31D4943268;
+ Thu, 12 Nov 2026 14:18:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 011C61F00A05;
+ Thu, 12 Nov 2026 14:18:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794492941;
- bh=/6COQCbrQOrOGR/GF4msLt685EeyeSvdtvhz5xXxxsw=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=k8X7NYCdZUgruCb6yM05vZ5nugnNBrLsHbZnOqPTn8QLDmVtiQHItf9n1yxHpreRL
- fXuRMlkSsgBG4FZIHIWk7yXKaTqJsDAD7bStgHC+InpGfCTaar3HeyMpswXSObrg06
- 6FZ5F1Dnw2H4tCli62CfF1/Z1qB+nHmGB4QVZ7d8K2jcqe8bF2irdRSOydlPRe5JAg
- lvporte+hF1oqnAdqorz/IFejT0HsSXqpMdmzXy2GML8ZjsVGrq+F5ZSOXVDM5DOuT
- 7M7QxRxdXjHS/c64ZXUXUnTMIRthMUR4+CiKygsK1JDyC8AqtUY/hLdoDpg8rePpg+
- vxoZWMfywkk2w==
-Message-ID: <sashiko-outbox-211287@kernel.org>
+ s=k20260515; t=1794493121;
+ bh=jCbFRoRFHrTDqV9OrekyTrdy8WiXz4eDesU5KRQdr/g=;
+ h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
+ b=RFmkVrF+PFrziqKRadzJ2IQO/JMMTlTL6IlIUzJClOOf+62WgW6Odk60O9+ydlXId
+ 7kP/j7wbrh79DjuZK5OvA7WJ01ee0Ncz79AwhtwVbOg/B7g4XUcKoExGRY4A8TIaiP
+ 9l0HVRsncUwJukKJQDVxVgvRyY6MMrHcv7SxhcW/nwWIsB5D2B2LrbzsVVBEVC80c3
+ WGA5zHPSOaVq/8scV7HwT53JIFxL8aakT4tCWEMHxCv9qorJdq8IphpzMarWaMgzar
+ D1nRnxMaEGJAL80wmRtzrTn+ff+uDHsyUVkJWwWf5oKI/6rDsGy6dysGNgIhqHJLSC
+ W/Tv/YHOVloTg==
+Message-ID: <sashiko-outbox-211293@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/amdgpu: clear the entire mapping when partially
- unmapping
-To: "Thadeu Lima de Souza Cascardo" <cascardo@igalia.com>
-Cc: amd-gfx@lists.freedesktop.org
-In-Reply-To: <20261111-amdgpu_partial_mappings_fix-v1-1-02c5dfa20889@igalia.com>
-References: <20261111-amdgpu_partial_mappings_fix-v1-1-02c5dfa20889@igalia.com>
+Subject: Re: [PATCH 1/3] drm/amdgpu: Run shader cleaner on all XCCs on faults
+To: "Kent Russell" <kent.russell@amd.com>, amd-gfx@lists.freedesktop.org
+In-Reply-To: <20261112134340.4122401-1-kent.russell@amd.com>
+References: <20261112134340.4122401-1-kent.russell@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 12 Nov 2026 14:15:41 +0000
+Date: Thu, 12 Nov 2026 14:18:40 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,124 +55,166 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
+Thank you for your contribution! Sashiko AI review found 3 potential
 issues to consider:
-- [High] drm/amdgpu: unmapped split endpoints in
-  amdgpu_vm_bo_clear_mappings()
-- [Low] drm/amdgpu: missing Fixes trailer in commit message
+- [High] drm/amdgpu: unsynchronized direct ring submission in
+  gfx_v9_clean_shaders()
+- [Medium] drm/amdgpu: physical XCC bit index used to index
+  compute_ring[]
+- [Low] drm/amdgpu: missing Fixes: trailer on multi-XCC fault cleaner
+  fix
 --
 
-commit 193793bc04d0356a7faf15b1ecf5a2a8fdd585ce
-Author: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+commit 41cd4653f10e59626a5d04f393619df1808489a0
+Author: Kent Russell <kent.russell@amd.com>
 
-> drm/amdgpu: clear the entire mapping when partially unmapping
+> drm/amdgpu: Run shader cleaner on all XCCs on faults
 >
-> When we partially clear a BO mapping, we only add the partially unmapped
-> region to the freed list. That will update the page table to clear that
-> mapping and leave the other endpoints mapped.
+> The previous patch only ran on XCC0, giving us a good chance that we
+> don't clear the right registers on fault handling in MI3. Loop through
+> them all to make sure we clear them all.
 >
-> However, we move the endpoints to the invalids list. When later closing
-> that BO, it will simply free the mapping and not clear the GPU page
-> tables.
->
-> Drop the optimization and clear the entire mapping from the page tables.
-> As the endpoints are already in the invalids list, when that BO mapping
-> needs to be accessed, the page tables will be updated.
->
-> Though that may clear, then write page table entries and even lead to
-> new page table allocations in certain situations, those would already
-> happen in the clear path.
->
-> When measuring a given workload, it was noticed an extra allocation in
-> less than 10% of the cases, but no noticeable extra latency. In any
-> case, correctness is more important and this fixes the scenario
-> described.
->
-> Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+> Signed-off-by: Kent Russell <kent.russell@amd.com>
 
 [Severity: Low]
-Since this fixes a page table leak on partial unmap, should it include a
-Fixes: tag for 387f49e54672 ("drm/amdgpu: fix clear_all and replace
-handling in the VM (v2)") or dc54d3d1744d ("drm/amdgpu: implement
-AMDGPU_VA_OP_CLEAR v2")?
+Since this fixes multi-XCC fault cleaning on MI300, should it include:
 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_vm.c
-> index a99c2ef14be96..808b77083a5e4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -2108,12 +2108,6 @@ int amdgpu_vm_bo_clear_mappings(struct amdgpu_devi=
-ce *adev,
->  	list_for_each_entry_safe(tmp, next, &removed, list) {
->  		amdgpu_vm_it_remove(tmp, &vm->va);
->  		list_del(&tmp->list);
+  Fixes: 923d09ab1f9a ("drm/amdkfd: Fix TCP XNACK scoreboard reset race on =
+MI300")
+
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c b/drivers/gpu/drm/am=
+d/amdgpu/gfx_v9_4_2.c
+> index f54f54fe535e0..dc46133ed5068 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
+> @@ -716,51 +716,67 @@ static int gfx_v9_4_2_do_vgprs_init(struct amdgpu_d=
+evice *adev)
+> =20
+>  static int gfx_v9_clean_shaders(struct amdgpu_device *adev)
+>  {
+> -	int r;
+> +	int r =3D 0;
+>  	/* CU_ID: 0~15, SIMD_ID: 0~3, WAVE_ID: 0 ~ 9 */
+>  	int wb_size =3D adev->gfx.config.max_shader_engines *
+>  			 CU_ID_MAX * SIMD_ID_MAX * WAVE_ID_MAX;
+>  	struct amdgpu_ib wb_ib;
+> +	struct amdgpu_ring *ring;
+>  	struct dma_fence *fence =3D NULL;
+>  	u32 pattern =3D 0xa;
+> +	int xcc_id;
+> =20
+> -	/* bail if the compute ring is not ready */
+> -	if (!adev->gfx.compute_ring[0].sched.ready)
+> +	if (adev->gfx.disable_kq) {
+> +		dev_warn(adev->dev, "Cannot run shader cleaner with kernel queues disa=
+bled");
+>  		return 0;
 > -
-> -		if (tmp->start < saddr)
-> -		    tmp->start =3D saddr;
-> -		if (tmp->last > eaddr)
-> -		    tmp->last =3D eaddr;
-> -
->  		tmp->bo_va =3D NULL;
->  		list_add(&tmp->list, &vm->freed);
->  		trace_amdgpu_vm_bo_unmap(NULL, tmp);
+> -	/* allocate the write-back buffer from IB */
+> -	memset(&wb_ib, 0, sizeof(wb_ib));
+> -	r =3D amdgpu_ib_get(adev, NULL, (1 + wb_size) * sizeof(uint32_t),
+> -			  AMDGPU_IB_POOL_DIRECT, &wb_ib);
+> -	if (r) {
+> -		dev_err(adev->dev, "failed to get ib (%d) for wb.\n", r);
+> -		return r;
+>  	}
+> -	memset(wb_ib.ptr, 0, (1 + wb_size) * sizeof(uint32_t));
+> =20
+> -	r =3D gfx_v9_4_2_run_shader(adev,
+> -			&adev->gfx.compute_ring[0],
+> -			fault_cleaner_compute_shader_aldebaran,
+> -			sizeof(fault_cleaner_compute_shader_aldebaran),
+> -			fault_cleaner_init_regs_aldebaran,
+> -			ARRAY_SIZE(fault_cleaner_init_regs_aldebaran),
+> -			adev->gfx.cu_info.number * 32,
+> -			wb_ib.gpu_addr, pattern, &fence);
+> +	for_each_inst(xcc_id, adev->gfx.xcc_mask) {
+> +		ring =3D &adev->gfx.compute_ring[xcc_id * adev->gfx.num_compute_rings];
+
+[Severity: Medium]
+Does for_each_inst(xcc_id, adev->gfx.xcc_mask) index adev->gfx.compute_ring=
+[]
+by physical XCC bit position instead of logical XCC index?
+
+In gfx_v9_4_3_sw_init() and amdgpu_gfx_run_cleaner_shader(),
+adev->gfx.compute_ring[] is populated and indexed contiguously for
+0 <=3D xcc_id < NUM_XCC(adev->gfx.xcc_mask):
+
+drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:amdgpu_gfx_run_cleaner_shader() {
+	int num_xcc =3D NUM_XCC(adev->gfx.xcc_mask);
+    ...
+	for (xcc_id =3D 0; xcc_id < num_xcc; xcc_id++) {
+		for (i =3D 0; i < adev->gfx.num_compute_rings; i++) {
+			ring =3D &adev->gfx.compute_ring[i + xcc_id * adev->gfx.num_compute_ring=
+s];
+    ...
+}
+
+When lower physical GC instances are harvested in adev->gfx.xcc_mask,
+for_each_inst() skips active logical XCCs at the harvested bit positions
+(leaving their GPRs and TCP XNACK scoreboard entries uncleared after a VM
+fault) and indexes uninitialized compute_ring[] slots at bit positions
+>=3D NUM_XCC(adev->gfx.xcc_mask).
+
+> -	if (r) {
+> -		dev_err(adev->dev, "failed to clear MI200\n");
+> -		goto pro_end;
+> -	}
+> +		/* bail if the compute ring is not ready */
+> +		if (!ring->sched.ready)
+> +			continue;
+> =20
+> -	/* wait for the GPU to finish processing the IB */
+> -	r =3D dma_fence_wait(fence, false);
+> -	if (r)
+> -		dev_err(adev->dev, "timeout to clear MI200\n");
+> +		/* allocate the write-back buffer from IB */
+> +		memset(&wb_ib, 0, sizeof(wb_ib));
+> +		r =3D amdgpu_ib_get(adev, NULL, (1 + wb_size) * sizeof(uint32_t),
+> +				  AMDGPU_IB_POOL_DIRECT, &wb_ib);
+> +		if (r) {
+> +			dev_err(adev->dev, "failed to get ib (%d) for wb.\n", r);
+> +			return r;
+> +		}
+> +		memset(wb_ib.ptr, 0, (1 + wb_size) * sizeof(uint32_t));
+> +
+> +		r =3D gfx_v9_4_2_run_shader(adev,
+> +				ring,
+> +				fault_cleaner_compute_shader_aldebaran,
+> +				sizeof(fault_cleaner_compute_shader_aldebaran),
+> +				fault_cleaner_init_regs_aldebaran,
+> +				ARRAY_SIZE(fault_cleaner_init_regs_aldebaran),
+> +				adev->gfx.cu_info.number * 32,
+> +				wb_ib.gpu_addr, pattern, &fence);
 
 [Severity: High]
-Does queuing the unclamped mapping onto vm->freed leave the surviving
-before and after endpoints unmapped in the hardware page tables?
+Can calling gfx_v9_4_2_run_shader() across all XCC compute rings race on
+struct amdgpu_ring and corrupt the hardware ring buffer and fence state?
 
-When amdgpu_vm_clear_freed() processes vm->freed, it now zeroes the PTEs
-for the entire original [tmp->start, tmp->last] range, wiping the PTEs of
-the surviving before and after sub-ranges.  However, two paths fail to
-re-populate those endpoints from bo_va->invalids:
+gfx_v9_4_2_run_shader() submits directly via amdgpu_job_submit_direct() ->
+amdgpu_ib_schedule(), which has no internal lock and relies on the DRM GPU
+scheduler to serialize ring access.  On multi-partition MI300 devices,
+clean_process_queues_cpsch() only holds the per-partition dqm_lock(dqm) and
+a shared read lock on adev->reset_domain->sem before calling
+hqd_gfx_clean_fault(adev):
 
-1. In amdgpu_vm_bo_clear_mappings(), amdgpu_vm_bo_needs_update() is only
-called when amdgpu_vm_is_bo_always_valid(vm, bo) is true:
+CPU0 (node 0 fault wq)                CPU1 (node 1 fault wq / drm_sched)
+clean_process_queues_cpsch(dqm0)      clean_process_queues_cpsch(dqm1)
+  dqm_lock(dqm0)                        dqm_lock(dqm1)
+  hqd_gfx_clean_fault(adev)             hqd_gfx_clean_fault(adev)
+    gfx_v9_clean_shaders(adev)            gfx_v9_clean_shaders(adev)
+      gfx_v9_4_2_run_shader(ring)           gfx_v9_4_2_run_shader(ring)
+        amdgpu_job_submit_direct()            amdgpu_job_submit_direct()
+          amdgpu_ib_schedule(ring)              amdgpu_ib_schedule(ring)
+                                                  <-- concurrent ring write
 
-drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c:amdgpu_vm_bo_clear_mappings() {
-    ...
-	if (!list_empty(&before->list)) {
-		struct amdgpu_bo *bo =3D before->bo_va->base.bo;
-    ...
-		if (amdgpu_vm_is_bo_always_valid(vm, bo) &&
-		    !before->bo_va->base.moved)
-			amdgpu_vm_bo_needs_update(&before->bo_va->base);
-	}
-    ...
-}
-
-For normal individual BOs, before->bo_va and after->bo_va stay on
-vm->individual.idle instead of moving to vm->individual.needs_update, so
-amdgpu_vm_handle_moved() and amdgpu_userq_bo_validate() skip them and
-never restore their cleared PTEs unless the BO is explicitly passed in a
-legacy CS bo_list.
-
-2. On immediate updates without AMDGPU_VM_DELAY_UPDATE,
-amdgpu_gem_va_update_vm() runs amdgpu_vm_clear_freed() and only calls
-amdgpu_vm_bo_update() on the ioctl target bo_va for MAP or REPLACE:
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c:amdgpu_gem_va_update_vm() {
-    ...
-	r =3D amdgpu_vm_clear_freed(adev, vm, &vm->last_update);
-	if (r)
-		goto error;
-
-	/* For MAP/REPLACE we also need to update the BO mappings. */
-	if (operation =3D=3D AMDGPU_VA_OP_MAP ||
-	    operation =3D=3D AMDGPU_VA_OP_REPLACE) {
-		r =3D amdgpu_vm_bo_update(adev, bo_va, false);
-		if (r)
-			goto error;
-	}
-    ...
-}
-
-When userspace partially unmaps via AMDGPU_VA_OP_CLEAR (where bo_va is
-NULL) or splits a mapping belonging to another bo_va via
-AMDGPU_VA_OP_REPLACE, the surviving endpoints are cleared by
-amdgpu_vm_clear_freed() and never re-populated, causing GPU page faults
-when accessed (for instance on usermode queues synchronizing via
-vm_timeline_syncobj_out).
+Because each partition's fault handler now walks all XCCs in adev rather
+than its own partition, concurrent fault handlers (as well as normal jobs
+scheduled on ring->sched) can execute amdgpu_ib_schedule(),
+amdgpu_fence_emit(), and amdgpu_ring_commit() simultaneously on the same
+compute_ring, interleaving PM4 packets and corrupting ring->wptr,
+ring->count_dw, and ring->fence_drv.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261111-amdgpu_par=
-tial_mappings_fix-v1-1-02c5dfa20889@igalia.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112134340.4122=
+401-1-kent.russell@amd.com?part=3D1
