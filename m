@@ -2,76 +2,97 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15694606A334
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 13:56:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C9A0606A31C
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 13:56:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YKkCWlIq
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=jFfhr5N5
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 975C4112145;
-	Thu, 12 Nov 2026 13:56:21 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 532BC10E47F;
- Wed, 11 Nov 2026 23:48:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794440905; x=1825976905;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=9Cuegc/MuoDCo4oN8xNnf/pcpxsFdQP4keN2fSB0lfE=;
- b=YKkCWlIqbv+MntrVW1kAk69u3zKeJW/GD1CSSwTDnD0Ob5D5SSbeHTyk
- sn4s6B0i5m3smTrzwoOWuw267qBIEuwr6p478RQ98VMyz4jaTZMRqa8OI
- Mp21r62yVLog0SEOLH8g9oiiS+XJw8tIDfKJLWcW1+WPpeAw7Cp5eQZYK
- VUs4fCT9XSPPNw8Gz3Q+/XOcj+Zu8+5r8UpZ/bTqN71fy78UofwJ3iQkr
- kIUQnTrIexfFu5g6wwamCCXnSwSedS8eioqwBWo9afJjbK3YH1HEW9vGu
- ncLWDOk5VcDaCWPjN3+VQ7Q1bvv0OXHnM/7WRmlUPz3VLUvNTmBaQVuq2 g==;
-X-CSE-ConnectionGUID: 8wuA8lVOSRGp3NDEc8FgNw==
-X-CSE-MsgGUID: rfGeikJBQaOtIETc7n05Tw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3226555"
-X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
-   d="scan'208";a="3226555"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Nov 2026 15:48:24 -0800
-X-CSE-ConnectionGUID: OBrl5lPZQVGsO4ZZ0YyItw==
-X-CSE-MsgGUID: Wdq4BZXQSVqd2thien9rrw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
-   d="scan'208";a="8512350"
-Received: from pavel-dev.sc.intel.com (HELO pepopov-mobl2.intel.com)
- ([10.3.206.11])
- by orviesa002.jf.intel.com with ESMTP; 11 Nov 2026 15:48:21 -0800
-From: Pavel Popov <pavel.e.popov@intel.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Hans de Goede <hansg@kernel.org>,
- =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Peter Huewe <peterhuewe@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>,
- Tom Lendacky <thomas.lendacky@amd.com>,
- Herbert Xu <herbert@gondor.apana.org.au>
-Cc: Pavel Popov <pavel.e.popov@intel.com>, Leon Romanovsky <leon@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
- Arnd Bergmann <arnd@arndb.de>, Len Brown <lenb@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, "David S . Miller" <davem@davemloft.net>,
- x86@kernel.org, linux-acpi@vger.kernel.org, linux-pm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
- linux-integrity@vger.kernel.org, linux-crypto@vger.kernel.org,
- linux-arch@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH 0/7] Include <asm/cpu_device_id.h> without #ifdef CONFIG_X86
-Date: Wed, 11 Nov 2026 16:48:13 -0700
-Message-ID: <20261111234821.4814-1-pavel.e.popov@intel.com>
-X-Mailer: git-send-email 2.54.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0029D112133;
+	Thu, 12 Nov 2026 13:56:25 +0000 (UTC)
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
+ [209.85.221.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D89F10EB48
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Nov 2026 07:48:38 +0000 (UTC)
+Received: by mail-wr1-f45.google.com with SMTP id
+ ffacd0b85a97d-48fd2e38825so2356838f8f.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Nov 2026 23:48:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre.com; s=google; t=1794469716; x=1795074516;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=Uvsa9AIYlCvfW8qBBGgVckSPRj6pPv6x4O9rD7qooSU=;
+ b=jFfhr5N5+aqMlx8PHSfRZdDP9K+RQfXCK+LOs2K9ezgaAxE0BN0HM5MiiD7FDUSUXr
+ vqlSgSCxa9R/fyKI8Eru5p4sq6KWGrtJ2UfwGKkf6SSh03KJqDGwaNQ9Ji8tIeVf3LHe
+ SoiG2JsfOlWAPq8Av7pIUAs2KrB13S7PSvT4xEjN7Zv+6tg9Sq1YlahjowOm4igrdir1
+ 02cSVlLbxaa1riAefwlpTU4ZuiswUFp5CHOFPUmCkHfcRR10w5gjL5Iz+lM0LYO/6ERW
+ 8tLF/5UvzJprXfdl7Ullkxf6eEnqspaXT55U74j1dsv1bo6P7bSInxikuSAwpxevvKYB
+ QDRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794469716; x=1795074516;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=Uvsa9AIYlCvfW8qBBGgVckSPRj6pPv6x4O9rD7qooSU=;
+ b=b3tOZfXgigDGfJz1ZWlVmkrLFSg+CiY68VzgQfn6ujW8Zk0Vq/aE9rKnrnLeFMAWa+
+ QmIxfSIJMSj5nAnjszyuXPvk3uPAyCCCiegmeiNye2rsvI1SgmbXXP6sH0YVdRGtdAUY
+ THmrtm5Wd9+ReiGj40jUbA2Q2QKSpz+KmUc7ofOSUnyUP9TasnFi4jz9Yds03AUF8f7j
+ mUEbTUhgoPQRSuFxLRRUTdjP9YlQsTexNDToD/Bv8FNhN4ASIBkU/MnuIOLJQfFQWcAv
+ j5duJmlPR/tzhu0VREyr8Rp9JLxmpD/qfo96+gzqry0hHKHmCw7gy0gceGPZVqbeW8Jv
+ AUDA==
+X-Gm-Message-State: APuU4Z+G8sWU6S/X0WkFEEqUhwGUx8c3WzIUzVYAVodyWtVGBFswUtPa
+ +cucCjRarUzNHBM5MsQy1Fy52FHX6Mv+7/YjiLUpOokyPWXrtkwRQAZAMRg/9K7oLLw=
+X-Gm-Gg: AYBFou2SOr6inuuTHBl9nxyxcFQYoh/E46Bek/omCTUkkgjLr0Bpoxoz6Lg7WRVfXTe
+ QdsgAhD3Hbv1DWtXDKwj9NNk5khHPNS8TvsejquXS4iFXkBcm4oMRBBOj96I8MfaOVXgpQJXRkO
+ gJ9UEMZQcKQQg8L2fCOgt5Q1AhvEpcS70Ktvz5rkH2S93DUDO3zFjATUjAg2UQuiwhUDCQ9JHs+
+ vHlouWY8k9X7TBAZP7M8eEykERX0ZL5rn3Uzgql1CZhmH/Ru3hsXHvGdwszVHZf3+YM7RY7iGzb
+ Nor/IliAO/qylrfgZs685eAQ48jOqZXz0G/nRwQbX+akqiTYqHqQGbij1SVFHu6gqz4FAoM2sn7
+ xaGNavQM4Bs1E5FlCBkXy7LOm9flGgQPfL2kMB1AU8H7gDuWOV09zlYOX+uqXQYAZuGDcY6HtTe
+ FRnTPB17NoK7ig6kzAu2pV0+eRo0QCxda37o+rgfNqRDbnaECwUI9XbFifUn6rFrVSgebR1GxZY
+ axsF7if17pVBFLEd25ua3RibWQ2t44qeGIPkqWi/gGAl/DN8NPGSj+6teHT2vYiq2zNX85z0f36
+ KEy0ta/bgLzVmoNQe2oGggrfae/IkwHlNw==
+X-Received: by 2002:a05:6000:5c5:b0:491:4e13:fdd7 with SMTP id
+ ffacd0b85a97d-499c38bcc87mr7988974f8f.6.1794469716567; 
+ Wed, 11 Nov 2026 23:48:36 -0800 (PST)
+Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
+ by smtp.gmail.com with UTF8SMTPSA id
+ ffacd0b85a97d-4983585923bsm15630479f8f.11.2026.11.11.23.48.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 11 Nov 2026 23:48:36 -0800 (PST)
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?=
+ <u.kleine-koenig@baylibre.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ "Mario Limonciello (AMD)" <superm1@kernel.org>,
+ =?utf-8?q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Perry Yuan <perry.yuan@amd.com>
+Cc: amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Subject: [PATCH v2 1/3] drm/amdgpu: Drop unused include of <drm/drm_pciids.h>
+Date: Thu, 12 Nov 2026 08:48:17 +0100
+Message-ID: <cbb2644e5ab7335a805c21c9ad1e69f8d1c3ab34.1794469153.git.u.kleine-koenig@baylibre.com>
+X-Mailer: git-send-email 2.56.0.rc1
+In-Reply-To: <cover.1794469153.git.u.kleine-koenig@baylibre.com>
+References: <cover.1794469153.git.u.kleine-koenig@baylibre.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=767;
+ i=u.kleine-koenig@baylibre.com; h=from:subject:message-id;
+ bh=AVSQJY4FGgrv4LZdFN4/wjw+AUvlP8d3u1DX2nA8mgo=;
+ b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBq9W9EwS9wXQTmNnzPiUUG7IQgXSBblmAxwYJID
+ oLKMH6fLnCJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCavVvRAAKCRCPgPtYfRL+
+ TsqeCAC4zdauy47m+/QGPbLSssiOOJP6Py42W2zhmniUuGp1ZN0w02nvVGxhFR7LK0MlimqxZRP
+ l3oNxGKd7IgC42St82Xdv8eZK0mbJeoxCeMGmSL+BcuQeAT1o4AGdh9nWxoKvgJsnbNsudYiRgn
+ cz2znrytUZ+K1jqp8WMByAnTxEhpANYPBE2UgVBMQQgnXVT/0J559+OUwhRGnCm6vZXM3bsesip
+ 4FMLn67M7bIcgvMvYoxH2/GKL8M0HQNNiaiYaJRXYygFxkgj8FxYUXyCCXGt7Nwg6GuVfIQ+cgV
+ GaKV5c9Bzr4D+8l9f6LYxHwmkilZAYWUqOeb3ajuKQ+KOzSq
+X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp;
+ fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 12 Nov 2026 13:56:07 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -84,57 +105,34 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-<asm/cpu_device_id.h> exists only on x86, so generic code that uses it
-wraps the include in #ifdef CONFIG_X86. The P2PDMA series [1] adds a
-generic version of the header, so the include can be unconditional.
+The <drm/drm_pciids.h> header only defines radeon_PCI_IDS which isn't
+used in the amdgpu driver. So drop the useless include statement.
 
-This series drops the #ifdef around the include in the remaining
-users, and in ccp, which does not use the header, the include itself.
-Some of them also include <asm/intel-family.h>, which has no
-generic version. That include is removed: on x86 it is already pulled
-in by <asm/cpu_device_id.h>, and on other architectures the INTEL_*
-model defines are not used. The #ifdef stays around code that needs
-x86 for other reasons: CPU match tables using the INTEL_* model
-defines and boot_cpu_data accesses.
+Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-Patches 1-6 are independent of each other and can go through the
-respective trees once [1] has landed. Patch 7 does not depend on [1].
-
-Based on mainline (7.4-rc2+) plus [1]. Built with x86_64 and arm64
-allmodconfig, each patch separately.
-
-[1] https://lore.kernel.org/r/20261111234439.4098-1-pavel.e.popov@intel.com
-
-Pavel Popov (7):
-  ACPI: mipi-disco-img: Include <asm/cpu_device_id.h> unconditionally
-  drm/i915: Include <asm/cpu_device_id.h> unconditionally
-  drm/amdgpu: Include <asm/cpu_device_id.h> unconditionally
-  cpufreq: ondemand: Include <asm/cpu_device_id.h> unconditionally
-  platform/x86: Include <asm/cpu_device_id.h> unconditionally in soc.h
-  tpm: Include <asm/cpu_device_id.h> unconditionally
-  crypto: ccp - Drop unused <asm/cpu_device_id.h> include
-
- drivers/acpi/mipi-disco-img.c              | 5 ++---
- drivers/char/tpm/tpm.h                     | 2 --
- drivers/cpufreq/cpufreq_ondemand.h         | 4 ++--
- drivers/crypto/ccp/ccp-dev.c               | 3 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 ---
- drivers/gpu/drm/i915/intel_cpu_info.c      | 5 ++---
- include/linux/platform_data/x86/soc.h      | 5 ++---
- 7 files changed, 8 insertions(+), 19 deletions(-)
-
-
-base-commit: 067c5c24cef23d913b67eaaf71ae67e7169a6620
-prerequisite-patch-id: 2a8952c8b8b6b019585a8bc449db628f458658cb
-prerequisite-patch-id: 6b1715c7e4f230fedfcadf38303ce5966922caff
-prerequisite-patch-id: 88872ad297c6b8ec80cb4ec4057ab281e10c148d
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 72b371046282..78c255bb179a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -28,7 +28,6 @@
+ #include <drm/drm_fbdev_ttm.h>
+ #include <drm/drm_gem.h>
+ #include <drm/drm_managed.h>
+-#include <drm/drm_pciids.h>
+ #include <drm/drm_probe_helper.h>
+ #include <drm/drm_vblank.h>
+ 
 -- 
-2.54.0
+2.56.0.rc1
 
