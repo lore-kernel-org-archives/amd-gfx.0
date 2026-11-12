@@ -2,42 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCC74606A32E
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 23:38:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B304606A31C
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 23:44:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=RfeYnZej
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=lBkjfJYX
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 585D01122FA;
-	Thu, 12 Nov 2026 23:38:07 +0000 (UTC)
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011054.outbound.protection.outlook.com [52.101.62.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2A871122FA
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Nov 2026 23:38:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0C7D11239B;
+	Thu, 12 Nov 2026 23:44:27 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010024.outbound.protection.outlook.com [52.101.201.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF2BD11239B;
+ Thu, 12 Nov 2026 23:44:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YGLuIQb8WyLupZYkQ8eM5wV/eRGmmSj9Cpd1alNA2yLbppCRToEtuHvQStuzZ7Qr3hF5eOZCS1frsgsJQDsKim1tkKmjegvrbEJPFrl3N+9lUpA1xo4WpTK0jz/0nQ2/czpJF/XDWvpxs1zwIldBpqiPE+S3QL2ohibF07yFYWP+RI7c8jlE25XiOAkotAecisFoGGKZt7ZXTcmyRfQfDh1oM/Loxi+McPL+IiN551UCtcd/x7DpciPyWajWnZ65kDGq2aAPUQ/p0jsV12ZJLwpyxnYEMHhn1ODAdjsHa7M+pQ8GumKZDh+1hxpGpiEKF/cYKDKp6vwjg75d5HsrRA==
+ b=A2tOnhL0J5wL2gGwGizEXvNcfdCGxjnVzp46/qhONztRgpWj92G/DqIeA/6DrEUo7cpys13YZDBLpO1l1kpoVwyfINHZpSXSDGyQb/SgO96GOx2EGKmZRdw8+ux4ePPWLYgf5I2me0g0VggNRek4Um6qmbtOHW0k3dK89vwtRKhwjOteuy+mhX6Q+pnK0strDJ/mi5/UdyVtM40ELxRDnLc4GR6nkHLZ0pTRJbPaNqSQdJ3nIiWsR/qgEYjjAWr2dMdzkT9ZnKdFF+7+0aE+7Nt619FHXQuV4BO/xdcAYOot0BpMSOgoqTWeapknFIgTecAl3rKVoMASc/2YPoiLRA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/JGzZnio/a1f97yD+VLVIpaBTVuayNsiuoRT/5waJ3s=;
- b=Yoma6GbXvDvl6bRqOXFBQ/JwTaSoJNABgjnaB9NY06kEm1n4Sirbqa2yT63bGJfU8rwfgrK8z0O00k5lTM1tEY807EUQT3S15tRUxbFLPhXqqPtWzoKGWW6DUEslCupAPDSYZ1BDpyEvsIasyzwtBaXIS2KHr2ugyO1RGmSLp8sH3dmC9k/6PwgdpuQAD9x/I3+sPmCqLRkVTGRKXYG0gcpMgb4yHny7c/1Km3HxHtfq/5JSddQY5bbkk64TT6SsVENwtIz00VoTrYvJmmoFfEBL+lSblPuFImobNJNoK9EolRcERVqpcXfhhtc+LHIXGVNQI/E/AtaS87I3wrTaxQ==
+ bh=6zPkleiqsljKb3sKClsAxvVbU6og2wa2OyvI62mMUIE=;
+ b=J/3gHgK7D6NrODYolxf2HPJGOTRRcOJYuDDH8CCGtIdJezWu9Nq5TUtNHSofPSu2LQwwmJJeGYx0l6kTwix81JIYVAUdW2nvBkfJ+izrmFIuW1Q15N5N08lSTyTpSAglvu89YxqUXKJpzFivd6NeDDhU8Vfqeicq4vQJWpVPJ5rcPJuETfjDofBYs4ZzKr84O6ftU8RNYSiOVmIv34otCPx/rxYZ3VhT5BwPnXZzb56g1E2yzmZBa3wp268swpW1HGx8n72XYKQEySssE5CMkuNe/Lai4yizGDxVbJ2UQf9xY6IBGrOOn2Rv7j+DcomeV5b0B+ulCCh1geYbel3/Lg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/JGzZnio/a1f97yD+VLVIpaBTVuayNsiuoRT/5waJ3s=;
- b=RfeYnZejtDRzUu4hHL/0bRq4Ph+9F0vO9EuqOMVvEqblzDqJoy8fEKzbzJYxkd6P+Kh9TRJ4Utkhpg5CPwHFMe8pc3u0DeOb6ZEAFz4SogxlNhDsoJkAIgnOo7SJByPYP42cFdC0e9wKUQRGlMMdKIcPQ/BTw7AGpW8GNQRax9c=
-Received: from BL1P222CA0015.NAMP222.PROD.OUTLOOK.COM (2603:10b6:208:2c7::20)
- by DS0PR12MB8219.namprd12.prod.outlook.com (2603:10b6:8:de::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Thu, 12 Nov
- 2026 23:37:53 +0000
-Received: from MWH0EPF000D8953.namprd05.prod.outlook.com
- (2603:10b6:208:2c7:cafe::8b) by BL1P222CA0015.outlook.office365.com
- (2603:10b6:208:2c7::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.13 via Frontend Transport; Thu,
- 12 Nov 2026 23:37:52 +0000
+ bh=6zPkleiqsljKb3sKClsAxvVbU6og2wa2OyvI62mMUIE=;
+ b=lBkjfJYXg3Z/BFWAXzJnkRxz8EPOv3MpFMjqjEAsI4jQDznrR6KnIsAetwRUIoH43fnFivXRA0q5Pl5FiuHbxOLTRobbL74OrWpcBJhomDbF2N+igiEN7SrQEx57tnMfxyk0uxRxfd/Aeg54mTXDZL/g+7GVQ1+Q8/2KHC5jots=
+Received: from PH8P221CA0025.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:2d8::21)
+ by SA3PR12MB9132.namprd12.prod.outlook.com (2603:10b6:806:394::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Thu, 12 Nov
+ 2026 23:40:32 +0000
+Received: from DSM2EPF0000000C.namprd02.prod.outlook.com
+ (2603:10b6:510:2d8:cafe::ad) by PH8P221CA0025.outlook.office365.com
+ (2603:10b6:510:2d8::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Thu, 12
+ Nov 2026 23:40:30 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -46,56 +46,62 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- MWH0EPF000D8953.mail.protection.outlook.com (10.167.249.219) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Thu, 12 Nov 2026 23:37:50 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ DSM2EPF0000000C.mail.protection.outlook.com (10.167.23.6) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Thu, 12 Nov 2026 23:39:55 +0000
+Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 12 Nov
- 2026 15:48:09 -0600
-Received: from p8.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Thu, 12 Nov 2026 15:48:09 -0600
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Alex Deucher <alexander.deucher@amd.com>, Vitaly Prosyak
- <vitaly.prosyak@amd.com>, Pierre-Eric Pelloux-Prayer
- <pierre-eric.pelloux-prayer@amd.com>, Sunil Khatri <sunil.khatri@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Subject: [PATCH] drm/amdgpu: bring back the ring parameter for
- update_spm_vmid()
-Date: Thu, 12 Nov 2026 16:48:02 -0500
-Message-ID: <20261112214802.1774412-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.56.0
+ 2026 15:54:59 -0600
+From: Mario Limonciello <mario.limonciello@amd.com>
+Subject: [PATCH v7 0/3] Fix VFCT matching after PCI bus renumbering
+Date: Thu, 12 Nov 2026 15:54:52 -0600
+Message-ID: <20261112-vfct-regression-v7-0-69b1e0cf45c2@amd.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAKw19moC/3XOTU7DMBAF4KtUXmPkGf/FrLgHYuHY49ZIbZAdI
+ lDVu2OXBYkCyye9781cWaWSqbKnw5UVWnLN06UF+3Bg4eQvR+I5tsxQoAEBji8pzLzQsVDtXY6
+ gMAWNg0bPmnovlPLnffHl9SfXj/GNwtxneuOU6zyVr/vJBXrv//UFuODaGxljlHaI8dmf42OYz
+ qxvL7jSKPYam44onYoASgu/1XKtzV7LphM5PRiKxtlhq9Va271WTQuy4ARJFzBstf7VAH98rvt
+ t5ZInN8CY5FabtYa9Nk1LJ62z4zgaWunb7fYNCMBl+fQBAAA=
+X-Change-ID: 20261019-vfct-regression-2142fc52852a
+To: Bjorn Helgaas <helgaas@kernel.org>, Alex Deucher
+ <alexander.deucher@amd.com>, =?utf-8?q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>
+CC: Oz Tiram <oz@shift-computing.de>, <linux-pci@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, Mario Limonciello
+ <mario.limonciello@amd.com>, Reza Nikzad Chaleshori <rezanikzadch@gmail.com>
+X-Mailer: b4 0.16.0
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000D8953:EE_|DS0PR12MB8219:EE_
-X-MS-Office365-Filtering-Correlation-Id: 945fedcd-a4b9-4735-8c82-08df4115f750
+X-MS-TrafficTypeDiagnostic: DSM2EPF0000000C:EE_|SA3PR12MB9132:EE_
+X-MS-Office365-Filtering-Correlation-Id: 69d1c63b-c4ea-41d0-f4d5-08df41164165
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700016|1800799024|376014|23010399003|18002099003|6133799003|261009223027099003|11063799006|56012099006|10067099003|261102123227099003|261022105027099003|261026121527099003|261022075727099003|261028144727099003|261021121427099003|261026140227099003|261021123027099003;
-X-Microsoft-Antispam-Message-Info: yB10qbGe66r4nk5Z5Br7VuGSgNqtt2TiJesX9/7KTmzq23q5bG7ILKWWXG9HhDVRdfBewg2vb3nnCEQcy+jCd0enq9fCG2TU/LjDxX0+y9sbtrwxd7DqKMeCZ4aI/KiKG1mVFw+Y/CoyVBZGVJ+Lfe3+msp65mkJ/svubQqWkIkh3tH3PDN1ThpsDQhxEFmMCwStdEhiiDs3yvPN+F6QrUeYkB5WwC+3B8PhCN4zYr105fEMsC64XXH0omb7mBRsngXnew32XESZ99myZJwvnX3DRKwj7GP6wU3gG3xQSi12s66T1eUEgVsQzHr8Bs5jXKbda23cg8o6KXfUVDO6KPA0ESV7DhCJbhCqB1FmgMy+pIKyRheolUjfF0DnPNxRtuh1wvd1hVlIlaaMwI6jyJeC4KfRzM67d8DFwPiTLLiJNmb2Z+DJu/MrV0kUT1KAS8Khp/e9GykAnl4bknrEQYRx7IKdjYvMnCNAZLxTHcmFn67HQPG7o/gWNI/jfopUdKC+JMxydLAQB2ybmCgxxON6m2h3aAHToTfjWEB1gRZ/tdmdtO335hVQB9jzrFFw8xvCKochAaR0xW2RPF+GDBH9sMc5XwxgjwEyAXeT3WiZnNdYqbGnAgXV050X1wmNVXWAd25gMJWTIqj5v1d+nAX0svl2714EKTsMXtguy/jjnghRoWCxkcUFdFJxrnbYKLmG2jBoYm7VNJSUXc9yYg==
+ ARA:13230040|376014|23010399003|36860700016|82310400026|1800799024|6133799003|18002099003|261026140227099003|11063799006|56012099006|261022105027099003|10067099003|261021121427099003|261102123227099003|261009223027099003|261028144727099003|261022075727099003|261021123027099003|261026121527099003|261022115727099003;
+X-Microsoft-Antispam-Message-Info: fQTZe5j/awDfbk5PGZ/GwUJJrXWXKjpaUK6+im+4nrfjn4C8l1Lgz3MOClmyPRvMXJ3wdKi9XKjgpCs9oQc7SIKqwVr5JE685FEnwFr0dqkFsw/GAjwej8klJ+dWKquHufLzQ4lfICozX+R2ZWhc42v6m9Tp7Eem+27sZR+60l+/ErFtRN8JOX2fOUFJWBAab4xTmvKpgqtIW9dCDVWoGDPdto4t6iQjodbUTVxhNOT/9BJordm4tql1dJMDlmV+BBL0HcXC2lRfy64imjl0vtEbkij5IaGDTrlL3ySK6Kg17hHN1Nn4e+1YGf4v14t0KKfXLT/ZG7hFU0V7/OWSRchH2m2jtAPtQPolsxR1ehPHT1f8UfRdsUUH+Y4Ybrq8Kqk6v4kfsROnbXjuSWJy5cQHDYDaRgPd6DKp32AwHQQzcOUhGE/loT9c5P+KfycmLh5pYKKZ0tAfZ05O0zzJSJxqgiFF05NnkE2Iytd+eL9AWlEIgmrtj1KkyL/j3lOSnrmpXkzd+E2FRekrH8ZZ9GxUzQruP3JbzevSxOMFfuPWZ8KPL22+A8YG8YvwvredRDMWrLrHwCaVcLnLZYaBchsKRK+AwlRx5twzJg5n9aTGzC3ZDl23oyivfxGcmuPNJDnuzdT1+SqcKmyc+XGMiDIKud1fISd+eKDr5Q2RxUM=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700016)(1800799024)(376014)(23010399003)(18002099003)(6133799003)(261009223027099003)(11063799006)(56012099006)(10067099003)(261102123227099003)(261022105027099003)(261026121527099003)(261022075727099003)(261028144727099003)(261021121427099003)(261026140227099003)(261021123027099003);
+ SFS:(13230040)(376014)(23010399003)(36860700016)(82310400026)(1800799024)(6133799003)(18002099003)(261026140227099003)(11063799006)(56012099006)(261022105027099003)(10067099003)(261021121427099003)(261102123227099003)(261009223027099003)(261028144727099003)(261022075727099003)(261021123027099003)(261026121527099003)(261022115727099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: DgVbNs657ozz7EhyqaymB8/JQ8ECq1IXmW0JnA2a+66yqEZsYURMfufElizhU8xepFiyrQemnS/eXYOc0H6/awkZmbMp3gXE61TKvzIhatuG6I24sfGkMPATaogGF9E1UGNtRPmZBH8uW520aMcp+jQ6TcrHgk1iglPcsqHTxzDgsARvGyWa+ECr+BxX+a0SzkrRixL15uRfQhlLu/dBeY2dVoiUTyVAGHOdsgoryW2Yv9GnIDOH+J5RHitSaDPaaVOLslCf0SybR1pfoTk7Wo1tAC/rABgJ1pu9P43aVElTJYsZFdkF8wS+ZxLDFspKU5ABAXmDkdbDjKpOwcmNt1fXjJdoDz9lqpcUNXkC51JcizxUSZZp5OLqhQFARyuf/p+DiNQAT02b1iVR50rQ2RONrtlm2QL/gyUNPXNw2e7Nca/n+X/jALgi2ceGyh2i
+X-MS-Exchange-AntiSpam-MessageData-0: GA1p11qcOizRmaoNvd8MFxZNaoY5EJnKYr6a8MfzN3+S6uqetKzvRClyRFVfFvRIBORitzu9uTwc5oTyDYULpx74wkfCWbs/tKyhsElwNYC/ab9wNVOOSx97st6rxFrkdQu62I9J4Lwe2Ka32NuBqgWEPvFlsAPiVrnTiM8OGn8aCw2Z3cqDtuNEHYVL1KUiJJ65U1uU17EvhxuponJ+S0xjziYanS45aO0a+8bp25a/sJNeJJxiQooQ037q3+CMZCMimiE/FJJd8nDLx1mnrn9Jd7MlISFhn9ECHAUqSZvCMgQlH7Dy8Bs+18VWnWuIjzKGtIb/jDFnJwsMLLPz/wju+crD4LyGQ/u+27qNM2gkQeoxl7AnQIlAcNTvglKuYlrApU8xK/+coBKSgtZRRhBfh5hJSSwoKat79ucdGRZpgHeCOhgIT4Tw3JZXd9Po
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 23:37:50.7910 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 945fedcd-a4b9-4735-8c82-08df4115f750
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 23:39:55.1744 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 69d1c63b-c4ea-41d0-f4d5-08df41164165
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000D8953.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DSM2EPF0000000C.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8219
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9132
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,292 +115,93 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-This largely reverts commit 90b1b26bb030d6c666f8cad52cd3d8019d404ad9.
+amdgpu and radeon pick the VFCT image for a GPU by comparing the PCI bus
+number recorded by the BIOS at POST with the device's bus number. When
+the kernel renumbers buses (e.g. pci=realloc), the runtime number no
+longer matches the one in VFCT.
 
-Not emitting the spm update via the ring causes CI flakeyness on
-gfx11.  Add back the SPM ring emission, but skip the MMIO path
-if ring is specified.
+commit 11c141672045f ("drm/amdgpu: Fix VFCT bus number matching with soft
+filter") and its radeon counterpart worked around this by accepting an
+entry whenever everything but the bus number matched. That picks the
+wrong image when a system has two identical GPUs.
 
-v2: drop ring code in gfx 12.1.  We aren't supporting KCQs on 12.1
-so the code is not used.
+Instead, have the PCI core remember the secondary bus number the
+firmware assigned to each bridge, and make amdgpu and radeon match the
+VFCT bus number against it again, using the bridge above the GPU. The
+value is captured once, when the bridge windows are first read, so
+renumbering and later rescans don't overwrite it.
 
-Cc: Vitaly Prosyak <vitaly.prosyak@amd.com>
-Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-Cc: Sunil Khatri <sunil.khatri@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
-Fixes: d44428868e5b ("drm/amdgpu: re-enable SPM updates in the the IB path")
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Patch 1 adds the cached firmware secondary bus number to struct pci_dev.
+Patches 2 and 3 convert amdgpu and radeon to use it and drop the soft
+filter.
+
+Link: https://lore.kernel.org/linux-pci/20261015124843.203905-1-mario.limonciello@amd.com/
+Link: https://lore.kernel.org/amd-gfx/20261019194106.2796150-1-alexander.deucher@amd.com/
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c    |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h   |  2 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c    |  2 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c    | 16 +++++++++++++---
- drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c    | 15 +++++++++++++--
- drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c    |  7 ++++---
- drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c     |  4 ++--
- drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c     |  4 ++--
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c     |  2 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c   |  4 ++--
- 11 files changed, 41 insertions(+), 19 deletions(-)
+Changes in v7:
+- Reword the cover letter and the PCI patch to describe the current design:
+  the firmware secondary bus number is cached on the bridge pci_dev when its
+  bridge windows are first read, and amdgpu/radeon match VFCT against it.
+- No code changes.
+- Link to v6: https://patch.msgid.link/20261111-vfct-regression-v6-0-393797bbb6e3@amd.com
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-index 324d25c77897a..1ff5d5cfb141d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-@@ -750,7 +750,7 @@ void amdgpu_ring_set_fence_errors_and_reemit(struct amdgpu_ring *ring,
- 	ring->reemit = true;
- 	amdgpu_ring_alloc(ring, ring->ring_backup_entries_to_copy);
- 	if (emit_spm_needed)
--		ring->adev->gfx.rlc.funcs->update_spm_vmid(ring->adev, ring->xcc_id,
-+		ring->adev->gfx.rlc.funcs->update_spm_vmid(ring->adev, ring->xcc_id, NULL,
- 							   ring->adev->vm_manager.spm_vmid);
- 	spin_lock_irqsave(&ring->fence_drv.lock, flags);
- 	do {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-index 6210edf1937aa..a24cdf5852a32 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-@@ -213,7 +213,7 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, struct amdgpu_job *job,
- 		amdgpu_ring_emit_pipeline_sync(ring);
- 
- 	if (emit_spm_needed)
--		adev->gfx.rlc.funcs->update_spm_vmid(adev, ring->xcc_id,
-+		adev->gfx.rlc.funcs->update_spm_vmid(adev, ring->xcc_id, ring,
- 						     adev->vm_manager.spm_vmid);
- 
- 	if (emit_gds_needed)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
-index e38a8ea02c520..2ae2c1d0f702b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
-@@ -292,7 +292,7 @@ struct amdgpu_rlc_funcs {
- 	void (*reset)(struct amdgpu_device *adev);
- 	void (*start)(struct amdgpu_device *adev);
- 	void (*update_spm_vmid)(struct amdgpu_device *adev, int xcc_id,
--			unsigned int vmid);
-+			struct amdgpu_ring *ring, unsigned vmid);
- 	bool (*is_rlcg_access_range)(struct amdgpu_device *adev, uint32_t reg);
- };
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-index 7683e8a0a4380..f226758b15467 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -8187,7 +8187,7 @@ static void gfx_v10_0_update_spm_vmid_internal(struct amdgpu_device *adev,
- }
- 
- static void gfx_v10_0_update_spm_vmid(struct amdgpu_device *adev, int xcc_id,
--		unsigned int vmid)
-+		struct amdgpu_ring *ring, unsigned int vmid)
- {
- 	amdgpu_gfx_off_ctrl(adev, false);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-index 5d068a9d9c72c..ac814c12d60f2 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-@@ -363,6 +363,7 @@ static void gfx_v11_0_ring_invalidate_tlbs(struct amdgpu_ring *ring,
- static void gfx_v11_0_set_safe_mode(struct amdgpu_device *adev, int xcc_id);
- static void gfx_v11_0_unset_safe_mode(struct amdgpu_device *adev, int xcc_id);
- static void gfx_v11_0_update_spm_vmid(struct amdgpu_device *adev, int xcc_id,
-+				      struct amdgpu_ring *ring,
- 				      unsigned int vmid);
- static void gfx_v11_0_userq_priv_fault_work(struct work_struct *work);
- static void gfx_v11_0_update_perf_clk(struct amdgpu_device *adev,
-@@ -2606,7 +2607,7 @@ static int gfx_v11_0_rlc_resume(struct amdgpu_device *adev)
- 	 * The RLC comes up with RLC_SPM_MC_CNTL cleared, program the SPM VMID
- 	 * once it runs, also after a GPU reset or a resume.
- 	 */
--	gfx_v11_0_update_spm_vmid(adev, 0, adev->vm_manager.spm_vmid);
-+	gfx_v11_0_update_spm_vmid(adev, 0, NULL, adev->vm_manager.spm_vmid);
- 
- 	return 0;
- }
-@@ -5615,12 +5616,21 @@ static int gfx_v11_0_update_gfx_clock_gating(struct amdgpu_device *adev,
- }
- 
- static void gfx_v11_0_update_spm_vmid(struct amdgpu_device *adev, int xcc_id,
--		unsigned int vmid)
-+		struct amdgpu_ring *ring, unsigned vmid)
- {
- 	u32 reg, pre_data, data;
- 
--	amdgpu_gfx_off_ctrl(adev, false);
- 	reg = SOC15_REG_OFFSET(GC, 0, regRLC_SPM_MC_CNTL);
-+
-+	if (ring && amdgpu_sriov_is_pp_one_vf(adev) &&
-+	    ((ring->funcs->type == AMDGPU_RING_TYPE_GFX) ||
-+	     (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE))) {
-+		data = (vmid & RLC_SPM_MC_CNTL__RLC_SPM_VMID_MASK) << RLC_SPM_MC_CNTL__RLC_SPM_VMID__SHIFT;
-+		amdgpu_ring_emit_wreg(ring, reg, data);
-+		return;
-+	}
-+
-+	amdgpu_gfx_off_ctrl(adev, false);
- 	if (amdgpu_sriov_is_pp_one_vf(adev) && !amdgpu_sriov_runtime(adev))
- 		pre_data = RREG32_NO_KIQ(reg);
- 	else
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-index df2fb09bbcd86..07f981f27bcc8 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-@@ -287,6 +287,7 @@ static void gfx_v12_0_ring_invalidate_tlbs(struct amdgpu_ring *ring,
- static void gfx_v12_0_set_safe_mode(struct amdgpu_device *adev, int xcc_id);
- static void gfx_v12_0_unset_safe_mode(struct amdgpu_device *adev, int xcc_id);
- static void gfx_v12_0_update_spm_vmid(struct amdgpu_device *adev, int xcc_id,
-+				      struct amdgpu_ring *ring,
- 				      unsigned int vmid);
- static void gfx_v12_0_userq_priv_fault_work(struct work_struct *work);
- static void gfx_v12_0_update_perf_clk(struct amdgpu_device *adev,
-@@ -2158,7 +2159,7 @@ static int gfx_v12_0_rlc_resume(struct amdgpu_device *adev)
- 	 * The RLC comes up with RLC_SPM_MC_CNTL cleared, program the SPM VMID
- 	 * once it runs, also after a GPU reset or a resume.
- 	 */
--	gfx_v12_0_update_spm_vmid(adev, 0, adev->vm_manager.spm_vmid);
-+	gfx_v12_0_update_spm_vmid(adev, 0, NULL, adev->vm_manager.spm_vmid);
- 
- 	return 0;
- }
-@@ -3978,12 +3979,22 @@ static void gfx_v12_0_update_perf_clk(struct amdgpu_device *adev,
- 
- static void gfx_v12_0_update_spm_vmid(struct amdgpu_device *adev,
- 				      int xcc_id,
-+				      struct amdgpu_ring *ring,
- 				      unsigned vmid)
- {
- 	u32 reg, data;
- 
--	amdgpu_gfx_off_ctrl(adev, false);
- 	reg = SOC15_REG_OFFSET(GC, 0, regRLC_SPM_MC_CNTL);
-+
-+	if (ring && amdgpu_sriov_is_pp_one_vf(adev) &&
-+	    ((ring->funcs->type == AMDGPU_RING_TYPE_GFX) ||
-+	     (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE))) {
-+		data = (vmid & RLC_SPM_MC_CNTL__RLC_SPM_VMID_MASK) << RLC_SPM_MC_CNTL__RLC_SPM_VMID__SHIFT;
-+		amdgpu_ring_emit_wreg(ring, reg, data);
-+		return;
-+	}
-+
-+	amdgpu_gfx_off_ctrl(adev, false);
- 	if (amdgpu_sriov_is_pp_one_vf(adev))
- 		data = RREG32_NO_KIQ(reg);
- 	else
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-index 1f57d0fa2c044..bf69d71e6b065 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-@@ -217,7 +217,7 @@ static int gfx_v12_1_init_cp_compute_microcode_bo(struct amdgpu_device *adev);
- static void gfx_v12_1_xcc_update_medium_grain_clock_gating(
- 	struct amdgpu_device *adev, bool enable, int xcc_id, bool force);
- static void gfx_v12_1_update_spm_vmid(struct amdgpu_device *adev, int xcc_id,
--				      unsigned int vmid);
-+				      struct amdgpu_ring *ring, unsigned vmid);
- 
- static void gfx_v12_1_wait_reg_mem(struct amdgpu_ring *ring, int eng_sel,
- 				   int mem_space, int opt, uint32_t addr0,
-@@ -1866,7 +1866,7 @@ static int gfx_v12_1_xcc_rlc_resume(struct amdgpu_device *adev,
- 	int r;
- 
- 	/* init spm vmid with 0xf */
--	gfx_v12_1_update_spm_vmid(adev, xcc_id, adev->vm_manager.spm_vmid);
-+	gfx_v12_1_update_spm_vmid(adev, xcc_id, NULL, adev->vm_manager.spm_vmid);
- 
- 	if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) {
- 		gfx_v12_1_xcc_init_csb(adev, xcc_id);
-@@ -2945,7 +2945,8 @@ static void gfx_v12_1_update_perf_clk(struct amdgpu_device *adev,
- 
- static void gfx_v12_1_update_spm_vmid(struct amdgpu_device *adev,
- 				      int xcc_id,
--				      unsigned int vmid)
-+				      struct amdgpu_ring *ring,
-+				      unsigned vmid)
- {
- 	u32 reg, data;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-index 72c84b61fda16..43dea0810137b 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-@@ -3256,7 +3256,7 @@ static int gfx_v7_0_rlc_init(struct amdgpu_device *adev)
- 
- 	/* init spm vmid with 0xf */
- 	if (adev->gfx.rlc.funcs->update_spm_vmid)
--		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, adev->vm_manager.spm_vmid);
-+		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, NULL, adev->vm_manager.spm_vmid);
- 
- 	return 0;
- }
-@@ -3483,7 +3483,7 @@ static int gfx_v7_0_rlc_resume(struct amdgpu_device *adev)
- }
- 
- static void gfx_v7_0_update_spm_vmid(struct amdgpu_device *adev, int xcc_id,
--		unsigned int vmid)
-+		struct amdgpu_ring *ring, unsigned vmid)
- {
- 	u32 data;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-index 4666aa5b38c75..360a958f7577d 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-@@ -1276,7 +1276,7 @@ static int gfx_v8_0_rlc_init(struct amdgpu_device *adev)
- 
- 	/* init spm vmid with 0xf */
- 	if (adev->gfx.rlc.funcs->update_spm_vmid)
--		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, adev->vm_manager.spm_vmid);
-+		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, NULL, adev->vm_manager.spm_vmid);
- 
- 	return 0;
- }
-@@ -5484,7 +5484,7 @@ static void gfx_v8_0_unset_safe_mode(struct amdgpu_device *adev, int xcc_id)
- }
- 
- static void gfx_v8_0_update_spm_vmid(struct amdgpu_device *adev, int xcc_id,
--		unsigned int vmid)
-+		struct amdgpu_ring *ring, unsigned vmid)
- {
- 	u32 data;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index 2e2673a6dbbf5..0b01801b0571b 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -5227,7 +5227,7 @@ static void gfx_v9_0_update_spm_vmid_internal(struct amdgpu_device *adev,
- }
- 
- static void gfx_v9_0_update_spm_vmid(struct amdgpu_device *adev, int xcc_id,
--		unsigned int vmid)
-+		struct amdgpu_ring *ring, unsigned int vmid)
- {
- 	amdgpu_gfx_off_ctrl(adev, false);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-index da031caa4e9e6..30c8b751849cd 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-@@ -1397,7 +1397,7 @@ static int gfx_v9_4_3_rlc_init(struct amdgpu_device *adev)
- {
- 	/* init spm vmid with 0xf */
- 	if (adev->gfx.rlc.funcs->update_spm_vmid)
--		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, adev->vm_manager.spm_vmid);
-+		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, NULL, adev->vm_manager.spm_vmid);
- 
- 	return 0;
- }
-@@ -1609,7 +1609,7 @@ static int gfx_v9_4_3_rlc_resume(struct amdgpu_device *adev)
- }
- 
- static void gfx_v9_4_3_update_spm_vmid(struct amdgpu_device *adev,
--					      int inst, unsigned int vmid)
-+					      int inst, struct amdgpu_ring *ring, unsigned int vmid)
- {
- 	u32 reg, pre_data, data;
- 
--- 
-2.56.0
+Changes in v6:
+- Capture the firmware secondary bus number when reading bridge windows and
+  ignore unconfigured values so rescans cannot replace it with runtime data
+  (Sashiko).
+- No change needed in the VFCT consumers; they continue to read the cached
+  value from the upstream bridge.
+- Link to v5: https://patch.msgid.link/20261110-vfct-regression-v5-0-f49fae981bf3@amd.com
+
+Changes in v5:
+- Record the firmware secondary bus number only on the bridge struct pci_dev,
+  guard it with a validity bit, and keep it across rescans (Bjorn, Lijo).
+- Drop pci_bus::number_initial and have amdgpu/radeon read the saved bridge
+  number when matching VFCT entries.
+
+Changes in v4:
+- Retain secondary bus bus number for a bridge across rescans, and the child bus is initialized
+  from it during allocation, before registration callbacks run. (Sashiko)
+- Rename variable to clarify it's for bridges (Lijo)
+- Link to v3: https://patch.msgid.link/20261026-vfct-regression-v3-0-fe9586ed6978@amd.com
+
+Changes in v3:
+- Preserve the firmware bus number across bridge renumbering, capturing the
+  secondary bus number before pci_scan_bridge_extend() clears it.
+- Adjust member name in all patches
+- Add tags
+- Link to v2: https://patch.msgid.link/20261020-vfct-regression-v2-0-d2394d11450a@amd.com
+
+Changes in v2:
+- pci_alloc_dev(NULL) remains safe.
+- For buses behind a reassigned bridge, the PCI core now saves the firmware secondary bus
+  number before clearing the bridge configuration and carries it into the newly allocated bus.
+  Devices discovered there inherit that original number.
+- Add changes for radeon too.
+- Link to v1: https://patch.msgid.link/20261019-vfct-regression-v1-0-5a63ddd378dd@amd.com
+
+---
+Mario Limonciello (3):
+      PCI: Cache bridge firmware secondary bus number
+      drm/amdgpu: Match VFCT using initial PCI bus number
+      drm/radeon: Match VFCT using initial PCI bus number
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 23 ++++++++++-------------
+ drivers/gpu/drm/radeon/radeon_bios.c     | 25 +++++++++++--------------
+ drivers/pci/probe.c                      | 16 ++++++++++++++--
+ include/linux/pci.h                      |  4 ++++
+ 4 files changed, 39 insertions(+), 29 deletions(-)
+---
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+change-id: 20261019-vfct-regression-2142fc52852a
+
+Best regards,
+--  
+Mario Limonciello <mario.limonciello@amd.com>
 
