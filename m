@@ -2,67 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB24A606A31C
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 01:44:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77368606A31C
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 01:44:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YsiBkKHe
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=abAMSEd4
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D3A610EAF6;
-	Thu, 12 Nov 2026 01:43:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B47610EB11;
+	Thu, 12 Nov 2026 01:43:59 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E990F10EAF3;
- Thu, 12 Nov 2026 01:43:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E395910EB06;
+ Thu, 12 Nov 2026 01:43:52 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D519260E11;
- Thu, 12 Nov 2026 01:43:50 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5AB7163670;
+ Thu, 12 Nov 2026 01:43:52 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1794447830;
- b=Vb2vhPwaiXQfad51oVJm3xZP88SIT90wm+1TnChgyMVXKBZ7N4Pqy5AsuzH2Wv9bBk90
- 9n5fptQNP8L33IrehcONHRAN3x3DoZXeLA+HmXQBBHnj0ucyxH1ZVcbc6jU66pqOB6swC
- ES6slhApJbSDTt40iWtCaZFbCYEbWxGjAp0v/ue0inkueTLLOJmUiUs6x66GdSKRKpOTg
- pjBcqWrXKbx3Nom9V7CvtGNoIbTmNMVG6ejQe7kxQpcjD/7mebpqEPxT6BfhhGIpUl0MS
- tiTRwPYD0Up9Ph6uIoTQehABLjuyC6DhzKKLR1W14+U2ecz7g9K1QWYdUPOh0UOtfig==
+ t=1794447832;
+ b=a8X2FOxgRFUEFdm+nC+qlA368QMbq2jo3M1iU3UqY4y5CGqVblOJIKQ9VB/cDyEubtU5
+ BUB5pRpWf8v5cq8vGynLYaSeIBs6H4c9Fxv2Aj4Q7fE8ictVKQN/Dgev7G2il7Tfr4KsR
+ WJL/y4PVMryuohOU0laM+b5t814EO3sKdhma6Sq1f/IS99iTt1PuCValqms2l7AjNyv7h
+ 1D70Fbte9fxk5s6XVle9ffpCEHDAhUaGKYaM1fDFALKmPiWQCXGg3rh5E0NhfHxAvfZ/b
+ qhhY3sFiyESeEd5pToybFGXBtJrFRA6FgaqkI80msKHPxaWjGjvFP8q0o8uIhfQ/tqg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1794447830;
+ c=relaxed/relaxed; t=1794447832;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=t5cVW0rhfAotGp4Q8CCKFijB6BUX0sXZ8z47WhflrBU=;
- b=HDRkmJJ1EjJiXAE17qWZfBgNE46eDiPus7FTt0N2HV0+1eQU2MsURiTlIMQn8x3Jj7tv
- Sk67vO6/uX31w2EI7E5gyrJHY5sbCPioHw2fsvaPw8gTN3WGObntdq6XH1zzil/J8U0Vg
- j5iKgGAx5AJgXe5T0RI8ZKyUFH2a5YbVjb7qD0nzBGXqXyGadNzDwDUnPDpvLvjFRSo5E
- 0pOxBHqna792LjbJmx1ARPKmbvGq7yGgyPGlguPhFiXf9P/DgOvqmvCa2KWaCLFYq7noY
- 1nfv9ZRGrTPSwUNYuA3BHS3WUOzu+0HRo0VS7HtpQu+d8jNNDF57uB9l7eZbQ1Ym9kQ==
+ bh=VHJMRbDHKLGBTXqMFGFkbDCdFhKENxdSGxxvuB947IQ=;
+ b=Af8DbgxVZvkRl9WyRfjUAwoF/NdEIt25rQ1XVYV7DJMjChdnNFlSonw2ltzc0D60Rkv7
+ 5+/bKiJ+2XDsGgJoWFT7lOn6pEDFBOdgz4RS+nDGK0Nv1kNra5++p1m8iBa3bRdeNXG1r
+ CjqUIoUFNVWPaxHlNYJMVdXIlzzpTs9ffc7lazs7efEQXuniEsctFMoEJZhXC20XALIXT
+ 41Wqtm4Lg6JfVHCY/zIB66X0Cq5vEh3uWV+u6Yx6sataVvKUcoo04+SXWMWrK/LT/i8CD
+ DlMLY7qn+g26Hna81iJi1u7Xpe9q668DmXBE6KvLJd7OGPdBKUJ8P/d5ZsrRk9L/ILA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 97C771F00A0B;
+ by smtp.kernel.org (Postfix) with ESMTPS id BC1F11F00A0E;
  Thu, 12 Nov 2026 01:43:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794447830;
- bh=t5cVW0rhfAotGp4Q8CCKFijB6BUX0sXZ8z47WhflrBU=;
+ s=k20260515; t=1794447832;
+ bh=VHJMRbDHKLGBTXqMFGFkbDCdFhKENxdSGxxvuB947IQ=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=YsiBkKHeZK6tNT6lFAkywQZCucKnKyzTkRJ/AGSSpIe9eiWOLRNX3HI3NKTkcF5mY
- wSCqKmx2sGzt/mg1n3oGoigxo8yQx3zGqc2Iz4fL2sAveE5MxZLkYV8jaTBmykGhVj
- vx2iZId4dZbPWbV6Vd1lX0ZU/5d8Oy0jd//XimbUKrDLwUHrzJsOZQoK1xhjSkms8Q
- CHgEd9wblP5vwBHkYzVbR57LAQajn9xAYWgvCFd5yyZOI//QyVT8osQTm22kPXaZy3
- jlvyr51UJJL23tk/Wt2Bi0Y0p1I/87eXaPNMZuBXoppHyBhRtKRuxfkYToDYmifJKu
- vJ+xNPN26jqug==
+ b=abAMSEd43GI5k1paPl64UtW+emj9y1IitdIjjU6j5MuNyCKMKsZmm7rV6p4EnNlF6
+ 9xNlVyNUsprXlfRlNGXVSwDu/wC21e41FicGlc+4bBVQD7EP1pjF9qCLGTya1jUjLC
+ FKg7Lt1HZCewwfxEEPdHnvyE7PFrMbF76LZzk1CcmIMWnIp3EqYoXxhWb3yeLHxxoa
+ daNh4sX/5AffTNqVFppp2rujZgBGWWk4K8AddgYz7Nb0k9iJgJkJcbbL8a52rSgDgx
+ QG4qZHkTMgfj9Sl5zzdJhj3I3xf7SRAFehS8/wvwC3IvQQxO8WVOqt4wCzkK5oc+8Y
+ bbi11YXCnIwJQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 0A11A491C7;
+ by lkml.kernel.org (Postfix) with ESMTP id 43852491D2;
  Thu, 12 Nov 2026 01:43:49 +0000 (UTC)
 From: Dave Airlie via B4 Relay <devnull+airlied.redhat.com@kernel.org>
-Date: Thu, 12 Nov 2026 11:43:36 +1000
-Subject: [PATCH 01/19] drm/amd/display: Drop the dead vmid module
+Date: Thu, 12 Nov 2026 11:43:39 +1000
+Subject: [PATCH 04/19] drm/amd/display/amdgpu_dm: Use DC accessors in
+ audio/color/backlight paths
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-amdgpu-dc-cleanup-v1-1-0fae41718ad2@redhat.com>
+Message-Id: <20261112-amdgpu-dc-cleanup-v1-4-0fae41718ad2@redhat.com>
 References: <20261112-amdgpu-dc-cleanup-v1-0-0fae41718ad2@redhat.com>
 In-Reply-To: <20261112-amdgpu-dc-cleanup-v1-0-0fae41718ad2@redhat.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
@@ -74,21 +75,21 @@ To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
  Dave Airlie <airlied@redhat.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10509;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=11767;
  i=airlied@redhat.com; h=from:subject:message-id;
- bh=Z77uIEbPQQ+PkqyBmNyns6HBPtpxtwV5U1KNXIgj/gE=;
- b=owEBbQKS/ZANAwAKAQx081l5xIa+AcsmYgBq9RnODLIeTXgwyWE26dO3007EzASOhPJoR8Jsd
- BSlp46BPMGJAjMEAAEKAB0WIQQQptkdobBb0p9t66wMdPNZecSGvgUCavUZzgAKCRAMdPNZecSG
- vlbBD/9d0yLki0kqOZ4Q8oc8BphoCz6ObrFdVU+ecDdczmFx7wgupYFV5vN7P6938WU89xiOwHT
- l+f6wUgnf+5jTMW5vvPhb5INaQ4GoOV8811z9ebIkPGHrjMMWj+6vif+1tHnTEqm1wXSDAcBlyp
- R9ON6L+SJy8mBDnnRYJqJ0LPEP/uAZYTCL8wL5UNeMhWaxya/ymkj5pH4wGE2ye5JXWJmh0gpxV
- F/zVdQ+q7mR6V9zxs2Oq4y+TTyF85G+Iunh9bdebEs4ZkeM+/H4kfXpPXap6jAmPIOuO50UsOF8
- VrLAIKe4mvo0a/rcBvmzItnZbfn0/ekaxw2K8kDH/wiNQveQyhcHt+mMJWvFnW9LKUZdw5JhsM/
- KgaAVnp0gaXvGSAB/KJT8TZYIh4yT9ewiybfekD1MRfo6thWAJ4YnI7K+URdeL/M6XNfM7NREGI
- 6eoGHn+E5CzF9jxA10arOrcXjJ1S3CsTPcUXx0TCkCmBZXWExsXJDrbLhgJY9xrgeWqv2ZkHrUS
- kp/IFglzZmvMg1ktIfJwI/Phk5OXceNsFP0bFxaLz0z0pCaZyWP1jUUKBcLYCubNFfIlISBRWqw
- yrECfuVxwxfPNHwgRBVHlRrxQ3sVRxcsvg+73YlAyVnIvdgr3he6zoc2JTJCb9Lmt4eAUz0mHVw
- F28gXjMNKa4Fm4A==
+ bh=TY/q0gWJFs33PtJy4UkFf+VC4XGPXUVbIXrTRglHCl8=;
+ b=owEBbQKS/ZANAwAKAQx081l5xIa+AcsmYgBq9RnOSMKNTCMYMukUJzh9MNnzp3z0vhLZK6m4/
+ zSOywv7VBKJAjMEAAEKAB0WIQQQptkdobBb0p9t66wMdPNZecSGvgUCavUZzgAKCRAMdPNZecSG
+ vnGED/4oRyfS3FklG+ceX+x2xLDVuiz9i3HmCTgAZ2tVmxVFJbMjIxJOEwELd5LKMnGOQcfwtjc
+ vtntcMmToNfq31eYgqUdeuq1bo3/gh1rBz2mASU1vRw29ZhQNZOxuaBFu+jtYPAv/aeUu5xiBsS
+ tNvXNkQUAdmRkPSXBIsT79ytYQIjqvT6vOV5gF3uON3GRxFeUshT2Pq1GJmalVHoKQ5XfIXX1gq
+ 1gSSAXJtU96JPg1oBYxDRHuBtLg4XM99eZvXGOWPuwI2M0AeIWmeUvEvOGNa7uvYFuhptQVo19R
+ SULcTeLkxpAG3E5N4qGy9iu8EX297LjWhdrJVTusBBgMLtTbtbU+9pVvy0E/QHRitx3c0GFvpVd
+ /cgoQzYC7TN8niPMqbTSIIWMzNBjlXmosrSHjYsqMrMJJYo7hmXvNBOcWEEJZ55YFNWzemIfMXd
+ 6X/NMDEiVMoQ8b+RsYLbYqqCJwqbUElO/+4nwKU/kcFzVMVZdiQDCDKdgmauhaDdsjz3zrpNdTK
+ sgsfKcIAcevv44MmwLU6zTPPlNHTzQtBNgWn70sPclojv2Q2JqZ94hVW34YwpMsaL6NXmwsRKSC
+ hQ8/QJfVZQ6fGTvdPnfPmG0iJRaBtZsVyzcta1qlCFo2Yf6WUUaKv9MhmaqOhJrlqBYfZ4Y8c1s
+ lRu+niKflWHAYFw==
 X-Developer-Key: i=airlied@redhat.com; a=openpgp;
  fpr=10A6D91DA1B05BD29F6DEBAC0C74F35979C486BE
 X-Endpoint-Received: by B4 Relay for airlied@redhat.com/default with
@@ -115,333 +116,245 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Dave Airlie <airlied@redhat.com>
 
-modules/vmid, mod_vmid.h and mod_stats.h are not referenced by any
-Makefile; remove the dead code.
+Replace direct struct dc member dereferences with the DC accessor
+layer in amdgpu_dm_audio.c, amdgpu_dm_color.c, amdgpu_dm_colorop.c
+and amdgpu_dm_backlight.c.
+
+Part of making struct dc private to DC.
 
 Signed-off-by: Dave Airlie <airlied@redhat.com>
 ---
- .../gpu/drm/amd/display/modules/inc/mod_stats.h    |  75 ---------
- drivers/gpu/drm/amd/display/modules/inc/mod_vmid.h |  46 ------
- drivers/gpu/drm/amd/display/modules/vmid/vmid.c    | 178 ---------------------
- 3 files changed, 299 deletions(-)
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c    |  6 +++--
+ .../amd/display/amdgpu_dm/amdgpu_dm_backlight.c    |  6 ++---
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_color.c    | 28 +++++++++++++---------
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_color.h    |  4 ++--
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c  |  4 ++--
+ .../drm/amd/display/modules/color/color_gamma.c    |  2 +-
+ .../drm/amd/display/modules/color/color_gamma.h    |  2 +-
+ 7 files changed, 30 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/modules/inc/mod_stats.h b/drivers/gpu/drm/amd/display/modules/inc/mod_stats.h
-deleted file mode 100644
-index 8ce6c22e5d04..000000000000
---- a/drivers/gpu/drm/amd/display/modules/inc/mod_stats.h
-+++ /dev/null
-@@ -1,75 +0,0 @@
--/*
-- * Copyright 2016 Advanced Micro Devices, Inc.
-- *
-- * Permission is hereby granted, free of charge, to any person obtaining a
-- * copy of this software and associated documentation files (the "Software"),
-- * to deal in the Software without restriction, including without limitation
-- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-- * and/or sell copies of the Software, and to permit persons to whom the
-- * Software is furnished to do so, subject to the following conditions:
-- *
-- * The above copyright notice and this permission notice shall be included in
-- * all copies or substantial portions of the Software.
-- *
-- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-- * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-- * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-- * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-- * OTHER DEALINGS IN THE SOFTWARE.
-- *
-- * Authors: AMD
-- *
-- */
--
--#ifndef MODULES_INC_MOD_STATS_H_
--#define MODULES_INC_MOD_STATS_H_
--
--#include "dm_services.h"
--
--struct mod_stats {
--	int dummy;
--};
--
--struct mod_stats_caps {
--	bool dummy;
--};
--
--struct mod_stats_init_params {
--	unsigned int stats_enable;
--	unsigned int stats_entries;
--};
--
--struct mod_stats *mod_stats_create(struct dc *dc,
--		struct mod_stats_init_params *init_params);
--
--void mod_stats_destroy(struct mod_stats *mod_stats);
--
--bool mod_stats_init(struct mod_stats *mod_stats);
--
--void mod_stats_dump(struct mod_stats *mod_stats);
--
--void mod_stats_reset_data(struct mod_stats *mod_stats);
--
--void mod_stats_update_event(struct mod_stats *mod_stats,
--		const char *event_string,
--		unsigned int length);
--
--void mod_stats_update_flip(struct mod_stats *mod_stats,
--		unsigned long long timestamp_in_ns);
--
--void mod_stats_update_vupdate(struct mod_stats *mod_stats,
--		unsigned long long timestamp_in_ns);
--
--void mod_stats_update_freesync(struct mod_stats *mod_stats,
--		unsigned int v_total_min,
--		unsigned int v_total_max,
--		unsigned int event_triggers,
--		unsigned int window_min,
--		unsigned int window_max,
--		unsigned int lfc_mid_point_in_us,
--		unsigned int inserted_frames,
--		unsigned int inserted_frame_duration_in_us);
--
--#endif /* MODULES_INC_MOD_STATS_H_ */
-diff --git a/drivers/gpu/drm/amd/display/modules/inc/mod_vmid.h b/drivers/gpu/drm/amd/display/modules/inc/mod_vmid.h
-deleted file mode 100644
-index a3787fdf0c08..000000000000
---- a/drivers/gpu/drm/amd/display/modules/inc/mod_vmid.h
-+++ /dev/null
-@@ -1,46 +0,0 @@
--/*
-- * Copyright 2019 Advanced Micro Devices, Inc.
-- *
-- * Permission is hereby granted, free of charge, to any person obtaining a
-- * copy of this software and associated documentation files (the "Software"),
-- * to deal in the Software without restriction, including without limitation
-- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-- * and/or sell copies of the Software, and to permit persons to whom the
-- * Software is furnished to do so, subject to the following conditions:
-- *
-- * The above copyright notice and this permission notice shall be included in
-- * all copies or substantial portions of the Software.
-- *
-- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-- * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-- * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-- * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-- * OTHER DEALINGS IN THE SOFTWARE.
-- *
-- * Authors: AMD
-- *
-- */
--
--#ifndef MOD_VMID_H_
--#define MOD_VMID_H_
--
--#define MAX_VMID 16
--
--#include "dc.h"
--
--struct mod_vmid {
--	int dummy;
--};
--
--uint8_t mod_vmid_get_for_ptb(struct mod_vmid *mod_vmid, uint64_t ptb);
--void mod_vmid_reset(struct mod_vmid *mod_vmid);
--struct mod_vmid *mod_vmid_create(
--		struct dc *dc,
--		unsigned int num_vmid,
--		struct dc_virtual_addr_space_config *va_config);
--
--void mod_vmid_destroy(struct mod_vmid *mod_vmid);
--
--#endif /* MOD_VMID_H_ */
-diff --git a/drivers/gpu/drm/amd/display/modules/vmid/vmid.c b/drivers/gpu/drm/amd/display/modules/vmid/vmid.c
-deleted file mode 100644
-index 32617893ffb2..000000000000
---- a/drivers/gpu/drm/amd/display/modules/vmid/vmid.c
-+++ /dev/null
-@@ -1,178 +0,0 @@
--/*
-- * Copyright 2019 Advanced Micro Devices, Inc.
-- *
-- * Permission is hereby granted, free of charge, to any person obtaining a
-- * copy of this software and associated documentation files (the "Software"),
-- * to deal in the Software without restriction, including without limitation
-- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-- * and/or sell copies of the Software, and to permit persons to whom the
-- * Software is furnished to do so, subject to the following conditions:
-- *
-- * The above copyright notice and this permission notice shall be included in
-- * all copies or substantial portions of the Software.
-- *
-- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-- * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-- * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-- * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-- * OTHER DEALINGS IN THE SOFTWARE.
-- *
-- * Authors: AMD
-- *
-- */
--
--#include "mod_vmid.h"
--
--struct core_vmid {
--	struct mod_vmid public;
--	struct dc *dc;
--
--	unsigned int num_vmid;
--	unsigned int num_vmids_available;
--	uint64_t ptb_assigned_to_vmid[MAX_VMID];
--	struct dc_virtual_addr_space_config base_config;
--};
--
--#define MOD_VMID_TO_CORE(mod_vmid)\
--		container_of(mod_vmid, struct core_vmid, public)
--
--static void add_ptb_to_table(struct core_vmid *core_vmid, unsigned int vmid, uint64_t ptb)
--{
--	if (vmid < MAX_VMID) {
--		core_vmid->ptb_assigned_to_vmid[vmid] = ptb;
--		core_vmid->num_vmids_available--;
--	}
--}
--
--static void clear_entry_from_vmid_table(struct core_vmid *core_vmid, unsigned int vmid)
--{
--	if (vmid < MAX_VMID) {
--		core_vmid->ptb_assigned_to_vmid[vmid] = 0;
--		core_vmid->num_vmids_available++;
--	}
--}
--
--static void evict_vmids(struct core_vmid *core_vmid)
--{
--	unsigned int i;
--	int ord_int = dc_get_vmid_use_vector(core_vmid->dc);
--
--	ASSERT(ord_int >= 0 && ord_int <= 0xFFFF);
--	uint16_t ord = (uint16_t)ord_int;
--
--	// At this point any positions with value 0 are unused vmids, evict them
--	for (i = 1; i < core_vmid->num_vmid; i++) {
--		if (!(ord & (1u << i)))
--			clear_entry_from_vmid_table(core_vmid, i);
--	}
--}
--
--// Return value of -1 indicates vmid table uninitialized or ptb dne in the table
--static int get_existing_vmid_for_ptb(struct core_vmid *core_vmid, uint64_t ptb)
--{
--	unsigned int i;
--
--	for (i = 0; i < core_vmid->num_vmid; i++) {
--		if (core_vmid->ptb_assigned_to_vmid[i] == ptb)
--			return i;
--	}
--
--	return -1;
--}
--
--// Expected to be called only when there's an available vmid
--static int get_next_available_vmid(struct core_vmid *core_vmid)
--{
--	unsigned int i;
--
--	for (i = 1; i < core_vmid->num_vmid; i++) {
--		if (core_vmid->ptb_assigned_to_vmid[i] == 0)
--			return i;
--	}
--
--	return -1;
--}
--
--uint8_t mod_vmid_get_for_ptb(struct mod_vmid *mod_vmid, uint64_t ptb)
--{
--	struct core_vmid *core_vmid = MOD_VMID_TO_CORE(mod_vmid);
--	int vmid = 0;
--
--	// Physical address gets vmid 0
--	if (ptb == 0)
--		return 0;
--
--	vmid = get_existing_vmid_for_ptb(core_vmid, ptb);
--
--	if (vmid == -1) {
--		struct dc_virtual_addr_space_config va_config = core_vmid->base_config;
--
--		va_config.page_table_base_addr = ptb;
--
--		if (core_vmid->num_vmids_available == 0)
--			evict_vmids(core_vmid);
--
--		vmid = get_next_available_vmid(core_vmid);
--		if (vmid != -1) {
--			add_ptb_to_table(core_vmid, vmid, ptb);
--
--			dc_setup_vm_context(core_vmid->dc, &va_config, vmid);
--		} else
--			ASSERT(0);
--	}
--
--	ASSERT(vmid >= 0 && vmid <= 0xFF);
--	return (uint8_t)vmid;
--}
--
--void mod_vmid_reset(struct mod_vmid *mod_vmid)
--{
--	struct core_vmid *core_vmid = MOD_VMID_TO_CORE(mod_vmid);
--
--	core_vmid->num_vmids_available = core_vmid->num_vmid - 1;
--	memset(core_vmid->ptb_assigned_to_vmid, 0, sizeof(core_vmid->ptb_assigned_to_vmid[0]) * MAX_VMID);
--}
--
--struct mod_vmid *mod_vmid_create(
--		struct dc *dc,
--		unsigned int num_vmid,
--		struct dc_virtual_addr_space_config *va_config)
--{
--	struct core_vmid *core_vmid;
--
--	if (num_vmid <= 1)
--		goto fail_no_vm_ctx;
--
--	if (dc == NULL)
--		goto fail_dc_null;
--
--	core_vmid = kzalloc_obj(struct core_vmid);
--
--	if (core_vmid == NULL)
--		goto fail_alloc_context;
--
--	core_vmid->dc = dc;
--	core_vmid->num_vmid = num_vmid;
--	core_vmid->num_vmids_available = num_vmid - 1;
--	core_vmid->base_config = *va_config;
--
--	memset(core_vmid->ptb_assigned_to_vmid, 0, sizeof(core_vmid->ptb_assigned_to_vmid[0]) * MAX_VMID);
--
--	return &core_vmid->public;
--
--fail_no_vm_ctx:
--fail_alloc_context:
--fail_dc_null:
--	return NULL;
--}
--
--void mod_vmid_destroy(struct mod_vmid *mod_vmid)
--{
--	if (mod_vmid != NULL) {
--		struct core_vmid *core_vmid = MOD_VMID_TO_CORE(mod_vmid);
--
--		kfree(core_vmid);
--	}
--}
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c
+index 199f339839b2..97cc52f45a2e 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c
+@@ -140,6 +140,7 @@ EXPORT_IF_KUNIT(amdgpu_dm_audio_init_pins);
+ int amdgpu_dm_audio_init(struct amdgpu_device *adev)
+ {
+ 	unsigned int inst_array[MAX_AUDIOS];
++	struct resource_pool *res_pool;
+ 	int audio_count;
+ 	int i, ret;
+ 
+@@ -148,9 +149,10 @@ int amdgpu_dm_audio_init(struct amdgpu_device *adev)
+ 
+ 	adev->mode_info.audio.enabled = true;
+ 
+-	audio_count = adev->dm.dc->res_pool->audio_count;
++	res_pool = dc_get_res_pool(adev->dm.dc);
++	audio_count = res_pool->audio_count;
+ 	for (i = 0; i < audio_count; i++)
+-		inst_array[i] = adev->dm.dc->res_pool->audios[i]->inst;
++		inst_array[i] = res_pool->audios[i]->inst;
+ 	amdgpu_dm_audio_init_pins(adev, audio_count, inst_array);
+ 
+ 	ret = component_add(adev->dev, &amdgpu_dm_audio_component_bind_ops);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+index cb74b00723fd..3d268703c551 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+@@ -296,7 +296,7 @@ struct dc_stream_state *dm_find_stream_with_link(
+ 	struct amdgpu_display_manager *dm,
+ 	struct dc_link *link)
+ {
+-	struct dc_state *cur_dc_state = dm->dc->current_state;
++	struct dc_state *cur_dc_state = dc_get_current_state(dm->dc);
+ 	struct dc_stream_state *stream = NULL;
+ 	int i;
+ 
+@@ -383,7 +383,7 @@ void amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
+ 	}
+ 
+ 	mutex_lock(&dm->dc_lock);
+-	if (dm->dc->caps.ips_support && dm->dc->ctx->dmub_srv->idle_allowed) {
++	if (dc_get_caps(dm->dc)->ips_support && dc_get_ctx(dm->dc)->dmub_srv->idle_allowed) {
+ 		dc_allow_idle_optimizations(dm->dc, false);
+ 		reallow_idle = true;
+ 	}
+@@ -415,7 +415,7 @@ void amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
+ 	amdgpu_dm_replay_set_event(dm, stream, true,
+ 		replay_event_hw_programming, true);
+ 
+-	if (dm->dc->caps.ips_support && reallow_idle)
++	if (dc_get_caps(dm->dc)->ips_support && reallow_idle)
+ 		dc_allow_idle_optimizations(dm->dc, true);
+ 
+ 	mutex_unlock(&dm->dc_lock);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+index f9dc9f46a446..d86b9611568b 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+@@ -832,7 +832,7 @@ EXPORT_IF_KUNIT(amdgpu_dm_set_atomic_regamma);
+  * Returns:
+  * 0 in case of success. -ENOMEM if fails.
+  */
+-STATIC_IFN_KUNIT int __set_input_tf(struct dc_color_caps *caps,
++STATIC_IFN_KUNIT int __set_input_tf(const struct dc_color_caps *caps,
+ 				    struct dc_transfer_func *func,
+ 				    const struct drm_color_lut *lut, uint32_t lut_size)
+ {
+@@ -870,7 +870,7 @@ EXPORT_IF_KUNIT(__set_input_tf);
+  * Returns:
+  * 0 in case of success. -ENOMEM if fails.
+  */
+-STATIC_IFN_KUNIT int __set_input_tf_32(struct dc_color_caps *caps,
++STATIC_IFN_KUNIT int __set_input_tf_32(const struct dc_color_caps *caps,
+ 				       struct dc_transfer_func *func,
+ 				       const struct drm_color_lut32 *lut, uint32_t lut_size)
+ {
+@@ -1168,7 +1168,9 @@ int amdgpu_dm_verify_lut3d_size(struct amdgpu_device *adev,
+ 	struct dm_plane_state *dm_plane_state = to_dm_plane_state(plane_state);
+ 	const struct drm_color_lut *shaper = NULL, *lut3d = NULL;
+ 	uint32_t exp_size, size, dim_size = MAX_COLOR_3DLUT_SIZE;
+-	bool has_3dlut = adev->dm.dc->caps.color.dpp.hw_3d_lut || adev->dm.dc->caps.color.mpc.preblend;
++	const struct dc_caps *caps = dc_get_caps(adev->dm.dc);
++	bool has_3dlut =
++		caps->color.dpp.hw_3d_lut || caps->color.mpc.preblend;
+ 
+ 	/* shaper LUT is only available if 3D LUT color caps */
+ 	exp_size = has_3dlut ? MAX_COLOR_LUT_ENTRIES : 0;
+@@ -1403,7 +1405,7 @@ EXPORT_IF_KUNIT(amdgpu_dm_update_crtc_color_mgmt);
+ static int
+ map_crtc_degamma_to_dc_plane(struct dm_crtc_state *crtc,
+ 			     struct dc_plane_state *dc_plane_state,
+-			     struct dc_color_caps *caps)
++			     const struct dc_color_caps *caps)
+ {
+ 	const struct drm_color_lut *degamma_lut;
+ 	enum dc_transfer_func_predefined tf = TRANSFER_FUNCTION_SRGB;
+@@ -1483,7 +1485,7 @@ map_crtc_degamma_to_dc_plane(struct dm_crtc_state *crtc,
+ static int
+ __set_dm_plane_degamma(struct drm_plane_state *plane_state,
+ 		       struct dc_plane_state *dc_plane_state,
+-		       struct dc_color_caps *color_caps)
++		       const struct dc_color_caps *color_caps)
+ {
+ 	struct dm_plane_state *dm_plane_state = to_dm_plane_state(plane_state);
+ 	const struct drm_color_lut *degamma_lut;
+@@ -1551,7 +1553,7 @@ __set_colorop_in_tf_1d_curve(struct dc_plane_state *dc_plane_state,
+ 	struct dc_transfer_func *tf = &dc_plane_state->in_transfer_func;
+ 	struct drm_colorop *colorop = colorop_state->colorop;
+ 	struct drm_device *drm = colorop->dev;
+-	struct dc_color_caps *color_caps = NULL;
++	const struct dc_color_caps *color_caps = NULL;
+ 	bool is_subsampled_format;
+ 
+ 	if (colorop->type != DRM_COLOROP_1D_CURVE)
+@@ -1575,7 +1577,7 @@ __set_colorop_in_tf_1d_curve(struct dc_plane_state *dc_plane_state,
+ 	tf->tf = amdgpu_colorop_tf_to_dc_tf(colorop_state->curve_1d_type);
+ 
+ 	if (dc_plane_state->ctx && dc_plane_state->ctx->dc)
+-		color_caps = &dc_plane_state->ctx->dc->caps.color;
++		color_caps = &dc_get_caps(dc_plane_state->ctx->dc)->color;
+ 
+ 	if (!mod_color_calculate_degamma_params(color_caps, tf, NULL,
+ 						is_subsampled_format)) {
+@@ -1865,7 +1867,9 @@ __set_dm_plane_colorop_3dlut(struct drm_plane_state *plane_state,
+ 	struct dc_transfer_func *tf = &dc_plane_state->cm.shaper_func;
+ 	struct drm_atomic_commit *state = plane_state->state;
+ 	const struct amdgpu_device *adev = drm_to_adev(colorop->dev);
+-	bool has_3dlut = adev->dm.dc->caps.color.dpp.hw_3d_lut || adev->dm.dc->caps.color.mpc.preblend;
++	const struct dc_caps *caps = dc_get_caps(adev->dm.dc);
++	bool has_3dlut =
++		caps->color.dpp.hw_3d_lut || caps->color.mpc.preblend;
+ 	const struct drm_device *dev = colorop->dev;
+ 	const struct drm_color_lut32 *lut3d;
+ 	uint32_t lut3d_size;
+@@ -2044,7 +2048,9 @@ amdgpu_dm_plane_set_colorop_properties(struct drm_plane_state *plane_state,
+ 	struct drm_colorop *colorop = plane_state->color_pipeline;
+ 	struct drm_device *dev = plane_state->plane->dev;
+ 	struct amdgpu_device *adev = drm_to_adev(dev);
+-	bool has_3dlut = adev->dm.dc->caps.color.dpp.hw_3d_lut || adev->dm.dc->caps.color.mpc.preblend;
++	const struct dc_caps *caps = dc_get_caps(adev->dm.dc);
++	bool has_3dlut =
++		caps->color.dpp.hw_3d_lut || caps->color.mpc.preblend;
+ 	int ret;
+ 
+ 	/* Fixed Matrix (YUV to RGB) */
+@@ -2156,7 +2162,7 @@ int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
+ 	struct amdgpu_device *adev = drm_to_adev(crtc->base.state->dev);
+ 	struct dm_plane_state *dm_plane_state = to_dm_plane_state(plane_state);
+ 	struct drm_color_ctm_3x4 *ctm = NULL;
+-	struct dc_color_caps *color_caps = NULL;
++	const struct dc_color_caps *color_caps = NULL;
+ 	bool has_crtc_cm_degamma;
+ 	int ret;
+ 
+@@ -2167,7 +2173,7 @@ int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
+ 	}
+ 
+ 	if (dc_plane_state->ctx && dc_plane_state->ctx->dc)
+-		color_caps = &dc_plane_state->ctx->dc->caps.color;
++		color_caps = &dc_get_caps(dc_plane_state->ctx->dc)->color;
+ 
+ 	/* Initially, we can just bypass the DGM block. */
+ 	dc_plane_state->in_transfer_func.type = TF_TYPE_BYPASS;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.h
+index 3e8a3d3fc855..4bda8c47ae09 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.h
+@@ -74,9 +74,9 @@ int __set_output_tf_32(struct dc_transfer_func *func,
+ 		       const struct drm_color_lut32 *lut, uint32_t lut_size,
+ 		       bool has_rom);
+ struct dc_color_caps;
+-int __set_input_tf(struct dc_color_caps *caps, struct dc_transfer_func *func,
++int __set_input_tf(const struct dc_color_caps *caps, struct dc_transfer_func *func,
+ 		   const struct drm_color_lut *lut, uint32_t lut_size);
+-int __set_input_tf_32(struct dc_color_caps *caps, struct dc_transfer_func *func,
++int __set_input_tf_32(const struct dc_color_caps *caps, struct dc_transfer_func *func,
+ 		      const struct drm_color_lut32 *lut, uint32_t lut_size);
+ enum dc_transfer_func_predefined
+ amdgpu_tf_to_dc_tf(enum amdgpu_transfer_function tf);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
+index c6bb9fec9217..e912256eebb3 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
+@@ -299,8 +299,8 @@ int amdgpu_dm_initialize_default_pipeline(struct drm_plane *plane, struct drm_pr
+ {
+ 	struct drm_device *dev = plane->dev;
+ 	struct amdgpu_device *adev = drm_to_adev(dev);
+-	bool hw_3d_lut = adev->dm.dc->caps.color.dpp.hw_3d_lut ||
+-			 adev->dm.dc->caps.color.mpc.preblend;
++	bool hw_3d_lut = dc_get_caps(adev->dm.dc)->color.dpp.hw_3d_lut ||
++			 dc_get_caps(adev->dm.dc)->color.mpc.preblend;
+ 
+ 	return amdgpu_dm_build_default_pipeline(dev, plane, hw_3d_lut, list);
+ }
+diff --git a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
+index 5786ef5787ac..f654003e3191 100644
+--- a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
++++ b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
+@@ -1669,7 +1669,7 @@ static bool map_regamma_hw_to_x_user(
+ 
+ #define _EXTRA_POINTS 3
+ 
+-bool mod_color_calculate_degamma_params(struct dc_color_caps *dc_caps,
++bool mod_color_calculate_degamma_params(const struct dc_color_caps *dc_caps,
+ 		struct dc_transfer_func *input_tf,
+ 		const struct dc_gamma *ramp, bool map_user_ramp)
+ {
+diff --git a/drivers/gpu/drm/amd/display/modules/color/color_gamma.h b/drivers/gpu/drm/amd/display/modules/color/color_gamma.h
+index 97e55278940e..8b7bc41c87df 100644
+--- a/drivers/gpu/drm/amd/display/modules/color/color_gamma.h
++++ b/drivers/gpu/drm/amd/display/modules/color/color_gamma.h
+@@ -111,7 +111,7 @@ bool mod_color_calculate_regamma_params(struct dc_transfer_func *output_tf,
+ 		const struct hdr_tm_params *fs_params,
+ 		struct calculate_buffer *cal_buffer);
+ 
+-bool mod_color_calculate_degamma_params(struct dc_color_caps *dc_caps,
++bool mod_color_calculate_degamma_params(const struct dc_color_caps *dc_caps,
+ 		struct dc_transfer_func *output_tf,
+ 		const struct dc_gamma *ramp, bool mapUserRamp);
+ 
 
 -- 
 2.56.0
