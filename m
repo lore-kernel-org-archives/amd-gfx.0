@@ -2,122 +2,49 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1F53606A31C
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 05:40:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F33F606A323
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 08:22:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=nzVStm5h
+	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=hVN/8O77
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1990610E426;
-	Thu, 12 Nov 2026 05:40:32 +0000 (UTC)
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010051.outbound.protection.outlook.com [52.101.46.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A8E810E426
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Nov 2026 05:40:26 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Z+Lmx5hv4G2gWQkiJU1x1g9FhfFXcBw/83ONJPfulZSVPHhUXhcQb0LvNMIl9r+CwSqS9nL3QsouESJWjJcJzkFPStUsFsl3boh+yxWuYQXpnQYX09quI46SPn3KlsZeusSGhRsrKnIhwhH7ITEIIPYF7KL56n2vR2RySoUFHFtFchSdn5XugrUt+FJ1mp8CuFG2M+yTolSLJ5kU/eWTuxWHj+L8XEe/s3P9yv+xV12ZZX+gQC/Cnaub4Gf71lNogfP+ixqEwVY4K7WCH+yeUk5MDeud7OBhL6xqLCmKCkZigcIr6hZ3NSr59yD+tK2dNl74GlUC27Pas5rFXZ4MKA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EwzXvMbYsinGvsxRCanKNJCKR1o0Z3PKcjFhVdR9evw=;
- b=spA0RGBvkV/4cG3zPMvp+UJO2VKFlI68nMmZy7V7n+f1AbziaM/MslHnzGfH0Qil2yxQJvy18DL4Rg8hZfnyUclNjwxe4h90PtxsE+eDPCv3dHuncXeJ2rpn2T0ClxCd6kA78HRg4Oqv3h5Ovu6TLDQYnu7juFN+feWSM4bVobjHaywOOWtKDctYuierpHONEwmFl9o5KSwJ4rGcqASh+a5XZwn8NVBHivWenYbMCU3N8wvSUN0umXFUYGQy2KVYj37ZYD34u/iEwAT2U+GLmYrJXNt4pKWpMJ2PLaFteo1oSR2ok4dvD3tXNb5/Ik9iVEU/OrOc3UoqZABSzgG8VQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EwzXvMbYsinGvsxRCanKNJCKR1o0Z3PKcjFhVdR9evw=;
- b=nzVStm5hks05LsGQJE0kQT2BR0aH9tOY9EradF8A5/VdHi9ISrJOwUHNlRejnOEtLAEz4+TTWbAtSxpx8s3+0NzK2OVFbZomAf2KRU2WWq1FO8yXtR+RAR63WY9w7Hl3RPWfkpU8gkdwpyxUVCKxza47qasjJ6SfnWzGYwdCR1E=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
- by PH8PR12MB6843.namprd12.prod.outlook.com (2603:10b6:510:1ca::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Thu, 12 Nov
- 2026 05:38:22 +0000
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc%5]) with mapi id 15.21.0615.008; Thu, 12 Nov 2026
- 05:38:21 +0000
-Message-ID: <61cc3acc-d26f-4cce-8503-241b46ddba23@amd.com>
-Date: Thu, 12 Nov 2026 11:08:14 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] drm/amd: Select the firmware signing scheme the PSP
- reports
-To: Mario Limonciello <mario.limonciello@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20261111200900.1657741-1-mario.limonciello@amd.com>
-Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20261111200900.1657741-1-mario.limonciello@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5P287CA0059.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1d3::10) To SA0PR12MB7091.namprd12.prod.outlook.com
- (2603:10b6:806:2d5::17)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B74D810EB62;
+	Thu, 12 Nov 2026 08:22:42 +0000 (UTC)
+X-Greylist: delayed 578 seconds by postgrey-1.36 at gabe;
+ Thu, 12 Nov 2026 08:22:36 UTC
+Received: from mail-106109.protonmail.ch (mail-106109.protonmail.ch
+ [79.135.106.109])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E8A210EB62
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Nov 2026 08:22:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+ s=protonmail3; t=1794471176; x=1794730376;
+ bh=qfqBwPi7/tBSKHsxnXYvEMUHhF+vLEImInAzziGGcgE=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=hVN/8O77cy97QqsfX8J/K7m/DJt9GdDMzfCSTSokPOcaL/niCl1lm1UR/ClNOjY4L
+ P4/hDcIaLhSiyYLQKipiyqn6kDjBl+UPVKiSewpDx79xdFdnEZV3kPd6Q2cRoyh9kK
+ IdKm9r6LfEGUhwkvBVa5NjrMUm0QlPTZLPinVVz1RIX+gZ0PbRoKk0moflvXS67xch
+ jlmC36F4SWqg398rQfB3XkMF7NkFtukkMpheYr7XDYz4PYxfe18MXNVktghm0PVgB7
+ NkF7pIoUlMlaQUWeT5961lvbcDTNeAkKD2C5iqUW/BQJ5ERh/Hpcg0oIe2qDhyr+h/
+ gXDSA4pUljOkQ==
+Date: Thu, 12 Nov 2026 08:12:52 +0000
+To: James Lin <PingLei.Lin@amd.com>
+From: =?utf-8?Q?Eren_=C3=96zen?= <erenozen@protonmail.com>
+Cc: amd-gfx@lists.freedesktop.org,
+ Alexander Deucher <Alexander.Deucher@amd.com>,
+ Sun peng Li <Sunpeng.Li@amd.com>, Harry Wentland <Harry.Wentland@amd.com>,
+ Melissa Wen <mwen@igalia.com>
+Subject: Re: [PATCH] drm/amd/display: Attach blend mode property for alpha
+ planes
+Message-ID: <MjIJeaH45OE4BtxZSqwUqXuTQ25FZHMC4xbhnbCo96iss2M96QMI8vBAsBlBqA0F_gFuiMPgUTaH6Y1rjiWP18FjavL1uwecmv6qKNNYIEc=@protonmail.com>
+In-Reply-To: <20261108223626.13681-1-PingLei.Lin@amd.com>
+References: <20261108223626.13681-1-PingLei.Lin@amd.com>
+Feedback-ID: 19860221:user:proton
+X-Pm-Message-ID: f1eabd3f1f048cbaa154d7b371ddc0de040f8c1d
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|PH8PR12MB6843:EE_
-X-MS-Office365-Filtering-Correlation-Id: e4ec024d-6887-4161-92e0-08df407f29bf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|23010399003|1800799024|22082099003|18002099003|6133799003|261009223027099003|11063799006|5023799004|56012099006|261102123227099003|261026121527099003|261026140227099003|261022075727099003|261021121427099003|261022105027099003|261028144727099003|10067099003;
-X-Microsoft-Antispam-Message-Info: yFf2LBXme+qV4cJ0yF2ZXKrlM67Y3Gg0kHAuvuVqI9JjhxZSO4a7HBb88QEUmUKz30oewmekabB5WBA3XBujqeAgx3DdyCX8eDPmBLCiId9bUHvSXeqCcInWybH1bVzR0WQwf3Bs8hJmf9CrySAIinZcH9XIRS/0Zwtgvnd+noOWvEf/USTkP4MwSB2ECeEYxjLQy0L7L+LbmgFRdWTKuGrpWtydoMztEQvsI/LLp5sC7oXW3X1xjPXmecAztAn/q2bGeQPlwhTmz2jjeowP4O0XcvNUUIh7amF6UKDuARbCxh0LAf5jr0G5GgAy3TwmcXGFXdQo0WjDIpK1YqvZkvCN+992L4VtdxWhlR2V114Fbc7JsGwSei6hjQkGluIknJL1zGt6+JXlIdRsNjaIcdCdbVvVaoL8QcZuypfPD84Ppy4sY0bVc5aKbXFh1n1OROBf5zQqM+m66M6W/fl3qW69HSg96UgEtl5J6A1PH/TuLN+99y/oYXb4znlHmSkBZu3QGJnP9ekVY5QDa6WWYWiCur6NWB88gZ3z+i3EuxjTDrCQsNelGmcHdomYI0ouZ5WmV2pcD3HidV/DL1PelryjsXqmmMp7w9klTr4JhS6J7wDcFmewyIRKSNCUW5f+cngmyE+a7ECyTuxiFs7GI55ioSHhFkiij0fDYacQLuM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(22082099003)(18002099003)(6133799003)(261009223027099003)(11063799006)(5023799004)(56012099006)(261102123227099003)(261026121527099003)(261026140227099003)(261022075727099003)(261021121427099003)(261022105027099003)(261028144727099003)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T09ENkNSTTNpd3ZmL0pKczJYOHZmK1UxNHMwa2kyQVlwNlEzK1J4T0E3Vm81?=
- =?utf-8?B?czlDNGVQQ0gzSml4ZHB4Q3ZvUjhhZnJpTHdpeThEUVJ0NGJBV0NKdHEyb1ht?=
- =?utf-8?B?QklJbnlZdFhrM2hkWkhkN1J3QXMwUHhXZzZNR1dWbFZSamNXUFdQVjVCVG5I?=
- =?utf-8?B?KzhkQ2xqVjRXUlV3TW1UZ3U3dTVyVlpEODBnYmQxUi9xOHh3WlNpUUwvSTBh?=
- =?utf-8?B?RHFzN3JUdzVkY3VLTDBqUlVLaHpUcysrRU1CbXVPZ2VZa3dFWmlzd3IvTFBs?=
- =?utf-8?B?RFlNTUVHcmFWUHJDQUhVZWJpMVZuRmFxRHN2RkFDdVhJTjdjeDNFZTZjVFIr?=
- =?utf-8?B?aFNsUU4vU0JWbnNySW9CZmI5WWxVSG50d0x0U0RabUlSWE41dklLQ1oxVzlp?=
- =?utf-8?B?aXAxVWUwRTNtcFYyNE5QRkhpWklubmJ3Zjk5SXJZeEVXZ2h5TVVHWTdoNk5J?=
- =?utf-8?B?Vm1Wb2VRNmFzK1Y5OWp0bEs0Qnp0WDFNWldmc2UxbGNjOE55TkdYN0Z6Z1Ex?=
- =?utf-8?B?QW5VOW9FVU1BdmYwRnA1WlVqYU80eHFpK1h3VTBrMmNQaThudnRYYWdwU05n?=
- =?utf-8?B?dlRjd2VCcDV2UDJCSUliN3M0bFIvTlBZVnN2TU5HNXNCOGhFQytwenFISmtT?=
- =?utf-8?B?WjJtdERIMHBncGxPdmt2aGs3enBGcUxpOWtyamJTb3ZhMkc1QXNhZGxqWnJI?=
- =?utf-8?B?cUV6L2hpdzZ1OVhLbDd4N08rSUdrandFSGhuUEQyYW8wUjQvTkNGaXlaNm9S?=
- =?utf-8?B?Vno4NEJPT0wwU0hTNmg3L2dlL0pleHZneWVYSThnNXNJM3c1UWpWbVRiZmdk?=
- =?utf-8?B?TkQ5TFNxY1dNdU5VOVp5Y1lMaVlmMWdGYzViVHpwYWVYQkwxR05XM1BFTitQ?=
- =?utf-8?B?bzNieEJwd0haT0Z3Z2FxM3Q5UGd4eG9leXMzWkthc0toTVloWlF5OHM1NE5G?=
- =?utf-8?B?eE5mWkhDc0xiU21JRkF2TUN4RitIZWVhS2VlWnFFVTM0a2V4NXFXR0FMQjQ1?=
- =?utf-8?B?ZTkrSE1tcjFMSnNYQUlKU3NUWXlDYlppLzQxNXJ2V2Y3NGdIYVNxOTRnZWQ1?=
- =?utf-8?B?OUZJZlhXajBhR2kvRzEyT3Y4SVNBbkZTbmV6Y2dITERFY3J1WSt0NGFyQmc4?=
- =?utf-8?B?V3J3U2lIS0pCME9xT1BJTnZmYkdXaUtZU243K29SWEJ1ZXBmRUZwaTg0M1Rt?=
- =?utf-8?B?U3J4RGdHdFVscXR4YzZFMzVlWmY5QmZwWkRnekM1bkg5ZTV5S25VMEdyanJJ?=
- =?utf-8?B?NXQwdVZmZW1HNFZiNUdEL1N5TThtMWtpTDZ0TTFqOU9Ia2ZReE50aURtL0lW?=
- =?utf-8?B?M3B0a3hYRjBuMU1ReVhEOWNnbUp2YkdtMUg5SEdKL3hYelU1VDdocGxtNm5Z?=
- =?utf-8?B?NTNwMmtmN0kvNkZvSUxkVEtaSHFSYytoZklzOHpIY2NLb0grK1lxNFJVMGdQ?=
- =?utf-8?B?bTFSaWNCRGp6bjlwUjM4SUpHWnlveTNJOU1OQWdVMFk4K1ExTTRnbTVSeDNN?=
- =?utf-8?B?MktOYldBalpJbUhGenF0WCtzeGlCQS9sY0hCaWZEaWZGdlFuS2VMRWFHNXMv?=
- =?utf-8?B?dmwwVnhlY08xcWI4QndRb3BRV3NnTlhZRi9FUG80aW5YcHR0R25RbnhhTkpp?=
- =?utf-8?B?clZvU0tMem1Cc3RNZGd4YlJmRmxSdTRIeUMxZHA5Zms0czVENmxWR3JNMU1k?=
- =?utf-8?B?WFRnSEtjTXlONENldUxhN3dHM2xqbnFlQWF1c2VwQnhzb1hXa1daejd4Wjdo?=
- =?utf-8?B?ZnJwc3dPNktjZXFacWxCdThsUS9Rdi93dHpIK0Fwc1pFR1RzSnRxZFZXRXVJ?=
- =?utf-8?B?S0JaMHlwbG5nTkVPYjU3aDFWcWFrWGdNZVd6ZXNLOUFGcHlnK0ZZS1ErQ0tq?=
- =?utf-8?B?NXNlRVRneS9TOHJ5WVJmQzNQa3J0Qlo5bjVrc3htcGtKUGtVYm1lc210M0xE?=
- =?utf-8?B?aEpuSFhwQTQxUGgrK2Iwb1phNXZsajV2dVJNeFNCZlpFcDBvK1hEN2dPVUFl?=
- =?utf-8?B?Y1ZzMHJkL1R1ZlQ5MzF0V2l2YXk2T1Y4ZlBqL0s3ekNmYmhET2xIc0dqL2VE?=
- =?utf-8?B?d1pQWHVld2pWZkRoWjA1LzJHT3BoeW1QTkpWTzVnMllLSDVzTkJYMUhrd3lX?=
- =?utf-8?B?cHVjUkZpTFpaZjNhckxmMGVZMXJPL0JYUHhoVTdWeExCdXM2NTNDdmJvR0xs?=
- =?utf-8?B?SzdxNU9WUjJWK01IM0NnaXkzNHEwM3FQRUxZb1gwbG9xdCtUZ0xUWkh4VkJQ?=
- =?utf-8?B?T2VnT2wya0FNSzloNm9qUFdQS08zYUhxUHB6dWwyM2hINlhlNTV6N1AyYmR4?=
- =?utf-8?Q?ywrgAUovmfrU7sVlnk?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e4ec024d-6887-4161-92e0-08df407f29bf
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 05:38:21.7815 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zmJZ4asQiJNtBRsLAzSxRuFnZszI9P9TGqDK1RfRW94cxDKxDG0Q+OarR2iqQ/wQ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6843
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,442 +55,39 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+On Sun, Nov 08, 2026 at 05:36:26PM -0500, James Lin wrote:
+> This re-applies commit 3f3139234c28 ("drm/amd/display: Attach blend mode
+> property for alpha planes"), which was reverted by
+> commit 07df8cb29c8b ("Revert \"drm/amd/display: Attach blend mode propert=
+y for alpha planes\"").
 
+Hi James,
 
-On 12-Nov-26 1:39 AM, Mario Limonciello wrote:
-> Some platforms ship BIOS with either a default or an alternative trust
-> authority, so firmware for every IP must be signed with the matching
-> scheme.
-> The PSP advertises which one is in use in bit 6 of C2PMSG_63, and in bit
-> 28 whether this is a preproduction part, which needs firmware of its own.
-> 
-> Add amdgpu_psp_init_fw_variant() which reads those bits through amdgpu's
-> own MMIO, and keep the result in adev->firmware.sign_type next to
-> load_type, where preproduction is a type of its own. It is initialized
-> once, after IP discovery has populated the register bases and only when
-> firmware is loaded through the front door (the PSP). Only MP0 15.0.0
-> reports it. For all other ASICs, SR-IOV VFs and an inaccessible register
-> (all ones) the defaults are kept: AMDGPU_FW_SIGN_DEFAULT. A preproduction
-> part that also reports the alternative scheme is not expected, so warn
-> about it and use the default firmware.
-> 
-> Firmware for preproduction parts is named with a "_p" suffix before the
-> extension and firmware for the alternative scheme with an "_l" suffix
-> (e.g. "foo.bin" becomes "foo_p.bin" or "foo_l.bin"). Production parts on
-> the default scheme use the plain names. Do the substitution centrally in
-> amdgpu_ucode_request() so it covers every IP that loads firmware through
-> it (PSP, SMU, DMUB, GC, IMU, MES, SDMA, VCN, VPE, ...) without each
-> loader having to care. There is no fallback to the default file: it would
-> be rejected anyway. Declare the variants with MODULE_FIRMWARE() so that
-> initramfs generators include them.
-> 
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> ---
-> v4:
->   * Add missing 11.7.1 MODULE_FIRMWARE declarations (Sashiko)
-> v3:
->   * Use strends() (Lijo)
->   * Don't initialize suffix in amdgpu_ucode_set_suffix() (Lijo)
->   * Make preproduction a signing type instead of a separate bool
->   * Use a switch/case to make suffixes more obvious
->   * Return correct error code on invalid fname
-> v2:
->   * Cover PSP 15.0.9 too.
->   * Cover MODULE_FIRMWARE declarations for more files.
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  4 ++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       | 20 ++++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h       |  1 +
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c     | 32 +++++++++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h     |  7 +++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c       |  4 ++
->   drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c        | 16 +++++++
->   drivers/gpu/drm/amd/amdgpu/imu_v11_0.c        |  4 ++
->   drivers/gpu/drm/amd/amdgpu/mes_v11_0.c        |  8 ++++
->   drivers/gpu/drm/amd/amdgpu/psp_v15_0.c        | 48 +++++++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/psp_v15_0.h        |  1 +
->   drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c        |  2 +
->   drivers/gpu/drm/amd/amdgpu/vpe_v2_0.c         |  2 +
->   .../amd/display/amdgpu_dm/amdgpu_dm_dmub.c    |  2 +
->   .../amd/display/amdgpu_dm/amdgpu_dm_dmub.h    |  2 +
->   15 files changed, 153 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 19a566187dfb5..b24ccdd958a7f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -2101,6 +2101,10 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
->   			amdgpu_ip_version((adev), GC_HWIP, 0) == IP_VERSION(9, 4, 4);
->   	}
->   
-> +	/* Needs the register bases, and must be known before requesting firmware */
-> +	if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP)
-> +		amdgpu_psp_init_fw_variant(adev);
-> +
->   	total = true;
->   	for (i = 0; i < adev->num_ip_blocks; i++) {
->   		ip_block = &adev->ip_blocks[i];
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> index 82a2684dbd2e1..6d693b5249ddd 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> @@ -403,6 +403,26 @@ static uint64_t psp_get_runtime_db_header_pos(struct amdgpu_device *adev)
->   	return pos;
->   }
->   
-> +/*
-> + * Which firmware the platform needs, as reported by the PSP in C2PMSG_63: the
-> + * signing scheme and whether this is a preproduction part. The defaults are kept if
-> + * the ASIC doesn't report it or it can't be read.
-> + */
-> +void amdgpu_psp_init_fw_variant(struct amdgpu_device *adev)
-> +{
-> +	if (amdgpu_sriov_vf(adev))
-> +		return;
-> +
-> +	switch (amdgpu_ip_version(adev, MP0_HWIP, 0)) {
-> +	case IP_VERSION(15, 0, 0):
-> +	case IP_VERSION(15, 0, 9):
-> +		psp_v15_0_0_get_fw_variant(adev);
-> +		break;
-> +	default:
-> +		break;
-> +	}
-> +}
-> +
->   /*
->    * Helper funciton to query psp runtime database entry
->    *
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-> index a4ec60f6c3170..7d8fc8eb2b125 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-> @@ -631,6 +631,7 @@ int psp_ta_invoke(struct psp_context *psp,
->   
->   int psp_xgmi_initialize(struct psp_context *psp, bool set_extended_data, bool load_ta);
->   bool psp_is_xgmi_ta_supported(struct psp_context *psp);
-> +void amdgpu_psp_init_fw_variant(struct amdgpu_device *adev);
->   int psp_xgmi_terminate(struct psp_context *psp);
->   int psp_xgmi_invoke(struct psp_context *psp, uint32_t ta_cmd_id);
->   int psp_xgmi_get_hive_id(struct psp_context *psp, uint64_t *hive_id);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-> index d2ce526dd95cc..f39cbe689c21c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-> @@ -1527,6 +1527,34 @@ void amdgpu_ucode_ip_version_decode(struct amdgpu_device *adev, int block_type,
->   	snprintf(ucode_prefix, len, "%s_%d_%d_%d", ip_name, maj, min, rev);
->   }
->   
-> +/* Add the suffix of the firmware variant before the extension: foo.bin -> foo_l.bin */
-> +static int amdgpu_ucode_set_suffix(struct amdgpu_device *adev, char *fname)
-> +{
-> +	const char *suffix;
-> +	size_t base;
-> +
-> +	switch (adev->firmware.sign_type) {
-> +	case AMDGPU_FW_SIGN_PREPROD:
-> +		suffix = "_p.bin";
-> +		break;
-> +	case AMDGPU_FW_SIGN_ALT:
-> +		suffix = "_l.bin";
-> +		break;
-> +	default:
-> +		/* Default variant: the name is unchanged */
-> +		return 0;
-> +	}
-> +
-> +	if (!strends(fname, ".bin"))
-> +		return -EINVAL;
-> +
-> +	base = strlen(fname) - strlen(".bin");
-> +	if (strscpy(fname + base, suffix, AMDGPU_UCODE_NAME_MAX - base) < 0)
-> +		return -EOVERFLOW;
-> +
-> +	return 0;
-> +}
-> +
->   /*
->    * amdgpu_ucode_request - Fetch and validate amdgpu microcode
->    *
-> @@ -1555,6 +1583,10 @@ int amdgpu_ucode_request(struct amdgpu_device *adev, const struct firmware **fw,
->   		return -EOVERFLOW;
->   	}
->   
-> +	r = amdgpu_ucode_set_suffix(adev, fname);
-> +	if (r)
-> +		return r;
-> +
->   	if (required == AMDGPU_UCODE_REQUIRED)
->   		r = request_firmware(fw, fname, adev->dev);
->   	else {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
-> index 35277b240f25a..b3e83ec0fff7c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
-> @@ -571,6 +571,12 @@ enum amdgpu_firmware_load_type {
->   	AMDGPU_FW_LOAD_RLC_BACKDOOR_AUTO,
->   };
->   
-> +enum amdgpu_firmware_sign_type {
-> +	AMDGPU_FW_SIGN_DEFAULT = 0,
-> +	AMDGPU_FW_SIGN_ALT,
-> +	AMDGPU_FW_SIGN_PREPROD,
-> +};
-> +
->   enum amdgpu_ucode_required {
->   	AMDGPU_UCODE_OPTIONAL,
->   	AMDGPU_UCODE_REQUIRED,
-> @@ -606,6 +612,7 @@ struct amdgpu_firmware_info {
->   struct amdgpu_firmware {
->   	struct amdgpu_firmware_info ucode[AMDGPU_UCODE_ID_MAXIMUM];
->   	enum amdgpu_firmware_load_type load_type;
-> +	enum amdgpu_firmware_sign_type sign_type;
->   	struct amdgpu_bo *fw_buf;
->   	unsigned int fw_size;
->   	unsigned int max_ucodes;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> index 6c12d8aa3c769..1df2725d31e0c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> @@ -66,6 +66,8 @@
->   #define FIRMWARE_VCN5_0_1		"amdgpu/vcn_5_0_1.bin"
->   #define FIRMWARE_VCN5_0_2		"amdgpu/vcn_5_0_2.bin"
->   #define FIRMWARE_VCN5_3_0		"amdgpu/vcn_5_3_0.bin"
-> +#define FIRMWARE_VCN5_3_0_ALT		"amdgpu/vcn_5_3_0_l.bin"
-> +#define FIRMWARE_VCN5_3_0_PREPROD	"amdgpu/vcn_5_3_0_p.bin"
->   
->   MODULE_FIRMWARE(FIRMWARE_RAVEN);
->   MODULE_FIRMWARE(FIRMWARE_PICASSO);
-> @@ -95,6 +97,8 @@ MODULE_FIRMWARE(FIRMWARE_VCN5_0_0);
->   MODULE_FIRMWARE(FIRMWARE_VCN5_0_1);
->   MODULE_FIRMWARE(FIRMWARE_VCN5_0_2);
->   MODULE_FIRMWARE(FIRMWARE_VCN5_3_0);
-> +MODULE_FIRMWARE(FIRMWARE_VCN5_3_0_ALT);
-> +MODULE_FIRMWARE(FIRMWARE_VCN5_3_0_PREPROD);
->   
->   static void amdgpu_vcn_idle_work_handler(struct work_struct *work);
->   static void amdgpu_vcn_reg_dump_fini(struct amdgpu_device *adev);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> index d5f428ac19bf3..b42733d85ea89 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -134,13 +134,29 @@ MODULE_FIRMWARE("amdgpu/gc_11_5_6_me.bin");
->   MODULE_FIRMWARE("amdgpu/gc_11_5_6_mec.bin");
->   MODULE_FIRMWARE("amdgpu/gc_11_5_6_rlc.bin");
->   MODULE_FIRMWARE("amdgpu/gc_11_7_0_pfp.bin");
-> +MODULE_FIRMWARE("amdgpu/gc_11_7_0_pfp_l.bin");
-> +MODULE_FIRMWARE("amdgpu/gc_11_7_0_pfp_p.bin");
->   MODULE_FIRMWARE("amdgpu/gc_11_7_0_me.bin");
-> +MODULE_FIRMWARE("amdgpu/gc_11_7_0_me_l.bin");
-> +MODULE_FIRMWARE("amdgpu/gc_11_7_0_me_p.bin");
->   MODULE_FIRMWARE("amdgpu/gc_11_7_0_mec.bin");
-> +MODULE_FIRMWARE("amdgpu/gc_11_7_0_mec_l.bin");
-> +MODULE_FIRMWARE("amdgpu/gc_11_7_0_mec_p.bin");
->   MODULE_FIRMWARE("amdgpu/gc_11_7_0_rlc.bin");
-> +MODULE_FIRMWARE("amdgpu/gc_11_7_0_rlc_l.bin");
-> +MODULE_FIRMWARE("amdgpu/gc_11_7_0_rlc_p.bin");
->   MODULE_FIRMWARE("amdgpu/gc_11_7_1_pfp.bin");
-> +MODULE_FIRMWARE("amdgpu/gc_11_7_1_pfp_l.bin");
-> +MODULE_FIRMWARE("amdgpu/gc_11_7_1_pfp_p.bin");
->   MODULE_FIRMWARE("amdgpu/gc_11_7_1_me.bin");
-> +MODULE_FIRMWARE("amdgpu/gc_11_7_1_me_l.bin");
-> +MODULE_FIRMWARE("amdgpu/gc_11_7_1_me_p.bin");
->   MODULE_FIRMWARE("amdgpu/gc_11_7_1_mec.bin");
-> +MODULE_FIRMWARE("amdgpu/gc_11_7_1_mec_l.bin");
-> +MODULE_FIRMWARE("amdgpu/gc_11_7_1_mec_p.bin");
->   MODULE_FIRMWARE("amdgpu/gc_11_7_1_rlc.bin");
-> +MODULE_FIRMWARE("amdgpu/gc_11_7_1_rlc_l.bin");
-> +MODULE_FIRMWARE("amdgpu/gc_11_7_1_rlc_p.bin");
->   
->   static const struct amdgpu_hwip_reg_entry gc_reg_list_11_0[] = {
->   	SOC15_REG_ENTRY_STR(GC, 0, regGRBM_STATUS),
-> diff --git a/drivers/gpu/drm/amd/amdgpu/imu_v11_0.c b/drivers/gpu/drm/amd/amdgpu/imu_v11_0.c
-> index e2b3f46bbc645..b6c4ae35ca03a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/imu_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/imu_v11_0.c
-> @@ -44,7 +44,11 @@ MODULE_FIRMWARE("amdgpu/gc_11_5_3_imu.bin");
->   MODULE_FIRMWARE("amdgpu/gc_11_5_4_imu.bin");
->   MODULE_FIRMWARE("amdgpu/gc_11_5_6_imu.bin");
->   MODULE_FIRMWARE("amdgpu/gc_11_7_0_imu.bin");
-> +MODULE_FIRMWARE("amdgpu/gc_11_7_0_imu_l.bin");
-> +MODULE_FIRMWARE("amdgpu/gc_11_7_0_imu_p.bin");
->   MODULE_FIRMWARE("amdgpu/gc_11_7_1_imu.bin");
-> +MODULE_FIRMWARE("amdgpu/gc_11_7_1_imu_l.bin");
-> +MODULE_FIRMWARE("amdgpu/gc_11_7_1_imu_p.bin");
->   
->   static int imu_v11_0_init_microcode(struct amdgpu_device *adev)
->   {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> index 0895c29899d2b..c76a6c4e69992 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> @@ -61,9 +61,17 @@ MODULE_FIRMWARE("amdgpu/gc_11_5_4_mes1.bin");
->   MODULE_FIRMWARE("amdgpu/gc_11_5_6_mes_2.bin");
->   MODULE_FIRMWARE("amdgpu/gc_11_5_6_mes1.bin");
->   MODULE_FIRMWARE("amdgpu/gc_11_7_0_mes_2.bin");
-> +MODULE_FIRMWARE("amdgpu/gc_11_7_0_mes_2_l.bin");
-> +MODULE_FIRMWARE("amdgpu/gc_11_7_0_mes_2_p.bin");
->   MODULE_FIRMWARE("amdgpu/gc_11_7_0_mes1.bin");
-> +MODULE_FIRMWARE("amdgpu/gc_11_7_0_mes1_l.bin");
-> +MODULE_FIRMWARE("amdgpu/gc_11_7_0_mes1_p.bin");
->   MODULE_FIRMWARE("amdgpu/gc_11_7_1_mes_2.bin");
-> +MODULE_FIRMWARE("amdgpu/gc_11_7_1_mes_2_l.bin");
-> +MODULE_FIRMWARE("amdgpu/gc_11_7_1_mes_2_p.bin");
->   MODULE_FIRMWARE("amdgpu/gc_11_7_1_mes1.bin");
-> +MODULE_FIRMWARE("amdgpu/gc_11_7_1_mes1_l.bin");
-> +MODULE_FIRMWARE("amdgpu/gc_11_7_1_mes1_p.bin");
->   
->   static int mes_v11_0_hw_init(struct amdgpu_ip_block *ip_block);
->   static int mes_v11_0_hw_fini(struct amdgpu_ip_block *ip_block);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v15_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v15_0.c
-> index abaa40b6def90..734915573718d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/psp_v15_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/psp_v15_0.c
-> @@ -32,11 +32,19 @@
->   #include "mp/mp_15_0_0_sh_mask.h"
->   
->   MODULE_FIRMWARE("amdgpu/psp_15_0_0_toc.bin");
-> +MODULE_FIRMWARE("amdgpu/psp_15_0_0_toc_l.bin");
-> +MODULE_FIRMWARE("amdgpu/psp_15_0_0_toc_p.bin");
->   MODULE_FIRMWARE("amdgpu/psp_15_0_0_ta.bin");
-> +MODULE_FIRMWARE("amdgpu/psp_15_0_0_ta_l.bin");
-> +MODULE_FIRMWARE("amdgpu/psp_15_0_0_ta_p.bin");
->   MODULE_FIRMWARE("amdgpu/psp_15_0_5_toc.bin");
->   MODULE_FIRMWARE("amdgpu/psp_15_0_5_ta.bin");
->   MODULE_FIRMWARE("amdgpu/psp_15_0_9_toc.bin");
-> +MODULE_FIRMWARE("amdgpu/psp_15_0_9_toc_l.bin");
-> +MODULE_FIRMWARE("amdgpu/psp_15_0_9_toc_p.bin");
->   MODULE_FIRMWARE("amdgpu/psp_15_0_9_ta.bin");
-> +MODULE_FIRMWARE("amdgpu/psp_15_0_9_ta_l.bin");
-> +MODULE_FIRMWARE("amdgpu/psp_15_0_9_ta_p.bin");
->   
->   #define regMPASP_PCRU0_MPASP_C2PMSG_64                                         0x4280
->   #define regMPASP_PCRU0_MPASP_C2PMSG_64_BASE_IDX                                2
-> @@ -108,6 +116,46 @@ static int psp_v15_0_0_ring_stop(struct psp_context *psp,
->   	return ret;
->   }
->   
-> +/*
-> + * C2PMSG_63 bit 6: 0 = default firmware signing, 1 = alternative
-> + * C2PMSG_63 bit 28: 0 = production part, 1 = preproduction part
-> + */
-> +#define PSP_V15_0_0_FW_SIGN_ALT		BIT(6)
-> +#define PSP_V15_0_0_FW_PREPROD		BIT(28)
-> +
-> +void psp_v15_0_0_get_fw_variant(struct amdgpu_device *adev)
-> +{
-> +	bool alt, preprod;
-> +	u32 val;
-> +
-> +	if (!adev->reg_offset[MP0_HWIP][0])
-> +		return;
-> +
-> +	val = RREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_63);
-> +	if (val == 0xffffffff) {
-> +		drm_warn(adev_to_drm(adev), "Unable to access regMPASP_SMN_C2PMSG_63\n");
-> +		return;
-> +	}
-> +
-> +	alt = val & PSP_V15_0_0_FW_SIGN_ALT;
-> +	preprod = val & PSP_V15_0_0_FW_PREPROD;
-> +
-> +	if (alt && preprod) {
-> +		drm_warn(adev_to_drm(adev),
-> +			 "Preproduction part with alternative signing, using default firmware\n");
+I think this warning is already fixed in mainline by Melissa Wen's
+series, which went into 7.3 through drm-misc-fixes:
 
-Optionally, consider keeping FW_SIGN_UNKOWN type and exiting earlier 
-instead of attempting firmware load with the default binary.
+  f0c75da0a6b4 ("drm/amd/display: fix missing blend-mode-prop warning for D=
+CN")
+  332ad707e38f ("drm/amd/display: advertise PIXEL_NONE and PREMULTI blend m=
+ode for DCE")
 
-That apart, patch looks fine.
+They change the same block in amdgpu_dm_plane_init(), so I assume they
+are the drm-next conflict the revert mentions. amd-staging-drm-next
+(47df73aa49) doesn't have them yet, which is why the warning still shows
+up there (I get all 8 on a Cezanne laptop). Once the tree picks up 7.3,
+this patch would create the blend mode property a second time on the
+same planes.
+
+Would it make more sense to pick up Melissa's two commits instead of
+re-applying 3f3139234c28?
 
 Thanks,
-Lijo
-
-> +		return;
-> +	}
-> +
-> +	if (preprod)
-> +		adev->firmware.sign_type = AMDGPU_FW_SIGN_PREPROD;
-> +	else if (alt)
-> +		adev->firmware.sign_type = AMDGPU_FW_SIGN_ALT;
-> +
-> +	dev_info(adev->dev, "PSP firmware: %s signing, %s part (C2PMSG_63=0x%08x)\n",
-> +		 alt ? "alternative" : "default",
-> +		 preprod ? "preproduction" : "production", val);
-> +}
-> +
->   static int psp_v15_0_0_ring_create(struct psp_context *psp,
->   				 enum psp_ring_type ring_type)
->   {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v15_0.h b/drivers/gpu/drm/amd/amdgpu/psp_v15_0.h
-> index ebd612103526f..081be8e8268bc 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/psp_v15_0.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/psp_v15_0.h
-> @@ -26,5 +26,6 @@
->   #include "amdgpu_psp.h"
->   
->   void psp_v15_0_0_set_psp_funcs(struct psp_context *psp);
-> +void psp_v15_0_0_get_fw_variant(struct amdgpu_device *adev);
->   
->   #endif
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-> index 4845588c4c247..2586d49f1e940 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-> @@ -56,6 +56,8 @@ MODULE_FIRMWARE("amdgpu/sdma_6_1_1.bin");
->   MODULE_FIRMWARE("amdgpu/sdma_6_1_2.bin");
->   MODULE_FIRMWARE("amdgpu/sdma_6_1_3.bin");
->   MODULE_FIRMWARE("amdgpu/sdma_6_1_4.bin");
-> +MODULE_FIRMWARE("amdgpu/sdma_6_1_4_l.bin");
-> +MODULE_FIRMWARE("amdgpu/sdma_6_1_4_p.bin");
->   MODULE_FIRMWARE("amdgpu/sdma_6_4_0.bin");
->   
->   #define SDMA1_REG_OFFSET 0x600
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vpe_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vpe_v2_0.c
-> index c92c5fc59aeb9..cefb8d739faf8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vpe_v2_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vpe_v2_0.c
-> @@ -31,6 +31,8 @@
->   #include "vpe/vpe_2_0_0_sh_mask.h"
->   
->   MODULE_FIRMWARE("amdgpu/vpe_2_0_0.bin");
-> +MODULE_FIRMWARE("amdgpu/vpe_2_0_0_l.bin");
-> +MODULE_FIRMWARE("amdgpu/vpe_2_0_0_p.bin");
->   MODULE_FIRMWARE("amdgpu/vpe_2_2_0.bin");
->   
->   #define VPE_THREAD1_UCODE_OFFSET	0x8000
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
-> index 383c53afd1f67..7cd08a9a957d6 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
-> @@ -62,6 +62,8 @@ MODULE_FIRMWARE(FIRMWARE_DCN_351_DMUB);
->   MODULE_FIRMWARE(FIRMWARE_DCN_36_DMUB);
->   MODULE_FIRMWARE(FIRMWARE_DCN_401_DMUB);
->   MODULE_FIRMWARE(FIRMWARE_DCN_42_DMUB);
-> +MODULE_FIRMWARE(FIRMWARE_DCN_42_DMUB_ALT);
-> +MODULE_FIRMWARE(FIRMWARE_DCN_42_DMUB_PREPROD);
->   MODULE_FIRMWARE(FIRMWARE_DCN_42B_DMUB);
->   MODULE_FIRMWARE(FIRMWARE_DCN_60_DMUB);
->   
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.h
-> index df3e776c1ad14..219e9c0427441 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.h
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.h
-> @@ -61,6 +61,8 @@ int dm_init_microcode(struct amdgpu_device *adev);
->   #define FIRMWARE_DCN_36_DMUB		"amdgpu/dcn_3_6_dmcub.bin"
->   #define FIRMWARE_DCN_401_DMUB		"amdgpu/dcn_4_0_1_dmcub.bin"
->   #define FIRMWARE_DCN_42_DMUB		"amdgpu/dcn_4_2_dmcub.bin"
-> +#define FIRMWARE_DCN_42_DMUB_ALT	"amdgpu/dcn_4_2_dmcub_l.bin"
-> +#define FIRMWARE_DCN_42_DMUB_PREPROD	"amdgpu/dcn_4_2_dmcub_p.bin"
->   #define FIRMWARE_DCN_42B_DMUB		"amdgpu/dcn_4_2_1_dmcub.bin"
->   #define FIRMWARE_DCN_60_DMUB		"amdgpu/dcn_6_0_0_dmcub.bin"
->   #define FIRMWARE_RAVEN_DMCU		"amdgpu/raven_dmcu.bin"
+Eren
 
