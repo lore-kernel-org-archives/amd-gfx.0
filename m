@@ -2,68 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CD41606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EC17606A321
 	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 01:44:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f/Nb+12t
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BNwjDTsU
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 001FE10FEF3;
-	Thu, 12 Nov 2026 01:44:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39A0510FEF5;
+	Thu, 12 Nov 2026 01:44:17 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C42E10FEDC;
- Thu, 12 Nov 2026 01:44:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 655F510FEDB;
+ Thu, 12 Nov 2026 01:43:58 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E5F1D4082B;
- Thu, 12 Nov 2026 01:44:00 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4B5F74352A;
+ Thu, 12 Nov 2026 01:43:58 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1794447840;
- b=cwh9ub5Dg/hEsBC1XCrL9dinmgQq4lW1A3yPLnPR42Q08z+HPnnqliriMHxglReitc+1
- RmUi3bh89MJ+eqo/XjVwZWRUB2VIZ+r5nmsa/6c52//GRMFjSaWW3F9t1nPmLaA9HqyWO
- /XsM246M1W1F5jydj3mHMhphQn5PzF/6dg6pO2qbnL5jPD0ZQSLrJUquGRcSCi4f0JfLt
- Rn6XqgSSgl+AiuRiCQZv0vlQNNj+g1SpGRsY/jCBrhFoDrgt8ibmYiLR+OhOgdzmX5tby
- Azn8nL3fQaWHXK1ubDWydyu5Q62/A53s21KeEhww2ZPU7TN1cWW5sPCSH6kEefBjXSg==
+ t=1794447838;
+ b=xscaQj1SwozCpDiOdTyZGgQ/h74hHcm+TzAVRwwpwaTetAlGZckWgWYMVsWvY/YijaB6
+ OfF2x87ZIXO3PEZv7oAQSihb2+Dj51YIv0cCgl0P+f32Mk102zQNGNH2WdYtMIo4nmspB
+ YGCDFTElYuTaUWjF3cZuQue/qPYerhUUuVGQQ9QRsXws0Tl5TFZJpYwc3nB7LF+8fv8cM
+ 0+wKFkcrjcW6aWanQQNM6i/B5r8qTFsOvpIziL8sLwPacwybV20Yq+/mwaeIx1gZimE1P
+ J9ftOcagZfaTPLnc9WvbWqebfEVX35f2bdB3vYEEem4svQUwmThQnC5uHcy2fhyTClA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1794447840;
+ c=relaxed/relaxed; t=1794447838;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=TIsrMIqzvZvun6pP4CFfdh32PsPTKnZeYR4y2s/v61I=;
- b=p4TBCLFU6IDgAblNf6poU/bbBACvZ6lruEj31b0KKCmdvepIpzYIebiDcLpD4aw+D12a
- GTP3LEMGmghipS7IgNkyfi8rTyG6gkrpIUKu0Vwjjhnyylp29M6bxmjGK3nV4s0GOy2TA
- QZH6jS7TJobdhqy4M5YEjzB9Yuyhads/uecT9UZTp+mJ8kjLSHZnAi28VRheNlmbeE8Bb
- hnpW6MYpQcp+HdaCx1vHvr4w4Oi8rXE8uA7CjOvk14Fc/+TV05NOaWVGpkTnD4yuob9fY
- 9rshS+AfOi/s/tDr4mILGKjqEWflO2gOne8N/1cK4S+rzCccaNaf5RKstHOZP5F7G0w==
+ bh=5LAdIBtLMU+eNrRFipj80nOx/1vVFfRQQoBWOxnBLXk=;
+ b=He0BmS3XHp15kSvjEbDC0jZPKtul+dy8yH1zBGl7s81tbgTyp4tcZQar1LzhSuacpqpS
+ nsqx6QuUuTG2uP4a+s3rDg7Y7MuetBSnC8WMJNA4nenRqk/rkIFw/nCxTlzNQLQ9LPlxa
+ 9oWJNiPlDeVoQSAVjYkhF8bbWvb0PFPXr1Ghnp4BHCWG/AO2FiqnQpomigjunWqSm9ycw
+ eF2bzgL8gP+uSIN3xSnUJ9DUq/X7xv2fj1uZTlYW12sk3fHvIZqn/pUcrt9KScL4yo2W9
+ fkcOzokfL2nMhvEz97lyd6EgXwcDNrtSmbTaYF6F8SoRWbwY7d38dwiISByuCLNDvOA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 2973B1F00AC9;
- Thu, 12 Nov 2026 01:43:53 +0000 (UTC)
+ by smtp.kernel.org (Postfix) with ESMTPS id A28121F00A14;
+ Thu, 12 Nov 2026 01:43:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794447840;
- bh=TIsrMIqzvZvun6pP4CFfdh32PsPTKnZeYR4y2s/v61I=;
+ s=k20260515; t=1794447838;
+ bh=5LAdIBtLMU+eNrRFipj80nOx/1vVFfRQQoBWOxnBLXk=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=f/Nb+12tst3XRyBrOciKAdH+Rkr2aHpdBSTbaFlEqyD8JpZ45LpobbFLpvOHrbQRx
- sNHnDXAYaPABPdK17FM4y4+bN8vBRGIuFQaO/LIO5Kvj1I89Sv2OIt2dNErYLal+wS
- V5hvB17K2orFPWd6SqDNKU+OpQel9MSTAKwqMEb6OIv7AV0JQO86NlM3Oyqwb4djp+
- nN2W+8CN8rhvrrMORYVcI21UDD5F5tBHHvtP3WFO7GFQAgdsev/4sffAXajUzONpud
- OrjXPyJq7KVdb7tTiSgCQiBixS0NCPwbdBkJJpCwxD/Ekk7ou40f0C7xU2gEvY3dyB
- KdDD9rTSGR05A==
+ b=BNwjDTsUdJ+XAE8LPMgXN/hnmWhOcVKpswip4Xh4+57bNbvO9rgrZ16HwY2UPd3aV
+ wVTKooUZ8IIbCzQdGQX/06/lE5IuQTrwM/vHU+MpszKZrL0geKtt2ETEi/F4DM4Crc
+ SiSoB8MS4S5Tr+q3LXyaUkKqj2IXct5sSNtpUC96x41Fxf1+Kv4WkKXfjsOHVs9c1J
+ tY6kgZ60gy5/P9RdDDUUMQVZSBVISMKwKSlaprYiLAdji9JkbIwD/H0rPBi96la7ua
+ LwFNjP2B/aWHjVyqiKMEASFsYbAbWZL4h6KMW4s1oQiFoF6x9Z3CuMB9CJgWVeLIi9
+ 92taRg1F+IO3g==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 14A30491FA;
- Thu, 12 Nov 2026 01:43:50 +0000 (UTC)
+ by lkml.kernel.org (Postfix) with ESMTP id A486B491E6;
+ Thu, 12 Nov 2026 01:43:49 +0000 (UTC)
 From: Dave Airlie via B4 Relay <devnull+airlied.redhat.com@kernel.org>
-Date: Thu, 12 Nov 2026 11:43:49 +1000
-Subject: [PATCH 14/19] drm/amd/display: Restrict the dc directory root to
- DC-internal builds
+Date: Thu, 12 Nov 2026 11:43:44 +1000
+Subject: [PATCH 09/19] drm/amd/display/amdgpu_dm: Use DC accessors in
+ debugfs paths
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-amdgpu-dc-cleanup-v1-14-0fae41718ad2@redhat.com>
+Message-Id: <20261112-amdgpu-dc-cleanup-v1-9-0fae41718ad2@redhat.com>
 References: <20261112-amdgpu-dc-cleanup-v1-0-0fae41718ad2@redhat.com>
 In-Reply-To: <20261112-amdgpu-dc-cleanup-v1-0-0fae41718ad2@redhat.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
@@ -75,21 +75,21 @@ To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
  Dave Airlie <airlied@redhat.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=50949;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=20611;
  i=airlied@redhat.com; h=from:subject:message-id;
- bh=DT8S5Vcif1kIGfY+S8+x60p2pbSFMMkuzsha7IMJ1hc=;
- b=owEBbQKS/ZANAwAKAQx081l5xIa+AcsmYgBq9RnQU7zUwB8LfkrOndBNgmPTm+fW8h4Jh1Uxl
- kkY+2S9MyGJAjMEAAEKAB0WIQQQptkdobBb0p9t66wMdPNZecSGvgUCavUZ0AAKCRAMdPNZecSG
- vut1D/4vsZfgyunzT+OBOXQLuOWNGd/aGwABWDjgZSsknVaF0O/Xux5NcIw4RtIZ+Ccvf9ruu2I
- FCTxr8X58a4gDBdEIO5VJqO2ey5iL/UE77yVlqv+WspUAz3qJFYwqz1yS1ilnYqZ7/V8d7LiqXi
- XKuodFRodt9RpMhb2kx0ONvuvLxJbGoBBaxbeDPVs7k6xLsPTr+PoZY0GfFZ+mYhKsLvKUFncGX
- vsASqph2sYfG2SI95jCxzpZeXCvzY/8MHrEZfQiOlTwCS8GP+mkLSEnIh+Foz6Bg+HEqnlIOSrq
- KWXmVr5g4osLT81ZcwpYeMHTq3LUeCm/+sCAJ6kV1/K4bl0+MOQrc3AtMIPsAevylg5qUgkuhsk
- jqdxEzNVnYpnlKvQP0A83AF68Kbx6LZj/4TW0e1XfuKvEfBxw9DjOhupdRmLuAg/SeZzU3Rr9Qx
- OmjwXrXDGWCzKDFHVniXeHWRFohQmjGKPUoXr7Y87/x7UHghGqgv7iWGVEApQqk5IUXZPCzkVMT
- tbxWxt1HbCrHAZLnJLdOnngQsvgH4831SLtINGhuelI4njLwlhjstcKYalJk6v3/+W7aJhG/xgV
- DKiFy/qYenHfvXGE3KsktK9zKpALAHuo4C0hlZOstTFZLewroSSqWIuxpVsNdrQ+Nb+kFSheiA/
- Bi17W8mXAGpMwgQ==
+ bh=teTvwAJBoooONFPtPUVVYPA5nnxZ+ozX7no2u7o4vqw=;
+ b=owEBbQKS/ZANAwAKAQx081l5xIa+AcsmYgBq9RnP4KY6lRk2A0hjk/vO4GW7BF3PeBIfWRsrw
+ gol5nFLHO6JAjMEAAEKAB0WIQQQptkdobBb0p9t66wMdPNZecSGvgUCavUZzwAKCRAMdPNZecSG
+ vnwjD/9uvlOaftz4+KAFAnIIZY/P0skCmW6jyL9C8CugXKIl7JJFd9aPAdBnYmcKVcAfKuIliQJ
+ HfCHucLH1HjblSB407wMJiFV3RtSSfZjV+uwSw8FvRF+Bd8K85YP1CRwbKZCfGlsYvY7wK/qx/y
+ pp/qkstT5XRZ80bqnba8vtHcLiaaydatJgtct646qbX8YNwuE6egc3kqpA1ctpA//PxLyriv2Kd
+ wg/b6pV6cmj54qYINmA41gcbj7nQhvomJgs1JGzPxWVm2EOZeoQXekGlhQdHAsu35NFhtBNyT/P
+ 5jYUi0EMLSRqWoA0dUKpZSSn21V0vWbNXQjlgKGzaTDOQEb9SSnQl7A2AAQDPU4BKHxLaSu2Ozs
+ NlwD1nt2ZjzJutUQehpMG0Goq4LjPfP8xsLkwxfPeXOohzKmkwHwq82PZ1rYuPZqy2VNZ2WoIRY
+ Qy6X28cWvrje04dYrFMtqib+QePBMe6fIjjW8eTrbt+87MN1f2XAa1ZNoyo+/c9HRRMfGZrBzke
+ 98zPdv/w9WY1bY0PRouOKzt1xH/g99bXmLnd88tZn6GcaQ8j3Ux1gLwZs0ZuvHmEdB+yi7Kn0iV
+ o3H7HzlFTDyWlkyb/zyvL7gFrHV24WXvzQA6JizmCAVXeylrWng43YX4Jc+XSzlO6mKJwOEnvkR
+ S+fj9ai/h567ggQ==
 X-Developer-Key: i=airlied@redhat.com; a=openpgp;
  fpr=10A6D91DA1B05BD29F6DEBAC0C74F35979C486BE
 X-Endpoint-Received: by B4 Relay for airlied@redhat.com/default with
@@ -116,1214 +116,536 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Dave Airlie <airlied@redhat.com>
 
-The dc directory root holds private headers (dc_priv.h and the other
-*_priv.h / internal headers). Remove the global
--I(full-amd-display-path)/dc include flags from amdgpu/Makefile,
-amdgpu_dm/Makefile and the amdgpu_dm tests so the root cannot be
-reached from outside DC anymore; with this, including dc_priv.h from
-DM or the DAL modules fails at compile time.
+Replace direct struct dc member dereferences with the DC accessor
+layer in amdgpu_dm_debugfs.c: dmub context access, current_state and
+pipe enumeration, IPS config/idle optimization reads, PSR/Panel
+Replay residency queries, hwss state dumps (dc_log_hw_state,
+dc_get_dcc_en_bits), the SubVP query and the debug option writes.
 
-To keep the many "subdir/header.h" includes inside DC working, give
-DC-internal objects the root on their include path through per-object
-CFLAGS in dc/Makefile (same mechanism the DML Makefiles already use
-for FPU flags) instead of a global ccflags-y entry.
+Add a purpose-specific setter for the eDP hotplug detection mode
+(dc_set_allow_edp_hotplug_detection) instead of writing through
+dc->config.
 
-Relocate the public dc-root headers to dc/inc, which was already the
-exported interface directory:
-
-  dc.h, dc_types.h, dc_state.h, dc_plane.h, dc_probe.h,
-  dc_memory_pool.h, dc_ddc_types.h, dc_dp_types.h, dc_hdmi_types.h,
-  dc_hw_types.h, os_types.h, irq_types.h, dm_helpers.h,
-  dm_services.h, dm_services_types.h, dm_pp_smu.h, dc_dmub_srv.h,
-  dc_bios_types.h, dc_trace.h, dm_cp_psp.h, dc_fused_io.h,
-  dc_stat.h, dc_stream.h, dc_dsc.h
-
-No includer outside DC needs to change: bare-name includes resolve
-through the existing -Idc/inc. Fix the few headers that referenced
-siblings through the old root-relative forms (angle-bracket
-inc/hw/*.h includes, inc/, dml/, dml2_wrapper/, sspl/ prefixes), the
-handful of DM and dmub path includes, and the dm_pp_smu.h include in
-pm/swsmu.
-
-Also drop an unused dcn20_resource.h include from
-amdgpu_dm_mst_types.c that only worked by accident.
+Part of making struct dc private to DC.
 
 Signed-off-by: Dave Airlie <airlied@redhat.com>
 ---
- drivers/gpu/drm/amd/amdgpu/Makefile                  |  1 -
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c    | 18 +++++++++---------
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c  |  2 +-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c  |  6 +++---
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c  | 16 ++++++++--------
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c    |  6 +++---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c   |  8 ++++----
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c    |  2 +-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c    |  6 +++---
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c  |  2 +-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c |  2 +-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h  |  4 ++--
- drivers/gpu/drm/amd/display/amdgpu_dm/tests/Makefile |  1 -
- .../display/amdgpu_dm/tests/amdgpu_dm_audio_test.c   |  4 ++--
- .../amdgpu_dm/tests/amdgpu_dm_backlight_test.c       |  2 +-
- .../amdgpu_dm/tests/amdgpu_dm_connector_test.c       |  6 +++---
- .../display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c    |  8 ++++----
- .../display/amdgpu_dm/tests/amdgpu_dm_dmub_test.c    |  6 +++---
- .../amdgpu_dm/tests/amdgpu_dm_freesync_test.c        |  2 +-
- .../amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c |  6 +++---
- .../amdgpu_dm/tests/amdgpu_dm_mst_types_test.c       |  6 +++---
- .../drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c |  4 ++--
- drivers/gpu/drm/amd/display/dc/Makefile              | 10 ++++++++++
- .../display/dc/bls_builder/bls_builder_legacy_init.h |  2 +-
- drivers/gpu/drm/amd/display/dc/core/dc_stat.c        |  2 +-
- drivers/gpu/drm/amd/display/dc/core2/dc_core2.h      |  2 +-
- .../drm/amd/display/dc/dc_api_dispatch/api_shim.c    |  2 +-
- .../drm/amd/display/dc/dc_api_dispatch/api_shim.h    |  2 +-
- drivers/gpu/drm/amd/display/dc/dce/dce_aux.h         |  2 +-
- drivers/gpu/drm/amd/display/dc/dce/dce_i2c.h         |  2 +-
- .../drm/amd/display/dc/dce110/dce110_mem_input_v.c   |  2 +-
- drivers/gpu/drm/amd/display/dc/dcn31/dcn31_afmt.c    |  2 +-
- drivers/gpu/drm/amd/display/dc/dcn31/dcn31_vpg.c     |  2 +-
- .../gpu/drm/amd/display/dc/hwss/dcn10/dcn10_init.c   |  2 +-
- .../gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c  |  2 +-
- .../gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c  |  2 +-
- .../drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.c    |  2 +-
- .../gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c  |  2 +-
- .../gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.h  |  2 +-
- .../drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.h    |  2 +-
- .../gpu/drm/amd/display/dc/hwss/dcn50/dcn50_hwseq.h  |  2 +-
- .../gpu/drm/amd/display/dc/hwss/dcn60/dcn60_hwseq.h  |  2 +-
- drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h   | 16 ++++++++--------
- drivers/gpu/drm/amd/display/dc/inc/core_types.h      |  8 ++++----
- drivers/gpu/drm/amd/display/dc/{ => inc}/dc.h        | 20 ++++++++++----------
- .../gpu/drm/amd/display/dc/{ => inc}/dc_bios_types.h |  0
- .../gpu/drm/amd/display/dc/{ => inc}/dc_ddc_types.h  |  0
- .../gpu/drm/amd/display/dc/{ => inc}/dc_dmub_srv.h   |  0
- .../gpu/drm/amd/display/dc/{ => inc}/dc_dp_types.h   |  0
- drivers/gpu/drm/amd/display/dc/{ => inc}/dc_dsc.h    |  0
- .../gpu/drm/amd/display/dc/{ => inc}/dc_fused_io.h   |  0
- .../gpu/drm/amd/display/dc/{ => inc}/dc_hdmi_types.h |  0
- .../gpu/drm/amd/display/dc/{ => inc}/dc_hw_types.h   |  0
- .../drm/amd/display/dc/{ => inc}/dc_memory_pool.h    |  0
- drivers/gpu/drm/amd/display/dc/{ => inc}/dc_plane.h  |  0
- drivers/gpu/drm/amd/display/dc/{ => inc}/dc_probe.h  |  0
- drivers/gpu/drm/amd/display/dc/{ => inc}/dc_stat.h   |  0
- drivers/gpu/drm/amd/display/dc/{ => inc}/dc_state.h  |  2 +-
- drivers/gpu/drm/amd/display/dc/{ => inc}/dc_stream.h |  0
- drivers/gpu/drm/amd/display/dc/{ => inc}/dc_trace.h  |  0
- drivers/gpu/drm/amd/display/dc/{ => inc}/dc_types.h  |  0
- drivers/gpu/drm/amd/display/dc/inc/dcn_calcs.h       |  2 +-
- drivers/gpu/drm/amd/display/dc/{ => inc}/dm_cp_psp.h |  0
- .../gpu/drm/amd/display/dc/{ => inc}/dm_helpers.h    |  0
- drivers/gpu/drm/amd/display/dc/{ => inc}/dm_pp_smu.h |  0
- .../gpu/drm/amd/display/dc/{ => inc}/dm_services.h   |  0
- .../drm/amd/display/dc/{ => inc}/dm_services_types.h |  0
- drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h     |  2 +-
- drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h         |  4 ++--
- drivers/gpu/drm/amd/display/dc/inc/hw/mcif_wb.h      |  2 +-
- drivers/gpu/drm/amd/display/dc/inc/hw/mem_input.h    |  4 ++--
- drivers/gpu/drm/amd/display/dc/inc/hw/transform.h    |  2 +-
- drivers/gpu/drm/amd/display/dc/{ => inc}/irq_types.h |  0
- drivers/gpu/drm/amd/display/dc/{ => inc}/os_types.h  |  0
- .../drm/amd/display/dc/link/protocols/link_dp_dpia.c |  2 +-
- .../display/dc/link/protocols/link_dp_panel_replay.c |  2 +-
- .../dc/link/protocols/link_dp_training_dpia.c        |  2 +-
- .../dc/link/protocols/link_edp_panel_control.c       |  2 +-
- drivers/gpu/drm/amd/display/dmub/dmub_srv.h          |  2 +-
- drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.c    |  2 +-
- drivers/gpu/drm/amd/display/dmub/src/dmub_dcn35.c    |  2 +-
- drivers/gpu/drm/amd/display/modules/power/power.c    |  2 +-
- .../gpu/drm/amd/display/modules/power/power_abm.c    |  2 +-
- .../gpu/drm/amd/display/modules/power/power_psr.c    |  2 +-
- .../gpu/drm/amd/display/modules/power/power_replay.c |  2 +-
- drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h        |  2 +-
- 86 files changed, 130 insertions(+), 122 deletions(-)
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c  | 123 ++++++++++-----------
+ drivers/gpu/drm/amd/display/dc/core/dc_accessors.c |   6 +
+ drivers/gpu/drm/amd/display/dc/dc.h                |   7 ++
+ 3 files changed, 73 insertions(+), 63 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-index 8687afc00c24..55c89f8d764e 100644
---- a/drivers/gpu/drm/amd/amdgpu/Makefile
-+++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-@@ -39,7 +39,6 @@ ccflags-y := -I$(FULL_AMD_PATH)/include/asic_reg \
- 	-I$(FULL_AMD_DISPLAY_PATH) \
- 	-I$(FULL_AMD_DISPLAY_PATH)/include \
- 	-I$(FULL_AMD_DISPLAY_PATH)/modules/inc \
--	-I$(FULL_AMD_DISPLAY_PATH)/dc \
- 	-I$(FULL_AMD_DISPLAY_PATH)/amdgpu_dm \
- 	-I$(FULL_AMD_PATH)/amdkfd \
- 	-I$(FULL_AMD_PATH)/ras/ras_mgr
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 3458b26846a1..cb122cb32905 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -30,19 +30,19 @@
- #include "dm_services_types.h"
- #include "dc.h"
- #include "link_enc_cfg.h"
--#include "dc/inc/core_types.h"
-+#include "core_types.h"
- #include "dal_asic_id.h"
- #include "dmub/dmub_srv.h"
--#include "dc/inc/hw/dmcu.h"
--#include "dc/inc/hw/abm.h"
--#include "dc/dc_dmub_srv.h"
--#include "dc/dc_stat.h"
--#include "dc/dc_state.h"
-+#include "hw/dmcu.h"
-+#include "hw/abm.h"
-+#include "dc_dmub_srv.h"
-+#include "dc_stat.h"
-+#include "dc_state.h"
- #include "amdgpu_dm_trace.h"
--#include "link/protocols/link_dpcd.h"
-+#include "dc/link/protocols/link_dpcd.h"
- #include "link_service_types.h"
--#include "link/protocols/link_dp_capability.h"
--#include "link/protocols/link_ddc.h"
-+#include "dc/link/protocols/link_dp_capability.h"
-+#include "dc/link/protocols/link_ddc.h"
- 
- #include "amdgpu.h"
- #include "amdgpu_display.h"
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c
-index 97cc52f45a2e..23392b229679 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c
-@@ -36,7 +36,7 @@
- #include <drm/drm_edid.h>
- #include <drm/drm_eld.h>
- 
--#include "dc/inc/core_types.h"
-+#include "core_types.h"
- 
- static int amdgpu_dm_audio_component_get_eld(struct device *kdev, int port,
- 					  int pipe, bool *enabled,
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-index 3d268703c551..194e52fdd9f5 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-@@ -24,9 +24,9 @@
-  */
- 
- #include "dc.h"
--#include "dc/dc_dmub_srv.h"
--#include "dc/dc_state.h"
--#include "dc/dc_stat.h"
-+#include "dc_dmub_srv.h"
-+#include "dc_state.h"
-+#include "dc_stat.h"
- 
- #include "amdgpu.h"
- #include "amdgpu_display.h"
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-index 134d08207a14..d1a672c721c4 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-@@ -26,16 +26,16 @@
- 
- #include "dm_services_types.h"
- #include "dc.h"
--#include "dc/dc_dmub_srv.h"
--#include "dc/dc_stat.h"
--#include "dc/dc_state.h"
--#include "dc/dc_stream.h"
--#include "dc/inc/core_types.h"
-+#include "dc_dmub_srv.h"
-+#include "dc_stat.h"
-+#include "dc_state.h"
-+#include "dc_stream.h"
-+#include "core_types.h"
- #include "link_enc_cfg.h"
--#include "link/protocols/link_dpcd.h"
-+#include "dc/link/protocols/link_dpcd.h"
- #include "link_service_types.h"
--#include "link/protocols/link_dp_capability.h"
--#include "link/protocols/link_ddc.h"
-+#include "dc/link/protocols/link_dp_capability.h"
-+#include "dc/link/protocols/link_ddc.h"
- 
- #include "amdgpu.h"
- #include "amdgpu_display.h"
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-index fddb47a32fb9..8d7ebb636554 100644
+index 68356cb8e4de..fddb47a32fb9 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-@@ -39,9 +39,9 @@
- #include "resource.h"
- #include "dsc.h"
- #include "link_hwss.h"
--#include "dc/dc_dmub_srv.h"
--#include "link/protocols/link_dp_capability.h"
--#include "inc/hw/dchubbub.h"
-+#include "dc_dmub_srv.h"
-+#include "dc/link/protocols/link_dp_capability.h"
-+#include "dc/inc/hw/dchubbub.h"
+@@ -1028,9 +1028,9 @@ static int replay_capability_show(struct seq_file *m, void *data)
+ 		struct dc *dc = link->ctx->dc;
  
- #ifdef CONFIG_DRM_AMD_SECURE_DISPLAY
- #include "amdgpu_dm_psr.h"
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
-index af2cda9080d9..ffe561da24d6 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
-@@ -26,11 +26,11 @@
+ 		sink_support_replay = amdgpu_dm_link_supports_replay(link, aconnector);
+-		if (dc->ctx->dmub_srv && dc->ctx->dmub_srv->dmub)
++		if (dc_get_ctx(dc)->dmub_srv && dc_get_ctx(dc)->dmub_srv->dmub)
+ 			driver_support_replay =
+-				(bool)dc->ctx->dmub_srv->dmub->feature_caps.replay_supported;
++				(bool)dc_get_ctx(dc)->dmub_srv->dmub->feature_caps.replay_supported;
+ 	}
  
- #include "dm_services_types.h"
- #include "dc.h"
--#include "dc/inc/core_types.h"
--#include "dc/dc_dmub_srv.h"
-+#include "core_types.h"
-+#include "dc_dmub_srv.h"
- #include "dmub/dmub_srv.h"
--#include "dc/inc/hw/dmcu.h"
--#include "dc/inc/hw/abm.h"
-+#include "hw/dmcu.h"
-+#include "hw/abm.h"
- #include "dal_asic_id.h"
+ 	seq_printf(m, "Sink support: %s\n", str_yes_no(sink_support_replay));
+@@ -1295,7 +1295,7 @@ static int max_downscale_src_width_show(struct seq_file *m, void *unused)
+ 	if (!link)
+ 		return -ENODEV;
  
- #include "amdgpu.h"
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index 02a8cfde9f1a..b5b3269f3d97 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -43,7 +43,7 @@
- #include "amdgpu_dm_irq.h"
- #include "amdgpu_dm_mst_types.h"
- #include "dpcd_defs.h"
--#include "dc/inc/core_types.h"
-+#include "core_types.h"
+-	seq_printf(m, "%d\n", link->dc->debug.max_downscale_src_width);
++	seq_printf(m, "%d\n", dc_get_debug_options(link->dc)->max_downscale_src_width);
  
- #include "dm_helpers.h"
- #include "ddc_service_types.h"
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-index 5c3b83f05d2b..57e1dcf6bb45 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-@@ -26,8 +26,8 @@
+ 	return 0;
+ }
+@@ -1313,7 +1313,7 @@ static int odm_combine_segments_show(struct seq_file *m, void *unused)
+ 	int i, segments = -EOPNOTSUPP;
  
- #include "dm_services_types.h"
- #include "dc.h"
--#include "dc/dc_dmub_srv.h"
--#include "dc/dc_stat.h"
-+#include "dc_dmub_srv.h"
-+#include "dc_stat.h"
+ 	for (i = 0; i < MAX_PIPES; i++) {
+-		pipe_ctx = &link->dc->current_state->res_ctx.pipe_ctx[i];
++		pipe_ctx = &dc_get_current_state(link->dc)->res_ctx.pipe_ctx[i];
+ 		if (pipe_ctx->stream &&
+ 		    pipe_ctx->stream->link == link)
+ 			break;
+@@ -1594,7 +1594,7 @@ static ssize_t dp_dsc_clock_en_read(struct file *f, char __user *buf,
+ 		return -ENOMEM;
  
- #include "amdgpu.h"
- #include "amdgpu_display.h"
-@@ -39,7 +39,7 @@
- #include "amdgpu_dm_mst_types.h"
- #include "amdgpu_dm_dmub.h"
- #include "amdgpu_dm_trace.h"
--#include "link/protocols/link_dpcd.h"
-+#include "dc/link/protocols/link_dpcd.h"
- #include "link_service_types.h"
- #include "ivsrcid/ivsrcid_vislands30.h"
- #include "ivsrcid/dcn/irqsrcs_dcn_1_0.h"
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index 2cbe08298706..4f9070579916 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -39,6 +39,7 @@
- #include "amdgpu_dm_hdcp.h"
+ 	for (i = 0; i < MAX_PIPES; i++) {
+-		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
++		pipe_ctx = &dc_get_current_state(aconnector->dc_link->dc)->res_ctx.pipe_ctx[i];
+ 		if (pipe_ctx->stream &&
+ 		    pipe_ctx->stream->link == aconnector->dc_link &&
+ 		    pipe_ctx->stream->sink &&
+@@ -1696,7 +1696,7 @@ static ssize_t dp_dsc_clock_en_write(struct file *f, const char __user *buf,
+ 	}
  
- #include "dc.h"
-+#include "core_types.h"
- #include "dm_helpers.h"
+ 	for (i = 0; i < MAX_PIPES; i++) {
+-		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
++		pipe_ctx = &dc_get_current_state(aconnector->dc_link->dc)->res_ctx.pipe_ctx[i];
+ 		if (pipe_ctx->stream &&
+ 		    pipe_ctx->stream->link == aconnector->dc_link &&
+ 		    pipe_ctx->stream->sink &&
+@@ -1780,7 +1780,7 @@ static ssize_t dp_dsc_slice_width_read(struct file *f, char __user *buf,
+ 		return -ENOMEM;
  
- #include "ddc_service_types.h"
-@@ -48,7 +49,6 @@
- #include "amdgpu_dm_debugfs.h"
- #endif
+ 	for (i = 0; i < MAX_PIPES; i++) {
+-		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
++		pipe_ctx = &dc_get_current_state(aconnector->dc_link->dc)->res_ctx.pipe_ctx[i];
+ 		if (pipe_ctx->stream &&
+ 		    pipe_ctx->stream->link == aconnector->dc_link &&
+ 		    pipe_ctx->stream->sink &&
+@@ -1880,7 +1880,7 @@ static ssize_t dp_dsc_slice_width_write(struct file *f, const char __user *buf,
+ 	}
  
--#include "dc/resource/dcn20/dcn20_resource.h"
+ 	for (i = 0; i < MAX_PIPES; i++) {
+-		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
++		pipe_ctx = &dc_get_current_state(aconnector->dc_link->dc)->res_ctx.pipe_ctx[i];
+ 		if (pipe_ctx->stream &&
+ 		    pipe_ctx->stream->link == aconnector->dc_link &&
+ 		    pipe_ctx->stream->sink &&
+@@ -1964,7 +1964,7 @@ static ssize_t dp_dsc_slice_height_read(struct file *f, char __user *buf,
+ 		return -ENOMEM;
  
- #define PEAK_FACTOR_X1000 1006
+ 	for (i = 0; i < MAX_PIPES; i++) {
+-		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
++		pipe_ctx = &dc_get_current_state(aconnector->dc_link->dc)->res_ctx.pipe_ctx[i];
+ 		if (pipe_ctx->stream &&
+ 		    pipe_ctx->stream->link == aconnector->dc_link &&
+ 		    pipe_ctx->stream->sink &&
+@@ -2064,7 +2064,7 @@ static ssize_t dp_dsc_slice_height_write(struct file *f, const char __user *buf,
+ 	}
  
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c
-index 6441212f93a1..40b8d60642b6 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c
-@@ -30,7 +30,7 @@
- #include "amdgpu_dm.h"
- #include "modules/power/power_helpers.h"
- #include "dmub/inc/dmub_cmd.h"
--#include "dc/inc/link_service.h"
-+#include "link_service.h"
- #include "dm_helpers.h"
+ 	for (i = 0; i < MAX_PIPES; i++) {
+-		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
++		pipe_ctx = &dc_get_current_state(aconnector->dc_link->dc)->res_ctx.pipe_ctx[i];
+ 		if (pipe_ctx->stream &&
+ 		    pipe_ctx->stream->link == aconnector->dc_link &&
+ 		    pipe_ctx->stream->sink &&
+@@ -2144,7 +2144,7 @@ static ssize_t dp_dsc_bits_per_pixel_read(struct file *f, char __user *buf,
+ 		return -ENOMEM;
  
+ 	for (i = 0; i < MAX_PIPES; i++) {
+-		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
++		pipe_ctx = &dc_get_current_state(aconnector->dc_link->dc)->res_ctx.pipe_ctx[i];
+ 		if (pipe_ctx->stream &&
+ 		    pipe_ctx->stream->link == aconnector->dc_link &&
+ 		    pipe_ctx->stream->sink &&
+@@ -2241,7 +2241,7 @@ static ssize_t dp_dsc_bits_per_pixel_write(struct file *f, const char __user *bu
+ 	}
  
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
-index 9027933cec3f..a1452e58ad73 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
-@@ -38,9 +38,9 @@
- #include <drm/drm_framebuffer.h>
- #include <drm/drm_encoder.h>
- #include <drm/drm_atomic.h>
--#include "dc/inc/hw/optc.h"
-+#include "hw/optc.h"
+ 	for (i = 0; i < MAX_PIPES; i++) {
+-		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
++		pipe_ctx = &dc_get_current_state(aconnector->dc_link->dc)->res_ctx.pipe_ctx[i];
+ 		if (pipe_ctx->stream &&
+ 		    pipe_ctx->stream->link == aconnector->dc_link &&
+ 		    pipe_ctx->stream->sink &&
+@@ -2319,7 +2319,7 @@ static ssize_t dp_dsc_pic_width_read(struct file *f, char __user *buf,
+ 		return -ENOMEM;
  
--#include "dc/inc/core_types.h"
-+#include "core_types.h"
+ 	for (i = 0; i < MAX_PIPES; i++) {
+-		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
++		pipe_ctx = &dc_get_current_state(aconnector->dc_link->dc)->res_ctx.pipe_ctx[i];
+ 		if (pipe_ctx->stream &&
+ 		    pipe_ctx->stream->link == aconnector->dc_link &&
+ 		    pipe_ctx->stream->sink &&
+@@ -2373,7 +2373,7 @@ static ssize_t dp_dsc_pic_height_read(struct file *f, char __user *buf,
+ 		return -ENOMEM;
  
- DECLARE_EVENT_CLASS(amdgpu_dc_reg_template,
- 		    TP_PROTO(unsigned long *count, uint32_t reg, uint32_t value),
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/Makefile b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/Makefile
-index e0549c04c62e..6b953d8fe826 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/Makefile
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/Makefile
-@@ -8,7 +8,6 @@ ccflags-y += -I$(src)/..
- ccflags-y += -I$(src)/../..
- ccflags-y += -I$(src)/../../include
- ccflags-y += -I$(src)/../../modules/inc
--ccflags-y += -I$(src)/../../dc
- ccflags-y += -I$(src)/../../../amdgpu
- ccflags-y += -I$(src)/../../../amdkfd
- ccflags-y += -I$(src)/../../../include
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_audio_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_audio_test.c
-index c2ed369f3ca2..56a2afc114b8 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_audio_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_audio_test.c
-@@ -19,8 +19,8 @@
+ 	for (i = 0; i < MAX_PIPES; i++) {
+-		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
++		pipe_ctx = &dc_get_current_state(aconnector->dc_link->dc)->res_ctx.pipe_ctx[i];
+ 		if (pipe_ctx->stream &&
+ 		    pipe_ctx->stream->link == aconnector->dc_link &&
+ 		    pipe_ctx->stream->sink &&
+@@ -2442,7 +2442,7 @@ static ssize_t dp_dsc_chunk_size_read(struct file *f, char __user *buf,
+ 		return -ENOMEM;
  
- #include "dc.h"
- #include "dc_test.h"
--#include "dc/inc/core_types.h"
--#include "dc/inc/hw/audio.h"
-+#include "core_types.h"
-+#include "hw/audio.h"
- #include "amdgpu.h"
- #include "amdgpu_mode.h"
- #include "amdgpu_dm.h"
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-index 377b92d84b98..5b8660c938c9 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-@@ -24,7 +24,7 @@
- #include "amdgpu_dm_kunit_test_helpers.h"
- #include "amd_shared.h"
- #include "link_service.h"
--#include "dc/inc/hw/panel_cntl.h"
-+#include "hw/panel_cntl.h"
+ 	for (i = 0; i < MAX_PIPES; i++) {
+-		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
++		pipe_ctx = &dc_get_current_state(aconnector->dc_link->dc)->res_ctx.pipe_ctx[i];
+ 		if (pipe_ctx->stream &&
+ 		    pipe_ctx->stream->link == aconnector->dc_link &&
+ 		    pipe_ctx->stream->sink &&
+@@ -2511,7 +2511,7 @@ static ssize_t dp_dsc_slice_bpg_offset_read(struct file *f, char __user *buf,
+ 		return -ENOMEM;
  
- struct dm_backlight_connector_fixture {
- 	struct amdgpu_device *adev;
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-index 94bb2181d141..44c7324642b5 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-@@ -34,9 +34,9 @@
- #include "amdgpu_dm_psr.h"
- #include "include/grph_object_id.h"
- #include "amdgpu_dm_kunit_test_helpers.h"
--#include "inc/link_service.h"
--#include "inc/resource.h"
--#include "inc/hw/timing_generator.h"
-+#include "link_service.h"
-+#include "resource.h"
-+#include "dc/inc/hw/timing_generator.h"
+ 	for (i = 0; i < MAX_PIPES; i++) {
+-		pipe_ctx = &aconnector->dc_link->dc->current_state->res_ctx.pipe_ctx[i];
++		pipe_ctx = &dc_get_current_state(aconnector->dc_link->dc)->res_ctx.pipe_ctx[i];
+ 		if (pipe_ctx->stream &&
+ 		    pipe_ctx->stream->link == aconnector->dc_link &&
+ 		    pipe_ctx->stream->sink &&
+@@ -2701,15 +2701,15 @@ static int ips_status_show(struct seq_file *m, void *unused)
+ 	struct dc *dc = adev->dm.dc;
+ 	struct dc_dmub_srv *dc_dmub_srv;
  
- /* Tests for get_subconnector_type() */
+-	seq_printf(m, "IPS config: %d\n", dc->config.disable_ips);
+-	seq_printf(m, "Idle optimization: %d\n", dc->idle_optimizations_allowed);
++	seq_printf(m, "IPS config: %d\n", dc_get_config(dc)->disable_ips);
++	seq_printf(m, "Idle optimization: %d\n", dc_is_idle_optimizations_allowed(dc));
  
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c
-index 96cf015a12d9..c4f703980d1e 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c
-@@ -14,10 +14,10 @@
+ 	if (adev->dm.idle_workqueue) {
+ 		seq_printf(m, "Idle workqueue - enabled: %d\n", adev->dm.idle_workqueue->enable);
+ 		seq_printf(m, "Idle workqueue - running: %d\n", adev->dm.idle_workqueue->running);
+ 	}
  
- #include "dc.h"
- #include "dc_test.h"
--#include "inc/core_types.h"
--#include "irq/irq_service.h"
--#include "inc/hw/timing_generator.h"
--#include "inc/link_service.h"
-+#include "core_types.h"
-+#include "dc/irq/irq_service.h"
-+#include "dc/inc/hw/timing_generator.h"
-+#include "link_service.h"
- #include "amdgpu.h"
- #include "amdgpu_mode.h"
- #include "amdgpu_dm.h"
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_dmub_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_dmub_test.c
-index 449fb6d94f75..b71e1e11e85a 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_dmub_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_dmub_test.c
-@@ -11,9 +11,9 @@
- #include "dc.h"
- #include "dc_test.h"
- #include "amdgpu_dm_kunit_test_helpers.h"
--#include "dc/inc/core_types.h"
--#include "dc/inc/hw/dmcu.h"
--#include "dc/inc/hw/abm.h"
-+#include "core_types.h"
-+#include "hw/dmcu.h"
-+#include "hw/abm.h"
- #include "amdgpu_mode.h"
- #include "amdgpu_dm.h"
- #include "dal_asic_id.h"
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_freesync_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_freesync_test.c
-index b751c64d88aa..467267d4bcc4 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_freesync_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_freesync_test.c
-@@ -14,7 +14,7 @@
+-	dc_dmub_srv = dc->ctx->dmub_srv;
++	dc_dmub_srv = dc_get_ctx(dc)->dmub_srv;
+ 	if (dc_dmub_srv && dc_dmub_srv->dmub) {
+ 		uint32_t rcg_count, ips1_count, ips2_count;
+ 		volatile const struct dmub_shared_state_ips_fw *ips_fw =
+@@ -2752,7 +2752,7 @@ static int ips_residency_show(struct seq_file *m, void *unused)
+ 	mutex_lock(&adev->dm.dc_lock);
  
- #include "dc.h"
- #include "dc_test.h"
--#include "inc/core_types.h"
-+#include "core_types.h"
- #include "amd_shared.h"
- #include "amdgpu.h"
- #include "amdgpu_mode.h"
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
-index b64d63fe15fd..ea467ca45af8 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
-@@ -16,9 +16,9 @@
+ 	mode = IPS_RESIDENCY__IPS1_RCG;
+-	if (!dc_dmub_srv_ips_query_residency_info(dc->ctx, panel_inst, &info, mode)) {
++	if (!dc_dmub_srv_ips_query_residency_info(dc_get_ctx(dc), panel_inst, &info, mode)) {
+ 		seq_printf(m, "ISP query failed\n");
+ 	} else {
+ 		unsigned int pct, frac;
+@@ -2785,7 +2785,7 @@ static int ips_residency_cntl_set(void *data, u64 val)
+ 	int ret = 0;
  
- #include "dc.h"
- #include "dc_test.h"
--#include "inc/core_types.h"
--#include "inc/hw/timing_generator.h"
--#include "irq/irq_service.h"
-+#include "core_types.h"
-+#include "dc/inc/hw/timing_generator.h"
-+#include "dc/irq/irq_service.h"
- #include "amdgpu.h"
- #include "amdgpu_mode.h"
- #include "amdgpu_dm.h"
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
-index b8ea85846872..144cb03f504a 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
-@@ -32,9 +32,9 @@
- #include "amdgpu_dm_hdcp.h"
- #include "amdgpu_dm_mst_types.h"
- #include "amdgpu_dm_kunit_test_helpers.h"
--#include "dsc/dsc.h"
--#include "inc/core_types.h"
--#include "inc/link_service.h"
-+#include "dc/dsc/dsc.h"
-+#include "core_types.h"
-+#include "link_service.h"
+ 	mutex_lock(&adev->dm.dc_lock);
+-	if (!dc_dmub_srv_ips_residency_cntl(dc->ctx, panel_inst, !!val))
++	if (!dc_dmub_srv_ips_residency_cntl(dc_get_ctx(dc), panel_inst, !!val))
+ 		ret = -EIO;
+ 	mutex_unlock(&adev->dm.dc_lock);
  
- /*
-  * Minimal mock DPCD backing store and AUX transfer callback used to exercise
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
-index c0dbab0b7c46..8cf460a4cb9f 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
-@@ -23,11 +23,11 @@
+@@ -3231,7 +3231,7 @@ static int replay_get_state(void *data, u64 *val)
  
- #include "dc.h"
- #include "dc_test.h"
--#include "dc/dc_dmub_srv.h"
-+#include "dc_dmub_srv.h"
- #include "dal_asic_id.h"
- #include "dm_services_types.h"
- #include "dmub/dmub_srv.h"
--#include "inc/core_types.h"
-+#include "core_types.h"
- #include "logger_types.h"
- #include "amd_shared.h"
- #include "amdgpu.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/Makefile b/drivers/gpu/drm/amd/display/dc/Makefile
-index 440f5d358188..c0fc7f7d241d 100644
---- a/drivers/gpu/drm/amd/display/dc/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/Makefile
-@@ -98,3 +98,13 @@ endif
+ 	mutex_lock(&adev->dm.dc_lock);
  
- AMD_DISPLAY_FILES += $(addprefix $(AMDDALPATH)/dc/, $(FILES))
+-	if (dc->idle_optimizations_allowed) {
++	if (dc_is_idle_optimizations_allowed(dc)) {
+ 		dc_allow_idle_optimizations(dc, false);
+ 		reallow_idle = true;
+ 	}
+@@ -3263,12 +3263,12 @@ static int replay_set_residency(void *data, u64 val)
  
-+# The dc directory root holds private headers (dc_priv.h and friends) that
-+# must not be reachable outside DC, so the global include path deliberately
-+# stops at dc/inc. DC-internal objects still need the root on their include
-+# path for the many "subdir/header.h" includes inside DC, so add it per
-+# object instead of through a global ccflags-y entry.
-+DC_INTERNAL_OBJS := $(filter $(AMDDALPATH)/dc/%,$(AMD_DISPLAY_FILES))
-+$(foreach obj,$(DC_INTERNAL_OBJS),\
-+	$(eval CFLAGS_$(obj) += -I$(FULL_AMD_DISPLAY_PATH)/dc))
-+
-+
-diff --git a/drivers/gpu/drm/amd/display/dc/bls_builder/bls_builder_legacy_init.h b/drivers/gpu/drm/amd/display/dc/bls_builder/bls_builder_legacy_init.h
-index e9259699a9c0..bb8fe97fa8f2 100644
---- a/drivers/gpu/drm/amd/display/dc/bls_builder/bls_builder_legacy_init.h
-+++ b/drivers/gpu/drm/amd/display/dc/bls_builder/bls_builder_legacy_init.h
-@@ -8,7 +8,7 @@
- #include "dmub_cmd.h"
- #include "grph_object_ctrl_defs.h"
- #include "bios_parser_types.h"
--#include "inc/hw/hw_shared.h"
-+#include "hw/hw_shared.h"
+ 	mutex_lock(&adev->dm.dc_lock);
  
- /*
-  * DC2_DC1_Wrapped hardware init: dcn401_init_hw as twelve BLS stages.
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stat.c b/drivers/gpu/drm/amd/display/dc/core/dc_stat.c
-index 1758c0b9390b..92466b7664aa 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_stat.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_stat.c
-@@ -22,7 +22,7 @@
-  * Authors: AMD
-  */
+-	if (dc->idle_optimizations_allowed) {
++	if (dc_is_idle_optimizations_allowed(dc)) {
+ 		dc_allow_idle_optimizations(dc, false);
+ 		reallow_idle = true;
+ 	}
  
--#include "dc/dc_stat.h"
-+#include "dc_stat.h"
- #include "dmub/dmub_srv_stat.h"
- #include "dc_dmub_srv.h"
- #include "dc_priv.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/core2/dc_core2.h b/drivers/gpu/drm/amd/display/dc/core2/dc_core2.h
-index a761e85a9973..a7fd4dcf66d8 100644
---- a/drivers/gpu/drm/amd/display/dc/core2/dc_core2.h
-+++ b/drivers/gpu/drm/amd/display/dc/core2/dc_core2.h
-@@ -5,7 +5,7 @@
+-	link->dc->link_srv->edp_replay_residency(link, &residency, is_start, PR_RESIDENCY_MODE_PHY);
++	dc_link_edp_replay_residency(link, &residency, is_start, PR_RESIDENCY_MODE_PHY);
  
- #pragma once
+ 	if (reallow_idle)
+ 		dc_allow_idle_optimizations(dc, true);
+@@ -3292,12 +3292,12 @@ static int replay_get_residency(void *data, u64 *val)
  
--#include "inc/dc_core_interface.h"
-+#include "dc_core_interface.h"
+ 	mutex_lock(&adev->dm.dc_lock);
  
- struct dc;
+-	if (dc->idle_optimizations_allowed) {
++	if (dc_is_idle_optimizations_allowed(dc)) {
+ 		dc_allow_idle_optimizations(dc, false);
+ 		reallow_idle = true;
+ 	}
  
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_api_dispatch/api_shim.c b/drivers/gpu/drm/amd/display/dc/dc_api_dispatch/api_shim.c
-index 3dcfde8308c5..8a90898f5d06 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_api_dispatch/api_shim.c
-+++ b/drivers/gpu/drm/amd/display/dc/dc_api_dispatch/api_shim.c
-@@ -7,7 +7,7 @@
- #include "dc.h"
- #include "dc_api_dispatch/api_shim.h"
- #include "core2/dc_core2.h"
--#include "inc/dc_core_interface.h"
-+#include "dc_core_interface.h"
+-	link->dc->link_srv->edp_replay_residency(link, &residency, false, PR_RESIDENCY_MODE_PHY);
++	dc_link_edp_replay_residency(link, &residency, false, PR_RESIDENCY_MODE_PHY);
  
- void api_shim_construct(struct dc *dc, const struct dc_init_data *init_params)
+ 	if (reallow_idle)
+ 		dc_allow_idle_optimizations(dc, true);
+@@ -3323,7 +3323,7 @@ static int psr_get(void *data, u64 *val)
+ 
+ 	mutex_lock(&adev->dm.dc_lock);
+ 
+-	if (dc->idle_optimizations_allowed) {
++	if (dc_is_idle_optimizations_allowed(dc)) {
+ 		dc_allow_idle_optimizations(dc, false);
+ 		reallow_idle = true;
+ 	}
+@@ -3354,12 +3354,12 @@ static int psr_read_residency(void *data, u64 *val)
+ 
+ 	mutex_lock(&adev->dm.dc_lock);
+ 
+-	if (dc->idle_optimizations_allowed) {
++	if (dc_is_idle_optimizations_allowed(dc)) {
+ 		dc_allow_idle_optimizations(dc, false);
+ 		reallow_idle = true;
+ 	}
+ 
+-	link->dc->link_srv->edp_get_psr_residency(link, &residency, PSR_RESIDENCY_MODE_PHY);
++	dc_link_edp_get_psr_residency(link, &residency, PSR_RESIDENCY_MODE_PHY);
+ 
+ 	if (reallow_idle)
+ 		dc_allow_idle_optimizations(dc, true);
+@@ -3379,7 +3379,7 @@ static int allow_edp_hotplug_detection_get(void *data, u64 *val)
+ 	struct drm_device *dev = connector->dev;
+ 	struct amdgpu_device *adev = drm_to_adev(dev);
+ 
+-	*val = adev->dm.dc->config.allow_edp_hotplug_detection;
++	*val = dc_get_config(adev->dm.dc)->allow_edp_hotplug_detection;
+ 
+ 	return 0;
+ }
+@@ -3392,7 +3392,7 @@ static int allow_edp_hotplug_detection_set(void *data, u64 val)
+ 	struct drm_device *dev = connector->dev;
+ 	struct amdgpu_device *adev = drm_to_adev(dev);
+ 
+-	adev->dm.dc->config.allow_edp_hotplug_detection = (uint32_t) val;
++	dc_set_allow_edp_hotplug_detection(adev->dm.dc, (enum dc_hpd_enable_select)val);
+ 
+ 	return 0;
+ }
+@@ -3532,10 +3532,10 @@ static int dmub_trace_mask_set(void *data, u64 val)
+ 	u32 res;
+ 	int i;
+ 
+-	if (!adev->dm.dc || !adev->dm.dc->ctx || !adev->dm.dc->ctx->dmub_srv)
++	if (!adev->dm.dc || !dc_get_ctx(adev->dm.dc) || !dc_get_ctx(adev->dm.dc)->dmub_srv)
+ 		return -EINVAL;
+ 
+-	dc_dmub_srv = adev->dm.dc->ctx->dmub_srv;
++	dc_dmub_srv = dc_get_ctx(adev->dm.dc)->dmub_srv;
+ 	srv = dc_dmub_srv->dmub;
+ 	if (!srv || !srv->fw_version)
+ 		return -EINVAL;
+@@ -3558,7 +3558,8 @@ static int dmub_trace_mask_set(void *data, u64 val)
+ 			break;
+ 		}
+ 
+-		if (!dc_wake_and_execute_gpint(adev->dm.dc->ctx, cmd, res, NULL, DM_DMUB_WAIT_TYPE_WAIT))
++		if (!dc_wake_and_execute_gpint(dc_get_ctx(adev->dm.dc), cmd, res,
++					      NULL, DM_DMUB_WAIT_TYPE_WAIT))
+ 			return -EIO;
+ 
+ 		usleep_range(100, 1000);
+@@ -3581,10 +3582,10 @@ static int dmub_trace_mask_show(void *data, u64 *val)
+ 	u64 res = 0;
+ 	int i = 0;
+ 
+-	if (!adev->dm.dc || !adev->dm.dc->ctx || !adev->dm.dc->ctx->dmub_srv)
++	if (!adev->dm.dc || !dc_get_ctx(adev->dm.dc) || !dc_get_ctx(adev->dm.dc)->dmub_srv)
+ 		return -EINVAL;
+ 
+-	dc_dmub_srv = adev->dm.dc->ctx->dmub_srv;
++	dc_dmub_srv = dc_get_ctx(adev->dm.dc)->dmub_srv;
+ 	srv = dc_dmub_srv->dmub;
+ 	if (!srv || !srv->fw_version)
+ 		return -EINVAL;
+@@ -3592,7 +3593,9 @@ static int dmub_trace_mask_show(void *data, u64 *val)
+ 	while (i < 4) {
+ 		uint32_t response;
+ 
+-		if (!dc_wake_and_execute_gpint(adev->dm.dc->ctx, cmd, 0, &response, DM_DMUB_WAIT_TYPE_WAIT_WITH_REPLY))
++		if (!dc_wake_and_execute_gpint(dc_get_ctx(adev->dm.dc), cmd, 0,
++					      &response,
++					      DM_DMUB_WAIT_TYPE_WAIT_WITH_REPLY))
+ 			return -EIO;
+ 
+ 		raw = response;
+@@ -3715,12 +3718,12 @@ static int cacp_ace_curve_area_show(struct seq_file *m, void *unused)
+ 
+ 	mutex_lock(&adev->dm.dc_lock);
+ 
+-	if (dc->idle_optimizations_allowed) {
++	if (dc_is_idle_optimizations_allowed(dc)) {
+ 		dc_allow_idle_optimizations(dc, false);
+ 		reallow_idle = true;
+ 	}
+ 
+-	if (!dc_wake_and_execute_dmub_cmd(dc->ctx, &cmd,
++	if (!dc_wake_and_execute_dmub_cmd(dc_get_ctx(dc), &cmd,
+ 					  DM_DMUB_WAIT_TYPE_WAIT_WITH_REPLY) ||
+ 	    cmd.cacp_get_ace_curve_area.header.ret_status)
+ 		ret = -EIO;
+@@ -4243,11 +4246,9 @@ static ssize_t dtn_log_read(
+ 	if (!buf || !size)
+ 		return -EINVAL;
+ 
+-	if (!dc->hwss.log_hw_state)
++	if (!dc_log_hw_state(dc, &log_ctx))
+ 		return 0;
+ 
+-	dc->hwss.log_hw_state(dc, &log_ctx);
+-
+ 	if (*pos < log_ctx.pos) {
+ 		size_t to_copy = log_ctx.pos - *pos;
+ 
+@@ -4281,8 +4282,7 @@ static ssize_t dtn_log_write(
+ 	if (size == 0)
+ 		return 0;
+ 
+-	if (dc->hwss.log_hw_state)
+-		dc->hwss.log_hw_state(dc, NULL);
++	dc_log_hw_state(dc, NULL);
+ 
+ 	return size;
+ }
+@@ -4459,18 +4459,17 @@ static int capabilities_show(struct seq_file *m, void *unused)
  {
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_api_dispatch/api_shim.h b/drivers/gpu/drm/amd/display/dc/dc_api_dispatch/api_shim.h
-index 7802a18b8caa..88d4e2bfa1be 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_api_dispatch/api_shim.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_api_dispatch/api_shim.h
-@@ -7,7 +7,7 @@
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)m->private;
+ 	struct dc *dc = adev->dm.dc;
+-	bool mall_supported = dc->caps.mall_size_total;
+-	bool subvp_supported = dc->caps.subvp_fw_processing_delay_us;
++	bool mall_supported = dc_get_caps(dc)->mall_size_total;
++	bool subvp_supported = dc_get_caps(dc)->subvp_fw_processing_delay_us;
+ 	unsigned int mall_in_use = false;
+ 	unsigned int subvp_in_use = false;
  
- #include "dc.h"
- #include "dc_priv.h"
--#include "inc/dc_core_interface.h"
-+#include "dc_core_interface.h"
- #include "bls_builder/dmub_abi.h"
+-	struct hubbub *hubbub = dc->res_pool->hubbub;
++	struct hubbub *hubbub = dc_get_res_pool(dc)->hubbub;
  
- struct dc2 {
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_aux.h b/drivers/gpu/drm/amd/display/dc/dce/dce_aux.h
-index b2153cb03b51..2e3f9bcc8a51 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_aux.h
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_aux.h
-@@ -27,7 +27,7 @@
- #define __DAL_AUX_ENGINE_DCE110_H__
+ 	if (hubbub && hubbub->funcs->get_mall_en)
+ 		hubbub->funcs->get_mall_en(hubbub, &mall_in_use);
  
- #include "gpio_service_interface.h"
--#include "inc/hw/aux_engine.h"
-+#include "hw/aux_engine.h"
+-	if (dc->cap_funcs.get_subvp_en)
+-		subvp_in_use = dc->cap_funcs.get_subvp_en(dc, dc->current_state);
++	subvp_in_use = dc_get_subvp_en(dc, dc_get_current_state(dc));
  
- enum aux_return_code_type;
+ 	seq_printf(m, "mall supported: %s, enabled: %s\n",
+ 			   mall_supported ? "yes" : "no", mall_in_use ? "yes" : "no");
+@@ -4490,7 +4489,7 @@ static int dp_force_sst_set(void *data, u64 val)
+ {
+ 	struct amdgpu_device *adev = data;
  
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_i2c.h b/drivers/gpu/drm/amd/display/dc/dce/dce_i2c.h
-index 535fd58de450..0949dd0b5bcb 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_i2c.h
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_i2c.h
-@@ -26,7 +26,7 @@
- #ifndef __DCE_I2C_H__
- #define __DCE_I2C_H__
+-	adev->dm.dc->debug.set_mst_en_for_sst = val;
++	dc_get_debug_options_mutable(adev->dm.dc)->set_mst_en_for_sst = val;
  
--#include "inc/core_types.h"
-+#include "core_types.h"
- #include "dce_i2c_hw.h"
- #include "dce_i2c_sw.h"
+ 	return 0;
+ }
+@@ -4499,7 +4498,7 @@ static int dp_force_sst_get(void *data, u64 *val)
+ {
+ 	struct amdgpu_device *adev = data;
  
-diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_mem_input_v.c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_mem_input_v.c
-index 277c9e169a1f..3dd0e2ef9b80 100644
---- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_mem_input_v.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_mem_input_v.c
-@@ -29,7 +29,7 @@
- /* TODO: this needs to be looked at, used by Stella's workaround*/
+-	*val = adev->dm.dc->debug.set_mst_en_for_sst;
++	*val = dc_get_debug_options(adev->dm.dc)->set_mst_en_for_sst;
  
- #include "include/logger_interface.h"
--#include "inc/dce_calcs.h"
-+#include "dce_calcs.h"
+ 	return 0;
+ }
+@@ -4514,7 +4513,7 @@ static int dp_ignore_cable_id_set(void *data, u64 val)
+ {
+ 	struct amdgpu_device *adev = data;
  
- #include "dce/dce_mem_input.h"
- #include "dce110_mem_input_v.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_afmt.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_afmt.c
-index 37b608ee7ca9..f788c6e7ee52 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_afmt.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_afmt.c
-@@ -28,7 +28,7 @@
- #include "dcn30/dcn30_afmt.h"
- #include "dcn31_afmt.h"
- #include "reg_helper.h"
--#include "dc/dc.h"
-+#include "dc.h"
- #include "dc_priv.h"
+-	adev->dm.dc->debug.ignore_cable_id = val;
++	dc_get_debug_options_mutable(adev->dm.dc)->ignore_cable_id = val;
  
- #define DC_LOGGER \
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_vpg.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_vpg.c
-index a453cc24d82a..ecf30239e0e7 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_vpg.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_vpg.c
-@@ -27,7 +27,7 @@
- #include "dcn30/dcn30_vpg.h"
- #include "dcn31_vpg.h"
- #include "reg_helper.h"
--#include "dc/dc.h"
-+#include "dc.h"
- #include "dc_priv.h"
+ 	return 0;
+ }
+@@ -4523,7 +4522,7 @@ static int dp_ignore_cable_id_get(void *data, u64 *val)
+ {
+ 	struct amdgpu_device *adev = data;
  
- #define DC_LOGGER \
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_init.c
-index 442830726b38..85fc7c729d46 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_init.c
-@@ -27,7 +27,7 @@
- #include "dce110/dce110_hwseq.h"
- #include "dcn10/dcn10_hwseq.h"
- #include "dcn20/dcn20_hwseq.h"
--#include "dc/hwss/dce/dce_hwseq.h"
-+#include "hwss/dce/dce_hwseq.h"
- #include "dc_priv.h"
+-	*val = adev->dm.dc->debug.ignore_cable_id;
++	*val = dc_get_debug_options(adev->dm.dc)->ignore_cable_id;
  
- static const struct hw_sequencer_funcs dcn10_funcs = {
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-index 90a05af35782..da18577621df 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-@@ -53,7 +53,7 @@
- #include "dce/dmub_hw_lock_mgr.h"
- #include "hw_sequencer.h"
- #include "dpcd_defs.h"
--#include "inc/link_enc_cfg.h"
-+#include "link_enc_cfg.h"
- #include "link_hwss.h"
- #include "link_service.h"
- #include "dc_state_priv.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c
-index f5b96c86ca59..347e23a0cf8f 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c
-@@ -49,7 +49,7 @@
- #include "link_service.h"
- #include "dcn10/dcn10_hwseq.h"
- #include "dcn21/dcn21_hwseq.h"
--#include "inc/link_enc_cfg.h"
-+#include "link_enc_cfg.h"
- #include "dcn30/dcn30_vpg.h"
- #include "dce/dce_i2c_hw.h"
- #include "dce/dmub_abm_lcd.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.c
-index d57f5be5c57f..c0b4e2f62ff1 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.c
-@@ -48,7 +48,7 @@
- #include "dce/dmub_outbox.h"
- #include "link_service.h"
- #include "dcn10/dcn10_hwseq.h"
--#include "inc/link_enc_cfg.h"
-+#include "link_enc_cfg.h"
- #include "dcn30/dcn30_vpg.h"
- #include "dce/dce_i2c_hw.h"
- #include "dsc.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
-index cd904a28fa12..9f0279d251d9 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
-@@ -50,7 +50,7 @@
- #include "link_service.h"
- #include "dce/dmub_hw_lock_mgr.h"
- #include "dcn10/dcn10_hwseq.h"
--#include "inc/link_enc_cfg.h"
-+#include "link_enc_cfg.h"
- #include "dcn30/dcn30_vpg.h"
- #include "dce/dce_i2c_hw.h"
- #include "dsc.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.h b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.h
-index 0ae2f44cfb9f..75d09525f014 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.h
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.h
-@@ -27,7 +27,7 @@
- #ifndef __DC_HWSS_DCN35_H__
- #define __DC_HWSS_DCN35_H__
+ 	return 0;
+ }
+@@ -4538,7 +4537,7 @@ static int visual_confirm_set(void *data, u64 val)
+ {
+ 	struct amdgpu_device *adev = data;
  
--#include "inc/core_types.h"
-+#include "core_types.h"
- #include "dc.h"
- #include "hw_sequencer_private.h"
+-	adev->dm.dc->debug.visual_confirm = (enum visual_confirm)val;
++	dc_get_debug_options_mutable(adev->dm.dc)->visual_confirm = (enum visual_confirm)val;
  
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.h b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.h
-index fef0dd59a81f..f80113ebbd0c 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.h
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.h
-@@ -5,7 +5,7 @@
- #ifndef __DC_HWSS_DCN401_H__
- #define __DC_HWSS_DCN401_H__
+ 	return 0;
+ }
+@@ -4551,7 +4550,7 @@ static int visual_confirm_get(void *data, u64 *val)
+ {
+ 	struct amdgpu_device *adev = data;
  
--#include "inc/core_types.h"
-+#include "core_types.h"
- #include "dc.h"
- #include "dc_stream.h"
- #include "hw_sequencer_private.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn50/dcn50_hwseq.h b/drivers/gpu/drm/amd/display/dc/hwss/dcn50/dcn50_hwseq.h
-index 79b5a4794ac1..2ea189421fb4 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn50/dcn50_hwseq.h
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn50/dcn50_hwseq.h
-@@ -5,7 +5,7 @@
- #ifndef __DC_HWSS_DCN50_H__
- #define __DC_HWSS_DCN50_H__
+-	*val = adev->dm.dc->debug.visual_confirm;
++	*val = dc_get_debug_options(adev->dm.dc)->visual_confirm;
  
--#include "inc/core_types.h"
-+#include "core_types.h"
- #include "dc.h"
- #include "dc_stream.h"
- #include "hw_sequencer_private.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn60/dcn60_hwseq.h b/drivers/gpu/drm/amd/display/dc/hwss/dcn60/dcn60_hwseq.h
-index b880988ff1fc..8f66f9b1854e 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn60/dcn60_hwseq.h
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn60/dcn60_hwseq.h
-@@ -5,7 +5,7 @@
- #ifndef __DC_HWSS_DCN60_H__
- #define __DC_HWSS_DCN60_H__
+ 	return 0;
+ }
+@@ -4570,9 +4569,9 @@ static int skip_detection_link_training_set(void *data, u64 val)
+ 	struct amdgpu_device *adev = data;
  
--#include "inc/core_types.h"
-+#include "core_types.h"
- #include "dc.h"
- #include "dc_stream.h"
- #include "hw_sequencer_private.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-index 6580d13d9041..401b3982a14a 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-@@ -26,14 +26,14 @@
- #ifndef __DC_HW_SEQUENCER_H__
- #define __DC_HW_SEQUENCER_H__
- #include "dc_types.h"
--#include "inc/clock_source.h"
--#include "inc/hw/timing_generator.h"
--#include "inc/hw/opp.h"
--#include "inc/hw/link_encoder.h"
--#include "inc/core_status.h"
--#include "inc/hw/hw_shared.h"
--#include "inc/hw/dchubbub.h"
--#include "dsc/dsc.h"
-+#include "clock_source.h"
-+#include "hw/timing_generator.h"
-+#include "hw/opp.h"
-+#include "hw/link_encoder.h"
-+#include "core_status.h"
-+#include "hw/hw_shared.h"
-+#include "hw/dchubbub.h"
-+#include "../dsc/dsc.h"
- #include "link_service_types.h"
- #include "dmub/inc/dmub_cmd.h"
- #include "dc_dmub_srv.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/core_types.h b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
-index 695eaa5cbf65..16145c863cd9 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/core_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
-@@ -40,9 +40,9 @@
- #include "mcif_wb.h"
- #include "panel_cntl.h"
- #include "dmub/inc/dmub_cmd.h"
--#include "bls_builder/bls_builder_legacy_init.h"
-+#include "../bls_builder/bls_builder_legacy_init.h"
- #include "pg_cntl.h"
--#include "sspl/dc_spl.h"
-+#include "../sspl/dc_spl.h"
+ 	if (val == 0)
+-		adev->dm.dc->debug.skip_detection_link_training = false;
++		dc_get_debug_options_mutable(adev->dm.dc)->skip_detection_link_training = false;
+ 	else
+-		adev->dm.dc->debug.skip_detection_link_training = true;
++		dc_get_debug_options_mutable(adev->dm.dc)->skip_detection_link_training = true;
  
- #define MAX_CLOCK_SOURCES 7
- #define MAX_SVP_PHANTOM_STREAMS 2
-@@ -61,8 +61,8 @@
- #include "transform.h"
- #include "dpp.h"
+ 	return 0;
+ }
+@@ -4585,7 +4584,7 @@ static int skip_detection_link_training_get(void *data, u64 *val)
+ {
+ 	struct amdgpu_device *adev = data;
  
--#include "dml2_0/dml21/inc/dml_top_dchub_registers.h"
--#include "dml2_0/dml21/inc/dml_top_types.h"
-+#include "../dml2_0/dml21/inc/dml_top_dchub_registers.h"
-+#include "../dml2_0/dml21/inc/dml_top_types.h"
+-	*val = adev->dm.dc->debug.skip_detection_link_training;
++	*val = dc_get_debug_options(adev->dm.dc)->skip_detection_link_training;
  
- struct resource_pool;
- struct dc_state;
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/inc/dc.h
-similarity index 99%
-rename from drivers/gpu/drm/amd/display/dc/dc.h
-rename to drivers/gpu/drm/amd/display/dc/inc/dc.h
-index d976425c190b..d20180a449d5 100644
+ 	return 0;
+ }
+@@ -4610,7 +4609,7 @@ static ssize_t dcc_en_bits_read(
+ 	const uint32_t rd_buf_size = 32;
+ 	uint32_t result = 0;
+ 	int offset = 0;
+-	int num_pipes = dc->res_pool->pipe_count;
++	int num_pipes = dc_get_res_pool(dc)->pipe_count;
+ 	int *dcc_en_bits;
+ 	int i, r;
+ 
+@@ -4618,13 +4617,11 @@ static ssize_t dcc_en_bits_read(
+ 	if (!dcc_en_bits)
+ 		return -ENOMEM;
+ 
+-	if (!dc->hwss.get_dcc_en_bits) {
++	if (!dc_get_dcc_en_bits(dc, dcc_en_bits)) {
+ 		kfree(dcc_en_bits);
+ 		return 0;
+ 	}
+ 
+-	dc->hwss.get_dcc_en_bits(dc, dcc_en_bits);
+-
+ 	rd_buf = kcalloc(rd_buf_size, sizeof(char), GFP_KERNEL);
+ 	if (!rd_buf) {
+ 		kfree(dcc_en_bits);
+@@ -4714,7 +4711,7 @@ void dtn_debugfs_init(struct amdgpu_device *adev)
+ 	debugfs_create_file_unsafe("amdgpu_dm_disable_hpd", 0644, root, adev,
+ 				   &disable_hpd_ops);
+ 
+-	if (adev->dm.dc->caps.ips_support) {
++	if (dc_get_caps(adev->dm.dc)->ips_support) {
+ 		debugfs_create_file_unsafe("amdgpu_dm_ips_status", 0644, root, adev,
+ 					   &ips_status_fops);
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_accessors.c b/drivers/gpu/drm/amd/display/dc/core/dc_accessors.c
+index 15a203fbae81..2803471d7333 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_accessors.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_accessors.c
+@@ -57,6 +57,12 @@ const struct dc_config *dc_get_config(const struct dc *dc)
+ 	return &dc->config;
+ }
+ 
++void dc_set_allow_edp_hotplug_detection(struct dc *dc,
++		enum dc_hpd_enable_select hpd_select)
++{
++	dc->config.allow_edp_hotplug_detection = hpd_select;
++}
++
+ const struct dc_debug_options *dc_get_debug_options(const struct dc *dc)
+ {
+ 	return &dc->debug;
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index 9592a95544ea..082435846ee9 100644
 --- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/dc.h
-@@ -37,22 +37,22 @@
- #include "gpio_types.h"
- #include "link_service_types.h"
- #include "grph_object_ctrl_defs.h"
--#include <inc/hw/opp.h>
--#include <inc/hw/rmcm.h>
-+#include "hw/opp.h"
-+#include "hw/rmcm.h"
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -2488,6 +2488,13 @@ const struct dc_caps *dc_get_caps(const struct dc *dc);
+ /* Configuration captured at dc_create() time. Read-only. */
+ const struct dc_config *dc_get_config(const struct dc *dc);
  
--#include "hwss/hw_sequencer.h"
--#include "inc/compressor.h"
--#include "inc/hw/dmcu.h"
--#include "dml/display_mode_lib.h"
-+#include "../hwss/hw_sequencer.h"
-+#include "compressor.h"
-+#include "hw/dmcu.h"
-+#include "../dml/display_mode_lib.h"
++/*
++ * Select which eDP connectors get hotplug detection enabled; see
++ * enum dc_hpd_enable_select. Runtime configurable (debugfs).
++ */
++void dc_set_allow_edp_hotplug_detection(struct dc *dc,
++		enum dc_hpd_enable_select hpd_select);
++
+ /* Debug overrides (module parameters, debugfs). Read-only view. */
+ const struct dc_debug_options *dc_get_debug_options(const struct dc *dc);
  
--#include "dml2_wrapper/dml2_wrapper.h"
-+#include "../dml2_wrapper/dml2_wrapper.h"
- 
- #include "dmub/inc/dmub_cmd.h"
- 
--#include "dml/dml1_frl_cap_chk.h"
-+#include "../dml/dml1_frl_cap_chk.h"
- 
--#include "sspl/dc_spl_types.h"
--#include "inc/dc_core_interface.h"
-+#include "../sspl/dc_spl_types.h"
-+#include "dc_core_interface.h"
- 
- struct abm_save_restore;
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_bios_types.h b/drivers/gpu/drm/amd/display/dc/inc/dc_bios_types.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/display/dc/dc_bios_types.h
-rename to drivers/gpu/drm/amd/display/dc/inc/dc_bios_types.h
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_ddc_types.h b/drivers/gpu/drm/amd/display/dc/inc/dc_ddc_types.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/display/dc/dc_ddc_types.h
-rename to drivers/gpu/drm/amd/display/dc/inc/dc_ddc_types.h
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h b/drivers/gpu/drm/amd/display/dc/inc/dc_dmub_srv.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h
-rename to drivers/gpu/drm/amd/display/dc/inc/dc_dmub_srv.h
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h b/drivers/gpu/drm/amd/display/dc/inc/dc_dp_types.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/display/dc/dc_dp_types.h
-rename to drivers/gpu/drm/amd/display/dc/inc/dc_dp_types.h
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_dsc.h b/drivers/gpu/drm/amd/display/dc/inc/dc_dsc.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/display/dc/dc_dsc.h
-rename to drivers/gpu/drm/amd/display/dc/inc/dc_dsc.h
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_fused_io.h b/drivers/gpu/drm/amd/display/dc/inc/dc_fused_io.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/display/dc/dc_fused_io.h
-rename to drivers/gpu/drm/amd/display/dc/inc/dc_fused_io.h
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_hdmi_types.h b/drivers/gpu/drm/amd/display/dc/inc/dc_hdmi_types.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/display/dc/dc_hdmi_types.h
-rename to drivers/gpu/drm/amd/display/dc/inc/dc_hdmi_types.h
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_hw_types.h b/drivers/gpu/drm/amd/display/dc/inc/dc_hw_types.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/display/dc/dc_hw_types.h
-rename to drivers/gpu/drm/amd/display/dc/inc/dc_hw_types.h
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_memory_pool.h b/drivers/gpu/drm/amd/display/dc/inc/dc_memory_pool.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/display/dc/dc_memory_pool.h
-rename to drivers/gpu/drm/amd/display/dc/inc/dc_memory_pool.h
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_plane.h b/drivers/gpu/drm/amd/display/dc/inc/dc_plane.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/display/dc/dc_plane.h
-rename to drivers/gpu/drm/amd/display/dc/inc/dc_plane.h
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_probe.h b/drivers/gpu/drm/amd/display/dc/inc/dc_probe.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/display/dc/dc_probe.h
-rename to drivers/gpu/drm/amd/display/dc/inc/dc_probe.h
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_stat.h b/drivers/gpu/drm/amd/display/dc/inc/dc_stat.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/display/dc/dc_stat.h
-rename to drivers/gpu/drm/amd/display/dc/inc/dc_stat.h
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_state.h b/drivers/gpu/drm/amd/display/dc/inc/dc_state.h
-similarity index 99%
-rename from drivers/gpu/drm/amd/display/dc/dc_state.h
-rename to drivers/gpu/drm/amd/display/dc/inc/dc_state.h
-index acf461225e9d..a8c7296b17e3 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_state.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/dc_state.h
-@@ -26,7 +26,7 @@
- #ifndef _DC_STATE_H_
- #define _DC_STATE_H_
- 
--#include "inc/core_status.h"
-+#include "core_status.h"
- 
- struct dc_state *dc_state_create(struct dc *dc, struct dc_state_create_params *params);
- void dc_state_copy(struct dc_state *dst_state, struct dc_state *src_state);
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_stream.h b/drivers/gpu/drm/amd/display/dc/inc/dc_stream.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/display/dc/dc_stream.h
-rename to drivers/gpu/drm/amd/display/dc/inc/dc_stream.h
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_trace.h b/drivers/gpu/drm/amd/display/dc/inc/dc_trace.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/display/dc/dc_trace.h
-rename to drivers/gpu/drm/amd/display/dc/inc/dc_trace.h
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_types.h b/drivers/gpu/drm/amd/display/dc/inc/dc_types.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/display/dc/dc_types.h
-rename to drivers/gpu/drm/amd/display/dc/inc/dc_types.h
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/dcn_calcs.h b/drivers/gpu/drm/amd/display/dc/inc/dcn_calcs.h
-index 134091d5842d..845dc8ccd636 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/dcn_calcs.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/dcn_calcs.h
-@@ -31,7 +31,7 @@
- #define __DCN_CALCS_H__
- 
- #include "bw_fixed.h"
--#include "dml/display_mode_lib.h"
-+#include "../dml/display_mode_lib.h"
- 
- 
- struct dc;
-diff --git a/drivers/gpu/drm/amd/display/dc/dm_cp_psp.h b/drivers/gpu/drm/amd/display/dc/inc/dm_cp_psp.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/display/dc/dm_cp_psp.h
-rename to drivers/gpu/drm/amd/display/dc/inc/dm_cp_psp.h
-diff --git a/drivers/gpu/drm/amd/display/dc/dm_helpers.h b/drivers/gpu/drm/amd/display/dc/inc/dm_helpers.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/display/dc/dm_helpers.h
-rename to drivers/gpu/drm/amd/display/dc/inc/dm_helpers.h
-diff --git a/drivers/gpu/drm/amd/display/dc/dm_pp_smu.h b/drivers/gpu/drm/amd/display/dc/inc/dm_pp_smu.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/display/dc/dm_pp_smu.h
-rename to drivers/gpu/drm/amd/display/dc/inc/dm_pp_smu.h
-diff --git a/drivers/gpu/drm/amd/display/dc/dm_services.h b/drivers/gpu/drm/amd/display/dc/inc/dm_services.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/display/dc/dm_services.h
-rename to drivers/gpu/drm/amd/display/dc/inc/dm_services.h
-diff --git a/drivers/gpu/drm/amd/display/dc/dm_services_types.h b/drivers/gpu/drm/amd/display/dc/inc/dm_services_types.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/display/dc/dm_services_types.h
-rename to drivers/gpu/drm/amd/display/dc/inc/dm_services_types.h
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h b/drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h
-index b33273b61abd..030b1ccd90d9 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h
-@@ -33,7 +33,7 @@
-  * blocks for the Data Fabric Interface that are not clock/power gated.
-  */
- 
--#include "dc/dc_hw_types.h"
-+#include "dc_hw_types.h"
- 
- enum dcc_control {
- 	dcc_control__256_256_xxx,
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h b/drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h
-index d1cbcb87d271..6eade7556ffa 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h
-@@ -41,8 +41,8 @@
- #include "mem_input.h"
- #include "cursor_reg_cache.h"
- 
--#include "dml2_0/dml21/inc/dml_top_dchub_registers.h"
--#include "dml2_0/dml21/inc/dml_top_types.h"
-+#include "../../dml2_0/dml21/inc/dml_top_dchub_registers.h"
-+#include "../../dml2_0/dml21/inc/dml_top_types.h"
- 
- #define OPP_ID_INVALID 0xf
- #define MAX_TTU 0xffffff
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/mcif_wb.h b/drivers/gpu/drm/amd/display/dc/inc/hw/mcif_wb.h
-index aae0ad7ae835..ad267dc9e505 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/mcif_wb.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/mcif_wb.h
-@@ -27,7 +27,7 @@
- 
- #include "dc_hw_types.h"
- 
--#include "dml2_0/dml21/inc/dml_top_dchub_registers.h"
-+#include "../../dml2_0/dml21/inc/dml_top_dchub_registers.h"
- 
- enum mmhubbub_wbif_mode {
- 	PACKED_444 = 0,
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/mem_input.h b/drivers/gpu/drm/amd/display/dc/inc/hw/mem_input.h
-index d468bc85566a..bb7eed3ddb90 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/mem_input.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/mem_input.h
-@@ -28,8 +28,8 @@
- #include "dc.h"
- #include "include/grph_object_id.h"
- 
--#include "dml/display_mode_structs.h"
--#include "dml2_0/dml21/inc/dml_top_dchub_registers.h"
-+#include "../../dml/display_mode_structs.h"
-+#include "../../dml2_0/dml21/inc/dml_top_dchub_registers.h"
- 
- struct dchub_init_data;
- struct cstate_pstate_watermarks_st {
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/transform.h b/drivers/gpu/drm/amd/display/dc/inc/hw/transform.h
-index d67373ec8e36..38f6bdd57dc7 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/transform.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/transform.h
-@@ -29,7 +29,7 @@
- #include "hw_shared.h"
- #include "dc_hw_types.h"
- #include "fixed31_32.h"
--#include "sspl/dc_spl_types.h"
-+#include "../sspl/dc_spl_types.h"
- 
- #define CSC_TEMPERATURE_MATRIX_SIZE 12
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/irq_types.h b/drivers/gpu/drm/amd/display/dc/inc/irq_types.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/display/dc/irq_types.h
-rename to drivers/gpu/drm/amd/display/dc/inc/irq_types.h
-diff --git a/drivers/gpu/drm/amd/display/dc/os_types.h b/drivers/gpu/drm/amd/display/dc/inc/os_types.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/display/dc/os_types.h
-rename to drivers/gpu/drm/amd/display/dc/inc/os_types.h
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_dpia.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_dpia.c
-index da227889e007..b41e6ad65710 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_dpia.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_dpia.c
-@@ -25,7 +25,7 @@
-  */
- 
- #include "dc.h"
--#include "inc/core_status.h"
-+#include "core_status.h"
- #include "dpcd_defs.h"
- 
- #include "link_dp_dpia.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_panel_replay.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_panel_replay.c
-index 4b7b104bd3a8..e7b9b735de18 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_panel_replay.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_panel_replay.c
-@@ -28,7 +28,7 @@
- #include "link_ddc.h"
- #include "link_dpcd.h"
- #include "dm_helpers.h"
--#include "dc/dc_dmub_srv.h"
-+#include "dc_dmub_srv.h"
- #include "dce/dmub_replay.h"
- #include "dc_priv.h"
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_dpia.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_dpia.c
-index f1817c7f0948..fb972358ecc1 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_dpia.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_dpia.c
-@@ -29,7 +29,7 @@
- #include "link_dp_training_dpia.h"
- #include "dc.h"
- #include "dc_priv.h"
--#include "inc/core_status.h"
-+#include "core_status.h"
- #include "dpcd_defs.h"
- 
- #include "link_dp_dpia.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-index f88fccf007c0..7d6b8759cb1a 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-@@ -36,7 +36,7 @@
- #include "dal_asic_id.h"
- #include "link_dp_phy.h"
- #include "dce/dmub_psr.h"
--#include "dc/dc_dmub_srv.h"
-+#include "dc_dmub_srv.h"
- #include "dce/dmub_replay.h"
- #include "abm.h"
- #include "resource.h"
-diff --git a/drivers/gpu/drm/amd/display/dmub/dmub_srv.h b/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
-index 84f825c924bc..75aaf507d0b7 100644
---- a/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
-+++ b/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
-@@ -66,7 +66,7 @@
-  */
- 
- #include "inc/dmub_cmd.h"
--#include "dc/dc_types.h"
-+#include "dc_types.h"
- 
- #define DMUB_PC_SNAPSHOT_COUNT 10
- #define DMUB_TRACE_SNAPSHOT_COUNT 8
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.c
-index 0d585dc63364..0911e1e139c1 100644
---- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.c
-+++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.c
-@@ -26,7 +26,7 @@
- #include "../dmub_srv.h"
- #include "dmub_reg.h"
- #include "dmub_dcn32.h"
--#include "dc/dc_types.h"
-+#include "dc_types.h"
- #include "dc_hw_types.h"
- 
- #include "dcn/dcn_3_2_0_offset.h"
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn35.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn35.c
-index bd7637276aa6..19573e2f48d1 100644
---- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn35.c
-+++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn35.c
-@@ -27,7 +27,7 @@
- #include "dc_types.h"
- #include "dmub_reg.h"
- #include "dmub_dcn35.h"
--#include "dc/dc_types.h"
-+#include "dc_types.h"
- 
- #include "dcn/dcn_3_5_0_offset.h"
- #include "dcn/dcn_3_5_0_sh_mask.h"
-diff --git a/drivers/gpu/drm/amd/display/modules/power/power.c b/drivers/gpu/drm/amd/display/modules/power/power.c
-index 884279696a2d..32c00a515d4f 100644
---- a/drivers/gpu/drm/amd/display/modules/power/power.c
-+++ b/drivers/gpu/drm/amd/display/modules/power/power.c
-@@ -30,7 +30,7 @@
- #include "dmcu.h"
- #include "abm.h"
- #include "power_helpers.h"
--#include "dce/dmub_psr.h"
-+#include "dc/dce/dmub_psr.h"
- #include "dal_asic_id.h"
- #include "link_service.h"
- #include <linux/math.h>
-diff --git a/drivers/gpu/drm/amd/display/modules/power/power_abm.c b/drivers/gpu/drm/amd/display/modules/power/power_abm.c
-index 2b420eac5c56..6dabd30b4956 100644
---- a/drivers/gpu/drm/amd/display/modules/power/power_abm.c
-+++ b/drivers/gpu/drm/amd/display/modules/power/power_abm.c
-@@ -9,7 +9,7 @@
- #include "dmcu.h"
- #include "abm.h"
- #include "power_helpers.h"
--#include "dce/dmub_psr.h"
-+#include "dc/dce/dmub_psr.h"
- #include "dal_asic_id.h"
- #include "link_service.h"
- #include <linux/math.h>
-diff --git a/drivers/gpu/drm/amd/display/modules/power/power_psr.c b/drivers/gpu/drm/amd/display/modules/power/power_psr.c
-index af59cf502297..219b199350cd 100644
---- a/drivers/gpu/drm/amd/display/modules/power/power_psr.c
-+++ b/drivers/gpu/drm/amd/display/modules/power/power_psr.c
-@@ -9,7 +9,7 @@
- #include "dmcu.h"
- #include "abm.h"
- #include "power_helpers.h"
--#include "dce/dmub_psr.h"
-+#include "dc/dce/dmub_psr.h"
- #include "dal_asic_id.h"
- #include "link_service.h"
- #include <linux/math.h>
-diff --git a/drivers/gpu/drm/amd/display/modules/power/power_replay.c b/drivers/gpu/drm/amd/display/modules/power/power_replay.c
-index d68f14b18179..ccadbe07f302 100644
---- a/drivers/gpu/drm/amd/display/modules/power/power_replay.c
-+++ b/drivers/gpu/drm/amd/display/modules/power/power_replay.c
-@@ -9,7 +9,7 @@
- #include "dmcu.h"
- #include "abm.h"
- #include "power_helpers.h"
--#include "dce/dmub_psr.h"
-+#include "dc/dce/dmub_psr.h"
- #include "dal_asic_id.h"
- #include "link_service.h"
- #include <linux/math.h>
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-index 4e6dc9d41256..d0c0534a7e73 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-@@ -28,7 +28,7 @@
- #include "amdgpu.h"
- #include "kgd_pp_interface.h"
- #include "dm_pp_interface.h"
--#include "dm_pp_smu.h"
-+#include "dc/inc/dm_pp_smu.h"
- #include "smu_types.h"
- #include "linux/firmware.h"
- #include <linux/ktime.h>
 
 -- 
 2.56.0
