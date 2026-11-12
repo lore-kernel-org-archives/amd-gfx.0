@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 523A5606A321
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 02:02:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D938606A323
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Nov 2026 02:07:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xfgr29rW
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fgPE3F7C
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C425C10FF14;
-	Thu, 12 Nov 2026 02:02:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE12A10EB25;
+	Thu, 12 Nov 2026 02:07:14 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE7A010EAEA;
- Thu, 12 Nov 2026 02:02:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20EEF10E2E9;
+ Thu, 12 Nov 2026 02:07:08 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6D11344F13;
- Thu, 12 Nov 2026 02:02:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C7C21F00A05;
- Thu, 12 Nov 2026 02:02:35 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B3B5843E20;
+ Thu, 12 Nov 2026 02:07:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B1821F00A05;
+ Thu, 12 Nov 2026 02:07:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794448955;
- bh=Hl9FfWZxSN47ZaDl1iP+gCK2yL870GPt+1Xq06zTmn8=;
+ s=k20260515; t=1794449227;
+ bh=OsjQmj8bEtxT8MV1vFymqTEFM2D9OctuG/QAUyzfaqQ=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Xfgr29rWYYFUPaAuuPm5LSq18Pe67v1Bry5lUxzIVvQq/xyMBaIWf5j4WaOrwHmiI
- Pqk8HzKov4meDtPH6Z2Nz1VO0U2wMEEQL2wKVOAqgs6Ja34VRwr5VBADTK2ifectrX
- APTGin5xpjaXaBy54Ie6rsSYajcw9ok98LzeGbym/HzCDWT1Y2p3Txaz9l/6LM4c2k
- W3Lz+yicDVw73QBUdqYNIqNqe2GL0i6sgxOPw8naS6yS3b5gIfYfkE6xFliUR7GT6w
- OCkamuoSh+fHUZQ9PGcSrqYFRg5XhFMLbdBD19FbRaaApkd3GBfcIpDJIVFLViYhgu
- i6wui2wDLdXBA==
-Message-ID: <sashiko-outbox-210138@kernel.org>
+ b=fgPE3F7CwAI2tyWokH7RhOXpx9amTQZZBhyv2tdd2a0LnNADzByYIxnfJToaaug9Q
+ 0FUl9gmcCqdUKq02EaY/zdED7fxH5fdrBz0XuEv21ga/rkjXikdtdn4sdCjgvbxUqb
+ IfktP3eII2RRaRFjquWQthETBDLNkiAyVwTn4rYzj35mdgsIYs3qba32WiOPsAFB8P
+ H1zjDXm+LVi9L2R7+NRGaubJYWbsqIuisET45l8L1lN+2s2OsAPdXmZE78flWZqE1r
+ StxgK41X1KqpcWFixc6IOgE0aaN0pRkmu2FunQ4M7rO2IGpt6C+lr12fA0FYn77MK+
+ Ju9W8vC8weVfw==
+Message-ID: <sashiko-outbox-210152@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 15/19] drm/amd/display: Add dc_force_max_dramclk for the
- DP compliance workaround
+Subject: Re: [PATCH 05/19] drm/amd/display/amdgpu_dm: Use DC accessors in
+ psr/replay/dmub/hdcp/irq paths
 To: "Dave Airlie" <airlied@redhat.com>
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261112-amdgpu-dc-cleanup-v1-15-0fae41718ad2@redhat.com>
+In-Reply-To: <20261112-amdgpu-dc-cleanup-v1-5-0fae41718ad2@redhat.com>
 References: <20261112-amdgpu-dc-cleanup-v1-0-0fae41718ad2@redhat.com>
- <20261112-amdgpu-dc-cleanup-v1-15-0fae41718ad2@redhat.com>
+ <20261112-amdgpu-dc-cleanup-v1-5-0fae41718ad2@redhat.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 12 Nov 2026 02:02:34 +0000
+Date: Thu, 12 Nov 2026 02:07:07 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,76 +50,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [High] drm/amd/display: NULL pointer dereference in
-  dc_force_max_dramclk()
+- [Low] drm/amd/display: commit message claims dc_color_caps changes
+  from parent commit
 --
 
-commit b8f4fd55c6e73f430098a070c075751210c4007a
+commit 343696be48b1784f753cb65b6771fbf97af59e1d
 Author: Dave Airlie <airlied@redhat.com>
 
-drm/amd/display: Add dc_force_max_dramclk for the DP compliance workaround
+drm/amd/display/amdgpu_dm: Use DC accessors in psr/replay/dmub/hdcp/irq pat=
+hs
 
-This commit moves the DP compliance test pattern memory clock workaround fr=
-om
-dm_helpers_dp_handle_test_pattern_request() into a new dc_force_max_dramclk=
-()
-helper in DC and removes the dc_get_clk_mgr() accessor.
+This commit replaces direct struct dc member accesses with DC accessor
+helpers across the psr, replay, dmub, hdcp, and irq paths, adds
+dc_get_dce_version(), and splits debug option access into const and
+mutable accessors.
 
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/a=
-md/display/dc/core/dc.c
-> index 8344d821d2e87..15379b186a91f 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> @@ -7357,6 +7357,29 @@ void dc_set_edp_power(const struct dc *dc, struct =
-dc_link *edp_link,
->  	edp_link->dc->link_srv->edp_set_panel_power(edp_link, powerOn);
->  }
-> =20
-> +/**
-> + * dc_force_max_dramclk() - raise the memory clock for DP compliance tes=
-ts
-> + * @dc: Current DC state
-> + * @context: The state whose clocks are programmed
-> + *
-> + * Temporary workaround for DP compliance test failures: disallow p-state
-> + * switching for the given state, raise the memory clock to the maximum
-> + * supported level and apply the resulting clocks immediately.
-> + */
-> +void dc_force_max_dramclk(struct dc *dc, struct dc_state *context)
-> +{
-> +	context->bw_ctx.bw.dcn.clk.p_state_change_support =3D false;
-> +	context->bw_ctx.bw.dcn.clk.dramclk_khz =3D
-> +			dc->clk_mgr->dc_mode_softmax_enabled ?
-> +			dc->clk_mgr->bw_params->dc_mode_softmax_memclk :
-> +			dc->clk_mgr->bw_params->max_memclk_mhz;
-> +	context->bw_ctx.bw.dcn.clk.idle_dramclk_khz =3D
-> +			context->bw_ctx.bw.dcn.clk.dramclk_khz;
-> +
-> +	if (dc->clk_mgr && dc->clk_mgr->funcs->update_clocks)
-> +		dc->clk_mgr->funcs->update_clocks(dc->clk_mgr, context, false);
-> +}
+> Also constify the dc_color_caps consumers in the color module so
+> dc_get_caps() read views can flow through them.
 
-[Severity: High]
-Can this dereference a NULL dc->clk_mgr or dc->clk_mgr->bw_params?
-
-dc->clk_mgr is dereferenced before the NULL check on dc->clk_mgr below, and
-dc->clk_mgr->bw_params is not checked at all.  In dc_clk_mgr_create(),
-bw_params is only populated on DCN 2.1 and DCN 3.0+ and remains NULL on DCE,
-DCN 1.0, and DCN 2.0/2.01 (which is why dc_refresh_memclk_states() in this
-file checks both !dc->clk_mgr and !dc->clk_mgr->bw_params).  A DP link test
-pattern request via dm_helpers_dp_handle_test_pattern_request() on those
-ASICs will crash with a NULL pointer dereference.
+[Severity: Low]
+Should this paragraph be dropped from the commit message?  This patch
+does not touch any color module files; the dc_color_caps consumers were
+already constified in the preceding commit "drm/amd/display/amdgpu_dm: Use
+DC accessors in audio/color/backlight paths".
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112-amdgpu-dc-=
-cleanup-v1-0-0fae41718ad2@redhat.com?part=3D15
+cleanup-v1-0-0fae41718ad2@redhat.com?part=3D5
