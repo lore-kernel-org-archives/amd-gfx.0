@@ -2,95 +2,119 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F997606A890
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Nov 2026 16:31:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87369606BCB8
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Nov 2026 16:50:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=MsN/GbNi
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=sBAE+bPK
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5BD71126B9;
-	Fri, 13 Nov 2026 16:30:56 +0000 (UTC)
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010059.outbound.protection.outlook.com [52.101.85.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D45E1126B8
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Nov 2026 16:30:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCFBE1126E1;
+	Fri, 13 Nov 2026 16:50:03 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010069.outbound.protection.outlook.com
+ [40.93.198.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 523E51126E8
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Nov 2026 16:49:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZT2Kb6PmKNzk/uZ5hvL6SDoO3nHyPcr+P7RftFx4fj8B7vn8lE4yn0YhNTIA7h4i88a6U/fkwAq6Tn3VcDHWMihtpMAEme/4HBs+317KqWWM4olA6ESFcpuOKdzyqI/eR01FiJiN5MbsJGQ91Pq9dGdXVMTiLWkfYc48qwy8Ef9I+llnL0SbzOlf0um3vQrUcHRCSGErDYaUkMpob+K9Xgv3Is9OIGG2kJ/BLPegAyRUTGMGt9I6SWAyW+j/dQ3yW7f0N5rXYZBJcCV4jRRUMLH/MnJbYZ83KoXms7hMXK0kt74mJ4eD719lrgJPg2/2ncToUn/KSZ5ut9cVekzF2A==
+ b=vwaHLpXnClL1HnCoOuGxAdTTL9WSw0XHfCPCPLntK8qckSFOkHFdlM6v32e1Wr/wx5nxcdIk0HHv/58NHZeGWQbqFsXnYcDImbtNmRVciZiMUJqoKmKB95UdnMTvrbBABayEW3LbYKOEL6ntlGJ2uIfuLpMsiqNPAwwOZ8X5i9Q7/Wgm9NlYbYECk9zPm9uVEZMUoiYuzYJq+ZG5uz7cwGytQQ5jmMzmhIKMk8EtkMcL1USI+jxlXPOfOU7dxkPg0gux0lp8Aiwo+nOTEFpWvj9fJZc+043XSrLVPUbapB1KySExmJmR6SLexMym6daX8GEY4qwlKML6SCAJWbV0ng==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JzW29O5cHPTJKtO3VjITHuD0qGP1u5DFDwEpyr2NqEE=;
- b=k4gbxqHISWC8P8FSKDP1TT/a0hW73ahvTOVDsVijVXMdWR/GBYfr9AtT0tBkApD6cA8OwBcvTJpwx1tXVGp8A/5c5JpCr2laCQ/K41SGg40ObtFxzaM2CuACUUqlOjgKpL9VXSdEc6e+IMQ+LnYYddF3kcHUaLONtxd9VWLC29d31YfBW7ygKKVEZbTi4rhm9vBgH1YSDYo3kluHjCnqWEOVu7jbSPtvCRWJbWlZY4nJBYiRqhl8Y+hI9L1wEm5XZCJe1Ic86ERirZQdFOAHU+T55/4+Ksm4b9F19AP6IvLBP52vScJKluv5jeA32P5fB7yRQQ1CvkZZNaFInbz/XA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=w+KMX+5a2Qjg5D9BHsqUP1kDV4eD6VueqJNeubZZCEY=;
+ b=gyydPN45NJkYQBl4ugLIYCbABO9NqwVe6XgXxchzuGmfCQpgLxx7wKVrvd23PZ0AENTO7iySf4UdoB5C8UESP7zjnBACrP3vq2qqOHLIWCh/BGctw2wcyFgeFSarnrq9ou3u3X8ibwyrXzWmMPSJkNlbLIU4En8Ry2Z47SdVOYvk7ht0znlxML0dWO5Taqz9GmAY9Q1uRuxY6/lPzATlbJrSOgTwDjPt7KJiFmOldtxuJnxueOKoW4Nm6awAZUpa6/koi/Izd2T3u9ySZWcZ6Rzuiw3PUcZYIudNRksJjmNPE3ogm9K0qSJLf55BSNK69CU4VfH6w5+NzfNiSKnyog==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JzW29O5cHPTJKtO3VjITHuD0qGP1u5DFDwEpyr2NqEE=;
- b=MsN/GbNilqekVgzFVLER9a/svcFj4lJkoTRHhiSuBPRmpYrukzlrMhR4zXgsi0azK1oh4h7+EdWftu3FRaDDS0RYGlWWhV/J5Hs9CcpjRasUyRzYN40c9WbCjpZgo4tJ+gPESCDxzRYsujviSUMUZZmRAF/IIycRVfX87+Oa6gM=
-Received: from MW4PR04CA0297.namprd04.prod.outlook.com (2603:10b6:303:89::32)
- by DS0PR12MB9725.namprd12.prod.outlook.com (2603:10b6:8:226::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Fri, 13 Nov
- 2026 16:15:33 +0000
-Received: from MW2PEPF00014673.namprd04.prod.outlook.com
- (2603:10b6:303:89:cafe::42) by MW4PR04CA0297.outlook.office365.com
- (2603:10b6:303:89::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Fri, 13
- Nov 2026 16:15:33 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MW2PEPF00014673.mail.protection.outlook.com (10.167.249.180) with Microsoft
+ bh=w+KMX+5a2Qjg5D9BHsqUP1kDV4eD6VueqJNeubZZCEY=;
+ b=sBAE+bPKTt7HLGspPau2sX/uhBL/o3/hiaJzyzbDJuSSDAsIBp7pqE0MkJk8/wxR7vNGF2Q6qZSV7Mx7Zwny+3vPQJE8AtQ+KfA7Fut4EIasF69kz41mBBw9oSHvqSERnByXQt2eIfNSPSxWtbPuOg7rR/KrNyWcwbkDGcVPhME=
+Received: from SA1SPRMB0073.namprd12.prod.outlook.com (2603:10b6:806:256::20)
+ by DS7PR12MB6048.namprd12.prod.outlook.com (2603:10b6:8:9f::5) with
+ Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Fri, 13 Nov 2026 16:15:32 +0000
-Received: from ausmlimonci-lx1.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 13 Nov
- 2026 10:15:30 -0600
-From: Mario Limonciello <mario.limonciello@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Mario Limonciello <mario.limonciello@amd.com>
-Subject: [PATCH v5] drm/amd: Select the firmware signing scheme the PSP reports
-Date: Fri, 13 Nov 2026 10:15:21 -0600
-Message-ID: <20261113161521.2132645-1-mario.limonciello@amd.com>
-X-Mailer: git-send-email 2.43.0
+ 15.21.615.8; Fri, 13 Nov 2026 16:44:00 +0000
+Received: from SA1SPRMB0073.namprd12.prod.outlook.com
+ ([fe80::41df:58c2:2776:6313]) by SA1SPRMB0073.namprd12.prod.outlook.com
+ ([fe80::41df:58c2:2776:6313%4]) with mapi id 15.21.0615.009; Fri, 13 Nov 2026
+ 16:44:00 +0000
+From: "Thothiralingam, Logatharshan" <Logatharshan.Thothiralingam@amd.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Koenig, Christian" <Christian.Koenig@amd.com>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>, "Perez, Randy" <Randy.Perez@amd.com>, "Chiu,
+ Michael" <Michael.Chiu@amd.com>
+Subject: drm/amdgpu: Patch review for gfx hang on submitted jobs for S3 
+Thread-Topic: drm/amdgpu: Patch review for gfx hang on submitted jobs for S3 
+Thread-Index: Ad1ziz2v3uv7wCayROSuZM3Cl7nD5Q==
+Date: Fri, 13 Nov 2026 16:44:00 +0000
+Message-ID: <SA1SPRMB0073292C113C6B98D9282092F87F2@SA1SPRMB0073.namprd12.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-11-13T16:18:43.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SA1SPRMB0073:EE_|DS7PR12MB6048:EE_
+x-ms-office365-filtering-correlation-id: 8b2ea3c3-4c47-4bd7-310b-08df41a55183
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|376014|6049299003|366016|23010399003|4053099003|10067099003|8096899003|261022105027099003|261026140227099003|261028144727099003|261022075727099003|261026121527099003|11063799006|56012099006|38070700021|18002099003;
+x-microsoft-antispam-message-info: FP4Mo1iCeAx6VLFDGLdHd68wuoCWY14PMRKnEo1zLC55TKpIcp3dZmsdsbWtsPorH/mobE7+2QRt3slRzcTAa4CLPDVi+DPHoh11F4CMbGm+ynrc1A9yS3+m4Ub2xSulOCiLKXnOhnoJqnNEqn2Cb/tUYj4wVy794tE5BNm1yWgu5q+JhUMMLkSWGlchq29QxSGHzOIljdzUnVM/3MANfQ+lTNZK4Ceft6r6olyPiRTHjs3SwlxSwyg0p0c0YOpKwHo4cxudXA3RWemIIHqh++qa7p98Tc/6comH+Hko0bHbaTjDcJKqrmRcpD16zITHKes0y6yhqtgSQXol3p+R6r2IZexXbUuGEUhIGZcVTUA8rwWIJUDqRHF7MkhWBVpIcao3pBOmSepsedU2+LIU4+Q1fjbajx5POp0mfx7r1kEiYg9qQo09VBC1AvygHp73eDnNnzZqTQDY7CFpBP13D6BLd8GOZMj61Yy3DSOs9HoB96tB5GMZTVkpneMSleS6XGTjyrsaewWiiiiElBOXbnZJhnAQYp+KBethFZlI3Tk2d/oS2WHl0xstS5HkDzInU3OfIkHATBSIUiuH3/2BVgImrF/zz/VKGOakxAhQ4MpCFmRKWEC4Gqq1XDnWsnmsk2umJvEVuPEJyNZis8qsZIf46VuPhcbM5/ffd1RKc/P5qjFpT/IZZRmDVf3yUn/PfiuEx6PweD+XMVZT6TazgP0NAe0845FK4MjCxVs1/O0=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA1SPRMB0073.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(6049299003)(366016)(23010399003)(4053099003)(10067099003)(8096899003)(261022105027099003)(261026140227099003)(261028144727099003)(261022075727099003)(261026121527099003)(11063799006)(56012099006)(38070700021)(18002099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?xwzw+LnKVam4XDpw68iLUo2BniE+b3k5F9kpeOoo4yByTzv/QlKNQ/kdabn7?=
+ =?us-ascii?Q?L2H950YI7KHYiYxcj1JWcTb3P39kGqitvEx/x//UryDz5jZdEtdCNaRSBm1v?=
+ =?us-ascii?Q?QvyYSgds2f/a0zZkPW/4cLzc5lbaBOQ5tDhLHIx414S1IW74mWg3WXzRfVXE?=
+ =?us-ascii?Q?yglO5xkhYz+D0oxp+x7WmRrjgoDywJ+g+1/Vk7Q1wR1ivuTiN6QNF1TP7tyh?=
+ =?us-ascii?Q?NmaQJXHLx8UbHPmIQJtC1BvJOz1uHR4tMh+fzJUJ6g8jvSvf2N5pn+ppE2m+?=
+ =?us-ascii?Q?UWskruOmCU7HezgU0kEblwgAz0d5YShHZsSDaIgFePmt5uk1c8lR1gxRAque?=
+ =?us-ascii?Q?3Sxzptopw4t+qKgfB81+ZNlmzORpr7icPTcILwcGYxEaMy5VnqxBglT7meLe?=
+ =?us-ascii?Q?v7x6tqJpm10dvJWaxfbsIIDJp82F07Duqif+WtSoUl73xh0lTKG7+L0EuBk+?=
+ =?us-ascii?Q?4kQx99bT6XUUZOGtgoCzs8O36xg8aEw6AfnH2OMCwYvqm3XbCE4VJsvviPyg?=
+ =?us-ascii?Q?dI2jY7dP5wTWt//MzEMGMS+Uv+pkkE4/GokJTWeH0lqFAL9zFhYBJlHCgzmA?=
+ =?us-ascii?Q?02LLnIUeOI0l03Jr1dhiPCIZg6HIYcGDzx/eIoPK2Jb3ucwJoZ+yoySWLgnL?=
+ =?us-ascii?Q?oJM2vPx2kQ8U3T7z2WEG4qTPSjoq0OprX0Tp7Q/8rQnAi37YjrEZTtJW8DK/?=
+ =?us-ascii?Q?IGz6NXxpdT/0Wr+Qqy1XfkzEzn++u46zZLcRhoq9bIUQVT+o9aPYgAKg6EYC?=
+ =?us-ascii?Q?Pqbs0p0a+ji5UiZKVcIjOLOp5UuwSLitkt71JFVJt4CkMwtVmiEwiycF9jWG?=
+ =?us-ascii?Q?u+qQw1NXcnEWL0WY0kAXp2BMfryNcrt6wKJW+CtIT8ufEQC+92HF3RcNME41?=
+ =?us-ascii?Q?r5yXjZlYeW8VakisKnZOou2AKgmSEnJ7vVXhDqKGOr/eTT18OLs4vb6uZ0Hb?=
+ =?us-ascii?Q?MFxNGWA3JrGTee78cggIIvHQvHT+7YDU62elxC8H5B04XORdMeee5Kg3T/+z?=
+ =?us-ascii?Q?bwKLJBijSIMlZqOv1HFzH9qyYokyA92sjlpJ8NMDcJyn/+RDWDarjv5FOwTQ?=
+ =?us-ascii?Q?0SNE82vJt5EnYzQex6TsRN+3xmop1Xqkt6O8bNXqmz1xruv8HLe2DvzuiZXa?=
+ =?us-ascii?Q?vMSDPkmiWkOssiyIP7BIa/Xnv5rKQVj92jtthFbDkmo8Meb2AMedoLkbmjZ+?=
+ =?us-ascii?Q?8tzn4y5ZBlwwRB6pkCEq6uvK2vbFnHxu6ej5YV5OFJAniER9LuXnBQANVkM3?=
+ =?us-ascii?Q?pAxJxDyM2Taugzzeml+O5B8ATkbUkTBEblw9eaVY/Y5QoL6lGHMrvW1QBYrF?=
+ =?us-ascii?Q?cLZZK2UpXJNEiK/Edz/2Gyu1ShrBbxqRaB6QlN1NioE7yifdhovn+Hqcxouq?=
+ =?us-ascii?Q?2OjiJrpatrr+/VUkJM7ohb3TIJQYAizimF9+DZh2QAOwfNFOTrRW4BtSdma9?=
+ =?us-ascii?Q?xH36VqMO+0TkXhQfsKBLFCsirKlXvw85obqM/4caixuEsBWCxeaz8BbtAKS/?=
+ =?us-ascii?Q?krvzLMy3nNXFl7qnMJI/B96XJoePlSBtc4XmXT7pGhJ/efsjRS5nLHJ1yiPR?=
+ =?us-ascii?Q?CTZ3XTidoCXT5fU03TOjWlK0/jBAx2ih2x3zhjhLXuun2h11f3jwXTGriKr4?=
+ =?us-ascii?Q?9irFy2/IaacO4r1kAZm3DIaGSTZZ7V7c7SfcXSgnlxjjFqNIa0SRqjjNjbvr?=
+ =?us-ascii?Q?i/YjBIThN7xQrq9cprrArvYj5tq78Mbm24ggkqCCOle5OMuT?=
+Content-Type: multipart/mixed;
+ boundary="_004_SA1SPRMB0073292C113C6B98D9282092F87F2SA1SPRMB0073namprd_"
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW2PEPF00014673:EE_|DS0PR12MB9725:EE_
-X-MS-Office365-Filtering-Correlation-Id: 00e87971-29c1-44ec-bc5c-08df41a157cf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|36860700016|82310400026|11063799006|5023799004|56012099006|261022075727099003|261022105027099003|261021121427099003|261026140227099003|261026121527099003|261009223027099003|261102123227099003|261028144727099003|18002099003|6133799003|10067099003;
-X-Microsoft-Antispam-Message-Info: jBz4y1+Xc12OLMOT9rgCgw0VR/MX2RmzROwtRmVj72pSxn81K1M2jZj+ea3FN2ot+WhmC2kd7hRvRer783/E1Ra88fQpi1Syqx4rvYDMLDL4ywK7QQF6PHmCfr4kukZ735KJLODSmDcM16yqpnmOp2aLoKeH/XCYfxeVg9ZgdTwHj6Ea//sotOQgXlUR8I9f3QuTQK2FT33Xvf65x+aKHscIShZbS55ygVdnh7nHOVnxXk/q2HUAX8QG/d8oaYTKm1xVlUAE/sq3CcLViCIjPkNZy378wTWqMQiekWCuZtvEtan9AzGh6+Um+2fWrg1uoJbAqH4njrMTPau3R8yrYrzjZCGg38xCZyTSJ5ptXkmuKXc1fBDbKj0yVIlVhtAPsRvlMVQFIA4ZYGM0FEN4iIA3RFVMP9KiBMTEfzdS7qS5naJpweNVzygvp4e25TqA/6MKNpGFycQ+NvZPLaZFs5cMILozRAdSNgLDDtOTrDsr3sRmWirEWxR9l2xR2g1uuIw2XuklQMqOjH0vgqcvssPEKYPmzesPC8L1xVLjNK/dnfe03ipVaaFHZGSdFwXHReJ00Wh0HD5o7nn2QswXKDWNivEeh7J4sOw3dXDZJsrxedY0TGVZyktd3PvWwYtQNkjnjDpjYCR8CTu4EKch8WNy0aEL2nuNcoOhIQjDFdEEjM75sebMXIAhYEOzekIWze81NxkqXlCqtzFQUSKkAw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(36860700016)(82310400026)(11063799006)(5023799004)(56012099006)(261022075727099003)(261022105027099003)(261021121427099003)(261026140227099003)(261026121527099003)(261009223027099003)(261102123227099003)(261028144727099003)(18002099003)(6133799003)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Hlp2ZVrjVrOfVL9tob6GzRm7ldFty7z6TSoDWm+K77t3IvQ5gkuNj0NJtckHbU0OHnU5HqXRvTED0SOoOa8iJQSPVm3K0qbbl9UI6EAw7qIaA12SqS6ipzsISFUKecID5njjX6kJOgeWCVUn+/EyiTtP97+CpIa+1ChCivJiaLd6uEOIieqaDKQ8Vsnb0mUxNTz8cyXGDI26LxB68wCzfoWWm0Rtu6eAuQsUMNKugZezPo0+6rZeeQ/LjaVy2mNQE3W3/e8Nn09M3Ga+6HpiQ7ukuX7BFEgCD06CLZ3PWlvqGhyQVYSXIJrF5OFLGo5BJhbuLsx4JQ3ZREuRIVCtPy2l2JhGV5axDh4PjEGxwnu3pHXOl7JiZ24elCbhwywSykitv8SvF3CmsbufjxRVx4w386q7IFrz423SA9wmOmeuWbP8/kjwx2eUeoH1UzCL
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 16:15:32.6691 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 00e87971-29c1-44ec-bc5c-08df41a157cf
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MW2PEPF00014673.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9725
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SA1SPRMB0073.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8b2ea3c3-4c47-4bd7-310b-08df41a55183
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Nov 2026 16:44:00.1863 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: EBkTH+KZp//qG/peL1m2v/HdwwKdLSbl4cMwAS3ruuOpcsewQaEgIbHR7T1n2u1kbvlOVb/hEL7N73CGIgKUkg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6048
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,427 +125,208 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-0.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Some platforms ship BIOS with either a default or an alternative trust
-authority, so firmware for every IP must be signed with the matching
-scheme.
-The PSP advertises which one is in use in bit 6 of C2PMSG_63, and in bit
-28 whether this is a preproduction part, which needs firmware of its own.
+--_004_SA1SPRMB0073292C113C6B98D9282092F87F2SA1SPRMB0073namprd_
+Content-Type: multipart/alternative;
+	boundary="_000_SA1SPRMB0073292C113C6B98D9282092F87F2SA1SPRMB0073namprd_"
 
-Add amdgpu_psp_init_fw_variant() which reads those bits through amdgpu's
-own MMIO, and keep the result in adev->firmware.sign_type next to
-load_type, where preproduction is a type of its own. It is initialized
-once, after IP discovery has populated the register bases and only when
-firmware is loaded through the front door (the PSP). Only MP0 15.0.0
-reports it. For all other ASICs, SR-IOV VFs and an inaccessible register
-(all ones) the defaults are kept: AMDGPU_FW_SIGN_DEFAULT. A preproduction
-part that also reports the alternative scheme is not expected, so warn
-about it and use the default firmware.
+--_000_SA1SPRMB0073292C113C6B98D9282092F87F2SA1SPRMB0073namprd_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Firmware for preproduction parts is named with a "_p" suffix before the
-extension and firmware for the alternative scheme with an "_l" suffix
-(e.g. "foo.bin" becomes "foo_p.bin" or "foo_l.bin"). Production parts on
-the default scheme use the plain names. Do the substitution centrally in
-amdgpu_ucode_request() so it covers every IP that loads firmware through
-it (PSP, SMU, DMUB, GC, IMU, MES, SDMA, VCN, VPE, ...) without each
-loader having to care. There is no fallback to the default file: it would
-be rejected anyway. Declare the variants with MODULE_FIRMWARE() so that
-initramfs generators include them.
+AMD General
 
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
-v5:
- * Add unknown type to enum for unexpected combinations (Lijo)
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  4 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       | 20 ++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h       |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c     | 34 +++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h     |  9 ++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c       |  4 ++
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c        | 16 ++++++
- drivers/gpu/drm/amd/amdgpu/imu_v11_0.c        |  4 ++
- drivers/gpu/drm/amd/amdgpu/mes_v11_0.c        |  8 +++
- drivers/gpu/drm/amd/amdgpu/psp_v15_0.c        | 49 +++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/psp_v15_0.h        |  1 +
- drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c        |  2 +
- drivers/gpu/drm/amd/amdgpu/vpe_v2_0.c         |  2 +
- .../amd/display/amdgpu_dm/amdgpu_dm_dmub.c    |  2 +
- .../amd/display/amdgpu_dm/amdgpu_dm_dmub.h    |  2 +
- 15 files changed, 158 insertions(+)
+Hi,
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index c60acca7e5cf8..11b64fff853b4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2097,6 +2097,10 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
- 			amdgpu_ip_version((adev), GC_HWIP, 0) == IP_VERSION(9, 4, 4);
- 	}
- 
-+	/* Needs the register bases, and must be known before requesting firmware */
-+	if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP)
-+		amdgpu_psp_init_fw_variant(adev);
-+
- 	total = true;
- 	for (i = 0; i < adev->num_ip_blocks; i++) {
- 		ip_block = &adev->ip_blocks[i];
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index 548e017311d48..22eb27b4ab5c8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -402,6 +402,26 @@ static uint64_t psp_get_runtime_db_header_pos(struct amdgpu_device *adev)
- 	return pos;
- }
- 
-+/*
-+ * Which firmware the platform needs, as reported by the PSP in C2PMSG_63: the
-+ * signing scheme and whether this is a preproduction part. The defaults are kept if
-+ * the ASIC doesn't report it or it can't be read.
-+ */
-+void amdgpu_psp_init_fw_variant(struct amdgpu_device *adev)
-+{
-+	if (amdgpu_sriov_vf(adev))
-+		return;
-+
-+	switch (amdgpu_ip_version(adev, MP0_HWIP, 0)) {
-+	case IP_VERSION(15, 0, 0):
-+	case IP_VERSION(15, 0, 9):
-+		psp_v15_0_0_get_fw_variant(adev);
-+		break;
-+	default:
-+		break;
-+	}
-+}
-+
- /*
-  * Helper funciton to query psp runtime database entry
-  *
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-index 975d123593588..9b04e51f589ff 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-@@ -631,6 +631,7 @@ int psp_ta_invoke(struct psp_context *psp,
- 
- int psp_xgmi_initialize(struct psp_context *psp, bool set_extended_data, bool load_ta);
- bool psp_is_xgmi_ta_supported(struct psp_context *psp);
-+void amdgpu_psp_init_fw_variant(struct amdgpu_device *adev);
- int psp_xgmi_terminate(struct psp_context *psp);
- int psp_xgmi_invoke(struct psp_context *psp, uint32_t ta_cmd_id);
- int psp_xgmi_get_hive_id(struct psp_context *psp, uint64_t *hive_id);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-index d2ce526dd95cc..4d5e31ef8c939 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-@@ -1527,6 +1527,36 @@ void amdgpu_ucode_ip_version_decode(struct amdgpu_device *adev, int block_type,
- 	snprintf(ucode_prefix, len, "%s_%d_%d_%d", ip_name, maj, min, rev);
- }
- 
-+/* Add the suffix of the firmware variant before the extension: foo.bin -> foo_l.bin */
-+static int amdgpu_ucode_set_suffix(struct amdgpu_device *adev, char *fname)
-+{
-+	const char *suffix;
-+	size_t base;
-+
-+	switch (adev->firmware.sign_type) {
-+	case AMDGPU_FW_SIGN_PREPROD:
-+		suffix = "_p.bin";
-+		break;
-+	case AMDGPU_FW_SIGN_ALT:
-+		suffix = "_l.bin";
-+		break;
-+	case AMDGPU_FW_SIGN_UNKNOWN:
-+		/* Unexpected bit combination: try the default binary, it may not work */
-+	default:
-+		/* Default variant: the name is unchanged */
-+		return 0;
-+	}
-+
-+	if (!strends(fname, ".bin"))
-+		return -EINVAL;
-+
-+	base = strlen(fname) - strlen(".bin");
-+	if (strscpy(fname + base, suffix, AMDGPU_UCODE_NAME_MAX - base) < 0)
-+		return -EOVERFLOW;
-+
-+	return 0;
-+}
-+
- /*
-  * amdgpu_ucode_request - Fetch and validate amdgpu microcode
-  *
-@@ -1555,6 +1585,10 @@ int amdgpu_ucode_request(struct amdgpu_device *adev, const struct firmware **fw,
- 		return -EOVERFLOW;
- 	}
- 
-+	r = amdgpu_ucode_set_suffix(adev, fname);
-+	if (r)
-+		return r;
-+
- 	if (required == AMDGPU_UCODE_REQUIRED)
- 		r = request_firmware(fw, fname, adev->dev);
- 	else {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
-index 7c809692807fc..15e789718dede 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
-@@ -571,6 +571,14 @@ enum amdgpu_firmware_load_type {
- 	AMDGPU_FW_LOAD_RLC_BACKDOOR_AUTO,
- };
- 
-+enum amdgpu_firmware_sign_type {
-+	AMDGPU_FW_SIGN_DEFAULT = 0,
-+	AMDGPU_FW_SIGN_ALT,
-+	AMDGPU_FW_SIGN_PREPROD,
-+	/* Unexpected combination of signing bits, default firmware may not work */
-+	AMDGPU_FW_SIGN_UNKNOWN,
-+};
-+
- enum amdgpu_ucode_required {
- 	AMDGPU_UCODE_OPTIONAL,
- 	AMDGPU_UCODE_REQUIRED,
-@@ -606,6 +614,7 @@ struct amdgpu_firmware_info {
- struct amdgpu_firmware {
- 	struct amdgpu_firmware_info ucode[AMDGPU_UCODE_ID_MAXIMUM];
- 	enum amdgpu_firmware_load_type load_type;
-+	enum amdgpu_firmware_sign_type sign_type;
- 	struct amdgpu_bo *fw_buf;
- 	unsigned int fw_size;
- 	unsigned int max_ucodes;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-index 6c12d8aa3c769..1df2725d31e0c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-@@ -66,6 +66,8 @@
- #define FIRMWARE_VCN5_0_1		"amdgpu/vcn_5_0_1.bin"
- #define FIRMWARE_VCN5_0_2		"amdgpu/vcn_5_0_2.bin"
- #define FIRMWARE_VCN5_3_0		"amdgpu/vcn_5_3_0.bin"
-+#define FIRMWARE_VCN5_3_0_ALT		"amdgpu/vcn_5_3_0_l.bin"
-+#define FIRMWARE_VCN5_3_0_PREPROD	"amdgpu/vcn_5_3_0_p.bin"
- 
- MODULE_FIRMWARE(FIRMWARE_RAVEN);
- MODULE_FIRMWARE(FIRMWARE_PICASSO);
-@@ -95,6 +97,8 @@ MODULE_FIRMWARE(FIRMWARE_VCN5_0_0);
- MODULE_FIRMWARE(FIRMWARE_VCN5_0_1);
- MODULE_FIRMWARE(FIRMWARE_VCN5_0_2);
- MODULE_FIRMWARE(FIRMWARE_VCN5_3_0);
-+MODULE_FIRMWARE(FIRMWARE_VCN5_3_0_ALT);
-+MODULE_FIRMWARE(FIRMWARE_VCN5_3_0_PREPROD);
- 
- static void amdgpu_vcn_idle_work_handler(struct work_struct *work);
- static void amdgpu_vcn_reg_dump_fini(struct amdgpu_device *adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-index 5d068a9d9c72c..3d82cfbd14f17 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-@@ -134,13 +134,29 @@ MODULE_FIRMWARE("amdgpu/gc_11_5_6_me.bin");
- MODULE_FIRMWARE("amdgpu/gc_11_5_6_mec.bin");
- MODULE_FIRMWARE("amdgpu/gc_11_5_6_rlc.bin");
- MODULE_FIRMWARE("amdgpu/gc_11_7_0_pfp.bin");
-+MODULE_FIRMWARE("amdgpu/gc_11_7_0_pfp_l.bin");
-+MODULE_FIRMWARE("amdgpu/gc_11_7_0_pfp_p.bin");
- MODULE_FIRMWARE("amdgpu/gc_11_7_0_me.bin");
-+MODULE_FIRMWARE("amdgpu/gc_11_7_0_me_l.bin");
-+MODULE_FIRMWARE("amdgpu/gc_11_7_0_me_p.bin");
- MODULE_FIRMWARE("amdgpu/gc_11_7_0_mec.bin");
-+MODULE_FIRMWARE("amdgpu/gc_11_7_0_mec_l.bin");
-+MODULE_FIRMWARE("amdgpu/gc_11_7_0_mec_p.bin");
- MODULE_FIRMWARE("amdgpu/gc_11_7_0_rlc.bin");
-+MODULE_FIRMWARE("amdgpu/gc_11_7_0_rlc_l.bin");
-+MODULE_FIRMWARE("amdgpu/gc_11_7_0_rlc_p.bin");
- MODULE_FIRMWARE("amdgpu/gc_11_7_1_pfp.bin");
-+MODULE_FIRMWARE("amdgpu/gc_11_7_1_pfp_l.bin");
-+MODULE_FIRMWARE("amdgpu/gc_11_7_1_pfp_p.bin");
- MODULE_FIRMWARE("amdgpu/gc_11_7_1_me.bin");
-+MODULE_FIRMWARE("amdgpu/gc_11_7_1_me_l.bin");
-+MODULE_FIRMWARE("amdgpu/gc_11_7_1_me_p.bin");
- MODULE_FIRMWARE("amdgpu/gc_11_7_1_mec.bin");
-+MODULE_FIRMWARE("amdgpu/gc_11_7_1_mec_l.bin");
-+MODULE_FIRMWARE("amdgpu/gc_11_7_1_mec_p.bin");
- MODULE_FIRMWARE("amdgpu/gc_11_7_1_rlc.bin");
-+MODULE_FIRMWARE("amdgpu/gc_11_7_1_rlc_l.bin");
-+MODULE_FIRMWARE("amdgpu/gc_11_7_1_rlc_p.bin");
- 
- static const struct amdgpu_hwip_reg_entry gc_reg_list_11_0[] = {
- 	SOC15_REG_ENTRY_STR(GC, 0, regGRBM_STATUS),
-diff --git a/drivers/gpu/drm/amd/amdgpu/imu_v11_0.c b/drivers/gpu/drm/amd/amdgpu/imu_v11_0.c
-index 09dc01a425d13..a409911939d38 100644
---- a/drivers/gpu/drm/amd/amdgpu/imu_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/imu_v11_0.c
-@@ -44,7 +44,11 @@ MODULE_FIRMWARE("amdgpu/gc_11_5_3_imu.bin");
- MODULE_FIRMWARE("amdgpu/gc_11_5_4_imu.bin");
- MODULE_FIRMWARE("amdgpu/gc_11_5_6_imu.bin");
- MODULE_FIRMWARE("amdgpu/gc_11_7_0_imu.bin");
-+MODULE_FIRMWARE("amdgpu/gc_11_7_0_imu_l.bin");
-+MODULE_FIRMWARE("amdgpu/gc_11_7_0_imu_p.bin");
- MODULE_FIRMWARE("amdgpu/gc_11_7_1_imu.bin");
-+MODULE_FIRMWARE("amdgpu/gc_11_7_1_imu_l.bin");
-+MODULE_FIRMWARE("amdgpu/gc_11_7_1_imu_p.bin");
- 
- static int imu_v11_0_init_microcode(struct amdgpu_device *adev)
- {
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-index 60b27278a598b..30d3d25d59842 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-@@ -61,9 +61,17 @@ MODULE_FIRMWARE("amdgpu/gc_11_5_4_mes1.bin");
- MODULE_FIRMWARE("amdgpu/gc_11_5_6_mes_2.bin");
- MODULE_FIRMWARE("amdgpu/gc_11_5_6_mes1.bin");
- MODULE_FIRMWARE("amdgpu/gc_11_7_0_mes_2.bin");
-+MODULE_FIRMWARE("amdgpu/gc_11_7_0_mes_2_l.bin");
-+MODULE_FIRMWARE("amdgpu/gc_11_7_0_mes_2_p.bin");
- MODULE_FIRMWARE("amdgpu/gc_11_7_0_mes1.bin");
-+MODULE_FIRMWARE("amdgpu/gc_11_7_0_mes1_l.bin");
-+MODULE_FIRMWARE("amdgpu/gc_11_7_0_mes1_p.bin");
- MODULE_FIRMWARE("amdgpu/gc_11_7_1_mes_2.bin");
-+MODULE_FIRMWARE("amdgpu/gc_11_7_1_mes_2_l.bin");
-+MODULE_FIRMWARE("amdgpu/gc_11_7_1_mes_2_p.bin");
- MODULE_FIRMWARE("amdgpu/gc_11_7_1_mes1.bin");
-+MODULE_FIRMWARE("amdgpu/gc_11_7_1_mes1_l.bin");
-+MODULE_FIRMWARE("amdgpu/gc_11_7_1_mes1_p.bin");
- 
- static int mes_v11_0_hw_init(struct amdgpu_ip_block *ip_block);
- static int mes_v11_0_hw_fini(struct amdgpu_ip_block *ip_block);
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v15_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v15_0.c
-index abaa40b6def90..5dbd74549c833 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v15_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v15_0.c
-@@ -32,11 +32,19 @@
- #include "mp/mp_15_0_0_sh_mask.h"
- 
- MODULE_FIRMWARE("amdgpu/psp_15_0_0_toc.bin");
-+MODULE_FIRMWARE("amdgpu/psp_15_0_0_toc_l.bin");
-+MODULE_FIRMWARE("amdgpu/psp_15_0_0_toc_p.bin");
- MODULE_FIRMWARE("amdgpu/psp_15_0_0_ta.bin");
-+MODULE_FIRMWARE("amdgpu/psp_15_0_0_ta_l.bin");
-+MODULE_FIRMWARE("amdgpu/psp_15_0_0_ta_p.bin");
- MODULE_FIRMWARE("amdgpu/psp_15_0_5_toc.bin");
- MODULE_FIRMWARE("amdgpu/psp_15_0_5_ta.bin");
- MODULE_FIRMWARE("amdgpu/psp_15_0_9_toc.bin");
-+MODULE_FIRMWARE("amdgpu/psp_15_0_9_toc_l.bin");
-+MODULE_FIRMWARE("amdgpu/psp_15_0_9_toc_p.bin");
- MODULE_FIRMWARE("amdgpu/psp_15_0_9_ta.bin");
-+MODULE_FIRMWARE("amdgpu/psp_15_0_9_ta_l.bin");
-+MODULE_FIRMWARE("amdgpu/psp_15_0_9_ta_p.bin");
- 
- #define regMPASP_PCRU0_MPASP_C2PMSG_64                                         0x4280
- #define regMPASP_PCRU0_MPASP_C2PMSG_64_BASE_IDX                                2
-@@ -108,6 +116,47 @@ static int psp_v15_0_0_ring_stop(struct psp_context *psp,
- 	return ret;
- }
- 
-+/*
-+ * C2PMSG_63 bit 6: 0 = default firmware signing, 1 = alternative
-+ * C2PMSG_63 bit 28: 0 = production part, 1 = preproduction part
-+ */
-+#define PSP_V15_0_0_FW_SIGN_ALT		BIT(6)
-+#define PSP_V15_0_0_FW_PREPROD		BIT(28)
-+
-+void psp_v15_0_0_get_fw_variant(struct amdgpu_device *adev)
-+{
-+	bool alt, preprod;
-+	u32 val;
-+
-+	if (!adev->reg_offset[MP0_HWIP][0])
-+		return;
-+
-+	val = RREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_63);
-+	if (val == 0xffffffff) {
-+		drm_warn(adev_to_drm(adev), "Unable to access regMPASP_SMN_C2PMSG_63\n");
-+		return;
-+	}
-+
-+	alt = val & PSP_V15_0_0_FW_SIGN_ALT;
-+	preprod = val & PSP_V15_0_0_FW_PREPROD;
-+
-+	if (alt && preprod) {
-+		drm_warn(adev_to_drm(adev),
-+			 "Preproduction part with alternative signing is unexpected, signing type unknown\n");
-+		adev->firmware.sign_type = AMDGPU_FW_SIGN_UNKNOWN;
-+		return;
-+	}
-+
-+	if (preprod)
-+		adev->firmware.sign_type = AMDGPU_FW_SIGN_PREPROD;
-+	else if (alt)
-+		adev->firmware.sign_type = AMDGPU_FW_SIGN_ALT;
-+
-+	dev_info(adev->dev, "PSP firmware: %s signing, %s part (C2PMSG_63=0x%08x)\n",
-+		 alt ? "alternative" : "default",
-+		 preprod ? "preproduction" : "production", val);
-+}
-+
- static int psp_v15_0_0_ring_create(struct psp_context *psp,
- 				 enum psp_ring_type ring_type)
- {
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v15_0.h b/drivers/gpu/drm/amd/amdgpu/psp_v15_0.h
-index ebd612103526f..081be8e8268bc 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v15_0.h
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v15_0.h
-@@ -26,5 +26,6 @@
- #include "amdgpu_psp.h"
- 
- void psp_v15_0_0_set_psp_funcs(struct psp_context *psp);
-+void psp_v15_0_0_get_fw_variant(struct amdgpu_device *adev);
- 
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-index 4845588c4c247..2586d49f1e940 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-@@ -56,6 +56,8 @@ MODULE_FIRMWARE("amdgpu/sdma_6_1_1.bin");
- MODULE_FIRMWARE("amdgpu/sdma_6_1_2.bin");
- MODULE_FIRMWARE("amdgpu/sdma_6_1_3.bin");
- MODULE_FIRMWARE("amdgpu/sdma_6_1_4.bin");
-+MODULE_FIRMWARE("amdgpu/sdma_6_1_4_l.bin");
-+MODULE_FIRMWARE("amdgpu/sdma_6_1_4_p.bin");
- MODULE_FIRMWARE("amdgpu/sdma_6_4_0.bin");
- 
- #define SDMA1_REG_OFFSET 0x600
-diff --git a/drivers/gpu/drm/amd/amdgpu/vpe_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vpe_v2_0.c
-index c92c5fc59aeb9..cefb8d739faf8 100644
---- a/drivers/gpu/drm/amd/amdgpu/vpe_v2_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vpe_v2_0.c
-@@ -31,6 +31,8 @@
- #include "vpe/vpe_2_0_0_sh_mask.h"
- 
- MODULE_FIRMWARE("amdgpu/vpe_2_0_0.bin");
-+MODULE_FIRMWARE("amdgpu/vpe_2_0_0_l.bin");
-+MODULE_FIRMWARE("amdgpu/vpe_2_0_0_p.bin");
- MODULE_FIRMWARE("amdgpu/vpe_2_2_0.bin");
- 
- #define VPE_THREAD1_UCODE_OFFSET	0x8000
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
-index 0ea8f9a582ccc..b28d67b4e70aa 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
-@@ -62,6 +62,8 @@ MODULE_FIRMWARE(FIRMWARE_DCN_351_DMUB);
- MODULE_FIRMWARE(FIRMWARE_DCN_36_DMUB);
- MODULE_FIRMWARE(FIRMWARE_DCN_401_DMUB);
- MODULE_FIRMWARE(FIRMWARE_DCN_42_DMUB);
-+MODULE_FIRMWARE(FIRMWARE_DCN_42_DMUB_ALT);
-+MODULE_FIRMWARE(FIRMWARE_DCN_42_DMUB_PREPROD);
- MODULE_FIRMWARE(FIRMWARE_DCN_42B_DMUB);
- MODULE_FIRMWARE(FIRMWARE_DCN_60_DMUB);
- 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.h
-index df3e776c1ad14..219e9c0427441 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.h
-@@ -61,6 +61,8 @@ int dm_init_microcode(struct amdgpu_device *adev);
- #define FIRMWARE_DCN_36_DMUB		"amdgpu/dcn_3_6_dmcub.bin"
- #define FIRMWARE_DCN_401_DMUB		"amdgpu/dcn_4_0_1_dmcub.bin"
- #define FIRMWARE_DCN_42_DMUB		"amdgpu/dcn_4_2_dmcub.bin"
-+#define FIRMWARE_DCN_42_DMUB_ALT	"amdgpu/dcn_4_2_dmcub_l.bin"
-+#define FIRMWARE_DCN_42_DMUB_PREPROD	"amdgpu/dcn_4_2_dmcub_p.bin"
- #define FIRMWARE_DCN_42B_DMUB		"amdgpu/dcn_4_2_1_dmcub.bin"
- #define FIRMWARE_DCN_60_DMUB		"amdgpu/dcn_6_0_0_dmcub.bin"
- #define FIRMWARE_RAVEN_DMCU		"amdgpu/raven_dmcu.bin"
--- 
-2.43.0
+Please help me review the attached patch.
 
+A gfx hang that occurs 2 out of 400 times when performing S3 cycles. The is=
+sue is seen with the kernel version 6.18.8 and on AMD hardware; Picasso gfx=
+9 APU.
+
+When going to S3 suspend, the driver checks whether GPU has completed its t=
+asks, but it doesn't wait for jobs that are submitted to the scheduler. As =
+a result, queued up jobs slip into the ring and are lost when WPTR is set t=
+o 0. On wake up, we hit a timeout followed by a hang.
+
+The fix is to wait for all scheduled task to finish before going to S3. I t=
+ested the patch and the issue is not seen again.
+
+
+Thanks,
+Tharshan
+
+--_000_SA1SPRMB0073292C113C6B98D9282092F87F2SA1SPRMB0073namprd_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Aptos;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:12.0pt;
+	font-family:"Aptos",sans-serif;
+	mso-ligatures:standardcontextual;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Aptos",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#467886" vlink=3D"#96607D" style=3D"word-wrap:=
+break-word">
+<p style=3D"font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;fon=
+t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
+AMD General<br>
+</p>
+<br>
+<div>
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Hi,<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Please help me review the attached patch. <o:p></o:p=
+></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">A gfx hang that occurs 2 out of 400 times when perfo=
+rming S3 cycles. The issue is seen with the kernel version 6.18.8 and on AM=
+D hardware; Picasso gfx9 APU.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">When going to S3 suspend, the driver checks whether =
+GPU has completed its tasks, but it doesn&#8217;t wait for jobs that are su=
+bmitted to the scheduler. As a result, queued up jobs slip into the ring an=
+d are lost when WPTR is set to 0. On wake
+ up, we hit a timeout followed by a hang. <o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">The fix is to wait for all scheduled task to finish =
+before going to S3. I tested the patch and the issue is not seen again.
+<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thanks,<o:p></o:p></p>
+<p class=3D"MsoNormal">Tharshan<o:p></o:p></p>
+</div>
+</div>
+</body>
+</html>
+
+--_000_SA1SPRMB0073292C113C6B98D9282092F87F2SA1SPRMB0073namprd_--
+
+--_004_SA1SPRMB0073292C113C6B98D9282092F87F2SA1SPRMB0073namprd_
+Content-Type: application/octet-stream;
+	name="0001-drm-amdgpu-dma-wait-on-scheduled-tasks-before-suspen.patch"
+Content-Description:  0001-drm-amdgpu-dma-wait-on-scheduled-tasks-before-suspen.patch
+Content-Disposition: attachment;
+	filename="0001-drm-amdgpu-dma-wait-on-scheduled-tasks-before-suspen.patch";
+	size=4234; creation-date="Fri, 13 Nov 2026 16:37:37 GMT";
+	modification-date="Fri, 13 Nov 2026 16:43:59 GMT"
+Content-Transfer-Encoding: base64
+
+RnJvbSA4NDhiZGRhMWQ1ZmVhOTQyYzNjY2Y5OWFmOTA1OWIxY2M2MGVhN2U5IE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBMb2dhdGhhcnNoYW4gVGhvdGhpcmFsaW5nYW0gPExvZ2F0aGFy
+c2hhbi5UaG90aGlyYWxpbmdhbUBhbWQuY29tPgpEYXRlOiBUaHUsIDEyIE5vdiAyMDI2IDE0OjMx
+OjQ1IC0wNTAwClN1YmplY3Q6IFtQQVRDSF0gZHJtL2FtZGdwdTogZG1hIHdhaXQgb24gc2NoZWR1
+bGVkIHRhc2tzIGJlZm9yZSBzdXNwZW5kCgpbV0hZXQpPbiBTMyBzdXNwZW5kLCB0aGVyZSBhcmUg
+am9icyB0aGF0IGFyZSBpbiB0aGUgc2NoZWR1bGVkIHF1ZXVlLiBUaGUKZHJpdmVyIHdhaXRzIGZv
+ciB0aGUgam9icyBpbiB0aGUgSFcgcmluZyB0byBmaW5pc2ggZXhlY3V0aW5nLiBCdXQgYWZ0ZXIK
+dGhlIEhXIHJpbmcgaXMgZW1wdHksIGl0IHN0YXJ0cyB0aGUgc3VzcGVuZCBzZXF1ZW5jZS4gQXQg
+dGhpcyBwb2ludAp1c2VybW9kZSBzY2hlZHVsZWQgdGFzayBzbGlwcyBpbnRvIHRoZSByaW5nLiBP
+biByZXN1bWUsIHRoZSBXUFRSIGlzCnNldCB0byAwLCBoZW5jZSB0aGUgZmVuY2UgaXMgbm90IHJl
+dHVybmVkIGZvciB0aG9zZSBqb2JzLgpUaGlzIGxlYWRzIHRvIGEgZ2Z4IGhhbmcgYWZ0ZXIgdGhl
+IHRpbWVvdXQuCldhaXQgZm9yIGFsbCBvZiB0aGUgc2NoZWR1bGVkIGpvYnMgdG8gZmluaXNoIGJl
+Zm9yZSBzdGFydGluZwp0aGUgUzMgc3VzcGVuZCBzZXF1ZW5jZS4KCltIT1ddCkluIGFtZGdwdV9j
+dHguYyB3YWl0IG9uIHRoZSBsYXN0IGZlbmNlIHVzaW5nIGRtYV9mZW5jZV93YWl0KCkgYnkgbG9v
+cGluZwp0aHJvdWdoIGNvbnRleHQgbWFuYWdlcgpJbiBhbWRncHVfZGV2aWNlLmMgY2FsbCB0aGUg
+ZG1hIHdhaXQgaW4gY3R4IGFuZCBhZGQgdGhlIGxvZ2ljIGluIHN1c3BlbmQKClNpZ25lZC1vZmYt
+Ynk6IExvZ2F0aGFyc2hhbiBUaG90aGlyYWxpbmdhbSA8TG9nYXRoYXJzaGFuLlRob3RoaXJhbGlu
+Z2FtQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2N0eC5j
+ICAgIHwgMzMgKysrKysrKysrKysrKysrKysrKysrKwogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X2N0eC5oICAgIHwgIDEgKwogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X2RldmljZS5jIHwgMjQgKysrKysrKysrKysrKysrKwogMyBmaWxlcyBjaGFuZ2VkLCA1OCBp
+bnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X2N0eC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2N0eC5jCmluZGV4
+IGFmZWRlYTAyMTg4ZC4uYzRhZmZjMzJlYmFjIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfY3R4LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X2N0eC5jCkBAIC05OTAsMyArOTkwLDM2IEBAIHZvaWQgYW1kZ3B1X2N0eF9tZ3JfdXNh
+Z2Uoc3RydWN0IGFtZGdwdV9jdHhfbWdyICptZ3IsCiAJfQogCW11dGV4X3VubG9jaygmbWdyLT5s
+b2NrKTsKIH0KKwordm9pZCBhbWRncHVfY3R4X21ncl93YWl0X3N1Ym1pc3Npb25zKHN0cnVjdCBh
+bWRncHVfY3R4X21nciAqbWdyKQoreworCXN0cnVjdCBhbWRncHVfY3R4ICpjdHg7CisJdWludDMy
+X3QgaWQsIGksIGo7CisKKwltdXRleF9sb2NrKCZtZ3ItPmxvY2spOworCWlkcl9mb3JfZWFjaF9l
+bnRyeSgmbWdyLT5jdHhfaGFuZGxlcywgY3R4LCBpZCkgeworCQlmb3IgKGkgPSAwOyBpIDwgQU1E
+R1BVX0hXX0lQX05VTTsgKytpKSB7CisJCQlmb3IgKGogPSAwOyBqIDwgYW1kZ3B1X2N0eF9udW1f
+ZW50aXRpZXNbaV07ICsraikgeworCQkJCXN0cnVjdCBkbWFfZmVuY2UgKmZlbmNlOworCisJCQkJ
+aWYgKCFjdHgtPmVudGl0aWVzW2ldW2pdKQorCQkJCQljb250aW51ZTsKKwkJCQkKKwkJCQkvKiAK
+KwkJCQkgKiBnZXQgdGhlIGxhc3QgcmVjZW50IHN1Ym1pc3Npb24sIGFuZCB3YWl0IG9uIHRoYXQK
+KwkJCQkgKiB0aGlzIGltcGxpZXMgdGhhdCBwcmV2aW91cyBzdWJtaXNzaW9ucyBhcmUgY29tcGxl
+dGVkLgorCQkJCSAqIHNvIHBhc3MgfjB1bGwgdG8gZ2V0IHRoZSBsYXN0IAorCQkJCSAqLworCQkJ
+CWZlbmNlID0gYW1kZ3B1X2N0eF9nZXRfZmVuY2UoY3R4LAorCQkJCQkJCQkJCQkmY3R4LT5lbnRp
+dGllc1tpXVtqXS0+ZW50aXR5LAorCQkJCQkJCQkJCQl+MHVsbCk7CisJCQkJaWYgKElTX0VSUl9P
+Ul9OVUxMKGZlbmNlKSkKKwkJCQkJY29udGludWU7CisKKwkJCQlkbWFfZmVuY2Vfd2FpdChmZW5j
+ZSwgZmFsc2UpOworCQkJCWRtYV9mZW5jZV9wdXQoZmVuY2UpOworCQkJfQorCQl9CisJfQorCW11
+dGV4X3VubG9jaygmbWdyLT5sb2NrKTsKK30KXCBObyBuZXdsaW5lIGF0IGVuZCBvZiBmaWxlCmRp
+ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3R4LmggYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3R4LmgKaW5kZXggMDkwZGZlODZmNzViLi4z
+MDIyZmUzYmE3Y2YgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV9jdHguaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3R4LmgKQEAg
+LTk2LDUgKzk2LDYgQEAgbG9uZyBhbWRncHVfY3R4X21ncl9lbnRpdHlfZmx1c2goc3RydWN0IGFt
+ZGdwdV9jdHhfbWdyICptZ3IsIGxvbmcgdGltZW91dCk7CiB2b2lkIGFtZGdwdV9jdHhfbWdyX2Zp
+bmkoc3RydWN0IGFtZGdwdV9jdHhfbWdyICptZ3IpOwogdm9pZCBhbWRncHVfY3R4X21ncl91c2Fn
+ZShzdHJ1Y3QgYW1kZ3B1X2N0eF9tZ3IgKm1nciwKIAkJCSAga3RpbWVfdCB1c2FnZVtBTURHUFVf
+SFdfSVBfTlVNXSk7Cit2b2lkIGFtZGdwdV9jdHhfbWdyX3dhaXRfc3VibWlzc2lvbnMoc3RydWN0
+IGFtZGdwdV9jdHhfbWdyICptZ3IpOwogCiAjZW5kaWYKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV9kZXZpY2UuYwppbmRleCA0OTEwNzQ3NWFmNjEuLjJjYTk5Nzc3MzAwNCAxMDA2
+NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCisrKyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwpAQCAtNTE5Niw2ICs1
+MTk2LDI4IEBAIHZvaWQgYW1kZ3B1X2RldmljZV9jb21wbGV0ZShzdHJ1Y3QgZHJtX2RldmljZSAq
+ZGV2KQogCX0KIH0KIAorLyoqCisgKiBhbWRncHVfZGV2aWNlX3dhaXRfZm9yX3N1Ym1pc3Npb25z
+X3RvX2ZpbmlzaCAtIGNvbXBsZXRlIGFsbCBzdWJtaXR0ZWQgam9icworICogQGRldjogZHJtIGRl
+diBwb2ludGVyCisgKgorICogV2FpdCB1bnRpbCBhbGwgb2YgdGhlIHN1Ym1pdHRlZCBqb2JzIGZp
+bmlzaCBvbiB0aGUgZG1hIGZlbmNlCisgKiBDYWxsZWQgYXQgZHJpdmVyIHN1c3BlbmQuCisgKi8K
+K3N0YXRpYyB2b2lkIGFtZGdwdV9kZXZpY2Vfd2FpdF9mb3Jfc3VibWlzc2lvbnNfdG9fZmluaXNo
+KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQoreworCXN0cnVjdCBkcm1fZGV2aWNlICpkZGV2
+ID0gYWRldl90b19kcm0oYWRldik7CisJc3RydWN0IGRybV9maWxlICpmaWxlOworCisJbXV0ZXhf
+bG9jaygmZGRldi0+ZmlsZWxpc3RfbXV0ZXgpOworCWxpc3RfZm9yX2VhY2hfZW50cnkoZmlsZSwg
+JmRkZXYtPmZpbGVsaXN0LCBsaGVhZCkgeworCQlzdHJ1Y3QgYW1kZ3B1X2Zwcml2ICpmcHJpdiA9
+IGZpbGUtPmRyaXZlcl9wcml2OworCisJCWlmIChmcHJpdikKKwkJCWFtZGdwdV9jdHhfbWdyX3dh
+aXRfc3VibWlzc2lvbnMoJmZwcml2LT5jdHhfbWdyKTsKKwl9CisJbXV0ZXhfdW5sb2NrKCZkZGV2
+LT5maWxlbGlzdF9tdXRleCk7Cit9CisKIC8qKgogICogYW1kZ3B1X2RldmljZV9zdXNwZW5kIC0g
+aW5pdGlhdGUgZGV2aWNlIHN1c3BlbmQKICAqCkBAIC01MjEzLDYgKzUyMzUsOCBAQCBpbnQgYW1k
+Z3B1X2RldmljZV9zdXNwZW5kKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsIGJvb2wgbm90aWZ5X2Ns
+aWVudHMpCiAKIAlpZiAoZGV2LT5zd2l0Y2hfcG93ZXJfc3RhdGUgPT0gRFJNX1NXSVRDSF9QT1dF
+Ul9PRkYpCiAJCXJldHVybiAwOworCQorCWFtZGdwdV9kZXZpY2Vfd2FpdF9mb3Jfc3VibWlzc2lv
+bnNfdG9fZmluaXNoKGFkZXYpOwogCiAJYWRldi0+aW5fc3VzcGVuZCA9IHRydWU7CiAKLS0gCjIu
+NTUuMC53aW5kb3dzLjUKCg==
+
+--_004_SA1SPRMB0073292C113C6B98D9282092F87F2SA1SPRMB0073namprd_--
