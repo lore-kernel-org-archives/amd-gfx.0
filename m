@@ -2,90 +2,90 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08737606A31C
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Nov 2026 01:34:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F36D606A333
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Nov 2026 02:42:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=bk1hFXNu
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=CahfpByZ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FFE610E735;
-	Fri, 13 Nov 2026 01:34:11 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E52E10E747
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Nov 2026 01:34:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1794533643;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=HX8JDnkQUSdkQL8lAJ2VgGCKAUpOjghvCUmklLZFFl8=;
- b=bk1hFXNuDdsq6HK7FCEGF3YEbkyaChMVrry2FLKk527jkIno/Zr1UYkBhThiHo0A7K4/ag
- tDcPRwAEL2zBzZzOL7m2vZSzT4XRVXsEKA6IB9mCZV+uqDk8Yxw10cvMTdoFhUPKBJ/eaJ
- S5suhhG20085Ws2rvzOw29mkbf85EFA=
-Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com
- [74.125.82.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-590-NGgYJz0QOfCCia768xk72g-1; Thu, 12 Nov 2026 20:34:02 -0500
-X-MC-Unique: NGgYJz0QOfCCia768xk72g-1
-X-Mimecast-MFC-AGG-ID: NGgYJz0QOfCCia768xk72g_1794533641
-Received: by mail-dl1-f71.google.com with SMTP id
- a92af1059eb24-1aa0fb7f157so421306c88.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Nov 2026 17:34:01 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794533641; x=1795138441;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=HX8JDnkQUSdkQL8lAJ2VgGCKAUpOjghvCUmklLZFFl8=;
- b=cPk9d12SNqCf2alpGBlo5llPFfJcSzW8BRRtQS0IoT8rMIpD3YCfBek9Hy6BtUJIWF
- Tu6cMdH7MDssts0QpzkIoUCqpCIVmjCuLcFCWWD6B2X8+j1G8h0vSEmu8Ag3U04FaFa2
- d9MyJkHeiaCS5Ea3qc8Gt78L+ulF/+kaH4pJpYJKySyMfoOhXZxYGqO/p4E85Np6Nc2O
- lI6gMhE7F9WphW3Gc7zYvWqphtBVJ9JviF0aJRHJ0OF2MQWMGnjqKiH2pt3/pL2Ds2mk
- 3PPwAojvKFnBTwxM+o78rAWkrTwsOjwNdKLgb6i/ybXXxGoXChJxp7WoZH8Z/aUea3Hf
- ePZA==
-X-Forwarded-Encrypted: i=1;
- AL+hErEQkiG878KkQMHLYwerXH+yM9+Pnw6b16uxKIEcPrLJkJpzKqvOfqYI8K+ql/OBcAElwA7IIHXv@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+ZedKNSkciuUWhCKNph4FqATMV8JdYhgaBaq5njAOI+Fpipego
- DnYSFbPbmocLYHS0VdCPpiX9TVMAeniPfquGRSGUPA4jmk5I1vTsIX50m94Pm/cxBPsfwymWNb7
- yRfSPdIA1H0QH45tACw4DJPxpv4Nm+MMBP7PVnkDnQcunkwj1pETlA6Fc+7agupLH5AjrZdPoTJ
- 3Mq7usRKTX+a/DvBkOwvvBmorvbbZjkycXuO4X0x2NRw==
-X-Gm-Gg: AYBFou04DkGqtif4H8EBZtGgvj0mlN+ZlO6GuhV2ZdvkgEeHnUTk88m5hiGbI4rr2Vz
- 9qWNpSiDNvaNAJsFVXyE5AXGPsn6kyez0V0w5nhXvj0mFYz9rt+XzpV2RR/z26Ez8Q7RGxE65Lm
- m7qIbQ7/4Ul81wdzo6OR4aDNLy9q0H0mxQA57CttFUmvDgtoHrUjUR6s0vFBzDaIN51XrXA82HG
- KQySRMVmMiQEQsm
-X-Received: by 2002:a05:701b:2402:b0:1ab:faad:cba with SMTP id
- a92af1059eb24-1b5030eb09amr1041182c88.34.1794533640732; 
- Thu, 12 Nov 2026 17:34:00 -0800 (PST)
-X-Received: by 2002:a05:701b:2402:b0:1ab:faad:cba with SMTP id
- a92af1059eb24-1b5030eb09amr1041154c88.34.1794533640114; Thu, 12 Nov 2026
- 17:34:00 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2A0210E5E0;
+	Fri, 13 Nov 2026 02:42:16 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013071.outbound.protection.outlook.com
+ [40.93.196.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3226210E5E0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Nov 2026 02:42:10 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=h5z4RT9BBESiJ7AoNZuzQq3KNSyYd5O76fk7ocibPVCxmMbzkHrt2zZ5P5/US14mvsRPKhF4hqKHSsuSZ0/ogWt4/k2D4pkQgWJBAp+uwzanJiGq/811+Z2nRtYJhtFVEdVGJOh7yo2Bd880bD0shyGGyDYv6N2BcbMgfaU4mSLvidoOfIC9dcZujJBpZqkgLJ5uu+AL8MsekVqMqXZC6ldznPWw0cVh5caECdDng2nW4Cqke+3C7/1DAP2oUPvZM/MKYSOF7QucVrO3H1aNPiAk5sPFlxJbeX0K+T6knrYWdhrHpBWwPzU6tiWPcpd7Y5cb1phBxiSzla+UUjv9gA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4x104TvtLBFAzxUI5Xj2Y2Y9fqzMhHuu9NlTD8R6RGY=;
+ b=aVwI9Uq29oahgIrLIuXlGM5FJY/mqAvmwosiV0294fcbwAsUPwMUTqTUxU0c3h0W1xaSgFltc+tHkeGDQB1/v7ibw8/WLpSuR6iRP8JzW3ZNAS28BpdKKb7jZXECnBbQvQ8eN4tlvPUBdoyW22VSMK22f4uhJ58U6SrT2jEGrbMYL95JXqCPiM5wo8+IL6+3hLbEmVZSjEZm9WS6a1LOjZIw9boNny+czSzvRWWZfnXowfpsgmYSTEqyvyXnrMhk8b0crcYp5QyWMZXjIz+SjvInOF8SkuvAggvebvTQoi7CyhbIiCAjF3Y8pXXD0ZUh4N9H0X54jSKYJb46AnchXw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none
+ action=none header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4x104TvtLBFAzxUI5Xj2Y2Y9fqzMhHuu9NlTD8R6RGY=;
+ b=CahfpByZzV3vYOcTrurmBvOKdnCwPucz/PKtdp2eyzJU2mV1xfl2Jfv8AQNsF8UnVZhLoaakAwis/6Fly6Jfw3QzPMDlJKiBYC4GGgk9aYpsLeIBu1GrxFNiTrOszTx/Q54pTaHZYtefJaD+eoT4Qip5sU40QJOHaRQDYAV0UuY=
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; dkim=none (message
+ not signed) header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BY3PR05CA0007.namprd05.prod.outlook.com (2603:10b6:a03:254::12)
+ by IA3PR12MB246477.namprd12.prod.outlook.com (2603:10b6:208:70e::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 13 Nov
+ 2026 02:40:06 +0000
+Received: from DM3PEPF000265C4.namprd03.prod.outlook.com
+ (2603:10b6:a03:254:cafe::1e) by BY3PR05CA0007.outlook.office365.com
+ (2603:10b6:a03:254::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Fri, 13
+ Nov 2026 02:40:01 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DM3PEPF000265C4.mail.protection.outlook.com (10.167.23.185) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Fri, 13 Nov 2026 02:39:56 +0000
+Received: from amberlin-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 12 Nov
+ 2026 20:34:22 -0600
+From: Amber Lin <amber.lin@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <alexander.deucher@amd.com>, <Shaoyun.Liu@amd.com>, Amber Lin
+ <amber.lin@amd.com>
+Subject: [PATCH] drm/amdkfd: Move gpu_recovery location
+Date: Thu, 12 Nov 2026 21:33:37 -0500
+Message-ID: <20261113023337.21214-1-amber.lin@amd.com>
+X-Mailer: git-send-email 2.43.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261112-amdgpu-dc-cleanup-v1-0-0fae41718ad2@redhat.com>
- <20261112-amdgpu-dc-cleanup-v1-19-0fae41718ad2@redhat.com>
- <3179d0b2-cbfa-4f09-9e24-363210718fb3@amd.com>
-In-Reply-To: <3179d0b2-cbfa-4f09-9e24-363210718fb3@amd.com>
-From: David Airlie <airlied@redhat.com>
-Date: Fri, 13 Nov 2026 11:33:48 +1000
-X-Gm-Features: AclHuK_fCZvVs1RRnIhZagWHLsy677KbRvHKcoOFh-cTgRp7mq9zzbruL6lO4nM
-Message-ID: <CAMwc25rDq6biXokgwZJNbRfA3KZzZ1x3KxU=CPe7HvnS_PN3+w@mail.gmail.com>
-Subject: Re: [PATCH 19/19] drm/amd/display: Replace dc_get_caps with
- purpose-built capability queries
-To: Harry Wentland <harry.wentland@amd.com>
-Cc: Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Austin Zheng <austin.zheng@amd.com>,
- Jun Lei <jun.lei@amd.com>, 
- Kenneth Feng <kenneth.feng@amd.com>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: zV8wimPp7Ow-fymXd5HKDpgvM-Rbg24a_6aNxB32AoI_1794533641
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM3PEPF000265C4:EE_|IA3PR12MB246477:EE_
+X-MS-Office365-Filtering-Correlation-Id: bcc7828f-3c90-4f4a-ede9-08df412f6771
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|36860700016|1800799024|376014|23010399003|18002099003|261009223027099003|11063799006|56012099006|10067099003|261102123227099003|261022105027099003|261026121527099003|261028144727099003|261021121427099003|261026140227099003|261021123027099003;
+X-Microsoft-Antispam-Message-Info: 4SPqDtyUpEVsVLW5MeLYbI+kRSPvER4sUTuRnNVpTWfrkgzy8lLNNhSNZB+Pcgx3SKlpHiVUYbP3kj6vEf00SIVkCF+EKdzk2HGfoxtV9b+zXl+Op9xnYNv9nRQOlqS2BsJaVrx3JFUNzgMCIu3V3n68XmzJ18BeQuDRzMLlW+WtEDGq43cpFgkXxmUlmygWd3pz1R4RVG5D300XmmZIprVhk9eUmA5bQ5/u6iyHtylX6ebBb+XO0uIjVn7DJvvw4SwgiEcZVJgKLf6dRCY9o8quZVNbKi8/UeQaNicsimUpJTDZptQb9cgAmcLaTk5dL20XWwUfiZy+R5ZHAX4j58Q4I3fn7yUs46/IYI5HvqP3B2OBudf8SeLfk7zjWU/XaKL4nJ9k11qtTkKrVG0WbtxtkqKrROM1BD3ROXkYu8u2xtHZ3MELA9XZmFTQK9A7GE4jQq1AOTHvDXGxQWeGlK9TMwEQ10m0AYOgyHdYOl2uNCQguVZOyJrouowq/xe8QcPChwj6mHnW1vTQ71kyXGfdNeCHQLi8eeFZqhmnACqf8589nS5hAqMkGe4t3Zcrwa2prDW/125iqxgMupCjuX3wmnhEq5aMpo682kqUm7EGeRcYdOlHeFyNi9YMmizORdu8hTeV7AObcISma5DrgL4sWYEawkMPmhp7Lm3gM8o=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:; CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700016)(1800799024)(376014)(23010399003)(18002099003)(261009223027099003)(11063799006)(56012099006)(10067099003)(261102123227099003)(261022105027099003)(261026121527099003)(261028144727099003)(261021121427099003)(261026140227099003)(261021123027099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: bxa/rh1QfQRTfiOofGObCyFVdMuD6x8d1pKRz2onssY2beKGq8H88zDJuW7EhDbWSX/juizZgZq/NC7EbrANT5RIeUJXIvgwgtAdxfcYIim5QQs2XR04uWBBIuUNMndDz/Kw/imz8RRjsCT/rpKFOYDofAOW9EPo5WMyq5Dz5bVwKAWJH2S2mLseMKN5bhFiZslpuzAe76czmMGOFMiT3VxqwytJA+z3Iml39OMFQB3YMvY4XsYHSd3xS1eCGiE0SsbhE1sn3KWuKd4cz0AICUXY4Ifimq+6436inWsmYfr/1KPfLBcNkjj2yY5BnLr4vZYsUHwnLoOcVVS88ahRNtK3yXfbhvMlS5yoBWajmeViLvlVHZhA/pUY1hoV8cEkwmw+OZWMojfvQXKdnm9iOlbjiMjB6jouu3qqewqCXLPCenOsKctSG2ncikUbr9oO
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 02:39:56.3378 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bcc7828f-3c90-4f4a-ede9-08df412f6771
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM3PEPF000265C4.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR12MB246477
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,103 +96,77 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri, Nov 13, 2026 at 5:42=E2=80=AFAM Harry Wentland <harry.wentland@amd.=
-com> wrote:
->
-> On 11/11/26 20:43, Dave Airlie via B4 Relay wrote:
-> > From: Dave Airlie <airlied@redhat.com>
-> >
-> > Split the caps view accessor into per-capability queries so DM and the
-> > DAL modules no longer read through struct dc_caps:
-> >
-> > - scalar getters for is_apu, ips/dmcub support, max links/streams/
-> >   planes/slave planes/cursor size/v_total, vtotal_limited_by_fp2,
-> >   i2c speed, PCON/DSC/fused-io support, SubVP processing delay and
-> >   MALL size
-> > - dc_dmub_supports_psr()/dc_dmub_supports_aux_backlight() for the
-> >   DMUB capability bits
-> > - dc_get_color_caps() copies out the color pipeline capabilities
-> > - dc_get_plane_caps() returns the static plane capability array
-> >
-> > The KUnit tests keep installing fake capabilities through the
-> > dc_test_caps() view of their own fake DC.
-> >
-> > No production code outside the dc directory reads struct dc members
-> > through a caps view anymore.
-> >
-> > Part of making the struct dc sub-structures opaque outside DC.
-> >
-> > Signed-off-by: Dave Airlie <airlied@redhat.com>
-> > ---
->
-> <snip>
->
-> >
-> >  unsigned int dc_get_disable_ips(const struct dc *dc)
-> > diff --git a/drivers/gpu/drm/amd/display/dc/inc/dc.h b/drivers/gpu/drm/=
-amd/display/dc/inc/dc.h
-> > index 31baba820f6c..7a49f2ee1d77 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/inc/dc.h
-> > +++ b/drivers/gpu/drm/amd/display/dc/inc/dc.h
-> > @@ -2351,8 +2351,38 @@ struct dc_context *dc_get_ctx(const struct dc *d=
-c);
-> >  /* The ASIC display engine version. */
-> >  enum dce_version dc_get_dce_version(const struct dc *dc);
-> >
-> > -/* Capabilities detected at dc_create() time. Read-only. */
-> > -const struct dc_caps *dc_get_caps(const struct dc *dc);
-> > +/*
-> > + * Capabilities detected at dc_create() time. Read-only; prefer the
-> > + * purpose-built queries below over reaching into the caps structure.
-> > + */
-> > +bool dc_is_apu(const struct dc *dc);
-> > +bool dc_get_ips_support(const struct dc *dc);
-> > +bool dc_get_dmcub_support(const struct dc *dc);
-> > +unsigned int dc_get_max_links(const struct dc *dc);
-> > +unsigned int dc_get_max_streams(const struct dc *dc);
-> > +unsigned int dc_get_max_planes(const struct dc *dc);
-> > +unsigned int dc_get_max_slave_planes(const struct dc *dc);
-> > +unsigned int dc_get_max_cursor_size(const struct dc *dc);
-> > +unsigned int dc_get_max_v_total(const struct dc *dc);
-> > +bool dc_get_vtotal_limited_by_fp2(const struct dc *dc);
-> > +unsigned int dc_get_i2c_speed_in_khz(const struct dc *dc);
-> > +bool dc_get_dp_hdmi21_pcon_support(const struct dc *dc);
-> > +bool dc_get_edp_dsc_support(const struct dc *dc);
-> > +bool dc_get_fused_io_support(const struct dc *dc);
-> > +unsigned int dc_get_subvp_fw_processing_delay_us(const struct dc *dc);
-> > +unsigned int dc_get_mall_size_total(const struct dc *dc);
-> > +bool dc_dmub_supports_psr(const struct dc *dc);
-> > +bool dc_dmub_supports_aux_backlight(const struct dc *dc);
-> > +
-> > +/* Copy out the color pipeline capabilities. */
-> > +void dc_get_color_caps(const struct dc *dc, struct dc_color_caps *caps=
-);
-> > +
-> > +/*
-> > + * Return the static plane capability array and its entry count.
-> > + * Valid until the DC is destroyed.
-> > + */
-> > +const struct dc_plane_cap *dc_get_plane_caps(const struct dc *dc,
-> > +             unsigned int *count);
-> >
->
-> This creates some API bloat.
->
-> What about creating a new public struct header and throwing dc_caps
-> (or a subset of it) in there?
->
-> The intent to decouple how DC stores and reports caps is valid.
+amdgpu_gfx_reset_mes_compute combines two features into one:
+1) hung queue/pipe reset - suspend all/queue reset/resume all
+2) bad queue removal - suspend_all/remove_queue/resume_all
+GPU recovery aims on 1)resetting hung queues/pipes. When gpu_recovery is
+disabled, we need to keep 2) going. Therefore move the gpu_recovery
+check from KFD's reset_queues_mes into amdgpu_gfx_reset_mes_compute
+where queue reset is done.
 
-Yes I think it's probably a good idea, the last couple of patches were
-definitely pushing the limits of where I wanted to go, dc_caps is at
-least a reasonably self contained if not a bit haphazard.
+Signed-off-by: Amber Lin <amber.lin@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c               | 5 +++++
+ drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 9 +++------
+ 2 files changed, 8 insertions(+), 6 deletions(-)
 
-Dave.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index c5a2dcff5058..f8874c12c94b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -2602,6 +2602,10 @@ int amdgpu_gfx_reset_mes_compute(struct amdgpu_device *adev,
+ 		 */
+ 		goto fence_reset;
+ 	}
++
++	if (!amdgpu_gpu_recovery)
++		goto after_reset;
++
+ 	r = amdgpu_mes_detect_and_reset_hung_queues(adev, AMDGPU_RING_TYPE_COMPUTE,
+ 						    true, &num_hung, adev->gfx.mec.mes_hung_db_array, xcc_id);
+ 	if (r) {
+@@ -2662,6 +2666,7 @@ int amdgpu_gfx_reset_mes_compute(struct amdgpu_device *adev,
+ 			goto out;
+ 	}
+ 
++after_reset:
+ 	/* MES doesn't detect any hung queue but we have a known bad queue
+ 	 * and it is not KCQ
+ 	 */
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index 86b70748617b..b77cfd8ba907 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -471,11 +471,6 @@ static int reset_queues_mes(struct device_queue_manager *dqm, struct queue *q)
+ 	if (WARN_ON(dqm->detect_hang_count > 0))
+ 		return 0;
+ 
+-	if (!amdgpu_gpu_recovery) {
+-		r = -ENOTRECOVERABLE;
+-		goto fail;
+-	}
+-
+ 	memset(&queue_input, 0x0, sizeof(struct mes_remove_queue_input));
+ 	queue_input.doorbell_offset = q->properties.doorbell_off;
+ 	queue_input.gang_context_addr = q->gang_ctx_gpu_addr;
+@@ -3609,7 +3604,9 @@ int kfd_dqm_suspend_bad_queue_mes(struct kfd_node *knode, u32 pasid, u32 doorbel
+ 
+ 		list_for_each_entry(q, &qpd->queues_list, list) {
+ 			if (q->doorbell_id == doorbell_id && q->properties.is_active) {
+-				reset_queues_mes(dqm, q);
++				if (reset_queues_mes(dqm, q))
++					dev_dbg(knode->adev->dev,
++					"Fail to remove bad queue. doorbell_id 0x%x\n", q->doorbell_id);
+ 				q->properties.is_evicted = true;
+ 				q->properties.is_active = false;
+ 				decrement_queue_count(dqm, qpd, q);
+-- 
+2.43.0
 
