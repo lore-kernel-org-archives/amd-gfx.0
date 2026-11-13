@@ -2,43 +2,90 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 148F4606A321
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Nov 2026 01:05:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08737606A31C
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Nov 2026 01:34:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=maJrQxHB
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=bk1hFXNu
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 83AD910E6E8;
-	Fri, 13 Nov 2026 01:05:41 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E24F710E6E8;
- Fri, 13 Nov 2026 01:05:35 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B16D443461;
- Fri, 13 Nov 2026 01:05:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 676931F000C5;
- Fri, 13 Nov 2026 01:05:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794531935;
- bh=Xor1D90R6iiLgXTH6Jj6+gZ7TXwLffLx35r4VJvkDic=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=maJrQxHBYDHvx+LuOe4ZPgDUH44hhKkJioVLZhm5y52tpkyaogIiD9NKUSal3Dc2M
- cfqx7aVkF2BGTP+CtNbDME2ass3KIGdXwWoMZ2GOtXwNdADg1CC6ecv8pj+nm9W45L
- Db1+sT4W8HfgX3MJdDZ9+ZHR3J1wGsjL6nSh5SI+Gf3Xr8T3WaMSCGYuJWVev9cOWc
- nbwBGpB0W3mDeP+MV4ZFwYr0oDSYBH0PFzgJFF+t2S5BwPv+PJ1D0z2wN3zjhKDCWf
- MvKFn/qoYaYT/G2BydKx8o16HfBYPq6JFRJi0yEC76BqslckHOjtVMMfw1GtWr50OL
- 59ciCpY7pZp7A==
-Message-ID: <sashiko-outbox-212033@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 1/3] PCI: Cache bridge firmware secondary bus number
-To: "Mario Limonciello" <mario.limonciello@amd.com>
-Cc: linux-pci@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9FFE610E735;
+	Fri, 13 Nov 2026 01:34:11 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E52E10E747
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Nov 2026 01:34:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1794533643;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=HX8JDnkQUSdkQL8lAJ2VgGCKAUpOjghvCUmklLZFFl8=;
+ b=bk1hFXNuDdsq6HK7FCEGF3YEbkyaChMVrry2FLKk527jkIno/Zr1UYkBhThiHo0A7K4/ag
+ tDcPRwAEL2zBzZzOL7m2vZSzT4XRVXsEKA6IB9mCZV+uqDk8Yxw10cvMTdoFhUPKBJ/eaJ
+ S5suhhG20085Ws2rvzOw29mkbf85EFA=
+Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com
+ [74.125.82.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-590-NGgYJz0QOfCCia768xk72g-1; Thu, 12 Nov 2026 20:34:02 -0500
+X-MC-Unique: NGgYJz0QOfCCia768xk72g-1
+X-Mimecast-MFC-AGG-ID: NGgYJz0QOfCCia768xk72g_1794533641
+Received: by mail-dl1-f71.google.com with SMTP id
+ a92af1059eb24-1aa0fb7f157so421306c88.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Nov 2026 17:34:01 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794533641; x=1795138441;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=HX8JDnkQUSdkQL8lAJ2VgGCKAUpOjghvCUmklLZFFl8=;
+ b=cPk9d12SNqCf2alpGBlo5llPFfJcSzW8BRRtQS0IoT8rMIpD3YCfBek9Hy6BtUJIWF
+ Tu6cMdH7MDssts0QpzkIoUCqpCIVmjCuLcFCWWD6B2X8+j1G8h0vSEmu8Ag3U04FaFa2
+ d9MyJkHeiaCS5Ea3qc8Gt78L+ulF/+kaH4pJpYJKySyMfoOhXZxYGqO/p4E85Np6Nc2O
+ lI6gMhE7F9WphW3Gc7zYvWqphtBVJ9JviF0aJRHJ0OF2MQWMGnjqKiH2pt3/pL2Ds2mk
+ 3PPwAojvKFnBTwxM+o78rAWkrTwsOjwNdKLgb6i/ybXXxGoXChJxp7WoZH8Z/aUea3Hf
+ ePZA==
+X-Forwarded-Encrypted: i=1;
+ AL+hErEQkiG878KkQMHLYwerXH+yM9+Pnw6b16uxKIEcPrLJkJpzKqvOfqYI8K+ql/OBcAElwA7IIHXv@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+ZedKNSkciuUWhCKNph4FqATMV8JdYhgaBaq5njAOI+Fpipego
+ DnYSFbPbmocLYHS0VdCPpiX9TVMAeniPfquGRSGUPA4jmk5I1vTsIX50m94Pm/cxBPsfwymWNb7
+ yRfSPdIA1H0QH45tACw4DJPxpv4Nm+MMBP7PVnkDnQcunkwj1pETlA6Fc+7agupLH5AjrZdPoTJ
+ 3Mq7usRKTX+a/DvBkOwvvBmorvbbZjkycXuO4X0x2NRw==
+X-Gm-Gg: AYBFou04DkGqtif4H8EBZtGgvj0mlN+ZlO6GuhV2ZdvkgEeHnUTk88m5hiGbI4rr2Vz
+ 9qWNpSiDNvaNAJsFVXyE5AXGPsn6kyez0V0w5nhXvj0mFYz9rt+XzpV2RR/z26Ez8Q7RGxE65Lm
+ m7qIbQ7/4Ul81wdzo6OR4aDNLy9q0H0mxQA57CttFUmvDgtoHrUjUR6s0vFBzDaIN51XrXA82HG
+ KQySRMVmMiQEQsm
+X-Received: by 2002:a05:701b:2402:b0:1ab:faad:cba with SMTP id
+ a92af1059eb24-1b5030eb09amr1041182c88.34.1794533640732; 
+ Thu, 12 Nov 2026 17:34:00 -0800 (PST)
+X-Received: by 2002:a05:701b:2402:b0:1ab:faad:cba with SMTP id
+ a92af1059eb24-1b5030eb09amr1041154c88.34.1794533640114; Thu, 12 Nov 2026
+ 17:34:00 -0800 (PST)
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+References: <20261112-amdgpu-dc-cleanup-v1-0-0fae41718ad2@redhat.com>
+ <20261112-amdgpu-dc-cleanup-v1-19-0fae41718ad2@redhat.com>
+ <3179d0b2-cbfa-4f09-9e24-363210718fb3@amd.com>
+In-Reply-To: <3179d0b2-cbfa-4f09-9e24-363210718fb3@amd.com>
+From: David Airlie <airlied@redhat.com>
+Date: Fri, 13 Nov 2026 11:33:48 +1000
+X-Gm-Features: AclHuK_fCZvVs1RRnIhZagWHLsy677KbRvHKcoOFh-cTgRp7mq9zzbruL6lO4nM
+Message-ID: <CAMwc25rDq6biXokgwZJNbRfA3KZzZ1x3KxU=CPe7HvnS_PN3+w@mail.gmail.com>
+Subject: Re: [PATCH 19/19] drm/amd/display: Replace dc_get_caps with
+ purpose-built capability queries
+To: Harry Wentland <harry.wentland@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Austin Zheng <austin.zheng@amd.com>,
+ Jun Lei <jun.lei@amd.com>, 
+ Kenneth Feng <kenneth.feng@amd.com>, amd-gfx@lists.freedesktop.org, 
  dri-devel@lists.freedesktop.org
-In-Reply-To: <20261112-vfct-regression-v7-1-69b1e0cf45c2@amd.com>
-References: <20261112-vfct-regression-v7-0-69b1e0cf45c2@amd.com>
- <20261112-vfct-regression-v7-1-69b1e0cf45c2@amd.com>
-Content-Type: text/plain; charset=utf-8
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: zV8wimPp7Ow-fymXd5HKDpgvM-Rbg24a_6aNxB32AoI_1794533641
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 13 Nov 2026 01:05:35 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,81 +95,104 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] PCI: dead fw_sec_bus_sampled in pci_read_bridge_windows() and
-  log mismatch
---
+On Fri, Nov 13, 2026 at 5:42=E2=80=AFAM Harry Wentland <harry.wentland@amd.=
+com> wrote:
+>
+> On 11/11/26 20:43, Dave Airlie via B4 Relay wrote:
+> > From: Dave Airlie <airlied@redhat.com>
+> >
+> > Split the caps view accessor into per-capability queries so DM and the
+> > DAL modules no longer read through struct dc_caps:
+> >
+> > - scalar getters for is_apu, ips/dmcub support, max links/streams/
+> >   planes/slave planes/cursor size/v_total, vtotal_limited_by_fp2,
+> >   i2c speed, PCON/DSC/fused-io support, SubVP processing delay and
+> >   MALL size
+> > - dc_dmub_supports_psr()/dc_dmub_supports_aux_backlight() for the
+> >   DMUB capability bits
+> > - dc_get_color_caps() copies out the color pipeline capabilities
+> > - dc_get_plane_caps() returns the static plane capability array
+> >
+> > The KUnit tests keep installing fake capabilities through the
+> > dc_test_caps() view of their own fake DC.
+> >
+> > No production code outside the dc directory reads struct dc members
+> > through a caps view anymore.
+> >
+> > Part of making the struct dc sub-structures opaque outside DC.
+> >
+> > Signed-off-by: Dave Airlie <airlied@redhat.com>
+> > ---
+>
+> <snip>
+>
+> >
+> >  unsigned int dc_get_disable_ips(const struct dc *dc)
+> > diff --git a/drivers/gpu/drm/amd/display/dc/inc/dc.h b/drivers/gpu/drm/=
+amd/display/dc/inc/dc.h
+> > index 31baba820f6c..7a49f2ee1d77 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/inc/dc.h
+> > +++ b/drivers/gpu/drm/amd/display/dc/inc/dc.h
+> > @@ -2351,8 +2351,38 @@ struct dc_context *dc_get_ctx(const struct dc *d=
+c);
+> >  /* The ASIC display engine version. */
+> >  enum dce_version dc_get_dce_version(const struct dc *dc);
+> >
+> > -/* Capabilities detected at dc_create() time. Read-only. */
+> > -const struct dc_caps *dc_get_caps(const struct dc *dc);
+> > +/*
+> > + * Capabilities detected at dc_create() time. Read-only; prefer the
+> > + * purpose-built queries below over reaching into the caps structure.
+> > + */
+> > +bool dc_is_apu(const struct dc *dc);
+> > +bool dc_get_ips_support(const struct dc *dc);
+> > +bool dc_get_dmcub_support(const struct dc *dc);
+> > +unsigned int dc_get_max_links(const struct dc *dc);
+> > +unsigned int dc_get_max_streams(const struct dc *dc);
+> > +unsigned int dc_get_max_planes(const struct dc *dc);
+> > +unsigned int dc_get_max_slave_planes(const struct dc *dc);
+> > +unsigned int dc_get_max_cursor_size(const struct dc *dc);
+> > +unsigned int dc_get_max_v_total(const struct dc *dc);
+> > +bool dc_get_vtotal_limited_by_fp2(const struct dc *dc);
+> > +unsigned int dc_get_i2c_speed_in_khz(const struct dc *dc);
+> > +bool dc_get_dp_hdmi21_pcon_support(const struct dc *dc);
+> > +bool dc_get_edp_dsc_support(const struct dc *dc);
+> > +bool dc_get_fused_io_support(const struct dc *dc);
+> > +unsigned int dc_get_subvp_fw_processing_delay_us(const struct dc *dc);
+> > +unsigned int dc_get_mall_size_total(const struct dc *dc);
+> > +bool dc_dmub_supports_psr(const struct dc *dc);
+> > +bool dc_dmub_supports_aux_backlight(const struct dc *dc);
+> > +
+> > +/* Copy out the color pipeline capabilities. */
+> > +void dc_get_color_caps(const struct dc *dc, struct dc_color_caps *caps=
+);
+> > +
+> > +/*
+> > + * Return the static plane capability array and its entry count.
+> > + * Valid until the DC is destroyed.
+> > + */
+> > +const struct dc_plane_cap *dc_get_plane_caps(const struct dc *dc,
+> > +             unsigned int *count);
+> >
+>
+> This creates some API bloat.
+>
+> What about creating a new public struct header and throwing dc_caps
+> (or a subset of it) in there?
+>
+> The intent to decouple how DC stores and reports caps is valid.
 
-commit d3720492f32e5a284ef73b3dc9f69d02b13df2c4
-Author: Mario Limonciello <mario.limonciello@amd.com>
+Yes I think it's probably a good idea, the last couple of patches were
+definitely pushing the limits of where I wanted to go, dc_caps is at
+least a reasonably self contained if not a bit haphazard.
 
-PCI: Cache bridge firmware secondary bus number
+Dave.
 
-This commit caches the firmware-assigned secondary bus number on a PCI
-bridge's struct pci_dev in pci_read_bridge_windows() before bus renumbering
-can occur.
-
-> diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
-> index 27008e2ea5afc..f20a4b8f7a23b 100644
-> --- a/drivers/pci/probe.c
-> +++ b/drivers/pci/probe.c
-> @@ -505,14 +505,26 @@ static void pci_read_bridge_mmio_pref(struct pci_de=
-v *dev, struct resource *res,
->  static void pci_read_bridge_windows(struct pci_dev *bridge)
->  {
->  	u32 buses;
-> +	u8 secondary;
-> +	u8 subordinate;
->  	u16 io;
->  	u32 pmem, tmp;
->  	struct resource res;
-> =20
->  	pci_read_config_dword(bridge, PCI_PRIMARY_BUS, &buses);
->  	res.flags =3D IORESOURCE_BUS;
-> -	res.start =3D FIELD_GET(PCI_SECONDARY_BUS_MASK, buses);
-> -	res.end =3D FIELD_GET(PCI_SUBORDINATE_BUS_MASK, buses);
-> +	secondary =3D FIELD_GET(PCI_SECONDARY_BUS_MASK, buses);
-> +	subordinate =3D FIELD_GET(PCI_SUBORDINATE_BUS_MASK, buses);
-> +	res.start =3D secondary;
-> +	res.end =3D subordinate;
-> +
-> +	if (!bridge->fw_sec_bus_sampled) {
-> +		bridge->fw_sec_bus_sampled =3D true;
-> +		if (secondary > 0 && secondary < 0xff) {
-> +			bridge->fw_sec_busnr =3D secondary;
-> +			bridge->fw_sec_bus_valid =3D true;
-> +		}
-> +	}
-
-[Severity: Low]
-As reported by Lazar, Lijo on v5 [1], is bridge->fw_sec_bus_sampled needed
-here?
-
-pci_read_bridge_windows() is only called from pci_setup_device() when
-pci_scan_device() first allocates and initializes a new struct pci_dev.  On
-later bus rescans, pci_scan_single_device() finds the existing device via
-pci_get_slot() and returns early without calling pci_setup_device() or
-pci_read_bridge_windows().  Because pci_read_bridge_windows() runs at most
-once per bridge instance on a zero-initialized struct pci_dev,
-fw_sec_bus_sampled is always false on entry and is never read elsewhere,
-making the bitfield and the commit message's rescan explanation unnecessary.
-In addition, since bus 0 is the root bus and fw_sec_busnr is only set when
-secondary > 0 && secondary < 0xff, fw_sec_bus_valid is redundant with
-checking whether fw_sec_busnr is non-zero.
-
-[1] https://lore.kernel.org/r/eba45235-a6b1-4a48-9c56-9e069c299478@amd.com
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112-vfct-regre=
-ssion-v7-0-69b1e0cf45c2@amd.com?part=3D1
