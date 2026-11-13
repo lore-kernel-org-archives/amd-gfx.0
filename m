@@ -2,44 +2,126 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88916606A337
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Nov 2026 22:39:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19A79606A8B2
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Nov 2026 23:22:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oe2W5AiQ
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=0kX/qgey
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 103C210E1A8;
-	Fri, 13 Nov 2026 22:39:21 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1D9B10E1A8;
- Fri, 13 Nov 2026 22:39:14 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 62BA643A07;
- Fri, 13 Nov 2026 22:39:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D3BF1F000C4;
- Fri, 13 Nov 2026 22:39:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794609554;
- bh=lhY3yz84xGj4uDyx4pxMVOKEBSWy+rqjEMw2fBYWe0s=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=oe2W5AiQp7zC+FORpj7qdJ/n9roDEV8g7XOVDByKndJkieJAbYP+TTnSV8Xmukqjn
- HXpjUOBnhUn1menK5icyxJ8N2DoUjIbZ5bbc0zL5n1kGbeyotIDO0leU7AsqBc0udt
- MzW1HyQl7pIpLg+fRnF4mm/Zc/X9b6jOAZXvSyaOHLTAUctfXaFPUVW+QbgJl+Hbed
- uSGcw6fRBA/5//nu78mm2LWBtfLiCI8bGFb6H6xUepr3qiOhYushFKcNqGVBGCaFvx
- mAxSDkN6a2jNmeI4wkbJVvRKSvDd/MGWeJSIAP9P1Jpsf5p6dfdp8l6Rq7UuyGM+zu
- 9XjffI0FxiGug==
-Message-ID: <sashiko-outbox-213829@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] drm/amd/amdgpu: Add 5K Support for iMac20,1 and
- iMac20,2
-To: "Atharva Tiwari" <atharvatiwarilinuxdev@gmail.com>
-Cc: =?utf-8?b?b3BlbiBsaXN0OlJBREVPTiBhbmQgQU1ER1BVIERSTSBEUklWRVJT?=
- <amd-gfx@lists.freedesktop.org>, 
- =?utf-8?b?b3BlbiBsaXN0OkRSTSBEUklWRVJT?= <dri-devel@lists.freedesktop.org>
-In-Reply-To: <20261113214721.9382-1-atharvatiwarilinuxdev@gmail.com>
-References: <20261113214721.9382-1-atharvatiwarilinuxdev@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 13 Nov 2026 22:39:13 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id AEC5610E47C;
+	Fri, 13 Nov 2026 23:22:39 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012024.outbound.protection.outlook.com [40.107.209.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3BF4F10E47C;
+ Fri, 13 Nov 2026 23:22:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pmZNSTtouHW3rS258+0nf0Mwkup8DcTHtpXXoIEUQ26qx0Hrum9HqenCu8o1s52kRXD/iiGrhm5KSglfDmdiNyIGDJyiPhffT1QTxGKJ904ftWfvGUjsTM9H5RS9yG4sBaZ2uSp51vxDU2t59ME2QJJBMKJ1yyymrcr4dqa7cppFiyrVh/nD2eAg0zRH4tEhYScLD/sBFeoSyxGYFUoWjJ/53wo8s5V6EbV+Fz1bv08/C653NT9Rzxxbc/wqFkQRwxdYuI8hYSespuXGAHT4N7UlYCzJOxEdiOLOEmCL6yOrGpaXXIcyCULRlOhsMChMMiljD9K3y8s5LvLmavD7Ag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZsejWeu9THgrJxOVchF9elewIGJCMrXuPvoZNud0bZc=;
+ b=Fq+ptg64lBuFZJzDmZgD/t3j4LQ5U7L2Tpwmna/2tMoBP9qxRpE/WK/6lv+eeLOb2Ss/0bVaRrmKDMWtoklG4xHKz+ewV7LhvPslGt2UAU4kA9gJWo0lrN22FCM/12Ccz5jVIC9xgCHIwVzSvPGhAnN4xGTntlK+n5GtxOMF+ov9Ymj5EjN6Vl8eFMLcKvxmk9EGhkYNOjHmmlw3QvzEUHFeEW3vOYnnlP9DW2LhT4fvxkdOJN91N/q8RcCKDSTU66iSlZyL2t/eO3yZ9sFnT/l4IcPzb6OQbUlL/PyXF2hn1FEQ062IpPbh6sdaEHIdk5SXLBW2ByB5opY9VF/mUw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZsejWeu9THgrJxOVchF9elewIGJCMrXuPvoZNud0bZc=;
+ b=0kX/qgeys13BcdDCcmmI0Adp/IdxVlxAmtrXX39Cf88M4eZ+uYk7Yws9vXPDlWBDHDsS9VrwL/Bw/0Gp6aVZldEJkZk+TEbxQ20OrkqFwk30IZ7ZxeprbPItuZWuHjbtNJ59cWhhMvyED2nv0MHLzOI0+iJ5VWAMJkDcHUezo1w=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SA5PPF8ECEC29A9.namprd12.prod.outlook.com
+ (2603:10b6:80f:fc04::8d5) by CY8PR12MB8193.namprd12.prod.outlook.com
+ (2603:10b6:930:71::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Fri, 13 Nov
+ 2026 23:20:29 +0000
+Received: from SA5PPF8ECEC29A9.namprd12.prod.outlook.com
+ ([fe80::fd82:d106:2d09:2dcc]) by SA5PPF8ECEC29A9.namprd12.prod.outlook.com
+ ([fe80::fd82:d106:2d09:2dcc%5]) with mapi id 15.21.0615.008; Fri, 13 Nov 2026
+ 23:20:28 +0000
+Message-ID: <4c4894ce-b7a5-4824-b5b9-5f45a8901ad8@amd.com>
+Date: Fri, 13 Nov 2026 18:20:26 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdkfd: fix use-after-free in create_process() error
+ path
+To: Hongyan Xu <getshell@seu.edu.cn>, Alex Deucher
+ <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Christian Koenig <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261108105617.1309-1-getshell@seu.edu.cn>
+Content-Language: en-US
+From: "Kuehling, Felix" <felix.kuehling@amd.com>
+In-Reply-To: <20261108105617.1309-1-getshell@seu.edu.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT4PR01CA0199.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:ad::23) To SA5PPF8ECEC29A9.namprd12.prod.outlook.com
+ (2603:10b6:80f:fc04::8d5)
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA5PPF8ECEC29A9:EE_|CY8PR12MB8193:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0d093eb5-4a7a-4e5c-5ab3-08df41dcb462
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|23010399003|366016|261009223027099003|18002099003|22082099003|6133799003|261022075727099003|56012099006|5023799004|11063799006|261102123227099003|261021121427099003|261026140227099003|261026121527099003|261022105027099003|261021123027099003|261028144727099003|10067099003;
+X-Microsoft-Antispam-Message-Info: a1gT6ePw5t/Ig7SPezztKuvNycANKo+WAnMltBAnOFZeHMkUQ2fEdDlryLl+8jzSu/fmQDQjROn1+ENwgVBACRxoHqtZyk07ApPytuWouqmvJ5lmS1OktYVlIIR8FoE/G1SD5vR8fZUpFR0aM3ooKts8j0RmP29y2oiccR7q1PgNPct7F6ozyCdvFe5gafiFjdR5yxMOH8IyZ9AJ8NQovdQq+mzyMA/gbARo+hSd6vYmTYtA8F7UkEwocTIfVCTFczumYGuR+oZhGWM2fFraIhR6tznwbpoyKq8ElIbNfCx9X4dxqck3KtG9WjsIHCXYM5Aq63KADBYXOcH59YNboqErRLZV5Up1hMafsC7hYt9kz1R6Sj3GHmf6ukpye715cAqTbvkiXhR3jqbm72/hJHQ5n4U60Fx3DDetOBH4XiVbZbFLz1Lqu3Wrby+xU5CQUsQJpBCaYDgyGkAc3iD+smLR/ttRKciQh85m/ES9GtR8FIEuDKmntfuKuX2sZuXlnmXSO/zm2lC+/uzqJridnmrVYzJOZVxiS+vPWuaqNnd2cjV2SjGy4DOWNJhTS7EwwzH9DWv/ru6sNYgUxMaBlhAHDAhEzOcN9+hyuz0J7BX50W5aXAvsuPqwYrZ+TLYGH+NTZ4TQTv2RKC0YUXx/qMbXdieJp5SoMreHev7mjr0=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA5PPF8ECEC29A9.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(261009223027099003)(18002099003)(22082099003)(6133799003)(261022075727099003)(56012099006)(5023799004)(11063799006)(261102123227099003)(261021121427099003)(261026140227099003)(261026121527099003)(261022105027099003)(261021123027099003)(261028144727099003)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Yi9ub09NUnFRekMxMnA0bi90cXhNMCtHUnYvZXhid1VoL1BHRm1XaDE3MVZh?=
+ =?utf-8?B?d2VxTW9HTlU4TE12akFwNHlZSmZCc2d0K2hxMDFRRnRYdlRNSG9aaWM4U1pV?=
+ =?utf-8?B?TzMzUkVzSTVPeVdpVE91L3FpMU9MT1kyZGlVKzhJWUdPQkFpR3M0aEtGcUdm?=
+ =?utf-8?B?L0Z0azRVcUNZR0lRcVJDQm1ObmNORUpleUtzKzJ5QUlyWC9KTkZ1UUFSNXZS?=
+ =?utf-8?B?MkxRbnhhOGJISkIrcjR3S0xqL1NsZVloN3pkc0FTVXhMaytXTGF3cUdubWpv?=
+ =?utf-8?B?a0NxWDNzV3VIbDVVbzI0dzQ3OEowQVRPYVh1WDhCVVByalg2WDV4QjhXMzVa?=
+ =?utf-8?B?VTJsb1N6b3dBQnYrRHJUTzc0dU9LSklpTjlCOUw1UllRcTRObTVzSnhiZVVY?=
+ =?utf-8?B?ZVlFeTF2QW4rZmtUS201RjVKdmI4U0IrcS9RSHhITU8zUlF0T09LckxrS1VU?=
+ =?utf-8?B?aDB1VGFnbDV2OWxlK0RrY0syaW9lWlN2dTZrNDFQR2NRWU5XMnNkVzRhK3Ji?=
+ =?utf-8?B?dDcyaEFXVkNOb1E4R3h2a0tWL1RUaS9sc3JQcEtZQTJsZjdiUDhPaHVCSmhF?=
+ =?utf-8?B?akJqYkdsbVI5OTdvM3FVLzJQbmsveXd4TmFYekxFOFY4L3YvOEFqOVhNckFN?=
+ =?utf-8?B?RkxWeXd6NG9IaExmQXZQWUsxSlhNa0ZzdGozL1NEM3c4SlVRYk5xMXEvZXZY?=
+ =?utf-8?B?ZUhkK3A3dXV3Z2l0dTczdi9kbDFaKzFSWW80dVNiM1IwSmpzSk5CUG9WbHFZ?=
+ =?utf-8?B?S1llUHhnd1RvcktqN2ZtMnN2dURHc3FhN29TVUxVb3JtYkFTait5RmpHV3V2?=
+ =?utf-8?B?SzVpVVFBS1hEVk13SkFtajBNMjRtYW1pQUpWK0h5MWh2YTVoYmErSkRibCsv?=
+ =?utf-8?B?TmxGRVlSdWpoVGZ5Mk1JUThacHJLUGR3c1BZaUpOTm1vOE1Ya25BYzk3MXNE?=
+ =?utf-8?B?U09RUG0zWkZ5ZUIrR0wvWGM4akthU01FRUNqWi9HWVdvMmNjSUpmREkvV2FX?=
+ =?utf-8?B?LzkyUHFsSWo3OWNPWmtqNEltUGZHbERVcUo5U1NuOW9rZEJsdm5MQ01DWmRq?=
+ =?utf-8?B?Wmlkc1hvZlFsUC9CNFBrRys5c2hPY1BOMFFNbGJwUlR1OXlkbUQyM0NsbmFM?=
+ =?utf-8?B?MWJDL3hFVmtvRU4vdUsxWnROYW5INmlaOVJkdnhLd3pYdW81RFoyL1lJK1Nn?=
+ =?utf-8?B?ZThXVEdxM2ljYTZDS3dyZW8zNE9nMG5HTEh6UEh1K3R4Q3ZhVVBFV0Rwd25W?=
+ =?utf-8?B?Z245NXlON21VUm05VWNZcFM4T3h5WDNQL2F6dUIvTzdMNkN4bVd1bThCVkVJ?=
+ =?utf-8?B?bEFiVlJncUpkUHgzdUk1aThmUXV4bFFiRVFCekNsMGxSdmdzSHZYamJYREts?=
+ =?utf-8?B?WHd1ZmFXZktCUVNUTzRFWDNSa3Nxbnhyd2Rna0FFV0I1d1JBZEN5eEI2a2ZJ?=
+ =?utf-8?B?OFo2Wk9XcFEyUjNsUWN5ZXlyT1ZrM200L25aZG5jNGlIb2x1akV2RXV0K1Zj?=
+ =?utf-8?B?T1BpT2JlWS9uZFQ0UjRGeGxLRzRJTlFBZGZuK1ZnUCtqTCtDcUc2dDRHcG04?=
+ =?utf-8?B?TFozdXpkVXk4b2tPRkFNdjBucm15ZnNYejlkL1F1dHZaZTgrdmthRGFmMjc4?=
+ =?utf-8?B?QmFKVE1TRDZKZlJ3bWc3Tyt2aFBTVDZhU2ZMVG9yeldRQUxCaWdpMEZqTDVI?=
+ =?utf-8?B?QXZsWlFMcVlpM0ZYd3c4bnFjekdPNFRjSEZHMTJUQ0lXc0NLV25wdUJrTk85?=
+ =?utf-8?B?eThLenc4RUxpSFJqdHVrZUxscDF3WjcrTTZQMTFOT00yN3EzLzBpd1RxeDly?=
+ =?utf-8?B?cHhsbTR0Z0FXVjRNWENNWVFYUThGdENJRENKR1hkSnJhYjNiMVlkOXlXczdO?=
+ =?utf-8?B?bFFadzdhUEdhRDF0K3AwNkFxOUN3UnZDMjEzMVZ5N25hKzBpTVZ2QmZITmxz?=
+ =?utf-8?B?TkIrT1JyVnc3ZUNlK2FTWDFBWXNzL2hRbTd2dVZ5NVNNOCtoUGc0Q05Za1JS?=
+ =?utf-8?B?elNsT1lPa0xkckRadjdjZ1IvelNQbEFVd285REtPWmNFTkpsTzhWZlp4WWtI?=
+ =?utf-8?B?ajQrMEcwamlvVUVDNTlNc04zRkE1QmlQWlBuMjdCVkR3U2FKMXhQMm94b3RN?=
+ =?utf-8?B?Qk9oQVd0K1RGY1JtS2QzQzJpYVB0WEVLcGd4bXZ3M3p2dDNKS3FmNHJtV2h6?=
+ =?utf-8?B?Um9XRkdWc3lrTTBHNUtIbXVwbWtLbkdhZCt3QlE2TGQ4ZDhIdTdsMUZsVlph?=
+ =?utf-8?B?Z1hKczEraFFXZnl3WWUxa21PTldIRFM0OFBOTGxWdUxRY1QzUHN6ZVRQc3dt?=
+ =?utf-8?B?ZjVlV1JzVUVma2xlQk4zekhxelZ5MjBoZXhsV0ljUVc4elpsM3F1Zz09?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0d093eb5-4a7a-4e5c-5ab3-08df41dcb462
+X-MS-Exchange-CrossTenant-AuthSource: SA5PPF8ECEC29A9.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 23:20:28.7303 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lYFuDlfwcZVLPUSDhcT2b7jRQxgE9+WN6AwAezcfRx/tPEAzcQpke5A89p6ROg7nJ3lgGQrfuEXQ0KsHdabeKA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8193
+X-OriginatorOrg: amd.com
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,299 +131,223 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 6 potential
-issues to consider:
-- [High] drm/amdgpu: registering DM before SMU in
-  amdgpu_discovery_set_ip_blocks()
-- [Medium] drm/amd/display: dm_encoder_helper_atomic_check() forces
-  RMX_FULL scaling
-- [Medium] drm/amd/display: amdgpu_dm_connector_init_helper() overwrites
-  max_bpc to 16
-- [Medium] drm/amd/display: resource_are_streams_timing_synchronizable()
-  skips timing check
-- [Medium] drm/amd/display: companion pipe left blanked in
-  dce110_apply_ctx_to_hw()
-- [Low] drm/amd/display: undocumented iMacPro1,1 DMI quirk in
-  dmi_quirk_table
---
 
-commit 5d88d8dc2e29344b180b127f814886e8656f600c
-Author: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+On 2026-11-08 05:56, Hongyan Xu wrote:
+> create_process() publishes the process in kfd_processes_table before its
+> last failing call (alloc_notifier() must find it there), and its error path
+> frees it with a bare kfree(), ignoring the refcount.  find_process() takes
+> its reference inside the sRCU critical section but callers use the process
+> after leaving it, so synchronize_srcu() misses them, and the error path
+> cannot unref once either: it holds two (kref_init() and the one keeping
+> free_notifier() from starting kfd_process_wq_release()).
+>
+> Release the process as soon as it is visible: take the lead thread
+> reference right after lead_thread is assigned, run ida_init() before
+> mmu_notifier_get(), so the release work is safe on a half-built object.
+> The published error paths unlink with hash_del_rcu(), synchronize_srcu()
+> and drop both references, so the last one runs kfd_process_wq_release().
+> Both labels hold exactly two references, so nothing is freed early and no
+> path falls into the unwind the unpublished labels keep, now with
+> put_task_struct()).  Restore pqm_uninit() (kfd_process_queue_manager.c):
+> pqm_init()'s 128 byte queue slot bitmap leaked per failure.  Match
+> kfd_debugfs_remove_process() by process, not pid.
+>
+> Fixes: 3248b6d3cbcd ("drm/amdkfd: Use mmu_notifier_get")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
+> ---
+>   drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c | 12 ++++++-
+>   drivers/gpu/drm/amd/amdkfd/kfd_process.c | 46 ++++++++++++++++++++++--
+>   2 files changed, 54 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c b/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
+> index 7d4e07452cdb..a17a3a307266 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c
+> @@ -33,6 +33,7 @@ static struct list_head procs;
+>   struct debugfs_proc_entry {
+>   	struct list_head list;
+>   	struct dentry *proc_dentry;
+> +	struct kfd_process *process;
 
-drm/amd/amdgpu: Add 5K Support for iMac20,1 and iMac20,2
+Hi Hongyan,
 
-This commit adds 5K tiled display support for Apple iMac20,1, iMac20,2, and
-iMacPro1,1 by configuring DPCD register 0x4F1, synchronizing the two tile
-streams, and registering the display IP block before the SMU IP block on
-iMac20,1 and iMac20,2.
+Thank you for working on this. It looks like your patch is based on an 
+outdated version of the branch. Current master branch already has a fix 
+for this part of your patch:
 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_discovery.c
-> index 22cec7ac57fde..25068c3565827 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-[ ... ]
-> @@ -4062,15 +4089,25 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_=
-device *adev)
->  		}
->  	}
-> =20
-> +	/* TODO: We should enable 5K in EFI and remove this quirk */
-> +	imac5k =3D amdgpu_discovery_is_imac5k(adev);
-> +	if (unlikely(imac5k)) {
-> +		r =3D amdgpu_discovery_set_display_ip_blocks(adev);
-> +		if (r)
-> +			return r;
-> +	}
+commit 325de6bf3328efd5acf5072337fc196928753de8
+Author: Zhu Lingshan <lingshan.zhu@amd.com>
+Date:   Wed Jul 1 11:03:09 2026 +0800
+
+     drm/amdkfd: expose pasid of secondary contexts by debugfs
+
+     Current kfd debugfs interfaces only expose pasid
+     of the primary process, this commit exposes
+     pasid of secondary contexts by debugfs
+
+     Just like entries under sysfs,
+     the secondary contexts are named as
+     context_<id> under its primary kfd process.
+
+     The layout:
+     /sys/kernel/debug/kfd/proc# tree
+     .
+     └── 5802
+         ├── context_0
+         │   ├── pasid_1025
+         │   └── pasid_63266
+         ├── context_1
+         │   ├── pasid_1025
+         │   └── pasid_63266
+         ├── pasid_1025
+         └── pasid_63266
+
+     Another fix is, kfd_debugfs_add_process may fail,
+     this commit change it to return a meaningful
+     value other than void
+
+     Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
+     Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+     Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+
+
+>   	pid_t pid;
+>   };
+>   
+> @@ -151,6 +152,7 @@ void kfd_debugfs_add_process(struct kfd_process *p)
+>   		return;
+>   
+>   	list_add(&entry->list, &procs);
+> +	entry->process = p;
+>   	entry->pid = p->lead_thread->pid;
+>   	snprintf(name, MAX_DEBUGFS_FILENAME_LEN, "%d",
+>   		 (int)entry->pid);
+> @@ -174,9 +176,17 @@ void kfd_debugfs_remove_process(struct kfd_process *p)
+>   {
+>   	struct debugfs_proc_entry *entry, *next;
+>   
+> +	/*
+> +	 * Match the entry that was added for this process and not one that
+> +	 * merely has the same pid: kfd_process_wq_release() also runs for a
+> +	 * process that failed in create_process() and never got an entry,
+> +	 * and after an exec(3) the old and the new primary kfd_process of a
+> +	 * process have the same lead thread while a file descriptor keeps
+> +	 * the old one alive.
+> +	 */
+>   	mutex_lock(&kfd_processes_mutex);
+>   	list_for_each_entry_safe(entry, next, &procs, list) {
+> -		if (entry->pid != p->lead_thread->pid)
+> +		if (entry->process != p)
+>   			continue;
+>   
+>   		debugfs_remove_recursive(entry->proc_dentry);
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> index 12e24fbf8c46..f118f7f03de7 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> @@ -1600,6 +1600,11 @@ struct kfd_process *create_process(const struct task_struct *thread, bool primar
+>   	mutex_init(&process->mutex);
+>   	process->mm = thread->mm;
+>   	process->lead_thread = thread->group_leader;
+> +	/*
+> +	 * Take the reference on the lead thread before the process can be
+> +	 * released through kfd_process_wq_release(), which drops it again.
+> +	 */
+> +	get_task_struct(process->lead_thread);
+>   	process->n_pdds = 0;
+>   	process->queues_paused = false;
+>   
+> @@ -1648,13 +1653,17 @@ struct kfd_process *create_process(const struct task_struct *thread, bool primar
+>   	 */
+>   	if (primary) {
+>   		process->context_id = KFD_CONTEXT_ID_PRIMARY;
+> +		/*
+> +		 * Must be initialized before the process can be given to
+> +		 * kfd_process_wq_release(), which destroys it.
+> +		 */
+> +		ida_init(&process->id_table);
+>   		mn = mmu_notifier_get(&kfd_process_mmu_notifier_ops, process->mm);
+>   		if (IS_ERR(mn)) {
+>   			err = PTR_ERR(mn);
+>   			goto err_register_notifier;
+>   		}
+>   		BUG_ON(mn != &process->mmu_notifier);
+> -		ida_init(&process->id_table);
+>   	}
+>   
+>   	err = kfd_process_alloc_id(process);
+> @@ -1664,7 +1673,6 @@ struct kfd_process *create_process(const struct task_struct *thread, bool primar
+>   	}
+>   
+>   	kfd_unref_process(process);
+> -	get_task_struct(process->lead_thread);
+>   
+>   	INIT_WORK(&process->debug_event_workarea, debug_event_write_work_handler);
+>   
+> @@ -1673,8 +1681,39 @@ struct kfd_process *create_process(const struct task_struct *thread, bool primar
+>   err_alloc_id:
+>   	kfd_process_free_id(process);
+>   err_register_notifier:
+> +	/*
+> +	 * The process is already in kfd_processes_table, so find_process()
+> +	 * may have handed it out with a reference taken on it.  Unlink it
+> +	 * and wait for the readers that are still walking the table before
+> +	 * dropping the references held here: afterwards no new reference
+> +	 * can be taken and the ones already taken keep the process alive.
+> +	 * The memory is then freed by kfd_process_wq_release() when the
+> +	 * last reference is dropped.
+> +	 */
+>   	hash_del_rcu(&process->kfd_processes);
+> -	svm_range_list_fini(process);
+> +	synchronize_srcu(&kfd_processes_srcu);
 > +
->  	if (likely(adev->firmware.load_type =3D=3D AMDGPU_FW_LOAD_PSP)) {
->  		r =3D amdgpu_discovery_set_smu_ip_blocks(adev);
->  		if (r)
->  			return r;
->  	}
-> =20
-> -	r =3D amdgpu_discovery_set_display_ip_blocks(adev);
-> -	if (r)
-> -		return r;
-> +	if (likely(!imac5k)) {
-> +		r =3D amdgpu_discovery_set_display_ip_blocks(adev);
-> +		if (r)
-> +			return r;
-> +	}
-
-[Severity: High]
-Does registering dm_ip_block before smu_v11_0_ip_block break DC-SMU
-initialization and teardown ordering on iMac20,1 and iMac20,2?
-
-amdgpu_device_ip_hw_init_phase2() initializes IP blocks in registration
-order, so dm_hw_init() -> amdgpu_dm_init() -> dc_create() ->
-dcn20_resource_construct() now runs before smu_hw_init() sets
-adev->pm.dpm_enabled =3D true.  While dpm_enabled is false,
-init_soc_bounding_box() fails to query UCLK DPM states and maximum
-sustainable clocks (-EOPNOTSUPP), and set_wm_ranges()
-(smu_set_watermarks_for_clock_ranges()) returns -EOPNOTSUPP without
-calling navi10_set_watermarks_table().  Because WATERMARKS_EXIST is never
-set in smu->watermarks_bitmap, DCN watermark tables are never uploaded at
-boot or on resume, and navi10_display_config_changed() never sends
-SMU_MSG_NumOfDisplays to the SMU.
-
-In addition, amdgpu_device_ip_fini_early() and amdgpu_device_ip_fini()
-walk adev->ip_blocks[] in reverse order, so smu_hw_fini() and
-smu_sw_fini() disable DPM before dm_hw_fini() shuts down display hardware.
-
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c =
-b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> index b498fc5fbb140..c52cd5002a790 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> @@ -123,6 +123,14 @@ STATIC_IFN_KUNIT int dm_encoder_helper_atomic_check(=
-struct drm_encoder *encoder,
->  				       drm_mode_vrefresh(adjusted_mode));
->  			dm_new_connector_state->scaling =3D RMX_ASPECT;
->  		}
+> +	/*
+> +	 * kfd_process_wq_release() frees the memory, but it does not
+> +	 * destroy the queue manager: on the normal path that is done by
+> +	 * kfd_process_notifier_release_internal(), which neither of these
+> +	 * two error paths can reach, because no mmu notifier was
+> +	 * registered for the process.  The process is unlinked and no
+> +	 * reader can reach the pqm any more, so destroy it here, before
+> +	 * the references are dropped.
+> +	 */
+> +	pqm_uninit(&process->pqm);
 > +
-> +		/* The 5K panel reports no scaling info, scale every non 5K mode to fu=
-ll */
-> +		if (aconnector->dc_link && aconnector->dc_link->dc->config.imac5K_supp=
-ort) {
-> +			if (crtc_state->mode.vdisplay !=3D 2880)
-> +				dm_new_connector_state->scaling =3D RMX_FULL;
-> +			else
-> +				dm_new_connector_state->scaling =3D RMX_OFF;
-> +		}
->  		return 0;
->  	}
-
-[Severity: Medium]
-Does forcing dm_new_connector_state->scaling to RMX_FULL for every mode
-with vdisplay !=3D 2880 override user-requested scaling modes and corrupt
-subsequent mode validation?
-
-The check just above already defaults non-native eDP modes to RMX_ASPECT
-when dm_new_connector_state->scaling =3D=3D RMX_OFF, in line with the DRM
-policy of preserving aspect ratio unless userspace asks for RMX_FULL.
-Overwriting dm_new_connector_state->scaling with RMX_FULL ignores explicit
-scaling_mode settings from userspace and forces scaling even on the
-panel's single-cable native 3840x2160 mode.
-
-Once RMX_FULL is committed into connector->state, later calls to
-amdgpu_dm_connector_mode_valid() pass connector->state to
-create_stream_for_sink(), which sees dm_state->scaling !=3D RMX_OFF and
-replaces the 2560x2880 tile mode's CRTC timings with the 3840x2160
-preferred mode's timings in decide_crtc_timing_for_drm_display_mode().
-
-[ ... ]
-
-> @@ -3312,7 +3330,8 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_=
-display_manager *dm,
->  				adev->mode_info.underscan_vborder_property,
->  				0);
-> =20
-> -	if (!aconnector->mst_root)
-> +	/* Both 5K panel tiles must run at the same bpc, so userspace cannot se=
-t it */
-> +	if (!aconnector->mst_root && !(dm->imac5K_support && link_index <=3D 1))
->  		drm_connector_attach_max_bpc_property(&aconnector->base, 8, 16);
-> =20
->  	aconnector->base.state->max_bpc =3D 16;
-
-[Severity: Medium]
-Does skipping drm_connector_attach_max_bpc_property() actually keep the
-two tiles at 8 bpc when the next lines unconditionally set max_bpc and
-max_requested_bpc to 16?
-
-amdgpu_dm_connector_funcs_reset() initializes max_requested_bpc to 8, but
-amdgpu_dm_connector_init_helper() immediately overwrites both
-aconnector->base.state->max_bpc and max_requested_bpc with 16.
-amdgpu_dm_create_validate_stream_for_sink() then reads 16 from
-max_requested_bpc, leaving the eDP and DP links free to pick mismatched
-color depths while hiding the max bpc property from userspace.
-
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_quirks.c b/d=
-rivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_quirks.c
-> index 259966703cef5..a84ff90efb54f 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_quirks.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_quirks.c
-[ ... ]
-> @@ -151,6 +159,27 @@ static const struct dmi_system_id dmi_quirk_table[] =
-=3D {
->  			DMI_MATCH(DMI_PRODUCT_NAME, "HP ProBook 465 16 inch G11 Notebook PC"),
->  		},
->  	},
-> +	{
-> +		.callback =3D imac5K_support_callback,
-> +		.matches =3D {
-> +			DMI_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
-> +			DMI_MATCH(DMI_PRODUCT_NAME, "iMac20,1"),
-> +		},
-> +	},
-> +	{
-> +		.callback =3D imac5K_support_callback,
-> +		.matches =3D {
-> +			DMI_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
-> +			DMI_MATCH(DMI_PRODUCT_NAME, "iMac20,2"),
-> +		},
-> +	},
-> +	{
-> +		.callback =3D imac5K_support_callback,
-> +		.matches =3D {
-> +			DMI_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
-> +			DMI_MATCH(DMI_PRODUCT_NAME, "iMacPro1,1"),
-> +		},
-> +	},
-
-[Severity: Low]
-This isn't a bug, but dmi_quirk_table also enables imac5K_support on
-iMacPro1,1, whereas the commit title and message only describe adding
-support for iMac20,1 and iMac20,2.  Could the commit message explain that
-iMacPro1,1 is also enabled here and why it is not included in
-imac5k_table in amdgpu_discovery.c?
-
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/=
-gpu/drm/amd/display/dc/core/dc_resource.c
-> index 187486d978da6..e07b3648e090c 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-> @@ -689,6 +689,16 @@ bool resource_are_streams_timing_synchronizable(
->  	struct dc_stream_state *stream1,
->  	struct dc_stream_state *stream2)
->  {
+> +	/*
+> +	 * Drop the reference that keeps a failing free_notifier() from
+> +	 * starting kfd_process_wq_release() and the one taken by
+> +	 * kref_init().
+> +	 */
+> +	kfd_unref_process(process);
+> +	kfd_unref_process(process);
 > +
-> +	if (stream1->ctx->dc->config.imac5K_support &&
-> +		((stream1->signal =3D=3D SIGNAL_TYPE_EDP &&
-> +		  stream2->signal =3D=3D SIGNAL_TYPE_DISPLAY_PORT &&
-> +		stream2->link->link_index =3D=3D 1) ||
-> +		(stream2->signal =3D=3D SIGNAL_TYPE_EDP &&
-> +		 stream1->signal =3D=3D SIGNAL_TYPE_DISPLAY_PORT &&
-> +		stream1->link->link_index =3D=3D 1)))
-> +		return true;
+> +	return ERR_PTR(err);
 > +
->  	if (stream1->timing.h_total !=3D stream2->timing.h_total)
->  		return false;
+>   err_init_svm_range_list:
+>   	kfd_process_free_outstanding_kfd_bos(process);
+>   	kfd_process_destroy_pdds(process);
+> @@ -1684,6 +1723,7 @@ struct kfd_process *create_process(const struct task_struct *thread, bool primar
+>   	kfd_event_free_process(process);
+>   err_event_init:
+>   	mutex_destroy(&process->mutex);
+> +	put_task_struct(process->lead_thread);
 
-[Severity: Medium]
-Does returning true at the top of
-resource_are_streams_timing_synchronizable() cause DC to synchronize pipes
-with mismatched timings?
+The changes in kfd_process.c look reasonable. I'll try to apply them 
+without the changes in kfd_debugfs.c.
 
-Placing this check before the h_total, v_total, h_addressable,
-v_addressable, v_front_porch, pix_clk_100hz, and c_depth comparisons means
-that if link 0 switches to a non-5K mode such as 3840x2160 while link 1 is
-still active at 2560x2880 (for example during per-CRTC legacy modesets),
-program_timing_sync() and dcn20_populate_dml_pipes_from_context() will
-still group the two pipes as TIMING_SYNCHRONIZABLE and program hardware
-OTG synchronization across different resolutions and pixel clocks.  Should
-this check only bypass the final ignore_msa_timing_param check after the
-timings have been verified to match?
+Regards,
+   Felix
 
-> diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c b/=
-drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-> index 7b3aa02dda63b..aba1dc9b486a8 100644
-> --- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-> +++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-[ ... ]
-> @@ -2664,6 +2665,32 @@ enum dc_status dce110_apply_ctx_to_hw(
-[ ... ]
-> +	if (primary >=3D 0 && companion >=3D 0) {
-> +		struct pipe_ctx *old =3D &dc->current_state->res_ctx.pipe_ctx[primary];
-> +		struct dc_link *right =3D context->res_ctx.pipe_ctx[companion].stream-=
->link;
-> +
-> +		if (!old->stream ||
-> +		    pipe_need_reprogram(old, &context->res_ctx.pipe_ctx[primary]))
-> +			right->link_state_valid =3D false;
-> +	}
-> +
->  	/* Reset old context */
->  	/* look up the targets that have been removed since last commit */
->  	hws->funcs.reset_hw_ctx_wrap(dc, context);
 
-[Severity: Medium]
-On DCE120 (iMacPro1,1), does clearing right->link_state_valid inside
-dce110_apply_ctx_to_hw() leave the companion pipe blanked when the
-primary pipe is reprogrammed without a modeset on the companion CRTC?
-
-When right->link_state_valid is set to false, pipe_need_reprogram()
-becomes true for the companion pipe even though the companion stream's
-mode_changed flag is false.  dce110_reset_hw_ctx_wrap() then blanks the
-companion timing generator, disables the CRTC, and calls free_mem_input(),
-and dce110_apply_single_controller_ctx_to_hw() re-enables the CRTC in a
-blanked state.  Unlike DCN20, where program_front_end_for_ctx() runs for
-all pipes after apply_ctx_to_hw(), dc_commit_state_no_check() on DCE skips
-dc->hwss.apply_ctx_for_surface() after apply_ctx_to_hw() when
-stream->mode_changed is false:
-
-drivers/gpu/drm/amd/display/dc/core/dc.c:dc_commit_state_no_check() {
-    ...
-	for (i =3D 0; i < context->stream_count; i++) {
-		const struct dc_link *link =3D context->streams[i]->link;
-
-		if (!context->streams[i]->mode_changed)
-			continue;
-
-		if (dc->hwss.apply_ctx_for_surface) {
-			apply_ctx_interdependent_lock(dc, context, context->streams[i], true);
-			dc->hwss.apply_ctx_for_surface(
-					dc, context->streams[i],
-					context->stream_status[i].plane_count,
-					context);
-    ...
-}
-
-As a result, allocate_mem_input(), dce110_program_front_end_for_pipe(),
-and program_surface_visibility() are not run to unblank and restore the
-companion pipe, leaving the right half of the panel black.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113214721.9382=
--1-atharvatiwarilinuxdev@gmail.com?part=3D1
+>   	kfree(process);
+>   err_alloc_process:
+>   	return ERR_PTR(err);
