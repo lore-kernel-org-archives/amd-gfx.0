@@ -2,88 +2,191 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31D7A606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AAEF606A323
 	for <amd-gfx@archiver.kernel.org>; Sat, 14 Nov 2026 19:11:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Q5uSCJWT
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PuScYs0s;
+	dkim=pass (1024-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=Mb2Sbyo3
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18CDA10F0C9;
-	Sat, 14 Nov 2026 19:11:02 +0000 (UTC)
-Received: from mail-wm2-f8.google.com (mail-wm2-f8.google.com [74.125.225.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3015110E38F
- for <amd-gfx@lists.freedesktop.org>; Sat, 14 Nov 2026 14:18:36 +0000 (UTC)
-Received: by mail-wm2-f8.google.com with SMTP id
- 5b1f17b1804b1-4a77811be24so6841595e9.0
- for <amd-gfx@lists.freedesktop.org>; Sat, 14 Nov 2026 06:18:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794665914; x=1795270714; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=qCLn+aRqPlhKjyBNsbMK/eyxZvcZo9cm8uyQg9JeKqo=;
- b=Q5uSCJWTQnMsKJj5f1ipVS98A7eRQ01iuHO3PX9sFtf0P/BAykzppKB+vxhadFqC6O
- hyPn5+4c4EFSjgpn0j0xlvk2/PxCRHIujYHHap55BBhdoW3lN0WG7YGUQ97oHWOLJUUJ
- wr5wKf9vm1zXbblXLwTd5M4D1kretmviD5P3bVaErqWl2p7FFw/5ATP3XUpN302Gkgr9
- hBVs6EDxuRoBE3EQsbnkDaUavu7KnmaVNUWsiYTkj5/Gipd8NB5vj3PguAWJMU3oh2GF
- xIciG6T2zq8QHGa5ZUwOAWgZgegyb+QjxJCt85UOiyOTiw9xrYCne/wNadO6vbKwUkt2
- l+Yg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794665914; x=1795270714;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=qCLn+aRqPlhKjyBNsbMK/eyxZvcZo9cm8uyQg9JeKqo=;
- b=nHEnOk92IHQEg6ia/pTlFp1pl9l7wwgWnr16quYIsw3sWnL20nHop3/2FFTQmOdnb7
- CoGApAROlzuUYOJCkEKrm+npUmZAkCugQRag6EHxEGhOhq5Gk7pQkxArn60scdl9oCGW
- Ubgn7GXYpNCuEDJAyGKCVqw1DmNmvG2f79uIEWn4x2GnJCf6LrUTsRRqC/CK7HrCbsGi
- Y0ETAenxFcDC/8doaQKicziIRthO73ISwe2dan7DiXGyYZssMBwXAE8TmKXDg5pL9g+7
- 6q2vaZQvXFWc179kJR2XqAiKMNFAYXdLRMhLv/kXfby25FIgR5jSEW7Jq9IDHCe4MXtR
- UbvQ==
-X-Gm-Message-State: APuU4Z8upNtjNdilpjaM/ofosBa8VrxkX7Cv0IGt8J25gPlu6GS0YH+8
- z/ncplg4iBC6vV3Px3RWKUhK9lf4UyfG27O0Sru3fsTPPy6uJiDtD+h8
-X-Gm-Gg: AYBFou1CtZk6DE5zR73fWQDplb+3oDAtwlA3jxUNV0lD+vGBW860DynG8tziKTc/z7d
- tPlaIRD3tw0xm8MJfkASIg7XNBhcWnaIDkwLXnduXZk+yzMoh4i8zycKXG+sYvBTClcPqaV7frE
- iNEiJ++bg13hbV/OkImxC//0r80XqRxKRYczyNuUu7u2WS50HdxFyM3p93jJZ6y139F4VDQcaZI
- S7TtkTEneIZW9nlxgoqlCJJRKTuC78gyEvOLe60Cb8Qk74yfuSwiap/qx4EetTyG/kNPepuheJm
- 0ksVw77pjFKQeikZWRYjFyVJlQzipBq8ME0sIgPenErYBzuZT1FYlA1A69RVsgNIWO3g4/tvY3M
- bk8QgFCGHYWHEWhZbojKUG6k0/cJCSw2v/dbeqE2hMZK7Mh1LCj77vV5c6uYosxS+ZV1BaE8klm
- oJ6bxhF5t2uYJ3SrHnEUggHRvJk7UL9IoJnH/5CypJ+jrvvbEyi9f+vVjWkuy0NOdotjMgK3ZhM
- tiuwTSuN48DdQR1aol7PC2sZsXZN7KY652dO2OYQKeTBF88CBt5ennmkLwDqx/0wxQjDN3mDZAQ
- 7rrziTndhCAiJib42o5d5S8/GxuM3jbF+R8=
-X-Received: by 2002:a05:600c:1f96:b0:4a2:150f:1601 with SMTP id
- 5b1f17b1804b1-4bb55a4eb97mr116556465e9.12.1794665914303; 
- Sat, 14 Nov 2026 06:18:34 -0800 (PST)
-Received: from [192.168.1.7] ([31.94.68.191]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-49c6020bb0fsm10484086f8f.34.2026.11.14.06.18.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 14 Nov 2026 06:18:33 -0800 (PST)
-Message-ID: <5c3aeee1-1436-4b77-b742-ba916376b479@gmail.com>
-Date: Sat, 14 Nov 2026 14:18:32 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CE5410F061;
+	Sat, 14 Nov 2026 19:10:57 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0347A10E0F6;
+ Fri, 13 Nov 2026 15:24:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1794583465; x=1826119465;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=6TugUyOXxNYTJWds3Op+QGMEOeW4quDeXJcdcA1nr/I=;
+ b=PuScYs0sGhD//d7xmFpmRN/l8qFyT4/2OwgYRnWDaLXT/v1SAdf1WATE
+ uS3135r4Nl5cMRgXqq4G/V1yZK/DFKdldGNiKHOtrrB2QK0MdhXpR8WoD
+ qktFTHq+I+2Arkuq3fB25fa8nN3gYIHwbwVyCQSsHUcaL/1SXKGVDdu21
+ RIy226haKrPRITTRAox6VhDTuqNsMT3BpDMHzwvb3QyGjca/aEgr16wOF
+ 3y6DHJbo2TuwbiNcP/QfQkRLh99cLu1IvUmsylP+wCT8NjQx7w3qXXmNr
+ TUwxLttKLRVznuc0dGCqt082/m4ameFTFzDcw1eXxzKhxvggoJCyLapTH Q==;
+X-CSE-ConnectionGUID: VyTUAOstQAKqyhtY9tUMWQ==
+X-CSE-MsgGUID: 9NWcF0/QQESkoPe4f/9qpg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3427008"
+X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
+   d="scan'208";a="3427008"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Nov 2026 07:24:23 -0800
+X-CSE-ConnectionGUID: rkUOHqmRTp2dv2QH/M0fNQ==
+X-CSE-MsgGUID: peCUt6VSTnaIUu3dczGQrQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
+   d="scan'208";a="8856445"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+ by orviesa007.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Nov 2026 07:24:23 -0800
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 13 Nov 2026 07:24:22 -0800
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Fri, 13 Nov 2026 07:24:22 -0800
+Received: from MW6PR02CU001.outbound.protection.outlook.com (52.101.48.5) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 13 Nov 2026 07:24:21 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PDnZaXV1CVKZot1bLp6U94FoBDhl01xv8uOs8daNzt8l1h4wQyz0F0t6mSgVNC4gz+EBfBjuySRPgY5jLwjwZuCsqK004CKNtG0W2JqSKW8ayr3tWSKlfq3ZQt78ZbmYmAlGtvLb1xd82U/0G9EfYosctW2lK+IPi7lvKBE3uuZxqAk+fScGqrE36zNogZXbth5NVXziJza1p2ODUHfZ+DIJNVG6Oam3QYF33XDwe5jkvaS8P2uqAVkDgHuw1PFqunZ3cpWS5/7LyrATRh8aJ+FIxxcZ4umFoguP+OLS9rZFsgcUsPL1eTPqYT349Sm/eLrmeb/2Gx68plD7nB0EKw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6TugUyOXxNYTJWds3Op+QGMEOeW4quDeXJcdcA1nr/I=;
+ b=ipOzsRbnBh31fJbrJ97Tv04d3m/tDk1LBhxKxFSssGZv56v1ofh84h0m1EuVzr87CTxbGkjoLKKSewPPW3nSd1xVcrwdXT/KsHIOzP2S8dhXtr2kZ1hFNU8ijtAUaD0pJnZzlILUWPHKBiNgvB8crrj3nAp50tES1FX8x6WtOXoKvx3FSTq2clF6MjvADeUSGHSQcSGJ0KSOzrVnGba69a+5uX0sh1YVNvmqtVsOi713josih2HcColaww1Vv+FXDiBG59g9iaka6RXyW5tY02W+Xs4BL1CXajpcaYJrljukKbOxhnIi4CHxDnOCm9G9rVPIWwImqpA2zOI5UrS2zg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6TugUyOXxNYTJWds3Op+QGMEOeW4quDeXJcdcA1nr/I=;
+ b=Mb2Sbyo3lkrhOB16MLWX+vfXYEid7CFJb+dDLHdnsTc1yASsWo7GxmPVYyQw4OGV7Ojo8XaaX3/yrkd9243fnifLj00RaPo1fAzN/DZ4po8QIdb8Fi9h8Hxnvbrb0om17nyFf/5DhIZALkp2XyRYFFaejBdFairXwhfQVsKgmu8=
+Received: from LV2PR11MB6070.namprd11.prod.outlook.com (2603:10b6:408:179::22)
+ by CY8PR11MB6913.namprd11.prod.outlook.com (2603:10b6:930:5b::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 13 Nov
+ 2026 15:24:17 +0000
+Received: from LV2PR11MB6070.namprd11.prod.outlook.com
+ ([fe80::4c84:af62:dc60:fd9]) by LV2PR11MB6070.namprd11.prod.outlook.com
+ ([fe80::4c84:af62:dc60:fd9%5]) with mapi id 15.21.0615.008; Fri, 13 Nov 2026
+ 15:24:17 +0000
+From: "Popov, Pavel E" <pavel.e.popov@intel.com>
+To: Logan Gunthorpe <logang@deltatee.com>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>, Jani Nikula
+ <jani.nikula@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, "Vivi, Rodrigo" <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Alex Deucher
+ <alexander.deucher@amd.com>, =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?=
+ <christian.koenig@amd.com>, Hans de Goede <hansg@kernel.org>,
+ =?utf-8?B?SWxwbyBKw6RydmluZW4=?= <ilpo.jarvinen@linux.intel.com>, Peter Huewe
+ <peterhuewe@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>, Tom Lendacky
+ <thomas.lendacky@amd.com>, Herbert Xu <herbert@gondor.apana.org.au>
+CC: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Arnd Bergmann <arnd@arndb.de>, Len Brown <lenb@kernel.org>, Sakari Ailus
+ <sakari.ailus@linux.intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, "David S . Miller"
+ <davem@davemloft.net>, "x86@kernel.org" <x86@kernel.org>,
+ "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
+ "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
+ "linux-integrity@vger.kernel.org" <linux-integrity@vger.kernel.org>,
+ "linux-crypto@vger.kernel.org" <linux-crypto@vger.kernel.org>,
+ "linux-arch@vger.kernel.org" <linux-arch@vger.kernel.org>,
+ "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH 3/7] drm/amdgpu: Include <asm/cpu_device_id.h>
+ unconditionally
+Thread-Topic: [PATCH 3/7] drm/amdgpu: Include <asm/cpu_device_id.h>
+ unconditionally
+Thread-Index: AQHdcjcvOaiEUdbCQUyURjEWOxraKLcrZ3UAgAC5QnA=
+Date: Fri, 13 Nov 2026 15:24:16 +0000
+Message-ID: <LV2PR11MB6070DAC28BC1415346ABE2CFB27F2@LV2PR11MB6070.namprd11.prod.outlook.com>
+References: <20261111234821.4814-1-pavel.e.popov@intel.com>
+ <20261111234821.4814-4-pavel.e.popov@intel.com>
+ <029ccd27-68df-4e0a-bf27-3b40f68e91c6@deltatee.com>
+In-Reply-To: <029ccd27-68df-4e0a-bf27-3b40f68e91c6@deltatee.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: LV2PR11MB6070:EE_|CY8PR11MB6913:EE_
+x-ms-office365-filtering-correlation-id: a9ceccc9-a434-4d1e-3497-08df419a2e79
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|7416014|1800799024|376014|23010399003|366016|921020|38070700021|10067099003|4143699003|11063799006|56012099006|261026140227099003|261022105027099003|261026121527099003|261028144727099003|261022075727099003|261021123027099003|261009223027099003|22082099003|18002099003;
+x-microsoft-antispam-message-info: SlmIN7ozEgMggX5VVhyQWxhCz9tgZ2Lnq2/vImlqBjhYMS14UP63oIq5RTrqLjN0K97ATLTofdOmSjAOwbp/LmEzS+ZSlEIEaOAc69cwMi713ZdKivAB8jVWeYPqSK5I3mWBDfeZZrBMtlDVa8jSoa9+LHM1NBog0n/QA6C7ZFnYsFWQ1sjR7DQDc8pkZ1iyx9UzXylTDR4WCDDIzPZfxOuxF/F8AOcbj0g27zZqtyLhzgU0LcbKGZ3C9pVDLxChLZc0kKcoPaW06aLBUxF/70PVhAdTRoZhCklWNk0e6plqJfze5iHq2EuMARtJWZbVy8J/f/Xl7OmPXDGhMn36iWY1KnX8fNokyaQcd0kCtLES+KT34ukcPFCZ52FyU1FgmKqCFMU2lFaWLLRywbBz0H2t2lORM2oeP4XGR6MzR3uUlgB1cIICV0efIyMo5iaKzCkylyUJXkS8Fzw4UIbt0BNbky19IGjekHMUboxDFC3DG+sFV9N52LtI8xwGAiiUOk6biffkb+k0XocHEA3coMqmoWMIIPw9Khcg9MXiwOGNiwoO75y8NFNzM18nc6UIAHogCGi10AAOxlM4JcQJerUCoyuBd+g5ixIwMhHIB2L42f3Bbv3YvZTqZJE+q4MPRu24U+G2ojjkUaNTDSgj1r26sgobVeJtTGsTLktDonPBG2Ba2wzXcm8stxZycyFV
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LV2PR11MB6070.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(1800799024)(376014)(23010399003)(366016)(921020)(38070700021)(10067099003)(4143699003)(11063799006)(56012099006)(261026140227099003)(261022105027099003)(261026121527099003)(261028144727099003)(261022075727099003)(261021123027099003)(261009223027099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?OVpLNU1HTnVJOXNEVkFiWjdPMVR6cFVDR0dZbjhnTUFRenB3MWpLSEY5a05N?=
+ =?utf-8?B?bTJidnFneEtzc1kyL0hzU0VJYzgvYk5pNkdKemVLOFArSlVlekV5OHJmVlJE?=
+ =?utf-8?B?VWlacTAxNWFoSUhVL284NWw3dENWQi9PK2RYWmR6bjBtbmZ6Yk9SbVBxaFRx?=
+ =?utf-8?B?TmtkalpkK1FGL3VoSGJYN2FoczdOTGh2UDQvbndmeDlBWEpKSUpDMmc0eDFz?=
+ =?utf-8?B?Z2ZramlJNUxPYVJHRU9WazdVNWNBcmdOOHFrS0dtcEFtdDBhZkFxUDd2YmtY?=
+ =?utf-8?B?ZUtIbXVyWlJLM01vbms3UzhMK2NpcDRXaGRZb0JqVEhWMmNwYUJZaitBd1Vl?=
+ =?utf-8?B?bEtNOWp0d2F0TnFkSHlaL2Q1VnFnclF3SytXRjlMMThLUTNIY1orZndkMXZa?=
+ =?utf-8?B?eWJ1ci9ZQno5MWJBZHFTTjYxQjlXWndWSkFGc3lWdlB4WmF2cHNqckdBcVY4?=
+ =?utf-8?B?TGlTeGJ4WWxLZ3BTMlR5eTBUNWlwWHY3ZTYxRmM2NXN2K2pyNGhybzdHMG5N?=
+ =?utf-8?B?VVFadDBLTlhoZGJvNmpHVmxmeVJPKzRUdXVqS3h3T2tkQStjS2g3eldtTkNk?=
+ =?utf-8?B?MTFBbTBTaGhiSkpCZjZodjRlTEl2V3VjS3BOSFRsOE15L0VqdFZBQW5WbFhZ?=
+ =?utf-8?B?SkJpTk4xRVVXZElwaGQwazk5MFVJcXg0WVNMNUFIZ0ZPWDhLVFBlZTlodnQ2?=
+ =?utf-8?B?RURlbCtOU2tUWVZiSTUvMytBQnVvK2Y1WVIzMzI4QXB2cStrRGtFUzlnRm5j?=
+ =?utf-8?B?V3E3UERqR0FDamdiUEpEQUwzK2l2SGhLNEJ0UkZJMmdBQlFzbTMxd2pQNVRi?=
+ =?utf-8?B?VFpmRE53MmV5TW40Y09FM0c0TmhBK25iakVSN0FNMFBsQUJWeUpUY1M1TnNK?=
+ =?utf-8?B?N2hCcnUrNnB0MGdqTHRWcisyMld2b1FNbXQ3aVJGK1FReXJBYWYwRWJ1bDVz?=
+ =?utf-8?B?ZDVLeURsc210WGdzT0V5QTRmRWxYc1FCMHZCTUhwVmVlVjM3VkNTYlJLaURK?=
+ =?utf-8?B?ZndKUGcvRWMwcEZWRkdNTmtIMmt6bnJwOHFjSncvQlBQaWE5bHRaSERlVU9J?=
+ =?utf-8?B?ZW9iMHV6c0xCdEFITytpektJNUJJTU9SdGZ2Yk9ESkFTbXp2UEpab3hhc1Jr?=
+ =?utf-8?B?M2p5ZlYwK255bE90YittM2ttQXpDTDRadUlwZWVzRnNjckU4Y0c2aVQzVll2?=
+ =?utf-8?B?dmJoVDNQbHZwYWlsUWlLU04wREpoZ2xvTzlVL0N1TGladXY1WENmanZBbVVW?=
+ =?utf-8?B?Q0VWSXRBRC9KNFRXZ2JZTXRLNWN2NFBUWkgyN2NybC9tOXNzZW5UU3p0ODBo?=
+ =?utf-8?B?M3ptZU4zL2tYWGdKUThvaEhBMFUvOXJCa1FnaDYweFRwaDVVenBPYnZyOTZE?=
+ =?utf-8?B?RldTTWxnUUx5WG4rdGhwdVpmVk9HUG44eEJSU2lFekptY1Z3VW9PNlBadHAx?=
+ =?utf-8?B?QUdJNnhtOUVIL0QwNW8vQnlQYURTbVQ0UzltT2VSaHl1NGx4WW82azdDaUly?=
+ =?utf-8?B?Y29SRXlHdEI1MHRtbmxFeWpyUktaU2xRQlhnbnoxbWVuQVkrOTluQnhUWUM4?=
+ =?utf-8?B?MktMN1hWaVhoY09vWkxtZGpkVEZSbllid2RGMktUa09qcHdKUDhaWHVoNEhn?=
+ =?utf-8?B?ZzhTNDJIc2RzWHBtR0tjTlMwbFhIbGhKTVA1aWRldHpJS0Erb0RvUFNDREtH?=
+ =?utf-8?B?RUtLZVVyQTdPSjRmczFqNytxZXM2Nlpua0MzUE4xaUtFY1NWOGxtS2Fsd0Za?=
+ =?utf-8?B?Z3FjZFh2OHpsdTVVNUhGUzhUd0VvcDlKODE4T3NnZHlRSEhwcE1VVVZBWWgz?=
+ =?utf-8?B?Q0t0MUtzbmlhMVdwUy9CWmhhNVYrZ08rcXI4bGl2T2xlK3h4MlVkTEdnVzNt?=
+ =?utf-8?B?WFphNDZIZDJNSGhpZk1rWTRyTkp1eURYeWtqNm5NRUhKbjdZU0k1aTZrWUw0?=
+ =?utf-8?B?Z056RGI2Tm1OWEw5b3N6SDgwWWJLQjg4MGlyelFpa1Q2RzZyUERndytYaW5L?=
+ =?utf-8?B?NmkzNWgzWDR3eUlRRkFpRnBEeFlsMzhuWUo0K0tXd3ZYRDdaeTJLb0JmV3hQ?=
+ =?utf-8?B?cW5yN255UVlScVVzK1F2NlYrREdjeUtnc3VuSzIxTXIzZjdqczY5R2dOMFNF?=
+ =?utf-8?B?cDRpV09CQ3N5QVBSci9kSm54ZG41Q0RYMWFNU2IvSTJvSXR2OW1pUGN1WFpX?=
+ =?utf-8?B?YjlZdkdFb1RVKzBUUXRBdEhRL0NEUktvVHcxS01IbTN3QUIxZzl0QkR1SVJn?=
+ =?utf-8?B?V3dZRTNHOFBHcnptNmVWWnpJNmo3djRxRnlaL3RvMzZyQzJpcFEvcUZWYmtT?=
+ =?utf-8?B?VGxROVdwcHVVbkFRQ1ZlZ3hVZ3Q5SWo2d2NKeGw4SVpzbzNJNDVoUT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] drm/amd/display: report synced displays to
- PowerPlay for MCLK switch
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <8eb61179-c5b8-41df-a466-8b5c388b6b41@gmail.com>
- <CADnq5_OrGuMJT4Tvt+wktPzTYEopdkCjyqq8sSdvJou40-HoKw@mail.gmail.com>
- <a6093dab-c38d-4dad-af3b-7173a6eaa78c@gmail.com>
- <CADnq5_MRA2bQG5x9xiGAT5ddh0jHMqg=u2OhCPvJxPr3ddTurA@mail.gmail.com>
- <b9f69d90-73ef-4a22-a347-0d70f014a7de@gmail.com>
- <CADnq5_PZ3B863S238TkrGSubWa_VExySu9pkh5xDfrST11y5GQ@mail.gmail.com>
-Content-Language: en-US
-From: Richard Lane <richardlanedev@gmail.com>
-In-Reply-To: <CADnq5_PZ3B863S238TkrGSubWa_VExySu9pkh5xDfrST11y5GQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-Exchange-RoutingPolicyChecked: K26vcCurdzdlsy1Pj//HhpvJ2EH2s3m+rElRJJI6IUEoFhafOO+pcf9dEUaMJYck38x2lF+UlQhBdTogVZA9P8v7PayDDkPa21HGe9rwUGK3F+TeHQL0Bee/NT/rS9HCqOAVy6JUGqvS+xHdMIMbeWylz6y3zBimz5TLzQMiuOVYXGWCzIh/yHvorx1RNtZB5su+s8cy3xlqAT+mbVFseW4Bkl+8m4slFSlnusVy54SsqDIy1t/dlpN8ZO3ZDSImFX6Rd8D/oKWWEZBKHNbFgRG1Sf9e4YfUlcllUFYJR3XqZw49FeFY6JWpoZ0W0Eg6eU07QYQCidCsclDLVk0t9g==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: LV2PR11MB6070.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a9ceccc9-a434-4d1e-3497-08df419a2e79
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Nov 2026 15:24:17.0019 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: wyzOppwJhbbD+DOQg/N3IYjvUGTMQAx8fSns+8FwqYLeKkoxBoig26LBGPwKSWZjE8XnVdGnnF9K3xHFF8qmNw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR11MB6913
+X-OriginatorOrg: intel.com
 X-Mailman-Approved-At: Sat, 14 Nov 2026 19:10:55 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -95,193 +198,65 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 13/11/2026 14:05, Alex Deucher wrote:
-> On Thu, Nov 12, 2026 at 7:15 PM Richard Lane <richardlanedev@gmail.com> wrote:
->>
->> On 10/11/2026 19:59, Alex Deucher wrote:
->>> On Tue, Nov 10, 2026 at 1:49 PM Richard Lane <richardlanedev@gmail.com> wrote:
->>>>
->>>> On 09/11/2026 20:34, Alex Deucher wrote:
->>>>> On Mon, Nov 2, 2026 at 3:31 AM Richard Lane <richardlanedev@gmail.com> wrote:
->>>>>>
->>>>>> When driving multiple displays or tiled panels with identical timings
->>>>>> (such as the two 2560x2880 tiles of an Apple 5K iMac panel), Display
->>>>>> Core's program_timing_sync() aligns the CRTCs into a timing sync group
->>>>>> in hardware during dc_commit_streams().
->>>>>>
->>>>>> However, on DCE < 12, Display Core leaves
->>>>>> pp_display_cfg.all_displays_in_sync unset. Because PowerPlay is not
->>>>>> informed that the streams have synchronized vertical blanking intervals,
->>>>>> SMU7 prevents MCLK switching at idle or causes modeset underflows.
->>>>>>
->>>>>> If all active streams belong to the same timing sync group
->>>>>> (timing_sync_info.group_size == params.stream_count), report
->>>>>> all_displays_in_sync = true to PowerPlay after committing the streams so
->>>>>> SMU7 can safely downclock MCLK at idle.
->>>>>>
->>>>>
->>>>> Looking at this a little deeper, the function bw_calcs() in
->>>>> dce_calcs.c already calculates all_displays_in_sync using the helper
->>>>> all_displays_in_sync().  Can you look into this and figure out why
->>>>> that is not working as expected?  My concern with this patch is that
->>>>> DCE and DCN have different logic for handling mclk switching so I'm
->>>>> not sure it's safe to call dm_pp_apply_display_requirements() directly
->>>>> from common code.
->>>>>
->>>>> Thanks,
->>>>>
->>>>> Alex
->>>>
->>>> Moving it to dce_clk_mgr.c and using resource_are_streams_timing_synchronizable() also works. Is that a solution?
->>>
->>> I think that would be preferred, but in general, why doesn't the
->>> current flow I described work?  The function bw_calcs() dce_calcs.c
->>> already calculates the all_displays_in_sync flag using the helper
->>> all_displays_in_sync().  Is all_displays_in_sync() not checking
->>> something properly or is the overall call timing wrong such that
->>> all_displays_in_sync() can't properly calculate whether all of the
->>> displays are synced at the point that it gets called?
->>>
->>> Alex
->>>
->>
->> I think this could be limited to DCE 6,8,10 rather than DCE < 12 as in these
->> cases DC uses dce100_validate_bandwdith() which doesn't call bw_calcs() and
->> dce_pplib_apply_display_requirements() in dce_clk_mgr.c so
->> pp_display_cfg->all_displays_in_sync is unset.
-> 
-> How about adding bw_calcs() to dce100_validate_bandwdith()?  Or if
-> there are issues there, just add the all_displays_in_sync() checks to
-> dce100_validate_bandwdith().
-> 
-> Alex
-> 
-
-bw_calcs() itself cannot be called in dce100_validate_bandwidth() because
-bw_calcs_init() only initializes dc->bw_dceip and dc->bw_vbios on DCE
-11.0, 11.2, and 12.0.
-
-However, adding the all_displays_in_sync check directly to
-dce100_validate_bandwidth() (which is shared by DCE 6, 8, and 10) and
-copying context->bw_ctx.bw.dce.all_displays_in_sync to
-pp_display_cfg->all_displays_in_sync in
-dce_pplib_apply_display_requirements() works. Is this solution preferable?
-
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-@@ -320,6 +320,9 @@ static void dce_pplib_apply_display_requirements(
- {
- 	struct dm_pp_display_configuration *pp_display_cfg = &context->pp_display_cfg;
- 
-+	pp_display_cfg->all_displays_in_sync =
-+		context->bw_ctx.bw.dce.all_displays_in_sync;
-+
- 	dce110_fill_display_configs(context, pp_display_cfg);
- 
- 	if (memcmp(&dc->current_state->pp_display_cfg, pp_display_cfg, sizeof(*pp_display_cfg)) !=  0)
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c
---- a/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c
-@@ -692,6 +692,14 @@ enum dc_status dce100_validate_bandwidth(
- 		/* TODO implement when needed but for now hardcode max value*/
- 		context->bw_ctx.bw.dce.dispclk_khz = 681000;
- 		context->bw_ctx.bw.dce.yclk_khz = 250000 * MEMORY_TYPE_MULTIPLIER_CZ;
-+		context->bw_ctx.bw.dce.all_displays_in_sync = context->stream_count > 1;
-+		for (i = 1; i < context->stream_count; i++) {
-+			if (!resource_are_streams_timing_synchronizable(
-+				    context->streams[0], context->streams[i])) {
-+				context->bw_ctx.bw.dce.all_displays_in_sync = false;
-+				break;
-+			}
-+		}
- 	} else {
- 		/* On DCE 6.0 and 6.4 the PLL0 is both the display engine clock and
- 		 * the DP clock, and shouldn't be turned off. Just select the display
-@@ -703,6 +711,7 @@ enum dc_status dce100_validate_bandwidth(
- 			context->bw_ctx.bw.dce.dispclk_khz = 0;
- 
- 		context->bw_ctx.bw.dce.yclk_khz = 0;
-+		context->bw_ctx.bw.dce.all_displays_in_sync = false;
- 	}
- 
- 	return DC_OK;
-
-Richard
-
->>
->> Richard
->>
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
->>>> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
->>>> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
->>>> @@ -31,6 +31,7 @@
->>>>  #include "dmcu.h"
->>>>  #include "core_types.h"
->>>>  #include "dal_asic_id.h"
->>>> +#include "resource.h"
->>>>
->>>>  /*
->>>>   * Currently the register shifts and masks in this file are used for dce100 and dce80
->>>> @@ -319,8 +320,17 @@ static void dce_pplib_apply_display_requirements(
->>>>         struct dc_state *context)
->>>>  {
->>>>         struct dm_pp_display_configuration *pp_display_cfg = &context->pp_display_cfg;
->>>> +       int j;
->>>>
->>>>         dce110_fill_display_configs(context, pp_display_cfg);
->>>> +       pp_display_cfg->all_displays_in_sync = pp_display_cfg->display_count > 1;
->>>> +       for (j = 1; j < context->stream_count; j++) {
->>>> +               if (!resource_are_streams_timing_synchronizable(
->>>> +                           context->streams[0], context->streams[j])) {
->>>> +                       pp_display_cfg->all_displays_in_sync = false;
->>>> +                       break;
->>>> +               }
->>>> +       }
->>>>
->>>>         if (memcmp(&dc->current_state->pp_display_cfg, pp_display_cfg, sizeof(*pp_display_cfg)) !=  0)
->>>>                 dm_pp_apply_display_requirements(dc->ctx, pp_display_cfg);
->>>>
->>>> Richard
->>>>
->>>>>
->>>>>> Signed-off-by: Richard Lane <richardlanedev@gmail.com>
->>>>>> ---
->>>>>>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 ++++++++++
->>>>>>  1 file changed, 10 insertions(+)
->>>>>>
->>>>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>>>>> index 74cd88d8d580..b4531383437e 100644
->>>>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>>>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>>>>> @@ -4777,6 +4777,16 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_commit *state,
->>>>>>         dc_exit_ips_for_hw_access(dm->dc);
->>>>>>         WARN_ON(!dc_commit_streams(dm->dc, &params));
->>>>>>
->>>>>> +       if (params.stream_count > 1 &&
->>>>>> +           dm->dc->current_state->stream_status[0].timing_sync_info.group_size ==
->>>>>> +           params.stream_count) {
->>>>>> +               struct dm_pp_display_configuration *pp_cfg =
->>>>>> +                       &dm->dc->current_state->pp_display_cfg;
->>>>>> +
->>>>>> +               pp_cfg->all_displays_in_sync = true;
->>>>>> +               dm_pp_apply_display_requirements(dm->dc->ctx, pp_cfg);
->>>>>> +       }
->>>>>> +
->>>>>>         bool frl_stream_found = false;
->>>>>>
->>>>>>         for (i = 0; i < params.stream_count; i++) {
->>>>>> --
->>>>>> 2.55.0
->>>>
->>
-
+PiBJIGRvbid0IHNlZSB0aGUgY29ycmVzcG9uZGluZyBhZGRpdGlvbiBvZiBhZGRpbmcgdGhlIGNw
+dV9kZXZpY2VfaWQuaC4NCj4gVGhlIGNvbW1pdCBtZXNzYWdlIGRvZXNuJ3QgbWVudGlvbiB0aGF0
+LiBBbSBJIG1pc3Npbmcgc29tZXRoaW5nIGhlcmU/DQoNClRoZSAjaW5jbHVkZSA8YXNtL2NwdV9k
+ZXZpY2VfaWQuaD4gbGluZSBpcyB1bmNoYW5nZWQ7IG9ubHkgdGhlICNpZi8jZW5kaWYNCmFuZCB0
+aGUgcmVkdW5kYW50IDxhc20vaW50ZWwtZmFtaWx5Lmg+IGluY2x1ZGUgYXJlIHJlbW92ZWQuDQoN
+ClRoYW5rcywNClBhdmVsDQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTog
+TG9nYW4gR3VudGhvcnBlIDxsb2dhbmdAZGVsdGF0ZWUuY29tPg0KPiBTZW50OiBUaHVyc2RheSwg
+Tm92ZW1iZXIgMTIsIDIwMjYgOToxOCBQTQ0KPiBUbzogUG9wb3YsIFBhdmVsIEUgPHBhdmVsLmUu
+cG9wb3ZAaW50ZWwuY29tPjsgUmFmYWVsIEouIFd5c29ja2kNCj4gPHJhZmFlbEBrZXJuZWwub3Jn
+PjsgVmlyZXNoIEt1bWFyIDx2aXJlc2gua3VtYXJAbGluYXJvLm9yZz47IEphbmkgTmlrdWxhDQo+
+IDxqYW5pLm5pa3VsYUBsaW51eC5pbnRlbC5jb20+OyBKb29uYXMgTGFodGluZW4NCj4gPGpvb25h
+cy5sYWh0aW5lbkBsaW51eC5pbnRlbC5jb20+OyBWaXZpLCBSb2RyaWdvIDxyb2RyaWdvLnZpdmlA
+aW50ZWwuY29tPjsNCj4gVHZydGtvIFVyc3VsaW4gPHR1cnN1bGluQHVyc3VsaW4ubmV0PjsgQWxl
+eCBEZXVjaGVyDQo+IDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPjsgQ2hyaXN0aWFuIEvDtm5p
+Zw0KPiA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPjsgSGFucyBkZSBHb2VkZSA8aGFuc2dAa2Vy
+bmVsLm9yZz47IElscG8NCj4gSsOkcnZpbmVuIDxpbHBvLmphcnZpbmVuQGxpbnV4LmludGVsLmNv
+bT47IFBldGVyIEh1ZXdlDQo+IDxwZXRlcmh1ZXdlQGdteC5kZT47IEphcmtrbyBTYWtraW5lbiA8
+amFya2tvQGtlcm5lbC5vcmc+OyBUb20gTGVuZGFja3kNCj4gPHRob21hcy5sZW5kYWNreUBhbWQu
+Y29tPjsgSGVyYmVydCBYdSA8aGVyYmVydEBnb25kb3IuYXBhbmEub3JnLmF1Pg0KPiBDYzogTGVv
+biBSb21hbm92c2t5IDxsZW9uQGtlcm5lbC5vcmc+OyBCam9ybiBIZWxnYWFzDQo+IDxiaGVsZ2Fh
+c0Bnb29nbGUuY29tPjsgQXJuZCBCZXJnbWFubiA8YXJuZEBhcm5kYi5kZT47IExlbiBCcm93bg0K
+PiA8bGVuYkBrZXJuZWwub3JnPjsgU2FrYXJpIEFpbHVzIDxzYWthcmkuYWlsdXNAbGludXguaW50
+ZWwuY29tPjsgSmFzb24NCj4gR3VudGhvcnBlIDxqZ2dAemllcGUuY2E+OyBEYXZpZCBBaXJsaWUg
+PGFpcmxpZWRAZ21haWwuY29tPjsgU2ltb25hIFZldHRlcg0KPiA8c2ltb25hQGZmd2xsLmNoPjsg
+RGF2aWQgUyAuIE1pbGxlciA8ZGF2ZW1AZGF2ZW1sb2Z0Lm5ldD47DQo+IHg4NkBrZXJuZWwub3Jn
+OyBsaW51eC1hY3BpQHZnZXIua2VybmVsLm9yZzsgbGludXgtcG1Admdlci5rZXJuZWwub3JnOyBp
+bnRlbC0NCj4gZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgYW1kLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmc7IGRyaS0NCj4gZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBwbGF0Zm9ybS1k
+cml2ZXIteDg2QHZnZXIua2VybmVsLm9yZzsgbGludXgtDQo+IGludGVncml0eUB2Z2VyLmtlcm5l
+bC5vcmc7IGxpbnV4LWNyeXB0b0B2Z2VyLmtlcm5lbC5vcmc7IGxpbnV4LQ0KPiBhcmNoQHZnZXIu
+a2VybmVsLm9yZzsgbGludXgtcGNpQHZnZXIua2VybmVsLm9yZzsgbGludXgta2VybmVsQHZnZXIu
+a2VybmVsLm9yZw0KPiBTdWJqZWN0OiBSZTogW1BBVENIIDMvN10gZHJtL2FtZGdwdTogSW5jbHVk
+ZSA8YXNtL2NwdV9kZXZpY2VfaWQuaD4NCj4gdW5jb25kaXRpb25hbGx5DQo+IA0KPiANCj4gDQo+
+IE9uIDIwMjYtMTEtMTEgNTo0OCBwLm0uLCBQYXZlbCBQb3BvdiB3cm90ZToNCj4gPiA8YXNtL2Nw
+dV9kZXZpY2VfaWQuaD4gbm93IGhhcyBhIGdlbmVyaWMgdmVyc2lvbiwgc28gdGhlICNpZmRlZg0K
+PiA+IENPTkZJR19YODYgYXJvdW5kIHRoZSBpbmNsdWRlIGlzIG5vIGxvbmdlciBuZWVkZWQuDQo+
+ID4NCj4gPiA8YXNtL2ludGVsLWZhbWlseS5oPiBpcyBpbmNsdWRlZCBieSA8YXNtL2NwdV9kZXZp
+Y2VfaWQuaD4uDQo+ID4NCj4gPiBTaWduZWQtb2ZmLWJ5OiBQYXZlbCBQb3BvdiA8cGF2ZWwuZS5w
+b3BvdkBpbnRlbC5jb20+DQo+ID4gLS0tDQo+ID4gRGVwZW5kcyBvbiA8YXNtLWdlbmVyaWMvY3B1
+X2RldmljZV9pZC5oPiBmcm9tIFsxXTsgcGxlYXNlIGFwcGx5IGFmdGVyDQo+ID4gaXQgaXMgaW4g
+bWFpbmxpbmUuDQo+ID4NCj4gPiBbMV0NCj4gPiBodHRwczovL2xvcmUua2VybmVsLm9yZy9yLzIw
+MjYxMTExMjM0NDM5LjQwOTgtMS0NCj4gcGF2ZWwuZS5wb3BvdkBpbnRlbC5jbw0KPiA+IG0NCj4g
+Pg0KPiA+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgfCAzIC0t
+LQ0KPiA+ICAxIGZpbGUgY2hhbmdlZCwgMyBkZWxldGlvbnMoLSkNCj4gPg0KPiA+IGRpZmYgLS1n
+aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMNCj4gPiBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYw0KPiA+IGluZGV4IDE5YTU2
+NjE4N2RmLi5mYzRlNzI3MzYzMCAxMDA2NDQNCj4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfZGV2aWNlLmMNCj4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfZGV2aWNlLmMNCj4gPiBAQCAtODgsMTAgKzg4LDcgQEANCj4gPg0KPiA+ICAj
+aW5jbHVkZSA8ZHJtL2RybV9kcnYuaD4NCj4gPg0KPiA+IC0jaWYgSVNfRU5BQkxFRChDT05GSUdf
+WDg2KQ0KPiA+IC0jaW5jbHVkZSA8YXNtL2ludGVsLWZhbWlseS5oPg0KPiA+ICAjaW5jbHVkZSA8
+YXNtL2NwdV9kZXZpY2VfaWQuaD4NCj4gPiAtI2VuZGlmDQo+ID4NCj4gSSBkb24ndCBzZWUgdGhl
+IGNvcnJlc3BvbmRpbmcgYWRkaXRpb24gb2YgYWRkaW5nIHRoZSBjcHVfZGV2aWNlX2lkLmguDQo+
+IFRoZSBjb21taXQgbWVzc2FnZSBkb2Vzbid0IG1lbnRpb24gdGhhdC4gQW0gSSBtaXNzaW5nIHNv
+bWV0aGluZyBoZXJlPw0KPiANCj4gTG9nYW4NCg==
