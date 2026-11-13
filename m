@@ -2,42 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE24A606A8A6
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Nov 2026 15:16:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49007606A327
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Nov 2026 15:21:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gbvc6+L3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OJHVEbh8
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53490112663;
-	Fri, 13 Nov 2026 15:16:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE627112621;
+	Fri, 13 Nov 2026 15:20:54 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3232A112649
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Nov 2026 15:16:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59CCE112621
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Nov 2026 15:20:48 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id DD4D341742;
- Fri, 13 Nov 2026 15:16:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A18191F000C8;
- Fri, 13 Nov 2026 15:16:37 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2997743A4D;
+ Fri, 13 Nov 2026 15:20:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8BD31F000C4;
+ Fri, 13 Nov 2026 15:20:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794582997;
- bh=SkV/7c6HW2KYf0FajSBwsVtSvz5vkTpyS/4Eh4DNPcA=;
+ s=k20260515; t=1794583248;
+ bh=t/KJkm14ws7tMz/FJT5nOVHG366A6eGJ/fUdzg5vbgk=;
  h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=Gbvc6+L3O643974tm6wPcSMDknDZXS91wMzekEVBAGHG82XyoGWNCrEKEQCN6o70X
- 7tJPZLl7sKlBz9RBgATXzKH1khsiJ6Wkk8psP3/9L5+mJ39loRdtVM9Wtpp8/qS9WY
- zbPNKc/eFvwrsA4ZF8FD3jxbcpZAVDL0eB0blhXO2O0OY20i2OmY7YLUO+CgQSnzp1
- kg7ItSVXal0j00XqU2MDQrTPAiYzJwO7w+dQ8pIPxKBATz8ukDc6bmb1IjW3486bjI
- NDecEsNSaxtr9BaWst59VfX1CjotngzaugkTjUYeJVAO6rGjUYK4+6VPq3BMHehl22
- e9g7/KJ2xnyyQ==
-Message-ID: <sashiko-outbox-213072@kernel.org>
+ b=OJHVEbh8RWMovFIRV9g0f6Pv0SewCvsNHGj2rT42e9n/M0jnk29FFBnVHu9sFSrrz
+ p0zFlE59C7HG3srgu1uEdLr/Y9Tt6qdeFKZgAN2+5tIKGGJGcQqx2XHthADkNF09kn
+ +I7gP6S58siokw86fABLB8pldX4eYyZVsiVGw4kGtNiuKXeQeUgqzk04ODXpdChLaE
+ SzfIwwXThLqU0eNd7tZaQ88JOydOHWo9WdeAJPyXpmxDv+i4cfeL1btbXi2pf/Mbu/
+ eZobSaEUvmWacKjeTzsrxHYRwwzTZ1oz82aSZ4SnuGRy3HSDMAWQ/ieslJbxtKlquK
+ uCsMuwB0jeRaQ==
+Message-ID: <sashiko-outbox-213075@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/7] Revert "drm/amdkfd: mark A+A VF VRAM PTEs as system
- memory"
+Subject: Re: [PATCH 3/7] Revert "drm/amdgpu: take the A+A VF GMC aperture
+ from SRAT"
 To: "Zhigang Luo" <Zhigang.Luo@amd.com>, amd-gfx@lists.freedesktop.org
-In-Reply-To: <20261113145702.323968-2-Zhigang.Luo@amd.com>
+In-Reply-To: <20261113145702.323968-3-Zhigang.Luo@amd.com>
 References: <20261113145702.323968-1-Zhigang.Luo@amd.com>
- <20261113145702.323968-2-Zhigang.Luo@amd.com>
+ <20261113145702.323968-3-Zhigang.Luo@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 13 Nov 2026 15:16:37 +0000
+Date: Fri, 13 Nov 2026 15:20:47 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,40 +51,76 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] drm/amdkfd: revert commit message cites non-ancestor SHA
-  daf19be40e04
+Thank you for your contribution! Sashiko AI review found no new issues
+in this patch, but noticed 1 related pre-existing issue it does not
+introduce:
+- [High] drm/amdgpu: undefined guard in
+  amdgpu_acpi_find_gpu_memory_in_srat() [1]
 --
 
-commit 3e660e5d230b226dd7bb0de7b064fd710bf0e2a4
+commit d687d56267f159cb114f4a53091a5e9a32dc7973
 Author: Zhigang Luo <Zhigang.Luo@amd.com>
 
-> Revert "drm/amdkfd: mark A+A VF VRAM PTEs as system memory"
->
-> This reverts commit daf19be40e04.
->
-> SVM VRAM ranges leave AMDGPU_PTE_SYSTEM clear and then call
-> amdgpu_gmc_get_vm_pte() with a NULL buffer object. The GFX 12.1
-> PTE helper sets the bit for an A+A VF, so the special case in
-> svm_range_get_pte_flags() is the wrong place.
->
-> Signed-off-by: Zhigang Luo <zhigang.luo@amd.com>
+Revert "drm/amdgpu: take the A+A VF GMC aperture from SRAT"
 
-[Severity: Low]
-Commit daf19be40e04 ("drm/amdkfd: mark A+A VF VRAM PTEs as system memory")
-is not an ancestor of this branch; the commit in the branch history that
-added the amdgpu_virt_vram_is_spm() check in svm_range_get_pte_flags() is
-a69f4d4076ea ("drm/amdkfd: mark A+A VF VRAM PTEs as system memory").
-Should the revert reference be updated to cite a69f4d4076ea ("drm/amdkfd:
-mark A+A VF VRAM PTEs as system memory")?
+This commit reverts the direct SRAT aperture lookup in gmc_v12_0_early_init=
+()
+and the SPM overrides in gmc_v12_0_vram_gtt_location(), gmc_v12_0_mc_init(),
+and mmhub_v4_2_0_get_xgmi_info() so that the GMC aperture is derived from t=
+he
+FB offset and XGMI node segment size instead.
+
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gmc_v12_0.c
+> index cd276a138e101..7e0b83b1015fc 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+> @@ -639,7 +639,6 @@ static void gmc_v12_0_set_gfxhub_funcs(struct amdgpu_=
+device *adev)
+>  static int gmc_v12_0_early_init(struct amdgpu_ip_block *ip_block)
+>  {
+>  	struct amdgpu_device *adev =3D ip_block->adev;
+> -	int r;
+> =20
+>  	if (adev->smuio.funcs &&
+>  	    adev->smuio.funcs->is_host_gpu_xgmi_supported)
+> @@ -662,18 +661,6 @@ static int gmc_v12_0_early_init(struct amdgpu_ip_blo=
+ck *ip_block)
+>  	gmc_v12_0_set_mmhub_funcs(adev);
+>  	gmc_v12_0_set_umc_funcs(adev);
+> =20
+> -	if (amdgpu_virt_vram_is_spm(adev)) {
+> -		u64 aper_base, aper_size;
+> -
+> -		r =3D amdgpu_acpi_find_gpu_memory_in_srat(adev, &aper_base,
+> -							&aper_size);
+> -		if (r)
+> -			return r;
+> -
+> -		adev->gmc.aper_base =3D aper_base;
+> -		adev->gmc.aper_size =3D aper_size;
+> -	}
+
+[Severity: High]
+This problem wasn't introduced by this patch, but does
+amdgpu_acpi_find_gpu_memory_in_srat() [1] always return -ENOENT?
+
+In drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c, the SRAT lookup implementation
+is guarded by #ifdef HAVE_ACPI_SRAT_GENERIC_AFFINITY, an out-of-tree autoco=
+nf
+macro that is never defined in the kernel tree even though struct
+acpi_srat_generic_affinity is unconditionally defined in
+include/acpi/actbl3.h.  Only the #else fallback stub is compiled, causing
+SRAT lookups for SPM-backed VRAM to fail with -ENOENT during device probe.
+
+[1] https://sashiko.dev/#/bug/linux-e20f9f1a-d616-45e0-9734-058df15f4c59
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113145702.3239=
-68-1-Zhigang.Luo@amd.com?part=3D2
+68-1-Zhigang.Luo@amd.com?part=3D3
