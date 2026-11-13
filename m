@@ -2,46 +2,47 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4CF2606A327
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Nov 2026 13:44:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24502606A323
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Nov 2026 13:44:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=rh2BCVdV
+	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=cwooper.dev header.i=@cwooper.dev header.a=rsa-sha256 header.s=key1 header.b=iCJFF0PH
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0AE8211257F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 358AB11258D;
 	Fri, 13 Nov 2026 13:44:27 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE41810E53C
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Nov 2026 14:21:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Subject:Cc:To:From:Date:From:Reply-To;
- bh=oLpww1sIQ9cL9vUaBYgyHLXDOO3Awe16dZ11UJdYc3k=; t=1794493312; x=2109853312; 
- b=rh2BCVdVE9kbY4xtcJx1WcZqPDDM6DkKbI5RkcM3qk0BsGpKbUm9NA0cjD8KleXrHDL5He4nt7M
- zPcc5RLat1GvaZvtgb3Uh47UjViu7/aFIeXEzvR67LfEFYbbEzu5tlUW1sqSb000cmjCrKXoeb92T
- KcspKHx8N9zeZFt0ANvH8DsOUozc2FvC2/4ro/fWkSsVkMXmilbvEEhr1NyNXaNWBaycMwE1ge2Oa
- xeUjGJadmyenFazsvN+8PK4N/z4+vr+hEa8eG8rsRT2xSF8y4SSZdvOttPu/O9oqT6O1j7sDiOOqS
- gTEwfbYfyilfzC4jjsyj4vVF6Cu8T74Wt/UQ==;
-Received: from 179-125-72-1-dinamico.pombonet.net.br ([179.125.72.1]
- helo=quatroqueijos.cascardo.eti.br)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xRVgU-009a6o-KK; Thu, 12 Nov 2026 15:21:51 +0100
-Date: Thu, 12 Nov 2026 11:21:47 -0300
-From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-Subject: Re: [PATCH] drm/amdgpu: clear the entire mapping when partially
- unmapping
-Message-ID: <avXLe9-R-yzQzGU_@quatroqueijos.cascardo.eti.br>
-References: <20261111-amdgpu_partial_mappings_fix-v1-1-02c5dfa20889@igalia.com>
- <8333ede5-3833-4465-9eaf-ab9d1b75ca89@amd.com>
+Received: from mta0.migadu.com (out-160.mta0.migadu.com [91.218.175.160])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6E4410E72C
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Nov 2026 01:05:48 +0000 (UTC)
+X-Envelope-To: amd-gfx@lists.freedesktop.org
+DKIM-Signature: a=rsa-sha256; bh=3iaUfeSJheybFmhRCKtGmAwKW8MrZhj1xyUGO3ic1L4=; 
+ c=simple/simple; d=cwooper.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794531946; v=1; x=1795136746;
+ b=iCJFF0PH/bBXXqycUQIXn6N8e6Be/ikwGEQvq7Z4Lk29ygCDykpLLz+PKFFnLb8CatY5JvsL
+ eiUG4iRxnpGRDq2HLNtyIHvc9IOGG4aG5bXWMWvjGpQtyBjpe9Kgo4F/K+ZAU5Q4SpIarO96Itt
+ Z6uB1qvFCSD64jb0lZ96HYza6sbRqt8Ag0+tS4Wq3EruF52zPE1TMvUFsSShak1V7D7hLSZH4rY
+ tU8Ry2gqBNxEuiQKFLphEavyBNlhlDl/A4Xbtv3HCiZ4YeNNa8gIDHFjTPsTO8ahWdlhQK0B84y
+ Ql2mnGdwx+e/x6nrAep4g5R8X3FFpiV4l4yVG/4mwvGBQ==
+X-Envelope-To: amd-gfx@lists.freedesktop.org
+Received: by smtp.migadu.com with ESMTPS id e4dddcff22dcb560;
+ Fri, 13 Nov 2026 01:05:46 +0000
+X-Mizu-Trace-ID: e4dddcff22dcb560
+X-Migadu-Flow: FLOW_OUT
+From: Cooper Morgan <ext-github@cwooper.dev>
+To: amd-gfx@lists.freedesktop.org
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/2] drm/amd/display: Fix FreeSync infopacket refresh rates
+ above 255 Hz
+Date: Thu, 12 Nov 2026 17:05:26 -0800
+Message-ID: <20261113010529.11514-1-ext-github@cwooper.dev>
+X-Mailer: git-send-email 2.56.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <8333ede5-3833-4465-9eaf-ab9d1b75ca89@amd.com>
 X-Mailman-Approved-At: Fri, 13 Nov 2026 13:44:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -53,77 +54,68 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, Nov 12, 2026 at 10:24:04AM +0100, Christian König wrote:
-> On 11/11/26 19:28, Thadeu Lima de Souza Cascardo wrote:
-> > When we partially clear a BO mapping, we only add the partially unmapped
-> > region to the freed list. That will update the page table to clear that
-> > mapping and leave the other endpoints mapped.
-> > 
-> > However, we move the endpoints to the invalids list. When later closing
-> > that BO, it will simply free the mapping and not clear the GPU page
-> > tables.
-> > 
-> > Drop the optimization and clear the entire mapping from the page tables.
-> > As the endpoints are already in the invalids list, when that BO mapping
-> > needs to be accessed, the page tables will be updated.
-> > 
-> > Though that may clear, then write page table entries and even lead to
-> > new page table allocations in certain situations, those would already
-> > happen in the clear path.
-> > 
-> > When measuring a given workload, it was noticed an extra allocation in
-> > less than 10% of the cases, but no noticeable extra latency. In any
-> > case, correctness is more important and this fixes the scenario
-> > described.
-> > 
-> > Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-> 
-> Reviewed-by: Christian König <christian.koenig@amd.com>
-> 
+On my MSI MAG 271QPX32 (320Hz QD-OLED over DP 1.4, RX 9070 XT), 320Hz
+looks like a 720p image stretched to fill the screen whenever
+Adaptive-Sync is on in the monitor's OSD. Custom modes at 305-315Hz put
+it into its self-test pattern instead. Windows is fine on the same
+machine and cable. It's the same bug as
+https://gitlab.freedesktop.org/drm/amd/-/issues/5988, where an LG at
+280Hz shows up as 24Hz.
 
-Sorry that I missed a Fixes line here, if possible to add it when applying,
-I believe it is:
+The cause is the v1 FreeSync infopacket, which native DP sinks get
+unless they're a whitelisted PCON or support Replay. It stores the min
+and max refresh in one byte each, so 320 wraps to 64.
 
-Fixes: 387f49e54672 ("drm/amdgpu: fix clear_all and replace handling in the VM (v2)")
+Patch 1 caps those bytes at 255 instead of letting them wrap. With
+patch 1 alone, the MSI is correct at 320Hz and the LG shows every frame
+at 280Hz, so I tagged it for stable.
 
-Thanks.
-Cascardo.
+Patch 2 sends the v3 packet to sinks that advertise AMD VSDB v3 and go
+above 255Hz, so VRR gets the full range. Sinks at 255Hz and below are
+unchanged.
 
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 6 ------
-> >  1 file changed, 6 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> > index a99c2ef14be9..808b77083a5e 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> > @@ -2108,12 +2108,6 @@ int amdgpu_vm_bo_clear_mappings(struct amdgpu_device *adev,
-> >  	list_for_each_entry_safe(tmp, next, &removed, list) {
-> >  		amdgpu_vm_it_remove(tmp, &vm->va);
-> >  		list_del(&tmp->list);
-> > -
-> > -		if (tmp->start < saddr)
-> > -		    tmp->start = saddr;
-> > -		if (tmp->last > eaddr)
-> > -		    tmp->last = eaddr;
-> > -
-> >  		tmp->bo_va = NULL;
-> >  		list_add(&tmp->list, &vm->freed);
-> >  		trace_amdgpu_vm_bo_unmap(NULL, tmp);
-> > 
-> > ---
-> > base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
-> > change-id: 20261111-amdgpu_partial_mappings_fix-c48d729ef590
-> > 
-> > Best regards,
-> > --  
-> > Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-> > 
-> 
+This builds on what sunryze and oystersuki worked out in that issue.
+sunryze found that the VSDB version was only saved for Replay sinks on
+DP and tested sending v3 on their LG. oystersuki suggested pairing that
+with a 255 cap for sinks that don't advertise v3. sunryze has no public
+email, so they're credited here instead of with a tag.
+
+Tested with the series backported to 7.2.13: 320Hz looks right, and
+with VRR on, the monitor's refresh readout follows frame caps at 300,
+270, 240, and 100fps. oystersuki tested both patches on an LG
+27GX700A-B. Since v3 now carries the PQ bit from ebacf0a7ce54
+("drm/amd/display: Signal PQ EOTF in FreeSync infopacket for DP HDR")
+to these sinks in HDR, I also tested with that commit backported: HDR
+looks the same. Both patches add KUnit tests.
+
+Changes in v2:
+- No functional changes; rebased onto amd-staging-drm-next.
+- Patch 1: dropped the claim that an EDID range capped at 255 sends the
+  bytes this patch sends (no FreeSync packet is sent then), and gave the
+  result of running patch 1 alone instead. Also dropped "once the
+  wrapped value lands inside their range", which the LG contradicts.
+- Added tags from oystersuki and Harry.
+
+v1: https://lore.kernel.org/amd-gfx/20261031041827.162730-1-ext-github@cwooper.dev/
+
+Cooper Morgan (2):
+  drm/amd/display: Saturate refresh rates in v1/v2 FreeSync infopackets
+  drm/amd/display: Use FreeSync v3 infopacket for sinks above 255 Hz
+
+ .../display/amdgpu_dm/amdgpu_dm_connector.c   |   2 +-
+ .../display/amdgpu_dm/amdgpu_dm_freesync.c    |   7 ++
+ .../tests/amdgpu_dm_connector_test.c          |  25 ++++
+ .../amdgpu_dm/tests/amdgpu_dm_freesync_test.c | 116 ++++++++++++++++++
+ .../amd/display/modules/freesync/freesync.c   |  12 +-
+ 5 files changed, 158 insertions(+), 4 deletions(-)
+
+-- 
+2.56.0
+
