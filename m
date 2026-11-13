@@ -2,123 +2,124 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 049A1606A323
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Nov 2026 14:46:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C31F5606A33D
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Nov 2026 14:50:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=5NTFDHxS
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Qg8kvpe2
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FB731125FD;
-	Fri, 13 Nov 2026 14:45:59 +0000 (UTC)
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010054.outbound.protection.outlook.com [52.101.46.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD7151125FD
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Nov 2026 14:45:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A64D1125EC;
+	Fri, 13 Nov 2026 14:50:46 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013008.outbound.protection.outlook.com
+ [40.107.201.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8FF82112609
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Nov 2026 14:50:40 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fzekO09wHphK4DK9arKP5HfVcsXCLvw93+zsNqhx28hfU5OGITS6UCxRSl6XFNzcm60bNJRmWNJDcy/BDGbvnoS0qAOl5l2nUfI5RWYIydVmTQT1xHPKFGMFae+I5gQ3rtMY9LuloOMmpHTl87atxzOb9HDL30Ltz6qXvNRPwLiq4vA9XkXfWzpsEuHwzoBks9qzeI1zjgUxoii1z2uNzK2lIFq6RjRQTG4BYgBrHLALy4+b8uh6ukQj1qGEEZpE424bU3tkSsacGD4vQiKEZFOTtaEFyDqn0hJY+3FgIzDporCFO6QhRarJdE0KXJR/4ZbWHQy8LlSoWTgJgVy8wg==
+ b=pAVpx5vKc3Vw6IodL8sQCMHnkrW3I3zi4oSt0NOG8e4dwf3GENGl0knG1lz3tXyIm4FxCaCXeblitJpXSNIq0dGai5pzL4uFYI/lNKJZe8xkszBKrTiBNXPumw8Cp8XC3C4JVamioSXP9XMSTZAttol5/y3X4eSjndNN6WuvyiUFjLYEPXqECNtOYNsl8LI0acuOU3koYVls8qWrsP2At6/BJYD090WApfAItsKmZFymaG+hMiOH0L6lMSVd5LFzYRAyanYROfa51EZ3EZxVYP09UnD69o/Mac6k8rnkc/jE7jyrWa8NHeBR0/66KvbC8CdCwQYkH7F+r/UX8TPTPQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zik5QIcS3N8GV6vy/LDt7TVPy6QW7QnpwlDG7a1JaWg=;
- b=Xszg/tlSatCQV6VXSteVNH+mNfuZ29JwCkfN7B486NyPJOHZ0f5mePiHeJ55x2Nc1d5cnCThjekxqL/ck1uMx27HwJdxdncamUAVUTb4bwsZ6TaC5rUTS804DH7mrLxhnXjbu1gdtFdQTsSk1BOojDBogaaTxcxza3wrWmFlcb6m7Vk6eFa16SxZyDvnkkFHr1ddV2mRgLbBnB6U4v7WSlTlhO4E7V0GuYjGNmLaqip9SBoToAWoiWZgBVO84takQBDaeIzDV3UnebhXhzOVsBSErJ1BzJFoUzS6nna4nGB2TB/wIKYvoiGKynzU/d91mplJy/PCQnlzJrDMmlYsFg==
+ bh=syJwfTCyZiEVeLdadG4ORjW4YupqNg55vZqiM5bkpa8=;
+ b=SDtp0f/sk5BDUKvyX+UHM6g9o6gL++b8HB3kT4Z5V7QGOOAjyMxpwwm/C6Zbdy2bcpuB0tviZRBvpJgR+5fYHm4oSG30osXpf5/LCWzrPL2Ky6nud32GagFyfJClrJ5POG+FluOd7+aq3qvh3X4cu930NVX+iDwUQvN7/wfVTXwgpQ+3OeF52qNBzbexsgBIK+Tp6zGGnIacfLgfkF+tewsJvhdiS5qUfWAwRE++MGLis6teO0NKfL4u7jFMmzW8Xsd2HgRevBLPfLKwSLEYoUMePexjHzF0jP+4o9aMnxMqPUP4SdvpRFBVAz7A+lZMlN7GzC0EvGb14+12op36iw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zik5QIcS3N8GV6vy/LDt7TVPy6QW7QnpwlDG7a1JaWg=;
- b=5NTFDHxSTZEKB69E7ZDuEUa9waQUKV/MnniN+RS7DGIRfG0uFCws0aPEXOSjlILaOOtbhFvTW852XL3hdN+vEadlc6VxghiS1h7O5bjuCDrpXGFr+ceEa2Svl0MLbdZxvu6PsC6Rj4Hzr7gEpSAv+LdUTpmVenQHvdlS9y17JCE=
+ bh=syJwfTCyZiEVeLdadG4ORjW4YupqNg55vZqiM5bkpa8=;
+ b=Qg8kvpe2KAkbTzZE5WtA9kSBf2BNug+vKy6J7prlMurmXgtAFCs1DVYspw1pAAaIzQb8q5vI1+wIP6r57x83BsvJ6sFOshr/JZSMRcxFBSd1twGYeKAAeJXHQQkSYCkO+df52pjhW8fTNBeKvbdxPtTE0j7SjhJdYRDwcwUIcDE=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5805.namprd12.prod.outlook.com (2603:10b6:510:1d1::13)
- by PH8PR12MB6793.namprd12.prod.outlook.com (2603:10b6:510:1c4::19)
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
+ by CH9PR12MB987669.namprd12.prod.outlook.com (2603:10b6:610:312::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Fri, 13 Nov
- 2026 14:45:49 +0000
-Received: from PH7PR12MB5805.namprd12.prod.outlook.com
- ([fe80::35dc:5b7a:52da:c8f1]) by PH7PR12MB5805.namprd12.prod.outlook.com
- ([fe80::35dc:5b7a:52da:c8f1%6]) with mapi id 15.21.0615.007; Fri, 13 Nov 2026
- 14:45:49 +0000
-Message-ID: <39c478fd-5b7d-4220-a503-b12cc1abd6b2@amd.com>
-Date: Fri, 13 Nov 2026 09:45:45 -0500
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Fri, 13 Nov
+ 2026 14:49:14 +0000
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc%5]) with mapi id 15.21.0615.009; Fri, 13 Nov 2026
+ 14:49:13 +0000
+Message-ID: <09297fb9-0fe9-4c72-9461-d8b1445a799a@amd.com>
+Date: Fri, 13 Nov 2026 20:19:05 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] drm/amdgpu/vm: stop using amdgpu_bo_fence
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20261014022107.2511834-1-benjamin.cheng@amd.com>
- <20261112164408.1748006-1-benjamin.cheng@amd.com>
- <bfc53181-53ac-49f8-b243-95b23999a638@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: reinitialize GFX compute across a partition
+ switch
+To: Alex Sierra <alex.sierra@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Felix.Kuehling@amd.com, Mukul.Joshi@amd.com, Harish.Kasiviswanathan@amd.com
+References: <20261109192953.3746947-1-alex.sierra@amd.com>
+ <20261112221217.4015963-1-alex.sierra@amd.com>
 Content-Language: en-US
-From: Benjamin Cheng <benjamin.cheng@amd.com>
-In-Reply-To: <bfc53181-53ac-49f8-b243-95b23999a638@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQZPR01CA0002.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:85::16) To PH7PR12MB5805.namprd12.prod.outlook.com
- (2603:10b6:510:1d1::13)
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <20261112221217.4015963-1-alex.sierra@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5P287CA0104.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1b5::12) To SA0PR12MB7091.namprd12.prod.outlook.com
+ (2603:10b6:806:2d5::17)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5805:EE_|PH8PR12MB6793:EE_
-X-MS-Office365-Filtering-Correlation-Id: bb0b041f-a3c8-41d5-39e7-08df4194ce93
+X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|CH9PR12MB987669:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0b982ff0-cb6e-4bba-13da-08df419548af
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|1800799024|366016|22082099003|18002099003|4143699003|11063799006|261026140227099003|261022105027099003|261009223027099003|261028144727099003|261021121427099003|261021123027099003|261102123227099003|56012099006|261026121527099003|10067099003;
-X-Microsoft-Antispam-Message-Info: ljDv8sC9NV+AOmFU4Niej8D/uqFIQlV2cakoyVNHWmsTCjulR+Se5aPdNz+GQDhKpaXoIaz/7+gGQt1PMzO33LJnEN+gfBEAqNyg4FmLfk/EYbTzw9nOXxs3ftXrRjFtM1D1LEP0g/3rvGjieGxeqS/GhYmP30qmDvBFzHYEtu09vsL6AEf1P3qAugnz8Ysbxv4xLRwjKCKhFiNodBGDNrfKzBZZzV4QU9KuzL5jNetVKI6bLoYadAY4jRtdYYwsOqRrHArTDOD4EQz9+3eAPIGKrHeRx0ZT9J1ivLDNyfFM9Q413+dKy748+ws4EWPvEL4b3AdslC6ZeS7icFARFnFyaExtO4L5xf21rwpxwK5TBA7vy5AEAutKdb3CYYLyTRNX0EmfMn3jcw1VshmF65qmyNiAOYPwch+iYzEQXK8sk90rB9pnzbgwEtalRbK9iL/05U9i3TbRlem6QPhKqTIN3B9oRphtJqgIicKzhhKiG2gkSuGbmYoP1gK1y9d3y6W8Pau1uU4imXC4e4htBVNNRG/eoFFyljzvPxHnuamZqHV3rOcoIAyjJx7TjPTsrOpleb/OAM4LDJxUvTBUWRodMHDv/UlZYJ82dh1AuMI2rQngE7fUeclbCAtyu1n/VvYkH+48wmxsG8FoTB67WoHHwc7YUYwME/ozqrbeQMs=
+ ARA:13230040|23010399003|376014|366016|1800799024|10067099003|11063799006|4143699003|56012099006|261022075727099003|261026121527099003|261026140227099003|261022105027099003|261021123027099003|261021121427099003|261028144727099003|261102123227099003|261009223027099003|22082099003|18002099003|18092099006|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info: Qv/lPUq7pvrgKNwD3Uy3j07vF6TYc/U3OyZGkdaYP4vFrERD6ie4qHBLzKcRuz7p2aeFe+kleDAPQkX71idu0tdkmtAFJNoz0Ja/wRFnWE2E92u4Gtwa7WIvCSRug9yBHlwojzR2NyPnlCVfTGmNTvvi2h0T4bN/f56JUxTTbG44V+UGnayPfoHeBmMiWyEnA25iq+OeCL/iD3QPp1kRUlOjgbBdd48M5ZHT096/JbfoS2/7uixJ1sV8FsBwavkwyd9RR3otS1NxQdeNNB1unoyx7raVg398c0RqEciCR/bWkQiRIAlPVj2Qh/2XCJQ7CJs1hPeh7a2SwFOD8C4r9llwWV9rS671CJBgF9aVrUEuuIHPH/4knIFAJ/Br6KEW9toBM6dbhe7AFUU60WCxfAjLazSy5fPlKnTd0TtnkoymJLo/o5QLII60TjgbauQ/fJBcjWezeMgCy0OSVZKNWMIWpLxD9eJOGvi3CDwrezy+fQe6kgsncnpqcF+96m4wkE732oeTuoi2OBkBxV7y0g4I0be11R94WMNSNffagdtPHA3vZBN9eJpt5jBJKo4TkrnL7+oZVymgRdXv/XNRvXpntURTNyKYHN3liB1ufrsy411/3F6V/a1UGzNHaqJ0r29T7QgOFHCFiKPKCrIgRmieOWdh6meJlM1vk2xnkU4=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5805.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(22082099003)(18002099003)(4143699003)(11063799006)(261026140227099003)(261022105027099003)(261009223027099003)(261028144727099003)(261021121427099003)(261021123027099003)(261102123227099003)(56012099006)(261026121527099003)(10067099003);
+ IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(10067099003)(11063799006)(4143699003)(56012099006)(261022075727099003)(261026121527099003)(261026140227099003)(261022105027099003)(261021123027099003)(261021121427099003)(261028144727099003)(261102123227099003)(261009223027099003)(22082099003)(18002099003)(18092099006)(6133799003)(3023799007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q0dCYVJJZ0lRMDY5RlhCOU14UmUxMFlpcmZyck1iLzNuZHBGclJDNDNpcytC?=
- =?utf-8?B?OE5YQW80cUl2ajNtcUp1eFZ6KzRVUnhncnJ0NXU5S3R1K3VTR3VObThRQ2JK?=
- =?utf-8?B?aTV2bVBwaHI3RTllaXRTaGJqbEplc3RUMTVMbk5Sb2pqcDFHaG1wOER0VWdQ?=
- =?utf-8?B?YW1ZeDA3aTFCM1VPMGpFYUs5WklRaEZ3ZFBERkFjbjhORzNjNmxXT0FyRjNC?=
- =?utf-8?B?YjlLd1NEbkEwWUF4SUxvMzV2Rm1UaStJWTFqaXJ2WitoZ2E0UWJQV2pmc0RH?=
- =?utf-8?B?aE5vRzA5SUZjSGZhUGpOOHR6R1lQb1Rhdzk5TEsyYjFLRWdkQnpkbmtzdmFV?=
- =?utf-8?B?ajhNaGhLRGZEOHo3K1h0RHZMbU4wd0N5SzlzejFhcjhIYTZ6YW93NmdYbzN1?=
- =?utf-8?B?anBXWnpBT2NLK0pmZWt4YkNWZGdwWnhzUnZXbkM4ZytsTGx5dzlpbVA4V1k2?=
- =?utf-8?B?NWZtalVVTVNyV0h0ZGlTc1ZhTmRZMk9IWXdhWmEzOTNLWnZDN2w4bVM3cDJ3?=
- =?utf-8?B?RThDa0JKVE10b1hqeGI5RTAwUnNDQnV1UHJRcitJUHo0bitOVTJ1dUNtRE1S?=
- =?utf-8?B?WTh2bE9CNit5em9yc2pLeWFPVXRrL3p6NXB5ZHZxY2tZTUFJa05LOVI3Mm84?=
- =?utf-8?B?OWMvTCtDQ0lrbmZwaHdaZFkzdGEzTm1rdXZvMS9qMjdUUUV6dlBXQllyVSto?=
- =?utf-8?B?RnhLazdwQ01UQlMzaFF1RGhybFMzZlpCZGd1bGUzeC80YWJyampNQTZHbUpU?=
- =?utf-8?B?dUFESzIrQWxtRnpVSHpjSDcyeDlKQ24yY0NuY05iTFZQQzlWRStnVlNBeE5K?=
- =?utf-8?B?M2E0M0VaVlBDeWtLWmphY0dDUUZiMVBaMjFVN1Y3ZkIzMGxjYUlJWEc5SXdv?=
- =?utf-8?B?U1dkZXdnR2prVyt0OUREM09oU2QrdWd3TS9WWTB6UEtmN3dJV2FuTTUySlY0?=
- =?utf-8?B?YkR1emdQRTFIUUtVTjJJU2hBUGc1bS9Vckw1S3pWU0MzSVIrR0llY3VTZ3JW?=
- =?utf-8?B?ZGdicWZHSzVFNXhsNExxb0xhWTBvcmJKVHFtK2ZwWk02RVgwMUR0bjMzYXI2?=
- =?utf-8?B?d1Z0WXFDaG5wKzVXNk4wYWhGcDAxZGI5bEhaMWpaUXY1SHRueHVVR1VQU3ZV?=
- =?utf-8?B?MkxMb2U1bnZ3M2dCTHdadlRnZ3ZXZ1o3bGJSR0xrRHkwcThNWm1nMGxlMnY3?=
- =?utf-8?B?OEVUODFaREk0dEtjQXhORTdweE1HNUJxVjNnVWlGd0RuNFJsRnNLVjk3RXFB?=
- =?utf-8?B?OHJFWWUxbUJ2RFRNWk5MSDR4TDRKd2JidGV5SFZlVmp4V0U2ZFZody9NbkRB?=
- =?utf-8?B?ZGQ3enJrM1ZGYURUbytzOXpva2h0WjhaU0FPVzhyUmRkZ0RldUpneEF0bEhF?=
- =?utf-8?B?T3FxWUlLeEhOUERwbXVLTTFBRXJUNEdRZStjMjIxQ0JpRS8vK1pycEZWV1k3?=
- =?utf-8?B?eGd0MVd4OGEvSm9kY242cGh4bEFWNHZVdTB6TVRqOUI3ZU9RRm1qVzE4Nnhj?=
- =?utf-8?B?OWlNK01OKzNjdnVBR0FGWWlKcGhKSkJNeDFlSGg1QzZrTy9hbFcyNy9lcXJy?=
- =?utf-8?B?YnRVZzBBUnZYZ3R2eUZuVmU1ZStmajVlR3FCRk1ldDZqSGRoc2M2RnlGU2t5?=
- =?utf-8?B?UElUaEp6MjhoVzhXbjBxNFlEVDdCTENuWmlCSkVMR0EvSHBWNlZPTjJzbE5B?=
- =?utf-8?B?Y3ExQWIrZjFZRnFscG9pTkJWSGsvOXptV2NLLzlZeko3VXJBeEtvY0VBSkY4?=
- =?utf-8?B?TlhVZXFocmJZeXIxTys4RmxtanM3bnFmSmY1eFdRcmVyc1dMdEw0Q0R1K2ZO?=
- =?utf-8?B?TTZtMXJPaDV3WE0xQVdGSWp5MUNjNTRDYVI4TW54TjE2SUxTY3RUcjNTa2JU?=
- =?utf-8?B?U0RiOFBiS3kwb2E3MmlsZXIvaGdwMHErZVMrVWJ5bHVFSkZrZE9CNXpLL2pT?=
- =?utf-8?B?ODJYVTJ6MEVjcWYyUTVNMHJJc1I4TUVvczZ0YkZWYTVGSXlKVTZSaDJVMzlU?=
- =?utf-8?B?dTJydHc3b0ZPaW96eTBZL0xOUjBmUnd3TnI1SVljc0dtZ0lzbDJuR2NIT296?=
- =?utf-8?B?YURocHRBNmRvMi85NmVaNHlvL3U3MjBkMkZOMTlpeGlaNmVsdEFwTXVTanYz?=
- =?utf-8?B?cm5tWldodlpTRlNvNVlETWkvVXNRYWVhTEZYQkZsbThwRHZSY2hTMEgxSjlT?=
- =?utf-8?B?eURDWXMzYmhuODhhbysyaHZoTGFLb0Z4YjhOeTY1T0QxY1VXbTZDWnZSb3VP?=
- =?utf-8?B?YlAzaDExV0ExUSs2OGxSc0VjcjdyTUI1bGNSQUV0K2lSSzFscGtLRmxrT21G?=
- =?utf-8?B?SWRHZUZ6bVZaTGxnaUtqaHNnSVJ4VTh3d3huY0FpSWN3OUdWSjlqQT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VC93elRVYnBRWkFUZ1ErS1lpQ1JsVW5NMkRUUzNCQ2Rkd28wdEllWnh0MGxN?=
+ =?utf-8?B?bTVkQjdOV3VzdjRzRXYyUzgrQ0xWY0RYOUtLTHBRY3E5UHdhSmNrNG1mdzli?=
+ =?utf-8?B?UWM4WldHLy9oMnl3bXY0YWZwcWVjaGFtRStJYzZjUUM3ZWRSZHVkSUxNeVl0?=
+ =?utf-8?B?U2hzQng2UjI4dEQzQVpVZWxvbVZ0YzQrRS9zQ1dZUm9wcVFMbEZTa2tYT05v?=
+ =?utf-8?B?SzgzTGh6ZTQybU5KN2F5ZDZwWForVkRwem51ZXFCQlh2NHVuaUxma29vQW4v?=
+ =?utf-8?B?dmg2eVFWczZaMHpaTHFTdDR3bnFoZy9KQmN0aEZLN0ljRmM5RGJjL2FjMlha?=
+ =?utf-8?B?aGlaai9tMUN1d2Q0YlVYUnAweXM4bCthR2NicFZPZitEamNwTnpQRnRLRmVt?=
+ =?utf-8?B?b0lIRW1WeE0rMGxQaTBFL200bU9ZNzVqOFM2YU1aS1ZmN3IyZ0xxdmFPVS9r?=
+ =?utf-8?B?L0NoaW1lMGhCU2RFZEhscUNOU3pReGRzcGZ1S2VqQ2kycngrTG9NT3NSNnE5?=
+ =?utf-8?B?L2xiUm5ISWo2T3VMZGNaN21QdEllY0txOFo1cnlXZDFuYldPM2Noa3NFYVdm?=
+ =?utf-8?B?dXVpY0laRnpocnRrNG1yRzMwdytrK3g3ajJKUnpxUkxrdW01NlE1U3V6RVlM?=
+ =?utf-8?B?TnQ0T1IxSEF6VHIzMXJXOGFBRWczTFJMcmNNZWNiT1BZRlR3NiswM1JHdXd2?=
+ =?utf-8?B?OFBGZTZDN0FZclFrL3F6OTkwcml0SVVZaTBwRjh4clJFYjBDUlN0Q0hLaVF1?=
+ =?utf-8?B?clZCWmhMZXV1dVJ3VzRSZkp3OEJQaHJhVVdQbmhGQmEwbmJmMGpWbnBEblZJ?=
+ =?utf-8?B?bGIvQm1lQThhRGVwMHV3bGJET3kwMi9aUGMwYVNLamtxL3RyQ0lpMzZ4TFpL?=
+ =?utf-8?B?b3ZpcThuZHhWZnRPYVB5Vk1mVTRFT3hUWnVqWVZmYitnbDUzT3lhUStCZGZ1?=
+ =?utf-8?B?eTZOVjU5V1BERmIzSDA2bkJPWVJVNjJCMUFlR3pibS9ockU2SytpSFNCM2lY?=
+ =?utf-8?B?SVNrejZEVGxwTU8zdk5oR3UxMnpDWHJzS3hxOTR2NStxTUpuQlJlNlgreWt6?=
+ =?utf-8?B?OGdlS0U4SEVvUTdMRCtZbmZNeFAraE5admlHVUF4aTBka0JaUFJnTHNmMFNS?=
+ =?utf-8?B?Z2hWU2E2RU1neEV4TU8rWXgvQ0FaUmc5ZXgxUm0zcGJ5b0JpeS9NSHFIZDJI?=
+ =?utf-8?B?R21Bald0c3NWMktCb3o3TkUxbnVUaDBjTTV4ZDUxL1NFZUVoUlBhYTJrK1hN?=
+ =?utf-8?B?MU5ITXBLR2l5Z1p2TGFtM3ZiTHYrNCsvNlhIU3NOSFpWRHhCcVM0azVPekpl?=
+ =?utf-8?B?dGw5TG93cUhoOUFQcnhpOUgwbWF3VUo0SUtKYU5udDVLbXV1STI2YVVrM29m?=
+ =?utf-8?B?M1Q5UW9mMExpeDNQQzBTTk9vTUh2ZzREYUw3akRjZXRJMVMxaEhrOVVPd2N1?=
+ =?utf-8?B?UnNGY2hqc0RKc1dQcW8zLytKOTZrNmJyNFlxUWI2dDJqaXRnWDFGRE0xcE1J?=
+ =?utf-8?B?a1BnaC9IdjNTeDdqeDg1RlJhZmZ1QWhkVmZrYkE5UUk0RW9rKzRjYlZoYjZ2?=
+ =?utf-8?B?b0FmaHI4ZVFVekNtcEFTcHIrSDhlR3psaXVlMG0rY0hZVXFFZWhpZkVQSm1j?=
+ =?utf-8?B?MUpEK2xKWk1wOHAzZ21JMTlOOE1XamRLYTFOVjZ4OFhGb2JsaWRYdFBCaFV0?=
+ =?utf-8?B?eWYybzNOOTdDNEFiYnVCMXUvcElWdmErYzhMV2xVMTNHcW43Rm5malZsSnFQ?=
+ =?utf-8?B?MHZBWG5WelNIaXlDamtKWXphcnNxRjBVVHFOaWdTWEUxZVFIV3hLeUk2aTgr?=
+ =?utf-8?B?UGVBbk5XMFZCRUtEMzlSa0toaWhnM2ZMYUZDOXd6L1JZTTJFY2Z3anVFNXR3?=
+ =?utf-8?B?UjFzcGtjT2JwOE9rdXJzQVMrRzFtbGVxaDNseHdMNDlPUUs5Ykc5cFQ5MGJk?=
+ =?utf-8?B?OWFhR1ZqbmszekRkcnh1RXdmM2F4ZzlkcnAwcEJ4eDBodFU0bUVDSVc1UXlU?=
+ =?utf-8?B?YThzRXZmdGNpdEIwdWhhK25EeS9YYkF1VDFUSHIxaURyN09zWHNjdms3Ritm?=
+ =?utf-8?B?UVpxVmxKZWNIZXVxTmV5UkVuNHJvWjQzWVRJUjNTWlJkOFpyS1lNczhGZ3NS?=
+ =?utf-8?B?LzVuN2ZoUmJLc05iaW5DazhhSWF4ZXFCeDZJeTlrdjg5dUFDMDRqTURYYlJn?=
+ =?utf-8?B?M3JZSjRqZGN0aDl4NDFaM0pZOTQreGV2VVM0RlpYYzEvZWw3ZCtnYlhhK3NT?=
+ =?utf-8?B?RFJDbGZFZUNvWCt1WlgzdkF2ZTNyU3dtWHZiejBBY1ljb2gyK0N5RFhieTd2?=
+ =?utf-8?Q?OxDB2EPu1p3suGGkYQ?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bb0b041f-a3c8-41d5-39e7-08df4194ce93
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5805.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0b982ff0-cb6e-4bba-13da-08df419548af
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 14:45:48.9571 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 14:49:13.7437 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: PYuSeUjTBQSzFGsiSo+0PxeNYoL5JwNMizCRpPC7FvdsYHpgRlFk0q5mI/nz+ORr3FDKXpa6ZUkgWqPZiQRcXw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6793
+X-MS-Exchange-CrossTenant-UserPrincipalName: Ac/lL9kNU5X12OOYFHmhfrr1WThINe+ygHvp0Y27NKCfLczBpAPm4scs/criITPd
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH9PR12MB987669
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,61 +139,390 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 
-On 2026-11-13 06:58, Christian König wrote:
->
-> On 11/12/26 17:44, Benjamin Cheng wrote:
->> Switch to stop using this deprecated helper.
->>
->> The original could be incorrect under certain circumstances, since the
->> amdgpu_bo_fence only reserves one slot, and at the time of calling the
->> SDMA commit and TLB flush fences were not added yet (the reserve_fences
->> is not additive). In addition this allows us to switch to use BOOKKEEP
->> usage.
->>
->> Signed-off-by: Benjamin Cheng <benjamin.cheng@amd.com>
->> ---
->>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 10 +++++++++-
->>  1 file changed, 9 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> index 94b1cfe05e3e..fe6f2fcb88f6 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> @@ -1212,10 +1212,18 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->>  	if (r)
->>  		goto error_free;
->>  
->> +	if (!unlocked) {
->> +		/* last_unlocked + SDMA commit + TLB flush */
->> +		r = dma_resv_reserve_fences(vm->root.bo->tbo.base.resv, 3);
->> +		if (r)
->> +			goto error_free;
->> +	}
->> +
-> That should have been reserved in amdgpu_vm_lock_pd(), but we currently only reserve 2 instead of 3 slots there.
->
-> Please fix that up and drop this here. Apart from that looks good to me.
 
+On 13-Nov-26 3:42 AM, Alex Sierra wrote:
+> A runtime compute partition switch updates the XCP mode and IMU
+> partition without passing through GFX hw_fini and hw_init. The MEC,
+> KCQs, and MES KIQ therefore remain programmed for the previous
+> partition, including its cooperative mode.
+> 
+> Add optional pre_px_switch and post_px_switch hooks to amd_ip_funcs.
+> amdgpu_xcp_pre_partition_switch runs the pre hooks while the old
+> partition is still in place. amdgpu_xcp_post_partition_switch runs
+> the post hooks after the new mode is committed and before KFD
+> recreates queues.
+> 
+> Run the IP hooks only for a runtime switch with a known current mode.
+> Skip them during initial mode setup, reset or suspend recovery, and
+> amdgpu_xcp_restore_partition_mode, where the regular IP initialization
+> path restores the hardware. If an eligible runtime switch fails, run
+> the post hooks to undo any state stopped by its pre hooks.
+> 
+> GFX v12.1 uses its regular per-XCC teardown in the pre hook. This
+> disables KCQs, tears down MES KIQ, and disables the MEC compute pipes.
+> Clear both MES rings and their writeback pointers before the switch so
+> firmware cannot replay stale packets when it restarts.
+> 
+> The post hook runs the matching CP resume path, which enables MEC,
+> initializes MES KIQ for the new cooperative mode, restores KCQs, and
+> tests the compute rings. Track whether the pre hook stopped GFX so the
+> post hook only resumes a path that was actually torn down.
+> 
+> Add debug output for SET_HW_RSRC_1 to expose the cooperative-mode
+> selection used while validating the new partition state.
+> 
+> Signed-off-by: Alex Sierra <alex.sierra@amd.com>
 
-The reason I originally chose not to do that was because there are callers of update_range() that do not use lock_pd(), for example amdgpu_dma_buf_move_notify().
-
-I guess I should fix those too? And I'm noticing that in amdgpu_dma_buf_move_notify() the current code doesn't even reserve space for TTM_NUM_MOVE_FENCES, which sounds a bit fishy to me.
-
-Just wondering what I should do for these cases, since I only recently started to look and understand the VM code.
-
+Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
 
 Thanks,
+Lijo
 
-Ben
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h    |  1 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c    | 88 +++++++++++++++++++---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h    |  3 +-
+>   drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c |  4 +-
+>   drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c     | 54 +++++++++++++
+>   drivers/gpu/drm/amd/amdgpu/mes_v12_1.c     |  8 ++
+>   drivers/gpu/drm/amd/amdgpu/soc_v1_0.c      |  4 +-
+>   drivers/gpu/drm/amd/include/amd_shared.h   |  5 ++
+>   8 files changed, 152 insertions(+), 15 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> index 41471bc560cd..df6e9da1a11d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> @@ -532,6 +532,7 @@ struct amdgpu_gfx {
+>   	uint16_t 			xcc_mask;
+>   	uint32_t			num_xcc_per_xcp;
+>   	struct mutex			partition_mutex;
+> +	bool				px_switch_stopped;
+>   	bool				mcbp; /* mid command buffer preemption */
+>   
+>   	/* IP reg dump */
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+> index 9f4158e06e60..158faa362606 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+> @@ -213,8 +213,32 @@ int amdgpu_xcp_init(struct amdgpu_xcp_mgr *xcp_mgr, int num_xcps, int mode)
+>   	return 0;
+>   }
+>   
+> +static int amdgpu_xcp_run_px_switch(struct amdgpu_device *adev, bool post)
+> +{
+> +	struct amdgpu_ip_block *ip_block;
+> +	int (*px_switch)(struct amdgpu_ip_block *ip_block);
+> +	int i, ret;
+> +
+> +	for (i = 0; i < adev->num_ip_blocks; i++) {
+> +		ip_block = &adev->ip_blocks[i];
+> +		if (!ip_block->version || !ip_block->version->funcs)
+> +			continue;
+> +
+> +		px_switch = post ? ip_block->version->funcs->post_px_switch :
+> +				   ip_block->version->funcs->pre_px_switch;
+> +		if (!px_switch)
+> +			continue;
+> +
+> +		ret = px_switch(ip_block);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>   static int __amdgpu_xcp_switch_partition_mode(struct amdgpu_xcp_mgr *xcp_mgr,
+> -					      int mode)
+> +					      int mode, u32 flags)
+>   {
+>   	int ret, curr_mode, num_xcps = 0;
+>   
+> @@ -224,10 +248,15 @@ static int __amdgpu_xcp_switch_partition_mode(struct amdgpu_xcp_mgr *xcp_mgr,
+>   	mutex_lock(&xcp_mgr->xcp_lock);
+>   
+>   	curr_mode = xcp_mgr->mode;
+> +	if (amdgpu_in_reset(xcp_mgr->adev) || xcp_mgr->adev->in_suspend ||
+> +	    curr_mode == AMDGPU_UNKNOWN_COMPUTE_PARTITION_MODE)
+> +		flags &= ~AMDGPU_XCP_OPS_IP;
+> +
+>   	/* State set to transient mode */
+>   	xcp_mgr->mode = AMDGPU_XCP_MODE_TRANS;
+>   
+> -	ret = xcp_mgr->funcs->switch_partition_mode(xcp_mgr, mode, &num_xcps);
+> +	ret = xcp_mgr->funcs->switch_partition_mode(xcp_mgr, mode, &num_xcps,
+> +						    flags);
+>   
+>   	if (ret) {
+>   		/* Failed, get whatever mode it's at now */
+> @@ -237,6 +266,19 @@ static int __amdgpu_xcp_switch_partition_mode(struct amdgpu_xcp_mgr *xcp_mgr,
+>   		else
+>   			xcp_mgr->mode = curr_mode;
+>   
+> +		/*
+> +		 * pre_px_switch may have stopped an IP. Each post_px_switch
+> +		 * decides what to bring back for the mode settled above.
+> +		 */
+> +		if (flags & AMDGPU_XCP_OPS_IP) {
+> +			int px_ret = amdgpu_xcp_run_px_switch(xcp_mgr->adev, true);
+> +
+> +			if (px_ret)
+> +				dev_err(xcp_mgr->adev->dev,
+> +					"Failed to restore IP state after partition switch failure: %d\n",
+> +					px_ret);
+> +		}
+> +
+>   		goto out;
+>   	}
+>   	amdgpu_xcp_sysfs_entries_update(xcp_mgr);
+> @@ -254,7 +296,8 @@ int amdgpu_xcp_switch_partition_mode(struct amdgpu_xcp_mgr *xcp_mgr, int mode)
+>   	if (xcp_mgr->mode == mode)
+>   		return 0;
+>   
+> -	return __amdgpu_xcp_switch_partition_mode(xcp_mgr, mode);
+> +	return __amdgpu_xcp_switch_partition_mode(xcp_mgr, mode,
+> +						  AMDGPU_XCP_OPS_IP);
+>   }
+>   
+>   int amdgpu_xcp_restore_partition_mode(struct amdgpu_xcp_mgr *xcp_mgr)
+> @@ -262,7 +305,7 @@ int amdgpu_xcp_restore_partition_mode(struct amdgpu_xcp_mgr *xcp_mgr)
+>   	if (!xcp_mgr || xcp_mgr->mode == AMDGPU_XCP_MODE_NONE)
+>   		return 0;
+>   
+> -	return __amdgpu_xcp_switch_partition_mode(xcp_mgr, xcp_mgr->mode);
+> +	return __amdgpu_xcp_switch_partition_mode(xcp_mgr, xcp_mgr->mode, 0);
+>   }
+>   
+>   static bool __amdgpu_xcp_is_cached_mode_valid(struct amdgpu_xcp_mgr *xcp_mgr)
+> @@ -855,27 +898,52 @@ void amdgpu_xcp_update_supported_modes(struct amdgpu_xcp_mgr *xcp_mgr)
+>   
+>   int amdgpu_xcp_pre_partition_switch(struct amdgpu_xcp_mgr *xcp_mgr, u32 flags)
+>   {
+> +	struct amdgpu_device *adev = xcp_mgr->adev;
+>   	int ret = 0;
+>   
+>   	/* TODO:
+>   	 * Stop user queues and threads, and make sure GPU is empty of work.
+>   	 */
+>   
+> -	if (flags & AMDGPU_XCP_OPS_KFD)
+> -		ret = amdgpu_amdkfd_prepare_partition_switch(xcp_mgr->adev);
+> +	if (flags & AMDGPU_XCP_OPS_KFD) {
+> +		ret = amdgpu_amdkfd_prepare_partition_switch(adev);
+> +		if (ret)
+> +			return ret;
+> +	}
+>   
+> -	return ret;
+> +	/*
+> +	 * IP-specific prep while the old partition is still programmed.
+> +	 * enable_mes_kiq and similar checks belong in the IP callback.
+> +	 */
+> +	if (flags & AMDGPU_XCP_OPS_IP) {
+> +		ret = amdgpu_xcp_run_px_switch(adev, false);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	return 0;
+>   }
+>   
+>   int amdgpu_xcp_post_partition_switch(struct amdgpu_xcp_mgr *xcp_mgr, u32 flags)
+>   {
+> +	struct amdgpu_device *adev = xcp_mgr->adev;
+>   	int ret = 0;
+>   
+> +	/*
+> +	 * The new partition mode is already committed. Let each IP
+> +	 * program itself before KFD recreates queues.
+> +	 */
+> +	if (flags & AMDGPU_XCP_OPS_IP) {
+> +		ret = amdgpu_xcp_run_px_switch(adev, true);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+>   	if (flags & AMDGPU_XCP_OPS_KFD) {
+> -		amdgpu_amdkfd_device_probe(xcp_mgr->adev);
+> -		amdgpu_amdkfd_device_init(xcp_mgr->adev);
+> +		amdgpu_amdkfd_device_probe(adev);
+> +		amdgpu_amdkfd_device_init(adev);
+>   		/* If KFD init failed, return failure */
+> -		if (!xcp_mgr->adev->kfd.init_complete)
+> +		if (!adev->kfd.init_complete)
+>   			ret = -EIO;
+>   	}
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h
+> index 6b3fdafc8b02..b4c0f80488dc 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h
+> @@ -41,6 +41,7 @@
+>   #define AMDGPU_XCP_NO_PARTITION (~0)
+>   
+>   #define AMDGPU_XCP_OPS_KFD	(1 << 0)
+> +#define AMDGPU_XCP_OPS_IP	BIT(1)
+>   
+>   #define XCP_INST_MASK(num_inst, xcp_id)		\
+>   	(num_inst ? GENMASK(num_inst - 1, 0) << (xcp_id * num_inst) : 0)
+> @@ -150,7 +151,7 @@ struct amdgpu_xcp_mgr {
+>   
+>   struct amdgpu_xcp_mgr_funcs {
+>   	int (*switch_partition_mode)(struct amdgpu_xcp_mgr *xcp_mgr, int mode,
+> -				     int *num_xcps);
+> +				     int *num_xcps, u32 flags);
+>   	int (*query_partition_mode)(struct amdgpu_xcp_mgr *xcp_mgr);
+>   	int (*get_ip_details)(struct amdgpu_xcp_mgr *xcp_mgr, int xcp_id,
+>   			      enum AMDGPU_XCP_IP_BLOCK ip_id,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
+> index 05e4edf72e4d..ec8b0c8f5e6d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
+> @@ -364,11 +364,11 @@ static void __aqua_vanjaram_update_available_partition_mode(struct amdgpu_xcp_mg
+>   }
+>   
+>   static int aqua_vanjaram_switch_partition_mode(struct amdgpu_xcp_mgr *xcp_mgr,
+> -					       int mode, int *num_xcps)
+> +					       int mode, int *num_xcps,
+> +					       u32 flags)
+>   {
+>   	int num_xcc_per_xcp, num_xcc, ret;
+>   	struct amdgpu_device *adev;
+> -	u32 flags = 0;
+>   
+>   	adev = xcp_mgr->adev;
+>   	num_xcc = NUM_XCC(adev->gfx.xcc_mask);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
+> index fee6b1b433cd..3592b95371b2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
+> @@ -4041,6 +4041,58 @@ static void gfx_v12_1_ring_emit_cleaner_shader(struct amdgpu_ring *ring)
+>   	amdgpu_ring_write(ring, 0);  /* RESERVED field, programmed to zero */
+>   }
+>   
+> +/*
+> + * A runtime partition switch does not pass through GFX hw_fini/hw_init.
+> + * Stop the GFX compute path while the old partition is still programmed,
+> + * then restore it after the new mode is committed.
+> + */
+> +static int gfx_v12_1_pre_px_switch(struct amdgpu_ip_block *ip_block)
+> +{
+> +	struct amdgpu_device *adev = ip_block->adev;
+> +	int xcc_id, pipe, num_xcc = NUM_XCC(adev->gfx.xcc_mask);
+> +
+> +	if (!adev->enable_mes_kiq)
+> +		return 0;
+> +
+> +	for (xcc_id = 0; xcc_id < num_xcc; xcc_id++) {
+> +		if (!adev->mes.ring[MES_PIPE_INST(xcc_id,
+> +						  AMDGPU_MES_SCHED_PIPE)].sched.ready)
+> +			return 0;
+> +	}
+> +
+> +	for (xcc_id = 0; xcc_id < num_xcc; xcc_id++)
+> +		gfx_v12_1_xcc_fini(adev, xcc_id);
+> +
+> +	/*
+> +	 * MES firmware restarts with its read pointer at zero. Clear both
+> +	 * rings and their writeback pointers before bringing the GFX compute
+> +	 * path back up, otherwise firmware can replay stale packets.
+> +	 */
+> +	for (xcc_id = 0; xcc_id < num_xcc; xcc_id++) {
+> +		for (pipe = 0; pipe < AMDGPU_MAX_MES_PIPES; pipe++)
+> +			amdgpu_ring_clear_ring_and_ptrs(
+> +				&adev->mes.ring[MES_PIPE_INST(xcc_id, pipe)]);
+> +	}
+> +
+> +	adev->gfx.px_switch_stopped = true;
+> +	return 0;
+> +}
+> +
+> +static int gfx_v12_1_post_px_switch(struct amdgpu_ip_block *ip_block)
+> +{
+> +	struct amdgpu_device *adev = ip_block->adev;
+> +	uint16_t xcc_mask;
+> +
+> +	if (!adev->enable_mes_kiq || !adev->gfx.px_switch_stopped)
+> +		return 0;
+> +
+> +	/* Cleared first so a failed resume is not run a second time. */
+> +	adev->gfx.px_switch_stopped = false;
+> +	xcc_mask = GENMASK(NUM_XCC(adev->gfx.xcc_mask) - 1, 0);
+> +
+> +	return gfx_v12_1_xcc_cp_resume(adev, xcc_mask);
+> +}
+> +
+>   static const struct amd_ip_funcs gfx_v12_1_ip_funcs = {
+>   	.name = "gfx_v12_1",
+>   	.early_init = gfx_v12_1_early_init,
+> @@ -4056,6 +4108,8 @@ static const struct amd_ip_funcs gfx_v12_1_ip_funcs = {
+>   	.get_clockgating_state = gfx_v12_1_get_clockgating_state,
+>   	.dump_ip_state = gfx_v12_1_ip_dump,
+>   	.print_ip_state = gfx_v12_1_ip_print,
+> +	.pre_px_switch = gfx_v12_1_pre_px_switch,
+> +	.post_px_switch = gfx_v12_1_post_px_switch,
+>   };
+>   
+>   static const struct amdgpu_ring_funcs gfx_v12_1_ring_funcs_compute = {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c b/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
+> index 3585897c817d..a8153c504c41 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
+> @@ -679,6 +679,14 @@ static int mes_v12_1_set_hw_resources_1(struct amdgpu_mes *mes,
+>   			mes->shared_cmd_buf_gpu_addr[MES_PIPE_INST(master_xcc_id, pipe)];
+>   	}
+>   
+> +	dev_dbg(mes->adev->dev,
+> +		"MES(%d, %d) SET_HW_RSRC_1 coop=%u enable_coop=%u kiq_ver=0x%x mode=%s\n",
+> +		xcc_id, pipe, mes_set_hw_res_1_pkt.mes_coop_mode,
+> +		mes->enable_coop_mode,
+> +		mes->kiq_version & AMDGPU_MES_VERSION_MASK,
+> +		amdgpu_gfx_compute_mode_desc(mes->adev->xcp_mgr ?
+> +					     mes->adev->xcp_mgr->mode : -1));
+> +
+>   	return mes_v12_1_submit_pkt_and_poll_completion(mes, xcc_id, pipe,
+>   			&mes_set_hw_res_1_pkt, sizeof(mes_set_hw_res_1_pkt),
+>   			offsetof(union MESAPI_SET_HW_RESOURCES_1, api_status));
+> diff --git a/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c b/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
+> index b782fe2841b5..ad9913723cfa 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
+> @@ -1166,11 +1166,11 @@ static void __soc_v1_0_update_available_partition_mode(struct amdgpu_xcp_mgr *xc
+>   }
+>   
+>   static int soc_v1_0_switch_partition_mode(struct amdgpu_xcp_mgr *xcp_mgr,
+> -					  int mode, int *num_xcps)
+> +					  int mode, int *num_xcps,
+> +					  u32 flags)
+>   {
+>   	int num_xcc_per_xcp, num_xcc, ret;
+>   	struct amdgpu_device *adev;
+> -	u32 flags = 0;
+>   
+>   	adev = xcp_mgr->adev;
+>   	num_xcc = NUM_XCC(adev->gfx.xcc_mask);
+> diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
+> index e81ce9d79009..db24bacb8e0e 100644
+> --- a/drivers/gpu/drm/amd/include/amd_shared.h
+> +++ b/drivers/gpu/drm/amd/include/amd_shared.h
+> @@ -446,6 +446,9 @@ enum amd_dpm_forced_level;
+>    * @get_clockgating_state: get current clockgating status
+>    * @dump_ip_state: dump the IP state of the ASIC during a gpu hang
+>    * @print_ip_state: print the IP state in devcoredump for each IP of the ASIC
+> + * @pre_px_switch: IP-specific prep before a compute partition switch - Optional
+> + * @post_px_switch: IP-specific programming after a compute partition switch,
+> + *                  or after a failed switch - Optional
+>    *
+>    * These hooks provide an interface for controlling the operational state
+>    * of IP blocks. After acquiring a list of IP blocks for the GPU in use,
+> @@ -476,6 +479,8 @@ struct amd_ip_funcs {
+>   	void (*get_clockgating_state)(struct amdgpu_ip_block *ip_block, u64 *flags);
+>   	void (*dump_ip_state)(struct amdgpu_ip_block *ip_block);
+>   	void (*print_ip_state)(struct amdgpu_ip_block *ip_block, struct drm_printer *p);
+> +	int (*pre_px_switch)(struct amdgpu_ip_block *ip_block);
+> +	int (*post_px_switch)(struct amdgpu_ip_block *ip_block);
+>   };
+>   
+>   
 
-> Christian.
->
->>  	if (!unlocked && !dma_fence_is_signaled(vm->last_unlocked)) {
->>  		struct dma_fence *tmp = dma_fence_get_stub();
->>  
->> -		amdgpu_bo_fence(vm->root.bo, vm->last_unlocked, true);
->> +		dma_resv_add_fence(vm->root.bo->tbo.base.resv, vm->last_unlocked,
->> +				   DMA_RESV_USAGE_BOOKKEEP);
->>  		swap(vm->last_unlocked, tmp);
->>  		dma_fence_put(tmp);
->>  	}
