@@ -2,122 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D85B9606A330
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Nov 2026 20:40:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EAA9606A33A
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Nov 2026 20:48:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=DugQhAPs
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=llJSuT5r
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 214F710ECA3;
-	Fri, 13 Nov 2026 20:40:52 +0000 (UTC)
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011004.outbound.protection.outlook.com [40.107.208.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38DED10ECA3
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Nov 2026 20:40:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cH+LG8EHLYSSMGYfCVg03FjCjP99Iu/L+fMEQaPe/dvPBBCWiaWW3C+MOaiKEPFupsLESn1KgJEhqfejkCLr+d5aAI/e6PpuFWNy7XUG6MsFcDaxHy3qrALNuUfrgZBHMjNCdXV2xvSfITapbRHXclbyy42dIVQJs2q/NSS9msn487GQe6xc2KWGnFn6MJax+sGpLExUBCm9REn1Qob3isoUTFoUkGjO1r29H9kAHih/8k+KBDCAKBHEkxbVt6UwqtSCmHUChpWYZeKavTc5jETH4i43CMB3KEuLzKryXLzgG122q5ILki9H/5t1Tg1BBA8p7/fc/xi8JTA0yrzKDQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KSucXxJTTxvCiu86dXrojNRLzCmUt/DC9JH+HAxeAOs=;
- b=ELbWJvYH+Tuooov6OgNrAaLx66Nwf7GDzD82XN3ai5f/IKIL6xEsIa7i7hwlcijNnae+7W9PiVNe4w1+8/sNbJnV4WvU5sx7tOf5qELxnPXuCoMKmO6o6yYIoftdsWv1awoFGJUeWjNWdw3OcmkPJY3EV2Mnd3Pu/qIITgl3KBkg7j1BipgIOiowrtLcTYyX387kmlMIY47hAjzq7GAidXA95SypbAdbSrVYCjrduQ/0rGvTock8SboRY6+mJucmYhHn4RQPMq/8y7+dP8iei0bqVv3DNZoGdbWm0spzX8SwBa/tvuFRhQkLCUdlSyOl4XOWPROid2fsPrS+A+21YA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KSucXxJTTxvCiu86dXrojNRLzCmUt/DC9JH+HAxeAOs=;
- b=DugQhAPszVBE89Q6AdwEDVtw6uWkLm32SpPRfUG+1UNTsfK6Z/n4kr+OPvIIPtWEDyJ7+8Wxgf0BP+8uIcpPy+7JQp4Q3kP1tlkZsnHoBD26qUNnviqaSKC3ZCtCJrmfD3JKg3VkzQBcn+O7qDzv0CNsrEp/ZG0AAIgQK/Ew2U4=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA5PPF8ECEC29A9.namprd12.prod.outlook.com
- (2603:10b6:80f:fc04::8d5) by MW4PR12MB7117.namprd12.prod.outlook.com
- (2603:10b6:303:221::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 13 Nov
- 2026 20:40:23 +0000
-Received: from SA5PPF8ECEC29A9.namprd12.prod.outlook.com
- ([fe80::fd82:d106:2d09:2dcc]) by SA5PPF8ECEC29A9.namprd12.prod.outlook.com
- ([fe80::fd82:d106:2d09:2dcc%5]) with mapi id 15.21.0615.008; Fri, 13 Nov 2026
- 20:40:23 +0000
-Message-ID: <e5e11770-9d68-486c-9c15-31369966a536@amd.com>
-Date: Fri, 13 Nov 2026 15:40:20 -0500
-User-Agent: Mozilla Thunderbird
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC98410ECB3;
+	Fri, 13 Nov 2026 20:48:37 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A88311127D8
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Nov 2026 20:48:31 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 5BECC40B61;
+ Fri, 13 Nov 2026 20:48:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15A431F000C4;
+ Fri, 13 Nov 2026 20:48:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794602911;
+ bh=3WtkdzJpHyy51mOw4TPv0GOhov/DcWnrHQXs9G7lcmU=;
+ h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
+ b=llJSuT5rMNmlN9EYccS7TvclV3lyekXr5pmkLSXyO0Huel2avDc2RtxTLOzb4CcRK
+ y/sxNIoEwX5KYGvu9YyGYsEvZ9cSrjZ54Pg2TgjoZ4rJCc443pPvt3dezyRduObKJt
+ 75kfZp6lsa+sck63mWWzEcBiTJNw+C9z0/TRukElobtiH0MFyps7B/g2A0jy+tD1fm
+ Ehot1HPZAWAEeLD5ovh0tfU63/FdGoBB37KKfgPCO8s7HXXRJInm9egAbgNnbgq1Nb
+ LmjcxGQ7Na+Gy/pha0O0hFix4MV0cjaEGipY8/PdurfeRGrcjaox/zQkXNDpo8YOWP
+ eI+QMIvKBttQg==
+Message-ID: <sashiko-outbox-213682@kernel.org>
+From: sashiko-bot@kernel.org
 Subject: Re: [PATCH v2] drm/amdgpu: clear root PT after setting vm->is_npa =
  true
-To: Shahyan Soltani <shahyan.soltani@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: christian.koenig@amd.com, alexander.deucher@amd.com, yangp@amd.com
-References: <20261113202944.3006069-1-shahyan.soltani@amd.com>
-Content-Language: en-US
-From: "Kuehling, Felix" <felix.kuehling@amd.com>
+To: "Shahyan Soltani" <shahyan.soltani@amd.com>, amd-gfx@lists.freedesktop.org
 In-Reply-To: <20261113202944.3006069-1-shahyan.soltani@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4PR01CA0099.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:d7::20) To SA5PPF8ECEC29A9.namprd12.prod.outlook.com
- (2603:10b6:80f:fc04::8d5)
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA5PPF8ECEC29A9:EE_|MW4PR12MB7117:EE_
-X-MS-Office365-Filtering-Correlation-Id: d6d8a0c1-576f-4a96-9c56-08df41c656fb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|366016|1800799024|18002099003|22082099003|261009223027099003|11063799006|56012099006|261102123227099003|10067099003|261026140227099003|261026121527099003|261022105027099003|261028144727099003|261022075727099003|261021121427099003|261021123027099003;
-X-Microsoft-Antispam-Message-Info: cm6qhqV5ePeNEI3vbwvvGV0FU2hWGcxe7HFaKKvRds+9V2S+b3bkWIf34Wtn7VlVy8sEdxR4xlPByipXithNHRiSXf+RYZlyIiM56U88u9/ccOH4ZR931ZH4qZ/c/ZmoUx0Qxw0Vf0EOMEwrcp2ZaMEEPy3cOK51zxNd24i+BsK6ksj31lyIhDw6s1L5rfE7Huqf6TZEDFLCvHBqXI5aOo82Cnm2EVf9c7c4dmwUiuiuIEU718vPBsQricdwvj2sVCx4Y2yGJbK3NFdFpzw6aqgH5hN/F+dv85HM6rqF+RY+/aloODD7d8CHcfRzeVqCzAz+tc2DB0SE2uWV1mF6cJi/h6rgBcffnc46EBT2v1xQVQfRRqvq903hHPB8NhcPQU1AZymFNnxUkeR9okeHCP0ZuzahVF+9D4BGN2RLduREcCVOcOp5OD8mT91/y0S1e95GeXaaxEaM7TVEwB/HFR8ZyiTySAfhWPfNg5ieYl6VV7ns61sKlUcLkKDZWmE8kPfCQoWyPWs/9cjxgksc9tE9ybpoUJyYeDa/soAQsxUwbHSn1i7oq04Zu7j26+ZrEnu2/gszf9oUr/LDG4iJBmiKmLI7p4vqtE7QScszWEQ++WFUOm7FueEy3MQCCxjQ5mfBrOzAxa8L8IPF49vUPcH8NZvIOsaHvAH8wgk0U8Y=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA5PPF8ECEC29A9.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(18002099003)(22082099003)(261009223027099003)(11063799006)(56012099006)(261102123227099003)(10067099003)(261026140227099003)(261026121527099003)(261022105027099003)(261028144727099003)(261022075727099003)(261021121427099003)(261021123027099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZTcvOUJheVBIK0xLWXlZQ2NnMFgxeTd5a3l2b0dyczdlOEFBbkdmcCtjc1Bl?=
- =?utf-8?B?a2NCbzlEU2IxeE9GM2N2UWZYRUp2bm9Ib0RHc0VtdytqbTRXUC8zZGZCdzhu?=
- =?utf-8?B?d3lGbyt0ZHE1ZmZKZk9QMkw5SVg0cmZ5dkdzM0g5YXptdzl2dlNCNCt2OXIx?=
- =?utf-8?B?RS9Rb3l0dkVsb1VBYnN3NXc2WHVrbTE1Z0ZRa1FWeXEyc1V1L3B5U1lSNlF6?=
- =?utf-8?B?RG9EcTlOb084OE1KMm1rUVlsb09ucys5dW1Cb21pQm9YNUhSM0lncWMvTmNF?=
- =?utf-8?B?eXRwbWE2ZjhCbXk3MmYvVksxY2N0Y3cxeERoMVBESVNyUzYxN2ovK2hRQTZ0?=
- =?utf-8?B?Ujkzc3hNV3lGVlJLYnZPOUljajVhZTc4SitDdzgxYlM1dWhCaUZhalgyUEd3?=
- =?utf-8?B?UWd5SVc5bkxtanAyWFJXUS8zVXpwNDR3cWFQT0kxckovZFRId0xpT0QvR3M1?=
- =?utf-8?B?TkVSczJScEFLRkkzRlUvWFU0MkRKTDJVSVpGaGthTEQ0OUdZdlVVTmM4UDMw?=
- =?utf-8?B?aEx6eWRMOE9sL0lJUVhKdlphTWNNUitONmgveVFDNVVqbUR3enprYnBYMzJh?=
- =?utf-8?B?VFlDQVc5RVJ1QXlDOVFyRHFpSWJQM1M3QjcwdEl0WEZrMTJvdkxENE5SR2cw?=
- =?utf-8?B?cytEZDluQ3NiYUpocDJsRHIrUUFoenhuVUUyUUg3dWJ5eDdPZDdzNU8xUUJy?=
- =?utf-8?B?K0UzZFRmODIyR2RNZnhoTS9QU0haMTdodzVVdWp5eGRscENEUGZiNjNxWTU0?=
- =?utf-8?B?VlBJK1hTRUZ5SVdwZjFMcy9GbmN3MmN6RHAxSUJCNkppdXhMQitrOFNZdVdQ?=
- =?utf-8?B?TFh6UnBrL1htc2tGNkVCdlp0eWFyYUtIN0c4WUsrbWFLbytYV0szR3oxRzlV?=
- =?utf-8?B?T0VuVFE1SVdPRmlDNXY2ejI4eHlNZmZRTHBxYityT0YrVHJJOTFpUWRtMU81?=
- =?utf-8?B?dEs1SmxOcGVLZ29qeGNTdWtTajYxQW1nVnZaNHBYdUxwWEsxeTlzZzBZb3Fm?=
- =?utf-8?B?akc5SU56Q1VhQzVIWWprdnNyc2tPR1RnN1pVdWpNSGRZUVpCNVVNQVd5OTJR?=
- =?utf-8?B?aXM2QTR3QkNXNEJZODdpYUlZdzhHbFQ4QzlabEFHeWtHVU1GN3FsUUNwL0pn?=
- =?utf-8?B?WHl2OUh3bVQ2TGtSQy8vYkNrUmtqWE1LaTUxTVNKbllhNE9pNzBJUGZtWmxj?=
- =?utf-8?B?Z1lOUjBnN0U0YUhhSlVZbjMyM3EzSzN4TTBnTXBGcFpXSld2Q21jL2Mvdm5y?=
- =?utf-8?B?TVNISmxDQTVDZEF0WXd0UWhlbmU2dXhYcHpGWDVRTnIralNsOVE5K1M0SzFh?=
- =?utf-8?B?RW5oR3VkVE1YVHg3VDBFRVlybVJnb2dBaEFxMXdVa2QrbGRCOEFBd0QxeVBr?=
- =?utf-8?B?cWlYTHZYLzkyU0JrQ04rbU9nRlI0MkVnNUxmNGlvV04yU1BmUll6SGhJeUpr?=
- =?utf-8?B?NTJkOHdFT25tOVJBM2EwUW95Q3QrODdlcU9iZExqRmZMSTd6cVgvODg2WjBF?=
- =?utf-8?B?UWVDTVNha3V0c0JZOGUxc2NyL1BNVXd0WklObXhiaXFHUTljWm1yLzBWb2NL?=
- =?utf-8?B?a1pDUndjMXFJZDIvbk9qeVFLNURIcW9ka0tTZStzVVhPU2JYMFJzd3NCQnlL?=
- =?utf-8?B?QzEwbW9vdGF4emwwZ0NsNkUvQ0Zsb3d3a1NMS1hXWGdkUldUTlF1b2lrSHlY?=
- =?utf-8?B?b0p1d29Cb1k4OXpQQmRTVjg4VHpCZmgwUTV3WnlHTXdjaFRFK0tEaWsvamhj?=
- =?utf-8?B?OThhT2FKM1I3MUczbGFWbStRa2U4bkxwOEhCVkRQTmZyV3pmczI3MmN0aHhR?=
- =?utf-8?B?NndzcytsQmhYOWJDWmlvbE5jSzFVYVlrK0U2TUEybEl6RTdmbng0L0NqVUd2?=
- =?utf-8?B?RmtnZEtFVTBaeFBGd3hEd3YvcUxBVEM2akZRRFczb2RteUF2VEoyTlo4SzYy?=
- =?utf-8?B?eEVZUEg4UkJ3R056MlBXMGw2WTBySVR3Nmp2TlMydTMzQnhvZFAzRkpDM09o?=
- =?utf-8?B?ZFI3dW5PWGtFY25vRnMrQlFMK2JETG0rQm04Z1IvcVJ5Rk41SGFrRTl3MDYv?=
- =?utf-8?B?cWJIR2YrMFFYMVkrSHV3dU9CSWJHWUZLak5icEdiQjhDNkJ0RHJJc1cwZjBn?=
- =?utf-8?B?NGd1TE51QVVMTFpaS0NySURzY2JpbnpDaVVkVFlvQWZCWlVTQm5aRFVsMHhD?=
- =?utf-8?B?K3B5YTYrb1NzOHNsNDhtN09yeFM4UFN5eXlNcHBhZWtiZTdldU5LNWkxVUtF?=
- =?utf-8?B?MkxyVUxkOHZEWisvZmRadGdwcStGWFRNSy9mZTRpUkVoLzlQQTZvWTZwN2s4?=
- =?utf-8?B?TWh6bkI2WEwxUFQ3dTZyclF5V0tXdDRJZmIwempsRTNxTUIwSTRpdz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d6d8a0c1-576f-4a96-9c56-08df41c656fb
-X-MS-Exchange-CrossTenant-AuthSource: SA5PPF8ECEC29A9.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 20:40:23.0556 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Jj3re0JWB3LqpqqKjij5Ng0eUwbOsdvXGsGYcPIqYgjuEcYtNFG9vzBgmBfmAWr95N4W3v17Sasup0onytbDbg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7117
+References: <20261113202944.3006069-1-shahyan.soltani@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 13 Nov 2026 20:48:30 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,21 +46,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=4.0.1
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On 2026-11-13 15:29, Shahyan Soltani wrote:
-> Previously, the root PT was never cleared after setting vm->is_npa =
+Thank you for your contribution! Sashiko AI review found 5 potential
+issues to consider:
+- [High] drm/amdgpu: build failure calling static
+  amdgpu_ualink_flush_tlb()
+- [High] drm/amdgpu: missing dma_resv_reserve_fences() in
+  amdgpu_vm_make_npa()
+- [Medium] drm/amdgpu: missing error handling on amdgpu_vm_pt_clear()
+  failure
+- [Medium] drm/amdgpu: premature TLB flush in amdgpu_vm_make_npa()
+- [Low] drm/amdgpu: missing Fixes trailer on amdgpu_vm_make_npa() bug
+  fix
+--
+
+commit d44f1102f39999e9e70a8ca65fdacefed70663a9
+Author: Shahyan Soltani <shahyan.soltani@amd.com>
+
+> drm/amdgpu: clear root PT after setting vm->is_npa =3D true
+>
+> Previously, the root PT was never cleared after setting vm->is_npa =3D
 > true within amdgpu_vm_make_npa(). This resulted in the flag
 > adev->gmc.no_retry_flags to never be applied for the NPA VMs.
 >
-> Call amdgpu_vm_pt_clear() after vm->is_npa = true is set and the bo has
+> Call amdgpu_vm_pt_clear() after vm->is_npa =3D true is set and the bo has
 > been pinned/validated. This allows the root PT of the NPA VM to be
 > cleared with the correct value.
 >
@@ -155,63 +92,103 @@ On 2026-11-13 15:29, Shahyan Soltani wrote:
 > clear to avoid any stale translations being left behind from a previous
 > table.
 >
-> Remove the redundant second setting of vm->is_npa = true.
+> Remove the redundant second setting of vm->is_npa =3D true.
 >
 > v2:
 > - Add the WARN_ON sanity check regarding an empty VM. (Felix)
-> - Change the return handling to only set vm->is_npa = true upon a
->    successful pin (Felix)
+> - Change the return handling to only set vm->is_npa =3D true upon a
+>   successful pin (Felix)
 > - Add the heavy weight TLB flush after the root PT clear (Philip)
 >
-> Suggested-by: Christian König <christian.koenig@amd.com>
+> Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
 > Signed-off-by: Shahyan Soltani <shahyan.soltani@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 13 ++++++++++---
->   1 file changed, 10 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index 94b1cfe05e3e..c7187e0f99b3 100644
+
+[Severity: Low]
+Since this fixes the initialization of the root page directory in
+amdgpu_vm_make_npa(), should it include a Fixes tag?
+
+  Fixes: e05a54573df7 ("drm/amdgpu: Pin page tables in NPA VMs")
+
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_vm.c
+> index 2ba33212d5071..5c51dd6bd8d2f 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -2820,20 +2820,27 @@ int amdgpu_vm_make_compute(struct amdgpu_device *adev, struct amdgpu_vm *vm)
->    */
->   int amdgpu_vm_make_npa(struct amdgpu_device *adev, struct amdgpu_vm *vm)
->   {
-> -	int r = amdgpu_vm_make_compute(adev, vm);
+> @@ -2818,20 +2818,27 @@ int amdgpu_vm_make_compute(struct amdgpu_device *=
+adev, struct amdgpu_vm *vm)
+>   */
+>  int amdgpu_vm_make_npa(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+>  {
+> -	int r =3D amdgpu_vm_make_compute(adev, vm);
 > +	int r;
->   
-> +	r = amdgpu_vm_make_compute(adev, vm);
->   	if (r)
->   		return r;
-> -	vm->is_npa = true;
+> =20
+> +	r =3D amdgpu_vm_make_compute(adev, vm);
+>  	if (r)
+>  		return r;
+> -	vm->is_npa =3D true;
 > +
->   	r = amdgpu_bo_reserve(vm->root.bo, false);
->   	if (r)
->   		return r;
->   	r = amdgpu_bo_pin(vm->root.bo, AMDGPU_GEM_DOMAIN_VRAM);
+>  	r =3D amdgpu_bo_reserve(vm->root.bo, false);
+>  	if (r)
+>  		return r;
+>  	r =3D amdgpu_bo_pin(vm->root.bo, AMDGPU_GEM_DOMAIN_VRAM);
 > +	if (!r) {
-> +		/* Check if VM mappings are empty, clearing would break existing mapping */
+> +		/* Check if VM mappings are empty, clearing would break existing mappi=
+ng */
 > +		WARN_ON(!RB_EMPTY_ROOT(&vm->va.rb_root));
-> +		vm->is_npa = true;
-> +		r = amdgpu_vm_pt_clear(adev, vm, to_amdgpu_bo_vm(vm->root.bo), false);
+> +		vm->is_npa =3D true;
+> +		r =3D amdgpu_vm_pt_clear(adev, vm, to_amdgpu_bo_vm(vm->root.bo), false=
+);
+
+[Severity: High]
+Does amdgpu_vm_pt_clear() need a fence slot reserved on
+vm->root.bo->tbo.base.resv first, as in amdgpu_vm_init()?
+
+Earlier in amdgpu_vm_make_npa(), amdgpu_vm_make_compute() unreserves
+vm->root.bo, which resets fobj->max_fences when mutex debugging is
+enabled.  Because vm->root.bo is already in compatible memory,
+ttm_bo_validate() inside amdgpu_bo_pin() and amdgpu_vm_pt_clear() returns
+early without calling dma_resv_reserve_fences().  When page tables are
+updated via sdma, amdgpu_vm_pt_clear() -> amdgpu_vm_sdma_commit() calls
+dma_resv_add_fence() on vm->root.bo->tbo.base.resv and triggers a kernel
+crash when fobj->num_fences >=3D fobj->max_fences.
+
 > +		amdgpu_ualink_flush_tlb(adev, TLB_FLUSH_HEAVYWEIGHT);
 
-The TLB flush isn't really needed IMO. We don't expect there to be any 
-previous mappings that would need to be flushed. If there were previous 
-mappings, we're in a broken state anyway, and the WARN_ON would tell you 
-about it.
+[Severity: High]
+Does this break the build by calling amdgpu_ualink_flush_tlb() from
+amdgpu_vm.c?
 
-With the flush_tlb removed, this patch is
+amdgpu_ualink_flush_tlb() is declared and defined as static in
+drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c and has no prototype in any
+header, causing an implicit function declaration error when compiling
+amdgpu_vm.c and an undefined reference at link time.
 
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+[Severity: Medium]
+Can amdgpu_ualink_flush_tlb() also run here before the root page directory
+clear has taken effect?
 
+When vm->use_cpu_for_update is false, amdgpu_vm_pt_clear() submits an
+asynchronous sdma job stored in vm->last_update, and nothing waits on
+vm->last_update before flushing.  In addition, the caller
+amdgpu_ualink_manager_start() only binds npa_vm.root.bo to
+adev->vm_manager.npa_vmid via adev->mmhub.funcs->setup_vm_pt_regs() after
+amdgpu_vm_make_npa() returns, so flushing npa_vmid inside
+amdgpu_vm_make_npa() happens before the page table base register is
+programmed.
 
 > +	}
->   	amdgpu_bo_unreserve(vm->root.bo);
->   	if (r)
->   		return r;
->   
-> -	vm->is_npa = true;
->   	vm->need_tlb_fence = false;
->   
->   	return 0;
+>  	amdgpu_bo_unreserve(vm->root.bo);
+>  	if (r)
+>  		return r;
+
+[Severity: Medium]
+If amdgpu_vm_pt_clear() fails, does this still flush the tlb and return an
+error with vm->is_npa set to true and vm->root.bo left pinned?
+
+Checking r after amdgpu_vm_pt_clear() and unpinning vm->root.bo while
+resetting vm->is_npa =3D false on failure would avoid leaving the vm in a
+half-initialized state.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113202944.3006=
+069-1-shahyan.soltani@amd.com?part=3D1
