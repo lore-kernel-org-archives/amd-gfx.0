@@ -2,42 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2BCF60A5BDC
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Nov 2026 15:55:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE2E8606AE32
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Nov 2026 15:58:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CSe4DiSz
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZjIZM8UA
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D121112674;
-	Fri, 13 Nov 2026 15:55:48 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8A8F10EC3C
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Nov 2026 15:55:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2915B10EC1D;
+	Fri, 13 Nov 2026 15:58:26 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B84BC10EC1D
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Nov 2026 15:58:19 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D7455627EC;
- Fri, 13 Nov 2026 15:55:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 734A41F000CD;
- Fri, 13 Nov 2026 15:55:41 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 204CA4688B;
+ Fri, 13 Nov 2026 15:58:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D19A31F000C6;
+ Fri, 13 Nov 2026 15:58:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794585341;
- bh=y+zoGzr9yHodL+BI0wnmzRweSLm9FkqdRfaSxcvl6Ic=;
+ s=k20260515; t=1794585499;
+ bh=H8KgBpCfr1XWk1YuhOX1JRm8EPRNhZArKP7bJqqQbgE=;
  h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=CSe4DiSzR1638OsIrsasXqwps2pNp9qTZhAT4qO/0hMps7AA03ucmIxTlim0jwMPQ
- 6YdGn5arnAXgNLDDJ6X453WidS6yX7YUFWbL7eP/w8IZ8k7Xb/R6QR1kXCwUUkJkm/
- Ba38H5i9UDCpeUCkrp33WbEtbY3wbTh9aMEtg6sjzMJs+3tVOmOomBgWRgcl3oNJY1
- rLG4oI99YTgZOScDHNcOvtQe0ldp3hKbb8CjkZD7nWMz8E3+PCrL8Z4YO8J+rKvaQl
- Jn/elHCdVAdmAO5knYsBhonFxarzgmoa3pQLMTZEDCWI1AINNYTHEwLRHCIcZuak7e
- 7zmX8nkv8/+iQ==
-Message-ID: <sashiko-outbox-213131@kernel.org>
+ b=ZjIZM8UAHKFETqmj3El3seXL0ckQqHSTh3Oibdf4REaf/Uq2R5lGh+MORTNQg8uys
+ 98YQQ2LVGg28QTIJFq5GfHj9j79kHtULvsI4HFEh3/c1P8WDf4WT6OI84T7/M+kUpA
+ OveFIxMmY243OqlKBFwK5m3yBRScQTcemhNuZNcXCMfZj3dq5jnZlsxo2KgET4MFTe
+ QUtLpw0VizA2YRCv/EsR8ehDd1LRiXY+dZP43jZTUQ/NO5g4rXZx/WYKKXmj94xAXl
+ CYlvWgnrPgFGCzyXiAt02XJKb9rJzBwNkP5JHHxXPYji14uxrw1xS8x7Tv+K44Nm9e
+ P4SdtbwoBL+SA==
+Message-ID: <sashiko-outbox-213136@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] Revert "drm/amdgpu: reemit RLC SPM register in ring
- reemit"
+Subject: Re: [PATCH 1/3] Revert "drm/amdgpu: re-enable SPM updates in the
+ the IB path"
 To: "Alex Deucher" <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-In-Reply-To: <20261113154954.1865439-2-alexander.deucher@amd.com>
+In-Reply-To: <20261113154954.1865439-1-alexander.deucher@amd.com>
 References: <20261113154954.1865439-1-alexander.deucher@amd.com>
- <20261113154954.1865439-2-alexander.deucher@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 13 Nov 2026 15:55:41 +0000
+Date: Fri, 13 Nov 2026 15:58:18 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,28 +58,27 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Low] drm/amdgpu: missing Fixes trailer on revert of commit
-  8a4dfdc0d2ad
+- [Low] drm/amdgpu: missing Fixes: trailer for reverted commit
+  d44428868e5b
 --
 
-commit 765981743becaf8dc015c14e1e583ccf6339298b
+commit 12b1b21ab2f5553c0093b8415a98c46d2dc21fed
 Author: Alex Deucher <alexander.deucher@amd.com>
 
-> Revert "drm/amdgpu: reemit RLC SPM register in ring reemit"
+> Revert "drm/amdgpu: re-enable SPM updates in the the IB path"
 >
-> This reverts commit 8a4dfdc0d2adfc362ec310ff70526e79ff8377b6.
+> This reverts commit d44428868e5b9f97c6216eee1b4f82aec7a6e8d2.
 >
 > This causes flakiness in gfx11 CI tests.  Revert.
 >
 > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 
 [Severity: Low]
-Since this reverts a commit to fix gfx11 CI flakiness, should the commit
-message include a Fixes tag so stable and backport tooling pairs it with
-the offending commit?
+Should this revert include a Fixes: tag for the commit it reverts?
 
-  Fixes: 8a4dfdc0d2ad ("drm/amdgpu: reemit RLC SPM register in ring reemit")
+  Fixes: d44428868e5b ("drm/amdgpu: re-enable SPM updates in the the IB pat=
+h")
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113154954.1865=
-439-1-alexander.deucher@amd.com?part=3D2
+439-1-alexander.deucher@amd.com?part=3D1
