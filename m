@@ -2,86 +2,96 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30EEC606A32D
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Nov 2026 13:44:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 918C8606A327
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Nov 2026 13:44:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mUe4snAL
+	dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.a=rsa-sha256 header.s=20200525 header.b=sqJVO9Oh
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25757112585;
-	Fri, 13 Nov 2026 13:44:25 +0000 (UTC)
-Received: from mail-wm2-f5.google.com (mail-wm2-f5.google.com [74.125.225.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF724112340
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Nov 2026 00:15:39 +0000 (UTC)
-Received: by mail-wm2-f5.google.com with SMTP id
- 5b1f17b1804b1-4a35e178418so1425075e9.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Nov 2026 16:15:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794528938; x=1795133738; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=7/bS5xYsjMkVnYMzljD0H/p8sgP2J5T4P4gKE/iJBI4=;
- b=mUe4snALMNDdRctpiJYsSSXiZ5pf2c/XfO4IZdJ/Y6xgMen+eBDVDVDl5RpC8J5tko
- 3AVpWkAmAOaaghcDfuzca9FXGVU/kTmbKXBmAMCYjYJfl8uy0GwH+J4rnOmWzpk9v0rQ
- GZMT77Kku/eheEG2WH/bNZMNi4EEyjyWzz2HenlZh3Z2kpwCAwJTSbL54yijiL9sj3i0
- e1qjvSpwOXc4uPfNIc7Bbkm+rG4jD04cyrZeBfquFxMkBMXkxFvgnHfNbwmUFNol2VH4
- gs9euvG5jHpCusQ/9z2Gv6n3fWxr9MtYFm5uRBOm3wjUGIZLKVmmYkNiKx8kw+Ep9e9w
- ylhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794528938; x=1795133738;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=7/bS5xYsjMkVnYMzljD0H/p8sgP2J5T4P4gKE/iJBI4=;
- b=XmXSBk/Xs3bBfD5RKwOkowZOVFh+clBzZaV51r0WzBgqLnKQyahNlX6F/YjRnoy4gA
- ryKdtQnj90pDhoGmQ34egHjWfBeDjcVlA7qz40XZR62b5EP1w5o0BwEDVbOHODtj4D/a
- NVmSXWvTB4JeJ2nM6ePR6NQ269ysbk7f5u6UOZndOSjuN4bP7EYUaoOyqXgsCizxU/Lb
- IVv/k2y5nJTOIsgvaIx2GKELlwqqGUSy+EeXcqI3c2WtKJoK6ddUY4IjQDOlzEmHyOa2
- bZzafrt+fpwGx0Z+mUxpOoi2Gih1hPPPkvStLEJHmkrPY2VyVyp1iYdgLbwaCTZ0WXHm
- HB4Q==
-X-Gm-Message-State: APuU4Z/Kl/FmEWzP3EOZcg2tf5BFlyqyNLFGOkb6Zp9zUqCoBATEjA57
- dJk4nnM7RVGVjAftK5GxDEBjDRjBU0YMIoHBziEMWF+CmUiMGnRsON2i
-X-Gm-Gg: AYBFou2ZHi93pJABRnIigRptslm8DDdIYbp0AUrYhhhYJoMAEefR3Urs0UA/Wig9o0z
- CJDSiqUrRzL14buDpcqKf9Hu897/sYz+IbeGNytingassChMHj+u+JddSglQNiFG3xoiXKN4yHQ
- gFLthE8Q2Oc5Ky0bqIoKU/Q3SwL6yrYsQIt9RA7Wka2W1dlMA0qSeDGJYJT1MV6ldrHdgPM2n9e
- zEg1UoY20JF1Jvj+KevTKu4VTCD51Z2fX3SmbKNBryugRqf9YgXAFkZ6x/YiGS9eY7xCh19Lr0f
- 3D/n88obIlagC/55TivpIDN4s3ya5syPWrVEbRa7g8y9txP2td2L0uR3DrFShpk+l44l9ECZOZo
- J/XqzHwhsZ8WzXjwRySY9yNcceuKb+zORGBqYviXmlGIbtetOub1fVzphWoqvaYPHzXkVp2ruBw
- tfjy8FypH99dxsFOIDGwf4QE/GDRFDZTmhvck4kq6bLuUuceMukjzdH8kyp1VGy/j9uzsKrgVJ5
- oSqYbd3+rjGqiTmlEy6NTvaIsKMTn0q2PlYzxujUk275Y7DWK76Ho91517KgiasIapb3HRB5pQt
- khtSJN+i9cKe6p8cwlW1fOSb5RHH6G0Ao7gS
-X-Received: by 2002:a05:600c:8b66:b0:4a4:7a8d:c436 with SMTP id
- 5b1f17b1804b1-4bb55c5f567mr16787315e9.11.1794528937859; 
- Thu, 12 Nov 2026 16:15:37 -0800 (PST)
-Received: from [192.168.1.7] ([31.94.68.191]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4bb52bab8bbsm52641475e9.13.2026.11.12.16.15.34
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 12 Nov 2026 16:15:35 -0800 (PST)
-Message-ID: <b9f69d90-73ef-4a22-a347-0d70f014a7de@gmail.com>
-Date: Fri, 13 Nov 2026 00:15:33 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDAB0112583;
+	Fri, 13 Nov 2026 13:44:24 +0000 (UTC)
+X-Greylist: delayed 2655 seconds by postgrey-1.36 at gabe;
+ Fri, 13 Nov 2026 05:02:53 UTC
+Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A003210E103;
+ Fri, 13 Nov 2026 05:02:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
+ MIME-Version:Date:Message-ID:content-disposition;
+ bh=ZiYALzwBjI65tTTQSXY2U+ySmJs1lqd9md75ReSDjlI=; b=sqJVO9OhFJFFp5d+CorT0gFFwx
+ gQHtm0rP9jBKdo5gtNhPuLDVJFyS5i84cybGKtUoyz1fhqHNy/GRDTRJWNgzdqFTWEyGhMkX/IdYX
+ 1gczl9YxmBvNI3QYA9KvCiNAWLYKnpgv/dbGuxQdmfjTnj+SrMaiu9Ge6b2Zzu3cJj3uIAscyiV2Z
+ gGz+MjtR0Ub8ypP0wa3inb778TZZgjDpL3fgNIJjKwllEUMLxQ7GC61J0NW/qoFJgAi8vPToPSlrb
+ Ptdylv4aBTXI6DXk9fq3Si66BLJQ8a5feCTMk2q9JmLUpH879Zp+OriFt9ucCWJscZvyIYeC/6V5J
+ pp72RlUg==;
+Received: from [104.157.31.28] (helo=[192.168.1.251])
+ by ale.deltatee.com with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.98.2)
+ (envelope-from <logang@deltatee.com>) id 1xRik9-00000002SeY-3ZkQ;
+ Thu, 12 Nov 2026 22:18:32 -0600
+Message-ID: <029ccd27-68df-4e0a-bf27-3b40f68e91c6@deltatee.com>
+Date: Thu, 12 Nov 2026 22:17:50 -0600
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] drm/amd/display: report synced displays to
- PowerPlay for MCLK switch
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+To: Pavel Popov <pavel.e.popov@intel.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Peter Huewe <peterhuewe@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>,
+ Tom Lendacky <thomas.lendacky@amd.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>
+Cc: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Arnd Bergmann <arnd@arndb.de>, Len Brown <lenb@kernel.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>, Jason Gunthorpe <jgg@ziepe.ca>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <8eb61179-c5b8-41df-a466-8b5c388b6b41@gmail.com>
- <CADnq5_OrGuMJT4Tvt+wktPzTYEopdkCjyqq8sSdvJou40-HoKw@mail.gmail.com>
- <a6093dab-c38d-4dad-af3b-7173a6eaa78c@gmail.com>
- <CADnq5_MRA2bQG5x9xiGAT5ddh0jHMqg=u2OhCPvJxPr3ddTurA@mail.gmail.com>
-Content-Language: en-US
-From: Richard Lane <richardlanedev@gmail.com>
-In-Reply-To: <CADnq5_MRA2bQG5x9xiGAT5ddh0jHMqg=u2OhCPvJxPr3ddTurA@mail.gmail.com>
+ "David S . Miller" <davem@davemloft.net>, x86@kernel.org,
+ linux-acpi@vger.kernel.org, linux-pm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
+ linux-integrity@vger.kernel.org, linux-crypto@vger.kernel.org,
+ linux-arch@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261111234821.4814-1-pavel.e.popov@intel.com>
+ <20261111234821.4814-4-pavel.e.popov@intel.com>
+From: Logan Gunthorpe <logang@deltatee.com>
+Content-Language: en-CA
+In-Reply-To: <20261111234821.4814-4-pavel.e.popov@intel.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-SA-Exim-Connect-IP: 104.157.31.28
+X-SA-Exim-Rcpt-To: pavel.e.popov@intel.com, rafael@kernel.org,
+ viresh.kumar@linaro.org, jani.nikula@linux.intel.com,
+ joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com, tursulin@ursulin.net,
+ alexander.deucher@amd.com, christian.koenig@amd.com, hansg@kernel.org,
+ ilpo.jarvinen@linux.intel.com, peterhuewe@gmx.de, jarkko@kernel.org,
+ thomas.lendacky@amd.com, herbert@gondor.apana.org.au, leon@kernel.org,
+ bhelgaas@google.com, arnd@arndb.de, lenb@kernel.org,
+ sakari.ailus@linux.intel.com, jgg@ziepe.ca, airlied@gmail.com, simona@ffwll.ch,
+ davem@davemloft.net, x86@kernel.org, linux-acpi@vger.kernel.org,
+ linux-pm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ platform-driver-x86@vger.kernel.org, linux-integrity@vger.kernel.org,
+ linux-crypto@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: logang@deltatee.com
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
+	aws-us-west-2-korg-listserv-alma10-1
+X-Spam-Level: 
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
+Subject: Re: [PATCH 3/7] drm/amdgpu: Include <asm/cpu_device_id.h>
+ unconditionally
+X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
+X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
 X-Mailman-Approved-At: Fri, 13 Nov 2026 13:44:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,129 +103,39 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
-	aws-us-west-2-korg-listserv-alma10-1
 
-On 10/11/2026 19:59, Alex Deucher wrote:
-> On Tue, Nov 10, 2026 at 1:49 PM Richard Lane <richardlanedev@gmail.com> wrote:
->>
->> On 09/11/2026 20:34, Alex Deucher wrote:
->>> On Mon, Nov 2, 2026 at 3:31 AM Richard Lane <richardlanedev@gmail.com> wrote:
->>>>
->>>> When driving multiple displays or tiled panels with identical timings
->>>> (such as the two 2560x2880 tiles of an Apple 5K iMac panel), Display
->>>> Core's program_timing_sync() aligns the CRTCs into a timing sync group
->>>> in hardware during dc_commit_streams().
->>>>
->>>> However, on DCE < 12, Display Core leaves
->>>> pp_display_cfg.all_displays_in_sync unset. Because PowerPlay is not
->>>> informed that the streams have synchronized vertical blanking intervals,
->>>> SMU7 prevents MCLK switching at idle or causes modeset underflows.
->>>>
->>>> If all active streams belong to the same timing sync group
->>>> (timing_sync_info.group_size == params.stream_count), report
->>>> all_displays_in_sync = true to PowerPlay after committing the streams so
->>>> SMU7 can safely downclock MCLK at idle.
->>>>
->>>
->>> Looking at this a little deeper, the function bw_calcs() in
->>> dce_calcs.c already calculates all_displays_in_sync using the helper
->>> all_displays_in_sync().  Can you look into this and figure out why
->>> that is not working as expected?  My concern with this patch is that
->>> DCE and DCN have different logic for handling mclk switching so I'm
->>> not sure it's safe to call dm_pp_apply_display_requirements() directly
->>> from common code.
->>>
->>> Thanks,
->>>
->>> Alex
->>
->> Moving it to dce_clk_mgr.c and using resource_are_streams_timing_synchronizable() also works. Is that a solution?
+
+
+On 2026-11-11 5:48 p.m., Pavel Popov wrote:
+> <asm/cpu_device_id.h> now has a generic version, so the #ifdef
+> CONFIG_X86 around the include is no longer needed.
 > 
-> I think that would be preferred, but in general, why doesn't the
-> current flow I described work?  The function bw_calcs() dce_calcs.c
-> already calculates the all_displays_in_sync flag using the helper
-> all_displays_in_sync().  Is all_displays_in_sync() not checking
-> something properly or is the overall call timing wrong such that
-> all_displays_in_sync() can't properly calculate whether all of the
-> displays are synced at the point that it gets called?
+> <asm/intel-family.h> is included by <asm/cpu_device_id.h>.
 > 
-> Alex
+> Signed-off-by: Pavel Popov <pavel.e.popov@intel.com>
+> ---
+> Depends on <asm-generic/cpu_device_id.h> from [1]; please apply after
+> it is in mainline.
 > 
+> [1] https://lore.kernel.org/r/20261111234439.4098-1-pavel.e.popov@intel.com
+> 
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 ---
+>  1 file changed, 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 19a566187df..fc4e7273630 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -88,10 +88,7 @@
+>  
+>  #include <drm/drm_drv.h>
+>  
+> -#if IS_ENABLED(CONFIG_X86)
+> -#include <asm/intel-family.h>
+>  #include <asm/cpu_device_id.h>
+> -#endif
+>  
+I don't see the corresponding addition of adding the cpu_device_id.h.
+The commit message doesn't mention that. Am I missing something here?
 
-I think this could be limited to DCE 6,8,10 rather than DCE < 12 as in these
-cases DC uses dce100_validate_bandwdith() which doesn't call bw_calcs() and
-dce_pplib_apply_display_requirements() in dce_clk_mgr.c so
-pp_display_cfg->all_displays_in_sync is unset.
-
-Richard
-
->>
->> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
->> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
->> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
->> @@ -31,6 +31,7 @@
->>  #include "dmcu.h"
->>  #include "core_types.h"
->>  #include "dal_asic_id.h"
->> +#include "resource.h"
->>
->>  /*
->>   * Currently the register shifts and masks in this file are used for dce100 and dce80
->> @@ -319,8 +320,17 @@ static void dce_pplib_apply_display_requirements(
->>         struct dc_state *context)
->>  {
->>         struct dm_pp_display_configuration *pp_display_cfg = &context->pp_display_cfg;
->> +       int j;
->>
->>         dce110_fill_display_configs(context, pp_display_cfg);
->> +       pp_display_cfg->all_displays_in_sync = pp_display_cfg->display_count > 1;
->> +       for (j = 1; j < context->stream_count; j++) {
->> +               if (!resource_are_streams_timing_synchronizable(
->> +                           context->streams[0], context->streams[j])) {
->> +                       pp_display_cfg->all_displays_in_sync = false;
->> +                       break;
->> +               }
->> +       }
->>
->>         if (memcmp(&dc->current_state->pp_display_cfg, pp_display_cfg, sizeof(*pp_display_cfg)) !=  0)
->>                 dm_pp_apply_display_requirements(dc->ctx, pp_display_cfg);
->>
->> Richard
->>
->>>
->>>> Signed-off-by: Richard Lane <richardlanedev@gmail.com>
->>>> ---
->>>>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 ++++++++++
->>>>  1 file changed, 10 insertions(+)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>>> index 74cd88d8d580..b4531383437e 100644
->>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>>> @@ -4777,6 +4777,16 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_commit *state,
->>>>         dc_exit_ips_for_hw_access(dm->dc);
->>>>         WARN_ON(!dc_commit_streams(dm->dc, &params));
->>>>
->>>> +       if (params.stream_count > 1 &&
->>>> +           dm->dc->current_state->stream_status[0].timing_sync_info.group_size ==
->>>> +           params.stream_count) {
->>>> +               struct dm_pp_display_configuration *pp_cfg =
->>>> +                       &dm->dc->current_state->pp_display_cfg;
->>>> +
->>>> +               pp_cfg->all_displays_in_sync = true;
->>>> +               dm_pp_apply_display_requirements(dm->dc->ctx, pp_cfg);
->>>> +       }
->>>> +
->>>>         bool frl_stream_found = false;
->>>>
->>>>         for (i = 0; i < params.stream_count; i++) {
->>>> --
->>>> 2.55.0
->>
-
+Logan
