@@ -2,30 +2,30 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E53B606A323
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 09:28:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0934B606A31C
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 09:28:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=Lll2v1Vg
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=0SLT31HE
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1761710EE4B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 647CB10EE9B;
 	Mon, 16 Nov 2026 09:28:42 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04E6610E251;
- Sat, 14 Nov 2026 20:27:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C8C910E29B;
+ Sat, 14 Nov 2026 20:27:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
  MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
  :Reply-To:Content-Type:Content-ID:Content-Description;
- bh=UbmwYeTyCihJtSZLk63m5z0KzwYndJc2EHWvOsqTpUQ=; b=Lll2v1VgC79o9Fes4dZZhe3ORz
- eQHFmQRElgxX7Tu5xzcxGP7/vNljf6PLPh1EGxc/AD1I1X8ZJkppNH+AEHU4jWnwMHvl76MKTqxAe
- 4Qx4bH6DOxyuGnY5YdMV60Zlx/2jxO0zYkhVepX+QjJlFsdoJAUJ+O95ooMLpf2v/rafUyQ4xvkw0
- 2m2y1pzWNSqMy3qbRMh+piW4ibEYb+oOZ8v8I89rbtlIu0m0BzjRqOwZgtrgVOL1xgijv3cXZBC7n
- ulw+z870ZwWh2TdeqbPrdaU+Awa1q6BXk1KMWx05apBlmz3vQxFE88Tm+lbWarCp06UGnphrts7qk
- IMgkh3xA==;
+ bh=IAcU3Sk2yws/2FQEkwdk+Wb99ieP2EheaQ5FYz3DtYg=; b=0SLT31HEl/C5L3thm4eZAYTGl1
+ vlh8R+20ZHGqyVfVT1rlNXrJZB4xDac5nm7FlDSWzo5MNbskLMrTSuUsJaDoyYT0tgz7LZVClFhJe
+ ioVPGA0bAk+wzLHdY8eQMa4Er1cKPD8rtlZmshOM64usLihNKZ93hLW6po95F+Y9TRC/T6/QmGMWM
+ zgalytxeR5Bfmbo8xj+2RWY0TTqTLP0B0/CuPxpFO9y2dCyMsDzMN90W6Jva2FCT2wtJ7mcpqkXI2
+ WKOqg2TuPpaj5hfD0aYtIf+0t1WHRJDAVEh9YXAeUBmeO1H3iVmCeT0ft2y7oe+fAAm33X2dJVPQH
+ aPc3iMYg==;
 Received: from [50.53.43.113] (helo=bombadil.infradead.org)
  by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
- id 1xSKKx-0000000Giga-2h5V; Sat, 14 Nov 2026 20:26:59 +0000
+ id 1xSKLJ-0000000Giga-11gA; Sat, 14 Nov 2026 20:27:22 +0000
 From: Randy Dunlap <rdunlap@infradead.org>
 To: linux-kernel@vger.kernel.org
 Cc: Randy Dunlap <rdunlap@infradead.org>, Jonathan Corbet <corbet@lwn.net>,
@@ -83,9 +83,9 @@ Cc: Randy Dunlap <rdunlap@infradead.org>, Jonathan Corbet <corbet@lwn.net>,
  Matthew Brost <matthew.brost@intel.com>,
  =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
  intel-xe@lists.freedesktop.org
-Subject: [PATCH 02/12] docs: ioctl-number: update sound entries
-Date: Sat, 14 Nov 2026 12:26:40 -0800
-Message-ID: <20261114202653.3113381-3-rdunlap@infradead.org>
+Subject: [PATCH 11/12] docs: ioctl-number: update platform entries
+Date: Sat, 14 Nov 2026 12:26:49 -0800
+Message-ID: <20261114202653.3113381-12-rdunlap@infradead.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261114202653.3113381-1-rdunlap@infradead.org>
 References: <20261114202653.3113381-1-rdunlap@infradead.org>
@@ -110,7 +110,7 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Update the list of files where sound ioctls are defined and update
+Update the list of platform/ files where ioctls are defined and update
 the ranges of function numbers that are used.
 
 Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
@@ -122,72 +122,32 @@ take all of these through the docs-next tree.]
 Cc: Jonathan Corbet <corbet@lwn.net>
 Cc: Shuah Khan <skhan@linuxfoundation.org>
 Cc: linux-doc@vger.kernel.org
-Cc: Jaroslav Kysela <perex@perex.cz>
-Cc: Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+Cc: linux-rpi-kernel@lists.infradead.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: Tzung-Bi Shih <tzungbi@kernel.org>
+Cc: Benson Leung <bleung@chromium.org>
 
- Documentation/userspace-api/ioctl/ioctl-number.rst |   12 +++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+ Documentation/userspace-api/ioctl/ioctl-number.rst |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
---- linux-next-20261111.orig/Documentation/userspace-api/ioctl/ioctl-number.rst
-+++ linux-next-20261111/Documentation/userspace-api/ioctl/ioctl-number.rst
-@@ -122,11 +122,14 @@ Code  Seq#    Include File
- 'A'   00-0F  linux/agpgart.h,                                          conflict!
-              drivers/char/agp/compat_ioctl.h
- 'A'   00-7F  sound/asound.h                                            conflict!
-+'A'   20     sound/pcm.h                                               conflict!
-+'A'   20-53  sound/core/pcm_compat.c	                               conflict!
- 'B'   00-1F  linux/cciss_ioctl.h                                       conflict!
- 'B'   00-0F  include/linux/pmu.h                                       conflict!
- 'B'   C0-FF  advanced bbus                                             <mailto:maassen@uni-freiburg.de>
- 'B'   00-0F  xen/xenbus_dev.h                                          conflict!
- 'C'   all    linux/soundcard.h                                         conflict!
-+'C'   00-68  sound/compress_offload.h                                  conflict!
- 'C'   01-2F  linux/capi.h                                              conflict!
- 'C'   F0-FF  drivers/net/wan/cosa.h                                    conflict!
- 'D'   all    arch/s390/include/asm/dasd.h
-@@ -152,6 +155,7 @@ Code  Seq#    Include File
- 'H'   01     linux/mei.h                                               conflict!
- 'H'   02     linux/mei.h                                               conflict!
- 'H'   03     linux/mei.h                                               conflict!
-+'H'   03     sound/core/hwdep_compat.c                                 conflict!
- 'H'   00-0F  sound/asound.h                                            conflict!
- 'H'   20-40  sound/asound_fm.h                                         conflict!
- 'H'   80-8F  sound/sfnt_info.h                                         conflict!
-@@ -160,7 +164,9 @@ Code  Seq#    Include File
- 'H'   10-1F  sound/hda_hwdep.h                                         conflict!
- 'H'   40-4F  sound/hdspm.h                                             conflict!
- 'H'   40-4F  sound/hdsp.h                                              conflict!
-+'H'   60-63  sound/scarlett2.h
- 'H'   90     sound/usb/usx2y/usb_stream.h
-+'H'   FC     sound/pci/asihpi/hpios.h                                  conflict!
- 'H'   00-0F  uapi/misc/habanalabs.h                                    conflict!
- 'H'   A0     uapi/linux/usb/cdc-wdm.h
- 'H'   C0-F0  net/bluetooth/hci.h                                       conflict!
-@@ -168,7 +174,7 @@ Code  Seq#    Include File
- 'H'   C0-DF  net/bluetooth/cmtp/cmtp.h                                 conflict!
- 'H'   C0-DF  net/bluetooth/bnep/bnep.h                                 conflict!
- 'H'   F1     linux/hid-roccat.h                                        <mailto:erazor_de@users.sourceforge.net>
--'H'   F8-FA  sound/firewire.h
-+'H'   F8-FE  sound/firewire.h                                          conflict!
- 'I'   all    linux/isdn.h                                              conflict!
- 'I'   00-0F  drivers/isdn/divert/isdn_divert.h                         conflict!
- 'I'   40-4F  linux/mISDNif.h                                           conflict!
-@@ -204,6 +210,8 @@ Code  Seq#    Include File
- 'S'   80-81  scsi/scsi_ioctl.h                                         conflict!
- 'S'   82-FF  scsi/scsi.h                                               conflict!
- 'S'   00-7F  sound/asequencer.h                                        conflict!
-+'S'   21-23  sound/core/seq/seq_compat.c                               conflict!
-+'S'   60-67  sound/fcp.h                                               conflict!
- 'T'   all    linux/soundcard.h                                         conflict!
- 'T'   00-AF  sound/asound.h                                            conflict!
- 'T'   all    arch/x86/include/asm/ioctls.h                             conflict!
-@@ -219,7 +227,7 @@ Code  Seq#    Include File
- 'V'   C0     media/si4713.h                                            conflict!
- 'W'   00-1F  linux/watchdog.h                                          conflict!
- 'W'   00-1F  linux/wanrouter.h                                         conflict! (pre 3.9)
--'W'   00-3F  sound/asound.h                                            conflict!
-+'W'   00-41  sound/asound.h                                            conflict!
- 'W'   40-5F  drivers/pci/switch/switchtec.c
- 'W'   60-61  linux/watch_queue.h
- 'X'   all    fs/xfs/xfs_fs.h,                                          conflict!
+--- linux-next-20261113.orig/Documentation/userspace-api/ioctl/ioctl-number.rst
++++ linux-next-20261113/Documentation/userspace-api/ioctl/ioctl-number.rst
+@@ -436,6 +436,7 @@ Code  Seq#    Include File
+ 0xBA  00-0F  uapi/linux/liveupdate.h                                   Pasha Tatashin
+                                                                        <mailto:pasha.tatashin@soleen.com>
+ 0xC0  00-0F  linux/usb/iowarrior.h
++0xC4  00-1F  platform/raspberrypi/vchiq-interface/vchiq_ioctl.h
+ 0xCA  00-0F  uapi/misc/cxl.h                                           Dead since 6.15
+ 0xCA  10-2F  uapi/misc/ocxl.h
+ 0xCA  80-BF  uapi/scsi/cxlflash_ioctl.h                                Dead since 6.15
+@@ -448,7 +449,7 @@ Code  Seq#    Include File
+ 0xDD  00-3F                                                            ZFCP device driver see drivers/s390/scsi/
+                                                                        <mailto:aherrman@de.ibm.com>
+ 0xE5  00-3F  linux/fuse.h
+-0xEC  00-01  linux/platform_data/cros_ec_chardev.h                     ChromeOS EC driver
++0xEC  00-02  linux/platform_data/cros_ec_chardev.h                     ChromeOS EC driver
+ 0xEE  00-09  uapi/linux/pfrut.h                                        Platform Firmware Runtime Update and Telemetry
+ 0xEF  00-0F  uapi/linux/ntfs.h                                         NTFS
+ 0xF3  00-3F  drivers/usb/misc/sisusbvga/sisusb.h                       sisfb
