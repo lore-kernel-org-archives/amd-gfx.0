@@ -2,42 +2,89 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AD09606A332
-	for <amd-gfx@archiver.kernel.org>; Sat, 14 Nov 2026 01:26:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42163606A887
+	for <amd-gfx@archiver.kernel.org>; Sat, 14 Nov 2026 03:04:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HLYXkxjU
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d8WtbF5Z
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91EBE10E09B;
-	Sat, 14 Nov 2026 01:26:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBED310EC4D;
+	Sat, 14 Nov 2026 03:04:09 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A115C10E09B;
- Sat, 14 Nov 2026 01:25:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 199BC10E287;
+ Sat, 14 Nov 2026 03:04:04 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id DC157436BF;
- Sat, 14 Nov 2026 01:25:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C77F1F000C4;
- Sat, 14 Nov 2026 01:25:53 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id DE484405F2;
+ Sat, 14 Nov 2026 03:04:03 +0000 (UTC)
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+ t=1794625443;
+ b=uFxuo+cJtVSQDiLfnwaZ0k2gLX8Xer4SOGmzlrB6w5W/emuBuPl60F3GJbBuBdWDYG2g
+ hLcFjJ9uvC1Y4O/tJyIhI5eRJTAMR3KiwDmmtL0fkMPB8vKgTzf/qgmaGHBdmpua8V4Ai
+ UB6qRKEvLdwwkUpPwWHujSBFeV5xCodm8/W7qzwojOekZZNlbYZi/f5e7XDxRaQN2LBYJ
+ 0PZtGjRs/MM6Dzyb0JWGrFfz8gASlwB+lijdWZ+fkj44Z8UD+Kb+eTcuFgo5mzT4dSu+J
+ e62EfMaDjJIkVqkIN4SDVi5cYwB+s8f5E93fhcCQiD6pZSGFuCd6b7wHHDOSl6/ajnw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+ c=relaxed/relaxed; t=1794625443;
+ h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+ Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+ X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+ X-Original-From:Reply-To:Content-Transfer-Encoding;
+ bh=w9Dp/BExVuYBhie14zpKuAXc3M5SmXjuDTI3gzH/v2Q=;
+ b=nywQYUdRLfA05Ykq78bj1/yfeSBnWLJrO8UcuhwFV9jE9dzvSktDdvy6lkznrAIYYoob
+ jovuLEIEC+nnK6NpLAUCSCQ6ojk+9JW1kaULUU2wrcmmDlivfzyHPZZdiPL1M7ce+Xhsr
+ ezgZRnMYfj2vEshtuxU1JObGJtfKR4Betv5jp6no6tGifAvrWtx6yfQGDpSkPsjDXEYVB
+ 87UiMkCFRTtQ6t2kxftGWUNbKwZYWbLi/LKUytGeSoOpAb2JHXMQsHyDns0v7wMtG+COw
+ wjHzIVVLLPkduOriBqjMeNFzXZb+e7rFkG9QkzQD8T7doBCMbg3BwoNWNFRXDR/dysw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+ arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+ (No client certificate requested)
+ by smtp.kernel.org (Postfix) with ESMTPS id 3E7441F000C6;
+ Sat, 14 Nov 2026 03:04:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794619553;
- bh=EGMcbQNpM5ycrfarujXX+IWIzzIOT9p/YlajlU9HU0M=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=HLYXkxjUYAvlXP0sOyTrIDgO/VW/bNmfcl5F+FePLgWT8XVqS3k//aOYlnYDG/aDl
- OAsxdbaymvLz7J/K3PpHb3tgSLgB1c/oN2WwdnSPhV6Lb9GyQhLP+/PQZlaoM7d/gE
- 6wu7Gby4KZRk/z0RxFe7YLIsJIWoMF0gr3KUoCtq4b54T6oh5RTbWjAPBU0PgZY0rf
- eNXAej2Q8xyvW5Voe7n8Kz936xFFHPNBZEtgcsDNc4CVQ1qlaReHIlejDQvWmfOBPw
- UPDJp2tGseqeOguuil8C10x/Fmr3OOKLPoJS4rc1luy+vM5oKXU5pej5qx8v0MUx53
- +87TqM7wmHx2g==
-Message-ID: <sashiko-outbox-214003@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/edid: Read the monitor range from the DisplayID
- Adaptive-Sync block
-To: ElXreno <elxreno@gmail.com>, dri-devel@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org
-In-Reply-To: <20261114010749.1949247-1-elxreno@gmail.com>
-References: <20261114010749.1949247-1-elxreno@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 14 Nov 2026 01:25:53 +0000
+ s=k20260515; t=1794625443;
+ bh=w9Dp/BExVuYBhie14zpKuAXc3M5SmXjuDTI3gzH/v2Q=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+ b=d8WtbF5Z701xaEolUVeAeUVqS047OelK9z1lzm8Ed6Vej12yN80PYPABT1Kf1+w2Q
+ 8NPCKyKy9k843aqgr8tSVgb8Yxh1TrkOJBDqBkl54dRBIXtNQ04Uvtp3/314LEYyrU
+ MWxAjnFrO9/Ig3bpFu37iKCWWmACHAklCc9JnUqT9flz7kO+FosDAWKbiG3cxBtg8Z
+ 6qJB7hALib9c6bWuZBfDSWnVo6nJZ2OVxGKJQKlYXxcj8Qi1wLvpVMjF812XNB4Wgq
+ 0CzAqlCaWUyZWGBRKgOqp1jURSbHLajEDlUzy7+7CWgHIqaXdhbjaQsk8rvuQmLTMi
+ bgrS1d8jYRNTA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+ by lkml.kernel.org (Postfix) with ESMTP id BB6CB49C55;
+ Sat, 14 Nov 2026 03:04:02 +0000 (UTC)
+From: Joshua Horne via B4 Relay <devnull+hornejd.etsu.edu@kernel.org>
+Date: Fri, 13 Nov 2026 22:03:22 -0500
+Subject: [PATCH 2/5] drm/amd/pm: move smu8_populate_umdpstate_clocks() up
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261113-smu8-overdrive-v1-2-763f07bdfca9@etsu.edu>
+References: <20261113-smu8-overdrive-v1-0-763f07bdfca9@etsu.edu>
+In-Reply-To: <20261113-smu8-overdrive-v1-0-763f07bdfca9@etsu.edu>
+To: Alex Deucher <alexander.deucher@amd.com>, 
+ Kenneth Feng <kenneth.feng@amd.com>
+Cc: =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ =?utf-8?q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
+ Lijo Lazar <lijo.lazar@amd.com>, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Joshua Horne <hornejd@etsu.edu>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794625442; l=1905;
+ i=hornejd@etsu.edu; s=20261109; h=from:subject:message-id;
+ bh=icmV43/CUmi9JTSvBavBf9yqPU75EIUiWd54ROphH10=;
+ b=7Di0r+wjCP88MGByT7D4MXRavnJh4bNqjOFbaUoSgaCDch4WZ/lYVHmpV4AlPtegHbAyqs9YC
+ bFjztJvP1A2CPkaFkUKWJi1cFIqRBQpjFNqP7hHj9gGt1QGB25odhi1
+X-Developer-Key: i=hornejd@etsu.edu; a=ed25519;
+ pk=HNOtiwerBbrJhfhzLHLxj3GDsUH9udRXflqnaI8sQmQ=
+X-Endpoint-Received: by B4 Relay for hornejd@etsu.edu/20261109 with
+ auth_id=1469
+X-Original-From: Joshua Horne <hornejd@etsu.edu>
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,85 +94,72 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: hornejd@etsu.edu
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [High] drm/edid: Signed-off-by trailer uses handle instead of full
-  real name
---
+From: Joshua Horne <hornejd@etsu.edu>
 
-commit ccbdbf24ebcae6dbb6cf32b1e44947510278e9c5
-Author: ElXreno <elxreno@gmail.com>
+The overdrive support added next updates the UMD pstate clocks from a
+new helper placed before smu8_set_power_state_tasks(). Move the function
+above it, so that no forward declaration is needed.
 
-> drm/edid: Read the monitor range from the DisplayID Adaptive-Sync block
->
-> A DisplayID 2.x Adaptive-Sync data block (tag 0x2b) lists the refresh
-> rate ranges a display supports with an adaptive vertical total. Some
-> panels advertise their variable refresh range only there, and some
-> keep a narrower one in the base block range limits. The BOE
-> NE180QA1-MM1 is of the second kind: the range limits descriptor says
-> 48-120 Hz, the Adaptive-Sync block has three descriptors,
->
->  27 00 30 ef 00 00
->  27 00 30 77 00 00
->  27 00 30 3b 00 00
->
-> for 48-240, 48-120 and 48-60 Hz. A driver that checks a mode against
-> monitor_range then refuses VRR for the 240 Hz timing of that panel.
->
-> Use the block in both cases. Without a range from the base block take
-> the range from the descriptors. With one, keep its minimum and only
-> raise the maximum, and only from descriptors that reach down into it,
-> so that the result never goes below what the base block promises.
->
-> monitor_range stays one range per connector. Only descriptors for the
-> native panel range that declare the adaptive vertical total operation
-> mode count: a descriptor for fixed average vertical total alone does
-> not describe a range to pick a vertical total from. Where several
-> count, the highest minimum and the highest maximum are used. Without
-> a base range every rate in the result is then within the descriptor
-> that reaches highest. With one, every rate is within the base range
-> or within that descriptor, which overlaps it.
->
-> The layout is taken from edid-decode (parse_displayid_adaptive_sync()
-> in utils/edid-decode/parse-displayid-block.cpp of v4l-utils), not
-> from the DisplayID text: a descriptor is 6 bytes plus the count in
-> bits 6:4 of the block revision, byte 0 has the native panel range
-> flag in bit 0 and the operation mode in bits 3:2 (1 for fixed average
-> and adaptive vertical total), byte 2 is the minimum refresh rate,
-> bytes 3-4 hold the maximum refresh rate minus one in ten bits. The
-> block is read from any section of structure version 2.0 or later,
-> which is what the panel above declares.
->
-> This reaches every driver that reads monitor_range. A display with
-> such a block and no base block range now has a range where it had
-> none, which is the point for i915 and xe (their other VRR conditions
-> still apply). amdgpu scans DisplayID tag 0x25 on its own when the
-> minimum or the maximum is zero, and with a range from the
-> Adaptive-Sync block that scan is no longer reached. When the display
-> has no AMD VSDB, amdgpu takes monitor_range as its refresh rate
-> range, so it follows the raised maximum, and a DP or eDP display that
-> has only the Adaptive-Sync block can now pass its FreeSync test (a
-> range wider than 10 Hz and a sink that ignores the MSA timing). With
-> a VSDB that advertises FreeSync the range still comes from there.
->
-> Signed-off-by: ElXreno <elxreno@gmail.com>
+No functional change.
 
-[Severity: High]
-Could the Author header and Signed-off-by trailer use a full real name
-instead of the handle ElXreno?  Documentation/process/submitting-patches.rst
-requires a real name for the Developer's Certificate of Origin and does
-not permit pseudonyms or handles.
+Signed-off-by: Joshua Horne <hornejd@etsu.edu>
+---
+ .../gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c    | 24 +++++++++++-----------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261114010749.1949=
-247-1-elxreno@gmail.com?part=3D1
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
+index f17894b5301f..77ab96bae4b0 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
+@@ -848,6 +848,18 @@ static int smu8_update_low_mem_pstate(struct pp_hwmgr *hwmgr, const void *input)
+ 	return 0;
+ }
+ 
++static void smu8_populate_umdpstate_clocks(struct pp_hwmgr *hwmgr)
++{
++	struct phm_clock_voltage_dependency_table *table =
++				hwmgr->dyn_state.vddc_dependency_on_sclk;
++
++	hwmgr->pstate_sclk = table->entries[0].clk / 100;
++	hwmgr->pstate_mclk = 0;
++
++	hwmgr->pstate_sclk_peak = table->entries[table->count - 1].clk / 100;
++	hwmgr->pstate_mclk_peak = 0;
++}
++
+ static int smu8_set_power_state_tasks(struct pp_hwmgr *hwmgr, const void *input)
+ {
+ 	int ret = 0;
+@@ -988,18 +1000,6 @@ static void smu8_reset_acp_boot_level(struct pp_hwmgr *hwmgr)
+ 	data->acp_boot_level = 0xff;
+ }
+ 
+-static void smu8_populate_umdpstate_clocks(struct pp_hwmgr *hwmgr)
+-{
+-	struct phm_clock_voltage_dependency_table *table =
+-				hwmgr->dyn_state.vddc_dependency_on_sclk;
+-
+-	hwmgr->pstate_sclk = table->entries[0].clk / 100;
+-	hwmgr->pstate_mclk = 0;
+-
+-	hwmgr->pstate_sclk_peak = table->entries[table->count - 1].clk / 100;
+-	hwmgr->pstate_mclk_peak = 0;
+-}
+-
+ static int smu8_enable_dpm_tasks(struct pp_hwmgr *hwmgr)
+ {
+ 	smu8_program_voting_clients(hwmgr);
+
+-- 
+2.56.0
+
+
