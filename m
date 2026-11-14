@@ -2,83 +2,95 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DC17606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5816606A323
 	for <amd-gfx@archiver.kernel.org>; Sat, 14 Nov 2026 19:11:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LBvc45Ra
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ng0LpBbg
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AED5D10F0D1;
-	Sat, 14 Nov 2026 19:11:02 +0000 (UTC)
-Received: from mail-wr2-f7.google.com (mail-wr2-f7.google.com [74.125.225.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97B3910E186
- for <amd-gfx@lists.freedesktop.org>; Sat, 14 Nov 2026 18:52:07 +0000 (UTC)
-Received: by mail-wr2-f7.google.com with SMTP id
- ffacd0b85a97d-48e0c9bc8f9so801095f8f.1
- for <amd-gfx@lists.freedesktop.org>; Sat, 14 Nov 2026 10:52:07 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A72510F0D8;
+	Sat, 14 Nov 2026 19:11:07 +0000 (UTC)
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com
+ [74.125.82.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54AA110EB27
+ for <amd-gfx@lists.freedesktop.org>; Sat, 14 Nov 2026 16:10:11 +0000 (UTC)
+Received: by mail-dy1-f170.google.com with SMTP id
+ 5a478bee46e88-36fc0a3fe93so3782578eec.0
+ for <amd-gfx@lists.freedesktop.org>; Sat, 14 Nov 2026 08:10:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794682326; x=1795287126; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=rVBETihkpK3ZyrNBm4wNB0zQniJSB3VwqkgPzbMYV+E=;
- b=LBvc45RaBXuqZDMLUk5W9taoeHxH+uf5DUZt1ESonmZl1xt9ybjQrOzOrRKNxUFCob
- ISM8wKJBewfFZjVR+j29XMpAxMlWgUZ1GU3GozuOUOUAdEhEGIFhi1qpWj6aPbiT8IiC
- AYCFqMZhf0ziMNK+Eh1MwQPbn3jK114lmG0PV3q33VD4eJ4SiG/u4qdcbkOZaKn5ITwh
- lXyUmVg9hWBfHJlfFjkGE73ngE2GaK56iOCzurAPi/0ijFkZld2b3kmgBzH2bZO0azzT
- 9mjOoRmVWZr62nh/EU3fQOtz295DutIrqcSvSRTYl+QJEw3ewUHh5be3PZ2kkCIyKU5P
- +7ZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794682326; x=1795287126;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20260707; t=1794672611; x=1795277411; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=rVBETihkpK3ZyrNBm4wNB0zQniJSB3VwqkgPzbMYV+E=;
- b=pdMA/p1fWQmCUN21UY8ejQA+HVZs4I0HY2oLGAtovx0BEVLrTDcweK+Vd1nTrD/Ssk
- YSshNSUa06WVw2GODE0kk64rcngdmCnVpyeecEtHp+d0x5ke4KnW2WadopNXQUJ6MDE6
- l++LjodcsQQ3kVoKy/kjbWZRYf0Grwr+9q6vScQO6LHP/Oqluf4ZJrkYSnOVsKa0NDuO
- qYRafewI1D1Bq9hERcHHBlUdakgktDwPv6lNhppSHHDSS4qw5et0pyqgryUyVSWu5yQJ
- ijkq5sGnmWtEuIgHXm7fB/kAo2Ve7BHK3D2jO/jRPMt+3xMrqzAvZx+mVNfrjP2W4wq5
- BrKw==
-X-Gm-Message-State: APuU4Z+l+hpV95Vkvj+HgM1xIZVK1wBQPxDFfCt9IW6umcOULvlGkJXE
- EtAmtjq9VmZgVmeqnOdEcHi3TZzcw4q1knpdHtzDdUuLyyp3PMZWP48nhEvew8LR7YOmzA==
-X-Gm-Gg: AYBFou2Pk+g+o2PGV9xOSBLvz3LM4wchgeWEfW9nq37fZ07mMjg/rvYSD5YVokaxEDH
- iizFjrqqedY2foE3Q9CiPQToc6HaXU0DITtV0axzm/IzoSLTueM088ZqyFpcv2k9t1O+ro4ByGB
- K0hrATUxeyR28mxpBS9pinsL0S1jx/y50mENMB7Vi+HaPgllmJzQFiSZ/fSkx6yxd6yN7iLoP4F
- foEGOJg0MhICA4Sv5RfmuJAkWKNnjTAsqo/3e1oHLdP8rz9huUZSq36kpsexNHMgp2nXdP36Tzc
- WcwrgOPCFS7bDGunvylD6buCmFXehIsObSBFYFSfTrqrSrnNRCeGYLtTgzDq9ijDR4WkHaQREj4
- Uvq2GDxXjQfduozaypwoihJcfyswTaLchorntwA4nh9r0KVEpc3242ETJoOHzX+OMO6nSwA7SJR
- lkdgMwDz4Sd5ZjmHiiteSa1kbVGABMLcvuHwOdPQaKYoJ3MAiRrmUPZ82d9Gz8kz/oiFbSYSIJC
- Wuj1YJ1EWcOUJVdVPTCAvk92Bl5YcsM68qRDFtgt7jMfkbyj6j+mN1HiHmo1/ZcI2GlNBmBxQaj
- oe76AtauGnagoH8YrnpnahZ+Srm+Ykh8Y38=
-X-Received: by 2002:a05:6000:250a:b0:49e:f905:4698 with SMTP id
- ffacd0b85a97d-49ef90546a4mr2226078f8f.2.1794682325669; 
- Sat, 14 Nov 2026 10:52:05 -0800 (PST)
-Received: from [192.168.1.7] ([31.94.68.191]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-49c5f1c18b9sm10201381f8f.20.2026.11.14.10.52.02
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 14 Nov 2026 10:52:04 -0800 (PST)
-Message-ID: <5e30862a-5161-49d7-8713-2da9dec4356d@gmail.com>
-Date: Sat, 14 Nov 2026 18:52:01 +0000
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] drm/amd/display: unlock secondary tile on Apple
- 5K, iMac panels
-To: amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ bh=6i90yi+2i+h6vm8bBYguarmyscARAWzwRKq+KdO6ysk=;
+ b=Ng0LpBbghv7U7IfsjxoMy+xEYHrIQSNYV1VuNtZmwQp4ce0DhXSRlZky08BF7Eunsw
+ sjyO+ClMg6Wfs4FAqQ4kddsiiO9dEfmhOuEeD3jEFyohnK1mFHHOq2e7dYnspDbudkqU
+ p/UqfOyEO4wPbEqHB7esDQG0JybtqA5sbV17M4qpZOs9ddlPLSmcI2aARmI6wqOhYtRr
+ 1EQrzyOYJppAXwmSM/FIopN4JkvYdc8QwXzoY2sdtPmref8eXn1kvNwu1i9/C9B+Hbla
+ XR6pinV6r5b21gDdk6edPZ5qNNuLF/2KBfdvNHubuPWcIffqJ8NAYUUIhbznbhV6y9NE
+ MvZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794672611; x=1795277411;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=6i90yi+2i+h6vm8bBYguarmyscARAWzwRKq+KdO6ysk=;
+ b=PChbIODoRwuyVJ4kbqcZqvIFTLcxQGSclHX3v/q/+ltf+CMXRF2rOt4RfoCzxVR3tI
+ Hl2CwtBd3ZNVZwSBlxITz499imatiFPHrKDQ9SBwsWRg5AiWlPtdcUNrttbUz3CmT2WW
+ tA0aOFmVyfWltynTuP4oScnAbX4NkC/PnepsuEUgsIzNDhcJOaRK9rOfVMt7UuZ1Y/fy
+ lM627FpLPFQ3uQQJutGnpckbeNFcLGKalRDbg1I8UOZSMieCD7D7CMPntceSGpTAPsPt
+ oh6NZ9ptqjGWq34P2Dn0f7gJCVcd3nxTXwd4elzaQfNDm7Tafe5Wk4srUbowVWeLnL28
+ iG5Q==
+X-Forwarded-Encrypted: i=1;
+ AL+hErEMwjXVRTZ3jtJy+b6+WbELudiiZisgO/Awo6SOkReaK0D0s7VWOrWt/5b893U4dKqTLdXxeFfs@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+5+1Xe15a5ixY56YM2vFu3294X2z0QnlsMOkapVw0SsMo0A8ry
+ Zpfa4n4anlETHgafO9nt71N53GIdL/9f0vxAY1QF7CwC7yIYvwoj86o=
+X-Gm-Gg: AYBFou3q/vifgzNzha5hBHfYrjIAVqnLg+MV/yEvr0EWnKQMqz79mocx2SQMYbVsqJH
+ rO/iml/bG8sYdQyFj+fDaBIP06dkqaHnf8P99UJfxSKdBG6r7v8CFFaMzct8+UryzJyN4RH0zp8
+ LnirZklxLBK0p6oDbt65a54xLTRsWSC230h1QaYoNBgx1hPDZO/K3Pj09wpLNoOSBzrnmGvSnjJ
+ Mkl0QSGL7l4n9kVraFxpJgf+Zm3SnNxiDyIR+SCluD/5BA9FpyoP42lTXpmFy971UOTlyjebGdH
+ C9QDvZeiO7sU6DLL0/59+H0YdnA/sllj3S/v3EWb56A1C/jfxRl8k9MQWNmkcLOOAgFRdxJ/ybC
+ 0B8J01+6YrSTzpAc5c7g6s5V19YRw1GCP4xsNrMFm6/ajcMTAZud16kzh7nPvjSQ7V/nkaHDCq3
+ uDQuNQAo4BbIlU79LbyUw+LhhRYHCJ95Xw5vWFbsnpxy4FNm9rs1MZxf3wkwT6j5zfeGs0RuwdI
+ 20/MemTuS74SOYDVNs9JPxrmuw95zX/rbP6Uxm0p4CLKn9oNHtCr/X1/EuJiYLyK/Y+9wIBRsrl
+ z3XDv1sgUVuoOtRXOdnDtU/BREmIjiVWa4w7lzHX+M2aLftVOwhcMxfaPpp80W2E3Q==
+X-Received: by 2002:a05:7301:540d:b0:36f:4d62:2884 with SMTP id
+ 5a478bee46e88-3796721cfcdmr5462750eec.30.1794672610471; 
+ Sat, 14 Nov 2026 08:10:10 -0800 (PST)
+Received: from at-Standard-PC-Q35-ICH9-2009 ([106.202.127.108])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-37956bb0919sm17567582eec.29.2026.11.14.08.09.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 14 Nov 2026 08:10:10 -0800 (PST)
+From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+To: 
+Cc: Andre Eikmeyer <dev@deq.rocks>, Sebastian Zygadlo <szgit@icloud.com>,
+ Yossef Osman <yossef.osman@proton.me>,
+ Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org (maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)),
+ "H. Peter Anvin" <hpa@zytor.com>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Rodrigo Siqueira <siqueira@igalia.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <94672259-c526-4ec7-a69c-7dda8d934593@gmail.com>
-Content-Language: en-US
-From: Richard Lane <richardlanedev@gmail.com>
-In-Reply-To: <94672259-c526-4ec7-a69c-7dda8d934593@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ Kenneth Feng <kenneth.feng@amd.com>, Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ linux-pci@vger.kernel.org (open list:PCI SUBSYSTEM),
+ linux-kernel@vger.kernel.org (open list:X86 ARCHITECTURE (32-BIT AND 64-BIT)), 
+ amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
+ dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
+ platform-driver-x86@vger.kernel.org (open list:X86 PLATFORM DRIVERS)
+Subject: [PATCH v2 08/12] drm/amdgpu: Add Apple GMUX runtime PM support
+Date: Sat, 14 Nov 2026 11:06:32 -0500
+Message-ID: <20261114160731.3756-9-atharvatiwarilinuxdev@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261114160731.3756-1-atharvatiwarilinuxdev@gmail.com>
+References: <20261114160731.3756-1-atharvatiwarilinuxdev@gmail.com>
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sat, 14 Nov 2026 19:10:55 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,214 +102,349 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 01/11/2026 23:24, Richard Lane wrote:
-> Apple 27" 5K iMacs (2014-2019, iMac15,1 through Polaris-based iMac19,1)
-> expose their internal 5120x2880 panel as a 2x1 tiled display over an eDP
-> root link and a secondary DP link. At boot, the panel TCON operates in
-> single-pipe mode and holds the secondary DP link's HPD line low until
-> unlocked via DPCD registers.
-> 
-> Enable native tiled detection and link training for DCE < 12 Apple 5K
-> panels:
-> - Point the secondary DP dc_link to the root eDP dc_link (apple_5k_peer)
->   during EDID quirk matching on DCE < 12 iMac15,1, iMac17,1, iMac18,3,
->   and Polaris-based iMac19,1 (checking connector_signal since panel IDs
->   can flip across the two links after S3 wake). DCE >= 12 support for
->   Vega-based iMac19,1, iMacPro1,1, and iMac20,x is documented as TODO.
-> - Avoid falling back to DVI and latch the secondary tile via DPCD 0x4F1
->   on the root eDP link when probing the secondary link, allowing the
->   secondary link to read its EDID and populate DRM's DisplayID tile
->   properties (has_tile, tile_group, and tile_is_single_monitor).
-> - Write the 3-byte Boot Camp source table (0x04, 0x1d, 0x03) to DPCD
->   0x310 in dpcd_set_source_specific_data() to unlock the secondary tile.
-> - Prevent the secondary tile from entering DP_SET_POWER D3, which causes
->   the TCON to drop HPD and stop responding to AUX transactions.
-> - Unlatch both tiles (0x4F1) and clear DP_SOURCE_TABLE_REVISION (0x310)
->   and DP_EDP_CONFIGURATION_SET (0x10A) in dm_suspend() so the TCON
->   returns to single-pipe mode for the EFI boot screen across reboots.
-> 
-> Signed-off-by: Richard Lane <richardlanedev@gmail.com>
-> ---
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 19 ++++++++++++++++
->  .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 22 +++++++++++++++++++
->  drivers/gpu/drm/amd/display/dc/dc.h           |  1 +
->  .../drm/amd/display/dc/link/link_detection.c  |  7 +++++-
->  .../dc/link/protocols/link_dp_capability.c    |  4 ++++
->  .../display/dc/link/protocols/link_dp_phy.c   |  3 +++
->  6 files changed, 55 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index bdabb4bf14da..74cd88d8d580 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -1607,6 +1607,23 @@ STATIC_IFN_KUNIT void dm_destroy_cached_state(struct amdgpu_device *adev)
->  }
->  EXPORT_IF_KUNIT(dm_destroy_cached_state);
->  
-> +static void amdgpu_dm_apple5k_unlatch(struct dc *dc)
-> +{
-> +	const u8 zeros[3] = { 0 };
-> +
-> +	for (int i = 0; i < dc->link_count; i++) {
-> +		struct dc_link *link = dc->links[i];
-> +
-> +		if (link->apple_5k_peer) {
-> +			core_link_write_dpcd(link, DP_SOURCE_TABLE_REVISION, zeros, 3);
-> +			core_link_write_dpcd(link, DP_EDP_CONFIGURATION_SET, zeros, 1);
-> +			core_link_write_dpcd(link, 0x4F1, zeros, 1);
-> +			core_link_write_dpcd(link->apple_5k_peer, 0x4F1, zeros, 1);
-> +			break;
-> +		}
-> +	}
-> +}
-> +
->  static int dm_suspend(struct amdgpu_ip_block *ip_block)
->  {
->  	struct amdgpu_device *adev = ip_block->adev;
-> @@ -1674,6 +1691,8 @@ static int dm_suspend(struct amdgpu_ip_block *ip_block)
->  
->  	amdgpu_dm_hpd_rx_irq_work_suspend(dm);
->  
-> +	amdgpu_dm_apple5k_unlatch(dm->dc);
-> +
->  	dc_set_power_state(dm->dc, DC_ACPI_CM_POWER_STATE_D3);
->  
->  	if (dm->dc->caps.ips_support && adev->in_s0ix)
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> index 9774ea33272d..532748127f72 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> @@ -173,6 +173,28 @@ STATIC_IFN_KUNIT void apply_edid_quirks(struct dc_link *link, struct edid *edid,
->  		drm_dbg_driver(dev, "Force FreeSync min to 60 Hz on panel id %X\n", panel_id);
->  		edid_caps->panel_patch.force_freesync_min_hz = 60;
->  		break;
-> +	/*
-> +	 * Workaround for Apple 27" 5K iMacs which expose a 2x1 tiled internal
-> +	 * panel over an eDP root link and a secondary DP link. Point the
-> +	 * secondary link to the root link to latch/unlatch the TCON via DPCD,
-> +	 * checking connector_signal as panel IDs can flip after wake.
-> +	 * IDs (Root/Tile): iMac15,1 (AE01/02), iMac17,1 (AE05/06),
-> +	 * iMac18,3 (AE11/12), iMac19,1 (AE25/26); TODO (DCE >= 12): iMac19,1
-> +	 * Vega, iMacPro1,1 (AE1D/1E), iMac20,x (AE31/32).
-> +	 */
-> +	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE01):
-> +	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE02):
-> +	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE05):
-> +	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE06):
-> +	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE11):
-> +	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE12):
-> +	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE25):
-> +	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE26):
-> +		if (link->connector_signal == SIGNAL_TYPE_EDP &&
-> +		    link->ctx->dce_version < DCE_VERSION_12_0 &&
-> +		    (link->link_index ^ 1) < link->dc->link_count)
-> +			link->dc->links[link->link_index ^ 1]->apple_5k_peer = link;
-> +		break;
->  	default:
->  		return;
->  	}
+From: Andre Eikmeyer <dev@deq.rocks>
 
-For machines with both the Apple and OCLP (OpenCore Legacy Patcher) folders
-deleted from the EFI partion, an additional 5 lines are required in
-amdgpu_dm_helpers.c to latch the root tile. This works consistently across
-multiple reboots. It also works with the Apple and OCLP folders in place.
-I can add this to v3 of the patch.
+The T2 MacBookPro's uses Apple GMUX to control power to the discrete GPU,
+but it does not expose the ATPX or ACPI power-resource interfaces currently
+recognized by amdgpu. The driver therefore leaves runtime PM disabled even
+though vga_switcheroo can switch the GPU reliably.
 
-@@ -26,6 +26,7 @@
- #include <linux/string.h>
- #include <linux/acpi.h>
- #include <linux/i2c.h>
+A dedicated GMUX runtime PM mode uses the existing vga_switcheroo PM domain
+to sequence GPU power. A runtime-suspended GMUX GPU can remain powered off
+across system sleep, following the smart-suspend handling already used by
+BOCO devices.
+
+On muxed systems the inactive GPU cannot reach the panel AUX channel. Like
+the macOS driver, tell Display Core that eDP is disconnected before
+dc_create() when the GMUX GPU is not the boot display device, and skip eDP
+detection at init as the resume path already does. This avoids powering the
+panel from the inactive GPU and retaining a fail-safe sink that reports as
+connected and keeps the GPU runtime busy.
+
+This allows the discrete GPU to enter D3cold while the integrated GPU is
+primary and allows PRIME workloads and external displays to wake it on
+demand.
+
+This was tested on MacBookPro15,1, 16,1, 16,4 together
+with the corresponding apple-gmux power-sequencing support.
+
+Tested-by: Sebastian Zygadlo <szgit@icloud.com>
+Tested-by: Yossef Osman <yossef.osman@proton.me>
+Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
+Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 56 +++++++++++++++++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       | 43 +++++++++-----
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 14 +++++
+ drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h       |  1 +
+ 5 files changed, 97 insertions(+), 19 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index a9c6f5d4a..6fd607587 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -1194,6 +1194,8 @@ int amdgpu_device_mode1_reset(struct amdgpu_device *adev);
+ int amdgpu_device_link_reset(struct amdgpu_device *adev);
+ bool amdgpu_device_supports_atpx(struct amdgpu_device *adev);
+ bool amdgpu_device_supports_px(struct amdgpu_device *adev);
++bool amdgpu_device_supports_gmux(struct amdgpu_device *adev);
++bool amdgpu_device_has_gmux_edp(struct amdgpu_device *adev);
+ bool amdgpu_device_supports_boco(struct amdgpu_device *adev);
+ bool amdgpu_device_supports_smart_shift(struct amdgpu_device *adev);
+ int amdgpu_device_supports_baco(struct amdgpu_device *adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 9269e780f..ac336594b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -34,6 +34,7 @@
+ #include <linux/slab.h>
+ #include <linux/iommu.h>
+ #include <linux/pci.h>
 +#include <linux/dmi.h>
+ #include <linux/pci-p2pdma.h>
+ #include <linux/apple-gmux.h>
+ #include <linux/nospec.h>
+@@ -570,6 +571,46 @@ bool amdgpu_device_supports_px(struct amdgpu_device *adev)
+ 	return false;
+ }
  
- #include <drm/drm_atomic.h>
- #include <drm/drm_probe_helper.h>
-
-@@ -1265,6 +1288,11 @@
- 	if (link->dc->hwss.prepare_ddc)
- 		link->dc->hwss.prepare_ddc(link);
- 
-+	if (link->connector_signal == SIGNAL_TYPE_EDP &&
-+	    link->ctx->dce_version < DCE_VERSION_12_0 &&
-+	    dmi_match(DMI_SYS_VENDOR, "Apple Inc."))
-+		dm_helpers_dp_write_dpcd(ctx, link, 0x4F1, &(const uint8_t){1}, 1);
++static const struct dmi_system_id amdgpu_gmux_runpm_dmi_table[] = {
++	{
++		.matches = {
++			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro15,1"),
++		},
++	},
++	{
++		.matches = {
++			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro15,3"),
++		},
++	},
++	{
++		.matches = {
++			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro16,1"),
++		},
++	},
++	{
++		.matches = {
++			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro16,4"),
++		},
++	},
++	{ }
++};
 +
- 	/* some dongles read edid incorrectly the first time,
- 	 * do check sum and retry to make sure read correct edid.
++bool amdgpu_device_supports_gmux(struct amdgpu_device *adev)
++{
++	return dmi_check_system(amdgpu_gmux_runpm_dmi_table) &&
++	       !pci_is_thunderbolt_attached(adev->pdev) &&
++	       !dev_is_removable(&adev->pdev->dev) &&
++	       apple_gmux_detect(NULL, NULL);
++}
++
++bool amdgpu_device_has_gmux_edp(struct amdgpu_device *adev)
++{
++	return amdgpu_device_supports_gmux(adev) &&
++	       (dmi_match(DMI_PRODUCT_NAME, "MacBookPro15,3") ||
++		dmi_match(DMI_PRODUCT_NAME, "MacBookPro16,1") ||
++		dmi_match(DMI_PRODUCT_NAME, "MacBookPro16,4"));
++}
++
+ /**
+  * amdgpu_device_supports_boco - Is the device a dGPU with ACPI power resources
+  *
+@@ -640,6 +681,9 @@ void amdgpu_device_detect_runtime_pm_mode(struct amdgpu_device *adev)
+ 			/* enable PX as runtime mode */
+ 			adev->pm.rpm_mode = AMDGPU_RUNPM_PX;
+ 			dev_info(adev->dev, "Using ATPX for runtime pm\n");
++		} else if (amdgpu_device_supports_gmux(adev)) {
++			adev->pm.rpm_mode = AMDGPU_RUNPM_GMUX;
++			dev_info(adev->dev, "Using Apple GMUX for runtime pm\n");
+ 		} else if (amdgpu_device_supports_boco(adev)) {
+ 			/* enable boco as runtime mode */
+ 			adev->pm.rpm_mode = AMDGPU_RUNPM_BOCO;
+@@ -3767,7 +3811,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ {
+ 	struct pci_dev *pdev = adev->pdev;
+ 	int r, i;
+-	bool px = false;
++	bool gmux, px = false;
+ 	u32 max_MBps;
+ 	int tmp;
+ 
+@@ -4202,12 +4246,13 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ 		vga_client_register(adev->pdev, amdgpu_device_vga_set_decode);
+ 
+ 	px = amdgpu_device_supports_px(adev);
++	gmux = amdgpu_device_supports_gmux(adev);
+ 
+ 	if (amdgpu_device_should_register_switcheroo(adev, px))
+ 		vga_switcheroo_register_client(adev->pdev,
+-					       &amdgpu_switcheroo_ops, px);
++					       &amdgpu_switcheroo_ops, px || gmux);
+ 
+-	if (px)
++	if (px || gmux)
+ 		vga_switcheroo_init_domain_pm_ops(adev->dev, &adev->vga_pm_domain);
+ 
+ 	adev->pm_nb.notifier_call = amdgpu_device_pm_notifier;
+@@ -4336,7 +4381,7 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
+ void amdgpu_device_fini_sw(struct amdgpu_device *adev)
+ {
+ 	int i;
+-	bool px;
++	bool gmux, px;
+ 
+ 	amdgpu_device_ip_fini(adev);
+ 	amdgpu_fence_driver_sw_fini(adev);
+@@ -4367,11 +4412,12 @@ void amdgpu_device_fini_sw(struct amdgpu_device *adev)
+ 	adev->xcp_mgr = NULL;
+ 
+ 	px = amdgpu_device_supports_px(adev);
++	gmux = amdgpu_device_supports_gmux(adev);
+ 
+ 	if (amdgpu_device_should_register_switcheroo(adev, px))
+ 		vga_switcheroo_unregister_client(adev->pdev);
+ 
+-	if (px)
++	if (px || gmux)
+ 		vga_switcheroo_fini_domain_pm_ops(adev->dev);
+ 
+ 	if ((adev->pdev->class >> 8) == PCI_CLASS_DISPLAY_VGA)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index d9d794a7d..3978ed284 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -2398,6 +2398,9 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
+ 			return -EINVAL;
+ 	}
+ 
++	if (vga_switcheroo_client_probe_defer(pdev))
++		return -EPROBE_DEFER;
++
+ 	/* skip devices which are owned by radeon */
+ 	for (i = 0; i < ARRAY_SIZE(amdgpu_unsupported_pciidlist); i++) {
+ 		if (amdgpu_unsupported_pciidlist[i] == pdev->device)
+@@ -2494,11 +2497,12 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
+ 		DRM_ERROR("Creating debugfs files failed (%d).\n", ret);
+ 
+ 	if (adev->pm.rpm_mode != AMDGPU_RUNPM_NONE) {
+-		/* only need to skip on ATPX */
++		/* ATPX requires a full system-sleep transition. */
+ 		if (amdgpu_device_supports_px(adev))
+ 			dev_pm_set_driver_flags(ddev->dev, DPM_FLAG_NO_DIRECT_COMPLETE);
+-		/* we want direct complete for BOCO */
+-		if (amdgpu_device_supports_boco(adev))
++		/* BOCO and GMUX can remain runtime suspended across system sleep. */
++		if (amdgpu_device_supports_boco(adev) ||
++		    adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX)
+ 			dev_pm_set_driver_flags(ddev->dev, DPM_FLAG_SMART_PREPARE |
+ 						DPM_FLAG_SMART_SUSPEND |
+ 						DPM_FLAG_MAY_SKIP_RESUME);
+@@ -2610,7 +2614,9 @@ static int amdgpu_pmops_prepare(struct device *dev)
+ 	/* Return a positive number here so
+ 	 * DPM_FLAG_SMART_SUSPEND works properly
  	 */
-
-Richard
-> diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-> index f4fefa7c9ab8..aa1a9eea99d1 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dc.h
-> +++ b/drivers/gpu/drm/amd/display/dc/dc.h
-> @@ -2003,6 +2003,7 @@ struct dc_scratch_space {
->  	bool skip_implict_edp_power_control;
->  	bool forced_psr_active;
->  	enum backlight_control_type backlight_control_type;
-> +	struct dc_link *apple_5k_peer;
->  };
->  
->  struct dc {
-> diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-> index b4546f93af0c..47755f8b9c3e 100644
-> --- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-> +++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-> @@ -218,7 +218,7 @@ static enum signal_type link_detect_sink_signal_type(struct dc_link *link,
->  			 * we assume signal is DVI; it could be corrected
->  			 * to HDMI after dongle detection
->  			 */
-> -			if (!dm_helpers_is_dp_sink_present(link))
-> +			if (!link->apple_5k_peer && !dm_helpers_is_dp_sink_present(link))
->  				result = SIGNAL_TYPE_DVI_SINGLE_LINK;
->  		}
->  		break;
-> @@ -1625,6 +1625,11 @@ bool link_detect_connection_type(struct dc_link *link, enum dc_connection_type *
->  		}
->  	}
->  
-> +	if (*type == dc_connection_none && link->apple_5k_peer) {
-> +		core_link_write_dpcd(link->apple_5k_peer, 0x4F1, &(const uint8_t){1}, 1);
-> +		*type = dc_connection_single;
-> +	}
-> +
->  	return true;
->  }
->  
-> diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-> index ad1a499b0d9d..d646b156c90b 100644
-> --- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-> +++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-> @@ -1496,6 +1496,10 @@ void dpcd_set_source_specific_data(struct dc_link *link)
->  				link->dc->vendor_signature.data.raw,
->  				sizeof(link->dc->vendor_signature.data.raw));
->  	}
-> +
-> +	if (link->apple_5k_peer)
-> +		core_link_write_dpcd(link, DP_SOURCE_TABLE_REVISION,
-> +				     (const uint8_t[]){0x04, 0x1d, 0x03}, 3);
->  }
->  
->  void dpcd_write_cable_id_to_dprx(struct dc_link *link)
-> diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
-> index 49521ac4b0e8..56fe2710ee2c 100644
-> --- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
-> +++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
-> @@ -50,6 +50,9 @@ void dpcd_write_rx_power_ctrl(struct dc_link *link, bool on)
->  	if (link->sync_lt_in_progress)
->  		return;
->  
-> +	if (!on && link->apple_5k_peer)
-> +		return;
-> +
->  	core_link_write_dpcd(link, DP_SET_POWER, &state,
->  						 sizeof(state));
->  
+-	if (amdgpu_device_supports_boco(adev) && pm_runtime_suspended(dev))
++	if ((amdgpu_device_supports_boco(adev) ||
++	     adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX) &&
++	    pm_runtime_suspended(dev))
+ 		return 1;
+ 
+ 	/* if we will not support s3 or s2i for the device
+@@ -2881,6 +2887,7 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
+ 	}
+ 
+ 	adev->in_runpm = true;
++	/* GMUX dGPUs drive displays, so hotplug handlers may reopen them. */
+ 	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX)
+ 		drm_dev->switch_power_state = DRM_SWITCH_POWER_CHANGING;
+ 
+@@ -2891,7 +2898,8 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
+ 	 * platforms.
+ 	 * TODO: this may be also needed for PX capable platform.
+ 	 */
+-	if (adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO)
++	if (adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO ||
++	    adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX)
+ 		adev->mp1_state = PP_MP1_STATE_UNLOAD;
+ 
+ 	ret = amdgpu_device_prepare(drm_dev);
+@@ -2900,16 +2908,19 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
+ 	ret = amdgpu_device_suspend(drm_dev, false);
+ 	if (ret) {
+ 		adev->in_runpm = false;
+-		if (adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO)
++		if (adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO ||
++		    adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX)
+ 			adev->mp1_state = PP_MP1_STATE_NONE;
+ 		return ret;
+ 	}
+ 
+-	if (adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO)
++	if (adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO ||
++	    adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX)
+ 		adev->mp1_state = PP_MP1_STATE_NONE;
+ 
+-	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX) {
+-		/* Only need to handle PCI state in the driver for ATPX
++	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX ||
++	    adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX) {
++		/* Only need to handle PCI state in the driver for ATPX and GMUX.
+ 		 * PCI core handles it for _PR3.
+ 		 */
+ 		amdgpu_device_cache_pci_state(pdev);
+@@ -2956,10 +2967,12 @@ static int amdgpu_pmops_runtime_resume(struct device *dev)
+ 	if (!pci_device_is_present(adev->pdev))
+ 		adev->no_hw_access = true;
+ 
+-	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX) {
+-		drm_dev->switch_power_state = DRM_SWITCH_POWER_CHANGING;
++	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX ||
++	    adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX) {
++		if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX)
++			drm_dev->switch_power_state = DRM_SWITCH_POWER_CHANGING;
+ 
+-		/* Only need to handle PCI state in the driver for ATPX
++		/* Only need to handle PCI state in the driver for ATPX and GMUX.
+ 		 * PCI core handles it for _PR3.
+ 		 */
+ 		pci_set_power_state(pdev, PCI_D0);
+@@ -2979,12 +2992,14 @@ static int amdgpu_pmops_runtime_resume(struct device *dev)
+ 	}
+ 	ret = amdgpu_device_resume(drm_dev, false);
+ 	if (ret) {
+-		if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX)
++		if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX ||
++		    adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX)
+ 			pci_disable_device(pdev);
+ 		return ret;
+ 	}
+ 
+-	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX)
++	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX ||
++	    adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX)
+ 		drm_dev->switch_power_state = DRM_SWITCH_POWER_ON;
+ 
+ 	amdgpu_restore_umd_profile_pstate_after_runpm(adev);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 47a0ff2ed..aee12cd76 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -81,6 +81,7 @@
+ #include <linux/moduleparam.h>
+ #include <linux/types.h>
+ #include <linux/pm_runtime.h>
++#include <linux/vgaarb.h>
+ #include <linux/pci.h>
+ #include <linux/power_supply.h>
+ #include <linux/firmware.h>
+@@ -623,6 +624,10 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+ 	else
+ 		init_data.bb_from_dmub = NULL;
+ 
++	if (amdgpu_device_has_gmux_edp(adev) &&
++	    adev->pdev != vga_default_device())
++		init_data.flags.edp_not_connected = true;
++
+ 	/* Display Core create. */
+ 	adev->dm.dc = dc_create(&init_data);
+ 
+@@ -2545,6 +2550,15 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
+ 			dm->hpd_rx_offload_wq[aconnector->base.index].aconnector =
+ 				aconnector;
+ 
++		/* Like the resume path, skip eDP detection without a sink. */
++		if (link->connector_signal == SIGNAL_TYPE_EDP &&
++		    amdgpu_device_has_gmux_edp(adev) &&
++		    !link->edp_sink_present) {
++			drm_info(adev_to_drm(adev), "Skipping detection of inactive GMUX eDP link %d\n",
++				 i);
++			continue;
++		}
++
+ 		if (!dc_link_detect_connection_type(link, &new_connection_type))
+ 			drm_err(adev_to_drm(adev), "KMS: Failed to detect connector\n");
+ 
+diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+index 8e8a052e1..025fa806d 100644
+--- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
++++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+@@ -48,6 +48,7 @@ enum amdgpu_int_thermal_type {
+ enum amdgpu_runpm_mode {
+ 	AMDGPU_RUNPM_NONE,
+ 	AMDGPU_RUNPM_PX,
++	AMDGPU_RUNPM_GMUX,
+ 	AMDGPU_RUNPM_BOCO,
+ 	AMDGPU_RUNPM_BACO,
+ 	AMDGPU_RUNPM_BAMACO,
+-- 
+2.55.0
 
