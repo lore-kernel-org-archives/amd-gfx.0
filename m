@@ -2,105 +2,95 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95541606A329
-	for <amd-gfx@archiver.kernel.org>; Sat, 14 Nov 2026 19:30:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7B21606A89B
+	for <amd-gfx@archiver.kernel.org>; Sat, 14 Nov 2026 23:09:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hJ+c5smd
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YQhVQxNK
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DBC1B10E040;
-	Sat, 14 Nov 2026 19:30:50 +0000 (UTC)
-Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com
- [209.85.210.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC37E10E27E
- for <amd-gfx@lists.freedesktop.org>; Sat, 14 Nov 2026 19:30:44 +0000 (UTC)
-Received: by mail-ot1-f52.google.com with SMTP id
- 46e09a7af769-7f4dda21facso262858a34.1
- for <amd-gfx@lists.freedesktop.org>; Sat, 14 Nov 2026 11:30:44 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794684644; cv=none;
- d=google.com; s=arc-20260327;
- b=AFhezTMRN7EhtF4tdidndGKPTWRC+VX+1W9GbKCPfSfxia5l33c25sgNRdvF/bKdP/
- stYev6prQXI0SoZ2vvBdYHNqCUWdrVQkRw7MwB5dQN67wSlFc9qyv/NQHmtplhIgkryo
- 9bxgJbi/O9zScO74EtQTqZ8C8Sxs469viu+x6OFKvdkxwZi1MOuRX+cq21uowUO++HQP
- NjOyBYNuNqOV60sONm+TsHIbHXOCayEIbkA6yp2FJIN/MRqhIgQOFULi5K3h8M8vrgZq
- 3u/S1fKtWiM8HK2eP7nfxlTc0WsqGYisQ3mqS7bgi/nnIRS/SyhW4BIUlJiZx9chGUxe
- Qqjg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=ozUGgq3FlDQBKsPKBBbxJSLE1LvNcxvIXuIqXKlgpTk=;
- fh=Cm1/F7ESem6NxbFglEXRtZYC9eHozMEAds5QshQ4FU4=;
- b=GTlOupOF+SSlwkKC09v7u79tM12Hy3RoRAHnvh5+rogfV+JcrgQ40SrWueq2DFvKCK
- d3/+6AK2g4zkuzsMjCLwhgMkE6kkhdWfXxCe+RvjLR1+Sf5fBO8V32V1JYMCK6M7DZz6
- vF2HGV/7B8EDmF+j80xFskMi5ltOhGv30JjFg8O6EOKb8LfynWD+JB/EKxdfGIXl6W02
- 84mgcA+sPm/58RM9j4w3dcQ6V+/6avoTTYHRVzYuMZxL8ZbSm7nDVT2eL6OHYRM6l3zZ
- YaAADNCnjA1c2NBrGrKE1nWY6FrjNL3gvvt9MRg+Bx7XQ5Ijdfmj/BEE4azC5y8GxUrp
- Nu5Q==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794684644; x=1795289444; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=ozUGgq3FlDQBKsPKBBbxJSLE1LvNcxvIXuIqXKlgpTk=;
- b=hJ+c5smdMRtuTfdSHbXvfHE2M4dd9WQe60z0R1P7qh1lWQ1YFrqfzx/BRhWzNC1j6T
- i4P5Ea9YNpnb1XZyIWc4h5L9DB5aPalumfhneCjvvV2jWgWRG+bSi6F6vuXxDeE7NyR8
- 9zT78g68FUjzDU8H1FUAx3tOZqT2S+0RUz+HWdS5oovHSYsIJ5pd9tX5FfLgyIRkz19u
- HJgfNDYnMix07cNqkttu+YlORsNbE+YGe7UZL6EUbC1PLimHuDr+bQMeRhzwnU54V4eg
- F44QADUXUdezjPwHn3gIStyPRcTbqoyDYRSHdLMiuHQ/7iHslS0DtzwtzYFbqAJLE4k3
- y04w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794684644; x=1795289444;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=ozUGgq3FlDQBKsPKBBbxJSLE1LvNcxvIXuIqXKlgpTk=;
- b=fvBbarrWELGeWGHDH0/58N1CreoXY9MCxUAarJviVZWDENojetFbTok6KnYmUHoFzU
- uCxDjwXbCDb8nF1bFxOM7vNMBfj4XuveJLc5wr9eP6hbvgmj+wVVa0VwGy7bQGylDA3X
- Ct682z6LSCoxVkw4ObZfGQrzOg3jGCjhwVR/d56PT01im4iHlr2Vv6KYQNYD/tUlFkeV
- OTL5AdK2X4PudtWRjPospJajCC04w1dtxjywqurn/sr2kp4lKBSWukssSrjUke1I9foK
- ZuahjLb2qQNDKJClSAH/c/e5o1FaXNEWwiJ+/86L+q6WGW+MiDHZ25W21Vlfyl5Zzojd
- E84g==
-X-Gm-Message-State: APuU4Z/jqtT83Mf7Bxh9F4e2NTE+wRJiC5ASfcA8hAxH8BPvWFuzZrdo
- hrXEcAO0mqtx46hW0yTyVKNsMoiuRJz4NudUogYPqJHyjE0kaeMlGU9uwpUFKYPsz4hBt8BEMEE
- b/EOhZAf4NyHhevBJTJuUQtdA9vokBPc=
-X-Gm-Gg: AYBFou0sgLIpqZESSY4eJmx9IOIGVQHeXA6zxb7ND0BL2TxFG11C/2XK1vxmSSXBQPp
- JQxEWyZC1ZukofLStBt+jQ2RN6cHaslN+haInOBkd39WelNEL1IYuYxLxq7G83qGfwYmho6spq8
- UWQliqO6uFLFHk5SHVcCva2mw6gjQ58HJswVjS0cIvxPzytwLf1ENhvBCARyZpBZHkYDvMQhkWC
- +JW9XRfoRZPVzOVTn4HSYBip51KMvRgycEpQJE51ASPJqies8s/APGCpP/xR5Blf7ZF4pAVMNFM
- 3cMvp0Ven9i5+AwsSnpaW2BVN5KBkXm/RT65O3qqLScn2fnzEV9XlUfzKOsroGBKcGdfgw7ztWB
- +uL5X68h0Rxq9aAL+CIJv4eRVVWftk5yVDb18fKhFCm81DCs44zkDEZyVbjMIcW9MQw4f2bDOKP
- Rpm8fIIKW/Mhf83XAPwGVoGsOIZucrCdnYoSFGRnL2yuiB9e3b0IN1KEl8/vKQ
-X-Received: by 2002:a05:6808:3509:b0:55c:836:5992 with SMTP id
- 5614622812f47-56e64df328emr7649759b6e.4.1794684643579; Sat, 14 Nov 2026
- 11:30:43 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C652D10E094;
+	Sat, 14 Nov 2026 23:09:22 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3505910E027;
+ Sat, 14 Nov 2026 23:09:16 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id B4FBA404C4;
+ Sat, 14 Nov 2026 23:09:15 +0000 (UTC)
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+ t=1794697755;
+ b=Uh90h/f4a8KHHE87P4ViZ17yvwOwMXh5e9pCXklgxk471fiPr8lB/kvzL8cKppAbQiOf
+ MttOClIsskvm0IC/nnhe1S4+9BNy/wrtuQOjLHs7wm421PvM1TaYoC9tXUPLIlC9UwtLH
+ tydv9uCLPUlTFCZg6uKllfx2KTAbobSLSfsLIa+prWZLSuhm8TtklduhEG1Y8gUTGgtzG
+ fQeJLNAw/4J11Hif6VTaZ6VOjYl3/tl4x6WuIw0q5M4RiZT2ht8tA6nVCO4z+vNligIRE
+ b/Tikpt0rn2+I4uvK515bZDz0BwghlEvUbJ6tpFy+XUTjXj+KPfTpZSR1Qa/439TvUg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+ c=relaxed/relaxed; t=1794697755;
+ h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+ Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+ Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+ X-Original-From:Reply-To;
+ bh=1PTPiOEKRlp9Zsw9ftcdqrl7XVRQXVPvWk2EJN7ugKQ=;
+ b=2VYzhItxzBeG8B+6VMzXrdV2on0NVdKbNbYiSfJZPCLP5r3aj3usM7fLRpqjzGYAGN+R
+ E8wDTsPGkImBWKhWby8EMK8qM26EvDQuBN3pLk2+Lxhp3QHVI2y6Qlf127e0ASK95ApO8
+ /LClrjavN719iFKbgnoluT8L/EOixLU0EWwno5C1oLQD60r8zN9bSRXTzyNV3oNyhbo7y
+ kPQbbThKhDL8jrMMX5sYvrd+05NDVAJAZekc5C2IAvxMpo4MXI9gq3trPLanDYrodISA9
+ 4idU4LlVoTUQB/0BrdHMvj5cPmtHZwStNmzYNcnWIyIR5HA8CGL2tw+Vwax1W10R8PA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+ arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+ (No client certificate requested)
+ by smtp.kernel.org (Postfix) with ESMTPS id 75E231F000C5;
+ Sat, 14 Nov 2026 23:09:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794697755;
+ bh=1PTPiOEKRlp9Zsw9ftcdqrl7XVRQXVPvWk2EJN7ugKQ=;
+ h=From:Subject:Date:To:Cc:Reply-To;
+ b=YQhVQxNK/56nTI3fAqmt39i0g/j7zkCdwv5/uKuD3leTAknrDxNdCnnbh3uYuHgpl
+ 1q/a9Tls3Gj7neYytWoVm90r4zHjAqNyRjqEX15ezrOFe1j+sPYQ3sTNHNDfXRjqUw
+ OsneOj2U9R7EkBjgWL/TFHtWOM5ReEi7uKn7PHRAUxQ6nZIYkBrhEveOf50WXJvjAY
+ n1fJY+12vpKBTq+GuIxJyjfK609KF3O4t/p8OJUuVOjweqUSb+5vxahedNgb7jT0RG
+ JB5T4yVWIBk4boEXzmq76d2/cRVk0uYbVg2UYGzEfZgIpE6yecQMXTY5DwfThv2pkG
+ Uk/Pi8r2R+6hw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+ by lkml.kernel.org (Postfix) with ESMTP id CC97049EBB;
+ Sat, 14 Nov 2026 23:09:13 +0000 (UTC)
+From: Hugo Sales via B4 Relay <devnull+hugo.hsal.es@kernel.org>
+Subject: [PATCH 0/8] drm/amd/display: Copy probed modes for atomic_check
+Date: Sat, 14 Nov 2026 23:09:11 +0000
+Message-Id: <20261114-amdgpu-modes-four-v1-0-f11e2a6cd407@hsal.es>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <8eb61179-c5b8-41df-a466-8b5c388b6b41@gmail.com>
- <CADnq5_OrGuMJT4Tvt+wktPzTYEopdkCjyqq8sSdvJou40-HoKw@mail.gmail.com>
- <a6093dab-c38d-4dad-af3b-7173a6eaa78c@gmail.com>
- <CADnq5_MRA2bQG5x9xiGAT5ddh0jHMqg=u2OhCPvJxPr3ddTurA@mail.gmail.com>
- <b9f69d90-73ef-4a22-a347-0d70f014a7de@gmail.com>
- <CADnq5_PZ3B863S238TkrGSubWa_VExySu9pkh5xDfrST11y5GQ@mail.gmail.com>
- <5c3aeee1-1436-4b77-b742-ba916376b479@gmail.com>
-In-Reply-To: <5c3aeee1-1436-4b77-b742-ba916376b479@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Sat, 14 Nov 2026 14:30:31 -0500
-X-Gm-Features: AclHuK9Lt1BNNOh5THRY3gz36jwhtbUayWeg1u0J9Xol-AhZnO5UPrOXyZlFtp0
-Message-ID: <CADnq5_NfuE_ck3VN7c6b0xgcKrYPonjPV9zdq50aMnVddm7Rxw@mail.gmail.com>
-Subject: Re: [PATCH v2 3/3] drm/amd/display: report synced displays to
- PowerPlay for MCLK switch
-To: Richard Lane <richardlanedev@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQqDMBBA4avIrDtg/MerlC4mZtQRNJJppCDev
+ Wldfov3TlAOwgp9dkLgQ1T8lmAeGQwzbROjuGQo8qIxJq+QVjftEVfvWHH0MWDdErGrSrKmg9T
+ tgUf5/J/P122NduHh/RvBdX0BTEQDDnUAAAA=
+X-Change-ID: 20261104-amdgpu-modes-four-57aaed43ab18
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>,
- Mario Limonciello <mario.limonciello@amd.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ Ray Wu <ray.wu@amd.com>, Fangzhi Zuo <jerry.zuo@amd.com>, 
+ Roman Li <roman.li@amd.com>, Alex Hung <alex.hung@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Ville_Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>, 
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, Hugo Sales <hugo@hsal.es>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3829; i=hugo@hsal.es;
+ h=from:subject:message-id;
+ bh=+dDISwyisNdvJwt3B/p7Y642cJGXY2iQt7K7XzoHftQ=;
+ b=owJ4nJvAy8zAJVbLU7f+5A3TBYyn1ZIYsn68kmCebrPd1v+MlmhdJK9C9cNofplHL//ExW1I/
+ Oh7f3sc++aOUhYGMS4GWTFFFt0bngwsEyfPzCl6vgRmDisTyBAGLk4BmIhFKcM/1ZeTGH7/71+9
+ UH7ePY/pk3piq4KStp/9+FTJOH9BVeUXLkaGTb9/NDnrRh5j+r9X9UJEbqmhN7uCX/CJt12nD8V
+ VK/1mBgBfp0ul
+X-Developer-Key: i=hugo@hsal.es; a=openpgp;
+ fpr=193D095149CF7E8737B39064D912B0DB205A91C1
+X-Endpoint-Received: by B4 Relay for hugo@hsal.es/default with auth_id=1417
+X-Original-From: Hugo Sales <hugo@hsal.es>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,242 +100,85 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: hugo@hsal.es
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Sat, Nov 14, 2026 at 9:18=E2=80=AFAM Richard Lane <richardlanedev@gmail.=
-com> wrote:
->
-> On 13/11/2026 14:05, Alex Deucher wrote:
-> > On Thu, Nov 12, 2026 at 7:15=E2=80=AFPM Richard Lane <richardlanedev@gm=
-ail.com> wrote:
-> >>
-> >> On 10/11/2026 19:59, Alex Deucher wrote:
-> >>> On Tue, Nov 10, 2026 at 1:49=E2=80=AFPM Richard Lane <richardlanedev@=
-gmail.com> wrote:
-> >>>>
-> >>>> On 09/11/2026 20:34, Alex Deucher wrote:
-> >>>>> On Mon, Nov 2, 2026 at 3:31=E2=80=AFAM Richard Lane <richardlanedev=
-@gmail.com> wrote:
-> >>>>>>
-> >>>>>> When driving multiple displays or tiled panels with identical timi=
-ngs
-> >>>>>> (such as the two 2560x2880 tiles of an Apple 5K iMac panel), Displ=
-ay
-> >>>>>> Core's program_timing_sync() aligns the CRTCs into a timing sync g=
-roup
-> >>>>>> in hardware during dc_commit_streams().
-> >>>>>>
-> >>>>>> However, on DCE < 12, Display Core leaves
-> >>>>>> pp_display_cfg.all_displays_in_sync unset. Because PowerPlay is no=
-t
-> >>>>>> informed that the streams have synchronized vertical blanking inte=
-rvals,
-> >>>>>> SMU7 prevents MCLK switching at idle or causes modeset underflows.
-> >>>>>>
-> >>>>>> If all active streams belong to the same timing sync group
-> >>>>>> (timing_sync_info.group_size =3D=3D params.stream_count), report
-> >>>>>> all_displays_in_sync =3D true to PowerPlay after committing the st=
-reams so
-> >>>>>> SMU7 can safely downclock MCLK at idle.
-> >>>>>>
-> >>>>>
-> >>>>> Looking at this a little deeper, the function bw_calcs() in
-> >>>>> dce_calcs.c already calculates all_displays_in_sync using the helpe=
-r
-> >>>>> all_displays_in_sync().  Can you look into this and figure out why
-> >>>>> that is not working as expected?  My concern with this patch is tha=
-t
-> >>>>> DCE and DCN have different logic for handling mclk switching so I'm
-> >>>>> not sure it's safe to call dm_pp_apply_display_requirements() direc=
-tly
-> >>>>> from common code.
-> >>>>>
-> >>>>> Thanks,
-> >>>>>
-> >>>>> Alex
-> >>>>
-> >>>> Moving it to dce_clk_mgr.c and using resource_are_streams_timing_syn=
-chronizable() also works. Is that a solution?
-> >>>
-> >>> I think that would be preferred, but in general, why doesn't the
-> >>> current flow I described work?  The function bw_calcs() dce_calcs.c
-> >>> already calculates the all_displays_in_sync flag using the helper
-> >>> all_displays_in_sync().  Is all_displays_in_sync() not checking
-> >>> something properly or is the overall call timing wrong such that
-> >>> all_displays_in_sync() can't properly calculate whether all of the
-> >>> displays are synced at the point that it gets called?
-> >>>
-> >>> Alex
-> >>>
-> >>
-> >> I think this could be limited to DCE 6,8,10 rather than DCE < 12 as in=
- these
-> >> cases DC uses dce100_validate_bandwdith() which doesn't call bw_calcs(=
-) and
-> >> dce_pplib_apply_display_requirements() in dce_clk_mgr.c so
-> >> pp_display_cfg->all_displays_in_sync is unset.
-> >
-> > How about adding bw_calcs() to dce100_validate_bandwdith()?  Or if
-> > there are issues there, just add the all_displays_in_sync() checks to
-> > dce100_validate_bandwdith().
-> >
-> > Alex
-> >
->
-> bw_calcs() itself cannot be called in dce100_validate_bandwidth() because
-> bw_calcs_init() only initializes dc->bw_dceip and dc->bw_vbios on DCE
-> 11.0, 11.2, and 12.0.
->
-> However, adding the all_displays_in_sync check directly to
-> dce100_validate_bandwidth() (which is shared by DCE 6, 8, and 10) and
-> copying context->bw_ctx.bw.dce.all_displays_in_sync to
-> pp_display_cfg->all_displays_in_sync in
-> dce_pplib_apply_display_requirements() works. Is this solution preferable=
-?
+mode_config.mutex protects connector->modes, but amdgpu_dm walks it from
+atomic_check, in create_stream_for_sink() and
+amdgpu_dm_get_highest_refresh_rate_mode(), without that mutex.
+atomic_check can't take the mutex because of lock ordering. An earlier
+patch I submitted moved the probe helper's sort under the modeset locks
+so this walk couldn't race it, and Ville pointed out that the bug is in
+the reader:
+https://lore.kernel.org/r/auh8pUx_kXUYSdZ8@intel.com
 
-Yes, this looks great.  Thanks for reworking it.
+atomic_check only needs the preferred mode and the highest refresh rate
+mode. This series copies both at the end of each probe, under
+mode_config.mutex and connection_mutex, and atomic_check reads the
+copies under connection_mutex. The highest refresh rate copy is the mode
+add_fs_modes() built the FreeSync video modes from, as upstream's cached
+freesync_vid_base is. It's done this way because a search of
+connector->modes at the end of the probe could pick a command line mode
+with a higher refresh rate, and amdgpu_dm_is_freesync_video_mode() would
+then reject the video modes
 
-Alex
+The copies also need work to stay current after a monitor swap. Until
+the next probe they still describe the previous monitor, as
+connector->modes could, and two paths read them before that probe.
+mode_valid runs before the probe refreshes them, and after a swap the
+HPD handlers commit before the next probe. Patch 3 has mode_valid
+validate each mode with its own timing, so it no longer needs the
+preferred mode. Patch 4 records the EDID of the sink the copies came
+from, and patch 7 uses them only for a sink with that EDID. atomic_check
+checks them against the sink of the stream it builds, since a hotplug
+can swap dc_sink under it. With another sink, atomic_check uses the
+requested mode's own timing until the next probe, as before the first
+probe
 
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c =
-b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-> @@ -320,6 +320,9 @@ static void dce_pplib_apply_display_requirements(
->  {
->         struct dm_pp_display_configuration *pp_display_cfg =3D &context->=
-pp_display_cfg;
->
-> +       pp_display_cfg->all_displays_in_sync =3D
-> +               context->bw_ctx.bw.dce.all_displays_in_sync;
-> +
->         dce110_fill_display_configs(context, pp_display_cfg);
->
->         if (memcmp(&dc->current_state->pp_display_cfg, pp_display_cfg, si=
-zeof(*pp_display_cfg)) !=3D  0)
-> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resour=
-ce.c b/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c
-> --- a/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c
-> @@ -692,6 +692,14 @@ enum dc_status dce100_validate_bandwidth(
->                 /* TODO implement when needed but for now hardcode max va=
-lue*/
->                 context->bw_ctx.bw.dce.dispclk_khz =3D 681000;
->                 context->bw_ctx.bw.dce.yclk_khz =3D 250000 * MEMORY_TYPE_=
-MULTIPLIER_CZ;
-> +               context->bw_ctx.bw.dce.all_displays_in_sync =3D context->=
-stream_count > 1;
-> +               for (i =3D 1; i < context->stream_count; i++) {
-> +                       if (!resource_are_streams_timing_synchronizable(
-> +                                   context->streams[0], context->streams=
-[i])) {
-> +                               context->bw_ctx.bw.dce.all_displays_in_sy=
-nc =3D false;
-> +                               break;
-> +                       }
-> +               }
->         } else {
->                 /* On DCE 6.0 and 6.4 the PLL0 is both the display engine=
- clock and
->                  * the DP clock, and shouldn't be turned off. Just select=
- the display
-> @@ -703,6 +711,7 @@ enum dc_status dce100_validate_bandwidth(
->                         context->bw_ctx.bw.dce.dispclk_khz =3D 0;
->
->                 context->bw_ctx.bw.dce.yclk_khz =3D 0;
-> +               context->bw_ctx.bw.dce.all_displays_in_sync =3D false;
->         }
->
->         return DC_OK;
->
-> Richard
->
-> >>
-> >> Richard
-> >>
-> >>>>
-> >>>> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_m=
-gr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-> >>>> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-> >>>> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-> >>>> @@ -31,6 +31,7 @@
-> >>>>  #include "dmcu.h"
-> >>>>  #include "core_types.h"
-> >>>>  #include "dal_asic_id.h"
-> >>>> +#include "resource.h"
-> >>>>
-> >>>>  /*
-> >>>>   * Currently the register shifts and masks in this file are used fo=
-r dce100 and dce80
-> >>>> @@ -319,8 +320,17 @@ static void dce_pplib_apply_display_requirement=
-s(
-> >>>>         struct dc_state *context)
-> >>>>  {
-> >>>>         struct dm_pp_display_configuration *pp_display_cfg =3D &cont=
-ext->pp_display_cfg;
-> >>>> +       int j;
-> >>>>
-> >>>>         dce110_fill_display_configs(context, pp_display_cfg);
-> >>>> +       pp_display_cfg->all_displays_in_sync =3D pp_display_cfg->dis=
-play_count > 1;
-> >>>> +       for (j =3D 1; j < context->stream_count; j++) {
-> >>>> +               if (!resource_are_streams_timing_synchronizable(
-> >>>> +                           context->streams[0], context->streams[j]=
-)) {
-> >>>> +                       pp_display_cfg->all_displays_in_sync =3D fal=
-se;
-> >>>> +                       break;
-> >>>> +               }
-> >>>> +       }
-> >>>>
-> >>>>         if (memcmp(&dc->current_state->pp_display_cfg, pp_display_cf=
-g, sizeof(*pp_display_cfg)) !=3D  0)
-> >>>>                 dm_pp_apply_display_requirements(dc->ctx, pp_display=
-_cfg);
-> >>>>
-> >>>> Richard
-> >>>>
-> >>>>>
-> >>>>>> Signed-off-by: Richard Lane <richardlanedev@gmail.com>
-> >>>>>> ---
-> >>>>>>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 ++++++++++
-> >>>>>>  1 file changed, 10 insertions(+)
-> >>>>>>
-> >>>>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/d=
-rivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> >>>>>> index 74cd88d8d580..b4531383437e 100644
-> >>>>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> >>>>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> >>>>>> @@ -4777,6 +4777,16 @@ static void amdgpu_dm_commit_streams(struct=
- drm_atomic_commit *state,
-> >>>>>>         dc_exit_ips_for_hw_access(dm->dc);
-> >>>>>>         WARN_ON(!dc_commit_streams(dm->dc, &params));
-> >>>>>>
-> >>>>>> +       if (params.stream_count > 1 &&
-> >>>>>> +           dm->dc->current_state->stream_status[0].timing_sync_in=
-fo.group_size =3D=3D
-> >>>>>> +           params.stream_count) {
-> >>>>>> +               struct dm_pp_display_configuration *pp_cfg =3D
-> >>>>>> +                       &dm->dc->current_state->pp_display_cfg;
-> >>>>>> +
-> >>>>>> +               pp_cfg->all_displays_in_sync =3D true;
-> >>>>>> +               dm_pp_apply_display_requirements(dm->dc->ctx, pp_c=
-fg);
-> >>>>>> +       }
-> >>>>>> +
-> >>>>>>         bool frl_stream_found =3D false;
-> >>>>>>
-> >>>>>>         for (i =3D 0; i < params.stream_count; i++) {
-> >>>>>> --
-> >>>>>> 2.55.0
-> >>>>
-> >>
->
+Patch 1 drops a debug check that walked probed_modes and
+connector->modes from atomic_check, and asks its author below the cut
+whether to keep it behind mutex_trylock() instead. Patch 2 stops
+add_fs_modes() matching against connector->modes, which dropped the
+FreeSync video modes on every second probe. Patch 4 adds the copies,
+patches 5 and 6 pass the sink of the stream being built to the code that
+checks them, patch 7 switches the readers to them, and patch 8 adds
+tests for the copies
+
+Patch 6 also changes one behaviour, only with amdgpu.freesync_video=1,
+which is off by default. A CRTC turned on straight into a FreeSync video
+mode now gets its fixed refresh config, which it never got before
+
+---
+Hugo Sales (8):
+      drm/amd/display: Drop the unadvertised mode check
+      drm/amd/display: Don't match FreeSync video modes against the last probe
+      drm/amd/display: Validate modes with their own timing
+      drm/amd/display: Copy the preferred and highest refresh modes after probe
+      drm/amd/display: Pass the sink to the FreeSync and stream timing helpers
+      drm/amd/display: Pick the FreeSync video config for the new stream's sink
+      drm/amd/display: Stop reading connector->modes from atomic_check
+      drm/amd/display: Add KUnit tests for the mode copies
+
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |   38 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h  |   23 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_connector.c    |  499 +++++---
+ .../amd/display/amdgpu_dm/amdgpu_dm_connector.h    |   13 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    |    2 +-
+ .../amdgpu_dm/tests/amdgpu_dm_connector_test.c     | 1209 +++++++++++++++++---
+ .../amd/display/amdgpu_dm/tests/amdgpu_dm_test.c   |  153 +++
+ 7 files changed, 1644 insertions(+), 293 deletions(-)
+---
+base-commit: 47df73aa49d1988c8f684b7caf8be6570e966844
+change-id: 20261104-amdgpu-modes-four-57aaed43ab18
+
+Best regards,
+--  
+Hugo Sales <hugo@hsal.es>
+
+
