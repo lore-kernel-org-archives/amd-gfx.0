@@ -2,69 +2,73 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 140C560A262A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EBC5606A897
 	for <amd-gfx@archiver.kernel.org>; Sat, 14 Nov 2026 03:04:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G8oTjNhs
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JrF83EEd
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D86B410E805;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DEE7C10EA20;
 	Sat, 14 Nov 2026 03:04:11 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3552810E6CD;
- Sat, 14 Nov 2026 03:04:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28B0510EA20;
+ Sat, 14 Nov 2026 03:04:06 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1DBDC434EF;
- Sat, 14 Nov 2026 03:04:05 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 0D4BE460E1;
+ Sat, 14 Nov 2026 03:04:06 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
  t=1794625445;
- b=oJ415dyJvaQJQ0oMtjGvshXU77mo2HPKPgMeha1SEubkdkpGylGIux4HsEOYlvZrbz8Q
- F/M0YEAepEQRYxqXaFBUYF/Zn7cy5upK/cLv9YKFmC+VDNLCZeCgfWrNZthYWh4YVkxsv
- vdksbyl4cuEdyTnmNm0keeBLQHzw8sV4LU9u3fNA+Massb5GNAEdf+1BoTGkaAthmkVC2
- 32pFnDiBP3Ep8Jn72k9SeXpRYBIuejH0sSx27a0A7nRdO8t6hX93yuxqXfdUJcetfP+ue
- vUqYMW9fZI9zzY5DSWI1/I5bV/1F3AxKF1TFD87dGsebpaxuzX2FUopx+VAFxQXqGfw==
+ b=voUpXNMxXJ8MKiQM29DMr2lZAuahqP0Dl5FdlG4QZ4UeXXCca8dC+hCH6xfR+rCpSglz
+ s6mWPkY67U0yh/9f/tK8YN+Zb0TjBUqMPDhy2vVCKwAxlSUC/zsglYjc5gJik2+zBEm/w
+ 7tDu8+p6y1VQeLy634mbuFGbgBQt+ZojKuQi6zchm5CWaw6HYFwo0ov28uCoPMCt9iqK2
+ c/M9bGm+IZlQW28iPogfov+6ASzjhV2nDGzrltpbOO9BrxMKRQjjrwsiYVdIyOiulzazP
+ UZbddKjTVsJs8hMpFS4TduGzoB0frGfdyriFz1ukg3wJ1eptEVfNdYk7GtazFkq2MMA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
  c=relaxed/relaxed; t=1794625445;
- h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
- Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
- X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=QRQ6jhuuGbUMu36aQLZ2j3AICCOEDZJSvrMJ4XyeIEk=;
- b=NRGxGeiApzMyRXtlXoGubCQKkFghOdSGcUbsoBpVxcV81PCBv9M9bBbW7pgBunWKhFu1
- uxKdV7X6kUGVqG1wRP1g2akwIo5QEu3peN46rq2M5j686fVhLw8TK9q9pUpUbgDHZkLOn
- V1YPVv/HU2OA645QxjNJZwpjeD8Hdj1pDJBDpKXaXIMQ/ZRmy4qCSdNPNXs26Dve8ALrQ
- lL+tpwJnj4TFkgyTkblf0PluSJZZL2PajyUFyl7XGuBY6epXGfj3qXqKlkMv4DjvTPGev
- bEEEez+WeQ2eKq78uYhKZ/sdroHczRyYKrDg4fkURuyg7FcmzKuO4yGCq8Um61r4JJQ==
+ h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+ Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+ Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+ X-Original-From:Reply-To;
+ bh=1GlpFML27/pY/JVGDctBaj5mCNNL5LllYLTiuyQTT90=;
+ b=0guAVv42sDKVjJU863ZnSHiGWvx1JvNgNGflACbKPflBniutXT+5TEXGAPNmDqt5tw+6
+ uLuqOiZD3mO6KNJgvnx88UWaMvQMebHGW5OIsFMTskc47Qf3RHpGfScaS08cC99Njbf12
+ jdf6ibOaCulqj/emKf20eSBUaB4SCy8v5C44yplv3i5cF5KvljGLShPLrucwIkHCW6Jc/
+ 9MHsbzL4RkpxBpxLXwKHie4uiXrktJ7AEzrJnuD9XaJbHFQGMjbNE7l4m8r2LxoRM5lV8
+ +H9cT4UPXEpfTzH4CL6mzyVb3rOCzs8ez0JEvVxU1xAU4eXfy9SUMPr8Ydv8R7j47fw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 55D911F000C7;
+ by smtp.kernel.org (Postfix) with ESMTPS id 3CCE71F000C5;
  Sat, 14 Nov 2026 03:04:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794625444;
- bh=QRQ6jhuuGbUMu36aQLZ2j3AICCOEDZJSvrMJ4XyeIEk=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=G8oTjNhsyPLarZgA+QHGKnGOY8TzKrFurRJk8/URdMU8DzOLM/BOLbNsJMou4h7jC
- uIolTegHa1McLIEIjynGcqibilPcxy1g18dH3jeYfFbDE/td2rtBVwVg3pCCVz9ii4
- BlCyqP3tZ0LIMaHcEJSyAUED9F9dnHeaeYmJjEUnCw3JvTtmxVdvTVn2qcVlvMdcTn
- hFURZUS+qe4hoxASjuTH5M81i/r7NmZWOQJlaTZJ+hd/6HmWZcfxfsZTlI3rw377/q
- 9MexdG0rSr9KN1U1ER8VVo4/7iaus7RqiQgvfwM5epzdT0VJJVGF+NmI0ebxT7Z6GY
- Rv6AuX3y1BpEA==
+ s=k20260515; t=1794625445;
+ bh=1GlpFML27/pY/JVGDctBaj5mCNNL5LllYLTiuyQTT90=;
+ h=From:Subject:Date:To:Cc:Reply-To;
+ b=JrF83EEdL+47n4ZeWFjA9VkL6AzMkoHp2G3nqY0JkuHZVBv/SYgQhjDSWpZ2XvR2f
+ ukg6f8X0w3pO1lmadJfN8Uo6vRgQ8pEC08DoH74wtsgeIA7KQ3k0GTFCukyjxWUqe6
+ pVIHizXu1g7A+HdCqHzx7+AJceYXEmAGKDZc06r9pLMuOSxP4EMl+0SFbyEVlOKckK
+ dmtJLPlttH6qvlWOwDq0ux0daRJ1N+w25FhdE8bRSIVxrj2pIHO8r+5Xr8OuACyoHQ
+ cLaR+9GsMj/GZsNwGJP9SbhV0pURo04FuW3+zcnGbeTT/pax0gRocJSbjOXPeQHUpy
+ Vx95UdFih961A==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id D177C49C59;
+ by lkml.kernel.org (Postfix) with ESMTP id 8F62F49C51;
  Sat, 14 Nov 2026 03:04:02 +0000 (UTC)
 From: Joshua Horne via B4 Relay <devnull+hornejd.etsu.edu@kernel.org>
-Date: Fri, 13 Nov 2026 22:03:23 -0500
-Subject: [PATCH 3/5] drm/amd/pm: show the smu8 overdrive sclk table
+Subject: [PATCH 0/5] drm/amd/pm: overdrive support for smu8
+ (Carrizo/Stoney)
+Date: Fri, 13 Nov 2026 22:03:20 -0500
+Message-Id: <20261113-smu8-overdrive-v1-0-763f07bdfca9@etsu.edu>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261113-smu8-overdrive-v1-3-763f07bdfca9@etsu.edu>
-References: <20261113-smu8-overdrive-v1-0-763f07bdfca9@etsu.edu>
-In-Reply-To: <20261113-smu8-overdrive-v1-0-763f07bdfca9@etsu.edu>
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMyw5AMBBA0V+RWWui9YxfEQt0MBKPzNBIxL8rl
+ mdx7wWCTChQBhcwOhJaFw8dBtCNzTKgIusNJjKZ1jpWMh+FWh2yZXKoEhMVTZynmU1z8NHG2NP
+ 5Dav6txzthN3+XuC+H+jsCk5yAAAA
+X-Change-ID: 20261113-smu8-overdrive-4208a3756d57
 To: Alex Deucher <alexander.deucher@amd.com>, 
  Kenneth Feng <kenneth.feng@amd.com>
 Cc: =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
@@ -74,17 +78,16 @@ Cc: =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Joshua Horne <hornejd@etsu.edu>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794625442; l=6141;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794625442; l=5296;
  i=hornejd@etsu.edu; s=20261109; h=from:subject:message-id;
- bh=jolYBmpiIvhINecVVNWDP81ZRRE4q6CH+InU4Wc4WYY=;
- b=Dta1yBLXAjTOSQf1jb9TZZew9rEdXBE5Khn5qqosSASdvxDQQcVPACWTgNVVbhzOMMUTy4C03
- J+RzHYq0tCEDgJ1VrgdtiHi+Rb+BrCCy8i1cP7m+IRxKM9CmdLL38E5
+ bh=UmzgubFBLP6539vRVkzEZqGVqJryr/hyW7Lruy4yeJw=;
+ b=25jx8jTt8TZh94C7d7nTQp+P8nwK9RKBuh+tnFbae1ksCnYRA3EbatHIKIhNOvNw5o76tHNF+
+ 9Js24YNygOCDVxC5hxD3N60tx5rFhhALMBKCFIP3NfvYq5ynxM4/6MF
 X-Developer-Key: i=hornejd@etsu.edu; a=ed25519;
  pk=HNOtiwerBbrJhfhzLHLxj3GDsUH9udRXflqnaI8sQmQ=
 X-Endpoint-Received: by B4 Relay for hornejd@etsu.edu/20261109 with
  auth_id=1469
 X-Original-From: Joshua Horne <hornejd@etsu.edu>
-Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,177 +99,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Reply-To: hornejd@etsu.edu
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Joshua Horne <hornejd@etsu.edu>
+This series implements pp_od_clk_voltage for the smu8 backend, so the
+graphics DPM levels of Carrizo and Stoney can be underclocked and
+undervolted, or overclocked where the VBIOS declares an overdrive
+limit. It uses the smu7 format and stays behind PP_OVERDRIVE_MASK.
 
-Carrizo and Stoney upload up to eight graphics DPM levels to the SMU,
-each with an engine clock, a VDDGFX voltage (GfxVid) and an NB voltage
-(GnbVid) from the VBIOS dependency tables.
+Patch 1 fixes a stock bug I ran into along the way and does not depend
+on the rest: the boot clock is below the lowest graphics level on this
+VBIOS, so SetSclkSoftMax is sent 0xffffffff each time DPM is started,
+which includes every driver load. It can be applied on its own.
 
-Prepare overdrive support for them in the pp_od_clk_voltage format of
-smu7: keep the VBIOS levels and the user's edits in struct
-phm_odn_clock_levels as smu7 does, and print the edits as OD_SCLK and
-the allowed ranges as OD_RANGE. Only the levels that the SMU enables
-(PPSMC_MSG_GetMaxSclkLevel) are used, as the VBIOS table can list
-levels above the fused maximum of the part.
+A few things the diff does not show:
 
-The engine clock may range from the lowest level up to the overdrive
-limit of the VBIOS. Without a limit, the highest enabled level is used,
-so only underclocking is possible, as smu7 and vega10 do since
-commit 46defdd6fff7 ("drm/amd/pp: Allow underclocking when od table is
-empty in vbios"). The voltage is limited to the range the VBIOS uses
-for these levels and kept in mV as on smu7 and vega10, converted from
-the VID with convert_to_vddc().
+- The voltage is GfxVid, which drives the separate VDDGFX rail (SVI1 in
+  the BKDGs for family 15h models 60h-6Fh and 70h-7Fh). GnbVid is not
+  touched, so the NB rail and the memory controller are unaffected. The
+  allowed range is the GfxVid range the VBIOS uses for the enabled
+  levels, so nothing can go above the highest stock graphics voltage,
+  and the hardware MinVid/MaxVid filter still applies.
 
-Overdrive stays disabled on these APUs until a later patch.
+- The new table is sent with ClkTableXferToSmu while DPM is running.
+  The SMU firmware accepts it, but the level it is in keeps its old
+  values until the SMU next enters that level. With the level forced,
+  the VDDGFX sensor still read the old voltage a second after the
+  commit, and the new one after a switch to another level and back
+  (the clock itself cannot be read back). In auto mode the switch
+  comes with the next level change; the driver does not force one.
+  smu7 sends SCLKDPM_FreezeLevel/UnfreezeLevel around its upload, but
+  those only keep the SMC from changing level while the driver
+  rewrites the table in SMC RAM. smu8 has no such messages, and its
+  table is transferred from a DRAM copy by a single message. Patch 5
+  documents this in the pp_od_clk_voltage kernel-doc section in
+  amdgpu_pm.c.
 
-Signed-off-by: Joshua Horne <hornejd@etsu.edu>
+Known limitations:
+
+- DCE 11 reads the sclk levels only once, in
+  bw_calcs_data_update_from_pplib() when the resource pool is created,
+  so after a large underclock its bandwidth calculations still assume
+  the VBIOS clocks. smu7 and vega10 overdrive behave the same way on
+  DCE 11.2 and DCE 12. A fix belongs in DC rather than in the
+  powerplay backends, so it is not part of this series.
+
+- Stoney is untested. It shares the code path and, per its BKDG, the
+  rail layout, but whether the clock table is accepted at runtime is up
+  to the SMU firmware, which ships with the system BIOS. Tested-by from
+  Stoney owners would be welcome.
+
+Testing was done on an A10-8700P (ASUS X555DA, VBIOS 113-C75100-028,
+SMU firmware 18.60.00), on 7.3.1 with amdgpu built from that tree plus
+these patches and "drm/amd/pm: send smu8 sclk level indices, not the
+level mask" (already applied). The series was then rebased onto
+amd-staging-drm-next without changes to the code and was not run again
+there. This VBIOS has no overdrive limit, so only underclocking and
+undervolting could be tested.
+
+- Voltage changes were checked with the VDDGFX current-VID sensor:
+  level 0 raised from 787 to 800 mV and level 7 lowered from 1187 mV
+  (1163 mV requested, rounded up to the next VID, 1168 mV), each
+  committed while the SMU sat on that level. The new value appeared on
+  the next entry into the level and not before.
+
+- A clock above the range, a voltage above the range and a table with
+  non-increasing clocks were rejected with -EINVAL, and "r" restored
+  the VBIOS levels.
+
+- S3 with level 0 committed at 300 MHz / 800 mV: right after resume,
+  before any level change, OD_SCLK still showed 800 mV and the VDDGFX
+  sensor read 800 mV.
+
+- On amd-staging-drm-next, each patch builds with clang W=1 without
+  new warnings, and the series adds no sparse or smatch warnings.
+  checkpatch --strict only reports the uint32_t and CamelCase
+  checks that follow the existing powerplay code.
+
+Two choices are left to whoever applies this:
+
+- Earlier APU overdrive support (Raven, Renoir, VanGogh) is
+  clock-only. The voltage control here stays within the GfxVid range
+  of the VBIOS levels; a clock-only version can be sent instead if
+  that is preferred.
+
+- Stoney is enabled without having been tested. Limiting the series to
+  CHIP_CARRIZO until someone tests it is a one-line change.
+
+I used an AI coding assistant (Claude Code) for this series. It wrote
+the code, the changelogs and a draft of this letter, and wrote and ran
+the build checks and test scripts. I reviewed the series, ran the tests
+on my hardware, and I am responsible for it.
+
 ---
- .../gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c    | 75 +++++++++++++++++++++-
- .../gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.h    |  7 ++
- 2 files changed, 81 insertions(+), 1 deletion(-)
+Joshua Horne (5):
+      drm/amd/pm: keep smu8 sclk level lookups within the table
+      drm/amd/pm: move smu8_populate_umdpstate_clocks() up
+      drm/amd/pm: show the smu8 overdrive sclk table
+      drm/amd/pm: allow editing the smu8 overdrive sclk table
+      drm/amd/pm: stop disabling overdrive on Carrizo and Stoney
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
-index 77ab96bae4b0..93a7e7e176f3 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
-@@ -1080,6 +1080,54 @@ static int smu8_apply_state_adjust_rules(struct pp_hwmgr *hwmgr,
- 	return 0;
- }
- 
-+static void smu8_init_od_settings(struct pp_hwmgr *hwmgr)
-+{
-+	struct smu8_hwmgr *data = hwmgr->backend;
-+	struct phm_clock_voltage_dependency_table *vddc_table =
-+				hwmgr->dyn_state.vddc_dependency_on_sclk;
-+	struct phm_clock_voltage_dependency_table *vdd_gfx_table =
-+				hwmgr->dyn_state.vdd_gfx_dependency_on_sclk;
-+	struct phm_odn_clock_levels *od = &data->od_default_sclk;
-+	struct amdgpu_device *adev = hwmgr->adev;
-+	uint32_t i, mv;
-+
-+	if (!vddc_table || !vdd_gfx_table || !vddc_table->count ||
-+	    vddc_table->count > ARRAY_SIZE(od->entries) ||
-+	    vdd_gfx_table->count != vddc_table->count) {
-+		dev_info(adev->dev,
-+			 "OverDrive not supported by the sclk tables\n");
-+		hwmgr->od_enabled = false;
-+		return;
-+	}
-+
-+	/*
-+	 * Only expose the levels that the SMU enables: the VBIOS table can
-+	 * list levels above the fused maximum of the part.
-+	 */
-+	od->num_of_pl = min(vddc_table->count, smu8_get_max_sclk_level(hwmgr));
-+	data->od_min_vddc = U32_MAX;
-+	data->od_max_vddc = 0;
-+	for (i = 0; i < od->num_of_pl; i++) {
-+		mv = convert_to_vddc((uint8_t)vdd_gfx_table->entries[i].v);
-+		od->entries[i].clock = vddc_table->entries[i].clk;
-+		od->entries[i].vddc = mv;
-+		od->entries[i].enabled = true;
-+		data->od_min_vddc = min(data->od_min_vddc, mv);
-+		data->od_max_vddc = max(data->od_max_vddc, mv);
-+	}
-+
-+	/*
-+	 * Without an overdrive limit in the VBIOS only allow underclocking,
-+	 * as smu7 and vega10 do. The voltages are limited to the range that
-+	 * the VBIOS uses for these levels.
-+	 */
-+	if (!hwmgr->platform_descriptor.overdriveLimit.engineClock)
-+		hwmgr->platform_descriptor.overdriveLimit.engineClock =
-+			od->entries[od->num_of_pl - 1].clock;
-+
-+	data->od_edit_sclk = *od;
-+}
-+
- static int smu8_hwmgr_backend_init(struct pp_hwmgr *hwmgr)
- {
- 	int result = 0;
-@@ -1107,6 +1155,9 @@ static int smu8_hwmgr_backend_init(struct pp_hwmgr *hwmgr)
- 
- 	hwmgr->platform_descriptor.hardwareActivityPerformanceLevels =  SMU8_MAX_HARDWARE_POWERLEVELS;
- 
-+	if (hwmgr->od_enabled)
-+		smu8_init_od_settings(hwmgr);
-+
- 	return result;
- }
- 
-@@ -1510,7 +1561,8 @@ static int smu8_emit_clock_levels(struct pp_hwmgr *hwmgr,
- 	struct smu8_hwmgr *data = hwmgr->backend;
- 	struct phm_clock_voltage_dependency_table *sclk_table =
- 			hwmgr->dyn_state.vddc_dependency_on_sclk;
--	uint32_t i, now;
-+	const struct phm_odn_clock_levels *od = &data->od_edit_sclk;
-+	uint32_t i, now, clk;
- 	int size = *offset;
- 
- 	switch (type) {
-@@ -1541,6 +1593,27 @@ static int smu8_emit_clock_levels(struct pp_hwmgr *hwmgr,
- 				(SMU8_NUM_NBPMEMORYCLOCK - i == now) ? "*" :
- 								       "");
- 		break;
-+	case OD_SCLK:
-+		if (!hwmgr->od_enabled)
-+			break;
-+		size += sysfs_emit_at(buf, size, "%s:\n", "OD_SCLK");
-+		for (i = 0; i < od->num_of_pl; i++)
-+			size += sysfs_emit_at(buf, size, "%u: %10uMHz %10umV\n",
-+					      i, od->entries[i].clock / 100,
-+					      od->entries[i].vddc);
-+		break;
-+	case OD_RANGE:
-+		if (!hwmgr->od_enabled)
-+			break;
-+		size += sysfs_emit_at(buf, size, "%s:\n", "OD_RANGE");
-+		clk = data->od_default_sclk.entries[0].clock;
-+		size += sysfs_emit_at(buf, size, "SCLK: %7uMHz", clk / 100);
-+		clk = hwmgr->platform_descriptor.overdriveLimit.engineClock;
-+		size += sysfs_emit_at(buf, size, " %10uMHz\n", clk / 100);
-+		/* VDDC is the graphics (VDDGFX) rail of these APUs */
-+		size += sysfs_emit_at(buf, size, "VDDC: %7umV %11umV\n",
-+				      data->od_min_vddc, data->od_max_vddc);
-+		break;
- 	default:
- 		break;
- 	}
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.h b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.h
-index 05a06083e1b8..490fcc352a8f 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.h
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.h
-@@ -25,6 +25,7 @@
- #define _SMU8_HWMGR_H_
- 
- #include "cgs_common.h"
-+#include "hardwaremanager.h"
- #include "ppatomctrl.h"
- 
- #define SMU8_NUM_NBPSTATES               4
-@@ -306,6 +307,12 @@ struct smu8_hwmgr {
- 
- 	uint32_t max_sclk_level;
- 	uint32_t num_of_clk_entries;
-+
-+	/* overdrive: the VBIOS levels, the user's edits, the VDDGFX range */
-+	struct phm_odn_clock_levels od_default_sclk;
-+	struct phm_odn_clock_levels od_edit_sclk;
-+	uint32_t od_min_vddc;		/* in mV */
-+	uint32_t od_max_vddc;		/* in mV */
- };
- 
- #endif /* _SMU8_HWMGR_H_ */
-
--- 
-2.56.0
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c                 |   6 +
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/hwmgr.c     |   1 -
+ .../gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c    | 319 ++++++++++++++++++++-
+ .../gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.h    |   8 +
+ 4 files changed, 319 insertions(+), 15 deletions(-)
+---
+base-commit: 47df73aa49d1988c8f684b7caf8be6570e966844
+change-id: 20261113-smu8-overdrive-4208a3756d57
 
 
