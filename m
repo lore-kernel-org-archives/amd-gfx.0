@@ -2,49 +2,96 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD73B606A31C
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 09:28:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE705606A323
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 09:29:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=odi2wuKZ
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=3pquZVZA
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5A2810EEC2;
-	Mon, 16 Nov 2026 09:28:47 +0000 (UTC)
-Received: from mta1.migadu.com (out-168.mta1.migadu.com [95.215.58.168])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 468AF10E988
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Nov 2026 07:42:02 +0000 (UTC)
-X-Envelope-To: amd-gfx@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=J6P+SDzlyU/fh2AKrJ8vgmbOJ1hL9+YmuQ0XsXd3yOI=; 
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794814921; v=1; x=1795419721;
- b=odi2wuKZTXuKzYdJTex+ea0nKIfiWg0ZIclUp83TN0GKyWzT1BaZCxQC4HJiQUhv1foVpQzd
- nkgA+nWAqLRi+uWi6tVIysi9oPDG17Iswz0/RgNIXH+FQRGxHUdDTOLev8UwU1oEQMGYooZqc6z
- bS6gItE872IEAHvUHBaQ5PrY=
-X-Envelope-To: amd-gfx@lists.freedesktop.org
-Received: by smtp.migadu.com with ESMTPS id 0e17c37dcd4d9ef9;
- Mon, 16 Nov 2026 07:42:01 +0000
-X-Mizu-Trace-ID: 0e17c37dcd4d9ef9
-X-Migadu-Flow: FLOW_OUT
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5903F10EECB;
+	Mon, 16 Nov 2026 09:28:59 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3C2110E304;
+ Sat, 14 Nov 2026 20:27:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
+ :Reply-To:Content-Type:Content-ID:Content-Description;
+ bh=tmHKbAmxa6ArfnJ6gJ4VyhMIyEYWb9jJaJtmM71QRoI=; b=3pquZVZA3xXfR1zKOlsLTgQewp
+ 6L3A4hmklS6cWuQPp4vAHrmMD+Mf6hZ0D8rnZbmBsOrP8+4UCu4Huopqs8MjmolIxvH4Nn8xsEwqi
+ hYNi5bO70Ir/MQ7Q1kA6XJ/nZF9qVkFoKC+Kyv2GReF7FMI2bmVer0cXfw8GmQvuqFRC6m8s2g5ZC
+ XNUgHj8PkYG8nycQu1Uf58e2s4r3bcySyAZvAnY/VuzD6osLqgalvwYRXAOieEaS92e/WwFha3ew1
+ 2tpccHBaYigDGYD7BtDdwpyQhE2Wgi6476i7/URJGlnfEVH7+SZnD/IwI2SjPPV1U53zeFF0YrPTl
+ GfmH0flQ==;
+Received: from [50.53.43.113] (helo=bombadil.infradead.org)
+ by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+ id 1xSKLB-0000000Giga-0GrV; Sat, 14 Nov 2026 20:27:13 +0000
+From: Randy Dunlap <rdunlap@infradead.org>
+To: linux-kernel@vger.kernel.org
+Cc: Randy Dunlap <rdunlap@infradead.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org,
+ David Hildenbrand <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Jason Gunthorpe <jgg@nvidia.com>, Leon Romanovsky <leonro@nvidia.com>,
+ linux-mm@kvack.org, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org,
+ Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
+ Marcel Holtmann <marcel@holtmann.org>,
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+ linux-bluetooth@vger.kernel.org,
+ Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+ Jason Wang <jasowangio@gmail.com>, David Heidelberg <david@ixit.cz>,
+ oe-linux-nfc@lists.linux.dev, Chas Williams <3chas3@gmail.com>,
+ linux-atm-general@lists.sourceforge.net,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
+ Helge Deller <deller@gmx.de>, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, MPT-FusionLinux.pdl@broadcom.com,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K. Petersen" <mkp@kernel.org>, linux-scsi@vger.kernel.org,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
+ Zhihao Cheng <chengzhihao1@huawei.com>, linux-mtd@lists.infradead.org,
+ Neill Kapron <nkapron@google.com>, Andrey Konovalov <andreyknvl@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org, Hans de Goede <hansg@kernel.org>,
+ Arnd Bergmann <arnd@arndb.de>, "Michael S. Tsirkin" <mst@redhat.com>,
+ =?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+ Sean Christopherson <seanjc@google.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org,
+ virtualization@lists.linux.dev, Jan Kara <jack@suse.cz>,
+ linux-fsdevel@vger.kernel.org, "Theodore Ts'o" <tytso@mit.edu>,
+ linux-ext4@vger.kernel.org, Mike Marshall <hubcap@omnibond.com>,
+ devel@lists.orangefs.org, Paulo Alcantara <pc@manguebit.org>,
+ Namjae Jeon <linkinjeon@kernel.org>, linux-cifs@vger.kernel.org,
+ Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>,
+ linux-f2fs-devel@lists.sourceforge.net,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ Tzung-Bi Shih <tzungbi@kernel.org>, Benson Leung <bleung@chromium.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, intel-gfx@lists.freedesktop.org,
+ Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ intel-xe@lists.freedesktop.org
+Subject: [PATCH 08/12] docs: ioctl-number: update USB entries
+Date: Sat, 14 Nov 2026 12:26:46 -0800
+Message-ID: <20261114202653.3113381-9-rdunlap@infradead.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261114202653.3113381-1-rdunlap@infradead.org>
+References: <20261114202653.3113381-1-rdunlap@infradead.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Date: Mon, 16 Nov 2026 07:42:00 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: "Jackie Liu" <liu.yun@linux.dev>
-Message-ID: <eecbc1d7670554d2c11273331b6af9855d58d79d@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH] drm/amd/display: Fix logger leak on perf trace
- allocation failure
-To: "Markus Elfring" <Markus.Elfring@web.de>, "Jackie Liu"
- <liuyun01@kylinos.cn>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, "Alex Deucher"
- <alexander.deucher@amd.com>, "=?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?="
- <christian.koenig@amd.com>, "Harry Wentland" <harry.wentland@amd.com>,
- "Leo Li" <sunpeng.li@amd.com>, "Wayne Lin" <Wayne.Lin@amd.com>
-Cc: "LKML" <linux-kernel@vger.kernel.org>
-In-Reply-To: <ae04eef3-ec99-4728-be84-8a71e16c0b4e@web.de>
-References: <20261026111047.97178-1-liu.yun@linux.dev>
- <ae04eef3-ec99-4728-be84-8a71e16c0b4e@web.de>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 16 Nov 2026 09:28:41 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -56,56 +103,51 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-2026=E5=B9=B411=E6=9C=8816=E6=97=A5 14:57, "Markus Elfring" <Markus.Elfri=
-ng@web.de mailto:Markus.Elfring@web.de?to=3D%22Markus%20Elfring%22%20%3CM=
-arkus.Elfring%40web.de%3E > =E5=86=99=E5=88=B0:
+Update the list of files where USB ioctls are defined.
 
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+---
+[Since having multiple maintainers trying to merge these would
+cause some conflicts, it would be more manageable for Jon to
+take all of these through the docs-next tree.]
 
->=20
->=20=E2=80=A6
->=20
->=20>=20
->=20> Free the logger before discarding dc_ctx and clear dc->dml.logger t=
-o avoid
-> >  leaving a dangling alias after the failed construction.
-> >=20
->=20Would there be a need to complete the exception handling also after a=
- failed
-> link_create_link_service() call in the implementation of the function =
-=E2=80=9Cdc_construct_ctx=E2=80=9D?
-> https://elixir.bootlin.com/linux/v7.4-rc1/source/drivers/gpu/drm/amd/di=
-splay/dc/core/dc.c#L990-L1037
+Cc: Jonathan Corbet <corbet@lwn.net>
+Cc: Shuah Khan <skhan@linuxfoundation.org>
+Cc: linux-doc@vger.kernel.org
+Cc: Neill Kapron <nkapron@google.com>
+Cc: Andrey Konovalov <andreyknvl@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org
 
-Hi Markus,
+ Documentation/userspace-api/ioctl/ioctl-number.rst |    6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Thanks for taking a look.
-
-The link_create_link_service() failure is already covered by the
-caller's cleanup. dc->ctx is assigned before that call. On failure,
-both the normal and virtual hardware paths reach the destruct_dc
-label in dc_create(), where dc_destruct() releases the logger,
-perf_trace, and context.
-
-The perf_trace allocation failure happens before dc->ctx is assigned,
-so dc_destruct() cannot reach the logger in that case. That is the
-leak this patch addresses.
-
-Using common cleanup labels for the early failure paths would be a
-reasonable separate cleanup. For this stable-targeted fix, I would
-prefer to keep the change limited to the missing logger cleanup.
-
-Best regards,
-Jackie
-
->=20
->=20How do you think about to avoid duplicate source code another bit?
->=20
->=20Regards,
-> Markus
->
+--- linux-next-20261111.orig/Documentation/userspace-api/ioctl/ioctl-number.rst
++++ linux-next-20261111/Documentation/userspace-api/ioctl/ioctl-number.rst
+@@ -234,6 +234,9 @@ Code  Seq#    Include File
+ 'U'   00-EF  linux/usbdevice_fs.h
+ 'U'   C0-CF  drivers/bluetooth/hci_uart.h
+ 'U'   00     net/nfc/nci_core.h                                        conflict!
++'U'   00-0F  linux/usb/raw_gadget.h                                    conflict!
++'U'   01     linux/usb/g_uvc.h                                         conflict!
++'U'   64     drivers/usb/misc/usbtest.c                                conflict!
+ 'V'   all    linux/vt.h                                                conflict!
+ 'V'   all    linux/videodev2.h                                         conflict!
+ 'V'   C0     linux/ivtvfb.h                                            conflict!
+@@ -280,6 +283,9 @@ Code  Seq#    Include File
+ 'g'   20-2F  linux/usb/g_printer.h
+ 'g'   01-0F  mm/gup_test.h                                             conflict!
+                                                                        <mailto:linux-mm@kvack.org>
++'g'   01-03  linux/usb/functionfs.h                                    conflict!
++      80-86
++'g'   41-42  linux/usb/g_hid.h
+ 'h'   00-7F                                                            conflict! Charon filesystem
+                                                                        <mailto:zapman@interlan.net>
+ 'h'   00-1F  linux/hpet.h                                              conflict!
