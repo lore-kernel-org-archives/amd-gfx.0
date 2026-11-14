@@ -2,30 +2,30 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2B28606A323
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 09:28:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4260F606A31C
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 09:28:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=wKQjtRiF
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=XDIhocjh
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE56210EEB7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9346210EEAA;
 	Mon, 16 Nov 2026 09:28:42 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DB7110E05E;
- Sat, 14 Nov 2026 20:27:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 707AD10E8D6;
+ Sat, 14 Nov 2026 20:27:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
- :Reply-To:Content-Type:Content-ID:Content-Description;
- bh=agUQr/AxBpqR/yoTMSgCDqpX2NxV6QO4XNqgDEsecWM=; b=wKQjtRiFnFlUm+odGRkSre2RML
- kUbFmePzfrRwfhs83dMhMRZrv/ciIAAPcjOtKw/5hdld85CdWM4AxdrdTgsD880DWDNdXmFuFIErS
- 0IMkezq8UeG9DkfgVsC5G5kkBgJvDEZz7G+EHy0RW0Lzv7Qd/nCZaf6v+cXrkPJkx3GLNPvuSwDBa
- 7XAdBzY1kcvZjJJtEBYz7HmZpeD7KWVbRyAC3J6vng0QRm/e0NV7tKqBDqVCSfsHg211Qio6A8wik
- gKq8tpH8joqM/xI+N5OezTWpFykZVnxctwGt4ZFbDae9ou4ACwTgcy//9967ywPfn/XG6456ddH+F
- mi0BZo+A==;
+ Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:
+ To:From:Sender:Reply-To:Content-ID:Content-Description;
+ bh=/GQ2kS4zUGO1VrRdCGc0i8jbBEMqqC1y2L0YsldwfFs=; b=XDIhocjhPJkOxDtRKRtKBhtH4K
+ d5+pqDbw+uhdymgukoin8yZ+SIycM+3Zy0tlygo/Ahh9V2dUz8am7v5F+s+OiHgrg8Z6MoFGWEnEj
+ F4En8Ab/mKUEIWPb+cNtmXyElhpAnx+TnO9Im2Eow2i+nqiNosKxRAi1SQbReU5LZrPynT4dcY8Lk
+ Thib/6BgIqJzI+6K/y8KD4ybDW6vSBxsArbMvKkNi/HLSIt3390x02r1bfV35x51xAJlxCNHKoU7C
+ Jcj7OJXmK4/hTJJRDAEHa7wka2ef1B/GfVa9DURHrADxvENRQDnmIT2OgPVAh7qGGcJ3nZksJ2bDP
+ bS0oBuOg==;
 Received: from [50.53.43.113] (helo=bombadil.infradead.org)
  by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
- id 1xSKKv-0000000Giga-2gx2; Sat, 14 Nov 2026 20:26:57 +0000
+ id 1xSKLM-0000000Giga-33TB; Sat, 14 Nov 2026 20:27:26 +0000
 From: Randy Dunlap <rdunlap@infradead.org>
 To: linux-kernel@vger.kernel.org
 Cc: Randy Dunlap <rdunlap@infradead.org>, Jonathan Corbet <corbet@lwn.net>,
@@ -83,14 +83,15 @@ Cc: Randy Dunlap <rdunlap@infradead.org>, Jonathan Corbet <corbet@lwn.net>,
  Matthew Brost <matthew.brost@intel.com>,
  =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
  intel-xe@lists.freedesktop.org
-Subject: [PATCH 01/12] docs: ioctl-number: update MM entries
-Date: Sat, 14 Nov 2026 12:26:39 -0800
-Message-ID: <20261114202653.3113381-2-rdunlap@infradead.org>
+Subject: [PATCH 12/12] docs: ioctl-number: update DRM entries
+Date: Sat, 14 Nov 2026 12:26:50 -0800
+Message-ID: <20261114202653.3113381-13-rdunlap@infradead.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261114202653.3113381-1-rdunlap@infradead.org>
 References: <20261114202653.3113381-1-rdunlap@infradead.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 16 Nov 2026 09:28:41 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -110,7 +111,7 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add ioctl number entries for test_hmm_uapi and gup_test.
+Update the list of files where DRM ioctls are defined.
 
 Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
 ---
@@ -121,32 +122,49 @@ take all of these through the docs-next tree.]
 Cc: Jonathan Corbet <corbet@lwn.net>
 Cc: Shuah Khan <skhan@linuxfoundation.org>
 Cc: linux-doc@vger.kernel.org
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: Jason Gunthorpe <jgg@nvidia.com>
-Cc: Leon Romanovsky <leonro@nvidia.com>
-Cc: linux-mm@kvack.org
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: intel-gfx@lists.freedesktop.org
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: intel-xe@lists.freedesktop.org
 
- Documentation/userspace-api/ioctl/ioctl-number.rst |    4 ++++
- 1 file changed, 4 insertions(+)
+ Documentation/userspace-api/ioctl/ioctl-number.rst |    5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
---- linux-next-20261111.orig/Documentation/userspace-api/ioctl/ioctl-number.rst
-+++ linux-next-20261111/Documentation/userspace-api/ioctl/ioctl-number.rst
-@@ -147,6 +147,8 @@ Code  Seq#    Include File
- 'G'   00-0F  xen/gntalloc.h, xen/gntdev.h                              conflict!
- 'H'   00-7F  linux/hiddev.h                                            conflict!
- 'H'   00-0F  linux/hidraw.h                                            conflict!
-+'H'   00-0F  lib/test_hmm_uapi.h                                       conflict!
-+                                                                       <mailto:linux-mm@kvack.org>
- 'H'   01     linux/mei.h                                               conflict!
- 'H'   02     linux/mei.h                                               conflict!
- 'H'   03     linux/mei.h                                               conflict!
-@@ -252,6 +254,8 @@ Code  Seq#    Include File
- 'f'   81-8F  linux/fsverity.h
- 'g'   00-0F  linux/usb/gadgetfs.h
- 'g'   20-2F  linux/usb/g_printer.h
-+'g'   01-0F  mm/gup_test.h                                             conflict!
-+                                                                       <mailto:linux-mm@kvack.org>
- 'h'   00-7F                                                            conflict! Charon filesystem
+--- linux-next-20261113.orig/Documentation/userspace-api/ioctl/ioctl-number.rst
++++ linux-next-20261113/Documentation/userspace-api/ioctl/ioctl-number.rst
+@@ -98,6 +98,7 @@ Code  Seq#    Include File
+ 0x1b  all                                                              InfiniBand Subsystem
+                                                                        <http://infiniband.sourceforge.net/>
+ 0x20  all    drivers/cdrom/cm206.h
++0x20  00-01  drivers/gpu/drm/amd/amdgpu/amdgpu_umr.h
+ 0x22  all    scsi/sg.h
+ 0x3E  00-0F  linux/counter.h                                           <mailto:linux-iio@vger.kernel.org>
+ '!'   00-1F  uapi/linux/seccomp.h
+@@ -269,7 +270,7 @@ Code  Seq#    Include File
+ 'c'   08     drivers/scsi/ch.c                                         conflict!
+ 'c'   80-9F  arch/s390/include/asm/chsc.h                              conflict!
+ 'c'   A0-AF  arch/x86/include/asm/msr.h conflict!
+-'d'   00-FF  linux/char/drm/drm.h                                      conflict!
++'d'   00-FF  drm/drm.h                                                 conflict!
+ 'd'   02-40  pcmcia/ds.h                                               conflict!
+ 'd'   F0-FF  linux/digi1.h
+ 'e'   all    linux/digi1.h                                             conflict!
+@@ -293,6 +294,8 @@ Code  Seq#    Include File
                                                                         <mailto:zapman@interlan.net>
  'h'   00-1F  linux/hpet.h                                              conflict!
+ 'h'   80-8F  fs/hfsplus/ioctl.c
++'i'   00-02  drm/i915_drm.h
++'i'   00-04  drm/xe_drm.h
+ 'i'   00-3F  linux/i2o-dev.h                                           conflict!
+ 'i'   0B-1F  linux/ipmi.h                                              conflict!
+ 'i'   80-8F  linux/i8k.h
