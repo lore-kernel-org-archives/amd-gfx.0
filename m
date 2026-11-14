@@ -2,75 +2,93 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0E8C606A32C
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 09:29:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25F99606A32A
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 09:29:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UkJPpQpa
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=0gISktcF
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56A6310EEDE;
-	Mon, 16 Nov 2026 09:29:05 +0000 (UTC)
-Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com
- [209.85.210.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44C7A10E4CC
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Nov 2026 00:14:48 +0000 (UTC)
-Received: by mail-ot1-f41.google.com with SMTP id
- 46e09a7af769-8629ef8613aso543627a34.3
- for <amd-gfx@lists.freedesktop.org>; Sun, 15 Nov 2026 16:14:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794788087; x=1795392887; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=hajHB6HzF67vIT/RkiyTzXzkwKgwGw3/XSrXRBWaGzk=;
- b=UkJPpQpaBqy2R6xncTaK53bYzBk8v5tnKQc+iPtG3LWQzB7Ke4rpqp5AIY88q2QBXB
- DOJNKZEkgvS35Fc/I+oOyey7Mpbq5DAexeWfV3LhM0hjXLzFrql/hChAf0/5TnBv9A+T
- vy5Oo8EMl5wKK4pharm6vJTFf3UbbH3CqY72qwpDgvZE+SalwC+TEDxXCKYJrBgElENS
- J5/i5ZzDLwwq+UXpXEva6MNsMVwodnOKSi47FbtTesLC533r1HkFuQ3ETuHRnp6X/cII
- Ua6PAyAA24pjRxLdha7bNyR3feNNWVECwsHj9gXIHQBasK8IHvUVVry9Uzl7/mk9O8Fo
- TDhQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794788087; x=1795392887;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=hajHB6HzF67vIT/RkiyTzXzkwKgwGw3/XSrXRBWaGzk=;
- b=eww/Q4QHljssf5ES62soVjKb4YvjyOoc9DJYB2xRiAxZJ6YZEB1Ajpdq2pGzcUCbHy
- m1pKuA+vrl5m6Ojke5ieqfw4xUuFO+4hFSZy9+jxsQ1Kte79W4poPwJg2nob01y75/XR
- hy9d0Ucca9WYbVvndaHyluQ7jgKNcfXKWfyQXItCRy+vbTGna9mGGCJubMFNrU6n5V2U
- N/ZpBIOM0RlhQFm0LTF8C5UiwQ9QsT5w004RRVcmpLeiR13ExiED6udsLVGsyTsS7CcS
- TvAz9Qp61f8kRQPL/+KIB9IrLyWNdwYfW0hRTl2JXrWA1/tEhV9Xqc5T1eeGn0ebCWrT
- oN5Q==
-X-Gm-Message-State: APuU4Z/kPRjm/GMzyIguTioomTX2R7enYPe3Z8L0ZbJmjziZjTew2c7R
- gBez2OEdfTpgOZEV48LdfzhKBTZJpCcmSnioetl8qO5xQrC4UXeVax7OTrgjrCV06PE=
-X-Gm-Gg: AYBFou306gz27kLfETJmb1hp2/ft1fgMjiM75Z6hc6em32Yq7lJJWhwl9KJQsBULOgC
- 0iq2rQsoAl3swVggQcfae3UpJBRYkwReBDf1vYzvkGEv0548rHUcb97a2YanUmnzOGB0AuKAUYO
- 613QTkLO5aOXeMSiPXwdolWoxZapTPKn+2+3a42AMJYkaQ4RapsZH8gYnKINSXudy3ufnLFKB2k
- LBDUmyV4V4oJHBOdMa34JAQqVWRai/saa2cQJn22drTbTwyDLmyApjPi6b1s8bGvSIo5roiWhpe
- ATFsTB/ZaT3bihcpv2fGF0qeGGbIVETKN3udF4JPeotmYpdFzJ71U2nzq6D6sU99pZmBgLJqnYX
- yGohU300B4uqiBxmSuBoVNeGeyFV/GIkB9mWq75wbza7Zxz+mgHWeo4hph5sUUm/Ordk3EV92fW
- usCcIlbeYS3UQPVo02h6mEYiFztSwiOxPPCaMKMvfSNQ1nTeyDV9ZNjWWBuTJFnMtDDOMwugeGW
- 9O4EOgZnc4HPaqmW5Nz4dm6MhumLXqPw7H1ynNPPZSte+oPTbxSgVJze4UQDDwsLe9dj8CsW5Wf
- TukWR6g+rAVCog+TAZBIDpPl1/d/1dkSxtW0aK3CQD478rIBsb0G3aK12jrP/09mvOkhqMgOYIr
- Dqg2Q0sPcXJ6lwCamTaVehkj9JCNLdPZ37YXqntj0n415
-X-Received: by 2002:a05:6808:2386:b0:567:dc9f:c83f with SMTP id
- 5614622812f47-56e642d3183mr8069796b6e.14.1794788086920; 
- Sun, 15 Nov 2026 16:14:46 -0800 (PST)
-Received: from desktop ([68.248.142.83]) by smtp.gmail.com with ESMTPSA id
- 5614622812f47-56e6dcfc483sm8495537b6e.1.2026.11.15.16.14.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 15 Nov 2026 16:14:46 -0800 (PST)
-From: Claudio Forain <claudioforain@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
- ray.wu@amd.com, alex.hung@amd.com, superm1@kernel.org, siqueira@igalia.com,
- dri-devel@lists.freedesktop.org, Claudio Forain <claudioforain@gmail.com>
-Subject: [PATCH v2] drm/amd/display: Disallow idle on cursor update during ISM
- hysteresis
-Date: Sun, 15 Nov 2026 18:11:51 -0600
-Message-ID: <20261116001151.28754-1-claudioforain@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD83E10EEE3;
+	Mon, 16 Nov 2026 09:29:07 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BD1010E14E;
+ Sat, 14 Nov 2026 20:27:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
+ :Reply-To:Content-Type:Content-ID:Content-Description;
+ bh=+R+vnOxGbR8669a/yApMPxumePGvUCvn6pAgbhYVxac=; b=0gISktcFQZ2GDvifsGTgS59sfG
+ kunWLZ6j4WJmZNWp5LEnszL22uc8vL2dWFu1RjmHgMxpq3+s81eoyyLyLRgh1JX2FCM+Ucnn9lnRu
+ xq+ifod2xjGTYMtSqx/mjXvo6gYeG0OBVZ6us5wFR8NWjXbd6svl7TtSia805oWzbC0wdA5XmtRPu
+ lz8VBaijPu8G+/iovTheAMz1DVmhcqpFoxT7ZD+ifolkPaCbDs4NZpe1KPhz7EbgIiGPKi0p7T/4P
+ 1yjmK74+koqPtH49egLTHRfkzHTFtjIwh9kMt2ZZP22JlvUwoK5invu82fEC7b4FzEmVSQtSLFnGI
+ XhkCvv7Q==;
+Received: from [50.53.43.113] (helo=bombadil.infradead.org)
+ by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+ id 1xSKL6-0000000Giga-3ShA; Sat, 14 Nov 2026 20:27:08 +0000
+From: Randy Dunlap <rdunlap@infradead.org>
+To: linux-kernel@vger.kernel.org
+Cc: Randy Dunlap <rdunlap@infradead.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org,
+ David Hildenbrand <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Jason Gunthorpe <jgg@nvidia.com>, Leon Romanovsky <leonro@nvidia.com>,
+ linux-mm@kvack.org, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org,
+ Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
+ Marcel Holtmann <marcel@holtmann.org>,
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+ linux-bluetooth@vger.kernel.org,
+ Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+ Jason Wang <jasowangio@gmail.com>, David Heidelberg <david@ixit.cz>,
+ oe-linux-nfc@lists.linux.dev, Chas Williams <3chas3@gmail.com>,
+ linux-atm-general@lists.sourceforge.net,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
+ Helge Deller <deller@gmx.de>, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, MPT-FusionLinux.pdl@broadcom.com,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K. Petersen" <mkp@kernel.org>, linux-scsi@vger.kernel.org,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
+ Zhihao Cheng <chengzhihao1@huawei.com>, linux-mtd@lists.infradead.org,
+ Neill Kapron <nkapron@google.com>, Andrey Konovalov <andreyknvl@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org, Hans de Goede <hansg@kernel.org>,
+ Arnd Bergmann <arnd@arndb.de>, "Michael S. Tsirkin" <mst@redhat.com>,
+ =?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+ Sean Christopherson <seanjc@google.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org,
+ virtualization@lists.linux.dev, Jan Kara <jack@suse.cz>,
+ linux-fsdevel@vger.kernel.org, "Theodore Ts'o" <tytso@mit.edu>,
+ linux-ext4@vger.kernel.org, Mike Marshall <hubcap@omnibond.com>,
+ devel@lists.orangefs.org, Paulo Alcantara <pc@manguebit.org>,
+ Namjae Jeon <linkinjeon@kernel.org>, linux-cifs@vger.kernel.org,
+ Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>,
+ linux-f2fs-devel@lists.sourceforge.net,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ Tzung-Bi Shih <tzungbi@kernel.org>, Benson Leung <bleung@chromium.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, intel-gfx@lists.freedesktop.org,
+ Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ intel-xe@lists.freedesktop.org
+Subject: [PATCH 06/12] docs: ioctl-number: update SCSI entries
+Date: Sat, 14 Nov 2026 12:26:44 -0800
+Message-ID: <20261114202653.3113381-7-rdunlap@infradead.org>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261109230147.16302-1-claudioforain@gmail.com>
-References: <20261109230147.16302-1-claudioforain@gmail.com>
+In-Reply-To: <20261114202653.3113381-1-rdunlap@infradead.org>
+References: <20261114202653.3113381-1-rdunlap@infradead.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -85,261 +103,49 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-[Why]
-Idle optimizations are HW-wide, but the Idle State Manager (ISM) runs per
-CRTC. With two displays, a static CRTC's ISM reaches OPTIMIZED_IDLE and
-allows idle optimizations while another CRTC is receiving legacy cursor
-updates, which hold no vblank reference. The cursor CRTC's ISM then sits in
-HYSTERESIS_WAITING, and BEGIN_CURSOR_UPDATE only moves it to
-HYSTERESIS_BUSY without touching idle.
+Update the list of files where SCSI ioctls are defined and update the
+ranges of function numbers that are used.
 
-Every cursor update then calls dc_stream_program_cursor_attributes(),
-which exits and re-enters idle through synchronous DMUB commands. On DCNs
-that set debug.exit_idle_opt_for_cursor_updates,
-dc_stream_program_cursor_position() does the same, for up to four DMUB
-commands per cursor update under dc_lock. On Xorg with an RX 9070 XT
-(DCN401) the cursor visibly speeds up and slows down.
-
-ISM tracing on v7.3.3 while moving the cursor: of 12675 cursor updates that
-started in HYSTERESIS_WAITING, 9172 ran with idle allowed; none of the 866
-that started in FULL_POWER_RUNNING did, as vblank was enabled there.
-
-[How]
-When BEGIN_CURSOR_UPDATE moves a CRTC from HYSTERESIS_WAITING to
-HYSTERESIS_BUSY, disallow idle. The CRTC's hysteresis timer, re-armed on
-END_CURSOR_UPDATE, allows idle again once the cursor stops. Only idle is
-touched; static screen optimizations are left alone. FULL_POWER states
-are not changed: no timer is pending there that would allow idle again.
-The change is not DCN specific, as the cursor attributes path exits idle
-on every DCN.
-
-With this change, the same trace shows none of 22732 cursor updates
-running with idle allowed, and idle is allowed again once the cursor
-stops. Static desktop GPU power is unchanged (25.9 W average over 40 s,
-with and without the change).
-
-Add KUnit tests for the veto and for FULL_POWER_RUNNING leaving idle
-untouched.
-
-Fixes: 754003486c3c ("drm/amd/display: Add Idle state manager(ISM)")
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/6115
-Link: https://gitlab.freedesktop.org/drm/amd/-/issues/4906
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Claudio Forain <claudioforain@gmail.com>
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
 ---
+[Since having multiple maintainers trying to merge these would
+cause some conflicts, it would be more manageable for Jon to
+take all of these through the docs-next tree.]
 
-Notes:
-    v2:
-    - New approach. v1 allowed idle only when every CRTC was idle, which read
-      other CRTCs' state under only dc_lock, could leave idle disallowed for
-      good after a CRTC was enabled or resumed static, and broke the ISM KUnit
-      commit tests (all found by the sashiko.dev review). v2 keeps the
-      per-CRTC model: it only disallows idle when a cursor update starts on a
-      CRTC in hysteresis, and that CRTC's own timer allows it again. No other
-      CRTC's state is read.
-    - Call dc_allow_idle_optimizations() directly rather than
-      dm_ism_commit_idle_optimization_state(), which would also toggle the
-      PSR/Replay static screen events on every cursor update. The veto shows
-      in the amdgpu_dm_ism_event trace as HYSTERESIS_WAITING ->
-      HYSTERESIS_BUSY on BEGIN_CURSOR_UPDATE, and in the DC IPS log with
-      dm_ism_dispatch_power_state as the caller.
-    - Add KUnit tests.
-    
-    v1: https://lore.kernel.org/r/20261109230147.16302-1-claudioforain@gmail.com/
-    
-    AI assistance: Claude Code (claude-opus-5-5) helped me trace the ISM and
-    idle interaction, wrote the ftrace capture and analysis scripts, and
-    drafted the code change, the KUnit tests and this changelog. I reviewed
-    all of it and ran the traces, power measurements and KUnit tests myself.
-    Before sending, I ran a local Sashiko review (with Claude) on v2. It
-    found a KUNIT_ASSERT inside a scoped_guard, a redundant
-    idle_optimizations_allowed check with a test that could not fail, and
-    a changelog that understated which DCNs are affected; all are fixed here.
-    
-    Tested:
-    - RX 9070 XT (DCN401), Xorg, two DP displays (240 Hz, and 60 Hz rotated),
-      patch applied to v7.3.3: the ISM traces in the changelog, plus after
-      DPMS off/on and after a modeset of the 60 Hz display. In both, idle was
-      allowed again after the cursor stopped and no cursor update ran with
-      idle allowed.
-    - ISM KUnit suite on amd-staging-drm-next (UML): all pass.
-    
-    Not tested:
-    - Suspend/resume: CONFIG_SUSPEND is not set on this machine, so I could
-      not test it as I said I would in the v1 thread.
-    - Other DCNs and APUs. With IPS, idle now stays off for the hysteresis
-      window while the cursor moves instead of being exited and re-entered on
-      every update; I have not measured the power impact there.
-    - PSR/Replay panels and Wayland compositors.
+Cc: Jonathan Corbet <corbet@lwn.net>
+Cc: Shuah Khan <skhan@linuxfoundation.org>
+Cc: linux-doc@vger.kernel.org
+Cc: MPT-FusionLinux.pdl@broadcom.com
+Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>
+Cc: "Martin K. Petersen" <mkp@kernel.org>
+Cc: linux-scsi@vger.kernel.org
 
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c |  17 +++
- .../amdgpu_dm/tests/amdgpu_dm_ism_test.c      | 110 ++++++++++++++++++
- 2 files changed, 127 insertions(+)
+ Documentation/userspace-api/ioctl/ioctl-number.rst |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
-index 127eaba4de..21eeae66cb 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
-@@ -401,6 +401,23 @@ static enum amdgpu_dm_ism_event dm_ism_dispatch_power_state(
- 			mod_delayed_work(system_dfl_wq, &ism->delayed_work,
- 					 nsecs_to_jiffies(delay_ns));
- 		break;
-+	case DM_ISM_STATE_HYSTERESIS_BUSY:
-+		/*
-+		 * Idle optimizations are HW-wide, so another CRTC's ISM may have
-+		 * allowed them while this CRTC was still in hysteresis. Every
-+		 * cursor update would then exit and re-enter idle through DMUB.
-+		 * Disallow idle when a cursor update starts here; this CRTC's
-+		 * hysteresis timer, re-armed on END_CURSOR_UPDATE, allows it
-+		 * again once the cursor stops. Only idle is touched, not static
-+		 * screen optimizations.
-+		 */
-+		if (ism->previous_state == DM_ISM_STATE_HYSTERESIS_WAITING) {
-+			struct amdgpu_crtc *acrtc = ism_to_amdgpu_crtc(ism);
-+			struct dc *dc = drm_to_adev(acrtc->base.dev)->dm.dc;
-+
-+			dc_allow_idle_optimizations(dc, false);
-+		}
-+		break;
- 	case DM_ISM_STATE_OPTIMIZED_IDLE:
- 		sso_delay_ns = dm_ism_get_sso_delay(ism, acrtc_state->stream);
- 		if (sso_delay_ns > 0) {
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_ism_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_ism_test.c
-index a9c6485e2a..6c51129826 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_ism_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_ism_test.c
-@@ -1375,6 +1375,114 @@ static void dm_test_ism_commit_disallows_idle_on_timer_aborted(struct kunit *tes
- 	amdgpu_dm_ism_flush(&acrtc->ism);
- }
- 
-+/*
-+ * Config and history shared by the cursor tests below: a non-zero idle-allow
-+ * delay parks the FSM in HYSTERESIS_WAITING, and sso_num_frames = 0 lets the
-+ * timer cascade straight to OPTIMIZED_IDLE_SSO.
-+ */
-+static const struct amdgpu_dm_ism_config dm_ism_test_cursor_config = {
-+	.filter_num_frames = 5,
-+	.filter_entry_count = 3,
-+	.activation_num_delay_frames = 10,
-+	.filter_history_size = 8,
-+	.filter_old_history_threshold = 0,
-+	.sso_num_frames = 0,
-+};
-+
-+/**
-+ * dm_test_ism_cursor_in_hysteresis_disallows_idle - cursor vetoes foreign idle
-+ * @test: KUnit test context
-+ *
-+ * Idle optimizations are HW-wide; here another CRTC is modelled as having
-+ * allowed them while this CRTC waits in HYSTERESIS_WAITING. A cursor update
-+ * (BEGIN_CURSOR_UPDATE -> HYSTERESIS_BUSY) must disallow idle so that cursor
-+ * programming does not exit and re-enter idle per update. END_CURSOR_UPDATE
-+ * must re-arm the hysteresis timer without re-allowing, and the timer must
-+ * allow idle again.
-+ */
-+static void dm_test_ism_cursor_in_hysteresis_disallows_idle(struct kunit *test)
-+{
-+	struct amdgpu_device *adev;
-+	struct amdgpu_crtc *acrtc = alloc_test_acrtc(test, &adev);
-+	struct amdgpu_dm_ism_config config = dm_ism_test_cursor_config;
-+	struct dc_stream_state *stream;
-+
-+	stream = setup_commit_test(test, acrtc, &config);
-+	setup_idle_delay_history(&acrtc->ism, stream);
-+
-+	scoped_guard(mutex, &adev->dm.dc_lock) {
-+		amdgpu_dm_ism_commit_event(&acrtc->ism,
-+					   DM_ISM_EVENT_ENTER_IDLE_REQUESTED);
-+		KUNIT_EXPECT_EQ(test, (int)acrtc->ism.current_state,
-+				(int)DM_ISM_STATE_HYSTERESIS_WAITING);
-+
-+		/* Another CRTC's ISM allowed HW-wide idle. */
-+		adev->dm.dc->idle_optimizations_allowed = true;
-+
-+		amdgpu_dm_ism_commit_event(&acrtc->ism,
-+					   DM_ISM_EVENT_BEGIN_CURSOR_UPDATE);
-+		KUNIT_EXPECT_EQ(test, (int)acrtc->ism.current_state,
-+				(int)DM_ISM_STATE_HYSTERESIS_BUSY);
-+		KUNIT_EXPECT_EQ(test, dm_ism_test_idle.calls, 1);
-+		KUNIT_EXPECT_FALSE(test, dm_ism_test_idle.last_allow);
-+		KUNIT_EXPECT_FALSE(test, adev->dm.dc->idle_optimizations_allowed);
-+
-+		amdgpu_dm_ism_commit_event(&acrtc->ism,
-+					   DM_ISM_EVENT_END_CURSOR_UPDATE);
-+		KUNIT_EXPECT_EQ(test, (int)acrtc->ism.current_state,
-+				(int)DM_ISM_STATE_HYSTERESIS_WAITING);
-+		KUNIT_EXPECT_TRUE(test, delayed_work_pending(&acrtc->ism.delayed_work));
-+		KUNIT_EXPECT_EQ(test, dm_ism_test_idle.calls, 1);
-+		KUNIT_EXPECT_FALSE(test, adev->dm.dc->idle_optimizations_allowed);
-+
-+		/* Run the hysteresis timer's event by hand. */
-+		cancel_delayed_work(&acrtc->ism.delayed_work);
-+		amdgpu_dm_ism_commit_event(&acrtc->ism,
-+					   DM_ISM_EVENT_TIMER_ELAPSED);
-+		KUNIT_EXPECT_EQ(test, (int)acrtc->ism.current_state,
-+				(int)DM_ISM_STATE_OPTIMIZED_IDLE_SSO);
-+		KUNIT_EXPECT_EQ(test, dm_ism_test_idle.calls, 2);
-+		KUNIT_EXPECT_TRUE(test, dm_ism_test_idle.last_allow);
-+		KUNIT_EXPECT_TRUE(test, adev->dm.dc->idle_optimizations_allowed);
-+	}
-+
-+	amdgpu_dm_ism_flush(&acrtc->ism);
-+}
-+
-+/**
-+ * dm_test_ism_cursor_in_full_power_leaves_idle - FULL_POWER cursor is a no-op
-+ * @test: KUnit test context
-+ *
-+ * A CRTC in FULL_POWER_RUNNING has no pending hysteresis timer that would
-+ * allow idle again, so a cursor update there must not disallow idle;
-+ * otherwise idle could stay off after the cursor stops.
-+ */
-+static void dm_test_ism_cursor_in_full_power_leaves_idle(struct kunit *test)
-+{
-+	struct amdgpu_device *adev;
-+	struct amdgpu_crtc *acrtc = alloc_test_acrtc(test, &adev);
-+	struct amdgpu_dm_ism_config config = dm_ism_test_cursor_config;
-+
-+	setup_commit_test(test, acrtc, &config);
-+	adev->dm.dc->idle_optimizations_allowed = true;
-+
-+	scoped_guard(mutex, &adev->dm.dc_lock) {
-+		amdgpu_dm_ism_commit_event(&acrtc->ism,
-+					   DM_ISM_EVENT_BEGIN_CURSOR_UPDATE);
-+		KUNIT_EXPECT_EQ(test, (int)acrtc->ism.current_state,
-+				(int)DM_ISM_STATE_FULL_POWER_BUSY);
-+		amdgpu_dm_ism_commit_event(&acrtc->ism,
-+					   DM_ISM_EVENT_END_CURSOR_UPDATE);
-+		KUNIT_EXPECT_EQ(test, (int)acrtc->ism.current_state,
-+				(int)DM_ISM_STATE_FULL_POWER_RUNNING);
-+
-+		KUNIT_EXPECT_EQ(test, dm_ism_test_idle.calls, 0);
-+		KUNIT_EXPECT_TRUE(test, adev->dm.dc->idle_optimizations_allowed);
-+	}
-+
-+	amdgpu_dm_ism_flush(&acrtc->ism);
-+}
-+
- /**
-  * dm_test_ism_exit_from_optimized_idle_disallows_idle - leaving OPTIMIZED_IDLE
-  * @test: KUnit test context
-@@ -1615,6 +1723,8 @@ static struct kunit_case dm_ism_test_cases[] = {
- 	KUNIT_CASE(dm_test_ism_commit_allows_idle_on_optimized_idle),
- 	KUNIT_CASE(dm_test_ism_commit_enables_sso_on_optimized_idle_sso),
- 	KUNIT_CASE(dm_test_ism_commit_disallows_idle_on_timer_aborted),
-+	KUNIT_CASE(dm_test_ism_cursor_in_hysteresis_disallows_idle),
-+	KUNIT_CASE(dm_test_ism_cursor_in_full_power_leaves_idle),
- 	/* dm_ism_dispatch_power_state previous-state arms */
- 	KUNIT_CASE(dm_test_ism_exit_from_optimized_idle_disallows_idle),
- 	KUNIT_CASE(dm_test_ism_exit_from_sso_disallows_idle),
--- 
-2.56.0
-
+--- linux-next-20261111.orig/Documentation/userspace-api/ioctl/ioctl-number.rst
++++ linux-next-20261111/Documentation/userspace-api/ioctl/ioctl-number.rst
+@@ -189,7 +189,7 @@ Code  Seq#    Include File
+ 'I'   40-4F  linux/mISDNif.h                                           conflict!
+ 'K'   all    linux/kd.h
+ 'L'   00-1F  linux/loop.h                                              conflict!
+-'L'   10-1F  drivers/scsi/mpt3sas/mpt3sas_ctl.h                        conflict!
++'L'   10-21  drivers/scsi/mpt3sas/mpt3sas_ctl.h                        conflict!
+ 'L'   E0-FF  linux/ppdd.h                                              encrypted disk device driver
+                                                                        <http://linux01.gwdg.de/~alatham/ppdd.html>
+ 'L'   35-38  arch/m68k/include/asm/fbio.h
+@@ -260,6 +260,7 @@ Code  Seq#    Include File
+ 'c'   00-7F  linux/comstats.h                                          conflict!
+ 'c'   00-7F  linux/coda.h                                              conflict!
+ 'c'   00-1F  linux/chio.h                                              conflict!
++'c'   08     drivers/scsi/ch.c                                         conflict!
+ 'c'   80-9F  arch/s390/include/asm/chsc.h                              conflict!
+ 'c'   A0-AF  arch/x86/include/asm/msr.h conflict!
+ 'd'   00-FF  linux/char/drm/drm.h                                      conflict!
