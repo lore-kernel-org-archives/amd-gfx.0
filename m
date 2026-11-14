@@ -2,95 +2,83 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03905606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DC17606A327
 	for <amd-gfx@archiver.kernel.org>; Sat, 14 Nov 2026 19:11:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=w0djcSRN
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LBvc45Ra
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE87C10F0CE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AED5D10F0D1;
 	Sat, 14 Nov 2026 19:11:02 +0000 (UTC)
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com
- [74.125.82.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 42AFE10E390
- for <amd-gfx@lists.freedesktop.org>; Sat, 14 Nov 2026 16:08:30 +0000 (UTC)
-Received: by mail-dy1-f180.google.com with SMTP id
- 5a478bee46e88-37071c0f42aso2959116eec.0
- for <amd-gfx@lists.freedesktop.org>; Sat, 14 Nov 2026 08:08:30 -0800 (PST)
+Received: from mail-wr2-f7.google.com (mail-wr2-f7.google.com [74.125.225.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 97B3910E186
+ for <amd-gfx@lists.freedesktop.org>; Sat, 14 Nov 2026 18:52:07 +0000 (UTC)
+Received: by mail-wr2-f7.google.com with SMTP id
+ ffacd0b85a97d-48e0c9bc8f9so801095f8f.1
+ for <amd-gfx@lists.freedesktop.org>; Sat, 14 Nov 2026 10:52:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794672509; x=1795277309; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=57QGYlJp5ubvUnaSXRDvNGBB3M2Beb8mEN3QVUFhP3Q=;
- b=w0djcSRNVLGWV12+m9ILz6NogghVCRJNGHL0M+7jwTmtGJL564I5BhmFTsmYXpOOaY
- vIgsj7CNZYgPl1WCTysk6RANNmmp1QT+Xyx/SLgJqEFZGjtp0nAQJyj11UEgH5ljbTiJ
- +wfw5NaLqlY/A7hdvdCcwZnvJY1gxGAwpSl+bL6EO03JKJictJ5o8cNJinJL0tHamJxh
- usQxieFYOOYZmGu/IcA5/9CC2reNXm+BCaG2T7rgTZNbNX0fm10ymV1c4t36AlR2ec5a
- 8jv96FTcB8R+n7VYOQplguUQAfxuA0kvQ72UvTgbMMEjNHuJZ6DKwDZB8/LCZmWI3CQ3
- dbHg==
+ d=gmail.com; s=20260707; t=1794682326; x=1795287126; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=rVBETihkpK3ZyrNBm4wNB0zQniJSB3VwqkgPzbMYV+E=;
+ b=LBvc45RaBXuqZDMLUk5W9taoeHxH+uf5DUZt1ESonmZl1xt9ybjQrOzOrRKNxUFCob
+ ISM8wKJBewfFZjVR+j29XMpAxMlWgUZ1GU3GozuOUOUAdEhEGIFhi1qpWj6aPbiT8IiC
+ AYCFqMZhf0ziMNK+Eh1MwQPbn3jK114lmG0PV3q33VD4eJ4SiG/u4qdcbkOZaKn5ITwh
+ lXyUmVg9hWBfHJlfFjkGE73ngE2GaK56iOCzurAPi/0ijFkZld2b3kmgBzH2bZO0azzT
+ 9mjOoRmVWZr62nh/EU3fQOtz295DutIrqcSvSRTYl+QJEw3ewUHh5be3PZ2kkCIyKU5P
+ +7ZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794672509; x=1795277309;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=57QGYlJp5ubvUnaSXRDvNGBB3M2Beb8mEN3QVUFhP3Q=;
- b=qCQlAGw8sEqHGYq7z0I75aSkblzPgyHwkHCVQHldeHY20zRdH0Tn9T0dolvq8IxaJo
- 3tIRqSizz/1jDMyTiiFB3i8IPttvOzDC+L3StFxvkonMRGQPxqp7bQE/tQJMvfvdxysR
- Peuh/u6yPGXHUxQeK3Ug+94AdoBWtdd7FcX+GyFNIgat8IpcrL5V0V4P7vjZT4MewWBG
- MqnbyIYO8tEALTWO3hk4dGacQ6IHoiYyv/1jY4SQmIUflBdWeMAEPZexCAC04vBYeSxq
- UD1fL42Elra9zkWL/jlJA80ByYhRp+kGKMdYfE5vbzhW1N53RwWejMoeirFwmj3/nvTd
- a1ZA==
-X-Forwarded-Encrypted: i=1;
- AL+hErH6RNMIPHJ+BKyMjan3LTyABts9HTr4JkF/TXHE3pC0g5fOsZSaK7QFcs+/UeudyRTQq1IPGRom@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9xav3l6Cx1lKbX9OHUkfw9C5qhsc89POtVzLsMom8z64j2h5L6
- i4zEhfyJsMp6MaOSExunRu0Huoa04IR7YKbSk4iybSudFENVp8SxsOA=
-X-Gm-Gg: AYBFou086HoxYhlW82CnFoTVMr+erBYb//kMZS1nEd2PAWz1uHvbkQ81hjZaLg18jig
- 7WrX0rKe4o4vNpllJXvNPilBM2Xn8cqMQ8B5EbzDZh0vWmEgqzLHJIJkavUtc7tPqGfgN6i+IYw
- siMqbn9Vv0dkjbtHd2d9rNf28rzon0etzjbjX00CBAwf+0cEd5ilRculXPr+wtWHpMOxMuCwGrj
- cGpn2qALzDW5+zD3jEX//14mJ0exuk+QbC6CRMensL4AZw/yi8NEcp5ZfZyCLSYcFbsKvLxLj/U
- TIHqjqYWI856s+F0oqxJTU/nrGr55SVFDV02cNvtGZkYIi2Wf3hgu2H1RceOYw13wocsfQVBlJP
- lTm0jExeaIi59c6Z5rC/LyYJKOj7CE8ZQOYwslLXmFKddymy83or4F/M1KJXubWayOntRj3IQu/
- YiD8ZftD27rCDkRHBJ5yCkKrhprCHMzzo4msj9MMkMSmMo6ut1kVSRKw1duRiFDppJgOaxhu1kx
- N2zkoEpYZ5wFBreJG1NccM89LmaEkUr96IueF1E30QMuHYZwL0RAx7ak/5ssM4ubOAH0LIJ2RIF
- dPXMLSyXBknkS0kPUZKeO5nYSzuyO1idoNEwmtYsoMf/jlMjMRbwvemoy6r7g6CqkQ==
-X-Received: by 2002:a05:7300:f18e:b0:375:894f:2524 with SMTP id
- 5a478bee46e88-37966b52646mr7220639eec.12.1794672509407; 
- Sat, 14 Nov 2026 08:08:29 -0800 (PST)
-Received: from at-Standard-PC-Q35-ICH9-2009 ([106.202.127.108])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-37956bb0919sm17567582eec.29.2026.11.14.08.08.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 14 Nov 2026 08:08:29 -0800 (PST)
-From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-To: 
-Cc: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
- Sebastian Zygadlo <szgit@icloud.com>,
- Yossef Osman <yossef.osman@proton.me>, Bjorn Helgaas <bhelgaas@google.com>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org (maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)),
- "H. Peter Anvin" <hpa@zytor.com>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ d=1e100.net; s=20260707; t=1794682326; x=1795287126;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=rVBETihkpK3ZyrNBm4wNB0zQniJSB3VwqkgPzbMYV+E=;
+ b=pdMA/p1fWQmCUN21UY8ejQA+HVZs4I0HY2oLGAtovx0BEVLrTDcweK+Vd1nTrD/Ssk
+ YSshNSUa06WVw2GODE0kk64rcngdmCnVpyeecEtHp+d0x5ke4KnW2WadopNXQUJ6MDE6
+ l++LjodcsQQ3kVoKy/kjbWZRYf0Grwr+9q6vScQO6LHP/Oqluf4ZJrkYSnOVsKa0NDuO
+ qYRafewI1D1Bq9hERcHHBlUdakgktDwPv6lNhppSHHDSS4qw5et0pyqgryUyVSWu5yQJ
+ ijkq5sGnmWtEuIgHXm7fB/kAo2Ve7BHK3D2jO/jRPMt+3xMrqzAvZx+mVNfrjP2W4wq5
+ BrKw==
+X-Gm-Message-State: APuU4Z+l+hpV95Vkvj+HgM1xIZVK1wBQPxDFfCt9IW6umcOULvlGkJXE
+ EtAmtjq9VmZgVmeqnOdEcHi3TZzcw4q1knpdHtzDdUuLyyp3PMZWP48nhEvew8LR7YOmzA==
+X-Gm-Gg: AYBFou2Pk+g+o2PGV9xOSBLvz3LM4wchgeWEfW9nq37fZ07mMjg/rvYSD5YVokaxEDH
+ iizFjrqqedY2foE3Q9CiPQToc6HaXU0DITtV0axzm/IzoSLTueM088ZqyFpcv2k9t1O+ro4ByGB
+ K0hrATUxeyR28mxpBS9pinsL0S1jx/y50mENMB7Vi+HaPgllmJzQFiSZ/fSkx6yxd6yN7iLoP4F
+ foEGOJg0MhICA4Sv5RfmuJAkWKNnjTAsqo/3e1oHLdP8rz9huUZSq36kpsexNHMgp2nXdP36Tzc
+ WcwrgOPCFS7bDGunvylD6buCmFXehIsObSBFYFSfTrqrSrnNRCeGYLtTgzDq9ijDR4WkHaQREj4
+ Uvq2GDxXjQfduozaypwoihJcfyswTaLchorntwA4nh9r0KVEpc3242ETJoOHzX+OMO6nSwA7SJR
+ lkdgMwDz4Sd5ZjmHiiteSa1kbVGABMLcvuHwOdPQaKYoJ3MAiRrmUPZ82d9Gz8kz/oiFbSYSIJC
+ Wuj1YJ1EWcOUJVdVPTCAvk92Bl5YcsM68qRDFtgt7jMfkbyj6j+mN1HiHmo1/ZcI2GlNBmBxQaj
+ oe76AtauGnagoH8YrnpnahZ+Srm+Ykh8Y38=
+X-Received: by 2002:a05:6000:250a:b0:49e:f905:4698 with SMTP id
+ ffacd0b85a97d-49ef90546a4mr2226078f8f.2.1794682325669; 
+ Sat, 14 Nov 2026 10:52:05 -0800 (PST)
+Received: from [192.168.1.7] ([31.94.68.191]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-49c5f1c18b9sm10201381f8f.20.2026.11.14.10.52.02
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 14 Nov 2026 10:52:04 -0800 (PST)
+Message-ID: <5e30862a-5161-49d7-8713-2da9dec4356d@gmail.com>
+Date: Sat, 14 Nov 2026 18:52:01 +0000
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/3] drm/amd/display: unlock secondary tile on Apple
+ 5K, iMac panels
+To: amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Rodrigo Siqueira <siqueira@igalia.com>,
- Kenneth Feng <kenneth.feng@amd.com>, Hans de Goede <hansg@kernel.org>,
- =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Andre Eikmeyer <dev@deq.rocks>,
- linux-pci@vger.kernel.org (open list:PCI SUBSYSTEM),
- linux-kernel@vger.kernel.org (open list:X86 ARCHITECTURE (32-BIT AND 64-BIT)), 
- amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
- dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
- platform-driver-x86@vger.kernel.org (open list:X86 PLATFORM DRIVERS)
-Subject: [PATCH v2 02/12] PCI: Disable pcie port on specific amd devices
-Date: Sat, 14 Nov 2026 11:06:26 -0500
-Message-ID: <20261114160731.3756-3-atharvatiwarilinuxdev@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261114160731.3756-1-atharvatiwarilinuxdev@gmail.com>
-References: <20261114160731.3756-1-atharvatiwarilinuxdev@gmail.com>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ Mario Limonciello <mario.limonciello@amd.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <94672259-c526-4ec7-a69c-7dda8d934593@gmail.com>
+Content-Language: en-US
+From: Richard Lane <richardlanedev@gmail.com>
+In-Reply-To: <94672259-c526-4ec7-a69c-7dda8d934593@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Sat, 14 Nov 2026 19:10:55 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -102,113 +90,214 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-14.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
 	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-As mentioned in the previous commit, PWRD turns off the entire
-bridge, and if we read/write anything to the config space
-or the PCIE space when the bridge is dead, the CPU CATERR's,
-so to avoid interaction when the bridge is dead,
-we remove pcieport support for the bridges..
+On 01/11/2026 23:24, Richard Lane wrote:
+> Apple 27" 5K iMacs (2014-2019, iMac15,1 through Polaris-based iMac19,1)
+> expose their internal 5120x2880 panel as a 2x1 tiled display over an eDP
+> root link and a secondary DP link. At boot, the panel TCON operates in
+> single-pipe mode and holds the secondary DP link's HPD line low until
+> unlocked via DPCD registers.
+> 
+> Enable native tiled detection and link training for DCE < 12 Apple 5K
+> panels:
+> - Point the secondary DP dc_link to the root eDP dc_link (apple_5k_peer)
+>   during EDID quirk matching on DCE < 12 iMac15,1, iMac17,1, iMac18,3,
+>   and Polaris-based iMac19,1 (checking connector_signal since panel IDs
+>   can flip across the two links after S3 wake). DCE >= 12 support for
+>   Vega-based iMac19,1, iMacPro1,1, and iMac20,x is documented as TODO.
+> - Avoid falling back to DVI and latch the secondary tile via DPCD 0x4F1
+>   on the root eDP link when probing the secondary link, allowing the
+>   secondary link to read its EDID and populate DRM's DisplayID tile
+>   properties (has_tile, tile_group, and tile_is_single_monitor).
+> - Write the 3-byte Boot Camp source table (0x04, 0x1d, 0x03) to DPCD
+>   0x310 in dpcd_set_source_specific_data() to unlock the secondary tile.
+> - Prevent the secondary tile from entering DP_SET_POWER D3, which causes
+>   the TCON to drop HPD and stop responding to AUX transactions.
+> - Unlatch both tiles (0x4F1) and clear DP_SOURCE_TABLE_REVISION (0x310)
+>   and DP_EDP_CONFIGURATION_SET (0x10A) in dm_suspend() so the TCON
+>   returns to single-pipe mode for the EFI boot screen across reboots.
+> 
+> Signed-off-by: Richard Lane <richardlanedev@gmail.com>
+> ---
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 19 ++++++++++++++++
+>  .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 22 +++++++++++++++++++
+>  drivers/gpu/drm/amd/display/dc/dc.h           |  1 +
+>  .../drm/amd/display/dc/link/link_detection.c  |  7 +++++-
+>  .../dc/link/protocols/link_dp_capability.c    |  4 ++++
+>  .../display/dc/link/protocols/link_dp_phy.c   |  3 +++
+>  6 files changed, 55 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index bdabb4bf14da..74cd88d8d580 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -1607,6 +1607,23 @@ STATIC_IFN_KUNIT void dm_destroy_cached_state(struct amdgpu_device *adev)
+>  }
+>  EXPORT_IF_KUNIT(dm_destroy_cached_state);
+>  
+> +static void amdgpu_dm_apple5k_unlatch(struct dc *dc)
+> +{
+> +	const u8 zeros[3] = { 0 };
+> +
+> +	for (int i = 0; i < dc->link_count; i++) {
+> +		struct dc_link *link = dc->links[i];
+> +
+> +		if (link->apple_5k_peer) {
+> +			core_link_write_dpcd(link, DP_SOURCE_TABLE_REVISION, zeros, 3);
+> +			core_link_write_dpcd(link, DP_EDP_CONFIGURATION_SET, zeros, 1);
+> +			core_link_write_dpcd(link, 0x4F1, zeros, 1);
+> +			core_link_write_dpcd(link->apple_5k_peer, 0x4F1, zeros, 1);
+> +			break;
+> +		}
+> +	}
+> +}
+> +
+>  static int dm_suspend(struct amdgpu_ip_block *ip_block)
+>  {
+>  	struct amdgpu_device *adev = ip_block->adev;
+> @@ -1674,6 +1691,8 @@ static int dm_suspend(struct amdgpu_ip_block *ip_block)
+>  
+>  	amdgpu_dm_hpd_rx_irq_work_suspend(dm);
+>  
+> +	amdgpu_dm_apple5k_unlatch(dm->dc);
+> +
+>  	dc_set_power_state(dm->dc, DC_ACPI_CM_POWER_STATE_D3);
+>  
+>  	if (dm->dc->caps.ips_support && adev->in_s0ix)
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> index 9774ea33272d..532748127f72 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> @@ -173,6 +173,28 @@ STATIC_IFN_KUNIT void apply_edid_quirks(struct dc_link *link, struct edid *edid,
+>  		drm_dbg_driver(dev, "Force FreeSync min to 60 Hz on panel id %X\n", panel_id);
+>  		edid_caps->panel_patch.force_freesync_min_hz = 60;
+>  		break;
+> +	/*
+> +	 * Workaround for Apple 27" 5K iMacs which expose a 2x1 tiled internal
+> +	 * panel over an eDP root link and a secondary DP link. Point the
+> +	 * secondary link to the root link to latch/unlatch the TCON via DPCD,
+> +	 * checking connector_signal as panel IDs can flip after wake.
+> +	 * IDs (Root/Tile): iMac15,1 (AE01/02), iMac17,1 (AE05/06),
+> +	 * iMac18,3 (AE11/12), iMac19,1 (AE25/26); TODO (DCE >= 12): iMac19,1
+> +	 * Vega, iMacPro1,1 (AE1D/1E), iMac20,x (AE31/32).
+> +	 */
+> +	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE01):
+> +	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE02):
+> +	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE05):
+> +	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE06):
+> +	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE11):
+> +	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE12):
+> +	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE25):
+> +	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE26):
+> +		if (link->connector_signal == SIGNAL_TYPE_EDP &&
+> +		    link->ctx->dce_version < DCE_VERSION_12_0 &&
+> +		    (link->link_index ^ 1) < link->dc->link_count)
+> +			link->dc->links[link->link_index ^ 1]->apple_5k_peer = link;
+> +		break;
+>  	default:
+>  		return;
+>  	}
 
-Tested-by: Sebastian Zygadlo <szgit@icloud.com>
-Tested-by: Yossef Osman <yossef.osman@proton.me>
-Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
----
- arch/x86/pci/fixup.c       | 43 ++++++++++++++++++++++++++++++++++++++
- drivers/pci/pcie/portdrv.c |  2 +-
- include/linux/pci.h        |  1 +
- 3 files changed, 45 insertions(+), 1 deletion(-)
+For machines with both the Apple and OCLP (OpenCore Legacy Patcher) folders
+deleted from the EFI partion, an additional 5 lines are required in
+amdgpu_dm_helpers.c to latch the root tile. This works consistently across
+multiple reboots. It also works with the Apple and OCLP folders in place.
+I can add this to v3 of the patch.
 
-diff --git a/arch/x86/pci/fixup.c b/arch/x86/pci/fixup.c
-index 795d81c7a..b1697cc4a 100644
---- a/arch/x86/pci/fixup.c
-+++ b/arch/x86/pci/fixup.c
-@@ -1094,6 +1094,48 @@ static void asus_disable_nvme_d3cold(struct pci_dev *pdev)
- }
- DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, 0x9a09, asus_disable_nvme_d3cold);
+@@ -26,6 +26,7 @@
+ #include <linux/string.h>
+ #include <linux/acpi.h>
+ #include <linux/i2c.h>
++#include <linux/dmi.h>
  
-+static const struct dmi_system_id quirk_disable_pcie_port_dmi_table[] = {
-+	{
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro15,1"),
-+		},
-+	},
-+	{
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro15,3"),
-+		},
-+	},
-+	{
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro16,1"),
-+		},
-+	},
-+	{
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro16,4"),
-+		},
-+	},
-+	{}
-+};
-+
-+static void quirk_disable_pcie_port(struct pci_dev *pdev)
-+{
-+	struct pci_dev *upstream = pdev;
-+
-+	if (dmi_check_system(quirk_disable_pcie_port_dmi_table)) {
-+		while ((upstream = pci_upstream_bridge(upstream)))
-+			upstream->no_pcie_port = 1;
-+	}
-+}
-+DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_ATI, 0x67ef, quirk_disable_pcie_port);
-+DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_ATI, 0x69af, quirk_disable_pcie_port);
-+DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_ATI, 0x7340, quirk_disable_pcie_port);
-+DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_ATI, 0x7360, quirk_disable_pcie_port);
-+
- #ifdef CONFIG_SUSPEND
- /*
-  * Root Ports on some AMD SoCs advertise PME_Support for D3hot and D3cold, but
-@@ -1179,4 +1221,5 @@ static void quirk_tuxeo_rp_d3(struct pci_dev *pdev)
- 	}
- }
- DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_AMD, 0x1502, quirk_tuxeo_rp_d3);
-+
- #endif /* CONFIG_SUSPEND */
-diff --git a/drivers/pci/pcie/portdrv.c b/drivers/pci/pcie/portdrv.c
-index a9cbfc1d2..d2f19e566 100644
---- a/drivers/pci/pcie/portdrv.c
-+++ b/drivers/pci/pcie/portdrv.c
-@@ -688,7 +688,7 @@ static int pcie_portdrv_probe(struct pci_dev *dev,
- 	int type = pci_pcie_type(dev);
- 	int status;
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_probe_helper.h>
+
+@@ -1265,6 +1288,11 @@
+ 	if (link->dc->hwss.prepare_ddc)
+ 		link->dc->hwss.prepare_ddc(link);
  
--	if (!pci_is_pcie(dev) ||
-+	if (!pci_is_pcie(dev) || dev->no_pcie_port ||
- 	    ((type != PCI_EXP_TYPE_ROOT_PORT) &&
- 	     (type != PCI_EXP_TYPE_UPSTREAM) &&
- 	     (type != PCI_EXP_TYPE_DOWNSTREAM) &&
-diff --git a/include/linux/pci.h b/include/linux/pci.h
-index d31a8d107..fcb4f5893 100644
---- a/include/linux/pci.h
-+++ b/include/linux/pci.h
-@@ -420,6 +420,7 @@ struct pci_dev {
- 	unsigned int	no_d1d2:1;	/* D1 and D2 are forbidden */
- 	unsigned int	no_d3cold:1;	/* D3cold is forbidden */
- 	unsigned int	bridge_d3:1;	/* Allow D3 for bridge */
-+	unsigned int	no_pcie_port:1; /* PCIE Port driver is forbidden */
- 	unsigned int	d3cold_allowed:1;	/* D3cold is allowed by user */
- 	unsigned int	mmio_always_on:1;	/* Disallow turning off io/mem
- 						   decoding during BAR sizing */
--- 
-2.55.0
++	if (link->connector_signal == SIGNAL_TYPE_EDP &&
++	    link->ctx->dce_version < DCE_VERSION_12_0 &&
++	    dmi_match(DMI_SYS_VENDOR, "Apple Inc."))
++		dm_helpers_dp_write_dpcd(ctx, link, 0x4F1, &(const uint8_t){1}, 1);
++
+ 	/* some dongles read edid incorrectly the first time,
+ 	 * do check sum and retry to make sure read correct edid.
+ 	 */
+
+Richard
+> diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+> index f4fefa7c9ab8..aa1a9eea99d1 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dc.h
+> +++ b/drivers/gpu/drm/amd/display/dc/dc.h
+> @@ -2003,6 +2003,7 @@ struct dc_scratch_space {
+>  	bool skip_implict_edp_power_control;
+>  	bool forced_psr_active;
+>  	enum backlight_control_type backlight_control_type;
+> +	struct dc_link *apple_5k_peer;
+>  };
+>  
+>  struct dc {
+> diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+> index b4546f93af0c..47755f8b9c3e 100644
+> --- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+> +++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+> @@ -218,7 +218,7 @@ static enum signal_type link_detect_sink_signal_type(struct dc_link *link,
+>  			 * we assume signal is DVI; it could be corrected
+>  			 * to HDMI after dongle detection
+>  			 */
+> -			if (!dm_helpers_is_dp_sink_present(link))
+> +			if (!link->apple_5k_peer && !dm_helpers_is_dp_sink_present(link))
+>  				result = SIGNAL_TYPE_DVI_SINGLE_LINK;
+>  		}
+>  		break;
+> @@ -1625,6 +1625,11 @@ bool link_detect_connection_type(struct dc_link *link, enum dc_connection_type *
+>  		}
+>  	}
+>  
+> +	if (*type == dc_connection_none && link->apple_5k_peer) {
+> +		core_link_write_dpcd(link->apple_5k_peer, 0x4F1, &(const uint8_t){1}, 1);
+> +		*type = dc_connection_single;
+> +	}
+> +
+>  	return true;
+>  }
+>  
+> diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
+> index ad1a499b0d9d..d646b156c90b 100644
+> --- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
+> +++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
+> @@ -1496,6 +1496,10 @@ void dpcd_set_source_specific_data(struct dc_link *link)
+>  				link->dc->vendor_signature.data.raw,
+>  				sizeof(link->dc->vendor_signature.data.raw));
+>  	}
+> +
+> +	if (link->apple_5k_peer)
+> +		core_link_write_dpcd(link, DP_SOURCE_TABLE_REVISION,
+> +				     (const uint8_t[]){0x04, 0x1d, 0x03}, 3);
+>  }
+>  
+>  void dpcd_write_cable_id_to_dprx(struct dc_link *link)
+> diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
+> index 49521ac4b0e8..56fe2710ee2c 100644
+> --- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
+> +++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
+> @@ -50,6 +50,9 @@ void dpcd_write_rx_power_ctrl(struct dc_link *link, bool on)
+>  	if (link->sync_lt_in_progress)
+>  		return;
+>  
+> +	if (!on && link->apple_5k_peer)
+> +		return;
+> +
+>  	core_link_write_dpcd(link, DP_SET_POWER, &state,
+>  						 sizeof(state));
+>  
 
