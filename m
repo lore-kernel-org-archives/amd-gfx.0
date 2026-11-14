@@ -2,79 +2,92 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE361606A323
-	for <amd-gfx@archiver.kernel.org>; Sat, 14 Nov 2026 19:11:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA0B6606A327
+	for <amd-gfx@archiver.kernel.org>; Sat, 14 Nov 2026 19:11:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rMmGmgOt
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Q7WeXn/Y
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6A7710F087;
-	Sat, 14 Nov 2026 19:10:58 +0000 (UTC)
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 463C910ECC6
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Nov 2026 21:47:37 +0000 (UTC)
-Received: by mail-dl1-f41.google.com with SMTP id
- a92af1059eb24-1b3acec6677so1885242c88.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Nov 2026 13:47:37 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 928A510F0C1;
+	Sat, 14 Nov 2026 19:11:01 +0000 (UTC)
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com
+ [74.125.82.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A71110E6D8
+ for <amd-gfx@lists.freedesktop.org>; Sat, 14 Nov 2026 16:09:03 +0000 (UTC)
+Received: by mail-dy1-f178.google.com with SMTP id
+ 5a478bee46e88-3720addb068so3246058eec.1
+ for <amd-gfx@lists.freedesktop.org>; Sat, 14 Nov 2026 08:09:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794606456; x=1795211256; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=cLB99qn1Z+5McNyULmNgzKPlbDLM8uA2pzCHw0Z2qLE=;
- b=rMmGmgOtViSzu3L0T9H9bYiDZGmU+M7qKgRmhKGH2LWO51EqDb8kI5bCD6DofRygwt
- YvC2LZZLaA1u3SRIg4dJzuBBM5HyMqRwp47i+8eeTb+xijQi0ETEAXO0tgRqpm4hNbRM
- 5vKqsxOIlhP4nguoTkXrJcMs9CqkImrYo3wEepwOxm1PwWR5osGOhWWx8r2DJahh0/Aj
- LmLcOZGy0a3H9acpcBnEsXWxQNi5L0BbUua0PwnlOcWSUWmU214uMpY5b6kTpOopsJYl
- 5CUPbmATcrZ24jo4MDfJWayBmntzTuDYzsrSpIySES/Vs8tvwdVowGqqWWerBVvrKy/S
- Ocrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794606456; x=1795211256;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20260707; t=1794672542; x=1795277342; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=cLB99qn1Z+5McNyULmNgzKPlbDLM8uA2pzCHw0Z2qLE=;
- b=j2pVyrU+0KWRWDCOyygnsqGcZggpgFrdeKIrehMvICaWbNe+YMiyDL/3BTiWSl1Y5C
- b/sv2wPFC49mt4M5eNQ7z+TmzHFfivQ1yC6piQCfciHHx/4WSiDWreREwhaU0sqplNtr
- lQk9Cxi3+b6doa659m1S8xC/l1EOfdDWlpgACwg2irXVB/NhRC+fnK0z4l6bUYBZ6n/A
- LJVqU2WSbQJuCFvh/hxmkeoEm1hhhqUWRCa93rUB+Ai/gRzUHJTbMQaCZdkop59kn17k
- +cXOf1K2+21J1uHq0btOP2veBm9v0VLVshljI737urYClFShi4/u61g/mfpa7NQ+YnCZ
- W10g==
+ bh=+LcEkWrq+TcQgEw8Wv5fzNU6IOsV4OoefE8SBVTJLlU=;
+ b=Q7WeXn/Ybcq8mz6aC3NYFnYbaz2s2Gjm7PAkN6LqEe2gxEdMViZqPsnnW+Op+rEIdB
+ GDwr+eE2E0FHlFS00zk1h4JVToimKwPsvVoOPuPtETC4NhvEB6q3JVnJKrPvQKNGwFpF
+ ROVAXPc03BXeDCLHyHO5aIFzwqXAm8lI9+owGeQceiOJk9gsAfECLMxlbXM61encoF95
+ //CqO5eauYwLW2gOSJuLBUaMxpuEva53C+OnOj2b5CHwO/S+eaSk9m3TvJneNjZRQqAz
+ FO0IM5QF4JRxF1JPSxApGiAj+YbhLVujBvFDb1jqz94rH/Z3TkqTeQsTKu51e88nuQiJ
+ PPxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794672542; x=1795277342;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=+LcEkWrq+TcQgEw8Wv5fzNU6IOsV4OoefE8SBVTJLlU=;
+ b=V/Q3lJ0w1MIKGljCtaaRmGBTK+0dUrGsrrkFpSr1Uc6Tx9l+eKuUUPGPzr2JX0y+6y
+ 5/jWw7GAN4YnLGjC5QicjHkrtV3bAwp7w6QM0mvMtRxxufI0jnYhNtnNCe3Rb+jVoj++
+ KQyr9vPBQzNHtd4QG/w3As9u4VusLBOR+XnAuKEKgCg5GEVTO6f8SKhM7YdT9gQoSRKg
+ 7mClhzl5SJRnmahFoVN/0NAl3u8w5oRWyhUEDoEi9VN8SG+mHrwUDBeFtSQqli+NbNmW
+ SMRZXkgxKfsqnKfPP44uC1KsJZeMQf5xZZyyNXSkoe6L93JOR/0q8k2WGkcZwi6LgQqP
+ ao0A==
 X-Forwarded-Encrypted: i=1;
- AL+hErGJaztsUI43NRgHLtcc7ZPi5dJUs3BCUrZIA5tQsi1XmgBI2mWGyJ4JXf9ZK834q6k80WSqHj2T@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9nsnMxTMfoF1zNT1ct/UZZAJx/imMn630bCjhcZfxCtkCnf/yz
- sUmBgW6QEjtGJJ1fW82ZBs7+rLNhTVgYWqZkvaunhpPVxm5xAcz04gY=
-X-Gm-Gg: AYBFou2VTbqgV/9uj0yDu5ruFv2UwDAGU2VpJ65nn07U56RnkS25EECyQBrp4NC+XJP
- S2B46jEufFeUSLjhl242YtzdcNxxk7I/I3Y0Lp+HZ78pS5wl8XgYuMqKuTgVraxfw+1GS+q2+ib
- vO6s9aN1ESU60hQBQLhXN7sS481AWzm3oeAwbVCe8xZ0Inh44+3OIJY4WFviG0sl6zhyuxyHozM
- U4P6RuauqIBu1aBheyCGfQ9zKNSKSHc7mHnf7Y4prmdhWC1UR41Qi9+JJoWEKsd8xXbKvcs/Qqu
- TfOJa+Ij1tjw2fSA0SJgu7Rz0BwEHza2e7iDG7sXPiBi6gyoajeZZS+LTxenVSedu9yOBGlINc4
- IZfTcVAyTCSiuHMPYjeSWV//s2jAtSdTfkWB7KohfM3DatE6/nnqUsvzA2rXrP5uMiFmDuc94vp
- uQd/2utSBCmagn2r/wV+TPpPPEs2adltuu9gYbAf8A8fEMR8tBz8wMrGdlLRipFdWFq4uqUMnqN
- LU1uVLjDoFs+KLohyTSV57Y7UbJ5AQmR1oqF0+/y9T854RmSQBVoLouXMcvuQP24p65YHiD77ul
- v2LAaERu4o5szkiD17PDYREmNL0TNpAGG1hZwpfKOJlEYf1AiWUlAp1gDoKDBvqE3Q==
-X-Received: by 2002:a05:701b:2514:b0:147:8a40:cdf3 with SMTP id
- a92af1059eb24-1b503111309mr2920024c88.24.1794606456062; 
- Fri, 13 Nov 2026 13:47:36 -0800 (PST)
-Received: from at-Standard-PC-Q35-ICH9-2009 ([106.205.242.248])
+ AL+hErHDg8WKqs+UWexa+zHjG06OI+clTisdUm3pIoRurHsMzen8kRnthCbX3/DChjWdFyMU9AJAgPUv@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8OuUfm7Bzuw6hvPivAgI0tlskNUUkVLN6F/ab0+FnVwZFiy6Xw
+ 4QlmKyRSnYdlyJE6LtVZ0ttVT5X1wshHaHjrxJL5d6x7Z/EZ/ZEMdlE=
+X-Gm-Gg: AYBFou0+C6uJ0sXBWPEgir2sOgC9j5NEzcP0v7rrS8B9lup6nBIOFNCYfQy3dh+AD/L
+ 8B5SGkiOYOKymR7JTeG9nKi9w5lKIncpIbH5zkYMLNwEuS0fT9k1VkYpsJl7rOP0cOYW9K8uXhD
+ 8Toqv2/Qr6nvrYBVESNMN8fl3qI310XE28Is7RAxO/MzYwGEWxc4YrUTdK/3Ax1hLRa1ByLBQuI
+ XpmqQ1hzD7vqyDeWt6fmJqvrpP1wGciFKlA9a4TPVry3YE10KfneZO/HaWYIaW0AftOKExQSEHb
+ WCZjzjHJhkxFUyzMBLKPfagaW14e7mvJz7Kjq4Tpx7Szk7nRFj1SOstTPxqHs/W1KWYaI0HL/QC
+ I3/J76kIzpoLemFFqa4MFAyNZWY5zC5RrXj3UX/b5oumPxcx2VPmPLNwYogZTK8324Kf+L2poCo
+ rdGGFEB8TIIehKtDy+Hx+5jgIwcn7S210i88OvsJee25XcLz45Pd/1sXzLPNZLATGAxSOVlb1CK
+ XK8kgWFHOmDTT7WteiLuFpm9KPekFemha1jRej5w1Ai7u9mTjjl0VhjwC0QUWlzmEqJmAiGT8ME
+ jbzqk40974xeDlTygUL3EbU7QnUQXZbN2Ry94bsqBorwbHZ4I87AmFde3fQlJdRCAg==
+X-Received: by 2002:a05:693c:4019:b0:35f:2858:aa4b with SMTP id
+ 5a478bee46e88-379675fc9ebmr5136627eec.30.1794672542162; 
+ Sat, 14 Nov 2026 08:09:02 -0800 (PST)
+Received: from at-Standard-PC-Q35-ICH9-2009 ([106.202.127.108])
  by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-1b50309b2b5sm8527960c88.1.2026.11.13.13.47.29
+ 5a478bee46e88-37956bb0919sm17567582eec.29.2026.11.14.08.08.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Nov 2026 13:47:35 -0800 (PST)
+ Sat, 14 Nov 2026 08:09:01 -0800 (PST)
 From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
 To: 
 Cc: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
- Doitall <diainquiries@protonmail.com>, Ed Schofield <ed@aicharmers.com>,
- Andre Eikmeyer <dev@deq.rocks>, Alex Deucher <alexander.deucher@amd.com>,
+ Sebastian Zygadlo <szgit@icloud.com>,
+ Yossef Osman <yossef.osman@proton.me>, Andre Eikmeyer <dev@deq.rocks>,
+ Bjorn Helgaas <bhelgaas@google.com>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org (maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)),
+ "H. Peter Anvin" <hpa@zytor.com>, Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Rodrigo Siqueira <siqueira@igalia.com>,
+ Kenneth Feng <kenneth.feng@amd.com>, Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ linux-pci@vger.kernel.org (open list:PCI SUBSYSTEM),
+ linux-kernel@vger.kernel.org (open list:X86 ARCHITECTURE (32-BIT AND 64-BIT)), 
  amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
  dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
- linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v2] drm/amd/amdgpu: Add 5K Support for iMac20,1 and iMac20,2
-Date: Fri, 13 Nov 2026 16:47:09 -0500
-Message-ID: <20261113214721.9382-1-atharvatiwarilinuxdev@gmail.com>
+ platform-driver-x86@vger.kernel.org (open list:X86 PLATFORM DRIVERS)
+Subject: [PATCH v2 04/12] platform/apple-gmux: Fix Interrupts for MMIO systems
+Date: Sat, 14 Nov 2026 11:06:28 -0500
+Message-ID: <20261114160731.3756-5-atharvatiwarilinuxdev@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261114160731.3756-1-atharvatiwarilinuxdev@gmail.com>
+References: <20261114160731.3756-1-atharvatiwarilinuxdev@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -97,520 +110,235 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-This code adds support for 5K in iMac20,1 and iMac20,2 with
-support of changing resolutions.
+on MMIO systems, we need check to for failure in interrupts,
+and we have implimented display hotplug to wake up the gpu.
 
-0x4F1 is an Apple-specific DPCD register on the iMac 5K TCON that
-selects tile mode: with 0x4F1 = 0 the panel comes up as a single
-3840x2160 display, and with 0x4F1 = 1 it is driven as 5120x2880 over
-two tiles.
-
-On these iMacs, 0x4F1 = 1 is also required for the SMU to boot
-properly. With it unset at SMU init, we see crashes in 5/10 boots even
-with the 5K support applied (UCLK still works). With it set, or with the
-display IP block initialized before SMU, crashes drop to 0/10.
-
-To avoid depending on the bootloader, init the display IP block before
-SMU on DMI-matched iMac20,1/20,2, so 0x4F1 is set before SMU init.
-
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4455
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4895
-
-(Tested on iMac20,1 and iMacPro1,1)
-
-Tested-by: Doitall <diainquiries@protonmail.com>
-Tested-by: Ed Schofield <ed@aicharmers.com>
-Co-developed-by: Ed Schofield <ed@aicharmers.com>
-Signed-off-by: Ed Schofield <ed@aicharmers.com>
+Tested-by: Sebastian Zygadlo <szgit@icloud.com>
+Tested-by: Yossef Osman <yossef.osman@proton.me>
+Co-developed-by: Andre Eikmeyer <dev@deq.rocks>
 Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
 Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 43 +++++++++++++++++--
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 28 ++++++++++++
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  7 +++
- .../display/amdgpu_dm/amdgpu_dm_connector.c   | 21 ++++++++-
- .../amd/display/amdgpu_dm/amdgpu_dm_quirks.c  | 38 +++++++++++++++-
- .../gpu/drm/amd/display/dc/core/dc_resource.c | 10 +++++
- drivers/gpu/drm/amd/display/dc/dc.h           |  2 +
- drivers/gpu/drm/amd/display/dc/dc_dp_types.h  |  2 +
- .../amd/display/dc/hwss/dce110/dce110_hwseq.c | 37 ++++++++++++++--
- .../drm/amd/display/dc/link/link_detection.c  | 13 ++++++
- .../gpu/drm/amd/display/dc/link/link_dpms.c   |  3 ++
- .../display/dc/link/protocols/link_dp_phy.c   |  5 +++
- .../dc/link/protocols/link_dp_training.c      | 10 ++++-
- 13 files changed, 209 insertions(+), 10 deletions(-)
+ drivers/platform/x86/apple-gmux.c | 101 ++++++++++++++++++++++++++----
+ 1 file changed, 88 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-index 890792a94..a907d5629 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-@@ -21,6 +21,7 @@
+diff --git a/drivers/platform/x86/apple-gmux.c b/drivers/platform/x86/apple-gmux.c
+index 9625551e5..37ba20779 100644
+--- a/drivers/platform/x86/apple-gmux.c
++++ b/drivers/platform/x86/apple-gmux.c
+@@ -6,6 +6,8 @@
+  *  Copyright (C) 2010-2012 Andreas Heider <andreas@meetr.de>
+  *  Copyright (C) 2015 Lukas Wunner <lukas@wunner.de>
+  *  Copyright (C) 2023 Orlando Chamberlain <orlandoch.dev@gmail.com>
++ *  Copyright (C) 2026 Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
++ *  Copyright (C) 2026 Andre Eikmeyer <dev@deq.rocks>
+  */
+ 
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+@@ -22,6 +24,8 @@
+ #include <linux/pci.h>
+ #include <linux/vga_switcheroo.h>
+ #include <linux/debugfs.h>
++#include <linux/workqueue.h>
++#include <linux/pm_runtime.h>
+ #include <acpi/video.h>
+ #include <asm/io.h>
+ 
+@@ -65,6 +69,10 @@ struct apple_gmux_data {
+ 
+ 	struct backlight_device *bdev;
+ 
++	/* interrupt handling data */
++	u8 external_state;
++	struct work_struct interrupt_work;
++
+ 	/* power handling data */
+ 	struct pci_dev *discrete_pdev;
+ 	enum apple_gmux_type type;
+@@ -103,6 +111,7 @@ struct apple_gmux_config {
+ 
+ #define GMUX_INTERRUPT_STATUS_ACTIVE	0
+ #define GMUX_INTERRUPT_STATUS_DISPLAY	(1 << 0)
++#define GMUX_INTERRUPT_STATUS_FAILED	(1 << 1)
+ #define GMUX_INTERRUPT_STATUS_POWER	(1 << 2)
+ #define GMUX_INTERRUPT_STATUS_HOTPLUG	(1 << 3)
+ 
+@@ -412,8 +421,8 @@ static const struct backlight_ops gmux_bl_ops = {
+  * the discrete GPU can then be woken to drive the newly connected display.
+  * The ability to switch AUX on these generations could be used to improve
+  * reliability of hotplug detection by having the integrated GPU poll the
+- * ports while the discrete GPU is asleep, but currently we do not make use
+- * of this feature.
++ * ports while the discrete GPU is asleep, but currently we only make use of
++ * this feature on MMIO/T2 Macs.
   *
+  * Our switching policy for the external port is that on those generations
+  * which are able to switch it fully, the port is switched together with the
+@@ -777,9 +786,10 @@ static const struct apple_gmux_config apple_gmux_mmio = {
+  * value is read and then inverted.
+  *
+  * Because Linux masquerades as Darwin, it ends up in the notification-only code
+- * path. On MMIO gmux's, this seems to lead to us being unable to clear interrupts,
+- * unless we call GMSP(0). Without this, there is a flood of status=0 interrupts
+- * that can't be cleared. This issue seems to be unique to MMIO gmux's.
++ * path. On MMIO gmux's, The Polarity is initally left in a undefined state leading
++ * to lots of interrupts, that we can't clear, to fix this we set the polarity to 0
++ * everytime we enable interrupts, On MMIO gmux's, GMLV reads the same GPIO pin as
++ * GMSP, and setting the polarity to 1, stops the Interrupts completely.
   */
  
-+#include <linux/dmi.h>
- #include <linux/firmware.h>
- #include <linux/kernfs.h>
- 
-@@ -3412,8 +3413,34 @@ static int amdgpu_discovery_set_ualink_ip_blocks(struct amdgpu_device *adev)
- 	return 0;
+ static inline void gmux_disable_interrupts(struct apple_gmux_data *gmux_data)
+@@ -788,8 +798,11 @@ static inline void gmux_disable_interrupts(struct apple_gmux_data *gmux_data)
+ 		    GMUX_INTERRUPT_DISABLE);
  }
  
-+static const struct dmi_system_id imac5k_table[] = {
-+	{
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "iMac20,1"),
-+		},
-+	},
-+	{
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "iMac20,2"),
-+		},
-+	},
-+	{}
-+};
-+
-+static bool amdgpu_discovery_is_imac5k(struct amdgpu_device *adev)
-+{
-+	if (pci_is_thunderbolt_attached(adev->pdev) ||
-+	    dev_is_removable(&adev->pdev->dev))
-+		return false;
-+
-+	return dmi_check_system(imac5k_table);
-+}
-+
- int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
+-static inline void gmux_enable_interrupts(struct apple_gmux_data *gmux_data)
++static inline void gmux_enable_interrupts(struct apple_gmux_data *gmux_data, bool do_gmsp)
  {
-+	bool imac5k;
- 	int r;
- 
- 	switch (adev->asic_type) {
-@@ -4026,15 +4053,25 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
- 		}
- 	}
- 
-+	/* TODO: We should enable 5K in EFI and remove this quirk */
-+	imac5k = amdgpu_discovery_is_imac5k(adev);
-+	if (unlikely(imac5k)) {
-+		r = amdgpu_discovery_set_display_ip_blocks(adev);
-+		if (r)
-+			return r;
-+	}
++	if (gmux_data->type == APPLE_GMUX_TYPE_MMIO && do_gmsp)
++		acpi_execute_simple_method(gmux_data->dhandle, "GMSP", 0);
 +
- 	if (likely(adev->firmware.load_type == AMDGPU_FW_LOAD_PSP)) {
- 		r = amdgpu_discovery_set_smu_ip_blocks(adev);
- 		if (r)
- 			return r;
- 	}
- 
--	r = amdgpu_discovery_set_display_ip_blocks(adev);
--	if (r)
--		return r;
-+	if (likely(!imac5k)) {
-+		r = amdgpu_discovery_set_display_ip_blocks(adev);
-+		if (r)
-+			return r;
-+	}
- 
- 	r = amdgpu_discovery_set_gc_ip_blocks(adev);
- 	if (r)
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 5b634ae07..ea0af1fdd 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -639,6 +639,8 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
- 	retrieve_dmi_info(&adev->dm);
- 	if (adev->dm.edp0_on_dp1_quirk)
- 		init_data.flags.support_edp0_on_dp1 = true;
-+	if (adev->dm.imac5K_support)
-+		init_data.flags.imac5K_support = true;
- 
- 	if (adev->dm.bb_from_dmub)
- 		init_data.bb_from_dmub = adev->dm.bb_from_dmub;
-@@ -1967,6 +1969,11 @@ static int dm_resume(struct amdgpu_ip_block *ip_block)
- 		dc_exit_ips_for_hw_access(dm->dc);
- 		WARN_ON(!dc_commit_streams(dm->dc, &commit_params));
- 
-+		if (dm->dc->config.imac5K_using_5K) {
-+			const u8 value = 1;
-+
-+			core_link_write_dpcd(dm->dc->links[0], DP_APPLE_5K_TILE_MODE, &value, 1);
-+		}
- 		dm_gpureset_commit_state(dm->cached_dc_state, dm);
- 
- 		dm_gpureset_toggle_interrupts(adev, dm->cached_dc_state, true);
-@@ -4739,6 +4746,27 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_commit *state,
- 	dc_exit_ips_for_hw_access(dm->dc);
- 	WARN_ON(!dc_commit_streams(dm->dc, &params));
- 
-+	if (dm->imac5K_support) {
-+		for_each_new_crtc_in_state(state, crtc, new_crtc_state, i) {
-+			dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
-+
-+			if (!dm_new_crtc_state->stream)
-+				continue;
-+
-+			if (dm_new_crtc_state->stream->signal != SIGNAL_TYPE_EDP)
-+				continue;
-+
-+			if (new_crtc_state->mode.vdisplay == 2880 &&
-+			    new_crtc_state->mode.hdisplay == 2560) {
-+				u8 value = 1;
-+
-+				core_link_write_dpcd(dm->dc->links[0],
-+						     DP_APPLE_5K_TILE_MODE, &value, 1);
-+				dm->dc->config.imac5K_using_5K = true;
-+			} else
-+				dm->dc->config.imac5K_using_5K = false;
-+		}
-+	}
- 	bool frl_stream_found = false;
- 
- 	for (i = 0; i < params.stream_count; i++) {
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index 1b91fe4c3..65a2330c6 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -698,6 +698,13 @@ struct amdgpu_display_manager {
- 	 */
- 	bool edp0_on_dp1_quirk;
- 
-+	/**
-+	 * @imac5K_support:
-+	 *
-+	 * quirk for iMac that support 5K
-+	 */
-+	bool imac5K_support;
-+
- 	/**
- 	 * @dpia_aux_lock:
- 	 *
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-index 2b81396bd..91c64f419 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-@@ -123,6 +123,14 @@ STATIC_IFN_KUNIT int dm_encoder_helper_atomic_check(struct drm_encoder *encoder,
- 				       drm_mode_vrefresh(adjusted_mode));
- 			dm_new_connector_state->scaling = RMX_ASPECT;
- 		}
-+
-+		/* The 5K panel reports no scaling info, scale every non 5K mode to full */
-+		if (aconnector->dc_link && aconnector->dc_link->dc->config.imac5K_support) {
-+			if (crtc_state->mode.vdisplay != 2880)
-+				dm_new_connector_state->scaling = RMX_FULL;
-+			else
-+				dm_new_connector_state->scaling = RMX_OFF;
-+		}
- 		return 0;
- 	}
- 
-@@ -3130,9 +3138,19 @@ STATIC_IFN_KUNIT int amdgpu_dm_connector_get_modes(struct drm_connector *connect
- 	const struct drm_edid *drm_edid = amdgpu_dm_connector->drm_edid;
- 	struct dc_link_settings *verified_link_cap = &dc_link->verified_link_cap;
- 	const struct dc *dc = dc_link->dc;
-+	struct dc_sink *sink = amdgpu_dm_connector->dc_sink;
- 
- 	encoder = amdgpu_dm_connector_to_encoder(connector);
- 
-+	if (dc->config.imac5K_support && sink &&
-+	    sink->link->link_index == 1 && !connector->edid_blob_ptr) {
-+		const struct drm_edid *kept = drm_edid_alloc(sink->dc_edid.raw_edid,
-+							     sink->dc_edid.length);
-+
-+		drm_edid_connector_update(connector, kept);
-+		drm_edid_free(kept);
-+	}
-+
- 	if (!drm_edid) {
- 		amdgpu_dm_connector->num_modes =
- 				drm_add_modes_noedid(connector, 640, 480);
-@@ -3312,7 +3330,8 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
- 				adev->mode_info.underscan_vborder_property,
- 				0);
- 
--	if (!aconnector->mst_root)
-+	/* Both 5K panel tiles must run at the same bpc, so userspace cannot set it */
-+	if (!aconnector->mst_root && !(dm->imac5K_support && link_index <= 1))
- 		drm_connector_attach_max_bpc_property(&aconnector->base, 8, 16);
- 
- 	aconnector->base.state->max_bpc = 16;
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_quirks.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_quirks.c
-index 259966703..a84ff90ef 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_quirks.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_quirks.c
-@@ -33,11 +33,13 @@
- struct amdgpu_dm_quirks {
- 	bool aux_hpd_discon;
- 	bool support_edp0_on_dp1;
-+	bool imac5K_support;
- };
- 
- static struct amdgpu_dm_quirks quirk_entries = {
- 	.aux_hpd_discon = false,
--	.support_edp0_on_dp1 = false
-+	.support_edp0_on_dp1 = false,
-+	.imac5K_support = false,
- };
- 
- static int edp0_on_dp1_callback(const struct dmi_system_id *id)
-@@ -52,6 +54,12 @@ static int aux_hpd_discon_callback(const struct dmi_system_id *id)
- 	return 0;
+ 	gmux_write8(gmux_data, GMUX_PORT_INTERRUPT_ENABLE,
+ 		    GMUX_INTERRUPT_ENABLE);
+ }
+@@ -806,23 +819,78 @@ static void gmux_clear_interrupts(struct apple_gmux_data *gmux_data)
+ 	/* to clear interrupts write back current status */
+ 	status = gmux_interrupt_get_status(gmux_data);
+ 	gmux_write8(gmux_data, GMUX_PORT_INTERRUPT_STATUS, status);
+-	/* Prevent flood of status=0 interrupts */
+-	if (gmux_data->config == &apple_gmux_mmio)
+-		acpi_execute_simple_method(gmux_data->dhandle, "GMSP", 0);
  }
  
-+static int imac5K_support_callback(const struct dmi_system_id *id)
++static void gmux_notify_work(struct work_struct *work)
 +{
-+	quirk_entries.imac5K_support = true;
-+	return 0;
-+}
++	struct apple_gmux_data *gmux_data =
++		container_of(work, struct apple_gmux_data, interrupt_work);
++	u8 status;
++	bool turn_on_gpu = false;
 +
- static const struct dmi_system_id dmi_quirk_table[] = {
- 	{
- 		.callback = aux_hpd_discon_callback,
-@@ -151,6 +159,27 @@ static const struct dmi_system_id dmi_quirk_table[] = {
- 			DMI_MATCH(DMI_PRODUCT_NAME, "HP ProBook 465 16 inch G11 Notebook PC"),
- 		},
- 	},
-+	{
-+		.callback = imac5K_support_callback,
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "iMac20,1"),
-+		},
-+	},
-+	{
-+		.callback = imac5K_support_callback,
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "iMac20,2"),
-+		},
-+	},
-+	{
-+		.callback = imac5K_support_callback,
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "iMacPro1,1"),
-+		},
-+	},
- 	{}
- 	/* TODO: refactor this from a fixed table to a dynamic option */
- };
-@@ -162,6 +191,7 @@ void retrieve_dmi_info(struct amdgpu_display_manager *dm)
- 
- 	dm->aux_hpd_discon_quirk = false;
- 	dm->edp0_on_dp1_quirk = false;
-+	dm->imac5K_support = false;
- 
- 	dmi_id = dmi_check_system(dmi_quirk_table);
- 
-@@ -176,6 +206,12 @@ void retrieve_dmi_info(struct amdgpu_display_manager *dm)
- 		dm->edp0_on_dp1_quirk = true;
- 		drm_info(dev, "support_edp0_on_dp1 attached\n");
- 	}
-+	if (quirk_entries.imac5K_support &&
-+	    !pci_is_thunderbolt_attached(dm->adev->pdev) &&
-+	    !dev_is_removable(&dm->adev->pdev->dev)) {
-+		dm->imac5K_support = true;
-+		drm_info(dev, "imac5K_support attached\n");
-+	}
- }
- EXPORT_IF_KUNIT(retrieve_dmi_info);
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-index 187486d97..e07b3648e 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-@@ -689,6 +689,16 @@ bool resource_are_streams_timing_synchronizable(
- 	struct dc_stream_state *stream1,
- 	struct dc_stream_state *stream2)
- {
++	status = gmux_interrupt_get_status(gmux_data);
++	if (!status)
++		return;
 +
-+	if (stream1->ctx->dc->config.imac5K_support &&
-+		((stream1->signal == SIGNAL_TYPE_EDP &&
-+		  stream2->signal == SIGNAL_TYPE_DISPLAY_PORT &&
-+		stream2->link->link_index == 1) ||
-+		(stream2->signal == SIGNAL_TYPE_EDP &&
-+		 stream1->signal == SIGNAL_TYPE_DISPLAY_PORT &&
-+		stream1->link->link_index == 1)))
-+		return true;
++	gmux_disable_interrupts(gmux_data);
++	pr_debug("Notify handler called: status %d\n", status);
++	acpi_execute_simple_method(gmux_data->dhandle, "GMSP", 0);
 +
- 	if (stream1->timing.h_total != stream2->timing.h_total)
- 		return false;
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index d3c484f45..a0b746250 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -635,6 +635,8 @@ struct dc_config {
- 	struct spl_sharpness_range dcn_sharpness_range;
- 	struct spl_sharpness_range dcn_override_sharpness_range;
- 	bool no_native422_support;
-+	bool imac5K_support;
-+	bool imac5K_using_5K;
- };
- 
- enum visual_confirm {
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
-index b0e91b321..09bcb1600 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
-@@ -1510,6 +1510,8 @@ struct dp_trace {
- /* TODO - This is a temporary location for any new DPCD definitions.
-  * We should move these to drm_dp header.
-  */
-+/* Apple 5K iMac TCON, 1 drives the panel as two tiles */
-+#define DP_APPLE_5K_TILE_MODE				0x4F1
- #ifndef DP_LINK_SQUARE_PATTERN
- #define DP_LINK_SQUARE_PATTERN				0x10F
- #endif
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-index 7b3aa02dd..aba1dc9b4 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-@@ -2656,7 +2656,8 @@ enum dc_status dce110_apply_ctx_to_hw(
- 	struct dce_hwseq *hws = dc->hwseq;
- 	struct dc_bios *dcb = dc->ctx->dc_bios;
- 	enum dc_status status;
--	unsigned int i;
-+	unsigned int i, n, enable_order[MAX_PIPES];
-+	int primary = -1, companion = -1;
- 	bool was_hpo_acquired = resource_is_hpo_acquired(dc->current_state);
- 	bool is_hpo_acquired = resource_is_hpo_acquired(context);
- 
-@@ -2664,6 +2665,32 @@ enum dc_status dce110_apply_ctx_to_hw(
- 	if (dc->config.use_pipe_ctx_sync_logic)
- 		reset_syncd_pipes_from_disabled_pipes(dc, context);
- 
-+	for (i = 0; i < dc->res_pool->pipe_count; i++) {
-+		struct pipe_ctx *pipe = &context->res_ctx.pipe_ctx[i];
-+
-+		enable_order[i] = i;
-+		if (!dc->config.imac5K_support || !pipe->stream ||
-+		    pipe->top_pipe || pipe->prev_odm_pipe)
++	status = gmux_interrupt_get_status(gmux_data);
++	while (status) {
++		gmux_write8(gmux_data, GMUX_PORT_INTERRUPT_STATUS, status);
++		if (status & GMUX_INTERRUPT_STATUS_FAILED) {
++			pr_warn_ratelimited("interrupt failed: status: 0x%x\n", status);
++			status = gmux_interrupt_get_status(gmux_data);
 +			continue;
-+		if (pipe->stream->link->link_index == 0)
-+			primary = i;
-+		else if (pipe->stream->link->link_index == 1)
-+			companion = i;
-+	}
-+	if (companion >= 0 && primary > companion) {
-+		enable_order[companion] = primary;
-+		enable_order[primary] = companion;
-+	}
++		}
++		if (status & GMUX_INTERRUPT_STATUS_POWER)
++			complete(&gmux_data->powerchange_done);
 +
-+	if (primary >= 0 && companion >= 0) {
-+		struct pipe_ctx *old = &dc->current_state->res_ctx.pipe_ctx[primary];
-+		struct dc_link *right = context->res_ctx.pipe_ctx[companion].stream->link;
-+
-+		if (!old->stream ||
-+		    pipe_need_reprogram(old, &context->res_ctx.pipe_ctx[primary]))
-+			right->link_state_valid = false;
-+	}
-+
- 	/* Reset old context */
- 	/* look up the targets that have been removed since last commit */
- 	hws->funcs.reset_hw_ctx_wrap(dc, context);
-@@ -2705,10 +2732,12 @@ enum dc_status dce110_apply_ctx_to_hw(
- 		dc->hwseq->funcs.setup_hpo_hw_control(dc->hwseq, is_hpo_acquired);
- 	}
- 
--	for (i = 0; i < dc->res_pool->pipe_count; i++) {
-+	for (n = 0; n < dc->res_pool->pipe_count; n++) {
- 		struct pipe_ctx *pipe_ctx_old =
--					&dc->current_state->res_ctx.pipe_ctx[i];
--		struct pipe_ctx *pipe_ctx = &context->res_ctx.pipe_ctx[i];
-+			&dc->current_state->res_ctx.pipe_ctx[enable_order[n]];
-+		struct pipe_ctx *pipe_ctx = &context->res_ctx.pipe_ctx[enable_order[n]];
-+
-+		i = enable_order[n];
- 
- 		if (pipe_ctx->stream == NULL)
- 			continue;
-diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-index b4546f93a..9b69a8013 100644
---- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-@@ -1205,7 +1205,11 @@ static bool detect_link_and_local_sink(struct dc_link *link,
- 				if (!link->dpcd_caps.set_power_state_capable_edp)
- 					link->wa_flags.dp_keep_receiver_powered = true;
- 			}
-+			if (dc->config.imac5K_support) {
-+				const uint8_t val = 1;
- 
-+				core_link_write_dpcd(link, DP_APPLE_5K_TILE_MODE, &val, 1);
++		if (status & GMUX_INTERRUPT_STATUS_HOTPLUG) {
++			/*
++			 * We get an interrupt every time a display connects or disconnects, but
++			 * the GET_DISPLAY port only tells us if a display is connected or not,
++			 * so we resume every time a display is connected or disconnected.
++			 */
++			u8 external_state = gmux_read8(gmux_data,
++						GMUX_PORT_SWITCH_GET_DISPLAY);
++			if (external_state != gmux_data->external_state) {
++				gmux_data->external_state = external_state;
++				if (external_state)
++					pr_debug("A display has been connected\n");
++				else
++					pr_debug("All displays has been disconnected\n");
 +			}
- 			sink_caps.transaction_type = DDC_TRANSACTION_TYPE_I2C_OVER_AUX;
- 			sink_caps.signal = SIGNAL_TYPE_EDP;
- 			break;
-@@ -1634,6 +1638,15 @@ bool link_detect(struct dc_link *link, enum dc_detect_reason reason)
- 	bool is_delegated_to_mst_top_mgr = false;
- 	enum dc_connection_type pre_link_type = link->type;
- 
-+	if (link->local_sink &&
-+			link->dc->config.imac5K_support &&
-+			link->local_sink->link->link_index == 1)
-+		return false;
-+
-+	if (reason == DETECT_REASON_BOOT && link->dc->config.imac5K_support &&
-+	    link->link_index == 1)
-+		msleep(100);
-+
- 	is_local_sink_detect_success = detect_link_and_local_sink(link, reason);
- 
- 	if (is_local_sink_detect_success && link->local_sink) {
-diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-index 2aeb9a0e6..3d7d1ddc4 100644
---- a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-@@ -2084,6 +2084,9 @@ static enum dc_status enable_link_dp(struct dc_state *state,
- 			!link->dc->config.enable_dpia_pre_training)
- 		do_fallback = true;
- 
-+	if (link->dc->config.imac5K_support && link->link_index == 1)
-+		msleep(100);
-+
- 	/*
- 	 * Temporary w/a to get DP2.0 link rates to work with SST.
- 	 * TODO DP2.0 - Workaround: Remove w/a if and when the issue is resolved.
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
-index 49521ac4b..e7ce8e903 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
-@@ -53,6 +53,11 @@ void dpcd_write_rx_power_ctrl(struct dc_link *link, bool on)
- 	core_link_write_dpcd(link, DP_SET_POWER, &state,
- 						 sizeof(state));
- 
-+	if (on && link->dc->config.imac5K_support &&
-+	    link->connector_signal == SIGNAL_TYPE_EDP) {
-+		state = 1;
-+		core_link_write_dpcd(link, DP_APPLE_5K_TILE_MODE, &state, sizeof(state));
++			turn_on_gpu = true;
++		}
++		status = gmux_interrupt_get_status(gmux_data);
 +	}
- }
- 
- void dp_enable_link_phy(
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c
-index 3be36d106..0618333bb 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c
-@@ -1540,8 +1540,16 @@ static enum link_training_result dp_transition_to_video_idle(
- 		 */
- 		if (link->connector_signal != SIGNAL_TYPE_EDP && status == LINK_TRAINING_SUCCESS) {
- 			msleep(5);
--			if (!link->skip_fallback_on_link_loss)
-+			if (link->dc->config.imac5K_support && link->link_index == 1) {
-+				/* The 5K tile link only has to answer AUX */
-+				uint8_t lanes;
 +
-+				if (core_link_read_dpcd(link, DP_LANE0_1_STATUS,
-+							&lanes, 1) != DC_OK)
-+					status = LINK_TRAINING_LINK_LOSS;
-+			} else if (!link->skip_fallback_on_link_loss) {
- 				status = dp_check_link_loss_status(link, lt_settings);
-+			}
++	gmux_enable_interrupts(gmux_data, 0);
++
++	if (turn_on_gpu && !gmux_data->external_switchable && gmux_data->discrete_pdev &&
++			    pm_runtime_enabled(&gmux_data->discrete_pdev->dev))
++		pm_request_resume(&gmux_data->discrete_pdev->dev);
++
++}
+ static void gmux_notify_handler(acpi_handle device, u32 value, void *context)
+ {
+ 	u8 status;
+ 	struct pnp_dev *pnp = (struct pnp_dev *)context;
+ 	struct apple_gmux_data *gmux_data = pnp_get_drvdata(pnp);
+ 
++	if (gmux_data->type == APPLE_GMUX_TYPE_MMIO) {
++		schedule_work(&gmux_data->interrupt_work);
++		return;
++	}
++
+ 	status = gmux_interrupt_get_status(gmux_data);
+ 	gmux_disable_interrupts(gmux_data);
+ 	pr_debug("Notify handler called: status %d\n", status);
+ 
+ 	gmux_clear_interrupts(gmux_data);
+-	gmux_enable_interrupts(gmux_data);
++	gmux_enable_interrupts(gmux_data, 0);
+ 
+ 	if (status & GMUX_INTERRUPT_STATUS_POWER)
+ 		complete(&gmux_data->powerchange_done);
+@@ -916,7 +984,7 @@ static int gmux_resume(struct device *dev)
+ 	struct pnp_dev *pnp = to_pnp_dev(dev);
+ 	struct apple_gmux_data *gmux_data = pnp_get_drvdata(pnp);
+ 
+-	gmux_enable_interrupts(gmux_data);
++	gmux_enable_interrupts(gmux_data, 1);
+ 	gmux_write_switch_state(gmux_data);
+ 	if (gmux_data->power_state == VGA_SWITCHEROO_OFF)
+ 		gmux_set_discrete_state(gmux_data, gmux_data->power_state);
+@@ -1072,6 +1140,8 @@ static int gmux_probe(struct pnp_dev *pnp, const struct pnp_device_id *id)
+ 			goto err_notify;
  		}
- 		return status;
+ 
++		if (type == APPLE_GMUX_TYPE_MMIO)
++			INIT_WORK(&gmux_data->interrupt_work, gmux_notify_work);
+ 		status = acpi_enable_gpe(NULL, gmux_data->gpe);
+ 		if (ACPI_FAILURE(status)) {
+ 			pr_err("Cannot enable gpe: %s\n",
+@@ -1094,7 +1164,7 @@ static int gmux_probe(struct pnp_dev *pnp, const struct pnp_device_id *id)
+ 
+ 	apple_gmux_data = gmux_data;
+ 	init_completion(&gmux_data->powerchange_done);
+-	gmux_enable_interrupts(gmux_data);
++	gmux_enable_interrupts(gmux_data, 1);
+ 	gmux_read_switch_state(gmux_data);
+ 
+ 	/*
+@@ -1124,6 +1194,9 @@ static int gmux_probe(struct pnp_dev *pnp, const struct pnp_device_id *id)
+ 		acpi_remove_notify_handler(gmux_data->dhandle,
+ 					   ACPI_DEVICE_NOTIFY,
+ 					   &gmux_notify_handler);
++
++	if (gmux_data->type == APPLE_GMUX_TYPE_MMIO)
++		cancel_work_sync(&gmux_data->interrupt_work);
+ err_notify:
+ 	backlight_device_unregister(bdev);
+ err_unmap:
+@@ -1145,7 +1218,6 @@ static void gmux_remove(struct pnp_dev *pnp)
+ 
+ 	gmux_fini_debugfs(gmux_data);
+ 	vga_switcheroo_unregister_handler();
+-	pci_dev_put(gmux_data->discrete_pdev);
+ 	gmux_disable_interrupts(gmux_data);
+ 	if (gmux_data->gpe >= 0) {
+ 		acpi_disable_gpe(NULL, gmux_data->gpe);
+@@ -1154,6 +1226,9 @@ static void gmux_remove(struct pnp_dev *pnp)
+ 					   &gmux_notify_handler);
  	}
+ 
++	if (gmux_data->type == APPLE_GMUX_TYPE_MMIO)
++		cancel_work_sync(&gmux_data->interrupt_work);
++	pci_dev_put(gmux_data->discrete_pdev);
+ 	backlight_device_unregister(gmux_data->bdev);
+ 
+ 	if (gmux_data->iomem_base) {
 -- 
 2.55.0
 
