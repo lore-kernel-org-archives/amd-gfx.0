@@ -2,120 +2,96 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD9A7606A327
-	for <amd-gfx@archiver.kernel.org>; Sat, 14 Nov 2026 19:11:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74CF3606A323
+	for <amd-gfx@archiver.kernel.org>; Sat, 14 Nov 2026 19:11:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HulUfZPZ
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IfkmmucE
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 255A110E8C0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1ECC10EC23;
 	Sat, 14 Nov 2026 19:10:57 +0000 (UTC)
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com
- [209.85.210.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5D2710E130
- for <amd-gfx@lists.freedesktop.org>; Sat, 14 Nov 2026 14:11:19 +0000 (UTC)
-Received: by mail-pf1-f179.google.com with SMTP id
- d2e1a72fcca58-8b6a88e4341so742494b3a.1
- for <amd-gfx@lists.freedesktop.org>; Sat, 14 Nov 2026 06:11:19 -0800 (PST)
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com
+ [74.125.82.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B3A810E784
+ for <amd-gfx@lists.freedesktop.org>; Sat, 14 Nov 2026 16:09:23 +0000 (UTC)
+Received: by mail-dy1-f179.google.com with SMTP id
+ 5a478bee46e88-3791619605cso4134108eec.0
+ for <amd-gfx@lists.freedesktop.org>; Sat, 14 Nov 2026 08:09:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794665479; x=1795270279; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from:references
- :cc:to:content-language:subject:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=X1aNKxDcC9Su/sKRcb+fwZwTfaJYdtOu8vWxOSG4H9Q=;
- b=HulUfZPZsvftiequU6wUy5YucBfCNgLqI8NEN5N9XmBvZd9XuShRMa6DIyo6hHSJvu
- tpWb9tz+dDgv3QgEcD7f4x82+gh5VBWWlHxEVJNwvDnGIy9LAVqQ5f/qQEqdgme2RBWZ
- yAOucwUVRWM4zwkd9dtjoMRpHMFuhgp8Z5ezeSJ1+KtZS2pgXHNTmc43GQ5rYZS7OE3W
- qih+eVefxNJLpDHOKW3egD7EPCBKlkYCa1KFhh8f6x1/BJZuOlIh53DKAuM1uU13BUwV
- 2AkzcnSMXEhYuZkpcSkUvOroOQA34jruzfPAdnOr7IeT5OPkMPPIPbS5xfhFdlXZLLZt
- H1Kg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794665479; x=1795270279;
- h=content-transfer-encoding:content-type:in-reply-to:from:references
- :cc:to:content-language:subject:user-agent:mime-version:date
- :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20260707; t=1794672563; x=1795277363; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=X1aNKxDcC9Su/sKRcb+fwZwTfaJYdtOu8vWxOSG4H9Q=;
- b=kTYgUVvh5+x9NW/25mx/vNQpYOCanxYdKjzkpo1Na1Zm6fc968uNVhicApJYhjKthx
- 8XXQXT8JZMeqLSRqkcUw6zGcZbXgxAo+sH7Dl6aV5rKVmPCTaZRx2F49rvYHN2NQLz4P
- U7GQ93v6yYDXUouxrFso0VXiGt1r+WkxsCCBGcmqmMUn4AH1ctE717Gdx7jtMB9KuqVO
- KLme5LhBkzAngXUwMPS7wcyRtDk8h74Nf2y7la2z1uWGz0P58RS7gc1mC6Q9mDQJdsDv
- BtYomjwJgoBV9RMrDmNgEntkR77cD0bB/nGVBFQHz3lXuVcsE5JP6rLdxpJ+pA87Xxkz
- s52A==
+ bh=EfZAm8HK5M4blUNFdDl+epKKwi55wmzsTvrZgcxUZEg=;
+ b=IfkmmucEil/q+h0aHvhynsvXxW8STfdBuQdX3yNMj/Aj8RLOZ99cVMMLRgJc92iT/n
+ xOor+TiqEMawg55grcoXfW91FD+yVfozHNrLMOdayjOJGfVdMZViTv7VSeAQOGSwOHaV
+ EKovBFf5mxYVuvfB3O+W4HxsebakRfOJK2CBGBtzYP7ZSRPQauWoixBHbxpNZr8CjNVz
+ dd3ZUZaE1rUJyUOfg7ws8RPGDtXs6qQ8SYXSlNp7KDaRIZ5Z2ZNzYeMbFWkFZIkXS/3L
+ /Px9kNtME5TcINtPIuaBP47GwbU6AMeST9wYIvNrRblunsXuIuk1NtEvMgJ+YXJe1pJ+
+ RLkA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794672563; x=1795277363;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=EfZAm8HK5M4blUNFdDl+epKKwi55wmzsTvrZgcxUZEg=;
+ b=a5J+ybv/ls/Bt5K4pzP5KTK48S21C25d8Hai5SAwXOR/wGEffaxD3/F7YWhm8m36D2
+ gviNp7Wm+W2WPEtgqFAdJWYHOFZDyjPYTzLB3ww4xZzWI3OHGdkklaWC1CRv2bM2xsMB
+ xHesIG7CGMwKZc9PlcIvjHIKFZU4UBdmp+wmL4MdGsvmHdJfy3vNNG7yjGW8gZtYpZKm
+ 7WPMVpbgsb3He8FtD+FmpkGz+8dVsUP6hzJzJhVx8n9jbXBijyka+vxaEvXZcNjN1u73
+ mhhgWs5WbqfmJ2f9XuqGRC1e/cerzXHsrA9cVSm0ik+vw9t/FhJQPVCXy+lx/60gCmZ2
+ BGLw==
 X-Forwarded-Encrypted: i=1;
- AL+hErGgoQZ0nTtd5CF0op0spOGemagxR75GC+r/B14QU/Ti//ANzHkmbtcCp+RfTC3Sd3focW5rgnpD@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9m6rhEVzmJz7ZS6fFz9Wm2JHelLA0DWlGiuj0BI/2QWoehRNWm
- 441wsTa2EWk4Fs1KjlTQkzIW1aKBrTQPC3V02TfoDParX4DN1VLmFCeq
-X-Gm-Gg: AYBFou0Niad9N1qz/6AUcyDm5fc7z5XZ2Ml7hJFaCzcST6Ox2hRTjYY+ey9FvM0LH58
- Ma1AMhnMoUTieYFfilTjr9kBrfyhEFVTkkxgkQVugM/FV+cODu/uyZY6usZ8sTcXA4AzAWJAKLP
- dVdkKpNQ2ruJ17yIZ99wio5Gv3NTr/93g95fFUXhzc4VryGlS/e5ooG25HphyNrC9ksGaaJfm6Y
- Jue5J1y/JaFeqSBYgMa1Why+X4HzPgYzsAFIbezccjC27M9YTONyalmNTi/asfgNR1fEjHS/ZKj
- vV7DR4N6xQv8IvmzANWw2EMOhm5DF6pWePUSx+HphqBlAMDLK0muQ7OdlvU5I28TTSjxxE1ETZg
- 8e+2fn2Kl9fE9SRJgiPsUbf4cZNryW5puKzUvJlA5eCdm2uBpVVvXFongWu002y4lNFSGItot3g
- HSrFixGcVJbWQ6pgwmzCZlntJxZIFgefKpl478UUaJrvFxxKQ07KGDr+uimpWj7eo4z4WGC1e01
- X/bVMp/kYCXP+5PlnmYwKxPcFtfTX5qOkSbM4bznucmC02FpTEzZ4oZQlhkp8cZsjElxnzoqwzs
- dW4Hiya+wjvznfxfjW8fhYiENs3xoISkE2jVdc+kxd93sJGi0j2WgxoHH+FU/RKJYJQ=
-X-Received: by 2002:a05:6a21:118e:b0:3eb:b103:6ec0 with SMTP id
- adf61e73a8af0-3f7a72ba2e9mr5274932637.14.1794665479089; 
- Sat, 14 Nov 2026 06:11:19 -0800 (PST)
-Received: from [192.168.35.40] ([218.50.238.131])
+ AL+hErHwdLKLEmAV06pRf13TUbBDA1OENUmKSGJe1Oqy9dVkBhbnUwUdDf/ZgSv8qbkGPvYTyoX9SGHS@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+zq+QmMHYxApGD9SF/aotq9W6eWBE41dL8OGzMva+1jzuw74FZ
+ r9NPdGVeo5yaDpRDF8gCr+nKK17bDUyt/R2gHvPjy546jHkXItvFNsM=
+X-Gm-Gg: AYBFou2SxdngsArhs77sR4jCNLbZIB5cLOg1K//JRLKvZKdoPmV9MQ694Hi7o+2tWt8
+ a976g9GLjLmRTCtkrP6UTDVy4sBxierWES687C9XIx57nK7L50d5VX+YQbS/HS5XMe+OL4OhSxa
+ lu10eCtTYewlTX1Q0nrlZ2tHSeJA4G+v1W0q55HxZUTz5cVatX/PuQ8g96x1nMDSDOirPNKK3BO
+ cX9kZnO41YDIp/uNTTvjVMZUOy8k/NrsV7jBQxGD4Dg5vXEDI9obDD66ekLfXX9YJgIl41tibxX
+ pTnp+CTFUOmARfrUN0NLIq7tPK7ODNgQqFztzad2smEmWtnPfn8NaivUNaYgJ2weSQc+Zu8F58c
+ hV1AwbfYnV6sD0U5lhypZfFKtIxsxjo/Me7188WqtGb9gE2lZx/b0Nf0Fx30IckNpKQ4zPt8jgA
+ 40tcy3LvGjAJDqtVNwjvL5lrdM3u+Oi4IloIx0sCGwFjvX+zFbxb7I96YpkD3b3FDLfWeUbxHac
+ iDLtn8LKsjUZxADeWz+U5hS/ok1W3nEhkJ/7N8D2UHd81fUcgYY7+Vw4kGRmxfIx0JTob5uYUQ6
+ esng5lMvDp1EUiHvFrFrvUesIarR/C3c8ORUkniH+e9z02KXaTGxO5OKKY2aXo4mxQ==
+X-Received: by 2002:a05:693c:4152:10b0:36a:4a68:84e5 with SMTP id
+ 5a478bee46e88-379659c6839mr6027249eec.8.1794672562295; 
+ Sat, 14 Nov 2026 08:09:22 -0800 (PST)
+Received: from at-Standard-PC-Q35-ICH9-2009 ([106.202.127.108])
  by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-cddc18b4e68sm2442814a12.25.2026.11.14.06.11.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 14 Nov 2026 06:11:17 -0800 (PST)
-Message-ID: <2d8dbfaf-46d3-4d05-b052-5e8a8670931e@gmail.com>
-Date: Sat, 14 Nov 2026 23:11:05 +0900
+ 5a478bee46e88-37956bb0919sm17567582eec.29.2026.11.14.08.09.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 14 Nov 2026 08:09:21 -0800 (PST)
+From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+To: 
+Cc: Andre Eikmeyer <dev@deq.rocks>, Sebastian Zygadlo <szgit@icloud.com>,
+ Yossef Osman <yossef.osman@proton.me>,
+ Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org (maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)),
+ "H. Peter Anvin" <hpa@zytor.com>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Kenneth Feng <kenneth.feng@amd.com>, Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ linux-pci@vger.kernel.org (open list:PCI SUBSYSTEM),
+ linux-kernel@vger.kernel.org (open list:X86 ARCHITECTURE (32-BIT AND 64-BIT)), 
+ amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
+ dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
+ platform-driver-x86@vger.kernel.org (open list:X86 PLATFORM DRIVERS)
+Subject: [PATCH v2 05/12] platform/apple-gmux: Write switch state to EFI on
+ MMIO devices
+Date: Sat, 14 Nov 2026 11:06:29 -0500
+Message-ID: <20261114160731.3756-6-atharvatiwarilinuxdev@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261114160731.3756-1-atharvatiwarilinuxdev@gmail.com>
+References: <20261114160731.3756-1-atharvatiwarilinuxdev@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/9] devfreq: Use trace_call__##name() at guarded
- tracepoint call sites
-Content-Language: ko
-To: Steven Rostedt <rostedt@kernel.org>, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org
-Cc: Masami Hiramatsu <mhiramat@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Vineeth Pillai <vineeth@bitbyteword.org>,
- Peter Zijlstra <peterz@infradead.org>, Aaron Conole <aconole@redhat.com>,
- Alex Deucher <alexander.deucher@amd.com>, Alexei Starovoitov
- <ast@kernel.org>, Anna-Maria Behnsen <anna-maria@linutronix.de>,
- Borislav Petkov <bp@alien8.de>, Chanwoo Choi <cw00.choi@samsung.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Daniel Borkmann <daniel@iogearbox.net>, Danilo Krummrich <dakr@kernel.org>,
- Dave Hansen <dave.hansen@linux.intel.com>, David Airlie <airlied@gmail.com>,
- "David S. Miller" <davem@davemloft.net>, Eelco Chaudron
- <echaudro@redhat.com>, Eric Dumazet <edumazet@kernel.org>,
- Frederic Weisbecker <frederic@kernel.org>, Ilya Maximets
- <i.maximets@ovn.org>, Ingo Molnar <mingo@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- Jesper Dangaard Brouer <hawk@kernel.org>, Jiri Pirko <jiri@resnulli.us>,
- John Fastabend <john.fastabend@gmail.com>, Jon Maloy <jmaloy@redhat.com>,
- Koby Elbaz <koby.elbaz@intel.com>,
- Konstantin Sinyuk <konstantin.sinyuk@intel.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
- "Martin K. Petersen" <mkp@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>, Maxime Ripard <mripard@kernel.org>,
- MyungJoo Ham <myungjoo.ham@samsung.com>, Oded Gabbay <ogabbay@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Philipp Stanner <phasta@kernel.org>,
- Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
- Thomas Gleixner <tglx@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- tipc-discussion@lists.sourceforge.net,
- Tung Quang Nguyen <tung.quang.nguyen@est.tech>,
- Xin Long <lucien.xin@gmail.com>, x86@kernel.org,
- amd-gfx@lists.freedesktop.org, bpf@vger.kernel.org, dev@openvswitch.org,
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-sctp@vger.kernel.org, netdev@vger.kernel.org
-References: <20261027153658.703730257@kernel.org>
- <20261027154413.039021489@kernel.org>
-From: Choi Chanwoo <cwchoi00@gmail.com>
-In-Reply-To: <20261027154413.039021489@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sat, 14 Nov 2026 19:10:55 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -127,57 +103,125 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+From: Andre Eikmeyer <dev@deq.rocks>
 
+On T2 devices (MMIO), the T2 coprocessor reads gpu-active efi
+variable, and macOS seems to write it, so to properly communciate
+to the T2 coprocessor, we write gpu-active.
 
-On 10/28/2026 12:37 AM, Steven Rostedt wrote:
-> From: Vineeth Pillai <vineeth@bitbyteword.org>
-> 
-> Replace trace_foo() with the new trace_call__foo() at sites already
-> guarded by trace_foo_enabled(), avoiding a redundant
-> static_branch_unlikely() re-evaluation inside the tracepoint.
-> trace_call__foo() calls the tracepoint callbacks directly without
-> utilizing the static branch again.
-> 
-> Original v2 series:
-> https://lore.kernel.org/linux-trace-kernel/20260323160052.17528-1-vineeth@bitbyteword.org/
-> 
-> Parts of the original v2 series have already been merged in mainline.
-> This patch is being reposted as a follow-up cleanup for the remaining
-> unmerged pieces.
-> 
-> Link: https://patch.msgid.link/20260515135920.2238808-1-vineeth@bitbyteword.org
-> Suggested-by: Steven Rostedt <rostedt@goodmis.org>
-> Suggested-by: Peter Zijlstra <peterz@infradead.org>
-> Signed-off-by: Vineeth Pillai (Google) <vineeth@bitbyteword.org>
-> Assisted-by: Claude:claude-sonnet-4-6
-> Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
-> ---
->  drivers/devfreq/devfreq.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/devfreq/devfreq.c b/drivers/devfreq/devfreq.c
-> index 82dd9a43dc62..9f71d9dc4a70 100644
-> --- a/drivers/devfreq/devfreq.c
-> +++ b/drivers/devfreq/devfreq.c
-> @@ -370,7 +370,7 @@ static int devfreq_set_target(struct devfreq *devfreq, unsigned long new_freq,
->  	 * change order of between devfreq device and passive devfreq device.
->  	 */
->  	if (trace_devfreq_frequency_enabled() && new_freq != cur_freq)
-> -		trace_devfreq_frequency(devfreq, new_freq, cur_freq);
-> +		trace_call__devfreq_frequency(devfreq, new_freq, cur_freq);
->  
->  	freqs.new = new_freq;
->  	devfreq_notify_transition(devfreq, &freqs, DEVFREQ_POSTCHANGE);
+Tested-by: Sebastian Zygadlo <szgit@icloud.com>
+Tested-by: Yossef Osman <yossef.osman@proton.me>
+Co-developed: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
+---
+ drivers/platform/x86/Kconfig      |  1 +
+ drivers/platform/x86/apple-gmux.c | 40 +++++++++++++++++++++++++++++++
+ 2 files changed, 41 insertions(+)
 
-Applied it.
+diff --git a/drivers/platform/x86/Kconfig b/drivers/platform/x86/Kconfig
+index c37e76066..01895d511 100644
+--- a/drivers/platform/x86/Kconfig
++++ b/drivers/platform/x86/Kconfig
+@@ -217,6 +217,7 @@ config APPLE_GMUX
+ 	depends on ACPI && PCI
+ 	depends on PNP
+ 	depends on BACKLIGHT_CLASS_DEVICE
++	depends on EFI
+ 	help
+ 	  This driver provides support for the gmux device found on many
+ 	  Apple laptops, which controls the display mux for the hybrid
+diff --git a/drivers/platform/x86/apple-gmux.c b/drivers/platform/x86/apple-gmux.c
+index 37ba20779..c4a953b5b 100644
+--- a/drivers/platform/x86/apple-gmux.c
++++ b/drivers/platform/x86/apple-gmux.c
+@@ -26,6 +26,7 @@
+ #include <linux/debugfs.h>
+ #include <linux/workqueue.h>
+ #include <linux/pm_runtime.h>
++#include <linux/efi.h>
+ #include <acpi/video.h>
+ #include <asm/io.h>
+ 
+@@ -489,6 +490,32 @@ static void gmux_write_switch_state(struct apple_gmux_data *gmux_data)
+ 		gmux_write8(gmux_data, GMUX_PORT_SWITCH_EXTERNAL, 3);
+ }
+ 
++#define APPLE_GPU_VARS_GUID EFI_GUID(0xfa4ce28d, 0xb62f, 0x4c99, \
++				     0x9c, 0xc3, 0x68, 0x15, 0x68, 0x6e, 0x30, 0xf9)
++
++static efi_char16_t gmux_gpu_active_name[] = L"gpu-active";
++
++static void gmux_write_switch_state_efi(struct apple_gmux_data *gmux_data)
++{
++	efi_guid_t guid = APPLE_GPU_VARS_GUID;
++	u32 active = gmux_data->switch_state_display == VGA_SWITCHEROO_IGD;
++	efi_status_t status;
++
++	if (!efivar_is_available() ||
++			!efi_rt_services_supported(EFI_RT_SUPPORTED_SET_VARIABLE))
++		return;
++
++	status = efivar_set_variable(gmux_gpu_active_name, &guid,
++				     EFI_VARIABLE_NON_VOLATILE |
++				     EFI_VARIABLE_BOOTSERVICE_ACCESS |
++				     EFI_VARIABLE_RUNTIME_ACCESS,
++				     sizeof(active), &active);
++	if (status != EFI_SUCCESS)
++		pr_warn("writing gpu-active failed: 0x%lx\n", status);
++	else
++		pr_debug("gpu-active: %u\n", active);
++}
++
+ static int gmux_switchto(enum vga_switcheroo_client_id id)
+ {
+ 	apple_gmux_data->switch_state_ddc = id;
+@@ -497,6 +524,8 @@ static int gmux_switchto(enum vga_switcheroo_client_id id)
+ 		apple_gmux_data->switch_state_external = id;
+ 
+ 	gmux_write_switch_state(apple_gmux_data);
++	if (apple_gmux_data->type == APPLE_GMUX_TYPE_MMIO)
++		gmux_write_switch_state_efi(apple_gmux_data);
+ 
+ 	return 0;
+ }
+@@ -1240,6 +1269,15 @@ static void gmux_remove(struct pnp_dev *pnp)
+ 	kfree(gmux_data);
+ }
+ 
++static void gmux_shutdown(struct pnp_dev *pnp)
++{
++	struct apple_gmux_data *gmux_data = pnp_get_drvdata(pnp);
++
++	gmux_write_switch_state_efi(gmux_data);
++
++	gmux_remove(pnp);
++}
++
+ static const struct pnp_device_id gmux_device_ids[] = {
+ 	{ .id = GMUX_ACPI_HID },
+ 	{ }
+@@ -1254,6 +1292,7 @@ static struct pnp_driver gmux_pnp_driver = {
+ 	.name		= "apple-gmux",
+ 	.probe		= gmux_probe,
+ 	.remove		= gmux_remove,
++	.shutdown	= gmux_shutdown,
+ 	.id_table	= gmux_device_ids,
+ 	.driver		= {
+ 			.pm = &gmux_dev_pm_ops,
+@@ -1265,3 +1304,4 @@ MODULE_AUTHOR("Seth Forshee <seth.forshee@canonical.com>");
+ MODULE_DESCRIPTION("Apple Gmux Driver");
+ MODULE_LICENSE("GPL");
+ MODULE_DEVICE_TABLE(pnp, gmux_device_ids);
++MODULE_IMPORT_NS("EFIVAR");
+-- 
+2.55.0
 
-Thanks,
-Chanwoo Choi
