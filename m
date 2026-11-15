@@ -2,93 +2,86 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0934B606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63EE5606A31C
 	for <amd-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 09:28:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=0SLT31HE
+	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=charmerstraining.com header.i=@charmerstraining.com header.a=rsa-sha256 header.s=google header.b=Fs8MCu7D
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 647CB10EE9B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 674F910EEA4;
 	Mon, 16 Nov 2026 09:28:42 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C8C910E29B;
- Sat, 14 Nov 2026 20:27:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
- :Reply-To:Content-Type:Content-ID:Content-Description;
- bh=IAcU3Sk2yws/2FQEkwdk+Wb99ieP2EheaQ5FYz3DtYg=; b=0SLT31HEl/C5L3thm4eZAYTGl1
- vlh8R+20ZHGqyVfVT1rlNXrJZB4xDac5nm7FlDSWzo5MNbskLMrTSuUsJaDoyYT0tgz7LZVClFhJe
- ioVPGA0bAk+wzLHdY8eQMa4Er1cKPD8rtlZmshOM64usLihNKZ93hLW6po95F+Y9TRC/T6/QmGMWM
- zgalytxeR5Bfmbo8xj+2RWY0TTqTLP0B0/CuPxpFO9y2dCyMsDzMN90W6Jva2FCT2wtJ7mcpqkXI2
- WKOqg2TuPpaj5hfD0aYtIf+0t1WHRJDAVEh9YXAeUBmeO1H3iVmCeT0ft2y7oe+fAAm33X2dJVPQH
- aPc3iMYg==;
-Received: from [50.53.43.113] (helo=bombadil.infradead.org)
- by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
- id 1xSKLJ-0000000Giga-11gA; Sat, 14 Nov 2026 20:27:22 +0000
-From: Randy Dunlap <rdunlap@infradead.org>
-To: linux-kernel@vger.kernel.org
-Cc: Randy Dunlap <rdunlap@infradead.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org,
- David Hildenbrand <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Jason Gunthorpe <jgg@nvidia.com>, Leon Romanovsky <leonro@nvidia.com>,
- linux-mm@kvack.org, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org,
- Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
- Marcel Holtmann <marcel@holtmann.org>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
- linux-bluetooth@vger.kernel.org,
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
- Jason Wang <jasowangio@gmail.com>, David Heidelberg <david@ixit.cz>,
- oe-linux-nfc@lists.linux.dev, Chas Williams <3chas3@gmail.com>,
- linux-atm-general@lists.sourceforge.net,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
- Helge Deller <deller@gmx.de>, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, MPT-FusionLinux.pdl@broadcom.com,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>, linux-scsi@vger.kernel.org,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
- Zhihao Cheng <chengzhihao1@huawei.com>, linux-mtd@lists.infradead.org,
- Neill Kapron <nkapron@google.com>, Andrey Konovalov <andreyknvl@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org, Hans de Goede <hansg@kernel.org>,
- Arnd Bergmann <arnd@arndb.de>, "Michael S. Tsirkin" <mst@redhat.com>,
- =?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
- Sean Christopherson <seanjc@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org,
- virtualization@lists.linux.dev, Jan Kara <jack@suse.cz>,
- linux-fsdevel@vger.kernel.org, "Theodore Ts'o" <tytso@mit.edu>,
- linux-ext4@vger.kernel.org, Mike Marshall <hubcap@omnibond.com>,
- devel@lists.orangefs.org, Paulo Alcantara <pc@manguebit.org>,
- Namjae Jeon <linkinjeon@kernel.org>, linux-cifs@vger.kernel.org,
- Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>,
- linux-f2fs-devel@lists.sourceforge.net,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- Tzung-Bi Shih <tzungbi@kernel.org>, Benson Leung <bleung@chromium.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
+ [209.85.216.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD14310E056
+ for <amd-gfx@lists.freedesktop.org>; Sun, 15 Nov 2026 03:08:58 +0000 (UTC)
+Received: by mail-pj1-f54.google.com with SMTP id
+ 98e67ed59e1d1-3b09a83d12aso2588276a91.2
+ for <amd-gfx@lists.freedesktop.org>; Sat, 14 Nov 2026 19:08:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=charmerstraining.com; s=google; t=1794712138; x=1795316938;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=XYng5pWI4USr1KWNzMKOzbrap54zZqn6X9wIRG9MW9w=;
+ b=Fs8MCu7D0gjMuj1sHIyiGeB+yo4NT8BwVelozmKk+CVi044Hzbo8qo9BxZtgYwDtii
+ gp9ks5GY8JfXBNo9Y74xQQFiYHYBksbIZbxwqGSG7dfac57Xqzu6BWqatwPFvFNor9ga
+ SGpG87RhvqHZ7hkoHa7nnG+i/IpoMddeJppr2U6Z6ZGub6qE2bAoFPfxOUOTDRhMEYmU
+ tH8LgyJYLEY5HBhE+4YUZjinbBwAqndhk1UkNYpmx4F0a9XXZ4H7FdPG8BuzfX5FgJSS
+ BzqaLfuDGURRSlW7s7gDOdJk1/YVbccfYXig6kEQffk2Nj5C5yZnBMrYFCAxKk1SMqIQ
+ EIgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794712138; x=1795316938;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=XYng5pWI4USr1KWNzMKOzbrap54zZqn6X9wIRG9MW9w=;
+ b=LzQu7JltZIOdt+ksGwIlc+4wV9U2kmhhXzGGgxj8nSS5zke7NKoqhROE1dd8xS04QT
+ 9YsnM/9rYoGqiVDvq/n/m/LFrVEApYIBMnip7EX5NssftJiSJMy4ZIr/8CWgr29DDD87
+ MSxWrrb8eu0r5/YGj1xu+f5kDYvdJqLvAPm5zOL/nOB+syPdVi+fNcdhVihtRkf/Hmuz
+ Fd65Jw9s5apGIZ8VSS4inCDymojQvCW2l0nfuJSjM6dRBHHyYL3M6LiCjwPvx1LDkIzs
+ RG7p24SQOftGwgmbeG43CEfW1QcOXIQ0NDR1xdgzS2aaWchDjoTCq708224aj0AF3iIn
+ A8wg==
+X-Forwarded-Encrypted: i=1;
+ AL+hErFwEeoj17cEc92IIiK9kgixOGXeox/WjahV3AgCLZfL79kUvgIGpR7GeqyZh9MjDYoZR5U57BDi@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z96x0ehVl9TuhbAVlllFaw9KFwgBdmKrdvAydo+wv2vXJ+KKs9q
+ O6Ddzaxl6qltZH+NbIDy+Elg8nsdHPF3FQ9Q2VfBW7oBd5z/+qswYe4cdsvzJVv/9LA=
+X-Gm-Gg: AYBFou1BKjXlapYIBFjC322oV5cJ+784fyjgX/CIoKKizJJLoAQD/93mQ2eCL8Zekai
+ K6v9nI3hZVp1qRVlL9lnt6ZUie20BQkaj7RwVj01BL03K+m4fniHCKXrpwm+q3IDai0AN3md1ps
+ qUxNePAuZ0PtivI/MHcXe3zSjg6CENFWU+JmJ1N5pGJon4CVJMf1bAbxpToEbu+OI/D0pK7YXwo
+ Wq8B1Mu6I2Etji4pv+5SaAPZ9vgCnKJHAmJtJ/DiMIEEa3BT362QCwalxcKGmhr875HA0mCxJSK
+ 2hh0Nste8xOMsMn7Ppl3YSp/l79/mntVYUuPksCe98uT4SQIPQM4o46f0g+kNG12a82JSfW2KPC
+ GqivFxlKtHHY8Yw3LygbcCft5Nar01EXTsWs0tWFFOmAkzax3ar3L998XrjlydBcDJniUtamXd2
+ /rAGT85JYMYfbzTVtX4NlZtYMycLVQB1NhZLQizCdRYarSTkG4PaLRYuzzawOOcaXgtX5nnoNoZ
+ k1d2tyoQ8cKjlWSkCOPBKLGYKID/QQvCjPXJ+jmUMq03aniVJP2kW1ADm6G989ZtI2x8ukNA6FG
+ azUsZQQIgoVXwFqiF92p59y1mwRE1xB1xY+wXAP5rxlEsPdcMuFiusZ/Z8MEw0YNPR18GsSs7od
+ k3UDNlx9GHs6PonvjWTl8VviEoGvhgUE0fpNHrkX8CYbdpyJfXHzS/EQJrjLPyadY0KKc8IqOHd
+ qlcyx0rWzX4g+ciQ29NwpO4wmID6Sd+71eD7wjNHJyh/+qLRuLeajIdA==
+X-Received: by 2002:a17:90b:4c49:b0:3ab:4f1:4f7e with SMTP id
+ 98e67ed59e1d1-3b1b0b8ef0fmr6902713a91.28.1794712138264; 
+ Sat, 14 Nov 2026 19:08:58 -0800 (PST)
+Received: from ip-192-168-20-3.ap-southeast-2.compute.internal
+ (2403-5803-1750-0-d1fd-685c-f50c-5901.ip6.aussiebb.net.
+ [2403:5803:1750:0:d1fd:685c:f50c:5901])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3b197d32ea0sm15422530a91.15.2026.11.14.19.08.53
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Sat, 14 Nov 2026 19:08:57 -0800 (PST)
+From: Ed Schofield <ed@charmerstraining.com>
+To: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+Cc: Doitall <diainquiries@protonmail.com>, Andre Eikmeyer <dev@deq.rocks>,
  Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, intel-gfx@lists.freedesktop.org,
- Matthew Brost <matthew.brost@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- intel-xe@lists.freedesktop.org
-Subject: [PATCH 11/12] docs: ioctl-number: update platform entries
-Date: Sat, 14 Nov 2026 12:26:49 -0800
-Message-ID: <20261114202653.3113381-12-rdunlap@infradead.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261114202653.3113381-1-rdunlap@infradead.org>
-References: <20261114202653.3113381-1-rdunlap@infradead.org>
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] drm/amd/amdgpu: Add 5K Support for iMac20, 1 and iMac20,
+ 2
+Date: Sun, 15 Nov 2026 14:08:48 +1100
+Message-ID: <20261115030848.17705-1-ed@charmerstraining.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261113214721.9382-1-atharvatiwarilinuxdev@gmail.com>
+References: <20261113214721.9382-1-atharvatiwarilinuxdev@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -103,51 +96,69 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Update the list of platform/ files where ioctls are defined and update
-the ranges of function numbers that are used.
+Hi Atharva,
 
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
----
-[Since having multiple maintainers trying to merge these would
-cause some conflicts, it would be more manageable for Jon to
-take all of these through the docs-next tree.]
+Thanks for posting this. I've built v2 unchanged and tested it on my
+iMac20,1 over the weekend (on 7.3 plus the t2linux patches).
 
-Cc: Jonathan Corbet <corbet@lwn.net>
-Cc: Shuah Khan <skhan@linuxfoundation.org>
-Cc: linux-doc@vger.kernel.org
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>
-Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-Cc: linux-rpi-kernel@lists.infradead.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: Tzung-Bi Shih <tzungbi@kernel.org>
-Cc: Benson Leung <bleung@chromium.org>
+It works well in normal use. I ran automated tests over 32 boots, 55
+display off/on cycles and about 40 suspend/resume cycles, and both
+halves of the panel came back at 2560x2880 and 10 bpc every time,
+including from scaled modes.
 
- Documentation/userspace-api/ioctl/ioctl-number.rst |    3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+However, your v2 hangs the GPU when the two halves are set to different
+modes. This happened 3 times out of 3, just as with my very similar "r2"
+variant that I described in [1].
 
---- linux-next-20261113.orig/Documentation/userspace-api/ioctl/ioctl-number.rst
-+++ linux-next-20261113/Documentation/userspace-api/ioctl/ioctl-number.rst
-@@ -436,6 +436,7 @@ Code  Seq#    Include File
- 0xBA  00-0F  uapi/linux/liveupdate.h                                   Pasha Tatashin
-                                                                        <mailto:pasha.tatashin@soleen.com>
- 0xC0  00-0F  linux/usb/iowarrior.h
-+0xC4  00-1F  platform/raspberrypi/vchiq-interface/vchiq_ioctl.h
- 0xCA  00-0F  uapi/misc/cxl.h                                           Dead since 6.15
- 0xCA  10-2F  uapi/misc/ocxl.h
- 0xCA  80-BF  uapi/scsi/cxlflash_ioctl.h                                Dead since 6.15
-@@ -448,7 +449,7 @@ Code  Seq#    Include File
- 0xDD  00-3F                                                            ZFCP device driver see drivers/s390/scsi/
-                                                                        <mailto:aherrman@de.ibm.com>
- 0xE5  00-3F  linux/fuse.h
--0xEC  00-01  linux/platform_data/cros_ec_chardev.h                     ChromeOS EC driver
-+0xEC  00-02  linux/platform_data/cros_ec_chardev.h                     ChromeOS EC driver
- 0xEE  00-09  uapi/linux/pfrut.h                                        Platform Firmware Runtime Update and Telemetry
- 0xEF  00-0F  uapi/linux/ntfs.h                                         NTFS
- 0xF3  00-3F  drivers/usb/misc/sisusbvga/sisusb.h                       sisfb
+To reproduce this, leave the left half (eDP) at 2560x2880, set the right
+half (DP-1) to 2048x2304, which its EDID advertises, then start a
+second program that uses the GPU. Each time the log showed:
+
+  amdgpu: SMU: No response msg_reg: 2a resp_reg: 0
+  amdgpu: Failed to disable gfxoff!
+  (repeated four times, about 4 s apart)
+  amdgpu: ring sdma1 timeout, signaled seq=17, emitted seq=19
+  amdgpu: Ring sdma1 reset failed
+  amdgpu: GPU reset begin!
+
+The reset never finishes and the machine has to be rebooted. Since the
+halves are separate connectors, anything that sets modes per connector
+can trigger this.
+
+I think the cause is the early "return true" in
+resource_are_streams_timing_synchronizable(), which tells DC the two
+streams are synchronized even when their timings differ. Taking the
+shortcut only when the timings really match avoids the hang:
+
+        if (stream1->ctx->dc->config.imac5K_support &&
+            stream1->timing.h_total == stream2->timing.h_total &&
+            stream1->timing.v_total == stream2->timing.v_total &&
+            stream1->timing.pix_clk_100hz == stream2->timing.pix_clk_100hz &&
+            ((stream1->signal == SIGNAL_TYPE_EDP && ...
+
+With that check, the same test passed 9 times out of 9 on a kernel
+("r3" [2]) that is otherwise very close to your v2, and the normal 5K
+case still takes the shortcut. Without the check it failed 7 times out
+of 7 before v2, so the result is consistent. Dropping the shortcut
+altogether also passed (8 of 8, "r1" [3]).
+
+Could you add that check in v3? I'm happy to retest quickly.
+
+One note: my Tested-by and Signed-off-by tags were added before
+I had seen or tested this version. I'm glad to give both for a version
+with the check above. Please use ed@charmerstraining.com.
+
+Thanks again for all your work on this!
+
+Ed
+
+[1] https://github.com/t2linux/wiki/issues/743#issuecomment-6588960822
+[2] https://github.com/edschofield/linux-t2-patches/blob/7273823e425200e9f371e9272e02ebf9abb6f1c2/7003-amdgpu-add-support-for-5K.patch
+[3] https://github.com/edschofield/linux-t2-patches/blob/5d3775923bf481c487ff96efc8fb3e24ecf8c9cd/7003-amdgpu-add-support-for-5K.patch
