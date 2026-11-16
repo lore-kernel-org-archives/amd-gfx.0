@@ -2,109 +2,107 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14D72606A31C
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 16:31:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBCF3606A31C
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 16:39:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=LyRnzlh/
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=z3elDI0l
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AC2310F2E9;
-	Mon, 16 Nov 2026 16:31:07 +0000 (UTC)
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011045.outbound.protection.outlook.com [52.101.57.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8DBE710F2E9
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Nov 2026 16:31:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56C6510F2DC;
+	Mon, 16 Nov 2026 16:39:49 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012069.outbound.protection.outlook.com [40.107.209.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7579910F2DC
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Nov 2026 16:39:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JmYO3V5s8p/FRK6lDjta3T+IVQXDgFbrJTaDQNtm8ei2uxUiCPNsrtO1wJwHhIWf5jrL6+IxWOB6g1Lw4MsoCnA6B9A9rmPuVg92xXX4Z/KKQ2dfJ/a2KWCuwssYZMMPY50YjunxbwrLs9YbDiBBFah+ug8Jd24Q2g8oy/EnzhtVnpcP5AZfk277qv+MLC4TCDlty8tWe4DVrRMRNykwAGFk8TsewiciU2UsnpJ2X+URUu/Mqlg5UtlEVZ/ZowOikfBD9PZ1w2XFKXYRHm03pirvawmKQT+LXuivqCNpX5rf+Hk8cbPhOmAJQZJre/BhJsX+JqgPoBhB/gqVQCj3Hg==
+ b=O/vhItOmJ9briJqo92IeRoAwkXulWqWIUGmV+NL/ogg4ak/MTnypzUgQL+vCCEPDGWZQIRGkRS/rIv6QyGwN1tILj8aitjz8XrR+jQgf5Y7c3vUfB5QdtMopE+V3mfGG5pKj4Jr0BRxWOHHyGFataGVhhIvqFZKd/fOOsRoDAvURNAySSwLIZTqtoIuAISZWYas9Tj4Ky2iHVeEIblkqLhlMk4hQr45Rlz/hNhJOGzgt3FseUcD9+MUu0phTFCJbAulDalMzkM6yDLpMiFLkD8sHpU7BU0A4c20i4EIbvdLIkgsp4PapNAWdneB2+ifazFkcOk8qMgnXAAM02vIBPQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9FJcXuUwYaTLzz60tt7CKwHLggjhUUbn5xH3lCmfjjw=;
- b=O+j2QHB6jxHPBdABIekPR47nERsrolM4P8Znp188S9664eQtmh34lKKuY4rMtRGFRrlGwkfnrQvMKq9irySZae789nPpVM1syMf3U2ozjGRwih4nhlEMJY6GrCJCi8UuFjYOBj0BtM3YXUpHyCR9fDRYB3DmSNd2E0Cdr3uLrAlwMOUlYjbhw0PKEIYGEKqSiiV/FEMYt3PLNbgqKGt3OnuZKrPZQB12bS5p+1NgS5+IM633v0GlbQyqfy1O/Dw2CwC6NMwHfSg1LUxV+1aomUEzYLPrDl6urnW05dCfdJAWL78ZGI8AS1X/XpcN5Y4KD4ptor3FRS5XzIkLGlYfXQ==
+ bh=RQxLzCMZQKf7n/8I8UW9WZD30+HNOSIXEi3lxbGxAOA=;
+ b=ycO0dIwwngmFhkcwYUlItTxSa38MKdh0n7j1LbfSEKKbBiMCGMfgIgZo7ZLLchdfrOZNDMHT1RV2rg/wvPqDMrJG1U70uOA1071hQnhOSTklmmh5rVjAZNbZEAKMboGurcU0c1EDAIT8gKDqnrLF/92kQ1Ji7nDfWYoVS7cPARqZvXediDe0UCcDsHB1sBLX7bq+HqoJHYjSMzOS9+rbjLvxtuONOLdaEvT1QQAW0+mo5+9mmatHRlekSKlbb4mBJRWiV21u8B4lBHqmsFFxKnjoYEIhsCWXNRClU4pOiZHzo/YbvCL3Q6KsW9Y25ynOoM96yofnKAhVOPEqmOmI+w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9FJcXuUwYaTLzz60tt7CKwHLggjhUUbn5xH3lCmfjjw=;
- b=LyRnzlh/dtx+ynThPAxk1nBFnv5wT0sR+hjSS2I6buNknOWpfAMvGD0oqlVndtsuchZD7zX2B0vYdpC9EvkSrp7b1wLZDQiRd0aDG51vF8BgctUNnRutePLE4OV8ZX6OhjB2pX2OLR85cGLnRbf3wlUE8pX64dkMcjW1EZJokgI=
+ bh=RQxLzCMZQKf7n/8I8UW9WZD30+HNOSIXEi3lxbGxAOA=;
+ b=z3elDI0llb4kGtF/gL7koUTSkem6zMC0fd0VEtoImjiag7genREAoOl7rNVz78gjcSy9oAQgBTfKZZ5rBfeKeHq63R9ZoajaY5lfZzu3N4P6WlHpoZ2QzpwEsPSnf9Ydta4Uo8kw48dMrDPs959Iuf00vNewIiZRIMMjSNl4+uc=
 Received: from CY3PR12MB9631.namprd12.prod.outlook.com (2603:10b6:930:ff::6)
- by DM4PR12MB5940.namprd12.prod.outlook.com (2603:10b6:8:6b::10) with
+ by LV5PR12MB9825.namprd12.prod.outlook.com (2603:10b6:408:2ff::21) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 16:30:56 +0000
+ 2026 16:39:37 +0000
 Received: from CY3PR12MB9631.namprd12.prod.outlook.com
  ([fe80::3595:9a8c:8f99:4e55]) by CY3PR12MB9631.namprd12.prod.outlook.com
  ([fe80::3595:9a8c:8f99:4e55%4]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
- 16:30:56 +0000
+ 16:39:37 +0000
 From: "Liu, Shaoyun" <Shaoyun.Liu@amd.com>
 To: "Liang, Prike" <Prike.Liang@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
 CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
  <Christian.Koenig@amd.com>, "Chen, Michael" <Michael.Chen@amd.com>
-Subject: RE: [PATCH 2/6] drm/amdkfd: allocate the MES process context slot
- with its buffer
-Thread-Topic: [PATCH 2/6] drm/amdkfd: allocate the MES process context slot
- with its buffer
-Thread-Index: AQHdcRQZlGd1nFg4GEumHmwAiTsPZrcw31AA
-Date: Mon, 16 Nov 2026 16:30:55 +0000
-Message-ID: <CY3PR12MB96318D3A9D1D45BEA9A1F25CF47C2@CY3PR12MB9631.namprd12.prod.outlook.com>
+Subject: RE: [PATCH 3/6] drm/amdkfd: fix the MES gang context slot error paths
+Thread-Topic: [PATCH 3/6] drm/amdkfd: fix the MES gang context slot error paths
+Thread-Index: AQHdcRQc7ByDTabAOEaxvk5t/xbJ9Lcw76TA
+Date: Mon, 16 Nov 2026 16:39:37 +0000
+Message-ID: <CY3PR12MB9631928D45E802CC50B793A9F47C2@CY3PR12MB9631.namprd12.prod.outlook.com>
 References: <20261110130440.474374-1-Prike.Liang@amd.com>
- <20261110130440.474374-2-Prike.Liang@amd.com>
-In-Reply-To: <20261110130440.474374-2-Prike.Liang@amd.com>
+ <20261110130440.474374-3-Prike.Liang@amd.com>
+In-Reply-To: <20261110130440.474374-3-Prike.Liang@amd.com>
 Accept-Language: en-CA, en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-11-16T15:39:58.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-11-16T16:38:24.0000000Z;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
  v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
 authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY3PR12MB9631:EE_|DM4PR12MB5940:EE_
-x-ms-office365-filtering-correlation-id: 46422156-3a29-4291-4f6f-08df43fefd35
+x-ms-traffictypediagnostic: CY3PR12MB9631:EE_|LV5PR12MB9825:EE_
+x-ms-office365-filtering-correlation-id: 49f32786-16e7-4d14-5cfe-08df4400342e
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|376014|23010399003|366016|22082099003|18002099003|261009223027099003|3023799007|11063799006|56012099006|10067099003|4143699003|261102123227099003|261028144727099003|261026140227099003|261026121527099003|261021121427099003|261022105027099003|261021123027099003|38070700021;
-x-microsoft-antispam-message-info: iX2vDdWqfJXY0bu4y9hMx+cStac1fpvcWRXyx6jHk3r/uFjDkeltpRIs1WCMXWU6Q41vK79BNyLNH+ljUqqGyuowiWBPf/dgTeh8Dw/pvYvMjnyIPRce406bvoc1InOxsp6xN7djRHhXmtNb3d0Uu6czA88utBdsv8tRwUmNPeJ+doSIpJByAJ40MCzt8SRND+76HCRf1dAuMdK4/S7MC2B5h5XUGGAJ7BedsXkSuexzouMr300G8RDKU858SN2wXTSZpa3dNMuAb4JpAf85NHCkbCURN8/4pn2GxPFF/7R/8mXij2iMCgD1+BEV0Wk5lk+hPlV7Ev836LBrJNuqo8ltVSYJIUIVyWCZz9hnBwsqy25O+OTUrlHjdfKftfGGsLpVUL6b/zxLGUbykZg2esNrcq+xvevrluT3KbF55uZlrcaMTP4oLJqaiElptEHsHSHt7hNT0iIcfSMh5eyqBIKgJcOAVuLFFWMbpyMyib+qS13luFAx8YRkJbLVLRQ+cDBeIdcEb9+GLoZLK1q254cSyR4W2tJjBxHTpN5M4CiA1V9tgTd6Dtge1aIGtaUssJLxcfbAt+boaZWK9wONHPZS1mKCuJy52uChppadkjnpFeVZslJ4r0cgAWwU//oBKLJK7AZqnfLlCy6vmPX2oGmtBXb9CQxn4Bh4MuqU9VoNFNWFc1Ji2KozdSf5wRjsQ+FodLHwg9xgosrpLZ6zlSviqq1oaM+acxpAXdNDPlw=
+ ARA:13230040|23010399003|366016|1800799024|376014|22082099003|18002099003|6133799003|261009223027099003|11063799006|4143699003|56012099006|261028144727099003|261102123227099003|261026121527099003|261021123027099003|261026140227099003|261022105027099003|261021121427099003|38070700021|10067099003;
+x-microsoft-antispam-message-info: mVVXA1hb3MqQWlHslly0aSMY4GKwjopx1Y+VoSuk5nfGdJYU1lav0NrpMX8VtHHElxHxKUT+YwOobvjHP0k5ZKNpA8SR97SYwDwbkdMREht2qHGNdWiEBbacDureeAyTdJL7d0dMOgJ13eOYzEE9DvBvu01uLMDO4+o0sZ6fvnoVwaIFbmFbUdy2+Hvd9NoUu6WvpH9CCTgpyH4ignY2Mr1Mp6R5pVAVepDHQKxNprxYuqEwM1qnQTUF/cE+bBOFNA/A6MRIiYXr/7/Aq49MojhV4ttFNfIiqsMTXS+pm7930n1VoMfypmV3WGRi8M9XhjwBkJ5Vl9HwXR9LSa66xQ0sY32Cn4nlvoXn6ZwrJ7d97WrruEO/eb0L3LGvSEdESeh6vuKrDIaeBebYBAUwhSww6MLXPQuOFspyAhAn96My8fjs6lpSoAayFVCD2JMtFXeSBM9K0Ae7nhfeQr0iOTV3o8b2oVbW5RHIu5sPUwYxX8jfMEGtwXBLLJGPfTLlQU+ssc+w2gSfWD35lZ2aGmHTEvShJvQ/PVkSKVBbB8FgUCbrtyS84h33x3A3rgUoVvMuFx5zrBybJvbjdJNfvxasCZLnH4ePBpt8l1MtX5j9h0YteYHdUwXaU8lgt9NNE/0pl4gd12Cg5D6t/WkdgEZlU5v7iKTAvurtLX9ikCLPYMZcDrEdo/2Yoeu9Ba5kpwPeHZV9meAHGwN0076sjGBEaMCecj6ePz4fcDPif+U=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CY3PR12MB9631.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(22082099003)(18002099003)(261009223027099003)(3023799007)(11063799006)(56012099006)(10067099003)(4143699003)(261102123227099003)(261028144727099003)(261026140227099003)(261026121527099003)(261021121427099003)(261022105027099003)(261021123027099003)(38070700021);
+ SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(22082099003)(18002099003)(6133799003)(261009223027099003)(11063799006)(4143699003)(56012099006)(261028144727099003)(261102123227099003)(261026121527099003)(261021123027099003)(261026140227099003)(261022105027099003)(261021121427099003)(38070700021)(10067099003);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?fn2+Q8dZK5MtoxDjdwOMDtlH0lN32BzsOs5sxcUzP95BILIbK0YZt5aax6/D?=
- =?us-ascii?Q?LXmbACEmYKVR7gqjJRg+gZ7F5FGAn1Bkb/T+1Mt/US93HF/+xIVZ1qsXS8Xw?=
- =?us-ascii?Q?20oHVNZJ8P0nHfs5xT9YBgANWKllCy0eKVuASluGQK2xUFIoZZLAWoNx2gbd?=
- =?us-ascii?Q?qHoAkQZ+aHxXsxPtIU3bGBQJMg4oPzoPJtROrFn4//BpkVamGmFfNxtVvIWL?=
- =?us-ascii?Q?iTAztnfe7hxtuxA33WJ9l69WHD0qY0Qct3jX+wRc0vkpc+uDrGF3R3Zor9ME?=
- =?us-ascii?Q?NOV/8GBPHYtDmFLUUDOnT4mfMIcNbXM+SD/mUploVNnmoQWx80MBqsnIKO3x?=
- =?us-ascii?Q?iIKTIE4HnGCw/ZSpAAXvNsh1ni8RKMBvjsPeipaMEy4iGdf/WFzTC6xxicUz?=
- =?us-ascii?Q?+p929p9/dF0S0gEdQB42wpkGDbaxPg/wzKOb6i/3Uwy9mPWQpPH8GZ5VFDie?=
- =?us-ascii?Q?gAc3rT1UcgaenRzugkX8B46MYvjBXzFZcMGaCxsGy3S6oyOShj/Rq9wdb63f?=
- =?us-ascii?Q?CKl2wWPbyvbE56XLujEB9Nl4ukGg4gRUVdp5Ppnaj6qbdXFT68PXAzWjqBF7?=
- =?us-ascii?Q?63eFcdVR8fUqhPYcxeXlhpd/a3UW2BT/e0jnPN+Rc56ZCx0Qsrye8l9DrMH7?=
- =?us-ascii?Q?M4MLiM8LgI/2se8HMzjxlp5SkE1thD7DFm98AL/YrmpgA510L45X5e/5ROSK?=
- =?us-ascii?Q?TER+n9mJ494qGzSk3LL3+xkkC6icVoNl+a8mxfnP5uUNoHgt62eVvqw2HCbo?=
- =?us-ascii?Q?TlwobCaF/K8+wo1F8t7pCVz3ah+Xf1bfGqiLDKu2qSDSq6VMSudRPWSkddml?=
- =?us-ascii?Q?MBlqubT3XOxfCutkBV3iGXHLMgic27YFcb8AT2CRw2uaMD2bkmjU3jx22e6u?=
- =?us-ascii?Q?M6BGUnGiF0uCErORcsKJ49yNbsIrJwla1IxuEtcZcNSqTu+TtFsFLMTeKRGS?=
- =?us-ascii?Q?a9Q8BNejhLk6//lAkwyttFuzYYl+DTZDke0GtwdX7QT2sWi0x1Z6/3QnH/G/?=
- =?us-ascii?Q?9j4ku0njCGEBG1LsRCCofkXXE5mHMKbNGM8mBFEeMFCvgZ/KN33+f2gB4Dzd?=
- =?us-ascii?Q?9epVGc/Oebx2Bc7DobZmyZNlVcKd8qn1wMSA/yZJwcz+2ueRSN1qalMSeimG?=
- =?us-ascii?Q?8aHSeItsEj6bH5O1Mveh/C63fLDjdUIVr6HaMo1nfnAiCwStXQJCaVmHk3yP?=
- =?us-ascii?Q?39MasJJuhV2k3iof89EuL+g9kYE7M5DELsPlpTzWM00f+A2rERzpd71t/zaK?=
- =?us-ascii?Q?t0JCFvUaC1uTehDiqQb7Kfs8T0RUOoDDel4pYNXYc6WcZUCTCNIzuGNDuosm?=
- =?us-ascii?Q?VyLLQMdcsT4LKifxMb7LwQqW75eeBEWSkX5srHlACKwUHpeToX4LWs1VwJBP?=
- =?us-ascii?Q?gefvX9X1DogIefZS1vS/dHD1LUw46UJKVaow6+ewHAimBI8/Elc12CDhPTik?=
- =?us-ascii?Q?DPZcNt9Dnfad2my+53nBSU11FI1I6dK9icyqy/GkokuB43/fbpoiCIhp0zcg?=
- =?us-ascii?Q?R+2MKIMNfi7fVsjEZQJ5y+dtS0fgYQQwWWDfJAAhuxjpbKNjwzu/AoMsol+M?=
- =?us-ascii?Q?o97+kd2uxGOuncBZlttOWZ3Dv7ttgsiaLu5jixLaHlosW4FdqflKPJWwmAU/?=
- =?us-ascii?Q?EOY9cTgRD1TPOr2IW5nIwPPWXrnyjQAUTBPfwElRHM8+ewrZwYWqSfEhmTDp?=
- =?us-ascii?Q?Pqnkt+d+j67ZJI8YoFNBsXbaS6Ykm8SDcdSZF1RJVyoz+rjU?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?7flsSn6/q/J9UWbQjJvgUCdAcRGXX8tgrUY8nJTJ+/kP1tBfiQgwb3Ghze09?=
+ =?us-ascii?Q?OXLanqNscRjdUr7J8ReEeBGlJ9JjdZ+GOubP1af/aBfa2YReI9I5AA+uoSOa?=
+ =?us-ascii?Q?kx3zhdEQWZTkxRrC2uXF8jpOyLB23UKLLw7PBIwygTtwFo140VtDkLfssffh?=
+ =?us-ascii?Q?KkdZj7PvZ1AWZYzjHX1Y/PzK9bEsgOZBvI71LWR1b0pGwxDZkpoenSG/Ed39?=
+ =?us-ascii?Q?L4zBZCxVVLAuIbVzjWOCfqS+SBKg03QHASiIZp0r9yTPGIAft08kNakNNtgY?=
+ =?us-ascii?Q?aSGBpB/j3iG5LN7rsAUNw9k6W8Tdc+L1tcouRt0HGg5dUkoO1Jb9oTcupoFT?=
+ =?us-ascii?Q?05snUeMLkfvRwBmaO0loG9Z821jqrA4rDJod7vedO4o3XIkvlRpWvs/lBQW1?=
+ =?us-ascii?Q?Y50euGudjyo5HqQe9RDOf4EVC3O1lpljtsxN3cUJIXThohyevBNmi9bFUamA?=
+ =?us-ascii?Q?/7zYcWJJujSAs5Mug6n5KdFIDaZQHikI16nx1lGisCqImAcxYp+bZRBQNGc/?=
+ =?us-ascii?Q?j5iMORouBwZAYbk0kWM6OcdI7z/xPzOOMF80IhCOyTsZQQivNopkMuqfvnKG?=
+ =?us-ascii?Q?1ytiOxNo/MWlCXjQurbdG95Y5UNYdyhazFfSo9xf3TOPqAY85dr5y95O7TIr?=
+ =?us-ascii?Q?agA3fcRXDRMLeS+Ui/jAVUUToXpJWVBwkHxGvyxrhy5R3/bPIuj6Z5oYnvwE?=
+ =?us-ascii?Q?8KfzBQlNvuwJ030CNFNqN7NtPbdi1U5C3lWuDTCwT5Wn4M+piyyDOUNkcy/x?=
+ =?us-ascii?Q?UZgPTSbGXQBzi3RZd1Zt7eBm1uEu5R5r3lnOsVFzfDt9AfUBBAKDyxJNlV1c?=
+ =?us-ascii?Q?yN6tyCmW0bjOX6a17YZb6YXv+kxHuyyoS+D8MctTjsd0s047O2xmAmyI/INx?=
+ =?us-ascii?Q?ZCl81NJM5/wGzSVOcUksdYaGeBx3zrxyIxFmKHR/A/i8xuiy5kqDI4aaEDMU?=
+ =?us-ascii?Q?g0BiuM+BJwndhgewCnCZd+2NCZlEZ15TDyX7oD7KhY4hon4d0X8a9bdvM0Nv?=
+ =?us-ascii?Q?sRYU/IqwVDcCUp35Ry4GlAFImla8kjwjwFxYOfUOWHquNoNvbgTzU9TvQXTt?=
+ =?us-ascii?Q?/50wn9qs7JAYn4epO0ztpdP7HyZJTTM/nd+WMIT7+OQE/JKiDvo2bIbCONBr?=
+ =?us-ascii?Q?y+EmeR0e9KLD1bFxdaymyvVAQ7BJMPu9QmH/bO72pW9FUpCGq2f0rC18884o?=
+ =?us-ascii?Q?ySJw3kJZe2kE39UbzH302D0BEw1nF4D/1EyZpEoBts7O6es4FLLFpslmZX0+?=
+ =?us-ascii?Q?AR7JizJr628pgIZbxN9DiuNGFDroE5gl1/NGPHIEzWjLJJpTZ8+/sL8Lty54?=
+ =?us-ascii?Q?ovma9eJd8t3/0DzD9b8D4obGagVB6cmCHyj9tPnbDQX3LaI+3oF89gOHMbB7?=
+ =?us-ascii?Q?ylzu7OYgIH3C09oxqPh3nuh70I2L5qsGt9kiTMVQXz5EBBoN60FjXKi8W0sd?=
+ =?us-ascii?Q?XVrBxXN7i9edXFTYtG2iAmxwPq00pY3iw9wIngwcCgohIKSvtL6ifJRPtilN?=
+ =?us-ascii?Q?SGJqKjVmpI/GtG7JEhrTOAGQ8fSSamVt58a1kin9ICSCUHHwX+XG1kl1qxDw?=
+ =?us-ascii?Q?MtDYVruLOqxVHbYnC3w/uP83P9iHuK1etaSNfSc8/Xv9GBVWBuMmtzrSmayL?=
+ =?us-ascii?Q?YcTkfy9gj3Cr1gyQ1GqpcRC2Tico+TwwbyzvN6QTBevFebSzRpqAqlXH/vAx?=
+ =?us-ascii?Q?WEvXWhNi47MaVqt9k8uQuYMF5TBw1inDYiP70JuUJp8tQ3WB?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 X-Archived-By: <archiver.kernel.org>
@@ -112,13 +110,13 @@ MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: CY3PR12MB9631.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 46422156-3a29-4291-4f6f-08df43fefd35
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Nov 2026 16:30:55.8599 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 49f32786-16e7-4d14-5cfe-08df4400342e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Nov 2026 16:39:37.5433 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: +w22Yxvk3eX1vR+USmcwePKHUSIfE9Nm7Qt5m2tQK1cAJ9SGj4qzx081HgT5VYXujs5pOQuep20jsXofqk4lbg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5940
+X-MS-Exchange-CrossTenant-userprincipalname: bogj+cmSyiyxr8n17l8hoYfomNbOYoKtUZhovYgmz52xVp5/Z3NUtRy8AEnk0rjs532hfqVstp9+y64MXhWWxA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV5PR12MB9825
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,10 +136,7 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 AMD General
 
-You can add me as acked . The code changes looks ok to me , but  I'm not su=
-re whether the behavior will be changed since according to your description=
- original driver always use slot 0 , now it has its own  slot for each proc=
-ess . Not sure whether it's matter .
+For Patch 3,4,5,6 .  You can added me as acked-by :
 
 Regards
 Shaoyun.liu
@@ -153,182 +148,128 @@ To: amd-gfx@lists.freedesktop.org
 Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Chri=
 stian.Koenig@amd.com>; Chen, Michael <Michael.Chen@amd.com>; Liu, Shaoyun <=
 Shaoyun.Liu@amd.com>; Liang, Prike <Prike.Liang@amd.com>
-Subject: [PATCH 2/6] drm/amdkfd: allocate the MES process context slot with=
- its buffer
+Subject: [PATCH 3/6] drm/amdkfd: fix the MES gang context slot error paths
 
-In MES RS64 mode, pqm_create_queue() allocates a process context slot right=
- after the process context buffer, but only on the path where it allocates =
-the buffer itself:
- - kfd_dbg_set_mes_debug_mode() allocates the buffer as well, without a
-   slot. A process that a debugger attaches to before it creates its
-   first queue therefore never gets a slot: its queues use slot 0, and
-   it frees slot 0 when it exits, while another process may hold it.
- - If no slot is available, the buffer is kept without a slot, and the
-   process's later queues use slot 0 the same way.
-
-Allocate the buffer and the slot together in one helper that both paths use=
-, and free the buffer again if no slot is available.
+In MES RS64 mode, init_user_queue() allocates a gang context slot for each =
+queue after its gang context buffer, but two error paths don't release what=
+ has been allocated:
+ - If no slot is available, init_user_queue() returns without freeing
+   the gang context buffer.
+ - If init_user_queue() succeeds but the DQM fails to create the queue,
+   pqm_create_queue() only frees the queue struct. That leaks the slot,
+   and also the gang context buffer and the wptr BO's GART mapping,
+   which already leaked there before RS64.
 
 Fixes: e32b68c6b135 ("drm/amdkfd: enable rs64mem for kfd queue")
 Signed-off-by: Prike Liang <Prike.Liang@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_debug.c        | 19 ++--------
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  1 +
- drivers/gpu/drm/amd/amdkfd/kfd_process.c      | 35 +++++++++++++++++++
- .../amd/amdkfd/kfd_process_queue_manager.c    | 26 ++------------
- 4 files changed, 42 insertions(+), 39 deletions(-)
+ .../amd/amdkfd/kfd_process_queue_manager.c    | 28 ++++++++++++-------
+ 1 file changed, 18 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c b/drivers/gpu/drm/amd/a=
-mdkfd/kfd_debug.c
-index cb830f985536..d5c87de519ac 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-@@ -350,27 +350,14 @@ int kfd_dbg_set_mes_debug_mode(struct kfd_process_dev=
-ice *pdd, bool sq_trap_en)  {
-        uint32_t spi_dbg_cntl =3D pdd->spi_dbg_override | pdd->spi_dbg_laun=
-ch_mode;
-        uint32_t flags =3D pdd->process->dbg_flags;
--       struct amdgpu_device *adev =3D pdd->dev->adev;
-        int r;
-
-        if (!kfd_dbg_is_per_vmid_supported(pdd->dev))
-                return 0;
-
--       if (!pdd->proc_ctx_cpu_ptr) {
--               r =3D amdgpu_amdkfd_alloc_kernel_mem(adev,
--                       AMDGPU_MES_PROC_CTX_SIZE,
--                       AMDGPU_GEM_DOMAIN_GTT,
--                       &pdd->proc_ctx_bo,
--                       &pdd->proc_ctx_gpu_addr,
--                       &pdd->proc_ctx_cpu_ptr,
--                       false);
--               if (r) {
--                       dev_err(adev->dev,
--                       "failed to allocate process context bo\n");
--                       return r;
--               }
--               memset(pdd->proc_ctx_cpu_ptr, 0, AMDGPU_MES_PROC_CTX_SIZE);
--       }
-+       r =3D kfd_process_device_alloc_proc_ctx(pdd);
-+       if (r)
-+               return r;
-
-        return amdgpu_mes_set_shader_debugger(pdd->dev->adev,
-                                        pdd->proc_ctx_gpu_addr,
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/am=
-dkfd/kfd_priv.h
-index 158fa70a1a8e..0a4e8639c4b5 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -1140,6 +1140,7 @@ struct kfd_process_device *kfd_process_device_data_by=
-_id(struct kfd_process *pro
-
- int kfd_process_get_user_gpu_id(struct kfd_process *p, uint32_t actual_gpu=
-_id);
-
-+int kfd_process_device_alloc_proc_ctx(struct kfd_process_device *pdd);
- int kfd_process_device_init_vm(struct kfd_process_device *pdd,
-                               struct file *drm_file);
- struct kfd_process_device *kfd_bind_process_to_device(struct kfd_node *dev=
-, diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/a=
-md/amdkfd/kfd_process.c
-index 546721b4d59a..102fcb401646 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -1204,6 +1204,41 @@ static void kfd_process_profiler_release(struct kfd_=
-process *p, struct kfd_proce
-        up_read(&adev->reset_domain->sem);
- }
-
-+/* Allocate the MES process context and, in RS64 mode, its slot
-+together. */ int kfd_process_device_alloc_proc_ctx(struct
-+kfd_process_device *pdd) {
-+       struct amdgpu_device *adev =3D pdd->dev->adev;
-+       int r;
-+
-+       if (pdd->proc_ctx_cpu_ptr)
-+               return 0;
-+
-+       r =3D amdgpu_amdkfd_alloc_kernel_mem(adev, AMDGPU_MES_PROC_CTX_SIZE=
-,
-+                                          AMDGPU_GEM_DOMAIN_GTT,
-+                                          &pdd->proc_ctx_bo,
-+                                          &pdd->proc_ctx_gpu_addr,
-+                                          &pdd->proc_ctx_cpu_ptr, false);
-+       if (r) {
-+               dev_err(adev->dev, "failed to allocate process context bo\n=
-");
-+               return r;
-+       }
-+       memset(pdd->proc_ctx_cpu_ptr, 0, AMDGPU_MES_PROC_CTX_SIZE);
-+
-+       if (!adev->mes.use_rs64mem)
-+               return 0;
-+
-+       r =3D amdgpu_mes_alloc_proc_ctx_index(&adev->mes,
-+                                           &pdd->proc_ctx_array_index);
-+       if (r) {
-+               dev_err(adev->dev, "failed to allocate process context inde=
-x\n");
-+               amdgpu_amdkfd_free_kernel_mem(adev, &pdd->proc_ctx_bo);
-+               pdd->proc_ctx_gpu_addr =3D 0;
-+               pdd->proc_ctx_cpu_ptr =3D NULL;
-+       }
-+
-+       return r;
-+}
-+
- static void kfd_process_destroy_pdds(struct kfd_process *p)  {
-        int i;
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drive=
 rs/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-index d3149e6d40e4..4646dfbabe75 100644
+index 4646dfbabe75..6cc0365e9b11 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-@@ -387,30 +387,10 @@ int pqm_create_queue(struct process_queue_manager *pq=
-m,
-                dev->dqm->ops.register_process(dev->dqm, &pdd->qpd);
+@@ -187,6 +187,13 @@ int pqm_init(struct process_queue_manager *pqm, struct=
+ kfd_process *p)
+        return 0;
+ }
 
-        /* Allocate proc_ctx_bo only if MES is enabled and this is the firs=
-t queue */
--       if (!pdd->proc_ctx_cpu_ptr && dev->kfd->shared_resources.enable_mes=
-) {
--               retval =3D amdgpu_amdkfd_alloc_kernel_mem(dev->adev,
--                                                    AMDGPU_MES_PROC_CTX_SI=
-ZE,
--                                                    AMDGPU_GEM_DOMAIN_GTT,
--                                                    &pdd->proc_ctx_bo,
--                                                    &pdd->proc_ctx_gpu_add=
-r,
--                                                    &pdd->proc_ctx_cpu_ptr=
-,
--                                                    false);
--               if (retval) {
--                       dev_err(dev->adev->dev, "failed to allocate process=
- context bo\n");
-+       if (dev->kfd->shared_resources.enable_mes) {
-+               retval =3D kfd_process_device_alloc_proc_ctx(pdd);
-+               if (retval)
-                        goto err_allocate_pqn;
--               }
--               memset(pdd->proc_ctx_cpu_ptr, 0, AMDGPU_MES_PROC_CTX_SIZE);
--               /* Bind one MES process context slot to the whole process
--                * (per device); every queue of this process reuses it.
--                */
--               if (dev->adev->mes.use_rs64mem) {
--                       retval =3D amdgpu_mes_alloc_proc_ctx_index(&dev->ad=
-ev->mes,
--                                               &pdd->proc_ctx_array_index)=
-;
--                       if (retval) {
--                               dev_err(dev->adev->dev, "failed to allocate=
- process context index\n");
--                               goto err_allocate_pqn;
--                       }
--               }
++static void pqm_free_mes_queue_res(struct kfd_node *dev, struct queue
++*q) {
++       amdgpu_mes_free_gang_ctx_index(&dev->adev->mes, q->gang_ctx_array_i=
+ndex);
++       amdgpu_amdkfd_free_kernel_mem(dev->adev, &q->gang_ctx_bo);
++       amdgpu_amdkfd_free_kernel_mem(dev->adev, (void **)&q->wptr_bo_gart)=
+; }
++
+ static void pqm_clean_queue_resource(struct process_queue_manager *pqm,
+                                     struct process_queue_node *pqn)  { @@ =
+-211,11 +218,8 @@ static void pqm_clean_queue_resource(struct process_queue=
+_manager *pqm,
+                pdd->qpd.num_gws =3D 0;
         }
 
-        pqn =3D kzalloc_obj(*pqn);
+-       if (dev->kfd->shared_resources.enable_mes) {
+-               amdgpu_mes_free_gang_ctx_index(&dev->adev->mes, pqn->q->gan=
+g_ctx_array_index);
+-               amdgpu_amdkfd_free_kernel_mem(dev->adev, &pqn->q->gang_ctx_=
+bo);
+-               amdgpu_amdkfd_free_kernel_mem(dev->adev, (void **)&pqn->q->=
+wptr_bo_gart);
+-       }
++       if (dev->kfd->shared_resources.enable_mes)
++               pqm_free_mes_queue_res(dev, pqn->q);
+ }
+
+ void pqm_uninit(struct process_queue_manager *pqm) @@ -270,7 +274,8 @@ sta=
+tic int init_user_queue(struct process_queue_manager *pqm,
+        if (dev->kfd->shared_resources.enable_mes) {
+                if (!q_properties->wptr_bo) {
+                        pr_debug("Queue initialization with shared MES requ=
+ires queue buffers to be initialized\n");
+-                       return -EINVAL;
++                       retval =3D -EINVAL;
++                       goto cleanup;
+                }
+
+                retval =3D amdgpu_amdkfd_alloc_kernel_mem(dev->adev,
+@@ -291,7 +296,7 @@ static int init_user_queue(struct process_queue_manager=
+ *pqm,
+                                                &(*q)->gang_ctx_array_index=
+);
+                        if (retval) {
+                                pr_err("failed to allocate gang context ind=
+ex slot\n");
+-                               goto cleanup;
++                               goto free_gang_ctx_bo;
+                        }
+                }
+                /* Starting with GFX11, wptr BOs must be mapped to GART for=
+ MES to determine work @@ -300,7 +305,7 @@ static int init_user_queue(struc=
+t process_queue_manager *pqm,
+                if (dev->adev !=3D amdgpu_ttm_adev(q_properties->wptr_bo->t=
+bo.bdev)) {
+                        pr_err("Queue memory allocated to wrong device\n");
+                        retval =3D -EINVAL;
+-                       goto free_gang_ctx_bo;
++                       goto free_gang_ctx_index;
+                }
+
+                retval =3D amdgpu_amdkfd_map_gtt_bo_to_gart(q_properties->w=
+ptr_bo,
+@@ -308,15 +313,16 @@ static int init_user_queue(struct process_queue_manag=
+er *pqm,
+                                                          pqm->process->kgd=
+_process_info);
+                if (retval) {
+                        pr_err("Failed to map wptr bo to GART\n");
+-                       goto free_gang_ctx_bo;
++                       goto free_gang_ctx_index;
+                }
+        }
+
+        pr_debug("PQM After init queue");
+        return 0;
+
+-free_gang_ctx_bo:
++free_gang_ctx_index:
+        amdgpu_mes_free_gang_ctx_index(&dev->adev->mes, (*q)->gang_ctx_arra=
+y_index);
++free_gang_ctx_bo:
+        amdgpu_amdkfd_free_kernel_mem(dev->adev, &(*q)->gang_ctx_bo);
+ cleanup:
+        uninit_queue(*q);
+@@ -486,6 +492,8 @@ int pqm_create_queue(struct process_queue_manager *pqm,
+        return retval;
+
+ err_create_queue:
++       if (q && dev->kfd->shared_resources.enable_mes)
++               pqm_free_mes_queue_res(dev, q);
+        uninit_queue(q);
+        if (kq)
+                kernel_queue_uninit(kq);
 --
 2.34.1
 
