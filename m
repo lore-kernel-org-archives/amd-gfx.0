@@ -2,163 +2,122 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C83D1606A335
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 01:02:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE71D606A31C
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 01:56:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DuhT4iao;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=lpqPxnut
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=uu7tuI3u
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61A7510E38C;
-	Mon, 16 Nov 2026 01:02:42 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A88910E0D0;
- Mon, 16 Nov 2026 01:02:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794790952; x=1826326952;
- h=date:from:to:cc:subject:message-id:references:
- content-transfer-encoding:in-reply-to:mime-version;
- bh=0nAL0lEwShlyeTwz3Z0ivVqmmCmZAhU7IX3hD688alU=;
- b=DuhT4iaosGcg3lK5sVGHChNBczhToExe+AQjWAaFwHL2rwa8jzegA5f8
- dNNHaCsGLPsUfLJJqE3j+vN4/afhXPZwOg8y0wdxofhEOGKKIf0ttd0vm
- ipL1tUpdY//0VmOKhPIW3AqbY7g1G4sal0EqQVgGoOs/o73wllVPjqfER
- PKUmFJ6NZ7dXX6SfPlO1JLM1XMekFpF14ZEtJ8KsrBqu6qqFQP6gNX5wN
- fAIlZahkoin6WxbwtdFcdpaIE1rdOdYO2R2AeMZmDWXUOcM5xu+X+mVEa
- B73rJEqbJzxCAPY1wIWaAbsRuDAJ+hHxVqhqBdOaL2j9s2fPwiY+di+gK w==;
-X-CSE-ConnectionGUID: AQMxXI57SsSi7LimuaHqUw==
-X-CSE-MsgGUID: CBhdCdtCTZiQVyLzYhiNiw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3558879"
-X-IronPort-AV: E=Sophos;i="6.27,215,1787036400"; 
-   d="scan'208";a="3558879"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Nov 2026 17:02:29 -0800
-X-CSE-ConnectionGUID: TRUMyIaGS++v2pguy/b/LA==
-X-CSE-MsgGUID: 8ckfye+BQe+6PqXLbLkv+g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,215,1787036400"; 
-   d="scan'208";a="9761487"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
- by fmviesa009.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Nov 2026 17:02:27 -0800
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Sun, 15 Nov 2026 17:02:27 -0800
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Sun, 15 Nov 2026 17:02:27 -0800
-Received: from SA9PR02CU001.outbound.protection.outlook.com (40.93.196.71) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Sun, 15 Nov 2026 17:02:09 -0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DCF310E008;
+	Mon, 16 Nov 2026 01:56:33 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010032.outbound.protection.outlook.com [52.101.46.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B752710E008
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Nov 2026 01:56:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jh8pVxsYebga+IuZS5EdkKzJhGlANUKYvkLGnoBTqFgqme/FhFF0Q1NQ6fBZYWgP+1ZLMx2V89mShYd7L+37K5kEPlygv3RRxJNpjO97V+i5nfXsWZmmBcQn38FGBDePoe0a8okdz9CCaJJAnfChQHjij6WsyS7l6FYYGT/LodoGyZT367HOs5iUIHl/1+pCwQFTQDjuyiLxi6MfDoVYOP1oVjTuaO8s0dpkiqowKbwtG/UcUgdnrLu0Va/UbeoLB8xTldwjpjuxpKAho28la9Yp/ABo2ZvaBjaJOQrmnmZkttguBZEyWHnwtm2VawL5n4OVkjyFPwkCJMFWrRv97w==
+ b=p9TMRKsLMcs2F9MtrzrFH6g2+tWr77lGxE2SbXRVtC0aXPa96M3s0c+DZgG3+UhVO2bStU4UhoeHVw12PWB857CzjBaoKO98jNHMPdXdHNRhuTgjeVkDne62TMBHHCnvLWvjTH91KhFS2A5UYnyj6egUPae6S78CoCyEoqkpbGWPYWLvTq1YWpfGBjKCMEK3WbUQfms7lG9fOxgtPD4NQSjzjc76YD9GNv8YGrGQotfokr/XT3ke13gbxjJFoQewGyd8VIIK0coPa5aSifg3ZkOWlGBwyp6HqOgUEUlCYujE9eIV51wweMEuHQZH1tGMWmUgP9DvnDTGoljrT69ecQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NU0eJ/4RY3RQ+GLqzABtIGExPU7FKtF5yPjamMxBq60=;
- b=PjRomKTAfNmxUGCpN0HpSSZ5ueQOHtfgI7KelPMRYIaySn9HUBRskVqHoUPAXltgXPxwfPoaGL5kcsaCQK+vQ+0WpZKhfHB01252G2Bwtm++cUpMqc54igH7+1wXz6VJvkUZ/zHUZFiY+xjGZv33YQorBsj/9AXYdywtRetGiXxM5+3gpCKdEY5e+dWsOETkgMNxVet1pEmQadBiRqSh62qQzI53+X9UVbuiRVQMwQyRVd7O19iVYisKQtak76l9sn1KRyrtFO95QfNCjsFuznBzNbhIZOdT6k8mnydoK7a76r30DOaJ25qlk/Oh+OI71jOZmGHr3cPX9ZbLeHwAeA==
+ bh=1Byint96SpCjOtNrciPWGHwyreEznz/yODTA2nfbmpQ=;
+ b=A5KvrceiNd0S6f/iuk1zSzb6Zn6TnrQ/bglu1V+0uyEx1tqiitq6OUu1KFNWjTiJWz9xutphBAbp8OwZaC9a0T1pBqgS9FBCIzOlUFwME3mGAwtji2LGB9gmdit/oDzt9FNS8zMYm5tWih7zS4skTEZRdcfRoHblQBnM61zO6sTLbMCc+fGwbIKZM+VSsijJOJQy0bxARgL/edOyWwL/GnR3caxHpGr5l45ekZlqaFhqNNO7KkjaIDIWJbJnjSzVlRGsh4N4gr1aJUiP4AnWucBEPlmHu0b5uL1gcWXXPropbNlwt/IyzZPkL9Va7fX1uk8t4pjVI00CAj21kFY/Qw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.com; s=selector1;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NU0eJ/4RY3RQ+GLqzABtIGExPU7FKtF5yPjamMxBq60=;
- b=lpqPxnutYdWO0Vd74fpWiVW7Ji0P8bo+mEDIxtFjrzbMefEix2LXTa+6BsQ6aaYxsI4nsAa+pC8wjOcCWnCE+Za9nkyi7fa648tWIOEyqMaPqbmHuA/qOpFfkLjfEVPoYjntwgO8GLUFPvNC+n7GH/7y/j5ANPuxhafi59JbI3o=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from MW3PR11MB4684.namprd11.prod.outlook.com (2603:10b6:303:5d::14)
- by DS0PR11MB7766.namprd11.prod.outlook.com (2603:10b6:8:138::10) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=1Byint96SpCjOtNrciPWGHwyreEznz/yODTA2nfbmpQ=;
+ b=uu7tuI3u3DU6pe+DOoqflqCOPOmsVuC+RubE12AXd/dzSMFdo4jJOwpbO3gcs3jh7lemGxMQrVpV5qRbPQ4svNnvL+sAURFRJRB0JXfaoxiG3r6JZ7A5dzLKhfZ248gtCydqDp4vNFp+ayojun8uzRn48qGnBz+TzjH46SR/sw8=
+Received: from BN9PR12MB5258.namprd12.prod.outlook.com (2603:10b6:408:11f::20)
+ by PH7PR12MB6696.namprd12.prod.outlook.com (2603:10b6:510:1b3::10)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.13; Mon, 16 Nov
- 2026 01:01:27 +0000
-Received: from MW3PR11MB4684.namprd11.prod.outlook.com
- ([fe80::2f5a:96ce:f7e4:c315]) by MW3PR11MB4684.namprd11.prod.outlook.com
- ([fe80::2f5a:96ce:f7e4:c315%7]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
- 01:01:27 +0000
-Date: Sun, 15 Nov 2026 17:01:24 -0800
-From: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
-To: Matthew Brost <matthew.brost@intel.com>
-CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <amd-gfx@lists.freedesktop.org>, Alex Deucher <alexander.deucher@amd.com>,
- Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, <linux-kernel@vger.kernel.org>, Thomas
- =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-Subject: Re: [PATCH v3 00/33] drm/ttm, drm/xe: Minimize dma-resv hold times
- and defragment sub-optimally backed BOs
-Message-ID: <avpV5E1PgH3YKzwk@nvishwa1-desk>
-References: <20260711025619.2540575-1-matthew.brost@intel.com>
-Content-Type: text/plain; charset=iso-8859-1; format=flowed
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260711025619.2540575-1-matthew.brost@intel.com>
-X-ClientProxiedBy: SJ0PR05CA0147.namprd05.prod.outlook.com
- (2603:10b6:a03:33d::32) To MW3PR11MB4684.namprd11.prod.outlook.com
- (2603:10b6:303:5d::14)
+ 2026 01:55:23 +0000
+Received: from BN9PR12MB5258.namprd12.prod.outlook.com
+ ([fe80::3420:a950:a599:eeab]) by BN9PR12MB5258.namprd12.prod.outlook.com
+ ([fe80::3420:a950:a599:eeab%6]) with mapi id 15.21.0615.009; Mon, 16 Nov 2026
+ 01:55:23 +0000
+From: "Sun, Ce(Overlord)" <Ce.Sun@amd.com>
+To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "Chai, Thomas" <YiPeng.Chai@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: skip uniras block ECC query in GPU reset path
+Thread-Topic: [PATCH] drm/amdgpu: skip uniras block ECC query in GPU reset path
+Thread-Index: AQHdc2MgE3a5866aLk23oF741Y61nLcsJV2AgAPOpaI=
+Date: Mon, 16 Nov 2026 01:55:22 +0000
+Message-ID: <BN9PR12MB5258298CA6113F58984B6FBD9D7C2@BN9PR12MB5258.namprd12.prod.outlook.com>
+References: <20261113032813.352632-1-cesun102@amd.com>
+ <DS5PPFFF21E27DCC7BEC4115A3B132AF3BCFC7F2@DS5PPFFF21E27DC.namprd12.prod.outlook.com>
+In-Reply-To: <DS5PPFFF21E27DCC7BEC4115A3B132AF3BCFC7F2@DS5PPFFF21E27DC.namprd12.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-11-16T01:55:22.335Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
+ General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=1;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard; 
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BN9PR12MB5258:EE_|PH7PR12MB6696:EE_
+x-ms-office365-filtering-correlation-id: a0057ebf-700c-4cc2-23d0-08df4384ad32
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|23010399003|38070700021|10067099003|11063799006|5023799004|4143699003|56012099006|261022105027099003|261022075727099003|261021121427099003|261026121527099003|261026140227099003|261028144727099003|261102123227099003|261009223027099003|22082099003|18002099003|6133799003|8096899003;
+x-microsoft-antispam-message-info: L7byzMlH84eLC33ssOFYtewrusT9Viq26duoU5MaRqlg2K1DvyTxapg82sQ1EbRIrtPzGFZOdKyvwvVTohxlYhzMNd5NGQlJVpOEW1ZE5cntvp4ZjM2Ea9pVwfM8MegOtQF47nognhd1tYsj5njvM1aoJ+uIhiLTSlKcDuoBu6B95RIbk7IMuFrTRWYWhP+5QcFztX5zyfpLCp9CQYotLMx6+g4abuWStb27XimGr5B+pzCcA5wH6Aa/VObNd2187GaEYTNLQG/20rZsbtEdBtdutPofVqCzRgcLmX1OKwZ6vTvfttdsd7C7Np8+hKzVAaVngg9i4keublckVkp+wdk8//rSQuTPlLBOMdjgrCKnZ7XPQvkcfIeWTfaCxLtTGA7vFkbbf4sU9Pm+1HklPxPirCLnYQ0puE+J0lCQYYbZ5ZLt58NMRWs5czit3dY/rfXJ6UnPWM+Yy3VtNfaBU+/cq8LTR4UOyk5lbNfcWYmCW1kXf4Od5aaE0f4n6Kuxj4+BZ2uXyM3xtfD4+TK7gmkyThJd9IzGbOQQoQcWoDHJTq6lC0vbr9cVnK44ib3er0RXHDaUablFjUI+sGi++Q1lFIbm+MEIqj8wbihHouGF1QjUlzqERAnlYfI4yCSijvK8eQ8HbvIYG8Lf6lkhhTmgVCO+ANjcni+O5srxfXJXrwGsmgG9HhymSv+KeFJx41ttmvS/5wRZMRt4s5S43dlUvmaL+ozxT7TAPK+L+m0=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5258.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(38070700021)(10067099003)(11063799006)(5023799004)(4143699003)(56012099006)(261022105027099003)(261022075727099003)(261021121427099003)(261026121527099003)(261026140227099003)(261028144727099003)(261102123227099003)(261009223027099003)(22082099003)(18002099003)(6133799003)(8096899003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?Windows-1252?Q?qlyHicJDWYujl0KqapJZ6/KCJ8rUxUkU8LFB/l17KAti0bPIdXPVS7+b?=
+ =?Windows-1252?Q?F3S6XhLE7DthLZdNWh2Q/uI8h9n6a2lXVCxEO6avi6muy5kVzTJt+Vsu?=
+ =?Windows-1252?Q?ibJx8YWRkcx4+31aFpgCWiFC64iKehFLKVCSQhStyn+DILLIIKMOndIV?=
+ =?Windows-1252?Q?Wq5hzbQTTovwrCeALM7NJxT8x5/iQyANN0gRsSL7l9/p4/ecdcWkAW+U?=
+ =?Windows-1252?Q?ran+KDFFP3fH+BvJ9hjWf38fgUqkXV6I8SJ7cz0M8U78bKX8z1BNXiCJ?=
+ =?Windows-1252?Q?181csDXxBmK8xiHSXjTYV8mwamwCEqgofn2nuU3dif59xjKnz4qOOLSc?=
+ =?Windows-1252?Q?jJu9O/HauBUKmyvF2GEPDUdz9wQu4Se/59/uoO8CWyV6SfOvm947dl71?=
+ =?Windows-1252?Q?5GATVYrTv0orrSgPmsR5XSPSbB3iuoP5DDZyWN8jmsYdqppTmp4XiA3g?=
+ =?Windows-1252?Q?4kLXZ1iAI6VuzYQKfePJRBy9Jl7lVAjaYOJjj0Y2HQD6J7wZyBvfCxUu?=
+ =?Windows-1252?Q?0OuviySCYQfR2FNms6Q8J5Yor43R3VZkQaWPCcTW01xWgwgb3BWRXMw7?=
+ =?Windows-1252?Q?grWzKVjjsWU6PrIjvS3N03fqpRdPbTv7V8gYHXZNwHSRG+RalEJUMw4I?=
+ =?Windows-1252?Q?Gxc3IhWWBgesl9fZMkg8j4vtSdQPn1G/RCEVKer9V2zJCZ54eLPtfsc4?=
+ =?Windows-1252?Q?0MDXb6z2u3/Lb2ky646wiyUXOenFMmuNPwFzu7YCN4crBQyzeCPtuLD7?=
+ =?Windows-1252?Q?+G/YjfQnAePSwdv6fBGN1nqs1ksYJ6OPNcmOkZbpx0Tc69xQAck5YW1Z?=
+ =?Windows-1252?Q?J5+8OVYWkzPBeqa3VsODQw6XXv4vWcTXl7RA9u/ws0f8UakAgJDvfL2K?=
+ =?Windows-1252?Q?HkB1Di93e5rcswjnmN80KKSLHjIP/zHdEmMlwd7YMbY5uj4gp/wpqwSY?=
+ =?Windows-1252?Q?wjSmaTQ8CVU4MS5k5E3pJbTaXn8005yc09O0ELIxD4HPEisOWEuXZNgb?=
+ =?Windows-1252?Q?P1POpE2kge2r+3gIlbIuXzB8nUAd7CH9SckXUT5clu5ZjMMaa/6+b3s4?=
+ =?Windows-1252?Q?gFp5BlBtR4RXPqA67+WRTDRd1DZisqNz/jwrz9R5A9oQMHZH4ekIRGGG?=
+ =?Windows-1252?Q?PFpFWO684atRcix28kwWMqlsY23ay0mqCXiPO9E1eOSKXz14vClDZtfR?=
+ =?Windows-1252?Q?mMtId+cY2YTerOkc/QIhwBlyzLYSkTrXS7HMOAKj+AQl4T5bedPuXU3n?=
+ =?Windows-1252?Q?1cXQZQcWPgn+kN0Ftno/qxWNssnxjZ53ztBmuRg2QcSlID5mFP31jCzV?=
+ =?Windows-1252?Q?PdesCa+kPzyUQiychE8BDdsNu/OkeLdttwOELU+PmteFAtbHQUC9Syue?=
+ =?Windows-1252?Q?gYQbVLVYmKk84QImvCfsiC01wHlVTRG0ImT3udRpdc6Aw74KMC9nTfIB?=
+ =?Windows-1252?Q?5pYALp0SYVHVkVuDC2jIhGer6g1myv2xcwke7SldYsNb86mL0HVI58Uw?=
+ =?Windows-1252?Q?1FMluDygc/GMTrxi4ExOuzV3o0Fb/gerqgWfyIfAOWwiJppsDRjKw1WF?=
+ =?Windows-1252?Q?5L4l+5xRZBh4VGV13vH3EUKcdgHM+reIk/SKA37vjkU/G8bNmgRLpdAd?=
+ =?Windows-1252?Q?f7Q2GH77JHFRzTFcMWzP+9OkKeDfedXI6TjzLI0aWJBHvVVlaqaAEO5w?=
+ =?Windows-1252?Q?2J/ciNSvoe4ZecSXQjlO9aDKtgw7cJXe3OOwOMEHU91L0nMFeCwuhUQ3?=
+ =?Windows-1252?Q?MvOLrZsDhWCePa9JPO1A6GLyrS8mXYpMYER9Jd/ue7Sc+52YfTloDQTh?=
+ =?Windows-1252?Q?Do+qu1IEl5HPS/WUEJLdtwvpiQ4v4dskMGb5Iv4mm+HtJSr6?=
+Content-Type: multipart/alternative;
+ boundary="_000_BN9PR12MB5258298CA6113F58984B6FBD9D7C2BN9PR12MB5258namp_"
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW3PR11MB4684:EE_|DS0PR11MB7766:EE_
-X-MS-Office365-Filtering-Correlation-Id: e8ac48b1-b295-4c8d-56ca-08df437d242f
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|1800799024|23010399003|366016|10067099003|11063799006|56012099006|261022105027099003|261022075727099003|261021123027099003|261021121427099003|261009223327099003|261009223027099003|261009221727099003|261009221227099003|261009220027099003|261102123227099003|261026121527099003|261026140227099003|261028144727099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info: 44HCP+s9JkSUaGAAgRBMjHubEalXej4o/fjNoPPHGtfV+j8sYpeoJ9T5p21KEBqdbj+fy6NB+jF2s0irFEXS0LPpRjpnj6fPVmNvpU4rrz/hJIWzjjEG9Xay0+yYPBNkBVrBW+0qit1xVQr3XEfhD4JRtmWBjFU2T5oeR8Nil+rdPkkFdUbR1UI3RYLbyWJajN0q9Yg165ircIlzXbaaxGjBTrXLputgn1CLgPGp1McvJRTUcXyeu7PTh9VVCXbwR912xo9EyefXVw6jB8IsryUb8UI7mTV2wF+ls8p3OiV7FpN7+x/GQR/jaH8t7/9JjhGUwJaQUHvhlUiFbGvxduxDeyvycFhqkE8W2en8Yr+jAp9jSMG9YfoIziV/uU4opzvsJ4Q+bF9LV3sSeJhp9upsdSNmDq6WA4/23ZFqy6LOcvp3i4r8xEhLXPzvOofrCBXQ2gN4+a9BxD49cgn3lyIz15hG1am/E9EemX0IPPMJcYZ4mCcvKJgGZSMSjVU1pWIA6YV3yHzCr6xjW70bKkSgrSrrO99QrpjST9jZFFxN98+OSXF1zLV6vPwRJxlRSiSd7oV9jSR6x3jU/wdp+U6z9Nw5epyPONtx/rn5Z58=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW3PR11MB4684.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(366016)(10067099003)(11063799006)(56012099006)(261022105027099003)(261022075727099003)(261021123027099003)(261021121427099003)(261009223327099003)(261009223027099003)(261009221727099003)(261009221227099003)(261009220027099003)(261102123227099003)(261026121527099003)(261026140227099003)(261028144727099003)(18002099003)(22082099003)(6133799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?CEicS0vzPVZg/4AAM2mmMSaZBr6eUhSpOTdSZeAfnl4qJGNpeymyccAXGR?=
- =?iso-8859-1?Q?83kSkG6QCVFSqGvalFI23ui9eoliMEPxbJhmYtvUfZhZCOqw5fMrDOZ5ha?=
- =?iso-8859-1?Q?7xRO0Ov6j2hrnuUMPxfRVUq2p1lgm9GTKz46/kClRXTpC1XJuZWfgEJ/5/?=
- =?iso-8859-1?Q?81GE7htHoWu+97pVqEC22k5bsbJ3lLMMDvDO4diXQF9mm6648qhV0pzo0B?=
- =?iso-8859-1?Q?43YQDaEyPy6HEFWeSMdFzV8hZdI8Ru11OsSOUr5S0olOhN8vRAUWxwG2qg?=
- =?iso-8859-1?Q?AoPaZaz4J/RATM0D0Bq45Tzmrm4dIluAGbhC0nwb2yan0qlwdOrBApgIHt?=
- =?iso-8859-1?Q?ygEL6l6V3gBYBAP56ZUsuxXpr1qZ2woUeNrNSGDvPfmMgGRZNgGS68c64G?=
- =?iso-8859-1?Q?nFhK2gJhKskeUFaoFyrh0qKOzhSQ7otqoMZ3xDxZcsy4njafy+Cvo3JDoC?=
- =?iso-8859-1?Q?xlTz7P4ixvUWeB1tbvQJGSbJJjmG6hB6RJzl5F6iN31dDp16nV6THEuorc?=
- =?iso-8859-1?Q?4oMC9Grbj3doWupOZbqhaZQrIxp360zCmJWvXKiV55dM2fmkxK1BBL2ido?=
- =?iso-8859-1?Q?HEzE5vBO7BvyqREYnciq2yiWGDt2wKvPL1ceFREWu8Alf+59viHCtJwI08?=
- =?iso-8859-1?Q?YDPvctGGCXXZmF3xOFtD8NOuJINrIWqiyZFq+X9HwrJAk/J9RtH8fkPmvp?=
- =?iso-8859-1?Q?ozCTqJy1QRK+ckCGPt47axDlAdGSdxcY8zOqlKtxgkh+oRRNDYbkJHDkt5?=
- =?iso-8859-1?Q?8W7dFk8qXtamR9xk0KBeJBXsZ0fJ4dJzGyK/VnLSzsx/cRk26iYXKMpoVf?=
- =?iso-8859-1?Q?+2M++SIgh0Ht8Iz+Hm5c9RvWS2OzBQRCDVABaShH8smMMqh/vocaggHrAv?=
- =?iso-8859-1?Q?BHGoeM1oDNKuOohkIZHXJ4fIHXhszxki48s/j1C7W/GDjnQjz8D9wKo+AM?=
- =?iso-8859-1?Q?HITcofI1vfJ5wjMGOXz+6CwLSuD9mYAmd3jCjvunRYaaTd4CREWkYA/fhf?=
- =?iso-8859-1?Q?WwIsgFCf+s+9E6gOmZd6GfVudgBDqKzi6jtWiQAEbip8q6gCz4bK/0FSvo?=
- =?iso-8859-1?Q?CR/axW86ECqbAypjupdfzK2TjWD5k7VaclJhwLjXjhP57jCc1tx9PC14v8?=
- =?iso-8859-1?Q?0jmOXrzlL2RdNqOqtJFaKWy4X8+AxkGoa5CGVxNH62O5smY9gh0jsFQrqw?=
- =?iso-8859-1?Q?AubEhl1kaqClmlWteNew3j72IsRrCxbzK6mWuqqo/2WCJ7pDivkNW+F+Qx?=
- =?iso-8859-1?Q?x6/hc+olDi0wJoGbQhqguCTrvsa2rABdvBGQRw5YqWECegl20fqTu3Pd0N?=
- =?iso-8859-1?Q?Q4qzaGCv53Pb2I9KfJ8k9ks0+ogZeId9xz9wVpf9dt7RWbhMPZOEAZCFOJ?=
- =?iso-8859-1?Q?7k/DHDos0MogmMhxAMQbiGzHL2sZNnSYEh0KI1P33Cuv8mCubXR+Y38L5Z?=
- =?iso-8859-1?Q?ynousGGYAlf0Sou/MixorP/9UDUW3h5KT6Yhl5YIJ74whyjfzNncHg+9HK?=
- =?iso-8859-1?Q?riPGi5f3fc7DUn2a9488SGFLVq6T51ubm3HxvKl8JVjgwVBMQCxnASMHrk?=
- =?iso-8859-1?Q?Gz1CU/pmoTWBwR/Fzw65Oa7bZfp7TrXHJ09cESU05Gj0f8qE5SMJdnHgSz?=
- =?iso-8859-1?Q?ZmyvITUAAiUqtMRshall+QQHf1mOZUtt42nVvUkIQ6sN7oEmEWtp5GlCw/?=
- =?iso-8859-1?Q?KD59ytlAnCmbkrY1aCTwsM5saaI7nsLQD8d8W6M11Mvx/NnT23d9UhkKHd?=
- =?iso-8859-1?Q?OqPmdBI7ZlOX1amjbsOjwDl92iuAVWHfq8LP0B9EPTxDTZ09VBouTxRGa8?=
- =?iso-8859-1?Q?rYeq2bME2uBAHFkiEzkNAS8UHxXCOa2kCc63R10DjifPzKgO97ol?=
-X-Exchange-RoutingPolicyChecked: i6LpSbg27spJQ1WmgTcnC/o6Nc3FHis+pmqXz8U3lyggvh7jIpWhfRaxmMTsIESxUSsHfwLZww8wOsfEoDJFkFMe96YyKFW70bnsnCiLwfiljvaWzP0f5PpjZFmXaCLsDigLJUMXw8a4lGMK7qHPwVKEZmOBYlEA0afgd+h3dGMhkSHojIjfyQyZhKLsPt6DJ15/cc5fcRzWGnDxGYrbMpLDaN1dLycgtMkbtbleD2/BGzvHjGe/iGWOodLpPN68phH4qIuDAlfpiEWDOs6q3IJo5QP0ZRZMUqJpDup80OmuTd6oQDbT9xFn5xvOVjX8xmjt1OaWTXKJ/kOhM412VA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: e8ac48b1-b295-4c8d-56ca-08df437d242f
-X-MS-Exchange-CrossTenant-AuthSource: MW3PR11MB4684.namprd11.prod.outlook.com
+X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 01:01:26.9416 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Ve5swCPy0JRGhJJIK4uHjhrmY12Js1pCWXsD0nxQT0a5w1TiF91Z7oWft7NTd5xRdRfYpl6Hl9moa5rVp4+B5RlO1dqqHoFHPOJt9KjHamueG/cOIvQ5XLdnD6hsLlmf
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB7766
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5258.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a0057ebf-700c-4cc2-23d0-08df4384ad32
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Nov 2026 01:55:23.0197 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: cFvvIip4Hb5XVn351NJBo2KrwI2aHo7DN5ifM/VShYSmjN2aolttDfDLquJ0USk4MM+s/itROAhYatlr9p14OQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6696
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -169,201 +128,265 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	HTML_MESSAGE,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri, Jul 10, 2026 at 07:55:46PM -0700, Matthew Brost wrote:
->The overarching goal of this series is to keep user-facing IOCTLs snappy
->by holding the BO dma-resv lock for the shortest possible time, and to
->push the expensive, best-effort work - page (re)allocation, DMA mapping
->and placement fixups - into the background or out of the locked critical
->section entirely.
->
->Two related mechanisms fall out of that goal:
->
-> - Out-of-lock backing. Page allocation and DMA mapping are the dominant
->   cost of gem_create and of BO moves, and doing them under the dma-resv
->   lock serializes otherwise-independent clients. This series preallocates
->   the backing pages (and, where applicable, builds the DMA/IOVA mapping)
->   outside the lock, then transfers the result into the BO under a brief
->   lock hold. The user gets a fast IOCTL return; the heavy lifting happens
->   without contending the reservation.
->
-> - Page defragmentation. A BO allocated under memory pressure keeps its
->   scattered, sub-optimally-ordered backing for its entire lifetime,
->   costing TLB efficiency forever. TTM grows the plumbing to track
->   order-failure and to re-back a populated BO in place at the beneficial
->   order, and Xe wires up a background delayed worker that promotes such
->   BOs on the GPU once memory is available again - again, off the hot
->   path and without stalling the submitting thread.
->
->Since v1 [1] the series has grown considerably. The bulk of the new
->material is a direct result of profiling: once the defragmenter was in
->place, the remaining dma-resv hold times and the per-BO
->allocation/mapping costs showed up clearly, which motivated the
->out-of-lock preallocation, the IOVA-based mapping path, and the amdgpu
->counterpart. Rather than land the defragmenter alone, v2 folds in these
->optimizations since they share the same infrastructure and the same
->"hold dma-resv briefly, fix up in the background" architecture.
->
->The series is organized in sections rather than described patch by patch:
->
-> - Patches 1-10 (drm/ttm): core TTM preparation - order-failure tracking,
->   the defragmentation move, reclaim backoff, and out-of-lock page
->   preallocation plumbing.
-> - Patches 11-14: other dependent drm/gpusvm and drm/xe patches this
->   series builds on (DMA-mapping accounting, per-order DMA stats, async
->   L2 flush, and a VM-teardown ordering fix).
-> - Patches 15-23 (drm/xe): the page defragmenter itself - BO tracking,
->   the on-GPU defrag copy, xe_bo_move() handling, and the background
->   worker with its stats and configuration.
-> - Patches 24-25 (drm/xe): out-of-lock system BO backing preallocation
->   in gem_create, moving page allocation out of the dma-resv lock.
-> - Patches 26-32 (drm/xe): IOVA-based DMA mapping optimizations, building
->   and finalizing the mapping outside the lock.
-> - Patch 33 (drm/amdgpu): the equivalent out-of-lock system BO
->   preallocation for amdgpu, exercising the shared TTM plumbing.
->
+--_000_BN9PR12MB5258298CA6113F58984B6FBD9D7C2BN9PR12MB5258namp_
+Content-Type: text/plain; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
 
-Assisted-by: LLM
+AMD General
 
-All components in the patch series seems to be essential, but probably
-below ordering of the features along with how much incremental benefit
-they offer would have been easier to follow.
+Hi Hawking,
 
-1. dma_iova usage
-2. out-of-lock preallocation
-3. Defragmentation support
+Thanks a lot for pointing this out. I fully agree with your concern. I will=
+ send a follow-up patch once the fix is ready.
 
-Just a thought, not a suggestion to change.
 
-LLM also suggests a light compaction (with __GFP_KSWAPD_RECLAIM) in
-between the backoff and heavy reclaim (RETRY_MAYFAIL), mainly for the
-gem_create preallocation. Not sure how much real value it adds though.
+Regards, Ce
+________________________________
+From: Zhang, Hawking <Hawking.Zhang@amd.com>
+Sent: Friday, November 13, 2026 11:45 PM
+To: Sun, Ce(Overlord) <Ce.Sun@amd.com>; amd-gfx@lists.freedesktop.org <amd-=
+gfx@lists.freedesktop.org>; Sun, Ce(Overlord) <Ce.Sun@amd.com>
+Cc: Zhou1, Tao <Tao.Zhou1@amd.com>; Chai, Thomas <YiPeng.Chai@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: skip uniras block ECC query in GPU reset p=
+ath
 
-Niranjana
+AMD General
 
->Testing
->=======
+Hi @Sun, Ce(Overlord)<mailto:Ce.Sun@amd.com>
+
+I=92m concerned about the current amdgpu_uniras_query_block_ecc implementat=
+ion. RAS_CMD__GET_BLOCK_ECC_STATUS is an SR-IOV VF-specific RAS command and=
+ should not be invoked in the current UniRAS code path. Using it in a bare-=
+metal environment would trigger an unsupported RAS command error and could =
+cause GPU reset to fail.
+
+Could we evaluate updating amdgpu_persistent_edc_harvesting_supported to pr=
+event inappropriate calls to amdgpu_uniras_query_block_ecc? We should also =
+consider adding an explicit check to ensure that amdgpu_uniras_query_block_=
+ecc is called only for SR-IOV VFs, or retiring the function if it is no lon=
+ger needed.
+
+Regards,
+Hawking
+
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Ce Sun
+Sent: Friday, November 13, 2026 11:28 AM
+To: amd-gfx@lists.freedesktop.org
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>;=
+ Sun, Ce(Overlord) <Ce.Sun@amd.com>; Chai, Thomas <YiPeng.Chai@amd.com>
+Subject: [PATCH] drm/amdgpu: skip uniras block ECC query in GPU reset path
+
+amdgpu_uniras_query_block_ecc doesn't support being called during GPU reset=
+.
+
+Signed-off-by: Ce Sun <cesun102@amd.com<mailto:cesun102@amd.com>>
+Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com<mailto:YiPeng.Chai@amd.com>=
 >
-> - 3D benchmarks on Ubuntu and on Android, with memory intentionally
->   fragmented by a separate program at launch (plus beneficial-order
->   error injection). BOs are initially backed at a sub-optimal order and
->   scores start lower; the background defrag worker then promotes the
->   backing to the beneficial order and scores climb back in line with the
->   unfragmented baseline.
-> - IGT:
->   https://patchwork.freedesktop.org/patch/739052/?series=170046&rev=2
->
->Matt
->
->v3:
-> - Fix valid raised raised by Sashiko on v2 [2]
->
->[1] https://patchwork.freedesktop.org/series/169053/
->[2] https://sashiko.dev/#/patchset/20260710215442.2444235-1-matthew.brost%40intel.com
->
->Cc: amd-gfx@lists.freedesktop.org
->Cc: Alex Deucher <alexander.deucher@amd.com>
->Cc: Carlos Santa <carlos.santa@intel.com>
->Cc: Ryan Neph <ryanneph@google.com>
->Cc: Christian Koenig <christian.koenig@amd.com>
->Cc: Huang Rui <ray.huang@amd.com>
->Cc: Matthew Auld <matthew.auld@intel.com>
->Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
->Cc: Maxime Ripard <mripard@kernel.org>
->Cc: Thomas Zimmermann <tzimmermann@suse.de>
->Cc: David Airlie <airlied@gmail.com>
->Cc: Simona Vetter <simona@ffwll.ch>
->Cc: dri-devel@lists.freedesktop.org
->Cc: linux-kernel@vger.kernel.org
->Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
->
->Matthew Brost (31):
->  drm/ttm/pool: Allow backing off reclaim at the beneficial order
->  drm/ttm/pool: Add ttm_pool_page_order_nodma() helper
->  drm/ttm: Record sub-optimal page order allocations in ttm_tt
->  drm/ttm: Introduce ttm_pool_alloc_iter for __ttm_pool_alloc()
->  drm/ttm: Support defragmentation moves
->  drm/ttm: Add fault injection for beneficial-order allocation failures
->  drm/ttm: Harvest beneficial-order pages on defragmentation moves
->  drm/ttm: Bound page (re)allocation per defragmentation move
->  drm/ttm: Preallocate beneficial-order defrag pages outside the lock
->  drm/ttm: Add full out-of-lock preallocation for ttm_pool_alloc()
->  drm/xe: Flush L2 asynchronously in xe_bo_trigger_rebind()
->  drm/xe: Destroy page tables after unlinking all VMAs on VM close
->  drm/xe: Track BOs backed at a sub-optimal page order
->  drm/xe: Back off beneficial-order reclaim under defrag pressure
->  drm/xe: Add xe_migrate_copy_defrag() for on-GPU defrag copies
->  drm/xe: Handle defrag moves in xe_bo_move()
->  drm/xe: Skip self-copies for borrowed pages on defrag moves
->  drm/xe: Add a page defragmentation worker
->  drm/xe: Add defrag GT stats
->  drm/xe: Add Kconfig.profile options for BO defrag configuration
->  drm/xe: Defrag using out-of-lock page preallocation
->  drm/xe: Add defrag profiling tracepoints
->  drm/xe: Preallocate system BO backing outside the dma-resv lock
->  drm/xe: Add tracepoint for xe_gem_create_ioctl
->  drm/xe: Add IOVA-based xe_res_cursor variant
->  drm/xe: Use IOVA-based DMA mapping for eligible tt BOs
->  drm/xe: Add per-device dependency scheduler for IOVA defrag finalize
->  drm/xe: Add packed copy-step IOVA mapping for defrag
->  drm/xe: Blit src-natural to dst-packed for defrag-IOVA copies
->  drm/xe: Finalize defrag-IOVA moves with post-copy job
->  drm/amdgpu: Preallocate system BO pages outside the reservation lock
->
->Thomas Hellström (2):
->  drm/gpusvm: Add a DMA-mapping accounting callback
->  drm/xe: Add debugfs stats for DMA-mapped pages per order
->
-> .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |    4 +-
-> drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c   |    2 +-
-> drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       |   73 +-
-> drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h       |    5 +-
-> drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    |    3 +-
-> drivers/gpu/drm/amd/amdgpu/amdgpu_object.h    |    4 +
-> drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       |   39 +-
-> drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h       |    3 +
-> drivers/gpu/drm/drm_gpusvm.c                  |   17 +-
-> drivers/gpu/drm/ttm/ttm_bo.c                  |  118 +-
-> drivers/gpu/drm/ttm/ttm_bo_util.c             |   21 +-
-> drivers/gpu/drm/ttm/ttm_pool.c                |  947 ++++++++-
-> drivers/gpu/drm/ttm/ttm_tt.c                  |   67 +
-> drivers/gpu/drm/xe/Kconfig.profile            |   40 +
-> drivers/gpu/drm/xe/tests/xe_bo.c              |    8 +-
-> drivers/gpu/drm/xe/tests/xe_dma_buf.c         |    2 +-
-> drivers/gpu/drm/xe/tests/xe_migrate.c         |   12 +-
-> drivers/gpu/drm/xe/xe_bo.c                    | 1699 ++++++++++++++++-
-> drivers/gpu/drm/xe/xe_bo.h                    |   15 +-
-> drivers/gpu/drm/xe/xe_bo_types.h              |    6 +
-> drivers/gpu/drm/xe/xe_debugfs.c               |   26 +
-> drivers/gpu/drm/xe/xe_device.c                |   41 +
-> drivers/gpu/drm/xe/xe_device_types.h          |   57 +
-> drivers/gpu/drm/xe/xe_dma_buf.c               |    2 +-
-> drivers/gpu/drm/xe/xe_ggtt.c                  |    2 +-
-> drivers/gpu/drm/xe/xe_gt_stats.c              |    5 +
-> drivers/gpu/drm/xe/xe_gt_stats_types.h        |   17 +
-> drivers/gpu/drm/xe/xe_migrate.c               |  531 +++++-
-> drivers/gpu/drm/xe/xe_migrate.h               |   17 +
-> drivers/gpu/drm/xe/xe_pt.c                    |    2 +-
-> drivers/gpu/drm/xe/xe_res_cursor.h            |   56 +-
-> drivers/gpu/drm/xe/xe_svm.c                   |   44 +-
-> drivers/gpu/drm/xe/xe_svm.h                   |    4 +-
-> drivers/gpu/drm/xe/xe_trace_bo.h              |   90 +
-> drivers/gpu/drm/xe/xe_userptr.c               |   63 +
-> drivers/gpu/drm/xe/xe_userptr.h               |    1 +
-> drivers/gpu/drm/xe/xe_vm.c                    |  149 +-
-> drivers/gpu/drm/xe/xe_vm.h                    |    5 +
-> include/drm/drm_gpusvm.h                      |   19 +
-> include/drm/ttm/ttm_bo.h                      |   64 +
-> include/drm/ttm/ttm_pool.h                    |   46 +
-> include/drm/ttm/ttm_tt.h                      |   43 +-
-> 42 files changed, 4179 insertions(+), 190 deletions(-)
->
->-- 
->2.34.1
->
+---
+drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 4 ++++
+1 file changed, 4 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_ras.c
+index 08c6e55a7927..7be33d5559ab 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -3770,6 +3770,10 @@ static int amdgpu_persistent_edc_harvesting(struct a=
+mdgpu_device *adev,
+         if (!amdgpu_persistent_edc_harvesting_supported(adev))
+                 return 0;
+
++       if ((amdgpu_in_reset(adev) || amdgpu_ras_in_recovery(adev)) &&
++            amdgpu_uniras_enabled(adev))
++               return 0;
++
+         if (amdgpu_ras_query_error_status(adev, &info) !=3D 0)
+                 drm_warn(adev_to_drm(adev), "RAS init query failure");
+
+--
+2.34.1
+
+
+--_000_BN9PR12MB5258298CA6113F58984B6FBD9D7C2BN9PR12MB5258namp_
+Content-Type: text/html; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
+252">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div>
+<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
+; margin-left: 5pt; font-size: 10pt;">
+AMD General</div>
+<br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Hi Hawking,</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Thanks a lot for pointing this out. I fully agree with your concern. I will=
+ send a follow-up patch once the fix is ready.
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Regards, Ce</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Zhang, Hawking &lt;Ha=
+wking.Zhang@amd.com&gt;<br>
+<b>Sent:</b> Friday, November 13, 2026 11:45 PM<br>
+<b>To:</b> Sun, Ce(Overlord) &lt;Ce.Sun@amd.com&gt;; amd-gfx@lists.freedesk=
+top.org &lt;amd-gfx@lists.freedesktop.org&gt;; Sun, Ce(Overlord) &lt;Ce.Sun=
+@amd.com&gt;<br>
+<b>Cc:</b> Zhou1, Tao &lt;Tao.Zhou1@amd.com&gt;; Chai, Thomas &lt;YiPeng.Ch=
+ai@amd.com&gt;<br>
+<b>Subject:</b> RE: [PATCH] drm/amdgpu: skip uniras block ECC query in GPU =
+reset path</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font face=3D"Calibri" size=3D"2"><span style=
+=3D"font-size:10pt;">
+<div style=3D"padding-right:5pt;padding-left:5pt;"><font color=3D"blue">AMD=
+ General<br>
+</font></div>
+<div style=3D"margin-top:5pt;"><font face=3D"Times New Roman" size=3D"3"><s=
+pan style=3D"font-size:12pt;"><br>
+</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Hi <=
+a href=3D"mailto:Ce.Sun@amd.com">
+<font color=3D"#2B579A"><span style=3D"background-color:#E1DFDD;">@Sun, Ce(=
+Overlord)</span></font></a></span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
+p;</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">I=92=
+m concerned about the current amdgpu_uniras_query_block_ecc implementation.=
+ RAS_CMD__GET_BLOCK_ECC_STATUS is an SR-IOV VF-specific RAS command and sho=
+uld not be invoked in the current UniRAS
+ code path. Using it in a bare-metal environment would trigger an unsupport=
+ed RAS command error and could cause GPU reset to fail.</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
+p;</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Coul=
+d we evaluate updating amdgpu_persistent_edc_harvesting_supported to preven=
+t inappropriate calls to amdgpu_uniras_query_block_ecc? We should also cons=
+ider adding an explicit check to ensure
+ that amdgpu_uniras_query_block_ecc is called only for SR-IOV VFs, or retir=
+ing the function if it is no longer needed.</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
+p;</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Rega=
+rds,<br>
+Hawking</span></font></div>
+<a name=3D"_MailEndCompose"></a>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
+p;</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">----=
+-Original Message-----<br>
+From: amd-gfx &lt;amd-gfx-bounces@lists.freedesktop.org&gt; On Behalf Of Ce=
+ Sun<br>
+Sent: Friday, November 13, 2026 11:28 AM<br>
+To: amd-gfx@lists.freedesktop.org<br>
+Cc: Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Zhou1, Tao &lt;Tao.Zhou1@=
+amd.com&gt;; Sun, Ce(Overlord) &lt;Ce.Sun@amd.com&gt;; Chai, Thomas &lt;YiP=
+eng.Chai@amd.com&gt;<br>
+Subject: [PATCH] drm/amdgpu: skip uniras block ECC query in GPU reset path<=
+/span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
+p;</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">amdg=
+pu_uniras_query_block_ecc doesn't support being called during GPU reset.</s=
+pan></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
+p;</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Sign=
+ed-off-by: Ce Sun &lt;<a href=3D"mailto:cesun102@amd.com">cesun102@amd.com<=
+/a>&gt;</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Sign=
+ed-off-by: YiPeng Chai &lt;<a href=3D"mailto:YiPeng.Chai@amd.com">YiPeng.Ch=
+ai@amd.com</a>&gt;</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">---<=
+/span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">driv=
+ers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 4 ++++</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">1 fi=
+le changed, 4 insertions(+)</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
+p;</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">diff=
+ --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdg=
+pu/amdgpu_ras.c</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">inde=
+x 08c6e55a7927..7be33d5559ab 100644</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">--- =
+a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+++ =
+b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">@@ -=
+3770,6 +3770,10 @@ static int amdgpu_persistent_edc_harvesting(struct amdgp=
+u_device *adev,</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_persistent_edc_har=
+vesting_supported(adev))</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp; return 0;</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
+p;</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ((amdgpu_in_reset(adev) || amdgpu_ras_=
+in_recovery(adev)) &amp;&amp;</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_unir=
+as_enabled(adev))</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; return 0;</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">+</s=
+pan></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_ras_query_error_sta=
+tus(adev, &amp;info) !=3D 0)</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp; drm_warn(adev_to_drm(adev), &quot;RAS init query failure&=
+quot;);</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
+p;</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">-- <=
+/span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">2.34=
+.1</span></font></div>
+<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
+p;</span></font></div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN9PR12MB5258298CA6113F58984B6FBD9D7C2BN9PR12MB5258namp_--
