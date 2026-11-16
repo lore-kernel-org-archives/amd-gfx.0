@@ -2,122 +2,121 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6759606A89A
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 09:45:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8515606A894
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 09:45:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=OwXoCaLo
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=bcnMWDTY
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55E1F10EDFC;
-	Mon, 16 Nov 2026 09:45:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D30F10EE25;
+	Mon, 16 Nov 2026 09:45:28 +0000 (UTC)
 Received: from BL2PR02CU003.outbound.protection.outlook.com
  (mail-eastusazon11011024.outbound.protection.outlook.com [52.101.52.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 58B8D10EDFC
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Nov 2026 09:45:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D62F10EE20
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Nov 2026 09:45:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=azejNQfd9Sd8VS/Uzc4yP9h15mQvyruEk96adcXM6mP+xeZSVftA3onkJZJ6s//6Tv53CvVw7QBy26GuawXpJ1OYnZETcrLhSUxOm9BtAsYITQoXE3d4NmDp566iBya56f/o759LNPZtB13eJUwVALjHvIaCqvPNSxnZhs1hERL1pR+WJmS8vCZb8wkWyUxHbZXZCC9yXS//7+7a7VHH6gC0zY9jsP7/BFeYBhpYGXcveVVmmihpfJoyie7uv/OwxpkjqNkmmAbFAqD+sv81ZWyWYiTeFK6H83K02Lw2awVJFygvLCZJ4Ut3Pcb/I8h2u7umrVDP+VfBlkQ7mrbBWw==
+ b=IHTv52WACGuEXkyab8Phk2PeeuvRoQ+dvFLjo5XoDXBcdLl9qApbGN4yi6ZcAFfe97IBhSxIaKKDJbkescNH3h48wNP/Dy5TX2mELgWw97uaeOXr+6HzjkrRfQpgwpa5M28r5tGUun9k8NP2umBQSFGE3QrWOOXHeUrsRefQbpmaS8o9NRMj7OK0mJvV2H6IB6lSvKcJOYkQNtpaNE60A4vlz6bInV1PLF5vEvh6DFBRYf8Zvz0xIlZbznjfXHdH/fTmZo58+PEnfZrBdJVPyPneu+c+Aud6MSmboW90yBBsZ8N75emWvtcKFHrpbScMEEmvllKzBio++OIMBOz+og==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eVojClzVXE37p9ju8AjGa8e+OgpfnC4D2P3kF8fqla8=;
- b=oEkPm+8SKKshX4gsO13JwNH7JR2/vEG3S4SkjZU1xtD+ajjDaAl7I3HQnRC7VpKlN4n8n7XkPYExrxZuNbiKfGtr3tnuIwUx2IoOBCrbkw2wyyxrxyVpDb99M7qJbLc6JaIUTSoTUKRncJu1V/F4Z0BkgDRWri6VutrseCWVlHviGVsXcUb4trFi5xbrRc6ItKZ8Mp4kncqzrTL6qKCDlC0m0jJ0VLEKxikdUXgFMY0z1SKIehfFWdW4ZMJ0cFOKDqAyiLBGJ7KGSnfc1JimCN42eXiMOihonuNlAMShAquU3yQJ5xFHJS5B6H1E5gvTiN+D9PSKqb8yC6tXW2jcvg==
+ bh=Qh5wYvHOltKUwoowfgmRZkfKWSqHBFotDxXEcYFn4WY=;
+ b=d6e3LUG6NGDuZjctvxiwJNYKwXilJaut2CQzzud6Ys2ct1eRHwHp8jWqQ4Hlr6cTPH1ubd1tD3GThz7tPj/m9+NLJku0wadrqTnIDu2xs4tkNLY6tqNM8aJ7+nyoIHkDYc8xIScynHhtE0fbgJX+m+xIzWu8fs8+veUVQ9JcSphIBsMAxmTdBGRp8SzmeMtJqo8qnJ7TI7+NpKt3v75GjERR/oxLLmBc10UgWdlsjuKJCVRahxk0pTNOGJ/u3wuXwTDsUWqG5V7Yo22uN7UukfOTxRiXO0GSwhByS8x2+E3mkHjZOtnGnrGyv9r89qJCKllu/1Us+38xBus1OBX8Mw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eVojClzVXE37p9ju8AjGa8e+OgpfnC4D2P3kF8fqla8=;
- b=OwXoCaLoD7WCIKUnM8jT2pzJclCAMqfw4jTycf6helF3WxtE3EYAmUWx9OzQGJpWUydEGZSP5G/bQ23dKz5Sju8io34J9Ax+dPNQY3Xgro8mNRq0zhQYL781kUuNlwciHuI6uNehygZuGj2L4o6F2EKCZ7pJi/Kp0pp4e4+XDRk=
+ bh=Qh5wYvHOltKUwoowfgmRZkfKWSqHBFotDxXEcYFn4WY=;
+ b=bcnMWDTYp+nSpg9ml1LeU/komhC39hPld0Y8Sh4VJ9bMoznXcJBAwqtNM/YTBDI6PS7OcJNcLRnoPNyh411OOPdcZGfmgDB6Eba1OjZU+S5OMb/GH+qbXbT5Go+B0PD90/AZk5GO+IL1Tgybsk45d3mMZ5fDwEonYnUHl415eXI=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from MW5PR12MB5684.namprd12.prod.outlook.com (2603:10b6:303:1a1::21)
  by DS0PR12MB677406.namprd12.prod.outlook.com (2603:10b6:8:4ed::10)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 09:43:12 +0000
+ 2026 09:44:18 +0000
 Received: from MW5PR12MB5684.namprd12.prod.outlook.com
  ([fe80::f0a2:a7d9:42a8:ace6]) by MW5PR12MB5684.namprd12.prod.outlook.com
  ([fe80::f0a2:a7d9:42a8:ace6%6]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
- 09:43:12 +0000
-Message-ID: <d9513d3f-ad10-4c68-8897-2411a8b3dcee@amd.com>
-Date: Mon, 16 Nov 2026 10:43:06 +0100
+ 09:44:18 +0000
+Message-ID: <acb0010c-0b63-4709-aeb7-9d15859f11dc@amd.com>
+Date: Mon, 16 Nov 2026 10:44:13 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/7] drm/amdgpu: set the A+A VF SYSTEM bit in the GFX 12.1
- helpers
+Subject: Re: [PATCH 5/7] drm/amdgpu: fill the A+A VF PDB0 through get_vm_pde
 To: Zhigang Luo <Zhigang.Luo@amd.com>, amd-gfx@lists.freedesktop.org
 Cc: alexander.deucher@amd.com, Hawking.Zhang@amd.com, Lijo.Lazar@amd.com
 References: <20261113145702.323968-1-Zhigang.Luo@amd.com>
- <20261113145702.323968-4-Zhigang.Luo@amd.com>
+ <20261113145702.323968-5-Zhigang.Luo@amd.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261113145702.323968-4-Zhigang.Luo@amd.com>
+In-Reply-To: <20261113145702.323968-5-Zhigang.Luo@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0189.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a4::12) To SJ0PR12MB5673.namprd12.prod.outlook.com
+X-ClientProxiedBy: FR3P281CA0183.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a4::11) To SJ0PR12MB5673.namprd12.prod.outlook.com
  (2603:10b6:a03:42b::13)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: MW5PR12MB5684:EE_|DS0PR12MB677406:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3aa5b6a7-81d7-4163-525e-08df43c60734
+X-MS-Office365-Filtering-Correlation-Id: d5d2096d-ad5e-40b7-0d0c-08df43c62e97
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|23010399003|366016|22082099003|18002099003|261009223027099003|4143699003|56012099006|11063799006|261102123227099003|261026121527099003|261021121427099003|10067099003;
-X-Microsoft-Antispam-Message-Info: nqAr3uGGfFtgCOGQO3cogvSKWFjgmxsrsDwjH+VXHQxZsWGAs+naPRxotsYXrI5WNJyNMDnO4OCPWicPLzFQoTzWrnpsRqbhV4Irp52Ls/RmIeFxi6r5xNAN9yfor+dKjyIpVuW+EXCCqOheQqs0demNWmrjnqFHQbZZ5uPIIIvghjlREuDpJtlaUgdi1XgHDzkwR8I0/2lTC4wUhOLY1gA4chDL0RCG6m7guJWcuHPtvGaFZq4F89pdUjGwXRFHeV06sbBkfdlzA0fJD2B4BXaw7NuLQHeJBsgPL2twDk1lQRZ3+El2HpLQc3E19wtpNPX5HRpOoeDpP0wVVi8UgwbFkFo/T5HSltgK7uGkSVhxH7QuCJRzKYAH7Ll7lu6MQo5qnZ77iCxRSMloPeSBuduQC8vIOXBr63zoxDd33URB35A2DDpnRRoSUp9O5CpRFiadefCeIA7iwHKG2fr0RTJZTvX6FU8Y7EsjHDRZcwbYKUHdAZSgrG4OnlGfSenlhMeIcDKUbJwl0E/MYrhyq+cCGhrUyHmWEgc2p0cWLuehmFiPaLq4Qmb5bTLpudVVRDAguf+vji0JRyE0woAFypOZm5TbZYQrOT9aA3NKHuPZW+ezOY8LTqNejikb7eZ/P7hDbpWLcCDHcglt/w9rb5AwmCWckiEk/EQNoYpOt3w=
+ ARA:13230040|1800799024|376014|23010399003|366016|22082099003|18002099003|261009223027099003|4143699003|56012099006|11063799006|261102123227099003|261026121527099003|261021123027099003|261021121427099003|10067099003;
+X-Microsoft-Antispam-Message-Info: tsIDMbherS0BlP1gYzJ110Gqt43QrqPIHhQ7uOjeMQ8dnAdWz5y4gLTt/M7NWPKsphJNCRTAEotkniWA6Zq5q/4Q6JuGlLnAB7Vt3yA6TnMAw4FgIAgk8zpMAa5GaeMxgG+TZeYNI0Yfd5WX0jgsVWzMhljVGVkexNRP6e5OPP2A1kTsfb3kYteBOO/MbD4Q3LqS7mIhd+UY74F19SwMgNJ/B8CJcpOsiqZg7N7WHZYfD8c8lX+FNzvKvu4NiAUxWqPIyN7SRyKQlylz1z0Q3aJvB35c9AoX6REiFggAqSpkQEXXtq+Oho7JCJLY4qKAaMP2NF+ipHIowaTalCw3Lc2y24rwPT8T5bDD/0lHbXV4HLNergDPaTHzni4MQEzY7BTBXE8LbZNEU9GZcD2kAukJHokgqqG1gD577bQZTmi+H1/IZBb+U0Isfy8k2tHCBC7fvGh6jRNdkK0sKrMWp6NKY/TGI4eIDWv2N8+78phF1qnr/sMXc9NCxzVhmpSKTyWQuRNTScTt0oHOWcKAPI/5CHBJNDnaBY19xxUCRCewD3YSRaoNkWoWZewXnFv/ltAVjqZYQv6y3KegUj3krh6/xCkus0y072IrpbMlB0Z3LV4muMovh/MmNhUJmvjuZOE5HtWdGuha+6QJhMy5WA8D3Z4/cv4fgDHq2JtyZRQ=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MW5PR12MB5684.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(22082099003)(18002099003)(261009223027099003)(4143699003)(56012099006)(11063799006)(261102123227099003)(261026121527099003)(261021121427099003)(10067099003);
+ SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(22082099003)(18002099003)(261009223027099003)(4143699003)(56012099006)(11063799006)(261102123227099003)(261026121527099003)(261021123027099003)(261021121427099003)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TWlhZ0R4UVNjdld3SWwxelRicFpxWTJPa3Y3UU9yV1lHVCttQXVMN1ZKRlVr?=
- =?utf-8?B?UEh2SWphck93NjVJeVFxNkp4Ryt5NklEQ25yOVNXT3BQVi81amk0eGoyTFNK?=
- =?utf-8?B?czE2akRNUDhYcGo5NFFBK1FjRzF3U2RPcHBYMGdwMlZicG1nOXhXTkluUUFj?=
- =?utf-8?B?cEtPbHFoZkJ5elkvOVFDK1dmNlRRaHI4SmRQYXJnS0NiVTZWYmJ3K1NYNEZy?=
- =?utf-8?B?M3hRNGwyL25MWnB1N1dsNE1uRmE4VG5UNDVUWUhFdERiMnhJREwzTkh5OVR6?=
- =?utf-8?B?QVNsZElubmphUzZwakJXdHZ1OG0wQnQ0SGl3bmhQQjhTbWh1dExEN2VhNk5i?=
- =?utf-8?B?VnUxYm8rOTFqd2crYk12bXNORFJ3djBaR09tTWhpNVRLZmFCbzJGU2tPelg3?=
- =?utf-8?B?K2dOcmVhbEE5MGgvUXVmU2ZYU2x5bXBVeGVnTENERW5GQXRRTjNwNmo0NmtV?=
- =?utf-8?B?YVdrbmNId0l6dWlzakFrUnhsZWY5WnlVZi9WdVFYQUpvaTNNNHIxSFBZMzZH?=
- =?utf-8?B?QTN0TDdvTnljaUUraDc2L0dYQ2V2eWNmMGxBOStmUkpnUGdQSFdRU2JETUsy?=
- =?utf-8?B?L3RMT0RlZWVkbmFHeG9ycWdHTnY3Z2VLSHRieVFKUXFHQjdBbDB4SzFLYkh5?=
- =?utf-8?B?YTJFRm9NdGp2SzlGN0dYS0E3TzYzTHgxWVp1ZlllN0tQV3NjRlFnSzJxaWxK?=
- =?utf-8?B?SFhTN01yUDBJL2dDakJ3RjFNOEJLcDg2VHc5bkF5dm54OTU5c2VrWGZFY2Rn?=
- =?utf-8?B?RWZHdHJFMGwyTXFUY3p3OFdaTmZJL095SVMxZE1jbFZOR3J0ZnJ6K0JQODg4?=
- =?utf-8?B?NW5nZ0EzamNkdlM3bG1DTkg1MnVqSlk2RjVyeDRSeTkyK0NGSnZkUmVqZ0gy?=
- =?utf-8?B?cEJRdm1DTkNtMmNBMGpBSlI3VXFHQ0ZiR2VWZUM2WnUrZ2xvc1JsdUQ5WGtO?=
- =?utf-8?B?ekJQS2xOWmN2U25YSVl0NTJFbExHbFFTTEtRMG9HN2dXY0ZxU1g5Tnc3czVa?=
- =?utf-8?B?bFNRMHgvaEcrNElVeFpXVTZvQ3N5VG1NNGdrakwvZzFiQnJvcFpFM1JjTi9h?=
- =?utf-8?B?R21taWppUVRxd3h2dGxxeC9WWTIwRCtlSjhoTWtqRkhtZzBlcTZ6QlQ5RGh1?=
- =?utf-8?B?VGViMWlqNmNJb01nSTBCNWJkRlRmbG9TcFo3UHUxMWhyTGRzaUQvRXhIZVhL?=
- =?utf-8?B?Yk5PVGN2UVlrQ3ZLNXZ1VHAvVWptNFNWenpSZDVuUm80ckV0dk9aaFgrTXJR?=
- =?utf-8?B?TTNMdHB5cjJEQ2VibEd5bWJXMGs5azdGTmxDb0ZZSDBGYm15QUkzVEw1cm10?=
- =?utf-8?B?ckc2WXZqSUNySWJRb054enQ5bUE4UVdhUVRvdHB4L0gwcWdWZ2MxL2M1YUJE?=
- =?utf-8?B?c0ZXKy9oUTZIWUcwdThrcFl5WVlEN0pwTHIzajk0QWl1ZnAycTBjVUpRRldK?=
- =?utf-8?B?a29ialJtR2Z1ZGJyOWJFSW1yV1lIMjBnd0k2RjNHWGxueUtNL05HUjBBYkt0?=
- =?utf-8?B?VWJjQXNBV1BhbU9NQmZKU3dQencyckR4WlVsZ0RjakdwdzJiZWtpQlNpbys0?=
- =?utf-8?B?QWtsaXA5TVVyWWxGTC9UbzNlMEZJeGFmK1ZsZ0tlMDVuUnpNNzZOY3BIM0My?=
- =?utf-8?B?UzNDaHhkV1I3ZnpRUFpRbjBhK05CQmNuL1ZhNUVWZE9jYkhEUFVMOVJmekxn?=
- =?utf-8?B?ckQ0UVJHd25Rb2J0QUlQZkMvV3JLcDlXcXFZa0JkS244Y2pmRDNYcldWc0pl?=
- =?utf-8?B?KzlQN3BqaWs2eGdPLzRCdVZPN3YzeEpQc1lKRXFTZkdYVmJTdzgra01KWlhT?=
- =?utf-8?B?OUNkWVIyN09aZWo5eHpPZ09oZFZqbGdOSG5sbjlwNlFJZmVQcGNXaitOaHla?=
- =?utf-8?B?RS9veFN5c1FJTHBiTWRoaUI2TC9iUzloREEzZUNjTjJ2TUNncm5hVk4vZ3lY?=
- =?utf-8?B?ZjhWZTNQV2lzTTRpa2Y5K1U1UktGcmwxREZISXBJNTBtcFMyeGFLdEJPN1k0?=
- =?utf-8?B?MWRrRmZrSmdSU1JYeWQ0V2djeE9ubW9EUEJEdVc5R3hHQ1NaVlV4TlY0WjYv?=
- =?utf-8?B?TzZlNGpvbU8wTVQ4eXd1emM1RlYrclphdjZqZUJXREJualhoTWE1dWNTbkk4?=
- =?utf-8?B?TGIvYW1odEFsTVRhcmdVZ2hEY2U5MER6ZUpaRlJGaDh1OFdNSmhaSjhlblcz?=
- =?utf-8?B?RXZiMndpeFcxaWpSK1dVd2FEUVRaMG11UnBsY2dtSUdSMnd2WiswZnBEaVln?=
- =?utf-8?B?YWNlSEF1emVFSUFDWW9wZTlZMndWaVd6M29ieW9pUmxwK01vcURNR1NoQWVh?=
- =?utf-8?Q?f6nRuoIDGDj/s3JPJe?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WmtCcGNCRW8wYWVLY2QwVjhkc1c1cUwwWS91ak96aTFTL1VtM3JWNXEvTzlW?=
+ =?utf-8?B?aFVOVkFQZzhlL3J4VEdIeW5uaE1NbVJSRzdRRUJFbGprQ09OYnNRZWdwV2x2?=
+ =?utf-8?B?a2VzanhmZHBTcXdsR01kR3RKQ3pPK3k1NkVmNlBXY1RaY0ZaNTNLWmhHR3hI?=
+ =?utf-8?B?U1plc1FycnBiYUswQy9ocXZzK0ZJUHdTUEdTQ2JWeFUvZXFLY25DUnRoN2NS?=
+ =?utf-8?B?TWpCbE5tUVROU1RhZTRCZGFFMytBR1BFeFZsSlBvU3B5U05QSS9zd21DWmpR?=
+ =?utf-8?B?QSs0UEtoQjhFUURkWTA3L3FXUVhDelBNNEMwUWUxQ2lZOVk5UGdxbTFEemxC?=
+ =?utf-8?B?OXlBM1BmSHdNL01PdUpYbGNMSFJyZzY1OVl6SWFhcEs5S0tSbkV4OEc4clVj?=
+ =?utf-8?B?WmVKbzJBdDc1NFU3UTBCdWt5dFJnNmRPU1JRS3p5emJvRHZEWFU1YThuQ0Nl?=
+ =?utf-8?B?Rm9GWDc5dFQ4bWxDWEVEZXJVeHBBcDRLUDhoWWRtZFNkblEwZ0NrK0ZvYkNw?=
+ =?utf-8?B?T2xyUkMzR0xsK21oK29NVVZOaE1kbEFWU3J6ZCs2aUNEQ0VvY2JzaTdyWHJE?=
+ =?utf-8?B?LzMySHhtNnM0aWRlQ1pLTE83REpXRDZSWkxrMXdBbWxzbzh3QTFaa3hXWGZD?=
+ =?utf-8?B?Nm05QXcwSElNaDA5Tk02aGZYQnFMSVVHb0lETVBNOUNmUnhreTFyZW9rU3dF?=
+ =?utf-8?B?S2grTWVGV0txd1VHT2lvUVRpNE9Qb0ZmM1BCdndScG9Vb0JnQWh5ZkVibk52?=
+ =?utf-8?B?WE4wZkNwdFBNVEE4eHVzZVBwUXFNS0cwWnhYY3pkMXFsV1RCdlRuL2pzT3BU?=
+ =?utf-8?B?U20yTjYzd0FJajh3NTNOVFNISmxnMVpaS2VUOHlKbHUvU0liM2lPVld2MUJk?=
+ =?utf-8?B?THVhU1ViL3FWNFJqMFJURzZwc2hjRC9EWHdCampxUEZWUEtqaDJ2dURTNndE?=
+ =?utf-8?B?ZlpoczVGREU1Q2g5TS9SYmdzc0RIa081andBNlNadW5qZXIrelJjUjNQRzNM?=
+ =?utf-8?B?TDd0ajcwK25RZ3psWW1CdVNFWjNDZGlrWEdVeHVSdUJKUHRSZmhIUjVLYU9h?=
+ =?utf-8?B?bjJyRjFnTGZRUkxxODRPRHFZVE5Ralp1aCtaTitVZTNxV09lY3JUNjR6V3Jx?=
+ =?utf-8?B?cmtzcnU1MGt1czdlQ0xmRXJDdzR6VWwraDBkRWlpdlZzdm1KK2I4MmF6OTlJ?=
+ =?utf-8?B?QjVlUHFGaFZzUFRnVkwveDQ4QVVCbitheVJxV3YrYmk0SEFoTTdNUlBiemlC?=
+ =?utf-8?B?cWU2SVBoem00Um91TUs1aEYvSkk3dVkwbk5kdjAyazZTM2I5Tk14QWV2OUx0?=
+ =?utf-8?B?RE5CYnV5Z2lybHh3THpFd2wwdSs3RStIN0xPelp5T0FuWFQ4eDJNQUp2R2VF?=
+ =?utf-8?B?eDJsdEZLWUhId1oyZDF2Q3BIMVhVcFczMnR0SktReTRhVjQ3V2t2N2ZuaTBs?=
+ =?utf-8?B?UEhPQTJqWkljV25FUTAvVXl5M3VCcUw4aUVqZVY4NG5BOTdDdjZPT21QK3pN?=
+ =?utf-8?B?ZUFCZzBsSENHU3ZMZ3diYjhSMC9wWXdTSGVpMm5oQmh3UEJBS1dYM2dldjJL?=
+ =?utf-8?B?RVBTNFdGallMVDU0WUVZS3VzRGFGeWhSNHlHcGU3ajduTTJtRmc0TkJXU1Iv?=
+ =?utf-8?B?SzFtNDhaMkhOMzNmMzl6a0M2d3MvbUxVVTJidjJTRlZFL3M4ZHdnOVpkSjN3?=
+ =?utf-8?B?WEg2Wi9ZTHY1UDE4UFJxL3R5anRpNXoyK3dYM2w0Rkx3bTV3NjZtN2lITW1n?=
+ =?utf-8?B?T1dqY1Jva28yMEdLMzYxNEdRTXdxYTVzcEwrZGFpTXhsTWtQUDN1blBPeWhF?=
+ =?utf-8?B?cVZNKzN5d3VGaDhOZFUyQm55SUlINVRpc0tneEdkbEpLcXNaa25naUhhazV2?=
+ =?utf-8?B?QjRJY2svd0xvZWczWUNtdklLWis5Z01PcjFJTTFXSjZpWk42YlYvWUxtM3N1?=
+ =?utf-8?B?NlQ3MGFha2pWeEt4NUs0bzAvaERHaEhNTHF0R1VpejU3ZSttZ1NEOExTUUR1?=
+ =?utf-8?B?Zm14aUdHaWIyY2ZwUTFGamJOSFFDRjBiSzE4alRDcWJYQnBpVllJMzAzZ3J5?=
+ =?utf-8?B?LzZxWGVQNHRya3VYSnNqSjBVR0hOY2J2SVRLZ2gwRmtaQTRTeWFhLzlBTXlo?=
+ =?utf-8?B?RzdMTmd4N3RpTkVKcDJMOTVnVGVsdU12TEpQMHVSaVVvN243RWZVUWdOOTh4?=
+ =?utf-8?B?QVV4RHZHQmFSZG1yK2dpbzRjeVRwdjlRbHlLSEdVRkdZZVl0RU9BYmtTekF2?=
+ =?utf-8?B?R1dkVU5CSnJ2OUI2emZaRmRBWFlyNU9LTWVmdVZoWGpyK3VuWGxBaE5QOTdt?=
+ =?utf-8?Q?JIOLTXr8pnzONCyWOm?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3aa5b6a7-81d7-4163-525e-08df43c60734
+X-MS-Exchange-CrossTenant-Network-Message-Id: d5d2096d-ad5e-40b7-0d0c-08df43c62e97
 X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5673.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 09:43:12.2495 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 09:44:17.9157 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cExbMBnY6R0iG2FN+IwjKaukxZklzVAqne0eFgNIvddciWKIbr6DhFUjK+j1abxc
+X-MS-Exchange-CrossTenant-UserPrincipalName: rRTUpBqW06qIHbQRo/S3mwT0xV+wglODybKwqcRbPSYrn2raGW28kV26KU0EgQKx
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB677406
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -137,73 +136,69 @@ X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-
-
-On 11/13/26 15:56, Zhigang Luo wrote:
-> gmc_v12_1_get_vm_pde() converts a VRAM MC address to a physical
-> address and skips that conversion when AMDGPU_PTE_SYSTEM is already
-> set. Set the bit after the translation so the address stays physical.
+On 11/13/26 15:57, Zhigang Luo wrote:
+> PDB0 is written directly and does not go through get_vm_pte(). Route
+> both entries through amdgpu_gmc_get_vm_pde() so they take the same
+> SYSTEM-bit path as every other GFX 12.1 mapping.
 > 
-> gmc_v12_1_get_vm_pte() sets the bit for a VRAM buffer object. SVM
-> calls it with a NULL buffer object, and svm_range_get_pte_flags()
-> sets the bit only for system memory, so the NULL case sets it for
-> SPM VRAM. NPA mappings are left unchanged.
-> 
-> v2:
-> - Set the bit for a VRAM BO inside if (bo), and for the SVM NULL BO
->   in the else.
+> The VRAM entries are PDE_PTEs and already hold a physical address, so
+> the translation is skipped and S is set for SPM. The GART PDE is given
+> the GART BO's MC address and translated once.
 > 
 > Signed-off-by: Zhigang Luo <zhigang.luo@amd.com>
+
+Reviewed-by: Christian König <christian.koenig@amd.com>
+
 > ---
->  drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c | 13 +++++++++++++
->  1 file changed, 13 insertions(+)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 22 ++++++++++++++++------
+>  1 file changed, 16 insertions(+), 6 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c b/drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c
-> index 76391fca6c62..7ac0d9c6f280 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c
-> @@ -586,6 +586,12 @@ static void gmc_v12_1_get_vm_pde(struct amdgpu_device *adev, int level,
->  		*addr = adev->vm_manager.vram_base_offset + *addr -
->  			adev->gmc.vram_start;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> index 659e89e5e78f..04cf02dd22ac 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> @@ -1272,7 +1272,7 @@ void amdgpu_gmc_init_pdb0(struct amdgpu_device *adev)
+>  	u64 vram_size = adev->gmc.xgmi.node_segment_size * adev->gmc.xgmi.num_physical_nodes;
+>  	u64 pde0_page_size = (1ULL<<adev->gmc.vmid0_page_table_block_size)<<21;
+>  	u64 vram_addr, vram_end;
+> -	u64 gart_ptb_gpu_pa = amdgpu_gmc_vram_pa(adev, adev->gart.bo);
+> +	u64 pde_addr, pde_flags;
+>  	int idx;
 >  
-> +	/* SPM VRAM is reached at a system physical address. Set S after the
-> +	 * translation above so that translation is not skipped.
+>  	if (!drm_dev_enter(adev_to_drm(adev), &idx))
+> @@ -1290,10 +1290,16 @@ void amdgpu_gmc_init_pdb0(struct amdgpu_device *adev)
+>  	vram_end = vram_addr + vram_size;
+>  
+>  	/* The first n PDE0 entries are used as PTE,
+> -	 * pointing to vram
+> +	 * pointing to vram. PDE_PTE already holds a physical address, so
+> +	 * get_vm_pde() skips translation and sets S for SPM.
+>  	 */
+> -	for (i = 0; vram_addr < vram_end; i++, vram_addr += pde0_page_size)
+> -		amdgpu_gmc_set_pte_pde(adev, adev->gmc.ptr_pdb0, i, vram_addr, flags);
+> +	for (i = 0; vram_addr < vram_end; i++, vram_addr += pde0_page_size) {
+> +		pde_addr = vram_addr;
+> +		pde_flags = flags;
+> +		amdgpu_gmc_get_vm_pde(adev, AMDGPU_VM_PDB0, &pde_addr, &pde_flags);
+> +		amdgpu_gmc_set_pte_pde(adev, adev->gmc.ptr_pdb0, i, pde_addr,
+> +				       pde_flags);
+> +	}
+>  
+>  	/* The n+1'th PDE0 entry points to a huge
+>  	 * PTB who has more than 512 entries each
+> @@ -1301,8 +1307,12 @@ void amdgpu_gmc_init_pdb0(struct amdgpu_device *adev)
+>  	 */
+>  	flags = AMDGPU_PTE_VALID;
+>  	flags |= AMDGPU_PTE_SNOOPED | AMDGPU_PDE_BFS_FLAG(adev, 0);
+> -	/* Requires gart_ptb_gpu_pa to be 4K aligned */
+> -	amdgpu_gmc_set_pte_pde(adev, adev->gmc.ptr_pdb0, i, gart_ptb_gpu_pa, flags);
+> +	/* MC address. get_vm_pde() translates it once and sets S for SPM.
+> +	 * Requires the GART PT to be 4K aligned.
 > +	 */
-> +	if (amdgpu_virt_vram_is_spm(adev))
-> +		*flags |= AMDGPU_PTE_SYSTEM;
-> +
->  	if (*addr & ~adev->gmc.pte_addr_mask) {
->  		dev_err(adev->dev, "Invalid PDE address: %llx\n", *addr);
->  		*addr = 0;
-> @@ -758,6 +764,10 @@ static void gmc_v12_1_get_vm_pte(struct amdgpu_device *adev,
->  
->  	if (bo) {
->  		mem = bo->tbo.resource;
-> +		if (amdgpu_virt_vram_is_spm(adev) &&
-> +		    mem && mem->mem_type == TTM_PL_VRAM)
-> +			*flags |= AMDGPU_PTE_SYSTEM;
-> +
->  		if (mem && mem->mem_type == AMDGPU_PL_NPA) {
->  			dev_dbg(adev->dev,
->  				"Setting PTE for NPA BO, mem->type: %d, mem->start: %lx, mem->size: %u, cur_flags: %llx\n",
-> @@ -766,6 +776,9 @@ static void gmc_v12_1_get_vm_pte(struct amdgpu_device *adev,
->  		} else if (*flags & AMDGPU_PTE_VALID) {
->  			gmc_v12_1_get_coherence_flags(adev, bo, flags);
->  		}
-> +	} else if (amdgpu_virt_vram_is_spm(adev)) {
-> +		/* SVM has no BO. System memory already has S. VRAM does not. */
-> +		*flags |= AMDGPU_PTE_SYSTEM;
-
-Both SVM and PRT doesn't use a BO, so could be that this causes problems with PRT.
-
-Please double check the VM programming guide that this is ok, if not change the code so that PRT is excluded.
-
-With that done Reviewed-by: Christian König <christian.koenig@amd.com>
-
-Regards,
-Christian.
-
->  	}
+> +	pde_addr = amdgpu_bo_gpu_offset(adev->gart.bo);
+> +	amdgpu_gmc_get_vm_pde(adev, AMDGPU_VM_PDB0, &pde_addr, &flags);
+> +	amdgpu_gmc_set_pte_pde(adev, adev->gmc.ptr_pdb0, i, pde_addr, flags);
+>  	drm_dev_exit(idx);
 >  }
 >  
 
