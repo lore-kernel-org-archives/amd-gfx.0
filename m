@@ -2,38 +2,36 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79266606A31C
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 13:41:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3026606A323
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 13:41:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baryla.org header.i=@baryla.org header.a=rsa-sha256 header.s=dkim header.b=HG+C7W+d
+	dkim=pass (2048-bit key) header.d=baryla.org header.i=@baryla.org header.a=rsa-sha256 header.s=dkim header.b=uwbzef0g
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 059D610F1C6;
-	Mon, 16 Nov 2026 13:41:40 +0000 (UTC)
-X-Greylist: delayed 462 seconds by postgrey-1.36 at gabe;
- Mon, 16 Nov 2026 11:15:24 UTC
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64C5A10F1C7;
+	Mon, 16 Nov 2026 13:41:45 +0000 (UTC)
 Received: from mail.baryla.org (mail.baryla.org [217.182.77.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B3E010EF73;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3611210EF74;
  Mon, 16 Nov 2026 11:15:24 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 2A82E74613A; Mon, 16 Nov 2026 11:07:41 +0000 (UTC)
+ with ESMTPSA id BEDF7746115; Mon, 16 Nov 2026 11:07:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baryla.org; s=dkim;
  t=1794827261; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=mSKHltzBGWAj3KmddZORQ4Qcz3ohrAZDhoh6LxxVyv0=;
- b=HG+C7W+ddYmt+VV5/VQn9z38cBy7TRBXaJDvmeW4QOLjEhwJ+Hcl8lqgtLf7HwL77DiuBf
- v/gRDXrGWLHSftlR0ZqjccV9icfDt48xBbp4QiTjNZA2FKFt/CVsn3cMkiCLpSnxtMf2sP
- Mj9MKd4EPwTt+KBZDDQmc0Egr44F2ozdEDovrKGIqPEfbMCPwC68Cj8upALNdzuKJhLxX1
- KCuUp8qCYnkjN5I7pX7vXoPAykthaDKOkSGd+t8nMB5sjjWYa0DE+OulIb9gwcPlX3uQAN
- KDsdGg6pTiJLmlBUqLSszXtdmu7EHnlYJw2iXdPkvKNZLK9mT5fTkoI6zC9aGg==
+ bh=AuuueUIiwkc93LDarBEsBhq5sGdDfFqHHtz9HVXcZqw=;
+ b=uwbzef0g2QXZyA3dVr90FFkjATPM75oti5Tjmajl52uOBOvCMsc9zK00rDHMc3f2qTx//0
+ nHMXvV8LWVlxQ8LOxYabolNEvQFpGLSwl3qq4foW0knZMA0EEv0LiZAQko6M3Fty/c64ZB
+ +W1xHieJw+2WGs3i/eX3MzQjiXg3y8/IRwIXlSKir1IRuT2pzy7J+D99MjOmuL8mxflmjT
+ P92Ob3gW5AmmBSYGN3vxq3kjmx/CVrXHLdPPXO4lsnGg3g/ChnAsn1FYguD7dAhefcJ8Ht
+ PCfrIW3W41adMtfBLrgGzJ/6KYhKqwcQGImcfJaOzxh5lwKFWac73zLd5kSPBw==
 From: =?utf-8?q?Karol_Bary=C5=82a?= <git@baryla.org>
-Date: Mon, 16 Nov 2026 12:07:33 +0100
-Subject: [PATCH 2/2] drm/amd/display: Add KUnit tests for the MST last link
- check on logical ports
+Date: Mon, 16 Nov 2026 12:07:32 +0100
+Subject: [PATCH 1/2] drm/amd/display: Skip the MST last link check for
+ logical ports
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261116-mst-logical-port-v1-2-6b446ebe75e7@baryla.org>
+Message-Id: <20261116-mst-logical-port-v1-1-6b446ebe75e7@baryla.org>
 References: <20261116-mst-logical-port-v1-0-6b446ebe75e7@baryla.org>
 In-Reply-To: <20261116-mst-logical-port-v1-0-6b446ebe75e7@baryla.org>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
@@ -67,80 +65,67 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Check that a logical port accepts a DSC mode even when its
-DP_LINK_BW_SET describes a link too slow for the uncompressed stream,
-and that port 7, the highest physical port number, is still rejected.
+[Why]
+For MST DSC without passthrough, dm_dp_mst_is_port_support_mode() reads
+DP_LINK_BW_SET/DP_LANE_COUNT_SET of the output port and rejects modes
+whose uncompressed rate exceeds that "last link". The value is read once
+and cached on the connector.
 
+A logical port (port number 8 and above) is the branch device's own
+internal sink, such as the panel of a monitor with a built-in MST hub.
+No DP link follows it, so its link configuration registers do not
+describe one. A Dell U3225QE behind a USB4 DP tunnel reports its
+internal link in DP_LINK_BW_SET/DP_LANE_COUNT_SET while that link is
+still training: right after a hotplug the read returns RBR x1
+(1257120 kbps), which prunes every 3840x2160@120 mode (28512000 kbps
+uncompressed, DSC required). After a monitor power cycle the same read
+happens before the channel coding is set, gives 0, and the modes are
+offered. Which of the two happens depends on timing. Once training
+completes the registers show HBR3 x4 (25142400 kbps), which is still
+below the uncompressed rate, so re-reading instead of caching would not
+help.
+
+Since commit 0b0ff65d3ca1 ("drm/amd/display: Refactor stream
+validation"), a mode rejected by this check is retried as YCbCr 4:2:2,
+which fits without DSC. So instead of disappearing, the mode is offered
+as 4:2:2. Every atomic check then tries RGB first, fails, and logs
+"Mode Validation Warning: Viewport size failed validation."
+
+[How]
+Skip the last link check for logical ports. Physical ports keep it
+unchanged.
+
+Fixes: fa57924c76d9 ("drm/amd/display: Refactor function dm_dp_mst_is_port_support_mode()")
+Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/6142
 Signed-off-by: Karol Baryła <git@baryla.org>
 ---
- .../amdgpu_dm/tests/amdgpu_dm_mst_types_test.c     | 47 ++++++++++++++++++++++
- 1 file changed, 47 insertions(+)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
-index e624eb55cae1..e33a9daaebde 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
-@@ -2943,6 +2943,51 @@ static void dm_mst_test_port_mode_last_link_synaptics_quirk(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, (u32)ctx.stream->timing.flags.DSC, 1U);
- }
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+index 5697645ef7cc..b9ff0880d150 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+@@ -2066,9 +2066,16 @@ enum dc_status dm_dp_mst_is_port_support_mode(
+ 			struct drm_dp_mst_port *immediate_upstream_port = NULL;
+ 			uint32_t end_link_bw = 0;
  
-+/**
-+ * dm_mst_test_port_mode_logical_port_skips_last_link_check - logical ports have no last link
-+ * @test: KUnit test context
-+ *
-+ * A logical port is the branch device's own internal sink, so no DP link
-+ * follows it. A DP_LINK_BW_SET too slow for the uncompressed stream must not
-+ * reject the mode, and the link settings are not read.
-+ */
-+static void dm_mst_test_port_mode_logical_port_skips_last_link_check(struct kunit *test)
-+{
-+	struct dm_mst_test_port_mode_ctx ctx;
-+
-+	dm_mst_test_init_port_mode_ctx(test, &ctx, 2500000, 1000, 100000);
-+	dm_mst_test_enable_dsc(test, &ctx);
-+	ctx.port->pdt = DP_PEER_DEVICE_SST_SINK;
-+	ctx.port->port_num = DP_MST_LOGICAL_PORT_0;
-+	dm_mst_test_set_link_settings(DP_LINK_BW_1_62, 1, DP_8b_10b_ENCODING);
-+
-+	KUNIT_EXPECT_EQ(test, dm_dp_mst_is_port_support_mode(ctx.aconnector, ctx.stream), DC_OK);
-+	KUNIT_EXPECT_EQ(test, (u32)ctx.stream->timing.flags.DSC, 1U);
-+	KUNIT_EXPECT_EQ(test, ctx.aconnector->mst_local_bw, 0U);
-+}
-+
-+/**
-+ * dm_mst_test_port_mode_highest_physical_port_last_link_checked - port 7 is physical
-+ * @test: KUnit test context
-+ *
-+ * Port numbers 0-7 are physical and only 8 and above are logical, so a too
-+ * slow last link behind port 7 still rejects the mode.
-+ */
-+static void dm_mst_test_port_mode_highest_physical_port_last_link_checked(struct kunit *test)
-+{
-+	struct dm_mst_test_port_mode_ctx ctx;
-+
-+	dm_mst_test_init_port_mode_ctx(test, &ctx, 2500000, 1000, 100000);
-+	dm_mst_test_enable_dsc(test, &ctx);
-+	ctx.port->pdt = DP_PEER_DEVICE_SST_SINK;
-+	ctx.port->port_num = DP_MST_LOGICAL_PORT_0 - 1;
-+	dm_mst_test_set_link_settings(DP_LINK_BW_1_62, 1, DP_8b_10b_ENCODING);
-+
-+	KUNIT_EXPECT_EQ(test, dm_dp_mst_is_port_support_mode(ctx.aconnector, ctx.stream),
-+			DC_FAIL_BANDWIDTH_VALIDATE);
-+	KUNIT_EXPECT_EQ(test, ctx.aconnector->mst_local_bw, 1257120U);
-+}
-+
- /**
-  * dm_mst_test_port_mode_upstream_vc_too_small - the upstream hop is the bottleneck
-  * @test: KUnit test context
-@@ -4143,6 +4188,8 @@ static struct kunit_case dm_mst_types_test_cases[] = {
- 	KUNIT_CASE(dm_mst_test_port_mode_last_link_too_slow),
- 	KUNIT_CASE(dm_mst_test_port_mode_last_link_cached_bw),
- 	KUNIT_CASE(dm_mst_test_port_mode_last_link_synaptics_quirk),
-+	KUNIT_CASE(dm_mst_test_port_mode_logical_port_skips_last_link_check),
-+	KUNIT_CASE(dm_mst_test_port_mode_highest_physical_port_last_link_checked),
- 	KUNIT_CASE(dm_mst_test_port_mode_upstream_vc_too_small),
- 	KUNIT_CASE(dm_mst_test_port_mode_branch_throughput_exceeded),
- 	/* get_conv_frl_bw tests */
+-			/*Get last DP link BW capability. Mode shall be supported by Legacy peer*/
+-			if (aconnector->mst_output_port->pdt != DP_PEER_DEVICE_DP_LEGACY_CONV &&
+-				aconnector->mst_output_port->pdt != DP_PEER_DEVICE_NONE) {
++			/*
++			 * Get last DP link BW capability. Mode shall be supported by Legacy peer.
++			 *
++			 * Skip logical ports: they are the branch device's own internal sink,
++			 * so no DP link follows them and their link configuration registers
++			 * do not describe one.
++			 */
++			if (!drm_dp_mst_port_is_logical(aconnector->mst_output_port) &&
++			    aconnector->mst_output_port->pdt != DP_PEER_DEVICE_DP_LEGACY_CONV &&
++			    aconnector->mst_output_port->pdt != DP_PEER_DEVICE_NONE) {
+ 				if (aconnector->vc_full_pbn != aconnector->mst_output_port->full_pbn) {
+ 					dp_get_link_current_set_bw(&aconnector->mst_output_port->aux, &end_link_bw);
+ 					aconnector->vc_full_pbn = aconnector->mst_output_port->full_pbn;
 
 -- 
 2.56.1
