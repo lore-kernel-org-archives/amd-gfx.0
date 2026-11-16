@@ -2,45 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A313606A334
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 09:12:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 719B3606A329
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 09:12:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=X3LBCbS4
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fdhj0z7l
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E27110EDC9;
-	Mon, 16 Nov 2026 09:12:33 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5D3210EDA3;
- Mon, 16 Nov 2026 09:12:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D707B10EDB0;
+	Mon, 16 Nov 2026 09:12:43 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7396510EDAC;
+ Mon, 16 Nov 2026 09:12:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794820347; x=1826356347;
+ t=1794820357; x=1826356357;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=JGdJovIRxiswmzQ/OVHyoYBXcmjw0GscVzdw8XDjrRY=;
- b=X3LBCbS4sc4JXyPJNWSe8/J34ohQ8mZ7K7tAc0pD8ozZfSc08+f3Cn/p
- LmPxaaoOpoLMPSQOrU6aoVwe8p7bWqdO7930toihQkyQSwgGnnz5Xji+9
- pnneD10fE8+lB6WY7XqOHxB/XjeM+TxWGdAvMqfdm4XCjbc0lWnyGtPmu
- KtM+piYQaNAAjiqXTF76gB6AmtsBIsyKWAIYWPUwjL76YFniuFLQpcviv
- 7+I7VehdDPuTj/3dM0PXyC9WX8RnBphoDMvLaOw9sTHEExC4rXzCP8MvU
- LTT31YTfbfKGZTCm0rM0VVX5/9HHujbKffchXDjXlD4t++BjKFlQ80mS5 A==;
-X-CSE-ConnectionGUID: i5EYWpxoT6KS7KWP6tL0EQ==
-X-CSE-MsgGUID: nmW9RUYzS16JBw1dW47a3Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3590920"
+ bh=RkhyzjuNlXgxmJ1hs/ayERDzfWzK8akCYym0w0pTyDc=;
+ b=fdhj0z7lzOaYSJIDDXFaGiMa7TMDQ1nN5DLoX/iOl0hUX1zC3dwAApmT
+ o1ZXx3EPaf7TEwKJQLSXbmLtbxmD+7gET61aTVu0jN8jXJ4BnGf0FhJPF
+ 4rrSP6yi1nViA99m8L3UGia6/07JPfH9gnBrBCKwuYcOf7cY3bao7CdEg
+ ci85a+eago+d/qU/3rFREHucWyzmMeib+Pz5GQKMdkpx9CxTbPb7JY/Ux
+ 5F8l+Ca6mvnvfRdBMT6JLZFeZWi0tZpg+/NjmFkx6GJ31ZuB14iq0oCbu
+ dboTPJiaoH15A2AS15LAzPf00QRBzIX9meYqW+8dMZ4bXpBZoqN1tEBDW A==;
+X-CSE-ConnectionGUID: n0yuo/TnT2qhlGfKzJjOCQ==
+X-CSE-MsgGUID: 3StpLd4TQLa9xDyNaPOaDQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3441741"
 X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="3590920"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2026 01:12:26 -0800
-X-CSE-ConnectionGUID: J66DpBJ2RRW4yBSWi6jh6g==
-X-CSE-MsgGUID: 0uoTtDp2RV+r35svTUE34g==
+   d="scan'208";a="3441741"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Nov 2026 01:12:36 -0800
+X-CSE-ConnectionGUID: eSWWbGsqQsClMOtxH9qrUQ==
+X-CSE-MsgGUID: ujhghr56Si+fr6fdGRMLpw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="9826077"
+   d="scan'208";a="9636389"
 Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
  ([10.245.245.93])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2026 01:12:19 -0800
+ 16 Nov 2026 01:12:29 -0800
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: dri-devel@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
@@ -64,9 +64,10 @@ Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
  Simon Ser <contact@emersion.fr>, wayland-devel@lists.freedesktop.org,
  Xaver Hugl <xaver.hugl@kde.org>, Xi Ruoyao <xry111@xry111.site>
-Subject: [PATCH 04/12] drm/atomic: Highlight that bypass commits need care
-Date: Mon, 16 Nov 2026 11:11:22 +0200
-Message-ID: <20261116091130.13950-5-ville.syrjala@linux.intel.com>
+Subject: [PATCH 05/12] drm/atomic/uapi: Eliminate the confusing
+ drm_atomic_check_prop_changes()
+Date: Mon, 16 Nov 2026 11:11:23 +0200
+Message-ID: <20261116091130.13950-6-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261116091130.13950-1-ville.syrjala@linux.intel.com>
 References: <20261116091130.13950-1-ville.syrjala@linux.intel.com>
@@ -96,9 +97,23 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Document the fact that implementing bypass commits
-need actual care and attention to make sure the
-effective commit reordering is actually safe.
+drm_atomic_check_prop_changes() is a very confusing for
+many reasons:
+- the 'ret' propagation through it is completely non-obvious
+- for planes it prints the debug message about rejecting the
+  update before we actually decide whether the update needs
+  to be rejected or not
+- the debug message is also printed if the property doesn't
+  exist, which is confusing
+- the debug message lacks the KMS object type/ID/name,
+  which could be helpful during debugging
+
+Just get rid of the whole drm_atomic_check_prop_changes() and
+do things by hand.
+
+Also remove the debug message for the case where the property
+doesn't exist as drm_atomic_*_get_property() will already print
+its own debug message in that situation.
 
 Cc: amd-gfx@lists.freedesktop.org
 Cc: André Almeida <andrealmeid@igalia.com>
@@ -132,26 +147,106 @@ Cc: Xaver Hugl <xaver.hugl@kde.org>
 Cc: Xi Ruoyao <xry111@xry111.site>
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- include/drm/drm_modeset_helper_vtables.h | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/gpu/drm/drm_atomic_uapi.c | 51 +++++++++++++++++++------------
+ 1 file changed, 31 insertions(+), 20 deletions(-)
 
-diff --git a/include/drm/drm_modeset_helper_vtables.h b/include/drm/drm_modeset_helper_vtables.h
-index d28d8ffc66b4..1036744b9922 100644
---- a/include/drm/drm_modeset_helper_vtables.h
-+++ b/include/drm/drm_modeset_helper_vtables.h
-@@ -1430,6 +1430,12 @@ struct drm_plane_helper_funcs {
- 	 * given update can be committed bypassing the atomic commit machinery.
- 	 * That is, if it can jump ahead of the state currently queued for update.
- 	 *
-+	 * Extreme care is needed to make this safe as the already queued commits
-+	 * will not be aware of the bypass commit that overtook them. And the
-+	 * state that the bypass commit will observe is the final already queued
-+	 * state, not the current state at the point when the bypass commit
-+	 * will actually execute.
-+	 *
- 	 * This function is also abused by drm_atomic_set_property() to determine
- 	 * if the plane can be flipped in async. The flip flag is used to
- 	 * distinguish if the function is used for just the plane state or for a
+diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+index eb002799497c..2ea03b4b0be9 100644
+--- a/drivers/gpu/drm/drm_atomic_uapi.c
++++ b/drivers/gpu/drm/drm_atomic_uapi.c
+@@ -1194,19 +1194,6 @@ int drm_atomic_connector_commit_dpms(struct drm_atomic_commit *state,
+ 	return ret;
+ }
+ 
+-static int drm_atomic_check_prop_changes(int ret, uint64_t old_val, uint64_t prop_value,
+-					 struct drm_property *prop)
+-{
+-	if (ret != 0 || old_val != prop_value) {
+-		drm_dbg_atomic(prop->dev,
+-			       "[PROP:%d:%s] No prop can be changed during async flip\n",
+-			       prop->base.id, prop->name);
+-		return -EINVAL;
+-	}
+-
+-	return 0;
+-}
+-
+ int drm_atomic_set_property(struct drm_atomic_commit *state,
+ 			    struct drm_file *file_priv,
+ 			    struct drm_mode_object *obj,
+@@ -1235,8 +1222,16 @@ int drm_atomic_set_property(struct drm_atomic_commit *state,
+ 		if (async_flip) {
+ 			ret = drm_atomic_connector_get_property(connector, connector_state,
+ 								prop, &old_val);
+-			ret = drm_atomic_check_prop_changes(ret, old_val, prop_value, prop);
+-			break;
++			if (ret)
++				break;
++
++			if (old_val != prop_value) {
++				drm_dbg_atomic(prop->dev,
++					       "[PROP:%d:%s] No prop can be changed during async flip\n",
++					       prop->base.id, prop->name);
++				ret = -EINVAL;
++				break;
++			}
+ 		}
+ 
+ 		ret = drm_atomic_connector_set_property(connector,
+@@ -1257,8 +1252,16 @@ int drm_atomic_set_property(struct drm_atomic_commit *state,
+ 		if (async_flip) {
+ 			ret = drm_atomic_crtc_get_property(crtc, crtc_state,
+ 							   prop, &old_val);
+-			ret = drm_atomic_check_prop_changes(ret, old_val, prop_value, prop);
+-			break;
++			if (ret)
++				break;
++
++			if (old_val != prop_value) {
++				drm_dbg_atomic(prop->dev,
++					       "[PROP:%d:%s] No prop can be changed during async flip\n",
++					       prop->base.id, prop->name);
++				ret = -EINVAL;
++				break;
++			}
+ 		}
+ 
+ 		ret = drm_atomic_crtc_set_property(crtc,
+@@ -1281,12 +1284,18 @@ int drm_atomic_set_property(struct drm_atomic_commit *state,
+ 			/* no-op changes are always allowed */
+ 			ret = drm_atomic_plane_get_property(plane, plane_state,
+ 							    prop, &old_val);
+-			ret = drm_atomic_check_prop_changes(ret, old_val, prop_value, prop);
++			if (ret)
++				break;
+ 
+ 			/* fail everything that isn't no-op or a pure flip */
+-			if (ret && prop != config->prop_fb_id &&
++			if (old_val != prop_value &&
++			    prop != config->prop_fb_id &&
+ 			    prop != config->prop_in_fence_fd &&
+ 			    prop != config->prop_fb_damage_clips) {
++				drm_dbg_atomic(prop->dev,
++					       "[PROP:%d:%s] No prop can be changed during async flip\n",
++					       prop->base.id, prop->name);
++				ret = -EINVAL;
+ 				break;
+ 			}
+ 
+@@ -1296,10 +1305,12 @@ int drm_atomic_set_property(struct drm_atomic_commit *state,
+ 			 * decision. Drivers that want this need to just do
+ 			 * these checks themselves somewhere.
+ 			 */
+-			if (ret && plane->type != DRM_PLANE_TYPE_PRIMARY) {
++			if (old_val != prop_value && plane->type != DRM_PLANE_TYPE_PRIMARY) {
+ 				/* ask the driver if this non-primary plane is supported */
+ 				if (plane_funcs && plane_funcs->atomic_bypass_check)
+ 					ret = plane_funcs->atomic_bypass_check(plane, state, true);
++				else
++					ret = -EINVAL;
+ 
+ 				if (ret) {
+ 					drm_dbg_atomic(prop->dev,
 -- 
 2.56.0
 
