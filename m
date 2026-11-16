@@ -2,91 +2,130 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE6D4606A331
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 08:17:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89023606A883
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 08:59:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MI4H4iOS
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=epsE4sgY
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78D0510E961;
-	Mon, 16 Nov 2026 08:17:44 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE37B10E961;
- Mon, 16 Nov 2026 08:17:38 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id ACC4F4036C;
- Mon, 16 Nov 2026 08:17:38 +0000 (UTC)
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1794817058;
- b=OCeY4UnZQDql2b1LILscAzJSjSnkRlzvsYhkkhSzd3VztRTyMF380UCvzQDhiqOFLwmf
- e4xf7gbELFi0C9Ez2S5N3f0eelpuAvYPE7iAMv53Jc4eyKnas+sASj/VNtMNcmOx2qlbv
- liCQLiCFIt3eXRk9q45bUH9m9qf3gdMWkcW0KQEosu0983ktPMos2wK0P3QNQIgmArQP0
- Ryzg8XkvChbIeDZ1NZxjk7mOQT+DyUf41h+XcfbSopdVB84QwJgtg6EqxxTX9+RApbtfZ
- w27KphZSRMzMLezo4/3w+VE1I3YYA2jI5FO44I7TVHf7S+FOcUV5SMmypuwjuwhRaig==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1794817058;
- h=DKIM-Signature:Received:From:Date:Subject:To:Cc:In-Reply-To:
- References:Message-ID:MIME-Version:Content-Type:X-Mailer:
- X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=sSXgYBkHT/oc6vNY04Q3fm3X2G3ni/aAOgRi/r/6vDE=;
- b=vBA7+Zj30wUK1edwZ2oPQJKQPt6Wd1jWqV2i52V3T8xmFczfIpbBGlg8xAXpyWiwvCK6
- SZKesvJQd7VZlJHHVOG0RR8xFW+k+Lui/sGwFCismwI1dPsNYjQw9pn3ODbwBoF6P0/U2
- vdVs7by97CV/DmWMrnIl+E1OFVREAXz2C30Qz6SAkHgFRhbmH+7kMP+lTqCOu5ml7kT0B
- 1b4KCKXmQYOzki+4HC6hLKmXzGqZNJjjXZz618WeS9PIljpnUExO0VOFAt3eM0uhBq+by
- hf0vSzlMjJzHQzRXH/2PReia7sCGUMQEAEjqv6iCnrIUd9P7NiwY9bXKrNCZMUiy+Xg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
- arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
- (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id B3E6D1F000C4;
- Mon, 16 Nov 2026 08:17:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794817058;
- bh=sSXgYBkHT/oc6vNY04Q3fm3X2G3ni/aAOgRi/r/6vDE=;
- h=From:Date:Subject:To:Cc:In-Reply-To:References:Reply-To;
- b=MI4H4iOSdFZsTgA4mCsCdaxrHZRjYzZoCNH44TtYLIrO504n/ALhK/aZVY6LnCjHh
- SjAkk8j7+wmDtV7gkSHOiC/pKDWHL/mTyYxZVzmGdJelblKtAAx0qOGzS5a8jILLXg
- E8jg4e+jo1fn63DmuB1E1+ygRn+Y3vDt+ketccvArGzrcs6gvPSt885sf+oE8ALaPu
- af+8x+XPPe/cwvbsuDKP1A20OceWf5mMdMGbOjwhzLsGzpoZ8kIR+FHdmA2w4g2n6h
- uAwg9ao9NisSEE5mdG9Wi90t9te4zA0O3T4+Hcuc8vVr4iyiATcaBcH9efeg+Gzc7M
- eSygMmvvAoGuw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 173574A3CD;
- Mon, 16 Nov 2026 08:17:37 +0000 (UTC)
-From: Joshua Horne via B4 Relay <devnull+hornejd.etsu.edu@kernel.org>
-Date: Mon, 16 Nov 2026 03:17:36 -0500
-Subject: [PATCH v2 4/5] drm/amd/pm: allow editing the smu8 overdrive sclk table
-To: Alex Deucher <alexander.deucher@amd.com>, 
- Kenneth Feng <kenneth.feng@amd.com>
-Cc: =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- =?utf-8?q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
- Lijo Lazar <lijo.lazar@amd.com>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Joshua Horne <hornejd@etsu.edu>, sashiko-reviews@lists.linux.dev
-In-Reply-To: <sashiko-outbox-214116@kernel.org>
-References: <20261113-smu8-overdrive-v1-0-763f07bdfca9@etsu.edu>
- <20261113-smu8-overdrive-v1-4-763f07bdfca9@etsu.edu>
- <sashiko-outbox-214116@kernel.org>
-Message-ID: <179481705669.12281.9149615824591242380@etsu.edu>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16C3C10ECCD;
+	Mon, 16 Nov 2026 08:59:05 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010030.outbound.protection.outlook.com
+ [40.93.198.30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7852F10ED1E;
+ Mon, 16 Nov 2026 08:58:58 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ksgBYKB+YjvJHnGj7I/exvv2VERaTpRRq1RWrZ9iVC0aPewPfEq0plcl+2cByu/FBO/ZVAJn43vnu7s7D8SNGn1M+5gw0GqParHVpgdF2OYvMg9IZcArqMDy68wyhiyVk3M8SbihT0X4DOhQiu4aXY5ANYBRE5dy4I+nRUwa4e4mcRR6J7TWplc5U+tg9X8kAuyo+945vZKMFes5mLzV3YOmBFPpQTIR/TamgHF8lzZNE7tZViInVbzZcnUolXhIjtLua5QdbTl8ctgvqxxUdGpBJ0f6Yti4oSXN3UQF8gyeGGJPmbdnjaesPTkjvuNmBTgeEXGfVlbfRYVmuIJ0pA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5RMRIrCVbnEQ/MBzvvSJdgIMuKRaCA+bsrEqy1Co/p8=;
+ b=yxSjxTUfQANr1D7rr2nbqO09QqHA/pvF2Dt3NqdGQCeHYbb4hKui1s53ZMzOp1d02OMdobpQ8T0RCK/nmvS0kbjOU6pEJ+8gHmKd5s7BKJutNoc7aGfFa0pz4vgi2zxgyJrK1Nbg0SZrkxJpP+CMgz52cVac/RN9ssC1uACHg6GkfED2b+OqQJKmoEr4BLL/ampE+d8ukoY2+UXaA2agVmYQlGBVi5eNe5P7DGm/R7YlwqkiV9yuViWk/XzAIy+2Ikgz08SsSe2yA7eE1HjSytbHj1nAmYgs9sYVBuy2VZa9e5dCXm1jwD2pXKBkS+Uxz9arC5HeM8ywwkLgiXktzg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5RMRIrCVbnEQ/MBzvvSJdgIMuKRaCA+bsrEqy1Co/p8=;
+ b=epsE4sgYpJLqrAADpK+3LUrHgAExxfKLykSllJ+IkFmx3V606ZDVDkLxtQ+cc1SmpxS+dUBTMpVk0ygUom1GcpFxPYvexJzlnl0sdJFwQOrgUsmhHLTiHbMSeH6yjJUf217/9rYOaKbWlj7YdJnAGcnMGmCEU1WbXYd2H0iFmLM=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CY5PR12MB6132.namprd12.prod.outlook.com (2603:10b6:930:24::8)
+ by LV0PR12MB392693.namprd12.prod.outlook.com (2603:10b6:408:608::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
+ 2026 08:58:55 +0000
+Received: from CY5PR12MB6132.namprd12.prod.outlook.com
+ ([fe80::d9ab:4258:a9ef:b8cd]) by CY5PR12MB6132.namprd12.prod.outlook.com
+ ([fe80::d9ab:4258:a9ef:b8cd%6]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
+ 08:58:55 +0000
+Message-ID: <085c307e-8671-4ac4-8bd4-b7e42fb69ae7@amd.com>
+Date: Mon, 16 Nov 2026 16:58:49 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/3] drm/amd/display: Leave self-refresh before an ABM
+ level update
+To: hugo@hsal.es, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: Roman Li <Roman.Li@amd.com>,
+ Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20261113-amdgpu-psr-abm-update-next-v2-0-27ce790856ea@hsal.es>
+Content-Language: en-US
+From: "Chen, Chen-Yu" <Chen-Yu.Chen@amd.com>
+In-Reply-To: <20261113-amdgpu-psr-abm-update-next-v2-0-27ce790856ea@hsal.es>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: TPYP295CA0031.TWNP295.PROD.OUTLOOK.COM (2603:1096:7d0:7::9)
+ To CY5PR12MB6132.namprd12.prod.outlook.com
+ (2603:10b6:930:24::8)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794817056; l=11965;
- i=hornejd@etsu.edu; s=20261109; h=from:subject:message-id;
- bh=Hxlr9ljtauqnWTX2eK5EXPT1Bv8cN3MCNVdWdSawep4=;
- b=5r4PiR6Y58SuGTmVElW7aVsymX49F9H7uzIL/TKr0kc3s2fa/3+2OEhmsm60pOugR75DeiJoq
- 9aJjCx3AqlqCaSE3LeGPmCFoA5P1nauoeigO5LnfNYLTJpuvdNb4gxB
-X-Developer-Key: i=hornejd@etsu.edu; a=ed25519;
- pk=HNOtiwerBbrJhfhzLHLxj3GDsUH9udRXflqnaI8sQmQ=
-X-Endpoint-Received: by B4 Relay for hornejd@etsu.edu/20261109 with
- auth_id=1469
-X-Original-From: Joshua Horne <hornejd@etsu.edu>
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY5PR12MB6132:EE_|LV0PR12MB392693:EE_
+X-MS-Office365-Filtering-Correlation-Id: f6981028-6542-410f-4b02-08df43bfd7f0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|23010399003|366016|22082099003|18002099003|6133799003|261009223027099003|56012099006|11063799006|261102123227099003|261028144727099003|261026121527099003|261026140227099003|261021123027099003|261022105027099003|261021121427099003|10067099003;
+X-Microsoft-Antispam-Message-Info: 9tRr1XGLAdSxUgHzMfPNP1aj0jR+TKk6lN+WVclxv0g6QpoPVq+AovoerBfADm+egzJ3YGwhRGtdto6AXMG4l41df3TH9y2hfBpTbqYQkSpEN8oE55CtMcP2v2PjiPJ64CNbrByjMH16AEaFxjwWWOP4tlzoW7CXpUt4fyzOjwD2zLf55FrokZZDeQj3mSCcdKMHsozatRUT4YXt//Kww1MOK+HRccdZiMzi9l0GHWWUmxRuw4zxHLliCHZE7MAUx4T0gwYWWICar9mG7D+woIwtn0d06iHcJ+OS9JFinOmHvGIf1HiWFIhCzAtTDGqQ2WhbNgIqJPAkHu13G2wqf3wLAtVbxwDab2421r96vKO4HO9a+Pmobe2L0vDssNiK29Nqll7qEABgmOfLPEJ8gv0QDUnEGYuNlFzK5UTJx8pNXq8Elwl5hK4/YXTw/F84w6c3N957RcjhymXoKAMdzQzATyLormqUOkjC0fQD1Ro4oSrFGPwxdn5IUKvytXVJ8jONY8ZMIuwstSE99gBLdJnXJQsxvVpoFpTEBn7PiNDOoiiXyjM7jNnZziyXGYfo/bZjY8BjA3nG9n5aPnuVUPFvmJVHZ7AG3fdckSrq+ig=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY5PR12MB6132.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(22082099003)(18002099003)(6133799003)(261009223027099003)(56012099006)(11063799006)(261102123227099003)(261028144727099003)(261026121527099003)(261026140227099003)(261021123027099003)(261022105027099003)(261021121427099003)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QlQyNkprenVsV0hqbUZ5eTVLNHJENVd1QllsRC9lMWI1Y2VFdVdmNlFQRHNk?=
+ =?utf-8?B?WUc2bUJBK1gxQXRjUW5HRmI0L0VCYlVSWTZEQytwNEE1bTZXRy8yV0QxL0ZG?=
+ =?utf-8?B?T09Ydmc2MGNSWU5kYk9FdXFMNXBaNXpzTFhzMnBrSU5kaEI4bjZjZDZ5eG5h?=
+ =?utf-8?B?eWk1cGVIU1lub3VZN1RDeEQwU2xJTVpYK1RTc1g0VkpGWXlhKzNhY2V0b2dT?=
+ =?utf-8?B?U2hOSWV3czI1NGlXOWlKVzhhU0RjcG4xSDNGQmdySmNvOXQ3dWNDSVhEY09l?=
+ =?utf-8?B?MkcxdXdLdXFMcU9POXpMdEN1RU5QSlhHekJmb0pDdjExMEFuWUVQS1B0U0t5?=
+ =?utf-8?B?b2FvQUxjYWlyM3BOdHhEWlNEZWxyeG9YeEJ6ZTBQNFE4TERzbnRxeHNVUWdv?=
+ =?utf-8?B?N2k2Ly9MaEhnQTFQK2lDR0pORmV0Wmc5d29VTWthTy9QT1RzRWJyM1ZFcUVC?=
+ =?utf-8?B?UWxjTVdWRW9rOG8rTEdtSEhUR1g3UlN5MTJOZTg3a1licDFBOWZ3RUVVRlRy?=
+ =?utf-8?B?N00wclp4QU9KcUtTdzkreVNIUDNHTmtHcnQyOHllc2ZmWnJvOHFLMUlrQnBp?=
+ =?utf-8?B?L1VoWUo1WFNIWWxrTVFkb3Z5bS9Yazc1M1JLcDZ6RWwzeGg5R3BZa3JnTGpv?=
+ =?utf-8?B?VEU4UzRTRmhEWkQwU21GWjJmLzIvbmk4dGJEeUdUMm1IZGxwc0w3QmtvSWZQ?=
+ =?utf-8?B?SlZqajVpTStjeVg1WWpJZnc4b2tsRVpYc2NPUGIrZmdLNEEwQWlTSjU0VUJE?=
+ =?utf-8?B?bEJvWC9JOVJzc2JLRUZJZzZOQlRhNUpTSm10cDhJME1VbVEvTk1ONnFGUVhM?=
+ =?utf-8?B?cXQ5MXhWT1VlNW05WUkrY1BUWEFibTFVOTVpK1kzb3IxZXpLanVDSk1kZGVP?=
+ =?utf-8?B?a2tjK1NvdTNlcis0c0FKWEdVUXA3WHJmL1hGYlMzTjdLcmlmRlpHM0RvdkpG?=
+ =?utf-8?B?SUFKTEYvYnR2eXdyNEMxZ1h6NjA1NWFORG14elNEdis0WldDU0Y1OWFweVRs?=
+ =?utf-8?B?QmJ2ZnNiTlFZT2JNL1hDOHl4M01LZWRzNFlNMVRsc0JnOGNJV0V1T1lpem1V?=
+ =?utf-8?B?bW5seFdwelAyUW92djNXbUV3cmlkWVEzY3RrMSs3Qmo4RlozdTFzRkVyVjNT?=
+ =?utf-8?B?My9RbWhpaGZRQW95QXhFemNhZzVlTHE1V0NBdFdsTVhZVjZXWXRNakJ4cW53?=
+ =?utf-8?B?NGQ2eXIvSXIveUJlZ1pIUkY3cmZvY25rN2NXTXFGZEgyNHN3bmtIUTNhWm56?=
+ =?utf-8?B?dWVLMitFZnNsN0hCQnhUSDBGc0loaHAwMTVpVXRmTE02R1VDMHVyU0Mxdm80?=
+ =?utf-8?B?K0JHaGJiVjFYSUJLdW5WSXAxTEJLdkFTVUl6ME9vVnVMZTNTY0dkdE44MHg3?=
+ =?utf-8?B?Y2xaWjI1SkxKSkNVZWMrNWF0cEVqclpmdEU2elNJQUQ3RUdWdkRXeVNjaGFu?=
+ =?utf-8?B?ZUduQVlWM3N5M25EWDBYQ2UxcWJnU09aL3JVakxEbzV3R3R0UjFSMTB6Wnda?=
+ =?utf-8?B?ZUFCYWR3dE1oOU9ETngveFhZVTZKaXBWMFFOdU10VVZ2RTE5S005UEo3L200?=
+ =?utf-8?B?OUdoNUlHTGZ5WlcxYnlHL0JqSnQ4dlNCQ3dWZ2RBU3VwTkd6VElnLzBWUEpZ?=
+ =?utf-8?B?QXcyMEFoTm9QbUpQSWpaeDdVWjlXa3lUZHdmdXFxRGF0ZW13NFJtbzUwbUll?=
+ =?utf-8?B?SVAwTFlKR2tVMExVcTJQNDZ1cytvbkJTQlNaLzhNZ3owYVlnak5ydGtaN1pF?=
+ =?utf-8?B?UW9wRTJVcXcraFhiZnlucTJpR1lqNHVlbWE3RDBZVG5tSXFWQitUYkZwM0Y3?=
+ =?utf-8?B?dlcxSlRVcTg1enB0QnFYVktKcjlYZHVNWENQeUZTeUF0eFJ2aHp6VTRqZVVE?=
+ =?utf-8?B?a0pXNm5uYWhWZGY2dkpWZko3VFo3bzBUTS96SDlmS0ZQamVSTno3ZHR5WEFX?=
+ =?utf-8?B?eHlROGNxWTI5VnJIMUpxdnZBT202Wmd2eXJtOGdiSTBzaEZTSGhxRlRFTEhZ?=
+ =?utf-8?B?dXFpMmZuMUV3KzY0Z0R0dWlpS0F6UyswMHJvSU05NTJEK0JqRHZGL05MTXo5?=
+ =?utf-8?B?MjZReW9jUHBNV0J6dklhWXF5UnhRREErSzZRQkZxVnBZbkw0OGJFSVNFZ1lW?=
+ =?utf-8?B?dGx2L1Bnek5mdUJNTWJka2lvSEdHM3hYbGNCb1EvWVlyK3VRMUZwNGYvSDFh?=
+ =?utf-8?B?YSttd0RvenVVcDNMVGFFbjRjRUJNZUsrY1pNd3M3TUlWSDlqOHJhUCs3eGhB?=
+ =?utf-8?B?TGF1L2YxQWZETmgvdHRiMEJRZGxJS3BSc0RGQTIwbjJ4OCtwVEhoZW5iRk5B?=
+ =?utf-8?B?dUdvY2tyTEVpSnMzTDBtaFdTRnRQMjJrWEphbU5HZ0xaNHhlSGpBUT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f6981028-6542-410f-4b02-08df43bfd7f0
+X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6132.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 08:58:55.3425 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Ott+dpdstFe0hF1/h6zirjWnFGHTI22bIPwdTAOkrMOc1Eq4vEkrDGo/CyFqvpTOMEDPDY1uq74x3x7edM57sA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV0PR12MB392693
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,356 +135,83 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: hornejd@etsu.edu
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Joshua Horne <hornejd@etsu.edu>
+Thanks for v2.
 
-Implement the "s <level> <MHz> <mV>", "r" and "c" commands of
-pp_od_clk_voltage for Carrizo and Stoney.
+For the series:
+Reviewed-by: Chenyu Chen <chen-yu.chen@amd.com>
 
-The levels given in one write are checked against OD_RANGE and applied
-all or none. A new clock is rounded to the one the engine PLL produces,
-as reported by the ComputeMemoryEnginePLL table. OD_SCLK and OD_RANGE
-show whole MHz, so a level written back with the clock OD_SCLK shows or
-with its VBIOS clock keeps that exact clock, and the OD_RANGE maximum
-stands for the exact limit. A voltage between two VID steps is rounded
-up by convert_to_vid(). A commit is refused unless the clocks increase
-from level to level over the whole table, in which the levels that the
-SMU does not enable keep their VBIOS clocks.
-
-As on smu7 and vega10, a commit only marks the table as pending. The
-power state readjustment that follows it writes the clocks and VDDGFX
-voltages into the dependency tables and uploads them through
-smu8_upload_pptable_to_smu(), the path used at init and resume, so the
-settings also survive suspend. The NB voltages (GnbVid) are not
-changed. The power states refer to the levels by clock and are read by
-amdgpu_dpm_get_sclk(), so update them as well, like
-vega10_odn_update_power_state() does.
-
-smu8_update_sclk_limit() sends the display's minimum engine clock to
-the SMU as a level index, but only when that clock changes. The upload
-clears the cached clock, so the minimum is looked up again in the new
-table.
-
-The SMU accepts the new table at runtime and switches to the new clock
-and voltage of a level the next time it enters that level. No
-powerplay backend forces a level change after a commit, so this one
-does not either.
-
-Signed-off-by: Joshua Horne <hornejd@etsu.edu>
----
-Sashiko found two real bugs in v1 4/5:
-https://lore.kernel.org/amd-gfx/sashiko-outbox-214116@kernel.org/
-
-1. smu8_update_sclk_limit() resends SclkHardMin only when the display
-   minimum clock changes, so after a commit the SMU could keep a stale
-   level index. Auto mode mostly hides this; forced and manual modes
-   show it. v2 clears the cached clock in smu8_od_upload_sclk_table().
-
-2. A clock written back as OD_SCLK or OD_RANGE shows it could be rounded
-   down by the PLL lookup. v2 keeps the exact clock for the level's VBIOS
-   clock and for the OD_RANGE maximum. My OD_RANGE limits are whole MHz,
-   so I can't hit the -EINVAL case, but the same rounding broke writing
-   back an edited level's VBIOS clock.
-
-Tested before and after the fix on an A10-8700P (Carrizo), 7.4.0-rc2
-plus this series:
-
-  - v1: "s 2 500 862" then "s 2 423 862" left level 2 at 411 MHz, and
-    committing the stock table in manual mode sent no SclkHardMin (0x14).
-  - v2: level 2 returns to 423 MHz, and the commit sends 0x14.
-  - The S3 and pp_dpm_sclk tests pass on both.
-
-Claude Code wrote the fixes, the commit message changes, this note and
-the test script; I reviewed them and ran the tests.
-
-Patches 1-3 and 5 are unchanged; this applies on top of v1 1/5-3/5.
-
-Changes in v2:
-- Clear the cached display minimum clock when uploading the table
-  (Sashiko).
-- Keep the exact clock for a level's VBIOS clock and the OD_RANGE
-  maximum (Sashiko).
-
- .../drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c   | 228 ++++++++++++++++++
- .../drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.h   |   1 +
- 2 files changed, 229 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
-index 93a7e7e176f3..272c85f0d163 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
-@@ -860,10 +860,92 @@ static void smu8_populate_umdpstate_clocks(struct pp_hwmgr *hwmgr)
- 	hwmgr->pstate_mclk_peak = 0;
- }
- 
-+static void smu8_od_update_power_state(struct pp_hwmgr *hwmgr,
-+				       struct pp_power_state *ps)
-+{
-+	struct smu8_hwmgr *data = hwmgr->backend;
-+	const struct phm_odn_clock_levels *od = &data->od_edit_sclk;
-+	const struct phm_clock_voltage_dependency_table *old =
-+				hwmgr->dyn_state.vddc_dependency_on_sclk;
-+	struct smu8_power_state *smu8_ps;
-+	struct smu8_power_level *level;
-+	uint32_t i, j;
-+
-+	if (!ps)
-+		return;
-+
-+	smu8_ps = cast_smu8_power_state(&ps->hardware);
-+	if (!smu8_ps)
-+		return;
-+
-+	for (i = 0; i < smu8_ps->level; i++) {
-+		level = &smu8_ps->levels[i];
-+		for (j = 0; j < od->num_of_pl; j++) {
-+			if (level->engineClock == old->entries[j].clk) {
-+				level->engineClock = od->entries[j].clock;
-+				break;
-+			}
-+		}
-+	}
-+}
-+
-+static int smu8_od_upload_sclk_table(struct pp_hwmgr *hwmgr)
-+{
-+	struct smu8_hwmgr *data = hwmgr->backend;
-+	const struct phm_odn_clock_levels *od = &data->od_edit_sclk;
-+	struct phm_clock_voltage_dependency_table *vddc_table =
-+				hwmgr->dyn_state.vddc_dependency_on_sclk;
-+	struct phm_clock_voltage_dependency_table *vdd_gfx_table =
-+				hwmgr->dyn_state.vdd_gfx_dependency_on_sclk;
-+	struct pp_power_state *ps;
-+	uint32_t i;
-+
-+	data->od_update_pending = false;
-+
-+	/* the power states refer to the levels by clock, update them first */
-+	ps = hwmgr->ps;
-+	for (i = 0; i < hwmgr->num_ps; i++) {
-+		smu8_od_update_power_state(hwmgr, ps);
-+		ps = (struct pp_power_state *)
-+			((unsigned long)ps + hwmgr->ps_size);
-+	}
-+	smu8_od_update_power_state(hwmgr, hwmgr->current_ps);
-+	smu8_od_update_power_state(hwmgr, hwmgr->request_ps);
-+
-+	/* the NB voltages (GnbVid) of the levels are left untouched */
-+	for (i = 0; i < od->num_of_pl; i++) {
-+		vddc_table->entries[i].clk = od->entries[i].clock;
-+		vdd_gfx_table->entries[i].clk = od->entries[i].clock;
-+		vdd_gfx_table->entries[i].v =
-+			convert_to_vid(od->entries[i].vddc);
-+	}
-+
-+	smu8_populate_umdpstate_clocks(hwmgr);
-+
-+	/*
-+	 * The SMU gets the display minimum as a level index, which may differ
-+	 * in the new table: make smu8_update_sclk_limit() send it again.
-+	 */
-+	data->sclk_dpm.hard_min_clk = 0;
-+
-+	/*
-+	 * The SMU switches to the new clock and voltage of a level the next
-+	 * time it enters that level.
-+	 */
-+	return smu8_upload_pptable_to_smu(hwmgr);
-+}
-+
- static int smu8_set_power_state_tasks(struct pp_hwmgr *hwmgr, const void *input)
- {
-+	struct smu8_hwmgr *data = hwmgr->backend;
- 	int ret = 0;
- 
-+	if (data->od_update_pending) {
-+		ret = smu8_od_upload_sclk_table(hwmgr);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	smu8_update_sclk_limit(hwmgr);
- 	smu8_set_deep_sleep_sclk_threshold(hwmgr);
- 	smu8_set_watermark_threshold(hwmgr);
-@@ -2057,6 +2139,151 @@ static void smu8_dpm_powergate_vce(struct pp_hwmgr *hwmgr, bool bgate)
- 	}
- }
- 
-+/* the engine clock that the PLL produces for @clk */
-+static uint32_t smu8_od_real_sclk(struct pp_hwmgr *hwmgr, uint32_t clk)
-+{
-+	pp_atomctrl_clock_dividers_kong dividers;
-+
-+	if (atomctrl_get_engine_pll_dividers_kong(hwmgr, clk, &dividers) ||
-+	    !dividers.real_clock)
-+		return clk;
-+
-+	return dividers.real_clock;
-+}
-+
-+static int smu8_od_edit_sclk_level(struct pp_hwmgr *hwmgr,
-+				   struct phm_odn_clock_levels *od,
-+				   long level, long mhz, long mv)
-+{
-+	struct smu8_hwmgr *data = hwmgr->backend;
-+	struct amdgpu_device *adev = hwmgr->adev;
-+	uint32_t min_clk, max_clk, clk;
-+
-+	min_clk = data->od_default_sclk.entries[0].clock;
-+	max_clk = hwmgr->platform_descriptor.overdriveLimit.engineClock;
-+
-+	if (level < 0 || level >= od->num_of_pl) {
-+		dev_info(adev->dev,
-+			 "OD sclk level %ld is out of range [0 - %u]\n",
-+			 level, od->num_of_pl - 1);
-+		return -EINVAL;
-+	}
-+
-+	if (mhz < min_clk / 100 || mhz > max_clk / 100) {
-+		dev_info(adev->dev,
-+			 "OD engine clock is out of range [%u - %u] MHz\n",
-+			 min_clk / 100, max_clk / 100);
-+		return -EINVAL;
-+	}
-+
-+	if (mv < data->od_min_vddc || mv > data->od_max_vddc) {
-+		dev_info(adev->dev, "OD voltage is out of range [%u - %u] mV\n",
-+			 data->od_min_vddc, data->od_max_vddc);
-+		return -EINVAL;
-+	}
-+
-+	/*
-+	 * OD_SCLK and OD_RANGE show whole MHz. A level written back unchanged
-+	 * or with its VBIOS clock keeps that exact clock, and the OD_RANGE
-+	 * maximum stands for the exact limit. Otherwise use the clock the PLL
-+	 * produces.
-+	 */
-+	clk = mhz * 100;
-+	if (clk == od->entries[level].clock / 100 * 100)
-+		clk = od->entries[level].clock;
-+	else if (clk == data->od_default_sclk.entries[level].clock / 100 * 100)
-+		clk = data->od_default_sclk.entries[level].clock;
-+	else if (clk == max_clk / 100 * 100)
-+		clk = smu8_od_real_sclk(hwmgr, max_clk);
-+	else
-+		clk = smu8_od_real_sclk(hwmgr, clk);
-+
-+	if (clk < min_clk || clk > max_clk) {
-+		dev_info(adev->dev,
-+			 "OD engine clock %u.%02u MHz is out of range\n",
-+			 clk / 100, clk % 100);
-+		return -EINVAL;
-+	}
-+
-+	od->entries[level].clock = clk;
-+	/* a voltage between two VID steps is rounded up */
-+	od->entries[level].vddc = convert_to_vddc(convert_to_vid(mv));
-+
-+	return 0;
-+}
-+
-+static int smu8_od_commit_sclk_table(struct pp_hwmgr *hwmgr)
-+{
-+	struct smu8_hwmgr *data = hwmgr->backend;
-+	struct phm_odn_clock_levels *od = &data->od_edit_sclk;
-+	struct phm_clock_voltage_dependency_table *table =
-+				hwmgr->dyn_state.vddc_dependency_on_sclk;
-+	struct amdgpu_device *adev = hwmgr->adev;
-+	uint32_t i, clk, prev = 0;
-+
-+	/* the levels that the SMU does not enable keep their clocks */
-+	for (i = 0; i < table->count; i++) {
-+		clk = i < od->num_of_pl ? od->entries[i].clock :
-+					  table->entries[i].clk;
-+		if (clk <= prev) {
-+			dev_info(adev->dev, "OD sclk levels must increase\n");
-+			return -EINVAL;
-+		}
-+		prev = clk;
-+	}
-+
-+	/* uploaded by the power state readjustment that follows a commit */
-+	data->od_update_pending = true;
-+
-+	return 0;
-+}
-+
-+static int smu8_odn_edit_dpm_table(struct pp_hwmgr *hwmgr,
-+				   enum PP_OD_DPM_TABLE_COMMAND type,
-+				   long *input, uint32_t size)
-+{
-+	struct smu8_hwmgr *data = hwmgr->backend;
-+	struct amdgpu_device *adev = hwmgr->adev;
-+	struct phm_odn_clock_levels od;
-+	uint32_t i;
-+	int ret;
-+
-+	if (!hwmgr->od_enabled) {
-+		dev_info(adev->dev, "OverDrive feature not enabled\n");
-+		return -EINVAL;
-+	}
-+
-+	switch (type) {
-+	case PP_OD_EDIT_SCLK_VDDC_TABLE:
-+		break;
-+	case PP_OD_RESTORE_DEFAULT_TABLE:
-+		data->od_edit_sclk = data->od_default_sclk;
-+		return 0;
-+	case PP_OD_COMMIT_DPM_TABLE:
-+		return smu8_od_commit_sclk_table(hwmgr);
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	if (!input || !size || size % 3) {
-+		dev_info(adev->dev,
-+			 "OD sclk input must be <level> <MHz> <mV>\n");
-+		return -EINVAL;
-+	}
-+
-+	/* apply all of the given levels or none of them */
-+	od = data->od_edit_sclk;
-+	for (i = 0; i < size; i += 3) {
-+		ret = smu8_od_edit_sclk_level(hwmgr, &od, input[i],
-+					      input[i + 1], input[i + 2]);
-+		if (ret)
-+			return ret;
-+	}
-+	data->od_edit_sclk = od;
-+
-+	return 0;
-+}
-+
- static const struct pp_hwmgr_func smu8_hwmgr_funcs = {
- 	.backend_init = smu8_hwmgr_backend_init,
- 	.backend_fini = smu8_hwmgr_backend_fini,
-@@ -2087,6 +2314,7 @@ static const struct pp_hwmgr_func smu8_hwmgr_funcs = {
- 	.dynamic_state_management_disable = smu8_disable_dpm_tasks,
- 	.notify_cac_buffer_info = smu8_notify_cac_buffer_info,
- 	.get_thermal_temperature_range = smu8_get_thermal_temperature_range,
-+	.odn_edit_dpm_table = smu8_odn_edit_dpm_table,
- };
- 
- int smu8_init_function_pointers(struct pp_hwmgr *hwmgr)
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.h b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.h
-index 490fcc352a8f..63ae7826a2da 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.h
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.h
-@@ -313,6 +313,7 @@ struct smu8_hwmgr {
- 	struct phm_odn_clock_levels od_edit_sclk;
- 	uint32_t od_min_vddc;		/* in mV */
- 	uint32_t od_max_vddc;		/* in mV */
-+	bool od_update_pending;		/* committed, not uploaded yet */
- };
- 
- #endif /* _SMU8_HWMGR_H_ */
-
+On 11/14/2026 3:40 AM, Hugo Sales via B4 Relay wrote:
+> [Some people who received this message don't often get email from devnull+hugo.hsal.es@kernel.org. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+> 
+> Writing panel_power_savings while the eDP is in PSR hangs DMUB on a
+> Cezanne laptop (DCN 2.1). An ABM level change on its own is a fast
+> update, so the new level reaches DMUB with the panel still in
+> self-refresh. Chenyu Chen confirmed the same on Renoir
+> 
+> Patch 1 adds helpers that tell whether a PSR or Replay event is already
+> set on a stream. Patch 2 is the fix. It sets the PSR and Replay
+> hw_programming events around the DC update that carries the new level,
+> and clears only the events it set. An event that a full update, a
+> modeset or a PSR SU dirty rect change set stays set, for that code to
+> clear. Patch 3 stops amdgpu_dm_commit_planes() from sending the same
+> level again after the connector update loop sent it, so one level change
+> leaves self-refresh once
+> 
+> "drm/amd/display: Don't force a modeset when the ABM level changes" [1]
+> sends property changes down this fast path, so it needs this series first
+> 
+> HDR metadata may have the same problem. When the HDR static metadata
+> changes while HDR stays on, the commit is a fast update too, and the
+> connector loop in amdgpu_dm_atomic_commit_tail() sends the new HDR
+> infopacket to DC with the panel still in self-refresh. I have no panel
+> with HDR and PSR or Replay to try it on, and the VRR and AVI infopackets
+> already reach DC the same way. Does an infopacket update in self-refresh
+> need the same pause?
+> 
+> v2:
+> - Clear the events right after the DC update, under dc_lock, instead of
+>   on the next fast commit (Chenyu)
+> - Only clear the events this update set, so an event that a full
+>   update, a modeset or a dirty rect change set in the same commit stays
+>   set
+> - Add amdgpu_dm_psr_event_is_set() and amdgpu_dm_replay_event_is_set(),
+>   with KUnit tests
+> - Send a changed level once per commit, so it leaves self-refresh once
+> 
+> v1: https://lore.kernel.org/r/20261031130002.2335615-1-hugo@hsal.es
+> 
+> [1] https://lore.kernel.org/r/20261102-abm-sysfs-commit-v1-2-e5addfd9539a@hsal.es
+> 
+> ---
+> Hugo Sales (3):
+>       drm/amd/display: Add helpers to check PSR and Replay events
+>       drm/amd/display: Leave self-refresh before an ABM level update
+>       drm/amd/display: Send a changed ABM level once per commit
+> 
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  83 +++++++++++++++--
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c  |  24 +++++
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.h  |   2 +
+>  .../drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c   |  25 +++++
+>  .../drm/amd/display/amdgpu_dm/amdgpu_dm_replay.h   |   3 +
+>  .../display/amdgpu_dm/tests/amdgpu_dm_psr_test.c   |  60 ++++++++++++
+>  .../amdgpu_dm/tests/amdgpu_dm_replay_test.c        | 102 +++++++++++++++------
+>  7 files changed, 263 insertions(+), 36 deletions(-)
+> ---
+> base-commit: ba496bb837882eb1af58f41572fc289e46c77b8c
+> change-id: 20261113-amdgpu-psr-abm-update-next-de20bc23b12c
+> 
+> Best regards,
+> --
+> Hugo Sales <hugo@hsal.es>
+> 
+> 
 
