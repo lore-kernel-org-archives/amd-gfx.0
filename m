@@ -2,130 +2,131 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89023606A883
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 08:59:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEDC5606A323
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 09:08:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=epsE4sgY
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=5iQH5EM7
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16C3C10ECCD;
-	Mon, 16 Nov 2026 08:59:05 +0000 (UTC)
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010030.outbound.protection.outlook.com
- [40.93.198.30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7852F10ED1E;
- Mon, 16 Nov 2026 08:58:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F38C10ED79;
+	Mon, 16 Nov 2026 09:08:18 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011018.outbound.protection.outlook.com [52.101.62.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 80A9E10ED6C;
+ Mon, 16 Nov 2026 09:08:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ksgBYKB+YjvJHnGj7I/exvv2VERaTpRRq1RWrZ9iVC0aPewPfEq0plcl+2cByu/FBO/ZVAJn43vnu7s7D8SNGn1M+5gw0GqParHVpgdF2OYvMg9IZcArqMDy68wyhiyVk3M8SbihT0X4DOhQiu4aXY5ANYBRE5dy4I+nRUwa4e4mcRR6J7TWplc5U+tg9X8kAuyo+945vZKMFes5mLzV3YOmBFPpQTIR/TamgHF8lzZNE7tZViInVbzZcnUolXhIjtLua5QdbTl8ctgvqxxUdGpBJ0f6Yti4oSXN3UQF8gyeGGJPmbdnjaesPTkjvuNmBTgeEXGfVlbfRYVmuIJ0pA==
+ b=E+f2aoS7i9JV8RB/L1Fm21kaEjiHb5NvvGd8+5v9oVlD9wy1BBfdRYSnz/5qBB+IrYZoVtRbF54vMRcGhTBRJ4ai8XGWKS0nOuA45nWS/brv4t8JnZ0FifAUOXDf/2QUdlJZAM+xAFj8djavOBDrPwvGjCCjCYx+3J5IE3IE4702X4vDLxXncR8rlXcIbE/0uXbgKxVGCpu2J+09LSfXZex+zIAQPR8rU2bKmzPQeUizbkLq5Dtp/IiL2WtuZdM1tkTy8S6lw0E5nJGGInJolR+ZpspNYS/Zm3OFzr6QtBbZVaGVJVGJj0KaqjEO+kezGxDGRx5g9O4lJq66IFmjTg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5RMRIrCVbnEQ/MBzvvSJdgIMuKRaCA+bsrEqy1Co/p8=;
- b=yxSjxTUfQANr1D7rr2nbqO09QqHA/pvF2Dt3NqdGQCeHYbb4hKui1s53ZMzOp1d02OMdobpQ8T0RCK/nmvS0kbjOU6pEJ+8gHmKd5s7BKJutNoc7aGfFa0pz4vgi2zxgyJrK1Nbg0SZrkxJpP+CMgz52cVac/RN9ssC1uACHg6GkfED2b+OqQJKmoEr4BLL/ampE+d8ukoY2+UXaA2agVmYQlGBVi5eNe5P7DGm/R7YlwqkiV9yuViWk/XzAIy+2Ikgz08SsSe2yA7eE1HjSytbHj1nAmYgs9sYVBuy2VZa9e5dCXm1jwD2pXKBkS+Uxz9arC5HeM8ywwkLgiXktzg==
+ bh=n6GsJiveNwXacXnesIKWN1R2r5LzLES2J9wybZ6aibU=;
+ b=ONksKBofoISmKa7bYlzv0km2oCKOZHXss9OOQ5wX9rUqx3UEXQo0fEguw+PC5ghWy17PpI15A7xD6mwXrsEUUmysOeTrja8fm4RCihs96HdVxKXChjHS9JVPvif8H/+byFo2sFgI7czBcwywlt61sQRGdMtq0hnsORhtiSIPXzT6Ongxy4HQLsJqSzllU9O68EEXF45/OXXlSX77LWIKIYH1eJ3dNWZA+An3vXL1DzsmL3QLRbMTCHbyFEod98IG+2qZqSgl89cZvI6N0qnxLFpqQ3Blt7ZOxUJCQvj3aHnh8ZPrcu+/JRzDubTmFqt8RLFaQlizoDOElZnFrUkOvA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5RMRIrCVbnEQ/MBzvvSJdgIMuKRaCA+bsrEqy1Co/p8=;
- b=epsE4sgYpJLqrAADpK+3LUrHgAExxfKLykSllJ+IkFmx3V606ZDVDkLxtQ+cc1SmpxS+dUBTMpVk0ygUom1GcpFxPYvexJzlnl0sdJFwQOrgUsmhHLTiHbMSeH6yjJUf217/9rYOaKbWlj7YdJnAGcnMGmCEU1WbXYd2H0iFmLM=
+ bh=n6GsJiveNwXacXnesIKWN1R2r5LzLES2J9wybZ6aibU=;
+ b=5iQH5EM7hoNRGBnC3Co6+5a04FQa886mqX7t1j/16eoYmGQPmbzAmvnX1mBNcb44smgm7bgFVAG76f4Xvi7RTnsxIIg7TKVT+mne6erLtVmrSgU2DcteFPvM1FKK2wmOqv+DBftVPwtqtBMStEaNNlGU35BL99gEmZ5Nla+eWOg=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from CY5PR12MB6132.namprd12.prod.outlook.com (2603:10b6:930:24::8)
- by LV0PR12MB392693.namprd12.prod.outlook.com (2603:10b6:408:608::5) with
+ by SAWPR12MB999117.namprd12.prod.outlook.com (2603:10b6:806:4e3::17) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 08:58:55 +0000
+ 2026 09:07:50 +0000
 Received: from CY5PR12MB6132.namprd12.prod.outlook.com
  ([fe80::d9ab:4258:a9ef:b8cd]) by CY5PR12MB6132.namprd12.prod.outlook.com
  ([fe80::d9ab:4258:a9ef:b8cd%6]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
- 08:58:55 +0000
-Message-ID: <085c307e-8671-4ac4-8bd4-b7e42fb69ae7@amd.com>
-Date: Mon, 16 Nov 2026 16:58:49 +0800
+ 09:07:50 +0000
+Message-ID: <737aad6d-24d1-4496-83af-9db8fd93c736@amd.com>
+Date: Mon, 16 Nov 2026 17:07:43 +0800
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/3] drm/amd/display: Leave self-refresh before an ABM
- level update
+Subject: Re: [PATCH v2 4/5] drm/amd/display: Commit panel_power_savings writes
+ from the kernel
 To: hugo@hsal.es, Harry Wentland <harry.wentland@amd.com>,
  Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>, Ray Wu <ray.wu@amd.com>,
+ Alex Hung <alex.hung@amd.com>, Bhawanpreet Lakha
+ <bhawanpreet.lakha@amd.com>, Ivan Lipski <ivan.lipski@amd.com>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Roman Li <Roman.Li@amd.com>,
- Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20261113-amdgpu-psr-abm-update-next-v2-0-27ce790856ea@hsal.es>
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261113-abm-sysfs-commit-v2-0-5808d17a7e89@hsal.es>
+ <20261113-abm-sysfs-commit-v2-4-5808d17a7e89@hsal.es>
 Content-Language: en-US
 From: "Chen, Chen-Yu" <Chen-Yu.Chen@amd.com>
-In-Reply-To: <20261113-amdgpu-psr-abm-update-next-v2-0-27ce790856ea@hsal.es>
+In-Reply-To: <20261113-abm-sysfs-commit-v2-4-5808d17a7e89@hsal.es>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: TPYP295CA0031.TWNP295.PROD.OUTLOOK.COM (2603:1096:7d0:7::9)
- To CY5PR12MB6132.namprd12.prod.outlook.com
+X-ClientProxiedBy: TPYP295CA0034.TWNP295.PROD.OUTLOOK.COM
+ (2603:1096:7d0:7::14) To CY5PR12MB6132.namprd12.prod.outlook.com
  (2603:10b6:930:24::8)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY5PR12MB6132:EE_|LV0PR12MB392693:EE_
-X-MS-Office365-Filtering-Correlation-Id: f6981028-6542-410f-4b02-08df43bfd7f0
+X-MS-TrafficTypeDiagnostic: CY5PR12MB6132:EE_|SAWPR12MB999117:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8bba067b-9a80-46c1-797b-08df43c116ea
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|23010399003|366016|22082099003|18002099003|6133799003|261009223027099003|56012099006|11063799006|261102123227099003|261028144727099003|261026121527099003|261026140227099003|261021123027099003|261022105027099003|261021121427099003|10067099003;
-X-Microsoft-Antispam-Message-Info: 9tRr1XGLAdSxUgHzMfPNP1aj0jR+TKk6lN+WVclxv0g6QpoPVq+AovoerBfADm+egzJ3YGwhRGtdto6AXMG4l41df3TH9y2hfBpTbqYQkSpEN8oE55CtMcP2v2PjiPJ64CNbrByjMH16AEaFxjwWWOP4tlzoW7CXpUt4fyzOjwD2zLf55FrokZZDeQj3mSCcdKMHsozatRUT4YXt//Kww1MOK+HRccdZiMzi9l0GHWWUmxRuw4zxHLliCHZE7MAUx4T0gwYWWICar9mG7D+woIwtn0d06iHcJ+OS9JFinOmHvGIf1HiWFIhCzAtTDGqQ2WhbNgIqJPAkHu13G2wqf3wLAtVbxwDab2421r96vKO4HO9a+Pmobe2L0vDssNiK29Nqll7qEABgmOfLPEJ8gv0QDUnEGYuNlFzK5UTJx8pNXq8Elwl5hK4/YXTw/F84w6c3N957RcjhymXoKAMdzQzATyLormqUOkjC0fQD1Ro4oSrFGPwxdn5IUKvytXVJ8jONY8ZMIuwstSE99gBLdJnXJQsxvVpoFpTEBn7PiNDOoiiXyjM7jNnZziyXGYfo/bZjY8BjA3nG9n5aPnuVUPFvmJVHZ7AG3fdckSrq+ig=
+ ARA:13230040|1800799024|366016|376014|23010399003|6133799003|22082099003|18002099003|261009221227099003|261009223027099003|3023799007|261022075727099003|261022105027099003|261021123027099003|261021121427099003|261026121527099003|261026140227099003|261028144727099003|5023799004|56012099006|11063799006|10067099003|261102123227099003|4143699003|261102130727099003;
+X-Microsoft-Antispam-Message-Info: KzwrsphkSq/RwZYorTKSzYAaQ2w2riYILWkCe7t3iFJI9/yt9t3T5fl/mf7m7XSMPShkXWL3n5wbKV+CUkaU6I62ykJOh31O73MVUifDbJIi7zlQQFUDGchpDQQhKqmnb45aBX/ExD/GI7c5jEiHC+enlBLkagy5SRWZ0INt0FkSLBMtETrNs/f9Bt3dKnKl+c8tWy2JLCwD/+I2+KSsIGh+dlvdLHBbQ9Zj80xdXEhfHHoLm01sILHQrsjPAgGdookRALzgP5B4FKjOB937RMh7D9W1O4NBPdIYrwMfouwDfIL9ycJj4mzmiRl4odo961IXl4nZkHINWUBU1VtLCbMXASvwRlDx/zE+4DIAqIDKxOG8WMwq62eETEMm81u5Va3UIMBFzQMb8LzBkCltqqH8ynzbaC6rq8ce3Eloh//6e0MfUh7lSigVmSjiq+NMxS3s6YkMzOnPVncgFxfC41lbRhZwJblNuv2Ii3mlY5BrQ/p67blc6EgoqYewcrcnH6d8FJ9XFDKuhNxBEWU/bdcQyobzjhe6SrU2KtWeiv2J1LA+w9/627PQ0wKES6Tja7cSHg0RgvfRYc5EzOmY142dWy019B4vIUzhRvRZNREY8FVNFtctFjyiwjOq8/gmEPgodGiEAhfHYVXYqCxeadug8VnzmV6WrreRhUtAHiU=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CY5PR12MB6132.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(22082099003)(18002099003)(6133799003)(261009223027099003)(56012099006)(11063799006)(261102123227099003)(261028144727099003)(261026121527099003)(261026140227099003)(261021123027099003)(261022105027099003)(261021121427099003)(10067099003);
+ SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(6133799003)(22082099003)(18002099003)(261009221227099003)(261009223027099003)(3023799007)(261022075727099003)(261022105027099003)(261021123027099003)(261021121427099003)(261026121527099003)(261026140227099003)(261028144727099003)(5023799004)(56012099006)(11063799006)(10067099003)(261102123227099003)(4143699003)(261102130727099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QlQyNkprenVsV0hqbUZ5eTVLNHJENVd1QllsRC9lMWI1Y2VFdVdmNlFQRHNk?=
- =?utf-8?B?WUc2bUJBK1gxQXRjUW5HRmI0L0VCYlVSWTZEQytwNEE1bTZXRy8yV0QxL0ZG?=
- =?utf-8?B?T09Ydmc2MGNSWU5kYk9FdXFMNXBaNXpzTFhzMnBrSU5kaEI4bjZjZDZ5eG5h?=
- =?utf-8?B?eWk1cGVIU1lub3VZN1RDeEQwU2xJTVpYK1RTc1g0VkpGWXlhKzNhY2V0b2dT?=
- =?utf-8?B?U2hOSWV3czI1NGlXOWlKVzhhU0RjcG4xSDNGQmdySmNvOXQ3dWNDSVhEY09l?=
- =?utf-8?B?MkcxdXdLdXFMcU9POXpMdEN1RU5QSlhHekJmb0pDdjExMEFuWUVQS1B0U0t5?=
- =?utf-8?B?b2FvQUxjYWlyM3BOdHhEWlNEZWxyeG9YeEJ6ZTBQNFE4TERzbnRxeHNVUWdv?=
- =?utf-8?B?N2k2Ly9MaEhnQTFQK2lDR0pORmV0Wmc5d29VTWthTy9QT1RzRWJyM1ZFcUVC?=
- =?utf-8?B?UWxjTVdWRW9rOG8rTEdtSEhUR1g3UlN5MTJOZTg3a1licDFBOWZ3RUVVRlRy?=
- =?utf-8?B?N00wclp4QU9KcUtTdzkreVNIUDNHTmtHcnQyOHllc2ZmWnJvOHFLMUlrQnBp?=
- =?utf-8?B?L1VoWUo1WFNIWWxrTVFkb3Z5bS9Yazc1M1JLcDZ6RWwzeGg5R3BZa3JnTGpv?=
- =?utf-8?B?VEU4UzRTRmhEWkQwU21GWjJmLzIvbmk4dGJEeUdUMm1IZGxwc0w3QmtvSWZQ?=
- =?utf-8?B?SlZqajVpTStjeVg1WWpJZnc4b2tsRVpYc2NPUGIrZmdLNEEwQWlTSjU0VUJE?=
- =?utf-8?B?bEJvWC9JOVJzc2JLRUZJZzZOQlRhNUpTSm10cDhJME1VbVEvTk1ONnFGUVhM?=
- =?utf-8?B?cXQ5MXhWT1VlNW05WUkrY1BUWEFibTFVOTVpK1kzb3IxZXpLanVDSk1kZGVP?=
- =?utf-8?B?a2tjK1NvdTNlcis0c0FKWEdVUXA3WHJmL1hGYlMzTjdLcmlmRlpHM0RvdkpG?=
- =?utf-8?B?SUFKTEYvYnR2eXdyNEMxZ1h6NjA1NWFORG14elNEdis0WldDU0Y1OWFweVRs?=
- =?utf-8?B?QmJ2ZnNiTlFZT2JNL1hDOHl4M01LZWRzNFlNMVRsc0JnOGNJV0V1T1lpem1V?=
- =?utf-8?B?bW5seFdwelAyUW92djNXbUV3cmlkWVEzY3RrMSs3Qmo4RlozdTFzRkVyVjNT?=
- =?utf-8?B?My9RbWhpaGZRQW95QXhFemNhZzVlTHE1V0NBdFdsTVhZVjZXWXRNakJ4cW53?=
- =?utf-8?B?NGQ2eXIvSXIveUJlZ1pIUkY3cmZvY25rN2NXTXFGZEgyNHN3bmtIUTNhWm56?=
- =?utf-8?B?dWVLMitFZnNsN0hCQnhUSDBGc0loaHAwMTVpVXRmTE02R1VDMHVyU0Mxdm80?=
- =?utf-8?B?K0JHaGJiVjFYSUJLdW5WSXAxTEJLdkFTVUl6ME9vVnVMZTNTY0dkdE44MHg3?=
- =?utf-8?B?Y2xaWjI1SkxKSkNVZWMrNWF0cEVqclpmdEU2elNJQUQ3RUdWdkRXeVNjaGFu?=
- =?utf-8?B?ZUduQVlWM3N5M25EWDBYQ2UxcWJnU09aL3JVakxEbzV3R3R0UjFSMTB6Wnda?=
- =?utf-8?B?ZUFCYWR3dE1oOU9ETngveFhZVTZKaXBWMFFOdU10VVZ2RTE5S005UEo3L200?=
- =?utf-8?B?OUdoNUlHTGZ5WlcxYnlHL0JqSnQ4dlNCQ3dWZ2RBU3VwTkd6VElnLzBWUEpZ?=
- =?utf-8?B?QXcyMEFoTm9QbUpQSWpaeDdVWjlXa3lUZHdmdXFxRGF0ZW13NFJtbzUwbUll?=
- =?utf-8?B?SVAwTFlKR2tVMExVcTJQNDZ1cytvbkJTQlNaLzhNZ3owYVlnak5ydGtaN1pF?=
- =?utf-8?B?UW9wRTJVcXcraFhiZnlucTJpR1lqNHVlbWE3RDBZVG5tSXFWQitUYkZwM0Y3?=
- =?utf-8?B?dlcxSlRVcTg1enB0QnFYVktKcjlYZHVNWENQeUZTeUF0eFJ2aHp6VTRqZVVE?=
- =?utf-8?B?a0pXNm5uYWhWZGY2dkpWZko3VFo3bzBUTS96SDlmS0ZQamVSTno3ZHR5WEFX?=
- =?utf-8?B?eHlROGNxWTI5VnJIMUpxdnZBT202Wmd2eXJtOGdiSTBzaEZTSGhxRlRFTEhZ?=
- =?utf-8?B?dXFpMmZuMUV3KzY0Z0R0dWlpS0F6UyswMHJvSU05NTJEK0JqRHZGL05MTXo5?=
- =?utf-8?B?MjZReW9jUHBNV0J6dklhWXF5UnhRREErSzZRQkZxVnBZbkw0OGJFSVNFZ1lW?=
- =?utf-8?B?dGx2L1Bnek5mdUJNTWJka2lvSEdHM3hYbGNCb1EvWVlyK3VRMUZwNGYvSDFh?=
- =?utf-8?B?YSttd0RvenVVcDNMVGFFbjRjRUJNZUsrY1pNd3M3TUlWSDlqOHJhUCs3eGhB?=
- =?utf-8?B?TGF1L2YxQWZETmgvdHRiMEJRZGxJS3BSc0RGQTIwbjJ4OCtwVEhoZW5iRk5B?=
- =?utf-8?B?dUdvY2tyTEVpSnMzTDBtaFdTRnRQMjJrWEphbU5HZ0xaNHhlSGpBUT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d1dhZGpnSm9ZQUhBQ0wrY0N6cTZGN2NObVFROXVQV09LUkNkblB1L2VrZUpH?=
+ =?utf-8?B?Z0c5TnZBdEdsVldIRldYSGRiRkltTGlWcnNLL1FWVjJJb3Z3a3lYVW9aV0F2?=
+ =?utf-8?B?emxMbFl6Z1VMR1ZUMUozRitkM01icFh1YUFSNjdrcGZHQUJzMDhheERHNmdH?=
+ =?utf-8?B?RXFOS1NQTURDTGdMQUt2eGlKU2ZaTHVJcnBuQlB0RU5xNkY5VmR6RzM1bDNp?=
+ =?utf-8?B?VFBMV3ZXSXN0c080WWVMcGdINThrQW1aQ1k2cTNNVzA2dnhXVDIyZFRqUjhL?=
+ =?utf-8?B?NkpuUXNYMGhmYXk2MysyTURCT3JQOStiVTN5VnAvcjJBMHpHaGJncTcxYVI2?=
+ =?utf-8?B?ZVY0NzFUTmRGd1g2eWIydjZ3M05DU0M2d3BKeDBNSjllNEhGdDVKV2xjZ095?=
+ =?utf-8?B?bW5lUGF0ZTBNdlp1Y0Z3TzVabmZ5MDFyb0drL2kvYnJwZmxlQ2FMTjVwa0Ro?=
+ =?utf-8?B?Ui91V0hDOTBnaXphdzNjNlN1RG1DeHFTSHBNb1ZZRFlqNENSR1NKWHRFRjlD?=
+ =?utf-8?B?VTdlTEV1V2N5TUhLSnh4bHBhRlY5anpXYkVXMys2V2dUaHlsdzdvaHRZNzFt?=
+ =?utf-8?B?NDlSY0ZxdWplQUY5Y25WbXRoY1YvTDQvZDRIZFpwY1I4Mmxudzc1RXc0YVNr?=
+ =?utf-8?B?N1VZMkN5ZFV2dW9qOUgxQXNvbThpK0xFY3lZZm5nQjRxSlI2MEdjeWZFTUVX?=
+ =?utf-8?B?QjIyektMa0RYblpieVluZTJoalZReXNzRkFzQlltN3FBRHk2d294dVhQaE9F?=
+ =?utf-8?B?U2NuZHNtbkQveEJQVU1uR2NjRGZCbS9HVXFFWlU3dVFCaGh2MWxTMjFXNVZz?=
+ =?utf-8?B?WEl2V3JIazAvVXRFTWRYNlBYRXptT096a0V3NWlyOGI2a2t5aEU3QzhacGNs?=
+ =?utf-8?B?OUl4Z243Q2VWREhmNnMwdWhVK2JoNmxxRWFGMURnTDl5dTRMd0NOT3Urd2Jh?=
+ =?utf-8?B?dXlwMXhLK2NWcUpiK2RMOTdhM3ZzVC9ONkt0eU9pV3IwMytXdzEyUjhzT2Ey?=
+ =?utf-8?B?dG1QUkhmS0l4YkZoeS8vU1FFWmVhZHhUNTFvSGprZ0hvWVVNYTBQcFRsNWcr?=
+ =?utf-8?B?aTc5U2tVZTdTSHd4N0EwUzJlREF6TGhibHcwQWc5cUZsTEpsYXh6b2ZDR0g4?=
+ =?utf-8?B?V2U3K0NKZE5aeUJsMUh5QUk3WVladW9qOFQrcEcyMDZnSlNYR29JRExqL3VT?=
+ =?utf-8?B?YmpacVJrY2kxMnp3enhwazdxUks0N2x1Ri9GcWlBUEJTTnc2andhSnp3ZCs5?=
+ =?utf-8?B?bFZIOUdUSlQ4aFNPM3RMUlBYcXBFbnZaRHdMQ2kxZGw5UmhIdUZnSWVGYlo2?=
+ =?utf-8?B?cktUMnNrU3dhSjdWeDZ1bEsrRUV4eXl0eEdPeGxuUVR6WDViYUQ3Nldldnhm?=
+ =?utf-8?B?ZnRBcHQ1UHIwMDZCaXA2dU5xZTlaUFZTUmpaNTFsVzhybFYxMVQ1YXJkbmxI?=
+ =?utf-8?B?Szg4dUZiZmtWcmV5bElzeWYxeHhoQlNEeE9JR0dneERzdjJMMUFqbFR5VTZT?=
+ =?utf-8?B?ZWRHNXBoZlNzVGpXYTEvK3BqcytjTVhwL3p3WG85TkJZUVRGeVRiRmVEWG4v?=
+ =?utf-8?B?ekdXS3F6TS9McmQ1RDFRQjVRbFZTeS81WFpaSkpCckU1ZjNzWHhzTHZwNzZN?=
+ =?utf-8?B?bTl2ei9WeGUwbUtMQUJweFVldTFXdVRLMlhJY3FZQWxTVE9QcEQzZ3YxZnBs?=
+ =?utf-8?B?N051WExMRWRYVU9lUG1oZUZFNjd1eVFVV2ptOXU2R2JqRGY5YUVtMlNVbTZh?=
+ =?utf-8?B?YnRNZlBwMHA2N1huSFdaK28zSU11Vm55MGVFWm51SEIvSnZoZFBMak5rd3B2?=
+ =?utf-8?B?cW1Ga0JkcEc1SllaYU1aVi9MZlJzSktWOWF4YWZZYy9Ld0NWS3hTclhFZEQ5?=
+ =?utf-8?B?TWgvaHpIQXpRM2tVMWlDWFVGZ0psbnppN1pqMDdER3Z0M1oxcFRJWFNQLzlo?=
+ =?utf-8?B?ejNRY0lYVXNtSDVlMTNRWXBQT2NSNTBhRHVMaUhCWTdTWVo3S0o1MkdSblJs?=
+ =?utf-8?B?RXJpa1lHMHpBQkc2NEN5aDk2Nmg3dzF2OUovUFhvemx0TEhFQUw1Zk5OdTlh?=
+ =?utf-8?B?NkdzL0FOWEQ0NnVaaUtGSkY1K0tSbVl5WGFDY2w1VUtyZmRFeE5LdGswWXFR?=
+ =?utf-8?B?ZEVKa1F3VEtjaE9MZEZUMU16b3NTL0p4eGx2dFR6ZTJZYVVMZGZSN2hxbDFt?=
+ =?utf-8?B?L1ppRGRzN29wN3YvcmJSa1MvaDVKNmlobmhrUjJUY1dYUDBUL2EzYlNCbkpi?=
+ =?utf-8?B?OTRZdkdhSVNnMHBBUzlhWFpIMHJ5VDFBaGZUV25Ma2Z4YkVrY1diaVIwRkpV?=
+ =?utf-8?B?SXNUYWtkSUhKU0hXK01ydExSUk9iRnlHMWE2VzYwOWRQRitUVnJPUT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f6981028-6542-410f-4b02-08df43bfd7f0
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8bba067b-9a80-46c1-797b-08df43c116ea
 X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6132.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 08:58:55.3425 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 09:07:50.4713 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Ott+dpdstFe0hF1/h6zirjWnFGHTI22bIPwdTAOkrMOc1Eq4vEkrDGo/CyFqvpTOMEDPDY1uq74x3x7edM57sA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV0PR12MB392693
+X-MS-Exchange-CrossTenant-UserPrincipalName: R4b11jPBEFUv6Fk74MiLJ0BvZaM74zsQISpsFS5aOD1V+P39ySlJKjqYIe1loTuDEH1eSJOmgEYNqbNLUky4gA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAWPR12MB999117
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,74 +145,236 @@ X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Thanks for v2.
 
-For the series:
-Reviewed-by: Chenyu Chen <chen-yu.chen@amd.com>
 
-On 11/14/2026 3:40 AM, Hugo Sales via B4 Relay wrote:
+On 11/14/2026 4:24 AM, Hugo Sales via B4 Relay wrote:
 > [Some people who received this message don't often get email from devnull+hugo.hsal.es@kernel.org. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
 > 
-> Writing panel_power_savings while the eDP is in PSR hangs DMUB on a
-> Cezanne laptop (DCN 2.1). An ABM level change on its own is a fast
-> update, so the new level reaches DMUB with the panel still in
-> self-refresh. Chenyu Chen confirmed the same on Renoir
+> From: Hugo Sales <hugo@hsal.es>
 > 
-> Patch 1 adds helpers that tell whether a PSR or Replay event is already
-> set on a stream. Patch 2 is the fix. It sets the PSR and Replay
-> hw_programming events around the DC update that carries the new level,
-> and clears only the events it set. An event that a full update, a
-> modeset or a PSR SU dirty rect change set stays set, for that code to
-> clear. Patch 3 stops amdgpu_dm_commit_planes() from sending the same
-> level again after the connector update loop sent it, so one level change
-> leaves self-refresh once
+> panel_power_savings_store() currently writes the level into
+> connector->state and sends a hotplug uevent, and the hardware only gets it
+> on a later atomic commit that includes the connector. Hyprland adds the
+> connector to a commit only on a modeset or when a connector property it
+> sets changes, so it never applies the level
 > 
-> "drm/amd/display: Don't force a modeset when the ABM level changes" [1]
-> sends property changes down this fast path, so it needs this series first
+> Programs that write the sysfs file, such as power-profiles-daemon, aren't
+> the DRM master and can't commit themselves, so they depend on the master
+> taking the uevent as a cue to commit the connector, but nothing documents
+> they should. A master that wants to control ABM sets the 'adaptive
+> backlight modulation' property, and from then on writes return -EBUSY. The
+> file has to work without the master's help, like the backlight device,
+> whose writes reach DC without a commit
 > 
-> HDR metadata may have the same problem. When the HDR static metadata
-> changes while HDR stays on, the commit is a fast update too, and the
-> connector loop in amdgpu_dm_atomic_commit_tail() sends the new HDR
-> infopacket to DC with the panel still in self-refresh. I have no panel
-> with HDR and PSR or Replay to try it on, and the VRR and AVI infopackets
-> already reach DC the same way. Does an infopacket update in self-refresh
-> need the same pause?
+> Commit the level from the store instead, with a duplicated connector state
+> and no modeset. The write returns once the commit is done, or with the
+> commit's error, so no uevent is needed. A connector that is off gets the
+> level when it is next enabled. A write of the level the connector already
+> has, or one the DRM master forbids, returns without a commit and without
+> waking a runtime-suspended GPU
 > 
-> v2:
-> - Clear the events right after the DC update, under dc_lock, instead of
->   on the next fast commit (Chenyu)
-> - Only clear the events this update set, so an event that a full
->   update, a modeset or a dirty rect change set in the same commit stays
->   set
-> - Add amdgpu_dm_psr_event_is_set() and amdgpu_dm_replay_event_is_set(),
->   with KUnit tests
-> - Send a changed level once per commit, so it leaves self-refresh once
+> Document the new behaviour in the kernel-doc
 > 
-> v1: https://lore.kernel.org/r/20261031130002.2335615-1-hugo@hsal.es
-> 
-> [1] https://lore.kernel.org/r/20261102-abm-sysfs-commit-v1-2-e5addfd9539a@hsal.es
-> 
+> Signed-off-by: Hugo Sales <hugo@hsal.es>
 > ---
-> Hugo Sales (3):
->       drm/amd/display: Add helpers to check PSR and Replay events
->       drm/amd/display: Leave self-refresh before an ABM level update
->       drm/amd/display: Send a changed ABM level once per commit
+> This needs "drm/amd/display: Don't force a modeset when the ABM level
+> changes". Without it, atomic check sees the changed level, asks for a
+> modeset and the commit fails with -EINVAL
 > 
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  83 +++++++++++++++--
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c  |  24 +++++
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.h  |   2 +
->  .../drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c   |  25 +++++
->  .../drm/amd/display/amdgpu_dm/amdgpu_dm_replay.h   |   3 +
->  .../display/amdgpu_dm/tests/amdgpu_dm_psr_test.c   |  60 ++++++++++++
->  .../amdgpu_dm/tests/amdgpu_dm_replay_test.c        | 102 +++++++++++++++------
->  7 files changed, 263 insertions(+), 36 deletions(-)
+> A failed write used to leave the level stored and send the uevent anyway.
+> Now the level only changes through the commit, so the store reports the
+> error. power-profiles-daemon logs a failed write and tries again on the
+> next profile, AC or battery change, because it compares against the value
+> it reads back. It ignores the hotplug uevent. Compositors used it only as
+> a cue to commit the connector, which the store now does itself
+> 
+> The commit is blocking, so a write can hold the CRTC locks for up to a
+> frame while a compositor commit waits. The other way round, while the
+> store's commit is pending, a nonblocking commit from the compositor on the
+> same CRTC fails with -EBUSY, as it would behind any pending commit
+> 
+> The store takes a runtime PM reference around the commit, like the
+> atomic ioctl path. Its locks are interruptible, and a write a signal
+> interrupts returns -ERESTARTSYS so that it restarts
 > ---
-> base-commit: ba496bb837882eb1af58f41572fc289e46c77b8c
-> change-id: 20261113-amdgpu-psr-abm-update-next-de20bc23b12c
+>  .../amd/display/amdgpu_dm/amdgpu_dm_backlight.c    | 118 +++++++++++++++++++--
+>  1 file changed, 107 insertions(+), 11 deletions(-)
 > 
-> Best regards,
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+> index 27546febf90d3..8487ac0661396 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+> @@ -40,7 +40,10 @@
+> 
+>  #include <linux/backlight.h>
+>  #include <linux/minmax.h>
+> +#include <linux/pm_runtime.h>
+>  #include <linux/power_supply.h>
+> +#include <drm/drm_atomic.h>
+> +#include <drm/drm_drv.h>
+>  #include <drm/drm_edid.h>
+>  #include <drm/drm_utils.h>
+> 
+> @@ -691,6 +694,18 @@ EXPORT_IF_KUNIT(amdgpu_dm_setup_backlight_device);
+>   *
+>   * Modifying this value can have implications on color accuracy, so tread
+>   * carefully.
+> + *
+> + * A write commits the new level before it returns, without a modeset. The
+> + * commit waits for any commit already pending on the connector's CRTC, and
+> + * while it is pending, a nonblocking commit from the DRM master on that CRTC
+> + * fails with -EBUSY. If the connector or its CRTC is off, the driver stores
+
+I don't think the -EBUSY part can happen. The store's commit is blocking
+and keeps the CRTC lock until commit_tail has finished, so a master commit
+on that CRTC waits on the lock, and by the time it runs stall_checks()
+there is nothing pending. On a Strix laptop under GNOME with es2gears
+running (about 120 commits/s), 26-28 back-to-back writes with v1 gave no
+-EBUSY; the compositor commit just waited. Could you say that the master's
+commit on that CRTC waits for the write instead?
+
+Regards,
+Chenyu
+
+> + * the level and applies it when the connector is next enabled
+> + *
+> + * If the commit fails, the write returns its error and the level stays as it
+> + * was. While the CRTC needs a modeset, as after a DSC override in debugfs,
+> + * writes fail with -EINVAL until a commit that allows a modeset clears that
+> + * state. Writes fail with -EBUSY once the DRM master has set the connector's
+> + * 'adaptive backlight modulation' property to a value other than 'sysfs'
+>   */
+> 
+>  STATIC_IFN_KUNIT
+> @@ -712,13 +727,100 @@ ssize_t panel_power_savings_show(struct device *device,
+>  }
+>  EXPORT_IF_KUNIT(panel_power_savings_show);
+> 
+> +static int panel_power_savings_apply(struct drm_connector *connector,
+> +                                    unsigned int level)
+> +{
+> +       struct drm_connector_state *conn_state;
+> +       struct dm_connector_state *dm_state;
+> +       struct drm_device *dev = connector->dev;
+> +       struct drm_modeset_acquire_ctx ctx;
+> +       struct drm_atomic_commit *state;
+> +       bool forbidden, unchanged;
+> +       int ret, idx;
+> +
+> +       level = level ?: ABM_LEVEL_IMMEDIATE_DISABLE;
+> +
+> +       if (!drm_dev_enter(dev, &idx))
+> +               return -ENODEV;
+> +
+> +       /*
+> +        * Don't wake the GPU for a write that changes nothing. The duplicated
+> +        * state below is checked again. This check only spares the runtime resume
+> +        */
+> +       ret = drm_modeset_lock_single_interruptible(&dev->mode_config.connection_mutex);
+> +       if (ret)
+> +               goto dev_exit;
+> +       dm_state = to_dm_connector_state(connector->state);
+> +       forbidden = dm_state->abm_sysfs_forbidden;
+> +       unchanged = dm_state->abm_level == level;
+> +       drm_modeset_unlock(&dev->mode_config.connection_mutex);
+> +
+> +       if (forbidden || unchanged) {
+> +               ret = forbidden ? -EBUSY : 0;
+> +               goto dev_exit;
+> +       }
+> +
+> +       ret = pm_runtime_resume_and_get(dev->dev);
+> +       if (ret < 0)
+> +               goto dev_exit;
+> +
+> +       state = drm_atomic_commit_alloc(dev);
+> +       if (!state) {
+> +               ret = -ENOMEM;
+> +               goto pm_put;
+> +       }
+> +
+> +       /* Kernel commits allow a modeset by default, which a level change doesn't need */
+> +       state->allow_modeset = false;
+> +
+> +       drm_modeset_acquire_init(&ctx, DRM_MODESET_ACQUIRE_INTERRUPTIBLE);
+> +       state->acquire_ctx = &ctx;
+> +retry:
+> +       conn_state = drm_atomic_get_connector_state(state, connector);
+> +       if (IS_ERR(conn_state)) {
+> +               ret = PTR_ERR(conn_state);
+> +               goto out;
+> +       }
+> +
+> +       dm_state = to_dm_connector_state(conn_state);
+> +       if (dm_state->abm_sysfs_forbidden) {
+> +               ret = -EBUSY;
+> +               goto out;
+> +       }
+> +
+> +       if (dm_state->abm_level == level) {
+> +               ret = 0;
+> +               goto out;
+> +       }
+> +
+> +       dm_state->abm_level = level;
+> +
+> +       ret = drm_atomic_commit(state);
+> +out:
+> +       if (ret == -EDEADLK) {
+> +               drm_atomic_commit_clear(state);
+> +               ret = drm_modeset_backoff(&ctx);
+> +               if (!ret)
+> +                       goto retry;
+> +       }
+> +
+> +       drm_atomic_commit_put(state);
+> +       drm_modeset_drop_locks(&ctx);
+> +       drm_modeset_acquire_fini(&ctx);
+> +pm_put:
+> +       pm_runtime_put_autosuspend(dev->dev);
+> +dev_exit:
+> +       drm_dev_exit(idx);
+> +
+> +       return ret;
+> +}
+> +
+>  STATIC_IFN_KUNIT
+>  ssize_t panel_power_savings_store(struct device *device,
+>                                  struct device_attribute *attr,
+>                                  const char *buf, size_t count)
+>  {
+>         struct drm_connector *connector = dev_get_drvdata(device);
+> -       struct drm_device *dev = connector->dev;
+>         long val;
+>         int ret;
+> 
+> @@ -730,19 +832,13 @@ ssize_t panel_power_savings_store(struct device *device,
+>         if (val < 0 || val > 4)
+>                 return -EINVAL;
+> 
+> -       drm_modeset_lock(&dev->mode_config.connection_mutex, NULL);
+> -       if (to_dm_connector_state(connector->state)->abm_sysfs_forbidden)
+> -               ret = -EBUSY;
+> -       else
+> -               to_dm_connector_state(connector->state)->abm_level = val ?:
+> -                       ABM_LEVEL_IMMEDIATE_DISABLE;
+> -       drm_modeset_unlock(&dev->mode_config.connection_mutex);
+> -
+> +       ret = panel_power_savings_apply(connector, val);
+> +       /* The modeset locks return -EINTR, which write(2) would not restart */
+> +       if (ret == -EINTR)
+> +               return -ERESTARTSYS;
+>         if (ret)
+>                 return ret;
+> 
+> -       drm_kms_helper_hotplug_event(dev);
+> -
+>         return count;
+>  }
+>  EXPORT_IF_KUNIT(panel_power_savings_store);
+> 
 > --
-> Hugo Sales <hugo@hsal.es>
+> 2.56.0
 > 
 > 
 
