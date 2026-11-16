@@ -2,100 +2,60 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C605606A882
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 14:01:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E471606A329
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 14:02:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IFIq4R84
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M50df8H1
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3F5C10F21B;
-	Mon, 16 Nov 2026 14:01:25 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DBFF10F200;
- Mon, 16 Nov 2026 14:01:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D1D910E639;
+	Mon, 16 Nov 2026 14:02:37 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE21F10E2D6;
+ Mon, 16 Nov 2026 14:02:31 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5A0DC62C41;
- Mon, 16 Nov 2026 14:01:08 +0000 (UTC)
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1794837668;
- b=NNLEcgjabX2eqwDtnjBKTSYpwO+SzjYv+x8yN7908y4jal5RfkRvpNDnpO5zk+k3nrP1
- REwRrxqz37lLtiT6Smrb5hZuIRsanLoEi+Qwy+B8JxiZ5GgFQzYHMKUyH5Mib/kyEGWf6
- osy78vqqueqKO0bYVdXxUkUY0h+zCoZ6E6sEus9LioFZ33OCeIKXeWBYGwDnQRSvjrnDq
- YUHMLKqwe6AEqgmkb4i5B4KFVec2gDVNy3IOP6QITOxBtKro5RK1yadBnzbbS0tUHt9pq
- 5tuzdvv/E5GXS9U/LkMYpn7emVbdU3/7w1MppTKbt9+gwwqtE2jBUrt05BZiORpEBvA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1794837668;
- h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
- Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
- X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=kcHezJuhx6nMG5FQREdfYfPWtGjzRQB4kn3JrXnJa88=;
- b=mHacP51W/OqdqQh59ocaj+CblVMlZrUAAHEe55D8MWs2AaWnFcRIjrqEy8gAPdlBcsBe
- XVa7NmWs4mWpXH1/pxDUHlBU284j11Cwvt1AihSY1ogBBSjesL0NoB9VrrF518/M51qM0
- YcLkCD5NmC0ZUYi9FRJihu8x+EBBP5ZH8cjxTVDhAgCXYlcLyRNAQhdVFbm3BwxH/UKMH
- MJt7ueGJcU50yznKbhH7GbvKiixb0HNW61B5FXrTlTbYeJYQinXtXcd2lTAu1sr5F4InB
- YU9LvgfNlM/oI+gyRgPnUxkQFEHHrAi3OXtQdbGUi4A79bngLkhqI6eBMyAZ2ATWEgg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
- arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
- (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 1FAF11F000CD;
- Mon, 16 Nov 2026 14:01:05 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 86E8E43A47;
+ Mon, 16 Nov 2026 14:02:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B86321F000C6;
+ Mon, 16 Nov 2026 14:02:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794837668;
- bh=kcHezJuhx6nMG5FQREdfYfPWtGjzRQB4kn3JrXnJa88=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=IFIq4R84WB1LQ/o/OzPQly00aYwRGIxykmnvFSKUgUWxYtcSqRNFNRBvpwrhUX4hR
- Z3RDMnL6nxvF7nb/PbKyddbXWcP4bPk+puzkwBJMkvBvCBgWFs3UlyyIM+bQ1tGLs0
- lkpPXak+DEhC0TvYNtAj9KhEUrjIIDBJlcLmLCOd5eOxz9Mf/TboHnT3NhVLkWVGao
- PB9OjYYGGWw2DrnhEY/f4kAtHPq+Ecl7KcEl1S7jY1tltBl6ZNdTiLKscnPFz7T7S4
- syQsEOPjUSFwuT5QsjcDEtXKui4Q88FLdsQd4Bk2RhmiYc3KLCfBX43wIQ983Os/xm
- Vk+P4yffT4Icw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 9B1E14A4A7;
- Mon, 16 Nov 2026 14:01:04 +0000 (UTC)
-From: Hugo Sales via B4 Relay <devnull+hugo.hsal.es@kernel.org>
-Date: Mon, 16 Nov 2026 14:01:04 +0000
-Subject: [PATCH v3 2/6] drm/amd/display: Add the CRTC's planes when the ABM
- level changes
+ s=k20260515; t=1794837751;
+ bh=yMd7BM9ItioQtJ8JDmysZxycKCnIvgPLTsTjZtr0lQM=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=M50df8H1+IuNdwGGw+m4zdCkKlUaaZELq7jaVwViJuxfOmEkaPmzu/WQG3vShf/q+
+ 9gpyeR/oqmMZDDZcuAb3gNj7vfcHzv6CfJ46845H7r5JpnuRx0GO9vdt7T/lYM+niv
+ eZS6KCP0UYIa+W/K6TLzdU435867pvc3myAvMsj6mTMXvmdYbaAbSQSOdmBKPAHyMQ
+ I9z0gxcqLzBF6bkAso6NN8RNXCHcztgyg8H3hIXhTea4BYk51wxJmnxb6PANTR+q+V
+ acbHgUhSi7d42fpMHJE3xMHCioayRwpPZ/uHaWIPOVVxmxo2JSudrrIDz9FFge4vET
+ zpvB8UXRQE0Fg==
+Message-ID: <aab9b58f-d7ef-40c0-a6a9-74a6c749652a@kernel.org>
+Date: Mon, 16 Nov 2026 08:02:25 -0600
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261116-abm-sysfs-commit-v3-2-7a3d84a5328e@hsal.es>
-References: <20261116-abm-sysfs-commit-v3-0-7a3d84a5328e@hsal.es>
-In-Reply-To: <20261116-abm-sysfs-commit-v3-0-7a3d84a5328e@hsal.es>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/6] drm/amd/display: Render the panel power savings
+ kernel-doc
+Content-Language: en-US
+To: hugo@hsal.es, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
-Cc: Mario Limonciello <mario.limonciello@amd.com>, Ray Wu <ray.wu@amd.com>, 
- Alex Hung <alex.hung@amd.com>, 
- Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>, 
- Ivan Lipski <ivan.lipski@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>, 
- David Weber <weber.aulendorf@gmail.com>, 
- Shivam Kalra <shivamkalra98@zohomail.in>, 
- Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Hugo Sales <hugo@hsal.es>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2571; i=hugo@hsal.es;
- h=from:subject:message-id;
- bh=qEE0S9PbkvyPum4bGl1VMgQGUMbMKntSfo2X6VR25RU=;
- b=owJ4nJvAy8zAJVbLU7f+5A3TBYyn1ZIYsn7zzL8b2R3Z9DqkuuSfSMa5K2p3l/+ZnPRA/IiV2
- r2VpZ+jVPU6SlkYxLgYZMUUWXRveDKwTJw8M6fo+RKYOaxMIEMYuDgFYCKXbBn+qSzicZ//LPpJ
- 4mvPFcek79awlLNnLf2vPUG+3q2NQ3DRNkaGyZYTS1uOlXW63Jr/jkVzhe+fi9MUrj6eWxVgqLa
- p32QXKwA1Lkup
-X-Developer-Key: i=hugo@hsal.es; a=openpgp;
- fpr=193D095149CF7E8737B39064D912B0DB205A91C1
-X-Endpoint-Received: by B4 Relay for hugo@hsal.es/default with auth_id=1417
-X-Original-From: Hugo Sales <hugo@hsal.es>
+Cc: Ray Wu <ray.wu@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>,
+ Ivan Lipski <ivan.lipski@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>,
+ David Weber <weber.aulendorf@gmail.com>,
+ Shivam Kalra <shivamkalra98@zohomail.in>,
+ Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261116-abm-sysfs-commit-v3-0-7a3d84a5328e@hsal.es>
+ <20261116-abm-sysfs-commit-v3-1-7a3d84a5328e@hsal.es>
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <20261116-abm-sysfs-commit-v3-1-7a3d84a5328e@hsal.es>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -106,76 +66,43 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: hugo@hsal.es
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Hugo Sales <hugo@hsal.es>
 
-An upcoming patch stops a change of the connector's ABM level from
-forcing a modeset. The modeset adds every plane on the CRTC to the
-commit. Without it, a commit that changes only the level carries the
-planes the CRTC check pulls in, which with VRR active is the primary
-plane alone. DC then updates the stream with that one surface and drops
-an active overlay plane until the next flip
 
-Add the CRTC's planes when the level changes, as atomic check already
-does for color management and VRR changes
+On 11/16/26 08:01, Hugo Sales via B4 Relay wrote:
+> From: Hugo Sales <hugo@hsal.es>
+> 
+> The DOC section for the panel_power_savings sysfs file is not included
+> in any rst file, so it never shows up in the built documentation. Add it
+> to the Display Properties section next to the 'adaptive backlight
+> modulation' property it interacts with
+> 
+> Signed-off-by: Hugo Sales <hugo@hsal.es>
 
-Signed-off-by: Hugo Sales <hugo@hsal.es>
----
-This was reported on v2 [1]. On my laptop (GV301QH, DCN 2.1), with v2
-and VRR active, a panel_power_savings write took the overlay off the
-screen. The DTN log went from four pipes, primary and overlay each split
-over two, to the two primary ones, and a flip of both planes brought the
-overlay back. With VRR off, the overlay stayed. With this patch, it
-stayed with VRR on too, and all four pipes were still there after the
-write
+Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
 
-This only covers commits that change the ABM level. From my reading,
-other commits that add the CRTC but no planes, like a change of the HDR
-metadata, can drop an overlay the same way while VRR is active. That
-needs a fix in the CRTC check that pulls in only the primary plane, which
-I'll send as a separate series
-
-[1] https://lore.kernel.org/all/sashiko-outbox-213691@kernel.org/
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index dfbc384fbbdb4..cf75450066451 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6307,6 +6307,20 @@ STATIC_IFN_KUNIT int amdgpu_dm_atomic_check(struct drm_device *dev,
- 		if (dm_old_con_state->abm_level != dm_new_con_state->abm_level ||
- 		    dm_old_con_state->scaling != dm_new_con_state->scaling)
- 			new_crtc_state->connectors_changed = true;
-+
-+		/*
-+		 * With VRR active, the CRTC check adds only the primary plane,
-+		 * and DC would drop any other plane from the stream
-+		 */
-+		if (dm_old_con_state->abm_level != dm_new_con_state->abm_level) {
-+			ret = drm_atomic_add_affected_planes(state, new_con_state->crtc);
-+			if (ret) {
-+				drm_dbg_atomic(dev,
-+					       "drm_atomic_add_affected_planes() failed: %pe\n",
-+					       ERR_PTR(ret));
-+				goto fail;
-+			}
-+		}
- 	}
- 
- 	if (dc_resource_is_dsc_encoding_supported(dc)) {
-
--- 
-2.56.0
-
+> ---
+>   Documentation/gpu/amdgpu/display/display-manager.rst | 3 +++
+>   1 file changed, 3 insertions(+)
+> 
+> diff --git a/Documentation/gpu/amdgpu/display/display-manager.rst b/Documentation/gpu/amdgpu/display/display-manager.rst
+> index f6de9e7779e29..ca4a956d2aa17 100644
+> --- a/Documentation/gpu/amdgpu/display/display-manager.rst
+> +++ b/Documentation/gpu/amdgpu/display/display-manager.rst
+> @@ -187,3 +187,6 @@ Display Properties
+>   
+>   .. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+>      :doc: property for adaptive backlight modulation
+> +
+> +.. kernel-doc:: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+> +   :doc: panel power savings
+> 
 
