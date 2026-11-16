@@ -2,61 +2,64 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B0C7606A32A
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Nov 2026 17:14:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C3C9606A32A
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Nov 2026 17:14:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=im52k73W
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=bwYP96D9
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DC1910F826;
-	Tue, 17 Nov 2026 17:13:56 +0000 (UTC)
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010023.outbound.protection.outlook.com
- [40.93.198.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE07910F81F
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Nov 2026 17:13:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C16910F83D;
+	Tue, 17 Nov 2026 17:14:02 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011015.outbound.protection.outlook.com [40.107.208.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE05010F822
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Nov 2026 17:13:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JU/kiG9p7F9qmkmKANhkM+gXiHdidPHNtAgvQwKsex9hCHefLwFIWM2VV03kphQtPXsX2cHctoGPVbM1Ecv0035EZE84HLnCD+a44rTsmJSnpDx7vCx4l90N1gpCu4enMaNK+ISMGTrDcj+P7oRuVVzV0UF8HQQwWKNwsYLBJx/dk4XC+JV9vjgtregfiIpXVOjtPOYps6fxsaROsRxSu5BE/nXoHcm6sAC0v2y6dU3q6YoVmewwnMPhIwoKbXOeOR9iKlZWUZEnMwMfCSHEpYkuFJnwWYLwYpv07MRNYJB6ipymS7PB0iIaBqPpiAwWiG5EY3rfzlahQSnVSyFb5w==
+ b=JQHDLcIotCXMGL1JkKIa9Cmc+62Z7keZE+NToJPOozih54Q2AC7NGoau2X+BSfaViqzVMVoQa12+7wQUyzOSZX8RNgtu3Owjt4cOdFiPrbpZOm1e2ZdZv1r2aGdM7Sn1kBNpDgywLmfg+CD3fvPCM0W+cj7NW4UbC6ZSmAr603A9BRMbbvFPid7woadwQbTLXINt9/sD0SpWeonLV/gPAt+3R6lAJ6tufViJjCAado9U5pf6rBy+4TeEDZbGrhjkPu5cS2URcgSrEUHrOlOFHA4GGgtC5PQO/mh+/BpGTqxQoHwhADBbqQgC2KYAD2gKVJrQ/U4VAhMJal0Bs9A1Zg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vzjoLR8iBGJaqZp6qBSNCifV7d1JNCfFKA4O8+cZlJY=;
- b=lyOnuYnRsbl/f40eEWyBSxoOHtTz7IvB0NBemVppbgJqV3X+aOL05T/cOiRqsZnI36GI6QtVco5LbjWhoPJkKJWS6fY/lKCAwBR+D/Ek/+4kq+ixMyj9dEWjCqRm/jsxmEHKTuE+PdeFvdoyz8Pj6B2Y65PIoXb+ZeKAHz4BVfddAvzgqaH3TEOYDesWUXZNaHYdymSX+kisKmDvx9qCeXif9TN97gLeT/mbjKymEIBtATIw2vy9kPi3UYN64htSKo3iNRu5q2PLl3PJDea0WONTY1aQwe6cHgOl5Z1LlHNmTSoGRZuXjuF1rv++vnrzJvxFekI+hxVsg1JX7M5yOw==
+ bh=8BLNcJyBXMapGIqPUhr/dNO12q4Coyn08FnE92e8LrU=;
+ b=m6tm8zMlMVgiLcHR3FwvlumHMDLPhVHH3bjYYsmVXAXYNDMbpSapnF+c3kLSjuD9+sexmRfmle54h7meUtcVFUKd1QFFtLS/7Xh5Rd+sNGQ1QlfqENexsssroDlCGhYhWUYBuRM2l0zca7o/4+aACaStoCot2pdYh8izkMzX/JGSm8z5Oj8gTRyn/9Qum4xb+gaDcWulUi5hbRPTGNSDK3qpor7asfEjb/oYOsIoEe5rp7AoalW/WBa6uPKQBPscDg0QQ2604C9YKiBA0doauyRukhXQI9YQzeNXxlnhHu59KXuleCqyuF5vRwDSO0ADq8VSnfiourcpvzsskbbe0Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vzjoLR8iBGJaqZp6qBSNCifV7d1JNCfFKA4O8+cZlJY=;
- b=im52k73WUvustQjloIV3YKOyJ+NITD6sk24E88Bf63mkZZMBZHYH8JPfsamJBnuqmXK2guNs+11QJjeIbcytf/NKHUdPTWo49Nz4dOvtv3v5UFmQUcj9b1qLVT65uilM1LTl70FEA0tQY/ZVziAEZ/LpheHTvbh65UhOtj+CNQM=
-Received: from CY5PR19CA0032.namprd19.prod.outlook.com (2603:10b6:930:1a::12)
- by BY5PR12MB4228.namprd12.prod.outlook.com (2603:10b6:a03:20b::22)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=8BLNcJyBXMapGIqPUhr/dNO12q4Coyn08FnE92e8LrU=;
+ b=bwYP96D9TKqdX8gTXLZUFrM80Whyf9GenwKeDZZPhGEG3WX5Mnrdj5x6uorzEd9/KEFd3GLzxB6+D3i3+EOEtCexMbvAfOPGBNvxP5jpJj2iDwys7kzSXMsm90rhu0QCSP7tOTJbgumGu1wmuWJ8iONC37z1apn8AdJvaUnlsT8=
+Received: from CH5PR03CA0017.namprd03.prod.outlook.com (2603:10b6:610:1f1::12)
+ by SA5PPF6407DD448.namprd12.prod.outlook.com
+ (2603:10b6:80f:fc04::8ce) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
- 2026 17:13:45 +0000
-Received: from PH3PEPF00059616.namprd05.prod.outlook.com
- (2603:10b6:930:1a:cafe::52) by CY5PR19CA0032.outlook.office365.com
- (2603:10b6:930:1a::12) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 17:13:52 +0000
+Received: from BN1PEPF00018072.namprd04.prod.outlook.com
+ (2603:10b6:610:1f1:cafe::af) by CH5PR03CA0017.outlook.office365.com
+ (2603:10b6:610:1f1::12) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Tue,
- 17 Nov 2026 17:13:44 +0000
+ 17 Nov 2026 17:13:52 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- PH3PEPF00059616.mail.protection.outlook.com (10.167.243.20) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN1PEPF00018072.mail.protection.outlook.com (10.167.245.200) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Tue, 17 Nov 2026 17:13:43 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.615.4 via Frontend Transport; Tue, 17 Nov 2026 17:13:51 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Tue, 17 Nov
- 2026 11:13:43 -0600
+ 2026 11:13:29 -0600
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Tue, 17 Nov
+ 2026 11:13:29 -0600
 Received: from james-Birman-PHX.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.57 via
- Frontend Transport; Tue, 17 Nov 2026 11:13:29 -0600
+ Frontend Transport; Tue, 17 Nov 2026 11:13:15 -0600
 From: James Lin <PingLei.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -67,9 +70,10 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
  <Chen-Yu.Chen@amd.com>, Ray Wu <ray.wu@amd.com>, James Lin
  <pinglei.lin@amd.com>
-Subject: [PATCH 09/33] drm/amd/display: Add API to set brightness percent
-Date: Tue, 17 Nov 2026 05:50:46 +0800
-Message-ID: <20261116215641.2800595-10-PingLei.Lin@amd.com>
+Subject: [PATCH 08/33] drm/amd/display: Read PWM back linearly with the linear
+ backlight curve
+Date: Tue, 17 Nov 2026 05:50:45 +0800
+Message-ID: <20261116215641.2800595-9-PingLei.Lin@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261116215641.2800595-1-PingLei.Lin@amd.com>
 References: <20261116215641.2800595-1-PingLei.Lin@amd.com>
@@ -79,29 +83,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH3PEPF00059616:EE_|BY5PR12MB4228:EE_
-X-MS-Office365-Filtering-Correlation-Id: bd8e1987-00f1-415e-4898-08df44ce224f
+X-MS-TrafficTypeDiagnostic: BN1PEPF00018072:EE_|SA5PPF6407DD448:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7d1cf15d-2661-4712-8277-08df44ce26c6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|376014|36860700016|23010399003|6133799003|261009223027099003|18002099003|22082099003|261022075727099003|261021121427099003|261102123227099003|56012099006|10067099003|11063799006;
-X-Microsoft-Antispam-Message-Info: L0cYzCkNz3WxbtJSDpVSgdbedAOvKjJnAvW8C09Uf8d4hfAbSzMF5/vhj3wKn75fW0Bu/TE0xlLaaBScJhON3p/0n3L8v8jLDIWeA+kmLb/MdS0gbvpCbaYwArBUo0/2lD4UThmUxfMbWdZHQ5Fd5/4mgFwnOfDfqRzIJASTcBecbLfeDNm3QIqn8LAQ+ac9SutYpFyhhUZDJC9L93/zmFhjHqT8VdL8HEWwpvSIRhM0gxfdCsXcrvpXOjNPbmz/pEOtmlt9LMak3uMKTnB6fWzlEOADCKNZs7kwifhcwBk/F31QKzMBUPRFqwMnKL3INND4bwonXqTztryk2rKI6y4tFI6shZPlL5N2VtbAZAdGx/HPhF0eeq7l4Wd9wAb6JtUfdMJ9PyONcDz94vN/5z4Gk3bPAU1iXnFpDeTIiIof4bVgs7anZzCSPDbzZMO0GLPPXJyioM0m1zowPRbvhKq3vUivSUOv0hKhErHrbg07nEjuTmrT+3ac31dKbDdG4if/gJUECyjmDy2bbXW6pkBnxyAwA/L3rwi8j21bXWGmwZdzTqCJ5/o0mSfp0IkahLXI0NxjqCjq7Xgq8B1ovEZjn9IlYtT+o7+kiolJSgLQp4Duya3o7Kr067eHHWsgZaaOykjaX6NV32ulY0wO7KT4RgzjtH98Moeb5+iGm4AZeZ/eyJrdkZQI2Uf2+m9tgSVkrPqH+Hm8eOhatixEHA==
+ ARA:13230040|23010399003|82310400026|376014|36860700016|1800799024|22082099003|18002099003|6133799003|11063799006|56012099006|261022075727099003|261009223027099003|10067099003|261021121427099003|261021123027099003|261102123227099003;
+X-Microsoft-Antispam-Message-Info: ifhq9pRO8I2p/KCfh/H0y3ENxZoqfg5jtyLChrZpj8o258wM+LdzTuMnK7UjaUP7Tj2jwO2DB2Bh0t9+nbBimwvTzuYLsi7Vj3vpzf942UAoAQBZyJ3R/qP0veSfs7KbjzdaTMR/HmcK9bZs+o+fYYpZh/mN191itL7L82o829XGJ6nmricd0vJVRdlhSrKCsJOfS4EIgIrzDwpo+N+cAPmuAEpJQTCvRGYX5et8RnIsJFf6glsAoBZzQnGLn5bX1mv9cMOZzEaH9/EGIN8vXwSo5GkjUDoDEpBHENYgN4Lf+leD6BgyH5/270SXpDuITRSdh/X99n4+HacboGoCXYD4mvzJ8+H8qwbJxkqFE4ti4JwYCiz89cbzb8PVyHMynRk/pEutwGa6nJYUpUWdH1nshM36dShzN4pehF59hfNHkYtfaqzlp9hZCxoWeMq0KgYTXIPtnhckPvhc9gyH+6us++B6G6xeco2zMD4VvwXxdxYVcIsKfpyfxMScvLhPWjHwpd55EAFeMCSvzPBT9DLHh+CPT8rSTRGmWYnMA7hkEthbrHHQJ9ifmzC6z+8qZIKnD7++6OU3c/84l8VEMDZTN9HJ5hjrC0JWCat3FoH9vTPBnJRMgOyQbbCpCtwrHNUdsjbeNALLNEKXuC3d+E8bx750I/z0AFvXzbLZfUdTZL2RCGV6jmI62LHJcCnooeQB3NfAVKyxfVSGhibINA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(376014)(36860700016)(23010399003)(6133799003)(261009223027099003)(18002099003)(22082099003)(261022075727099003)(261021121427099003)(261102123227099003)(56012099006)(10067099003)(11063799006);
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(82310400026)(376014)(36860700016)(1800799024)(22082099003)(18002099003)(6133799003)(11063799006)(56012099006)(261022075727099003)(261009223027099003)(10067099003)(261021121427099003)(261021123027099003)(261102123227099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 0Lk50YRy+uzrTZMqUJ8OeyanOzc4S+GBYWey1XDzCIl4l9AqMbdcpR+iR42e+Jg1Za5/7tBbVl3BUD/k3jDZNYt8zV8sVHwKCroAJXQ9ARI2QohwlEi2A/mZOJj03v4yu18jMFVkVhlikkZevq5aAZhnqcl0NhBIt4ETBUbT0npOXcHakbkRnkRDCx6FvRsTeBh7eE+rYRcmFpKbqiCehCYP4/906ZK6++kd9oOgwtazuz44jZR+5k62Vxbiik5wzRC6Z8mPcA4T4W/k9Ma4SAcLeZAAbsA1tta3qAR1HGLG33ngr33SniLQeFibdlTzoSdNRUMJamGGDWBmfWLG/GqXa0xInotq/etKw4AP7cp9Bx4pU0ju72hUnohCTaLx5yIWWNFn4hP6Ke5u9gMyrlCOgH9fr17YuBPxKUuogIb0xamh3bJBcqfeZcpCsbos
+X-MS-Exchange-AntiSpam-MessageData-0: 7VCSqUIbUFWuhMaPpRJWTbuPMvV3Mu4R0Yi8pfJKgB+bX1OcivG1Py4nKq9cngWItIA4zXCDCvef8nUDEGMZGqELp2LEZwQ+3Vq8l/GgnrvVOt7o4k2y1u/PYTbGKJs6Q/2pUbJW/dFfi7+cyx/xMfdvurRp4Ik8DOjY5aWbXV28NVCdmXwGMw4A/ZaUTdC1ncU6aDT3JM7gAGEDP+o4IIN2JHR0xQY6n0jTuzwvWmYFBPCqMZEd6h3hErZc4mYWvblTM41f18ePMOfxe+dp9uMgvsTfM9KIJxRgTSwrwIlMVDO7fP0Rc9xjFYNOjtJOnG67WSw2AVLcTfeJhSZAetfz18neCxJFuyMcRABs2hCHN4TlH1l4OHtVJRJyqPqMKvQyMd9L7wGOXGbBFG5BBZFHXUak1/DQd47V9T62ERFmTDuuiwClCZEg8bwD15kq
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 17:13:43.8544 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bd8e1987-00f1-415e-4898-08df44ce224f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 17:13:51.3897 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7d1cf15d-2661-4712-8277-08df44ce26c6
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: PH3PEPF00059616.namprd05.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00018072.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4228
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPF6407DD448
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,118 +126,58 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Ray Wu <ray.wu@amd.com>
 
-[Why & How]
-Add mod_power_set_brightness() so DM can pass a percentage for every
-panel type and let the power module pick the unit:
+[Why]
+use_linear_backlight_curve makes the power module bypass its LUT when
+setting PWM, but reading PWM back still searched the LUT, so the
+percentage read back did not match the one set.
 
-- VESA AUX takes nits, mapped linearly over the panel range.
-- AMD AUX takes nits on OLED and in HDR, and follows PWM otherwise.
-- PWM goes through the backlight LUT built from ATIF.
-
-The AUX brightness mask is ORed into the nits.
+[How]
+Map PWM back linearly over the same range instead. Also read the flag
+for the panel being converted, not the first one.
 
 Cc: ChiaHsuan Chung <chiahsuan.chung@amd.com>
 Signed-off-by: Ray Wu <ray.wu@amd.com>
 Signed-off-by: James Lin <pinglei.lin@amd.com>
 ---
- .../drm/amd/display/modules/inc/mod_power.h   |  7 ++
- .../drm/amd/display/modules/power/power_abm.c | 65 +++++++++++++++++++
- 2 files changed, 72 insertions(+)
+ .../drm/amd/display/modules/power/power_abm.c  | 18 +++++++++++++++++-
+ 1 file changed, 17 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/modules/inc/mod_power.h b/drivers/gpu/drm/amd/display/modules/inc/mod_power.h
-index 25a0c96ac754..3b6eb2116636 100644
---- a/drivers/gpu/drm/amd/display/modules/inc/mod_power.h
-+++ b/drivers/gpu/drm/amd/display/modules/inc/mod_power.h
-@@ -221,6 +221,13 @@ bool mod_power_set_backlight_percent(struct mod_power *mod_power,
- 		unsigned int transition_time_millisec,
- 		bool is_hdr);
- 
-+bool mod_power_set_brightness(struct mod_power *mod_power,
-+		struct dc_stream_state *stream,
-+		unsigned int backlight_millipercent,
-+		unsigned int transition_time_millisec,
-+		unsigned int aux_brightness_mask,
-+		bool is_hdr);
-+
- void mod_power_update_backlight(struct mod_power *mod_power,
- 		struct dc_stream_state *stream,
- 		unsigned int backlight_millipercent);
 diff --git a/drivers/gpu/drm/amd/display/modules/power/power_abm.c b/drivers/gpu/drm/amd/display/modules/power/power_abm.c
-index 60930d969b9b..a5077b43837f 100644
+index 5e86889eaa84..60930d969b9b 100644
 --- a/drivers/gpu/drm/amd/display/modules/power/power_abm.c
 +++ b/drivers/gpu/drm/amd/display/modules/power/power_abm.c
-@@ -1166,6 +1166,71 @@ bool mod_power_set_backlight_percent(struct mod_power *mod_power,
- 			&backlight_level_params, panel_inst);
- }
+@@ -374,6 +374,22 @@ static unsigned int backlight_pwm_to_millipercent_legacy(
+ 	if (core_power == NULL)
+ 		return 0;
  
-+/* AMD AUX takes nits only when the panel's AUX backlight control is on,
-+ * which DC turns on for OLED and for HDR. Otherwise the panel follows PWM.
-+ */
-+static bool backlight_takes_nits(const struct dc_link *link, bool is_hdr)
-+{
-+	switch (link->backlight_control_type) {
-+	case BACKLIGHT_CONTROL_VESA_AUX:
-+		return true;
-+	case BACKLIGHT_CONTROL_AMD_AUX:
-+		return link->dpcd_sink_ext_caps.bits.oled || is_hdr;
-+	default:
-+		return false;
++	/* Inverse of the LUT bypass in backlight_millipercent_to_pwm_legacy() */
++	if (core_power->bl_prop[inst].use_linear_backlight_curve) {
++		const struct pwr_backlight_properties *bl_prop = &core_power->bl_prop[inst];
++
++		if (pwm <= bl_prop->min_backlight_pwm)
++			return 0;
++
++		if (pwm >= bl_prop->max_backlight_pwm)
++			return BACKLIGHT_MILLIPERCENT_MAX;
++
++		return (unsigned int)div_u64(
++				(unsigned long long)(pwm - bl_prop->min_backlight_pwm) *
++				BACKLIGHT_MILLIPERCENT_MAX + bl_prop->backlight_range / 2,
++				bl_prop->backlight_range);
 +	}
-+}
 +
-+/* Sets the brightness as a percentage, whatever the backlight control type.
-+ * When the panel takes nits, the percentage maps linearly to
-+ * [min_brightness_millinits, max_brightness_millinits] with
-+ * aux_brightness_mask ORed in. Otherwise it maps to PWM through the
-+ * backlight LUT.
-+ */
-+bool mod_power_set_brightness(struct mod_power *mod_power,
-+		struct dc_stream_state *stream,
-+		unsigned int backlight_millipercent,
-+		unsigned int transition_time_millisec,
-+		unsigned int aux_brightness_mask,
-+		bool is_hdr)
-+{
-+	struct core_power *core_power = NULL;
-+	const struct dc_link *link = NULL;
-+	unsigned int backlight_millinit;
-+	unsigned int panel_inst = 0;
-+
-+	if (mod_power == NULL || stream == NULL)
-+		return false;
-+
-+	core_power = MOD_POWER_TO_CORE(mod_power);
-+	link = dc_stream_get_link(stream);
-+
-+	if (!dc_get_edp_link_panel_inst(core_power->dc, link, &panel_inst))
-+		return false;
-+
-+	if (backlight_millipercent > BACKLIGHT_MILLIPERCENT_MAX)
-+		backlight_millipercent = BACKLIGHT_MILLIPERCENT_MAX;
-+
-+	core_power->bl_state[panel_inst].isHDR = is_hdr;
-+
-+	if (!backlight_takes_nits(link, is_hdr))
-+		return mod_power_set_backlight_percent(mod_power, stream,
-+				backlight_millipercent, transition_time_millisec, is_hdr);
-+
-+	backlight_millinit = backlight_millipercent_to_millinit_legacy(
-+			core_power, backlight_millipercent, panel_inst) |
-+			aux_brightness_mask;
-+
-+	if (!mod_power_set_backlight_nits(mod_power, stream, backlight_millinit,
-+			transition_time_millisec, false, is_hdr))
-+		return false;
-+
-+	/* mod_power_set_backlight_nits() caches the percent read back from nits */
-+	core_power->bl_state[panel_inst].backlight_millipercent = backlight_millipercent;
-+
-+	return true;
-+}
-+
- void mod_power_update_backlight(struct mod_power *mod_power,
- 		struct dc_stream_state *stream,
- 		unsigned int backlight_millipercent)
+ 	if (!core_power->bl_prop[inst].backlight_caps_valid)
+ 		return 0;
+ 
+@@ -529,7 +545,7 @@ static unsigned int backlight_millipercent_to_pwm_legacy(
+ 		return 0;
+ 
+ 	// Bypass the brightness mapping LUT
+-	if (core_power->bl_prop->use_linear_backlight_curve) {
++	if (core_power->bl_prop[inst].use_linear_backlight_curve) {
+ 		pwm = core_power->bl_prop[inst].min_backlight_pwm +
+ 			(unsigned int) div_u64((unsigned long long) millipercent *
+ 			core_power->bl_prop[inst].backlight_range,
 -- 
 2.43.0
 
