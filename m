@@ -2,127 +2,120 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D21E606A323
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 20:16:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE625606A322
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 20:21:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=3zKGyt2O
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=h4WMj/rt
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF83E10F437;
-	Mon, 16 Nov 2026 20:16:34 +0000 (UTC)
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013034.outbound.protection.outlook.com
- [40.93.196.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE0A210F437
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Nov 2026 20:16:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 724E010F43B;
+	Mon, 16 Nov 2026 20:21:54 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011050.outbound.protection.outlook.com [40.107.208.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34A9D10F43B
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Nov 2026 20:21:47 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=O+6/B0MuqZ+k5KFYx/phz7VdlQqyFzPKqChb8SDzKWz1hW/iwwav68GUG4SjJKAzaS6CG4QJvy0x/yOnopSTjR1e6KYyRgvZ2cox+BmLQ7jXnZ8fGuzEq+nXWylL2TJ81Q6zGDQl2mAaVBWxlqY8IWV3k3HGgulDU6/658y2PLet0kJB9qkyj5lkMtigKPRNZaE9KPT/5XSLcleZgOdH6kwg+xtZyQqnLIiOhDFs3pvjpKw3J9xahz+V+mTLYiCbtGijZ4Q8jh7/dAGYOgW+oWOCl4cBICb++KkYbVM3rmYtzv2d26JWB/hueiCF4/xeUgj/EJmPN9Dxr++3k9exRw==
+ b=V7GyW1VK27II1eljgderZOz3l+2EdRczPhpHvzyZQu3ue8r7l7xJUluop4XZYIx7jcStlywswBBgJ+pUYeSJsdLERpj8KhrPwio5dz3VkLqTnOejbvwIvHP4GgM1O5SJTVMHI0Qk5FNSLyVcZt02Hv65U5ms3jwUGo0/aCQ1t6FlPOqbRUAtNUcrY/Jn9EKvbn2VoH9MZjh0Uxc3Z6ld3wcTsIuM2Ep6Gw2zQ0QbavvojJlQ4bAE9uRPxIMklwC9wIneTN7vqDw7jEYo3NnYuFA2MDdr1wHjlxfdJa1OE6STJMUw+u/WXEXbe50ZEu65wHC1mgRJknN47i1kb1+nEQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OlWlHxmEHG1lktUkGtPe4spTfBU8PE3UYzLdOTYqavM=;
- b=W6DuWDBkQ+gcdypeD8dr9ywaAtOwventFGOKJ4Ry/uwCGn/c5aPUmON9NBCkYzgU5hOI/+W5MJ4IdrGXLikIdSFda5CNXI5RgkeH0yUiYh0iHYEuzH/eZQqdTZGDFpBrrIahQM0EQMGe0I3UNuxmvngE0oY34+SEAv76Ih7l0y8GlC1n/Y2wtSmRel2l+yilM0vAZx73yBq/vKI0gKyCs4umDaechIYeZ+vtPsAfFAgGhRWgw4pVIEg4g8xDPmj01LXJNLPI8n7MNaS9Xr/O8cewwPyTJFXbkwMkdhqDgCzF3pTtx4FhFdVxxzfasst7/kXRRDd8eOQG37D84rdbXQ==
+ bh=iEuOBccp9OqkqdKC9dTDJ9K2vhSbX1W7rw1kc6TkEBQ=;
+ b=G5/BX7pTH9Fc4ShY1CzgU6zFhfVZWnu9JL+gYjeYWMM4yz9J1KVmQ9DCcsLst1S5cIxsIw84x3h7+vckMGk/Pr+UtKXCBqT80v4jf6LIoGd9Ku++ZxkQUA/hHIa1aCViw45vDA2adxLYnXVS5ITh/GYKipa9Btl1sLyxmK8RejAyjff/rz7saPQ0N8Mw6A15D0v4eOaLFhiDu28alE74QUwXbk21xPDr1RRWCuQl2+51Nqi8OKveR6RuFwhPCl8ih9zbi2sEB0tr0g8K9W/V8yDkgVOs90xzdjD9oLJOGlLVLcyC6vRPtgPNwMx2fO4d6SSAcjgKEGyD2H/3Dpaudg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OlWlHxmEHG1lktUkGtPe4spTfBU8PE3UYzLdOTYqavM=;
- b=3zKGyt2O/Rks6Tkjk2JdG362TknbCb68WJ1TMAsX5G/IIeLVSEGG2aPAfy3RdiWJi9Qt4Wxvs7N4sbFf6q27Yf8EBOEtUgCn3nW4UevaKstg9AoZeubT4D+lN9Y5uWzAIL3/zR8NbL3jrGzJZ8U/uQlLDOf4rvbtE+M5wok2YYE=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
+ bh=iEuOBccp9OqkqdKC9dTDJ9K2vhSbX1W7rw1kc6TkEBQ=;
+ b=h4WMj/rt5OsV+Hf1mnhb2UmiAKaLpMu04vFbTK3dvLPb6BsHdVasfcaGHs3+d+nQZQm2EUhwEiUKlkgrDwg33ZiXYdhMMda/rVWEI+gjBQjZTwRwEJNkNV4Zr5uX7F0NRxwPHQJUW4O9p8CBDLNkJd6mXVQaWwj+De2RlfF66MA=
 Received: from DSVPR12MB449095.namprd12.prod.outlook.com (2603:10b6:8:4fe::22)
- by SJ0PR12MB6710.namprd12.prod.outlook.com (2603:10b6:a03:44c::7)
+ by DS4PR12MB534619.namprd12.prod.outlook.com (2603:10b6:8:50a::16)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 20:13:21 +0000
+ 2026 20:21:43 +0000
 Received: from DSVPR12MB449095.namprd12.prod.outlook.com
  ([fe80::76a6:7a4f:a0a5:18c0]) by DSVPR12MB449095.namprd12.prod.outlook.com
  ([fe80::76a6:7a4f:a0a5:18c0%4]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
- 20:13:17 +0000
-Message-ID: <0666ff8f-113a-429f-9540-d34b16795e1d@amd.com>
-Date: Mon, 16 Nov 2026 15:13:15 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/5] drm/amdgpu: bring back the ring parameter for
- update_spm_vmid()
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Vitaly Prosyak <vitaly.prosyak@amd.com>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Sunil Khatri <sunil.khatri@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-References: <20261116165713.1945549-1-alexander.deucher@amd.com>
- <20261116165713.1945549-5-alexander.deucher@amd.com>
+ 20:21:43 +0000
+From: "Prosyak, Vitaly" <Vitaly.Prosyak@amd.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Subject: Re: amd-gfx Digest, Vol 126, Issue 488
+Thread-Topic: amd-gfx Digest, Vol 126, Issue 488
+Thread-Index: AQHddf5teS6Ku7gje0+IWeqcRoqTiLcxI8UM
+Date: Mon, 16 Nov 2026 20:21:43 +0000
+Message-ID: <DSVPR12MB4490959E38A5265F79E9EDAB80817C2@DSVPR12MB449095.namprd12.prod.outlook.com>
+References: <mailman.24703.1794856330.6452.amd-gfx@lists.freedesktop.org>
+In-Reply-To: <mailman.24703.1794856330.6452.amd-gfx@lists.freedesktop.org>
+Accept-Language: en-US
 Content-Language: en-US
-From: vitaly prosyak <vprosyak@amd.com>
-In-Reply-To: <20261116165713.1945549-5-alexander.deucher@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQZPR01CA0156.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:8c::28) To DSVPR12MB449095.namprd12.prod.outlook.com
- (2603:10b6:8:4fe::22)
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-11-16T20:21:42.917Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
+ General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=1;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard; 
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DSVPR12MB449095:EE_|DS4PR12MB534619:EE_
+x-ms-office365-filtering-correlation-id: 4c271893-23cb-42e8-1f85-08df441f3b0a
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|6049299003|376014|23010399003|366016|1800799024|38070700021|10067099003|11063799006|56012099006|261026140227099003|261028144727099003|261022105027099003|261021121427099003|261021123027099003|261102123227099003|261009223027099003|18002099003|22082099003|8096899003|4053099003|4013099003|13003099007;
+x-microsoft-antispam-message-info: qQNDbA5QssGtUkyUA/hOf7EsSr6ryaJH5DO2ImERhrGfTkYHmSLic1300Wxp1ICTJS9wHCqAh8cGa7AC9atJ4qLaTB1/6hZ6CK9VTzgwX9trAX5XSvfRUOsBdiRhRRbelJZ3OYp6RhIKfEXP8JzdnCk+jPns22x8OS3s4QsEMQKelbiuveNEn0ycbR7a4MC3qnkaGMyu6u//KF/EBZTHK96LsL6Ukr0LtGCX6yewa2YlZGv2QachwTibxcWCPUWH7WAepwVyIBQW7sMOse4boud3tjTFPvXuuASKZOdZ1zNObiU/rfyqge501ZEaOxxm6F/P9zvMlpjcOhQN1rW3Totbn5dBZTcD2YPtDDCEtrwXpTADotf2L1OyeVJgGnM0SM0Ggo22EOh3kXRhKAzlCa7LuL+J4yUtKVDCOVkQNSiRhuJyZ1IDjzmeF3cqrkdfAIjL3Pk+hAN2BzbvIynU4wdrWKfjbxS1fr1vm76GGG9VisQDUxboMOY4Vtt3UOwUlidRn8wbtURIO6m6eJxS8bXMO2SE31NZXGt27/57zrEIiJXFSN6NH/OKtYzf2+Tb8lajGS6SfnCLzW+tlCmNILvLXW9eLZUq6CY+H2QJT5MGE0WtwFmkwtLNOmToUw4lghuJgEehpm90U/womYOe1NAGU9GMtx2dNi4Ek9iz8aF42ItQt1tmuZ1OQJK+UGiv
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DSVPR12MB449095.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(6049299003)(376014)(23010399003)(366016)(1800799024)(38070700021)(10067099003)(11063799006)(56012099006)(261026140227099003)(261028144727099003)(261022105027099003)(261021121427099003)(261021123027099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(8096899003)(4053099003)(4013099003)(13003099007);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?imr4Tb4ZPQrH1VxzOMQBuZi3Rhda0hT/RJNnCN75/hF8NDhG/wbcT8L1au?=
+ =?iso-8859-1?Q?velIu8yFTq4LLzpRGwYYihgRq+4m4S6cHuDpUN5WcVUVt5xFDuDHNsE5Ga?=
+ =?iso-8859-1?Q?KkIghRcjmUXvdWpxctWPqYQKukSfKuF6i1qipdAXFTq6RTZNFw/DSOt2kQ?=
+ =?iso-8859-1?Q?ohARafA6fNt+4iVwCn5l2i05+qvwkyaQKKt8hPIBbfFObXkReiwTe56bPH?=
+ =?iso-8859-1?Q?Lyen52pYbP5RiX21VbJ3ouZWahp+cY9BSdvy49XO+xHTENLNvAeit5OoEv?=
+ =?iso-8859-1?Q?hnpE+I65bzndPfMV8DfpAT66tCay89ETtMpTWKc7Qd8JimfX2anx1QXFHo?=
+ =?iso-8859-1?Q?AgWK7gx0EwdIJukphDhsXlfKYWTw1fk3gk3j/VQW8tEQGe2d+cI5wHG/ZV?=
+ =?iso-8859-1?Q?O2PhyyhnnpCDQTOn+bruedjgIjNmxDNllWlbMBDv8HqH5a8Lt4h/MSMUfb?=
+ =?iso-8859-1?Q?rsomcgk/6X4ONofP7Eq8wRpjFIaiP7VKC2ZEiX9zIy7AfxsZwlaljLvIbr?=
+ =?iso-8859-1?Q?kddCMqNVOPI5VnnNoNOtoA7EBHrWATr7GGHzYsgnaK2O6mYp9QOptKIrHe?=
+ =?iso-8859-1?Q?vR8lts8k6wE62NdyY+zpMik3Htg4QGIqcv0h++e+fE1SKQqkXNGIFmIybB?=
+ =?iso-8859-1?Q?hhhQN2RHCDkgA06pJzNZVQe/i3w1Ruil7ar4/C6MZg3sHmvog3lPSXLCy8?=
+ =?iso-8859-1?Q?WiTR15f+S1cjVoKngMRcGYIlvh3pP+kbPth9GFqmOj2vz/NaXYgzZo2UAO?=
+ =?iso-8859-1?Q?1zUsrIO0Yj+7A7+Zqq5gg8CaWTp2WuEk6k8JpBXR9J6Ol+gLQg6RctVO6I?=
+ =?iso-8859-1?Q?Vad1s1dA6qnj+0/2E8l7C7XTJTmjGnEKy5SQMORLlfFvMZL9mg7LOlcecB?=
+ =?iso-8859-1?Q?GA2d2b5q+phxp2jNq1FZnVJlULjhGQ2Z0bHqKV8iv4sT+BLf5qN64prC6Y?=
+ =?iso-8859-1?Q?U6UjHGOCM2co9hZbIk1AN/14kJrgS6RmU4UAY+KtDb36gXoQDW9p9uhMmq?=
+ =?iso-8859-1?Q?1t79ls6hvmGvUDEJxNH7C13HSaWSCfYTNJAghU0TwN9cfI9hzJuLassXTf?=
+ =?iso-8859-1?Q?0CzIEdN1uVzQmWQO5TrqfOh4zcxNY8iEzPUFMenJhwdIlbx+mrYNh8weI/?=
+ =?iso-8859-1?Q?kUhKJSYebibiMCi7jHtqjDnlrvSPsW+yRpIrgAztCaVqpRtfGmGwfn6o1p?=
+ =?iso-8859-1?Q?tgz43CP0Vbv6oNUcQFvydtOUybFfEjZLL6neO8LWenPDZJRtgf4nfpdwws?=
+ =?iso-8859-1?Q?iwKDq7Q59rFJVh0GmplNFbneUqvFHqL0PsAuDI4GVR0kCuw9ZLidoANqq2?=
+ =?iso-8859-1?Q?rkjy/gzX9Ze3G7itv0hYnnkrDxhNh1pUVKWQP77NCnSdQ4SR9UBeIE+BN8?=
+ =?iso-8859-1?Q?LHqUfQupIwHa7yrY08TVG8Nq889ueio1V1FaO3gw80K76NUF3Xx8BFHSq4?=
+ =?iso-8859-1?Q?HU36zmJBGaLV2JFG6qpS3jyYmeGK6TxeuU+KJTyEHn18wMH0RKXSlDyI1b?=
+ =?iso-8859-1?Q?vO4Y/mlgsN+uwQQYjRv6X2dA9Yu/Go/C3qWJ/VRRhe2VFTMfYSafiGu+XL?=
+ =?iso-8859-1?Q?cQJRKGPkpwn3BgEV+aqsLSlQn4JM9w8h1gDKwBwTkN3G9q4KlL8brPfK58?=
+ =?iso-8859-1?Q?hTu/w/BxCJqQ61PvJLIXV0CFtNpzyQGXWB2skbKkBHE1Ynz9kaJng4AfTj?=
+ =?iso-8859-1?Q?NgyEyt2YkHM+jJHLQWDVp3rn3UeOWOKs+JByrCctIXKejs4I+F4zeMPVnJ?=
+ =?iso-8859-1?Q?5e+FPaA5Fi0MeNBBcjhM5q3f5BD/efUZVcX+C5L4OxE49s?=
+Content-Type: multipart/related;
+ boundary="_004_DSVPR12MB4490959E38A5265F79E9EDAB80817C2DSVPR12MB449095_";
+ type="multipart/alternative"
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DSVPR12MB449095:EE_|SJ0PR12MB6710:EE_
-X-MS-Office365-Filtering-Correlation-Id: d55e1f2c-af81-4352-bc8d-08df441e0d78
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|23010399003|4143699003|11063799006|56012099006|261022105027099003|261022075727099003|261026140227099003|261028144727099003|261026121527099003|10067099003|261021123027099003|261021121427099003|261102123227099003|261009223027099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info: rbRiTzck0GSIS/4h367Bb+J58n8KOd3xGJP8/Bvx7WIQX4wtwKhrXejwjLRuyr0Ge4q2f1bYqqv9Ndzt2qSv3skkMYlHALRgcA66bCXjjRPeeXSj6Dbaa8ALJqupLEFnK1xvN757CRPCN+QQlA3OWYcBcGeIzJilcId+KO2xFRCs0CiI109RjLq0XqnVXLGfJKRld9FZtGclnLZrGCUiCTtdLdfMSz1bBIennfqXirQbU9oB4B8G1/kkY+632YoOuuu6uAMGR6f5SrxV2sf0wFh5Pkki5ShQL9XIG8mAwz9yxPbnTpU9SJDwfezxy038VAw5q2ud73/N1x5yo0zt3EZ/89kkhXsThckwIQV18B60g8Xe7X34ipzoTRKPGlo+rLA7CPvXmN+Fbl+pCKjFzSJ72Xb/FMXfNNPtNnYQPyj6vx2KTq/Jde/zJM0A+pzn2M62yGxG6b7MObb2WJLLrKPIbQM5WzNPqu0mWbQQQHb+LJ++ULsVD/0+ZF9NLdMtI3FEb+ctheGh4hvjugZdiAOueNYoU/3BoJ1RET/uomQDiCvkXC7PC4ggd5drbwNjyKpSkdqaLCcinkCJFdum6lwRAG4FPDhs1m8Ce7+Dm3/EkjyhJsA2F9OG3uuXdUzKS5oIxoE6I3AfjIUtr+vGAOF1nD/cECTXTiZyAhKeBwk=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DSVPR12MB449095.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(4143699003)(11063799006)(56012099006)(261022105027099003)(261022075727099003)(261026140227099003)(261028144727099003)(261026121527099003)(10067099003)(261021123027099003)(261021121427099003)(261102123227099003)(261009223027099003)(22082099003)(18002099003)(6133799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a3JnNWdaWllIbGdzakpyOTVUNUE4WTYrbHl6Q1o0VDJzTCtibnE0T2w3TWF1?=
- =?utf-8?B?MlpzalViakR0YnFlWGRXTGwwb1RaMG5pVnVpNXlNMHdIUG9JUmhuYjU2bnBS?=
- =?utf-8?B?ZXpIaVRMdVRrMkkzdmhhNHlFTFY4K0RFanFsWWVWelJZbSs0VFdPYjFjUFA2?=
- =?utf-8?B?V1RPd2dIaGhTWk41QldOZWpvRDh5SDQrYXRCcXpwOWRGRTNlYldqZFNGaDl2?=
- =?utf-8?B?dnkyc21qRmNaSi9uTjdmcnAyQzZkNU0vdVdYYU5EOXRSYXdGUVFycE12ejNK?=
- =?utf-8?B?VU40NnNva1lWTmo0QmdiMWJQNklFN2UzM0JKUVNkaGNiWWpqdWNodlEvZWJS?=
- =?utf-8?B?ejIwdE13VkIybnVyb2F5OGU0LzdMMFlPMW5ZYllvODB1SWY0amNsOGJCYis3?=
- =?utf-8?B?UUNHZzlpODY4c3NJbW1YTUtvb3dUclN4SzBxd2p2d2JCeldqTG9weXRNMW1u?=
- =?utf-8?B?UnVCUkVIMlc5UmFTMmptWjUwckRKL3BZQ1lTTVUzM3pacGRQYlJNd0JsQVkx?=
- =?utf-8?B?cFBFa3RGQnNDaDRyMXJkbzVqRUdwZllySGNERXQzWURJNkJOWEkyeWdDckkr?=
- =?utf-8?B?OVNIZHVpaEtUSkZWOFRqRVlGTG1zdEV4a2xEOUs5SGtqendwV1N3dGNrRzhW?=
- =?utf-8?B?cUhLS0VCVGVucjR2YVg5N1ZRWUxhb1lFNmhSV3EySHNKQkdwUkxSSm1mS0Q0?=
- =?utf-8?B?RngwKzRLcEQxS1FMSnY0Wm52TTNNTmVSVHk2a3ZZejZxaVN2YU9abGgwamFN?=
- =?utf-8?B?V04wZzVRVkUwZGkzWmpENWZMUnpLUTJHZGkvb0ZYM2s1SXVUNVFXaXJpSm5Y?=
- =?utf-8?B?RjFxYTlzM2JVU0NpVGZINUl4UlZkQ21zYjJvTnoyUG12SVAvMERiUUdBblp3?=
- =?utf-8?B?QlM2ckhNaG1DTHdtcVRPSnRlb2JpRGVrUmVXcWRrKy9TbHNaYmlsRzdMUExQ?=
- =?utf-8?B?N29HNDRCZUp3aTB2eEM4cmZxM050aFRraDMwU2JTYUtCcUpvVzVUUHYzK3Ny?=
- =?utf-8?B?M1ZyVEtYRVNiaDFZb3lFdVJUOG1qU0k3NDcwcjA0VDdZdHJUTDQrY3lURi9J?=
- =?utf-8?B?WTBVeVh0TEZCaWJGYm9Wei9BQWRzeUlEQ0xJVTdzTlZDRXZGanNQdTNxVmdu?=
- =?utf-8?B?NFA3Vk1pODJhanJVbkM4QStKQ21kSG1vUFcyVUtHTnJWVW1zcDFqeGpVd1gw?=
- =?utf-8?B?bFMyMUdOMEQ2MVRxQy9CaUp4dUdIWGdpS1hjNXJEOVIyNmxLbG1QVEtqN0E2?=
- =?utf-8?B?OGdXNDJxbzdWdDc2NXBTZUhJZmRvcVMyZzNveUVCUk0zdjFmTmJ4MzBIbm9q?=
- =?utf-8?B?UjJGcTR4NjVUU00rZ21lY2dtQlF6dzI0bVhlaTdWMmVPUHdHVHpnemNIOWV6?=
- =?utf-8?B?Mkp0bFZqcEo2aTdOUG5OS2JNbEdPM0lsMHQ2UXFzM1pDZnFnSUplNE9XM2hz?=
- =?utf-8?B?ZkpBbG9ycU5ZZ0xXNlREaWZ1Y2ppQ1JVaFdUNHBETU5yMU0xUXhuRXJ4TUg2?=
- =?utf-8?B?SUxpdUMwNURRZklaRGRDRThjbm0wazF1aXI5b0pnSGpYbEo0cUhzd0ZiRE53?=
- =?utf-8?B?eXZGcllzd2Y0L1Rhd0tTb3BuQ3RkQVhhLzdGUXJ0SFpySDRGTC9Ydk50cElk?=
- =?utf-8?B?V1VGQkhSTTBzMmV4Z1RaYVJXYzh3MThRZ1VNYzlRZllDRFFPSmM3MnJrZDVX?=
- =?utf-8?B?UDFmUkZMSmpzWDJhM2dEUytvVUhIRndOZmF4cGdFWlh4S3pnT2UzTHlrZlV5?=
- =?utf-8?B?U1k5dDU3aGplWVVBR3JOcWUzWGgvR3pxT1pobXc4N01ybkJReExoR0c5RFEy?=
- =?utf-8?B?d3BWdnZZYW5IWWp0VUhQMHdNclR5KzhnU0gxYmtqdWNqcDQzYUdSWEp2NitB?=
- =?utf-8?B?eVNXeTliYVhlQmtFRnk4UUlSMWNtMGRDN05rZHUxeE1KRDE5SjdzZitXMlBT?=
- =?utf-8?B?Z05Lazc5M3N0cU9tbDhFR3NydnBHYTRLeVRmRFFJeWpTV0wwVmx1NGh5MWF4?=
- =?utf-8?B?dHpnU2xoUWRaVkNhbmpzTGN6ZTNnZ0Frc3pYWWg2SEpHV1BiK3lLdk5QZHZ1?=
- =?utf-8?B?ZThvN2dia2xYaDBQSEZZOUFwTEtHeExyZ3FidU8zekgvMUc2bWE4WUdoMGli?=
- =?utf-8?B?YjJHM0Jzak9TYUNqNjNEaElveHQ5QWJQb1BKck9CbGh1TDRJUGEvRS9Mc1lN?=
- =?utf-8?B?d25NTHZJdTZDNUlFT3BtKzlwcU1MakdpdVNjWnZXaVowb1RJRGhPOW9XM3Nj?=
- =?utf-8?B?WDRLOEJVY3V2dGZRTDNoamdGcFpQc0I5WDIzcDdGT3Vkb3JZVktFY0lLRm41?=
- =?utf-8?B?M0lmZy9DOXdKSVQyYmlqcEFVNGUrc0x1c0hoc1BEcGFUOVlPcTFjQT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d55e1f2c-af81-4352-bc8d-08df441e0d78
-X-MS-Exchange-CrossTenant-AuthSource: DSVPR12MB449095.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 20:13:17.7183 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JNLUAPjFchmw8jE6FzCNIinaI0NokCH/cmcXxCnMHcgpNP83enCj9+GJuFzRo/sw615FLg58R/+vR4ZY8hYjQA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6710
+X-MS-Exchange-CrossTenant-AuthSource: DSVPR12MB449095.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4c271893-23cb-42e8-1f85-08df441f3b0a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Nov 2026 20:21:43.4306 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: UWDr1/3Nl+uJanlatKnv4PWX4fmPOUB4B8Oek3rqwB3fyHsh4Mhy6WJlqyQi2V8TlGW1K+/+X0isXWHVQwZ1SQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB534619
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,400 +126,720 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=4.0.1
+	HTML_MESSAGE,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Acked-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
+--_004_DSVPR12MB4490959E38A5265F79E9EDAB80817C2DSVPR12MB449095_
+Content-Type: multipart/alternative;
+	boundary="_000_DSVPR12MB4490959E38A5265F79E9EDAB80817C2DSVPR12MB449095_"
 
-On 2026-11-16 11:57, Alex Deucher wrote:
-> Not emitting the spm update via the ring causes CI flakiness on
-> gfx11.  Add back the SPM ring emission, but skip the MMIO path
-> if ring is specified.  Do this for all chips with gfxoff.
+--_000_DSVPR12MB4490959E38A5265F79E9EDAB80817C2DSVPR12MB449095_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+AMD General
+
+
+
+[cid:506ed06b-241f-4790-892e-ee2dacd24342]<https://outlook.office.com/bookw=
+ithme/user/5be71e58d07c492d97048217b901df8e@amd.com?anonymous&ep=3DowaSlots=
+EmailSignature>
+Book time to meet with me<https://outlook.office.com/bookwithme/user/5be71e=
+58d07c492d97048217b901df8e@amd.com?anonymous&ep=3DowaSlotsEmailSignature>
+
+________________________________
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of amd-gfx-=
+request@lists.freedesktop.org <amd-gfx-request@lists.freedesktop.org>
+Sent: Monday, November 16, 2026 2:12 PM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Subject: amd-gfx Digest, Vol 126, Issue 488
+
+
+------------------------------
+
+Message: 4
+Date: Mon, 16 Nov 2026 14:10:22 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH 4/5 v2] drm/amdgpu/gfx9.4.3: program the RLC SPM in
+        RLC resume
+Message-ID: <20261116191022.1955106-1-alexander.deucher@amd.com>
+Content-Type: text/plain
+
+The register needs to be reprogrammed after a suspend and resume
+or a GPU reset so program it in rlc_resume rather than rlc_init.
+
+v2: pass xcc_id when calling
+
+Fixes: 7c0f7ee00c7d ("drm/amdgpu: add gc v9_4_3 rlc_funcs implementation")
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+
+Acked-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/=
+amdgpu/gfx_v9_4_3.c
+index da031caa4e9e6..7b8ff043c99ec 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+@@ -1395,10 +1395,6 @@ static void gfx_v9_4_3_init_rlcg_reg_access_ctrl(str=
+uct amdgpu_device *adev)
+
+ static int gfx_v9_4_3_rlc_init(struct amdgpu_device *adev)
+ {
+-       /* init spm vmid with 0xf */
+-       if (adev->gfx.rlc.funcs->update_spm_vmid)
+-               adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, adev->vm_mana=
+ger.spm_vmid);
+-
+         return 0;
+ }
+
+@@ -1588,6 +1584,10 @@ static int gfx_v9_4_3_xcc_rlc_resume(struct amdgpu_d=
+evice *adev, int xcc_id)
+         gfx_v9_4_3_xcc_init_pg(adev, xcc_id);
+         amdgpu_gfx_rlc_exit_safe_mode(adev, xcc_id);
+
++       /* init spm vmid with 0xf */
++       if (adev->gfx.rlc.funcs->update_spm_vmid)
++               adev->gfx.rlc.funcs->update_spm_vmid(adev, xcc_id, adev->vm=
+_manager.spm_vmid);
++
+         return 0;
+ }
+
+--
+2.56.1
+
+
+
+------------------------------
+
+Message: 5
+Date: Mon, 16 Nov 2026 14:11:41 -0500
+From: Kent Russell <kent.russell@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Cc: <jay.cornwall@amd.com>, Kent Russell <kent.russell@amd.com>
+Subject: [PATCH] drm/amdgpu: Disable XNACK retry on GFX12.1
+Message-ID: <20261116191141.145348-1-kent.russell@amd.com>
+Content-Type: text/plain
+
+This feature cannot be properly supported, so disable it both on the
+amdgpu side and the amdkfd side.
+
+Signed-off-by: Kent Russell <kent.russell@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c        |  7 +++++++
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c         |  5 ++---
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c       | 12 ++++++++++++
+ .../amdkfd/kfd_device_queue_manager_v12_1.c    | 18 ++++--------------
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c       |  7 +++++++
+ 5 files changed, 32 insertions(+), 17 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_gmc.c
+index 08d3ff61edcc..d0ede277aa85 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+@@ -1151,6 +1151,13 @@ void amdgpu_gmc_noretry_set(struct amdgpu_device *ad=
+ev)
+                 gmc->noretry =3D 1;
+         else
+                 gmc->noretry =3D (amdgpu_noretry =3D=3D -1) ? noretry_defa=
+ult : amdgpu_noretry;
++
++       /* XNACK cannot be enabled on GFX12.1, so keep noretry=3D1 */
++       if (gc_ver =3D=3D IP_VERSION(12, 1, 0)) {
++               if (amdgpu_noretry =3D=3D 0)
++                       dev_warn(adev->dev, "Unable to set noretry =3D 0 on=
+ GFX12.1. Keeping noretry =3D 1");
++               gmc->noretry =3D 1;
++       }
+ }
+
+ void amdgpu_gmc_set_vm_fault_masks(struct amdgpu_device *adev, int hub_typ=
+e,
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c b/drivers/gpu/drm/amd/a=
+mdgpu/gfx_v12_1.c
+index 1f57d0fa2c04..034cc3fd07f3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
+@@ -1518,9 +1518,8 @@ static u32 gfx_v12_1_get_sh_mem_config(struct amdgpu_=
+device *adev)
+ {
+         u32 sh_mem_config =3D DEFAULT_SH_MEM_CONFIG;
+
+-       /* GC 12.1.0 A0 requires RETRY_DISABLE in SH_MEM_CONFIG. */
+-       if (SOC_V1_0_DIE_REV_XCD(adev->rev_id) =3D=3D 0)
+-               sh_mem_config |=3D 1 << SH_MEM_CONFIG__RETRY_DISABLE__SHIFT=
+;
++       /* XNACK cannot be enabled for GFX12.1 */
++       sh_mem_config |=3D 1 << SH_MEM_CONFIG__RETRY_DISABLE__SHIFT;
+
+         return sh_mem_config;
+ }
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd=
+/amdkfd/kfd_chardev.c
+index 3d2136adb62b..3b62b9e5ecda 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -1766,6 +1766,8 @@ static int kfd_ioctl_set_xnack_mode(struct file *file=
+p,
+
+         mutex_lock(&p->mutex);
+         if (args->xnack_enabled >=3D 0) {
++               int i;
++
+                 if (!list_empty(&p->pqm.queues)) {
+                         pr_debug("Process has user queues running\n");
+                         r =3D -EBUSY;
+@@ -1780,6 +1782,16 @@ static int kfd_ioctl_set_xnack_mode(struct file *fil=
+ep,
+                         goto out_unlock;
+                 }
+
++               /* XNACK cannot be enabled for gfx12.1 */
++               for (i =3D 0; i < p->n_pdds; i++) {
++                       struct kfd_node *dev =3D p->pdds[i]->dev;
++
++                       if (KFD_GC_VERSION(dev) =3D=3D IP_VERSION(12, 1, 0)=
+) {
++                               r =3D -EPERM;
++                               goto out_unlock;
++                       }
++               }
++
+                 r =3D svm_range_switch_xnack_reserve_mem(p, args->xnack_en=
+abled);
+         } else {
+                 args->xnack_enabled =3D p->xnack_enabled;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v12_1.c b/=
+drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v12_1.c
+index 525989371378..63ba13a60b98 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v12_1.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v12_1.c
+@@ -54,7 +54,6 @@ static int update_qpd_v12_1(struct device_queue_manager *=
+dqm,
+         struct kfd_process_device *pdd;
+         struct amdgpu_device *adev =3D dqm->dev->adev;
+         struct amdgpu_vmhub *hub =3D &adev->vmhub[AMDGPU_GFXHUB(0)];
+-       bool xnack_enabled;
+
+         pdd =3D qpd_to_pdd(qpd);
+         qpd->vm_cntx_cntl =3D hub->vm_cntx_cntl;
+@@ -72,19 +71,10 @@ static int update_qpd_v12_1(struct device_queue_manager=
+ *dqm,
+                 qpd->sh_mem_ape1_base =3D 0;
+         }
+
+-       xnack_enabled =3D KFD_SUPPORT_XNACK_PER_PROCESS(dqm->dev) ?
+-                       pdd->process->xnack_enabled :
+-                       !pdd->dev->kfd->noretry;
+-
+-       if (!xnack_enabled) {
+-               qpd->sh_mem_config |=3D 1 << SH_MEM_CONFIG__RETRY_DISABLE__=
+SHIFT;
+-               qpd->vm_cntx_cntl &=3D
+-                       ~(1 << GCVM_CONTEXT0_CNTL__RETRY_PERMISSION_OR_INVA=
+LID_PAGE_FAULT__SHIFT);
+-       } else {
+-               qpd->sh_mem_config &=3D ~(1 << SH_MEM_CONFIG__RETRY_DISABLE=
+__SHIFT);
+-               qpd->vm_cntx_cntl |=3D
+-                       (1 << GCVM_CONTEXT0_CNTL__RETRY_PERMISSION_OR_INVAL=
+ID_PAGE_FAULT__SHIFT);
+-       }
++       /* XNACK cannot be enabled for gfx12.1 */
++       qpd->sh_mem_config |=3D 1 << SH_MEM_CONFIG__RETRY_DISABLE__SHIFT;
++       qpd->vm_cntx_cntl &=3D
++               ~(1 << GCVM_CONTEXT0_CNTL__RETRY_PERMISSION_OR_INVALID_PAGE=
+_FAULT__SHIFT);
+
+         qpd->sh_mem_bases =3D compute_sh_mem_bases_64bit(pdd);
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd=
+/amdkfd/kfd_process.c
+index 546721b4d59a..059e22cd7f1a 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -1670,6 +1670,13 @@ bool kfd_process_xnack_mode(struct kfd_process *p, b=
+ool supported)
+                     KFD_GC_VERSION(dev) < IP_VERSION(12, 1, 0))
+                         return false;
+
++               /* XNACK cannot be enabled on GFX12.1 . While dev->kfd->nor=
+etry
++                * should propagate this requirement, adding it explicitly =
+here
++                * will help cover any possible future reworks
++                */
++               if (KFD_GC_VERSION(dev) =3D=3D IP_VERSION(12, 1, 0))
++                       return false;
++
+                 if (dev->kfd->noretry)
+                         return false;
+         }
+--
+2.43.0
+
+
+
+------------------------------
+
+Subject: Digest Footer
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+------------------------------
+
+End of amd-gfx Digest, Vol 126, Issue 488
+*****************************************
+
+--_000_DSVPR12MB4490959E38A5265F79E9EDAB80817C2DSVPR12MB449095_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div>
+<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
+; margin-left: 5pt; font-size: 10pt;">
+AMD General</div>
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<div id=3D"Signature" class=3D"elementToProof" data-signature-name=3D"Book =
+time to meet with me">
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<table id=3D"pbpsiglinktable">
+<tbody>
+<tr>
+<td>
+<div class=3D"elementToProof"><a href=3D"https://outlook.office.com/bookwit=
+hme/user/5be71e58d07c492d97048217b901df8e@amd.com?anonymous&amp;ep=3DowaSlo=
+tsEmailSignature" id=3D"OWAaac4ba39-bdd9-2d01-4310-4fd788a3ae92" class=3D"O=
+WAAutoLink"><img size=3D"528" data-outlook-trace=3D"F:1|T:1" src=3D"cid:506=
+ed06b-241f-4790-892e-ee2dacd24342"></a></div>
+</td>
+<td></td>
+<td>
+<div class=3D"elementToProof" style=3D"color: rgb(0, 120, 212);"><a href=3D=
+"https://outlook.office.com/bookwithme/user/5be71e58d07c492d97048217b901df8=
+e@amd.com?anonymous&amp;ep=3DowaSlotsEmailSignature" id=3D"OWA3987d045-1174=
+-4be4-0734-e3ffc8e6fd20" class=3D"OWAAutoLink" style=3D"color: rgb(0, 120, =
+212); text-decoration: none;">Book
+ time to meet with me</a></div>
+</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<hr style=3D"display: inline-block; width: 98%;">
+<div id=3D"divRplyFwdMsg">
+<div style=3D"direction: ltr; font-family: Calibri, sans-serif; font-size: =
+11pt; color: rgb(0, 0, 0);">
+<b>From:</b> amd-gfx &lt;amd-gfx-bounces@lists.freedesktop.org&gt; on behal=
+f of amd-gfx-request@lists.freedesktop.org &lt;amd-gfx-request@lists.freede=
+sktop.org&gt;<br>
+<b>Sent:</b> Monday, November 16, 2026 2:12 PM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Subject:</b> amd-gfx Digest, Vol 126, Issue 488</div>
+<div style=3D"direction: ltr;">&nbsp;<span style=3D"font-size: 11pt;"><br>
+<br>
+------------------------------<br>
+<br>
+Message: 4<br>
+Date: Mon, 16 Nov 2026 14:10:22 -0500<br>
+From: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+To: &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+Cc: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+Subject: [PATCH 4/5 v2] drm/amdgpu/gfx9.4.3: program the RLC SPM in<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RLC resume<br>
+Message-ID: &lt;20261116191022.1955106-1-alexander.deucher@amd.com&gt;<br>
+Content-Type: text/plain<br>
+<br>
+The register needs to be reprogrammed after a suspend and resume<br>
+or a GPU reset so program it in rlc_resume rather than rlc_init.<br>
+<br>
+v2: pass xcc_id when calling<br>
+<br>
+Fixes: 7c0f7ee00c7d (&quot;drm/amdgpu: add gc v9_4_3 rlc_funcs implementati=
+on&quot;)<br>
+Signed-off-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;</span></div>
+<div style=3D"direction: ltr; font-size: 11pt;"><br>
+</div>
+<div style=3D"direction: ltr; font-size: 11pt;"><span style=3D"font-family:=
+ Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-s=
+erif; color: rgb(0, 0, 0);"><code>Acked-by: Vitaly Prosyak &lt;vitaly.prosy=
+ak@amd.com&gt;</code></span><br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 8 ++++----<br>
+&nbsp;1 file changed, 4 insertions(+), 4 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/=
+amdgpu/gfx_v9_4_3.c<br>
+index da031caa4e9e6..7b8ff043c99ec 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c<br>
+@@ -1395,10 +1395,6 @@ static void gfx_v9_4_3_init_rlcg_reg_access_ctrl(str=
+uct amdgpu_device *adev)<br>
+&nbsp;<br>
+&nbsp;static int gfx_v9_4_3_rlc_init(struct amdgpu_device *adev)<br>
+&nbsp;{<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* init spm vmid with 0xf */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gfx.rlc.funcs-&gt;update=
+_spm_vmid)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; adev-&gt;gfx.rlc.funcs-&gt;update_spm_vmid(adev, 0, adev-&gt;vm_=
+manager.spm_vmid);<br>
+-<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;}<br>
+&nbsp;<br>
+@@ -1588,6 +1584,10 @@ static int gfx_v9_4_3_xcc_rlc_resume(struct amdgpu_d=
+evice *adev, int xcc_id)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gfx_v9_4_3_xcc_init_pg(ade=
+v, xcc_id);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_gfx_rlc_exit_safe_m=
+ode(adev, xcc_id);<br>
+&nbsp;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* init spm vmid with 0xf */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gfx.rlc.funcs-&gt;update=
+_spm_vmid)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; adev-&gt;gfx.rlc.funcs-&gt;update_spm_vmid(adev, xcc_id, adev-&g=
+t;vm_manager.spm_vmid);<br>
++<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;}<br>
+&nbsp;<br>
+--<br>
+2.56.1<br>
+<br>
+<br>
+<br>
+------------------------------<br>
+<br>
+Message: 5<br>
+Date: Mon, 16 Nov 2026 14:11:41 -0500<br>
+From: Kent Russell &lt;kent.russell@amd.com&gt;<br>
+To: &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+Cc: &lt;jay.cornwall@amd.com&gt;, Kent Russell &lt;kent.russell@amd.com&gt;=
+<br>
+Subject: [PATCH] drm/amdgpu: Disable XNACK retry on GFX12.1<br>
+Message-ID: &lt;20261116191141.145348-1-kent.russell@amd.com&gt;<br>
+Content-Type: text/plain<br>
+<br>
+This feature cannot be properly supported, so disable it both on the<br>
+amdgpu side and the amdkfd side.<br>
+<br>
+Signed-off-by: Kent Russell &lt;kent.russell@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; |&nbsp; 7 +++++++<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp; |&nbsp; 5 ++---<br>
+&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_chardev.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; | 12 ++++++++++++<br>
+&nbsp;.../amdkfd/kfd_device_queue_manager_v12_1.c&nbsp;&nbsp;&nbsp; | 18 ++=
+++--------------<br>
+&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_process.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; |&nbsp; 7 +++++++<br>
+&nbsp;5 files changed, 32 insertions(+), 17 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_gmc.c<br>
+index 08d3ff61edcc..d0ede277aa85 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c<br>
+@@ -1151,6 +1151,13 @@ void amdgpu_gmc_noretry_set(struct amdgpu_device *ad=
+ev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; gmc-&gt;noretry =3D 1;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; gmc-&gt;noretry =3D (amdgpu_noretry =3D=3D -1) ? nore=
+try_default : amdgpu_noretry;<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* XNACK cannot be enabled on GFX12.1=
+, so keep noretry=3D1 */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (gc_ver =3D=3D IP_VERSION(12, 1, 0=
+)) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (amdgpu_noretry =3D=3D 0)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_warn(adev-&g=
+t;dev, &quot;Unable to set noretry =3D 0 on GFX12.1. Keeping noretry =3D 1&=
+quot;);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; gmc-&gt;noretry =3D 1;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;}<br>
+&nbsp;<br>
+&nbsp;void amdgpu_gmc_set_vm_fault_masks(struct amdgpu_device *adev, int hu=
+b_type,<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c b/drivers/gpu/drm/amd/a=
+mdgpu/gfx_v12_1.c<br>
+index 1f57d0fa2c04..034cc3fd07f3 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c<br>
+@@ -1518,9 +1518,8 @@ static u32 gfx_v12_1_get_sh_mem_config(struct amdgpu_=
+device *adev)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 sh_mem_config =3D DEFA=
+ULT_SH_MEM_CONFIG;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* GC 12.1.0 A0 requires RETRY_DISABL=
+E in SH_MEM_CONFIG. */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (SOC_V1_0_DIE_REV_XCD(adev-&gt;rev=
+_id) =3D=3D 0)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; sh_mem_config |=3D 1 &lt;&lt; SH_MEM_CONFIG__RETRY_DISABLE__SHIF=
+T;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* XNACK cannot be enabled for GFX12.=
+1 */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sh_mem_config |=3D 1 &lt;&lt; SH_MEM_=
+CONFIG__RETRY_DISABLE__SHIFT;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return sh_mem_config;<br>
+&nbsp;}<br>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd=
+/amdkfd/kfd_chardev.c<br>
+index 3d2136adb62b..3b62b9e5ecda 100644<br>
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c<br>
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c<br>
+@@ -1766,6 +1766,8 @@ static int kfd_ioctl_set_xnack_mode(struct file *file=
+p,<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;p-&gt;mute=
+x);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (args-&gt;xnack_enabled=
+ &gt;=3D 0) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; int i;<br>
++<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (!list_empty(&amp;p-&gt;pqm.queues)) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_de=
+bug(&quot;Process has user queues running\n&quot;);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D=
+ -EBUSY;<br>
+@@ -1780,6 +1782,16 @@ static int kfd_ioctl_set_xnack_mode(struct file *fil=
+ep,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto =
+out_unlock;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; /* XNACK cannot be enabled for gfx12.1 */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; for (i =3D 0; i &lt; p-&gt;n_pdds; i++) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_node =
+*dev =3D p-&gt;pdds[i]-&gt;dev;<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (KFD_GC_VERSI=
+ON(dev) =3D=3D IP_VERSION(12, 1, 0)) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D -EPERM;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto out_unlock;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; }<br>
++<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; r =3D svm_range_switch_xnack_reserve_mem(p, args-&gt;=
+xnack_enabled);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; args-&gt;xnack_enabled =3D p-&gt;xnack_enabled;<br>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v12_1.c b/=
+drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v12_1.c<br>
+index 525989371378..63ba13a60b98 100644<br>
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v12_1.c<br>
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v12_1.c<br>
+@@ -54,7 +54,6 @@ static int update_qpd_v12_1(struct device_queue_manager *=
+dqm,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_process_device =
+*pdd;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
+ =3D dqm-&gt;dev-&gt;adev;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_vmhub *hub =
+=3D &amp;adev-&gt;vmhub[AMDGPU_GFXHUB(0)];<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool xnack_enabled;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pdd =3D qpd_to_pdd(qpd);<b=
+r>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; qpd-&gt;vm_cntx_cntl =3D h=
+ub-&gt;vm_cntx_cntl;<br>
+@@ -72,19 +71,10 @@ static int update_qpd_v12_1(struct device_queue_manager=
+ *dqm,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; qpd-&gt;sh_mem_ape1_base =3D 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; xnack_enabled =3D KFD_SUPPORT_XNACK_P=
+ER_PROCESS(dqm-&gt;dev) ?<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pdd-&gt;process-=
+&gt;xnack_enabled :<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; !pdd-&gt;dev-&gt=
+;kfd-&gt;noretry;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!xnack_enabled) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; qpd-&gt;sh_mem_config |=3D 1 &lt;&lt; SH_MEM_CONFIG__RETRY_DISAB=
+LE__SHIFT;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; qpd-&gt;vm_cntx_cntl &amp;=3D<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ~(1 &lt;&lt; GCV=
+M_CONTEXT0_CNTL__RETRY_PERMISSION_OR_INVALID_PAGE_FAULT__SHIFT);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; qpd-&gt;sh_mem_config &amp;=3D ~(1 &lt;&lt; SH_MEM_CONFIG__RETRY=
+_DISABLE__SHIFT);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; qpd-&gt;vm_cntx_cntl |=3D<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (1 &lt;&lt; GCVM=
+_CONTEXT0_CNTL__RETRY_PERMISSION_OR_INVALID_PAGE_FAULT__SHIFT);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* XNACK cannot be enabled for gfx12.=
+1 */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; qpd-&gt;sh_mem_config |=3D 1 &lt;&lt;=
+ SH_MEM_CONFIG__RETRY_DISABLE__SHIFT;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; qpd-&gt;vm_cntx_cntl &amp;=3D<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; ~(1 &lt;&lt; GCVM_CONTEXT0_CNTL__RETRY_PERMISSION_OR_INVALID_PAG=
+E_FAULT__SHIFT);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; qpd-&gt;sh_mem_bases =3D c=
+ompute_sh_mem_bases_64bit(pdd);<br>
+&nbsp;<br>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd=
+/amdkfd/kfd_process.c<br>
+index 546721b4d59a..059e22cd7f1a 100644<br>
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c<br>
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c<br>
+@@ -1670,6 +1670,13 @@ bool kfd_process_xnack_mode(struct kfd_process *p, b=
+ool supported)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; KFD_GC_VERSION(dev) &lt; IP_V=
+ERSION(12, 1, 0))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retur=
+n false;<br>
+&nbsp;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; /* XNACK cannot be enabled on GFX12.1 . While dev-&gt;kfd-&gt;no=
+retry<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; * should propagate this requirement, adding it explicitly =
+here<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; * will help cover any possible future reworks<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (KFD_GC_VERSION(dev) =3D=3D IP_VERSION(12, 1, 0))<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return false;<br=
 >
-> v2: drop ring code in gfx 12.1.  We aren't supporting KCQs on 12.1
-> so the code is not used.
-> v3: emit via the ring for all chips with gfxoff
-> v4: skip MMIO writes when ring is non-NULL, fix ib emit size
++<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (dev-&gt;kfd-&gt;noretry)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retur=
+n false;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+--<br>
+2.43.0<br>
+<br>
+<br>
+<br>
+------------------------------<br>
+<br>
+Subject: Digest Footer<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx@lists.freedesktop.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"OW=
+A7105a83c-99bf-4256-e22e-6725de0e1833" class=3D"OWAAutoLink" data-auth=3D"N=
+otApplicable">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br=
 >
-> Cc: Vitaly Prosyak <vitaly.prosyak@amd.com>
-> Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-> Cc: Sunil Khatri <sunil.khatri@amd.com>
-> Cc: Christian König <christian.koenig@amd.com>
-> Fixes: 2fb5a4572c76 ("drm/amdgpu: remove the now-redundant runtime SPM VMID update")
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c  |  8 ++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h |  2 +-
->  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c  | 16 ++++++++++++++--
->  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 17 ++++++++++++++---
->  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c  | 18 ++++++++++++++++--
->  drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c  | 10 +++++++---
->  drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c   |  7 +++++--
->  drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c   |  8 ++++++--
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c   | 17 +++++++++++++++--
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c |  7 +++++--
->  10 files changed, 91 insertions(+), 19 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-> index f98a7c6797b3c..ae028eeacaed7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-> @@ -121,6 +121,10 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, struct amdgpu_job *job,
->  		       struct dma_fence **f)
->  {
->  	struct amdgpu_device *adev = ring->adev;
-> +	bool emit_spm_needed = adev->gfx.rlc.funcs &&
-> +		adev->gfx.rlc.funcs->update_spm_vmid &&
-> +		(ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE ||
-> +		 ring->funcs->type == AMDGPU_RING_TYPE_GFX);
->  	struct amdgpu_ib *ib;
->  	struct dma_fence *tmp = NULL;
->  	struct amdgpu_fence *af;
-> @@ -209,6 +213,10 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, struct amdgpu_job *job,
->  	if (need_pipe_sync)
->  		amdgpu_ring_emit_pipeline_sync(ring);
->  
-> +	if (emit_spm_needed)
-> +		adev->gfx.rlc.funcs->update_spm_vmid(adev, ring->xcc_id, ring,
-> +						     adev->vm_manager.spm_vmid);
-> +
->  	if (emit_gds_needed)
->  		amdgpu_ring_emit_gds_switch(ring, job->vmid, job->gds_base,
->  					    job->gds_size, job->gws_base,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
-> index e38a8ea02c520..2ae2c1d0f702b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
-> @@ -292,7 +292,7 @@ struct amdgpu_rlc_funcs {
->  	void (*reset)(struct amdgpu_device *adev);
->  	void (*start)(struct amdgpu_device *adev);
->  	void (*update_spm_vmid)(struct amdgpu_device *adev, int xcc_id,
-> -			unsigned int vmid);
-> +			struct amdgpu_ring *ring, unsigned vmid);
->  	bool (*is_rlcg_access_range)(struct amdgpu_device *adev, uint32_t reg);
->  };
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> index 7683e8a0a4380..b28dd5eaf1bbd 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> @@ -8187,8 +8187,18 @@ static void gfx_v10_0_update_spm_vmid_internal(struct amdgpu_device *adev,
->  }
->  
->  static void gfx_v10_0_update_spm_vmid(struct amdgpu_device *adev, int xcc_id,
-> -		unsigned int vmid)
-> -{
-> +		struct amdgpu_ring *ring, unsigned int vmid)
-> +{
-> +	if (ring) {
-> +		if ((ring->funcs->type == AMDGPU_RING_TYPE_GFX) ||
-> +		    (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE)) {
-> +			u32 reg = SOC15_REG_OFFSET(GC, 0, mmRLC_SPM_MC_CNTL);
-> +			u32 data = (vmid & RLC_SPM_MC_CNTL__RLC_SPM_VMID_MASK) << RLC_SPM_MC_CNTL__RLC_SPM_VMID__SHIFT;
-> +			amdgpu_ring_emit_wreg(ring, reg, data);
-> +		}
-> +		return;
-> +	}
-> +
->  	amdgpu_gfx_off_ctrl(adev, false);
->  
->  	gfx_v10_0_update_spm_vmid_internal(adev, vmid);
-> @@ -9692,6 +9702,7 @@ static const struct amdgpu_ring_funcs gfx_v10_0_ring_funcs_gfx = {
->  	.get_wptr = gfx_v10_0_ring_get_wptr_gfx,
->  	.set_wptr = gfx_v10_0_ring_set_wptr_gfx,
->  	.emit_frame_size = /* totally 242 maximum if 16 IBs */
-> +		5 + /* update_spm_vmid */
->  		5 + /* COND_EXEC */
->  		7 + /* PIPELINE_SYNC */
->  		SOC15_FLUSH_GPU_TLB_NUM_WREG * 5 +
-> @@ -9749,6 +9760,7 @@ static const struct amdgpu_ring_funcs gfx_v10_0_ring_funcs_compute = {
->  	.get_wptr = gfx_v10_0_ring_get_wptr_compute,
->  	.set_wptr = gfx_v10_0_ring_set_wptr_compute,
->  	.emit_frame_size =
-> +		5 + /* update_spm_vmid */
->  		20 + /* gfx_v10_0_ring_emit_gds_switch */
->  		7 + /* gfx_v10_0_ring_emit_hdp_flush */
->  		5 + /* hdp invalidate */
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> index 5d068a9d9c72c..c0e74e12cd15d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -363,6 +363,7 @@ static void gfx_v11_0_ring_invalidate_tlbs(struct amdgpu_ring *ring,
->  static void gfx_v11_0_set_safe_mode(struct amdgpu_device *adev, int xcc_id);
->  static void gfx_v11_0_unset_safe_mode(struct amdgpu_device *adev, int xcc_id);
->  static void gfx_v11_0_update_spm_vmid(struct amdgpu_device *adev, int xcc_id,
-> +				      struct amdgpu_ring *ring,
->  				      unsigned int vmid);
->  static void gfx_v11_0_userq_priv_fault_work(struct work_struct *work);
->  static void gfx_v11_0_update_perf_clk(struct amdgpu_device *adev,
-> @@ -2606,7 +2607,7 @@ static int gfx_v11_0_rlc_resume(struct amdgpu_device *adev)
->  	 * The RLC comes up with RLC_SPM_MC_CNTL cleared, program the SPM VMID
->  	 * once it runs, also after a GPU reset or a resume.
->  	 */
-> -	gfx_v11_0_update_spm_vmid(adev, 0, adev->vm_manager.spm_vmid);
-> +	gfx_v11_0_update_spm_vmid(adev, 0, NULL, adev->vm_manager.spm_vmid);
->  
->  	return 0;
->  }
-> @@ -5615,12 +5616,22 @@ static int gfx_v11_0_update_gfx_clock_gating(struct amdgpu_device *adev,
->  }
->  
->  static void gfx_v11_0_update_spm_vmid(struct amdgpu_device *adev, int xcc_id,
-> -		unsigned int vmid)
-> +		struct amdgpu_ring *ring, unsigned vmid)
->  {
->  	u32 reg, pre_data, data;
->  
-> -	amdgpu_gfx_off_ctrl(adev, false);
->  	reg = SOC15_REG_OFFSET(GC, 0, regRLC_SPM_MC_CNTL);
-> +
-> +	if (ring) {
-> +	    if ((ring->funcs->type == AMDGPU_RING_TYPE_GFX) ||
-> +		(ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE)) {
-> +		    data = (vmid & RLC_SPM_MC_CNTL__RLC_SPM_VMID_MASK) << RLC_SPM_MC_CNTL__RLC_SPM_VMID__SHIFT;
-> +		    amdgpu_ring_emit_wreg(ring, reg, data);
-> +	    }
-> +	    return;
-> +	}
-> +
-> +	amdgpu_gfx_off_ctrl(adev, false);
->  	if (amdgpu_sriov_is_pp_one_vf(adev) && !amdgpu_sriov_runtime(adev))
->  		pre_data = RREG32_NO_KIQ(reg);
->  	else
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> index df2fb09bbcd86..0c212b9a56398 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> @@ -287,6 +287,7 @@ static void gfx_v12_0_ring_invalidate_tlbs(struct amdgpu_ring *ring,
->  static void gfx_v12_0_set_safe_mode(struct amdgpu_device *adev, int xcc_id);
->  static void gfx_v12_0_unset_safe_mode(struct amdgpu_device *adev, int xcc_id);
->  static void gfx_v12_0_update_spm_vmid(struct amdgpu_device *adev, int xcc_id,
-> +				      struct amdgpu_ring *ring,
->  				      unsigned int vmid);
->  static void gfx_v12_0_userq_priv_fault_work(struct work_struct *work);
->  static void gfx_v12_0_update_perf_clk(struct amdgpu_device *adev,
-> @@ -2158,7 +2159,7 @@ static int gfx_v12_0_rlc_resume(struct amdgpu_device *adev)
->  	 * The RLC comes up with RLC_SPM_MC_CNTL cleared, program the SPM VMID
->  	 * once it runs, also after a GPU reset or a resume.
->  	 */
-> -	gfx_v12_0_update_spm_vmid(adev, 0, adev->vm_manager.spm_vmid);
-> +	gfx_v12_0_update_spm_vmid(adev, 0, NULL, adev->vm_manager.spm_vmid);
->  
->  	return 0;
->  }
-> @@ -3978,12 +3979,23 @@ static void gfx_v12_0_update_perf_clk(struct amdgpu_device *adev,
->  
->  static void gfx_v12_0_update_spm_vmid(struct amdgpu_device *adev,
->  				      int xcc_id,
-> +				      struct amdgpu_ring *ring,
->  				      unsigned vmid)
->  {
->  	u32 reg, data;
->  
-> -	amdgpu_gfx_off_ctrl(adev, false);
->  	reg = SOC15_REG_OFFSET(GC, 0, regRLC_SPM_MC_CNTL);
-> +
-> +	if (ring) {
-> +		if ((ring->funcs->type == AMDGPU_RING_TYPE_GFX) ||
-> +		    (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE)) {
-> +			data = (vmid & RLC_SPM_MC_CNTL__RLC_SPM_VMID_MASK) << RLC_SPM_MC_CNTL__RLC_SPM_VMID__SHIFT;
-> +			amdgpu_ring_emit_wreg(ring, reg, data);
-> +		}
-> +		return;
-> +	}
-> +
-> +	amdgpu_gfx_off_ctrl(adev, false);
->  	if (amdgpu_sriov_is_pp_one_vf(adev))
->  		data = RREG32_NO_KIQ(reg);
->  	else
-> @@ -5322,6 +5334,7 @@ static const struct amdgpu_ring_funcs gfx_v12_0_ring_funcs_gfx = {
->  	.get_wptr = gfx_v12_0_ring_get_wptr_gfx,
->  	.set_wptr = gfx_v12_0_ring_set_wptr_gfx,
->  	.emit_frame_size = /* totally 242 maximum if 16 IBs */
-> +		5 + /* update_spm_vmid */
->  		5 + /* COND_EXEC */
->  		7 + /* PIPELINE_SYNC */
->  		SOC15_FLUSH_GPU_TLB_NUM_WREG * 5 +
-> @@ -5369,6 +5382,7 @@ static const struct amdgpu_ring_funcs gfx_v12_0_ring_funcs_compute = {
->  	.get_wptr = gfx_v12_0_ring_get_wptr_compute,
->  	.set_wptr = gfx_v12_0_ring_set_wptr_compute,
->  	.emit_frame_size =
-> +		5 + /* update_spm_vmid */
->  		7 + /* gfx_v12_0_ring_emit_hdp_flush */
->  		5 + /* hdp invalidate */
->  		7 + /* gfx_v12_0_ring_emit_pipeline_sync */
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-> index 1f57d0fa2c044..227942e87cc8f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-> @@ -217,7 +217,7 @@ static int gfx_v12_1_init_cp_compute_microcode_bo(struct amdgpu_device *adev);
->  static void gfx_v12_1_xcc_update_medium_grain_clock_gating(
->  	struct amdgpu_device *adev, bool enable, int xcc_id, bool force);
->  static void gfx_v12_1_update_spm_vmid(struct amdgpu_device *adev, int xcc_id,
-> -				      unsigned int vmid);
-> +				      struct amdgpu_ring *ring, unsigned vmid);
->  
->  static void gfx_v12_1_wait_reg_mem(struct amdgpu_ring *ring, int eng_sel,
->  				   int mem_space, int opt, uint32_t addr0,
-> @@ -1866,7 +1866,7 @@ static int gfx_v12_1_xcc_rlc_resume(struct amdgpu_device *adev,
->  	int r;
->  
->  	/* init spm vmid with 0xf */
-> -	gfx_v12_1_update_spm_vmid(adev, xcc_id, adev->vm_manager.spm_vmid);
-> +	gfx_v12_1_update_spm_vmid(adev, xcc_id, NULL, adev->vm_manager.spm_vmid);
->  
->  	if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) {
->  		gfx_v12_1_xcc_init_csb(adev, xcc_id);
-> @@ -2945,10 +2945,14 @@ static void gfx_v12_1_update_perf_clk(struct amdgpu_device *adev,
->  
->  static void gfx_v12_1_update_spm_vmid(struct amdgpu_device *adev,
->  				      int xcc_id,
-> -				      unsigned int vmid)
-> +				      struct amdgpu_ring *ring,
-> +				      unsigned vmid)
->  {
->  	u32 reg, data;
->  
-> +	if (ring)
-> +		return;
-> +
->  	reg = SOC15_REG_OFFSET(GC, GET_INST(GC, xcc_id), regRLC_SPM_MC_CNTL);
->  	if (amdgpu_sriov_is_pp_one_vf(adev))
->  		data = RREG32_NO_KIQ(reg);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> index 58135757190c8..3c9e478d5f6e7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> @@ -3477,16 +3477,19 @@ static int gfx_v7_0_rlc_resume(struct amdgpu_device *adev)
->  
->  	/* init spm vmid with 0xf */
->  	if (adev->gfx.rlc.funcs->update_spm_vmid)
-> -		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, adev->vm_manager.spm_vmid);
-> +		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, NULL, adev->vm_manager.spm_vmid);
->  
->  	return 0;
->  }
->  
->  static void gfx_v7_0_update_spm_vmid(struct amdgpu_device *adev, int xcc_id,
-> -		unsigned int vmid)
-> +		struct amdgpu_ring *ring, unsigned vmid)
->  {
->  	u32 data;
->  
-> +	if (ring)
-> +		return;
-> +
->  	amdgpu_gfx_off_ctrl(adev, false);
->  
->  	data = RREG32(mmRLC_SPM_VMID);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> index df935827b002a..e818280139791 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> @@ -4084,7 +4084,8 @@ static int gfx_v8_0_rlc_resume(struct amdgpu_device *adev)
->  
->  	/* init spm vmid with 0xf */
->  	if (adev->gfx.rlc.funcs->update_spm_vmid)
-> -		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, adev->vm_manager.spm_vmid);
-> +		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, NULL, adev->vm_manager.spm_vmid);
-> +
->  	return 0;
->  }
->  
-> @@ -5483,10 +5484,13 @@ static void gfx_v8_0_unset_safe_mode(struct amdgpu_device *adev, int xcc_id)
->  }
->  
->  static void gfx_v8_0_update_spm_vmid(struct amdgpu_device *adev, int xcc_id,
-> -		unsigned int vmid)
-> +		struct amdgpu_ring *ring, unsigned vmid)
->  {
->  	u32 data;
->  
-> +	if (ring)
-> +		return;
-> +
->  	amdgpu_gfx_off_ctrl(adev, false);
->  
->  	if (amdgpu_sriov_is_pp_one_vf(adev))
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> index 2e2673a6dbbf5..be45c10b6f579 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> @@ -5227,8 +5227,18 @@ static void gfx_v9_0_update_spm_vmid_internal(struct amdgpu_device *adev,
->  }
->  
->  static void gfx_v9_0_update_spm_vmid(struct amdgpu_device *adev, int xcc_id,
-> -		unsigned int vmid)
-> -{
-> +		struct amdgpu_ring *ring, unsigned int vmid)
-> +{
-> +	if (ring) {
-> +		if ((ring->funcs->type == AMDGPU_RING_TYPE_GFX) ||
-> +		    (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE)) {
-> +			u32 reg = SOC15_REG_OFFSET(GC, 0, mmRLC_SPM_MC_CNTL);
-> +			u32 data = (vmid & RLC_SPM_MC_CNTL__RLC_SPM_VMID_MASK) << RLC_SPM_MC_CNTL__RLC_SPM_VMID__SHIFT;
-> +			amdgpu_ring_emit_wreg(ring, reg, data);
-> +		}
-> +		return;
-> +	}
-> +
->  	amdgpu_gfx_off_ctrl(adev, false);
->  
->  	gfx_v9_0_update_spm_vmid_internal(adev, vmid);
-> @@ -7548,6 +7558,7 @@ static const struct amdgpu_ring_funcs gfx_v9_0_ring_funcs_gfx = {
->  	.get_wptr = gfx_v9_0_ring_get_wptr_gfx,
->  	.set_wptr = gfx_v9_0_ring_set_wptr_gfx,
->  	.emit_frame_size = /* totally 242 maximum if 16 IBs */
-> +		5 + /* update_spm_vmid */
->  		5 +  /* COND_EXEC */
->  		13 +  /* PIPELINE_SYNC */
->  		SOC15_FLUSH_GPU_TLB_NUM_WREG * 5 +
-> @@ -7604,6 +7615,7 @@ static const struct amdgpu_ring_funcs gfx_v9_0_sw_ring_funcs_gfx = {
->  	.get_wptr = amdgpu_sw_ring_get_wptr_gfx,
->  	.set_wptr = amdgpu_sw_ring_set_wptr_gfx,
->  	.emit_frame_size = /* totally 242 maximum if 16 IBs */
-> +		5 + /* update_spm_vmid */
->  		5 +  /* COND_EXEC */
->  		13 +  /* PIPELINE_SYNC */
->  		SOC15_FLUSH_GPU_TLB_NUM_WREG * 5 +
-> @@ -7663,6 +7675,7 @@ static const struct amdgpu_ring_funcs gfx_v9_0_ring_funcs_compute = {
->  	.get_wptr = gfx_v9_0_ring_get_wptr_compute,
->  	.set_wptr = gfx_v9_0_ring_set_wptr_compute,
->  	.emit_frame_size =
-> +		5 + /* update_spm_vmid */
->  		20 + /* gfx_v9_0_ring_emit_gds_switch */
->  		7 + /* gfx_v9_0_ring_emit_hdp_flush */
->  		5 + /* hdp invalidate */
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> index 151336e6094f7..f28ffe8a5ac55 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> @@ -1586,7 +1586,7 @@ static int gfx_v9_4_3_xcc_rlc_resume(struct amdgpu_device *adev, int xcc_id)
->  
->  	/* init spm vmid with 0xf */
->  	if (adev->gfx.rlc.funcs->update_spm_vmid)
-> -		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, adev->vm_manager.spm_vmid);
-> +		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, NULL, adev->vm_manager.spm_vmid);
->  
->  	return 0;
->  }
-> @@ -1609,10 +1609,13 @@ static int gfx_v9_4_3_rlc_resume(struct amdgpu_device *adev)
->  }
->  
->  static void gfx_v9_4_3_update_spm_vmid(struct amdgpu_device *adev,
-> -					      int inst, unsigned int vmid)
-> +					      int inst, struct amdgpu_ring *ring, unsigned int vmid)
->  {
->  	u32 reg, pre_data, data;
->  
-> +	if (ring)
-> +		return;
-> +
->  	reg = SOC15_REG_OFFSET(GC, GET_INST(GC, inst), regRLC_SPM_MC_CNTL);
->  	if (amdgpu_sriov_is_pp_one_vf(adev) && !amdgpu_sriov_runtime(adev))
->  		pre_data = RREG32_NO_KIQ(reg);
+<br>
+<br>
+------------------------------<br>
+<br>
+End of amd-gfx Digest, Vol 126, Issue 488<br>
+*****************************************</div>
+</div>
+</body>
+</html>
+
+--_000_DSVPR12MB4490959E38A5265F79E9EDAB80817C2DSVPR12MB449095_--
+
+--_004_DSVPR12MB4490959E38A5265F79E9EDAB80817C2DSVPR12MB449095_
+Content-Type: image/png; name="image.png"
+Content-Description: image.png
+Content-Disposition: inline; filename="image.png"; size=528;
+	creation-date="Mon, 16 Nov 2026 20:20:11 GMT";
+	modification-date="Mon, 16 Nov 2026 20:20:11 GMT"
+Content-ID: <506ed06b-241f-4790-892e-ee2dacd24342>
+Content-Transfer-Encoding: base64
+
+iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAcpJREFUOE9j
+ZAABr6aJDHqhuQwMDIxgPrHg19d3DLP91Bk+P3sD08IIN2x1hjPDy7NXiDWL4T8nM0NA33wGWRMP
+hg5NJgYGhv8gvYwMFdf/MYAMu3twP9GGISssv/qLYVdzMsP5FYthBv5nmO2pyfDzzVuyDEw/eJ3h
+xNyJDEenNSMMJMskJE2Hp9YxHJ2CZOBUM1GGz5/hAUuS+UVnXjOcXDCJygbOm4TqZUpcGDJjJcPz
+S1eoYyAvrzDD58/vGRgY/iHSYcX1/wykupBXWpghe89reEbY0RjNcGHFMkQsk2pgwYkXDBz84iiR
+16EJzmWghE26C8uv/mZgZGJBM5AZ5HXyDPRo7GMwCCuEG/jj40uGCRYS5LsQpNM6q4TBOLqE4emF
+gwxrs8NRI2WynSTD19cvSErQOBQzMhSdecvw8vophqWxngQNBCWTrBMvMMIPpnF7dQQjA6+UCEP2
+3tcM//7+Zvjx8QNOQydZizFk7bvNwCepgs9iWIHKyGAYEcPALaQEUQwq3mBplQmi5siUBoa0bRcZ
+hBT18Bj4n7QSWlhGmiF19xOcBh6aVEyagSCTQEEUNf8Ag6CcFjyn/Pz8hmF9cQjDg8MHAaiKxp0e
+iZJ4AAAAAElFTkSuQmCC
+
+--_004_DSVPR12MB4490959E38A5265F79E9EDAB80817C2DSVPR12MB449095_--
