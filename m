@@ -2,45 +2,123 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0092606A8AA
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 09:45:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6759606A89A
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 09:45:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gZDD2HqH
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=OwXoCaLo
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 388AB10ED63;
-	Mon, 16 Nov 2026 09:45:07 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D87E910ED63;
- Mon, 16 Nov 2026 09:45:00 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C529762834;
- Mon, 16 Nov 2026 09:44:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 344961F000C4;
- Mon, 16 Nov 2026 09:44:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794822299;
- bh=6G0145n9dvi9pc5EU5BthwJpudqxGvPRdSxqVMDAG70=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=gZDD2HqHiYjImJQZMxylljl2f0hBJZxsnjMb20zI5K8Gy7ghsfrldtSqfLh/Kv2bU
- nmmmEKMu2ndZOlKKP5VAUEWRzBxJHKtvxOmMNgiPwcAu2NElLfESGhykudAtT47Iok
- KgOtNX/ebylSm1wBZiKjoZAOG5rbo9cBtP3NmgXVioLjxm5t+GQ6KDDMHxSHMW3Cbv
- qPzZGxvU1vJf5o5wOupTY+e+TgWunIuKjXnvPQt7+tROzfQt3smv3BjjZcEiHE7174
- Nb02HEH9yTECOgHOnHaBuP7cO2k6tya/fLkTlSSoHjCfebrgAWF0AMHTpmDIkvIWFe
- GQME/HHE8UiSA==
-Message-ID: <sashiko-outbox-216633@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 11/12] drm/atomic/uapi: Make async flips a bit more
- palatable through atomic
-To: "Ville Syrjala" <ville.syrjala@linux.intel.com>,
- dri-devel@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-In-Reply-To: <20261116091130.13950-12-ville.syrjala@linux.intel.com>
-References: <20261116091130.13950-1-ville.syrjala@linux.intel.com>
- <20261116091130.13950-12-ville.syrjala@linux.intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 16 Nov 2026 09:44:58 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 55E1F10EDFC;
+	Mon, 16 Nov 2026 09:45:22 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011024.outbound.protection.outlook.com [52.101.52.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 58B8D10EDFC
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Nov 2026 09:45:16 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=azejNQfd9Sd8VS/Uzc4yP9h15mQvyruEk96adcXM6mP+xeZSVftA3onkJZJ6s//6Tv53CvVw7QBy26GuawXpJ1OYnZETcrLhSUxOm9BtAsYITQoXE3d4NmDp566iBya56f/o759LNPZtB13eJUwVALjHvIaCqvPNSxnZhs1hERL1pR+WJmS8vCZb8wkWyUxHbZXZCC9yXS//7+7a7VHH6gC0zY9jsP7/BFeYBhpYGXcveVVmmihpfJoyie7uv/OwxpkjqNkmmAbFAqD+sv81ZWyWYiTeFK6H83K02Lw2awVJFygvLCZJ4Ut3Pcb/I8h2u7umrVDP+VfBlkQ7mrbBWw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eVojClzVXE37p9ju8AjGa8e+OgpfnC4D2P3kF8fqla8=;
+ b=oEkPm+8SKKshX4gsO13JwNH7JR2/vEG3S4SkjZU1xtD+ajjDaAl7I3HQnRC7VpKlN4n8n7XkPYExrxZuNbiKfGtr3tnuIwUx2IoOBCrbkw2wyyxrxyVpDb99M7qJbLc6JaIUTSoTUKRncJu1V/F4Z0BkgDRWri6VutrseCWVlHviGVsXcUb4trFi5xbrRc6ItKZ8Mp4kncqzrTL6qKCDlC0m0jJ0VLEKxikdUXgFMY0z1SKIehfFWdW4ZMJ0cFOKDqAyiLBGJ7KGSnfc1JimCN42eXiMOihonuNlAMShAquU3yQJ5xFHJS5B6H1E5gvTiN+D9PSKqb8yC6tXW2jcvg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eVojClzVXE37p9ju8AjGa8e+OgpfnC4D2P3kF8fqla8=;
+ b=OwXoCaLoD7WCIKUnM8jT2pzJclCAMqfw4jTycf6helF3WxtE3EYAmUWx9OzQGJpWUydEGZSP5G/bQ23dKz5Sju8io34J9Ax+dPNQY3Xgro8mNRq0zhQYL781kUuNlwciHuI6uNehygZuGj2L4o6F2EKCZ7pJi/Kp0pp4e4+XDRk=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MW5PR12MB5684.namprd12.prod.outlook.com (2603:10b6:303:1a1::21)
+ by DS0PR12MB677406.namprd12.prod.outlook.com (2603:10b6:8:4ed::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
+ 2026 09:43:12 +0000
+Received: from MW5PR12MB5684.namprd12.prod.outlook.com
+ ([fe80::f0a2:a7d9:42a8:ace6]) by MW5PR12MB5684.namprd12.prod.outlook.com
+ ([fe80::f0a2:a7d9:42a8:ace6%6]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
+ 09:43:12 +0000
+Message-ID: <d9513d3f-ad10-4c68-8897-2411a8b3dcee@amd.com>
+Date: Mon, 16 Nov 2026 10:43:06 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/7] drm/amdgpu: set the A+A VF SYSTEM bit in the GFX 12.1
+ helpers
+To: Zhigang Luo <Zhigang.Luo@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, Hawking.Zhang@amd.com, Lijo.Lazar@amd.com
+References: <20261113145702.323968-1-Zhigang.Luo@amd.com>
+ <20261113145702.323968-4-Zhigang.Luo@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261113145702.323968-4-Zhigang.Luo@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR3P281CA0189.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a4::12) To SJ0PR12MB5673.namprd12.prod.outlook.com
+ (2603:10b6:a03:42b::13)
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW5PR12MB5684:EE_|DS0PR12MB677406:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3aa5b6a7-81d7-4163-525e-08df43c60734
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|23010399003|366016|22082099003|18002099003|261009223027099003|4143699003|56012099006|11063799006|261102123227099003|261026121527099003|261021121427099003|10067099003;
+X-Microsoft-Antispam-Message-Info: nqAr3uGGfFtgCOGQO3cogvSKWFjgmxsrsDwjH+VXHQxZsWGAs+naPRxotsYXrI5WNJyNMDnO4OCPWicPLzFQoTzWrnpsRqbhV4Irp52Ls/RmIeFxi6r5xNAN9yfor+dKjyIpVuW+EXCCqOheQqs0demNWmrjnqFHQbZZ5uPIIIvghjlREuDpJtlaUgdi1XgHDzkwR8I0/2lTC4wUhOLY1gA4chDL0RCG6m7guJWcuHPtvGaFZq4F89pdUjGwXRFHeV06sbBkfdlzA0fJD2B4BXaw7NuLQHeJBsgPL2twDk1lQRZ3+El2HpLQc3E19wtpNPX5HRpOoeDpP0wVVi8UgwbFkFo/T5HSltgK7uGkSVhxH7QuCJRzKYAH7Ll7lu6MQo5qnZ77iCxRSMloPeSBuduQC8vIOXBr63zoxDd33URB35A2DDpnRRoSUp9O5CpRFiadefCeIA7iwHKG2fr0RTJZTvX6FU8Y7EsjHDRZcwbYKUHdAZSgrG4OnlGfSenlhMeIcDKUbJwl0E/MYrhyq+cCGhrUyHmWEgc2p0cWLuehmFiPaLq4Qmb5bTLpudVVRDAguf+vji0JRyE0woAFypOZm5TbZYQrOT9aA3NKHuPZW+ezOY8LTqNejikb7eZ/P7hDbpWLcCDHcglt/w9rb5AwmCWckiEk/EQNoYpOt3w=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW5PR12MB5684.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(22082099003)(18002099003)(261009223027099003)(4143699003)(56012099006)(11063799006)(261102123227099003)(261026121527099003)(261021121427099003)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TWlhZ0R4UVNjdld3SWwxelRicFpxWTJPa3Y3UU9yV1lHVCttQXVMN1ZKRlVr?=
+ =?utf-8?B?UEh2SWphck93NjVJeVFxNkp4Ryt5NklEQ25yOVNXT3BQVi81amk0eGoyTFNK?=
+ =?utf-8?B?czE2akRNUDhYcGo5NFFBK1FjRzF3U2RPcHBYMGdwMlZicG1nOXhXTkluUUFj?=
+ =?utf-8?B?cEtPbHFoZkJ5elkvOVFDK1dmNlRRaHI4SmRQYXJnS0NiVTZWYmJ3K1NYNEZy?=
+ =?utf-8?B?M3hRNGwyL25MWnB1N1dsNE1uRmE4VG5UNDVUWUhFdERiMnhJREwzTkh5OVR6?=
+ =?utf-8?B?QVNsZElubmphUzZwakJXdHZ1OG0wQnQ0SGl3bmhQQjhTbWh1dExEN2VhNk5i?=
+ =?utf-8?B?VnUxYm8rOTFqd2crYk12bXNORFJ3djBaR09tTWhpNVRLZmFCbzJGU2tPelg3?=
+ =?utf-8?B?K2dOcmVhbEE5MGgvUXVmU2ZYU2x5bXBVeGVnTENERW5GQXRRTjNwNmo0NmtV?=
+ =?utf-8?B?YVdrbmNId0l6dWlzakFrUnhsZWY5WnlVZi9WdVFYQUpvaTNNNHIxSFBZMzZH?=
+ =?utf-8?B?QTN0TDdvTnljaUUraDc2L0dYQ2V2eWNmMGxBOStmUkpnUGdQSFdRU2JETUsy?=
+ =?utf-8?B?L3RMT0RlZWVkbmFHeG9ycWdHTnY3Z2VLSHRieVFKUXFHQjdBbDB4SzFLYkh5?=
+ =?utf-8?B?YTJFRm9NdGp2SzlGN0dYS0E3TzYzTHgxWVp1ZlllN0tQV3NjRlFnSzJxaWxK?=
+ =?utf-8?B?SFhTN01yUDBJL2dDakJ3RjFNOEJLcDg2VHc5bkF5dm54OTU5c2VrWGZFY2Rn?=
+ =?utf-8?B?RWZHdHJFMGwyTXFUY3p3OFdaTmZJL095SVMxZE1jbFZOR3J0ZnJ6K0JQODg4?=
+ =?utf-8?B?NW5nZ0EzamNkdlM3bG1DTkg1MnVqSlk2RjVyeDRSeTkyK0NGSnZkUmVqZ0gy?=
+ =?utf-8?B?cEJRdm1DTkNtMmNBMGpBSlI3VXFHQ0ZiR2VWZUM2WnUrZ2xvc1JsdUQ5WGtO?=
+ =?utf-8?B?ekJQS2xOWmN2U25YSVl0NTJFbExHbFFTTEtRMG9HN2dXY0ZxU1g5Tnc3czVa?=
+ =?utf-8?B?bFNRMHgvaEcrNElVeFpXVTZvQ3N5VG1NNGdrakwvZzFiQnJvcFpFM1JjTi9h?=
+ =?utf-8?B?R21taWppUVRxd3h2dGxxeC9WWTIwRCtlSjhoTWtqRkhtZzBlcTZ6QlQ5RGh1?=
+ =?utf-8?B?VGViMWlqNmNJb01nSTBCNWJkRlRmbG9TcFo3UHUxMWhyTGRzaUQvRXhIZVhL?=
+ =?utf-8?B?Yk5PVGN2UVlrQ3ZLNXZ1VHAvVWptNFNWenpSZDVuUm80ckV0dk9aaFgrTXJR?=
+ =?utf-8?B?TTNMdHB5cjJEQ2VibEd5bWJXMGs5azdGTmxDb0ZZSDBGYm15QUkzVEw1cm10?=
+ =?utf-8?B?ckc2WXZqSUNySWJRb054enQ5bUE4UVdhUVRvdHB4L0gwcWdWZ2MxL2M1YUJE?=
+ =?utf-8?B?c0ZXKy9oUTZIWUcwdThrcFl5WVlEN0pwTHIzajk0QWl1ZnAycTBjVUpRRldK?=
+ =?utf-8?B?a29ialJtR2Z1ZGJyOWJFSW1yV1lIMjBnd0k2RjNHWGxueUtNL05HUjBBYkt0?=
+ =?utf-8?B?VWJjQXNBV1BhbU9NQmZKU3dQencyckR4WlVsZ0RjakdwdzJiZWtpQlNpbys0?=
+ =?utf-8?B?QWtsaXA5TVVyWWxGTC9UbzNlMEZJeGFmK1ZsZ0tlMDVuUnpNNzZOY3BIM0My?=
+ =?utf-8?B?UzNDaHhkV1I3ZnpRUFpRbjBhK05CQmNuL1ZhNUVWZE9jYkhEUFVMOVJmekxn?=
+ =?utf-8?B?ckQ0UVJHd25Rb2J0QUlQZkMvV3JLcDlXcXFZa0JkS244Y2pmRDNYcldWc0pl?=
+ =?utf-8?B?KzlQN3BqaWs2eGdPLzRCdVZPN3YzeEpQc1lKRXFTZkdYVmJTdzgra01KWlhT?=
+ =?utf-8?B?OUNkWVIyN09aZWo5eHpPZ09oZFZqbGdOSG5sbjlwNlFJZmVQcGNXaitOaHla?=
+ =?utf-8?B?RS9veFN5c1FJTHBiTWRoaUI2TC9iUzloREEzZUNjTjJ2TUNncm5hVk4vZ3lY?=
+ =?utf-8?B?ZjhWZTNQV2lzTTRpa2Y5K1U1UktGcmwxREZISXBJNTBtcFMyeGFLdEJPN1k0?=
+ =?utf-8?B?MWRrRmZrSmdSU1JYeWQ0V2djeE9ubW9EUEJEdVc5R3hHQ1NaVlV4TlY0WjYv?=
+ =?utf-8?B?TzZlNGpvbU8wTVQ4eXd1emM1RlYrclphdjZqZUJXREJualhoTWE1dWNTbkk4?=
+ =?utf-8?B?TGIvYW1odEFsTVRhcmdVZ2hEY2U5MER6ZUpaRlJGaDh1OFdNSmhaSjhlblcz?=
+ =?utf-8?B?RXZiMndpeFcxaWpSK1dVd2FEUVRaMG11UnBsY2dtSUdSMnd2WiswZnBEaVln?=
+ =?utf-8?B?YWNlSEF1emVFSUFDWW9wZTlZMndWaVd6M29ieW9pUmxwK01vcURNR1NoQWVh?=
+ =?utf-8?Q?f6nRuoIDGDj/s3JPJe?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3aa5b6a7-81d7-4163-525e-08df43c60734
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5673.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 09:43:12.2495 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: cExbMBnY6R0iG2FN+IwjKaukxZklzVAqne0eFgNIvddciWKIbr6DhFUjK+j1abxc
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB677406
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,161 +128,82 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [High] drm/atomic: skipping all no-op planes breaks CRTC-only async
-  flips
-- [Medium] drm/atomic: stale FB_DAMAGE_CLIPS read in
-  drm_atomic_set_property()
---
 
-commit 64d10f48b65296ed20fc62e81d5d8b357f0e8b51
-Author: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 
-drm/atomic/uapi: Make async flips a bit more palatable through atomic
-
-This commit filters out no-op property changes during atomic async flips
-in drm_atomic_set_property() before duplicating plane and connector states,
-while still adding the associated CRTCs to the commit.
-
-> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atom=
-ic_uapi.c
-> index 7517950d2e515..87181aba14514 100644
-> --- a/drivers/gpu/drm/drm_atomic_uapi.c
-> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
-
-[ ... ]
-
-> @@ -1285,16 +1326,19 @@ int drm_atomic_set_property(struct drm_atomic_com=
-mit *state,
->  		struct drm_plane_state *plane_state;
->  		struct drm_mode_config *config =3D &plane->dev->mode_config;
->  		const struct drm_plane_helper_funcs *plane_funcs =3D plane->helper_pri=
-vate;
-> -
-> -		plane_state =3D drm_atomic_get_plane_state(state, plane);
-> -		if (IS_ERR(plane_state)) {
-> -			ret =3D PTR_ERR(plane_state);
-> -			break;
-> -		}
-> +		bool is_noop =3D false;
-> =20
->  		if (async_flip) {
-> -			/* no-op changes are always allowed */
-> -			ret =3D drm_atomic_plane_get_property(plane, plane_state,
-> +			const struct drm_plane_state *current_plane_state;
+On 11/13/26 15:56, Zhigang Luo wrote:
+> gmc_v12_1_get_vm_pde() converts a VRAM MC address to a physical
+> address and skips that conversion when AMDGPU_PTE_SYSTEM is already
+> set. Set the bit after the translation so the address stays physical.
+> 
+> gmc_v12_1_get_vm_pte() sets the bit for a VRAM buffer object. SVM
+> calls it with a NULL buffer object, and svm_range_get_pte_flags()
+> sets the bit only for system memory, so the NULL case sets it for
+> SPM VRAM. NPA mappings are left unchanged.
+> 
+> v2:
+> - Set the bit for a VRAM BO inside if (bo), and for the SVM NULL BO
+>   in the else.
+> 
+> Signed-off-by: Zhigang Luo <zhigang.luo@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c b/drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c
+> index 76391fca6c62..7ac0d9c6f280 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c
+> @@ -586,6 +586,12 @@ static void gmc_v12_1_get_vm_pde(struct amdgpu_device *adev, int level,
+>  		*addr = adev->vm_manager.vram_base_offset + *addr -
+>  			adev->gmc.vram_start;
+>  
+> +	/* SPM VRAM is reached at a system physical address. Set S after the
+> +	 * translation above so that translation is not skipped.
+> +	 */
+> +	if (amdgpu_virt_vram_is_spm(adev))
+> +		*flags |= AMDGPU_PTE_SYSTEM;
 > +
-> +			current_plane_state =3D
-> +				__drm_atomic_get_current_plane_state(state, plane);
-> +			if (IS_ERR(current_plane_state)) {
-> +				ret =3D PTR_ERR(current_plane_state);
-> +				break;
-> +			}
+>  	if (*addr & ~adev->gmc.pte_addr_mask) {
+>  		dev_err(adev->dev, "Invalid PDE address: %llx\n", *addr);
+>  		*addr = 0;
+> @@ -758,6 +764,10 @@ static void gmc_v12_1_get_vm_pte(struct amdgpu_device *adev,
+>  
+>  	if (bo) {
+>  		mem = bo->tbo.resource;
+> +		if (amdgpu_virt_vram_is_spm(adev) &&
+> +		    mem && mem->mem_type == TTM_PL_VRAM)
+> +			*flags |= AMDGPU_PTE_SYSTEM;
 > +
-> +			ret =3D drm_atomic_plane_get_property(plane, current_plane_state,
->  							    prop, &old_val);
+>  		if (mem && mem->mem_type == AMDGPU_PL_NPA) {
+>  			dev_dbg(adev->dev,
+>  				"Setting PTE for NPA BO, mem->type: %d, mem->start: %lx, mem->size: %u, cur_flags: %llx\n",
+> @@ -766,6 +776,9 @@ static void gmc_v12_1_get_vm_pte(struct amdgpu_device *adev,
+>  		} else if (*flags & AMDGPU_PTE_VALID) {
+>  			gmc_v12_1_get_coherence_flags(adev, bo, flags);
+>  		}
+> +	} else if (amdgpu_virt_vram_is_spm(adev)) {
+> +		/* SVM has no BO. System memory already has S. VRAM does not. */
+> +		*flags |= AMDGPU_PTE_SYSTEM;
 
-[Severity: Medium]
-Does reading prop_fb_damage_clips from current_plane_state return the
-previous commit's damage blob ID instead of 0?
+Both SVM and PRT doesn't use a BO, so could be that this causes problems with PRT.
 
-Unlike IN_FENCE_FD (which always reports -1), drm_atomic_plane_get_property=
-()
-returns state->fb_damage_clips->base.id, and state->fb_damage_clips is only
-cleared to NULL when __drm_atomic_helper_plane_duplicate_state() duplicates
-the state for a new commit.  Before this change, drm_atomic_get_plane_state=
-()
-ran first, so old_val was always 0 on a fresh plane state.
+Please double check the VM programming guide that this is ok, if not change the code so that PRT is excluded.
 
-When current_plane_state is the un-duplicated plane->state from a previous
-commit that attached damage clips, passing FB_DAMAGE_CLIPS =3D 0 on a
-non-primary plane (such as a cursor plane) looks like a property change
-(old_val !=3D 0) and fails the async flip with -EINVAL.  Conversely, if
-userspace passes the same blob ID as the previous commit before FB_ID in the
-property list, FB_DAMAGE_CLIPS is skipped as a no-op and then wiped to NULL
-when FB_ID duplicates the plane state.
+With that done Reviewed-by: Christian König <christian.koenig@amd.com>
 
->  			if (ret)
->  				break;
-> @@ -1318,25 +1362,40 @@ int drm_atomic_set_property(struct drm_atomic_com=
-mit *state,
->  				break;
->  			}
-> =20
-> -			/*
-> -			 * FIXME this is in the wrong place. Whether to do a
-> -			 * bypass commit for async flips would is a driver
-> -			 * decision. Drivers that want this need to just do
-> -			 * these checks themselves somewhere.
-> -			 */
-> -			if (old_val !=3D prop_value && plane->type !=3D DRM_PLANE_TYPE_PRIMAR=
-Y) {
-> -				/* ask the driver if this non-primary plane is supported */
-> -				if (plane_funcs && plane_funcs->atomic_bypass_check)
-> -					ret =3D plane_funcs->atomic_bypass_check(plane, state, true);
-> -				else
-> -					ret =3D -EINVAL;
-> -
-> -				if (ret) {
-> -					drm_dbg_atomic(prop->dev,
-> -						       "[PLANE:%d:%s] does not support async flips\n",
-> -						       obj->id, plane->name);
-> -					break;
-> -				}
-> +			if (old_val =3D=3D prop_value)
-> +				is_noop =3D true;
-> +		}
-> +
-> +		/* No-op plane property changes can be fully skipped */
-> +		if (is_noop) {
-> +			ret =3D 0;
-> +			break;
-> +		}
+Regards,
+Christian.
 
-[Severity: High]
-What happens when all plane property updates in an async flip commit are
-no-ops (for example, primary plane FB_ID set to the current FB_ID)?
+>  	}
+>  }
+>  
 
-__drm_atomic_get_current_plane_state() adds the CRTC to the commit and
-set_async_flip() sets crtc_state->async_flip =3D true, but skipping all pla=
-nes
-leaves the commit with zero planes in state.
-
-On i915/xe, crtc_state->do_async_flip is only set in
-intel_plane_atomic_calc_changes(), which only runs for planes in state.
-With no planes in state, do_async_flip stays false:
-
-1. If the first async flip on a pipe is a no-op, uapi.async_flip becomes
-   true in crtc->state without switching the primary plane to minimal
-   wm0/DDB.  On the next async flip where FB_ID actually changes,
-   intel_plane_do_async_flip() sees old_crtc_state->uapi.async_flip =3D=3D =
-true
-   and sets do_async_flip =3D true, while skl_compute_wm() tries to switch =
-to
-   minimal wm0/DDB for the first time; skl_ddb_add_affected_planes() and
-   skl_wm_add_affected_planes() then reject that and all subsequent async
-   flips with -EINVAL because watermarks/DDB cannot change during an async
-   flip.
-
-2. intel_crtc_complete_noop_async_flip() from commit "drm/i915: Complete
-   no-op async flips by hand" returns early on !crtc_state->do_async_flip,
-   so a no-op async flip falls through to a vblank-waited sync commit.
-
-3. On amdgpu_dm, a commit with no planes skips pageflip event arming in
-   amdgpu_dm_commit_planes() and falls back to drm_send_event_locked() in
-   amdgpu_dm_atomic_commit_tail(), sending DRM_EVENT_FLIP_COMPLETE with a
-   zeroed sequence and timestamp.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116091130.1395=
-0-1-ville.syrjala@linux.intel.com?part=3D11
