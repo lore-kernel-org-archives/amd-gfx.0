@@ -2,124 +2,61 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6561606A31C
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Nov 2026 08:09:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 396FB606A32A
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Nov 2026 08:09:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=S3rWjZeD
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=zohomail.in header.i=@zohomail.in header.a=rsa-sha256 header.s=zoho header.b=nIizi3eZ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F171010EF9B;
-	Tue, 17 Nov 2026 08:09:32 +0000 (UTC)
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com
- [209.85.210.198])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D7D910F23D
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Nov 2026 14:26:25 +0000 (UTC)
-Received: by mail-pf1-f198.google.com with SMTP id
- d2e1a72fcca58-8b930598cf0so4840210b3a.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Nov 2026 06:26:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20260707; t=1794839184; x=1795443984;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:from:subject
- :message-id:references:mime-version:in-reply-to:date:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=Julx96UTlwUpy/yEEb6XKUMDaihQ6nHqBxqUTRWWoDs=;
- b=S3rWjZeD3jWq6NtBX9Cez4b4RhImdsZ0pn+0iplVpF32B3wZ5iMsIbbAGAhcnsHKL8
- t7HWr6d5lYwhkk7VxB0K4Lw8bgv+zUCfXPqmOhdh+YGaMZx7LXOXCJdlzl2s0/fmI6Ol
- vfp2N/IbrFz8uDm7ODDKI90r+hKNYpbgFs1UBPNK34oHlvl2H7b0wSs3MZQOZdAXza4G
- +sKCfVnOOfVIRzXlsBNBGuPVRkwy8IxZSR1IhIkdIwL8YodYCxzwJfLLVy7Sps/ekmob
- d+yEgYYf/i2ZeKEdeB9+LlO81Jt2N+vpz5mFB23HkeL5AxvkxuYYlydgfe/TBV9+KiVg
- /Dyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794839184; x=1795443984;
- h=content-transfer-encoding:content-type:cc:to:from:subject
- :message-id:references:mime-version:in-reply-to:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=Julx96UTlwUpy/yEEb6XKUMDaihQ6nHqBxqUTRWWoDs=;
- b=QchM+ynej3UFd+nOxIC9X8xi5h5t3unyjwatY+jb7yXuZF+8eComHoM5fY7QZFiSLh
- wKpNgw69E3b/YgRHpKSgxpB2QO+HUx2nQMW+IWrqG8kLwXSUz/6pbn224TQJgciPQa+O
- 40UV/JsbGbjXLNj2E/lpYEag9KcTs7Jz3I+NDc+Y1CNbiYNIGZ4cqdJwW0LU19Mh4zWB
- u3O3y6rsz3kP6Hb6zg07AfDYRmeqXqYIlDv4bqq2ylIvjR+mDxZp4S+USbOprO/izV2O
- 25UBWUo5qorPvc8OnykleJqndvU4v2u4NDveePwAdOvUvSidwNM/1JBvbWWR+OytuqlN
- QsYQ==
-X-Forwarded-Encrypted: i=1;
- AL+hErErxjCuMl2UJMmmQ9ISgfTibAmVpZaQHaL8flnXIQy+XE2Io+deeM/UbpcVbuHhsCyBwymE3zEe@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z95I49cqEDfwXuNy1xLmcFSohNTzEI+WDazyQpTBgveAH3F8gS0
- fPiWaDvGdCV8ISHzMHi+s+1VIBt0jWn8uEm/lr4BCL2W2ugC8bx1TwZX5mWd+6m+YMWupKOp0al
- XIqeb4w==
-X-Received: from pffm4-n2.prod.google.com
- ([2002:a05:6a00:c304:20b0:8a0:70d8:a2ef])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a00:4fc3:b0:89f:b166:bde6
- with SMTP id d2e1a72fcca58-8beb8cc8ad6mr9720424b3a.54.1794839183449; Mon, 16
- Nov 2026 06:26:23 -0800 (PST)
-Date: Mon, 16 Nov 2026 06:26:22 -0800
-In-Reply-To: <20261114202653.3113381-10-rdunlap@infradead.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6590010EFC1;
+	Tue, 17 Nov 2026 08:09:39 +0000 (UTC)
+Received: from sender-pp-o91.zoho.in (sender-pp-o91.zoho.in [103.117.158.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A7F310F432;
+ Mon, 16 Nov 2026 20:17:46 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1794860253; cv=none; d=zohomail.in; s=zohoarc; 
+ b=Qf4mdUrHCEhVFBJsuCmqp+3BO2XTYQ+8+rfhG8bcZokP5FtDlesum8C4mKxYsD8VAp/RTClJE+kbyEE2sf6JY4TWAI72eFddk6yXaOp5xLaGCg1lTlDc7FdCzJ7EtmYPeMBKjoBqs0nrrysZGuC+5SJP59F0obBcjFtUPRgX+sw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.in;
+ s=zohoarc; t=1794860253;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=xr+vU2Zqa/z93J8db0TarH/417S2TioNRzo32FWgIQY=; 
+ b=QihpJMzrTsa8sj0xphg8hXnpFjDi3xkish56eBG/RUvnpDBYmD92YiAoirf06hcJufNOaMgOlib1gVxFCH+2OJFgYNFzpyRSVexXGv6HSM8EN5OmcILHE/Bh7c4/AGr2CmB+8t0dcMFXOMLBECoUFatJU7nf7vrwLv5hcVNdBog=
+ARC-Authentication-Results: i=1; mx.zohomail.in;
+ dkim=pass  header.i=zohomail.in;
+ spf=pass  smtp.mailfrom=shivamkalra98@zohomail.in;
+ dmarc=pass header.from=<shivamkalra98@zohomail.in>
+DKIM-Signature: a=rsa-sha256;
+ b=nIizi3eZ2DcGoxK8k+jRLdTqWDQzzD8Glb9m0F0jIPGhDLIKQuwalRjV+6Zeu4LenrjBUk1tyjElOgxu260Pw2GLvY47GW1PEfaHVHBSzedZqZS/b1ZNlvfZ98fflidee7p6V1eln6bdktFXvGJRM0SK2YG//sXudox0SuLt0oQ=;
+ c=relaxed/relaxed; s=zoho; d=zohomail.in; v=1;
+ bh=xr+vU2Zqa/z93J8db0TarH/417S2TioNRzo32FWgIQY=;
+ h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zoho.in with SMTPS id 1794860251599240.5767861719902;
+ Tue, 17 Nov 2026 01:47:31 +0530 (IST)
+Message-ID: <39ecbbd3-8ff1-4040-9d93-1ee74dfecd69@zohomail.in>
+Date: Tue, 17 Nov 2026 01:47:30 +0530
 X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0
-References: <20261114202653.3113381-1-rdunlap@infradead.org>
- <20261114202653.3113381-10-rdunlap@infradead.org>
-Message-ID: <avsSjioXqbCOn834@seanjc-mac.roam.internal>
-Subject: Re: [PATCH 09/12] docs: ioctl-number: update virtualization entries
-From: Sean Christopherson <seanjc@google.com>
-To: Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org, 
- David Hildenbrand <david@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
- Jason Gunthorpe <jgg@nvidia.com>, Leon Romanovsky <leonro@nvidia.com>,
- linux-mm@kvack.org, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- linux-sound@vger.kernel.org, 
- Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org, 
- Marcel Holtmann <marcel@holtmann.org>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
- linux-bluetooth@vger.kernel.org, 
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
- Jason Wang <jasowangio@gmail.com>, 
- David Heidelberg <david@ixit.cz>, oe-linux-nfc@lists.linux.dev, 
- Chas Williams <3chas3@gmail.com>, linux-atm-general@lists.sourceforge.net, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- netdev@vger.kernel.org, 
- Helge Deller <deller@gmx.de>, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, MPT-FusionLinux.pdl@broadcom.com, 
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, linux-scsi@vger.kernel.org, 
- Miquel Raynal <miquel.raynal@bootlin.com>, Richard Weinberger <richard@nod.at>,
- Vignesh Raghavendra <vigneshr@ti.com>, Zhihao Cheng <chengzhihao1@huawei.com>,
- linux-mtd@lists.infradead.org, 
- Neill Kapron <nkapron@google.com>, Andrey Konovalov <andreyknvl@gmail.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org, 
- Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org, 
- Hans de Goede <hansg@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
- "Michael S. Tsirkin" <mst@redhat.com>, 
- "Eugenio =?utf-8?B?UMOpcmV6?=" <eperezma@redhat.com>,
- Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
- virtualization@lists.linux.dev, Jan Kara <jack@suse.cz>, 
- linux-fsdevel@vger.kernel.org, "Theodore Ts'o" <tytso@mit.edu>,
- linux-ext4@vger.kernel.org, 
- Mike Marshall <hubcap@omnibond.com>, devel@lists.orangefs.org, 
- Paulo Alcantara <pc@manguebit.org>, Namjae Jeon <linkinjeon@kernel.org>,
- linux-cifs@vger.kernel.org, 
- Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>, 
- linux-f2fs-devel@lists.sourceforge.net, 
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- Tzung-Bi Shih <tzungbi@kernel.org>, Benson Leung <bleung@chromium.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- "Christian =?utf-8?B?S8O2bmln?=" <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, intel-gfx@lists.freedesktop.org, 
- Matthew Brost <matthew.brost@intel.com>, 
- "Thomas =?utf-8?Q?Hellstr=C3=B6m?=" <thomas.hellstrom@linux.intel.com>,
- intel-xe@lists.freedesktop.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/amd/display: use atomic commit for panel power
+ savings
+To: Hugo Sales <hugo@hsal.es>, "Chen, Chen-Yu" <Chen-Yu.Chen@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>,
+ Mario Limonciello <mario.limonciello@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, David Weber <weber.aulendorf@gmail.com>,
+ Alex Hung <alex.hung@amd.com>
+References: <20261111-abm-sysfs-atomic-v2-1-6dfb19c51ebe@zohomail.in>
+ <ffbea2f6-c2d1-4e61-9e58-fc458d7abf0d@amd.com>
+ <1629832733.648780.1794838345723@app.mailbox.org>
+Content-Language: en-US
+From: Shivam Kalra <shivamkalra98@zohomail.in>
+In-Reply-To: <1629832733.648780.1794838345723@app.mailbox.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 X-Mailman-Approved-At: Tue, 17 Nov 2026 08:09:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -131,179 +68,21 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-23.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_IN_DEF_DKIM_WL autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-5.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Sat, Nov 14, 2026, Randy Dunlap wrote:
-> Update the list of files where virtualization ioctls are defined.
->=20
-> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-> ---
-> [Since having multiple maintainers trying to merge these would
-> cause some conflicts, it would be more manageable for Jon to
-> take all of these through the docs-next tree.]
->=20
-> Cc: Jonathan Corbet <corbet@lwn.net>
-> Cc: Shuah Khan <skhan@linuxfoundation.org>
-> Cc: linux-doc@vger.kernel.org
-> Cc: Juergen Gross <jgross@suse.com>
-> Cc: Stefano Stabellini <sstabellini@kernel.org>
-> Cc: xen-devel@lists.xenproject.org
-> Cc: Hans de Goede <hansg@kernel.org>
-> Cc: Arnd Bergmann <arnd@arndb.de>
-> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Cc: "Michael S. Tsirkin" <mst@redhat.com>
-> Cc: Jason Wang <jasowangio@gmail.com>
-> Cc: Eugenio P=C3=A9rez <eperezma@redhat.com>
-> Cc: Sean Christopherson <seanjc@google.com>
-> Cc: Paolo Bonzini <pbonzini@redhat.com>
-> Cc: kvm@vger.kernel.org
-> Cc: virtualization@lists.linux.dev
->=20
->  Documentation/userspace-api/ioctl/ioctl-number.rst |    6 ++++++
->  1 file changed, 6 insertions(+)
->=20
-> --- linux-next-20261113.orig/Documentation/userspace-api/ioctl/ioctl-numb=
-er.rst
-> +++ linux-next-20261113/Documentation/userspace-api/ioctl/ioctl-number.rs=
-t
-> @@ -200,6 +200,7 @@ Code  Seq#    Include File
->  'M'   01-03  drivers/scsi/megaraid/megaraid_sas.h
->  'M'   00-03  drivers/video/fbdev/mb862xx/mb862xxfb.h
->  'M'   00-0F  drivers/video/fsl-diu-fb.h                                c=
-onflict!
-> +'M'   01-03  xen/interface/xen-mca.h                                   c=
-onflict!
->  'N'   00-1F  drivers/usb/scanner.h
->  'N'   40-7F  uapi/linux/nvme_ioctl.h
->  'N'   80-83  uapi/linux/ntsync.h and uapi/linux/nvme_ioctl.h           c=
-onflict!
-> @@ -239,6 +240,7 @@ Code  Seq#    Include File
->  'U'   64     drivers/usb/misc/usbtest.c                                c=
-onflict!
->  'V'   all    linux/vt.h                                                c=
-onflict!
->  'V'   all    linux/videodev2.h                                         c=
-onflict!
-> +'V'   00-1F  linux/vboxguest.h                                         c=
-onflict!
->  'V'   C0     linux/ivtvfb.h                                            c=
-onflict!
->  'V'   C0     linux/ivtv.h                                              c=
-onflict!
->  'V'   C0     media/si4713.h                                            c=
-onflict!
-> @@ -357,6 +359,7 @@ Code  Seq#    Include File
->  '|'   80-9F  samples/                                                  A=
-ny sample and example drivers
->  0x80  00-1F  linux/fb.h
->  0x81  00-1F  linux/vduse.h
-> +             drivers/vdpa/vdpa_user/vduse_dev.c
->  0x89  00-07  asm-generic/sockios.h
->  0x89  06-07  linux/sockios.h
->  0x89  0B-DF  linux/sockios.h
-> @@ -398,8 +401,11 @@ Code  Seq#    Include File
->                                                                         <=
-mailto:kvm@vger.kernel.org>
->  0xAE  40-FF  linux/kvm.h                                               K=
-ernel-based Virtual Machine
->                                                                         <=
-mailto:kvm@vger.kernel.org>
-> +0xAE  C6     arch/x86/kvm/x86.c                                        X=
-86 KVM
-
-I'd rather omit this entry.  0xAE C6 is covered by the entry above, and the=
- horror
-in arch/x86/kvm/x86.c is purely a 32-bit compatibility alias for an ioctl t=
-hat is
-defined in kvm.h (the structure payload defines an pointer instead of a __u=
-64).
-
-If it's a sticking point, e.g. this will trip automated tooling over and ov=
-er, then
-I vote to move the relevant definitions to uapi headers, e.g.
-
-diff --git a/arch/x86/include/uapi/asm/kvm.h b/arch/x86/include/uapi/asm/kv=
-m.h
-index 00ce265391e1..e02ef7a39f7c 100644
---- a/arch/x86/include/uapi/asm/kvm.h
-+++ b/arch/x86/include/uapi/asm/kvm.h
-@@ -230,6 +230,18 @@ struct kvm_msr_filter {
- 	struct kvm_msr_filter_range ranges[KVM_MSR_FILTER_MAX_RANGES];
- };
-
-+struct kvm_msr_filter_range_compat {
-+	__u32 flags;
-+	__u32 nmsrs;
-+	__u32 base;
-+	__u32 bitmap;
-+};
-+
-+struct kvm_msr_filter_compat {
-+	__u32 flags;
-+	struct kvm_msr_filter_range_compat ranges[KVM_MSR_FILTER_MAX_RANGES];
-+};
-+
- struct kvm_cpuid_entry {
- 	__u32 function;
- 	__u32 eax;
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index 0771efaf94c8..ef9f92cba589 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -4260,21 +4260,6 @@ int kvm_vm_ioctl_enable_cap(struct kvm *kvm,
- }
-
- #ifdef CONFIG_KVM_COMPAT
--/* for KVM_X86_SET_MSR_FILTER */
--struct kvm_msr_filter_range_compat {
--	__u32 flags;
--	__u32 nmsrs;
--	__u32 base;
--	__u32 bitmap;
--};
--
--struct kvm_msr_filter_compat {
--	__u32 flags;
--	struct kvm_msr_filter_range_compat ranges[KVM_MSR_FILTER_MAX_RANGES];
--};
--
--#define KVM_X86_SET_MSR_FILTER_COMPAT _IOW(KVMIO, 0xc6, struct kvm_msr_fil=
-ter_compat)
--
- long kvm_arch_vm_compat_ioctl(struct file *filp, unsigned int ioctl,
- 			      unsigned long arg)
- {
-diff --git a/include/uapi/linux/kvm.h b/include/uapi/linux/kvm.h
-index 8dff2fc1972e..54dbdabd0e9b 100644
---- a/include/uapi/linux/kvm.h
-+++ b/include/uapi/linux/kvm.h
-@@ -1477,6 +1477,7 @@ struct kvm_enc_region {
-
- /* Available with KVM_CAP_X86_MSR_FILTER */
- #define KVM_X86_SET_MSR_FILTER	_IOW(KVMIO,  0xc6, struct kvm_msr_filter)
-+#define KVM_X86_SET_MSR_FILTER_COMPAT _IOW(KVMIO, 0xc6, struct kvm_msr_fil=
-ter_compat)
-
- /* Available with KVM_CAP_DIRTY_LOG_RING */
- #define KVM_RESET_DIRTY_RINGS		_IO(KVMIO, 0xc7)
-
->  0xAE  20-3F  linux/nitro_enclaves.h                                    N=
-itro Enclaves
->  0xAF  00-1F  linux/fsl_hypervisor.h                                    F=
-reescale hypervisor
-> +0xAF  00-8F  linux/vhost.h                                             c=
-onflict!
-> +0xAF  31-32  drivers/vhost/test.h                                      c=
-onflict!
->  0xB0  all                                                              R=
-ATIO devices in development:
->                                                                         <=
-mailto:vgo@ratio.de>
->  0xB1  00-1F                                                            P=
-PPoX
+On 16/11/26 19:42, Hugo Sales wrote:
+> Shivam, v3 of "Commit panel_power_savings writes from the kernel"
+> replaces the v2 Chenyu linked:
+> https://lore.kernel.org/r/20261116-abm-sysfs-commit-v3-0-7a3d84a5328e@hsal.es
+> 
+> It adds a fix for an overlay plane dropped while VRR is active, so
+> please test it on top of "Leave self-refresh before an ABM level
+> update" v2
+> 
+> Hugo
+Thanks for the update, I'll take a look.
