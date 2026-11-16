@@ -2,60 +2,102 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 097A1606A329
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 20:23:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C69E606A332
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 20:41:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G31L1HzH
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=vTI0ClFU
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CEBA10F449;
-	Mon, 16 Nov 2026 20:23:51 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8562710F442;
- Mon, 16 Nov 2026 20:23:45 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3F0ED4106F;
- Mon, 16 Nov 2026 20:23:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB6CD1F000C8;
- Mon, 16 Nov 2026 20:23:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794860625;
- bh=Z3v2Fdi5knvShxlL6luSo+yW+hrEoKkQcOMpcIN//6U=;
- h=Date:From:To:Cc:Subject:In-Reply-To;
- b=G31L1HzHZLpv7LltQKlqqdOkkjPa7E+nyJ8S3uVY5uQ3rrkZ5bY8ahACP5Xyk4Oyy
- gzT4Q0qx2+2NA25jSfMFe0gUrmkM9yADzZkEPVpXsHxLbtaDQ9+zt+sOWqLPNNtCjL
- 1tHTZiW2jk4f6FnJ7Cv8TYzGwkzw1ZHwIQZJBkb3v31BWGi/3Xzy/6K4bfDvJLDRCl
- SwDznO4D2l70OtS8BfDIr+0LPdZh+TbWbagCKZ/55u8WO2nGlPqwUya9JHRqhRgKLp
- daMN1gLJmLHuumVObY8XQI41437GxOO22Dr4wI2Qpq+0hEHIP2z8lAKYz9+F0sO8TX
- 77srtzrVxrnoQ==
-Date: Mon, 16 Nov 2026 14:23:43 -0600
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-Cc: Sebastian Zygadlo <szgit@icloud.com>,
- Yossef Osman <yossef.osman@proton.me>, Bjorn Helgaas <bhelgaas@google.com>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
- "H. Peter Anvin" <hpa@zytor.com>, Alex Deucher <alexander.deucher@amd.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Kenneth Feng <kenneth.feng@amd.com>, Hans de Goede <hansg@kernel.org>,
- Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
- Andre Eikmeyer <dev@deq.rocks>,
- "open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>,
- "open list:X86 ARCHITECTURE (32-BIT AND 64-BIT)"
- <linux-kernel@vger.kernel.org>, 
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- "open list:X86 PLATFORM DRIVERS" <platform-driver-x86@vger.kernel.org>
-Subject: Re: [PATCH v2 02/12] PCI: Disable pcie port on specific amd devices
-Message-ID: <20261116202343.GA205416@bhelgaas>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BFDB10F455;
+	Mon, 16 Nov 2026 20:41:40 +0000 (UTC)
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010052.outbound.protection.outlook.com
+ [52.101.193.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 03DB410F474
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Nov 2026 20:41:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=p1wCwDsEtbrrFw1oJKWv+iTgcM5MBFvDeuTrrnRg8X2APdYjT9Ayq9SeaRJ9/HTNtXCpYfls/ian/JnvxawUc/H2UyhlmnpB7CzQx8lZ8bH0jVi51+U3mCrySUPscRPN13Oy3xwXB0T9ruJD90onnNM2Kl5medrBwgFn/UHN0qLzYSVrWuLlaZDuSx5p7nglQ3aUFcA5/lGgGVh6ueFbQyJBKMKqaLjcCembyl/9Zc/JvjYAmwAgebNdMzxc7UOH+aO7ax+z7Kaf8VGTMT5ZCQ+WchOHCTv0q1Fi/kSOl5mePMNzgLeBhRTXc/upJwDTx3ej+eoYX3G8laqkfWUCNg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=prb0+AGi8CNCBUEgXAHnn3m6+t2wtXCMX1Nr2QgPmdw=;
+ b=Wcwt633RHHJ0YDLOPnL3Z/Ma6zCFlXBsV5vy7ErG8gKAqjr2eJ87XsiOOpPzeaGfIRa5pmib9QmryvQ/REjiRycmMlfZ0cfX9SUDCRrcOJZoSkN/eoqUNXbE6diYUBS8Ti7d6xq7cmtIo4qCa0ZGGGcmYcqfw0xEXx9Yc+TAL69YnxnPaN2N/kXe/OxLO3GsNJopGxoYPiS/FPt3eso57wkzO4bO/TZh6bDd8D03A2cdPGngTzmvQU24mLhSPSOFbh8DJSwG3d6kaNtweNrb1WvYNGF1ADpukI9TpuoktILSA+hIn85V5pTA8V2XB9jGPnreGyKqvoA13nyeNRPLAA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=prb0+AGi8CNCBUEgXAHnn3m6+t2wtXCMX1Nr2QgPmdw=;
+ b=vTI0ClFUu3gjqSXqNPub3Nfy8n4hCkdiD+zQtW3tBG/c4nXpaVMRzXqCocPSo8DIQUha5SgD5R3mbCJ4hHZuGNRyliD+e1v97D1Tt9fScuB/3N4rrfFAW2d1jtipdtYimkUnl3OLW9tumxkoqNDe7tDuSfFV8IJQMBoIWTQEC0w=
+Received: from MW4PR03CA0024.namprd03.prod.outlook.com (2603:10b6:303:8f::29)
+ by DS0PR12MB503760.namprd12.prod.outlook.com (2603:10b6:8:4ec::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
+ 2026 20:40:30 +0000
+Received: from MWH0EPF000C618B.namprd02.prod.outlook.com
+ (2603:10b6:303:8f:cafe::31) by MW4PR03CA0024.outlook.office365.com
+ (2603:10b6:303:8f::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Mon,
+ 16 Nov 2026 20:40:30 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ MWH0EPF000C618B.mail.protection.outlook.com (10.167.249.123) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Mon, 16 Nov 2026 20:40:29 +0000
+Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Mon, 16 Nov
+ 2026 14:40:28 -0600
+From: Mario Limonciello <mario.limonciello@amd.com>
+Date: Mon, 16 Nov 2026 14:40:22 -0600
+Subject: [PATCH] drm/amdgpu: drain queued scheduler jobs before suspend
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261114160457.3034-3-atharvatiwarilinuxdev@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261116-superm1-drain-submissions-v1-1-e3ffee977a28@amd.com>
+X-B4-Tracking: v=1; b=H4sIADVq+2oC/yXM0QrCMAyF4VcZuV7BbGWiryK7aNeoEVpHoiKUv
+ ftSvfzgnL+CkjApnLsKQh9WfhYD9h0s91Bu5DiZYTgMEyJOTt8rSUaXJHAxxczaTurwmLxHH+I
+ YT2D/VejK31/7Mv9t8wctrxaEbdsBCfRf630AAAA=
+X-Change-ID: 20261116-superm1-drain-submissions-17d4414ab3b9
+To: =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Logatharshan Thothiralingam
+ <Logatharshan.Thothiralingam@amd.com>, Mario Limonciello
+ <mario.limonciello@amd.com>
+X-Mailer: b4 0.15.1
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000C618B:EE_|DS0PR12MB503760:EE_
+X-MS-Office365-Filtering-Correlation-Id: d2767cb6-8273-4423-d422-08df4421da77
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|23010399003|1800799024|36860700016|82310400026|5023799004|10067099003|11063799006|56012099006|261026121527099003|261026140227099003|261028144727099003|261022075727099003|261021121427099003|261022105027099003|261102123227099003|261009223027099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info: o5foPiT877jjoGtWV/tzB/0UfFwZ6ShBDMQ7qYscgzshE+dVOI3+LeeHCQFAzZbR46PlF8U0OjluZLiWPgN24AjA3VWc+sdYiK0fwxkrcrzHprBCaFO8fmVDRGWWQxX9lYZneV7Z4pD/HPSRqIV1LI/Zl/f7ZwmdUCCSfCu4FxBy+fhjLYBI4ACAk/CGgofAKtNaBsIZzWz3EMZPoQ4o2trqjgbIOuE0fy+CzVVeHUrf2tPrysEY+c5xbboS3RicvYI78YSFX0o4CZN/UEgnOsr5CK9rvByF9sqsxvRNivrHdmRjl6vCJQbw0fuNuBeTkEiiC9nRIa/UJ0P/OHNP/6I5ISyT9nW1XTm/roroNfGheR71JEufI+ak+znJRGyyY51jRpRj6o853o+nZoXfLq85EysCBcgpNWoMW4AVLTwPsy48pg/8Eyb1Sb347Rhw6xFZFxameRl10LbV/JOXTy7zpPZkTqBlcnNtZXbAX9TDxL1dux1OH9v/GCRnp8hzZXvTIDQeRpLlGCCjwll6RAVpSK0JhBk/W9vTx2EmnQqlLSi6TQluX52nj20fjw3wG7PvAr/BxhpvMDQClxs2p29b1qbIDZw64tiVsI1zamyMY/SVajocU6ZGO7/VO9cxkfF5bE7MlLU55hXS/pqYUg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(1800799024)(36860700016)(82310400026)(5023799004)(10067099003)(11063799006)(56012099006)(261026121527099003)(261026140227099003)(261028144727099003)(261022075727099003)(261021121427099003)(261022105027099003)(261102123227099003)(261009223027099003)(18002099003)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: qJ+VCAQlYEkttkpjonPufZfgUr7c5leYdu2DzKUU1DJBRfeaZbWjGb2866KvqqcvtGAgPuj3AT22dgmnCNFQGaxqOWb7UuW0D+X7cLacuWm6GviN5Z1IInJXBtJpDMWvngtm04L66sC3TmKHYSQreZzBCf7UU+U+L7J0gAtjrkgI2k13HsWsjf66nKDnGYrQi4iakHnYEVm2DVP5+i3Qzr3Vij9piBNlvlOjL2YGGRJgsK1FRXi//gz6HU3XFv2qsw/DnQBczu/nS1nfMaQm11+kVbayHAQJALDpkD0X0wpkWxmxONUaJDviiZ/3MoFKnKabkIYe0Fd88IS7QUHMKfnIACLvYX8c5pUxBjNODS+AYCwfEUmcLvPKIiHMuD+eDj/7VOUScWtUFo5IW4Mul7N6ju7S2+7BXp5Z+U/G60d7NWRqyeamWdj+TIrKgcP5
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 20:40:29.8463 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d2767cb6-8273-4423-d422-08df4421da77
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000C618B.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB503760
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,126 +108,87 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Sat, Nov 14, 2026 at 11:03:49AM -0500, Atharva Tiwari wrote:
-> As mentioned in the previous commit, PWRD turns off the entire
-> bridge, and if we read/write anything to the config space
-> or the PCIE space when the bridge is dead, the CPU CATERR's,
-> so to avoid interaction when the bridge is dead,
-> we remove pcieport support for the bridges..
+At suspend, amdgpu_fence_driver_hw_fini() only waits for the last fence
+emitted to each ring. Jobs still queued in a scheduler entity have not
+reached run_job() yet and so have no hardware fence. Userspace is frozen
+at this point, but such jobs can become runnable later, for example once
+a dependency signals, and the scheduler then pushes them into the ring
+after the hardware wait has finished and before the IP blocks are torn
+down. On resume the ring write pointer is reset, those jobs never
+signal and the GFX ring times out and hangs.
 
-I don't know what's going on here, but it doesn't sound like typical
-PCIe behavior.  If a device is powered off, accesses to it end with
-some kind of PCIe error that is not normally fatal.
+This was observed as a rare (about 2 in 400 cycles) GFX hang on S3 resume
+on Picasso.
 
-It's basically the same thing that happens when the OS enumerates
-devices by reading the Vendor and Device IDs.  This has to work even
-if there's no device present, which is essentially the same as a
-device being powered off.
+Flush the context and VM scheduler entities of every open file
+before evicting resources, mirroring what amdgpu_flush() does on file
+close. Like for any other dma_fence there is no timeout, the wait is
+not bounded.
 
-So I'm not in favor of trying to avoid some accesses to devices based
-on DMI checks.  Even if that works, it doesn't cover other paths like
-sysfs.
+Reported-by: Logatharshan Thothiralingam <Logatharshan.Thothiralingam@amd.com>
+Closes: https://lore.kernel.org/amd-gfx/SA1SPRMB0073292C113C6B98D9282092F87F2@SA1SPRMB0073.namprd12.prod.outlook.com/
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 26 ++++++++++++++++++++++++++
+ 1 file changed, 26 insertions(+)
 
-> Tested-by: Sebastian Zygadlo <szgit@icloud.com>
-> Tested-by: Yossef Osman <yossef.osman@proton.me>
-> Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-> ---
->  arch/x86/pci/fixup.c       | 43 ++++++++++++++++++++++++++++++++++++++
->  drivers/pci/pcie/portdrv.c |  2 +-
->  include/linux/pci.h        |  1 +
->  3 files changed, 45 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/x86/pci/fixup.c b/arch/x86/pci/fixup.c
-> index 795d81c7a..b1697cc4a 100644
-> --- a/arch/x86/pci/fixup.c
-> +++ b/arch/x86/pci/fixup.c
-> @@ -1094,6 +1094,48 @@ static void asus_disable_nvme_d3cold(struct pci_dev *pdev)
->  }
->  DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, 0x9a09, asus_disable_nvme_d3cold);
->  
-> +static const struct dmi_system_id quirk_disable_pcie_port_dmi_table[] = {
-> +	{
-> +		.matches = {
-> +			DMI_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
-> +			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro15,1"),
-> +		},
-> +	},
-> +	{
-> +		.matches = {
-> +			DMI_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
-> +			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro15,3"),
-> +		},
-> +	},
-> +	{
-> +		.matches = {
-> +			DMI_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
-> +			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro16,1"),
-> +		},
-> +	},
-> +	{
-> +		.matches = {
-> +			DMI_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
-> +			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro16,4"),
-> +		},
-> +	},
-> +	{}
-> +};
-> +
-> +static void quirk_disable_pcie_port(struct pci_dev *pdev)
-> +{
-> +	struct pci_dev *upstream = pdev;
-> +
-> +	if (dmi_check_system(quirk_disable_pcie_port_dmi_table)) {
-> +		while ((upstream = pci_upstream_bridge(upstream)))
-> +			upstream->no_pcie_port = 1;
-> +	}
-> +}
-> +DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_ATI, 0x67ef, quirk_disable_pcie_port);
-> +DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_ATI, 0x69af, quirk_disable_pcie_port);
-> +DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_ATI, 0x7340, quirk_disable_pcie_port);
-> +DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_ATI, 0x7360, quirk_disable_pcie_port);
-> +
->  #ifdef CONFIG_SUSPEND
->  /*
->   * Root Ports on some AMD SoCs advertise PME_Support for D3hot and D3cold, but
-> @@ -1179,4 +1221,5 @@ static void quirk_tuxeo_rp_d3(struct pci_dev *pdev)
->  	}
->  }
->  DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_AMD, 0x1502, quirk_tuxeo_rp_d3);
-> +
->  #endif /* CONFIG_SUSPEND */
-> diff --git a/drivers/pci/pcie/portdrv.c b/drivers/pci/pcie/portdrv.c
-> index a9cbfc1d2..d2f19e566 100644
-> --- a/drivers/pci/pcie/portdrv.c
-> +++ b/drivers/pci/pcie/portdrv.c
-> @@ -688,7 +688,7 @@ static int pcie_portdrv_probe(struct pci_dev *dev,
->  	int type = pci_pcie_type(dev);
->  	int status;
->  
-> -	if (!pci_is_pcie(dev) ||
-> +	if (!pci_is_pcie(dev) || dev->no_pcie_port ||
->  	    ((type != PCI_EXP_TYPE_ROOT_PORT) &&
->  	     (type != PCI_EXP_TYPE_UPSTREAM) &&
->  	     (type != PCI_EXP_TYPE_DOWNSTREAM) &&
-> diff --git a/include/linux/pci.h b/include/linux/pci.h
-> index d31a8d107..fcb4f5893 100644
-> --- a/include/linux/pci.h
-> +++ b/include/linux/pci.h
-> @@ -420,6 +420,7 @@ struct pci_dev {
->  	unsigned int	no_d1d2:1;	/* D1 and D2 are forbidden */
->  	unsigned int	no_d3cold:1;	/* D3cold is forbidden */
->  	unsigned int	bridge_d3:1;	/* Allow D3 for bridge */
-> +	unsigned int	no_pcie_port:1; /* PCIE Port driver is forbidden */
->  	unsigned int	d3cold_allowed:1;	/* D3cold is allowed by user */
->  	unsigned int	mmio_always_on:1;	/* Disallow turning off io/mem
->  						   decoding during BAR sizing */
-> -- 
-> 2.55.0
-> 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 19a566187dfb5..d18348116d3f1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -4538,6 +4538,30 @@ void amdgpu_device_complete(struct drm_device *dev)
+ 	}
+ }
+ 
++/**
++ * amdgpu_device_flush_file_entities - drain scheduler entities of open files
++ * @adev: amdgpu device object
++ *
++ * Wait for the scheduler entities owned by all open files (the context
++ * entities used for command submission and the VM entities used for page
++ * table updates) to run out of queued jobs, so that nothing can slip into
++ * the rings after the hardware fences were waited on at suspend time.
++ */
++static void amdgpu_device_flush_file_entities(struct amdgpu_device *adev)
++{
++	struct drm_device *ddev = adev_to_drm(adev);
++	struct drm_file *file;
++
++	guard(mutex)(&ddev->filelist_mutex);
++	list_for_each_entry(file, &ddev->filelist, lhead) {
++		struct amdgpu_fpriv *fpriv = file->driver_priv;
++
++		amdgpu_ctx_mgr_entity_flush(&fpriv->ctx_mgr,
++					    MAX_SCHEDULE_TIMEOUT);
++		amdgpu_vm_wait_idle(&fpriv->vm, MAX_SCHEDULE_TIMEOUT);
++	}
++}
++
+ /**
+  * amdgpu_device_suspend - initiate device suspend
+  *
+@@ -4587,6 +4611,8 @@ int amdgpu_device_suspend(struct drm_device *dev, bool notify_clients)
+ 	if (r)
+ 		goto unwind_ip_phase1;
+ 
++	amdgpu_device_flush_file_entities(adev);
++
+ 	r = amdgpu_device_evict_resources(adev);
+ 	if (r)
+ 		goto unwind_userq;
+
+---
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+change-id: 20261116-superm1-drain-submissions-17d4414ab3b9
+
+Best regards,
+--  
+Mario Limonciello <mario.limonciello@amd.com>
+
