@@ -2,99 +2,121 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25EEB606A323
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 19:48:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7248606A31C
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 19:49:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=fZujtegj
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=IGG5NFYc
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B05F410E20C;
-	Mon, 16 Nov 2026 19:47:56 +0000 (UTC)
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011032.outbound.protection.outlook.com [52.101.57.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18DA110E20C
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Nov 2026 19:47:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6271910F420;
+	Mon, 16 Nov 2026 19:49:00 +0000 (UTC)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011038.outbound.protection.outlook.com
+ [40.93.194.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EAFB10F420
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Nov 2026 19:48:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bBCJhDkghlVUTqOhrf+BLLZqH71k3ujTOlP1x6YUqUGwYxKCNpKtKPvFfcNrojmD10vJ/v51kTFqG1hTm2n5w2cPNSJTiRlDBbJU7pf/MZyqcXLAuUZjyv2SU2hHZodoX9sG59qm5nZNlWpOu16N28DFBcApqvoaZHY68mwVwv+B0IclPZTdhvYLG82Tz+T2w+nnQSALrQUDUbENsxdosiW7oQS1J8wCzdtkpvWu8STkRHadyRVD+0PxDSLPqhKvkkJYUr6YLmbo4Xp9wCQuCq/YY3sCjCC082GUAHFKohCVfNf5Mx7Tpeq9AoxWdP0UjNpCNnZGO+qGQ5XoRA3Yzg==
+ b=XEPBiveV+7nRy4Eop/ox5x8VBPNPrvktQQUE2sPt+DWgWzi/bH51aogEiSu+NkGU1s2AUvJBssf+dJmZLEa+irxpT/lacr+hF0NbWHXJp8R83taIuwodDLC0Kyrc79oFKCweCraU5R5xN2GIHKDiZ0s2Fv5CfOksaDu26rDVkHW8r4Os+wWeCE53/5BFDXP1OtlxJC8x6QZSRPoQ54gfvefgSBfp7X1U77AUcPW/Snf0Y7zz/TSJuwhmY+4IOs8ClVSRCObaMOih088Rsz8db+wZsGK0dyEd2mZ2JlGXRNBYKw2XCRpJ/Tkwb/gxA1KfAxivOoWE4xwzi/N0eo/6Cw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yyLTuz/3feEHVMkQOKuCKt25hOg/PzJyXyKyPOcYddA=;
- b=LojTGcgNoXegWp4zo7iY4fX1ZgwcMkjFapM7GdZz9h7CCOAOLJsRldAKKI6WvYh4uxDYczkNzhbyVCuJ/xFRBFayrQ/9UV9RIhv7P+6EZesP4vv3PCV4j0WGr1+BrOtxifCzqEMIG00MV2bFcOimv1twPEyIP7rY2kfcUnUaHM0QNmP3WCYG5XCbvIhWdl+sxycTwfS0fiCJY2ge5k0fUu7nSyvih3TggJgXSmlKTFKTB2fRRIaCDZtlPg77nmkvEE8s4NlechOWL/MnvbKa+SluHmCDQXTN4v7W5777TvO4vl3H8AEnjUOYwlpTa9xtQWOCEvQgcY6lJxFpDvx/sw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=Vu6bdHoNaY9nJ7cPXSAGp0rCbvMCor4anJ4XkqFq+Ao=;
+ b=eNc41tOFA/T/IqLJZqLUGWRJbry3f7f7dGjNPsBjvIvP81Tuierxl6plWUDg/Mn8rpNV5JvfKWXRyQh4goYWLjwpevBH+eT0jP6IYiXCcjnMsHav7F/NEeLtzFKdYNyhZ1BF/V3/vN73voErogVEwj57qMD0ckQqC74QocMa/GyHn0Tp+2Kbtr8Gb7pcsij7xeLd4E5pTG62kDCOxA64Qo6IuCaNS61k/0N1Q7CpY36OHRXAkepWo91eMjiDGVC0Yuy7x0GbEDsxhXP7IwRiM0A4sIbTKPKZu08ncbU1mWJiDm/x21Ce4v19+lFf749rKeGgS8ZwsQQW3FNIqha1KQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yyLTuz/3feEHVMkQOKuCKt25hOg/PzJyXyKyPOcYddA=;
- b=fZujtegj3Axi0f0guH7DHaGZ2/9pXfPbzjle6Qv2LyvqIzDXEybYbnNi5yIhdfvPtl9Z+GmYgaDFYjWIAxGKXdNZ9+DuTzN0LKrAWXhjC+LA+zdn5ECqUqous3U3lNEygWS5ln+SquRe9PXOXMvGUtOQauKopwsk1G2UHRnssR4=
-Received: from DS1P221CA0026.NAMP221.PROD.OUTLOOK.COM (2603:10b6:8:242::10) by
- IA4PR12MB663679.namprd12.prod.outlook.com (2603:10b6:207:12d::18)
+ bh=Vu6bdHoNaY9nJ7cPXSAGp0rCbvMCor4anJ4XkqFq+Ao=;
+ b=IGG5NFYcKBtgDsF7CU8zGoHbUBI88nzEK8Y6Vpgg8p8hIUUe4PhkDwAuAnxp6WPj/+WtaKPXhcPkQXLGKtouF1IRt2VMfkhZ7SspdgWmAqR+lW5/vmJqdAxqhDfUAUwTM7G+KhwwubSweVijXA/ybgqtWfrtvYU0Yj36K9mIFeg=
+Received: from DSVPR12MB449095.namprd12.prod.outlook.com (2603:10b6:8:4fe::22)
+ by SAWPR12MB999293.namprd12.prod.outlook.com (2603:10b6:806:560::22)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 19:47:46 +0000
-Received: from CY8PEPF0000005B.namprd21.prod.outlook.com
- (2603:10b6:8:242:cafe::8d) by DS1P221CA0026.outlook.office365.com
- (2603:10b6:8:242::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Mon,
- 16 Nov 2026 19:47:46 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CY8PEPF0000005B.mail.protection.outlook.com (10.167.247.25) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.662.0 via Frontend Transport; Mon, 16 Nov 2026 19:47:45 +0000
-Received: from MKMZHLUO01.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Mon, 16 Nov
- 2026 13:47:44 -0600
-From: Zhigang Luo <Zhigang.Luo@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
- <Hawking.Zhang@amd.com>, <Lijo.Lazar@amd.com>, Zhigang Luo
- <Zhigang.Luo@amd.com>, Zhigang Luo <zhigang.luo@amd.com>
-Subject: [PATCH 7/7] drm/amdgpu: keep the A+A VF VRAM base at the SRAT address
-Date: Mon, 16 Nov 2026 14:47:27 -0500
-Message-ID: <20261116194727.397571-2-Zhigang.Luo@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261116194727.397571-1-Zhigang.Luo@amd.com>
-References: <20261116194727.397571-1-Zhigang.Luo@amd.com>
+ 2026 19:48:51 +0000
+Received: from DSVPR12MB449095.namprd12.prod.outlook.com
+ ([fe80::76a6:7a4f:a0a5:18c0]) by DSVPR12MB449095.namprd12.prod.outlook.com
+ ([fe80::76a6:7a4f:a0a5:18c0%4]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
+ 19:48:51 +0000
+From: "Prosyak, Vitaly" <Vitaly.Prosyak@amd.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Subject: Re: amd-gfx Digest, Vol 126, Issue 488
+Thread-Topic: amd-gfx Digest, Vol 126, Issue 488
+Thread-Index: AQHddf5teS6Ku7gje0+IWeqcRoqTiLcxGtOG
+Date: Mon, 16 Nov 2026 19:48:51 +0000
+Message-ID: <DSVPR12MB449095DFEE3BFF91F0884F5AFA817C2@DSVPR12MB449095.namprd12.prod.outlook.com>
+References: <mailman.24703.1794856330.6452.amd-gfx@lists.freedesktop.org>
+In-Reply-To: <mailman.24703.1794856330.6452.amd-gfx@lists.freedesktop.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-11-16T19:48:50.681Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
+ General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=1;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard; 
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DSVPR12MB449095:EE_|SAWPR12MB999293:EE_
+x-ms-office365-filtering-correlation-id: 982154e0-37a3-4d1a-2a46-08df441aa35a
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|6049299003|23010399003|4022899009|1800799024|366016|376014|6133799003|18002099003|22082099003|261009223027099003|13003099007|4053099003|4013099003|8096899003|56012099006|11063799006|261102123227099003|261028144727099003|261026140227099003|261026121527099003|261022075727099003|261022105027099003|261021121427099003|261021123027099003|38070700021|10067099003;
+x-microsoft-antispam-message-info: Hn5V+k4u0QOydCAoAfv7KPwTy94c0OPIrkEmSpYeg7cXtMcgHTLEmHROeo9Eyk0ri1zLl9SuKPS/Hz8rKRQgScyjq0Wep02ZFoheu00Ed/Gfjez0g3gZKIi7FKlSYBUHSWA3HObxj+mP49VGaBULkPhnrjgQ69dfL8rWsIdFIoz4a6GqqnITM/ACyWygPAsz8z7aBuzBcXzVsC6tHYr2Znexp5bPzYXuUmzOaZOZOkUAB7VmolhvyAj64LlTAGhiurNRwr9LHx69SBYDge/VqPRnPe2aWFhjjEiB+f4QoBD0LASq/tBz/J5RPmeZLHrrj0XA4Uy4piVPB9Q7RVjyUZUg530WSeRojNtNNPs74EeZA/Kj6f3Sd+NGzdZ5FaQxIx/02XjdrtjhRZYW5WBHAwqZ13BZXY86puPP6d8uHiu2kGaILIOgwOOP5RDdBsxGqr8RLZH81WkLK05CYPSjXCqn2Eb3L7ULqBI5mBCamfSHs5WuktIO3AiV4li5Ao1+Ut9NT5KR7k1lHMirdUGyjxrFZLiI/A5T2C+uQ36WxruZEkLBLEeh3zzy/bUtvl+Ovx/ShJwzdvTg9l2f1bQ3EKq0+jnZJKWE0W+0C8F4m3LosZJIB4/gXlZvFfCIZ1bfgETMakRRyiNlCyCH8vK8HWp/BcIeQPc9vAWivwJYgbw=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DSVPR12MB449095.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(6049299003)(23010399003)(4022899009)(1800799024)(366016)(376014)(6133799003)(18002099003)(22082099003)(261009223027099003)(13003099007)(4053099003)(4013099003)(8096899003)(56012099006)(11063799006)(261102123227099003)(261028144727099003)(261026140227099003)(261026121527099003)(261022075727099003)(261022105027099003)(261021121427099003)(261021123027099003)(38070700021)(10067099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?l67BPC/va3CF40LjhZ20d6wKFM7mQp6AXFVxGUWAQBeLzu7QJQjTy6yZi6?=
+ =?iso-8859-1?Q?KFMe5M3DEBS/XpaquzvOiKFucXL7L5Onh9tM3dcK8sBDmSlRLviTkiiK6g?=
+ =?iso-8859-1?Q?4CrgPOs/06Tb9pK76iHWJ0z+pXfuvXHzNQ/j4At4iHGSSwDSIw9yx2guXI?=
+ =?iso-8859-1?Q?o1YhrzVS4qabgRa0yFOkQtDO3iBxKtrFldCqMjJOaCi129f8ZKIeeN4Agb?=
+ =?iso-8859-1?Q?1LUBsfDZ+Yuf8T2at+x6QqdDY7ANBeyPLyKhiRHMNyaRBSB0wXa8IJoat+?=
+ =?iso-8859-1?Q?JpHkmjYnGS6CJUgLcSBIfy8kT7S1eXCnfHEQ5hPp4JVyAwy2wjZLUkv6BU?=
+ =?iso-8859-1?Q?uhvtgg/JJM/NHK6xJzNpLHMZzO4k/corPVOaeGqfemBUOV+vlDtxTsgu+T?=
+ =?iso-8859-1?Q?YbAaJWzix9fGQD7Awpw7R+CJCYophNqB3B895PUWAXHEmoH7IMp7wLyyt+?=
+ =?iso-8859-1?Q?L3YhRb/yWGLvxjqRTs62EgCce/Nong3tQ9Y0vueeS5ULG3Ezuw2kiPIPKz?=
+ =?iso-8859-1?Q?+njSuUHljD76gu9QzGTn6srAD9qI4OoVUdLLDT3GW4P2h5gJlRhgwG6XCN?=
+ =?iso-8859-1?Q?nBlfx3ujdF8a0LZL/iDkDTjkOP88Dnq7K2f0lIbh56pISOdGl7++ltqSmE?=
+ =?iso-8859-1?Q?b+omylnjj2lXxBZXIcNbMwEX8Ekp2F8WSUuMSzr6+S9Zwjun1QXZoysuA1?=
+ =?iso-8859-1?Q?cbFFBTi+EPmkxr+I+IwHT5M8yRZNQ8Nr1drKrmAZ/Yv8yh6hIR4x72ecUB?=
+ =?iso-8859-1?Q?MYuFvVxkD8h49jonYadeiLnbWE7XGies50k/vVlriqVZZcvcOo9vveGJD/?=
+ =?iso-8859-1?Q?wIWVpYhUqHpJHUE4CR6V8WckwOYVnjouxU4vNmFLk6OlFkdOl2t+3V8+T2?=
+ =?iso-8859-1?Q?+bIEdlLyDkDhuW9FsxvH8CQoWfjoE0houZLN8HMBuAT2SL3QdbXaPf6Lcz?=
+ =?iso-8859-1?Q?SewXlShJhNyuGTw3Mjv4GKLHKbypIs3YD6JBiXm2cte6qwVoLTiinHWE6R?=
+ =?iso-8859-1?Q?KYtwtA8J5Cda9yGsGanz6UJGFs9YDALeMbQx2DxFIgZXiz5PuJOKaF9WKt?=
+ =?iso-8859-1?Q?HpoCVaDoNEcwxXkoY06b3DcCpUu/YfxSvR9OuDf4PCSgtuWc1zXhdhEHdG?=
+ =?iso-8859-1?Q?9kzGauczLrAkgKKVqUkzaqqcW2aDupu+XYuUMTYwAR+y8IZz35P514cnbP?=
+ =?iso-8859-1?Q?O8t99tk5mSPmg0MlSr/88Vb7sh6/Y6yuR03B081jiDBVcOQ0LPmOnJZezC?=
+ =?iso-8859-1?Q?BO67CdvkpZEKEsjcK8I7/PhT75qbFzXgUoHYhpEJRNvH/5zxThzeqVYIDW?=
+ =?iso-8859-1?Q?cZm9wg0hW1pa//MOy9Gc//AzqMyBAy9vCy1v3aKaucIxQ2aYVsm2LkDr7y?=
+ =?iso-8859-1?Q?Psc9LO4Bcdq3bpZ+Z+Bg3DSY5fL2BDhPrhR061Xbu8kTUp32jqnZpp/wZQ?=
+ =?iso-8859-1?Q?qsbw5DMCFAqfmwH/iKQCMoanHmV9T4+XmlrX1Rue8Y2Wf0qO/687HL/uGZ?=
+ =?iso-8859-1?Q?ZTxi7CNPBhjs5PlM31qQ6UBafopAPR1XinZHvFyCBkGiCCLSCD0h7aR8st?=
+ =?iso-8859-1?Q?iG5Gebq6lVufF+U05XkP+KVpa95ETPnOyQU2OZQSYDN/zwIqrv0DMHD0N6?=
+ =?iso-8859-1?Q?TGJPK2KMxTxrwHf+Ru/mlIPWUdwVFQpXIxOXCIv/+8nY19Lw8QZ05J5L6M?=
+ =?iso-8859-1?Q?otWW6cQU3C6+CjKNlmxPsVRAT0x96VuiJC/pCdAFkxI8+wOuMRAWZKpoBb?=
+ =?iso-8859-1?Q?c0a6XEMRoAG8damTIqa9IcWNsMoZ12ekdliRbPI+aLhezc?=
+Content-Type: multipart/related;
+ boundary="_004_DSVPR12MB449095DFEE3BFF91F0884F5AFA817C2DSVPR12MB449095_";
+ type="multipart/alternative"
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY8PEPF0000005B:EE_|IA4PR12MB663679:EE_
-X-MS-Office365-Filtering-Correlation-Id: a8e1d4fa-f2d1-4147-0da7-08df441a7ca4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|376014|36860700016|23010399003|22082099003|18002099003|261009223027099003|11063799006|56012099006|261102123227099003|261028144727099003|261026140227099003|261021121427099003|261021123027099003|261022075727099003|261022105027099003|10067099003;
-X-Microsoft-Antispam-Message-Info: VMAF1Kt1ngOqKaVKed62lPN5fgWP5j9QwXUwmdRX+xmuKXdQfRAVPHMvVPgCn1IlxlJZGkGAkinfRKO3CcqaddpB8e+S3aksKXZ97khK7j96ndm1u5NWvkJALqfN1Ueg4qsCZIjSLHGPDV3MYYytvU1hNFZosoBv1wJKDlJ+IilWYu6DBcF6N5XrTFX32IiVFEk+w4lsEHUqdApZgfB0XWDWn83S2cPdMuDwCBf21GgcmpzYostesQvsYePwvBknGyBfU+CC2ky3Kf6P0+qL/o+KcfN5PzaSlSR26oXOmZLHAqXjXRod6E6G+pClzPdzzC78cS5Af6dW9RwORzdllRyiEmF+7JKYWbuvQxnsQLZxndysavk/cn+y2D/+xDN66r53Ze1B9UrPgbllezTTm08C8AVIlTntMFVW39/6aroY1eWz5D/E/l9PvJZNvYBhoVHvBMlSIWE87Sy0q1hBmEzmCRIYAzywjWQlfx1TzN1TemeRUHzP8ZVSLQ+9jXj5PbvyVqKzqQkdHpGuIUkUC22D3TyZSg9YuOCFfqSZDA1gs+9vi2fNhWZwRoVgJRlJcqu2CmlvIEC2PRW6mc9THDJaT7alhtUwjXy1CWUM6apBcmYMF+4XrJ6zfc3tjJN3hDBRSOFhnhizJGzNzeUxEu7xh3zcIJ5EsqIVsnLGaOpl3arFlTXrEmK82gateUYPZRK4XNX5DM4k992l7hOutQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(376014)(36860700016)(23010399003)(22082099003)(18002099003)(261009223027099003)(11063799006)(56012099006)(261102123227099003)(261028144727099003)(261026140227099003)(261021121427099003)(261021123027099003)(261022075727099003)(261022105027099003)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Bw744lPPEpRf7cRAfGFCzw7zCu87pP3+Cd1aGgihQKjs3Aa3zMu3vWAox5KGEiylEBq1juPmR2QiRSroJer43jsfcVu0+wEFn8BNW+9s4GGGiKOJNrsQf4TwSh+pvar+p+EiYc+KhwoOafjjBzTVt5O8T+jU+OC1aw76/9IdgyxCdwHH7r2fGNwAUcKwDnTLOV+EtthBMRLgUWokDDnxKLidLGN6fvz8sD+fdnedQLSv29negAbXq1Pmj428XaAxXDww8yGkqRgpyWLf4Zm7vOHpqq0Lt2zSQ0ZaGp6sozfbqnFrepDKcXNNzIVPmfMegMzU6wVqoVOQbxy7uqikwC8GDniaHd7IhX8435pdq43lyWnE3Vu1TAHdv4nvVI08Hwl1M9mA/bAIcfsC2VRt74hSvNF/y0EbELlWqgwL1RHJ3BSw1MxxEZTBUXnP3gM/
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 19:47:45.9994 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a8e1d4fa-f2d1-4147-0da7-08df441a7ca4
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY8PEPF0000005B.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR12MB663679
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DSVPR12MB449095.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 982154e0-37a3-4d1a-2a46-08df441aa35a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Nov 2026 19:48:51.0234 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: kRpL6T1+Nqo4kTWPP4ggL6TA0ANMoRNgXOWsDbdcZUWVNUGBFF5wGKTllaY3jDYEp1pzurII5LzxIih0qvzaIg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAWPR12MB999293
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,174 +127,1488 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	HTML_MESSAGE,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On the A+A VF the hypervisor reports each VF's VRAM address and length
-in the ACPI SRAT table. The XGMI LFB region and segment registers
-describe the physical GPU, not the VF, so the node id and segment read
-from those registers are not a valid VRAM starting address.
+--_004_DSVPR12MB449095DFEE3BFF91F0884F5AFA817C2DSVPR12MB449095_
+Content-Type: multipart/alternative;
+	boundary="_000_DSVPR12MB449095DFEE3BFF91F0884F5AFA817C2DSVPR12MB449095_"
 
-Read the SRAT length in mmhub_v4_2_0_get_xgmi_info() and report the VF
-as one physical node at id 0 whose segment is that length.
-get_mc_fb_offset() reads the SRAT address on each call. mc_init copies
-that address, plus the node product, into aper_base and sets aper_size
-from the segment. Node id 0 makes the product zero, so the PTE base
-stays at the SRAT address.
+--_000_DSVPR12MB449095DFEE3BFF91F0884F5AFA817C2DSVPR12MB449095_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-v2:
-- Explain that the SRAT address is already the VF VRAM base and must
-  not be adjusted by the XGMI node segment.
+AMD General
 
-v3:
-- Report the VF as XGMI node 0 of 1 instead of special-casing the
-  node offset and the PDB0 size.
 
-v4:
-- Read SRAT in get_xgmi_info() and derive aper_base and aper_size from
-  the FB offset and the segment size.
-- Move the 8GB GART alignment into its own patch.
 
-v5:
-- Revert the SRAT aperture commit with the other two reverts. Leave
-  mc_init on the restored connected_to_cpu path.
+[cid:b9b7f8d3-2bb3-494b-ba11-b7db267cc774]<https://outlook.office.com/bookw=
+ithme/user/5be71e58d07c492d97048217b901df8e@amd.com?anonymous&ep=3DowaSlots=
+EmailSignature>
+Book time to meet with me<https://outlook.office.com/bookwithme/user/5be71e=
+58d07c492d97048217b901df8e@amd.com?anonymous&ep=3DowaSlotsEmailSignature>
 
-v6:
-- Read the SRAT address in both get_mc_fb_offset() helpers on each
-  call instead of caching it. Keep the SRAT length as the segment
-  size.
-- PDB0 is already enabled because the VF is CPU-connected. Leave
-  amdgpu_gmc_is_pdb0_enabled() unchanged.
+________________________________
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of amd-gfx-=
+request@lists.freedesktop.org <amd-gfx-request@lists.freedesktop.org>
+Sent: Monday, November 16, 2026 2:12 PM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Subject: amd-gfx Digest, Vol 126, Issue 488
 
-Signed-off-by: Zhigang Luo <zhigang.luo@amd.com>
+Send amd-gfx mailing list submissions to
+        amd-gfx@lists.freedesktop.org
+
+To subscribe or unsubscribe via the World Wide Web, visit
+        https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+or, via email, send a message with subject or body 'help' to
+        amd-gfx-request@lists.freedesktop.org
+
+You can reach the person managing the list at
+        amd-gfx-owner@lists.freedesktop.org
+
+When replying, please edit your Subject line so it is more specific
+than "Re: Contents of amd-gfx digest..."
+
+
+Today's Topics:
+
+   1. Re: [PATCH 1/5] Revert "drm/amdgpu: re-enable SPM updates in
+      the the IB path" (sashiko-bot@kernel.org)
+   2. Re: [PATCH 4/5] drm/amdgpu/gfx9.4.3: program the RLC SPM in
+      RLC resume (sashiko-bot@kernel.org)
+   3. Re: [PATCH 5/5] drm/amdgpu: bring back the ring parameter for
+      update_spm_vmid() (sashiko-bot@kernel.org)
+   4. [PATCH 4/5 v2] drm/amdgpu/gfx9.4.3: program the RLC SPM in
+      RLC resume (Alex Deucher)
+   5. [PATCH] drm/amdgpu: Disable XNACK retry on GFX12.1 (Kent Russell)
+
+
+----------------------------------------------------------------------
+
+Message: 1
+Date: Mon, 16 Nov 2026 17:08:47 +0000
+From: sashiko-bot@kernel.org
+To: "Alex Deucher" <alexander.deucher@amd.com>,
+        amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH 1/5] Revert "drm/amdgpu: re-enable SPM updates in
+        the the IB path"
+Message-ID: <sashiko-outbox-217409@kernel.org>
+Content-Type: text/plain; charset=3Dutf-8
+
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] drm/amdgpu: missing Fixes trailer for reverted commit
+  d44428868e5b
+--
+
+commit 36fa0c29e9f1b1b0ebcda0c9f28cb357bd14196e
+Author: Alex Deucher <alexander.deucher@amd.com>
+
+> Revert "drm/amdgpu: re-enable SPM updates in the the IB path"
+>
+> This reverts commit d44428868e5b9f97c6216eee1b4f82aec7a6e8d2.
+>
+> This causes flakiness in gfx11 CI tests.  Revert.
+>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+
+Acked-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
+
+[Severity: Low]
+Since commit d44428868e5b ("drm/amdgpu: re-enable SPM updates in the the
+IB path") carries its own Fixes: tag, should this revert include:
+
+  Fixes: d44428868e5b ("drm/amdgpu: re-enable SPM updates in the the IB pat=
+h")
+
+so stable and backport trees do not pick up the original commit without
+this revert?
+
+--
+Sashiko AI review ? https://sashiko.dev/#/patchset/20261116165713.1945549-1=
+-alexander.deucher@amd.com?part=3D1
+
+
+------------------------------
+
+Message: 2
+Date: Mon, 16 Nov 2026 17:20:11 +0000
+From: sashiko-bot@kernel.org
+To: "Alex Deucher" <alexander.deucher@amd.com>,
+        amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH 4/5] drm/amdgpu/gfx9.4.3: program the RLC SPM in
+        RLC resume
+Message-ID: <sashiko-outbox-217426@kernel.org>
+Content-Type: text/plain; charset=3Dutf-8
+
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [High] drm/amdgpu: gfx_v9_4_3_xcc_rlc_resume() passes 0 instead of
+  xcc_id
+- [Medium] drm/amdgpu: moving update_spm_vmid() to
+  gfx_v9_4_3_xcc_rlc_resume() skips VFs
+--
+
+commit 754d99a96da547c9e401d40cfbeb309d0d3aa36f
+Author: Alex Deucher <alexander.deucher@amd.com>
+
+drm/amdgpu/gfx9.4.3: program the RLC SPM in RLC resume
+
+This commit moves the RLC SPM VMID programming from gfx_v9_4_3_rlc_init()
+to gfx_v9_4_3_xcc_rlc_resume() so that the register is reprogrammed after
+suspend/resume and GPU reset.
+
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/am=
+d/amdgpu/gfx_v9_4_3.c
+> index da031caa4e9e6..151336e6094f7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+> @@ -1395,10 +1395,6 @@ static void gfx_v9_4_3_init_rlcg_reg_access_ctrl(s=
+truct amdgpu_device *adev)
+>
+>  static int gfx_v9_4_3_rlc_init(struct amdgpu_device *adev)
+>  {
+> -     /* init spm vmid with 0xf */
+> -     if (adev->gfx.rlc.funcs->update_spm_vmid)
+> -             adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, adev->vm_mana=
+ger.spm_vmid);
+> -
+>        return 0;
+>  }
+>
+> @@ -1588,6 +1584,10 @@ static int gfx_v9_4_3_xcc_rlc_resume(struct amdgpu=
+_device *adev, int xcc_id)
+>        gfx_v9_4_3_xcc_init_pg(adev, xcc_id);
+>        amdgpu_gfx_rlc_exit_safe_mode(adev, xcc_id);
+>
+> +     /* init spm vmid with 0xf */
+> +     if (adev->gfx.rlc.funcs->update_spm_vmid)
+> +             adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, adev->vm_mana=
+ger.spm_vmid);
+> +
+>        return 0;
+>  }
+
+[Severity: High]
+Should update_spm_vmid() pass xcc_id instead of 0 here?
+
+gfx_v9_4_3_rlc_resume() and gfx_v9_4_3_xcp_resume() call
+gfx_v9_4_3_xcc_rlc_resume() for each XCC instance, and
+gfx_v9_4_3_update_spm_vmid() uses the instance argument with
+GET_INST(GC, inst) to select which XCC's regRLC_SPM_MC_CNTL register to
+write.  Passing 0 programs XCC 0 on every iteration and leaves
+regRLC_SPM_MC_CNTL on all other XCCs at its hardware reset default of
+VMID 0.
+
+[Severity: Medium]
+Does moving update_spm_vmid() into gfx_v9_4_3_xcc_rlc_resume() skip SPM
+VMID initialization on SR-IOV VFs?
+
+Both callers of gfx_v9_4_3_xcc_rlc_resume() (gfx_v9_4_3_rlc_resume() and
+gfx_v9_4_3_xcp_resume()) skip calling it when amdgpu_sriov_vf(adev) is
+true:
+
+drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c:gfx_v9_4_3_rlc_resume() {
+        if (amdgpu_sriov_vf(adev))
+                return 0;
+
+        num_xcc =3D NUM_XCC(adev->gfx.xcc_mask);
+        for (i =3D 0; i < num_xcc; i++) {
+                r =3D gfx_v9_4_3_xcc_rlc_resume(adev, i);
+    ...
+}
+
+Unlike gfx_v9_4_3_rlc_init(), which ran during sw_init on VFs as well,
+gfx_v9_4_3_update_spm_vmid() is no longer reached on SR-IOV VFs, leaving
+regRLC_SPM_MC_CNTL unprogrammed in SR-IOV one-VF mode despite the
+amdgpu_sriov_is_pp_one_vf(adev) handling in gfx_v9_4_3_update_spm_vmid().
+
+--
+Sashiko AI review ? https://sashiko.dev/#/patchset/20261116165713.1945549-1=
+-alexander.deucher@amd.com?part=3D4
+
+
+------------------------------
+
+Message: 3
+Date: Mon, 16 Nov 2026 17:26:33 +0000
+From: sashiko-bot@kernel.org
+To: "Alex Deucher" <alexander.deucher@amd.com>,
+        amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH 5/5] drm/amdgpu: bring back the ring parameter for
+        update_spm_vmid()
+Message-ID: <sashiko-outbox-217433@kernel.org>
+Content-Type: text/plain; charset=3Dutf-8
+
+Thank you for your contribution! Sashiko AI review found 3 potential
+issues to consider:
+- [High] drm/amdgpu: hardcoded XCC 0 in gfx_v9_4_3_xcc_rlc_resume()
+  skips XCCs 1..N-1
+- [Medium] drm/amdgpu: gfx9 compute emit_frame_size exceeds max_dw in
+  amdgpu_ring_init()
+- [Medium] drm/amdgpu: update_spm_vmid() skipped on SR-IOV VFs in
+  gfx_v8_0 and gfx_v9_4_3
+--
+
+commit 08b45306962b59cde3c232193cc26534f308aaa2
+Author: Alex Deucher <alexander.deucher@amd.com>
+
+drm/amdgpu: bring back the ring parameter for update_spm_vmid()
+
+This commit restores the ring parameter to update_spm_vmid() so that GFX9,
+GFX10, GFX11, and GFX12.0 emit the SPM VMID update on the ring during IB
+scheduling while skipping MMIO updates when a ring is provided.
+
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/=
+amdgpu/gfx_v8_0.c
+> index df935827b002a..e818280139791 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> @@ -4084,7 +4084,8 @@ static int gfx_v8_0_rlc_resume(struct amdgpu_device=
+ *adev)
+>
+>        /* init spm vmid with 0xf */
+>        if (adev->gfx.rlc.funcs->update_spm_vmid)
+> -             adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, adev->vm_mana=
+ger.spm_vmid);
+> +             adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, NULL, adev->v=
+m_manager.spm_vmid);
+> +
+>        return 0;
+>  }
+>
+> @@ -5483,10 +5484,13 @@ static void gfx_v8_0_unset_safe_mode(struct amdgp=
+u_device *adev, int xcc_id)
+>  }
+>
+>  static void gfx_v8_0_update_spm_vmid(struct amdgpu_device *adev, int xcc=
+_id,
+> -             unsigned int vmid)
+> +             struct amdgpu_ring *ring, unsigned vmid)
+>  {
+>        u32 data;
+>
+> +     if (ring)
+> +             return;
+> +
+>        amdgpu_gfx_off_ctrl(adev, false);
+>
+>        if (amdgpu_sriov_is_pp_one_vf(adev))
+
+[Severity: Medium]
+Does returning early when ring is non-NULL leave mmRLC_SPM_VMID unprogramme=
+d
+on SR-IOV VFs in one-VF mode?
+
+gfx_v8_0_rlc_resume() returns early when amdgpu_sriov_vf(adev) is true befo=
+re
+reaching the update_spm_vmid(adev, 0, NULL, ...) call:
+
+drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c:gfx_v8_0_rlc_resume() {
+        if (amdgpu_sriov_vf(adev)) {
+                gfx_v8_0_init_csb(adev);
+                return 0;
+        }
+    ...
+}
+
+With amdgpu_ib_schedule() passing a non-NULL ring, gfx_v8_0_update_spm_vmid=
+()
+now returns before reaching the amdgpu_sriov_is_pp_one_vf(adev) branch, so
+mmRLC_SPM_VMID is never programmed on SR-IOV VFs.  The same issue affects
+gfx_v9_4_3_update_spm_vmid(), because both gfx_v9_4_3_rlc_resume() and
+gfx_v9_4_3_xcp_resume() skip calling gfx_v9_4_3_xcc_rlc_resume() when
+amdgpu_sriov_vf(adev) is true.
+
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/=
+amdgpu/gfx_v9_0.c
+> index 2e2673a6dbbf5..be45c10b6f579 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+
+[ ... ]
+
+> @@ -7663,6 +7675,7 @@ static const struct amdgpu_ring_funcs gfx_v9_0_ring=
+_funcs_compute =3D {
+>        .get_wptr =3D gfx_v9_0_ring_get_wptr_compute,
+>        .set_wptr =3D gfx_v9_0_ring_set_wptr_compute,
+>        .emit_frame_size =3D
+> +             5 + /* update_spm_vmid */
+>                20 + /* gfx_v9_0_ring_emit_gds_switch */
+>                7 + /* gfx_v9_0_ring_emit_hdp_flush */
+>                5 + /* hdp invalidate */
+
+[Severity: Medium]
+Does adding 5 dwords here trigger WARN_ON(max_ibs_dw > max_dw) in
+amdgpu_ring_init() for every GFX9 compute ring?
+
+This increases gfx_v9_0_ring_funcs_compute.emit_frame_size from 145 to 150.
+In amdgpu_ring_init(), max_ibs_dw is 150 + 125 * 7 =3D 1025, which rounds u=
+p to
+1280 with align_mask (0xff), exceeding the max_dw of 1024 passed by
+gfx_v9_0_compute_ring_init().
+
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/am=
+d/amdgpu/gfx_v9_4_3.c
+> index 151336e6094f7..f28ffe8a5ac55 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+> @@ -1586,7 +1586,7 @@ static int gfx_v9_4_3_xcc_rlc_resume(struct amdgpu_=
+device *adev, int xcc_id)
+>
+>        /* init spm vmid with 0xf */
+>        if (adev->gfx.rlc.funcs->update_spm_vmid)
+> -             adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, adev->vm_mana=
+ger.spm_vmid);
+> +             adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, NULL, adev->v=
+m_manager.spm_vmid);
+>
+>        return 0;
+>  }
+> @@ -1609,10 +1609,13 @@ static int gfx_v9_4_3_rlc_resume(struct amdgpu_de=
+vice *adev)
+>  }
+>
+>  static void gfx_v9_4_3_update_spm_vmid(struct amdgpu_device *adev,
+> -                                           int inst, unsigned int vmid)
+> +                                           int inst, struct amdgpu_ring =
+*ring, unsigned int vmid)
+>  {
+>        u32 reg, pre_data, data;
+>
+> +     if (ring)
+> +             return;
+> +
+>        reg =3D SOC15_REG_OFFSET(GC, GET_INST(GC, inst), regRLC_SPM_MC_CNT=
+L);
+
+[Severity: High]
+Should gfx_v9_4_3_xcc_rlc_resume() pass xcc_id instead of 0 to
+update_spm_vmid()?
+
+Previously, amdgpu_ib_schedule() called update_spm_vmid() with ring->xcc_id=
+ on
+each IB submission, programming regRLC_SPM_MC_CNTL on all XCCs.  Now that
+gfx_v9_4_3_update_spm_vmid() returns early when ring is non-NULL,
+gfx_v9_4_3_xcc_rlc_resume() is the only caller that programs the register, =
+and
+passing hardcoded 0 leaves XCCs 1..num_xcc-1 at their hardware reset value =
+of
+VMID 0 (the kernel VMID).
+
+--
+Sashiko AI review ? https://sashiko.dev/#/patchset/20261116165713.1945549-1=
+-alexander.deucher@amd.com?part=3D5
+
+
+------------------------------
+
+Message: 4
+Date: Mon, 16 Nov 2026 14:10:22 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH 4/5 v2] drm/amdgpu/gfx9.4.3: program the RLC SPM in
+        RLC resume
+Message-ID: <20261116191022.1955106-1-alexander.deucher@amd.com>
+Content-Type: text/plain
+
+The register needs to be reprogrammed after a suspend and resume
+or a GPU reset so program it in rlc_resume rather than rlc_init.
+
+v2: pass xcc_id when calling
+
+Fixes: 7c0f7ee00c7d ("drm/amdgpu: add gc v9_4_3 rlc_funcs implementation")
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h  |  8 +++--
- drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c | 16 ++++++++++
- drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c    |  2 +-
- drivers/gpu/drm/amd/amdgpu/mmhub_v4_2_0.c | 38 +++++++++++++++++++++++
- 4 files changed, 60 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
-index 5f36aff17e79e..47092ec6dff2c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
-@@ -79,11 +79,13 @@ struct amdgpu_xgmi {
- 	/* from psp */
- 	u64 node_id;
- 	u64 hive_id;
--	/* fixed per family */
-+	/* Segment size. Fixed per family on a hive. On an SPM VF this is
-+	 * the SRAT length of that one VF.
-+	 */
- 	u64 node_segment_size;
--	/* physical node (0-3) */
-+	/* Physical node, 0-3. An SPM VF is node 0. */
- 	unsigned physical_node_id;
--	/* number of nodes (0-4) */
-+	/* Number of nodes, 0-4. An SPM VF reports one node. */
- 	unsigned num_physical_nodes;
- 	/* gpu list in the same hive */
- 	struct list_head head;
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c
-index b13967a1c8fba..837ad28530e48 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c
-@@ -53,6 +53,22 @@ static u64 gfxhub_v12_1_get_fb_location(struct amdgpu_device *adev)
- 
- static u64 gfxhub_v12_1_get_mc_fb_offset(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/=
+amdgpu/gfx_v9_4_3.c
+index da031caa4e9e6..7b8ff043c99ec 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+@@ -1395,10 +1395,6 @@ static void gfx_v9_4_3_init_rlcg_reg_access_ctrl(str=
+uct amdgpu_device *adev)
+
+ static int gfx_v9_4_3_rlc_init(struct amdgpu_device *adev)
  {
-+	/* SPM VRAM starts at the SRAT address. */
-+	if (amdgpu_virt_vram_is_spm(adev)) {
-+		u64 fb_offset, seg_size;
-+		int r;
-+
-+		r = amdgpu_acpi_find_gpu_memory_in_srat(adev, &fb_offset,
-+							&seg_size);
-+		if (r) {
-+			dev_err(adev->dev,
-+				"Failed to find SPM VRAM in SRAT: %d\n", r);
-+			return 0;
-+		}
-+
-+		return fb_offset;
-+	}
-+
- 	return (u64)(RREG32_SOC15(GC, GET_INST(GC, 0),
- 				  regGCMC_VM_FB_OFFSET) << 24);
+-       /* init spm vmid with 0xf */
+-       if (adev->gfx.rlc.funcs->update_spm_vmid)
+-               adev->gfx.rlc.funcs->update_spm_vmid(adev, 0, adev->vm_mana=
+ger.spm_vmid);
+-
+         return 0;
  }
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-index 7e0b83b1015fc..14ef841d70365 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-@@ -707,7 +707,7 @@ static void gmc_v12_0_vram_gtt_location(struct amdgpu_device *adev,
- 			amdgpu_gmc_agp_location(adev, mc);
- 	}
- 	/* base offset of vram pages */
--	if (amdgpu_sriov_vf(adev))
-+	if (amdgpu_sriov_vf(adev) && !amdgpu_virt_vram_is_spm(adev))
- 		adev->vm_manager.vram_base_offset = 0;
- 	else
- 		adev->vm_manager.vram_base_offset = adev->mmhub.funcs->get_mc_fb_offset(adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v4_2_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v4_2_0.c
-index 4495d52b4b07c..ba4483948ce5f 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v4_2_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v4_2_0.c
-@@ -132,6 +132,26 @@ static int mmhub_v4_2_0_get_xgmi_info(struct amdgpu_device *adev)
- 	if (!adev->gmc.xgmi.connected_to_cpu)
- 		return 0;
- 
-+	/* The SRAT entry is the VF's whole VRAM. PF_LFB_REGION describes
-+	 * the physical GPU, not the VF, so report a single node. The
-+	 * length is the segment size. get_mc_fb_offset() reads the
-+	 * address later.
-+	 */
-+	if (amdgpu_virt_vram_is_spm(adev)) {
-+		u64 fb_offset;
-+		int r;
+
+@@ -1588,6 +1584,10 @@ static int gfx_v9_4_3_xcc_rlc_resume(struct amdgpu_d=
+evice *adev, int xcc_id)
+         gfx_v9_4_3_xcc_init_pg(adev, xcc_id);
+         amdgpu_gfx_rlc_exit_safe_mode(adev, xcc_id);
+
++       /* init spm vmid with 0xf */
++       if (adev->gfx.rlc.funcs->update_spm_vmid)
++               adev->gfx.rlc.funcs->update_spm_vmid(adev, xcc_id, adev->vm=
+_manager.spm_vmid);
 +
-+		r = amdgpu_acpi_find_gpu_memory_in_srat(adev, &fb_offset,
-+							&seg_size);
-+		if (r)
-+			return r;
+         return 0;
+ }
+
+--
+2.56.1
+
+
+
+------------------------------
+
+Message: 5
+Date: Mon, 16 Nov 2026 14:11:41 -0500
+From: Kent Russell <kent.russell@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Cc: <jay.cornwall@amd.com>, Kent Russell <kent.russell@amd.com>
+Subject: [PATCH] drm/amdgpu: Disable XNACK retry on GFX12.1
+Message-ID: <20261116191141.145348-1-kent.russell@amd.com>
+Content-Type: text/plain
+
+This feature cannot be properly supported, so disable it both on the
+amdgpu side and the amdkfd side.
+
+Signed-off-by: Kent Russell <kent.russell@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c        |  7 +++++++
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c         |  5 ++---
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c       | 12 ++++++++++++
+ .../amdkfd/kfd_device_queue_manager_v12_1.c    | 18 ++++--------------
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c       |  7 +++++++
+ 5 files changed, 32 insertions(+), 17 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_gmc.c
+index 08d3ff61edcc..d0ede277aa85 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+@@ -1151,6 +1151,13 @@ void amdgpu_gmc_noretry_set(struct amdgpu_device *ad=
+ev)
+                 gmc->noretry =3D 1;
+         else
+                 gmc->noretry =3D (amdgpu_noretry =3D=3D -1) ? noretry_defa=
+ult : amdgpu_noretry;
 +
-+		adev->gmc.xgmi.num_physical_nodes = 1;
-+		adev->gmc.xgmi.physical_node_id = 0;
-+		adev->gmc.xgmi.node_segment_size = seg_size;
-+		return 0;
-+	}
-+
- 	xgmi_lfb_cntl = RREG32_SOC15(MMHUB, GET_INST(MMHUB, 0),
- 				     regMMMC_VM_XGMI_LFB_CNTL);
- 	seg_size = REG_GET_FIELD(
-@@ -177,6 +197,24 @@ static u64 mmhub_v4_2_0_get_fb_location(struct amdgpu_device *adev)
- 
- static u64 mmhub_v4_2_0_get_mc_fb_offset(struct amdgpu_device *adev)
++       /* XNACK cannot be enabled on GFX12.1, so keep noretry=3D1 */
++       if (gc_ver =3D=3D IP_VERSION(12, 1, 0)) {
++               if (amdgpu_noretry =3D=3D 0)
++                       dev_warn(adev->dev, "Unable to set noretry =3D 0 on=
+ GFX12.1. Keeping noretry =3D 1");
++               gmc->noretry =3D 1;
++       }
+ }
+
+ void amdgpu_gmc_set_vm_fault_masks(struct amdgpu_device *adev, int hub_typ=
+e,
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c b/drivers/gpu/drm/amd/a=
+mdgpu/gfx_v12_1.c
+index 1f57d0fa2c04..034cc3fd07f3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
+@@ -1518,9 +1518,8 @@ static u32 gfx_v12_1_get_sh_mem_config(struct amdgpu_=
+device *adev)
  {
-+	/* SPM VRAM starts at the SRAT address. mc_init copies it into
-+	 * aper_base.
-+	 */
-+	if (amdgpu_virt_vram_is_spm(adev)) {
-+		u64 fb_offset, seg_size;
-+		int r;
-+
-+		r = amdgpu_acpi_find_gpu_memory_in_srat(adev, &fb_offset,
-+							&seg_size);
-+		if (r) {
-+			dev_err(adev->dev,
-+				"Failed to find SPM VRAM in SRAT: %d\n", r);
-+			return 0;
-+		}
-+
-+		return fb_offset;
-+	}
-+
- 	return (u64)RREG32_SOC15(MMHUB, GET_INST(MMHUB, 0),
- 			         regMMMC_VM_FB_OFFSET) << 24;
+         u32 sh_mem_config =3D DEFAULT_SH_MEM_CONFIG;
+
+-       /* GC 12.1.0 A0 requires RETRY_DISABLE in SH_MEM_CONFIG. */
+-       if (SOC_V1_0_DIE_REV_XCD(adev->rev_id) =3D=3D 0)
+-               sh_mem_config |=3D 1 << SH_MEM_CONFIG__RETRY_DISABLE__SHIFT=
+;
++       /* XNACK cannot be enabled for GFX12.1 */
++       sh_mem_config |=3D 1 << SH_MEM_CONFIG__RETRY_DISABLE__SHIFT;
+
+         return sh_mem_config;
  }
--- 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd=
+/amdkfd/kfd_chardev.c
+index 3d2136adb62b..3b62b9e5ecda 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -1766,6 +1766,8 @@ static int kfd_ioctl_set_xnack_mode(struct file *file=
+p,
+
+         mutex_lock(&p->mutex);
+         if (args->xnack_enabled >=3D 0) {
++               int i;
++
+                 if (!list_empty(&p->pqm.queues)) {
+                         pr_debug("Process has user queues running\n");
+                         r =3D -EBUSY;
+@@ -1780,6 +1782,16 @@ static int kfd_ioctl_set_xnack_mode(struct file *fil=
+ep,
+                         goto out_unlock;
+                 }
+
++               /* XNACK cannot be enabled for gfx12.1 */
++               for (i =3D 0; i < p->n_pdds; i++) {
++                       struct kfd_node *dev =3D p->pdds[i]->dev;
++
++                       if (KFD_GC_VERSION(dev) =3D=3D IP_VERSION(12, 1, 0)=
+) {
++                               r =3D -EPERM;
++                               goto out_unlock;
++                       }
++               }
++
+                 r =3D svm_range_switch_xnack_reserve_mem(p, args->xnack_en=
+abled);
+         } else {
+                 args->xnack_enabled =3D p->xnack_enabled;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v12_1.c b/=
+drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v12_1.c
+index 525989371378..63ba13a60b98 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v12_1.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v12_1.c
+@@ -54,7 +54,6 @@ static int update_qpd_v12_1(struct device_queue_manager *=
+dqm,
+         struct kfd_process_device *pdd;
+         struct amdgpu_device *adev =3D dqm->dev->adev;
+         struct amdgpu_vmhub *hub =3D &adev->vmhub[AMDGPU_GFXHUB(0)];
+-       bool xnack_enabled;
+
+         pdd =3D qpd_to_pdd(qpd);
+         qpd->vm_cntx_cntl =3D hub->vm_cntx_cntl;
+@@ -72,19 +71,10 @@ static int update_qpd_v12_1(struct device_queue_manager=
+ *dqm,
+                 qpd->sh_mem_ape1_base =3D 0;
+         }
+
+-       xnack_enabled =3D KFD_SUPPORT_XNACK_PER_PROCESS(dqm->dev) ?
+-                       pdd->process->xnack_enabled :
+-                       !pdd->dev->kfd->noretry;
+-
+-       if (!xnack_enabled) {
+-               qpd->sh_mem_config |=3D 1 << SH_MEM_CONFIG__RETRY_DISABLE__=
+SHIFT;
+-               qpd->vm_cntx_cntl &=3D
+-                       ~(1 << GCVM_CONTEXT0_CNTL__RETRY_PERMISSION_OR_INVA=
+LID_PAGE_FAULT__SHIFT);
+-       } else {
+-               qpd->sh_mem_config &=3D ~(1 << SH_MEM_CONFIG__RETRY_DISABLE=
+__SHIFT);
+-               qpd->vm_cntx_cntl |=3D
+-                       (1 << GCVM_CONTEXT0_CNTL__RETRY_PERMISSION_OR_INVAL=
+ID_PAGE_FAULT__SHIFT);
+-       }
++       /* XNACK cannot be enabled for gfx12.1 */
++       qpd->sh_mem_config |=3D 1 << SH_MEM_CONFIG__RETRY_DISABLE__SHIFT;
++       qpd->vm_cntx_cntl &=3D
++               ~(1 << GCVM_CONTEXT0_CNTL__RETRY_PERMISSION_OR_INVALID_PAGE=
+_FAULT__SHIFT);
+
+         qpd->sh_mem_bases =3D compute_sh_mem_bases_64bit(pdd);
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd=
+/amdkfd/kfd_process.c
+index 546721b4d59a..059e22cd7f1a 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -1670,6 +1670,13 @@ bool kfd_process_xnack_mode(struct kfd_process *p, b=
+ool supported)
+                     KFD_GC_VERSION(dev) < IP_VERSION(12, 1, 0))
+                         return false;
+
++               /* XNACK cannot be enabled on GFX12.1 . While dev->kfd->nor=
+etry
++                * should propagate this requirement, adding it explicitly =
+here
++                * will help cover any possible future reworks
++                */
++               if (KFD_GC_VERSION(dev) =3D=3D IP_VERSION(12, 1, 0))
++                       return false;
++
+                 if (dev->kfd->noretry)
+                         return false;
+         }
+--
 2.43.0
 
+
+
+------------------------------
+
+Subject: Digest Footer
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+------------------------------
+
+End of amd-gfx Digest, Vol 126, Issue 488
+*****************************************
+
+--_000_DSVPR12MB449095DFEE3BFF91F0884F5AFA817C2DSVPR12MB449095_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div>
+<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
+; margin-left: 5pt; font-size: 10pt;">
+AMD General</div>
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<div id=3D"Signature" class=3D"elementToProof" data-signature-name=3D"Book =
+time to meet with me">
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<table id=3D"pbpsiglinktable">
+<tbody>
+<tr>
+<td>
+<div class=3D"elementToProof"><a href=3D"https://outlook.office.com/bookwit=
+hme/user/5be71e58d07c492d97048217b901df8e@amd.com?anonymous&amp;ep=3DowaSlo=
+tsEmailSignature" id=3D"OWA0cc19fd3-8898-14af-503a-8c837ae379c5" class=3D"O=
+WAAutoLink"><img size=3D"528" data-outlook-trace=3D"F:1|T:1" src=3D"cid:b9b=
+7f8d3-2bb3-494b-ba11-b7db267cc774"></a></div>
+</td>
+<td></td>
+<td>
+<div class=3D"elementToProof" style=3D"color: rgb(0, 120, 212);"><a href=3D=
+"https://outlook.office.com/bookwithme/user/5be71e58d07c492d97048217b901df8=
+e@amd.com?anonymous&amp;ep=3DowaSlotsEmailSignature" id=3D"OWAeda4525e-44b9=
+-8b72-a73f-9a6eae42d761" class=3D"OWAAutoLink" style=3D"color: rgb(0, 120, =
+212); text-decoration: none;">Book
+ time to meet with me</a></div>
+</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id=3D"appendonsend"></div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<hr style=3D"display: inline-block; width: 98%;">
+<div id=3D"divRplyFwdMsg">
+<div style=3D"direction: ltr; font-family: Calibri, sans-serif; font-size: =
+11pt; color: rgb(0, 0, 0);">
+<b>From:</b> amd-gfx &lt;amd-gfx-bounces@lists.freedesktop.org&gt; on behal=
+f of amd-gfx-request@lists.freedesktop.org &lt;amd-gfx-request@lists.freede=
+sktop.org&gt;<br>
+<b>Sent:</b> Monday, November 16, 2026 2:12 PM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Subject:</b> amd-gfx Digest, Vol 126, Issue 488</div>
+<div style=3D"direction: ltr;">&nbsp;</div>
+</div>
+<div style=3D"font-size: 11pt;">Send amd-gfx mailing list submissions to<br=
+>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amd-gfx@lists.freedesktop.org<br=
+>
+<br>
+To subscribe or unsubscribe via the World Wide Web, visit<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href=3D"https://lists.freedes=
+ktop.org/mailman/listinfo/amd-gfx" id=3D"OWAf72b7ff5-2ad8-3ea3-e8c1-7346089=
+b17d8" class=3D"OWAAutoLink" data-auth=3D"NotApplicable">
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+or, via email, send a message with subject or body 'help' to<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amd-gfx-request@lists.freedeskto=
+p.org<br>
+<br>
+You can reach the person managing the list at<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amd-gfx-owner@lists.freedesktop.=
+org<br>
+<br>
+When replying, please edit your Subject line so it is more specific<br>
+than &quot;Re: Contents of amd-gfx digest...&quot;<br>
+<br>
+<br>
+Today's Topics:<br>
+<br>
+&nbsp;&nbsp; 1. Re: [PATCH 1/5] Revert &quot;drm/amdgpu: re-enable SPM upda=
+tes in<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; the the IB path&quot; (sashiko-bot@kernel.or=
+g)<br>
+&nbsp;&nbsp; 2. Re: [PATCH 4/5] drm/amdgpu/gfx9.4.3: program the RLC SPM in=
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RLC resume (sashiko-bot@kernel.org)<br>
+&nbsp;&nbsp; 3. Re: [PATCH 5/5] drm/amdgpu: bring back the ring parameter f=
+or<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; update_spm_vmid() (sashiko-bot@kernel.org)<b=
+r>
+&nbsp;&nbsp; 4. [PATCH 4/5 v2] drm/amdgpu/gfx9.4.3: program the RLC SPM in<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RLC resume (Alex Deucher)<br>
+&nbsp;&nbsp; 5. [PATCH] drm/amdgpu: Disable XNACK retry on GFX12.1 (Kent Ru=
+ssell)<br>
+<br>
+<br>
+----------------------------------------------------------------------<br>
+<br>
+Message: 1<br>
+Date: Mon, 16 Nov 2026 17:08:47 +0000<br>
+From: sashiko-bot@kernel.org<br>
+To: &quot;Alex Deucher&quot; &lt;alexander.deucher@amd.com&gt;,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amd-gfx@lists.freedesktop.org<br=
+>
+Subject: Re: [PATCH 1/5] Revert &quot;drm/amdgpu: re-enable SPM updates in<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; the the IB path&quot;<br>
+Message-ID: &lt;sashiko-outbox-217409@kernel.org&gt;<br>
+Content-Type: text/plain; charset=3Dutf-8<br>
+<br>
+Thank you for your contribution! Sashiko AI review found 1 potential<br>
+issue to consider:<br>
+- [Low] drm/amdgpu: missing Fixes trailer for reverted commit<br>
+&nbsp; d44428868e5b<br>
+--<br>
+<br>
+commit 36fa0c29e9f1b1b0ebcda0c9f28cb357bd14196e<br>
+Author: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+<br>
+&gt; Revert &quot;drm/amdgpu: re-enable SPM updates in the the IB path&quot=
+;<br>
+&gt;<br>
+&gt; This reverts commit d44428868e5b9f97c6216eee1b4f82aec7a6e8d2.<br>
+&gt;<br>
+&gt; This causes flakiness in gfx11 CI tests.&nbsp; Revert.<br>
+&gt;<br>
+&gt; Signed-off-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;</div>
+<div style=3D"font-size: 11pt; color: rgb(0, 0, 0);"><br>
+</div>
+<div style=3D"font-size: 11pt;"><span style=3D"color: rgb(0, 0, 0);">Acked-=
+by: Vitaly Prosyak &lt;vitaly.prosyak@amd.com&gt;</span><br>
+<br>
+[Severity: Low]<br>
+Since commit d44428868e5b (&quot;drm/amdgpu: re-enable SPM updates in the t=
+he<br>
+IB path&quot;) carries its own Fixes: tag, should this revert include:<br>
+<br>
+&nbsp; Fixes: d44428868e5b (&quot;drm/amdgpu: re-enable SPM updates in the =
+the IB path&quot;)<br>
+<br>
+so stable and backport trees do not pick up the original commit without<br>
+this revert?<br>
+<br>
+--<br>
+Sashiko AI review ? <a href=3D"https://sashiko.dev/#/patchset/2026111616571=
+3.1945549-1-alexander.deucher@amd.com?part=3D1" id=3D"OWA6533c326-18a7-3551=
+-3ef4-47a05e5f0ae1" class=3D"OWAAutoLink" data-auth=3D"NotApplicable">
+https://sashiko.dev/#/patchset/20261116165713.1945549-1-alexander.deucher@a=
+md.com?part=3D1</a><br>
+<br>
+<br>
+------------------------------<br>
+<br>
+Message: 2<br>
+Date: Mon, 16 Nov 2026 17:20:11 +0000<br>
+From: sashiko-bot@kernel.org<br>
+To: &quot;Alex Deucher&quot; &lt;alexander.deucher@amd.com&gt;,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amd-gfx@lists.freedesktop.org<br=
+>
+Subject: Re: [PATCH 4/5] drm/amdgpu/gfx9.4.3: program the RLC SPM in<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RLC resume<br>
+Message-ID: &lt;sashiko-outbox-217426@kernel.org&gt;<br>
+Content-Type: text/plain; charset=3Dutf-8<br>
+<br>
+Thank you for your contribution! Sashiko AI review found 2 potential<br>
+issues to consider:<br>
+- [High] drm/amdgpu: gfx_v9_4_3_xcc_rlc_resume() passes 0 instead of<br>
+&nbsp; xcc_id<br>
+- [Medium] drm/amdgpu: moving update_spm_vmid() to<br>
+&nbsp; gfx_v9_4_3_xcc_rlc_resume() skips VFs<br>
+--<br>
+<br>
+commit 754d99a96da547c9e401d40cfbeb309d0d3aa36f<br>
+Author: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+<br>
+drm/amdgpu/gfx9.4.3: program the RLC SPM in RLC resume<br>
+<br>
+This commit moves the RLC SPM VMID programming from gfx_v9_4_3_rlc_init()<b=
+r>
+to gfx_v9_4_3_xcc_rlc_resume() so that the register is reprogrammed after<b=
+r>
+suspend/resume and GPU reset.<br>
+<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm=
+/amd/amdgpu/gfx_v9_4_3.c<br>
+&gt; index da031caa4e9e6..151336e6094f7 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c<br>
+&gt; @@ -1395,10 +1395,6 @@ static void gfx_v9_4_3_init_rlcg_reg_access_ctr=
+l(struct amdgpu_device *adev)<br>
+&gt;&nbsp;<br>
+&gt;&nbsp; static int gfx_v9_4_3_rlc_init(struct amdgpu_device *adev)<br>
+&gt;&nbsp; {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; /* init spm vmid with 0xf */<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gfx.rlc.funcs-&gt;update_spm_vm=
+id)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; adev-&gt;gfx.rlc.funcs-&gt;update_spm_vmid(adev, 0, adev-&gt;vm_manager=
+.spm_vmid);<br>
+&gt; -<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;&nbsp; }<br>
+&gt;&nbsp;<br>
+&gt; @@ -1588,6 +1584,10 @@ static int gfx_v9_4_3_xcc_rlc_resume(struct amd=
+gpu_device *adev, int xcc_id)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gfx_v9_4_3_xcc_init_pg(adev,=
+ xcc_id);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_gfx_rlc_exit_safe_mod=
+e(adev, xcc_id);<br>
+&gt;&nbsp;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; /* init spm vmid with 0xf */<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gfx.rlc.funcs-&gt;update_spm_vm=
+id)<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; adev-&gt;gfx.rlc.funcs-&gt;update_spm_vmid(adev, 0, adev-&gt;vm_manager=
+.spm_vmid);<br>
+&gt; +<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;&nbsp; }<br>
+<br>
+[Severity: High]<br>
+Should update_spm_vmid() pass xcc_id instead of 0 here?<br>
+<br>
+gfx_v9_4_3_rlc_resume() and gfx_v9_4_3_xcp_resume() call<br>
+gfx_v9_4_3_xcc_rlc_resume() for each XCC instance, and<br>
+gfx_v9_4_3_update_spm_vmid() uses the instance argument with<br>
+GET_INST(GC, inst) to select which XCC's regRLC_SPM_MC_CNTL register to<br>
+write.&nbsp; Passing 0 programs XCC 0 on every iteration and leaves<br>
+regRLC_SPM_MC_CNTL on all other XCCs at its hardware reset default of<br>
+VMID 0.<br>
+<br>
+[Severity: Medium]<br>
+Does moving update_spm_vmid() into gfx_v9_4_3_xcc_rlc_resume() skip SPM<br>
+VMID initialization on SR-IOV VFs?<br>
+<br>
+Both callers of gfx_v9_4_3_xcc_rlc_resume() (gfx_v9_4_3_rlc_resume() and<br=
+>
+gfx_v9_4_3_xcp_resume()) skip calling it when amdgpu_sriov_vf(adev) is<br>
+true:<br>
+<br>
+drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c:gfx_v9_4_3_rlc_resume() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; return 0;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; num_xcc =3D NUM_XCC(adev-&gt;gfx=
+.xcc_mask);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; num_xcc; i+=
++) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; r =3D gfx_v9_4_3_xcc_rlc_resume(adev, i);<br>
+&nbsp;&nbsp;&nbsp; ...<br>
+}<br>
+<br>
+Unlike gfx_v9_4_3_rlc_init(), which ran during sw_init on VFs as well,<br>
+gfx_v9_4_3_update_spm_vmid() is no longer reached on SR-IOV VFs, leaving<br=
+>
+regRLC_SPM_MC_CNTL unprogrammed in SR-IOV one-VF mode despite the<br>
+amdgpu_sriov_is_pp_one_vf(adev) handling in gfx_v9_4_3_update_spm_vmid().<b=
+r>
+<br>
+--<br>
+Sashiko AI review ? <a href=3D"https://sashiko.dev/#/patchset/2026111616571=
+3.1945549-1-alexander.deucher@amd.com?part=3D4" id=3D"OWAf72ac820-4687-dbd9=
+-d335-b268233e738d" class=3D"OWAAutoLink" data-auth=3D"NotApplicable">
+https://sashiko.dev/#/patchset/20261116165713.1945549-1-alexander.deucher@a=
+md.com?part=3D4</a><br>
+<br>
+<br>
+------------------------------<br>
+<br>
+Message: 3<br>
+Date: Mon, 16 Nov 2026 17:26:33 +0000<br>
+From: sashiko-bot@kernel.org<br>
+To: &quot;Alex Deucher&quot; &lt;alexander.deucher@amd.com&gt;,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amd-gfx@lists.freedesktop.org<br=
+>
+Subject: Re: [PATCH 5/5] drm/amdgpu: bring back the ring parameter for<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; update_spm_vmid()<br>
+Message-ID: &lt;sashiko-outbox-217433@kernel.org&gt;<br>
+Content-Type: text/plain; charset=3Dutf-8<br>
+<br>
+Thank you for your contribution! Sashiko AI review found 3 potential<br>
+issues to consider:<br>
+- [High] drm/amdgpu: hardcoded XCC 0 in gfx_v9_4_3_xcc_rlc_resume()<br>
+&nbsp; skips XCCs 1..N-1<br>
+- [Medium] drm/amdgpu: gfx9 compute emit_frame_size exceeds max_dw in<br>
+&nbsp; amdgpu_ring_init()<br>
+- [Medium] drm/amdgpu: update_spm_vmid() skipped on SR-IOV VFs in<br>
+&nbsp; gfx_v8_0 and gfx_v9_4_3<br>
+--<br>
+<br>
+commit 08b45306962b59cde3c232193cc26534f308aaa2<br>
+Author: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+<br>
+drm/amdgpu: bring back the ring parameter for update_spm_vmid()<br>
+<br>
+This commit restores the ring parameter to update_spm_vmid() so that GFX9,<=
+br>
+GFX10, GFX11, and GFX12.0 emit the SPM VMID update on the ring during IB<br=
+>
+scheduling while skipping MMIO updates when a ring is provided.<br>
+<br>
+[ ... ]<br>
+<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/a=
+md/amdgpu/gfx_v8_0.c<br>
+&gt; index df935827b002a..e818280139791 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<br>
+&gt; @@ -4084,7 +4084,8 @@ static int gfx_v8_0_rlc_resume(struct amdgpu_dev=
+ice *adev)<br>
+&gt;&nbsp;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* init spm vmid with 0xf */=
+<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gfx.rlc.funcs-&=
+gt;update_spm_vmid)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; adev-&gt;gfx.rlc.funcs-&gt;update_spm_vmid(adev, 0, adev-&gt;vm_manager=
+.spm_vmid);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; adev-&gt;gfx.rlc.funcs-&gt;update_spm_vmid(adev, 0, NULL, adev-&gt;vm_m=
+anager.spm_vmid);<br>
+&gt; +<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;&nbsp; }<br>
+&gt;&nbsp;<br>
+&gt; @@ -5483,10 +5484,13 @@ static void gfx_v8_0_unset_safe_mode(struct am=
+dgpu_device *adev, int xcc_id)<br>
+&gt;&nbsp; }<br>
+&gt;&nbsp;<br>
+&gt;&nbsp; static void gfx_v8_0_update_spm_vmid(struct amdgpu_device *adev,=
+ int xcc_id,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; unsigned int vmid)<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; struct amdgpu_ring *ring, unsigned vmid)<br>
+&gt;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 data;<br>
+&gt;&nbsp;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (ring)<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; return;<br>
+&gt; +<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_gfx_off_ctrl(adev, fa=
+lse);<br>
+&gt;&nbsp;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_is_pp_one_v=
+f(adev))<br>
+<br>
+[Severity: Medium]<br>
+Does returning early when ring is non-NULL leave mmRLC_SPM_VMID unprogramme=
+d<br>
+on SR-IOV VFs in one-VF mode?<br>
+<br>
+gfx_v8_0_rlc_resume() returns early when amdgpu_sriov_vf(adev) is true befo=
+re<br>
+reaching the update_spm_vmid(adev, 0, NULL, ...) call:<br>
+<br>
+drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c:gfx_v8_0_rlc_resume() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev)) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; gfx_v8_0_init_csb(adev);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; return 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; ...<br>
+}<br>
+<br>
+With amdgpu_ib_schedule() passing a non-NULL ring, gfx_v8_0_update_spm_vmid=
+()<br>
+now returns before reaching the amdgpu_sriov_is_pp_one_vf(adev) branch, so<=
+br>
+mmRLC_SPM_VMID is never programmed on SR-IOV VFs.&nbsp; The same issue affe=
+cts<br>
+gfx_v9_4_3_update_spm_vmid(), because both gfx_v9_4_3_rlc_resume() and<br>
+gfx_v9_4_3_xcp_resume() skip calling gfx_v9_4_3_xcc_rlc_resume() when<br>
+amdgpu_sriov_vf(adev) is true.<br>
+<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/a=
+md/amdgpu/gfx_v9_0.c<br>
+&gt; index 2e2673a6dbbf5..be45c10b6f579 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<br>
+<br>
+[ ... ]<br>
+<br>
+&gt; @@ -7663,6 +7675,7 @@ static const struct amdgpu_ring_funcs gfx_v9_0_r=
+ing_funcs_compute =3D {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_wptr =3D gfx_v9_0_ring_=
+get_wptr_compute,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_wptr =3D gfx_v9_0_ring_=
+set_wptr_compute,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .emit_frame_size =3D<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; 5 + /* update_spm_vmid */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; 20 + /* gfx_v9_0_ring_emit_gds_switch */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; 7 + /* gfx_v9_0_ring_emit_hdp_flush */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; 5 + /* hdp invalidate */<br>
+<br>
+[Severity: Medium]<br>
+Does adding 5 dwords here trigger WARN_ON(max_ibs_dw &gt; max_dw) in<br>
+amdgpu_ring_init() for every GFX9 compute ring?<br>
+<br>
+This increases gfx_v9_0_ring_funcs_compute.emit_frame_size from 145 to 150.=
+<br>
+In amdgpu_ring_init(), max_ibs_dw is 150 + 125 * 7 =3D 1025, which rounds u=
+p to<br>
+1280 with align_mask (0xff), exceeding the max_dw of 1024 passed by<br>
+gfx_v9_0_compute_ring_init().<br>
+<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm=
+/amd/amdgpu/gfx_v9_4_3.c<br>
+&gt; index 151336e6094f7..f28ffe8a5ac55 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c<br>
+&gt; @@ -1586,7 +1586,7 @@ static int gfx_v9_4_3_xcc_rlc_resume(struct amdg=
+pu_device *adev, int xcc_id)<br>
+&gt;&nbsp;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* init spm vmid with 0xf */=
+<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gfx.rlc.funcs-&=
+gt;update_spm_vmid)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; adev-&gt;gfx.rlc.funcs-&gt;update_spm_vmid(adev, 0, adev-&gt;vm_manager=
+.spm_vmid);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; adev-&gt;gfx.rlc.funcs-&gt;update_spm_vmid(adev, 0, NULL, adev-&gt;vm_m=
+anager.spm_vmid);<br>
+&gt;&nbsp;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;&nbsp; }<br>
+&gt; @@ -1609,10 +1609,13 @@ static int gfx_v9_4_3_rlc_resume(struct amdgpu=
+_device *adev)<br>
+&gt;&nbsp; }<br>
+&gt;&nbsp;<br>
+&gt;&nbsp; static void gfx_v9_4_3_update_spm_vmid(struct amdgpu_device *ade=
+v,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int inst, unsigned int vmid)<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int inst, struct amdgpu_ring *ring, unsig=
+ned int vmid)<br>
+&gt;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 reg, pre_data, data;<br>
+&gt;&nbsp;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (ring)<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; return;<br>
+&gt; +<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; reg =3D SOC15_REG_OFFSET(GC,=
+ GET_INST(GC, inst), regRLC_SPM_MC_CNTL);<br>
+<br>
+[Severity: High]<br>
+Should gfx_v9_4_3_xcc_rlc_resume() pass xcc_id instead of 0 to<br>
+update_spm_vmid()?<br>
+<br>
+Previously, amdgpu_ib_schedule() called update_spm_vmid() with ring-&gt;xcc=
+_id on<br>
+each IB submission, programming regRLC_SPM_MC_CNTL on all XCCs.&nbsp; Now t=
+hat<br>
+gfx_v9_4_3_update_spm_vmid() returns early when ring is non-NULL,<br>
+gfx_v9_4_3_xcc_rlc_resume() is the only caller that programs the register, =
+and<br>
+passing hardcoded 0 leaves XCCs 1..num_xcc-1 at their hardware reset value =
+of<br>
+VMID 0 (the kernel VMID).<br>
+<br>
+--<br>
+Sashiko AI review ? <a href=3D"https://sashiko.dev/#/patchset/2026111616571=
+3.1945549-1-alexander.deucher@amd.com?part=3D5" id=3D"OWA99b6eca0-fd1c-589e=
+-8153-22423ab25caa" class=3D"OWAAutoLink" data-auth=3D"NotApplicable">
+https://sashiko.dev/#/patchset/20261116165713.1945549-1-alexander.deucher@a=
+md.com?part=3D5</a><br>
+<br>
+<br>
+------------------------------<br>
+<br>
+Message: 4<br>
+Date: Mon, 16 Nov 2026 14:10:22 -0500<br>
+From: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+To: &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+Cc: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+Subject: [PATCH 4/5 v2] drm/amdgpu/gfx9.4.3: program the RLC SPM in<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RLC resume<br>
+Message-ID: &lt;20261116191022.1955106-1-alexander.deucher@amd.com&gt;<br>
+Content-Type: text/plain<br>
+<br>
+The register needs to be reprogrammed after a suspend and resume<br>
+or a GPU reset so program it in rlc_resume rather than rlc_init.<br>
+<br>
+v2: pass xcc_id when calling<br>
+<br>
+Fixes: 7c0f7ee00c7d (&quot;drm/amdgpu: add gc v9_4_3 rlc_funcs implementati=
+on&quot;)<br>
+Signed-off-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 8 ++++----<br>
+&nbsp;1 file changed, 4 insertions(+), 4 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/=
+amdgpu/gfx_v9_4_3.c<br>
+index da031caa4e9e6..7b8ff043c99ec 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c<br>
+@@ -1395,10 +1395,6 @@ static void gfx_v9_4_3_init_rlcg_reg_access_ctrl(str=
+uct amdgpu_device *adev)<br>
+&nbsp;<br>
+&nbsp;static int gfx_v9_4_3_rlc_init(struct amdgpu_device *adev)<br>
+&nbsp;{<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* init spm vmid with 0xf */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gfx.rlc.funcs-&gt;update=
+_spm_vmid)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; adev-&gt;gfx.rlc.funcs-&gt;update_spm_vmid(adev, 0, adev-&gt;vm_=
+manager.spm_vmid);<br>
+-<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;}<br>
+&nbsp;<br>
+@@ -1588,6 +1584,10 @@ static int gfx_v9_4_3_xcc_rlc_resume(struct amdgpu_d=
+evice *adev, int xcc_id)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gfx_v9_4_3_xcc_init_pg(ade=
+v, xcc_id);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_gfx_rlc_exit_safe_m=
+ode(adev, xcc_id);<br>
+&nbsp;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* init spm vmid with 0xf */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gfx.rlc.funcs-&gt;update=
+_spm_vmid)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; adev-&gt;gfx.rlc.funcs-&gt;update_spm_vmid(adev, xcc_id, adev-&g=
+t;vm_manager.spm_vmid);<br>
++<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;}<br>
+&nbsp;<br>
+--<br>
+2.56.1<br>
+<br>
+<br>
+<br>
+------------------------------<br>
+<br>
+Message: 5<br>
+Date: Mon, 16 Nov 2026 14:11:41 -0500<br>
+From: Kent Russell &lt;kent.russell@amd.com&gt;<br>
+To: &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+Cc: &lt;jay.cornwall@amd.com&gt;, Kent Russell &lt;kent.russell@amd.com&gt;=
+<br>
+Subject: [PATCH] drm/amdgpu: Disable XNACK retry on GFX12.1<br>
+Message-ID: &lt;20261116191141.145348-1-kent.russell@amd.com&gt;<br>
+Content-Type: text/plain<br>
+<br>
+This feature cannot be properly supported, so disable it both on the<br>
+amdgpu side and the amdkfd side.<br>
+<br>
+Signed-off-by: Kent Russell &lt;kent.russell@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; |&nbsp; 7 +++++++<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp; |&nbsp; 5 ++---<br>
+&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_chardev.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; | 12 ++++++++++++<br>
+&nbsp;.../amdkfd/kfd_device_queue_manager_v12_1.c&nbsp;&nbsp;&nbsp; | 18 ++=
+++--------------<br>
+&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_process.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; |&nbsp; 7 +++++++<br>
+&nbsp;5 files changed, 32 insertions(+), 17 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_gmc.c<br>
+index 08d3ff61edcc..d0ede277aa85 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c<br>
+@@ -1151,6 +1151,13 @@ void amdgpu_gmc_noretry_set(struct amdgpu_device *ad=
+ev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; gmc-&gt;noretry =3D 1;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; gmc-&gt;noretry =3D (amdgpu_noretry =3D=3D -1) ? nore=
+try_default : amdgpu_noretry;<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* XNACK cannot be enabled on GFX12.1=
+, so keep noretry=3D1 */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (gc_ver =3D=3D IP_VERSION(12, 1, 0=
+)) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (amdgpu_noretry =3D=3D 0)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_warn(adev-&g=
+t;dev, &quot;Unable to set noretry =3D 0 on GFX12.1. Keeping noretry =3D 1&=
+quot;);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; gmc-&gt;noretry =3D 1;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;}<br>
+&nbsp;<br>
+&nbsp;void amdgpu_gmc_set_vm_fault_masks(struct amdgpu_device *adev, int hu=
+b_type,<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c b/drivers/gpu/drm/amd/a=
+mdgpu/gfx_v12_1.c<br>
+index 1f57d0fa2c04..034cc3fd07f3 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c<br>
+@@ -1518,9 +1518,8 @@ static u32 gfx_v12_1_get_sh_mem_config(struct amdgpu_=
+device *adev)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 sh_mem_config =3D DEFA=
+ULT_SH_MEM_CONFIG;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* GC 12.1.0 A0 requires RETRY_DISABL=
+E in SH_MEM_CONFIG. */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (SOC_V1_0_DIE_REV_XCD(adev-&gt;rev=
+_id) =3D=3D 0)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; sh_mem_config |=3D 1 &lt;&lt; SH_MEM_CONFIG__RETRY_DISABLE__SHIF=
+T;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* XNACK cannot be enabled for GFX12.=
+1 */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sh_mem_config |=3D 1 &lt;&lt; SH_MEM_=
+CONFIG__RETRY_DISABLE__SHIFT;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return sh_mem_config;<br>
+&nbsp;}<br>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd=
+/amdkfd/kfd_chardev.c<br>
+index 3d2136adb62b..3b62b9e5ecda 100644<br>
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c<br>
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c<br>
+@@ -1766,6 +1766,8 @@ static int kfd_ioctl_set_xnack_mode(struct file *file=
+p,<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;p-&gt;mute=
+x);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (args-&gt;xnack_enabled=
+ &gt;=3D 0) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; int i;<br>
++<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (!list_empty(&amp;p-&gt;pqm.queues)) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_de=
+bug(&quot;Process has user queues running\n&quot;);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D=
+ -EBUSY;<br>
+@@ -1780,6 +1782,16 @@ static int kfd_ioctl_set_xnack_mode(struct file *fil=
+ep,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto =
+out_unlock;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; /* XNACK cannot be enabled for gfx12.1 */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; for (i =3D 0; i &lt; p-&gt;n_pdds; i++) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_node =
+*dev =3D p-&gt;pdds[i]-&gt;dev;<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (KFD_GC_VERSI=
+ON(dev) =3D=3D IP_VERSION(12, 1, 0)) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D -EPERM;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto out_unlock;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; }<br>
++<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; r =3D svm_range_switch_xnack_reserve_mem(p, args-&gt;=
+xnack_enabled);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; args-&gt;xnack_enabled =3D p-&gt;xnack_enabled;<br>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v12_1.c b/=
+drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v12_1.c<br>
+index 525989371378..63ba13a60b98 100644<br>
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v12_1.c<br>
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v12_1.c<br>
+@@ -54,7 +54,6 @@ static int update_qpd_v12_1(struct device_queue_manager *=
+dqm,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_process_device =
+*pdd;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
+ =3D dqm-&gt;dev-&gt;adev;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_vmhub *hub =
+=3D &amp;adev-&gt;vmhub[AMDGPU_GFXHUB(0)];<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool xnack_enabled;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pdd =3D qpd_to_pdd(qpd);<b=
+r>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; qpd-&gt;vm_cntx_cntl =3D h=
+ub-&gt;vm_cntx_cntl;<br>
+@@ -72,19 +71,10 @@ static int update_qpd_v12_1(struct device_queue_manager=
+ *dqm,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; qpd-&gt;sh_mem_ape1_base =3D 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; xnack_enabled =3D KFD_SUPPORT_XNACK_P=
+ER_PROCESS(dqm-&gt;dev) ?<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pdd-&gt;process-=
+&gt;xnack_enabled :<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; !pdd-&gt;dev-&gt=
+;kfd-&gt;noretry;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!xnack_enabled) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; qpd-&gt;sh_mem_config |=3D 1 &lt;&lt; SH_MEM_CONFIG__RETRY_DISAB=
+LE__SHIFT;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; qpd-&gt;vm_cntx_cntl &amp;=3D<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ~(1 &lt;&lt; GCV=
+M_CONTEXT0_CNTL__RETRY_PERMISSION_OR_INVALID_PAGE_FAULT__SHIFT);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; qpd-&gt;sh_mem_config &amp;=3D ~(1 &lt;&lt; SH_MEM_CONFIG__RETRY=
+_DISABLE__SHIFT);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; qpd-&gt;vm_cntx_cntl |=3D<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (1 &lt;&lt; GCVM=
+_CONTEXT0_CNTL__RETRY_PERMISSION_OR_INVALID_PAGE_FAULT__SHIFT);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* XNACK cannot be enabled for gfx12.=
+1 */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; qpd-&gt;sh_mem_config |=3D 1 &lt;&lt;=
+ SH_MEM_CONFIG__RETRY_DISABLE__SHIFT;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; qpd-&gt;vm_cntx_cntl &amp;=3D<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; ~(1 &lt;&lt; GCVM_CONTEXT0_CNTL__RETRY_PERMISSION_OR_INVALID_PAG=
+E_FAULT__SHIFT);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; qpd-&gt;sh_mem_bases =3D c=
+ompute_sh_mem_bases_64bit(pdd);<br>
+&nbsp;<br>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd=
+/amdkfd/kfd_process.c<br>
+index 546721b4d59a..059e22cd7f1a 100644<br>
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c<br>
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c<br>
+@@ -1670,6 +1670,13 @@ bool kfd_process_xnack_mode(struct kfd_process *p, b=
+ool supported)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; KFD_GC_VERSION(dev) &lt; IP_V=
+ERSION(12, 1, 0))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retur=
+n false;<br>
+&nbsp;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; /* XNACK cannot be enabled on GFX12.1 . While dev-&gt;kfd-&gt;no=
+retry<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; * should propagate this requirement, adding it explicitly =
+here<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; * will help cover any possible future reworks<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (KFD_GC_VERSION(dev) =3D=3D IP_VERSION(12, 1, 0))<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return false;<br=
+>
++<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (dev-&gt;kfd-&gt;noretry)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retur=
+n false;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+--<br>
+2.43.0<br>
+<br>
+<br>
+<br>
+------------------------------<br>
+<br>
+Subject: Digest Footer<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx@lists.freedesktop.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"OW=
+A552c50fd-c50d-4b41-dca5-af5d55bf2cf8" class=3D"OWAAutoLink" data-auth=3D"N=
+otApplicable">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br=
+>
+<br>
+<br>
+------------------------------<br>
+<br>
+End of amd-gfx Digest, Vol 126, Issue 488<br>
+*****************************************</div>
+</body>
+</html>
+
+--_000_DSVPR12MB449095DFEE3BFF91F0884F5AFA817C2DSVPR12MB449095_--
+
+--_004_DSVPR12MB449095DFEE3BFF91F0884F5AFA817C2DSVPR12MB449095_
+Content-Type: image/png; name="image.png"
+Content-Description: image.png
+Content-Disposition: inline; filename="image.png"; size=528;
+	creation-date="Mon, 16 Nov 2026 19:48:10 GMT";
+	modification-date="Mon, 16 Nov 2026 19:48:10 GMT"
+Content-ID: <b9b7f8d3-2bb3-494b-ba11-b7db267cc774>
+Content-Transfer-Encoding: base64
+
+iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAcpJREFUOE9j
+ZAABr6aJDHqhuQwMDIxgPrHg19d3DLP91Bk+P3sD08IIN2x1hjPDy7NXiDWL4T8nM0NA33wGWRMP
+hg5NJgYGhv8gvYwMFdf/MYAMu3twP9GGISssv/qLYVdzMsP5FYthBv5nmO2pyfDzzVuyDEw/eJ3h
+xNyJDEenNSMMJMskJE2Hp9YxHJ2CZOBUM1GGz5/hAUuS+UVnXjOcXDCJygbOm4TqZUpcGDJjJcPz
+S1eoYyAvrzDD58/vGRgY/iHSYcX1/wykupBXWpghe89reEbY0RjNcGHFMkQsk2pgwYkXDBz84iiR
+16EJzmWghE26C8uv/mZgZGJBM5AZ5HXyDPRo7GMwCCuEG/jj40uGCRYS5LsQpNM6q4TBOLqE4emF
+gwxrs8NRI2WynSTD19cvSErQOBQzMhSdecvw8vophqWxngQNBCWTrBMvMMIPpnF7dQQjA6+UCEP2
+3tcM//7+Zvjx8QNOQydZizFk7bvNwCepgs9iWIHKyGAYEcPALaQEUQwq3mBplQmi5siUBoa0bRcZ
+hBT18Bj4n7QSWlhGmiF19xOcBh6aVEyagSCTQEEUNf8Ag6CcFjyn/Pz8hmF9cQjDg8MHAaiKxp0e
+iZJ4AAAAAElFTkSuQmCC
+
+--_004_DSVPR12MB449095DFEE3BFF91F0884F5AFA817C2DSVPR12MB449095_--
