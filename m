@@ -2,51 +2,149 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 555BF606A323
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 13:41:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85B06606A323
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 13:41:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baryla.org header.i=@baryla.org header.a=rsa-sha256 header.s=dkim header.b=CzMoaRSw
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A4AF64nu
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D9C8C10F148;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9DB810F1B6;
 	Mon, 16 Nov 2026 13:41:34 +0000 (UTC)
-Received: from mail.baryla.org (mail.baryla.org [217.182.77.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E9F210EF76;
- Mon, 16 Nov 2026 11:15:24 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 57ECE7460F7; Mon, 16 Nov 2026 11:07:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baryla.org; s=dkim;
- t=1794827259; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding; bh=2crvVlQ0qrNcT4X3yeFwrEOwN+ga0vW6noWwACc1vro=;
- b=CzMoaRSwq1oY44fRqo+f19AVaWdsYumJbYOERqIIuQZ6lstvEWuIfw9yehx/2gQP/o47md
- nVH4fjt7bTTvVjKl2FoRDtwJ0nDhyxhQMOX46QG0Fp35RA5kvacuRBwL2hxYNKTOmba/W9
- 8FumqApHdchGhtdmhZMdyoyY32avTY20Ym56CE2vzanVyV2mObmDmn5g6adlhkCkf5aetq
- +9mkoS4yVPhZiIja5KJv46wmowet2Pcd4klxTDaMMNIfJ1kufkwlLeHHomFMud69CYuBLz
- wMA1XS11apnM/2UZu3U+dYknpxIHHUGjcF3/BdFG1vmoU11Q38LSzdC51Ua7PQ==
-From: =?utf-8?q?Karol_Bary=C5=82a?= <git@baryla.org>
-Subject: [PATCH 0/2] drm/amd/display: Skip the MST last link check for
- logical ports
-Date: Mon, 16 Nov 2026 12:07:31 +0100
-Message-Id: <20261116-mst-logical-port-v1-0-6b446ebe75e7@baryla.org>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A64510EED8;
+ Mon, 16 Nov 2026 10:21:06 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 607C462887;
+ Mon, 16 Nov 2026 10:21:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4BA51F000C6;
+ Mon, 16 Nov 2026 10:21:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794824465;
+ bh=eCrA9mVjaBK8MAY40JPU1DywzMNRUcfqehnrbY/XXEA=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=A4AF64nuBLP4D/WB5XYrARCuvN2Uya+3U/WL8n/jma9gny6IDC2hNd/K8trp//kOW
+ 03vAkDVhr12heLXIsz1vZ3Lizif1tDNSK+WI9rfYCraTnB+tG780UlFvGKGfeYW4Yj
+ /IGW6YDtveTz1JbN3vYsZvH06G36SZgQ90exTJ8WtMz1sp4PXUGZOa7wDC7+oNODEN
+ esEoQ++w65AfXmz1JPtKklbmO8G8ttx+3dNK4t7h98eTe2QMB5YoB+XXQnlZYrcWRj
+ ZrIAkdIqvc1bQVWn9O14VYmxY1+VqEs5E6zOpHJTbvhSY+cUGEVijNGts5/I2lDndf
+ xBytnwQqkpBDA==
+From: Maxime Ripard <mripard@kernel.org>
+To: David Airlie <airlied@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Maxime Ripard <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, Janne Grunau <j@jannau.net>,
+ Sasha Finkelstein <k@chaosmail.tech>, asahi@lists.linux.dev,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ Aun-Ali Zaidi <admin@kodeit.net>, Liviu Dudau <liviu.dudau@arm.com>,
+ Russell King <linux@armlinux.org.uk>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Joel Stanley <joel@jms.id.au>, Dave Airlie <airlied@redhat.com>,
+ Jocelyn Falempe <jfalempe@redhat.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ Dharma Balasubiramani <dharma.b@microchip.com>,
+ Manikandan Muralidharan <manikandan.m@microchip.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Inki Dae <inki.dae@samsung.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Seung-Woo Kim <sw0312.kim@samsung.com>, linux-samsung-soc@vger.kernel.org,
+ Alison Wang <alison.wang@nxp.com>, Stefan Agner <stefan@agner.ch>,
+ Ruben Wauters <rubenru09@aol.com>, Tian Tao <tiantao6@hisilicon.com>,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ Yongbang Shi <shiyongbang@huawei.com>, John Stultz <jstultz@google.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Xinliang Liu <xinliang.liu@linaro.org>,
+ Yongqin Liu <yongqin.liu@linaro.org>, Dexuan Cui <decui@microsoft.com>,
+ Long Li <longli@microsoft.com>,
+ Saurabh Sengar <ssengar@linux.microsoft.com>, linux-hyperv@vger.kernel.org,
+ Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>,
+ Liu Ying <victor.liu@nxp.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Sascha Hauer <s.hauer@pengutronix.de>, imx@lists.linux.dev,
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
+ Lucas Stach <l.stach@pengutronix.de>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Paul Cercueil <paul@crapouillou.net>, linux-mips@vger.kernel.org,
+ Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
+ Paul Kocialkowski <paulk@sys-base.io>, Huacai Chen <chenhuacai@kernel.org>,
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ Jianmin Lv <lvjianmin@loongson.cn>, Mingcong Bai <jeffbai@aosc.io>,
+ Qianhai Wu <wuqianhai@loongson.cn>, Xi Ruoyao <xry111@xry111.site>,
+ Linus Walleij <linusw@kernel.org>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Jerome Brunet <jbrunet@baylibre.com>, Kevin Hilman <khilman@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-amlogic@lists.infradead.org, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Marek Vasut <marex@denx.de>, Danilo Krummrich <dakr@kernel.org>,
+ Lyude Paul <lyude@redhat.com>, nouveau@lists.freedesktop.org,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Gerd Hoffmann <kraxel@redhat.com>, spice-devel@lists.freedesktop.org,
+ virtualization@lists.linux.dev,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ linux-renesas-soc@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>,
+ =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
+ Sandy Huang <hjc@rock-chips.com>, linux-rockchip@lists.infradead.org,
+ Marcus Folkesson <marcus.folkesson@gmail.com>,
+ David Lechner <david@lechnology.com>,
+ Iker Pedrosa <ikerpedrosam@gmail.com>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, Orson Zhai <orsonzhai@gmail.com>,
+ Alain Volmat <alain.volmat@foss.st.com>,
+ Raphael Gallais-Pou <rgallaispou@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Philippe Cornu <philippe.cornu@foss.st.com>,
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+ Yannick Fertre <yannick.fertre@foss.st.com>,
+ Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>,
+ linux-sunxi@lists.linux.dev, Jonathan Hunter <jonathanh@nvidia.com>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Thierry Reding <thierry.reding@kernel.org>, linux-tegra@vger.kernel.org,
+ Jyri Sarha <jyri.sarha@iki.fi>, Alexey Brodkin <abrodkin@synopsys.com>,
+ Hans de Goede <hansg@kernel.org>,
+ Kamlesh Gurudasani <kamlesh.gurudasani@gmail.com>,
+ Alex Lanzano <lanzano.alex@gmail.com>,
+ LiangCheng Wang <zaq14760@gmail.com>,
+ =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Chia-I Wu <olvaffe@gmail.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Haneen Mohammed <hamohammed.sa@gmail.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>,
+ Melissa Wen <melissa.srw@gmail.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Zack Rusin <zack.rusin@broadcom.com>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Michal Simek <michal.simek@amd.com>, Aditya Garg <aditya.garg@linux.dev>,
+ Andy Yan <andyshrk@163.com>
+Subject: Re: (subset) [PATCH RESEND 00/83] drm: Switch drivers to
+ drm_mode_config_create_initial_state
+Date: Mon, 16 Nov 2026 11:20:59 +0100
+Message-ID: <179482445067.74579.7064780976000809844.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
+References: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/x3MQQrDIBAF0KsMf50BjZBar1K6EDNJB2wMGkIge
- PdC3wHejSZVpSHQjSqnNi0bAtmBkD5xW4V1RiCMZpystRN/28G5rJpi5r3Ug13y0bvnwzsjGAh
- 7lUWvf/l69/4D8TyLEWIAAAA=
-X-Change-ID: 20261116-mst-logical-port-3c8a8397830e
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Zaeem Mohamed <zaeem.mohamed@amd.com>, Wayne Lin <wayne.lin@amd.com>, 
- Jerry Zuo <jerry.zuo@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, 
- =?utf-8?q?Karol_Bary=C5=82a?= <git@baryla.org>
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
 X-Mailman-Approved-At: Mon, 16 Nov 2026 13:41:34 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -58,100 +156,27 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi,
+On Thu, 05 Nov 2026 16:29:09 +0100, Maxime Ripard wrote:
+> drm_mode_config_reset() has a dual role: it creates the initial KMS
+> state at probe time, and resets hardware and software state during
+> suspend/resume cycles. However, the two roles need different
+> behaviors, notably for objects like drm_private_obj that must persist
+> across suspend/resume and are excluded from drm_mode_config_reset()
+> by design.
+> 
+> [...]
 
-This series fixes a missing 3840x2160@120 mode on a Dell U3225QE, a
-monitor with a built-in USB4 hub and MST branch device, connected to a
-laptop over USB4.
+Applied to misc/kernel.git (drm-misc-next)
 
-After every USB4 plug-in, 3840x2160@120 RGB is not available for the
-U3225QE panel. It comes back after a monitor power cycle and is lost
-again on the next plug-in. Up to 7.2 the mode is missing from the mode
-list. Since commit 0b0ff65d3ca1 ("drm/amd/display: Refactor stream
-validation") in 7.3, it is offered as YCbCr 4:2:2 without DSC instead,
-and "Mode Validation Warning: Viewport size failed validation." is
-logged on every atomic check.
+[45/83] drm/sti: Switch to drm_mode_config_create_initial_state
+        commit: a8670a2ab1a81dc3fc30093e47c23b83244ca4d0
 
-The mode needs DSC: uncompressed it needs 28.5 Gbit/s, and the HBR3 x4
-link gives 25.1 Gbit/s. The panel is on logical port 8 of the monitor's
-branch device, and DSC is decoded at that port, so
-dm_dp_mst_is_port_support_mode() checks the "last link" after it. It
-reads DP_LINK_BW_SET and DP_LANE_COUNT_SET of the port once, caches the
-result, and rejects modes whose uncompressed rate does not fit.
-
-A logical port is the branch device's own internal sink, so no DP link
-follows it. On this monitor its registers seem to show the state of the
-monitor's internal link while it trains. DPCD 0x100-0x108 of port 8,
-captured with bpftrace:
-
-  when                  driver's read                 read ~1 s later
-  after USB4 plug-in    06 01 00 00 00 00 00 00 01    1e 84 00 02 02 02 02 10 01
-  after power cycle     06 04 00 00 00 00 00 00 00    1e 84 00 02 02 02 02 10 01
-
-0x100 is DP_LINK_BW_SET, 0x101 is DP_LANE_COUNT_SET (bit 7 is enhanced
-framing) and 0x108 is DP_MAIN_LINK_CHANNEL_CODING_SET.
-
-After a plug-in the driver sees RBR x1 (1.26 Gbit/s) and drops the
-mode. After a power cycle it reads before the channel coding is set,
-gets no bandwidth, and skips the check. Even the settled value, HBR3
-x4, is too slow for the uncompressed mode, so reading the registers
-later would not help.
-
-Patch 1 skips the last link check for logical ports. Physical ports
-keep it. Patch 2 adds KUnit tests.
-
-Testing:
-- Reproduced on a Lenovo IdeaPad Pro 5 16AHP9 (Ryzen 7 8845HS, Radeon
-  780M, DCN 3.1.4) and a ThinkPad P14s (Ryzen AI 7 PRO 350, Radeon
-  860M, DCN 3.5), with a Dell U2515H daisy-chained from the U3225QE's DP
-  output, on Fedora kernels 7.2.4 and 7.3.3.
-- With patch 1 applied to the amdgpu module of Fedora's 7.3.3, on both
-  laptops every plug-in gives 3840x2160@120 RGB 8 bpc with DSC
-  (4 slices, 16 bpp), and there are no Viewport size warnings.
-- Without patch 1, the new logical port test (from patch 2) fails.
-- Not tested: other MST hubs, or other monitors with logical ports.
-
-Physical ports read and cache the same registers in the same way, so
-they may have the same timing problem. I have no hardware to check
-that, and this series does not change it.
-
-How this was made: I used an AI coding assistant (Claude Code with
-Claude Opus 5.5) to investigate the problem, write the bpftrace script
-and the patches, and draft the messages. I ran all the hardware tests
-myself and reviewed and edited the patches, tests and messages. Before
-posting the bug report and this series, I spent time understanding the
-problem and the solution well enough to feel that posting this makes
-sense. DP, MST and DSC are not areas I know well, and this is my first
-attempt at contributing to the kernel, so please point out anything
-that looks wrong, and I am sorry in advance if I did not adhere to some
-kernel requirement or convention.
-
-The bug report has dmesg logs, the MST topology and the bpftrace
-script:
-https://gitlab.freedesktop.org/drm/amd/-/work_items/6142
-
-Signed-off-by: Karol Baryła <git@baryla.org>
----
-Karol Baryła (2):
-      drm/amd/display: Skip the MST last link check for logical ports
-      drm/amd/display: Add KUnit tests for the MST last link check on logical ports
-
- .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    | 13 ++++--
- .../amdgpu_dm/tests/amdgpu_dm_mst_types_test.c     | 47 ++++++++++++++++++++++
- 2 files changed, 57 insertions(+), 3 deletions(-)
----
-base-commit: 47df73aa49d1988c8f684b7caf8be6570e966844
-change-id: 20261116-mst-logical-port-3c8a8397830e
-
-Best regards,
--- 
-Karol Baryła <git@baryla.org>
-
+Thanks!
+Maxime
