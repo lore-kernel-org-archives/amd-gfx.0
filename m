@@ -2,42 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0433606A32F
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Nov 2026 17:16:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A9CF606A32A
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Nov 2026 17:16:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=kHC2KtCm
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Qop+5pnG
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93F7810F843;
-	Tue, 17 Nov 2026 17:16:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE4C810F837;
+	Tue, 17 Nov 2026 17:16:39 +0000 (UTC)
 Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010040.outbound.protection.outlook.com [52.101.56.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B881C10F837
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Nov 2026 17:16:24 +0000 (UTC)
+ (mail-eastus2azon11010035.outbound.protection.outlook.com [52.101.56.35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D832110F840
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Nov 2026 17:16:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uaaQliHf/Vr97DtMbs/xnbEXLhlA5IZMPy5tQiaz2Xk6yf6rhT0f/UpL9CtUCE7BSHQY4TymhS23SdknIqU3+9SuQ8wbLY5x/ZWAz/NXP3QsXFTOdlFZXhlmyxdSVzCXTIJCcE5N6NGo/nCxxPeT461Mkf4+e9Mkb69DvsgKjR8vVcV8tRJo2UlEipDhfr6H/9Nq9JWwFKbik7kcrB3rDnq/oC+lPzexlb13mrwmCcCrSPxGuJwYMo+vzWkEDnU3gAbvsRjwVw3GSAnU1eSVQhUzflzHsB/RFmJgFWRKFzK6KNBx5AMHXn8H3PthcPV5ev74U7YwkPhJFIzR1yQUTg==
+ b=X87zC/J7v1N4dWNcuOQ6cjYcD/ebMq6bbLkc+lJ/NbF93dr6cigOClFEESc9VEx+J/SoeQeBgJT1WdKdAU7PqDDVmGBOjTpjcto9poSUVaJPscURQkgIjPJyYezbKxHr/nJWySu9JM3d3NpWYWfzXjH1VQMNPPMcNOdyVrMxmXZ3iSUAwJxsFYTHTmBnDJPrkW+r759AW1KO+/liRpoB2dgFiyC88ZZUc1ziW2ctGWEoa6OtZgYHUwmq2OdG4iyVTp49+fbxYNatzb/ubNnU8W8/be6AnRb5QfWL6BgRyYRek1DVb5oQTAvPhVLibkzQKyNW8CSmqGxwr10BkjO89A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yJhSKIffY/GkSjB68/1/TT6X+ZhqwHS5YULJTC1heAw=;
- b=rIfC/Z35vZ8UOaMrdB27wMUga0YoAFPZkQlyr5aNnBguPqdlfVYM3mn6vKKpjz7pE2UhuDxA3y2+39Pj/4mV3YfddpEH6L3oNsfyEA0FVHA/Y0ZJJ4lLmtr0RK5yvDIh2BzDgBhGAUkqN0+8dK7daM+856i3IucbS0iCBJC2FTwpy6WcYh8ty0458htjeJBkHO2Cye5lHkLsJbKBOqRr6fSP8YOIP3N+PU9rCPR6jAcU3hgVxpphDEywLn3PhjD3xYQlnWQCuNdqzOZwvjWEHpVhSXWHJ4CZOswNZXbsh+zq3bSNMbe6Pk6ftX4CdVNOzQMCPHvvuhUZlSPvMkUbTA==
+ bh=fRGt8cBu6KDs7zoHi+pq7wpL2+r9oRvmklTJdBeYgPs=;
+ b=W3WG3NQYIHBa3v7O/fB+32CKd88YDiJUkrbWppk1qB3bJrpwHqWbx7Yr67Z+fx4046K+rzqQUpAeIazZTAvFYb2vdxPOVcpWw2wObhWCfezdjKv0UqVcsDjuGhknX/UyRMV9H/vPUVfr1KQfqRyZRAIPmRb6k+s1EsoOIf5qhLhL7/157xijwUA6Nj0DmE6aBG0z79/URnrTDKQ+tTHpJMMFoNFLUpPCjKhYfeZWFwm2WQMtNLMum1e+HM4F9SiyLxdz/4cJ+Rg0vFHhkacOrRf7kwx6Ndm5CJ4xBclAxJB2eLaY9PxdURM3hdohvKfSwm0Wz4cA62Edmje4mSLbMA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yJhSKIffY/GkSjB68/1/TT6X+ZhqwHS5YULJTC1heAw=;
- b=kHC2KtCmoQlvBbQa02rDfyw2yCRrGdrYYGgfZUIQwomLYbsayI01Aa0Ck8XRT0AXNC1gDaNT1LrUaX+bXYO6xdlGNpRc0Hb6HhEkV9yCY/8TNa6FO925JlGSldnqDMknGLguxyY125Qx29CR4HukB96TG2LoxvrHm5CnEcTT8is=
+ bh=fRGt8cBu6KDs7zoHi+pq7wpL2+r9oRvmklTJdBeYgPs=;
+ b=Qop+5pnGqak093HJy1myjRRByouBdV8iN0vjWa5uQdv5V/2UNcpIfyNZZq0a8s4qod2h1feOfMaarv+sdabyR094TYWhXSfqNmWda7w733kFFv0EwlauOqitfqR4EI4X1h2hq0hvnoGDKOXnnA7/aTENSM9PLYCqDYwdpM/9cKI=
 Received: from BN9P223CA0026.NAMP223.PROD.OUTLOOK.COM (2603:10b6:408:10b::31)
- by IA4PR12MB9787.namprd12.prod.outlook.com (2603:10b6:208:54d::6)
+ by IA1PR12MB7518.namprd12.prod.outlook.com (2603:10b6:208:419::18)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.13; Tue, 17 Nov
- 2026 17:16:20 +0000
+ 2026 17:16:29 +0000
 Received: from BN1PEPF0001806F.namprd04.prod.outlook.com
- (2603:10b6:408:10b:cafe::82) by BN9P223CA0026.outlook.office365.com
+ (2603:10b6:408:10b:cafe::1) by BN9P223CA0026.outlook.office365.com
  (2603:10b6:408:10b::31) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.10 via Frontend Transport; Tue,
- 17 Nov 2026 17:16:18 +0000
+ 17 Nov 2026 17:16:29 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -48,14 +48,14 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  BN1PEPF0001806F.mail.protection.outlook.com (10.167.245.197) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Tue, 17 Nov 2026 17:16:18 +0000
+ 15.21.615.4 via Frontend Transport; Tue, 17 Nov 2026 17:16:29 +0000
 Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Tue, 17 Nov
- 2026 11:16:06 -0600
+ 2026 11:16:15 -0600
 Received: from james-Birman-PHX.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.57 via
- Frontend Transport; Tue, 17 Nov 2026 11:15:57 -0600
+ Frontend Transport; Tue, 17 Nov 2026 11:16:07 -0600
 From: James Lin <PingLei.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -64,11 +64,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Aric Cyr <aric.cyr@amd.com>, James Lin <pinglei.lin@amd.com>
-Subject: [PATCH 23/33] drm/amd/display: Drop unused DC interfaces
-Date: Tue, 17 Nov 2026 05:51:00 +0800
-Message-ID: <20261116215641.2800595-24-PingLei.Lin@amd.com>
+ <Chen-Yu.Chen@amd.com>, Tony Cheng <tony.cheng@amd.com>, James Lin
+ <pinglei.lin@amd.com>
+Subject: [PATCH 24/33] drm/amd/display: Let the DC2 commit replace or keep a
+ stream
+Date: Tue, 17 Nov 2026 05:51:01 +0800
+Message-ID: <20261116215641.2800595-25-PingLei.Lin@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261116215641.2800595-1-PingLei.Lin@amd.com>
 References: <20261116215641.2800595-1-PingLei.Lin@amd.com>
@@ -78,29 +79,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF0001806F:EE_|IA4PR12MB9787:EE_
-X-MS-Office365-Filtering-Correlation-Id: 125f1403-f0fa-43d4-d077-08df44ce7e96
+X-MS-TrafficTypeDiagnostic: BN1PEPF0001806F:EE_|IA1PR12MB7518:EE_
+X-MS-Office365-Filtering-Correlation-Id: f0dc1005-cbf9-4ad0-80b9-08df44ce84de
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|36860700016|82310400026|1800799024|376014|22082099003|18002099003|6133799003|261009223027099003|11063799006|56012099006|261102123227099003|261021123027099003|261026121527099003|261021135927099003|261021121427099003|10067099003;
-X-Microsoft-Antispam-Message-Info: NbkRi2tTHXsTM/vX4KL1F7ypwZZNjElgSphirctFfuzLleA5tPU/spAIZO3M/Bq8FUSZgRUEcm7JseYTLUxHIetGH++0ADyp+/JXA68Lwqi33WdIX43r3v116HrAk8BggHn5N4yDccocEC3BOjcxNtEup10VGDoW2mEALL39qOFlLqRPwHnbXB9QSMVbBMU+d1XVrqqWNkTlTr2CFeLSnWpU2vyP/f0U3qT2fdxM1YM3Q5tyng2QWe1Z0WbpllZRfQRbLEaqc0kNVBJ/s5Y99mVzA+3KXwn2Luqy7ZHVVxiFCoOsthIyW1vlz6GVVsAQ10iMU5+nzfoLWdaBrFDD1aPMCVEExme54uCsKNxqSjWXLxpic7po4kesN0sNQAZ5PIEnvHkpzGHExJQIALgBDtrpfTeIPrmOhZp0Mspil1g9+xXXBHHZNxb/ZXB3vgznpK10LGBt4GCZ/gWm71I05npnPrbEtMjJUX8wdGqfFdTluol6asO5JnzV/ZZJTEHa9qwxQFYCemED7wgEpTo+cXOk/IrmHCGPNlZn3q9IbBrbR6a/J8sYI65ycFP6J487phpIk7wBwHgdigdlTZAbZG+ND+foTK46tBR43q2Ka9jT5caRwdnnAUaATkO6z23lix9rR4RDA9uiFVTyWlMnYYySItBVh5Efc9padT3adhho7iUmbH0CJKhL6xH96k1QPie7cSDjmrl+xjTRWc0zsQ==
+ ARA:13230040|23010399003|82310400026|36860700016|376014|1800799024|22082099003|18002099003|11063799006|56012099006|261028144727099003|261021121427099003|10067099003|261021123027099003|261026140227099003|261009223027099003|261102123227099003|261022105027099003;
+X-Microsoft-Antispam-Message-Info: 4tz0/398oMquiEN2/l1LHNOz8YZ8K22yE8lmr/AGcFNam/ze2K3/bdIQ1bILfpzqy4h6zzrPX1y/llmBnKkAaUaBiFNyanyDxn85YTTBp42cTZd0DuKl1t1W7PqlwanCy/bTPej80Dm/gKnl2yJU2CtCvw7tFqSXr0viNa0fTSGenlC2Gh3QV5UBYbVEm/G4OMpWCdecK+zDrNNOjqMFe7BQx2OIc+Pcx8CS9OAO/iWflh7mtaAJL2tErV8eP9cYNG+1Q1A3JkrViNJPSrtOLx9L4wNZHsN8NxyOxxOplj4yBgecXk2Is0mFGZgNDHvrcUkcXUQIb6anpvYrehCwlMT4pw4W0/KMEXhRLVmXFhXNCu1E5nEonPZr5Pufi3wVnelbw19E4O8SBIsbZH6NTNpB9hemGnjR/EJz99dftWMEgg2aYF/gvnOtlLBhlCWo5U97WFdhdNOK0RUdJfxPXTw0kQbnPHIJF3NLuMRQfzic26cSNVhbUpbJeTx/LLekA7A3/vvXuPXSu9CH0nwCrqPGwhHrMYfeNWWfYXnqDOZtde0QEeodof1+Qp2u1P4mJrBhD/XlKgOjpIn9UjNcvPYlWmWzDvyIuWASZ0+jnOGNXv1acHjNz5uAgOW0ies1HO+xs8qvTydnxUy7YzxvbJkbl01ljzSFiSjnY7U64ql1lhE7rBpj8wOwGUbxd8JJXDOllMhBN97sAsGL/rqwNA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(36860700016)(82310400026)(1800799024)(376014)(22082099003)(18002099003)(6133799003)(261009223027099003)(11063799006)(56012099006)(261102123227099003)(261021123027099003)(261026121527099003)(261021135927099003)(261021121427099003)(10067099003);
+ SFS:(13230040)(23010399003)(82310400026)(36860700016)(376014)(1800799024)(22082099003)(18002099003)(11063799006)(56012099006)(261028144727099003)(261021121427099003)(10067099003)(261021123027099003)(261026140227099003)(261009223027099003)(261102123227099003)(261022105027099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: YyhYLI1RBXoXzB1VbrZbNeoipSG6DXiWd4hz0pxz6GKv8QRAYv8hPe7ICWvBikSixw2b/XVM0zdcdRhHIq2bV5RBH1fEEdxDTf6SqqQqChzuZvn8WNMPWWeC2qOlp+qOi+a7SOa+MHEqugXKRBpU7WKfdJiwkpBksawjEgouMqUZVuD9SgjFZikpbMcXTibgAScAUJMFybvVc4kAhSKGgYY3z2VGLcWzZJB1xTYu4U8uG+1LfN9lr/Qjr6DqkAgnbqN21txehOodVN4ic7HaNCzvJrsSpXQ4h+3xbAKeX/RamxN0HyhSm4bOmZS9PKg1uAHVcRcxgEt3qmpOLLAllttiT1AETgh8XbNrzrzZkwaoxfa8z6g2Acp6HBanzans+8H4zWiurqfz+sFdOKUbheLqHIbFPsQewgrifZMf8y2o/ujHY7ChJZvL6EmVi5Ii
+X-MS-Exchange-AntiSpam-MessageData-0: HIkewmio7HfLJ4F9z/iGKeThdqYy16e/lybOsaRAw3AYVTwQtydd0utLoFz+i2+kzlzILmRnYfdQYGhnS6UUH0miB3ruvJ7vvLH7sD30KiHgwHSIOHIiXGrgrKOTFUkGY3yoi0PmS+NuiuNGNVY4WLfjXV0dDMdbWiNiwG+5lcz/bhhqsG4pn2k8GN/NoCjWe5s7GkYlsdk2OPMkNXRapHrpX+WUOg+j0S2J/1lgD+CEMUzowleq730dkQTF1PTs9eolz0m5mZIClLqmNDqxX2/ajEQ5SrNddshQ94EXDsM8Z/yjZNFZaeoDz9u6Ng2HAHdQEn8GEKEB2oJXiAqikdVmpxDNBO4fZ/EEIQfWR1CXjjReOZONvvzbi/Rn/G/L711xLPUvEDbCUi1EzveSftYaa8PERKyOEPuWeVjx9fJz6DVjORO/qW/Ri3+4s1x5
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 17:16:18.7158 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 125f1403-f0fa-43d4-d077-08df44ce7e96
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 17:16:29.2499 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f0dc1005-cbf9-4ad0-80b9-08df44ce84de
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF0001806F.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR12MB9787
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7518
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,91 +120,74 @@ X-Spam-Status: No, score=-17.7 required=3.0 tests=BAYES_00,DATE_IN_PAST_12_24,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+From: Tony Cheng <tony.cheng@amd.com>
 
-[why & how]
-Cleanup for unused interfaces no longer in use by any DCN revision.
+[Why]
+The dcn401 non-seamless commit builder rejects a commit when both
+states have a stream, or when the link of the new stream is active.
+A commit that replaces a stream on the same link fails.
 
-Cc: Aric Cyr <aric.cyr@amd.com>
-Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+[How]
+Remove the check that rejects a stream in both states. The builder
+disables the current stream before it enables the new stream, so it
+programs all pipes of the new stream again. Accept an active link when
+the current stream uses that link.
+
+Signed-off-by: Tony Cheng <tony.cheng@amd.com>
 Signed-off-by: James Lin <pinglei.lin@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dc.h                      | 8 --------
- drivers/gpu/drm/amd/display/dc/dc_hw_types.h             | 6 ------
- drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.h  | 8 --------
- drivers/gpu/drm/amd/display/dc/inc/hw/timing_generator.h | 4 ----
- 4 files changed, 26 deletions(-)
+ .../bls_builder/dcn401_non_seamless_builder.c | 24 +++++++++----------
+ 1 file changed, 11 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 775259e5e478..7d0a47e7bc1a 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -2489,14 +2489,6 @@ struct dc_plane_state *dc_get_surface_for_mpcc(struct dc *dc,
+diff --git a/drivers/gpu/drm/amd/display/dc/bls_builder/dcn401_non_seamless_builder.c b/drivers/gpu/drm/amd/display/dc/bls_builder/dcn401_non_seamless_builder.c
+index f9aa8f0b9b1e..d5adbef8a6f1 100644
+--- a/drivers/gpu/drm/amd/display/dc/bls_builder/dcn401_non_seamless_builder.c
++++ b/drivers/gpu/drm/amd/display/dc/bls_builder/dcn401_non_seamless_builder.c
+@@ -139,24 +139,23 @@ static enum bls_builder_result dcn401_check_commit_state_support(
+ 	return BLS_BUILD_SUCCESS;
+ }
  
- 
- uint32_t dc_get_opp_for_plane(struct dc *dc, struct dc_plane_state *plane);
--bool dc_set_fva_vrr_adjust(struct dc *dc,
--	struct dc_stream_state *stream,
--	struct fva_adj *fva_adj,
--	struct dc_crtc_timing_adjust *vrr_adj);
+-static bool check_stream_not_kept(const struct dc *dc,
+-		const struct dc_state *current_state,
+-		const struct dc_state *new_state)
+-{
+-	(void)dc;
+-	/* A stream is either removed or added, never kept. */
+-	return !current_state->stream_count || !new_state->stream_count;
+-}
 -
--int dc_get_hw_max_fva_factor(struct dc *dc,
--		struct dc_stream_state *stream,
--		unsigned int max_pixel_clock);
++/*
++ * The current stream is disabled before the new one is enabled, so the
++ * link may be active when it carries the current stream.
++ */
+ static bool check_link_not_active(const struct dc *dc,
+ 		const struct dc_state *current_state,
+ 		const struct dc_state *new_state)
+ {
++	const struct dc_link *link;
++
+ 	(void)dc;
+-	(void)current_state;
+ 	if (!new_state->stream_count)
+ 		return true;
+-	return !new_state->streams[0]->link->link_status.link_active;
++	link = new_state->streams[0]->link;
++	return !link->link_status.link_active ||
++			(current_state->stream_count &&
++			current_state->streams[0]->link == link);
+ }
  
- void dc_set_vstartup_start(struct dc *dc,
- 		struct dc_stream_state *stream);
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_hw_types.h b/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
-index 20504dfb1b13..387d2ebb2b7c 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
-@@ -1207,12 +1207,6 @@ struct mcif_buf_params {
- 	uint8_t				tmz_id;
- };
+ static enum bls_builder_result dcn401_check_non_seamless_commit_support(
+@@ -180,8 +179,7 @@ static enum bls_builder_result dcn401_check_non_seamless_commit_support(
+ 	if (result != BLS_BUILD_SUCCESS)
+ 		return result;
  
--struct fva_adj {
--	unsigned int pixel_clock_100hz;
--	unsigned int max_pixel_clock_100hz;
--	unsigned int fva_factor;
--};
--
- enum symclk_state {
- 	SYMCLK_OFF_TX_OFF,
- 	SYMCLK_ON_TX_ON,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.h b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.h
-index 65014d42195c..61470a51da23 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.h
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.h
-@@ -72,14 +72,6 @@ enum dc_status dcn30_setup_hdmi_frl_link(
- 		struct dc_link *link,
- 		int hpo_inst,
- 		enum clock_source_id frl_phy_clock_source_id);
--void dcn30_hw_set_fva_vrr_adj(struct dc *dc, struct pipe_ctx **pipe_ctx, int num_pipes,
--		struct fva_adj *fva_adj,
--		struct dc_crtc_timing_adjust *vrr_adj);
--
--int dcn30_hw_get_max_fva_factor(struct dc *dc,
--		struct pipe_ctx *pipe_ctx,
--		struct dc_crtc_timing *timing,
--		unsigned int max_pixel_clock);
+-	CHECK_CONDITION(stream_not_kept, "stream is kept across the commit");
+-	CHECK_CONDITION(link_not_active, "link is already active");
++	CHECK_CONDITION(link_not_active, "link is active on another stream");
+ 	return BLS_BUILD_SUCCESS;
+ }
  
- bool dcn30_does_plane_fit_in_mall(struct dc *dc,
- 		unsigned int pitch,
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/timing_generator.h b/drivers/gpu/drm/amd/display/dc/inc/hw/timing_generator.h
-index 52d4d57358cd..c538e89bfac4 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/timing_generator.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/timing_generator.h
-@@ -494,10 +494,6 @@ struct timing_generator_funcs {
- 	void (*set_out_mux)(struct timing_generator *tg, enum otg_out_mux_dest dest);
- 	void (*set_drr_trigger_window)(struct timing_generator *optc,
- 			uint32_t window_start, uint32_t window_end);
--	int (*set_fva_factor)(struct timing_generator *optc, struct fva_adj *fva_adj);
--	int (*get_max_hw_supported_fva_factor)(struct timing_generator *optc,
--		struct dc_crtc_timing *timing,
--		unsigned int max_pixclk_100hz);
- 	void (*set_vtotal_change_limit)(struct timing_generator *optc,
- 			uint32_t limit);
- 	void (*align_vblanks)(struct timing_generator *master_optc,
 -- 
 2.43.0
 
