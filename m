@@ -2,131 +2,125 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7577A606A31C
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 09:55:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04788606A32C
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 10:07:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=wGKV2BvS
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=lNtFZTcQ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1254310EDB4;
-	Mon, 16 Nov 2026 09:55:23 +0000 (UTC)
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012045.outbound.protection.outlook.com
- [40.93.195.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B50C10EDA0;
- Mon, 16 Nov 2026 09:55:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB32B10E16D;
+	Mon, 16 Nov 2026 10:07:50 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011017.outbound.protection.outlook.com [52.101.52.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D16410E102;
+ Mon, 16 Nov 2026 10:07:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HBZQ8Y/ILdScorXA8jwV9GQGfScaNTwrabc19ehThLGduLEomhfTOBfcqi7vrhGVkNzA/TJjKem00/Qtzy0iNSuaPO6HOBHB7SqMV58PxwfWs6twdiOjOXgw9Oq67gBjCBcQQXPO+hFoAE45pDSyMK34afjfWEK1jCkgU3MTWA8OWVntIs48RDICeZmSE0Ax0mef5zzO7QJroIIHnNh2lXUkGVhY/kke25vUpXEKLHipM17bxdy2laxid76vSZmgvdVybHOd/1vEQ1pfHTJDvfb6/sDA6BfBBxTNLp4jJ8tTPsK/8NqPem8wnLe7NojEd39QaQuOt0NqsZAVqigwdw==
+ b=FCHDcqXn3b4oZxpIOGB/9xf6MilVtEbRYt6RMu0rIVjRWLGwfuCtb2nGp6AouSB408nQkl/z5Va1xmR2A8TMY/h7Hwct60KUN/ygCQOjq2uwqbQK1DXg6E9sT5KI8czKwgvfGCM/VxJnQqUgXGMNZ+MFik4vBipGtanlTfKSbeDiAxsgu3AY55Llu8bg5ZqDnipeuk2t0w4K0/MwEoE+gGxeJYCITDwS5SQki41R59Pt3qRTrsSRqkPk4MxmPo879lqipmUqAMktLDudiYA44kgxSloTadhkwj1gez2jVvZsxHBIkMh0KSTOa+RpFMtnFk8jYw9MiHaLnrc0Bb5/HA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1mmra2b3KAs5paA2GebNI2nC0VtOhhvGnxxhmUWZgXY=;
- b=xs/0aP1l87J45liGj8B85uYsuDrkdz6enOmD5coqAC2jpXZx+NDiWkTavtXmBfHqi0vnE6v9H1Ax6hI+6vAtU3hOJvaWeeMOO/drE1rillPQpCRgtHPPkuf5gsiqU5C1Ffp9sQ7Xa9ik7hMmJ02CcQHPe1AqchY5NItoB7pbuudxiDMw1K4SDO/gvkxChFc62Glg+F7eMa+iebE/dKi3NJgc+Pn0aXWB+0SwazqtXhPGaC1Iz6nH+38FQGwYYGTfslhEADi+0YydbL14hOYIC9LfLhYS6MRX82HJSLWdG2dYcBKt4WzylhbkvrgX54+BeSIzRyBlxr7squ6mEVxvcQ==
+ bh=p1fonDRRlSZo+abA2u0Et4iHaP8Nnq/5EYtsqQJNKCk=;
+ b=Mv9GhBk6+yieLUA5tzf6Sj0/Pf7ju/bxyqHPuPe8kLmlKkFeqT+oQUMp+D79ZdGYHsXiCKplqPRzr35s86B0xf3JcFgndMeo9imHbf+Qy8L7+wVHY7ENeOxOqX98tfHHQ/36xDc1XBB/kM4Uw3xoZXp76M/Vh+rrlTSeifJWEQMkBPKOEqvrz1vvr3XePbwJfO/natYOqiZ9jJb8CZa9tpNl0esLtK/TnTX8Q5hNzZogpeLP85qKoSh+pB0U9/iy7ads5ium4UDiWXvVLKTcMpIOW4m9sq8hZrlHXblQSYgA2q5xykGWviys2ljC371H6RHNO05gfbiMgnPu4S/A6w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1mmra2b3KAs5paA2GebNI2nC0VtOhhvGnxxhmUWZgXY=;
- b=wGKV2BvSeJExS6uYPjP4466QCgNiHdD3Sfr4guIy79c4SfLauJSlz0g6flSi9w2DDROa1UQL1Z4qFI9cmTMiliOl1oahHx4XlTgJzSu7uwmO/8bXiP5A+piKQLyFmZ/n4D1uAjIpuS9OCWbJ0uur/YgA4jdGdDsOAdJzRgkpjHA=
+ bh=p1fonDRRlSZo+abA2u0Et4iHaP8Nnq/5EYtsqQJNKCk=;
+ b=lNtFZTcQJXMNYD3NJ5X9nslqf8UARJqCytelZYMsVHBzQ48hGZWWbWkM+MVMbKQ+5gmS/O2o6txxZqhfWBgZ3ldZkYY6wjlL7y8F1HjSABXGYiq2XN9Sp110NxrdrpGvt+6FZLzEhaClPotRupRgxM26QxWYtc5p5hOi+e2FFOY=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from CY5PR12MB6132.namprd12.prod.outlook.com (2603:10b6:930:24::8)
- by PH7PR12MB7817.namprd12.prod.outlook.com (2603:10b6:510:279::20) with
+ by CH3PR12MB9217.namprd12.prod.outlook.com (2603:10b6:610:195::10) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 09:55:12 +0000
+ 2026 10:07:40 +0000
 Received: from CY5PR12MB6132.namprd12.prod.outlook.com
  ([fe80::d9ab:4258:a9ef:b8cd]) by CY5PR12MB6132.namprd12.prod.outlook.com
  ([fe80::d9ab:4258:a9ef:b8cd%6]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
- 09:55:12 +0000
-Message-ID: <ffbea2f6-c2d1-4e61-9e58-fc458d7abf0d@amd.com>
-Date: Mon, 16 Nov 2026 17:55:05 +0800
+ 10:07:39 +0000
+Message-ID: <481e5381-d9de-4bab-9995-a43637782b06@amd.com>
+Date: Mon, 16 Nov 2026 18:07:33 +0800
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amd/display: use atomic commit for panel power
- savings
-To: shivamkalra98@zohomail.in, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>,
- Mario Limonciello <mario.limonciello@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, David Weber <weber.aulendorf@gmail.com>,
- Alex Hung <alex.hung@amd.com>, Hugo Sales <hugo@hsal.es>
-References: <20261111-abm-sysfs-atomic-v2-1-6dfb19c51ebe@zohomail.in>
+Subject: Re: [PATCH 2/2] drm/amd/display: Avoid modeset for ABM changes
+To: David Weber <weber.aulendorf@gmail.com>, amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, harry.wentland@amd.com,
+ sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, Hugo Sales <hugo@hsal.es>,
+ Alex Hung <alex.hung@amd.com>
+References: <20260813112634.11455-1-weber.aulendorf@gmail.com>
+ <20260813112634.11455-3-weber.aulendorf@gmail.com>
 Content-Language: en-US
 From: "Chen, Chen-Yu" <Chen-Yu.Chen@amd.com>
-In-Reply-To: <20261111-abm-sysfs-atomic-v2-1-6dfb19c51ebe@zohomail.in>
+In-Reply-To: <20260813112634.11455-3-weber.aulendorf@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: TP0P295CA0016.TWNP295.PROD.OUTLOOK.COM
- (2603:1096:910:5::20) To CY5PR12MB6132.namprd12.prod.outlook.com
+X-ClientProxiedBy: TPYP295CA0010.TWNP295.PROD.OUTLOOK.COM
+ (2603:1096:7d0:9::19) To CY5PR12MB6132.namprd12.prod.outlook.com
  (2603:10b6:930:24::8)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY5PR12MB6132:EE_|PH7PR12MB7817:EE_
-X-MS-Office365-Filtering-Correlation-Id: 071d1db7-5edd-4c73-b557-08df43c7b4bc
+X-MS-TrafficTypeDiagnostic: CY5PR12MB6132:EE_|CH3PR12MB9217:EE_
+X-MS-Office365-Filtering-Correlation-Id: d8431d83-e560-4862-7066-08df43c97262
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|7416014|376014|1800799024|18002099003|22082099003|261009223027099003|921020|11063799006|56012099006|10067099003|261102123227099003|261028144727099003|261026121527099003|261026140227099003|261021121427099003|261022105027099003;
-X-Microsoft-Antispam-Message-Info: V0dy4aeKHGn5ODAp96w203ISIIS9cr6BlV3HRzf8l7jbYGzo0gZYt/cYN7MEqrHJTcKDyLIf5eY8jFz9q/lxQ1sL6c8iR9odKdpDBvxZWyOHVBHjaoCqgytStUBywfZpYJqdjx7hpOwA8k6PwCQVcGi81XVlYw67vajui4/dWhc16RDIoz4/B8WXjnXhfjmYChtdM1dqiaS9TJ8M6vdjLy8fcn/gxeuLVOJfsc82kw9gYpV3sWT3nDV6Ck8huQ/sJ3PorP12AC5cDpwqcPDXo4f3IAMP76XQMUDyuO35NzG2cg7/4rylOgP2zHqrRfsd4C6w1Ll48/UTRR9+lROHi6Mnche/3VNb9bBM2McH2LDYFaPhh4GRN9xb0dUzLoxuWFiTDWZkH99xgErOB9IRS9WucSx3j4jjy72kgSYnK1QOe/Qw2y0LScxn9H8MbrrzE6lKNXtWrR3rWrGPwQnM428Z5xP1oZ/GFAMoJClJgSqIPQSIQFYt0hKmoZxaxtkQKpCL7npO+0/1aBb27BsP9LMYqJKhZeUu6F1lMBjs59JISdo/SDsUePkdGvOOhnW4Q1p68HcKXl77VibTuNrmr8+BfgYxjtPly32d3ufzu6e0B7ylTZiy86bAK/DdyHqpQVGjiLFAG54XPFncPtZKhgh4xqWXJv4i8gPGAUU3O3U=
+ ARA:13230040|376014|23010399003|366016|1800799024|10067099003|4143699003|11063799006|56012099006|261021121427099003|261102123227099003|261009223027099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: QklA9SZrovaTFgJxsJsaKNDMLEsnc0dlGNhfCOMxaC8q+8QiNBiuNXlCUyY+QV//8rviCsr2bgkUhzO7cft6/2xJ6rKdsO5j8YK72qFhe9H7hziZWf72N3eAUw2fejuQuCHbdD3bfG2rljVlm+n6qK69UC1F8iGTwS9WaUrOUnuzrhh0UdgJMiCUwnTddzrT09iRH1Iah9Ij633E+uIyigHpM0wxZsMjylrEmLNUzgBx11gOsSHMy/TJwB6lula0Glq0gG1m4l/yZj5ftlAiKr0T8ZevGQCJP+cO21tDfgOr46c8d5HxPz0pUR79bNx7fSuSjEBsvYlJuwmE1bj2N2gPN/4+y36/c4SVtxREWlRo+wDgQH4dVxNfiJvF/r7hYvp08HddtQAbzFkzN0IRNsWpzaKFS956HGGXJCicgoqW61ehn+BrUG2tectDDZwroQAJDqFJhhKcFLkiceharJcdHL+25k6VLYmVy98jC2LjwjOW8JF+X0hBfTFL4UjQdsJxKB0xWIPL24/Kkf5eMEeibBBAfgqRIULGAG3Yqpt4TM4H+/x3CuyXSF87WePx1bfN+OYToi/nPym/Dm2i2qITlXLwDpiqdwIXzxoX2Eo=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CY5PR12MB6132.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(18002099003)(22082099003)(261009223027099003)(921020)(11063799006)(56012099006)(10067099003)(261102123227099003)(261028144727099003)(261026121527099003)(261026140227099003)(261021121427099003)(261022105027099003);
+ SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(10067099003)(4143699003)(11063799006)(56012099006)(261021121427099003)(261102123227099003)(261009223027099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SHFZdGJuMWNnZEFWOGRyVTBWVCt2ZUo0NkdKcUY1V24zRTVnS1gyalVpZzFL?=
- =?utf-8?B?ZUdTOWFWbzhPc1FVRE1wVkhMYmlOY3ZNeEg3dnJRSE12bFJGUmR2dGFEeVBr?=
- =?utf-8?B?V254aDJiU3paVlE4S2ttckRnLzFxZVZQTzRSMjhsZnBHZW9UYlcrRGdTR29r?=
- =?utf-8?B?Ui82bFNaL1dFY0hqU1pOQk9RODR3Tlpha3M0MlJLeFpHdXY3OUdMblpVRHVE?=
- =?utf-8?B?b2hJSDgyY1FoQXNwSHFyTGFCVnBhZDdqeUduTTkxZHlPS1hyNEtQR3ZrUS83?=
- =?utf-8?B?ajc0aFhMUHBGdlFHRUwyb2pFOW9UNTZyeHJscVMwOHNWOW5sMDlDWWJpSVQ5?=
- =?utf-8?B?aEg3WlVVUHNFa0s4VUJUYndGdEFwdzZGd3NXSHhOQlNObGx5dWNFRWpHVHNu?=
- =?utf-8?B?bUIzTXkyRjcvSDNiVmJvRGtkckRlVmFlMytwWHJabzhKRk1HemZGcEs1c0Zn?=
- =?utf-8?B?ZlI3cUhrY0xTbElLaHVVQ3djN3M4SkV2bjdRSEt6alJpMVBHcFNHRGJsNWJk?=
- =?utf-8?B?WEExWlpBdVk4aVIwakJBS3dPZjFkQkp0TlVNMzBxNnR6Vk5wOFdLWkJYRGlI?=
- =?utf-8?B?by9pSmZWVktKUUd1MXZ1MmtTRUFxbk9xdzV0VVVmZ1hlajlVYjdEYnhtc0Zs?=
- =?utf-8?B?Si9jcVQ4bTQyTEdDWlk1eEJvYUdwWTdRRU0xYW5LbnJNMk03U0NwdmhyaHBC?=
- =?utf-8?B?U3g5T2VyWk1YeGQ4cGFnYVQvRUpaWExTMlZsV0l5TjZPbW5vRlhjZGtTVDdS?=
- =?utf-8?B?ckx2c25oRHRqUkxwQXdpUTJwa0dSYWpKTmV0RFd3ZXJOQ0hzakR3RFhGUVpR?=
- =?utf-8?B?ZzFpSGExOGlDOTZBMlpPZnNueFF5MWFIZTg3S1RzVFN5NlFSL3p4MWpKVFFF?=
- =?utf-8?B?b0tXT09IdUlNN1hyL3VQNEpPbnhtZTIvTndrVGpqK3AvZlBXR1FEaFE1ZWJK?=
- =?utf-8?B?L0x3UHAzUmhmcmNKY0hZdlhYV1ZRQnJPclhKY2FEbGpZZnc0N0t6WVFwbVlL?=
- =?utf-8?B?OXViRi9IRlB4bVZuNUhyY0hYMmxQYWt5K01GUzJqVTRMc3k0SGh4T1lnQ1Bm?=
- =?utf-8?B?ZHlkb0pyQ3k3NWF0WVpBejl0bG5FaWNmSDMxaS9sekkzczYrZlVnOSthVUQ2?=
- =?utf-8?B?WjRycGxqMldudkNWbGR0Qjl4VmhRTGFnWkE4WjJlMkZaOHNCM1p1WjdtUTE0?=
- =?utf-8?B?OW9GdDJBRVNQZFQvZFdWNnBsRjZsakhtVWc1bGl0MjRzTnNBUFcwckVway9w?=
- =?utf-8?B?MERHK2Rha0ZpbHBqNUlIWmtnMy9FVVdSRUpPTVdOc2xyWTdtaWdjbldYTDFh?=
- =?utf-8?B?dkpoVFcvYTZSbXljdENVVmswc3p2bGRmR1JoNlFEWHdNYlJHdnVZK3JpVTEv?=
- =?utf-8?B?YnYyZVRqbHY2WEd1bGcyQlkzMnh6cnFIM2dGemhwTGtRWVFscHBLWTJVbmZL?=
- =?utf-8?B?UUxaZUN5dzVwQWtCb29PVzY2L2VDaEF0UzlUK0dQVFNwUzM2em1TZFdIR0E2?=
- =?utf-8?B?dnJIK2JMY1k1RWdpaDlMclRicUQ3NzBMN3ZscXhSa2EzNGFWc1FhU1E1Wmtl?=
- =?utf-8?B?N2prejU4TjZraEM3VWFaM1FUN0dEN0NDS3F1ajQyWGZ1YXNSMVVMdklEQXpo?=
- =?utf-8?B?cnd3eERBVEo5S1ZySXZ5L2RmeXJXSTNzc1c5SVRqQ3ZpclNGbXpkK25Mc3Zk?=
- =?utf-8?B?dTFKNkVkQWRhanBYMUNlS1dzQUVvQzduZ1lJL0RqMkJTc2RzU09wZzVyZUpo?=
- =?utf-8?B?aVhlcHhRWUNKOUlOMWJsQlRpMVVhc3RuVjgwMWlCYTRoQmtJaTVRNDdYYzYx?=
- =?utf-8?B?ekI1TER0b2hEdWdWN25hM0diMk1YOFllU1FZZm05M2NqMEZvSXdqWFdRM2p1?=
- =?utf-8?B?YkxDbCt0cWpuWUlqVDdFeXBNRUc5dkY4a3dPMzVVRkhlQS9uaHNQS3U5UitF?=
- =?utf-8?B?dlQ3eFphaVdBMkRvU3ZEb0R2TmVFV0k0TXhqcW9kOVg0c0JLbzhxRytNd1Z0?=
- =?utf-8?B?T1JmWmlYdXFCRElwblcydVRtVVZJVTR2NjI2TXE5SW1MNldqMVBFb1pqK2tm?=
- =?utf-8?B?NWJLN1BsRytuS1hsL3hVZ0xJS3lHY0Vhb29pREZpVFBKT3lvemVwQnpwaEZj?=
- =?utf-8?B?YmR2ZHB0WWt4MHRwTmFQWXZTbE5VOUFlYjBvZ1R5LzFMWFh5MWt0K3VsRGZI?=
- =?utf-8?B?T3Z2cVRvcnc5cUFZeE5iN3QrVjh4c2JITVZSOTlHYWNHc3lIL1phdEx1eVdO?=
- =?utf-8?B?V2xIY0UwWEdMYzlVOC94aHhxaVVUWkdPVVhsQ0VES0d1NmkxYVFiZXNZejZ6?=
- =?utf-8?B?SUlYeHpFZEhmZy90c25DK01QNitDRm8zWHlvaXBFMXZrM2Z4NHEzdz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Nm1McHZYaFNDczJ5U0xIS3Q4NHd4cEVyOXVOVEZ1NTNwUjM4Zjl0ZTFmYkxR?=
+ =?utf-8?B?d0R1YVRJS1VZM1FORmdJdGxOdUxGcmE1OHgveDZRWGhSaTFxc2pYdXdHUzJv?=
+ =?utf-8?B?SUY5RTlqai9GWWdYV3VGK3lkNXpDZzBWeWptNXQ3MVNxZEdZR0x1TE1oYUJq?=
+ =?utf-8?B?eHhWckorVFR1M0Z2ZEhSUzFzZUk1QWsyNHFiWDMvbkh1QUZlNzViUEh5Z2Fs?=
+ =?utf-8?B?S0R2WTRweUZhWHNxb1FPeHhLN1VIczhVS2MyUWwyR0J0SVQvMk1TWVhNcktv?=
+ =?utf-8?B?TjIySFVVNURXVVFSNTVFUTlOWDRzSFhDTlJDMExsUk1pcDdNbHVlb3dHNDdz?=
+ =?utf-8?B?WU1XN3VZSkIrV2xsYzE1RVNRYjJjODQ3dHloeXlnNXMreUhJbkQ0QVY4dFFX?=
+ =?utf-8?B?QXZXVExJMHA5UHRDUUJjN2RoaFBuZzkvYyt0KzFsZlRNYXU4VG9YL0NCWTVx?=
+ =?utf-8?B?ZGFza0tiV3RUbWtOd3YxbnhSQ3hkazZaQ3N0cExFak44Wkd3SzBaSUQ5bXJY?=
+ =?utf-8?B?eVpTUklKS1Vadld5d2hweTc2VG15cURPSm1hKzlJeGltVVpRL3lVSzByYmJH?=
+ =?utf-8?B?bnFEVWZJVXBiQ0FrNzl6Q3JhWXBZbks2UnJmcmZTZDhsaVhFQWRPcEJzN0J3?=
+ =?utf-8?B?OWh2K2RSRTRUOUN4TE5iNndDVlFlem1qOFBXaHNWRXFLU2s2elpNMzlubTlE?=
+ =?utf-8?B?REJHdnR1NjAwQmR5N0c5ZXVkS0NyMmhyb2JhNmphWUlqTDVvS1pDcE04VGFk?=
+ =?utf-8?B?VTN0TUdhOEdXMFE4TFdoZitIYTFQT1N0UGNJcytEL3dCMksyWUJqODFSRUg4?=
+ =?utf-8?B?RjlUNlFGNDFZaGo5T3NGVkhBR0FYMXhOL0Jkd0tGblNoOVRHZCs5dXFZUVp6?=
+ =?utf-8?B?clV6dnc1V1AzQ2xtVW9jajR1Sjg2Um5pVENndWR4RFhNTnJRS1NuYWE5Smxv?=
+ =?utf-8?B?dG9FVEFhNVhtY28zNmZtYjVCVEszRkVMcCtNTUl4QXFvbFRmaWthcFZxbDcy?=
+ =?utf-8?B?UkVaM0MzSXN6NU45NFcwalljV2pBMktUbFdBUWxXd2hyZy80QzZaRTh4ZWFC?=
+ =?utf-8?B?T2xjOEVMTDdrTzJ2dmQyaU0yL2U2QkJONEhsVk4rTG1LRlpTZlIzeUdyaDkv?=
+ =?utf-8?B?SXV6amlJWFBYUXZDWXhtTEljelVQd0tUQXd3WlBOWUZZblFOR3AvQlhDaTQx?=
+ =?utf-8?B?R2Y4N3JBQW5XS3VBMHR0c1BLcGxLZkZRNGlUZjg2WlNTRXJPMktlYzUyYVQ3?=
+ =?utf-8?B?Vng5RWNpczhORVhjaHhkREkxby9lS3R2MUo4a0tmRFN2VFo5TkVJdDFreDl4?=
+ =?utf-8?B?SHNGTVh3QUdNc1djdlBKbVY1UFRCZDlzT1d4amtFZXVhd1l6d1B5blJleEZw?=
+ =?utf-8?B?QlhzWkV5czJPZW5yZitxblk4Ymg2cVJmbzJON2hGdm01QW5hMFZnYXY5RVYz?=
+ =?utf-8?B?U3BJMGF0WWl1RGpBRFBCcnNqcmZmaFZZdmhNREJDeC95QkdmV2RodXpmNnNm?=
+ =?utf-8?B?OElZKzZxMjVnZHRka3JENWUzYm1EU0FuOE5lM25zd21RMCswMUhNMThESFhT?=
+ =?utf-8?B?OGhVUEw5ak5iRlRJZE5sUURHUTRlTnJRVitaWE5KckNiR0FLTjM5a1A5TCs0?=
+ =?utf-8?B?aWRPeEFHaUJveXFzM1h0azltaXorMzAwWVZrR0IwOVB0OS9RY2JLdTFGeSth?=
+ =?utf-8?B?WW1VVnM3NWllTXhiRjVhSWJ4L1Z0anpKL2NPT2ZpbE90ZnJ2NXN3bVpiWFJD?=
+ =?utf-8?B?SmgrMjNsU29oQThNclBpUVMvdUhLVU9vcisvcXArRzF0NHRTZHArbWNjYk4r?=
+ =?utf-8?B?UFhqVmRDcXAxcUxGUHVjbnJkUWhBakEzc05CV0F4RWpJNVhxODZLVlFQaG5m?=
+ =?utf-8?B?U3FJWTc5ZG9OR1BzU09wajlSMTZKRlVYTTM5cmp6UUFYbVRlWjFUUEQvRm9K?=
+ =?utf-8?B?OXFxOXpuY2sxR2RpOFc1V21qMzZBd0dUWjI2OGRVV2RnU0Qza0dtMWQ5Rmpn?=
+ =?utf-8?B?OEdqL1g3Tm9yTXBzQ1RrK1lrd3N4U0hiL2ljVE9XYWNacTJZNFVKcFZJY3hi?=
+ =?utf-8?B?TE9xdFFlTGxoWlluMzNocWs0MHVmOGlWYktGQTU5dWZQV2cwTkVmT2x3Tytq?=
+ =?utf-8?B?NndzNUg0L2JHSDZ5NEdEb29kV2Z3c2FNYWNuckVPTVlJSGJFUjNQdlJnSkdm?=
+ =?utf-8?B?R2EwYXFsM0l0NlNlM2tNSlJEa1kvaWJEWXRTZkd3V1RLVS9YVVpOV2MwbEsr?=
+ =?utf-8?B?Ym5QL0haRURnRVAxdytrRjAyVmpXVmRwOFpFbUh4TmtodnMxNFE4SmRoL3lZ?=
+ =?utf-8?B?U3VrV3Z2ODdlTDVyYzY2R0RhbXNnMUkveUc1d3lubEVJK3ZGbWF6dz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 071d1db7-5edd-4c73-b557-08df43c7b4bc
+X-MS-Exchange-CrossTenant-Network-Message-Id: d8431d83-e560-4862-7066-08df43c97262
 X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6132.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 09:55:12.2280 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 10:07:39.8941 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2PZ9wFpz5UY0tHK4269aU4bLfJG8e6aTTD5/PWzHfiaZQxwL3EtaZk8UR01YblpRAG6nG7dXnTHj99fMuvmItg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7817
+X-MS-Exchange-CrossTenant-UserPrincipalName: bf8mIs8narKTuAWxIs14Ke4quhZ8r19T++LG2LBATFPF+hxkNGJ475vRH2HeRDAqUX5IU6YrCoa6jDznyl05fA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9217
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,48 +138,23 @@ X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Shivam,
+Hi David,
 
-Thanks for the v2. Hugo posted v2 of two series on Nov 13 that do the
-same thing, so it would be good to work together on one of them:
+Sorry this sat for so long. Hugo's series [1] carries the same change
+as its 2/5, together with a patch that commits panel_power_savings
+writes from the kernel, and it's going through our promotion testing
+this week, so it might be easiest to land it there. I've asked Hugo to
+credit you.
 
-- "Leave self-refresh before an ABM level update" [1] takes the panel
-  out of PSR or Panel Replay around the DC update that carries the new
-  level.
-- "Commit panel_power_savings writes from the kernel" [2]. Its 2/5 is
-  the same atomic check change as in this patch and David's 2/2 [3],
-  and its 4/5 commits the write from the store.
+Without the forced modeset, an ABM change goes through the fast update
+while the panel may still be in PSR, and on DCN 2.1 that hangs DMUB.
+Hugo's other series [2] takes the panel out of self-refresh first, so
+this change has to land after it. For the same reason I'd keep it out
+of stable: the PSR events that series uses only exist since
+3c108046e1d6.
 
-The part this patch is missing is [1]. Once ABM changes no longer force
-a modeset, the level goes out as a fast update while the panel may
-still be in self-refresh. On DCN 2.1 that hangs DMUB: Hugo hit it on
-Cezanne, and we've seen it on Renoir. On Strix (DCN 3.5), with Hugo's
-v1 series but without [1], a write on an idle desktop left PSR stuck
-and the ABM ramp stalled until some unrelated commit. The IGT run
-doesn't catch this, since the panel has to already be in self-refresh
-when the level changes.
+[1] https://lore.kernel.org/r/20261113-abm-sysfs-commit-v2-0-5808d17a7e89@hsal.es
+[2] https://lore.kernel.org/r/20261113-amdgpu-psr-abm-update-next-v2-0-27ce790856ea@hsal.es
 
-Hugo's 4/5 also skips the commit when the level doesn't change (as
-Harry asked), sets allow_modeset to false so a write never turns into
-a full modeset, and takes a runtime PM reference.
-
-Hamza, agreed on running this through promotion first. We're putting
-Hugo's two series through this week's promotion testing in place of
-this patch, since they include [1].
-
-Could you test Hugo's two v2 series on your Rembrandt and review them?
-That's DCN 3.1.2, where PSR is on by default, so it covers a case
-neither Hugo (DCN 2.1) nor we (DCN 3.5) have. It would help to:
-
-- let psr_state reach 6 before each write, then check that it leaves
-  and comes back
-- rerun amd_abm, which Hugo hasn't done on v2
-
-Hugo, please Cc Shivam on v3.
-
-[1] https://lore.kernel.org/r/20261113-amdgpu-psr-abm-update-next-v2-0-27ce790856ea@hsal.es
-[2] https://lore.kernel.org/r/20261113-abm-sysfs-commit-v2-0-5808d17a7e89@hsal.es
-[3] https://lore.kernel.org/amd-gfx/20260813112634.11455-3-weber.aulendorf@gmail.com/
-
-Thanks,
+Regards,
 Chenyu
