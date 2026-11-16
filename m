@@ -2,64 +2,64 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CB30606A31C
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Nov 2026 17:17:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34B0A606A331
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Nov 2026 17:17:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ak8VNTt5
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=K4fdY6i0
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5FFF10F841;
-	Tue, 17 Nov 2026 17:17:14 +0000 (UTC)
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011008.outbound.protection.outlook.com [52.101.57.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 773CC10F841
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Nov 2026 17:17:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CDD3610F845;
+	Tue, 17 Nov 2026 17:17:33 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010028.outbound.protection.outlook.com [52.101.85.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D25610F845
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Nov 2026 17:17:28 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jAiQlLh1/FOvexHkttYXd86rlYrR0xKIVZp6TzrrxwFN6Uf2c8P+jzGn19wQDp6pwK6qx1LHw++ous4DDXrW4rPJ0qnkaZXzpf6lb+8RwMj9t62uikc9w1mc06JAS3nnIjgwiI4pQYlFpzJvP3OC/B6GYkkQCLjtNGot8hCiDJLXYP3RWBPWiZqajn0fzEKtDZNDzGUlWN9tM15bhzJRrkNvP7rNJWnMD6WeDRgUO9sQbmg6TUMVBW4HzDfQItHbhG3O3CjCUU6jBMeKTQ1OHr9z5Xh85QkB3TRpRnd8BWF3kkr9MLATGh3zYbsn43K7yfCUnfWZyokCk55oYOWPAQ==
+ b=bSQmAft5pmX8lp6K7L6qEvq9WP7IhrS9dJi/477S8fGpMQ3dS4om/4w+4wx4dPdDFhjBYiXZX2JMWhcE8gV6aM9Kwh8+J7ZQKCPMbeUmZQA3lrHfisPNCjdd9X7uw3g+3KXM7meQOGcqaghKYGKN4Hbb7A3+15Ud12KQdZ47b2a+p+WZ4jyd5PyjYc5hz06TXJh6zr/nDNZV20/PzJrbDbqsiVTUd6k5izF9OvOxOgr9nxx6XoW7hymljnQh0YemO5qnxZbKNySgq7Wxs43vIguBO9gVkGkSC8ChgKKlTNiEVCslFutE1awFhJlicQvMvYTba9ruyy2n7X3/ukKYNg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VixtjYkW4McpdTqxoCjpLPQnnT7FKSR60ozg6u7O7uE=;
- b=irAL8NmMf4MgiPKueW/oHNebzSFtqIEOmXqxXl/EAv5KMX06n+oI6bDwPoDbtgxXCR1BAbf5Rljo7+OGwJSb8ODmsqeEW5+/5a7vfUhXNmdBuxHe7CgbzyarRtfXa/TbZJ9ztxesm3VllMNad6k2XXciCVGxkZQ8O41QqifG4aklJYtEtlw1uzJb+IA9z3LeZlVhoaPeVaW+JoKsdH3Wmk05GO7/IYOpT3MLpdAOLl/1EIuPPUR0pGQtcV3yiuHqn0Ogbmnj0dcGJ13Ruy7y+WOPJjHYUAW2BoDbQvdtex9/DPTtDv1RPm89AH29J+X3yXPyf9d7EZ4dnPni/eFikA==
+ bh=fkxU2NdT1SToGts8lDNhpY8JijkOOJMgetsMdf05RyY=;
+ b=gJi1eRhhPtCCmw6t6JR8MyoalaOdFSLOfqPyUrnsHtYZGxnm2TywY4lmGoYDoVA4MVJIQqTZtUR7jCK/QQZm1euk7fphORyF9U6A2G3HfyQC85i6RmDuz2WG61h+D+P/x8rwgYTtW+ySvamZI9uz+NwhrUqj9z8DOx/A2ceoWWK1qGk9cmpEONkrWO+EHMiP2pVIdRxDK8KFr+/TFgPm+C8DgrSLjysgh7aS0eoRW9Fsrc5dkunTXViMqGly1ztuMb2y/o2zwW/p1bgvsQ9PkOgjxOxAT6E8/6KIPOsWuvOkm0PU5itXa4VEyswM9ij4JcQRT86843AEeX85jwRPPQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VixtjYkW4McpdTqxoCjpLPQnnT7FKSR60ozg6u7O7uE=;
- b=ak8VNTt5s/kPS0IGLavde2vzYTKjVHf43aQ/bbp+kFzeRln+A7+5dkZkZCqOd+y+6CM8CkLnnMgpmhaYPGbAqqfVl0I2nXg6RzozKoz2UUbJyFQhwvcVhkcWIofPzOOMKaBWcV8MpTjDCHY9zhSRojIbUTfgQVAlVx6ZqMnK95c=
-Received: from CH0PR03CA0073.namprd03.prod.outlook.com (2603:10b6:610:cc::18)
- by CH3PR12MB9454.namprd12.prod.outlook.com (2603:10b6:610:1c7::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
- 2026 17:17:00 +0000
-Received: from IA0PEPF00000040.namprd04.prod.outlook.com
- (2603:10b6:610:cc:cafe::1c) by CH0PR03CA0073.outlook.office365.com
- (2603:10b6:610:cc::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Tue,
- 17 Nov 2026 17:17:00 +0000
+ bh=fkxU2NdT1SToGts8lDNhpY8JijkOOJMgetsMdf05RyY=;
+ b=K4fdY6i0gCkY9hDJgd5U/jGrBX5Kmyav/KAzDFiy/3UVLnhIZlX/F7bY6hIGC7oMi3hTSydU7a+FTHhUX7pGGjTFzA6ybnDzQ/FLIM0//YBAO2w0CTG5abVMJ/n8GH18ZahyGaQSirrpzqNJ4cg3WiyLnQjDnRSqHKdOEU3C/gk=
+Received: from CH0PR03CA0268.namprd03.prod.outlook.com (2603:10b6:610:e5::33)
+ by SA5PPFF3CB57EDE.namprd12.prod.outlook.com
+ (2603:10b6:80f:fc04::8eb) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Tue, 17 Nov
+ 2026 17:17:20 +0000
+Received: from BN1PEPF00018073.namprd04.prod.outlook.com
+ (2603:10b6:610:e5:cafe::51) by CH0PR03CA0268.outlook.office365.com
+ (2603:10b6:610:e5::33) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.14 via Frontend Transport; Tue,
+ 17 Nov 2026 17:17:19 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- IA0PEPF00000040.mail.protection.outlook.com (10.167.249.168) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN1PEPF00018073.mail.protection.outlook.com (10.167.245.201) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Tue, 17 Nov 2026 17:16:59 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.615.4 via Frontend Transport; Tue, 17 Nov 2026 17:17:19 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Tue, 17 Nov
- 2026 11:16:58 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 11:17:10 -0600
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Tue, 17 Nov
- 2026 11:16:56 -0600
+ 2026 11:17:07 -0600
 Received: from james-Birman-PHX.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.57 via
- Frontend Transport; Tue, 17 Nov 2026 11:16:47 -0600
+ Frontend Transport; Tue, 17 Nov 2026 11:16:59 -0600
 From: James Lin <PingLei.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -70,10 +70,9 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
  <Chen-Yu.Chen@amd.com>, Tony Cheng <tony.cheng@amd.com>, James Lin
  <pinglei.lin@amd.com>
-Subject: [PATCH 28/33] drm/amd/display: Change the ODM and MPC layout in DC2
- update
-Date: Tue, 17 Nov 2026 05:51:05 +0800
-Message-ID: <20261116215641.2800595-29-PingLei.Lin@amd.com>
+Subject: [PATCH 29/33] drm/amd/display: Give the DC2 builders State pipe facts
+Date: Tue, 17 Nov 2026 05:51:06 +0800
+Message-ID: <20261116215641.2800595-30-PingLei.Lin@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261116215641.2800595-1-PingLei.Lin@amd.com>
 References: <20261116215641.2800595-1-PingLei.Lin@amd.com>
@@ -83,29 +82,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PEPF00000040:EE_|CH3PR12MB9454:EE_
-X-MS-Office365-Filtering-Correlation-Id: dc3e531e-32df-43c1-ab46-08df44ce96c6
+X-MS-TrafficTypeDiagnostic: BN1PEPF00018073:EE_|SA5PPFF3CB57EDE:EE_
+X-MS-Office365-Filtering-Correlation-Id: 32a7c9b1-5b97-4f75-0a9e-08df44cea2c7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|82310400026|1800799024|376014|23010399003|18002099003|6133799003|22082099003|261009220027099003|261009221727099003|261009221227099003|261009223327099003|261009223027099003|20052099010|3023799007|11063799006|56012099006|261102123227099003|261028144727099003|10067099003|261026140227099003|261026121527099003|261021121427099003|261022105027099003|261021123027099003;
-X-Microsoft-Antispam-Message-Info: 7SIC9/H6I9WTyEaJQIpB5iD8/2Qi+8Xy9I0SQP+mevKYLgRnDBowemhutP7d0+PZP9jFQe36uh/0Nuc3DbiRTACYCTaXWhARcV/OCoKM7o1WCtfK9YsEiEz1Y+oxsowC65ulBGDGD+lwMJ5lWLpMtcJx1KdlTlJVIOIT7LfhONJK1D/87U/znL4zL8zLPvZToE+PwUZPPWxmTDWkgvbKVpiIUjYLvY0aKQL0JV7A4XZL6vWDy87JzJDCgRcMNp2DpPNgiuUt+W+dvHA9GSnmDOJ1FWiuCrW1ZqPvxY2BUdJvhhjD9JNXw2SedwHwQWC10UxAoB7DGMvyRr0jjY36EzKbGPb2Q31vcu8PWf1Yq9MPrfmRknSliVhehnycEEXovXRWXKkIiCbNljxHcvZ4MxEJqrnrVj761NDFgYW7pvc4ywV4UzHLlo2LO2KgGVHNJaMAHdE7EuoenD+UzS4gHYH5tXMVobb3rzIFm38HDEpc9N0kP9I4V3TNVDtaFi50vpnBm0uWoXzDCYlAsgukLzF+ebaCQmWnK+cgBZY652A4cK+oxkSM6gGI1rMGx1s5BYO0pi3ouUE4nA/+x5WSnUjh/QSfC3Yoir8zU83t3JcLUN+U4DaqW+zBPRXuzxgo7haqWreDoLUPTu7YvoPqYv++RCP7VK2GvVjmmu4r76Azm+xpW1GP7yKE2riq5WFGvpoJctn3xpOmnIrrFYKS8w==
+ ARA:13230040|23010399003|376014|1800799024|36860700016|82310400026|10067099003|56012099006|11063799006|261021123027099003|261026140227099003|261026121527099003|261028144727099003|261102123227099003|261021121427099003|261022105027099003|261009221227099003|261009223027099003|20052099010|22082099003|18002099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info: Btu0QemW6V4Vtumm6AsczDk1ggf1oBmsrrMBaII8jYljVWdNVF6vey1TXOVEacIjX1o6UbtWOt1d+Hi2sTgnLKChrFSCS/WFz0cuaqEMnCths7iAM2d9jU7ZzKYyFkhaArz2pj0HO6YDupXO8RNzqWjSzhYCGhVhDNzIxTiy7oWMMmlQeXXcf9ue4mrkLq555VEuKu07EiLILlWxBIKfj5ufgyLFVATIxmwuZuWo++smsGimKChWfN09mihNsKMi4YYenL2t+hKWD8UbFpizNmyahxWbijkx8+7wV/w+ylzsaHLjF6QZmd3UfoR6BJee9D6riS8ReTwtOWjglCgKJVrZgX0Cib77KYzTSW3qzERi51Vg80Prm1+4d8TegSW7Oyl05Zi0ENXP+0J9dZOAqJUem8Pa80Stn/OiQ4KBqFVateHK3Qu01g4epTinkgyaws3R7yUP5+P/i7TjddIhzKbySDj4+mLfg57HVqJnRmUJXgzTPz2F1Q0rp5+LQIbRmteTI2djLpUMwS9Uw6Suq4CuQmgGm4thoZ1IIHgJvCCPmCoGp3egdhvaW7nfWKWdzv2TOP8Ck1VKVo1tQp5kdSNfZVVOOzmwmdYw9PKZZyDxncyworn+OaLyJNbdNYRTGVCRReUA3h7IzVFN6rrexDoYS4NmTQ3IiWB35ohvRYGs4Y1T8cJF4hZfaw3Ugy4kRtFDnOHot2ojl9/8ddgLLQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(82310400026)(1800799024)(376014)(23010399003)(18002099003)(6133799003)(22082099003)(261009220027099003)(261009221727099003)(261009221227099003)(261009223327099003)(261009223027099003)(20052099010)(3023799007)(11063799006)(56012099006)(261102123227099003)(261028144727099003)(10067099003)(261026140227099003)(261026121527099003)(261021121427099003)(261022105027099003)(261021123027099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(1800799024)(36860700016)(82310400026)(10067099003)(56012099006)(11063799006)(261021123027099003)(261026140227099003)(261026121527099003)(261028144727099003)(261102123227099003)(261021121427099003)(261022105027099003)(261009221227099003)(261009223027099003)(20052099010)(22082099003)(18002099003)(6133799003)(3023799007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: OYAdfLRqP8uAH5pJ1qaURSjiaPovAwtpDgjOpiuXpF9PH7634V3fAJQg5V/L33Q8nKFpqwchDDodxrcLyi4y0si/eX4mPaheIQyKUaUGIjVxLlGhly0WjQCWA+XTTa8oKCVuZSDQjIG1iYbpZybbXccPPAAIPp+pWI+eQ75i5KMEXoEs4ZYUXNctOyaDc9b+ljIDCmkHEqYk5CtTQrciu7c988ha0I+8YUDMGTIzHXSx19N/O9DZNQarsO04U4mXqWXIXnoUmHhlvh02e+8PdzNVMbqOuTbgdGjnL1mSCAczdFDTpibxF2RDYH1kOrb4pqsOV/fkMyieaspy+/cektgkss/6jpgcfzn2uRraKOeGCkt6U2B8o0XMd+ZCnM8Ta0fIDz1OXaTup01a+zClR5sVXuBFfg67S32arFc2iz86kM2pA6ii+Y9sy/JuLZhq
+X-MS-Exchange-AntiSpam-MessageData-0: pq/7pXAaJL1tjPa1x4Uh2kFGWgcShVPsmSR+riHIcfEea3iA2QM/MtPcZ5jvhOMPOGe8abNYjhyiyN/r3QGW6U6JzRI7UoSnlbKTqboM/XvJo2Tw2GAWvHcUVfQ8gVtpdwz5bwe6bV62Fxo1C8KGT7uaiGg5J7BfaKTo/3naeWcNlb4H2fGWwZ1TtOX2FlYKXXX1sl1MsMZL57WKrK4HEUlqqAuPafp8/8p2mJZu8FLihQYPkpAo7ihdvHUoycPtXK6FpOYsm/IgTmOf9FuluPvKVAISxuDxCOJddi6wgT35yB1OrqLdlaZWIj/NlCAwUQhnpqHKSvYxDz5g0xb9DHq4Qo1XJ1+419WpCS7qEdyn8K+j1sKJvgRTas5Q4Ji83yMepBHeNGUMP/E72TrMHHRcRYWyr9PjrBxqTK3OyRtwL0sZWDLqEQUkRo0kGQiK
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 17:16:59.3029 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dc3e531e-32df-43c1-ab46-08df44ce96c6
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 17:17:19.4302 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 32a7c9b1-5b97-4f75-0a9e-08df44cea2c7
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: IA0PEPF00000040.namprd04.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00018073.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9454
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPFF3CB57EDE
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,831 +126,1232 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 From: Tony Cheng <tony.cheng@amd.com>
 
 [Why]
-The DC2 seamless update builder keeps the OPP of each ODM slice and
-does not remove a pipe. An update between ODM 2:1 and ODM bypass with
-two blended planes fails. The commit blanks a kept stream that
-changes its layout.
+The dcn401 DC2 builders compare streams and pipe blocks by pointer,
+which is not a reliable identity between two states.
 
 [How]
-Accept an update where each pipe keeps its plane and blocks, joins on
-a free pipe, or leaves the stream on the same OTG. Under the lock,
-disconnect the MPCC and DET of each removed pipe, and program the ODM
-mode and each new OPP head. After the unlock, power down the removed
-pipes and wait for the ODM double buffer. The commit keeps a stream
-that keeps its OTG and programs its front end after the enable.
+Add dc_state_compute_update_flags(). It records the facts of each pipe
+in the current and the new state. The builder finds a kept stream by
+stream_id and its pipe blocks by inst, and derives the deltas. The
+stream update steps skip when the kept stream did not change. Name
+the unfiltered trait match DC_TRAIT_MATCH_ANY.
 
 Signed-off-by: Tony Cheng <tony.cheng@amd.com>
 Signed-off-by: James Lin <pinglei.lin@amd.com>
 ---
- .../amd/display/dc/bls_builder/bls_builder.h  |   8 +-
- .../bls_builder/bls_builder_private_types.h   |   9 +
- .../dc/bls_builder/dcn401_builder_internal.h  |  36 +++
- .../bls_builder/dcn401_non_seamless_builder.c |  60 ++--
- .../dc/bls_builder/dcn401_seamless_builder.c  | 276 +++++++++++-------
- .../gpu/drm/amd/display/dc/core2/dc_core2.c   |  79 +++--
- 6 files changed, 305 insertions(+), 163 deletions(-)
+ .../amd/display/dc/bls_builder/bls_builder.h  |   5 +
+ .../bls_builder/bls_builder_private_types.h   |  40 +-
+ .../dc/bls_builder/dcn401_builder_internal.h  |  14 +-
+ .../bls_builder/dcn401_non_seamless_builder.c |  26 +-
+ .../dc/bls_builder/dcn401_seamless_builder.c  | 497 ++++++++++++------
+ .../gpu/drm/amd/display/dc/core/dc_state.c    |  28 +
+ .../gpu/drm/amd/display/dc/core2/dc_core2.c   |  23 +-
+ .../gpu/drm/amd/display/dc/dc_state_priv.h    |  23 +
+ .../amd/display/dc/state_facts/state_facts.h  |   3 +
+ 9 files changed, 474 insertions(+), 185 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/dc/bls_builder/bls_builder.h b/drivers/gpu/drm/amd/display/dc/bls_builder/bls_builder.h
-index f899c27ea836..c9a4e59056ae 100644
+index c9a4e59056ae..99d57e7c0789 100644
 --- a/drivers/gpu/drm/amd/display/dc/bls_builder/bls_builder.h
 +++ b/drivers/gpu/drm/amd/display/dc/bls_builder/bls_builder.h
-@@ -135,9 +135,11 @@ const struct bls_builder *bls_builder_create(struct dc *dc,
- 		enum bls_builder_name name);
+@@ -6,6 +6,7 @@
+ #pragma once
  
- /*
-- * stream is in both states on the same pipes, each with the same plane
-- * and blocks. DCN_DECL_NON_SEAMLESS_COMMIT leaves such a stream alone.
-+ * stream is in both states and keeps its OTG, and the seamless update can
-+ * program its front end. DCN_DECL_NON_SEAMLESS_COMMIT neither disables nor
-+ * enables such a stream; it runs that front end when the stream changes.
-  */
--bool dcn401_stream_unchanged(const struct dc_state *current_state,
-+bool dcn401_stream_kept(const struct dc *dc,
-+		const struct dc_state *current_state,
- 		const struct dc_state *new_state,
- 		const struct dc_stream_state *stream);
+ #include "dc.h"
++#include "dc_state_priv.h"
+ #include "dmub_cmd.h"
+ #include "dmub/dmub_srv.h"
+ #include "hwss/hw_sequencer.h"
+@@ -99,6 +100,8 @@ struct bls_builder_check_capability_params {
+ 	const struct dc_state *current_state;
+ 	const struct dc_state *new_state;
+ 	const struct dc_stream_state *stream;
++	/* The current -> new delta from dc_state_compute_update_flags. */
++	const struct dc_state_update_flags *update_flags;
+ };
+ 
+ struct bls_builder_declarative_params {
+@@ -106,6 +109,8 @@ struct bls_builder_declarative_params {
+ 	const struct dc_state *current_state;
+ 	const struct dc_state *new_state;
+ 	const struct dc_stream_state *stream;
++	/* Pipe facts of both states, from dc_state_compute_update_flags. */
++	const struct dc_state_update_flags *update_flags;
+ 	struct bls_builder_output_targets *out_targets;
+ 	struct block_sequence head_sequence[DC2_BLS_MAX_STEPS];
+ 	unsigned int head_num_steps;
 diff --git a/drivers/gpu/drm/amd/display/dc/bls_builder/bls_builder_private_types.h b/drivers/gpu/drm/amd/display/dc/bls_builder/bls_builder_private_types.h
-index ed9d2f7fc0a2..de73efe274c1 100644
+index de73efe274c1..11e452b36e05 100644
 --- a/drivers/gpu/drm/amd/display/dc/bls_builder/bls_builder_private_types.h
 +++ b/drivers/gpu/drm/amd/display/dc/bls_builder/bls_builder_private_types.h
-@@ -123,6 +123,15 @@ struct dcn401_commit_step_meta {
- 		bool hubp_dpp_already_enabled;
- 		/* As hubp_dpp_already_enabled, and the DET size is the same. */
- 		bool det_unchanged;
-+		/*
-+		 * The current pipe had no plane, or keeps its plane, HUBP, DPP
-+		 * and OPP in the new state.
-+		 */
-+		bool no_plane_removed;
-+		/* As hubp_dpp_already_enabled, and each ODM slice keeps its OPP. */
-+		bool odm_kept;
-+		/* Each ODM slice of the stream keeps its OPP. */
-+		bool same_opp_heads;
+@@ -7,12 +7,31 @@
+ 
+ #include "hw_sequencer.h"
+ #include "dccg.h"
++#include "dc_state_priv.h"
+ 
+ /*
+  * Step tables for the declarative builders. A change here changes what
+  * a builder can express; a change to a builder's .c alone does not.
+  */
+ 
++/*
++ * Conditions on pipe i that compare its facts in the current and the
++ * new state.
++ */
++struct dcn401_pipe_deltas {
++	/*
++	 * Both pipes are enabled and show a plane of the same stream on the
++	 * same HUBP, DPP and OPP.
++	 */
++	bool hubp_dpp_already_enabled;
++	/* The DET size is the same. */
++	bool det_unchanged;
++	/* The current pipe has no plane. */
++	bool current_has_no_plane;
++	/* The stream of the new pipe has the same OPP heads in both states. */
++	bool odm_kept;
++};
++
+ /*
+  * One dcn401 commit step is one BLS entry. The union holds the
+  * arguments that differ between the times DC1 makes that call; the
+@@ -109,29 +128,20 @@ struct dcn401_commit_step_meta {
+ 	struct {
+ 		/* The new state has a stream. */
+ 		bool new_state_has_stream;
++		/* The stream of the step is unchanged between the states. */
++		bool stream_unchanged;
+ 		/* dc->optimized_required is clear. */
+ 		bool optimized_not_required;
+ 		/* The plane has no address update, or skips the manual trigger. */
+ 		bool no_manual_trigger;
+ 		/* The OPP MPC tree has no plane yet. */
+ 		bool opp_tree_empty;
++		struct dcn401_pipe_deltas pipe_deltas;
+ 		/*
+-		 * The pipe already showed the plane on this HUBP. The step is
+-		 * part of enabling that block the first time, not of
+-		 * reconfiguring it.
+-		 */
+-		bool hubp_dpp_already_enabled;
+-		/* As hubp_dpp_already_enabled, and the DET size is the same. */
+-		bool det_unchanged;
+-		/*
+-		 * The current pipe had no plane, or keeps its plane, HUBP, DPP
+-		 * and OPP in the new state.
++		 * Skip only when each delta named in pipe_deltas is true. Clear,
++		 * skip when any of them is true.
+ 		 */
+-		bool no_plane_removed;
+-		/* As hubp_dpp_already_enabled, and each ODM slice keeps its OPP. */
+-		bool odm_kept;
+-		/* Each ODM slice of the stream keeps its OPP. */
+-		bool same_opp_heads;
++		bool pipe_deltas_all;
  		/*
  		 * Neither the plane scaling, the plane position nor the
  		 * stream scaling changed. A full update sets every plane bit,
 diff --git a/drivers/gpu/drm/amd/display/dc/bls_builder/dcn401_builder_internal.h b/drivers/gpu/drm/amd/display/dc/bls_builder/dcn401_builder_internal.h
-index 2d832017f613..e9f190176485 100644
+index e9f190176485..4af30178b42b 100644
 --- a/drivers/gpu/drm/amd/display/dc/bls_builder/dcn401_builder_internal.h
 +++ b/drivers/gpu/drm/amd/display/dc/bls_builder/dcn401_builder_internal.h
-@@ -76,6 +76,27 @@ int dcn401_stream_index(const struct dc_state *state,
- 		const struct dc_stream_state *stream);
+@@ -44,6 +44,15 @@ void dcn401_commit_check_failed(const struct dc *dc, const char *msg);
+ 		} \
+ 	} while (0)
  
- 
-+/*
-+ * stream is in both states on the same pipes, each with the same plane
-+ * and blocks.
-+ */
-+bool dcn401_stream_unchanged(const struct dc_state *current_state,
-+		const struct dc_state *new_state,
-+		const struct dc_stream_state *stream);
-+/*
-+ * The pipe shows a plane on the same HUBP, DPP and OPP. The plane may be a
-+ * new dc_plane_state; the update reprograms its contents.
-+ */
-+bool dcn401_pipe_kept(const struct pipe_ctx *current_pipe,
-+		const struct pipe_ctx *new_pipe);
-+/*
-+ * What the seamless update needs of stream i of new_state, apart from the
-+ * other streams.
-+ */
-+enum bls_builder_result dcn401_check_stream_update(const struct dc *dc,
-+		const struct dc_state *current_state,
-+		const struct dc_state *new_state, unsigned int i);
++/* As CHECK_UPDATE, for a helper that reads the update flags. */
++#define CHECK_UPDATE_FLAGS(name, msg) \
++	do { \
++		if (!check_##name(update_flags, current_state, new_state, i)) { \
++			dcn401_commit_check_failed(dc, msg); \
++			return BLS_BUILD_ERROR_UNSUPPORTED_STATE_UPDATE; \
++		} \
++	} while (0)
 +
- /* What both builders need of the dc, before either state. */
- enum bls_builder_result dcn401_check_dc_support(const struct dc *dc);
- /* What both builders need of each stream of a state, apart from its planes. */
-@@ -122,6 +143,21 @@ void dcn401_add_sub_sequences(struct block_sequence_state *sequence,
- #define DCN401_ADD_SUB_SEQUENCES(sequence, args, subs) \
- 	dcn401_add_sub_sequences(sequence, args, subs, ARRAY_SIZE(subs))
- 
-+#define DCN401_DISCONNECT_STEPS 2
-+#define DCN401_POWER_DOWN_STEPS 12
-+/*
-+ * Per current DPP pipe that leaves the stream: the MPCC and DET disconnect
-+ * under the lock, and disable_plane after it.
-+ */
-+extern const struct dcn401_commit_step
-+		dcn401_disconnect[DCN401_DISCONNECT_STEPS];
-+extern const struct dcn401_commit_step
-+		dcn401_power_down[DCN401_POWER_DOWN_STEPS];
-+
-+/* The seamless update's front end for args->stream, between the waits. */
-+void dcn401_add_stream_update(struct block_sequence_state *sequence,
-+		const struct dcn401_commit_step_args *args);
-+
+ /* Each check_<name> stream helper takes the state and a stream index. */
+ #define CHECK_STREAM_CONDITION(name, msg) \
+ 	do { \
+@@ -87,8 +96,6 @@ bool dcn401_stream_unchanged(const struct dc_state *current_state,
+  * The pipe shows a plane on the same HUBP, DPP and OPP. The plane may be a
+  * new dc_plane_state; the update reprograms its contents.
+  */
+-bool dcn401_pipe_kept(const struct pipe_ctx *current_pipe,
+-		const struct pipe_ctx *new_pipe);
  /*
-  * Points the step arguments at the states and the sequence at
-  * head_sequence, both empty. The entries point into the states; the build
+  * What the seamless update needs of stream i of new_state, apart from the
+  * other streams.
+@@ -115,6 +122,9 @@ struct dcn401_commit_step_args {
+ 	struct dc_state *new_state;
+ 	const struct dc_stream_state *stream;
+ 	struct pipe_ctx *pipe;
++	const struct dc_state_update_flags *update_flags;
++	/* stream is in both states on the same pipes, planes and blocks. */
++	bool stream_unchanged;
+ };
+ 
+ /*
 diff --git a/drivers/gpu/drm/amd/display/dc/bls_builder/dcn401_non_seamless_builder.c b/drivers/gpu/drm/amd/display/dc/bls_builder/dcn401_non_seamless_builder.c
-index dcd1c8a50429..f24480e949d6 100644
+index f24480e949d6..2ce37c3aa982 100644
 --- a/drivers/gpu/drm/amd/display/dc/bls_builder/dcn401_non_seamless_builder.c
 +++ b/drivers/gpu/drm/amd/display/dc/bls_builder/dcn401_non_seamless_builder.c
-@@ -12,11 +12,11 @@
- /*
-  * DCN_DECL_NON_SEAMLESS_COMMIT for virtual streams. It disables every
-  * current stream, each with one or two planes, one per DPP pipe, then
-- * enables every new stream, each with no plane. A stream that is
-- * unchanged keeps its pipes and planes, and the commit programs none of
-- * them. Planes are added later by DCN_DECL_SEAMLESS_UPDATE. Each
-- * stream is in ODM bypass, 2:1 or 3:1, with one OPP head and at most one
-- * DPP pipe per slice.
-+ * enables every new stream, each with no plane. A kept stream keeps its
-+ * OTG, and the commit runs the seamless update's front end for it when its
-+ * pipes or planes change. Planes are added later by
-+ * DCN_DECL_SEAMLESS_UPDATE. Each stream is in ODM bypass, 2:1 or 3:1, with
-+ * one OPP head and at most one DPP pipe per slice.
-  *
-  * The sequence follows legacy_commit_state_hw on dcn401: the same leaf
-  * calls in the same order, including the calls DC1 repeats. Everything is
-@@ -131,7 +131,7 @@ static enum bls_builder_result dcn401_check_commit_state_support(
- 			is_current ? NULL : state);
- 	for (i = 0; result == BLS_BUILD_SUCCESS && i < state->stream_count;
- 			i++) {
--		if (dcn401_stream_unchanged(current_state, new_state,
-+		if (dcn401_stream_kept(dc, current_state, new_state,
- 				state->streams[i]))
- 			continue;
- 		result = is_current ?
-@@ -229,32 +229,10 @@ static const struct dcn401_commit_step blank[] = {
- 	{ .func = OPP_SET_DISP_PATTERN_GENERATOR },
- };
+@@ -45,7 +45,7 @@ static bool check_current_planes(const struct dc *dc,
+ 	return planes && planes ==
+ 			facts.global.blend_tree[i].dpp_pipe_count &&
+ 			dc_state_facts_all_pipe(&facts, (uint8_t)i,
+-			DC_TRAIT_MATCH(0, 0),
++			DC_TRAIT_MATCH_ANY,
+ 			DC_TRAIT_MATCH(DC_PIPE_TRAIT_PLANE, 0));
+ }
  
--static const struct dcn401_commit_step disconnect[] = {
--	{ .func = HUBP_PROGRAM_DET_SEGMENTS },
--	{ .func = MPC_REMOVE_MPCC },
--};
--
- static const struct dcn401_commit_step unlock[] = {
- 	{ .func = TG_LOCK, .meta.tg_lock.lock = false },
- };
+@@ -57,7 +57,7 @@ static bool check_plane_blocks(const struct dc *dc,
+ 	(void)dc;
+ 	dc_state_facts_derive(state, &facts);
+ 	return dc_state_facts_all_pipe(&facts, (uint8_t)i,
+-			DC_TRAIT_MATCH(0, 0),
++			DC_TRAIT_MATCH_ANY,
+ 			DC_TRAIT_MATCH(DC_PIPE_TRAIT_PLANE_RESOURCES, 0));
+ }
  
--static const struct dcn401_commit_step power_down[] = {
--	{ .func = MPC_ASSERT_IDLE_MPCC },
--	{ .func = HUBP_SET_BLANK },
--	{ .func = HUBP_UPDATE_MALL_SEL },
--	{ .func = HUBP_SET_FLIP_CONTROL_GSL },
--	{ .func = HUBP_CLK_CNTL },
--	{ .func = DPP_DPPCLK_CONTROL },
--	{ .func = DC_IP_REQUEST_STATUS, .meta.skip_if.no_ip_request = true },
--	{ .func = DC_IP_REQUEST_CNTL, .meta.dc_ip_request_cntl.enable = true,
--	  .meta.skip_if.no_ip_request = true },
--	{ .func = HUBP_PG_CONTROL },
--	{ .func = HUBP_RESET },
--	{ .func = DPP_RESET },
--	{ .func = DC_IP_REQUEST_CNTL, .meta.dc_ip_request_cntl.enable = false,
--	  .meta.skip_if.no_ip_request = true },
--};
--
- static const struct dcn401_commit_step stream_off[] = {
- 	{ .func = HUBBUB_FORCE_PSTATE_CHANGE_CONTROL },
+@@ -168,11 +168,12 @@ static bool check_link_not_active(const struct dc *dc,
  
-@@ -390,9 +368,9 @@ static const struct dcn401_commit_step postamble[] = {
- static_assert(ARRAY_SIZE(prepare_bandwidth) +
- 		ARRAY_SIZE(lock) +
- 		DCN401_MAX_OPP_HEADS * ARRAY_SIZE(blank) +
--		DCN401_MAX_DPP_PIPES * ARRAY_SIZE(disconnect) +
-+		DCN401_MAX_DPP_PIPES * ARRAY_SIZE(dcn401_disconnect) +
- 		ARRAY_SIZE(unlock) +
--		DCN401_MAX_DPP_PIPES * ARRAY_SIZE(power_down) +
-+		DCN401_MAX_DPP_PIPES * ARRAY_SIZE(dcn401_power_down) +
- 		ARRAY_SIZE(stream_off) +
- 		ARRAY_SIZE(postamble) <=
- 		DC2_BLS_MAX_STEPS,
-@@ -422,14 +400,14 @@ static const struct dcn401_sub_sequence bls_head[] = {
- 	  .steps = blank,
- 	  .count = ARRAY_SIZE(blank) },
- 	{ .flags = DCN401_CURRENT_STATE | DCN401_PER_STREAM_PER_DPP_PIPE,
--	  .steps = disconnect,
--	  .count = ARRAY_SIZE(disconnect) },
-+	  .steps = dcn401_disconnect,
-+	  .count = ARRAY_SIZE(dcn401_disconnect) },
- 	{ .flags = DCN401_CURRENT_STATE | DCN401_PER_STREAM_PER_OTG_MASTER,
- 	  .steps = unlock,
- 	  .count = ARRAY_SIZE(unlock) },
- 	{ .flags = DCN401_CURRENT_STATE | DCN401_PER_STREAM_PER_DPP_PIPE,
--	  .steps = power_down,
--	  .count = ARRAY_SIZE(power_down) },
-+	  .steps = dcn401_power_down,
-+	  .count = ARRAY_SIZE(dcn401_power_down) },
- 	{ .flags = DCN401_CURRENT_STATE | DCN401_PER_STREAM_PER_OTG_MASTER,
- 	  .steps = stream_off,
- 	  .count = ARRAY_SIZE(stream_off) },
-@@ -460,6 +438,9 @@ static const struct dcn401_sub_sequence bls_head[] = {
- 	{ .flags = DCN401_NEW_STATE | DCN401_PER_STREAM_PER_OTG_MASTER,
- 	  .steps = front_end,
- 	  .count = ARRAY_SIZE(front_end) },
-+};
-+
-+static const struct dcn401_sub_sequence bls_postamble[] = {
- 	{ .flags = DCN401_NEW_STATE,
- 	  .steps = postamble,
- 	  .count = ARRAY_SIZE(postamble) },
-@@ -471,6 +452,7 @@ static enum bls_builder_result dcn401_build_non_seamless_commit(
- 	struct dcn401_commit_step_args state_args;
- 	struct block_sequence_state head;
+ static enum bls_builder_result dcn401_check_non_seamless_commit_support(
+ 		const struct dc *dc, const struct dc_state *current_state,
+-		const struct dc_state *new_state)
++		const struct dc_state *new_state,
++		const struct dc_state_update_flags *update_flags)
+ {
  	enum bls_builder_result result;
-+	unsigned int i;
  
+-	if (!dc || !current_state || !new_state)
++	if (!dc || !current_state || !new_state || !update_flags)
+ 		return BLS_BUILD_ERROR_UNSUPPORTED_STATE_UPDATE;
+ 
+ 	result = dcn401_check_dc_support(dc);
+@@ -457,7 +458,8 @@ static enum bls_builder_result dcn401_build_non_seamless_commit(
  	if (!params)
  		return BLS_BUILD_ERROR_UNSUPPORTED_STATE_UPDATE;
-@@ -481,6 +463,16 @@ static enum bls_builder_result dcn401_build_non_seamless_commit(
- 
- 	dcn401_init_and_unpack_params(params, &state_args, &head);
- 	DCN401_ADD_SUB_SEQUENCES(&head, &state_args, bls_head);
-+	for (i = 0; i < state_args.new_state->stream_count; i++) {
-+		state_args.stream = state_args.new_state->streams[i];
-+		if (dcn401_stream_kept(params->dc, params->current_state,
-+				params->new_state, state_args.stream) &&
-+				!dcn401_stream_unchanged(params->current_state,
-+				params->new_state, state_args.stream))
-+			dcn401_add_stream_update(&head, &state_args);
-+	}
-+	state_args.stream = NULL;
-+	DCN401_ADD_SUB_SEQUENCES(&head, &state_args, bls_postamble);
- 
- 	return BLS_BUILD_SUCCESS;
- }
-diff --git a/drivers/gpu/drm/amd/display/dc/bls_builder/dcn401_seamless_builder.c b/drivers/gpu/drm/amd/display/dc/bls_builder/dcn401_seamless_builder.c
-index 3f0285763d52..5218ecfbc385 100644
---- a/drivers/gpu/drm/amd/display/dc/bls_builder/dcn401_seamless_builder.c
-+++ b/drivers/gpu/drm/amd/display/dc/bls_builder/dcn401_seamless_builder.c
-@@ -29,16 +29,17 @@
-  * DCN_DECL_SEAMLESS_UPDATE for one of the virtual streams that
-  * DCN_DECL_NON_SEAMLESS_COMMIT (dcn401_non_seamless_builder.c) enabled.
-  * The other streams keep their pipes and planes, and the update programs
-- * none of them. The update either adds one plane, or two MPC-blended
-- * planes, to the stream, or keeps its planes and programs their surface,
-- * address, scaler and viewport, and may add a second plane below a kept
-- * one. The sequence follows the full update in
-+ * none of them. The stream ends with one or two planes. Each of its pipes
-+ * keeps a plane on its HUBP, DPP and OPP, is added on a free pipe, or leaves
-+ * the stream, so the update can add and remove planes and change the ODM
-+ * and MPC layout on the same OTG. The sequence follows the full update in
-  * commit_planes_for_stream on dcn401, all in head_sequence: the
-  * outstanding updates, prepare_bandwidth and the pending-update waits,
-  * then the locked front-end programming and
-- * post_unlock_program_front_end. A kept plane skips the first-enable steps
-- * of enable_plane, and a stream that had a plane skips the unblank. The
-- * bandwidth lower stays with dc_post_update_surfaces_to_stream.
-+ * post_unlock_program_front_end. Under the lock, a removed pipe leaves its
-+ * MPCC; after it, the pipe powers down. A kept pipe skips the first-enable
-+ * steps of enable_plane. The bandwidth lower stays with
-+ * dc_post_update_surfaces_to_stream.
-  *
-  * This file also holds what both builders share: the dc and stream
-  * support checks, and the step walkers that turn a table into BLS entries.
-@@ -500,93 +501,73 @@ static bool check_streams_kept(const struct dc *dc,
- 	return true;
- }
- 
--static unsigned int dcn401_current_plane_count(
--		const struct dc_state *current_state,
--		const struct dc_state *new_state, unsigned int i)
-+bool dcn401_pipe_kept(const struct pipe_ctx *current_pipe,
-+		const struct pipe_ctx *new_pipe)
- {
--	return current_state->stream_status[dcn401_stream_index(current_state,
--			new_state->streams[i])].plane_count;
--}
--
--/* Both planes of an MPO state are added together, by one update. */
--static bool dcn401_is_plane_add(const struct dc_state *current_state,
--		const struct dc_state *new_state, unsigned int i)
--{
--	unsigned int planes = new_state->stream_status[i].plane_count;
--
--	return !dcn401_current_plane_count(current_state, new_state, i) &&
--			(planes == 1 || planes == 2);
-+	return current_pipe->plane_state &&
-+			current_pipe->stream == new_pipe->stream &&
-+			new_pipe->plane_state &&
-+			current_pipe->plane_res.hubp == new_pipe->plane_res.hubp &&
-+			current_pipe->plane_res.dpp == new_pipe->plane_res.dpp &&
-+			current_pipe->stream_res.opp == new_pipe->stream_res.opp;
- }
- 
- /*
-- * Each current plane stays on its pipe, HUBP and DPP, and at most one
-- * plane is added under them.
-+ * The stream shows one or two planes. Each of its pipes was free, or kept
-+ * its OPP and either had no plane or keeps a plane on its HUBP and DPP. A
-+ * current pipe that does neither is removed.
-  */
--static bool dcn401_is_plane_kept(const struct dc_state *current_state,
-+static bool check_pipes_kept_or_free(const struct dc *dc,
-+		const struct dc_state *current_state,
- 		const struct dc_state *new_state, unsigned int i)
- {
--	unsigned int planes = dcn401_current_plane_count(current_state,
--			new_state, i);
-+	unsigned int planes = new_state->stream_status[i].plane_count;
- 	const struct pipe_ctx *cur, *new;
-+	struct dc_state_facts facts;
- 	unsigned int j;
- 
--	if (!planes || new_state->stream_status[i].plane_count < planes ||
--			new_state->stream_status[i].plane_count > 2)
-+	(void)dc;
-+	if (planes < 1 || planes > 2)
- 		return false;
- 	for (j = 0; j < MAX_PIPES; j++) {
- 		cur = &current_state->res_ctx.pipe_ctx[j];
- 		new = &new_state->res_ctx.pipe_ctx[j];
--		if (cur->stream != new_state->streams[i] || !cur->plane_state)
-+		if (new->stream != new_state->streams[i] || !cur->stream)
- 			continue;
--		if (new->stream != cur->stream ||
--				new->plane_state != cur->plane_state ||
--				new->plane_res.hubp != cur->plane_res.hubp ||
--				new->plane_res.dpp != cur->plane_res.dpp ||
--				!new->top_pipe != !cur->top_pipe)
-+		if (cur->stream != new->stream ||
-+				cur->stream_res.opp != new->stream_res.opp ||
-+				(cur->plane_state && !dcn401_pipe_kept(cur, new)))
- 			return false;
- 	}
--	return true;
-+	dc_state_facts_derive(new_state, &facts);
-+	return facts.global.blend_tree[i].dpp_pipe_count == planes;
- }
- 
--/*
-- * The seamless update either adds the first one or two planes, or keeps
-- * the planes and programs their surface, address, scaler and viewport,
-- * and may add a second plane below one. Each plane has its own DPP pipe.
-- */
--static bool check_plane_add_or_kept(const struct dc *dc,
-+static bool check_same_otg(const struct dc *dc,
- 		const struct dc_state *current_state,
- 		const struct dc_state *new_state, unsigned int i)
- {
--	struct dc_state_facts facts;
-+	const struct pipe_ctx *cur = dcn401_otg_master(current_state,
-+			new_state->streams[i]);
-+	const struct pipe_ctx *new = dcn401_otg_master(new_state,
-+			new_state->streams[i]);
- 
- 	(void)dc;
--	if (!dcn401_is_plane_add(current_state, new_state, i) &&
--			!dcn401_is_plane_kept(current_state, new_state, i))
--		return false;
--	dc_state_facts_derive(new_state, &facts);
--	return facts.global.blend_tree[i].dpp_pipe_count ==
--			new_state->stream_status[i].plane_count;
-+	return cur && new && cur->stream_res.tg == new->stream_res.tg;
- }
- 
--static bool check_same_otg_master_blocks(const struct dc *dc,
--		const struct dc_state *current_state,
--		const struct dc_state *new_state, unsigned int i)
-+/* stream has the same OPP for each ODM slice in both states. */
-+static bool dcn401_same_opp_heads(const struct dc_state *current_state,
-+		const struct dc_state *new_state,
-+		const struct dc_stream_state *stream)
- {
--	const struct pipe_ctx *current_pipe = dcn401_otg_master(current_state,
--			new_state->streams[i]);
--	const struct pipe_ctx *new_pipe = dcn401_otg_master(new_state,
--			new_state->streams[i]);
-+	const struct pipe_ctx *cur = dcn401_otg_master(current_state, stream);
-+	const struct pipe_ctx *new = dcn401_otg_master(new_state, stream);
- 
--	(void)dc;
--	if (current_pipe->stream_res.tg != new_pipe->stream_res.tg)
--		return false;
--	/* The same OPP for each ODM slice. */
--	for (; current_pipe && new_pipe;
--			current_pipe = current_pipe->next_odm_pipe,
--			new_pipe = new_pipe->next_odm_pipe)
--		if (current_pipe->stream_res.opp != new_pipe->stream_res.opp)
-+	for (; cur && new; cur = cur->next_odm_pipe, new = new->next_odm_pipe)
-+		if (cur->stream_res.opp != new->stream_res.opp)
- 			return false;
--	return !current_pipe && !new_pipe;
-+	return !cur && !new;
- }
- 
- static bool check_new_plane_blocks(const struct dc *dc,
-@@ -960,12 +941,32 @@ static enum bls_builder_result dcn401_check_seamless_update_support(
+ 	result = dcn401_check_non_seamless_commit_support(params->dc,
+-			params->current_state, params->new_state);
++			params->current_state, params->new_state,
++			params->update_flags);
  	if (result != BLS_BUILD_SUCCESS)
  		return result;
  
--	/* The transition: streams kept; add a plane or keep one plane. */
- 	CHECK_UPDATE(streams_kept,
- 			"a stream is not kept, or another stream changes");
--	CHECK_UPDATE(plane_add_or_kept,
--			"update is not a plane add, or keeps a plane off its pipe");
--	CHECK_UPDATE(same_otg_master_blocks, "otg, opp or odm changes");
-+	return dcn401_check_stream_update(dc, current_state, new_state, i);
-+}
+@@ -465,13 +467,16 @@ static enum bls_builder_result dcn401_build_non_seamless_commit(
+ 	DCN401_ADD_SUB_SEQUENCES(&head, &state_args, bls_head);
+ 	for (i = 0; i < state_args.new_state->stream_count; i++) {
+ 		state_args.stream = state_args.new_state->streams[i];
+-		if (dcn401_stream_kept(params->dc, params->current_state,
+-				params->new_state, state_args.stream) &&
+-				!dcn401_stream_unchanged(params->current_state,
++		if (!dcn401_stream_kept(params->dc, params->current_state,
+ 				params->new_state, state_args.stream))
+-			dcn401_add_stream_update(&head, &state_args);
++			continue;
++		state_args.stream_unchanged = dcn401_stream_unchanged(
++				params->current_state, params->new_state,
++				state_args.stream);
++		dcn401_add_stream_update(&head, &state_args);
+ 	}
+ 	state_args.stream = NULL;
++	state_args.stream_unchanged = false;
+ 	DCN401_ADD_SUB_SEQUENCES(&head, &state_args, bls_postamble);
+ 
+ 	return BLS_BUILD_SUCCESS;
+@@ -481,7 +486,8 @@ static bool dcn401_non_seamless_commit_check_capability(
+ 		const struct bls_builder_check_capability_params *params)
+ {
+ 	return params && dcn401_check_non_seamless_commit_support(params->dc,
+-			params->current_state, params->new_state) ==
++			params->current_state, params->new_state,
++			params->update_flags) ==
+ 			BLS_BUILD_SUCCESS;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/bls_builder/dcn401_seamless_builder.c b/drivers/gpu/drm/amd/display/dc/bls_builder/dcn401_seamless_builder.c
+index 5218ecfbc385..a2c8d7964208 100644
+--- a/drivers/gpu/drm/amd/display/dc/bls_builder/dcn401_seamless_builder.c
++++ b/drivers/gpu/drm/amd/display/dc/bls_builder/dcn401_seamless_builder.c
+@@ -252,7 +252,8 @@ const struct pipe_ctx *dcn401_otg_master(const struct dc_state *state,
+ 	for (i = 0; i < MAX_PIPES; i++) {
+ 		const struct pipe_ctx *pipe = &state->res_ctx.pipe_ctx[i];
+ 
+-		if (!stream || pipe->stream != stream ||
++		if (!stream || !pipe->stream ||
++				pipe->stream->stream_id != stream->stream_id ||
+ 				pipe->top_pipe || pipe->prev_odm_pipe)
+ 			continue;
+ 		if (otg_master)
+@@ -267,12 +268,38 @@ int dcn401_stream_index(const struct dc_state *state,
+ {
+ 	int i;
+ 
++	if (!stream)
++		return -1;
+ 	for (i = 0; i < state->stream_count; i++)
+-		if (state->streams[i] == stream)
++		if (state->streams[i]->stream_id == stream->stream_id)
+ 			return i;
+ 	return -1;
+ }
+ 
++#define DCN401_SAME_INST(a, b) \
++	((!(a) && !(b)) || ((a) && (b) && (a)->inst == (b)->inst))
 +
-+bool dcn401_stream_kept(const struct dc *dc,
-+		const struct dc_state *current_state,
-+		const struct dc_state *new_state,
++static bool dcn401_pipe_on_stream(const struct pipe_ctx *pipe,
 +		const struct dc_stream_state *stream)
 +{
-+	int i = dcn401_stream_index(new_state, stream);
-+
-+	if (i < 0 || dcn401_stream_index(current_state, stream) < 0)
-+		return false;
-+	return dcn401_stream_unchanged(current_state, new_state, stream) ||
-+			dcn401_check_stream_update(dc, current_state, new_state,
-+			(unsigned int)i) == BLS_BUILD_SUCCESS;
++	return pipe->stream && pipe->stream->stream_id == stream->stream_id;
 +}
 +
-+enum bls_builder_result dcn401_check_stream_update(const struct dc *dc,
-+		const struct dc_state *current_state,
-+		const struct dc_state *new_state, unsigned int i)
++/* The plane is compared as an object: planes have no DC-assigned id yet. */
++static bool dcn401_pipe_layout_unchanged(const struct pipe_ctx *cur,
++		const struct pipe_ctx *new)
 +{
-+	CHECK_UPDATE(pipes_kept_or_free,
-+			"a pipe moves, or the stream has no or too many planes");
-+	CHECK_UPDATE(same_otg, "otg changes");
- 	CHECK_UPDATE_RESOURCE(new_plane_blocks, "plane is missing hubp or dpp");
- 	CHECK_RESOURCE(pool_funcs, "resource pool or hubbub has no funcs");
- 	CHECK_CONDITION(det_by_segments, "hubbub programs det size");
-@@ -1022,7 +1023,8 @@ prepare_bandwidth[] = {
- /*
-  * Net effect: hwss_process_outstanding_hw_updates on the current state,
-  * which commit_planes_for_stream runs while optimized_required is set.
-- * The OTG master has no plane yet, so no MPCC disconnect is pending.
-+ * The update disconnects its removed pipes itself, so no MPCC disconnect
-+ * is pending.
++	return cur->plane_state == new->plane_state &&
++			DCN401_SAME_INST(cur->plane_res.hubp, new->plane_res.hubp) &&
++			DCN401_SAME_INST(cur->plane_res.dpp, new->plane_res.dpp) &&
++			DCN401_SAME_INST(cur->stream_res.tg, new->stream_res.tg) &&
++			DCN401_SAME_INST(cur->stream_res.opp, new->stream_res.opp) &&
++			!cur->top_pipe == !new->top_pipe &&
++			!cur->bottom_pipe == !new->bottom_pipe &&
++			!cur->prev_odm_pipe == !new->prev_odm_pipe &&
++			!cur->next_odm_pipe == !new->next_odm_pipe;
++}
++
+ bool dcn401_stream_unchanged(const struct dc_state *current_state,
+ 		const struct dc_state *new_state,
+ 		const struct dc_stream_state *stream)
+@@ -286,19 +313,11 @@ bool dcn401_stream_unchanged(const struct dc_state *current_state,
+ 	for (i = 0; i < MAX_PIPES; i++) {
+ 		cur = &current_state->res_ctx.pipe_ctx[i];
+ 		new = &new_state->res_ctx.pipe_ctx[i];
+-		if ((cur->stream == stream) != (new->stream == stream))
++		if (dcn401_pipe_on_stream(cur, stream) !=
++				dcn401_pipe_on_stream(new, stream))
+ 			return false;
+-		if (new->stream != stream)
+-			continue;
+-		if (cur->plane_state != new->plane_state ||
+-				cur->plane_res.hubp != new->plane_res.hubp ||
+-				cur->plane_res.dpp != new->plane_res.dpp ||
+-				cur->stream_res.tg != new->stream_res.tg ||
+-				cur->stream_res.opp != new->stream_res.opp ||
+-				!cur->top_pipe != !new->top_pipe ||
+-				!cur->bottom_pipe != !new->bottom_pipe ||
+-				!cur->prev_odm_pipe != !new->prev_odm_pipe ||
+-				!cur->next_odm_pipe != !new->next_odm_pipe)
++		if (dcn401_pipe_on_stream(new, stream) &&
++				!dcn401_pipe_layout_unchanged(cur, new))
+ 			return false;
+ 	}
+ 	return true;
+@@ -483,33 +502,51 @@ enum bls_builder_result dcn401_check_stream_support(const struct dc *dc,
+  * The update keeps every stream. A stream other than the updated one keeps
+  * its pipes, planes and blocks.
   */
- static const struct dcn401_commit_step preamble[] = {
- 	{ .func = TG_WAIT_FOR_ALL_PENDING_UPDATES,
-@@ -1095,14 +1097,44 @@ static const struct dcn401_commit_step global_sync[] = {
- 	{ .func = TG_SETUP_VERTICAL_INTERRUPT2,
- 	  .meta.skip_if.hubp_dpp_already_enabled = true },
- 	{ .func = OPTC_SET_ODM_COMBINE,
+-static bool check_streams_kept(const struct dc *dc,
++static bool check_streams_kept(
++		const struct dc_state_update_flags *update_flags,
+ 		const struct dc_state *current_state,
+ 		const struct dc_state *new_state, unsigned int i)
+ {
+ 	int j;
+ 
+-	(void)dc;
++	(void)update_flags;
+ 	if (current_state->stream_count != new_state->stream_count)
+ 		return false;
+ 	for (j = 0; j < new_state->stream_count; j++)
+ 		if (dcn401_stream_index(current_state,
+ 				new_state->streams[j]) < 0 ||
+-				(j != i && !dcn401_stream_unchanged(current_state,
++				(j != (int)i && !dcn401_stream_unchanged(current_state,
+ 				new_state, new_state->streams[j])))
+ 			return false;
+ 	return true;
+ }
+ 
+-bool dcn401_pipe_kept(const struct pipe_ctx *current_pipe,
+-		const struct pipe_ctx *new_pipe)
++static bool pipe_has_plane(const struct pipe_ctx *pipe)
++{
++	return pipe->plane_state != NULL;
++}
++
++static bool pipe_assigned_to_stream(const struct pipe_ctx *pipe,
++		const struct dc_stream_state *stream)
++{
++	return pipe->stream && stream &&
++			pipe->stream->stream_id == stream->stream_id;
++}
++
++static bool pipe_plane_resources_identical(const struct pipe_ctx *cur,
++		const struct pipe_ctx *new)
++{
++	return cur->plane_res.hubp && new->plane_res.hubp &&
++			cur->plane_res.dpp && new->plane_res.dpp &&
++			cur->plane_res.hubp->inst == new->plane_res.hubp->inst &&
++			cur->plane_res.dpp->inst == new->plane_res.dpp->inst;
++}
++
++static bool pipe_opp_identical(const struct pipe_ctx *cur,
++		const struct pipe_ctx *new)
+ {
+-	return current_pipe->plane_state &&
+-			current_pipe->stream == new_pipe->stream &&
+-			new_pipe->plane_state &&
+-			current_pipe->plane_res.hubp == new_pipe->plane_res.hubp &&
+-			current_pipe->plane_res.dpp == new_pipe->plane_res.dpp &&
+-			current_pipe->stream_res.opp == new_pipe->stream_res.opp;
++	return cur->stream_res.opp && new->stream_res.opp &&
++			cur->stream_res.opp->inst == new->stream_res.opp->inst;
+ }
+ 
+ /*
+@@ -534,9 +571,10 @@ static bool check_pipes_kept_or_free(const struct dc *dc,
+ 		new = &new_state->res_ctx.pipe_ctx[j];
+ 		if (new->stream != new_state->streams[i] || !cur->stream)
+ 			continue;
+-		if (cur->stream != new->stream ||
+-				cur->stream_res.opp != new->stream_res.opp ||
+-				(cur->plane_state && !dcn401_pipe_kept(cur, new)))
++		if (!pipe_assigned_to_stream(new, cur->stream) ||
++				!pipe_opp_identical(cur, new) ||
++				(pipe_has_plane(cur) && (!pipe_has_plane(new) ||
++				!pipe_plane_resources_identical(cur, new))))
+ 			return false;
+ 	}
+ 	dc_state_facts_derive(new_state, &facts);
+@@ -553,21 +591,8 @@ static bool check_same_otg(const struct dc *dc,
+ 			new_state->streams[i]);
+ 
+ 	(void)dc;
+-	return cur && new && cur->stream_res.tg == new->stream_res.tg;
+-}
+-
+-/* stream has the same OPP for each ODM slice in both states. */
+-static bool dcn401_same_opp_heads(const struct dc_state *current_state,
+-		const struct dc_state *new_state,
+-		const struct dc_stream_state *stream)
+-{
+-	const struct pipe_ctx *cur = dcn401_otg_master(current_state, stream);
+-	const struct pipe_ctx *new = dcn401_otg_master(new_state, stream);
+-
+-	for (; cur && new; cur = cur->next_odm_pipe, new = new->next_odm_pipe)
+-		if (cur->stream_res.opp != new->stream_res.opp)
+-			return false;
+-	return !cur && !new;
++	return cur && new && cur->stream_res.tg && new->stream_res.tg &&
++			cur->stream_res.tg->inst == new->stream_res.tg->inst;
+ }
+ 
+ static bool check_new_plane_blocks(const struct dc *dc,
+@@ -581,7 +606,7 @@ static bool check_new_plane_blocks(const struct dc *dc,
+ 	dc_state_facts_derive(new_state, &facts);
+ 	return facts.pipe.count &&
+ 			dc_state_facts_all_pipe(&facts, (uint8_t)i,
+-			DC_TRAIT_MATCH(0, 0),
++			DC_TRAIT_MATCH_ANY,
+ 			DC_TRAIT_MATCH(DC_PIPE_TRAIT_PLANE |
+ 			DC_PIPE_TRAIT_PLANE_RESOURCES, 0));
+ }
+@@ -757,7 +782,7 @@ static bool check_no_dcc(const struct dc *dc,
+ 	(void)dc;
+ 	dc_state_facts_derive(new_state, &facts);
+ 	return facts.pipe.count &&
+-			dc_state_facts_all_pipe(&facts, (uint8_t)i, DC_TRAIT_MATCH(0, 0),
++			dc_state_facts_all_pipe(&facts, (uint8_t)i, DC_TRAIT_MATCH_ANY,
+ 			DC_TRAIT_MATCH(DC_PIPE_TRAIT_PLANE, 0)) &&
+ 			!dc_state_facts_any_plane(&facts, (uint8_t)i,
+ 			DC_TRAIT_MATCH(DC_PLANE_TRAIT_DCC, 0));
+@@ -774,9 +799,9 @@ static bool check_graphics_address(const struct dc *dc,
+ 	(void)dc;
+ 	dc_state_facts_derive(new_state, &facts);
+ 	return facts.pipe.count &&
+-			dc_state_facts_all_pipe(&facts, (uint8_t)i, DC_TRAIT_MATCH(0, 0),
++			dc_state_facts_all_pipe(&facts, (uint8_t)i, DC_TRAIT_MATCH_ANY,
+ 			DC_TRAIT_MATCH(DC_PIPE_TRAIT_PLANE, 0)) &&
+-			dc_state_facts_all_plane(&facts, (uint8_t)i, DC_TRAIT_MATCH(0, 0),
++			dc_state_facts_all_plane(&facts, (uint8_t)i, DC_TRAIT_MATCH_ANY,
+ 			DC_TRAIT_MATCH(DC_PLANE_TRAIT_GRAPHICS_ADDRESS, 0));
+ }
+ 
+@@ -791,7 +816,7 @@ static bool check_no_immediate_flip(const struct dc *dc,
+ 	(void)dc;
+ 	dc_state_facts_derive(new_state, &facts);
+ 	return facts.pipe.count &&
+-			dc_state_facts_all_pipe(&facts, (uint8_t)i, DC_TRAIT_MATCH(0, 0),
++			dc_state_facts_all_pipe(&facts, (uint8_t)i, DC_TRAIT_MATCH_ANY,
+ 			DC_TRAIT_MATCH(DC_PIPE_TRAIT_PLANE, 0)) &&
+ 			!dc_state_facts_any_plane(&facts, (uint8_t)i,
+ 			DC_TRAIT_MATCH(DC_PLANE_TRAIT_FLIP_IMMEDIATE, 0));
+@@ -811,7 +836,7 @@ static bool check_no_degamma_curve(const struct dc *dc,
+ 	(void)dc;
+ 	dc_state_facts_derive(new_state, &facts);
+ 	return facts.pipe.count &&
+-			dc_state_facts_all_pipe(&facts, (uint8_t)i, DC_TRAIT_MATCH(0, 0),
++			dc_state_facts_all_pipe(&facts, (uint8_t)i, DC_TRAIT_MATCH_ANY,
+ 			DC_TRAIT_MATCH(DC_PIPE_TRAIT_PLANE, 0)) &&
+ 			!dc_state_facts_any_plane(&facts, (uint8_t)i,
+ 			DC_TRAIT_MATCH(DC_PLANE_TRAIT_DEGAMMA_CURVE, 0));
+@@ -829,7 +854,7 @@ static bool check_no_mcm_luts(const struct dc *dc,
+ 	(void)dc;
+ 	dc_state_facts_derive(new_state, &facts);
+ 	return facts.pipe.count &&
+-			dc_state_facts_all_pipe(&facts, (uint8_t)i, DC_TRAIT_MATCH(0, 0),
++			dc_state_facts_all_pipe(&facts, (uint8_t)i, DC_TRAIT_MATCH_ANY,
+ 			DC_TRAIT_MATCH(DC_PIPE_TRAIT_PLANE, 0)) &&
+ 			!dc_state_facts_any_plane(&facts, (uint8_t)i,
+ 			DC_TRAIT_MATCH(DC_PLANE_TRAIT_MCM_LUTS, 0));
+@@ -918,12 +943,13 @@ static const struct dc_stream_state *dcn401_updated_stream(
+ static enum bls_builder_result dcn401_check_seamless_update_support(
+ 		const struct dc *dc, const struct dc_state *current_state,
+ 		const struct dc_state *new_state,
++		const struct dc_state_update_flags *update_flags,
+ 		const struct dc_stream_state *stream)
+ {
+ 	enum bls_builder_result result;
+ 	int i;
+ 
+-	if (!dc || !current_state || !new_state)
++	if (!dc || !current_state || !new_state || !update_flags)
+ 		return BLS_BUILD_ERROR_UNSUPPORTED_STATE_UPDATE;
+ 	i = dcn401_stream_index(new_state,
+ 			dcn401_updated_stream(new_state, stream));
+@@ -941,7 +967,7 @@ static enum bls_builder_result dcn401_check_seamless_update_support(
+ 	if (result != BLS_BUILD_SUCCESS)
+ 		return result;
+ 
+-	CHECK_UPDATE(streams_kept,
++	CHECK_UPDATE_FLAGS(streams_kept,
+ 			"a stream is not kept, or another stream changes");
+ 	return dcn401_check_stream_update(dc, current_state, new_state, i);
+ }
+@@ -1048,9 +1074,12 @@ static const struct dcn401_commit_step global_preamble[] = {
+  * which a full update runs before it takes the pipe lock.
+  */
+ static const struct dcn401_commit_step pending[] = {
+-	{ .func = TG_WAIT_FOR_ALL_PENDING_UPDATES },
+-	{ .func = TG_WAIT_ODM_DOUBLEBUFFER_PENDING_CLEAR },
+-	{ .func = OPP_WAIT_FOR_BLANK_COMPLETE },
++	{ .func = TG_WAIT_FOR_ALL_PENDING_UPDATES,
++	  .meta.skip_if.stream_unchanged = true },
++	{ .func = TG_WAIT_ODM_DOUBLEBUFFER_PENDING_CLEAR,
++	  .meta.skip_if.stream_unchanged = true },
++	{ .func = OPP_WAIT_FOR_BLANK_COMPLETE,
++	  .meta.skip_if.stream_unchanged = true },
+ };
+ 
+ /*
+@@ -1063,18 +1092,23 @@ static const struct dcn401_commit_step pending[] = {
+  * the first HUBP.
+  */
+ static const struct dcn401_commit_step lock[] = {
+-	{ .func = TG_LOCK, .meta.tg_lock.lock = true },
++	{ .func = TG_LOCK,
++	  .meta.skip_if.stream_unchanged = true, .meta.tg_lock.lock = true },
+ };
+ 
+ static const struct dcn401_commit_step dpp_lock[] = {
+-	{ .func = HUBP_PROGRAM_TRIPLEBUFFER },
+-	{ .func = HUBP_PROGRAM_TRIPLEBUFFER },
++	{ .func = HUBP_PROGRAM_TRIPLEBUFFER,
++	  .meta.skip_if.stream_unchanged = true },
++	{ .func = HUBP_PROGRAM_TRIPLEBUFFER,
++	  .meta.skip_if.stream_unchanged = true },
+ };
+ 
+ static const struct dcn401_commit_step first_hubp[] = {
+ 	{ .func = HUBBUB_FORCE_PSTATE_CHANGE_CONTROL,
++	  .meta.skip_if.stream_unchanged = true,
+ 	  .meta.hubbub_force_pstate_change_control.enable = true },
+-	{ .func = DC_UDELAY },
++	{ .func = DC_UDELAY,
++	  .meta.skip_if.stream_unchanged = true },
+ };
+ 
+ /*
+@@ -1083,28 +1117,42 @@ static const struct dcn401_commit_step first_hubp[] = {
+  */
+ static const struct dcn401_commit_step opp_unblank[] = {
+ 	{ .func = OPP_SET_DISP_PATTERN_GENERATOR,
++	  .meta.skip_if.stream_unchanged = true,
+ 	  .meta.opp_set_disp_pattern_generator.unblank = true,
 -	  .meta.skip_if.hubp_dpp_already_enabled = true },
-+	  .meta.skip_if.odm_kept = true },
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true },
+ };
+ 
+ static const struct dcn401_commit_step global_sync[] = {
+ 	{ .func = TG_PROGRAM_GLOBAL_SYNC,
+-	  .meta.skip_if.hubp_dpp_already_enabled = true },
++	  .meta.skip_if.stream_unchanged = true,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true },
+ 	{ .func = TG_WAIT_FOR_STATE,
+-	  .meta.skip_if.hubp_dpp_already_enabled = true },
++	  .meta.skip_if.stream_unchanged = true,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true },
+ 	{ .func = TG_SET_VTG_PARAMS,
+-	  .meta.skip_if.hubp_dpp_already_enabled = true },
++	  .meta.skip_if.stream_unchanged = true,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true },
+ 	{ .func = TG_SETUP_VERTICAL_INTERRUPT2,
+-	  .meta.skip_if.hubp_dpp_already_enabled = true },
++	  .meta.skip_if.stream_unchanged = true,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true },
+ 	{ .func = OPTC_SET_ODM_COMBINE,
+-	  .meta.skip_if.odm_kept = true },
++	  .meta.skip_if.stream_unchanged = true,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true,
++	  .meta.skip_if.pipe_deltas.odm_kept = true,
++	  .meta.skip_if.pipe_deltas_all = true },
  };
  
  static const struct dcn401_commit_step opp_odm[] = {
  	{ .func = OPP_PIPE_CLOCK_CONTROL,
--	  .meta.skip_if.hubp_dpp_already_enabled = true },
-+	  .meta.skip_if.odm_kept = true },
+-	  .meta.skip_if.odm_kept = true },
++	  .meta.skip_if.stream_unchanged = true,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true,
++	  .meta.skip_if.pipe_deltas.odm_kept = true,
++	  .meta.skip_if.pipe_deltas_all = true },
  	{ .func = OPP_PROGRAM_LEFT_EDGE_EXTRA_PIXEL,
--	  .meta.skip_if.hubp_dpp_already_enabled = true },
-+	  .meta.skip_if.odm_kept = true },
-+};
-+
-+/*
-+ * Under the lock, each current pipe that the update removes leaves its
-+ * MPCC and returns its DET segments, as DC1 disconnects a disabled pipe.
-+ */
-+const struct dcn401_commit_step dcn401_disconnect[DCN401_DISCONNECT_STEPS] = {
-+	{ .func = HUBP_PROGRAM_DET_SEGMENTS, .meta.skip_if.no_plane_removed = true },
-+	{ .func = MPC_REMOVE_MPCC, .meta.skip_if.no_plane_removed = true },
-+};
-+
-+/* After the unlock, disable_plane on each removed pipe. */
-+const struct dcn401_commit_step dcn401_power_down[DCN401_POWER_DOWN_STEPS] = {
-+	{ .func = MPC_ASSERT_IDLE_MPCC, .meta.skip_if.no_plane_removed = true },
-+	{ .func = HUBP_SET_BLANK, .meta.skip_if.no_plane_removed = true },
-+	{ .func = HUBP_UPDATE_MALL_SEL, .meta.skip_if.no_plane_removed = true },
-+	{ .func = HUBP_SET_FLIP_CONTROL_GSL, .meta.skip_if.no_plane_removed = true },
-+	{ .func = HUBP_CLK_CNTL, .meta.skip_if.no_plane_removed = true },
-+	{ .func = DPP_DPPCLK_CONTROL, .meta.skip_if.no_plane_removed = true },
-+	{ .func = DC_IP_REQUEST_STATUS, .meta.skip_if.no_ip_request = true,
-+	  .meta.skip_if.no_plane_removed = true },
-+	{ .func = DC_IP_REQUEST_CNTL, .meta.dc_ip_request_cntl.enable = true,
-+	  .meta.skip_if.no_ip_request = true,
-+	  .meta.skip_if.no_plane_removed = true },
-+	{ .func = HUBP_PG_CONTROL, .meta.skip_if.no_plane_removed = true },
-+	{ .func = HUBP_RESET, .meta.skip_if.no_plane_removed = true },
-+	{ .func = DPP_RESET, .meta.skip_if.no_plane_removed = true },
-+	{ .func = DC_IP_REQUEST_CNTL, .meta.dc_ip_request_cntl.enable = false,
-+	  .meta.skip_if.no_ip_request = true,
-+	  .meta.skip_if.no_plane_removed = true },
+-	  .meta.skip_if.odm_kept = true },
++	  .meta.skip_if.stream_unchanged = true,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true,
++	  .meta.skip_if.pipe_deltas.odm_kept = true,
++	  .meta.skip_if.pipe_deltas_all = true },
+ };
+ 
+ /*
+@@ -1112,130 +1160,204 @@ static const struct dcn401_commit_step opp_odm[] = {
+  * MPCC and returns its DET segments, as DC1 disconnects a disabled pipe.
+  */
+ const struct dcn401_commit_step dcn401_disconnect[DCN401_DISCONNECT_STEPS] = {
+-	{ .func = HUBP_PROGRAM_DET_SEGMENTS, .meta.skip_if.no_plane_removed = true },
+-	{ .func = MPC_REMOVE_MPCC, .meta.skip_if.no_plane_removed = true },
++	{ .func = HUBP_PROGRAM_DET_SEGMENTS,
++	  .meta.skip_if.stream_unchanged = true, .meta.skip_if.pipe_deltas.current_has_no_plane = true,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true },
++	{ .func = MPC_REMOVE_MPCC,
++	  .meta.skip_if.stream_unchanged = true, .meta.skip_if.pipe_deltas.current_has_no_plane = true,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true },
+ };
+ 
+ /* After the unlock, disable_plane on each removed pipe. */
+ const struct dcn401_commit_step dcn401_power_down[DCN401_POWER_DOWN_STEPS] = {
+-	{ .func = MPC_ASSERT_IDLE_MPCC, .meta.skip_if.no_plane_removed = true },
+-	{ .func = HUBP_SET_BLANK, .meta.skip_if.no_plane_removed = true },
+-	{ .func = HUBP_UPDATE_MALL_SEL, .meta.skip_if.no_plane_removed = true },
+-	{ .func = HUBP_SET_FLIP_CONTROL_GSL, .meta.skip_if.no_plane_removed = true },
+-	{ .func = HUBP_CLK_CNTL, .meta.skip_if.no_plane_removed = true },
+-	{ .func = DPP_DPPCLK_CONTROL, .meta.skip_if.no_plane_removed = true },
+-	{ .func = DC_IP_REQUEST_STATUS, .meta.skip_if.no_ip_request = true,
+-	  .meta.skip_if.no_plane_removed = true },
+-	{ .func = DC_IP_REQUEST_CNTL, .meta.dc_ip_request_cntl.enable = true,
++	{ .func = MPC_ASSERT_IDLE_MPCC,
++	  .meta.skip_if.stream_unchanged = true, .meta.skip_if.pipe_deltas.current_has_no_plane = true,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true },
++	{ .func = HUBP_SET_BLANK,
++	  .meta.skip_if.stream_unchanged = true, .meta.skip_if.pipe_deltas.current_has_no_plane = true,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true },
++	{ .func = HUBP_UPDATE_MALL_SEL,
++	  .meta.skip_if.stream_unchanged = true, .meta.skip_if.pipe_deltas.current_has_no_plane = true,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true },
++	{ .func = HUBP_SET_FLIP_CONTROL_GSL,
++	  .meta.skip_if.stream_unchanged = true, .meta.skip_if.pipe_deltas.current_has_no_plane = true,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true },
++	{ .func = HUBP_CLK_CNTL,
++	  .meta.skip_if.stream_unchanged = true, .meta.skip_if.pipe_deltas.current_has_no_plane = true,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true },
++	{ .func = DPP_DPPCLK_CONTROL,
++	  .meta.skip_if.stream_unchanged = true, .meta.skip_if.pipe_deltas.current_has_no_plane = true,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true },
++	{ .func = DC_IP_REQUEST_STATUS,
++	  .meta.skip_if.stream_unchanged = true, .meta.skip_if.no_ip_request = true,
++	  .meta.skip_if.pipe_deltas.current_has_no_plane = true,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true },
++	{ .func = DC_IP_REQUEST_CNTL,
++	  .meta.skip_if.stream_unchanged = true, .meta.dc_ip_request_cntl.enable = true,
+ 	  .meta.skip_if.no_ip_request = true,
+-	  .meta.skip_if.no_plane_removed = true },
+-	{ .func = HUBP_PG_CONTROL, .meta.skip_if.no_plane_removed = true },
+-	{ .func = HUBP_RESET, .meta.skip_if.no_plane_removed = true },
+-	{ .func = DPP_RESET, .meta.skip_if.no_plane_removed = true },
+-	{ .func = DC_IP_REQUEST_CNTL, .meta.dc_ip_request_cntl.enable = false,
++	  .meta.skip_if.pipe_deltas.current_has_no_plane = true,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true },
++	{ .func = HUBP_PG_CONTROL,
++	  .meta.skip_if.stream_unchanged = true, .meta.skip_if.pipe_deltas.current_has_no_plane = true,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true },
++	{ .func = HUBP_RESET,
++	  .meta.skip_if.stream_unchanged = true, .meta.skip_if.pipe_deltas.current_has_no_plane = true,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true },
++	{ .func = DPP_RESET,
++	  .meta.skip_if.stream_unchanged = true, .meta.skip_if.pipe_deltas.current_has_no_plane = true,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true },
++	{ .func = DC_IP_REQUEST_CNTL,
++	  .meta.skip_if.stream_unchanged = true, .meta.dc_ip_request_cntl.enable = false,
+ 	  .meta.skip_if.no_ip_request = true,
+-	  .meta.skip_if.no_plane_removed = true },
++	  .meta.skip_if.pipe_deltas.current_has_no_plane = true,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true },
  };
  
  /* enable_plane, then the watermark propagate and the DET segments. */
-@@ -1228,12 +1260,26 @@ static const struct dcn401_commit_step dpp_mall[] = {
+ static const struct dcn401_commit_step enable_plane[] = {
+ 	{ .func = DC_IP_REQUEST_STATUS,
+-	  .meta.skip_if.hubp_dpp_already_enabled = true,
++	  .meta.skip_if.stream_unchanged = true,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true,
+ 	  .meta.skip_if.no_ip_request = true },
+-	{ .func = DC_IP_REQUEST_CNTL, .meta.dc_ip_request_cntl.enable = true,
+-	  .meta.skip_if.hubp_dpp_already_enabled = true,
++	{ .func = DC_IP_REQUEST_CNTL,
++	  .meta.skip_if.stream_unchanged = true, .meta.dc_ip_request_cntl.enable = true,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true,
+ 	  .meta.skip_if.no_ip_request = true },
+-	{ .func = HUBP_PG_CONTROL, .meta.hubp_pg_control.power_on = true,
+-	  .meta.skip_if.hubp_dpp_already_enabled = true },
+-	{ .func = DC_IP_REQUEST_CNTL, .meta.dc_ip_request_cntl.enable = false,
+-	  .meta.skip_if.hubp_dpp_already_enabled = true,
++	{ .func = HUBP_PG_CONTROL,
++	  .meta.skip_if.stream_unchanged = true, .meta.hubp_pg_control.power_on = true,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true },
++	{ .func = DC_IP_REQUEST_CNTL,
++	  .meta.skip_if.stream_unchanged = true, .meta.dc_ip_request_cntl.enable = false,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true,
+ 	  .meta.skip_if.no_ip_request = true },
+-	{ .func = HUBP_CLK_CNTL, .meta.hubp_clk_cntl.enable = true,
+-	  .meta.skip_if.hubp_dpp_already_enabled = true },
++	{ .func = HUBP_CLK_CNTL,
++	  .meta.skip_if.stream_unchanged = true, .meta.hubp_clk_cntl.enable = true,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true },
+ 	{ .func = HUBP_INIT,
+-	  .meta.skip_if.hubp_dpp_already_enabled = true },
++	  .meta.skip_if.stream_unchanged = true,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true },
+ 	{ .func = OPP_PIPE_CLOCK_CONTROL,
+-	  .meta.skip_if.hubp_dpp_already_enabled = true },
++	  .meta.skip_if.stream_unchanged = true,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true },
+ 	{ .func = HUBBUB_FORCE_WM_PROPAGATE_TO_PIPES,
+-	  .meta.skip_if.hubp_dpp_already_enabled = true },
++	  .meta.skip_if.stream_unchanged = true,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true },
+ 	{ .func = HUBP_PROGRAM_DET_SEGMENTS,
++	  .meta.skip_if.stream_unchanged = true,
+ 	  .meta.hubp_program_det_segments.allocate = true,
+-	  .meta.skip_if.det_unchanged = true },
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true,
++	  .meta.skip_if.pipe_deltas.det_unchanged = true,
++	  .meta.skip_if.pipe_deltas_all = true },
+ 	/*
+ 	 * update_dchubp_dpp. First enable runs the whole table. A reconfigure
+ 	 * skips the steps that only bring the HUBP/DPP up, and programs the
+ 	 * scaler and viewport only when scaling or position changed. The MPCC is
+ 	 * removed when the OPP tree already holds one.
+ 	 */
+-	{ .func = DPP_DPPCLK_CONTROL, .meta.dpp_dppclk_control.enable = true,
+-	  .meta.skip_if.hubp_dpp_already_enabled = true },
++	{ .func = DPP_DPPCLK_CONTROL,
++	  .meta.skip_if.stream_unchanged = true, .meta.dpp_dppclk_control.enable = true,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true },
+ 	{ .func = DCCG_UPDATE_DPP_DTO,
+-	  .meta.skip_if.hubp_dpp_already_enabled = true },
++	  .meta.skip_if.stream_unchanged = true,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true },
+ 	{ .func = HUBP_VTG_SEL,
+-	  .meta.skip_if.hubp_dpp_already_enabled = true },
++	  .meta.skip_if.stream_unchanged = true,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true },
+ 	{ .func = HUBP_SETUP2,
+-	  .meta.skip_if.hubp_dpp_already_enabled = true },
++	  .meta.skip_if.stream_unchanged = true,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true },
+ 	{ .func = HUBP_SET_UNBOUNDED_REQUESTING,
+-	  .meta.skip_if.hubp_dpp_already_enabled = true },
++	  .meta.skip_if.stream_unchanged = true,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true },
+ 	{ .func = HUBP_SETUP_INTERDEPENDENT2,
+-	  .meta.skip_if.hubp_dpp_already_enabled = true },
+-	{ .func = DPP_SETUP_DPP },
+-	{ .func = DPP_SET_CURSOR_MATRIX },
+-	{ .func = DPP_PROGRAM_BIAS_AND_SCALE },
++	  .meta.skip_if.stream_unchanged = true,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true },
++	{ .func = DPP_SETUP_DPP,
++	  .meta.skip_if.stream_unchanged = true },
++	{ .func = DPP_SET_CURSOR_MATRIX,
++	  .meta.skip_if.stream_unchanged = true },
++	{ .func = DPP_PROGRAM_BIAS_AND_SCALE,
++	  .meta.skip_if.stream_unchanged = true },
+ 	{ .func = MPC_REMOVE_MPCC,
++	  .meta.skip_if.stream_unchanged = true,
+ 	  .meta.skip_if.opp_tree_empty = true },
+ 	/* insert_plane programs the blending; no update_blending follows. */
+-	{ .func = MPC_INSERT_PLANE },
+-	{ .func = MPC_UPDATE_VISUAL_CONFIRM },
++	{ .func = MPC_INSERT_PLANE,
++	  .meta.skip_if.stream_unchanged = true },
++	{ .func = MPC_UPDATE_VISUAL_CONFIRM,
++	  .meta.skip_if.stream_unchanged = true },
+ 	{ .func = DPP_SET_SCALER,
++	  .meta.skip_if.stream_unchanged = true,
+ 	  .meta.skip_if.scaling_unchanged = true },
+ 	{ .func = HUBP_MEM_PROGRAM_VIEWPORT,
++	  .meta.skip_if.stream_unchanged = true,
+ 	  .meta.skip_if.scaling_unchanged = true },
+-	{ .func = HUBP_PROGRAM_MCACHE_ID },
++	{ .func = HUBP_PROGRAM_MCACHE_ID,
++	  .meta.skip_if.stream_unchanged = true },
+ 	{ .func = MPC_SET_GAMUT_REMAP_BYPASS,
++	  .meta.skip_if.stream_unchanged = true,
+ 	  .meta.mpc_set_gamut_remap_bypass.block_id =
+ 			MPCC_MCM_FIRST_GAMUT_REMAP },
+ 	{ .func = MPC_SET_GAMUT_REMAP_BYPASS,
++	  .meta.skip_if.stream_unchanged = true,
+ 	  .meta.mpc_set_gamut_remap_bypass.block_id =
+ 			MPCC_MCM_SECOND_GAMUT_REMAP },
+ 	{ .func = MPC_SET_GAMUT_REMAP_BYPASS,
++	  .meta.skip_if.stream_unchanged = true,
+ 	  .meta.mpc_set_gamut_remap_bypass.block_id = MPCC_OGAM_GAMUT_REMAP },
+-	{ .func = MPC_POWER_ON_MPC_MEM_PWR },
+-	{ .func = MPC_SET_OCSC_DEFAULT },
+-	{ .func = HUBP_PROGRAM_SURFACE_CONFIG },
+-	{ .func = HUBP_UPDATE_PLANE_ADDR },
+-	{ .func = HUBP_SET_BLANK, .meta.hubp_set_blank.unblank = true,
+-	  .meta.skip_if.hubp_dpp_already_enabled = true },
++	{ .func = MPC_POWER_ON_MPC_MEM_PWR,
++	  .meta.skip_if.stream_unchanged = true },
++	{ .func = MPC_SET_OCSC_DEFAULT,
++	  .meta.skip_if.stream_unchanged = true },
++	{ .func = HUBP_PROGRAM_SURFACE_CONFIG,
++	  .meta.skip_if.stream_unchanged = true },
++	{ .func = HUBP_UPDATE_PLANE_ADDR,
++	  .meta.skip_if.stream_unchanged = true },
++	{ .func = HUBP_SET_BLANK,
++	  .meta.skip_if.stream_unchanged = true, .meta.hubp_set_blank.unblank = true,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true },
+ 	/* set_hdr_multiplier, the input and MCM transfer functions, the
+ 	 * output transfer function and the OPP format. First enable only.
+ 	 */
+ 	{ .func = DPP_SET_HDR_MULTIPLIER,
+-	  .meta.skip_if.hubp_dpp_already_enabled = true },
++	  .meta.skip_if.stream_unchanged = true,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true },
+ 	{ .func = DPP_SET_PRE_DEGAM,
+-	  .meta.skip_if.hubp_dpp_already_enabled = true },
++	  .meta.skip_if.stream_unchanged = true,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true },
+ 	{ .func = DPP_PROGRAM_GAMCOR_LUT,
+-	  .meta.skip_if.hubp_dpp_already_enabled = true },
++	  .meta.skip_if.stream_unchanged = true,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true },
+ 	{ .func = MPC_SET_MOVABLE_CM_LOCATION,
+-	  .meta.skip_if.hubp_dpp_already_enabled = true },
++	  .meta.skip_if.stream_unchanged = true,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true },
+ 	{ .func = MPC_PROGRAM_LUT_MODE,
++	  .meta.skip_if.stream_unchanged = true,
+ 	  .meta.mpc_program_lut_mode.id = MCM_LUT_1DLUT,
+-	  .meta.skip_if.hubp_dpp_already_enabled = true },
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true },
+ 	{ .func = MPC_PROGRAM_LUT_MODE,
++	  .meta.skip_if.stream_unchanged = true,
+ 	  .meta.mpc_program_lut_mode.id = MCM_LUT_SHAPER,
+-	  .meta.skip_if.hubp_dpp_already_enabled = true },
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true },
+ 	{ .func = MPC_PROGRAM_LUT_MODE,
++	  .meta.skip_if.stream_unchanged = true,
+ 	  .meta.mpc_program_lut_mode.id = MCM_LUT_3DLUT,
+-	  .meta.skip_if.hubp_dpp_already_enabled = true },
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true },
+ 	{ .func = HUBP_PROGRAM_3DLUT_FL_CONFIG,
+-	  .meta.skip_if.hubp_dpp_already_enabled = true },
++	  .meta.skip_if.stream_unchanged = true,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true },
+ 	{ .func = HUBP_SET_3DLUT_FL,
+-	  .meta.skip_if.hubp_dpp_already_enabled = true },
++	  .meta.skip_if.stream_unchanged = true,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true },
+ 	{ .func = MPC_SET_OUTPUT_GAMMA,
+-	  .meta.skip_if.hubp_dpp_already_enabled = true },
++	  .meta.skip_if.stream_unchanged = true,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true },
+ 	{ .func = OPP_SET_DYN_EXPANSION,
+-	  .meta.skip_if.hubp_dpp_already_enabled = true },
++	  .meta.skip_if.stream_unchanged = true,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true },
+ 	{ .func = OPP_PROGRAM_FMT,
+-	  .meta.skip_if.hubp_dpp_already_enabled = true },
++	  .meta.skip_if.stream_unchanged = true,
++	  .meta.skip_if.pipe_deltas.hubp_dpp_already_enabled = true },
+ };
+ 
+ /*
+@@ -1244,30 +1366,36 @@ static const struct dcn401_commit_step enable_plane[] = {
+  * the manual trigger.
+  */
+ static const struct dcn401_commit_step unlock[] = {
+-	{ .func = TG_LOCK, .meta.tg_lock.lock = false },
++	{ .func = TG_LOCK,
++	  .meta.skip_if.stream_unchanged = true, .meta.tg_lock.lock = false },
+ };
+ 
+ static const struct dcn401_commit_step dpp_flip[] = {
+-	{ .func = HUBP_WAIT_FLIP_PENDING },
++	{ .func = HUBP_WAIT_FLIP_PENDING,
++	  .meta.skip_if.stream_unchanged = true },
+ };
+ 
+ static const struct dcn401_commit_step pstate[] = {
+-	{ .func = HUBBUB_FORCE_PSTATE_CHANGE_CONTROL },
++	{ .func = HUBBUB_FORCE_PSTATE_CHANGE_CONTROL,
++	  .meta.skip_if.stream_unchanged = true },
+ };
+ 
+ static const struct dcn401_commit_step dpp_mall[] = {
+ 	{ .func = HUBP_UPDATE_MALL_SEL,
++	  .meta.skip_if.stream_unchanged = true,
  	  .meta.hubp_update_mall_sel.from_new_state = true },
  };
  
-+/* A changed ODM layout takes effect before the update returns. */
-+static const struct dcn401_commit_step odm_wait[] = {
-+	{ .func = TG_WAIT_ODM_DOUBLEBUFFER_PENDING_CLEAR,
-+	  .meta.skip_if.same_opp_heads = true },
-+};
-+
+ /* A changed ODM layout takes effect before the update returns. */
+ static const struct dcn401_commit_step odm_wait[] = {
+ 	{ .func = TG_WAIT_ODM_DOUBLEBUFFER_PENDING_CLEAR,
+-	  .meta.skip_if.same_opp_heads = true },
++	  .meta.skip_if.stream_unchanged = true,
++	  .meta.skip_if.pipe_deltas.odm_kept = true },
+ };
+ 
  static const struct dcn401_commit_step trigger[] = {
  	{ .func = OPTC_PROGRAM_MANUAL_TRIGGER,
++	  .meta.skip_if.stream_unchanged = true,
  	  .meta.skip_if.no_manual_trigger = true },
  };
  
--/* The support check allows one stream, kept across the update. */
-+/*
-+ * The update programs one stream. A pipe that leaves the stream emits
-+ * fewer steps than a pipe the update programs, so the bound counts every
-+ * pipe as programmed. dcn401_add_step catches a longer sequence.
-+ */
-+static_assert(ARRAY_SIZE(dcn401_disconnect) + ARRAY_SIZE(dcn401_power_down) <=
-+		ARRAY_SIZE(dpp_lock) + ARRAY_SIZE(enable_plane) +
-+		ARRAY_SIZE(dpp_flip) + ARRAY_SIZE(dpp_mall),
-+		"a removed pipe emits more than a programmed pipe");
- static_assert(
- 		ARRAY_SIZE(preamble) +
- 		ARRAY_SIZE(global_preamble) +
-@@ -1247,6 +1293,7 @@ static_assert(
- 		ARRAY_SIZE(opp_odm)) +
- 		ARRAY_SIZE(unlock) +
- 		ARRAY_SIZE(pstate) +
-+		ARRAY_SIZE(odm_wait) +
- 		ARRAY_SIZE(trigger) +
- 		DCN401_MAX_DPP_PIPES * (
- 		ARRAY_SIZE(dpp_lock) +
-@@ -2093,25 +2140,26 @@ static void dcn401_add_step(struct block_sequence_state *sequence,
+@@ -2140,14 +2268,88 @@ static void dcn401_add_step(struct block_sequence_state *sequence,
  	}
  }
  
--static bool dcn401_pipe_already_enabled(
--		const struct dcn401_commit_step_args *args)
--{
--	const struct pipe_ctx *cur =
--			&args->current_state->res_ctx.pipe_ctx[args->pipe->pipe_idx];
--
--	return cur->plane_state && cur->stream == args->pipe->stream &&
--			cur->plane_res.hubp == args->pipe->plane_res.hubp;
--}
--
++static bool dcn401_same_opp_heads(const struct dc_state *current_state,
++		const struct dc_state *new_state,
++		const struct dc_stream_state *stream)
++{
++	const struct pipe_ctx *cur = dcn401_otg_master(current_state, stream);
++	const struct pipe_ctx *new = dcn401_otg_master(new_state, stream);
++	struct pipe_ctx *cur_heads[MAX_PIPES], *new_heads[MAX_PIPES];
++	int i, n;
++
++	if (!cur || !new)
++		return false;
++	n = resource_get_opp_heads_for_otg_master(cur,
++			(struct resource_context *)&current_state->res_ctx,
++			cur_heads);
++	if (n != resource_get_opp_heads_for_otg_master(new,
++			(struct resource_context *)&new_state->res_ctx,
++			new_heads))
++		return false;
++	for (i = 0; i < n; i++)
++		if (!cur_heads[i]->stream_res.opp ||
++				!new_heads[i]->stream_res.opp ||
++				cur_heads[i]->stream_res.opp->inst !=
++				new_heads[i]->stream_res.opp->inst)
++			return false;
++	return true;
++}
++
++static void dcn401_eval_pipe_deltas(const struct dcn401_commit_step_args *args,
++		unsigned int idx, struct dcn401_pipe_deltas *deltas)
++{
++	const struct dc_state_pipe_flags *cur_f =
++			&args->update_flags->cur_pipes[idx];
++	const struct dc_state_pipe_flags *new_f =
++			&args->update_flags->new_pipes[idx];
++	const struct pipe_ctx *cur = &args->current_state->res_ctx.pipe_ctx[idx];
++	const struct pipe_ctx *new = &args->new_state->res_ctx.pipe_ctx[idx];
++
++	deltas->hubp_dpp_already_enabled = cur_f->enabled && new_f->enabled &&
++			cur->stream->stream_id == new->stream->stream_id &&
++			cur->plane_res.hubp->inst == new->plane_res.hubp->inst &&
++			cur->plane_res.dpp->inst == new->plane_res.dpp->inst &&
++			cur->stream_res.opp->inst == new->stream_res.opp->inst;
++	deltas->det_unchanged = cur_f->det_size == new_f->det_size;
++	deltas->current_has_no_plane = !cur_f->has_plane;
++	deltas->odm_kept = new->stream && dcn401_same_opp_heads(
++			args->current_state, args->new_state, new->stream);
++}
++
++static bool dcn401_pipe_deltas_match(const struct dcn401_pipe_deltas *skip,
++		const struct dcn401_pipe_deltas *deltas, bool all)
++{
++	const bool named[] = { skip->hubp_dpp_already_enabled,
++			skip->det_unchanged, skip->current_has_no_plane,
++			skip->odm_kept };
++	const bool set[] = { deltas->hubp_dpp_already_enabled,
++			deltas->det_unchanged, deltas->current_has_no_plane,
++			deltas->odm_kept };
++	bool any = false;
++	unsigned int i;
++
++	for (i = 0; i < ARRAY_SIZE(named); i++) {
++		if (!named[i])
++			continue;
++		if (all && !set[i])
++			return false;
++		any |= set[i];
++	}
++	return any;
++}
++
  static bool dcn401_skip_step(const struct dcn401_commit_step_args *args,
  		const struct dcn401_commit_step *step)
  {
-+	const struct pipe_ctx *cur, *new;
-+
++	const struct dcn401_pipe_deltas *skip = &step->meta.skip_if.pipe_deltas;
++	struct dcn401_pipe_deltas deltas;
+ 	const struct pipe_ctx *cur, *new;
+ 
  	if (step->meta.skip_if.new_state_has_stream &&
  			args->new_state->stream_count)
  		return true;
++	if (step->meta.skip_if.stream_unchanged && args->stream_unchanged)
++		return true;
  	if (step->meta.skip_if.optimized_not_required &&
  			!args->dc->optimized_required)
  		return true;
-+	if (step->meta.skip_if.no_ip_request &&
-+			(!args->dc->hwseq->funcs.pg_needs_ip_request ||
-+			!args->dc->hwseq->funcs.pg_needs_ip_request(args->dc)))
-+		return true;
-+	/* The remaining conditions are for per-pipe steps. */
-+	if (!args->pipe)
-+		return false;
-+	cur = &args->current_state->res_ctx.pipe_ctx[args->pipe->pipe_idx];
-+	new = &args->new_state->res_ctx.pipe_ctx[args->pipe->pipe_idx];
+@@ -2160,6 +2362,7 @@ static bool dcn401_skip_step(const struct dcn401_commit_step_args *args,
+ 		return false;
+ 	cur = &args->current_state->res_ctx.pipe_ctx[args->pipe->pipe_idx];
+ 	new = &args->new_state->res_ctx.pipe_ctx[args->pipe->pipe_idx];
++	dcn401_eval_pipe_deltas(args, args->pipe->pipe_idx, &deltas);
  	if (step->meta.skip_if.no_manual_trigger &&
  			(!args->pipe->plane_state->update_bits.addr_update ||
  			args->pipe->plane_state->skip_manual_trigger))
-@@ -2121,21 +2169,29 @@ static bool dcn401_skip_step(const struct dcn401_commit_step_args *args,
+@@ -2168,28 +2371,14 @@ static bool dcn401_skip_step(const struct dcn401_commit_step_args *args,
+ 			(!args->pipe->stream_res.opp ||
  			!args->pipe->stream_res.opp->mpc_tree_params.opp_list))
  		return true;
- 	if (step->meta.skip_if.hubp_dpp_already_enabled &&
--			dcn401_pipe_already_enabled(args))
-+			dcn401_pipe_kept(cur, new))
-+		return true;
-+	if (step->meta.skip_if.no_plane_removed &&
-+			(!cur->plane_state || dcn401_pipe_kept(cur, new)))
-+		return true;
-+	if (step->meta.skip_if.det_unchanged && dcn401_pipe_kept(cur, new) &&
-+			cur->hubp_regs.det_size == new->hubp_regs.det_size)
- 		return true;
--	if (step->meta.skip_if.det_unchanged &&
--			dcn401_pipe_already_enabled(args) &&
--			args->current_state->res_ctx.pipe_ctx[args->pipe->pipe_idx]
--			.hubp_regs.det_size == args->pipe->hubp_regs.det_size)
-+	if (step->meta.skip_if.odm_kept && dcn401_pipe_kept(cur, new) &&
-+			dcn401_same_opp_heads(args->current_state,
-+			args->new_state, args->pipe->stream))
-+		return true;
-+	if (step->meta.skip_if.same_opp_heads &&
-+			dcn401_same_opp_heads(args->current_state,
-+			args->new_state, args->pipe->stream))
+-	if (step->meta.skip_if.hubp_dpp_already_enabled &&
+-			dcn401_pipe_kept(cur, new))
+-		return true;
+-	if (step->meta.skip_if.no_plane_removed &&
+-			(!cur->plane_state || dcn401_pipe_kept(cur, new)))
+-		return true;
+-	if (step->meta.skip_if.det_unchanged && dcn401_pipe_kept(cur, new) &&
+-			cur->hubp_regs.det_size == new->hubp_regs.det_size)
+-		return true;
+-	if (step->meta.skip_if.odm_kept && dcn401_pipe_kept(cur, new) &&
+-			dcn401_same_opp_heads(args->current_state,
+-			args->new_state, args->pipe->stream))
+-		return true;
+-	if (step->meta.skip_if.same_opp_heads &&
+-			dcn401_same_opp_heads(args->current_state,
+-			args->new_state, args->pipe->stream))
++	if (dcn401_pipe_deltas_match(skip, &deltas,
++			step->meta.skip_if.pipe_deltas_all))
  		return true;
  	if (step->meta.skip_if.scaling_unchanged &&
  			!args->pipe->plane_state->update_bits.scaling_change &&
  			!args->pipe->plane_state->update_bits.position_change &&
--			!args->pipe->stream->update_flags.bits.scaling)
--		return true;
--	if (step->meta.skip_if.no_ip_request &&
--			(!args->dc->hwseq->funcs.pg_needs_ip_request ||
--			!args->dc->hwseq->funcs.pg_needs_ip_request(args->dc)))
-+			!args->pipe->stream->update_flags.bits.scaling &&
-+			(!dcn401_pipe_kept(cur, new) ||
-+			!memcmp(&cur->plane_res.scl_data, &new->plane_res.scl_data,
-+			sizeof(cur->plane_res.scl_data))))
+ 			!args->pipe->stream->update_flags.bits.scaling &&
+-			(!dcn401_pipe_kept(cur, new) ||
++			(!deltas.hubp_dpp_already_enabled ||
+ 			!memcmp(&cur->plane_res.scl_data, &new->plane_res.scl_data,
+ 			sizeof(cur->plane_res.scl_data))))
  		return true;
- 	return false;
- }
-@@ -2157,8 +2213,8 @@ static bool dcn401_walks_stream(const struct dcn401_commit_step_args *args,
+@@ -2212,7 +2401,7 @@ static bool dcn401_walks_stream(const struct dcn401_commit_step_args *args,
+ 		const struct dc_stream_state *stream)
  {
  	if (args->stream)
- 		return stream == args->stream;
--	return !dcn401_stream_unchanged(args->current_state, args->new_state,
--			stream);
-+	return !dcn401_stream_kept(args->dc, args->current_state,
-+			args->new_state, stream);
+-		return stream == args->stream;
++		return stream->stream_id == args->stream->stream_id;
+ 	return !dcn401_stream_kept(args->dc, args->current_state,
+ 			args->new_state, stream);
+ }
+@@ -2316,6 +2505,8 @@ void dcn401_init_and_unpack_params(
+ 	state_args->new_state = (struct dc_state *)params->new_state;
+ 	state_args->stream = NULL;
+ 	state_args->pipe = NULL;
++	state_args->update_flags = params->update_flags;
++	state_args->stream_unchanged = false;
+ 
+ 	params->head_num_steps = 0;
+ 	params->tail_num_steps = 0;
+@@ -2409,7 +2600,8 @@ static enum bls_builder_result dcn401_build_seamless_update(
+ 	if (!params)
+ 		return BLS_BUILD_ERROR_UNSUPPORTED_STATE_UPDATE;
+ 	result = dcn401_check_seamless_update_support(params->dc,
+-			params->current_state, params->new_state, params->stream);
++			params->current_state, params->new_state,
++			params->update_flags, params->stream);
+ 	if (result != BLS_BUILD_SUCCESS)
+ 		return result;
+ 
+@@ -2426,7 +2618,8 @@ static bool dcn401_seamless_update_check_capability(
+ 		const struct bls_builder_check_capability_params *params)
+ {
+ 	return params && dcn401_check_seamless_update_support(params->dc,
+-			params->current_state, params->new_state, params->stream) ==
++			params->current_state, params->new_state,
++			params->update_flags, params->stream) ==
+ 			BLS_BUILD_SUCCESS;
  }
  
- static void dcn401_add_per_otg_master(struct block_sequence_state *sequence,
-@@ -2268,10 +2324,10 @@ void dcn401_init_and_unpack_params(
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_state.c b/drivers/gpu/drm/amd/display/dc/core/dc_state.c
+index edb50c23ce24..961c3c1ea51f 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_state.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_state.c
+@@ -1165,3 +1165,31 @@ bool dc_state_is_alt_in_use(const struct dc *dc, const struct dc_state *state)
+ 	}
+ 	return false;
  }
- 
- /*
-- * The updated stream only. skip_if drops first-enable steps on a pipe
-- * that already showed its plane, so a kept-plane surface update is the
-- * same table. The enable_plane list runs per DPP pipe, top pipe first, so the
-- * top MPCC is inserted before the bottom one.
-+ * The waits and the bandwidth raise, then the updated stream only.
-+ * skip_if drops the steps a kept pipe or ODM layout does not need, so
-+ * every transition is the same table. The enable_plane list runs per DPP
-+ * pipe, top pipe first, so the top MPCC is inserted before the bottom one.
-  */
- static const struct dcn401_sub_sequence bls_update_head[] = {
- 	{ .flags = DCN401_CURRENT_STATE | DCN401_PER_STREAM_PER_OTG_MASTER,
-@@ -2283,6 +2339,10 @@ static const struct dcn401_sub_sequence bls_update_head[] = {
- 	{ .flags = DCN401_NEW_STATE,
- 	  .steps = prepare_bandwidth,
- 	  .count = ARRAY_SIZE(prepare_bandwidth) },
-+};
 +
-+/* The front end of one stream, which a commit also runs for a kept stream. */
-+static const struct dcn401_sub_sequence bls_stream_update[] = {
- 	{ .flags = DCN401_CURRENT_STATE | DCN401_PER_STREAM_PER_OTG_MASTER,
- 	  .steps = pending,
- 	  .count = ARRAY_SIZE(pending) },
-@@ -2292,6 +2352,9 @@ static const struct dcn401_sub_sequence bls_update_head[] = {
- 	{ .flags = DCN401_NEW_STATE | DCN401_PER_STREAM_PER_DPP_PIPE,
- 	  .steps = dpp_lock,
- 	  .count = ARRAY_SIZE(dpp_lock) },
-+	{ .flags = DCN401_CURRENT_STATE | DCN401_PER_STREAM_PER_DPP_PIPE,
-+	  .steps = dcn401_disconnect,
-+	  .count = ARRAY_SIZE(dcn401_disconnect) },
- 	{ .flags = DCN401_NEW_STATE | DCN401_PER_STREAM_PER_OTG_MASTER,
- 	  .steps = first_hubp,
- 	  .count = ARRAY_SIZE(first_hubp) },
-@@ -2310,6 +2373,9 @@ static const struct dcn401_sub_sequence bls_update_head[] = {
- 	{ .flags = DCN401_NEW_STATE | DCN401_PER_STREAM_PER_OTG_MASTER,
- 	  .steps = unlock,
- 	  .count = ARRAY_SIZE(unlock) },
-+	{ .flags = DCN401_CURRENT_STATE | DCN401_PER_STREAM_PER_DPP_PIPE,
-+	  .steps = dcn401_power_down,
-+	  .count = ARRAY_SIZE(dcn401_power_down) },
- 	{ .flags = DCN401_NEW_STATE | DCN401_PER_STREAM_PER_DPP_PIPE,
- 	  .steps = dpp_flip,
- 	  .count = ARRAY_SIZE(dpp_flip) },
-@@ -2319,11 +2385,20 @@ static const struct dcn401_sub_sequence bls_update_head[] = {
- 	{ .flags = DCN401_NEW_STATE | DCN401_PER_STREAM_PER_DPP_PIPE,
- 	  .steps = dpp_mall,
- 	  .count = ARRAY_SIZE(dpp_mall) },
-+	{ .flags = DCN401_NEW_STATE | DCN401_PER_STREAM_PER_OTG_MASTER,
-+	  .steps = odm_wait,
-+	  .count = ARRAY_SIZE(odm_wait) },
- 	{ .flags = DCN401_NEW_STATE | DCN401_PER_STREAM_PER_OTG_MASTER,
- 	  .steps = trigger,
- 	  .count = ARRAY_SIZE(trigger) },
- };
- 
-+void dcn401_add_stream_update(struct block_sequence_state *sequence,
-+		const struct dcn401_commit_step_args *args)
++static void pipe_flags(const struct pipe_ctx *pipe,
++		struct dc_state_pipe_flags *flags)
 +{
-+	DCN401_ADD_SUB_SEQUENCES(sequence, args, bls_stream_update);
++	flags->has_plane = pipe->plane_state != NULL;
++	flags->enabled = flags->has_plane && pipe->stream &&
++			pipe->plane_res.hubp && pipe->plane_res.dpp &&
++			pipe->stream_res.opp;
++	flags->det_size = pipe->hubp_regs.det_size;
 +}
 +
- static enum bls_builder_result dcn401_build_seamless_update(
- 		struct bls_builder_declarative_params *params)
- {
-@@ -2342,6 +2417,7 @@ static enum bls_builder_result dcn401_build_seamless_update(
- 	state_args.stream = dcn401_updated_stream(params->new_state,
- 			params->stream);
- 	DCN401_ADD_SUB_SEQUENCES(&head, &state_args, bls_update_head);
-+	dcn401_add_stream_update(&head, &state_args);
- 
- 	return BLS_BUILD_SUCCESS;
- }
++enum dc_status dc_state_compute_update_flags(const struct dc_state *cur_state,
++		const struct dc_state *target_state,
++		struct dc_state_update_flags *out_flags)
++{
++	unsigned int i;
++
++	if (!cur_state || !target_state || !out_flags)
++		return DC_ERROR_UNEXPECTED;
++	memset(out_flags, 0, sizeof(*out_flags));
++	for (i = 0; i < MAX_PIPES; i++) {
++		pipe_flags(&cur_state->res_ctx.pipe_ctx[i],
++				&out_flags->cur_pipes[i]);
++		pipe_flags(&target_state->res_ctx.pipe_ctx[i],
++				&out_flags->new_pipes[i]);
++	}
++	return DC_OK;
++}
 diff --git a/drivers/gpu/drm/amd/display/dc/core2/dc_core2.c b/drivers/gpu/drm/amd/display/dc/core2/dc_core2.c
-index ce2b14bb7a5a..22da4ebae256 100644
+index 22da4ebae256..c4e1fef8266e 100644
 --- a/drivers/gpu/drm/amd/display/dc/core2/dc_core2.c
 +++ b/drivers/gpu/drm/amd/display/dc/core2/dc_core2.c
-@@ -218,6 +218,28 @@ static bool core2_builder_supports(struct dc *dc, enum bls_builder_name name,
- 			core2_query_accelerated_mode(dc);
- }
+@@ -169,6 +169,7 @@ static enum dc_status core2_build_and_run(struct dc *dc,
+ 	const struct workaround_manager *wam = dc2_workaround_manager_get();
+ 	struct bls_builder_declarative_params *params;
+ 	enum dc_status status = DC_ERROR_UNEXPECTED;
++	struct dc_state_update_flags update_flags;
  
-+/*
-+ * The values DC1 computes into the context before it programs the planes.
-+ * The builder reads them from the context.
-+ */
-+static void core2_update_prepare(struct dc *dc, struct dc_state *context,
-+		const struct dc_stream_state *stream)
-+{
-+	struct pipe_ctx *dpp_pipes[MAX_PIPES];
-+	int i, n;
-+
-+	if (dc->res_pool->funcs->prepare_mcache_programming)
-+		dc->res_pool->funcs->prepare_mcache_programming(dc, context);
-+	n = resource_get_dpp_pipes_for_stream(stream, &context->res_ctx,
-+			dpp_pipes);
-+	for (i = 0; i < n; i++)
-+		dpp_pipes[i]->plane_res.scl_data.lb_params.alpha_en =
-+				dpp_pipes[i]->plane_state->per_pixel_alpha;
-+}
-+
-+static void core2_update_done(struct dc *dc, struct dc_state *context,
-+		struct dc_stream_state *stream);
-+
- /* Never falls back to legacy_commit_state_hw: DC2 must not call DC1. */
- enum dc_status core2_commit_state_hw(struct dc *dc, struct dc_state *context)
+ 	/* 256 block-sequence entries; keep them off the kernel stack. */
+ 	params = kvzalloc(sizeof(*params), GFP_KERNEL);
+@@ -178,6 +179,10 @@ static enum dc_status core2_build_and_run(struct dc *dc,
+ 	params->current_state = dc->current_state;
+ 	params->new_state = new_state;
+ 	params->stream = stream;
++	if (dc_state_compute_update_flags(dc->current_state, new_state,
++			&update_flags) != DC_OK)
++		goto out;
++	params->update_flags = &update_flags;
+ 
+ 	/*
+ 	 * A tail runs on the vsync after the head, so Core would have to wait
+@@ -203,14 +208,18 @@ static bool core2_builder_supports(struct dc *dc, enum bls_builder_name name,
+ 		struct dc_state *new_state, const struct dc_stream_state *stream)
  {
-@@ -234,9 +256,16 @@ enum dc_status core2_commit_state_hw(struct dc *dc, struct dc_state *context)
- 	 * pipe before it programs the packets. Remove when the builder
- 	 * computes it.
- 	 */
+ 	const struct bls_builder *builder = TO_DC2(dc)->builders[name];
++	struct dc_state_update_flags update_flags;
+ 	struct bls_builder_check_capability_params check = {
+ 		.dc = dc,
+ 		.current_state = dc->current_state,
+ 		.new_state = new_state,
+ 		.stream = stream,
++		.update_flags = &update_flags,
+ 	};
+ 
+-	return builder && builder->check_capability &&
++	return dc_state_compute_update_flags(dc->current_state, new_state,
++			&update_flags) == DC_OK &&
++			builder && builder->check_capability &&
+ 			builder->kind == BLS_BUILDER_DECLARATIVE &&
+ 			builder->build.declarative &&
+ 			dc2_workaround_manager_get() &&
+@@ -282,14 +291,16 @@ enum dc_status core2_commit_state_hw(struct dc *dc, struct dc_state *context)
+ 				context, current_state->streams[i]))
+ 			core2_commit_disable_done(dc, otg_master);
+ 	}
 -	for (i = 0; i < context->stream_count; i++)
--		resource_build_info_frame(resource_get_otg_master_for_stream(
--				&context->res_ctx, context->streams[i]));
 +	for (i = 0; i < context->stream_count; i++) {
 +		struct pipe_ctx *otg_master = resource_get_otg_master_for_stream(
 +				&context->res_ctx, context->streams[i]);
 +
-+		if (otg_master)
-+			resource_build_info_frame(otg_master);
-+		if (dcn401_stream_kept(dc, current_state, context,
-+				context->streams[i]))
-+			core2_update_prepare(dc, context, context->streams[i]);
-+	}
- 
- 	status = core2_build_and_run(dc, DCN_DECL_NON_SEAMLESS_COMMIT, context,
- 			NULL);
-@@ -244,16 +273,20 @@ enum dc_status core2_commit_state_hw(struct dc *dc, struct dc_state *context)
- 		return status;
- 
- 	core2_commit_prepare_done(dc, context);
--	for (i = 0; i < current_state->stream_count; i++)
--		if (!dcn401_stream_unchanged(current_state, context,
--				current_state->streams[i]))
--			core2_commit_disable_done(dc,
--					resource_get_otg_master_for_stream(
--					&current_state->res_ctx,
--					current_state->streams[i]));
-+	for (i = 0; i < current_state->stream_count; i++) {
-+		struct pipe_ctx *otg_master = resource_get_otg_master_for_stream(
-+				&current_state->res_ctx,
-+				current_state->streams[i]);
-+
-+		if (otg_master && !dcn401_stream_kept(dc, current_state,
-+				context, current_state->streams[i]))
-+			core2_commit_disable_done(dc, otg_master);
-+	}
- 	for (i = 0; i < context->stream_count; i++)
--		if (!dcn401_stream_unchanged(current_state, context,
-+		if (dcn401_stream_kept(dc, current_state, context,
+ 		if (dcn401_stream_kept(dc, current_state, context,
  				context->streams[i]))
-+			core2_update_done(dc, context, context->streams[i]);
-+		else
- 			core2_commit_enable_done(
- 					resource_get_otg_master_for_stream(
- 					&context->res_ctx, context->streams[i]));
-@@ -321,9 +354,15 @@ static void core2_update_done(struct dc *dc, struct dc_state *context,
- 	struct pipe_ctx *pipe;
- 	struct dc_plane_state *plane;
- 	struct hubp *hubp;
--	int i, n = resource_get_dpp_pipes_for_stream(stream, &context->res_ctx,
--			dpp_pipes);
-+	int i, n = resource_get_dpp_pipes_for_stream(stream,
-+			&dc->current_state->res_ctx, dpp_pipes);
+ 			core2_update_done(dc, context, context->streams[i]);
+-		else
+-			core2_commit_enable_done(
+-					resource_get_otg_master_for_stream(
+-					&context->res_ctx, context->streams[i]));
++		else if (otg_master)
++			core2_commit_enable_done(otg_master);
++	}
+ 	return DC_OK;
+ }
  
-+	/* The update powers down the pipes that leave the stream. */
-+	for (i = 0; i < n; i++)
-+		if (dpp_pipes[i]->plane_res.hubp)
-+			dpp_pipes[i]->plane_res.hubp->power_gated = true;
-+	n = resource_get_dpp_pipes_for_stream(stream, &context->res_ctx,
-+			dpp_pipes);
- 	for (i = 0; i < n; i++) {
- 		pipe = dpp_pipes[i];
- 		if (!pipe->plane_state || !pipe->plane_res.hubp ||
-@@ -349,22 +388,10 @@ static void core2_update_state_execute(
- 	struct dc_state *context = scratch->new_context;
- 	struct pipe_ctx *pipe = resource_get_otg_master_for_stream(
- 			&context->res_ctx, scratch->stream);
--	struct pipe_ctx *dpp_pipes[MAX_PIPES];
--	int i, n;
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_state_priv.h b/drivers/gpu/drm/amd/display/dc/dc_state_priv.h
+index 191bb431991f..0415e45d438e 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_state_priv.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_state_priv.h
+@@ -26,6 +26,7 @@
+ #ifndef _DC_STATE_PRIV_H_
+ #define _DC_STATE_PRIV_H_
  
--	/*
--	 * The values DC1 computes into the context before it programs the
--	 * planes. The builder reads them from the context.
--	 */
- 	if (!pipe || !pipe->plane_state)
- 		return;
--	if (dc->res_pool->funcs->prepare_mcache_programming)
--		dc->res_pool->funcs->prepare_mcache_programming(dc, context);
--	n = resource_get_dpp_pipes_for_stream(scratch->stream, &context->res_ctx,
--			dpp_pipes);
--	for (i = 0; i < n; i++)
--		dpp_pipes[i]->plane_res.scl_data.lb_params.alpha_en =
--				dpp_pipes[i]->plane_state->per_pixel_alpha;
-+	core2_update_prepare(dc, context, scratch->stream);
++#include "dc.h"
+ #include "dc_state.h"
+ #include "dc_stream.h"
  
- 	if (core2_build_and_run(dc, DCN_DECL_SEAMLESS_UPDATE, context,
- 			scratch->stream) != DC_OK) {
+@@ -126,4 +127,26 @@ bool dc_state_can_clear_stream_cursor_subvp_limit(const struct dc_stream_state *
+ bool dc_state_is_subvp_in_use(struct dc_state *state);
+ 
+ bool dc_state_is_alt_in_use(const struct dc *dc, const struct dc_state *state);
++
++/* Facts about one pipe of one state. */
++struct dc_state_pipe_flags {
++	/* The pipe drives a stream through a HUBP, a DPP and an OPP. */
++	bool enabled;
++	/* The pipe shows a plane. */
++	bool has_plane;
++	/* The DET size from hubp_regs. */
++	uint32_t det_size;
++};
++
++/* The facts of pipe i in the current and in the target state. */
++struct dc_state_update_flags {
++	struct dc_state_pipe_flags cur_pipes[MAX_PIPES];
++	struct dc_state_pipe_flags new_pipes[MAX_PIPES];
++};
++
++/* Pure: reads both states and writes only out_flags. */
++enum dc_status dc_state_compute_update_flags(const struct dc_state *cur_state,
++		const struct dc_state *target_state,
++		struct dc_state_update_flags *out_flags);
++
+ #endif /* _DC_STATE_PRIV_H_ */
+diff --git a/drivers/gpu/drm/amd/display/dc/state_facts/state_facts.h b/drivers/gpu/drm/amd/display/dc/state_facts/state_facts.h
+index b8a8b8256262..c774ebdae968 100644
+--- a/drivers/gpu/drm/amd/display/dc/state_facts/state_facts.h
++++ b/drivers/gpu/drm/amd/display/dc/state_facts/state_facts.h
+@@ -19,6 +19,9 @@ struct dc_trait_match {
+ #define DC_TRAIT_MATCH(set, clear) \
+ 	((struct dc_trait_match){ .mask = (set) | (clear), .value = (set) })
+ 
++/* Every element matches: no trait constrains it. */
++#define DC_TRAIT_MATCH_ANY DC_TRAIT_MATCH(0, 0)
++
+ /* Plane and pipe accessors: no stream filter. */
+ #define DC_FACTS_ALL_STREAMS 0xFFu
+ 
 -- 
 2.43.0
 
