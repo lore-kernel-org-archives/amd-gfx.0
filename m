@@ -2,45 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5286606A337
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 09:12:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A313606A334
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Nov 2026 09:12:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YgGa5GCv
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=X3LBCbS4
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6AAAA10ED90;
-	Mon, 16 Nov 2026 09:12:21 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC19210EDD5;
- Mon, 16 Nov 2026 09:12:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E27110EDC9;
+	Mon, 16 Nov 2026 09:12:33 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5D3210EDA3;
+ Mon, 16 Nov 2026 09:12:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794820336; x=1826356336;
+ t=1794820347; x=1826356347;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=GQ6nvZncaJPWB21Rm55NWdBG4xu4kDWV0iEJex5xTMo=;
- b=YgGa5GCvjmGSd01v/19GlSqLiPK+ifhA+AsOzbGUxZi5HOCmHdZMcnAe
- bcrLE3oELJHAQ+3z5xgGBEEMslb+k6lsXUaxaLmNHeQ9qyuBHsEAfPvDa
- 5ZmrHtNV1PxSeHjL63EsGX6AHP311X9k7LOjYkLKBZr4z4/2Y2x3SnqcW
- 91UXgZtRmkeMPozVR3nUgE3deGoBPufEN2hsP4xRCBkJCZ1k5K8hJOMRW
- 6LnGWzEXVBUvv09MAYWdhqu+wv991d6HkwPv6xd+4MXkAqJU76A81ombV
- 4+DWC7a2ONZqQubldYu+pdGaGcnqbfKkAShtmkTs/uiSqxEYz3mSMeTgm w==;
-X-CSE-ConnectionGUID: ZFm5w+7kQHOSy5lY2+rXEg==
-X-CSE-MsgGUID: slrcWXtTSoWC3SpRyJ/v0g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3428573"
+ bh=JGdJovIRxiswmzQ/OVHyoYBXcmjw0GscVzdw8XDjrRY=;
+ b=X3LBCbS4sc4JXyPJNWSe8/J34ohQ8mZ7K7tAc0pD8ozZfSc08+f3Cn/p
+ LmPxaaoOpoLMPSQOrU6aoVwe8p7bWqdO7930toihQkyQSwgGnnz5Xji+9
+ pnneD10fE8+lB6WY7XqOHxB/XjeM+TxWGdAvMqfdm4XCjbc0lWnyGtPmu
+ KtM+piYQaNAAjiqXTF76gB6AmtsBIsyKWAIYWPUwjL76YFniuFLQpcviv
+ 7+I7VehdDPuTj/3dM0PXyC9WX8RnBphoDMvLaOw9sTHEExC4rXzCP8MvU
+ LTT31YTfbfKGZTCm0rM0VVX5/9HHujbKffchXDjXlD4t++BjKFlQ80mS5 A==;
+X-CSE-ConnectionGUID: i5EYWpxoT6KS7KWP6tL0EQ==
+X-CSE-MsgGUID: nmW9RUYzS16JBw1dW47a3Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3590920"
 X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="3428573"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2026 01:12:16 -0800
-X-CSE-ConnectionGUID: kZCPs1nAQZOSz0ZFfl6zzQ==
-X-CSE-MsgGUID: 8V2PE1BoR/CxCzo6AyKZPw==
+   d="scan'208";a="3590920"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Nov 2026 01:12:26 -0800
+X-CSE-ConnectionGUID: J66DpBJ2RRW4yBSWi6jh6g==
+X-CSE-MsgGUID: 0uoTtDp2RV+r35svTUE34g==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="9486461"
+   d="scan'208";a="9826077"
 Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
  ([10.245.245.93])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2026 01:12:08 -0800
+ 16 Nov 2026 01:12:19 -0800
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: dri-devel@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
@@ -64,10 +64,9 @@ Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
  Simon Ser <contact@emersion.fr>, wayland-devel@lists.freedesktop.org,
  Xaver Hugl <xaver.hugl@kde.org>, Xi Ruoyao <xry111@xry111.site>
-Subject: [PATCH 03/12] drm/atomic: Add FIXMEs around the incorrect use of the
- .atomic_bypass_check() for async flips
-Date: Mon, 16 Nov 2026 11:11:21 +0200
-Message-ID: <20261116091130.13950-4-ville.syrjala@linux.intel.com>
+Subject: [PATCH 04/12] drm/atomic: Highlight that bypass commits need care
+Date: Mon, 16 Nov 2026 11:11:22 +0200
+Message-ID: <20261116091130.13950-5-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261116091130.13950-1-ville.syrjala@linux.intel.com>
 References: <20261116091130.13950-1-ville.syrjala@linux.intel.com>
@@ -97,22 +96,9 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-The "bypass update" stuff has nothing to do with async vs.
-sync updates as far as the hardware is concerned (as in
-tearing vs. not). What it does is bypass the normal commit
-machinery and just let the driver directly perform the
-update (as it sees fit) and swap the plane state without
-involving the whole crtc commit machinery.
-
-The actual hardware update it does could be an async flip
-(as in tearing) or a mailbox flip, depending on how the
-driver decides to do it.
-
-The use of bypass updates vs. not is a driver decision, and
-the high level atomic code should not be making incorrect
-assumptions about it. Toss in some FIXMEs in the hopes
-that people will relocate this stuff to a more appropriate
-place.
+Document the fact that implementing bypass commits
+need actual care and attention to make sure the
+effective commit reordering is actually safe.
 
 Cc: amd-gfx@lists.freedesktop.org
 Cc: André Almeida <andrealmeid@igalia.com>
@@ -146,44 +132,26 @@ Cc: Xaver Hugl <xaver.hugl@kde.org>
 Cc: Xi Ruoyao <xry111@xry111.site>
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/drm_atomic_uapi.c        | 6 ++++++
- include/drm/drm_modeset_helper_vtables.h | 4 ++--
- 2 files changed, 8 insertions(+), 2 deletions(-)
+ include/drm/drm_modeset_helper_vtables.h | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-index 04fcaa72c46f..eb002799497c 100644
---- a/drivers/gpu/drm/drm_atomic_uapi.c
-+++ b/drivers/gpu/drm/drm_atomic_uapi.c
-@@ -1290,6 +1290,12 @@ int drm_atomic_set_property(struct drm_atomic_commit *state,
- 				break;
- 			}
- 
-+			/*
-+			 * FIXME this is in the wrong place. Whether to do a
-+			 * bypass commit for async flips would is a driver
-+			 * decision. Drivers that want this need to just do
-+			 * these checks themselves somewhere.
-+			 */
- 			if (ret && plane->type != DRM_PLANE_TYPE_PRIMARY) {
- 				/* ask the driver if this non-primary plane is supported */
- 				if (plane_funcs && plane_funcs->atomic_bypass_check)
 diff --git a/include/drm/drm_modeset_helper_vtables.h b/include/drm/drm_modeset_helper_vtables.h
-index cc511068f53a..d28d8ffc66b4 100644
+index d28d8ffc66b4..1036744b9922 100644
 --- a/include/drm/drm_modeset_helper_vtables.h
 +++ b/include/drm/drm_modeset_helper_vtables.h
-@@ -1430,10 +1430,10 @@ struct drm_plane_helper_funcs {
+@@ -1430,6 +1430,12 @@ struct drm_plane_helper_funcs {
  	 * given update can be committed bypassing the atomic commit machinery.
  	 * That is, if it can jump ahead of the state currently queued for update.
  	 *
--	 * This function is also used by drm_atomic_set_property() to determine
-+	 * This function is also abused by drm_atomic_set_property() to determine
++	 * Extreme care is needed to make this safe as the already queued commits
++	 * will not be aware of the bypass commit that overtook them. And the
++	 * state that the bypass commit will observe is the final already queued
++	 * state, not the current state at the point when the bypass commit
++	 * will actually execute.
++	 *
+ 	 * This function is also abused by drm_atomic_set_property() to determine
  	 * if the plane can be flipped in async. The flip flag is used to
  	 * distinguish if the function is used for just the plane state or for a
--	 * flip.
-+	 * flip. FIXME this is wrong, and needs to be moved into the drivers.
- 	 *
- 	 * RETURNS:
- 	 *
 -- 
 2.56.0
 
