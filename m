@@ -2,42 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF031606A31C
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Nov 2026 07:41:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF43B606A32C
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Nov 2026 07:42:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MtwDr6+3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fFNMXJmN
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CEAB910E57F;
-	Tue, 17 Nov 2026 07:41:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7176310E1DE;
+	Tue, 17 Nov 2026 07:42:33 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F88C10E57F
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Nov 2026 07:41:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C51E10E1DE
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Nov 2026 07:42:27 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E5E2541361;
- Tue, 17 Nov 2026 07:41:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A25371F000C4;
- Tue, 17 Nov 2026 07:41:35 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 1CFC346257;
+ Tue, 17 Nov 2026 07:42:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAE551F000C4;
+ Tue, 17 Nov 2026 07:42:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794901295;
- bh=6Eek1tPob0qunWnSeDxR5w9fNcdUas/iQpLYLpeBHxU=;
+ s=k20260515; t=1794901347;
+ bh=LGLHO6FaLjt3WVsLSrKJO9h5JwwQHziNseIKp2CD1i4=;
  h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=MtwDr6+3H7/anTWdBhqHeEMJ9tJI9OVNn/FOPWEvygiAYWiSimo//OXlTPnopHMP/
- RzhOYy0IB28awwQ2cTouN2fa4FNJgHhYyeG7+bmKL16/46BN5w3G63H80KC7qUhSrZ
- oXP4C9CH992Xeep+fHNcsWcrae8pnMl1hXrG5VJ84AxguqKmimvoINWLV7Zh5G0VX6
- sc+fgeSXmvGbaZNBb31sp8OCDrHXtm+hMXa9CeWqkv3HhAMoZFdY0ImKOS165vyMf/
- oKeuGt2OsXYHPal31ilVY2jD99kmydu4aIBkVAuTDobwQNeLr1iT71mQ/E1YukHWsS
- WYbvzClMZW7kw==
-Message-ID: <sashiko-outbox-218372@kernel.org>
+ b=fFNMXJmNyZEjyxpxUOSY+ZRK9j3Ma0/Ov4cHTnRLhVGhO8WeI9wRVRwuM7COoujkm
+ toffb89U61CnyVAmBDZ9VWBJyGQeMKSxLIzN+ADCkyk8y5TdPVb3Dw20g6JTrMGLbU
+ Iuwkhswq3cH44liqr8b+BDhYNDoVhLjBcOau5Z2Q/p9fZF257KBAePg6ex7uvUx0C1
+ CyqDEmnT/0hb4dmklrA75dQ8w4bq5fw3N44vp47nefKvnsnPHtjuFpxiGkTw6z+ea4
+ 8Ye33DX21ZadxIrZatdLzf6q/2XdkSl3/pnmtITOAQFTen40+EA0CuzDoO/w9ld5qN
+ auY5Ds7PYg5IA==
+Message-ID: <sashiko-outbox-218374@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RESEND 2/4] drm/amdgpu/userq: implement support for
- query status
+Subject: Re: [PATCH RESEND 3/4] drm/amdgpu/userq: report invalid VA through
+ the broken status flag
 To: "Prike Liang" <Prike.Liang@amd.com>, amd-gfx@lists.freedesktop.org
-In-Reply-To: <20261117072353.537506-2-Prike.Liang@amd.com>
+In-Reply-To: <20261117072353.537506-3-Prike.Liang@amd.com>
 References: <20261117072353.537506-1-Prike.Liang@amd.com>
- <20261117072353.537506-2-Prike.Liang@amd.com>
+ <20261117072353.537506-3-Prike.Liang@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 07:41:35 +0000
+Date: Tue, 17 Nov 2026 07:42:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,89 +57,82 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found no new issues
-in this patch, but noticed 1 related pre-existing issue it does not
-introduce:
-- [High] drm/amdgpu/userq: unlocked queue state and unmap/map in
-  mes_userq_reset() [1]
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] drm/amdgpu/userq: missing resume_work flush in
+  amdgpu_userq_query_status()
 --
 
-commit 8f1348ec761b7ada9e6ca46fe71c338002a3662a
-Author: Alex Deucher <alexander.deucher@amd.com>
+commit dcee7ab7a079dac06e55c3b0a31589e130baf8e9
+Author: Prike Liang <Prike.Liang@amd.com>
 
-drm/amdgpu/userq: implement support for query status
+drm/amdgpu/userq: report invalid VA through the broken status flag
 
-This commit implements the AMDGPU_USERQ_OP_QUERY_STATUS operation to report
-when a usermode queue is hung or its VM generation has changed due to lost
-VRAM.
+This commit sets AMDGPU_USERQ_QUERY_STATUS_FLAGS_BROKEN in
+amdgpu_userq_query_status() when a usermode queue is in
+AMDGPU_USERQ_STATE_INVALID_VA, and updates the UAPI comment in
+amdgpu_drm.h.
 
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/=
 amd/amdgpu/amdgpu_userq.c
-> index ed6f3b67e8720..496137fca1f0c 100644
+> index 496137fca1f0c..b48cf2a2118c0 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-[ ... ]
-> @@ -817,6 +818,33 @@ amdgpu_userq_create(struct drm_file *filp, union drm=
-_amdgpu_userq *args)
->  	return r;
->  }
+> @@ -837,6 +837,7 @@ amdgpu_userq_query_status(struct drm_file *filp, unio=
+n drm_amdgpu_userq *args)
 > =20
-> +static int
-> +amdgpu_userq_query_status(struct drm_file *filp, union drm_amdgpu_userq =
-*args)
-> +{
-> +	struct amdgpu_fpriv *fpriv =3D filp->driver_priv;
-> +	struct amdgpu_userq_mgr *uq_mgr =3D &fpriv->userq_mgr;
-> +	struct amdgpu_device *adev =3D uq_mgr->adev;
-> +	struct amdgpu_usermode_queue *queue;
-> +	int queue_id =3D args->in.queue_id;
-> +
-> +	mutex_lock(&uq_mgr->userq_mutex);
-> +
-> +	queue =3D amdgpu_userq_get(uq_mgr, queue_id);
-> +	if (!queue) {
-> +		mutex_unlock(&uq_mgr->userq_mutex);
-> +		return -EINVAL;
-> +	}
-> +
-> +	args->out_qs.flags =3D 0;
-> +	if (queue->state =3D=3D AMDGPU_USERQ_STATE_HUNG ||
-> +	    queue->generation !=3D amdgpu_vm_generation(adev, &fpriv->vm))
-> +		args->out_qs.flags |=3D AMDGPU_USERQ_QUERY_STATUS_FLAGS_BROKEN;
+>  	args->out_qs.flags =3D 0;
+>  	if (queue->state =3D=3D AMDGPU_USERQ_STATE_HUNG ||
+> +	    queue->state =3D=3D AMDGPU_USERQ_STATE_INVALID_VA ||
+>  	    queue->generation !=3D amdgpu_vm_generation(adev, &fpriv->vm))
+>  		args->out_qs.flags |=3D AMDGPU_USERQ_QUERY_STATUS_FLAGS_BROKEN;
+>  	amdgpu_userq_put(queue);
 
-[Severity: High]
-This problem wasn't introduced by this patch, but can a concurrent eviction
-in amdgpu_userq_unmap_helper() race with mes_userq_reset_hw() [1] and
-overwrite AMDGPU_USERQ_STATE_HUNG?
+[Severity: Medium]
+Can amdgpu_userq_query_status() miss AMDGPU_USERQ_STATE_INVALID_VA when
+called before uq_mgr->resume_work finishes?
 
-amdgpu_userq_query_status() and amdgpu_userq_unmap_helper() serialize
-queue->state under uq_mgr->userq_mutex, whereas mes_userq_reset_hw() unmaps
-the queue and sets queue->state =3D AMDGPU_USERQ_STATE_HUNG without holding
-userq_mutex:
+The only place that sets queue->state to AMDGPU_USERQ_STATE_INVALID_VA is
+amdgpu_userq_restore_all(), which runs asynchronously from
+uq_mgr->resume_work:
 
-CPU0                                  CPU1
-amdgpu_userq_hang_detect_work()       amdgpu_eviction_fence_suspend_worker()
-  mes_userq_reset()                     mutex_lock(&uq_mgr->userq_mutex)
-    mes_userq_reset_hw()                amdgpu_userq_evict_all()
-      mes_userq_unmap(queue)              amdgpu_userq_unmap_helper(queue)
-                                            // sees AMDGPU_USERQ_STATE_MAPP=
-ED
-                                            mes_userq_unmap(queue)
-      queue->state =3D
-        AMDGPU_USERQ_STATE_HUNG
-                                            queue->state =3D
-                                              AMDGPU_USERQ_STATE_UNMAPPED
-                                              <-- clobbers HUNG state
-                                        mutex_unlock(&uq_mgr->userq_mutex)
+CPU0                                  kworker
+amdgpu_gem_va_ioctl(UNMAP)
+  amdgpu_userq_gem_va_unmap_validate()
+    dma_resv_wait_timeout()
+                                      amdgpu_eviction_fence_suspend_worker()
+                                        amdgpu_userq_evict()
+                                          queue->state =3D
+                                            AMDGPU_USERQ_STATE_UNMAPPED
+                                        dma_fence_signal(ev_fence)
+                                        schedule_delayed_work(
+                                          &uq_mgr->resume_work, 0)
+  drm_exec_fini()
+amdgpu_userq_query_status()
+  mutex_lock(&uq_mgr->userq_mutex)
+  queue->state =3D=3D
+    AMDGPU_USERQ_STATE_UNMAPPED  <-- BROKEN not set
+  mutex_unlock(&uq_mgr->userq_mutex)
+                                      amdgpu_userq_restore_worker()
+                                        ...
+                                        amdgpu_userq_restore_all()
+                                          queue->state =3D
+                                            AMDGPU_USERQ_STATE_INVALID_VA
 
-Both paths call mes_userq_unmap() concurrently, issuing duplicate
-remove_hw_queue MES packets and double-freeing queue->gang_ctx_array_index.
-Overwriting AMDGPU_USERQ_STATE_HUNG with AMDGPU_USERQ_STATE_UNMAPPED also
-hides the broken status from amdgpu_userq_query_status() and allows
-amdgpu_userq_restore_worker() to remap and re-execute the hung queue.
+Because amdgpu_gem_va_ioctl() holds the VM reservation lock until
+drm_exec_fini() just before returning to userspace, uq_mgr->resume_work
+cannot finish validating the VM and calling amdgpu_userq_restore_all()
+before the unmap ioctl returns.  Unlike amdgpu_userq_ensure_ev_fence(),
+amdgpu_userq_query_status() does not call
+flush_delayed_work(&uq_mgr->resume_work) before acquiring
+uq_mgr->userq_mutex, so querying queue status after unmapping a queue VA
+reports flags as 0 instead of AMDGPU_USERQ_QUERY_STATUS_FLAGS_BROKEN.
 
-[1] https://sashiko.dev/#/bug/linux-ea51473b-6c36-421a-880f-c4fff09847a7
+Also, if a queue VA mapping is removed via AMDGPU_VA_OP_CLEAR or
+AMDGPU_VA_OP_REPLACE (amdgpu_vm_bo_clear_mappings()),
+amdgpu_userq_gem_va_unmap_validate() is never called to trigger eviction and
+transition the queue to AMDGPU_USERQ_STATE_INVALID_VA.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117072353.5375=
-06-1-Prike.Liang@amd.com?part=3D2
+06-1-Prike.Liang@amd.com?part=3D3
