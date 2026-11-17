@@ -2,41 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A56F2606A32A
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Nov 2026 19:35:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F6F6606A32A
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Nov 2026 19:38:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YnaZz9k1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OG9KEf9P
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1485310F8F9;
-	Tue, 17 Nov 2026 19:35:31 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E6FB10F8F1
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Nov 2026 19:35:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E836A10E676;
+	Tue, 17 Nov 2026 19:37:59 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4CEC10E676
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Nov 2026 19:37:53 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 782B1612D6;
- Tue, 17 Nov 2026 19:35:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06E901F000C4;
- Tue, 17 Nov 2026 19:35:22 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 96A6E45BBC;
+ Tue, 17 Nov 2026 19:37:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D26981F000C6;
+ Tue, 17 Nov 2026 19:37:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794944123;
- bh=VRDUbo/t4sgrQgPBjbEAtyrCLwKzqEoiG/BsieLwHYU=;
+ s=k20260515; t=1794944273;
+ bh=3ZlLlHBn6Y/XqMSeC59HGqpOx5+R6gP6z32JYx48qiA=;
  h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=YnaZz9k1s7jcPZTGZ91D5lNoUgHqk7QB41qYgY1G198PF8Vlkrq8+uAugz0t4olUf
- JIHVPORVAnWolH5mKCcIiSGy90a41t3/O2SKrfAkbCpoBmybV9XE0W9+Lqw5vU/65s
- hbia1w11os+5dTRIuygpOLLbESHuwTQWgCJfAJbXkHyWqHdoOlYR2j/h4v8szFS+5R
- ZbE9D1b+IITokuZrcerqcMe9b1olX0VQpuzKnutWUJveR3zxjwDUnOJgc/CFpAZI3L
- BeqsdbCJSKckpK4vcm3v366g96aD8byV1cA5hEhoSxeqSyRbg2zvgskk7+qg9KD2Z6
- 4gUpJb7PN1u6Q==
-Message-ID: <sashiko-outbox-219493@kernel.org>
+ b=OG9KEf9PuPKMzEffPnbIpmU+/A+ouhJ2BQOCSs7up208saKeNLWjjPfBkwPI0fF/+
+ eKlwS3FN5CIwQSoOkWMcUQzLSL3Md3f6bP05w+/QTL14Oe9R9U9J3OSWAtWtgT4ZUZ
+ UfXlVIHPeDhgyaymJq4PMBr9Swq6I0dOlHJBjeHapwzOvZAXPSALW00oBDu7P/GDWD
+ AvDmxgWqoMJlJ7UdE5FBgJoP86lUigZ1sAk7DCGaNCHGQOMbGGTosm3RhYnbc5OlYG
+ JAUaq9a8kh4LYYtSzbwGliYVEthJny1YyKnKK0mmZFsYNr63pNFm9HedeP+UBvSiZf
+ uNj7N9CyCBBug==
+Message-ID: <sashiko-outbox-219507@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 6/9] drm/amdgpu/userq/mes: implement set gang submit
+Subject: Re: [PATCH 3/9] drm/amdgpu/mes11: add support for setting gang submit
 To: "Alex Deucher" <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-In-Reply-To: <20261117192415.810117-6-alexander.deucher@amd.com>
+In-Reply-To: <20261117192415.810117-3-alexander.deucher@amd.com>
 References: <20261117192415.810117-1-alexander.deucher@amd.com>
- <20261117192415.810117-6-alexander.deucher@amd.com>
+ <20261117192415.810117-3-alexander.deucher@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 19:35:22 +0000
+Date: Tue, 17 Nov 2026 19:37:52 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,73 +56,86 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [High] drm/amdgpu: out-of-bounds gang context address in
-  mes_set_gang()
+Thank you for your contribution! Sashiko AI review found no new issues
+in this patch, but noticed 1 related pre-existing issue it does not
+introduce:
+- [High] drm/amdgpu: unrolled sync_seq increment on MES error_undo paths
+  [1]
 --
 
-commit faefcb7998343e4f4e1ec3ab6ccf3f3feccc05e7
+commit 285ec5bbb9066cd84ed61683a42ebeae06434475
 Author: Alex Deucher <alexander.deucher@amd.com>
 
-drm/amdgpu/userq/mes: implement set gang submit
+drm/amdgpu/mes11: add support for setting gang submit
 
-This commit adds the mes_set_gang() callback to userq_mes_funcs to
-configure MES gang submission between a primary and secondary usermode
-queue.
+This commit implements the set_gang_submit callback for MES v11 to allow a
+primary and secondary queue to schedule together.
 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm=
-/amd/amdgpu/mes_userqueue.c
-> index 7abb9d95ef59a..e186ebd08b8d2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> @@ -649,6 +649,31 @@ static int mes_userq_restore(struct amdgpu_usermode_=
-queue *queue)
->  	return r;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd=
+/amdgpu/mes_v11_0.c
+> index 75e6079e6e332..d67dbc93e10d4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> @@ -1275,6 +1275,27 @@ static int mes_v11_0_enable_dbgext_irq(struct amdg=
+pu_mes *mes, bool enable)
+>  	return 0;
 >  }
 > =20
-> +static int mes_set_gang(struct amdgpu_usermode_queue *primary_queue,
-> +			struct amdgpu_usermode_queue *secondary_queue)
+> +static int mes_v11_0_set_gang_submit(struct amdgpu_mes *mes,
+> +				     struct mes_set_gang_submit_input *input)
 > +{
-> +	struct amdgpu_userq_obj *primary_ctx =3D &primary_queue->fw_obj;
-> +	struct amdgpu_userq_obj *secondary_ctx =3D &secondary_queue->fw_obj;
-> +	struct amdgpu_userq_mgr *uq_mgr =3D primary_queue->userq_mgr;
-> +	struct amdgpu_device *adev =3D uq_mgr->adev;
-> +	struct mes_set_gang_submit_input input;
-> +	int r;
+> +	union MESAPI__SET_GANG_SUBMIT mes_gang_submit_pkt;
 > +
-> +	memset(&input, 0x0, sizeof(struct mes_set_gang_submit_input));
+> +	memset(&mes_gang_submit_pkt, 0, sizeof(mes_gang_submit_pkt));
 > +
-> +	input.primary_gang_context_addr =3D
-> +		primary_ctx->gpu_addr + AMDGPU_USERQ_PROC_CTX_SZ;
-> +	input.secondary_gang_context_addr =3D
-> +		secondary_ctx->gpu_addr + AMDGPU_USERQ_PROC_CTX_SZ;
+> +	mes_gang_submit_pkt.header.type =3D MES_API_TYPE_SCHEDULER;
+> +	mes_gang_submit_pkt.header.opcode =3D MES_SCH_API_SET_GANG_SUBMIT;
+> +	mes_gang_submit_pkt.header.dwsize =3D API_FRAME_SIZE_IN_DWORDS;
+> +
+> +	mes_gang_submit_pkt.set_gang_submit.gang_context_addr =3D
+> +		input->primary_gang_context_addr;
+> +	mes_gang_submit_pkt.set_gang_submit.slave_gang_context_addr =3D
+> +		input->secondary_gang_context_addr;
+> +
+> +	return mes_v11_0_submit_pkt_and_poll_completion(mes,
+> +			&mes_gang_submit_pkt, sizeof(mes_gang_submit_pkt),
+> +			offsetof(union MESAPI__SET_GANG_SUBMIT, api_status));
+> +}
 
 [Severity: High]
-Should primary_gang_context_addr and secondary_gang_context_addr be set
-to primary_ctx->gpu_addr and secondary_ctx->gpu_addr without adding
-AMDGPU_USERQ_PROC_CTX_SZ?
+This problem wasn't introduced by this patch, but can
+mes_v11_0_submit_pkt_and_poll_completion() leave ring->fence_drv.sync_seq
+incremented when amdgpu_fence_wait_polling() times out [1]?
 
-Since 97bcaf15ad25 ("drm/amdgpu: implement per-process MES context"),
-the process context is allocated separately in uq_mgr->proc_ctx_obj, and
-mes_userq_create_ctx_space() allocates queue->fw_obj with size
-AMDGPU_USERQ_GANG_CTX_SZ (one page) for the gang context alone:
-
-drivers/gpu/drm/amd/amdgpu/mes_userqueue.c:mes_userq_create_ctx_space() {
+drivers/gpu/drm/amd/amdgpu/mes_v11_0.c:mes_v11_0_submit_pkt_and_poll_comple=
+tion() {
 	...
-	/* The FW expects at least one page space allocated for gang ctx. */
-	size =3D AMDGPU_USERQ_GANG_CTX_SZ;
-	r =3D amdgpu_bo_create_kernel(uq_mgr->adev, size, 0,
-				    AMDGPU_GEM_DOMAIN_GTT,
-				    &ctx->obj, &ctx->gpu_addr,
-				    &ctx->cpu_ptr);
+	seq =3D ++ring->fence_drv.sync_seq;
+	r =3D amdgpu_fence_wait_polling(ring,
+				      seq - ring->fence_drv.num_fences_mask,
+				      timeout);
+	if (r < 1) {
+		r =3D -ETIMEDOUT;
+		goto error_undo;
+	}
+	...
+error_undo:
+	dev_err(adev->dev, "MES ring buffer is full.\n");
+	amdgpu_ring_undo(ring);
 	...
 }
 
-Adding AMDGPU_USERQ_PROC_CTX_SZ points one page past the end of each
-queue's fw_obj BO and does not match the gang_context_addr (ctx->gpu_addr)
-passed to MES in mes_userq_map().
+The error_undo path rolls back the ring write pointer without decrementing
+ring->fence_drv.sync_seq and without emitting the status fence packet.
+Once ring->fence_drv.num_fences_mask timeouts accumulate, seq -
+ring->fence_drv.num_fences_mask exceeds the highest fence sequence number
+ever emitted to the ring, causing all subsequent MES submissions to time
+out waiting on an unemitted fence until a GPU reset.  The same issue also
+exists in mes_v12_0_submit_pkt_and_poll_completion() and
+mes_v12_1_submit_pkt_and_poll_completion().
+
+[1] https://sashiko.dev/#/bug/linux-dce92d12-1446-4f12-a395-575847569192
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117192415.8101=
-17-1-alexander.deucher@amd.com?part=3D6
+17-1-alexander.deucher@amd.com?part=3D3
