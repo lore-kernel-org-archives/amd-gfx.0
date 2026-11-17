@@ -2,43 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6700B606A339
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Nov 2026 10:25:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91292606A31C
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Nov 2026 10:46:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ksh+LMUj
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G/He/fMk
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3AC710F5B5;
-	Tue, 17 Nov 2026 10:25:27 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A1A1D10E529;
- Tue, 17 Nov 2026 10:25:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E87DD10F619;
+	Tue, 17 Nov 2026 10:46:14 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E017410F611;
+ Tue, 17 Nov 2026 10:46:07 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7267540DC0;
- Tue, 17 Nov 2026 10:25:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BD161F000C4;
- Tue, 17 Nov 2026 10:25:21 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 4E2B4633D2;
+ Tue, 17 Nov 2026 10:46:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D20C91F000C4;
+ Tue, 17 Nov 2026 10:46:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794911121;
- bh=4bjv7fv7VU+YKdidh8lB22ySwKWrVdb8L0WXeVK709U=;
+ s=k20260515; t=1794912367;
+ bh=jh6Dm2xAu0tM1p0MMRE7WESmg74QpZK1Tzgqwg2LPHw=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ksh+LMUj8A7N3QUp5oN8NLAsO3fDtNYeCQT+KRGW0lGkML8LYb7o7YjLldtPpVyZM
- rFydfLUNbXJHJP3jKyvq0HzjWCk6ikBpj0tXmmi8Gx8F8Z0IxNK71geySCNpewZFnI
- E5yrSjIYZA6BodV3P6701qn1tyiItnJVos32UH6bHL3K0eNotzfSUQDS0ivVnd/mjP
- 3aZOQt8DhVDzW4Fq+vPQacni2/7AirZpVKEqVWPNrEnP990t6EFLYMjmKIez99iwZL
- jmTm16qSylxJvAv7PGX3UTJVZwZTWI/g5I4ktIeQCYZj6Los8JIyey2wCawNEPRt/5
- JjDSkxYlfw3xw==
-Message-ID: <sashiko-outbox-218613@kernel.org>
+ b=G/He/fMk4p1HamOrfylhADo8Pdgbjpyagp1PA9SsbKqepctYHQAiXicjN1NcYjnvp
+ o8C0ud6wvBZu1F3sqDnBVcgrKnVyiIbZCxpfFMCqyTG8GDodvV5xfUg5ChLYvcaUHt
+ IrLIzK77HWnh0wQ1mWQIzsjQzCp00eAAc33wnDhc+rilTIkApUlMZO5DFLE8dKxo/8
+ 0Szyhv/cZRePuqoqPXeusElMHreJsESUlLmD9tNvxxXtmNpZy2mBQiXc8DrUWPIet2
+ wX4G34054yAHxYJeAf7RmUcUZ0zgoQAWRVG1nnKZMye6ojm5GwkvTgggGAUkDIHv9r
+ oOuXie6IrjWJQ==
+Message-ID: <sashiko-outbox-218670@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/4] drm/sched: Remove the single scheduler special case
+Subject: Re: [PATCH 1/4] drm/sched: Disallow initializing entities with
+ un-initialized schedulers
 To: "Tvrtko Ursulin" <tvrtko.ursulin@igalia.com>,
  dri-devel@lists.freedesktop.org
 Cc: amd-gfx@lists.freedesktop.org
-In-Reply-To: <20261117100654.8593-4-tvrtko.ursulin@igalia.com>
+In-Reply-To: <20261117100654.8593-2-tvrtko.ursulin@igalia.com>
 References: <20261117100654.8593-1-tvrtko.ursulin@igalia.com>
- <20261117100654.8593-4-tvrtko.ursulin@igalia.com>
+ <20261117100654.8593-2-tvrtko.ursulin@igalia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 10:25:20 +0000
+Date: Tue, 17 Nov 2026 10:46:06 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,50 +53,156 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] drm/sched: contradictory sched_list kernel-doc in
-  drm_sched_entity_init()
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [High] drm/sched: drm_sched_entity_init() breaks v3d_open() on V3D 3.3
+- [Medium] drm/sched: uninitialized SR-IOV VCN0 scheduler in
+  vcn_v3_0_limit_sched()
 --
 
-commit 51236e2b589e5bb2f95788276a6d8bea43b26e11
+commit 5a80b965f793708bcd7eab260f9a3099009c1c8c
 Author: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
-drm/sched: Remove the single scheduler special case
+drm/sched: Disallow initializing entities with un-initialized schedulers
 
-This commit stores a single scheduler pointer directly in a union with
-sched_list in struct drm_sched_entity so that entities with a single
-scheduler retain their scheduler reference for runtime priority changes.
+This commit rejects uninitialized schedulers (where sched_rq is NULL) in
+drm_sched_entity_init() with -EINVAL and in drm_sched_entity_modify_sched()
+with a WARN_ON() and early return.
 
 > diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/s=
 cheduler/sched_entity.c
-> index a18f637f9e998..6ff455373067f 100644
+> index 03e68b4102d50..2844049d4c665 100644
 > --- a/drivers/gpu/drm/scheduler/sched_entity.c
 > +++ b/drivers/gpu/drm/scheduler/sched_entity.c
-> @@ -102,7 +102,9 @@ ktime_t drm_sched_entity_stats_job_add_gpu_time(struc=
-t drm_sched_job *job)
->   * @guilty: atomic_t set to 1 when a job on this queue
->   *          is found to be guilty causing a timeout
->   *
-> - * Note that the &sched_list must have at least one element to schedule =
-the entity.
-> + * Note that the &sched_list must have exactly one element to schedule t=
-he
-> + * entity. Callers which pass more than one scheduler on the @sched_list=
- must
-> + * ensure the list remains valid for the lifetime of the entity.
+> @@ -119,9 +119,16 @@ int drm_sched_entity_init(struct drm_sched_entity *e=
+ntity,
+>  			  unsigned int num_sched_list,
+>  			  atomic_t *guilty)
+>  {
+> -	if (!entity || !sched_list || !num_sched_list || !sched_list[0])
+> +	unsigned int i;
+> +
+> +	if (!entity || !sched_list || !num_sched_list)
+>  		return -EINVAL;
+> =20
+> +	for (i =3D 0; i < num_sched_list; i++) {
+> +		if (!sched_list[i] || !sched_list[i]->sched_rq)
+> +			return -EINVAL;
+> +	}
 
-[Severity: Low]
-Should this still say "at least one element" rather than "exactly one
-element"?  drm_sched_entity_init() accepts one or more schedulers in
-sched_list, as described in the following sentence.
+[Severity: High]
+Does returning -EINVAL here break v3d_open() on V3D 3.3 hardware?
+
+On V3D 3.3, v3d_has_csd(v3d) is false, so v3d_sched_init() skips
+v3d_queue_sched_init() for V3D_CSD and V3D_CACHE_CLEAN, leaving their
+sched_rq pointers NULL:
+
+drivers/gpu/drm/v3d/v3d_sched.c:v3d_sched_init() {
+    ...
+	if (v3d_has_csd(v3d)) {
+		ret =3D v3d_queue_sched_init(v3d, &v3d_csd_sched_ops, V3D_CSD,
+					   "v3d_csd");
+		if (ret)
+			goto fail;
+
+		ret =3D v3d_queue_sched_init(v3d, &v3d_cache_clean_sched_ops,
+					   V3D_CACHE_CLEAN, "v3d_cache_clean");
+    ...
+}
+
+v3d_open() unconditionally calls drm_sched_entity_init() for all
+V3D_MAX_QUEUES and aborts if it returns an error:
+
+drivers/gpu/drm/v3d/v3d_drv.c:v3d_open() {
+    ...
+	for (i =3D 0; i < V3D_MAX_QUEUES; i++) {
+		...
+		sched =3D &v3d->queue[i].sched;
+		ret =3D drm_sched_entity_init(&v3d_priv->sched_entity[i],
+					    DRM_SCHED_PRIORITY_NORMAL, &sched,
+					    1, NULL);
+		if (ret)
+			goto err_sched;
+	}
+    ...
+}
+
+Previously drm_sched_entity_init() logged a warning and returned 0; with
+this regression, every open() of the DRM device node on V3D 3.3 fails with
+-EINVAL.
+
+[ ... ]
+
+> @@ -192,7 +192,15 @@ void drm_sched_entity_modify_sched(struct drm_sched_=
+entity *entity,
+>  				    struct drm_gpu_scheduler **sched_list,
+>  				    unsigned int num_sched_list)
+>  {
+> -	WARN_ON(!num_sched_list || !sched_list);
+> +	unsigned int i;
+> +
+> +	if (WARN_ON(!num_sched_list || !sched_list))
+> +		return;
+> +
+> +	for (i =3D 0; i < num_sched_list; i++) {
+> +		if (WARN_ON(!sched_list[i] || !sched_list[i]->sched_rq))
+> +			return;
+> +	}
+
+[Severity: Medium]
+Can vcn_v3_0_limit_sched() hit this WARN_ON() when VCN0 decode is disabled
+by the hypervisor under SR-IOV?
+
+During vcn_v3_0_sw_init(), amdgpu_ring_init() places &inst[0].ring_dec.sched
+into adev->gpu_sched[AMDGPU_HW_IP_VCN_DEC][AMDGPU_RING_PRIO_DEFAULT].sched[=
+0].
+Later, vcn_v3_0_hw_init() sets ring->no_scheduler =3D true when the hypervi=
+sor
+has disabled VCN0 decode, which causes amdgpu_device_init_schedulers() to
+skip drm_sched_init() and leave sched[0]->sched_rq NULL:
+
+drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c:vcn_v3_0_hw_init() {
+    ...
+			if (amdgpu_vcn_is_disabled_vcn(adev, VCN_DECODE_RING, i)) {
+				ring->sched.ready =3D false;
+				ring->no_scheduler =3D true;
+				dev_info(adev->dev, "ring %s is disabled by hypervisor\n", ring->name);
+			}
+    ...
+}
+
+Because vcn_v3_0_early_init() sets adev->vcn.harvest_config =3D 0 on SR-IOV,
+an AV1 decode submission on VCN1 reaches vcn_v3_0_limit_sched(), passes the
+AMDGPU_VCN_HARVEST_VCN0 check, and passes that uninitialized sched[0] to
+drm_sched_entity_modify_sched():
+
+drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c:vcn_v3_0_limit_sched() {
+	struct drm_gpu_scheduler **scheds;
+
+	/* The create msg must be in the first IB submitted */
+	if (atomic_read(&job->base.entity->fence_seq))
+		return -EINVAL;
+
+	/* if VCN0 is harvested, we can't support AV1 */
+	if (p->adev->vcn.harvest_config & AMDGPU_VCN_HARVEST_VCN0)
+		return -EINVAL;
+
+	scheds =3D p->adev->gpu_sched[AMDGPU_HW_IP_VCN_DEC]
+		[AMDGPU_RING_PRIO_DEFAULT].sched;
+	drm_sched_entity_modify_sched(job->base.entity, scheds, 1);
+	return 0;
+}
+
+An unprivileged guest user submitting an AV1 decode job can trigger the
+WARN_ON(), and the early return leaves the unsupported AV1 job scheduled on
+VCN1.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117100654.8593=
--1-tvrtko.ursulin@igalia.com?part=3D3
+-1-tvrtko.ursulin@igalia.com?part=3D1
