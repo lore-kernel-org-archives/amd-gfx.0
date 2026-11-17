@@ -2,42 +2,125 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 952CA606A31C
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Nov 2026 15:34:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 984FC606A333
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Nov 2026 16:21:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VQnWu69L
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=XPFLBQdx
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DEBE10EB49;
-	Tue, 17 Nov 2026 15:34:14 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A86110EB49;
- Tue, 17 Nov 2026 15:34:08 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id F20B445565;
- Tue, 17 Nov 2026 15:34:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADBC81F000C4;
- Tue, 17 Nov 2026 15:34:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794929647;
- bh=mLz6qf8hFOuGaQy2piZECzhFN4a9YeKCoGb56tOqUTg=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=VQnWu69LtQwQ8/nmCG30hDdFGM2EkRR7cmS50VNzVtopF1LBPWBowsSkMuhrg6T2w
- /LIYMv6g03JFtCCIJp6HxiFE5ozjNDxWb/NMIOXcm2p0nA7TVYjVNd4H3pFDABTZCO
- 2vw4hVcMU6iLN+6Jgktv+IM1gm4ysns+31E/dSTyZqyZmAGt7gAmAlPprWQkR89jWi
- J4f3e+9x/NooL8obiw1snVSYecPp1Pn4KUNeiyl3bhFPyQ/oMFqx+1KA55GfJjpKpD
- GHTraYXc7Pz1bfD29U+E29ZIBq4IOGmoOcIlneUB8p/3YJVn1tctKEsmKsiZEAF4hp
- PVQ5vz8YFKF7A==
-Message-ID: <sashiko-outbox-219088@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 09/10] drm/amdgpu: Add new AMDGPU_GEM_VA2 ioctl
-To: "Natalie Vock" <nat@pixelcluster.dev>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261117-prt-explicit-sync-v2-9-bb3851cb6a0c@pixelcluster.dev>
-References: <20261117-prt-explicit-sync-v2-0-bb3851cb6a0c@pixelcluster.dev>
- <20261117-prt-explicit-sync-v2-9-bb3851cb6a0c@pixelcluster.dev>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 15:34:07 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2EA9B10EBC1;
+	Tue, 17 Nov 2026 16:21:45 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010020.outbound.protection.outlook.com [52.101.201.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3B1010EBC1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Nov 2026 16:21:38 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=F3Uw+Wn3gAV6yIDO8x61rjRZRRVelCjVg9OGS9fp7OVAYjJk8QWgSAjZuOaImfmeGB3lQPmTohkTB+WRNRmz4kgPk4JdBMEqBfWzBNlQ2NyMMmbRSzqPE7J33MfYIiDbpPrxXhoBGt2OsALez+ZJYwjlM2MBmCMHkPWmrS2OVOl8PMF/s/OfQRSRabJOgq794a1W5+B2fOmcTRHqHvllBNIfnjjbJAtNdidkTD21n1kGGzTC5fdaNze6mUql+MqjNxJPCiVahPF3LTXTUSVrKMVvkxpEBh6UWv9csAJysseAhHEKvS0bXw+iWTzK46NMvro7N6UjDCJVyVNiUDmwRQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GQmDUlgosa92kuR5p6z8qCry2iaciJ08fOj/gy5uZ58=;
+ b=GZEzPqeiYIAzEtJ4hUWvNsnK8wNlSr6w8syF6fCKlXZESArF/QnLzM3q0RBJb+2R9edQ6QClLbllUrKuHc+SQ7aNrSkWhHaQRBdXob0FNCKj3NunOAORXlpWrlFacTn3KLUvcC4upjpZ7ktqtj1Ln9zeSNVdoGpxdEHnol54BdkRomFdUQvBDClze9rGUXZHuOoxpOYGFhcbzsru5lVe4vVTjZKTF1u/7VCrILbcuDyIWMSd00ByvcE23FRTn0N8rSQvduLsjkbK5GpbAHkisi/x154k5GlyRs4NdrjO5GciIWJ+zLxzPKvwfyGlphkEX/Quwob8RyYH27IDvSxddg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GQmDUlgosa92kuR5p6z8qCry2iaciJ08fOj/gy5uZ58=;
+ b=XPFLBQdxyzdPJIB51YYmnrRuHFTsOwu94dSWYPBgNYaPWM6qcPeKPzWo9IyCWTjqwDezmE/ynUR44YvCEMaWXxzUrLqSKFYx5egHJAY3aYUbqOWCro4lyl9te1MDjS03XooPNr+UdUj57DfaMI7QBkWgenUbqCojyWOAynfGq7w=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SJ5PPF7B9E98CB6.namprd12.prod.outlook.com
+ (2603:10b6:a0f:fc02::99a) by SJ0PR12MB8137.namprd12.prod.outlook.com
+ (2603:10b6:a03:4e5::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
+ 2026 16:21:32 +0000
+Received: from SJ5PPF7B9E98CB6.namprd12.prod.outlook.com
+ ([fe80::a63:c537:f76a:675b]) by SJ5PPF7B9E98CB6.namprd12.prod.outlook.com
+ ([fe80::a63:c537:f76a:675b%4]) with mapi id 15.21.0615.007; Tue, 17 Nov 2026
+ 16:21:32 +0000
+Content-Type: multipart/alternative;
+ boundary="------------odJoaui050ZbSUNvsMvOjrDw"
+Message-ID: <387bc959-6020-473a-b38e-81753f9aa358@amd.com>
+Date: Tue, 17 Nov 2026 11:21:29 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/amdgpu: clear root PT after setting vm->is_npa =
+ true
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Kuehling, Felix" <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, yangp@amd.com
+References: <20261113202944.3006069-1-shahyan.soltani@amd.com>
+ <e5e11770-9d68-486c-9c15-31369966a536@amd.com>
+ <2732b8fc-42de-44d4-8131-3d4c8b031362@amd.com>
+Content-Language: en-US
+From: Shahyan Soltani <shahyan.soltani@amd.com>
+In-Reply-To: <2732b8fc-42de-44d4-8131-3d4c8b031362@amd.com>
+X-ClientProxiedBy: YQBP288CA0038.CANP288.PROD.OUTLOOK.COM
+ (2603:10b6:c01:9d::11) To SJ5PPF7B9E98CB6.namprd12.prod.outlook.com
+ (2603:10b6:a0f:fc02::99a)
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PPF7B9E98CB6:EE_|SJ0PR12MB8137:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0276cfae-77ea-4031-16c8-08df44c6d75e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|366016|1800799024|376014|22082099003|18002099003|261009223027099003|8096899003|4143699003|11063799006|56012099006|261028144727099003|261102123227099003|261021123027099003|261022105027099003|261026140227099003|261022075727099003|261026121527099003|261021121427099003|10067099003;
+X-Microsoft-Antispam-Message-Info: nQhrn3eczk++r4Ktja1CG4yxQ9UYUTS3peSwmhE6Ir3q1JJVmS3idP166qyb3jNvjPtVdMLmeHKbXBi9c34IwJT8Frn/h/KLmtrU5N9o+22X/P7qx+HuPB1O5jVzLwvbrkKjOYHsDb8UGP1BWOYSIe5Z7p/qWGbY5750H6q6LqRFjUL76QJ+Afi+acQVwY0rJLvDS/Q6Rli5mH6ddwo83dj+Qo0l8DMzVIgtMBiM/u6lu5jO1PQPckSSAjAYrRyXaPP5IPY6IFh0YByWzRx6E1UaYxK9yArBeEnCswu703SJ9IEucnehenAVSOkmlB7uoXfYqiCWtyCzxU/6q5ZvuHPUbBDIcVdeqDC0+yTYOZfGjrI3k+xvSaGWUe3mt8uTQl+vcvXH4ga6jc32LFg2Tc268G01V8I8FEz4Wpsl6OUM4KCP031WNMJaWKlXrmM5JTDv0G6/L5gKvr9r2TqcwdMcKIBS2YwkJCyJEeAMSnP5vxpE271CrWrSyqWH2fheDcvt1T1SY59MC+DLzMAiVJK8+D8wtpAAfc5Gq4/3RxZ3woXBoKVsxV3tMgOz/U0tX2MMGUyLxnZTRAqI7qmUXkiVgYOKhQaHQ2M8UHJOZ4Y8Af/ROYxjBRMWhX3qUAX4wNiGiuH7O99bVK9oQWaEwUUr3Qk2ER5gk2ETrDFyMzk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ5PPF7B9E98CB6.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(22082099003)(18002099003)(261009223027099003)(8096899003)(4143699003)(11063799006)(56012099006)(261028144727099003)(261102123227099003)(261021123027099003)(261022105027099003)(261026140227099003)(261022075727099003)(261026121527099003)(261021121427099003)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SzBzZndjV3BGcXFyVzdEYmhuaEQrMUUyd2MxSUNhYWVvSUZjdG1CcStyeUhP?=
+ =?utf-8?B?dllYN0JBWWwvWEpzenVHT1pqeFBqeDJrNXZWd0Q2Nzc2QVpsa2lHUXpoRjNT?=
+ =?utf-8?B?YTNITDBDemxZbGZib0hrZVJtdFVBLzJuV0dGSnFzZEE2V01Ya3VsQW8xSG9C?=
+ =?utf-8?B?ZmtQd24zYzBhZHZSMThkSllYaTFRelZSbFZSaTFVZlNQMXlvL3ZOYnNzcTFO?=
+ =?utf-8?B?bmJjbzd3TzlmaXBPWEgwV25XQzRIUnQ1NFluY1B3emFRc1ZWTldBNGkzK3dP?=
+ =?utf-8?B?N0xJWDVLNW1NcGRvVkxUcCtzTkZvUGw5Q2FmcVc5M3hjWVkxVThxTStpc0F3?=
+ =?utf-8?B?b3dzK0VVQ1FTc3hqRnhiL3lpckVzWFlITWYzR3VJN1FVSmdFUURYbU1FTVh1?=
+ =?utf-8?B?NGJrZzZsNGFXVUdiMVlEYTVxaXNFaWhDaUV4UlcrSmFmb0krS0IrYXlSa3Ri?=
+ =?utf-8?B?SXJaQlk0b0FpZkVuYlRDYlVGcGZYdjFjeVB2UkRDVGl1RHNZQkdIRzBjOC80?=
+ =?utf-8?B?SFdya1ZPc0duV1Myc0ZXci9NUUJib2hCQmRnRkMwdTBocm9vdjgwV3RyWWUx?=
+ =?utf-8?B?eEhBQVVoYzZCVk9TZkViTGREcHBUUVg2dHpJQm5wcVgrUUVUTEx2TEhTTVRy?=
+ =?utf-8?B?Uzg4amx5MjBkSlVvbnUvNUdwVWtXcm9vQVQzWHMwMmlvZFA5UFZuOVpYNHVT?=
+ =?utf-8?B?NThEYjBXVHZ2NHM1OGRPWFRmV3ZvcGNqdDMwQWhPVHRsR1UzcHFQV0laNUov?=
+ =?utf-8?B?T3dNQUNRY0NBL3J3SE5RckZkOWRtTEU1MjdWTWs2ZWluL25RNnFZSmM4MDh2?=
+ =?utf-8?B?NjEzcXl1dTkyb0MvYnM0bk9weG5xdlRNNnhmSVh6aVFWSUNSQmc3V2wzRU1N?=
+ =?utf-8?B?d04zQWtIc1ZmZFR1QWhjVlFWYUNMc21wQ3Z2N1hCYTB0WFdVdm9OMnR1dmZF?=
+ =?utf-8?B?b3I3TVRxUWxGVjR5SUpDbEEyeWxETUo4cWFPbWg5ZlFZWUh2bG5zMEJ2VXBm?=
+ =?utf-8?B?WXFJWTVNR1ArWjdBaDBhUnowK1RkRDAxdG5DRkY1d2hwUk5KRWhoQ2xjV2d3?=
+ =?utf-8?B?djhvbkVGcHo4RXRZMlozVVQzTXFSZmdUTS90ZncxeDdpbzhqUmN4U1phZ3Ay?=
+ =?utf-8?B?R050OEtGeTVYRWJKTThCSDAwNG9rRnNZc1h0Y3Z4VVdWZ29EYTJjYkR6UDlI?=
+ =?utf-8?B?Nll5elNTZHZzdmVTc2JtK2tQalQ0MXZtQ0JzL2h6aHF5VzRINHMwRHQxSHdx?=
+ =?utf-8?B?c0dtSUg4K1Z0Tm1JQ2FtUHYxQXBEK0dDQS8rVzlWRlE3dHk1QWlhTjZtamxq?=
+ =?utf-8?B?OWE0RWxLSTg0ckZEcU9MTm9lU29rNHl1eVhLMlM0ZjBiYnJrVC9FaVFoWCt0?=
+ =?utf-8?B?UFI3cUw1WnJHWmh1L1ZiU1EybVVxUmhHeXJxcDJPTUxiaklkY3ZENEZrVnNi?=
+ =?utf-8?B?Sy9RRXgrelJPcm8vMUZuNERmVUZySGF4aTc1VEovSWdUbGNIVDM4ODArNHNy?=
+ =?utf-8?B?OFl1QmVSNjl3N0RzTnZrZWpXeDhTY09lZFFlN3FSdTVQOENtSUtWdzJHNnB2?=
+ =?utf-8?B?VnZIbm5EM3BHVDZkclcvRW9HSmZoaUF5eXFvQ3VoU1A0NlZjS1NJd040dnor?=
+ =?utf-8?B?aWpCcDBGY29YQWI5T2I5bTVrQ3BoWWpXYmt3dlpVTTNSL0Q3aDMyTDlhYjVQ?=
+ =?utf-8?B?d2VNSHF6WmtOaFV1TEEzaHlyWkw0cHowbmFHVVdRbDM0OVE5TklqVnVqU204?=
+ =?utf-8?B?VFI3WG1LYzJ2cVFnbGx4cGpwVy9aZTBrWUgzV1kyeXNCTE1GaGhWQkZSNFJQ?=
+ =?utf-8?B?c0FnemRKR0lhQVBEbnVVK1ExSThJTVlBOEdnc3V4MXpxRTM0QVFyeWhzWlRO?=
+ =?utf-8?B?VC8xVm1SZS91ZlBIUDJ0MmtsZ1FNR0F3dmVXVFgwOE05Si90eUNiUlErVTZO?=
+ =?utf-8?B?ZjhtdzVEajdBUldhVE1GN1JXRjRSUHROMUF0REZUZGREQTJFNy9Qd0VaK0Vy?=
+ =?utf-8?B?bEUrbDVmMTVNdEMybVNMNHRKQUdRb0tPbjFBellFV0tFVWlvTlBkZjRsVjdr?=
+ =?utf-8?B?Zk9DdGZMZXlnSFk4b0xZa2hCSmJ3V0tpY29MYmRjaE1wbW9sbUZGZHBEK1Fa?=
+ =?utf-8?B?R3RrZXpQa2dvM2tDbWpqc3JoTzduUFJPa2s4d2xJWFVVVEY5K3Ixcjh4dzgv?=
+ =?utf-8?B?eFJaK3dyVVhxVm9wdEgxN0tnSU5SMHJqSGtiNEJrTHBTSTAxRno5dmtFR0FE?=
+ =?utf-8?B?V3NndUZyV0dUbWdrOXJncTczVE1hN0lHV3Zodk41N0VZdC8wbzZTQmhyTzBi?=
+ =?utf-8?B?Szc3ZU9RcERpdTFxSnNFZHE3cVZsSmc1bEs2K3dqMjA4Y0tybUpvdz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0276cfae-77ea-4031-16c8-08df44c6d75e
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PPF7B9E98CB6.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 16:21:32.0214 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +hvSLveg/++L/nTujpzkX9kmHJ1sWi9/rz1utB0/fAnA+h8uZjmSWaJCQqEi1/vkLtq5u0cJ3JG1rcKb+wEdtw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB8137
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,455 +130,255 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-14.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	HTML_MESSAGE,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 15 potential
-issues to consider:
-- [High] drm/amdgpu: wrong argument to amdgpu_vm_bo_unmap() in
-  amdgpu_gem_va2_ioctl()
-- [High] drm/amdgpu: syncobj_handles leak in
-  amdgpu_gem_prepare_timeline_nodes()
-- [High] drm/amdgpu: uninitialized fence pointer in
-  amdgpu_gem_va2_ioctl() error path
-- [High] drm/amdgpu: lost bo_va->last_pt_update and TLB fences in
-  amdgpu_gem_va2_ioctl()
-- [High] drm/amdgpu: wrong struct in DRM_IOCTL_AMDGPU_GEM_VA2 macro
-  definition
-- [High] drm/amdgpu: missing runtime PM acquisition in
-  amdgpu_gem_va2_ioctl()
-- [High] drm/amdgpu: unlocked BO update on CLEAR/REPLACE in
-  amdgpu_gem_va2_ioctl()
-- [High] drm/amdgpu: unlocked amdgpu_vm_bo_find() call in
-  amdgpu_gem_va2_ioctl()
-- [High] drm/amdgpu: gobj ref leak on lock contention/error in
-  amdgpu_gem_va2_ioctl()
-- [High] drm/amdgpu: memory leak and list corruption in
-  amdgpu_vm_update_ctx_rollback()
-- [High] drm/amdgpu: fence ref leak when merging fences in
-  amdgpu_gem_va2_ioctl()
-- [Medium] drm/amdgpu: delay never set to true in amdgpu_gem_va2_ioctl()
-- [Medium] drm/amdgpu: wrong pointer in PTR_ERR() in
-  amdgpu_gem_add_input_fence()
-- [Medium] drm/amdgpu: gobj ref leak on drm_exec_lock_obj() contention
-  or error
-- [Medium] drm/amdgpu: in-place VA masking in amdgpu_gem_va2_ioctl()
-  breaks retry
---
+--------------odJoaui050ZbSUNvsMvOjrDw
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-commit dddcd1a96bab3eebca95b4fd6d51bf06141d06e1
-Author: Natalie Vock <nat@pixelcluster.dev>
 
-drm/amdgpu: Add new AMDGPU_GEM_VA2 ioctl
+On 11/16/26 10:24 AM, Christian König wrote:
+> On 11/13/26 21:40, Kuehling, Felix wrote:
+>> On 2026-11-13 15:29, Shahyan Soltani wrote:
+>>> Previously, the root PT was never cleared after setting vm->is_npa =
+>>> true within amdgpu_vm_make_npa(). This resulted in the flag
+>>> adev->gmc.no_retry_flags to never be applied for the NPA VMs.
+>>>
+>>> Call amdgpu_vm_pt_clear() after vm->is_npa = true is set and the bo has
+>>> been pinned/validated. This allows the root PT of the NPA VM to be
+>>> cleared with the correct value.
+>>>
+>>> If the pinning or reservation of the bo failed, the vm->is_npa flag will
+>>> no longer remain as true. This is to avoid conditionals outside of
+>>> amdgpu_vm_make_npa() that depend on the vm->is_npa flag to determine if
+>>> the VM is a correctly initialized NPA VM.
+>>>
+>>> Warn if the VM already has mappings, since clearing the root PT will
+>>> break existing mappings. Do a heavy weight TLB flush after the root PT
+>>> clear to avoid any stale translations being left behind from a previous
+>>> table.
+>>>
+>>> Remove the redundant second setting of vm->is_npa = true.
+>>>
+>>> v2:
+>>> - Add the WARN_ON sanity check regarding an empty VM. (Felix)
+>>> - Change the return handling to only set vm->is_npa = true upon a
+>>>     successful pin (Felix)
+>>> - Add the heavy weight TLB flush after the root PT clear (Philip)
+>>>
+>>> Suggested-by: Christian König<christian.koenig@amd.com>
+>>> Signed-off-by: Shahyan Soltani<shahyan.soltani@amd.com>
+>>> ---
+>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 13 ++++++++++---
+>>>    1 file changed, 10 insertions(+), 3 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>> index 94b1cfe05e3e..c7187e0f99b3 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>> @@ -2820,20 +2820,27 @@ int amdgpu_vm_make_compute(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+>>>     */
+>>>    int amdgpu_vm_make_npa(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+>>>    {
+>>> -    int r = amdgpu_vm_make_compute(adev, vm);
+>>> +    int r;
+>>>    +    r = amdgpu_vm_make_compute(adev, vm);
+>>>        if (r)
+>>>            return r;
+>>> -    vm->is_npa = true;
+>>> +
+>>>        r = amdgpu_bo_reserve(vm->root.bo, false);
+>>>        if (r)
+>>>            return r;
+> You need to reserve fence slots both for pin and clear after locking the root PD.
 
-This commit adds the DRM_IOCTL_AMDGPU_GEM_VA2 ioctl to batch multiple VM
-mapping operations in a single call with multiple input and output binary or
-timeline syncobjs.
+How come we need to reserve a slot for amdgpu_bo_pin()?
 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_gem.c
-> index 7eed5c360be20..6d6a6017d4787 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> @@ -53,10 +53,13 @@ static int
->  amdgpu_gem_add_input_fence(struct drm_file *filp,
->  			   struct amdgpu_vm_update_ctx *update_ctx,
->  			   uint64_t syncobj_handles_array,
-> +			   uint64_t syncobj_points_array,
->  			   uint32_t num_syncobj_handles)
->  {
->  	struct dma_fence *fence;
->  	uint32_t *syncobj_handles;
-> +	uint64_t *syncobj_points;
-> +	uint64_t point;
->  	int ret, i;
-> =20
->  	if (!num_syncobj_handles)
-> @@ -67,6 +70,17 @@ amdgpu_gem_add_input_fence(struct drm_file *filp,
->  	if (IS_ERR(syncobj_handles))
->  		return PTR_ERR(syncobj_handles);
-> =20
-> +	if (syncobj_points_array) {
-> +		syncobj_points =3D memdup_user(u64_to_user_ptr(syncobj_points_array),
-> +					      size_mul(sizeof(uint64_t), num_syncobj_handles));
-> +		if (IS_ERR(syncobj_points)) {
-> +			kfree(syncobj_handles);
-> +			return PTR_ERR(syncobj_handles);
-> +		}
+As far as I can see, amdgpu_vm_pt_clear() needs a fence slot to be reserved because of "r = vm->update_funcs->commit(&params, &vm->last_update);" calling "amdgpu_vm_sdma_commit();".
+That function then needs the fence slot to be reserved as it uses "dma_resv_add_fence()" without reserving said slot for itself.
 
-[Severity: Medium]
-Should this return PTR_ERR(syncobj_points) instead of
-PTR_ERR(syncobj_handles)?  syncobj_handles is a valid kernel heap pointer
-here, so returning PTR_ERR(syncobj_handles) leaks its lower 32 bits as the
-ioctl return value (or returns 0 if 4 GiB-aligned).
+amdgpu_bo_pin() on the other hand seems to already reserve slots for itself anytime it uses a fence ("amdgpu_bo_pin()->ttm_bo_validate()->ttm_bo_alloc_resource()" is a good example).
 
-[ ... ]
+Additionally I couldn't find any instances where a fence slot was reserved before "amdgpu_bo_pin();" was called.
+Unlike amdgpu_vm_pt_clear(), "amdgpu_bo_pin();" is called without reserving a slot.
 
-> +static int amdgpu_gem_prepare_timeline_nodes(
-> +	struct drm_file *filp, uint64_t syncobj_handles_array,
-> +	uint64_t syncobj_points_array, uint32_t num_syncobjs,
-> +	struct amdgpu_gem_timeline_out *out)
-> +{
-> +	uint32_t *syncobj_handles;
-> +	uint32_t i;
-> +	int r;
-> +
-> +	syncobj_handles =3D memdup_user(u64_to_user_ptr(syncobj_handles_array),
-> +				      size_mul(sizeof(uint32_t), num_syncobjs));
-> +	if (IS_ERR(syncobj_handles))
-> +		return PTR_ERR(syncobj_handles);
+>>>        r = amdgpu_bo_pin(vm->root.bo, AMDGPU_GEM_DOMAIN_VRAM);
+>>> +    if (!r) {
+>>> +        /* Check if VM mappings are empty, clearing would break existing mapping */
+>>> +        WARN_ON(!RB_EMPTY_ROOT(&vm->va.rb_root));
+> You should probably move that to the beginning as if (WARN_ON(!RB_EMPTY_ROOT(&vm->va.rb_root))) return -EINVAL;
+>
+>>> +        vm->is_npa = true;
+>>> +        r = amdgpu_vm_pt_clear(adev, vm, to_amdgpu_bo_vm(vm->root.bo), false);
+>>> +        amdgpu_ualink_flush_tlb(adev, TLB_FLUSH_HEAVYWEIGHT);
+>> The TLB flush isn't really needed IMO. We don't expect there to be any previous mappings that would need to be flushed. If there were previous mappings, we're in a broken state anyway, and the WARN_ON would tell you about it.
+> Completely agree. Sashiko-bot also complained that this wouldn't even compile.
+>
+> Regards,
+> Christian.
+>
+>> With the flush_tlb removed, this patch is
+>>
+>> Reviewed-by: Felix Kuehling<felix.kuehling@amd.com>
+>>
+>>
+>>> +    }
+>>>        amdgpu_bo_unreserve(vm->root.bo);
+>>>        if (r)
+>>>            return r;
+>>>    -    vm->is_npa = true;
+>>>        vm->need_tlb_fence = false;
+>>>          return 0;
+--------------odJoaui050ZbSUNvsMvOjrDw
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-[ ... ]
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 11/16/26 10:24 AM, Christian König
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:2732b8fc-42de-44d4-8131-3d4c8b031362@amd.com">
+      <pre wrap="" class="moz-quote-pre">On 11/13/26 21:40, Kuehling, Felix wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">On 2026-11-13 15:29, Shahyan Soltani wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">Previously, the root PT was never cleared after setting vm-&gt;is_npa =
+true within amdgpu_vm_make_npa(). This resulted in the flag
+adev-&gt;gmc.no_retry_flags to never be applied for the NPA VMs.
 
-> +	for (i =3D 0; i < num_syncobjs; i++) {
-> +		out->syncobjs[i] =3D drm_syncobj_find(filp, syncobj_handles[i]);
-> +		if (!out->syncobjs[i]) {
-> +			r =3D -ENOENT;
-> +			goto err_loop_rollback;
-> +		}
-> +
-> +		if (!out->timeline_points[i])
-> +			continue;
-> +
-> +		out->chains[i] =3D dma_fence_chain_alloc();
-> +		if (!out->chains[i]) {
-> +			r =3D -ENOMEM;
-> +			goto err_loop_rollback;
-> +		}
-> +
-> +		continue;
-> +err_loop_rollback:
-> +		for (;;) {
-> +			if (out->syncobjs[i])
-> +				drm_syncobj_put(out->syncobjs[i]);
-> +			if (out->chains[i])
-> +				dma_fence_chain_free(out->chains[i]);
-> +			if (i-- =3D=3D 0)
-> +				goto err_free_sync;
-> +		}
-> +	}
-> +
-> +	return 0;
+Call amdgpu_vm_pt_clear() after vm-&gt;is_npa = true is set and the bo has
+been pinned/validated. This allows the root PT of the NPA VM to be
+cleared with the correct value.
 
-[Severity: High]
-Does the success path here leak syncobj_handles?  kfree(syncobj_handles) is
-only called on the error path at err_free_handles, so every call with
-num_syncobjs > 0 leaks the memdup_user() buffer.
+If the pinning or reservation of the bo failed, the vm-&gt;is_npa flag will
+no longer remain as true. This is to avoid conditionals outside of
+amdgpu_vm_make_npa() that depend on the vm-&gt;is_npa flag to determine if
+the VM is a correctly initialized NPA VM.
 
-[ ... ]
+Warn if the VM already has mappings, since clearing the root PT will
+break existing mappings. Do a heavy weight TLB flush after the root PT
+clear to avoid any stale translations being left behind from a previous
+table.
 
-> @@ -1100,6 +1218,232 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, v=
-oid *data,
->  	return r;
->  }
-> =20
-> +int amdgpu_gem_va2_ioctl(struct drm_device *dev, void *data,
-> +			 struct drm_file *filp)
-> +{
-> +	struct drm_amdgpu_gem_va2 *args =3D data;
-> +	struct amdgpu_device *adev =3D drm_to_adev(dev);
-> +	struct amdgpu_fpriv *fpriv =3D filp->driver_priv;
-> +	struct drm_amdgpu_gem_va_mapping *mappings;
-> +	struct amdgpu_gem_timeline_out tl_out;
-> +	struct amdgpu_vm_update_ctx update_ctx;
-> +	struct drm_gem_object *gobj;
-> +	struct amdgpu_bo_va *bo_va;
-> +	struct drm_exec exec;
-> +	bool delay =3D false;
-> +	u32 i;
-> +	int r;
-> +
-> +	mappings =3D vmemdup_array_user(u64_to_user_ptr(args->mappings),
-> +				      args->num_mappings,
-> +				      sizeof(struct drm_amdgpu_gem_va_mapping));
-> +	if (IS_ERR(mappings))
-> +		return PTR_ERR(mappings);
-> +
-> +	r =3D amdgpu_gem_prepare_timeline_nodes(filp, args->syncobjs_out,
-> +					      args->timeline_points_out,
-> +					      args->num_syncobjs_out, &tl_out);
-> +	if (r)
-> +		goto out_free_mappings;
-> +
-> +	drm_exec_init(&exec,
-> +		      DRM_EXEC_INTERRUPTIBLE_WAIT | DRM_EXEC_IGNORE_DUPLICATES,
-> +		      0);
-> +	amdgpu_vm_update_ctx_init(&update_ctx, adev, &fpriv->vm);
+Remove the redundant second setting of vm-&gt;is_npa = true.
 
-[Severity: High]
-Does amdgpu_gem_va2_ioctl() need to acquire a runtime PM reference via
-PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(), like amdgpu_gem_va_ioctl() doe=
-s?
-Without it, non-delayed VM updates can write to VRAM, flush HDP via MMIO, or
-submit SDMA jobs while the GPU is runtime-suspended.
+v2:
+- Add the WARN_ON sanity check regarding an empty VM. (Felix)
+- Change the return handling to only set vm-&gt;is_npa = true upon a
+&nbsp;&nbsp; successful pin (Felix)
+- Add the heavy weight TLB flush after the root PT clear (Philip)
 
-> +	update_ctx.explicit_sync_unmap =3D true;
-> +
-> +	r =3D amdgpu_gem_add_input_fence(filp, &update_ctx, args->syncobjs_in,
-> +				       args->timeline_points_in,
-> +				       args->num_syncobjs_in);
-> +	if (r)
-> +		goto out;
-> +
-> +	drm_exec_until_all_locked(&exec)
-> +	{
-> +		r =3D amdgpu_vm_lock_pd(&fpriv->vm, &exec, 2);
-> +		drm_exec_retry_on_contention(&exec);
-> +		if (unlikely(r))
-> +			goto out;
-> +
-> +		for (i =3D 0; i < args->num_mappings; ++i) {
-> +			r =3D amdgpu_gem_va_validate_args(adev, mappings[i].va,
-> +							mappings[i].map_size,
-> +							mappings[i].flags);
-> +			if (r)
-> +				goto out;
-> +
-> +			mappings[i].va &=3D AMDGPU_GMC_HOLE_MASK;
+Suggested-by: Christian König <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig@amd.com">&lt;christian.koenig@amd.com&gt;</a>
+Signed-off-by: Shahyan Soltani <a class="moz-txt-link-rfc2396E" href="mailto:shahyan.soltani@amd.com">&lt;shahyan.soltani@amd.com&gt;</a>
+---
+&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 13 ++++++++++---
+&nbsp; 1 file changed, 10 insertions(+), 3 deletions(-)
 
-[Severity: Medium]
-Can masking mappings[i].va in place break retries on lock contention?  For
-an address in the upper canonical range (>=3D AMDGPU_GMC_HOLE_END), masking=
- it
-with AMDGPU_GMC_HOLE_MASK places it inside [AMDGPU_GMC_HOLE_START,
-AMDGPU_GMC_HOLE_END), so if drm_exec_until_all_locked() retries the loop,
-amdgpu_gem_va_validate_args() will reject mappings[i].va with -EINVAL.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 94b1cfe05e3e..c7187e0f99b3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -2820,20 +2820,27 @@ int amdgpu_vm_make_compute(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+&nbsp;&nbsp; */
+&nbsp; int amdgpu_vm_make_npa(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+&nbsp; {
+-&nbsp;&nbsp;&nbsp; int r = amdgpu_vm_make_compute(adev, vm);
++&nbsp;&nbsp;&nbsp; int r;
+&nbsp; +&nbsp;&nbsp;&nbsp; r = amdgpu_vm_make_compute(adev, vm);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;
+-&nbsp;&nbsp;&nbsp; vm-&gt;is_npa = true;
++
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r = amdgpu_bo_reserve(vm-&gt;root.bo, false);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;
+</pre>
+        </blockquote>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+You need to reserve fence slots both for pin and clear after locking the root PD.
+</pre>
+    </blockquote>
+    <pre>How come we need to reserve a slot for amdgpu_bo_pin()? 
 
-> +
-> +			if (mappings[i].flags & AMDGPU_VM_DELAY_UPDATE) {
-> +				/* Can't delay if we're supposed to signal fences */
-> +				if (args->num_syncobjs_out) {
-> +					r =3D -EINVAL;
-> +					goto out;
-> +				}
-> +				/* If one mapping is delayed, all mappings must be delayed */
-> +				if (i && !delay) {
-> +					r =3D -EINVAL;
-> +					goto out;
-> +				}
-> +			} else if (delay) {
-> +				/* If one mapping is not delayed, no mappings may be delayed */
-> +				r =3D -EINVAL;
-> +				goto out;
-> +			}
+As far as I can see, amdgpu_vm_pt_clear() needs a fence slot to be reserved because of &quot;r = vm-&gt;update_funcs-&gt;commit(&amp;params, &amp;vm-&gt;last_update);&quot; calling &quot;amdgpu_vm_sdma_commit();&quot;.
+That function then needs the fence slot to be reserved as it uses &quot;dma_resv_add_fence()&quot; without reserving said slot for itself.
 
-[Severity: Medium]
-Is delay ever set to true when AMDGPU_VM_DELAY_UPDATE is set?  Because delay
-stays false, any batch with two or more delayed mappings fails with -EINVAL
-at if (i && !delay), a batch where only mappings[0] is delayed is not
-rejected, and page table updates are still executed immediately.
+amdgpu_bo_pin() on the other hand seems to already reserve slots for itself anytime it uses a fence (&quot;amdgpu_bo_pin()-&gt;ttm_bo_validate()-&gt;ttm_bo_alloc_resource()&quot; is a good example).
 
-> +
-> +			if ((mappings[i].operation !=3D AMDGPU_VA_OP_CLEAR) &&
-> +			    !(mappings[i].flags & AMDGPU_VM_PAGE_PRT)) {
-> +				gobj =3D drm_gem_object_lookup(
-> +					filp, mappings[i].handle);
-> +				if (gobj =3D=3D NULL) {
-> +					r =3D -ENOENT;
-> +					goto out;
-> +				}
-> +				bo_va =3D amdgpu_vm_bo_find(
-> +					&fpriv->vm, gem_to_amdgpu_bo(gobj));
-> +				if (!bo_va) {
-> +					drm_gem_object_put(gobj);
-> +					r =3D -ENOENT;
-> +					goto out;
-> +				}
+Additionally I couldn't find any instances where a fence slot was reserved before &quot;amdgpu_bo_pin();&quot; was called.
+Unlike amdgpu_vm_pt_clear(), &quot;amdgpu_bo_pin();&quot; is called without reserving a slot.</pre>
+    <blockquote type="cite" cite="mid:2732b8fc-42de-44d4-8131-3d4c8b031362@amd.com">
+      <pre wrap="" class="moz-quote-pre">
+</pre>
+      <blockquote type="cite">
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r = amdgpu_bo_pin(vm-&gt;root.bo, AMDGPU_GEM_DOMAIN_VRAM);
++&nbsp;&nbsp;&nbsp; if (!r) {
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Check if VM mappings are empty, clearing would break existing mapping */
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WARN_ON(!RB_EMPTY_ROOT(&amp;vm-&gt;va.rb_root));
+</pre>
+        </blockquote>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+You should probably move that to the beginning as if (WARN_ON(!RB_EMPTY_ROOT(&amp;vm-&gt;va.rb_root))) return -EINVAL;
 
-[Severity: High]
-Is it safe to call amdgpu_vm_bo_find() before locking gobj with
-drm_exec_lock_obj()?  amdgpu_vm_bo_find() walks bo->vm_bo, which is
-protected by bo->tbo.base.resv; on a shared BO, another DRM file can
-concurrently modify bo->vm_bo and free its amdgpu_bo_va in
-amdgpu_vm_bo_del().
+</pre>
+      <blockquote type="cite">
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vm-&gt;is_npa = true;
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r = amdgpu_vm_pt_clear(adev, vm, to_amdgpu_bo_vm(vm-&gt;root.bo), false);
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ualink_flush_tlb(adev, TLB_FLUSH_HEAVYWEIGHT);
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+The TLB flush isn't really needed IMO. We don't expect there to be any previous mappings that would need to be flushed. If there were previous mappings, we're in a broken state anyway, and the WARN_ON would tell you about it.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Completely agree. Sashiko-bot also complained that this wouldn't even compile.
 
-> +			} else {
-> +				gobj =3D NULL;
-> +				bo_va =3D mappings[i].operation !=3D
-> +							AMDGPU_VA_OP_CLEAR ?
-> +						fpriv->prt_va :
-> +						NULL;
-> +			}
-> +
-> +			if (gobj) {
-> +				r =3D drm_exec_lock_obj(&exec, gobj);
-> +				if (drm_exec_is_contended(&exec))
-> +					amdgpu_vm_update_ctx_rollback(
-> +						&update_ctx);
+Regards,
+Christian.
 
-[Severity: High]
-When amdgpu_vm_update_ctx_rollback() runs here on lock contention (or via
-amdgpu_vm_update_ctx_fini() on error), does it leak ctx->new mappings and
-corrupt ctx->cleared?
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">
+With the flush_tlb removed, this patch is
 
-drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c:amdgpu_vm_update_ctx_rollback() {
-    ...
-	list_for_each_entry_safe(mapping, next, &ctx->new, pending_list)
-		list_del_init(&mapping->pending_list);
-	list_for_each_entry_safe(mapping, next, &ctx->deleted, pending_list)
-		list_del_init(&mapping->pending_list);
-    ...
-}
+Reviewed-by: Felix Kuehling <a class="moz-txt-link-rfc2396E" href="mailto:felix.kuehling@amd.com">&lt;felix.kuehling@amd.com&gt;</a>
 
-Entries on ctx->new were allocated by amdgpu_vm_bo_map() or
-amdgpu_vm_bo_replace_map() and are unlinked without kfree(mapping).
-In addition, ctx->cleared is never unlinked at all, leaving live mappings in
-fpriv->vm.va with mapping->pending_list pointing into update_ctx.cleared on
-the stack.
 
-> +				drm_exec_retry_on_contention(&exec);
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">+&nbsp;&nbsp;&nbsp; }
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_unreserve(vm-&gt;root.bo);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;
+&nbsp; -&nbsp;&nbsp;&nbsp; vm-&gt;is_npa = true;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vm-&gt;need_tlb_fence = false;
+&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;
+</pre>
+        </blockquote>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+</pre>
+    </blockquote>
+  </body>
+</html>
 
-[Severity: Medium]
-Does drm_exec_retry_on_contention(&exec) leak the gobj reference from
-drm_gem_object_lookup()?  drm_exec_lock_obj() takes its own reference for
-exec->contended on -EDEADLK, and jumping back to the start of the loop
-skips drm_gem_object_put(gobj) below.
-
-> +				if (unlikely(r))
-> +					goto out;
-> +			}
-
-[Severity: High]
-Does jumping to out when drm_exec_lock_obj() returns a non-contention error
-(such as -EINTR or -ENOMEM) also leak the gobj lookup reference?
-drm_exec_lock_obj() does not record gobj in exec->objects on failure, and
-goto out bypasses drm_gem_object_put(gobj).
-
-> +
-> +			switch (mappings[i].operation) {
-> +			case AMDGPU_VA_OP_MAP:
-> +				r =3D amdgpu_vm_bo_map(&update_ctx, bo_va,
-> +						     mappings[i].va,
-> +						     mappings[i].offset_in_bo,
-> +						     mappings[i].map_size,
-> +						     mappings[i].flags);
-> +				break;
-> +			case AMDGPU_VA_OP_UNMAP:
-> +				r =3D amdgpu_vm_bo_unmap(&update_ctx, bo_va,
-> +						       mappings[i].flags);
-> +				break;
-
-[Severity: High]
-Should amdgpu_vm_bo_unmap() be passed mappings[i].va instead of
-mappings[i].flags?  Passing flags as the virtual address makes
-AMDGPU_VA_OP_UNMAP look up page 0 and fail with -ENOENT.
-
-[ ... ]
-
-> +	if (!delay && (!adev->debug_vm || args->num_syncobjs_out)) {
-> +		struct dma_fence *fence, *merged;
-> +
-> +		if (!amdgpu_vm_ready(&fpriv->vm)) {
-> +			fence =3D dma_fence_get_stub();
-> +			goto insert_fence;
-> +		}
-> +
-> +		r =3D amdgpu_vm_clear_freed(&update_ctx, &fpriv->vm.last_update);
-> +		if (r) {
-> +			drm_err(adev_to_drm(adev),
-> +				"Could not clear freed PT entries: %d\n", r);
-> +			goto insert_fence;
-> +		}
-
-[Severity: High]
-If amdgpu_vm_clear_freed() fails, does goto insert_fence use an
-uninitialized fence pointer?  fence is only initialized afterwards, so
-insert_fence will pass stack garbage to drm_syncobj_replace_fence(),
-drm_syncobj_add_point(), and dma_fence_put().
-
-> +
-> +		fence =3D dma_fence_get(fpriv->vm.last_update);
-> +
-> +		list_for_each_entry(bo_va, &update_ctx.dirty_bo_vas,
-> +				    update_link) {
-> +			r =3D amdgpu_vm_bo_update(&update_ctx, bo_va, false);
-> +			if (r) {
-> +				drm_err(adev_to_drm(adev),
-> +					"Could not update BO PT entries: %d\n", r);
-> +				goto insert_fence;
-> +			}
-> +		}
-
-[Severity: High]
-Can this loop call amdgpu_vm_bo_update() on BOs whose dma_resv is not
-locked?
-
-AMDGPU_VA_OP_CLEAR locks no BO, and AMDGPU_VA_OP_REPLACE only locks the new
-BO from mappings[i].handle.  However, amdgpu_vm_update_ctx_execute_replace()
-adds the bo_va of every existing mapping that was cleared or split to
-update_ctx.dirty_bo_vas, so amdgpu_vm_bo_update() then accesses
-bo->tbo.resource and calls amdgpu_sync_resv() on those affected BOs without
-holding their reservation locks.
-
-> +
-> +		list_for_each_entry(bo_va, &update_ctx.dirty_bo_vas,
-> +				    update_link) {
-> +			if (!amdgpu_vm_is_bo_always_valid(&fpriv->vm,
-> +							  bo_va->base.bo)) {
-> +				dma_fence_put(bo_va->last_pt_update);
-> +				bo_va->last_pt_update =3D dma_fence_get(fence);
-> +			}
-> +		}
-
-[Severity: High]
-Does this discard the page table update fences just generated by
-amdgpu_vm_bo_update()?
-
-For non-always-valid BOs (and PRT mappings where bo is NULL),
-amdgpu_vm_bo_update() stores the new PT update fence in
-bo_va->last_pt_update rather than fpriv->vm.last_update.  Overwriting
-bo_va->last_pt_update with the pre-update fence without merging
-bo_va->last_pt_update (or fpriv->vm.last_tlb_inv) into fence drops those PT
-update and TLB invalidation fences from both bo_va->last_pt_update and the
-signaled output syncobjs.
-
-> +
-> +		/* Always update PDEs after we touched the mappings. */
-> +		r =3D amdgpu_vm_update_pdes(adev, &fpriv->vm, false);
-> +		if (r)
-> +			goto insert_fence;
-> +
-> +		merged =3D dma_fence_unwrap_merge(fence, fpriv->vm.last_update);
-> +		if (!merged) {
-> +			/* As fallback in OOM situations */
-> +			dma_fence_wait(fpriv->vm.last_update, false);
-> +			dma_fence_wait(fence, false);
-> +			merged =3D dma_fence_get_stub();
-> +		}
-> +		fence =3D merged;
-
-[Severity: High]
-Does assigning fence =3D merged without calling dma_fence_put(fence) leak t=
-he
-fence reference acquired before the amdgpu_vm_bo_update() loop?
-
-> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-> index 29009f6aabde9..c9e52bfa7d028 100644
-> --- a/include/uapi/drm/amdgpu_drm.h
-> +++ b/include/uapi/drm/amdgpu_drm.h
-> @@ -83,6 +84,7 @@ extern "C" {
->  #define DRM_IOCTL_AMDGPU_GEM_LIST_HANDLES DRM_IOWR(DRM_COMMAND_BASE + DR=
-M_AMDGPU_GEM_LIST_HANDLES, struct drm_amdgpu_gem_list_handles)
->  #define DRM_IOCTL_AMDGPU_PROC_OPTIONS	DRM_IOWR(DRM_COMMAND_BASE + DRM_AM=
-DGPU_PROC_OPTIONS, struct drm_amdgpu_proc_options)
->  #define DRM_IOCTL_AMDGPU_UALINK_HANDLE DRM_IOWR(DRM_COMMAND_BASE + DRM_A=
-MDGPU_UALINK_HANDLE, union drm_amdgpu_ualink_handle)
-> +#define DRM_IOCTL_AMDGPU_GEM_VA2	DRM_IOW(DRM_COMMAND_BASE + DRM_AMDGPU_G=
-EM_VA2, struct drm_amdgpu_gem_va)
-
-[Severity: High]
-Should DRM_IOCTL_AMDGPU_GEM_VA2 use struct drm_amdgpu_gem_va2 instead of
-struct drm_amdgpu_gem_va?  struct drm_amdgpu_gem_va is 64 bytes whereas
-struct drm_amdgpu_gem_va2 is 56 bytes, so drm_ioctl() will copy 8 bytes past
-the end of the user struct.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117-prt-explic=
-it-sync-v2-0-bb3851cb6a0c@pixelcluster.dev?part=3D9
+--------------odJoaui050ZbSUNvsMvOjrDw--
