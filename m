@@ -2,99 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABF5C606A31C
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Nov 2026 19:25:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A56F2606A32A
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Nov 2026 19:35:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=wkDAN4cE
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YnaZz9k1
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2756310F8B8;
-	Tue, 17 Nov 2026 19:25:35 +0000 (UTC)
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011035.outbound.protection.outlook.com [52.101.62.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6026210F8B8
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Nov 2026 19:25:29 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HoCuZzo/F71HxxWFcY7E2ykCAEPuyqhLheiVRlxvE+ymMGfoKbYdzKdHUFRwOE0HtFlQROeBXMaylshEQ2SBLledaavi433w6iEhRgrQDWhmCOXa9r+KpYumgKFGBk8AKzFo03OSIQz+KXG6zuDaWRwb4THqZOEcEbFYaFSvucBOPjZv9KblBBULEr6pbc4DXowxH+DgtMgTEDjVQMfI/GrCqPLRtMC0WdxPAAF5FesA8+fbRhgXylIEswcerdfwe21twiNHGPY4pvD1yRToWr58U7CWaQhl38Z6k0QxxAAEFGNRZqNSrFG3notQgJAYjiislSWYY0yoJUx9deA8Qg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=o6YcI/viNsS0KO3/1xfzySnnlo94bwE6fkTt9wCCOBY=;
- b=eRXNnYu9oFa3AE2zkDaGO098JMgcMeN0GGmL/oKqILvMKtqyfDZtt13g+Bp5juwGub+E2OqmQn7QW9xBRS+O52rL40lvndLXy+G/0xoB7n+bz4Yxe1gas3CG56O+V+kwJGSuP2YBtIyhpr1HfUN2cmnEHM3NpzN7w1glFHhJRJ7iHbq6WuW/WsICmd6ZhawT/n6cuNJnepSh0oUSz4QUEJRHPspjw+hY1k3iFdQU2RYuyht99GDItltHWARo9pn5ebP/hMBOWH4RnQ7QGstERf1Ika4UDCu6Q5SFGeT3yoTIZ2rC5fd3+IL8G2Gq7SlwotfpcZl4Wm5de4OwiJNx7Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=o6YcI/viNsS0KO3/1xfzySnnlo94bwE6fkTt9wCCOBY=;
- b=wkDAN4cEGgzThj44V3UTAGs4reCgUygs0I9HO1cuP9mBuNclKWomEyGux8jMjtyXSHD3CMmYx5tJyjeralw029hMbYdqru/IQbYcyGArjyuLryALXEt6g0q/QY0RnI5LNL5UGbAq/QJY35PhMNNHpqchO1h2bZ9UugILZ6c8w2o=
-Received: from MN0P220CA0016.NAMP220.PROD.OUTLOOK.COM (2603:10b6:208:52e::26)
- by DM4PR12MB8560.namprd12.prod.outlook.com (2603:10b6:8:189::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.13; Tue, 17 Nov
- 2026 19:24:31 +0000
-Received: from BN7PEPF00000094.namprd03.prod.outlook.com
- (2603:10b6:208:52e:cafe::6) by MN0P220CA0016.outlook.office365.com
- (2603:10b6:208:52e::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Tue,
- 17 Nov 2026 19:24:31 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN7PEPF00000094.mail.protection.outlook.com (10.167.245.72) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Tue, 17 Nov 2026 19:24:31 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Tue, 17 Nov
- 2026 13:24:28 -0600
-Received: from p8.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.57 via Frontend
- Transport; Tue, 17 Nov 2026 13:24:28 -0600
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Alex Deucher <alexander.deucher@amd.com>, Yogesh Mohan Marimuthu
- <yogesh.mohanmarimuthu@amd.com>
-Subject: [PATCH 5/9] drm/amdgpu/userq: add callback for gang setup
-Date: Tue, 17 Nov 2026 14:24:11 -0500
-Message-ID: <20261117192415.810117-5-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261117192415.810117-1-alexander.deucher@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1485310F8F9;
+	Tue, 17 Nov 2026 19:35:31 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E6FB10F8F1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Nov 2026 19:35:24 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 782B1612D6;
+ Tue, 17 Nov 2026 19:35:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06E901F000C4;
+ Tue, 17 Nov 2026 19:35:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794944123;
+ bh=VRDUbo/t4sgrQgPBjbEAtyrCLwKzqEoiG/BsieLwHYU=;
+ h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
+ b=YnaZz9k1s7jcPZTGZ91D5lNoUgHqk7QB41qYgY1G198PF8Vlkrq8+uAugz0t4olUf
+ JIHVPORVAnWolH5mKCcIiSGy90a41t3/O2SKrfAkbCpoBmybV9XE0W9+Lqw5vU/65s
+ hbia1w11os+5dTRIuygpOLLbESHuwTQWgCJfAJbXkHyWqHdoOlYR2j/h4v8szFS+5R
+ ZbE9D1b+IITokuZrcerqcMe9b1olX0VQpuzKnutWUJveR3zxjwDUnOJgc/CFpAZI3L
+ BeqsdbCJSKckpK4vcm3v366g96aD8byV1cA5hEhoSxeqSyRbg2zvgskk7+qg9KD2Z6
+ 4gUpJb7PN1u6Q==
+Message-ID: <sashiko-outbox-219493@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 6/9] drm/amdgpu/userq/mes: implement set gang submit
+To: "Alex Deucher" <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+In-Reply-To: <20261117192415.810117-6-alexander.deucher@amd.com>
 References: <20261117192415.810117-1-alexander.deucher@amd.com>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PEPF00000094:EE_|DM4PR12MB8560:EE_
-X-MS-Office365-Filtering-Correlation-Id: 68cf9779-f70b-4077-ab00-08df44e0678e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|82310400026|1800799024|376014|23010399003|22082099003|18002099003|261009223027099003|261022075727099003|261021121427099003|56012099006|11063799006|10067099003|261102123227099003;
-X-Microsoft-Antispam-Message-Info: tylMDmzP9DmIyrISdbBibYaxBKg7EoAmx0syZTPCov5luTlx6vWBv8DJf1TI035li5R1AFvljNZvKhsM7yOhfFI3fePLAc6W5eIE8hY++Qc8fcnM80z0HO6sVKJqt4jFRZgfXTjea0GRpdt/RO6DadseDvFGEv3ADydagyeljN/mHpej77m+GHwl8QD7C1r2PWrqcYiFVaUhTC9L+P7dMiBmj/Vp75QnyzPWqWu0+5RpDVa1R4qtrSnKFOSHrloRk3XuU4MbQ1hPGRAliDj8IPY4hNFVHJ3oqH1YEyDvSZVYxv5FBKElBVgaWrWREooMJ12tqLl/+F6au0J+psOtc70ninDdG7o1xS1X1ND6S36iHjQnyNjBcm0aHp8eIi5HULYAlP1BhJneF4EYftpavJX3z5TB1kcLeOl3Gnc2NtlE4Li3AU1N1TyQK5U7U7XCnz3h/mdF9gdm56jxVJNpEaeAhfIfdIUyhIaoxtm2+oQVVRSP9b0QcQwhgFQW8pfltv48YZx1DwQz2EsCrtdtwB7IqpNf7nUM72nNDQzkk4fkD9zXADkEVbIoq3+tileNilGymG7KvQhvBr8tHiONNUal1Jc2f8NNOxh/rCKdV8iWKZQkOCOFQERH46+qR3pKjaPkhAB3z57T6vJ1k7rD5a9ecM+XMyxMmKLTeF1CcNgXGL3fFBgp89++XS0O1khmSwgdEUYoZni+XNK3SjqOtw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(82310400026)(1800799024)(376014)(23010399003)(22082099003)(18002099003)(261009223027099003)(261022075727099003)(261021121427099003)(56012099006)(11063799006)(10067099003)(261102123227099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: e8Zka36UBT6ip/BGGn8CUQBmg4w4qwYfy/gSE4SGdDB7nYRh5Ff+0KzD32FOXEO0qAzwQeEePVS5SmbUsZLWpMyAzcLV6kjl46pDgtoasBp0oWff5RUIX36q9qY/jL/eZn7WaqhQ4M/AnPue6p8hBTlDA/I2ZdW9fwGnFYxgHFLUuu8u/n37+FhiKVJ2ptJZqBAeMz4jx2t9jyjeBT+MKgrZklx9/n99YHhdHXAOo+o/uHjkghzRgVTvnBI5d3edtm/NSsEYgI8HyFUOO3B27KsjolBSfv+0Gzf+2vckYB8DOuBSCOz4xTNFGkDpV74V6sHdXJkTzi9kH6ut5ZLzsMmahafZ+jDhNNOxdnRMrKPFiEdUgu2Y6KR4PwkiDNAtWeRb4NJ220LIaY2OPh0fXrjb7JHlDDs1xbgfQLcss3eaul0VKKz/wIw4O22JQG2J
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 19:24:31.0241 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 68cf9779-f70b-4077-ab00-08df44e0678e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN7PEPF00000094.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8560
+ <20261117192415.810117-6-alexander.deucher@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 17 Nov 2026 19:35:22 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,35 +46,83 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-Two queues can be ganged and will schedule together.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] drm/amdgpu: out-of-bounds gang context address in
+  mes_set_gang()
+--
 
-Cc: Yogesh Mohan Marimuthu <yogesh.mohanmarimuthu@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h | 2 ++
- 1 file changed, 2 insertions(+)
+commit faefcb7998343e4f4e1ec3ab6ccf3f3feccc05e7
+Author: Alex Deucher <alexander.deucher@amd.com>
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-index 488dc21d7c81b..efaa658a26a9a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-@@ -115,6 +115,8 @@ struct amdgpu_userq_funcs {
- 	int (*preempt)(struct amdgpu_usermode_queue *queue);
- 	int (*restore)(struct amdgpu_usermode_queue *queue);
- 	int (*reset)(struct amdgpu_usermode_queue *queue);
-+	int (*set_gang)(struct amdgpu_usermode_queue *primary_queue,
-+			struct amdgpu_usermode_queue *secondary_queue);
- };
- 
- /* Usermode queues for gfx */
--- 
-2.56.1
+drm/amdgpu/userq/mes: implement set gang submit
 
+This commit adds the mes_set_gang() callback to userq_mes_funcs to
+configure MES gang submission between a primary and secondary usermode
+queue.
+
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm=
+/amd/amdgpu/mes_userqueue.c
+> index 7abb9d95ef59a..e186ebd08b8d2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+> @@ -649,6 +649,31 @@ static int mes_userq_restore(struct amdgpu_usermode_=
+queue *queue)
+>  	return r;
+>  }
+> =20
+> +static int mes_set_gang(struct amdgpu_usermode_queue *primary_queue,
+> +			struct amdgpu_usermode_queue *secondary_queue)
+> +{
+> +	struct amdgpu_userq_obj *primary_ctx =3D &primary_queue->fw_obj;
+> +	struct amdgpu_userq_obj *secondary_ctx =3D &secondary_queue->fw_obj;
+> +	struct amdgpu_userq_mgr *uq_mgr =3D primary_queue->userq_mgr;
+> +	struct amdgpu_device *adev =3D uq_mgr->adev;
+> +	struct mes_set_gang_submit_input input;
+> +	int r;
+> +
+> +	memset(&input, 0x0, sizeof(struct mes_set_gang_submit_input));
+> +
+> +	input.primary_gang_context_addr =3D
+> +		primary_ctx->gpu_addr + AMDGPU_USERQ_PROC_CTX_SZ;
+> +	input.secondary_gang_context_addr =3D
+> +		secondary_ctx->gpu_addr + AMDGPU_USERQ_PROC_CTX_SZ;
+
+[Severity: High]
+Should primary_gang_context_addr and secondary_gang_context_addr be set
+to primary_ctx->gpu_addr and secondary_ctx->gpu_addr without adding
+AMDGPU_USERQ_PROC_CTX_SZ?
+
+Since 97bcaf15ad25 ("drm/amdgpu: implement per-process MES context"),
+the process context is allocated separately in uq_mgr->proc_ctx_obj, and
+mes_userq_create_ctx_space() allocates queue->fw_obj with size
+AMDGPU_USERQ_GANG_CTX_SZ (one page) for the gang context alone:
+
+drivers/gpu/drm/amd/amdgpu/mes_userqueue.c:mes_userq_create_ctx_space() {
+	...
+	/* The FW expects at least one page space allocated for gang ctx. */
+	size =3D AMDGPU_USERQ_GANG_CTX_SZ;
+	r =3D amdgpu_bo_create_kernel(uq_mgr->adev, size, 0,
+				    AMDGPU_GEM_DOMAIN_GTT,
+				    &ctx->obj, &ctx->gpu_addr,
+				    &ctx->cpu_ptr);
+	...
+}
+
+Adding AMDGPU_USERQ_PROC_CTX_SZ points one page past the end of each
+queue's fw_obj BO and does not match the gang_context_addr (ctx->gpu_addr)
+passed to MES in mes_userq_map().
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117192415.8101=
+17-1-alexander.deucher@amd.com?part=3D6
