@@ -2,92 +2,90 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C08A606A31C
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Nov 2026 15:12:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74AB2606A31C
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Nov 2026 15:13:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oZeVZpTC
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QZ/A312V
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F62310E20F;
-	Tue, 17 Nov 2026 15:12:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1649110E4E1;
+	Tue, 17 Nov 2026 15:13:16 +0000 (UTC)
 Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com
  [209.85.167.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72DF810E20F
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Nov 2026 15:12:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 715C610E4E1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Nov 2026 15:13:09 +0000 (UTC)
 Received: by mail-oi1-f173.google.com with SMTP id
- 5614622812f47-4b2b01478d0so195231b6e.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Nov 2026 07:12:33 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794928352; cv=none;
+ 5614622812f47-57368c586baso138149b6e.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Nov 2026 07:13:09 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794928388; cv=none;
  d=google.com; s=arc-20260327;
- b=fSITypyAFuzXjofzsRHUrD7WDQJUym8Pk+vkuoKfAHH/h3er8krC1XMbdaMQtnk4i9
- 9ph/vvLRgXiCPysfxK6CLXBCTt2MhwTuOoLvagY73TxmlHZUIF151dF73M+ZBFEJG4Hr
- QGxI0QbiiCAmGyv7TANGFeE+TLfriBGPKSRcExfqJMEO++/YwuV/9Mbb8qfbhQKKWnho
- Ls9dqUMX14CiH3Bro7fxrJy6WOTTB7SRR+tUHtZoe8VwbiDq77MVsZPDBlmti4ClWQnc
- JUuRplR/lF+R+J7X0lPJkXrd5qHdLFmBwISL1yqDsQizi1b+7NRBNeNsFwsKV4KiL7JV
- icHQ==
+ b=ilsKrgHjcAx3C0lVGLw3KjilIgyUUE084CZDlr64XGhKFzvb7XqgBvK6uCCU5ezQXH
+ l+TK5OxHZsENu0n3YY5QHuPdZ2fLBeLiNY/BWHnPBae9bJOP4yfISOdlr5ihg/ldQGlo
+ 61fQBzGotb0WuE2EtEnrW+tgpMyKtdI4o6E6aEGA7nhOMtjmsHIceqXx1djktOqSwzdG
+ xylAs2n9HJW8+bypIs+XPWZqHIwWtkmlnJ9MDQ9q7kBBvoeSW51RZZXF6y3RXOe7/WGd
+ +RawGxVkR/NG0JoCGQzXNYPX98+0101RH56Qa3j2NI5yAAGeKxzrAW7hIs3JVZVLCmM/
+ Hpxg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=XxBKEH1MerCjoO9n5/a74in7TfYlSslctzFoDpb89ZI=;
- fh=ZxvrC6rNjWHvCh5o5yNM8zSSCYAFdK0GMEIYqGOthl0=;
- b=ZAiKdYxzo59UhTM12gIVuQIkUvliBShTS0f5A+aI75C4wGFKxPWVMFCVx2+j+PRE3y
- zD34TT9TpAEp/PX5hg/dejhundcVV7c80pl12CJeduMvdBKc9JYWxEGbbOoPU54FLPP5
- 08b15GLDiaTkOF4Lbe1uidRGhVST3ig0ZfWQFHOC2gOhu3tXIW5FVoMmTJTcGOSfYd7s
- Xbvqd9L2zPZz3nkgJtNXQa1AXPsKrnYA50JOcIRJw9KrVRHTm9/3cc90lFyB8sh54uJQ
- H3de6lvion4DqCEIeBE5o0d2fq1RePO59a/cNT8S5WHc15dIxzvewNX7XG7T5rRrbcUh
- BdoA==; darn=lists.freedesktop.org
+ bh=q0PVsk6AUbG8bUE6tQYJT8WrfoP9fKUG7xY6EvtD2pc=;
+ fh=IY98SR0cNO93Tj0qH750yd04bAXFkNbDKtBTzSqo1Bw=;
+ b=R6FocLSZ6IDkOI9KCUCN0LjbApLpk78Q4sn7x7iOgKNnjRI0r6g1ycgkgX77JK68jL
+ ynVLyl7z38SBmJ1O/TaeeErTJZouSIuGESnzEb6SLmKAzx7YW5DHFaLQOszuD8PUgFvd
+ Sge9Layi8Sl+2JuuzjjijxqJFrbpkkY9gstTxwpTSm8IH/hJK+ZZ2ojEXeSfqwDxwHQ7
+ g38k41qmubTb8+UH4JLLh4nVxN8FAuGjUlwMx2PHdb+LNaDgZeNhTkz4nVbr+H2LdSL8
+ uqHrSJH9V7GTs+Gylqa5GtTBYSfXYL3QBLpJhyKk6bdJ6ZB7VOBT8DDEeQpKcZbZbApe
+ HH4w==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794928352; x=1795533152; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1794928388; x=1795533188; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=XxBKEH1MerCjoO9n5/a74in7TfYlSslctzFoDpb89ZI=;
- b=oZeVZpTC5gn98CCLprzC5yhTa+D1knldqgAQeaLU6jXjTi56x8fpNYlRH6jaHX1Fsr
- YMa+C9alLXb0jY5NMIGrRC8W6HKPLA8e1KgW/YM6TGeyiCpu7XSoAv+TMIEnKfVOF470
- 1P6QLlvhCZK3McW1kf8Cpu/zeOBwPlQ4S2HasljcEjNDuqgBCszm/OGo4b8wQt0fOF5R
- /LusQOrhqC5s2Ws4/0KzlsjIbaSG5pLcwljNKoceseA7Xb3XCKigkZZLaveP4P/4cThs
- ADLAyIqaUtm67mZr9U787L9qrTQmVFflEHy9rUHKxTUpoilkbftKbQmKQyyq8MEVkYmV
- VZHQ==
+ bh=q0PVsk6AUbG8bUE6tQYJT8WrfoP9fKUG7xY6EvtD2pc=;
+ b=QZ/A312V0WxKNCvlb+DNsC5g6Yr4gNaCmmyECuaoujWI3P+bpECftBzREZX52Nn4ao
+ kvyLlT6fSKAxAvqexHdAkmQMsyz4JKuqO/u7JG5/dqUrJyUMY5FTgyl7Gxu0dYNrFxju
+ BwMW9K2ERgjCZhn/9wVfZ8p1qoWg7YScTZ/TCF1jGP2v0vhG2bw1bXZTP3yul6XO/dhz
+ IuEO3T1bNcCAZC8Yjt0R/GguqGRF4AKOckikdGjjazHPLwZAwlLJH5AhQGmrdgE/wI/P
+ tBGTc9sElIZB1e8lImpA+ZBui9I/YEjxVBQcGaFt7lPTf3z9yyOIeZMk8P652W8LCCtE
+ aDZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794928352; x=1795533152;
+ d=1e100.net; s=20260707; t=1794928388; x=1795533188;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=XxBKEH1MerCjoO9n5/a74in7TfYlSslctzFoDpb89ZI=;
- b=237/aIgrKM/Eau/oJ9ZUQE4EuuXXM90PuMJSj7TjDqlE2sZyiiGCO7mjcahICK+d2S
- rpGeVQ+/T58VsbVlBip/0CEmmKfCfnYws9Pmvns9ya/b2xNBJ1yBDxRY2wcEehlyuO0u
- 0P2XJ9KUxNRpniGmpg/X1IcIq3j89mm5bSfzzWY3GcuAADm2tlg/TDBfcOTEGXpxsLrz
- H80zB+/p5ziVSHqqnqeZPRz7A8fyMwt5HeREPSFET04SBdCZITAQbY2/sLENIeb9m1cX
- eiGqxFepNnYUzRnJtZ3Qxbf+zDA7lTFpB6NE8C79+SWQYj9ZySVcXDoK2Z+ilUqeqn84
- TXtg==
-X-Gm-Message-State: APuU4Z9TlHfkeZTiaEYQeLfHjXobXIwSrRArGqDPUdxS5Ne+gMtIck+T
- yKN/xSUl/vGJ59PlNa4blUNruVgWWTEHZO/S/1qAykd9crb4f+Nwh3mL9cxvMwIoyNQytTkRG3i
- qMUzal+BgrjVnhTbFGYcF3GpnubPH6e6e0731
-X-Gm-Gg: AYBFou0GSBRBf9LUNi7PwqID0zu3v/lYvg/X5NUCgMIFxPDOWG+DCv+nwV4L1Ta01rf
- Zsb8SlYPSiFAJN6pYJShNUp+RBGUaoYxnbqYgRZUTsFriAfTGnSp6DiFTH1ISrwhPZXctkv3Ofb
- sNmqqfpyYPEIDSLi9XTEYOBdoCvjwdz4BM3fsyKtkC7cWrTb1zkLdm+H3d/yUZBnA4GD9nMYBpY
- OxYxYtRZj1E8h3wTIbew8bWeyDe/AtOpIpWcYt3KOSbKvrvOkSFnTHMXhUfmaHVLA+YdlMr52VC
- gu7fM69I2uoquJXL1ssxDRM9Mo51gSNph6EOmu6I0GDulHQtZ4HwwMkUYQm4HmuBemml7qMM5Ek
- X+x1d//DduhUTtNn/pqbz5vKzvk/qSZybiUxuEZubFqGZ12UgKBM4Dlh5GfkpRXNwvNcGogTnjD
- 2A91xC6pKWeixRrCTQAJeaWzRFAM4Aln78DKoILhu9Xp9Dz4gaMYsCHgpSYtA=
-X-Received: by 2002:a05:6808:118a:b0:567:de70:d493 with SMTP id
- 5614622812f47-56e66989723mr17904468b6e.5.1794928352530; Tue, 17 Nov 2026
- 07:12:32 -0800 (PST)
+ bh=q0PVsk6AUbG8bUE6tQYJT8WrfoP9fKUG7xY6EvtD2pc=;
+ b=N+hHO6FIu6wY7/gjpenbBXHUkFpRjyBT+vaN/A0BUloD5BleZKp3ckzNurApjK3F1Z
+ h8mU0bzzYmsVOWMPTMzvPCHt+fn760gMyompTM4qi2HFpAsgO38ACB0WCulnKmJfj/dp
+ /wKP5N19eCjA0tI1Hv7lvEczs6m1JVZhYnEpZ73Fg81QWm29wQg4zzvc5ckhvh0sSINi
+ VYZM8spMRSc+bD60lMPK5WB22KgKI0Nl+UdN9InX1/jokk6SPY8KQeO385C5AiuHlmE3
+ 577IsGFPbc2jAErHQVHqO0bVusKzS2im+B7v3wLtO6uBa4zEQcbmTWe7nYtgBoZB7OrN
+ ahQg==
+X-Gm-Message-State: APuU4Z+CFJvASEClXHj2aEzCQy6JpampDfirGINAACllesnpVChuFdV1
+ YOAj3SV5lgzjImVXLr1X+TlY1ymSy/0jFKKdjFII5PwuI5FeH2doz2UmPjiFZgYu0ZSeiov8YDe
+ kPfmn2n5WgaScfMUYx4wfH5NrU9Px9yQ=
+X-Gm-Gg: AYBFou2OcPr+Ef6WWm5O4r20roKGUPJkoOcGFCAirOANubpT4iz0hFCiCF8vVf1rGhk
+ 7OKg0BZ7+cknGK9LyfpXGnT767y6x5Eqb7pnG7+VZjUaa31MNaMDXzN0VAmXa6KDzQtu7F1yCD0
+ huxq1ymfYEoZuoB5WwfoXMKFYg6/uFF5OMIgcc3Lg3lx83EaA8JFy/wGONcWjqqXCGMK0xZXz43
+ x5yuCCDVFVqxpRYZhu4YuJIT7wlc21cMVG+EnG8FhKhlreRNOML8iS9SwyTL1GNAiUg53S49ATU
+ 1PEABoOYOEwBO5K985OndMmF9Va3K0gpb3QKRo7bNyxdLHEItu2bsTKOQwGIETQLlpbkmlsaYbc
+ KOb8MX3UWzJk1b7ykAbO+Sl20h6AhA2668afmGLJxsu2yOomNbKPz4aR5x7ywW7PRMOwh63sEQV
+ 7xAvupRjgBpnTEYotK0W0ALgJZJG1mJOjLJHBVUx9+8zb6ju56R2nk79HxG+o=
+X-Received: by 2002:a05:6808:1927:b0:549:e9e3:9460 with SMTP id
+ 5614622812f47-56e5cff3837mr21218379b6e.0.1794928388526; Tue, 17 Nov 2026
+ 07:13:08 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261105000525.3850296-1-alexander.deucher@amd.com>
- <20261105000525.3850296-2-alexander.deucher@amd.com>
-In-Reply-To: <20261105000525.3850296-2-alexander.deucher@amd.com>
+References: <20261106224350.3568574-1-alexander.deucher@amd.com>
+In-Reply-To: <20261106224350.3568574-1-alexander.deucher@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 17 Nov 2026 10:12:20 -0500
-X-Gm-Features: AclHuK8P-yTVntT1A6r5OZItsEQ6JaNnMvfjU_Fp5uBMQt2VtzXnnuYR11IUAsw
-Message-ID: <CADnq5_P_Q_Mm+=GxBwk_Mk0ztTfDmEXOEP60K1cZKMC8tCxQmg@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amdgpu: update table info retrieval from
- discovery binary
+Date: Tue, 17 Nov 2026 10:12:56 -0500
+X-Gm-Features: AclHuK_481XYs9y5QMe37PMbTi4fpmiDFrttFqiS4ZdxswYWvot_83Mp530rX2w
+Message-ID: <CADnq5_PDKMWyNy1261_aZW1y0efsjv67NKJA1Bj4jFBmheyFwA@mail.gmail.com>
+Subject: Re: [PATCH 0/4] GMC 13.x Support
 To: Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, frank.min@amd.com, Hawking.Zhang@amd.com
+Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -108,115 +106,41 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, Nov 4, 2026 at 7:31=E2=80=AFPM Alex Deucher <alexander.deucher@amd.=
+On Fri, Nov 6, 2026 at 5:51=E2=80=AFPM Alex Deucher <alexander.deucher@amd.=
 com> wrote:
 >
-> From: Frank Min <Frank.Min@amd.com>
+> This patch set add support the GMC (Graphics Memory Controller) v13.x.
+> This enables support for GPUVM and memory controller setup on chips
+> with GMC v13.  The first patch adds a large new register header which
+> was too large for the list so it was omitted.
 >
-> Update table info retrieval from discovery binary to align with
-> discovery table update.
->
-> Signed-off-by: Frank Min <Frank.Min@amd.com>
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Hawking Zhang (4):
+>   drm/amdgpu: Add gc v13_0_1 ip headers v6
+>   drm/amdgpu: Add gfxhub v13_0 support
+>   drm/amdgpu: Add gmc v13_0 support
+>   drm/amdgpu/discovery: Add gmc v13_0 ip block
 
 Series is:
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 47 +++++++++++++------
->  1 file changed, 33 insertions(+), 14 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_discovery.c
-> index 79a2b1268b23a..351a1e61f525e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> @@ -604,18 +604,36 @@ amdgpu_discovery_get_table_info_from_bin(uint8_t *d=
-iscovery_bin,
->                                          uint16_t table_id)
->  {
->         struct binary_header *bhdr =3D (struct binary_header *)discovery_=
-bin;
-> -       struct binary_header_v2 *bhdrv2;
-> -
-> -       switch (bhdr->version_major) {
-> -       case 2:
-> -               bhdrv2 =3D (struct binary_header_v2 *)discovery_bin;
-> -               return &bhdrv2->table_list[table_id];
-> -       case 1:
-> +       struct binary_header_v2 *bhdrv2 =3D (struct binary_header_v2 *)di=
-scovery_bin;
-> +       uint16_t version =3D le16_to_cpu(bhdr->version_major);
-> +       uint16_t binary_size =3D le16_to_cpu(bhdr->binary_size);
-> +       struct table_info *table_list;
-> +       uint16_t num_tables, i;
-> +       size_t table_offset;
-> +
-> +       switch (version) {
->         case 0:
-> -               return &bhdr->table_list[table_id];
-> +       case 1:
-> +               table_list =3D bhdr->table_list;
-> +               num_tables =3D ARRAY_SIZE(bhdr->table_list);
-> +               break;
-> +       case 2:
-> +               table_list =3D bhdrv2->table_list;
-> +               num_tables =3D le16_to_cpu(bhdrv2->num_tables);
-> +               break;
->         default:
->                 return NULL;
->         }
-> +
-> +       table_offset =3D (uint8_t *)table_list - discovery_bin;
-> +       if (table_offset + num_tables * sizeof(*table_list) > binary_size=
-)
-> +               return NULL;
-> +
-> +       for (i =3D 0; i < num_tables; i++)
-> +               if (le16_to_cpu(table_list[i].table_id) =3D=3D table_id)
-> +                       return &table_list[i];
-> +
-> +       return NULL;
->  }
->
->  static int amdgpu_discovery_get_table_info(struct amdgpu_device *adev,
-> @@ -628,8 +646,8 @@ static int amdgpu_discovery_get_table_info(struct amd=
-gpu_device *adev,
->         *info =3D amdgpu_discovery_get_table_info_from_bin(adev->discover=
-y.bin,
->                                                          table_id);
->         if (!*info) {
-> -               dev_err(adev->dev, "Invalid ip discovery table version %d=
-\n",
-> -                       bhdr->version_major);
-> +               dev_err(adev->dev, "Not found table for header version %d=
- table id %d\n",
-> +                       bhdr->version_major, table_id);
->                 return -EINVAL;
->         }
->
-> @@ -640,15 +658,16 @@ static int amdgpu_discovery_table_check(struct amdg=
-pu_device *adev,
->                                         uint8_t *discovery_bin,
->                                         uint16_t table_id)
->  {
-> -       int r, act_val, exp_val, table_size;
-> +       int act_val, exp_val, table_size;
->         uint16_t offset, checksum;
->         struct table_info *info;
->         bool check_table =3D true;
->         char *table_name;
->
-> -       r =3D amdgpu_discovery_get_table_info(adev, &info, table_id);
-> -       if (r)
-> -               return r;
-> +       info =3D amdgpu_discovery_get_table_info_from_bin(discovery_bin, =
-table_id);
-> +       if (!info)
-> +               return 0;
-> +
->         offset =3D le16_to_cpu(info->offset);
->         checksum =3D le16_to_cpu(info->checksum);
+>  drivers/gpu/drm/amd/amdgpu/Makefile           |     3 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c |     4 +
+>  drivers/gpu/drm/amd/amdgpu/gfxhub_v13_0.c     |   529 +
+>  drivers/gpu/drm/amd/amdgpu/gfxhub_v13_0.h     |    29 +
+>  drivers/gpu/drm/amd/amdgpu/gmc_v13_0.c        |   999 +
+>  drivers/gpu/drm/amd/amdgpu/gmc_v13_0.h        |    30 +
+>  .../include/asic_reg/gc/gc_13_0_1_offset.h    | 16009 +++++
+>  .../include/asic_reg/gc/gc_13_0_1_sh_mask.h   | 54975 ++++++++++++++++
+>  8 files changed, 72577 insertions(+), 1 deletion(-)
+>  create mode 100644 drivers/gpu/drm/amd/amdgpu/gfxhub_v13_0.c
+>  create mode 100644 drivers/gpu/drm/amd/amdgpu/gfxhub_v13_0.h
+>  create mode 100644 drivers/gpu/drm/amd/amdgpu/gmc_v13_0.c
+>  create mode 100644 drivers/gpu/drm/amd/amdgpu/gmc_v13_0.h
+>  create mode 100644 drivers/gpu/drm/amd/include/asic_reg/gc/gc_13_0_1_off=
+set.h
+>  create mode 100644 drivers/gpu/drm/amd/include/asic_reg/gc/gc_13_0_1_sh_=
+mask.h
 >
 > --
 > 2.56.0
