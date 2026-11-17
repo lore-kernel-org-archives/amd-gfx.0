@@ -2,42 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 920FF606A31C
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Nov 2026 17:00:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4F59606A32C
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Nov 2026 17:00:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=lxbaYTLr
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=4beYN8ON
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FFDE10EBC5;
-	Tue, 17 Nov 2026 17:00:14 +0000 (UTC)
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011048.outbound.protection.outlook.com [52.101.52.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E689A10EB99
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Nov 2026 17:00:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3778110F728;
+	Tue, 17 Nov 2026 17:00:17 +0000 (UTC)
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011049.outbound.protection.outlook.com [52.101.57.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6C7310F812
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Nov 2026 17:00:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=X+UcM4/yQE2yTK2V8ozReFNwCnETBvwLE/Q8zGw5zvEsIPky/olWGNe/ugMNl04vWPQAnZsGMdrr8E28ES4uavR3ckVR0h6cjNtifEa5k/B0Xf98rOK6z9tK+b8773QLEe1bmBI3/TFjqHoAtcpx9AP2Z7TNwhP3a9iEcavuEZVWEDFVZYqH0TbKg3FcivuxdggH9MyHBpJDHG/Iwvq1wwR4I5cxit2VQOREsIiiZyKeiGrAau7ToEZPlIb23RmHGfnj1VlxsIV5Glm6dq+6WQMMBhOD6UkS/Jfi2xAADGK3hkadd3BBAaGhDpK6pSV4zGddb7MLWqr6R75wGiISdA==
+ b=tR5QW/4dUBGOiVmuFNigQ3gWBwvqmeNvlFLYPGD7UX0Ejuk+gK88Yve+m12P56sSKNLVG8kBrPOnnuer2bD1edAVGhAAQtbTbNMJj/MDwMQ+Pslel+3Ce3B8xWG03cpJXYOWkevSrmaOimWmni0NfKUXAFv6p5gih+ek07cgYZv9/ra34FQW8Ts+ox7f2b14c/KY6VWntmvV9/aRr9/xUjnn6e2efEMJJXMa9w/V6Z/Vij3GjR078RUA7Jez9SrwhYhAAIWIxXrbhLP1ZHeR3+6k+oziXYN+5cIJY4PLPoe3D+DTA48dtmwyB6Zn8B/PaAgp+Qfij3ZKazsFsVyckQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dr+vXGaoVPN3tsVLE0NPAw6pZ+BvFwFuI8FY2kogJwU=;
- b=KcHoK2Z28+TiNUX6cVRnhhbg5Zo0HZ4/DeOepoFGrteeBRlDLEPLKLKo1hg+Kycms0QpB5vz14p9NxOFZKwttTEm+nVx9TlyEZ5bXQVJbg6J0KFde6+U/ridCI0GBw4Ryw0I5rv4JOBqVQ6IvbdFX9E3pb1J3ydBxAnfs0NHf2zhOuaKNlq9xWWMPoariYc9T13EoDHE3uuo0tSP8SKK94g0sK20zlNWKOSpj9yUu2OUS5mTDqwJSBWvr4Dmq4Ap7hCiIeSV7DQLkbiitWlHICGTqDXIgQtoN+CntAwXUSKXO9ZA46vKt25Ym4prKuS6YGFFRxUN2QeF4q+hBstTEg==
+ bh=89bfUWjSF73QaXfkksBrM1m8S0Kph70YwhB8x5QSnNk=;
+ b=x1NuL0Av3+8926Ysgfe1gzvC7V5n+bFpI68taX9gquqjruQXh/ULkGKsWOkip6Xtj9HwnwKrKX7H6yDiGNmjZ9/iUX+5l+gPDTSS82BzA3tP8c+N3X/M3od8v02Us6lWA+Z8MjXQxUsliNcZKSHQr5HOX1RXJ4sVsqASMvH5aLLTv2qWn10Iw7PBswnhFvgm/2Vwu+8BKE3HeNeYFS72y9mwLQtaNk9p/i0kNMmtRJ1ZY4nZVPG5mHXlt1F6ub0qZS39wDSBix2Az8Kt6q40Cm5K6E8bUMB5Kfw1+A6aUprz4geTQbDZHKudRQ7E0j4rSr+9Xr66ZxK4M3Cbg+Tv9w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dr+vXGaoVPN3tsVLE0NPAw6pZ+BvFwFuI8FY2kogJwU=;
- b=lxbaYTLrSidIrRIup3mfxz8qQjZQRMMx7T/uUdZCyLlO+KJ6AS6uKnhSm9b3og+t+cXkO9Lm6LqRULg/w/lzOMA8ZVUfsmg0mqKuy3aElePZnHArQPEoUCQmrNL7zFshso1lm0EgMPwrXhbfzVaPsevdu4biQPEnCEaH08/mIl8=
-Received: from MW4PR04CA0351.namprd04.prod.outlook.com (2603:10b6:303:8a::26)
- by SJ0PR12MB6992.namprd12.prod.outlook.com (2603:10b6:a03:483::11)
+ bh=89bfUWjSF73QaXfkksBrM1m8S0Kph70YwhB8x5QSnNk=;
+ b=4beYN8ONEXcMriTBWmo/+WJQXDQMS9Tt/IyswLN2WNJCwlhMJ/KgjsNw7gz4JDvu2GB3xR7PWQLsqoh2nZcOORs3dZ3geQwwjmbiMS1L8NjTeK6H7x/c0prjuHnFp9uM75M/40BEEQoV2PpT8tm46AuwUMo2n24PpyML2BJlhKw=
+Received: from MW4PR04CA0346.namprd04.prod.outlook.com (2603:10b6:303:8a::21)
+ by LY0PR12MB639115.namprd12.prod.outlook.com (2603:10b6:404:216::16)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
- 2026 16:59:59 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Tue, 17 Nov
+ 2026 17:00:02 +0000
 Received: from MWH0EPF000DD30B.namprd05.prod.outlook.com
- (2603:10b6:303:8a:cafe::93) by MW4PR04CA0351.outlook.office365.com
- (2603:10b6:303:8a::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.14 via Frontend Transport; Tue,
- 17 Nov 2026 16:59:59 +0000
+ (2603:10b6:303:8a:cafe::76) by MW4PR04CA0346.outlook.office365.com
+ (2603:10b6:303:8a::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Tue,
+ 17 Nov 2026 17:00:02 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -48,55 +48,54 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  MWH0EPF000DD30B.mail.protection.outlook.com (10.167.249.11) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Tue, 17 Nov 2026 16:59:58 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ 15.21.615.4 via Frontend Transport; Tue, 17 Nov 2026 17:00:02 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Tue, 17 Nov
- 2026 10:59:58 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Tue, 17 Nov
- 2026 10:59:58 -0600
+ 2026 10:59:59 -0600
 Received: from work-495456.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.57 via Frontend
- Transport; Tue, 17 Nov 2026 10:59:57 -0600
+ Transport; Tue, 17 Nov 2026 10:59:58 -0600
 From: James Zhu <James.Zhu@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Sunil
  Khatri" <sunil.khatri@amd.com>, James Zhu <James.Zhu@amd.com>
-Subject: [RFC PATCH 0/3] drm/amdgpu: make the reserved SPM VMID per-partition
-Date: Tue, 17 Nov 2026 11:59:49 -0500
-Message-ID: <20261117165952.3558762-1-James.Zhu@amd.com>
+Subject: [RFC PATCH 3/3] drm/amdgpu: scope AMDGPU_VM_OP_RESERVE_VMID to the
+ caller's partition
+Date: Tue, 17 Nov 2026 11:59:52 -0500
+Message-ID: <20261117165952.3558762-4-James.Zhu@amd.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261117165952.3558762-1-James.Zhu@amd.com>
+References: <20261117165952.3558762-1-James.Zhu@amd.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000DD30B:EE_|SJ0PR12MB6992:EE_
-X-MS-Office365-Filtering-Correlation-Id: 87cb902c-026d-4401-dc80-08df44cc3699
+X-MS-TrafficTypeDiagnostic: MWH0EPF000DD30B:EE_|LY0PR12MB639115:EE_
+X-MS-Office365-Filtering-Correlation-Id: 00adcc88-470f-4818-e55a-08df44cc387e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|82310400026|1800799024|376014|23010399003|18002099003|6133799003|261009223027099003|11063799006|56012099006|261102123227099003|261028144727099003|10067099003|261026140227099003|261026121527099003|261021121427099003|261022105027099003|261022113327099003|261021123027099003|5023799004;
-X-Microsoft-Antispam-Message-Info: KgIwQmTCPcxSy4jsI/H2bR4V8cmBi+Nq0JdGfFQr/19kmzIpxUKvDJVzFZUnG7ilwkrhGOUyGiz52oPPR4Ri2qUWrhQA2jFH7LZhPcuyfEtzAbNq2qaRPUPbuGW54pxMbKF1Czo/XlKCcsdblPudkkaHQ8DqITzloBEwe1FIxnke6Z3M2DR1cFk7LVMwnqHKQ6n0WflyLsQPAkg6PaguS9RyAG4XWR2BOjM6oq0IeDOk4fxbDddZaV81P5Uao22JugDn39IL/YzLb6LyLcpzN/3rn82ujV0ax8j5jpVtiLc7kBRxV9PvRPcawoCF8Gp0ZVdW60KhSiZo3lfm2aUkECFUSgsgZWGl4fCiHYamcwJpnyikjSLBy4B9n+736ssyQQx11nzYsLRHTnkkrOB3ExJirnYKr2byMT3x8bNq22nH+CXOukhbgpsoZnqfZOrhYawblwFyma2PdEiAGy2dlu+XSIWMDrnEw7Ooin5UqiKN1zwjoQsE3SV367xlnTlHG1tWEvTfkJoEyd3AcQl8REghHFLBrVUfi5p5qcHkICm6JOa/3vX7FfXQLjViKhQzdsYVFAKSagnZfbjtR8riRgrdoQntpUfiH3aLYxgeSwatU7pTysfaSd6gZ2fpKYRD6DBPDPHV/6wOUZi0BoD/VBCC8S9InNeH6lAyDla6MS357HmtZyX6sFGqQc4ICiIgfRbNRG103/HAPn+Ov9x/HQ==
+ ARA:13230040|23010399003|82310400026|376014|36860700016|1800799024|22082099003|18002099003|6133799003|5023799004|11063799006|56012099006|261026140227099003|261028144727099003|261009223027099003|10067099003|261021121427099003|261021123027099003|261102123227099003|261022105027099003;
+X-Microsoft-Antispam-Message-Info: cac7svR6+EvEF6NKg9VwquuauUzzUGNhiL11iTT8RFpzoLRMFsGV5gqA89WMLVWq+KtCvLbGMN9sc/bNfXyWE+98Q/acg7Z7cgIMOZyn4ByIuB+5pkffzbESfZ9ZD8HpZPSNcH8xBlw+T0VIsOeM/67eccYN39sbwzEwiF2PLTUL3EsLt6vPH5myngcsljrW7fVW+rXLW/w3/GLHDt9pBLlGXMtJ+eXS+xAXPT2itRtbRUAfQURTEkf2L6uWxnjOkqUvAKCsxSuwzwPVgpBfBux4IxEIdcmT3y7fQ4kKAcFwSRbvVtVLJjRzQQ0g5sHxDf1wD9Mwt1UAeTUbyg11q7h+2oQnrN6WBxFmWLGOZJkdMs2UK3WxFgsB4MH0GQZP/lITAL9zsI7gMh2lT3+cpDwtGVJkE5/2RZwQMGOzSu/LpuyVSM3wj19NcK8s7xMOLJwmaIu8NLd97sHpC6u8B3eXEFz3HtaoFrsWvzTwTlCzta6OLGSZjnpayS2mJ+3N8YjvH/svE93tCaXmcouiBPSYgBAIE5JYhC9/jPlYMa+EW9s3VzrZI5v3/ntdq0yMON/m+CcmaLuWsOwFpy5odmnWlk3f/2c0BdOEYhXDWUSmUpvXy+wHvKkC0Vtqrr6R4QIQ1CXz+z71yafbCdDFw8oPJoF9p7Qh9oKJcTaABtzzVi983JNY4VBNEf5HCcAyq33hMDpg4+ODJbugtEwSEA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(82310400026)(1800799024)(376014)(23010399003)(18002099003)(6133799003)(261009223027099003)(11063799006)(56012099006)(261102123227099003)(261028144727099003)(10067099003)(261026140227099003)(261026121527099003)(261021121427099003)(261022105027099003)(261022113327099003)(261021123027099003)(5023799004);
+ SFS:(13230040)(23010399003)(82310400026)(376014)(36860700016)(1800799024)(22082099003)(18002099003)(6133799003)(5023799004)(11063799006)(56012099006)(261026140227099003)(261028144727099003)(261009223027099003)(10067099003)(261021121427099003)(261021123027099003)(261102123227099003)(261022105027099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: O7aILA3ejxXn+hqSwq3TZiV7yRqSzouuvrqFD4qr5j++ezWDvtEM+FwTda/u/znKsgXp/SoiZDZn9xvT/r6UbEn0LfTjZy1S1N7dXe7F+TQ6xkhlgUcJs/fwHxwcf7qhk5JoSLcqlu/LW0NjTulAyHIzpM3DuYc8/mPBkld9ZN1MIPWQNFuNbBYgtqUwpmHmOjicXgtDzEE68DbindWfAetYgpa3oD3D9GSL27vVd08eN7PtTcYQcvuU3vY9SBVyM6wm45zn/huVR3xWsF81gd4xhjSMt/bB+yfBXD904YiJyGQfI/4hntP/zZGO9JpQCROtfXzDzEYc/3tNaGV6zbFgmYhPsNBfn9a3hSdumJ05/AGbpvIEsw00IpJUXiPZ+JOXq8+VGIAfhrcchmCbOmEv9FV0s2kUWZYRxCQiDKLgIt60SBdeAiLRccGEPYkR
+X-MS-Exchange-AntiSpam-MessageData-0: fo6gAYi02BrRS+R/oIuLI5Yhhm19q4+nPJCyDjs38VoEti7Nuqhl56TaBVJdKSU2D847Aj3ALj9r+58CX/Xl4ihZ41Q0tJLurl9meHVFo7FYWwLf4tvkg0N5aakmTmWKeq5rQ4Y/HVoiiMX6YUDyQNOcfWL1faa8My2JDjyIaN8KM/bnfho9vQYxeHF4Qv3vkDtc9+8cLd2SZsFpZ61txrVBkofD00+tEgICqHlAwNE3H+d9uSw7xPH2LOOGesiF7DVWuiie7sKmzR+NbOjilamvM7TgZafPaVPPKAKhUmPd61F6ycI2UUeLgi3k+NncGZRgDsNDw8PrwHE5JgjP38rj53ng+46pHFZ9iZXQFukaSrmZmXb1RYY/HJfkWqwmG88obFgry7m5YPUmvDeXOUg7vAiCRVtIdC9eWLLyB9C0quKH2rCLh8dkcnDhMiRV
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 16:59:58.8417 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 87cb902c-026d-4401-dc80-08df44cc3699
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 17:00:02.0145 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 00adcc88-470f-4818-e55a-08df44cc387e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000DD30B.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6992
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LY0PR12MB639115
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,97 +106,64 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The reserved (SPM) VMID handling was designed on single-XCC hardware,
-where one GFXHUB is all there is. On multi-XCC parts with partitioning
-every XCC has an own GFXHUB and every partition is exposed as an own
-render node, and the current code is incoherent in three ways at once:
+On partitioned devices every partition is exposed as an own render
+node and fpriv->xcp_id records which partition a drm file belongs to.
+But AMDGPU_VM_OP_RESERVE_VMID reserves the VMID on every GFXHUB of the
+device: a reservation made on one partition's render node blocks every
+other partition from reserving, and rebinds the VMID's page table base
+on XCCs the caller can't even submit to.
 
-1. AMDGPU_VM_OP_RESERVE_VMID records the reservation on
-   AMDGPU_GFXHUB(0) only. The VMID grab path checks
-   vm->reserved_vmid[ring->vm_hub], and the rings of XCC i use
-   AMDGPU_GFXHUB(i) - so for any job running on XCC 1..n the
-   reservation silently does nothing. A debugger relying on a stable
-   VMID gets one on exactly one XCC of the partition it runs on, or
-   none at all.
+Derive the GFXHUB set from the caller's partition instead. The
+reservation then only covers the XCCs of the caller's partition, and
+each partition can hold the reserved VMID on its own hubs
+independently, matching the isolation the render nodes promise.
+Unreserve keeps operating on every hub, freeing whatever the VM
+actually holds.
 
-2. The physical programming goes the other way: the setup_vm_pt_regs
-   gfxhub callback broadcasts the SPM VMID's page table base to every
-   XCC of the device, including XCCs of partitions the caller cannot
-   even submit to.
+Without partitioning, or on the whole-device node, the mask stays
+adev->gfx.xcc_mask and nothing changes.
 
-3. The exclusion is device-global: because every reservation contends
-   for hub 0's id_mgr, one partition's render node blocks every other
-   partition from reserving, which breaks the isolation the render
-   nodes are supposed to provide.
+Signed-off-by: James Zhu <James.Zhu@amd.com>
+Assisted-by: Claude:claude-fable-5
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
 
-None of this is visible on single-XCC hardware, where "hub 0", "all
-hubs" and "the caller's hubs" happen to be the same thing. gfx 9.4.3
-partition modes are where the three diverge.
-
-This series makes the per-hub infrastructure, which already exists in
-the data structures (vm->reserved_vmid[] and id_mgr[] are per-vmhub
-arrays), real end to end:
-
-Patch 1 exposes the XCC-masked setup_vm_pt_regs variant, which gfxhub
-v1.2 and v12.1 already implement internally, as a gfxhub callback.
-
-Patch 2 makes the hub argument of the binding path mean what it says:
-amdgpu_gmc_bind_vmid() programs and flushes only the given hub,
-amdgpu_vmid_free_spm() unbinds the hub it frees, amdgpu_vm_spm_update()
-binds every hub the VM holds the reservation on, and the ioctl reserves
-on every GFXHUB instance. This fixes 1. and 2. while keeping the
-device-wide scope.
-
-Patch 3 then derives the hub set from the caller's partition
-(fpriv->xcp_id), fixing 3.: each partition reserves, binds and
-conflicts only on its own XCCs. Unreserve keeps operating on every hub,
-freeing whatever the VM actually holds.
-
-A note on the record granularity: the reservation could instead be
-recorded on the partition's first GFXHUB only and treated as a pure
-ownership token, closest to the original single-hub design. But the
-record plays three roles at once: the ownership token, the set of hubs
-whose page table base has to be bound (each XCC translates through its
-own hub, so the binding must cover every XCC of the partition either
-way), and the per-hub check of the VMID grab and CS paths
-(vm->reserved_vmid[ring->vm_hub]). Recording on every hub of the
-partition keeps the three consistent by construction, lets
-amdgpu_vm_spm_update() derive the binding set from the existing
-structures without a new field, and gives jobs on every XCC of the
-partition the same reserved-VMID semantics instead of only on the
-first one. The VMID number itself is the same everywhere either way:
-it is always adev->vm_manager.spm_vmid.
-
-No UAPI change. On devices without partitioning, or on the whole-device
-node, the mask degenerates to every XCC and nothing changes; on
-single-XCC parts the series is a no-op.
-
-Compile-tested on amd-staging-drm-next with CONFIG_DRM_AMDGPU=m
-(amdgpu_vm.o, amdgpu_ids.o, amdgpu_gmc.o, gfxhub_v1_2.o,
-gfxhub_v12_1.o build warning-free); checkpatch clean.
-
-James Zhu (3):
-  drm/amdgpu: expose the XCC-masked setup_vm_pt_regs as a gfxhub
-    callback
-  drm/amdgpu: reserve and bind the SPM VMID on every GFXHUB instance
-  drm/amdgpu: scope AMDGPU_VM_OP_RESERVE_VMID to the caller's partition
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfxhub.h |  2 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c    |  4 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c    | 49 ++++++++++++++++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h    |  4 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c     | 50 ++++++++++++++++------
- drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c  |  1 +
- drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c   |  1 +
- 7 files changed, 96 insertions(+), 15 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index bd9aa35933dc..d37af0dbd691 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -3021,11 +3021,21 @@ int amdgpu_vm_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 
+ 	switch (args->in.op) {
+ 	case AMDGPU_VM_OP_RESERVE_VMID: {
++		uint32_t xcc_mask = adev->gfx.xcc_mask;
+ 		int r;
+ 
++		/*
++		 * Scope the reservation to the hardware partition behind the
++		 * caller's render node, so other partitions can hold the
++		 * reserved VMID on their own XCCs independently.
++		 */
++		if (adev->xcp_mgr && fpriv->xcp_id != AMDGPU_XCP_NO_PARTITION)
++			amdgpu_xcp_get_inst_details(
++					&adev->xcp_mgr->xcp[fpriv->xcp_id],
++					AMDGPU_XCP_GFX, &xcc_mask);
++
+ 		/* We only have requirement to reserve vmid from gfxhub */
+-		r = amdgpu_vmid_alloc_spm_gfxhubs(adev, vm,
+-						  adev->gfx.xcc_mask);
++		r = amdgpu_vmid_alloc_spm_gfxhubs(adev, vm, xcc_mask);
+ 		if (!r && !amdgpu_bo_reserve(vm->root.bo, true)) {
+ 			amdgpu_vm_spm_update(adev, vm);
+ 			amdgpu_bo_unreserve(vm->root.bo);
 -- 
 2.34.1
 
