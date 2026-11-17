@@ -2,49 +2,69 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EF58606A31C
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Nov 2026 12:17:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0B23606A33F
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Nov 2026 12:50:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=pgAk+UJt
+	dkim=pass (2048-bit key, unprotected) header.d=pixelcluster.dev header.i=@pixelcluster.dev header.a=rsa-sha256 header.s=ovhmo-selector-1 header.b=SaP5RLG1
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A69C10E597;
-	Tue, 17 Nov 2026 12:17:34 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 789D510E574;
- Tue, 17 Nov 2026 12:17:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=0ajmuEVTcI9BscgueZt4IXU3Kd0+r/99rixUdDp5fLg=; t=1794917842; x=2110277842; 
- b=pgAk+UJtRz0tqZ5BlCuImxQaNcVrx/HywKHfKvoQVxgzdo5WRgtY/LHoW0PFMbL1uw3B/T4xong
- pcdJZtN6bfPUI2yfVBtFrWoAdhgub8n99mpWrrUQpPpVtjyQM2mzbUOcq1wXd/uFpqG6n+OptoKUB
- LT+sgc4hmr3BeW76sefhFyqfi6CApEwjwmBeDVzqUkjBTnrFBaAHMg2AfdIArrnN3Lgdz9j/FKcNO
- IvIQIl+YJD+LqM4L3ptlGy/l79BN5R6GCz6g366Np/N6zHpJalbTT+n/U5O15zvKgKAmMV7RPhLHq
- Z6/WTbG/BYkaIUD6VW/8WdzTgaeZeg3VDI+Q==;
-Received: from [81.79.79.1] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1xTI7k-00000000a6i-1tIr; Tue, 17 Nov 2026 13:17:20 +0100
-Message-ID: <7c97a544-c06a-48b4-8543-118e19a3746f@igalia.com>
-Date: Tue, 17 Nov 2026 12:17:19 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2802310F6C0;
+	Tue, 17 Nov 2026 12:50:41 +0000 (UTC)
+Received: from smtpout9.mo538.mail-out.ovh.net
+ (smtpout9.mo538.mail-out.ovh.net [51.210.91.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3266710F645
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Nov 2026 12:50:35 +0000 (UTC)
+Received: from director2.derp.mail-out.ovh.net
+ (director2.derp.mail-out.ovh.net [79.137.60.36])
+ by mo538.mail-out.ovh.net (Postfix) with ESMTPS id 4jTPj51Yp0z6FGY;
+ Tue, 17 Nov 2026 12:50:33 +0000 (UTC)
+Received: from director2.derp.mail-out.ovh.net
+ (director2.derp.mail-out.ovh.net. [127.0.0.1])
+ by director2.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
+ for <Felix.Kuehling@amd.com>; Tue, 17 Nov 2026 12:50:32 +0000 (UTC)
+Received: from mta6.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.178.78])
+ by director2.derp.mail-out.ovh.net (Postfix) with ESMTPS id
+ 4jTPj465Wzz1xp2; Tue, 17 Nov 2026 12:50:32 +0000 (UTC)
+Received: from pixelcluster.dev (unknown [10.1.6.7])
+ (Authenticated sender: nat@pixelcluster.dev)
+ by mta6.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id 61FB48E2104; 
+ Tue, 17 Nov 2026 12:50:31 +0000 (UTC)
+Authentication-Results: garm.ovh; auth=pass
+ (GARM-98R002a7f9e4f6-90e2-4150-b932-19985059a3b2,
+ 00F4D7524EDFA56606BD67631AE7EA1B984E627F) smtp.auth=nat@pixelcluster.dev
+X-OVh-ClientIp: 141.95.41.139
+From: Natalie Vock <nat@pixelcluster.dev>
+Date: Tue, 17 Nov 2026 13:50:07 +0100
+Subject: [PATCH v2 01/10] drm/amdgpu: Remove unused parameter from
+ amdgpu_vm_pte_fragment
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] drm/sched: Disallow initializing entities with
- un-initialized schedulers
-To: phasta@kernel.org, dri-devel@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Danilo Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>
-References: <20261117100654.8593-1-tvrtko.ursulin@igalia.com>
- <20261117100654.8593-2-tvrtko.ursulin@igalia.com>
- <e0d8e3350b8897c186c0780eb0c16e9dd136ef46.camel@mailbox.org>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <e0d8e3350b8897c186c0780eb0c16e9dd136ef46.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261117-prt-explicit-sync-v2-1-bb3851cb6a0c@pixelcluster.dev>
+References: <20261117-prt-explicit-sync-v2-0-bb3851cb6a0c@pixelcluster.dev>
+In-Reply-To: <20261117-prt-explicit-sync-v2-0-bb3851cb6a0c@pixelcluster.dev>
+To: Felix Kuehling <Felix.Kuehling@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ =?utf-8?q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Natalie Vock <nat@pixelcluster.dev>
+X-Mailer: b4 0.15.2
+x-ovh-tracer-id: 5591218938405806396
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: dmFkZTGrAxNh0OCp/TgW8Z00538M1glw8EUMMtYMTQIkfoBlnYfE0vlSyw4w5uWuf/QyKUtvCHx7EFC1YQK9QJiefAOuQT22/RonVhgC56ibCMLxgK4dCCF83EYDfkamVxfHM+wyA0Nvvm7rS+sCNtJyY/Jb00er6pXntUGUJf0EYzZZCpUQzQXqPm/8qDoT803NDa4r5nrmdrrXIxHrrU/3K45uUM+B0+i0D8Teg3+rNFu/qNg8OzEHLmYLG3Bn2ErMgHoNASckJmPFcSnlHiSRHxWGk75pm1zRPdg06qGv5yp8rB45X+XQ8Dp2qVMqyf58e8qcwvzrNASxckuxfH4TwrY7agcpFqZtws4puYGXkKOCzHoj1xrXfRKMTavd6t0jQsywhTnP0TOmkDkX4jereRFgewxtbMoq5hDjd/XDPuEPILj3zbIOVe+nQJlXo88YnG03rmErpy2PsV2BbhKZnUaql/U/tPFYP+bRdf4Qm2QJJub8sXmDBoSnqz8iDio6uJwRSjix/tUHRRCNrrEFtmfchPitk0CuE5hTGAAjyVXshyjBui533KKu1+fjWj1UOlDK6GNfPlBfGXOerpTgcpqg4JE6WywdXd+ujgQfKWhJVFxxavZur39YKM49UGJok8u+4JK7mKNMtnr9IwsRK7rwXvjukPMf3OvgQF1LRsNHQg
+DKIM-Signature: a=rsa-sha256; bh=7E3qIaNmaVz1QhOoJuZVv7W5GWmjavhGo5fWuOPFwyw=; 
+ c=relaxed/relaxed; d=pixelcluster.dev; h=From;
+ s=ovhmo-selector-1; t=1794919833; v=1;
+ b=SaP5RLG1d/shDBVl4VVJt53my6q9bszysG7SsZ6dXGtqP8xZ4Y+GNfZmSshVcvmHotA7whEU
+ SYndHkFMh+U3JOlssvNIHuivD4B/wCKf0pIjN9S/MTg3+k3kEYlclXe+tYH/NGo0ys+9y21ZW0H
+ AcdjV4iPECqWp2ySvY9yoZO4pp4KckxbN5AocnAOUG96v8pRXClfxOB7wMpUESdeEfF5gysayEF
+ w445Drke/24IVYmUHDD/sdhSfcwdrzzwATXQM6crI3L3q34JkcPO4BKO3LHVSi8nS7UVjo3J7bc
+ MGD4t1NUuycE7gxvknctCuI2GKgY02PWSV5Hq5lrwX6ag==
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,50 +75,61 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+Trivial cleanup. No functional change.
 
-On 17/11/2026 12:00, Philipp Stanner wrote:
-> On Tue, 2026-11-17 at 10:06 +0000, Tvrtko Ursulin wrote:
->> Simplify the code and theoretical runtime combinations by disallowing
->> initializing entities with un-initialized schedulers.
->>
->> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->> Cc: Christian König <christian.koenig@amd.com>
->> Cc: Danilo Krummrich <dakr@kernel.org>
->> Cc: Matthew Brost <matthew.brost@intel.com>
->> Cc: Philipp Stanner <phasta@kernel.org>
->> ---
->> I do not *think* any of the drivers relies on this inverted initialization
->> order but it needs more eyes for sure.
-> 
-> 
-> I increasingly think that the way to go forward is to demand from API
-> users that they use the API correctly and appreciate the distinct
-> lifetimes and especially initialization and teardown orders.
+Signed-off-by: Natalie Vock <nat@pixelcluster.dev>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
-Enforcing initialisation order is what the patch is doing.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+index c73eb416c0e26..4eae6a831b4ee 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+@@ -745,14 +745,13 @@ static void amdgpu_vm_pte_update_flags(struct amdgpu_vm_update_params *params,
+  * @params: see amdgpu_vm_update_params definition
+  * @start: first PTE to handle
+  * @end: last PTE to handle
+- * @flags: hw mapping flags
+  * @frag: resulting fragment size
+  * @frag_end: end of this fragment
+  *
+  * Returns the first possible fragment for the start and end address.
+  */
+ static void amdgpu_vm_pte_fragment(struct amdgpu_vm_update_params *params,
+-				   uint64_t start, uint64_t end, uint64_t flags,
++				   uint64_t start, uint64_t end,
+ 				   unsigned int *frag, uint64_t *frag_end)
+ {
+ 	/**
+@@ -825,8 +824,7 @@ int amdgpu_vm_ptes_update(struct amdgpu_vm_update_params *params,
+ 	int r;
+ 
+ 	/* figure out the initial fragment */
+-	amdgpu_vm_pte_fragment(params, frag_start, end, flags, &frag,
+-			       &frag_end);
++	amdgpu_vm_pte_fragment(params, frag_start, end, &frag, &frag_end);
+ 
+ 	/* walk over the address space and update the PTs */
+ 	amdgpu_vm_pt_start(adev, params->vm, start, &cursor);
+@@ -932,7 +930,7 @@ int amdgpu_vm_ptes_update(struct amdgpu_vm_update_params *params,
+ 			if (frag_start >= frag_end) {
+ 				/* figure out the next fragment */
+ 				amdgpu_vm_pte_fragment(params, frag_start, end,
+-						       flags, &frag, &frag_end);
++						       &frag, &frag_end);
+ 				if (frag < shift)
+ 					break;
+ 			}
 
-> Sure the API can warn when it's misused, but we have certainly not put
-> enough emphasis on really motivating people to set up things right.
-> Most APIs I see in the kernel do not warn in foo_init() whether
-> foo_init() had been called already.
-
-Exactly, so making entity initialisation fail when the provided list of 
-schedulers contains uninitialised elements is this strong motivation you 
-are looking for. New callers simply cannot pass driver bring-up with the 
-wrong init order.
-
-> What we actually need is more documentation
-
-As opposed to adding restrictions where we can, or in tandem to adding 
-restrictions?
-
-Tvrtko
+-- 
+2.56.1
 
