@@ -2,130 +2,35 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D223606A31C
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Nov 2026 08:23:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=IxlU7SUX
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A759606A31C
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Nov 2026 08:25:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0708110EBC4;
-	Wed, 18 Nov 2026 08:23:32 +0000 (UTC)
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012012.outbound.protection.outlook.com [52.101.43.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C36F510EBC4
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Nov 2026 08:23:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EdNf4M8rBLDVNTt+u5XkSrAZqMf40eG1HEzAOj+GwkSFfY4kMF8xU2I4D5GzcXLSH/4OihhP3Keyg7g7Qsw8pTkDjwGnv4KmoUL3XnShiJ7RNbirjoKNx3skxXb4VmIzWwE7Q3LPJeT1BwL88iNum+kprMPo7qsJAjcTxwDxnB7l2lNBoil1/uh3ek+XhxJYQZp+DiTipurmIt/XXbJLl76Xfq3gAVZn4U1m+vYG3VMN+ZWj8aY+ROPIE3WjDrGefibxj9W8R0Sy5+w/UcLFTAAWQTExoBAL58BeaAOTCEeGk7hvsYAp6pNEzFgcBl9Y78rEN8XDTe6dQN2Ba23puw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rUY9ZHC9o30Vk3x7/W6Qe2fduH9aFzOz/AJEJ91UfH8=;
- b=w9XYC9AjDICB63Gg9ZHcwNFYk8ZDqgjqdAD+M+nK2ynTAmsG9GXpoYaz10lbI7WjiI4bru5XeqX+aKI2TTsXRuOt6dqg2MyYR8+y9zZiX6fruOZqa11GmHdyQW1mNb25DDaZUCvX1FOBer254xrcDo3AFts7MUWkAlkBw8nHYbFoxXAvg+CsBlP7f5PpXSTgAGReb5T5VK7UtQkdWeVZLALpGsUNMnHwvkM9u9rdglQ84QbACae2GVbkSEnUQADok4nSYFBPDgUcaYWqkb0um+zbMVvL+nqDIzvC3XlljpLhlk7rRn1TYu9+xJPt+tgjMjPlz2rsU3JnK01sEJZcnQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rUY9ZHC9o30Vk3x7/W6Qe2fduH9aFzOz/AJEJ91UfH8=;
- b=IxlU7SUX6lqRsUX6dqbZawpSw4tYBYlPO3AatAe7jGhxuAMCw4v73eblmZce8iydK27QPPMFHgqYjSnRqoMXwsEgpwnzS+gLYeFnOY4wZ5hw5lzXJOMqG+IFdJsxeUyoiSnHoZXBOYwnftHNMtfdah+x8WxTizlyVs1UyLqbPRA=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by PH8PR12MB6867.namprd12.prod.outlook.com (2603:10b6:510:1ca::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Wed, 18 Nov
- 2026 08:22:03 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0615.013; Wed, 18 Nov 2026
- 08:22:03 +0000
-Message-ID: <3a727e33-4bd7-4116-bcc6-c7d4067286f4@amd.com>
-Date: Wed, 18 Nov 2026 09:21:59 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v3 2/5] drm/amdgpu: track internal completion of SDMA
- VM updates
-To: "Mu, Zihao" <Zihao.Mu@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-References: <MW3PR12MB4572FABB93F6676FDBA1D2479E722@MW3PR12MB4572.namprd12.prod.outlook.com>
- <4edd67f7-381a-4446-9509-552739c8f016@amd.com>
- <MW3PR12MB4572A08ADA8CB7BA9F83AF519E712@MW3PR12MB4572.namprd12.prod.outlook.com>
- <938026a1-3b02-40b4-98e3-a0a22f045f82@amd.com>
- <MW3PR12MB4572BEFF9134ABF824D374C79E712@MW3PR12MB4572.namprd12.prod.outlook.com>
- <bf90d631-c63e-4df0-92ad-213bd65ef0ba@amd.com>
- <MW3PR12MB4572710157BE03F990183FC09E7B2@MW3PR12MB4572.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <MW3PR12MB4572710157BE03F990183FC09E7B2@MW3PR12MB4572.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0041.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:48::6) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D76CA10EBE7;
+	Wed, 18 Nov 2026 08:25:51 +0000 (UTC)
+X-Greylist: delayed 843 seconds by postgrey-1.36 at gabe;
+ Tue, 17 Nov 2026 17:17:34 UTC
+Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu
+ [128.30.2.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 031A810F848;
+ Tue, 17 Nov 2026 17:17:34 +0000 (UTC)
+Received: from escalante.csail.mit.edu ([128.52.128.198])
+ by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
+ (envelope-from <nickolai@csail.mit.edu>) id 1xTMae-00C8zH-IN;
+ Tue, 17 Nov 2026 12:03:28 -0500
+From: Nickolai Zeldovich <nickolai@csail.mit.edu>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Nickolai Zeldovich <nickolai@csail.mit.edu>
+Subject: [PATCH v1] drm/radeon: stop the GPU before kexec
+Date: Tue, 17 Nov 2026 12:03:28 -0500
+Message-ID: <20261117170328.56738-1-nickolai@csail.mit.edu>
+X-Mailer: git-send-email 2.53.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH8PR12MB6867:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6f657956-b514-45da-f2dd-08df454d064e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|366016|376014|261028144727099003|261021123027099003|261021121427099003|261102123227099003|261026140227099003|261022105027099003|261022075727099003|261022113327099003|261026121527099003|10067099003|5023799004|4143699003|11063799006|56012099006|22082099003|18002099003|261009223027099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info: 30COE+Q8JmRKEuhy4bJV3my4cjXERBKZwcZKMTu92cJjYeJwolrhT3Ld4NnJvujeFBVSmOpeHr2tcrSVggpt50CXgOT+VOVcUJV3vtKXzCoWM1YzC4rrv0Gyf/VRkm5c/m4brIFeCq1rmuELdmopiYSmQ7c73RvNAi0+5ViTVEQg6gRZL4gOilr78gYu9BIFndd3HC+S16atcpJw3PiNaHVAWN4Kv/1EtmT+zQncN9kzItZVUOCZ/p6k9NXBOJh92sDe8PEfnXUbVSoDVQ7luV291INkj8uORK+QzB1YMrFqiTnbIKsU5agncC36kKS0Baq8/sx8jspELGxsxlkcOoKaIHxYxfDRKZWNOOHKe8+x3Dv0S/j4066WOQJPCL8zazQfjWZczbuG4Uj1Tl8+hsbB+yDB/Ifbhq1LXyRdeIgTdDfn23yUITbnaV8oeHAWWdVhH6VUwHAxNSzzsPCHXgq0p7IPMA3xieoeqcXZnuhLQWc+dvbsW5i7vacuWh0bQ5zCqD4wAog1xWstfNq1gKSpFlYNWRKKZE6WK+OI4pqROesDfrzvvptbCndQN6nUbufqLxYBJy7gxM8Q0adX1pFarsXvUDQuGbcblA7ZTqZCPVa+B/dGjEG1G7Xqb3zrjckCr+PlLML24UKpPeTSMWpOSVp4xk/ABTE2kGlK/1s=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(261028144727099003)(261021123027099003)(261021121427099003)(261102123227099003)(261026140227099003)(261022105027099003)(261022075727099003)(261022113327099003)(261026121527099003)(10067099003)(5023799004)(4143699003)(11063799006)(56012099006)(22082099003)(18002099003)(261009223027099003)(6133799003)(3023799007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bkE5ZEJQQnRIeVcraHBTYlgzc0FtdXA5UlJMR01HRm1sdHlZQVV5dFZ5czVH?=
- =?utf-8?B?VDhwSkRKRFE1dnRlSG1ZRnZlUEJxZlZHS3l2NGNRb1VWSkxEaWx2cjFVUGYz?=
- =?utf-8?B?dkJKVUcrVnc3eE9nd3A5RlMvd1FaTzZiM1d1ODU0azZSY3RYRnRYbmlZamFU?=
- =?utf-8?B?TWY3S2J1cTc2TTJPNDNQVG56QnUvNlpXQTQ3cExOYWliTUZ5bHFFYkpoanBk?=
- =?utf-8?B?a3NPMlZyNm9ML29BemRvWXh2b1VCeWJBOE5XeFVFK0xiaGtVOFZxdnBaUEs0?=
- =?utf-8?B?cVRDK1F1ajROQWU4V25zK3dyS21lUDJHdy9kcEhib1d3M2NQM3RjSEN6djhm?=
- =?utf-8?B?MHRkckdHS2xkUUxXVFhXd2tMdnZWNHY0VWtrcTdMMUhRZjY0c1lsQnA2Y0pH?=
- =?utf-8?B?QUdNUmVlRnBQUjRnU1VIRVM2OXRGWWNoNjV6T09pTHhVbU9jY3prMEM5VUEv?=
- =?utf-8?B?RXVWaUp4NDZYdEFzbGpEVE8yUXhJam92UnBFdHZ0Q2NDcmdhcURXYVZlRHFk?=
- =?utf-8?B?OFJhaXA4QTNNV0ppVGlPNHNsUFIyYys2V3BodVBPRHphbG9TLysxRnZBUXNp?=
- =?utf-8?B?ZzlPdThqNSs3em81ZXc0clZyeitFWTk3a1Exei9haU9JVzZMaGdZUWpiWHdY?=
- =?utf-8?B?VzJDbGJIc1N4d2JCMml2dEN1bjVDSElUMVVDblZna0tsc2J5OFdidXFDbFlq?=
- =?utf-8?B?MVI4OFFtK3NBTWdtL3lUai8wYzk0UjNnYk9JcTBESWpVUnozdHRJazBlMDVu?=
- =?utf-8?B?S0h0dllkSFRNcEU3THdTZk1kc1Mwa1dCdGgwYkNBL2Vjd2M2SFo0Z2xLREJZ?=
- =?utf-8?B?c1MvdXlHWlpFUDl6VkE4UkovVnN0ZHpScFRWSUVabFJqQ0JxMWw5MEYxcGNN?=
- =?utf-8?B?WE10ekdZTk40WSswQmlWd0lKUE8vWXA0OW5RU2dhUGxVeklRZVU1TmpOOXlw?=
- =?utf-8?B?K1daWDFhYVdaSUUrVkt4N2Y4KytiU1lxeXdvaHRLaktMRndIUlc3WG1IZ0cr?=
- =?utf-8?B?UnZCNlVMV2c4cDZhL2hoZ01qcVMwaW9vNmtheTcrdjBrNmE5a1UxVWFJNSto?=
- =?utf-8?B?NXkyc1pBa1V6TVBjRlUyVDg4WStpT3VvQlpmeVRsT2NCWDd3YzFuRi9jQlND?=
- =?utf-8?B?VUxnTmVrbUkvMTFPVkEyaGVGZjgxbUNIcUdQOWVXZG02WkwrOXg2SUdrV0lw?=
- =?utf-8?B?Yi9xRG5obXdLYWl5VElBUGxOSmE0MXpsOHcrSUVkQklUbjNhYnNUTVdPRmZC?=
- =?utf-8?B?SWsxN2N4clQyOE9kOWFkSVVTaFZVamZlQTNWWmdIZlJmaklCaEZURmJPOERX?=
- =?utf-8?B?ZmVYLzNUZk4xWjZwc1p6OSt1MWxCSzRGY0M1V2p6cWtmUUxiNkVheG9YSjda?=
- =?utf-8?B?NVNiNkVPT3JFUktUUU5GM01iSUYzM1FNY2o4azJYSnNJMkNqbTcyY21xUnFG?=
- =?utf-8?B?TDJWY2I2RWNvdGhIeVRRV096eHhqMy8zLzgwU1VMVm11TDZkaUFBeUJTSDBH?=
- =?utf-8?B?SUVVaVZ6ZXdVQnhDY1lyU0Y5UnpqVTk3dHJyWnBTc2c0cHlaamlFNFFtRXlQ?=
- =?utf-8?B?NERMUlhuN29vMDhiMmhOTEo2bjhxNldackxOTjRQSSs5aTExQnplN1FUaGpn?=
- =?utf-8?B?WithZWQ3YXVCMmU1aE9tei85YVlEaDFLdmx3NjRDanNSd0FDdGtJMklMYVVK?=
- =?utf-8?B?QWdXL3JmQXFqRGpkdFJwYXY1cHBmY2xRN3ZialF5OWlIcFU2S00rYTYrczk5?=
- =?utf-8?B?MytlbTlDOE1WeTNaSTQrck0wZFZ4UGdQakl5NGJhMU8wLzZPWXBNTWFjY0Iz?=
- =?utf-8?B?LzN5aURkNUtERTN6ZnkrNE9oNFlEQnlVS1BxT1UxMUhMd2JYZGFnZnFOOFFO?=
- =?utf-8?B?R3M2QkpNZS9xTWxOMFNsYnVIZVB2ZG1wOGhQS2c5QTB4SGdkNTZ5ejBKQTdF?=
- =?utf-8?B?OFlhY3FyRDA1aGNpS1JuazNFeGdyeE9Pa1hUcExySktDZW4xd0dDM3NOUktP?=
- =?utf-8?B?MHIvbDgyZkswQlhuSitBcW5yTnBzT0FJTG5IaDZkMnBmanNEQUNveENvQS9j?=
- =?utf-8?B?Yy9CSzh1UGpOcS9qN3I4TkhRS2pXbEhrVytuN01NNnZqM0hBRnlIS2MreUU4?=
- =?utf-8?B?SnFWSytkZjhwbzRyOHIyTXYwTjFDamNuZzlXNzkybG80NnlTYTArK2RIdVQr?=
- =?utf-8?B?RWJ3bzBVZmFVcGhEMXI3cVh6T3Q4NHpydm1Wb096TWlOcmxxQ0Fyek9ITkRs?=
- =?utf-8?B?WjFBeVFuRzZwMXVPSC80MXByUEtVTWtycGFiZ1NqVTNjb1I4aTlybmJpTmVP?=
- =?utf-8?Q?huHRNF06mmfMWLsg+L?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6f657956-b514-45da-f2dd-08df454d064e
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 08:22:03.2443 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TRfmsHFt5Aj3wDBdMCQKndS7SwGXvT+AI9Grf/VvtnNTctxfojDg+h8NrvYOQgy9
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6867
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Wed, 18 Nov 2026 08:25:50 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,200 +41,174 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+On a kexec reboot, radeon leaves the GPU running, and on a system
+without an IOMMU the GPU then writes into the next kernel's memory as
+soon as radeon probes there.
 
+The PCI core clears bus mastering before the kexec, but the interrupt
+handler (IH) stays enabled, with its ring and write-pointer writeback
+mapped through the old kernel's GART. The new kernel's
+evergreen_mc_program() raises page-flip interrupts before the new GART
+is set up; the GPU holds the IH writes for them while bus mastering is
+off and issues them, to the old kernel's pages, once r600_irq_init()
+sets it again.
 
-On 11/17/26 12:39, Mu, Zihao wrote:
-> From: Zihao Mu <zmu@amd.com>
-> 
-> Retain the latest SDMA finished fence independently of the optional
-> public output. A prefix can be submitted before PT allocation fails,
-> leaving no final job to replace the caller's older output fence. TLB
-> finalization must still wait for that submitted prefix.
-> 
-> Every phase of a range and its nested PT clear preserves immediate,
-> so sdma_alloc_job() selects the same VM scheduler entity throughout.
-> The entity keeps its engine while work is unfinished, and submissions
-> execute in order there. amdgpu_job_submit() returns the scheduler's
-> finished fence. Thus the last submitted finished fence covers the
-> prefix, clear and resumed phase; no cross-entity ordering is assumed.
-> 
-> The context owns last_update. On submission, put the old reference and
-> get the new finished fence. Missing/empty commits keep the previous
-> completion. A nested clear transfers its reference to the outer context
-> by swapping outputs, then puts the displaced reference at exit. Range,
-> PDE and standalone-clear owners put their private reference at teardown;
-> TLB finalization obtains its own reference before that put.
-> 
-> Keep the public !immediate output and DONT_PIPELINE policy unchanged.
-> Track completion before adding partial-range finalization, so the
-> latter can order its TLB work even after replacement allocation fails.
-> 
-> Signed-off-by: Zihao Mu <zmu@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c          | 10 +++++++---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h |  8 +++++++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c       | 12 +++++++++---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c     |  2 ++
->  4 files changed, 25 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index 7199cec1f95..3b4df22c5ed 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -658,7 +658,9 @@ int amdgpu_vm_validate(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->  		bo_base->moved = true;
->  
->  		if (vm->generation != new_vm_generation) {
-> -			r = amdgpu_vm_pt_clear(adev, vm, to_amdgpu_bo_vm(bo_base->bo), false);
-> +			r = amdgpu_vm_pt_clear(adev, vm,
-> +					       to_amdgpu_bo_vm(bo_base->bo),
-> +					       false, NULL);
->  			if (r)
->  				return r;
->  		}
-> @@ -1079,6 +1081,7 @@ int amdgpu_vm_update_pdes(struct amdgpu_device *adev,
->  		amdgpu_vm_bo_idle(entry);
->  
->  error:
-> +	dma_fence_put(params.last_update);
->  	drm_dev_exit(idx);
->  	return r;
->  }
-> @@ -1282,7 +1285,7 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->  	vm->update_funcs->commit(&params, fence);
->  
->  	if (params.needs_flush) {
-> -		amdgpu_vm_tlb_flush(&params, *fence, tlb_cb);
-> +		amdgpu_vm_tlb_flush(&params, params.last_update, tlb_cb);
->  		tlb_cb = NULL;
->  	}
->  
-> @@ -1290,6 +1293,7 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->  
->  error_free:
->  	kfree(tlb_cb);
-> +	dma_fence_put(params.last_update);
->  	amdgpu_vm_end_critical(&params);
->  	drm_dev_exit(idx);
->  	return r;
-> @@ -2706,7 +2710,7 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->  	if (r)
->  		goto error_free_root;
->  
-> -	r = amdgpu_vm_pt_clear(adev, vm, root, false);
-> +	r = amdgpu_vm_pt_clear(adev, vm, root, false, NULL);
->  	if (r)
->  		goto error_free_root;
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h
-> index ea52be053d8..9bd71f4d5b9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h
-> @@ -82,6 +82,11 @@ struct amdgpu_vm_update_params {
->  	 */
->  	u64 k_job_id;
->  
-> +	/**
-> +	 * @last_update: owned reference to the last SDMA completion fence
-> +	 */
-> +	struct dma_fence *last_update;
-> +
->  	/**
->  	 * @num_dw_left: number of dw left for the IB
->  	 */
-> @@ -121,7 +126,8 @@ struct amdgpu_vm_update_funcs {
->  };
->  
->  int amdgpu_vm_pt_clear(struct amdgpu_device *adev, struct amdgpu_vm *vm,
-> -		       struct amdgpu_bo_vm *vmbo, bool immediate);
-> +		       struct amdgpu_bo_vm *vmbo, bool immediate,
-> +		       struct dma_fence **last_update);
->  int amdgpu_vm_pt_create(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->  			int level, bool immediate, struct amdgpu_bo_vm **vmbo,
->  			int32_t xcp_id);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> index 0ff2d06bf53..7b7a576d95f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> @@ -353,6 +353,7 @@ static void amdgpu_vm_pt_next_dfs(struct amdgpu_device *adev,
->   * @vm: VM to clear BO from
->   * @vmbo: BO to clear
->   * @immediate: use an immediate update
-> + * @last_update: optional output for the internal clear completion fence
->   *
->   * Root PD needs to be reserved when calling this.
->   *
-> @@ -360,7 +361,8 @@ static void amdgpu_vm_pt_next_dfs(struct amdgpu_device *adev,
->   * 0 on success, errno otherwise.
->   */
->  int amdgpu_vm_pt_clear(struct amdgpu_device *adev, struct amdgpu_vm *vm,
-> -		       struct amdgpu_bo_vm *vmbo, bool immediate)
-> +		       struct amdgpu_bo_vm *vmbo, bool immediate,
-> +		       struct dma_fence **last_update)
->  {
->  	unsigned int level = adev->vm_manager.root_level;
->  	struct ttm_operation_ctx ctx = { true, false };
-> @@ -390,11 +392,11 @@ int amdgpu_vm_pt_clear(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->  	if (!drm_dev_enter(adev_to_drm(adev), &idx))
->  		return -ENODEV;
->  
-> +	memset(&params, 0, sizeof(params));
->  	r = vm->update_funcs->map_table(vmbo);
->  	if (r)
->  		goto exit;
->  
-> -	memset(&params, 0, sizeof(params));
->  	params.adev = adev;
->  	params.vm = vm;
->  	params.immediate = immediate;
-> @@ -429,6 +431,9 @@ int amdgpu_vm_pt_clear(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->  
->  	vm->update_funcs->commit(&params, &vm->last_update);
->  exit:
-> +	if (last_update && params.last_update)
-> +		swap(*last_update, params.last_update);
-> +	dma_fence_put(params.last_update);
->  	drm_dev_exit(idx);
->  	return r;
->  }
-> @@ -545,7 +550,8 @@ static int amdgpu_vm_pt_alloc(struct amdgpu_vm_update_params *p,
->  	 */
->  	pt_bo->parent = amdgpu_bo_ref(cursor->parent->bo);
->  	amdgpu_vm_bo_base_init(entry, p->vm, pt_bo);
-> -	r = amdgpu_vm_pt_clear(p->adev, p->vm, pt, p->immediate);
-> +	r = amdgpu_vm_pt_clear(p->adev, p->vm, pt, p->immediate,
-> +			       &p->last_update);
+Suspend the GPU in radeon_pci_shutdown() on kexec, as PPC64 and Loongson
+already do on every shutdown. Normal shutdown and reboot are unchanged:
+commit 8d13c187c42e ("Revert "drm/radeon: Fix EEH during kexec"")
+removed the same call there because it hung some HD 5770 systems.
 
-The code you work on here is outdated, I'm about to remove immediate updates from amdgpu_vm_pt_clear() and only give the parameters to that function as well.
+Tested on riscv64 with a Radeon HD 6450 by pointing the stale GART at
+canary pages after a kexec: without this patch the page-flip interrupts
+write IH entries into them, with it nothing is written.
 
-Apart from that the patch looks good to me.
+Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+---
 
-Regards,
-Christian.
+Notes:
+    Tested on a Milk-V Pioneer (SG2042, no IOMMU) with a Radeon HD 6450:
+    9 of 9 kexec reboots of patched 7.4-rc3 into itself came up clean, with
+    radeon and the desktop running. Unpatched, kexec boots there
+    intermittently oopsed, logged "BUG: Bad rss-counter state" soon after
+    radeon probed, or hung early in boot.
+    
+    Commit 8d13c187c42e removed this call from every shutdown after two
+    HD 5770 x86 systems hung on shutdown and restart
+    (https://bugzilla.kernel.org/show_bug.cgi?id=205147), but the cause was
+    unclear. Kexec runs the same radeon_suspend_kms() as shutdown and only
+    skips the firmware that follows it. Shutdown and restart end in
+    different firmware paths and both hung, so the hang was more likely in
+    the suspend itself and may recur on kexec on those systems. Also, with
+    this patch the GPU reaches the next kernel in D3hot, so an early console
+    on it (vgacon, efifb) is not decoded until radeon wakes it; PPC64 has
+    done this since 2019, but it is untested on x86.
+    
+    Separately from any hang, I would expect that kexec without this patch
+    would let the GPU corrupt the new kernel's memory on those systems, as
+    it does here. If you prefer to avoid the full suspend, a narrower fix
+    would disable only the IH: clear rdev->ih.enabled and call
+    radeon_irq_set(), which on R600 through CIK turns off the IH ring and
+    all interrupt sources without waiting on the GPU. That skips the code
+    that may have hung, but leaves the CP, DMA, UVD and the old GART set up;
+    they stayed idle in my tests, but nothing stops them.
+    
+    Reproducer (Evergreen register offsets): run it as root after a kexec,
+    with radeon not loaded in the new kernel (modprobe.blacklist=radeon). It
+    points every entry of the old GART, still live in VRAM, at canary pages,
+    so stray GPU writes land there instead of in kernel memory; rewrites the
+    D1-D4 surface addresses to raise page-flip interrupts, as
+    evergreen_mc_program() does; sets bus master, as r600_irq_init() does;
+    and counts the canary bytes the GPU changed. The IH usually holds its
+    writes until bus master is set; in one run of eight it did not wait.
+    
+      gcc -std=c99 -D_GNU_SOURCE -O2 -o ihrepro ihrepro.c
+      echo 0 > /proc/sys/vm/compact_unevictable_allowed   # canaries stay put
+      ./ihrepro
+    
+      old kernel unpatched:  bus master off, IH on, GART on
+                             68 canary bytes written by the GPU
+                             (four 16-byte IH entries, 4-byte write pointer)
+      old kernel patched:    bus master off, IH off, GART off
+                             0 canary bytes written by the GPU
+    
+    #include <fcntl.h>
+    #include <stdint.h>
+    #include <stdio.h>
+    #include <string.h>
+    #include <sys/mman.h>
+    #include <unistd.h>
+    
+    #define DEV "/sys/bus/pci/devices/0000:01:00.0/"
+    #define NPG 1024
+    
+    static void *bar(const char *f)
+    {
+    	int fd = open(f, O_RDWR | O_SYNC);
+    	off_t sz = lseek(fd, 0, SEEK_END);
+    	void *p = mmap(NULL, sz, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+    	return p == MAP_FAILED ? NULL : p;
+    }
+    
+    int main(void)
+    {
+    	static const uint32_t crtc[] = { 0x0, 0xc00, 0x9800, 0xa400 };
+    	volatile uint32_t *mmio = bar(DEV "resource2");
+    	volatile uint64_t *vram = bar(DEV "resource0");
+    	int cfg = open(DEV "config", O_RDWR), pm = open("/proc/self/pagemap", O_RDONLY);
+    	uint16_t cmd;
+    
+    	if (!mmio || !vram || cfg < 0 || pm < 0)
+    		return perror("open"), 1;
+    	pread(cfg, &cmd, 2, 4);
+    	printf("bus master %s, IH %s, GART %s\n", cmd & 4 ? "on" : "off",
+    	       mmio[0x3e00 / 4] & 1 ? "on" : "off", mmio[0x1410 / 4] & 1 ? "on" : "off");
+    
+    	/* point every GTT page of the old GART table at a canary page */
+    	uint8_t *c = mmap(NULL, NPG * 4096, PROT_READ | PROT_WRITE,
+    			  MAP_PRIVATE | MAP_ANONYMOUS | MAP_POPULATE | MAP_LOCKED, -1, 0);
+    	memset(c, 0xa5, NPG * 4096);
+    	volatile uint64_t *pt = vram + ((uint64_t)mmio[0x153c / 4] << 12) / 8;
+    	uint64_t flags = pt[0] & 0xfff, n = mmio[0x157c / 4] - mmio[0x155c / 4] + 1;
+    	for (uint64_t i = 0; i < n; i++) {
+    		uint64_t e;
+    		pread(pm, &e, 8, ((uintptr_t)(c + (i % NPG) * 4096) / 4096) * 8);
+    		pt[i] = ((e & ((1ULL << 55) - 1)) << 12) | flags;
+    	}
+    	mmio[0x5480 / 4] = 1;	/* HDP flush */
+    	mmio[0x1470 / 4] = 1;	/* GART TLB invalidate */
+    
+    	/* raise a page-flip interrupt on each CRTC, then enable bus master */
+    	for (int i = 0; i < 4; i++)
+    		mmio[(0x6810 + crtc[i]) / 4] = mmio[(0x6810 + crtc[i]) / 4];
+    	sleep(1);
+    	cmd |= 4;
+    	pwrite(cfg, &cmd, 2, 4);
+    	sleep(1);
+    
+    	int hits = 0;
+    	for (int i = 0; i < NPG * 4096; i++)
+    		hits += c[i] != 0xa5;
+    	printf("%d canary bytes written by the GPU\n", hits);
+    	return hits != 0;
+    }
+    
+    This patch was written with the help of an AI tool.
 
->  	if (r) {
->  		/* The entry points to the PT now, 
-So what take it out again */
->  		amdgpu_vm_pt_free(entry);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-> index 38ca2d78b38..d2d9a16a7ef 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-> @@ -130,6 +130,8 @@ static void amdgpu_vm_sdma_commit(struct amdgpu_vm_update_params *p,
->  	WARN_ON(ib->length_dw > p->num_dw_left);
->  	f = amdgpu_job_submit(p->job);
->  	p->job = NULL;
-> +	dma_fence_put(p->last_update);
-> +	p->last_update = dma_fence_get(f);
->  
->  	if (p->unlocked) {
->  		struct dma_fence *tmp = dma_fence_get(f);
+ drivers/gpu/drm/radeon/radeon_drv.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
+index 53d06053dec8..cd786c3264ff 100644
+--- a/drivers/gpu/drm/radeon/radeon_drv.c
++++ b/drivers/gpu/drm/radeon/radeon_drv.c
+@@ -31,6 +31,7 @@
+ 
+ #include <linux/aperture.h>
+ #include <linux/compat.h>
++#include <linux/kexec.h>
+ #include <linux/module.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/vga_switcheroo.h>
+@@ -379,6 +380,10 @@ radeon_pci_shutdown(struct pci_dev *pdev)
+ 	 * it breaks some other boards.
+ 	 */
+ 	radeon_suspend_kms(pci_get_drvdata(pdev), true, true, false);
++#else
++	/* Clearing bus master does not stop the IH writing to stale addresses */
++	if (kexec_is_in_progress())
++		radeon_suspend_kms(pci_get_drvdata(pdev), true, true, false);
+ #endif
+ }
+ 
+
+base-commit: 666539eecdf4db623f5e3c3e55cf9f2dfad24aa4
+-- 
+2.47.3
 
