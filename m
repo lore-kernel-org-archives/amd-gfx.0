@@ -2,45 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AB47606A8B0
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Nov 2026 12:50:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6080606A886
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Nov 2026 12:51:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pixelcluster.dev header.i=@pixelcluster.dev header.a=rsa-sha256 header.s=ovhmo-selector-1 header.b=XyN2K4Fc
+	dkim=pass (2048-bit key, unprotected) header.d=pixelcluster.dev header.i=@pixelcluster.dev header.a=rsa-sha256 header.s=ovhmo-selector-1 header.b=ogdnuw2N
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CA8510F6BE;
-	Tue, 17 Nov 2026 12:50:52 +0000 (UTC)
-Received: from smtpout1.mo537.mail-out.ovh.net
- (smtpout1.mo537.mail-out.ovh.net [51.210.91.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D45710F6BE
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Nov 2026 12:50:40 +0000 (UTC)
-Received: from director4.derp.mail-out.ovh.net
- (director4.derp.mail-out.ovh.net [79.137.60.37])
- by mo537.mail-out.ovh.net (Postfix) with ESMTPS id 4jTPjB27wKz3yrK;
- Tue, 17 Nov 2026 12:50:38 +0000 (UTC)
-Received: from director4.derp.mail-out.ovh.net
- (director4.derp.mail-out.ovh.net. [127.0.0.1])
- by director4.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
- for <Felix.Kuehling@amd.com>; Tue, 17 Nov 2026 12:50:38 +0000 (UTC)
-Received: from mta6.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.113.67])
- by director4.derp.mail-out.ovh.net (Postfix) with ESMTPS id
- 4jTPjB0qHXz21XL; Tue, 17 Nov 2026 12:50:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F56A10F6C9;
+	Tue, 17 Nov 2026 12:51:01 +0000 (UTC)
+Received: from smtpout9.mo539.mail-out.ovh.net
+ (smtpout9.mo539.mail-out.ovh.net [51.210.91.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9867910F6A0;
+ Tue, 17 Nov 2026 12:50:42 +0000 (UTC)
+Received: from director5.derp.mail-out.ovh.net
+ (director5.derp.mail-out.ovh.net [79.137.60.225])
+ by mo539.mail-out.ovh.net (Postfix) with ESMTPS id 4jTPjD3s07z4FXB;
+ Tue, 17 Nov 2026 12:50:40 +0000 (UTC)
+Received: from director5.derp.mail-out.ovh.net
+ (director5.derp.mail-out.ovh.net. [127.0.0.1])
+ by director5.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
+ for <Felix.Kuehling@amd.com>; Tue, 17 Nov 2026 12:50:40 +0000 (UTC)
+Received: from mta6.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.178.193])
+ by director5.derp.mail-out.ovh.net (Postfix) with ESMTPS id
+ 4jTPjD2pnZz6Np1; Tue, 17 Nov 2026 12:50:40 +0000 (UTC)
 Received: from pixelcluster.dev (unknown [10.1.6.7])
  (Authenticated sender: nat@pixelcluster.dev)
- by mta6.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id B53F58E2108; 
- Tue, 17 Nov 2026 12:50:36 +0000 (UTC)
+ by mta6.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id 213CD8E2103; 
+ Tue, 17 Nov 2026 12:50:39 +0000 (UTC)
 Authentication-Results: garm.ovh; auth=pass
- (GARM-98R0021dca712b-964f-4d8e-89a5-f62a52a32730,
+ (GARM-98R002a03d8498-8a40-4814-af3a-84de42314a4d,
  00F4D7524EDFA56606BD67631AE7EA1B984E627F) smtp.auth=nat@pixelcluster.dev
 X-OVh-ClientIp: 141.95.41.139
 From: Natalie Vock <nat@pixelcluster.dev>
-Date: Tue, 17 Nov 2026 13:50:11 +0100
-Subject: [PATCH v2 05/10] drm/amdgpu: Track dirty bo_va structures in
- update ctx
+Date: Tue, 17 Nov 2026 13:50:13 +0100
+Subject: [PATCH v2 07/10] drm/amdgpu: Move some VA op validation to a
+ helper
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261117-prt-explicit-sync-v2-5-bb3851cb6a0c@pixelcluster.dev>
+Message-Id: <20261117-prt-explicit-sync-v2-7-bb3851cb6a0c@pixelcluster.dev>
 References: <20261117-prt-explicit-sync-v2-0-bb3851cb6a0c@pixelcluster.dev>
 In-Reply-To: <20261117-prt-explicit-sync-v2-0-bb3851cb6a0c@pixelcluster.dev>
 To: Felix Kuehling <Felix.Kuehling@amd.com>, 
@@ -53,18 +53,18 @@ To: Felix Kuehling <Felix.Kuehling@amd.com>,
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Natalie Vock <nat@pixelcluster.dev>
 X-Mailer: b4 0.15.2
-x-ovh-tracer-id: 5592907789732897084
+x-ovh-tracer-id: 5593470738269430076
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTG3XxnRytCov7xMKw+EhD98gb8ynfBocRBYNMsMgfPlDCFR+1JbYh20mEpTDvjc/OAMpizSJmEixbfqrNq6ZfHkRWKptz1ZjiYoBZsqT6YZLIvgh+Bm38hXZALZdYWPJpTzsNiquE5gMrFM5vk+50Sz2v82HxhHf4bgwj5FLKNjn7JuOY8PgAFDqVFMGCsQSmj3ope/vcyiDW42MIHCTXPl/I3uc30uPcByhhQr7oMpAWQoN0SsCTukQSkZK0F7RMNjulDncxLtK/gvhgh+PRBanr/0zJ2EwH5rhrNCu4u91/aWpb6Qffv1J03F4bNMm3mlEiWWwTQ9/HtaoJACI/G0gtourMpSITVctJpjsuKIJcYW7xIzeS9m0TUqk9oB9XJD+Ib/tnZgpaxtLXS3Sro+z1tcGdWQeGv3lP8KzBeXlYMuUPNFZFd4OwU4KYvIwlm6aY4JSEbhh0x1/yEExNdCjXR+8uNSncl75bgnWVadgTYbwjpYfztM0rRgwLD+VJGqD+Hp+Jk6FwvzJGcbjYVJdytnaZU64qjC3nRcHGCyVF4LZGjaMGeFeefhd/6NfXxxwUMmSpQRbFPfyJMhS4Pzgdk84W+3GAW2vw556ekMU67y4C/JjCJX12abC9jrjlMqaGGcvtCd7DAIuDMnCYQQZ7O3z0apy7vN3Tb07joVlQ
-DKIM-Signature: a=rsa-sha256; bh=2FuHkhres7c1a9hvpm6PvrBxWYxoOoyw665OrYuvrvk=; 
+X-VR-SPAMCAUSE: dmFkZTEPp6kNSyGSbEjWxKrIgE1HssE+3YWZIUhb0XfRH2ewIPGMkqkq/N2arh5Ba2XQsoi5FO2Dp4CMwNqhcRsTtuuHue0hCp28BUZ4zJ0TqA57zUUyVbO0l7bBL43CJzAIIiAdv5WA84KBykzFjrXE9SPeQ5+S4cmEF2gKTTKn1oxx7Kf9gnyPe0T9+82xgDFF54JYIi0QQZjaI+/YPtY6DZgfbmjXFeixY/dF87toiQQzApraltAeXn4revVJN7ti2427AgG+MVSn2Ix/8L5aquqKupx+z+OMtyTtbCjBr4A89cDBu5en4fxgT9SGL5y7nFflGbAMkJkPxL/2tHp1cNsLTicZbOiyWxmORvMszdaUOT4jSpg93N1l/IPj9dLZkrijJA88tGX4KkbY/owV6PRu5sfD5pS6F0fqtl2X3ekVYIO+LNkG1nSbrc8R647E2XrkhAf4n3HncsbcR4lI9OKFY0WRrn0+QQlWZVa97nlOjRLKEHZl3vvb8xKAy8BfCRo7BS7gqpILctLfc3V147w9sq3FkAnNlIItEK7uKDV99peGDF4A2LY/UOZmByrjomiOPXR/2R/67sHB/+ZTongANCGjTgdeTZhnpxLo301K28gwlnIF1PvaPCfA7PtqVGyLmTx1HNKUqodCMvm7twihItThb7oqZmnNR87E8MK3ig
+DKIM-Signature: a=rsa-sha256; bh=dyNaVn7Mal9uVVR5LI5qqXyuhz5cOYFS0M4l+grg88Y=; 
  c=relaxed/relaxed; d=pixelcluster.dev; h=From;
- s=ovhmo-selector-1; t=1794919838; v=1;
- b=XyN2K4FcizzRItPAWDOdQGuUcMco7E0t7S2Hggm0ZdFS9yDLhs5/k70gn+fc5NlXkGgtMUeh
- +7qKm6QfHiNai12UUhuL+nGUwdb6JjISDE6ziQO522Jo4GdamnAUiQ+zYsBoIE1+wdiHhDmdYPg
- 8KoKF+4eadjVyV8jMj5qM2MfiFIJ7aZOl36p7xdMf3ZPijTx0KDtR/HCYmydAa3HY5gLqyLowZ8
- rCh24i8X76SWgyggtepsD57S227fj1AxxM4VF2R7UvR+PRyHjj8vIxv2/2qMwEJ6jeZer/TVZPs
- ONR9JnCUVH40NV4y1SkCHcnIeQJhBaqI5aS/OhYAHtVmg==
+ s=ovhmo-selector-1; t=1794919841; v=1;
+ b=ogdnuw2NjF1keGROIVn6s6v1e+FwkcJ5DWbIMUS9NW6/jTfp5cR6BKZ3ISDuF88+p/IU2Uq9
+ rYwYjhV5wnin1RK6EDp22TjjjdDcahNCj4l6z6angD0B4KhaEB/SpWLAIi86b4dmQW7FwjYqN/G
+ tiZz13rCccc7M2B6ehitOMo7y6rRIfkuRkBLrBzIU9tBeY6hcg7BghtVHEuzRlsO+mb8L/Mg2nG
+ O53P+j623b5OFFBH1MUcTO4bpXt0E+eBGzsRI85tKFZGHA4MLJlZJd+1KNRyafXeuCVsXMSsyqs
+ yTpZ8gQyhE1+GVzrz/RigNeDDWE1gtYFeLqIR6VZy875A==
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,104 +83,121 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-So we can later update all changed BOs without needing to do tracking
-separately.
+To be reused in a new VA ioctl in a subsequent patch.
 
 Signed-off-by: Natalie Vock <nat@pixelcluster.dev>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |  2 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c     | 16 ++++++++++++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h     |  5 +++++
- 3 files changed, 21 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 71 +++++++++++++++++++--------------
+ 1 file changed, 40 insertions(+), 31 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-index e0090dc10682f..068c57ed537fd 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-@@ -80,6 +80,8 @@ struct amdgpu_bo_va {
- 	/* protected by bo being reserved */
- 	unsigned			ref_count;
- 
-+	struct list_head		update_link;
-+
- 	/* all other members protected by the VM PD being reserved */
- 	struct dma_fence	        *last_pt_update;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 1e2d45979efdb..330c288053352 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -1718,6 +1718,8 @@ amdgpu_vm_update_ctx_add_new_mapping(struct amdgpu_vm_update_ctx *ctx,
- 	mapping->bo_va = bo_va;
- 	WARN_ON(!list_empty(&mapping->pending_list));
- 	list_add(&mapping->pending_list, &ctx->new);
-+	if (list_empty(&mapping->bo_va->update_link))
-+		list_add(&mapping->bo_va->update_link, &ctx->dirty_bo_vas);
- 	return 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+index 39c72bfb73e71..fb7abb095b8ec 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+@@ -878,9 +878,11 @@ amdgpu_gem_va_update_vm(struct amdgpu_vm_update_ctx *ctx,
+ 	return fence;
  }
  
-@@ -1733,8 +1735,10 @@ static void
- amdgpu_vm_update_ctx_add_freed_mapping(struct amdgpu_vm_update_ctx *ctx,
- 				       struct amdgpu_bo_va_mapping *mapping)
+-int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
+-			  struct drm_file *filp)
++static int amdgpu_gem_va_validate_args(struct amdgpu_device *adev, uint64_t va,
++				       uint64_t size, uint32_t flags)
  {
--	WARN_ON(!list_empty(&mapping->pending_list));
--	list_add(&mapping->pending_list, &ctx->deleted);
-+	if (list_empty(&mapping->bo_va->update_link))
-+		list_add(&mapping->bo_va->update_link, &ctx->dirty_bo_vas);
-+	if (list_empty(&mapping->pending_list))
-+		list_add(&mapping->pending_list, &ctx->deleted);
- }
- 
- int amdgpu_vm_update_ctx_execute_replace(struct amdgpu_vm_update_ctx *ctx)
-@@ -1861,6 +1865,7 @@ void amdgpu_vm_update_ctx_init(struct amdgpu_vm_update_ctx *ctx,
- 
- 	ctx->pending_maps = RB_ROOT_CACHED;
- 	ctx->cleared_ranges = RB_ROOT_CACHED;
-+	INIT_LIST_HEAD(&ctx->dirty_bo_vas);
- 	INIT_LIST_HEAD(&ctx->new);
- 	INIT_LIST_HEAD(&ctx->deleted);
- 	INIT_LIST_HEAD(&ctx->freed);
-@@ -1878,10 +1883,16 @@ void amdgpu_vm_update_ctx_init(struct amdgpu_vm_update_ctx *ctx,
- void amdgpu_vm_update_ctx_fini(struct amdgpu_vm_update_ctx *ctx)
- {
- 	struct interval_tree_node *node, *next_node;
-+	struct amdgpu_bo_va *bo_va, *next_bo_va;
- 
- 	list_splice(&ctx->freed, &ctx->vm->delayed_freed);
- 	amdgpu_sync_free(&ctx->sync);
- 
-+	list_for_each_entry_safe(bo_va, next_bo_va, &ctx->dirty_bo_vas,
-+				 update_link) {
-+		list_del_init(&bo_va->update_link);
-+	}
++	uint64_t vm_size, map_end;
 +
- 	rbtree_postorder_for_each_entry_safe(node, next_node, &ctx->pending_maps.rb_root, rb) {
- 		kfree(node);
+ 	const uint32_t valid_flags = AMDGPU_VM_DELAY_UPDATE |
+ 		AMDGPU_VM_PAGE_READABLE | AMDGPU_VM_PAGE_WRITEABLE |
+ 		AMDGPU_VM_PAGE_EXECUTABLE | AMDGPU_VM_MTYPE_MASK |
+@@ -888,53 +890,60 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
+ 	const uint32_t prt_flags = AMDGPU_VM_DELAY_UPDATE |
+ 		AMDGPU_VM_PAGE_PRT;
+ 
+-	struct drm_amdgpu_gem_va *args = data;
+-	struct drm_gem_object *gobj;
+-	struct amdgpu_device *adev = drm_to_adev(dev);
+-	struct amdgpu_fpriv *fpriv = filp->driver_priv;
+-	struct amdgpu_bo *abo;
+-	struct amdgpu_bo_va *bo_va;
+-	struct drm_syncobj *timeline_syncobj = NULL;
+-	struct dma_fence_chain *timeline_chain = NULL;
+-	struct amdgpu_vm_update_ctx update_ctx;
+-	struct drm_exec exec;
+-	uint64_t vm_size, tmp;
+-	int r = 0;
+-
+-	/* Validate virtual address range against reserved regions. */
+-	if (args->va_address < AMDGPU_VA_RESERVED_BOTTOM) {
+-		dev_dbg(dev->dev,
++	if (va < AMDGPU_VA_RESERVED_BOTTOM) {
++		dev_dbg(adev_to_drm(adev)->dev,
+ 			"va_address 0x%llx is in reserved area 0x%llx\n",
+-			args->va_address, AMDGPU_VA_RESERVED_BOTTOM);
++			va, AMDGPU_VA_RESERVED_BOTTOM);
+ 		return -EINVAL;
  	}
-@@ -2135,6 +2146,7 @@ struct amdgpu_bo_va *amdgpu_vm_bo_add(struct amdgpu_device *adev,
  
- 	bo_va->ref_count = 1;
- 	bo_va->last_pt_update = dma_fence_get_stub();
-+	INIT_LIST_HEAD(&bo_va->update_link);
- 	INIT_LIST_HEAD(&bo_va->valids);
- 	INIT_LIST_HEAD(&bo_va->invalids);
+-	if (args->va_address >= AMDGPU_GMC_HOLE_START &&
+-	    args->va_address < AMDGPU_GMC_HOLE_END) {
+-		dev_dbg(dev->dev,
++	if (va >= AMDGPU_GMC_HOLE_START && va < AMDGPU_GMC_HOLE_END) {
++		dev_dbg(adev_to_drm(adev)->dev,
+ 			"va_address 0x%llx is in VA hole 0x%llx-0x%llx\n",
+-			args->va_address, AMDGPU_GMC_HOLE_START,
++			va, AMDGPU_GMC_HOLE_START,
+ 			AMDGPU_GMC_HOLE_END);
+ 		return -EINVAL;
+ 	}
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-index 5657aa63e9491..7a5f558970b5c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-@@ -305,6 +305,11 @@ struct amdgpu_vm_update_ctx {
- 	 */
- 	struct list_head cleared;
+-	args->va_address &= AMDGPU_GMC_HOLE_MASK;
+-
+ 	vm_size = adev->vm_manager.max_pfn * AMDGPU_GPU_PAGE_SIZE;
+ 	vm_size -= AMDGPU_VA_RESERVED_TOP;
+-	if (check_add_overflow(args->va_address, args->map_size, &tmp) || tmp > vm_size) {
+-		dev_dbg(dev->dev,
++	if (check_add_overflow(va & AMDGPU_GMC_HOLE_MASK, size, &map_end) || map_end > vm_size) {
++		dev_dbg(adev_to_drm(adev)->dev,
+ 			"va_address 0x%llx is in top reserved area 0x%llx\n",
+-			args->va_address + args->map_size, vm_size);
++			va + size, vm_size);
+ 		return -EINVAL;
+ 	}
  
-+	/**
-+	 * @dirty_bo_vas: amdgpu_bo_va structures touched by current pending mapping changes.
-+	 */
-+	struct list_head dirty_bo_vas;
+-	if ((args->flags & ~valid_flags) && (args->flags & ~prt_flags)) {
+-		dev_dbg(dev->dev, "invalid flags combination 0x%08X\n",
+-			args->flags);
++	if ((flags & ~valid_flags) && (flags & ~prt_flags)) {
++		dev_dbg(adev_to_drm(adev)->dev, "invalid flags combination 0x%08X\n",
++			flags);
+ 		return -EINVAL;
+ 	}
+ 
++	return 0;
++}
 +
- 	/**
- 	 * @freed: A list of mappings that are freed and pending PT/PD updates during
- 	 * this update operation.
++int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
++			  struct drm_file *filp)
++{
++	struct drm_amdgpu_gem_va *args = data;
++	struct drm_gem_object *gobj;
++	struct amdgpu_device *adev = drm_to_adev(dev);
++	struct amdgpu_fpriv *fpriv = filp->driver_priv;
++	struct amdgpu_bo *abo;
++	struct amdgpu_bo_va *bo_va;
++	struct drm_syncobj *timeline_syncobj = NULL;
++	struct dma_fence_chain *timeline_chain = NULL;
++	struct amdgpu_vm_update_ctx update_ctx;
++	struct drm_exec exec;
++	int r = 0;
++
++	r = amdgpu_gem_va_validate_args(adev, args->va_address, args->map_size, args->flags);
++	if (r)
++		return r;
++
++	args->va_address &= AMDGPU_GMC_HOLE_MASK;
++
+ 	/* Validate operation type. */
+ 	switch (args->operation) {
+ 	case AMDGPU_VA_OP_MAP:
 
 -- 
 2.56.1
