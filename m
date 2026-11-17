@@ -2,42 +2,102 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EFA8606A32A
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Nov 2026 14:05:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E407606A323
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Nov 2026 14:08:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=beerstra.org header.i=@beerstra.org header.a=rsa-sha256 header.s=mail header.b=qGKVpAx8
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=lhrZgtD+;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Aml1w1Ng;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=lhrZgtD+;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Aml1w1Ng
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D49AB10F767;
-	Tue, 17 Nov 2026 14:05:49 +0000 (UTC)
-X-Greylist: delayed 327 seconds by postgrey-1.36 at gabe;
- Tue, 17 Nov 2026 12:41:35 UTC
-Received: from mail.beerstra.org (mail.beerstra.org [217.148.134.188])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6611B10E5C4
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Nov 2026 12:41:35 +0000 (UTC)
-From: Jeroen Beerstra <jeroen@beerstra.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=beerstra.org;
- s=mail; t=1794918966;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type;
- bh=eWjwnEgKO9R2nXDJa9SM8ySPZ0eDiREDtDmUcebwr1A=;
- b=qGKVpAx82zKRP8ONCDSwC0qGEGW6RyZi6CIT2ihou8ERmXP9b/WLocVq30AdCIBVaOEyMv
- TNkCYEM2dvaXRNAqvQnFsmaqY5Skomjd6HBVIkyXnBX3bVxJ7SMqes5NmekkW5D8f+utZl
- xVeU11+sWVIMCGMLEDCYYR/dqLLFYXqR2nxAYW3tmSGF3Cpr8BAijUEvKimTE8jdVVbHTe
- 9fptCR/qGcGnxFQIxBVJ+YvM6NxTTUzjBMX308+jCBT3O/hgHHwvsSSFVSDrfjWgZQWToV
- OScTW6Y/U0pstNnkjQG8OFjtkJ7Cm5XfrKuF1GTsMsEy5KHEGg0tlWg0FCu+0g==
-Content-Type: multipart/alternative;
- boundary="Apple-Mail=_266D6F71-E04A-429E-8A32-C7B79640EB06"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9358710E606;
+	Tue, 17 Nov 2026 14:08:09 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95D5510E5E9;
+ Tue, 17 Nov 2026 14:07:57 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id F321B22267;
+ Tue, 17 Nov 2026 14:07:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1794924476; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=z4/WKAT19Vpjrf1TybasxxG535T8z2t/1qjktjH0hrQ=;
+ b=lhrZgtD+pyTojk/MCcSrXMx6TFxZn6YuCvOpTLRkcf4LvBemxaqD4KKCSIXciijpooSMGq
+ +Ho0Fk8iJ1roxR4MWASw4Cy1bfReAOgNKLRxv0ZjjqUYZ0P4XsDL+GYnobIELQtkPPrW3b
+ 3sWH2BFDC6fm2ij3Sz97kSNCC+utqXg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1794924476;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=z4/WKAT19Vpjrf1TybasxxG535T8z2t/1qjktjH0hrQ=;
+ b=Aml1w1NgkEBs3bsS2jtjyid/5Z/HsXC40wtevaKJFd62greKM+BF11lb36oeMYWKuwK/Vz
+ yMv2QuZOjaHEamAw==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=lhrZgtD+;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Aml1w1Ng
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1794924476; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=z4/WKAT19Vpjrf1TybasxxG535T8z2t/1qjktjH0hrQ=;
+ b=lhrZgtD+pyTojk/MCcSrXMx6TFxZn6YuCvOpTLRkcf4LvBemxaqD4KKCSIXciijpooSMGq
+ +Ho0Fk8iJ1roxR4MWASw4Cy1bfReAOgNKLRxv0ZjjqUYZ0P4XsDL+GYnobIELQtkPPrW3b
+ 3sWH2BFDC6fm2ij3Sz97kSNCC+utqXg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1794924476;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=z4/WKAT19Vpjrf1TybasxxG535T8z2t/1qjktjH0hrQ=;
+ b=Aml1w1NgkEBs3bsS2jtjyid/5Z/HsXC40wtevaKJFd62greKM+BF11lb36oeMYWKuwK/Vz
+ yMv2QuZOjaHEamAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 884F113302;
+ Tue, 17 Nov 2026 14:07:55 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id lIVaDrtf/GpTJgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 17 Nov 2026 14:07:55 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ sashiko-reviews@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH v3 0/2] drm/radeon: Inline drm_crtc_init()
+Date: Tue, 17 Nov 2026 15:04:28 +0100
+Message-ID: <20261117140750.541769-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.56.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Subject: [REGRESSION] Suspected amdgpu graphics regression on Ryzen 9 7950X
- since 6.18.58
-X-MS-Reactions: disallow
-Message-Id: <8C195BCD-0939-4BE9-B910-3C57A5977984@beerstra.org>
-Date: Tue, 17 Nov 2026 13:35:55 +0100
-Cc: stable@vger.kernel.org,
- regressions@lists.linux.dev
-To: amd-gfx@lists.freedesktop.org
-X-Mailman-Approved-At: Tue, 17 Nov 2026 14:05:41 +0000
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-12.01 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
+ BAYES_HAM(-3.00)[100.00%]; MID_CONTAINS_FROM(1.00)[];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[];
+ URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; ARC_NA(0.00)[];
+ FREEMAIL_TO(0.00)[amd.com,gmail.com,ffwll.ch,linux.intel.com,kernel.org];
+ MIME_TRACE(0.00)[0:+];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
+ RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ DWL_DNSWL_BLOCKED(0.00)[suse.de:dkim];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ RCPT_COUNT_SEVEN(0.00)[10]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Score: -12.01
+X-Spam-Level: 
+X-Rspamd-Queue-Id: F321B22267
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,143 +108,53 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+The helper drm_crtc_init() sets up a CRTC with a primary plane for
+non-atomic mode setting. Only radeon still uses it.
 
---Apple-Mail=_266D6F71-E04A-429E-8A32-C7B79640EB06
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;
-	charset=utf-8
+Inline drm_crtc_init() into radeon and remove it from DRM. All new
+code implements atomic mode setting, which does not use drm_crtc_init().
+DRM support for kernel panic is not implemented by radeon. Clean it up.
 
-I am experiencing graphics problems on AlmaLinux 9 using the
-integrated graphics of an AMD Ryzen 9 7950X.
+With this series in place, DRM's helpers for drawing panic screens
+can be further integrated with other drawing helpers, as outlined
+in [1].
 
-Last known good: Linux 6.18.56
-First known bad: Linux 6.18.58
-Still affected: Linux 6.18.63
+Tested on radeon with a Radeon HD 6570.
 
-The symptoms vary between affected versions:
+Requires the patch series at [2].
 
-I first noticed a hard lockup when I powered off my Windows 11 kvm =
-session where graphics are rendered to a dedicated Nvidia RTX 5080.
-So the first suspect was either the Nvidia hardware or kvm/qemu. Later =
-the problem got worse and I was unable to boot into run level 5 where my =
-onboard AMD graphics for my Ryzen 9 7950X gets activated. At some point =
-it appeared my system even needed a cold boot to get in a usable state =
-as there were hardware errors unrelated to the graphics at booted that =
-prevented the boot to continue that disappeared after a complete power =
-off. I think this was with 6.18.59 and 6.18.60 but not completely sure. =
-Currently with 6.18.63 the problem is: hard lockup when I power off my =
-Windows 11 kvm/qemu session with the RTX 5080 in passthrough mode and =
-hard lockup when I end my Gnome session in Linux that uses the onboard =
-AMD graphics, so my primary suspect is the amd driver. Because of the =
-hard lockups nothing gets logged, but I=E2=80=99m sure there are ways =
-around that.
+v3:
+- keep plane->format_default for now
+- remove some obsolete include statements
+v2:
+- add missing formats for primary plane
+- drop amdgpu patches
 
-Steps to reproduce:
+[1] https://lore.kernel.org/dri-devel/20261019154612.777074-1-tzimmermann@suse.de/
+[2] https://lore.kernel.org/amd-gfx/20261111151546.3105062-1-alexander.deucher@amd.com/
 
-Boot into run level 5 on AMD graphics
-Reboot
-Lockup
+Thomas Zimmermann (2):
+  drm/radeon: Inline drm_crtc_init()
+  drm: Remove drm_crtc_init()
 
-I currently use 6.18.56, which does not exhibit the problem.
+ drivers/gpu/drm/drm_crtc.c              | 19 +++----
+ drivers/gpu/drm/drm_modeset_helper.c    | 76 -------------------------
+ drivers/gpu/drm/radeon/radeon_display.c | 53 ++++++++++++++---
+ include/drm/drm_modeset_helper.h        |  3 -
+ 4 files changed, 53 insertions(+), 98 deletions(-)
 
-These kernels are built using rpmbuild from unmodified upstream
-sources, without additional source patches. The RPM spec is based
-on ELRepo's spec, with local changes for Secure Boot signing.
-Secure Boot is enabled.
 
-I haven=E2=80=99t changed the kernel config or firmware in between.
-My setup is:
-AlmaLinux 9
-A custom build 6.18 kernel with secure boot but without patches or other =
-modifications
-I have kernel modules via dkms for: zfs, nvidia and anbox. However the =
-nvidia modules are currently completely disabled at boot.
-System has 128GB RAM, a Ryzen 9 7950X and Nvidia RTX 5080. On the Linux =
-side I run the standard Gnome that comes with AlmaLinux 9: 40 on the =
-onboard graphics for the 7950X and at the same time Windows 11 via =
-kvm/qemu on the RTX 5080.
+base-commit: 7d502136b31169f6b5575f7f89c3da60cdf7891d
+prerequisite-patch-id: 29d74d364880d75af999879ea5eec1e61f99eee4
+prerequisite-patch-id: c4aac512c186a1189b7e7d81e3a118b3e487f955
+prerequisite-patch-id: 2e6a87a46e3157194ea11a2a4821ffbe38e7748e
+-- 
+2.56.0
 
-Willing to provide further details if required or perform further =
-debugging.
-
-#regzbot introduced: v6.18.56..v6.18.58
-Kind regards,
-Jeroen Beerstra=
-
---Apple-Mail=_266D6F71-E04A-429E-8A32-C7B79640EB06
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html;
-	charset=utf-8
-
-<html aria-label=3D"message body"><head><meta http-equiv=3D"content-type" =
-content=3D"text/html; charset=3Dutf-8"></head><body =
-style=3D"overflow-wrap: break-word; -webkit-nbsp-mode: space; =
-line-break: after-white-space;"><pre dir=3D"ltr" style=3D"font-size: =
-medium;"><code>I am experiencing graphics problems on AlmaLinux 9 using =
-the
-integrated graphics of an AMD Ryzen 9 7950X.
-
-Last known good: Linux 6.18.56
-First known bad: Linux 6.18.58
-Still affected: Linux 6.18.63
-</code></pre><pre dir=3D"ltr" style=3D"font-size: medium;"><code>
-The symptoms vary between affected versions:
-<br></code></pre><pre dir=3D"ltr" style=3D"font-size: medium;"><code>I =
-first noticed a hard lockup when I powered off my Windows 11 kvm session =
-where graphics are rendered to a dedicated Nvidia RTX =
-5080.</code></pre><pre dir=3D"ltr" style=3D"font-size: medium;"><code>So =
-the first suspect was either the Nvidia hardware or kvm/qemu. Later the =
-problem got worse and I was unable to boot into run level 5 where my =
-onboard AMD graphics for my Ryzen 9 7950X gets activated. At some point =
-it appeared my system even needed a cold boot to get in a usable state =
-as there were hardware errors unrelated to the graphics at booted that =
-prevented the boot to continue that disappeared after a complete power =
-off. I think this was with 6.18.59 and 6.18.60 but not completely sure. =
-Currently with 6.18.63 the problem is: hard lockup when I power off my =
-Windows 11 kvm/qemu session with the RTX 5080 in passthrough mode and =
-hard lockup when I end my Gnome session in Linux that uses the onboard =
-AMD graphics, so my primary suspect is the amd driver. Because of the =
-hard lockups nothing gets logged, but I=E2=80=99m sure there are ways =
-around that.
-
-Steps to reproduce:
-<br></code></pre><pre dir=3D"ltr" style=3D"font-size: medium;"><ul =
-style=3D"list-style-type: &quot;-&nbsp;&nbsp;&quot;;" =
-class=3D"Apple-dash-list MailOutline"><li>Boot into run level 5 on AMD =
-graphics</li><li>Reboot</li><li>Lockup</li></ul></pre><pre dir=3D"ltr" =
-style=3D"font-size: medium;"><code>
-I currently use 6.18.56, which does not exhibit the problem.
-
-These kernels are built using rpmbuild from unmodified upstream
-sources, without additional source patches. The RPM spec is based
-on ELRepo's spec, with local changes for Secure Boot signing.
-Secure Boot is enabled.
-
-I haven=E2=80=99t changed the kernel config or firmware in =
-between.</code></pre><pre dir=3D"ltr" style=3D"font-size: =
-medium;"><code>My setup is:</code></pre><pre dir=3D"ltr" =
-style=3D"font-size: medium;"><ul style=3D"list-style-type: =
-&quot;-&nbsp;&nbsp;&quot;;" class=3D"Apple-dash-list =
-MailOutline"><li>AlmaLinux 9</li><li>A custom build 6.18 kernel with =
-secure boot but without patches or other modifications</li><li>I have =
-kernel modules via dkms for: zfs, nvidia and anbox. However the nvidia =
-modules are currently completely disabled at boot.</li><li>System has =
-128GB RAM, a Ryzen 9 7950X and Nvidia RTX 5080. On the Linux side I run =
-the standard Gnome that comes with AlmaLinux 9: 40 on the onboard =
-graphics for the 7950X and at the same time Windows 11 via kvm/qemu on =
-the RTX 5080.</li></ul><div><br></div><div>Willing to provide further =
-details if required or perform further debugging.</div></pre><pre =
-dir=3D"ltr" style=3D"font-size: medium;"><code>
-#regzbot introduced: v6.18.56..v6.18.58</code></pre><pre dir=3D"ltr" =
-style=3D"font-size: medium;"><code>Kind regards,</code></pre><pre =
-dir=3D"ltr" style=3D"font-size: medium;"><code>Jeroen =
-Beerstra</code></pre></body></html>=
-
---Apple-Mail=_266D6F71-E04A-429E-8A32-C7B79640EB06--
