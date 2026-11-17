@@ -2,93 +2,92 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F0C6606A31C
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Nov 2026 15:12:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C08A606A31C
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Nov 2026 15:12:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sGnsVI4D
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oZeVZpTC
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0532810E2E0;
-	Tue, 17 Nov 2026 15:12:11 +0000 (UTC)
-Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com
- [209.85.167.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B820910E2E0
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Nov 2026 15:12:04 +0000 (UTC)
-Received: by mail-oi1-f182.google.com with SMTP id
- 5614622812f47-4c1ff2eabc0so415503b6e.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Nov 2026 07:12:04 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794928324; cv=none;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F62310E20F;
+	Tue, 17 Nov 2026 15:12:39 +0000 (UTC)
+Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com
+ [209.85.167.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72DF810E20F
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Nov 2026 15:12:33 +0000 (UTC)
+Received: by mail-oi1-f173.google.com with SMTP id
+ 5614622812f47-4b2b01478d0so195231b6e.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Nov 2026 07:12:33 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794928352; cv=none;
  d=google.com; s=arc-20260327;
- b=EP36p/lvSu2zJBafeIUee0T56ehL+Da5vjqE7LpfSsCkJ2tSOQm5A9q5uqXnSZhlit
- E2+Q0vittOVd8duY9Q9Ob6Ayk7k/p82LuoJZQKRXybxfAJ9Ld8/sm3AcW5msTw0ehkxn
- MQOkTIUQRrcYksqBW1zQSOOKMt0XZMXx81x/VGoMmQi0zRTgVMAlX6YzjCgWK+f/qaRB
- Tt1GK9aVMXwcIeF2BenQVYQL3TASXIHe7PfkXTNrwjf8lXFNLkObzNgYklLnnmSsJ3Gk
- maJd6/j0xZ4Ms+AXyvYeNsPiQNQvdcvAMLpeJD4lTsOsoJckWjkjPs+88R5RxEbjlnMT
- ji6Q==
+ b=fSITypyAFuzXjofzsRHUrD7WDQJUym8Pk+vkuoKfAHH/h3er8krC1XMbdaMQtnk4i9
+ 9ph/vvLRgXiCPysfxK6CLXBCTt2MhwTuOoLvagY73TxmlHZUIF151dF73M+ZBFEJG4Hr
+ QGxI0QbiiCAmGyv7TANGFeE+TLfriBGPKSRcExfqJMEO++/YwuV/9Mbb8qfbhQKKWnho
+ Ls9dqUMX14CiH3Bro7fxrJy6WOTTB7SRR+tUHtZoe8VwbiDq77MVsZPDBlmti4ClWQnc
+ JUuRplR/lF+R+J7X0lPJkXrd5qHdLFmBwISL1yqDsQizi1b+7NRBNeNsFwsKV4KiL7JV
+ icHQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=igHwufmANhRzyJGk3ymjYyeDDNg8/anM+jLtdyhGFzw=;
- fh=eAZKnxkpQ9wnRZsj284nNlvJXFF/1NPCBMK5abEqgfs=;
- b=CElC/GtCArYs0pq6RPOslfDrm2BuI3AYes8tXr2cHwFZJN5Pw4hVG3LEJZCG9bgfXv
- 5Fuwr3N7nP2mKQiZxnk1xw7NyU7BEh3lvUIh+jCQpfN/tnHznAYkWl7BzaV/UmQ+NNRS
- RAuB9G2fYnEsBXiswe0usIoJxIEH3YL/yX51Yyt3ux/Z0uo+eKJ/2R+Wot3nTi9E/LN7
- 6d/DW5U0BnXOsot3tRA86SMsERiOdSIYGbxRESLFQh13tPHUeZkVSaKs56zpMaRPbj/J
- TcCBAaecCGab5aAjC7IJVpufDBHjwL0pIc4a3vfBZqMqByx4mNHgHOxC7YBkAgnbm6ts
- BeAg==; darn=lists.freedesktop.org
+ bh=XxBKEH1MerCjoO9n5/a74in7TfYlSslctzFoDpb89ZI=;
+ fh=ZxvrC6rNjWHvCh5o5yNM8zSSCYAFdK0GMEIYqGOthl0=;
+ b=ZAiKdYxzo59UhTM12gIVuQIkUvliBShTS0f5A+aI75C4wGFKxPWVMFCVx2+j+PRE3y
+ zD34TT9TpAEp/PX5hg/dejhundcVV7c80pl12CJeduMvdBKc9JYWxEGbbOoPU54FLPP5
+ 08b15GLDiaTkOF4Lbe1uidRGhVST3ig0ZfWQFHOC2gOhu3tXIW5FVoMmTJTcGOSfYd7s
+ Xbvqd9L2zPZz3nkgJtNXQa1AXPsKrnYA50JOcIRJw9KrVRHTm9/3cc90lFyB8sh54uJQ
+ H3de6lvion4DqCEIeBE5o0d2fq1RePO59a/cNT8S5WHc15dIxzvewNX7XG7T5rRrbcUh
+ BdoA==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794928324; x=1795533124; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1794928352; x=1795533152; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=igHwufmANhRzyJGk3ymjYyeDDNg8/anM+jLtdyhGFzw=;
- b=sGnsVI4DCoGLmu5gWQ+4AvMg+rhlNl8fJxu3pLsuCYR5z0WyoLVh41Owfe0Sp9uI5d
- YntrIF3G167BOzuyTowBYjC3Rdf5g0KcsQmQRaA7WWCZlj3nFBSGh7bLxGagkwMw4n+X
- tt/GCxOfN1aUJ+Y9ptIrO1uooKlLxRdNMhupR6ZsxmCYYdM17h1p+3BJ3tKo8iO1FkOH
- /XSvCTh6BkDBxD5BJWSXweI6+YzfjVbRVHVDmJHqTK5sYJjgoQ0aBqUPunl5YRMQooTl
- PmkOrKsL5BZQtG6UvFNbVmD1I5wGH9oASL4UqwsAyGNUnFC/p2XIWMFe5VHc5w9+Ncnd
- ym4g==
+ bh=XxBKEH1MerCjoO9n5/a74in7TfYlSslctzFoDpb89ZI=;
+ b=oZeVZpTC5gn98CCLprzC5yhTa+D1knldqgAQeaLU6jXjTi56x8fpNYlRH6jaHX1Fsr
+ YMa+C9alLXb0jY5NMIGrRC8W6HKPLA8e1KgW/YM6TGeyiCpu7XSoAv+TMIEnKfVOF470
+ 1P6QLlvhCZK3McW1kf8Cpu/zeOBwPlQ4S2HasljcEjNDuqgBCszm/OGo4b8wQt0fOF5R
+ /LusQOrhqC5s2Ws4/0KzlsjIbaSG5pLcwljNKoceseA7Xb3XCKigkZZLaveP4P/4cThs
+ ADLAyIqaUtm67mZr9U787L9qrTQmVFflEHy9rUHKxTUpoilkbftKbQmKQyyq8MEVkYmV
+ VZHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794928324; x=1795533124;
+ d=1e100.net; s=20260707; t=1794928352; x=1795533152;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=igHwufmANhRzyJGk3ymjYyeDDNg8/anM+jLtdyhGFzw=;
- b=QCi/6N+vrRZdUIq+keVu5P4y4le6VLwb0W+9khHc2Pk41JUFQ7mC74WTsmYZBUtky/
- 1fd3+ADmKE7J7VqZP7ASMPDDw16vezssxLLBU/K6/wdcn/8UpoMiT4gSoQIfXlgBxlpG
- aN6ItW0g4nfA7Ge6cy3PRKu23QNmHD82WYDnnJL6ijA78/iDHCp6uqZCjMSK5UXfe2z2
- dFSfIUJDxwxkRxgls0An1EoKT+pJeQDlOsABYOLTt8ha3FJsdieq7LvumI0Uof2h1xsh
- 3sYYmK+BggAO/r35LQtfOrr9FFt3UiiZ6yLvEgzIy/u70CJ6puBNoXEyBQJipczPRybd
- Y8FA==
-X-Gm-Message-State: APuU4Z8K+wnI0wUPhaZgXKJV0yfrOKpX9wfkkzBWGbr2CEKRyAUycPG3
- Jj3L+NTpCLd9HzEBrmKxcu7/6kkoB1go252cqijufTeNaG6ybkJ77rQjZWB9/sYeX1V20v3BGCU
- AugwGZtx3fvUZBocY1fmvMye8k2sIfSHlww==
-X-Gm-Gg: AYBFou1EHip92oBhs1ClajVzZ2huIhnySQus8KSa47UAatCAvcMPTr3fqVzzUMouP4H
- Bqb5pvnacn12lWqP0jMX21dz/+EfF90wBFzBbxN8ah9Zj6PWmuVYGcSMjnorLfp3psygqDSw/+Q
- R7GJbXUqetNmcv63i+pulndpe2xxPtIJok5S6W5WxMePaZT0TbB3XZ3KtmIQAiMazJFayjenPAS
- BUNad7JoLlF+VTv1RZw14CTkNKPAvKSiMFI2TRnuWxyIWgoWujfY6X6pOHt5YenIynK+3g2Kw6W
- j6s1Dhn6emQOFm6nHpIfIT7VQPlCY+ZWO5+NDzQBbBZ187FZA9qrieiGGxXkaMUOD60A4Ep8aRk
- J/7qinHBKniesAYSyGUX8l6/R6tQshF199I4OcXX34NsXXfWwyzABkOEETO6d3P9HU0hXXjcrff
- rCVGa0WpvNaFuoM/YIkGDvem6cs59pg1fJ9p6ZGwOKL0/3EaT/pKwJQReP4X0=
-X-Received: by 2002:a05:6808:4f5e:b0:4f3:6ac0:27d7 with SMTP id
- 5614622812f47-56e6015d9c3mr19761602b6e.1.1794928323825; Tue, 17 Nov 2026
- 07:12:03 -0800 (PST)
+ bh=XxBKEH1MerCjoO9n5/a74in7TfYlSslctzFoDpb89ZI=;
+ b=237/aIgrKM/Eau/oJ9ZUQE4EuuXXM90PuMJSj7TjDqlE2sZyiiGCO7mjcahICK+d2S
+ rpGeVQ+/T58VsbVlBip/0CEmmKfCfnYws9Pmvns9ya/b2xNBJ1yBDxRY2wcEehlyuO0u
+ 0P2XJ9KUxNRpniGmpg/X1IcIq3j89mm5bSfzzWY3GcuAADm2tlg/TDBfcOTEGXpxsLrz
+ H80zB+/p5ziVSHqqnqeZPRz7A8fyMwt5HeREPSFET04SBdCZITAQbY2/sLENIeb9m1cX
+ eiGqxFepNnYUzRnJtZ3Qxbf+zDA7lTFpB6NE8C79+SWQYj9ZySVcXDoK2Z+ilUqeqn84
+ TXtg==
+X-Gm-Message-State: APuU4Z9TlHfkeZTiaEYQeLfHjXobXIwSrRArGqDPUdxS5Ne+gMtIck+T
+ yKN/xSUl/vGJ59PlNa4blUNruVgWWTEHZO/S/1qAykd9crb4f+Nwh3mL9cxvMwIoyNQytTkRG3i
+ qMUzal+BgrjVnhTbFGYcF3GpnubPH6e6e0731
+X-Gm-Gg: AYBFou0GSBRBf9LUNi7PwqID0zu3v/lYvg/X5NUCgMIFxPDOWG+DCv+nwV4L1Ta01rf
+ Zsb8SlYPSiFAJN6pYJShNUp+RBGUaoYxnbqYgRZUTsFriAfTGnSp6DiFTH1ISrwhPZXctkv3Ofb
+ sNmqqfpyYPEIDSLi9XTEYOBdoCvjwdz4BM3fsyKtkC7cWrTb1zkLdm+H3d/yUZBnA4GD9nMYBpY
+ OxYxYtRZj1E8h3wTIbew8bWeyDe/AtOpIpWcYt3KOSbKvrvOkSFnTHMXhUfmaHVLA+YdlMr52VC
+ gu7fM69I2uoquJXL1ssxDRM9Mo51gSNph6EOmu6I0GDulHQtZ4HwwMkUYQm4HmuBemml7qMM5Ek
+ X+x1d//DduhUTtNn/pqbz5vKzvk/qSZybiUxuEZubFqGZ12UgKBM4Dlh5GfkpRXNwvNcGogTnjD
+ 2A91xC6pKWeixRrCTQAJeaWzRFAM4Aln78DKoILhu9Xp9Dz4gaMYsCHgpSYtA=
+X-Received: by 2002:a05:6808:118a:b0:567:de70:d493 with SMTP id
+ 5614622812f47-56e66989723mr17904468b6e.5.1794928352530; Tue, 17 Nov 2026
+ 07:12:32 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261105000441.3850131-1-alexander.deucher@amd.com>
- <20261105000441.3850131-4-alexander.deucher@amd.com>
-In-Reply-To: <20261105000441.3850131-4-alexander.deucher@amd.com>
+References: <20261105000525.3850296-1-alexander.deucher@amd.com>
+ <20261105000525.3850296-2-alexander.deucher@amd.com>
+In-Reply-To: <20261105000525.3850296-2-alexander.deucher@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 17 Nov 2026 10:11:51 -0500
-X-Gm-Features: AclHuK9Wfd88V3WIAmzLcw5Y1y-yrhvZkTI-yJjs-gnPYRC3hxLAjpTc0y-kF2A
-Message-ID: <CADnq5_OdFTn1rSkMHm4uzWQrah4b8a_+sB+iKZ0YKW9xDseyyw@mail.gmail.com>
-Subject: Re: [PATCH 4/4] drm/amdgpu: use SMN C2PMSG registers for PSP ring
- control on VF
+Date: Tue, 17 Nov 2026 10:12:20 -0500
+X-Gm-Features: AclHuK8P-yTVntT1A6r5OZItsEQ6JaNnMvfjU_Fp5uBMQt2VtzXnnuYR11IUAsw
+Message-ID: <CADnq5_P_Q_Mm+=GxBwk_Mk0ztTfDmEXOEP60K1cZKMC8tCxQmg@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu: update table info retrieval from
+ discovery binary
 To: Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, frank.min@amd.com, Hawking.Zhang@amd.com, 
- Tong Liu01 <Tong.Liu01@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, frank.min@amd.com, Hawking.Zhang@amd.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -109,170 +108,116 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, Nov 4, 2026 at 7:11=E2=80=AFPM Alex Deucher <alexander.deucher@amd.=
+On Wed, Nov 4, 2026 at 7:31=E2=80=AFPM Alex Deucher <alexander.deucher@amd.=
 com> wrote:
 >
-> From: Tong Liu01 <Tong.Liu01@amd.com>
+> From: Frank Min <Frank.Min@amd.com>
 >
-> Use SMN C2PMSG registers for PSP ring control instead of CRU0. This
-> allows VF mailbox access through BAR-mapped registers rather than
-> indirect SMN access only.
+> Update table info retrieval from discovery binary to align with
+> discovery table update.
 >
-> Signed-off-by: Tong Liu01 <Tong.Liu01@amd.com>
+> Signed-off-by: Frank Min <Frank.Min@amd.com>
 > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 
 Series is:
 Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
->  drivers/gpu/drm/amd/amdgpu/psp_v15_0_3.c       | 18 +++++++++---------
->  .../amd/include/asic_reg/mp/mp_15_0_3_offset.h |  6 ++++++
->  .../include/asic_reg/mp/mp_15_0_3_sh_mask.h    |  9 +++++++++
->  3 files changed, 24 insertions(+), 9 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 47 +++++++++++++------
+>  1 file changed, 33 insertions(+), 14 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v15_0_3.c b/drivers/gpu/drm/a=
-md/amdgpu/psp_v15_0_3.c
-> index b5202aee40354..ff3a25e270c3a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/psp_v15_0_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/psp_v15_0_3.c
-> @@ -220,11 +220,11 @@ static int psp_v15_0_3_ring_stop(struct psp_context=
- *psp,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_discovery.c
+> index 79a2b1268b23a..351a1e61f525e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> @@ -604,18 +604,36 @@ amdgpu_discovery_get_table_info_from_bin(uint8_t *d=
+iscovery_bin,
+>                                          uint16_t table_id)
+>  {
+>         struct binary_header *bhdr =3D (struct binary_header *)discovery_=
+bin;
+> -       struct binary_header_v2 *bhdrv2;
+> -
+> -       switch (bhdr->version_major) {
+> -       case 2:
+> -               bhdrv2 =3D (struct binary_header_v2 *)discovery_bin;
+> -               return &bhdrv2->table_list[table_id];
+> -       case 1:
+> +       struct binary_header_v2 *bhdrv2 =3D (struct binary_header_v2 *)di=
+scovery_bin;
+> +       uint16_t version =3D le16_to_cpu(bhdr->version_major);
+> +       uint16_t binary_size =3D le16_to_cpu(bhdr->binary_size);
+> +       struct table_info *table_list;
+> +       uint16_t num_tables, i;
+> +       size_t table_offset;
+> +
+> +       switch (version) {
+>         case 0:
+> -               return &bhdr->table_list[table_id];
+> +       case 1:
+> +               table_list =3D bhdr->table_list;
+> +               num_tables =3D ARRAY_SIZE(bhdr->table_list);
+> +               break;
+> +       case 2:
+> +               table_list =3D bhdrv2->table_list;
+> +               num_tables =3D le16_to_cpu(bhdrv2->num_tables);
+> +               break;
+>         default:
+>                 return NULL;
+>         }
+> +
+> +       table_offset =3D (uint8_t *)table_list - discovery_bin;
+> +       if (table_offset + num_tables * sizeof(*table_list) > binary_size=
+)
+> +               return NULL;
+> +
+> +       for (i =3D 0; i < num_tables; i++)
+> +               if (le16_to_cpu(table_list[i].table_id) =3D=3D table_id)
+> +                       return &table_list[i];
+> +
+> +       return NULL;
+>  }
 >
->         if (amdgpu_sriov_vf(adev)) {
->                 /* Write the ring destroy command*/
-> -               WREG32_SOC15(MP0, 0, regMPASP_PCRU0_MPASP_C2PMSG_101, GFX=
-_CTRL_CMD_ID_DESTROY_GPCOM_RING);
-> +               WREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_101, GFX_CTRL_CM=
-D_ID_DESTROY_GPCOM_RING);
->                 /* there might be handshake issue with hardware which nee=
-ds delay */
->                 mdelay(20);
->                 /* Wait for response flag (bit 31) */
-> -               ret =3D psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, regMPA=
-SP_PCRU0_MPASP_C2PMSG_101),
-> +               ret =3D psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, regMPA=
-SP_SMN_C2PMSG_101),
->                                    MBOX_TOS_RESP_FLAG, MBOX_TOS_RESP_MASK=
-, 0);
->         } else {
->                 /* Write the ring destroy command*/
-> @@ -257,19 +257,19 @@ static int psp_v15_0_3_ring_create(struct psp_conte=
-xt *psp,
+>  static int amdgpu_discovery_get_table_info(struct amdgpu_device *adev,
+> @@ -628,8 +646,8 @@ static int amdgpu_discovery_get_table_info(struct amd=
+gpu_device *adev,
+>         *info =3D amdgpu_discovery_get_table_info_from_bin(adev->discover=
+y.bin,
+>                                                          table_id);
+>         if (!*info) {
+> -               dev_err(adev->dev, "Invalid ip discovery table version %d=
+\n",
+> -                       bhdr->version_major);
+> +               dev_err(adev->dev, "Not found table for header version %d=
+ table id %d\n",
+> +                       bhdr->version_major, table_id);
+>                 return -EINVAL;
+>         }
 >
->                 /* Write low address of the ring to C2PMSG_102 */
->                 psp_ring_reg =3D lower_32_bits(ring->ring_mem_mc_addr);
-> -               WREG32_SOC15(MP0, 0, regMPASP_PCRU0_MPASP_C2PMSG_102, psp=
-_ring_reg);
-> +               WREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_102, psp_ring_re=
-g);
->                 /* Write high address of the ring to C2PMSG_103 */
->                 psp_ring_reg =3D upper_32_bits(ring->ring_mem_mc_addr);
-> -               WREG32_SOC15(MP0, 0, regMPASP_PCRU0_MPASP_C2PMSG_103, psp=
-_ring_reg);
-> +               WREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_103, psp_ring_re=
-g);
+> @@ -640,15 +658,16 @@ static int amdgpu_discovery_table_check(struct amdg=
+pu_device *adev,
+>                                         uint8_t *discovery_bin,
+>                                         uint16_t table_id)
+>  {
+> -       int r, act_val, exp_val, table_size;
+> +       int act_val, exp_val, table_size;
+>         uint16_t offset, checksum;
+>         struct table_info *info;
+>         bool check_table =3D true;
+>         char *table_name;
 >
->                 /* Write the ring initialization command to C2PMSG_101 */
-> -               WREG32_SOC15(MP0, 0, regMPASP_PCRU0_MPASP_C2PMSG_101, GFX=
-_CTRL_CMD_ID_INIT_GPCOM_RING);
-> +               WREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_101, GFX_CTRL_CM=
-D_ID_INIT_GPCOM_RING);
+> -       r =3D amdgpu_discovery_get_table_info(adev, &info, table_id);
+> -       if (r)
+> -               return r;
+> +       info =3D amdgpu_discovery_get_table_info_from_bin(discovery_bin, =
+table_id);
+> +       if (!info)
+> +               return 0;
+> +
+>         offset =3D le16_to_cpu(info->offset);
+>         checksum =3D le16_to_cpu(info->checksum);
 >
->                 /* there might be handshake issue with hardware which nee=
-ds delay */
->                 mdelay(20);
->
->                 /* Wait for response flag (bit 31) in C2PMSG_101 */
-> -               ret =3D psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, regMPA=
-SP_PCRU0_MPASP_C2PMSG_101),
-> +               ret =3D psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, regMPA=
-SP_SMN_C2PMSG_101),
->                                    MBOX_TOS_RESP_FLAG, MBOX_TOS_RESP_MASK=
-, 0);
->
->         } else {
-> @@ -347,7 +347,7 @@ static uint32_t psp_v15_0_3_ring_get_wptr(struct psp_=
-context *psp)
->         struct amdgpu_device *adev =3D psp->adev;
->
->         if (amdgpu_sriov_vf(adev))
-> -               data =3D RREG32_SOC15(MP0, 0, regMPASP_PCRU0_MPASP_C2PMSG=
-_102);
-> +               data =3D RREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_102);
->         else
->                 data =3D RREG32_SOC15(MP0, 0, regMPASP_PCRU0_MPASP_C2PMSG=
-_67);
->
-> @@ -359,8 +359,8 @@ static void psp_v15_0_3_ring_set_wptr(struct psp_cont=
-ext *psp, uint32_t value)
->         struct amdgpu_device *adev =3D psp->adev;
->
->         if (amdgpu_sriov_vf(adev)) {
-> -               WREG32_SOC15(MP0, 0, regMPASP_PCRU0_MPASP_C2PMSG_102, val=
-ue);
-> -               WREG32_SOC15(MP0, 0, regMPASP_PCRU0_MPASP_C2PMSG_101,
-> +               WREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_102, value);
-> +               WREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_101,
->                              GFX_CTRL_CMD_ID_CONSUME_CMD);
->         } else
->                 WREG32_SOC15(MP0, 0, regMPASP_PCRU0_MPASP_C2PMSG_67, valu=
-e);
-> diff --git a/drivers/gpu/drm/amd/include/asic_reg/mp/mp_15_0_3_offset.h b=
-/drivers/gpu/drm/amd/include/asic_reg/mp/mp_15_0_3_offset.h
-> index af10df3395dc3..84ac41f653e6f 100644
-> --- a/drivers/gpu/drm/amd/include/asic_reg/mp/mp_15_0_3_offset.h
-> +++ b/drivers/gpu/drm/amd/include/asic_reg/mp/mp_15_0_3_offset.h
-> @@ -1088,6 +1088,12 @@
->
->  // addressBlock: mp_SmuMpASP_SmnDec
->  // base address: 0x0
-> +#define regMPASP_SMN_C2PMSG_101                                         =
-                                0x00a5
-> +#define regMPASP_SMN_C2PMSG_101_BASE_IDX                                =
-                                0
-> +#define regMPASP_SMN_C2PMSG_102                                         =
-                                0x00a6
-> +#define regMPASP_SMN_C2PMSG_102_BASE_IDX                                =
-                                0
-> +#define regMPASP_SMN_C2PMSG_103                                         =
-                                0x00a7
-> +#define regMPASP_SMN_C2PMSG_103_BASE_IDX                                =
-                                0
->  #define regMPASP_SMN_IH_CREDIT                                          =
-                                0x0140
->  #define regMPASP_SMN_IH_CREDIT_BASE_IDX                                 =
-                                0
->  #define regMPASP_SMN_IH_SW_INT                                          =
-                                0x0141
-> diff --git a/drivers/gpu/drm/amd/include/asic_reg/mp/mp_15_0_3_sh_mask.h =
-b/drivers/gpu/drm/amd/include/asic_reg/mp/mp_15_0_3_sh_mask.h
-> index b76207930514c..95fc3e89ce6f9 100644
-> --- a/drivers/gpu/drm/amd/include/asic_reg/mp/mp_15_0_3_sh_mask.h
-> +++ b/drivers/gpu/drm/amd/include/asic_reg/mp/mp_15_0_3_sh_mask.h
-> @@ -1618,6 +1618,15 @@
->
->
->  // addressBlock: mp_SmuMpASP_SmnDec
-> +//MPASP_SMN_C2PMSG_101
-> +#define MPASP_SMN_C2PMSG_101__CONTENT__SHIFT                            =
-                                      0x0
-> +#define MPASP_SMN_C2PMSG_101__CONTENT_MASK                              =
-                                      0xFFFFFFFFL
-> +//MPASP_SMN_C2PMSG_102
-> +#define MPASP_SMN_C2PMSG_102__CONTENT__SHIFT                            =
-                                      0x0
-> +#define MPASP_SMN_C2PMSG_102__CONTENT_MASK                              =
-                                      0xFFFFFFFFL
-> +//MPASP_SMN_C2PMSG_103
-> +#define MPASP_SMN_C2PMSG_103__CONTENT__SHIFT                            =
-                                      0x0
-> +#define MPASP_SMN_C2PMSG_103__CONTENT_MASK                              =
-                                      0xFFFFFFFFL
->  //MPASP_SMN_IH_CREDIT
->  #define MPASP_SMN_IH_CREDIT__CREDIT_VALUE__SHIFT                        =
-                                      0x0
->  #define MPASP_SMN_IH_CREDIT__CLIENT_ID__SHIFT                           =
-                                      0x10
 > --
 > 2.56.0
 >
