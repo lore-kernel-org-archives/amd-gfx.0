@@ -2,43 +2,101 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FF06606A32A
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Nov 2026 14:41:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 937C0606A31C
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Nov 2026 14:42:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nOjPcTW/
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LHLubJkJ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BDAB10E5D8;
-	Tue, 17 Nov 2026 14:41:04 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EAF010E5D8;
- Tue, 17 Nov 2026 14:40:58 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5E06C6182B;
- Tue, 17 Nov 2026 14:40:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0FF01F000C4;
- Tue, 17 Nov 2026 14:40:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794926457;
- bh=ydPzjoFvITA/Y7Eo/udikn0WQcYBPmRZR6h4MOx1E+c=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=nOjPcTW/r/OvJBgu1Rir/Dq58To5QdE8A5noYmYS9NunyIHUoLh0sXU4gerQLbkR/
- cwSwJeS2vYy1zqzfxKVouPkw6mK0POa0t2d4YzavIJ68XCdcMYp1TmerDlOFugvdZZ
- 6Giw0P/TxbUstYW7gVzBP9XVQW8A5L2Qeq/hxRgCKnt9XXVbzkl0owwfq8TZMoZOlk
- gCYeStHPO30T9jguGAuDBCuRpLh61fwDUzTQIKuMzEd3JaKXpAlyk182QPC6yp7Noa
- bpzHbeuMiPOlMwPL0wCh/he1v/y6d9eu0OEXMaWIYLF56eVCbE3farJhgp7BUDEwG9
- F50rsX4BxxLLA==
-Message-ID: <sashiko-outbox-218979@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 06/10] drm/amdgpu: Add function to roll back a VM
- update ctx
-To: "Natalie Vock" <nat@pixelcluster.dev>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261117-prt-explicit-sync-v2-6-bb3851cb6a0c@pixelcluster.dev>
-References: <20261117-prt-explicit-sync-v2-0-bb3851cb6a0c@pixelcluster.dev>
- <20261117-prt-explicit-sync-v2-6-bb3851cb6a0c@pixelcluster.dev>
-Content-Type: text/plain; charset=utf-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3034510E259;
+	Tue, 17 Nov 2026 14:41:59 +0000 (UTC)
+Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com
+ [209.85.210.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A2CB10E61A
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Nov 2026 14:41:52 +0000 (UTC)
+Received: by mail-ot1-f41.google.com with SMTP id
+ 46e09a7af769-8231ccb04a0so534221a34.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Nov 2026 06:41:52 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794926511; cv=none;
+ d=google.com; s=arc-20260327;
+ b=hjEOZeWEyBAGakyCFKwh3czzLQITXjWh4kmcT4SHC8O2KCvvxcUCxOKR5eVKcSETqO
+ UXm0ukd61T0UMW+hEnAuD0lP3UC59iCoT7MopY2ySM/QE9CAA+bwAyBnT+j9uIs0Wrvb
+ LXoqJyCPYzjGyxSk3pccJMcU1UTkQBJbt4FpadV4ouU4ff0zWEgFtorviJ20QKIN8cGu
+ b8+4Q8FPk0Z0CrR5L9seX7pegnwMAtUJCZHJ1s/rC4Q7+gUuBa1aDxqFrQBLzLK3KIRH
+ WFVUdNX5Nj6CiMgSOx+bWLHOLiNDKXYlarpvOo9M/RViNy8qgyylNA1YJWI7Awj1d0C7
+ 17pQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=iZ1WITdH/c1geDBibv7Uv+Kn7Pyb4iHI4cWcVnnfvu4=;
+ fh=/E0Fzk9PbHpSYLTBPKRhY3alKtpG372bjvCZZ/g3vYA=;
+ b=PHLZVbjyAnWcQy9LK8bf8Qzccfv0b8atRezEMhw2gKKcw1sigPDwm1/Lx/KCSDK42d
+ mfCTx5acCVDUrkvywW98yQXz7vOLjNPcDN3WIuqd+o45xoelhijh9/lQgk6qmcYVzZsY
+ CN7M3aSkVoKAfyvHKCM5FWwtjefLGnq1QWvNx1DGOK/jEA6MsytBNN2ASp6iKCJIX1/9
+ 2Y9BFP4UHJdJCV9RkRbsDB4BUqY7GOlS5Knw4s9ra29MMDOuCSwfB+SHlIbv7DJMsrm7
+ FiPcPQh8ZA0vJZLsX9otgN7FG/kZc57fy90qD1OLPmDvlNWO5rspOy0WKZgc5PeFjguZ
+ Almg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1794926511; x=1795531311; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=iZ1WITdH/c1geDBibv7Uv+Kn7Pyb4iHI4cWcVnnfvu4=;
+ b=LHLubJkJBatgeMAAA9UxSvLbxPTb7Cg8v94MwTlkBfyKvvq9O2HjB9u2JKZ+8hqVFh
+ XMjHoZ8r89fFSQuQQmPW9sPXDRQgw6pK0hToKw1Ze6Z2FqnC+mESb1Ce10TkHnegPhej
+ pEXr4yS6/rvWZvK/kmrHIbwx5r7+buu0vnyizBQyXLNwK1TXY4BrdSVu8v6+/+uPsAHT
+ +mC6yljRj7/iO323eHqGhPhVU/JEVrQyKkBY68fVbwH9roLVm7uqpXXTpoggdDVxGoMD
+ Y/P0rRufAOSvuxWy0KfNOFcsPKvkZZ6QltsxqVhXkJPsPf1/aF4dveA0C62GYm39+yxM
+ ZgMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794926511; x=1795531311;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=iZ1WITdH/c1geDBibv7Uv+Kn7Pyb4iHI4cWcVnnfvu4=;
+ b=fFTqbhrgJpft6bpljOH0B4BPEHJLY4g0TQWrhf51n+yacvUECn8y4C0Qam00Oui9hf
+ 9/Vvqq1Dp1yDV+TU+WnkUkaHL6ONwQIEbNKAl/6bkgf3cOVRDJx9QGQ+4prky5Be0cTg
+ VjmbwVzQvwMagIq/frytslClyqwLib5RZ9gdYHCCDRZTL8/YNcSWzccJDOahzBU7jfA+
+ 9vUTDwBv0nPnX7yiX3Cyv/WBb14SKHJ0YGBHhZaZP5ncXm3y1bYF2HV/zweepz/rynr4
+ iuG2WHH7L+NqnUWndPkKd0W88tQkFo3uS5guQwh5etNmYkCKxwGRNNj+Q7ohTjGGcvY+
+ PjBA==
+X-Forwarded-Encrypted: i=1;
+ AL+hErEnMLxcn5qTAjC3VNBGh7FimEEXP94AspClE017BONaPrmqplbMzWlqueLTOYd8UdUD84eCiQZm@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9Vgj+GLuY/1FgZeYXJz+8LS9DTW9ew/ttznsPbVPFSEdClcsWp
+ f1CNSEmkWr2t5p0cKJmLGMhWqA76NuoiLnym2SNuh09QJONGttdGQ/aUv32PD/7l9bcVMfTo88C
+ 7eY6S7guTbfT3FgZ7RLDaXbMfsobzQik=
+X-Gm-Gg: AYBFou1pF1F38pEji11G0IjL1/HUHRr5YgbAjmMoxbMhZnXcvLE+T2j0zZn8EwRebPm
+ DeUTbGcAC14dGEzxXWKS8ABW9+282bnj+LhBqYsC32h5svZQV7bTkhFE+4gX1LvzzAha5E/aflJ
+ vgity3OkC4+JOFfBxdqBeSzfddCsEufxZp9/QmSNpHsZI5dkp5PHVh63BN9X0vgBuM7Tt89t48+
+ yM+ufI4Rm4rF+twvgftDjLT+qtsXYyDbIsKnL2roWqF2mGXB5HAwg9W1YHoXR+r/RlncjG9a1Z9
+ iCLgVAlIY9/es8QfxPMIMrLNHPfP8jP7MI6QRRUx8uMBAoCwO/8mWVispCfEqGI5v4/BPtzwC12
+ mu6HuX5QHnrkkE+EkNirN+23yTD/Lf11jXXKU4CZBOrdMFfHV6pMZDWr1xn9KJ5MHJrZ5S3TjkF
+ sI8N3ftT3dSmrtB0I+E2xA2oKlHJ+Maut2bEZhSAoaztXesLyg/xxfnIjG8l0=
+X-Received: by 2002:a05:6808:1914:b0:55b:f88d:baa5 with SMTP id
+ 5614622812f47-56e66a9517emr17257457b6e.6.1794926506718; Tue, 17 Nov 2026
+ 06:41:46 -0800 (PST)
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+References: <cover.1793787406.git.Priya.Hosur@amd.com>
+ <abbf127cdaa05bc133605a961ef912dd773dab29.1793787406.git.Priya.Hosur@amd.com>
+ <c2f078b9-0b5e-4592-b53c-9644307397ab@amd.com>
+ <20261112123110.30048-1-Priya.Hosur@amd.com>
+In-Reply-To: <20261112123110.30048-1-Priya.Hosur@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 17 Nov 2026 09:41:35 -0500
+X-Gm-Features: AclHuK_wR_67rQVybsI5sNHnFEE9N4KV3nTg3OK3k96MZVvrIhw7TotjgVrfb3w
+Message-ID: <CADnq5_O8_jQtrWs3wuAzuo3pmr21za9ZuoOJU8TL_RzY8VZM0Q@mail.gmail.com>
+Subject: Re: [PATCH v4 1/1] drm/amd/pm: restore the forced performance level
+ after a reset
+To: Priya Hosur <Priya.Hosur@amd.com>
+Cc: Alexander.Deucher@amd.com, amd-gfx@lists.freedesktop.org, 
+ Lijo.Lazar@amd.com, Kevin.Wang@amd.com, Christian.Koenig@amd.com, 
+ Felix.Kuehling@amd.com, Pratik.Vishwakarma@amd.com, 
+ Veerabadhran.Gopalakrishnan@amd.com
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 14:40:56 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,92 +106,30 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [High] drm/amdgpu: leak of ctx->new mappings in
-  amdgpu_vm_update_ctx_rollback()
-- [High] drm/amdgpu: missing ctx->cleared unlink in
-  amdgpu_vm_update_ctx_rollback()
---
+On Thu, Nov 12, 2026 at 7:51=E2=80=AFAM Priya Hosur <Priya.Hosur@amd.com> w=
+rote:
+>
+> Hi Alex,
+>
+> Adding you, as you were missed on the v4 posting. This has Lijo's
+> Reviewed-by. Could you please pick it up for amd-staging-drm-next?
 
-commit b40894c15667a95794d5db4dfea6f22963fb9ec5
-Author: Natalie Vock <nat@pixelcluster.dev>
+I've picked this up, but in the future, you can just apply this
+yourself to ASDN.
 
-drm/amdgpu: Add function to roll back a VM update ctx
+Alex
 
-This commit introduces amdgpu_vm_update_ctx_rollback() to discard pending
-mapping changes in a VM update context and calls it from
-amdgpu_vm_update_ctx_fini().
-
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_vm.c
-> index 330c288053352..ac4a1ed9b1196 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -1874,37 +1874,48 @@ void amdgpu_vm_update_ctx_init(struct amdgpu_vm_u=
-pdate_ctx *ctx,
->  }
-> =20
->  /**
-> - * amdgpu_vm_update_ctx_fini - finish a VM update operation
-> - * @ctx: The context of the update
-> + * amdgpu_vm_update_ctx_rollback - clear pending VM updates
-> + * @ctx: The context to roll back
->   *
-> - * Adds any leftover mappings needing to be cleared to the VM's delayed =
-free list,
-> - * then frees up resources used by the context.
-> + * Cleans up any pending mapping changes, but does not reset
-> + * anything else (like attached syncobjs).
->   */
-> -void amdgpu_vm_update_ctx_fini(struct amdgpu_vm_update_ctx *ctx)
-> +void amdgpu_vm_update_ctx_rollback(struct amdgpu_vm_update_ctx *ctx)
->  {
-> +	struct amdgpu_bo_va_mapping *mapping, *next;
->  	struct interval_tree_node *node, *next_node;
->  	struct amdgpu_bo_va *bo_va, *next_bo_va;
-> =20
-> -	list_splice(&ctx->freed, &ctx->vm->delayed_freed);
-> -	amdgpu_sync_free(&ctx->sync);
-> +	list_for_each_entry_safe(mapping, next, &ctx->new, pending_list)
-> +		list_del_init(&mapping->pending_list);
-
-[Severity: High]
-Does this leak each struct amdgpu_bo_va_mapping on ctx->new?
-
-Unlike mappings on ctx->deleted, newly allocated mappings added by
-amdgpu_vm_update_ctx_add_new_mapping() are not inserted into bo_va->invalids
-or vm->va until amdgpu_vm_update_ctx_commit() runs.  If a rollback or an
-error before commit hits this loop, unlinking mapping->pending_list without
-calling kfree(mapping) drops the only reference to those allocations.
-
-> +	list_for_each_entry_safe(mapping, next, &ctx->deleted, pending_list)
-> +		list_del_init(&mapping->pending_list);
-
-[Severity: High]
-Should amdgpu_vm_update_ctx_rollback() also unlink mappings on
-ctx->cleared?
-
-amdgpu_vm_bo_clear_mappings() links overlapping live mappings from vm->va
-onto ctx->cleared via mapping->pending_list.  If a replace or clear
-operation rolls back or fails before amdgpu_vm_update_ctx_execute_replace()
-drains ctx->cleared, those mappings stay linked to ctx->cleared while
-ctx->cleared_ranges is reset.  If the context is then destroyed,
-list_empty(&mapping->pending_list) remains false on the live mappings in
-vm->va, causing later unmaps and amdgpu_vm_bo_del() to skip removing them
-from vm->va before freeing bo_va, which leaves dangling pointers and leads
-to a use-after-free.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117-prt-explic=
-it-sync-v2-0-bb3851cb6a0c@pixelcluster.dev?part=3D6
+>
+> v4: https://lore.kernel.org/amd-gfx/cover.1793787406.git.Priya.Hosur@amd.=
+com/
+>
+> Thanks and Regards,
+> Priya
