@@ -2,170 +2,130 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B757606A325
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Nov 2026 08:26:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D48C9606A31C
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Nov 2026 08:35:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=W0M1fBkG;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=vxeoH+kx
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=cqT0JUQj
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CCD5D10EBEB;
-	Wed, 18 Nov 2026 08:26:10 +0000 (UTC)
-Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com
- [148.163.139.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31BCB10E271
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Nov 2026 04:29:22 +0000 (UTC)
-Received: from pps.filterd (m0499198.ppops.net [127.0.0.1])
- by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6AI1XRhk3917878
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Nov 2026 23:29:21 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=pps01; bh=oNP9
- a6jLUlKCdTaahR8z6VO1PL6EFsLdkPdFbzFnzHQ=; b=W0M1fBkGR74M9DrJBxNr
- Sy35Rs/B5YmTpzC+TrBM7+r6DY5gyJ7+eaqRnl+tm7543UEpFfUWSpIg4M8KQoXs
- WHOvGW/GBRG6FqJbriLuUUbINLHSwlNj+D/i2tfYh8ZXxHlLFIYloWEk1f1bLd0a
- 3sbrZWmN3lwWupdLp6+FOl4iGD90mujCP23YEsk71gxz828lxX3044MrZ14bhkzr
- HpcKOyeUxEkP95yVz4+/TikS4sprev/fsSKvY9f5cZ1eI1U9GPWhay2176YStBXA
- NLf61FGInRcqnbvaesSIvLfD8l+R9I5QC4AZOrRFIq7MzmIQWrXXf8vwNBtbUrN2
- Cw==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200])
- by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4j0yu99f2k-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Nov 2026 23:29:21 -0500 (EST)
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-9495876f8beso103268985a.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Nov 2026 20:29:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=columbia.edu; s=lionmail; t=1794976160; x=1795580960;
- darn=lists.freedesktop.org; 
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=oNP9a6jLUlKCdTaahR8z6VO1PL6EFsLdkPdFbzFnzHQ=;
- b=vxeoH+kx1tW8kfQUzcwv7EvMbL7qh2Jss3qsmnJPIT8IQ/9SpYH3cxnZlz4YwGGPf2
- c2Tx7LlCHfz3dsMBBravujeXUqaLppG0K9Ey47OtlQSo15HEuI6HuMWCPO7OZb4aMGnb
- Y8fmQW/K9E4qVCkKHPnTEKPDZI1hvSkpCsLM0gwz7mnxnL8Aqml0y77H4kxYTXBBtnRL
- YozF5VCRylnaJNi+aABXa/GIBjJzr7Xy6Iyd63TXuWN9sO4OZl2PebLUgIpJRwjJBQox
- hwHwz4wNIkYzCRbDjQC/H9oYH1zH3FrR88mfl2t04SUbx3FNG3Lve6wutQK2tEoi8tUG
- jqsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794976160; x=1795580960;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=oNP9a6jLUlKCdTaahR8z6VO1PL6EFsLdkPdFbzFnzHQ=;
- b=eJW9yCl+Sdign9GAkvgPxktQZYQI5BhOdZJk6ZDq8ZjRVcPz8cByO796aV7EGKwbDM
- aEm+30lR7mPykoHFnSWG4tkzTWPnoSm1wPE4R9z+mo0nXdba6ZreLvJuqq4GmUCRDU/W
- 8mwHwllVPVHCN2XkRYX1Thz/WeKoVLpPuXD9JsFCqFmw9IMXrQaL1qsHNQJpQmUuZFfr
- cMjxRDz+8FkrQHD4jrZYbPPRJbeVWtD9qORrtFmnWMfzGQBr5xh7uUfx27rAxi8z74fc
- VQwbFDYXkBwgPtsAlBJgdu1CyOelmxnn7mNokyyah34xT9+QVD2XCNxV2chuaxo3+7gk
- AqRw==
-X-Forwarded-Encrypted: i=1;
- AL+hErE105kJQv6x8n9CfCPJnvb48QcFrO4y5DwHqTfHJ3/0+8diHlVrOaC7+4z3OqkwKbdeBnknMzQz@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9C/ZTopEACFT5jjz2c2iBjI66H+pCwzCxtoXiYZZkvGyL373Ri
- hHMYFOgJ0TqllTduY0ru/NhWxF6z0dgVLQGvNksmRAjuKCs7dyzd/CSRmaiYQprBHEoYOB9a0n7
- sBL0q3xZC++2Ksmn8xklQaJF5n+HV0z8UY5jHtl5zghvJWn23CQoaypXNQbCQP18=
-X-Gm-Gg: AYBFou2Tqa7pJQbaGnGvTTZlA7utQW9zzmAoHNLa5XR14IlwpJ9DdxoyrieZnWtSisv
- pu5Kv+99voL28wwrHMW9f8iizn1DWf8MUgcDblqHhuXsi7JAj79lFgcfNpghHtSqA4ezKgwy5A0
- 0TCFWaKmhaGwGJJ1gEgQiY5IeRTt+et1M7CRc6Wujl5lMgtP+yn2vX9/k7iHvukDGeLD6BfCYn8
- IiHGD1wgBW4ZSDzOPWTvVllJQFN+7A8bhZ0/VPMKFGjHfVfEVjGT7Ijd5g/ac2RLHVQ0RPsJYZu
- WfDtusOGfexrFf1O6fEBdZqzoxQ1GKl18mA8DvJvgLYi/77akX8DVIH6Y5ufs+akE9JO0gVE/vY
- T8J8B1MX+bePBesToOu+H00L8cuhRptTxDDAONOXYfFCWPeFPV0ddWqw42OlkFsdKLpz3EFc/vG
- 5Qjc9/hj+cbhRwhoBPIg==
-X-Received: by 2002:a05:620a:6c8a:b0:93f:1f22:96a4 with SMTP id
- af79cd13be357-94999574eacmr293095985a.29.1794976160376; 
- Tue, 17 Nov 2026 20:29:20 -0800 (PST)
-X-Received: by 2002:a05:620a:6c8a:b0:93f:1f22:96a4 with SMTP id
- af79cd13be357-94999574eacmr293089285a.29.1794976159730; 
- Tue, 17 Nov 2026 20:29:19 -0800 (PST)
-Received: from [127.0.1.1] (dyn-160-39-33-242.dyn.columbia.edu.
- [160.39.33.242]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-9499b743a8bsm89678085a.17.2026.11.17.20.29.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Nov 2026 20:29:19 -0800 (PST)
-From: Tal Zussman <tz2294@columbia.edu>
-Date: Tue, 17 Nov 2026 23:28:48 -0500
-Subject: [PATCH v3 8/9] mm/migrate_device: do not migrate a uffd-protected
- zero page
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70A6010E3AC;
+	Wed, 18 Nov 2026 08:35:08 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011046.outbound.protection.outlook.com [52.101.52.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AE5D10E3AC
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Nov 2026 08:35:01 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kQ5l+0z6BBUABqgRRQAVhbMlCUEgK/opEbpTRFfQnjWpwkv0CA5KOs2xuRxSul1t492kUlhkRiXgQviEIc8ev9EW4gVBYjMoc3vAAyo8tPnhNy8qjLAL84ApJvmqLT5ZpfE/ueIIevJiUHLrRQ6DOO5cqKOKQspiQ//Y59ju5PCgU62Un0HrGjqxW5HfkuzyX9RmYC6V4NCRqfpgi9MLsUYRQ3/Eo0v8ZEZ/1drywxncOoFc9+tw1OiR4CG1QqpLsMihD2V2FJ8e0c51i8yedXNFMAmwPiNJTSTibJAIQknZxIxHu0aTZThP76jjNcsCErduAGAZm/vmRMV7PBR1+A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=j1mutNrhqowJlZQUA7EZx5MLlnzkiT0PjcsP8SD+iKM=;
+ b=f/Vhf0UGkIPyQdMpkJfnNrZybvMltApuY+zY9oafY7o3phS7C7Tqo4W6ngEyFv7MEDo775CGbLrpkD0+6zoa8H5NQZZDzJjKBbQ+j9P20VN/kjg4ZFKN4+u0ucZqwwjQA7oOFP4ci0ZcTXKBJsO0e8LJ++yyAqcAdW/2BngHvmw+tVrskn25HTm3TVyTzT+vn9Q8n6jxelx2ffH3yL6eE2LmnZyUkflXUA+e1RWrO1wOVNhfFQ7oDRsA67Hr+doh/5zi5Bz0Sv5RRwUDaAEJIgnpYCshAL43n5t/XdvSzon8IbXldYuJ+Y/wZC2IS/3tW40qKEEZ9Lm+rYGmewbXag==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=j1mutNrhqowJlZQUA7EZx5MLlnzkiT0PjcsP8SD+iKM=;
+ b=cqT0JUQjsyGgF3/WzUQc+dxvKtY/nv727sWUO8QCHm+C3V58C7l5Hlz04lJqNUiVN+8t+CQmpzG2pTUNWOAwTgIPksZVpNxbT9C1fQeuLF0qZomsjciLcb9Nv/D8vYMWCQxhRg97gWZYPGbn4RjnZavF/jja6RhQs+3sgse4MCA=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by LV0PR12MB999094.namprd12.prod.outlook.com (2603:10b6:408:32e::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Wed, 18 Nov
+ 2026 08:34:58 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0615.013; Wed, 18 Nov 2026
+ 08:34:57 +0000
+Message-ID: <5bab4181-f4ee-4953-a1ec-43ed00ef8844@amd.com>
+Date: Wed, 18 Nov 2026 09:34:53 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v3 3/5] drm/amdgpu: finalize partial VM range updates
+ on error
+To: "Mu, Zihao" <Zihao.Mu@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+References: <MW3PR12MB4572FABB93F6676FDBA1D2479E722@MW3PR12MB4572.namprd12.prod.outlook.com>
+ <4edd67f7-381a-4446-9509-552739c8f016@amd.com>
+ <MW3PR12MB4572A08ADA8CB7BA9F83AF519E712@MW3PR12MB4572.namprd12.prod.outlook.com>
+ <938026a1-3b02-40b4-98e3-a0a22f045f82@amd.com>
+ <MW3PR12MB4572BEFF9134ABF824D374C79E712@MW3PR12MB4572.namprd12.prod.outlook.com>
+ <bf90d631-c63e-4df0-92ad-213bd65ef0ba@amd.com>
+ <MW3PR12MB457285A4036148B8A5C077C19E7B2@MW3PR12MB4572.namprd12.prod.outlook.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <MW3PR12MB457285A4036148B8A5C077C19E7B2@MW3PR12MB4572.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0082.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9b::9) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261117-uffd-state-fixes-v3-8-b617009d1a4a@columbia.edu>
-References: <20261117-uffd-state-fixes-v3-0-b617009d1a4a@columbia.edu>
-In-Reply-To: <20261117-uffd-state-fixes-v3-0-b617009d1a4a@columbia.edu>
-To: Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>,
- Peter Xu <peterx@redhat.com>, James Houghton <jthoughton@google.com>,
- Andrea Arcangeli <aarcange@redhat.com>,
- Suren Baghdasaryan <surenb@google.com>, Balbir Singh <balbirs@nvidia.com>,
- "Liam R. Howlett" <liam@infradead.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>,
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
- David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@suse.com>,
- =?utf-8?q?Micha=C5=82_Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>,
- Andrei Vagin <avagin@gmail.com>,
- Muhammad Usama Anjum <usama.anjum@arm.com>,
- Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>,
- Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>,
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Alistair Popple <apopple@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Oscar Salvador <osalvador@suse.de>,
- =?utf-8?q?Miko=C5=82aj_Lenczewski?= <miko.lenczewski@arm.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org,
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Tal Zussman <tz2294@columbia.edu>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794976146; l=5760;
- i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
- bh=yLBeSaScpfcnWP3GTIZB32bGuoptmvLUEbtIcAlGdHM=;
- b=My0spsbuiHMwD39tEUzhalSGpyI1KepnMNGVOGi0pW44BxpyK1b2D+HcpBD6q4XsiHcZ7YUx1
- 8Nb13C9ol+0DOkyotphEWf/Xp7KcNWOmkctH3ozT4GAn41fre1wcM22
-X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
- pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
-X-Authority-Analysis: v=2.4 cv=S6FMU4sP c=1 sm=1 tr=0 ts=6afd29a1 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=GaPK54s0Se3oFqK5NkZy0g==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=BpGzv1V74M3SfeTrGa8v:22
- a=QyXUC8HyAAAA:8 a=20KFwNOVAAAA:8 a=VwQbUJbxAAAA:8 a=zd2uoN0lAAAA:8
- a=9jRdOu3wAAAA:8 a=e5mUnYsNAAAA:8 a=Ikd4Dj_1AAAA:8 a=cMyuK6MtPHKtACrh3PYA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
- a=ZE6KLimJVUuLrTuGpvhn:22 a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE4MDAxNyBTYWx0ZWRfX42g2ElukBclY
- dICcd1x3nrpElaznBcEiN7Uv4/DY71CDA5nVNXXQtIkLTU4gaaQQb7wkIsvdzZOlZkTSYz2Z2wl
- KUPNKjq1v+uQb35sx90Ir3wHKRmUXAT+0URuTlGreK4LIRXiB++OF0pYVUs9Gyfq+aUka3ynJb8
- AbPsVU6ZRLeo89L3UmruI+56XW7lBXETAC2PGbdF9SfPlmvTC/4RQajDNYFexkD2z0X2GlmvbGi
- dLANt2rUinkkPmMKfTs8mBX+ThVoS7EFdhMeTxssaN3idL09fvRWL3IEc0j3N/D50Ww0q3GlMM8
- a1WzVj4jj+mI5gReThHMu0gJAlnW2HHJpskDFfdXrkJDFxkkhvh0pOTNlGArBMMQ1lGuukV8Y9S
- pRnmvdRoAFL7Ci3vfs3HF1xIilAzixV96yAcIOW+SER83Bs6GJG6pGnCPjJvtbZmjqEu1fz6DUN
- qJLdWORP6tBxYcpuS2Q==
-X-Proofpoint-ORIG-GUID: 7tlPM9n9IN_-JKenWX2jjViy3cNq8rpf
-X-Proofpoint-GUID: 7tlPM9n9IN_-JKenWX2jjViy3cNq8rpf
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE4MDAxNyBTYWx0ZWRfX+hdl2acP2Ezf
- QUS/vgZOCbQ+ieg4zo6T8hCUUYBguYPxpfLl0Ca4Ru5XRk/+n48BeAQYCBk7i0HiQKf5XCV7/+9
- 0fwBXl6Q8V4kLJRfEZRYj6pQunlD4okUDOdYuKDSITTclU9IX4ng
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11969
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 malwarescore=0 phishscore=0 impostorscore=10
- spamscore=0 lowpriorityscore=10 priorityscore=1501 adultscore=0 bulkscore=10
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611180017
-X-Mailman-Approved-At: Wed, 18 Nov 2026 08:25:50 +0000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|LV0PR12MB999094:EE_
+X-MS-Office365-Filtering-Correlation-Id: 186b8463-d394-4385-8dfa-08df454ed3fb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|366016|376014|1800799024|22082099003|18002099003|261009223027099003|4143699003|11063799006|56012099006|261102123227099003|261026121527099003|261021121427099003|261021123027099003|10067099003;
+X-Microsoft-Antispam-Message-Info: qD5Ig7XT5miA8Q1u/mH0EUAMc4Jjz4Cvm8Yo+QpJGSOmQ2urrGO/HJE3Rn3yJixV6OVJRN7Tg/YGGLEVl/7H0M19K53nOke0HLiPZh8uqCGrezYMbB+an+mNmVnxyMTNi2VBJMX9N0puY0l7FZNm0oDujXC59M7yE0ZPFH8YwYq/IMhTXwza4HaDGMq8KNtiS/+P+vPil0lvkl0HGxbWxNfmlSfyPij9Z7yKcHBmlk/TqXev3NeTnNU00BYgS8Rnscgh6lfXUPvCgf7CYae8f9A6fT6ZgXAShTEQidqg0cwUsVO3JFRUtCeozfnlVrRFvTKl2i+96IBUNdNowQXhPtivXay2eC/1qboam8iKHQvuSscyapHWQhq6YUOiZa9Hul61BqoMtp8K3QjqLHamI/sPwp8fzLUsp6BthAipV7HRlP9HhyMN6TjJd7ZoIYeB5qHWmWOlvIzldLtDdr2C1pMtA+XdrRbselbYlAkcTKFpHz6PwquH4JxewULyPCxnWgoQE9Z17TuZqmHNcRMrJ/fWcHVFtQmQWB0mF27286UTVxm9EEYXtLcj7h4QhAxbcLYQCVO1A7RYWg/8HgwaMGL4yBC7uhTqzkNDr3fD98/tCu2kPTCTEOp3Pks4nrYI
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(22082099003)(18002099003)(261009223027099003)(4143699003)(11063799006)(56012099006)(261102123227099003)(261026121527099003)(261021121427099003)(261021123027099003)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Ymg2Rzk1OWxkK3VYbmhzdmdtdktObTZrK25ua1A5c3l5a0h6QnYwaUp4bFlH?=
+ =?utf-8?B?bHpQck5PWGtocWJMc2c4SDBVRlZzNGI4MGt6eHBwYXpqWFFqRmVZa3BXaGYx?=
+ =?utf-8?B?QzhGSGZhQk13c0RKVWVXSGFYbEVvd1REYUVubm5NcnBMY0JOWVJMVDJQWHdC?=
+ =?utf-8?B?Zkh4S04zU1Z2WnVMTUF1V1E4dUFWYk8wcHp5ME05aFZDWGZHTWV1MVJiSTZQ?=
+ =?utf-8?B?V2xuaGxMbmVQR3NXd3psTHMzdDU4T09ZQUxIK3dtZHRLS2ZNYVMrS1N1WXpD?=
+ =?utf-8?B?K2NLWTlVNU1aSmZUVG53TEU0aGthQkl4bFNkaGY0N0FvWkdCUHB3S0lNYm4z?=
+ =?utf-8?B?SU9rMjVkTTNqdXlyNXlkYStKU1pVcFpJMW9CaFZXRm9lSlZNU2plYkx6U1BO?=
+ =?utf-8?B?M2tadE9FNThXUlIxdVZsdjE2SytzUkZ0R0NGbHNPVFpmbXhoMU1LZGhya3Ni?=
+ =?utf-8?B?WTZRNFRvKzE3a0UvQVJXNTIxeGZYZlBodkhIWG1rRm1oUDBQcE1KWFl4OXBB?=
+ =?utf-8?B?OVF1RVA5NHJHMm9BSFpNdGFaSHc2Z2VXODByZWtNbHZ5U2l4VW8waEd1QVdN?=
+ =?utf-8?B?M1hISncwZVFBTXBIQ05sU0tZRzgvcmhTMG9pZVo3Wm9EMVh6R3l2R3BqM0sz?=
+ =?utf-8?B?Qkl0VXZsL0o0ODB5V0tzVmRMcHk5aVlCWUlPMmhOck1lcG9pT0UwT1JBTkkz?=
+ =?utf-8?B?enVhY2gzRmFDTUxWdTEvcHIxcERTVkNXUThUb3VaL3o2RzlwQUlMU2hKVmJC?=
+ =?utf-8?B?UjVUVU9vQU10N2lEMWdWL3R0Y2ZZUzN0N2FHRWQ4ZDlNUFdXcEMvVDhkZVFl?=
+ =?utf-8?B?YzZyUmltT1haK3dBOS9mcG5lVVJYRE1kWHVjQTlONjNTMlpLbCtjZndOUlM4?=
+ =?utf-8?B?RUJyYzJyTlNhanFneGx6TmEvaGFRNEJjSW1iMkQ4b0g3Z1orNUpMYjhjY0NK?=
+ =?utf-8?B?TXZhZCt1RmpMaE5NVEtjdGRiNkFqWW5oUmtNNmJINkVlcitjQ1NVb21tUURw?=
+ =?utf-8?B?MUtNMmQ5dTFPekhIUnJVWGp4dmJTUVVCS3FyZEhxcDVocnpaTW43dmFtLzFW?=
+ =?utf-8?B?WnA2c2s5dnZ0S1VnSWx6MTFWeVByQkZ0bFBuelg1VklFWVE1a0ozRCtraEhu?=
+ =?utf-8?B?NEJLaTVFQm8xUmJ0b3hKUW1Za25xbXlyTkw5cE1oV0NuZE1IcVF2VEVsanZ1?=
+ =?utf-8?B?UzN3dFNEWVRKbkw3OVhMQ2ZKSEV1ZkJoZllHbHlMV2ZWR3ZSWFNCZ3VKeElm?=
+ =?utf-8?B?U1VYL2grbkxOdVlNbXNjck56QXlReGdVanUvSnpiTFFPTkVKS3N6bFhWeFdB?=
+ =?utf-8?B?SHltUmNST3daRWN4NkpZS2h2R2Y3YkpiekRxVU5Kd1JybmErYTl5OFBKblFt?=
+ =?utf-8?B?dU5BaUVqbUZTZEhZNnI2SlNyMlRlc0dGK1RVVTczSDNLVlZEaFFvS0MwazFx?=
+ =?utf-8?B?MlFncjBMNjRRR1dCUmgyOVZIamFOUTdFTzFlMStVZnJFOU1OOWJCN2NlMEhi?=
+ =?utf-8?B?STBoKzdHQ2h2RnVnTC9NWjNadHBHWTN2eG90by9FTG0xRllNT2s4Vm9vbHNV?=
+ =?utf-8?B?RWJBbk5UV2ZaMG0vaC9pL24zblF3SXkyMER2NnVBL0NUQzdTSGorSWhzVmpk?=
+ =?utf-8?B?d2JlVUZ3K2NKUmMrZXFpdktWUytXWFcwa0c5S2JEelE0ZlBYZXFnOXNleUxn?=
+ =?utf-8?B?a1NEdXpGTUJIQXVoQzVFam94eW5xT21tUzdWTzhiUCtlSzJiOGxsc2xBSVdv?=
+ =?utf-8?B?Q1VhR3p0U3BXWVRLL2djR3I2dStqNVRZb2ZQU2pvcjZ4VDB5RHFvY3NDb0tn?=
+ =?utf-8?B?RTAzU3Q4OWlSVmo3bXRqVjFhMDc0MG80Sm5JZE9jTis2ZE1CenlaZnJQT1lN?=
+ =?utf-8?B?YXdJMmRuc3dYMUpHRTRLdnE4Wko0ekdqdTR2Mk1sbmZxRDl2dmhTanhteklq?=
+ =?utf-8?B?VHRodFBQeFR1S2gyU3NVazVUWEswUGdpTDNBQ1hvT3RXWTlKa3RKbGJibXoz?=
+ =?utf-8?B?RUdsYmdaMXFPRGtlZExIeCtIaCtab3EzU1Bud2Y2TENSR1U0ZVk4c1c0TTZa?=
+ =?utf-8?B?NDBEN1VMSjgrNnVKTGRmZWlNMWEvZUZzTjNJUVNBT2ROT0pvbFpzSHN5MVJI?=
+ =?utf-8?B?aVJENXc0TTlOZ0NpR1dIWFJhNEt2NUMzUWsxRk5HMmRiU0ZQSnhySStlZzdM?=
+ =?utf-8?B?aElscjJCNUFHbnAyMmJQM2JrWHRnVldtMTVzVytEVkVPdHFxdnVUblZrMzZ6?=
+ =?utf-8?B?ZVRJbXVQWVJhcHpCbFByUEN6NldvRjJLNFpWVlo1d014S0dSelN4QTRUd2FY?=
+ =?utf-8?Q?C/BTpj8IRAGxQ/Hmh5?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 186b8463-d394-4385-8dfa-08df454ed3fb
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 08:34:57.8375 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +6neTXWlt5+D+zyTGG7j6kfQDV7S4vn72GNBY1rqh3nlKdjxiSjYH8xuRzE7007e
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV0PR12MB999094
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -176,178 +136,57 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Device migration replaces a PTE that maps the zero page with a new PTE
-that is built only from the VMA flags, so its userfaultfd WP or RWP
-protection is lost. The same applies to the huge zero PMD. Writes and
-accesses to the page are then no longer reported to userfaultfd.
 
-To fix it, do not migrate a uffd-protected zero page. Skip it during
-collection, and check again under the page table lock before inserting,
-as another thread can protect the page after it was collected.
 
-The alternative would be to carry the uffd state over to the new entry,
-but a uffd-protected zero page in a range that a driver migrates should
-be rare.
+On 11/17/26 12:39, Mu, Zihao wrote:
+> From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+> 
+> Stop walking on an update error, then commit existing work and complete
+> the TLB and temporary page-table-list cleanup. The void commit callback
+> does not overwrite the original update result.
+> 
+> The preceding internal completion tracking orders finalization after
+> the latest submitted IB, including immediate and rollover submissions.
+> 
+> [zmu: Rebase on commit-void and the internal completion prerequisite.]
+> Link: https://lore.kernel.org/amd-gfx/20260914-amdgpu_vm_fixes-v1-4-d6d835591e0f@igalia.com/
+> Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+> Signed-off-by: Zihao Mu <zmu@amd.com>
 
-While at it, read the PMD once with pmdp_get() in
-migrate_vma_collect_huge_pmd().
+Yeah once more clear NAK to that!
 
-Fixes: 292924b26024 ("userfaultfd: wp: apply _PAGE_UFFD_WP bit")
-Fixes: a30b48bf1b24 ("mm/migrate_device: implement THP migration of zone device pages")
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: Lyude Paul <lyude@redhat.com>
-Cc: Danilo Krummrich <dakr@kernel.org>
-Cc: Felix Kuehling <Felix.Kuehling@amd.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Leon Romanovsky <leon@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-Cc: nouveau@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org
-Reviewed-by: Alistair Popple <apopple@nvidia.com>
-Signed-off-by: Tal Zussman <tz2294@columbia.edu>
----
- include/linux/userfaultfd_k.h | 24 ++++++++++++++++++++++++
- mm/migrate_device.c           | 34 ++++++++++++++++++++++++++--------
- 2 files changed, 50 insertions(+), 8 deletions(-)
+First of all we can't flush the TLB nor free the page tables because we don't know if they are still used or not.
 
-diff --git a/include/linux/userfaultfd_k.h b/include/linux/userfaultfd_k.h
-index 5768a3902c7c..54850cdabf5e 100644
---- a/include/linux/userfaultfd_k.h
-+++ b/include/linux/userfaultfd_k.h
-@@ -246,6 +246,18 @@ static inline bool userfaultfd_huge_pmd_rwp(struct vm_area_struct *vma,
- 	return userfaultfd_rwp(vma) && pmd_uffd(pmd);
- }
- 
-+static inline bool userfaultfd_pte_protected(struct vm_area_struct *vma,
-+					     pte_t pte)
-+{
-+	return userfaultfd_protected(vma) && pte_uffd(pte);
-+}
-+
-+static inline bool userfaultfd_huge_pmd_protected(struct vm_area_struct *vma,
-+						  pmd_t pmd)
-+{
-+	return userfaultfd_protected(vma) && pmd_uffd(pmd);
-+}
-+
- static inline bool userfaultfd_armed(struct vm_area_struct *vma)
- {
- 	return vma_test_any_mask(vma, __VMA_UFFD_FLAGS);
-@@ -390,6 +402,18 @@ static inline bool userfaultfd_huge_pmd_rwp(struct vm_area_struct *vma,
- 	return false;
- }
- 
-+static inline bool userfaultfd_pte_protected(struct vm_area_struct *vma,
-+					     pte_t pte)
-+{
-+	return false;
-+}
-+
-+static inline bool userfaultfd_huge_pmd_protected(struct vm_area_struct *vma,
-+						  pmd_t pmd)
-+{
-+	return false;
-+}
-+
- static inline bool userfaultfd_armed(struct vm_area_struct *vma)
- {
- 	return false;
-diff --git a/mm/migrate_device.c b/mm/migrate_device.c
-index 9e19fadfa65c..60985e9bec8b 100644
---- a/mm/migrate_device.c
-+++ b/mm/migrate_device.c
-@@ -142,30 +142,38 @@ static int migrate_vma_collect_huge_pmd(pmd_t *pmdp, unsigned long start,
- 	struct folio *folio;
- 	struct migrate_vma *migrate = walk->private;
- 	spinlock_t *ptl;
-+	pmd_t pmd;
- 	int ret;
- 	unsigned long write = 0;
- 
- 	ptl = pmd_lock(mm, pmdp);
--	if (pmd_none(*pmdp)) {
-+	pmd = pmdp_get(pmdp);
-+	if (pmd_none(pmd)) {
- 		spin_unlock(ptl);
- 		return migrate_vma_collect_hole(start, end, -1, walk);
- 	}
- 
--	if (pmd_trans_huge(*pmdp)) {
-+	if (pmd_trans_huge(pmd)) {
- 		if (!(migrate->flags & MIGRATE_VMA_SELECT_SYSTEM)) {
- 			spin_unlock(ptl);
- 			return migrate_vma_collect_skip(start, end, walk);
- 		}
- 
--		folio = pmd_folio(*pmdp);
-+		folio = pmd_folio(pmd);
- 		if (is_huge_zero_folio(folio)) {
- 			spin_unlock(ptl);
-+			/*
-+			 * Nothing carries the uffd state of the zero page
-+			 * over, so skip it if its uffd bit is set.
-+			 */
-+			if (userfaultfd_huge_pmd_protected(walk->vma, pmd))
-+				return migrate_vma_collect_skip(start, end, walk);
- 			return migrate_vma_collect_hole(start, end, -1, walk);
- 		}
--		if (pmd_write(*pmdp))
-+		if (pmd_write(pmd))
- 			write = MIGRATE_PFN_WRITE;
--	} else if (!pmd_present(*pmdp)) {
--		const softleaf_t entry = softleaf_from_pmd(*pmdp);
-+	} else if (!pmd_present(pmd)) {
-+		const softleaf_t entry = softleaf_from_pmd(pmd);
- 
- 		if (!softleaf_is_device_private(entry) ||
- 		    !(migrate->flags & MIGRATE_VMA_SELECT_DEVICE_PRIVATE)) {
-@@ -337,6 +345,9 @@ static int migrate_vma_collect_pmd(pmd_t *pmdp,
- 			pfn = pte_pfn(pte);
- 			if (is_zero_pfn(pfn) &&
- 			    (migrate->flags & MIGRATE_VMA_SELECT_SYSTEM)) {
-+				/* See migrate_vma_collect_huge_pmd(). */
-+				if (userfaultfd_pte_protected(vma, pte))
-+					goto next;
- 				mpfn = MIGRATE_PFN_MIGRATE;
- 				migrate->cpages++;
- 				goto next;
-@@ -871,10 +882,14 @@ static int migrate_vma_insert_huge_pmd_page(struct migrate_vma *migrate,
- 	if (userfaultfd_missing(vma))
- 		goto unlock_abort;
- 
--	if (is_huge_zero_pmd(*pmdp))
-+	if (is_huge_zero_pmd(*pmdp)) {
-+		/* The uffd bit can have been set since the collection. */
-+		if (userfaultfd_huge_pmd_protected(vma, *pmdp))
-+			goto unlock_abort;
- 		flush = true;
--	else if (!pmd_none(*pmdp))
-+	} else if (!pmd_none(*pmdp)) {
- 		goto unlock_abort;
-+	}
- 
- 	add_mm_counter(vma->vm_mm, MM_ANONPAGES, HPAGE_PMD_NR);
- 	folio_add_new_anon_rmap(folio, vma, addr, RMAP_EXCLUSIVE);
-@@ -1074,6 +1089,9 @@ static void migrate_vma_insert_page(struct migrate_vma *migrate,
- 
- 		if (!is_zero_pfn(pfn))
- 			goto unlock_abort;
-+		/* The uffd bit can have been set since the collection. */
-+		if (userfaultfd_pte_protected(vma, orig_pte))
-+			goto unlock_abort;
- 		flush = true;
- 	} else if (!pte_none(orig_pte))
- 		goto unlock_abort;
+What we need to do first is to make sure we commit the SDMA work before allocating new page tables.
 
--- 
-2.39.5
+It would even be better to move the allocation of page tables outside of the loop which updates the PTEs. But we need a better data structure for the page addresses to do something like that.
+
+Regards,
+Christian.
+
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index 3b4df22c5ed..3f3c5a82fc1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -1276,7 +1276,7 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>  		tmp = start + num_entries;
+>  		r = amdgpu_vm_ptes_update(&params, start, tmp, addr, flags);
+>  		if (r)
+> -			goto error_free;
+> +			break;
+>  
+>  		amdgpu_res_next(&cursor, num_entries * AMDGPU_GPU_PAGE_SIZE);
+>  		start = tmp;
 
