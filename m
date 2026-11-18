@@ -2,62 +2,50 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 038BE606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE477606A320
 	for <amd-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 14:11:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=outgoing.csail.mit.edu header.i=@outgoing.csail.mit.edu header.a=rsa-sha256 header.s=test20231205 header.b=jfqkTBkA
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=eV7oY9Om
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57046112461;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA765112462;
 	Thu, 19 Nov 2026 14:11:01 +0000 (UTC)
-Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu
- [128.30.2.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F04710FDC5
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Nov 2026 15:20:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=outgoing.csail.mit.edu; s=test20231205; h=Content-Transfer-Encoding:
- Content-Type:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:
- MIME-Version:Sender:Reply-To:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=PR3hub99Xsm//k1e56CFmuZA9rCDR5FKEPlC2s2rAkk=; t=1795015256; x=1795879256; 
- b=jfqkTBkAXFgGkLbq78phVv1yTWwGEMtywuRMkOWkGD9gtG+vuxxQmd2veuW/HOTXR+azZnW7Zmy
- Am0WEC1yieuD4JNXZ6Y38CJd8JzURuuq/Irt+oXNbWoIqnuzQIHvDL6fiOx+pXjVQGe/hfRlX4AOZ
- dyJBI7W5r165egUEmWG7PFCnKZi7HRdcpRlTaGXaq6vyHsspO/76HuTX5IbXPGWKVF+MQ0Adr2fXZ
- e8a9pZUNF/zO17cDCP74HGmHamWAb4MdnM3JWpc/hILBHSIAX/HmNaw1y/sn6VSBBwa556KVRELKH
- QR5+Ftbd2wZAnB+za3ac4RT6QESBzW8v+G0w==;
-Received: from mail-dl1-f45.google.com ([74.125.82.45])
- by outgoing2021.csail.mit.edu with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.95)
- (envelope-from <nickolai@csail.mit.edu>) id 1xThSx-00GiKZ-Dq
- for amd-gfx@lists.freedesktop.org; Wed, 18 Nov 2026 10:20:55 -0500
-Received: by mail-dl1-f45.google.com with SMTP id
- a92af1059eb24-1b3b4944a0eso950661c88.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Nov 2026 07:20:55 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AL+hErHiJY67i8HAGP8grbOtjF7DEODwfp7EAdIXsMi6Pqg8HF++gBtP+2pKMmQ2uuqS6R0vrWdZDoNi@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8loFWzkk8zPceCGwEYm/Y83PIIqiF3HknMN676Huacrszq+DHU
- TodViahCFbZyuX6QJ1/wB1dsMMSibwUUJYEVRvh86fWpmV3piFVwZxKKi14VHIHyd6ImUia3nJF
- uULMLA+fPV4yecz1mO5cF5hIUq7qkbSM=
-X-Received: by 2002:a05:7022:e0d:b0:1b3:8814:8383 with SMTP id
- a92af1059eb24-1b543bb6158mr3662263c88.9.1795015254429; Wed, 18 Nov 2026
- 07:20:54 -0800 (PST)
+X-Greylist: delayed 389 seconds by postgrey-1.36 at gabe;
+ Wed, 18 Nov 2026 14:34:03 UTC
+Received: from mail-proxy25266.mail.163.com (mail-proxy25266.mail.163.com
+ [103.129.252.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE3E210FD22;
+ Wed, 18 Nov 2026 14:34:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=nF
+ JbK8/dNKLZ9Wci+tDCATwra1Lrr5nEu4JyZ/1PmU8=; b=eV7oY9OmDxaV1muuwA
+ ZCyZiRq4q2g17ZIj1bNvWAuk4UOpfpCfPwm8doX9vGKHE3ZcbkgeLY/dvf4vEqjh
+ 5zE+MVxPT5dQ/b/MhQBSJgxr4u+gkjngZVC7T87h6nndxkiyavIm4Vky/+fsUjRE
+ 7uevPiAJKsAzddGRKDs/O0jos=
+Received: from localhost.localdomain (unknown [])
+ by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id
+ _____wD39ygTtf1qsV7rIQ--.20297S2; 
+ Wed, 18 Nov 2026 22:24:21 +0800 (CST)
+From: Haoxiang Li <haoxiang_li2024@163.com>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, tzimmermann@suse.de, mripard@kernel.org,
+ linux@treblig.org, aurabindo.pillai@amd.com, nico.antinori.7@gmail.com,
+ superm1@kernel.org, haoxiang_li2024@163.com,
+ pierre-eric.pelloux-prayer@amd.com, Ryan.Taylor@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/amdgpu: Fix VKMS plane memory leaks
+Date: Wed, 18 Nov 2026 22:24:19 +0800
+Message-Id: <20261118142419.2389009-1-haoxiang_li2024@163.com>
+X-Mailer: git-send-email 2.25.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261117170328.56738-1-nickolai@csail.mit.edu>
- <d7179bdf-daa3-4ed2-a45e-ef2b99d116f1@amd.com>
-In-Reply-To: <d7179bdf-daa3-4ed2-a45e-ef2b99d116f1@amd.com>
-From: Nickolai Zeldovich <nickolai@csail.mit.edu>
-Date: Wed, 18 Nov 2026 10:20:41 -0500
-X-Gmail-Original-Message-ID: <CADGQE7EDJHu9F41ZGKfP92M7kbbw7A-FGYzX1kaemjXmkuW5Wg@mail.gmail.com>
-X-Gm-Features: AclHuK-XtrrvqYPPygdcx8gUT8Gu0j85-P6irS7Octs2KttgRf_mGWk5jg1-ewk
-Message-ID: <CADGQE7EDJHu9F41ZGKfP92M7kbbw7A-FGYzX1kaemjXmkuW5Wg@mail.gmail.com>
-Subject: Re: [PATCH v1] drm/radeon: stop the GPU before kexec
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: _____wD39ygTtf1qsV7rIQ--.20297S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Aw1kArW8GFW5AFykJF4DCFg_yoW8Cr4UpF
+ 48Xa4jkw4UZaykGa47Ja48Ww4SgF48uFyxtrW8C3Zaq3WYyr93G3W8tr12ga9rGFW7Cw43
+ Ary2y3yDCF1YkF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JUO6pkUUUUU=
+X-CM-SenderInfo: xkdr5xpdqjszblsqjki6rwjhhfrp/xtbC7RWM+mr9tRU0cAAA39
 X-Mailman-Approved-At: Thu, 19 Nov 2026 14:10:22 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,84 +57,59 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, Nov 18, 2026 at 7:11=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
-> On 11/17/26 18:03, Nickolai Zeldovich wrote:
-> > Suspend the GPU in radeon_pci_shutdown() on kexec, as PPC64 and Loongso=
-n
-> > already do on every shutdown. Normal shutdown and reboot are unchanged:
-> > commit 8d13c187c42e ("Revert "drm/radeon: Fix EEH during kexec"")
-> > removed the same call there because it hung some HD 5770 systems.
->
-> Yeah that is clearly not the right approach.
->
-> The kexec is often done to switch to a new kernel because the old one has=
- encountered some severe problem, doing a HW suspend in such a situation is=
- not guaranteed to work.
->
-> What should be done instead is to fix the initialization order and/or dis=
-able GART before the bus mastering is enabled again.
+VKMS planes are allocated with kzalloc_obj(), but both the plane
+destroy callback and the output initialization error path only call
+drm_plane_cleanup().
 
-Thanks, that makes sense. I tried disabling the IH at the start of
-evergreen_startup(), before the MC programming raises the page-flip
-interrupts. I also had to clear IH_WPTR_WRITEBACK_ENABLE when disabling
-the IH; otherwise resetting the write pointer writes it back through
-the stale GART, which is one more stray write. With both changes, I
-see no stray writes (no canary-page corruption, and successful kexec reboot=
-s).
+Add amdgpu_vkms_plane_fini() to clean up the DRM resources and free
+the plane structure. Use it as the plane destroy callback and in the
+output initialization error path.
 
-On disabling the GART: the new GART is already enabled before bus
-mastering, so, as far as I can tell, the stray writes were translated
-through the old one earlier, during the MC programming.  Disabling the
-old GART before that would also keep the stray writes out of system
-memory, but evergreen_pcie_gart_disable() and its counterparts also
-unpin the GART BO, which is not pinned at that point, so disabling the
-IH seemed the more direct fix.
+Fixes: 84ec374bd580 ("drm/amdgpu: create amdgpu_vkms (v4)")
+Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-Before I send a v2, a quick question about scope.  R600, RV770,
-Cayman, SI and CIK have the same IH, and their *_startup() functions
-program the MC before their irq_init() in the same way, so the same
-two-line change (see below; disable the IH at the start of
-*_startup(), and clear the writeback enable in the corresponding
-*_disable_interrupts()) should apply to all of them.  But I can only
-test Evergreen: my card is a Caicos (HD 6450), which runs
-evergreen_startup().  Would you prefer I just fix Evergreen, or all 6
-families (the other 5 only compile-tested)?
-
-Nickolai.
-
-For reference, the Evergreen version without comments (with apologies
-for the loss of tabs):
-
---- a/drivers/gpu/drm/radeon/evergreen.c
-+++ b/drivers/gpu/drm/radeon/evergreen.c
-@@ -5010,6 +5010,8 @@ static int evergreen_startup(struct radeon_device *rd=
-ev)
-        int r;
-        struct drm_device *ddev =3D rdev_to_drm(rdev);
-
-+       r600_disable_interrupts(rdev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+index 5c5fdbec93c2..a511322c1c02 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+@@ -140,10 +140,16 @@ static const struct drm_connector_helper_funcs amdgpu_vkms_conn_helper_funcs = {
+ 	.get_modes    = amdgpu_vkms_conn_get_modes,
+ };
+ 
++static void amdgpu_vkms_plane_fini(struct drm_plane *plane)
++{
++	drm_plane_cleanup(plane);
++	kfree(plane);
++}
 +
-        /* enable pcie gen2 link */
-        evergreen_pcie_gen2_enable(rdev);
-        /* enable aspm */
+ static const struct drm_plane_funcs amdgpu_vkms_plane_funcs = {
+ 	.update_plane		= drm_atomic_helper_update_plane,
+ 	.disable_plane		= drm_atomic_helper_disable_plane,
+-	.destroy		= drm_plane_cleanup,
++	.destroy		= amdgpu_vkms_plane_fini,
+ 	.atomic_create_state = drm_atomic_helper_plane_create_state,
+ 	.atomic_duplicate_state = drm_atomic_helper_plane_duplicate_state,
+ 	.atomic_destroy_state	= drm_atomic_helper_plane_destroy_state,
+@@ -375,7 +381,7 @@ static int amdgpu_vkms_output_init(struct drm_device *dev, struct
+ 	drm_crtc_cleanup(crtc);
+ 
+ err_crtc:
+-	drm_plane_cleanup(primary);
++	amdgpu_vkms_plane_fini(primary);
+ 
+ 	return ret;
+ }
+-- 
+2.25.1
 
---- a/drivers/gpu/drm/radeon/r600.c
-+++ b/drivers/gpu/drm/radeon/r600.c
-@@ -3604,7 +3604,7 @@ void r600_disable_interrupts(struct radeon_device *rd=
-ev)
-        u32 ih_rb_cntl =3D RREG32(IH_RB_CNTL);
-        u32 ih_cntl =3D RREG32(IH_CNTL);
-
--       ih_rb_cntl &=3D ~IH_RB_ENABLE;
-+       ih_rb_cntl &=3D ~(IH_RB_ENABLE | IH_WPTR_WRITEBACK_ENABLE);
-        ih_cntl &=3D ~ENABLE_INTR;
-        WREG32(IH_RB_CNTL, ih_rb_cntl);
-        WREG32(IH_CNTL, ih_cntl);
