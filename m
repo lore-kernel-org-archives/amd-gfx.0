@@ -2,94 +2,164 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57837606A320
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 14:11:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E3AC606A320
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 14:11:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=CrVDzmrc
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=AvcKfCxg;
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=A9Fjg43S
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE67211246A;
-	Thu, 19 Nov 2026 14:11:02 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B5C210ECA2;
- Thu, 19 Nov 2026 05:35:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
- :Reply-To:Content-Type:Content-ID:Content-Description;
- bh=Wxf1C03XM0J3zRYLBJ6bAuRpCxjKZ85wIDqTXFJZY0U=; b=CrVDzmrc3oIthRH1y3T/xDyXPx
- cVrzHc8Q5zx9vBvBKySfZpSp9nn6Ctv4spyKdLZ2gMql4p4lGywVFn4Wxv0urKoLYE2Us8NFQbg/E
- SujAsyVlT9ZQaUAWuZ4Y5/PYoP053/q4PLQfGDqnfJt8K/Qo/9TEt1lbXZ4Egas/dHptyNhLgoYTF
- wuP3r+hQInGzK5spo+RZUspvYd5bw0PEETZbVVIV6tTzJx88fApDgP6f1LXwPqMwhToEckWSwFXKs
- 1BcxQ0o6Vx/Qelp2qicLQ22b1mh0dYnsD+nVH3ZPFTcBV3vA7o28QrM93KssD+4D+Q51xT+SBXnFA
- FTl/MrJQ==;
-Received: from [50.53.43.113] (helo=bombadil.infradead.org)
- by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
- id 1xTuns-0000000Aufu-3YX5; Thu, 19 Nov 2026 05:35:24 +0000
-From: Randy Dunlap <rdunlap@infradead.org>
-To: linux-kernel@vger.kernel.org
-Cc: Randy Dunlap <rdunlap@infradead.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org,
- David Hildenbrand <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Jason Gunthorpe <jgg@nvidia.com>, Leon Romanovsky <leonro@nvidia.com>,
- linux-mm@kvack.org, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org,
- Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
- Marcel Holtmann <marcel@holtmann.org>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
- linux-bluetooth@vger.kernel.org,
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
- Jason Wang <jasowangio@gmail.com>, David Heidelberg <david@ixit.cz>,
- oe-linux-nfc@lists.linux.dev, Chas Williams <3chas3@gmail.com>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
- Helge Deller <deller@gmx.de>, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, MPT-FusionLinux.pdl@broadcom.com,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>, linux-scsi@vger.kernel.org,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
- Zhihao Cheng <chengzhihao1@huawei.com>, linux-mtd@lists.infradead.org,
- Neill Kapron <nkapron@google.com>, Andrey Konovalov <andreyknvl@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org, Hans de Goede <hansg@kernel.org>,
- Arnd Bergmann <arnd@arndb.de>, "Michael S. Tsirkin" <mst@redhat.com>,
- =?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
- Sean Christopherson <seanjc@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org,
- virtualization@lists.linux.dev, Jan Kara <jack@suse.cz>,
- linux-fsdevel@vger.kernel.org, "Theodore Ts'o" <tytso@mit.edu>,
- linux-ext4@vger.kernel.org, Mike Marshall <hubcap@omnibond.com>,
- devel@lists.orangefs.org, Paulo Alcantara <pc@manguebit.org>,
- Namjae Jeon <linkinjeon@kernel.org>, linux-cifs@vger.kernel.org,
- Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>,
- linux-f2fs-devel@lists.sourceforge.net,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Tzung-Bi Shih <tzungbi@kernel.org>, Benson Leung <bleung@chromium.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, intel-gfx@lists.freedesktop.org,
- Matthew Brost <matthew.brost@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- intel-xe@lists.freedesktop.org, Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Subject: [PATCH v2 02/12] docs: ioctl-number: update sound entries
-Date: Wed, 18 Nov 2026 21:35:03 -0800
-Message-ID: <20261119053514.255348-3-rdunlap@infradead.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261119053514.255348-1-rdunlap@infradead.org>
-References: <20261119053514.255348-1-rdunlap@infradead.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDE76112464;
+	Thu, 19 Nov 2026 14:11:01 +0000 (UTC)
+Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com
+ [148.163.139.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2196910FFE0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Nov 2026 19:50:33 +0000 (UTC)
+Received: from pps.filterd (m0167073.ppops.net [127.0.0.1])
+ by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6AIJYgIx1520069
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Nov 2026 14:50:32 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=pps01; bh=r7xQ
+ Eq0S5madAXrgChKTKdPfHb7gKwfhdlAPY6R8vGQ=; b=AvcKfCxgh2FO1dLQ8zx+
+ 4vXb/ToMs6lkdoSyUzHR7J5mA8oTJ80Evn6C7DQAcQmCKyyCXCcVPXC1AY2BPV+D
+ PrxnrOdal+rGAkWkiyrbM+AqOwlZAQ1nJhZU5MP+bzgPUyn08QXjS82Qla/J+pPH
+ iCcg3Jt/KcqKZ5SUTzgJwHBANnntnyE+Pl4ScFWubQmhtGSgKuvD11x55l/MrryD
+ qpYkODcKqypwoTWy8gK5UZs7YAS4kt/NOgHbNYfZYGtlH43Z2m+cRpG1dhxCVAtF
+ QizC4R1HjcRvzV9dgt1KKEHn2w9dfl+PcmY3Jg7zuQba4dl/aGh85fAhkp4sBQiD
+ SA==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197])
+ by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4j1fwxhkt8-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Nov 2026 14:50:32 -0500 (EST)
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-5364605e74bso30217771cf.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Nov 2026 11:50:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=columbia.edu; s=lionmail; t=1795031431; x=1795636231;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=r7xQEq0S5madAXrgChKTKdPfHb7gKwfhdlAPY6R8vGQ=;
+ b=A9Fjg43SNTfMhZ5Hj5c6EjChITqzXkc/AUAAFjZN+2acyoSODqa9LTnNgbWqrkrckO
+ oIhKebY/U7aJY5vZ8cKCNiypGAf/392064H78WTNo5fLOrRTZgYaZ51GVnj9EwfrsUTR
+ Kn5WBi7rmtSVT9nZK827jrSM1K8vrzWLm+K2X+xSuUOsbwxaG+DRLHmo1taQwnvVp/Fq
+ Saw2Q7cpbLVoegprpp3166D3iWSWYUKdIC2b5Tz+1NTKl6v7PiMKc4isnFS1CXfwuiGV
+ crIqqCqjDrdz3ALs6tgJa2grh9crq25G6U/XisrrXasBhGIlwzrMU6Y9qFGFpoQBI2lK
+ 2gDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795031431; x=1795636231;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=r7xQEq0S5madAXrgChKTKdPfHb7gKwfhdlAPY6R8vGQ=;
+ b=wCcNwKzDS+D7PaKSX6ONCoTMkD38cySFCNCRc8Yd+wjxP6/ZMJZthNDxrhRG4+76bf
+ BjG5ibS7gHXcw4KCQ95pmsAvgMszqD1zIw0VyRP9ENLJmyBbH+uOFFNifoSK/VQUGWrF
+ EJjhhmdIdT5fLckSYMSdfoxxGpDgepFt9YE0g4ou2Bj4xEm/OG8eyzDbiYV7tP5vX5BW
+ VGzSssRPjhzZ6Cgb57uyVhHNVT1EKTb3QXheVO2V6JRMw9CfMaXDKnFmH4n/ExUew5hg
+ uo7pHRw6intUg6XxuFkj4OSFbWDwcPBH9Xtphmd80PRln54XC9NairvJg9Ct3ReDfek0
+ Krrw==
+X-Forwarded-Encrypted: i=1;
+ AL+hErGrLLPHhRSLqY9gUy/62xoMMNbvVMD7Rrt/X3r7TsuX+myJfoWj9MiGPNMxRAE6eIBBu/XTfxwk@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9R2q8UvsWfY1W2oSbCHeIHpwq/aci8Qi2qnSiGVABNge8OfeXr
+ NZIl4bPh9Z2BPtkUxxM4DwvH5mdkCy0+p0rN26OUW+7b8rLV+dTHaL9FgrpPBy4q2Rch0ng41cq
+ cIvk9orSCVwnn6ujARG24/5CCJrSlnJYjwUgn0lhJ7KcbFulWdZMfu39tMuWV9wg=
+X-Gm-Gg: AYBFou2rVqQfARSDmm86jKBltxyrcCsGfPFMgSpYhpIYQX7EM3lCuNI0PfExtnIEVxR
+ LZ69xCaqEFcdKjkwC2E1VtMHqwuV84EzyTZe9acMcYD5ALdFuH1ypWJvx/+RAsyJIUZ0p0SXG90
+ l2CDkTxP8UvMtf6RgTZqqfHsbCNbZyJJUNu45ogKlmJG9GPKbZeLOx/pJpR4JINP4Hb6EQD75UH
+ T1u1qW0HKjrrsPAS25rZ1rUBvQUWwSMiEZ0Ym1bR7E2StCeo5ZBUmuXXn+2HKypk+hrPiyXPjtF
+ k7abdhxkuFE+nRM5WhbqaVc5+WGwHRq3fjNOpzY9Wykd11ualSEk/B+PSQGLtUhCRwa/YMd56bK
+ WjSsQAFLT++Inj3KrQs2rNLcliOc/kmopmKyvjmpnXQlZqOV4EvE/gShgEXGgiizeBj8k96jLxy
+ CYzLIoqGijTpUO459zB5uNKw==
+X-Received: by 2002:a05:622a:5807:b0:536:252a:dbf8 with SMTP id
+ d75a77b69052e-55d5a537991mr56617391cf.14.1795031431377; 
+ Wed, 18 Nov 2026 11:50:31 -0800 (PST)
+X-Received: by 2002:a05:622a:5807:b0:536:252a:dbf8 with SMTP id
+ d75a77b69052e-55d5a537991mr56616931cf.14.1795031430933; 
+ Wed, 18 Nov 2026 11:50:30 -0800 (PST)
+Received: from [10.207.2.125] (nat-128-59-176-14.net.columbia.edu.
+ [128.59.176.14]) by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-55d66c24503sm7189751cf.20.2026.11.18.11.50.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 18 Nov 2026 11:50:30 -0800 (PST)
+Message-ID: <9a6599cc-f47a-4a27-ae8e-91c8a1a523b5@columbia.edu>
+Date: Wed, 18 Nov 2026 14:50:28 -0500
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: (subset) [PATCH v3 0/9] userfaultfd: assorted fixes (part 1)
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Mike Rapoport <rppt@kernel.org>, Peter Xu <peterx@redhat.com>,
+ James Houghton <jthoughton@google.com>,
+ Andrea Arcangeli <aarcange@redhat.com>,
+ Suren Baghdasaryan <surenb@google.com>, Balbir Singh <balbirs@nvidia.com>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+ Michal Hocko <mhocko@suse.com>,
+ =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
+ Andrei Vagin <avagin@gmail.com>,
+ Muhammad Usama Anjum <usama.anjum@arm.com>,
+ Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>,
+ Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+ Oscar Salvador <osalvador@suse.de>,
+ =?UTF-8?Q?Miko=C5=82aj_Lenczewski?= <miko.lenczewski@arm.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, stable@vger.kernel.org,
+ Breno Leitao <leitao@debian.org>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+References: <20261117-uffd-state-fixes-v3-0-b617009d1a4a@columbia.edu>
+ <179501525761.13527.5348420494097607881.b4-ty@b4>
+ <d05636be-5a37-46e1-b6d2-30950b7778b5@kernel.org>
+Content-Language: en-US
+From: Tal Zussman <tz2294@columbia.edu>
+In-Reply-To: <d05636be-5a37-46e1-b6d2-30950b7778b5@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=XfocX455 c=1 sm=1 tr=0 ts=6afe0188 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=2zM0HjzktFauw5hoOd8SpA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=jHxIr1HyPKZ_Q5_91PL3:22
+ a=VwQbUJbxAAAA:8 a=b7hxIIQ5yigvctP09d0A:9 a=QEXdDO2ut3YA:10
+ a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE4MDA3NiBTYWx0ZWRfX4odLviUqsk1w
+ fFjm3xzRLEr/PqysK5hH7pIrt/tS4BTrb7FVboWa0TFLQSd7dKUhZXBWxDSQ0/++ioVMqM4PNm7
+ Oldce3XAiUAuZY4cLYTiaQu6bT3n2EigdqIEwJzOBuXuNW6PzztZ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE4MDA3NiBTYWx0ZWRfX4nftKk1e/phA
+ OSgyTvdW/sDHvrPeaiHOngwKSCM6DZ+h/1g8YXzTqi/RN61v/zSNqbTPWJO+piTjOx4FElmR/C7
+ uQoXqejbTIShZfcoPImnrN+kiHfc0ZXngdP+ekhoTCoPh/rk+romerDOhkrJ86FRbgDMYapgoB6
+ iaEmYy0VKpTVp384M36ipHGy7FKh2s2YvBqFl57lVwXIygDwknzkc3Wc+ApYNMOF8ibPBy89yU7
+ K8pyJZzf8r7HGHuQ8rg/nQXIfTZCguK8QtwwDKJxYHLQySAR1h4NxM+tm2QFMSbuk3/5CB05rDK
+ h4aBHmTUOUDG3l0LlZiqqrbbRsHYDae5vMh+q7H3JHGVi+kmFHlPBFxu43neyGsAXlJBk0oKsfO
+ aA8vQSn/Mu5x5nOQo7efjZpuWKSeCuKNfrlhhe2QwfsblEhgovhkLCaTUJ/Piw3BfjdFpWqI5Q3
+ 2D+pgwRt0+oZpaVTsNQ==
+X-Proofpoint-GUID: nQdUQJs7stoHNI2A3yDFdgwZ1dhjCus6
+X-Proofpoint-ORIG-GUID: nQdUQJs7stoHNI2A3yDFdgwZ1dhjCus6
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11970
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 malwarescore=0 adultscore=0 phishscore=0
+ clxscore=1015 impostorscore=10 bulkscore=10 lowpriorityscore=10 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611180076
 X-Mailman-Approved-At: Thu, 19 Nov 2026 14:10:22 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -101,96 +171,61 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Update the list of files where sound ioctls are defined and update
-the ranges of function numbers that are used.
+On 11/18/26 10:37 AM, David Hildenbrand (Arm) wrote:
+> On 11/18/26 16:20, David Hildenbrand wrote:
+>> On Tue, 17 Nov 2026 23:28:40 -0500, Tal Zussman wrote:
+>>> This is a first batch of userfaultfd fixes, with more to come.
+>>>
+>>> These were found by a mix of regular old LLM review and by having an LLM
+>>> write a TLA+ model of uffd interactions with PTE bits and other state
+>>> and seeing what issues fell out.
+>>>
+>>> Most of these fix places where mm code loses uffd-wp or RWP protection
+>>> while moving or migrating an entry. Userspace then either misses writes
+>>> and accesses, or gets pages reported that nobody touched.
+>>> There is also a hang in UFFDIO_MOVE, and UFFDIO_ZEROPAGE modifying a
+>>> file through a private mapping.
+>>>
+>>> [...]
+>> 
+>> Applied, thanks!
+>> 
+>> tree: mm/core.git
+>> branch: thp-7.5.misc
+>> 
+>> Applied patches will appear soon in mm-next, followed by linux-next.
+>> 
+>> Please report any outstanding bugs that were missed during review, so we
+>> can either drop the patch series or decide how to fix it up.
+>> 
+>> It is encouraged to provide Acked-bys, Reviewed-bys, and Tested-bys even
+>> though the patches have already been applied. If possible, patch trailers
+>> will be updated.
+>> 
+>> Note that commit hashes shown below are subject to change due to rebase,
+>> trailer updates or similar. Further, this is not a guarantee that the
+>> patches will go upstream. If in doubt, please check the listed branch.
+>> 
+>> [6/9] mm/huge_memory: build the moved huge zero PMD from the destination VMA
+>>       https://git.kernel.org/pub/scm/linux/kernel/git/mm/core.git/commit/?id=ec36bf72
+> 
+> 
+> Aaaaaand undone. :)
+> 
 
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-Reviewed-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
----
-v2: add Rev-by: from Takashi Sakamoto;
-    address several review comments from sashiko
+Thank you David!!
 
-[Since having multiple maintainers trying to merge these would
-cause some conflicts, it would be more manageable for Jon to
-take all of these through the docs-next tree.]
+> -- 
+> Cheers,
+> 
+> David
+> 
 
-Cc: Jonathan Corbet <corbet@lwn.net>
-Cc: Shuah Khan <skhan@linuxfoundation.org>
-Cc: linux-doc@vger.kernel.org
-Cc: Jaroslav Kysela <perex@perex.cz>
-Cc: Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org
-
- Documentation/userspace-api/ioctl/ioctl-number.rst |   14 ++++++++---
- 1 file changed, 11 insertions(+), 3 deletions(-)
-
---- linux-next-20261116.orig/Documentation/userspace-api/ioctl/ioctl-number.rst
-+++ linux-next-20261116/Documentation/userspace-api/ioctl/ioctl-number.rst
-@@ -122,11 +122,14 @@ Code  Seq#    Include File
- 'A'   00-0F  linux/agpgart.h,                                          conflict!
-              drivers/char/agp/compat_ioctl.h
- 'A'   00-7F  sound/asound.h                                            conflict!
-+'A'   20-24  sound/pcm.h                                               conflict!
-+'A'   10-53  sound/core/pcm_compat.c                                   conflict!
- 'B'   00-1F  linux/cciss_ioctl.h                                       conflict!
- 'B'   00-0F  include/linux/pmu.h                                       conflict!
- 'B'   C0-FF  advanced bbus                                             <mailto:maassen@uni-freiburg.de>
- 'B'   00-0F  xen/xenbus_dev.h                                          conflict!
- 'C'   all    linux/soundcard.h                                         conflict!
-+'C'   00-68  sound/compress_offload.h                                  conflict!
- 'C'   01-2F  linux/capi.h                                              conflict!
- 'C'   F0-FF  drivers/net/wan/cosa.h                                    conflict!
- 'D'   all    arch/s390/include/asm/dasd.h
-@@ -152,6 +155,7 @@ Code  Seq#    Include File
- 'H'   01     linux/mei.h                                               conflict!
- 'H'   02     linux/mei.h                                               conflict!
- 'H'   03     linux/mei.h                                               conflict!
-+'H'   03     sound/core/hwdep_compat.c                                 conflict!
- 'H'   00-0F  sound/asound.h                                            conflict!
- 'H'   20-40  sound/asound_fm.h                                         conflict!
- 'H'   80-8F  sound/sfnt_info.h                                         conflict!
-@@ -161,6 +165,7 @@ Code  Seq#    Include File
- 'H'   40-4F  sound/hdspm.h                                             conflict!
- 'H'   40-4F  sound/hdsp.h                                              conflict!
- 'H'   90     sound/usb/usx2y/usb_stream.h
-+'H'   FC     sound/pci/asihpi/hpios.h                                  conflict!
- 'H'   00-0F  uapi/misc/habanalabs.h                                    conflict!
- 'H'   A0     uapi/linux/usb/cdc-wdm.h
- 'H'   C0-F0  net/bluetooth/hci.h                                       conflict!
-@@ -168,7 +173,7 @@ Code  Seq#    Include File
- 'H'   C0-DF  net/bluetooth/cmtp/cmtp.h                                 conflict!
- 'H'   C0-DF  net/bluetooth/bnep/bnep.h                                 conflict!
- 'H'   F1     linux/hid-roccat.h                                        <mailto:erazor_de@users.sourceforge.net>
--'H'   F8-FA  sound/firewire.h
-+'H'   F8-FE  sound/firewire.h                                          conflict!
- 'I'   all    linux/isdn.h                                              conflict!
- 'I'   00-0F  drivers/isdn/divert/isdn_divert.h                         conflict!
- 'I'   40-4F  linux/mISDNif.h                                           conflict!
-@@ -204,6 +209,9 @@ Code  Seq#    Include File
- 'S'   80-81  scsi/scsi_ioctl.h                                         conflict!
- 'S'   82-FF  scsi/scsi.h                                               conflict!
- 'S'   00-7F  sound/asequencer.h                                        conflict!
-+'S'   20-52  sound/core/seq/seq_compat.c                               conflict!
-+'S'   60-63  sound/scarlett2.h                                         conflict!
-+'S'   60-67  sound/fcp.h                                               conflict!
- 'T'   all    linux/soundcard.h                                         conflict!
- 'T'   00-AF  sound/asound.h                                            conflict!
- 'T'   all    arch/x86/include/asm/ioctls.h                             conflict!
-@@ -219,8 +227,8 @@ Code  Seq#    Include File
- 'V'   C0     media/si4713.h                                            conflict!
- 'W'   00-1F  linux/watchdog.h                                          conflict!
- 'W'   00-1F  linux/wanrouter.h                                         conflict! (pre 3.9)
--'W'   00-3F  sound/asound.h                                            conflict!
--'W'   40-5F  drivers/pci/switch/switchtec.c
-+'W'   00-41  sound/asound.h                                            conflict!
-+'W'   40-5F  drivers/pci/switch/switchtec.c                            conflict!
- 'W'   60-61  linux/watch_queue.h
- 'X'   all    fs/xfs/xfs_fs.h,                                          conflict!
-              fs/xfs/linux-2.6/xfs_ioctl32.h,
