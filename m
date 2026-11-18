@@ -2,43 +2,47 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AD1E606A332
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Nov 2026 12:52:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8543606A325
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Nov 2026 12:56:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=tebb4fnq
+	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=MDIIWD3t
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F40F10E6EA;
-	Wed, 18 Nov 2026 12:52:33 +0000 (UTC)
-Received: from mail-4321.protonmail.ch (mail-4321.protonmail.ch [185.70.43.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 251E810E6EA
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Nov 2026 12:52:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E61810FBE5;
+	Wed, 18 Nov 2026 12:56:03 +0000 (UTC)
+X-Greylist: delayed 568 seconds by postgrey-1.36 at gabe;
+ Wed, 18 Nov 2026 12:55:57 UTC
+Received: from mail-244104.protonmail.ch (mail-244104.protonmail.ch
+ [109.224.244.104])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 054D010FBE5
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Nov 2026 12:55:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
- s=protonmail3; t=1795006011; x=1795265211;
- bh=GnW0DGN9umZ2ZPe8NX9ttfPkdxxYQUm5WmzEN0TBkyw=;
+ s=protonmail3; t=1795005987; x=1795265187;
+ bh=Sn4cANMWyarnlPlhcBZPq4AKMNRJPm8dufLXYR0px+c=;
  h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
  Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
  Message-ID:BIMI-Selector;
- b=tebb4fnq7ardpOpgBaalbX31+XQmatsUrvMH59Fs0Wf43hxGnGhwm4fQSKk75kCY+
- rawfxzmwmf+rQIJ0sieEiXvU9I/ZYdrqdhQEAZ1LLtTd3FBGxPhYn//7PbQ2125ArJ
- kGc1CQvfT/46j0kJnGCbwjzhvdvVxAr71pf63QELdGC+Qa6Qj0+YatgrLVPHyaTkBJ
- nf7tJBAlKTPL2KsXqdauf/Iuyvn2YG8k59b2V7R+Co6akBg+zPP6Mp8QO3BgIfInpr
- 7NLX5DigYhFJmYY64OHqharBJkTQTb/lyUA0jLn1rR0JRTRYpod84qr8GvfvXIXzie
- H1EvkfXVTzwXQ==
-Date: Wed, 18 Nov 2026 12:46:45 +0000
-To: Cooper Morgan <ext-github@cwooper.dev>
+ b=MDIIWD3tYdAeZiRc7hMp33z7pf5NOfwOjc6a7D3ijVUBP248POhCYDKUU7tDFZY1b
+ MbtB/ueoVLqe44G58j3TAck8J11BkxeAqTmrEML72OBu2++puuYV4mNicVQRfzg8zY
+ WjJwCOcHMIUxOYPvyEuySlvRGWkjfzxeUYfQZPMJLZz9Q3zzr3ktL//4sE71nOgc8T
+ IXk8XcYDnMQ7XkYrY/8enC6IcA8j7myIIU4DAZoea+oaE9nZbvNYQwMDWlR5ZvZe8y
+ dPQA6HeDmSYcBkVfmHxCxPkXcBGQ/+76EK/TvGghbtZB1EFz0476AGhkiKZINJDaar
+ EdgUb+gZAJ3dQ==
+Date: Wed, 18 Nov 2026 12:46:22 +0000
+To: Mario Limonciello <superm1@kernel.org>
 From: =?utf-8?Q?Eren_=C3=96zen?= <erenozen@protonmail.com>
-Cc: Wayne.Lin@amd.com, oss@oysterdaisuki.com, harry.wentland@amd.com,
- alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org, sunpeng.li@amd.com,
- siqueira@igalia.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] drm/amd/display: Fix FreeSync infopacket refresh
- rates above 255 Hz
-Message-ID: <HftAWPKURVjBtK_2BmUiLXOb8ghZxaEzAJSg0tlsmy5L3ckJyDWc6g65vrsVGdA3ZcytB6mPuyxaQbsPawfOZmdC1dyAo4lCbaK3Tj7Tm-U=@protonmail.com>
-In-Reply-To: <20261117183440.552477-1-ext-github@cwooper.dev>
-References: <20261113010529.11514-1-ext-github@cwooper.dev>
- <20261117183440.552477-1-ext-github@cwooper.dev>
+Cc: simonit.orig@gmail.com, Richard Hughes <richard@hughsie.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
+ Wayne Lin <Wayne.Lin@amd.com>, amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH v2] drm/amd/display: Route connector DDC over AUX for
+ native DP sinks
+Message-ID: <QU464501lRPW3X8es-jXBFOvvwqS3eKR3HRS33U6x6o5eYC6h5AKV7f3ZXRCaU7-sEcupJMHereqyDUsUSG_fsOMNwvGO_CcZRKsz1AgObk=@protonmail.com>
+In-Reply-To: <c6d79680-1fd2-4e71-9d00-616010b7727c@kernel.org>
+References: <20261103-superm1-amdgpu-ddc-v2-1-7bde6d004382@kernel.org>
+ <20261115082042.1902826-1-Wayne.Lin@amd.com>
+ <c6d79680-1fd2-4e71-9d00-616010b7727c@kernel.org>
 Feedback-ID: 19860221:user:proton
-X-Pm-Message-ID: 3e585c3816178facb6e494cafc8eb195ccbfea00
+X-Pm-Message-ID: 39760bd241fcaddbc997a6c33d529836ac9500f3
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
@@ -60,41 +64,43 @@ X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Wayne, Cooper,
+Hi Wayne, Mario,
 
-One more difference worth knowing about if v2 gets swapped in:
-ae60ec4dcfc4 ("drm/amd/display: Use FreeSync v3 infopacket for sinks
-above 255 Hz") is missing the amdgpu_dm_connector.c hunk of patch 2/2.
-The posted patch changes four files (92 insertions, 1 deletion) in both
-v1 and v2, but the commit only changes three (91 insertions).
+48b8c06b05ad ("drm/amd/display: Route connector DDC over AUX for native
+DP sinks") in amd-staging-drm-next is v2 of this patch, not v3 [1].
 
-The missing hunk is the one that stores the AMD VSDB version for every
-DP/eDP sink:
+v3 added a NULL check on ddc_service->link. Without it, the existing
+KUnit test dm_test_i2c_xfer_no_ddc_pin(), whose ddc_service has no link,
+dereferences a NULL link and panics the UML kernel. sashiko-bot pointed
+this out on v2 [2]. It reproduces on amd-staging-drm-next 8dd68a79583a:
 
-=09get_amd_vsdb(amdgpu_dm_connector, &vsdb_info);
-+=09amdgpu_dm_connector->vsdb_info.amd_vsdb_version =3D vsdb_info.amd_vsdb_=
-version;
+  RIP: 0033:amdgpu_dm_i2c_xfer+0x52/0x210
+  Kernel panic - not syncing: Segfault with no mm
+  ...
+  dm_test_i2c_xfer_no_ddc_pin+0xaf/0x1e0
 
-=09if (vsdb_info.replay_mode) {
-=09=09amdgpu_dm_connector->vsdb_info.replay_mode =3D vsdb_info.replay_mode;
--=09=09amdgpu_dm_connector->vsdb_info.amd_vsdb_version =3D vsdb_info.amd_vs=
-db_version;
+Only 670 of the 1931 amdgpu_dm tests get to run.
 
-Without it, a native DP sink without Replay never records VSDB v3, so it
-never gets the v3 packet, and the DP side of the >255 Hz fix has no
-effect. The KUnit test added by the same patch catches this on
-amd-staging-drm-next 8dd68a79583a:
+I don't think picking up v3 instead is the answer, though. From reading
+the code, sashiko-bot's DP++ concern on v3 [3] looks right:
+link->aux_mode is only written in detect_link_and_local_sink() after
+detect_dp(), and nothing clears it on unplug. After a native DP monitor
+is swapped for a passive DP++ HDMI adapter, the adapter ID read in
+dp_passive_dongle_detection() would go over AUX. v2 doesn't have that
+problem, because link_disconnect_sink() clears local_sink before
+detect_dp().
 
-  # dm_test_fs_caps_dp_vsdb_version: EXPECTATION FAILED at drivers/gpu/drm/=
-amd/amdgpu/../display/amdgpu_dm/tests/amdgpu_dm_connector_test.c:9925
-  Expected ctx->aconnector->vsdb_info.amd_vsdb_version =3D=3D 3, but
-      ctx->aconnector->vsdb_info.amd_vsdb_version =3D=3D 0 (0x0)
+In the driver, a non-OEM adapter always has ddc_service->link set
+(amdgpu_dm_create_i2c() already dereferences it), so I think only the
+test needs fixing. I can send a test-only patch that gives the test a
+zeroed dc_link. With it, all three i2c_xfer tests pass and the suite
+runs to the end again. Mario, if you'd rather fold it into a driver
+follow-up, I'm happy to test that instead.
 
-The failure is easy to miss right now, because the amdgpu_dm KUnit run
-panics earlier in dm_test_i2c_xfer_no_ddc_pin() (I've reported that on
-the "Route connector DDC over AUX" thread). With that test fixed and
-this hunk restored, all 1931 amdgpu_dm tests pass here. Patch 1/2
-(bedad38a7ddf) landed complete.
+[1] https://lore.kernel.org/all/20261110-superm1-amdgpu-ddc-v3-1-9436b04d1e=
+31@kernel.org/
+[2] https://lore.kernel.org/all/sashiko-outbox-195461@kernel.org/
+[3] https://lore.kernel.org/all/sashiko-outbox-207767@kernel.org/
 
 Thanks,
 Eren
