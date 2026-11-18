@@ -2,41 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE90F606A325
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Nov 2026 19:03:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3BCB606A320
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Nov 2026 19:03:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=5kq0WkYy
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=PyV3Du4w
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D56910FF84;
-	Wed, 18 Nov 2026 19:03:19 +0000 (UTC)
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012071.outbound.protection.outlook.com [52.101.43.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85F0110FF84
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Nov 2026 19:03:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44BA610FF85;
+	Wed, 18 Nov 2026 19:03:20 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013013.outbound.protection.outlook.com
+ [40.93.201.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 092DB10FF85
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Nov 2026 19:03:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DjzmAtyZFSQskq96/IED6+thqAvxnCkl2LZ+HmgM7RH/4WlcH9GrKIm6YWaoRIbkXKpYDatjQKQtmCv5qzQy7BWMLh+Gxxfo/LAf3Qm+isXgVgZH3jdFEZj747IKUP81M/1hXPmNMQbs17YYBtjJodRa5uTy+aAdSha55Dcrp3nPTdG3k10556K9uQHWoB7BeSuJcJidr+jV30h0kZ2s3jhbhCLirRsuclXnpxYWguhi11z9U/BKMaLK0kGiAgCEEOy5DT4dfQpEYOiuMEtVBhxiQqiHiBAq7jC9ZIigvrIAY9+4JNZvJhX2s8zen4D3PXS9DGay18+cc5zYkq66Zg==
+ b=gw10aQxpJLmfLenI9n0nuh0N0dXY6gqIj4PXdEMmEyzN86r84YQegrfaPx53byo4UYq/EbUn4R9/IPSdf1mk5XB6oqfxRwBJFUgtWF5I57S7V6ADDWHOAxEbHQ9PKJVns6pNf9xQBYl0afgu0woF74oLTQ2EFmFo99aj8QFDJ3cHoV7rCkbFz6fDliHwTpTRQ326HqcxNFKaFYTEfEZpiGWZPZGr5dCHIyv9kbgkK8gkmd7TIczlYPTwoeZK+RXln5PdefLvjWD7robf112mP8DOqtr17yZKDSC1WaCBTsIdmLYsAM5Sfl+C+GnvCyk4x4UwgPb8Gmh+dY8CPKeREA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3+ePw6gVVn5meLhvYxw3ZTxS9fcGEZVpRiVVbvs9GP0=;
- b=Cdo+kOc9NNoVd7j+esLbuP/xevbD8q85G0lR5DuYo9yXjC0mBc00WyS6MytnUTv345Ifiz2bJKO6H60lbfoChxTN6pnbxZSJKmOmZzEf2XGyWyp7/m6/akeCOIPVymfNoG9lwLzYSJ3x8n8kyUBPO2asGJass5eothn1Bmyj9kC5yptpBNIeLhGbDwIDnuRSPI+8A/AgMWnG2/H9Z1BFzklt0Q5GSMucEzoOM924KdHpkDHJCViglMYtSnBVVqZejOfgfa0L3wBJO7D02PkPVk7JDKAG6iPy5FZ/5Eg30tc/7EOYG8V3yLSQZ1OEy5xorZs9g8yT5A/GROuDip1Eqw==
+ bh=JF3IJYe6ocY/A0nCJ+xhYlWXySrNZHfLMQ5+e0bl8Fk=;
+ b=gbwAZGPiAht+oexve0u5m6kYft4tpGVJZSKpfn8j9AM+rMPltlfmWWeb6P2+ljW3g5bbJ3OqJxBGODllQMEV6WfwxIKnINNy6bvNPSpTL29zXBroEgReU/rBWPZqPVRLcMWvk/IUMg5g39hOreLrb/yEiO2F8ywrHQpyDsSQ8H9oiOb9yZ7EvCNLif9VFV7oj3tUC5/Cw3fdyvVQbr6LtiJiwEPts/0hVEeEnBfmQvZYF5MFCNA92+2mfrNYYc1n2O+6bisE+et8His6glxFvjL3LiKzOGDKoyaHWetBBOjtKi4CerguW8u3b8dkF8yhnqtAdvET7hdahu/wY+x1gg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3+ePw6gVVn5meLhvYxw3ZTxS9fcGEZVpRiVVbvs9GP0=;
- b=5kq0WkYyFnPE0yjxMUNonntv3gbmN9h5d0KQn/fj52C9iblunhSQbX6DOax9uJl/GVutqqjZAYpaF/J7wwoBc/M6rzWcB1EylJcIFkgl5bY0LG+ninK0zmLB6QYRsuW4kp1az08+l8tplWMLlqpZGFCYUdSBw2cV/bKN0OxDokk=
-Received: from CH0PR03CA0281.namprd03.prod.outlook.com (2603:10b6:610:e6::16)
- by DSVPR12MB827618.namprd12.prod.outlook.com (2603:10b6:8:3e5::24)
+ bh=JF3IJYe6ocY/A0nCJ+xhYlWXySrNZHfLMQ5+e0bl8Fk=;
+ b=PyV3Du4wiRQ1qstvPFIDbiXjfhzYe/QFWN2gSGNnwASxlWFd0AJxsMRJJzt6zTWyDHaOiMtdxUp67OZhv82rqtFVkpMuJhSeRHf+Wy0l1Rl0GnXFLADf3CRFSbOWgCVXzF25/qlQYBEIHCVT5fHhEssHUxWrW1Hq3DI8bxgVF6I=
+Received: from CH0PR03CA0299.namprd03.prod.outlook.com (2603:10b6:610:e6::34)
+ by SJ0PR12MB6782.namprd12.prod.outlook.com (2603:10b6:a03:44d::10)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Wed, 18 Nov
  2026 19:03:06 +0000
 Received: from BN2PEPF0000A88F.namprd04.prod.outlook.com
- (2603:10b6:610:e6:cafe::25) by CH0PR03CA0281.outlook.office365.com
- (2603:10b6:610:e6::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Wed,
+ (2603:10b6:610:e6:cafe::56) by CH0PR03CA0299.outlook.office365.com
+ (2603:10b6:610:e6::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.14 via Frontend Transport; Wed,
  18 Nov 2026 19:03:06 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
@@ -54,13 +55,13 @@ Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Wed, 18 Nov
  2026 13:03:05 -0600
 From: Mario Limonciello <mario.limonciello@amd.com>
-Date: Wed, 18 Nov 2026 13:02:59 -0600
-Subject: [PATCH v2 1/3] drm/amdgpu: unwind TTM on amdgpu_ttm_init() failure
+Date: Wed, 18 Nov 2026 13:03:00 -0600
+Subject: [PATCH v2 2/3] drm/amdgpu: unwind bo_init on GMC sw_init failure
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261118-superm1-amdgpu-memory-leak-v2-1-38365f37bd5a@amd.com>
+Message-ID: <20261118-superm1-amdgpu-memory-leak-v2-2-38365f37bd5a@amd.com>
 References: <20261118-superm1-amdgpu-memory-leak-v2-0-38365f37bd5a@amd.com>
 In-Reply-To: <20261118-superm1-amdgpu-memory-leak-v2-0-38365f37bd5a@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>
@@ -71,29 +72,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000A88F:EE_|DSVPR12MB827618:EE_
-X-MS-Office365-Filtering-Correlation-Id: 66284b0f-1340-40b8-9b05-08df45a6940a
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000A88F:EE_|SJ0PR12MB6782:EE_
+X-MS-Office365-Filtering-Correlation-Id: 07435296-218e-46dc-9d6b-08df45a69435
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|36860700016|82310400026|376014|1800799024|22082099003|18002099003|261009223027099003|56012099006|11063799006|5023799004|261021123027099003|10067099003|261026140227099003|261026121527099003|261102123227099003|261028144727099003|261022105027099003|261021121427099003;
-X-Microsoft-Antispam-Message-Info: ajMD5ggIXNS56y8h4td+7KryI/5UKr3kqbVc7pC29MSJM9HPqxlwlWpCg0x0FABlTZZk+oGZyxWwu/RTU/90wFn78oNPegNINq5wyrdaSjBMXAph9tJ+KmmfaLnb9q97uFTLGsHKujLxnzSePve1Q2YQRQLUmOVBJMiI4tPGM8+69jVLa8iQrR3Priuclt8p/cPYRexdrmSshINKiOYqC4DdW/uMgwkFubF4vUWP33PgSm72y4IhOKTUuEXyRYIKZjESMf9cPDoRAmr1fTa5WyFhfI7LM4IIo8FHEAf5F61LNm6w0IpgpNSEplerfrtgc/anRPTkPbWEIBCVTERtXj6DqJnju3VkVWjUm9135505JTIiuMT235ha9tjmpj8OIW+ayC+n41Z1wBrxzNObrpW1V+0NoyNoXsaqde3wiZJf4lCSNRCREFzWi3L4CRtlR0cDzL+wgNdUfhMza8S+f8G1B8B9s/u27viUCn7YxTFYBDlAiwPAkehhYol4Jlsbw3H45MxkvyRWeidy1z5C6uDTXKyDTxomjG2ok7CTBWQrr7zLh+k3W+q5imA9acTBkqpAowMjKP8w3BBWsJ8DtRxIRymMMDN6A7q1vT2vpzbPxu4+wI1RVxsLBp59dBIyINg8rOnXdR5+iZAhnVtUy55U7zr6kBXeV26Lqvl6VK5/2aoKHpmeoN07aiA7/0qroPnATXQHnn3EPbifeWh3mw==
+ ARA:13230040|376014|36860700016|23010399003|82310400026|1800799024|56012099006|261026140227099003|11063799006|261022105027099003|261021123027099003|261022075727099003|261021121427099003|261026121527099003|261102123227099003|261028144727099003|10067099003|22082099003|18002099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info: kIH73bccu1gXKVcFuOi3fVULITKif0HGGDKczDdnLvtANUS2sBJLKSVHO204xoEP4yQFCddWrlIopBRtsNcVzFgWSgetCfHjw9pMMSY115OXpaNoBR8raJ2f99rgp54vdld619rAlrNKpLSMmXSJMgMMDrkHkEa3SxiRlqV9Ga+vKZUuqd96wvl8Z8F3VIvGmvX4BIYpmelyOFaAwP61zIDtK5lqrJfv5CPMAkZWyI8o3WKU3WWnsE7qjUrAzeOInGKXQ0h93FWDv5Qi6sewwRCTwQks3eRFkApqPtSty/Vo3lWWmo23umohPTamff+thIoTiryq/Cz6RUBkjgJAL4KJPoKz0gRQTjFvsaIobrcLiFLXMKtJCd3AGSwvc3D4u7u1fVOOVICWNtw4LfQUg2nuBIHbs1gyTr+pHpFOzvXCG62tXA44i9cN2HSFaKao0R0TYFJ+Zmu1J67EtE6Z48V+I+Px8J1uYDiasOVqIm08aWH3xhAOaJeqI8deEsW5pV8dqs6gvdIez9AYQ+A0QU2jarob6lHMgcFVlHhwUs1ob3KrCBOFCHQ9mEn5llkf8irBhY+/dpnHTXpaXja3TSzxq6JnBws0DulNhh6UzE3lmfbvGc8ohvo984+ERmDqz6uc+Ou79gsSXtMFBC/11S7SVy5Gl6SpcVJf7jAwuoHnNbdw1GTKYWkkodYNDg9whRbNQ8oP4JkQ9fZniqkcPA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(36860700016)(82310400026)(376014)(1800799024)(22082099003)(18002099003)(261009223027099003)(56012099006)(11063799006)(5023799004)(261021123027099003)(10067099003)(261026140227099003)(261026121527099003)(261102123227099003)(261028144727099003)(261022105027099003)(261021121427099003);
+ SFS:(13230040)(376014)(36860700016)(23010399003)(82310400026)(1800799024)(56012099006)(261026140227099003)(11063799006)(261022105027099003)(261021123027099003)(261022075727099003)(261021121427099003)(261026121527099003)(261102123227099003)(261028144727099003)(10067099003)(22082099003)(18002099003)(261009223027099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: uZY/taCfw7M81/2XoWyAsSe1v2vN8faKsjFuKJ3fYVLeZ05l0dWd0n/eo2LFhZhO9tnwSoXVieC3NIpmI++6UVXrrRw5t763WUYqsGXBhMnFmQ0X3yNHc3kGjsIKWlJt2F3oFZZQty5FeY2Mpp9KLVV1naueJk/KEPKmXCFQWVj2S5A5TaMUqEdTO3FftKuPRjNiXqteAYh+5Kfqy8xp8oMQBt4KzdFnGvbskF0yDgWph0FbNCOez9JxgOHGz9QSfdjufvhWExuS95pebumbAmdKXjvNYqvmA1sxA1+9ZPAqH+PsCLv4Rqvun64ZwmQ+ZgaZLdM5G6SLKeV+ji1EXkWbDlTQzQ3IYYt+g8wOqfv3Mq8AIpfl4pf1qKPNw54swsqgxRZJccHezW6o5FetQh8BvjiegDmGDvB3zZnteDXlkYNqlTJYeuF4DhvsDA2l
+X-MS-Exchange-AntiSpam-MessageData-0: mEz6ZxYZyAhBwMyT6019f3X3AC0LcEhwsRMwi6nsnj9LF2Rp3NodqA88MGHwz45ZWar/g65ldpLtJJwuqUfYawTt/guV1YOYZozhT27tffiIKz1T0tICsMOE8qJadMX/Npl81fsbfDEOToWDjG94ynmTTaEIgJPB2gro2wOGfEps2Mso+zNCH9MTqpMxd4lL0YWTwVikTqHITSo/aokt/ekLlb5WYNX8aY87XqRdfs/wkhcmdEoC8wrGviIxadLm841aEGWnQfFhT/zd4QRnXDWjKT9VuOedpU746XG84Xckntlq1h9xtgxogTtp7JZb5WsC5ArvNOwy53MA+FGFkgh2/IyxVJhHM1Xhjzge5Gdjtz0e90vca5Jlztxq1tS1hE4c/9oZvvZxmLiFKXe4hhk2EdzM3cD8dOUag6IL9ovlY8k6oq+VIry0Nm26LmhT
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 19:03:06.0114 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 66284b0f-1340-40b8-9b05-08df45a6940a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 19:03:06.2947 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 07435296-218e-46dc-9d6b-08df45a69435
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF0000A88F.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR12MB827618
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6782
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,171 +112,268 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-If amdgpu_ttm_init() fails after ttm_device_init() succeeded, the error
-paths just return. Nothing later calls ttm_device_fini() because the GMC
-IP block never reaches sw_fini, so the freed amdgpu_device stays linked
-on ttm_glob.device_list. The next ttm_device_init() or
-ttm_global_swapout() then walks freed memory. The MMIO_REMAP BO created
-in amdgpu_ttm_init() is also leaked, which shows up as "Memory manager
-not clean" on the following bind.
+When gmc_v*_sw_init() fails after amdgpu_bo_init(), the GMC block's
+status.sw stays false, so amdgpu_device_ip_fini() skips its sw_fini and
+amdgpu_bo_fini() (and thus ttm_device_fini()) is never called. The
+freed device is left on ttm_glob.device_list.
 
-Route every error after ttm_device_init() through amdgpu_ttm_fini(), and
-mark the manager initialized as soon as ttm_device_init() succeeds so the
-unwind also covers a pool init failure. Make amdgpu_ttm_fini() skip the
-VRAM, GTT and PREEMPT managers when they were never registered, as it can
-now run on a partially initialized device.
+Unwind on the failure paths after amdgpu_bo_init(): GART init failures
+call amdgpu_bo_fini(); later failures (RAS sw init on v9-v12,
+vm_fault_info allocation on v7/v8) also call amdgpu_vm_manager_fini().
+
+The GART table BO (and pdb0_bo on v9/v12) is pinned in VRAM by
+gmc_v*_gart_init(), and pinned BOs can't be evicted during TTM teardown.
+Free them before amdgpu_bo_fini(), as gmc_v*_sw_fini() does, otherwise
+ttm_device_fini() warns and leaks the BOs and their backing allocations.
+On v9 the GART table lives in system memory when there is no VRAM, so
+use the matching RAM free helper there, guarded against gart_init()
+failing before the BO was created.
 
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 43 ++++++++++++++++++++-------------
- 1 file changed, 26 insertions(+), 17 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c | 11 +++++++++--
+ drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c | 11 +++++++++--
+ drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c | 12 ++++++++++--
+ drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c  |  7 ++++++-
+ drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c  | 15 ++++++++++++---
+ drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c  | 15 ++++++++++++---
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c  | 17 +++++++++++++++--
+ 7 files changed, 73 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 8dfa92967b630..7828caf8aba0d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -2153,20 +2153,21 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
- 			"failed initializing buffer object driver(%d).\n", r);
- 		return r;
- 	}
-+	/* from here on amdgpu_ttm_fini() is responsible for unwinding */
-+	adev->mman.initialized = true;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+index 49f593fe2a876..61e4b535d0a30 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+@@ -861,7 +861,7 @@ static int gmc_v10_0_sw_init(struct amdgpu_ip_block *ip_block)
  
- 	r = amdgpu_ttm_pools_init(adev);
- 	if (r) {
- 		dev_err(adev->dev, "failed to init ttm pools(%d).\n", r);
--		return r;
-+		goto err_fini;
- 	}
--	adev->mman.initialized = true;
- 
- 	if (!adev->gmc.is_app_apu) {
- 		/* Initialize VRAM pool with all of VRAM divided into pages */
- 		r = amdgpu_vram_mgr_init(adev);
- 		if (r) {
- 			dev_err(adev->dev, "Failed initializing VRAM heap.\n");
--			return r;
-+			goto err_fini;
- 		}
- 	}
- 
-@@ -2190,7 +2191,7 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
- 
- 	r = amdgpu_ttm_alloc_vram_resv_regions(adev);
+ 	r = gmc_v10_0_gart_init(adev);
  	if (r)
 -		return r;
-+		goto err_fini;
++		goto err_bo_fini;
  
- 	/* RAS loads and reserves bad pages */
- 	amdgpu_ras_mgr_early_init_service(adev);
-@@ -2239,7 +2240,7 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
- 	r = amdgpu_gtt_mgr_init(adev, gtt_size);
- 	if (r) {
- 		dev_err(adev->dev, "Failed initializing GTT heap.\n");
--		return r;
-+		goto err_fini;
- 	}
- 	dev_info(adev->dev, " %uM of GTT memory ready.\n",
- 		 (unsigned int)(gtt_size / (1024 * 1024)));
-@@ -2253,52 +2254,52 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
- 	r = amdgpu_ttm_init_on_chip(adev, AMDGPU_PL_DOORBELL, adev->doorbell.size / PAGE_SIZE);
- 	if (r) {
- 		dev_err(adev->dev, "Failed initializing doorbell heap.\n");
--		return r;
-+		goto err_fini;
- 	}
+ 	/*
+ 	 * number of VMs
+@@ -880,9 +880,16 @@ static int gmc_v10_0_sw_init(struct amdgpu_ip_block *ip_block)
  
- 	/* Create a doorbell page for kernel usages */
- 	r = amdgpu_doorbell_create_kernel_doorbells(adev);
- 	if (r) {
- 		dev_err(adev->dev, "Failed to initialize kernel doorbells.\n");
--		return r;
-+		goto err_fini;
- 	}
- 
- 	/* Initialize MMIO-remap pool (single page 4K) */
- 	r = amdgpu_ttm_init_on_chip(adev, AMDGPU_PL_MMIO_REMAP, 1);
- 	if (r) {
- 		dev_err(adev->dev, "Failed initializing MMIO-remap heap.\n");
--		return r;
-+		goto err_fini;
- 	}
- 
- 	/* Allocate the singleton MMIO_REMAP BO if supported */
- 	r = amdgpu_ttm_alloc_mmio_remap_bo(adev);
+ 	r = amdgpu_gmc_ras_sw_init(adev);
  	if (r)
 -		return r;
-+		goto err_fini;
- 
- 	/* Initialize preemptible memory pool */
- 	r = amdgpu_preempt_mgr_init(adev);
- 	if (r) {
- 		dev_err(adev->dev, "Failed initializing PREEMPT heap.\n");
--		return r;
-+		goto err_fini;
- 	}
- 
- 	/* Initialize various on-chip memory pools */
- 	r = amdgpu_ttm_init_on_chip(adev, AMDGPU_PL_GDS, adev->gds.gds_size);
- 	if (r) {
- 		dev_err(adev->dev, "Failed initializing GDS heap.\n");
--		return r;
-+		goto err_fini;
- 	}
- 
- 	r = amdgpu_ttm_init_on_chip(adev, AMDGPU_PL_GWS, adev->gds.gws_size);
- 	if (r) {
- 		dev_err(adev->dev, "Failed initializing gws heap.\n");
--		return r;
-+		goto err_fini;
- 	}
- 
- 	r = amdgpu_ttm_init_on_chip(adev, AMDGPU_PL_OA, adev->gds.oa_size);
- 	if (r) {
- 		dev_err(adev->dev, "Failed initializing oa heap.\n");
--		return r;
-+		goto err_fini;
- 	}
- 
- 	if (adev->ualink.npa_size) {
-@@ -2306,7 +2307,7 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
- 					    adev->ualink.npa_size);
- 		if (r) {
- 			dev_err(adev->dev, "Failed initializing NPA heap.\n");
--			return r;
-+			goto err_fini;
- 		}
- 	}
- 
-@@ -2318,6 +2319,10 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
- 				"Debug VRAM access will use slowpath MM access\n");
++		goto err_vm_fini;
  
  	return 0;
 +
-+err_fini:
-+	amdgpu_ttm_fini(adev);
++err_vm_fini:
++	amdgpu_vm_manager_fini(adev);
++err_bo_fini:
++	amdgpu_gart_table_vram_free(adev);
++	amdgpu_bo_fini(adev);
 +	return r;
  }
  
- /*
-@@ -2352,10 +2357,14 @@ void amdgpu_ttm_fini(struct amdgpu_device *adev)
- 		adev->mman.aper_base_kaddr = NULL;
+ /**
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+index bc3b1ffb54886..3879e5a817e42 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+@@ -859,7 +859,7 @@ static int gmc_v11_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 
+ 	r = gmc_v11_0_gart_init(adev);
+ 	if (r)
+-		return r;
++		goto err_bo_fini;
+ 
+ 	/*
+ 	 * number of VMs
+@@ -879,9 +879,16 @@ static int gmc_v11_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 
+ 	r = amdgpu_gmc_ras_sw_init(adev);
+ 	if (r)
+-		return r;
++		goto err_vm_fini;
+ 
+ 	return 0;
++
++err_vm_fini:
++	amdgpu_vm_manager_fini(adev);
++err_bo_fini:
++	amdgpu_gart_table_vram_free(adev);
++	amdgpu_bo_fini(adev);
++	return r;
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+index 3bb13cfed92fe..b4ed5783ed5fb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+@@ -987,7 +987,7 @@ static int gmc_v12_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 
+ 	r = gmc_v12_0_gart_init(adev);
+ 	if (r)
+-		return r;
++		goto err_bo_fini;
+ 
+ 	if (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(12, 1, 0))
+ 		gmc_v12_1_init_nps_details(adev);
+@@ -1021,12 +1021,20 @@ static int gmc_v12_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 
+ 	r = amdgpu_gmc_ras_sw_init(adev);
+ 	if (r)
+-		return r;
++		goto err_vm_fini;
+ 
+ 	if (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(12, 1, 0))
+ 		amdgpu_gmc_sysfs_init(adev);
+ 
+ 	return 0;
++
++err_vm_fini:
++	amdgpu_vm_manager_fini(adev);
++err_bo_fini:
++	amdgpu_gart_table_vram_free(adev);
++	amdgpu_bo_free_kernel(&adev->gmc.pdb0_bo, NULL, &adev->gmc.ptr_pdb0);
++	amdgpu_bo_fini(adev);
++	return r;
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+index a7c353d1ac09d..135824824e53d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+@@ -817,7 +817,7 @@ static int gmc_v6_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 
+ 	r = gmc_v6_0_gart_init(adev);
+ 	if (r)
+-		return r;
++		goto err_bo_fini;
+ 
+ 	/*
+ 	 * number of VMs
+@@ -840,6 +840,11 @@ static int gmc_v6_0_sw_init(struct amdgpu_ip_block *ip_block)
  	}
  
--	if (!adev->gmc.is_app_apu)
-+	/* may be called on a partially initialized TTM, skip unregistered managers */
-+	if (!adev->gmc.is_app_apu &&
-+	    ttm_manager_type(&adev->mman.bdev, TTM_PL_VRAM))
- 		amdgpu_vram_mgr_fini(adev);
--	amdgpu_gtt_mgr_fini(adev);
--	amdgpu_preempt_mgr_fini(adev);
-+	if (ttm_manager_type(&adev->mman.bdev, TTM_PL_TT))
-+		amdgpu_gtt_mgr_fini(adev);
-+	if (ttm_manager_type(&adev->mman.bdev, AMDGPU_PL_PREEMPT))
-+		amdgpu_preempt_mgr_fini(adev);
- 	amdgpu_doorbell_fini(adev);
+ 	return 0;
++
++err_bo_fini:
++	amdgpu_gart_table_vram_free(adev);
++	amdgpu_bo_fini(adev);
++	return r;
+ }
  
- 	ttm_range_man_fini(&adev->mman.bdev, AMDGPU_PL_GDS);
+ static int gmc_v6_0_sw_fini(struct amdgpu_ip_block *ip_block)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+index c09f5153679ea..565054d14d6db 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+@@ -999,7 +999,7 @@ static int gmc_v7_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 
+ 	r = gmc_v7_0_gart_init(adev);
+ 	if (r)
+-		return r;
++		goto err_bo_fini;
+ 
+ 	/*
+ 	 * number of VMs
+@@ -1026,11 +1026,20 @@ static int gmc_v7_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 	}
+ 
+ 	adev->gmc.vm_fault_info = kmalloc_obj(struct kfd_vm_fault_info);
+-	if (!adev->gmc.vm_fault_info)
+-		return -ENOMEM;
++	if (!adev->gmc.vm_fault_info) {
++		r = -ENOMEM;
++		goto err_vm_fini;
++	}
+ 	atomic_set_release(&adev->gmc.vm_fault_info_updated, 0);
+ 
+ 	return 0;
++
++err_vm_fini:
++	amdgpu_vm_manager_fini(adev);
++err_bo_fini:
++	amdgpu_gart_table_vram_free(adev);
++	amdgpu_bo_fini(adev);
++	return r;
+ }
+ 
+ static int gmc_v7_0_sw_fini(struct amdgpu_ip_block *ip_block)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+index 15592027e7c0c..986ff114f06a1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+@@ -1114,7 +1114,7 @@ static int gmc_v8_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 
+ 	r = gmc_v8_0_gart_init(adev);
+ 	if (r)
+-		return r;
++		goto err_bo_fini;
+ 
+ 	/*
+ 	 * number of VMs
+@@ -1141,11 +1141,20 @@ static int gmc_v8_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 	}
+ 
+ 	adev->gmc.vm_fault_info = kmalloc_obj(struct kfd_vm_fault_info);
+-	if (!adev->gmc.vm_fault_info)
+-		return -ENOMEM;
++	if (!adev->gmc.vm_fault_info) {
++		r = -ENOMEM;
++		goto err_vm_fini;
++	}
+ 	atomic_set_release(&adev->gmc.vm_fault_info_updated, 0);
+ 
+ 	return 0;
++
++err_vm_fini:
++	amdgpu_vm_manager_fini(adev);
++err_bo_fini:
++	amdgpu_gart_table_vram_free(adev);
++	amdgpu_bo_fini(adev);
++	return r;
+ }
+ 
+ static int gmc_v8_0_sw_fini(struct amdgpu_ip_block *ip_block)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index a705830ef436c..5d40e2020b4a8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -2026,7 +2026,7 @@ static int gmc_v9_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 
+ 	r = gmc_v9_0_gart_init(adev);
+ 	if (r)
+-		return r;
++		goto err_bo_fini;
+ 
+ 	gmc_v9_0_init_nps_details(adev);
+ 	/*
+@@ -2066,12 +2066,25 @@ static int gmc_v9_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 
+ 	r = amdgpu_gmc_ras_sw_init(adev);
+ 	if (r)
+-		return r;
++		goto err_vm_fini;
+ 
+ 	if (amdgpu_is_multi_aid(adev))
+ 		amdgpu_gmc_sysfs_init(adev);
+ 
+ 	return 0;
++
++err_vm_fini:
++	amdgpu_vm_manager_fini(adev);
++err_bo_fini:
++	if (!adev->gmc.real_vram_size) {
++		/* GART bo may not exist if gart_init failed early */
++		if (adev->gart.bo)
++			amdgpu_gart_table_ram_free(adev);
++	} else
++		amdgpu_gart_table_vram_free(adev);
++	amdgpu_bo_free_kernel(&adev->gmc.pdb0_bo, NULL, &adev->gmc.ptr_pdb0);
++	amdgpu_bo_fini(adev);
++	return r;
+ }
+ 
+ static int gmc_v9_0_sw_fini(struct amdgpu_ip_block *ip_block)
 
 -- 
 2.43.0
