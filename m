@@ -2,89 +2,62 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50C80606A320
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 14:11:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 038BE606A320
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 14:11:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=WMfAsoA+
+	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=outgoing.csail.mit.edu header.i=@outgoing.csail.mit.edu header.a=rsa-sha256 header.s=test20231205 header.b=jfqkTBkA
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F049112460;
-	Thu, 19 Nov 2026 14:11:00 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 459D810ECF4
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 05:54:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1795067656;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=Yy6UPA1x+dgBp1oYwsbJqoBQ2EhZbFzvPu9SCMCc1gU=;
- b=WMfAsoA+zqI328xpzbFsLqOAZzCvooGMABpLQ33ymrnOOwSX05qJvals8VixrG46LmwZFk
- eJB+vJraLjLBSnUqvCKW9oRJ+wKODxhlhoXtnMix6uFmjrTSOCHzRamfbl5v4QOgBJMdSI
- BRQw4W2/2SI17XASKU3e19IGLfida8Y=
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
- [209.85.214.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-68-PcjgwyrJN9yblOj5Haa04g-1; Thu, 19 Nov 2026 05:54:14 +0000
-X-MC-Unique: PcjgwyrJN9yblOj5Haa04g-1
-X-Mimecast-MFC-AGG-ID: PcjgwyrJN9yblOj5Haa04g_1795067654
-Received: by mail-pl1-f200.google.com with SMTP id
- d9443c01a7336-2efad644688so16787865ad.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Nov 2026 21:54:14 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795067654; x=1795672454;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Yy6UPA1x+dgBp1oYwsbJqoBQ2EhZbFzvPu9SCMCc1gU=;
- b=l2n5XqLrtR1/0AStNmnPSQDSNiUlYrgY3f4vYlzs21ZXGsbLXNlsKIfL0/EDYMVV+N
- Fs5Ffgxd8HuTErQnEIIBB8YJMMy12K6yznQ/bw/7CGSogjvrNeLenBGKUpXfQ5kfzWdc
- jgZkbS6HJJpF8EL8EM3m/HlbGB2hO7nQ5ZwTqQtnK8kFmWMusXviaVqe1QNW1NW2eSqx
- 9F2R//S4X9lb8ZeVYPX70CTFnr+ZczAhGxxnMAJ9wOeMpr8tTyZbPHJ/fVJxzzuaxkBO
- v5Hgjnzj9LJYTmrrLVFk3QObfwTZbgc6reLXe43xsTWtubFOV5rO7e0PXEiQ/pIf8ev6
- MXVw==
-X-Gm-Message-State: APuU4Z/zZJakJNPql6rodtlH9OhFEOKv6JE8ekzKuubX2fmsmMulMQY4
- mhG+bLw2I4D8uSipb0/13ti3CCpbGnRU1luZWWIqPCtEEbEtZVn+1cmUkzP6bAz8lrOTFNrwI/N
- uMDcB4ybT9ml5hMPuVzw2q4iUpRmfetxvPMhargVy+sqXfAqyyOnF1cNwoJxLEuxYE2kSy4bU42
- L6IQ==
-X-Gm-Gg: AZFdTZdsFfUrARtQqGVioyRPQVyg5/5MWCZxF/NZZAFJtwISy/BU3puj+123n1SPuyL
- x/t2D0dEMJWvM+aRvqjotynumrVrBf6qk0M1qh//F4CIhyP8Ay1OGeWTg5/yOnNx5Lv29hsm4qI
- CgEz00Gnh9gdc7Bq+4QKYOlgrs9Tsa4cCEL2v+9j7NfXydkKqk++NHd+Ygd5LG9n9Uoj9KU4YxE
- in0JKm0D64J0IKpjBsBmObsYkpY/d/BgK3EidIZpcpjoY6OWhAekNZrG8x/bASDMKqeJePDu4ee
- geU5YHDK7RobdbCjJB5ufa/vyoYWMkVEc3vcmDaLTgOY0mRWH+WY4EDHKsJxEpGU1T/Ev06iLxP
- GGzUcJBeJt6N40qbE/E5XD4egcjOmY2ACgmX3Qhw9Rfy/OX38bGD8oiD2z7tsVViT9MnLWPb2A3
- I4m1CtKXKbC/8BNQ==
-X-Received: by 2002:a17:902:ccce:b0:2ef:f652:a08f with SMTP id
- d9443c01a7336-2eff75352b3mr49821545ad.42.1795067653645; 
- Wed, 18 Nov 2026 21:54:13 -0800 (PST)
-X-Received: by 2002:a17:902:ccce:b0:2ef:f652:a08f with SMTP id
- d9443c01a7336-2eff75352b3mr49821325ad.42.1795067653185; 
- Wed, 18 Nov 2026 21:54:13 -0800 (PST)
-Received: from localhost.localdomain (122-63-66-168.mobile.spark.co.nz.
- [122.63.66.168]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2eff6183f8csm23799715ad.31.2026.11.18.21.54.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 18 Nov 2026 21:54:12 -0800 (PST)
-From: Tao Liu <ltao@redhat.com>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, alex.hung@amd.com, bhawanpreet.lakha@amd.com,
- ivan.lipski@amd.com, george.zhang@amd.com, adrian.betschart@cinemaone.ch,
- rodrigo.vivi@intel.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Tao Liu <ltao@redhat.com>
-Subject: [PATCH] drm/amd/display: Fix pdev lifetime in
- dm_test_conn_init_ctx_alloc()
-Date: Thu, 19 Nov 2026 18:49:18 +1300
-Message-ID: <20261119054917.184758-2-ltao@redhat.com>
-X-Mailer: git-send-email 2.56.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 57046112461;
+	Thu, 19 Nov 2026 14:11:01 +0000 (UTC)
+Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu
+ [128.30.2.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F04710FDC5
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Nov 2026 15:20:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=outgoing.csail.mit.edu; s=test20231205; h=Content-Transfer-Encoding:
+ Content-Type:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:
+ MIME-Version:Sender:Reply-To:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=PR3hub99Xsm//k1e56CFmuZA9rCDR5FKEPlC2s2rAkk=; t=1795015256; x=1795879256; 
+ b=jfqkTBkAXFgGkLbq78phVv1yTWwGEMtywuRMkOWkGD9gtG+vuxxQmd2veuW/HOTXR+azZnW7Zmy
+ Am0WEC1yieuD4JNXZ6Y38CJd8JzURuuq/Irt+oXNbWoIqnuzQIHvDL6fiOx+pXjVQGe/hfRlX4AOZ
+ dyJBI7W5r165egUEmWG7PFCnKZi7HRdcpRlTaGXaq6vyHsspO/76HuTX5IbXPGWKVF+MQ0Adr2fXZ
+ e8a9pZUNF/zO17cDCP74HGmHamWAb4MdnM3JWpc/hILBHSIAX/HmNaw1y/sn6VSBBwa556KVRELKH
+ QR5+Ftbd2wZAnB+za3ac4RT6QESBzW8v+G0w==;
+Received: from mail-dl1-f45.google.com ([74.125.82.45])
+ by outgoing2021.csail.mit.edu with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.95)
+ (envelope-from <nickolai@csail.mit.edu>) id 1xThSx-00GiKZ-Dq
+ for amd-gfx@lists.freedesktop.org; Wed, 18 Nov 2026 10:20:55 -0500
+Received: by mail-dl1-f45.google.com with SMTP id
+ a92af1059eb24-1b3b4944a0eso950661c88.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Nov 2026 07:20:55 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AL+hErHiJY67i8HAGP8grbOtjF7DEODwfp7EAdIXsMi6Pqg8HF++gBtP+2pKMmQ2uuqS6R0vrWdZDoNi@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8loFWzkk8zPceCGwEYm/Y83PIIqiF3HknMN676Huacrszq+DHU
+ TodViahCFbZyuX6QJ1/wB1dsMMSibwUUJYEVRvh86fWpmV3piFVwZxKKi14VHIHyd6ImUia3nJF
+ uULMLA+fPV4yecz1mO5cF5hIUq7qkbSM=
+X-Received: by 2002:a05:7022:e0d:b0:1b3:8814:8383 with SMTP id
+ a92af1059eb24-1b543bb6158mr3662263c88.9.1795015254429; Wed, 18 Nov 2026
+ 07:20:54 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: x7BSgV_Xa0V84zOd1qITNKVygCRye_bEoF2a85HtEHQ_1795067654
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
+References: <20261117170328.56738-1-nickolai@csail.mit.edu>
+ <d7179bdf-daa3-4ed2-a45e-ef2b99d116f1@amd.com>
+In-Reply-To: <d7179bdf-daa3-4ed2-a45e-ef2b99d116f1@amd.com>
+From: Nickolai Zeldovich <nickolai@csail.mit.edu>
+Date: Wed, 18 Nov 2026 10:20:41 -0500
+X-Gmail-Original-Message-ID: <CADGQE7EDJHu9F41ZGKfP92M7kbbw7A-FGYzX1kaemjXmkuW5Wg@mail.gmail.com>
+X-Gm-Features: AclHuK-XtrrvqYPPygdcx8gUT8Gu0j85-P6irS7Octs2KttgRf_mGWk5jg1-ewk
+Message-ID: <CADGQE7EDJHu9F41ZGKfP92M7kbbw7A-FGYzX1kaemjXmkuW5Wg@mail.gmail.com>
+Subject: Re: [PATCH v1] drm/radeon: stop the GPU before kexec
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Thu, 19 Nov 2026 14:10:22 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,103 +69,84 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The pdev backing memory is currently allocated with kunit_kzalloc(),
-which ties its lifetime to the KUnit test context.
+On Wed, Nov 18, 2026 at 7:11=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+> On 11/17/26 18:03, Nickolai Zeldovich wrote:
+> > Suspend the GPU in radeon_pci_shutdown() on kexec, as PPC64 and Loongso=
+n
+> > already do on every shutdown. Normal shutdown and reboot are unchanged:
+> > commit 8d13c187c42e ("Revert "drm/radeon: Fix EEH during kexec"")
+> > removed the same call there because it hung some HD 5770 systems.
+>
+> Yeah that is clearly not the right approach.
+>
+> The kexec is often done to switch to a new kernel because the old one has=
+ encountered some severe problem, doing a HW suspend in such a situation is=
+ not guaranteed to work.
+>
+> What should be done instead is to fix the initialization order and/or dis=
+able GART before the bus mastering is enabled again.
 
-However, pdev embeds a struct device whose lifetime is managed
-independently through the kobject reference count. This creates two
-independent lifetime management for the same object: KUnit manages
-the backing memory, while kobject manages the device's reference count.
+Thanks, that makes sense. I tried disabling the IH at the start of
+evergreen_startup(), before the MC programming raises the page-flip
+interrupts. I also had to clear IH_WPTR_WRITEBACK_ENABLE when disabling
+the IH; otherwise resetting the write pointer writes it back through
+the stale GART, which is one more stray write. With both changes, I
+see no stray writes (no canary-page corruption, and successful kexec reboot=
+s).
 
-Although dm_test_conn_init_release_dev() is currently empty, the
-embedded kobject still relies on the backing memory remaining valid
-for reference count operations. If KUnit free pdev while its embedded
-kobject is still referenced, subsequent reference count operations can
-then access the freed kobject, resulting in a use-after-free:
+On disabling the GART: the new GART is already enabled before bus
+mastering, so, as far as I can tell, the stray writes were translated
+through the old one earlier, during the MC programming.  Disabling the
+old GART before that would also keep the stray writes out of system
+memory, but evergreen_pcie_gart_disable() and its counterparts also
+unpin the GART BO, which is not pinned at that point, so disabling the
+IH seemed the more direct fix.
 
-    refcount_t: underflow; use-after-free.
-    Call Trace:
-     device_del+0x29c/0x410
-     device_unregister+0x17/0x70
-     i2c_del_adapter+0x128/0x1b0
-     release_nodes+0x4a/0xe0
-     devres_release_all+0x9e/0x120
-     device_unbind_cleanup+0x26/0xa0
-     device_release_driver_internal+0x1b6/0x240
-     bus_remove_device+0xfe/0x200
-     device_del+0x179/0x410
-     device_unregister+0x17/0x70
-     kunit_remove_resource+0x93/0xc0 [kunit]
-     kunit_cleanup+0x49/0xa0 [kunit]
-     kunit_generic_run_threadfn_adapter+0x21/0x40 [kunit]
+Before I send a v2, a quick question about scope.  R600, RV770,
+Cayman, SI and CIK have the same IH, and their *_startup() functions
+program the MC before their irq_init() in the same way, so the same
+two-line change (see below; disable the IH at the start of
+*_startup(), and clear the writeback enable in the corresponding
+*_disable_interrupts()) should apply to all of them.  But I can only
+test Evergreen: my card is a Caicos (HD 6450), which runs
+evergreen_startup().  Would you prefer I just fix Evergreen, or all 6
+families (the other 5 only compile-tested)?
 
-Fix this by allocating pdev with kzalloc() and freeing it through
-the device release callback. This ensures pdev's lifetime is managed
-solely by the kobject.
+Nickolai.
 
-Fixes: 7db85e4b053c ("drm/amd/display: Test connector init")
-Signed-off-by: Tao Liu <ltao@redhat.com>
----
- .../amdgpu_dm/tests/amdgpu_dm_connector_test.c | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
+For reference, the Evergreen version without comments (with apologies
+for the loss of tabs):
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-index f09e2a72c534..b43c4eff2bef 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-@@ -9659,7 +9659,9 @@ static void dm_test_fs_caps_disables_replay(struct kunit *test)
-  */
- static void dm_test_conn_init_release_dev(struct device *dev)
- {
--	/* Backing storage is KUnit managed, so there is nothing to free. */
-+	struct pci_dev *pdev = to_pci_dev(dev);
+--- a/drivers/gpu/drm/radeon/evergreen.c
++++ b/drivers/gpu/drm/radeon/evergreen.c
+@@ -5010,6 +5010,8 @@ static int evergreen_startup(struct radeon_device *rd=
+ev)
+        int r;
+        struct drm_device *ddev =3D rdev_to_drm(rdev);
+
++       r600_disable_interrupts(rdev);
 +
-+	kfree(pdev);
- }
- 
- static void dm_test_conn_init_unregister_dev(void *data)
-@@ -9667,6 +9669,11 @@ static void dm_test_conn_init_unregister_dev(void *data)
- 	device_unregister(data);
- }
- 
-+static void dm_test_conn_init_put_dev(void *data)
-+{
-+	put_device(data);
-+}
-+
- struct dm_test_conn_init_ctx {
- 	struct amdgpu_device *adev;
- 	struct drm_device *drm;
-@@ -9702,13 +9709,20 @@ dm_test_conn_init_ctx_alloc(struct kunit *test, enum signal_type signal)
- 	ctx->adev->mode_info.num_crtc = 1;
- 	dm_test_create_mode_props(test, ctx->adev);
- 
--	pdev = kunit_kzalloc(test, sizeof(*pdev), GFP_KERNEL);
-+	pdev = kzalloc_obj(*pdev);
- 	KUNIT_ASSERT_NOT_NULL(test, pdev);
- 	device_initialize(&pdev->dev);
- 	pdev->dev.parent = dev;
- 	pdev->dev.release = dm_test_conn_init_release_dev;
-+
-+	KUNIT_ASSERT_EQ(test,
-+			kunit_add_action_or_reset(test, dm_test_conn_init_put_dev,
-+						  &pdev->dev), 0);
- 	KUNIT_ASSERT_EQ(test, dev_set_name(&pdev->dev, "dm-test-i2c-parent"), 0);
- 	KUNIT_ASSERT_EQ(test, device_add(&pdev->dev), 0);
-+
-+	kunit_remove_action(test, dm_test_conn_init_put_dev, &pdev->dev);
-+
- 	KUNIT_ASSERT_EQ(test,
- 			kunit_add_action_or_reset(test, dm_test_conn_init_unregister_dev,
- 						  &pdev->dev), 0);
--- 
-2.56.0
+        /* enable pcie gen2 link */
+        evergreen_pcie_gen2_enable(rdev);
+        /* enable aspm */
 
+--- a/drivers/gpu/drm/radeon/r600.c
++++ b/drivers/gpu/drm/radeon/r600.c
+@@ -3604,7 +3604,7 @@ void r600_disable_interrupts(struct radeon_device *rd=
+ev)
+        u32 ih_rb_cntl =3D RREG32(IH_RB_CNTL);
+        u32 ih_cntl =3D RREG32(IH_CNTL);
+
+-       ih_rb_cntl &=3D ~IH_RB_ENABLE;
++       ih_rb_cntl &=3D ~(IH_RB_ENABLE | IH_WPTR_WRITEBACK_ENABLE);
+        ih_cntl &=3D ~ENABLE_INTR;
+        WREG32(IH_RB_CNTL, ih_rb_cntl);
+        WREG32(IH_CNTL, ih_cntl);
