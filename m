@@ -2,120 +2,125 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF804606A31C
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Nov 2026 06:09:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EF97606A325
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Nov 2026 07:18:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=KBJvoRxm
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=5WFO7tIU
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C3AE10E177;
-	Wed, 18 Nov 2026 06:09:13 +0000 (UTC)
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011030.outbound.protection.outlook.com [52.101.57.30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3A2610E177
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Nov 2026 06:09:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9D4310E519;
+	Wed, 18 Nov 2026 07:18:49 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011070.outbound.protection.outlook.com [52.101.62.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96C0910E599;
+ Wed, 18 Nov 2026 07:18:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UaPMQTZ7/yp3g86r0/nVIPu7mOkxSNr7Q5f7mURWTEhCetQBRQOy3YUNfFAId4awJFosy/+drFyDQJ+MZkFEUNjqgOH1eSA4WgmcDS6aP/BJD5I0Cf1PSkhpK5PEtdmKa/+Jau7jiV+H2oWokNwyiVFPue2NjvHnTS+YKhcrCb8HJlyjAa2rYcWMNRDgoY+Pf2P+3q5WXG1iBri9wab59v6dz6YGniunp5/jPt+GfzqppgOVtsSiU7R6CiISgYbPgnxrcEYxvTfjrMWNXxEa39822wPpaLzfDXZzGk19McZdUu9HtakyxmwFvUbe0mCcgxZLm/Ng8Y+E3pJTegIddA==
+ b=ET6vWB6hZy+N+TUC/ZdiS+bNgvu4zRH6B685Kud+nzz2UJR1TgEb8ajliBkfPiuuKQpaTwxSJma7uIU3zxVyZW+xqfbopx/4Q5Sp2NO/wBPKiQVJuxJdNEHlU9ACiApqK/E7iC7oTfbWpdTRupDebF/JviXZa5SJGQy9IYYh+8uuAKgdoZGGxg5QEXRMrNI3W0RWQg7GmIpv1WduCEnlki0v4kaBVtWM+vzzb290HADIvGFRK58G7lMDtCpXTIdwoZftNYvcmnddNiy5WHek+J//LB/GE7nD5+/+/2JibVXVx2HuFlKv+H5gjC3bWeRdwGgZKQAn/Rxjz96mdsxcgQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rBT8Tr7sOTVLPNcmSi/nCfIbhV9B+2nsNT1WSMoOcO8=;
- b=gG3wgF6MO/0qm6TKYHFksK1gQKdyVsqd9W39+pHEBeOqXBLK9a3y8c13+51h9EDHQtcqupP8wrg4x69bfnrw22yXLX/kVdKT7AB6Dfz1txhbW6OpfZTB8DA8ERXlgCi4vKonBStkpj2K8l6016ysYeGhOd7S0jccMDZXvtDfy/gypSb5cCGEA9sZ+C0r8zz/lxFR1ALUMfKYQLc/D5yDVl+Wpz45p8wSdB0W0ds9B3jKnbqqtgPY/75zXwm1feC7gEl0CcGxtUleazsyWwdC6CdtsfR6NNFSxWsSZCKd4yaJrcG0kfXFMvikizWPHPPBmBBPWSbzHKSyJwY7MUNvsQ==
+ bh=ZfN+thO3PKORBMfHFxGjU+YT5w5QaVCKVMGwEN9IRp4=;
+ b=J/C3F8UU40bEhN/75IfIa6zQZUX47ffXcij6/Ir1D4ubd/ZSYypMAjJRDkAzYqtC8gi290w1YXw0qLH6BzHUiBtHf3uFJti1CACn7UDa5m7otznReBHIACcNw1a438VGdObK7B50rWVDQ6Uhvedvkz3QbC18w63RN+sphIdZD1zptShXRUNknEHcS+q2njlXaRxSJQncdZRVbS/myoevONQllsl87k8nq/L8b54xsgH3RSYenOR3B4sGMuJmH+xeIqq1yej9/joBPrDvViNXwlOouhVSuQE9JtQnT3KPFko9g724nKtreRQL5vWq+5+M+LGw7arTMbGg7Z1lmINbNg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rBT8Tr7sOTVLPNcmSi/nCfIbhV9B+2nsNT1WSMoOcO8=;
- b=KBJvoRxmGMMhdV0VGulRnnnedxobxXK4aMH9/tK+BRlI/tqvzc/Cetev9eIw/dzWlBey6UxexT5rk1hRjWj1Ps/x/5SFzRaeGIxx11CsDaUORzuXYFUcktkPZ2pQ9pjTnJxhfmplEwkxfHmfPuGVTD05WA0nTwGkRbzyRJ0FqO0=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CH2PR12MB9457.namprd12.prod.outlook.com (2603:10b6:610:27c::7)
- by DS6PR12MB732632.namprd12.prod.outlook.com (2603:10b6:8:4d3::9)
+ bh=ZfN+thO3PKORBMfHFxGjU+YT5w5QaVCKVMGwEN9IRp4=;
+ b=5WFO7tIU6VhLsVpG8Pzw71l8/nY1bTp7ZhUOErSFNXmizILglqgzUvt8QKkaFiP0zQlVDYqdqzIV6hmMEhFtaKv89CZaksyW4fZXH0FTTjWq1Y57pVBwI0WcmFW+o7o39YIHR1aTAs8hRdn0kZV1l1Z6GLlXrzBGab1dU7MZgY8=
+Received: from MW4SPRMB0025.namprd12.prod.outlook.com (2603:10b6:303:18f::13)
+ by MN2PR12MB4454.namprd12.prod.outlook.com (2603:10b6:208:26c::18)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Wed, 18 Nov
- 2026 06:07:02 +0000
-Received: from CH2PR12MB9457.namprd12.prod.outlook.com
- ([fe80::85a8:1df:840a:cd4c]) by CH2PR12MB9457.namprd12.prod.outlook.com
- ([fe80::85a8:1df:840a:cd4c%4]) with mapi id 15.21.0615.013; Wed, 18 Nov 2026
- 06:07:02 +0000
-Content-Type: multipart/alternative;
- boundary="------------40FNBv0f9AisP88R0ba6xQAj"
-Message-ID: <2fd6830e-2be7-4478-be5a-497e23a7f082@amd.com>
-Date: Wed, 18 Nov 2026 14:06:58 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdkfd: Fix context ID cleanup after failures
-To: Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20261117215714.50191-1-felix.kuehling@amd.com>
+ 2026 07:18:03 +0000
+Received: from MW4SPRMB0025.namprd12.prod.outlook.com
+ ([fe80::8743:fbd4:589c:9ed3]) by MW4SPRMB0025.namprd12.prod.outlook.com
+ ([fe80::8743:fbd4:589c:9ed3%6]) with mapi id 15.21.0615.013; Wed, 18 Nov 2026
+ 07:18:03 +0000
+From: "Liang, Prike" <Prike.Liang@amd.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "tzimmermann@suse.de" <tzimmermann@suse.de>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>, "Wentland, Harry" <Harry.Wentland@amd.com>, "Li,
+ Sun peng (Leo)" <Sunpeng.Li@amd.com>
+Subject: RE: [PATCH RESEND 1/5] drm/client: Make the FBIO_WAITFORVSYNC vblank
+ wait interruptible
+Thread-Topic: [PATCH RESEND 1/5] drm/client: Make the FBIO_WAITFORVSYNC vblank
+ wait interruptible
+Thread-Index: AQHdcbp2eCQ9pcVOVEmMkpLxfd2LXLczc9ZQ
+Date: Wed, 18 Nov 2026 07:18:03 +0000
+Message-ID: <MW4SPRMB00253DCE1D485B12CBA61A6DFB7A2@MW4SPRMB0025.namprd12.prod.outlook.com>
+References: <20261111085534.514957-1-Prike.Liang@amd.com>
+In-Reply-To: <20261111085534.514957-1-Prike.Liang@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: "Zhu, Lingshan" <lingshan.zhu@amd.com>
-In-Reply-To: <20261117215714.50191-1-felix.kuehling@amd.com>
-X-ClientProxiedBy: TY4P301CA0097.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:37a::8) To CH2PR12MB9457.namprd12.prod.outlook.com
- (2603:10b6:610:27c::7)
+X-Mentions: tzimmermann@suse.de
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-11-18T07:08:44.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MW4SPRMB0025:EE_|MN2PR12MB4454:EE_
+x-ms-office365-filtering-correlation-id: 9cbae5ba-fff6-41b0-3cf7-08df454415a6
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|376014|1800799024|23010399003|38070700021|261102123227099003|10067099003|5023799004|11063799006|56012099006|261021123027099003|261026140227099003|261021121427099003|261026121527099003|261022105027099003|261022115727099003|261022075727099003|261102130727099003|261028144727099003|261009220027099003|261009221227099003|261009221727099003|261009223027099003|261009223327099003|22082099003|18002099003;
+x-microsoft-antispam-message-info: Mh3ofgO/LB2t7qaWhQz+CAR0/fdkfBtuyKPUIq20k6vN7p5G/B4OPym+x9VBXAtDe7gMI8u2+lJ4+ff9dpX/V7PJObFJVPdPKUCNGznf/BZbUujPiec7COaxzMoomScWZ66Pzqqa00FtUlurfW4jvl0jSjUbGQy3Ldd5KlwbN+kFZayf9x47PLfT0Eyo2kLdmguRzPPpHWT48gw9KozpW5NzR54yJn1nrObbO5FqnJjC4s1LKmmcJWB9h8hdq7zeu5ml5BEKyI8TKP/W7VymZx3YLCoSePjcO1j2P8rd0FOD8ufls8++EcLoXn4hexJVDfkPmCk2oQreqMGI0MpS9RHQooo/PKh2XPN9db4OnF8jlFL6Mk3dQ3uEf8LAUfoAVvGwGlvEftLsOQvNzBawHMh6wqjVkL2E7ht+j2c9kHCtaWvKMN8jVnBsF2kXPondI13/q04Np4+KOFj22NxuHKs5OIK54bGgEpV+//YFm4Nu6b4gzupN0y56yk7hWX2GTQlwD8KtBGjss/da/0FFlPbTkE5LcQukRDtnS9pwVvPAn+zgHDzct7crhcDhd6vqwJPXicMmz46z6TqyH44ThxE4CpvNjE86QqfnVEvDkUmQ+xAFq6O1x7q70uvsNnxmo1K74p3oFXUnhyL5QCGmdUg4C76rgwCsTN8KkQ5OcAlDV8C0pfBOIjVkHwNF6sMGS6+YfNwuUrO0JLh7maS/0Us5Ujq+FZe4UlPOggYGrHk=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW4SPRMB0025.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(38070700021)(261102123227099003)(10067099003)(5023799004)(11063799006)(56012099006)(261021123027099003)(261026140227099003)(261021121427099003)(261026121527099003)(261022105027099003)(261022115727099003)(261022075727099003)(261102130727099003)(261028144727099003)(261009220027099003)(261009221227099003)(261009221727099003)(261009223027099003)(261009223327099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?4vZLyzf9qH9tAxWwVUYLSwOP6Ok2G1+Jqwh0i/eHX5GK3tQbbRe6VvpObWCB?=
+ =?us-ascii?Q?uws5MUl91t1V+kPamphLINEc+Jxb5gBFFRsJMxAe5bH/+pedeBOrTPjTQYar?=
+ =?us-ascii?Q?ejRcE6hSunVyUD5no/VCrZMTgJriemomG+yPdwdlK8MzeZs+lsWzDvnbjP35?=
+ =?us-ascii?Q?KgNeAlEMn3Q/CVNfrIT/AB/KBICmVxFpO0nynRdr0xBjygl+NQ2ksyCaYoPd?=
+ =?us-ascii?Q?PZ/Fl/P9rpNXsrXlOLK/Zko5/9kuWJDenJza0Nh6BevZBQBDMIi+KSbL5ltx?=
+ =?us-ascii?Q?ywMZSbSWiH9eXYNphNHt7OwCF+tpXUBysonypqIRYGIoUUm1C/bWtAS0DYKq?=
+ =?us-ascii?Q?Qsib82ylaNIHf3yt3EIwHmmrbb+naGxKRbvTCS0IbG+OyK59HIvgWKk53GBw?=
+ =?us-ascii?Q?Anf98BgWlB8K65WvQUQ85yaAq7SuF6Hc6x0qsBbkbIZTCD5hxUcjZ8jUkNvs?=
+ =?us-ascii?Q?Yf47Eg2L1Aeg05+B9jJGHuGBb+utdpHCkn6i8ZjSNd0Vz+QS8BKqwJg3aBBA?=
+ =?us-ascii?Q?uJBgF1lokRYePcxDHFOAXTT4dOrsL+NsbZhj11boRDDaBKwMKFcAIkXoLw1w?=
+ =?us-ascii?Q?qMsiQU73oXZwqTsWogAubeOqo6DbExFdSmuUlwFlNXQyEq4nXkXQMrI03RKU?=
+ =?us-ascii?Q?uII5xpFTjC0PpVn+WNKNKxWpBBGaukTb6Pe6Ur1YtLGi2VKjdYD1aOGTTeXr?=
+ =?us-ascii?Q?/JsirhT0m9a4eZ/uI9I5XuDcIJHk4CBAfhztNHMUqeeJZKSsWM6s+y99ADUM?=
+ =?us-ascii?Q?BTi8IoYUjJCcEaaUDiTzdtNJPP8ulLxpE9ZAf3F6P/DHoYbtnzPsQEI0FNkV?=
+ =?us-ascii?Q?ojbHdmuy54C3r6xOCS6JJFkPaga97F2pTgfS4GO7DY4hNurG8OU9BrZ1TDjb?=
+ =?us-ascii?Q?lFlyMt9tKTyDgvAX2objDmKWzNEOvUv+nO2pyu656IySy2zxeBOa41BFQ0pM?=
+ =?us-ascii?Q?i9/lHcSbZNc5lKWWBHk4YgNS+0Fu1ItmLg6QH1UrTL9HTVBkJ8pdx2z5jPkd?=
+ =?us-ascii?Q?qd2k8ZXFplfb5gTFSoUJg1f4rUm/C3hAAFxtD0SjQ/FeqZp7HtOzW3KjL/ee?=
+ =?us-ascii?Q?gVXBq8/e4liXzOtWCjjB+4XgzJds8vFz86Uq9YmkP6q5eGh4O4gPftZW0gul?=
+ =?us-ascii?Q?8qYL4cCbiTfUD9taT6eyEjrOo0iH+DURrb2XBokBEc4I6HsiKIR4zJPlIh6e?=
+ =?us-ascii?Q?krUTehDIiXvedEKxZz39KP1naQMuqO1jvySFu+68GjHajB/atgUU3ChqyNx7?=
+ =?us-ascii?Q?m+8+o+PrTupuMDlL8HWGj07JfrVPhmTbUx9Ag57Bp5hcRShq8uxfWQTclWo8?=
+ =?us-ascii?Q?IPduk+o2FjmuSVdVNyOSboyLj4Z0mn1EkYSaZZ50zSgVFmN+CE2iZJX/bX0u?=
+ =?us-ascii?Q?zCtV2GAyk+/FoYAL7qGWeZDY/GVFC7vlIUU36zTaBfIQsqNn+0/CZki4ecHG?=
+ =?us-ascii?Q?ejE1M4nSYYQcyR5F6mmoUTi/6RDKPWXJVkxvRzdzeBXjEUQscx3Mv9xc3DYZ?=
+ =?us-ascii?Q?0E8SuUSPaaQgUzl3RWaaYxbuT7MbUGbF7BNQiwHYx8/st5rpzZ4L5psIZ6zA?=
+ =?us-ascii?Q?JAG7iq7BmRTfLRDnnLQ4NxC9WjvRrQoIMvJmtl7lwKmUhajTEi6HSgmSqoSP?=
+ =?us-ascii?Q?B7qQ07tLNoAAGRtPpHn+rwqSM8ln6o7bXrkZ2yo2InS/xUXmRxm19iii3O+s?=
+ =?us-ascii?Q?sOf2O/Hvfrqyamges/E3xw8zBxexHQL+VRXKFfQPaBGunSJB?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB9457:EE_|DS6PR12MB732632:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5694c89a-8264-45db-ddb0-08df453a29be
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|23010399003|261102123227099003|10067099003|11063799006|56012099006|261021123027099003|261026140227099003|261021121427099003|261026121527099003|261022105027099003|261028144727099003|261009223027099003|22082099003|18002099003|8096899003;
-X-Microsoft-Antispam-Message-Info: Q8HABY0LhyanZ9Ty85m4z9CMMoeF1YKQwvQ2otuSQuajmX/6iY2Ft3LpaStI+ZpbN4sFZDj+dDDbONBzXm99sw7fDdUyiJG2BLg0bJ3moOSSHpkjeZXuICr4pmz+YksRbAbtXd7q/OmHKjh9BLODUMZstZBLcDF/kjqT7WM1G2HirUg7lrzvwiK9dJ9M0xxccNBpCLqvPrqQIn0aQBs71jyOc2a2rOtTQYGvn0g0oJDCsyXh7BaPXQy5FozMWXdAGFeeA2EUjRtPNgw4yQq6NnxTWqHTfuUiTJnbJdnfeSPY0vqQSf+kt6PYwfx71Hg0Vl7+lLseHbcRop0xwmvIhCz2+lALnZyRYr6B6q6dRbZ+pIO5aOMC2DY4n7NP2ug6jh4ET1TS0UocHdz37+APMc1uci/+ahUnKfVfPDzXl3v+9/meFide0R0el4ZqTfEPVYs92ZwtRO16PrcZkeLrXeJcjOstwGn4cJb5iU5F1DLGONRQ0cc0R3Rb/kiDw0hF8oP3JbRXcaUdo+D6oaViWEByq2Qxebi/p7PQ0ZpHEpu+LAX06fHBIfZIK4HuR10PoFd9XbCRyIjnfdRNlLpxaYbI4OFzuaFBoNnbh7ac6R6dTdhNdFJ0d0nrKzN5avRsmMD/uKzaoYKgn4rikK8xq8NFRZa4epPD1St97p57kiM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB9457.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(261102123227099003)(10067099003)(11063799006)(56012099006)(261021123027099003)(261026140227099003)(261021121427099003)(261026121527099003)(261022105027099003)(261028144727099003)(261009223027099003)(22082099003)(18002099003)(8096899003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WWxoRVhndnp6VC9nNzVDOUhRaS9KbCtlSWRTN20yWWpHVDRqU0dwZ2g4Y2Z0?=
- =?utf-8?B?TnRDUDJzSmNlSjhlcWZ5b2xGb3NjRlZucVo0MDc4b0FKaThycmxDVFBlYTRC?=
- =?utf-8?B?eHYzc0JORDFOQjFFRXFxeitmeDNzYnl5anNQb0JGNTByME1IMW95SXJ1RVNT?=
- =?utf-8?B?ODNmMmkxSWI5SEJTbEpQUnhINEdiaG9MVGd5alovQnEzYWtGdTNyNGRmT2NN?=
- =?utf-8?B?Nnd6RjU3VUZldHFUUm4zU2xmeDNscy9JSkZxV1ZhRFlyTExOVnFUdG9kL1ZW?=
- =?utf-8?B?cEhqdG1MM0VGblUzcG9jZmpMeFNKMS9tS2ViMTI0a1hNcC9Jb1htdVVGOEcr?=
- =?utf-8?B?djcwb1dSZjB3ZmgrSHdySVZ3T2l4NWtWUFF6aytNbW5TL2t6ZXVFUW5wMFNr?=
- =?utf-8?B?cDg3bVJJcU9yeFd1QXVBKzh0UERWdHVQclYvN1FQL001dklKYUkwRC9VT2Jl?=
- =?utf-8?B?ZG9hS1k1aFJjOFREZEZxeW1uSG1xSmpIRzZEbTlwa0ZGZjBLTmF1U2JZZlBH?=
- =?utf-8?B?dko2Zzl5NmRSS2FMZWYzU1JQY004TG9DZ2JtU0tnaGNoTlpNMTNoM0pLdzZj?=
- =?utf-8?B?YVZHbTNGQnAwZUtjekkyNExJcTRsMDl4UU9lT3ZVTTFzTEZ6eEd4ckhldTRn?=
- =?utf-8?B?NVNXQWFCYkw1cjhIS0JObjl4N1VvRVh5alduMjBsNWpUaVVpdi9oU1dFaVY4?=
- =?utf-8?B?cFBmYnBTVitsNTNNU0g3RWVEb2ZQZTRsbFpYK1hTQ2ZkNWg4SVhnR1BFTWdo?=
- =?utf-8?B?MlYrckpWYStuZlFDdHV0Sy9QSk5DQU9uM2Z0OU9JTEM5bjViU2ZFMFdjaWhQ?=
- =?utf-8?B?L2M1WG9JSDkzaHhveGlPd29ENCtkZGxKRnVxV2JtZ0NDZ0IvOXhMRkFBaVIv?=
- =?utf-8?B?UU1MTW1pbU0yMDZVN2dYWVN3MWEySFB4ZHgzdTQ5SVlXb2JPRDZUcUNhWlkz?=
- =?utf-8?B?NTYyaVd6MTlRWHFiRkhWbGUyeE10aFRtbGhROExETmtSckNKZTlTOWFFUDh0?=
- =?utf-8?B?eU5NZzNudVNqeVM4dC9WTmFIVGZBN2xMS3ZNK3crOXVGZEdQdnNxTHBkSWpK?=
- =?utf-8?B?WWpGclFoazV2SmZVUGlRSm16ZmZDWXM2UXUrdEtWNUJXOFErdkxBbFp3OE85?=
- =?utf-8?B?c2NVNmRIZllmU1pvRWVCcTRyVy9BcHlENGkwM3VDL0YzVUdNYTZCSXMzMXZh?=
- =?utf-8?B?dEZ5WXZBbHlsdUU2UlFUZGlMV2paM1pVMFNnSStSaGRIYjJkQmJ0UGRYZGk5?=
- =?utf-8?B?dXl4WHI4ci9RbXV0MHJmN3daYXVBMHF1NHloUXBDRGt6ZGVBNHFCZ2ZFQ2pP?=
- =?utf-8?B?dm1YZ096OHAzRjhCaDhvWDlOUTdPazNvb1ZSNXVhOWJnUWNyTXNlQ0dYaFZh?=
- =?utf-8?B?N29hRkVIU2p3MllYRTNpaW9RaHlZQ3hKdVAwR09XQWVFNW8rUTJVdGhhZlgy?=
- =?utf-8?B?TWN2MVZqMHRFclRZWmJ5T21jL083bEw1R2lZeVFhMDdQaE9reXlHSUZQVHlo?=
- =?utf-8?B?Nk9kbHA2U2F5c2lIYXp6a0RDTjRwRXZVMHJoY0VZOHh6TEg4NldxMDFXMjk4?=
- =?utf-8?B?b2c3c0VVNjNSeVNMTUZZSVFuUEYyU1Z1SlFrb1lxc0N6OFdWa3JBdTdQeHBT?=
- =?utf-8?B?QXdVYWVibnpzcHo3R3RZOU1xeTBNUEpZdGthak5XNENGY2dVSUwxS05YZVV3?=
- =?utf-8?B?VHM3czkvYnVpSFJLd1hpaXJNNnJiWXhWT2MrRkp0UnRwcGgzenJWZHE0OEJV?=
- =?utf-8?B?ckxJL28wMnFXUWhXQTMydWZPRnh4ZFJrZDV6dlhZSGo2VXc2cENrQllnbk43?=
- =?utf-8?B?elZNNzJCTHRaN29EZm9Ha0o3cEJUTWw3RGorejkvcHVLSnp3T0ZlWk5aY2Ji?=
- =?utf-8?B?RDFjWm1oM1M5Y05OUXlKTXRVRE9XMjhoQVF2NGovLzJ1RlpXTkkvR256UVNB?=
- =?utf-8?B?R0pSaEU2dlVsZVZNS0QvbUZtdVljS1NhNFd4MHdxSzNhNDdMbGhSOUY4SDdr?=
- =?utf-8?B?aENFU3k4eHBvOXA5ZElHUnBOS2pGbTdySk1JUFM3ZUR2STBRMmdSMW90Uisy?=
- =?utf-8?B?UU9FbjRsbGJIMnNoa1NkdkVnRnBCeEIzK3c4Q2JHaTF1bzU3bC9oeDVlbFFV?=
- =?utf-8?B?QUc2UTBoNlJ4bmsvdkJ1d2ZhSyt0NkUrWE5raHpOZ3U4UkNKMlY0MllVZzFu?=
- =?utf-8?B?NWxTSEprWGdBRTJySlo5dENkR1Y0c2JRSnRFZldLNWZTSUd6YTVGaWlDZFJX?=
- =?utf-8?B?NVJhdkhGTVFXWVQxNm9ZRXhzZmZFWXV0Z29OeDBzRjNTT0dEdHp2eXFwUUNJ?=
- =?utf-8?B?ZlRIZUxJc0JrVHI1R1NnM0JPZnZORHdjWEtOM1pXR3VSNElxb0JIdz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5694c89a-8264-45db-ddb0-08df453a29be
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB9457.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 06:07:02.2594 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ziK2ogJfmUvp9vJXRQgZoWGFfJOXW/ahcCpN0B/I3VAd/Uj4Yt0eet25SYITawak5ecmnQ51jSpm3XFf/OISJw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR12MB732632
+X-MS-Exchange-CrossTenant-AuthSource: MW4SPRMB0025.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9cbae5ba-fff6-41b0-3cf7-08df454415a6
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Nov 2026 07:18:03.2602 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: laSmQl1icEqjnZ7TVLHwDAa1qB85GiWEjQ4FXfypYR1JfJZR9jfEtSmmCggt7WWc
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4454
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,132 +131,226 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	HTML_MESSAGE,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---------------40FNBv0f9AisP88R0ba6xQAj
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+AMD General
 
-On 11/18/2026 5:57 AM, Felix Kuehling wrote:
+Hi @tzimmermann@suse.de
 
-> If secondary context ID allocation fails, the context ID remains 0. Make
-> that distinguishable from a valid context ID to avoid double-freeing
-> context IDs.
+This patch is based on your suggestion to make drm_crtc_wait_one_vblank() i=
+nterruptible to address the vblank blocking issue.
 
-Thanks and Reviewed-by: Zhu Lingshan <lingshan.zhu@amd.com>
+To minimize side effects, this version restricts the interruptible wait spe=
+cifically to the FBIO_WAITFORVSYNC ioctl path, keeping all other callers un=
+interrupted as before.
 
+Could you please take another look and share your thoughts?
+
+Regards,
+      Prike
+
+> -----Original Message-----
+> From: Liang, Prike <Prike.Liang@amd.com>
+> Sent: Wednesday, November 11, 2026 4:56 PM
+> To: amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
+> <Christian.Koenig@amd.com>; Wentland, Harry <Harry.Wentland@amd.com>; Li,
+> Sun peng (Leo) <Sunpeng.Li@amd.com>; tzimmermann@suse.de; Liang, Prike
+> <Prike.Liang@amd.com>
+> Subject: [PATCH RESEND 1/5] drm/client: Make the FBIO_WAITFORVSYNC
+> vblank wait interruptible
 >
-> Fixes: fac682a1d1af ("amdkfd: identify a secondary kfd process by its id")
-> Signed-off-by: Felix Kuehling <felix.kuehling@amd.com>
+> FBIO_WAITFORVSYNC calls drm_client_modeset_wait_for_vblank(), which waits
+> with drm_crtc_wait_one_vblank(). That wait is uninterruptible and only gi=
+ves up after
+> one second. If no vblank interrupt arrives, for example while the driver =
+resets the
+> display hardware, the caller sleeps in D state for the whole second and c=
+an't be
+> interrupted, not even by SIGKILL.
+>
+> DRM_IOCTL_WAIT_VBLANK waits interruptibly, and so do fbdev drivers that
+> implement FBIO_WAITFORVSYNC themselves, such as atyfb and matroxfb.
+>
+> Add drm_crtc_wait_one_vblank_interruptible(), a DRM-internal variant of
+> drm_crtc_wait_one_vblank() that a signal can interrupt, and use it in
+> drm_client_modeset_wait_for_vblank(). Return -ERESTARTSYS when a signal
+> interrupts the wait, so that the ioctl returns to userspace or is restart=
+ed. Timeouts and
+> disabled CRTCs are still not reported.
+>
+> The fbdev damage worker also calls drm_client_modeset_wait_for_vblank(),
+> but it runs in a kernel thread, which doesn't receive signals, so its wai=
+t doesn't
+> change. Drivers keep using drm_crtc_wait_one_vblank().
+>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Assisted-by: Copilot:claude-opus-5.5
+> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdkfd/kfd_priv.h    | 2 +-
->  drivers/gpu/drm/amd/amdkfd/kfd_process.c | 4 ++--
->  2 files changed, 3 insertions(+), 3 deletions(-)
+>  drivers/gpu/drm/drm_client_modeset.c | 10 +++--
+>  drivers/gpu/drm/drm_internal.h       |  1 +
+>  drivers/gpu/drm/drm_vblank.c         | 60 ++++++++++++++++++++--------
+>  3 files changed, 51 insertions(+), 20 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> index 3292e616d36f..2c8716d45e3f 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> @@ -1083,7 +1083,7 @@ struct kfd_process {
->  
->  #define KFD_PROCESS_TABLE_SIZE 8 /* bits: 256 entries */
->  #define KFD_CONTEXT_ID_PRIMARY	0xFFFF
-> -#define KFD_CONTEXT_ID_MIN 0
-> +#define KFD_CONTEXT_ID_MIN 1
->  
->  extern DECLARE_HASHTABLE(kfd_processes_table, KFD_PROCESS_TABLE_SIZE);
->  extern struct srcu_struct kfd_processes_srcu;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> index ffd11576a0bb..d1b6b6305439 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> @@ -950,7 +950,8 @@ static void kfd_process_free_id(struct kfd_process *process)
+> diff --git a/drivers/gpu/drm/drm_client_modeset.c
+> b/drivers/gpu/drm/drm_client_modeset.c
+> index 0080a8e9556a..b475b8dbdb17 100644
+> --- a/drivers/gpu/drm/drm_client_modeset.c
+> +++ b/drivers/gpu/drm/drm_client_modeset.c
+> @@ -1301,10 +1301,11 @@ EXPORT_SYMBOL(drm_client_modeset_dpms);
+>   *
+>   * Block the caller until the given CRTC has seen a VBLANK. Do nothing
+>   * if the CRTC is disabled. If there's another DRM master present, fail
+> - * with -EBUSY.
+> + * with -EBUSY. A signal interrupts the wait.
+>   *
+>   * Returns:
+> - * 0 on success, or negative error code otherwise.
+> + * 0 on success, -ERESTARTSYS if a signal interrupted the wait, or
+> + * negative error code otherwise.
+>   */
+>  int drm_client_modeset_wait_for_vblank(struct drm_client_dev *client, un=
+signed int
+> crtc_index)  { @@ -1328,13 +1329,14 @@ int
+> drm_client_modeset_wait_for_vblank(struct drm_client_dev *client, unsigne=
+d i
+>        */
+>       ret =3D drm_crtc_vblank_get(crtc);
+>       if (!ret) {
+> -             drm_crtc_wait_one_vblank(crtc);
+> +             ret =3D drm_crtc_wait_one_vblank_interruptible(crtc);
+>               drm_crtc_vblank_put(crtc);
+>       }
+>
+>       drm_master_internal_release(dev);
+>
+> -     return 0;
+> +     /* Only report interruption by a signal, not timeouts. */
+> +     return ret =3D=3D -ERESTARTSYS ? ret : 0;
+>  }
+>  EXPORT_SYMBOL(drm_client_modeset_wait_for_vblank);
+>
+> diff --git a/drivers/gpu/drm/drm_internal.h b/drivers/gpu/drm/drm_interna=
+l.h index
+> f893b1e3a596..2be21c20eb78 100644
+> --- a/drivers/gpu/drm/drm_internal.h
+> +++ b/drivers/gpu/drm/drm_internal.h
+> @@ -115,6 +115,7 @@ void drm_vblank_disable_and_save(struct drm_device
+> *dev, unsigned int pipe);  int drm_vblank_get(struct drm_device *dev, uns=
+igned int
+> pipe);  void drm_vblank_put(struct drm_device *dev, unsigned int pipe);
+>  u64 drm_vblank_count(struct drm_device *dev, unsigned int pipe);
+> +int drm_crtc_wait_one_vblank_interruptible(struct drm_crtc *crtc);
+>
+>  /* drm_vblank_work.c */
+>  static inline void drm_vblank_flush_worker(struct drm_vblank_crtc *vblan=
+k) diff --git
+> a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c index
+> f90fb2d13e42..c3c9afc08ed2 100644
+> --- a/drivers/gpu/drm/drm_vblank.c
+> +++ b/drivers/gpu/drm/drm_vblank.c
+> @@ -1297,21 +1297,12 @@ void drm_crtc_vblank_put(struct drm_crtc *crtc)  =
+}
+> EXPORT_SYMBOL(drm_crtc_vblank_put);
+>
+> -/**
+> - * drm_crtc_wait_one_vblank - wait for one vblank
+> - * @crtc: DRM crtc
+> - *
+> - * This waits for one vblank to pass on @crtc, using the irq driver inte=
+rfaces.
+> - * It is a failure to call this when the vblank irq for @crtc is disable=
+d, e.g.
+> - * due to lack of driver support or because the crtc is off.
+> - *
+> - * Returns: 0 on success, negative error on failures.
+> - */
+> -int drm_crtc_wait_one_vblank(struct drm_crtc *crtc)
+> +static int __drm_crtc_wait_one_vblank(struct drm_crtc *crtc, bool
+> +interruptible)
 >  {
->  	struct kfd_process *primary_process;
->  
-> -	if (process->context_id == KFD_CONTEXT_ID_PRIMARY)
-> +	if (process->context_id == KFD_CONTEXT_ID_PRIMARY ||
-> +	    process->context_id < KFD_CONTEXT_ID_MIN)
->  		return;
->  
->  	primary_process = kfd_lookup_process_by_mm(process->lead_thread->mm);
-> @@ -1790,7 +1791,6 @@ struct kfd_process *create_process(const struct task_struct *thread, bool primar
->  	return process;
->  
->  err_alloc_id:
-> -	kfd_process_free_id(process);
->  err_register_notifier:
->  	/*
->  	 * The process is already in kfd_processes_table, so find_process()
---------------40FNBv0f9AisP88R0ba6xQAj
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+>       struct drm_device *dev =3D crtc->dev;
+>       int pipe =3D drm_crtc_index(crtc);
+>       struct drm_vblank_crtc *vblank =3D drm_crtc_vblank_crtc(crtc);
+> +     long timeout =3D msecs_to_jiffies(1000);
+>       int ret;
+>       u64 last;
+>
+> @@ -1322,18 +1313,55 @@ int drm_crtc_wait_one_vblank(struct drm_crtc *crt=
+c)
+>
+>       last =3D drm_vblank_count(dev, pipe);
+>
+> -     ret =3D wait_event_timeout(vblank->queue,
+> -                              last !=3D drm_vblank_count(dev, pipe),
+> -                              msecs_to_jiffies(1000));
+> +     if (interruptible)
+> +             timeout =3D wait_event_interruptible_timeout(vblank->queue,
+> +                                                        last !=3D drm_vb=
+lank_count(dev,
+> pipe),
+> +                                                        timeout);
+> +     else
+> +             timeout =3D wait_event_timeout(vblank->queue,
+> +                                          last !=3D drm_vblank_count(dev=
+, pipe),
+> +                                          timeout);
+>
+> -     drm_WARN(dev, ret =3D=3D 0, "vblank wait timed out on crtc %i\n", p=
+ipe);
+> +     drm_WARN(dev, timeout =3D=3D 0, "vblank wait timed out on crtc %i\n=
+",
+> +pipe);
+>
+>       drm_vblank_put(dev, pipe);
+>
+> -     return ret ? 0 : -ETIMEDOUT;
+> +     if (timeout < 0)
+> +             return timeout;
+> +
+> +     return timeout ? 0 : -ETIMEDOUT;
+> +}
+> +
+> +/**
+> + * drm_crtc_wait_one_vblank - wait for one vblank
+> + * @crtc: DRM crtc
+> + *
+> + * This waits for one vblank to pass on @crtc, using the irq driver inte=
+rfaces.
+> + * It is a failure to call this when the vblank irq for @crtc is disable=
+d, e.g.
+> + * due to lack of driver support or because the crtc is off.
+> + *
+> + * Returns: 0 on success, negative error on failures.
+> + */
+> +int drm_crtc_wait_one_vblank(struct drm_crtc *crtc) {
+> +     return __drm_crtc_wait_one_vblank(crtc, false);
+>  }
+>  EXPORT_SYMBOL(drm_crtc_wait_one_vblank);
+>
+> +/**
+> + * drm_crtc_wait_one_vblank_interruptible - wait for one vblank,
+> +interruptibly
+> + * @crtc: DRM crtc
+> + *
+> + * Like drm_crtc_wait_one_vblank(), but a signal interrupts the wait.
+> + *
+> + * Returns: 0 on success, -ERESTARTSYS if a signal interrupted the
+> +wait,
+> + * negative error on other failures.
+> + */
+> +int drm_crtc_wait_one_vblank_interruptible(struct drm_crtc *crtc) {
+> +     return __drm_crtc_wait_one_vblank(crtc, true); }
+> +
+>  /**
+>   * drm_crtc_vblank_off - disable vblank events on a CRTC
+>   * @crtc: CRTC in question
+> --
+> 2.34.1
 
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <pre>On 11/18/2026 5:57 AM, Felix Kuehling wrote:</pre>
-    <blockquote type="cite" cite="mid:20261117215714.50191-1-felix.kuehling@amd.com">
-      <pre wrap="" class="moz-quote-pre">If secondary context ID allocation fails, the context ID remains 0. Make
-that distinguishable from a valid context ID to avoid double-freeing
-context IDs.</pre>
-    </blockquote>
-    <pre>Thanks and Reviewed-by: Zhu Lingshan <a class="moz-txt-link-rfc2396E" href="mailto:lingshan.zhu@amd.com">&lt;lingshan.zhu@amd.com&gt;</a></pre>
-    <blockquote type="cite" cite="mid:20261117215714.50191-1-felix.kuehling@amd.com">
-      <pre wrap="" class="moz-quote-pre">
-
-Fixes: fac682a1d1af (&quot;amdkfd: identify a secondary kfd process by its id&quot;)
-Signed-off-by: Felix Kuehling <a class="moz-txt-link-rfc2396E" href="mailto:felix.kuehling@amd.com">&lt;felix.kuehling@amd.com&gt;</a>
----
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h    | 2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_process.c | 4 ++--
- 2 files changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 3292e616d36f..2c8716d45e3f 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -1083,7 +1083,7 @@ struct kfd_process {
- 
- #define KFD_PROCESS_TABLE_SIZE 8 /* bits: 256 entries */
- #define KFD_CONTEXT_ID_PRIMARY	0xFFFF
--#define KFD_CONTEXT_ID_MIN 0
-+#define KFD_CONTEXT_ID_MIN 1
- 
- extern DECLARE_HASHTABLE(kfd_processes_table, KFD_PROCESS_TABLE_SIZE);
- extern struct srcu_struct kfd_processes_srcu;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index ffd11576a0bb..d1b6b6305439 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -950,7 +950,8 @@ static void kfd_process_free_id(struct kfd_process *process)
- {
- 	struct kfd_process *primary_process;
- 
--	if (process-&gt;context_id == KFD_CONTEXT_ID_PRIMARY)
-+	if (process-&gt;context_id == KFD_CONTEXT_ID_PRIMARY ||
-+	    process-&gt;context_id &lt; KFD_CONTEXT_ID_MIN)
- 		return;
- 
- 	primary_process = kfd_lookup_process_by_mm(process-&gt;lead_thread-&gt;mm);
-@@ -1790,7 +1791,6 @@ struct kfd_process *create_process(const struct task_struct *thread, bool primar
- 	return process;
- 
- err_alloc_id:
--	kfd_process_free_id(process);
- err_register_notifier:
- 	/*
- 	 * The process is already in kfd_processes_table, so find_process()
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------40FNBv0f9AisP88R0ba6xQAj--
