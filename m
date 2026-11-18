@@ -2,99 +2,63 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87866606A333
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Nov 2026 15:11:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 096D5606A31C
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Nov 2026 15:14:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ChJKD/m+
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jglmAG3j
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB06910FD96;
-	Wed, 18 Nov 2026 15:11:13 +0000 (UTC)
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011052.outbound.protection.outlook.com [52.101.52.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 571DE10FD96
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Nov 2026 15:11:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ciNrgVwlJfCEEphb2zhF8nGCtmUg3weXV/t9JK7iBN/hsIEm25ezkdeYJwDE/k+DwS7hfyE4xkdCn5hW571266tXDTVfaCo7l8YqO/mncGVByqAdQMsNym1f4Ix8VLXTI+1nYDEGn0oAzQgbKA9xP6RWm1EYzhByoSWsV9gE1OCLWFCjIhXwb7Q/GOzZXyDPkQUdv9Zf5zI9ENB6jjwjZLYZ6CR1sCDVEGklTgBIxjdAfz1chu0W8dJAPoUDkO+mVRSJ93mp8HXy2IgFQu6cY5jNZ6Tlzx16xZpb3K3JoFsmSiV0twt56aW5EWjTn+c07ei7AV8nUV1wrwjSM2pt/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YuXgniGsUutDj/6jQ2NxWkzQPvGnWP1zi74zOlOfRSg=;
- b=efMWuyLpUgNVKnajfwYJpUqWtUcU3GN+7hqeafBh68gBxgyZ0f/9r1BFyQt3mxPAOrpntdAboO4AtDHk385UKmyvmtNthhtdmBM+U1Rpq0NP3wKCTeep6Y8qU6L/gcahzbao3I7g+1XX9jnMub0t9jSL76KKtWKmPxjIGMmMdHwlOQpWeDfDUaBqdWulc9N04klaAry2fdReytE63sh08T76XiW94rnhARxW1I35xERTmLPuqaDfFE0AX+/zdUWwwZVyM0Xn7TnciNj5conjaofEJBvGx0knCObNKftEANf1FfUEYDsK4iRGaFNwRthULKJ0+dySeSaxbnGmC1hpOg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YuXgniGsUutDj/6jQ2NxWkzQPvGnWP1zi74zOlOfRSg=;
- b=ChJKD/m+dzpO/Omu5J3PJpFxWwBrbhl2qRSAy7TAdJgzp5drrAVM+kDJwnZUdabvaFuNr18bZeYOtUFvPaSGz6Zuu5IuDpMfBR4wXRjD0rY92ZnRCaIXfMM/Lso1LOUUt9W3TNXzHy34Q9WI5WHIaOc9Q7JUhk+cwkurRBCjqf8=
-Received: from PH7P220CA0050.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:32b::28)
- by DS0PR12MB7512.namprd12.prod.outlook.com (2603:10b6:8:13a::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Wed, 18 Nov
- 2026 15:10:57 +0000
-Received: from CY6PEPF0000004D.namprd03.prod.outlook.com
- (2603:10b6:510:32b:cafe::47) by PH7P220CA0050.outlook.office365.com
- (2603:10b6:510:32b::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Wed,
- 18 Nov 2026 15:10:54 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CY6PEPF0000004D.mail.protection.outlook.com (10.167.247.138) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Wed, 18 Nov 2026 15:10:54 +0000
-Received: from alysaliu-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Wed, 18 Nov
- 2026 09:10:53 -0600
-From: William Palacek <William.Palacek@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <William.Palacek@amd.com>, <Harish.Kasiviswanathan@amd.com>,
- <Felix.Kuehling@amd.com>, <christian.koenig@amd.com>, <philip.yang@amd.com>
-Subject: [PATCH 2/4] drm/amdkfd: don't take p->mutex in
- AMDKFD_IOC_GET_CLOCK_COUNTERS
-Date: Wed, 18 Nov 2026 10:10:36 -0500
-Message-ID: <459bad3a225aa415fa359d638046f8cd7d26b0ab.1795014593.git.William.Palacek@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1795014593.git.William.Palacek@amd.com>
-References: <cover.1795014593.git.William.Palacek@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5AFB610E7EC;
+	Wed, 18 Nov 2026 15:14:15 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 409C910E7EC;
+ Wed, 18 Nov 2026 15:14:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1795014850; x=1826550850;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=1iW6nN7YOnkW3F0Xhc6/Dv1Kz4h+ANti5XBxydiznDM=;
+ b=jglmAG3jM0eURuEWMzkMD1oqWbDZvRx5Yvce/cwqvXAKqIwOpuEe8V4L
+ Hh9L1EOZWU8BW2uuSsvGOwVZUJsuYNkGMNqS4IBS3u7/cdov9wKHcbvr+
+ YNADSJPXXvtw6iHwcBv1fQz0Hj3BhilztvpT82bMRAc+VnRfYe1PO0cTp
+ u7qSVyJgweOFTyA8myQYovQfz4n42iJPCCgjtLJXi6Eym4IXdjRLFR1lX
+ KP+YkskTeyPsky+bo6QbdCrI9JYfUMiJBbrpw9AcTgWvFP9c/xuXihjvd
+ qy5nkggQC26iHghaVn6S+ac3qlNTjbkL5teXBiSpfo6WbpZ3sYWpPqehG Q==;
+X-CSE-ConnectionGUID: XrGwgV/AQEa/ecW9b/HjMQ==
+X-CSE-MsgGUID: ffn+T4m5QD6ZbDjOx+Qm1Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11970"; a="3714692"
+X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
+   d="scan'208";a="3714692"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Nov 2026 07:13:34 -0800
+X-CSE-ConnectionGUID: prrTxY8DQbixivXi/AfIEg==
+X-CSE-MsgGUID: wQlzZOB8Q3iipYzP+Zdogw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; d="scan'208";a="10567526"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.16])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Nov 2026 07:13:31 -0800
+Date: Wed, 18 Nov 2026 17:13:28 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Prike Liang <Prike.Liang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Alexander.Deucher@amd.com, Christian.Koenig@amd.com,
+ Harry.Wentland@amd.com, Sunpeng.Li@amd.com, tzimmermann@suse.de
+Subject: Re: [PATCH RESEND 1/5] drm/client: Make the FBIO_WAITFORVSYNC vblank
+ wait interruptible
+Message-ID: <av3AmHw484cJZjd9@intel.com>
+References: <20261111085534.514957-1-Prike.Liang@amd.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY6PEPF0000004D:EE_|DS0PR12MB7512:EE_
-X-MS-Office365-Filtering-Correlation-Id: 28be316b-4fba-477c-ff91-08df45862435
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|23010399003|82310400026|1800799024|376014|261102123227099003|261028144727099003|261022105027099003|261021121427099003|261021123027099003|261026121527099003|261026140227099003|11063799006|5023799004|56012099006|10067099003|18002099003|22082099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info: DK4FgwtmFRLrKmZFilwpMQGdYGZtbCU6twnxKLngwf6vtAuLqRSnam6v3/mye8QlgN6AKSPABTTKhGwz/dMk/VkULfDeGegrBwc5jqj5mAJ3Wxs3s1XQMyeUF4V9lUdsP+kud0gH3oe/gqGseeiHinVn4fZgWJzX+fDRRtXkkUugIh/IWb4yoaXCAreEgkvf8bdUt+UQGCtaK6DH/lfD3OgQqnvsuuu2Owb2Zy6aGCCMW3dj7csv6bUuqpSKeUgZddZ5LdRp4nq2p2IBYTjW7JGUtRhvRrI8prLxFpywOUUDqrTpXCxIpRuVqurq35911UzBQDlJ2TxpmP9FUA0o8fwVaBT3PI6z8Zxiq1uKpvfjFqOVRAWdqKH6FxEbYV1u3mSh1yZQsispuO7yyOiGDhHu7IOmXNi+EQ9Fj5Mf4OAOghZ2nBCmV1q2pjWLwHsDDyEMv5zfTBSMnor44xwbxPhOpmCg2tQPKWfXhdRAqcn6Cu/NilkTQ9WnwvPCv3KkFWmj08RqBfSwNgvAJaAydQmU0DlWiC2SykaBgcMcd+VpbPzc8lFYt4CkUaTAeaHgTPR0/QvafzJHmpPUzWL/qR4lk1wqnSICHb2Hul9sODlQK8CxOK+mB7wSxrATseZu724c/LM8nKBqrSRHjNJ7z8NyFFNifD3w60/XwAqua/uNE1f9LOtDPXeXMsu5PTgw1FJ+kYZZZcFu+6A37yXF8A==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(23010399003)(82310400026)(1800799024)(376014)(261102123227099003)(261028144727099003)(261022105027099003)(261021121427099003)(261021123027099003)(261026121527099003)(261026140227099003)(11063799006)(5023799004)(56012099006)(10067099003)(18002099003)(22082099003)(261009223027099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: shGicmJKaD0LXhA2Xnq1EBbG6BkeDiN4O9i/YmzcN9TBz0NW39MoNBa2Z9iT/p4td2LZ05xc2XTe0I6Csq1GeBYDSSVDnQgbFuZ5CMldD65ombxu2GPKQwA5lDXXRWq/SIYrzfK+u58NxcybawwPtwdZm4wAcrBuru3rkNcp8IEzxIVD5HP0+MkHgsSetq2s4FAvIOI4tW2fiOFtMBpUOzcWibGyqXikwx852YM4sMKNt2w+LvvUVZDhqujkYZXBsUFpQ3jDpBjOx7C5r4XYvyrbDDTQHvh46eTMA2KZ1VZZCFLgwAhiElX+RdcTjstkb48xA8WgpC7E5TbdBmFSBCmrcSjFly4E/YElk1GznpP14Nd3Dg2YB9hpFXlFPBcAQ7mIHInvOfLlRDvUgPAsbBN3Ualn6mjqQxwZyITOtoWICGLCLGmBhc1ai+gTZO5M
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 15:10:54.4464 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 28be316b-4fba-477c-ff91-08df45862435
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY6PEPF0000004D.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7512
+In-Reply-To: <20261111085534.514957-1-Prike.Liang@amd.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,44 +69,187 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The ioctl takes p->mutex only to look up the pdd. p->pdds[] is filled
-in create_process() before the process is published and freed only at
-teardown, and the clock read that follows already uses the pdd without
-the lock, so the lock protects nothing.
+On Wed, Nov 11, 2026 at 04:55:30PM +0800, Prike Liang wrote:
+> FBIO_WAITFORVSYNC calls drm_client_modeset_wait_for_vblank(), which
+> waits with drm_crtc_wait_one_vblank(). That wait is uninterruptible and
+> only gives up after one second. If no vblank interrupt arrives, for
+> example while the driver resets the display hardware, the caller sleeps
+> in D state for the whole second and can't be interrupted, not even by
+> SIGKILL.
+> 
+> DRM_IOCTL_WAIT_VBLANK waits interruptibly, and so do fbdev drivers that
+> implement FBIO_WAITFORVSYNC themselves, such as atyfb and matroxfb.
+> 
+> Add drm_crtc_wait_one_vblank_interruptible(), a DRM-internal variant of
+> drm_crtc_wait_one_vblank() that a signal can interrupt, and use it in
+> drm_client_modeset_wait_for_vblank(). Return -ERESTARTSYS when a signal
+> interrupts the wait, so that the ioctl returns to userspace or is
+> restarted. Timeouts and disabled CRTCs are still not reported.
+> 
+> The fbdev damage worker also calls drm_client_modeset_wait_for_vblank(),
+> but it runs in a kernel thread, which doesn't receive signals, so its
+> wait doesn't change. Drivers keep using drm_crtc_wait_one_vblank().
+> 
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Assisted-by: Copilot:claude-opus-5.5
+> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+> ---
+>  drivers/gpu/drm/drm_client_modeset.c | 10 +++--
+>  drivers/gpu/drm/drm_internal.h       |  1 +
+>  drivers/gpu/drm/drm_vblank.c         | 60 ++++++++++++++++++++--------
+>  3 files changed, 51 insertions(+), 20 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_client_modeset.c b/drivers/gpu/drm/drm_client_modeset.c
+> index 0080a8e9556a..b475b8dbdb17 100644
+> --- a/drivers/gpu/drm/drm_client_modeset.c
+> +++ b/drivers/gpu/drm/drm_client_modeset.c
+> @@ -1301,10 +1301,11 @@ EXPORT_SYMBOL(drm_client_modeset_dpms);
+>   *
+>   * Block the caller until the given CRTC has seen a VBLANK. Do nothing
+>   * if the CRTC is disabled. If there's another DRM master present, fail
+> - * with -EBUSY.
+> + * with -EBUSY. A signal interrupts the wait.
+>   *
+>   * Returns:
+> - * 0 on success, or negative error code otherwise.
+> + * 0 on success, -ERESTARTSYS if a signal interrupted the wait, or
+> + * negative error code otherwise.
+>   */
+>  int drm_client_modeset_wait_for_vblank(struct drm_client_dev *client, unsigned int crtc_index)
+>  {
+> @@ -1328,13 +1329,14 @@ int drm_client_modeset_wait_for_vblank(struct drm_client_dev *client, unsigned i
+>  	 */
+>  	ret = drm_crtc_vblank_get(crtc);
+>  	if (!ret) {
+> -		drm_crtc_wait_one_vblank(crtc);
+> +		ret = drm_crtc_wait_one_vblank_interruptible(crtc);
+>  		drm_crtc_vblank_put(crtc);
+>  	}
+>  
+>  	drm_master_internal_release(dev);
+>  
+> -	return 0;
+> +	/* Only report interruption by a signal, not timeouts. */
+> +	return ret == -ERESTARTSYS ? ret : 0;
+>  }
+>  EXPORT_SYMBOL(drm_client_modeset_wait_for_vblank);
 
-It does serialize every clock counter query of the process behind
-whatever holds p->mutex. Threads submitting GPU work call this ioctl
-(seen in a PyTorch workload on MI300X), so while one thread registered
-and mapped a 32 GiB userptr, the others waited in it (205 ms measured
-for one call).
+You should probably split this patch into two:
+1. add drm_crtc_wait_one_vblank_interruptible()
+2. use it in drm_client_modeset_wait_for_vblank()
 
-Signed-off-by: William Palacek <William.Palacek@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+>  
+> diff --git a/drivers/gpu/drm/drm_internal.h b/drivers/gpu/drm/drm_internal.h
+> index f893b1e3a596..2be21c20eb78 100644
+> --- a/drivers/gpu/drm/drm_internal.h
+> +++ b/drivers/gpu/drm/drm_internal.h
+> @@ -115,6 +115,7 @@ void drm_vblank_disable_and_save(struct drm_device *dev, unsigned int pipe);
+>  int drm_vblank_get(struct drm_device *dev, unsigned int pipe);
+>  void drm_vblank_put(struct drm_device *dev, unsigned int pipe);
+>  u64 drm_vblank_count(struct drm_device *dev, unsigned int pipe);
+> +int drm_crtc_wait_one_vblank_interruptible(struct drm_crtc *crtc);
+>  
+>  /* drm_vblank_work.c */
+>  static inline void drm_vblank_flush_worker(struct drm_vblank_crtc *vblank)
+> diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
+> index f90fb2d13e42..c3c9afc08ed2 100644
+> --- a/drivers/gpu/drm/drm_vblank.c
+> +++ b/drivers/gpu/drm/drm_vblank.c
+> @@ -1297,21 +1297,12 @@ void drm_crtc_vblank_put(struct drm_crtc *crtc)
+>  }
+>  EXPORT_SYMBOL(drm_crtc_vblank_put);
+>  
+> -/**
+> - * drm_crtc_wait_one_vblank - wait for one vblank
+> - * @crtc: DRM crtc
+> - *
+> - * This waits for one vblank to pass on @crtc, using the irq driver interfaces.
+> - * It is a failure to call this when the vblank irq for @crtc is disabled, e.g.
+> - * due to lack of driver support or because the crtc is off.
+> - *
+> - * Returns: 0 on success, negative error on failures.
+> - */
+> -int drm_crtc_wait_one_vblank(struct drm_crtc *crtc)
+> +static int __drm_crtc_wait_one_vblank(struct drm_crtc *crtc, bool interruptible)
+>  {
+>  	struct drm_device *dev = crtc->dev;
+>  	int pipe = drm_crtc_index(crtc);
+>  	struct drm_vblank_crtc *vblank = drm_crtc_vblank_crtc(crtc);
+> +	long timeout = msecs_to_jiffies(1000);
+>  	int ret;
+>  	u64 last;
+>  
+> @@ -1322,18 +1313,55 @@ int drm_crtc_wait_one_vblank(struct drm_crtc *crtc)
+>  
+>  	last = drm_vblank_count(dev, pipe);
+>  
+> -	ret = wait_event_timeout(vblank->queue,
+> -				 last != drm_vblank_count(dev, pipe),
+> -				 msecs_to_jiffies(1000));
+> +	if (interruptible)
+> +		timeout = wait_event_interruptible_timeout(vblank->queue,
+> +							   last != drm_vblank_count(dev, pipe),
+> +							   timeout);
+> +	else
+> +		timeout = wait_event_timeout(vblank->queue,
+> +					     last != drm_vblank_count(dev, pipe),
+> +					     timeout);
+>  
+> -	drm_WARN(dev, ret == 0, "vblank wait timed out on crtc %i\n", pipe);
+> +	drm_WARN(dev, timeout == 0, "vblank wait timed out on crtc %i\n", pipe);
+>  
+>  	drm_vblank_put(dev, pipe);
+>  
+> -	return ret ? 0 : -ETIMEDOUT;
+> +	if (timeout < 0)
+> +		return timeout;
+> +
+> +	return timeout ? 0 : -ETIMEDOUT;
+> +}
+> +
+> +/**
+> + * drm_crtc_wait_one_vblank - wait for one vblank
+> + * @crtc: DRM crtc
+> + *
+> + * This waits for one vblank to pass on @crtc, using the irq driver interfaces.
+> + * It is a failure to call this when the vblank irq for @crtc is disabled, e.g.
+> + * due to lack of driver support or because the crtc is off.
+> + *
+> + * Returns: 0 on success, negative error on failures.
+> + */
+> +int drm_crtc_wait_one_vblank(struct drm_crtc *crtc)
+> +{
+> +	return __drm_crtc_wait_one_vblank(crtc, false);
+>  }
+>  EXPORT_SYMBOL(drm_crtc_wait_one_vblank);
+>  
+> +/**
+> + * drm_crtc_wait_one_vblank_interruptible - wait for one vblank, interruptibly
+> + * @crtc: DRM crtc
+> + *
+> + * Like drm_crtc_wait_one_vblank(), but a signal interrupts the wait.
+> + *
+> + * Returns: 0 on success, -ERESTARTSYS if a signal interrupted the wait,
+> + * negative error on other failures.
+> + */
+> +int drm_crtc_wait_one_vblank_interruptible(struct drm_crtc *crtc)
+> +{
+> +	return __drm_crtc_wait_one_vblank(crtc, true);
+> +}
+> +
+>  /**
+>   * drm_crtc_vblank_off - disable vblank events on a CRTC
+>   * @crtc: CRTC in question
+> -- 
+> 2.34.1
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 3d2136adb62b..9886bbd28ea2 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -745,9 +745,8 @@ static int kfd_ioctl_get_clock_counters(struct file *filep,
- 	struct kfd_ioctl_get_clock_counters_args *args = data;
- 	struct kfd_process_device *pdd;
- 
--	mutex_lock(&p->mutex);
-+	/* p->pdds[] is fixed from process creation to teardown, no lock needed */
- 	pdd = kfd_process_device_data_by_id(p, args->gpu_id);
--	mutex_unlock(&p->mutex);
- 	if (pdd)
- 		/* Reading GPU clock counter from KGD */
- 		args->gpu_clock_counter = amdgpu_amdkfd_get_gpu_clock_counter(pdd->dev->adev);
 -- 
-2.43.0
-
+Ville Syrjälä
+Intel
