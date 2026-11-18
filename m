@@ -2,42 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63647606A31C
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Nov 2026 15:11:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E632606A31C
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Nov 2026 15:11:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=VgxLqt7U
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=sWcIU0Vy
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DAAC910FD9D;
-	Wed, 18 Nov 2026 15:11:07 +0000 (UTC)
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010055.outbound.protection.outlook.com [52.101.46.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 472CD10FD9D
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Nov 2026 15:11:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8353510FDA1;
+	Wed, 18 Nov 2026 15:11:08 +0000 (UTC)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011061.outbound.protection.outlook.com
+ [40.93.194.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE40010FD96
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Nov 2026 15:11:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kHPK9hrQ8BMN2EoFG2/n7kX4x8IKIpSqbfgTNKUUZxMecdd6sma2eFw9jOEcIXE6sEUakrS09rZa5EyVKdnFTVPxx0bqtHdEshpLTIyZ7D7Oa/DT7lNwit2iM+nTDF+BCW2O+EAcTACwnGoVMhV2bEYpliYpRhOIGT4FSU4uWODPatLcc/mNRd8mkIUHWrFgcJcgkYG7QB1dxANcndo1XU3bGz56ObiCiBZQ+dmv8RsMw5DQqRKsOikHbYR9VF4TRQZyNrKE5EhWhJhTJjhmNTYwFVIwj8cYw82C0ARRKkfmq52jUpGyoeFDFTlWDiujiDwrdw7RYKTUncjRt1imyw==
+ b=EAezZSKSy/j+41Vh0lAtS1jxEweV1uSJi4a0tiNrDVCzt534LKtfuumRM8YXD44+jhixFP5CnVmRpMcWbyygLOeYNwCaC5+F1Z4hJmWlsWVi9U6N8cA17xPQQzCSBmj7CV2H0YS6yGoWwFoBc4aDvKB13W1YNOv3kyESOfH4xUhgWramb938LgrZ+6p2cOSjiG5yik2E8uL2MhH8iwbW+hhvNtwiqeP1aeeGnFOa5NjXJknpWFVfU0NsSTsHFKfCphYWG+GmwRiTVmA2COJC+/FzMg6Z1vrA6lHsCalo+QvCwa6KYgsz74N70PCgZar+nfuKl/0Z7a9jcQCpxVvrcQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=e6NCoKDSBORvimb4zAOtCzjzau7bue83n2bwD01Z3iI=;
- b=YnzpKgsWuA0C03/HCzvOUbaf/77V+jLSFtI8DrOp9RSgyfzymHHPjq0AMkbHABP0Y8xt5BTVkinrAajb+2Yb+NQ+gC9iGKuN3bzVAnKsBPgvmiJpRUx2sYejTb/FF/k4cpB4FAtNKlaYzFQxfwc3O9/DmUvcc23QXlUu+NKJsLFcBdPhzTM7E4KcMgEVovwlCewIKxy+1XQRccQWploTpXpMUMbNoujXxo91SVtdsfuoSqpZ/jKT2Up0iA4fNcvL1T+w2R45AT/MFg8mg59bdj3QCS7NCkJ46B9SSe99ZsHL64wC+DdRQz7PY6qiOi8wMb8u7y2yDoeIA9YnO0M8Ww==
+ bh=PSnK+E54o/CzekT2LdWgHj+pqv3K5EbTE1JDoAyoadA=;
+ b=k6wk1E7oALEeKHbq4//osHmcQozcOeHushRREaThZzMiszhFVoKV8AINnR2sp18TgtLYwpat/tsRIYTX5swbOmKe8lOxvVF7mr4Ajrg6wB8XbQPk16M6hDhVer8n9Lkv2er326DNm5rJfK2KnXoSCw6R5JzAwPgvPv8ifitlF2GSN6sjCMrI7Bojj9XYGiqNU18CGQiv6rCseSf39WTjUPtYF1uIKI7m6BKMLxPhXkzlL+ZWG0TDS50UUtjVBC1msXWfovtsbF3BfWDo5ZXB1VA/iDgyZPYhYZnaAd0SsZdNyx7mCrz2EFAdj6eJrPi8lAZON7G6KNfvJX1OvfReGg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=e6NCoKDSBORvimb4zAOtCzjzau7bue83n2bwD01Z3iI=;
- b=VgxLqt7Up7veqMJIrfA0SfihzlTf2fgvU+9vx5i52IHYUZv0NIB+NQYqEjs2SLHctaRzypcdbyERwePazaLx9HMj2+glosn6J8IoUAklJe+whQlmjvqlPvLU/nSpZTGM1IWThvZVPXQ7PlBLs5gkEtIFJuXeUIS9unbW6Pk3CDE=
-Received: from PH7PR17CA0047.namprd17.prod.outlook.com (2603:10b6:510:323::29)
- by SA1PR12MB5669.namprd12.prod.outlook.com (2603:10b6:806:237::6)
+ bh=PSnK+E54o/CzekT2LdWgHj+pqv3K5EbTE1JDoAyoadA=;
+ b=sWcIU0VyDCf6AxXjMmWj8aExFaa/NqA4HIoqujyfndTHUdHQO8TH/Cov9TY2dcum8icvgnaF5mzqAcVr0/+DOVIYvBH3B36XCZXycKxfuH0IM55wU55acFMKahD4Vl8/h7IE3KWaYeVf016Gd0UzPT9fFbuYV5cOQiEa+jrMwI8=
+Received: from PH7PR17CA0035.namprd17.prod.outlook.com (2603:10b6:510:323::16)
+ by PH7PR12MB7212.namprd12.prod.outlook.com (2603:10b6:510:207::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Wed, 18 Nov
- 2026 15:10:55 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Wed, 18 Nov
+ 2026 15:10:56 +0000
 Received: from CY6PEPF00000048.namprd03.prod.outlook.com
- (2603:10b6:510:323:cafe::5e) by PH7PR17CA0047.outlook.office365.com
- (2603:10b6:510:323::29) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:510:323:cafe::49) by PH7PR17CA0035.outlook.office365.com
+ (2603:10b6:510:323::16) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Wed,
- 18 Nov 2026 15:10:55 +0000
+ 18 Nov 2026 15:10:56 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -48,19 +49,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  CY6PEPF00000048.mail.protection.outlook.com (10.167.247.133) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Wed, 18 Nov 2026 15:10:54 +0000
+ 15.21.615.4 via Frontend Transport; Wed, 18 Nov 2026 15:10:56 +0000
 Received: from alysaliu-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Wed, 18 Nov
- 2026 09:10:53 -0600
+ 2026 09:10:54 -0600
 From: William Palacek <William.Palacek@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <William.Palacek@amd.com>, <Harish.Kasiviswanathan@amd.com>,
  <Felix.Kuehling@amd.com>, <christian.koenig@amd.com>, <philip.yang@amd.com>
-Subject: [PATCH 3/4] drm/amdgpu: drop mmap_lock between chunks when faulting
- userptr pages
-Date: Wed, 18 Nov 2026 10:10:37 -0500
-Message-ID: <06cc5e1afc886b72367d287a53caa92a1874637a.1795014593.git.William.Palacek@amd.com>
+Subject: [PATCH 4/4] drm/amdkfd: register userptr pages without holding KFD
+ process locks
+Date: Wed, 18 Nov 2026 10:10:38 -0500
+Message-ID: <a6ee74edf60bcb97ee2dafcae8eb3adf3a6ae94f.1795014593.git.William.Palacek@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1795014593.git.William.Palacek@amd.com>
 References: <cover.1795014593.git.William.Palacek@amd.com>
@@ -72,29 +73,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY6PEPF00000048:EE_|SA1PR12MB5669:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7ca40c2e-5aac-4fbf-24b3-08df45862478
+X-MS-TrafficTypeDiagnostic: CY6PEPF00000048:EE_|PH7PR12MB7212:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0b2587af-7428-4f90-6293-08df45862524
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|82310400026|36860700016|1800799024|376014|22082099003|18002099003|11063799006|56012099006|261026140227099003|261028144727099003|261021123027099003|10067099003|261021121427099003|261009223027099003|261102123227099003|261022105027099003|261026121527099003;
-X-Microsoft-Antispam-Message-Info: YqH9ZbJYRdqMTiK6HV6crSw3T2G4J5ueT/D50ym9GBwpou5oLbHV1BiqoiW9LHnb+oxPAhvODaSw5WgYcUDoffw2BOMlCTmZxQ98yYjUk1wGQMMd6WI9v4SCVfH2l+T/F72httgU9vjz9ZBRnA1QqeZ02PjfxoErzR+me0GXA7z3V/gNjy1Ff+/L+DnaZqnW7PPv1YistF/ylQi1+FaBjGLewVb6ByVSMU6758JflyrSJ326zVzgGkqNMOPfG5GIePOfs7VKupeMQ7UUaY77o0GGCH1bx+8u6KitMZtNnAIRifsu/l+65F+jBI0A3Or9TfuUX16P8ryzOC/Clm3CVHaUBumHnVR8vOAjn4JxkMaLt/WT/YhVfJY0uNXzkQgVkh3EFbWEsa55zj9OotQ2t+1TQEidrU5g4SIJgyYmIXoA4PuB2HrBqMmgpDvv4Da2QeIYnHrfi2bb6P3guE444fBGObXFdiNpCOPZvlquQOyklIp+K5p61fcm/5yNUCpkjVw7dlGvzX7PceGSlzidkHypeoJf5JrDGlfgVgtaDPzrxNCcwDNFMgI2EMvrC/fekrL/RuRFB5Agb0dMgFCtrj+34sKAQFuWkG9kBV6ZuoOKVJIrAnWWEzRA/dkH9lbNHNHcdBXLGGQMLjXvNKK3Vw5FSAxYj8LfxqBzjgv7pboPsiLszOZqEBl77ik4ucj8z09Hzjt0ttKUdZKwrjyyYg==
+ ARA:13230040|36860700016|376014|1800799024|82310400026|23010399003|261026140227099003|261022105027099003|261026121527099003|11063799006|56012099006|5023799004|261021123027099003|261021121427099003|10067099003|261009223027099003|261022075727099003|261028144727099003|261102123227099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: plMPFxpEI4l+xsWXpu2OMhM+ZN4TYa+cG7LqJ7Kpy2J/bNSJRtGAUZAfdXPc2sLmEsTtfz21MOm7uxVoFCDS0Olx6WUPOUXhvhLhcoiEHNz+bZPHBEo15w23RUdYuCPNwO/bn9Wm2mhuqrlq+6nwFCKlge/uh9i37lPDUPjDR5wrG7wuL4iZLG/rJYU6v08CUE5vGdzYBrwe2rh0JichiocRYhJrfqCjJ8dZ9LL79xhZcnWOBU2pWpsXNODPuzhX7sVRaZcPo/QTc17S5Zoyg930dQ9DL4hetV5TFXlqvU+dzKrQVj5NUqHP2/2nYMA1SXGU6vYll4HR+5Y2UT6m15Wwc6IA8nphK3Ycka+A05tSpuFJ7Mn6hObR98axuyEWGBFi8GyGh2q6T1nTyqvdEmYlWG1xmBOHGR6UhL1vwqc+TypooGBJFDOnffig807Jm+EP7/XrYCBSNFbZpyMoEBjjKzZEjrW3nIpfLCBhf8Eq4zL7z/115mMBTjhYapcdouiT3fqGgfNuHEsNseeNBrXBDIEzHgu52ekxuRZRzcncmb+PBoLJdaahbYeUzAq6lgJpXPBg7Cb38WWAUguTUhxh3+6R1OWhUXIVtzE8+h2ptvGRPaMYfCfJZlSoBYIOF8srBMsu8e13RoAMGiUitS0UoticxBXvZYrEkk0IApcXyUmNv1G+EqhJJKQzo3SbIQavhWSm9Tzto79tDGmp3w==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(82310400026)(36860700016)(1800799024)(376014)(22082099003)(18002099003)(11063799006)(56012099006)(261026140227099003)(261028144727099003)(261021123027099003)(10067099003)(261021121427099003)(261009223027099003)(261102123227099003)(261022105027099003)(261026121527099003);
+ SFS:(13230040)(36860700016)(376014)(1800799024)(82310400026)(23010399003)(261026140227099003)(261022105027099003)(261026121527099003)(11063799006)(56012099006)(5023799004)(261021123027099003)(261021121427099003)(10067099003)(261009223027099003)(261022075727099003)(261028144727099003)(261102123227099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 4NT28Uyf+0USuH230fMKFHfybcBtuH5M3uADAeyvb8Asi9H6E14LHYpUzShSRP3T8t/UM1T7PStkEAhdQ0sWQTt5pIqu4wl9QZ8wtzdNYk9hPyY5cyoPnGLgvOw1P2+bEbwFwJnZr7bUbHCZeYrtaO4f9iw8LwlHvmBVT/djlhsPOvJNDF1jjKZyCVk0CK/oKhwWhRZFd5plET49y2+wtoTczwBdz1d+yizkYP9cAQQT9G6tXIVwl50//8XrceixANBA5DcA3ntkdHF9s6jDnbULHHt9U37ItfyhvgVP/nhawpGRVGryhCbsiawStBpwlDDoDcF+RJTxIyXF65zcOIWRoYyRufrpfoQ5TuUjzLRMWaH8HCGLwr1+ZrC40oOLNU9jn3DZQXlz1EFDKseBACS7f8FlN143Amgpy9L3byioyga9J3Tm32MOWf/V7CuQ
+X-MS-Exchange-AntiSpam-MessageData-0: ampydGw/Mne8T9pQxLuL4fuKWdMk1c8VSyusQux/+3B9fa18CUSoGZQvPvaN65A4MK+5IE+W60/sqRxjDQaB7y7cd5QQjFX4jBbPr7x61/cFYzWSWW8QOKHVRjSOKAQuC1HuVR+K9m+koHO92dGfS1HlxAcoCadzE+5sZ36RouKqHDRutMVQvR5CWGbcB0+LRGUZi9SRcN1C2Ky1YMW/2y+wgd1Qh/q1wwVUEV4mygD/oyuCi/4ZJbBBIlH8VevgVfCWh6qHD5oRUxgwiMqr7XcoyJ0INxT1uZT9IMLH/N7hgRXyVI78m4JXVymTFH63yWXAAbBktnAHubNih7I3JoRPWxgJIWF34TZnJZ6YS/HSUp0nrXFZWX2gLttFkjDgOr+jNoXWZpG7zghCV0whM3wGa/9WKeFdG07pIWXridNvO3D7i+Zoa36RI9SsgTKl
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 15:10:54.8804 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7ca40c2e-5aac-4fbf-24b3-08df45862478
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 15:10:56.0056 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0b2587af-7428-4f90-6293-08df45862524
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CY6PEPF00000048.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB5669
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7212
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,100 +113,172 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-amdgpu_ttm_tt_get_user_pages() holds mmap_read_lock across
-hmm_range_fault() for the whole userptr range. Faulting in a 32 GiB
-range takes seconds, and every mmap_lock writer of the process (mmap,
-munmap, madvise, the KFD SVM flush at each alloc ioctl) waits that long.
+Registering a userptr BO faults in its whole range while holding
+p->mutex (alloc ioctl) and process_info->lock (init_user_pages). For a
+32 GiB hipHostMalloc this takes seconds, and other threads of the
+process block on both locks in their own alloc and map ioctls, stalling
+GPU submission on every stream.
 
-Fault the range in 2 MiB chunks and drop mmap_read_lock between them
-when the caller passes its mm. A change to the range while the lock is
-dropped bumps the notifier sequence, which hmm_range_fault() checks
-before each chunk and callers check before using the pages. kfd_svm
-passes NULL and keeps holding the lock across the whole range.
+Allocate the BO without p->mutex; it has no handle until the ioctl
+takes the lock again, so no other thread can reach it. In
+init_user_pages, fault in and validate the pages without
+process_info->lock, then add the BO to userptr_valid_list under
+process_info->lock and notifier_lock only if the range was not
+invalidated meanwhile. Otherwise return -EAGAIN, which user mode
+retries; an invalidation after that point is handled by the restore
+worker as before.
 
 Signed-off-by: William Palacek <William.Palacek@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c | 14 ++++++++++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.h |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c |  2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c    |  2 +-
- 4 files changed, 15 insertions(+), 5 deletions(-)
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 45 ++++++++++++-------
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  7 +++
+ 2 files changed, 35 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
-index a7d13e337d84..9f80ffaa0607 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
-@@ -165,12 +165,17 @@ void amdgpu_hmm_unregister(struct amdgpu_bo *bo)
- 	bo->notifier.mm = NULL;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index 565ecd7e012a..01a34ee5f316 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -1062,12 +1062,12 @@ static void remove_kgd_mem_from_kfd_bo_list(struct kgd_mem *mem,
+ /* Initializes user pages. It registers the MMU notifier and validates
+  * the userptr BO in the GTT domain.
+  *
+- * The BO must already be on the userptr_valid_list. Otherwise an
+- * eviction and restore may happen that leaves the new BO unmapped
+- * with the user mode queues running.
+- *
+- * Takes the process_info->lock to protect against concurrent restore
+- * workers.
++ * Pages are faulted in and validated without process_info->lock, so a
++ * large range does not block other threads of the process. The BO is
++ * added to the userptr_valid_list only if no invalidation happened since
++ * its pages were read; otherwise an eviction and restore could leave it
++ * stale with the user mode queues running. A lost race returns -EAGAIN
++ * and user mode retries the ioctl.
+  *
+  * Returns 0 for success, negative errno for errors.
+  */
+@@ -1080,19 +1080,17 @@ static int init_user_pages(struct kgd_mem *mem, uint64_t user_addr,
+ 	struct amdgpu_hmm_range *range;
+ 	int ret = 0;
+ 
+-	mutex_lock(&process_info->lock);
+-
+ 	ret = amdgpu_ttm_tt_set_userptr(&bo->tbo, user_addr, 0);
+ 	if (ret) {
+ 		pr_err("%s: Failed to set userptr: %d\n", __func__, ret);
+-		goto out;
++		return ret;
+ 	}
+ 
+ 	ret = amdgpu_hmm_register(bo, user_addr);
+ 	if (ret) {
+ 		pr_err("%s: Failed to register MMU notifier: %d\n",
+ 		       __func__, ret);
+-		goto out;
++		return ret;
+ 	}
+ 
+ 	if (criu_resume) {
+@@ -1102,10 +1100,10 @@ static int init_user_pages(struct kgd_mem *mem, uint64_t user_addr,
+ 		 * later stage when it is scheduled by another ioctl called by
+ 		 * CRIU master process for the target pid for restore.
+ 		 */
++		add_kgd_mem_to_kfd_bo_list(mem, process_info, true);
+ 		mutex_lock(&process_info->notifier_lock);
+ 		mem->invalid++;
+ 		mutex_unlock(&process_info->notifier_lock);
+-		mutex_unlock(&process_info->lock);
+ 		return 0;
+ 	}
+ 
+@@ -1117,12 +1115,11 @@ static int init_user_pages(struct kgd_mem *mem, uint64_t user_addr,
+ 
+ 	ret = amdgpu_ttm_tt_get_user_pages(bo, range);
+ 	if (ret) {
+-		amdgpu_hmm_range_free(range);
+ 		if (ret == -EAGAIN)
+ 			pr_debug("Failed to get user pages, try again\n");
+ 		else
+ 			pr_err("%s: Failed to get user pages: %d\n", __func__, ret);
+-		goto unregister_out;
++		goto release_out;
+ 	}
+ 
+ 	ret = amdgpu_bo_reserve(bo, true);
+@@ -1138,14 +1135,27 @@ static int init_user_pages(struct kgd_mem *mem, uint64_t user_addr,
+ 	if (ret)
+ 		pr_err("%s: failed to validate BO\n", __func__);
+ 	amdgpu_bo_unreserve(bo);
++	if (ret)
++		goto release_out;
++
++	mutex_lock(&process_info->lock);
++	mutex_lock(&process_info->notifier_lock);
++	if (amdgpu_hmm_range_valid(range)) {
++		/* Earlier invalidations completed before the pages were read */
++		mem->invalid = 0;
++		list_add_tail(&mem->validate_list,
++			      &process_info->userptr_valid_list);
++	} else {
++		ret = -EAGAIN;
++	}
++	mutex_unlock(&process_info->notifier_lock);
++	mutex_unlock(&process_info->lock);
+ 
+ release_out:
+ 	amdgpu_hmm_range_free(range);
+ unregister_out:
+ 	if (ret)
+ 		amdgpu_hmm_unregister(bo);
+-out:
+-	mutex_unlock(&process_info->lock);
+ 	return ret;
  }
  
-+/*
-+ * The caller holds mmap_read_lock. If @mm is non-NULL it is dropped between
-+ * 2 MiB chunks, so faulting a large range blocks mmap_lock writers for at
-+ * most one chunk; the notifier sequence catches any change made meanwhile.
-+ */
- int amdgpu_hmm_range_get_pages(struct mmu_interval_notifier *notifier,
- 			       uint64_t start, uint64_t npages, bool readonly,
--			       void *owner,
-+			       void *owner, struct mm_struct *mm,
- 			       struct amdgpu_hmm_range *range)
- {
--	const u64 max_bytes = SZ_2G;
-+	const u64 max_bytes = mm ? SZ_2M : SZ_2G;
+@@ -1875,7 +1885,8 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
+ 	(*mem)->mapped_to_gpu_memory = 0;
+ 	(*mem)->process_info = avm->process_info;
  
- 	struct hmm_range *hmm_range = &range->hmm_range;
- 	unsigned long *pfns;
-@@ -205,6 +210,11 @@ int amdgpu_hmm_range_get_pages(struct mmu_interval_notifier *notifier,
+-	add_kgd_mem_to_kfd_bo_list(*mem, avm->process_info, user_addr);
++	if (!user_addr)
++		add_kgd_mem_to_kfd_bo_list(*mem, avm->process_info, false);
  
- 		if (hmm_range->end == end)
- 			break;
-+		if (mm) {
-+			mmap_read_unlock(mm);
-+			cond_resched();
-+			mmap_read_lock(mm);
-+		}
- 		hmm_range->hmm_pfns += max_bytes >> PAGE_SHIFT;
- 		hmm_range->start = hmm_range->end;
- 	} while (hmm_range->end < end);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.h
-index 140bc9cd57b4..4d1c96ad2704 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.h
-@@ -38,7 +38,7 @@ struct amdgpu_hmm_range {
+ 	if (user_addr) {
+ 		pr_debug("creating userptr BO for user_addr = %llx\n", user_addr);
+@@ -1907,10 +1918,10 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
  
- int amdgpu_hmm_range_get_pages(struct mmu_interval_notifier *notifier,
- 			       uint64_t start, uint64_t npages, bool readonly,
--			       void *owner,
-+			       void *owner, struct mm_struct *mm,
- 			       struct amdgpu_hmm_range *range);
+ 	return 0;
  
- #if defined(CONFIG_HMM_MIRROR)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index b0672f1747ee..fae845632169 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -793,7 +793,7 @@ int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo,
+-allocate_init_user_pages_failed:
+ err_pin_bo:
+ err_validate_bo:
+ 	remove_kgd_mem_from_kfd_bo_list(*mem, avm->process_info);
++allocate_init_user_pages_failed:
+ 	drm_gem_handle_delete(adev->kfd.client.file, (*mem)->gem_handle);
+ err_gem_handle_create:
+ 	drm_vma_node_revoke(&gobj->vma_node, drm_priv);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index 9886bbd28ea2..acd4dd0f2f06 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -1228,10 +1228,17 @@ static int kfd_ioctl_alloc_memory_of_gpu(struct file *filep,
+ 		}
+ 	}
  
- 	readonly = amdgpu_ttm_tt_is_readonly(ttm);
- 	r = amdgpu_hmm_range_get_pages(&bo->notifier, start, ttm->num_pages,
--				       readonly, NULL, range);
-+				       readonly, NULL, mm, range);
- out_unlock:
- 	mmap_read_unlock(mm);
- 	if (r)
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 3f32507e2aae..8d7de7bb39e0 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -1892,7 +1892,7 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
- 			range = amdgpu_hmm_range_alloc(NULL);
- 			if (likely(range))
- 				r = amdgpu_hmm_range_get_pages(&prange->notifier, addr, npages,
--							       readonly, owner, range);
-+							       readonly, owner, NULL, range);
- 			else
- 				r = -ENOMEM;
- 			WRITE_ONCE(p->svms.faulting_task, NULL);
++	/*
++	 * Not under p->mutex: a userptr BO faults in its whole range here.
++	 * The BO has no handle yet, so nothing else can reach it, and pdd
++	 * lives until process teardown.
++	 */
++	mutex_unlock(&p->mutex);
+ 	err = amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
+ 		dev->adev, args->va_addr, args->size,
+ 		pdd->drm_priv, (struct kgd_mem **) &mem, &offset,
+ 		flags, false);
++	mutex_lock(&p->mutex);
+ 
+ 	if (err)
+ 		goto err_unlock;
 -- 
 2.43.0
 
