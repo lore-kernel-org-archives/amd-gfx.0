@@ -2,43 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E632606A31C
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Nov 2026 15:11:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87866606A333
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Nov 2026 15:11:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=sWcIU0Vy
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ChJKD/m+
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8353510FDA1;
-	Wed, 18 Nov 2026 15:11:08 +0000 (UTC)
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011061.outbound.protection.outlook.com
- [40.93.194.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE40010FD96
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Nov 2026 15:11:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB06910FD96;
+	Wed, 18 Nov 2026 15:11:13 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011052.outbound.protection.outlook.com [52.101.52.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 571DE10FD96
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Nov 2026 15:11:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EAezZSKSy/j+41Vh0lAtS1jxEweV1uSJi4a0tiNrDVCzt534LKtfuumRM8YXD44+jhixFP5CnVmRpMcWbyygLOeYNwCaC5+F1Z4hJmWlsWVi9U6N8cA17xPQQzCSBmj7CV2H0YS6yGoWwFoBc4aDvKB13W1YNOv3kyESOfH4xUhgWramb938LgrZ+6p2cOSjiG5yik2E8uL2MhH8iwbW+hhvNtwiqeP1aeeGnFOa5NjXJknpWFVfU0NsSTsHFKfCphYWG+GmwRiTVmA2COJC+/FzMg6Z1vrA6lHsCalo+QvCwa6KYgsz74N70PCgZar+nfuKl/0Z7a9jcQCpxVvrcQ==
+ b=ciNrgVwlJfCEEphb2zhF8nGCtmUg3weXV/t9JK7iBN/hsIEm25ezkdeYJwDE/k+DwS7hfyE4xkdCn5hW571266tXDTVfaCo7l8YqO/mncGVByqAdQMsNym1f4Ix8VLXTI+1nYDEGn0oAzQgbKA9xP6RWm1EYzhByoSWsV9gE1OCLWFCjIhXwb7Q/GOzZXyDPkQUdv9Zf5zI9ENB6jjwjZLYZ6CR1sCDVEGklTgBIxjdAfz1chu0W8dJAPoUDkO+mVRSJ93mp8HXy2IgFQu6cY5jNZ6Tlzx16xZpb3K3JoFsmSiV0twt56aW5EWjTn+c07ei7AV8nUV1wrwjSM2pt/w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PSnK+E54o/CzekT2LdWgHj+pqv3K5EbTE1JDoAyoadA=;
- b=k6wk1E7oALEeKHbq4//osHmcQozcOeHushRREaThZzMiszhFVoKV8AINnR2sp18TgtLYwpat/tsRIYTX5swbOmKe8lOxvVF7mr4Ajrg6wB8XbQPk16M6hDhVer8n9Lkv2er326DNm5rJfK2KnXoSCw6R5JzAwPgvPv8ifitlF2GSN6sjCMrI7Bojj9XYGiqNU18CGQiv6rCseSf39WTjUPtYF1uIKI7m6BKMLxPhXkzlL+ZWG0TDS50UUtjVBC1msXWfovtsbF3BfWDo5ZXB1VA/iDgyZPYhYZnaAd0SsZdNyx7mCrz2EFAdj6eJrPi8lAZON7G6KNfvJX1OvfReGg==
+ bh=YuXgniGsUutDj/6jQ2NxWkzQPvGnWP1zi74zOlOfRSg=;
+ b=efMWuyLpUgNVKnajfwYJpUqWtUcU3GN+7hqeafBh68gBxgyZ0f/9r1BFyQt3mxPAOrpntdAboO4AtDHk385UKmyvmtNthhtdmBM+U1Rpq0NP3wKCTeep6Y8qU6L/gcahzbao3I7g+1XX9jnMub0t9jSL76KKtWKmPxjIGMmMdHwlOQpWeDfDUaBqdWulc9N04klaAry2fdReytE63sh08T76XiW94rnhARxW1I35xERTmLPuqaDfFE0AX+/zdUWwwZVyM0Xn7TnciNj5conjaofEJBvGx0knCObNKftEANf1FfUEYDsK4iRGaFNwRthULKJ0+dySeSaxbnGmC1hpOg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PSnK+E54o/CzekT2LdWgHj+pqv3K5EbTE1JDoAyoadA=;
- b=sWcIU0VyDCf6AxXjMmWj8aExFaa/NqA4HIoqujyfndTHUdHQO8TH/Cov9TY2dcum8icvgnaF5mzqAcVr0/+DOVIYvBH3B36XCZXycKxfuH0IM55wU55acFMKahD4Vl8/h7IE3KWaYeVf016Gd0UzPT9fFbuYV5cOQiEa+jrMwI8=
-Received: from PH7PR17CA0035.namprd17.prod.outlook.com (2603:10b6:510:323::16)
- by PH7PR12MB7212.namprd12.prod.outlook.com (2603:10b6:510:207::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Wed, 18 Nov
- 2026 15:10:56 +0000
-Received: from CY6PEPF00000048.namprd03.prod.outlook.com
- (2603:10b6:510:323:cafe::49) by PH7PR17CA0035.outlook.office365.com
- (2603:10b6:510:323::16) with Microsoft SMTP Server (version=TLS1_3,
+ bh=YuXgniGsUutDj/6jQ2NxWkzQPvGnWP1zi74zOlOfRSg=;
+ b=ChJKD/m+dzpO/Omu5J3PJpFxWwBrbhl2qRSAy7TAdJgzp5drrAVM+kDJwnZUdabvaFuNr18bZeYOtUFvPaSGz6Zuu5IuDpMfBR4wXRjD0rY92ZnRCaIXfMM/Lso1LOUUt9W3TNXzHy34Q9WI5WHIaOc9Q7JUhk+cwkurRBCjqf8=
+Received: from PH7P220CA0050.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:32b::28)
+ by DS0PR12MB7512.namprd12.prod.outlook.com (2603:10b6:8:13a::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Wed, 18 Nov
+ 2026 15:10:57 +0000
+Received: from CY6PEPF0000004D.namprd03.prod.outlook.com
+ (2603:10b6:510:32b:cafe::47) by PH7P220CA0050.outlook.office365.com
+ (2603:10b6:510:32b::28) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Wed,
- 18 Nov 2026 15:10:56 +0000
+ 18 Nov 2026 15:10:54 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -47,21 +46,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- CY6PEPF00000048.mail.protection.outlook.com (10.167.247.133) with Microsoft
+ CY6PEPF0000004D.mail.protection.outlook.com (10.167.247.138) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Wed, 18 Nov 2026 15:10:56 +0000
+ 15.21.615.4 via Frontend Transport; Wed, 18 Nov 2026 15:10:54 +0000
 Received: from alysaliu-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Wed, 18 Nov
- 2026 09:10:54 -0600
+ 2026 09:10:53 -0600
 From: William Palacek <William.Palacek@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <William.Palacek@amd.com>, <Harish.Kasiviswanathan@amd.com>,
  <Felix.Kuehling@amd.com>, <christian.koenig@amd.com>, <philip.yang@amd.com>
-Subject: [PATCH 4/4] drm/amdkfd: register userptr pages without holding KFD
- process locks
-Date: Wed, 18 Nov 2026 10:10:38 -0500
-Message-ID: <a6ee74edf60bcb97ee2dafcae8eb3adf3a6ae94f.1795014593.git.William.Palacek@amd.com>
+Subject: [PATCH 2/4] drm/amdkfd: don't take p->mutex in
+ AMDKFD_IOC_GET_CLOCK_COUNTERS
+Date: Wed, 18 Nov 2026 10:10:36 -0500
+Message-ID: <459bad3a225aa415fa359d638046f8cd7d26b0ab.1795014593.git.William.Palacek@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1795014593.git.William.Palacek@amd.com>
 References: <cover.1795014593.git.William.Palacek@amd.com>
@@ -73,29 +72,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY6PEPF00000048:EE_|PH7PR12MB7212:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0b2587af-7428-4f90-6293-08df45862524
+X-MS-TrafficTypeDiagnostic: CY6PEPF0000004D:EE_|DS0PR12MB7512:EE_
+X-MS-Office365-Filtering-Correlation-Id: 28be316b-4fba-477c-ff91-08df45862435
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|376014|1800799024|82310400026|23010399003|261026140227099003|261022105027099003|261026121527099003|11063799006|56012099006|5023799004|261021123027099003|261021121427099003|10067099003|261009223027099003|261022075727099003|261028144727099003|261102123227099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: plMPFxpEI4l+xsWXpu2OMhM+ZN4TYa+cG7LqJ7Kpy2J/bNSJRtGAUZAfdXPc2sLmEsTtfz21MOm7uxVoFCDS0Olx6WUPOUXhvhLhcoiEHNz+bZPHBEo15w23RUdYuCPNwO/bn9Wm2mhuqrlq+6nwFCKlge/uh9i37lPDUPjDR5wrG7wuL4iZLG/rJYU6v08CUE5vGdzYBrwe2rh0JichiocRYhJrfqCjJ8dZ9LL79xhZcnWOBU2pWpsXNODPuzhX7sVRaZcPo/QTc17S5Zoyg930dQ9DL4hetV5TFXlqvU+dzKrQVj5NUqHP2/2nYMA1SXGU6vYll4HR+5Y2UT6m15Wwc6IA8nphK3Ycka+A05tSpuFJ7Mn6hObR98axuyEWGBFi8GyGh2q6T1nTyqvdEmYlWG1xmBOHGR6UhL1vwqc+TypooGBJFDOnffig807Jm+EP7/XrYCBSNFbZpyMoEBjjKzZEjrW3nIpfLCBhf8Eq4zL7z/115mMBTjhYapcdouiT3fqGgfNuHEsNseeNBrXBDIEzHgu52ekxuRZRzcncmb+PBoLJdaahbYeUzAq6lgJpXPBg7Cb38WWAUguTUhxh3+6R1OWhUXIVtzE8+h2ptvGRPaMYfCfJZlSoBYIOF8srBMsu8e13RoAMGiUitS0UoticxBXvZYrEkk0IApcXyUmNv1G+EqhJJKQzo3SbIQavhWSm9Tzto79tDGmp3w==
+ ARA:13230040|36860700016|23010399003|82310400026|1800799024|376014|261102123227099003|261028144727099003|261022105027099003|261021121427099003|261021123027099003|261026121527099003|261026140227099003|11063799006|5023799004|56012099006|10067099003|18002099003|22082099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info: DK4FgwtmFRLrKmZFilwpMQGdYGZtbCU6twnxKLngwf6vtAuLqRSnam6v3/mye8QlgN6AKSPABTTKhGwz/dMk/VkULfDeGegrBwc5jqj5mAJ3Wxs3s1XQMyeUF4V9lUdsP+kud0gH3oe/gqGseeiHinVn4fZgWJzX+fDRRtXkkUugIh/IWb4yoaXCAreEgkvf8bdUt+UQGCtaK6DH/lfD3OgQqnvsuuu2Owb2Zy6aGCCMW3dj7csv6bUuqpSKeUgZddZ5LdRp4nq2p2IBYTjW7JGUtRhvRrI8prLxFpywOUUDqrTpXCxIpRuVqurq35911UzBQDlJ2TxpmP9FUA0o8fwVaBT3PI6z8Zxiq1uKpvfjFqOVRAWdqKH6FxEbYV1u3mSh1yZQsispuO7yyOiGDhHu7IOmXNi+EQ9Fj5Mf4OAOghZ2nBCmV1q2pjWLwHsDDyEMv5zfTBSMnor44xwbxPhOpmCg2tQPKWfXhdRAqcn6Cu/NilkTQ9WnwvPCv3KkFWmj08RqBfSwNgvAJaAydQmU0DlWiC2SykaBgcMcd+VpbPzc8lFYt4CkUaTAeaHgTPR0/QvafzJHmpPUzWL/qR4lk1wqnSICHb2Hul9sODlQK8CxOK+mB7wSxrATseZu724c/LM8nKBqrSRHjNJ7z8NyFFNifD3w60/XwAqua/uNE1f9LOtDPXeXMsu5PTgw1FJ+kYZZZcFu+6A37yXF8A==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(376014)(1800799024)(82310400026)(23010399003)(261026140227099003)(261022105027099003)(261026121527099003)(11063799006)(56012099006)(5023799004)(261021123027099003)(261021121427099003)(10067099003)(261009223027099003)(261022075727099003)(261028144727099003)(261102123227099003)(18002099003)(22082099003);
+ SFS:(13230040)(36860700016)(23010399003)(82310400026)(1800799024)(376014)(261102123227099003)(261028144727099003)(261022105027099003)(261021121427099003)(261021123027099003)(261026121527099003)(261026140227099003)(11063799006)(5023799004)(56012099006)(10067099003)(18002099003)(22082099003)(261009223027099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: ampydGw/Mne8T9pQxLuL4fuKWdMk1c8VSyusQux/+3B9fa18CUSoGZQvPvaN65A4MK+5IE+W60/sqRxjDQaB7y7cd5QQjFX4jBbPr7x61/cFYzWSWW8QOKHVRjSOKAQuC1HuVR+K9m+koHO92dGfS1HlxAcoCadzE+5sZ36RouKqHDRutMVQvR5CWGbcB0+LRGUZi9SRcN1C2Ky1YMW/2y+wgd1Qh/q1wwVUEV4mygD/oyuCi/4ZJbBBIlH8VevgVfCWh6qHD5oRUxgwiMqr7XcoyJ0INxT1uZT9IMLH/N7hgRXyVI78m4JXVymTFH63yWXAAbBktnAHubNih7I3JoRPWxgJIWF34TZnJZ6YS/HSUp0nrXFZWX2gLttFkjDgOr+jNoXWZpG7zghCV0whM3wGa/9WKeFdG07pIWXridNvO3D7i+Zoa36RI9SsgTKl
+X-MS-Exchange-AntiSpam-MessageData-0: shGicmJKaD0LXhA2Xnq1EBbG6BkeDiN4O9i/YmzcN9TBz0NW39MoNBa2Z9iT/p4td2LZ05xc2XTe0I6Csq1GeBYDSSVDnQgbFuZ5CMldD65ombxu2GPKQwA5lDXXRWq/SIYrzfK+u58NxcybawwPtwdZm4wAcrBuru3rkNcp8IEzxIVD5HP0+MkHgsSetq2s4FAvIOI4tW2fiOFtMBpUOzcWibGyqXikwx852YM4sMKNt2w+LvvUVZDhqujkYZXBsUFpQ3jDpBjOx7C5r4XYvyrbDDTQHvh46eTMA2KZ1VZZCFLgwAhiElX+RdcTjstkb48xA8WgpC7E5TbdBmFSBCmrcSjFly4E/YElk1GznpP14Nd3Dg2YB9hpFXlFPBcAQ7mIHInvOfLlRDvUgPAsbBN3Ualn6mjqQxwZyITOtoWICGLCLGmBhc1ai+gTZO5M
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 15:10:56.0056 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0b2587af-7428-4f90-6293-08df45862524
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 15:10:54.4464 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 28be316b-4fba-477c-ff91-08df45862435
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY6PEPF00000048.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CY6PEPF0000004D.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7212
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7512
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,172 +112,37 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Registering a userptr BO faults in its whole range while holding
-p->mutex (alloc ioctl) and process_info->lock (init_user_pages). For a
-32 GiB hipHostMalloc this takes seconds, and other threads of the
-process block on both locks in their own alloc and map ioctls, stalling
-GPU submission on every stream.
+The ioctl takes p->mutex only to look up the pdd. p->pdds[] is filled
+in create_process() before the process is published and freed only at
+teardown, and the clock read that follows already uses the pdd without
+the lock, so the lock protects nothing.
 
-Allocate the BO without p->mutex; it has no handle until the ioctl
-takes the lock again, so no other thread can reach it. In
-init_user_pages, fault in and validate the pages without
-process_info->lock, then add the BO to userptr_valid_list under
-process_info->lock and notifier_lock only if the range was not
-invalidated meanwhile. Otherwise return -EAGAIN, which user mode
-retries; an invalidation after that point is handled by the restore
-worker as before.
+It does serialize every clock counter query of the process behind
+whatever holds p->mutex. Threads submitting GPU work call this ioctl
+(seen in a PyTorch workload on MI300X), so while one thread registered
+and mapped a 32 GiB userptr, the others waited in it (205 ms measured
+for one call).
 
 Signed-off-by: William Palacek <William.Palacek@amd.com>
 ---
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 45 ++++++++++++-------
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  7 +++
- 2 files changed, 35 insertions(+), 17 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 565ecd7e012a..01a34ee5f316 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -1062,12 +1062,12 @@ static void remove_kgd_mem_from_kfd_bo_list(struct kgd_mem *mem,
- /* Initializes user pages. It registers the MMU notifier and validates
-  * the userptr BO in the GTT domain.
-  *
-- * The BO must already be on the userptr_valid_list. Otherwise an
-- * eviction and restore may happen that leaves the new BO unmapped
-- * with the user mode queues running.
-- *
-- * Takes the process_info->lock to protect against concurrent restore
-- * workers.
-+ * Pages are faulted in and validated without process_info->lock, so a
-+ * large range does not block other threads of the process. The BO is
-+ * added to the userptr_valid_list only if no invalidation happened since
-+ * its pages were read; otherwise an eviction and restore could leave it
-+ * stale with the user mode queues running. A lost race returns -EAGAIN
-+ * and user mode retries the ioctl.
-  *
-  * Returns 0 for success, negative errno for errors.
-  */
-@@ -1080,19 +1080,17 @@ static int init_user_pages(struct kgd_mem *mem, uint64_t user_addr,
- 	struct amdgpu_hmm_range *range;
- 	int ret = 0;
- 
--	mutex_lock(&process_info->lock);
--
- 	ret = amdgpu_ttm_tt_set_userptr(&bo->tbo, user_addr, 0);
- 	if (ret) {
- 		pr_err("%s: Failed to set userptr: %d\n", __func__, ret);
--		goto out;
-+		return ret;
- 	}
- 
- 	ret = amdgpu_hmm_register(bo, user_addr);
- 	if (ret) {
- 		pr_err("%s: Failed to register MMU notifier: %d\n",
- 		       __func__, ret);
--		goto out;
-+		return ret;
- 	}
- 
- 	if (criu_resume) {
-@@ -1102,10 +1100,10 @@ static int init_user_pages(struct kgd_mem *mem, uint64_t user_addr,
- 		 * later stage when it is scheduled by another ioctl called by
- 		 * CRIU master process for the target pid for restore.
- 		 */
-+		add_kgd_mem_to_kfd_bo_list(mem, process_info, true);
- 		mutex_lock(&process_info->notifier_lock);
- 		mem->invalid++;
- 		mutex_unlock(&process_info->notifier_lock);
--		mutex_unlock(&process_info->lock);
- 		return 0;
- 	}
- 
-@@ -1117,12 +1115,11 @@ static int init_user_pages(struct kgd_mem *mem, uint64_t user_addr,
- 
- 	ret = amdgpu_ttm_tt_get_user_pages(bo, range);
- 	if (ret) {
--		amdgpu_hmm_range_free(range);
- 		if (ret == -EAGAIN)
- 			pr_debug("Failed to get user pages, try again\n");
- 		else
- 			pr_err("%s: Failed to get user pages: %d\n", __func__, ret);
--		goto unregister_out;
-+		goto release_out;
- 	}
- 
- 	ret = amdgpu_bo_reserve(bo, true);
-@@ -1138,14 +1135,27 @@ static int init_user_pages(struct kgd_mem *mem, uint64_t user_addr,
- 	if (ret)
- 		pr_err("%s: failed to validate BO\n", __func__);
- 	amdgpu_bo_unreserve(bo);
-+	if (ret)
-+		goto release_out;
-+
-+	mutex_lock(&process_info->lock);
-+	mutex_lock(&process_info->notifier_lock);
-+	if (amdgpu_hmm_range_valid(range)) {
-+		/* Earlier invalidations completed before the pages were read */
-+		mem->invalid = 0;
-+		list_add_tail(&mem->validate_list,
-+			      &process_info->userptr_valid_list);
-+	} else {
-+		ret = -EAGAIN;
-+	}
-+	mutex_unlock(&process_info->notifier_lock);
-+	mutex_unlock(&process_info->lock);
- 
- release_out:
- 	amdgpu_hmm_range_free(range);
- unregister_out:
- 	if (ret)
- 		amdgpu_hmm_unregister(bo);
--out:
--	mutex_unlock(&process_info->lock);
- 	return ret;
- }
- 
-@@ -1875,7 +1885,8 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
- 	(*mem)->mapped_to_gpu_memory = 0;
- 	(*mem)->process_info = avm->process_info;
- 
--	add_kgd_mem_to_kfd_bo_list(*mem, avm->process_info, user_addr);
-+	if (!user_addr)
-+		add_kgd_mem_to_kfd_bo_list(*mem, avm->process_info, false);
- 
- 	if (user_addr) {
- 		pr_debug("creating userptr BO for user_addr = %llx\n", user_addr);
-@@ -1907,10 +1918,10 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
- 
- 	return 0;
- 
--allocate_init_user_pages_failed:
- err_pin_bo:
- err_validate_bo:
- 	remove_kgd_mem_from_kfd_bo_list(*mem, avm->process_info);
-+allocate_init_user_pages_failed:
- 	drm_gem_handle_delete(adev->kfd.client.file, (*mem)->gem_handle);
- err_gem_handle_create:
- 	drm_vma_node_revoke(&gobj->vma_node, drm_priv);
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 9886bbd28ea2..acd4dd0f2f06 100644
+index 3d2136adb62b..9886bbd28ea2 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -1228,10 +1228,17 @@ static int kfd_ioctl_alloc_memory_of_gpu(struct file *filep,
- 		}
- 	}
+@@ -745,9 +745,8 @@ static int kfd_ioctl_get_clock_counters(struct file *filep,
+ 	struct kfd_ioctl_get_clock_counters_args *args = data;
+ 	struct kfd_process_device *pdd;
  
-+	/*
-+	 * Not under p->mutex: a userptr BO faults in its whole range here.
-+	 * The BO has no handle yet, so nothing else can reach it, and pdd
-+	 * lives until process teardown.
-+	 */
-+	mutex_unlock(&p->mutex);
- 	err = amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
- 		dev->adev, args->va_addr, args->size,
- 		pdd->drm_priv, (struct kgd_mem **) &mem, &offset,
- 		flags, false);
-+	mutex_lock(&p->mutex);
- 
- 	if (err)
- 		goto err_unlock;
+-	mutex_lock(&p->mutex);
++	/* p->pdds[] is fixed from process creation to teardown, no lock needed */
+ 	pdd = kfd_process_device_data_by_id(p, args->gpu_id);
+-	mutex_unlock(&p->mutex);
+ 	if (pdd)
+ 		/* Reading GPU clock counter from KGD */
+ 		args->gpu_clock_counter = amdgpu_amdkfd_get_gpu_clock_counter(pdd->dev->adev);
 -- 
 2.43.0
 
