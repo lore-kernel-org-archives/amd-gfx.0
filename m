@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FCE560A382C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6EC560A3812
 	for <amd-gfx@archiver.kernel.org>; Wed, 18 Nov 2026 22:37:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Nz3LaXRL
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=wxDqbbgB
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C0ED1112098;
-	Wed, 18 Nov 2026 22:37:37 +0000 (UTC)
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011002.outbound.protection.outlook.com
- [40.93.194.2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E02710E0B8
+	by gabe.freedesktop.org (Postfix) with ESMTP id 461741120A6;
+	Wed, 18 Nov 2026 22:37:38 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013029.outbound.protection.outlook.com
+ [40.107.201.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00E6D112098
  for <amd-gfx@lists.freedesktop.org>; Wed, 18 Nov 2026 22:37:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TEvbsonbn4xHubkd72OLzyJr+L/8l5MP3qbq8r8PnMWJrqmET2/l5oNwH8C3FompT2kjsm+30SWkB7j3IPx6C/G/81tpdwxMIYtdSGfc9j1EbkK6eefFOBBdZZx9k8AM6dTliSCec/yvu8VgqKvn4/ixN7u03yGXL+wcMRXC6sSEaP/vpklPBmjwVpvXqXt2tPSUvTqIyiU1/O59Osbufvf/P+WrvFJ8l9Ynn9R+rNWGCeVH2UZ7ZuwM+Kp+91o+CILp7gjv8+bPuls6hq4r8s5yod2+uFxclm23TFMZhUVKWIDbQFrYpOiVu19jeQxbNB/8MT01vZok9OO65O9b6g==
+ b=fYoEbLny0LzLmMmU613TILubzQesh2GKtvRPOSM06SUPdoRELPa2cKExcLg9ZrOGRkjKGNa+riLPbDNqgxLZEngXmQgaYL7VO1/g+xPhFj9pSnICNzFB9Ynzxbad3hj0qf8YtetFu2dZGV3Yzescc7U8izxlfM6qLJFRd61VBZVyxsTpv0rtho1gr5vdDaIa5uHB4QvvAWkd4ySDM83TfgTPjCr3VC3ybjQolCDt9/Yi6yW0wfH5CWS+4jQ7WDurJX75AGYQJ3XNZtf2pKgY/2YZygtOb+yNkw+j90ge1IJGwpdAktHJYKt7n+OjA6Uvn1oUtBRgo9Mq7zNUXwRC8w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PlRTFo1dR6bhq3Wv2DK1fLgLuIRJkSGNMEBzJ6EJzfE=;
- b=xMUvEFDES2l2eoxG2Zd3ey7eRmPuHafA/q2tNq3k0yE8CbeMH1KcvRR+vu4RH9+WSYenLjfGD+HtC6CtS16ru8SkwyBdU/mi+O2pi1sHlSRVadomAt/E/t7kY3RFezc/iP3PjENScXRAUcjmJnMgP3pSjYCVNWdwyZ+TlvjQmsHvixhArmruyRi5Xmd/rSgsQ/1w12+hO7kYWUqCgbt+MGWgishpNWwlXWb7k93R5XzwZ7wy06lgBmVoUyLZpwLc6oQXTSLK6xigGo0/FxhyE+6QKnIzVDY51aRdrQK67Wh7SvjZZKzphAGSMXyZh2IdG/92tG08KvvJT30VmN56dA==
+ bh=NJkyrnnTvSH9v7WUwIhcPb+FWZxS+vwAykm+QCRLq7M=;
+ b=cR8A4NGzLLXz5CtgTvJRDLMZxpsT6F6dvlqNCV8+CNHtP0/dmgi+eEuD0PWRrG5EM0C2cFPcqecwKXKyN1uFMmkSXxR+o2+gxvJ0RKUj5xSu4gMuRwBQwgbRi2xEvkEXekcVIw4zA/YbfNu4lTmw/Wn+NzlJ/IBfyl4Cx7Z+xgEXweCyuE8OGlVbwl0UGt8jX1CK/2K9CYEG87sO2+Foi1PHZ5LycQ+amu4U7ZMQfN70S+Ruy+T2KIcOFFIwMKpy59UB4HFcINQKI8ilvcx9B0E/0yQLgge88Ylm9sG3ZknKdnnCG+sQkFjnaNQ9wsPxeM7cAzBhCyxGcB1kX1qN7g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PlRTFo1dR6bhq3Wv2DK1fLgLuIRJkSGNMEBzJ6EJzfE=;
- b=Nz3LaXRLBlQWC+soJn1FMfrM4bf93Rm+4IpxXqduSiOAlh9vrihmUgSdXnByCt/lhEcuMsHcxWdVKj9QCx8SGEIwTz0nqWu2bT2yLkjUEzh21dxGsQpJqH8hJt7kziDyiu4GX1/XAtnVZ3ujicgHyCd9Ujch+LMXgUyOoMEvUD0=
-Received: from CY5PR15CA0130.namprd15.prod.outlook.com (2603:10b6:930:68::21)
- by SJ1PR12MB6292.namprd12.prod.outlook.com (2603:10b6:a03:455::20)
+ bh=NJkyrnnTvSH9v7WUwIhcPb+FWZxS+vwAykm+QCRLq7M=;
+ b=wxDqbbgBef4h4IyBMcDwT/W1gHFCZe5D35crerONFZpInPjlhiAFj1SnPPzmy/ZAkrtkJUTsvfiD4itsWJxJ4/4YuvrGuSw0PrNm6iM5dXjrI+EFMmdhBLW68F7bX3AIOF9xC2juW0KPU9p6bi7154aX9mVTE0CcJekuCt6xGk4=
+Received: from CY5PR15CA0127.namprd15.prod.outlook.com (2603:10b6:930:68::10)
+ by SA1PR12MB999227.namprd12.prod.outlook.com (2603:10b6:806:4de::19)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Wed, 18 Nov
- 2026 22:37:27 +0000
+ 2026 22:37:28 +0000
 Received: from MWH0EPF000D894D.namprd05.prod.outlook.com
- (2603:10b6:930:68:cafe::aa) by CY5PR15CA0130.outlook.office365.com
- (2603:10b6:930:68::21) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:930:68:cafe::30) by CY5PR15CA0127.outlook.office365.com
+ (2603:10b6:930:68::10) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Wed, 18
- Nov 2026 22:37:27 +0000
+ Nov 2026 22:37:28 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -49,25 +49,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb08.amd.com (165.204.84.17) by
  MWH0EPF000D894D.mail.protection.outlook.com (10.167.249.213) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.639.5 via Frontend Transport; Wed, 18 Nov 2026 22:37:26 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ 15.21.639.5 via Frontend Transport; Wed, 18 Nov 2026 22:37:28 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Wed, 18 Nov
- 2026 16:37:25 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Wed, 18 Nov
- 2026 16:37:25 -0600
+ 2026 16:37:26 -0600
 Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.57 via Frontend
- Transport; Wed, 18 Nov 2026 16:37:24 -0600
+ Transport; Wed, 18 Nov 2026 16:37:25 -0600
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Alex Deucher <alexander.deucher@amd.com>, Yogesh Mohan Marimuthu
  <yogesh.mohanmarimuthu@amd.com>
-Subject: [PATCH 02/11] drm/amdgpu/mes11: add API for gang submit
-Date: Wed, 18 Nov 2026 17:37:03 -0500
-Message-ID: <20261118223712.2518580-2-alexander.deucher@amd.com>
+Subject: [PATCH 04/11] drm/amdgpu/mes11: add support for setting gang submit
+Date: Wed, 18 Nov 2026 17:37:05 -0500
+Message-ID: <20261118223712.2518580-4-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261118223712.2518580-1-alexander.deucher@amd.com>
 References: <20261118223712.2518580-1-alexander.deucher@amd.com>
@@ -77,29 +73,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000D894D:EE_|SJ1PR12MB6292:EE_
-X-MS-Office365-Filtering-Correlation-Id: eb8978d4-baea-4b6d-3bf9-08df45c485c8
+X-MS-TrafficTypeDiagnostic: MWH0EPF000D894D:EE_|SA1PR12MB999227:EE_
+X-MS-Office365-Filtering-Correlation-Id: bc6c5c7e-e3a4-4dda-2425-08df45c48676
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|82310400026|36860700016|1800799024|376014|261102123227099003|261026140227099003|261028144727099003|11063799006|261022075727099003|261021121427099003|261021123027099003|261022105027099003|56012099006|10067099003|18002099003|22082099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info: MB/8fv5bglE93dHRkrBo6l4rhY1FIxN7PjFvGP4BuGal2VtOFRH4BzWD9kbifRDZKXG8s/nYtfMER/O+TxP89PuBk/afr4FAxIVTVpy4gAIcpg7gUHLIAGhZWJeHtNlajq1cqfwRMEpzqoLPWdoZqrwf/KA586fjS0wUioaAqhQR1CKh+3OQb1KmapDjiFJvNtBJnxkDTcpYfPeKxDIPcdrKfmZQxgGeNw1jyWLo0ztqyhShaepXcclKHJHnTlw4SKK4RWR2+HyiTRTwBW/9BMYuuLjKUfsDiHELrnUt54CYKnIvZEO89Q3GRD1obmCndfKJd+r7m/IwKx/Y/c+TrzD2ULlvUK0oQyH9zxv7Vh92K5nfghY6OMXpQRFrrANhZkKedsq9w604++i1MRCM+QQsdXxqnQkDlDWVUzqLJazyQonx7rhEdaF49AOj6rUHMOD4JgsGxtUXn+7p1Y38lkn9/SR1bjZbq9K5/oQv3QdA6nFuwZq7zYqOb8um6PLHDLKAXdThk9sthvsw8kfhFfuwWZOyDAZ4g+vZchTPnfSwbWjuUr+mlxcindOJJNpPtBzhxI0OlLPVn1/oOahLZD5pnAGqOlkjl29e7KB6ObEfQ0ylWaTfxj9c4qEEnCOu3ldmIrAXEkkiZQJzeUTUnGgBiTTFX7tUXMcXHZOKBLK74ILGzwXTpXQk/JI6CFehQyWEsEgvg5p/ORP1gsz7VA==
+ ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|261022075727099003|10067099003|56012099006|11063799006|261026140227099003|261028144727099003|261021121427099003|261022105027099003|261102123227099003|261009223027099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: QDskHSnUgn+RMdE1EE17iKk0tkq8OfkJhkAhoKnZIkgunsfyyC8BAmUOkHxdXpMo1N2FWG5iw03/+m+C9pGj0aAgnk2RHfKhMlDHCCKCVE+2LEYUuurP7U3p5Ot5aNEBWZc6yGKEoD85hIFnrNVUzn+Etn/mwGsEpY9uJm+yxLZeiHtU51wPvBnEZJISuKMWgBqIG+1QMB5vl5K4p/6GCu4Ws8UKRopGzFuM68eYmI5YS+4JrlgeSSDPeYAvzkwjbL5ZereSr3koWYtnzP4qJ3FnXmXhBE+zxAoTW3LJcYaogx/auSZBHUnoL6N0jRXDJR+sYXoejacEsZXt1iOBLQjUsA7JL8NEF+KrHWNttxq8JYQXjpZf8rUHj/RCB6QPvhtGLmXMG9cuai/OUaLqXK8KhplNInw0pLVTbRD5raqo9qiNYw4Bf911B0nm3PKnWCFMWfgbN6sasBDn0oUNiIeTQT8CXAV5lAfCjIe4b7JXWvnrB8I02+sjyB9uVh88pr+DfZryrte6wK7ac6hQich8HtGgDwSqkgIGDojsl10mkp5gs5VnA7mN1W+3iQXKhDeU2VAoqsXJSzsMSAPv74nmr+1Li2Yug3AX/iO+FRKN66plqkJ+Roulff5b6OPylk/WzzFKNNDcnW1QG3pUzs56Crwi7YQ8QVH6Q1F4vLvCE6Qf2dA2OOOtFTdZwoimx3yRV8jkBx9TsK4G7kzLfA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(82310400026)(36860700016)(1800799024)(376014)(261102123227099003)(261026140227099003)(261028144727099003)(11063799006)(261022075727099003)(261021121427099003)(261021123027099003)(261022105027099003)(56012099006)(10067099003)(18002099003)(22082099003)(261009223027099003);
+ SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(261022075727099003)(10067099003)(56012099006)(11063799006)(261026140227099003)(261028144727099003)(261021121427099003)(261022105027099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: m6tV+JoFdZz1wrDtheTEuYjE3FxBmkh19v0fQHQYcBsqBjjxpO7p+nkT3sK9TN9/lfggD7t8+q+n+g8cxIRj8nWCIl3YgeHuQVzDfwIR431jgp6Jxj1ob11xQx9yiKNnrJq/lb280d4mVKoWapFEagv7BtDQU5HiPRij96iQwZ6QiQILPs+/FP9E8UdKqCc0QN1cCm/VJkrjARO4jSJ2oUs2RjcfwHz6AQpthTjnSSMY4ZCenyVTQjKuTbm6bmPHnvYeBjOjJp/I2kfqTu8di1x8bXACWcjne7rWSRIQf+YDdK3Ey64fgfKlgugoW8aZHbNJCpBXbvilMbOOvRNtOW2uqivx105xKUJWAJBfiCK9+Tv2H6uCWVnrCBkdue+hM/3mydZXJD/P7+5fUE6cytf68UEZhbU3D0UlOdo9i6THTAZwVEd8yAPW6zdZh2e6
+X-MS-Exchange-AntiSpam-MessageData-0: yULRstZnUXJJv3s1fe0lYI00juRSV2higTf4f0NUvxW5+SuvUBv6GCT0uUS5YsoeAcHNkTaSOsJV8ExwD6q/wIyhpE3TyryyF6UNJkAfLsLh7yh5VW7Jj0Z7By8jU4bwstxh9dH2SWfz6K5x0rQucFTxyNprZQgCUIXjmB1BJsf1sftZ+AvVIsCCPGTFepnP8ba5AWlEK78Y7iO9cM2yw88m661p2qxxACeyIkxVRXSbnjgEIALQFdpPWtOEkx9FUEGCV2qPHHVPvEzslJrm7n3Wu610y83/Q1hIPekjPYLe9wkg9Rx0MJr8a1FNy7yUhomLEepeh0OTiGjDWSEGpvt+R8w4Z8QbdmQbLGdxrimHAKg/lpb+DbJMaRtntZqNIoW+HGjmbL1HeC8lmpb5msjEk4Q9rBO1keGd8mE6i1UONzgZ/NGcsc3xAQ7i4uaH
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 22:37:26.8958 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: eb8978d4-baea-4b6d-3bf9-08df45c485c8
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 22:37:28.0339 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bc6c5c7e-e3a4-4dda-2425-08df45c48676
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000D894D.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6292
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB999227
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,70 +113,61 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add API for setting up a gang.  Gangs schedule together.
+Enable a primary and secondary queue that schedule together.
+
+v2: fix offset of api_status (Prike)
+v3: handle array indices
 
 Cc: Yogesh Mohan Marimuthu <yogesh.mohanmarimuthu@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/mes_v11_0.c        |  2 +-
- drivers/gpu/drm/amd/include/mes_v11_api_def.h | 18 ++++++++++++++++++
- 2 files changed, 19 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 26 ++++++++++++++++++++++++++
+ 1 file changed, 26 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-index 30d3d25d59842..0242fe8135374 100644
+index 0242fe8135374..2be54f7dc6f25 100644
 --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-@@ -147,7 +147,7 @@ static const char *mes_v11_0_opcodes[] = {
- 	"UPDATE_ROOT_PAGE_TABLE",
- 	"AMD_LOG",
- 	"unused",
--	"unused",
-+	"SET_GANG_SUBMIT",
- 	"SET_HW_RSRC_1",
+@@ -1283,6 +1283,31 @@ static int mes_v11_0_enable_dbgext_irq(struct amdgpu_mes *mes, bool enable)
+ 	return 0;
+ }
+ 
++static int mes_v11_0_set_gang_submit(struct amdgpu_mes *mes,
++				     struct mes_set_gang_submit_input *input)
++{
++	union MESAPI__SET_GANG_SUBMIT mes_gang_submit_pkt;
++
++	memset(&mes_gang_submit_pkt, 0, sizeof(mes_gang_submit_pkt));
++
++	mes_gang_submit_pkt.header.type = MES_API_TYPE_SCHEDULER;
++	mes_gang_submit_pkt.header.opcode = MES_SCH_API_SET_GANG_SUBMIT;
++	mes_gang_submit_pkt.header.dwsize = API_FRAME_SIZE_IN_DWORDS;
++
++	mes_gang_submit_pkt.set_gang_submit.gang_context_addr =
++		input->primary_gang_context_addr;
++	mes_gang_submit_pkt.set_gang_submit.slave_gang_context_addr =
++		input->secondary_gang_context_addr;
++	mes_gang_submit_pkt.set_gang_submit.gang_context_array_index =
++		input->primary_gang_context_array_idx;
++	mes_gang_submit_pkt.set_gang_submit.slave_gang_context_array_index =
++		input->secondary_gang_context_array_idx;
++
++	return mes_v11_0_submit_pkt_and_poll_completion(mes,
++			&mes_gang_submit_pkt, sizeof(mes_gang_submit_pkt),
++			offsetof(union MESAPI__SET_GANG_SUBMIT, api_status));
++}
++
+ static const struct amdgpu_mes_funcs mes_v11_0_funcs = {
+ 	.add_hw_queue = mes_v11_0_add_hw_queue,
+ 	.remove_hw_queue = mes_v11_0_remove_hw_queue,
+@@ -1294,6 +1319,7 @@ static const struct amdgpu_mes_funcs mes_v11_0_funcs = {
+ 	.enable_dbgext_irq = mes_v11_0_enable_dbgext_irq,
+ 	.reset_hw_queue = mes_v11_0_reset_hw_queue,
+ 	.detect_and_reset_hung_queues = mes_v11_0_detect_and_reset_hung_queues,
++	.set_gang_submit = mes_v11_0_set_gang_submit,
  };
  
-diff --git a/drivers/gpu/drm/amd/include/mes_v11_api_def.h b/drivers/gpu/drm/amd/include/mes_v11_api_def.h
-index 6d67d015a74fb..bf2161b2328ad 100644
---- a/drivers/gpu/drm/amd/include/mes_v11_api_def.h
-+++ b/drivers/gpu/drm/amd/include/mes_v11_api_def.h
-@@ -64,6 +64,7 @@ enum MES_SCH_API_OPCODE {
- 	MES_SCH_API_MISC			= 14,
- 	MES_SCH_API_UPDATE_ROOT_PAGE_TABLE      = 15,
- 	MES_SCH_API_AMD_LOG                     = 16,
-+	MES_SCH_API_SET_GANG_SUBMIT             = 18,
- 	MES_SCH_API_SET_HW_RSRC_1               = 19,
- 	MES_SCH_API_MAX				= 0xFF
- };
-@@ -688,6 +689,13 @@ struct SET_SHADER_DEBUGGER {
- 	uint32_t process_context_array_index;
- };
- 
-+struct SET_GANG_SUBMIT {
-+	uint64_t gang_context_addr;
-+	uint64_t slave_gang_context_addr;
-+	uint32_t gang_context_array_index;
-+	uint32_t slave_gang_context_array_index;
-+};
-+
- enum MESAPI_MISC__CHANGE_CONFIG_OPTION {
- 	MESAPI_MISC__CHANGE_CONFIG_OPTION_LIMIT_SINGLE_PROCESS = 0,
- 	MESAPI_MISC__CHANGE_CONFIG_OPTION_ENABLE_HWS_LOGGING_BUFFER = 1,
-@@ -775,5 +783,15 @@ union MESAPI_AMD_LOG {
- 	uint32_t max_dwords_in_api[API_FRAME_SIZE_IN_DWORDS];
- };
- 
-+union MESAPI__SET_GANG_SUBMIT {
-+	struct {
-+		union MES_API_HEADER    header;
-+		struct MES_API_STATUS   api_status;
-+		struct SET_GANG_SUBMIT  set_gang_submit;
-+	};
-+
-+	uint32_t max_dwords_in_api[API_FRAME_SIZE_IN_DWORDS];
-+};
-+
- #pragma pack(pop)
- #endif
+ static int mes_v11_0_allocate_ucode_buffer(struct amdgpu_device *adev,
 -- 
 2.56.1
 
