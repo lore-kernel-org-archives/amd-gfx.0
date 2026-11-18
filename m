@@ -2,94 +2,126 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B56B7606A32C
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 14:10:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5C76606A324
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 14:10:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=1ewdIJtp
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=cvJXM+kI
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDCC111244E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9BD311244F;
 	Thu, 19 Nov 2026 14:10:23 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11EAC10ECFF;
- Thu, 19 Nov 2026 05:35:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
- :Reply-To:Content-Type:Content-ID:Content-Description;
- bh=KnCXAHrWe2wY5lWuzljr4glUKOPYIIFp8Ge0ioQH9ro=; b=1ewdIJtppV5OT7nLC87OlE9OFS
- nRYcNA5S2/7EKOYmIAu8hJxDvNPBweRtOBiy7E2krNpgtXTKhf/UDddUo+tUh4GODXpPjZtw7gRFO
- aDy0kTzJ6YHMD3nvuCsvxaGL75wFuEZreCsQK+fjeyYxeGgQZbjRhJNlSatxLhjmRIPFPbpLslvs3
- IB/ZtDwLesoBGltcFYZ0PrBEbsHHmqT954ccEw/XqJiwfMKHa75oZ23tD7U+euzRtFveHeNEDOn//
- tkfu2uECuuwx9FZJw8002oFZmNsaUE3PEAVkHKFzt4UnhbO4ZPaiKKMRcapP1tTKFImoxvaCEy9yd
- 9SAiLErg==;
-Received: from [50.53.43.113] (helo=bombadil.infradead.org)
- by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
- id 1xTunz-0000000Aufu-3Ln7; Thu, 19 Nov 2026 05:35:32 +0000
-From: Randy Dunlap <rdunlap@infradead.org>
-To: linux-kernel@vger.kernel.org
-Cc: Randy Dunlap <rdunlap@infradead.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org,
- David Hildenbrand <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Jason Gunthorpe <jgg@nvidia.com>, Leon Romanovsky <leonro@nvidia.com>,
- linux-mm@kvack.org, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org,
- Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
- Marcel Holtmann <marcel@holtmann.org>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
- linux-bluetooth@vger.kernel.org,
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
- Jason Wang <jasowangio@gmail.com>, David Heidelberg <david@ixit.cz>,
- oe-linux-nfc@lists.linux.dev, Chas Williams <3chas3@gmail.com>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
- Helge Deller <deller@gmx.de>, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, MPT-FusionLinux.pdl@broadcom.com,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>, linux-scsi@vger.kernel.org,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
- Zhihao Cheng <chengzhihao1@huawei.com>, linux-mtd@lists.infradead.org,
- Neill Kapron <nkapron@google.com>, Andrey Konovalov <andreyknvl@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org, Hans de Goede <hansg@kernel.org>,
- Arnd Bergmann <arnd@arndb.de>, "Michael S. Tsirkin" <mst@redhat.com>,
- =?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
- Sean Christopherson <seanjc@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org,
- virtualization@lists.linux.dev, Jan Kara <jack@suse.cz>,
- linux-fsdevel@vger.kernel.org, "Theodore Ts'o" <tytso@mit.edu>,
- linux-ext4@vger.kernel.org, Mike Marshall <hubcap@omnibond.com>,
- devel@lists.orangefs.org, Paulo Alcantara <pc@manguebit.org>,
- Namjae Jeon <linkinjeon@kernel.org>, linux-cifs@vger.kernel.org,
- Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>,
- linux-f2fs-devel@lists.sourceforge.net,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Tzung-Bi Shih <tzungbi@kernel.org>, Benson Leung <bleung@chromium.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, intel-gfx@lists.freedesktop.org,
- Matthew Brost <matthew.brost@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- intel-xe@lists.freedesktop.org
-Subject: [PATCH v2 05/12] docs: ioctl-number: update video/fbdev entries
-Date: Wed, 18 Nov 2026 21:35:06 -0800
-Message-ID: <20261119053514.255348-6-rdunlap@infradead.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261119053514.255348-1-rdunlap@infradead.org>
-References: <20261119053514.255348-1-rdunlap@infradead.org>
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012036.outbound.protection.outlook.com [52.101.53.36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 312AA10FF5D
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Nov 2026 18:50:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JCwFPeh6lTJF5o43vkW3X5YiPtoDuQkyJVY/3KSoba1gZN59lPq7SAHCv+94NOiG743ZBUB7a1LGTRyxA4O+sggbzl/zk264AKhTUZTF95qNS3cMPQrMNmwRcyWED+Lj1gV4Ptnhl9DOoO78XZaC7+iSjmqaZDKLcfCZulmN0Ms3vXuEtFHqLiGDsv7UtJl2B5BzLl9CiusOfA76PdEtFqUYGQmaDwaR4aIYErrkvN+ogV068sC6icG5cOTdKFSlBLdzi4A2CDfWcTWEfdoqqWKAfgAsy6XRGsjlMLAzh5Ui7PU8ammDHMhKlKoI7alOHcdU5l3luR9EMyJO98JNvQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IytfHhpYkbABm1W3RboUx7Sq3ywg1sdenypzRazfjU0=;
+ b=kG/tyeGktI2I7AXBRKFwzQoFvGlsGnjyUTuQP7BiVKVUXh+zN/cfmblJlX8o2GXFVZLAVtp4fqVp13QLU2EuLv18/NXeQGXBKDcOd3Ha4Ib3zXwv+uVskET/ZNUNNLhz22wjnibpa+HgM9uPENsnA7af/TiFROWlBte/8wKN4RdkmcKVMeQfZmEUXyIxaPJUwC7JkjYyDw2B/l0kRLMwZpTsUJSo+YZTH7GkiBCIz4I7yvVESqSRxYylXdf5bOBuDWs8qi3UZ3D9428/zz5We6krXrDAwuJ8Dkl9S7MNoQAxjcA7NwLcAIVOc4ISnqjnr+5KDu5J4GTymm5I7mMW0g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IytfHhpYkbABm1W3RboUx7Sq3ywg1sdenypzRazfjU0=;
+ b=cvJXM+kIl13FpTy8NsWskOcgEx+mRz6dktaXTZmFu4oHLRTXL2qw4JP3flTo78eWZZo/zFHtqpytTB6amhCT3z4ery5GldJmb1CfnY2IeRZtGK02p94CEMDf18xcsZCLA22gZuRS0cUz60HOTqPMC/3IMcSy1PFsufvWkeeEvJa+BWp0rwc5PUrVGI+g8vfZBMYTT4rUoo6JMxUFb3gvn6dEt2p4pTwGi6B/S94+PJPg5mpFv5s99E/1ZmPUTvF+9B6xOquRhXvOEQE/3+wctCobJRVR1QxTM04Ir8ivD/ho94rVUTcLbFYDx+hrlkSOa92ctl0akgq7qQ7CGTvIdg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12) by SJ2PR12MB9192.namprd12.prod.outlook.com
+ (2603:10b6:a03:55d::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.13; Wed, 18 Nov
+ 2026 18:50:27 +0000
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0615.013; Wed, 18 Nov 2026
+ 18:50:27 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v5] iommu/amd: Enable PerfOpt automatically for
+ integrated GPUs
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: "Mario Limonciello (AMD)" <superm1@kernel.org>
+Cc: Vasant Hegde <vasant.hegde@amd.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Alex Deucher <alexander.deucher@amd.com>, Joerg Roedel <joro@8bytes.org>, 
+ Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>, 
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ iommu@lists.linux.dev
+In-Reply-To: <20261022-superm1-perf-opt-next-v5-1-dfef0b78b7b9@kernel.org>
+References: <20261022-superm1-perf-opt-next-v5-1-dfef0b78b7b9@kernel.org>
+Date: Wed, 18 Nov 2026 14:50:22 -0400
+Message-Id: <179502782208.3845434.3028303849229899926.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-ClientProxiedBy: MN0P222CA0003.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:208:531::13) To CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|SJ2PR12MB9192:EE_
+X-MS-Office365-Filtering-Correlation-Id: b4652c8b-68c7-4dc0-e25b-08df45a4ceeb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|1800799024|366016|261102130727099003|261102123227099003|261028144727099003|261026140227099003|261026121527099003|261022105027099003|261022075727099003|261021123027099003|261021121427099003|56012099006|11063799006|10067099003|18002099003|22082099003|261009223027099003|6133799003|261009221227099003;
+X-Microsoft-Antispam-Message-Info: Y9rBuaC4i+1JjIb0gE0Rsf+JaWEwJ/AwSzzHg8ANzeZFG9BXW2076ez4NKfYX7CVqpoDhf2y/XUmQFuulv2jNEpq3oUItv8RWtlNDF2PDAhzPH7K5wBgjL1nygQKU+MIaU786nAq3816wfJc5JS4XTJFMpudqcrlbhKejbFgsa+3Xv85ZLLzrk0mU8RpMHm2OZOhs/49CD/d+cikbxKGaMNOfvp3+X9eaNlTsFkdfdd1gK/N5tlkbWkZyoHPLRMnK1s/vEOCq8Cmk4XWdmCIepLOezXkbNuNoLeW+Ad8yAik8wYTjzSK10zzHv1cSM36ig+qu8UuPCXbHbDua2ksSUlsTze/g98q3EMMoy0nBy/uPNTx2EdFvNxcFKIsliGHAwdUfLRurK/9mP9fUqWjqk7s0+LnAJtNgFnBIpyp4oF+5dkAAjNdFf+t4OJ11e/zKDD94d0wvfz5VlNJsmn4w8LmNzIGqtKRzwfhPW6AA2IcYtsfKpUBibqHLFkj2AkznFrNUOvpKPBGP9via+pVE4HKTrUkor6q7OLWv+2VM+l7ScE6yLlaNESPr8dZQvs6EmIPCmZ7y258Mc5ZpKm63525zkh6r4/XefQnPRTmd54rjhViYbIVvsTTnHUNZORKFaBQkVwarJSXJgkN7Voe67w5aAqtFmIx0VdWMF6yvjU=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CHBPR12MB731189.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(261102130727099003)(261102123227099003)(261028144727099003)(261026140227099003)(261026121527099003)(261022105027099003)(261022075727099003)(261021123027099003)(261021121427099003)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003)(261009223027099003)(6133799003)(261009221227099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ajN5SUR0WXZnT1U3U2tmQ3ZORmR3VjZKWlV3b2h3dTRNa3JHTFRrSVNPRENy?=
+ =?utf-8?B?cTQwMEJqaEIyVGR3QURCejZrUER5VjZGQ3U0ZUY1aWtRSG8ydGY2ZjllMkND?=
+ =?utf-8?B?NkVWWFZXeHRhSzRJVmhUT09sbTliR01VQkYwVW5vdXBtMElodG5USDdKcnFM?=
+ =?utf-8?B?VEc3NEpuVlRGd2FTQjh5UnpHZnYyV1dTZXo5Ly9tTU9RWXBjanJ1dHFnb250?=
+ =?utf-8?B?b2RhaW04eExDMEZCaVd6SGpub3RZbWlvd1hjRFp2L2VXZThCS1lxR3QwOXdo?=
+ =?utf-8?B?ZE1LSkI1RkZIZ3FrbVNpNXg5azRYcWFCcEZXaHp3QzMwNk9hM21kanpvb25I?=
+ =?utf-8?B?OFlMTzF5eThVSTVlTnJTWG1CNkQveElueGFIWDhWc25WOThxWWRxSVdScXBk?=
+ =?utf-8?B?NVJ2L1BzRFQvN1F5blVKaExXOWQzWTZPalZSSW9zU3NyKzJGTEdiczZaZ1pu?=
+ =?utf-8?B?NXpBL0Z4M3JLZmJLeHFyT2N4elBhdkpacFNsR0xNRkluN2hnR1VCUU9ZZGhM?=
+ =?utf-8?B?V2F0U0ZtNkpiUm5xMVFkekpJYkEyY3QzTXVBMFNOSi82V0VKczdmR1B0YmMw?=
+ =?utf-8?B?UW1YaE5ZYWNuc0pZSUc0d2Z2RUN2OUppSVNDN29IVDNzSkllM0txemxBcUEr?=
+ =?utf-8?B?dVNSOWlMNXhYZHpsM1BJSEwwMmcyS1R2VW1QYXJTcHpnNkZHSmlUaGt2MHVI?=
+ =?utf-8?B?QzdrTktGS05ZMUNtdHdFelVlS3VCcG9LZWMzSlpVVmtPYzlEM3czNnVhVmdT?=
+ =?utf-8?B?cm00d1kzZ1F4YTc2RFMxNFh3aEw3QVNJVWtodGpBUE1TcjRnT0M1Q0JOYVl0?=
+ =?utf-8?B?L293a25qSHlQNUNjSXNqVjMxY3RxcXM3L2owa2pIekZYblFMNDNncHdFNFNZ?=
+ =?utf-8?B?Qjd0QXJQWjV0Y096T21jS0tTbEhicEo3bk8vcUhmazhRUExpNTh2bGdDTWNv?=
+ =?utf-8?B?bGFhOHBNWlYwZ2FCYmwyRFRQa3Z3WTltY2RYbGI1T0c1a2k3YWhzOWpNL2V0?=
+ =?utf-8?B?SkxETDBJWE42bkRvcFdmcU1jd3c1WUpCNE5qMHB0ZnpZWTl2NjhTZFNVcmIy?=
+ =?utf-8?B?Sm16WUNZVDl5S2dPOEV1dld1dnZXNXhQdHo3QkI4MFRqaWhQZlhGaUVqS3d3?=
+ =?utf-8?B?eWV1azc4a3FlUHdhaVRERkVhRGpNVHQ3OUxCRWgxRWt5bVZyT3FWZDNhVFBX?=
+ =?utf-8?B?VXliWURMYVZXaC9WcHl2azZmeWcwTFdlMWQ0MFJTL0RHYVFFZFBaTkJDL1RO?=
+ =?utf-8?B?K2NiQXFqSlpHVmsxa28xeldFUUtOYUJlcmxQbUFmZ0t6L25yU0w4dXU1dnA2?=
+ =?utf-8?B?N1NtTCtmLy9JdXNkOUdHL2J4alpJY1gvYXd3Q2hrUnhvK29TUTVXRGN3b3JU?=
+ =?utf-8?B?UU9xbEc4clJOMlZIc2RKd2FpN29kQ01jOUV4Q3dDOCtweVRoWGV5QlpKZkpK?=
+ =?utf-8?B?a09QMngzcmIyYy9SSlFxL3Jnbm5ESWZvN2FreGZuOWdSK2hsbENhUnRGQnc2?=
+ =?utf-8?B?SEIvamt1WW16ZkxCRk1iSkFhZHRTVy9oSFEwaWRkS0dkSlNNam5nS0syeFI0?=
+ =?utf-8?B?bUtUNDFqd0tlUWgxeis1Slp5YTVrRGREZkVmY0JVODJWVzdLZTN0UzZqU2JQ?=
+ =?utf-8?B?cFdZUEc2SlhHL3A2TDRPSndXRWNKTmcyYStZdWlLZkVTMzVpbUpielVkQnN3?=
+ =?utf-8?B?QUVhelA2cmU0YVdyektYalhqOEdVZlhNV0pOOXNyenNqNzFJMU5XUVI4OWt0?=
+ =?utf-8?B?QVc0SDVKV2tadzV1bE4zV1ZJL3p2UWhUc3d2ODZVTXZIWmRiRUJpQ21LK3JP?=
+ =?utf-8?B?WFJBbVQzSkFCZkFiTDEyUTk4aERXLzlnazUyMkJNM0RLR1JSZXpyVkkyR2d5?=
+ =?utf-8?B?MU9BNXFGN0hBMnJYWWgydUQ5VzdhNDNoV3hLQ1BBajNzUWRnTUx1TXlobTZH?=
+ =?utf-8?B?bDExMzJCb0lWSDF2aXRvd1RpOUgvUVBaZ3pOcTFUdTQ0K04zRHRXWThJUEFT?=
+ =?utf-8?B?UUhJb01xVTA3anlndDdYQWtkeDNjWS9ISmtoSG03aU5HZGRvSE1PUkRSWGtP?=
+ =?utf-8?B?aVZUZjY5V1hnZUdEaWQ3VFNjL3AwelVrdEVEQ0ZkdGpBUjg4ejFWdEZEbzlt?=
+ =?utf-8?B?aW9PL3hZWUc0RWpDZE9hSzVQb1ZkcElLWGlDTy9mcGp4OFNQNzZqZ25TQkNk?=
+ =?utf-8?B?eEx3WWVwOXkzZldXMzZLRGx5VmlNd3EvRTUyQzlERTBPb3hIVkhmdGJKeFFD?=
+ =?utf-8?B?aGZuSU5sbFQ2VkdXc04ydWovVC84TTN0OHFXU1NucmNEbkZ2Z29HL2V1disz?=
+ =?utf-8?Q?9DHn8ww3SbSw3KmBoD?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b4652c8b-68c7-4dc0-e25b-08df45a4ceeb
+X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 18:50:26.0267 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: dpM0ZyAAFYUvvP51mHngQXtzEMcSsBLPv/hi1L6xIb1YrIQDCalRSLQkRwUOZHtj
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9192
 X-Mailman-Approved-At: Thu, 19 Nov 2026 14:10:22 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -101,96 +133,68 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Update the list of files where video or fbdev ioctls are defined and
-update the ranges of function numbers that are used.
+> PerfOpt is usable by integrated GPUs in identity mode. Enable it from
+> the IOMMU driver's domain attachment paths instead of requiring an
+> amdgpu policy knob and exported enable/disable interfaces.
+> 
+> Mark supported integrated GPUs as PerfOpt-eligible when selecting their
+> default identity domain. Skip GCR3 setup and ATS/PRI/PASID enablement for
+> these identity attachments, then enable PerfOpt after installing the DTE.
+> Clear PerfOpt before attaching an eligible GPU to a translated or blocked
+> domain, including unmanaged domains used by VFIO. Propagate failures to
+> clear bypass, but keep a completed identity attachment successful if the
+> optional PerfOpt enable fails.
+> 
+> Clear inherited PerfOpt state during initialization, including when a crash
+> kernel reuses device tables. Read feature support directly from hardware
+> because cached features may not be available yet, and stop initialization
+> if the initial clear fails.
+> 
+> Each IOMMU has at most one PerfOpt-eligible GPU, so track activation with a
+> boolean under the IOMMU lock. Preserve this state while clearing hardware
+> at suspend and shutdown, and restore the bit on resume only where it was
+> active. Do not enable PerfOpt unconditionally during early IOMMU
+> initialization.
+> 
+> Remove the amdgpu parameter, driver callbacks, and exported interfaces.
+> Translated attachments retain their normal device capability setup.
+> 
+> Suggested-by: Jason Gunthorpe <jgg@ziepe.ca>
+> Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
+> ---
+> Changes in v5:
+>  * Enable PerfOpt after identity attachment instead of during early IOMMU init
+>  * Clear PerfOpt before translated or blocked attachments, allowing VFIO use
+>  * Drop require_direct and retain normal capability setup for translated domains
+>  * Replace refcounting with a per-IOMMU activation boolean protected by its lock
+>  * Clear inherited PerfOpt during init, including crash-kernel device-table reuse
+>  * Read hardware feature support before cached features are available and fail
+>    initialization if the initial clear fails
+>  * Preserve activation across suspend and restore it on resume only if active
+>  * Keep identity attachment successful if optional PerfOpt enablement fails
+>  * Link to v4: https://lore.kernel.org/linux-iommu/20261001182410.1525285-1-superm1@kernel.org/
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h        |   1 -
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  50 ------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  12 --
+>  drivers/iommu/amd/amd_iommu.h              |   3 +-
+>  drivers/iommu/amd/amd_iommu_types.h        |   6 +-
+>  drivers/iommu/amd/init.c                   |  91 ++++++-----
+>  drivers/iommu/amd/iommu.c                  | 252 +++++------------------------
+>  include/linux/amd-iommu.h                  |  11 --
+>  8 files changed, 95 insertions(+), 331 deletions(-)
 
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
----
-v2: no change
+Vasant are you going to pick this up? It seems good to me
 
-[Since having multiple maintainers trying to merge these would
-cause some conflicts, it would be more manageable for Jon to
-take all of these through the docs-next tree.]
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
 
-Cc: Jonathan Corbet <corbet@lwn.net>
-Cc: Shuah Khan <skhan@linuxfoundation.org>
-Cc: linux-doc@vger.kernel.org
-Cc: Helge Deller <deller@gmx.de>
-Cc: linux-fbdev@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org
-
- Documentation/userspace-api/ioctl/ioctl-number.rst |   14 +++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
-
---- linux-next-20261116.orig/Documentation/userspace-api/ioctl/ioctl-number.rst
-+++ linux-next-20261116/Documentation/userspace-api/ioctl/ioctl-number.rst
-@@ -148,9 +148,13 @@ Code  Seq#    Include File
- 'F'   20     linux/ivtvfb.h                                            conflict!
- 'F'   20     linux/matroxfb.h                                          conflict!
- 'F'   20     drivers/video/aty/atyfb_base.c                            conflict!
-+'F'   20     arch/powerpc/include/uapi/asm/ps3fb.h                     conflict!
-+'F'   00-21  arch/m68k/include/asm/fbio.h                              conflict!
-+'F'   00-21  arch/sparc/include/asm/fbio.h                             conflict!
- 'F'   00-0F  video/da8xx-fb.h                                          conflict!
- 'F'   80-8F  linux/arcfb.h                                             conflict!
- 'F'   DD     video/sstfb.h                                             conflict!
-+'G'   00-02  drivers/video/fbdev/pxa3xx-gcu.h                          conflict!
- 'G'   00-3F  drivers/misc/sgi-gru/grulib.h                             conflict!
- 'G'   00-0F  xen/gntalloc.h, xen/gntdev.h                              conflict!
- 'H'   00-7F  linux/hiddev.h                                            conflict!
-@@ -186,10 +190,13 @@ Code  Seq#    Include File
- 'L'   10-1F  drivers/scsi/mpt3sas/mpt3sas_ctl.h                        conflict!
- 'L'   E0-FF  linux/ppdd.h                                              encrypted disk device driver
-                                                                        <http://linux01.gwdg.de/~alatham/ppdd.html>
-+'L'   35-38  arch/m68k/include/asm/fbio.h
-+'L'   35-38  arch/sparc/include/asm/fbio.h
- 'M'   all    linux/soundcard.h                                         conflict!
- 'M'   01-16  mtd/mtd-abi.h                                             conflict!
-       and    drivers/mtd/mtdchar.c
- 'M'   01-03  drivers/scsi/megaraid/megaraid_sas.h
-+'M'   00-03  drivers/video/fbdev/mb862xx/mb862xxfb.h
- 'M'   00-0F  drivers/video/fsl-diu-fb.h                                conflict!
- 'N'   00-1F  drivers/usb/scanner.h
- 'N'   40-7F  uapi/linux/nvme_ioctl.h
-@@ -197,6 +204,7 @@ Code  Seq#    Include File
- 'N'   84-8F  uapi/linux/ntsync.h                                       NT synchronization primitives
-                                                                        <mailto:wine-devel@winehq.org>
- 'O'   00-06  mtd/ubi-user.h                                            UBI
-+'O'   1F-3F  linux/omapfb.h
- 'P'   all    linux/soundcard.h                                         conflict!
- 'P'   60-6F  sound/sscape_ioctl.h                                      conflict!
- 'P'   00-0F  drivers/usb/class/usblp.c                                 conflict!
-@@ -294,6 +302,7 @@ Code  Seq#    Include File
- 'n'   00-7F  linux/ncp_fs.h and fs/ncpfs/ioctl.c
- 'n'   80-8F  uapi/linux/nilfs2_api.h                                   NILFS2
- 'n'   E0-FF  linux/matroxfb.h                                          matroxfb
-+'n'   F8-FA  video/sisfb.h                                             sisfb
- 'o'   00-1F  fs/ocfs2/ocfs2_fs.h                                       OCFS2
- 'o'   00-03  mtd/ubi-user.h                                            conflict! (OCFS2 and UBI overlaps)
- 'o'   40-41  mtd/ubi-user.h                                            UBI
-@@ -310,6 +319,7 @@ Code  Seq#    Include File
- 'q'   80-FF  linux/telephony.h                                         Internet PhoneJACK, Internet LineJACK
-              linux/ixjuser.h                                           <http://web.archive.org/web/%2A/http://www.quicknet.net>
- 'r'   00-1F  linux/msdos_fs.h and fs/fat/dir.c
-+'r'   01-06  arch/powerpc/include/uapi/asm/ps3fb.h
- 's'   all    linux/cdk.h                                               conflict!
- 's'   07-09  arch/{alpha,mips,sh,xtensa}/include/uapi/asm/sockios.h    conflict!
- 's'   64-65  arch/sh/include/uapi/asm/sockios.h                        conflict!
-@@ -425,8 +435,8 @@ Code  Seq#    Include File
- 0xEC  00-01  linux/platform_data/cros_ec_chardev.h                     ChromeOS EC driver
- 0xEE  00-09  uapi/linux/pfrut.h                                        Platform Firmware Runtime Update and Telemetry
- 0xEF  00-0F  uapi/linux/ntfs.h                                         NTFS
--0xF3  00-3F  drivers/usb/misc/sisusbvga/sisusb.h                       sisfb (in development)
--                                                                       <mailto:thomas@winischhofer.net>
-+0xF3  00-3F  drivers/usb/misc/sisusbvga/sisusb.h                       sisfb
-+0xF3  00-3F  video/sisfb.h                                             <mailto:thomas@winischhofer.net>
- 0xF6  all                                                              LTTng Linux Trace Toolkit Next Generation
-                                                                        <mailto:mathieu.desnoyers@efficios.com>
- 0xF8  all    arch/x86/include/uapi/asm/amd_hsmp.h                      AMD HSMP EPYC system management interface driver
+-- 
+Jason
