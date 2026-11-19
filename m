@@ -2,152 +2,95 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5A26606A325
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 14:56:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55D5D606A32A
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 14:56:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=JEKizbU2
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=md6S/PUO
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7ED9A112B2A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18160112B20;
 	Fri, 20 Nov 2026 14:56:18 +0000 (UTC)
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012024.outbound.protection.outlook.com [52.101.43.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D4D211243A;
- Fri, 20 Nov 2026 05:58:13 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kj5Qw1shf3gMfiUoHUW87977iwqohE1VJ+BP9SNQxofDeVDHEdRkcyR5T1I+B5cLJJwCowpSyjpvzfOf2Za0eFDNukX0gy9DrVsUxqjMXwfkhVacfwoDcv9uv5kN+L18RIFNpJC1jdQA4lhqUP4Lke+OedhJkZ/o/LMMo+sxPwx7GrK/Gt0jrznNa9KFjwzBtZnMLOCHhaZ1Lsc64aTGSH1xSOPAQipzJsgyCYWYBNlajUhJq9ntFz51u5Yn/+PDQOdEOZteuPIL2LmFf6AkMUTXVVJJ5MLSSwdF5MLRIwswaEhzQwZWgGbhKv9RPJFrfMz6o3s9ZgqRGhs2FYtGxg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=M0/rHJKyNkkYtoCG+uw9pgVO/PkOCjE650UW66QdnHU=;
- b=S+SGy4P2EVXHqSV/LhXeYd4OYKt1/D0aYLQuf5IqHiBKAwVcFQQOhbEkPZcWnha2g4p2jhf9HpS9/4p8M+17qPQRNvxHM+EQNl97ciDDqrByXg5lXhpxaLkzPPZpwth1bGwUNt8lzHdfXXk9EHVLjLcen7Oe7Lc/URBA0bMPrPq/0xCgnOQoUSjdv7slzZHfJ6XIakkr8gcfUxBFaTuy8CvlOpR/6YLZ+DuiCzIyIz9IciNzYudqbXRkN/6bi2QBgWsmhzCeiIb2XOs3kqFNvOliCGQTekx2Fud8kIgTJq7HWdmDinV5BB07Rej7rKxXApPMi1m+JK1+1sqBF8djwQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=M0/rHJKyNkkYtoCG+uw9pgVO/PkOCjE650UW66QdnHU=;
- b=JEKizbU2yKq/FEmlOfiLEjwrrbgDzpHh+a0XIlMc/ETRYUNLqVWOfVsa3Qj3HIODP/z+xuI2sJqPWALs/tqVDJPODHXU5f7FAGem3wT4HyIZDarhwuEho/msucbp+tvOG7sdv8jyCeNqvyXr64Ck2A+P5HB1nE9MBmc6IfDWPBGDtKWPUMsLRBke8Disur4ajxZ9dN02SjGLxYiQKo0TtHMT8A0lYtwcAhTPdzpzAXRVvhJa2sZ5IJuykOzpG5Vl/JGJD65SimpEV/dJU630ivLkubtWSccOwUEctV9AX1SJwO7DXpLuhhL2S99/jgfUYmEukYj9obXWYIgo0MnvNQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SA3PR12MB598757.namprd12.prod.outlook.com
- (2603:10b6:806:52d::14) by PH7PR12MB6717.namprd12.prod.outlook.com
- (2603:10b6:510:1b0::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Fri, 20 Nov
- 2026 05:58:09 +0000
-Received: from SA3PR12MB598757.namprd12.prod.outlook.com
- ([fe80::e206:100:5946:a777]) by SA3PR12MB598757.namprd12.prod.outlook.com
- ([fe80::e206:100:5946:a777%5]) with mapi id 15.21.0639.011; Fri, 20 Nov 2026
- 05:58:09 +0000
-From: Alistair Popple <apopple@nvidia.com>
-Date: Fri, 20 Nov 2026 16:55:57 +1100
-Subject: [PATCH v3 19/24] functionfs: convert to use the SGT mapping type
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261120-dma_mapping_type_v4-v3-19-c0183a409bdf@nvidia.com>
-References: <20261120-dma_mapping_type_v4-v3-0-c0183a409bdf@nvidia.com>
-In-Reply-To: <20261120-dma_mapping_type_v4-v3-0-c0183a409bdf@nvidia.com>
-To: =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Simona Vetter <simona.vetter@ffwll.ch>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Vivek Kasireddy <vivek.kasireddy@intel.com>, 
- Dongwon Kim <dongwon.kim@intel.com>, Kevin Tian <kevin.tian@intel.com>, 
- Xu Yilun <yilun.xu@linux.intel.com>, 
- Karl Mehltretter <kmehltretter@gmail.com>, 
- Baolu Lu <baolu.lu@linux.intel.com>, 
- Felix Kuehling <felix.kuehling@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, linux-media@vger.kernel.org, 
- linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org, 
- iommu@lists.linux.dev, Keith Busch <kbusch@kernel.org>, 
- Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>, 
- Sagi Grimberg <sagi@grimberg.me>, linux-nvme@lists.infradead.org, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, Mina Almasry <almasrymina@google.com>, 
- netdev@vger.kernel.org, Alexey Kardashevskiy <aik@amd.com>, 
- zhipingz@meta.com, treding@nvidia.com, jhubbard@nvidia.com, 
- chaitanyak@nvidia.com, Jason Gunthorpe <jgg@ziepe.ca>, 
- Leon Romanovsky <leon@kernel.org>
-Cc: Alistair Popple <apopple@nvidia.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795154186; l=1510;
- i=apopple@nvidia.com; s=20261105; h=from:subject:message-id;
- bh=g4leWszYYOYQTMOVM+S9TZAQhclgsr0zjj3FSJdFZn8=;
- b=Wu50Fn666ID5auV0XSr6FFoDMa2zAZtj8Pz7fXyR82grJyncaVum72bQLv91Kn6g7FC2l0LD9
- XNWWCDjU7gaAkaY6I6puKQRH+/iS1WVH6i5yxwVKfXlQ6fzBnxm3Lnz
-X-Developer-Key: i=apopple@nvidia.com; a=ed25519;
- pk=WdWPT9rAq3YNfXldbGv1NSGVLGxzQGFGJvRUiShhNqs=
-X-ClientProxiedBy: SY6PR01CA0131.ausprd01.prod.outlook.com
- (2603:10c6:10:1b9::7) To SA3PR12MB598757.namprd12.prod.outlook.com
- (2603:10b6:806:52d::14)
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
+ [209.85.216.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCC6E1126E3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 19:26:05 +0000 (UTC)
+Received: by mail-pj1-f69.google.com with SMTP id
+ 98e67ed59e1d1-3b3fc6a0083so208751a91.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 11:26:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20260707; t=1795116365; x=1795721165;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=CSDEU43/2Gwf+VbjlCClZWJ4rTvHhhRb4YqVFYZr7ik=;
+ b=md6S/PUO3SJywTDtLBh45iCH8gQAYvCl5BvLOzIumGHpfwlCRWoHd++EDhwU3gQ9N3
+ s5//3DGqa3GVHECORTP62aZ7zz7QVfrmwjRrz/wS0E2vMjYjsdf53sW5h5vZa9IGT67Y
+ mR2EUn6wCdL900FblKXDGhG/hG9kKIv1YpiV/PxpNL6EpdyKHR+YPYdldkz7v9q0SaAG
+ ECHKQGhU1TKXWd7rrrzLLc0Jd72UJDa1ohnakEadWMqgMQ62fAISmxm0VYbYguPM//be
+ 27uU9eV0vSamRchDbtu+0fpHi8PDn1MgeTeQs93IpQcrRJf9L6IaYLNGSOUk4W30OaeD
+ PRNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795116365; x=1795721165;
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=CSDEU43/2Gwf+VbjlCClZWJ4rTvHhhRb4YqVFYZr7ik=;
+ b=mf8u2lG/dbvj7X9TLfnfsN6r9pbBdsKjhulR+xPzGvq9uohmKVvymcHKlkcbiYlH4T
+ tuIQmqhUcVRM9h0/KGVosXJb8WWK3k7dQ4aEEsR7tuu0v7qE0z+3llMFsHem1S9RYusD
+ +i70l2sQQkb4z6eazwzyaan9iaMdmwvjL+fIxcxuIPcb/1JiFEx5tbuYLJkTQA2YhygJ
+ ZOklYKLsEQqaCGM4tQVDxkskwvN03nVr6DSn8cFt6EjxJcMBoYUvtA0+/gObh8aqlt17
+ CkXia+412LI98n8gxmNLN5cUll0OY4ZaynLo8+VAmlQKZV7QPHgnAu2YqDhbp4zuZeCZ
+ gKpw==
+X-Forwarded-Encrypted: i=1;
+ AL+hErEiUF+R2MPReQCgjNIFVYQRKLZcCHSgDGUhqZPv3DvMSVexYKe/CayHLSTkOUrX/WFFd1ScMuvR@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9AKZRCAS8VfUHxj4HMokWzkXbDYmctxSE3HW5pzzXyUQdVOU8E
+ OFt6F+jmz6uiQ/2FJfE6TAFNfK7tCtmSFqWaTlq2HOHEibjuH8cKNk0iAPn4SC5gtyqaKfQEcwp
+ dzGnyxg8Ysw==
+X-Received: from pjbsk16.prod.google.com ([2002:a17:90b:2dd0:b0:3b3:ada0:c008])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:90b:1c03:b0:3b4:1bf1:988f
+ with SMTP id 98e67ed59e1d1-3b41cb138f0mr288962a91.54.1795116364835; Thu, 19
+ Nov 2026 11:26:04 -0800 (PST)
+Date: Thu, 19 Nov 2026 11:25:18 -0800
+In-Reply-To: <20261119192520.1983406-1-irogers@google.com>
 X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA3PR12MB598757:EE_|PH7PR12MB6717:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7b0994c0-dfd9-46f1-0003-08df46cb40e6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|7416014|23010399003|366016|921020|261102123227099003|261021121427099003|10067099003|11063799006|261021123027099003|56012099006|261026140227099003|261028144727099003|261022105027099003|261009223027099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info: ZePuUammKkNp6vT+wTCt399kmyGyqCh76cFovP4CECroflY42bg4e5FWZVEpLuL+gEMrF/lSrqIGayQeIRMlk26uUZUQD02URmHxtkAqzp4X4kr4Tbus7r8Gt8M8/7fhK2tmMDHWKMEOF2iwaQuBW/bU45XVVfw4ghU3zBu0IiRHl163A57k5qvkag0aTASwJQpuc8CD26vuqqTtM48EouuQGBa+TnDdmpM7eBY428qo5wA6h3RoX+FuLIxSNpd7itODgSPBZuOoT9K9lLphlPDiCdrJUpRG9AEoi9uEqKVJSw3/SPMBPrcXWUzHmzOIKUIgiicgCag9uYiEfNdGovmEN0KB08SWXmWT4Pyrq5FIzX+5aVsjZme4D0WMm+61PGCWLxzZu/o1eo4MdbFjimmU8BaJy4GWoMOv1ginNexW4SRS230eWP+kX4XvTcTgaw2YrNpj7gwqrduAjgy0/YDK5wv6Z+vk7+UCjix8Z6KIct1obBbuICbUHghiOkNNAdRZi+i/MZufuTa+80rhWLk3KO6rD3rtLRg9iecvUBLchY2OvOkzWTfbqyCx3EGQKYyK+KJAxFcXDqcyRItsQ0XQbxzMUvXQ/CBwyZdwPBB2371iCIud/Xw8ui/A1v847zvcqkwj9xCbld5s9sNI7KQ90Tct/x4jAN9qf0KvCZbPoV/BSoFakDniWqK07HI9++dkRSki4AnwkCuqmeeD9A==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA3PR12MB598757.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(7416014)(23010399003)(366016)(921020)(261102123227099003)(261021121427099003)(10067099003)(11063799006)(261021123027099003)(56012099006)(261026140227099003)(261028144727099003)(261022105027099003)(261009223027099003)(22082099003)(18002099003)(6133799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QkkzRG0wZmRxMHdXeGorR1lib1VZZ0E3VlRBTDk5SnFuMWh1UjNhNFlDa0lo?=
- =?utf-8?B?OVA1TVY2TU4wUUMvVFZwa1MvK1BVS0Zid3QwRjd1WkV3UzVOWVRvT2xIaDgy?=
- =?utf-8?B?VlZSeDlLNnBUaUZMd2NnVCtyWU9SNzdtQzNCc3NuU0RuYXVlWXRvWllSUjM3?=
- =?utf-8?B?cEhweTd6ZUN1Mi81cjFhay9QQ05vMHlGWUdTNlUwWlRxS0hYTStCUkIrOXlD?=
- =?utf-8?B?aTBZYklvbkg1djRpUWVub3dLVS83cGI0TlJRTHFzd0JYd3EwNDBJZjdPeW5V?=
- =?utf-8?B?a2Nid2dkcFl0TWdtUVhFcVMvQ28ydW8wUUd1WFJQR0dGSlFhS001TkZGcldm?=
- =?utf-8?B?ZVdBRktEc2k5MndDRDVPN0p6MTUyVnRxanZjS3hubXRCcXRnSERobmVjK0Jj?=
- =?utf-8?B?YmpIaVpGcjgwQTR4YW1vbTFjL3VKTmluRjJLa05MYy9UWnBZaXVjaU4zRjRq?=
- =?utf-8?B?aUU4eXdnWEpNM0pqVGd3cmZqM3daUnduamxiS1pRc3prck9rQzBSQzFnaVp3?=
- =?utf-8?B?cmVsYTFYdTJETlNaWTFIemt6R1Vid2JrVTJHYmpLd1JYaCtqdmpmdTlIM0k4?=
- =?utf-8?B?VVl2TzBBWWFnVHFRUW1MNTVmRG01d05jazNSMEI5YUU1MFd4dVMzRlMrQnB6?=
- =?utf-8?B?RCtKZ0JjVU5LYm9HMUJpTHFNNGNydWh3alVOaVYrL3FtZ250ZmhDcDN0VUZu?=
- =?utf-8?B?ZzU0Mi9kUU9TWHY0cVdtbUFvcDlsWktRaXN3bzJkc0V4Ym9PUnBBR2ZoNDJN?=
- =?utf-8?B?SUJWeUtQakQwMU9WN011bEFRMWkrTFRNblZHZWtieit4ZjBmekhDN0ZqMTVR?=
- =?utf-8?B?QXdjS3hsdWtsTk9uOHBqSzl0dDVNdHAyYm9QVmFYM1VockJIUDIrQzM1dHE5?=
- =?utf-8?B?MldhVWVzVUpINDhlSXJQb0p2VnZRL2dmOFFFdEpvTmdIRUFtRFV3czdjVnky?=
- =?utf-8?B?T3Z1TVl3VVZEQkkvQUYvaTNsUTFOMCtxLzBtc2wrVVFibjdobUlSbEhVZm1T?=
- =?utf-8?B?Sy9kcDlvcktud0JXc0ZYKzVOVWJVUThWeFA5TWxjY3NySE1YVGsvNEZCQlhs?=
- =?utf-8?B?QTBab0ZyNDdDMU9GQkR5aGFiSHlWazNjT2p3TTUxOHhPUEFFU1RqTWxLTkYy?=
- =?utf-8?B?b0FWTXl6RXViOUdNbzAvNHZvTmk2cERiTmFOTXk0M25RQ2dScUxRTTRoMlJx?=
- =?utf-8?B?czZlZzArdm1kcHpiUnpVektTTGVCcm5HRUNNSXoxVE1sQmZ2VUVaR0paYnhH?=
- =?utf-8?B?RGY5VGV4dHVGVTF3NXBCY29CL1Jtc01QdkhKeFBDdjFwWCs3dFRDRXgrWFZN?=
- =?utf-8?B?Sys3QUJHUVgxNDFUeDU2MTE4ZnhPOG1LZUdtNUVTbmlZbjJwbHZyOEJhMUhs?=
- =?utf-8?B?TVN5OWhncGxxdzRCdWxlRmM1OW1TUVdvMW92aWZVVjJ4V21wczdsR2RVYWo0?=
- =?utf-8?B?TmhtZlFyTUhvUi9WRGYrb2RmM3hOVmpRcFVleDJXM2RTd211MS9VSXlLdEVh?=
- =?utf-8?B?VGRSd0s3c2w2ZVhXYUxxK3doMXJ6NVRMVjR4aFMrM3dHRkR6TGs4WllRaVU1?=
- =?utf-8?B?cnZsMUlOUWdPc01DeEtCUW1PYVQvUHkxeVA0eHpJTkZvWktkY0NzM05KaGNM?=
- =?utf-8?B?U00zZjI5RDBXQTNkUkRuWDVxUFNEcnI1RlpNdHpvN1hvS0FhblY1c2I2VmhS?=
- =?utf-8?B?dTVuN1VhREVsUEZDczlBWk43NGlyaHN2TXMxVkQ5RjlwQ0pCcXpxbEpCQUly?=
- =?utf-8?B?Q3VseUFBMVdWZU5xUFVscGtLbElhOFFDdWNiZ1ZGZUFTb2VlSG8raVc2WkZP?=
- =?utf-8?B?cjNBbEQzLzlIRFdkNEhQY2pzVFE2a0V3Q3FMWUFuQkpDaTdlMk5iRm9RdUhu?=
- =?utf-8?B?ZmVSVERKN1RoRXliekNPVVN0NWVBTERUdnVHS3Fpd3N3eFUvMWtXQTQrSE9K?=
- =?utf-8?B?U2creldQSkNPa3o5L0huNTV4akc0elhiNDRhZzJXU1Zaczlyay9FeTM3SGlt?=
- =?utf-8?B?T0kxOVBCVlA0Z1NlN2FQdGVqUDJXOEtwWkUwaWtyOW9nY0hBYk5IK3JQQjVo?=
- =?utf-8?B?dXRaMk04bDRoelJ2UmJqWkg5ZUFKUW55dHJIU0JlbE4rTjUzaHUyd0tXU3Fu?=
- =?utf-8?B?ZUp1QVE4Z2dEMXpycmVjdTV1c0FUWjA2WGRxNng3Yy80Vnl6Y3dyNnNETXQr?=
- =?utf-8?B?ZFo1QzlpdXZvaFd5YnFzTkwvNXhPdGp2bjQvZzVldGpCMkVMVWNZUW5kWDRu?=
- =?utf-8?B?M2c0ZjlEekNYSWZleGg2OFJuUTF5YzFxU2REenovUnJqbUVNeUswQS96MitH?=
- =?utf-8?B?TENVRE1idGM5UGpyV3B6Mm01NmtBbEZoelZTNzhHNGlNTUt4R0c3UT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7b0994c0-dfd9-46f1-0003-08df46cb40e6
-X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB598757.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2026 05:58:09.3254 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FOCJ8GL+SHouDAkP925qj5X03rFju3GaYcR0vdP6YddhjrsyUYF7M4kapKH55zE1qBDGbQl7izv5160YTzGf5g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6717
+Mime-Version: 1.0
+References: <20261119192520.1983406-1-irogers@google.com>
+X-Mailer: git-send-email 2.56.1.750.gf70dc682cf-goog
+Message-ID: <20261119192520.1983406-8-irogers@google.com>
+Subject: [PATCH v4 7/9] ubifs: sysfs: Use kset_create_and_add() for ubifs_kset
+From: Ian Rogers <irogers@google.com>
+To: Danilo Krummrich <dakr@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Kees Cook <kees@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+ "Rafael J . Wysocki" <rafael@kernel.org>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Srish Srinivasan <ssrish@linux.ibm.com>, 
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
+ Christophe Leroy <chleroy@kernel.org>, Nayna Jain <nayna@linux.ibm.com>, 
+ Mimi Zohar <zohar@linux.ibm.com>, Yoshinori Sato <ysato@users.sourceforge.jp>, 
+ Rich Felker <dalias@libc.org>,
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, 
+ Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Nathan Chancellor <nathan@kernel.org>, 
+ Nick Desaulniers <ndesaulniers@google.com>,
+ Viresh Kumar <viresh.kumar@linaro.org>, 
+ Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>,
+ Alexander Aring <aahringo@redhat.com>, 
+ Felix Kuehling <felix.kuehling@amd.com>, 
+ "=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>,
+ Zhihao Cheng <chengzhihao1@huawei.com>, 
+ Sumanth Korikkar <sumanthk@linux.ibm.com>, Bill Wendling <morbo@google.com>, 
+ Justin Stitt <justinstitt@google.com>, driver-core@lists.linux.dev,
+ llvm@lists.linux.dev, 
+ linux-hardening@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-acpi@vger.kernel.org, 
+ linux-pm@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+ linux-sh@vger.kernel.org, linux-s390@vger.kernel.org, gfs2@lists.linux.dev, 
+ xen-devel@lists.xenproject.org, linux-mtd@lists.infradead.org, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Ian Rogers <irogers@google.com>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Fri, 20 Nov 2026 14:56:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -159,56 +102,82 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-26.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS,USER_AGENT_GIT,USER_IN_DEF_DKIM_WL autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Jason Gunthorpe <jgg@nvidia.com>
+ubifs_kset was a static struct kset using a custom ubifs_ktype that
+had no default_groups and no .release callback. With
+CONFIG_DEBUG_KOBJECT_RELEASE=y, unloading the ubifs module while delayed
+kobject release is pending causes a use-after-free on the static kset.
 
-These importer helper functions should call dma_buf_sgt_dma_device() as
-they are always working with SGTs.
+Replace the static ubifs_kset and empty ubifs_ktype with a dynamically
+allocated kset via kset_create_and_add().
 
-Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
-Signed-off-by: Alistair Popple <apopple@nvidia.com>
+Fixes: 2e3cbf425804 ("ubifs: Export filesystem error counters")
+Tested-by: Zhihao Cheng <chengzhihao1@huawei.com>
+Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
+Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- drivers/usb/gadget/function/f_fs.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ fs/ubifs/sysfs.c | 24 +++++++-----------------
+ 1 file changed, 7 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/usb/gadget/function/f_fs.c b/drivers/usb/gadget/function/f_fs.c
-index 2f221d0a983f..1efadf2c0f73 100644
---- a/drivers/usb/gadget/function/f_fs.c
-+++ b/drivers/usb/gadget/function/f_fs.c
-@@ -16,6 +16,7 @@
+diff --git a/fs/ubifs/sysfs.c b/fs/ubifs/sysfs.c
+index dbf967dcf26e..e20931e3a62f 100644
+--- a/fs/ubifs/sysfs.c
++++ b/fs/ubifs/sysfs.c
+@@ -80,13 +80,7 @@ static const struct kobj_type ubifs_sb_ktype = {
+ 	.release	= ubifs_sb_release,
+ };
  
- #include <linux/blkdev.h>
- #include <linux/dma-buf.h>
-+#include <linux/dma-buf-mapping.h>
- #include <linux/dma-fence.h>
- #include <linux/dma-resv.h>
- #include <linux/pagemap.h>
-@@ -1514,7 +1515,7 @@ ffs_dmabuf_find_attachment(struct ffs_epfile *epfile, struct dma_buf *dmabuf)
- 	mutex_lock(&epfile->dmabufs_mutex);
+-static const struct kobj_type ubifs_ktype = {
+-	.sysfs_ops	= &ubifs_attr_ops,
+-};
+-
+-static struct kset ubifs_kset = {
+-	.kobj	= {.ktype = &ubifs_ktype},
+-};
++static struct kset *ubifs_kset;
  
- 	list_for_each_entry(priv, &epfile->dmabufs, entry) {
--		if (priv->attach->dev == dev
-+		if (dma_buf_sgt_dma_device(priv->attach) == dev
- 		    && priv->attach->dmabuf == dmabuf) {
- 			attach = priv->attach;
- 			break;
-@@ -1616,7 +1617,7 @@ static int ffs_dmabuf_detach(struct file *file, int fd)
- 	mutex_lock(&epfile->dmabufs_mutex);
+ int ubifs_sysfs_register(struct ubifs_info *c)
+ {
+@@ -107,7 +101,7 @@ int ubifs_sysfs_register(struct ubifs_info *c)
+ 		goto out_free;
+ 	}
  
- 	list_for_each_entry_safe(priv, tmp, &epfile->dmabufs, entry) {
--		if (priv->attach->dev == dev
-+		if (dma_buf_sgt_dma_device(priv->attach) == dev
- 		    && priv->attach->dmabuf == dmabuf) {
- 			/* Cancel any pending transfer */
- 			spin_lock_irq(&ffs->eps_lock);
-
+-	c->kobj.kset = &ubifs_kset;
++	c->kobj.kset = ubifs_kset;
+ 	init_completion(&c->kobj_unregister);
+ 
+ 	ret = kobject_init_and_add(&c->kobj, &ubifs_sb_ktype, NULL,
+@@ -139,18 +133,14 @@ void ubifs_sysfs_unregister(struct ubifs_info *c)
+ 
+ int __init ubifs_sysfs_init(void)
+ {
+-	int ret;
++	ubifs_kset = kset_create_and_add("ubifs", NULL, fs_kobj);
++	if (!ubifs_kset)
++		return -ENOMEM;
+ 
+-	kobject_set_name(&ubifs_kset.kobj, "ubifs");
+-	ubifs_kset.kobj.parent = fs_kobj;
+-	ret = kset_register(&ubifs_kset);
+-	if (ret)
+-		kset_put(&ubifs_kset);
+-
+-	return ret;
++	return 0;
+ }
+ 
+ void ubifs_sysfs_exit(void)
+ {
+-	kset_unregister(&ubifs_kset);
++	kset_unregister(ubifs_kset);
+ }
 -- 
-2.54.0
+2.56.1.708.g77570a6a1d-goog
 
