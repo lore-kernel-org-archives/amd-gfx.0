@@ -2,153 +2,96 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E1C6606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A040C606A32A
 	for <amd-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 14:56:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=dr+Y7CZI
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=RFb3qJ51
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A378010E1E1;
-	Fri, 20 Nov 2026 14:56:47 +0000 (UTC)
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012053.outbound.protection.outlook.com [52.101.43.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2139810EB42;
- Fri, 20 Nov 2026 05:57:13 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=X2tUmwnLRHkBtr+GlbZr2Lp1lkOtXm/V+8+DUD6bG6oje7N3pYfuRNf/8tWWprvHTR9IOjwporWaLxp4uKXS7FK0ZXS1i8yOFuRqD4QqkmBkUPC7JGeKGtAZYstnyB6Yg0HsXBJKMnbQ4/n2s8hlejaUztA/Ltwmqs5q18XriOUYUfP/d87kYFAOJJwwfDVpqax5aQBeGw1O+zWYAAGY/RCrFg1WtuS8tTu1b+v4YtE1PXmBpo+DwiBeoGHmvkR+RDRDptLYhxPxwtnlxNGVmw6EeefMiFpWxdkyjMegMYVO/XBCvk90+o2NceKuqlWmdAFYB34skE8ueCVXhGZGng==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oOZ4wG+0Cg9BKkrk9WLpii0Cfgl+7VKPVXylWrAei4U=;
- b=IgzDQFvs1xkeozxXqEVK8nLnZVvGodY65naLYP0FGM41qBbj+UucDQT8gQGaTzBoKNqzEkIr+qkXQr5BhRGXgxiQc9eqUXTgnF2WC801pp/zGLMBFvbg0k3IFJt+TJ36rBCg32QaTM/xwfnG8jfCcC/c20AcHPX+n3Oe3kO36kXrAc0E5GnJ6sRuDfIX8BmiFGYvZWrW6dHQ20IsYRF7/t3ScJPCA7L+eW9Eev2CkfJZO+u1nq+PcHQPYvL9CmEqVVIgI06IydjXgimhItjQr2NXtCM0MmgBQAdqeHc+g0ClOczXJI+mv+Em3cmZbieEHdQuFcf53RNJ0Ge+Y48dbA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oOZ4wG+0Cg9BKkrk9WLpii0Cfgl+7VKPVXylWrAei4U=;
- b=dr+Y7CZIAgHe93HLge1Fhac8dqsnD+hxD15xbkbXzQy+chjHvoa1ZXO3omk95WQkHmwapiZcQVm59+jChAsOpkZmR3qEAsN3xHoFkOJvBDe8TuzQpqoe2qFETDzIX75YGnnNFspsY0A8ZoeFM5IwKU3dU9g/nM9QVYcZSLd/huhrCHMFMcJRZSBAkmrwWDk7KWhCI08vw5LvLWEzjrwn9URRNpWtZEsJMqfPWEHyEOtW802HuTNGumWjrb8mIgZRC6ggjerTRjnYBEEXNW9kHLYVwi0Uls5s7FTHZrNjBH/H0TbVXHiYXHu24sTZ6gsmABdBS1e6EiOR1FeP+zDvzw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SA3PR12MB598757.namprd12.prod.outlook.com
- (2603:10b6:806:52d::14) by IA0PR12MB7675.namprd12.prod.outlook.com
- (2603:10b6:208:433::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Fri, 20 Nov
- 2026 05:57:02 +0000
-Received: from SA3PR12MB598757.namprd12.prod.outlook.com
- ([fe80::e206:100:5946:a777]) by SA3PR12MB598757.namprd12.prod.outlook.com
- ([fe80::e206:100:5946:a777%5]) with mapi id 15.21.0639.011; Fri, 20 Nov 2026
- 05:57:02 +0000
-From: Alistair Popple <apopple@nvidia.com>
-Date: Fri, 20 Nov 2026 16:55:44 +1100
-Subject: [PATCH v3 06/24] dma-buf: Allow single exporter drivers to avoid
- the match_mapping function
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261120-dma_mapping_type_v4-v3-6-c0183a409bdf@nvidia.com>
-References: <20261120-dma_mapping_type_v4-v3-0-c0183a409bdf@nvidia.com>
-In-Reply-To: <20261120-dma_mapping_type_v4-v3-0-c0183a409bdf@nvidia.com>
-To: =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Simona Vetter <simona.vetter@ffwll.ch>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Vivek Kasireddy <vivek.kasireddy@intel.com>, 
- Dongwon Kim <dongwon.kim@intel.com>, Kevin Tian <kevin.tian@intel.com>, 
- Xu Yilun <yilun.xu@linux.intel.com>, 
- Karl Mehltretter <kmehltretter@gmail.com>, 
- Baolu Lu <baolu.lu@linux.intel.com>, 
- Felix Kuehling <felix.kuehling@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, linux-media@vger.kernel.org, 
- linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org, 
- iommu@lists.linux.dev, Keith Busch <kbusch@kernel.org>, 
- Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>, 
- Sagi Grimberg <sagi@grimberg.me>, linux-nvme@lists.infradead.org, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, Mina Almasry <almasrymina@google.com>, 
- netdev@vger.kernel.org, Alexey Kardashevskiy <aik@amd.com>, 
- zhipingz@meta.com, treding@nvidia.com, jhubbard@nvidia.com, 
- chaitanyak@nvidia.com, Jason Gunthorpe <jgg@ziepe.ca>, 
- Leon Romanovsky <leon@kernel.org>
-Cc: Alistair Popple <apopple@nvidia.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795154186; l=3763;
- i=apopple@nvidia.com; s=20261105; h=from:subject:message-id;
- bh=ZslO5m00dMh/hWP0sxl/X1iuz6bKgsA/EKsffZkJLQk=;
- b=cZ5iipJZ5nLWchunXbwRQMHn2CLivMg8Hg019YoGNDtCqjE6NspFmc1lP6VeglZrckvJKI5Jp
- tbxzqCTMfkwBm4qQzweWDFi49WmOGZpHQ+DSKUVBEiL3NolUlohGchD
-X-Developer-Key: i=apopple@nvidia.com; a=ed25519;
- pk=WdWPT9rAq3YNfXldbGv1NSGVLGxzQGFGJvRUiShhNqs=
-X-ClientProxiedBy: SY6PR01CA0028.ausprd01.prod.outlook.com
- (2603:10c6:10:eb::15) To SA3PR12MB598757.namprd12.prod.outlook.com
- (2603:10b6:806:52d::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 240D9112B46;
+	Fri, 20 Nov 2026 14:56:48 +0000 (UTC)
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com
+ [209.85.167.197])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 831BD1126ED
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 19:25:54 +0000 (UTC)
+Received: by mail-oi1-f197.google.com with SMTP id
+ 5614622812f47-5713cd0fb42so1691295b6e.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 11:25:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20260707; t=1795116354; x=1795721154;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=ohgce9vn+z31zJY1A4d/uIcUdw7UhPIFGYmbETxOr2U=;
+ b=RFb3qJ51LTDMd9+2zta7vqwfnndABvWj8d1wNWlkfsEJCjMKL5rB08xZxQuYKSrV7X
+ l39b+rnAsPcle5xuLr6cqzhwHGnG07hnQtDtOi6fLc+8dzk4fw5PFbY+ycUinhL8/3CN
+ /OevryEE06+ugnX6RI310IgA5DJMBaUrhu2k28CPX9u+TvAYpRE/5crlyL94LXj34i3E
+ l2BSBSvvZX9nVnECp/U+ppVKUsnHCnrohWVHhkkzcnwADGaSCxE8JYELYPoprQM1dzgO
+ 36P4p7b3lmRum4KfGdvPlqx186z9H58GFm0cQBFsC3aq0xX+yW1brgN6wO7RZzucwDXp
+ rYUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795116354; x=1795721154;
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=ohgce9vn+z31zJY1A4d/uIcUdw7UhPIFGYmbETxOr2U=;
+ b=QEXzwwkxvM6bA2KVAKnYPfm4c8dHh0ZZGqU9l+q6Xmo4ir7QGETd0wqcqGzFRQnYr+
+ awiMcnmIbB04GnlQyV1c9lrILXlWe1GQGrEnVi1+twL3NSrz/iB6ULySdNJgSe94VwiV
+ nAE7NZdRXmx1vPDEaVI63Wo9SRCZZ1oMBOpqvAUWYZ7mZ9K3ppq9fsgvGjUT0xm6HOwg
+ WCHB3iH2Nvz280dUsVt85kHfKTscMh49Fwh6pZyWzIHxZxNTUcqTKK4dNSbnZbUfAWTx
+ vheLxqpeARmf+OYjdySKpTU1CyiZBco055QIkxQiDx6X+WUsdjfaMRYTsNT+4PkYUUZp
+ vNfw==
+X-Forwarded-Encrypted: i=1;
+ AL+hErHUlJ2rK3MLLZFB3b1BtNd6YLuOIw1Ds8LsxVBo400Dh0n60O3HM/HCBujPAsZw8C7s0JXT0Frb@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9IYbaj30PnENeSJR0S+qVlYtRkYr+VzMVuYcsdLnBi4Yn0dVUF
+ ATLCv2LXiiFUPGC/a9fTksffkNRI2F1PcZ7JJthDKBHDk/e/eWO/C8Vrua3R5gdFws8iBJg22Dh
+ 3Jnbv+s2HbQ==
+X-Received: from ilbdx27-n1.prod.google.com
+ ([2002:a05:6e02:421b:10b0:547:8b66:16bf])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6808:2383:b0:572:f8ec:5340
+ with SMTP id 5614622812f47-5797dd97e12mr1569173b6e.40.1795116353256; Thu, 19
+ Nov 2026 11:25:53 -0800 (PST)
+Date: Thu, 19 Nov 2026 11:25:16 -0800
+In-Reply-To: <20261119192520.1983406-1-irogers@google.com>
 X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA3PR12MB598757:EE_|IA0PR12MB7675:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7d9bee2e-aad3-45c1-a99a-08df46cb18f1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|7416014|366016|1800799024|921020|10067099003|11063799006|56012099006|261022113327099003|261021130227099003|261021123027099003|261028144727099003|261026130827099003|261022105027099003|261026121527099003|261026140227099003|261022075727099003|261022115727099003|261021135927099003|261021121427099003|261102130727099003|261102123227099003|261009223027099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info: BF01VW+oVEJe9gbHvaB9ngMCMtcd08k1i4C6UUIte4l5TA2/9/bJ9oNMFd8QbWZoBscxVoMQXJKIHrG6PEFF8wWrhkqXUUbSfdF94G9j2KjJWT78XG7QfjDtGXXBzbINX4i+naOidJRV1wpYmyaAgwkh8UkQKIEWuQtPQu8lM00DYc7R7N+KpKAzhyB5MObaRQYkCHkzgfht2lvbRgkIc+lvoZ75siP11lKev9e1Fs0wyij3YCFSDsQ5ZLrMJ2K4iRSY0Zk8eieDB22WYnwBOWrG166XSRieHkstlMAY58ZlpIfvZwYGVH0ZtMkcqFrbLtqfpWXp0D7JAyoh+9BjqyPpotFuen73WvPbzJbuc9V049yO6XlfxWlsuYjG543HXarqcMNrigKOdhIcrRK24ViFsG4jJp27YtF17TqRt3FAG3z/VJqattfLojMC3nBysmyifDFJWZReMZeFr9mzHERD0NFOmTTpoiKheaKCq7LjWjvKLYCGCnoAUBN2jOxfr7XuI5USGMrul8HMQW8SLKSWe6049SPeBdpUME92XCim2fca7RTf1VkRNZTNsGPJzOiEWTPLLUNaUAipncEc1Kl0JvTk8ySyBi6Pcz5MTD+ieoy6V7H8vQ32tnF0AdihzFsGAF4HjmPXx/9b1esK2XkDQHDomOx4LjPTf65eUINn/v1pgaQYyiyazUEc7cLujxwJS/mXlmyJHwhzYa0WYw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA3PR12MB598757.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(7416014)(366016)(1800799024)(921020)(10067099003)(11063799006)(56012099006)(261022113327099003)(261021130227099003)(261021123027099003)(261028144727099003)(261026130827099003)(261022105027099003)(261026121527099003)(261026140227099003)(261022075727099003)(261022115727099003)(261021135927099003)(261021121427099003)(261102130727099003)(261102123227099003)(261009223027099003)(22082099003)(18002099003)(6133799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZTZXUkdsZkRhOUgxT0h4NU52LzlhbjRqUGsxdVBudURkaEhRL0d1ZUt0bWtv?=
- =?utf-8?B?bWlEbEc0Nk9yNmRTenVYcExPOEE2SkpBaFBNb2pLWW5RZXpsS3laQ3NaYmQr?=
- =?utf-8?B?S212MDlhRkUrWHlDVzlaOTVDUHV0OW5uQk91MFBTbmlmS3k0L0w1Smt3aWhL?=
- =?utf-8?B?RE9lK21ITk1kRXVPa2RYQkJuN3p1U1plL1pKNGZuYzFxMEV5Qnk5c3JxeUhu?=
- =?utf-8?B?c0Jlb0xualYxTGIzay90T3hRem9BTzhKY3BZSmtuSkg3aXNtYTNSQ28xVFgr?=
- =?utf-8?B?ZlFLT1ZJeEtQV2IxdjZZcTZHN3RNMkFiQXg1V1doN21ibFoyVkwrcm5SK1M1?=
- =?utf-8?B?WkdGUlJCSmg2aVVoWVIzWk9mczlTQUNjSk9KKzhRS1ZwdEt1ZDh5ME01TGtP?=
- =?utf-8?B?N0hmSW1STzFIQ0pmNWR4SWdEQ0FkUldTWUdlc2pNazhxVU5GZ0VSd0N2Y080?=
- =?utf-8?B?YUhEVzRDNEpIbkRxU1FKdG5pbmllMm1ueEcyYlhvemp0eUFkUzJMUnNsZ2Nr?=
- =?utf-8?B?eDVoMmFRUXdvVEdZT0VITUpWZWZ4QVgrNGlYZFU5NGJiOHpXRW05VDFDbG15?=
- =?utf-8?B?dDV1OVA0UmlqaVJXSWpqbnFUMnVGUUZPNTB6cU5LSUpMaWl3My9jLzNXYnB4?=
- =?utf-8?B?cEhjeGJWZldwSit2dnJSOTcza1hhV1R2V0NvTk9TTjR1T2hVRFZrdTh2eWZF?=
- =?utf-8?B?d2VFN2RqR1Q5SHhpc3Q1Q0JDbHd5blMwVDh2M3A0QUx1Z0kyMUhMMktqM2dt?=
- =?utf-8?B?dEM2blM5Mm9QdkFXUTVta1MrV1ZCNUpmYTNJY1lVam1HanhRTDN6aWpUTWE0?=
- =?utf-8?B?TnhGZzM2bm5iYndNL0Vtb29xTExEWVhXWmliZ0g3bmxCSFR3NDlHRlRVVUNl?=
- =?utf-8?B?enc2YTU0M0kwcC9EY0tuMk5uNllpWFZhUGJPZzF5TjZrbXpqZzVzSGNKZTV0?=
- =?utf-8?B?VjAxdWQ0UDN1cFNWeEQ4RGdXYXlhK0dROFBzUm5EbUhFR1hORTFxaVl1WGJK?=
- =?utf-8?B?U3Z3NU9BalpGbFNHTlRCVlVXRUl0Q2xOcEhUYUp6TmRmaTNieXZaMG5pS09X?=
- =?utf-8?B?aEZCR2ZJcDBvSWI2MVpUY0RvcmMwbVJ0aVIvZGZnZFVkVC82Ui9tMmt4QTUz?=
- =?utf-8?B?SXZuZDdXL21ueStQSE56aWVlcTZ6dWhRWjVkNjMwdTRkck9PcHJxRmdVcXVO?=
- =?utf-8?B?a0JBMFF5V2tiWXZ2b2NzOEwyL2x0QzlPUExyTnQ5WGFmdjlibEFaVWpBV0pR?=
- =?utf-8?B?VGRvbk9YYWpTTXNwTHJIOWhmYmlXeWFoMVhyd0JLbTZkNGNBZWYzL1laZ2Vr?=
- =?utf-8?B?TTZtSWgxQnVrNlJET2MyVExFSmsyVjNxKzBKM0lWUjk4OXo1UEVHSEQ1SUR4?=
- =?utf-8?B?ZDJaNENCNlNNL0thcFdRSE9UNUVRRmg2RjRGWUZEbVdWcm9CWnpCcGIwb2xk?=
- =?utf-8?B?NzZJeVNuN1c4VVN6NGdlRktFZzkrR3lOTmZaL0tFcjFIOHRweWhPRW11MDda?=
- =?utf-8?B?dTFnV285L2kvNlFaMTN0M3F3L09rRzBlNExGSC93Zk9LS3hrRUNwNkZwcE8z?=
- =?utf-8?B?NFhKbmgyZ0FBcWZZREcxQmRFUmt0ZVVmc0k2Wkt5cVZUVkRmUkUzMkZvYXJL?=
- =?utf-8?B?RElQRFBLaHU0MFNiREkzcVZTSjdOK3pyWHR5NnVpai82RnlaeVl6RDU1TUh1?=
- =?utf-8?B?M09ZM0N0OUNjY2V2Tnh4T1FOMW56Ly9YNjh6TVpGangzSURiSTJKMjBPU2FT?=
- =?utf-8?B?S0U5SUxVV0V4cXlxUk13VXA4ZHB2QitKckNyRlJVU1JtTjBVc0hWMnU4N1Zp?=
- =?utf-8?B?TmtQY2R1bWd0cHJyTnVyYWJsK000dDZOV2VyU25YZVZ6dTE2U2JGSDdkbGdq?=
- =?utf-8?B?OTE3d1ZaeW5ENkRHOVY1UjdFYXVmZWNQN0ZReUJtUXhxVk5Tby9Pc3QyczRL?=
- =?utf-8?B?UnVBa0ZBNXlBVk9FcENZeWdZOWExNDNjS1FGcnN0eElPMFU2QmJKVnVnSUI1?=
- =?utf-8?B?NXMxUkJ0dFFZd0hxVnJzWURBZlA5TzdQMEVzb01YTnIrU0Rhd3NocGIzRWNG?=
- =?utf-8?B?RlhDVFhncjBRR2Nja2QzZFNlTUc1QjAzRnBhbWdIdGh5S2szaDY1TUJ2MkNm?=
- =?utf-8?B?SWhYdmJoQktLa1YrYkV2VHlUeHMydjZEZ2V4TDMxYVB3cXoxSjdCQ3ZoZ3Ir?=
- =?utf-8?B?bWZHUkpCejI0cTRMWTVyQzJESkx5RUNqNTZmMUp4TlRXd3c5SlBQU1h5cG1U?=
- =?utf-8?B?UGFaNFFPTWtQVExiRWJTYUp5dFpCYmVWT2piVlNoK1VpSVNEMVg4MzVxTXlB?=
- =?utf-8?B?M0ZaMytvV2pFUFJoY0RXRVZNbHF0YTFiN2F5VU5GZnp2T0hWaHl3Zz09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7d9bee2e-aad3-45c1-a99a-08df46cb18f1
-X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB598757.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2026 05:57:02.2859 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Wxf9bawyWbeg4jQw5RmTimEM7TLsEfzkRauINkUHNLGbYBco5fMSzMdbPZFhmnpwKmm+ED32ups1CMF4iEdrcQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7675
+Mime-Version: 1.0
+References: <20261119192520.1983406-1-irogers@google.com>
+X-Mailer: git-send-email 2.56.1.750.gf70dc682cf-goog
+Message-ID: <20261119192520.1983406-6-irogers@google.com>
+Subject: [PATCH v4 5/9] dlm: Wait for kobject release before freeing dlm_ls
+From: Ian Rogers <irogers@google.com>
+To: Danilo Krummrich <dakr@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Kees Cook <kees@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+ "Rafael J . Wysocki" <rafael@kernel.org>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Srish Srinivasan <ssrish@linux.ibm.com>, 
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
+ Christophe Leroy <chleroy@kernel.org>, Nayna Jain <nayna@linux.ibm.com>, 
+ Mimi Zohar <zohar@linux.ibm.com>, Yoshinori Sato <ysato@users.sourceforge.jp>, 
+ Rich Felker <dalias@libc.org>,
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, 
+ Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Nathan Chancellor <nathan@kernel.org>, 
+ Nick Desaulniers <ndesaulniers@google.com>,
+ Viresh Kumar <viresh.kumar@linaro.org>, 
+ Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>,
+ Alexander Aring <aahringo@redhat.com>, 
+ Felix Kuehling <felix.kuehling@amd.com>, 
+ "=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>,
+ Zhihao Cheng <chengzhihao1@huawei.com>, 
+ Sumanth Korikkar <sumanthk@linux.ibm.com>, Bill Wendling <morbo@google.com>, 
+ Justin Stitt <justinstitt@google.com>, driver-core@lists.linux.dev,
+ llvm@lists.linux.dev, 
+ linux-hardening@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-acpi@vger.kernel.org, 
+ linux-pm@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+ linux-sh@vger.kernel.org, linux-s390@vger.kernel.org, gfs2@lists.linux.dev, 
+ xen-devel@lists.xenproject.org, linux-mtd@lists.infradead.org, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Ian Rogers <irogers@google.com>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Fri, 20 Nov 2026 14:56:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -160,110 +103,143 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-26.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS,USER_AGENT_GIT,USER_IN_DEF_DKIM_WL autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Introduce single_exporter_match into the dma_buf_ops so that single
-exporter drivers can simply set it using a static initializer to use the
-mapping type APIs. Provide a helper macro DMA_BUF_SIMPLE_SGT_EXP_MATCH()
-that generates the initializer for simple drivers.
+struct dlm_ls embeds a struct kobject (ls_kobj), but dlm_ktype lacked a
+.release callback and dlm freed the lockspace structure directly via
+kfree(ls). With CONFIG_DEBUG_KOBJECT_RELEASE=y, freeing ls before the
+delayed kobject release runs causes a use-after-free, and unloading the
+module while the delayed release is pending results in an instruction
+page fault.
 
-More complex exporters, such as those offering more than one entry or
-that need to look at the importer when matching, implement the
-match_mapping callback instead.
+Add a completion ls_kobj_done and dlm_ls_release() to complete it when
+the last kobject reference is dropped, waiting for it in free_lockspace()
+before kfree(ls) and in the new_lockspace() error path before module_put().
+Also delete the kobject via kobject_del() before stopping dlm_recoverd
+to close the window where concurrent sysfs writes could wake the stopped
+recovery task.
 
-Co-developed-by: Jason Gunthorpe <jgg@nvidia.com>
-Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
-Signed-off-by: Alistair Popple <apopple@nvidia.com>
+Fixes: 8a4cf500f1dd ("dlm: drop kobject release callback handling")
+Acked-by: Alexander Aring <aahringo@redhat.com>
+Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- drivers/dma-buf/dma-buf.c       | 14 ++++++++++++--
- include/linux/dma-buf-mapping.h | 13 +++++++++++++
- include/linux/dma-buf.h         |  9 +++++++++
- 3 files changed, 34 insertions(+), 2 deletions(-)
+ fs/dlm/dlm_internal.h |  1 +
+ fs/dlm/lockspace.c    | 26 ++++++++++++++++++++------
+ 2 files changed, 21 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index 76340d067f6c..6188cd11b004 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -718,10 +718,14 @@ struct dma_buf *dma_buf_export(const struct dma_buf_export_info *exp_info)
- 		    || !exp_info->ops->release))
- 		return ERR_PTR(-EINVAL);
+diff --git a/fs/dlm/dlm_internal.h b/fs/dlm/dlm_internal.h
+index 74c2e77d1b55..95b3bff0cb57 100644
+--- a/fs/dlm/dlm_internal.h
++++ b/fs/dlm/dlm_internal.h
+@@ -576,6 +576,7 @@ struct dlm_ls {
+ 	int			ls_create_count; /* create/release refcount */
+ 	unsigned long		ls_flags;	/* LSFL_ */
+ 	struct kobject		ls_kobj;
++	struct completion	ls_kobj_done;
  
--	if (exp_info->ops->match_mapping) {
-+	if (exp_info->ops->match_mapping ||
-+	    exp_info->ops->single_exporter_match) {
- 		if (WARN_ON(exp_info->ops->map_dma_buf ||
- 			    exp_info->ops->unmap_dma_buf))
- 			return ERR_PTR(-EINVAL);
-+		if (WARN_ON(exp_info->ops->match_mapping &&
-+			    exp_info->ops->single_exporter_match))
-+			return ERR_PTR(-EINVAL);
- 	} else {
- 		if (WARN_ON(!exp_info->ops->map_dma_buf ||
- 			    !exp_info->ops->unmap_dma_buf))
-@@ -1094,7 +1098,13 @@ dma_buf_dynamic_attach(struct dma_buf *dmabuf, struct device *dev,
- 		if (ret)
- 			goto err_attach;
- 	} else {
--		ret = dma_buf_sgt_compat_match_mapping(&match_args);
-+		const struct dma_buf_mapping_match *exp_match =
-+			dmabuf->ops->single_exporter_match;
-+
-+		if (exp_match)
-+			ret = dma_buf_match_mapping(&match_args, exp_match, 1);
-+		else
-+			ret = dma_buf_sgt_compat_match_mapping(&match_args);
- 		if (ret)
- 			goto err_attach;
- 	}
-diff --git a/include/linux/dma-buf-mapping.h b/include/linux/dma-buf-mapping.h
-index 8be03b4ba6cc..e442ed0ede71 100644
---- a/include/linux/dma-buf-mapping.h
-+++ b/include/linux/dma-buf-mapping.h
-@@ -244,4 +244,17 @@ dma_buf_sgt_mapping_dma_device(const struct dma_buf_sgt_mapping *mapping)
- /* Match on behalf of an exporter that has no match_mapping() */
- int dma_buf_sgt_compat_match_mapping(struct dma_buf_match_args *args);
- 
-+/*
-+ * dma_buf_ops initializer helper for simple drivers that use a single
-+ * SGT map/unmap operation.
-+ */
-+#define DMA_BUF_SIMPLE_SGT_EXP_MATCH(_map, _unmap)                       \
-+	.single_exporter_match = &((const struct dma_buf_mapping_match){ \
-+		.type = &dma_buf_mapping_sgt_type,                       \
-+		.exp_ops = &((const struct dma_buf_mapping_sgt_exp_ops){ \
-+			.map_dma_buf = _map,                             \
-+			.unmap_dma_buf = _unmap,                         \
-+		}).ops,                                                  \
-+	})
-+
- #endif
-diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-index cfbb800aa12d..5c8f090a9b8a 100644
---- a/include/linux/dma-buf.h
-+++ b/include/linux/dma-buf.h
-@@ -322,6 +322,15 @@ struct dma_buf_ops {
- 	 * any time until the final location is resolved during map/pin.
- 	 */
- 	int (*match_mapping)(struct dma_buf_match_args *args);
-+
-+	/**
-+	 * @single_exporter_match:
-+	 *
-+	 * Should only be set by the DMA_BUF_SIMPLE_*_EXP_MATCH() helper macros.
-+	 * Exactly one of @match_mapping or @single_exporter_match must be
-+	 * provided.
-+	 */
-+	const struct dma_buf_mapping_match *single_exporter_match;
+ 	struct xarray		ls_lkbxa;
+ 	rwlock_t		ls_lkbxa_lock;
+diff --git a/fs/dlm/lockspace.c b/fs/dlm/lockspace.c
+index a9c98b4f378f..2dccd080a10f 100644
+--- a/fs/dlm/lockspace.c
++++ b/fs/dlm/lockspace.c
+@@ -179,7 +179,15 @@ static const struct sysfs_ops dlm_attr_ops = {
+ 	.store = dlm_attr_store,
  };
  
- /**
-
++static void dlm_ls_release(struct kobject *kobj)
++{
++	struct dlm_ls *ls = container_of(kobj, struct dlm_ls, ls_kobj);
++
++	complete(&ls->ls_kobj_done);
++}
++
+ static struct kobj_type dlm_ktype = {
++	.release        = dlm_ls_release,
+ 	.default_groups = dlm_groups,
+ 	.sysfs_ops     = &dlm_attr_ops,
+ };
+@@ -355,6 +363,8 @@ static void free_lockspace(struct work_struct *work)
+ 	 */
+ 	rhashtable_free_and_destroy(&ls->ls_rsbtbl, rhash_free_rsb, NULL);
+ 
++	kobject_put(&ls->ls_kobj);
++	wait_for_completion(&ls->ls_kobj_done);
+ 	kfree(ls);
+ }
+ 
+@@ -435,7 +445,10 @@ static int new_lockspace(const char *name, const char *cluster,
+ 	ls->ls_lvblen = lvblen;
+ 	atomic_set(&ls->ls_count, 0);
+ 	init_waitqueue_head(&ls->ls_count_wait);
++	init_completion(&ls->ls_kobj_done);
+ 	ls->ls_flags = 0;
++	ls->ls_kobj.kset = dlm_kset;
++	kobject_init(&ls->ls_kobj, &dlm_ktype);
+ 
+ 	if (ops && dlm_config.ci_recover_callbacks) {
+ 		ls->ls_ops = ops;
+@@ -567,9 +580,7 @@ static int new_lockspace(const char *name, const char *cluster,
+ 	wait_event(ls->ls_recover_lock_wait,
+ 		   test_bit(LSFL_RECOVER_LOCK, &ls->ls_flags));
+ 
+-	ls->ls_kobj.kset = dlm_kset;
+-	error = kobject_init_and_add(&ls->ls_kobj, &dlm_ktype, NULL,
+-				     "%s", ls->ls_name);
++	error = kobject_add(&ls->ls_kobj, NULL, "%s", ls->ls_name);
+ 	if (error)
+ 		goto out_recoverd;
+ 	kobject_uevent(&ls->ls_kobj, KOBJ_ADD);
+@@ -582,7 +593,7 @@ static int new_lockspace(const char *name, const char *cluster,
+ 
+ 	error = do_uevent(ls, 1, 0);
+ 	if (error < 0)
+-		goto out_recoverd;
++		goto out_kobj;
+ 
+ 	/* wait until recovery is successful or failed */
+ 	wait_for_completion(&ls->ls_recovery_done);
+@@ -600,6 +611,8 @@ static int new_lockspace(const char *name, const char *cluster,
+ 	do_uevent(ls, 0, 0);
+ 	dlm_clear_members(ls);
+ 	kfree(ls->ls_node_array);
++ out_kobj:
++	kobject_del(&ls->ls_kobj);
+  out_recoverd:
+ 	dlm_recoverd_stop(ls);
+  out_callback:
+@@ -615,6 +628,7 @@ static int new_lockspace(const char *name, const char *cluster,
+ 	rhashtable_destroy(&ls->ls_rsbtbl);
+  out_lsfree:
+ 	kobject_put(&ls->ls_kobj);
++	wait_for_completion(&ls->ls_kobj_done);
+ 	kfree(ls);
+  out:
+ 	module_put(THIS_MODULE);
+@@ -740,6 +754,8 @@ static int release_lockspace(struct dlm_ls *ls, unsigned int release_option)
+ 	    dlm_user_daemon_available())
+ 		do_uevent(ls, 0, (release_option == DLM_RELEASE_RECOVER));
+ 
++	kobject_del(&ls->ls_kobj);
++
+ 	dlm_recoverd_stop(ls);
+ 
+ 	/* clear the LSFL_RUNNING flag to fast up
+@@ -759,8 +775,6 @@ static int release_lockspace(struct dlm_ls *ls, unsigned int release_option)
+ 
+ 	dlm_delete_debug_file(ls);
+ 
+-	kobject_put(&ls->ls_kobj);
+-
+ 	xa_destroy(&ls->ls_recover_xa);
+ 	kfree(ls->ls_recover_buf);
+ 
 -- 
-2.54.0
+2.56.1.708.g77570a6a1d-goog
 
