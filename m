@@ -2,42 +2,99 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0577B60A6F6D
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 05:36:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 719BA606A339
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 08:24:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aQXp2N+5
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=0LzyR1Nq
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D0DF10ED3C;
-	Thu, 19 Nov 2026 05:35:57 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2016210ED1A;
- Thu, 19 Nov 2026 05:35:51 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C73CB48A17;
- Thu, 19 Nov 2026 05:35:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79BF41F000C7;
- Thu, 19 Nov 2026 05:35:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795066550;
- bh=qNhv8f7ztG8ChBHtjnkmQwUUU8sDghC9Duib2Qq/9F0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=aQXp2N+5qsAEyMVGb8vGotDLxaop3mmBEFSP+Vt/koL1VyVKRx6/Ft16nUyZkCR8Y
- LuQjS/GLsr0xIi7Gbtf1qDW+uKP0NLB+/y9LnY4i4IRyYfRIp1LdrqRrtibbMOVoGo
- jy0GKEjt5PVxfPoqYI822VUWM7kfMMw9DwZNMkwMtGBIbuRjy1JEUpT+sGIn3p02+N
- pb227LWZR8m7jztMESpyM1YsZvOpUa7e/ZugtVdNrvYm9qR9nUWZlPs8IkFJlxPlc6
- XhxYgMMj/19mpjfTDPb23zGSSsFOeK2bi/9pIWqB9DUt6yaoKAg7fOa40/1hgwuh3v
- y6RBNkHvsFEtw==
-Message-ID: <sashiko-outbox-222493@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4] drm/amd/display: Route connector DDC over AUX for
- native DP sinks
-To: "Mario Limonciello" <superm1@kernel.org>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261118-superm1-amdgpu-ddc-v4-1-539eaeb4edd7@kernel.org>
-References: <20261118-superm1-amdgpu-ddc-v4-1-539eaeb4edd7@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 19 Nov 2026 05:35:50 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id F35EB11210E;
+	Thu, 19 Nov 2026 08:24:52 +0000 (UTC)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011015.outbound.protection.outlook.com
+ [40.93.194.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C56231120E6;
+ Thu, 19 Nov 2026 08:24:40 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CtW40gMorq/793phR5LAtWuBOXhgCacvZzTu8DWvzx0yA/xP38PskU3HgZA+CH41GoBZqRpoQKdR3GATI4UZ+Ftxqf4b6O/l8gCjfsQQHfA2ab4pyQz6JFrXnvjAtIddKBZ5GddYT3XYe9rwcwgoR6goPIg7acCERw6RwC60V6NVCFZh0eaFZUvAmz3flLt01Lt8dgae8JBTYmip+UjhLP12D8ofd1z6TRpYEha6t27LrxYNNEjUkYbuysGm6ArsMq9raMnQYNcxD+BaapAtdNBGrDW3DUhlMsSIY7IxWTV47cHHdKF7292VLBYjKspPz59vIoBTsKk00sAUYIfY1A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7jRyfZKq0ouwsQyeEAQGxU1hjzyyI7aXobcq5Gi4viw=;
+ b=sD4TQCzjzujMIdrFKXUVn3yN1L5GnjS7VIYB5G3cZV4nwAT5CJyU+OelFzUBewwhQn27nF61bNSPBMC/iBwqOl2O04GviK14MtYu4yY8bVbTW0Xv3xjjRs5ap1HU2EmYMkQxTnTooB9Y2ANKyB2fmaCtWpgfLEUEml8+stLgdSG4+/jvXedEXyWIjOc5aKLhZsVttHOcRV2oKxTFqmLVP2t1s7OqVhoyzbUgmLai3lxVtHjDqXyt+QuVVRFngEbzgVO6GTsLoHLpH/jP/PdNqfrz0RXWmdYEVKszNare5ej1b1mROZ8bz5Y2dSVSzUEjej6d9YOgbt0gCsEKUktRjg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7jRyfZKq0ouwsQyeEAQGxU1hjzyyI7aXobcq5Gi4viw=;
+ b=0LzyR1NqfaOzU5MLFq2+I7mokFCVLSp/ZgKAldfVS/nx8j3ZMDLs3RWJ959JeaF5EPgMrN9rZDBlhlEl9rHaTtEQ5rtXWA3fqRInn0sEhSaW8wqt0sXtioEqXiVjUBKbdwLbggagDm8PJM0w/x7JLPLPVmO5F8lvs1ZHCzZ+Z2c=
+Received: from SN7PR04CA0053.namprd04.prod.outlook.com (2603:10b6:806:120::28)
+ by SAEPR12MB328447.namprd12.prod.outlook.com (2603:10b6:802:209::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Thu, 19 Nov
+ 2026 08:24:37 +0000
+Received: from SN1PEPF000397B1.namprd05.prod.outlook.com
+ (2603:10b6:806:120:cafe::1b) by SN7PR04CA0053.outlook.office365.com
+ (2603:10b6:806:120::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Thu,
+ 19 Nov 2026 08:24:37 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SN1PEPF000397B1.mail.protection.outlook.com (10.167.248.55) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Thu, 19 Nov 2026 08:24:37 +0000
+Received: from prike-code-pc.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Thu, 19 Nov
+ 2026 02:24:34 -0600
+From: Prike Liang <Prike.Liang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, <Christian.Koenig@amd.com>,
+ <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>, <tzimmermann@suse.de>,
+ <ville.syrjala@linux.intel.com>, Prike Liang <Prike.Liang@amd.com>
+Subject: [PATCH v2 1/5] drm/vblank: Stop drm_crtc_wait_one_vblank() when
+ vblank is turned off
+Date: Thu, 19 Nov 2026 16:24:20 +0800
+Message-ID: <20261119082424.554841-1-Prike.Liang@amd.com>
+X-Mailer: git-send-email 2.34.1
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF000397B1:EE_|SAEPR12MB328447:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3d019a11-f869-4a40-096c-08df46168c9d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|261022075727099003|261021123027099003|10067099003|56012099006|261102130727099003|11063799006|261022115727099003|261026140227099003|261028144727099003|261021121427099003|261022105027099003|261026121527099003|261102123227099003|261009221227099003|261009223027099003|18002099003|13003099007;
+X-Microsoft-Antispam-Message-Info: YuLgyOnNKPManpN9r+jDcwoAz0V3m1GZrPF3+x3EkjzjlVuGDdohIOiaQILnNMQqF2lhkERJHcwh0776weOv2cyo6YRpCoFNBEL8lWXU9lD9FkNPTn2VL5Wt7us5s/yjO79Hq1zFyFYpuKDlbZEj2aWTrNL1s5yfVSwIJxPANGibUvlSkJUEkH3Qo31ZKPTdfUL/eVDAyh7TdwH5qC/KLBbKg0DSVpWMk8Ep0hEo8jdqtW/LOYlFd2gsz4OREcfETubxGy9e3nk4DCmC6PIAEHW/w48gAjdTaAoyT+1097+c6OMpuEMQJ1po/1IxnREAsevyFw8yAgyI/6x3GgIpi5wcnOYXYyWZHhCHAWB+7VcOjdBL9KYjYooUgTZ5Xrws+hc0GCh0ZgC9kYXxxPZ0ohGqhwuvB4ciaPvnkabidkLITdNTdGv+tqsIjxYjbub+Twz8y8YLAGGSoz35eBzN23PMhUlOoEGF5MKtt6eA16swo3ReDWJPFI+fTs5+bWZna8Jnhrpg/r17gtosF5w01hkYZMU2HShJPnizJrwA7oX8L1KW4tAxSrKIWCnOTvVY5Btz07cY+8ySUSb+GQlL6gugtkhes0MPayGNbfDK/h/ocrhHExiButwFPvDxwdxIb5mKy6po7sTM9pLnTSQ7/TbakJ0SD/95Hmrs/85lEk4=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(261022075727099003)(261021123027099003)(10067099003)(56012099006)(261102130727099003)(11063799006)(261022115727099003)(261026140227099003)(261028144727099003)(261021121427099003)(261022105027099003)(261026121527099003)(261102123227099003)(261009221227099003)(261009223027099003)(18002099003)(13003099007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: QavPDZVtAYvt7agDyUYySdQ3/v9FrrgoBQ353/8PvaW7aYn4YMBjfi7+P0JwUGGSiBOt+nz9G+8wG3jrD/JzzXqfHHiNwTWLO/xs/l21VCsNQ76qZdXdMttZhrUzZyFLyhhDGP29zoRZvfH6jUBRTqwezZrk1koSO4Dcopjdl+YAcgL1u8rPwQNqdT4vLhI/vXRH1YAC0jCLm/9lVqBY0KFY9cy7Fy7Q8JnhAaqB/v3gfKiGGNYRb+9O16TQ1tTm+5bTS5uA5kvN3l6CfrNgTpHklkvihjKYFWjVurlID+72PsIxeQ266a6ZSAlV2APHhPvbPfZ9m2Cv1SDEcwF6erm2vZpNAbWUlNWE2AXaOg+acaykhOIdZGMreOM61aFQK+cNnjMznq/49nHovWfaLUjaYThd1xkfb/YWdxkNRWp3s1rYxv/OpT1QagcA0tRO
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 08:24:37.1546 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3d019a11-f869-4a40-096c-08df46168c9d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000397B1.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAEPR12MB328447
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,94 +104,93 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [High] drm/amd/display: stale link->aux_mode in amdgpu_dm_i2c_xfer()
-  breaks DP++
---
+drm_crtc_vblank_off() turns off the vblank interrupt even while someone
+holds a vblank reference and waits for a vblank. It then wakes up the
+vblank wait queue. DRM_IOCTL_WAIT_VBLANK stops waiting at this point,
+because its wait condition also checks whether vblank is still enabled.
 
-commit bd7217b6334d8e26e4a44e7561c8afe2462a790d
-Author: Mario Limonciello <superm1@kernel.org>
+drm_crtc_wait_one_vblank() only checks whether the vblank count has
+changed. Once vblank is off, the count doesn't change, so the woken
+waiter sleeps again until the wait times out after one second and warns
+"vblank wait timed out". This happens, for example, when the fbdev
+damage worker or FBIO_WAITFORVSYNC waits for a vblank while the driver
+turns the CRTC off for suspend or a GPU reset.
 
-drm/amd/display: Route connector DDC over AUX for native DP sinks
+Make drm_crtc_wait_one_vblank() also stop waiting when vblank is turned
+off, and return -EINVAL if no vblank passed, the same error that
+drm_vblank_get() returns when vblank is off. The wait condition is
+checked before going to sleep, so this also covers vblank being turned
+off between drm_vblank_get() and the wait. Waits that see a vblank or
+time out behave as before.
 
-This commit routes transfers on a connector's DDC i2c adapter through the
-AUX DDC adapter when link->aux_mode is set so that native DisplayPort, eDP,
-and MST sinks can be reached via the connector's ddc bus.
+The two cases differ in that drm_crtc_wait_one_vblank() warns "vblank
+not available" if drm_vblank_get() fails, but doesn't warn if
+drm_crtc_vblank_off() ends the wait. That is intentional: it's a
+failure to call the function while vblank is off, but a waiter, such as
+the fbdev damage worker, can't keep the CRTC from being turned off
+meanwhile. The error only tells the caller that no more vblanks are
+coming.
 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c =
-b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> index b498fc5fbb140..f80de9e7f850c 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> @@ -3373,6 +3373,22 @@ STATIC_IFN_KUNIT int amdgpu_dm_i2c_xfer(struct i2c=
-_adapter *i2c_adap,
->  	int i;
->  	int result =3D -EIO;
-> =20
-> +	if (!i2c->oem && ddc_service->link) {
-> +		struct dc_link *link =3D ddc_service->link;
-> +		struct amdgpu_dm_connector *aconnector =3D link->priv;
-> +
-> +		/*
-> +		 * DDC to a native DisplayPort sink (SST, MST or eDP) is
-> +		 * tunneled over the AUX channel; the physical i2c pins only
-> +		 * reach DVI/HDMI sinks (e.g. DP++ with a passive adapter).
-> +		 * Use the same aux_mode selection as the EDID read helpers so
-> +		 * the connector's single "ddc" bus works for either sink.
-> +		 */
-> +		if (aconnector && link->aux_mode &&
-> +		    aconnector->dm_dp_aux.aux.ddc.algo)
-> +			return i2c_transfer(&aconnector->dm_dp_aux.aux.ddc, msgs, num);
-> +	}
+version update:
+1) https://lists.freedesktop.org/archives/dri-devel/2026-November/616745.html
 
-[Severity: High]
-As reported by Eren =C3=96zen on v2 [1], can a stale link->aux_mode misrout=
-e the
-passive DP++ dongle identification read over AUX when a native DisplayPort
-sink is unplugged and replaced with a passive DP-to-HDMI adapter on the
-same port?
+Fixes: e8450f51a4b3 ("drm/irq: Implement a generic vblank_wait function")
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Assisted-by: Copilot:claude-opus-5.5
+Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+---
+ drivers/gpu/drm/drm_vblank.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
 
-link->aux_mode is not cleared on disconnect, and
-detect_link_and_local_sink() only updates it after detect_dp() returns:
+diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
+index f90fb2d13e42..54118eb1413c 100644
+--- a/drivers/gpu/drm/drm_vblank.c
++++ b/drivers/gpu/drm/drm_vblank.c
+@@ -1303,7 +1303,8 @@ EXPORT_SYMBOL(drm_crtc_vblank_put);
+  *
+  * This waits for one vblank to pass on @crtc, using the irq driver interfaces.
+  * It is a failure to call this when the vblank irq for @crtc is disabled, e.g.
+- * due to lack of driver support or because the crtc is off.
++ * due to lack of driver support or because the crtc is off. The wait also fails
++ * if drm_crtc_vblank_off() disables the vblank irq before a vblank passes.
+  *
+  * Returns: 0 on success, negative error on failures.
+  */
+@@ -1323,14 +1324,22 @@ int drm_crtc_wait_one_vblank(struct drm_crtc *crtc)
+ 	last = drm_vblank_count(dev, pipe);
+ 
+ 	ret = wait_event_timeout(vblank->queue,
+-				 last != drm_vblank_count(dev, pipe),
++				 last != drm_vblank_count(dev, pipe) ||
++				 !READ_ONCE(vblank->enabled),
+ 				 msecs_to_jiffies(1000));
+ 
+ 	drm_WARN(dev, ret == 0, "vblank wait timed out on crtc %i\n", pipe);
+ 
++	if (!ret)
++		ret = -ETIMEDOUT;
++	else if (last == drm_vblank_count(dev, pipe))
++		ret = -EINVAL; /* drm_crtc_vblank_off() ended the wait */
++	else
++		ret = 0;
++
+ 	drm_vblank_put(dev, pipe);
+ 
+-	return ret ? 0 : -ETIMEDOUT;
++	return ret;
+ }
+ EXPORT_SYMBOL(drm_crtc_wait_one_vblank);
+ 
+-- 
+2.34.1
 
-drivers/gpu/drm/amd/display/dc/link/link_detection.c:detect_link_and_local_=
-sink() {
-	...
-			if (!detect_dp(link, &sink_caps, reason)) {
-	...
-		set_ddc_transaction_type(link->ddc,
-						     sink_caps.transaction_type);
-
-		link->aux_mode =3D
-			link_is_in_aux_transaction_mode(link->ddc);
-	...
-}
-
-During detect_dp(), dp_passive_dongle_detection() ->
-query_dp_dual_mode_adaptor() reads DP_HDMI_DONGLE_ADDRESS (0x40) via
-i2c_read() -> dm_helpers_submit_i2c() -> i2c_transfer(&aconnector->i2c->bas=
-e)
--> amdgpu_dm_i2c_xfer() while link->aux_mode is still true from the
-previous native DP sink.  Forwarding that read to I2C-over-AUX fails on a
-passive DP++ adapter, causing query_dp_dual_mode_adaptor() to fall back to
-DISPLAY_DONGLE_DP_DVI_DONGLE (SIGNAL_TYPE_DVI_SINGLE_LINK), which caps the
-pixel clock to 165 MHz and disables HDMI audio and infoframes.
-
-[1] https://lore.kernel.org/r/QU464501lRPW3X8es-jXBFOvvwqS3eKR3HRS33U6x6o5e=
-YC6h5AKV7f3ZXRCaU7-sEcupJMHereqyDUsUSG_fsOMNwvGO_CcZRKsz1AgObk=3D@protonmai=
-l.com
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-superm1-am=
-dgpu-ddc-v4-1-539eaeb4edd7@kernel.org?part=3D1
