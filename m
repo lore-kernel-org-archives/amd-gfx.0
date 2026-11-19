@@ -2,63 +2,60 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ABDA606A320
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 14:56:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 641FF606A325
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 14:56:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=eEg/Suyk
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NV4Om2E1
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF8D510E909;
-	Fri, 20 Nov 2026 14:56:48 +0000 (UTC)
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com
- [74.125.82.199])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C4E61126E7
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 19:26:12 +0000 (UTC)
-Received: by mail-dy1-f199.google.com with SMTP id
- 5a478bee46e88-38531c1a566so112279eec.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 11:26:12 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4D86112B4C;
+	Fri, 20 Nov 2026 14:56:53 +0000 (UTC)
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
+ [209.85.216.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 244A81126D9
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 19:25:28 +0000 (UTC)
+Received: by mail-pj1-f72.google.com with SMTP id
+ 98e67ed59e1d1-3b40e7f4fa2so261838a91.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 11:25:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20260707; t=1795116371; x=1795721171;
+ d=google.com; s=20260707; t=1795116328; x=1795721128;
  darn=lists.freedesktop.org; 
- h=content-type:cc:to:from:subject:message-id:references:mime-version
- :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=ed6ZuPWwDHIYUoQ+FZI+Wi1n/4SIGbM4V5gI4MqacGo=;
- b=eEg/Suyk6VXL0k6NFxiF7qibUNfGKxnuvILqMSx3kFoMEPwHxEEWcCddyhxYyDZQI3
- bDxamadKbq2XybPDInmBFAz5k0glz4JAmPafBGOnT/wB+fej8jRMotGJ+pLKWmQJqd9P
- BODmxFzm7ps5ytueATnjyvVINDdVsPFqmYGV6fWkVS0zAiV8pB3erJvXVDXvbgjmYna5
- l062DTaDBavtimbCRyLul905OMphARPPPeHEHKWh3ZlVDSVEhskmD6LdnnBXN2C3S6o3
- vPAoifAIPFNaqQMSwmf4deHGNGLerzZhlcMf5Qz2qryPdlEcU+eJzKZIvjDA5ZeSi7Da
- wgvw==
+ h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=74VGOpSNCwDOLASOLNhvmRdqpZTelyvflsoJESldCvo=;
+ b=NV4Om2E1i4iLe6Npe2oDLRoANn0aut2eWLGutX2pm16fEPSsARDb5LsPLFAQOrfwRh
+ yHnM/o5r+J04OWo3NyeyEbZ3iZlM5TBX2y+6JeGSFIZZdC6Kd05FoXozzvPU4QgsTqri
+ 2kTG9tHVq/SVAyO/R5kLViBDoMlNYyzYoYn7dyr9sNx6t/WpfBU+LktqINzw0rgWrGpa
+ EtI8xLdw1wiL2wynuGJbVcN0sj2OjFIVnhC5oGycuSSCijlJpuVjJZddQ8fkB6NDmIET
+ Y/EXndRbh2g8OUWTl9Zy2KQTp+LBEhWe6LbH32znRM2Fqx76dja4t8H5IoTjcrbSgTQR
+ Vyqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795116371; x=1795721171;
- h=content-type:cc:to:from:subject:message-id:references:mime-version
- :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=ed6ZuPWwDHIYUoQ+FZI+Wi1n/4SIGbM4V5gI4MqacGo=;
- b=2J8U8kr4PhPRDQlTHsQO8LyiPpEuoM3Nv+IWTTvA1Qjk/E3ukfr4kEpk3ff0+LlCqu
- DAXDZ5y5wwhlwZaEv227+ABKYptZV5Xcjw1IA0AScgDlov+CExyZ+/qa70PWQoSOsjkd
- 5eoVdsvZCFzh718E/DO2rlJGszyWTVMKETzB4Z9TkrvCbpTdcP18KQfRgME55u9ib+HW
- r9RjrtbXGYt+sm6GHNa+f/vMBwX+fe3VeTbPnLnGeYRO7nLxPB7n8Lq6n6Bj8yUcwHGN
- H3Uh6YZ+AQHOQWtMDxPtRu/npPTWjCQ2pmRO8nyLzTF4mu2ZVbzISGV48k+N64552ddN
- BnyA==
+ d=1e100.net; s=20260707; t=1795116328; x=1795721128;
+ h=content-type:cc:to:from:subject:message-id:mime-version:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=74VGOpSNCwDOLASOLNhvmRdqpZTelyvflsoJESldCvo=;
+ b=TO2XPuu1y6MU7awefdMkbFrC0sd1hejjjMxmNYksN46wi64GCR7sKP3IzAjxpHzRdQ
+ raxVRSuO8p2T/jcPHLe3JTETbHZX86aoGAdFHfHtOOJGI3K9bBYX/3aaoklhNjgeJKtK
+ ExJVtw1tVTLAGYr97CtWZW0o0ixAKiHFmLBO4F4YLHkxmpPJC+vwtnVlcfe1A9s1Kl5f
+ Crv68Ie+Z9uzHruu0ZQdn0t0TOLu8seCHfrtXp9pqJYKJlLuOs2zdvw5OOJWYlj+cB+D
+ 1IUh4P0VLm2ovjpx7orz5MVhNJQLJVerZOYl+Lsug/BhwnvtLrqyQ5avThQ5/L3gVwHQ
+ +Tkw==
 X-Forwarded-Encrypted: i=1;
- AL+hErHCRXDAyS9r/JGXdcy1SkxU5aRhyxNshVQIlbM1e8dmwvikRs2J1o9vXueqg4KVBHqFA7b3oeAU@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9FuR2lSzDMyw1azjhyl6zfbXJgfkcaPIXlJ3HelFYEOZWu1gyk
- C7dKwYI+0UYU8R226GAVlb/Q616Gk/RpNSuGMOmkWxtepNRNJn+E4UsIjODDgshv91JBvkh0e+w
- 9mwa/UdPRow==
-X-Received: from dyhd22.prod.google.com ([2002:a05:7300:8296:b0:381:d3ca:9f05])
+ AL+hErEDi1CvRAWEEzj82iLVIWNmro0M+YMrpF1hlt9ZFjmzRpfDdiqodjyiqmjAEjH1WD/cLanV6/MV@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/AwlSGjOMYd/zaTIxJ34H1YudY3kCTjJ1NtGazuKcVJkRGNSku
+ AJ5C8zyIoz46CKXZdb2HyyMkwke/P2gbNGIDQX3U11+IdJWvRmRNbyEnQpofnGqeTpnRvgyJ+In
+ TC0N3+NCa1g==
+X-Received: from pgjh5.prod.google.com ([2002:a63:df45:0:b0:cc7:d53a:a251])
  (user=irogers job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7300:6018:b0:381:9593:9984
- with SMTP id 5a478bee46e88-3857151d6abmr284926eec.37.1795116370935; Thu, 19
- Nov 2026 11:26:10 -0800 (PST)
-Date: Thu, 19 Nov 2026 11:25:19 -0800
-In-Reply-To: <20261119192520.1983406-1-irogers@google.com>
+ 2002:a17:90b:2e8c:b0:3b3:b373:6a6a
+ with SMTP id 98e67ed59e1d1-3b41c9e45c3mr289799a91.28.1795116327397; Thu, 19
+ Nov 2026 11:25:27 -0800 (PST)
+Date: Thu, 19 Nov 2026 11:25:11 -0800
 X-Archived-By: <archiver.kernel.org>
 Mime-Version: 1.0
-References: <20261119192520.1983406-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.1.750.gf70dc682cf-goog
-Message-ID: <20261119192520.1983406-9-irogers@google.com>
-Subject: [PATCH v4 8/9] drm/amdkfd: Free queue in procfs_queue_type kobject
- release callback
+Message-ID: <20261119192520.1983406-1-irogers@google.com>
+Subject: [PATCH v4 0/9] Add __must_init and require explicit kobj_type::release
 From: Ian Rogers <irogers@google.com>
 To: Danilo Krummrich <dakr@kernel.org>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
@@ -103,91 +100,184 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-26.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
+X-Spam-Status: No, score=-21.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT,USER_IN_DEF_DKIM_WL autolearn=unavailable
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT,USER_IN_DEF_DKIM_WL autolearn=unavailable
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-struct queue embeds a struct kobject (q->kobj) for procfs entries, but
-procfs_queue_type had no .release callback and uninit_queue() freed q
-immediately after kfd_procfs_del_queue() called kobject_put(&q->kobj).
-With CONFIG_DEBUG_KOBJECT_RELEASE=y, this causes a use-after-free.
+Clang supports the 'require_explicit_initialization' attribute on struct
+fields to enforce that the field is explicitly initialized when an
+aggregate object is constructed, emitting -Wuninitialized-explicit-init
+(enabled by default) if the field is omitted.
 
-Add kfd_procfs_queue_release() to free struct queue from the kobject
-release callback, change kfd_procfs_del_queue() to only remove the
-kobject from sysfs via kobject_del(), and drop the final reference in
-uninit_queue() via kobject_put(). Check q->kobj.state_in_sysfs before
-calling kobject_del() in kfd_procfs_del_queue() to avoid warnings if
-sysfs creation previously failed.
+Following discussion at the Linux Plumbers Conference [1], patch 1 adds
+the attribute to include/linux/compiler_attributes.h as __must_init. In
+v1 it was called __require_explicit_initialization. Kees picked up that
+patch with a first seq_file user [2], and in that thread Greg suggested
+the shorter __must_init spelling, which Kees and Miguel agreed to. As
+the attribute did not land in the v7.4 merge window, Kees asked that
+this series carry the renamed attribute.
 
-Fixes: 6d220a7e7971 ("drm/amdkfd: Add queue information to sysfs")
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
-Signed-off-by: Ian Rogers <irogers@google.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_process.c | 12 +++++++++---
- drivers/gpu/drm/amd/amdkfd/kfd_queue.c   |  5 ++++-
- 2 files changed, 13 insertions(+), 4 deletions(-)
+As Documentation/core-api/kobject.rst notes:
+  "One important point cannot be overstated: every kobject must have a
+  release() method, and the kobject must persist (in a consistent state)
+  until that method is called. If these constraints are not met, the
+  code is flawed."
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index 6663718fb83c..b349e0d8d47b 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -512,7 +512,15 @@ static const struct sysfs_ops procfs_queue_ops = {
- 	.show = kfd_procfs_queue_show,
- };
- 
-+static void kfd_procfs_queue_release(struct kobject *kobj)
-+{
-+	struct queue *q = container_of(kobj, struct queue, kobj);
-+
-+	kfree(q);
-+}
-+
- static const struct kobj_type procfs_queue_type = {
-+	.release = kfd_procfs_queue_release,
- 	.sysfs_ops = &procfs_queue_ops,
- 	.default_groups = procfs_queue_groups,
- };
-@@ -552,7 +560,6 @@ int kfd_procfs_add_queue(struct queue *q)
- 	if (ret < 0) {
- 		pr_warn("Creating proc/<pid>/queues/%u failed",
- 			q->properties.queue_id);
--		kobject_put(&q->kobj);
- 		return ret;
- 	}
- 
-@@ -697,11 +704,10 @@ static void kfd_procfs_add_sysfs_files(struct kfd_process *p)
- 
- void kfd_procfs_del_queue(struct queue *q)
- {
--	if (!q || !q->process->kobj)
-+	if (!q || !q->process || !q->process->kobj || !q->kobj.state_in_sysfs)
- 		return;
- 
- 	kobject_del(&q->kobj);
--	kobject_put(&q->kobj);
- }
- 
- int kfd_process_create_wq(void)
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-index cd41b10e0873..636cc894223d 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-@@ -83,7 +83,10 @@ int init_queue(struct queue **q, const struct queue_properties *properties)
- 
- void uninit_queue(struct queue *q)
- {
--	kfree(q);
-+	if (q && q->kobj.state_initialized)
-+		kobject_put(&q->kobj);
-+	else
-+		kfree(q);
- }
- 
- #if IS_ENABLED(CONFIG_HSA_AMD_SVM)
+Annotating struct kobj_type::release caught struct kobj_type definitions
+across the tree that omitted .release:
+- Patches 2-8 fix struct kobj_type definitions where dynamically
+  allocated kobjects, ksets, or enclosing structures were either leaked
+  on kobject_put(), freed prematurely before kobject release, or missing
+  proper static initializers.
+- Patch 9 annotates struct kobj_type::release with __must_init and
+  explicitly sets .release = NULL on the remaining legacy struct
+  kobj_type definitions, distinguishing built-in sites whose backing
+  storage remains valid for the lifetime of the kernel (despite
+  violating the kobject API contract) from sites with broken kobject
+  lifetime management (marked with FIXME comments for follow-up fixes).
+
+Danilo Krummrich offered to route the series as a whole through the
+driver-core tree [3], and all subsystem maintainer Acked-by/Reviewed-by
+tags for patches 1-8 have now been collected. Follow-up patches are
+planned for the broken-lifetime sites documented in patch 9.
+
+Note on tool use: An LLM coding assistant was used to help audit the
+compiler diagnostics across the tree, draft the fixes and changelog
+descriptions, and verify builds and review feedback.
+
+Changes in v4:
+- Rebased on v7.4-rc3.
+- Patch 2 (powerpc/secvar): Add Reviewed-by from Srish Srinivasan and
+  Acked-by from Madhavan Srinivasan.
+- Patch 3 (sh: sq): Add Acked-by from John Paul Adrian Glaubitz.
+- Patch 5 (dlm): Clarify subject ("Wait for kobject release before
+  freeing dlm_ls") and update Fixes tag to commit 8a4cf500f1dd ("dlm:
+  drop kobject release callback handling") (reported by Sashiko).
+- Patch 6 (xen/sys-hypervisor): Add Reviewed-by from Juergen Gross.
+- Patch 7 (ubifs): Update Fixes tag to commit 2e3cbf425804 ("ubifs:
+  Export filesystem error counters") (reported by Sashiko).
+- Patch 9 (kobject): Drop the "Pre-existing:" comment prefix and
+  explicitly distinguish built-in sites whose storage outlives kobject
+  cleanup (arm64 cpuinfo, ACPI hotplug profiles, s390 sclp_mem) from
+  drivers and tristate modules with broken kobject lifetime management,
+  documenting each lifetime hazard with a FIXME comment for follow-up
+  fixes (requested by Danilo Krummrich).
+
+Changes in v3:
+- Rebased on v7.4-rc1.
+- Note in cover letter that patches 2 (powerpc/secvar), 3 (sh: sq), and
+  6 (xen/sys-hypervisor) are still awaiting subsystem Acked-by tags for
+  merging through the driver-core tree, and CC those maintainers on the
+  cover letter.
+- Patch 1: Add Reviewed-by from Kees Cook; clarify that LLVM issue
+  #232483 affects Clang versions prior to its upstream fix (pointed out
+  by Nathan Chancellor).
+- Patch 4 (cpufreq): Drop obsolete reference to cpufreq_governor_dbs in
+  the commit message per Zhongqiu Han; add Reviewed-by from Zhongqiu Han
+  and Acked-by from Rafael J. Wysocki and Viresh Kumar.
+- Patch 5 (dlm): Add Acked-by from Alexander Aring.
+- Patch 8 (drm/amdkfd): Add Reviewed-by from Felix Kuehling.
+- Patch 9 (kobject): Fix omapfb manager-sysfs.c and overlay-sysfs.c
+  comments to describe managers[] and overlays[] as dynamically
+  allocated rather than static and note the CONFIG_DEBUG_KOBJECT_RELEASE
+  hazard, fix a struct-vs-member wording nit in usnic_ib_sysfs.c, and
+  generalize the commit message note on CONFIG_DEBUG_KOBJECT_RELEASE
+  (reported by Sashiko).
+
+Changes in v2:
+- Rebased on v7.3-16928-g83f32c773255 (v7.4 merge window).
+- Patch 1: Rename __require_explicit_initialization to __must_init per
+  Greg Kroah-Hartman; document the Clang >= 20 requirement per Miguel
+  Ojeda; note the Clang gap for file-scope objects without an
+  initializer reported by Kees Cook; add tags from v1 and from Kees's
+  posting.
+- Move LLM assistance attribution from Assisted-by tags to this cover
+  letter per commit 1e035297ffda ("docs: remove Assisted-by
+  references").
+- Patch 4 (cpufreq): Use "cpufreq: governor:" prefix, drop Fixes tag,
+  fix typo, and remove the redundant runtime assignment in
+  cpufreq_dbs_governor_init() per Zhongqiu Han.
+- Dropped v1 patch 5 (ACPI: CPPC), already fixed upstream by
+  commit 27954e29d7de ("ACPI: CPPC: Release CPC descriptors through
+  kobject").
+- Patch 5 (dlm): Call kobject_del() before dlm_recoverd_stop() in
+  release_lockspace() and the new_lockspace() error path, and wait on a
+  new ls_kobj_done completion before freeing the lockspace or dropping
+  the module reference, avoiding races with delayed kobject release.
+- Dropped v1 patch 8 (s390/sclp_mem) per Sumanth Korikkar: the
+  /sys/firmware/memory/memoryX kobjects are permanent, so sclp_mem.c is
+  folded into patch 9 with .release = NULL.
+- Patch 7 (ubifs): Add Tested-by and Reviewed-by from Zhihao Cheng.
+- Patch 8 (drm/amdkfd): Check q->kobj.state_in_sysfs before
+  kobject_del() in kfd_procfs_del_queue().
+- Patch 9 (kobject): Cover sclp_mem.c and the new amdgpu_ualink.c
+  ualink_xcp_info_ktype, fix the overlay-sysfs.c comment, and prefix
+  legacy .release = NULL comments with "Pre-existing:".
+- Patch 9 (kobject): The ioat, kunpeng_hccs and omapfb display comments
+  now say that the existing teardown can use-after-free under
+  CONFIG_DEBUG_KOBJECT_RELEASE (reported by Sashiko). Fixing those
+  drivers is left to follow-up patches.
+
+v3: https://lore.kernel.org/all/20261108223913.3624571-1-irogers@google.com/
+v2: https://lore.kernel.org/all/20261027223847.652884-1-irogers@google.com/
+v1: https://lore.kernel.org/all/20261013223946.1836757-1-irogers@google.com/
+[1] https://lpc.events/event/20/contributions/2392/
+[2] https://lore.kernel.org/lkml/20261014225811.i.852-kees@kernel.org/
+[3] https://lore.kernel.org/all/DMLWX8NY1N1N.2OMQMQCIVRR18@kernel.org/
+
+Ian Rogers (9):
+  Compiler Attributes: Add __must_init macro
+  powerpc/secvar: Add missing kobject release callback to secvar_ktype
+  sh: sq: Add missing kobject release callback to ktype_percpu_entry
+  cpufreq: governor: Initialize kobj_type release callback statically
+  dlm: Wait for kobject release before freeing dlm_ls
+  xen/sys-hypervisor: Add release callback to hyp_sysfs_kobj_type
+  ubifs: sysfs: Use kset_create_and_add() for ubifs_kset
+  drm/amdkfd: Free queue in procfs_queue_type kobject release callback
+  kobject: Require explicit initialization of struct kobj_type::release
+
+ Documentation/conf.py                         |  1 +
+ arch/arm64/kernel/cpuinfo.c                   |  7 +++++
+ arch/powerpc/kernel/secvar-sysfs.c            |  6 +++++
+ arch/sh/kernel/cpu/sh4/sq.c                   |  6 +++++
+ drivers/acpi/sysfs.c                          |  7 +++++
+ drivers/cpufreq/cpufreq_conservative.c        |  5 +++-
+ drivers/cpufreq/cpufreq_governor.c            |  4 +--
+ drivers/cpufreq/cpufreq_governor.h            |  1 +
+ drivers/cpufreq/cpufreq_ondemand.c            |  5 +++-
+ drivers/dma/ioat/sysfs.c                      |  8 ++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c    |  8 ++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c       | 17 ++++++++++++
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c      | 12 ++++++---
+ drivers/gpu/drm/amd/amdkfd/kfd_queue.c        |  5 +++-
+ drivers/infiniband/hw/hfi1/sysfs.c            |  7 +++++
+ drivers/infiniband/hw/usnic/usnic_ib_sysfs.c  |  7 +++++
+ drivers/parisc/pdc_stable.c                   |  8 ++++++
+ drivers/power/supply/ab8500_fg.c              |  8 ++++++
+ drivers/s390/char/sclp_mem.c                  |  6 +++++
+ drivers/soc/hisilicon/kunpeng_hccs.c          | 18 +++++++++++++
+ .../fbdev/omap2/omapfb/dss/display-sysfs.c    |  7 +++++
+ .../fbdev/omap2/omapfb/dss/manager-sysfs.c    |  8 ++++++
+ .../fbdev/omap2/omapfb/dss/overlay-sysfs.c    |  7 +++++
+ drivers/xen/sys-hypervisor.c                  |  6 +++++
+ fs/dlm/dlm_internal.h                         |  1 +
+ fs/dlm/lockspace.c                            | 26 ++++++++++++++-----
+ fs/erofs/sysfs.c                              | 14 ++++++++++
+ fs/f2fs/sysfs.c                               | 21 +++++++++++++++
+ fs/ocfs2/cluster/masklog.c                    |  7 +++++
+ fs/ubifs/sysfs.c                              | 24 +++++------------
+ include/linux/compiler_attributes.h           | 12 +++++++++
+ include/linux/kobject.h                       |  2 +-
+ scripts/checkpatch.pl                         |  1 +
+ tools/lib/python/kdoc/xforms_lists.py         |  1 +
+ 34 files changed, 251 insertions(+), 32 deletions(-)
+
+
+base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
 -- 
 2.56.1.708.g77570a6a1d-goog
 
