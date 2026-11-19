@@ -2,78 +2,79 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AD05606A320
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 11:33:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1921D606A320
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 11:34:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XUFnTPG3
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=urGOPUIc
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71B7C112160;
-	Thu, 19 Nov 2026 11:33:31 +0000 (UTC)
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 63609112160
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 11:33:25 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-4b79502c27aso21335185e9.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 03:33:25 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06F161122DC;
+	Thu, 19 Nov 2026 11:34:40 +0000 (UTC)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E5A01122DC
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 11:34:33 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-4bb64ef5a00so15815145e9.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 03:34:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795088004; x=1795692804; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1795088072; x=1795692872; darn=lists.freedesktop.org;
  h=mime-version:user-agent:content-transfer-encoding:content-type
  :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
  :cc:subject:date:message-id:reply-to:content-type;
- bh=hU9Jd9hbKmGBVrdrlMRlMKHrjrdfdDpcWmEkUC6JJTA=;
- b=XUFnTPG3kZgjxgMOva/dmqjsUEgFEOubhmj4r65js9cKsPcUOqU2iK0iW/MiSXiKRg
- SRJRsIahZTt7pzlzmX003JA5HR8jz8aNHZIUSLA35tSKzxxXhxA8ZQl3R3FoHTKqiqD+
- s3GE5rAOy1RVCYHWLZq0p86uTlyOqeydkoI2NtW6G/iuXmiE7xq/LMeqE+qmVK+BVP7X
- BtpAWrrckpWxp2qMnhSLXFVkpw+wDu+xxB4yMfp6IeTwSRMEx2FB4QAL5549nxRkXmXS
- 1ex3srK08SciPOgx0OgCXOn4hVZOF6mHfMR0ifwqFUIxWxohnaZNTKtXa+oh9gwo5kNW
- uXpQ==
+ bh=RFLh2mSUFRz87oiSetfw5vnjim+LiSJSlSUWqTbCIW4=;
+ b=urGOPUIcHhteH9qngBdT/Jn5tM72b/IvUzKwDWYWQHBXbz2mMiufZWDk4Z9x1IeN+5
+ JTrtxxqszwQnzIG0DE4bSYnc3bAyJ28X6wiFL0dMOiAIMVZMxVJWMCerd8ON+OMJ67e5
+ 5gVQNO7vwyZI+89h5KEZ4JJ8mzhedDyUGxIYeE99+iFSrFC2Qk6CT6WwtuyMMP26YYnM
+ t2PV9UmfdVNHr8y5OJRqWRpo8G1nVVcQFr4KqbwiG3QAEPN5baBeoKeI4FTpWAcFbn77
+ 0lr/tvH9KNpCcjkjqgnAjRUMBZaTC8O4wDEi4lvtVSouJOmw91ZrV82z3EyfBm6MhwqP
+ GqKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795088004; x=1795692804;
+ d=1e100.net; s=20260707; t=1795088072; x=1795692872;
  h=mime-version:user-agent:content-transfer-encoding:content-type
  :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=hU9Jd9hbKmGBVrdrlMRlMKHrjrdfdDpcWmEkUC6JJTA=;
- b=RGMIvDTq6eU7uNx1sEFWS8Sds7Cp/GqYij4QkdSsPEMgW/8mysO96uwS2bzo4BBPNQ
- tC/rYyI7PwfnR2eqSeYojAGwAROQyRYEJJ4CaiwPTSgfBG5VgY2Pk5Rp0Gf9TlLelrR4
- dMKQJiZsbM8AKQDSongr8eugUUhawnKoGNjCR/bx1NijcYulA0bDHHMCN1GTICNmRFjR
- O1fNvH38TcJyEZzU1zS41PCsGD72d51IUu6yAEuoAZiiZvu9gi62qqtXxeyTfzs16Qt2
- M08zHvaLlbPPEqxC5y4YqlXc7Wyv98c64jMo6nmwuhjLslZ7xOMqGLkYKCDKOG/gchUk
- BD1Q==
+ bh=RFLh2mSUFRz87oiSetfw5vnjim+LiSJSlSUWqTbCIW4=;
+ b=cAFmy1zTVI7ghM5emsWftyplp8Vvui51++fKRBv+yA3f6ttzSfNqXsPAt4JJMks43p
+ FbWm21BQwPiTJ92smOXsMKwxMG81/uDJqtfDm30H71kU+kq52Sb5E7XHkQQTzquIv1wQ
+ nkLD+nHar1nETzrEiNSy8Td+mrGeA7kOi22zGu9ZlBHKNC5UPNl7JgijElj1nFFvBGdJ
+ qAm0qPVUCjFvaqJIL1GFbvZyK+1ohHmIkJL+WG3hrpUteXSj9UN8+scyaOLIQQ+e9R5D
+ 3qJ4IaoCCLL5eCyD+pw5EXS/cFEueKra/1KXrTF7b6REidSIeOqX6AmZY4HyyjozsM+P
+ DPyw==
 X-Forwarded-Encrypted: i=1;
- AL+hErGH9JhWMIfJ72Ks2gX28M2HeUalUH4JeMmwbEWg2F2Pr/gPuPfCJb8e62MClL+LKGL5TMP3pS/s@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/Elpgi0TjyPwGVY8HuDZnobHf23egJXhqDwBdCy8GjIeeFu0jI
- vAxeuZFst9GV7YDe6iO/pKsOAQ6zqHYric9GmNDFGCD+XyJ3jBjsMB21
-X-Gm-Gg: AYBFou2CL7ajNEFOidTK54YO8usthcnat+7ian5hGfziulzsZairjnxvSO5eewLPhJ/
- Ua5pLRFsjXWt/CCFmS+2IpMWDEPjZPPSWo5Fmx1BUejXsRTupX3vDUBsgYVh6B868i8RWTa87BX
- qmaZ9XwdNngpRGX3b7dn1iha7bKbk3LjBe6CvpJvIn/8gU07kGb9tu8JyoL1dfE4rGmZ2pupBZI
- obaUzXDZxzCY4XjNnJF8fchQ2rPRKX5ZKrboVM2Y2muAi+PnS5kRbRP6l9GyU1uejWSqrJL9g+E
- qTwnl9yvxjXNy9Hc2MyQOLchD+8ztTG4KhwY8vaXfzI4WyXtj/FifnwTAkCEhedSmJb4iQZTS+N
- Z0916WanMzwuvJfzOy77stEsZfm9J9bxIvajvL8rAU4q3txYc6Qt5+PH52KVK4vZRrr/uyp3nGs
- sC23ImNSbESu2i7vSw9ZjjyeA3CaHja4fQaTCVP6tpxo/a5vsGyUO6koUA6uSXTrdDm8FzmWwq4
- sAzFnIUC0wR/eNntNcKEPnQQ1w47Jgiz8mKDYSbG2VqHYd1QNeBB6AAa151MG5oq01Q+XgWjtW1
- BYXOBZbXVT+4cGrwhsc33tBcZ+qvRGvybblO2ONQaxxH0thZZlNSNQVAHCNay8LL9QaKHMBJbsP
- MSaEe
-X-Received: by 2002:a05:600d:41c9:b0:4a1:7e77:c382 with SMTP id
- 5b1f17b1804b1-4bb7da12715mr103605685e9.5.1795088003408; 
- Thu, 19 Nov 2026 03:33:23 -0800 (PST)
+ AL+hErFoxVsakngCkothvIidvKJbJ/2EJ8FAvNYVliJu6x/Z2Av9Br8DSRznFtfPrUm2xbmoI4YnKi52@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/HEzxxw+UFFoDrjFy3B6rWFjXk4emKR4ofNtudCPtV1z59HL9N
+ UYyleS6SudNpx0EiXHdv3K8MzgHyTslnRd/FYgU8nFeJeSZNyab+IYnM
+X-Gm-Gg: AYBFou1fStTPDwhmNfOfMhW5XJ2PecjPBdSuscaR3fU9eUovugTZ8/0NDiGuRnfbgJx
+ ZbDxshfYHNLbnvH7LnAlHv9C5tD6ZDheluMX38e/e7DzQZSIGNpvpTXtXJWgoAEQLQ/kd1/jRT7
+ i3HA1ACv+EjIVfj9gooF45uIOFdy1ddYf+aOmpeIAnKxz4gF9ehV/dDYLpSLPJK22FGWrIIyBt3
+ i7XGhs2W2m0d9pivDN3Gw8OD/z1zdrb70YggzFXlv/z6QAR5CoPI61wnzHsAJprZQ6s0jtW/F3I
+ luaO/ABJzoCV2AX5Ssaklr7M98xVRTEKTpyTVs7/CyjQFyBFBtVeS6U+7LfAaR6UUU1MbZzkFXJ
+ fgSpFdNrk6LrMdQHWUIIIZ5+WchyAbrkpkP94pNQdqhCkv+sEouu2PEMITFZIpkHDGiPbnFU7N5
+ WQjTg+8NCo0FYGvM0EdDI73mvRDjuVdwwh3DBr0FVuWKA43pj0C9vUQtV4b8GwnyCCTHpcnU+Dj
+ wUOI7/+UpAThm9jz8p/f9UPuwS1/iTSrrW/7sasmCCFD+7aa6p3T3QgJ/RLq0vMB/m1eSh7tmkT
+ Fxm+Kijl6bj9YYN/bUKPAhVFnpH6lxZuZRN4yIalkVCnaCxlcCCshQO8Emp6KWT/fh8NWNpBESn
+ PrH4fIOHcMRngX4LhvszMBdKEaQ==
+X-Received: by 2002:a05:600c:4f4e:b0:4bb:7033:c92f with SMTP id
+ 5b1f17b1804b1-4bb7da0f671mr131205775e9.11.1795088071567; 
+ Thu, 19 Nov 2026 03:34:31 -0800 (PST)
 Received: from [192.168.1.71] (115.red-2-136-224.staticip.rima-tde.net.
  [2.136.224.115]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4a654a8c23bsm8748100f8f.12.2026.11.19.03.33.22
+ 5b1f17b1804b1-4bb8532f1a9sm27377875e9.3.2026.11.19.03.34.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 19 Nov 2026 03:33:22 -0800 (PST)
-Message-ID: <eeef593a3c6c546dd634277c20a361b6155e482e.camel@gmail.com>
-Subject: Re: [PATCH v4 01/13] drm/amdgpu: pass the device to the multi ring
- reset helpers
+ Thu, 19 Nov 2026 03:34:30 -0800 (PST)
+Message-ID: <fff55a7457f9ee34c66f6f009bfaeb0f1c7323c0.camel@gmail.com>
+Subject: Re: [PATCH v4 02/13] drm/amdgpu/ring: During multi-queue reset,
+ only call begin helper if needed
 From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
 To: Jesse Zhang <Jesse.Zhang@amd.com>, amd-gfx@lists.freedesktop.org
 Cc: Alexander.Deucher@amd.com, Christian Koenig <christian.koenig@amd.com>, 
  Lijo.Lazar@amd.com, Mario.Novales@amd.com, Manu.Rastogi@amd.com, 
  Jiongyu.Zhu@amd.com
-Date: Thu, 19 Nov 2026 12:33:21 +0100
-In-Reply-To: <20261105030612.726542-1-Jesse.Zhang@amd.com>
+Date: Thu, 19 Nov 2026 12:34:29 +0100
+In-Reply-To: <20261105030612.726542-2-Jesse.Zhang@amd.com>
 References: <20261105030612.726542-1-Jesse.Zhang@amd.com>
+ <20261105030612.726542-2-Jesse.Zhang@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
@@ -98,138 +99,54 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 On Thu, 2026-11-05 at 11:05 +0800, Jesse Zhang wrote:
-> amdgpu_multi_ring_reset_helper_begin() and _end() take the device
-> from
-> the guilty ring. A reset triggered by a hung user queue has no guilty
-> kernel ring, so pass the device explicitly and allow a NULL guilty
-> ring.
+> From: Timur Krist=C3=B3f <timur.kristof@gmail.com>
 >=20
-> No functional change.
+> This is necessary to make soft reset work after a failed queue
+> reset. Otherwise the ring reset begin helper would clear out
+> the guilty fence and the backed up ring contents.
 >=20
+> v2: skip the begin helper only for the guilty ring already backed up
+> by
+> =C2=A0=C2=A0=C2=A0 the failed ring reset, and keep backing up the other r=
+ings
+> (Jesse).
+>=20
+> Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
 > Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
 
-Reviewed-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+Thanks for including this patch.
+
+Considering that this fixes a real issue with repeated soft reset, I
+recommend adding a Fixes tag to this commit:
+
+Fixes: 1fc76380c6ce ("drm/amdgpu: Add IP block soft reset as a GPU recovery=
+ method")
+
 
 > ---
-> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c=C2=A0=C2=A0 |=C2=A0 4 ++--
-> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 14 ++++++++------
-> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |=C2=A0 6 ++++--
-> =C2=A03 files changed, 14 insertions(+), 10 deletions(-)
+> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 4 +++-
+> =C2=A01 file changed, 3 insertions(+), 1 deletion(-)
 >=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c
-> index 734f2a0bc79a..d0b0d3eaffc5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c
-> @@ -465,11 +465,11 @@ int amdgpu_device_ip_soft_reset(struct
-> amdgpu_ring *guilty_ring,
-> =C2=A0	ring_type_mask =3D amdgpu_ring_mask_from_ip(ip_type);
-> =C2=A0
-> =C2=A0	amdgpu_device_lock_reset_domain(adev->reset_domain);
-> -	amdgpu_multi_ring_reset_helper_begin(ring_type_mask,
-> guilty_ring, guilty_fence);
-> +	amdgpu_multi_ring_reset_helper_begin(adev, ring_type_mask,
-> guilty_ring, guilty_fence);
-> =C2=A0
-> =C2=A0	r =3D ip_block->version->funcs->soft_reset(ip_block);
-> =C2=A0
-> -	r =3D amdgpu_multi_ring_reset_helper_end(ring_type_mask,
-> guilty_ring, r);
-> +	r =3D amdgpu_multi_ring_reset_helper_end(adev, ring_type_mask,
-> guilty_ring, r);
-> =C2=A0	amdgpu_device_unlock_reset_domain(adev->reset_domain);
-> =C2=A0
-> =C2=A0	if (r) {
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
 > b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> index 7b67e8cecca2..edae764eb0c4 100644
+> index edae764eb0c4..c71e1c3b6d7b 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> @@ -919,8 +919,9 @@ int amdgpu_ring_reset_helper_end(struct
-> amdgpu_ring *ring,
-> =C2=A0/**
-> =C2=A0 * amdgpu_multi_ring_reset_helper_begin() - Prepare multiple rings
-> for a reset.
-> =C2=A0 *
-> + * @adev: amdgpu device
-> =C2=A0 * @ring_type_mask: Bitmask of affected ring types
-> - * @guilty_ring: The ring which is guilty of causing a reset.
-> + * @guilty_ring: The ring which is guilty of causing a reset, or
-> NULL.
-> =C2=A0 * @guilty_fence: The fence which didn't signal on the guilty ring.
-> =C2=A0 *
-> =C2=A0 * Useful when performing a GPU reset method that affects
-> @@ -938,11 +939,11 @@ int amdgpu_ring_reset_helper_end(struct
-> amdgpu_ring *ring,
-> =C2=A0 * After the reset is complete, the caller should then call
-> =C2=A0 * amdgpu_multi_ring_reset_helper_end() to restore the rings.
-> =C2=A0 */
-> -void amdgpu_multi_ring_reset_helper_begin(const u32 ring_type_mask,
-> +void amdgpu_multi_ring_reset_helper_begin(struct amdgpu_device
-> *adev,
-> +					=C2=A0 const u32 ring_type_mask,
-> =C2=A0					=C2=A0 struct amdgpu_ring
-> *guilty_ring,
-> =C2=A0					=C2=A0 struct amdgpu_fence
-> *guilty_fence)
-> =C2=A0{
-> -	struct amdgpu_device *adev =3D guilty_ring->adev;
-> =C2=A0	struct amdgpu_fence *ring_guilty_fence;
-> =C2=A0	struct amdgpu_ring *ring;
-> =C2=A0	bool rings_busy;
-> @@ -1034,8 +1035,9 @@ void amdgpu_multi_ring_reset_helper_begin(const
-> u32 ring_type_mask,
-> =C2=A0/**
-> =C2=A0 * amdgpu_multi_ring_reset_helper_end() - Prepare multiple rings fo=
-r
-> a reset.
-> =C2=A0 *
-> + * @adev: amdgpu device
-> =C2=A0 * @ring_type_mask: Bitmask of affected ring types
-> - * @guilty_ring: The ring which is guilty of causing a reset.
-> + * @guilty_ring: The ring which is guilty of causing a reset, or
-> NULL.
-> =C2=A0 * @ret: Return code from the reset function.
-> =C2=A0 *
-> =C2=A0 * After calling amdgpu_multi_ring_reset_helper_begin()
-> @@ -1046,10 +1048,10 @@ void
-> amdgpu_multi_ring_reset_helper_begin(const u32 ring_type_mask,
-> =C2=A0 * be called to restore preemption state, but it won't attempt to
-> =C2=A0 * fully restore the ring contents.
-> =C2=A0 */
-> -int amdgpu_multi_ring_reset_helper_end(const u32 ring_type_mask,
-> +int amdgpu_multi_ring_reset_helper_end(struct amdgpu_device *adev,
-> +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const u32 ring_type_mask,
-> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu_ring
-> *guilty_ring, int ret)
-> =C2=A0{
-> -	struct amdgpu_device *adev =3D guilty_ring->adev;
-> =C2=A0	struct amdgpu_ring *ring;
-> =C2=A0	int i, r;
+> @@ -1027,8 +1027,10 @@ void
+> amdgpu_multi_ring_reset_helper_begin(struct amdgpu_device *adev,
+> =C2=A0		 * Backup current contents of the ring.
+> =C2=A0		 * The helper takes care to only reemit unsignalled
+> fences
+> =C2=A0		 * so we don't have to worry about that here.
+> +		 * A failed ring reset of the same job already
+> backed it up.
+> =C2=A0		 */
+> -		amdgpu_ring_reset_helper_begin(ring,
+> ring_guilty_fence);
+> +		if (ring !=3D guilty_ring || ring->guilty_fence !=3D
+> guilty_fence)
+> +			amdgpu_ring_reset_helper_begin(ring,
+> ring_guilty_fence);
+> =C2=A0	}
+> =C2=A0}
 > =C2=A0
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> index b2040f80b7f2..7e6ed43771f2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> @@ -637,10 +637,12 @@ void amdgpu_ring_reset_helper_begin(struct
-> amdgpu_ring *ring,
-> =C2=A0				=C2=A0=C2=A0=C2=A0 struct amdgpu_fence
-> *guilty_fence);
-> =C2=A0int amdgpu_ring_reset_helper_end(struct amdgpu_ring *ring,
-> =C2=A0				 struct amdgpu_fence *guilty_fence);
-> -void amdgpu_multi_ring_reset_helper_begin(const u32 ring_type_mask,
-> +void amdgpu_multi_ring_reset_helper_begin(struct amdgpu_device
-> *adev,
-> +					=C2=A0 const u32 ring_type_mask,
-> =C2=A0					=C2=A0 struct amdgpu_ring
-> *guilty_ring,
-> =C2=A0					=C2=A0 struct amdgpu_fence
-> *guilty_fence);
-> -int amdgpu_multi_ring_reset_helper_end(const u32 ring_type_mask,
-> +int amdgpu_multi_ring_reset_helper_end(struct amdgpu_device *adev,
-> +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const u32 ring_type_mask,
-> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu_ring
-> *guilty_ring, int ret);
-> =C2=A0bool amdgpu_ring_is_reset_type_supported(struct amdgpu_ring *ring,
-> =C2=A0					 u32 reset_type);
