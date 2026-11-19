@@ -2,79 +2,79 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E336460A2610
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 11:47:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D9A3606A338
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 11:47:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ly2bpeti
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hrmDvF2b
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 660561122ED;
-	Thu, 19 Nov 2026 11:47:38 +0000 (UTC)
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3FB18112310
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 11:47:32 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-4a1fbd52ab6so16383645e9.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 03:47:32 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D21201122FB;
+	Thu, 19 Nov 2026 11:47:46 +0000 (UTC)
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
+ [209.85.221.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3A0F1122FB
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 11:47:40 +0000 (UTC)
+Received: by mail-wr1-f45.google.com with SMTP id
+ ffacd0b85a97d-497614c95f0so1328131f8f.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 03:47:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795088851; x=1795693651; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1795088859; x=1795693659; darn=lists.freedesktop.org;
  h=mime-version:user-agent:content-transfer-encoding:content-type
  :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
  :cc:subject:date:message-id:reply-to:content-type;
- bh=xyPwvcxiQ6g0Y24FPApDOnJoQC3Htves4+rtajj6sIg=;
- b=Ly2bpetiIzhi54OB+SUrPGkXmUQSCEn+WbGtaqyvNnZ7zWllqtFQ19tkKzdBsEdhJz
- Iku/LwUHbJfqVvVbVQ90/g76GHUUKiGG9oiiJODBoeUxwc22rCt0WHLcUs6vH2Si8YLm
- aQA7x1otjGkzl5nkA/tiDvA+OJpYZ6NA8h7uaMGttQXTQEpGMwP2CmcwcjZUYVOyyJr7
- sp14YkP03OqPh6nIhDqepiPcO10NxUX/00h3UYn0rffz/ewfyneYFBLOK6eRFJWGyTPP
- DI8qudV63/B6SI/8u4rz79Tbv8mfPJG36VcyT+K5oDkbmdzXjbctXd+tjSQLX9kN5gyY
- jFfw==
+ bh=cGLfZXBKIAWN/N4v7PR79WON2EGEzqgVLpM4gi7Ir58=;
+ b=hrmDvF2bYi08bdupI0bs770rA4y0jw3eG0FITxE8IaRca4PnS3xpftlP1QkF/eeOY4
+ su4Bh38QgBqy1C05rlfp0rOjcxVuM+cYV+Kv30RnV/WKxvrzezI/7cSqQPJUkG1iMdEj
+ et50fif48DBrKNqf8o37rbfDBouHxgcapCh7Mx1IRExuHlHcfMxLDnqXiyvfzcrK1hY9
+ oNO8GblI+ihtnmzrGZTOmkqolUJPzk9IPYGsggrAb/AYm3qh5ZeDe5OaCB5Qh5GIMmks
+ 65qwRBvtrenmkp+P38Qp5DDG3xaR8B8T9Oi/8U6qd4rdw8bdMBRA5f7jPcJaC4xe9wZr
+ NjNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795088851; x=1795693651;
+ d=1e100.net; s=20260707; t=1795088859; x=1795693659;
  h=mime-version:user-agent:content-transfer-encoding:content-type
  :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=xyPwvcxiQ6g0Y24FPApDOnJoQC3Htves4+rtajj6sIg=;
- b=pHtpMHNjMM6mEf4NFTPbZJhv5mrgkyiInihyewn7lSyOyAnO9DJMCIbk3cxKSd05SB
- QiDrQP7vPZ6uTNGWP+aK0nIkthY/AoRMscLDdo0bP58SDZlQt1HBYoZ3yv7UTUo5w0eO
- kVNZpQBxUaC4Nl+T77U2BkI7vx9sp2bxTNMgoxddLDiTL8LYHXR9yhzlxrU6ucg/vg+v
- h/gjjxIdrk11kTQTJ2/wdX7VIHaBvwQWh0aYK4wkb4Z3KHlrJKZAadHltxk0xayyx+sV
- wqQW8snfGHTgyXBy+jggWqEjqnWMhFoqzTkTFyfeW5LEdgkLMM1zwuewn77rcMJVP2lL
- v8+w==
+ bh=cGLfZXBKIAWN/N4v7PR79WON2EGEzqgVLpM4gi7Ir58=;
+ b=jndolo1MV0khRBpp0q576T2W7leeSnFEsLMmwLT7bkZVLh4KbQalXql6oetqIE/zdw
+ NtG9JeQwvcblLLU7iWXOxDiUXn+lSKiTle6+aQRLciv7OVKhjzAjijKsU32wHOiZ8Fme
+ UqDWwqZ703kORjABIGhxvsD2xRmyNr9AmnlyZDRbrBmV1nUYBlW0JJE/KI59uY4Y+Nph
+ M7hAxby42GhgerNFxOaI+Nanqyxl8XobmVeTidxS+tRJfh2+3a/IlSVEgvuFjWgXQbov
+ US/3i/nf3DMJ1BZ7bnw93wemRo6QC73nn2krnEKKwh4y4hhicwSM1zpN6oT/no1RLt11
+ qKOg==
 X-Forwarded-Encrypted: i=1;
- AL+hErEYGJP3PY12LCJ5PWnlTzBqDGVeAimnwD4ESf8B2mJXXb55hsgp6o+2allJMnMgRCblTcUrGawi@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9XXTyKL3IyXVnoG4gS81C6qpY4D1HarAMdaaTkN9XBLdkhSjJs
- UKf2LpvJiEAsWpba84pTN347klLNZTfD0o5OUsE50zEyCfgOMN/bItnr
-X-Gm-Gg: AYBFou3Jb/Gb6PTqLrfEtVvd4tSaTw0T8XBexTegcXw5vJi7ysr6yuT0wxHBnp2EZ/1
- DOnmrcjOup+yxWD8QbvJbxfHXFr3KXcsCPH4tZLf4PErJTwSUOKpG6O43qeVq/pP1CqsnCfh89i
- DBTqqeka4X6wpO3akVS2rX4udxU514Hpbi4HPXHpE0XFD5B936yCKv6+0DXTXcg2rSjDS6MNQXv
- LmWMKgH3lXg8Z27pPu7id8NBcb2QB3dKBrgshzTzBbVmuCKePKCqKnbGeDoxe3GN34SUKOUq3NU
- tlz0HS6R52Hnrg3xsDQSsNA4qYDc1nRYeA15QNWXXgKutxOF07b4Nx7VlbRYOXdYAdJx/W9CcXb
- lu4tg4M9vRZzOAyukvs/XuqTy1k1rbXXJZ87FBghuZ9IyTJLTOuwGY5GDtTRUckxtOaJea99mXs
- 3ErZgdHjGX4A6qJkSlKDLpENkKkZHE4fED5ZqYyqzGDqnXQVhR9NBJ7oWBuOhPOQTgRy7eZyJbQ
- 0OcSaG1xpbEAN2rlG4xm31ag74YxlT9E6oraf3ZYRplMrlfhf/EmCbBYk8/8GKEzDSeKORrpotn
- twwp5Wo+Aa/KhqtpZKWbzoQpsXNzf10KVE/SXkwDcFQ3u3zHAN1saY+m6CzkaEvexz+B+jR70tz
- SxO7/
-X-Received: by 2002:a05:600c:4ecf:b0:4bb:60da:56af with SMTP id
- 5b1f17b1804b1-4bb7da391b7mr115556295e9.25.1795088850657; 
- Thu, 19 Nov 2026 03:47:30 -0800 (PST)
+ AL+hErFRmvkTKT6uHmSAQVKao7Nsy/fHVVVS1lQJ5HvZeM/Pat9Z9/ALKi2Vxug62S5Urwhyd+U29dmJ@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9QQRzZauirGsEgHupoHnJ4rx9H8bok1vWO4gBhaid+Qinwfi4D
+ dqcMsKwE4bzQGZ7s4J+z5nyqLKhtNB4sAgucCLu5XzBfV4VzvB5LvV3VCZ39mJIn
+X-Gm-Gg: AZFdTZfhLLnCJNJY3S5CuiKs2/CCePaiBXIXG4QxIlDwbUPTWEu1DrzelZ9KsIdw/DS
+ CIkMQd8nz1k292wk0Rf0xXLw9sz7r98yUCEYXsEIKxKLYIRigZx4GI0lgQnK56dMYtshnH5/PpJ
+ xKiR/uBNyY6PZ01XAkd0NS3mlhvev51MdOYEjLE4jRAOzCgcjrWXAIpW2jt99w+9/kQK9YZ1W4m
+ EYDeDtSOZPKPjbgh3DwzKiO3GgxHZbP+CYyRcq/LDZ01viHsN6ood559PJv7K8I9UFSzTbCvnjC
+ iXqfNZJ4ptWceqRzhO080HjPXZO9dEIYHSNNpRzYWk+201Q764NQxJyNnyAjSSo1QyUI5QpCRl/
+ uxBwIfxzRFx9eLHoG6Inf23cOrQn8+g9QUsXIWgKZ3vRgpa7HhGAg8VDdQBek2cUOPOWhy+IXql
+ 1InlbMmTWlxPMkQtaWS7i0laYa6ONecovgls/F4FJBwFZXR2U7Uh39+WzyBEZHJZMEQQBkvwfe8
+ 4uZbM9p9SWYeiQMWqzfH21M89dig3o6VhoSggsblZ/rtChAN7lknc71CqjBhFcnrqGAFuT4RncM
+ +F3KKntb/WSXzsT/4aUZrQu7z6gLHEoJ4d+jn4mqH+p4/6NfwZgJuTCfKVkZ7Aam376MQQQJpwC
+ 5oU1Zc1LXB44lLbC3+abdjmLX8g==
+X-Received: by 2002:a05:6000:4612:b0:488:88ec:59c3 with SMTP id
+ ffacd0b85a97d-4a6389ec4bfmr12781452f8f.14.1795088858908; 
+ Thu, 19 Nov 2026 03:47:38 -0800 (PST)
 Received: from [192.168.1.71] (115.red-2-136-224.staticip.rima-tde.net.
  [2.136.224.115]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4a654a8c3c6sm9340750f8f.19.2026.11.19.03.47.29
+ ffacd0b85a97d-4a656c11f4bsm10344446f8f.51.2026.11.19.03.47.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 19 Nov 2026 03:47:30 -0800 (PST)
-Message-ID: <f4128e1b9be5431cea1777856341375f017f6813.camel@gmail.com>
-Subject: Re: [PATCH v4 12/13] drm/amdgpu/gfx12: enable the gfx engine soft
+ Thu, 19 Nov 2026 03:47:38 -0800 (PST)
+Message-ID: <c166332638f3f5cc04b7cbde72cdc31a13e1ff67.camel@gmail.com>
+Subject: Re: [PATCH v4 13/13] drm/amdgpu/gfx11: enable the gfx engine soft
  reset
 From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
 To: Jesse Zhang <Jesse.Zhang@amd.com>, amd-gfx@lists.freedesktop.org
 Cc: Alexander.Deucher@amd.com, Christian Koenig <christian.koenig@amd.com>, 
  Lijo.Lazar@amd.com, Mario.Novales@amd.com, Manu.Rastogi@amd.com, 
  Jiongyu.Zhu@amd.com
-Date: Thu, 19 Nov 2026 12:47:29 +0100
-In-Reply-To: <20261105030612.726542-12-Jesse.Zhang@amd.com>
+Date: Thu, 19 Nov 2026 12:47:37 +0100
+In-Reply-To: <20261105030612.726542-13-Jesse.Zhang@amd.com>
 References: <20261105030612.726542-1-Jesse.Zhang@amd.com>
- <20261105030612.726542-12-Jesse.Zhang@amd.com>
+ <20261105030612.726542-13-Jesse.Zhang@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
@@ -106,26 +106,36 @@ On Thu, 2026-11-05 at 11:05 +0800, Jesse Zhang wrote:
 >=20
 > The kernel gfx queue and gfx user queue resets then fall back to a
 > soft
-> reset of the gfx engine before a full reset.
+> reset of the gfx engine before a full reset. The IP block soft reset
+> of
+> gfx11 only resets the gfx engine then; the whole IP block
+> soft_reset()
+> isn't used.
 >=20
-> v4: The soft_reset_engine() callback is set by the patch that adds
-> it.
-> =C2=A0=C2=A0=C2=A0 No async gfx ring check: they are always used now.
+> v4: Not limited to the RS64 firmware anymore, the reset restarts the
+> F32
+> =C2=A0=C2=A0=C2=A0 PFP and ME of the APUs too (Timur). The soft_reset_eng=
+ine()
+> callback
+> =C2=A0=C2=A0=C2=A0 is set by the patch that adds it. No async gfx ring ch=
+eck: they
+> are
+> =C2=A0=C2=A0=C2=A0 always used now.
 >=20
 > Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
 
 Reviewed-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
 
 > ---
-> =C2=A0drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c | 5 +++++
+> =C2=A0drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 5 +++++
 > =C2=A01 file changed, 5 insertions(+)
 >=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> index 8b96f2a29b1f..55baeda02d6f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> @@ -1593,6 +1593,11 @@ static int gfx_v12_0_sw_init(struct
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> index 80b91459f5b0..396fe3f6678a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> @@ -1941,6 +1941,11 @@ static int gfx_v11_0_sw_init(struct
 > amdgpu_ip_block *ip_block)
 > =C2=A0		break;
 > =C2=A0	}
@@ -137,6 +147,6 @@ Reviewed-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
 > AMDGPU_RESET_TYPE_IP_BLOCK_SOFT_RESET;
 > +
 > =C2=A0	if (!adev->enable_mes_kiq) {
-> =C2=A0		r =3D amdgpu_gfx_kiq_init(adev, GFX12_MEC_HPD_SIZE,
+> =C2=A0		r =3D amdgpu_gfx_kiq_init(adev, GFX11_MEC_HPD_SIZE,
 > 0);
 > =C2=A0		if (r) {
