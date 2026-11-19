@@ -2,153 +2,96 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E592C606A32A
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 14:57:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C0EE606A325
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 14:57:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=sOMIc4ti
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=f+g6C9fK
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34FB0112B4A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50DE7112B4E;
 	Fri, 20 Nov 2026 14:56:58 +0000 (UTC)
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012053.outbound.protection.outlook.com [52.101.43.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 372FF112266;
- Fri, 20 Nov 2026 05:58:00 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=G0DsyJihvLwMAKI2layb/0tK72/mFGpwJXRQMQhOVwU1ED8MJmfUngAjJkNYUK2T/KN8vWMx2m31A0rpD+YwczQ9nu7JOMyrWNyJtEFpe61PVYqQu1YzLNMWo9ZkY0Fi+X7UvvrgSGVYI9DSR59K+KmYjXJ5iYtM7rrn21pXAuuYXjuQbBfRW83bxfCFcxejhOzdC4VNguHBsKbQex3ks5LNOjQcEk9U7jukhMMHcYQzTAg9rp7L9WcSZpzyHIn+Z13oC+JSlpRSQbBsmL9daCPN4YJ4RlMc2scrEXMSP2BaBBNT7o8Us6DFGAEiVdDJeQZWA92CbVE1eCC9PRi5Hw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=miasQfyuF2vT5ft+SaFgUytyG9txbYZytPvtlQXA18M=;
- b=RyvLh0nj5TuV5gfbP1nzaJsNuNOuOkdB/WXc0o4rem1ZkAL1vfjOgKQTn8mipTVdXYxykQkhhDKTZIoDLXeXk+CEnaFh9GsBlul3W597wUviyXJ8fE9iPgZwpVg2AY5kgv1UaeuISsoR9Q91nDoNl6332OYa8wqvgnfIqD5AN1AVH4QWV2XKtB7tg15m2LxFTaDSS5BNlHsHYHbmMMxxGldZBJuCxIwHxszLWJVwx7SRMBUtzq+mxJoghRwWvuKTQa0hcEyVwNFjQ8rC+6sV1Sr1z3u2cDdycYA0EfsLIyZRnRqY5I+94hxVOl+VPPict+S5hY0VUlZCWaAZJfmevw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=miasQfyuF2vT5ft+SaFgUytyG9txbYZytPvtlQXA18M=;
- b=sOMIc4tipRsQaS7keKSkUfUQNU72KuflcfCUc5OoIiuGdo6xlViVJ0RQrN9J0QiFfWtPShXDqwAe/jdRt/Y4Zt+8FOrxYp4J4VZi/zsr7AqbF5+gLi3HOZ46aRTcnryPM3F/WdCbs4sIvR14OC/jv6qqI0lW8A2f/K2qmvCes46Y/KAPGvoxzNbx4Gdf9duMvXihbiTgaNL3skE49czra1Fz2jWKGo92iSPH0f6vSCwV8E3E8uuzd9e0bBjvJvolW0Zlny8nngFhoZSGjWU8HV+rWgApuj8JHEzy7B7/4RGZeYNTYJt3WielOmvccqP02Rk+Z2X+7xyZxxu272zWug==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SA3PR12MB598757.namprd12.prod.outlook.com
- (2603:10b6:806:52d::14) by IA0PR12MB7675.namprd12.prod.outlook.com
- (2603:10b6:208:433::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Fri, 20 Nov
- 2026 05:57:48 +0000
-Received: from SA3PR12MB598757.namprd12.prod.outlook.com
- ([fe80::e206:100:5946:a777]) by SA3PR12MB598757.namprd12.prod.outlook.com
- ([fe80::e206:100:5946:a777%5]) with mapi id 15.21.0639.011; Fri, 20 Nov 2026
- 05:57:48 +0000
-From: Alistair Popple <apopple@nvidia.com>
-Date: Fri, 20 Nov 2026 16:55:53 +1100
-Subject: [PATCH v3 15/24] accel/ivpu: Convert the userptr exporter to the
- SGT mapping type
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261120-dma_mapping_type_v4-v3-15-c0183a409bdf@nvidia.com>
-References: <20261120-dma_mapping_type_v4-v3-0-c0183a409bdf@nvidia.com>
-In-Reply-To: <20261120-dma_mapping_type_v4-v3-0-c0183a409bdf@nvidia.com>
-To: =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Simona Vetter <simona.vetter@ffwll.ch>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Vivek Kasireddy <vivek.kasireddy@intel.com>, 
- Dongwon Kim <dongwon.kim@intel.com>, Kevin Tian <kevin.tian@intel.com>, 
- Xu Yilun <yilun.xu@linux.intel.com>, 
- Karl Mehltretter <kmehltretter@gmail.com>, 
- Baolu Lu <baolu.lu@linux.intel.com>, 
- Felix Kuehling <felix.kuehling@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, linux-media@vger.kernel.org, 
- linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org, 
- iommu@lists.linux.dev, Keith Busch <kbusch@kernel.org>, 
- Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>, 
- Sagi Grimberg <sagi@grimberg.me>, linux-nvme@lists.infradead.org, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, Mina Almasry <almasrymina@google.com>, 
- netdev@vger.kernel.org, Alexey Kardashevskiy <aik@amd.com>, 
- zhipingz@meta.com, treding@nvidia.com, jhubbard@nvidia.com, 
- chaitanyak@nvidia.com, Jason Gunthorpe <jgg@ziepe.ca>, 
- Leon Romanovsky <leon@kernel.org>
-Cc: Alistair Popple <apopple@nvidia.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795154186; l=3340;
- i=apopple@nvidia.com; s=20261105; h=from:subject:message-id;
- bh=o11b5hDr+2m1dVlSlcjvCsYnPYvCeKqnMuhmMgf12aU=;
- b=p8s1hN5hjrBdRHDkYFWEIgkLExTkMPeCWRF3Oo07DHbf3KL28LXafecAgND2eybJT4sKF2w/L
- +PhuwhCwqpQDehRME9GkAU4tEPCNvY+amWi0UePkCdQAHC/Gman4RwD
-X-Developer-Key: i=apopple@nvidia.com; a=ed25519;
- pk=WdWPT9rAq3YNfXldbGv1NSGVLGxzQGFGJvRUiShhNqs=
-X-ClientProxiedBy: SY5PR01CA0099.ausprd01.prod.outlook.com
- (2603:10c6:10:207::12) To SA3PR12MB598757.namprd12.prod.outlook.com
- (2603:10b6:806:52d::14)
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com
+ [209.85.167.200])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6D051126E7
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 19:26:18 +0000 (UTC)
+Received: by mail-oi1-f200.google.com with SMTP id
+ 5614622812f47-4ab8b4887d4so179010b6e.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 11:26:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20260707; t=1795116378; x=1795721178;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=d2DVsEOIJmONwY68Fz20HCkoh5ZG0X1B/QknI6oOs3U=;
+ b=f+g6C9fKf6oo1Yr9GQX9qC0JPaZkAUSjY5giC8kTBP89mU7NcVtLBl2uiJtonHl6kN
+ dYP+ENiIZMaolLXsBuwtowx9eV7MSY74JwnuceR44C3qLva05G0ZL5bWcu6JZEZUW3wr
+ Dvt0wsjlB0X3rnWrCaPC3RrPoHlJtTZ1D9jI/tm2gYWre9pyxmLyAYGKSZn+03VxgQjc
+ Mm0fxsZ85F1iPkVym8hxBCNH1sBvYcmUqkKTT2phzzRKdfSUpMqKkFozlAmDIGsLaOac
+ RL8UY4fQidh6ezbWEOSruVJKK2W6Kmwu0q95yfeChtreBQwWoe+hTxi0G95fOhTv9F5T
+ LGwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795116378; x=1795721178;
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=d2DVsEOIJmONwY68Fz20HCkoh5ZG0X1B/QknI6oOs3U=;
+ b=Jn9PKeNjYcbXsV7YlgtvSqEzuwLRcH93XFuOXwCbwR/rAeMOwmCqFQpCaNMAyHlS7N
+ Oga0QvnbaeU9NkMspVNsC8QCwndegISmQhl6TBzfdzTdsM4m8kxBH+Yl/yn3Sk1lPoac
+ yez/jD7RVHc1zqflF9RicFdPTeyYe6Bmw1SeqZhRzKnrYxAp3XkFycjql9oAM3c66kSN
+ 4OK8HwJdGxmWvVhAUZ25pXs3m1SdNdot7iX0kbRulwH5h43L72phnF7uCRoJn0rtfP+h
+ O2XOO4odHlHt/l5kTtwQQHvjKUMH4Ne/YgcPlewOnT8v6r0zyBRABvJKA8u3p1uxPvto
+ Tz+A==
+X-Forwarded-Encrypted: i=1;
+ AL+hErEuVlK5CvNSUqEYYNUjlj4TlRoztV+9ixj/MFj07PD0ZK7EfzoPxOYvn9T/FrQaRXMSGISNm14H@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8gpFA8RGGgj6RwjV95AVLO7l9q95Or5veoetzMgjg9uSibpcsW
+ ai0tZYdx3sbb9SXhMB19+HD23yLMA8elA74Gu4PYRiSbdZr9ltK2rugy+eo7Nkszi79dnrR3qIb
+ 8gFbS28z0bw==
+X-Received: from jaqb6.prod.google.com ([2002:a05:6638:1a6:b0:61f:e4cd:8716])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6808:c3eb:b0:4b9:e5fa:8a17
+ with SMTP id 5614622812f47-57a0a913526mr994137b6e.28.1795116377408; Thu, 19
+ Nov 2026 11:26:17 -0800 (PST)
+Date: Thu, 19 Nov 2026 11:25:20 -0800
+In-Reply-To: <20261119192520.1983406-1-irogers@google.com>
 X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA3PR12MB598757:EE_|IA0PR12MB7675:EE_
-X-MS-Office365-Filtering-Correlation-Id: db585d38-3fad-4b78-c419-08df46cb3449
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|7416014|366016|1800799024|921020|10067099003|11063799006|56012099006|261021123027099003|261028144727099003|261022105027099003|261026121527099003|261026140227099003|261021121427099003|261102123227099003|261009223027099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: Pbv8+dxn/gIVfYlpBVzrMSSX/IgGuOaGVU1HLpGTkqU+3nMPP0f2JI4VCnY05c0shLFKC/2pA9oYHp1dAHV7iJp9qyP8lOnHXQp65z5VMCQpjwBpg+G9C/j6KodRGQiWPJgbWLBnF3moqiVmlS+kzrVvM4b3LSeP41yiQQG1YBOLU7ECvF0UGFMse8cpmQlXrQzwcfADXgGHc4evVbaxdvxVBgA2hbJbWrTxy/Vbmmchci27BXo96tKDqKJcyuFNYHxKTqxfq+goowlviu0or5HuCuYHEsMN2jmYOreqWKvda41CDtUySV87AdgNgjAxyMsB+mFhd2Fp9gX/X0zQXFruEn1mfByLEh2HXnr/FIz8p70ctKgU6HeEltGdSO157ZoxyQPPzMhQN3lA/MbnrJWVRl6fV/4H+KCrXbkdYqH4l8zZgGXJ8zDWq0AH8C3lmvpXpX9UPAPoNQUNdFqoIl64JJ8PgpHQZkk84Y1IWlsM0BpalL3/ksyb3oPUabmXzOlfeok5Iu9kNwAPfFrhPjnpScHrEYQgzMFTroBfeQVhfDneJ37j743sSlFfI83iEcIJFRN7r0IpjG+ECLG1uC1IB3kKi0gIvkZwMzZ8BloilNnwCWR+xWkatzhMO7DK9hrsUJXpewDDHieHJVFVqaJ+Gcmw4DuNwP4WEhqw2p0c6m0xfBcj/1AJHJsQrpu8QJo0SEXCAH6fjsOxZwZJKg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA3PR12MB598757.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(7416014)(366016)(1800799024)(921020)(10067099003)(11063799006)(56012099006)(261021123027099003)(261028144727099003)(261022105027099003)(261026121527099003)(261026140227099003)(261021121427099003)(261102123227099003)(261009223027099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZFRBOXk0ckFqbGxFRENDbGY1OFpKckplbkxvdGRNQXBhS2pUNkZ4VTIyL1J5?=
- =?utf-8?B?eGprUU05dFRhOStZcDZibGJwSDdjSm5tWnJ1U0hkeHdQeG1QWHArbmZPbGRM?=
- =?utf-8?B?ZzNYNjFKNUp2ZDdDTzd5QmFJQWs5aUdtVWhRWmV3cVN6UW5ZdEtDSXdzYkls?=
- =?utf-8?B?THlQU3NlWXNmUndGY0dYUTFrYkZwSW1EN3FCV3RKaXo5VXd3eG9vZjByK0Vi?=
- =?utf-8?B?K2tBWkx3NWtkSTJkUEZFSXRNMnh6T0R1RktDOVZKTTB5ZG85K2E4cEJjOVk0?=
- =?utf-8?B?SGt1VkRrMWFxZ2sxQldXa0JBYitFNERwYWNzRFJ4YWx2S0RoOTBDVnhFN0dU?=
- =?utf-8?B?a3VWQnlKTjdIY3J2eWJTcU5IZ3AzNytLdHFkZWlLUmRBVmg3WTRHZi93NEIv?=
- =?utf-8?B?eko2dUNpMVZmS1dkNVV5YXdFTGpvNUZHNVZsc0R3Y3NKMS9qeVNjSnZuSWRa?=
- =?utf-8?B?VTBrZWgxaFBReUFoRDM2bmpDTERWY1YxRjltOGQ5allYSisrQ09wemtEZHE1?=
- =?utf-8?B?a3pTekZVQW1ucmZpbDFqSjF2dzRhWTBpMzNSK1B1b3gwU0x4S2YrVzdKSFE3?=
- =?utf-8?B?UktoZ2M5V2JESGxna1M3aEdwZHhhUGNVc3lhWnBoQys1VklidndrNmFRMWoz?=
- =?utf-8?B?Zm0xaFdYS1htZzF4b0lZMGNDNERZN2VaYTBMekcvZWpMd3lpY0wzc01WL2xG?=
- =?utf-8?B?TWVXT2ROVm92MjJxMkIyT3JNZ1lHMU1IeHlJUnFqVVFnVXVRMXYrc052bHEy?=
- =?utf-8?B?eWNTMnVLL0ZIOHlMTWFRSmkvVHE2elMrRkxmdmQ0MjA1VmdOMm10VmJVOEYx?=
- =?utf-8?B?Z1VZZ2J4a01OZzJGZCtsdmYxbC85bEo0Y2R2aDZMOHRxK2QzTnZrM0VxQnRC?=
- =?utf-8?B?VGVwWExhZW1XaVNXdGxDQnFuYUF3UXcwSnREdCtXYUoxY3VKSDZPRGU0UnU4?=
- =?utf-8?B?OWJ6QXZ4QUZaa3JtbkJoZEdpOXJBNUwwZEpQSHJJWVBtVEhtWlBaZ09TYVJN?=
- =?utf-8?B?MngzVW9zTmdpU0diOVN4ZHg3T24wSTl4QjZpVCszazlvTk1NR0lCTTZnREh5?=
- =?utf-8?B?S09EK05GQ3FHaGxYMmhGalBkS1FJTFhkbzJTTmx6TUh2dFVqMHRIT0RrRVd1?=
- =?utf-8?B?bC9icm9XcE9YdFBlN3NRMjZFbHNzWnM3ZlArWW5rSWlwelU0NVZtODlWa0dq?=
- =?utf-8?B?YjM2Sy9FdEN2NVRZQkpXMjRkMWxOVWhMQWlUL0RsNGxwVUZaZFdXNG1NNXNT?=
- =?utf-8?B?UXpQaXMzMVNCUEN1ZVpLYk9FYndseUpNS1hvNUtCNkljcHpLOE1DWnRjVFBI?=
- =?utf-8?B?VWk2QWFKYWFaWjIrVG12R0oxQWtubm11ZkxGRUVvRmRwWnRrRGVScUFrcEJZ?=
- =?utf-8?B?Z2tCcm85ek90SDlUY2dKNE1KZFcwcnN5ZzRhajFQVEl0MmQxd2pDRDIyeGNo?=
- =?utf-8?B?UkQxNlE0SmNrUk52OG5ibnZDaGlhWmczNkwzUUZPVFV5VzBoWlMwYzlZSlIw?=
- =?utf-8?B?YVFBTHFRWjFWdHZiSzlUZVBvK2xTdVBUMUJGeWgvMVdRMW04QThhREFGMVNw?=
- =?utf-8?B?c0cybXI0RVMzSU1sRS9rVmRqZm5BclZyWnZZR0VjcmRTbmhaTUhEcHdkbnJJ?=
- =?utf-8?B?dXJSNE9JdUhzY1paSkh4MmRUN2IrSmg3akVNUzdDY29IOU9rRU9ZWWlRTlhE?=
- =?utf-8?B?K3VOUWZMcjZuSmJES0JBRjhvT3hRVzFTTDVRaU9BOUxIN3FyVCtacTVBWEFa?=
- =?utf-8?B?YUxoWnRheWc2SWdhMXZQeTJoVFF3ckVrc2FyMHVVV21OZlA5Vzh0aHprckNs?=
- =?utf-8?B?cERUMTUwaExBSHp3QlJpeGJGbktQYUU1bFhIa0pnSkJ4aGxQeVV3YzcvY3hq?=
- =?utf-8?B?RlErS0d4S3RoVG5yZWhvVmVIT0RMYmRnY0RrWFk0dnZwK2ZlQ1V0VUpoQWlC?=
- =?utf-8?B?N1N6MlFMZjI1cjVGanNRVjlXVmd3N21qenFtRDVhU1p1NmF5SWw5TVhCbnMv?=
- =?utf-8?B?NE9tN2w5N3JqYmplMFg0bnUrUW9ZWGo2YmlLOTFFclFuUkplSE96bXB2NHVI?=
- =?utf-8?B?VHlNOURyTVdhZ25XWmovQnZ1R2JYdFFVYVJrR3NmeTFVK3NvakpTbjRrU1N4?=
- =?utf-8?B?a0U2Vy91eWpjWnNjOXhEbTBZdkU2ZVhrU05EQ2x4RVArMkt4WlhndjFwa0Ns?=
- =?utf-8?B?ME9YT2hGZXJxTXN1ZHplaHM3a0tEUURkWHkvdXFrbUFZWnlXeVJHZW5zQTJW?=
- =?utf-8?B?Z29qUlV4S3VaaXkyQ0NpYnlKQUdHNWlzWjMvdE5JS0Z6WGYyYmFJYzkxdkFT?=
- =?utf-8?B?K05yL2Uyd2hhaEZNaU5wQnJZTk9tcjlrUnU4WG1hc0k4NmV0QitKdz09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: db585d38-3fad-4b78-c419-08df46cb3449
-X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB598757.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2026 05:57:48.1845 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: s4OpcxaUT4y0RsU6MEsIFeQGA17fFtD3tyhauEErPv/NVDmS7lMxDDAKMc4N+AtUPRgUJBwZr9mTIfUToKHFdw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7675
+Mime-Version: 1.0
+References: <20261119192520.1983406-1-irogers@google.com>
+X-Mailer: git-send-email 2.56.1.750.gf70dc682cf-goog
+Message-ID: <20261119192520.1983406-10-irogers@google.com>
+Subject: [PATCH v4 9/9] kobject: Require explicit initialization of struct
+ kobj_type::release
+From: Ian Rogers <irogers@google.com>
+To: Danilo Krummrich <dakr@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Kees Cook <kees@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+ "Rafael J . Wysocki" <rafael@kernel.org>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Srish Srinivasan <ssrish@linux.ibm.com>, 
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
+ Christophe Leroy <chleroy@kernel.org>, Nayna Jain <nayna@linux.ibm.com>, 
+ Mimi Zohar <zohar@linux.ibm.com>, Yoshinori Sato <ysato@users.sourceforge.jp>, 
+ Rich Felker <dalias@libc.org>,
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, 
+ Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Nathan Chancellor <nathan@kernel.org>, 
+ Nick Desaulniers <ndesaulniers@google.com>,
+ Viresh Kumar <viresh.kumar@linaro.org>, 
+ Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>,
+ Alexander Aring <aahringo@redhat.com>, 
+ Felix Kuehling <felix.kuehling@amd.com>, 
+ "=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>,
+ Zhihao Cheng <chengzhihao1@huawei.com>, 
+ Sumanth Korikkar <sumanthk@linux.ibm.com>, Bill Wendling <morbo@google.com>, 
+ Justin Stitt <justinstitt@google.com>, driver-core@lists.linux.dev,
+ llvm@lists.linux.dev, 
+ linux-hardening@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-acpi@vger.kernel.org, 
+ linux-pm@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+ linux-sh@vger.kernel.org, linux-s390@vger.kernel.org, gfs2@lists.linux.dev, 
+ xen-devel@lists.xenproject.org, linux-mtd@lists.infradead.org, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Ian Rogers <irogers@google.com>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Fri, 20 Nov 2026 14:56:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -160,105 +103,473 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-26.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS,USER_AGENT_GIT,USER_IN_DEF_DKIM_WL autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The userptr dma-buf keeps one struct sg_table for its lifetime in
-dma_buf->priv and map_dma_buf() DMA maps and returns that same table
-for every attachment. A mapping is per attachment and per map, so each
-map_dma_buf() must allocate a struct dma_buf_sgt_mapping holding a copy
-of the table header and DMA map through it. The entries remain shared
-as before. unmap_dma_buf() DMA unmaps through the copy and frees the
-mapping. The table itself is still freed in release.
+Documentation/core-api/kobject.rst states:
 
-Note that sharing one scatterlist between mappings is already broken.
-dma_map_sgtable() writes the DMA addresses, lengths and nents into the
-shared entries, so a second attachment mapping the buffer overwrites the
-first importer's addresses. Unmap would tear down whichever mapping the
-entries hold at the time.
+  "One important point cannot be overstated: every kobject must have a
+  release() method, and the kobject must persist (in a consistent state)
+  until that method is called. If these constraints are not met, the code
+  is flawed. Note that the kernel will warn you if you forget to provide
+  a release() method. Do not try to get rid of this warning by providing
+  an \"empty\" release function."
 
-This is a pre-existing issue though which needs to be addressed by a
-separate fix - this patch doesn't change any behaviour.
+Annotate struct kobj_type::release with __must_init so the compiler
+diagnoses any struct kobj_type initializer that omits .release.
 
-Signed-off-by: Alistair Popple <apopple@nvidia.com>
+For the remaining legacy struct kobj_type definitions that still omit a
+release callback, explicitly initialize .release = NULL and document
+each site's lifetime status:
+- In built-in code where the backing storage is static, per-CPU, or
+  allocated once at boot and never freed (arm64 cpuinfo, ACPI hotplug
+  profiles, and s390 sclp_mem), note that omitting release() violates
+  the kobject API contract while explaining what guarantees the storage
+  outlives kobject cleanup.
+- In drivers and tristate modules with broken kobject lifetime
+  management (where enclosing dynamic or devm allocations are freed or
+  zeroed independently of kobject_put(), or where module unload unmaps
+  static kobjects/ksets while final or CONFIG_DEBUG_KOBJECT_RELEASE
+  delayed cleanup may still be pending), document the lifetime hazard
+  with a FIXME comment for follow-up fixes.
+
+This change does not alter runtime behavior at these sites.
+
+Link: https://lpc.events/event/20/contributions/2392/
+Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- drivers/accel/ivpu/ivpu_gem_userptr.c | 29 +++++++++++++++++++++--------
- 1 file changed, 21 insertions(+), 8 deletions(-)
+ arch/arm64/kernel/cpuinfo.c                   |  7 +++++++
+ drivers/acpi/sysfs.c                          |  7 +++++++
+ drivers/dma/ioat/sysfs.c                      |  8 +++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c    |  8 +++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c       | 17 +++++++++++++++
+ drivers/infiniband/hw/hfi1/sysfs.c            |  7 +++++++
+ drivers/infiniband/hw/usnic/usnic_ib_sysfs.c  |  7 +++++++
+ drivers/parisc/pdc_stable.c                   |  8 +++++++
+ drivers/power/supply/ab8500_fg.c              |  8 +++++++
+ drivers/s390/char/sclp_mem.c                  |  6 ++++++
+ drivers/soc/hisilicon/kunpeng_hccs.c          | 18 ++++++++++++++++
+ .../fbdev/omap2/omapfb/dss/display-sysfs.c    |  7 +++++++
+ .../fbdev/omap2/omapfb/dss/manager-sysfs.c    |  8 +++++++
+ .../fbdev/omap2/omapfb/dss/overlay-sysfs.c    |  7 +++++++
+ fs/erofs/sysfs.c                              | 14 +++++++++++++
+ fs/f2fs/sysfs.c                               | 21 +++++++++++++++++++
+ fs/ocfs2/cluster/masklog.c                    |  7 +++++++
+ include/linux/kobject.h                       |  2 +-
+ 18 files changed, 166 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/accel/ivpu/ivpu_gem_userptr.c b/drivers/accel/ivpu/ivpu_gem_userptr.c
-index 7cbf3a4cdc73..35e66b84a64b 100644
---- a/drivers/accel/ivpu/ivpu_gem_userptr.c
-+++ b/drivers/accel/ivpu/ivpu_gem_userptr.c
-@@ -4,6 +4,7 @@
-  */
+diff --git a/arch/arm64/kernel/cpuinfo.c b/arch/arm64/kernel/cpuinfo.c
+index 94e6cd211d70..7c374b8c25af 100644
+--- a/arch/arm64/kernel/cpuinfo.c
++++ b/arch/arm64/kernel/cpuinfo.c
+@@ -295,6 +295,13 @@ const struct seq_operations cpuinfo_op = {
  
- #include <linux/dma-buf.h>
-+#include <linux/dma-buf-mapping.h>
- #include <linux/err.h>
- #include <linux/highmem.h>
- #include <linux/mm.h>
-@@ -19,25 +20,37 @@
- #include "ivpu_drv.h"
- #include "ivpu_gem.h"
  
--static struct sg_table *
-+static struct dma_buf_sgt_mapping *
- ivpu_gem_userptr_dmabuf_map(struct dma_buf_attachment *attachment,
- 			    enum dma_data_direction direction)
- {
- 	struct sg_table *sgt = attachment->dmabuf->priv;
-+	struct dma_buf_sgt_mapping *mapping;
- 	int ret;
- 
--	ret = dma_map_sgtable(attachment->dev, sgt, direction, DMA_ATTR_SKIP_CPU_SYNC);
--	if (ret)
-+	mapping = kzalloc_obj(*mapping);
-+	if (!mapping)
-+		return ERR_PTR(-ENOMEM);
-+
-+	/* Header copy only; the table and its entries belong to the dma_buf */
-+	mapping->sgt = *sgt;
-+	ret = dma_map_sgtable(dma_buf_sgt_dma_device(attachment), &mapping->sgt,
-+			      direction, DMA_ATTR_SKIP_CPU_SYNC);
-+	if (ret) {
-+		kfree(mapping);
- 		return ERR_PTR(ret);
-+	}
- 
--	return sgt;
-+	return mapping;
- }
- 
- static void ivpu_gem_userptr_dmabuf_unmap(struct dma_buf_attachment *attachment,
--					  struct sg_table *sgt,
-+					  struct dma_buf_sgt_mapping *mapping,
- 					  enum dma_data_direction direction)
- {
--	dma_unmap_sgtable(attachment->dev, sgt, direction, DMA_ATTR_SKIP_CPU_SYNC);
-+	dma_unmap_sgtable(dma_buf_sgt_mapping_dma_device(mapping),
-+			  &mapping->sgt, direction, DMA_ATTR_SKIP_CPU_SYNC);
-+	kfree(mapping);
- }
- 
- static void ivpu_gem_userptr_dmabuf_release(struct dma_buf *dma_buf)
-@@ -56,9 +69,9 @@ static void ivpu_gem_userptr_dmabuf_release(struct dma_buf *dma_buf)
- }
- 
- static const struct dma_buf_ops ivpu_gem_userptr_dmabuf_ops = {
--	.map_dma_buf = ivpu_gem_userptr_dmabuf_map,
--	.unmap_dma_buf = ivpu_gem_userptr_dmabuf_unmap,
- 	.release = ivpu_gem_userptr_dmabuf_release,
-+	DMA_BUF_SIMPLE_SGT_EXP_MATCH(ivpu_gem_userptr_dmabuf_map,
-+				     ivpu_gem_userptr_dmabuf_unmap),
+ static const struct kobj_type cpuregs_kobj_type = {
++	/*
++	 * Omitting release() violates the kobject API contract, but lifetime
++	 * is safe: info->kobj is embedded in built-in static per-CPU cpu_data
++	 * that is never freed or passed to kobject_put() (CPU hotplug only
++	 * toggles sysfs visibility via kobject_add() and kobject_del()).
++	 */
++	.release = NULL,
+ 	.sysfs_ops = &kobj_sysfs_ops,
  };
  
- static struct dma_buf *
-
+diff --git a/drivers/acpi/sysfs.c b/drivers/acpi/sysfs.c
+index a4534b3e3cfb..d435b565ad19 100644
+--- a/drivers/acpi/sysfs.c
++++ b/drivers/acpi/sysfs.c
+@@ -975,6 +975,13 @@ static struct attribute *hotplug_profile_attrs[] = {
+ ATTRIBUTE_GROUPS(hotplug_profile);
+ 
+ static const struct kobj_type acpi_hotplug_profile_ktype = {
++	/*
++	 * Omitting release() violates the kobject API contract, but lifetime
++	 * is safe: hotplug->kobj is only embedded in static built-in
++	 * struct acpi_scan_handler instances that are never unregistered or
++	 * freed.
++	 */
++	.release = NULL,
+ 	.sysfs_ops = &kobj_sysfs_ops,
+ 	.default_groups = hotplug_profile_groups,
+ };
+diff --git a/drivers/dma/ioat/sysfs.c b/drivers/dma/ioat/sysfs.c
+index 976134df8108..ec5a90c7aded 100644
+--- a/drivers/dma/ioat/sysfs.c
++++ b/drivers/dma/ioat/sysfs.c
+@@ -167,6 +167,14 @@ static const struct attribute *const ioat_attrs[] = {
+ ATTRIBUTE_GROUPS(ioat);
+ 
+ const struct kobj_type ioat_ktype = {
++	/*
++	 * FIXME: Broken kobject lifetime (needs follow-up fix):
++	 * ioat_kobject_del() calls kobject_put(&ioat_chan->kobj) and
++	 * release_ioatdma() frees ioat_chan via kfree() without waiting for
++	 * final kobject cleanup (use-after-free if a sysfs reference is held
++	 * or under CONFIG_DEBUG_KOBJECT_RELEASE).
++	 */
++	.release = NULL,
+ 	.sysfs_ops = &ioat_sysfs_ops,
+ 	.default_groups = ioat_groups,
+ };
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+index d025b4183b29..5aa90f1271e4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+@@ -892,6 +892,14 @@ static const struct attribute_group ualink_xcp_info_group = {
+ };
+ 
+ static const struct kobj_type ualink_xcp_info_ktype = {
++	/*
++	 * FIXME: Broken kobject lifetime (needs follow-up fix):
++	 * xcp->ualink.kobj is embedded in adev->xcp_mgr;
++	 * amdgpu_ualink_xcp_sysfs_remove() calls kobject_put() and
++	 * amdgpu_device_fini_sw() later calls kfree(adev->xcp_mgr) without
++	 * waiting for final kobject cleanup.
++	 */
++	.release = NULL,
+ 	.sysfs_ops = &kobj_sysfs_ops
+ };
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+index ab14079d1c42..8e21bf57596c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+@@ -797,6 +797,16 @@ static const struct sysfs_ops xcp_cfg_res_sysfs_ops = {
+ };
+ 
+ static const struct kobj_type xcp_cfg_res_sysfs_ktype = {
++	/*
++	 * FIXME: Broken kobject lifetime (needs follow-up fix): xcp_res->kobj
++	 * is embedded in struct amdgpu_xcp_cfg, freed by parent xcp_cfg->kobj's
++	 * xcp_cfg_sysfs_release(). While an added child pins xcp_cfg->kobj
++	 * until kobject_cleanup() finishes, if kobject_init_and_add() fails in
++	 * amdgpu_xcp_cfg_sysfs_init() no parent reference is held and
++	 * kfree(xcp_cfg) can race with delayed cleanup under
++	 * CONFIG_DEBUG_KOBJECT_RELEASE.
++	 */
++	.release = NULL,
+ 	.sysfs_ops = &xcp_cfg_res_sysfs_ops,
+ 	.default_groups = xcp_cfg_res_sysfs_groups,
+ };
+@@ -1061,6 +1071,13 @@ static const struct attribute_group amdgpu_xcp_attrs_group = {
+ };
+ 
+ static const struct kobj_type xcp_sysfs_ktype = {
++	/*
++	 * FIXME: Broken kobject lifetime (needs follow-up fix): xcp->kobj is
++	 * embedded in adev->xcp_mgr; amdgpu_xcp_sysfs_entries_fini() calls
++	 * kobject_put() and amdgpu_device_fini_sw() later calls
++	 * kfree(adev->xcp_mgr) without waiting for final kobject cleanup.
++	 */
++	.release = NULL,
+ 	.sysfs_ops = &kobj_sysfs_ops,
+ };
+ 
+diff --git a/drivers/infiniband/hw/hfi1/sysfs.c b/drivers/infiniband/hw/hfi1/sysfs.c
+index 372cfd13dc61..dc6693822589 100644
+--- a/drivers/infiniband/hw/hfi1/sysfs.c
++++ b/drivers/infiniband/hw/hfi1/sysfs.c
+@@ -608,6 +608,13 @@ static const struct sysfs_ops sde_sysfs_ops = {
+ };
+ 
+ static struct kobj_type sde_ktype = {
++	/*
++	 * FIXME: Broken kobject lifetime (needs follow-up fix):
++	 * hfi1_verbs_unregister_sysfs() calls kobject_put(&dd->per_sdma[i].kobj)
++	 * and sdma_clean() frees dd->per_sdma via kfree() without waiting for
++	 * final kobject cleanup.
++	 */
++	.release = NULL,
+ 	.sysfs_ops = &sde_sysfs_ops,
+ };
+ 
+diff --git a/drivers/infiniband/hw/usnic/usnic_ib_sysfs.c b/drivers/infiniband/hw/usnic/usnic_ib_sysfs.c
+index fdb63a8fb997..f6946524a562 100644
+--- a/drivers/infiniband/hw/usnic/usnic_ib_sysfs.c
++++ b/drivers/infiniband/hw/usnic/usnic_ib_sysfs.c
+@@ -245,6 +245,13 @@ static struct attribute *usnic_ib_qpn_default_attrs[] = {
+ ATTRIBUTE_GROUPS(usnic_ib_qpn_default);
+ 
+ static struct kobj_type usnic_ib_qpn_type = {
++	/*
++	 * FIXME: Broken kobject lifetime (needs follow-up fix):
++	 * usnic_ib_destroy_qp() calls kobject_put(&qp_grp->kobj) via
++	 * usnic_ib_sysfs_qpn_remove() and RDMA core immediately frees qp_grp
++	 * without waiting for final kobject cleanup.
++	 */
++	.release = NULL,
+ 	.sysfs_ops = &usnic_ib_qpn_sysfs_ops,
+ 	.default_groups = usnic_ib_qpn_default_groups,
+ };
+diff --git a/drivers/parisc/pdc_stable.c b/drivers/parisc/pdc_stable.c
+index 6b567a74fc2c..1dc7d8ffdc73 100644
+--- a/drivers/parisc/pdc_stable.c
++++ b/drivers/parisc/pdc_stable.c
+@@ -484,6 +484,14 @@ ATTRIBUTE_GROUPS(paths_subsys);
+ 
+ /* Specific kobject type for our PDC paths */
+ static const struct kobj_type ktype_pdcspath = {
++	/*
++	 * FIXME: Broken kobject lifetime (needs follow-up fix): pdcspath_entry
++	 * instances are static in tristate module pdc_stable, and
++	 * pdc_stable_exit() calls kobject_put(&entry->kobj); unloading the
++	 * module unmaps the static storage without waiting for final kobject
++	 * cleanup.
++	 */
++	.release = NULL,
+ 	.sysfs_ops = &pdcspath_attr_ops,
+ 	.default_groups = paths_subsys_groups,
+ };
+diff --git a/drivers/power/supply/ab8500_fg.c b/drivers/power/supply/ab8500_fg.c
+index eddd3e853106..f5a0bb821ee8 100644
+--- a/drivers/power/supply/ab8500_fg.c
++++ b/drivers/power/supply/ab8500_fg.c
+@@ -2539,6 +2539,14 @@ static struct attribute *ab8500_fg_attrs[] = {
+ ATTRIBUTE_GROUPS(ab8500_fg);
+ 
+ static const struct kobj_type ab8500_fg_ktype = {
++	/*
++	 * FIXME: Broken kobject lifetime (needs follow-up fix): fg_kobject is
++	 * embedded in devm-allocated struct ab8500_fg; ab8500_fg_sysfs_exit()
++	 * only calls kobject_del() (never kobject_put()) before devm frees the
++	 * struct on unbind, and on ab8500_fg_sysfs_init() failure kobject_put()
++	 * races with devm freeing the struct on probe failure.
++	 */
++	.release = NULL,
+ 	.sysfs_ops = &ab8500_fg_sysfs_ops,
+ 	.default_groups = ab8500_fg_groups,
+ };
+diff --git a/drivers/s390/char/sclp_mem.c b/drivers/s390/char/sclp_mem.c
+index 6df1926d4c62..a46d27817281 100644
+--- a/drivers/s390/char/sclp_mem.c
++++ b/drivers/s390/char/sclp_mem.c
+@@ -305,6 +305,12 @@ static ssize_t sclp_memmap_on_memory_store(struct kobject *kobj, struct kobj_att
+ }
+ 
+ static const struct kobj_type ktype = {
++	/*
++	 * Omitting release() violates the kobject API contract, but lifetime
++	 * is safe: built-in sclp_init_mem() allocates sclp_mems once at boot
++	 * and never calls kobject_put() or kfree() on it.
++	 */
++	.release = NULL,
+ 	.sysfs_ops = &kobj_sysfs_ops,
+ };
+ 
+diff --git a/drivers/soc/hisilicon/kunpeng_hccs.c b/drivers/soc/hisilicon/kunpeng_hccs.c
+index 3b9fa3a74abd..bccd0ba95073 100644
+--- a/drivers/soc/hisilicon/kunpeng_hccs.c
++++ b/drivers/soc/hisilicon/kunpeng_hccs.c
+@@ -1038,6 +1038,12 @@ static struct attribute *hccs_port_default_attrs[] = {
+ ATTRIBUTE_GROUPS(hccs_port_default);
+ 
+ static const struct kobj_type hccs_port_type = {
++	/*
++	 * FIXME: Broken kobject lifetime (needs follow-up fix): hccs_port_info
++	 * is allocated via devm_kzalloc(), and devm frees it on unbind or probe
++	 * failure without waiting for kobject_put(&port->kobj) final cleanup.
++	 */
++	.release = NULL,
+ 	.sysfs_ops = &hccs_comm_ops,
+ 	.default_groups = hccs_port_default_groups,
+ };
+@@ -1110,6 +1116,12 @@ static struct attribute *hccs_die_default_attrs[] = {
+ ATTRIBUTE_GROUPS(hccs_die_default);
+ 
+ static const struct kobj_type hccs_die_type = {
++	/*
++	 * FIXME: Broken kobject lifetime (needs follow-up fix): hccs_die_info
++	 * is allocated via devm_kzalloc(), and devm frees it on unbind or probe
++	 * failure without waiting for kobject_put(&die->kobj) final cleanup.
++	 */
++	.release = NULL,
+ 	.sysfs_ops = &hccs_comm_ops,
+ 	.default_groups = hccs_die_default_groups,
+ };
+@@ -1213,6 +1225,12 @@ static struct attribute *hccs_chip_default_attrs[] = {
+ ATTRIBUTE_GROUPS(hccs_chip_default);
+ 
+ static const struct kobj_type hccs_chip_type = {
++	/*
++	 * FIXME: Broken kobject lifetime (needs follow-up fix): hccs_chip_info
++	 * is allocated via devm_kzalloc(), and devm frees it on unbind or probe
++	 * failure without waiting for kobject_put(&chip->kobj) final cleanup.
++	 */
++	.release = NULL,
+ 	.sysfs_ops = &hccs_comm_ops,
+ 	.default_groups = hccs_chip_default_groups,
+ };
+diff --git a/drivers/video/fbdev/omap2/omapfb/dss/display-sysfs.c b/drivers/video/fbdev/omap2/omapfb/dss/display-sysfs.c
+index ae937854403b..436ec9c8591b 100644
+--- a/drivers/video/fbdev/omap2/omapfb/dss/display-sysfs.c
++++ b/drivers/video/fbdev/omap2/omapfb/dss/display-sysfs.c
+@@ -304,6 +304,13 @@ static const struct sysfs_ops display_sysfs_ops = {
+ };
+ 
+ static struct kobj_type display_ktype = {
++	/*
++	 * FIXME: Broken kobject lifetime (needs follow-up fix):
++	 * display_uninit_sysfs() calls kobject_put(&dssdev->kobj) and
++	 * immediately zeroes dssdev->kobj with memset(), corrupting any
++	 * in-flight or delayed (CONFIG_DEBUG_KOBJECT_RELEASE) kobject cleanup.
++	 */
++	.release = NULL,
+ 	.sysfs_ops = &display_sysfs_ops,
+ 	.default_groups = display_sysfs_groups,
+ };
+diff --git a/drivers/video/fbdev/omap2/omapfb/dss/manager-sysfs.c b/drivers/video/fbdev/omap2/omapfb/dss/manager-sysfs.c
+index 1b644be5fe2e..e4d61cf7e939 100644
+--- a/drivers/video/fbdev/omap2/omapfb/dss/manager-sysfs.c
++++ b/drivers/video/fbdev/omap2/omapfb/dss/manager-sysfs.c
+@@ -496,6 +496,14 @@ static const struct sysfs_ops manager_sysfs_ops = {
+ };
+ 
+ static struct kobj_type manager_ktype = {
++	/*
++	 * FIXME: Broken kobject lifetime (needs follow-up fix): mgr->kobj is
++	 * embedded in dynamically allocated managers[], zeroed in
++	 * dss_manager_kobj_uninit() right after kobject_put(), and freed in
++	 * dss_uninit_overlay_managers() without waiting for final kobject
++	 * cleanup.
++	 */
++	.release = NULL,
+ 	.sysfs_ops = &manager_sysfs_ops,
+ 	.default_groups = manager_sysfs_groups,
+ };
+diff --git a/drivers/video/fbdev/omap2/omapfb/dss/overlay-sysfs.c b/drivers/video/fbdev/omap2/omapfb/dss/overlay-sysfs.c
+index 1da4fb1c77b4..3960261cada0 100644
+--- a/drivers/video/fbdev/omap2/omapfb/dss/overlay-sysfs.c
++++ b/drivers/video/fbdev/omap2/omapfb/dss/overlay-sysfs.c
+@@ -429,6 +429,13 @@ static const struct sysfs_ops overlay_sysfs_ops = {
+ };
+ 
+ static struct kobj_type overlay_ktype = {
++	/*
++	 * FIXME: Broken kobject lifetime (needs follow-up fix): ovl->kobj is
++	 * embedded in dynamically allocated overlays[] and freed in
++	 * dss_uninit_overlays() right after dss_overlay_kobj_uninit() calls
++	 * kobject_put(), without waiting for final kobject cleanup.
++	 */
++	.release = NULL,
+ 	.sysfs_ops = &overlay_sysfs_ops,
+ 	.default_groups = overlay_sysfs_groups,
+ };
+diff --git a/fs/erofs/sysfs.c b/fs/erofs/sysfs.c
+index dfcec9376cd5..3654a945b299 100644
+--- a/fs/erofs/sysfs.c
++++ b/fs/erofs/sysfs.c
+@@ -238,6 +238,13 @@ static const struct kobj_type erofs_sb_ktype = {
+ static const struct kobj_type erofs_ktype = {
+ 	.default_groups = erofs_groups,
+ 	.sysfs_ops	= &erofs_attr_ops,
++	/*
++	 * FIXME: Broken kobject lifetime (needs follow-up fix): erofs_root is
++	 * a static struct kset in tristate module erofs, and erofs_exit_sysfs()
++	 * calls kset_unregister(); unloading the module unmaps the static
++	 * storage without waiting for final kobject cleanup.
++	 */
++	.release	= NULL,
+ };
+ 
+ static struct kset erofs_root = {
+@@ -247,6 +254,13 @@ static struct kset erofs_root = {
+ static const struct kobj_type erofs_feat_ktype = {
+ 	.default_groups = erofs_feat_groups,
+ 	.sysfs_ops	= &erofs_attr_ops,
++	/*
++	 * FIXME: Broken kobject lifetime (needs follow-up fix): erofs_feat is
++	 * a static struct kobject in tristate module erofs, and
++	 * erofs_exit_sysfs() calls kobject_put(); unloading the module unmaps
++	 * the static storage without waiting for final kobject cleanup.
++	 */
++	.release	= NULL,
+ };
+ 
+ static struct kobject erofs_feat = {
+diff --git a/fs/f2fs/sysfs.c b/fs/f2fs/sysfs.c
+index 430356e500af..770ceb12e178 100644
+--- a/fs/f2fs/sysfs.c
++++ b/fs/f2fs/sysfs.c
+@@ -1683,6 +1683,13 @@ static const struct kobj_type f2fs_sb_ktype = {
+ 
+ static const struct kobj_type f2fs_ktype = {
+ 	.sysfs_ops	= &f2fs_attr_ops,
++	/*
++	 * FIXME: Broken kobject lifetime (needs follow-up fix): f2fs_kset is
++	 * a static struct kset in tristate module f2fs, and f2fs_exit_sysfs()
++	 * calls kset_unregister(); unloading the module unmaps the static
++	 * storage without waiting for final kobject cleanup.
++	 */
++	.release	= NULL,
+ };
+ 
+ static struct kset f2fs_kset = {
+@@ -1697,6 +1704,13 @@ static const struct sysfs_ops f2fs_feat_attr_ops = {
+ static const struct kobj_type f2fs_feat_ktype = {
+ 	.default_groups = f2fs_feat_groups,
+ 	.sysfs_ops	= &f2fs_feat_attr_ops,
++	/*
++	 * FIXME: Broken kobject lifetime (needs follow-up fix): f2fs_feat is
++	 * a static struct kobject in tristate module f2fs, and
++	 * f2fs_exit_sysfs() calls kobject_put(); unloading the module unmaps
++	 * the static storage without waiting for final kobject cleanup.
++	 */
++	.release	= NULL,
+ };
+ 
+ static struct kobject f2fs_feat = {
+@@ -1711,6 +1725,13 @@ static const struct sysfs_ops f2fs_tune_attr_ops = {
+ static const struct kobj_type f2fs_tune_ktype = {
+ 	.default_groups = f2fs_tune_groups,
+ 	.sysfs_ops	= &f2fs_tune_attr_ops,
++	/*
++	 * FIXME: Broken kobject lifetime (needs follow-up fix): f2fs_tune is
++	 * a static struct kobject in tristate module f2fs, and
++	 * f2fs_exit_sysfs() calls kobject_put(); unloading the module unmaps
++	 * the static storage without waiting for final kobject cleanup.
++	 */
++	.release	= NULL,
+ };
+ 
+ static struct kobject f2fs_tune = {
+diff --git a/fs/ocfs2/cluster/masklog.c b/fs/ocfs2/cluster/masklog.c
+index 563881ddbf00..5a30f73d8d67 100644
+--- a/fs/ocfs2/cluster/masklog.c
++++ b/fs/ocfs2/cluster/masklog.c
+@@ -147,6 +147,13 @@ static const struct sysfs_ops mlog_attr_ops = {
+ static struct kobj_type mlog_ktype = {
+ 	.default_groups = mlog_default_groups,
+ 	.sysfs_ops      = &mlog_attr_ops,
++	/*
++	 * FIXME: Broken kobject lifetime (needs follow-up fix): mlog_kset is
++	 * a static struct kset in tristate module ocfs2_nodemanager, and
++	 * mlog_sys_shutdown() calls kset_unregister(); unloading the module
++	 * unmaps the static storage without waiting for final kobject cleanup.
++	 */
++	.release        = NULL,
+ };
+ 
+ static struct kset mlog_kset = {
+diff --git a/include/linux/kobject.h b/include/linux/kobject.h
+index 55e37a5d405e..8a1332030884 100644
+--- a/include/linux/kobject.h
++++ b/include/linux/kobject.h
+@@ -114,7 +114,7 @@ void kobject_get_ownership(const struct kobject *kobj, kuid_t *uid, kgid_t *gid)
+ char *kobject_get_path(const struct kobject *kobj, gfp_t flag);
+ 
+ struct kobj_type {
+-	void (*release)(struct kobject *kobj);
++	void (*release)(struct kobject *kobj) __must_init;
+ 	const struct sysfs_ops *sysfs_ops;
+ 	const struct attribute_group **default_groups;
+ 	const struct kobj_ns_type_operations *(*child_ns_type)(const struct kobject *kobj);
 -- 
-2.54.0
+2.56.1.708.g77570a6a1d-goog
 
