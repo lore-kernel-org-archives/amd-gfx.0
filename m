@@ -2,104 +2,101 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B52D0606A32C
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 15:55:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFAAE60A260C
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 15:58:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=lvfzyYpN
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yC9mR5ux
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 536B411261C;
-	Thu, 19 Nov 2026 15:55:05 +0000 (UTC)
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010049.outbound.protection.outlook.com
- [40.93.198.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6843D112611;
- Thu, 19 Nov 2026 15:54:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WV2bRwwV9GYnkGt8/T8K/EM4LUxeB8Vskr2mHI8TgQd8VmPCPhKm0iOy6CgTDZIu+ZtIVGUVqiZpNOEB9hos/QPzC7FBiDg5HXq9oC/QaQYYkVyHat7+WxBnzDlavjK4B3JFk7eoEPGPaZC+2+0tPWveYx09h6G5CpquLVq4ZSJV1X1NetnAjvApDN691UR4VElAxsQ6vxrLFV/0n0nICv5fivd+j/LkMIIOUCC8zNeWzzy5H+oE5jmrObpH1qfRPebPazHCfzNVzGvvhnHLX1uQjAqq6CrI6icz4oXxSWKq3gMfTj5Kb1EuLIJRDQNxrBKchVtaK27Ho7sBmM8FZg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZmXXkgQL+IrT7bPX+eyG6z3neKEg2/MdAKFdnV/IGl8=;
- b=yxAsmg8cG2SSVX7NEJTmd1vypvAObUCAbS62kdcLxtLlwuJ2JR+XnyNrndlsRsgh7Wix9Kh6G7JoJHABR5j6cyrSXWrBpo8hBphmN0IPAYKrblrZQmEgvDjfp1dhDmmkDOvZPg27/fnZfWZVWkriFyf65ueNdQY98vUye4AubvNhtblLToA0eHnw+YRWmjSn/3YlQDTKyvUxmWrB/rQ6YHAjkkGYtDN9UY8YVm5y9yZEs8nps5Iy6e3eZcFY4Xl7QaZFoUbeRWTSQaQFuu3zleZRe5K9rUD/PrC5Gf3uHkui/WGFOHj0LIaHj278c2jwonGWJXj27LwrrBQX1kKw7A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZmXXkgQL+IrT7bPX+eyG6z3neKEg2/MdAKFdnV/IGl8=;
- b=lvfzyYpNfCmCk+aymyOTGPLbOkpIn9gwB80SOwM/eHgeBxnf2+Z2HQ8qUNruMTKaycPJtbKrjms7yGz1FdzcJxgVQ3Oc8M4+Jk6Q2Ml2GVaKCb2ftOXGrj8Invmny6JDMmMwhYg4qi1K7PPyFnkPmp5YfQCHoAOw+JAhIlNaBeA=
-Received: from DS3P221CA0002.NAMP221.PROD.OUTLOOK.COM (2603:10b6:8:45e::16) by
- DM6PR12MB4169.namprd12.prod.outlook.com (2603:10b6:5:215::22) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.639.10; Thu, 19 Nov 2026 15:54:40 +0000
-Received: from CY7PEPF000000E8.namprd04.prod.outlook.com
- (2603:10b6:8:45e:cafe::9) by DS3P221CA0002.outlook.office365.com
- (2603:10b6:8:45e::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.21 via Frontend Transport; Thu,
- 19 Nov 2026 15:54:40 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CY7PEPF000000E8.mail.protection.outlook.com (10.167.247.164) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.639.5 via Frontend Transport; Thu, 19 Nov 2026 15:54:40 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Thu, 19 Nov
- 2026 09:54:38 -0600
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Thu, 19 Nov
- 2026 09:54:37 -0600
-Received: from hwentlanrmb (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.57 via Frontend
- Transport; Thu, 19 Nov 2026 09:54:37 -0600
-From: Harry Wentland <harry.wentland@amd.com>
-To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-CC: Harry Wentland <harry.wentland@amd.com>
-Subject: [PATCH v1 4/4] drm/amd/display: Add KUnit cases for gamma 2.4 and 2.6
- colorops
-Date: Thu, 19 Nov 2026 10:54:27 -0500
-Message-ID: <20261119155427.2494007-5-harry.wentland@amd.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261119155427.2494007-1-harry.wentland@amd.com>
-References: <20261119155427.2494007-1-harry.wentland@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9283C10E345;
+	Thu, 19 Nov 2026 15:58:09 +0000 (UTC)
+Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com
+ [209.85.167.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C40F710E345
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 15:58:03 +0000 (UTC)
+Received: by mail-oi1-f182.google.com with SMTP id
+ 5614622812f47-5733c4c1ee3so53110b6e.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 07:58:03 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795103883; cv=none;
+ d=google.com; s=arc-20260327;
+ b=dy0ERLzU0o6f7eJ+83ad1LfCQ0IwmcDqo7rKofhhGfsSCElr9ORwwY7a41PgaC1ja/
+ FJorYXPC4ysl6uOokT17kLvSYDqyxR23tAanecIZ7Uh/LLwt5XDMe9Kvuhv0g7BMSBmg
+ 8vT6RvwN+HXSi4Oskg0WyEUOEpURQ/zTO4B4BdQlimQ+Z4QLBZPnfP1DJdZgWAEUSxvj
+ BRTQ1ej0Xn9GyxuGW4OkzjNZ82sF245CsTTXscTtR0MUXkNOSpMSv2/y5IekFc97YcXr
+ h2N8u/djEMtzglo2XiJJjuhMXQmhr7z/rfod2TgyhB4bjjXGucDwhvLFf5/57jh/lwfy
+ Iciw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=Zfp/sSG5jLSQxyif0VfIAOH3AOIjZA6+lW+WncRGZ4Q=;
+ fh=sdRmO/bSGhZRh+CKneNNhA5+HMP6pBZVZplMs90RBio=;
+ b=pCzNnAn3zzUuRCIEiG893pmkXnSKi8YEjRPnbHerq+DriGH8pFrKN4tGG6BBFxCMTX
+ bFClBEVKf7PzxjiXqlkB20henancU/9x+oco5NIs0fzVS5Mjb1k+xYZIgomYa52ATlRz
+ Ob18Qw6a7m1JzuTrQW7yCAn53xUyZFVEOILNhAQO4Opbc+f0nVZ8hC9bauk3Bc5Xpg0u
+ mgt7H3EGPeUiVwTySEsDN4xSpev8MavFH9bWrGQa7OTehpGB/0GRzOPg5MKfrv0wpqfO
+ mayyw8TVSrT7rDSemgsW7/omrD2Hog8y/fPkryKBrg4m+c7o2N7lSgzf7cpy5BBy1RQY
+ g/2w==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1795103883; x=1795708683; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=Zfp/sSG5jLSQxyif0VfIAOH3AOIjZA6+lW+WncRGZ4Q=;
+ b=yC9mR5ux06v/Hev4UANN/B27AJXj+bAROAmifbgjwQyT1jgqYC3uBT6zcjyMQ65saG
+ 8uuFsGTmQRKDpPycpAXaOF79XqJCLTLBrZWeYSsOdNgkpVi6rAZvXlrghYpiXWWbrWdr
+ w7/QxajQu/37zsT950cM51R93QiKO+B9kx1il4BL+sKRVuX3ebXUTDRsKpacGg4a3Sl6
+ DhKEd+GT22ytBLGN5aJ8ziPccSB3TGKx9zdKUNjBOTGAkVxhE6474Xr7WIYnMeOS5hQR
+ wzEkwN5C1yNu5wwnAy0BAilJ3NeXQDYPUzNSONdW5SguyE1VIV5ou1hdRLJ4HPy8lgej
+ 236g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795103883; x=1795708683;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=Zfp/sSG5jLSQxyif0VfIAOH3AOIjZA6+lW+WncRGZ4Q=;
+ b=f1gDImb0dS4nHv87xT6sdMMvL7X4Kp216HPn647PNbojiNL9PI+2HNshugtcys03ye
+ 1RJ8EC7JwkjHNMqq3kAPkcr9TrK/JnY4RjfynJZc0SkJKqOMtLns0TOLLSFZH9HopuOt
+ 98tPndzs6kRLSMrY3QTjJweORuJt7+yFGUI65mrH+OCZj5EUewQklh5n8gVhvfGYZtf9
+ JIKAHK0iZ9jrsVP2iarA06cvQa0GKzhSljtGgFnxJ1xhhAZDtxmzXOGsLPS4GASewGbi
+ TvWOEhx7q1dhbffv299z+KpM6PM2KikuHaUM2hZ7jSy/sRDLqRJYJ0X0PY9uPpFkRCh9
+ 9jWg==
+X-Forwarded-Encrypted: i=1;
+ AL+hErE/HoIZeiNxBbl/d+aXhvvAZADCr0I7DDr7GG2/gHTgHeaYcEEJfoimRZ4eP3XXmgCqMVtuFedN@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/lvibFU+1uFwGSDk3mtRv5jfG7n0xmkMHbUspDcurReWKeW7aM
+ YHJdohOLVBB42KuLx3xQxMS/r4hTvnrMwIIE8+Mo/UzU6JNDQ35s+z7UCdy344GA1V8JOQ9Qmt2
+ pI7eEm+tm03lklXXiII2v+UPqYoTsGiw3hg==
+X-Gm-Gg: AYBFou2HbjuTycB2/qVZVC03YRN18o/firVyW3q6UXeRDITrOT10B14jH/3pl7QhZo6
+ oK5XPfKdFcwk+A8n6UtzdrGxzzK0+4Z/FK2pNMWQ0ZZo88ZeZ4lyD0pzTirvy2zpO1kMYb9MWYD
+ PvPk+XE5gc7Yw85pOaEsDt4BE2zKzDnZo186X+HDUOPQ4D2KECjbP4jg5L6r8FvMYsWpk9TQlkS
+ ny9X2Pvobe+BgxZCT6w4z8SXB2++F+vLjzAR8/8NUGk2dpYnf9oSy8GNmlAvopBoT6dSMR8kazN
+ CRDjcugkG8CRf6EeZD7BVsdTYFcVKaCSTRuy4C1KYoB/Cds4iAa/IXjm1toBA2PPp/jrrgS/IQL
+ WdanxKfZwSkCtd9BSirVyUKL8+2CZLiQZnwjiinSmFXUYpNBH7RKxZ86ZOniy4CxAYWKuYV7158
+ /Sp40ZjOv8z5dD+LWvH8N6d5+VWT2hKUXJ5ROtLOeGf0GvxHO9D+O0LkghiGpM
+X-Received: by 2002:a05:6808:1a0f:b0:572:f9ab:c2c5 with SMTP id
+ 5614622812f47-57a0910b919mr443253b6e.4.1795103882844; Thu, 19 Nov 2026
+ 07:58:02 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY7PEPF000000E8:EE_|DM6PR12MB4169:EE_
-X-MS-Office365-Filtering-Correlation-Id: cf3c074a-cb78-4755-d91c-08df46556bf6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|36860700016|23010399003|82310400026|10067099003|11063799006|261021123027099003|261021121427099003|261102123227099003|261009223027099003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: ibW+Dmsoh8M/w10QWZp8UB5kUQrnLVAvg20dog4gHqOyIQmHcNHPKKZJZfVUa4pKrUkVc5SxyKWq2NAi9h2NfJPMAjLOCg+sxwNBGoJlgi0vQrOX002xmfxFu5CdANjcjcZmuWqauQ2XK5Yp6wf6w3QzvMOungHlpO9PzHwu0RJM8hKXpy0sSapXrgTN9OcQCQ99k7oZdLHvkCPiUTCbkGhEqI2M9hXVX5nJRkVId2f/DQ2VXFBV4PIQklB8GuvIxocAr6MzRSWAzwPfjeccsnrA0uPmuz3eF58QIihBIBsIkJt5EQ4Ra+M3cCMAKUOUV2Z7YxgtBSvQNj6xt8z6yLBJTzqIMmeDUq8wqsgyPJrFy0OdZZ9DMLSid4O+lDtbIhStqZl443Klnu3J05t+wqiTpfHiLoLlySvu8a9Gj3H91mkBh9PiIQxGfa/1bYvCmG1Y8FmRVtDSDUw5GsOF7qJlud1SYLAkuOJTSHBrEmF+WYwI+LfHU8O068htheSjVWFcH2tdyW6b6/WnVuSxF4U+0QZT3uSmDvlDrSP7qs+VuyZrc78WxF6Bs5ivysO6sQaSNabLJb6PM8eenSJTEpmtwomsiFrTAO6gUhL/Vk+s/CYconGLqMRLrVuQpMv26QcpKzcxyYSFL8ea1lChIv5GvLOjiqASkjwyF8rDlUmrH1fNyi/RGJBBf0xUICtO9GxnKBdrPHEioOiqc7jWHA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(36860700016)(23010399003)(82310400026)(10067099003)(11063799006)(261021123027099003)(261021121427099003)(261102123227099003)(261009223027099003)(56012099006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: kRHUH+VElaWIJZvTPbMEf3PQfK0m7tfI17inpujsFJaT5m9MAJAypaEmUDNnzkHmiIJOhlLcENhwwQ3i5XPvRMa1aIyowssAEPA/EGZ75zkJLFU6ytZpTMaEKzJBnubaCwqExe+LAcCQgAelJev76ulCnwtEPVWR8/5KLOycupSqPuOuhyPX5rRaEwv+YYPnRGZvl74fX8wQYiuw4NQH+AoKnVXE1xE5NaX32QeqGrg0XTM/ysQR8N4qnXm4p9WHUjrFbEQu3Cw0CO+2RJdUViUST9eP9IKzxHTTXvLe7uRb3sP8BpT/w8NHXMeMlD4mMYSBJ+Lj1OkuxDeGE/ZMYBSPYVLfwHu8p0xh/Aty2y1xoZBWlEVUoPk6hoSMksB0e6cB+mJBeZ/IYml95wu6Bc43GQZy4eMzBDgqfMl4uTR5Hq6BfjNqVk+SD4c04Oqt
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 15:54:40.6528 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cf3c074a-cb78-4755-d91c-08df46556bf6
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY7PEPF000000E8.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4169
+References: <20261111-vfct-regression-v6-0-393797bbb6e3@amd.com>
+ <5cf8f937-acc8-475e-ba0c-6be00defbb53@amd.com>
+In-Reply-To: <5cf8f937-acc8-475e-ba0c-6be00defbb53@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 19 Nov 2026 10:57:49 -0500
+X-Gm-Features: AclHuK-Pw2ItFRgv4vG8DuHpZH3Cm8ObSCuVEl9wVmjZ1BCfQqEiUUdyusvBEWI
+Message-ID: <CADnq5_PAarNZ24xOU3MqVfEra1hSOqgrKQxvLppyCWZQebr_yw@mail.gmail.com>
+Subject: Re: [PATCH v6 0/3] Fix amdgpu detection of pci=realloc
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Bjorn Helgaas <helgaas@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Oz Tiram <oz@shift-computing.de>, linux-pci@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, 
+ Reza Nikzad Chaleshori <rezanikzadch@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,176 +107,109 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Check that amdgpu_colorop_tf_to_dc_tf() maps the gamma 2.4 and 2.6
-curves and their inverses to TRANSFER_FUNCTION_GAMMA24 and
-TRANSFER_FUNCTION_GAMMA26.
+On Thu, Nov 19, 2026 at 10:30=E2=80=AFAM Mario Limonciello
+<mario.limonciello@amd.com> wrote:
+>
+>
+>
+> On 11/11/26 10:43, Mario Limonciello wrote:
+> > amdgpu needs to know the bus number the platform assigned a device to
+> > be able to match firmware images against the right device.
+> >
+> > This was previously adjusted to be a soft filter due to
+> > commit 11c141672045f ("drm/amdgpu: Fix VFCT bus number matching with
+> > soft filter") where if everything but the number matched to take a devi=
+ce.
+> >
+> > This however fails when there are two identical devices.  Instead save =
+the
+> > initial bus number to the PCI device structure and then match that.
+> >
+> > Link: https://lore.kernel.org/linux-pci/20261015124843.203905-1-mario.l=
+imonciello@amd.com/
+> > Link: https://lore.kernel.org/amd-gfx/20261019194106.2796150-1-alexande=
+r.deucher@amd.com/
+> > Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> > ---
+> > Changes in v6:
+> > - Capture the firmware secondary bus number when reading bridge windows=
+ and
+> >    ignore unconfigured values so rescans cannot replace it with runtime=
+ data
+> >    (Sashiko).
+> > - No change needed in the VFCT consumers; they continue to read the cac=
+hed
+> >    value from the upstream bridge.
+> > - Link to v5: https://patch.msgid.link/20261110-vfct-regression-v5-0-f4=
+9fae981bf3@amd.com
+> >
+> > Changes in v5:
+> > - Record the firmware secondary bus number only on the bridge struct pc=
+i_dev,
+> >    guard it with a validity bit, and keep it across rescans (Bjorn, Lij=
+o).
+> > - Drop pci_bus::number_initial and have amdgpu/radeon read the saved br=
+idge
+> >    number when matching VFCT entries.
+> >
+> > Changes in v4:
+> > - Retain secondary bus bus number for a bridge across rescans, and the =
+child bus is initialized
+> >    from it during allocation, before registration callbacks run. (Sashi=
+ko)
+> > - Rename variable to clarify it's for bridges (Lijo)
+> > - Link to v3: https://patch.msgid.link/20261026-vfct-regression-v3-0-fe=
+9586ed6978@amd.com
+> >
+> > Changes in v3:
+> > - Preserve the firmware bus number across bridge renumbering, capturing=
+ the
+> >    secondary bus number before pci_scan_bridge_extend() clears it.
+> > - Adjust member name in all patches
+> > - Add tags
+> > - Link to v2: https://patch.msgid.link/20261020-vfct-regression-v2-0-d2=
+394d11450a@amd.com
+> >
+> > Changes in v2:
+> > - pci_alloc_dev(NULL) remains safe.
+> > - For buses behind a reassigned bridge, the PCI core now saves the firm=
+ware secondary bus
+> >    number before clearing the bridge configuration and carries it into =
+the newly allocated bus.
+> >    Devices discovered there inherit that original number.
+> > - Add changes for radeon too.
+> > - Link to v1: https://patch.msgid.link/20261019-vfct-regression-v1-0-5a=
+63ddd378dd@amd.com
+> >
+> > ---
+> > Mario Limonciello (3):
+> >        PCI: Cache bridge firmware secondary bus number
+> >        drm/amdgpu: Match VFCT using initial PCI bus number
+> >        drm/radeon: Match VFCT using initial PCI bus number
+> >
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 23 ++++++++++-------------
+> >   drivers/gpu/drm/radeon/radeon_bios.c     | 25 +++++++++++------------=
+--
+> >   drivers/pci/probe.c                      | 16 ++++++++++++++--
+> >   include/linux/pci.h                      |  4 ++++
+> >   4 files changed, 39 insertions(+), 29 deletions(-)
+> > ---
+> > base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+> > change-id: 20261019-vfct-regression-2142fc52852a
+> >
+> > Best regards,
+> > --
+> > Mario Limonciello <mario.limonciello@amd.com>
+>
 
-Check that the degamma and blend masks include gamma 2.4 and 2.6, and
-that the shaper mask includes their inverses. Update the
-*_no_extra_bits cases for the new mask values.
+Is v6 preferred to v7?
 
-Signed-off-by: Harry Wentland <harry.wentland@amd.com>
----
- .../amdgpu_dm/tests/amdgpu_dm_color_test.c    | 18 +++++++
- .../amdgpu_dm/tests/amdgpu_dm_colorop_test.c  | 54 +++++++++++++++++--
- 2 files changed, 69 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_color_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_color_test.c
-index 7ad8c56cbcf3..7a2c137f2967 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_color_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_color_test.c
-@@ -330,6 +330,22 @@ static void dm_test_colorop_tf_to_dc_tf_gamma22(struct kunit *test)
- 			(int)TRANSFER_FUNCTION_GAMMA22);
- }
- 
-+static void dm_test_colorop_tf_to_dc_tf_gamma24(struct kunit *test)
-+{
-+	KUNIT_EXPECT_EQ(test, (int)amdgpu_colorop_tf_to_dc_tf(DRM_COLOROP_1D_CURVE_GAMMA24),
-+			(int)TRANSFER_FUNCTION_GAMMA24);
-+	KUNIT_EXPECT_EQ(test, (int)amdgpu_colorop_tf_to_dc_tf(DRM_COLOROP_1D_CURVE_GAMMA24_INV),
-+			(int)TRANSFER_FUNCTION_GAMMA24);
-+}
-+
-+static void dm_test_colorop_tf_to_dc_tf_gamma26(struct kunit *test)
-+{
-+	KUNIT_EXPECT_EQ(test, (int)amdgpu_colorop_tf_to_dc_tf(DRM_COLOROP_1D_CURVE_GAMMA26),
-+			(int)TRANSFER_FUNCTION_GAMMA26);
-+	KUNIT_EXPECT_EQ(test, (int)amdgpu_colorop_tf_to_dc_tf(DRM_COLOROP_1D_CURVE_GAMMA26_INV),
-+			(int)TRANSFER_FUNCTION_GAMMA26);
-+}
-+
- static void dm_test_colorop_tf_to_dc_tf_default(struct kunit *test)
- {
- 	KUNIT_EXPECT_EQ(test, (int)amdgpu_colorop_tf_to_dc_tf(DRM_COLOROP_1D_CURVE_COUNT),
-@@ -2928,6 +2944,8 @@ static struct kunit_case dm_color_test_cases[] = {
- 	KUNIT_CASE(dm_test_colorop_tf_to_dc_tf_pq),
- 	KUNIT_CASE(dm_test_colorop_tf_to_dc_tf_bt2020),
- 	KUNIT_CASE(dm_test_colorop_tf_to_dc_tf_gamma22),
-+	KUNIT_CASE(dm_test_colorop_tf_to_dc_tf_gamma24),
-+	KUNIT_CASE(dm_test_colorop_tf_to_dc_tf_gamma26),
- 	KUNIT_CASE(dm_test_colorop_tf_to_dc_tf_default),
- 	/* __drm_lut_to_dc_gamma */
- 	KUNIT_CASE(dm_test_drm_lut_to_dc_gamma_legacy_zero),
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_colorop_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_colorop_test.c
-index 27cd4b8500e8..9195a2c827ab 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_colorop_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_colorop_test.c
-@@ -40,12 +40,26 @@ static void dm_test_supported_degam_tfs_has_gamma22(struct kunit *test)
- 			  BIT(DRM_COLOROP_1D_CURVE_GAMMA22));
- }
- 
-+static void dm_test_supported_degam_tfs_has_gamma24(struct kunit *test)
-+{
-+	KUNIT_EXPECT_TRUE(test, amdgpu_dm_supported_degam_tfs &
-+			  BIT(DRM_COLOROP_1D_CURVE_GAMMA24));
-+}
-+
-+static void dm_test_supported_degam_tfs_has_gamma26(struct kunit *test)
-+{
-+	KUNIT_EXPECT_TRUE(test, amdgpu_dm_supported_degam_tfs &
-+			  BIT(DRM_COLOROP_1D_CURVE_GAMMA26));
-+}
-+
- static void dm_test_supported_degam_tfs_no_extra_bits(struct kunit *test)
- {
- 	u64 expected = BIT(DRM_COLOROP_1D_CURVE_SRGB_EOTF) |
- 		       BIT(DRM_COLOROP_1D_CURVE_PQ_125_EOTF) |
- 		       BIT(DRM_COLOROP_1D_CURVE_BT2020_INV_OETF) |
--		       BIT(DRM_COLOROP_1D_CURVE_GAMMA22);
-+		       BIT(DRM_COLOROP_1D_CURVE_GAMMA22) |
-+		       BIT(DRM_COLOROP_1D_CURVE_GAMMA24) |
-+		       BIT(DRM_COLOROP_1D_CURVE_GAMMA26);
- 
- 	KUNIT_EXPECT_EQ(test, amdgpu_dm_supported_degam_tfs, expected);
- }
-@@ -76,12 +90,26 @@ static void dm_test_supported_shaper_tfs_has_gamma22_inv(struct kunit *test)
- 			  BIT(DRM_COLOROP_1D_CURVE_GAMMA22_INV));
- }
- 
-+static void dm_test_supported_shaper_tfs_has_gamma24_inv(struct kunit *test)
-+{
-+	KUNIT_EXPECT_TRUE(test, amdgpu_dm_supported_shaper_tfs &
-+			  BIT(DRM_COLOROP_1D_CURVE_GAMMA24_INV));
-+}
-+
-+static void dm_test_supported_shaper_tfs_has_gamma26_inv(struct kunit *test)
-+{
-+	KUNIT_EXPECT_TRUE(test, amdgpu_dm_supported_shaper_tfs &
-+			  BIT(DRM_COLOROP_1D_CURVE_GAMMA26_INV));
-+}
-+
- static void dm_test_supported_shaper_tfs_no_extra_bits(struct kunit *test)
- {
- 	u64 expected = BIT(DRM_COLOROP_1D_CURVE_SRGB_INV_EOTF) |
- 		       BIT(DRM_COLOROP_1D_CURVE_PQ_125_INV_EOTF) |
- 		       BIT(DRM_COLOROP_1D_CURVE_BT2020_OETF) |
--		       BIT(DRM_COLOROP_1D_CURVE_GAMMA22_INV);
-+		       BIT(DRM_COLOROP_1D_CURVE_GAMMA22_INV) |
-+		       BIT(DRM_COLOROP_1D_CURVE_GAMMA24_INV) |
-+		       BIT(DRM_COLOROP_1D_CURVE_GAMMA26_INV);
- 
- 	KUNIT_EXPECT_EQ(test, amdgpu_dm_supported_shaper_tfs, expected);
- }
-@@ -112,12 +140,26 @@ static void dm_test_supported_blnd_tfs_has_gamma22(struct kunit *test)
- 			  BIT(DRM_COLOROP_1D_CURVE_GAMMA22));
- }
- 
-+static void dm_test_supported_blnd_tfs_has_gamma24(struct kunit *test)
-+{
-+	KUNIT_EXPECT_TRUE(test, amdgpu_dm_supported_blnd_tfs &
-+			  BIT(DRM_COLOROP_1D_CURVE_GAMMA24));
-+}
-+
-+static void dm_test_supported_blnd_tfs_has_gamma26(struct kunit *test)
-+{
-+	KUNIT_EXPECT_TRUE(test, amdgpu_dm_supported_blnd_tfs &
-+			  BIT(DRM_COLOROP_1D_CURVE_GAMMA26));
-+}
-+
- static void dm_test_supported_blnd_tfs_no_extra_bits(struct kunit *test)
- {
- 	u64 expected = BIT(DRM_COLOROP_1D_CURVE_SRGB_EOTF) |
- 		       BIT(DRM_COLOROP_1D_CURVE_PQ_125_EOTF) |
- 		       BIT(DRM_COLOROP_1D_CURVE_BT2020_INV_OETF) |
--		       BIT(DRM_COLOROP_1D_CURVE_GAMMA22);
-+		       BIT(DRM_COLOROP_1D_CURVE_GAMMA22) |
-+		       BIT(DRM_COLOROP_1D_CURVE_GAMMA24) |
-+		       BIT(DRM_COLOROP_1D_CURVE_GAMMA26);
- 
- 	KUNIT_EXPECT_EQ(test, amdgpu_dm_supported_blnd_tfs, expected);
- }
-@@ -497,18 +539,24 @@ static struct kunit_case dm_colorop_test_cases[] = {
- 	KUNIT_CASE(dm_test_supported_degam_tfs_has_pq125_eotf),
- 	KUNIT_CASE(dm_test_supported_degam_tfs_has_bt2020_inv_oetf),
- 	KUNIT_CASE(dm_test_supported_degam_tfs_has_gamma22),
-+	KUNIT_CASE(dm_test_supported_degam_tfs_has_gamma24),
-+	KUNIT_CASE(dm_test_supported_degam_tfs_has_gamma26),
- 	KUNIT_CASE(dm_test_supported_degam_tfs_no_extra_bits),
- 	/* shaper TFs */
- 	KUNIT_CASE(dm_test_supported_shaper_tfs_has_srgb_inv_eotf),
- 	KUNIT_CASE(dm_test_supported_shaper_tfs_has_pq125_inv_eotf),
- 	KUNIT_CASE(dm_test_supported_shaper_tfs_has_bt2020_oetf),
- 	KUNIT_CASE(dm_test_supported_shaper_tfs_has_gamma22_inv),
-+	KUNIT_CASE(dm_test_supported_shaper_tfs_has_gamma24_inv),
-+	KUNIT_CASE(dm_test_supported_shaper_tfs_has_gamma26_inv),
- 	KUNIT_CASE(dm_test_supported_shaper_tfs_no_extra_bits),
- 	/* blnd TFs */
- 	KUNIT_CASE(dm_test_supported_blnd_tfs_has_srgb_eotf),
- 	KUNIT_CASE(dm_test_supported_blnd_tfs_has_pq125_eotf),
- 	KUNIT_CASE(dm_test_supported_blnd_tfs_has_bt2020_inv_oetf),
- 	KUNIT_CASE(dm_test_supported_blnd_tfs_has_gamma22),
-+	KUNIT_CASE(dm_test_supported_blnd_tfs_has_gamma24),
-+	KUNIT_CASE(dm_test_supported_blnd_tfs_has_gamma26),
- 	KUNIT_CASE(dm_test_supported_blnd_tfs_no_extra_bits),
- 	/* cross-check */
- 	KUNIT_CASE(dm_test_degam_and_blnd_tfs_match),
--- 
-2.56.1
-
+Alex
