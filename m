@@ -2,67 +2,95 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1060606A320
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 14:56:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ABDA606A320
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 14:56:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=T7dzSWGe
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=eEg/Suyk
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B8F2112B39;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF8D510E909;
 	Fri, 20 Nov 2026 14:56:48 +0000 (UTC)
-Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com
- [209.85.160.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46B7E11266F
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 17:07:15 +0000 (UTC)
-Received: by mail-oa1-f69.google.com with SMTP id
- 586e51a60fabf-45e6091d8a1so29851fac.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 09:07:15 -0800 (PST)
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com
+ [74.125.82.199])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C4E61126E7
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 19:26:12 +0000 (UTC)
+Received: by mail-dy1-f199.google.com with SMTP id
+ 5a478bee46e88-38531c1a566so112279eec.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 11:26:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20260707; t=1795108034; x=1795712834;
+ d=google.com; s=20260707; t=1795116371; x=1795721171;
  darn=lists.freedesktop.org; 
  h=content-type:cc:to:from:subject:message-id:references:mime-version
  :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=7+8hy451Az1QACplhl6NMxwsBcDH/OzMgfYQcFFvdBo=;
- b=T7dzSWGe/V9sGEW1Ioi0r4jCxBQJAIjpWnuJeoWJxwPZ6XPVPICbDEqUNDqPqhfMqu
- AEsVg7lBKDJwk3eLUNfrUgdJtON6WzMJRgF/bZynj0lCNcxWSYigaJsW1cYeQZvNOf7X
- XhIToUP9PTErlaEgqSY5k0icIcPnNm9BRShIQR8316BIWZezcgpInCS9xGTsn9x0oJFW
- fAMESWCxAilC49d7/VjZMHIx8L0CdN9ZH7ff+RdKgW49uYnzh6CIFfb9veZiNLhG/y+S
- 0xv1LEEItXPbcFLzSIpLHN9rMVjKv77KY+mpOmRTdCQM8HC4IoXpiU2eYD7Z0ftymDX9
- tiDw==
+ :content-type; bh=ed6ZuPWwDHIYUoQ+FZI+Wi1n/4SIGbM4V5gI4MqacGo=;
+ b=eEg/Suyk6VXL0k6NFxiF7qibUNfGKxnuvILqMSx3kFoMEPwHxEEWcCddyhxYyDZQI3
+ bDxamadKbq2XybPDInmBFAz5k0glz4JAmPafBGOnT/wB+fej8jRMotGJ+pLKWmQJqd9P
+ BODmxFzm7ps5ytueATnjyvVINDdVsPFqmYGV6fWkVS0zAiV8pB3erJvXVDXvbgjmYna5
+ l062DTaDBavtimbCRyLul905OMphARPPPeHEHKWh3ZlVDSVEhskmD6LdnnBXN2C3S6o3
+ vPAoifAIPFNaqQMSwmf4deHGNGLerzZhlcMf5Qz2qryPdlEcU+eJzKZIvjDA5ZeSi7Da
+ wgvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795108034; x=1795712834;
+ d=1e100.net; s=20260707; t=1795116371; x=1795721171;
  h=content-type:cc:to:from:subject:message-id:references:mime-version
  :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=7+8hy451Az1QACplhl6NMxwsBcDH/OzMgfYQcFFvdBo=;
- b=ax+8anP8/L5P6/1Yp24MH9DWf6CPqRzmsQLNhVzrUNgB2QhLjFufrnIFbutgyGSqUM
- xZyVNW2JFs1XGdLkjGIdMEu+uEUWeX6+Wvw3gLl+TqGMk8w9OR6KZNIxGcDTyKucU2SZ
- Syx92fq54ljzV5thFVW7GAT1OdxGNHKgLets5q7jEgmCU5of78RCEPkklofpFPsc7DiC
- jGePItoO/93CWLsCveN8rhX8BDSZPV/FylphNlA4PDqh5H8aRyDz8AvdTseRIrjkpqB9
- MIGHNMceEKzDobHzEcu0Z6pdzqCivPo9MG8WD6R1vVePw4ya1Ic9mbmjMLunER11E30T
- 2TtQ==
-X-Gm-Message-State: APuU4Z8D8iOxl5BK+E1Dg+CXEz8yuPz52eaed87Fu+AFI4/9LHRlH7Er
- COys8/9Mmn/JhhybVnU1Itn8Y8XDKl63+RNMT/U1TH1VwhG9EprZbPSxiqKWE/2j5k3xPU35eHb
- zayufuZB72A==
-X-Received: from oibkf8.prod.google.com ([2002:a05:6808:4788:b0:4f2:da8a:16de])
+ bh=ed6ZuPWwDHIYUoQ+FZI+Wi1n/4SIGbM4V5gI4MqacGo=;
+ b=2J8U8kr4PhPRDQlTHsQO8LyiPpEuoM3Nv+IWTTvA1Qjk/E3ukfr4kEpk3ff0+LlCqu
+ DAXDZ5y5wwhlwZaEv227+ABKYptZV5Xcjw1IA0AScgDlov+CExyZ+/qa70PWQoSOsjkd
+ 5eoVdsvZCFzh718E/DO2rlJGszyWTVMKETzB4Z9TkrvCbpTdcP18KQfRgME55u9ib+HW
+ r9RjrtbXGYt+sm6GHNa+f/vMBwX+fe3VeTbPnLnGeYRO7nLxPB7n8Lq6n6Bj8yUcwHGN
+ H3Uh6YZ+AQHOQWtMDxPtRu/npPTWjCQ2pmRO8nyLzTF4mu2ZVbzISGV48k+N64552ddN
+ BnyA==
+X-Forwarded-Encrypted: i=1;
+ AL+hErHCRXDAyS9r/JGXdcy1SkxU5aRhyxNshVQIlbM1e8dmwvikRs2J1o9vXueqg4KVBHqFA7b3oeAU@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9FuR2lSzDMyw1azjhyl6zfbXJgfkcaPIXlJ3HelFYEOZWu1gyk
+ C7dKwYI+0UYU8R226GAVlb/Q616Gk/RpNSuGMOmkWxtepNRNJn+E4UsIjODDgshv91JBvkh0e+w
+ 9mwa/UdPRow==
+X-Received: from dyhd22.prod.google.com ([2002:a05:7300:8296:b0:381:d3ca:9f05])
  (user=irogers job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6808:3503:b0:4f5:eaac:5151
- with SMTP id 5614622812f47-57a0b0414a8mr598706b6e.39.1795108034097; Thu, 19
- Nov 2026 09:07:14 -0800 (PST)
-Date: Thu, 19 Nov 2026 09:07:05 -0800
-In-Reply-To: <cover.1795106955.git.irogers@google.com>
+ 2002:a05:7300:6018:b0:381:9593:9984
+ with SMTP id 5a478bee46e88-3857151d6abmr284926eec.37.1795116370935; Thu, 19
+ Nov 2026 11:26:10 -0800 (PST)
+Date: Thu, 19 Nov 2026 11:25:19 -0800
+In-Reply-To: <20261119192520.1983406-1-irogers@google.com>
 X-Archived-By: <archiver.kernel.org>
 Mime-Version: 1.0
-References: <cover.1795106955.git.irogers@google.com>
-X-Mailer: git-send-email 2.56.1.708.g77570a6a1d-goog
-Message-ID: <6fcb1e5c7545f8bcfee9ac9a3abd296c475aa1b7.1795106955.git.irogers@google.com>
-Subject: [PATCH 2/2] drm/amdgpu: initialize r in amdgpu_ttm_clear_buffer()
+References: <20261119192520.1983406-1-irogers@google.com>
+X-Mailer: git-send-email 2.56.1.750.gf70dc682cf-goog
+Message-ID: <20261119192520.1983406-9-irogers@google.com>
+Subject: [PATCH v4 8/9] drm/amdkfd: Free queue in procfs_queue_type kobject
+ release callback
 From: Ian Rogers <irogers@google.com>
-To: Alex Deucher <alexander.deucher@amd.com>, 
+To: Danilo Krummrich <dakr@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Kees Cook <kees@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+ "Rafael J . Wysocki" <rafael@kernel.org>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Srish Srinivasan <ssrish@linux.ibm.com>, 
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
+ Christophe Leroy <chleroy@kernel.org>, Nayna Jain <nayna@linux.ibm.com>, 
+ Mimi Zohar <zohar@linux.ibm.com>, Yoshinori Sato <ysato@users.sourceforge.jp>, 
+ Rich Felker <dalias@libc.org>,
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, 
+ Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Nathan Chancellor <nathan@kernel.org>, 
+ Nick Desaulniers <ndesaulniers@google.com>,
+ Viresh Kumar <viresh.kumar@linaro.org>, 
+ Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>,
+ Alexander Aring <aahringo@redhat.com>, 
+ Felix Kuehling <felix.kuehling@amd.com>, 
  "=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
- Elkin Cruz <elkin@google.com>, Ian Rogers <irogers@google.com>
+ Zhihao Cheng <chengzhihao1@huawei.com>, 
+ Sumanth Korikkar <sumanthk@linux.ibm.com>, Bill Wendling <morbo@google.com>, 
+ Justin Stitt <justinstitt@google.com>, driver-core@lists.linux.dev,
+ llvm@lists.linux.dev, 
+ linux-hardening@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-acpi@vger.kernel.org, 
+ linux-pm@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+ linux-sh@vger.kernel.org, linux-s390@vger.kernel.org, gfs2@lists.linux.dev, 
+ xen-devel@lists.xenproject.org, linux-mtd@lists.infradead.org, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Ian Rogers <irogers@google.com>
 Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Fri, 20 Nov 2026 14:56:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -83,38 +111,83 @@ X-Spam-Status: No, score=-26.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-In amdgpu_ttm_clear_buffer(), 'r' is declared uninitialized. When
-consider_clear_status is true (such as AMDGPU_GEM_CREATE_VRAM_CLEARED
-allocations) and all backing buddy blocks already have DRM_BUDDY_CLEARED
-set, every iteration of the cursor loop hits 'continue' without assigning
-'r', returning uninitialized stack memory to amdgpu_bo_create().
+struct queue embeds a struct kobject (q->kobj) for procfs entries, but
+procfs_queue_type had no .release callback and uninit_queue() freed q
+immediately after kfd_procfs_del_queue() called kobject_put(&q->kobj).
+With CONFIG_DEBUG_KOBJECT_RELEASE=y, this causes a use-after-free.
 
-Initialize 'r' to 0.
+Add kfd_procfs_queue_release() to free struct queue from the kobject
+release callback, change kfd_procfs_del_queue() to only remove the
+kobject from sysfs via kobject_del(), and drop the final reference in
+uninit_queue() via kobject_put(). Check q->kobj.state_in_sysfs before
+calling kobject_del() in kfd_procfs_del_queue() to avoid warnings if
+sysfs creation previously failed.
 
-Found via an x86_64 LLVM=1 (Clang 21.1.8) allyesconfig audit with
--Wconditional-uninitialized enabled; fix and changelog drafted with an AI
-coding assistant. Build-tested under LLVM=1 W=1 (-Werror) and
--Wconditional-uninitialized; not runtime-tested on AMD GPU hardware.
-
-Fixes: 23bd7e67961e ("drm/amdgpu: get rid of amdgpu_ttm_clear_buffer")
+Fixes: 6d220a7e7971 ("drm/amdkfd: Add queue information to sysfs")
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c | 12 +++++++++---
+ drivers/gpu/drm/amd/amdkfd/kfd_queue.c   |  5 ++++-
+ 2 files changed, 13 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 0f86777250fc..280fcdfb9cca 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -2675,7 +2675,7 @@ int amdgpu_ttm_clear_buffer(struct amdgpu_ttm_buffer_entity *entity,
- 	struct dma_fence *fence = NULL;
- 	struct amdgpu_res_cursor dst;
- 	bool vm_needs_flush = false;
--	int r;
-+	int r = 0;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index 6663718fb83c..b349e0d8d47b 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -512,7 +512,15 @@ static const struct sysfs_ops procfs_queue_ops = {
+ 	.show = kfd_procfs_queue_show,
+ };
  
- 	if (!entity)
- 		return -EINVAL;
++static void kfd_procfs_queue_release(struct kobject *kobj)
++{
++	struct queue *q = container_of(kobj, struct queue, kobj);
++
++	kfree(q);
++}
++
+ static const struct kobj_type procfs_queue_type = {
++	.release = kfd_procfs_queue_release,
+ 	.sysfs_ops = &procfs_queue_ops,
+ 	.default_groups = procfs_queue_groups,
+ };
+@@ -552,7 +560,6 @@ int kfd_procfs_add_queue(struct queue *q)
+ 	if (ret < 0) {
+ 		pr_warn("Creating proc/<pid>/queues/%u failed",
+ 			q->properties.queue_id);
+-		kobject_put(&q->kobj);
+ 		return ret;
+ 	}
+ 
+@@ -697,11 +704,10 @@ static void kfd_procfs_add_sysfs_files(struct kfd_process *p)
+ 
+ void kfd_procfs_del_queue(struct queue *q)
+ {
+-	if (!q || !q->process->kobj)
++	if (!q || !q->process || !q->process->kobj || !q->kobj.state_in_sysfs)
+ 		return;
+ 
+ 	kobject_del(&q->kobj);
+-	kobject_put(&q->kobj);
+ }
+ 
+ int kfd_process_create_wq(void)
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
+index cd41b10e0873..636cc894223d 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
+@@ -83,7 +83,10 @@ int init_queue(struct queue **q, const struct queue_properties *properties)
+ 
+ void uninit_queue(struct queue *q)
+ {
+-	kfree(q);
++	if (q && q->kobj.state_initialized)
++		kobject_put(&q->kobj);
++	else
++		kfree(q);
+ }
+ 
+ #if IS_ENABLED(CONFIG_HSA_AMD_SVM)
 -- 
 2.56.1.708.g77570a6a1d-goog
 
