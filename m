@@ -2,78 +2,78 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A653606A320
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 11:43:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 977AE606A335
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 11:47:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mKK3xPVI
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=03GNdPCi
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 984D210E6D1;
-	Thu, 19 Nov 2026 11:42:54 +0000 (UTC)
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
- [209.85.221.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3764310E6D1
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 11:42:48 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id
- ffacd0b85a97d-4a357b1c649so1349271f8f.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 03:42:48 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A0B2112306;
+	Thu, 19 Nov 2026 11:47:15 +0000 (UTC)
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
+ [209.85.221.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED965112322
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 11:47:08 +0000 (UTC)
+Received: by mail-wr1-f45.google.com with SMTP id
+ ffacd0b85a97d-490d59c3edaso605354f8f.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 03:47:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795088566; x=1795693366; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1795088827; x=1795693627; darn=lists.freedesktop.org;
  h=mime-version:user-agent:content-transfer-encoding:content-type
  :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
  :cc:subject:date:message-id:reply-to:content-type;
- bh=Ti4mTGv1hOcHPBD2Bh0m2ZcHPJyOAs96Y5CwUxOCUAk=;
- b=mKK3xPVI0sD2K6bFoLlTizh3iySfhrQiVmPMjX4q3uWGu11fUJuVcn1PZ9hhXPwZd3
- Hx2Wy1zanltFUmRx0zTAwK2rO1Dojw3krUcK7SwFp3YywI7i0JFeLIvjUn3/s6tuUJqt
- kktFlr97FSMFnpALvSwcpD0DoSPIV2Y+HtrwUjZy6KTBVlo4XSevxxkd/6ZlFScZxyw9
- 0/8Z7BfHnh2VI0RPwnxetTNIkjF0kYPtnIdtX01pxZIAUuk5GqQkiLvViAInylrTng4O
- rYTO4vIT37EBwZzsX5G9w3XCNxltltvgMG4KMqwsxsaAblQbBZF2x9y4Ux50jY7YBwVK
- Xt/Q==
+ bh=MgVkb48sL4tFM75FtgxLJzFN8qSyFQmjdlzcKgC1ds0=;
+ b=03GNdPCiOheWVa1fU3ellB4ugYblVxpFqqeADP3ocG+MM/9713OJwTAAt1JOr698+2
+ Z7SnUJVf5kt6Bvt4OLwYcnadxuwKSmjtJCeIqyJqdr9zmJ4nZv7lkWLLlRcpFGjLci4M
+ t4TEF/85hkDtg4SAXQx9iLWgVj0Ha1RdkCWSs73wz3+4x33MDW/VpyraV0/C7oBN8TBY
+ Au4Ds8Kpzt4oitUJwuBXPXE+aPBaA4k1CmrA64L1Fke11S4RKDmr5bm3xR9bjxuLtojS
+ sSvu707RJJ0pHGNMlP//OENroLDrALrWPABcDHX813qWOndZw9TpDtdmvQfSIVFS3ugD
+ 5IRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795088566; x=1795693366;
+ d=1e100.net; s=20260707; t=1795088827; x=1795693627;
  h=mime-version:user-agent:content-transfer-encoding:content-type
  :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=Ti4mTGv1hOcHPBD2Bh0m2ZcHPJyOAs96Y5CwUxOCUAk=;
- b=eArSzXvFWJ8u3M/MHYQcAR7o6eVW5ET3P4t/nLAg/y1oy1rqpjRRVf8wx5baDcd+0T
- XbOr/e/hD0R0T4PPeWdHfn0xKVFDCKAQyMpGCiaiop+oc/5TlCAPG/oVMuq3n5Ff24h5
- gBjGmZQvgpdMM65RfxkOCxGaER4K8w3zRM+PBbdEBho7ue9JGvEXsxhTEAAQ2/HjzlUi
- RmA2Di7xbmWtd6ufhej4uLbDq6v9nWOrEh0rKx1jbfjXsLDvDF0Pwofncx1GRJALiU9u
- tV7n8GPHjhv5C2rMsQpmOFBNmUhDwAZei94VPs9yzHWH4X9diRGhYPEopeAd5xHbP8LD
- 3ECA==
+ bh=MgVkb48sL4tFM75FtgxLJzFN8qSyFQmjdlzcKgC1ds0=;
+ b=sct7qRsArTP+lRRMkcZYnq16F/8qpJuLgnsYxZASH4LYXq0/stKUY0BzJJLtswCW/j
+ UdJoIGLkdVRv0+bTanIKmQiAGLUNoE/67BunpuP9dED81XxobYgPPLXMhSnYFsfvH3rf
+ Mjvnfnhqn9Qofvw2CZUTJBKCcg1y8UOGiLYGT1SUWySEZjOepp3MlIIJEn1arHa68BOP
+ EHFb+n4NPt0vetDYRdk+2vuPnJxvssoC7lWhy6t656Johd9AWhCb3afQVL4Nz+cROmGl
+ H3kfNJ9prxwyFrLXsbTMOOAx2jNQpQ0HL0ycATKKxJalfbxfeqRXGA9t0c6W7xAWoLJk
+ c6+A==
 X-Forwarded-Encrypted: i=1;
- AL+hErF0pUcyour4NR7/RKXJn+eSvMfLJIfe9CTk5wfeXlKexeK64fbNx4EnpDixzDhFkbRQUvphHYRG@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+MerJWdzvcU6ZPOqOvHDSTwt15949PiWgLC3cxscrlwPMqivKl
- csreyO8reUz/TBudAYXzDUEbiSyw+a+w9CmNOKlg7WctU7BC/qLC6/tl
-X-Gm-Gg: AZFdTZeISj2Cdys/F5ePGjqIa2YYRwFx5+77PlLBvaBGKXn1dSWw15I4ZE1K9z6t0Pj
- RESoI8JrYmOUtvVDVjRKgcSXeX/ZoLz1IEQZ7Ahgf/pZO0/OEOUI8RUB6CZLDQdx8MDK539FBFv
- 9OUiQnA1nZANsGMQWfCgamP4vX1AgF8z3YjVZiahzxPREoX7nwlu2qnpgxtU6Xa2w7IR5yCsLEE
- hKyjxJFsf6IrkAxw9jR5tLMlw0W48GiHAMqRh60+Qpb9SBld3C517fLm7n8obfy1f3b9xHwftwh
- j4w1zYcvzOVayjlKvxzLit7De15DU6pYuWjLG8RS34nsPiVOO6UzS9ls9C4CiRbxluhYSvvtKno
- heRWPfKeBOaeta/5wyDbby/gaOnu3OBzaxnQ2o4+dikn9L0sH8QucV/1bDRHEXfg53hF1gYC+gY
- bsMJqLJLOC64vpKX2Tg///I+95m46UroQ8BxDaZ80R1VG2DwxlRoQTF96K49bPQXWugEj1Xq8rE
- FzLkFUeVOwknFOfaZsdfffoJMvVaV94/3w52PxF47qU3cn3IeMG323jWHoEhWVbfIU0cTiW9GaC
- LcM4ZghOqB+Yt/SpEbTLsPPm2sOmde68zcuz/kGRSCuQt3N0mJ8aQPPf/NzS5CcLoNs5nRwDYc3
- WHqBW
-X-Received: by 2002:a5d:64c8:0:b0:493:1004:96f7 with SMTP id
- ffacd0b85a97d-4a63d1d9aeamr12271272f8f.54.1795088566500; 
- Thu, 19 Nov 2026 03:42:46 -0800 (PST)
+ AL+hErEwXcbuW1eLvnYoCm1zWfctOQgYeVng2DdMUNJ/bvMduqaw1bYPuG3shjMkfZUQ8PByVdUlXqCW@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/Udzl41zsU+wTxKyzPSF6R5aOzECWmkEEHfOhSSuNgwFRhno3t
+ szyKJ3Ddpbc/T23QGZsNnVWz7fXmA8KullxpDo2jc3fc6WPMJyMnirnI
+X-Gm-Gg: AZFdTZfmvVMGJ6wosFW4eJPtw9nD50sqoqVcKDBHhE+9yy9pB9gA0A9ozEfhtIVFHMH
+ QSsqtboPqcf2f3YEkP0iDWZWHoruEUDsMyDdfB3LnPI5YsC8VCdp7RCji+cR8p7EUYncoxRYkET
+ B5euc2TlPXkuXpBZPxNdw3Be2HxXJmLtJxzC5/jSY6UFHHt6xsVFoZpEQODTiY58qnLRYlRFm8a
+ cwDn+f/IhB4SEVgCjueSMooWhVrM34f65OiLTUk+smCtB0GZS0s9qlCoPU9EzrSapeOGlY4rj17
+ mlnqCyxFoNng7Ae62b1F8k3+k5kRG89lm0bV0qpmifg49cRrY/j81B8Nue0ec7/lAMYT+krYXIX
+ 3KPSPhkT/ZBWTBecCQSQdRowwMU/FDT9Ke7DDrguCqxDXWxX+8zNOwqY3BdRT54782t7Iq3AKyJ
+ +KEmxXN8miAQ9mUpjvjoR9bDpsvV386pjnNxo35VnsfJiZn0/Ll9C1iMsBOSu5+DCDkxAC4YJwG
+ GKKe8IVwxYlZgBoU0PdWRJGtn7z+dkpx2RhkZq27MCr79exJM0EfAXZoY0ygqyg1RPKlwsCnq9g
+ vdkBVoj+MLxxkJDG7GP9PRPXgVKu7V+90s0sowatW2UM0rLfeNaJJOoKKd+y5POeiDFJinMKvLc
+ A8mAU
+X-Received: by 2002:a05:6000:2083:b0:491:cd7:e96b with SMTP id
+ ffacd0b85a97d-4aa5710d738mr2209723f8f.15.1795088827183; 
+ Thu, 19 Nov 2026 03:47:07 -0800 (PST)
 Received: from [192.168.1.71] (115.red-2-136-224.staticip.rima-tde.net.
  [2.136.224.115]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4a65693389dsm9356698f8f.48.2026.11.19.03.42.45
+ ffacd0b85a97d-4a655f9f53dsm9387995f8f.35.2026.11.19.03.47.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 19 Nov 2026 03:42:46 -0800 (PST)
-Message-ID: <7f108e1161bc2825a5d8f542ee3b7c8b6cabf399.camel@gmail.com>
-Subject: Re: [PATCH v4 09/13] drm/amdgpu/gfx12: add a gfx engine soft reset
+ Thu, 19 Nov 2026 03:47:06 -0800 (PST)
+Message-ID: <22d20d88c1d6a8284f5945dd33102af9150a5d1a.camel@gmail.com>
+Subject: Re: [PATCH v4 10/13] drm/amdgpu/gfx11: add a gfx engine soft reset
 From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
 To: Jesse Zhang <Jesse.Zhang@amd.com>, amd-gfx@lists.freedesktop.org
 Cc: Alexander.Deucher@amd.com, Christian Koenig <christian.koenig@amd.com>, 
  Lijo.Lazar@amd.com, Mario.Novales@amd.com, Manu.Rastogi@amd.com, 
  Jiongyu.Zhu@amd.com
-Date: Thu, 19 Nov 2026 12:42:45 +0100
-In-Reply-To: <20261105030612.726542-9-Jesse.Zhang@amd.com>
+Date: Thu, 19 Nov 2026 12:47:05 +0100
+In-Reply-To: <20261105030612.726542-10-Jesse.Zhang@amd.com>
 References: <20261105030612.726542-1-Jesse.Zhang@amd.com>
- <20261105030612.726542-9-Jesse.Zhang@amd.com>
+ <20261105030612.726542-10-Jesse.Zhang@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
@@ -89,65 +89,62 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FORGED_GMAIL_RCVD,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 On Thu, 2026-11-05 at 11:05 +0800, Jesse Zhang wrote:
-> Some hangs leave the gfx streaming engine of the CP front-end stuck,
-> eg.
-> waiting for packet data that never arrives. Neither a queue nor a
-> pipe
-> reset can stop it, so they end in a full GPU reset.
+> Implement soft_reset_engine() for the graphics engine of gfx11, as
+> for
+> gfx12, with two differences:
+> - clear CP_VMID_RESET: a VMID reset the hung PFP didn't handle
+> survives
+> =C2=A0 the CPF/CPG reset;
+> - boot PFP/ME with CP_PFP_IB_CONTROL cleared and restore it
+> afterwards:
+> =C2=A0 set, it makes the F32 PFP of the APUs resume from power gating and
+> wait
+> =C2=A0 for a clear state that never comes.
 >=20
-> Implement soft_reset_engine() for the graphics engine: halt PFP/ME,
-> pulse GRBM_SOFT_RESET.SOFT_RESET_CPF/CPG with
-> CP_SOFT_RESET_CNTL.GFX_ONLY_SOFT_RESET and GFX_HQD_REG_RESET, restart
-> PFP/ME and map the kernel gfx queue again.
-> MEC, MES and the compute queues keep running. The MES lock is held
-> across
-> the pulse, as MES fetches its queues through CPF, and the CP DMA is
-> drained around it, as a request in flight leaves the ME busy.
->=20
-> MES is suspended meanwhile, and the gfx user queues the reset clears
-> are
-> saved and restored around it. If the CP doesn't go idle, the reset
-> fails
-> and a full reset follows.
+> The CPF/CPG reset already puts PFP/ME back at their firmware start
+> address, so unhalting them restarts the RS64 and F32 firmware alike.
 >=20
 > v4: Implement soft_reset_engine() directly instead of a reset_engine
 > gfx
-> =C2=A0=C2=A0=C2=A0 callback (Timur).
+> =C2=A0=C2=A0=C2=A0 callback, drop gfx_v11_0_restart_gfx_rs64(), and boot =
+with
+> =C2=A0=C2=A0=C2=A0 CP_PFP_IB_CONTROL cleared for the F32 firmware (Timur)=
+.
 >=20
 > Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
 > ---
-> =C2=A0drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c | 129
+> =C2=A0drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 134
 > +++++++++++++++++++++++++
-> =C2=A01 file changed, 129 insertions(+)
+> =C2=A01 file changed, 134 insertions(+)
 >=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> index 484e876fe235..8b96f2a29b1f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> @@ -3860,6 +3860,134 @@ static int gfx_v12_0_wait_for_idle(struct
-> amdgpu_ip_block *ip_block)
-> =C2=A0	return -ETIMEDOUT;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> index 798015689f0c..80b91459f5b0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> @@ -6777,6 +6777,139 @@ static void gfx_v11_0_emit_mem_sync(struct
+> amdgpu_ring *ring)
+> =C2=A0	amdgpu_ring_write(ring, gcr_cntl); /* GCR_CNTL */
 > =C2=A0}
 > =C2=A0
 > +/* The CP DMA and the interfaces its memory requests go through */
-> +#define GFX12_CP_STAT_MEM_BUSY	(CP_STAT__DMA_BUSY_MASK | \
+> +#define GFX11_CP_STAT_MEM_BUSY	(CP_STAT__DMA_BUSY_MASK | \
 > +				 CP_STAT__TCIU_BUSY_MASK | \
 > +				 CP_STAT__RCIU_BUSY_MASK | \
 > +				 CP_STAT__UTCL2IU_BUSY_MASK)
 > +
 > +/* Reset CPF/CPG, PFP/ME and the gfx HQDs, then boot PFP/ME again.
 > */
-> +static int gfx_v12_0_soft_reset_gfx_cp(struct amdgpu_device *adev)
+> +static int gfx_v11_0_soft_reset_gfx_cp(struct amdgpu_device *adev)
 > +{
 > +	u32 tmp, cntl, me_cntl, ib_control;
 > +	int i;
@@ -156,6 +153,9 @@ On Thu, 2026-11-05 at 11:05 +0800, Jesse Zhang wrote:
 > +	/* MES fetches its queues through CPF: keep it out of the
 > reset. */
 > +	amdgpu_mes_lock(&adev->mes);
+
+I wonder if we should lock the SRBM mutex here. What do you think?
+
 > +
 > +	me_cntl =3D RREG32_SOC15(GC, 0, regCP_ME_CNTL);
 > +	ib_control =3D RREG32_SOC15(GC, 0,
@@ -170,7 +170,7 @@ On Thu, 2026-11-05 at 11:05 +0800, Jesse Zhang wrote:
 > after it. */
 > +	for (i =3D 0; i < adev->usec_timeout; i++) {
 > +		if (!(RREG32_SOC15(GC, 0, regCP_STAT) &
-> GFX12_CP_STAT_MEM_BUSY))
+> GFX11_CP_STAT_MEM_BUSY))
 > +			break;
 > +		udelay(1);
 > +	}
@@ -190,13 +190,15 @@ On Thu, 2026-11-05 at 11:05 +0800, Jesse Zhang wrote:
 > +	tmp =3D REG_SET_FIELD(tmp, GRBM_SOFT_RESET, SOFT_RESET_CPG,
 > 1);
 
-I still think that this needs the SOFT_RESET_GFX bit too.
-
+I just tested this on Strix Halo (GFX11.5).
+We need to set the SOFT_RESET_GFX bit here in order to reset the fixed-
+function graphics pipeline. Otherwise this can't recover from cases
+when the fixed-function pipeline hangs, for example a buggy NGG shader.
 
 > +	WREG32_SOC15(GC, 0, regGRBM_SOFT_RESET, tmp);
 > +	tmp =3D RREG32_SOC15(GC, 0, regGRBM_SOFT_RESET);
 
-This should be moved below the delay.
+This line should be moved below the delay.
 
 > +	udelay(50);
 > +	tmp =3D REG_SET_FIELD(tmp, GRBM_SOFT_RESET, SOFT_RESET_CPF,
@@ -212,45 +214,49 @@ This should be moved below the delay.
 > requests. */
 > +	for (i =3D 0; i < adev->usec_timeout; i++) {
 > +		if (!(RREG32_SOC15(GC, 0, regCP_STAT) &
-> GFX12_CP_STAT_MEM_BUSY))
+> GFX11_CP_STAT_MEM_BUSY))
 > +			break;
 > +		udelay(1);
 > +	}
+> +	/* A VMID reset the hung PFP didn't handle survives the
+> reset. */
+> +	WREG32_SOC15(GC, 0, regCP_VMID_RESET, 0);
+
+Does this introduce a race condition between per-queue resets and the
+soft reset? I mean, what happens if we are doing a queue reset on a
+compute queue at the same time while this function is resetting the GFX
+engine?
+
 > +	amdgpu_mes_unlock(&adev->mes);
-
-We should clear the CP_VMID_RESET register here, same as we do on
-GFX11. It makes no sense for the CP to be doing a VMID reset while we
-are soft-resetting it.
-
 > +
-> +	gfx_v12_0_set_pfp_ucode_start_addr(adev);
-> +	gfx_v12_0_set_me_ucode_start_addr(adev);
 > +	tmp =3D RREG32_SOC15(GC, 0, regCP_ME_CNTL);
 > +	tmp =3D REG_SET_FIELD(tmp, CP_ME_CNTL, CE_HALT,
 > +			=C2=A0=C2=A0=C2=A0 REG_GET_FIELD(me_cntl, CP_ME_CNTL,
 > CE_HALT));
 > +	WREG32_SOC15(GC, 0, regCP_ME_CNTL, tmp);
-> +	WREG32_SOC15(GC, 0, regCP_PFP_IB_CONTROL, ib_control);
-
-Why is it important to restore the CP_PFP_IB_CONTROL register?
-The kernel driver currently never writes this register, isn't the
-default value good enough?
-
 > +	amdgpu_gfx_rlc_exit_safe_mode(adev, 0);
 > +
+> +	/*
+> +	 * Boot with CP_PFP_IB_CONTROL cleared: set, it makes the
+> F32 PFP resume
+> +	 * from power gating and wait for a clear state that never
+> comes.
+> +	 */
 > +	tmp =3D RREG32_SOC15(GC, 0, regCP_ME_CNTL);
 > +	tmp =3D REG_SET_FIELD(tmp, CP_ME_CNTL, ME_HALT, 0);
 > +	tmp =3D REG_SET_FIELD(tmp, CP_ME_CNTL, PFP_HALT, 0);
 > +	WREG32_SOC15(GC, 0, regCP_ME_CNTL, tmp);
 > +	for (i =3D 0; i < adev->usec_timeout; i++) {
 > +		if (!RREG32_SOC15(GC, 0, regCP_STAT))
-> +			return 0;
+> +			break;
 > +		udelay(1);
 > +	}
-> +	return -ETIMEDOUT;
+> +	WREG32_SOC15(GC, 0, regCP_PFP_IB_CONTROL, ib_control);
+> +
+> +	return i < adev->usec_timeout ? 0 : -ETIMEDOUT;
 > +}
 > +
-> +static int gfx_v12_0_soft_reset_engine(struct amdgpu_ip_block
+> +static int gfx_v11_0_soft_reset_engine(struct amdgpu_ip_block
 > *ip_block,
 > +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 enum amdgpu_ring_type
 > ring_type,
@@ -271,7 +277,7 @@ default value good enough?
 > +	amdgpu_mes_suspend(adev, 0);
 > +	amdgpu_userq_save_hqds(adev, AMDGPU_HW_IP_GFX);
 > +
-> +	r =3D gfx_v12_0_soft_reset_gfx_cp(adev);
+> +	r =3D gfx_v11_0_soft_reset_gfx_cp(adev);
 > +	if (r) {
 > +		dev_err(adev->dev, "gfx CP still busy after reset,
 > CP_STAT 0x%08x\n",
@@ -289,7 +295,7 @@ default value good enough?
 > >gfx.gfx_ring[i]);
 > +	r =3D amdgpu_gfx_enable_kgq(adev, 0);
 > +	if (!r)
-> +		r =3D gfx_v12_0_cp_gfx_start(adev);
+> +		r =3D gfx_v11_0_cp_gfx_start(adev);
 > +	if (r)
 > +		goto fail;
 > +
@@ -307,15 +313,15 @@ default value good enough?
 > +	return r;
 > +}
 > +
-> =C2=A0#define GFX12_HPD_QUEUE_STATE_CONNECTED_MIN	3
-> =C2=A0#define GFX12_HPD_QUEUE_STATE_CONNECTED_MAX	15
+> =C2=A0#define GFX11_HPD_QUEUE_STATE_CONNECTED_MIN	3
+> =C2=A0#define GFX11_HPD_QUEUE_STATE_CONNECTED_MAX	15
 > =C2=A0
-> @@ -5375,6 +5503,7 @@ static const struct amd_ip_funcs
-> gfx_v12_0_ip_funcs =3D {
-> =C2=A0	.suspend =3D gfx_v12_0_suspend,
-> =C2=A0	.resume =3D gfx_v12_0_resume,
-> =C2=A0	.wait_for_idle =3D gfx_v12_0_wait_for_idle,
-> +	.soft_reset_engine =3D gfx_v12_0_soft_reset_engine,
-> =C2=A0	.set_clockgating_state =3D gfx_v12_0_set_clockgating_state,
-> =C2=A0	.set_powergating_state =3D gfx_v12_0_set_powergating_state,
-> =C2=A0	.get_clockgating_state =3D gfx_v12_0_get_clockgating_state,
+> @@ -7045,6 +7178,7 @@ static const struct amd_ip_funcs
+> gfx_v11_0_ip_funcs =3D {
+> =C2=A0	.suspend =3D gfx_v11_0_suspend,
+> =C2=A0	.resume =3D gfx_v11_0_resume,
+> =C2=A0	.wait_for_idle =3D gfx_v11_0_wait_for_idle,
+> +	.soft_reset_engine =3D gfx_v11_0_soft_reset_engine,
+> =C2=A0	.soft_reset =3D gfx_v11_0_soft_reset,
+> =C2=A0	.set_clockgating_state =3D gfx_v11_0_set_clockgating_state,
+> =C2=A0	.set_powergating_state =3D gfx_v11_0_set_powergating_state,
