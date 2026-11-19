@@ -2,50 +2,94 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE477606A320
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 14:11:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67423606A320
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 14:11:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=eV7oY9Om
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=tZNGbQMb
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA765112462;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D721B112463;
 	Thu, 19 Nov 2026 14:11:01 +0000 (UTC)
-X-Greylist: delayed 389 seconds by postgrey-1.36 at gabe;
- Wed, 18 Nov 2026 14:34:03 UTC
-Received: from mail-proxy25266.mail.163.com (mail-proxy25266.mail.163.com
- [103.129.252.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE3E210FD22;
- Wed, 18 Nov 2026 14:34:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=nF
- JbK8/dNKLZ9Wci+tDCATwra1Lrr5nEu4JyZ/1PmU8=; b=eV7oY9OmDxaV1muuwA
- ZCyZiRq4q2g17ZIj1bNvWAuk4UOpfpCfPwm8doX9vGKHE3ZcbkgeLY/dvf4vEqjh
- 5zE+MVxPT5dQ/b/MhQBSJgxr4u+gkjngZVC7T87h6nndxkiyavIm4Vky/+fsUjRE
- 7uevPiAJKsAzddGRKDs/O0jos=
-Received: from localhost.localdomain (unknown [])
- by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id
- _____wD39ygTtf1qsV7rIQ--.20297S2; 
- Wed, 18 Nov 2026 22:24:21 +0800 (CST)
-From: Haoxiang Li <haoxiang_li2024@163.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, tzimmermann@suse.de, mripard@kernel.org,
- linux@treblig.org, aurabindo.pillai@amd.com, nico.antinori.7@gmail.com,
- superm1@kernel.org, haoxiang_li2024@163.com,
- pierre-eric.pelloux-prayer@amd.com, Ryan.Taylor@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/amdgpu: Fix VKMS plane memory leaks
-Date: Wed, 18 Nov 2026 22:24:19 +0800
-Message-Id: <20261118142419.2389009-1-haoxiang_li2024@163.com>
-X-Mailer: git-send-email 2.25.1
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A46F410E4BC;
+ Thu, 19 Nov 2026 05:35:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
+ :Reply-To:Content-Type:Content-ID:Content-Description;
+ bh=z46ZwabXBcpTEJRysA4syBAZyQggGPY6SIVcMl/gSzA=; b=tZNGbQMbkEBB3qnsfmrI0ak97e
+ GXxh5zYLcHrA7zzJrOQPdhV8uybDVtFAWYTrP+dt/z9kZiD41YJ2wTmXVlB8OYrmzf5wEwT37Km6a
+ bsmU2r2a+szwKja0pzLZGHDqbW+LwePYyxWY28VlKJW4IkKj5u6oq7VCuB7i2yoEQ6coDe9GcyFby
+ gmUkrTGRPw16swI5ikzHGUIbD/DQdgrEEfISwS/y2TJ9bAeOWAGvRZM46laKYkr4+h5q8QUSFOd1e
+ FNUYp/NsoT++jUBOGEPDm/c59sWmUx3tgkmaRELHsSyXx62CAagtXJ2Elyvg7quNk77tut/ToOd3p
+ hQQjF0qQ==;
+Received: from [50.53.43.113] (helo=bombadil.infradead.org)
+ by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+ id 1xTunq-0000000Aufu-1tOB; Thu, 19 Nov 2026 05:35:22 +0000
+From: Randy Dunlap <rdunlap@infradead.org>
+To: linux-kernel@vger.kernel.org
+Cc: Randy Dunlap <rdunlap@infradead.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org,
+ David Hildenbrand <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Jason Gunthorpe <jgg@nvidia.com>, Leon Romanovsky <leonro@nvidia.com>,
+ linux-mm@kvack.org, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org,
+ Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
+ Marcel Holtmann <marcel@holtmann.org>,
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+ linux-bluetooth@vger.kernel.org,
+ Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+ Jason Wang <jasowangio@gmail.com>, David Heidelberg <david@ixit.cz>,
+ oe-linux-nfc@lists.linux.dev, Chas Williams <3chas3@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
+ Helge Deller <deller@gmx.de>, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, MPT-FusionLinux.pdl@broadcom.com,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K. Petersen" <mkp@kernel.org>, linux-scsi@vger.kernel.org,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
+ Zhihao Cheng <chengzhihao1@huawei.com>, linux-mtd@lists.infradead.org,
+ Neill Kapron <nkapron@google.com>, Andrey Konovalov <andreyknvl@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org, Hans de Goede <hansg@kernel.org>,
+ Arnd Bergmann <arnd@arndb.de>, "Michael S. Tsirkin" <mst@redhat.com>,
+ =?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+ Sean Christopherson <seanjc@google.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org,
+ virtualization@lists.linux.dev, Jan Kara <jack@suse.cz>,
+ linux-fsdevel@vger.kernel.org, "Theodore Ts'o" <tytso@mit.edu>,
+ linux-ext4@vger.kernel.org, Mike Marshall <hubcap@omnibond.com>,
+ devel@lists.orangefs.org, Paulo Alcantara <pc@manguebit.org>,
+ Namjae Jeon <linkinjeon@kernel.org>, linux-cifs@vger.kernel.org,
+ Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>,
+ linux-f2fs-devel@lists.sourceforge.net,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Tzung-Bi Shih <tzungbi@kernel.org>, Benson Leung <bleung@chromium.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, intel-gfx@lists.freedesktop.org,
+ Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ intel-xe@lists.freedesktop.org
+Subject: [PATCH v2 01/12] docs: ioctl-number: update MM entries
+Date: Wed, 18 Nov 2026 21:35:02 -0800
+Message-ID: <20261119053514.255348-2-rdunlap@infradead.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261119053514.255348-1-rdunlap@infradead.org>
+References: <20261119053514.255348-1-rdunlap@infradead.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: _____wD39ygTtf1qsV7rIQ--.20297S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Aw1kArW8GFW5AFykJF4DCFg_yoW8Cr4UpF
- 48Xa4jkw4UZaykGa47Ja48Ww4SgF48uFyxtrW8C3Zaq3WYyr93G3W8tr12ga9rGFW7Cw43
- Ary2y3yDCF1YkF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JUO6pkUUUUU=
-X-CM-SenderInfo: xkdr5xpdqjszblsqjki6rwjhhfrp/xtbC7RWM+mr9tRU0cAAA39
 X-Mailman-Approved-At: Thu, 19 Nov 2026 14:10:22 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -57,59 +101,52 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY,
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-VKMS planes are allocated with kzalloc_obj(), but both the plane
-destroy callback and the output initialization error path only call
-drm_plane_cleanup().
+Add ioctl number entries for test_hmm_uapi and gup_test.
 
-Add amdgpu_vkms_plane_fini() to clean up the DRM resources and free
-the plane structure. Use it as the plane destroy callback and in the
-output initialization error path.
-
-Fixes: 84ec374bd580 ("drm/amdgpu: create amdgpu_vkms (v4)")
-Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+v2: no change
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-index 5c5fdbec93c2..a511322c1c02 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-@@ -140,10 +140,16 @@ static const struct drm_connector_helper_funcs amdgpu_vkms_conn_helper_funcs = {
- 	.get_modes    = amdgpu_vkms_conn_get_modes,
- };
- 
-+static void amdgpu_vkms_plane_fini(struct drm_plane *plane)
-+{
-+	drm_plane_cleanup(plane);
-+	kfree(plane);
-+}
-+
- static const struct drm_plane_funcs amdgpu_vkms_plane_funcs = {
- 	.update_plane		= drm_atomic_helper_update_plane,
- 	.disable_plane		= drm_atomic_helper_disable_plane,
--	.destroy		= drm_plane_cleanup,
-+	.destroy		= amdgpu_vkms_plane_fini,
- 	.atomic_create_state = drm_atomic_helper_plane_create_state,
- 	.atomic_duplicate_state = drm_atomic_helper_plane_duplicate_state,
- 	.atomic_destroy_state	= drm_atomic_helper_plane_destroy_state,
-@@ -375,7 +381,7 @@ static int amdgpu_vkms_output_init(struct drm_device *dev, struct
- 	drm_crtc_cleanup(crtc);
- 
- err_crtc:
--	drm_plane_cleanup(primary);
-+	amdgpu_vkms_plane_fini(primary);
- 
- 	return ret;
- }
--- 
-2.25.1
+[Since having multiple maintainers trying to merge these would
+cause some conflicts, it would be more manageable for Jon to
+take all of these through the docs-next tree.]
 
+Cc: Jonathan Corbet <corbet@lwn.net>
+Cc: Shuah Khan <skhan@linuxfoundation.org>
+Cc: linux-doc@vger.kernel.org
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Leon Romanovsky <leonro@nvidia.com>
+Cc: linux-mm@kvack.org
+
+ Documentation/userspace-api/ioctl/ioctl-number.rst |    4 ++++
+ 1 file changed, 4 insertions(+)
+
+--- linux-next-20261111.orig/Documentation/userspace-api/ioctl/ioctl-number.rst
++++ linux-next-20261111/Documentation/userspace-api/ioctl/ioctl-number.rst
+@@ -147,6 +147,8 @@ Code  Seq#    Include File
+ 'G'   00-0F  xen/gntalloc.h, xen/gntdev.h                              conflict!
+ 'H'   00-7F  linux/hiddev.h                                            conflict!
+ 'H'   00-0F  linux/hidraw.h                                            conflict!
++'H'   00-0F  lib/test_hmm_uapi.h                                       conflict!
++                                                                       <mailto:linux-mm@kvack.org>
+ 'H'   01     linux/mei.h                                               conflict!
+ 'H'   02     linux/mei.h                                               conflict!
+ 'H'   03     linux/mei.h                                               conflict!
+@@ -252,6 +254,8 @@ Code  Seq#    Include File
+ 'f'   81-8F  linux/fsverity.h
+ 'g'   00-0F  linux/usb/gadgetfs.h
+ 'g'   20-2F  linux/usb/g_printer.h
++'g'   01-0F  mm/gup_test.h                                             conflict!
++                                                                       <mailto:linux-mm@kvack.org>
+ 'h'   00-7F                                                            conflict! Charon filesystem
+                                                                        <mailto:zapman@interlan.net>
+ 'h'   00-1F  linux/hpet.h                                              conflict!
