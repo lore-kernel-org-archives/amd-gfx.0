@@ -2,78 +2,78 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E18D606A331
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 11:36:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CC1B606A331
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 11:36:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hW2E+Kv4
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Bmtmb4GI
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACA911122E4;
-	Thu, 19 Nov 2026 11:36:04 +0000 (UTC)
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
- [209.85.221.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5877B1122E4
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 11:35:58 +0000 (UTC)
-Received: by mail-wr1-f51.google.com with SMTP id
- ffacd0b85a97d-49d64a88222so480393f8f.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 03:35:58 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C3021122E3;
+	Thu, 19 Nov 2026 11:36:25 +0000 (UTC)
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
+ [209.85.221.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3513C1122E8
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 11:36:19 +0000 (UTC)
+Received: by mail-wr1-f45.google.com with SMTP id
+ ffacd0b85a97d-492fcbfaa88so1368433f8f.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 03:36:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795088157; x=1795692957; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1795088177; x=1795692977; darn=lists.freedesktop.org;
  h=mime-version:user-agent:content-transfer-encoding:content-type
  :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
  :cc:subject:date:message-id:reply-to:content-type;
- bh=MPjwE03AK+kOS+G4vhNsbhG+7aXO7nEw3XQW3Hs8lOs=;
- b=hW2E+Kv4H08sIkok+5o7sWyiqrBK96fyx3smI70ez0hq7AWTV/vYHfrlpD/7hMDjQU
- Eo5WyhLap6ajN1zKtZsbLEqYh6MldMa9yCqrZN+fuHVKo9Q8PFSAMFGmgGiY6eF2bNtq
- RaZo1+EYg6BNrEtZNJ7qeiKgXBu8w71ZLn00z5ed1bfS2L2DwnEPpYbsRsIgfr+FHznm
- gO53Z5LQDI9n9PdHequIJb+uC2ohvEdKMScwKqRYpVqiQ4lPMBbiKhMsSOWe4L/Pcpa3
- zzPo1VgKo4tiALYVtTD6D5JAVq9aOPuGWHxFGdQ56tJoms9RLstpuE7KXEyCnMAQuXmj
- p8Jw==
+ bh=yWtJKzy+cMo/Pi8H79xrTwKkXy692352VdPV70DPjkk=;
+ b=Bmtmb4GIh2wL8qhcASeOWl8hh1ZCPWuJSkHGanIMNdzsfT8Rt9ab56wr9dvpKArckI
+ is1sAFyw0u6R1wBtaWbeXJxX3BFG/7ewUjWQ7GWPN7t4mvXQdXl1Pj4v5OwBX2AlYvEZ
+ GprMIDl6GfG6A4l+J8xywc4lwDZsCXVmuhGbVL1n6xd+YfoUG95c/2oHcDyU4rZ/exP9
+ 4gCRZ367txHlGh12PYnjmh2ga+KGJdd6FD45RsiTZrqOqKSEYWycBB9YkkdOWTm04Z7e
+ eO6INVVYmYODFiJTjR0lNS4nPhfN3cMUwejwa40d3UIDFDEinX5NdWeB4HYGdHVXA4/R
+ m61Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795088157; x=1795692957;
+ d=1e100.net; s=20260707; t=1795088177; x=1795692977;
  h=mime-version:user-agent:content-transfer-encoding:content-type
  :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=MPjwE03AK+kOS+G4vhNsbhG+7aXO7nEw3XQW3Hs8lOs=;
- b=ZjR/Tyz8GIin2axIfZiXDqowi04nmn0UEqIiJXmVLIZND5vE2lplA7O9XfswJXkKVr
- jdXNdLZ0iSkA+vX0dkUmXadK6WftHO0E5jje5zmW/HCNScizpFpsa0dieiQtDwrTF55s
- VhRn87dtcX40eYTXpgBcFu2U22547CCzkDL0FW6FqWq0NaDKvyuyCALtlHRv/KuVseZq
- fsCevPyH0MZrKD0h457EnED5oaurr+QQjcW6L8YkUiA3Rbt2YmlaLsrHufSiEvI/oo01
- X+AksyhfQKNf0+ZMI+oxns/mNjy6AVS10KGjl+JgHrfpMCMl7t4ijUQSbV7gd9Bhgb5h
- XHaQ==
+ bh=yWtJKzy+cMo/Pi8H79xrTwKkXy692352VdPV70DPjkk=;
+ b=hb6PLDdPtX5O+estShyPJab7GfwKeQJhw6aFHbpvWiSG5hsR6R37R6Hnpf63AonNdK
+ YU71L1bHyj1Ce02xWFormD4o3FWMctyLmk56YIvzQJR1LyqT1srbNKCtyYkS2FvvbBad
+ aDqKjd1keMFkOYdGoetl1dFfn6c25K+jB48lwTp719ahK/fgE59yilW1trtiRFvP5QdS
+ l6o+1FYcP4LglK9xZwGai17h0lc27JxwLIG1IxavW+DnUULDSuxgLfTk8x6akgYA6Ymz
+ I5vfCF5Hwb7g+NrJF2D0wEhF4bbreyMTHpow17MWRWpezU7GeLUpL9wyPIup/Fdt35Ct
+ bC8w==
 X-Forwarded-Encrypted: i=1;
- AL+hErG9wJxnuff5jlDOun/TYRgQ4rssoYhLDbQxKMWZVzk41Bh/QPvqOdmsmnlcloZSGCIS4tv/rHAr@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/DcnJHDp5ycjoIDI9xREc3TagAz8bnqw1gPly/nYL9x8Q3MjRY
- JnxetvMB79uGtsaNXQqST9Kp9OgJJ8Cjbg8gbUti+Tt+MoYXraPh8sqm
-X-Gm-Gg: AZFdTZf4IxyWidx16eViLJFBN36DnlwX01WKOhwYR8crS4JLHjM227WQ7BEKCh9HlJ0
- HaZr7sm6K8rN++pO0LLH+7toQK9TGhdvl18jf0D5w+SOVOQR5SXNzfEAQ4xmw9HFBILST/cSU24
- 5e+fnS4ZFp5XzeBC/2qmqUTAMh3Ec6BGOKNGuwn1hKkYd2RGqyk4vj5BmnIwQkJ4+NCIShWjtX4
- /EurfDZEHqVVaxnGFx7uv6dmlWy6kiJy7IgWi/p+vZaLF3PQIsq/dXWo3QPePAcJNVL9nBNRfOJ
- AWlP0Y6iaBK3uPIZ/hIm/+zoTi3ouJh1QwNxa6Ge/Ow3/YpIuDIwIiRo5hgBiNqRUjnXLeYUZIB
- 41nLEz0RH4qQfpdtXkl70iF+lQ4GfbdrrHsJ9ITOcVVmle/q5SEnuAjC4eHVI47ZMM2MrpYjRld
- Nkc6r8+Din6q6q3j6baEArA8HaNucsUeTTa39eTU4j7Ec+9/ppepgd40A9qiSu8m65NFXVX9su2
- TSySoFz2NCV7Tt32BBJYj3lwedr/izbMc7488mdIRr3DTdmnTI94jcPm7YwaJOP44vYWdBTGQuN
- 2gc9b6T4xFwgpA8uhs7BCcCk30ePDGW4ta21mQSwtBKGgvWbf5Ccsh+zt2ImZCT1WZ39KN/LuWM
- i8PQr
-X-Received: by 2002:a05:6000:2903:b0:491:c392:1f31 with SMTP id
- ffacd0b85a97d-4aa5ab788d1mr2254557f8f.28.1795088156444; 
- Thu, 19 Nov 2026 03:35:56 -0800 (PST)
+ AL+hErETvnKuXmInDDCzGRr3OUGiWMveLqhqLGVueuIWuN2lrZN+QYWTAWklx6/QYPBV1u5KHfV8R8hq@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/sxsPsFlSqSF6p4Fomlw8h5fFCPV7q45fTSOQCI0BH1fOtcByl
+ 3dUgV7h3A/QsN1yc1FsuNTEjibXfgiufK7g68PMbZhZX4PdO0fjHHHDN
+X-Gm-Gg: AZFdTZeRPq2NksuJ7tGRH8qq7kzo8+6+uCnQRlOrwn2nKno4ojKq+arlCzvQwHRuA0k
+ MjoLXQUlGPKsDl7Lh5nZp/nc+/JbJpRKtGZWchBKBzheQ0T9Gcj2R6YFnOZLWIjiKd9/OT9KhXu
+ VoGuo3NNV8qVDAEew2XK4TeHQ4fotmKzR1FlTMtrg3QkL3fc0E3Eq2QNwUauT/RGjNUh7Zfwegw
+ KpIecVP4d/tR/N3RvCifLJ8EUEOeulHEeWGRf/kbWN+mQySY5G06YP/6sJzQkoczjGCWO90IaxB
+ vrxxFw8OdxPTkXx/P2y5dR4ZdDQCtSl78O6y6e+62zpSOPnbATCh8wLAsQEJQ8suFliKiwXz4cR
+ OP4L+0sMoAN4qmhytahUmgXqp9isdZm5lzk1rL11BmRD0W4EdhPWFx0ANOpwFx4B66ZA/f676MS
+ +Ti9ySZ4uCM83zk0cOJX44PTqKWIK4O4K66P86ybPoBeR1daz2+3OxL4PQMi+afvhnYGgHlG7bD
+ xHDQmpUrKIt1cRJ3i74+BmymTCz+/3K+rirM/hCCNA6Ga96RDQGSXH0eIP4Et/cOn0yMs1WaSeY
+ hI0o/i/nGl8IyfoErfxm3BeO4PqGz6jchZ+1/9n+9PKcWHH4Qo4UEVbXw1LSTaX0ZBvIgad7+L7
+ 3KuUX
+X-Received: by 2002:adf:e183:0:b0:4aa:8de6:6648 with SMTP id
+ ffacd0b85a97d-4aa8de66db5mr1495810f8f.45.1795088177378; 
+ Thu, 19 Nov 2026 03:36:17 -0800 (PST)
 Received: from [192.168.1.71] (115.red-2-136-224.staticip.rima-tde.net.
  [2.136.224.115]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4a654a8c411sm10578255f8f.16.2026.11.19.03.35.55
+ ffacd0b85a97d-4a654a8c3a7sm10739694f8f.9.2026.11.19.03.36.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 19 Nov 2026 03:35:55 -0800 (PST)
-Message-ID: <8d7613f7203172334b3c295ec73cd9d83cec8340.camel@gmail.com>
-Subject: Re: [PATCH v4 05/13] drm/amdgpu/gfx12: save and restore a gfx HQD
+ Thu, 19 Nov 2026 03:36:16 -0800 (PST)
+Message-ID: <7cca49f80a855f1cbbd7c77ed62ade1011155570.camel@gmail.com>
+Subject: Re: [PATCH v4 06/13] drm/amdgpu/gfx11: save and restore a gfx HQD
 From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
 To: Jesse Zhang <Jesse.Zhang@amd.com>, amd-gfx@lists.freedesktop.org
 Cc: Alexander.Deucher@amd.com, Christian Koenig <christian.koenig@amd.com>, 
  Lijo.Lazar@amd.com, Mario.Novales@amd.com, Manu.Rastogi@amd.com, 
  Jiongyu.Zhu@amd.com
-Date: Thu, 19 Nov 2026 12:35:54 +0100
-In-Reply-To: <20261105030612.726542-5-Jesse.Zhang@amd.com>
+Date: Thu, 19 Nov 2026 12:36:15 +0100
+In-Reply-To: <20261105030612.726542-6-Jesse.Zhang@amd.com>
 References: <20261105030612.726542-1-Jesse.Zhang@amd.com>
- <20261105030612.726542-5-Jesse.Zhang@amd.com>
+ <20261105030612.726542-6-Jesse.Zhang@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
@@ -89,16 +89,16 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FORGED_GMAIL_RCVD,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 On Thu, 2026-11-05 at 11:05 +0800, Jesse Zhang wrote:
-> Implement the gfx callbacks to save and restore a gfx HQD for gfx12:
+> Implement the gfx callbacks to save and restore a gfx HQD for gfx11:
 > - save_hqd() saves the HQD offset, CSMD read pointer and write
 > pointer
 > =C2=A0 of the gfx HQD of a doorbell, and whether the queue is the one
@@ -118,62 +118,56 @@ On Thu, 2026-11-05 at 11:05 +0800, Jesse Zhang wrote:
 >=20
 > Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
 
-The code looks good, though I didn't test the series yet on GFX12 yet.
-
 Reviewed-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
 
-
 > ---
-> =C2=A0drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c | 83
+> =C2=A0drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 83
 > ++++++++++++++++++++++++++
 > =C2=A01 file changed, 83 insertions(+)
 >=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> index cb15dad0e57b..484e876fe235 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> @@ -274,6 +274,11 @@ static void gfx_v12_0_set_imu_funcs(struct
-> amdgpu_device *adev);
-> =C2=A0static int gfx_v12_0_get_cu_info(struct amdgpu_device *adev,
-> =C2=A0				 struct amdgpu_cu_info *cu_info);
-> =C2=A0static uint64_t gfx_v12_0_get_gpu_clock_counter(struct amdgpu_devic=
-e
-> *adev);
-> +static bool gfx_v12_0_save_hqd(struct amdgpu_device *adev, u32
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> index 430b8f3743b2..798015689f0c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> @@ -365,6 +365,11 @@ static void gfx_v11_0_unset_safe_mode(struct
+> amdgpu_device *adev, int xcc_id);
+> =C2=A0static void gfx_v11_0_update_spm_vmid(struct amdgpu_device *adev,
+> int xcc_id,
+> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int vmid);
+> =C2=A0static void gfx_v11_0_userq_priv_fault_work(struct work_struct
+> *work);
+> +static bool gfx_v11_0_save_hqd(struct amdgpu_device *adev, u32
 > doorbell_index,
 > +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu_gfx_saved_hqd *hqd=
 );
-> +static bool gfx_v12_0_restore_hqd(struct amdgpu_device *adev, void
+> +static bool gfx_v11_0_restore_hqd(struct amdgpu_device *adev, void
 > *m,
 > +				=C2=A0 u32 ring_size,
 > +				=C2=A0 const struct amdgpu_gfx_saved_hqd
 > *hqd);
-> =C2=A0static void gfx_v12_0_select_se_sh(struct amdgpu_device *adev, u32
-> se_num,
-> =C2=A0				=C2=A0=C2=A0 u32 sh_num, u32 instance, int
-> xcc_id);
-> =C2=A0static u32 gfx_v12_0_get_wgp_active_bitmap_per_sh(struct
-> amdgpu_device *adev);
-> @@ -962,6 +967,8 @@ static const struct amdgpu_gfx_funcs
-> gfx_v12_0_gfx_funcs =3D {
-> =C2=A0	.update_perfmon_mgcg =3D &gfx_v12_0_update_perf_clk,
-> =C2=A0	.get_gfx_shadow_info =3D &gfx_v12_0_get_gfx_shadow_info,
+> =C2=A0static void gfx_v11_0_update_perf_clk(struct amdgpu_device *adev,
+> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bool enable);
+> =C2=A0
+> @@ -1150,6 +1155,8 @@ static const struct amdgpu_gfx_funcs
+> gfx_v11_0_gfx_funcs =3D {
+> =C2=A0	.get_gfx_shadow_info =3D &gfx_v11_0_get_gfx_shadow_info,
 > =C2=A0	.get_hdp_flush_mask =3D &amdgpu_gfx_get_hdp_flush_mask,
-> +	.save_hqd =3D &gfx_v12_0_save_hqd,
-> +	.restore_hqd =3D &gfx_v12_0_restore_hqd,
+> =C2=A0	.detect_hung_queue =3D &gfx_v11_0_detect_hung_queue,
+> +	.save_hqd =3D &gfx_v11_0_save_hqd,
+> +	.restore_hqd =3D &gfx_v11_0_restore_hqd,
 > =C2=A0};
 > =C2=A0
-> =C2=A0static int gfx_v12_0_gpu_early_init(struct amdgpu_device *adev)
-> @@ -3853,6 +3860,82 @@ static int gfx_v12_0_wait_for_idle(struct
-> amdgpu_ip_block *ip_block)
-> =C2=A0	return -ETIMEDOUT;
+> =C2=A0static int gfx_v11_0_gpu_early_init(struct amdgpu_device *adev)
+> @@ -6770,6 +6777,82 @@ static void gfx_v11_0_emit_mem_sync(struct
+> amdgpu_ring *ring)
+> =C2=A0	amdgpu_ring_write(ring, gcr_cntl); /* GCR_CNTL */
 > =C2=A0}
 > =C2=A0
-> +#define GFX12_HPD_QUEUE_STATE_CONNECTED_MIN	3
-> +#define GFX12_HPD_QUEUE_STATE_CONNECTED_MAX	15
+> +#define GFX11_HPD_QUEUE_STATE_CONNECTED_MIN	3
+> +#define GFX11_HPD_QUEUE_STATE_CONNECTED_MAX	15
 > +
-> +static bool gfx_v12_0_save_hqd(struct amdgpu_device *adev, u32
+> +static bool gfx_v11_0_save_hqd(struct amdgpu_device *adev, u32
 > doorbell_index,
 > +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu_gfx_saved_hqd *hqd=
 )
@@ -182,13 +176,13 @@ e
 > +
 > +	memset(hqd, 0, sizeof(*hqd));
 > +	hqd->doorbell_index =3D doorbell_index;
-> +	if (!gfx_v12_0_detect_hung_queue(adev, doorbell_index, &me,
+> +	if (!gfx_v11_0_detect_hung_queue(adev, doorbell_index, &me,
 > &pipe, &queue))
 > +		return true;
 > +
 > +	amdgpu_gfx_off_ctrl(adev, false);
 > +	mutex_lock(&adev->srbm_mutex);
-> +	soc24_grbm_select(adev, me, pipe, queue, 0);
+> +	soc21_grbm_select(adev, me, pipe, queue, 0);
 > +	hqd->on_hqd =3D RREG32_SOC15(GC, 0, regCP_GFX_HQD_ACTIVE) &
 > +		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CP_GFX_HQD_ACTIVE__ACTIVE_MASK;
 > +	if (!hqd->on_hqd)
@@ -207,25 +201,25 @@ e
 > +	state =3D REG_GET_FIELD(status, CP_GFX_HPD_STATUS0,
 > QUEUE_STATE);
 > +	hqd->connected =3D
-> +		state >=3D GFX12_HPD_QUEUE_STATE_CONNECTED_MIN &&
-> +		state <=3D GFX12_HPD_QUEUE_STATE_CONNECTED_MAX &&
+> +		state >=3D GFX11_HPD_QUEUE_STATE_CONNECTED_MIN &&
+> +		state <=3D GFX11_HPD_QUEUE_STATE_CONNECTED_MAX &&
 > +		REG_GET_FIELD(status, CP_GFX_HPD_STATUS0,
 > MAPPED_QUEUE) =3D=3D queue;
 > +out:
-> +	soc24_grbm_select(adev, 0, 0, 0, 0);
+> +	soc21_grbm_select(adev, 0, 0, 0, 0);
 > +	mutex_unlock(&adev->srbm_mutex);
 > +	amdgpu_gfx_off_ctrl(adev, true);
 > +
 > +	return true;
 > +}
 > +
-> +static bool gfx_v12_0_restore_hqd(struct amdgpu_device *adev, void
+> +static bool gfx_v11_0_restore_hqd(struct amdgpu_device *adev, void
 > *m,
 > +				=C2=A0 u32 ring_size,
 > +				=C2=A0 const struct amdgpu_gfx_saved_hqd
 > *hqd)
 > +{
-> +	struct v12_gfx_mqd *mqd =3D m;
+> +	struct v11_gfx_mqd *mqd =3D m;
 > +	u32 wptr =3D lower_32_bits(hqd->wptr) & ((ring_size >> 2) -
 > 1);
 > +	u32 *status;
@@ -268,8 +262,7 @@ e
 > +	return hqd->connected;
 > +}
 > +
-> =C2=A0static uint64_t gfx_v12_0_get_gpu_clock_counter(struct amdgpu_devic=
-e
-> *adev)
-> =C2=A0{
-> =C2=A0	uint64_t clock =3D 0;
+> =C2=A0static int gfx_v11_0_reset_kgq(struct amdgpu_ring *ring,
+> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int vmid,
+> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu_fence *timedo=
+ut_fence)
