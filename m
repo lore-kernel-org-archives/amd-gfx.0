@@ -2,53 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D552606A326
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 16:05:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8E1A606A320
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 16:13:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d9WwW2ar
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ej4l8CWD
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4683710E48B;
-	Thu, 19 Nov 2026 16:05:10 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D399210E962;
- Thu, 19 Nov 2026 16:05:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F240510E879;
+	Thu, 19 Nov 2026 16:13:10 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 79ECF10E869;
+ Thu, 19 Nov 2026 16:13:04 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id EF51163383;
- Thu, 19 Nov 2026 16:05:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD7631F000C7;
- Thu, 19 Nov 2026 16:05:01 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3FB7F434ED;
+ Thu, 19 Nov 2026 16:13:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3F9C1F000C4;
+ Thu, 19 Nov 2026 16:13:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795104302;
- bh=hbK+kWkYYKm/efLUoBKOSkktiP3/Wop2eoAi4ChS1QA=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=d9WwW2ar0YOTWbnyoAZZOi6xLhgyjF+NG7ZochlTRKamLVWoY9yrclWCRcsMHo3zW
- 8qrPXHFN9J6HJKjcHz6sCgf+oZiPHGmTTdMyMB91gKzkzhxElmrwZW6cGd8euvjMGq
- 1Ehir73ksQGmS2lNCWJ2uI+Z5+hW6X1pXlQwW+RZWwaC5CJRouw3q0W9kw31G5mnT9
- QwtstSKgVHu8L4g6Zv76NEEnoMLqEVGaDWV6kWzeZ9ptLSvq735A5h6tMOWMitaFaa
- xwOmtfpOK+0R2wx1hD6BqcMc1By2Y6YtyqxvENb4t7nr2xQyJtknRE318tG9+c5AzT
- V8fJZFr7i9jdw==
-Message-ID: <3657995d-b4f7-4a0d-9615-1c56a0127de1@kernel.org>
-Date: Thu, 19 Nov 2026 10:04:56 -0600
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 0/3] Fix amdgpu detection of pci=realloc
-Content-Language: en-US
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Bjorn Helgaas <helgaas@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Oz Tiram <oz@shift-computing.de>, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org,
- Reza Nikzad Chaleshori <rezanikzadch@gmail.com>
-References: <20261111-vfct-regression-v6-0-393797bbb6e3@amd.com>
- <5cf8f937-acc8-475e-ba0c-6be00defbb53@amd.com>
- <CADnq5_PAarNZ24xOU3MqVfEra1hSOqgrKQxvLppyCWZQebr_yw@mail.gmail.com>
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <CADnq5_PAarNZ24xOU3MqVfEra1hSOqgrKQxvLppyCWZQebr_yw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+ s=k20260515; t=1795104784;
+ bh=LNwBhrgd2XgeJf5qa0RvBPI8vxgknN9WZ/5IPhgdEYA=;
+ h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
+ b=Ej4l8CWDwn4c3G00ondMWkBwrSp7m23MNolQqGFNJwsj+qRmYSBqvMprcacC00ebF
+ 6o6Z2553dQ6dfRjmCJIzFjBK8UGNivc931+2WPTIInMu7Bm7aySIDScVJZTEQfb8bH
+ gxDWppzrKxWXyv4K06D6jT1tJKm/JqpCAzIcEVB3YWignAS3MrGlCXFjHKp7lpl6Bp
+ NkXWYsjetLqChIzRQmhJRQmvvdK+4sZraGjnZCgQImlScjkhfi8I0DdA7pQZvbtgCm
+ /pW9dQaHgYwnXfCNEMD8+cICILO6CZab+uFJCH0E4irogWsG6tsfvL0ss4JHgCNb0i
+ ffDd+8dja7lbQ==
+Message-ID: <sashiko-outbox-223492@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1 3/4] drm/amd/display: Add support for 2.4 and 2.6
+ Gamma and its Inverse
+To: "Harry Wentland" <harry.wentland@amd.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+In-Reply-To: <20261119155427.2494007-4-harry.wentland@amd.com>
+References: <20261119155427.2494007-1-harry.wentland@amd.com>
+ <20261119155427.2494007-4-harry.wentland@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 19 Nov 2026 16:13:03 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,97 +48,83 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] drm/amd/display: missing Gamma 2.4/2.6 wide curve in
+  cm_helper_translate_curve_to_hw_format()
+--
 
+commit 9ada1f8d824096557c1dda5282f2d0aa09bccdb4
+Author: Harry Wentland <harry.wentland@amd.com>
 
-On 11/19/26 09:57, Alex Deucher wrote:
-> On Thu, Nov 19, 2026 at 10:30 AM Mario Limonciello
-> <mario.limonciello@amd.com> wrote:
->>
->>
->>
->> On 11/11/26 10:43, Mario Limonciello wrote:
->>> amdgpu needs to know the bus number the platform assigned a device to
->>> be able to match firmware images against the right device.
->>>
->>> This was previously adjusted to be a soft filter due to
->>> commit 11c141672045f ("drm/amdgpu: Fix VFCT bus number matching with
->>> soft filter") where if everything but the number matched to take a device.
->>>
->>> This however fails when there are two identical devices.  Instead save the
->>> initial bus number to the PCI device structure and then match that.
->>>
->>> Link: https://lore.kernel.org/linux-pci/20261015124843.203905-1-mario.limonciello@amd.com/
->>> Link: https://lore.kernel.org/amd-gfx/20261019194106.2796150-1-alexander.deucher@amd.com/
->>> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
->>> ---
->>> Changes in v6:
->>> - Capture the firmware secondary bus number when reading bridge windows and
->>>     ignore unconfigured values so rescans cannot replace it with runtime data
->>>     (Sashiko).
->>> - No change needed in the VFCT consumers; they continue to read the cached
->>>     value from the upstream bridge.
->>> - Link to v5: https://patch.msgid.link/20261110-vfct-regression-v5-0-f49fae981bf3@amd.com
->>>
->>> Changes in v5:
->>> - Record the firmware secondary bus number only on the bridge struct pci_dev,
->>>     guard it with a validity bit, and keep it across rescans (Bjorn, Lijo).
->>> - Drop pci_bus::number_initial and have amdgpu/radeon read the saved bridge
->>>     number when matching VFCT entries.
->>>
->>> Changes in v4:
->>> - Retain secondary bus bus number for a bridge across rescans, and the child bus is initialized
->>>     from it during allocation, before registration callbacks run. (Sashiko)
->>> - Rename variable to clarify it's for bridges (Lijo)
->>> - Link to v3: https://patch.msgid.link/20261026-vfct-regression-v3-0-fe9586ed6978@amd.com
->>>
->>> Changes in v3:
->>> - Preserve the firmware bus number across bridge renumbering, capturing the
->>>     secondary bus number before pci_scan_bridge_extend() clears it.
->>> - Adjust member name in all patches
->>> - Add tags
->>> - Link to v2: https://patch.msgid.link/20261020-vfct-regression-v2-0-d2394d11450a@amd.com
->>>
->>> Changes in v2:
->>> - pci_alloc_dev(NULL) remains safe.
->>> - For buses behind a reassigned bridge, the PCI core now saves the firmware secondary bus
->>>     number before clearing the bridge configuration and carries it into the newly allocated bus.
->>>     Devices discovered there inherit that original number.
->>> - Add changes for radeon too.
->>> - Link to v1: https://patch.msgid.link/20261019-vfct-regression-v1-0-5a63ddd378dd@amd.com
->>>
->>> ---
->>> Mario Limonciello (3):
->>>         PCI: Cache bridge firmware secondary bus number
->>>         drm/amdgpu: Match VFCT using initial PCI bus number
->>>         drm/radeon: Match VFCT using initial PCI bus number
->>>
->>>    drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 23 ++++++++++-------------
->>>    drivers/gpu/drm/radeon/radeon_bios.c     | 25 +++++++++++--------------
->>>    drivers/pci/probe.c                      | 16 ++++++++++++++--
->>>    include/linux/pci.h                      |  4 ++++
->>>    4 files changed, 39 insertions(+), 29 deletions(-)
->>> ---
->>> base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
->>> change-id: 20261019-vfct-regression-2142fc52852a
->>>
->>> Best regards,
->>> --
->>> Mario Limonciello <mario.limonciello@amd.com>
->>
-> 
-> Is v6 preferred to v7?
-> 
-> Alex
+drm/amd/display: Add support for 2.4 and 2.6 Gamma and its Inverse
 
-My local linking between message IDs got messed up.  Yes comments on v7 
-please, thanks for catching.
+This commit maps the Gamma 2.4 and 2.6 1D curve types to the
+corresponding DC transfer functions and advertises them in the supported
+degamma, shaper, and blend transfer function masks.
 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c b/=
+drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
+> index d32bf2bf28478..935c041c1d316 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
+> @@ -38,21 +38,27 @@ const u64 amdgpu_dm_supported_degam_tfs =3D
+>  	BIT(DRM_COLOROP_1D_CURVE_SRGB_EOTF) |
+>  	BIT(DRM_COLOROP_1D_CURVE_PQ_125_EOTF) |
+>  	BIT(DRM_COLOROP_1D_CURVE_BT2020_INV_OETF) |
+> -	BIT(DRM_COLOROP_1D_CURVE_GAMMA22);
+> +	BIT(DRM_COLOROP_1D_CURVE_GAMMA22) |
+> +	BIT(DRM_COLOROP_1D_CURVE_GAMMA24) |
+> +	BIT(DRM_COLOROP_1D_CURVE_GAMMA26);
+>  EXPORT_IF_KUNIT(amdgpu_dm_supported_degam_tfs);
+> =20
+>  const u64 amdgpu_dm_supported_shaper_tfs =3D
+>  	BIT(DRM_COLOROP_1D_CURVE_SRGB_INV_EOTF) |
+>  	BIT(DRM_COLOROP_1D_CURVE_PQ_125_INV_EOTF) |
+>  	BIT(DRM_COLOROP_1D_CURVE_BT2020_OETF) |
+> -	BIT(DRM_COLOROP_1D_CURVE_GAMMA22_INV);
+> +	BIT(DRM_COLOROP_1D_CURVE_GAMMA22_INV) |
+> +	BIT(DRM_COLOROP_1D_CURVE_GAMMA24_INV) |
+> +	BIT(DRM_COLOROP_1D_CURVE_GAMMA26_INV);
+>  EXPORT_IF_KUNIT(amdgpu_dm_supported_shaper_tfs);
+
+[Severity: Medium]
+Should cm_helper_translate_curve_to_hw_format() also select the wide
+32-region curve for TRANSFER_FUNCTION_GAMMA24 and
+TRANSFER_FUNCTION_GAMMA26?
+
+While commit "drm/amd/display: Use the wide CM3 curve for gamma 2.4 and
+2.6" updated cm3_helper_translate_curve_to_hw_format() (used on DCN 3.2
+and 4.01), DCN 3.0, 3.01, 3.1, and 3.14 wire set_shaper_3dlut to
+dcn20_set_shaper_3dlut(), which translates plane_state->cm.shaper_func via
+cm_helper_translate_curve_to_hw_format():
+
+drivers/gpu/drm/amd/display/dc/dcn10/dcn10_cm_common.c:cm_helper_translate_=
+curve_to_hw_format() {
+	...
+	if (output_tf->tf =3D=3D TRANSFER_FUNCTION_PQ || output_tf->tf =3D=3D TRAN=
+SFER_FUNCTION_GAMMA22) {
+		...
+	} else {
+		corner_points[0].red.x =3D dc_fixpt_from_fraction(1, 4096);
+	...
+}
+
+When userspace configures DRM_COLOROP_1D_CURVE_GAMMA24_INV or
+DRM_COLOROP_1D_CURVE_GAMMA26_INV on the plane shaper colorop on DCN
+3.0..3.14, the shaper LUT falls back to the 12-region (2^-12 to 2^0)
+curve and crushes dark linear values below 2^-12 to zero.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119155427.2494=
+007-1-harry.wentland@amd.com?part=3D3
