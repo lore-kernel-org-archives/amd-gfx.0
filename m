@@ -2,163 +2,94 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E26DE606A324
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 14:10:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6994C60A263B
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 14:10:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=nkgzzLi3;
-	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=WlLntvbl
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=21KMvBVS
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F09F3112449;
-	Thu, 19 Nov 2026 14:10:22 +0000 (UTC)
-Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com
- [148.163.135.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5BA0610E7FE
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Nov 2026 15:26:59 +0000 (UTC)
-Received: from pps.filterd (m0167072.ppops.net [127.0.0.1])
- by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6AIEgJnQ3421322
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Nov 2026 10:26:58 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=pps01; bh=y03Y
- 2WW5oPTNmKuWLrWXmR4s/hn2HFIbPEH/c3XFLbg=; b=nkgzzLi3h9HeG8fKyYEG
- uDh31vyXH1oYKrz4We4FN7MFzIgxKgw5bbl/1yYWvjel0KI9TY0DcA4tf8wyHfUO
- E9S3VBpfvNnGIkq1nWd7rxaJV0Lqs7OrEOCpyx0/oBVIQHwhYGWzDerPT+uUwcIw
- UNDOHrTbQpKsrdIawLbTecxwoOgThMzBSetvGLfhD1Fr+I+bJ8XjXzV/tn3a/mwj
- WnmC1oaXxkPmI1tAL5NMf/NM2XxF0DEM+oYOVbl6k3afNC9MEBBmKm7ao0MfRmEk
- 9PYcQAKRmMuhT+Cw6VRw5kLAg34WlAdslNZkvKUYJ/1MhKqj8LIxnHzWfAB0TDWa
- AQ==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4j0yu84css-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Nov 2026 10:26:58 -0500 (EST)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-93cb7f9bb86so242387785a.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Nov 2026 07:26:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=columbia.edu; s=lionmail; t=1795015617; x=1795620417;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=y03Y2WW5oPTNmKuWLrWXmR4s/hn2HFIbPEH/c3XFLbg=;
- b=WlLntvblwnONcfhUxAoMG/YrAGVztFECiTcxtIRPsKR96f0ysNTpo8JfRH1FkUJXrR
- 5FA6chq87kfh8uK0vn+L/4UW7WD4+2j7MoZcphn+8lE6x8tNMSPEbHUScGas6YU6m4Po
- azvgX44tvhversno90UqRQNdB31YDeFHGszpHrWwstEo4Le/fV5zoDz0qZORflySCMop
- s6pCLeFEOXDO7UEqAHlG1RRErnde50zY0ydbk5Ge0b7mBoDywQO0EJ6zy2UqDKLnm4T+
- Lpejv1M922inJtBSArsfzy2v38WRVCGpmLELG0D/BawpS7duF0wdZafdjszQs+g8H0wZ
- P8Ew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795015617; x=1795620417;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=y03Y2WW5oPTNmKuWLrWXmR4s/hn2HFIbPEH/c3XFLbg=;
- b=CIZXveHupo7hGnGfEl6HIE0ixTMaYz/UYXWJLstiyfsKocmwFY9JVtaktcEPe2w+x9
- k3EaA01yCUhQCyzPmieKw6lWXLWrHYfZH4evp4VrMPplJgl1k6SsIpMvtpJxdDmIwh/C
- sKeM440zCTW5sWcBdGNrZ6f01bHAOjuAz29mrPk5TBx4veHIEFxmLns8VML4XzhG8tOs
- U1u6DT8GLJ6t43ZR52C4BUBIXfWQeR8kMtgTtD7ygivpmBh4MCUOsviT5FahZRzrw3gk
- mBkEvTS74V8aQXXMfq2sZxSGO6zDu6r0NS+ZnQn1E29hU9srMjsrIoB5Nyl074lOE6k5
- G9/A==
-X-Forwarded-Encrypted: i=1;
- AL+hErFGPuMQbCsXnM/HQ10YiJyi9UezX3EN6wNckvzFImqyXA8q/Pc4eM0NjXUPgZzRMZuZnXmS/oF4@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/X0iVmTsxEjziUk9Zbqw33oVwGbGvllwfd8fSJni6/JTG5h3XB
- PpYHVrMBfEixhECkTBQE2rSgZLyWIkftK7hkqriawr6WuAFbJP+g4wmruxMR08UqWL+CJZ62cZn
- 4CSCclq5CX6wOBe+w9jgLHiTd9UOpWHNCY5kSX076VLx9K827dwJ0k+nc/d7q714=
-X-Gm-Gg: AYBFou2It8mLGyXbRcaNNwqYfbtDZ3UxjlD477uFf9zahMKHuBccD9DZIAatUD4zAzf
- 5dB+tuOg/IfXz2D8HNQE2g1me+LVc4t+d04xqCYVQm69f+tRu9t9fwacAKBelQjkVOpiyefk6F4
- Hu/jC3pUS2VRXxFVirZRHhJAndDJOpD0vJU93pRm/H9y5y4KcUTb/e/IiZpDCYVjckzGsFOmB7I
- eu267WIJZD3lIbFsPkIWY++wNgnuPqi8vB307rViPUkggoVAdjQF1kaeRB9s1xvfNZQlF8N/Luk
- 2Z9DE2fvdHXKO1P3MZz65JxU+R+e0T7HinhIdQ+Xc8jtMum5yyr9G/B9q/KCnsTeYp6P2TzOnJ/
- glocSFYzLiO7z0aT50lUZLcPPCmLWncbmhIsoOfdWhiKjk2aqz7wGxjsiRR+H964iqBf1HRM2fO
- I3TnYAZsU8e41C+J+Mvf5Rig==
-X-Received: by 2002:a05:620a:8395:b0:947:b201:faf9 with SMTP id
- af79cd13be357-949995f04bamr536128585a.59.1795015617486; 
- Wed, 18 Nov 2026 07:26:57 -0800 (PST)
-X-Received: by 2002:a05:620a:8395:b0:947:b201:faf9 with SMTP id
- af79cd13be357-949995f04bamr536117585a.59.1795015616695; 
- Wed, 18 Nov 2026 07:26:56 -0800 (PST)
-Received: from [10.207.2.125] (nat-128-59-176-14.net.columbia.edu.
- [128.59.176.14]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-9499b72055bsm204599485a.12.2026.11.18.07.26.55
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 18 Nov 2026 07:26:56 -0800 (PST)
-Message-ID: <7d31ba34-8b5f-4eb2-9864-145ea80c3412@columbia.edu>
-Date: Wed, 18 Nov 2026 10:26:54 -0500
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F0AF112446;
+	Thu, 19 Nov 2026 14:10:40 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28E9B10ECC8;
+ Thu, 19 Nov 2026 05:35:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
+ :Reply-To:Content-Type:Content-ID:Content-Description;
+ bh=+gOx2QgB+hpP7MCoJC2GHmTIyqlHXmH+VrhxZ+vlPAo=; b=21KMvBVS9aAPeZb830CX75Ewxo
+ Fjr6DfdpCfqdjhEX5skJdo7foilZqmV2B9PmG77H8NC5afT6ZjTxPHrXeGCKFebe0SAR4iRzIR5ep
+ o5kM6r3SbXA5dL5yRVpL6k6KB0QegmzeFYVbEJ+ZILDYyZhVuaO4fOzdY6V+FRAUFBLcch3KwXwhl
+ kUderx2xCE6O79W2uSLoOeV6OR7n86HJVEzR6RoX6RhgX89jZXUYDB061+3z0kRitcz8ftruckr9C
+ VuJahUVOUstXhGaBInVbk0vEx4f4otphkMuv1jd4qOmf60SzgqsUuKNvK9wKViqHMaMiODIi4fbzG
+ v8m772sA==;
+Received: from [50.53.43.113] (helo=bombadil.infradead.org)
+ by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+ id 1xTunx-0000000Aufu-1gcz; Thu, 19 Nov 2026 05:35:29 +0000
+From: Randy Dunlap <rdunlap@infradead.org>
+To: linux-kernel@vger.kernel.org
+Cc: Randy Dunlap <rdunlap@infradead.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org,
+ David Hildenbrand <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Jason Gunthorpe <jgg@nvidia.com>, Leon Romanovsky <leonro@nvidia.com>,
+ linux-mm@kvack.org, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org,
+ Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
+ Marcel Holtmann <marcel@holtmann.org>,
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+ linux-bluetooth@vger.kernel.org,
+ Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+ Jason Wang <jasowangio@gmail.com>, David Heidelberg <david@ixit.cz>,
+ oe-linux-nfc@lists.linux.dev, Chas Williams <3chas3@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
+ Helge Deller <deller@gmx.de>, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, MPT-FusionLinux.pdl@broadcom.com,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K. Petersen" <mkp@kernel.org>, linux-scsi@vger.kernel.org,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
+ Zhihao Cheng <chengzhihao1@huawei.com>, linux-mtd@lists.infradead.org,
+ Neill Kapron <nkapron@google.com>, Andrey Konovalov <andreyknvl@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org, Hans de Goede <hansg@kernel.org>,
+ Arnd Bergmann <arnd@arndb.de>, "Michael S. Tsirkin" <mst@redhat.com>,
+ =?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+ Sean Christopherson <seanjc@google.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org,
+ virtualization@lists.linux.dev, Jan Kara <jack@suse.cz>,
+ linux-fsdevel@vger.kernel.org, "Theodore Ts'o" <tytso@mit.edu>,
+ linux-ext4@vger.kernel.org, Mike Marshall <hubcap@omnibond.com>,
+ devel@lists.orangefs.org, Paulo Alcantara <pc@manguebit.org>,
+ Namjae Jeon <linkinjeon@kernel.org>, linux-cifs@vger.kernel.org,
+ Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>,
+ linux-f2fs-devel@lists.sourceforge.net,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Tzung-Bi Shih <tzungbi@kernel.org>, Benson Leung <bleung@chromium.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, intel-gfx@lists.freedesktop.org,
+ Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ intel-xe@lists.freedesktop.org
+Subject: [PATCH v2 04/12] docs: ioctl-number: update networking entries
+Date: Wed, 18 Nov 2026 21:35:05 -0800
+Message-ID: <20261119053514.255348-5-rdunlap@infradead.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261119053514.255348-1-rdunlap@infradead.org>
+References: <20261119053514.255348-1-rdunlap@infradead.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/9] userfaultfd: assorted fixes (part 1)
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Mike Rapoport <rppt@kernel.org>, Peter Xu <peterx@redhat.com>,
- James Houghton <jthoughton@google.com>,
- Andrea Arcangeli <aarcange@redhat.com>,
- Suren Baghdasaryan <surenb@google.com>, Balbir Singh <balbirs@nvidia.com>,
- "Liam R. Howlett" <liam@infradead.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>,
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
- Michal Hocko <mhocko@suse.com>,
- =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
- Andrei Vagin <avagin@gmail.com>,
- Muhammad Usama Anjum <usama.anjum@arm.com>,
- Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>,
- Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>,
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Alistair Popple <apopple@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Oscar Salvador <osalvador@suse.de>,
- =?UTF-8?Q?Miko=C5=82aj_Lenczewski?= <miko.lenczewski@arm.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, stable@vger.kernel.org,
- Breno Leitao <leitao@debian.org>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-References: <20261117-uffd-state-fixes-v3-0-b617009d1a4a@columbia.edu>
- <4f23b0bc-b89a-46c1-b8cd-853e7815b7ac@kernel.org>
-Content-Language: en-US
-From: Tal Zussman <tz2294@columbia.edu>
-In-Reply-To: <4f23b0bc-b89a-46c1-b8cd-853e7815b7ac@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE4MDA2MSBTYWx0ZWRfX+XHe8qQiQrit
- v9KK4dcx2DVMHIzEGPbeLc4SNgMBKWKzdiAOGwgLON6SsCWYxrgytVJtSolpT5xyRO79Kq+Ewlm
- mi6BmcBUgpYmeBChZVcyvraD4LFwUlD7BJZ8wbhzBGL5EdPR/+0/
-X-Authority-Analysis: v=2.4 cv=IeISymqa c=1 sm=1 tr=0 ts=6afdc3c2 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=2zM0HjzktFauw5hoOd8SpA==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=SsB-OO3BMngHh3ZO9fOt:22
- a=Z7cX3StJxvrjZLnT-lEA:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE4MDA2MSBTYWx0ZWRfX0RdRxoYsuAMb
- TCVzh/WPr4hA58ZWSkwX2BGoqJjF4dFzzp1+5/hIDPpnXVkIhCfGKQGZOQKBLMz6Ckun4VkrHzF
- mGRbAcbx0nSgkjqG6kPg05nmgqPgpsT/JPOCoDowwG5yz0FQN8MTwgAFW6HGvCWOs4f/aIH8oNg
- O54fkl5j/JU4No2jdKhVmwuqN+KgwZ7bjJdVayKuTBUDwqNux0zi+BXc1WZKAcbZ/4Tojz1YCrX
- CX3ebwPtZoJ9/Qq1B+lZET/V6l127e1+3bo68f5hAg502d66d+7Nz8WyF9wuYQJERwtV8F4cDBY
- 8BYarJzhcHnyyTqOYYpvGXPYAP6dfpHYM2rJyhCFVZX91RdXHG2rGLgeb7akDX6YxGbIYkci8ME
- Q99nHQUZ3LXMb4vNTFXsMDIiHjUtbmgnjd/zRADyiMHrzz0+v2gTVsQMavkiPaHLwfeOzYP/eki
- A+RBl1EpIsIZ+9gNa3Q==
-X-Proofpoint-ORIG-GUID: cxN4XHdMll0SEJTDvHyMr0ilWh3H_NLc
-X-Proofpoint-GUID: cxN4XHdMll0SEJTDvHyMr0ilWh3H_NLc
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11970
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 clxscore=1015 spamscore=0 bulkscore=10 adultscore=0
- impostorscore=10 phishscore=0 suspectscore=0 lowpriorityscore=10
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611180061
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 19 Nov 2026 14:10:22 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -170,57 +101,124 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/18/26 4:41 AM, David Hildenbrand (Arm) wrote:
-> On 11/18/26 05:28, Tal Zussman wrote:
-...
+Update the list of files where networking ioctls are defined and update
+the ranges of function numbers that are used.
 
->> Patch 6 has little user impact on its own. It is included because,
->> together with patch 7, it allows removing clear_uffd_wp_pmd().
->> 
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+---
+v2: address sashiko comments (duplicat bnep.h entry; missing its
+    "conflict" marker);
+    drop moderated mailing lists
 
-...> 
-> So, I would be picking up ...
-> 
->> Tal Zussman (9):
->>       userfaultfd: use anonymous memory for UFFDIO_ZEROPAGE on private file mappings
->>       userfaultfd: refuse UFFDIO_MOVE into a non-present huge destination PMD
->>       fs/proc/task_mmu: downgrade writable migration entries in PAGEMAP_SCAN write-protect
->>       mm/migrate: warn on a writable migration entry with the uffd bit set
-> 
-> This
-> 
->>       fs/proc/task_mmu: write-protect device-private THPs in PAGEMAP_SCAN
->>       mm/huge_memory: build the moved huge zero PMD from the destination VMA
-> 
-> This
-> 
+[Since having multiple maintainers trying to merge these would
+cause some conflicts, it would be more manageable for Jon to
+take all of these through the docs-next tree.]
 
-So my one concern is that (as per above), the mremap patch removes 
-clear_uffd_wp_pmd() after the huge_memory patch removes the other user.
-Splitting them may break compilation. I would've left clear_uffd_wp_pmd()
-alone but then it throws a nice ugly unused code warning :\
+Cc: Jonathan Corbet <corbet@lwn.net>
+Cc: Shuah Khan <skhan@linuxfoundation.org>
+Cc: linux-doc@vger.kernel.org
+Cc: Marcel Holtmann <marcel@holtmann.org>
+Cc: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: linux-bluetooth@vger.kernel.org
+Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Cc: Jason Wang <jasowangio@gmail.com>
+Cc: David Heidelberg <david@ixit.cz>
+Cc: oe-linux-nfc@lists.linux.dev
+Cc: Chas Williams <3chas3@gmail.com>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Eric Dumazet <edumazet@kernel.org>
+Cc: Jakub Kicinski <kuba@kernel.org>
+Cc: Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org
 
->>       mm/mremap: resolve uffd state when the context is dropped, not during the move
->>       mm/migrate_device: do not migrate a uffd-protected zero page
-> 
-> This
-> 
->>       mm/userfaultfd: check the hugetlb alignment of every VMA in the pre-scan
-> 
-> 
-> After waiting a bit longer for more review. Andrew can take the rest.
-> 
-> 
-> -- 
-> Cheers,
-> 
-> David
-> 
+ Documentation/userspace-api/ioctl/ioctl-number.rst |   22 +++++++----
+ 1 file changed, 14 insertions(+), 8 deletions(-)
 
+--- linux-next-20261116.orig/Documentation/userspace-api/ioctl/ioctl-number.rst
++++ linux-next-20261116/Documentation/userspace-api/ioctl/ioctl-number.rst
+@@ -130,8 +130,9 @@ Code  Seq#    Include File
+ 'A'   10-53  sound/core/pcm_compat.c                                   conflict!
+ 'B'   00-1F  linux/cciss_ioctl.h                                       conflict!
+ 'B'   00-0F  include/linux/pmu.h                                       conflict!
+-'B'   C0-FF  advanced bbus                                             <mailto:maassen@uni-freiburg.de>
++'B'   C0-FF  advanced bbus                                             conflict! <mailto:maassen@uni-freiburg.de>
+ 'B'   00-0F  xen/xenbus_dev.h                                          conflict!
++'B'   C8-D4  net/bluetooth/bnep/bnep.h                                 conflict! <mailto:linux-bluetooth@vger.kernel.org>
+ 'C'   all    linux/soundcard.h                                         conflict!
+ 'C'   00-68  sound/compress_offload.h                                  conflict!
+ 'C'   01-2F  linux/capi.h                                              conflict!
+@@ -172,10 +173,9 @@ Code  Seq#    Include File
+ 'H'   FC     sound/pci/asihpi/hpios.h                                  conflict!
+ 'H'   00-0F  uapi/misc/habanalabs.h                                    conflict!
+ 'H'   A0     uapi/linux/usb/cdc-wdm.h
+-'H'   C0-F0  net/bluetooth/hci.h                                       conflict!
++'H'   C0-F0  net/bluetooth/hci_sock.h                                  conflict!
+ 'H'   C0-DF  net/bluetooth/hidp/hidp.h                                 conflict!
+ 'H'   C0-DF  net/bluetooth/cmtp/cmtp.h                                 conflict!
+-'H'   C0-DF  net/bluetooth/bnep/bnep.h                                 conflict!
+ 'H'   F1     linux/hid-roccat.h                                        <mailto:erazor_de@users.sourceforge.net>
+ 'H'   F8-FE  sound/firewire.h                                          conflict!
+ 'I'   all    linux/isdn.h                                              conflict!
+@@ -219,11 +219,12 @@ Code  Seq#    Include File
+ 'T'   all    linux/soundcard.h                                         conflict!
+ 'T'   00-AF  sound/asound.h                                            conflict!
+ 'T'   all    arch/x86/include/asm/ioctls.h                             conflict!
+-'T'   C0-DF  linux/if_tun.h                                            conflict!
++'T'   C0-E3  linux/if_tun.h                                            conflict!
+ 'U'   all    sound/asound.h                                            conflict!
+ 'U'   00-CF  linux/uinput.h                                            conflict!
+ 'U'   00-EF  linux/usbdevice_fs.h
+ 'U'   C0-CF  drivers/bluetooth/hci_uart.h
++'U'   00     net/nfc/nci_core.h                                        conflict!
+ 'V'   all    linux/vt.h                                                conflict!
+ 'V'   all    linux/videodev2.h                                         conflict!
+ 'V'   C0     linux/ivtvfb.h                                            conflict!
+@@ -242,8 +243,8 @@ Code  Seq#    Include File
+ 'Z'   14-15  drivers/message/fusion/mptctl.h
+ '['   00-3F  linux/usb/tmc.h                                           USB Test and Measurement Devices
+                                                                        <mailto:gregkh@linuxfoundation.org>
+-'a'   all    linux/atm*.h, linux/sonet.h                               ATM on linux
+-                                                                       <http://lrcwww.epfl.ch/>
++'a'   all    linux/atm*.h, linux/sonet.h, linux/atmbr2684.h            ATM on linux
++             linux/atmdev.h, net/atm/ioctl.c                           <http://lrcwww.epfl.ch/>
+ 'b'   00-FF                                                            conflict! bit3 vme host bridge
+                                                                        <mailto:natalia@nikhefk.nikhef.nl>
+ 'b'   00-0F  linux/dma-buf.h                                           conflict!
+@@ -264,6 +265,7 @@ Code  Seq#    Include File
+ 'f'   00-0F  fs/ocfs2/ocfs2_fs.h                                       conflict!
+ 'f'   13-27  linux/fscrypt.h
+ 'f'   81-8F  linux/fsverity.h
++'f'   7b-7c  arch/{alpha,mips,sh,xtensa}/include/uapi/asm/sockios.h
+ 'g'   00-0F  linux/usb/gadgetfs.h
+ 'g'   20-2F  linux/usb/g_printer.h
+ 'g'   01-0F  mm/gup_test.h                                             conflict!
+@@ -308,8 +310,11 @@ Code  Seq#    Include File
+ 'q'   80-FF  linux/telephony.h                                         Internet PhoneJACK, Internet LineJACK
+              linux/ixjuser.h                                           <http://web.archive.org/web/%2A/http://www.quicknet.net>
+ 'r'   00-1F  linux/msdos_fs.h and fs/fat/dir.c
+-'s'   all    linux/cdk.h
++'s'   all    linux/cdk.h                                               conflict!
++'s'   07-09  arch/{alpha,mips,sh,xtensa}/include/uapi/asm/sockios.h    conflict!
++'s'   64-65  arch/sh/include/uapi/asm/sockios.h                        conflict!
+ 't'   00-7F  linux/ppp-ioctl.h
++'t'   46-4D  drivers/net/ppp/ppp_generic.c
+ 't'   80-8F  linux/isdn_ppp.h
+ 't'   90-91  linux/toshiba.h                                           toshiba and toshiba_acpi SMM
+ 'u'   00-1F  linux/smb_fs.h                                            gone
+@@ -334,7 +339,8 @@ Code  Seq#    Include File
+ '|'   80-9F  samples/                                                  Any sample and example drivers
+ 0x80  00-1F  linux/fb.h
+ 0x81  00-1F  linux/vduse.h
+-0x89  00-06  arch/x86/include/asm/sockios.h
++0x89  00-07  asm-generic/sockios.h
++0x89  06-07  linux/sockios.h
+ 0x89  0B-DF  linux/sockios.h
+ 0x89  E0-EF  linux/sockios.h                                           SIOCPROTOPRIVATE range
+ 0x89  F0-FF  linux/sockios.h                                           SIOCDEVPRIVATE range
