@@ -2,98 +2,104 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42B5E606A326
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 15:54:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65F21606A335
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 15:54:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LAGFP51u
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=VutFSo+f
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8A661125A9;
-	Thu, 19 Nov 2026 15:54:37 +0000 (UTC)
-Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com
- [209.85.167.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0409B1125A9
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 15:54:32 +0000 (UTC)
-Received: by mail-oi1-f173.google.com with SMTP id
- 5614622812f47-5733c4c1ee3so52762b6e.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 07:54:31 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795103671; cv=none;
- d=google.com; s=arc-20260327;
- b=rOBUaf6kdQ9UplJdLr9HFtzlKORRcPWDGHPLi0N6hVGGFHQJB9rYHOokfIVCxegO65
- QA67agGihBP9uK2GjJW3GBFq+W3B8jJMiIo+xj8TfhbZnc9wPixOZOHPxL2xXb3ysrA4
- rIvU1t2hY/JNHy3h38AemtoVYzJZ0B7nrUIdjqLYClvvFxdWMaGFOx/dCKw31qckwcGL
- J8olgH6aI5Q6DyvbMBOpHbAiruilIoYtvTdE4PeeSqZJxRU7MPBBJeOWKDMotBwU9NC5
- zM5Ak8eYUv4X8JvpzPNLu4b0IYT1uXi6s5Zg1qfvzwRN0qyWh+osv5LOn6cCBGyeuLOu
- q0YQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=fVczm6uy7VWgg/ALL5B/7H0RzqhbcPHINkpLoQNoKLY=;
- fh=PKmEbByw3sntl+aZtdSagYyKwlOC/TELxfoDvi/cqnE=;
- b=I0/r/B0u3pyAC99R/yGLEYvTDIY3I4HktBp1LzYHrYZmITjX8Jd6FUEUVXrQkaOy/U
- PEHi3OXQxI42zXuw1oc4UC1vMen21S1DVX/E6eRXHktkuVNLfoV+6prXyBGBpcAQicAE
- fpG7yR/ILIpt5rPp/XzFms5BE+pun9gXFdW5pXcQvqkiLE3PHXdNTW13sKKigA5845Rr
- EG+eXP2K8WlqRinTvv6NeQY+qmzjIqR7ohi1osxs/njVJUJ1dbOYLQT/1MP+BQLAXTNR
- WAa2hKNhFGqMrpaD1Fyb0Qh5JAmtcCa5lslv0ZH8EkshVHBOcbXRS6+BEAa2U3MiZoeA
- 9wTQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795103671; x=1795708471; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=fVczm6uy7VWgg/ALL5B/7H0RzqhbcPHINkpLoQNoKLY=;
- b=LAGFP51uK0M6jLVXRXUq3I8VrJRhGUsR/AyGWG21PY49rUrcO2567fWRyWTLLszCn7
- Me/XtqfC3PJ3DURjk4vtfRHzsF9VF/b0edEnQBiDOOBpHI9a/iHRojyTJvsXIYeekTC+
- UYVCETn8RWUSGkTQd0dClVM806XhfIcTBb+tmQ1lWNsDRtBDGrda2bTDxcTrI7nExz/A
- El9kXc+ZvrUHWCZ2qc+lZP5/9QaZOfKx6l0xnLBtDmQ16ee2Z7qG51FyN7JV7BkOR1q1
- 00bT2LEYhF+O6vTWG9tE2yS6tL59gOgA3CiBsDLZOx3R3dHZKMCOyjQ2AXcp+nPL2l51
- yaew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795103671; x=1795708471;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=fVczm6uy7VWgg/ALL5B/7H0RzqhbcPHINkpLoQNoKLY=;
- b=i4bB+a+kdTlqR4HTxZwiULOECFKllBPEkfblT7NRO9GGtVi9lM9uoUdcFnvg+4zWTb
- wAo68QevNm0GGhEIi01XwMqXB88wnJjkR9GXG2C11uP3QPLCR5E7RTQt6to4QZyqh6UG
- BG4ndpbguCI984dR0xjOw2KlceBpLQ5WsGsXAE9TPxZcA097pcn4ka4hcIZnxAKZFMYK
- hiUz7azEZZ+roy0MJxFWLYGxh4ew6hGQ+GrVd2H9RXKNXU93mNgjpo2EN5GebJmO2IsJ
- 9wnGzcSnsJPiwrMFnd3mDVt0KZTj8TiKhDt7mMmJRJsyP59f5atvc6uR7CcevBtPk8U0
- /CVQ==
-X-Forwarded-Encrypted: i=1;
- AL+hErGBfuRW8G7ZgXaSlGrmuy4g3yUBwsMJ+OiT5qJke+BU7vgfV5Tgl6pEwEy1x3oYSqJTfAmjqOKL@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8HfudUb2DXkTgiyqMpcGTB3aly9lYevDNTa1d2WDyBgTSCxP4I
- L+ZAqqLzXmIeHpITKV8UKPyLkwFkpBcf4L5/WwXGgyA1zSsgjKI4KGOjnzFaMsxxOSBzd1Fa4NF
- gkmsx64IH8lG4i7f3XDWU613X3TnXx/k=
-X-Gm-Gg: AYBFou2kfxAjT3MsuQIKpNjWQsSwnCneK3Qo+/4tg3TIIPFUXH8gVRJb1z+CocgiCbz
- o53/ZyfblqerrEzoXcGsNBF/iJ72cug9zeIn7PxcxJ0YJeLnO4dgsMr/FFazQDdbOXaTDmqWGKC
- M+zzzZwDxsc27O228/Sne8Sj7Uuv2BXSTZaMePdXlxirSmNJ7wo/7XJmS4AuvnYKIjs8MMjNv8M
- vmKFwhTOLQmk4XLPI9pBGqJCIzTNbMA8XLcFEli2fAuKrxw+UOeJQ1xI5jI8Wz8Aapp6DVb5X3P
- Pw8Pw3EsnX/kW1ez3b7Byi1OBVflmhG0o6KVoaL33w809+jKhrVnjFb73b5AfArlmmul18AZtP5
- XJ5GKYSnMatYeXQCh2y02iBOS+s7iYz1Rnp1+KuvPQCtSjJSVNWIpwHa7a3rjxXHYENTSPcppUH
- v1vhjPFhMGAc7vtBjmZu6aN/0+IIG3ug3/F9JXVtssbuPK3mLlclGcbeoYB/Y=
-X-Received: by 2002:a05:6808:1383:b0:549:e9e3:9460 with SMTP id
- 5614622812f47-57a025ed532mr615438b6e.0.1795103671053; Thu, 19 Nov 2026
- 07:54:31 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02F141125B4;
+	Thu, 19 Nov 2026 15:54:49 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013000.outbound.protection.outlook.com
+ [40.93.196.0])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D80ED1125B4;
+ Thu, 19 Nov 2026 15:54:42 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=sFE7o2FSmiqyKS5ujkbKkkyJzYfP8zSIG6iDw+mEm+1CfXxW4RTONAbp8y+u75K48lT7cM6/GLz0+pei4UnSO7P2ngm9DJeBhsrJbhl9ZHO2rcm05TydcP+FGQ28DZdugpgwBE9LrYWETCgv5vozvPMLNuAXX238PpGLm3cSl5fikRfRR4kwZzVnYS9cSGfIqMlyLLowt80KfPCMiwalGp/Ho5bPzwVs7sD/CN6nGrNyx5veCQlBdiO1I8OgvCH0ZWu9izQf+jd97uUky9nW5ndDHIzNumOxhvdfIEz+41u4fsj1Qga9wlc9Ly4suAkkYAe2V6LneNhk+otW9cA+4A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/Eh8ehZYs5CKZTiO9JNOMSbCxi4CMsACO4XGI2gK8KU=;
+ b=Tq1MI/zVZDjDksve19Kc/8SyRB5OvC+kofQoa+HTFYUqCqMvff/2u7WwRtMwqAAFvVBuR4mhivewISmdCafdigAymSx9O7NOpT/fWNovmVbUXBD7xt00vsYf94uwqnfzyLuPGXJfTFCOdjkUI7cxQ4k/UA42uU33mhY0HTXycjvFfg21BJmnDPallM/DgQuUVLgx73rgHkBmhonbWRdtZ7mhol3RjJXBYbjyAlY0dEU3zN5gfew22RkqO1p2McocolJwF1V3KQ96t59b4UVoAtFdI95+AkB6L9gjol+6jd2KvJ7XkFk0zeJhYPI/tHBd+UtTTjIj5zjptVQODW186g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/Eh8ehZYs5CKZTiO9JNOMSbCxi4CMsACO4XGI2gK8KU=;
+ b=VutFSo+fd+Uvgs2rts7Ztmenvp4nap1XkpsLAWBdN06pHmJFmHzJME8aP7jYhXK4eY1uxqHPZn/idsfvPXuVRjpgf1JLIr3NkHk5vtUKI1r4rk/lepcd76XW7RpNuE32mB3HRG4nxIDSpuHgj1A/B5yhGpERMVBgR4Pw3JAdvgc=
+Received: from PH7P221CA0007.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:32a::10)
+ by SN7PR12MB6792.namprd12.prod.outlook.com (2603:10b6:806:267::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.12; Thu, 19 Nov
+ 2026 15:54:38 +0000
+Received: from SJ5PEPF00000204.namprd05.prod.outlook.com
+ (2603:10b6:510:32a:cafe::37) by PH7P221CA0007.outlook.office365.com
+ (2603:10b6:510:32a::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.14 via Frontend Transport; Thu,
+ 19 Nov 2026 15:54:38 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ5PEPF00000204.mail.protection.outlook.com (10.167.244.37) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.639.5 via Frontend Transport; Thu, 19 Nov 2026 15:54:38 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Thu, 19 Nov
+ 2026 09:54:37 -0600
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Thu, 19 Nov
+ 2026 09:54:37 -0600
+Received: from hwentlanrmb (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.57 via Frontend
+ Transport; Thu, 19 Nov 2026 09:54:37 -0600
+From: Harry Wentland <harry.wentland@amd.com>
+To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
+CC: Harry Wentland <harry.wentland@amd.com>
+Subject: [PATCH v1 3/4] drm/amd/display: Add support for 2.4 and 2.6 Gamma and
+ its Inverse
+Date: Thu, 19 Nov 2026 10:54:26 -0500
+Message-ID: <20261119155427.2494007-4-harry.wentland@amd.com>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261119155427.2494007-1-harry.wentland@amd.com>
+References: <20261119155427.2494007-1-harry.wentland@amd.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261119095652.3510341-1-Jesse.Zhang@amd.com>
- <20261119095652.3510341-2-Jesse.Zhang@amd.com>
- <6cd1af3d-4647-4cdf-a351-b65effdfab48@amd.com>
-In-Reply-To: <6cd1af3d-4647-4cdf-a351-b65effdfab48@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 19 Nov 2026 10:54:19 -0500
-X-Gm-Features: AclHuK-nZj8PUWBHoZPXFCXEovtOV6xhTSK3Qm6mkXJoyGJzHzrY4i_wIMQue7k
-Message-ID: <CADnq5_OmSYu9GN=hcXYD4VLztb0BnBG1nGyLANz9v_gX-3GbiA@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amdgpu: don't unreserve the freed root PD in
- amdgpu_vm_init()
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Jesse Zhang <Jesse.Zhang@amd.com>, amd-gfx@lists.freedesktop.org, 
- Alexander.Deucher@amd.com, Sunil Khatri <sunil.khatri@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF00000204:EE_|SN7PR12MB6792:EE_
+X-MS-Office365-Filtering-Correlation-Id: 65eb4b73-2ab6-44c4-5b33-08df46556a99
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|36860700016|1800799024|82310400026|23010399003|10067099003|11063799006|261021121427099003|261021123027099003|261102130727099003|261009223027099003|261102123227099003|261026121527099003|56012099006|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info: L7ssnS4cylaJt+oRYaPBD72xmkcE9BcDaRalOHZrt+76ej4qnMXQO+icEzDYjae8Q9HD8XJ4/pbSJrrZUAxg8gVs5uwyR8NN/cIDPtM8rZFxWFsnppa9AUoTdPNgmDnRYWDcqn8Z9gBMUyy63NPElUwbjbSKyABBZufdhiKdcIWxmzg61n/fdjRuuGSQa9BTtImk+gJJHhboROZ/I9KLFs6KGGP8PUyTRWn1+3VMjGGm4obqlUQESNF87uIM89X44M9bZUukDBP00viI5ktkbCQzMdq1mdvyH5IYS7xSXV+ja7At1uqdaFq963qw50GyLFj+lZUNI5buDw9LY5fuKA6gauVkuzhNd34dJ8Sp43e1+tYdCRv5bvQPzj2zLfk1WOnjcARpISzGFlPim/AFVnumWQnMl5KdwYulbhJiaZ47D/bLCcstQx9GTy6hZX5GUuKWbgSWIXTN6j223XmGSlNn3OCbD7s/Jp4AKG+N6aYuYMtL7RUhV8MpjqqLbnFTkFgWLvwg0Qi1mBDwV6rtWV/bduMpaWKbYf0+n1xQl9rAebRCcPu+0SoDtIiWrR4vn3rwUGGY7YDQZufoUAr+SWbExXfpAI7IlJX3uzsxnSM/iYLCXJd3/lDnIx9ra6URBCChCVm07yfNZ/HNkmoTn68XWMl4u1yQp+/3o4CPIXb3/sofuXZk9BY8iQE4apzXzD2/gFnqKucfvokI8/tJiQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(36860700016)(1800799024)(82310400026)(23010399003)(10067099003)(11063799006)(261021121427099003)(261021123027099003)(261102130727099003)(261009223027099003)(261102123227099003)(261026121527099003)(56012099006)(22082099003)(18002099003)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 77eyMq6VKV6kAv8CWztNXjVv7VQF7tbzsWCoLmR1+LXN8MM0vH5i0Mw82qZbBgulPYmColGzeJv6cr6d3kjmqvEICGNOkgAKo9wmUwZYX7oVnVRdX4Oi39WGyMJdlqKX1pXhXPrL06rlfry1R8JojZWqMVf6UDxztCV4RvrirPdpu8yH/vFpjcNgmAd0D2fDLmhfpt9zimdBq77h62OQnmiYZZgU5q2GQlpgBvRBDNIypb+EO/eBp4rsfy+SMsDJweGl+ya1pzz9aCoRCaJVXZYWID6CuWS2ekCK8ZPOPAgTxGCku5sJcSTjdoU2a6R1mS4LGmNBgTQJIIEW/GnPhGcMPZprWGPkjxk9HL1x3LRYMe/lHvlDykL3GRVQyU/08rPbZkodwqN4q2m4faDZIBhJQl35x/ci0rVK/bs5c/iuVjIvikIvcEZF8dAp59qv
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 15:54:38.3213 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 65eb4b73-2ab6-44c4-5b33-08df46556a99
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF00000204.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6792
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,78 +110,76 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, Nov 19, 2026 at 9:56=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
->
->
->
-> On 11/19/26 10:56, Jesse Zhang wrote:
-> > The error path of amdgpu_vm_init() frees the root PD, which clears
-> > vm->root.bo, and then unreserves vm->root.bo. On navi48, with an
-> > allocation after reserving the root PD failing through failslab while
-> > opening the render node:
-> >
-> >   Oops: general protection fault, probably for non-canonical address 0x=
-dffffc000000005e: 0000 [#1] SMP KASAN NOPTI
-> >   KASAN: null-ptr-deref in range [0x00000000000002f0-0x00000000000002f7=
-]
-> >   RIP: 0010:amdgpu_vm_init+0xa9f/0x1480 [amdgpu]
-> >    amdgpu_driver_open_kms+0x2b1/0xd10 [amdgpu]
-> >    drm_file_alloc+0x58f/0xac0 [drm]
-> >    drm_open_helper+0x1b3/0x4b0 [drm]
-> >
-> > Unreserve it through root_bo, which still holds a reference. With this
-> > and the entity fix 4842 opens with allocations failing in turn don't
-> > oops anymore.
-> >
-> > Fixes: 8473bfdcb5b1 ("drm/amdgpu: fix error handling in amdgpu_vm_init"=
-)
-> > Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
->
-> That is already fixed with:
->
-> commit 26401a4999f1596a515b2e704e7066ac09306488
-> Author: Christian K=C3=B6nig <ckoenig.leichtzumerken@gmail.com>
-> Date:   Wed Oct 7 14:46:57 2026 +0200
->
->     drm/exec: don't immediately add prelocked obj to array of locked objs
->
+Wire up the newly defined Gamma 2.4 and Gamma 2.6 curve types in the
+amdgpu DM color pipeline. Map them to the corresponding DC transfer
+functions and advertise them in the supported degamma, shaper, and
+blend transfer function masks.
 
-If this is missing from ASDN, feel free to cherry-pick.
+Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c  |  6 ++++++
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c    | 12 +++++++++---
+ 2 files changed, 15 insertions(+), 3 deletions(-)
 
-Alex
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+index 45cea72111c7..c4df67aa421e 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+@@ -945,6 +945,12 @@ amdgpu_colorop_tf_to_dc_tf(enum drm_colorop_curve_1d_type tf)
+ 	case DRM_COLOROP_1D_CURVE_GAMMA22:
+ 	case DRM_COLOROP_1D_CURVE_GAMMA22_INV:
+ 		return TRANSFER_FUNCTION_GAMMA22;
++	case DRM_COLOROP_1D_CURVE_GAMMA24:
++	case DRM_COLOROP_1D_CURVE_GAMMA24_INV:
++		return TRANSFER_FUNCTION_GAMMA24;
++	case DRM_COLOROP_1D_CURVE_GAMMA26:
++	case DRM_COLOROP_1D_CURVE_GAMMA26_INV:
++		return TRANSFER_FUNCTION_GAMMA26;
+ 	default:
+ 		return TRANSFER_FUNCTION_LINEAR;
+ 	}
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
+index d32bf2bf2847..935c041c1d31 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
+@@ -38,21 +38,27 @@ const u64 amdgpu_dm_supported_degam_tfs =
+ 	BIT(DRM_COLOROP_1D_CURVE_SRGB_EOTF) |
+ 	BIT(DRM_COLOROP_1D_CURVE_PQ_125_EOTF) |
+ 	BIT(DRM_COLOROP_1D_CURVE_BT2020_INV_OETF) |
+-	BIT(DRM_COLOROP_1D_CURVE_GAMMA22);
++	BIT(DRM_COLOROP_1D_CURVE_GAMMA22) |
++	BIT(DRM_COLOROP_1D_CURVE_GAMMA24) |
++	BIT(DRM_COLOROP_1D_CURVE_GAMMA26);
+ EXPORT_IF_KUNIT(amdgpu_dm_supported_degam_tfs);
+ 
+ const u64 amdgpu_dm_supported_shaper_tfs =
+ 	BIT(DRM_COLOROP_1D_CURVE_SRGB_INV_EOTF) |
+ 	BIT(DRM_COLOROP_1D_CURVE_PQ_125_INV_EOTF) |
+ 	BIT(DRM_COLOROP_1D_CURVE_BT2020_OETF) |
+-	BIT(DRM_COLOROP_1D_CURVE_GAMMA22_INV);
++	BIT(DRM_COLOROP_1D_CURVE_GAMMA22_INV) |
++	BIT(DRM_COLOROP_1D_CURVE_GAMMA24_INV) |
++	BIT(DRM_COLOROP_1D_CURVE_GAMMA26_INV);
+ EXPORT_IF_KUNIT(amdgpu_dm_supported_shaper_tfs);
+ 
+ const u64 amdgpu_dm_supported_blnd_tfs =
+ 	BIT(DRM_COLOROP_1D_CURVE_SRGB_EOTF) |
+ 	BIT(DRM_COLOROP_1D_CURVE_PQ_125_EOTF) |
+ 	BIT(DRM_COLOROP_1D_CURVE_BT2020_INV_OETF) |
+-	BIT(DRM_COLOROP_1D_CURVE_GAMMA22);
++	BIT(DRM_COLOROP_1D_CURVE_GAMMA22) |
++	BIT(DRM_COLOROP_1D_CURVE_GAMMA24) |
++	BIT(DRM_COLOROP_1D_CURVE_GAMMA26);
+ EXPORT_IF_KUNIT(amdgpu_dm_supported_blnd_tfs);
+ 
+ #define MAX_COLOR_PIPELINE_OPS 10
+-- 
+2.56.1
 
->
-> Regards,
-> Christian
->
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 3 ++-
-> >  1 file changed, 2 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_vm.c
-> > index 8cc5964f29c0..272eac0ef317 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> > @@ -2718,8 +2718,9 @@ int amdgpu_vm_init(struct amdgpu_device *adev, st=
-ruct amdgpu_vm *vm,
-> >       return 0;
-> >
-> >  error_free_root:
-> > +     /* This clears vm->root.bo, root_bo keeps the BO alive */
-> >       amdgpu_vm_pt_free_root(adev, vm);
-> > -     amdgpu_bo_unreserve(vm->root.bo);
-> > +     amdgpu_bo_unreserve(root_bo);
-> >       amdgpu_bo_unref(&root_bo);
-> >
-> >  error_free_delayed:
->
