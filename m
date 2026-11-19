@@ -2,99 +2,125 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CC23606A324
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 20:10:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BB5B606A320
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 21:06:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rW1s1wJq
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=r4woiBYd
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E994C10E5CA;
-	Thu, 19 Nov 2026 20:10:14 +0000 (UTC)
-Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com
- [209.85.210.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D60D110E5CA
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 20:10:08 +0000 (UTC)
-Received: by mail-ot1-f42.google.com with SMTP id
- 46e09a7af769-8437d47592bso17938a34.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 12:10:08 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795119008; cv=none;
- d=google.com; s=arc-20260327;
- b=Y3uBgaIytHFZMybb2yrCPmYGbBeDrPsBQ0RYXD9KO7QWhxykZg7Yy6oF9ez5SeQvR0
- 9CENIKt9WkcnRHB8cgAC1vehFgtKHC6AYMCfu4Y5ysvsDcdJ0Lrw694+41IGcJzFOuBY
- wpoCLP+Od6j1ZWKc+KP1heWn1LR+ODu1LfFb7jUXl8jYY0I4k1UW0DqjqE7CJ2MnTvhN
- ewj1HNJ02sNczE+mqPUsOlCzjn7y6LY8VMyt4xOYPhS/lf36s/ShH3FLMD1VGtKNTrqW
- kNFRcDj3Rh9QobRBpyiEvjhXVJse8la5qaJAtWoyif46TlPHrQCXSrBwj6VTORMXfwYf
- i+tg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=QF7Ym8HltwH/EryL+lHedJXLoRmFZy+TQyk7QyouYW0=;
- fh=PTCjY1/g7LZXEEGRSWtnDXRJF/kBo5AWtSejAX9bAJM=;
- b=V4YiYYhg+F4vevcsK3WSqff/BjFMbyP/6gJUgjW7QkmGTfAwyhteDOQEJdOyh7LD4S
- 960QL0QrPHIE8TMGkSu2DOyx/H5xkswYI3cSSmKXexAGS31si/5QhszakYS5DyHkPX61
- PHOtJN367ueSFbD0DbUNmln5tgPZDE0WlTIqr4Pa0vJfhVY4DVNYXPeLSVjADzSKIfR0
- Gle5f0KaR47Fd235uVbyCOv9RaCykF7Pda3Vhz++WAuJ4XJ2GOa2VB2loFheRWbVNlt9
- 1ybANYqPZ7UTwBcKeq+ZrCOZmsQwjCMV2XKnGpiGaqrybjv4qskGaFG0lMH1EcZztCsN
- HsJA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795119008; x=1795723808; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=QF7Ym8HltwH/EryL+lHedJXLoRmFZy+TQyk7QyouYW0=;
- b=rW1s1wJqovrz40jps/3lqPhRs7xDmXkhhT8GIFu5UrEooqlv1HzNz3Jtaqx1SHBCXE
- 9aqzOlYY1nbCCS/h6F/lBag0krhySUHXysE+LoqxlY8oJiZ21nOs/gdZ79EtzHbaCRbl
- l+bsanhIg7/t9wYn8IkMrIWCFbpdUuEbdT/0Hu0Vvy1SyCRml/sWVqKrdFjWnhDJf8Vz
- fw+Lb1/6xLBSzHBIJLLYnswhJbPS4zeyPey0FCVEIlJrv4lZMUPrwI/ThUoeJAw4nb0M
- 0MkbAS5PQfvSEZhO9kvag36y0kYBE6whGZuZbmjl5Wt8sUntG5yslMklqGl/ldQe/zB7
- yhgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795119008; x=1795723808;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=QF7Ym8HltwH/EryL+lHedJXLoRmFZy+TQyk7QyouYW0=;
- b=nWQlzKaMf2nKFq/rFoo+FMx7eCXtwYLRKMsxDzgzSBsrpONT5KEWhEdmNreCMfW3iB
- fftoTE2ZjTZEst9tt29lVhOUg39/Et4xB91LYqfYbAuXzJK/6yzheoURXe5VAty29lys
- 2t+Rmu6cZxh2VlpkhxjKhI1kMw2xj41ZSeM78N/pNQ+S9bLot8UenWclZfLo4pOT2Y9H
- wsy8lEK1gKRwqUdb8lqvKlMeWVBoJ735GipaUf2wY4zgCjYhGJso8wtgKfEsQMA0ZPh2
- kZ2DD7FnxQ0y8PFjO+3S/ZqbIxJlAe6l/JDy05/ij3zlGJCpa5vXTxwklfaZ58uK8HeR
- 8FKQ==
-X-Forwarded-Encrypted: i=1;
- AL+hErE8OTHCE7tLvJhyuDh01t0QBUCVCqQRCTXv9wuBJg7fD7eYns3Lp5nMAJEL/bsJ6jWW9yip09+N@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+snDHWt5tzKsB7tMGirgr27TE+CbYNh8I2YCItTPIcV0pDGGSH
- GKTvJiP0m64IcVm41MpS4Rp6yvUYA6QgNl4WBFfkhNcurEBR5aqsxRgMcXOzY6KcAGe6mRhRfNn
- my2Ek1eOxg57I20Nib0SNwANUR3eLlmA=
-X-Gm-Gg: AYBFou1tASgYHGqnTBxGbsbGdX3WzPN28hVB9OPaSWDS+gq44aDSown7gaQNIGMLxSE
- GgYt2E+Wrz+1TF/TjtZOBYL3ti+AeZed2BWUevsxC/NmCtgLU2nDDoJb7uSnDFD4JsU5Z2GtVVw
- sKk72POb+lm69nYzv98zNtlW1RlpKZcToWBOxdY/Y3kT4Y/n46IBvbi84xucG1v9YqJ9oD8gR6v
- VYT5gshaiVfze4VURspB+FqozLLTp8mwGn8yGO2zZN1QjAXALKhLHYzVQGj8MMBRejA90dpkqZi
- tI2MbyNifIRdVPQ46sSoyn+9i3EbNMC3ns/t0hMr/bLor905UstCrm+YRyzZtch0kz5intuJMyZ
- mwzKyuj0Gk+fmz9RydUn9iM+ivE2qD/dD2k8D+Yz+2X9nIsPPuaqVkaN7trehbFoPG4gE9+Rv/s
- v0MARE5OWOOsIyR6AY49H/E8vabBJYggHDtSIUfnEBf49kBG6ZQQOLC2zpdRE=
-X-Received: by 2002:a05:6808:f0d:b0:572:221b:221b with SMTP id
- 5614622812f47-57a0ac2f919mr1693672b6e.5.1795119007693; Thu, 19 Nov 2026
- 12:10:07 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38A8B10E9D2;
+	Thu, 19 Nov 2026 21:06:47 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010022.outbound.protection.outlook.com [52.101.201.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F89A10E9D2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 21:06:40 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=s8nW4RwNVyt0xiOAQMQrnzgk2JzjjVwnYoMFv+u+8iLn7qIHlNq+9fjPZwikrqFzGOQMvLnoY50djOax1rvSLp2WEwCHWwEt9uZfBWVe36UMZ+/eudijraWtRCp7kuXS3BH42nXGoDPUNAewGglnPN8niT911zmTVAGIVM/y4EqB3wT1DZEXGKomZP0Ijg/BZkqEiSDI+C4BYjRG7F6fzFLhHeNh5PuoTjQJgNMjjfaeCJYFfoIuyoNAYOzVUOIxvBcwYUbJY6rlqtSBlIUL9gBt2LT4+HEdxdavOkCaL4bSt4Sce+jjRUkdEroGa97FUWH7ViIPQOHlHKuUXjyJPg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gq4nyXYEy2Eb8g4aTj/hg5V0wUIWIlgDiIMlwbZG9Bc=;
+ b=k211YpB0+I2Js5ouA8lp9thFPgIacCDJ9JXuANPTxD2JkuasQQQnov1ZNmN76mD4FmFxoxZP4xTo2m5qd4aheQBsJh/SMfHI9Va576UuUSFqDk52JxuLKGJdAuW5TVvQKa5QqSgOhAQ10CreCzxtPZIm+gTQlaiIXOvDyrCr31wxrESAOOoq59bJ9SQWHrOt6Sg79etyUFtByGO5eawtuwZfdb8TGAw0wtlxrx/FaCQVr95Kbn1dEeu61rZEkjEXdac5ZII5nL3WCDpa4dihmg7OPj4OZ0VWpGkcFVtB1XBOFynFQS+wnUdghbh8U3ROpKDw1lN+MhNylXvYAtFjbA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gq4nyXYEy2Eb8g4aTj/hg5V0wUIWIlgDiIMlwbZG9Bc=;
+ b=r4woiBYdJVxik0+FK1ojVKBy8EfiPqlvlr1GohnqU8rtgDXAFtlH0mTu/lF3eIvkVzkRbVJy9UsVDozFcS1n/7LyaUcMb/80Yp+ClOK8HkL4ktLcJpQSKccP52rz08ZvAZhCPVzEy8eMMWQyp41mg3qBi5sRpcmmF/UeVQ0lhFo=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB9174.namprd12.prod.outlook.com (2603:10b6:510:2ed::9)
+ by SA1PR12MB7127.namprd12.prod.outlook.com (2603:10b6:806:29e::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Thu, 19 Nov
+ 2026 21:06:33 +0000
+Received: from PH7PR12MB9174.namprd12.prod.outlook.com
+ ([fe80::eaaa:b430:ba9:5dc]) by PH7PR12MB9174.namprd12.prod.outlook.com
+ ([fe80::eaaa:b430:ba9:5dc%7]) with mapi id 15.21.0615.013; Thu, 19 Nov 2026
+ 21:06:33 +0000
+Message-ID: <73e3f0a7-59a7-47f7-9136-9d0b2660c4c7@amd.com>
+Date: Thu, 19 Nov 2026 15:06:23 -0600
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 1/3] PCI: Cache bridge firmware secondary bus number
+Content-Language: en-US
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>, linux-pci@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org
+References: <20261119195553.GA835692@bhelgaas>
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <20261119195553.GA835692@bhelgaas>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: ROAP284CA0095.BRAP284.PROD.OUTLOOK.COM
+ (2603:10d6:10:40::28) To PH7PR12MB9174.namprd12.prod.outlook.com
+ (2603:10b6:510:2ed::9)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261119-vfct-regression-v8-v8-0-12463194e457@amd.com>
- <20261119-vfct-regression-v8-v8-1-12463194e457@amd.com>
-In-Reply-To: <20261119-vfct-regression-v8-v8-1-12463194e457@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 19 Nov 2026 15:09:55 -0500
-X-Gm-Features: AclHuK__78tAY_AkLxZQOytNoMhYChQRQsMLPxlHF7wI-_ZkmCSTiv8HLMQmS3M
-Message-ID: <CADnq5_Mfn3XCzLxyot_=vybMDLam+VoDFMgwWujnEkrTh4XLSA@mail.gmail.com>
-Subject: Re: [PATCH v8 1/3] PCI: Cache bridge firmware secondary bus number
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Lijo Lazar <lijo.lazar@amd.com>, linux-pci@vger.kernel.org, 
- amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB9174:EE_|SA1PR12MB7127:EE_
+X-MS-Office365-Filtering-Correlation-Id: ff1ee7fd-38e8-4a35-6f52-08df4680fcd8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|366016|1800799024|11063799006|56012099006|261028144727099003|10067099003|261021121427099003|261026140227099003|261022105027099003|261102123227099003|261026121527099003|261009223027099003|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info: YM+C6rzLhaK3BonuRd0rRGUg/PwOPKOuAIokh7MbShmotPy/QT21Qt4zwzCibW+S6i+vZEadGhGnsvr/4E1sgatvgiLEGrX1kTEM+gZXY024IDk+czX3xbZelhWMlFZA4lOCR7IhpH8uxgXg52+EJkO2+yqCsw5gTCR0KOzGnLw/mCyfB5TsdDAvNGBTYGNVGFgn7uF9GZspyHIHc0uA689w15x0KaOETqghru6WqJGl/asWcsDNw2GMZNsS3Uvt+2P1XoF/wDT2eOTGOPl0fkeI0WFgTJZe616JI2ddt7adhcr3jCCp9LqzoEYFcv1Uc2U3ZaGNYtTFHSjdcqbGGzq8Z5Ar62inaAmt4zI08juLCQkuYiWYSUHwn928nUmzZ0OpYd8FEZIiOLaeMRtjYEh4/TpvSWaCTZwga6lzCmUnVDTl1W8VEd4q0rK4Vic1hFnLaXcQRsMsMxP2Yu1IccJ3AZ/Dod/s2A4j0UW4DjFn0bm4RvB97RGtLxs3OSlATvQOo0m+XJNIwZk83yXXl5XlTeh6HqYObnYGikgZUhpKClb8iKq01RtZWkBtq+5sHi+HZ1CcYuMwUlt79zlzm1RvEYB+M+PxPdOG/NljDlmMi8448Sl5ubBlTnT+LPRlnK47TthIeGNUlztIfRGFJsFRUjgWp3429loPL83bhng=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB9174.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(11063799006)(56012099006)(261028144727099003)(10067099003)(261021121427099003)(261026140227099003)(261022105027099003)(261102123227099003)(261026121527099003)(261009223027099003)(22082099003)(18002099003)(3023799007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VmhWVWFxME85czR1VXpaeEJFUU1BSHdxbWxLb1huYmUrQWpHcW42akIwSkRC?=
+ =?utf-8?B?ZTd3T3A0MU8wL09Ga01yamJXY2JFZ3NNNFgrd3V1NXZLbDJ5OHU1SmdGRi9R?=
+ =?utf-8?B?aUQwdmp3SnFwQWlFRzU1R2tESVlHaXY5dzdNcmVlQ2t5MjhnMkFoNGRpWURx?=
+ =?utf-8?B?TGpEM3YvR05vTzhzdjZHUnFZWkxGaGFqeE1QRytnTk4ydUp0bjNVcG1BZVpy?=
+ =?utf-8?B?RUc0VTYrT3Z0bjYwcng2a1NmWEdZTldmUW14V2pLS1pMOXlzK3AwbWx4eCtL?=
+ =?utf-8?B?dFZBN2lrSVZXSTJPWC9rcHNMMmcrTWU2c2FLWnVrQXlkOVBlczFzaFIrZW1h?=
+ =?utf-8?B?WE56N1RXcFJuMUw2bjhHcFVpczNMK3YzeWZIVS9xYzg5TjVFRWhOeXVweTJy?=
+ =?utf-8?B?Z1gwMnJjS0pqb3ZtZ2s1bFloV2dJOWtPSm0xc3p1Ym9ScE9PeHJ1TWhuU1Az?=
+ =?utf-8?B?TllVNlhoRjhvcHgybXB4cWJDczJPY1FIbU43RkdFZTZvT0RCd3NNMWtWWDNo?=
+ =?utf-8?B?ZmlqRVRiN0swTVFrUEVyRmd5ZkVvd0hIMjNXRHVEWTZKRU5CQWFKaTJLdVhJ?=
+ =?utf-8?B?dHFKd3JHVHh1NE0yeHJQWk15NXExZkQza3NDaDUwS1FuckQ4ZitKUUpTN2Vo?=
+ =?utf-8?B?bkJIajhtWmYwc2EyYzhZNVNXT0RydE1HMDhZaXpMRllrQzFaTDRMVzBBdDhm?=
+ =?utf-8?B?Y2hvbjhJZWVCOXhaa3B4MVpLM0pqdm5OYlZwWjFCanVrRkVTYXoyamdUcXdW?=
+ =?utf-8?B?Y2Zia0U3dWtlR0xyRXZzVHRQeGs3dGpRZU5JUlUyWUhIcGhKOFE5MC9WM2ht?=
+ =?utf-8?B?S2p0RVFJN1hxV29nTkNFckMvUms1elMweVlOUkU3WXZ5N1A2cTRWUnNTRkhk?=
+ =?utf-8?B?MkVvTUNoYXl0RWswdXRQeEIxV2c3NW9PV3YydEdqcEdOUCtUdHFPWGc2V1NN?=
+ =?utf-8?B?d0dsK3pkM3psUjVSbmRKSjFiazJQbXlSL1BuVk04cXloVG8wNnhNaWlnSmpZ?=
+ =?utf-8?B?TTViRFF0SXoxbnRjWUlyZ1gzNVNRd0h2Wk5ab3A1M1N4TG9vaGM3SFM0NVdm?=
+ =?utf-8?B?clYweXMzN3pYWW52bWorTDZDUGxyVGpxSm9xRVZuLzBqQTc0R0c1REhmbE5o?=
+ =?utf-8?B?K2lCMnYvcjhzL1pGQlI1RHV0RU44dFdCa3ZyaWlCN1dHRFVZZG13OWw4SHpJ?=
+ =?utf-8?B?cW1ibGYvVk90bDFGYjlnZHNTU0hhek1mT2hyb3ZEcWxUeURCcmhTT0ZDWGZr?=
+ =?utf-8?B?dUlGMCt2ZExyQUpsV25CaVRmWnFMaFB3LzBtRUNmRWVZTm43UTlzUUQ2ZEQ2?=
+ =?utf-8?B?SnBJc1RtdlZ6RXFFSE1BSlAzZTZtd2JlL2tYUVliWWthMFlDY1Q0VHB2Yk0y?=
+ =?utf-8?B?UHVEenkyOE5BSzlUT2RuWmFEUmFBaVhSaGZFZXRpWGJucDY2b1J6OUpwQUIr?=
+ =?utf-8?B?TlBmUlNScjR0cnpyZkFHNDhJZjg5a1ZtOEFualJlcjdteEF1aHE1cEpqOUhP?=
+ =?utf-8?B?bjdiLzVxeXl6MzQ0R2IxN0hNSEVKSmZqdVppNkt0blljTlJSM0kyNm9aSHlH?=
+ =?utf-8?B?bnRVcWtsUjQ0eHFXbE4zU3Y4S2ZYV1ZEcEdXZlgwYzM5ZWRXMGpQbHpMaG5L?=
+ =?utf-8?B?citiaW5TOCtGbXRSeXV1ekIxMzAwR2NvalhJL05NdHU3QUg5NUwxQnVoeEFU?=
+ =?utf-8?B?YWFNWGNvU3JkdmRlZU5NQ2RDeGp4ajF3Yk1XZDFPN1lESGQ4RENXaENPTWJx?=
+ =?utf-8?B?TmQ0SHNjOW9SNldzdWErSi81cFhUSXhtMGhqQjg2dUttcTRDK1VpQkI5MXpn?=
+ =?utf-8?B?K0dwZERnTEUxZlBhczJnWWUyY25oNnRrY0Nvc3NDYVViL0thYVZ2TENIZVYx?=
+ =?utf-8?B?MzhJUVhOQXEvclo0NzhiSlJGbE5pV1BBQlpORUJQMmd0VlI4WUhjYlVUOE1C?=
+ =?utf-8?B?dkpwcE9OMVc5N0NUK0s5RU5XdWVsaFFqbTZGVTN5d0R4UURmWXozNFVCVG16?=
+ =?utf-8?B?Q1NEdEpGS1Q4VGJJa2I1Q0gzNmt6N0Nzbmg3SXcrN0hIaVFSZkdoWThMZXFZ?=
+ =?utf-8?B?ZWJQbUR5RGM5eWIrYWhQdXpnamFFVDN5RVF4U3BiemhCbHRMSEpaZXBVMnow?=
+ =?utf-8?B?Vno3cDJ0OWNMc0ZxTDFGdDZmaXc4ZTNqeFVrOWZ1aW4zdFFwd1FxS3VDRVk5?=
+ =?utf-8?B?MkorVHZBbFJEaGd4ZUI3WVEyc2tZeVZxdWpUN1lSVktncytrSFdhcHJvbk9H?=
+ =?utf-8?B?WlNLMG9EU0psbjR5a2pQWEVYVzVYYUtUZlFoeWRmczJwWGc1aWNlUWtpdHgy?=
+ =?utf-8?B?OFpQOG5IVVZqZmNveXBzUEhZRCtLTVRhbFRxTWNqWktFS2p1TkVhQT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ff1ee7fd-38e8-4a35-6f52-08df4680fcd8
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB9174.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 21:06:32.7806 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MuhsB9Ht7Ewo4TgYHzZB/g0RD4Cppan6i+KH7K/oU3EvJpM6cHzwKZwohtHATHU6DZ7Nfc0qDSR3O4RxPi6K8w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7127
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,68 +131,73 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, Nov 19, 2026 at 2:46=E2=80=AFPM Mario Limonciello
-<mario.limonciello@amd.com> wrote:
->
-> Drivers such as amdgpu and radeon need the bus number firmware assigned
-> to a device to match it against firmware tables like VFCT. The PCI core
-> may renumber buses (e.g. with pci=3Drealloc), after which the runtime
-> number no longer reflects what firmware programmed.
->
-> Record the bridge's secondary bus number in its struct pci_dev when
-> pci_read_bridge_windows() reads the bus number register. This happens
-> once, when the bridge is first enumerated and before any renumbering,
-> so the value is what firmware left at FW/OS handoff. Devices behind the
-> bridge can then retrieve their firmware bus number via their upstream
-> bridge.
->
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 
-Series is:
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-> ---
->  drivers/pci/probe.c | 1 +
->  include/linux/pci.h | 2 ++
->  2 files changed, 3 insertions(+)
->
-> diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
-> index 9a178e0e5f7f4..89a7c52ac3e5b 100644
-> --- a/drivers/pci/probe.c
-> +++ b/drivers/pci/probe.c
-> @@ -513,6 +513,7 @@ static void pci_read_bridge_windows(struct pci_dev *b=
-ridge)
->         res.flags =3D IORESOURCE_BUS;
->         res.start =3D FIELD_GET(PCI_SECONDARY_BUS_MASK, buses);
->         res.end =3D FIELD_GET(PCI_SUBORDINATE_BUS_MASK, buses);
-> +       bridge->fw_sec_busnr =3D res.start;
->         pci_info(bridge, "PCI bridge to %pR%s\n", &res,
->                  bridge->transparent ? " (subtractive decode)" : "");
->
-> diff --git a/include/linux/pci.h b/include/linux/pci.h
-> index aa3765a20a96c..4c1b1e557a607 100644
-> --- a/include/linux/pci.h
-> +++ b/include/linux/pci.h
-> @@ -363,6 +363,8 @@ struct pci_dev {
->         struct pci_slot *slot;          /* Physical slot this device is i=
-n */
->
->         unsigned int    devfn;          /* Encoded device & function inde=
-x */
-> +       /* Bridge secondary bus number at FW/OS handoff */
-> +       unsigned char   fw_sec_busnr;
->         unsigned short  vendor;
->         unsigned short  device;
->         unsigned short  subsystem_vendor;
->
-> --
-> 2.43.0
->
+On 11/19/26 13:55, Bjorn Helgaas wrote:
+> On Thu, Nov 19, 2026 at 01:21:19PM -0600, Mario Limonciello wrote:
+>> Drivers such as amdgpu and radeon need the bus number firmware assigned
+>> to a device to match it against firmware tables like VFCT. The PCI core
+>> may renumber buses (e.g. with pci=realloc), after which the runtime
+>> number no longer reflects what firmware programmed.
+>>
+>> Record the bridge's secondary bus number in its struct pci_dev when
+>> pci_read_bridge_windows() reads the bus number register. This happens
+>> once, when the bridge is first enumerated and before any renumbering,
+>> so the value is what firmware left at FW/OS handoff. Devices behind the
+>> bridge can then retrieve their firmware bus number via their upstream
+>> bridge.
+>>
+>> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> 
+> Acked-by: Bjorn Helgaas <bhelgaas@google.com>
+> 
+> I assume you'll merge via DRM?
+
+Thanks.
+
+Yeah, I'll merge this through drm-misc.
+
+> 
+>> ---
+>>   drivers/pci/probe.c | 1 +
+>>   include/linux/pci.h | 2 ++
+>>   2 files changed, 3 insertions(+)
+>>
+>> diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
+>> index 9a178e0e5f7f4..89a7c52ac3e5b 100644
+>> --- a/drivers/pci/probe.c
+>> +++ b/drivers/pci/probe.c
+>> @@ -513,6 +513,7 @@ static void pci_read_bridge_windows(struct pci_dev *bridge)
+>>   	res.flags = IORESOURCE_BUS;
+>>   	res.start = FIELD_GET(PCI_SECONDARY_BUS_MASK, buses);
+>>   	res.end = FIELD_GET(PCI_SUBORDINATE_BUS_MASK, buses);
+>> +	bridge->fw_sec_busnr = res.start;
+>>   	pci_info(bridge, "PCI bridge to %pR%s\n", &res,
+>>   		 bridge->transparent ? " (subtractive decode)" : "");
+>>   
+>> diff --git a/include/linux/pci.h b/include/linux/pci.h
+>> index aa3765a20a96c..4c1b1e557a607 100644
+>> --- a/include/linux/pci.h
+>> +++ b/include/linux/pci.h
+>> @@ -363,6 +363,8 @@ struct pci_dev {
+>>   	struct pci_slot	*slot;		/* Physical slot this device is in */
+>>   
+>>   	unsigned int	devfn;		/* Encoded device & function index */
+>> +	/* Bridge secondary bus number at FW/OS handoff */
+>> +	unsigned char	fw_sec_busnr;
+>>   	unsigned short	vendor;
+>>   	unsigned short	device;
+>>   	unsigned short	subsystem_vendor;
+>>
+>> -- 
+>> 2.43.0
+>>
+
