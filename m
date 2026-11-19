@@ -2,101 +2,53 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFAAE60A260C
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 15:58:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D552606A326
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 16:05:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yC9mR5ux
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d9WwW2ar
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9283C10E345;
-	Thu, 19 Nov 2026 15:58:09 +0000 (UTC)
-Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com
- [209.85.167.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C40F710E345
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 15:58:03 +0000 (UTC)
-Received: by mail-oi1-f182.google.com with SMTP id
- 5614622812f47-5733c4c1ee3so53110b6e.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 07:58:03 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795103883; cv=none;
- d=google.com; s=arc-20260327;
- b=dy0ERLzU0o6f7eJ+83ad1LfCQ0IwmcDqo7rKofhhGfsSCElr9ORwwY7a41PgaC1ja/
- FJorYXPC4ysl6uOokT17kLvSYDqyxR23tAanecIZ7Uh/LLwt5XDMe9Kvuhv0g7BMSBmg
- 8vT6RvwN+HXSi4Oskg0WyEUOEpURQ/zTO4B4BdQlimQ+Z4QLBZPnfP1DJdZgWAEUSxvj
- BRTQ1ej0Xn9GyxuGW4OkzjNZ82sF245CsTTXscTtR0MUXkNOSpMSv2/y5IekFc97YcXr
- h2N8u/djEMtzglo2XiJJjuhMXQmhr7z/rfod2TgyhB4bjjXGucDwhvLFf5/57jh/lwfy
- Iciw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=Zfp/sSG5jLSQxyif0VfIAOH3AOIjZA6+lW+WncRGZ4Q=;
- fh=sdRmO/bSGhZRh+CKneNNhA5+HMP6pBZVZplMs90RBio=;
- b=pCzNnAn3zzUuRCIEiG893pmkXnSKi8YEjRPnbHerq+DriGH8pFrKN4tGG6BBFxCMTX
- bFClBEVKf7PzxjiXqlkB20henancU/9x+oco5NIs0fzVS5Mjb1k+xYZIgomYa52ATlRz
- Ob18Qw6a7m1JzuTrQW7yCAn53xUyZFVEOILNhAQO4Opbc+f0nVZ8hC9bauk3Bc5Xpg0u
- mgt7H3EGPeUiVwTySEsDN4xSpev8MavFH9bWrGQa7OTehpGB/0GRzOPg5MKfrv0wpqfO
- mayyw8TVSrT7rDSemgsW7/omrD2Hog8y/fPkryKBrg4m+c7o2N7lSgzf7cpy5BBy1RQY
- g/2w==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795103883; x=1795708683; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=Zfp/sSG5jLSQxyif0VfIAOH3AOIjZA6+lW+WncRGZ4Q=;
- b=yC9mR5ux06v/Hev4UANN/B27AJXj+bAROAmifbgjwQyT1jgqYC3uBT6zcjyMQ65saG
- 8uuFsGTmQRKDpPycpAXaOF79XqJCLTLBrZWeYSsOdNgkpVi6rAZvXlrghYpiXWWbrWdr
- w7/QxajQu/37zsT950cM51R93QiKO+B9kx1il4BL+sKRVuX3ebXUTDRsKpacGg4a3Sl6
- DhKEd+GT22ytBLGN5aJ8ziPccSB3TGKx9zdKUNjBOTGAkVxhE6474Xr7WIYnMeOS5hQR
- wzEkwN5C1yNu5wwnAy0BAilJ3NeXQDYPUzNSONdW5SguyE1VIV5ou1hdRLJ4HPy8lgej
- 236g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795103883; x=1795708683;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=Zfp/sSG5jLSQxyif0VfIAOH3AOIjZA6+lW+WncRGZ4Q=;
- b=f1gDImb0dS4nHv87xT6sdMMvL7X4Kp216HPn647PNbojiNL9PI+2HNshugtcys03ye
- 1RJ8EC7JwkjHNMqq3kAPkcr9TrK/JnY4RjfynJZc0SkJKqOMtLns0TOLLSFZH9HopuOt
- 98tPndzs6kRLSMrY3QTjJweORuJt7+yFGUI65mrH+OCZj5EUewQklh5n8gVhvfGYZtf9
- JIKAHK0iZ9jrsVP2iarA06cvQa0GKzhSljtGgFnxJ1xhhAZDtxmzXOGsLPS4GASewGbi
- TvWOEhx7q1dhbffv299z+KpM6PM2KikuHaUM2hZ7jSy/sRDLqRJYJ0X0PY9uPpFkRCh9
- 9jWg==
-X-Forwarded-Encrypted: i=1;
- AL+hErE/HoIZeiNxBbl/d+aXhvvAZADCr0I7DDr7GG2/gHTgHeaYcEEJfoimRZ4eP3XXmgCqMVtuFedN@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/lvibFU+1uFwGSDk3mtRv5jfG7n0xmkMHbUspDcurReWKeW7aM
- YHJdohOLVBB42KuLx3xQxMS/r4hTvnrMwIIE8+Mo/UzU6JNDQ35s+z7UCdy344GA1V8JOQ9Qmt2
- pI7eEm+tm03lklXXiII2v+UPqYoTsGiw3hg==
-X-Gm-Gg: AYBFou2HbjuTycB2/qVZVC03YRN18o/firVyW3q6UXeRDITrOT10B14jH/3pl7QhZo6
- oK5XPfKdFcwk+A8n6UtzdrGxzzK0+4Z/FK2pNMWQ0ZZo88ZeZ4lyD0pzTirvy2zpO1kMYb9MWYD
- PvPk+XE5gc7Yw85pOaEsDt4BE2zKzDnZo186X+HDUOPQ4D2KECjbP4jg5L6r8FvMYsWpk9TQlkS
- ny9X2Pvobe+BgxZCT6w4z8SXB2++F+vLjzAR8/8NUGk2dpYnf9oSy8GNmlAvopBoT6dSMR8kazN
- CRDjcugkG8CRf6EeZD7BVsdTYFcVKaCSTRuy4C1KYoB/Cds4iAa/IXjm1toBA2PPp/jrrgS/IQL
- WdanxKfZwSkCtd9BSirVyUKL8+2CZLiQZnwjiinSmFXUYpNBH7RKxZ86ZOniy4CxAYWKuYV7158
- /Sp40ZjOv8z5dD+LWvH8N6d5+VWT2hKUXJ5ROtLOeGf0GvxHO9D+O0LkghiGpM
-X-Received: by 2002:a05:6808:1a0f:b0:572:f9ab:c2c5 with SMTP id
- 5614622812f47-57a0910b919mr443253b6e.4.1795103882844; Thu, 19 Nov 2026
- 07:58:02 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4683710E48B;
+	Thu, 19 Nov 2026 16:05:10 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D399210E962;
+ Thu, 19 Nov 2026 16:05:03 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id EF51163383;
+ Thu, 19 Nov 2026 16:05:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD7631F000C7;
+ Thu, 19 Nov 2026 16:05:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795104302;
+ bh=hbK+kWkYYKm/efLUoBKOSkktiP3/Wop2eoAi4ChS1QA=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=d9WwW2ar0YOTWbnyoAZZOi6xLhgyjF+NG7ZochlTRKamLVWoY9yrclWCRcsMHo3zW
+ 8qrPXHFN9J6HJKjcHz6sCgf+oZiPHGmTTdMyMB91gKzkzhxElmrwZW6cGd8euvjMGq
+ 1Ehir73ksQGmS2lNCWJ2uI+Z5+hW6X1pXlQwW+RZWwaC5CJRouw3q0W9kw31G5mnT9
+ QwtstSKgVHu8L4g6Zv76NEEnoMLqEVGaDWV6kWzeZ9ptLSvq735A5h6tMOWMitaFaa
+ xwOmtfpOK+0R2wx1hD6BqcMc1By2Y6YtyqxvENb4t7nr2xQyJtknRE318tG9+c5AzT
+ V8fJZFr7i9jdw==
+Message-ID: <3657995d-b4f7-4a0d-9615-1c56a0127de1@kernel.org>
+Date: Thu, 19 Nov 2026 10:04:56 -0600
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 0/3] Fix amdgpu detection of pci=realloc
+Content-Language: en-US
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Bjorn Helgaas <helgaas@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Oz Tiram <oz@shift-computing.de>, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org,
+ Reza Nikzad Chaleshori <rezanikzadch@gmail.com>
 References: <20261111-vfct-regression-v6-0-393797bbb6e3@amd.com>
  <5cf8f937-acc8-475e-ba0c-6be00defbb53@amd.com>
-In-Reply-To: <5cf8f937-acc8-475e-ba0c-6be00defbb53@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 19 Nov 2026 10:57:49 -0500
-X-Gm-Features: AclHuK-Pw2ItFRgv4vG8DuHpZH3Cm8ObSCuVEl9wVmjZ1BCfQqEiUUdyusvBEWI
-Message-ID: <CADnq5_PAarNZ24xOU3MqVfEra1hSOqgrKQxvLppyCWZQebr_yw@mail.gmail.com>
-Subject: Re: [PATCH v6 0/3] Fix amdgpu detection of pci=realloc
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Bjorn Helgaas <helgaas@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Oz Tiram <oz@shift-computing.de>, linux-pci@vger.kernel.org, 
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, 
- Reza Nikzad Chaleshori <rezanikzadch@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ <CADnq5_PAarNZ24xOU3MqVfEra1hSOqgrKQxvLppyCWZQebr_yw@mail.gmail.com>
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <CADnq5_PAarNZ24xOU3MqVfEra1hSOqgrKQxvLppyCWZQebr_yw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,109 +59,96 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, Nov 19, 2026 at 10:30=E2=80=AFAM Mario Limonciello
-<mario.limonciello@amd.com> wrote:
->
->
->
-> On 11/11/26 10:43, Mario Limonciello wrote:
-> > amdgpu needs to know the bus number the platform assigned a device to
-> > be able to match firmware images against the right device.
-> >
-> > This was previously adjusted to be a soft filter due to
-> > commit 11c141672045f ("drm/amdgpu: Fix VFCT bus number matching with
-> > soft filter") where if everything but the number matched to take a devi=
-ce.
-> >
-> > This however fails when there are two identical devices.  Instead save =
-the
-> > initial bus number to the PCI device structure and then match that.
-> >
-> > Link: https://lore.kernel.org/linux-pci/20261015124843.203905-1-mario.l=
-imonciello@amd.com/
-> > Link: https://lore.kernel.org/amd-gfx/20261019194106.2796150-1-alexande=
-r.deucher@amd.com/
-> > Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> > ---
-> > Changes in v6:
-> > - Capture the firmware secondary bus number when reading bridge windows=
- and
-> >    ignore unconfigured values so rescans cannot replace it with runtime=
- data
-> >    (Sashiko).
-> > - No change needed in the VFCT consumers; they continue to read the cac=
-hed
-> >    value from the upstream bridge.
-> > - Link to v5: https://patch.msgid.link/20261110-vfct-regression-v5-0-f4=
-9fae981bf3@amd.com
-> >
-> > Changes in v5:
-> > - Record the firmware secondary bus number only on the bridge struct pc=
-i_dev,
-> >    guard it with a validity bit, and keep it across rescans (Bjorn, Lij=
-o).
-> > - Drop pci_bus::number_initial and have amdgpu/radeon read the saved br=
-idge
-> >    number when matching VFCT entries.
-> >
-> > Changes in v4:
-> > - Retain secondary bus bus number for a bridge across rescans, and the =
-child bus is initialized
-> >    from it during allocation, before registration callbacks run. (Sashi=
-ko)
-> > - Rename variable to clarify it's for bridges (Lijo)
-> > - Link to v3: https://patch.msgid.link/20261026-vfct-regression-v3-0-fe=
-9586ed6978@amd.com
-> >
-> > Changes in v3:
-> > - Preserve the firmware bus number across bridge renumbering, capturing=
- the
-> >    secondary bus number before pci_scan_bridge_extend() clears it.
-> > - Adjust member name in all patches
-> > - Add tags
-> > - Link to v2: https://patch.msgid.link/20261020-vfct-regression-v2-0-d2=
-394d11450a@amd.com
-> >
-> > Changes in v2:
-> > - pci_alloc_dev(NULL) remains safe.
-> > - For buses behind a reassigned bridge, the PCI core now saves the firm=
-ware secondary bus
-> >    number before clearing the bridge configuration and carries it into =
-the newly allocated bus.
-> >    Devices discovered there inherit that original number.
-> > - Add changes for radeon too.
-> > - Link to v1: https://patch.msgid.link/20261019-vfct-regression-v1-0-5a=
-63ddd378dd@amd.com
-> >
-> > ---
-> > Mario Limonciello (3):
-> >        PCI: Cache bridge firmware secondary bus number
-> >        drm/amdgpu: Match VFCT using initial PCI bus number
-> >        drm/radeon: Match VFCT using initial PCI bus number
-> >
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 23 ++++++++++-------------
-> >   drivers/gpu/drm/radeon/radeon_bios.c     | 25 +++++++++++------------=
---
-> >   drivers/pci/probe.c                      | 16 ++++++++++++++--
-> >   include/linux/pci.h                      |  4 ++++
-> >   4 files changed, 39 insertions(+), 29 deletions(-)
-> > ---
-> > base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
-> > change-id: 20261019-vfct-regression-2142fc52852a
-> >
-> > Best regards,
-> > --
-> > Mario Limonciello <mario.limonciello@amd.com>
->
 
-Is v6 preferred to v7?
 
-Alex
+On 11/19/26 09:57, Alex Deucher wrote:
+> On Thu, Nov 19, 2026 at 10:30 AM Mario Limonciello
+> <mario.limonciello@amd.com> wrote:
+>>
+>>
+>>
+>> On 11/11/26 10:43, Mario Limonciello wrote:
+>>> amdgpu needs to know the bus number the platform assigned a device to
+>>> be able to match firmware images against the right device.
+>>>
+>>> This was previously adjusted to be a soft filter due to
+>>> commit 11c141672045f ("drm/amdgpu: Fix VFCT bus number matching with
+>>> soft filter") where if everything but the number matched to take a device.
+>>>
+>>> This however fails when there are two identical devices.  Instead save the
+>>> initial bus number to the PCI device structure and then match that.
+>>>
+>>> Link: https://lore.kernel.org/linux-pci/20261015124843.203905-1-mario.limonciello@amd.com/
+>>> Link: https://lore.kernel.org/amd-gfx/20261019194106.2796150-1-alexander.deucher@amd.com/
+>>> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+>>> ---
+>>> Changes in v6:
+>>> - Capture the firmware secondary bus number when reading bridge windows and
+>>>     ignore unconfigured values so rescans cannot replace it with runtime data
+>>>     (Sashiko).
+>>> - No change needed in the VFCT consumers; they continue to read the cached
+>>>     value from the upstream bridge.
+>>> - Link to v5: https://patch.msgid.link/20261110-vfct-regression-v5-0-f49fae981bf3@amd.com
+>>>
+>>> Changes in v5:
+>>> - Record the firmware secondary bus number only on the bridge struct pci_dev,
+>>>     guard it with a validity bit, and keep it across rescans (Bjorn, Lijo).
+>>> - Drop pci_bus::number_initial and have amdgpu/radeon read the saved bridge
+>>>     number when matching VFCT entries.
+>>>
+>>> Changes in v4:
+>>> - Retain secondary bus bus number for a bridge across rescans, and the child bus is initialized
+>>>     from it during allocation, before registration callbacks run. (Sashiko)
+>>> - Rename variable to clarify it's for bridges (Lijo)
+>>> - Link to v3: https://patch.msgid.link/20261026-vfct-regression-v3-0-fe9586ed6978@amd.com
+>>>
+>>> Changes in v3:
+>>> - Preserve the firmware bus number across bridge renumbering, capturing the
+>>>     secondary bus number before pci_scan_bridge_extend() clears it.
+>>> - Adjust member name in all patches
+>>> - Add tags
+>>> - Link to v2: https://patch.msgid.link/20261020-vfct-regression-v2-0-d2394d11450a@amd.com
+>>>
+>>> Changes in v2:
+>>> - pci_alloc_dev(NULL) remains safe.
+>>> - For buses behind a reassigned bridge, the PCI core now saves the firmware secondary bus
+>>>     number before clearing the bridge configuration and carries it into the newly allocated bus.
+>>>     Devices discovered there inherit that original number.
+>>> - Add changes for radeon too.
+>>> - Link to v1: https://patch.msgid.link/20261019-vfct-regression-v1-0-5a63ddd378dd@amd.com
+>>>
+>>> ---
+>>> Mario Limonciello (3):
+>>>         PCI: Cache bridge firmware secondary bus number
+>>>         drm/amdgpu: Match VFCT using initial PCI bus number
+>>>         drm/radeon: Match VFCT using initial PCI bus number
+>>>
+>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 23 ++++++++++-------------
+>>>    drivers/gpu/drm/radeon/radeon_bios.c     | 25 +++++++++++--------------
+>>>    drivers/pci/probe.c                      | 16 ++++++++++++++--
+>>>    include/linux/pci.h                      |  4 ++++
+>>>    4 files changed, 39 insertions(+), 29 deletions(-)
+>>> ---
+>>> base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+>>> change-id: 20261019-vfct-regression-2142fc52852a
+>>>
+>>> Best regards,
+>>> --
+>>> Mario Limonciello <mario.limonciello@amd.com>
+>>
+> 
+> Is v6 preferred to v7?
+> 
+> Alex
+
+My local linking between message IDs got messed up.  Yes comments on v7 
+please, thanks for catching.
+
