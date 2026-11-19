@@ -2,119 +2,128 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8567C606A324
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 14:11:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83F7A606A332
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Nov 2026 14:11:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n/jm8GB4
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=RdK6p72r
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6F3B11246B;
-	Thu, 19 Nov 2026 14:11:24 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 68E4D11241C;
- Thu, 19 Nov 2026 13:43:08 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4EFD8418E3;
- Thu, 19 Nov 2026 13:43:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7C561F000C4;
- Thu, 19 Nov 2026 13:43:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795095788;
- bh=CbEg7XvfeDnBQ/K77/dlrEkK7yv8e4LifTJxVZmhLAs=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=n/jm8GB4oI1ZqtVH3mcxqQUwu9zuKiDu90pq6oKhkRGMpkul9cUzIWyL0OMn9lNiE
- yBKBsV8prLTEFyx0qEMoD8RpojqItT9dAXuguu1fIPVRXKdIrWHbwCsl9jO+ySa7g7
- k00W4Ui1/3OvE8DlqLfbOZX3jHIMUSZi3jgQBAE/Cw/9/Zykh9QHw5PS1qgR2i71IR
- zfO8LeXoviNETRPF0eKG6jI5XGyHA/nbymcYM0a9zYLwrYLw9o5tAXmABdR6mFolMb
- LOw2bTAgup7y5wAExPZUZs/Z37euTnmiFeLJ23GCI0jxPdlBzRNv8iqF2TPyMS/YJP
- fqCrH5mGo+kGQ==
-From: Maxime Ripard <mripard@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Maxime Ripard <mripard@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, Janne Grunau <j@jannau.net>,
- Sasha Finkelstein <k@chaosmail.tech>, asahi@lists.linux.dev,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- sashiko-bot@kernel.org, Liviu Dudau <liviu.dudau@arm.com>,
- Russell King <linux@armlinux.org.uk>, Dave Airlie <airlied@redhat.com>,
- Jocelyn Falempe <jfalempe@redhat.com>,
- Alim Akhtar <alim.akhtar@samsung.com>, Inki Dae <inki.dae@samsung.com>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Peter Griffin <peter.griffin@linaro.org>,
- Seung-Woo Kim <sw0312.kim@samsung.com>, linux-samsung-soc@vger.kernel.org,
- Alison Wang <alison.wang@nxp.com>, Stefan Agner <stefan@agner.ch>,
- Tian Tao <tiantao6@hisilicon.com>,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Yongbang Shi <shiyongbang@huawei.com>, Dexuan Cui <decui@microsoft.com>,
- Long Li <longli@microsoft.com>,
- Saurabh Sengar <ssengar@linux.microsoft.com>, linux-hyperv@vger.kernel.org,
- Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Sascha Hauer <s.hauer@pengutronix.de>, imx@lists.linux.dev,
- Paul Cercueil <paul@crapouillou.net>, linux-mips@vger.kernel.org,
- Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
- Paul Kocialkowski <paulk@sys-base.io>, Huacai Chen <chenhuacai@kernel.org>,
- Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Jianmin Lv <lvjianmin@loongson.cn>, Mingcong Bai <jeffbai@aosc.io>,
- Qianhai Wu <wuqianhai@loongson.cn>, Xi Ruoyao <xry111@xry111.site>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Danilo Krummrich <dakr@kernel.org>, Lyude Paul <lyude@redhat.com>,
- nouveau@lists.freedesktop.org,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Gerd Hoffmann <kraxel@redhat.com>, spice-devel@lists.freedesktop.org,
- virtualization@lists.linux.dev,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Magnus Damm <magnus.damm@gmail.com>,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- linux-renesas-soc@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>,
- Marcus Folkesson <marcus.folkesson@gmail.com>,
- David Lechner <david@lechnology.com>,
- Iker Pedrosa <ikerpedrosam@gmail.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>, Orson Zhai <orsonzhai@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Philippe Cornu <philippe.cornu@foss.st.com>,
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
- Yannick Fertre <yannick.fertre@foss.st.com>,
- Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>,
- linux-sunxi@lists.linux.dev, Jonathan Hunter <jonathanh@nvidia.com>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Thierry Reding <thierry.reding@kernel.org>, linux-tegra@vger.kernel.org,
- Jyri Sarha <jyri.sarha@iki.fi>, Alexey Brodkin <abrodkin@synopsys.com>,
- Hans de Goede <hansg@kernel.org>,
- Kamlesh Gurudasani <kamlesh.gurudasani@gmail.com>,
- Alex Lanzano <lanzano.alex@gmail.com>,
- LiangCheng Wang <zaq14760@gmail.com>, Chia-I Wu <olvaffe@gmail.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Zack Rusin <zack.rusin@broadcom.com>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- Michal Simek <michal.simek@amd.com>
-Subject: Re: (subset) [PATCH v2 00/64] drm: Switch drivers to
- drm_mode_config_create_initial_state
-Date: Thu, 19 Nov 2026 14:43:02 +0100
-Message-ID: <179509577844.523497.5498880532220697042.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261116-drm-no-more-config-reset-v2-0-0bb471f4d1e0@kernel.org>
-References: <20261116-drm-no-more-config-reset-v2-0-0bb471f4d1e0@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E95C112471;
+	Thu, 19 Nov 2026 14:11:25 +0000 (UTC)
+Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com
+ [209.85.160.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54DDA10EA9B
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 05:45:59 +0000 (UTC)
+Received: by mail-qt1-f181.google.com with SMTP id
+ d75a77b69052e-55be673e029so117321cf.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Nov 2026 21:45:59 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795067158; cv=none;
+ d=google.com; s=arc-20260327;
+ b=GTMZWFm5BW6pMN8hwezNBFR10iYTH9U1uAFKWewuPnRedG1dIx1i1qchqJA5DvG773
+ J2LRzyggGb2obuNq6QRRjHjeCYNikUlFyW7mGvb9rxfolbCAA6sah6wQ1j8mxo4qS6xQ
+ ClDwthAZI3e5jtSBUz2xnrMKNegQkPYJWQmqTQKzgsxHLuIxzoEJJVixQ8ExONpZTcU+
+ 1EaSInRKen4y03ExKfcNdzcYbPi1OyFbNMvBNv4nAXh1ihn+M8AMdSd5u4wZTrViohx4
+ rU+Fa7ztMHxArssK9jfFn4gcEm0/ZaHGH8GHTSnJ9q5+LPEqA8Q7IBJg59G+HFB25DUa
+ TCeQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=cIkoHsOVRZS7gIowPl6xkao6tH+bfcK9X/Z+HF8PGU0=;
+ fh=EZCvVrv7mIQRMKLtMgqheXr17j8D8RmKDmd7FauMaC4=;
+ b=YUakOTieC65154y0oz/Clop1xvwU5etGI02xuPUeVcXg5foAz7VXwQGZLy75/UpzGs
+ B+Vw5FXi1mGc5NqHTgpJt3bayLA7h3vG1EzPGEh+Vmirp/zfJr44ai5c5PvlT8MW3YMx
+ Tmnae7FTA/tjFNoBq7xA/aNWMPYgOwCPYK9XGPrRQFXNCdfbZqD/XtG4GAWYUZmWwOWy
+ tb51fjKS6WbFZaPaa7FoS9aIYhYnBxQ+W9qXlwdXv9Rob05P+7p2CmCXyqWLFv6sJzcz
+ mYwwE9kmD95CmIvsmTm1FCnmduutUed9Z7851JXi8n4GoJHsm90Hv+xLUU5otdS/AJnG
+ Ss4Q==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20260707; t=1795067158; x=1795671958;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=cIkoHsOVRZS7gIowPl6xkao6tH+bfcK9X/Z+HF8PGU0=;
+ b=RdK6p72rDxBl3a+RRoe+4d9nB67OkqHnrvJa6hds/RHNthdElJ+591YF5PyXfHVArP
+ pQ2igpBBnNSglFmgMMQfNX9Io1gdBOKuPo7I9/GjgnP3oDPsrqSDlwrk9aW7/fMKvFi0
+ nxfgNZ7/yInih4EdWS/SOGTo/WaMvwngcRPRjImZxgN582otGkqidnjNJYV9qieNCYDh
+ vLOEHIa1nYngtIW3IkvtqhPrbvYWvejBCyM7WYhSSAUQzyU/uesRSwjhZ3YgkHAPcMqt
+ saJF1nViN+J2wYQocTALx15qXGIrfW++jHSYsZRJhg6YsNIfZUfnaiKemrxgbRV8HUgv
+ 1Nww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795067158; x=1795671958;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=cIkoHsOVRZS7gIowPl6xkao6tH+bfcK9X/Z+HF8PGU0=;
+ b=VaTSxP6FnpuyYL2OtMkUFT2sd9QzBEDWRs5SxTOn2Dx7PO1B2d3E6xUFiKnlXd3qO8
+ HV8XBe8fqCVjCUj5T9DjCihnhk5xFwlK9hvZUgrsEr6HQlSql67uPVJ3iuTVpOpADGWC
+ RTO38j1qkUFbZ0PgSFJHoBHRdzo+GWAyxeWKdwsRuC98xp1BAEyzV+ck/N/t/3/Zb3Kk
+ El3TudvF3R0rHnm26rb2DyPfPYKC1i59bmF3Ky/L2sBN8dpFFW0spBJErADMfTe0Q4Dq
+ rSCXaFszGg3I01BMkRd+Y1wjhXhxVoMGm/CUyWG6OG3VpBZa1plz1ILl69z5qrIb0x9u
+ vR2Q==
+X-Forwarded-Encrypted: i=1;
+ AL+hErFcR6tf1xJtl0a0DJkUAuHMjYY9kE3TC1PeXTYVYSgVA9UzAF6E5Fa9lOqtX7h22ZCOFB7kqqHp@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9I/K6shZNhY/InLpbX+XKRTx8NUZum+SrefItUucXmpTaWmtOP
+ NJysgahPQ4pZBUC+QJhmdxI+Nd6x3MPd5TVLhAIaco43JrNyNqP3KQWw/Z/49bH/mOOAooOKkhr
+ pCwZIce6g+Bu3T/OMLesHP/acs8llrPg/Ska91boY
+X-Gm-Gg: AYBFou1yF/CWeLfLP62RDiCYt7Vya9876J5RTW39EN2SLxH0g1JqX5CE+m6MWmdYuOe
+ 2NIGafsfcAw6KGGicoXFX+ILRFoF+pNPbyxgChdzUInx8f7nKQYPCPLFAowwoKp9CFWU4G+AHVH
+ rKQC5viXm0OSXIGV5RRsuQef6F64V0Ifbea8PTpWXC/mAj6aaI1B51Kf9TidS8mUF/riqUy5Fo6
+ bmJJo6tEYhtDRJnhvWvMXIbhMSgPzVQLtyC9PLy17Ym1rKNbSAJKqgPPI08zKn9cn36oQjwskHM
+ zG+7RRUxAlL4v345JBrV1zk0uNtzCxZFE28ire76wqzwolRbnRd7gdTJG5Km9TrduFSFaxAOWly
+ 2NMqI2wvzSRaccenD8jZT7TY3ahEAEejhBv5n
+X-Received: by 2002:a05:622a:4808:b0:536:934f:7da2 with SMTP id
+ d75a77b69052e-55d6c7995f9mr6557911cf.2.1795067157461; Wed, 18 Nov 2026
+ 21:45:57 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+References: <20261108223913.3624571-1-irogers@google.com>
+ <20261108223913.3624571-10-irogers@google.com>
+ <DMYN979QJFNV.LM3T6O68OHW6@kernel.org>
+In-Reply-To: <DMYN979QJFNV.LM3T6O68OHW6@kernel.org>
+From: Ian Rogers <irogers@google.com>
+Date: Wed, 18 Nov 2026 21:45:45 -0800
+X-Gm-Features: Aa3M54p8GzPfKDPQ_HJcPbdLHGq3vwK7n9VGnVvnVB1ODjbFHeHwrlgOfVCaaEo
+Message-ID: <CAP-5=fXrMyfLFXq6CiqwWMSbtYVRNESxuDo-ddqNwDmq5Nm4SA@mail.gmail.com>
+Subject: Re: [PATCH v3 9/9] kobject: Require explicit initialization of struct
+ kobj_type::release
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Kees Cook <kees@kernel.org>, 
+ Miguel Ojeda <ojeda@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, 
+ Nicholas Piggin <npiggin@gmail.com>, Christophe Leroy <chleroy@kernel.org>,
+ Nayna Jain <nayna@linux.ibm.com>, 
+ Srish Srinivasan <ssrish@linux.ibm.com>, Mimi Zohar <zohar@linux.ibm.com>, 
+ Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, 
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+ Juergen Gross <jgross@suse.com>, 
+ Stefano Stabellini <sstabellini@kernel.org>, 
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Nathan Chancellor <nathan@kernel.org>, 
+ Nick Desaulniers <ndesaulniers@google.com>,
+ Viresh Kumar <viresh.kumar@linaro.org>, 
+ Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>,
+ Alexander Aring <aahringo@redhat.com>, 
+ Felix Kuehling <felix.kuehling@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Zhihao Cheng <chengzhihao1@huawei.com>,
+ Sumanth Korikkar <sumanthk@linux.ibm.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ driver-core@lists.linux.dev, 
+ llvm@lists.linux.dev, linux-hardening@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-acpi@vger.kernel.org, linux-pm@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, linux-sh@vger.kernel.org, 
+ linux-s390@vger.kernel.org, gfs2@lists.linux.dev, 
+ xen-devel@lists.xenproject.org, linux-mtd@lists.infradead.org, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Thu, 19 Nov 2026 14:10:22 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -126,43 +135,83 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_IN_DEF_DKIM_WL autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon, 16 Nov 2026 11:30:16 +0100, Maxime Ripard wrote:
-> drm_mode_config_reset() has a dual role: it creates the initial KMS
-> state at probe time, and resets hardware and software state during
-> suspend/resume cycles. However, the two roles need different
-> behaviors, notably for objects like drm_private_obj that must persist
-> across suspend/resume and are excluded from drm_mode_config_reset()
-> by design.
-> 
-> [...]
+On Wed, Nov 18, 2026 at 1:11=E2=80=AFPM Danilo Krummrich <dakr@kernel.org> =
+wrote:
+>
+> On Sun Nov 8, 2026 at 11:39 PM CET, Ian Rogers wrote:
+> >  static const struct kobj_type cpuregs_kobj_type =3D {
+> > +     /*
+> > +      * Pre-existing: info->kobj is embedded in per-CPU cpu_data;
+> > +      * cpuid_cpu_offline() only calls kobject_del().
+> > +      */
+>
+> All of these comments carry a =E2=80=9CPre-existing:=E2=80=9D prefix, but=
+ that doesn=E2=80=99t
+> distinguish cases with broken lifetime management from those where the st=
+orage
+> remains valid despite the API misuse.
+>
+> For example:
+>
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_xcp.c
+> > index ab14079d1c42..0847134a1391 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+> > @@ -797,6 +797,11 @@ static const struct sysfs_ops xcp_cfg_res_sysfs_op=
+s =3D {
+> >  };
+> >
+> >  static const struct kobj_type xcp_cfg_res_sysfs_ktype =3D {
+> > +     /*
+> > +      * Pre-existing: xcp_res is embedded in struct amdgpu_xcp_cfg
+> > +      * rather than freed individually by kobject_put().
+> > +      */
+> > +     .release =3D NULL,
+>
+> Being embedded in another structure doesn't explain what guarantees that =
+the
+> enclosing allocation outlives the kobject=E2=80=99s final cleanup.
+>
+> Could you please drop the =E2=80=9CPre-existing:=E2=80=9D prefix and make=
+ that distinction
+> explicit? For broken cases, describe the lifetime problem and mark it as =
+needing
+> a follow-up fix. For cases where the lifetime is safe, explain what guara=
+ntees
+> that safety, while acknowledging that omitting release() still violates t=
+he
+> documented API contract.
+>
+> Also, do you plan to follow up on those cases?
 
-Applied to misc/kernel.git (drm-misc-next)
+Makes complete sense, thanks Danilo!
 
-[03/64] drm/hdlcd: Fix drm_atomic_helper_shutdown() on the probe error path
-        commit: e388eae138aa9364caada0a372b5712642188c16
-[11/64] drm/hyperv: Switch to drm_mode_config_create_initial_state
-        commit: 50b11ceaaef03d4062971db173bbddc8ac0df28b
-[25/64] drm/rcar-du: Switch to drm_mode_config_create_initial_state
-        commit: d8b8de5c35983567a7ef78fcd9f75db46d6c26af
-[29/64] drm/st7586: Switch to drm_mode_config_create_initial_state
-        commit: 52eb5b7764084bddd68e77c1c3e62e70ad11828f
-[30/64] drm/st7735r: Switch to drm_mode_config_create_initial_state
-        commit: 28d10bb2421152b650329710183c1f6df1bd056e
-[31/64] drm/st7920: Switch to drm_mode_config_create_initial_state
-        commit: b17f5f1abd5c30875d203d7690c92129d2d814d6
-[35/64] drm/stm: Switch to drm_mode_config_create_initial_state
-        commit: d78ccdcc94eba858fd8386f0da6de4ec4cd44666
-[37/64] drm/tegra: Switch to drm_mode_config_create_initial_state
-        commit: 0c187722c35db771276ee7390454f7de70508833
-[50/64] drm/ili9225: Switch to drm_mode_config_create_initial_state
-        commit: 0fc18dd1409138d88089ecdda5544ea2f8785520
+Auditing all 17 files in patch 9 with that distinction in mind:
+- Only 3 built-in sites (arm64 cpuinfo, ACPI hotplug profiles, and
+s390 sclp_mem) have backing storage that genuinely remains valid for
+the lifetime of the kernel.
+- The other 14 files either free/zero an enclosing dynamic or devm
+allocation without waiting for final kobject cleanup, or are tristate
+modules that unregister static kobjects/ksets on module_exit and can
+unmap module memory before delayed cleanup finishes.
 
-Thanks!
-Maxime
+I've dropped the "Pre-existing:" prefix, documented the specific
+guarantee or FIXME lifetime hazard at each site in v4, and yes, I plan
+to send follow-up fixes to the respective subsystems once __must_init
+is in place.
+
+Thanks,
+Ian
+
+> Thanks,
+> Danilo
+>
