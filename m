@@ -2,77 +2,77 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD7D5606A320
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 17:38:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F03F606A33A
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 17:43:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SEFgxfjR
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Jf1HkVpa
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 354C5112C2B;
-	Fri, 20 Nov 2026 17:38:17 +0000 (UTC)
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB832112BE9
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Nov 2026 17:24:27 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-4a2153c8525so9051265e9.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Nov 2026 09:24:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795195466; x=1795800266; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=sZw6zaPGPCV57vfhxVnZC52S1ln1mU0qdp5cwGtejBM=;
- b=SEFgxfjRToFzo2AKhfqh9Lmg3zSOi9kkJEB+25/S1DGAdvSOJ5CSrEq5j3iVdRKaXO
- OREk4GSadfJlQWqsCkJr02SGTPSUYWhYjI61erVOOhI3wrONr37pMM+wtwCPGdFkzGcH
- 7aLlef3OlclZrM595+tzEtcGf4fNP6HQts4XFI4rpRFVqH49WSLUvqVCiAexdQcpmO6V
- lT7lxgD2QJ8TCJ9R3O0zYLVV6+iVxSTyVRMUVnXHVbzp41vuyq0xkBvfx6zJCdbklu2k
- R8VrthiIHqwwfKIuK1QPhUk9OKoLhNNffwbHUf0QuWWTcJb3I3OInetFT+rpxBy/4DXJ
- wtqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795195466; x=1795800266;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=sZw6zaPGPCV57vfhxVnZC52S1ln1mU0qdp5cwGtejBM=;
- b=LSDhguIxlpAbVGDvt4PYu9cDIK3KYBzg4Zd1YBNiuESbTxbp4aHF/xt9X61m9vp0nO
- 7dZoVMGQOph1ZSK6N5hCQRfaou2oHmICsiCSZY5DrSVIeroKiNces6EEge+WqpBidoDg
- LMaU5C0GgCL64jiOTk2tXLyBke7D//a9XE+ng7yoVJ6nD99FoXvT9B7YWTbYUtHz3ZJ2
- aS0zq1Q07ChNYsfuaEGfMT9u1vZBNQQhA9/WtL7npcV4AvCXzF9cYLJmI6zL0ljd/wEb
- 3dGXGIuqZQMn08t1e2ORdZpCKINE8lffg7EOQIA/V/tV8UNnbqCAyysQ95BhpetofFkq
- bDIg==
-X-Gm-Message-State: APuU4Z+XIIS8yIR0fGv8quAEVuflRdryZMlG3ZZAq5kHanWHPjLdUDQD
- q9EV/mI4SotcGcZmiRZU3s8bLUK2K/ox7Ga9+LC5Tg9kUTfmvL3rnnVIMqJDv739
-X-Gm-Gg: AYBFou3WNQ/n7VzDQQJ1B7zFJFkdhz2yxB9sKKoahs2CRVtsh/9drMX4hjsDgtmZXy+
- qnJIFu+vB5ULv1TnJVPspp/rVdiYzgWwzGMBEFVdQsFl+xK6nTg7waqUXDDpZA38jhbt4IiLmLp
- NbjmTzP0F6Eyokg0jB8aWT+/Ec3MRlaDoI6/0JsrJP8cFLw370QsGC7sugtIdysFKFa5ySgp5T9
- Z7CP1jivRj7ZwwVuE8sX2ejLsTffNIjSIFXr/OS2WLXVBs3QofeBLRa5JO5o0stKGyoIaCUGMAb
- MPaJxrjmLWu40MGA371QQZj1gEyWTN19w7FTRN/hfg16X2ssJYrKLTRUluSSmylC3P4Kk1CMf2z
- 3jkf5CZ+ZivkIBUKKDltp2XfZEuhbXKktjyEY3faxGtZ8qYkzB7uk5GgllBIJbAEpjKExwzoiMO
- 4J12yipQiubx3/oEWOUFGYAwoaX3IhqXwB5yqZKkJ1uMGjfsgcaMRoXl49jopuP8gGK29gTL2d7
- 0mUFwxchH+7OfWesQW04StR0QLFe1gqWJWXYr/vPjtuvwD3rMSDvdTFEJTOg7MFU8xbkOc51b5H
- WkiLd57ulP0E7TggYzqDeT6J6UmML7DoP83YJ0i7d2Njm+3YBCkdcHVHOq1/FzSPQ7J+OCbvJbx
- npy0oWVnKh0mh6PMPHwbERr5srpYGbQMI/Z6GHVzKibyQAGcg+pKv7Ms=
-X-Received: by 2002:a05:600c:4515:b0:4bb:6f67:ca0b with SMTP id
- 5b1f17b1804b1-4bb888267f4mr88903895e9.29.1795195465874; 
- Fri, 20 Nov 2026 09:24:25 -0800 (PST)
-Received: from Arbeitszimmer.fritz.box
- ([2001:9e8:db29:4c00:a7d0:374b:43f1:90ea])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4ab6b110c3csm6924137f8f.36.2026.11.20.09.24.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Nov 2026 09:24:25 -0800 (PST)
-From: Christoph Berliner <caberliner@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, Jiqian.Chen@amd.com,
- Christoph Berliner <caberliner@gmail.com>
-Subject: [PATCH 0/2] drm/amdgpu/gfx9: make KFD usable again after MODE2 on
- Renoir
-Date: Fri, 20 Nov 2026 18:24:05 +0100
-Message-ID: <20261120172407.64651-1-caberliner@gmail.com>
-X-Mailer: git-send-email 2.56.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02B01112AF3;
+	Fri, 20 Nov 2026 17:43:09 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C524A112AF3;
+ Fri, 20 Nov 2026 17:43:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1795196583; x=1826732583;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=ZesNmmTH+elezFnRnzpxUtzX4X1KPesleeR9OkrS3+I=;
+ b=Jf1HkVpabE+pZtWeBrWu9FWRC+QnbSS0gdMJXtP2ee/4UOaPUU1PIxX/
+ FDkTfhgK7CVnr6lMRF3JS0R4yA3gr+5OWb+aWaEnhgHYKpNIAFPo1AQCR
+ zKdwVYTCbjgWGV0L+Nf9QkJGpqH7Svnf9TO4IGImnnyI6TFTFcN4KQtSN
+ vDEeTKPK7WCa3WuftIX/s3MssgvlVslTZMmeBHjBUb9OVqZc+C69dLd/5
+ kgbvr52ZOiAaYZam1BIYe6WbIEQJcBxVEC19yiOMBeFRLjd6QkuX4mXSC
+ eIrd3A4/TGtSBPfEjJgKUZDS5SBrMFvbzG2kTSzI8UijDa/kOXBMFajZ7 g==;
+X-CSE-ConnectionGUID: PUOeN82JTSWQJ0xO8J/nKQ==
+X-CSE-MsgGUID: d97TXlbqSKGgYvgyp7N+Aw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11972"; a="4123446"
+X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; 
+   d="scan'208";a="4123446"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Nov 2026 09:43:02 -0800
+X-CSE-ConnectionGUID: 9ppcSj5TQx+v07CsGbbJag==
+X-CSE-MsgGUID: yUVOLHc6TNy2a5JT+RRZsw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; d="scan'208";a="10744643"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.66])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Nov 2026 09:42:58 -0800
+Date: Fri, 20 Nov 2026 19:42:54 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Maxime Ripard <mripard@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Mario Limonciello <superm1@kernel.org>,
+ Xaver Hugl <xaver.hugl@gmail.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org
+Subject: Re: [PATCH v12 01/12] drm: add connector LUMINANCE property
+Message-ID: <awCGnqjGUroPBH4B@intel.com>
+References: <20261119-superm1-backlight-property-v12-0-89d5217d3618@amd.com>
+ <20261119-superm1-backlight-property-v12-1-89d5217d3618@amd.com>
+ <awB4Qe83u0l0XPKA@intel.com>
+ <8713bae1-9782-41d4-b09c-f14031203e88@amd.com>
+ <awCEezzEIrhWv5sk@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 20 Nov 2026 17:38:15 +0000
+In-Reply-To: <awCEezzEIrhWv5sk@intel.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,63 +83,107 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Renoir/Cezanne (GC 9.3.0) a MODE2 reset reports success, graphics and
-the kernel compute queues come back, but KFD stays dead until reboot:
-every new KFD queue runs into "qcm fence wait loop timeout expired"
-and triggers the next reset. Reported in
-https://gitlab.freedesktop.org/drm/amd/-/issues/6177, sent here as
-asked there.
+On Fri, Nov 20, 2026 at 07:33:47PM +0200, Ville Syrjälä wrote:
+> On Fri, Nov 20, 2026 at 11:19:13AM -0600, Mario Limonciello wrote:
+> > 
+> > 
+> > On 11/20/26 10:41, Ville Syrjälä wrote:
+> > > On Thu, Nov 19, 2026 at 05:27:28PM -0600, Mario Limonciello wrote:
+> > >> Panel brightness is a property of a display, and thus of a DRM
+> > >> connector. Add an atomic per-connector LUMINANCE range property so
+> > >> compositors can manage relative panel luminance together with the rest
+> > >> of the display state.
+> > >>
+> > >> Keep the core backend-agnostic. Drivers create the property with their
+> > >> hardware range and implement connector helper callbacks to set luminance
+> > >> or disable panel emission. The atomic helpers sequence those callbacks
+> > >> around pipeline enable and disable, including luminance-only commits.
+> > >> The panel is left lit when the pipeline enters self refresh, and the
+> > >> luminance is only reprogrammed when it changes or a modeset enables the
+> > >> pipeline.
+> > >>
+> > >> The stored property value is independent of display power. A commit made
+> > >> while the connector is inactive is retained and applied on the next
+> > >> enable; disabling the pipeline does not overwrite it.
+> > >>
+> > >> LUMINANCE values are relative, driver-defined levels rather than
+> > >> absolute luminance in cd/m^2. The interface supports emissive panels as
+> > >> well as panels with a separate backlight.
+> > >>
+> > >> Keep the interface behind a default-off DRM_LUMINANCE option. Migrated
+> > >> drivers retain their legacy backlight class ABI unless the new interface
+> > >> is explicitly selected, allowing the DRM UAPI and legacy compatibility
+> > >> policy to remain separate.
+> > >>
+> > >> Acked-by: Javier Martinez Canillas <javierm@redhat.com>
+> > >> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> > >> ---
+> > >> v11:
+> > >>   * Don't call .disable_luminance when the CRTC enters self refresh (Sashiko)
+> > >>   * Only call .set_luminance when the luminance changes or on a modeset
+> > >>     that isn't a self refresh exit (Leo Li, Sashiko)
+> > >>   * Fix the .set_luminance self refresh documentation
+> > >> v10:
+> > >>   * Add tag
+> > >> ---
+> > >>   drivers/gpu/drm/Kconfig                    | 14 +++++
+> > >>   drivers/gpu/drm/drm_atomic_helper.c        | 98 +++++++++++++++++++++++++++++-
+> > >>   drivers/gpu/drm/drm_atomic_state_helper.c  |  7 +++
+> > >>   drivers/gpu/drm/drm_atomic_uapi.c          |  5 ++
+> > >>   drivers/gpu/drm/drm_connector.c            | 57 +++++++++++++++++
+> > >>   drivers/gpu/drm/tests/drm_connector_test.c | 28 +++++++++
+> > >>   include/drm/drm_atomic_helper.h            |  3 +
+> > >>   include/drm/drm_connector.h                | 16 +++++
+> > >>   include/drm/drm_modeset_helper_vtables.h   | 28 +++++++++
+> > >>   9 files changed, 255 insertions(+), 1 deletion(-)
+> > >>
+> > >> diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+> > >> index 61111d50b1c65..1bbe2c2d7c76f 100644
+> > >> --- a/drivers/gpu/drm/Kconfig
+> > >> +++ b/drivers/gpu/drm/Kconfig
+> > >> @@ -33,6 +33,20 @@ endmenu
+> > >>   
+> > >>   if DRM
+> > >>   
+> > >> +config DRM_LUMINANCE
+> > >> +	bool "DRM connector luminance support"
+> > >> +	help
+> > >> +	  Expose relative luminance as an atomic DRM connector property. Values
+> > >> +	  are driver-defined levels rather than absolute luminance in cd/m^2.
+> > >> +	  Drivers provide connector helper callbacks to program their hardware;
+> > >> +	  the DRM core does not depend on a particular backend.
+> > >> +
+> > >> +	  Drivers migrated to this interface will use it instead of registering
+> > >> +	  a legacy backlight class device. Leave this disabled to preserve the
+> > >> +	  de-facto userspace ABI in /sys/class/backlight.
+> > > 
+> > > I don't think this will fly if it breaks the backlight class interface.
+> > > No one can actually enable this outside of some niche embedded use
+> > > cases where backwards compatibility is not an issue. I think what
+> > > you need is a generic backlight class implementation on top of this.
+> > > 
+> > 
+> > The idea with this was:
+> > 1) to get the series landed
+> > 2) let compositors merge solutions around it.
+> > 3) Then add backwards compatibility to kernel so we can flip the Kconfig 
+> > default.
+> 
+> With that plan, I think you need to mark it BROKEN if it will 
+> actually break current setups when some unsuspecting user flips
+> it on.
 
-Commit c3988a7ad479 ("drm/amdgpu/gfx9: Fix Ring and IB test fail after
-mode2") already found that MODE2 does not reset the HQD registers on
-gfx9 APUs and deactivates the KCQ HQDs before the reset. The HIQ used by
-KFD survives as well, though: kq_uninitialize() skips destroy_mqd()
-during a reset because it cannot take the reset domain semaphore. After
-MODE2 the MEC restarts with the stale HIQ and the HWS no longer answers.
-The same trylock pattern on the MES side is discussed in
-https://gitlab.freedesktop.org/drm/amd/-/issues/6053.
-
-Patch 1 is a small cleanup plus a fix for the timeout check of the
-existing dequeue loop. Patch 2 deactivates all active compute HQDs
-(except the KIQ) before MODE2, restricted to GC 9.3.0 because that is
-the only gfx9 APU I could test. Raven/Picasso likely need the same, but
-I don't know this code well enough to widen the condition without
-hardware to test on.
-
-Tested on a Ryzen 5 5600G (gfx90c), MEC firmware 0x1e3, HWS,
-amdgpu.noretry=1. An instrumented build used the old path for the first
-MODE2 and the new path for later ones, so both were compared in the
-same boot:
-
-  old path: HIQ still ACTIVE with the old MQD/PQ after MODE2; next HIP
-            program -> "qcm fence wait loop timeout", GPU hang, reset
-  new path: only the KIQ active at resume, HIP/rocBLAS tests pass
-
-Since then the patches run as the boot-time amdgpu module on the
-Proxmox 7.0.14 kernels (-29 and now -30): requested reset with 9 HQDs
-deactivated and the KIQ skipped, HIP/rocBLAS work before and after.
-On amd-staging-drm-next (8dd68a795) the series applies with offsets
-and builds without warnings (W=1).
-
-The analysis and the patches were prepared with an AI coding assistant
-(see the Assisted-by tags); I tested them on the hardware described
-above.
-
-Christoph Berliner (2):
-  drm/amdgpu/gfx9: factor out HQD deactivation and fix its timeout check
-  drm/amdgpu/gfx9: deactivate all compute HQDs before MODE2 on Renoir
-
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 105 ++++++++++++++++++++------
- 1 file changed, 82 insertions(+), 23 deletions(-)
+Oh and this will not be turned on in our CI since we need to test
+the thing people are actually using. So you won't be getting any
+usable CI results with this kind of hard build time selection.
 
 -- 
-2.56.1
-
+Ville Syrjälä
+Intel
