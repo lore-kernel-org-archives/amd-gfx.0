@@ -2,122 +2,94 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECDD3606A690
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 22:17:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7036606A690
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 22:22:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=YrlLg+OQ
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=D+dBa2hz
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 175AF112D32;
-	Fri, 20 Nov 2026 22:17:04 +0000 (UTC)
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011001.outbound.protection.outlook.com [52.101.52.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C73B3112D3F
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Nov 2026 22:16:57 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UQ5ZB52gwNxEk+1YChRDaz4982Qf1D6gNF1HXZgKLaHVCkiYO2BPI9IubudFhdqfTUoy8HHqOrWiONeG82Dc3LGHYuyZU19tMNXURw/L9QB4oxMFEqwhtbRCRtoPFloWCy4yj+GGga0xPb1KYyIPYlRODA+YGXDxw71ij5m8YhGgan63u2KHaMnpvGcDjKsSDBdofZ2b2iufpE4jkJC5lt3eUn7rfXYL99gVf8li5YpYnB7yUTFZUd/zDnw1wgBEezqykpubrAJ9GfkL1adiIzTeYe/vyzFAg0PQXn632N+11l7f4fDrZOhWJYd6bie+PFvE1d8jzP4wxshP6wBi/Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QbinDvYHB6DIGPJjQfJxQymR/MtyIeOCefcSE6WhPZQ=;
- b=B786EFU+fsRbZE7xc1muh6fNEx6yU/MncZZplc6Qeq1G7CNkgLlOeFz7xaX/8byGv+fcxy2lVBhu488iYWgABogZ2BPnL/AHGGSmKC6ccl7+3tOsI5kZchbbjCdfLliz4d8teH0Uh3F5vUiL0GCpyFsyWFKgMT1VScQRp3hKKIEtPQCq2+2n5BTTcEpExi7ZU2dD9IZnMEsPrp8O3fM4gX5MiVKQ374BZSkg/dcWmwbQ01nrCHYS63E1uLVmE+KtxZPeTPP+dvJJc+ZETzhKgZaIJtm5J2dWFXtpV97WfPPQ5mff7HbVefbS0aHKlFp3Fv4K7MVMQzS2p065v7Uu1Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QbinDvYHB6DIGPJjQfJxQymR/MtyIeOCefcSE6WhPZQ=;
- b=YrlLg+OQI5UhLR1NPmtlY872irPCtCVmPkaGNdOmevXErITR1f2Qy7vnyVRWv6xTgNwGyq/3MiUksNsufIRvR0tXIt+jqCJF1wjpxbKa4JCPduSHCGrKAdB9CHHu2mYWQUKXU6R95e4wsE3qfS2etxF1wMbuTGBl83yulKw/q40=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from LV8SPRMB0063.namprd12.prod.outlook.com (2603:10b6:408:242::10)
- by DS2PR12MB9616.namprd12.prod.outlook.com (2603:10b6:8:275::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.10; Fri, 20 Nov
- 2026 22:16:53 +0000
-Received: from LV8SPRMB0063.namprd12.prod.outlook.com
- ([fe80::6cb:fff:7dc4:2fc0]) by LV8SPRMB0063.namprd12.prod.outlook.com
- ([fe80::6cb:fff:7dc4:2fc0%4]) with mapi id 15.21.0615.013; Fri, 20 Nov 2026
- 22:16:53 +0000
-Message-ID: <ccae1602-9922-450f-b5c9-385459a94baf@amd.com>
-Date: Fri, 20 Nov 2026 17:16:52 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] amdkfd: don't map SVM ranges to a GPU without a VM
-To: Zhu Lingshan <lingshan.zhu@amd.com>, Alexander.Deucher@amd.com
-Cc: amd-gfx@lists.freedesktop.org
-References: <20261120091638.20608-1-lingshan.zhu@amd.com>
-Content-Language: en-US
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <20261120091638.20608-1-lingshan.zhu@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQBPR0101CA0211.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:67::22) To LV8SPRMB0063.namprd12.prod.outlook.com
- (2603:10b6:408:242::10)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DA4D10E295;
+	Fri, 20 Nov 2026 22:21:56 +0000 (UTC)
+Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com
+ [209.85.210.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0266810E295
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Nov 2026 22:21:49 +0000 (UTC)
+Received: by mail-ot1-f43.google.com with SMTP id
+ 46e09a7af769-8437d47592bso144539a34.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Nov 2026 14:21:49 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795213309; cv=none;
+ d=google.com; s=arc-20260327;
+ b=CGkwe3IDQmlE2HEshITqvUQJueG/cSUvKdh0rVT5iA7LYexgL0lJcfPhaIFrzsUOL3
+ Xq6APppiAfW1V7tc0+O8KJYvXpSAxHhBxYObnZZBebIldWQd77/6Z3wuP6zcps/C4rIl
+ 7WVEH+dUAeRQTmKafj6w9p7ctf5IMUrb29FZHjELKd9P0U8B5Vd6BoLsEKtE4EZaX0tL
+ fO5EqVs0smhI+9hQgCdoO06poAf37wZJ8L/wFsca/UNvLnxe0xrxaFUPLAi4juRaWe4K
+ InDJcd5QvL0VM5TqIZyJFvnet6A+MAO8eR24RfHHFgZeMXFgZJaK8nrF7k17bED7i6Ov
+ eNwg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=lZbAFJ5hZp+KhJPRKyRM2sFS1JXKoukA9wnVojH7jR4=;
+ fh=UL6y2wPUyLQAM1rrUScIR7ov5kMb+DJ/dH8vmi3esx4=;
+ b=CKkYkzan6hAlPlugcFuBjr5T6kK1zlURoEsJmCp7eZ5D1MGseA+JIAQhbjuCv4rFTZ
+ XE02mLSOwF/LyW01+1jiI9EPBkuGu3eLLeiSCGDnikhxtRX1wXiZcYWPdHd3Kx1WK5RV
+ HIaLrRS8BLPI2pJJFhzwJqcvpvAFpR9yJLsjXY3a5WyGXyNMqV/e9VgQBCHCjWCCJBzT
+ PoBWPd6bGLmCCwifZsxZpHxbFVDxO8uv19CnvKRVOT/By+EHq2JsERn5um7n3F4vv9K+
+ KQsP1vjOt0eOQ2yCb6temuLXBxR2OllI61L3w4sxcOz7We6CcCJhZ1uGP1lqLNQLUlr0
+ MTgg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1795213309; x=1795818109; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=lZbAFJ5hZp+KhJPRKyRM2sFS1JXKoukA9wnVojH7jR4=;
+ b=D+dBa2hzVAEQZGvakZgeWykuwrAY1lREniT/YFSAOm17GFtLX7NurmH0/1ZJpFo9l1
+ fozFl/iQU4+H8DUH2VkWTc2wNSEtGq1BbAfuXiU9lOEcs4q2MZN45/85rZmedAz6JHfA
+ k4bnUTysGb9uBUACjXOyA33o3tI1gp8MSTxMXxIWdNBfFU40A3fbCWItnXOWt3WXgAw/
+ OR46AG4rNP/ltpsD0zDS82kk0AUooqkYJbY27t0pqZz/GejD/mxDp4uZHnWCLJ9Sx3p0
+ HODbl3BIrHX5GWF/GYl1eeLt4PjZZRmd5YDRT0LkFfaiJlOnOT3YoIjjXqdRFBEF99n/
+ tLoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795213309; x=1795818109;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=lZbAFJ5hZp+KhJPRKyRM2sFS1JXKoukA9wnVojH7jR4=;
+ b=AB2hivAeEMTR5cVe6z6LI/vvoVXXHxXhXsUtknODak7NOXeFE3FVYJmq77uu7NLWC9
+ w8NIOe1SXwWb+gWpMBI2EqC+RYySVek4ThgOyBk24R23vgd/V30buaTgNWzQJo/jnHQJ
+ qAKORyUL8CdYIpas4e0TmOnCP0wrbpVGjQYb3qAL1te2F9kNNItwEJzfpVTuqIGASjJr
+ 2+oHd9b/PtINQOO0J5EJO4XTyuJIC4dKy0iJFZUYAj6qEcxucEwPn35p+2RVMHH6iNoE
+ MfQkFLgxbW9kfS96eUdEdnw6ZPAsMBBR20ql9ZBgNmaPA8KhLT82PrHJRLJqsQjlbXQ/
+ LLuA==
+X-Gm-Message-State: APuU4Z+nmpGIKYMoQ6eRyqX5v1FEGwwGQtdM6ZCOKOo5+vtWjS9I0Ydu
+ CmbeYeQ2jacxWqbscS+uM+hrZCon2Zvz+7qTEfsoZXKPXDR+wZl+n/7xjT42VJ/W7vkmbB3PRv4
+ oHMJZy7qUGnT6S/nv2mzRL64cF+vcHdk=
+X-Gm-Gg: AYBFou2HjMXSd0Y78cPE+74hHd7VB2UJWea/KhmjWeiCIugwTrbJndzsbNnqH2NZwdW
+ /pUeJa+Itra1HuAZvnWGFiGYf2wDOiLnc4B9LfIV/BcZ0D4MSiLZmi2iL1qs4kmk3G/SHPWNYZ/
+ N3O9t1XgG5ZrSJCpN3ot3IVfgoB7Z/+fpvMpUV+Zh1c2gpJeoHAz5Spc6f/XtUItOOtkTiHkGMP
+ XAurdIAtnKegqtowpmLqydvtXoG/VH+UnEPeIYBMrILGzb7BRoG8EqHNaoBHD/uxUKJuMu7+/Vo
+ LKMwJztkrYGFdx7HnjJhh98kwucKfwX/cUQxllQ4wiODlKppr/XWQPYbFMJ97IbIVvFaQSKkz+d
+ 7ReMsaC+v1g3tUCEX7fkBBOvjVSm63WrW4PlfVRpPI8qktyQjsIwZP7QaamtipVRht6XBB0Gb2P
+ A1PoiGNMEPCjwVpLvGVd2awCq4buab5zTsnTsGKRODrtha8v2HQr6LDOSzJag=
+X-Received: by 2002:a05:6808:f0d:b0:572:221b:221b with SMTP id
+ 5614622812f47-57a0ac2f919mr7261820b6e.5.1795213308855; Fri, 20 Nov 2026
+ 14:21:48 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8SPRMB0063:EE_|DS2PR12MB9616:EE_
-X-MS-Office365-Filtering-Correlation-Id: 84c05ba2-dea8-431d-2184-08df4753fb63
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|1800799024|376014|18002099003|22082099003|56012099006|261102123227099003|11063799006|261028144727099003|261021135927099003|261021121427099003|261022105027099003|261009223027099003|261022075727099003|261026140227099003|261026121527099003|10067099003;
-X-Microsoft-Antispam-Message-Info: cDdmwJG7iGw4dorkHldicODlQ2jnY1+N+MjtFh6IkFKlILC+JVk3b6hwDc8kZEPpMK+hbsGo7hN4fTXVTj2jfhQ3qPEd0qTG9SLEC/C4yvssWJqFtNgdI9wsa1QPdFI75xoaUP2JXhYrox7NScZcCIZLyvwQn7RLtPCXANBcKIST2gEjot0qU9FEMz5aaPkatEixM8WPXp8vAfVkoJm5Knq9nv5bQa8TbB6T/EO2wlBNugaZ5OC8rgacZc44sPeh1+mjFoveODeKNE/Gjq2m6Ans1c229RFd8Vr2S+GqIlUXmqkKDF4F13dAxRCplAlvCVLi71BzH9aiA4DTLtgO1LpihmFr4mNbNXr3ij+fgU6Xh/418yGuw1Jq6Xrc8I6s7afxHOAN+WOthxUFZv89gQPKzGY3Ks+VNcg7DndyPltWqurIHj3bez6LXcCMS9D6CDf/1f/5FKwYbZq+D47WCn3XnRgppdxUe8X/cIh+fqaXYHbPt7eY2PXQXmEOx8ia/dn69iY+sqJ8Ucw6pHe1Q7GgNab9I+3cqcWXhPwud+pUoLhatQvTUdI7/G1S2uQs7qL7l+e3pXOH67b16KyhrOc6z2rZLoNwtGPL23RoAbOmy07f/KdauZc/1fQ8/FlC3pxW9j0npomG3UdyOL0/SZWcXWWglGfpTu2B2Nlt/UE=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LV8SPRMB0063.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(18002099003)(22082099003)(56012099006)(261102123227099003)(11063799006)(261028144727099003)(261021135927099003)(261021121427099003)(261022105027099003)(261009223027099003)(261022075727099003)(261026140227099003)(261026121527099003)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bE1Gd09DYlNZL3crTHRGT0Zla0VUR1l5czZSdTJRMDZrekN1UUViWWtXYW54?=
- =?utf-8?B?QWZPUlhUTy82OG9jM3hzZG9YcE5HNkpPVklpbHlKWW5xeitOdGdBdG1FNFB3?=
- =?utf-8?B?SFhMSEpkR01OZHY5SDhoUTdnV0FHeUUzd2NENFgrTFRWNUQ0SHZrTytTSU1Q?=
- =?utf-8?B?c1hndG5rajRNOVNnMzY4V1BkckRFbkp0SDg5MjVhRHludVRHWHhQdWJXYmJT?=
- =?utf-8?B?amR3YlRCdmw5MTdJSkF4TWYyYXBQenoyYW51OWJEYWQvcGRTZHpkM3RlRUxI?=
- =?utf-8?B?WW0xTDhERzA4WjBVdmhZem9aZFFOcWFJaHd4U05JU0dNaEtnbEdSeDZrQ0Vn?=
- =?utf-8?B?VThRS2p3Q0trem9OSm15U2ZSZldyV0c4bG5sODhUODBzUi8vV3I1L3RKSDF2?=
- =?utf-8?B?bnRnSC9iZHh2MHM5ZWVNb3pNNXpLakFLRFZOeUVzSXg3d3daMTQrSllNNitw?=
- =?utf-8?B?ZGJlS1ZselB4OGJGVVFxOW9VandwY3UwL1UweUFqallaZ1RaY09GUWRpSE9E?=
- =?utf-8?B?cnJtVlRsNzdnalo4SXhsK1ExZkpzQ2g2QzgxWTVNNFFZVk9qZVFudTdONFY0?=
- =?utf-8?B?REwzVGFOWlVraWNPSzN0YjlzbVl4ZStTclROcjhHQTlrSnNhSGVBZDJnUjc5?=
- =?utf-8?B?YmdqdHVYSUtnZG1hRzlDN01USnYybnIzS1ozcUZmMk1DT3JFcFgweDAybkJi?=
- =?utf-8?B?UGRZb0tLTU4zSE04WFc1TWtJa0NhU1JIZVBMRHpXNmpEajFuU3NoblEzTVpG?=
- =?utf-8?B?QlV2MjRvWFhzUUZZT29ZbTdQTWM3NWtNVjFRNVdpSzVqRFNKb2NhK2Ribll0?=
- =?utf-8?B?amtOMVZRcjdxNE5nUUpiSWZ1cHM0MEx0dmRhRUJLNFVPRjlDOXBZa0tIOGJW?=
- =?utf-8?B?Sm1MS1MzQmZWcHhZcEdJaHB4OVlZL2JZWkI4ZU9NK2tOZVBDMnVwOXdTSUJY?=
- =?utf-8?B?SE5vamt2L0RkanE3c1M0QWxRdGFhOFhqOVBEY2FFYTZVWnZpSEpIMGZvaEg1?=
- =?utf-8?B?ZTNXQW5QSFdNTHNiUTF3cG12cHRnbS9WK0crNk04QjJUWk01Qm4zTjlKSWQ0?=
- =?utf-8?B?Mjh0Z3J5ZVdYTGxDKzgvZFpTVWZPZHQwZ25icGo0c1VaVDlkZU5XazhHeUVN?=
- =?utf-8?B?bkxuVzQrUkZVSDFPaVMrNDV2NUhTKzZZUGtPMlNLZUVVSlpaV2NVa2EyTk44?=
- =?utf-8?B?b1lhT3VOcE1WTWpQQy9VZjNhMEkwRzB0eDB0STEraUxkRDRTTVB5NnJWcU81?=
- =?utf-8?B?Y3k2YlFxWlpFaGIxU1FDZlN4d2RhNGtPYUZKNkRzVy9zbzl6UmIrekphN1JO?=
- =?utf-8?B?WkNoa0pRazZ2SjVkWGJCU24zYXBpT1J3U0ZMMGpYOW4rclE0MEpIMkdPMU84?=
- =?utf-8?B?Zjkvb3JZK01ybzRablFFbHJ3UnBKbGVsNVZ1aGVmSHlmWWZ4enZXRWZOZHJT?=
- =?utf-8?B?dHZ1aTFrNEpWdkhtbElBdWF6TWV4aHVjMW83THlDYkVQZjlHSExBSFNHL0tI?=
- =?utf-8?B?QUU5YVA5aEZQUVd2QjQxREpwclV5WERMdjlic3VJY0dWSVFtUmtrRW1tT3RS?=
- =?utf-8?B?bGdJTXV2QXpSbHlEQ1k3MFhzSFk1S1RmL0FWcDM1WUh5K1VnVnpidmQ3bUZn?=
- =?utf-8?B?T09YWWhqd3BGajdYeUVWV2V2ZklBOWZVc0NEczBEUHpoVVExVGtzaUZHT0Fh?=
- =?utf-8?B?NGl4Q252SDBQc3FwZEs2T1JabHU2QXhkLzJHNmlxVDUrZWhZN1l5WGpncm1t?=
- =?utf-8?B?akh5Ykk1dWQ2aDU2MWFSL3YyOUx5MDFOby9PeFM4YUZQNzVGWUtJVHRUdHB6?=
- =?utf-8?B?dU4yQmhCb2ppc3JNKzd0THI4UE9Belpwc1Q3dzVpekdQSkdSeFdlQjlQNmV6?=
- =?utf-8?B?cFZJYWptWWFveTFJa2JvM0k1cmgxQS9Yc2NIaTMvNWU3L3hKejFGM050VExB?=
- =?utf-8?B?R1FPMis5a3dvcTRjNXdnL3BBRkN2SjhlK0Z6d1dYaFRQSlNwRStKMjRrSnI3?=
- =?utf-8?B?OUI1RjYrUk1yeFFHYWNzMHdlS0xuTUYvWWNDYmJGNER1UTJ6UzZ5YnFjTjFJ?=
- =?utf-8?B?UXdQZU5pMXJrVGJaR2JHRzJpMTJtZTdNdTNwK2o1eUtscXhSckRMNFdrbTZa?=
- =?utf-8?B?QkhwSUovY3BleGVkakdVN1ZtR1NXVngxbGxhdWlBcTIxb1JoT3FyWnhWSHJt?=
- =?utf-8?B?NE1meFNGVGlSRzMxRHJiTklldmFjcFU1ZlBVUklhNE83LzgwdzdxYTR1ZVZp?=
- =?utf-8?B?Qm5rY01TRXN0VVhOSW9yaFBWZmFXUDZra3Y1eXEwOWs5RXJPamV3aitHY2JL?=
- =?utf-8?B?blV3c1lGallnUnJkQ2VuQUVEcEtWeVVaU3JpeTE0Z2ZUZWlUUjlFUT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 84c05ba2-dea8-431d-2184-08df4753fb63
-X-MS-Exchange-CrossTenant-AuthSource: LV8SPRMB0063.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2026 22:16:53.6818 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xA/R5YT2ovUDfSdJqNOHExYv7PbNC35dHcNkLOG5zIrw6nJFMo0o4/WdWALNMJ2Kxoz6+IDz5PIX6KzZjs3k4g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9616
+References: <20260911154212.591213-1-shahyan.soltani@amd.com>
+ <20260911154212.591213-8-shahyan.soltani@amd.com>
+In-Reply-To: <20260911154212.591213-8-shahyan.soltani@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 20 Nov 2026 17:21:37 -0500
+X-Gm-Features: Aa3M54qxUpADMekiyGUeJhHfBG7yj8e0Eu3hiy6gnyrZtaeotve4ynJQIW6Lmyg
+Message-ID: <CADnq5_MwSF626Ji96+3Gkerr8A_OsXAW1BmFh5tciEmo7xLGdg@mail.gmail.com>
+Subject: Re: [PATCH 7/8] drm/amdgpu: get rid of amdgpu_drm_ioctl
+To: Shahyan Soltani <shahyan.soltani@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
+ christian.koenig@amd.com, pierre-eric.pelloux-prayer@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,59 +100,182 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 2026-11-20 04:16, Zhu Lingshan wrote:
-> If a kfd process does not perform ACQUIRE VM for its
-> kfd_process_device, the VM of the pdd is NULL.
+On Fri, Sep 11, 2026 at 12:01=E2=80=AFPM Shahyan Soltani
+<shahyan.soltani@amd.com> wrote:
 >
-> svm_range_validate_and_map does not check whether pdd->drm_priv
-> is NULL before accessing it, and may cause kernel panic.
+> From: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 >
-> This commit fixes this issue by skipping any GPUs
-> that haven't acquired VM in svm map.
+> Remove the entire amdgpu_drm_ioctl handler system in favor of drm_ioctl.
 >
-> This commit does not return an error code when
-> pdd->drm_priv is NULL to avoid endless
-> rescheduling of restore_work.
->
-> Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
+> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd=
+.com>
+> [shahyan.soltani@amd.com: Added commit description]
+> Signed-off-by: Shahyan Soltani <shahyan.soltani@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 8 ++++++++
->   1 file changed, 8 insertions(+)
+>  drivers/gpu/drm/amd/amdgpu/Makefile       |  1 -
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c   | 23 +-----------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.h   |  6 ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ioc32.c | 45 -----------------------
+>  4 files changed, 2 insertions(+), 73 deletions(-)
+>  delete mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_ioc32.c
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> index 7401b7fdcb57..b5175f346351 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> @@ -1818,6 +1818,14 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
->   			  prange->bitmap_aip, MAX_GPU_INSTANCE);
->   	}
->   
-> +	for (idx = 0; idx < ctx->process->n_pdds; idx++) {
-> +		if (!ctx->process->pdds[idx]->drm_priv) {
-> +			pr_debug("GPU %d has no VM acquired, skip SVM mapping for it, please consider acquiring VM for it and perform SVM unmap and map again\n",
-> +				 ctx->process->pdds[idx]->user_gpu_id);
-> +			clear_bit(idx, ctx->bitmap);
-> +		}
-> +	}
-> +
+> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/am=
+dgpu/Makefile
+> index 7b08814a24da..d5ddf236a6f9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
+> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+> @@ -321,7 +321,6 @@ include $(FULL_AMD_PATH)/acp/Makefile
+>  amdgpu-y +=3D $(AMD_ACP_FILES)
+>  endif
+>
+> -amdgpu-$(CONFIG_COMPAT) +=3D amdgpu_ioc32.o
+>  amdgpu-$(CONFIG_VGA_SWITCHEROO) +=3D amdgpu_atpx_handler.o
+>  amdgpu-$(CONFIG_ACPI) +=3D amdgpu_acpi.o
+>  amdgpu-$(CONFIG_HMM_MIRROR) +=3D amdgpu_hmm.o
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_drv.c
+> index 9c5e93cd3ee6..f51f03ae5241 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -3019,25 +3019,6 @@ static int amdgpu_drm_release(struct inode *inode,=
+ struct file *filp)
+>         return drm_release(inode, filp);
+>  }
+>
+> -long amdgpu_drm_ioctl(struct file *filp,
+> -                     unsigned int cmd, unsigned long arg)
+> -{
+> -       struct drm_file *file_priv =3D filp->private_data;
+> -       struct drm_device *dev;
+> -       long ret;
+> -
+> -       dev =3D file_priv->minor->dev;
+> -       ret =3D pm_runtime_get_sync(dev->dev);
+> -       if (ret < 0)
+> -               goto out;
+> -
+> -       ret =3D drm_ioctl(filp, cmd, arg);
+> -
+> -out:
+> -       pm_runtime_put_autosuspend(dev->dev);
+> -       return ret;
+> -}
 
-I'd put this check in svm_range_check_attr and svm_range_new (where 
-prange->bitmap_access is initialized for the XNACK-enabled case). 
-svm_range_check_attr gives user mode feedback when they're doing 
-something wrong rather than just silently failing to map memory.
+Thinking about this a bit more, what happens when KMS IOCTLs get
+called (e.g., modeset, display detect, etc.)?  Will they properly
+power up the GPU?  I suspect you will either need to properly add ref
+counting to the KMS entry points in the display code, or you need to
+resurrect this specifically for the KMS IOCTLs.
 
-Regards,
-   Felix
+Alex
 
-
->   	if (bitmap_empty(ctx->bitmap, MAX_GPU_INSTANCE)) {
->   		r = 0;
->   		goto free_ctx;
+> -
+>  static const struct dev_pm_ops amdgpu_pm_ops =3D {
+>         .prepare =3D pm_sleep_ptr(amdgpu_pmops_prepare),
+>         .complete =3D pm_sleep_ptr(amdgpu_pmops_complete),
+> @@ -3070,12 +3051,12 @@ static const struct file_operations amdgpu_driver=
+_kms_fops =3D {
+>         .open =3D drm_open,
+>         .flush =3D amdgpu_flush,
+>         .release =3D amdgpu_drm_release,
+> -       .unlocked_ioctl =3D amdgpu_drm_ioctl,
+> +       .unlocked_ioctl =3D drm_ioctl,
+>         .mmap =3D drm_gem_mmap,
+>         .poll =3D drm_poll,
+>         .read =3D drm_read,
+>  #ifdef CONFIG_COMPAT
+> -       .compat_ioctl =3D amdgpu_kms_compat_ioctl,
+> +       .compat_ioctl =3D drm_compat_ioctl,
+>  #endif
+>  #ifdef CONFIG_PROC_FS
+>         .show_fdinfo =3D drm_show_fdinfo,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.h b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_drv.h
+> index 2d86cc6f7f4d..6b06c0956e48 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.h
+> @@ -43,10 +43,4 @@
+>
+>  extern const struct drm_driver amdgpu_partition_driver;
+>
+> -long amdgpu_drm_ioctl(struct file *filp,
+> -                     unsigned int cmd, unsigned long arg);
+> -
+> -long amdgpu_kms_compat_ioctl(struct file *filp,
+> -                            unsigned int cmd, unsigned long arg);
+> -
+>  #endif
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ioc32.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_ioc32.c
+> deleted file mode 100644
+> index a1cbd7c3deb2..000000000000
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ioc32.c
+> +++ /dev/null
+> @@ -1,45 +0,0 @@
+> -/*
+> - * \file amdgpu_ioc32.c
+> - *
+> - * 32-bit ioctl compatibility routines for the AMDGPU DRM.
+> - *
+> - * \author Paul Mackerras <paulus@samba.org>
+> - *
+> - * Copyright (C) Paul Mackerras 2005
+> - * All Rights Reserved.
+> - *
+> - * Permission is hereby granted, free of charge, to any person obtaining=
+ a
+> - * copy of this software and associated documentation files (the "Softwa=
+re"),
+> - * to deal in the Software without restriction, including without limita=
+tion
+> - * the rights to use, copy, modify, merge, publish, distribute, sublicen=
+se,
+> - * and/or sell copies of the Software, and to permit persons to whom the
+> - * Software is furnished to do so, subject to the following conditions:
+> - *
+> - * The above copyright notice and this permission notice (including the =
+next
+> - * paragraph) shall be included in all copies or substantial portions of=
+ the
+> - * Software.
+> - *
+> - * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRE=
+SS OR
+> - * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILI=
+TY,
+> - * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SH=
+ALL
+> - * THE AUTHOR BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+> - * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+> - * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALING=
+S
+> - * IN THE SOFTWARE.
+> - */
+> -#include <linux/compat.h>
+> -
+> -#include <drm/amdgpu_drm.h>
+> -#include <drm/drm_ioctl.h>
+> -
+> -#include "amdgpu_drv.h"
+> -
+> -long amdgpu_kms_compat_ioctl(struct file *filp, unsigned int cmd, unsign=
+ed long arg)
+> -{
+> -       unsigned int nr =3D DRM_IOCTL_NR(cmd);
+> -
+> -       if (nr < DRM_COMMAND_BASE)
+> -               return drm_compat_ioctl(filp, cmd, arg);
+> -
+> -       return amdgpu_drm_ioctl(filp, cmd, arg);
+> -}
+> --
+> 2.55.0
+>
