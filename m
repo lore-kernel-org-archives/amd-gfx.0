@@ -2,47 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC39E60A2601
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 13:10:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2C60606A337
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 13:10:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WbWSOIOW
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ePqPVFS1
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 106D5112A18;
-	Fri, 20 Nov 2026 13:10:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50C04112A2C;
+	Fri, 20 Nov 2026 13:10:42 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A0218112A18;
- Fri, 20 Nov 2026 13:10:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 897CE112A24;
+ Fri, 20 Nov 2026 13:10:35 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C233862356;
- Fri, 20 Nov 2026 13:10:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48ED91F000D0;
- Fri, 20 Nov 2026 13:10:17 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 02938628C8;
+ Fri, 20 Nov 2026 13:10:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F15A1F00ACF;
+ Fri, 20 Nov 2026 13:10:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795180218;
- bh=Bh0XbDrI2hg3GpbJADUXfor6MClrFyYoyxbyUQk7gjc=;
- h=From:Subject:Date:To:Cc;
- b=WbWSOIOWM7apluZo0JJ51s90y4wJj8uDc19GKxP5+fFORH9J75F7ozHHRceBDLjLW
- mCarsiWVCqm/AxgYCUprgi66Bpw6h1/ZHoA0nIcJKcaRiQ5SaQE4/WBLvHuwz745Op
- HiD3wjoLP/RWdNfs9qK9dQvXI8IteV7vd6LOmBVRIEkoFqbB6iSzGBoY62y4PUGfsG
- SQbQ4+Tjn5zVpMzxLVOKgXM2gJmp7+zUga/QzH6CTyr5KVC4hZ/vQHwDJdLp1eyAnD
- T/O9IST3hxFQOFa9E336ITXxFLgtUnvRivMfpM5L2ZP7q/85gbiylEuzpxsSS8H2X5
- +GyzSvZkC+WEw==
+ s=k20260515; t=1795180234;
+ bh=SfJfDs7eRLaWgJWCrBHrHS+0aR5Z5G5czSxokvRK4+4=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=ePqPVFS1ta7XhtSVdjxIKX8QUsmgKw1+hc/uQpzDiFefg6qbiTsZCbfEHQg6Q0xrX
+ 9dqecUujmNV2TqnRDUbCDEMp6KWQ3FcFWJPUlbl7AwOcd5fLlKdoj41ye17Ec5tJV2
+ tpkKfd9r5zbquMxkFYZws3k340Ktq7suDC1gvSb46tcPeODvCHxtf5puIdn5JIwFxd
+ 3l9IR5tN51VyURkm38W7P/J9fahRO1AR0aA8Fhz2H+VE8M8R1zRMsPGfHBOpz7fBbG
+ /ib4usaptjFfjOI30rPA6uF4cTmYS5D/zqwuGWgckaJ/PDdZ5zo5p/FE3bV27jPx9A
+ QaNu2QphoUSfA==
 From: Maxime Ripard <mripard@kernel.org>
-Subject: [PATCH v12 0/9] drm: Add DRM_MODE_ATOMIC_RESET flag
-Date: Fri, 20 Nov 2026 14:10:07 +0100
-Message-Id: <20261120-drm-reset-state-flag-v12-0-42d63d7417fc@kernel.org>
+Date: Fri, 20 Nov 2026 14:10:12 +0100
+Subject: [PATCH v12 5/9] drm/amd/display: Take over the current stream and
+ dc_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/4XTS24bMQwG4KsMtDYLUu/xqvcospBGlCM0tltpY
- iQIfPdiEqCeQhC65eIj+YP8EI1r4SaO04eofCutXC/iOJE8TGJ5DpcTQ0niOAmJ0qJDD6meoXL
- jFdoaVob8Ek4gc5TROKI8O3GYxK/Kubx9uj+eDpN4Lm291vfPNjfaqv8BbwQIi3Jpmb3R3qTvP
- 7le+OXbtZ7EJt7kQ/EkB4oEBJ7twqQUudQr6qHMw1kUIMxojMOsvAu6U/ROoZGiAcGERGiVw4y
- mU8xfhZDsQDGAkEKSyepoZxU7xe4UOcrFAkJWNlmN0bGzneJ2isKB4gBBszEcOLD1qlP8QyEcb
- eS3XDAn1DY6NLlT5p1Co1nmLZcUkaVVUgfsFMI9MwqGcLs7ziEQJzS2vxiivTNairb7Vc5HlV3
- krOQ/zv3rRSr/fi2trF9/ImJoDMv1fC7rcdrYc2kLXPhtha0bEAHN4ul+/wNREL9ctgMAAA==
-X-Change-ID: 20260708-drm-reset-state-flag-2fb2b5711f97
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261120-drm-reset-state-flag-v12-5-42d63d7417fc@kernel.org>
+References: <20261120-drm-reset-state-flag-v12-0-42d63d7417fc@kernel.org>
+In-Reply-To: <20261120-drm-reset-state-flag-v12-0-42d63d7417fc@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>, Louis Chauvet <louis.chauvet@bootlin.com>, 
@@ -58,26 +53,17 @@ Cc: Daniel Stone <daniels@collabora.com>,
  Victoria Brekenfeld <victoria@system76.com>, 
  Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>, 
- Daniel Stone <daniel@fooishbar.org>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
  Alex Deucher <alexander.deucher@amd.com>, 
  =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- amd-gfx@lists.freedesktop.org, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, freedreno@lists.freedesktop.org, 
- Oarora Etimis <oaroraetimis@gmail.com>
+ amd-gfx@lists.freedesktop.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6841; i=mripard@kernel.org;
- h=from:subject:message-id; bh=Oh7HL7XBFWKY3ltxWWE6ykCPewGxD6IZnl6uZB6OJrI=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDNkMbpvqzqkVvnt6an9TrdKx9YdYExdLn831VTz6fp5t8
- rrcgssrO6ayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBE4q8x1scsVY9KOf7yWctx
- W6avCWwLWWPKFS83+elqTpAr/lJ/KejpUtEe2ST9s1sNvz2JlzWZw9gwf7LmJacdEhYfHYz2X9i
- kn85+2qC17tprGbs9sd+ZND6nZYSmPE5+9fPWxMdhuXYurzUB
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4875; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=jMZyKlQM+O8dO3fSECDw/33k6M92+XJBu0DQueQcSjw=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDNkMblv3GO71rFhuxs3JybLRYqlp/BKbrRf6Itjn68fb8
+ PLEKDh2TGVhEOZkkBVTZHkiE3Z6efviKgf7lT9g5rAygQxh4OIUgIkUvWBsuDzz3Y+Dhh4MM1Z8
+ P9R4lvvdqvINKs7KSw/N6j0cIttt3Lu09tn9XYGnj/Pusrq50MX2HWPD7M+8YjZHX33+FnXwq8+
+ 2KEXPGHeHFZmzm0QP6HLUP5K98pg17fZvsb6ARkXRmFr5EzUA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -97,154 +83,110 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi,
+drm_atomic_commit_fill_with_defaults() builds its commits out of
+states created through atomic_create_state() instead of duplicating
+the current state. A created state comes with no stream nor dc_state,
+while a duplicated state carries the ones in use, with their
+reference.
 
-Userspace currently has no atomic way to bring a display pipeline back
-to a pristine state. A compositor that wants to start from a known
-baseline must explicitly set every property on every KMS object to its
-default value, which requires tracking which properties exist and what
-their defaults are. This is fragile and must be updated every time a
-new property is added to the kernel.
+The update passes of amdgpu_dm_atomic_check() release the stream and
+dc_state in use and clear the pointer of the new state, on top of the
+reference the current state drops when it gets destroyed. Those
+releases are only balanced if the new state brought a reference of
+its own, so a commit that disables or reconfigures a live CRTC or
+plane through a created state over-releases and frees the stream
+early, leading to a use-after-free when the current state gets
+destroyed. The paths that keep a CRTC or a plane enabled without a
+modeset also work on the stream and dc_state through the new state,
+and hit BUG_ON(dm_new_crtc_state->stream == NULL) since it never had
+one.
 
-This series introduces a new DRM_MODE_ATOMIC_RESET flag for the
-atomic ioctl. When set, the kernel fills the commit with default
-states for all KMS objects before applying the properties supplied in
-the request. Properties not explicitly included remain at their
-defaults. This allows userspace to describe the desired end state
-declaratively, without caring about the current state or the full set
-of properties.
-
-A driver-specific property is added to vkms planes for testing.
-Standard properties are impractical for this: compositors like Mutter
-enumerate all known properties, making it hard to isolate the reset
-behavior in a test.
-
-Mutter has a working implementation using the new flag, with a
-vkms-based test exercising the reset behavior:
-https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/5309
-
-And we have IGT tests as well:
-https://lore.kernel.org/r/20261112162147.766264-1-mripard@kernel.org/
-
-Let me know what you think,
-Maxime
+Take the stream and dc_state of the current state over, with a
+reference, at the beginning of amdgpu_dm_atomic_check(), like a
+duplicated state would have carried them. This has to happen before
+the update passes clear the stream of the new states: past that
+point, a state whose stream was cleared can't be told apart from a
+created one.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Changes in v12:
-- Re-add drm_lease flag to differentiate an empty from a revoked lease
-- Link to v11: https://lore.kernel.org/r/20261116-drm-reset-state-flag-v11-0-378b3f7bef32@kernel.org
 
-Changes in v11:
-- Reorder object state allocations to be more robust against lease revocation
-- Bring back lease revocation check
-- Link to v10: https://lore.kernel.org/r/20261112-drm-reset-state-flag-v10-0-cefaa1ed056d@kernel.org
-
-Changes in v10:
-- Stop trying to make partial lease work, they aren't meant to exist, so
-  we can simply error out when they happen
-- More tests for zpos and color management
-- Fix DPU1 issues reported by sashiko
-- Link to v9: https://lore.kernel.org/r/20261110-drm-reset-state-flag-v9-0-ddb0e26324a0@kernel.org
-
-Changes in v9:
-- Add a flag to know if leases have been revoked or are empty
-- Handle the situation where a leased plane or connector being reset
-  would disable an unleased CRTC
-- Add more kunit tests to cover the new issues reported by sashiko
-- Fix reset-related bugs in amdgpu, vc4 and msm DPU
-- Add a vc4 kunit test for its reset related bug
-- Link to v8: https://lore.kernel.org/r/20261106-drm-reset-state-flag-v8-0-50fd046b705f@kernel.org
-
-Changes in v8:
-- Fix more leases issues
-- Drop applied patches
-- Link to v7: https://lore.kernel.org/r/20261030-drm-reset-state-flag-v7-0-4e55eaeae683@kernel.org
-
-Changes in v7:
-- Fix a whole bunch of sashiko issues to deal with color_mgmt_changed,
-  leases, partially leased devices (like a plane leased but it's crtc
-  isn't) and the interaction with PAGE_FLIP_EVENT better
-- Fix crtc create_state implementation for ssd130x
-- Actually make it possible for a compositor to recreate the same whole
-  state without passing ALLOW_MODESET
-- Fix EDEADLK bugs with kunit tests
-- Don't report DRM_CAP_ATOMIC_RESET on !atomic drivers
-- Fix error handling in vkms for the new property
-- Add more kunit tests for the new corner cases
-- Link to v6: https://lore.kernel.org/r/20261022-drm-reset-state-flag-v6-0-f36d640b7e76@kernel.org
-
-Changes in v6:
-- If using a lease, only considered the leased objects
-- Fix amdgpu plane atomic_create_state implementation
-- Link to v5: https://lore.kernel.org/r/20261016-drm-reset-state-flag-v5-0-dad2d64b693b@kernel.org
-
-Changes in v5:
-- Fix bisection issue
-- Improve the documentation
-- Fix connector hotplugging issue
-- Added kunit tests for drm_atomic_commit_fill_with_defaults()
-- Link to v4: https://lore.kernel.org/r/20260918-drm-reset-state-flag-v4-0-5ad106370f05@kernel.org
-
-Changes in v4:
-- Improve the drm_atomic_get_private_obj_state and
-  drm_atomic_get_connector_state array reallocations
-- Return void on functions to insert an object state into a commit when
-  it cannot fail
-- Rename drm_atomic_can_create_state() into
-  drm_atomic_implements_create_state()
-- Move capability check from drm_atomic_commit_fill_with_defaults to its
-  caller 
-- Added IGT test
-- Link to v3: https://lore.kernel.org/r/20260908-drm-reset-state-flag-v3-0-905570f387a4@kernel.org
-
-Changes in v3:
-- Rebased on top of the latest atomic_create_state series
-- Sebastian Wick created and tested this work with mutter and vkms
-- Fix colorop locking
-- Link to v2: https://lore.kernel.org/r/20260812-drm-reset-state-flag-v2-0-e96ce13317dd@kernel.org
-
-Changes in v2:
-- Fix bisection
-- Add capability to let userspace know if it can reset the state
-- Link to v1: https://lore.kernel.org/r/20260708-drm-reset-state-flag-v1-0-c37dc985485d@kernel.org
-
+To: Harry Wentland <harry.wentland@amd.com>
+To: Leo Li <sunpeng.li@amd.com>
+To: Rodrigo Siqueira <siqueira@igalia.com>
+To: Alex Deucher <alexander.deucher@amd.com>
+To: Christian König <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
 ---
-Maxime Ripard (8):
-      drm/lease: Add a helper to tell whether a lease was revoked
-      drm/atomic: Add drm_atomic_implements_create_state() helper
-      drm/atomic: Allow filling a commit with pristine object states
-      drm/tests: atomic: Add tests for drm_atomic_commit_fill_with_defaults()
-      drm/amd/display: Take over the current stream and dc_state
-      drm/vc4: Carry the HVS channel over to created CRTC states
-      drm/msm/dpu1: Carry the mixers over to created CRTC states
-      drm/vkms: Add driver-specific plane property for testing
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 50 +++++++++++++++++++++++
+ 1 file changed, 50 insertions(+)
 
-Sebastian Wick (1):
-      drm/atomic-uapi: Add DRM_MODE_ATOMIC_RESET flag
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 0ea45ab12119..b2eddb87dd5c 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -6279,10 +6279,60 @@ STATIC_IFN_KUNIT int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 	struct drm_dp_mst_topology_state *mst_state;
+ 	struct dsc_mst_fairness_vars vars[MAX_PIPES] = {0};
+ 
+ 	trace_amdgpu_dm_atomic_check_begin(state);
+ 
++	/*
++	 * A CRTC or a plane that stays enabled keeps its stream and
++	 * dc_state: a duplicated state carries them over, with their
++	 * reference, but a state created through atomic_create_state()
++	 * comes with neither. Take them over from the current state,
++	 * with a reference, like a duplicated state would.
++	 *
++	 * The reference is needed when the update passes below
++	 * reconfigure the CRTC or plane: they release the stream and
++	 * dc_state in use and clear the pointer of the new state then,
++	 * on top of the reference the current state drops when it gets
++	 * destroyed, so that release is only balanced if the new state
++	 * brought a reference of its own. The pointer is needed when
++	 * they don't: the paths that keep a CRTC or a plane enabled
++	 * without a modeset work on the stream and dc_state through
++	 * the new state.
++	 *
++	 * A stream or a dc_state in the current state means the CRTC
++	 * or the plane is enabled, since they are cleared when it gets
++	 * disabled, so the conditions below already single out the
++	 * live objects. They deliberately don't check whether this
++	 * commit keeps them enabled on top of that: the update passes
++	 * release the stream and dc_state of the CRTC or plane being
++	 * disabled too, so their new state has to bring the reference
++	 * just the same.
++	 *
++	 * This has to run before the update passes below clear the
++	 * stream of the new states: past that point, a state whose
++	 * stream was cleared can't be told apart from a created one.
++	 */
++	for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state, new_crtc_state, i) {
++		dm_old_crtc_state = to_dm_crtc_state(old_crtc_state);
++		dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
++
++		if (!dm_new_crtc_state->stream && dm_old_crtc_state->stream) {
++			dm_new_crtc_state->stream = dm_old_crtc_state->stream;
++			dc_stream_retain(dm_new_crtc_state->stream);
++		}
++	}
++
++	for_each_oldnew_plane_in_state(state, plane, old_plane_state, new_plane_state, i) {
++		struct dm_plane_state *dm_old_plane_state = to_dm_plane_state(old_plane_state);
++		struct dm_plane_state *dm_new_plane_state = to_dm_plane_state(new_plane_state);
++
++		if (!dm_new_plane_state->dc_state && dm_old_plane_state->dc_state) {
++			dm_new_plane_state->dc_state = dm_old_plane_state->dc_state;
++			dc_plane_state_retain(dm_new_plane_state->dc_state);
++		}
++	}
++
+ 	ret = drm_atomic_helper_check_modeset(dev, state);
+ 	if (ret) {
+ 		drm_dbg_atomic(dev, "drm_atomic_helper_check_modeset() failed: %pe\n", ERR_PTR(ret));
+ 		goto fail;
+ 	}
 
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  50 +++
- drivers/gpu/drm/drm_atomic.c                      | 373 +++++++++++++++++++
- drivers/gpu/drm/drm_atomic_uapi.c                 |  44 ++-
- drivers/gpu/drm/drm_ioctl.c                       |   5 +
- drivers/gpu/drm/drm_lease.c                       |  30 ++
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c          |  23 ++
- drivers/gpu/drm/tests/drm_atomic_test.c           | 435 +++++++++++++++++++++-
- drivers/gpu/drm/vc4/tests/vc4_test_pv_muxing.c    | 105 ++++++
- drivers/gpu/drm/vc4/vc4_kms.c                     |  16 +-
- drivers/gpu/drm/vkms/vkms_drv.h                   |   3 +
- drivers/gpu/drm/vkms/vkms_plane.c                 |  63 +++-
- include/drm/drm_atomic.h                          |   4 +
- include/drm/drm_auth.h                            |  11 +
- include/drm/drm_lease.h                           |   2 +
- include/uapi/drm/drm.h                            |  10 +
- include/uapi/drm/drm_mode.h                       |  22 +-
- 16 files changed, 1186 insertions(+), 10 deletions(-)
----
-base-commit: e6e635c4407e5bb8ddc6017a2e9825c17240e799
-change-id: 20260708-drm-reset-state-flag-2fb2b5711f97
-
-Best regards,
 -- 
-Maxime Ripard <mripard@kernel.org>
+2.56.1
 
