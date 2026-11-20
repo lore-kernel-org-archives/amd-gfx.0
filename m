@@ -2,90 +2,153 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CB97606A320
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 14:56:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E1C6606A325
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 14:56:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=W62p4KBw
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=dr+Y7CZI
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9D96112B36;
-	Fri, 20 Nov 2026 14:56:28 +0000 (UTC)
-Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com
- [209.85.208.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33411895CA
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Nov 2026 13:56:50 +0000 (UTC)
-Received: by mail-lj1-f179.google.com with SMTP id
- 38308e7fff4ca-3ae25d9e2fdso8492731fa.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Nov 2026 05:56:50 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795183008; cv=none;
- d=google.com; s=arc-20260327;
- b=A/qocZIH/zDdQ4rv6KFxVrCZkVv5AKvNkb8BPvciGaqqeZHXAhWoJWVtOaoMoLsQGZ
- eqEk/pcI1QijpkYB3/bvrYeIAoMaXtY5jTuixCDsn/xHnOZO+IHr+a8fSdeeM9DUz4AJ
- Gf4eZeVfxfLzEjlMC0USaoALW0SEsZ4h4mIcj/Sz55mYfcRRN8V9wVMrV+8n+sQoCXRB
- Cxeby5WnDbK1vZJMfxQE8Y1IyxdbIHHLfBjEqIvPNQcqjkQhTS1/p8BjeZUni9AxELGa
- 6u+/plpFH7LT7Tv/rrYy//cvfIxdX3rmqII/xFv6q0OkvYjxdvZoRasBvYqcFSnc2XDh
- h2gw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=GwH1m4JMwHsfP+EiyWDGvhr71t+yUseut1VTk6q1C1s=;
- fh=6lNLPP8fgImnSkXeU2NPTChiA0Ti68J30kKajPNauU4=;
- b=OrNIGhnEkhb3ccTcBXc8CC14op4JtMDtlmEJZ2sjCE05Z4EAXAh33v2xZMeFGIe1sD
- 7kN09Sa/zMmgPexCHs8xa3Bq03YFNM44mIHLWnTdSeBvjlVA6P9Td1Xln54McmTgJZJF
- xe/rrXzlN3FpQ0tfp6B0wWDVj8Kw0agvWtzGtik/EG+eizF0v2Uo1XskwRklPK8xMRzy
- AR2DygeORy1Z2csTHVEwkWV5ZB1rPxeL7aNJ0ldlMyiQA7apsWKyEX5mIe+UEc9ewZ3g
- 9aGPpVZUYu7FvFABaBgvqsQ1k80RZVpqSf6y5DIfeuJBhtFXSG9g5SZk+dgODryG+V7w
- cfmw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795183008; x=1795787808; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:mime-version:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=GwH1m4JMwHsfP+EiyWDGvhr71t+yUseut1VTk6q1C1s=;
- b=W62p4KBwN6b+u2Xl1T4MigdesUBptTBH38uAMVJVOMJnYjk4LNib/TNOO7ICGybQe2
- Iy0aVdaLuYOPPBBcLhgOS9zLHErALV2s92lw8Gk4WXaPRVDV4dLk1knQ87nkxzaMSL/y
- jM3RdJt9qz1E/UN15iRTTE1YGi30gmTtj27QKvKESnSPW9KXnuEzbR+IvraMxgfJ2Hth
- ZHCNjKtIhlkiPhwcptwHHzE+efFLgVxkTzk0as9F8eMjZ1fWNvzyWS+boVGl8KBV+W4G
- j61UzMLjivf7SYSY0/omF5/hvz9OH94o4q/OjhkpJqX0NeNCuvqby58JbE1e4Qs1WzUv
- 9R+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795183008; x=1795787808;
- h=content-type:cc:to:subject:message-id:date:from:mime-version
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=GwH1m4JMwHsfP+EiyWDGvhr71t+yUseut1VTk6q1C1s=;
- b=QwqxzvPRJRoCbhbW0XZoqCockyUOJt3aYZSgAfEssNmqXiJ9EKu1MGdqXvfpjixIKs
- Zo3pqvts6vocCDay3jvcAuJCjm9uWZFh8xhJS3Kg1GOHiZakf/C7kcf3H2xGzb8eLa/u
- Jf5+ZuTRtgNlEUf4D7RDA6lRq+StjN4apV3LUQXnVH/ssSUgmJowFokiZwW7E6+QXNpb
- oiFs7N0DacwD1UN2sW0miLMGMr9D0nA+TO2KI+ltFJikbQkgRYJ+RhjgM9ddtWpK7AYO
- LXuz6SgfvxhycuPMz+FMv1Q4PC7GZtuumlCnyT4hL6uAFdyTDM62U3vb3LUJhY3gRsx1
- vVKw==
-X-Gm-Message-State: APuU4Z8jN08aqGlPMSQQqZP2S7dnhzpaLKID8+atWEArDGqQ9n98QOaI
- qPLdAcSuuleLbpzLwKJAuCljd/HdAJPJQ2vkdkzz+kbo/Mrqb8clQ0u14I85A/2X4++CYGUgGro
- ojCcHWDBPVNw8FQqWM7upE7DRjOYaWEA=
-X-Gm-Gg: AZFdTZfuZXrzOGgnU7oSB5tBJWUJf+RRC6+crDh1k6SoeLqEymGmW8zXjx6ciewP/1G
- 4A+5tCaqaC02Zspegg4+e+6rieQ65IpvLVYHrhwP+2OEit9gPgEZynpjSGk6QM0rSNeZd13I6YW
- wAQoo/n6hcWIzeFspo1q9jLC7UZ1qUXrWtTSxUJRDMKSco+eKdAI3/IX0SFssLIU2mqxMyO70QE
- KqpE9MzNrG2g8P9GLnhbut1KBAOAcz+7tP+PjAZjiJFGYG/jrRIyy70pwsa3gVLs+c08MAfy9kP
- xPARzMX0kMCkdmvlx/Us0SA6lmvmjLHYcm4f90XqLFYiJsRpa1sca5ciLQMRWBH7lch2sG3xcCO
- VO0qz33U1tqsNEmqQoJYoSgiXdYbSE/2FeAp1hQquywnyoTWPXQthFlJ0ZTUJofUs9/jxQr+xfo
- x6OnFi4ehew4wr4psnRGj0N3ajCLJsQTHP07SIs/Y6iRQVLIFZmg==
-X-Received: by 2002:a05:6512:304a:b0:5be:4d35:c4c1 with SMTP id
- 2adb3069b0e04-5c1bc844ba8mr928446e87.12.1795183007797; Fri, 20 Nov 2026
- 05:56:47 -0800 (PST)
-Received: from 101988054943 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 20 Nov 2026 05:56:44 -0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id A378010E1E1;
+	Fri, 20 Nov 2026 14:56:47 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012053.outbound.protection.outlook.com [52.101.43.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2139810EB42;
+ Fri, 20 Nov 2026 05:57:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=X2tUmwnLRHkBtr+GlbZr2Lp1lkOtXm/V+8+DUD6bG6oje7N3pYfuRNf/8tWWprvHTR9IOjwporWaLxp4uKXS7FK0ZXS1i8yOFuRqD4QqkmBkUPC7JGeKGtAZYstnyB6Yg0HsXBJKMnbQ4/n2s8hlejaUztA/Ltwmqs5q18XriOUYUfP/d87kYFAOJJwwfDVpqax5aQBeGw1O+zWYAAGY/RCrFg1WtuS8tTu1b+v4YtE1PXmBpo+DwiBeoGHmvkR+RDRDptLYhxPxwtnlxNGVmw6EeefMiFpWxdkyjMegMYVO/XBCvk90+o2NceKuqlWmdAFYB34skE8ueCVXhGZGng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=oOZ4wG+0Cg9BKkrk9WLpii0Cfgl+7VKPVXylWrAei4U=;
+ b=IgzDQFvs1xkeozxXqEVK8nLnZVvGodY65naLYP0FGM41qBbj+UucDQT8gQGaTzBoKNqzEkIr+qkXQr5BhRGXgxiQc9eqUXTgnF2WC801pp/zGLMBFvbg0k3IFJt+TJ36rBCg32QaTM/xwfnG8jfCcC/c20AcHPX+n3Oe3kO36kXrAc0E5GnJ6sRuDfIX8BmiFGYvZWrW6dHQ20IsYRF7/t3ScJPCA7L+eW9Eev2CkfJZO+u1nq+PcHQPYvL9CmEqVVIgI06IydjXgimhItjQr2NXtCM0MmgBQAdqeHc+g0ClOczXJI+mv+Em3cmZbieEHdQuFcf53RNJ0Ge+Y48dbA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=oOZ4wG+0Cg9BKkrk9WLpii0Cfgl+7VKPVXylWrAei4U=;
+ b=dr+Y7CZIAgHe93HLge1Fhac8dqsnD+hxD15xbkbXzQy+chjHvoa1ZXO3omk95WQkHmwapiZcQVm59+jChAsOpkZmR3qEAsN3xHoFkOJvBDe8TuzQpqoe2qFETDzIX75YGnnNFspsY0A8ZoeFM5IwKU3dU9g/nM9QVYcZSLd/huhrCHMFMcJRZSBAkmrwWDk7KWhCI08vw5LvLWEzjrwn9URRNpWtZEsJMqfPWEHyEOtW802HuTNGumWjrb8mIgZRC6ggjerTRjnYBEEXNW9kHLYVwi0Uls5s7FTHZrNjBH/H0TbVXHiYXHu24sTZ6gsmABdBS1e6EiOR1FeP+zDvzw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SA3PR12MB598757.namprd12.prod.outlook.com
+ (2603:10b6:806:52d::14) by IA0PR12MB7675.namprd12.prod.outlook.com
+ (2603:10b6:208:433::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Fri, 20 Nov
+ 2026 05:57:02 +0000
+Received: from SA3PR12MB598757.namprd12.prod.outlook.com
+ ([fe80::e206:100:5946:a777]) by SA3PR12MB598757.namprd12.prod.outlook.com
+ ([fe80::e206:100:5946:a777%5]) with mapi id 15.21.0639.011; Fri, 20 Nov 2026
+ 05:57:02 +0000
+From: Alistair Popple <apopple@nvidia.com>
+Date: Fri, 20 Nov 2026 16:55:44 +1100
+Subject: [PATCH v3 06/24] dma-buf: Allow single exporter drivers to avoid
+ the match_mapping function
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261120-dma_mapping_type_v4-v3-6-c0183a409bdf@nvidia.com>
+References: <20261120-dma_mapping_type_v4-v3-0-c0183a409bdf@nvidia.com>
+In-Reply-To: <20261120-dma_mapping_type_v4-v3-0-c0183a409bdf@nvidia.com>
+To: =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Simona Vetter <simona.vetter@ffwll.ch>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, 
+ Dongwon Kim <dongwon.kim@intel.com>, Kevin Tian <kevin.tian@intel.com>, 
+ Xu Yilun <yilun.xu@linux.intel.com>, 
+ Karl Mehltretter <kmehltretter@gmail.com>, 
+ Baolu Lu <baolu.lu@linux.intel.com>, 
+ Felix Kuehling <felix.kuehling@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org, linux-media@vger.kernel.org, 
+ linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org, 
+ iommu@lists.linux.dev, Keith Busch <kbusch@kernel.org>, 
+ Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>, 
+ Sagi Grimberg <sagi@grimberg.me>, linux-nvme@lists.infradead.org, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, Mina Almasry <almasrymina@google.com>, 
+ netdev@vger.kernel.org, Alexey Kardashevskiy <aik@amd.com>, 
+ zhipingz@meta.com, treding@nvidia.com, jhubbard@nvidia.com, 
+ chaitanyak@nvidia.com, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Leon Romanovsky <leon@kernel.org>
+Cc: Alistair Popple <apopple@nvidia.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795154186; l=3763;
+ i=apopple@nvidia.com; s=20261105; h=from:subject:message-id;
+ bh=ZslO5m00dMh/hWP0sxl/X1iuz6bKgsA/EKsffZkJLQk=;
+ b=cZ5iipJZ5nLWchunXbwRQMHn2CLivMg8Hg019YoGNDtCqjE6NspFmc1lP6VeglZrckvJKI5Jp
+ tbxzqCTMfkwBm4qQzweWDFi49WmOGZpHQ+DSKUVBEiL3NolUlohGchD
+X-Developer-Key: i=apopple@nvidia.com; a=ed25519;
+ pk=WdWPT9rAq3YNfXldbGv1NSGVLGxzQGFGJvRUiShhNqs=
+X-ClientProxiedBy: SY6PR01CA0028.ausprd01.prod.outlook.com
+ (2603:10c6:10:eb::15) To SA3PR12MB598757.namprd12.prod.outlook.com
+ (2603:10b6:806:52d::14)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-From: Christoph Berliner <caberliner@gmail.com>
-X-Google-Nh-Sender: AW_J_Uo3eOKG5FYMtDEubOW4MF8zosojuYVCauWgip_o8IGzaruqCQegRQr7Cbzs597C5miIPxcLEKg9jM1oiJ5ZhKgIXXoG-9rhwWXtECe-0DB4v37rCFtCmKyCVSo_dnYtuybfY51TgMfP5HJKQPFZE7ePEvfr3EN6wqHmEA81dEcTOlZPDFGu0WWmV3fY-yvYSSyi2Fq2uoC0-Se7uHyVif3ea5ok5yKJcgd7SltSOUbsY_C3u5RJk7mWQuTeqTPoyQ9tgofbkGRXql1l2avc4iWhZds
-Date: Fri, 20 Nov 2026 05:56:44 -0800
-X-Gm-Features: Aa3M54rbN7TspTE-KJ0N5oXMN25HH5VXrb9hI1G70N_6Kk-bfn0lXBSIwyxXqCE
-Message-ID: <nh-d4efc703-38e5-4ca4-8906-3e4f06e81f61@google.com>
-Subject: Re: [PATCH v4] drm/amdgpu/gfx9: Fix Ring and IB test fail after mode2
-To: Jiqian.Chen@amd.com
-Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
- ray.huang@amd.com
-Content-Type: multipart/alternative; boundary="0000000000007c9df00660b59d88"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA3PR12MB598757:EE_|IA0PR12MB7675:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7d9bee2e-aad3-45c1-a99a-08df46cb18f1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|23010399003|7416014|366016|1800799024|921020|10067099003|11063799006|56012099006|261022113327099003|261021130227099003|261021123027099003|261028144727099003|261026130827099003|261022105027099003|261026121527099003|261026140227099003|261022075727099003|261022115727099003|261021135927099003|261021121427099003|261102130727099003|261102123227099003|261009223027099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info: BF01VW+oVEJe9gbHvaB9ngMCMtcd08k1i4C6UUIte4l5TA2/9/bJ9oNMFd8QbWZoBscxVoMQXJKIHrG6PEFF8wWrhkqXUUbSfdF94G9j2KjJWT78XG7QfjDtGXXBzbINX4i+naOidJRV1wpYmyaAgwkh8UkQKIEWuQtPQu8lM00DYc7R7N+KpKAzhyB5MObaRQYkCHkzgfht2lvbRgkIc+lvoZ75siP11lKev9e1Fs0wyij3YCFSDsQ5ZLrMJ2K4iRSY0Zk8eieDB22WYnwBOWrG166XSRieHkstlMAY58ZlpIfvZwYGVH0ZtMkcqFrbLtqfpWXp0D7JAyoh+9BjqyPpotFuen73WvPbzJbuc9V049yO6XlfxWlsuYjG543HXarqcMNrigKOdhIcrRK24ViFsG4jJp27YtF17TqRt3FAG3z/VJqattfLojMC3nBysmyifDFJWZReMZeFr9mzHERD0NFOmTTpoiKheaKCq7LjWjvKLYCGCnoAUBN2jOxfr7XuI5USGMrul8HMQW8SLKSWe6049SPeBdpUME92XCim2fca7RTf1VkRNZTNsGPJzOiEWTPLLUNaUAipncEc1Kl0JvTk8ySyBi6Pcz5MTD+ieoy6V7H8vQ32tnF0AdihzFsGAF4HjmPXx/9b1esK2XkDQHDomOx4LjPTf65eUINn/v1pgaQYyiyazUEc7cLujxwJS/mXlmyJHwhzYa0WYw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA3PR12MB598757.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(7416014)(366016)(1800799024)(921020)(10067099003)(11063799006)(56012099006)(261022113327099003)(261021130227099003)(261021123027099003)(261028144727099003)(261026130827099003)(261022105027099003)(261026121527099003)(261026140227099003)(261022075727099003)(261022115727099003)(261021135927099003)(261021121427099003)(261102130727099003)(261102123227099003)(261009223027099003)(22082099003)(18002099003)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZTZXUkdsZkRhOUgxT0h4NU52LzlhbjRqUGsxdVBudURkaEhRL0d1ZUt0bWtv?=
+ =?utf-8?B?bWlEbEc0Nk9yNmRTenVYcExPOEE2SkpBaFBNb2pLWW5RZXpsS3laQ3NaYmQr?=
+ =?utf-8?B?S212MDlhRkUrWHlDVzlaOTVDUHV0OW5uQk91MFBTbmlmS3k0L0w1Smt3aWhL?=
+ =?utf-8?B?RE9lK21ITk1kRXVPa2RYQkJuN3p1U1plL1pKNGZuYzFxMEV5Qnk5c3JxeUhu?=
+ =?utf-8?B?c0Jlb0xualYxTGIzay90T3hRem9BTzhKY3BZSmtuSkg3aXNtYTNSQ28xVFgr?=
+ =?utf-8?B?ZlFLT1ZJeEtQV2IxdjZZcTZHN3RNMkFiQXg1V1doN21ibFoyVkwrcm5SK1M1?=
+ =?utf-8?B?WkdGUlJCSmg2aVVoWVIzWk9mczlTQUNjSk9KKzhRS1ZwdEt1ZDh5ME01TGtP?=
+ =?utf-8?B?N0hmSW1STzFIQ0pmNWR4SWdEQ0FkUldTWUdlc2pNazhxVU5GZ0VSd0N2Y080?=
+ =?utf-8?B?YUhEVzRDNEpIbkRxU1FKdG5pbmllMm1ueEcyYlhvemp0eUFkUzJMUnNsZ2Nr?=
+ =?utf-8?B?eDVoMmFRUXdvVEdZT0VITUpWZWZ4QVgrNGlYZFU5NGJiOHpXRW05VDFDbG15?=
+ =?utf-8?B?dDV1OVA0UmlqaVJXSWpqbnFUMnVGUUZPNTB6cU5LSUpMaWl3My9jLzNXYnB4?=
+ =?utf-8?B?cEhjeGJWZldwSit2dnJSOTcza1hhV1R2V0NvTk9TTjR1T2hVRFZrdTh2eWZF?=
+ =?utf-8?B?d2VFN2RqR1Q5SHhpc3Q1Q0JDbHd5blMwVDh2M3A0QUx1Z0kyMUhMMktqM2dt?=
+ =?utf-8?B?dEM2blM5Mm9QdkFXUTVta1MrV1ZCNUpmYTNJY1lVam1HanhRTDN6aWpUTWE0?=
+ =?utf-8?B?TnhGZzM2bm5iYndNL0Vtb29xTExEWVhXWmliZ0g3bmxCSFR3NDlHRlRVVUNl?=
+ =?utf-8?B?enc2YTU0M0kwcC9EY0tuMk5uNllpWFZhUGJPZzF5TjZrbXpqZzVzSGNKZTV0?=
+ =?utf-8?B?VjAxdWQ0UDN1cFNWeEQ4RGdXYXlhK0dROFBzUm5EbUhFR1hORTFxaVl1WGJK?=
+ =?utf-8?B?U3Z3NU9BalpGbFNHTlRCVlVXRUl0Q2xOcEhUYUp6TmRmaTNieXZaMG5pS09X?=
+ =?utf-8?B?aEZCR2ZJcDBvSWI2MVpUY0RvcmMwbVJ0aVIvZGZnZFVkVC82Ui9tMmt4QTUz?=
+ =?utf-8?B?SXZuZDdXL21ueStQSE56aWVlcTZ6dWhRWjVkNjMwdTRkck9PcHJxRmdVcXVO?=
+ =?utf-8?B?a0JBMFF5V2tiWXZ2b2NzOEwyL2x0QzlPUExyTnQ5WGFmdjlibEFaVWpBV0pR?=
+ =?utf-8?B?VGRvbk9YYWpTTXNwTHJIOWhmYmlXeWFoMVhyd0JLbTZkNGNBZWYzL1laZ2Vr?=
+ =?utf-8?B?TTZtSWgxQnVrNlJET2MyVExFSmsyVjNxKzBKM0lWUjk4OXo1UEVHSEQ1SUR4?=
+ =?utf-8?B?ZDJaNENCNlNNL0thcFdRSE9UNUVRRmg2RjRGWUZEbVdWcm9CWnpCcGIwb2xk?=
+ =?utf-8?B?NzZJeVNuN1c4VVN6NGdlRktFZzkrR3lOTmZaL0tFcjFIOHRweWhPRW11MDda?=
+ =?utf-8?B?dTFnV285L2kvNlFaMTN0M3F3L09rRzBlNExGSC93Zk9LS3hrRUNwNkZwcE8z?=
+ =?utf-8?B?NFhKbmgyZ0FBcWZZREcxQmRFUmt0ZVVmc0k2Wkt5cVZUVkRmUkUzMkZvYXJL?=
+ =?utf-8?B?RElQRFBLaHU0MFNiREkzcVZTSjdOK3pyWHR5NnVpai82RnlaeVl6RDU1TUh1?=
+ =?utf-8?B?M09ZM0N0OUNjY2V2Tnh4T1FOMW56Ly9YNjh6TVpGangzSURiSTJKMjBPU2FT?=
+ =?utf-8?B?S0U5SUxVV0V4cXlxUk13VXA4ZHB2QitKckNyRlJVU1JtTjBVc0hWMnU4N1Zp?=
+ =?utf-8?B?TmtQY2R1bWd0cHJyTnVyYWJsK000dDZOV2VyU25YZVZ6dTE2U2JGSDdkbGdq?=
+ =?utf-8?B?OTE3d1ZaeW5ENkRHOVY1UjdFYXVmZWNQN0ZReUJtUXhxVk5Tby9Pc3QyczRL?=
+ =?utf-8?B?UnVBa0ZBNXlBVk9FcENZeWdZOWExNDNjS1FGcnN0eElPMFU2QmJKVnVnSUI1?=
+ =?utf-8?B?NXMxUkJ0dFFZd0hxVnJzWURBZlA5TzdQMEVzb01YTnIrU0Rhd3NocGIzRWNG?=
+ =?utf-8?B?RlhDVFhncjBRR2Nja2QzZFNlTUc1QjAzRnBhbWdIdGh5S2szaDY1TUJ2MkNm?=
+ =?utf-8?B?SWhYdmJoQktLa1YrYkV2VHlUeHMydjZEZ2V4TDMxYVB3cXoxSjdCQ3ZoZ3Ir?=
+ =?utf-8?B?bWZHUkpCejI0cTRMWTVyQzJESkx5RUNqNTZmMUp4TlRXd3c5SlBQU1h5cG1U?=
+ =?utf-8?B?UGFaNFFPTWtQVExiRWJTYUp5dFpCYmVWT2piVlNoK1VpSVNEMVg4MzVxTXlB?=
+ =?utf-8?B?M0ZaMytvV2pFUFJoY0RXRVZNbHF0YTFiN2F5VU5GZnp2T0hWaHl3Zz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7d9bee2e-aad3-45c1-a99a-08df46cb18f1
+X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB598757.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2026 05:57:02.2859 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Wxf9bawyWbeg4jQw5RmTimEM7TLsEfzkRauINkUHNLGbYBco5fMSzMdbPZFhmnpwKmm+ED32ups1CMF4iEdrcQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7675
 X-Mailman-Approved-At: Fri, 20 Nov 2026 14:56:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -97,110 +160,110 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-4.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---0000000000007c9df00660b59d88
-Content-Type: text/plain; charset="UTF-8"
+Introduce single_exporter_match into the dma_buf_ops so that single
+exporter drivers can simply set it using a static initializer to use the
+mapping type APIs. Provide a helper macro DMA_BUF_SIMPLE_SGT_EXP_MATCH()
+that generates the initializer for simple drivers.
 
-Hi Jiqian,
+More complex exporters, such as those offering more than one entry or
+that need to look at the importer when matching, implement the
+match_mapping callback instead.
 
-a late test report for this patch (upstream as c3988a7ad479) on a Ryzen 5
-5600G (Cezanne, gfx90c, GC 9.3.0, MEC firmware 0x1e3, HWS,
-amdgpu.noretry=1, kernel 7.0.14 with this patch included):
+Co-developed-by: Jason Gunthorpe <jgg@nvidia.com>
+Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+Signed-off-by: Alistair Popple <apopple@nvidia.com>
+---
+ drivers/dma-buf/dma-buf.c       | 14 ++++++++++++--
+ include/linux/dma-buf-mapping.h | 13 +++++++++++++
+ include/linux/dma-buf.h         |  9 +++++++++
+ 3 files changed, 34 insertions(+), 2 deletions(-)
 
-The KCQ part works as described: after MODE2 the compute ring and IB
-tests pass and graphics/Vulkan keep working.
+diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+index 76340d067f6c..6188cd11b004 100644
+--- a/drivers/dma-buf/dma-buf.c
++++ b/drivers/dma-buf/dma-buf.c
+@@ -718,10 +718,14 @@ struct dma_buf *dma_buf_export(const struct dma_buf_export_info *exp_info)
+ 		    || !exp_info->ops->release))
+ 		return ERR_PTR(-EINVAL);
+ 
+-	if (exp_info->ops->match_mapping) {
++	if (exp_info->ops->match_mapping ||
++	    exp_info->ops->single_exporter_match) {
+ 		if (WARN_ON(exp_info->ops->map_dma_buf ||
+ 			    exp_info->ops->unmap_dma_buf))
+ 			return ERR_PTR(-EINVAL);
++		if (WARN_ON(exp_info->ops->match_mapping &&
++			    exp_info->ops->single_exporter_match))
++			return ERR_PTR(-EINVAL);
+ 	} else {
+ 		if (WARN_ON(!exp_info->ops->map_dma_buf ||
+ 			    !exp_info->ops->unmap_dma_buf))
+@@ -1094,7 +1098,13 @@ dma_buf_dynamic_attach(struct dma_buf *dmabuf, struct device *dev,
+ 		if (ret)
+ 			goto err_attach;
+ 	} else {
+-		ret = dma_buf_sgt_compat_match_mapping(&match_args);
++		const struct dma_buf_mapping_match *exp_match =
++			dmabuf->ops->single_exporter_match;
++
++		if (exp_match)
++			ret = dma_buf_match_mapping(&match_args, exp_match, 1);
++		else
++			ret = dma_buf_sgt_compat_match_mapping(&match_args);
+ 		if (ret)
+ 			goto err_attach;
+ 	}
+diff --git a/include/linux/dma-buf-mapping.h b/include/linux/dma-buf-mapping.h
+index 8be03b4ba6cc..e442ed0ede71 100644
+--- a/include/linux/dma-buf-mapping.h
++++ b/include/linux/dma-buf-mapping.h
+@@ -244,4 +244,17 @@ dma_buf_sgt_mapping_dma_device(const struct dma_buf_sgt_mapping *mapping)
+ /* Match on behalf of an exporter that has no match_mapping() */
+ int dma_buf_sgt_compat_match_mapping(struct dma_buf_match_args *args);
+ 
++/*
++ * dma_buf_ops initializer helper for simple drivers that use a single
++ * SGT map/unmap operation.
++ */
++#define DMA_BUF_SIMPLE_SGT_EXP_MATCH(_map, _unmap)                       \
++	.single_exporter_match = &((const struct dma_buf_mapping_match){ \
++		.type = &dma_buf_mapping_sgt_type,                       \
++		.exp_ops = &((const struct dma_buf_mapping_sgt_exp_ops){ \
++			.map_dma_buf = _map,                             \
++			.unmap_dma_buf = _unmap,                         \
++		}).ops,                                                  \
++	})
++
+ #endif
+diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
+index cfbb800aa12d..5c8f090a9b8a 100644
+--- a/include/linux/dma-buf.h
++++ b/include/linux/dma-buf.h
+@@ -322,6 +322,15 @@ struct dma_buf_ops {
+ 	 * any time until the final location is resolved during map/pin.
+ 	 */
+ 	int (*match_mapping)(struct dma_buf_match_args *args);
++
++	/**
++	 * @single_exporter_match:
++	 *
++	 * Should only be set by the DMA_BUF_SIMPLE_*_EXP_MATCH() helper macros.
++	 * Exactly one of @match_mapping or @single_exporter_match must be
++	 * provided.
++	 */
++	const struct dma_buf_mapping_match *single_exporter_match;
+ };
+ 
+ /**
 
-KFD however stays unusable after the reset. The next HIP program hangs,
-and the kernel prints
+-- 
+2.54.0
 
-qcm fence wait loop timeout expired
-The cp might be in an unrecoverable state due to an unsuccessful queues
-preemption
-process pid ... DQM create queue type 0 failed. ret -62
-
-followed by another reset, and that repeats until reboot.
-
-Dumping all compute HQDs before MODE2 and again at resume (before KIQ
-init) showed that the HIQ (MEC2 pipe 0 queue 0) is still ACTIVE with its
-old MQD/PQ after MODE2, i.e. the same stale-HQD problem you found for the
-KCQs. The HIQ is not torn down during a reset because kq_uninitialize()
-only calls destroy_mqd() if it can take the reset domain semaphore,
-which amdgpu_device_gpu_recover() already holds for write at that point.
-
-Deactivating all active compute HQDs except the KIQ before MODE2 fixes
-it on my machine (same boot, old path vs. new path: hang vs. HIP/rocBLAS
-tests passing). I wrote this up, with the two patches I use as a
-workaround, here:
-https://www.google.com/url?q=https://gitlab.freedesktop.org/drm/amd/-/issues/6177&source=gmail&ust=1795269404456000&sa=E
-
-The patches only touch the GC 9.3.0 path and have not been tested on any
-hardware other than mine. I don't know this code well enough to rule out
-side effects elsewhere, so please take them as a starting point rather
-than a finished fix.
-
-Two small observations from the dump that may matter for other users of
-gfx_v9_0_deactivate_kcq_hqd():
-- the dequeue loop runs to adev->usec_timeout but compares the counter
-against AMDGPU_MAX_USEC_TIMEOUT, so the manual CP_HQD_ACTIVE=0 fallback
-is not reached;
-- on Renoir the HQD registers of MEC2 pipes 2/3 read back as those of
-pipes 0/1, so a loop over all pipes sees the KIQ twice.
-
-The analysis and the patches were done with the help of an AI coding
-assistant (Claude Code); all tests on my hardware.
-
-Tested-by: Christoph Berliner <caberliner@gmail.com> # gfx90c, KCQ part
-
-Thanks,
-Christoph
-
---0000000000007c9df00660b59d88
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<html><body><div dir=3D"auto">Hi Jiqian,<br><br>a late test report for this=
- patch (upstream as c3988a7ad479) on a Ryzen 5<br>5600G (Cezanne, gfx90c, G=
-C 9.3.0, MEC firmware 0x1e3, HWS,<br>amdgpu.noretry=3D1, kernel 7.0.14 with=
- this patch included):<br><br>The KCQ part works as described: after MODE2 =
-the compute ring and IB<br>tests pass and graphics/Vulkan keep working.<br>=
-<br>KFD however stays unusable after the reset. The next HIP program hangs,=
-<br>and the kernel prints<br><br>  qcm fence wait loop timeout expired<br> =
- The cp might be in an unrecoverable state due to an unsuccessful queues pr=
-eemption<br>  process pid ... DQM create queue type 0 failed. ret -62<br><b=
-r>followed by another reset, and that repeats until reboot.<br><br>Dumping =
-all compute HQDs before MODE2 and again at resume (before KIQ<br>init) show=
-ed that the HIQ (MEC2 pipe 0 queue 0) is still ACTIVE with its<br>old MQD/P=
-Q after MODE2, i.e. the same stale-HQD problem you found for the<br>KCQs. T=
-he HIQ is not torn down during a reset because kq_uninitialize()<br>only ca=
-lls destroy_mqd() if it can take the reset domain semaphore,<br>which amdgp=
-u_device_gpu_recover() already holds for write at that point.<br><br>Deacti=
-vating all active compute HQDs except the KIQ before MODE2 fixes<br>it on m=
-y machine (same boot, old path vs. new path: hang vs. HIP/rocBLAS<br>tests =
-passing). I wrote this up, with the two patches I use as a<br>workaround, h=
-ere:<br><a href=3D"https://www.google.com/url?q=3Dhttps://gitlab.freedeskto=
-p.org/drm/amd/-/issues/6177&amp;source=3Dgmail&amp;ust=3D1795269404456000&a=
-mp;sa=3DE">https://www.google.com/url?q=3Dhttps://gitlab.freedesktop.org/dr=
-m/amd/-/issues/6177&amp;source=3Dgmail&amp;ust=3D1795269404456000&amp;sa=3D=
-E</a><br><br>The patches only touch the GC 9.3.0 path and have not been tes=
-ted on any<br>hardware other than mine. I don&#39;t know this code well eno=
-ugh to rule out<br>side effects elsewhere, so please take them as a startin=
-g point rather<br>than a finished fix.<br><br>Two small observations from t=
-he dump that may matter for other users of<br>gfx_v9_0_deactivate_kcq_hqd()=
-:<br>- the dequeue loop runs to adev-&gt;usec_timeout but compares the coun=
-ter<br>  against AMDGPU_MAX_USEC_TIMEOUT, so the manual CP_HQD_ACTIVE=3D0 f=
-allback<br>  is not reached;<br>- on Renoir the HQD registers of MEC2 pipes=
- 2/3 read back as those of<br>  pipes 0/1, so a loop over all pipes sees th=
-e KIQ twice.<br><br>The analysis and the patches were done with the help of=
- an AI coding<br>assistant (Claude Code); all tests on my hardware.<br><br>=
-Tested-by: Christoph Berliner &lt;<a href=3D"mailto:caberliner@gmail.com">c=
-aberliner@gmail.com</a>&gt; # gfx90c, KCQ part<br><br>Thanks,<br>Christoph<=
-br></div></body></html>
-
---0000000000007c9df00660b59d88--
