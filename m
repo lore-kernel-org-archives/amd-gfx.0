@@ -2,70 +2,124 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2C60606A337
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 13:10:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13B4C606A320
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 14:09:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ePqPVFS1
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=gbmSe92S
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 50C04112A2C;
-	Fri, 20 Nov 2026 13:10:42 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 897CE112A24;
- Fri, 20 Nov 2026 13:10:35 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 02938628C8;
- Fri, 20 Nov 2026 13:10:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F15A1F00ACF;
- Fri, 20 Nov 2026 13:10:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795180234;
- bh=SfJfDs7eRLaWgJWCrBHrHS+0aR5Z5G5czSxokvRK4+4=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=ePqPVFS1ta7XhtSVdjxIKX8QUsmgKw1+hc/uQpzDiFefg6qbiTsZCbfEHQg6Q0xrX
- 9dqecUujmNV2TqnRDUbCDEMp6KWQ3FcFWJPUlbl7AwOcd5fLlKdoj41ye17Ec5tJV2
- tpkKfd9r5zbquMxkFYZws3k340Ktq7suDC1gvSb46tcPeODvCHxtf5puIdn5JIwFxd
- 3l9IR5tN51VyURkm38W7P/J9fahRO1AR0aA8Fhz2H+VE8M8R1zRMsPGfHBOpz7fBbG
- /ib4usaptjFfjOI30rPA6uF4cTmYS5D/zqwuGWgckaJ/PDdZ5zo5p/FE3bV27jPx9A
- QaNu2QphoUSfA==
-From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 20 Nov 2026 14:10:12 +0100
-Subject: [PATCH v12 5/9] drm/amd/display: Take over the current stream and
- dc_state
+	by gabe.freedesktop.org (Postfix) with ESMTP id 802A310E0BE;
+	Fri, 20 Nov 2026 14:09:14 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012063.outbound.protection.outlook.com [40.107.209.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16F7610E0BE
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Nov 2026 14:09:08 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=k57w4U5I1bGFvmsDPTIWqUMWcsLCxPnb+SurcNbO7ktZkT80gatQgu588fRGjq1tL+hQ8ueUZSmKC5X/SR0/TU/2exBHqKqDpPQFEfRYk5Bf0iUIe1Uzv+b3AczZRM4WdpXoSOWuSFil10bPYMk0C4G9YbTikrEAWw7rNfXSmiMu13MJkUwvT9oY9d9/aJqa+O6a+g3uqPGTGguMgBG+xMDLwg1/uVSV6D1si8fkZiIsaNsk4NXESVxuSyBvOy8qy235DiFXQsq0hDolOD7CCXWqhDh7AxmA6vUpmKZNm9KB/4ALXli+rgHY47tnLZRRerRVRayosFsP04F/GQ4IBw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8RGM5kq56v8G/LiH88p7djfQCfPV7zCV2rhx8qjyHjs=;
+ b=CPMu+JWAAn1HflZR6+QTk5128Tk7XQL/+79dDS8EO0c7oUZ5p6gBmdLm/zfMwe/aYpCi070n/SMzRfUg5vXFuiqSFfi9H//U9Nb4DOT6r3EpKpiutIzEmYuV6uLvghJJURrvOJy5wNp80k7FDcN/K+PHZBtQZ8uAZU7ICkjhm3GB1Xkwx5+BKM/AV61d5zDiXdzMg4OUlB+dthYm+NFLoA31WPgcusy8KHpWsXWiUc/a9gyAnd/9fAMe1pQBcXFiQz1F6dl2gKK5l3vonf1e8HjU9aMueXCXVfbiC1m4iosNUoJR308Zbj5Z7bH3OeZdgt0SVlCof1SmMb+pBjRXEw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8RGM5kq56v8G/LiH88p7djfQCfPV7zCV2rhx8qjyHjs=;
+ b=gbmSe92Sp0h8auhvNs1nT61bt5GeNbLi1lZBB2x7oT2fwUtEo1pi5Uj/YSZwMrIfU8tpj0BjealVaLN4niQfGTAfGCqk+tri55+He3B37diqTNkXEzqr9fgVNpDPEbosiBEBItQYIQ9djnX8gTqBfGBhDITj5IJNwMNeLYJ90no=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5805.namprd12.prod.outlook.com (2603:10b6:510:1d1::13)
+ by DS7PR12MB8232.namprd12.prod.outlook.com (2603:10b6:8:e3::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.10; Fri, 20 Nov
+ 2026 14:08:58 +0000
+Received: from PH7PR12MB5805.namprd12.prod.outlook.com
+ ([fe80::35dc:5b7a:52da:c8f1]) by PH7PR12MB5805.namprd12.prod.outlook.com
+ ([fe80::35dc:5b7a:52da:c8f1%6]) with mapi id 15.21.0615.013; Fri, 20 Nov 2026
+ 14:08:58 +0000
+Message-ID: <3a26430c-c8b1-4df1-a5dc-eb699a0fdd98@amd.com>
+Date: Fri, 20 Nov 2026 09:08:54 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 5/7] drm/amdgpu/vm: stop using amdgpu_bo_fence
+To: sashiko-reviews@lists.linux.dev, amd-gfx@lists.freedesktop.org,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+References: <20261118190735.1863676-1-benjamin.cheng@amd.com>
+ <20261119144049.2057674-1-benjamin.cheng@amd.com>
+ <20261119144049.2057674-5-benjamin.cheng@amd.com>
+ <sashiko-outbox-223337@kernel.org>
+Content-Language: en-US
+From: Benjamin Cheng <benjamin.cheng@amd.com>
+In-Reply-To: <sashiko-outbox-223337@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBP288CA0004.CANP288.PROD.OUTLOOK.COM
+ (2603:10b6:c01:6a::17) To PH7PR12MB5805.namprd12.prod.outlook.com
+ (2603:10b6:510:1d1::13)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261120-drm-reset-state-flag-v12-5-42d63d7417fc@kernel.org>
-References: <20261120-drm-reset-state-flag-v12-0-42d63d7417fc@kernel.org>
-In-Reply-To: <20261120-drm-reset-state-flag-v12-0-42d63d7417fc@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Louis Chauvet <louis.chauvet@bootlin.com>, 
- Haneen Mohammed <hamohammed.sa@gmail.com>, 
- Melissa Wen <melissa.srw@gmail.com>
-Cc: Daniel Stone <daniels@collabora.com>, 
- Harry Wentland <harry.wentland@amd.com>, 
- Jocelyn Falempe <jfalempe@redhat.com>, 
- =?utf-8?q?Jonas_=C3=85dahl?= <jadahl@redhat.com>, 
- =?utf-8?q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
- Pekka Paalanen <pekka.paalanen@collabora.com>, 
- Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
- Victoria Brekenfeld <victoria@system76.com>, 
- Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>, 
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- amd-gfx@lists.freedesktop.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4875; i=mripard@kernel.org;
- h=from:subject:message-id; bh=jMZyKlQM+O8dO3fSECDw/33k6M92+XJBu0DQueQcSjw=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDNkMblv3GO71rFhuxs3JybLRYqlp/BKbrRf6Itjn68fb8
- PLEKDh2TGVhEOZkkBVTZHkiE3Z6efviKgf7lT9g5rAygQxh4OIUgIkUvWBsuDzz3Y+Dhh4MM1Z8
- P9R4lvvdqvINKs7KSw/N6j0cIttt3Lu09tn9XYGnj/Pusrq50MX2HWPD7M+8YjZHX33+FnXwq8+
- 2KEXPGHeHFZmzm0QP6HLUP5K98pg17fZvsb6ARkXRmFr5EzUA
-X-Developer-Key: i=mripard@kernel.org; a=openpgp;
- fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5805:EE_|DS7PR12MB8232:EE_
+X-MS-Office365-Filtering-Correlation-Id: d0de30b3-53cf-4ec7-693c-08df470fd196
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|1800799024|376014|366016|18002099003|22082099003|261009223027099003|261009221227099003|261009220027099003|261009223327099003|261009221727099003|11063799006|56012099006|4143699003|261102123227099003|261028144727099003|261026140227099003|261026121527099003|261021121427099003|261022105027099003|261021123027099003|10067099003;
+X-Microsoft-Antispam-Message-Info: RxrophvvZWufISk2/P4THBSWtEAhfiKwsP3A6I0ctfRVHdU3Wwh2GHj7KR9PpHU6aDP1d544iH3VQy2fj18jzJJaf791zezboLQbqHvagSckLRlYUGEZ9Rd1nrIlCOnmKNYrmhhL5CMZmFjyntpjWPOdxPD4ov+1ixIXaO2MctoYzyp47pAlhhe46EUKVy7d+BUDUl828T6xeXeErtf2mevAnALBEFOSocX5WqITTV703j/F/Bui8V49xLCOYMzK26Vrj8D6ndu/gzrjPbw2Ss3SDfu/O72wHvEWaLYIU5yBYM+u8WTAdrQrX14U4sgkeVjKskY2tmcYVQqARzMfXmJ24sPRIfQkmbmAOZc6ewcRyXnpbcHMq8KToN75lPAr9Xn1O/mX/qD0LNBK2vOu2buALS3eDaBvUwdlIRvBGnJDungfnh8yoE48VrNgGKHlSqgF/5sd+pZRh6JvzvZNxZvP+YmdelylQDJUkabYfSrRN3ZKIefRBJxmCrteFKUKow6Q1eBCDuopMm2o4JEwRyBDTWHQGxnpIx+bSUUI5yKL4PWK5HE9qkp2VN57r+v/K05sVYE+ZSygyF9UWOw97PL0Um27819GAXqyemgA24Q/FtZgVzfyPKD5RnHYSxbLJ+5hweHZdNcactSoi01WmIfeuPJ/uE+Z19bvWuB32/w=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5805.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(18002099003)(22082099003)(261009223027099003)(261009221227099003)(261009220027099003)(261009223327099003)(261009221727099003)(11063799006)(56012099006)(4143699003)(261102123227099003)(261028144727099003)(261026140227099003)(261026121527099003)(261021121427099003)(261022105027099003)(261021123027099003)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VmhhRDE0U0NVejIxdkpGZlI2cWk0T203b0pkNTBBRTVCdEc3VmpLYWdlMjJB?=
+ =?utf-8?B?TjQxRWdueTQ5ZTVrcXROL0VvSWFHTEZUUnVzS2JWTStGUFhvaXdocEdYeTFQ?=
+ =?utf-8?B?cisyWmE5VENWR1I5bXk0RUVkTzFScVVkVGdZdm96YU1oYUlWUTBkL21ua2xU?=
+ =?utf-8?B?SkxkNThiWDZoVjdPclByVGxyeXZzYzY0NS94dkR1TkV4Zy92NDdsaWxtcU1Q?=
+ =?utf-8?B?V1ZnZ1drbnBkalhpZythdzVWZXdqRDFNZzB0OG1HTnNtRldNRHl0UEdCc3ZJ?=
+ =?utf-8?B?ZzltdUVVS04zaTNjeTFnQ3d5SUVXaytsVjNtNWN6ZnB0eW1sbUN3d2owbDBO?=
+ =?utf-8?B?c3pRN0tGSGx0M2p5SWxWOENCczN4VGQ3Uzk5R2NGSW9LWnpKaHRJUWVjUjlY?=
+ =?utf-8?B?Y1E5UXdxNnBRNzZKcktJTXNvc3FnSnNEWnB0ajZ3V3AxRUlLYTFCNG9aS1Np?=
+ =?utf-8?B?Zm55K3hzSGpobzR3cUNwVDVkaXJNWkU4OENMS2F6ajNVczRYL2dTa21aUy9t?=
+ =?utf-8?B?elVZaDQ0YmpvTDdONGZ3NjdmRFZFQlU2L1JpSDE0eTFzNUtJbHdNcGRsaG1j?=
+ =?utf-8?B?ZjZZVUFUUmdZbTNWdlBhdGxmMnczbG5ENXFqWHVLekNNTm16RkMrSTZtMndt?=
+ =?utf-8?B?VDhuTDhhcFVQQnIxL1Z3b0FiYmZYR3U0UTVFSlAycUlmOVFlNzE5RDV6Umg2?=
+ =?utf-8?B?cG5VQ2hjcG1CdUZmWEo0Z0tnakdGZTZFWUxxOFdVcVlhMDNTSnRkNWE3azZQ?=
+ =?utf-8?B?bldyK3RzUTIzTk5XS0ZHYmR6N0l4ekFIZU1JWE1FTWlkYWxSME9IdTFpcWJD?=
+ =?utf-8?B?UmlpNHNTTjRyUFNOMlZIODd5NERkUTFQVC9QS3czQzFwb2s0WCtIa1N0ZDBV?=
+ =?utf-8?B?Y25YV0xpZlYvcnR5YlZlakJuUVpaRVUrTXp0aC9vT2ZadGYwN2poeEdPeWM4?=
+ =?utf-8?B?cWJaajhzN0taZ3V0OGVpN1lZVkx2MDJTS3BLaGFOWGlQWE5DOVZlaGkrMEg2?=
+ =?utf-8?B?UHlQZmxUTTJ4R0JYMitWVU50NzBkUm4zeEVGcjl3d1c1VG9ncHQ4NGVJWnJV?=
+ =?utf-8?B?eUhLVnBRZG5jb1dSWkhBWVVQUUUzbi9vYjY1cFNzN2RIOWpQTklwZHl1citU?=
+ =?utf-8?B?RDM3OWROaHpWUnAxTE1hVlliM1pCckVYNzYyQ1JRUWdldExYM3pQZ1hYUEtC?=
+ =?utf-8?B?SmxPSjVWV1FNUHZrTzZidWlkV1JaWjVJZW5OeGd5TFY1bWFnakVHNDV5bjgz?=
+ =?utf-8?B?eTJxc09wREpwN2hvSzdYOUM0M2tJbHpuMUpuZ0hCeGY1NkVpb2gxV0Facmwz?=
+ =?utf-8?B?eGYvN3hIdWQwNXJ1ZG9nWVRlQ0lSR2xNVStMS0JCMUVPOFRZUEJWbGt1T3pY?=
+ =?utf-8?B?dDg5VE1ISTdlejhmYURrYjFJOG9sREYxK2paYUVJOUpBUm5QcEZPTU5OWnc0?=
+ =?utf-8?B?S1JhNE5CZFUxdmlEOFN6RGhxNDBFNnRHd05keFpaVFJyNlYrRjhTWmJwUENj?=
+ =?utf-8?B?cDdQME40N1dGS3lzSjRWbUpNaUM5YXJqZVNORGhHTzZkMGNIalpOSCt4RGVz?=
+ =?utf-8?B?Kzd3SkFsSkNEdThnSkxPZDhYQ3ZDdjE4M2VYU1V1dGtVL2dBRUcxamZpTVpQ?=
+ =?utf-8?B?aFhUUk1HY08ydjhVdEQzNWhWOVNONzBpZ01oNEt6M0tBV0ZFeU9FdHF4LzJX?=
+ =?utf-8?B?L0pseGplNi81NlNJNTkvU244SnVycFl6TG1yMXN4TzU5SUV6UVNvUloyVkJt?=
+ =?utf-8?B?VS9VbURjcG1zK3NtOW13WWxrKzdwZVp2UXF0aUtRY0h5dnJDeE5YbFZEUTIz?=
+ =?utf-8?B?TlY2aTBJRStaeGNaOC91aXViOWRpaW5VclQ2SlhhVGVRQ2R2bUQ5dkdTekhy?=
+ =?utf-8?B?SzYzNUIzd2dJSkl3NkxkTUQ1TzVlVnJ6MWVSaFU4eE5jN3JlMW9sMFNzTG5s?=
+ =?utf-8?B?REpyRjFkMCtaT1hvNFNJRTBjNkcySlRPd3h5TDI0MEdVUjRLVG80WVlXMy8v?=
+ =?utf-8?B?UkFJQzRaRkRtUlBzRjFSSERhUGM0aU5HemgvQW9Oem5sSVdXOVowWG51Vk9H?=
+ =?utf-8?B?ZU9ZUEg3YjdzT0cvSXFXdVc1TWVabHFmRElyeHBicFRJQnlIUVVlb0xqeGs2?=
+ =?utf-8?B?RUdOQ3RKRUl5dkdycTBDbEpQWG1TNnhaTFdNaTlNTThkL0JzT1VuTzg3QXdG?=
+ =?utf-8?B?R2M3d0lXN0x1RkVkR1R3cG9qN0VNdGxsTXFLZmdPbXpqV1lNbFpBQmhvTHlF?=
+ =?utf-8?B?d1lVMWcrYmw1Y2l1ME5icGVNRGxaYUkybi8rMTE3OUFyVnhMREJSQzJSLzhx?=
+ =?utf-8?B?VTU0WkxGbytoeVhBb3R5U1pPVzRScWwrRUsvYnpZYUVYZjRTY1hKQT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d0de30b3-53cf-4ec7-693c-08df470fd196
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5805.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2026 14:08:58.0872 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9NEFps9C6TJYnF2Zzc9gfi5PZJ8tFp/chzqGyt3nGS+fTcwE65nGUkPV2G7uUbreg5B4ndIvg7LyVkcG/dSLaA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8232
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,117 +130,91 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-drm_atomic_commit_fill_with_defaults() builds its commits out of
-states created through atomic_create_state() instead of duplicating
-the current state. A created state comes with no stream nor dc_state,
-while a duplicated state carries the ones in use, with their
-reference.
 
-The update passes of amdgpu_dm_atomic_check() release the stream and
-dc_state in use and clear the pointer of the new state, on top of the
-reference the current state drops when it gets destroyed. Those
-releases are only balanced if the new state brought a reference of
-its own, so a commit that disables or reconfigures a live CRTC or
-plane through a created state over-releases and frees the stream
-early, leading to a use-after-free when the current state gets
-destroyed. The paths that keep a CRTC or a plane enabled without a
-modeset also work on the stream and dc_state through the new state,
-and hit BUG_ON(dm_new_crtc_state->stream == NULL) since it never had
-one.
+On 2026-11-19 10:04, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue to consider:
+> - [High] drm/amdgpu/vm: unreserved fence slot usage in
+>   amdgpu_vm_update_range()
+> --
+>
+> commit 62a2ba953c5e8b9b18301c84fc57052868fd3e60
+> Author: Benjamin Cheng <benjamin.cheng@amd.com>
+>
+> drm/amdgpu/vm: stop using amdgpu_bo_fence
+>
+> This commit replaces the amdgpu_bo_fence() call in amdgpu_vm_update_range()
+> with a direct dma_resv_add_fence() call using DMA_RESV_USAGE_BOOKKEEP.
+>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>> index a0e6bb34ae0be..d4d8cb15ffd38 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>> @@ -1215,7 +1215,8 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>>  	if (!unlocked && !dma_fence_is_signaled(vm->last_unlocked)) {
+>>  		struct dma_fence *tmp = dma_fence_get_stub();
+>>  
+>> -		amdgpu_bo_fence(vm->root.bo, vm->last_unlocked, true);
+>> +		dma_resv_add_fence(vm->root.bo->tbo.base.resv, vm->last_unlocked,
+>> +				   DMA_RESV_USAGE_BOOKKEEP);
+>>  		swap(vm->last_unlocked, tmp);
+>>  		dma_fence_put(tmp);
+>>  	}
+> [Severity: High]
+> Can this dma_resv_add_fence() call consume an unreserved fence slot and
+> hit BUG_ON(fobj->num_fences >= fobj->max_fences) when vm->root.bo already
+> holds a newer fence from vm->delayed?
+>
+> Callers such as amdgpu_vm_lock_pd() and amdgpu_dma_buf_move_notify()
+> reserve only two fence slots for VM updates (one for vm->delayed and one
+> for the TLB flush fence), relying on vm->last_unlocked and locked SDMA
+> commits sharing the vm->delayed slot.  However, dma_resv_add_fence() only
+> replaces an unsignaled same-context slot when
+> dma_fence_is_later_or_same(fence, old) is true.
 
-Take the stream and dc_state of the current state over, with a
-reference, at the beginning of amdgpu_dm_atomic_check(), like a
-duplicated state would have carried them. This has to happen before
-the update passes clear the stream of the new states: past that
-point, a state whose stream was cleared can't be told apart from a
-created one.
+Hi Christian,
 
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
----
+I think this edge-case deserves to be fixed in dma_resv_add_fence() right?
 
-To: Harry Wentland <harry.wentland@amd.com>
-To: Leo Li <sunpeng.li@amd.com>
-To: Rodrigo Siqueira <siqueira@igalia.com>
-To: Alex Deucher <alexander.deucher@amd.com>
-To: Christian König <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 50 +++++++++++++++++++++++
- 1 file changed, 50 insertions(+)
+I don't see any reason we need to add another fence to the resv if it already has a fence from the same context that is later-or-same and same-or-stronger usage.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 0ea45ab12119..b2eddb87dd5c 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6279,10 +6279,60 @@ STATIC_IFN_KUNIT int amdgpu_dm_atomic_check(struct drm_device *dev,
- 	struct drm_dp_mst_topology_state *mst_state;
- 	struct dsc_mst_fairness_vars vars[MAX_PIPES] = {0};
- 
- 	trace_amdgpu_dm_atomic_check_begin(state);
- 
-+	/*
-+	 * A CRTC or a plane that stays enabled keeps its stream and
-+	 * dc_state: a duplicated state carries them over, with their
-+	 * reference, but a state created through atomic_create_state()
-+	 * comes with neither. Take them over from the current state,
-+	 * with a reference, like a duplicated state would.
-+	 *
-+	 * The reference is needed when the update passes below
-+	 * reconfigure the CRTC or plane: they release the stream and
-+	 * dc_state in use and clear the pointer of the new state then,
-+	 * on top of the reference the current state drops when it gets
-+	 * destroyed, so that release is only balanced if the new state
-+	 * brought a reference of its own. The pointer is needed when
-+	 * they don't: the paths that keep a CRTC or a plane enabled
-+	 * without a modeset work on the stream and dc_state through
-+	 * the new state.
-+	 *
-+	 * A stream or a dc_state in the current state means the CRTC
-+	 * or the plane is enabled, since they are cleared when it gets
-+	 * disabled, so the conditions below already single out the
-+	 * live objects. They deliberately don't check whether this
-+	 * commit keeps them enabled on top of that: the update passes
-+	 * release the stream and dc_state of the CRTC or plane being
-+	 * disabled too, so their new state has to bring the reference
-+	 * just the same.
-+	 *
-+	 * This has to run before the update passes below clear the
-+	 * stream of the new states: past that point, a state whose
-+	 * stream was cleared can't be told apart from a created one.
-+	 */
-+	for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state, new_crtc_state, i) {
-+		dm_old_crtc_state = to_dm_crtc_state(old_crtc_state);
-+		dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
-+
-+		if (!dm_new_crtc_state->stream && dm_old_crtc_state->stream) {
-+			dm_new_crtc_state->stream = dm_old_crtc_state->stream;
-+			dc_stream_retain(dm_new_crtc_state->stream);
-+		}
-+	}
-+
-+	for_each_oldnew_plane_in_state(state, plane, old_plane_state, new_plane_state, i) {
-+		struct dm_plane_state *dm_old_plane_state = to_dm_plane_state(old_plane_state);
-+		struct dm_plane_state *dm_new_plane_state = to_dm_plane_state(new_plane_state);
-+
-+		if (!dm_new_plane_state->dc_state && dm_old_plane_state->dc_state) {
-+			dm_new_plane_state->dc_state = dm_old_plane_state->dc_state;
-+			dc_plane_state_retain(dm_new_plane_state->dc_state);
-+		}
-+	}
-+
- 	ret = drm_atomic_helper_check_modeset(dev, state);
- 	if (ret) {
- 		drm_dbg_atomic(dev, "drm_atomic_helper_check_modeset() failed: %pe\n", ERR_PTR(ret));
- 		goto fail;
- 	}
+Thanks,
 
--- 
-2.56.1
+Ben
 
+
+> An unlocked update on vm->delayed can leave vm->last_unlocked with a
+> seqno older than the fence already in vm->root.bo->tbo.base.resv:
+>
+> CPU0 (locked update)              CPU1 (SVM MMU notifier)
+> amdgpu_vm_update_range()
+>   /* checks vm->last_unlocked */
+>   amdgpu_vm_ptes_update()
+>     amdgpu_vm_pt_alloc()
+>       amdgpu_vm_end_critical()
+>                                   svm_range_unmap_from_gpu()
+>                                     amdgpu_vm_update_range(unlocked=true)
+>                                       /* submits seqno N on vm->delayed */
+>                                       /* vm->last_unlocked = seqno N */
+>       amdgpu_vm_begin_critical()
+>   /* submits seqno N+1 on vm->delayed */
+>   /* adds seqno N+1 to vm->root.bo */
+>
+> amdgpu_vm_update_range()
+>   dma_resv_add_fence(..., vm->last_unlocked, ...)
+>     /* seqno N < seqno N+1: allocates a new slot */
+>     BUG_ON(fobj->num_fences >= fobj->max_fences)
+>
+> The same ordering can occur when an unlocked update sets
+> vm->last_unlocked before amdgpu_vm_update_pdes(), which submits on
+> vm->delayed and adds its fence to vm->root.bo without flushing
+> vm->last_unlocked.
+>
