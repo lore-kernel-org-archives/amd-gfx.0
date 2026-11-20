@@ -2,96 +2,152 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12AD9606A320
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 14:56:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11A80606A325
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 14:56:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=COg0vcRN
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=bCIAKIpw
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C05A112B0E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7294112B13;
 	Fri, 20 Nov 2026 14:56:17 +0000 (UTC)
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com
- [74.125.82.199])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D2021126DD
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 19:25:35 +0000 (UTC)
-Received: by mail-dy1-f199.google.com with SMTP id
- 5a478bee46e88-383f2d05c73so194941eec.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 11:25:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20260707; t=1795116335; x=1795721135;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:from:subject:message-id:references:mime-version
- :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=5sSK0mEpHDMvzrLQAsEFtk5LbI4UItSogecSbLV64WI=;
- b=COg0vcRNlGEFzpFuVvTeMxnDGpzw+1jEDC3B83RTeK+SO4SuhG6mFYj4XUVZJnAfed
- 574yEPuT58MXSgvtTd9zzRDNTr96l8eeyoKUwqhFZbG5GOxQrtBF7XdEjSq2XjrA/IHZ
- 6qCuRCjOt8tD0ZvPyF3xnTKhcEhF688mVDWQNVdRP5SwYyUBXKbf8j3+yLmGLDJOEPEd
- gNZiNo9rrFpXEEK69EmIvtJTp7kUYwMF1t410bh4SNdg8icuNFqoI2pQrGgi2Z5d53i1
- nSIPG/Ja/x0QnCynxBLyADuAN0JENyFQO4QznkxvUqiBDRn+CXVKcOBld00mU5t//BXS
- i6eQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795116335; x=1795721135;
- h=content-type:cc:to:from:subject:message-id:references:mime-version
- :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=5sSK0mEpHDMvzrLQAsEFtk5LbI4UItSogecSbLV64WI=;
- b=nwmaU8+EOM8NeEVLrHkK8m3UZHTSJF1L8thogWNtrEUipWwlwn4oM7g/pcX4GNdodh
- +EP/OvIjC+NKZTEiHMvcK16u0QYqy/7pZZsG1YZiHZFO3kssDT7qqGVPKjLxKBH6Iost
- iw/FzQ0VMYA/IKXY89ANIZRbsQo39d0L38RD3DiAe0FRyuvEadWGc7gSmwwjgLPbwm3a
- TyKigxpgcg2llX//95lVx0cNzTBsmKHjJSfNv2BU2wlh34BdBFk3gSXNf1Ut5DEgKi/7
- eJ68t2T6jYbZRf3ac7gp/OXLQJRny4/fHWEmPA4FrKa0pWCRaP4fUpfyN8lGWrDepUew
- J2uw==
-X-Forwarded-Encrypted: i=1;
- AL+hErFxzP2ZNmBwVI2k+YdNFqPzlzlg9USSZo740S49CBBxiBewM0gmVp/ZlataxEU/gaX+04SA5vBp@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/HuIeBz7AdmZxBGDmj+DlueDOgGAcCiRDViQBg0MdpX6PMFAnv
- M8UOECio7FfgXEAWu3IiwvVG/hnZ/lxXqOyZHZzHbeLiHXH76xZSvqMneg2BcPxjkAZTszvCyqn
- /vTKIrj5gMQ==
-X-Received: from dybqm10.prod.google.com
- ([2002:a05:7301:670a:b0:385:6c3c:3ea1])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7301:152f:b0:381:c532:3d88
- with SMTP id 5a478bee46e88-3857093c38bmr360600eec.23.1795116334302; Thu, 19
- Nov 2026 11:25:34 -0800 (PST)
-Date: Thu, 19 Nov 2026 11:25:12 -0800
-In-Reply-To: <20261119192520.1983406-1-irogers@google.com>
-X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0
-References: <20261119192520.1983406-1-irogers@google.com>
-X-Mailer: git-send-email 2.56.1.750.gf70dc682cf-goog
-Message-ID: <20261119192520.1983406-2-irogers@google.com>
-Subject: [PATCH v4 1/9] Compiler Attributes: Add __must_init macro
-From: Ian Rogers <irogers@google.com>
-To: Danilo Krummrich <dakr@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Kees Cook <kees@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
- "Rafael J . Wysocki" <rafael@kernel.org>
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
- Srish Srinivasan <ssrish@linux.ibm.com>, 
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
- Christophe Leroy <chleroy@kernel.org>, Nayna Jain <nayna@linux.ibm.com>, 
- Mimi Zohar <zohar@linux.ibm.com>, Yoshinori Sato <ysato@users.sourceforge.jp>, 
- Rich Felker <dalias@libc.org>,
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, 
- Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, 
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Nathan Chancellor <nathan@kernel.org>, 
- Nick Desaulniers <ndesaulniers@google.com>,
- Viresh Kumar <viresh.kumar@linaro.org>, 
- Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>,
- Alexander Aring <aahringo@redhat.com>, 
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012053.outbound.protection.outlook.com [52.101.43.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDF31112266;
+ Fri, 20 Nov 2026 05:57:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=llwII2jYSKxxerQ/dLxBioPeCySwZ/nXiilAzM6AyjY4BZcdOw+Am62qib38zn43uXs/CRhFs2sbLMsFf6c0kPeJOJkUVUgkDogd3ibCvu2lTColmJDc+x+jyZuUv/XFk39II7HAgZphpyORfE58Bh7p/OIuBIAtlRhXFHunfNTNfHtiJJ+y0Vw8/psGx4lVorC7ke6vgGd+WSQWf50WDlq0KcH2VZqSUapGFEsLdnr7tdL6ZFwgkv+I/TR+pjG3xi6csfd6zxHwpu+enK6ztjJFfFBwKrEknrdFY258io/DDofMBZNnBX5JKGfJwc31V2q33pJlbbegdSTJdcR2gw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mLsXexqUf358mA1pQDjjSM5M05CkS3huzFQmePfrOic=;
+ b=KnO2HUMiJuCnJ/okJZhx9Il/G++CWoM9Qd+NPANL/EbqF/EayIG9xzb68u+45y+BiCxLvJaXGzf1yyleJF7cxzIpgFMhoJCaxVD1TStwM5ogfCmiFKE7gXIe8S8gc2bSWsSYN9snORXRkBex9D/wlBZCeNzY0bbNAxOAbyT2/DbZfOGdtzMVh6DPTzqUAu0KwwDyrgTnr7nI/+Tdb6o8DVJAGa3vO6KpcJzTQyOX6Y1QscLK8NE/aCHO6iN7RHhVbRVUHVpQgk1vo5x1uB/XHOSa/g0QjWnb3ATm4fI++pJrR1De9pjsBY86yBg/YPuU28lu/26b5Iy0ypzMRlfpXg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mLsXexqUf358mA1pQDjjSM5M05CkS3huzFQmePfrOic=;
+ b=bCIAKIpwhXhiB0SU91c7WqX01Q1GhVuuaz3xTJlWskZ0ZIafTKKIanYHm0LvORzR6YzfvAxS8QpSuMIuFivqnSNodQ65EnbjyYxxM0mcQ2H9DxyrtSILzVOOqPbeg4CYBbZn5YztIj63vj2CPWKv9za8jD2NlZvI1Ua4K0YZFpo+RoKT6jrL77CUuns05tOe1y47j8SJ5icN6vBims1EjrJsFGG4f5XgJe9d+qtdVfC1X7hyVJkpEumC67qPT8rdU6KX9M8gYFHfKX65akIVsdvZ7a+WSlHmyEj3dv8UfQwsT6/PxaoEqciglLL5+5lDwopPXh4lzWdjxdNfJXbfDQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SA3PR12MB598757.namprd12.prod.outlook.com
+ (2603:10b6:806:52d::14) by IA0PR12MB7675.namprd12.prod.outlook.com
+ (2603:10b6:208:433::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Fri, 20 Nov
+ 2026 05:57:43 +0000
+Received: from SA3PR12MB598757.namprd12.prod.outlook.com
+ ([fe80::e206:100:5946:a777]) by SA3PR12MB598757.namprd12.prod.outlook.com
+ ([fe80::e206:100:5946:a777%5]) with mapi id 15.21.0639.011; Fri, 20 Nov 2026
+ 05:57:43 +0000
+From: Alistair Popple <apopple@nvidia.com>
+Date: Fri, 20 Nov 2026 16:55:52 +1100
+Subject: [PATCH v3 14/24] drm/omapdrm: Convert to the SGT mapping type
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261120-dma_mapping_type_v4-v3-14-c0183a409bdf@nvidia.com>
+References: <20261120-dma_mapping_type_v4-v3-0-c0183a409bdf@nvidia.com>
+In-Reply-To: <20261120-dma_mapping_type_v4-v3-0-c0183a409bdf@nvidia.com>
+To: =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Simona Vetter <simona.vetter@ffwll.ch>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, 
+ Dongwon Kim <dongwon.kim@intel.com>, Kevin Tian <kevin.tian@intel.com>, 
+ Xu Yilun <yilun.xu@linux.intel.com>, 
+ Karl Mehltretter <kmehltretter@gmail.com>, 
+ Baolu Lu <baolu.lu@linux.intel.com>, 
  Felix Kuehling <felix.kuehling@amd.com>, 
- "=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>,
- Zhihao Cheng <chengzhihao1@huawei.com>, 
- Sumanth Korikkar <sumanthk@linux.ibm.com>, Bill Wendling <morbo@google.com>, 
- Justin Stitt <justinstitt@google.com>, driver-core@lists.linux.dev,
- llvm@lists.linux.dev, 
- linux-hardening@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-acpi@vger.kernel.org, 
- linux-pm@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
- linux-sh@vger.kernel.org, linux-s390@vger.kernel.org, gfs2@lists.linux.dev, 
- xen-devel@lists.xenproject.org, linux-mtd@lists.infradead.org, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Ian Rogers <irogers@google.com>
-Content-Type: text/plain; charset="UTF-8"
+ Alex Deucher <alexander.deucher@amd.com>, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org, linux-media@vger.kernel.org, 
+ linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org, 
+ iommu@lists.linux.dev, Keith Busch <kbusch@kernel.org>, 
+ Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>, 
+ Sagi Grimberg <sagi@grimberg.me>, linux-nvme@lists.infradead.org, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, Mina Almasry <almasrymina@google.com>, 
+ netdev@vger.kernel.org, Alexey Kardashevskiy <aik@amd.com>, 
+ zhipingz@meta.com, treding@nvidia.com, jhubbard@nvidia.com, 
+ chaitanyak@nvidia.com, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Leon Romanovsky <leon@kernel.org>
+Cc: Alistair Popple <apopple@nvidia.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795154186; l=3555;
+ i=apopple@nvidia.com; s=20261105; h=from:subject:message-id;
+ bh=I1P0JJA8/Ip9uzr48JcFWatJnXbDnNeSYuUse0aM4OU=;
+ b=3QlzG/lKtPMCh+aMAuMzqlHGrWUJcaVtoKiBv5H7KBENFtXVy1A4P4iyUdkw82t+tsdv+0b1x
+ IdX+ZLhi3qfAFDvUR84x0bejfQgyx319OzRA0PfTguaAfEA3Zhy7Xa/
+X-Developer-Key: i=apopple@nvidia.com; a=ed25519;
+ pk=WdWPT9rAq3YNfXldbGv1NSGVLGxzQGFGJvRUiShhNqs=
+X-ClientProxiedBy: SY5P282CA0015.AUSP282.PROD.OUTLOOK.COM
+ (2603:10c6:10:208::14) To SA3PR12MB598757.namprd12.prod.outlook.com
+ (2603:10b6:806:52d::14)
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA3PR12MB598757:EE_|IA0PR12MB7675:EE_
+X-MS-Office365-Filtering-Correlation-Id: 324e2681-a711-43b1-da17-08df46cb314c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|23010399003|7416014|366016|1800799024|921020|10067099003|11063799006|56012099006|261021123027099003|261028144727099003|261022105027099003|261026121527099003|261026140227099003|261022075727099003|261021121427099003|261102130727099003|261102123227099003|261009223027099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 4UT9vm1oxjJyCjBtsyzt/gZkH303WoDgA2BWpCIWkL07c2Cl9/7vZIOXu0qK/DaE2vBs1kvg3tKpRmhzzppFxCS/T59/quRv3ul4K9yRHSJD9l54XiCEEqoUo3mVeD7ffbS9+ZuOSOR1QU8jbS7X4aDMm0KluVO/FFcVCJbn4Lq+fcB1W3ncfNpt0O/ZAzxZTh1xPuJiV5aKMBhqIA0XMwjOU1bxjW7+qGwxGcA0nq75+6YvLJ+JggY2cJUeLnYFzNWjS6l3E0lg+Rq+MixABjQQPCyCfUPhRKFAf3YHDqRWgO5qRooZjscJmoPzc1QKjl1VRkxBA6PoDNJkC55PdyfZBYFr4jy8xn6L7rp0mF4wH3YsE4i4VZWHf04gVjwbDr9W2YB5IjbqXpnPCYIfV+HIw5pNhNowsns/Iu3Ke+bbGWJ85OceoJDq/ltaTOaI78MdSugfzudLGHj5Aomz8/ThX1HoYK3I4U+roQLMVWfKbcbppxYPb0PT+s8ljnEr/H/1LQlb2FFWwlaKIPAkmLyiGqEq3CHc++malAPN9OxjzfjitMdInRe3W/oue2PcyYxO538LzIPwjovcWkHskQU+ef0glnICKTEigJAF+qn4SvvpPxz+vVQscxxp8+7grd8olzNCYFOTgrYtsYnLgtUenIlg/K1JPK9vS+NGDDrrSpnIm0MLTX5uf2MWoXeUdV7/FvZ2bEsCh5x+9wkrsg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA3PR12MB598757.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(7416014)(366016)(1800799024)(921020)(10067099003)(11063799006)(56012099006)(261021123027099003)(261028144727099003)(261022105027099003)(261026121527099003)(261026140227099003)(261022075727099003)(261021121427099003)(261102130727099003)(261102123227099003)(261009223027099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QVBuYmdwTGpiRTRKZEh5MUhzYlRBN1E5alQxemJsd1k5bDQvRExJRm10bFpt?=
+ =?utf-8?B?bHUzSjhJUWlOK21kTFYzQjFjWERWTXZoWUk0cTlxV0UxZlNMVVB3TGZJVGFs?=
+ =?utf-8?B?NFdjYkZpQk1XdkhtZFZzR0JEWjFQYlV2SndYL1VYbG83WE5yQmRYaGRWT0k3?=
+ =?utf-8?B?RlZ5UUNScmQ2a1gvaU1ObS9Rbmlmc3AvY2E3VW5RS1owQkF4RzBmU1lYMHNl?=
+ =?utf-8?B?MFFld3ZJODF4SXNoZGdWZGhiWUZ1SW9wc2tGTjRiMXNiTkNUOUVhaXZ2S2N0?=
+ =?utf-8?B?TmRNZ3o2T0xjdmZQVCtPZXErSDJBaEtHNSsvSlhTS3h4WFFzTTJiVEsxcElo?=
+ =?utf-8?B?K2lJSnlrN0hrU1VPWkZsZ1pvNXNqb1E2TXdoazJ1SWVyRHF5aExXNklLZDhu?=
+ =?utf-8?B?V0NaK2lMVlUzVi9ENVY0S2k0akhYRGdpaVhqWmU4YTVPWStKYWpJc21WeWpm?=
+ =?utf-8?B?L3ZLRXJVNmRjcE5kSnRlWGxtTXRoYUlWZ2tkN2p2bFhMbFpuTHV3Q0lCaWJG?=
+ =?utf-8?B?NDVGUHNFcXNRRExab3pYNW5SdFAyaWpTRXo4bDJ0MXhqa2VlMFV4dkxwY09E?=
+ =?utf-8?B?cnpteXVkNVp0ZHhyZ3JCYWhsTmJyUmQ3Nk9kZE1RVU5pNUh3UzlTY2RKMzlq?=
+ =?utf-8?B?VjBuQkVJRVllekwwK3prZmd0YXA0RUhQKy9va3NnZ0FKYy9xNiswQkU2cmhy?=
+ =?utf-8?B?azVyS2MvR1VKMjZSRkw0TUJmeVc5ZlVyYmJmSHNHOGlTcW5OaXRGcmg2L3l1?=
+ =?utf-8?B?d2Exd1FybXJBUkRMdXZnSkpPTnduWDJPV0VvdzVjYXNSOHQvZVpxdG1manQ5?=
+ =?utf-8?B?WmxpWFdPa2dxelE5WXM3TWhROFkySndPcVp0UlNZTzNsV2hxSzZKTDI5WGRP?=
+ =?utf-8?B?bUY2cHJuemJ3eUduZkNLZEhRRzJLMThmUk5JbWppU3ZMVWtVdzViUmM0eFBB?=
+ =?utf-8?B?VkRLRVVQMWFHR0RqSVVZSkxVRzRmQ2x1YnFRVFFzM0JGa2g4TGw5cWhhVWQ1?=
+ =?utf-8?B?WEtjVzkwbUovcXRRYjB6MnVvS0JpUEV1aGx2NktkUUQxTmNNUFFaZ1NzVW5y?=
+ =?utf-8?B?YlBuQW1BQ0lzTjJzRjFZWjNBMmxZQllUenN5ZUNWMHBiNStDdFUzK2VWVkRa?=
+ =?utf-8?B?eEJhUkZQc01peWFPYm9nOC93bDdYMVpMTzU0Tk83MFB0YWFKN3ZkbTRONzR6?=
+ =?utf-8?B?ODMvcjFmaWhtSWp4bk5naWVxdzQwSUZMRjJGbUxOWnJhM0hjVE9pdGdXc2Nm?=
+ =?utf-8?B?T00xS1FQa0pZby9zeWdmOVFRN1hjTWNKN2N2amhqYytsMkZiZmxGVFdWZldH?=
+ =?utf-8?B?cVEwTGxuODQ4YlNZV1h6UkJOZmxESUVYaUZpSDBsSGFCY0FwV0d3TytKL3BD?=
+ =?utf-8?B?ZTl5OGNNM0I3MkcwZy9ydVhSa2dKRXhvbk54ZGZqZjA1cjYzM21sQ3JFbTZw?=
+ =?utf-8?B?ZFJLcHJadHc2Y1paeDdRelE2YStORThvaFR3RkNKVVF0M0pDT1ZYVWN4NGVw?=
+ =?utf-8?B?Q2FDQ3prTUlYQ1FvL2hGY21HbVZkVUVQQ3pqQkx2UnBKYmhDM05VZUFVZGl1?=
+ =?utf-8?B?VElhcndMYUtTdmxLanU1NFN6V3pTSWE5SnloTC9Za0RKSmlQUnJZcUlTNjh0?=
+ =?utf-8?B?R3NrUHpXa0FiU0ZuSHNlNE5RR1ZkdXJBMFo1MUN1RzdPUlVIRjQ5eG9FT1FT?=
+ =?utf-8?B?S3laa1Q5OXF2bUZ2bmV1VU1HOTFNVHFXK3FRQ1QvRGIybDBDUkZXQm1HY0hH?=
+ =?utf-8?B?UDdXTDh1bTRkSkJ5bWRFOVFyL0Jvb3ZRWTAyZ2VEUFVtRHhaVUhham9ia29I?=
+ =?utf-8?B?ZXQxOEYxNDIyTzlUWndQZ0xCSWVTcWhtRmFNcXc3N1JwSW4vanBnaVF0am9Q?=
+ =?utf-8?B?bXZPZlhpOUtIaUpTQkEwRXA5TEdSSGZ4SHVKZ3IzdEF5Vk05TFZ3ajk3RStw?=
+ =?utf-8?B?Y2FCVFZDbzNwYmowdjB2cm1QZlBkMTZXQ051NzZ1cHp3MjZiSkVnVVJLUnNC?=
+ =?utf-8?B?Z1N4QVFkc1lmUlBraHVPSFA0alA5eDdQTGNVbVM3Sjd2eFRXcGdYL0lraGFO?=
+ =?utf-8?B?TUZ3UWJKZzFMazIvTWlDY3BaQlllb1poR3I3cmRUdmwzVDVBSXdrbDR3R0JG?=
+ =?utf-8?B?TXhZTm0vZXJJdzBiSEpoS2QvbUxtbk0zd1pndGlLVXYrL29lSFpyNFRuNEdU?=
+ =?utf-8?B?YStiVW1INnVrajZYZXZBWituWW85TE1zQ01TNWtZbm5TMWgrWDdEa3hKNEJL?=
+ =?utf-8?B?OGVrVU52aVcvZTAzWS9NS0VnelhrZjVVTngvdHdBaHVVZ2xYZDZRZTIxK3B0?=
+ =?utf-8?B?ekpaek9PT0RCSUNYcVRLTzRiRk8rNERCQ29RZmdpL2hCOTJheHFJZz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 324e2681-a711-43b1-da17-08df46cb314c
+X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB598757.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2026 05:57:43.1693 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: yFMFRpQztkP9i+WxWRJ8/TmMXBq+nhTa+tIq2eqjZZCm9jDpRRamgYRQKeRx8cBssgzGlwHSuQ4SFq9wEHRVQA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7675
 X-Mailman-Approved-At: Fri, 20 Nov 2026 14:56:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -103,113 +159,119 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-31.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT,
-	USER_IN_DEF_DKIM_WL autolearn=unavailable autolearn_force=no
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Clang supports the 'require_explicit_initialization' attribute on struct
-fields to indicate that a field must be initialized explicitly by the
-user when the object is constructed. When an aggregate initializer or
-uninitialized variable omits an annotated field, Clang emits a
--Wuninitialized-explicit-init warning (enabled by default).
+omapdrm keeps one struct sg_table per object allocated with
+omap_gem_get_sg() and returns it for every attachment. omap_gem_put_sg()
+expects the same pointer back. A mapping is per attachment and per map, so
+it cannot embed or take over that table. Instead allocate a small
+container around struct dma_buf_sgt_mapping in map_dma_buf() to hold a
+copy of the table header whilst sharing the entries.
 
-Add the __must_init macro to include/linux/compiler_attributes.h (which
-is included by include/linux/compiler_types.h and
-include/linux/compiler.h) so kernel structs with error-prone
-initialization (such as mandatory callbacks or cleanup handlers) can
-enforce explicit initialization at compile time, as discussed at the
-Linux Plumbers Conference. The shorter __must_init spelling, rather than
-the attribute's full name, keeps annotated struct members readable and
-was suggested by Greg Kroah-Hartman.
+This way omap_gem_put_sg() can find the object's mapping to
+free. The map and unmap callbacks move from dma_buf_ops into
+DMA_BUF_SIMPLE_SGT_EXP_MATCH().
 
-Note that Clang versions prior to the fix for
-https://github.com/llvm/llvm-project/issues/232483 do not diagnose
-file-scope objects declared without any initializer (initializers at
-file scope that omit the field are diagnosed).
-
-Also teach Sphinx (Documentation/conf.py), kernel-doc
-(tools/lib/python/kdoc/xforms_lists.py), and checkpatch.pl about the new
-attribute macro.
-
-Link: https://lpc.events/event/20/contributions/2392/
-Link: https://lore.kernel.org/lkml/2026101532-fantastic-deafness-e04c@gregkh/
-Acked-by: Miguel Ojeda <ojeda@kernel.org>
-Reviewed-by: Nick Desaulniers <ndesaulniers@google.com>
-Reviewed-by: Nathan Chancellor <nathan@kernel.org>
-Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Reviewed-by: Kees Cook <kees@kernel.org>
-Signed-off-by: Ian Rogers <irogers@google.com>
+Co-developed-by: Jason Gunthorpe <jgg@nvidia.com>
+Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+Signed-off-by: Alistair Popple <apopple@nvidia.com>
 ---
- Documentation/conf.py                 |  1 +
- include/linux/compiler_attributes.h   | 12 ++++++++++++
- scripts/checkpatch.pl                 |  1 +
- tools/lib/python/kdoc/xforms_lists.py |  1 +
- 4 files changed, 15 insertions(+)
+ drivers/gpu/drm/omapdrm/omap_gem_dmabuf.c | 47 ++++++++++++++++++++++++-------
+ 1 file changed, 37 insertions(+), 10 deletions(-)
 
-diff --git a/Documentation/conf.py b/Documentation/conf.py
-index 5ab26ce89daf..baaa4035258c 100644
---- a/Documentation/conf.py
-+++ b/Documentation/conf.py
-@@ -203,6 +203,7 @@ c_id_attributes = [
-     "__noreturn",
-     "__packed",
-     "__pure",
-+    "__must_init",
-     "__section",
-     "__always_unused",
-     "__maybe_unused",
-diff --git a/include/linux/compiler_attributes.h b/include/linux/compiler_attributes.h
-index 476c4c560d17..b9c0b56dd22e 100644
---- a/include/linux/compiler_attributes.h
-+++ b/include/linux/compiler_attributes.h
-@@ -322,6 +322,18 @@
+diff --git a/drivers/gpu/drm/omapdrm/omap_gem_dmabuf.c b/drivers/gpu/drm/omapdrm/omap_gem_dmabuf.c
+index afae0a56da8c..1c03f892dac9 100644
+--- a/drivers/gpu/drm/omapdrm/omap_gem_dmabuf.c
++++ b/drivers/gpu/drm/omapdrm/omap_gem_dmabuf.c
+@@ -5,6 +5,7 @@
   */
- #define __pure                          __attribute__((__pure__))
  
+ #include <linux/dma-buf.h>
++#include <linux/dma-buf-mapping.h>
+ #include <linux/highmem.h>
+ 
+ #include <drm/drm_prime.h>
+@@ -17,24 +18,50 @@ MODULE_IMPORT_NS("DMA_BUF");
+  * DMABUF Export
+  */
+ 
+-static struct sg_table *omap_gem_map_dma_buf(
+-		struct dma_buf_attachment *attachment,
+-		enum dma_data_direction dir)
 +/*
-+ * Optional: not supported by gcc
-+ * Optional: only supported since clang >= 20.0
-+ *
-+ * clang: https://clang.llvm.org/docs/AttributeReference.html#require-explicit-initialization
++ * The object caches one sg_table and hands it to every attachment, so each
++ * mapping only carries a copy of the table header and remembers the table it
++ * was taken from for omap_gem_put_sg().
 + */
-+#if __has_attribute(__require_explicit_initialization__)
-+# define __must_init __attribute__((__require_explicit_initialization__))
-+#else
-+# define __must_init
-+#endif
++struct omap_gem_dmabuf_mapping {
++	struct dma_buf_sgt_mapping base;
++	struct sg_table *sg;
++};
 +
- /*
-  *   gcc: https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html#index-section-function-attribute
-  *   gcc: https://gcc.gnu.org/onlinedocs/gcc/Common-Variable-Attributes.html#index-section-variable-attribute
-diff --git a/scripts/checkpatch.pl b/scripts/checkpatch.pl
-index b8b64f720191..6a091c45b1a1 100755
---- a/scripts/checkpatch.pl
-+++ b/scripts/checkpatch.pl
-@@ -6888,6 +6888,7 @@ sub process {
- 				"noreturn"			=> "__noreturn",
- 				"packed"			=> "__packed",
- 				"pure"				=> "__pure",
-+				"require_explicit_initialization" => "__must_init",
- 				"section"			=> "__section",
- 				"used"				=> "__used",
- 				"weak"				=> "__weak"
-diff --git a/tools/lib/python/kdoc/xforms_lists.py b/tools/lib/python/kdoc/xforms_lists.py
-index db23fb650ea8..42956b98aae3 100644
---- a/tools/lib/python/kdoc/xforms_lists.py
-+++ b/tools/lib/python/kdoc/xforms_lists.py
-@@ -36,6 +36,7 @@ class CTransforms:
-         (CMatch("CRYPTO_MINALIGN_ATTR"), ""),
-         (CMatch("__private"), ""),
-         (CMatch("__rcu"), ""),
-+        (CMatch("__must_init"), ""),
-         (CMatch("____cacheline_aligned_in_smp"), ""),
-         (CMatch("____cacheline_aligned"), ""),
-         (CMatch("__cacheline_group_(?:begin|end)"), ""),
++static struct dma_buf_sgt_mapping *
++omap_gem_map_dma_buf(struct dma_buf_attachment *attachment,
++		     enum dma_data_direction dir)
+ {
+ 	struct drm_gem_object *obj = attachment->dmabuf->priv;
++	struct omap_gem_dmabuf_mapping *mapping;
+ 	struct sg_table *sg;
++
++	mapping = kzalloc_obj(*mapping);
++	if (!mapping)
++		return ERR_PTR(-ENOMEM);
++
+ 	sg = omap_gem_get_sg(obj, dir);
+-	if (IS_ERR(sg))
+-		return sg;
++	if (IS_ERR(sg)) {
++		kfree(mapping);
++		return ERR_CAST(sg);
++	}
+ 
+-	return sg;
++	/* Header copy only; the table stays owned by the object. */
++	mapping->sg = sg;
++	mapping->base.sgt = *sg;
++
++	return &mapping->base;
+ }
+ 
+ static void omap_gem_unmap_dma_buf(struct dma_buf_attachment *attachment,
+-		struct sg_table *sg, enum dma_data_direction dir)
++		struct dma_buf_sgt_mapping *base, enum dma_data_direction dir)
+ {
+ 	struct drm_gem_object *obj = attachment->dmabuf->priv;
+-	omap_gem_put_sg(obj, sg);
++	struct omap_gem_dmabuf_mapping *mapping =
++		container_of(base, struct omap_gem_dmabuf_mapping, base);
++
++	omap_gem_put_sg(obj, mapping->sg);
++	kfree(mapping);
+ }
+ 
+ static int omap_gem_dmabuf_begin_cpu_access(struct dma_buf *buffer,
+@@ -69,12 +96,12 @@ static int omap_gem_dmabuf_mmap(struct dma_buf *buffer,
+ }
+ 
+ static const struct dma_buf_ops omap_dmabuf_ops = {
+-	.map_dma_buf = omap_gem_map_dma_buf,
+-	.unmap_dma_buf = omap_gem_unmap_dma_buf,
+ 	.release = drm_gem_dmabuf_release,
+ 	.begin_cpu_access = omap_gem_dmabuf_begin_cpu_access,
+ 	.end_cpu_access = omap_gem_dmabuf_end_cpu_access,
+ 	.mmap = omap_gem_dmabuf_mmap,
++	DMA_BUF_SIMPLE_SGT_EXP_MATCH(omap_gem_map_dma_buf,
++				     omap_gem_unmap_dma_buf),
+ };
+ 
+ struct dma_buf *omap_gem_prime_export(struct drm_gem_object *obj, int flags)
+
 -- 
-2.56.1.708.g77570a6a1d-goog
+2.54.0
 
