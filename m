@@ -2,126 +2,84 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99C52606A320
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 12:12:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC39E60A2601
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 13:10:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ueUjWWh6
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WbWSOIOW
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C68410E2B7;
-	Fri, 20 Nov 2026 12:12:12 +0000 (UTC)
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012048.outbound.protection.outlook.com [40.107.209.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77E1C10E051;
- Fri, 20 Nov 2026 12:12:06 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=g/6JlIJU6PqaDPrum+CCX7+bPV090154Htd9um8gUM6zve1p6t/ACr+bG8TkW/GZQEUJ5UaGQxou1iwMIek1NBY55fBGrr3PRl+xjlLgiixr8rQdsYS+S05x9zR9FaXazjA5wHhHMU+vV9C7pwe0PHZ/22wP1U00ClKAmXUE0p4JHExX4JjR7QxD+nZGC/k3wWjC8WHLHZ0neCj1enJZVRVpgaRlbeqAH1aMY0GQRAN+y/4wre+11OxjLyUd97iftOswCm2FsVJEjDy9B1NSrOQIe5JybHMCFpRjbm/GjO5NfY4tbr2Li7iayvk13E+VS0DCf/GtiKIYNPs0aWWi2Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TBZRq+d7f6hRILWCpDvPDs5MTocCPdzTtlmsRMkpBHI=;
- b=Ol4/ezGQmjgMBHRdsoCNxSBt/RpiqNXTruw4TDQ8WFsqQ+rC7IIlfBeAvvojKoyLr1VupP3PYASwqDtTpBbSpixgM+Qxdd6J+iSB81t9cyiHp3EhlvXnJHiM7MrRUXc5hbyzKkL+cdvzW1eXdjAcLJhxa/XCQYpIIo3FwGerTlGs3KouXmz53m0pohMiUPeX5da1QU4wgHR3XvW7urnrFqxCt/R6Co/7lellzT09KnbQcuirMDrTop3VkGYUtVxZicmPDcEwuzPUHTUTxXeEmyX3Oo9kSaZagU+UQrhOmPs6qXn1nUDTc8jevDsvwXOL/Hjh8efCUHRl4bW/H2lYHg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TBZRq+d7f6hRILWCpDvPDs5MTocCPdzTtlmsRMkpBHI=;
- b=ueUjWWh6rXmIs8CprXrFItDhMVUittnzG1EC/KOH5BypSobO+/G+T2ZePMnrgFrvPWAmZ8A1+cUd1uCnk6OZUokn6g+CdNg1Bho6ziSuVvn4+TkG6yOy74opzSGL2bLy4eXO+GcbafX7J+yCpFZcXhRM5u9phkMStV+3PwPy7Us=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DM6PR12MB4139.namprd12.prod.outlook.com (2603:10b6:5:214::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Fri, 20 Nov
- 2026 12:12:03 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0639.011; Fri, 20 Nov 2026
- 12:12:02 +0000
-Message-ID: <dc491d12-68f0-4297-acda-f122fec00288@amd.com>
-Date: Fri, 20 Nov 2026 13:11:54 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/amdgpu: initialize r in amdgpu_ttm_clear_buffer()
-To: Ian Rogers <irogers@google.com>, Alex Deucher
- <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
- Elkin Cruz <elkin@google.com>
-References: <cover.1795106955.git.irogers@google.com>
- <6fcb1e5c7545f8bcfee9ac9a3abd296c475aa1b7.1795106955.git.irogers@google.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <6fcb1e5c7545f8bcfee9ac9a3abd296c475aa1b7.1795106955.git.irogers@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0070.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:4b::22) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 106D5112A18;
+	Fri, 20 Nov 2026 13:10:26 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0218112A18;
+ Fri, 20 Nov 2026 13:10:19 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id C233862356;
+ Fri, 20 Nov 2026 13:10:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48ED91F000D0;
+ Fri, 20 Nov 2026 13:10:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795180218;
+ bh=Bh0XbDrI2hg3GpbJADUXfor6MClrFyYoyxbyUQk7gjc=;
+ h=From:Subject:Date:To:Cc;
+ b=WbWSOIOWM7apluZo0JJ51s90y4wJj8uDc19GKxP5+fFORH9J75F7ozHHRceBDLjLW
+ mCarsiWVCqm/AxgYCUprgi66Bpw6h1/ZHoA0nIcJKcaRiQ5SaQE4/WBLvHuwz745Op
+ HiD3wjoLP/RWdNfs9qK9dQvXI8IteV7vd6LOmBVRIEkoFqbB6iSzGBoY62y4PUGfsG
+ SQbQ4+Tjn5zVpMzxLVOKgXM2gJmp7+zUga/QzH6CTyr5KVC4hZ/vQHwDJdLp1eyAnD
+ T/O9IST3hxFQOFa9E336ITXxFLgtUnvRivMfpM5L2ZP7q/85gbiylEuzpxsSS8H2X5
+ +GyzSvZkC+WEw==
+From: Maxime Ripard <mripard@kernel.org>
+Subject: [PATCH v12 0/9] drm: Add DRM_MODE_ATOMIC_RESET flag
+Date: Fri, 20 Nov 2026 14:10:07 +0100
+Message-Id: <20261120-drm-reset-state-flag-v12-0-42d63d7417fc@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM6PR12MB4139:EE_
-X-MS-Office365-Filtering-Correlation-Id: b3212435-c334-420d-bbdc-08df46ff7bf6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|376014|1800799024|261021121427099003|261021123027099003|10067099003|4143699003|5023799004|56012099006|11063799006|261022105027099003|261028144727099003|261026140227099003|261102123227099003|261009223027099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: 7ZJtQJA2fr1b5jjNrv62mlz1NLhYWqNABuOCj80Th5HGhCzHCCc3BxomCjgocwi2cLFTg2lvOMP7XiljSqI3kVD3ResCK0b15hDj8PilYnHO5mhix6aQv8Wloe0y/cBw1CcpZJDkXuUh81AzZWyiHJRvX9b5nEn+O/eD+Y0rMI9KXRDh2uhSwrsADnpdaUjXeB5+St1OC1RojyYIlPJ4zKOepCDEWnuR7EI1uMmIKMsmpP9Lsw9yYEdK4mGTgS+VjVrGDLzPh30pLZaakt0VrW9JQZ3kpJqSya+DxWXjkbGRPgUx0X/IR1yDHTxCSvpqfZROxC13xDinf+2pFGaAKTU3f+Gxh+SimDzu8cah02QQkbYaeaq3mdGrSk66R2SBsUk6gFtBrG5/gOgvF4agOTabYL+Q/iuPleSJm1CE2oEerb8LAFI4YrLpEtlO6dYeuDtexGC13DmbLfVGIYM+/18wiqSNeaZDCRnV6IO3qR7awHLPsI8umiwkyJYFvFelL1umGn3vG6zBLvuvULFBxW7EWNUFqH/4a6M5cquJqbM8yXL5QmE7FQZXqH1Iv2DhXbQ8oIgUle14theQPES+xeTXK9UO6pHcDk1JT0Ysm0GUO0z5lyzswgAJKnt4VTxzUDAWqRtF7x5ZcQDy5b8aslqyYNLAN6pvmNoD53XTWtY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(261021121427099003)(261021123027099003)(10067099003)(4143699003)(5023799004)(56012099006)(11063799006)(261022105027099003)(261028144727099003)(261026140227099003)(261102123227099003)(261009223027099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?am5oZld0KzRoRjNFQ3M4WDBucVFTMXU1VmZFUHVtTHpLcktwc1ljV1ZmLzg2?=
- =?utf-8?B?cWtsM3RXc2ZKRmNldmxTUDJNQS84ekd5cWtsOGlMOEZycWgzeUQ1S2x2VWZ6?=
- =?utf-8?B?VUZCbFBodG5vMSt6bkpoOVVqN2RSWVdnQk9ZWDFMU2pkck1IaDl0OUhnV2VM?=
- =?utf-8?B?a0pKQ2pPSVBnVWxxNGZnMFlrS3ZlSGErRG1ORHJERVhibkRJVDRMbGxyQURK?=
- =?utf-8?B?WnVzT3NTOTNkZWV0VUM0VFgyVlFkRmRESFdQYkduRkdTb1N5WFdOWDZScE5V?=
- =?utf-8?B?WlpPcUJrdGtZMm5VRVNxTnFHQ1FzY1F2Z3llQ1hPTGhHMVJrd096amwzQ0tN?=
- =?utf-8?B?NXBtZFhGL21iMVN4aTV4UHdsNkkwaFdjUlR2MnhhaTVYVmFmK2krZlhvMjBC?=
- =?utf-8?B?dkZjVlJLZ3pBSmZGb1J1QXRrL2pzYytCMGplSW14REYrbnUxK0NnaW4wWVlV?=
- =?utf-8?B?cTNiaXdqWmh1bXhvYW9hMnVOWGk4Z2hGRzh3Z3EvMThOWWMvS29vZGx5enVM?=
- =?utf-8?B?ZFdaMVN0WktkNDVTMGV4ZnZyNUowRlNCMVk4b1hCSzNiV2NvK3dNeXBmNEU4?=
- =?utf-8?B?ZndXdVJ4Z0hRVHJkZzZlVE85QWk3dkUwTTFxSjhjMUo2bTA5S1Zqd2pTYlgz?=
- =?utf-8?B?SzBwNVlUSEdGZkJHSUY3TCtCanhQU3ZxMWJzNTMrZWViMFJsZ21jUXFHZ3Vr?=
- =?utf-8?B?QW5zZXFqbXd2RHBBUDZiYVQyMzZzMmc0QlpDS1MxMlBmNEhYeFJvdk5ZMWRZ?=
- =?utf-8?B?enc4MnIzZFpXdWExTTBhT3BPdVNpb0l0dDUwN0N2WncvcnRMT09JNXNRS2hJ?=
- =?utf-8?B?ckNYamMwVTRCTTYyc1dvNHU1bU5ObFhqMVZnRVdCRGNoNkI5VXhZTjNybGJ2?=
- =?utf-8?B?UkNVaVAvc0FURmk5Tk00ckxON1ZXVXB1djRBdFJsazl4ME5hM3I0NW5BZklu?=
- =?utf-8?B?aUtzQUNPTHhqNyt6dmwvdTd5eTZuYW5IVFdQaHVLTHp2U0Q0SGtHQ1BrV0lK?=
- =?utf-8?B?UlEyYTZOajAwQjRMTXZ3RHFwSW1OOUVPN1p5VDM2MWp0d2g5a0xNNmZNN0p2?=
- =?utf-8?B?eFhDVlVGcTQ2TEZxSmorNUNST2pMS2lOVjhnMHpwT01SODZUR2dCcGRyZklK?=
- =?utf-8?B?TFl1cGduc0F4V285SFFsQU1oUnk0VFFMYnZKUEl1czMzNERUQmVmZytGTWtk?=
- =?utf-8?B?L2UyQ05mT0l6b0wvdzZGbzhPS1huMW43UCtZbzRwR3JaUDV3aTBWSUo1ZlI0?=
- =?utf-8?B?dStaQ3dEamFZZllPRmV3WDhTbUVxaHozdFV4MTQva0hFRnpUSnVVRDZVNzRU?=
- =?utf-8?B?YmpNaVBTU3h4bVIxZFk1by8rL2xpdGliOEpJOVZ4QkpxWUx5NFJoRnZWN3J4?=
- =?utf-8?B?RVp1SloxbklaRWpUMHVBOHgrd2s2T3BNc3R4bGlpb3NHT3BMeG1vb01zM2t4?=
- =?utf-8?B?M0U0eWJPR1pGV0RrTlg5UWE4am5GMUVpMi9weVk3bkN4QW10ZGRhb2hHYVhi?=
- =?utf-8?B?RCt3QnFKcUhqcGQ0OG1yL0IxUWs0dkVRZk41SVQxMXBrNVNjNUR3c0FUNU1E?=
- =?utf-8?B?Qy81WFdySWNpK09TS1VHa3VSQmJtdTZqMmRxZ2d3NTdEdkE2aEdoNWljQXF2?=
- =?utf-8?B?L1dTRWRJbnVmdjJSczJaUmdxZEpLVitmL2Q0cFNyV0xBVTUreklmT2tsT1Zp?=
- =?utf-8?B?ZEs5ZHJKbElnV0NKSDdEci9SUTl5ZHpvUnNma2JoNXgrYVFwOUdXVEJVZjFY?=
- =?utf-8?B?c3l3TisrZnRLZEtxekZXTWdIZ3U2UU1SdkVnMVFsTTA0VXdySjBySmlvbmY5?=
- =?utf-8?B?QThRRHNUczVEb1lja2dqTGhtcjM4WTQzK1hZMVJOd3d3bUQ2Q1lUYWtuVXpU?=
- =?utf-8?B?TC9xb0FDbUdhdDlFUExHVUF3cEl3cmNnLy9ya21uYXlLRjJHZVRobkg2VDhp?=
- =?utf-8?B?OUdoeVhtbzEzOWhwckIwWTN2Y0JCTFB3OUMxS0RJOXY5dlFxUkM2TXZRYnRI?=
- =?utf-8?B?SFY3WGRIV21oaGVBNmtiU21QT0I0M2pWbEgvQmRKc3ZiWkVVeDludmVScEU3?=
- =?utf-8?B?WEMzNTFZaHRYTFNjQjhyaDFyTkYvbkFrWFBsN2NmazFFZ1dVZnh1QzNuUzZS?=
- =?utf-8?B?RnduODFxWWxWMHJVd0s1UjhiSzlnditKY0kwN2ZEV05mcFdKdzB5ZWZBVEQv?=
- =?utf-8?B?VGVOZ2owYlc0aXdWK3V6SmZwYlJrVXVnVGUxNkRuOFRWZFBUc1Z1S2RJY1JW?=
- =?utf-8?B?NDNWT1dRd3JrNzg0My8wdTFhQWNaNE5pTm50WXJOOXo1bFlFTTROM1BTNkQ3?=
- =?utf-8?Q?Sas0oj+b72U0FluB7x?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b3212435-c334-420d-bbdc-08df46ff7bf6
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2026 12:12:02.7112 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1Ei6/KgjPCUeFWjsja+w2WEyxOubUKV7BMFf+/4rQqkpf9Kuuuwern4cBpSkYCQV
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4139
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/4XTS24bMQwG4KsMtDYLUu/xqvcospBGlCM0tltpY
+ iQIfPdiEqCeQhC65eIj+YP8EI1r4SaO04eofCutXC/iOJE8TGJ5DpcTQ0niOAmJ0qJDD6meoXL
+ jFdoaVob8Ek4gc5TROKI8O3GYxK/Kubx9uj+eDpN4Lm291vfPNjfaqv8BbwQIi3Jpmb3R3qTvP
+ 7le+OXbtZ7EJt7kQ/EkB4oEBJ7twqQUudQr6qHMw1kUIMxojMOsvAu6U/ROoZGiAcGERGiVw4y
+ mU8xfhZDsQDGAkEKSyepoZxU7xe4UOcrFAkJWNlmN0bGzneJ2isKB4gBBszEcOLD1qlP8QyEcb
+ eS3XDAn1DY6NLlT5p1Co1nmLZcUkaVVUgfsFMI9MwqGcLs7ziEQJzS2vxiivTNairb7Vc5HlV3
+ krOQ/zv3rRSr/fi2trF9/ImJoDMv1fC7rcdrYc2kLXPhtha0bEAHN4ul+/wNREL9ctgMAAA==
+X-Change-ID: 20260708-drm-reset-state-flag-2fb2b5711f97
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Louis Chauvet <louis.chauvet@bootlin.com>, 
+ Haneen Mohammed <hamohammed.sa@gmail.com>, 
+ Melissa Wen <melissa.srw@gmail.com>
+Cc: Daniel Stone <daniels@collabora.com>, 
+ Harry Wentland <harry.wentland@amd.com>, 
+ Jocelyn Falempe <jfalempe@redhat.com>, 
+ =?utf-8?q?Jonas_=C3=85dahl?= <jadahl@redhat.com>, 
+ =?utf-8?q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
+ Pekka Paalanen <pekka.paalanen@collabora.com>, 
+ Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
+ Victoria Brekenfeld <victoria@system76.com>, 
+ Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>, 
+ Daniel Stone <daniel@fooishbar.org>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ amd-gfx@lists.freedesktop.org, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, freedreno@lists.freedesktop.org, 
+ Oarora Etimis <oaroraetimis@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6841; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=Oh7HL7XBFWKY3ltxWWE6ykCPewGxD6IZnl6uZB6OJrI=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDNkMbpvqzqkVvnt6an9TrdKx9YdYExdLn831VTz6fp5t8
+ rrcgssrO6ayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBE4q8x1scsVY9KOf7yWctx
+ W6avCWwLWWPKFS83+elqTpAr/lJ/KejpUtEe2ST9s1sNvz2JlzWZw9gwf7LmJacdEhYfHYz2X9i
+ kn85+2qC17tprGbs9sd+ZND6nZYSmPE5+9fPWxMdhuXYurzUB
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,53 +90,161 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+Hi,
 
+Userspace currently has no atomic way to bring a display pipeline back
+to a pristine state. A compositor that wants to start from a known
+baseline must explicitly set every property on every KMS object to its
+default value, which requires tracking which properties exist and what
+their defaults are. This is fragile and must be updated every time a
+new property is added to the kernel.
 
-On 11/19/26 18:07, Ian Rogers wrote:
-> In amdgpu_ttm_clear_buffer(), 'r' is declared uninitialized. When
-> consider_clear_status is true (such as AMDGPU_GEM_CREATE_VRAM_CLEARED
-> allocations) and all backing buddy blocks already have DRM_BUDDY_CLEARED
-> set, every iteration of the cursor loop hits 'continue' without assigning
-> 'r', returning uninitialized stack memory to amdgpu_bo_create().
-> 
-> Initialize 'r' to 0.
-> 
-> Found via an x86_64 LLVM=1 (Clang 21.1.8) allyesconfig audit with
-> -Wconditional-uninitialized enabled; fix and changelog drafted with an AI
-> coding assistant. Build-tested under LLVM=1 W=1 (-Werror) and
-> -Wconditional-uninitialized; not runtime-tested on AMD GPU hardware.
-> 
-> Fixes: 23bd7e67961e ("drm/amdgpu: get rid of amdgpu_ttm_clear_buffer")
-> Signed-off-by: Ian Rogers <irogers@google.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> index 0f86777250fc..280fcdfb9cca 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -2675,7 +2675,7 @@ int amdgpu_ttm_clear_buffer(struct amdgpu_ttm_buffer_entity *entity,
->  	struct dma_fence *fence = NULL;
->  	struct amdgpu_res_cursor dst;
->  	bool vm_needs_flush = false;
-> -	int r;
-> +	int r = 0;
+This series introduces a new DRM_MODE_ATOMIC_RESET flag for the
+atomic ioctl. When set, the kernel fills the commit with default
+states for all KMS objects before applying the properties supplied in
+the request. Properties not explicitly included remain at their
+defaults. This allows userspace to describe the desired end state
+declaratively, without caring about the current state or the full set
+of properties.
 
-Please initialize r directly before the error label, apart from that looks good to me.
+A driver-specific property is added to vkms planes for testing.
+Standard properties are impractical for this: compositors like Mutter
+enumerate all known properties, making it hard to isolate the reset
+behavior in a test.
 
-Regards,
-Christian.
+Mutter has a working implementation using the new flag, with a
+vkms-based test exercising the reset behavior:
+https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/5309
 
->  
->  	if (!entity)
->  		return -EINVAL;
+And we have IGT tests as well:
+https://lore.kernel.org/r/20261112162147.766264-1-mripard@kernel.org/
+
+Let me know what you think,
+Maxime
+
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
+---
+Changes in v12:
+- Re-add drm_lease flag to differentiate an empty from a revoked lease
+- Link to v11: https://lore.kernel.org/r/20261116-drm-reset-state-flag-v11-0-378b3f7bef32@kernel.org
+
+Changes in v11:
+- Reorder object state allocations to be more robust against lease revocation
+- Bring back lease revocation check
+- Link to v10: https://lore.kernel.org/r/20261112-drm-reset-state-flag-v10-0-cefaa1ed056d@kernel.org
+
+Changes in v10:
+- Stop trying to make partial lease work, they aren't meant to exist, so
+  we can simply error out when they happen
+- More tests for zpos and color management
+- Fix DPU1 issues reported by sashiko
+- Link to v9: https://lore.kernel.org/r/20261110-drm-reset-state-flag-v9-0-ddb0e26324a0@kernel.org
+
+Changes in v9:
+- Add a flag to know if leases have been revoked or are empty
+- Handle the situation where a leased plane or connector being reset
+  would disable an unleased CRTC
+- Add more kunit tests to cover the new issues reported by sashiko
+- Fix reset-related bugs in amdgpu, vc4 and msm DPU
+- Add a vc4 kunit test for its reset related bug
+- Link to v8: https://lore.kernel.org/r/20261106-drm-reset-state-flag-v8-0-50fd046b705f@kernel.org
+
+Changes in v8:
+- Fix more leases issues
+- Drop applied patches
+- Link to v7: https://lore.kernel.org/r/20261030-drm-reset-state-flag-v7-0-4e55eaeae683@kernel.org
+
+Changes in v7:
+- Fix a whole bunch of sashiko issues to deal with color_mgmt_changed,
+  leases, partially leased devices (like a plane leased but it's crtc
+  isn't) and the interaction with PAGE_FLIP_EVENT better
+- Fix crtc create_state implementation for ssd130x
+- Actually make it possible for a compositor to recreate the same whole
+  state without passing ALLOW_MODESET
+- Fix EDEADLK bugs with kunit tests
+- Don't report DRM_CAP_ATOMIC_RESET on !atomic drivers
+- Fix error handling in vkms for the new property
+- Add more kunit tests for the new corner cases
+- Link to v6: https://lore.kernel.org/r/20261022-drm-reset-state-flag-v6-0-f36d640b7e76@kernel.org
+
+Changes in v6:
+- If using a lease, only considered the leased objects
+- Fix amdgpu plane atomic_create_state implementation
+- Link to v5: https://lore.kernel.org/r/20261016-drm-reset-state-flag-v5-0-dad2d64b693b@kernel.org
+
+Changes in v5:
+- Fix bisection issue
+- Improve the documentation
+- Fix connector hotplugging issue
+- Added kunit tests for drm_atomic_commit_fill_with_defaults()
+- Link to v4: https://lore.kernel.org/r/20260918-drm-reset-state-flag-v4-0-5ad106370f05@kernel.org
+
+Changes in v4:
+- Improve the drm_atomic_get_private_obj_state and
+  drm_atomic_get_connector_state array reallocations
+- Return void on functions to insert an object state into a commit when
+  it cannot fail
+- Rename drm_atomic_can_create_state() into
+  drm_atomic_implements_create_state()
+- Move capability check from drm_atomic_commit_fill_with_defaults to its
+  caller 
+- Added IGT test
+- Link to v3: https://lore.kernel.org/r/20260908-drm-reset-state-flag-v3-0-905570f387a4@kernel.org
+
+Changes in v3:
+- Rebased on top of the latest atomic_create_state series
+- Sebastian Wick created and tested this work with mutter and vkms
+- Fix colorop locking
+- Link to v2: https://lore.kernel.org/r/20260812-drm-reset-state-flag-v2-0-e96ce13317dd@kernel.org
+
+Changes in v2:
+- Fix bisection
+- Add capability to let userspace know if it can reset the state
+- Link to v1: https://lore.kernel.org/r/20260708-drm-reset-state-flag-v1-0-c37dc985485d@kernel.org
+
+---
+Maxime Ripard (8):
+      drm/lease: Add a helper to tell whether a lease was revoked
+      drm/atomic: Add drm_atomic_implements_create_state() helper
+      drm/atomic: Allow filling a commit with pristine object states
+      drm/tests: atomic: Add tests for drm_atomic_commit_fill_with_defaults()
+      drm/amd/display: Take over the current stream and dc_state
+      drm/vc4: Carry the HVS channel over to created CRTC states
+      drm/msm/dpu1: Carry the mixers over to created CRTC states
+      drm/vkms: Add driver-specific plane property for testing
+
+Sebastian Wick (1):
+      drm/atomic-uapi: Add DRM_MODE_ATOMIC_RESET flag
+
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  50 +++
+ drivers/gpu/drm/drm_atomic.c                      | 373 +++++++++++++++++++
+ drivers/gpu/drm/drm_atomic_uapi.c                 |  44 ++-
+ drivers/gpu/drm/drm_ioctl.c                       |   5 +
+ drivers/gpu/drm/drm_lease.c                       |  30 ++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c          |  23 ++
+ drivers/gpu/drm/tests/drm_atomic_test.c           | 435 +++++++++++++++++++++-
+ drivers/gpu/drm/vc4/tests/vc4_test_pv_muxing.c    | 105 ++++++
+ drivers/gpu/drm/vc4/vc4_kms.c                     |  16 +-
+ drivers/gpu/drm/vkms/vkms_drv.h                   |   3 +
+ drivers/gpu/drm/vkms/vkms_plane.c                 |  63 +++-
+ include/drm/drm_atomic.h                          |   4 +
+ include/drm/drm_auth.h                            |  11 +
+ include/drm/drm_lease.h                           |   2 +
+ include/uapi/drm/drm.h                            |  10 +
+ include/uapi/drm/drm_mode.h                       |  22 +-
+ 16 files changed, 1186 insertions(+), 10 deletions(-)
+---
+base-commit: e6e635c4407e5bb8ddc6017a2e9825c17240e799
+change-id: 20260708-drm-reset-state-flag-2fb2b5711f97
+
+Best regards,
+-- 
+Maxime Ripard <mripard@kernel.org>
 
