@@ -2,96 +2,152 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C0EE606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4943606A325
 	for <amd-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 14:57:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=f+g6C9fK
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ZvWMdAc0
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 50DE7112B4E;
-	Fri, 20 Nov 2026 14:56:58 +0000 (UTC)
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com
- [209.85.167.200])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6D051126E7
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 19:26:18 +0000 (UTC)
-Received: by mail-oi1-f200.google.com with SMTP id
- 5614622812f47-4ab8b4887d4so179010b6e.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Nov 2026 11:26:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20260707; t=1795116378; x=1795721178;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:from:subject:message-id:references:mime-version
- :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=d2DVsEOIJmONwY68Fz20HCkoh5ZG0X1B/QknI6oOs3U=;
- b=f+g6C9fKf6oo1Yr9GQX9qC0JPaZkAUSjY5giC8kTBP89mU7NcVtLBl2uiJtonHl6kN
- dYP+ENiIZMaolLXsBuwtowx9eV7MSY74JwnuceR44C3qLva05G0ZL5bWcu6JZEZUW3wr
- Dvt0wsjlB0X3rnWrCaPC3RrPoHlJtTZ1D9jI/tm2gYWre9pyxmLyAYGKSZn+03VxgQjc
- Mm0fxsZ85F1iPkVym8hxBCNH1sBvYcmUqkKTT2phzzRKdfSUpMqKkFozlAmDIGsLaOac
- RL8UY4fQidh6ezbWEOSruVJKK2W6Kmwu0q95yfeChtreBQwWoe+hTxi0G95fOhTv9F5T
- LGwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795116378; x=1795721178;
- h=content-type:cc:to:from:subject:message-id:references:mime-version
- :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=d2DVsEOIJmONwY68Fz20HCkoh5ZG0X1B/QknI6oOs3U=;
- b=Jn9PKeNjYcbXsV7YlgtvSqEzuwLRcH93XFuOXwCbwR/rAeMOwmCqFQpCaNMAyHlS7N
- Oga0QvnbaeU9NkMspVNsC8QCwndegISmQhl6TBzfdzTdsM4m8kxBH+Yl/yn3Sk1lPoac
- yez/jD7RVHc1zqflF9RicFdPTeyYe6Bmw1SeqZhRzKnrYxAp3XkFycjql9oAM3c66kSN
- 4OK8HwJdGxmWvVhAUZ25pXs3m1SdNdot7iX0kbRulwH5h43L72phnF7uCRoJn0rtfP+h
- O2XOO4odHlHt/l5kTtwQQHvjKUMH4Ne/YgcPlewOnT8v6r0zyBRABvJKA8u3p1uxPvto
- Tz+A==
-X-Forwarded-Encrypted: i=1;
- AL+hErEuVlK5CvNSUqEYYNUjlj4TlRoztV+9ixj/MFj07PD0ZK7EfzoPxOYvn9T/FrQaRXMSGISNm14H@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8gpFA8RGGgj6RwjV95AVLO7l9q95Or5veoetzMgjg9uSibpcsW
- ai0tZYdx3sbb9SXhMB19+HD23yLMA8elA74Gu4PYRiSbdZr9ltK2rugy+eo7Nkszi79dnrR3qIb
- 8gFbS28z0bw==
-X-Received: from jaqb6.prod.google.com ([2002:a05:6638:1a6:b0:61f:e4cd:8716])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6808:c3eb:b0:4b9:e5fa:8a17
- with SMTP id 5614622812f47-57a0a913526mr994137b6e.28.1795116377408; Thu, 19
- Nov 2026 11:26:17 -0800 (PST)
-Date: Thu, 19 Nov 2026 11:25:20 -0800
-In-Reply-To: <20261119192520.1983406-1-irogers@google.com>
-X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0
-References: <20261119192520.1983406-1-irogers@google.com>
-X-Mailer: git-send-email 2.56.1.750.gf70dc682cf-goog
-Message-ID: <20261119192520.1983406-10-irogers@google.com>
-Subject: [PATCH v4 9/9] kobject: Require explicit initialization of struct
- kobj_type::release
-From: Ian Rogers <irogers@google.com>
-To: Danilo Krummrich <dakr@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Kees Cook <kees@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
- "Rafael J . Wysocki" <rafael@kernel.org>
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
- Srish Srinivasan <ssrish@linux.ibm.com>, 
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
- Christophe Leroy <chleroy@kernel.org>, Nayna Jain <nayna@linux.ibm.com>, 
- Mimi Zohar <zohar@linux.ibm.com>, Yoshinori Sato <ysato@users.sourceforge.jp>, 
- Rich Felker <dalias@libc.org>,
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, 
- Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, 
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Nathan Chancellor <nathan@kernel.org>, 
- Nick Desaulniers <ndesaulniers@google.com>,
- Viresh Kumar <viresh.kumar@linaro.org>, 
- Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>,
- Alexander Aring <aahringo@redhat.com>, 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46988112B50;
+	Fri, 20 Nov 2026 14:56:59 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012053.outbound.protection.outlook.com [52.101.43.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F15010E047;
+ Fri, 20 Nov 2026 05:56:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qZyFTC2Dr4VUHGnI8wilB9CEJynP7RiuYjhr4lyiDeVp9lg4aiTqUX8uG8WVn6+pPK1huV4rlLs3Vb0SQyp4rjuMtQ2GBz6HePnj2K86Dop1tKrZVZ5HR1c8vIXlta1LSw8RKzU4JjhKm+bfRsG1vcRfwZIjx3H6nCc1Mv52EiSZNDkuDFrfa7ru+BXvQ/DEOEQZ822dAx8U+5fZeuCwawSMkGm9cIqGlUh4XwARGMx48xpkBxzLeIwt17rZFXbX/X5ggeWoapzY49Y6t41f630ckRKeCsjWLQUKREBhe1KsYPVuiSuxh5oowvF2p9tm06meUd2p4SfRkBxZ1K6h2Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5C4Ov4muh61MqXAp4gyEw9nfwkG839CdaXx2frm0hQ8=;
+ b=lgfqr7+gqp6uGkHEsjlcCwv5EFASA1iEGq8v9MGXo1ddGiKO+Jb6WDhmtzqXIWlcSmoG1NLBN2fXPsrsvMG2siZHW0tnQaUHKg/T8TV3Is4kNdUoTQXRTOJSgPE0j6UxMGW9h6GmUl+ieDLK+NW13TERctEzt2xHiikAwAr8p4G7pXMJ+etr3t23SRVLWWNRQPZ54lzPhoCd5MIAa/UC2i4PoQkP+w1krMntUZLCW0oHtLaa1yAhN1qzXUv9NTHNg25AdD8IgX6lymU/VoVr4X+1R3izZsqR7LOqs21g8P0gLj3FLOxSxTGv0nZQ+LHRMlNlsChRrAcDmGq7d2xy1g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5C4Ov4muh61MqXAp4gyEw9nfwkG839CdaXx2frm0hQ8=;
+ b=ZvWMdAc0J0nJBt2I/PExrtnR0K26Lk7EjrT0ynUKZxy5+KrvHLHQuexlKZAhRj9av0T+Iy+9Yn3rqgi8IkwqONOqyfYFoCJJuxGsDoz5eAr5qp+KB/AFnR3Xlj8K+L+9R+jQ7X1y6DVbjnUptaUni0Pz8FOD7UkdYZVfaZGCO1G+UKsRmC8eqxLgCWmy6FiyQjMj0lPq4siz8VrxRN2A0ls2uhrZKQ0symbBGmknofG+qajDuRb7A9+HKkn8IbFgnuL5w6dV0x5TsTJh15tsTuq30knusFj2VLsWek01EvW0qmrf+fsCKogy9Zg+ONmEAOj4ouEjoVgRB3X4fhZGhw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SA3PR12MB598757.namprd12.prod.outlook.com
+ (2603:10b6:806:52d::14) by IA0PR12MB7675.namprd12.prod.outlook.com
+ (2603:10b6:208:433::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Fri, 20 Nov
+ 2026 05:56:40 +0000
+Received: from SA3PR12MB598757.namprd12.prod.outlook.com
+ ([fe80::e206:100:5946:a777]) by SA3PR12MB598757.namprd12.prod.outlook.com
+ ([fe80::e206:100:5946:a777%5]) with mapi id 15.21.0639.011; Fri, 20 Nov 2026
+ 05:56:40 +0000
+From: Alistair Popple <apopple@nvidia.com>
+Date: Fri, 20 Nov 2026 16:55:40 +1100
+Subject: [PATCH v3 02/24] dma-buf: Introduce DMA-buf mapping types
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261120-dma_mapping_type_v4-v3-2-c0183a409bdf@nvidia.com>
+References: <20261120-dma_mapping_type_v4-v3-0-c0183a409bdf@nvidia.com>
+In-Reply-To: <20261120-dma_mapping_type_v4-v3-0-c0183a409bdf@nvidia.com>
+To: =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Simona Vetter <simona.vetter@ffwll.ch>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, 
+ Dongwon Kim <dongwon.kim@intel.com>, Kevin Tian <kevin.tian@intel.com>, 
+ Xu Yilun <yilun.xu@linux.intel.com>, 
+ Karl Mehltretter <kmehltretter@gmail.com>, 
+ Baolu Lu <baolu.lu@linux.intel.com>, 
  Felix Kuehling <felix.kuehling@amd.com>, 
- "=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>,
- Zhihao Cheng <chengzhihao1@huawei.com>, 
- Sumanth Korikkar <sumanthk@linux.ibm.com>, Bill Wendling <morbo@google.com>, 
- Justin Stitt <justinstitt@google.com>, driver-core@lists.linux.dev,
- llvm@lists.linux.dev, 
- linux-hardening@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-acpi@vger.kernel.org, 
- linux-pm@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
- linux-sh@vger.kernel.org, linux-s390@vger.kernel.org, gfs2@lists.linux.dev, 
- xen-devel@lists.xenproject.org, linux-mtd@lists.infradead.org, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Ian Rogers <irogers@google.com>
-Content-Type: text/plain; charset="UTF-8"
+ Alex Deucher <alexander.deucher@amd.com>, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org, linux-media@vger.kernel.org, 
+ linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org, 
+ iommu@lists.linux.dev, Keith Busch <kbusch@kernel.org>, 
+ Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>, 
+ Sagi Grimberg <sagi@grimberg.me>, linux-nvme@lists.infradead.org, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, Mina Almasry <almasrymina@google.com>, 
+ netdev@vger.kernel.org, Alexey Kardashevskiy <aik@amd.com>, 
+ zhipingz@meta.com, treding@nvidia.com, jhubbard@nvidia.com, 
+ chaitanyak@nvidia.com, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Leon Romanovsky <leon@kernel.org>
+Cc: Alistair Popple <apopple@nvidia.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795154186; l=11325;
+ i=apopple@nvidia.com; s=20261105; h=from:subject:message-id;
+ bh=/9UTTo3a/2FO9sdj6K4gNVj0Ke5UuHPrYWoVXPvmmbQ=;
+ b=EqD21hz4ovxnDZEPy/7GcDVINY3CaLGSeF2utuiRvC9m3mjJErs40p13YgRmg5LLSjpGZY5Uw
+ VFbNIifjql/CT2yooHNoSr4+SKUQ7smeFZnWA5J3aaxFRQ4A7rzb2Jb
+X-Developer-Key: i=apopple@nvidia.com; a=ed25519;
+ pk=WdWPT9rAq3YNfXldbGv1NSGVLGxzQGFGJvRUiShhNqs=
+X-ClientProxiedBy: SY5P282CA0193.AUSP282.PROD.OUTLOOK.COM
+ (2603:10c6:10:249::16) To SA3PR12MB598757.namprd12.prod.outlook.com
+ (2603:10b6:806:52d::14)
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA3PR12MB598757:EE_|IA0PR12MB7675:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7416258b-dd81-44db-acfe-08df46cb0c3f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|23010399003|7416014|366016|1800799024|921020|10067099003|11063799006|56012099006|261022113327099003|261028144727099003|261022105027099003|261026121527099003|261026140227099003|261022075727099003|261021121427099003|261102130727099003|261102123227099003|261009223027099003|22082099003|18002099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info: YwtnHmjL8R4c1kzyLQ0cKd/gnWqaHIKYVtKIOMQ71N4nYBHntogd1NtqzV3oSY7/sV31rUghB+sPLV2mLsUpAUFCAXh/jzqir3SQp2UOAjJPEKN9GSj9VSgqaJf8lltPF/AUQoUnBXlof20d3pd/DF9fT6IeUWPsK0dDVNlm50a/VDj3WnRG9ivop54wwQ9ovyIpzc1L0tRQG0QVe8d7Pf5+26LZ+Tv8ORYjh+vMX9YVzzVbBvn2PfZV4KsjO8m+2nv/CozXXJT6kJB1ALvM8JJnjQCJi3RzA7BPdr9tBwvdFNwndw2K8tkWJha8YBhHzO875xU/W2oPbPfIbd2k+kgSDzYcIQHduRnETsfKLOM14qiqKjugLMbUKs7+O/HsUPl0VAO+GwBWA3kKLMDBaJ/sljbEpYp2JryOXi4XIlXCkhnBLIhPjO6tEBuQZqCD5sGbFIPmSzpfPu3c4aypHxN34+xVIzDn3KCrVYuCn7Fa8Y0yH2qJIyGC1xB/IZemSzBRuTNwBVWVgO7jb30gIYq/2UdEPcw5JzYGGS9nl8B3ZFnj9l7f9r5NNXvkHqvC3YJZv0JnQh8ynyKgS9TuWtvakxkAVY5KLDAwYypC9TVURZ1YALcs+lFl0LAcPgyKx0NhAeeH+4yPUXlKDut6UPKNJ54Ec+H6Fz1UTiFciILZh/DPKCVS1Aq6Q/yyi6/sBvfUCtVTiC+iwaICpNziNA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA3PR12MB598757.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(7416014)(366016)(1800799024)(921020)(10067099003)(11063799006)(56012099006)(261022113327099003)(261028144727099003)(261022105027099003)(261026121527099003)(261026140227099003)(261022075727099003)(261021121427099003)(261102130727099003)(261102123227099003)(261009223027099003)(22082099003)(18002099003)(6133799003)(3023799007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cDVLRFlFdDkxUENqeVp4L3RvLzVQNlc2bWxFR0JvRUhzbnpkVDVDKzJPVmVO?=
+ =?utf-8?B?N3dQZGRNbkxHNm9FWVZqN1NFZ05vcTlFRG5rN1F4QmVESks0dXhXeHB2bFA2?=
+ =?utf-8?B?T05jY3pTV1dwMlEyaWZUWGh2VjRzSC85amNIRDZWYU94VG1IaW5kamQrcFF1?=
+ =?utf-8?B?TFQrVlhJd1Job2pkL3VyMWNtK1VtMVZXejhCdVVBenBVdGZjYzdYaHkyWlZO?=
+ =?utf-8?B?aUhLbzVKK1VNTG16bk9YSm9ZdWpxS1hINzFFVG1sSGpaWGpyYzlseW5hMXRj?=
+ =?utf-8?B?QVJSU0hyNEhLbWk2b0tQVUhXUmdqUjhNcmpQQ3JRS0VoeURTWVZRL29FTDg5?=
+ =?utf-8?B?M3NvU0lGSWF6RnZxcDZMajlnNUhWYkNPa1dSbEVjakJJOTIwciswRmNTSXhN?=
+ =?utf-8?B?WmhEbkJvWUJ4ZmErYVNYb254alBQbzVjeXBMd3ZnMDJsUVY2V1QyR3NLdWlo?=
+ =?utf-8?B?OStkMGFBTndwLzBxaVJLdjVUcVh3eDcrUkxPOCt1cGFEakFlY2pPakQzdXIz?=
+ =?utf-8?B?QjhKQTQzSHpod3cyYmRpTmh6YkY5NG9Kc2NrQnYwWjZ3eXplaWVPVmFCOXFm?=
+ =?utf-8?B?MUpDZHBrQzJCakxwWGhKaVpTNmxmMzdpd1IxMGN5WWNyU1lubTVSakJpSVR1?=
+ =?utf-8?B?VUJ4RnBMNVppSW5UNWxIWmhXRE1HaFdJUVRrQll1MGRnUWJEd2xnVWNvdU40?=
+ =?utf-8?B?Y1FFTWZ4Qm9mYUxQaFJlanFiL05LdnFvOC9nZmJGaVlDYUY4U3Q4YW1rQnNt?=
+ =?utf-8?B?d05TR2M1Y29qVkNVSkJ6eEFOZTBsRmFQSFcweFVpUEoyNGJPNW0zWlNydzV1?=
+ =?utf-8?B?V3M0MWpYWWZvS0Rxdlg3VGNxV1gvM1Ivc0ZlU0p1YWMzNE80MTFERmxVY2Yw?=
+ =?utf-8?B?ajRCS0lRMFFacnArV0k2bnJzbVNFRXgzMVV5SXZTMEhWSUtQNEdISWs1NEdk?=
+ =?utf-8?B?VGovdk9UWnF1VW01ZktMNHMzaHp4MWhlZFFubmo0Q09LcHpnaGlQS1ZOcGw1?=
+ =?utf-8?B?YVFNa3FNSVdDejdpZWh4MmZwTTlvb0F1TSswSkljMG1kc3VLQ1YxT1hWYTBQ?=
+ =?utf-8?B?bzhTV3JzNktXU0hXb21VUitKNjJocEN4RWJlYys2RlhnaCtrMmFVcnZPMmJj?=
+ =?utf-8?B?VkZxRDlkczc2Wm5ocjhNajA1SGtXKzlSckJ0MFh3U3NlSTZtblhKTDZPdWpF?=
+ =?utf-8?B?cmVsMEtacnRZeFgxWHBrVWViQkE1OGhIOUlVdkEvNEFEaW5NNWFzNHZOZWdz?=
+ =?utf-8?B?TmNOdndET3dyMjVnREUwWXFaVmRKYWh6cVp1S3gwSXdnOEdNeGo0elVwQi9S?=
+ =?utf-8?B?RmpsbGFpYU9WWUNHZmM0SEZxdHZZUk81cWp1NGdZNWYxb1VLYmRXdHBML3JK?=
+ =?utf-8?B?V3YzUUdpb3dNZGNTN0RrNDJLNTdaS1lmK0ZKQWc2cHdzbzFjSFlERmU0ZVdH?=
+ =?utf-8?B?dWtUUi9wTDd1R1preWF0SWJWTmRXYjgyajF0V2MyZHFkL3dqMnNZbFZFSUhY?=
+ =?utf-8?B?VVBPMEw5UGFxTG5tQWU5NDliUVJHc0hsbFNuMm4zeEl6TmRxVCs5cHFOSVFi?=
+ =?utf-8?B?UGpzL1c2VWU5cys2SFZyUFh3THowUXhmQ3k4T0w3Q0YrOEJGSVc1K1JRL2lM?=
+ =?utf-8?B?YVFSZ3NzRGx6bjROR1o4Q3pkd1VKbDNNSy9odGt2bXRoc1Q2dTdDbkxacFZM?=
+ =?utf-8?B?Wm5ndWxsTkRkZ1AwMnp0UXpsdWdDRGdFWWsreVBtS05XM3oxcW01NHA5dFBm?=
+ =?utf-8?B?bmFaWFZic0IzTkp5ZzRsdVhIenB3K2k0dGpRcmpEMTZxSTh0WUxuMHZrekM2?=
+ =?utf-8?B?bUVaTzA5czNsMjUwTzNrS0tvbVd2R2hxODhZRDU2SkdGTytUUFRxRFljTU9h?=
+ =?utf-8?B?KzM2RFc1dVlTYTIyUHEyWE95L3VKNG8zc2p3ZUpjWlJUMG1vTGUyRmFrL00w?=
+ =?utf-8?B?c2xWTFNSVnhoYUQ5elgrR2w1Y0VKNDdyODlhNEZyaThZNithc2VHVWpzMkpo?=
+ =?utf-8?B?RTlDNGZ6eG5YYmlnM2RPSTBDMzNjQy80Z2V0ZFFINDVuZ3hSUmNsSXpYTnBq?=
+ =?utf-8?B?aXdFTXl3VFZFaGF4YUxDeDFiUGZ6ZlNtU3I1NWU4bXJCK0ora211aDNrUnhT?=
+ =?utf-8?B?aHUzMkdlaTV5cDcxcCtnaS9abmNoeHYrV1NZaVpOUmJiNnAzUXI4OFJRSGxx?=
+ =?utf-8?B?cmtXVEpXNllIYVF2K2xlUVVIRlNlclF5OTI2RWRtTUZDS0hOQVBUUC9kZlM3?=
+ =?utf-8?B?c1MzRXJjZCt1RWZkSXlROE9QUUw0V1Z2VDRqSUo2R0ZDOFZjY2lrdmRCaVcx?=
+ =?utf-8?B?R3pxUHVNc044eXc3RExTTHM3aUZWWmh1bTFXTHJJNmpGYlhSakd1Zz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7416258b-dd81-44db-acfe-08df46cb0c3f
+X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB598757.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2026 05:56:40.8573 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +lGaz6G313O5xkelrZh8IvbELfzEPOWLqzxZ8fD0ElT8+l/acEM+aLECy+5vBIP0ZLeq+o5g3D6KopL1nwAyog==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7675
 X-Mailman-Approved-At: Fri, 20 Nov 2026 14:56:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -103,473 +159,332 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-26.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT,USER_IN_DEF_DKIM_WL autolearn=unavailable
-	autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Documentation/core-api/kobject.rst states:
+From: Jason Gunthorpe <jgg@nvidia.com>
 
-  "One important point cannot be overstated: every kobject must have a
-  release() method, and the kobject must persist (in a consistent state)
-  until that method is called. If these constraints are not met, the code
-  is flawed. Note that the kernel will warn you if you forget to provide
-  a release() method. Do not try to get rid of this warning by providing
-  an \"empty\" release function."
+DMA-buf mapping types allow the importer and exporter to negotiate the
+format of the map/unmap to be used during the attachment.
 
-Annotate struct kobj_type::release with __must_init so the compiler
-diagnoses any struct kobj_type initializer that omits .release.
+Currently DMA-buf only supports struct scatterlist as the attachment map
+operation.  This is not sufficient for all use cases as dma_addr_t is a
+very specific and limited type.
 
-For the remaining legacy struct kobj_type definitions that still omit a
-release callback, explicitly initialize .release = NULL and document
-each site's lifetime status:
-- In built-in code where the backing storage is static, per-CPU, or
-  allocated once at boot and never freed (arm64 cpuinfo, ACPI hotplug
-  profiles, and s390 sclp_mem), note that omitting release() violates
-  the kobject API contract while explaining what guarantees the storage
-  outlives kobject cleanup.
-- In drivers and tristate modules with broken kobject lifetime
-  management (where enclosing dynamic or devm allocations are freed or
-  zeroed independently of kobject_put(), or where module unload unmaps
-  static kobjects/ksets while final or CONFIG_DEBUG_KOBJECT_RELEASE
-  delayed cleanup may still be pending), document the lifetime hazard
-  with a FIXME comment for follow-up fixes.
+With mapping types the importing driver can declare what it supports. For
+example:
 
-This change does not alter runtime behavior at these sites.
+	static const struct dma_buf_mapping_match imp_match[] = {
+		DMA_BUF_IMAPPING_MY_DRIVER(...),
+		DMA_BUF_IMAPPING_SGT(),
+	};
+	static const struct dma_buf_attach_ops importer_ops = {
+		.supported_mapping_types = imp_match,
+		.nr_supported_mapping_types = ARRAY_SIZE(imp_match),
+		...
+	};
+	attach = dma_buf_dynamic_attach(dmabuf, dev, &importer_ops, ...)
 
-Link: https://lpc.events/event/20/contributions/2392/
-Signed-off-by: Ian Rogers <irogers@google.com>
+And the exporting driver can declare what it supports:
+
+int exporter_match_mapping(struct dma_buf_match_args *args)
+{
+	struct dma_buf_mapping_match exp_match[] = {
+		DMA_BUF_EMAPPING_MY_DRIVER(my_ops, dev, ...),
+		DMA_BUF_EMAPPING_SGT(sgt_ops),
+	};
+	return dma_buf_match_mapping(args, exp_match, ...);
+}
+
+During dma_buf_dynamic_attach() the core code records every mutually
+acceptable (exporter entry, importer entry) pair in attach->matches, a
+small fixed-size array in the attachment, in the exporter's order of
+preference. The first entry is the default and is what
+dma_buf_attach_map_type() returns; later patches let the exporter choose a
+different entry of the set
+at pin or map time, when the buffer's placement and the other attachments
+are known. Importers and exporters that list a single type see exactly one
+entry.
+
+Add the basic types:
+
+struct dma_buf_mapping_type
+   Type tag and ops for each mapping type.
+
+struct dma_buf_mapping_match
+   Entry in a list of importer or exporter match specifications.
+   The match specification can be extended by the mapping type with
+   unique data.
+
+dma_buf_match_mapping() / struct dma_buf_match_args
+   Helper to do the matching. Called by the exporting driver
+   via a dma_buf_ops callback.
+
+struct dma_buf_mapping_exp_ops
+   Base type for the per-mapping type exporter provided functions. This
+   would be the map/unmap callbacks. Each mapping type can provide its own
+   functions for map/unmap type operations with optimal type signatures.
+
+Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+Co-developed-by: Alistair Popple <apopple@nvidia.com>
+Signed-off-by: Alistair Popple <apopple@nvidia.com>
 ---
- arch/arm64/kernel/cpuinfo.c                   |  7 +++++++
- drivers/acpi/sysfs.c                          |  7 +++++++
- drivers/dma/ioat/sysfs.c                      |  8 +++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c    |  8 +++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c       | 17 +++++++++++++++
- drivers/infiniband/hw/hfi1/sysfs.c            |  7 +++++++
- drivers/infiniband/hw/usnic/usnic_ib_sysfs.c  |  7 +++++++
- drivers/parisc/pdc_stable.c                   |  8 +++++++
- drivers/power/supply/ab8500_fg.c              |  8 +++++++
- drivers/s390/char/sclp_mem.c                  |  6 ++++++
- drivers/soc/hisilicon/kunpeng_hccs.c          | 18 ++++++++++++++++
- .../fbdev/omap2/omapfb/dss/display-sysfs.c    |  7 +++++++
- .../fbdev/omap2/omapfb/dss/manager-sysfs.c    |  8 +++++++
- .../fbdev/omap2/omapfb/dss/overlay-sysfs.c    |  7 +++++++
- fs/erofs/sysfs.c                              | 14 +++++++++++++
- fs/f2fs/sysfs.c                               | 21 +++++++++++++++++++
- fs/ocfs2/cluster/masklog.c                    |  7 +++++++
- include/linux/kobject.h                       |  2 +-
- 18 files changed, 166 insertions(+), 1 deletion(-)
+ drivers/dma-buf/dma-buf-mapping.c | 65 +++++++++++++++++++++++++++
+ include/linux/dma-buf-mapping.h   | 95 +++++++++++++++++++++++++++++++++++++++
+ include/linux/dma-buf.h           | 29 ++++++++++++
+ 3 files changed, 189 insertions(+)
 
-diff --git a/arch/arm64/kernel/cpuinfo.c b/arch/arm64/kernel/cpuinfo.c
-index 94e6cd211d70..7c374b8c25af 100644
---- a/arch/arm64/kernel/cpuinfo.c
-+++ b/arch/arm64/kernel/cpuinfo.c
-@@ -295,6 +295,13 @@ const struct seq_operations cpuinfo_op = {
+diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-buf-mapping.c
+index 833be519e1e6..d27f02610c2a 100644
+--- a/drivers/dma-buf/dma-buf-mapping.c
++++ b/drivers/dma-buf/dma-buf-mapping.c
+@@ -5,6 +5,7 @@
+  */
+ #include <linux/dma-buf-mapping.h>
+ #include <linux/dma-resv.h>
++#include <linux/dma-buf.h>
+ #include <linux/overflow.h>
+ #include <linux/align.h>
  
+@@ -257,3 +258,67 @@ void dma_buf_free_sgt(struct dma_buf_attachment *attach, struct sg_table *sgt,
  
- static const struct kobj_type cpuregs_kobj_type = {
-+	/*
-+	 * Omitting release() violates the kobject API contract, but lifetime
-+	 * is safe: info->kobj is embedded in built-in static per-CPU cpu_data
-+	 * that is never freed or passed to kobject_put() (CPU hotplug only
-+	 * toggles sysfs visibility via kobject_add() and kobject_del()).
-+	 */
-+	.release = NULL,
- 	.sysfs_ops = &kobj_sysfs_ops,
- };
- 
-diff --git a/drivers/acpi/sysfs.c b/drivers/acpi/sysfs.c
-index a4534b3e3cfb..d435b565ad19 100644
---- a/drivers/acpi/sysfs.c
-+++ b/drivers/acpi/sysfs.c
-@@ -975,6 +975,13 @@ static struct attribute *hotplug_profile_attrs[] = {
- ATTRIBUTE_GROUPS(hotplug_profile);
- 
- static const struct kobj_type acpi_hotplug_profile_ktype = {
-+	/*
-+	 * Omitting release() violates the kobject API contract, but lifetime
-+	 * is safe: hotplug->kobj is only embedded in static built-in
-+	 * struct acpi_scan_handler instances that are never unregistered or
-+	 * freed.
-+	 */
-+	.release = NULL,
- 	.sysfs_ops = &kobj_sysfs_ops,
- 	.default_groups = hotplug_profile_groups,
- };
-diff --git a/drivers/dma/ioat/sysfs.c b/drivers/dma/ioat/sysfs.c
-index 976134df8108..ec5a90c7aded 100644
---- a/drivers/dma/ioat/sysfs.c
-+++ b/drivers/dma/ioat/sysfs.c
-@@ -167,6 +167,14 @@ static const struct attribute *const ioat_attrs[] = {
- ATTRIBUTE_GROUPS(ioat);
- 
- const struct kobj_type ioat_ktype = {
-+	/*
-+	 * FIXME: Broken kobject lifetime (needs follow-up fix):
-+	 * ioat_kobject_del() calls kobject_put(&ioat_chan->kobj) and
-+	 * release_ioatdma() frees ioat_chan via kfree() without waiting for
-+	 * final kobject cleanup (use-after-free if a sysfs reference is held
-+	 * or under CONFIG_DEBUG_KOBJECT_RELEASE).
-+	 */
-+	.release = NULL,
- 	.sysfs_ops = &ioat_sysfs_ops,
- 	.default_groups = ioat_groups,
- };
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-index d025b4183b29..5aa90f1271e4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-@@ -892,6 +892,14 @@ static const struct attribute_group ualink_xcp_info_group = {
- };
- 
- static const struct kobj_type ualink_xcp_info_ktype = {
-+	/*
-+	 * FIXME: Broken kobject lifetime (needs follow-up fix):
-+	 * xcp->ualink.kobj is embedded in adev->xcp_mgr;
-+	 * amdgpu_ualink_xcp_sysfs_remove() calls kobject_put() and
-+	 * amdgpu_device_fini_sw() later calls kfree(adev->xcp_mgr) without
-+	 * waiting for final kobject cleanup.
-+	 */
-+	.release = NULL,
- 	.sysfs_ops = &kobj_sysfs_ops
- };
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
-index ab14079d1c42..8e21bf57596c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
-@@ -797,6 +797,16 @@ static const struct sysfs_ops xcp_cfg_res_sysfs_ops = {
- };
- 
- static const struct kobj_type xcp_cfg_res_sysfs_ktype = {
-+	/*
-+	 * FIXME: Broken kobject lifetime (needs follow-up fix): xcp_res->kobj
-+	 * is embedded in struct amdgpu_xcp_cfg, freed by parent xcp_cfg->kobj's
-+	 * xcp_cfg_sysfs_release(). While an added child pins xcp_cfg->kobj
-+	 * until kobject_cleanup() finishes, if kobject_init_and_add() fails in
-+	 * amdgpu_xcp_cfg_sysfs_init() no parent reference is held and
-+	 * kfree(xcp_cfg) can race with delayed cleanup under
-+	 * CONFIG_DEBUG_KOBJECT_RELEASE.
-+	 */
-+	.release = NULL,
- 	.sysfs_ops = &xcp_cfg_res_sysfs_ops,
- 	.default_groups = xcp_cfg_res_sysfs_groups,
- };
-@@ -1061,6 +1071,13 @@ static const struct attribute_group amdgpu_xcp_attrs_group = {
- };
- 
- static const struct kobj_type xcp_sysfs_ktype = {
-+	/*
-+	 * FIXME: Broken kobject lifetime (needs follow-up fix): xcp->kobj is
-+	 * embedded in adev->xcp_mgr; amdgpu_xcp_sysfs_entries_fini() calls
-+	 * kobject_put() and amdgpu_device_fini_sw() later calls
-+	 * kfree(adev->xcp_mgr) without waiting for final kobject cleanup.
-+	 */
-+	.release = NULL,
- 	.sysfs_ops = &kobj_sysfs_ops,
- };
- 
-diff --git a/drivers/infiniband/hw/hfi1/sysfs.c b/drivers/infiniband/hw/hfi1/sysfs.c
-index 372cfd13dc61..dc6693822589 100644
---- a/drivers/infiniband/hw/hfi1/sysfs.c
-+++ b/drivers/infiniband/hw/hfi1/sysfs.c
-@@ -608,6 +608,13 @@ static const struct sysfs_ops sde_sysfs_ops = {
- };
- 
- static struct kobj_type sde_ktype = {
-+	/*
-+	 * FIXME: Broken kobject lifetime (needs follow-up fix):
-+	 * hfi1_verbs_unregister_sysfs() calls kobject_put(&dd->per_sdma[i].kobj)
-+	 * and sdma_clean() frees dd->per_sdma via kfree() without waiting for
-+	 * final kobject cleanup.
-+	 */
-+	.release = NULL,
- 	.sysfs_ops = &sde_sysfs_ops,
- };
- 
-diff --git a/drivers/infiniband/hw/usnic/usnic_ib_sysfs.c b/drivers/infiniband/hw/usnic/usnic_ib_sysfs.c
-index fdb63a8fb997..f6946524a562 100644
---- a/drivers/infiniband/hw/usnic/usnic_ib_sysfs.c
-+++ b/drivers/infiniband/hw/usnic/usnic_ib_sysfs.c
-@@ -245,6 +245,13 @@ static struct attribute *usnic_ib_qpn_default_attrs[] = {
- ATTRIBUTE_GROUPS(usnic_ib_qpn_default);
- 
- static struct kobj_type usnic_ib_qpn_type = {
-+	/*
-+	 * FIXME: Broken kobject lifetime (needs follow-up fix):
-+	 * usnic_ib_destroy_qp() calls kobject_put(&qp_grp->kobj) via
-+	 * usnic_ib_sysfs_qpn_remove() and RDMA core immediately frees qp_grp
-+	 * without waiting for final kobject cleanup.
-+	 */
-+	.release = NULL,
- 	.sysfs_ops = &usnic_ib_qpn_sysfs_ops,
- 	.default_groups = usnic_ib_qpn_default_groups,
- };
-diff --git a/drivers/parisc/pdc_stable.c b/drivers/parisc/pdc_stable.c
-index 6b567a74fc2c..1dc7d8ffdc73 100644
---- a/drivers/parisc/pdc_stable.c
-+++ b/drivers/parisc/pdc_stable.c
-@@ -484,6 +484,14 @@ ATTRIBUTE_GROUPS(paths_subsys);
- 
- /* Specific kobject type for our PDC paths */
- static const struct kobj_type ktype_pdcspath = {
-+	/*
-+	 * FIXME: Broken kobject lifetime (needs follow-up fix): pdcspath_entry
-+	 * instances are static in tristate module pdc_stable, and
-+	 * pdc_stable_exit() calls kobject_put(&entry->kobj); unloading the
-+	 * module unmaps the static storage without waiting for final kobject
-+	 * cleanup.
-+	 */
-+	.release = NULL,
- 	.sysfs_ops = &pdcspath_attr_ops,
- 	.default_groups = paths_subsys_groups,
- };
-diff --git a/drivers/power/supply/ab8500_fg.c b/drivers/power/supply/ab8500_fg.c
-index eddd3e853106..f5a0bb821ee8 100644
---- a/drivers/power/supply/ab8500_fg.c
-+++ b/drivers/power/supply/ab8500_fg.c
-@@ -2539,6 +2539,14 @@ static struct attribute *ab8500_fg_attrs[] = {
- ATTRIBUTE_GROUPS(ab8500_fg);
- 
- static const struct kobj_type ab8500_fg_ktype = {
-+	/*
-+	 * FIXME: Broken kobject lifetime (needs follow-up fix): fg_kobject is
-+	 * embedded in devm-allocated struct ab8500_fg; ab8500_fg_sysfs_exit()
-+	 * only calls kobject_del() (never kobject_put()) before devm frees the
-+	 * struct on unbind, and on ab8500_fg_sysfs_init() failure kobject_put()
-+	 * races with devm freeing the struct on probe failure.
-+	 */
-+	.release = NULL,
- 	.sysfs_ops = &ab8500_fg_sysfs_ops,
- 	.default_groups = ab8500_fg_groups,
- };
-diff --git a/drivers/s390/char/sclp_mem.c b/drivers/s390/char/sclp_mem.c
-index 6df1926d4c62..a46d27817281 100644
---- a/drivers/s390/char/sclp_mem.c
-+++ b/drivers/s390/char/sclp_mem.c
-@@ -305,6 +305,12 @@ static ssize_t sclp_memmap_on_memory_store(struct kobject *kobj, struct kobj_att
  }
+ EXPORT_SYMBOL_NS_GPL(dma_buf_free_sgt, "DMA_BUF");
++
++/**
++ * dma_buf_match_mapping - Record the mapping types agreed upon by exporter
++ *                         and importer
++ * @args: Match arguments from attach
++ * @exp: Array of mapping types supported by the exporter, in priority order
++ * @exp_len: Number of entries in @exp
++ *
++ * Walk the exporter's list in order and, for each entry, find the first
++ * importer entry of the same type that the type's match() callback accepts.
++ * Every such pair is recorded in @args->attach->matches, so the match set
++ * preserves the exporter's priority. The first entry is the default returned
++ * by dma_buf_attach_map_type().
++ *
++ * Because the exporter list is walked in order, the exporter controls the
++ * priority of mapping types.
++ *
++ * Returns: 0 if at least one type matched, -EOPNOTSUPP if the exporter and
++ * importer have no type in common, -EINVAL if either list is empty, -E2BIG if
++ * more than DMA_BUF_MAX_MATCHES types matched, or the error a match() callback
++ * aborted the search with.
++ */
++int dma_buf_match_mapping(struct dma_buf_match_args *args,
++			  const struct dma_buf_mapping_match *exp,
++			  size_t exp_len)
++{
++	const struct dma_buf_mapping_match *exp_end = exp + exp_len;
++	const struct dma_buf_mapping_match *imp_end =
++		args->imp_matches + args->imp_len;
++	struct dma_buf_attachment *attach = args->attach;
++	unsigned int nr = 0;
++	int ret;
++
++	if (!exp_len || !args->imp_len)
++		return -EINVAL;
++
++	for (; exp != exp_end; exp++) {
++		const struct dma_buf_mapping_match *imp = args->imp_matches;
++
++		for (; imp != imp_end; imp++) {
++			if (exp->type != imp->type)
++				continue;
++			if (exp->type->match) {
++				ret = exp->type->match(args, exp, imp);
++				if (ret == -EOPNOTSUPP)
++					continue;
++				if (ret != 0)
++					return ret;
++			}
++			if (nr == ARRAY_SIZE(attach->matches))
++				return -E2BIG;
++			exp->type->finish_match(args, exp, imp,
++						&attach->matches[nr++]);
++			break;
++		}
++	}
++
++	if (!nr)
++		return -EOPNOTSUPP;
++
++	attach->nr_matches = nr;
++	return 0;
++}
++EXPORT_SYMBOL_NS_GPL(dma_buf_match_mapping, "DMA_BUF");
+diff --git a/include/linux/dma-buf-mapping.h b/include/linux/dma-buf-mapping.h
+index 09bde3f748e4..bb826bdc2911 100644
+--- a/include/linux/dma-buf-mapping.h
++++ b/include/linux/dma-buf-mapping.h
+@@ -7,6 +7,83 @@
+ #define __DMA_BUF_MAPPING_H__
+ #include <linux/dma-buf.h>
  
- static const struct kobj_type ktype = {
-+	/*
-+	 * Omitting release() violates the kobject API contract, but lifetime
-+	 * is safe: built-in sclp_init_mem() allocates sclp_mems once at boot
-+	 * and never calls kobject_put() or kfree() on it.
++struct device;
++struct dma_buf;
++struct dma_buf_attachment;
++struct dma_buf_mapping_exp_ops;
++
++/* Type tag for all mapping operations */
++struct dma_buf_mapping_exp_ops {};
++
++/*
++ * Internal struct to pass arguments from the attach function to the matching
++ * function
++ */
++struct dma_buf_match_args {
++	struct dma_buf *dmabuf;
++	struct dma_buf_attachment *attach;
++	/* The importing device passed to dma_buf_dynamic_attach() */
++	struct device *dev;
++	const struct dma_buf_mapping_match *imp_matches;
++	size_t imp_len;
++};
++
++/**
++ * struct dma_buf_mapping_type - Operations for a DMA-buf mapping type
++ *
++ * Each mapping type provides a singleton instance of this struct to describe
++ * the mapping type and its operations.
++ */
++struct dma_buf_mapping_type {
++	/**
++	 * @name: Human-readable name for this mapping type, used in debugfs
++	 *        output
 +	 */
-+	.release = NULL,
- 	.sysfs_ops = &kobj_sysfs_ops,
- };
- 
-diff --git a/drivers/soc/hisilicon/kunpeng_hccs.c b/drivers/soc/hisilicon/kunpeng_hccs.c
-index 3b9fa3a74abd..bccd0ba95073 100644
---- a/drivers/soc/hisilicon/kunpeng_hccs.c
-+++ b/drivers/soc/hisilicon/kunpeng_hccs.c
-@@ -1038,6 +1038,12 @@ static struct attribute *hccs_port_default_attrs[] = {
- ATTRIBUTE_GROUPS(hccs_port_default);
- 
- static const struct kobj_type hccs_port_type = {
-+	/*
-+	 * FIXME: Broken kobject lifetime (needs follow-up fix): hccs_port_info
-+	 * is allocated via devm_kzalloc(), and devm frees it on unbind or probe
-+	 * failure without waiting for kobject_put(&port->kobj) final cleanup.
++	const char *name;
++
++	/**
++	 * @match:
++	 *
++	 * Called during attach from dma_buf_match_mapping(). @exp and @imp are
++	 * single items from the importer and exporter mapping match lists.
++	 * Both will have the same instance of this struct as their type member.
++	 * The importing device is @args->dev; importer entries do not carry
++	 * it, so they can be static tables shared by every attachment.
++	 *
++	 * It determines if the exporter/importer are compatible.
++	 *
++	 * Returns: 0 on success
++	 *   -EOPNOTSUPP means ignore the failure and continue
++	 *   Everything else aborts the search and returns the -errno
 +	 */
-+	.release = NULL,
- 	.sysfs_ops = &hccs_comm_ops,
- 	.default_groups = hccs_port_default_groups,
- };
-@@ -1110,6 +1116,12 @@ static struct attribute *hccs_die_default_attrs[] = {
- ATTRIBUTE_GROUPS(hccs_die_default);
- 
- static const struct kobj_type hccs_die_type = {
-+	/*
-+	 * FIXME: Broken kobject lifetime (needs follow-up fix): hccs_die_info
-+	 * is allocated via devm_kzalloc(), and devm frees it on unbind or probe
-+	 * failure without waiting for kobject_put(&die->kobj) final cleanup.
++	int (*match)(struct dma_buf_match_args *args,
++		     const struct dma_buf_mapping_match *exp,
++		     const struct dma_buf_mapping_match *imp);
++
++	/**
++	 * @finish_match:
++	 *
++	 * Called by dma_buf_match_mapping() after a successful match to fill
++	 * in @match, the entry being added to @args->attach->matches. The
++	 * matched @exp and @imp entries are provided so the callback can copy
++	 * type-specific data into it, along with @args->dev if the type needs
++	 * the importing device later.
 +	 */
-+	.release = NULL,
- 	.sysfs_ops = &hccs_comm_ops,
- 	.default_groups = hccs_die_default_groups,
- };
-@@ -1213,6 +1225,12 @@ static struct attribute *hccs_chip_default_attrs[] = {
- ATTRIBUTE_GROUPS(hccs_chip_default);
- 
- static const struct kobj_type hccs_chip_type = {
-+	/*
-+	 * FIXME: Broken kobject lifetime (needs follow-up fix): hccs_chip_info
-+	 * is allocated via devm_kzalloc(), and devm frees it on unbind or probe
-+	 * failure without waiting for kobject_put(&chip->kobj) final cleanup.
++	void (*finish_match)(struct dma_buf_match_args *args,
++			     const struct dma_buf_mapping_match *exp,
++			     const struct dma_buf_mapping_match *imp,
++			     struct dma_buf_mapping_match *match);
++
++	/**
++	 * @debugfs_dump:
++	 *
++	 * Optional callback to write mapping-type-specific diagnostic
++	 * information about @attach to the debugfs seq_file @s.
 +	 */
-+	.release = NULL,
- 	.sysfs_ops = &hccs_comm_ops,
- 	.default_groups = hccs_chip_default_groups,
- };
-diff --git a/drivers/video/fbdev/omap2/omapfb/dss/display-sysfs.c b/drivers/video/fbdev/omap2/omapfb/dss/display-sysfs.c
-index ae937854403b..436ec9c8591b 100644
---- a/drivers/video/fbdev/omap2/omapfb/dss/display-sysfs.c
-+++ b/drivers/video/fbdev/omap2/omapfb/dss/display-sysfs.c
-@@ -304,6 +304,13 @@ static const struct sysfs_ops display_sysfs_ops = {
++	void (*debugfs_dump)(struct seq_file *s,
++			     struct dma_buf_attachment *attach);
++};
++
+ struct sg_table *dma_buf_phys_vec_to_sgt(struct dma_buf_attachment *attach,
+ 					 struct p2pdma_provider *provider,
+ 					 struct phys_vec *phys_vec,
+@@ -14,4 +91,22 @@ struct sg_table *dma_buf_phys_vec_to_sgt(struct dma_buf_attachment *attach,
+ 					 enum dma_data_direction dir);
+ void dma_buf_free_sgt(struct dma_buf_attachment *attach, struct sg_table *sgt,
+ 		      enum dma_data_direction dir);
++
++int dma_buf_match_mapping(struct dma_buf_match_args *args,
++			  const struct dma_buf_mapping_match *exp_mappings,
++			  size_t exp_len);
++
++/**
++ * dma_buf_attach_map_type - The match this attachment is mapped with
++ * @attach: the attachment
++ *
++ * Returns: the entry of @attach->matches in force for the attachment: the
++ * exporter's default, which is the first entry.
++ */
++static inline const struct dma_buf_mapping_match *
++dma_buf_attach_map_type(const struct dma_buf_attachment *attach)
++{
++	return &attach->matches[0];
++}
++
+ #endif
+diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
+index cedeb8ebc99e..81bbcd420d60 100644
+--- a/include/linux/dma-buf.h
++++ b/include/linux/dma-buf.h
+@@ -27,6 +27,28 @@
+ struct device;
+ struct dma_buf;
+ struct dma_buf_attachment;
++struct dma_buf_mapping_type;
++struct dma_buf_mapping_exp_ops;
++
++/*
++ * Upper bound on the number of mapping types an attachment can record as
++ * mutually acceptable. An exporter offering more compatible types than this
++ * to one importer fails the attach with -E2BIG.
++ */
++#define DMA_BUF_MAX_MATCHES 4
++
++/*
++ * Match items are generated by the importer using the DMA_BUF_IMAPPING_*() and
++ * the exporter using the DMA_BUF_EMAPPING_*() functions. Each mapping type
++ * defines its own signature with its own data to make the match and attachment.
++ */
++struct dma_buf_mapping_match {
++	const struct dma_buf_mapping_type *type;
++	const struct dma_buf_mapping_exp_ops *exp_ops;
++	union {
++		/* Each mapping_type has unique match parameters here */
++	};
++};
+ 
+ /**
+  * struct dma_buf_ops - operations possible on struct dma_buf
+@@ -472,6 +494,11 @@ struct dma_buf_attach_ops {
+  * @importer_ops: importer operations for this attachment, if provided
+  * dma_buf_map/unmap_sgt() must be called with the dma_resv lock held.
+  * @importer_priv: importer specific attachment data.
++ * @matches: The match set negotiated at attach time: every mapping type both
++ *           sides accept, in the exporter's order of preference. The first
++ *           entry is the exporter's default; dma_buf_attach_map_type()
++ *           returns the entry the attachment is mapped with.
++ * @nr_matches: Number of valid entries in @matches.
+  *
+  * This structure holds the attachment information between the dma_buf buffer
+  * and its user device(s). The list contains one attachment struct per device
+@@ -490,6 +517,8 @@ struct dma_buf_attachment {
+ 	const struct dma_buf_attach_ops *importer_ops;
+ 	void *importer_priv;
+ 	void *priv;
++	struct dma_buf_mapping_match matches[DMA_BUF_MAX_MATCHES];
++	unsigned int nr_matches;
  };
  
- static struct kobj_type display_ktype = {
-+	/*
-+	 * FIXME: Broken kobject lifetime (needs follow-up fix):
-+	 * display_uninit_sysfs() calls kobject_put(&dssdev->kobj) and
-+	 * immediately zeroes dssdev->kobj with memset(), corrupting any
-+	 * in-flight or delayed (CONFIG_DEBUG_KOBJECT_RELEASE) kobject cleanup.
-+	 */
-+	.release = NULL,
- 	.sysfs_ops = &display_sysfs_ops,
- 	.default_groups = display_sysfs_groups,
- };
-diff --git a/drivers/video/fbdev/omap2/omapfb/dss/manager-sysfs.c b/drivers/video/fbdev/omap2/omapfb/dss/manager-sysfs.c
-index 1b644be5fe2e..e4d61cf7e939 100644
---- a/drivers/video/fbdev/omap2/omapfb/dss/manager-sysfs.c
-+++ b/drivers/video/fbdev/omap2/omapfb/dss/manager-sysfs.c
-@@ -496,6 +496,14 @@ static const struct sysfs_ops manager_sysfs_ops = {
- };
- 
- static struct kobj_type manager_ktype = {
-+	/*
-+	 * FIXME: Broken kobject lifetime (needs follow-up fix): mgr->kobj is
-+	 * embedded in dynamically allocated managers[], zeroed in
-+	 * dss_manager_kobj_uninit() right after kobject_put(), and freed in
-+	 * dss_uninit_overlay_managers() without waiting for final kobject
-+	 * cleanup.
-+	 */
-+	.release = NULL,
- 	.sysfs_ops = &manager_sysfs_ops,
- 	.default_groups = manager_sysfs_groups,
- };
-diff --git a/drivers/video/fbdev/omap2/omapfb/dss/overlay-sysfs.c b/drivers/video/fbdev/omap2/omapfb/dss/overlay-sysfs.c
-index 1da4fb1c77b4..3960261cada0 100644
---- a/drivers/video/fbdev/omap2/omapfb/dss/overlay-sysfs.c
-+++ b/drivers/video/fbdev/omap2/omapfb/dss/overlay-sysfs.c
-@@ -429,6 +429,13 @@ static const struct sysfs_ops overlay_sysfs_ops = {
- };
- 
- static struct kobj_type overlay_ktype = {
-+	/*
-+	 * FIXME: Broken kobject lifetime (needs follow-up fix): ovl->kobj is
-+	 * embedded in dynamically allocated overlays[] and freed in
-+	 * dss_uninit_overlays() right after dss_overlay_kobj_uninit() calls
-+	 * kobject_put(), without waiting for final kobject cleanup.
-+	 */
-+	.release = NULL,
- 	.sysfs_ops = &overlay_sysfs_ops,
- 	.default_groups = overlay_sysfs_groups,
- };
-diff --git a/fs/erofs/sysfs.c b/fs/erofs/sysfs.c
-index dfcec9376cd5..3654a945b299 100644
---- a/fs/erofs/sysfs.c
-+++ b/fs/erofs/sysfs.c
-@@ -238,6 +238,13 @@ static const struct kobj_type erofs_sb_ktype = {
- static const struct kobj_type erofs_ktype = {
- 	.default_groups = erofs_groups,
- 	.sysfs_ops	= &erofs_attr_ops,
-+	/*
-+	 * FIXME: Broken kobject lifetime (needs follow-up fix): erofs_root is
-+	 * a static struct kset in tristate module erofs, and erofs_exit_sysfs()
-+	 * calls kset_unregister(); unloading the module unmaps the static
-+	 * storage without waiting for final kobject cleanup.
-+	 */
-+	.release	= NULL,
- };
- 
- static struct kset erofs_root = {
-@@ -247,6 +254,13 @@ static struct kset erofs_root = {
- static const struct kobj_type erofs_feat_ktype = {
- 	.default_groups = erofs_feat_groups,
- 	.sysfs_ops	= &erofs_attr_ops,
-+	/*
-+	 * FIXME: Broken kobject lifetime (needs follow-up fix): erofs_feat is
-+	 * a static struct kobject in tristate module erofs, and
-+	 * erofs_exit_sysfs() calls kobject_put(); unloading the module unmaps
-+	 * the static storage without waiting for final kobject cleanup.
-+	 */
-+	.release	= NULL,
- };
- 
- static struct kobject erofs_feat = {
-diff --git a/fs/f2fs/sysfs.c b/fs/f2fs/sysfs.c
-index 430356e500af..770ceb12e178 100644
---- a/fs/f2fs/sysfs.c
-+++ b/fs/f2fs/sysfs.c
-@@ -1683,6 +1683,13 @@ static const struct kobj_type f2fs_sb_ktype = {
- 
- static const struct kobj_type f2fs_ktype = {
- 	.sysfs_ops	= &f2fs_attr_ops,
-+	/*
-+	 * FIXME: Broken kobject lifetime (needs follow-up fix): f2fs_kset is
-+	 * a static struct kset in tristate module f2fs, and f2fs_exit_sysfs()
-+	 * calls kset_unregister(); unloading the module unmaps the static
-+	 * storage without waiting for final kobject cleanup.
-+	 */
-+	.release	= NULL,
- };
- 
- static struct kset f2fs_kset = {
-@@ -1697,6 +1704,13 @@ static const struct sysfs_ops f2fs_feat_attr_ops = {
- static const struct kobj_type f2fs_feat_ktype = {
- 	.default_groups = f2fs_feat_groups,
- 	.sysfs_ops	= &f2fs_feat_attr_ops,
-+	/*
-+	 * FIXME: Broken kobject lifetime (needs follow-up fix): f2fs_feat is
-+	 * a static struct kobject in tristate module f2fs, and
-+	 * f2fs_exit_sysfs() calls kobject_put(); unloading the module unmaps
-+	 * the static storage without waiting for final kobject cleanup.
-+	 */
-+	.release	= NULL,
- };
- 
- static struct kobject f2fs_feat = {
-@@ -1711,6 +1725,13 @@ static const struct sysfs_ops f2fs_tune_attr_ops = {
- static const struct kobj_type f2fs_tune_ktype = {
- 	.default_groups = f2fs_tune_groups,
- 	.sysfs_ops	= &f2fs_tune_attr_ops,
-+	/*
-+	 * FIXME: Broken kobject lifetime (needs follow-up fix): f2fs_tune is
-+	 * a static struct kobject in tristate module f2fs, and
-+	 * f2fs_exit_sysfs() calls kobject_put(); unloading the module unmaps
-+	 * the static storage without waiting for final kobject cleanup.
-+	 */
-+	.release	= NULL,
- };
- 
- static struct kobject f2fs_tune = {
-diff --git a/fs/ocfs2/cluster/masklog.c b/fs/ocfs2/cluster/masklog.c
-index 563881ddbf00..5a30f73d8d67 100644
---- a/fs/ocfs2/cluster/masklog.c
-+++ b/fs/ocfs2/cluster/masklog.c
-@@ -147,6 +147,13 @@ static const struct sysfs_ops mlog_attr_ops = {
- static struct kobj_type mlog_ktype = {
- 	.default_groups = mlog_default_groups,
- 	.sysfs_ops      = &mlog_attr_ops,
-+	/*
-+	 * FIXME: Broken kobject lifetime (needs follow-up fix): mlog_kset is
-+	 * a static struct kset in tristate module ocfs2_nodemanager, and
-+	 * mlog_sys_shutdown() calls kset_unregister(); unloading the module
-+	 * unmaps the static storage without waiting for final kobject cleanup.
-+	 */
-+	.release        = NULL,
- };
- 
- static struct kset mlog_kset = {
-diff --git a/include/linux/kobject.h b/include/linux/kobject.h
-index 55e37a5d405e..8a1332030884 100644
---- a/include/linux/kobject.h
-+++ b/include/linux/kobject.h
-@@ -114,7 +114,7 @@ void kobject_get_ownership(const struct kobject *kobj, kuid_t *uid, kgid_t *gid)
- char *kobject_get_path(const struct kobject *kobj, gfp_t flag);
- 
- struct kobj_type {
--	void (*release)(struct kobject *kobj);
-+	void (*release)(struct kobject *kobj) __must_init;
- 	const struct sysfs_ops *sysfs_ops;
- 	const struct attribute_group **default_groups;
- 	const struct kobj_ns_type_operations *(*child_ns_type)(const struct kobject *kobj);
+ /**
+
 -- 
-2.56.1.708.g77570a6a1d-goog
+2.54.0
 
