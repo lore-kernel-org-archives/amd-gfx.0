@@ -2,99 +2,76 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28F1A606A332
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD7D5606A320
 	for <amd-gfx@archiver.kernel.org>; Fri, 20 Nov 2026 17:38:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Q2tAdg33
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SEFgxfjR
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF5E0112C26;
-	Fri, 20 Nov 2026 17:38:16 +0000 (UTC)
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com
- [209.85.160.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C492C10E229
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Nov 2026 17:31:36 +0000 (UTC)
-Received: by mail-qt1-f178.google.com with SMTP id
- d75a77b69052e-55be673e029so306861cf.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Nov 2026 09:31:36 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795195896; cv=none;
- d=google.com; s=arc-20260327;
- b=lNTN2GjhikL369omQObyyiz9cmn4Tc4qNX+Z3CjR3YoycpoUKY8jxz2tmOomlj1mcd
- JeA1z8erOPvyvy+v5Jl50RLtwNGaxy4oNCi6LyJTgDJNaYQWPELBsOq7K2OSo8eMbjPG
- 2vBcJrUqpfblwr9zygPwQsQvRwSX2OEq979ctwd75YfVjEW92RvqyIkWY57b5PjisAx2
- j+pcaoGe3ssvCKonVt1FLC4t2yrCOokeqc73lVz9TU6WRenXGjpmaDsucKQydwVGRDt+
- Nhqu0hCgy6/F11qGD0bLKDBW0SQznpLt8SZpuuu4VHp1Re3Z5XpHKjjekP/yV8cW4oIf
- NSqg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=TI7DZVXU6YK/vkfYgR8KztTLGwad0zi129B1pm8/11Q=;
- fh=jwEH2EQ/DPJuaeNS59UZix8mQJIdyqsIdgLy5NBelvo=;
- b=kcOqzjBtcwYUJFw82JeJwhPsxluRdZiqAmjiJirMonSd4TgLz9+hPPjjerSGaKZADJ
- O4dGa8FVX1Ywqxc0f1QAX16pzqEvLfJcJU7sBT+M/Fn1iKq/LRdYtQIVVqeC24tm6fUE
- 7PBx9SibiZwASJ32hCNh/5ZxGnDkzquxYM8Vrp0QQPLBgCNjrEKmRMgTtdoaxA6vvvna
- Rtgwfjy3pm4sgBALH92+L0CQ6wUmGHL6urHZXEnvG9FsmoWfohVu+R1+ACB8i1fRsIgK
- Wll5HmJ0hfOY3bvjRNUDk6SEXltapFxkQFGbkQoLVO0knoC7gBo8y1iliRKMzNIKh0v/
- JJAA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	by gabe.freedesktop.org (Postfix) with ESMTP id 354C5112C2B;
+	Fri, 20 Nov 2026 17:38:17 +0000 (UTC)
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB832112BE9
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Nov 2026 17:24:27 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-4a2153c8525so9051265e9.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Nov 2026 09:24:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20260707; t=1795195896; x=1795800696;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=TI7DZVXU6YK/vkfYgR8KztTLGwad0zi129B1pm8/11Q=;
- b=Q2tAdg33UFDMolMB0AEibT0u2FcSi8Hzmd/TLXGN4+cSnwyZJjIbD+0mu13E0Po1/r
- az0GT+9+zxWEZ5sbAWBoe3IjXGTpfOEP/1TRTNR5Dou4QiM55j9zbam8mcc+1kLmRVWq
- 89c5Rp4JSnFu4C2X96EMUMCdqRBy4LLC/E80Bll40g3J7YfRjkEzhL0lnxhWQasyWKaR
- 1y6jnFdK5EO/BWspEQgJb8tsZtOXd04BiHkRCz2Oes9wU7Aql/1g6KTqy0Yi6K4rT+75
- Tlmjk4lZzdWLiM0jrRK+Fz79JZ7qSZzKBvpd4kOoG0iMl0US/JA05TjtQzQIP4cYauaE
- YXxQ==
+ d=gmail.com; s=20260707; t=1795195466; x=1795800266; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=sZw6zaPGPCV57vfhxVnZC52S1ln1mU0qdp5cwGtejBM=;
+ b=SEFgxfjRToFzo2AKhfqh9Lmg3zSOi9kkJEB+25/S1DGAdvSOJ5CSrEq5j3iVdRKaXO
+ OREk4GSadfJlQWqsCkJr02SGTPSUYWhYjI61erVOOhI3wrONr37pMM+wtwCPGdFkzGcH
+ 7aLlef3OlclZrM595+tzEtcGf4fNP6HQts4XFI4rpRFVqH49WSLUvqVCiAexdQcpmO6V
+ lT7lxgD2QJ8TCJ9R3O0zYLVV6+iVxSTyVRMUVnXHVbzp41vuyq0xkBvfx6zJCdbklu2k
+ R8VrthiIHqwwfKIuK1QPhUk9OKoLhNNffwbHUf0QuWWTcJb3I3OInetFT+rpxBy/4DXJ
+ wtqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795195896; x=1795800696;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=TI7DZVXU6YK/vkfYgR8KztTLGwad0zi129B1pm8/11Q=;
- b=Up9v/NpBUeP7R4LpPfKMxuzDoABgTm8xpULR+oRLAvx3LcUOBYddxOX1+DWvAkoesI
- fT8gwR3Wf5xMUNROvX8EfFMvxQVHmr/Txuifip8lW71ntYJkbNbSNMB5gJxxRTdavHLd
- GeFaxiLq0zjL+JHIT76Mx+nkKI99N0syOlko/KGmUgTq5kvpNZaUIruLRjDZV7VFxnge
- MNS5El2rMBIAlrhBKGxU0l0xeX1DxybIO5+h/JuQ0a7R/lIlS65zvbC9Nnul750+XiN/
- 7h6uwNMIHbvxlfP0ls8zS/XVUWzv3d80q/IghqMFeIbttcuTv9Y4X/X4a/VJLlaHp3HX
- uwxQ==
-X-Forwarded-Encrypted: i=1;
- AL+hErEgHzGcR6uZPDemTyW1VHV5a762zlUVjBA8hZMWYwiq9SNGDtbGAsQQag+r87mMQBTjY9AAvtHT@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+Qtmh7YxgC9YE0r/LtDsldq24EKLekrimBmP3JXObdGhjUW6Pk
- 1IdiWe83QpKQdmx35JkMTMZl6GN6InSOBdXQHXSOcFJsommnHy/qWR7o41LVGEACFGig9ovGVy2
- o3yth81eIQH+1tyJPDv958/JXfIDm3DD0YI40PYV+
-X-Gm-Gg: AZFdTZfr+tlkVdY2uRLuHWdznOjnGNe/GENLKkU5JASAQaEPX73GdYtAMm75kwbi4tr
- ZXJ/UaSUhHXWJllenOgOT4oY3D6fgdOdt48yw05fA+/pS5d9l0jQvwlLNgic/KP9eOZqt9fhW/D
- wBDShTXJK59YFHU8SKpx3xomDpqVOpy2hfApKrmmIsZywqP7m2HYgXAdCn3K3kQLNKUsTW5yJAc
- jSuY6uSv5T2wgrRUR6i3lb7MZyHnHqkY+cz5ZjFb7CeM7UXrCZNMj8nxnnuRmBaV3FWcSZaUw6D
- kdJoF/pB1+CZWI/cAyKY0pqSefCupyzP/Yu9hRWvgUf+HHyAjsmLv8pxWduUAB7YJ35fSGc8s9Q
- E9Hx/uClUBucHacFoJZhkvgWopLzbhAMDjobJ
-X-Received: by 2002:ac8:6102:0:b0:546:92f2:7830 with SMTP id
- d75a77b69052e-55d7914f377mr24289241cf.6.1795195895205; Fri, 20 Nov 2026
- 09:31:35 -0800 (PST)
+ d=1e100.net; s=20260707; t=1795195466; x=1795800266;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=sZw6zaPGPCV57vfhxVnZC52S1ln1mU0qdp5cwGtejBM=;
+ b=LSDhguIxlpAbVGDvt4PYu9cDIK3KYBzg4Zd1YBNiuESbTxbp4aHF/xt9X61m9vp0nO
+ 7dZoVMGQOph1ZSK6N5hCQRfaou2oHmICsiCSZY5DrSVIeroKiNces6EEge+WqpBidoDg
+ LMaU5C0GgCL64jiOTk2tXLyBke7D//a9XE+ng7yoVJ6nD99FoXvT9B7YWTbYUtHz3ZJ2
+ aS0zq1Q07ChNYsfuaEGfMT9u1vZBNQQhA9/WtL7npcV4AvCXzF9cYLJmI6zL0ljd/wEb
+ 3dGXGIuqZQMn08t1e2ORdZpCKINE8lffg7EOQIA/V/tV8UNnbqCAyysQ95BhpetofFkq
+ bDIg==
+X-Gm-Message-State: APuU4Z+XIIS8yIR0fGv8quAEVuflRdryZMlG3ZZAq5kHanWHPjLdUDQD
+ q9EV/mI4SotcGcZmiRZU3s8bLUK2K/ox7Ga9+LC5Tg9kUTfmvL3rnnVIMqJDv739
+X-Gm-Gg: AYBFou3WNQ/n7VzDQQJ1B7zFJFkdhz2yxB9sKKoahs2CRVtsh/9drMX4hjsDgtmZXy+
+ qnJIFu+vB5ULv1TnJVPspp/rVdiYzgWwzGMBEFVdQsFl+xK6nTg7waqUXDDpZA38jhbt4IiLmLp
+ NbjmTzP0F6Eyokg0jB8aWT+/Ec3MRlaDoI6/0JsrJP8cFLw370QsGC7sugtIdysFKFa5ySgp5T9
+ Z7CP1jivRj7ZwwVuE8sX2ejLsTffNIjSIFXr/OS2WLXVBs3QofeBLRa5JO5o0stKGyoIaCUGMAb
+ MPaJxrjmLWu40MGA371QQZj1gEyWTN19w7FTRN/hfg16X2ssJYrKLTRUluSSmylC3P4Kk1CMf2z
+ 3jkf5CZ+ZivkIBUKKDltp2XfZEuhbXKktjyEY3faxGtZ8qYkzB7uk5GgllBIJbAEpjKExwzoiMO
+ 4J12yipQiubx3/oEWOUFGYAwoaX3IhqXwB5yqZKkJ1uMGjfsgcaMRoXl49jopuP8gGK29gTL2d7
+ 0mUFwxchH+7OfWesQW04StR0QLFe1gqWJWXYr/vPjtuvwD3rMSDvdTFEJTOg7MFU8xbkOc51b5H
+ WkiLd57ulP0E7TggYzqDeT6J6UmML7DoP83YJ0i7d2Njm+3YBCkdcHVHOq1/FzSPQ7J+OCbvJbx
+ npy0oWVnKh0mh6PMPHwbERr5srpYGbQMI/Z6GHVzKibyQAGcg+pKv7Ms=
+X-Received: by 2002:a05:600c:4515:b0:4bb:6f67:ca0b with SMTP id
+ 5b1f17b1804b1-4bb888267f4mr88903895e9.29.1795195465874; 
+ Fri, 20 Nov 2026 09:24:25 -0800 (PST)
+Received: from Arbeitszimmer.fritz.box
+ ([2001:9e8:db29:4c00:a7d0:374b:43f1:90ea])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4ab6b110c3csm6924137f8f.36.2026.11.20.09.24.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 20 Nov 2026 09:24:25 -0800 (PST)
+From: Christoph Berliner <caberliner@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, Jiqian.Chen@amd.com,
+ Christoph Berliner <caberliner@gmail.com>
+Subject: [PATCH 0/2] drm/amdgpu/gfx9: make KFD usable again after MODE2 on
+ Renoir
+Date: Fri, 20 Nov 2026 18:24:05 +0100
+Message-ID: <20261120172407.64651-1-caberliner@gmail.com>
+X-Mailer: git-send-email 2.56.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <cover.1795106955.git.irogers@google.com>
- <6fcb1e5c7545f8bcfee9ac9a3abd296c475aa1b7.1795106955.git.irogers@google.com>
- <dc491d12-68f0-4297-acda-f122fec00288@amd.com>
-In-Reply-To: <dc491d12-68f0-4297-acda-f122fec00288@amd.com>
-From: Ian Rogers <irogers@google.com>
-Date: Fri, 20 Nov 2026 09:31:24 -0800
-X-Gm-Features: Aa3M54pYUkUhv-1L_RAm3wzkZJVptY38X_B1tSpjk2kKiiLF52OLhk9KXrZQJlk
-Message-ID: <CAP-5=fWN3zHAtixPSbaNwXn9WWTcxd1+XJO6uUb-S-FgNzrUtg@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amdgpu: initialize r in amdgpu_ttm_clear_buffer()
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- llvm@lists.linux.dev, Elkin Cruz <elkin@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 20 Nov 2026 17:38:15 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -106,68 +83,63 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-23.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_IN_DEF_DKIM_WL autolearn=unavailable autolearn_force=no
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri, Nov 20, 2026 at 4:12=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
->
->
->
-> On 11/19/26 18:07, Ian Rogers wrote:
-> > In amdgpu_ttm_clear_buffer(), 'r' is declared uninitialized. When
-> > consider_clear_status is true (such as AMDGPU_GEM_CREATE_VRAM_CLEARED
-> > allocations) and all backing buddy blocks already have DRM_BUDDY_CLEARE=
-D
-> > set, every iteration of the cursor loop hits 'continue' without assigni=
-ng
-> > 'r', returning uninitialized stack memory to amdgpu_bo_create().
-> >
-> > Initialize 'r' to 0.
-> >
-> > Found via an x86_64 LLVM=3D1 (Clang 21.1.8) allyesconfig audit with
-> > -Wconditional-uninitialized enabled; fix and changelog drafted with an =
-AI
-> > coding assistant. Build-tested under LLVM=3D1 W=3D1 (-Werror) and
-> > -Wconditional-uninitialized; not runtime-tested on AMD GPU hardware.
-> >
-> > Fixes: 23bd7e67961e ("drm/amdgpu: get rid of amdgpu_ttm_clear_buffer")
-> > Signed-off-by: Ian Rogers <irogers@google.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_ttm.c
-> > index 0f86777250fc..280fcdfb9cca 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> > @@ -2675,7 +2675,7 @@ int amdgpu_ttm_clear_buffer(struct amdgpu_ttm_buf=
-fer_entity *entity,
-> >       struct dma_fence *fence =3D NULL;
-> >       struct amdgpu_res_cursor dst;
-> >       bool vm_needs_flush =3D false;
-> > -     int r;
-> > +     int r =3D 0;
->
-> Please initialize r directly before the error label, apart from that look=
-s good to me.
+On Renoir/Cezanne (GC 9.3.0) a MODE2 reset reports success, graphics and
+the kernel compute queues come back, but KFD stays dead until reboot:
+every new KFD queue runs into "qcm fence wait loop timeout expired"
+and triggers the next reset. Reported in
+https://gitlab.freedesktop.org/drm/amd/-/issues/6177, sent here as
+asked there.
 
-Will do - I'll move 'r =3D 0;' to right after the while loop directly
-before the 'error:' label in v2.
+Commit c3988a7ad479 ("drm/amdgpu/gfx9: Fix Ring and IB test fail after
+mode2") already found that MODE2 does not reset the HQD registers on
+gfx9 APUs and deactivates the KCQ HQDs before the reset. The HIQ used by
+KFD survives as well, though: kq_uninitialize() skips destroy_mqd()
+during a reset because it cannot take the reset domain semaphore. After
+MODE2 the MEC restarts with the stale HIQ and the HWS no longer answers.
+The same trylock pattern on the MES side is discussed in
+https://gitlab.freedesktop.org/drm/amd/-/issues/6053.
 
-Thanks,
-Ian
+Patch 1 is a small cleanup plus a fix for the timeout check of the
+existing dequeue loop. Patch 2 deactivates all active compute HQDs
+(except the KIQ) before MODE2, restricted to GC 9.3.0 because that is
+the only gfx9 APU I could test. Raven/Picasso likely need the same, but
+I don't know this code well enough to widen the condition without
+hardware to test on.
 
-> Regards,
-> Christian.
->
-> >
-> >       if (!entity)
-> >               return -EINVAL;
->
+Tested on a Ryzen 5 5600G (gfx90c), MEC firmware 0x1e3, HWS,
+amdgpu.noretry=1. An instrumented build used the old path for the first
+MODE2 and the new path for later ones, so both were compared in the
+same boot:
+
+  old path: HIQ still ACTIVE with the old MQD/PQ after MODE2; next HIP
+            program -> "qcm fence wait loop timeout", GPU hang, reset
+  new path: only the KIQ active at resume, HIP/rocBLAS tests pass
+
+Since then the patches run as the boot-time amdgpu module on the
+Proxmox 7.0.14 kernels (-29 and now -30): requested reset with 9 HQDs
+deactivated and the KIQ skipped, HIP/rocBLAS work before and after.
+On amd-staging-drm-next (8dd68a795) the series applies with offsets
+and builds without warnings (W=1).
+
+The analysis and the patches were prepared with an AI coding assistant
+(see the Assisted-by tags); I tested them on the hardware described
+above.
+
+Christoph Berliner (2):
+  drm/amdgpu/gfx9: factor out HQD deactivation and fix its timeout check
+  drm/amdgpu/gfx9: deactivate all compute HQDs before MODE2 on Renoir
+
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 105 ++++++++++++++++++++------
+ 1 file changed, 82 insertions(+), 23 deletions(-)
+
+-- 
+2.56.1
+
