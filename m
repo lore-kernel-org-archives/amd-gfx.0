@@ -2,72 +2,72 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15A8C606A33B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA6F4606A31E
 	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2026 08:30:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xlzPZIyR
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pbbFkEVv
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0814010E724;
-	Mon, 23 Nov 2026 08:30:11 +0000 (UTC)
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF8BA10E05C
- for <amd-gfx@lists.freedesktop.org>; Sat, 21 Nov 2026 05:24:49 +0000 (UTC)
-Received: by mail-dl1-f47.google.com with SMTP id
- a92af1059eb24-14394530ec6so2464157c88.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Nov 2026 21:24:49 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E73F310E2E6;
+	Mon, 23 Nov 2026 08:30:10 +0000 (UTC)
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F0DC10E049
+ for <amd-gfx@lists.freedesktop.org>; Sat, 21 Nov 2026 04:14:34 +0000 (UTC)
+Received: by mail-dl1-f42.google.com with SMTP id
+ a92af1059eb24-15dd124bbe7so3522749c88.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Nov 2026 20:14:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795238689; x=1795843489; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1795234474; x=1795839274; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=vrAH11RxlITDJuS6ccKcKd1F7cmDmkL8RNwIxF0LPl8=;
- b=xlzPZIyRSnc9jpUgln19F7RedUGwhQ7p/EjO1AZ6JtRTFW4WsIIj/sdkPE6fdp9Zor
- aVkFE9Ab40DsP6qgpmho/ogAx6m+Jqq6CLbLavmtecQcRslQfd81py+dkRoT1k0X6dzc
- ueb9cnv01PHeADQxK1urmGoHzX/F2nVqnIqd7ly9pAcZOIU8l+DMQphM2IYwSfI2qqT9
- XLpBml7NijRUAgBfad3fA6WR9naKWRGN+pVAQp/oyOXCxPEsMtlhiF3/YwelJBH4mFhL
- TTM3Gc3rCcQAPm+82cfGmuQTkRW1aXNdhcEj8GwsQbLUhWwyNoQPcTodX5KkPB8e+0HO
- PSvg==
+ bh=Y2KKhwdxNB1TSs7gh9qzf2mf3Ng/63JJG6Lmx8wv1zw=;
+ b=pbbFkEVvQJXsDDGvwoSLmRTWY53UKE9ummXkqZti9qAteaI49Oc2+UCJXhLjFK8C/w
+ 13SUtnM/CVDYBN6k21bpji25yl33lA6sI7g3fT2T3MiuDFN7UP8RnZjIbgQW8tm/5z2V
+ TOguo1ZQ1/66x8nCBIN3QpN3hcKdd+7dTdCFzpZG/D33XoeCFdqwx/XvqFyI7T8UtAGN
+ uE7/TPomjMUYIHP8TRIKHzro2Kxw5l66tOh5jiDAXEgI//RARMhqgbqQLTmmmmfjH3D/
+ MNamQjJp1DrvdAcPOL3FN2Q9fOA6i40AsmjNA1yKbtqixF2RbbdixXiMRVuqbYAM7fOl
+ e7lg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795238689; x=1795843489;
+ d=1e100.net; s=20260707; t=1795234474; x=1795839274;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=vrAH11RxlITDJuS6ccKcKd1F7cmDmkL8RNwIxF0LPl8=;
- b=PLEQaF1/i0pOwCdimIxAJUl+up7A/cyzh5fr4pE8EMwbiTk868HW7tFZ8FGzwJsiAz
- 3R03dwJD0AX6KVzj57HwwF4vK37UB3bwgmt5dhso2a1xAPEHDL1OhDVd8zDIhaS09p89
- TeC1rBpDSLZzayQyEwdYvGxuK3p3FrKSP4Ans/uysGWA9xPxPUfu+Q+WAPWqToK2hh7U
- GMiaB/ecBCFME0yRBJrHKlRYB45eYk74lbxeVKsPKNSyEBRjbUHe39abBfv5MAs7AWFw
- AkS/zFQXe2h5Xo7qahzy25H/WuxvWctb3FDCfc9hTonK33kLnEjc4ovUgyNNhbyY2lQX
- sQ5A==
-X-Gm-Message-State: APuU4Z88qygoDvSKt/RGTysmL/R0taISK7I9nyVLvWkRumWGvyhfhvAU
- P2aeis1/ykBxwtQN6u+FBwfqv/LEr7PFvu+PWIBSE+EVEFxYHX6dZztV6/Bl7+tM
-X-Gm-Gg: AZFdTZctgAG+MEvilX6MrTHU8Q61TqC1tVTZ4SPxgZGPGyOyVdSHtEB7e7r840RCcfi
- OD8AHrNbd9TSiQUwUlNXnkfkpV+LvY+oRFnvaLbbXrJI9wuqZw9CrjXaR8hUqHSs/H60y5N9ONM
- UaFcGaML6DTfrUEdH0qdvNSKqR0mxOwdT9R2XvWauxybIb1DNjxyGSvtLd2NIBTLybXlgeyVFyr
- gbNUR0KLDbGrIK+plms0WKHS3m4A0puxII9yzLBU394OF5W0XO8YqaUcqm7L/nzofG+niYl1I4P
- xJLO4/1914MBMgq0WGPFQLTTcRNnqaYQgy4Q67KlIBrq2hUBL3B0Y+M1TMOny2jIQOE12RFIQTg
- haxV3zWCldIcdJPWKJ6dfALKjqfNOKnhaUevw98AvCr74fM0bnOYCbLvqUQk+Tv2fSXp4m6LH4h
- uUGpG7My4ckXzvof6toq3kOgi9gX+lRidUtws/gUZMb01L9HTduj9+5mNk99+7ZzFPHPD7ZYcJV
- BuD86txzR3Q1VOVZihIANF6PTbuF9RYjCmt4JgRaW0r4nl1pRIqRvx8yPM5mj4Bm3iCfo4xTxgx
- 2n73GtaZPol+QKDm6NPP
-X-Received: by 2002:a05:701a:8148:10b0:143:2719:f800 with SMTP id
- a92af1059eb24-1b556908ecdmr4821202c88.40.1795238688807; 
- Fri, 20 Nov 2026 21:24:48 -0800 (PST)
+ bh=Y2KKhwdxNB1TSs7gh9qzf2mf3Ng/63JJG6Lmx8wv1zw=;
+ b=PtxZVgNe6foiwuWfnl1MTjQOV6JjAGeknQXVtnztRypGXzce1HkP0D6wfIo/nUhQRg
+ EHjUUTW6iTD58pPE2wRjgqBctt4piUheRUj4RJTSvHr1DOKLjrOOKpYZBkVTjxc3Fyjx
+ 8jmYl37ExoLWl1nsk/qdxOvJEjbQ2LzcpviWjT3JswUIeL4Vh0yz9X6MTR+615qMNdHR
+ SgT/tYmAQKfYWCOc2sDX7nrqUfQP8QkMdB1bdnb7Mg8Y4t73qSmmdrfOloiBMfScdvEC
+ g2x9w/7U5DFIhocGaIS3bgAKp5zuEYKdEHCjbhpBVi8Y5aRfPbYbjPWLJJ4BqVN4n3Rh
+ lwTw==
+X-Gm-Message-State: APuU4Z8p7iVL9axp/DlFvjET9KU2V+TIhyyumCUFvZxpZBGS+ABygyTq
+ QdyZoM3+YtpoCwjCUcuvC//M1ZSYpU9JrDuWa5yZwjSz9RiG6bZl6Se8sOkchOSJ
+X-Gm-Gg: AZFdTZcK6RuSSVTbFkRne+M8pV7PvMtIws6gTK3BGJDJBODQc1h2BeQk3y7VZCHmpUa
+ NBCmdoQ8AWk7hidlluFW+JEFavWp2F8+rsdKyKMmBdsYVXDvkEIjcvV53d7DZRCoGO0uJUXyQnF
+ E/7DYzYVxAoghQ3K4w8vmTKapjAavDmu92xfq3bdnVOJs66rbFjRFtkR9CqZhZKExxeojjlQKae
+ Zeazy94rpKyEcF+b7cuMzkE4bGiMdx1RDeh2RhxRRqg0TlWTQRGjvBMpX+PWlnve+89pbw2NRNg
+ qDw1ZQTU7yzJ9n0dcOUMgKd0Z+CN6YOmgSoWLU3sZH68mqZQ9k6QEZlKuW+uTRj+dMORBCcKAzo
+ sYjSzJPPaPi2xiZNbtatS1Cuh9PHcnwl2K71KWVc+upiwKnQupmUJgb0fHBUu1HilkQTmy5Ksa5
+ +RIyBVZORArGLQeK9KH89YIr16v3vQ954BRiYriVk8Ay/hWAYyxIBN2CY5M99HkobQmYynSsFpC
+ dY/0E2Ynj5UHG4QsuPG5X4dni7sezbZUVX+/av+Z5TzGkE+WfZvBIF480p0vtO8F+36ynPMYTuH
+ zYjUTHxjkwsB19w49Kjt
+X-Received: by 2002:a05:7022:7f04:b0:166:af48:a2ba with SMTP id
+ a92af1059eb24-1b5566fdfc3mr6201058c88.0.1795234473722; 
+ Fri, 20 Nov 2026 20:14:33 -0800 (PST)
 Received: from a1-free ([161.33.196.121]) by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-1b556829d31sm19330849c88.9.2026.11.20.21.24.46
+ a92af1059eb24-1b5566c1142sm10379603c88.2.2026.11.20.20.14.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Nov 2026 21:24:48 -0800 (PST)
+ Fri, 20 Nov 2026 20:14:33 -0800 (PST)
 From: TAKANO Mitsuhiro <takano32@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
  Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>
 Cc: Rodrigo Siqueira <siqueira@igalia.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Thomas Huth <thuth@redhat.com>, Weijie Yuan <wy@wyuan.org>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  TAKANO Mitsuhiro <takano32@gmail.com>
-Subject: [PATCH] drm/amd/display: Fix spelling mistake "pre-definied" ->
- "pre-defined"
-Date: Sat, 21 Nov 2026 05:24:44 +0000
-Message-ID: <20261121052444.1797470-1-takano32@gmail.com>
+Subject: [PATCH 1/2] drm/amd/display: Document the union in dc_probe_status
+Date: Sat, 21 Nov 2026 04:14:26 +0000
+Message-ID: <20261121041427.1743954-1-takano32@gmail.com>
 X-Mailer: git-send-email 2.53.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
@@ -91,46 +91,37 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Three kernel-doc lines in dc.h spell the word with an extra "i": the
-@dgam_rom_caps and @ogam_rom_caps entries of dpp_color_caps, and the
-@ogam_rom_caps entry of mpc_color_caps.  No other file in the tree has
-this spelling.  The @dgam_rom_for_yuv entry above them already uses the
-hyphenated form, so fix the three lines to match.
+The members of the union in dc_probe_status are described one by one as
+@u.bandwidth_mbps and so on, but the union itself has no description, so
+kernel-doc reports:
 
-No functional change.
+  dc.h:2225 struct member 'u' not described in
+  'dc_probe_status'
+
+Describe it, saying that the member holding the result depends on the
+probe type.
 
 Written with Hermes Agent, an LLM assistant; the author reviewed it and
-checked that the change touches comments only.
+ran kernel-doc on the file with and without the change.
 
+Fixes: 52771a3254ea ("drm/amd/display: Wire probe commit path into dc_update_state")
 Signed-off-by: TAKANO Mitsuhiro <takano32@gmail.com>
 ---
- drivers/gpu/drm/amd/display/dc/dc.h | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dc.h | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index d3c484f45333..3492ff0af1ab 100644
+index d3c484f45333..debdd69bbe4e 100644
 --- a/drivers/gpu/drm/amd/display/dc/dc.h
 +++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -250,8 +250,8 @@ struct rom_curve_caps {
-  * @ocsc: output color space conversion
-  * @dgam_rom_for_yuv: pre-defined degamma LUT for YUV planes
-  * @upsp_pre_scaler: Ability to upsample 420/422 before scaling
-- * @dgam_rom_caps: pre-definied curve caps for degamma 1D LUT
-- * @ogam_rom_caps: pre-definied curve caps for regamma 1D LUT
-+ * @dgam_rom_caps: pre-defined curve caps for degamma 1D LUT
-+ * @ogam_rom_caps: pre-defined curve caps for regamma 1D LUT
-  *
-  * Note: hdr_mult and gamut remap (CTM) are always available in DPP (in that order)
-  */
-@@ -310,7 +310,7 @@ struct lut3d_caps {
-  * @num_rmcm_3dluts: number of RMCM 3D LUTS; always assumes a preceding shaper LUT
-  * @shared_3d_lut: shared 3D LUT flag. Can be either DPP or MPC, but single
-  * instance
-- * @ogam_rom_caps: pre-definied curve caps for regamma 1D LUT
-+ * @ogam_rom_caps: pre-defined curve caps for regamma 1D LUT
-  * @mcm_3d_lut_caps: HW support cap for MCM LUT memory
-  * @rmcm_3d_lut_caps: HW support cap for RMCM LUT memory
-  * @preblend: whether color manager supports preblend with MPC
+@@ -2207,6 +2207,7 @@ struct dc_probe_latencies {
+  * @valid: true if a measurement was latched.
+  * @measuring: true if the hardware counter is currently running.
+  * @type: type of the probe that produced this result.
++ * @u: probe result; the member holding it depends on @type.
+  * @u.bandwidth_mbps:         peak BW in Mbps (DC_PROBE_PEAK_MEM_BW).
+  * @u.latency:                min/max/avg memory latency in ns (DC_PROBE_MEM_LATENCY),
+  *                            stored as struct dc_probe_latencies.
 
 base-commit: d0f871bfb831705d9f55479f5b2b40f636ea7b16
 -- 
