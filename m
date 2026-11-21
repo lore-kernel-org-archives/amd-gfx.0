@@ -2,60 +2,81 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6C75606A6B6
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2026 08:10:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0928A606A31F
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2026 08:30:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dNjdvnPp
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hTkD6fSF
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B1EE10E6BF;
-	Mon, 23 Nov 2026 08:10:28 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E89E410E5F1;
- Mon, 23 Nov 2026 08:10:21 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0122E61E15;
- Mon, 23 Nov 2026 08:10:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33A1E1F000C0;
- Mon, 23 Nov 2026 08:10:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795421420;
- bh=v5GWduFGID+XPcjZcpomhvmCUBYklqEgNOXrwIWDao8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=dNjdvnPpwjdmcjISaoQjFXL2w8UxVYHTleyaAVlQXmLzTb5vlljO/EZI7cZrNM+dF
- nzgf6wS0dpFGMgDRkISJjDkuL+xsHaTxjDTzJt+/8YpYLWg2SkrG7/CNW/jP2xXV7P
- QIWRpnbJeod9ssDw6cp2ebUsxbVz2I7mqnm2Qc5sI/G+vNR1IT+ktmFB5gqZLIqaoL
- VzRd+xA2s9ShJOStIFvk9rifnQe2Jgw10DHP0Fov7gX5w0HiD7oiJYWhLNEVD6INE6
- 0pww18WmqM9xGjJ5aAsmSyFIWdWAmObLR5PuUZJNwHnt4+6KSFe4PVF78HXadJ+OyS
- irdqyxohANIVg==
-Date: Mon, 23 Nov 2026 09:10:17 +0100
-From: Maxime Ripard <mripard@kernel.org>
-To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: Mario Limonciello <mario.limonciello@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Javier Martinez Canillas <javierm@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>, 
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
- Mario Limonciello <superm1@kernel.org>, Xaver Hugl <xaver.hugl@gmail.com>, 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94E3710E100;
+	Mon, 23 Nov 2026 08:30:10 +0000 (UTC)
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com
+ [74.125.82.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFDC110E234
+ for <amd-gfx@lists.freedesktop.org>; Sat, 21 Nov 2026 04:14:36 +0000 (UTC)
+Received: by mail-dy1-f176.google.com with SMTP id
+ 5a478bee46e88-380c28f9e35so2478263eec.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Nov 2026 20:14:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1795234476; x=1795839276; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=g0XEzBGmvwOkW39Vxp4j0TIiOhGg5iVLxt1dqiFm15c=;
+ b=hTkD6fSFHnLcWNXzKVwX4Izort11K/b5X3t7hbBO4ZgBZED5216eQbZuApvAKlQjH8
+ TiY9P6fUBFAcaYCRnncth1THVvjyp/wXIY0Re2AxuuttipU66UJfAGQ47tMLRr3cULaO
+ B9YsNiucju6+PJCz9hSPEVs8fMuvGv7qIsyOkGD7JdsiBMiwYPJsIi9fqq6+l3w9okkg
+ FpI1H5b89KCfxwjUwP3Bb4W/joNUwNxgvsID87VTnwhbF7oGGAvtJKUzPn6x1d6Z0dPX
+ dpxKMZid/6wI9q9f9w0D1ZMqTnXmEHgT+7vODddjoOEBT5kNR1wjZ8KubR8kX2Rhem6e
+ yIPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795234476; x=1795839276;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=g0XEzBGmvwOkW39Vxp4j0TIiOhGg5iVLxt1dqiFm15c=;
+ b=I8bHFYK99/KnKDlPqB/ScWRpvuj15fb5cuOl69XYt+MzkaciH7wyvD4crl9+eqZNGw
+ pPAZSGLCzZG+KnzLWkSxokKYmieSMpFqC/zP3bBos88oyra3uIqSCMhhbN8Od8LZt22e
+ NtNRIE/2tK2DixFIYPgAUAUFjbNcwuHitp49uqK/mKGfw2JYmJa2WHG1DTiTTU9bDI+u
+ RfFAS/c+MzojknvuO581dmO89ud3bzBiW/ngCSl52uPQC2+9JgK7RU8kXdUsuKnshMDK
+ RYHvPoffQwa22I2MzbMmDEwW7FeRIxIR0WYY16iRJsUMhVFMb2AOAQkmnPDV1KEWKBdQ
+ aAbQ==
+X-Gm-Message-State: APuU4Z/qFVvSmKr3Vx5uswVLEJO+RkLfSniUD5IUM756HRte65UfR1D3
+ Dpa/Ad3NYtdIesjwkOXStnGhdFxZaMRtw8DwRkkCTzhF2bGpmUfFD8s9V6ulcUTS
+X-Gm-Gg: AZFdTZf1+UWYVUAaEYCnvQp24XsgTL5+B7Inm2wZPmnTqFtDcLjzBke9Dnhe3QXCd03
+ c58UrLJ1VYxc83nEyUvvEsGPS5uwAlS2Z9Cqofg38a26G0fZ0ii0HkgBdG5YVjMsIwLFcw24uXW
+ yUal4JygwhWniYsikrnEvIW+7qsoQ6ekm0z7gt5rGr4axro1+AOt8TefmyBbLtmlv1rYCgeNgKz
+ BdXqNtv+vv4aelJhGPdHgVHKHI++cj1IMdsT653W3+/5sBtHuZE4FC62bQMZqKx8c/dFOKmBLrT
+ +TCuqjIGgqmwQv4m3T8Hxv6O4vhNOqsu+vF2OuZBPOKvVSxH6/ufbSxYTYwEjFPgi+u8O4/rE5+
+ k7tm9+gAfXv+RsigqzV6iCNsLsPf2paVIqTKBd5YVnnK2xmTfq7kMKrbyxWfJQduWmBp0Fr77RK
+ zXqjMD0mndK6jJXPgprVz6ivjmvWyJ+uYrOLhDsTFP71d834VAKaOnaVO5117r8R3GfCKTVHPSY
+ moqKY6Og940zPmAtJ+vvSXMjv0xYcrZHZQeiQfTTIxbufL9r+JpoYhKl/7P9DkqegdbcivuukHC
+ jRTfXbh3befO2EYl92on
+X-Received: by 2002:a05:7022:5f0b:b0:196:b805:9546 with SMTP id
+ a92af1059eb24-1b5568c4890mr4499639c88.10.1795234475899; 
+ Fri, 20 Nov 2026 20:14:35 -0800 (PST)
+Received: from a1-free ([161.33.196.121]) by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-1b5566c1142sm10379603c88.2.2026.11.20.20.14.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 20 Nov 2026 20:14:35 -0800 (PST)
+From: TAKANO Mitsuhiro <takano32@gmail.com>
+To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>
+Cc: Rodrigo Siqueira <siqueira@igalia.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Thomas Huth <thuth@redhat.com>, Weijie Yuan <wy@wyuan.org>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- nouveau@lists.freedesktop.org
-Subject: Re: [PATCH v12 01/12] drm: add connector LUMINANCE property
-Message-ID: <awP0nasqAc4pAeMR@houat>
-References: <20261119-superm1-backlight-property-v12-0-89d5217d3618@amd.com>
- <20261119-superm1-backlight-property-v12-1-89d5217d3618@amd.com>
- <awB4Qe83u0l0XPKA@intel.com>
- <8713bae1-9782-41d4-b09c-f14031203e88@amd.com>
- <awPvoLCDeq1YFLE_@houat> <awPzsMWZ7e0i6i54@intel.com>
+ TAKANO Mitsuhiro <takano32@gmail.com>
+Subject: [PATCH 2/2] drm/amd/display: Document max_gamut_remap_coeff
+Date: Sat, 21 Nov 2026 04:14:27 +0000
+Message-ID: <20261121041427.1743954-2-takano32@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261121041427.1743954-1-takano32@gmail.com>
+References: <20261121041427.1743954-1-takano32@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="dwr325mwgufdlyuf"
-Content-Disposition: inline
-In-Reply-To: <awPzsMWZ7e0i6i54@intel.com>
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 23 Nov 2026 08:30:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,163 +87,46 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+kernel-doc reports:
 
---dwr325mwgufdlyuf
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v12 01/12] drm: add connector LUMINANCE property
-MIME-Version: 1.0
+  dc.h:329 struct member 'max_gamut_remap_coeff' not described in
+  'mpc_color_caps'
 
-On Mon, Nov 23, 2026 at 10:05:04AM +0200, Ville Syrj=E4l=E4 wrote:
-> On Mon, Nov 23, 2026 at 08:50:29AM +0100, Maxime Ripard wrote:
-> > On Fri, Nov 20, 2026 at 11:19:13AM -0600, Mario Limonciello wrote:
-> > >=20
-> > >=20
-> > > On 11/20/26 10:41, Ville Syrj=E4l=E4 wrote:
-> > > > On Thu, Nov 19, 2026 at 05:27:28PM -0600, Mario Limonciello wrote:
-> > > > > Panel brightness is a property of a display, and thus of a DRM
-> > > > > connector. Add an atomic per-connector LUMINANCE range property so
-> > > > > compositors can manage relative panel luminance together with the=
- rest
-> > > > > of the display state.
-> > > > >=20
-> > > > > Keep the core backend-agnostic. Drivers create the property with =
-their
-> > > > > hardware range and implement connector helper callbacks to set lu=
-minance
-> > > > > or disable panel emission. The atomic helpers sequence those call=
-backs
-> > > > > around pipeline enable and disable, including luminance-only comm=
-its.
-> > > > > The panel is left lit when the pipeline enters self refresh, and =
-the
-> > > > > luminance is only reprogrammed when it changes or a modeset enabl=
-es the
-> > > > > pipeline.
-> > > > >=20
-> > > > > The stored property value is independent of display power. A comm=
-it made
-> > > > > while the connector is inactive is retained and applied on the ne=
-xt
-> > > > > enable; disabling the pipeline does not overwrite it.
-> > > > >=20
-> > > > > LUMINANCE values are relative, driver-defined levels rather than
-> > > > > absolute luminance in cd/m^2. The interface supports emissive pan=
-els as
-> > > > > well as panels with a separate backlight.
-> > > > >=20
-> > > > > Keep the interface behind a default-off DRM_LUMINANCE option. Mig=
-rated
-> > > > > drivers retain their legacy backlight class ABI unless the new in=
-terface
-> > > > > is explicitly selected, allowing the DRM UAPI and legacy compatib=
-ility
-> > > > > policy to remain separate.
-> > > > >=20
-> > > > > Acked-by: Javier Martinez Canillas <javierm@redhat.com>
-> > > > > Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> > > > > ---
-> > > > > v11:
-> > > > >   * Don't call .disable_luminance when the CRTC enters self refre=
-sh (Sashiko)
-> > > > >   * Only call .set_luminance when the luminance changes or on a m=
-odeset
-> > > > >     that isn't a self refresh exit (Leo Li, Sashiko)
-> > > > >   * Fix the .set_luminance self refresh documentation
-> > > > > v10:
-> > > > >   * Add tag
-> > > > > ---
-> > > > >   drivers/gpu/drm/Kconfig                    | 14 +++++
-> > > > >   drivers/gpu/drm/drm_atomic_helper.c        | 98 +++++++++++++++=
-++++++++++++++-
-> > > > >   drivers/gpu/drm/drm_atomic_state_helper.c  |  7 +++
-> > > > >   drivers/gpu/drm/drm_atomic_uapi.c          |  5 ++
-> > > > >   drivers/gpu/drm/drm_connector.c            | 57 +++++++++++++++=
-++
-> > > > >   drivers/gpu/drm/tests/drm_connector_test.c | 28 +++++++++
-> > > > >   include/drm/drm_atomic_helper.h            |  3 +
-> > > > >   include/drm/drm_connector.h                | 16 +++++
-> > > > >   include/drm/drm_modeset_helper_vtables.h   | 28 +++++++++
-> > > > >   9 files changed, 255 insertions(+), 1 deletion(-)
-> > > > >=20
-> > > > > diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-> > > > > index 61111d50b1c65..1bbe2c2d7c76f 100644
-> > > > > --- a/drivers/gpu/drm/Kconfig
-> > > > > +++ b/drivers/gpu/drm/Kconfig
-> > > > > @@ -33,6 +33,20 @@ endmenu
-> > > > >   if DRM
-> > > > > +config DRM_LUMINANCE
-> > > > > +	bool "DRM connector luminance support"
-> > > > > +	help
-> > > > > +	  Expose relative luminance as an atomic DRM connector property=
-=2E Values
-> > > > > +	  are driver-defined levels rather than absolute luminance in c=
-d/m^2.
-> > > > > +	  Drivers provide connector helper callbacks to program their h=
-ardware;
-> > > > > +	  the DRM core does not depend on a particular backend.
-> > > > > +
-> > > > > +	  Drivers migrated to this interface will use it instead of reg=
-istering
-> > > > > +	  a legacy backlight class device. Leave this disabled to prese=
-rve the
-> > > > > +	  de-facto userspace ABI in /sys/class/backlight.
-> > > >=20
-> > > > I don't think this will fly if it breaks the backlight class interf=
-ace.
-> > > > No one can actually enable this outside of some niche embedded use
-> > > > cases where backwards compatibility is not an issue. I think what
-> > > > you need is a generic backlight class implementation on top of this.
-> > > >=20
-> > >=20
-> > > The idea with this was:
-> > > 1) to get the series landed
-> > > 2) let compositors merge solutions around it.
-> > > 3) Then add backwards compatibility to kernel so we can flip the Kcon=
-fig
-> > > default.
-> >=20
-> > I said this a few times already, but we keep having those discussions
-> > while the backlight sysfs handling is far from being the main point. You
-> > should *really* consider adding support for the luminance property for
-> > something that isn't tied to that interface (like DDC/CI for HDMI), and
-> > treat the sysfs API as a sysfs series.
-> >=20
-> > It looks like people just have conflicting opinions on this particular
-> > part that isn't going to solve itself easily. You should not treat this
-> > sysfs discussion as a blocker for the infrastructure work.
->=20
-> You want to be sure backwards compatibility with the backlight
-> class is a solvable problem before you land *anything*. Otherwise
-> you might just paint yourself into a corner with no way out.
+The 17 resource files that set dc->caps.color.mpc.gamut_remap to 1 also
+set the member to dc_fixpt_from_fraction(S3D12_MAX, DIVIDER); the other
+ten leave it at zero, and the comment of mpc_color_caps does not mention
+it.  Describe it.
 
-I disagree. The luminance property is more useful than *just* for
-backlights but is also useful for HDMI, DP, and MIPI-DSI that would all
-use it.
+Written with Hermes Agent, an LLM assistant; the author reviewed it and
+ran kernel-doc on the file with and without the change.
 
-If that's the corner we paint ourselves into, it's still a pretty nice
-corner.
+Fixes: 1c5e6cd8291f ("drm/amd/display: adjust floating point format for gamut remap when needed")
+Link: https://lore.kernel.org/all/ec4d7cff-d23a-46d1-b245-921f442b9a7b@redhat.com/
+Signed-off-by: TAKANO Mitsuhiro <takano32@gmail.com>
+---
+ drivers/gpu/drm/amd/display/dc/dc.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-Maxime
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index debdd69bbe4e..32bf87fed40d 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -314,6 +314,7 @@ struct lut3d_caps {
+  * @mcm_3d_lut_caps: HW support cap for MCM LUT memory
+  * @rmcm_3d_lut_caps: HW support cap for RMCM LUT memory
+  * @preblend: whether color manager supports preblend with MPC
++ * @max_gamut_remap_coeff: largest gamut remap coefficient the MPC supports
+  */
+ struct mpc_color_caps {
+ 	uint16_t gamut_remap : 1;
+-- 
+2.53.0
 
---dwr325mwgufdlyuf
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCawP06QAKCRAnX84Zoj2+
-dirlAYCaLJUdSt6csq7+6ZBW3alomOCJf+HmDo3pMuq+3WWMHrPsn7h9AGYUA8Ep
-foPjziwBfRuxWHnha3bp3vUm0RB95VfNQikyfGT5zDueZnd9cCI2Budw3etjGq6K
-zg6OFg9zrA==
-=bk0X
------END PGP SIGNATURE-----
-
---dwr325mwgufdlyuf--
