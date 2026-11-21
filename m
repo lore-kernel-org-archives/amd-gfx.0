@@ -2,45 +2,132 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BCD1606A68A
-	for <amd-gfx@archiver.kernel.org>; Sat, 21 Nov 2026 05:59:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FB39606A320
+	for <amd-gfx@archiver.kernel.org>; Sat, 21 Nov 2026 17:03:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E/oF9EDw
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=XTr6EB57
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E14710E1C8;
-	Sat, 21 Nov 2026 05:58:59 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6DD9010E13E;
- Sat, 21 Nov 2026 05:58:50 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id DCA0160D5A;
- Sat, 21 Nov 2026 05:58:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D7371F000CA;
- Sat, 21 Nov 2026 05:58:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795240729;
- bh=hnDRM73TC0nplRxc205ku0j1sS5JoUC+VQrBwd8j4Mg=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=E/oF9EDwtlEOefb8q5DVGI8aTeqrgp5bRuKfhd+9iFK6UKL5tEqRO6GPj74oUIlNu
- CpnMuTRZlJc+r7wzaUpGZdUeT7+p/I+RaJ9KXzssWvIOzFfk4bMEk/3lswiEjk3/PZ
- QNNFqotvMgcBsiBvvEvrRQdLS/u60oMlZu3ok+ZCJXe+MuMII6m4LGdVv9+ZY32cko
- IqGrUCTUPx7MZjoMPQc7pZ9ocGD36ip6kTVKCbgVWWytjzJ9Elt3UK6HEuvHC71WHH
- 3goqt/q4haCh/Cq/2YTn88Ha6WhjWY1Hcqe772T9mU8iHvgG26RYfW0OXl7q7G1Vr9
- f/JTiL2BLVvYA==
-Message-ID: <sashiko-outbox-226692@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 24/24] dma-buf: Add kunit tests for mapping type
- selection
-To: "Alistair Popple" <apopple@nvidia.com>, dri-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-rdma@vger.kernel.org, linux-nvme@lists.infradead.org
-Cc: media-ci@linuxtv.org
-In-Reply-To: <20261120-dma_mapping_type_v4-v3-24-c0183a409bdf@nvidia.com>
-References: <20261120-dma_mapping_type_v4-v3-0-c0183a409bdf@nvidia.com>
- <20261120-dma_mapping_type_v4-v3-24-c0183a409bdf@nvidia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 21 Nov 2026 05:58:48 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FBCF10E41C;
+	Sat, 21 Nov 2026 17:03:36 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011047.outbound.protection.outlook.com [40.107.208.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F6B310E41C
+ for <amd-gfx@lists.freedesktop.org>; Sat, 21 Nov 2026 17:03:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=d/e8phhRhQdH+CL77jaKdQiU5U161OoPRdKXywVG3slfRo7gBHMCr1UlmnyKADOxFEMYP9q8SO9TfD+VNmzgu+V1E7jpdV/N1cDDwPBdlJ6pQZLPiNpO5Iefd7WyUnovy9dSrOJQZEfb40bIsHC6s8i0QMJj3jWkw0l85ke5BscMG0yWvxaP1/JP/juibyARVcM1zItp2G3REXqdMVFIWQ6+p3NSGLHlAP5bno1Wcla7bQRp8lNiZplijdMJxWpC6zIxLr5NKsOS303xEOZ5EK4wbSeXdq/yQUMbwo7Ub3erYfbrOPZ3WYyZsgIyg44ULV9oVHfwovGMm10iOAXpzQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tFyae0ubopRUzxRSA9//RNejvmcEIKefEyFmoYRhxNs=;
+ b=bvzMpdJqX+YczHZn4ZFKyFSLRDY/MwTEzgJQrbLGyLtYHY0XQU7OvT/pKbZLljDwwHp+htJALSe8/1KZZjmok/eWGgeEK8YBuabG8c0ygqAl9EGkKieGsjwcMwbNHrCnY3T/dJM2q5dhZTB3LAAKqYhSq95NAcPFReUKK4goELi/9xHbKUvG3QpNiXEmiJ83i5IJZPotgqWPPuRXjl3IKt01PdQSExFHKVT0EMqbX0aIudhH9dwEkHqdMB2IZZKFHPZNHHfodEBnPJBxOeJm/1LJRTHxty90h3HHL69bYh35HoPWY62ColCuSdmM9G7iJq8Jbxq+risB8TjmsQab1Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tFyae0ubopRUzxRSA9//RNejvmcEIKefEyFmoYRhxNs=;
+ b=XTr6EB576AbK0GWFlKqF1Qu0Hgd4bAhagXFkYDJsZmGg9AGI9jyn6WRxH9Kw1ylVtWsJIyZv/FCSwMoiklRZT3YwTxALQMc93U7FqJpEL8kDVbhEF5/ux3KPLk8iCpipyt2PD4xOy6w7bHadLy3rppN3n+WA4OzW0SSNGFIUA4c=
+Received: from IA1PR12MB7493.namprd12.prod.outlook.com (2603:10b6:208:41b::17)
+ by MN2PR12MB4285.namprd12.prod.outlook.com (2603:10b6:208:1d7::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.17; Sat, 21 Nov
+ 2026 17:03:27 +0000
+Received: from IA1PR12MB7493.namprd12.prod.outlook.com
+ ([fe80::8fb3:5909:b4c3:162e]) by IA1PR12MB7493.namprd12.prod.outlook.com
+ ([fe80::8fb3:5909:b4c3:162e%6]) with mapi id 15.21.0639.011; Sat, 21 Nov 2026
+ 17:03:27 +0000
+From: "Mohan Marimuthu, Yogesh" <Yogesh.Mohanmarimuthu@amd.com>
+To: Alex Deucher <alexdeucher@gmail.com>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH 09/11] drm/amdgpu: add UAPI to create user queue gangs
+Thread-Topic: [PATCH 09/11] drm/amdgpu: add UAPI to create user queue gangs
+Thread-Index: AQHdd61ychUCuX6+qUeAyPBZ1bvYNrc2a7emgADvcYCAAWlZjA==
+Date: Sat, 21 Nov 2026 17:03:27 +0000
+Message-ID: <IA1PR12MB7493605C019CD8501B3CCB8BFF472@IA1PR12MB7493.namprd12.prod.outlook.com>
+References: <20261118223712.2518580-1-alexander.deucher@amd.com>
+ <20261118223712.2518580-9-alexander.deucher@amd.com>
+ <IA1PR12MB7493735875C5F18F03D1A87BFF782@IA1PR12MB7493.namprd12.prod.outlook.com>
+ <CADnq5_Nhsk0TyC8AhAz0dauGL9UsumaSc9RegstbeA4+e5py9g@mail.gmail.com>
+In-Reply-To: <CADnq5_Nhsk0TyC8AhAz0dauGL9UsumaSc9RegstbeA4+e5py9g@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Enabled=True;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SetDate=2026-11-21T17:03:28.353Z;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Name=AMD
+ Public; MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_ContentBits=1;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Method=Privileged; 
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: IA1PR12MB7493:EE_|MN2PR12MB4285:EE_
+x-ms-office365-filtering-correlation-id: 72a3a8c5-bb66-455d-51fb-08df47f15c56
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|366016|1800799024|23010399003|261102123227099003|261026140227099003|38070700021|4143699003|11063799006|261022105027099003|261021121427099003|261009223027099003|261022075727099003|56012099006|261028144727099003|10067099003|22082099003|18002099003|3023799007|8096899003;
+x-microsoft-antispam-message-info: zL8FpJwOwJ8MwyLpYZw9Ukz9rIVd8/25ONKPMODZRux78GVmBH3NYlD8DXd2lGdfdN+HvXgjvsX9aHEZouBNVeMllf09YpJ56aRo89izZzOkKI4OGeTF3H3DgzU0ea2bJJE5TU1IpHFImugSpi9aZ04BVjvRzXY4khfm17khXmEcXRLoastYyBQTLpAiE2ZimJUgyIx/nh/3zUUCxV/xMlriznvIvPaFi7x8H7BZZ8+y9PikxMkUmnCylbMFVWM2DnwsJ98/InRVNO4z0c9g8dx2doD5O5ICO5X13JgPudNqP440doC3HCE5AdzwR2lmZqB8bT+KSKoIPuLQwJNQ9N+1+i3w3jRMeKmpuCTAelTX7nYQHnZksbm9y7awwBwn4OdWClNd+z0/3s9Z4hoUuOpmdjF0HdLsWIeUM8XdGXmg2IobMFNLMvPXnBcCT1ZZ5RyALA8/dVqe09EYiZ4smkF/xlYOfdPtgLQqx5eyeqUHcFM5oYHlyfkdVAqmOaC5/RzKPVeA5pkoY39dE+YsSzsL9/+6P70UnLmbPmBqbhqrgf9HYDd3DHPNtZX1WNU1vfPuTPFgD+PXO3FsSAixNdchngFzeYoS81fD07ewWiIm1qyFDUhYZB2sMarO+qthHgQCkmGYoio4Wwil5hgtlfoN7f+U04FB6iFCFUZUdGOT7R7nwC9KFomp0c1f+Y1yhiGA8uCPzQHrPZl4mgVgZQ7ViJpUhM+Lu8t4F/eDqYA=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA1PR12MB7493.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(261102123227099003)(261026140227099003)(38070700021)(4143699003)(11063799006)(261022105027099003)(261021121427099003)(261009223027099003)(261022075727099003)(56012099006)(261028144727099003)(10067099003)(22082099003)(18002099003)(3023799007)(8096899003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?VDI5QitZSHh0SzI0K09tUzNXUlBIc01mUFZobjhXWHE0UEVWUG9SY2NkNWNG?=
+ =?utf-8?B?YVZIWXBENTFYdXorNHAyVHF5bTlPL1dobkZiWnVVSzVnL1BXUnZpbWNJMkFC?=
+ =?utf-8?B?YVVTVzNrMlJ6NWY1ZDRKYTRlM1Z3eDJTazI4Nk12KzFMaE1nQXNmcUtwS1VM?=
+ =?utf-8?B?SzhSTUR0aG1neFNyeDM0dU5GbENxN3pQay9pcHFBZ0ZYc0V4a3lJUVFHeVlC?=
+ =?utf-8?B?Wmk2cjh5V0dsWHlaNEhYRi8xbWRZUlZQVU03SmZ5eEoyNEhCaExTU0s0UXlk?=
+ =?utf-8?B?V0F5WDYyS29Kck9maVJvSGJUdWxTK3VrWnEydjVDTnRHZHhnWWJnTTdWSHlI?=
+ =?utf-8?B?dGVXMTBML2Rhekpwdm5vcWQ4UHNicUVJVmhXYnlYSWFwZms2ZUREejVqQ2M1?=
+ =?utf-8?B?RVIremtndzJtdGZUNnM2eHBJNFdVQUdHNjA2bWNyazBYRURHQ0QwbkR6TDVN?=
+ =?utf-8?B?cHQ1aWgrUDRiSnN4WDZRbWRxc1kzWFVPL0lYbk5Cd3k4TldBT0FjZmdOZzJB?=
+ =?utf-8?B?UWNwRkVJN3g2TytyVmtTK3ZWbTJNenMwcHMwT3pPTWhpM296WWs2OUJiMU03?=
+ =?utf-8?B?azJJVDlYWExJandsRTdoQlhDTkMramtPM2tleTEvZHdkMmxTaVdhQWhGZHhX?=
+ =?utf-8?B?ZnpMQUkzMmd4WEQ5bkkxQ2RrWDFnS0VuSS9RZkZ4cGdJbEVRRG1NUXpaQXJ6?=
+ =?utf-8?B?OWZld21IQnB6RlJxUGFZd1NLb3pFN3ByV0NENlNtQUdSQm9icExNVzAvd3JM?=
+ =?utf-8?B?T1ZsZkN4cGlkaVpuTCtJbmNLS2k4a25JMkExMnZPM3lBcjgvYng5ZFV1SlQ0?=
+ =?utf-8?B?c1N3RUIrRmlCemNVMldad252RElvRU4xY0g0c1lKQVcrSzh1NDh3b3FDMG4r?=
+ =?utf-8?B?cE1yQ1pDNWNBVnQ0SkEyV0daN2dod2pWWWxlblFTZDRKOXVseTZIWFVUZVJQ?=
+ =?utf-8?B?VWRsWVhBbnhDTVozL2xrVHpYdE8zUFJoWUlSa1dtY1RPNlRpYWp1cndnNTBI?=
+ =?utf-8?B?QXMyempqdU82TnJiYlpTS0prc0ZZQ0pDWmZUTFRIM0lOMndKRnpZWlJYU1dR?=
+ =?utf-8?B?Wm0yYk4wVXg3SCtmeVIzTzVmTzlWMmZuc0VuT0tCb2dyQ3hyZUtiMXNVUlpk?=
+ =?utf-8?B?SDhVRlNtRzRvaS9aczVRcUd3bndBdll2MmVEQ0V1d1lZNitVM01BN0hSQlFp?=
+ =?utf-8?B?WUx1cStaMTYwQWRrK3NuQjRZZU0vMVBmUnE5U290aVNFcEdKT2tEdktKMFFr?=
+ =?utf-8?B?UDVsbFJmWU94NGwwZWVTZ2NtNUhPZDZIZnloNXJVRjh2OGlMZUl5alVuaEtH?=
+ =?utf-8?B?VVRJUkJMUG1CNG1Qc1Nrb09HL251dmJzUTd1eE9BWmI4N2tvQWtxaXI1WmlF?=
+ =?utf-8?B?RTRxVFdSazRob0d6RnVlbUpHQ04wVGk3bm9CMWY5dndzaWhZRXNIR21FWWpu?=
+ =?utf-8?B?L2lkRklnTTAyZmYxZEowR2U1clhqMDcwVWdabS85WnUyMnphdVMwL0RsME1I?=
+ =?utf-8?B?Q095Z1pHaHF6KzQzcEFQZWhUem1HTXU3MUpOZ0Z6TmZEenFtR2dPUXZnR3dJ?=
+ =?utf-8?B?UkVGeCs0MHVDZVZpejhpV2xrZEY0Nm5hY0dwM2ZVWTJKWFBVY3poMDRyZkx3?=
+ =?utf-8?B?QlV3TS9IWDBlWHFkaEM3QzBYSC9LemhhbWxBLzlWVjJhbTN5YmZXeHVKTm9V?=
+ =?utf-8?B?a2h4YWV2M0w4TWZLbmJYVWhZOHFpMlMzNGVkbCtGZU56TmNSc0F1end3VW0w?=
+ =?utf-8?B?M0dBOE42R1ZpZzZ4V0NLK2lqTHBNQ3AvUmNzdGtCVGJwbzA2S3pjbFRPUkh4?=
+ =?utf-8?B?RWpzQWZWcCsxZjNDeWF5TkR0d1hvaDRXN2x0dUo3K1pwdW8vc2NleXcrLyth?=
+ =?utf-8?B?NE53UWFPZlZCWWc4TFRGaXdhTUtVdkFxM0d3SzBlMEt4VFpSUkJPOG8yV1RY?=
+ =?utf-8?B?aFZ6VkovLzZPK21ocWFFNU5lQ3pZaEc3bGFIOGVKUUZHZ25JZThieFYzc3BK?=
+ =?utf-8?B?MDFNV01Wa250a0JkbmVJQ2VHNG1Ea29yTDZJL3MwRzI1Njd5YnpjL1hKR24r?=
+ =?utf-8?B?ejhWY0hvbEVHSjJTby9GUDhqRGxUWHdiNHdsV0hsTVdRalZFQlcyNnlXeUhx?=
+ =?utf-8?B?VDBNQk4xbFBzamk0azZFMXdqc0VqUzhJVUp6aTl5RXNtSVFtWStacHE2TEFu?=
+ =?utf-8?B?elY4VTFabjhGbFZEZGN5Tld6WEg3M3djcUtOZFNkZUZINXZuVjV0QlNENXBF?=
+ =?utf-8?B?Zy9JNU4vYnFKS2tXR1FvQzFhSXhCSXp4V3N5SW0wUVkzZnhSUmFvVG1FOU9Q?=
+ =?utf-8?Q?H9lpyFoXEw+WqZOghp?=
+Content-Type: multipart/alternative;
+ boundary="_000_IA1PR12MB7493605C019CD8501B3CCB8BFF472IA1PR12MB7493namp_"
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB7493.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 72a3a8c5-bb66-455d-51fb-08df47f15c56
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Nov 2026 17:03:27.0524 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: LP7BD1KTS60U0RlVSS0wMoTTQXAwSdfaEJItU2fyiLV/76Wxx88Z3lTrbVSbU5SGGwXVDXg+teouvcaXolM/MA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4285
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,153 +137,176 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	HTML_MESSAGE,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [High] dma-buf: build failure from mapping2->type access in selection
-  KUnit tests
-- [Low] dma-buf: duplicated mock_type_a and mock_type_b callback setup
-  across tests
-- [Low] dma-buf: commit message omits failed map and pin selection KUnit
-  tests
---
+--_000_IA1PR12MB7493605C019CD8501B3CCB8BFF472IA1PR12MB7493namp_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-commit fdd7641c86ac3670b97b442d9f583c8418cdf65b
-Author: Alistair Popple <apopple@nvidia.com>
+UHVibGljDQoNCkhpIEFsZXgsDQoNClllcywgcGxlYXNlIGFsaWduIEtlcm5lbCB0byBtZXNhIHJh
+ZHYgZm9sbG93ZXIvbGVhZGVyIHRlcm1pbm9sb2d5Lg0KDQpUaGFuayB5b3UsDQpZb2dlc2gNCg0K
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCkZyb206IEFsZXggRGV1Y2hlciA8YWxl
+eGRldWNoZXJAZ21haWwuY29tPg0KU2VudDogU2F0dXJkYXksIE5vdmVtYmVyIDIxLCAyMDI2IDEy
+OjU4IEFNDQpUbzogTW9oYW4gTWFyaW11dGh1LCBZb2dlc2ggPFlvZ2VzaC5Nb2hhbm1hcmltdXRo
+dUBhbWQuY29tPg0KQ2M6IERldWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNoZXJAYW1k
+LmNvbT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnIDxhbWQtZ2Z4QGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZz4NClN1YmplY3Q6IFJlOiBbUEFUQ0ggMDkvMTFdIGRybS9hbWRncHU6IGFkZCBV
+QVBJIHRvIGNyZWF0ZSB1c2VyIHF1ZXVlIGdhbmdzDQoNCk9uIEZyaSwgTm92IDIwLCAyMDI2IGF0
+IDEyOjIx4oCvQU0gTW9oYW4gTWFyaW11dGh1LCBZb2dlc2gNCjxZb2dlc2guTW9oYW5tYXJpbXV0
+aHVAYW1kLmNvbT4gd3JvdGU6DQo+DQo+IEFNRCBHZW5lcmFsDQo+DQo+IE1FUyBmaXJtd2FyZSBu
+YW1lcyB0aGUgZ2FuZ2VkIHF1ZXVlcyBhcyBzbGF2ZSBhbmQgbWFzdGVyLiBNZXNhIHJhZHYgY2Fs
+bHMgaXQgYXMgZm9sbG93ZXIgYW5kIGxlYWRlci4NCj4NCj4gQ2FuIHRoZSBwcmltYXJ5L3NlY29u
+ZGFyeSBuYW1pbmcgcGxlYXNlIGJlIGNoYW5nZWQgaW50byBhbmQgZXhpc3RpbmcgbmFtZSBzbGF2
+ZS9tYXN0ZXIuDQoNCkkgd2VudCB3aXRoIHByaW1hcnkgYW5kIHNlY29uZGFyeSBiZWNhdXNlIHNv
+bWUgcGVvcGxlIGZpbmQNCm1hc3Rlci9zbGF2ZSBvYmplY3Rpb25hYmxlLiAgVGhlcmUgd2FzIGFu
+IGVmZm9ydCBpbiB0aGUga2VybmVsIGEgZmV3DQp5ZWFycyBhZ28gdG8gcmVtb3ZlIHRoZSB1c2Fn
+ZSBvZiB0aG9zZSB0ZXJtcy4gIElmIHlvdSBmZWVsIHN0cm9uZ2x5LCBJDQpjYW4gY2hhbmdlIHRo
+ZW0gdG8gYWxpZ24gd2l0aCBtZXNhLg0KDQpBbGV4DQoNCj4NCj4gVGhhbmsgeW91LA0KPiBZb2dl
+c2gNCj4NCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCj4gRnJvbTogQWxleCBE
+ZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPg0KPiBTZW50OiBUaHVyc2RheSwgTm92
+ZW1iZXIgMTksIDIwMjYgNDowNyBBTQ0KPiBUbzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmcgPGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPg0KPiBDYzogRGV1Y2hlciwgQWxleGFu
+ZGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPjsgTW9oYW4gTWFyaW11dGh1LCBZb2dlc2gg
+PFlvZ2VzaC5Nb2hhbm1hcmltdXRodUBhbWQuY29tPg0KPiBTdWJqZWN0OiBbUEFUQ0ggMDkvMTFd
+IGRybS9hbWRncHU6IGFkZCBVQVBJIHRvIGNyZWF0ZSB1c2VyIHF1ZXVlIGdhbmdzDQo+DQo+IFF1
+ZXVlcyBpbiBhIGdhbmcgd2lsbCBzY2hlZHVsZSB0b2dldGhlci4NCj4NCj4gQ2M6IFlvZ2VzaCBN
+b2hhbiBNYXJpbXV0aHUgPHlvZ2VzaC5tb2hhbm1hcmltdXRodUBhbWQuY29tPg0KPiBTaWduZWQt
+b2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+DQo+IC0tLQ0K
+PiAgaW5jbHVkZS91YXBpL2RybS9hbWRncHVfZHJtLmggfCAxMSArKysrKysrKysrKw0KPiAgMSBm
+aWxlIGNoYW5nZWQsIDExIGluc2VydGlvbnMoKykNCj4NCj4gZGlmZiAtLWdpdCBhL2luY2x1ZGUv
+dWFwaS9kcm0vYW1kZ3B1X2RybS5oIGIvaW5jbHVkZS91YXBpL2RybS9hbWRncHVfZHJtLmgNCj4g
+aW5kZXggODZkNDJhNWQ2ODNjMC4uYmZiOTgyZjFkMTc1NyAxMDA2NDQNCj4gLS0tIGEvaW5jbHVk
+ZS91YXBpL2RybS9hbWRncHVfZHJtLmgNCj4gKysrIGIvaW5jbHVkZS91YXBpL2RybS9hbWRncHVf
+ZHJtLmgNCj4gQEAgLTM0MCw2ICszNDAsNyBAQCB1bmlvbiBkcm1fYW1kZ3B1X2N0eCB7DQo+ICAv
+KiB1c2VyIHF1ZXVlIElPQ1RMIG9wZXJhdGlvbnMgKi8NCj4gICNkZWZpbmUgQU1ER1BVX1VTRVJR
+X09QX0NSRUFURSAgMQ0KPiAgI2RlZmluZSBBTURHUFVfVVNFUlFfT1BfRlJFRSAgICAyDQo+ICsj
+ZGVmaW5lIEFNREdQVV9VU0VSUV9PUF9DUkVBVEVfR0FORyAgICAzDQo+DQo+ICAvKiBxdWV1ZSBw
+cmlvcml0eSBsZXZlbHMgKi8NCj4gIC8qIGxvdyA8IG5vcm1hbCBsb3cgPCBub3JtYWwgaGlnaCA8
+IGhpZ2ggKi8NCj4gQEAgLTQyMiw2ICs0MjMsMTUgQEAgc3RydWN0IGRybV9hbWRncHVfdXNlcnFf
+aW4gew0KPiAgICAgICAgICBfX3U2NCBtcWRfc2l6ZTsNCj4gIH07DQo+DQo+ICtzdHJ1Y3QgZHJt
+X2FtZGdwdV91c2VycV9pbl9jcmVhdGVfZ2FuZyB7DQo+ICsgICAgICAgLyoqIEFNREdQVV9VU0VS
+UV9PUF8qICovDQo+ICsgICAgICAgX191MzIgICBvcDsNCj4gKyAgICAgICBfX3UzMiAgIHBhZDsN
+Cj4gKyAgICAgICAvKiogUXVldWUgaWRzIHBhc3NlZCBmb3Igb3BlcmF0aW9uIFVTRVJRX09QX0NS
+RUFURV9HQU5HICovDQo+ICsgICAgICAgX191MzIgICBwcmltYXJ5X3F1ZXVlX2lkOw0KPiArICAg
+ICAgIF9fdTMyICAgc2Vjb25kYXJ5X3F1ZXVlX2lkOw0KPiArfTsNCj4gKw0KPiAgLyogVGhlIHN0
+cnVjdHVyZSB0byBjYXJyeSBvdXRwdXQgb2YgdXNlcnF1ZXVlIG9wcyAqLw0KPiAgc3RydWN0IGRy
+bV9hbWRncHVfdXNlcnFfb3V0IHsNCj4gICAgICAgICAgLyoqDQo+IEBAIC00MzUsNiArNDQ1LDcg
+QEAgc3RydWN0IGRybV9hbWRncHVfdXNlcnFfb3V0IHsNCj4NCj4gIHVuaW9uIGRybV9hbWRncHVf
+dXNlcnEgew0KPiAgICAgICAgICBzdHJ1Y3QgZHJtX2FtZGdwdV91c2VycV9pbiBpbjsNCj4gKyAg
+ICAgICBzdHJ1Y3QgZHJtX2FtZGdwdV91c2VycV9pbl9jcmVhdGVfZ2FuZyBpbl9jZzsNCj4gICAg
+ICAgICAgc3RydWN0IGRybV9hbWRncHVfdXNlcnFfb3V0IG91dDsNCj4gIH07DQo+DQo+IC0tDQo+
+IDIuNTYuMQ0KPg0K
 
-> dma-buf: Add kunit tests for mapping type selection
->
-> Add an offer list and a select_mapping() callback to the mock exporter
-> along with map/unmap for the two mock types.
->
-> Adds tests for the exporter/importer contract.
->
->  - test_match_set_is_final: a later importer attaching does not change
->    an existing attachment's match set or default. Later attachments
->    influence what the exporter selects at pin and map time but not
->    previous attachments.
->
->  - test_select_at_map: the exporter chooses a non-default entry on first
->    map and the result is tagged with it. A pin taken while there is a
->    live mapping inherits the type and the choice survives unmap/remap.
->    Only dma_buf_invalidate_mappings() allows the exporter to make
->    a different selection. An -EBUSY from selection leaves nothing
->    established.
->
->  - test_select_at_pin: pin selects, and the choice survives map, unmap
->    and unpin so a pinned importer that is never invalidated keeps its
->    first type for the life of the import.
->
->  - test_unmap_uses_own_type: after an invalidate the exporter may select
->    another type for the next map. A mapping made with the previous one
->    is still live, and each mapping must be torn down with the type it
->    was made with.
->
->  - test_select_survives_own_invalidate: a pin or map whose exporter
->    callback invalidates every attachment still ends up selected, and one
->    that invalidates and fails does not.
->
-> Signed-off-by: Alistair Popple <apopple@nvidia.com>
+--_000_IA1PR12MB7493605C019CD8501B3CCB8BFF472IA1PR12MB7493namp_
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-[Severity: Low]
-This isn't a bug, but the commit message lists five of the new test cases
-while omitting test_select_survives_failed_map and
-test_select_after_failed_pin.
+PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
+dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyIgc3R5bGU9
+ImRpc3BsYXk6bm9uZTsiPiBQIHttYXJnaW4tdG9wOjA7bWFyZ2luLWJvdHRvbTowO30gPC9zdHls
+ZT4NCjwvaGVhZD4NCjxib2R5IGRpcj0ibHRyIj4NCjxkaXY+DQo8ZGl2IHN0eWxlPSJmb250LWZh
+bWlseTogQ2FsaWJyaTsgdGV4dC1hbGlnbjogbGVmdDsgY29sb3I6IHJnYigwLCAwLCAyNTUpOyBt
+YXJnaW4tbGVmdDogNXB0OyBmb250LXNpemU6IDEwcHQ7Ij4NClB1YmxpYzwvZGl2Pg0KPGJyPg0K
+PC9kaXY+DQo8ZGl2IGNsYXNzPSJlbGVtZW50VG9Qcm9vZiIgc3R5bGU9ImZvbnQtZmFtaWx5OiBB
+cHRvcywgQXB0b3NfRW1iZWRkZWRGb250LCBBcHRvc19NU0ZvbnRTZXJ2aWNlLCBDYWxpYnJpLCBI
+ZWx2ZXRpY2EsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTJwdDsgY29sb3I6IHJnYigwLCAwLCAw
+KTsiPg0KSGkgQWxleCw8L2Rpdj4NCjxkaXYgY2xhc3M9ImVsZW1lbnRUb1Byb29mIiBzdHlsZT0i
+Zm9udC1mYW1pbHk6IEFwdG9zLCBBcHRvc19FbWJlZGRlZEZvbnQsIEFwdG9zX01TRm9udFNlcnZp
+Y2UsIENhbGlicmksIEhlbHZldGljYSwgc2Fucy1zZXJpZjsgZm9udC1zaXplOiAxMnB0OyBjb2xv
+cjogcmdiKDAsIDAsIDApOyI+DQo8YnI+DQo8L2Rpdj4NCjxkaXYgY2xhc3M9ImVsZW1lbnRUb1By
+b29mIiBzdHlsZT0iZm9udC1mYW1pbHk6IEFwdG9zLCBBcHRvc19FbWJlZGRlZEZvbnQsIEFwdG9z
+X01TRm9udFNlcnZpY2UsIENhbGlicmksIEhlbHZldGljYSwgc2Fucy1zZXJpZjsgZm9udC1zaXpl
+OiAxMnB0OyBjb2xvcjogcmdiKDAsIDAsIDApOyI+DQpZZXMsIHBsZWFzZSBhbGlnbiBLZXJuZWwg
+dG8gbWVzYSByYWR2IGZvbGxvd2VyL2xlYWRlciB0ZXJtaW5vbG9neS48L2Rpdj4NCjxkaXYgaWQ9
+ImFwcGVuZG9uc2VuZCI+PC9kaXY+DQo8ZGl2Pjxicj4NCjwvZGl2Pg0KPGRpdiBjbGFzcz0iZWxl
+bWVudFRvUHJvb2YiIHN0eWxlPSJmb250LWZhbWlseTogQ2FsaWJyaSwgQXJpYWwsIEhlbHZldGlj
+YSwgc2Fucy1zZXJpZjsgZm9udC1zaXplOiAxMnB0OyBjb2xvcjogcmdiKDAsIDAsIDApOyI+DQpU
+aGFuayB5b3UsPC9kaXY+DQo8ZGl2IGNsYXNzPSJlbGVtZW50VG9Qcm9vZiIgc3R5bGU9ImZvbnQt
+ZmFtaWx5OiBDYWxpYnJpLCBBcmlhbCwgSGVsdmV0aWNhLCBzYW5zLXNlcmlmOyBmb250LXNpemU6
+IDEycHQ7IGNvbG9yOiByZ2IoMCwgMCwgMCk7Ij4NCllvZ2VzaDwvZGl2Pg0KPGRpdiBjbGFzcz0i
+ZWxlbWVudFRvUHJvb2YiIHN0eWxlPSJmb250LWZhbWlseTogQ2FsaWJyaSwgQXJpYWwsIEhlbHZl
+dGljYSwgc2Fucy1zZXJpZjsgZm9udC1zaXplOiAxMnB0OyBjb2xvcjogcmdiKDAsIDAsIDApOyI+
+DQo8YnI+DQo8L2Rpdj4NCjxociBzdHlsZT0iZGlzcGxheTogaW5saW5lLWJsb2NrOyB3aWR0aDog
+OTglOyI+DQo8ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQ2FsaWJyaSwgQXJpYWwsIEhlbHZldGlj
+YSwgc2Fucy1zZXJpZjsgZm9udC1zaXplOiAxMnB0OyBjb2xvcjogcmdiKDAsIDAsIDApOyI+DQo8
+Yj5Gcm9tOjwvYj4gQWxleCBEZXVjaGVyICZsdDthbGV4ZGV1Y2hlckBnbWFpbC5jb20mZ3Q7PGJy
+Pg0KPGI+U2VudDo8L2I+IFNhdHVyZGF5LCBOb3ZlbWJlciAyMSwgMjAyNiAxMjo1OCBBTTxicj4N
+CjxiPlRvOjwvYj4gTW9oYW4gTWFyaW11dGh1LCBZb2dlc2ggJmx0O1lvZ2VzaC5Nb2hhbm1hcmlt
+dXRodUBhbWQuY29tJmd0Ozxicj4NCjxiPkNjOjwvYj4gRGV1Y2hlciwgQWxleGFuZGVyICZsdDtB
+bGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tJmd0OzsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmcgJmx0O2FtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnJmd0Ozxicj4NCjxiPlN1YmplY3Q6
+PC9iPiBSZTogW1BBVENIIDA5LzExXSBkcm0vYW1kZ3B1OiBhZGQgVUFQSSB0byBjcmVhdGUgdXNl
+ciBxdWV1ZSBnYW5ncw0KPC9kaXY+DQo8ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQ2FsaWJyaSwg
+QXJpYWwsIEhlbHZldGljYSwgc2Fucy1zZXJpZjsgZm9udC1zaXplOiAxMnB0OyBjb2xvcjogcmdi
+KDAsIDAsIDApOyI+DQo8YnI+DQo8L2Rpdj4NCjxkaXYgc3R5bGU9ImZvbnQtc2l6ZTogMTFwdDsi
+Pk9uIEZyaSwgTm92IDIwLCAyMDI2IGF0IDEyOjIx4oCvQU0gTW9oYW4gTWFyaW11dGh1LCBZb2dl
+c2g8YnI+DQombHQ7WW9nZXNoLk1vaGFubWFyaW11dGh1QGFtZC5jb20mZ3Q7IHdyb3RlOjxicj4N
+CiZndDs8YnI+DQomZ3Q7IEFNRCBHZW5lcmFsPGJyPg0KJmd0Ozxicj4NCiZndDsgTUVTIGZpcm13
+YXJlIG5hbWVzIHRoZSBnYW5nZWQgcXVldWVzIGFzIHNsYXZlIGFuZCBtYXN0ZXIuIE1lc2EgcmFk
+diBjYWxscyBpdCBhcyBmb2xsb3dlciBhbmQgbGVhZGVyLjxicj4NCiZndDs8YnI+DQomZ3Q7IENh
+biB0aGUgcHJpbWFyeS9zZWNvbmRhcnkgbmFtaW5nIHBsZWFzZSBiZSBjaGFuZ2VkIGludG8gYW5k
+IGV4aXN0aW5nIG5hbWUgc2xhdmUvbWFzdGVyLjxicj4NCjxicj4NCkkgd2VudCB3aXRoIHByaW1h
+cnkgYW5kIHNlY29uZGFyeSBiZWNhdXNlIHNvbWUgcGVvcGxlIGZpbmQ8YnI+DQptYXN0ZXIvc2xh
+dmUgb2JqZWN0aW9uYWJsZS4mbmJzcDsgVGhlcmUgd2FzIGFuIGVmZm9ydCBpbiB0aGUga2VybmVs
+IGEgZmV3PGJyPg0KeWVhcnMgYWdvIHRvIHJlbW92ZSB0aGUgdXNhZ2Ugb2YgdGhvc2UgdGVybXMu
+Jm5ic3A7IElmIHlvdSBmZWVsIHN0cm9uZ2x5LCBJPGJyPg0KY2FuIGNoYW5nZSB0aGVtIHRvIGFs
+aWduIHdpdGggbWVzYS48YnI+DQo8YnI+DQpBbGV4PGJyPg0KPGJyPg0KJmd0Ozxicj4NCiZndDsg
+VGhhbmsgeW91LDxicj4NCiZndDsgWW9nZXNoPGJyPg0KJmd0Ozxicj4NCiZndDsgX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX188YnI+DQomZ3Q7IEZyb206IEFsZXggRGV1Y2hlciAmbHQ7
+YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbSZndDs8YnI+DQomZ3Q7IFNlbnQ6IFRodXJzZGF5LCBO
+b3ZlbWJlciAxOSwgMjAyNiA0OjA3IEFNPGJyPg0KJmd0OyBUbzogYW1kLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcgJmx0O2FtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnJmd0Ozxicj4NCiZn
+dDsgQ2M6IERldWNoZXIsIEFsZXhhbmRlciAmbHQ7QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbSZn
+dDs7IE1vaGFuIE1hcmltdXRodSwgWW9nZXNoICZsdDtZb2dlc2guTW9oYW5tYXJpbXV0aHVAYW1k
+LmNvbSZndDs8YnI+DQomZ3Q7IFN1YmplY3Q6IFtQQVRDSCAwOS8xMV0gZHJtL2FtZGdwdTogYWRk
+IFVBUEkgdG8gY3JlYXRlIHVzZXIgcXVldWUgZ2FuZ3M8YnI+DQomZ3Q7PGJyPg0KJmd0OyBRdWV1
+ZXMgaW4gYSBnYW5nIHdpbGwgc2NoZWR1bGUgdG9nZXRoZXIuPGJyPg0KJmd0Ozxicj4NCiZndDsg
+Q2M6IFlvZ2VzaCBNb2hhbiBNYXJpbXV0aHUgJmx0O3lvZ2VzaC5tb2hhbm1hcmltdXRodUBhbWQu
+Y29tJmd0Ozxicj4NCiZndDsgU2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVyICZsdDthbGV4YW5k
+ZXIuZGV1Y2hlckBhbWQuY29tJmd0Ozxicj4NCiZndDsgLS0tPGJyPg0KJmd0OyZuYnNwOyBpbmNs
+dWRlL3VhcGkvZHJtL2FtZGdwdV9kcm0uaCB8IDExICsrKysrKysrKysrPGJyPg0KJmd0OyZuYnNw
+OyAxIGZpbGUgY2hhbmdlZCwgMTEgaW5zZXJ0aW9ucygrKTxicj4NCiZndDs8YnI+DQomZ3Q7IGRp
+ZmYgLS1naXQgYS9pbmNsdWRlL3VhcGkvZHJtL2FtZGdwdV9kcm0uaCBiL2luY2x1ZGUvdWFwaS9k
+cm0vYW1kZ3B1X2RybS5oPGJyPg0KJmd0OyBpbmRleCA4NmQ0MmE1ZDY4M2MwLi5iZmI5ODJmMWQx
+NzU3IDEwMDY0NDxicj4NCiZndDsgLS0tIGEvaW5jbHVkZS91YXBpL2RybS9hbWRncHVfZHJtLmg8
+YnI+DQomZ3Q7ICsrKyBiL2luY2x1ZGUvdWFwaS9kcm0vYW1kZ3B1X2RybS5oPGJyPg0KJmd0OyBA
+QCAtMzQwLDYgKzM0MCw3IEBAIHVuaW9uIGRybV9hbWRncHVfY3R4IHs8YnI+DQomZ3Q7Jm5ic3A7
+IC8qIHVzZXIgcXVldWUgSU9DVEwgb3BlcmF0aW9ucyAqLzxicj4NCiZndDsmbmJzcDsgI2RlZmlu
+ZSBBTURHUFVfVVNFUlFfT1BfQ1JFQVRFJm5ic3A7IDE8YnI+DQomZ3Q7Jm5ic3A7ICNkZWZpbmUg
+QU1ER1BVX1VTRVJRX09QX0ZSRUUmbmJzcDsmbmJzcDsmbmJzcDsgMjxicj4NCiZndDsgKyNkZWZp
+bmUgQU1ER1BVX1VTRVJRX09QX0NSRUFURV9HQU5HJm5ic3A7Jm5ic3A7Jm5ic3A7IDM8YnI+DQom
+Z3Q7PGJyPg0KJmd0OyZuYnNwOyAvKiBxdWV1ZSBwcmlvcml0eSBsZXZlbHMgKi88YnI+DQomZ3Q7
+Jm5ic3A7IC8qIGxvdyAmbHQ7IG5vcm1hbCBsb3cgJmx0OyBub3JtYWwgaGlnaCAmbHQ7IGhpZ2gg
+Ki88YnI+DQomZ3Q7IEBAIC00MjIsNiArNDIzLDE1IEBAIHN0cnVjdCBkcm1fYW1kZ3B1X3VzZXJx
+X2luIHs8YnI+DQomZ3Q7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7IF9fdTY0IG1xZF9zaXplOzxicj4NCiZndDsmbmJzcDsgfTs8YnI+DQomZ3Q7
+PGJyPg0KJmd0OyArc3RydWN0IGRybV9hbWRncHVfdXNlcnFfaW5fY3JlYXRlX2dhbmcgezxicj4N
+CiZndDsgKyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyAvKiogQU1ER1BVX1VT
+RVJRX09QXyogKi88YnI+DQomZ3Q7ICsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsgX191MzImbmJzcDsmbmJzcDsgb3A7PGJyPg0KJmd0OyArJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7IF9fdTMyJm5ic3A7Jm5ic3A7IHBhZDs8YnI+DQomZ3Q7ICsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgLyoqIFF1ZXVlIGlkcyBwYXNzZWQgZm9yIG9w
+ZXJhdGlvbiBVU0VSUV9PUF9DUkVBVEVfR0FORyAqLzxicj4NCiZndDsgKyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBfX3UzMiZuYnNwOyZuYnNwOyBwcmltYXJ5X3F1ZXVlX2lk
+Ozxicj4NCiZndDsgKyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBfX3UzMiZu
+YnNwOyZuYnNwOyBzZWNvbmRhcnlfcXVldWVfaWQ7PGJyPg0KJmd0OyArfTs8YnI+DQomZ3Q7ICs8
+YnI+DQomZ3Q7Jm5ic3A7IC8qIFRoZSBzdHJ1Y3R1cmUgdG8gY2Fycnkgb3V0cHV0IG9mIHVzZXJx
+dWV1ZSBvcHMgKi88YnI+DQomZ3Q7Jm5ic3A7IHN0cnVjdCBkcm1fYW1kZ3B1X3VzZXJxX291dCB7
+PGJyPg0KJmd0OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyAvKio8YnI+DQomZ3Q7IEBAIC00MzUsNiArNDQ1LDcgQEAgc3RydWN0IGRybV9hbWRn
+cHVfdXNlcnFfb3V0IHs8YnI+DQomZ3Q7PGJyPg0KJmd0OyZuYnNwOyB1bmlvbiBkcm1fYW1kZ3B1
+X3VzZXJxIHs8YnI+DQomZ3Q7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7IHN0cnVjdCBkcm1fYW1kZ3B1X3VzZXJxX2luIGluOzxicj4NCiZndDsg
+KyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBzdHJ1Y3QgZHJtX2FtZGdwdV91
+c2VycV9pbl9jcmVhdGVfZ2FuZyBpbl9jZzs8YnI+DQomZ3Q7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IHN0cnVjdCBkcm1fYW1kZ3B1X3VzZXJx
+X291dCBvdXQ7PGJyPg0KJmd0OyZuYnNwOyB9Ozxicj4NCiZndDs8YnI+DQomZ3Q7IC0tPGJyPg0K
+Jmd0OyAyLjU2LjE8YnI+DQomZ3Q7PGJyPg0KPC9kaXY+DQo8L2JvZHk+DQo8L2h0bWw+DQo=
 
-> diff --git a/drivers/dma-buf/st-dma-mapping.c b/drivers/dma-buf/st-dma-ma=
-pping.c
-> index 8c69ae212455c..42e6748f0ae65 100644
-> --- a/drivers/dma-buf/st-dma-mapping.c
-> +++ b/drivers/dma-buf/st-dma-mapping.c
-
-[ ... ]
-
-> @@ -374,6 +407,485 @@ static void test_mock_attach(struct kunit *test)
-> +static void test_select_at_map(struct kunit *test)
-> +{
-> +	static const struct dma_buf_mapping_match offer_ab[] =3D {
-> +		{ .type =3D &mock_type_a },
-> +		{ .type =3D &mock_type_b },
-> +	};
-> +	struct dma_buf_mapping_match imp[] =3D {
-> +		{ .type =3D &mock_type_a },
-> +		{ .type =3D &mock_type_b },
-> +	};
-> +	MOCK_IMPORTER_OPS(importer_ops, imp);
-> +	struct dma_buf_attachment *attach;
-> +	struct dma_buf_mapping *mapping;
-> +	struct dma_buf *dmabuf;
-> +	struct device *dev;
-> +
-> +	mock_type_a.map =3D mock_type_map;
-> +	mock_type_a.unmap =3D mock_type_unmap;
-> +	mock_type_b.map =3D mock_type_map;
-> +	mock_type_b.unmap =3D mock_type_unmap;
-
-[ ... ]
-
-> +	dma_buf_detach(dmabuf, attach);
-> +	dma_buf_put(dmabuf);
-> +
-> +	mock_type_a.map =3D NULL;
-> +	mock_type_a.unmap =3D NULL;
-> +	mock_type_b.map =3D NULL;
-> +	mock_type_b.unmap =3D NULL;
-> +}
-
-[Severity: Low]
-This isn't a bug, but all six selection tests assign and clear .map and
-.unmap on mock_type_a and mock_type_b, and an early KUNIT_ASSERT failure
-skips the teardown since reset_mock_state() does not reset them.  Can
-mock_type_a and mock_type_b initialize .map =3D mock_type_map and .unmap =3D
-mock_type_unmap statically (or manage them in reset_mock_state())?
-
-> @@ -381,6 +893,190 @@ static const struct dma_exporter dma_exporter_param=
-s[] =3D {
-> +static void test_unmap_uses_own_type(struct kunit *test)
-> +{
-
-[ ... ]
-
-> +	/* Invalidated while that mapping is live: the next map reselects */
-> +	dma_buf_invalidate_mappings(dmabuf);
-> +	KUNIT_EXPECT_FALSE(test, attach->selected);
-> +	mock_select_idx =3D 0;
-> +	mapping2 =3D dma_buf_mapping_map(attach, DMA_BIDIRECTIONAL);
-> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, mapping2);
-> +	KUNIT_EXPECT_PTR_EQ(test, mapping2->type, &mock_type_a);
-
-[ ... ]
-
-> +static void test_select_survives_own_invalidate(struct kunit *test)
-> +{
-
-[ ... ]
-
-> +	/* A second map does not reselect. */
-> +	mock_select_idx =3D 0;
-> +	mapping2 =3D dma_buf_mapping_map(attach, DMA_BIDIRECTIONAL);
-> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, mapping2);
-> +	KUNIT_EXPECT_PTR_EQ(test, mapping2->type, &mock_type_b);
-
-[Severity: High]
-Does accessing mapping2->type break the build when CONFIG_DMABUF_KUNIT_TEST
-is enabled?
-
-struct dma_buf_mapping only has a match member, not type, so these two
-checks in test_unmap_uses_own_type() and
-test_select_survives_own_invalidate() should use
-dma_buf_mapping_type_of(mapping2).
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261120-dma_mappin=
-g_type_v4-v3-0-c0183a409bdf@nvidia.com?part=3D24
+--_000_IA1PR12MB7493605C019CD8501B3CCB8BFF472IA1PR12MB7493namp_--
