@@ -2,60 +2,63 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80761606A330
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2026 08:30:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D80D606A331
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2026 08:30:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=k+OkfuHL
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Znx8sRpk
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 273B310E734;
-	Mon, 23 Nov 2026 08:30:11 +0000 (UTC)
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com
- [74.125.82.198])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1AFC810E0BD
- for <amd-gfx@lists.freedesktop.org>; Sun, 22 Nov 2026 04:53:23 +0000 (UTC)
-Received: by mail-dy1-f198.google.com with SMTP id
- 5a478bee46e88-3425098ae4bso3369172eec.0
- for <amd-gfx@lists.freedesktop.org>; Sat, 21 Nov 2026 20:53:23 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E08E710E744;
+	Mon, 23 Nov 2026 08:30:15 +0000 (UTC)
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com
+ [74.125.82.197])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D6EC10E2AB
+ for <amd-gfx@lists.freedesktop.org>; Sun, 22 Nov 2026 04:53:25 +0000 (UTC)
+Received: by mail-dy1-f197.google.com with SMTP id
+ 5a478bee46e88-386a7af8b94so261874eec.0
+ for <amd-gfx@lists.freedesktop.org>; Sat, 21 Nov 2026 20:53:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20260707; t=1795323202; x=1795928002;
+ d=google.com; s=20260707; t=1795323204; x=1795928004;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:cc:to:from:subject
- :message-id:mime-version:date:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=C7Bdw0hKj9JbfhPi9A4wuP68QPesnRTG6G8CMRtqhng=;
- b=k+OkfuHLBaHMNF97cYgQU2JnxmJAcVEv2iBks2vJ6Ee1IpW8Y7mV27srNSURDOf7zH
- EHHgEWROOA8UQwzLRJ5Movy5Mt9IMgBRciG88V/zJU+P++2GOWs4vPRma2hO3GzDIqah
- bN6sFcBfB5+MhYFSKL7yv/sx+30bS8mli1fjBHOI/CzLiXSQB4gQVUCrz5uIgY5oDypf
- G6Euw7Yauh5m86+7czKdWm29Moxw4ILfxG+mp29EA0v/rA9LtEhTYszgYNyIThUBLD1Y
- Zxz9/BgFnzVqHoExrmv7/9YVE/vP8AexZl4I7RKRarFRL1Vz2nlOYSgHinBn2V0m6Lmu
- aQew==
+ :message-id:references:mime-version:in-reply-to:date:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=pPZfXzdtdV8nq8V6brmrCDHD0rHVJANG6b7lQmazwt0=;
+ b=Znx8sRpk8TfPXFmy0HNZenZqx/zA9tljWlTpsnhMUdCpyf4Ktqd1JD0cv8ArxKTTL3
+ RgcfADJfAfsY38jhU5Cl7mBNm9ZZvm74pjQ36BK3H3IHGqtX2sLJHpWx1m25cs48H7wj
+ uAgQClzKSu9xK4umF2rn7nLcGBn4LdhQU9VsNQp6qAIQ3iZf0T2Xt8aWYpkI8BYGcbly
+ zsl5wC+CJLYll/LeRgGIFyQZt35CF60wOojgx+OcmCkbuDHWx5Ya6YLQc4eUrtQup8I8
+ XVPqnsYMFEaVPhU5wxFt8pLvo9kSaBJzb7yHQ0qkODz68WxUvT8l0fUL17OpwjwmRwG4
+ IKkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795323202; x=1795928002;
+ d=1e100.net; s=20260707; t=1795323204; x=1795928004;
  h=content-transfer-encoding:content-type:cc:to:from:subject
- :message-id:mime-version:date:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=C7Bdw0hKj9JbfhPi9A4wuP68QPesnRTG6G8CMRtqhng=;
- b=IwRdrwBTnLFFYRvVKg9fUUUKwAlTe7jB2pZst6o73VqT0++PV5KVur/eOJrlALVOji
- rC6qxuQujX1AkkdU2RELob4mqD8T82tGz3GvY1BWE66zIIRU9npIQDMIkCuztJxPp2V6
- 1AYwVsBqHTKxh9WemWPQQRrOjw/uOJ5drqcZ2SDSe083pGlmO7FqKRIObcdpNZ9gxe1Z
- PmOfUtV+cSOzAuLXpF/gq/Zu+bbDulfU8d9j60ZpYimegZoTC17ieqb6+STNbktQboRv
- 9UCyNxjqKxEUhnaohfodA6X1utcMmBzeqeBWgMkJcVuFIYvSW9TSjC6zzaFD+sWk8n3N
- c02Q==
-X-Gm-Message-State: APuU4Z9+logZ9b8Bm1cLdY4pbdgj9bZkNDFRIvlpq5MgDVn3fk18y+3S
- JyPyvW9Kl0q9bzgpCBCOEUz4KLbJsyK/QCiXUNsgn1LKOZCHZW3dnzgVCSoC16UfmkwDmZaLEFZ
- fSnRCUr9pLw==
-X-Received: from dlbsj12.prod.google.com
- ([2002:a05:7022:f90c:b0:1b2:4b7e:5356])
+ :message-id:references:mime-version:in-reply-to:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=pPZfXzdtdV8nq8V6brmrCDHD0rHVJANG6b7lQmazwt0=;
+ b=eiK+IB+ewAFDmW+ccIShR71Cc4noVwgsY/Jn9hvpF5JnD1cQsTKNBQZ64sB9rmurqi
+ DAmk2y3yGCuspZV1ygVGNtnxEz+lJhfSYBJm+MM3tBb7HD15UHjGqG34efwC/NDsHSfJ
+ 4eSpp/dBN3Ky24Z4h3G61zsO1SF0NWBUx7EGynu+Kgjlh7xdzRpIppaLvx7R2LDMWYeT
+ YrIotpU+MxWbM6CrheGGeBEMipOVHulYd12h8XaYfv0SgKOj2tYEN5bKx1rnX2/KJxeC
+ EFFvIX2xh0uGXlqZTRWzgJ9WHdMZOcs0MUcWrdfoB4vZ/3tHyC4MnOKpKH8HeKDnocQ5
+ YpCQ==
+X-Gm-Message-State: APuU4Z9EAgNWwRtepyzDrUH57kEjZYZVNUQrFGWlNDuCboh54gFHQgJd
+ dzt0vMmMYp/IgAl9nhOT8QOJg9jsqaw4Ea6Af0ZP2Zqh3GaYjibzRJymJx8bThuTEGUw8xxZAdp
+ P9Z4DcoTiUA==
+X-Received: from dycac15.prod.google.com
+ ([2002:a05:7301:550f:b0:384:b800:2ab4])
  (user=irogers job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:701b:2319:b0:1b3:a8fc:6306
- with SMTP id a92af1059eb24-1b55247e725mr8008573c88.6.1795323201686; Sat, 21
- Nov 2026 20:53:21 -0800 (PST)
-Date: Sat, 21 Nov 2026 20:53:15 -0800
+ 2002:a05:7300:1486:b0:383:6eb6:5730
+ with SMTP id 5a478bee46e88-38570e24c0fmr9359658eec.32.1795323204068; Sat, 21
+ Nov 2026 20:53:24 -0800 (PST)
+Date: Sat, 21 Nov 2026 20:53:16 -0800
+In-Reply-To: <20261122045319.18651-1-irogers@google.com>
 X-Archived-By: <archiver.kernel.org>
 Mime-Version: 1.0
+References: <20261122045319.18651-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.1.750.gf70dc682cf-goog
-Message-ID: <20261122045319.18651-1-irogers@google.com>
-Subject: [PATCH v2 0/2] drm/amdgpu: Initialize r in VM and TTM buffer helpers
+Message-ID: <20261122045319.18651-2-irogers@google.com>
+Subject: [PATCH v2 1/2] drm/amdgpu: initialize r in amdgpu_vm_bo_update()
 From: Ian Rogers <irogers@google.com>
 To: Alex Deucher <alexander.deucher@amd.com>, 
  "=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>,
@@ -76,41 +79,56 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-21.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
+X-Spam-Status: No, score=-26.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT,USER_IN_DEF_DKIM_WL autolearn=unavailable
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT,USER_IN_DEF_DKIM_WL autolearn=unavailable
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Two fixes in drm/amdgpu for uninitialized return-value regressions
-found via Clang -Wconditional-uninitialized on an x86_64
-allyesconfig build:
+Commit bc566781845b ("drm/amdgpu: stop syncing PRT map operations") added
+an 'else if (!bo)' branch in amdgpu_vm_bo_update() that does not assign
+'r'. Because fpriv->prt_va has bo =3D=3D NULL and is updated on every comma=
+nd
+submission, userqueue validation, and KFD VM restore, calling
+amdgpu_vm_bo_update(adev, fpriv->prt_va, false) when bo_va->invalids is
+empty skips the mapping loop and returns uninitialized stack variable 'r'.
 
-1. Set r =3D 0 in the 'else if (!bo)' branch of amdgpu_vm_bo_update().
-2. Set r =3D 0 right after the while loop before 'error:' in
-   amdgpu_ttm_clear_buffer().
+Set 'r =3D 0' in the 'else if (!bo)' branch.
 
-Build-tested with LLVM=3D1 W=3D1 (-Werror) and -Wconditional-uninitialized;
-not runtime-tested on AMDGPU hardware.
+Found via an x86_64 LLVM=3D1 (Clang 21.1.8) allyesconfig audit with
+-Wconditional-uninitialized enabled; fix and changelog drafted with an AI
+coding assistant. Build-tested under LLVM=3D1 W=3D1 (-Werror) and
+-Wconditional-uninitialized; not runtime-tested on AMD GPU hardware.
 
-v2:
-  - Keep 'int r;' uninitialized at declaration in both functions so
-    future missing-assignment paths are not masked; instead set 'r =3D 0;'
-    inside 'else if (!bo)' in patch 1/2 and directly before 'error:' in
-    patch 2/2 (Christian K=C3=B6nig).
+Fixes: bc566781845b ("drm/amdgpu: stop syncing PRT map operations")
+Signed-off-by: Ian Rogers <irogers@google.com>
+---
 
-v1: https://lore.kernel.org/r/cover.1795106955.git.irogers@google.com
+Notes:
+    v2:
+      - Set 'r =3D 0;' in the 'else if (!bo)' branch instead of initializin=
+g 'r'
+        at declaration (Christian K=C3=B6nig).
 
-Ian Rogers (2):
-  drm/amdgpu: initialize r in amdgpu_vm_bo_update()
-  drm/amdgpu: initialize r in amdgpu_ttm_clear_buffer()
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 1 +
+ 1 file changed, 1 insertion(+)
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 2 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  | 1 +
- 2 files changed, 3 insertions(+)
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/a=
+mdgpu/amdgpu_vm.c
+index 82b9b2d5d0cf..d36ce2748f72 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -1323,6 +1323,7 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev, s=
+truct amdgpu_bo_va *bo_va,
+ 		}
+ 	} else if (!bo) {
+ 		mem =3D NULL;
++		r =3D 0;
+=20
+ 		/* PRT map operations don't need to sync to anything. */
+=20
 --=20
 2.56.1.750.gf70dc682cf-goog
 
