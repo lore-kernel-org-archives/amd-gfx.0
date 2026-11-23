@@ -2,80 +2,65 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 752A4606A31A
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2026 13:54:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFD84606A31A
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2026 13:54:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wwPozzAU
+	dkim=pass (2048-bit key, unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=kILhswpa
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0AB2B10E7C4;
-	Mon, 23 Nov 2026 13:54:48 +0000 (UTC)
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com
- [74.125.82.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7199010EDAE
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Nov 2026 12:22:35 +0000 (UTC)
-Received: by mail-dy1-f176.google.com with SMTP id
- 5a478bee46e88-38190551625so6695425eec.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Nov 2026 04:22:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795436555; x=1796041355; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=AX461gI0Jcb9WgcGuMUkXzkqs9S5oOCBlxxBvQFHCBk=;
- b=wwPozzAU1hfJGKueN04ou1m/cmbjSbPiey2MFuXTaXmiBYxYrDnZTLk/245AZomISZ
- VxKbmNUiXPxVIDHsXBjYsQu70zc5UchIkMlaelPkzmycW7OVxePRlLGpWe4CRyqypGVu
- RQ5B5nqDtrw8OJJ0Y4ps2OVF2wnRZfUQJRH7OGuPX6ZqZjoUq6jWoR9melM1hPxOQEwx
- WpUZdrdkgX6G++u0/jI02tPNBbr2625xWDCAJQluZZDD6FJ/vGw8wsC55eCMEYILhLa1
- AH0nOa9gjg8QJA6Z0AMbgFLPsTkc0X0Emor93f/GqDLAkIycjG4vv/4I1mn9qQRVAfJs
- DfzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795436555; x=1796041355;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=AX461gI0Jcb9WgcGuMUkXzkqs9S5oOCBlxxBvQFHCBk=;
- b=GAUun4M985pxlGgPa+HDC2Bx/Zj58OieqQLMN/9vhgNvC/XrCqc3vMLzqggDuu/Mrw
- qt2C7BrQdn3vuPNGVJ2R7swOlwKwvFUTOB9ZzNnqSbzOq+BwF/d+H32/CtL4Rc58WOUZ
- j1Q+mqgynGg88fTOHT8pHo+b8X1GOgcvRT3N87XV1qaA0iRF7X3HL2VCR8qcK6x3nrRG
- jfoGrer/D2vzGXcTybjx1KQBPyAiEH1BmFOReG6KShc38+wVOqtFXPaYmYAhqNPNi3Mk
- eQ9ZaItuEvC8E2nLxV0MxNM6Vzt+riP0M3PNpX785ffSpsNzIvdOql4iTlNuq61hy3pR
- drNA==
-X-Gm-Message-State: APuU4Z86Ux85N+2AbG+2KikcJXZOu5zxMuTMsllA1e0XMS4uwB3CdjPt
- ti7TSGBKN7xmZiVrAYXDmcXmvBsL6rAx/I6bG48lACMEWr1JgvfmWluVKC962jaK
-X-Gm-Gg: AZFdTZeMo1qh1QNpb/Nc1kpGAgJkvDDETFGii9fizHYplFX0CWX62axfq3gY2vQJV3A
- dJsaHkamCJN2WWWWf2BtbbuiR71UepSvnIOSxXJNPivUEBF9r0xAgwfoxNpr76dayGpUg++1eY+
- yZgo2EORRgpYwvCYACOjChE7KCFKye6Y4XvGhh2iJuRCGVRWWBkTupPTiDHRjGCkAMVBm3Dvd8j
- MOPwlLWk40SOVH167ED928g8a3nR6U1gR7PB2Pn9pu+6defNIH04HKTkgOheAI1DpJfIdNky27n
- hx5ACcNxrxKKOrZnfReO9U8iyHapN+GFUzZ50QjwfGytIoj6YoZ80fZfE+pXpzhvYMP8F3YtgzS
- RK4k2gT5pdiHQQV2/X6gpphwkSqQYs423S/W3ybYFax5/rutqOkfEZtpFaRIsZ/63cVipRK/UVa
- +/btok+ZNgxKqTjYLHhIqLw4zv9PmJ+BetKZlqADYVCFW+Hx0mzYq9i/GyfPTPVGUVgjDb5YJsV
- uorYsKWnVnHQqGaUIgbddXb4HNBmM4waB9id+mOOCySdZzjoUd+0rXUJ9v0X4t7EvrFnleIlnJr
- VA5mab1CeTtgmBZ9OPrh
-X-Received: by 2002:a05:693c:42cb:b0:386:b621:d8ec with SMTP id
- 5a478bee46e88-386b621dc16mr1579202eec.19.1795436554617; 
- Mon, 23 Nov 2026 04:22:34 -0800 (PST)
-Received: from a1-free ([161.33.196.121]) by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-386992b404bsm25173398eec.1.2026.11.23.04.22.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Nov 2026 04:22:34 -0800 (PST)
-From: TAKANO Mitsuhiro <takano32@gmail.com>
-To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>
-Cc: Rodrigo Siqueira <siqueira@igalia.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Thomas Huth <thuth@redhat.com>, Weijie Yuan <wy@wyuan.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- TAKANO Mitsuhiro <takano32@gmail.com>
-Subject: [PATCH v2 2/2] drm/amd/display: Document max_gamut_remap_coeff
-Date: Mon, 23 Nov 2026 12:22:26 +0000
-Message-ID: <20261123122226.4101191-3-takano32@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261123122226.4101191-1-takano32@gmail.com>
-References: <20261123122226.4101191-1-takano32@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8079310E7E1;
+	Mon, 23 Nov 2026 13:54:50 +0000 (UTC)
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de
+ [194.59.206.189])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D62A10E41A
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Nov 2026 09:18:56 +0000 (UTC)
+Received: from relay02-mors.netcup.net (localhost [127.0.0.1])
+ by relay02-mors.netcup.net (Postfix) with ESMTPS id 4jY0jG2mBCz46HP;
+ Mon, 23 Nov 2026 10:18:10 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+ s=key2; t=1795425490;
+ bh=xX5Udpo1q4gDScsKkPOPRj+AHheXe+uDdFBrc4m9Jlk=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=kILhswpaGeoKJl76EpqwaAHDah4LiFT+4Fj6bnch9OS05edz04LsbdJYzvm8Dnexd
+ B9pZgJVAOKVImpTuJOyyc7+UkrBipCorcNY/5/+PglSnUSn8T2K4HTL4GSxQHeWkpD
+ X5MKW7GgLmDGv0xkzkt4ZGeJjT5zWIhlMrNZIePltoyc4UED9HquKM+hCU6/IBIegI
+ fUH9FgcMv2myV+dY6yau2K6aPkUS5yQEyzLPlkSpznaMM5Y1Ix4s9I8tD6VZw2a2IW
+ BaMIWF0wpFrjOlTDJSe6Ue8+wDvau4pgsw8iZgkpyZKp6IM0H0ZH7PWNr0N0mYEi9S
+ WLKFbmFpEFb5w==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+ by relay02-mors.netcup.net (Postfix) with ESMTPS id 4jY0gr52Wwz7wZw;
+ Mon, 23 Nov 2026 10:16:56 +0100 (CET)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by policy02-mors.netcup.net (Postfix) with ESMTPS id 4jY0gq3JGPz8svf;
+ Mon, 23 Nov 2026 10:16:55 +0100 (CET)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown
+ [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+ by mxe9fb.netcup.net (Postfix) with ESMTPSA id F0DF75F837;
+ Mon, 23 Nov 2026 10:16:38 +0100 (CET)
+Authentication-Results: mxe9fb;
+ spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f)
+ smtp.mailfrom=regressions@leemhuis.info
+ smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <0f43f2a8-f744-4ba6-9249-40f350b6ba4b@leemhuis.info>
+Date: Mon, 23 Nov 2026 10:16:38 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [REGRESSION] Suspected amdgpu graphics regression on Ryzen 9
+ 7950X since 6.18.58
+To: Jeroen Beerstra <jeroen@beerstra.org>, amd-gfx@lists.freedesktop.org
+Cc: stable@vger.kernel.org, regressions@lists.linux.dev
+References: <729A37E1-250D-469B-B89D-E24DFA4CABE6@beerstra.org>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: <729A37E1-250D-469B-B89D-E24DFA4CABE6@beerstra.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-PPP-Message-ID: <179542539930.1220959.6543591146387798688@mxe9fb.netcup.net>
+X-NC-CID: L+GCgSx//zaUOVSIoD6C5t8ZGopIgxHeMNnucSRhm6p+nqNeNiU=
 X-Mailman-Approved-At: Mon, 23 Nov 2026 13:54:41 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,49 +72,76 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-kernel-doc reports:
+On 11/17/26 13:46, Jeroen Beerstra wrote:
+> I am experiencing graphics problems on AlmaLinux 9 using the integrated
+> graphics of an AMD Ryzen 9 7950X.
+>
+> Last known good: Linux 6.18.56 First known bad: Linux 6.18.58 Still
+> affected: Linux 6.18.63
 
-  dc.h:329 struct member 'max_gamut_remap_coeff' not described in
-  'mpc_color_caps'
+Hmm, nobody replied, so einer the right people didn't see this or they
+have no idea what's wrong here. In that case you want to bisect the
+regression, as explained here:
+https://docs.kernel.org/admin-guide/bug-bisect.html
 
-The 17 resource files that set dc->caps.color.mpc.gamut_remap to 1 also
-set the member to dc_fixpt_from_fraction(S3D12_MAX, DIVIDER); the other
-ten leave it at zero, and the comment of mpc_color_caps does not mention
-it.  Describe it.
+Before doing so, please check the latest 6.18.y release -- and if the
+bisection comes up with a result, check if latest 7.4-rc is still affected.
 
-Fixes: 1c5e6cd8291f ("drm/amd/display: adjust floating point format for gamut remap when needed")
-Link: https://lore.kernel.org/all/ec4d7cff-d23a-46d1-b245-921f442b9a7b@redhat.com/
-Signed-off-by: TAKANO Mitsuhiro <takano32@gmail.com>
----
-v2: the AI disclosure moved out of the commit message, as Weijie Yuan
-suggested; no change to the diff.
+Ciao, Thorsten
 
-Written with Hermes Agent, an LLM assistant; I reviewed it and ran kernel-doc
-on the file before and after the change.
-
- drivers/gpu/drm/amd/display/dc/dc.h | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index debdd69bbe4e..32bf87fed40d 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -314,6 +314,7 @@ struct lut3d_caps {
-  * @mcm_3d_lut_caps: HW support cap for MCM LUT memory
-  * @rmcm_3d_lut_caps: HW support cap for RMCM LUT memory
-  * @preblend: whether color manager supports preblend with MPC
-+ * @max_gamut_remap_coeff: largest gamut remap coefficient the MPC supports
-  */
- struct mpc_color_caps {
- 	uint16_t gamut_remap : 1;
--- 
-2.53.0
+> The symptoms vary between affected versions:
+> 
+> I first noticed a hard lockup when I powered off my Windows 11 kvm
+> session where graphics are rendered to a dedicated Nvidia RTX 5080. So
+> the first suspect was either the Nvidia hardware or kvm/qemu. Later
+> the problem got worse and I was unable to boot into run level 5 where
+> my onboard AMD graphics for my Ryzen 9 7950X gets activated. At some
+> point it appeared my system even needed a cold boot to get in a
+> usable state as there were hardware errors unrelated to the graphics
+> at booted that prevented the boot to continue that disappeared after
+> a complete power off. I think this was with 6.18.59 and 6.18.60 but
+> not completely sure. Currently with 6.18.63 the problem is: hard
+> lockup when I power off my Windows 11 kvm/qemu session with the RTX
+> 5080 in passthrough mode and hard lockup when I end my Gnome session
+> in Linux that uses the onboard AMD graphics, so my primary suspect is
+> the amd driver. Because of the hard lockups nothing gets logged, but
+> I’m sure there are ways around that.
+> 
+> Steps to reproduce:
+> 
+> • Boot into run level 5 on AMD graphics • Reboot • Lockup
+> 
+> I currently use 6.18.56, which does not exhibit the problem.
+> 
+> These kernels are built using rpmbuild from unmodified upstream sources,
+> without additional source patches. The RPM spec is based on ELRepo's
+> spec, with local changes for Secure Boot signing. Secure Boot is
+> enabled.
+> 
+> I haven’t changed the kernel config or firmware in between. My setup
+> is: • AlmaLinux 9 • A custom build 6.18 kernel with secure boot but
+> without patches or other modifications • I have kernel modules via
+> dkms for: zfs, nvidia and anbox. However the nvidia modules are
+> currently completely disabled at boot. • System has 128GB RAM, a
+> Ryzen 9 7950X and Nvidia RTX 5080. On the Linux side I run the
+> standard Gnome that comes with AlmaLinux 9: 40 on the onboard
+> graphics for the 7950X and at the same time Windows 11 via kvm/qemu
+> on the RTX 5080.
+> 
+> Willing to provide further details if required or perform further
+> debugging.
+> 
+> 
+> #regzbot introduced: v6.18.56..v6.18.58
+> 
+> PS second attempt, didn’t ment to send a HTML message :(
+> 
+> Kind regards, Jeroen Beerstra
 
