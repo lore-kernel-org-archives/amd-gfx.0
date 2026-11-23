@@ -2,98 +2,78 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B734606A32E
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2026 19:17:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83425606A31E
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2026 19:21:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=vah8krpe
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h4BL/ERo
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09D2610E122;
-	Mon, 23 Nov 2026 19:17:10 +0000 (UTC)
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010016.outbound.protection.outlook.com [52.101.85.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCF9A10E122
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Nov 2026 19:17:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jKU6BJ183VDV28MoqbLQKvnTA+zr+txFEDaW232sMlolbJg7jvMQbGUa/FeJ0jc0p/47f6fiRJiDst3x9b4usZmYFKnIlvrom35yMLNhZ6pk0NtslbMXLs3mhgLrplkXvPC6gcoNKZ+2zirTepKWaAzv7E2FyQZbpqP2irtBsOlAvEhgkxbS1BeQ8u8STRk3CcJNce2vxevvROy59o71HWNPS8EKPe8gO+5RcvqhrOiwcsXt5koQZ1fgyY+QY5IVaNTfv0ksmpUtES0V5oA/pZpGtkId2pkoSctvb+aRqTNF6I5uTLA4pksWwMyYISOoBjp7ktEcO9fFqDbFMfXJmw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EB4LMk49T1S96vtQnoz5hl61BS0OyTu2GCSW0f87YHY=;
- b=nQ9CnQ4Q7WNY6OAIipzpu8hFACKQqcxq8l4av/ya5q6TdDIjT7ld7/G4HpHjACibY+ulsj0oiJm6GVfFmCz7criPeL1/Sg22MEJ/1o80XQWV0uRAcaX4ANH7ninYG7D+2RfyH7mfJYIbXRQP4DbRhCPBWgFCb8m21Al1Rpg4VEbwOk4gaZ26FMJk5MetvuOVBcjd/Iy3n+I5ECHCUyzcfTXSreSHzcTo/4i2BPqpIFCREZy94HR1BfJBw3ARBAwkzlkTBQTUkVdYqHsiXvghoIA7i9CKJGA6d1fQ+VHxhP/4PApIpO5/i9BucgYPwvoFMqK2mmQfYrNOBqDFUjKzbg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EB4LMk49T1S96vtQnoz5hl61BS0OyTu2GCSW0f87YHY=;
- b=vah8krpebiYQxNHeQlh7S8Q8ViZridQsThXdHpUU8ePI25iVCVhpP7nzuqd1IyAC7WP2yQIu7SVPw5oCiPqgu6XCnVE0KoM2SbKx2f73aLxbFkk8GqdUjSK2yyqGOnT2qKhy5b4fXnGt3mQfviQKmJ4iD06D/uev/4aOZSPgW7M=
-Received: from SJ0PR03CA0182.namprd03.prod.outlook.com (2603:10b6:a03:2ef::7)
- by DS2PR12MB9589.namprd12.prod.outlook.com (2603:10b6:8:279::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.13; Mon, 23 Nov
- 2026 19:16:56 +0000
-Received: from PH4PEPF0000B60A.namprd21.prod.outlook.com
- (2603:10b6:a03:2ef:cafe::66) by SJ0PR03CA0182.outlook.office365.com
- (2603:10b6:a03:2ef::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.14 via Frontend Transport; Mon,
- 23 Nov 2026 19:16:55 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- PH4PEPF0000B60A.mail.protection.outlook.com (10.167.243.84) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.662.0 via Frontend Transport; Mon, 23 Nov 2026 19:16:55 +0000
-Received: from jiahao-li-HP-Elite-SFF-805-G9-Desktop-PC.amd.com
- (10.180.168.240) by satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.57; Mon, 23 Nov 2026 13:16:54 -0600
-From: Jiahao Li <Jiahao.Li@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <Lijo.Lazar@amd.com>,
- <Felix.Kuehling@amd.com>
-CC: <Shravankumar.Gande@amd.com>, <Ahmad.Rehman@amd.com>,
- <Davis.Ming@amd.com>, Jiahao Li <Jiahao.Li@amd.com>
-Subject: [PATCH] Revert "drm/amd/amdgpu: Use RSMU index and data pair in
- nbio_v6_3_2 get_pcie_index/data_offset()"
-Date: Mon, 23 Nov 2026 14:16:33 -0500
-Message-ID: <20261123191634.765657-1-Jiahao.Li@amd.com>
-X-Mailer: git-send-email 2.43.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A11710E146;
+	Mon, 23 Nov 2026 19:21:21 +0000 (UTC)
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
+ [209.85.167.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B021E10EC80
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Nov 2026 19:21:14 +0000 (UTC)
+Received: by mail-lf1-f43.google.com with SMTP id
+ 2adb3069b0e04-5c08539c827so2669617e87.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Nov 2026 11:21:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1795461672; x=1796066472; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:subject:from:to
+ :content-language:user-agent:mime-version:date:message-id:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=DYqA0IGyxaq4ySkL/VS7/YgnBfqbiHcsijXQnkhPIIQ=;
+ b=h4BL/ERopw19hWuWlherpMQ+5QUFOD/PoJtSNXSHfBF6Q8V1fzcbXRAD9bObIdbIM9
+ tTAB0bSaJd9W5509RM0mw1m9fPwlwgXrh3rv8Y7sp+CWSR8F2SyIAHyibPMjfMFarxU1
+ sQ20a7iAnPDo9+cWSy1WcH6crH2JCaWfDuYte5URi3E/N3aJdGhkwDvST2CJYWZzWHc9
+ PciKxFtwi+5+YB/h0I+EOJ+Moi2pLeIFk04TcIECtBu2bOfwzw1aHxDplbGyU8o3aoRh
+ iuV5n+vRnhvHlzvYxB33wMvHHPXqJ2CFSFK8qVQKYCKJiLo4hi06SWd3b61xtrY6dIFb
+ vFBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795461672; x=1796066472;
+ h=content-transfer-encoding:content-type:subject:from:to
+ :content-language:user-agent:mime-version:date:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=DYqA0IGyxaq4ySkL/VS7/YgnBfqbiHcsijXQnkhPIIQ=;
+ b=JJX+N88neegE8pbx9WtNN9ln76vJq1MTTC543E1Mf6CJ/m032r6NWkjKT96GT3eE+L
+ 7m3b5JbcB4hDHzbQccXK4ZtWNRCg+nKG6xof+wXq0yDr3JjSux4ZYsdCC/6lMRaAci8d
+ j6Z/urm1GupOwhui6DXzhDv/UPMyjQ2J3kVzpE7l93RdgFX7tG+M3msTw7C4UO3jiz3Z
+ UoBKuoyLh6BAsv0QVSIu927xx/MsjSp5ynoNWXmhcS2v3bYxeFmQcDwuYahEMs6qJiRt
+ PWU2LEo0oaoJ16erS3kFTTQl7dLTHeYjYX1F91Xhm2Tfio8paM65dAnTCZ3vbcpDaNMY
+ AMAw==
+X-Gm-Message-State: APuU4Z8Hy1+wVdNQddA6ppVWP/xterKTCDHN1SswOEVNaj6tnXG7gziQ
+ zBOpe2Xw8X8s3PPsbmACLyNVJDiNQJKnfoRQru8gd38/soQi7WtEoDQDOqjkVg==
+X-Gm-Gg: AZFdTZdtF9psr3oVCpZ8Xxpr5yFggXkAyTM0Ldp5R404jObAVYAA44QQGSKJgbl1YES
+ 47wCgIYFS27Unaz7lPHyZxfos1HWgg1I3hVDtxNSEDeF0jIFHl/NV188iEWwO8GeN8b/Ugly/nJ
+ yJx1CY80jMWSyWdxM2RGdnKG5nd2WIq+06/JDaEJnrIy3k0WTerDUstD8Ms2LSiLvDLLOsoPd4y
+ SjqE+Yu0dO/6M+mgCSe8a5bwK9gxLgsq8xWErIckUKb6r/yC6/liL1xYYHdfz+f0fSRjHocVcuq
+ aN+Tu18pCAFzrlMzMdR/p+nTR/yq1yxzEkoD4iQslGB8Yi2tFiWnqZ/ISSn5efR+yLMYxz2RK2C
+ 1sWqDHNDUfNA2LaPhRMU6VzUwqDl2bAeB14WkranS26Tcd15ld/bn+mEwDKhvcITWKsVxlMPvWF
+ w5rHi6ly41bTec79dA3WCYvQfnZQSQOQ9wxV7AMIv5Qc98Kvv+nYobJzPvRKGw6X55dVJCvS62b
+ rOZHUjhQD6UgisBmHGxHCpQA5X9Nkj4CgOS1M84/WRYt8/X1ACRZ6nKscq92U+E+TMK1J2p81H1
+ n/8B6UF48wpAklTpnl0g5n1c4lEOyvtyDzbKTsLFdApQ47ox9+3GhQ46nX96xdH98rS9bUs6xg=
+ =
+X-Received: by 2002:a05:6512:61aa:b0:5c1:57cd:5c3d with SMTP id
+ 2adb3069b0e04-5c1bc806a59mr3681994e87.23.1795461672288; 
+ Mon, 23 Nov 2026 11:21:12 -0800 (PST)
+Received: from [192.168.1.2] (85-253-172-224.ip.elisa.ee. [85.253.172.224])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5c1bcf333b1sm3307753e87.5.2026.11.23.11.21.10
+ for <amd-gfx@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 23 Nov 2026 11:21:10 -0800 (PST)
+Message-ID: <27f45723-ea21-4696-9aae-2ecdc47aa37e@gmail.com>
+Date: Mon, 23 Nov 2026 21:21:09 +0200
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH4PEPF0000B60A:EE_|DS2PR12MB9589:EE_
-X-MS-Office365-Filtering-Correlation-Id: 019e4cc9-3242-4252-bfc2-08df4996567d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|36860700016|376014|1800799024|82310400026|10067099003|11063799006|56012099006|261009223027099003|261022105027099003|261021121427099003|261021123027099003|261028144727099003|261026140227099003|261026121527099003|261102123227099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info: jyoEF2mmy9ESlk3EOAYXhR9vdUrl0m1ixuyUZHNel1IEz5QpkOkZPo3sye2GvcS3IMyYQTRgBs/ltsrP+RhExJEFRF/wa8wvTebONC4mfYxLdEkn41V9950ja7cUOgAux83Fa7H03WCO3aGZNnTyJ4bKW6wWz+s1y2vu/oEwSgNDRATjkV4QvZT6MoFTz5esA8sHvHak+o/lNDHSnfkIvWXcMXeH0EpmVW4QZ2FCHhwGQ/NSGyzAm7vs/Kjm+s9TDusvniz4dNKSwXHgrLStmlxMM6IfMffr1ca4UnbbAKM+SjdqQ6LSx0dacELwb9+CoDQVRJDwbPojZTQykxakz111DQmnU/39v+/b1hO8y12rQOvGmlLgFTi7Saahq5+wolTpnw1kA0LcNiKEN2VinS6CRnKVmkseEB2fEm2ZV+VPAktqHmdLO17/H/jySUjvM4uV/JREYpwMmDb8kuL8NneCHxVt4wGrlQeoTTucfLn/j2BXy5byTOdKe0YzWbErCCr3yQAmf9Z0bMH07CdfzqlP+XTVj588QljhJbqn8WkT8OLYNh2rbGEAKiyZiXNSmklzC8O9zQMDSM+b3TcctzbqIzWSfQdCG2qoufEa/T2SIwtU7cucmTit6p+8iD65HEmVrWhThjEtW0T9Wa+9uvcZDJdhpHb/nHTgplyszz4dEqBfrm5E/Pg9+CS+d2suYLVtw6AcgzCWbdFYY/kHKA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(36860700016)(376014)(1800799024)(82310400026)(10067099003)(11063799006)(56012099006)(261009223027099003)(261022105027099003)(261021121427099003)(261021123027099003)(261028144727099003)(261026140227099003)(261026121527099003)(261102123227099003)(18002099003)(6133799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: WY56q71iQ7SoTwDYrkQQFZOcfivamg8B3PP6MldBRqW4/vIDTJ0WX6KGltVzx4/FcuMPqiSVKPZ0yIldbBqSqcD5yz0RASrKzy8KAHPPUaM3EcNtuL//mDHBVvNJVFgmZ+ksxaPgrKxiSUYSjCbIxClFTp7xmP98lI0h4jj+z/01NSIQYgz4gnQnSUlULuZZ8I7RBJB6RxkXtzuvviAfLuY3ChO6zyW1vxCahi98lRVmqF7YdXchE3VWIY0mDkyBDDDmJVS4JhoTWCg8Ehbz5BhLmC1oIFve+06RPKqmpq/upgqDxrf42hSCH5LMObBirhR78769Scoc9uMVLhnnwarSo8cUhOAynXQvjMMIEQqnf6tRzWHRZeUtYvWxIZUTzZyzcLhIHFizcA+MX6D2ZX5y0vFo1XMVyLNNzb7XZkFvkR7USJzNKms6QUwkz+4y
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2026 19:16:55.3781 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 019e4cc9-3242-4252-bfc2-08df4996567d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: PH4PEPF0000B60A.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9589
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: amd-gfx@lists.freedesktop.org
+From: Oleksandr Mikriukov <mikriukov.oleksandr@gmail.com>
+Subject: [PATCH] drm/amd/display: Add DP power-up delay quirk for LG
+ SMARTGAME+ (32G810SA)
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,48 +84,47 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-14.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-This reverts commit e61b299b866e4ff06145a87da304af9a169231f9.
+(Resend: the first attempt was held for moderation because the sender
+was not subscribed to the list at that time.)
 
-Change get_pcie_index/data functions in nbio_v6_3_2 back to use
-PCIe index and data pair because the RSMU pair is dedicated to tools
+The LG 32G810SA-WB only starts answering AUX about 2 seconds after
+leaving D3.  With the default four 8b/10b link-training attempts
+(4 x 50 ms, ~1 s total) the driver gives up while the sink is still
+waking, logs "enabling link 1 failed: 15" and the compositor drops the
+output; the display then stays black after a DPMS wake until it is
+power-cycled on its own panel.
 
-Signed-off-by: Jiahao Li <Jiahao.Li@amd.com>
+A second stream enable a moment later trains fine, so this is a timing
+race against the sink's wake-up latency.  The EDID quirk table already
+carries a multi-second delay for another panel, so reuse
+dc_panel_patch.dppowerup_delay for this sink.
+
+Reported and diagnosed in:
+https://gitlab.freedesktop.org/drm/amd/-/work_items/6193
+
+Signed-off-by: Oleksandr Mikriukov <mikriukov.oleksandr@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/nbio_v6_3_2.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v6_3_2.c b/drivers/gpu/drm/amd/amdgpu/nbio_v6_3_2.c
-index 9a5ccc976e11..75477951353d 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v6_3_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v6_3_2.c
-@@ -79,17 +79,17 @@ nbio_v6_3_2_doorbell_layout = {
- 
- static u32 nbio_v6_3_2_get_pcie_index_offset(struct amdgpu_device *adev)
- {
--	return SOC15_REG_OFFSET(NBIO, 0, regBIF_BX_PF0_RSMU_INDEX);
-+	return SOC15_REG_OFFSET(NBIO, 0, regBIF_BX0_PCIE_INDEX2);
- }
- 
- static u32 nbio_v6_3_2_get_pcie_data_offset(struct amdgpu_device *adev)
- {
--	return SOC15_REG_OFFSET(NBIO, 0, regBIF_BX_PF0_RSMU_DATA);
-+	return SOC15_REG_OFFSET(NBIO, 0, regBIF_BX0_PCIE_DATA2);
- }
- 
- static u32 nbio_v6_3_2_get_pcie_index_hi_offset(struct amdgpu_device *adev)
- {
--	return SOC15_REG_OFFSET(NBIO, 0, regBIF_BX_PF0_RSMU_INDEX_HI);
-+	return SOC15_REG_OFFSET(NBIO, 0, regBIF_BX0_PCIE_INDEX2_HI);
- }
- 
- static u32 nbio_v6_3_2_get_rev_id(struct amdgpu_device *adev)
--- 
-2.43.0
-
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -112,2 +112,13 @@
+ 		break;
++	/* LG SMARTGAME+ (32G810SA-WB): the DP receiver answers AUX only
++	 * ~2 s after leaving D3; with four 8b/10b retries (~1 s) link
++	 * training gives up while the sink is still waking, the
++	 * connector is reported disconnected and the output stays black.
++	 */
++	case drm_edid_encode_panel_id('G', 'S', 'M', 0x77dd):
++		drm_dbg_driver(dev,
++			       "Add 2s DP power-up delay for panel id %X\n",
++			       panel_id);
++		edid_caps->panel_patch.dppowerup_delay = 2000;
++		break;
+ 	/* Workaround for some monitors which does not work well with FAMS */
