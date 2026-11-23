@@ -2,61 +2,127 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31A57606A31A
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2026 09:04:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D275606A31A
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2026 09:07:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EUhZB/y7
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=4IgqoSrH
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47E0110E9A2;
-	Mon, 23 Nov 2026 09:04:01 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D92F610E76E;
- Mon, 23 Nov 2026 09:03:54 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D203B61ECB;
- Mon, 23 Nov 2026 09:03:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99AF01F000CA;
- Mon, 23 Nov 2026 09:03:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795424633;
- bh=4x7CJ1xMFs5pG+gh52UonDZiTq1wXOZaXmAxD7J5OAE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=EUhZB/y7qb0yQDBmX1MaXhfgnQ9Wwgz1PLjP1mJXwRjkSsXjNqSeST+yRBq/W7vtU
- awKsG/1nDiAtCnsXlBI01lXjILgB/crOknqO7/ipdoky6vB5Z/XQT/THqDEkDAp1ax
- 8b4H9RPRhvQ3Nyor9L3ml3Kw6yJkqSwm2du1+7uw7iCG8q4NXWAITiNGHpvdk2/3oY
- TrmvJJk3leOwO72pKYHoHvNj9Ry9GI8DxZHbIfvy8K8XGpIpdK4wU2HiPAS7MSnWrG
- O5zhCYFjoglRwo6l53D+TtrHf3j4pXrTtnhAETY5Cxpg0Vyzapt4keY2WgL68eqXEe
- SEfvgu6ryg+oA==
-Date: Mon, 23 Nov 2026 10:03:50 +0100
-From: Maxime Ripard <mripard@kernel.org>
-To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: Mario Limonciello <mario.limonciello@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Javier Martinez Canillas <javierm@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>, 
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
- Mario Limonciello <superm1@kernel.org>, Xaver Hugl <xaver.hugl@gmail.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- nouveau@lists.freedesktop.org
-Subject: Re: [PATCH v12 01/12] drm: add connector LUMINANCE property
-Message-ID: <awQAlSSks2We5h2z@houat>
-References: <20261119-superm1-backlight-property-v12-0-89d5217d3618@amd.com>
- <20261119-superm1-backlight-property-v12-1-89d5217d3618@amd.com>
- <awB4Qe83u0l0XPKA@intel.com>
- <8713bae1-9782-41d4-b09c-f14031203e88@amd.com>
- <awPvoLCDeq1YFLE_@houat> <awPzsMWZ7e0i6i54@intel.com>
- <awP0nasqAc4pAeMR@houat> <awP8hAy3Gim4eNxz@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5ED710E76E;
+	Mon, 23 Nov 2026 09:07:16 +0000 (UTC)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011059.outbound.protection.outlook.com
+ [40.93.194.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E960010E76E;
+ Mon, 23 Nov 2026 09:07:09 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dhfKQchremZ/wmnxC/IjW/axcnCDdvWd7XBlfMEXnlt1OyBTVIygzSHfgTcuxeIKQa2JbOAIq48t3xYvQqrsU3400ZDIkvYYhfwqYOYzLBO2rxrz2b3OVxDN4/rXCb3gTb4kRM7CleEuE3rRKhcGm4ZoInHON4LSAkKlGgTOfWt+jrBOVSHN5TjJcl2Jz+tCM1aet1tcqz476xw0FrZuQgRv11wyaqQwkwbegRF1L0A8+3mCK0lmXBrmSldMQyUxi4o1zlMjH7rY0ML1ec33SrNrBfs6J9rcTOm2agiBPL8Qc+04VIdT7+EiPX8cdlA3VA31+esfWp7RO+gMydg8hg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8swlrxvhmxn6Cpwl9g6LDv0B0qhkNF30+Kx6QZ2vu2w=;
+ b=xYX5/4h0O/ZDCRwmdgYeyLT4oP4SURkyeuko3y0wbVnLpdHVRN0NZlBDpbUwxg7g1GacmcYvQHuq9gqOA+/k+kRKBWps2ifow3NSl6GdCifvbJRRYX/hXMjms5tJhFVRwWOlyubpIRS9casYtK2ZdzvGIE9b3DnW+kpUbcLfCZWECzsVO6LWxFoGKW0bTM6r8uIxz97efme7oIZ+DWaGpREX+hWu1BRHNokDgX52BqigORvV3VQiav7VVHIDZpJF3R67OEx0GEsvZ/ioon/W7bSSNqoWK7VT76CkYdTT+rFth946xmjAzv3Si5t0gHVP/oCwWG0q4Le8nfog19vayg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8swlrxvhmxn6Cpwl9g6LDv0B0qhkNF30+Kx6QZ2vu2w=;
+ b=4IgqoSrHvXiRvvYHLcHR+PCTG+q47Cg4dvzBn5DXXpZcp1/jlccu1cmyaEc0zafwbH+Da2vkHEeJxfbBh0IG9CiucYp0Wo3JO0PIzwltK2cQgVJ+FNhjkCvhQLwCY3ejt1BmZj2YN0Bj4a2v/2UrmVeQswiRnl0RsKig37225lo=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CH3PR12MB8306.namprd12.prod.outlook.com (2603:10b6:610:12c::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.14; Mon, 23 Nov
+ 2026 09:07:01 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0639.012; Mon, 23 Nov 2026
+ 09:07:01 +0000
+Message-ID: <c7a81b11-73de-49dd-b38d-76aabf193dc5@amd.com>
+Date: Mon, 23 Nov 2026 10:06:56 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/2] drm/amdgpu: Initialize r in VM and TTM buffer
+ helpers
+To: Ian Rogers <irogers@google.com>, Alex Deucher
+ <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
+ Elkin Cruz <elkin@google.com>
+References: <20261122045319.18651-1-irogers@google.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261122045319.18651-1-irogers@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0032.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:c7::6) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="7qyyenfz3amoxweo"
-Content-Disposition: inline
-In-Reply-To: <awP8hAy3Gim4eNxz@intel.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH3PR12MB8306:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9e6204fd-a98b-4474-8a8b-08df49412249
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|1800799024|366016|376014|261026140227099003|261022105027099003|261028144727099003|261021121427099003|261102123227099003|11063799006|56012099006|10067099003|260925021911599003|260925021311599003|260925022911599003|261009223027099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info: E3e3+4BSkV0Ti+yCGLT6WeI4nCvdHkPoBs/yZmOfgMRspLadhz5jgEye3Z+il3opCb8IPQitdKPuch9ZBNK9QA3eAokUb93G6xncTBYthbS0FqcyipAvlE5+KLa+J6pCLaBxwZpVUyKBlj6X0aHG1SrxCi8WM3PQKD7F7IjJXoZ70En1bsV5pEmboCkSONGSRKVQpzrY+JDtxPCKDoe3vSBPDOQuIZNtdL0Tk9s6izzBjd0Ka17AC9w/11fRTDa4HpJWkrXjMaLXYgwmMTxrCyC/SBKgzf5exepqqD8dcU2XNfl89Q5dahzpdVBhu1TrwYCV+ZLe9ZfNNPsWi+QxO8fBg3GZauhNBUBjnmA1MY7Gzn0HuNJTJEw9B0Ks3v62NJbFrmx9KktOA8UrzsjNaY/n5a9pPoQL3wTW9RPiN65FIFKUtJTFk89tv8MSaePtLXYnyayeNWQdKan9xov4rS1jmFF84yeLJg8sh1ML7cMjRHJ8NP5ifemxyVkhTukZNAKBS4/7HV8w03intxLOzKGgueMMFwqPysn7FSXr8aX25z+clkRkg5u3hEotuzXVJXro2xOKwmisnBzu2cWtkiGNfv/nQAlLyPCKfhCmyuV4lcQ7B1FkWJuV+z0Nq4NG
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(261026140227099003)(261022105027099003)(261028144727099003)(261021121427099003)(261102123227099003)(11063799006)(56012099006)(10067099003)(260925021911599003)(260925021311599003)(260925022911599003)(261009223027099003)(18002099003)(22082099003)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WFlVVWw4Y1E1dEM4ZDl5SXJaMWNRZ0g5d0FjZ1FFN2NlUDFuc084SVhHZDdZ?=
+ =?utf-8?B?OURwb3F6Mjd5OGtYRmRCcHF6NCtoZkFJOHBTaEFSTW5uWG9xMlFNTmE4MHZp?=
+ =?utf-8?B?L2xSNS9RYVFzV2dxLzk2VVVkNzROUjhjYmJNR0VuZFhsaDNWTXVJeVAwMUJX?=
+ =?utf-8?B?dmNVSDlRT251NjBSZTdqN1lKNVNKZS9NR3VWUW5NWFRtV3luNTN2eGZKWmVk?=
+ =?utf-8?B?S2lZdFlwQ2NORUs5MTR3L1BmRDhFVGVkbk95QzlrcWpxd0VLeVdqNkdpTTJz?=
+ =?utf-8?B?b2J0TVhROW9STTYxcGFVZjEzMWhSMTBLL2lMdC9Ub01uOGlWY2g4QmZ4V21Y?=
+ =?utf-8?B?RHJqTU80S01MN0ZZK0VXUTZWMnlCZmFiU1M0REV0NnZhQnFWaTVOTXB1ZUQr?=
+ =?utf-8?B?NGJPcTF4STVkTXFQRUJCNzhEYWNvTzNSS0ZiMHhCb1BiUnAvQzdscWhwMGcv?=
+ =?utf-8?B?TXVpWUtCK0VBTVhVYXJGaXFjT096akRRZDZQNUJveGR5VUtzekZrbk4zMUMy?=
+ =?utf-8?B?Z2loaHVJN1VML2lMOVV5UU5QUUhaTE5wSWcxQVUrNkdYMEJvdlZXc0IwZUNH?=
+ =?utf-8?B?NVRUUThnYThlWlVJbldFaDY0ZnMyNm94cEZWZHFLTGhGeHBnV0lIbTJIM2dj?=
+ =?utf-8?B?SkI1QTFRQlIrN2ZSRHR0M3pPRjFlazNDeFpicnUzUUNBMUI3NVNMQXh3SVBv?=
+ =?utf-8?B?S01ZK0RwZFg3YVp2OWxPWVRhSkoxTWhHUUV2UlJUL2RPZm1kOHFLVVBCQVNj?=
+ =?utf-8?B?VHNUaktzME85eGtzYnFZdmV0Wmd2ZVZHTVNlYmN2bEs0YjNHUWRkRDE1K1dF?=
+ =?utf-8?B?bFFuOElTVGJNaVgva2V4Qm4vdElPS3dPWTZ3TXBDUG9qVDcwVC9Ibkp2b25x?=
+ =?utf-8?B?M2pqSzVJTld0bFJhWGFuQkd3V1VwYUxHYTFkRTd2Y25CanNtNld1L2o0aTcx?=
+ =?utf-8?B?MWpSUUVoSkRUQ3hnWVZEQTdJd05MYk0vblhibFAxMkFnd0tjOFhEU09hSkRF?=
+ =?utf-8?B?UGhnekltUnNaVVFpLzdKaUcwSmwvVk9DZjQ5T2NwcGQ5enJEY3FoWFphZmhk?=
+ =?utf-8?B?NURIYUlMY0U3Rm5PcUREV09GRFAzRFVrMkhXWVZqMDlWbzVZekw5UTRrVjlN?=
+ =?utf-8?B?ZC9MSnREaDJ3S3ZPdTdjSG44RjBwWS9hYlFhQXI3ZHdpZ1l1MUV6ZFZSV2hw?=
+ =?utf-8?B?RHlPUkhGTUZYbnFsSWpqZ2hGZ2Z0NFZ2TnBac0gyTTJMRXlYcnFGMzJkRVlY?=
+ =?utf-8?B?ZW5DTHJmaGJMeUZjc1FwdzM2clZ0Y3JPREVrWTVoNmxDM28rQXpXRDdtZVdZ?=
+ =?utf-8?B?K2d2MW1YTUVTeFl3emppbHpWSUNYbmdicWJlbGJqc1JqK3kvMWc2R2M2UXRo?=
+ =?utf-8?B?WUYxeWIveVVMeEphOE1LK2VmMnJvQnZPYVRiTVJTMGlTSHBJYndINk5mY05P?=
+ =?utf-8?B?MmdsK2svTGpNSFkzNzRMU3RwSnN0b0FJUGVTaU52TVBxVlNocHhBeXVrcWRE?=
+ =?utf-8?B?bjk4Lzk5dGh3ZkhFRDFneTM2YVMxY3phU0dvbjdHYUowT1djMXBYVEN1QWdC?=
+ =?utf-8?B?K2hrdGtxbjAwNDk5UVlqeWlXSElKVWViQU9EM29EQ0Y2U3QxNDBKeWpVRFJ3?=
+ =?utf-8?B?NzZ5ZEQzdjZpVFlNanVRZExaa3B3YndwU1JoRmtTVmhxeGR6ZzR6NWtBdk1H?=
+ =?utf-8?B?U1FYZVBTRlluWUFRNkdycTBSdHkwMkxvSHljTkxVWC9XVHFjbUJ4Ky9ublZG?=
+ =?utf-8?B?RnBmZTRDYnZ2TVdxTkxVWmJaUnVUbjc0VHBrMDJsZFRpd2hNMlZxcXlYZTF2?=
+ =?utf-8?B?UkEwTVh4RG9XQTBlS1ZKb0o3Tld2ZHZyQURsQWQ5SFYvbWM1ak82bFl5Qm56?=
+ =?utf-8?B?SVh1VURyaHdxNm5jZ3kwdUhTalVvN3NNTUUzNFpZYzk0UFNXQWhHNEc3VDhN?=
+ =?utf-8?B?cDN5c1ZET3l2bCtPVVFZTkpXVzJGcDZkQkNZbHNlZUNCajJXemFIY3FuWkZp?=
+ =?utf-8?B?dGRjdWhSOWQxWE9YV2FOcjJSd2p3MEZtNGpYUVFXbHVzMmswemNxYW9samJn?=
+ =?utf-8?B?a2JTVk1XQXpLRlUyTkhCdlZ2d3VYQ3o4Z3Bua2pNOGpqMHdtbzRRN1FhRTVp?=
+ =?utf-8?B?T0RlQmJqU0dBK3g1RFBzVXAzQnBVN09DTDVPcUxVWEE3d3Rub1lhdnptZWtD?=
+ =?utf-8?B?ZWtOc3pNUmJLYUw4dnZCY1MweHVwTjNmU2pWZXQzSFdvY0pGTGN1dnF4eXhk?=
+ =?utf-8?B?Mlp4eWtUWVZIaVpIa3A1NUpsVHN1ZEF5d0dubC9FQmFwUHpGNWY4aXZZeFFj?=
+ =?utf-8?Q?PCPkxRZ4iQ8GhPcLY6?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9e6204fd-a98b-4474-8a8b-08df49412249
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2026 09:07:00.9580 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2iV5J9fmOR3UtMlAa9ESXMMOopfXBjUiaYIDRwjLWl4qIGm4nQ5hx/3Uq0q2RlH0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8306
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,194 +133,47 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+Reviewed-by: Christian König <christian.koenig@amd.com> for both patches.
 
---7qyyenfz3amoxweo
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v12 01/12] drm: add connector LUMINANCE property
-MIME-Version: 1.0
+Alex will probably pick the patches up, if not please ping me again.
 
-On Mon, Nov 23, 2026 at 10:42:44AM +0200, Ville Syrj=E4l=E4 wrote:
-> On Mon, Nov 23, 2026 at 09:10:17AM +0100, Maxime Ripard wrote:
-> > On Mon, Nov 23, 2026 at 10:05:04AM +0200, Ville Syrj=E4l=E4 wrote:
-> > > On Mon, Nov 23, 2026 at 08:50:29AM +0100, Maxime Ripard wrote:
-> > > > On Fri, Nov 20, 2026 at 11:19:13AM -0600, Mario Limonciello wrote:
-> > > > >=20
-> > > > >=20
-> > > > > On 11/20/26 10:41, Ville Syrj=E4l=E4 wrote:
-> > > > > > On Thu, Nov 19, 2026 at 05:27:28PM -0600, Mario Limonciello wro=
-te:
-> > > > > > > Panel brightness is a property of a display, and thus of a DRM
-> > > > > > > connector. Add an atomic per-connector LUMINANCE range proper=
-ty so
-> > > > > > > compositors can manage relative panel luminance together with=
- the rest
-> > > > > > > of the display state.
-> > > > > > >=20
-> > > > > > > Keep the core backend-agnostic. Drivers create the property w=
-ith their
-> > > > > > > hardware range and implement connector helper callbacks to se=
-t luminance
-> > > > > > > or disable panel emission. The atomic helpers sequence those =
-callbacks
-> > > > > > > around pipeline enable and disable, including luminance-only =
-commits.
-> > > > > > > The panel is left lit when the pipeline enters self refresh, =
-and the
-> > > > > > > luminance is only reprogrammed when it changes or a modeset e=
-nables the
-> > > > > > > pipeline.
-> > > > > > >=20
-> > > > > > > The stored property value is independent of display power. A =
-commit made
-> > > > > > > while the connector is inactive is retained and applied on th=
-e next
-> > > > > > > enable; disabling the pipeline does not overwrite it.
-> > > > > > >=20
-> > > > > > > LUMINANCE values are relative, driver-defined levels rather t=
-han
-> > > > > > > absolute luminance in cd/m^2. The interface supports emissive=
- panels as
-> > > > > > > well as panels with a separate backlight.
-> > > > > > >=20
-> > > > > > > Keep the interface behind a default-off DRM_LUMINANCE option.=
- Migrated
-> > > > > > > drivers retain their legacy backlight class ABI unless the ne=
-w interface
-> > > > > > > is explicitly selected, allowing the DRM UAPI and legacy comp=
-atibility
-> > > > > > > policy to remain separate.
-> > > > > > >=20
-> > > > > > > Acked-by: Javier Martinez Canillas <javierm@redhat.com>
-> > > > > > > Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> > > > > > > ---
-> > > > > > > v11:
-> > > > > > >   * Don't call .disable_luminance when the CRTC enters self r=
-efresh (Sashiko)
-> > > > > > >   * Only call .set_luminance when the luminance changes or on=
- a modeset
-> > > > > > >     that isn't a self refresh exit (Leo Li, Sashiko)
-> > > > > > >   * Fix the .set_luminance self refresh documentation
-> > > > > > > v10:
-> > > > > > >   * Add tag
-> > > > > > > ---
-> > > > > > >   drivers/gpu/drm/Kconfig                    | 14 +++++
-> > > > > > >   drivers/gpu/drm/drm_atomic_helper.c        | 98 +++++++++++=
-++++++++++++++++++-
-> > > > > > >   drivers/gpu/drm/drm_atomic_state_helper.c  |  7 +++
-> > > > > > >   drivers/gpu/drm/drm_atomic_uapi.c          |  5 ++
-> > > > > > >   drivers/gpu/drm/drm_connector.c            | 57 +++++++++++=
-++++++
-> > > > > > >   drivers/gpu/drm/tests/drm_connector_test.c | 28 +++++++++
-> > > > > > >   include/drm/drm_atomic_helper.h            |  3 +
-> > > > > > >   include/drm/drm_connector.h                | 16 +++++
-> > > > > > >   include/drm/drm_modeset_helper_vtables.h   | 28 +++++++++
-> > > > > > >   9 files changed, 255 insertions(+), 1 deletion(-)
-> > > > > > >=20
-> > > > > > > diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-> > > > > > > index 61111d50b1c65..1bbe2c2d7c76f 100644
-> > > > > > > --- a/drivers/gpu/drm/Kconfig
-> > > > > > > +++ b/drivers/gpu/drm/Kconfig
-> > > > > > > @@ -33,6 +33,20 @@ endmenu
-> > > > > > >   if DRM
-> > > > > > > +config DRM_LUMINANCE
-> > > > > > > +	bool "DRM connector luminance support"
-> > > > > > > +	help
-> > > > > > > +	  Expose relative luminance as an atomic DRM connector prop=
-erty. Values
-> > > > > > > +	  are driver-defined levels rather than absolute luminance =
-in cd/m^2.
-> > > > > > > +	  Drivers provide connector helper callbacks to program the=
-ir hardware;
-> > > > > > > +	  the DRM core does not depend on a particular backend.
-> > > > > > > +
-> > > > > > > +	  Drivers migrated to this interface will use it instead of=
- registering
-> > > > > > > +	  a legacy backlight class device. Leave this disabled to p=
-reserve the
-> > > > > > > +	  de-facto userspace ABI in /sys/class/backlight.
-> > > > > >=20
-> > > > > > I don't think this will fly if it breaks the backlight class in=
-terface.
-> > > > > > No one can actually enable this outside of some niche embedded =
-use
-> > > > > > cases where backwards compatibility is not an issue. I think wh=
-at
-> > > > > > you need is a generic backlight class implementation on top of =
-this.
-> > > > > >=20
-> > > > >=20
-> > > > > The idea with this was:
-> > > > > 1) to get the series landed
-> > > > > 2) let compositors merge solutions around it.
-> > > > > 3) Then add backwards compatibility to kernel so we can flip the =
-Kconfig
-> > > > > default.
-> > > >=20
-> > > > I said this a few times already, but we keep having those discussio=
-ns
-> > > > while the backlight sysfs handling is far from being the main point=
-=2E You
-> > > > should *really* consider adding support for the luminance property =
-for
-> > > > something that isn't tied to that interface (like DDC/CI for HDMI),=
- and
-> > > > treat the sysfs API as a sysfs series.
-> > > >=20
-> > > > It looks like people just have conflicting opinions on this particu=
-lar
-> > > > part that isn't going to solve itself easily. You should not treat =
-this
-> > > > sysfs discussion as a blocker for the infrastructure work.
-> > >=20
-> > > You want to be sure backwards compatibility with the backlight
-> > > class is a solvable problem before you land *anything*. Otherwise
-> > > you might just paint yourself into a corner with no way out.
-> >=20
-> > I disagree. The luminance property is more useful than *just* for
-> > backlights but is also useful for HDMI, DP, and MIPI-DSI that would all
-> > use it.
->=20
-> DSI and eDP are all over the place when it comes how backlight
-> is implemented, so very much would not all use it. Some HDMI and
-> external DP displays might have DDC/CI support, so I'll give you
-> those.
-> =20
-> > If that's the corner we paint ourselves into, it's still a pretty nice
-> > corner.
->=20
-> Separate APIs for different outputs on different drivers is just
-> a bad idea. Every userspace implementation will have to support
-> all of them until the end of the world.
+Regards,
+Christian.
 
-I agree, but then there's an easy answer: don't enable it on drivers
-that would expose it on both APIs. We do have a lot of drivers where
-there's just no backlight involved and would greatly benefit from these,
-and without the history of i915 or amdgpu to deal with.
+On 11/22/26 05:53, Ian Rogers wrote:
+> Two fixes in drm/amdgpu for uninitialized return-value regressions
+> found via Clang -Wconditional-uninitialized on an x86_64
+> allyesconfig build:
+> 
+> 1. Set r = 0 in the 'else if (!bo)' branch of amdgpu_vm_bo_update().
+> 2. Set r = 0 right after the while loop before 'error:' in
+>    amdgpu_ttm_clear_buffer().
+> 
+> Build-tested with LLVM=1 W=1 (-Werror) and -Wconditional-uninitialized;
+> not runtime-tested on AMDGPU hardware.
+> 
+> v2:
+>   - Keep 'int r;' uninitialized at declaration in both functions so
+>     future missing-assignment paths are not masked; instead set 'r = 0;'
+>     inside 'else if (!bo)' in patch 1/2 and directly before 'error:' in
+>     patch 2/2 (Christian König).
+> 
+> v1: https://lore.kernel.org/r/cover.1795106955.git.irogers@google.com
+> 
+> Ian Rogers (2):
+>   drm/amdgpu: initialize r in amdgpu_vm_bo_update()
+>   drm/amdgpu: initialize r in amdgpu_ttm_clear_buffer()
+> 
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 2 ++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  | 1 +
+>  2 files changed, 3 insertions(+)
+> 
 
-But at the end of the day, it was just an advice to Mario to make his
-experience easier, nothing more.
-
-Maxime
-
---7qyyenfz3amoxweo
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCawQBdQAKCRAnX84Zoj2+
-dunrAX9OzZxIexpZ8Qw4XCq4/lezSrvBeTkuRX8CXqlW4RjMdA683eoraos3n1cE
-83wgjf4BgLjSuSezL8FBFpprUBA620g6fG8Jmw0qYXoo2/ZVS5AjEGJhDXBtMgug
-SYHfFtLmpA==
-=nRXr
------END PGP SIGNATURE-----
-
---7qyyenfz3amoxweo--
