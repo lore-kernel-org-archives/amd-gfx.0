@@ -2,82 +2,119 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC6C4606A332
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2026 13:54:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47D9C606A32E
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2026 13:55:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t6WwBuWc
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EQv8DoiR
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6014B10EDEA;
-	Mon, 23 Nov 2026 13:54:53 +0000 (UTC)
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 98C7110E76D
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Nov 2026 12:22:39 +0000 (UTC)
-Received: by mail-dl1-f48.google.com with SMTP id
- a92af1059eb24-15dd124bbe7so1832111c88.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Nov 2026 04:22:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795436559; x=1796041359; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=Z2brmbtPSn0eJYb2F1hknHyThriPLBF9yzs2QocOyug=;
- b=t6WwBuWcGEOmEpYjA13Lkjuv763XcVkTCo4X8iskDVHxsqdvgGsE3j5mfzg0RUA1FO
- 33fw+4T0lTuRIbJ1RTswGoSJBiBMaT7kglmfH+G2e7GlA6PDZ9rL5n2l2M++qKqrNM2b
- C21RUr4degxt/wec0M0u5N34jkGyuFWtnwoIIVwm3kYbO4IcX9jo6XVqNtseAa3h3IN2
- yF3aqolLkilGyVj8SlcptXdLbrEA4QfbxZUG+Qe8GrvM5Od80K6lEAcRXymelsewyqel
- u0xfSKKolu5UN4xrgyWZmxYT93o3NJT7EeA+j5U0hQo9UEmPBDiAj04/soB1LbQY7qIV
- Yqfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795436559; x=1796041359;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=Z2brmbtPSn0eJYb2F1hknHyThriPLBF9yzs2QocOyug=;
- b=Z0OTzHaEmuTlvmwXcg3vULehB74jDjklYe9AXd06wZsROXYHlv+kTou+2chP4UXYG0
- cy/ZQlHhtw+qZgjOG6UnSoMVpEyLJxrUmpFpspWiMPdZfF45zMYK8tk7nuFOjmlCpO6E
- TLuC0dyT8Uazs+Yxh9A5qAoMJb7XDuqBGNUb63M/uuMXKLLLxwpv10R1Jz8FbMW1dV1j
- b/1u63Vmpn/AAhdUXe1sW0LIhcsO4JUOZJWRCW9RIWV3e+lreZkcZbi4UiDHv+386cyv
- MCxcI+n3xrNM5khGjGaTpZxI9doTaLvZJ9qxr1UOur0LreQac/GG1a8/8AR4gHSWNOHI
- JPlw==
-X-Gm-Message-State: APuU4Z+LAGgatHwZojp7tez0FfwbHSeRrgQlGMNmthhq5hfsu9mcQ2S9
- 1VF+yZOO6uAGWIMMrQ5bB4SUZXkrNhrWA9jpzxWvZR1SRIL9gThfRgI6
-X-Gm-Gg: AZFdTZfPB752Dumds2lsRS1eT8StiGga7VT5O7nNt0M2in60B31S6U4qN+W9IkcsIMs
- xZvXa64UN1fkeAyzIeSZw+dwzRExmWbEICIMrWPoNGNUvKh6QE50LBaRMru/ULNVkyUxWe2ZQjP
- jJxvJoMm2AUPjbT+NNzb9MTZnVFcAN9wFEzketVxkjCBoxsCanUcYQUqSaIN1eiUhs4OXGOb//U
- YQq8YDg+3axXdnuGKOOL4IuqoNvTXQNKVGzpf9YuqLzj7DeujysVuGyoxTWgLjOBkGjjS5xy4Ei
- sxqY46s029oKOZFlLYUULV89se4KR2H7OWTdJsX6of2PbXY/LFYGXqXFbbLEIYAgsTqUPQj+lxW
- 8gE7h7/NoCcGLCAW6vrXTHUNbUjay57pjdS1RhibfxVx9GooGT9qfv73Zes2Qy3XHexKosmyM8V
- cr3eT41ZWFrHZP4f6gloiK8m3HIWfJg4+b+J79U6dCMPdI+frK7TkRrOcKfsbVSHd0Gh8hIrAT6
- CEeOCLs3dgc54+IoLIH2RcyeXAIRXKd1+0pSdK4bw+zv2rvX4s9QCW0yfe0Id2oTNqIgEa3aT7e
- OhBQKe1tZC6rRyqNy0v7EVguBg==
-X-Received: by 2002:a05:701b:450f:10b0:1a7:78a3:bda8 with SMTP id
- a92af1059eb24-1b56f87ae87mr4215314c88.27.1795436558585; 
- Mon, 23 Nov 2026 04:22:38 -0800 (PST)
-Received: from [127.0.1.1] ([161.33.196.121]) by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-1b5566c1142sm27463157c88.2.2026.11.23.04.22.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Nov 2026 04:22:38 -0800 (PST)
-From: TAKANO Mitsuhiro <takano32@gmail.com>
-To: Weijie Yuan <wy@wyuan.org>
-Cc: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id D4C7110EE11;
+	Mon, 23 Nov 2026 13:54:55 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9921110EBAA;
+ Mon, 23 Nov 2026 10:11:29 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 88EDC61FBE;
+ Mon, 23 Nov 2026 10:11:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC1141F000EF;
+ Mon, 23 Nov 2026 10:11:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795428688;
+ bh=rDFRLPy40I79JiGWrVFkLz2U4fAoPpBfu86dL+TJWTw=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=EQv8DoiRck3gy8xgpS3BEeZCIVXlC+5twIrYuAJPvxyh+T6hLul9ehLPpI0/H8Ena
+ EoHPb6kv2Z1NRHkQj923ovInemiLOUPSnbRP19n0hmOl3DYyi/0U2zQnqNlsdAYgQX
+ yfIeKn1+n9OIoTJRvbp7rjlMj4wIsTr/xKlt8/kIiAVX5xbKrEtXbYSnqm7V+dLOrM
+ VyoI9JSIUfP6xwxXeJf8XGivEo78xSGLAZFRbS/S+K2EDg0EQWkh2mc7W/lQNIsXSv
+ CCH9QPsnErU7JRjGcCJBhGjJ2f+Q+uo3Lw7ckrw1kCFyKD4FZnZKjrPIy1KnGsdlwY
+ rf74RydNSb3kw==
+From: Maxime Ripard <mripard@kernel.org>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Maxime Ripard <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, Janne Grunau <j@jannau.net>,
+ Sasha Finkelstein <k@chaosmail.tech>, asahi@lists.linux.dev,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Thomas Huth <thuth@redhat.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, TAKANO Mitsuhiro <takano32@gmail.com>
-Subject: Re: [PATCH 1/2] drm/amd/display: Document the union in dc_probe_status
-Date: Mon, 23 Nov 2026 12:22:35 +0000
-Message-ID: <179543655559.4100066.12937692101747026786@gmail.com>
-In-Reply-To: <awO-665NEGdZtq1z@wyuan.org>
-References: <20261121041427.1743954-1-takano32@gmail.com>
- <awO-665NEGdZtq1z@wyuan.org>
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ sashiko-bot@kernel.org, Liviu Dudau <liviu.dudau@arm.com>,
+ Russell King <linux@armlinux.org.uk>, Dave Airlie <airlied@redhat.com>,
+ Jocelyn Falempe <jfalempe@redhat.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Inki Dae <inki.dae@samsung.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Seung-Woo Kim <sw0312.kim@samsung.com>, linux-samsung-soc@vger.kernel.org,
+ Alison Wang <alison.wang@nxp.com>, Stefan Agner <stefan@agner.ch>,
+ Tian Tao <tiantao6@hisilicon.com>,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ Yongbang Shi <shiyongbang@huawei.com>, Dexuan Cui <decui@microsoft.com>,
+ Long Li <longli@microsoft.com>,
+ Saurabh Sengar <ssengar@linux.microsoft.com>, linux-hyperv@vger.kernel.org,
+ Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Sascha Hauer <s.hauer@pengutronix.de>, imx@lists.linux.dev,
+ Paul Cercueil <paul@crapouillou.net>, linux-mips@vger.kernel.org,
+ Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
+ Paul Kocialkowski <paulk@sys-base.io>, Huacai Chen <chenhuacai@kernel.org>,
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ Jianmin Lv <lvjianmin@loongson.cn>, Mingcong Bai <jeffbai@aosc.io>,
+ Qianhai Wu <wuqianhai@loongson.cn>, Xi Ruoyao <xry111@xry111.site>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Danilo Krummrich <dakr@kernel.org>, Lyude Paul <lyude@redhat.com>,
+ nouveau@lists.freedesktop.org,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Gerd Hoffmann <kraxel@redhat.com>, spice-devel@lists.freedesktop.org,
+ virtualization@lists.linux.dev,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ linux-renesas-soc@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>,
+ Marcus Folkesson <marcus.folkesson@gmail.com>,
+ David Lechner <david@lechnology.com>,
+ Iker Pedrosa <ikerpedrosam@gmail.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, Orson Zhai <orsonzhai@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Philippe Cornu <philippe.cornu@foss.st.com>,
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+ Yannick Fertre <yannick.fertre@foss.st.com>,
+ Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>,
+ linux-sunxi@lists.linux.dev, Jonathan Hunter <jonathanh@nvidia.com>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Thierry Reding <thierry.reding@kernel.org>, linux-tegra@vger.kernel.org,
+ Jyri Sarha <jyri.sarha@iki.fi>, Alexey Brodkin <abrodkin@synopsys.com>,
+ Hans de Goede <hansg@kernel.org>,
+ Kamlesh Gurudasani <kamlesh.gurudasani@gmail.com>,
+ Alex Lanzano <lanzano.alex@gmail.com>,
+ LiangCheng Wang <zaq14760@gmail.com>, Chia-I Wu <olvaffe@gmail.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Zack Rusin <zack.rusin@broadcom.com>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Michal Simek <michal.simek@amd.com>
+Subject: Re: (subset) [PATCH v2 00/64] drm: Switch drivers to
+ drm_mode_config_create_initial_state
+Date: Mon, 23 Nov 2026 11:11:22 +0100
+Message-ID: <179542861006.1136573.1196433498269800463.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261116-drm-no-more-config-reset-v2-0-0bb471f4d1e0@kernel.org>
+References: <20261116-drm-no-more-config-reset-v2-0-0bb471f4d1e0@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Mailer: kpatch-send.py
 X-Mailman-Approved-At: Mon, 23 Nov 2026 13:54:41 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,19 +126,129 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Weijie,
+On Mon, 16 Nov 2026 11:30:16 +0100, Maxime Ripard wrote:
+> drm_mode_config_reset() has a dual role: it creates the initial KMS
+> state at probe time, and resets hardware and software state during
+> suspend/resume cycles. However, the two roles need different
+> behaviors, notably for objects like drm_private_obj that must persist
+> across suspend/resume and are excluded from drm_mode_config_reset()
+> by design.
+> 
+> [...]
 
-Thanks.  Moved the AI disclosure below the --- in each patch, so it stays out
-of the commit message, and put it in the cover letter too.  Re-sent as v2, in
-a new thread ("[PATCH v2 0/2] drm/amd/display: document two members of dc.h");
-the diff is unchanged.
+Applied to misc/kernel.git (drm-misc-next)
 
-TAKANO
+[01/64] drm/adp: Switch to drm_mode_config_create_initial_state
+        commit: d636d17d3b8ecda8a3db6a77874e652aabac4eb2
+[02/64] drm/amdgpu: Switch to drm_mode_config_create_initial_state
+        commit: 064bc83ffc6eb72ec8af2973517f130d81bcd9bb
+[04/64] drm/hdlcd: Switch to drm_mode_config_create_initial_state
+        commit: 18becfe9b42cb828fc7fcf9703319d34675cd9f1
+[05/64] drm/armada: Switch to drm_mode_config_create_initial_state
+        commit: 69cecb2d921b7ae098c2800cbfa67590c436c3c4
+[06/64] drm/ast: Switch to drm_mode_config_create_initial_state
+        commit: 76dacf729a8dd4a954a5a8457ca49b221055d346
+[07/64] drm/exynos: Switch to drm_mode_config_create_initial_state
+        commit: cbe6da900d937f0de4c73eb574c409c9e2f4a7e8
+[08/64] drm/fsl-dcu: Switch to drm_mode_config_create_initial_state
+        commit: 6a294a6bf06ed0d71a505998bd0fd3abe1e9ea87
+[09/64] drm/hisilicon/hibmc: Remove hibmc_unload() from the load error path
+        commit: f830550f85cd0f5bd955d5b9abdb795f95a25ff8
+[10/64] drm/hisilicon/hibmc: Switch to drm_mode_config_create_initial_state
+        commit: f935c8d2f8c6de0c4b95c5f63874ced18efe1de6
+[12/64] drm/imx/ipuv3: Switch to drm_mode_config_create_initial_state
+        commit: 8799786a618d2a56b8e3dc998b64fb28cb648ca6
+[13/64] drm/ingenic: Move the private object creation before the reset
+        commit: 5cc203c0dcd3352196d8ede54531afc2175193b0
+[14/64] drm/ingenic: Switch to drm_mode_config_create_initial_state
+        commit: 8636f44eb77f5f738708423a104ee2f225f84b97
+[15/64] drm/kmb: Switch to drm_mode_config_create_initial_state
+        commit: f4f4fd2ae13175ef7aa851cdeaa08bf29a0f38b1
+[16/64] drm/logicvc: Switch to drm_mode_config_create_initial_state
+        commit: 7f84f99fa2d9b068e4a51514df0e1f32ad3247aa
+[18/64] drm/mediatek: Switch to drm_mode_config_create_initial_state
+        commit: 333cf2d79ee32c5590787eeb6df1c3c1a9ad6a48
+[19/64] drm/mgag200: Switch to drm_mode_config_create_initial_state
+        commit: 2fb1383d1aed812e4830aec34b890547fe8d496e
+[20/64] drm/msm: Switch to drm_mode_config_create_initial_state
+        commit: 53556096b6e5e07a8c58fe19cfdf5f3d4e1197ab
+[21/64] drm/nouveau: Switch to drm_mode_config_create_initial_state
+        commit: 960f6b7c64cb9536c37e7995262fd465f2fc623b
+[22/64] drm/omap: Switch to drm_mode_config_create_initial_state
+        commit: cf34a54e91f99b80623fee78ad334871a7f39858
+[23/64] drm/qxl: Destroy the monitors object on the modeset init error path
+        commit: bf50dc68880788f9ad85f4411f2d3fa575139ceb
+[24/64] drm/qxl: Switch to drm_mode_config_create_initial_state
+        commit: f364abef006d3867174f9defa5f79c4c6585cead
+[26/64] drm/rz-du: Switch to drm_mode_config_create_initial_state
+        commit: 938dfe76a15263c5fac77ea1f99c265848c219f8
+[27/64] drm/shmobile: Switch to drm_mode_config_create_initial_state
+        commit: 588132787e6df07f0267983881f437990d56c5e8
+[28/64] drm/st7571: Switch to drm_mode_config_create_initial_state
+        commit: e03927d29003912052c64aad83df169243d43484
+[32/64] drm/sprd: Switch to drm_mode_config_create_initial_state
+        commit: 1af982780216d568a4e8ff6790b87de29e52ab90
+[33/64] drm/sti: Fix drm_atomic_helper_shutdown() on the bind error paths
+        commit: d3047688f4bc35ca827ee2994a014c81898d73cc
+[34/64] drm/sti: Move drm_mode_config_create_initial_state() before drm_dev_register()
+        commit: 2798c8d86bf4e4853cbc1b3e2a248d55e714a649
+[36/64] drm/sun4i: Switch to drm_mode_config_create_initial_state
+        commit: ad5e714a08a6d5f6fa39b589a438b40aaac9e2bf
+[38/64] drm/tests: drm_atomic_state_test: Switch to drm_mode_config_create_initial_state
+        commit: 019bfdeb119dc616303a173323fd69853fe99858
+[39/64] drm/tests: drm_atomic_test: Switch to drm_mode_config_create_initial_state
+        commit: 53f0931d45c029f97c611837b8f853c9fad7a82c
+[40/64] drm/tests: drm_bridge_test: Switch to drm_mode_config_create_initial_state
+        commit: 45472c059ac76f982e31f67ef87f9db3caef1f88
+[41/64] drm/tests: drm_hdmi_state_helper_test: Switch to drm_mode_config_create_initial_state
+        commit: 3db9197bbe3fc859fd5b7521d1f4cedd9d62cb8c
+[42/64] drm/tidss: Switch to drm_mode_config_create_initial_state
+        commit: d771b7c8577c0b847d401a22f49a6abc18680ed3
+[44/64] drm/arcpgu: Switch to drm_mode_config_create_initial_state
+        commit: 620165b05363bea94b72970884f6f27ccf7cee3f
+[45/64] drm/bochs: Switch to drm_mode_config_create_initial_state
+        commit: c67548948d8c5ebb422fa03fb5dd89e44e458f20
+[46/64] drm/cirrus-qemu: Switch to drm_mode_config_create_initial_state
+        commit: 10e37ab94f0f10a7fd729a063c26bf1a94e7f2b0
+[47/64] drm/gm12u320: Switch to drm_mode_config_create_initial_state
+        commit: ce7e27979d41b94bb9a1ed66b6957a300a5a8c0a
+[48/64] drm/hx8357d: Switch to drm_mode_config_create_initial_state
+        commit: d9abdda3a6bd4903af87a1ed6d02c1897035cf4e
+[49/64] drm/ili9163: Switch to drm_mode_config_create_initial_state
+        commit: 6fc964d0567e8303cf72adc45dad29e9415fe76c
+[51/64] drm/ili9341: Switch to drm_mode_config_create_initial_state
+        commit: 75269393962354820792fddfe3da359b3be85ca3
+[52/64] drm/ili9486: Switch to drm_mode_config_create_initial_state
+        commit: c4f2890c815c5ac8d68668a072806edf4f466a7e
+[53/64] drm/mi0283qt: Switch to drm_mode_config_create_initial_state
+        commit: dfa078305c262eae2b0449814392e429b6bd58ee
+[54/64] drm/panel-mipi-dbi: Switch to drm_mode_config_create_initial_state
+        commit: 38b37ce4bc5fc406f1e93a90ce9b2b8531c6f5cb
+[55/64] drm/pixpaper: Switch to drm_mode_config_create_initial_state
+        commit: d3cb39a976745195d2d388b5b9194d47bfd2eb41
+[56/64] drm/repaper: Switch to drm_mode_config_create_initial_state
+        commit: ce380404a74260b6bb178b24dfd4125a591e1069
+[57/64] drm/sharp-memory: Switch to drm_mode_config_create_initial_state
+        commit: d4b8b6e920779d568a085eb611c75dc4bb5805a8
+[58/64] drm/udl: Switch to drm_mode_config_create_initial_state
+        commit: 6358c0da712b0170a3f1470c5eb75ec95340875c
+[59/64] drm/vboxvideo: Switch to drm_mode_config_create_initial_state
+        commit: a932fa029dad6b23b4ff5b7fdb44e5819c098b6e
+[60/64] drm/verisilicon: Switch to drm_mode_config_create_initial_state
+        commit: f3b23268607094ff4461119d623a235a2bdc8608
+[61/64] drm/virtio: Switch to drm_mode_config_create_initial_state
+        commit: eb2c77198187b0283f12be28bdb770703da59dca
+[63/64] drm/xen: Switch to drm_mode_config_create_initial_state
+        commit: 51b3e01a42db6100976907b95d224636e6551c98
+[64/64] drm/xlnx: Switch to drm_mode_config_create_initial_state
+        commit: bb8391a1a8d00b11661ab692313a991456d391dd
 
+Thanks!
+Maxime
