@@ -2,65 +2,82 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFD84606A31A
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2026 13:54:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC6C4606A332
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2026 13:54:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=kILhswpa
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t6WwBuWc
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8079310E7E1;
-	Mon, 23 Nov 2026 13:54:50 +0000 (UTC)
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de
- [194.59.206.189])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D62A10E41A
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Nov 2026 09:18:56 +0000 (UTC)
-Received: from relay02-mors.netcup.net (localhost [127.0.0.1])
- by relay02-mors.netcup.net (Postfix) with ESMTPS id 4jY0jG2mBCz46HP;
- Mon, 23 Nov 2026 10:18:10 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
- s=key2; t=1795425490;
- bh=xX5Udpo1q4gDScsKkPOPRj+AHheXe+uDdFBrc4m9Jlk=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=kILhswpaGeoKJl76EpqwaAHDah4LiFT+4Fj6bnch9OS05edz04LsbdJYzvm8Dnexd
- B9pZgJVAOKVImpTuJOyyc7+UkrBipCorcNY/5/+PglSnUSn8T2K4HTL4GSxQHeWkpD
- X5MKW7GgLmDGv0xkzkt4ZGeJjT5zWIhlMrNZIePltoyc4UED9HquKM+hCU6/IBIegI
- fUH9FgcMv2myV+dY6yau2K6aPkUS5yQEyzLPlkSpznaMM5Y1Ix4s9I8tD6VZw2a2IW
- BaMIWF0wpFrjOlTDJSe6Ue8+wDvau4pgsw8iZgkpyZKp6IM0H0ZH7PWNr0N0mYEi9S
- WLKFbmFpEFb5w==
-Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
- by relay02-mors.netcup.net (Postfix) with ESMTPS id 4jY0gr52Wwz7wZw;
- Mon, 23 Nov 2026 10:16:56 +0100 (CET)
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by policy02-mors.netcup.net (Postfix) with ESMTPS id 4jY0gq3JGPz8svf;
- Mon, 23 Nov 2026 10:16:55 +0100 (CET)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown
- [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
- by mxe9fb.netcup.net (Postfix) with ESMTPSA id F0DF75F837;
- Mon, 23 Nov 2026 10:16:38 +0100 (CET)
-Authentication-Results: mxe9fb;
- spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f)
- smtp.mailfrom=regressions@leemhuis.info
- smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <0f43f2a8-f744-4ba6-9249-40f350b6ba4b@leemhuis.info>
-Date: Mon, 23 Nov 2026 10:16:38 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6014B10EDEA;
+	Mon, 23 Nov 2026 13:54:53 +0000 (UTC)
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 98C7110E76D
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Nov 2026 12:22:39 +0000 (UTC)
+Received: by mail-dl1-f48.google.com with SMTP id
+ a92af1059eb24-15dd124bbe7so1832111c88.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Nov 2026 04:22:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1795436559; x=1796041359; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=Z2brmbtPSn0eJYb2F1hknHyThriPLBF9yzs2QocOyug=;
+ b=t6WwBuWcGEOmEpYjA13Lkjuv763XcVkTCo4X8iskDVHxsqdvgGsE3j5mfzg0RUA1FO
+ 33fw+4T0lTuRIbJ1RTswGoSJBiBMaT7kglmfH+G2e7GlA6PDZ9rL5n2l2M++qKqrNM2b
+ C21RUr4degxt/wec0M0u5N34jkGyuFWtnwoIIVwm3kYbO4IcX9jo6XVqNtseAa3h3IN2
+ yF3aqolLkilGyVj8SlcptXdLbrEA4QfbxZUG+Qe8GrvM5Od80K6lEAcRXymelsewyqel
+ u0xfSKKolu5UN4xrgyWZmxYT93o3NJT7EeA+j5U0hQo9UEmPBDiAj04/soB1LbQY7qIV
+ Yqfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795436559; x=1796041359;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=Z2brmbtPSn0eJYb2F1hknHyThriPLBF9yzs2QocOyug=;
+ b=Z0OTzHaEmuTlvmwXcg3vULehB74jDjklYe9AXd06wZsROXYHlv+kTou+2chP4UXYG0
+ cy/ZQlHhtw+qZgjOG6UnSoMVpEyLJxrUmpFpspWiMPdZfF45zMYK8tk7nuFOjmlCpO6E
+ TLuC0dyT8Uazs+Yxh9A5qAoMJb7XDuqBGNUb63M/uuMXKLLLxwpv10R1Jz8FbMW1dV1j
+ b/1u63Vmpn/AAhdUXe1sW0LIhcsO4JUOZJWRCW9RIWV3e+lreZkcZbi4UiDHv+386cyv
+ MCxcI+n3xrNM5khGjGaTpZxI9doTaLvZJ9qxr1UOur0LreQac/GG1a8/8AR4gHSWNOHI
+ JPlw==
+X-Gm-Message-State: APuU4Z+LAGgatHwZojp7tez0FfwbHSeRrgQlGMNmthhq5hfsu9mcQ2S9
+ 1VF+yZOO6uAGWIMMrQ5bB4SUZXkrNhrWA9jpzxWvZR1SRIL9gThfRgI6
+X-Gm-Gg: AZFdTZfPB752Dumds2lsRS1eT8StiGga7VT5O7nNt0M2in60B31S6U4qN+W9IkcsIMs
+ xZvXa64UN1fkeAyzIeSZw+dwzRExmWbEICIMrWPoNGNUvKh6QE50LBaRMru/ULNVkyUxWe2ZQjP
+ jJxvJoMm2AUPjbT+NNzb9MTZnVFcAN9wFEzketVxkjCBoxsCanUcYQUqSaIN1eiUhs4OXGOb//U
+ YQq8YDg+3axXdnuGKOOL4IuqoNvTXQNKVGzpf9YuqLzj7DeujysVuGyoxTWgLjOBkGjjS5xy4Ei
+ sxqY46s029oKOZFlLYUULV89se4KR2H7OWTdJsX6of2PbXY/LFYGXqXFbbLEIYAgsTqUPQj+lxW
+ 8gE7h7/NoCcGLCAW6vrXTHUNbUjay57pjdS1RhibfxVx9GooGT9qfv73Zes2Qy3XHexKosmyM8V
+ cr3eT41ZWFrHZP4f6gloiK8m3HIWfJg4+b+J79U6dCMPdI+frK7TkRrOcKfsbVSHd0Gh8hIrAT6
+ CEeOCLs3dgc54+IoLIH2RcyeXAIRXKd1+0pSdK4bw+zv2rvX4s9QCW0yfe0Id2oTNqIgEa3aT7e
+ OhBQKe1tZC6rRyqNy0v7EVguBg==
+X-Received: by 2002:a05:701b:450f:10b0:1a7:78a3:bda8 with SMTP id
+ a92af1059eb24-1b56f87ae87mr4215314c88.27.1795436558585; 
+ Mon, 23 Nov 2026 04:22:38 -0800 (PST)
+Received: from [127.0.1.1] ([161.33.196.121]) by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-1b5566c1142sm27463157c88.2.2026.11.23.04.22.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 23 Nov 2026 04:22:38 -0800 (PST)
+From: TAKANO Mitsuhiro <takano32@gmail.com>
+To: Weijie Yuan <wy@wyuan.org>
+Cc: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Thomas Huth <thuth@redhat.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, TAKANO Mitsuhiro <takano32@gmail.com>
+Subject: Re: [PATCH 1/2] drm/amd/display: Document the union in dc_probe_status
+Date: Mon, 23 Nov 2026 12:22:35 +0000
+Message-ID: <179543655559.4100066.12937692101747026786@gmail.com>
+In-Reply-To: <awO-665NEGdZtq1z@wyuan.org>
+References: <20261121041427.1743954-1-takano32@gmail.com>
+ <awO-665NEGdZtq1z@wyuan.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] Suspected amdgpu graphics regression on Ryzen 9
- 7950X since 6.18.58
-To: Jeroen Beerstra <jeroen@beerstra.org>, amd-gfx@lists.freedesktop.org
-Cc: stable@vger.kernel.org, regressions@lists.linux.dev
-References: <729A37E1-250D-469B-B89D-E24DFA4CABE6@beerstra.org>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <729A37E1-250D-469B-B89D-E24DFA4CABE6@beerstra.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-PPP-Message-ID: <179542539930.1220959.6543591146387798688@mxe9fb.netcup.net>
-X-NC-CID: L+GCgSx//zaUOVSIoD6C5t8ZGopIgxHeMNnucSRhm6p+nqNeNiU=
+X-Mailer: kpatch-send.py
 X-Mailman-Approved-At: Mon, 23 Nov 2026 13:54:41 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,76 +89,19 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/17/26 13:46, Jeroen Beerstra wrote:
-> I am experiencing graphics problems on AlmaLinux 9 using the integrated
-> graphics of an AMD Ryzen 9 7950X.
->
-> Last known good: Linux 6.18.56 First known bad: Linux 6.18.58 Still
-> affected: Linux 6.18.63
+Hi Weijie,
 
-Hmm, nobody replied, so einer the right people didn't see this or they
-have no idea what's wrong here. In that case you want to bisect the
-regression, as explained here:
-https://docs.kernel.org/admin-guide/bug-bisect.html
+Thanks.  Moved the AI disclosure below the --- in each patch, so it stays out
+of the commit message, and put it in the cover letter too.  Re-sent as v2, in
+a new thread ("[PATCH v2 0/2] drm/amd/display: document two members of dc.h");
+the diff is unchanged.
 
-Before doing so, please check the latest 6.18.y release -- and if the
-bisection comes up with a result, check if latest 7.4-rc is still affected.
-
-Ciao, Thorsten
-
-> The symptoms vary between affected versions:
-> 
-> I first noticed a hard lockup when I powered off my Windows 11 kvm
-> session where graphics are rendered to a dedicated Nvidia RTX 5080. So
-> the first suspect was either the Nvidia hardware or kvm/qemu. Later
-> the problem got worse and I was unable to boot into run level 5 where
-> my onboard AMD graphics for my Ryzen 9 7950X gets activated. At some
-> point it appeared my system even needed a cold boot to get in a
-> usable state as there were hardware errors unrelated to the graphics
-> at booted that prevented the boot to continue that disappeared after
-> a complete power off. I think this was with 6.18.59 and 6.18.60 but
-> not completely sure. Currently with 6.18.63 the problem is: hard
-> lockup when I power off my Windows 11 kvm/qemu session with the RTX
-> 5080 in passthrough mode and hard lockup when I end my Gnome session
-> in Linux that uses the onboard AMD graphics, so my primary suspect is
-> the amd driver. Because of the hard lockups nothing gets logged, but
-> I’m sure there are ways around that.
-> 
-> Steps to reproduce:
-> 
-> • Boot into run level 5 on AMD graphics • Reboot • Lockup
-> 
-> I currently use 6.18.56, which does not exhibit the problem.
-> 
-> These kernels are built using rpmbuild from unmodified upstream sources,
-> without additional source patches. The RPM spec is based on ELRepo's
-> spec, with local changes for Secure Boot signing. Secure Boot is
-> enabled.
-> 
-> I haven’t changed the kernel config or firmware in between. My setup
-> is: • AlmaLinux 9 • A custom build 6.18 kernel with secure boot but
-> without patches or other modifications • I have kernel modules via
-> dkms for: zfs, nvidia and anbox. However the nvidia modules are
-> currently completely disabled at boot. • System has 128GB RAM, a
-> Ryzen 9 7950X and Nvidia RTX 5080. On the Linux side I run the
-> standard Gnome that comes with AlmaLinux 9: 40 on the onboard
-> graphics for the 7950X and at the same time Windows 11 via kvm/qemu
-> on the RTX 5080.
-> 
-> Willing to provide further details if required or perform further
-> debugging.
-> 
-> 
-> #regzbot introduced: v6.18.56..v6.18.58
-> 
-> PS second attempt, didn’t ment to send a HTML message :(
-> 
-> Kind regards, Jeroen Beerstra
+TAKANO
 
