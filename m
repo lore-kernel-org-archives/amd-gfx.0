@@ -2,127 +2,122 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02BF7606A334
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2026 14:45:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7849D606A31A
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2026 14:49:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=w16znPlp
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=RWTO+pYD
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 643E710E7EA;
-	Mon, 23 Nov 2026 14:45:34 +0000 (UTC)
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012049.outbound.protection.outlook.com [52.101.43.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93D2010E7EA
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Nov 2026 14:45:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F21C110EEDB;
+	Mon, 23 Nov 2026 14:49:38 +0000 (UTC)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010054.outbound.protection.outlook.com [52.101.56.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCFD210EC28
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Nov 2026 14:49:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yXwOtvYckwSuuwLWlmTR/6nu97x4HXuQ8Q10Yipc7BzMHq8QHSbKVX4mw1Bp0IaJpnkgwHNl4sMup3gyQ/ZaL+VoRx1ErTYBtDYMpA3jO1xUKDJbfrzqCx7cmUHSY7N6qsJlEaAD3ZVeQCsLGa/nza1WEqOTOXV11diC4DMYqskvX+5xhpE1z37LJ4ni18Ban0WiwZ5G5sC5MHg70AG9xkAwuk2K1v1T1aQsSfV9K3ObYrs9zaDVWCElFQAq6kBr74JiZHOCtuGev6gzUfgocmhAyL/7i6ULumzdJlnm/ZdXAWlA7QcIiAqaZ6EyT86iaNEuvTA2cD584ZWkVezbwg==
+ b=OnZyvmDh0PuBT0/PJ2wuavDN8Ey8u4BthEJUQEv5VWUOLfPtlbpuKNh67ldqijk7nbPAXR8TWSkuaf3y+qyKxf/q4p2jGTP7bTiKiLM1ibkGixGWahaX4IjKqMaF57gSZrKTzIGttbVpbFGsdL02fO8JfFDxTKAPHWk6C9CLQCj/dKjFel87rBg7W2OWEPxIbtnE4HXJNUVLwZ6puZyuD1QNGqQq2lVXF0AaUiemOZb5aNaYLg/giaHTALRk4OPWhkDLBTedNJaZZ3EyvvlazgMbTFds/5rfZ6E6NGKrFfYpPjIU2zWB6qumnY7QwzEPFdqaLaurj4HTR5fb4NdKqw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dfv5TDFVQ601naZYSG3M44fEVMkJ3wPJRz9BYgJO9M0=;
- b=M/xnseTDmadiZWJzjA1ENT4xvi5P07WQcbrU/mOM3/20sDC8Yq9ng2y4IQXirIp1hAxDUav929ww1wgrAnFEUaeDFpa1xVQKvKmzzwr3D6RcPkiuRmz67Co21AAXCroSJLje9c/LT9QgidBjkvChjRHBRLcdcuFO+3IZ03Kcv8snI5CrO0Sm0zpXb9nAVId+522uVGc+i17Ri7odCuFjlrTha+ZaZQYwkKXLCtZyADCASdYP06Tdkmw7ipn7+xo+4Zou3CUyauSW4Ew198uYqtxU6PQZsSZK44J3SwkB2IwGQbToQb6yEJa3kZ4nJMXnM/11B0Gc4ax29gRgD7V+5Q==
+ bh=WteoHeZ7l7JH+B9D0Kqfe31M2q1/Q0cYOyvv6/XTWd4=;
+ b=AajivmmHxudDetVuBg5TcNszTsPUH6dNYfuT0t3nwsv6kldDrvaynHwohbeOrjJoAbl3D/LCYyxHfQ+abLOg7vwRGBiIp7F0spkhSkR61Sc4P218eZvFxH5W8EvBW4j8FeG10Czy3eSueKPM7b3RgiH4/ZnrP9JhET5xF+Lyvy++jqXSKCtfrSrKKTa7shTYEqNr5s2gwKcJDzbaI1wMBDcS3A+wTtjKYq0Xe5Q4Ul70j96FcbhemBIWSAVZbsgzFNVqV4GD7/y3NDnfcPF0DRAxEuLzwSVumToQ08qpTtG0kaLnPMn7max9OH3J16ECzephzPzyPSeKzACniV8/cg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dfv5TDFVQ601naZYSG3M44fEVMkJ3wPJRz9BYgJO9M0=;
- b=w16znPlp50WAlbMn1o+tEUBtVvIwGSGbu6HXwzJchIZOfvIJ4yDYJlw0JcDhLH51kVT+XqBNjxknf2ThbJDJr6wdTOzB7d6s4xFjb552vlp6bVYZ8Nz8GUKqDjayHr/MCg0d3Cdx92dAmFHBu/JXNOp3kdNTC2kdD4TlBDO76CE=
+ bh=WteoHeZ7l7JH+B9D0Kqfe31M2q1/Q0cYOyvv6/XTWd4=;
+ b=RWTO+pYDUSgLWlERxwpBui8ZvyXK887RnoXwyZEkQyE3v5RJs/cMuh//TCgxaaJ7W026C6sa3+gNOHNCZQj9UF1xzX7jjejxfJWawGgBq3Geb5njmJ7vqfZNlRcWk/D4vDYdQX+ZakiCLF47Ms9KfV6EMKz9QU9YBTuB7uRITwg=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5805.namprd12.prod.outlook.com (2603:10b6:510:1d1::13)
- by SJ2PR12MB7895.namprd12.prod.outlook.com (2603:10b6:a03:4c6::6)
+Received: from BL1PR12MB5336.namprd12.prod.outlook.com (2603:10b6:208:314::8)
+ by MN0PR12MB6293.namprd12.prod.outlook.com (2603:10b6:208:3c2::22)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.12; Mon, 23 Nov
- 2026 14:45:21 +0000
-Received: from PH7PR12MB5805.namprd12.prod.outlook.com
- ([fe80::35dc:5b7a:52da:c8f1]) by PH7PR12MB5805.namprd12.prod.outlook.com
- ([fe80::35dc:5b7a:52da:c8f1%6]) with mapi id 15.21.0639.011; Mon, 23 Nov 2026
- 14:45:21 +0000
-Message-ID: <1a8d7f1f-3478-4855-b101-ea9b99b48f63@amd.com>
-Date: Mon, 23 Nov 2026 09:45:17 -0500
+ 2026 14:49:28 +0000
+Received: from BL1PR12MB5336.namprd12.prod.outlook.com
+ ([fe80::576a:69b5:929c:8640]) by BL1PR12MB5336.namprd12.prod.outlook.com
+ ([fe80::576a:69b5:929c:8640%6]) with mapi id 15.21.0639.012; Mon, 23 Nov 2026
+ 14:49:28 +0000
+Message-ID: <eb4995f0-4c57-455b-b081-46446cf8bfc1@amd.com>
+Date: Mon, 23 Nov 2026 09:49:24 -0500
 User-Agent: Mozilla Thunderbird
-From: Benjamin Cheng <benjamin.cheng@amd.com>
-Subject: Re: [PATCH v3 4/7] drm/amdgpu/vm: reserve space for last_unlocked in
- handle_fault
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Shahyan Soltani <shahyan.soltani@amd.com>
-References: <20261118190735.1863676-1-benjamin.cheng@amd.com>
- <20261119144049.2057674-1-benjamin.cheng@amd.com>
- <20261119144049.2057674-4-benjamin.cheng@amd.com>
- <90b6d1f2-2ed4-4259-9470-96144c27d5e1@amd.com>
+Subject: Re: [PATCH] drm/amdkfd: load-balance SDMA_BY_ENG_ID queue allocation
+ across engines
+To: amd-gfx@lists.freedesktop.org
+References: <20261102154823.20736-1-jinhuieric.huang@amd.com>
+ <c1fa1903-0822-4a2e-85a0-12c0244569ed@amd.com>
 Content-Language: en-US
-In-Reply-To: <90b6d1f2-2ed4-4259-9470-96144c27d5e1@amd.com>
-Content-Type: text/plain; charset=UTF-8
+From: Eric Huang <jinhuieric.huang@amd.com>
+In-Reply-To: <c1fa1903-0822-4a2e-85a0-12c0244569ed@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQZPR01CA0163.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:8c::19) To PH7PR12MB5805.namprd12.prod.outlook.com
- (2603:10b6:510:1d1::13)
+X-ClientProxiedBy: YQZPR01CA0161.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:8c::29) To BL1PR12MB5336.namprd12.prod.outlook.com
+ (2603:10b6:208:314::8)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5805:EE_|SJ2PR12MB7895:EE_
-X-MS-Office365-Filtering-Correlation-Id: c93edb9b-2226-4165-ac4f-08df4970667c
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5336:EE_|MN0PR12MB6293:EE_
+X-MS-Office365-Filtering-Correlation-Id: db6d3ee7-c6fd-4f28-26e5-08df4970f97c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|23010399003|18002099003|22082099003|261009223027099003|261021121427099003|261021123027099003|261026140227099003|261026121527099003|261102123227099003|261022105027099003|261028144727099003|56012099006|4143699003|10067099003|11063799006;
-X-Microsoft-Antispam-Message-Info: cfT2lfq79gTNFpsVtHbceNd+7Cw4Mf0w0/ejdUUvV5Ivr4UlZPV01DNzfX0XT2oTLYSdEoigW1W50Xl7yHS4Fg/pOKUmdciOJxw3/wnWllrDvTpcCXZR+1sdHYPdEpXZZl5gv8K3wrPeY9i0pz/m5BiJLftfKu33q8K56PhjcC6ImykXIJuewFYfakrQSwuUmUfvSTpRk3onNgaVpK9iP7EFP0IiVDrhlpriM4fFfllAXvw9IuKxg9JkmN3APQJSWlHHb2hTUOYbldbkKrdQ2qRXYfdltgl+j6Qy8Hlsx3PIkcdiDvoRJa2TPmNAo9HkbL0qdMxR825tQKDTKh7NVf7mxQUKxbTJ2kv3+4GsVKP70/AkNPNHcpgVsukgM9Ge97dMOKKEaxSB4LsTLFqQG9W8hL19oG//Y+tBTNcKxdg+W8grrjdtIGRgAIadRENk4bcrz5N6hty+RKaZ/ZdnyqFxrduqOmJ40r3EfXhsG+bKrUI0LW/jkuT6J76uuH6eYEOAaz8NQDUGRmFl4ZfOXXuOk+eJ6iLvGMN/OSNiRxNkN7Gbo1YKJf0vMB/C4yKME5PoxplVCqJqeyS7Finfx5y+zvCJ5XJBKhsrArZUdpENS82cO1UPKzafNzG2Tc9/Cbid0vw6431Kt7Vj7ocNAs7JdQ/hVScoVveKWiIEWLE=
+ ARA:13230040|366016|1800799024|376014|23010399003|10067099003|11063799006|4143699003|56012099006|261021121427099003|261021123027099003|261026121527099003|261022105027099003|261026140227099003|261009223027099003|261102123227099003|261028144727099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: YTZTNCS3ysDH95fGEeWKLKEdWY1Xk3uZLldnNrRRDHXDnapONa7OLiYtrOD4+O6SdxJrKTyCaPtEWVa3VOYx7dgvmYFn2vuCQw3mMJpFDs7sNJ/MqggbZGRmLGjJdUxGjbQKe4Ut/7913KisSB53piXfLMD6GIVItoCm3GBELYYlxbqCWxqwFQdXGNO9FYKxoKuhaOBbHmGB2nuQ+I4r1sjCAxndgspV8Nwq2seHGA3BPzC3NwoRddJeX7YLGRkQjqD2UKO5udEi8cPtLf56sSzbpCdPoYwwAcIu1W628Q11opcjEkzm5LlYhrHsr0by+W08brZR5g5Vq0NH9Xu+eezvE5B/Q+f0zKcrD7adpMDZTa/m9pmylsCcQ3YcbSkCjzhp4ED5mFVTLwsMmTpeob3vWWkPV8tCIuA9Sk+hBSaes1ygUonJPw9xi2C6S8jLLEmrNaTpnrlAxzlPDn/dyBUtyJXrBZLolDDR0TKJ7+yiDeVOLbWMUIjTyyRJkCHNg3Wc4AOfdODLDFlsArEhCrma2dGLuH5qb+JekcGIsu6YMteNOFJdt+CH/m+zheYO94bYOfXJHVr/BH7IP4rjwrljF8G3j8mZpbo5OyndLNVevu6ygUSYhXu17MgeQgxCAdlGril6scm1CQxH8d0ZJQPapT5UhaA6JT7wI3jFcrA=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5805.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(18002099003)(22082099003)(261009223027099003)(261021121427099003)(261021123027099003)(261026140227099003)(261026121527099003)(261102123227099003)(261022105027099003)(261028144727099003)(56012099006)(4143699003)(10067099003)(11063799006);
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5336.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(10067099003)(11063799006)(4143699003)(56012099006)(261021121427099003)(261021123027099003)(261026121527099003)(261022105027099003)(261026140227099003)(261009223027099003)(261102123227099003)(261028144727099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S1BDZFBMSTJnTTlsbzZ4bkVGMjIzY05zdVJaZGZmNHFvRFFLU1VybE9INXZN?=
- =?utf-8?B?dDlQYUlzMG15ekt0S1g3VVNDZFQ0dUE3Nk8zMWdOZk80NUN0VDhPa1NrZ3Js?=
- =?utf-8?B?eXk4cU9kdUVqcVhuK2YvU013eFBsOW5Dc0EyeXExZjNvcHhlNlI4RGdwYzZE?=
- =?utf-8?B?NjJmWG5PbkYwNlZIQTIvSWlTWFNhYnAvYWdKVUY4bTNUVjhhZVUyaW9ZWmlp?=
- =?utf-8?B?RThlRGFmOXdFWXNGL3Z4R3FRM3paUjFmNXJUZjUyYmhDWFNrRGhaUzUrR1R4?=
- =?utf-8?B?dS9DMzh0VUlFWjh0VHFQSUVpbjhkSFNMUVh0c1pWTXVDYWNCa2MxRHAzSTdD?=
- =?utf-8?B?WVJoenFaek5BT2FmeVNqUXdQMTF3VUFaczhjWlhHdS9XNWhkTlpJZENIblhx?=
- =?utf-8?B?Wk9aTzdtSjg5ZVNJdk1aeVZmR1p5bUZuSzZxYWtNeGVyUGZ2N043cTZ1TnZX?=
- =?utf-8?B?cUsyVW5kemF6SEV1bkNwL0hsUUxGQWZLQW5JdUt6d3J0ZlNZQTNVYi9wSkt0?=
- =?utf-8?B?VVR0NHV3MnNtb0lkang5Ym1zOXRlMWtkUURYM2RWQVNnYTZ0ckN1ZGRlVlZX?=
- =?utf-8?B?UUtoeHZ3MVVnamVwS0MzanU0RWtFRjRUQ3FpRTJjQ0pDbng0dExTa1BTZDNz?=
- =?utf-8?B?bkp4cXVoUEdUUVFhTmgvczdSTzB2N1RwOHVJWmx4S1dhR0Y4SDZGZ0JZNGVr?=
- =?utf-8?B?Rkc4YTRnYXltQTBKMlhEV2VENjRhK3ZCVDg0L2g0VnV1ejNKR1Vib3NFS3RT?=
- =?utf-8?B?Y0U0ZmRtYnFDSWJjV3dxcEw0VlU1dDRLTlRvdjFxM3h1VTQ2ek5BQ0poaXFG?=
- =?utf-8?B?ZUM1bkE2UmtrZWNlT1EzVC9yOXpqVHg5WG1ld2N2SllLVGhINmtCVDBjdUhu?=
- =?utf-8?B?cXBabllzS0Jqb1FaQ2I3cXl2bVp2azhZeFpPY0UwNjA3SmsrSDJKdXEwN0Vr?=
- =?utf-8?B?ejBwQjl1ZGF4eHpZSk90aURuZjNMV0JVeGV4YjM4U3dienU0RHNTY1loeUIz?=
- =?utf-8?B?VkdIRzN6SlFtRER3YjRTWDF3cTY4RkZhQ3BYVlhrTEp5SHBVTnJGeUVMckZU?=
- =?utf-8?B?RUZZSDlVYWpuRXc4SXZCam5wNi9xY2RUNHFhMS8rbFZRN1pZT2JvbjNuLzJR?=
- =?utf-8?B?RCtWL290dXNDTjBvcFN6citKbnJrNWVtd3RzbDQvR0ZxOVRlY1p4WStGNVV3?=
- =?utf-8?B?eVV2dFBrd2ZGRW5kN1BQc2lnUUpOTkQwb3E0UkVZRklNWEtFcENQM3pubmIv?=
- =?utf-8?B?ano5VkZ1cEVjeGVZSm5rR3RLbHUzVGUwc2M1REx3Y1NNd1RuQlFDSm1IczdY?=
- =?utf-8?B?VHozMkhLOEVRakZodllMVDZpVnZhV3NicmZrejI0MDlmVTZYbHhweDdQRkRj?=
- =?utf-8?B?WUVudm1QbXlvejEzSGgyQXZ6bmhXUGxkd052c3hjTFZWSmlvS05WUHNoaFVK?=
- =?utf-8?B?ZHZoemJtUER2d2xLWWJRZXRwc25uZ1laV3NjQW4yclB1MlFZQm0yMjlLaWVF?=
- =?utf-8?B?a3dlOElyRmlMd2JKUFZ5U3pVWFVxcUtUWDYxQjZIMWcyaFRGajluaDdXbE9t?=
- =?utf-8?B?MTBaOUJTdmszWTlFcGF0anFsZ3liOC9hWWREQjJBUTcyWmZxN0Y5OGthWlRr?=
- =?utf-8?B?RHk5b0tXbWVUOHBEVk16aHBtUU94elh5aTdxTEpiNmc1c1FUbWJYbk5MTjl3?=
- =?utf-8?B?Q1VzeC91RFltNzN1eEFZd0V2V1UyVWlrSDh4SUo4QUg1RmM2bkQ2VVVNeTNJ?=
- =?utf-8?B?OG9ST1BGdE9FOSt5aGhKVTdlSnR0VFJHUmVPZ1NLekIrVGROMjgxZ0pTT1Fs?=
- =?utf-8?B?RW5sWnVacDJWM3MxVTRIV2Y0Y3Q3bTRjbEgxV28xMU1MQ2RRdktBQ2pCS1dZ?=
- =?utf-8?B?RytKWmRjeGZQdWRTbExuNnRxa2x5OWJ0Zm9aRlZBc1QydHhycjlKVTRtQXhG?=
- =?utf-8?B?ZjdRNHlLcUk1dTFnSVBlS2lMRm1Kc0R4Ykl4VEJvTXNaVEZwR3JnMnN1cVNB?=
- =?utf-8?B?TjJOb3lWRi8zcU5ZWnZNVnJpNDRYcTE0dlExVDUzL1FsWmdSWCt0SmR1N250?=
- =?utf-8?B?YUJ2cCtMaFQyQXFXTjRzYXVrUWVab2t4SGNkVmpwblhLbHdpU1E5YWRIRW94?=
- =?utf-8?B?T0d3a3N4OFZmOGZCRkNSbkRKTFJCS2Jpb2V0dWxab0FId2dkbFZtM3BVYjA2?=
- =?utf-8?B?dnlIVlhaaHNtNzk1aytWN2RUMEdZWFBZVVZlMzBWdkZaMzZBandpZXE2cUxG?=
- =?utf-8?B?ejI0OVNLQU5lSFZKZ1VLR09uL3ZJUVJwZjZBMW9QOElzRzlka01QMjh0cWpC?=
- =?utf-8?B?OVg3WENXMi9TVlpqbHJ0bE9sdzBZbzNpR2hqbStMZXlsSU45V3Zkdz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?azRPY0VyL2VUc0ZMVGpLV0ZPZFhCZ05CbERGVnVTeCtibDkySWo3KzZKaE5j?=
+ =?utf-8?B?VkQ1dDU2SmY4bkt0QnF4bmFHbjh0UzJVR0ViQ0ZNKzdZck5yWGJpNW5oSE9F?=
+ =?utf-8?B?OWx4NEg2L3JQVVRYVFFKT2xjQUdSWTEzaWFubTd0NFdnY1hkN3BGa0FCZFo3?=
+ =?utf-8?B?YWM5Mmd3VlJKT2c2b3VucTY5T2dIZElUcEY2c3BXVDJGVG9rWFZTaW5uaGdO?=
+ =?utf-8?B?a1lkTVl3cTJ6RXl6TzlaT1FqMllUY01jYXVac1hWMXo1YVVMMXpEWndCTzhW?=
+ =?utf-8?B?Nlh4K1Q1VkJNV1JUWFhWdS9QbW04Yy9Fd1RwcWNaNFVtMkZTb3BZS1hwVThY?=
+ =?utf-8?B?cG5Oem5IejltTElmb21HZ0M2bXRUOGYzK3Y0UHdCODFwMHQ2cFlSYzgzTWFU?=
+ =?utf-8?B?aFFYUDlicG9BTlFnTWpwRW5tUkNkczE0blYxZEhDNis4RDVzQ3FIWWRGZXNm?=
+ =?utf-8?B?MDBiY2FnaFV2ZWpuenMyRGV1bmdVQ3gwcU83Smt0WnJMaDhxdFh6MjdFc2Yv?=
+ =?utf-8?B?MzVXZDk3a1lzT09aektXTnErbm9oTmU2YWZwc0lNSDIrRGE1RGFGeXZVYXR6?=
+ =?utf-8?B?TVNzeFBDb2d0d2RJb3pOMGM3dDhHbWFvb1FEdUJZRy82Q053MElnemN1dHNU?=
+ =?utf-8?B?SGJPVHdJNlVXN296WmtIZkNOTGY3d00wRnhjK2RIYTFhajF1MFVOLzhaYm13?=
+ =?utf-8?B?ZkZ4bW9GT2grWGtpNTlVWGZzYVhOQzBKckUrTEFBYnVQWHlEN3hNU3VnMjg2?=
+ =?utf-8?B?THk1eitlR0dGdWIxUGJ5SkliMi96RC9TY0dJRWMxVlUyRDlraE94RnhITmpj?=
+ =?utf-8?B?cDIzbzEraU1MWGlGL2JnMndlc01qRmpOWTFmbFFaVXZJNzlSZzh1UDRCYXJH?=
+ =?utf-8?B?QkI1aG1OcVBCcU92Slprb29LeTdZTytYYUxXQlZVL29vWmpEanl0VUZmdzVj?=
+ =?utf-8?B?SG9mbU13Z1lkUVppQVhsOVNBZTJGaEd1dXpvZHR2SWduYnZ1NlFreGtLRExj?=
+ =?utf-8?B?M0pnUDZIZ1JVL1lpMWxtVVZ5cnA3NmRELzFGYVh3K3NMZjJYRm14Q05nYnBu?=
+ =?utf-8?B?TVNpanFYYmZxVFVkZG81L1Z6VzRDS0xtRStCUTN0NDROejBIK2dQTTYwWU1m?=
+ =?utf-8?B?bUN3UW1rdFZueXc0bU1VcHlUeXRLMVJHdjlpcEMwUE1OZllBbE9DU1dpdHJ2?=
+ =?utf-8?B?elhnWU5RMFFRT21KdnNpSThpU1NzZysxeER4V1BMVUhLVXRmMmRIVWdtMnU1?=
+ =?utf-8?B?NmNITGh5Q29ReUpWUktXbjdFWnZzUXlZYmRSU3ArYlIyemZCUUVmOTE5VDZC?=
+ =?utf-8?B?aEd1ci84Q3c1aHJ1MS9JSjNqS25uVURIU1ovOGxjb081L3QxNEQzN0wwdC80?=
+ =?utf-8?B?cExjS2xUc3ZTZ3FRNUFLQnd1VHV0azdXOFkyMmdSNlo3dUN3Sy9MZDJaTWNO?=
+ =?utf-8?B?dTdMdlRBZnp0SndWSzZuNEphOHYxQ2dUOHg3ajBlZU45NEJGZUgrYjJUbXBX?=
+ =?utf-8?B?aUZ0UjJDVHE3eVdleVVJelhCS3J0SWlOS3R3VXN4OVk5MXZyQUdNUUc3MFg2?=
+ =?utf-8?B?N0pOZEc2aC9KdzJCblBlZm43VlFNZ3dwZTNPVUVJTzFCbDlIQ0YydCtPTktM?=
+ =?utf-8?B?NmNCZG1KZEJ2YkhiS3ZQczVvcVRVazI2eG5kS2xZWDZiTWFVbDE5SkJrOU9G?=
+ =?utf-8?B?MlhEL2lJUjRLa0xvNlZqeGFLcm9wNzBlZjQwc2xockgxb3NjTXVFRlRKd2tP?=
+ =?utf-8?B?RytnWGZkdmorV0ZJTFRIWmlkZjRZYldFRlhxUDlqZ3dJM3N3MlB4WlJmcXRm?=
+ =?utf-8?B?NWdLME9SU09Yam5aalVOSE8zQW1venpGaURSQzQ5RTNSZnZmL2RTaitNd3M5?=
+ =?utf-8?B?Z0JIbXREZS85RFdXeHhxbFptUWJWUVowY1BvNnQ3dWpVL0pKYXZSZzFKcW9j?=
+ =?utf-8?B?WGtYQUNZdlFidkw4R0NFVm9ZMmtvRzEvdnp2dEFBUjROUGFqZGVLMmh0S0Vl?=
+ =?utf-8?B?bDNYWkdJN002WW5lbkw3YngxcTJIbktVV3lDQW4renNLN1kwNjRFM21HVWpH?=
+ =?utf-8?B?cjlpMlBxUy9RaVIweXJkcEtqL08xTVowbW1kTVM4UldKazhjUWJTTUdHOWFH?=
+ =?utf-8?B?eWs2VGhTL2EzTlhZcHJKaG9wUFkrc2oyZVpqeS9aK3NJWDJabmM1TlltZW5U?=
+ =?utf-8?B?UGdFY3pxY0l5eXMxdVo2WUZtZjhoTUgyaVBaSUxIMVRuL1pKUlBMTzd6MXhQ?=
+ =?utf-8?B?d1B3QlZGeE9NKzkyaTFLVnBpdUYvNlF0R29CUUJXellDTXlsM2JlVzlqV2Uy?=
+ =?utf-8?B?RFdmemtmenUvTE5OaGtHRTEyR05ZdERocXVOc0diMnN2cDdvOC9mQT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c93edb9b-2226-4165-ac4f-08df4970667c
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5805.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: db6d3ee7-c6fd-4f28-26e5-08df4970f97c
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5336.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2026 14:45:21.6321 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2026 14:49:28.5197 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GfqEBJShGYKDG2OaKUQJLJh9h1jFBLmy+xg0yIGwOQJmIn/YaEwIzt6ky8lXhTqSsRyh/19MWhuyRD9ob3JQHw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7895
+X-MS-Exchange-CrossTenant-UserPrincipalName: fSw7iiFZfC3NflzgB+wLFwZhpRiilq+pn8hHasy8ufz5CJxj45Jqzb+IdJiGGZ0kq9PBA7PKmbEvoxDc/8uC/A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6293
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,58 +136,267 @@ X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+Ping ...
 
-On 2026-11-20 07:03, Christian König wrote:
-> On 11/19/26 15:40, Benjamin Cheng wrote:
->> Normally last_unlocked lives on the same entity (vm->delayed) as the
->> SDMA commit so they would use the same slot, but in this case handle_fault
->> calls update_range in immediate mode, making the SDMA commit live in the
->> immediate entity.
+On 2026-11-06 14:25, Eric Huang wrote:
+> Ping.
+>
+> On 2026-11-02 10:48, Eric Huang wrote:
+>> ROCr picks a P2P SDMA engine independently per process, so many
+>> processes sharing a GPU can converge on the same engine while sibling
+>> engines idle. Use the existing per-engine sdma_bitmap/xgmi_sdma_bitmap
+>> occupancy, already tracked across all processes, to redirect queue
+>> creation to a less contended sibling engine when the requested one is
+>> shared with another process or full. Prefers (in order): a fully idle
+>> sibling, a sibling used only by this process, the requested engine if
+>> it still has room, then any sibling with room.
 >>
->> Since the two fences are not in the same entity, we need to reserve two
->> fence slots here.
+>> No uAPI change: KFD never reports the allocated sdma_engine_id back to
+>> userspace, so this redirect is fully transparent to existing callers.
 >>
->> Fixes: 2b665c3735b3 ("drm/amdgpu: reserve fence slot to update page table")
->> Signed-off-by: Benjamin Cheng <benjamin.cheng@amd.com>
+>> Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
 >> ---
->> v3:
->> (Christian)
->> - No TLB fence or TTM_NUM_MOVE_FENCES need to be added here.
->> ---
->>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 6 +++++-
->>  1 file changed, 5 insertions(+), 1 deletion(-)
+>>   .../drm/amd/amdkfd/kfd_device_queue_manager.c | 147 +++++++++++++++++-
+>>   1 file changed, 140 insertions(+), 7 deletions(-)
 >>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> index 4d31c41fb684..b1d2779a2aee 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> @@ -3187,7 +3187,11 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
->>  		value = 0;
->>  	}
->>  
->> -	r = dma_resv_reserve_fences(vm->root.bo->tbo.base.resv, 1);
->> +	/* update_range operates in immediate mode here meaning the SDMA commit
->> +	 * is on the immediate entity, while the last_unlocked comes from the
->> +	 * delayed entity.
->> + 	 */
-> Oh that is a good catch but clearly not the right way of fixing this.
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c 
+>> b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+>> index 7b2f6636ae0f..c8db35952e4b 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+>> @@ -70,7 +70,8 @@ static inline void deallocate_hqd(struct 
+>> device_queue_manager *dqm,
+>>                   struct queue *q);
+>>   static int allocate_hqd(struct device_queue_manager *dqm, struct 
+>> queue *q);
+>>   static int allocate_sdma_queue(struct device_queue_manager *dqm,
+>> -                struct queue *q, const uint32_t *restore_sdma_id);
+>> +                struct queue *q, struct qcm_process_device *qpd,
+>> +                const uint32_t *restore_sdma_id);
+>>     static int reset_queues_on_hws_hang(struct device_queue_manager 
+>> *dqm, bool is_sdma);
+>>   static struct queue *find_queue_by_doorbell_offset(struct 
+>> device_queue_manager *dqm,
+>> @@ -807,7 +808,7 @@ static int create_queue_nocpsch(struct 
+>> device_queue_manager *dqm,
+>>               q->pipe, q->queue);
+>>       } else if (q->properties.type == KFD_QUEUE_TYPE_SDMA ||
+>>           q->properties.type == KFD_QUEUE_TYPE_SDMA_XGMI) {
+>> -        retval = allocate_sdma_queue(dqm, q, qd ? &qd->sdma_id : NULL);
+>> +        retval = allocate_sdma_queue(dqm, q, qpd, qd ? &qd->sdma_id 
+>> : NULL);
+>>           if (retval)
+>>               goto deallocate_vmid;
+>>           dqm->asic_ops.init_sdma_vm(dqm, q, qpd);
+>> @@ -1923,8 +1924,125 @@ static int stop_nocpsch(struct 
+>> device_queue_manager *dqm)
+>>       return 0;
+>>   }
+>>   +/*
+>> + * Count how many of one physical SDMA engine's queue slots are already
+>> + * claimed by a queue, by any process sharing this device. 
+>> Per-engine slots
+>> + * are interleaved in the bitmap with a stride of num_engines, i.e. 
+>> engine
+>> + * "engine" owns bits {engine, engine + num_engines, engine + 
+>> 2*num_engines, ...}.
+>> + */
+>> +static uint32_t sdma_engine_busy_slots(unsigned long *bitmap, 
+>> uint32_t num_engines,
+>> +                    uint32_t num_queues, uint32_t engine)
+>> +{
+>> +    uint32_t slot, busy = 0;
+>> +
+>> +    for (slot = engine; slot < num_queues; slot += num_engines)
+>> +        if (!test_bit(slot, bitmap))
+>> +            busy++;
+>> +
+>> +    return busy;
+>> +}
+>> +
+>> +/*
+>> + * Count how many of this engine's busy slots (per 
+>> sdma_engine_busy_slots())
+>> + * are already owned by the calling process itself, by walking its own
+>> + * (typically short) queue list rather than every queue on the device.
+>> + */
+>> +static uint32_t sdma_engine_own_slots(struct qcm_process_device 
+>> *qpd, uint32_t num_engines,
+>> +                       bool is_xgmi, uint32_t engine)
+>> +{
+>> +    struct queue *cur;
+>> +    uint32_t count = 0;
+>> +
+>> +    list_for_each_entry(cur, &qpd->queues_list, list) {
+>> +        bool cur_is_xgmi = cur->properties.type == 
+>> KFD_QUEUE_TYPE_SDMA_XGMI;
+>> +
+>> +        if (cur->properties.type != KFD_QUEUE_TYPE_SDMA &&
+>> +            cur->properties.type != KFD_QUEUE_TYPE_SDMA_XGMI)
+>> +            continue;
+>> +        if (cur_is_xgmi != is_xgmi)
+>> +            continue;
+>> +        if ((cur->sdma_id % num_engines) == engine)
+>> +            count++;
+>> +    }
+>> +
+>> +    return count;
+>> +}
+>> +
+>> +/*
+>> + * KFD_QUEUE_TYPE_SDMA_BY_ENG_ID callers (ROCr in particular) always 
+>> ask for
+>> + * one concrete engine id, picked with no visibility into what other
+>> + * processes sharing this GPU have already claimed. When several 
+>> independent
+>> + * processes make the same locally-reasonable choice -- e.g. each one's
+>> + * round-robin or recommended-engine logic lands on "the first XGMI 
+>> peer I
+>> + * ever talked to" -- they collide on one physical SDMA engine while 
+>> sibling
+>> + * engines sit completely idle, splitting that one engine's 
+>> bandwidth across
+>> + * every colliding process instead of spreading the traffic out.
+>> + *
+>> + * dqm->sdma_bitmap / xgmi_sdma_bitmap already record per-engine slot
+>> + * occupancy across every process on this device. Reuse that existing,
+>> + * cross-process-shared state with redirecting preferred oder: 
+>> requested
+>> + * engine not foreign-shared and still has room, a fully idle sibling,
+>> + * a sibling used only by this process, the requested engine if it 
+>> still
+>> + * has room, then any sibling with room.
+>> + */
+>> +static uint32_t pick_sdma_engine(struct qcm_process_device *qpd, 
+>> unsigned long *bitmap,
+>> +                  uint32_t num_engines, uint32_t num_queues, bool 
+>> is_xgmi,
+>> +                  uint32_t requested_engine)
+>> +{
+>> +    uint32_t eng, busy, own, slots_per_engine = num_queues / 
+>> num_engines;
+>> +    bool requested_has_room;
+>> +    int fallback_own_eng = -1, fallback_any_eng = -1;
+>> +
+>> +    busy = sdma_engine_busy_slots(bitmap, num_engines, num_queues, 
+>> requested_engine);
+>> +    if (busy == 0)
+>> +        return requested_engine;
+>> +
+>> +    requested_has_room = busy < slots_per_engine;
+>> +    own = sdma_engine_own_slots(qpd, num_engines, is_xgmi, 
+>> requested_engine);
+>> +    if (own >= busy && requested_has_room)
+>> +        return requested_engine;
+>> +
+>> +    /*
+>> +     * Single pass over sibling engines: return an idle one 
+>> immediately.
+>> +     * Otherwise remember the first sibling with room, split into a
+>> +     * same-process-only candidate and a general one, so a fallback 
+>> that
+>> +     * is merely shared with ourselves outranks one shared with another
+>> +     * process.
+>> +     */
+>> +    for (eng = 0; eng < num_engines; eng++) {
+>> +        uint32_t eng_busy, eng_own;
+>> +
+>> +        if (eng == requested_engine)
+>> +            continue;
+>> +
+>> +        eng_busy = sdma_engine_busy_slots(bitmap, num_engines, 
+>> num_queues, eng);
+>> +        if (eng_busy == 0)
+>> +            return eng;
+>> +        if (eng_busy >= slots_per_engine)
+>> +            continue;
+>> +
+>> +        if (fallback_any_eng < 0)
+>> +            fallback_any_eng = eng;
+>> +
+>> +        if (fallback_own_eng < 0) {
+>> +            eng_own = sdma_engine_own_slots(qpd, num_engines, 
+>> is_xgmi, eng);
+>> +            if (eng_own >= eng_busy)
+>> +                fallback_own_eng = eng;
+>> +        }
+>> +    }
+>> +
+>> +    if (fallback_own_eng >= 0)
+>> +        return (uint32_t)fallback_own_eng;
+>> +
+>> +    if (requested_has_room)
+>> +        return requested_engine;
+>> +
+>> +    return fallback_any_eng >= 0 ? (uint32_t)fallback_any_eng : 
+>> requested_engine;
+>> +}
+>> +
+>>   static int allocate_sdma_queue(struct device_queue_manager *dqm,
+>> -                struct queue *q, const uint32_t *restore_sdma_id)
+>> +                struct queue *q, struct qcm_process_device *qpd,
+>> +                const uint32_t *restore_sdma_id)
+>>   {
+>>       struct device *dev = dqm->dev->adev->dev;
+>>       int bit;
+>> @@ -1995,7 +2113,9 @@ static int allocate_sdma_queue(struct 
+>> device_queue_manager *dqm,
+>>               kfd_get_num_xgmi_sdma_engines(dqm->dev);
+>>       } else if (q->properties.type == KFD_QUEUE_TYPE_SDMA_BY_ENG_ID) {
+>>           int i, num_queues, num_engines, eng_offset = 0, start_engine;
+>> +        uint32_t requested_engine;
+>>           bool free_bit_found = false, is_xgmi = false;
+>> +        unsigned long *engine_bitmap;
+>>             if (q->properties.sdma_engine_id < 
+>> kfd_get_num_sdma_engines(dqm->dev)) {
+>>               num_queues = get_num_sdma_queues(dqm);
+>> @@ -2008,16 +2128,29 @@ static int allocate_sdma_queue(struct 
+>> device_queue_manager *dqm,
+>>               q->properties.type = KFD_QUEUE_TYPE_SDMA_XGMI;
+>>               is_xgmi = true;
+>>           }
+>> +        engine_bitmap = is_xgmi ? dqm->xgmi_sdma_bitmap : 
+>> dqm->sdma_bitmap;
+>> +
+>> +        /*
+>> +         * Treat the caller's engine id as a preference, not a mandate:
+>> +         * redirect onto an idle sibling engine if the requested one is
+>> +         * already shared by another queue. See pick_sdma_engine().
+>> +         */
+>> +        requested_engine = q->properties.sdma_engine_id - eng_offset;
+>> +        start_engine = pick_sdma_engine(qpd, engine_bitmap, 
+>> num_engines, num_queues,
+>> +                        is_xgmi, requested_engine);
+>> +        if (start_engine != requested_engine)
+>> +            pr_debug("SDMA engine %u busy, redirecting queue to idle 
+>> engine %u\n",
+>> +                 requested_engine + eng_offset, start_engine + 
+>> eng_offset);
+>>             /* Scan available bit based on target engine ID. */
+>> -        start_engine = q->properties.sdma_engine_id - eng_offset;
+>>           for (i = start_engine; i < num_queues; i += num_engines) {
+>>   -            if (!test_bit(i, is_xgmi ? dqm->xgmi_sdma_bitmap : 
+>> dqm->sdma_bitmap))
+>> +            if (!test_bit(i, engine_bitmap))
+>>                   continue;
+>>   -            clear_bit(i, is_xgmi ? dqm->xgmi_sdma_bitmap : 
+>> dqm->sdma_bitmap);
+>> +            clear_bit(i, engine_bitmap);
+>>               q->sdma_id = i;
+>> +            q->properties.sdma_engine_id = start_engine + eng_offset;
+>>               q->properties.sdma_queue_id = q->sdma_id / num_engines;
+>>               free_bit_found = true;
+>>               break;
+>> @@ -2392,7 +2525,7 @@ static int create_queue_cpsch(struct 
+>> device_queue_manager *dqm, struct queue *q,
+>>           q->properties.type == KFD_QUEUE_TYPE_SDMA_XGMI ||
+>>           q->properties.type == KFD_QUEUE_TYPE_SDMA_BY_ENG_ID) {
+>>           dqm_lock(dqm);
+>> -        retval = allocate_sdma_queue(dqm, q, qd ? &qd->sdma_id : NULL);
+>> +        retval = allocate_sdma_queue(dqm, q, qpd, qd ? &qd->sdma_id 
+>> : NULL);
+>>           dqm_unlock(dqm);
+>>           if (retval)
+>>               goto out;
 >
-> We should not touch the last_unlocked fence in any way possible while doing an immediate update to handle a page fault.
->
-> My patch set already drops that handling, so we should be save for now. Please review patch "drm/amdgpu/vm: add amdgpu_vm_pt_leaves() v4" on the mailing list instead.
 
-Hi Christian,
-
-I have not seen v4 of that patch on the mailing list yet. Is it still being worked on or did you forget to send it?
-
-Best,
-
-Ben
-
-> Thanks,
-> Christian.
->
->> +	r = dma_resv_reserve_fences(vm->root.bo->tbo.base.resv, 2);
->>  	if (r) {
->>  		pr_debug("failed %d to reserve fence slot\n", r);
->>  		goto error_unlock;
