@@ -2,62 +2,94 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FCD9606A32A
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2026 09:30:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79618606A31A
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2026 09:42:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=As8kJMj+
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=bx0G5/d2
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 89A6210EBA3;
-	Mon, 23 Nov 2026 09:30:14 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D39E710EB95;
- Mon, 23 Nov 2026 09:30:08 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 77C1E401CD;
- Mon, 23 Nov 2026 09:30:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA18D1F000C6;
- Mon, 23 Nov 2026 09:30:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795426208;
- bh=t4U+ldndWXYiv8sPaqw7sW8lRoYP2EKLyk9iA28Ai0s=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=As8kJMj+D8cbkW8Y/3kujuVU1nEpni9qbmetR+F67FjFi1i4FzY669m04DvTtv34D
- UbK5WYzNqTLHFOhddaows9iinulzDzs3W1gbRicH15wJk4Sx2OfqqNeZ1ioz4qf2tq
- ov0eF2fzTnjETRuOG0oq9efrzqt6n0queknW/xs0rQkX81Nv5DPQUlAVAAHb0ki86W
- 3d/Luz4ygugGwnOK/3H/ylIIwNyMIzA4DxBn6ST57ruH06dt/80YWoS5Sr/iwD6g9g
- URV/h6w6UyBt5NKjCq+K8CAW3CtjH8Abng0oU+GOzwHDQq6tjYJfMk8m3QICP2l/2l
- t3zg+q93JTJ7A==
-Date: Mon, 23 Nov 2026 10:30:05 +0100
-From: Maxime Ripard <mripard@kernel.org>
-To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: Mario Limonciello <mario.limonciello@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Javier Martinez Canillas <javierm@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>, 
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
- Mario Limonciello <superm1@kernel.org>, Xaver Hugl <xaver.hugl@gmail.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- nouveau@lists.freedesktop.org
-Subject: Re: [PATCH v12 01/12] drm: add connector LUMINANCE property
-Message-ID: <awQGSuf2UJjItcO0@houat>
-References: <20261119-superm1-backlight-property-v12-0-89d5217d3618@amd.com>
- <20261119-superm1-backlight-property-v12-1-89d5217d3618@amd.com>
- <awB4Qe83u0l0XPKA@intel.com>
- <8713bae1-9782-41d4-b09c-f14031203e88@amd.com>
- <awPvoLCDeq1YFLE_@houat> <awPzsMWZ7e0i6i54@intel.com>
- <awP0nasqAc4pAeMR@houat> <awP8hAy3Gim4eNxz@intel.com>
- <awQAlSSks2We5h2z@houat> <awQENQN5SswJRtWw@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC625893ED;
+	Mon, 23 Nov 2026 09:41:58 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010038.outbound.protection.outlook.com [52.101.85.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76CB110EB64
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Nov 2026 09:41:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dgEuWUVj6ptOZDiH7ztSpEExOfpMmovBKIQgfLw00VANJEDsKPV6TK04sodnH0hvubtk32phJzbryG1Q3PHTwwPPRS90V/xjG37CmfROnBCt6Ju81x83G/LggC1hpEJyDd5y5d4h2p9rLT4uhvRD4uvXexbf6JkU6Fo/aREuaJhdjtJ52QMgVuiKFhPxQifIdjzwupNZX+2H7NlLNVGPjv1y4DrxOCyPLrsrjRZYsCsZEZp5NZ2fmGOI/wdI4HkhNu6NJoE+z5+HQK64kv5XHSphjPyP61X4L8nkki8KU9M+q+iqrbGU15SpbbCj5ZN6GgUJLEfnFWLxQADql5oeFQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=82a+jdKhcv5uAJC4rEMxmasDrZuvmAhZVW4YzyUAcD4=;
+ b=DqHJw8EmkFeB+cx58mQv2QOX8yzEaqSg0oRzFPyBQvaTLIaZIsRA6CGBMeF/+P14gUFBTs2Tao8+gw7EV36UYPkEHXPuFvPcZ/sGDmgeoxmxqfLe1RxHd2LEyAqaGBJN1urMd5o5vqyeSlwXyLydUEMRzlBQ9nL1nU5RYRAEdJPkT/NSVSQUXqCHIb20Y/rZ8kUVTYjjaDX+mCyS+pqoTgoYPnA4EThDJ6PS/EiePAweAQ4uh0R2gGEMdsECHXEY553SnxODVkkRvcguETvGtbUfVP39woTPZhz5fleroQGvrVyA/0bvedS+mJsYfU4zjq8gnhUGMpqswMeC7tSYFw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=82a+jdKhcv5uAJC4rEMxmasDrZuvmAhZVW4YzyUAcD4=;
+ b=bx0G5/d2EXuF1nHXrifTvhbbJMLeZcjjAsOe+vCfX6A8ztX+d/KjiUu2XSKWQARoXChCRP2XU4H6OCT7iQrgraJgKYJiURWq47zLn7ogzYPtineG9mK2q6Lli3Eq66pvZcrg0HPV/218+mc+MVcKKU8HKG1Pex5Au2AJW7FhbDY=
+Received: from BL1PR13CA0276.namprd13.prod.outlook.com (2603:10b6:208:2bc::11)
+ by PH7PR12MB7916.namprd12.prod.outlook.com (2603:10b6:510:26a::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.14; Mon, 23 Nov
+ 2026 09:41:47 +0000
+Received: from IA0PEPF0000003F.namprd04.prod.outlook.com
+ (2603:10b6:208:2bc:cafe::1a) by BL1PR13CA0276.outlook.office365.com
+ (2603:10b6:208:2bc::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.662.5 via Frontend Transport; Mon, 23
+ Nov 2026 09:41:47 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ IA0PEPF0000003F.mail.protection.outlook.com (10.167.249.166) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.639.5 via Frontend Transport; Mon, 23 Nov 2026 09:41:46 +0000
+Received: from ubuntu.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Mon, 23 Nov
+ 2026 03:41:45 -0600
+From: Zhu Lingshan <lingshan.zhu@amd.com>
+To: <Alexander.Deucher@amd.com>, <Felix.Kuehling@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Zhu Lingshan <lingshan.zhu@amd.com>
+Subject: [PATCH] amdkfd: don't give a GPU access to SVM ranges when no VM
+Date: Mon, 23 Nov 2026 17:42:29 +0800
+Message-ID: <20261123094229.12597-1-lingshan.zhu@amd.com>
+X-Mailer: git-send-email 2.53.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="krfptbljx3eyphdm"
-Content-Disposition: inline
-In-Reply-To: <awQENQN5SswJRtWw@intel.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PEPF0000003F:EE_|PH7PR12MB7916:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9f7ea036-0188-461a-7b63-08df4945fda5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|36860700016|82310400026|1800799024|376014|261026121527099003|261026140227099003|261022105027099003|261028144727099003|261021123027099003|261021121427099003|261102123227099003|11063799006|56012099006|10067099003|261009223027099003|18002099003;
+X-Microsoft-Antispam-Message-Info: NscZ/g1pl+8/jCVBo41cR99Kh/1UCkpX5oXMp8BPhziwWJ1DAGPHizRfSQxXh48nGW/Ceaipx3nA0zoTqcMQlIIADuDkxfi/U2FOl3Np/oUuvboFb/g5/TFCWVkZdV3jljwBtVawvgEA1IFlIgN7MtBptxUkRhOiDRB0wJ+TSNNweWpNfwuV40pApoDc3yWqmTRjhJJGbG3SwQMwq70SbBBOroU/uF3x35URmopgzDu7moQ6nBf72YpiaaSjG17tojcLH9tAhta7wqRm9w0yIMnNn4BgGp8cP2R6dFcLlgeG0G7qJq3jYyvAT2Qk5aBPlx2IsGjzuLhHeVl//3RbncZ6A2AJVEvyTMRfFF65aQFYpl33icTt4u3rczRtoif9WO+nwCsSmAlaU3Ag67YMmXMx6tGBf2pEjuHTSCvh2WSlnl7q7Mbe/zmCtSUsCSwK1TQL8ha1yjFeh1REf47LR/UskoKYc8vkLPVHz0Veo69bfFVLpC9GONB128vUJYfsdYAIuPqTfDF4XpmteuklhEs3ymlzeHZ9OwALjHouXg/pgioON3Nl/jOIYeFERb0byIrq/8C53y4pyKzt/Aul7PFBhjiyRC/L4HYinnhRKpf/msz+LOQLSo5J2VDsC0D1lanJgwNxF+Znq95qUsO5TVF00zRmIVRK1T7fvlODl05GwsM9kHdl8TanNM/N4k3NwuuzXfV1owjYasoVc3wldw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(36860700016)(82310400026)(1800799024)(376014)(261026121527099003)(261026140227099003)(261022105027099003)(261028144727099003)(261021123027099003)(261021121427099003)(261102123227099003)(11063799006)(56012099006)(10067099003)(261009223027099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: Xamb8Y9xluq+/oqIwVBEPe+mFIvU+QapPj7P6cQDuUvt5XXUFKfhL7wX0pmaksPBDWM+m9LQIH0kQBdGEEwacRoi3EA1ogyp+zmBodeR30BUiJ9uAZ/Y8SztDWEQxlbeYUEvEi7b09DJjNZzyexX9zNqTy7N/L1CkK6u7ejqrT/ThPAOKjMC+O3JaSxskDAPSBVi/KZu3N3BT5J1OEMf6ru9jijcI9V+qMiakFY/qUmjf05oiC+SwTHr4DF/OwtQeYntzW3qMDcKnE66bQ8LapK5leFkFslch3v52Oya/3jwxjjmJPPqB7WkLYJGg9xSKv1nRusWrxRaoFQxz0iVUwrbITIBkpsYHikSAhxsFBf1Bn7Rlm4o/Du5OnwljbuQJwcoNYhyQdG2s1YJN/L+aQZLoappLHfyfIymHZ48cMM4JpwLwSut9KI0tm/jPJ/W
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2026 09:41:46.6522 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9f7ea036-0188-461a-7b63-08df4945fda5
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: IA0PEPF0000003F.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7916
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,221 +100,72 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+If a kfd process does not perform ACQUIRE VM for its
+kfd_process_device, the VM of the pdd is NULL.
 
---krfptbljx3eyphdm
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v12 01/12] drm: add connector LUMINANCE property
-MIME-Version: 1.0
+This commit fails svm_range_check_attr() with -EINVAL,
+before it changes anything when VM is null of a pdd.
 
-On Mon, Nov 23, 2026 at 11:15:33AM +0200, Ville Syrj=E4l=E4 wrote:
-> On Mon, Nov 23, 2026 at 10:03:50AM +0100, Maxime Ripard wrote:
-> > On Mon, Nov 23, 2026 at 10:42:44AM +0200, Ville Syrj=E4l=E4 wrote:
-> > > On Mon, Nov 23, 2026 at 09:10:17AM +0100, Maxime Ripard wrote:
-> > > > On Mon, Nov 23, 2026 at 10:05:04AM +0200, Ville Syrj=E4l=E4 wrote:
-> > > > > On Mon, Nov 23, 2026 at 08:50:29AM +0100, Maxime Ripard wrote:
-> > > > > > On Fri, Nov 20, 2026 at 11:19:13AM -0600, Mario Limonciello wro=
-te:
-> > > > > > >=20
-> > > > > > >=20
-> > > > > > > On 11/20/26 10:41, Ville Syrj=E4l=E4 wrote:
-> > > > > > > > On Thu, Nov 19, 2026 at 05:27:28PM -0600, Mario Limonciello=
- wrote:
-> > > > > > > > > Panel brightness is a property of a display, and thus of =
-a DRM
-> > > > > > > > > connector. Add an atomic per-connector LUMINANCE range pr=
-operty so
-> > > > > > > > > compositors can manage relative panel luminance together =
-with the rest
-> > > > > > > > > of the display state.
-> > > > > > > > >=20
-> > > > > > > > > Keep the core backend-agnostic. Drivers create the proper=
-ty with their
-> > > > > > > > > hardware range and implement connector helper callbacks t=
-o set luminance
-> > > > > > > > > or disable panel emission. The atomic helpers sequence th=
-ose callbacks
-> > > > > > > > > around pipeline enable and disable, including luminance-o=
-nly commits.
-> > > > > > > > > The panel is left lit when the pipeline enters self refre=
-sh, and the
-> > > > > > > > > luminance is only reprogrammed when it changes or a modes=
-et enables the
-> > > > > > > > > pipeline.
-> > > > > > > > >=20
-> > > > > > > > > The stored property value is independent of display power=
-=2E A commit made
-> > > > > > > > > while the connector is inactive is retained and applied o=
-n the next
-> > > > > > > > > enable; disabling the pipeline does not overwrite it.
-> > > > > > > > >=20
-> > > > > > > > > LUMINANCE values are relative, driver-defined levels rath=
-er than
-> > > > > > > > > absolute luminance in cd/m^2. The interface supports emis=
-sive panels as
-> > > > > > > > > well as panels with a separate backlight.
-> > > > > > > > >=20
-> > > > > > > > > Keep the interface behind a default-off DRM_LUMINANCE opt=
-ion. Migrated
-> > > > > > > > > drivers retain their legacy backlight class ABI unless th=
-e new interface
-> > > > > > > > > is explicitly selected, allowing the DRM UAPI and legacy =
-compatibility
-> > > > > > > > > policy to remain separate.
-> > > > > > > > >=20
-> > > > > > > > > Acked-by: Javier Martinez Canillas <javierm@redhat.com>
-> > > > > > > > > Signed-off-by: Mario Limonciello <mario.limonciello@amd.c=
-om>
-> > > > > > > > > ---
-> > > > > > > > > v11:
-> > > > > > > > >   * Don't call .disable_luminance when the CRTC enters se=
-lf refresh (Sashiko)
-> > > > > > > > >   * Only call .set_luminance when the luminance changes o=
-r on a modeset
-> > > > > > > > >     that isn't a self refresh exit (Leo Li, Sashiko)
-> > > > > > > > >   * Fix the .set_luminance self refresh documentation
-> > > > > > > > > v10:
-> > > > > > > > >   * Add tag
-> > > > > > > > > ---
-> > > > > > > > >   drivers/gpu/drm/Kconfig                    | 14 +++++
-> > > > > > > > >   drivers/gpu/drm/drm_atomic_helper.c        | 98 +++++++=
-++++++++++++++++++++++-
-> > > > > > > > >   drivers/gpu/drm/drm_atomic_state_helper.c  |  7 +++
-> > > > > > > > >   drivers/gpu/drm/drm_atomic_uapi.c          |  5 ++
-> > > > > > > > >   drivers/gpu/drm/drm_connector.c            | 57 +++++++=
-++++++++++
-> > > > > > > > >   drivers/gpu/drm/tests/drm_connector_test.c | 28 +++++++=
-++
-> > > > > > > > >   include/drm/drm_atomic_helper.h            |  3 +
-> > > > > > > > >   include/drm/drm_connector.h                | 16 +++++
-> > > > > > > > >   include/drm/drm_modeset_helper_vtables.h   | 28 +++++++=
-++
-> > > > > > > > >   9 files changed, 255 insertions(+), 1 deletion(-)
-> > > > > > > > >=20
-> > > > > > > > > diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kc=
-onfig
-> > > > > > > > > index 61111d50b1c65..1bbe2c2d7c76f 100644
-> > > > > > > > > --- a/drivers/gpu/drm/Kconfig
-> > > > > > > > > +++ b/drivers/gpu/drm/Kconfig
-> > > > > > > > > @@ -33,6 +33,20 @@ endmenu
-> > > > > > > > >   if DRM
-> > > > > > > > > +config DRM_LUMINANCE
-> > > > > > > > > +	bool "DRM connector luminance support"
-> > > > > > > > > +	help
-> > > > > > > > > +	  Expose relative luminance as an atomic DRM connector =
-property. Values
-> > > > > > > > > +	  are driver-defined levels rather than absolute lumina=
-nce in cd/m^2.
-> > > > > > > > > +	  Drivers provide connector helper callbacks to program=
- their hardware;
-> > > > > > > > > +	  the DRM core does not depend on a particular backend.
-> > > > > > > > > +
-> > > > > > > > > +	  Drivers migrated to this interface will use it instea=
-d of registering
-> > > > > > > > > +	  a legacy backlight class device. Leave this disabled =
-to preserve the
-> > > > > > > > > +	  de-facto userspace ABI in /sys/class/backlight.
-> > > > > > > >=20
-> > > > > > > > I don't think this will fly if it breaks the backlight clas=
-s interface.
-> > > > > > > > No one can actually enable this outside of some niche embed=
-ded use
-> > > > > > > > cases where backwards compatibility is not an issue. I thin=
-k what
-> > > > > > > > you need is a generic backlight class implementation on top=
- of this.
-> > > > > > > >=20
-> > > > > > >=20
-> > > > > > > The idea with this was:
-> > > > > > > 1) to get the series landed
-> > > > > > > 2) let compositors merge solutions around it.
-> > > > > > > 3) Then add backwards compatibility to kernel so we can flip =
-the Kconfig
-> > > > > > > default.
-> > > > > >=20
-> > > > > > I said this a few times already, but we keep having those discu=
-ssions
-> > > > > > while the backlight sysfs handling is far from being the main p=
-oint. You
-> > > > > > should *really* consider adding support for the luminance prope=
-rty for
-> > > > > > something that isn't tied to that interface (like DDC/CI for HD=
-MI), and
-> > > > > > treat the sysfs API as a sysfs series.
-> > > > > >=20
-> > > > > > It looks like people just have conflicting opinions on this par=
-ticular
-> > > > > > part that isn't going to solve itself easily. You should not tr=
-eat this
-> > > > > > sysfs discussion as a blocker for the infrastructure work.
-> > > > >=20
-> > > > > You want to be sure backwards compatibility with the backlight
-> > > > > class is a solvable problem before you land *anything*. Otherwise
-> > > > > you might just paint yourself into a corner with no way out.
-> > > >=20
-> > > > I disagree. The luminance property is more useful than *just* for
-> > > > backlights but is also useful for HDMI, DP, and MIPI-DSI that would=
- all
-> > > > use it.
-> > >=20
-> > > DSI and eDP are all over the place when it comes how backlight
-> > > is implemented, so very much would not all use it. Some HDMI and
-> > > external DP displays might have DDC/CI support, so I'll give you
-> > > those.
-> > > =20
-> > > > If that's the corner we paint ourselves into, it's still a pretty n=
-ice
-> > > > corner.
-> > >=20
-> > > Separate APIs for different outputs on different drivers is just
-> > > a bad idea. Every userspace implementation will have to support
-> > > all of them until the end of the world.
-> >=20
-> > I agree, but then there's an easy answer: don't enable it on drivers
-> > that would expose it on both APIs. We do have a lot of drivers where
-> > there's just no backlight involved and would greatly benefit from these,
-> > and without the history of i915 or amdgpu to deal with.
->=20
-> It's not the history of the drivers you need to worry about. It's
-> the history of userspace that actually matters. All existing
-> userspace expects a working backlight class interface. And if you
-> don't care about userspace compatibility then we're very much
-> back in the "only usable in niche embedded use cases" or "only
-> usable on external displays" territories.
+When XNACK is enabled, this commit does not give GPUs that
+have not acquired a VM default access to new svm ranges.
 
-Depending on what your perspective is, fastboot was "only usable in
-niche i915 use cases" just like color management for amdgpu or leases
-were. Let's not be judgemental and / or dismiss others use cases.
+Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 18 +++++++++++++++++-
+ 1 file changed, 17 insertions(+), 1 deletion(-)
 
-If some established driver like, say, vc4 that only has external
-displays can pave the way for everyone else to use them eventually, how
-is it a downside that it's only usable on external displays?
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index 7401b7fdcb57..6e42b358ad59 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -339,6 +339,7 @@ svm_range *svm_range_new(struct svm_range_list *svms, uint64_t start,
+ 	uint64_t size = last - start + 1;
+ 	struct svm_range *prange;
+ 	struct kfd_process *p;
++	int i;
+ 
+ 	prange = kzalloc_obj(*prange);
+ 	if (!prange)
+@@ -367,9 +368,17 @@ svm_range *svm_range_new(struct svm_range_list *svms, uint64_t start,
+ 	mutex_init(&prange->migrate_mutex);
+ 	mutex_init(&prange->lock);
+ 
+-	if (p->xnack_enabled)
++	if (p->xnack_enabled) {
+ 		bitmap_copy(prange->bitmap_access, svms->bitmap_supported,
+ 			    MAX_GPU_INSTANCE);
++		for_each_set_bit(i, svms->bitmap_supported, p->n_pdds) {
++			if (!p->pdds[i]->drm_priv) {
++				pr_debug("GPU %d has no VM acquired, skip mapping SVM range [0x%llx 0x%llx] to it\n",
++					 p->pdds[i]->user_gpu_id, start, last);
++				clear_bit(i, prange->bitmap_access);
++			}
++		}
++	}
+ 
+ 	svm_range_set_default_attributes(svms, &prange->preferred_loc,
+ 					 &prange->prefetch_loc,
+@@ -722,6 +731,13 @@ svm_range_check_attr(struct kfd_process *p,
+ 			break;
+ 		case KFD_IOCTL_SVM_ATTR_ACCESS:
+ 		case KFD_IOCTL_SVM_ATTR_ACCESS_IN_PLACE:
++			gpuidx = kfd_process_gpuidx_from_gpuid(p, val);
++			if (gpuidx >= 0 && !p->pdds[gpuidx]->drm_priv) {
++				pr_debug("GPU %d has no VM acquired, so SVM does not work on it, please acquire VM for it first\n",
++					 val);
++				return -EINVAL;
++			}
++			break;
+ 		case KFD_IOCTL_SVM_ATTR_NO_ACCESS:
+ 			gpuidx = kfd_process_gpuidx_from_gpuid(p, val);
+ 			break;
+-- 
+2.53.0
 
-And even if it's still usable by less established drivers, slow-rolling
-it into more drivers, fixing the bugs, rough edges, etc. while
-consolidating the code still has a lot of value. Just like it had for
-color management or fastboot.
-
-Maxime
-
---krfptbljx3eyphdm
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCawQHnQAKCRAnX84Zoj2+
-dv/IAX9eEMFvOITWTZmbmaZRs5cttfIv53qo1lTfjicUHXYndBi+lFMhUfQkVVAu
-QasRx0cBgJfCcGl18yTL+HrxkoGnsNUdtOCnuw4m8Ib6T9gnf+Fb2mCiowaup437
-90mwIf/Gpw==
-=oDlh
------END PGP SIGNATURE-----
-
---krfptbljx3eyphdm--
