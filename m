@@ -2,118 +2,83 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47D9C606A32E
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2026 13:55:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EE79606A682
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2026 13:55:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EQv8DoiR
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Q3pu0Pkg
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4C7110EE11;
-	Mon, 23 Nov 2026 13:54:55 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9921110EBAA;
- Mon, 23 Nov 2026 10:11:29 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 88EDC61FBE;
- Mon, 23 Nov 2026 10:11:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC1141F000EF;
- Mon, 23 Nov 2026 10:11:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795428688;
- bh=rDFRLPy40I79JiGWrVFkLz2U4fAoPpBfu86dL+TJWTw=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=EQv8DoiRck3gy8xgpS3BEeZCIVXlC+5twIrYuAJPvxyh+T6hLul9ehLPpI0/H8Ena
- EoHPb6kv2Z1NRHkQj923ovInemiLOUPSnbRP19n0hmOl3DYyi/0U2zQnqNlsdAYgQX
- yfIeKn1+n9OIoTJRvbp7rjlMj4wIsTr/xKlt8/kIiAVX5xbKrEtXbYSnqm7V+dLOrM
- VyoI9JSIUfP6xwxXeJf8XGivEo78xSGLAZFRbS/S+K2EDg0EQWkh2mc7W/lQNIsXSv
- CCH9QPsnErU7JRjGcCJBhGjJ2f+Q+uo3Lw7ckrw1kCFyKD4FZnZKjrPIy1KnGsdlwY
- rf74RydNSb3kw==
-From: Maxime Ripard <mripard@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Maxime Ripard <mripard@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, Janne Grunau <j@jannau.net>,
- Sasha Finkelstein <k@chaosmail.tech>, asahi@lists.linux.dev,
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02BF310EE12;
+	Mon, 23 Nov 2026 13:54:59 +0000 (UTC)
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com
+ [74.125.82.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 58C3710EBB8
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Nov 2026 10:27:50 +0000 (UTC)
+Received: by mail-dy1-f171.google.com with SMTP id
+ 5a478bee46e88-386b8f2f671so160639eec.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Nov 2026 02:27:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1795429670; x=1796034470; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Lc4/7eyOMTgZOdl/n/DtcDMWRq2CQUDPal/eQWw1Gm0=;
+ b=Q3pu0PkgLNBNrCa5FTLeUrkctYZ6pnxx8Y/zFDA4sg7+ENf3H8Y0/iYYMRFmnwU3aM
+ 8h4VCciAL6yodcZR5fvGoexblBBsfdDXlSyoj6rOZ8Pq6jPNRN+HuWLTWLCJCPEbQh57
+ uaHrW9F4HYhJNEBgHWBsLhIZe89wcESFLl1+1lPPD9Rm/GByk2PeL8YCDIL5ECIMqwTd
+ W2v9WFOea2n58uWFfcC/HCF/mOBK9t3zan/aHRYdQvh517mtl58aI8yjyCVrioB4v1ez
+ 6JsFT01zw/BcSsjPpw2etEFImc20k114GfTAU+4uMbdfnJVXUlAKwlNEnBncNTjemPuD
+ VQXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795429670; x=1796034470;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Lc4/7eyOMTgZOdl/n/DtcDMWRq2CQUDPal/eQWw1Gm0=;
+ b=cI1XzZFbZY/HNPm4k5tykhFiI1dhinTa3MmNPiXFUUss7JYFjXmrIeDv2/A9zD6dyH
+ yiYerxU3+poDu/9/74cKQ2pjpBp0ASytoVs9JY+P89/s/iTztkGFKshQaSQDIXKF1kAx
+ pKvHsaYRGfHw59x57cQktPZj5IbUxTjUQDUN/aXStOmCxf8T4cGGzBMhgU1fhZqq5AZ8
+ 5MSfxX/qkU9NzXzPIQGPFhhLCs86T0/EbHlVOTUbarrJerib7wQjpZ4H7WyE74C2VNM+
+ 5L7lZWIflgq5u8oCMzAF0dT4EDDRlYQ1GU1cazpzrjtQndU5TXN2Vsd1N+qY8oYvw1tl
+ ii9Q==
+X-Forwarded-Encrypted: i=1;
+ AL+hErF7SovIpupnzumsO9jPfdVPst8pM27siIFYux3qaqX3RgvxvuIBwihhyaikonNrO+Gb9T25Ouy3@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9cAKhiULNAAbHfuTWOl9FciKpcwE2DAtDn1dvgBbwsCHpshRk1
+ aepqYnxXj1Nr7jkCsnoQZMXRSnwOozfmFfe4MPEf1Xri5PZSQeyKwa4=
+X-Gm-Gg: AZFdTZfL3XOjJ2URzQiDcs831szEjCcqAm1z6tzStiHOxyEoP1Dm5GfOwRY7If/Yo3P
+ Zs++hAUJ4yIRyBZwNT2SrkuWTiX27e4XDA/lpcqSE4kCoeryYrlAhWUTeMyUK8DJ1Dfqo5fYjlH
+ az0jLaX78Lgdh5Jm7g1m22jdXbGiVTZVsJrb6mQd4we9s2JVuFNom3xrntBCg66f6w4Yk51NxXr
+ VocKGCdP6IvatZPQUl5hw+oRi9n4xLjOl9SoDubGXXxn7CCcusrzL1PM5AbbOUx5nuhaTgTaw5g
+ HcDiEcyxGNcAtfpAXYmuvdK0SFQ0EhFkY4i4xYmo1oiu5Lm1TqWrlS34PWnyC955LHMY3hFz2ZG
+ 9JlpNiweV7ldIqxc4VLyKAdpYXNV6qTkVcLbg8YZTd+4d0xlXf86PqbEKn4ugmxI9ATqU4nttS7
+ W1VhNt6lSLHXTBjYe6j6XQmBQC7rRBxPPndTgoHL7sr1rW9BVaLE8uI4skhZDmkC6Dc8MxKbyuV
+ ZYv3RCUIuwY4WQC9gPj5mMvx3sxertjrI0OjCpTkXFAYfTZ/Y4ABLyhDLnLSr1cjWlEGQMtPqDg
+ PiJukXyrHdoXwflVVohgvS/1J6SDQLNEu0KMTwUpT48C47OgCRpvS1GMldPK1j1q6nfI4NN+Hv1
+ qBjkFbklMPZKQ7w==
+X-Received: by 2002:a05:693c:87c8:20b0:386:ac97:f661 with SMTP id
+ 5a478bee46e88-386ac97f9cdmr3106585eec.9.1795429669425; 
+ Mon, 23 Nov 2026 02:27:49 -0800 (PST)
+Received: from at-Standard-PC-Q35-ICH9-2009.tailbdca44.ts.net
+ ([106.205.242.239]) by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-385677c0c1dsm37939268eec.21.2026.11.23.02.27.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 23 Nov 2026 02:27:48 -0800 (PST)
+From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+To: 
+Cc: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
+ Doitall <diainquiries@protonmail.com>, Ed Schofield <ed@aicharmers.com>,
+ Andre Eikmeyer <dev@deq.rocks>, Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- sashiko-bot@kernel.org, Liviu Dudau <liviu.dudau@arm.com>,
- Russell King <linux@armlinux.org.uk>, Dave Airlie <airlied@redhat.com>,
- Jocelyn Falempe <jfalempe@redhat.com>,
- Alim Akhtar <alim.akhtar@samsung.com>, Inki Dae <inki.dae@samsung.com>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Peter Griffin <peter.griffin@linaro.org>,
- Seung-Woo Kim <sw0312.kim@samsung.com>, linux-samsung-soc@vger.kernel.org,
- Alison Wang <alison.wang@nxp.com>, Stefan Agner <stefan@agner.ch>,
- Tian Tao <tiantao6@hisilicon.com>,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Yongbang Shi <shiyongbang@huawei.com>, Dexuan Cui <decui@microsoft.com>,
- Long Li <longli@microsoft.com>,
- Saurabh Sengar <ssengar@linux.microsoft.com>, linux-hyperv@vger.kernel.org,
- Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Sascha Hauer <s.hauer@pengutronix.de>, imx@lists.linux.dev,
- Paul Cercueil <paul@crapouillou.net>, linux-mips@vger.kernel.org,
- Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
- Paul Kocialkowski <paulk@sys-base.io>, Huacai Chen <chenhuacai@kernel.org>,
- Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Jianmin Lv <lvjianmin@loongson.cn>, Mingcong Bai <jeffbai@aosc.io>,
- Qianhai Wu <wuqianhai@loongson.cn>, Xi Ruoyao <xry111@xry111.site>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Danilo Krummrich <dakr@kernel.org>, Lyude Paul <lyude@redhat.com>,
- nouveau@lists.freedesktop.org,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Gerd Hoffmann <kraxel@redhat.com>, spice-devel@lists.freedesktop.org,
- virtualization@lists.linux.dev,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Magnus Damm <magnus.damm@gmail.com>,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- linux-renesas-soc@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>,
- Marcus Folkesson <marcus.folkesson@gmail.com>,
- David Lechner <david@lechnology.com>,
- Iker Pedrosa <ikerpedrosam@gmail.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>, Orson Zhai <orsonzhai@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Philippe Cornu <philippe.cornu@foss.st.com>,
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
- Yannick Fertre <yannick.fertre@foss.st.com>,
- Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>,
- linux-sunxi@lists.linux.dev, Jonathan Hunter <jonathanh@nvidia.com>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Thierry Reding <thierry.reding@kernel.org>, linux-tegra@vger.kernel.org,
- Jyri Sarha <jyri.sarha@iki.fi>, Alexey Brodkin <abrodkin@synopsys.com>,
- Hans de Goede <hansg@kernel.org>,
- Kamlesh Gurudasani <kamlesh.gurudasani@gmail.com>,
- Alex Lanzano <lanzano.alex@gmail.com>,
- LiangCheng Wang <zaq14760@gmail.com>, Chia-I Wu <olvaffe@gmail.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Zack Rusin <zack.rusin@broadcom.com>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- Michal Simek <michal.simek@amd.com>
-Subject: Re: (subset) [PATCH v2 00/64] drm: Switch drivers to
- drm_mode_config_create_initial_state
-Date: Mon, 23 Nov 2026 11:11:22 +0100
-Message-ID: <179542861006.1136573.1196433498269800463.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261116-drm-no-more-config-reset-v2-0-0bb471f4d1e0@kernel.org>
-References: <20261116-drm-no-more-config-reset-v2-0-0bb471f4d1e0@kernel.org>
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
+ dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
+ linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH v3] drm/amd/amdgpu: Add 5K Support for iMac20,1 and iMac20,2
+Date: Mon, 23 Nov 2026 05:27:32 -0500
+Message-ID: <20261123102740.1389-1-atharvatiwarilinuxdev@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 23 Nov 2026 13:54:41 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -126,129 +91,548 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon, 16 Nov 2026 11:30:16 +0100, Maxime Ripard wrote:
-> drm_mode_config_reset() has a dual role: it creates the initial KMS
-> state at probe time, and resets hardware and software state during
-> suspend/resume cycles. However, the two roles need different
-> behaviors, notably for objects like drm_private_obj that must persist
-> across suspend/resume and are excluded from drm_mode_config_reset()
-> by design.
-> 
-> [...]
+This code adds support for 5K in iMac20,1 and iMac20,2 with
+support of changing resolutions.
 
-Applied to misc/kernel.git (drm-misc-next)
+0x4F1 is an Apple-specific DPCD register on the iMac 5K TCON that
+selects tile mode: with 0x4F1 = 0 the panel comes up as a single
+3840x2160 display, and with 0x4F1 = 1 it is driven as 5120x2880 over
+two tiles.
 
-[01/64] drm/adp: Switch to drm_mode_config_create_initial_state
-        commit: d636d17d3b8ecda8a3db6a77874e652aabac4eb2
-[02/64] drm/amdgpu: Switch to drm_mode_config_create_initial_state
-        commit: 064bc83ffc6eb72ec8af2973517f130d81bcd9bb
-[04/64] drm/hdlcd: Switch to drm_mode_config_create_initial_state
-        commit: 18becfe9b42cb828fc7fcf9703319d34675cd9f1
-[05/64] drm/armada: Switch to drm_mode_config_create_initial_state
-        commit: 69cecb2d921b7ae098c2800cbfa67590c436c3c4
-[06/64] drm/ast: Switch to drm_mode_config_create_initial_state
-        commit: 76dacf729a8dd4a954a5a8457ca49b221055d346
-[07/64] drm/exynos: Switch to drm_mode_config_create_initial_state
-        commit: cbe6da900d937f0de4c73eb574c409c9e2f4a7e8
-[08/64] drm/fsl-dcu: Switch to drm_mode_config_create_initial_state
-        commit: 6a294a6bf06ed0d71a505998bd0fd3abe1e9ea87
-[09/64] drm/hisilicon/hibmc: Remove hibmc_unload() from the load error path
-        commit: f830550f85cd0f5bd955d5b9abdb795f95a25ff8
-[10/64] drm/hisilicon/hibmc: Switch to drm_mode_config_create_initial_state
-        commit: f935c8d2f8c6de0c4b95c5f63874ced18efe1de6
-[12/64] drm/imx/ipuv3: Switch to drm_mode_config_create_initial_state
-        commit: 8799786a618d2a56b8e3dc998b64fb28cb648ca6
-[13/64] drm/ingenic: Move the private object creation before the reset
-        commit: 5cc203c0dcd3352196d8ede54531afc2175193b0
-[14/64] drm/ingenic: Switch to drm_mode_config_create_initial_state
-        commit: 8636f44eb77f5f738708423a104ee2f225f84b97
-[15/64] drm/kmb: Switch to drm_mode_config_create_initial_state
-        commit: f4f4fd2ae13175ef7aa851cdeaa08bf29a0f38b1
-[16/64] drm/logicvc: Switch to drm_mode_config_create_initial_state
-        commit: 7f84f99fa2d9b068e4a51514df0e1f32ad3247aa
-[18/64] drm/mediatek: Switch to drm_mode_config_create_initial_state
-        commit: 333cf2d79ee32c5590787eeb6df1c3c1a9ad6a48
-[19/64] drm/mgag200: Switch to drm_mode_config_create_initial_state
-        commit: 2fb1383d1aed812e4830aec34b890547fe8d496e
-[20/64] drm/msm: Switch to drm_mode_config_create_initial_state
-        commit: 53556096b6e5e07a8c58fe19cfdf5f3d4e1197ab
-[21/64] drm/nouveau: Switch to drm_mode_config_create_initial_state
-        commit: 960f6b7c64cb9536c37e7995262fd465f2fc623b
-[22/64] drm/omap: Switch to drm_mode_config_create_initial_state
-        commit: cf34a54e91f99b80623fee78ad334871a7f39858
-[23/64] drm/qxl: Destroy the monitors object on the modeset init error path
-        commit: bf50dc68880788f9ad85f4411f2d3fa575139ceb
-[24/64] drm/qxl: Switch to drm_mode_config_create_initial_state
-        commit: f364abef006d3867174f9defa5f79c4c6585cead
-[26/64] drm/rz-du: Switch to drm_mode_config_create_initial_state
-        commit: 938dfe76a15263c5fac77ea1f99c265848c219f8
-[27/64] drm/shmobile: Switch to drm_mode_config_create_initial_state
-        commit: 588132787e6df07f0267983881f437990d56c5e8
-[28/64] drm/st7571: Switch to drm_mode_config_create_initial_state
-        commit: e03927d29003912052c64aad83df169243d43484
-[32/64] drm/sprd: Switch to drm_mode_config_create_initial_state
-        commit: 1af982780216d568a4e8ff6790b87de29e52ab90
-[33/64] drm/sti: Fix drm_atomic_helper_shutdown() on the bind error paths
-        commit: d3047688f4bc35ca827ee2994a014c81898d73cc
-[34/64] drm/sti: Move drm_mode_config_create_initial_state() before drm_dev_register()
-        commit: 2798c8d86bf4e4853cbc1b3e2a248d55e714a649
-[36/64] drm/sun4i: Switch to drm_mode_config_create_initial_state
-        commit: ad5e714a08a6d5f6fa39b589a438b40aaac9e2bf
-[38/64] drm/tests: drm_atomic_state_test: Switch to drm_mode_config_create_initial_state
-        commit: 019bfdeb119dc616303a173323fd69853fe99858
-[39/64] drm/tests: drm_atomic_test: Switch to drm_mode_config_create_initial_state
-        commit: 53f0931d45c029f97c611837b8f853c9fad7a82c
-[40/64] drm/tests: drm_bridge_test: Switch to drm_mode_config_create_initial_state
-        commit: 45472c059ac76f982e31f67ef87f9db3caef1f88
-[41/64] drm/tests: drm_hdmi_state_helper_test: Switch to drm_mode_config_create_initial_state
-        commit: 3db9197bbe3fc859fd5b7521d1f4cedd9d62cb8c
-[42/64] drm/tidss: Switch to drm_mode_config_create_initial_state
-        commit: d771b7c8577c0b847d401a22f49a6abc18680ed3
-[44/64] drm/arcpgu: Switch to drm_mode_config_create_initial_state
-        commit: 620165b05363bea94b72970884f6f27ccf7cee3f
-[45/64] drm/bochs: Switch to drm_mode_config_create_initial_state
-        commit: c67548948d8c5ebb422fa03fb5dd89e44e458f20
-[46/64] drm/cirrus-qemu: Switch to drm_mode_config_create_initial_state
-        commit: 10e37ab94f0f10a7fd729a063c26bf1a94e7f2b0
-[47/64] drm/gm12u320: Switch to drm_mode_config_create_initial_state
-        commit: ce7e27979d41b94bb9a1ed66b6957a300a5a8c0a
-[48/64] drm/hx8357d: Switch to drm_mode_config_create_initial_state
-        commit: d9abdda3a6bd4903af87a1ed6d02c1897035cf4e
-[49/64] drm/ili9163: Switch to drm_mode_config_create_initial_state
-        commit: 6fc964d0567e8303cf72adc45dad29e9415fe76c
-[51/64] drm/ili9341: Switch to drm_mode_config_create_initial_state
-        commit: 75269393962354820792fddfe3da359b3be85ca3
-[52/64] drm/ili9486: Switch to drm_mode_config_create_initial_state
-        commit: c4f2890c815c5ac8d68668a072806edf4f466a7e
-[53/64] drm/mi0283qt: Switch to drm_mode_config_create_initial_state
-        commit: dfa078305c262eae2b0449814392e429b6bd58ee
-[54/64] drm/panel-mipi-dbi: Switch to drm_mode_config_create_initial_state
-        commit: 38b37ce4bc5fc406f1e93a90ce9b2b8531c6f5cb
-[55/64] drm/pixpaper: Switch to drm_mode_config_create_initial_state
-        commit: d3cb39a976745195d2d388b5b9194d47bfd2eb41
-[56/64] drm/repaper: Switch to drm_mode_config_create_initial_state
-        commit: ce380404a74260b6bb178b24dfd4125a591e1069
-[57/64] drm/sharp-memory: Switch to drm_mode_config_create_initial_state
-        commit: d4b8b6e920779d568a085eb611c75dc4bb5805a8
-[58/64] drm/udl: Switch to drm_mode_config_create_initial_state
-        commit: 6358c0da712b0170a3f1470c5eb75ec95340875c
-[59/64] drm/vboxvideo: Switch to drm_mode_config_create_initial_state
-        commit: a932fa029dad6b23b4ff5b7fdb44e5819c098b6e
-[60/64] drm/verisilicon: Switch to drm_mode_config_create_initial_state
-        commit: f3b23268607094ff4461119d623a235a2bdc8608
-[61/64] drm/virtio: Switch to drm_mode_config_create_initial_state
-        commit: eb2c77198187b0283f12be28bdb770703da59dca
-[63/64] drm/xen: Switch to drm_mode_config_create_initial_state
-        commit: 51b3e01a42db6100976907b95d224636e6551c98
-[64/64] drm/xlnx: Switch to drm_mode_config_create_initial_state
-        commit: bb8391a1a8d00b11661ab692313a991456d391dd
+On these iMacs, 0x4F1 = 1 is also required for the SMU to boot
+properly. With it unset at SMU init, we see crashes in 5/10 boots even
+with the 5K support applied (UCLK still works). With it set, or with the
+display IP block initialized before SMU, crashes drop to 0/10.
 
-Thanks!
-Maxime
+To avoid depending on the bootloader, init the display IP block before
+SMU on DMI-matched iMac20,1/20,2, so 0x4F1 is set before SMU init.
+
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4455
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4895
+
+(Tested on iMac20,1 and iMacPro1,1)
+
+Tested-by: Doitall <diainquiries@protonmail.com>
+Co-developed-by: Ed Schofield <ed@aicharmers.com>
+Signed-off-by: Ed Schofield <ed@aicharmers.com>
+Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
+Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+---
+Changes in v3:
+- Restricted the display to 10bpc
+Changes in v2:
+- Added check to remove thunderbolt devices from 5K list
+- defined 0x4f1 as DP_APPLE_5K_TILE_MODE
+- Added iMacPro1,1 to 5K list
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 43 +++++++++++++++++--
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 28 ++++++++++++
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  7 +++
+ .../display/amdgpu_dm/amdgpu_dm_connector.c   | 35 +++++++++++++--
+ .../amd/display/amdgpu_dm/amdgpu_dm_quirks.c  | 38 +++++++++++++++-
+ .../gpu/drm/amd/display/dc/core/dc_resource.c |  9 ++++
+ drivers/gpu/drm/amd/display/dc/dc.h           |  2 +
+ drivers/gpu/drm/amd/display/dc/dc_dp_types.h  |  2 +
+ .../amd/display/dc/hwss/dce110/dce110_hwseq.c | 37 ++++++++++++++--
+ .../drm/amd/display/dc/link/link_detection.c  | 13 ++++++
+ .../gpu/drm/amd/display/dc/link/link_dpms.c   |  3 ++
+ .../display/dc/link/protocols/link_dp_phy.c   |  5 +++
+ .../dc/link/protocols/link_dp_training.c      | 10 ++++-
+ 13 files changed, 219 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+index 890792a94..a907d5629 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -21,6 +21,7 @@
+  *
+  */
+ 
++#include <linux/dmi.h>
+ #include <linux/firmware.h>
+ #include <linux/kernfs.h>
+ 
+@@ -3412,8 +3413,34 @@ static int amdgpu_discovery_set_ualink_ip_blocks(struct amdgpu_device *adev)
+ 	return 0;
+ }
+ 
++static const struct dmi_system_id imac5k_table[] = {
++	{
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
++			DMI_MATCH(DMI_PRODUCT_NAME, "iMac20,1"),
++		},
++	},
++	{
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
++			DMI_MATCH(DMI_PRODUCT_NAME, "iMac20,2"),
++		},
++	},
++	{}
++};
++
++static bool amdgpu_discovery_is_imac5k(struct amdgpu_device *adev)
++{
++	if (pci_is_thunderbolt_attached(adev->pdev) ||
++	    dev_is_removable(&adev->pdev->dev))
++		return false;
++
++	return dmi_check_system(imac5k_table);
++}
++
+ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
+ {
++	bool imac5k;
+ 	int r;
+ 
+ 	switch (adev->asic_type) {
+@@ -4026,15 +4053,25 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
+ 		}
+ 	}
+ 
++	/* TODO: We should enable 5K in EFI and remove this quirk */
++	imac5k = amdgpu_discovery_is_imac5k(adev);
++	if (unlikely(imac5k)) {
++		r = amdgpu_discovery_set_display_ip_blocks(adev);
++		if (r)
++			return r;
++	}
++
+ 	if (likely(adev->firmware.load_type == AMDGPU_FW_LOAD_PSP)) {
+ 		r = amdgpu_discovery_set_smu_ip_blocks(adev);
+ 		if (r)
+ 			return r;
+ 	}
+ 
+-	r = amdgpu_discovery_set_display_ip_blocks(adev);
+-	if (r)
+-		return r;
++	if (likely(!imac5k)) {
++		r = amdgpu_discovery_set_display_ip_blocks(adev);
++		if (r)
++			return r;
++	}
+ 
+ 	r = amdgpu_discovery_set_gc_ip_blocks(adev);
+ 	if (r)
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 5b634ae07..ea0af1fdd 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -639,6 +639,8 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+ 	retrieve_dmi_info(&adev->dm);
+ 	if (adev->dm.edp0_on_dp1_quirk)
+ 		init_data.flags.support_edp0_on_dp1 = true;
++	if (adev->dm.imac5K_support)
++		init_data.flags.imac5K_support = true;
+ 
+ 	if (adev->dm.bb_from_dmub)
+ 		init_data.bb_from_dmub = adev->dm.bb_from_dmub;
+@@ -1967,6 +1969,11 @@ static int dm_resume(struct amdgpu_ip_block *ip_block)
+ 		dc_exit_ips_for_hw_access(dm->dc);
+ 		WARN_ON(!dc_commit_streams(dm->dc, &commit_params));
+ 
++		if (dm->dc->config.imac5K_using_5K) {
++			const u8 value = 1;
++
++			core_link_write_dpcd(dm->dc->links[0], DP_APPLE_5K_TILE_MODE, &value, 1);
++		}
+ 		dm_gpureset_commit_state(dm->cached_dc_state, dm);
+ 
+ 		dm_gpureset_toggle_interrupts(adev, dm->cached_dc_state, true);
+@@ -4739,6 +4746,27 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_commit *state,
+ 	dc_exit_ips_for_hw_access(dm->dc);
+ 	WARN_ON(!dc_commit_streams(dm->dc, &params));
+ 
++	if (dm->imac5K_support) {
++		for_each_new_crtc_in_state(state, crtc, new_crtc_state, i) {
++			dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
++
++			if (!dm_new_crtc_state->stream)
++				continue;
++
++			if (dm_new_crtc_state->stream->signal != SIGNAL_TYPE_EDP)
++				continue;
++
++			if (new_crtc_state->mode.vdisplay == 2880 &&
++			    new_crtc_state->mode.hdisplay == 2560) {
++				u8 value = 1;
++
++				core_link_write_dpcd(dm->dc->links[0],
++						     DP_APPLE_5K_TILE_MODE, &value, 1);
++				dm->dc->config.imac5K_using_5K = true;
++			} else
++				dm->dc->config.imac5K_using_5K = false;
++		}
++	}
+ 	bool frl_stream_found = false;
+ 
+ 	for (i = 0; i < params.stream_count; i++) {
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index 1b91fe4c3..65a2330c6 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -698,6 +698,13 @@ struct amdgpu_display_manager {
+ 	 */
+ 	bool edp0_on_dp1_quirk;
+ 
++	/**
++	 * @imac5K_support:
++	 *
++	 * quirk for iMac that support 5K
++	 */
++	bool imac5K_support;
++
+ 	/**
+ 	 * @dpia_aux_lock:
+ 	 *
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+index 2b81396bd..e51ca7c95 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+@@ -123,6 +123,14 @@ STATIC_IFN_KUNIT int dm_encoder_helper_atomic_check(struct drm_encoder *encoder,
+ 				       drm_mode_vrefresh(adjusted_mode));
+ 			dm_new_connector_state->scaling = RMX_ASPECT;
+ 		}
++
++		/* The 5K panel reports no scaling info, scale every non 5K mode to full */
++		if (aconnector->dc_link && aconnector->dc_link->dc->config.imac5K_support) {
++			if (crtc_state->mode.vdisplay != 2880)
++				dm_new_connector_state->scaling = RMX_FULL;
++			else
++				dm_new_connector_state->scaling = RMX_OFF;
++		}
+ 		return 0;
+ 	}
+ 
+@@ -3130,9 +3138,19 @@ STATIC_IFN_KUNIT int amdgpu_dm_connector_get_modes(struct drm_connector *connect
+ 	const struct drm_edid *drm_edid = amdgpu_dm_connector->drm_edid;
+ 	struct dc_link_settings *verified_link_cap = &dc_link->verified_link_cap;
+ 	const struct dc *dc = dc_link->dc;
++	struct dc_sink *sink = amdgpu_dm_connector->dc_sink;
+ 
+ 	encoder = amdgpu_dm_connector_to_encoder(connector);
+ 
++	if (dc->config.imac5K_support && sink &&
++	    sink->link->link_index == 1 && !connector->edid_blob_ptr) {
++		const struct drm_edid *kept = drm_edid_alloc(sink->dc_edid.raw_edid,
++							     sink->dc_edid.length);
++
++		drm_edid_connector_update(connector, kept);
++		drm_edid_free(kept);
++	}
++
+ 	if (!drm_edid) {
+ 		amdgpu_dm_connector->num_modes =
+ 				drm_add_modes_noedid(connector, 640, 480);
+@@ -3312,11 +3330,20 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
+ 				adev->mode_info.underscan_vborder_property,
+ 				0);
+ 
+-	if (!aconnector->mst_root)
+-		drm_connector_attach_max_bpc_property(&aconnector->base, 8, 16);
++	if (!aconnector->mst_root) {
++		if (dm->imac5K_support && link_index <= 1)
++			drm_connector_attach_max_bpc_property(&aconnector->base, 10, 10);
++		else
++			drm_connector_attach_max_bpc_property(&aconnector->base, 8, 16);
++	}
+ 
+-	aconnector->base.state->max_bpc = 16;
+-	aconnector->base.state->max_requested_bpc = aconnector->base.state->max_bpc;
++	if (dm->imac5K_support && link_index <= 1) {
++		aconnector->base.state->max_bpc = 10;
++		aconnector->base.state->max_requested_bpc = 10;
++	} else {
++		aconnector->base.state->max_bpc = 16;
++		aconnector->base.state->max_requested_bpc = aconnector->base.state->max_bpc;
++	}
+ 
+ 	if (connector_type == DRM_MODE_CONNECTOR_HDMIA) {
+ 		/* Content Type is currently only implemented for HDMI. */
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_quirks.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_quirks.c
+index 259966703..a84ff90ef 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_quirks.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_quirks.c
+@@ -33,11 +33,13 @@
+ struct amdgpu_dm_quirks {
+ 	bool aux_hpd_discon;
+ 	bool support_edp0_on_dp1;
++	bool imac5K_support;
+ };
+ 
+ static struct amdgpu_dm_quirks quirk_entries = {
+ 	.aux_hpd_discon = false,
+-	.support_edp0_on_dp1 = false
++	.support_edp0_on_dp1 = false,
++	.imac5K_support = false,
+ };
+ 
+ static int edp0_on_dp1_callback(const struct dmi_system_id *id)
+@@ -52,6 +54,12 @@ static int aux_hpd_discon_callback(const struct dmi_system_id *id)
+ 	return 0;
+ }
+ 
++static int imac5K_support_callback(const struct dmi_system_id *id)
++{
++	quirk_entries.imac5K_support = true;
++	return 0;
++}
++
+ static const struct dmi_system_id dmi_quirk_table[] = {
+ 	{
+ 		.callback = aux_hpd_discon_callback,
+@@ -151,6 +159,27 @@ static const struct dmi_system_id dmi_quirk_table[] = {
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "HP ProBook 465 16 inch G11 Notebook PC"),
+ 		},
+ 	},
++	{
++		.callback = imac5K_support_callback,
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
++			DMI_MATCH(DMI_PRODUCT_NAME, "iMac20,1"),
++		},
++	},
++	{
++		.callback = imac5K_support_callback,
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
++			DMI_MATCH(DMI_PRODUCT_NAME, "iMac20,2"),
++		},
++	},
++	{
++		.callback = imac5K_support_callback,
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
++			DMI_MATCH(DMI_PRODUCT_NAME, "iMacPro1,1"),
++		},
++	},
+ 	{}
+ 	/* TODO: refactor this from a fixed table to a dynamic option */
+ };
+@@ -162,6 +191,7 @@ void retrieve_dmi_info(struct amdgpu_display_manager *dm)
+ 
+ 	dm->aux_hpd_discon_quirk = false;
+ 	dm->edp0_on_dp1_quirk = false;
++	dm->imac5K_support = false;
+ 
+ 	dmi_id = dmi_check_system(dmi_quirk_table);
+ 
+@@ -176,6 +206,12 @@ void retrieve_dmi_info(struct amdgpu_display_manager *dm)
+ 		dm->edp0_on_dp1_quirk = true;
+ 		drm_info(dev, "support_edp0_on_dp1 attached\n");
+ 	}
++	if (quirk_entries.imac5K_support &&
++	    !pci_is_thunderbolt_attached(dm->adev->pdev) &&
++	    !dev_is_removable(&dm->adev->pdev->dev)) {
++		dm->imac5K_support = true;
++		drm_info(dev, "imac5K_support attached\n");
++	}
+ }
+ EXPORT_IF_KUNIT(retrieve_dmi_info);
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+index 187486d97..e62f14f04 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+@@ -711,6 +711,15 @@ bool resource_are_streams_timing_synchronizable(
+ 				!= stream2->timing.pix_clk_100hz)
+ 		return false;
+ 
++	if (stream1->ctx->dc->config.imac5K_support &&
++			((stream1->signal == SIGNAL_TYPE_EDP &&
++			  stream2->signal == SIGNAL_TYPE_DISPLAY_PORT &&
++			  stream2->link->link_index == 1) ||
++			 (stream2->signal == SIGNAL_TYPE_EDP &&
++			  stream1->signal == SIGNAL_TYPE_DISPLAY_PORT
++			  && stream1->link->link_index == 1)))
++		return true;
++
+ 	if (stream1->clamping.c_depth != stream2->clamping.c_depth)
+ 		return false;
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index d3c484f45..a0b746250 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -635,6 +635,8 @@ struct dc_config {
+ 	struct spl_sharpness_range dcn_sharpness_range;
+ 	struct spl_sharpness_range dcn_override_sharpness_range;
+ 	bool no_native422_support;
++	bool imac5K_support;
++	bool imac5K_using_5K;
+ };
+ 
+ enum visual_confirm {
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
+index b0e91b321..09bcb1600 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
+@@ -1510,6 +1510,8 @@ struct dp_trace {
+ /* TODO - This is a temporary location for any new DPCD definitions.
+  * We should move these to drm_dp header.
+  */
++/* Apple 5K iMac TCON, 1 drives the panel as two tiles */
++#define DP_APPLE_5K_TILE_MODE				0x4F1
+ #ifndef DP_LINK_SQUARE_PATTERN
+ #define DP_LINK_SQUARE_PATTERN				0x10F
+ #endif
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+index 7b3aa02dd..aba1dc9b4 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+@@ -2656,7 +2656,8 @@ enum dc_status dce110_apply_ctx_to_hw(
+ 	struct dce_hwseq *hws = dc->hwseq;
+ 	struct dc_bios *dcb = dc->ctx->dc_bios;
+ 	enum dc_status status;
+-	unsigned int i;
++	unsigned int i, n, enable_order[MAX_PIPES];
++	int primary = -1, companion = -1;
+ 	bool was_hpo_acquired = resource_is_hpo_acquired(dc->current_state);
+ 	bool is_hpo_acquired = resource_is_hpo_acquired(context);
+ 
+@@ -2664,6 +2665,32 @@ enum dc_status dce110_apply_ctx_to_hw(
+ 	if (dc->config.use_pipe_ctx_sync_logic)
+ 		reset_syncd_pipes_from_disabled_pipes(dc, context);
+ 
++	for (i = 0; i < dc->res_pool->pipe_count; i++) {
++		struct pipe_ctx *pipe = &context->res_ctx.pipe_ctx[i];
++
++		enable_order[i] = i;
++		if (!dc->config.imac5K_support || !pipe->stream ||
++		    pipe->top_pipe || pipe->prev_odm_pipe)
++			continue;
++		if (pipe->stream->link->link_index == 0)
++			primary = i;
++		else if (pipe->stream->link->link_index == 1)
++			companion = i;
++	}
++	if (companion >= 0 && primary > companion) {
++		enable_order[companion] = primary;
++		enable_order[primary] = companion;
++	}
++
++	if (primary >= 0 && companion >= 0) {
++		struct pipe_ctx *old = &dc->current_state->res_ctx.pipe_ctx[primary];
++		struct dc_link *right = context->res_ctx.pipe_ctx[companion].stream->link;
++
++		if (!old->stream ||
++		    pipe_need_reprogram(old, &context->res_ctx.pipe_ctx[primary]))
++			right->link_state_valid = false;
++	}
++
+ 	/* Reset old context */
+ 	/* look up the targets that have been removed since last commit */
+ 	hws->funcs.reset_hw_ctx_wrap(dc, context);
+@@ -2705,10 +2732,12 @@ enum dc_status dce110_apply_ctx_to_hw(
+ 		dc->hwseq->funcs.setup_hpo_hw_control(dc->hwseq, is_hpo_acquired);
+ 	}
+ 
+-	for (i = 0; i < dc->res_pool->pipe_count; i++) {
++	for (n = 0; n < dc->res_pool->pipe_count; n++) {
+ 		struct pipe_ctx *pipe_ctx_old =
+-					&dc->current_state->res_ctx.pipe_ctx[i];
+-		struct pipe_ctx *pipe_ctx = &context->res_ctx.pipe_ctx[i];
++			&dc->current_state->res_ctx.pipe_ctx[enable_order[n]];
++		struct pipe_ctx *pipe_ctx = &context->res_ctx.pipe_ctx[enable_order[n]];
++
++		i = enable_order[n];
+ 
+ 		if (pipe_ctx->stream == NULL)
+ 			continue;
+diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+index b4546f93a..9b69a8013 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
++++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+@@ -1205,7 +1205,11 @@ static bool detect_link_and_local_sink(struct dc_link *link,
+ 				if (!link->dpcd_caps.set_power_state_capable_edp)
+ 					link->wa_flags.dp_keep_receiver_powered = true;
+ 			}
++			if (dc->config.imac5K_support) {
++				const uint8_t val = 1;
+ 
++				core_link_write_dpcd(link, DP_APPLE_5K_TILE_MODE, &val, 1);
++			}
+ 			sink_caps.transaction_type = DDC_TRANSACTION_TYPE_I2C_OVER_AUX;
+ 			sink_caps.signal = SIGNAL_TYPE_EDP;
+ 			break;
+@@ -1634,6 +1638,15 @@ bool link_detect(struct dc_link *link, enum dc_detect_reason reason)
+ 	bool is_delegated_to_mst_top_mgr = false;
+ 	enum dc_connection_type pre_link_type = link->type;
+ 
++	if (link->local_sink &&
++			link->dc->config.imac5K_support &&
++			link->local_sink->link->link_index == 1)
++		return false;
++
++	if (reason == DETECT_REASON_BOOT && link->dc->config.imac5K_support &&
++	    link->link_index == 1)
++		msleep(100);
++
+ 	is_local_sink_detect_success = detect_link_and_local_sink(link, reason);
+ 
+ 	if (is_local_sink_detect_success && link->local_sink) {
+diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
+index 2aeb9a0e6..3d7d1ddc4 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
++++ b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
+@@ -2084,6 +2084,9 @@ static enum dc_status enable_link_dp(struct dc_state *state,
+ 			!link->dc->config.enable_dpia_pre_training)
+ 		do_fallback = true;
+ 
++	if (link->dc->config.imac5K_support && link->link_index == 1)
++		msleep(100);
++
+ 	/*
+ 	 * Temporary w/a to get DP2.0 link rates to work with SST.
+ 	 * TODO DP2.0 - Workaround: Remove w/a if and when the issue is resolved.
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
+index 49521ac4b..e7ce8e903 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
+@@ -53,6 +53,11 @@ void dpcd_write_rx_power_ctrl(struct dc_link *link, bool on)
+ 	core_link_write_dpcd(link, DP_SET_POWER, &state,
+ 						 sizeof(state));
+ 
++	if (on && link->dc->config.imac5K_support &&
++	    link->connector_signal == SIGNAL_TYPE_EDP) {
++		state = 1;
++		core_link_write_dpcd(link, DP_APPLE_5K_TILE_MODE, &state, sizeof(state));
++	}
+ }
+ 
+ void dp_enable_link_phy(
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c
+index 3be36d106..0618333bb 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c
+@@ -1540,8 +1540,16 @@ static enum link_training_result dp_transition_to_video_idle(
+ 		 */
+ 		if (link->connector_signal != SIGNAL_TYPE_EDP && status == LINK_TRAINING_SUCCESS) {
+ 			msleep(5);
+-			if (!link->skip_fallback_on_link_loss)
++			if (link->dc->config.imac5K_support && link->link_index == 1) {
++				/* The 5K tile link only has to answer AUX */
++				uint8_t lanes;
++
++				if (core_link_read_dpcd(link, DP_LANE0_1_STATUS,
++							&lanes, 1) != DC_OK)
++					status = LINK_TRAINING_LINK_LOSS;
++			} else if (!link->skip_fallback_on_link_loss) {
+ 				status = dp_check_link_loss_status(link, lt_settings);
++			}
+ 		}
+ 		return status;
+ 	}
+-- 
+2.55.0
+
