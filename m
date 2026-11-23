@@ -2,123 +2,97 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F3BB606A31A
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2026 09:45:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11302606A31E
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Nov 2026 09:57:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Wt1aFmW+
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Bh+QQckc
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2A8510E776;
-	Mon, 23 Nov 2026 09:45:31 +0000 (UTC)
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010042.outbound.protection.outlook.com
- [52.101.193.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 393FA10E776
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Nov 2026 09:45:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A645D10E7A9;
+	Mon, 23 Nov 2026 09:57:05 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011025.outbound.protection.outlook.com [52.101.62.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 75C5D10E7A9
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Nov 2026 09:56:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DEnSNS2ac1SbycVoT7qqLKDMiU3VZlWLmOBg1AvC6N8G1YTzzoYk33KUvcbKznyGV67LpZraex1XHV1IYmLPJyI0Uz5fmAjoUICb21iuASWXpjCwCKMYl8+MOkv2WruqesBIiLBty2iZRZrAqbIi1Mty3hf8qA7+xCgiHbB5hJwiyU+pLJO5tgcp46TH+Lqae9gBQiRutbx/w19E/pIM6UgGolWfbYUC594WAbUa0ESlrq3+5LStjczeIy84JxNJx8xYssIQk1B8CAsZQaH5BSG+PTCkj+qDQttQR8KsKXen2vOa+dOYhQH0TK68DeYYRsskNB0MASCBTv5/0OTQAw==
+ b=SRI59Va8KPda+7B/Q84J9MW/GIx854+ISfhhshHnkzWBGj03qbU1B1QQHzqZz/ST7EKdLhvmbRTvfyB0k9LIRPrEp8PqISCEpGWPCnHHIgF0abxBqruWzMmDwuXPKbZ2pqf4nBXgN+8u/WpuSZDQ5oaWHll4jPNaOOtsvqv5CIoABXjMRwhnXpIiHpCpO6mq3bW1N+xHh3btr6cAOVfwQlJv0lRBz5HKbsEyo/z95Q+hM+YSRSGEvoVmOoZnsoxIV+bHbBR9A1KDRFC0BSjNhlxqb+1Wv88Ktd0l7olw0NanF2iFQ9W4iA+prwDVNQfap5G0QfhBMDVDcZMdgSusiA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3tX9rrgApLYyf0y/V93WOHqTMZVWSjTL9QSOVN+fKWI=;
- b=Bm4ieYqgu6Z1UloDtIdBR4zPkdwXJXyK9Gx1NGOGAbU2Ar4VE7TK0axIsehdQ3Sq+IVzBtCjfmrDCGlLM85scmuAujdO9lDRRWT2HYfsTAk/PHAaLR3lzVVo6vHlSX6XvK6avdWYYeDKUMsYB5eRcwbk4vBvZfbYHknsprRCwqykSHELpny9t5p3YpWvL/fr9YSQEzldirPuOh96hZ1Clm0GA0fp5YYV9rh9O67qHdd7cQdxGNdfnmk3njP5ktU99j4cM3nvFv2Zg7yMz4xg0sDgVzQ8/sYScePNLWAQPQb2riK3TJ9wT3+gXp5Xx6m1X8+GqymVvjOLT/5BML+NJw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=DUoM3WsCulob8PM44ZXbxxpHWWTP5zY4Sym0G8GI/Is=;
+ b=ZQ71/x3D8uVO1ULjJIIwh79RhhbtxcyLJqin2a3XU7GFANzEZe7nalVwBBzKOtBcpmVnMGDArTdjJVb4QU8J3jnZ/ul8nChH/oQYCludzLjssDbvmXz4kHr6rCVfl0O8suphQyOUUqNQzBRvPkObONqfcZzawpHBK+EfzAr3sIOR4vseiWGquqFgixtYlbrCdc4HRsxXUSe/vGf5Oc5EYdbBngaHzNDVAceM+5vTSn0ZHLb6ENWlap/QfGR5ksS/sV+Fgsl8Ny9uiNtzyToXKS2hTXFPS0CKJfdTARKZ8e8qqOB+ZTLPNotKY4zEqHlP/2cv0qzMVKSPQMf9qtL87g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3tX9rrgApLYyf0y/V93WOHqTMZVWSjTL9QSOVN+fKWI=;
- b=Wt1aFmW+fBqzTJiZ59EDTQ3YGYgugLB1tqkHDn+8TQ3fgWWxgQqjSv6kKrol0l8UGzaQuSHyl8CXdc8RywooSUNH4RRKVHs0yQICV174vjJREVzncE2haPTixpGxjksIKE6UXrVt3+L/XLDiKgPpCQMj6bWblQCxpf3+wzSKA7g=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CH2PR12MB9457.namprd12.prod.outlook.com (2603:10b6:610:27c::7)
- by PH8PR12MB7446.namprd12.prod.outlook.com (2603:10b6:510:216::13)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=DUoM3WsCulob8PM44ZXbxxpHWWTP5zY4Sym0G8GI/Is=;
+ b=Bh+QQckcPekuPtsnT9KqPzWmC/UzXk0p93Egr1NkJRWXnTwfLYzjlgEiPO2k5ZAo82tqolDfpNbps5kzMApSskyCVAOy3itmMe8yGURu3OAgJUxeV5c2IoiK8jQHYCs4uw7t8rw759R4M1lnPP7D8z4NrF5Wc2E8J8fpkg4157k=
+Received: from DS7P221CA0012.NAMP221.PROD.OUTLOOK.COM (2603:10b6:8:25b::12) by
+ SN7PR12MB6791.namprd12.prod.outlook.com (2603:10b6:806:268::22) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.14; Mon, 23 Nov
- 2026 09:45:22 +0000
-Received: from CH2PR12MB9457.namprd12.prod.outlook.com
- ([fe80::85a8:1df:840a:cd4c]) by CH2PR12MB9457.namprd12.prod.outlook.com
- ([fe80::85a8:1df:840a:cd4c%4]) with mapi id 15.21.0639.011; Mon, 23 Nov 2026
- 09:45:21 +0000
-Content-Type: multipart/alternative;
- boundary="------------WBA8zeMSQ8X54PQ0yoXICGG5"
-Message-ID: <53aa579b-18b1-4052-b004-b674fcf96ee5@amd.com>
-Date: Mon, 23 Nov 2026 17:45:17 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] amdkfd: don't map SVM ranges to a GPU without a VM
-To: Felix Kuehling <felix.kuehling@amd.com>, Alexander.Deucher@amd.com
-Cc: amd-gfx@lists.freedesktop.org
-References: <20261120091638.20608-1-lingshan.zhu@amd.com>
- <ccae1602-9922-450f-b5c9-385459a94baf@amd.com>
-Content-Language: en-US
-From: "Zhu, Lingshan" <lingshan.zhu@amd.com>
-In-Reply-To: <ccae1602-9922-450f-b5c9-385459a94baf@amd.com>
-X-ClientProxiedBy: TYCP286CA0103.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:2b4::16) To CH2PR12MB9457.namprd12.prod.outlook.com
- (2603:10b6:610:27c::7)
+ 2026 09:56:49 +0000
+Received: from DM3PEPF000265BF.namprd03.prod.outlook.com
+ (2603:10b6:8:25b:cafe::2b) by DS7P221CA0012.outlook.office365.com
+ (2603:10b6:8:25b::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.14 via Frontend Transport; Mon,
+ 23 Nov 2026 09:56:49 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DM3PEPF000265BF.mail.protection.outlook.com (10.167.23.180) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.639.5 via Frontend Transport; Mon, 23 Nov 2026 09:56:48 +0000
+Received: from marui-Super-Server.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.57; Mon, 23 Nov 2026 03:56:46 -0600
+From: Heng Zhou <Heng.Zhou@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Lijo.Lazar@amd.com>, <Christian.Koenig@amd.com>, <Emily.Deng@amd.com>,
+ <Victor.Zhao@amd.com>, <Felix.Kuehling@amd.com>, <phasta@kernel.org>,
+ <HaiJun.Chang@amd.com>, <Heng.Zhou@amd.com>, <James.Zhu@amd.com>
+Subject: [PATCH] drm/amdkfd: rebuild CWSR trap buffers after hibernation
+Date: Mon, 23 Nov 2026 17:56:05 +0800
+Message-ID: <20261123095605.162656-1-Heng.Zhou@amd.com>
+X-Mailer: git-send-email 2.43.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB9457:EE_|PH8PR12MB7446:EE_
-X-MS-Office365-Filtering-Correlation-Id: d0e15dff-9202-4aca-bad8-08df49467db8
+X-MS-TrafficTypeDiagnostic: DM3PEPF000265BF:EE_|SN7PR12MB6791:EE_
+X-MS-Office365-Filtering-Correlation-Id: 220937b4-f514-4fc1-71ce-08df49481781
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|23010399003|1800799024|10067099003|4143699003|11063799006|56012099006|261022075727099003|261022105027099003|261021135927099003|261009223027099003|261021121427099003|261026140227099003|261026121527099003|261028144727099003|261102123227099003|18002099003|22082099003|8096899003;
-X-Microsoft-Antispam-Message-Info: ViFZkacZtfngN1RKiks4BVDaTcbbbStS6E8T10l12xi7uTVSgFsqQcfvgtfO/cBqxj9WSm4RnVWxxOeFolkdSmc1c5ZeCQCBXOuLlMCvo5NSdp85etWqgBSlYZEQxrbYTUPJGoj4EbxpCS5NThC8659YDxLvxi6kTlZKFxjWi0sv0qErb0vLY9ZmI9mkKQ//SRadvjnpkpRDaDXHEfCIaVEbIMLLod5jO3/dQ3TxNMOfQmy+Sfb5/KolF3xQThw7PF1m1K9P495cOK2DQDyl5wP+VQssNUX0/bgjWOl/qevNI1N63IAQd1YHcoGe5qRjDdJcaDd521GM1v72/BKNI1JAmj/hLmW22ncl/qiheYlbp5BCHLHfKzjWgCOjQqLzFdYnfTJkLzRzEZSkxp7BhGsojy/F+jETOENheo1H9b47YjSqj3xcdCkjcFfLkMBfU0lfMkuslb2A4bLRtdNmSIL7GbrPBfL4QmHhPEj8PRB6D8dQor92XfG4T/9gLzjO36gjXTIwLoFyH5wV2ZcrXyA6IhMyJx2rLX0L7Hnm1OGHCL3Hf7YLoq877IQ/mBfXESS1CoI6bIaWcuGfdIxwpjJnc84VHUn+ub4HD9CnMfOFXVfajBiKhLBDORO7mcdQBQ/uXkddNos6RXXtqdcilYDhn1jjx4uA162tIeH6O0k=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB9457.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(10067099003)(4143699003)(11063799006)(56012099006)(261022075727099003)(261022105027099003)(261021135927099003)(261009223027099003)(261021121427099003)(261026140227099003)(261026121527099003)(261028144727099003)(261102123227099003)(18002099003)(22082099003)(8096899003);
+ ARA:13230040|1800799024|82310400026|376014|36860700016|23010399003|6133799003|18002099003|261009223027099003|261021130227099003|261021135927099003|261021123027099003|261021121427099003|261021133027099003|261022105027099003|261026130827099003|261026121527099003|261026135527099003|261026140227099003|261102123227099003|261022115727099003|261022113327099003|261022075727099003|261028144727099003|56012099006|10067099003|11063799006;
+X-Microsoft-Antispam-Message-Info: J24DtU/4lzhiX3VPKE52mZHLN5DApzxGxYQBYKYFONCqJGHtgXqq/XN34Yl/Mhv27XTqetD/swylii4nY6adzM2CV/t8PBLCao99L4RI/UC0rorsMk4E140BPLhKDTMBqkoQSxwlNmXmgLDfDBIS2QQtY+d/5pb7e1QjeVr3CSiMSw+RmbNGVDw9gCadk9/+0X0Qaim9modedjy/XnBvWyCF/qsqxOCEIUd2ZDVWPefiZQh/azW+YnZ5cma1T90QaLTlPMecxPHznNj5EkCmapP7KE/EuJgTuhIqWXoUcroT3gVCoL3yRlMAkaMgulRxODgf3KGbdeg7jISBQFE+W5ucnTvgJpGpemRDSXCmlGxX5soc3BfZtqUE5WYuHUCPxgyPt4a9QzFjdNbW90SG9rb1tSGADg9L39hvF/nOXJjoXyTwO2lZiZC66ifRciQxYBA8bpCzqcVetQXrnoTt1xHbA2BY8TCxRTkYMS9it16NNjYbTrcdpslfXPG+J98G9jkHE+mSJkYhf5ZTrmFbKQ1gTG7xNibg+2jTsa6dg/h02trXsTywizB3Z/5IIsib0bvlShlPHCcG0e5yeMtyEfK0oRi844VPEAkZZbI5/0axBireHMgMNXrP6yK2paCsS61UYy0izeN28ipPUetnJLuOMVAIgTjHb0DudS6oPcOoiMccpa5CtgSHEaCEfZG7nf/rLCt7o1+rsMl8bxt9Dg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016)(23010399003)(6133799003)(18002099003)(261009223027099003)(261021130227099003)(261021135927099003)(261021123027099003)(261021121427099003)(261021133027099003)(261022105027099003)(261026130827099003)(261026121527099003)(261026135527099003)(261026140227099003)(261102123227099003)(261022115727099003)(261022113327099003)(261022075727099003)(261028144727099003)(56012099006)(10067099003)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Wk5rUE8yWDdmZzdTUERXSUgvVUlkQXV2NmNaRFhjMWlVR1VQaVZCQ3QrMVBF?=
- =?utf-8?B?WnJEcnZFaEptWWZ6UjhDNVNybnNZTmplSTJjUlBQblVXYjNCZWtnN2NGWWxU?=
- =?utf-8?B?TkZSdUtzSlY3L09IbGJWd0Q5czdYdi9XNERYRDNBUXNlT2lDc0ZHN00zV0lY?=
- =?utf-8?B?Tkt2TnppdUY4QWcyUnZPRG5pK281cjJuOUpCb0ordGEvUWRYT0hKbWR6dWNa?=
- =?utf-8?B?WjdwaFFzUEIwNGlIdlE3UmFJc0VoVUhqaWFDeTZLbUlnamRwVjMvNDRVNU1s?=
- =?utf-8?B?Q25LekxWd0NlZktTZTB4c1Rmb0JFclpZYkJvV1JlZHZhVEJvSFBJTHAxckdR?=
- =?utf-8?B?VmFoRjJKS0NWUm90K0RPQzF5UHFsQUkyMFEwS1MxM0RBREtwd0hTY2xpakVG?=
- =?utf-8?B?NXpvZVdJYXZhQjVPaE4wNXNCeTR3OUN2cm81aVA2bmdDUmFDY0xFZWwreGRZ?=
- =?utf-8?B?Nng3aDM4dTlYWnZHUGYrZDY5RjlRTUpBaE1Hb1J1S3Jxak5FUTQ3S0FqTlcw?=
- =?utf-8?B?bmMxd05XZVMrS2syMVJlblZTQWI0RURxRGhxRi94UHkzZ1BsMXNPRDk4ME5a?=
- =?utf-8?B?bys4SmRkcW5tRmJJaG1IMDdnd1owZ1RRTFAyUmNVUjRFSGdROEQvUHRVcFdT?=
- =?utf-8?B?WnNpYWFoNkd4bktIQTlITHJ5SzdDWVJhYkkxQWpXTWJVVDJMM0ZEb05mclpa?=
- =?utf-8?B?Nno2S28velZLNHcrNzRySzBnVTU3NHpMZUJjYmJiS3p3M3RSeGZGMnJnWHZr?=
- =?utf-8?B?dllLMjlMVG5UVVdOK3ZqSUQzL09OTzhiN2grTVV3OXQvNVFvMW03S0QySjBD?=
- =?utf-8?B?MXVRa0pIQlV3eXBIOUhRZ3Q1TWMvOEZta1hHRG0xMUFvcGVrVkZHeHV0UDRI?=
- =?utf-8?B?aTV6TkVtZnVzMEp1QVBPUG0wbHNnT3A1U09ySm52N1FkSStKM2o2SE14WE8r?=
- =?utf-8?B?eFJIYm1GVlhaakFwTTZsN3FSbVIrYTlOeXpqSyt5MU5Vd2RqNGpHTkNNdWlF?=
- =?utf-8?B?MnJQd2s4V1ZFbUFHaHR0NkRIWTlSbldaSGlWZzFWei9kMnJPZ3daK1NYUnZ6?=
- =?utf-8?B?bVdBZ0xLam9FMEdVU3AwYndHZVNEaUlGbzJHN3dWWDBUcG96Sk45djhJak5Q?=
- =?utf-8?B?eGJwN3hhbFQ4VmY1b2JiWnZsOFlBOG9qdjl5Y1NGV3ZxaytpeTVJMzJYSWNN?=
- =?utf-8?B?OHRETkdwY2pwTmswQThnMjRucktHR2pPUjJpYTJoU0tvaGhBM0FQaXhBMWRE?=
- =?utf-8?B?MEtVdHYxTnZCcXZqYWZSTE1sdlVGUVMxdWplWEVSSjMrNk02WnV0VjdTa092?=
- =?utf-8?B?QVFqME5ha2N6b1oyOUhsdXkwaDcxU0lLSkZ4MmthK3BodEhFdzRSdUFYQnZv?=
- =?utf-8?B?TThEaEp4a3JncmNwSnhxd2VHNUhRTDlHZis0UktFNjVvdVh6MktiOGptNExj?=
- =?utf-8?B?R080MXJ6SW9xWWNNWklkUG51RXo0eUlrWVVCM3FGZHZHMjFxanpDSll0aDNq?=
- =?utf-8?B?aWFyNzVGY09QcFFDdk81d0VuRk5BQ3VzaE5xVjNqalB6ajl5K3Q1UUJXU3BH?=
- =?utf-8?B?YXJiUXA3MSt3UnlCVU1ub2dRQmx1VGdxd2t6SVRDNVZwZ3lRaWNzK2J1MGIr?=
- =?utf-8?B?cGlyb1lvaHhCY2NHdjg1YjJFMko5SjVXbWVVbTkxc0JWUk5LajcwaHNlVGlh?=
- =?utf-8?B?NGJUOG5VdTR6SmExU2VuWlFSMGhnemk5NXhteVU2RitjUUE2RHdieWI5cFJn?=
- =?utf-8?B?bTROTFkzN1N3N2tjdENmT2NEcjBGdjBhaklWWm1TRFpvSnpNM05vSFczZWg0?=
- =?utf-8?B?cGh5TjllM1c5V2o1WEZ5QVAzRjRFYVlzdFZIc3ByY2swcVhFVm9kOUtJYmdR?=
- =?utf-8?B?Z1VVL25EYlh1SWJuNGM5KzVjOWNlTHVVZ3JQZDhLUWlZSjU5RGdqOVdOSXIy?=
- =?utf-8?B?dm1WMEdiM0RlL0JKaDZuU3hzTkRuVmVVOGk1RzBxS2hlVjgwOHhkMjZhL2lx?=
- =?utf-8?B?ZUdOZ1hlVmNLV2U0Kzc0eFpyVDNnVjREbno4NzB5NWJKWkk3T25tUDBSbWNa?=
- =?utf-8?B?OUtNL3ZST0VENWQ5VG53UHcvWXVIb3RhaVErNllBN01sMCtYYndTMnNFNTFP?=
- =?utf-8?B?NmtBWTVuWHN3WE1vRjlTdFN6VDk3bE9wTithZlRRQ2FRYS9DRE9ZZkovZ3Y5?=
- =?utf-8?B?OVlPZ2MvVklxM1NxRHRRVlNzR0FBMUYyZC9PemRnclNOQmhxdTRpNnd2RUZD?=
- =?utf-8?B?eFNyMWl6YUsxTWxoUjVESlZUZ0lFc1hiYTY2dUd0M2xvcnJXQkxwWk9WeUtD?=
- =?utf-8?B?YTA3RWRRMFlwc3hnMHE2SFA5VDBEVldEVk9iTStkOGFqWWU1ejBKUT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: wBZfbrROrP69KGw6zGojh0KcSNKx1hmlQrv39EfXkWmEXHcVBblHK7KSdHsCMZr8yVnBOCmuG4uKXWAxJ9Qk9rFqYCQSq51ft9uHpZJqm7TCXygzzrPQCI5D4KdLY1832qtyoYNAGds95HUIuUov4DsNzUken7XqKU8IRksQDtqSR+jgvinb+/vvskn6tTpCcrYdqiRyJeq0NxnT7ykaro3bmI+Ii1GkNqJAmab3YiJufeo60JpMYja3y4UtS9c+n9NxBtFBIpv6aNUlbuqRPl1IpWEwyR9DHwMfpiZmYwOrXVo3oUcdERaWuTVoC2cnaIqkIh0hbUbI80cH/ByzsYR5lC9giFHCTW+fj4rG6GmSuyLhIZ0GzijOiGaoOrENRZzBf3Bqn+p0PaBkIZHcdj7074O/3K/1/hUZjSUzMK8ArjqmV/iXtfI0T7MdMGuf
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d0e15dff-9202-4aca-bad8-08df49467db8
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB9457.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2026 09:45:21.7802 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2026 09:56:48.9966 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 220937b4-f514-4fc1-71ce-08df49481781
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kp9Ie3Hdpf59IRFk+G7wql6b/BH41oXbWHoiBw6088IPSy/xBQxma38NMXtD81oJZE3Xi22babm8DHl0BDNtXw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7446
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM3PEPF000265BF.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6791
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,188 +103,108 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	HTML_MESSAGE,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---------------WBA8zeMSQ8X54PQ0yoXICGG5
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+The CWSR trap buffer can reside in pinned VRAM, which is skipped by
+TTM eviction during hibernation. Restoring the process GPUVM mappings
+does not restore the buffer contents. This can lead to SQ errors and
+failed queue preemption after resume.
 
-On 11/21/2026 6:16 AM, Felix Kuehling wrote:
+Keep the second-level TBA/TMA and trap flags in system memory. Rebuild
+the buffer from the trap ISA and saved TMA values and flush HDP before
+restoring process queues.
 
-> On 2026-11-20 04:16, Zhu Lingshan wrote:
->> If a kfd process does not perform ACQUIRE VM for its
->> kfd_process_device, the VM of the pdd is NULL.
->>
->> svm_range_validate_and_map does not check whether pdd->drm_priv
->> is NULL before accessing it, and may cause kernel panic.
->>
->> This commit fixes this issue by skipping any GPUs
->> that haven't acquired VM in svm map.
->>
->> This commit does not return an error code when
->> pdd->drm_priv is NULL to avoid endless
->> rescheduling of restore_work.
->>
->> Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 8 ++++++++
->>   1 file changed, 8 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->> b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->> index 7401b7fdcb57..b5175f346351 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->> @@ -1818,6 +1818,14 @@ static int svm_range_validate_and_map(struct
->> mm_struct *mm,
->>                 prange->bitmap_aip, MAX_GPU_INSTANCE);
->>       }
->>   +    for (idx = 0; idx < ctx->process->n_pdds; idx++) {
->> +        if (!ctx->process->pdds[idx]->drm_priv) {
->> +            pr_debug("GPU %d has no VM acquired, skip SVM mapping
->> for it, please consider acquiring VM for it and perform SVM unmap and
->> map again\n",
->> +                 ctx->process->pdds[idx]->user_gpu_id);
->> +            clear_bit(idx, ctx->bitmap);
->> +        }
->> +    }
->> +
->
-> I'd put this check in svm_range_check_attr and svm_range_new (where
-> prange->bitmap_access is initialized for the XNACK-enabled case).
-> svm_range_check_attr gives user mode feedback when they're doing
-> something wrong rather than just silently failing to map memory.
+Signed-off-by: Heng Zhou <Heng.Zhou@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |  7 ++++++
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c | 31 ++++++++++++++++++++++++
+ 2 files changed, 38 insertions(+)
 
-Thanks and the new patch has been sent out with title "[PATCH] amdkfd: don't give a GPU access to SVM ranges when no VM"
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index d8631847f0eb..a719c3be0db1 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -723,6 +723,13 @@ struct qcm_process_device {
+ 	uint64_t cwsr_base;
+ 	uint64_t tba_addr;
+ 	uint64_t tma_addr;
++	/*
++	 * CPU copies of the second-level TBA/TMA and trap flags.
++	 * Keep them in sync with the first-level TMA for hibernation restore.
++	 */
++	uint64_t cwsr_second_level_tba;
++	uint64_t cwsr_second_level_tma;
++	uint64_t cwsr_tma_flags;
+ 
+ 	/* IB memory */
+ 	struct kgd_mem *ib_mem;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index dd938788bdd9..307851d3d882 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -1590,6 +1590,8 @@ void kfd_process_set_trap_handler(struct qcm_process_device *qpd,
+ 		/* KFD trap handler is bound, record as second-level TBA/TMA
+ 		 * in first-level TMA. First-level trap will jump to second.
+ 		 */
++		qpd->cwsr_second_level_tba = tba_addr;
++		qpd->cwsr_second_level_tma = tma_addr;
+ 		iosys_map_wr(&qpd->cwsr_map, KFD_CWSR_TMA_OFFSET,
+ 			     uint64_t, tba_addr);
+ 		iosys_map_wr(&qpd->cwsr_map, KFD_CWSR_TMA_OFFSET + sizeof(uint64_t),
+@@ -1660,12 +1662,40 @@ void kfd_process_set_trap_debug_flag(struct qcm_process_device *qpd,
+ 				     bool enabled)
+ {
+ 	if (!iosys_map_is_null(&qpd->cwsr_map)) {
++		qpd->cwsr_tma_flags = enabled;
+ 		iosys_map_wr(&qpd->cwsr_map,
+ 			     KFD_CWSR_TMA_OFFSET + 2 * sizeof(uint64_t),
+ 			     uint64_t, enabled);
+ 	}
+ }
+ 
++static void kfd_process_rebuild_cwsr(struct kfd_process *p)
++{
++	struct kfd_process_device *pdd;
++	struct qcm_process_device *qpd;
++	int i;
++
++	for (i = 0; i < p->n_pdds; i++) {
++		pdd = p->pdds[i];
++		qpd = &pdd->qpd;
++
++		if (!pdd->dev->adev->in_s4 || !qpd->cwsr_base ||
++		    iosys_map_is_null(&qpd->cwsr_map))
++			continue;
++
++		iosys_map_memset(&qpd->cwsr_map, 0, 0, KFD_CWSR_TBA_TMA_SIZE);
++		iosys_map_memcpy_to(&qpd->cwsr_map, 0, pdd->dev->kfd->cwsr_isa,
++				    pdd->dev->kfd->cwsr_isa_size);
++		iosys_map_wr(&qpd->cwsr_map, KFD_CWSR_TMA_OFFSET,
++			     uint64_t, qpd->cwsr_second_level_tba);
++		iosys_map_wr(&qpd->cwsr_map, KFD_CWSR_TMA_OFFSET + sizeof(uint64_t),
++			     uint64_t, qpd->cwsr_second_level_tma);
++		iosys_map_wr(&qpd->cwsr_map, KFD_CWSR_TMA_OFFSET + 2 * sizeof(uint64_t),
++			     uint64_t, qpd->cwsr_tma_flags);
++		amdgpu_device_flush_hdp(pdd->dev->adev, NULL);
++	}
++}
++
+ /*
+  * On return the kfd_process is fully operational and will be freed when the
+  * mm is released
+@@ -2301,6 +2331,7 @@ int kfd_resume_all_processes(void)
+ 	int ret = 0, idx = srcu_read_lock(&kfd_processes_srcu);
+ 
+ 	hash_for_each_rcu(kfd_processes_table, temp, p, kfd_processes) {
++		kfd_process_rebuild_cwsr(p);
+ 		if (restore_process_helper(p)) {
+ 			pr_err("Restore process pid %d failed during resume\n",
+ 			      p->lead_thread->pid);
+-- 
+2.43.0
 
-Thanks
-Lingshan
-
->
-> Regards,
->   Felix
->
->
->>       if (bitmap_empty(ctx->bitmap, MAX_GPU_INSTANCE)) {
->>           r = 0;
->>           goto free_ctx;
---------------WBA8zeMSQ8X54PQ0yoXICGG5
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <pre>On 11/21/2026 6:16 AM, Felix Kuehling wrote:</pre>
-    <blockquote type="cite" cite="mid:ccae1602-9922-450f-b5c9-385459a94baf@amd.com">On
-      2026-11-20 04:16, Zhu Lingshan wrote:
-      <br>
-      <blockquote type="cite">If a kfd process does not perform ACQUIRE
-        VM for its
-        <br>
-        kfd_process_device, the VM of the pdd is NULL.
-        <br>
-        <br>
-        svm_range_validate_and_map does not check whether
-        pdd-&gt;drm_priv
-        <br>
-        is NULL before accessing it, and may cause kernel panic.
-        <br>
-        <br>
-        This commit fixes this issue by skipping any GPUs
-        <br>
-        <pre>that haven't acquired VM in svm map.
-</pre>
-        <br>
-        This commit does not return an error code when
-        <br>
-        pdd-&gt;drm_priv is NULL to avoid endless
-        <br>
-        rescheduling of restore_work.
-        <br>
-        <br>
-        Signed-off-by: Zhu Lingshan <a class="moz-txt-link-rfc2396E" href="mailto:lingshan.zhu@amd.com">&lt;lingshan.zhu@amd.com&gt;</a>
-        <br>
-        ---
-        <br>
-        &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 8 ++++++++
-        <br>
-        &nbsp; 1 file changed, 8 insertions(+)
-        <br>
-        <br>
-        diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-        b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-        <br>
-        index 7401b7fdcb57..b5175f346351 100644
-        <br>
-        --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-        <br>
-        +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-        <br>
-        @@ -1818,6 +1818,14 @@ static int
-        svm_range_validate_and_map(struct mm_struct *mm,
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; prange-&gt;bitmap_aip, MAX_GPU_INSTANCE);
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-        <br>
-        &nbsp; +&nbsp;&nbsp;&nbsp; for (idx = 0; idx &lt; ctx-&gt;process-&gt;n_pdds; idx++)
-        {
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!ctx-&gt;process-&gt;pdds[idx]-&gt;drm_priv) {
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;GPU %d has no VM acquired, skip SVM
-        mapping for it, please consider acquiring VM for it and perform
-        SVM unmap and map again\n&quot;,
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        ctx-&gt;process-&gt;pdds[idx]-&gt;user_gpu_id);
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clear_bit(idx, ctx-&gt;bitmap);
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-        <br>
-        +&nbsp;&nbsp;&nbsp; }
-        <br>
-        +
-        <br>
-      </blockquote>
-      <br>
-      I'd put this check in svm_range_check_attr and svm_range_new
-      (where prange-&gt;bitmap_access is initialized for the
-      XNACK-enabled case). svm_range_check_attr gives user mode feedback
-      when they're doing something wrong rather than just silently
-      failing to map memory.
-      <br>
-    </blockquote>
-    <pre>Thanks and the new patch has been sent out with title &quot;[PATCH] amdkfd: don't give a GPU access to SVM ranges when no VM&quot;
-
-Thanks
-Lingshan</pre>
-    <blockquote type="cite" cite="mid:ccae1602-9922-450f-b5c9-385459a94baf@amd.com"><br>
-      Regards,
-      <br>
-      &nbsp; Felix
-      <br>
-      <br>
-      <br>
-      <blockquote type="cite">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (bitmap_empty(ctx-&gt;bitmap,
-        MAX_GPU_INSTANCE)) {
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r = 0;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto free_ctx;
-        <br>
-      </blockquote>
-    </blockquote>
-  </body>
-</html>
-
---------------WBA8zeMSQ8X54PQ0yoXICGG5--
