@@ -2,62 +2,38 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A8A7606A680
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 08:40:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62EAE606A689
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 08:40:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LqvBwfCB
+	dkim=pass (2048-bit key, unprotected) header.d=aigeus.net header.i=@aigeus.net header.a=rsa-sha256 header.s=protonmail header.b=ni8cugFP
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1326F10F35F;
-	Tue, 24 Nov 2026 08:40:22 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3FD7D10E768;
- Tue, 24 Nov 2026 06:16:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795501014; x=1827037014;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=sGTeDUin/8yWRgO7mIPWobficktdrebqbDsncuuBS1Q=;
- b=LqvBwfCB7bfMLs6XBPxXDiyMFFs865rFz/MGJImZ0/ZtDizAYlEc3xXF
- WEVzDFYnoWLQ9D6eE251clPLO9EBTSIwwrJ29nylXtr7TyQGU1/EUEVd4
- B9FOweQoTjIEqNk+sjqYAl+c9IWCf/eaNCVUxpm7Xpay6f98Qna5g0hUh
- Awxz8oEPWKSLNJbZJXQEukMVLSDYm39IyaMNhc1ZSkgdtaU06VNZ4hcsj
- mXfE3aweng+NBVU34tpaSM9EmWFKo7vltAyRmy1OFl5u1HYdCeEmqvtip
- RhSOlpGbvwEfJb/FxUkb2tCtry6NlIkgu3JmoQ6ID1P9eWLWoXZmYRf8u w==;
-X-CSE-ConnectionGUID: B/E+H7oTTKKMMDkTmYNThA==
-X-CSE-MsgGUID: KDmSqdD7SgOPu7OrfHT90g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11975"; a="4220037"
-X-IronPort-AV: E=Sophos;i="6.27,230,1787036400"; 
-   d="scan'208";a="4220037"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Nov 2026 22:16:53 -0800
-X-CSE-ConnectionGUID: AnAL3XxiQNqNzU/mIETl/g==
-X-CSE-MsgGUID: Co63hIcBTCiiqc3gW3ufYA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,230,1787036400"; d="scan'208";a="11264109"
-Received: from hghimira.iind.intel.com ([10.190.239.34])
- by orviesa008.jf.intel.com with ESMTP; 23 Nov 2026 22:16:50 -0800
-From: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
-To: Natalie Vock <natalie.vock@gmx.de>,
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- Huang Rui <ray.huang@amd.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>, dri-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
-Subject: [RFC v2 02/11] drm/ttm: Add TTM_NUMA_POLICY_BIND
-Date: Tue, 24 Nov 2026 11:51:26 +0530
-Message-ID: <20261124062123.2431244-15-himal.prasad.ghimiray@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261124062123.2431244-13-himal.prasad.ghimiray@intel.com>
-References: <20261124062123.2431244-13-himal.prasad.ghimiray@intel.com>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE8E010F362;
+	Tue, 24 Nov 2026 08:40:25 +0000 (UTC)
+Received: from mail-106109.protonmail.ch (mail-106109.protonmail.ch
+ [79.135.106.109])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EC9C10E146
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Nov 2026 19:12:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aigeus.net;
+ s=protonmail; t=1795461121; x=1795720321;
+ bh=eVirFEKnvAUbDAQAffqCOYn8Q5OwFjxVWxma1zAebrQ=;
+ h=From:To:Cc:Subject:Message-Id:Date:From:To:Cc:Date:Subject:
+ Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=ni8cugFPJSQ8fHpfncs8IVDj7pLwT8uujGDzhFxdPz/aIqltzJequgIjhkB0s2I/7
+ dPbkZdlvnbYLnkX6ai0ZbzYeNuPAN4Ny3t3xLzocLEtn6JJYvh/jtrmTXTcly7O8Kz
+ AScpQjXFVu/Tcf3C7uAWko3tRdSOv4c7qClohJpRcq0n9R8ZwGXP8s8Xnxm73eQU1S
+ KRXEtQxwQDLS3T/0PqKrDYdm1zYcprZVlBoWpMGsq0t59/IgUWv+RPfVq7OuTE/jIG
+ LwzHp76+7Aj0PIeSZ01d252GO2j0VolpXjVLrNKI09vQoBWviKFedwmp+snPVfAlij
+ rwSNtvRFgEuWA==
+X-Pm-Submission-Id: 4jYFtQ3XmPz1DDrg
+From: Aigeus <info@aigeus.net>
+To: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Subject: WARNING in amdgpu_irq_put() when amdgpu_device_ip_init() fails
+ (navi14, 7.3.4+deb13-amd64)
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Message-Id: <4jYFtQ3XmPz1DDrg@mailsubzur1001.protonmail.ch>
+Date: Mon, 23 Nov 2026 19:11:58 +0000 (UTC)
 X-Mailman-Approved-At: Tue, 24 Nov 2026 08:40:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,125 +45,59 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-Add TTM_NUMA_POLICY_BIND to enum ttm_numa_policy. With this policy,
-system pages are allocated only from the nodes in
-ttm_operation_ctx.numa_info.nodes, tried nearest first from the local
-node (ttm_pool_nid()) by node_distance(), with ties broken by lower
-node id.
+Linux version 7.3.4+deb13-amd64 (debian-kernel@lists.debian.org)
+  #1 SMP PREEMPT_DYNAMIC Debian 7.3.4-1~bpo13+1 (2026-11-15)
+Hardware name: Gigabyte Technology Co., Ltd. H97-HD3/H97-HD3, BIOS F9c 03/03/2016
+Card: AMD Radeon RX 5500 XT (Navi 14, 1002:7340) at 0000:03:00.0
 
-__GFP_THISNODE is added for each node so the allocator never falls back
-to nodes outside the policy, including for order 0 allocations. Failures
-on all policy nodes use the existing order fallback and error path.
+On this machine hw_init fails partway: the PSP cannot load the SMU microcode.
+The trigger is reported separately (Debian bug #1155044, and the Intel VT-d
+page-table regression at
+https://lore.kernel.org/all/HYhMd0Klo0XE_yiVY7XmsgyKKFDwKHfKRy22KrycLcYd0V_ykA4xdbBMJXkA07YX3os6qK-NhMIVi6ITo-CkNIIF0e-GcI0UwwZmdDhAJ0I=@protonmail.com/);
+this mail is only about what the driver does while unwinding from that failure.
 
-Signed-off-by: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
----
- drivers/gpu/drm/ttm/ttm_pool.c | 58 ++++++++++++++++++++++++++++++++--
- include/drm/ttm/ttm_bo.h       |  4 +++
- 2 files changed, 60 insertions(+), 2 deletions(-)
+When the probe error path unwinds, the driver emits 34 WARNs:
 
-diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
-index e17bd5c0eab3..4a7775bfd0fb 100644
---- a/drivers/gpu/drm/ttm/ttm_pool.c
-+++ b/drivers/gpu/drm/ttm/ttm_pool.c
-@@ -780,6 +780,56 @@ static unsigned int ttm_pool_alloc_find_order(unsigned int highest,
- 	return min_t(unsigned int, highest, __fls(alloc->remaining_pages));
- }
- 
-+/*
-+ * Try the nodes in @nodes once each, nearest first from the local node.
-+ * __GFP_THISNODE prevents fallback to nodes outside the policy.
-+ */
-+static struct page *ttm_pool_alloc_bind_pass(struct ttm_pool *pool,
-+					     gfp_t gfp_flags, unsigned int order,
-+					     const nodemask_t *nodes)
-+{
-+	int local = ttm_pool_nid(pool);
-+	nodemask_t todo = *nodes;
-+	struct page *p = NULL;
-+
-+	while (!nodes_empty(todo)) {
-+		int nid = first_node(todo), n;
-+
-+		for_each_node_mask(n, todo) {
-+			if (node_distance(local, n) < node_distance(local, nid))
-+				nid = n;
-+		}
-+		node_clear(nid, todo);
-+
-+		p = ttm_pool_alloc_page(pool, gfp_flags | __GFP_THISNODE, order,
-+					nid);
-+		if (p)
-+			break;
-+	}
-+
-+	return p;
-+}
-+
-+/*
-+ * Allocate pages of size 1 << order for TTM_NUMA_POLICY_BIND. Nodes with free
-+ * memory are tried without reclaim first, then with the caller's gfp flags.
-+ */
-+static struct page *ttm_pool_alloc_bind(struct ttm_pool *pool, gfp_t gfp_flags,
-+					unsigned int order,
-+					const nodemask_t *nodes)
-+{
-+	const unsigned int beneficial_order = ttm_pool_beneficial_order(pool);
-+	gfp_t nowait = (gfp_flags & ~__GFP_RECLAIM) | __GFP_NOWARN;
-+	struct page *p;
-+
-+	p = ttm_pool_alloc_bind_pass(pool, nowait, order, nodes);
-+	/* Orders without reclaim would repeat the first pass */
-+	if (!p && (!order || !beneficial_order || order == beneficial_order))
-+		p = ttm_pool_alloc_bind_pass(pool, gfp_flags, order, nodes);
-+
-+	return p;
-+}
-+
- /* Validate the NUMA request in @ctx against @pool */
- static int ttm_pool_check_numa(struct ttm_pool *pool,
- 			       const struct ttm_operation_ctx *ctx)
-@@ -858,8 +908,12 @@ static int __ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
- 		if (!p) {
- 			page_caching = ttm_cached;
- 			allow_pools = false;
--			p = ttm_pool_alloc_page(pool, gfp_flags, order,
--						alloc_nid);
-+			if (policy == TTM_NUMA_POLICY_BIND)
-+				p = ttm_pool_alloc_bind(pool, gfp_flags, order,
-+							ctx->numa_info.nodes);
-+			else
-+				p = ttm_pool_alloc_page(pool, gfp_flags, order,
-+							alloc_nid);
- 		}
- 		/* If that fails, lower the order if possible and retry. */
- 		if (!p) {
-diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
-index 5289c17cd449..e7605e7e97ec 100644
---- a/include/drm/ttm/ttm_bo.h
-+++ b/include/drm/ttm/ttm_bo.h
-@@ -58,10 +58,14 @@ struct ttm_tt;
-  * @TTM_NUMA_POLICY_NONE: No policy. Use the pool default node.
-  * @TTM_NUMA_POLICY_PREFERRED: Prefer the single node in
-  *	ttm_operation_ctx.numa_info.nodes. Falls back to other nodes.
-+ * @TTM_NUMA_POLICY_BIND: Allocate only from the nodes in
-+ *	ttm_operation_ctx.numa_info.nodes, in ascending node order. Never falls
-+ *	back to other nodes.
-  */
- enum ttm_numa_policy {
- 	TTM_NUMA_POLICY_NONE = 0,
- 	TTM_NUMA_POLICY_PREFERRED,
-+	TTM_NUMA_POLICY_BIND,
- };
- 
- /**
+  WARNING: drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c:670 at amdgpu_irq_put+0xaa/0xc0 [amdgpu], CPU#4: (udev-worker)/208
+  RIP: 0010:amdgpu_irq_put+0xaa/0xc0 [amdgpu]
+  Call Trace:
+    <TASK>
+    amdgpu_fence_driver_hw_fini+0xfe/0x140 [amdgpu]
+    amdgpu_device_fini_hw+0xc2/0x456 [amdgpu]
+    amdgpu_driver_load_kms.cold+0x22/0x44 [amdgpu]
+    amdgpu_pci_probe+0x1f3/0x4d0 [amdgpu]
+    local_pci_probe+0x41/0x90
+    pci_call_probe+0x5b/0x1a0
+    pci_device_probe+0xd4/0x160
+    really_probe+0xde/0x380
+
+The sequence that leads here is:
+
+  amdgpu 0000:03:00.0: failed to load ucode SMC(0x34)
+  amdgpu 0000:03:00.0: psp gfx command LOAD_IP_FW(0x6) failed and response status is (0x0)
+  amdgpu 0000:03:00.0: PSP load smu failed!
+  [drm:psp_v11_0_ring_destroy [amdgpu]] *ERROR* Fail to stop psp ring
+  amdgpu 0000:03:00.0: PSP firmware loading failed
+  amdgpu 0000:03:00.0: hw_init of IP block <psp> failed -22
+  amdgpu 0000:03:00.0: Fatal error during GPU init
+
+Question: is the WARN_ON at amdgpu_irq.c:670 meant to fire on this unwind path?
+amdgpu_fence_driver_hw_fini() runs from amdgpu_device_fini_hw() after a
+partially completed hw_init, and from the trace it looks like it is putting
+IRQs for rings whose IRQ was never acquired. If that is expected, the WARN_ON
+buries the actual init error under 34 backtraces; if it is not, the unwind
+needs a guard for the not-yet-initialised case.
+
+Happy to test a fix, and I can provide the full log.
+
 -- 
-2.43.0
-
+Aigeus
+GitHub: EgolOS <79418083+EgolOS@users.noreply.github.com>
