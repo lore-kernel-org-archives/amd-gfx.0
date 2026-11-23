@@ -2,72 +2,83 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B906606A33D
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 08:40:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D0EA606A336
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 08:40:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hxM+cKln
+	dkim=pass (2048-bit key) header.d=okonski-org.20260707.gappssmtp.com header.i=@okonski-org.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=KATw54mm
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C96FB10F35E;
-	Tue, 24 Nov 2026 08:40:21 +0000 (UTC)
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1199610F0EB
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Nov 2026 17:55:31 +0000 (UTC)
-Received: by mail-dl1-f46.google.com with SMTP id
- a92af1059eb24-15dd124bbe7so2598223c88.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Nov 2026 09:55:31 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD52D10F36B;
+	Tue, 24 Nov 2026 08:40:26 +0000 (UTC)
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com
+ [209.85.208.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18F4E10F220
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Nov 2026 22:11:40 +0000 (UTC)
+Received: by mail-ed1-f51.google.com with SMTP id
+ 4fb4d7f45d1cf-6ba38c41804so4336476a12.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Nov 2026 14:11:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795456530; x=1796061330; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=5zbntsnJYF+MluAOcW87nvuR13e90ScUCD9/dIZ65Hg=;
- b=hxM+cKlnIJXfyto1bW91Iw2f8DPvHroG0h7WfHGcz1DCxjNVNXlcFozOKwU02Fze3c
- n2Uj4ee65qjjNV+yLKf8+DLSs75dBdK70kuEE0fWbhmkyCJcR/KcAfPzBjPakcQe9kib
- WkTwh1fLnaqZSvD8UU5LHdK10zdHpif7bD4ot3zNX/f0sSmAL4HnHySDFJHxCM0zehUF
- tbOnoBJ3frVzmd5D2YXgci1PQ8DOSWgRg4isjpTdwIcrtw/4GNYrCRftKkoh7uNJlTZx
- /RgxQcSEVquFH0fauJJVw/q5K1S71HIdwjLKdOY1ZImq1CUpZC6rY6A7l7EuuHeDEmcY
- bCJA==
+ d=okonski-org.20260707.gappssmtp.com; s=20260707; t=1795471898; x=1796076698;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=8D+ctn0pse02ZuULxqlLv/iDLr/WH6tZ2LvtGmPFTZY=;
+ b=KATw54mm3Gah2vA6cu9pZoE0azOWrYs6ZM8AhZjnkroDTiJRnp89TsHR2ICMYX7epl
+ 7keU5q8HKD1kVPBPifob5CiQ7cTuWWJB0bKsGKciHZ0zsbGdhCz4adqUUfaJx7e2rJ7H
+ G8lO54Aj6pWC1bFOXPHHgRczFyON5uMOXLwIUwE+lv76V05DMrUdULUMqf/SsJQQ44zd
+ 1AG9GCcgSjY52joG6jZVVT/2DsQf2CU0nFzgsRBVvhKHN8IfdOcmSNaqXmqXbs7+D/FN
+ GE+BNWHRX21jxu7vywuoQzBohqBOpLJsP37MnaQf2zsKcHFavG4NQKrTjb6h72QcWqgu
+ SYhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795456530; x=1796061330;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=5zbntsnJYF+MluAOcW87nvuR13e90ScUCD9/dIZ65Hg=;
- b=yVcw/Ontu25GekXOnELzjQloJocVS9VV3Fr2peLco2gB8PpQyrKUuCbXW1W6xCzsiZ
- 2ftNvYGLM+YnVvWzt9vc9zK81uSEeCpziNqNMhBhdw3HlIMlK0dSB/Yo71JKPjJrx6ea
- 2RPRv3EBNiqSgu5jeU/MsL1TW+Q4y0nBDi7Q2YLNMwaj5pyOtsa97EvVwwFdnb57Vzcf
- fV/12ndTrY4IRSs7GQAf762BSEtBOlw8BeHT+qUqRlK0OX1RcEaYH57CcQi7bl1onRNK
- Xk2zfGlqsE+lavucJ1MhSSAFs5pQQ2V0dI9cNpZ7G34vNOkW4e5Vr3iXVvs+HOePnYDY
- KFkQ==
-X-Gm-Message-State: APuU4Z+EjRsM9LZEK+uUTOn3O7sPsKkWX62nDurSOoKEDwHdnoceGWdf
- Gag+2RLvDOU/KEM7pMDHJFq78+35imFJ2pZ+bC5b3vKnpeb9MIEOw93s
-X-Gm-Gg: AZFdTZf5hzUSQOSHNwHuhqC/vchwtBqSZpkP66ZkksXVHgO+xZS3C35wMzxaIQ4Nr+R
- sLUJ6oR+CIn1ok9jdF6wKXdHDmEripCJ5VCk/XHkW1vrPf/WZ7Wf1N6PKOgisf3D/IJpnzZn8sd
- SSvSPpSBuN4TCq/GuqjmKgbTkrtVS4L+KE2wbEWf4gdwOKEyMMymaiZZWv60nWXTpHYDU00Ktaq
- g6+fMZvriHNXdKXsHKUmI+r+x+C0rMhgCdPPMwNwrXXJ6HGLil6Xao3LkNIjhFJDHErNS2ok80Q
- n5hRlQQehxbiujpeihPVBlfxgOPxOirf0HdRgIbbah/HS7T3A57iBOoawV+Jiqk9sqfif1fQKd+
- 9aHo7taaEpXE0YTNy7O1Ena1NYjoTZh6hHk143/wqfxL+Trg5BE8ua4Us1Y5Z01si5LL//Up3YV
- x2Gv6VId/FwZD32rmboahZKdY9sb2O7W0aLI2X4kfzyLH8U8OXiHNMJhCukU528rXaqblXO0u16
- zhfPyNpCmGikX1fBGqwMETDZJKmr3JucSca9X73mIXu30g6xsFBnuUUNylAK2ehgMjuwBNhdYP4
- a1HsE2AiYPFcJGgxs6adkvlr+yA4GRYNuxdN6knOJqQGM2pEm1zmeQ==
-X-Received: by 2002:a05:701b:4584:b0:1ac:9da7:e86e with SMTP id
- a92af1059eb24-1b556908c17mr12515895c88.30.1795456528961; 
- Mon, 23 Nov 2026 09:55:28 -0800 (PST)
-Received: from ubuntu ([110.9.142.4]) by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-1b562a82b3fsm30885828c88.5.2026.11.23.09.55.26
+ d=1e100.net; s=20260707; t=1795471898; x=1796076698;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=8D+ctn0pse02ZuULxqlLv/iDLr/WH6tZ2LvtGmPFTZY=;
+ b=vSCr1F0U0OzMNlBXXmKKrdsTxUK7M74BtKkDixoG8im/cWUUQqskcau9zFD6QnTa7a
+ LMk9091gYFpCeWsGVXMi3AHu/HcWrR2oxqtwcjQky+s5/eCICeBY6UcLeumh8wgk6cmN
+ 5csJzX5Mxe2jwum8W9bRYSJ+9vBdJzkK/1H1Rhpoa1rEuu34z+4oeXWO6zJF65+/fpx1
+ Tbt0vGyCng4D+Xk0Jj+7N0HkUTCo99X8rgF1rINaEBsPN4vcOpfJ7OB5K+ZZ+svqhfAw
+ wX80V4DMaoeJWqk8N2NOutfYUw1M9EvmjxAbuSrGrKK5L+FNY8Ls/cSDrrPdEdQArk5D
+ eAlg==
+X-Gm-Message-State: APuU4Z+g/xOoK71kEol1yzXodXkj7WhOOEOcOgQnpf7v1XneTFJmPiu2
+ JfvZSUb2lMamCVOHg1y++/fzSdpGmKMoysnVqvay65ntazVfmGQZc2IXd/zYo95eRl30M7m1JF6
+ mloqNHprVgg==
+X-Gm-Gg: AZFdTZdJxJUmN6RATEYXO0sHUbIB8nepRV2CujrdtkjeG5dt6AHqlNmF4tQVuRarLYR
+ AwYISq7I/FxhUkk38me+TyyxgtEwHGJuf9KHsZUQfz9f0LZoQXttFuhntCi3Aak70VCQn/CNPqp
+ E4+ugGVBVgJB0iYtf9z9YkeTNiP3wHeJj2kz5ZGIL0mzpQX6hKaTi1ZN3D8tV8EfROC1NYYeHAa
+ NP+++NjP/U6mjom5QwyLIZAaAvhJd1EZAYVemexwt0O9Az5Ne+CtdyK9EY6AOIW4TRNQdudT68F
+ xkr9RIa8FnzAJQBb7XuvIfBaT4MszjFPBbrkB7enLxJovpZg01xppbhLiSArF7JHWGlVnI9L2xj
+ S2khgTW8G/dMsgcoxuJs50SvktxgGJngOw32ypneyd8iVe201dVUC2sa3f0fjFu/LgpeoSfbUAr
+ lU9/YZwXbuVa8ejPohl1o10B2t+UQHYBvHQnZ46eyxUCrAlPWVgTofnPAxAZjyNOPPBr8YzZFtd
+ OZ4ZwGsqxr5mKUprkIUDWSXlyI4yo2M8jN/3XTiJeDbY3enI31ATuMpKLKaqVUJvVD9bD6zZSJf
+ hV+PeLDRvTfc+be/rY2rLxuuxieOhPFxLCk2CtsB67vBubhYSL0p4m7VgqfYG6dY/DO+GOOykzr
+ LCr4derG40npIl/Zvs/WdWsXIyTheQw4dEo0hBCV13bfKEg==
+X-Received: by 2002:a05:6402:400d:b0:6b5:9849:e328 with SMTP id
+ 4fb4d7f45d1cf-6ba37ebdda1mr8924995a12.39.1795471898391; 
+ Mon, 23 Nov 2026 14:11:38 -0800 (PST)
+Received: from vautera ([2a02:21a0:10:748:2::2])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6ba37109b55sm5678828a12.32.2026.11.23.14.11.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Nov 2026 09:55:28 -0800 (PST)
-From: Sang-Heon Jeon <ekffu200098@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org, Bokun Zhang <Bokun.Zhang@amd.com>,
- dri-devel@lists.freedesktop.org, Monk Liu <monk.liu@amd.com>
-Subject: [PATCH] drm/amdgpu: fix wrong unit of vf2pf_work delay
-Date: Tue, 24 Nov 2026 02:55:12 +0900
-Message-ID: <20261123175513.2144018-1-ekffu200098@gmail.com>
-X-Mailer: git-send-email 2.53.0
+ Mon, 23 Nov 2026 14:11:37 -0800 (PST)
+From: =?UTF-8?q?Jakub=20Oko=C5=84ski?= <jakub@okonski.org>
+To: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, harry.wentland@amd.com,
+ sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de
+Subject: [RFC PATCH 2/2] drm/amd/display: Skip flip_done wait for non-modeset
+ TEST_ONLY checks
+Date: Mon, 23 Nov 2026 23:09:13 +0100
+Message-ID: <20261123220913.937402-3-jakub@okonski.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261123220913.937402-1-jakub@okonski.org>
+References: <20261123220913.937402-1-jakub@okonski.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 24 Nov 2026 08:40:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -80,45 +91,68 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The delay of schedule_delayed_work() is in jiffies. But
-amdgpu_virt_update_vf2pf_work_item() reschedules vf2pf_work with
-vf2pf_update_interval_ms without converting it, so the interval is in
-milliseconds only if HZ is 1000.
+needs_dc_state_realloc makes amdgpu_dm_atomic_check() call
+do_aquire_global_lock(), which waits for hw_done and flip_done of each
+CRTC's newest commit. A TEST_ONLY check issued while a nonblocking
+commit is pending therefore blocks for up to one refresh (6.9 ms seen
+on DCN 3.0 at 120 Hz) for about 0.1 ms of validation.
 
-So use msecs_to_jiffies() when rescheduling.
+A TEST_ONLY transaction publishes no state and does not reconfigure
+IRQs through the commit path, so a non-modeset test has nothing to
+order against the pending flip. Skip only its flip_done wait.
 
-Fixes: 519b8b76f0b6 ("drm/amdgpu: Implement new guest side VF2PF message transaction (v2)")
-Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+Kept: the modeset and private object locks, the hw_done wait (DC
+validation reads the programmed topology in dc->current_state), the
+same validation, and the full drain for modeset tests and real
+commits.
+
+Signed-off-by: Jakub Okoński <jakub@okonski.org>
 ---
-I don't have a test environment, so this patch is compile tested only.
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 15 ++++++++-------
+ 1 file changed, 8 insertions(+), 7 deletions(-)
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-index 915e2a069baf..f93d5df51528 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-@@ -797,7 +797,8 @@ static void amdgpu_virt_update_vf2pf_work_item(struct work_struct *work)
- 	amdgpu_virt_write_vf2pf_data(adev);
- 
- out:
--	schedule_delayed_work(&(adev->virt.vf2pf_work), adev->virt.vf2pf_update_interval_ms);
-+	schedule_delayed_work(&(adev->virt.vf2pf_work),
-+			      msecs_to_jiffies(adev->virt.vf2pf_update_interval_ms));
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 3d2201285888..25dcbee0c7df 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -5594,8 +5594,8 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_commit *state)
  }
  
- static int amdgpu_virt_read_exchange_data_from_mem(struct amdgpu_device *adev, uint32_t *pfvf_data)
-
-base-commit: 8dd68a79583aaf6df6fe4feea3ee9e9f26b02993
+ /*
+- * Grabs all modesetting locks to serialize against any blocking commits,
+- * Waits for completion of all non blocking commits.
++ * Grabs all modesetting locks to serialize against blocking commits, and
++ * waits for pending programming and, where needed, flip completion.
+  */
+ STATIC_IFN_KUNIT int do_aquire_global_lock(struct drm_device *dev,
+ 					   struct drm_atomic_commit *state)
+@@ -5624,13 +5624,14 @@ STATIC_IFN_KUNIT int do_aquire_global_lock(struct drm_device *dev,
+ 		if (!commit)
+ 			continue;
+ 
+-		/*
+-		 * Make sure all pending HW programming completed and
+-		 * page flips done
+-		 */
++		/* DC validation can inspect the programmed pipe topology. */
+ 		ret = wait_for_completion_interruptible_timeout(&commit->hw_done, 10*HZ);
+ 
+-		if (ret > 0)
++		/*
++		 * Tests don't publish state or reconfigure interrupts. Limit
++		 * overlap with pending flips to tests that disallow modesets.
++		 */
++		if (ret > 0 && (!state->test_only || state->allow_modeset))
+ 			ret = wait_for_completion_interruptible_timeout(
+ 					&commit->flip_done, 10*HZ);
+ 
 -- 
-2.53.0
+2.56.0
 
