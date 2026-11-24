@@ -2,57 +2,56 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8356606A330
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 15:55:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60049606A323
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 15:55:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=simple-co.de header.i=@simple-co.de header.a=rsa-sha256 header.s=201801 header.b=qvoA1TNl;
-	dkim=pass (2048-bit key) header.d=simple-co.de header.i=@simple-co.de header.a=rsa-sha256 header.s=201801 header.b=CLvrRrNQ
+	dkim=pass (2048-bit key) header.d=simple-co.de header.i=@simple-co.de header.a=rsa-sha256 header.s=201801 header.b=xjDxb+ig;
+	dkim=pass (2048-bit key) header.d=simple-co.de header.i=@simple-co.de header.a=rsa-sha256 header.s=201801 header.b=ZCJFLUxi
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFFB410F74E;
-	Tue, 24 Nov 2026 15:54:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CAA1210F754;
+	Tue, 24 Nov 2026 15:54:53 +0000 (UTC)
 Received: from mail.bin-co.de (mail.bin-co.de [37.120.183.211])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B189710F69A
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDB3B10F69C
  for <amd-gfx@lists.freedesktop.org>; Tue, 24 Nov 2026 14:44:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=simple-co.de;
- s=201801; t=1795530882;
- bh=TpELwyzYFZhbzFuemneA+0JcNdPdVWs2svAqhqw90pM=;
+ s=201801; t=1795530884;
+ bh=ohqEPY8QlKJX2cpyUUaLdTiixdspZ0lOnHgj7b/tHvY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=qvoA1TNle91xEX3M65szNxcr8YlWsvh/tF3f9k6iJo0tDQmft3rjLgKE3Inf3it3g
- rvhuSzA62+ibYFiqY08CNkPhxtYvt/awpU4AqyFH46l40obKjufGbse8A7lqepM6rW
- 7A/IZ+D8Aziwux09oHXHSdpJIyQh6XC0Ya3Fiwt57Is7fhu3BNTgiGFt46AGN7ycVf
- fv0udqT6/LB2OozwtZEQn26CR3e6J58XtCMI+bjVThg7bV72HPLcs117Owd0H5usX3
- 6tr8A4noiq+oQ2WTd7DyLV0Cjm16TSQcRRghXXFAj5xA59v5S3MzDZbaAS7+9rh6j3
- TJcbDTxGCxXPw==
+ b=xjDxb+igtk2NM1gsGZtYPgwKxMYKNJ7YHDOZlXDXAfnqtqsM5O5uApwcEqDT9587C
+ 2OZpiEoJ90gkwfUG24+9RByBODcslMQ3tlZTeayzIlouAowYEzkONqe0n/Gb6TClpO
+ cezHeIJ5/gKU0nqAMhr9nL4uo8Q9M2gPLIhYhzuyh7lBH6TWxWbyksKw2dWhc0dICC
+ vAcujuGRZXVytnACkWE8Yy7uA4DRZ/dKmz/le3kQmR5QRsCLK2lnhgvzLVDx6lDEa7
+ MpcTAU+YUJyLYWp+tJYjdNykcIgwwT1y9bmVt1LO8EOrJY51RZMmw8S8QyXFmlZZ4H
+ 7vlcMCpz2/67Q==
 Received: from localhost (localhost [127.0.0.1])
- by mail.bin-co.de (Postfix) with ESMTP id 47F3317F069;
- Tue, 24 Nov 2026 15:34:42 +0100 (CET)
+ by mail.bin-co.de (Postfix) with ESMTP id A6C3D17F06B;
+ Tue, 24 Nov 2026 15:34:44 +0100 (CET)
 X-Virus-Scanned: Debian amavis at v2202603343726440230.luckysrv.de
 Received: from mail.bin-co.de ([127.0.0.1])
  by localhost (mail.bin-co.de [127.0.0.1]) (amavis, port 10024) with ESMTP
- id PD0LF83Zdhvu; Tue, 24 Nov 2026 15:34:41 +0100 (CET)
+ id f93E4-zF0GwR; Tue, 24 Nov 2026 15:34:44 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=simple-co.de;
- s=201801; t=1795530881;
- bh=TpELwyzYFZhbzFuemneA+0JcNdPdVWs2svAqhqw90pM=;
+ s=201801; t=1795530883;
+ bh=ohqEPY8QlKJX2cpyUUaLdTiixdspZ0lOnHgj7b/tHvY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=CLvrRrNQg2NknHc1C/TTEKiEZKdyyZBu4QA+6v3sERfRywmjASVxHM/3kNnTOXf01
- mx8/IbB1SM6oj7wzVGf8f2BP+Vd+OwOnbg7GniyOso7HW6aVFNs0s2r0hSJojWzkGF
- 6U4ibq1VpEqcBCemEJsHLv/VETql5+Ao9ILStVOxSizHP7K/tFvcK28bxOmuC4TBzT
- mp5TfXSHbA4mX6J0Q7o9eQdTYQmcRuH7gZ0jz4PtpSpYZckKEbrEDbPfAw9ohPTlZw
- M87+But4MTYb3/7zOaH3aYhMqWiWADz5arCG/1jNIxQ75EJLa3jhPdLL8NNoE+63U8
- XpicY/MAfl/8w==
+ b=ZCJFLUxibYlg9FB8darSzKymsuUw0UXjptYerwZQBBbZq+hanEAidNG8tHikZ2mfY
+ KLXMR5lQqXdlhJJj4Qhu/NAHEgtCK51vB5+6euQI7wtzsx/od5OsdlrvYC8QspqwK7
+ Q2h/te857THbjHWSofy3vd2gSkLeYF3y6FTD8Z5lloLcO69jugunqu761xz0CEKx3D
+ NCK/8REQP1JBqGmDR67Y2+1AcUKs6a5Pu93ok+8Njp8c1BrL9ynOKhG9jWKHAp0Dwj
+ CpVf74yFEslLSfaAJy7F68Av9aX3TspR5quk+JFL8mHwZ4OCvgy47nYnCyFksW7jGv
+ DtfJkzgOGtxug==
 Received: from deepblue.zlan.intra (wan.zappel.net [IPv6:2a02:8106:4:c300::1])
  (Authenticated sender: zappel@simple-co.de)
- by mail.bin-co.de (Postfix) with ESMTPSA id 6912017F066;
- Tue, 24 Nov 2026 15:34:41 +0100 (CET)
+ by mail.bin-co.de (Postfix) with ESMTPSA id AD8EC17F0D6;
+ Tue, 24 Nov 2026 15:34:43 +0100 (CET)
 From: Armas Spann <zappel@simple-co.de>
 To: amd-gfx@lists.freedesktop.org
 Cc: alexander.deucher@amd.com, christian.koenig@amd.com,
  Felix.Kuehling@amd.com, Armas Spann <zappel@simple-co.de>,
  "Claude Fable 5.2" <noreply@anthropic.com>
-Subject: [PATCH v1 1/9] drm/amdgpu/mes: distinguish rejected from timed out
- commands
-Date: Tue, 24 Nov 2026 15:34:24 +0100
-Message-ID: <20261124143433.49736-2-zappel@simple-co.de>
+Subject: [PATCH v1 9/9] drm/amdkfd: force CWSR on with more than one MES GPU
+Date: Tue, 24 Nov 2026 15:34:32 +0100
+Message-ID: <20261124143433.49736-10-zappel@simple-co.de>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261124143433.49736-1-zappel@simple-co.de>
 References: <20261124143433.49736-1-zappel@simple-co.de>
@@ -77,542 +76,232 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The MES command path reports two different outcomes as "MES failed to
-respond" and -ETIMEDOUT: the fence was not reached within the poll
-timeout, or the fence was reached and MES wrote a failure status.
-Callers cannot tell a firmware that stopped answering from one that
-answered promptly and said no. On an R9700 (gfx 12.0.1) three
-REMOVE_QUEUE failures were logged within 644 us of each other, which the
-2.1 s poll timeout rules out, yet KFD handled them as a hung scheduler
-and reset the GPU.
+With amdgpu.cwsr_enable=0 the MQD of a compute queue carries no
+QSWITCH_MODE and no save area. Such a queue cannot be preempted. It
+leaves the hardware only when its running waves have finished. MES
+waits 2 s for that and then fails the command that asked for the unmap.
 
-Return AMDGPU_MES_CMD_REJECTED (-EREMOTEIO) when MES answered with a
-failure and print the 64 bit status, whose upper half carries the error
-code of the firmware. -ETIMEDOUT now only means that MES did not answer.
-No caller compares a MES result against -ETIMEDOUT today.
+On a system with two R9700 (gfx 12.0.1, MES 0x97) that run RCCL
+collectives between them this ends the job. Between 90 and 118 s into a
+run MES answered the REMOVE_QUEUE of a queue eviction with
+0x8100030100000000 and the SUSPEND that followed with
+0x8100060200000000, each 2 s after the command, first on one GPU and 4 s
+later on the other, and one queue per GPU had to be reset. The timing
+fits a kernel on one GPU that waits for its peer on the other GPU while
+the queue of that peer is evicted: such a kernel cannot drain. With CWSR
+enabled the same machine ran an RCCL all_reduce load for 150 s and for
+600 s, 343647 iterations in the longer run, without one MES error.
 
-A command that timed out is still in the MES ring and may be executed
-later. Its status writeback slot is freed on timeout and the allocator
-is first fit, so a late status write lands in a slot that belongs to
-somebody else by then, and the caller cannot find out that the command
-completed after all. Add a ticket that the caller of REMOVE_QUEUE can
-pass in. When the command is left unanswered, the ticket takes over the
-status slot and remembers the fence sequence. The caller can poll it for
-a late completion and releases the slot once MES cannot write to it any
-more.
+Nothing tells a user who sets cwsr_enable=0 that it takes preemption
+away. Ignore the setting on a discrete GPU that is scheduled by MES when
+there is a second one in the system, and say so in the log.
 
-Add mes.fw_gen, incremented each time the scheduler pipe has been set up
-from scratch. A queue that was added under an older generation does not
-exist in the firmware any more, and a ticket from an older generation is
-stale. The counter is only incremented on the full init path, behind the
-pipe reset: a missed increment delays the release of resources, a
-spurious one would be unsafe.
+The timeout is that of MES, so this is limited to hardware that uses
+it, GC 11 and later. Older hardware does not have this path and keeps
+what the parameter says. So does an integrated GPU. The fan boost for
+multi-GPU systems draws the same line and counts discrete GPUs only.
 
-While at it, make mes_v12_1 return -ETIMEDOUT when the MES ring is full.
-It returned 0 there, which a caller would take for a completed command.
+The check is made per device in kfd_cwsr_init(), the one place that
+reads the parameter. The parameter itself is not changed. It also
+applies to the devices that are left alone, and one that is probed later
+must not get CWSR because of a device that was probed before it. The
+warning is printed for each device that is affected.
 
-The ticket and the generation counter have no users yet. The only change
-in behaviour is the error code and the log line for rejected commands.
+The GPUs are probed one after the other. A device is added to mgpu_info
+at the end of its initialization, after KFD has been set up, so when
+kfd_cwsr_init() runs for the first GPU nothing there shows the second
+one. kfd->num_nodes counts the partitions of one device. Add
+amdgpu_pci_has_mes_peer(), which walks the PCI bus instead. A device is
+a peer if it matches one of the class entries of the id table, which is
+how every GPU with MES is matched, if it is not left to radeon, and if no
+other driver has it or was assigned it with driver_override. That leaves
+out a GPU that is passed through with vfio-pci. For a device that is in
+mgpu_info already, its GC version and its APU flag decide.
+
+A device that has not been probed yet is known by its PCI ID only. An
+integrated GPU, or a GPU older than GC 11 without an entry of its own in
+the id table, that is probed after the discrete GPU is taken for a peer.
+CWSR, the default, is then enforced where it was not needed. A GPU that
+is hot-added after another one has been set up without CWSR gets CWSR
+itself, but does not change the device that is already running.
 
 Signed-off-by: Armas Spann <zappel@simple-co.de>
 Co-Authored-By: Claude Fable 5.2 <noreply@anthropic.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 79 +++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h | 44 ++++++++++++++
- drivers/gpu/drm/amd/amdgpu/mes_v11_0.c  | 51 ++++++++++++++--
- drivers/gpu/drm/amd/amdgpu/mes_v12_0.c  | 52 ++++++++++++++--
- drivers/gpu/drm/amd/amdgpu/mes_v12_1.c  | 57 +++++++++++++++---
- 5 files changed, 264 insertions(+), 19 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       | 99 ++++++++++++++++++-
+ drivers/gpu/drm/amd/amdkfd/kfd_device.c       | 26 ++++-
+ 3 files changed, 123 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-index 7864afab5..dd9366b99 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-@@ -141,6 +141,7 @@ int amdgpu_mes_init(struct amdgpu_device *adev)
- 				adev->gfx.disable_kq ? 0 : adev->gfx.num_compute_rings);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 7e1b9a70f..c3ab385c8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -1306,6 +1306,7 @@ struct amdgpu_afmt_acr amdgpu_afmt_acr(uint32_t clock);
  
- 	adev->mes.adev = adev;
-+	atomic_set(&adev->mes.fw_gen, 0);
+ void amdgpu_register_gpu_instance(struct amdgpu_device *adev);
+ void amdgpu_unregister_gpu_instance(struct amdgpu_device *adev);
++bool amdgpu_pci_has_mes_peer(struct amdgpu_device *adev);
  
- 	ida_init(&adev->mes.doorbell_ida);
- 	spin_lock_init(&adev->mes.queue_id_lock);
-@@ -345,6 +346,84 @@ void amdgpu_mes_fini(struct amdgpu_device *adev)
- 	mutex_destroy(&adev->mes.dbgext_drain_lock);
- }
+ pci_ers_result_t amdgpu_pci_error_detected(struct pci_dev *pdev,
+ 					   pci_channel_state_t state);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index d2db20c17..e80bcc711 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -760,11 +760,14 @@ MODULE_PARM_DESC(hws_max_conc_proc,
+  * DOC: cwsr_enable (int)
+  * CWSR(compute wave store and resume) allows the GPU to preempt shader execution in
+  * the middle of a compute wave. Default is 1 to enable this feature. Setting 0
+- * disables it as only in non-HWS mode.
++ * disables it as only in non-HWS mode. A discrete GPU that is scheduled by MES
++ * (GC 11 and later) keeps CWSR on when there is a second one in the system,
++ * because a queue that cannot be preempted can block the eviction of a queue on
++ * the other GPU.
+  */
+ int cwsr_enable = 1;
+ module_param(cwsr_enable, int, 0444);
+-MODULE_PARM_DESC(cwsr_enable, "CWSR enable (0 = Off (debugging only), 1 = On (Default))");
++MODULE_PARM_DESC(cwsr_enable, "CWSR enable (0 = Off (ignored on multi-GPU with MES), 1 = On (Default))");
  
-+/* True when MES has processed the command stream up to @seq. */
-+static bool amdgpu_mes_fence_passed(struct amdgpu_ring *ring, u32 seq)
-+{
-+	u32 cur = le32_to_cpu(READ_ONCE(*ring->fence_drv.cpu_addr));
-+
-+	return (s32)(seq - cur) <= 0;
-+}
-+
-+/**
-+ * amdgpu_mes_ticket_poll - check on a command that timed out earlier
-+ *
-+ * @adev: amdgpu_device pointer
-+ * @ticket: ticket filled in by the command path
-+ *
-+ * Does not sleep and takes no locks. The caller serialises against
-+ * amdgpu_mes_ticket_release() on the same ticket.
+ /**
+  * DOC: max_num_of_queues_per_device (int)
+@@ -3171,6 +3174,98 @@ static struct pci_driver amdgpu_kms_pci_driver = {
+ 	.dev_groups = amdgpu_sysfs_groups,
+ };
+ 
++/*
++ * Returns 1 if @pdev is a registered discrete GPU that uses MES, 0 if it is
++ * registered and is not one, -ENODEV if it is not registered.
 + */
-+enum amdgpu_mes_ticket_state
-+amdgpu_mes_ticket_poll(struct amdgpu_device *adev,
-+		       const struct amdgpu_mes_cmd_ticket *ticket)
++static int amdgpu_pci_registered_mes_dgpu(struct pci_dev *pdev)
 +{
-+	const u64 *status;
++	struct amdgpu_device *adev;
++	int r = -ENODEV;
++	int i;
 +
-+	if (!ticket->valid ||
-+	    ticket->fw_gen != (u32)atomic_read(&adev->mes.fw_gen))
-+		return AMDGPU_MES_TICKET_STALE;
++	mutex_lock(&mgpu_info.mutex);
 +
-+	status = (const u64 *)&adev->wb.wb[ticket->status_offs];
-+	if (lower_32_bits(READ_ONCE(*status)))
-+		return AMDGPU_MES_TICKET_DONE;
++	for (i = 0; i < mgpu_info.num_gpu; i++) {
++		adev = mgpu_info.gpu_ins[i].adev;
++		if (adev->pdev != pdev)
++			continue;
 +
-+	if (!amdgpu_mes_fence_passed(&adev->mes.ring[ticket->ring_idx],
-+				     ticket->seq))
-+		return AMDGPU_MES_TICKET_PENDING;
++		r = !(adev->flags & AMD_IS_APU) &&
++		    amdgpu_ip_version(adev, GC_HWIP, 0) >= IP_VERSION(11, 0, 0);
++		break;
++	}
 +
-+	/* MES writes the status before the trailing fence. Look again. */
-+	return lower_32_bits(READ_ONCE(*status)) ?
-+		AMDGPU_MES_TICKET_DONE : AMDGPU_MES_TICKET_FAILED;
++	mutex_unlock(&mgpu_info.mutex);
++
++	return r;
 +}
 +
-+/**
-+ * amdgpu_mes_ticket_answered - has MES got past a timed out command
-+ *
-+ * @adev: amdgpu_device pointer
-+ * @ticket: ticket, or a copy of one
-+ *
-+ * Unlike amdgpu_mes_ticket_poll() this does not look at the status slot,
-+ * so it may be used on a copy whose original has been released.
-+ */
-+bool amdgpu_mes_ticket_answered(struct amdgpu_device *adev,
-+				const struct amdgpu_mes_cmd_ticket *ticket)
++static bool amdgpu_pci_may_be_mes_dgpu(struct pci_dev *pdev)
 +{
-+	if (ticket->fw_gen != (u32)atomic_read(&adev->mes.fw_gen))
-+		return true;
-+
-+	return amdgpu_mes_fence_passed(&adev->mes.ring[ticket->ring_idx],
-+				       ticket->seq);
-+}
-+
-+/**
-+ * amdgpu_mes_ticket_release - give back the status slot of a ticket
-+ *
-+ * @adev: amdgpu_device pointer
-+ * @ticket: ticket to release, may be invalid already
-+ *
-+ * Only call this once MES cannot write the status any more: the command
-+ * was answered, or the firmware instance that received it is gone.
-+ */
-+void amdgpu_mes_ticket_release(struct amdgpu_device *adev,
-+			       struct amdgpu_mes_cmd_ticket *ticket)
-+{
-+	if (!ticket->valid)
-+		return;
-+
-+	amdgpu_wb_free(adev, ticket->status_offs);
-+	ticket->valid = false;
-+}
-+
- int amdgpu_mes_suspend(struct amdgpu_device *adev, u32 xcc_id)
- {
- 	struct mes_suspend_gang_input input;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-index e5dbcf8ef..ec3b7b306 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-@@ -225,6 +225,13 @@ struct amdgpu_mes {
- 	uint32_t			gang_ctx_array_size;
- 	uint32_t			gang_ctx_array_index;
- 	unsigned long			*gang_ctx_bitmap;
++	const struct pci_device_id *id;
++	struct pci_driver *drv;
++	int i, r;
 +
 +	/*
-+	 * Incremented each time the scheduler firmware is set up from
-+	 * scratch. A queue that was added under an older value does not
-+	 * exist in the firmware any more.
++	 * MES is used from GC 11 on. Those devices have no entry of their own
++	 * in the id table. They match one of the class entries at its end.
 +	 */
-+	atomic_t			fw_gen;
- };
- 
- struct amdgpu_mes_hung_queue_hqd_info {
-@@ -326,6 +333,33 @@ struct mes_add_queue_input {
- 	uint32_t	gang_context_array_index;
- };
- 
-+/*
-+ * Returned by the command path when MES answered and reported a failure.
-+ * -ETIMEDOUT is kept for commands that MES did not answer at all.
-+ */
-+#define AMDGPU_MES_CMD_REJECTED		(-EREMOTEIO)
++	id = pci_match_id(pciidlist, pdev);
++	if (!id || (id->driver_data & AMD_ASIC_MASK) != CHIP_IP_DISCOVERY)
++		return false;
 +
-+/*
-+ * Handle to a command that MES had not answered when the poll timeout
-+ * expired. The command is still in the MES ring and the firmware may
-+ * complete it later, so the ticket keeps the status writeback slot
-+ * allocated until amdgpu_mes_ticket_release() is called.
-+ */
-+struct amdgpu_mes_cmd_ticket {
-+	bool	valid;		/* owns the status slot while true */
-+	u32	ring_idx;	/* index into amdgpu_mes::ring[] */
-+	u32	seq;		/* fence seq of the trailing status query */
-+	u32	status_offs;	/* wb offset of the 64 bit API status */
-+	u32	fw_gen;		/* amdgpu_mes::fw_gen at submission */
-+};
++	/* The class entries also match what is left to radeon. */
++	for (i = 0; i < ARRAY_SIZE(amdgpu_unsupported_pciidlist); i++)
++		if (amdgpu_unsupported_pciidlist[i] == pdev->device)
++			return false;
 +
-+enum amdgpu_mes_ticket_state {
-+	AMDGPU_MES_TICKET_PENDING,	/* MES has not processed the command */
-+	AMDGPU_MES_TICKET_DONE,		/* processed, success */
-+	AMDGPU_MES_TICKET_FAILED,	/* processed, failure */
-+	AMDGPU_MES_TICKET_STALE,	/* not valid, or MES was restarted */
-+};
++	r = amdgpu_pci_registered_mes_dgpu(pdev);
++	if (r >= 0)
++		return r;
 +
- struct mes_remove_queue_input {
- 	uint32_t        xcc_id;
- 	uint32_t	doorbell_offset;
-@@ -333,6 +367,8 @@ struct mes_remove_queue_input {
- 	uint32_t	queue_type;
- 	bool		remove_queue_after_reset;
- 	uint32_t	gang_context_array_index;
-+	/* Optional. Filled in when the command is left unanswered. */
-+	struct amdgpu_mes_cmd_ticket *ticket;
- };
- 
- struct mes_map_legacy_queue_input {
-@@ -607,6 +643,14 @@ static inline uint32_t amdgpu_mes_ih_int_type(uint32_t context_data)
- 	       AMDGPU_MES_IH_INT_TYPE_MASK;
- }
- 
-+enum amdgpu_mes_ticket_state
-+amdgpu_mes_ticket_poll(struct amdgpu_device *adev,
-+		       const struct amdgpu_mes_cmd_ticket *ticket);
-+bool amdgpu_mes_ticket_answered(struct amdgpu_device *adev,
-+				const struct amdgpu_mes_cmd_ticket *ticket);
-+void amdgpu_mes_ticket_release(struct amdgpu_device *adev,
-+			       struct amdgpu_mes_cmd_ticket *ticket);
++	/* Not probed yet, unless another driver has it or was assigned it */
++	drv = READ_ONCE(pdev->driver);
++	if (drv && drv != &amdgpu_kms_pci_driver)
++		return false;
 +
- int amdgpu_mes_suspend(struct amdgpu_device *adev, u32 xcc_id);
- int amdgpu_mes_resume(struct amdgpu_device *adev, u32 xcc_id);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-index 30d3d25d5..cdaab9f57 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-@@ -181,9 +181,10 @@ static const char *mes_v11_0_get_misc_op_string(union MESAPI__MISC *x_pkt)
- 	return op_str;
- }
- 
--static int mes_v11_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
--						    void *pkt, int size,
--						    int api_status_off)
-+static int mes_v11_0_submit_pkt_ticket(struct amdgpu_mes *mes,
-+				       void *pkt, int size,
-+				       int api_status_off,
-+				       struct amdgpu_mes_cmd_ticket *ticket)
- {
- 	union MESAPI__QUERY_MES_STATUS mes_status_pkt;
- 	signed long timeout = 2100000; /* 2100 ms */
-@@ -265,8 +266,17 @@ static int mes_v11_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
- 
- 	r = amdgpu_fence_wait_polling(ring, seq, timeout);
- 	if (r < 1 || !*status_ptr) {
-+		/* The fence was reached, so MES processed the command */
-+		bool answered = r >= 1;
- 
--		if (misc_op_str)
-+		if (answered)
-+			dev_err(adev->dev,
-+				"MES rejected msg=%s (opcode %d), status 0x%016llx\n",
-+				misc_op_str ? misc_op_str :
-+				op_str ? op_str : "unknown",
-+				x_pkt->header.opcode,
-+				(unsigned long long)*status_ptr);
-+		else if (misc_op_str)
- 			dev_err(adev->dev,
- 				"MES failed to respond to msg=%s (%s) fence_wait_ret=%ld status=0x%llx\n",
- 				op_str, misc_op_str, r, *status_ptr);
-@@ -282,7 +292,24 @@ static int mes_v11_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
- 		while (halt_if_hws_hang)
- 			schedule();
- 
-+		if (answered) {
-+			r = AMDGPU_MES_CMD_REJECTED;
-+			goto error_wb_free;
-+		}
-+
- 		r = -ETIMEDOUT;
-+		if (ticket) {
-+			/*
-+			 * The command is still in the ring and MES may write
-+			 * the status later. The caller owns the slot now.
-+			 */
-+			ticket->ring_idx = 0;
-+			ticket->seq = seq;
-+			ticket->status_offs = status_offset;
-+			ticket->fw_gen = atomic_read(&mes->fw_gen);
-+			ticket->valid = true;
-+			return r;
-+		}
- 		goto error_wb_free;
- 	}
- 
-@@ -301,6 +328,14 @@ static int mes_v11_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
- 	return r;
- }
- 
-+static int mes_v11_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
-+						    void *pkt, int size,
-+						    int api_status_off)
-+{
-+	return mes_v11_0_submit_pkt_ticket(mes, pkt, size, api_status_off,
-+					   NULL);
++	return device_match_driver_override(&pdev->dev,
++					    &amdgpu_kms_pci_driver.driver) != 0;
 +}
 +
- static int convert_to_mes_queue_type(int queue_type)
- {
- 	if (queue_type == AMDGPU_RING_TYPE_GFX)
-@@ -412,9 +447,10 @@ static int mes_v11_0_remove_hw_queue(struct amdgpu_mes *mes,
- 	if (mes_rev >= 0x60)
- 		mes_remove_queue_pkt.remove_queue_after_reset = input->remove_queue_after_reset;
- 
--	return mes_v11_0_submit_pkt_and_poll_completion(mes,
-+	return mes_v11_0_submit_pkt_ticket(mes,
- 			&mes_remove_queue_pkt, sizeof(mes_remove_queue_pkt),
--			offsetof(union MESAPI__REMOVE_QUEUE, api_status));
-+			offsetof(union MESAPI__REMOVE_QUEUE, api_status),
-+			input->ticket);
- }
- 
- /* Use MES callbacks directly while holding the MES lock. */
-@@ -2144,6 +2180,9 @@ static int mes_v11_0_hw_init(struct amdgpu_ip_block *ip_block)
- 	if (r)
- 		goto failure;
- 
-+	/* A new scheduler instance is up, it knows none of the old queues */
-+	atomic_inc(&adev->mes.fw_gen);
-+
- 	/*
- 	 * QUERY_SCHEDULER_STATUS to get array sizes (N, M).
- 	 * MES writes the sizes to the GPU buffer, then we allocate bitmaps.
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-index 988e05823..057b66979 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-@@ -149,9 +149,10 @@ static const char *mes_v12_0_get_misc_op_string(union MESAPI__MISC *x_pkt)
- 	return op_str;
- }
- 
--static int mes_v12_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
--					    int pipe, void *pkt, int size,
--					    int api_status_off)
-+static int mes_v12_0_submit_pkt_ticket(struct amdgpu_mes *mes,
-+				       int pipe, void *pkt, int size,
-+				       int api_status_off,
-+				       struct amdgpu_mes_cmd_ticket *ticket)
- {
- 	union MESAPI__QUERY_MES_STATUS mes_status_pkt;
- 	signed long timeout = 2100000; /* 2100 ms */
-@@ -240,8 +241,18 @@ static int mes_v12_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
- 	 * If status_ptr[31:0] == 0 then status_ptr[63:32] will have debug error information.
- 	 */
- 	if (r < 1 || !(lower_32_bits(*status_ptr))) {
-+		/* The fence was reached, so MES processed the command */
-+		bool answered = r >= 1;
- 
--		if (misc_op_str)
-+		if (answered)
-+			dev_err(adev->dev,
-+				"MES(%d) rejected msg=%s (opcode %d), status 0x%016llx\n",
-+				pipe,
-+				misc_op_str ? misc_op_str :
-+				op_str ? op_str : "unknown",
-+				x_pkt->header.opcode,
-+				(unsigned long long)*status_ptr);
-+		else if (misc_op_str)
- 			dev_err(adev->dev,
- 				"MES(%d) failed to respond to msg=%s (%s) fence_wait_ret=%ld status=0x%x_%x\n",
- 				pipe, op_str, misc_op_str, r,
-@@ -260,7 +271,24 @@ static int mes_v12_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
- 		while (halt_if_hws_hang)
- 			schedule();
- 
-+		if (answered) {
-+			r = AMDGPU_MES_CMD_REJECTED;
-+			goto error_wb_free;
-+		}
-+
- 		r = -ETIMEDOUT;
-+		if (ticket) {
-+			/*
-+			 * The command is still in the ring and MES may write
-+			 * the status later. The caller owns the slot now.
-+			 */
-+			ticket->ring_idx = pipe;
-+			ticket->seq = seq;
-+			ticket->status_offs = status_offset;
-+			ticket->fw_gen = atomic_read(&mes->fw_gen);
-+			ticket->valid = true;
-+			return r;
-+		}
- 		goto error_wb_free;
- 	}
- 
-@@ -279,6 +307,14 @@ static int mes_v12_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
- 	return r;
- }
- 
-+static int mes_v12_0_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
-+					    int pipe, void *pkt, int size,
-+					    int api_status_off)
++/**
++ * amdgpu_pci_has_mes_peer - look for another discrete GPU that uses MES
++ * @adev: the device that asks. It is left out.
++ *
++ * Devices are probed one after the other. While the first one is being
++ * initialized the driver has not seen the others yet, so the list of
++ * registered GPUs does not tell it whether it is alone. The PCI core has
++ * enumerated all of them by then, so walk the bus.
++ *
++ * For a device that is registered the GC version and the APU flag are known
++ * and decide. A device that has not been probed yet is taken for a peer if it
++ * is set up by IP discovery and no other driver has it or was assigned it.
++ * Whether it is integrated or older than GC 11 cannot be told from the PCI
++ * device.
++ *
++ * Returns:
++ * True if there is such a device.
++ */
++bool amdgpu_pci_has_mes_peer(struct amdgpu_device *adev)
 +{
-+	return mes_v12_0_submit_pkt_ticket(mes, pipe, pkt, size,
-+					   api_status_off, NULL);
-+}
++	struct pci_dev *pdev = NULL;
 +
- static int convert_to_mes_queue_type(int queue_type)
- {
- 	if (queue_type == AMDGPU_RING_TYPE_GFX)
-@@ -388,10 +424,11 @@ static int mes_v12_0_remove_hw_queue(struct amdgpu_mes *mes,
- 	if (mes_rev >= 0x5a)
- 		mes_remove_queue_pkt.remove_queue_after_reset = input->remove_queue_after_reset;
- 
--	return mes_v12_0_submit_pkt_and_poll_completion(mes,
-+	return mes_v12_0_submit_pkt_ticket(mes,
- 			AMDGPU_MES_SCHED_PIPE,
- 			&mes_remove_queue_pkt, sizeof(mes_remove_queue_pkt),
--			offsetof(union MESAPI__REMOVE_QUEUE, api_status));
-+			offsetof(union MESAPI__REMOVE_QUEUE, api_status),
-+			input->ticket);
- }
- 
- int gfx_v12_0_request_gfx_index_mutex(struct amdgpu_device *adev,
-@@ -2232,6 +2269,9 @@ static int mes_v12_0_hw_init(struct amdgpu_ip_block *ip_block)
- 	if (r)
- 		goto failure;
- 
-+	/* A new scheduler instance is up, it knows none of the old queues */
-+	atomic_inc(&adev->mes.fw_gen);
++	for_each_pci_dev(pdev) {
++		if (pdev == adev->pdev || !amdgpu_pci_may_be_mes_dgpu(pdev))
++			continue;
 +
- 	if ((adev->mes.sched_version & AMDGPU_MES_VERSION_MASK) >= 0x4b)
- 		mes_v12_0_set_hw_resources_1(&adev->mes, AMDGPU_MES_SCHED_PIPE);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c b/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
-index 5c046f64b..a2e0156ae 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
-@@ -154,9 +154,10 @@ static const char *mes_v12_1_get_misc_op_string(union MESAPI__MISC *x_pkt)
- 	return op_str;
- }
- 
--static int mes_v12_1_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
--					    int xcc_id, int pipe, void *pkt,
--					    int size, int api_status_off)
-+static int mes_v12_1_submit_pkt_ticket(struct amdgpu_mes *mes,
-+				       int xcc_id, int pipe, void *pkt,
-+				       int size, int api_status_off,
-+				       struct amdgpu_mes_cmd_ticket *ticket)
- {
- 	union MESAPI__QUERY_MES_STATUS mes_status_pkt;
- 	signed long timeout = 2100000; /* 2100 ms */
-@@ -200,8 +201,10 @@ static int mes_v12_1_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
- 	r = amdgpu_fence_wait_polling(ring,
- 				      seq - ring->fence_drv.num_fences_mask,
- 				      timeout);
--	if (r < 1)
-+	if (r < 1) {
-+		r = -ETIMEDOUT;
- 		goto error_undo;
++		pci_dev_put(pdev);
++		return true;
 +	}
- 
- 	api_status = (struct MES_API_STATUS *)((char *)pkt + api_status_off);
- 	api_status->api_completion_fence_addr = status_gpu_addr;
-@@ -238,7 +241,18 @@ static int mes_v12_1_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
- 
- 	r = amdgpu_fence_wait_polling(ring, seq, timeout);
- 	if (r < 1 || !*status_ptr) {
--		if (misc_op_str)
-+		/* The fence was reached, so MES processed the command */
-+		bool answered = r >= 1;
 +
-+		if (answered)
-+			dev_err(adev->dev,
-+				"MES(%d, %d) rejected msg=%s (opcode %d), status 0x%016llx\n",
-+				xcc_id, pipe,
-+				misc_op_str ? misc_op_str :
-+				op_str ? op_str : "unknown",
-+				x_pkt->header.opcode,
-+				(unsigned long long)*status_ptr);
-+		else if (misc_op_str)
- 			dev_err(adev->dev,
- 				"MES(%d, %d) failed to respond to msg=%s (%s) fence_wait_ret=%ld status=0x%x\n",
- 				xcc_id, pipe, op_str, misc_op_str, r, *status_ptr);
-@@ -254,7 +268,24 @@ static int mes_v12_1_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
- 		while (halt_if_hws_hang)
- 			schedule();
- 
-+		if (answered) {
-+			r = AMDGPU_MES_CMD_REJECTED;
-+			goto error_wb_free;
-+		}
-+
- 		r = -ETIMEDOUT;
-+		if (ticket) {
-+			/*
-+			 * The command is still in the ring and MES may write
-+			 * the status later. The caller owns the slot now.
-+			 */
-+			ticket->ring_idx = MES_PIPE_INST(xcc_id, pipe);
-+			ticket->seq = seq;
-+			ticket->status_offs = status_offset;
-+			ticket->fw_gen = atomic_read(&mes->fw_gen);
-+			ticket->valid = true;
-+			return r;
-+		}
- 		goto error_wb_free;
- 	}
- 
-@@ -273,6 +304,14 @@ static int mes_v12_1_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
- 	return r;
- }
- 
-+static int mes_v12_1_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
-+					    int xcc_id, int pipe, void *pkt,
-+					    int size, int api_status_off)
-+{
-+	return mes_v12_1_submit_pkt_ticket(mes, xcc_id, pipe, pkt, size,
-+					   api_status_off, NULL);
++	return false;
 +}
 +
- static int convert_to_mes_queue_type(int queue_type)
+ static int __init amdgpu_init(void)
  {
- 	if (queue_type == AMDGPU_RING_TYPE_GFX)
-@@ -368,10 +407,11 @@ static int mes_v12_1_remove_hw_queue(struct amdgpu_mes *mes,
- 	mes_remove_queue_pkt.queue_type =
- 		convert_to_mes_queue_type(input->queue_type);
+ 	int r;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+index 8080fbe3f..670567fc0 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+@@ -512,7 +512,31 @@ struct kfd_dev *kgd2kfd_probe(struct amdgpu_device *adev, bool vf)
  
--	return mes_v12_1_submit_pkt_and_poll_completion(mes,
-+	return mes_v12_1_submit_pkt_ticket(mes,
- 			xcc_id, AMDGPU_MES_SCHED_PIPE,
- 			&mes_remove_queue_pkt, sizeof(mes_remove_queue_pkt),
--			offsetof(union MESAPI__REMOVE_QUEUE, api_status));
-+			offsetof(union MESAPI__REMOVE_QUEUE, api_status),
-+			input->ticket);
- }
- 
- static int mes_v12_1_reset_hw_queue(struct amdgpu_mes *mes,
-@@ -1901,6 +1941,9 @@ static int mes_v12_1_xcc_hw_init(struct amdgpu_ip_block *ip_block, int xcc_id)
- 	if (r)
- 		goto failure;
- 
-+	/* A new scheduler instance is up, it knows none of the old queues */
-+	atomic_inc(&adev->mes.fw_gen);
+ static void kfd_cwsr_init(struct kfd_dev *kfd)
+ {
+-	if (cwsr_enable && kfd->device_info.supports_cwsr) {
++	struct amdgpu_device *adev = kfd->adev;
++	bool enable = cwsr_enable;
 +
- 	mes_v12_1_set_hw_resources_1(&adev->mes, AMDGPU_MES_SCHED_PIPE, xcc_id);
- 	mes_v12_1_init_aggregated_doorbell(&adev->mes, xcc_id);
- 
--- 
++	/*
++	 * Without CWSR a compute queue cannot be preempted. It is unmapped
++	 * only once its running waves have finished. MES waits 2 s for that
++	 * and then fails the command. With two GPUs a kernel on one of them
++	 * can wait for a kernel on the other one. If the queue of that one is
++	 * evicted, the wait does not end and the unmap times out. Do not let
++	 * cwsr_enable=0 through in that case.
++	 *
++	 * Only a discrete GPU that is scheduled by MES is concerned, which is
++	 * GC 11 and later. Older hardware and integrated GPUs keep what the
++	 * parameter says. The parameter itself is not changed, it also
++	 * applies to the devices that are left alone here.
++	 */
++	if (!enable && kfd->device_info.supports_cwsr &&
++	    amdgpu_ip_version(adev, GC_HWIP, 0) >= IP_VERSION(11, 0, 0) &&
++	    !(adev->flags & AMD_IS_APU) && amdgpu_pci_has_mes_peer(adev)) {
++		dev_warn(adev->dev,
++			 "CWSR forced on: multi-GPU with MES requires preemption support\n");
++		enable = true;
++	}
++
++	if (enable && kfd->device_info.supports_cwsr) {
+ 		if (KFD_GC_VERSION(kfd) < IP_VERSION(9, 0, 1)) {
+ 			BUILD_BUG_ON(sizeof(cwsr_trap_gfx8_hex)
+ 					     > KFD_CWSR_TMA_OFFSET);
+--
 2.56.1
 
