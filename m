@@ -2,129 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 967AA606A333
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 18:29:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9C0C606A31E
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 18:36:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=40261STp
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y7nfs9cc
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F92A10E603;
-	Tue, 24 Nov 2026 18:29:47 +0000 (UTC)
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011016.outbound.protection.outlook.com [52.101.57.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36E5E10E603;
- Tue, 24 Nov 2026 18:29:41 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uMbqxIMAE9OdYQZfrzDHVBPzKPq2lw0Ns94jqJu7wc5B9tUJavkhQdORPv+/gG045fjOKARWvuq0imxW1GQHsPoiy7okhR2zw6ORsUa0R/4xqHOZPnVn+XTvwa1+odwLogqc+Vb+NWEnCz3ABRdEno8vmpn7zQIFTcEFI713c7+HEsji/9fBG0x6aCLnGad5IL6q6QqsvCObx6Kkv9YL/tH1d8NeZETJlAYDfXOCRpjlS3R7bziuxm9ge+15GVB60LlmMl2uUgM93T3wOq8jtLx++1fG8UGLoju8gfNPtZTydRJrzdDcqQuE3jdY+0aftD2YQhzAteqO772V03xVwQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TYP7BaYqtO4FeeS7+kF/vBGaDrl3rsh94iq1y/8UuE0=;
- b=WDPe7sqpO6mvsQ01/2pWKiq1skWLzPe43AmEws8UjpvDLsi74JYNeB+TyWWpGM5qu7dHjWZW7IFWjb/tImedLmci7fajnUO1IwCtZCKpbUm/sk9oDUz4QMbMiY1Ruu0/cXoIN22lvl7DdCnhfjXX/pSXptgYF/2SmJ7PM/m9mAdN2ZJv0P+AC+cEuUdSrsmT/nwGNw3CkTuI6/Rws10iDY8EfB2NKTL/cK9drcffx5HmEavIBOpeJmm+FyYH0IwvvFp8mlTiFHEIWr7iBDWciyzJ/CQphSR/taIvxxhUQjMqVHjgFCBlQ6Pbz4g18cpuHqjixFFH37SM+1N12Z+tew==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TYP7BaYqtO4FeeS7+kF/vBGaDrl3rsh94iq1y/8UuE0=;
- b=40261STpOf2fDkDCbEfJUD/ZpkSOqt/Qaco37AEGTDRjVO31zJ/O+3L+ndlcjZT1HzY5RRXUH6izEo9aBkoSM1jwNP3oyC7hiz9sv5oe7ZFsLXmFSV9tbPR64SHws04Cac4kMWBMrm7Y+3WYKOb9BerDsFAVvJDp7I17dg9kKVY=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from IA6PR12MB893085.namprd12.prod.outlook.com
- (2603:10b6:208:601::18) by IA1PR12MB7638.namprd12.prod.outlook.com
- (2603:10b6:208:426::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.13; Tue, 24 Nov
- 2026 18:29:35 +0000
-Received: from IA6PR12MB893085.namprd12.prod.outlook.com
- ([fe80::3f4e:1f38:3db2:270a]) by IA6PR12MB893085.namprd12.prod.outlook.com
- ([fe80::3f4e:1f38:3db2:270a%5]) with mapi id 15.21.0639.012; Tue, 24 Nov 2026
- 18:29:35 +0000
-Message-ID: <a1dee5ea-2a50-47d3-9a81-eb1a94869815@amd.com>
-Date: Tue, 24 Nov 2026 13:29:32 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 2/2] drm/amd/display: Skip flip_done wait for
- non-modeset TEST_ONLY checks
-To: =?UTF-8?Q?Jakub_Oko=C5=84ski?= <jakub@okonski.org>,
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-Cc: dri-devel@lists.freedesktop.org, sunpeng.li@amd.com, siqueira@igalia.com, 
- alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, amd-gfx@lists.freedesktop.org
-References: <20261123220913.937402-1-jakub@okonski.org>
- <20261123220913.937402-3-jakub@okonski.org>
- <47ee6326-08ca-4dcd-866b-3a543cb15665@mailbox.org>
- <4daad602-10e4-4cd6-9cf9-7f47f77a7922@okonski.org>
-Content-Language: en-US
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <4daad602-10e4-4cd6-9cf9-7f47f77a7922@okonski.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQBPR0101CA0084.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:4::17) To IA6PR12MB893085.namprd12.prod.outlook.com
- (2603:10b6:208:601::18)
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA6PR12MB893085:EE_|IA1PR12MB7638:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2f223a29-1b2b-4aaa-fb7d-08df4a58e3d6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|366016|1800799024|23010399003|18002099003|22082099003|11063799006|261026121527099003|56012099006|4143699003|261026140227099003|261028144727099003|261022105027099003|261009223027099003|10067099003;
-X-Microsoft-Antispam-Message-Info: At9DKeGDpJM95AEbiMfhN5ns1QSAytL+6Iil2o3C8LohOjm2kx2FhdhNBygB+NlsAcS5u7qjUFo42rDol9CKO8aVQ4S6KHSbXiyy6WsRGO6Kn5/93WNOkzywHcX2CF10xf1Y+4B3PX+dHdAQ77KKKE+x1BtO9rwgi8l5qPx3jQQob7vWx0V4F3BF7v1KCzQb9whEgsg7m4vVKLxSJs2QyCPOFrPHH8d2Pjndo4FdGtSLbzc3XTX9GntB/bgGkvk8dph5iYGosySU8TY8yJVPxg+T4ReQaFnkET9E/hP8LAtcWBMV32/Ek8XuZZmom1ryDAW8IN8ZUxtStg/UCEnSxA83bj/dM5hwIYXLoXgnuJQGB0NHr+uJCAeeBvgaqYf3lO9H9zc9X8vlnNKKcs6Zx5PRsU66nAqqKVVZz0KRZWxqJR5A1916T3ObY+Lw3aYI+Q4XpEH9kAXilJbpY3zEuhuTRhZtBRx9rTw0oFSa8/nBqnCl0jVkgstR8S/Ul80VPiEhUpgFXOpziBy0GHuZOwh3UfgSKAp/IYDX/eFBzu5PK+dx/y2q5MAJht4cELIsXFUUORLxEHz+3mCgKcuYIKLYzRsAtS6s+7lSkQig7771upAzQZ561kke891Gceyqu75EC/6i4XhNVBdaEylYcQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA6PR12MB893085.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(366016)(1800799024)(23010399003)(18002099003)(22082099003)(11063799006)(261026121527099003)(56012099006)(4143699003)(261026140227099003)(261028144727099003)(261022105027099003)(261009223027099003)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bnBpVXFzSXBWajYvam9ra0UvRjE1THZGbnpkVXppZ2N6UGtWOWFhRjZsdnBI?=
- =?utf-8?B?ZGhobGU1MzZyenQ5ZlA5R0tOUUkyVXF4MDQ4enhFenRLKzcrNGRkQnpaUWFn?=
- =?utf-8?B?NDdpRHk0OTYwNGE0MkdtaUV4ajJrSE9aa1oxcGd1QUg0ZWxUeUljYVBuSU5D?=
- =?utf-8?B?d25TSldWMkIrbTJzakphTjNKUVJpN08wUmk1UUJMVDZ5VXlsQ0xwSGtYa0VU?=
- =?utf-8?B?b09wdFpIZzc1UFVycExYNFNOc01OVjNJNWJua3g2aXdTMzNMcGF0UlB5NkIz?=
- =?utf-8?B?ZmRvNC9wcThMYVJUbWFGVktYeTNvdUZnODY1ZUpxb2VSNDM4Zk1OQ2NYQjdG?=
- =?utf-8?B?aFYyUU1sRXlLN0xoZmQvUzlOR0wxcmwveWZYeXFkNUhpZmV4MEhoSkhMQ2pG?=
- =?utf-8?B?UUp5OWxhTFNTRVJrT2pDK1RFaGRaOElPN252ejV4WmxmUWVlZVlUVGZBUGk3?=
- =?utf-8?B?SENKWnRKbm13VDFXSHR1dWR3SFJNQnFqVlczWERjMkhIbWRUV2JDbytDQm9K?=
- =?utf-8?B?RkxHQjM5bTN0ZUZ5ZFBMT0MzK2FVY0lGWnQzdjVubFRoQm1nK2ZBeFp4QWJ6?=
- =?utf-8?B?L0laaXpVNmJQeWtmTlZTc1NZZUc0V0Jac21jWitEUUFBL2JPS3piQkxsUVA4?=
- =?utf-8?B?MzlGNVF2NVIrY29RcUhOMVdPT2VGWGFUTkRhb3pBbGY5RUx2Y2NmRWQrQStM?=
- =?utf-8?B?YzJKa2pnc3YyWjhEYUh4MDByd1lPVlc4UkxoYnZ0cnF3anlZRTk3RDUveEY3?=
- =?utf-8?B?blYveUdqVHp4UFRFaXhQL3g4VkExSzB0YmRrZDltODRSOVBYYzg2b0ptN1Fs?=
- =?utf-8?B?ZkxmcHJ3WjFDWEdzeTB1TUNzSWxzRGZDdHcyQzRja1dLZkRwT2FnT0pJK05T?=
- =?utf-8?B?SjZZTjFwQSt6WU5CN3dTeTZaUXFUd2o2aHRnMXFHK1ZxbXl4aUFDa2FHWmVV?=
- =?utf-8?B?NHErMUFJRDhscTg4Ynd4RzBCd1F1ZzBPOC81cWZXZ0hCWWdCUlRMb1Qvc1kv?=
- =?utf-8?B?VGhqenBvRGROYlpvOUhueFlDMVIvUG5KYXhyT1hTU2JkM2VVUWNnSERKaUVq?=
- =?utf-8?B?ekFmQS9KK2svTGJRQXdxdmYybzN2ZXlsUjhYbHNRQ25wZ3hwY0VSS2QxbDB3?=
- =?utf-8?B?NEVhUVptOHBheEdSN2hDcXlodjJSK1QyNklXNW00MHB1TXZhL2ViWU5CQ2V6?=
- =?utf-8?B?YVZaQ3dZRUcyN2FBaEdRU0YwRG44U2JGKzlUcGNTSDlTNEFseVFWMjVyRDdC?=
- =?utf-8?B?VExKYW9ZRjVEZ2M2b1p2OUVXMzVMYkxKaFNFRGtCOVd6NmV3MWRhaTRUNnM1?=
- =?utf-8?B?ODd0ZnRBdnRZcmZUcGQ5a0hTQ285K1lBbmVaZFRZUVRyZ2R0U2dUSURvdDYr?=
- =?utf-8?B?ZTdFODIwR2lxVExOTkdPeFl2NUozMnVockhIOVlzOWZyemk3V1AyRkRPVnFr?=
- =?utf-8?B?dTZLYUc5eDQ2VnBkT0R5aUI4MGpKaEZRYkdKT2ZWMWdvWVJ6dmE5eXlPMDFM?=
- =?utf-8?B?MExPeXM4VU10dEtGQkNzVWhkVE9idDhZaUY0T1VwOHRtOUVlZHRVZVRZbXJS?=
- =?utf-8?B?UTJRRTJCRzJqd2xVTUJkb1drNlFRZ3VDaHFwc1E1R0swcWI3SVpjYW1lZ29s?=
- =?utf-8?B?YnNaaE0xYVZpcnY4R2t5dnFyOTROKy84dklDdEtqQ1NCdC9vMkpMc3p6eXpV?=
- =?utf-8?B?N2sxUGxaQjVEN3gwZUQvemMvNTBPRzNidkhlUjlrWHVhWitSbUJFYkQyaWl2?=
- =?utf-8?B?ZU93TUsyQTVSUW94YXQxclhnMHMzSUdHYXk5Z0tlMmZMN090RVAwVUxQQ1hC?=
- =?utf-8?B?M3lHRzZWNS84R2JtR0wrTnlUb3U2QnJrUUc2dGZhM3IvdW5jMDNVTFVIQzhO?=
- =?utf-8?B?Yk9pcXdJbU1iQThLOVk5WUE4UXYxODI3WEgvS3VhL1JMZEVwamc5ZHlSSTJW?=
- =?utf-8?B?Q3lWUXg2U0lnZVZlaFY0QmRMU0tMUEVoQyt3SGkzVklCT0Nrd2l0VWlZZkpB?=
- =?utf-8?B?Q1lvSFRVbzFGRGFyOURGa1BGZ1JIUEtjRkV2MmVubmJBcFI3UGtwTWpBQURH?=
- =?utf-8?B?U3BzVWZWS2Z0Z1BsaEpqRUM3QXVLZXgrREJscGcwenZhWlgyOHlxZUpteDk1?=
- =?utf-8?B?cFNZZXZtRzdnUW9aa3U3MGJpK0NWMXRnNSsybHZJblE3UEgzOFg5NUF3T1hZ?=
- =?utf-8?B?TFdUb250RWt1MTRoNnExZ2U3RndBTXBpUVBtN3JZSitMYnd1d2FPell0QkZS?=
- =?utf-8?B?YkFPTGVqVUcrcks1M1VtRm9zeTZGYlg1V1lSczdOdVl3ZVJvM1hFcVhZZGxp?=
- =?utf-8?B?VXlzUWpLR084WFJTbkxMb2o5Uzh5VjVhOUlhNENnWDJnbVYzSTl4UT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2f223a29-1b2b-4aaa-fb7d-08df4a58e3d6
-X-MS-Exchange-CrossTenant-AuthSource: IA6PR12MB893085.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 18:29:35.1502 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: s7VugSQHs+S3mFb4nSgsY45A4MvDObI6zHbnDD9Clo6DugZri7WPAC9ivXQ0b1ofx0EBLus6Y6EEAerItLSe6w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7638
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22FCD10F03E;
+	Tue, 24 Nov 2026 18:36:22 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A0D710F07F;
+ Tue, 24 Nov 2026 18:36:16 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id D279C44490;
+ Tue, 24 Nov 2026 18:36:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B1231F000CF;
+ Tue, 24 Nov 2026 18:36:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795545375;
+ bh=P4lr4/a/AYoqlIUVGGNXunwc3UWQoER6oP2CFOwUnI4=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Y7nfs9cc11e8DZtMJnLha7ISjz0kNWogS5L+QZ46jaw7teSw/QKELx2iGWKO3wT/1
+ FCDuG+cPgRdNnD0mVX3m0Q53IVStmHf1PjzOZwab+6Vf1QQYbJPwmX3sEVnOYLWKk6
+ WZ5pQJqm6Yo+6fDrXSNLw8MTpNGTAiAOisfXNdkosHHG0PHgWaypeqozCViElU8qXD
+ LpvqMaVjihe5XTTOsiATkSxMEQP3M3j3HACCHyckxsh90y4Bouzm/WWPOqr/eP8OxR
+ kkg4Em9seJsf+kPgL4HJhZL2VBDPT3KGCJn8TzaBke54uieFuRAvWXs3CljXZEJGbl
+ XNjVKQR/tqTXg==
+Message-ID: <sashiko-outbox-231832@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 11/19] drm/colorop: Introduce colorop helpers for crtc
+To: "Melissa Wen" <mwen@igalia.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20261124181652.1333986-12-mwen@igalia.com>
+References: <20261124181652.1333986-1-mwen@igalia.com>
+ <20261124181652.1333986-12-mwen@igalia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 24 Nov 2026 18:36:14 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,33 +47,139 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Low] drm/colorop: missing @funcs doc in
+  drm_crtc_colorop_curve_1d_lut_init()
+- [Low] drm/colorop: hardcoded PLANE log prefix in
+  drm_colorop_has_supported_tf()
+It also noticed 1 related pre-existing issue this patch does not
+introduce:
+- [High] drm/colorop: missing error cleanup in drm_plane_colorop_init()
+  [1]
+--
 
+commit 31c092228a64133171c742733eb09f34d70d27f6
+Author: N=C3=ADcolas F. R. A. Prado <nfraprado@collabora.com>
 
-On 2026-11-24 09:07, Jakub Okoński wrote:
-> [You don't often get email from jakub@okonski.org. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
-> 
-> On 11/24/26 14:05, Michel Dänzer wrote:
->> Does a commit with both DRM_MODE_ATOMIC_ALLOW_MODESET & DRM_MODE_ATOMIC_TEST_ONLY set really need to wait for pending flips to complete? Why?
-> 
-> I was not confident at all and tried to keep this change narrow. It's
-> possible this could be relaxed further but I have not tried it.
+drm/colorop: Introduce colorop helpers for crtc
 
-I have a branch that removes the need for that stall in atomic check and 
-passed the work on to someone else for validation and review.
+This commit adds CRTC-based colorop initialization helpers for post-blend
+1D curve, 1D LUT, and 3x4 CTM color pipelines.
 
-The problem with the existing code is that IRQ handlers reference 
-in-flight state, especially dc_stream_state. The solution is to decouple 
-the state the IRQ handlers need from anything in flight. But its liable 
-to break things, hence I'd rather be a bit more thorough with validation.
+> diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
+> index baef70460da93..2f62050524b2c 100644
+> --- a/drivers/gpu/drm/drm_colorop.c
+> +++ b/drivers/gpu/drm/drm_colorop.c
+[ ... ]
+> @@ -313,6 +328,26 @@ int drm_plane_colorop_curve_1d_init(struct drm_devic=
+e *dev,
+>  }
+>  EXPORT_SYMBOL(drm_plane_colorop_curve_1d_init);
+> =20
+> +int drm_crtc_colorop_curve_1d_init(struct drm_device *dev,
+> +				   struct drm_colorop *colorop,
+> +				   struct drm_crtc *crtc,
+> +				   const struct drm_colorop_funcs *funcs,
+> +				   u64 supported_tfs, uint32_t flags)
+> +{
+> +	int ret;
+> +
+> +	ret =3D drm_colorop_has_supported_tf(dev, &crtc->base, crtc->name, supp=
+orted_tfs);
+> +	if (ret)
+> +		return ret;
 
-I hope you'll see patches for it soon-ish.
+[Severity: Low]
+When drm_colorop_has_supported_tf() rejects supported_tfs here, does it
+log the CRTC with a [PLANE:%d:%s] prefix?  Both drm_err() messages in
+drm_colorop_has_supported_tf() hardcode [PLANE:%d:%s].
 
-Harry
+> +
+> +	ret =3D drm_crtc_colorop_init(dev, colorop, crtc, funcs, DRM_COLOROP_1D=
+_CURVE, flags);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return drm_common_colorop_curve_1d_init(dev, colorop, supported_tfs, fl=
+ags);
+> +}
+> +EXPORT_SYMBOL(drm_crtc_colorop_curve_1d_init);
+
+[Severity: High]
+This problem wasn't introduced by this patch, but if property creation
+fails in drm_common_colorop_init() or in a subtype helper such as
+drm_common_colorop_curve_1d_init() [1], does it leave colorop
+registered in dev->mode_config.object_idr and linked in
+config->colorop_list with colorop->state still NULL?
+
+drm_common_colorop_init() calls drm_mode_object_add() and adds
+colorop->head to config->colorop_list before creating the base properties,
+while colorop->state is only allocated at the end of the subtype helper by
+drm_colorop_reset():
+
+drivers/gpu/drm/drm_colorop.c:drm_common_colorop_init() {
+	ret =3D drm_mode_object_add(dev, &colorop->base, DRM_MODE_OBJECT_COLOROP);
+	if (ret)
+		return ret;
+	...
+	list_add_tail(&colorop->head, &config->colorop_list);
+	colorop->index =3D config->num_colorop++;
+	...
+	prop =3D drm_property_create_enum(dev,
+					DRM_MODE_PROP_IMMUTABLE,
+					"TYPE", drm_colorop_type_enum_list,
+					ARRAY_SIZE(drm_colorop_type_enum_list));
+
+	if (!prop)
+		return -ENOMEM;
+}
+
+If any property allocation fails, neither drm_common_colorop_init() nor
+the subtype helpers unwind the registration, so querying the published
+mode object via DRM_IOCTL_MODE_OBJ_GETPROPERTIES will hit a NULL pointer
+dereference on colorop->state in drm_atomic_colorop_get_property().
+
+> @@ -402,6 +437,37 @@ drm_plane_colorop_curve_1d_lut_init(struct drm_devic=
+e *dev,
+>  }
+>  EXPORT_SYMBOL(drm_plane_colorop_curve_1d_lut_init);
+> =20
+> +/**
+> + * drm_crtc_colorop_curve_1d_lut_init - Initialize a DRM_COLOROP_1D_LUT
+> + *
+> + * @dev: DRM device
+> + * @colorop: The drm_colorop object to initialize
+> + * @crtc: The associated drm_crtc
+> + * @lut_size: LUT size supported by driver
+> + * @interpolation: 1D LUT interpolation type
+> + * @flags: bitmask of misc, see DRM_COLOROP_FLAG_* defines.
+> + * @return zero on success, -E value on failure
+> + */
+> +int
+> +drm_crtc_colorop_curve_1d_lut_init(struct drm_device *dev,
+> +				   struct drm_colorop *colorop,
+> +				   struct drm_crtc *crtc,
+> +				   const struct drm_colorop_funcs *funcs,
+
+[Severity: Low]
+The kernel-doc comment for drm_crtc_colorop_curve_1d_lut_init() omits the
+@funcs parameter description (and uses @return instead of Return:), which
+triggers a scripts/kernel-doc warning when building documentation or with
+W=3D1.
+
+[1] https://sashiko.dev/#/bug/linux-e4f43398-10d0-4ccc-944b-469733dc5b85
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124181652.1333=
+986-1-mwen@igalia.com?part=3D11
