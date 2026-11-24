@@ -2,89 +2,82 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14F2B606A68B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87F2E606A323
 	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 15:54:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=okonski-org.20260707.gappssmtp.com header.i=@okonski-org.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=lfcsPDRr
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jgaS/xsT
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E17B10F742;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF42510F74F;
 	Tue, 24 Nov 2026 15:54:51 +0000 (UTC)
-Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com
- [209.85.208.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 164D110F62B
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Nov 2026 14:07:07 +0000 (UTC)
-Received: by mail-lj1-f175.google.com with SMTP id
- 38308e7fff4ca-3adfed9a887so41203521fa.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Nov 2026 06:07:07 -0800 (PST)
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
+ [209.85.221.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADCE310F65A
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Nov 2026 14:14:55 +0000 (UTC)
+Received: by mail-wr1-f45.google.com with SMTP id
+ ffacd0b85a97d-492fcbfaa88so2960511f8f.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Nov 2026 06:14:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=okonski-org.20260707.gappssmtp.com; s=20260707; t=1795529225; x=1796134025;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=xd4RdrnuYBeyiNKGIItFmSNJEjiD9KZt74bomDMs038=;
- b=lfcsPDRrZJ08Yl8qiBwG5khtMtDhHwvl2ZpILB3HvxZJ0M7uW0qB5YhlVN1Urm/u4k
- UleHX16DhYtdfhgYyB0BpL3Cr9XqL59mXjyaMYeg1nf8zPwdZvKFKslU124w6DSQQKmW
- hPGyO+aXlO5TRUXTxrEkI4xZrxb11mDttDCQpIuy34s83T+yn9W9vUyY/uAtx7A3D+nP
- jVPiHKiomg7utNCzjkKvf0hb3VCcneBer20qoawbIvycBQzGJSh5pX1nSBNBeqvc9FT6
- yN8L0xnbHejF1ls+zjxqhzZrfo/SxKYaZEptyYdfQBI/BSQq9suXoCcitnzpYe71X231
- tzkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795529225; x=1796134025;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20260707; t=1795529694; x=1796134494; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=xd4RdrnuYBeyiNKGIItFmSNJEjiD9KZt74bomDMs038=;
- b=X/h1z38VrK926QkAMRMZwILrGP3ABzsdqjPUu4CEpiDPVpukYGBtRjC6mnFIOcdZDc
- xa5yiAfh24IhdwuU0keRS/muJOn3ZmGk7idhH5gpaAfPEmJ/j6nljyGsGmqWRAtVk6AS
- HWkfGd/hVXlNXeOQdW1fYhyHV39+X1nhv83bP27FByGhqP3SNmsB4HfaRicrQguZXivi
- vkylNEMrzcXBLUNWWhtVR6hLM6So3XXwXvWfL6dKLfXpBfJWpmWxucVjNY9gC/3Ch5Sd
- UlS4kvwLvKQlXwM4YzzKS3PefuzXI4OPZmRZ8YMRp4HRquFObAljmmxq9KkrqRlrgtkU
- kjKA==
-X-Forwarded-Encrypted: i=1;
- AL+hErHsmDmwCltkwkLuOLMpSfvu5nO7d86vR8SPYjpSjw5Nmd6ZE5Voajj63Nr1vboThUECZtyigPfC@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+bfHJuNXB9TrBfGWk5APcVk2g6WAMIk9C/99LvSvJHZYGfeZM9
- /csgsLiJUurLloTYUakmmb8WeIMqkejgom47iSl4sDb1OxmDArkhlt/NxBFB1MCxsIU=
-X-Gm-Gg: AZFdTZem+OdxgVaY26YEKhnU1JhA0f02CadOCsfknZ9sEbRA7VvICW6rmva0Akb6n/n
- j+p+Weat7ibztY5Ln7Y3qNbYA6NTpzdkSs3xyAFn6IUFbwShU3vD4Q9yQicvR5XXHAHpuHkVqEV
- RovoxcDWzQPaXts1e/YEmBvrwNP5dr9KU5IPFU4eBuzWDxeEnf9Lv9AU849G++DFoQgqg+F4jvQ
- A0E/En57STHpbWRwr+PRUhC3GfV4LoJHkGQZ2ini/PGGxow61bSyKt446Q2LqJk1Rhx/4UZnszZ
- 5erllSef8Hb+RjORqatGQRHWhcuUbXxMWZuMvxo0vOUs1TrLGabubYP7M7S9cgyF1LdVoNwgQ7w
- 4VB2qShFHv1x+Yb8w7vtwbhm+jRdiJwjhVlChqP1HsUJa4cYjirybTlPIaoTOMh+5O+GcKGgmf0
- whp9d2cghcvgJgIVWVfZnj925vqSFrXhtrJiKPira6fVoNEejL+HRnSb0a9XUjiZcZXsaJw3m/U
- 8RSWq4huTiNFL1EYSTFkIKCKzZ24rKDuIPxpsKCc9ZAJmTkiXCByajylygzd1QGDAWNTJ7CFEM4
- 4+rGxUjWySrrfkrHN501STO8qWpCPiTdLLdFbfjKB+EMwvlychgu3PHDEbKAnpF5FzzjCFpXVKP
- AXuqM98fqM3lY6pBJ7uU8VSKLyQPKdObpqfV+XS4qtuK0Dgo4WEMlSHdE2ETlnGqlGGVxWXqDkw
- ==
-X-Received: by 2002:a05:6512:39d4:b0:5c1:57d7:d9f4 with SMTP id
- 2adb3069b0e04-5c1bc7b4c5bmr4508188e87.16.1795529224958; 
- Tue, 24 Nov 2026 06:07:04 -0800 (PST)
-Received: from ?IPV6:2a02:21a0:10:748:1::2? ([2a02:21a0:10:748:1::2])
+ bh=M12X8tjuW0sKi49HLINmGzuFf6BtCLDiS8x3VkrOa38=;
+ b=jgaS/xsTMkpQFvcReN7WYbAfeuhk/aJ1YGOCSVdzzDGDmQCESWeyxKaqRDJexYKK30
+ s3badbkiVgCZ0CyVamEWBePe3SKc1X1NoWd2h8nbxv96BI8PMW8tqiAYkV02Tl7ZLVu1
+ nnAMerp6MwYPvOoQkzdT1bSCCostJ/2Ce9LFpgoaTeS7NAecBu0AzYA6XH/JnuLX8TOl
+ rApxZmePC4MQQ6TWORkb5Cgdf/346RlpOsB5qHr1ykcPyKMUSfmCywoCm8++keAWmVU4
+ ExwThnAoTg6nOWPFsPpnyNtAfTaIuWMZTsjFAw58i3VIHir6cJhXL0m/9UODC4krCVmy
+ btDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795529694; x=1796134494;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=M12X8tjuW0sKi49HLINmGzuFf6BtCLDiS8x3VkrOa38=;
+ b=FCETIebjYZcLzNjMwSVBYFMUoN1Bk7o6Jv7R9f7ny+hYpB0PnKjChaE5mrBGFAZdm1
+ lX3msju69VDQDfXbe60QPO5dJg4y2AdfsY0Ow6F78XxDNRqw5jWzEOS3QT0CoqONQuDa
+ r7sNwxW+qt/k4OrNiK8H+m+lQrjb11Voz4wgU7MXc9lgpQv/xkySIh/EJQu0TYq/68u0
+ DNQGZgMTcGvzgAKIX8NoMEjNW6DHnJflGEt0hJ5lTK9vx+hzZ3ByY/KqF56RZ4IZ4/TL
+ eTDp9W3JdMwwXGRjacB/mzb1xqLIV/yjzzvdWaYhxmx6QvNVq5+v5KqYci0udOyYT4xh
+ rRGw==
+X-Gm-Message-State: APuU4Z8yB48KNTGp+o7EY1vugLFepCLkRDZ/BAkNHXBRrHyAl1R8Vf/2
+ ZL6YruG/c9o2X3KNDQijYtmVjh3V3aGAW33BS9tRT3vNT5NL/miEFVgIcQG6Au88Jo8=
+X-Gm-Gg: AZFdTZe3X/Pn5qX3NsS6OYfAO3m3brqd8IV6BCD124yFmYjTuvrmon+kb87vselo2ul
+ fybhkRsXnbf/efJyJlh+UNatYqiTMBVTJKoDyTtfo3fNZo6ZpvnHipN7GPwu4NQ6WnSMxks/tMC
+ DQGSqv6C2C+QOIZRp1m5rS+sVDp6jHbj6rAjQcCBBp3wYQeW8cL6RUA4SCLjgB4POkOGB2DX7tb
+ IMQRZ6iXY2saYSWGtcmXHroG3O119AfhYm8dPymYgPHxOmSYnRp/LKOcoeZsOIKNvKYqdqYVb0s
+ IRSF3i/b1l6by5b80oAj05yXf8uhgWnyFDarQ7fPOhVHU4LrlAlqpuQ33pvMikaMT26Kcr1X/ET
+ vcCxZsm3/iNSofHVPnZjavQad3VaVlvzd9fU1ioIrCiEE2zHjwL2kj5gCljFD6AVIFu89RzKdAR
+ 4sNFd4ZeE4toHrndqiWrWQqPDpuSzVTgLXEYqXrMijmxR2E3kPdkUR/MgyMvz6HugTLMBrhfve5
+ u7DPfrDj9dCJNdxXsu0SQ3lHlfULqxuH5ftbQrVQ5BkR1qSYMIRZV+VjIvKTFrMdNqZWKpPrSkf
+ fpOTVevcjF4t5Cz7YegrW+DW7GdCNlIr/CNhIoIpRcYFE8zxmKfuesA137C1DseV8S9sdkyK+K6
+ BbqI2XW3ol5L4niXXD4TnmGPm5EasoRiZbQtMXkqX2PhDXA==
+X-Received: by 2002:a05:6000:3107:b0:4aa:1ae2:ff2a with SMTP id
+ ffacd0b85a97d-4abaa977260mr35741366f8f.2.1795529693775; 
+ Tue, 24 Nov 2026 06:14:53 -0800 (PST)
+Received: from localhost (2001-1ae9-5b-ad10-2088-6b73-139a-ba27.ip6.tmcz.cz.
+ [2001:1ae9:5b:ad10:2088:6b73:139a:ba27])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5c1bcf332c9sm3842243e87.7.2026.11.24.06.07.02
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 Nov 2026 06:07:04 -0800 (PST)
-Message-ID: <4daad602-10e4-4cd6-9cf9-7f47f77a7922@okonski.org>
-Date: Tue, 24 Nov 2026 15:07:01 +0100
+ ffacd0b85a97d-4ab6bc8ce06sm27575587f8f.47.2026.11.24.06.14.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 24 Nov 2026 06:14:53 -0800 (PST)
+From: Arisa Snowbell <arisa.snowbell@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Vitaly Prosyak <Vitaly.Prosyak@amd.com>,
+ Sunil Khatri <Sunil.Khatri@amd.com>,
+ Arisa Snowbell <arisa.snowbell@gmail.com>
+Subject: [PATCH v3] drm/amdgpu/userq: keep the restore worker out of system
+ sleep
+Date: Tue, 24 Nov 2026 15:14:16 +0100
+Message-ID: <20261124141416.11034-1-arisa.snowbell@gmail.com>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261124130258.1270242-1-arisa.snowbell@gmail.com>
+References: <20261124130258.1270242-1-arisa.snowbell@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 2/2] drm/amd/display: Skip flip_done wait for
- non-modeset TEST_ONLY checks
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-Cc: dri-devel@lists.freedesktop.org, harry.wentland@amd.com,
- sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- amd-gfx@lists.freedesktop.org
-References: <20261123220913.937402-1-jakub@okonski.org>
- <20261123220913.937402-3-jakub@okonski.org>
- <47ee6326-08ca-4dcd-866b-3a543cb15665@mailbox.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Jakub_Oko=C5=84ski?= <jakub@okonski.org>
-In-Reply-To: <47ee6326-08ca-4dcd-866b-3a543cb15665@mailbox.org>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 24 Nov 2026 15:54:45 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -97,15 +90,120 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/24/26 14:05, Michel Dänzer wrote:
-> Does a commit with both DRM_MODE_ATOMIC_ALLOW_MODESET & DRM_MODE_ATOMIC_TEST_ONLY set really need to wait for pending flips to complete? Why?
+Before system sleep, amdgpu_device_prepare() moves all BOs out of VRAM.
+When it evicts a BO of a process with user queues, the eviction fence of
+that process signals, and amdgpu_eviction_fence_suspend_worker() queues
+the restore worker on system_wq. That workqueue is not frozen, so the
+restore worker runs while the eviction is still going on and moves the
+BOs back into VRAM, waiting for the page table updates while it holds
+their reservations.
 
-I was not confident at all and tried to keep this change narrow. It's
-possible this could be relaxed further but I have not tried it.
+On an RX 9070 XT (gfx12) this hung S3 suspend for good after a few hours
+of uptime. A restore worker waited forever on a page table update fence
+while holding the reservations, and systemd-sleep waited in
+ttm_bo_evict_first() for one of them.
+
+Queue the restore worker on system_freezable_wq, like the amdkfd restore
+workers. Its work is frozen before dpm_prepare(), so a restore queued
+during the eviction stays pending until amdgpu_userq_suspend() cancels
+it.
+
+The processes are then still evicted at resume, so amdgpu_userq_resume()
+must not map their queues: their BOs are not validated and their page
+tables are out of date. Mapping them made MES time out on ADD_QUEUE and
+the resume fail with -110. Queue the restore worker for them instead,
+which validates the BOs, rearms the eviction fence and maps the queues
+once the system is thawed.
+
+Fixes: 44cfdf368fb7 ("drm/amdgpu: resume gfx userqueues")
+Signed-off-by: Arisa Snowbell <arisa.snowbell@gmail.com>
+---
+v3: bring back the resume change from v1: amdgpu_userq_resume() does not
+    map the queues of processes whose BOs are evicted, and queues the
+    restore worker for them instead. With v2 alone, resume mapped them
+    with the BOs still evicted, MES timed out on ADD_QUEUE and the resume
+    failed with -110.
+
+v2: drop the restore block flag and the resume changes, only move the
+    restore worker to system_freezable_wq (Christian). v1 claimed that
+    for hibernation dpm_prepare() runs before freeze_kernel_threads(),
+    which is wrong.
+
+Tested with S3 on an RX 9070 XT, with the desktop (Hyprland) and a game
+on user queues: suspend and resume complete and the queues keep running.
+Rendering after resume is still corrupted (the game, and small artifacts
+on the desktop), but that also happens with kernel queues; I'll report
+it separately.
+
+ .../drm/amd/amdgpu/amdgpu_eviction_fence.c    |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c     | 19 ++++++++++++++++++-
+ 2 files changed, 19 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
+index f8652fd0525d..18b11d7f457e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
+@@ -91,7 +91,7 @@ amdgpu_eviction_fence_suspend_worker(struct work_struct *work)
+ 	dma_fence_put(ev_fence);
+ 
+ 	if (!evf_mgr->shutdown)
+-		schedule_delayed_work(&uq_mgr->resume_work, 0);
++		queue_delayed_work(system_freezable_wq, &uq_mgr->resume_work, 0);
+ 
+ 	mutex_unlock(&uq_mgr->userq_mutex);
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+index 9fc8e9e97595..4f41163a0a55 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -456,7 +456,7 @@ amdgpu_userq_ensure_ev_fence(struct amdgpu_userq_mgr *uq_mgr,
+ 		 * Looks like there was no pending resume work,
+ 		 * add one now to create a valid eviction fence
+ 		 */
+-		schedule_delayed_work(&uq_mgr->resume_work, 0);
++		queue_delayed_work(system_freezable_wq, &uq_mgr->resume_work, 0);
+ 		goto retry;
+ 	}
+ 	dma_fence_put(ev_fence);
+@@ -1428,6 +1428,16 @@ int amdgpu_userq_suspend(struct amdgpu_device *adev)
+ 	return 0;
+ }
+ 
++static bool amdgpu_userq_evicted(struct amdgpu_userq_mgr *uq_mgr)
++{
++	struct amdgpu_fpriv *fpriv = uq_mgr_to_fpriv(uq_mgr);
++	struct dma_fence *ev_fence = amdgpu_evf_mgr_get_fence(&fpriv->evf_mgr);
++	bool evicted = dma_fence_is_signaled(ev_fence);
++
++	dma_fence_put(ev_fence);
++	return evicted;
++}
++
+ int amdgpu_userq_resume(struct amdgpu_device *adev)
+ {
+ 	struct amdgpu_usermode_queue *queue;
+@@ -1438,6 +1448,13 @@ int amdgpu_userq_resume(struct amdgpu_device *adev)
+ 	xa_for_each(&adev->userq_doorbell_xa, queue_id, queue) {
+ 		uqm = queue->userq_mgr;
+ 		guard(mutex)(&uqm->userq_mutex);
++
++		/* The BOs moved, let the restore worker validate them first */
++		if (amdgpu_userq_evicted(uqm)) {
++			queue_delayed_work(system_freezable_wq, &uqm->resume_work, 0);
++			continue;
++		}
++
+ 		if (adev->in_s0ix)
+ 			r = amdgpu_userq_restore_helper(queue);
+ 		else
+-- 
+2.56.1
+
