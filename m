@@ -2,112 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3599606A684
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 08:43:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 354FC606A31E
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 08:44:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=gC4FdWUQ
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NeNsn6Sp
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6655C10F32E;
-	Tue, 24 Nov 2026 08:43:33 +0000 (UTC)
-Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com
- [209.85.222.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEFB210E5B2
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Nov 2026 16:57:18 +0000 (UTC)
-Received: by mail-qk1-f170.google.com with SMTP id
- af79cd13be357-93f2049ea7aso262056085a.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Nov 2026 08:57:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1795453038; x=1796057838; darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=j5i4WU3qjrhh//MRl3wcVLLT33h5NdpwdC0V5dWlBjs=;
- b=gC4FdWUQIkp8XkC2othmWWiR4p4NdW04zySqz727AbSirFysjTBiiOcNfgvyd2epdr
- oSGSRMxzVzpnc5QvF/nLjYu+K18jJzgX4dDGfokGgHPfxCGD3+CJuLgvpuHwAl/VMYqy
- VbUWspgRs7fIb4Wvq2mACbx3B+BZakc+GWKZ8sRqQ0FXXZ6Vh83Xlab+5FUyA2SzAAYs
- IPt8otyg1z3oqSzYMh/c5i267qZwlIXxZgHpT3otg3qNCsEipx0yqGamGqGVt6hS1rIW
- gmwCRCHqtm033xpEbZzEuf+o0PoJrTxs+EV93bQ9nBKdsv+S2ZuoPco8WR4HjtBCdSBN
- nkng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795453038; x=1796057838;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=j5i4WU3qjrhh//MRl3wcVLLT33h5NdpwdC0V5dWlBjs=;
- b=jsbmye1SPoJXgTVlkA/Y7W0HQM+IZWoyItI5UFKGjRdrH6/O/qTgm48ZXMexI9YinX
- bt6u7kHBQzXAWEek3UgCz0Wo+Tkwh/5md7oRhYeeAFQCvOxbWVbZZObn9YrQUmzENkFF
- kytpm/H85Uy3ImPHQqhx7dfEZU8AiiDdMcHr2gJ6m2im1TyFv1v2vQ01Z7gza/91B0CS
- 08n5C4tQmwjULk6EBfHibHaKW7yhcwexHwtvmPFnBbluepGTHEgXMnX49RxbUqQBmJhp
- trcwJ0OxPdEjm6D12OqveL41w/43UntgSqmrtTBuAoaxxxV65tUr1Mmq7lm27vDO+mxy
- vTTQ==
-X-Forwarded-Encrypted: i=1;
- AL+hErGBh32JrmGw+WLdAYuhXklAbZs4DzdY/lmQjLdV1fciBfffPYC++vvoVXPxFyRZXlqO/jPPJqdN@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/uNud4aKQ8lgERw01GdPkoeBlfPA8pvj53jsAgMarhAa4BQpH2
- kZ1qzzbaxjMH2plVEB4bDku6GjwMdyvCtic2G6eR9ijY0BXL0QKRL1YQ/uLpEqiWo0c=
-X-Gm-Gg: AZFdTZdD72SLMyFv9n4VnEqUgKhUAB3YGUIDNl5Tpy3kl1m4UO8sXQGhb9ZhqJJH/C3
- Ii1gFo+hJoEgM0jEik7Zi1bbU93caDWre3+jNgmekfkEldWxHt6knYjPIhEIvkbCEo8TimQ/Bhj
- TUBa1lcrxjFQ/ZZJEXu5+zWkgNLrd5dGFYA3262y3KdGhO7myFmbfUefCc4n0Z58yuiHd5l4GIW
- GoJADVs+rxepuf7vL2IArW57r/mxpythaxRjxzp/N5qx2aiW34Sxuo8DHgefjABA9I7tX87GpWL
- zv4JEk+C7z3dCJLkYxySeBHByRhiH7e7XTjmwPmP7AyXAKxUA8wsQNHjpP4972tTIvi2WcCaub/
- eJRXhJYGPrMpZtUfgYBiL5acqgD8tUsGYAmO4jhZDiRSFqZX522ZTW+pmQLx9/5rkv2Du55uQ9p
- 8viAEBqVMI1/kpLw+DwR9mXRF9+KjO8oGAWGDyo4jDnfldQdIKZwxJBtDnRmJ5V/Uuidlt+GG8i
- T0O9D8JOfCAIcFkITf2RdxMYYTphJAOFtSr3fbCcNMgdRVOtfChyBdCtSBlSt9eC2x8PjdC2Ixi
- TjrN94mcTCS3QDNUL7vteBsMk5kMmJ5gq+3ksHOz/wBmVh3Qhl6f9KvoKHExAJ2nE2CLCyr+TMX
- Wf57f+R2aEdoOpdWBkDTn3L71
-X-Received: by 2002:a05:620a:270d:b0:949:8109:8bcd with SMTP id
- af79cd13be357-949bab6d24dmr1950593985a.77.1795453037117; 
- Mon, 23 Nov 2026 08:57:17 -0800 (PST)
-Received: from ziepe.ca
- (stjhnbsu6iw-159-2-142-59.dhcp-dynamic.fibreop.nb.bellaliant.net.
- [159.2.142.59]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-949bb031601sm844162485a.6.2026.11.23.08.57.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Nov 2026 08:57:16 -0800 (PST)
-Received: from jgg by wakko with local (Exim 4.97)
- (envelope-from <jgg@ziepe.ca>) id 1xVXLw-00000000woc-0Jy7;
- Mon, 23 Nov 2026 12:57:16 -0400
-Date: Mon, 23 Nov 2026 12:57:16 -0400
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Cc: Alistair Popple <apopple@nvidia.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Simona Vetter <simona.vetter@ffwll.ch>,
- Matthew Brost <matthew.brost@intel.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- Dongwon Kim <dongwon.kim@intel.com>, Kevin Tian <kevin.tian@intel.com>,
- Xu Yilun <yilun.xu@linux.intel.com>,
- Karl Mehltretter <kmehltretter@gmail.com>,
- Baolu Lu <baolu.lu@linux.intel.com>,
- Felix Kuehling <felix.kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- linux-rdma@vger.kernel.org, iommu@lists.linux.dev,
- Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
- Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
- linux-nvme@lists.infradead.org, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>,
- Mina Almasry <almasrymina@google.com>, netdev@vger.kernel.org,
- Alexey Kardashevskiy <aik@amd.com>, zhipingz@meta.com,
- treding@nvidia.com, jhubbard@nvidia.com, chaitanyak@nvidia.com,
- Leon Romanovsky <leon@kernel.org>
-Subject: Re: [PATCH v3 03/24] dma-buf: Add the SGT DMA mapping type
-Message-ID: <20261123165716.GM179082@ziepe.ca>
-References: <20261120-dma_mapping_type_v4-v3-0-c0183a409bdf@nvidia.com>
- <20261120-dma_mapping_type_v4-v3-3-c0183a409bdf@nvidia.com>
- <ad46d60a-189d-4dd5-9ad8-ecfd3c90f9d9@amd.com>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90D9710F338;
+	Tue, 24 Nov 2026 08:44:28 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B8EE510F338;
+ Tue, 24 Nov 2026 08:44:22 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 7728140A9E;
+ Tue, 24 Nov 2026 08:44:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17FCD1F000D4;
+ Tue, 24 Nov 2026 08:44:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795509862;
+ bh=Uno6cz/C9VCajFHjx36evDu1cZ1/XheOtk2U4mB1NfU=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=NeNsn6Spf/y3iyEUL0EqTqB7UsHG5oJW3KUSEl7KNocf9WaVp82h1ompGdEwwHsGi
+ K8x5KJu3GKtmq6t59u6VJCKx7H7AVbyT1OaZm7fx3sUjxw5DlNRCoL6vXaFbFp1ngR
+ rc31sWIQVUKO7kvm+Ip39RNsSGEROhhRgxP0gRWDqfkNcu/PhKVI9aspmvcLk+M18a
+ emU1BBfwg4uH2TqsTq8iov72zG8uI+km0anLl1WBO4tQyuZxMcsK9L6vM4l8JVfEIv
+ eQYvhqkWbdV2Jcun1eJfexDiuayugyqZem4CgXdTod7ABRbvbNTNJLrucomFGpDG6r
+ D8ROX6LXLsB2Q==
+Message-ID: <sashiko-outbox-230735@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/amdgpu: fix wrong unit of vf2pf_work delay
+To: "Sang-Heon Jeon" <ekffu200098@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20261123175513.2144018-1-ekffu200098@gmail.com>
+References: <20261123175513.2144018-1-ekffu200098@gmail.com>
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ad46d60a-189d-4dd5-9ad8-ecfd3c90f9d9@amd.com>
-X-Mailman-Approved-At: Tue, 24 Nov 2026 08:40:19 +0000
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 24 Nov 2026 08:44:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,50 +46,91 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Mon, Nov 23, 2026 at 02:36:46PM +0100, Christian König wrote:
-> On 11/20/26 06:55, Alistair Popple wrote:
-> > From: Jason Gunthorpe <jgg@nvidia.com>
-> > 
-> > The SGT (Scatter Gather Table) DMA mapping type represents the existing
-> > sg_table/scatterlist based DMA mapping. For now it continues to use a
-> > sg_table for map/unmap, but this will allow a future patch series to
-> > convert to using a different data structure for importers without having
-> > to convert all at once.
-> 
-> I strongly think we shouldn't have an SGT mapping type in the new DMA-buf mapping API.
-> 
-> Instead we should have something like either an array or an xarray
-> of DMA addresses.
+Thank you for your contribution! Sashiko AI review found no new issues
+in this patch, but noticed 1 related pre-existing issue it does not
+introduce:
+- [Critical] drm/amdgpu: uncanceled vf2pf_work in
+  amdgpu_virt_fini_data_exchange() [1]
+--
 
-My plan was always to get there, but I don't think it is reasonable to
-start there? There are too many places all over the place that are
-just hardwired to do SGT right now.
+commit a187e6fa4054f858fa9ab261be0ca76b1509f22d
+Author: Sang-Heon Jeon <ekffu200098@gmail.com>
 
-Part of the design of this series was to allow the conversion away
-from SGT to be done incrementally without breaking compatibility.
+drm/amdgpu: fix wrong unit of vf2pf_work delay
 
-So it is effectively this:
+This commit converts adev->virt.vf2pf_update_interval_ms to jiffies via
+msecs_to_jiffies() when rescheduling adev->virt.vf2pf_work in
+amdgpu_virt_update_vf2pf_work_item().
 
-> The framework should then either connect the SGT directly if both
-> importer and export are using the "classic" interface 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_virt.c
+> index 915e2a069bafb..f93d5df51528c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> @@ -797,7 +797,8 @@ static void amdgpu_virt_update_vf2pf_work_item(struct=
+ work_struct *work)
+>  	amdgpu_virt_write_vf2pf_data(adev);
+> =20
+>  out:
+> -	schedule_delayed_work(&(adev->virt.vf2pf_work), adev->virt.vf2pf_update=
+_interval_ms);
+> +	schedule_delayed_work(&(adev->virt.vf2pf_work),
+> +			      msecs_to_jiffies(adev->virt.vf2pf_update_interval_ms));
+>  }
+> =20
+>  static int amdgpu_virt_read_exchange_data_from_mem(struct amdgpu_device =
+*adev, uint32_t *pfvf_data)
 
-And this:
+[Severity: Critical]
+This problem wasn't introduced by this patch, but can [1] leave
+adev->virt.vf2pf_work running after amdgpu_virt_fini_data_exchange() if
+amdgpu_virt_read_pf2vf_data() fails?
 
-> or convert
-> from DMA-addr array to SGT and back if either of them are using this
-> new interface.
+amdgpu_virt_init_data_exchange() resets adev->virt.vf2pf_update_interval_ms
+to 0, calls amdgpu_virt_exchange_data() -> amdgpu_virt_read_pf2vf_data()
+without checking its return value, and schedules adev->virt.vf2pf_work:
 
-Is something I imagined as a followup series.
+drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c:amdgpu_virt_fini_data_exchange() {
+	if (adev->virt.vf2pf_update_interval_ms !=3D 0) {
+		dev_info(adev->dev, "clean up the vf2pf work item\n");
+		cancel_delayed_work_sync(&adev->virt.vf2pf_work);
+		adev->virt.vf2pf_update_interval_ms =3D 0;
+	}
+}
 
-As this is actually quite complicated and needs discussion exactly
-what it will look like.
+drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c:amdgpu_virt_init_data_exchange() {
+    ...
+	adev->virt.vf2pf_update_interval_ms =3D 0;
+    ...
+	} else if (fw_va || drv_va) {
+		/* go through this logic in ip_init and reset to init workqueue*/
+		amdgpu_virt_exchange_data(adev);
 
-Jason
+		schedule_delayed_work(&(adev->virt.vf2pf_work), msecs_to_jiffies(adev->vi=
+rt.vf2pf_update_interval_ms));
+    ...
+}
+
+When PF2VF header validation fails in amdgpu_virt_read_pf2vf_data(),
+vf2pf_update_interval_ms stays 0 while vf2pf_work is scheduled and
+rescheduled here with a zero delay.  Because
+amdgpu_virt_fini_data_exchange() only cancels vf2pf_work when
+vf2pf_update_interval_ms is non-zero, teardown leaves the delayed work
+running in a tight zero-delay loop, leading to accesses to unmapped VRAM and
+a use-after-free on struct amdgpu_device.
+
+[1] https://sashiko.dev/#/bug/linux-904ad1aa-33f1-44b8-a83c-632c07b49537
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123175513.2144=
+018-1-ekffu200098@gmail.com?part=3D1
