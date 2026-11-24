@@ -2,42 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADF82606A332
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 08:40:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 516D9606A33C
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 08:40:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iya9hBvV
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bPrpQjHH
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61AE210F35C;
-	Tue, 24 Nov 2026 08:40:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 762C310F367;
+	Tue, 24 Nov 2026 08:40:26 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82CB810E21F;
- Tue, 24 Nov 2026 06:16:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 878AF10E110;
+ Tue, 24 Nov 2026 06:17:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795501018; x=1827037018;
+ t=1795501034; x=1827037034;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=ul4azt9FF1emwERYdKos2rpuqMO4Ws+3SU0NDITaihg=;
- b=iya9hBvVoG+/KNuWfHrtveFdYNhhcW6VW2PW3jd7KPWQ0OB9xl7LaPlD
- RzNuaNPOxzatiDVFPLlgJJqtgX81sQPQQOqLDK8mhDHJxKKUH2yV7lbUI
- qcddV2fkEoX6Opd6w7FXx6u76yReNy2HF4PIg3b5yxyqRzo6UDL+RXe2V
- avk+kExdOw8fWrkm57fvqQnbpP71GLVX4xKP8ZAjH2m67vKmNAIVwh97d
- 6N1HIAjKxJDt/079pP2rMAwsa/D2q+SjmBgaAET9ZLYK0173ucUH8HV2x
- qxv1tSSCWhoxc4GTQcbcmfXAujJ7GaR3csiT0n60kPNGoXJSbmqJEu3jI w==;
-X-CSE-ConnectionGUID: v+u7WXWTR52lgmz2r3m8Vg==
-X-CSE-MsgGUID: 1ocmPdo8QnqxsxTaxsVd7w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11975"; a="4220045"
+ bh=411/hOWuyMmsU9pl7BrNJyEiVvdO8rPpIPlvVJqMtkg=;
+ b=bPrpQjHHMjv0boJN1p+MGkiNWN1baNYv0R0H7ZJUq8FqMVvFnV3La+GB
+ iAJ1IRO775POY6QaooCgDjv/aETy1Y9oaBo9lIvApeI0LAhgeTQcXVCEF
+ m52R80Y4I3tgSdVt65o1F0zUvkXHd/pbCm1wrIyjRxQU0dlIZiIlG2yCk
+ GqTwrqQC3p87wGkC1NOjJNvHQiQeammYR3xF0rAzA8TeTZ4w406zXLEjS
+ nKOEtna2i+ECMq1xkjRDZXBqKgu41r4q6z0ObYiErVS2HeXIBw+TGAfP2
+ VVIDMeDfuCkwvFRiDE1OFDdedOJcpnAXLIuAz3ZzNzB3yIJDPWeoO0gem A==;
+X-CSE-ConnectionGUID: +rlTQbw+SDOrw8aZDlfjhQ==
+X-CSE-MsgGUID: oKMLytHYQeW8+N8celx0Og==
+X-IronPort-AV: E=McAfee;i="6800,10657,11975"; a="4220089"
 X-IronPort-AV: E=Sophos;i="6.27,230,1787036400"; 
-   d="scan'208";a="4220045"
+   d="scan'208";a="4220089"
 Received: from orviesa008.jf.intel.com ([10.64.159.148])
  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Nov 2026 22:16:58 -0800
-X-CSE-ConnectionGUID: fcgmhKtLRCWOZZWsa5CNdg==
-X-CSE-MsgGUID: UuDau3vATEOj51+z2jwTug==
+ 23 Nov 2026 22:17:14 -0800
+X-CSE-ConnectionGUID: 58Q9eR1HSC2bjLSUDuP0QQ==
+X-CSE-MsgGUID: 4qElOGR2Td6xfpmlF4gGFg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,230,1787036400"; d="scan'208";a="11264117"
+X-IronPort-AV: E=Sophos;i="6.27,230,1787036400"; d="scan'208";a="11264168"
 Received: from hghimira.iind.intel.com ([10.190.239.34])
- by orviesa008.jf.intel.com with ESMTP; 23 Nov 2026 22:16:53 -0800
+ by orviesa008.jf.intel.com with ESMTP; 23 Nov 2026 22:17:10 -0800
 From: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
 To: Natalie Vock <natalie.vock@gmx.de>,
  Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
@@ -49,9 +49,9 @@ Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Matthew Brost <matthew.brost@intel.com>, dri-devel@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
-Subject: [RFC v2 03/11] drm/ttm: Add TTM_NUMA_POLICY_INTERLEAVE
-Date: Tue, 24 Nov 2026 11:51:27 +0530
-Message-ID: <20261124062123.2431244-16-himal.prasad.ghimiray@intel.com>
+Subject: [RFC v2 08/11] drm/xe/bo: Carry a per-BO host NUMA mempolicy
+Date: Tue, 24 Nov 2026 11:51:32 +0530
+Message-ID: <20261124062123.2431244-21-himal.prasad.ghimiray@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261124062123.2431244-13-himal.prasad.ghimiray@intel.com>
 References: <20261124062123.2431244-13-himal.prasad.ghimiray@intel.com>
@@ -77,184 +77,467 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add TTM_NUMA_POLICY_INTERLEAVE to enum ttm_numa_policy. With this policy,
-each page allocation is rotated across the nodes in
-ttm_operation_ctx.numa_info.nodes, so consecutive allocations are spread
-over the policy nodes. The rotation index wraps around the node weight.
+Store a host NUMA memory policy in the BO and apply it when the TT
+populates its backing pages. Populate can run from another task, such
+as eviction or shrinker restore, so the BO owns a copy of the policy
+and the TT holds a const pointer to it. The copy is freed with the BO.
 
-If the rotated node cannot provide a page of the requested order, the
-other policy nodes are tried before the order is lowered. This keeps
-high order pages when one node is short on memory, as core mm does for
-interleaved THP.
-
-The pool take and the allocation for an order use the same node, so
-cached pages come from the node the allocation would have used.
+xe_bo_init_locked(), __xe_bo_create_locked() and xe_bo_create_novm()
+take the policy as an argument, and xe_bo_create_user() takes it too.
+The GEM_CREATE ioctl and the other callers pass NULL for now, so there
+is no functional change. The ioctl starts using the policy in the next
+commit.
 
 Signed-off-by: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
 ---
- drivers/gpu/drm/ttm/ttm_pool.c | 91 ++++++++++++++++++++++++++++++++--
- include/drm/ttm/ttm_bo.h       |  3 ++
- 2 files changed, 91 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/xe/tests/xe_bo.c      | 12 ++---
+ drivers/gpu/drm/xe/tests/xe_dma_buf.c |  4 +-
+ drivers/gpu/drm/xe/tests/xe_migrate.c |  8 ++--
+ drivers/gpu/drm/xe/xe_bo.c            | 69 ++++++++++++++++++++-------
+ drivers/gpu/drm/xe/xe_bo.h            |  5 +-
+ drivers/gpu/drm/xe/xe_bo_types.h      | 24 ++++++++++
+ drivers/gpu/drm/xe/xe_dma_buf.c       |  3 +-
+ 7 files changed, 94 insertions(+), 31 deletions(-)
 
-diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
-index 4a7775bfd0fb..f140cc95e965 100644
---- a/drivers/gpu/drm/ttm/ttm_pool.c
-+++ b/drivers/gpu/drm/ttm/ttm_pool.c
-@@ -373,6 +373,38 @@ static struct page *ttm_pool_type_take(struct ttm_pool_type *pt, int nid)
- 	return p;
- }
+diff --git a/drivers/gpu/drm/xe/tests/xe_bo.c b/drivers/gpu/drm/xe/tests/xe_bo.c
+index 6a17e13d58cf..0bc7d4572549 100644
+--- a/drivers/gpu/drm/xe/tests/xe_bo.c
++++ b/drivers/gpu/drm/xe/tests/xe_bo.c
+@@ -89,7 +89,7 @@ static void run_only_leaf(struct kunit *test,
  
-+/* Return the node in @nodes nearest to @from, lowest node id on ties */
-+static int ttm_pool_nearest_node(int from, const nodemask_t *nodes)
-+{
-+	int n, nid = first_node(*nodes);
-+
-+	for_each_node_mask(n, *nodes) {
-+		if (node_distance(from, n) < node_distance(from, nid))
-+			nid = n;
-+	}
-+
-+	return nid;
-+}
-+
-+/* Take from @nid first, then from the other nodes nearest to @nid first */
-+static struct page *ttm_pool_type_take_interleave(struct ttm_pool_type *pt,
-+						  int nid, const nodemask_t *nodes)
-+{
-+	nodemask_t todo = *nodes;
-+	struct page *p;
-+
-+	p = ttm_pool_type_take(pt, nid);
-+	node_clear(nid, todo);
-+	while (!p && !nodes_empty(todo)) {
-+		int n = ttm_pool_nearest_node(nid, &todo);
-+
-+		node_clear(n, todo);
-+		p = ttm_pool_type_take(pt, n);
-+	}
-+
-+	return p;
-+}
-+
- /* Initialize and add a pool type to the global shrinker list */
- static void ttm_pool_type_init(struct ttm_pool_type *pt, struct ttm_pool *pool,
- 			       enum ttm_caching caching, unsigned int order)
-@@ -780,6 +812,17 @@ static unsigned int ttm_pool_alloc_find_order(unsigned int highest,
- 	return min_t(unsigned int, highest, __fls(alloc->remaining_pages));
- }
+ 	bo = xe_bo_create_user(xe, NULL, li->alloc_size,
+ 			       DRM_XE_GEM_CPU_CACHING_WC,
+-			       XE_BO_FLAG_VRAM0, NULL);
++			       XE_BO_FLAG_VRAM0, NULL, NULL);
+ 	if (IS_ERR(bo)) {
+ 		page_size_alloc_restore(xe, &saved);
+ 		if (PTR_ERR(bo) == -ENOSPC) {
+@@ -183,7 +183,7 @@ static void xe_bo_page_size_alloc_mixed_bos(struct kunit *test)
+ 		 */
+ 		bo = xe_bo_create_user(xe, NULL, SZ_1G,
+ 				       DRM_XE_GEM_CPU_CACHING_WC,
+-				       XE_BO_FLAG_VRAM0, NULL);
++				       XE_BO_FLAG_VRAM0, NULL, NULL);
+ 		if (IS_ERR(bo)) {
+ 			int err = PTR_ERR(bo);
  
-+/* Return the @n-th node set in @nodes, wrapping around the node weight */
-+static int ttm_pool_policy_nth_node(const nodemask_t *nodes, unsigned int n)
-+{
-+	int nid = first_node(*nodes);
-+
-+	for (n %= nodes_weight(*nodes); n; n--)
-+		nid = next_node(nid, *nodes);
-+
-+	return nid;
-+}
-+
- /*
-  * Try the nodes in @nodes once each, nearest first from the local node.
-  * __GFP_THISNODE prevents fallback to nodes outside the policy.
-@@ -830,6 +873,31 @@ static struct page *ttm_pool_alloc_bind(struct ttm_pool *pool, gfp_t gfp_flags,
- 	return p;
- }
+@@ -366,7 +366,7 @@ static void ccs_test_run_tile(struct xe_device *xe, struct xe_tile *tile,
+ 		kunit_info(test, "Testing system memory\n");
  
-+/*
-+ * Allocate pages of size 1 << order for TTM_NUMA_POLICY_INTERLEAVE. Try the
-+ * interleaved node @nid first, then the other nodes in @nodes nearest to @nid
-+ * first, as the per-node zonelist fallback of core mm does, before the caller
-+ * lowers the order.
-+ */
-+static struct page *ttm_pool_alloc_interleave(struct ttm_pool *pool,
-+					      gfp_t gfp_flags, unsigned int order,
-+					      int nid, const nodemask_t *nodes)
-+{
-+	nodemask_t todo = *nodes;
-+	struct page *p;
-+
-+	p = ttm_pool_alloc_page(pool, gfp_flags, order, nid);
-+	node_clear(nid, todo);
-+	while (!p && !nodes_empty(todo)) {
-+		int n = ttm_pool_nearest_node(nid, &todo);
-+
-+		node_clear(n, todo);
-+		p = ttm_pool_alloc_page(pool, gfp_flags, order, n);
-+	}
-+
-+	return p;
-+}
-+
- /* Validate the NUMA request in @ctx against @pool */
- static int ttm_pool_check_numa(struct ttm_pool *pool,
- 			       const struct ttm_operation_ctx *ctx)
-@@ -870,7 +938,7 @@ static int __ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
- 	WARN_ON(alloc->dma_addr && !pool->dev);
+ 	bo = xe_bo_create_user(xe, NULL, SZ_1M, DRM_XE_GEM_CPU_CACHING_WC,
+-			       bo_flags, exec);
++			       bo_flags, NULL, exec);
+ 	if (IS_ERR(bo)) {
+ 		KUNIT_FAIL(test, "Failed to create bo.\n");
+ 		return;
+@@ -445,7 +445,7 @@ static int evict_test_run_tile(struct xe_device *xe, struct xe_tile *tile, struc
+ 		xe_vm_lock(vm, false);
+ 		bo = xe_bo_create_user(xe, vm, 0x10000,
+ 				       DRM_XE_GEM_CPU_CACHING_WC,
+-				       bo_flags, exec);
++				       bo_flags, NULL, exec);
+ 		xe_vm_unlock(vm);
+ 		if (IS_ERR(bo)) {
+ 			KUNIT_FAIL(test, "bo create err=%pe\n", bo);
+@@ -454,7 +454,7 @@ static int evict_test_run_tile(struct xe_device *xe, struct xe_tile *tile, struc
  
- 	if (policy != TTM_NUMA_POLICY_NONE) {
--		/* Start at the single node of the policy */
-+		/* INTERLEAVE rotates below, others start at the first node */
- 		alloc_nid = first_node(*ctx->numa_info.nodes);
- 		take_nid = alloc_nid;
- 	}
-@@ -893,11 +961,24 @@ static int __ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
- 	     order = ttm_pool_alloc_find_order(order, alloc)) {
- 		struct ttm_pool_type *pt;
+ 		external = xe_bo_create_user(xe, NULL, 0x10000,
+ 					     DRM_XE_GEM_CPU_CACHING_WC,
+-					     bo_flags, NULL);
++					     bo_flags, NULL, NULL);
+ 		if (IS_ERR(external)) {
+ 			KUNIT_FAIL(test, "external bo create err=%pe\n", external);
+ 			goto cleanup_bo;
+@@ -719,7 +719,7 @@ static int shrink_test_run_device(struct xe_device *xe)
+ 		/* We can create bos using WC caching here. But it is slower. */
+ 		bo = xe_bo_create_user(xe, NULL, XE_BO_SHRINK_SIZE,
+ 				       DRM_XE_GEM_CPU_CACHING_WB,
+-				       XE_BO_FLAG_SYSTEM, NULL);
++				       XE_BO_FLAG_SYSTEM, NULL, NULL);
+ 		if (IS_ERR(bo)) {
+ 			if (bo != ERR_PTR(-ENOMEM) && bo != ERR_PTR(-ENOSPC) &&
+ 			    bo != ERR_PTR(-EINTR) && bo != ERR_PTR(-ERESTARTSYS))
+diff --git a/drivers/gpu/drm/xe/tests/xe_dma_buf.c b/drivers/gpu/drm/xe/tests/xe_dma_buf.c
+index 792376e965f1..dae03a4f6af1 100644
+--- a/drivers/gpu/drm/xe/tests/xe_dma_buf.c
++++ b/drivers/gpu/drm/xe/tests/xe_dma_buf.c
+@@ -127,7 +127,7 @@ static void xe_test_dmabuf_import_same_driver(struct xe_device *xe)
  
-+		if (policy == TTM_NUMA_POLICY_INTERLEAVE) {
-+			unsigned int slot = tt->num_pages - alloc->remaining_pages;
-+
-+			alloc_nid = ttm_pool_policy_nth_node(ctx->numa_info.nodes,
-+							     slot >> order);
-+			take_nid = alloc_nid;
-+		}
-+
- 		/* First, try to allocate a page from a pool if one exists. */
- 		p = NULL;
- 		pt = ttm_pool_select_type(pool, page_caching, order);
--		if (pt && allow_pools)
--			p = ttm_pool_type_take(pt, take_nid);
-+		if (pt && allow_pools) {
-+			if (policy == TTM_NUMA_POLICY_INTERLEAVE)
-+				p = ttm_pool_type_take_interleave(pt, take_nid,
-+								  ctx->numa_info.nodes);
-+			else
-+				p = ttm_pool_type_take(pt, take_nid);
-+		}
+ 	kunit_info(test, "running %s\n", __func__);
+ 	bo = xe_bo_create_user(xe, NULL, size, DRM_XE_GEM_CPU_CACHING_WC,
+-			       params->mem_mask, NULL);
++			       params->mem_mask, NULL, NULL);
+ 	if (IS_ERR(bo)) {
+ 		KUNIT_FAIL(test, "xe_bo_create() failed with err=%ld\n",
+ 			   PTR_ERR(bo));
+@@ -215,7 +215,7 @@ static void xe_test_dmabuf_move_notify_no_resource(struct xe_device *xe)
  
- 		/*
- 		 * If that fails or previously failed, allocate from system.
-@@ -911,6 +992,10 @@ static int __ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
- 			if (policy == TTM_NUMA_POLICY_BIND)
- 				p = ttm_pool_alloc_bind(pool, gfp_flags, order,
- 							ctx->numa_info.nodes);
-+			else if (policy == TTM_NUMA_POLICY_INTERLEAVE)
-+				p = ttm_pool_alloc_interleave(pool, gfp_flags,
-+							      order, alloc_nid,
-+							      ctx->numa_info.nodes);
- 			else
- 				p = ttm_pool_alloc_page(pool, gfp_flags, order,
- 							alloc_nid);
-diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
-index e7605e7e97ec..d81b0cd6edfc 100644
---- a/include/drm/ttm/ttm_bo.h
-+++ b/include/drm/ttm/ttm_bo.h
-@@ -61,11 +61,14 @@ struct ttm_tt;
-  * @TTM_NUMA_POLICY_BIND: Allocate only from the nodes in
-  *	ttm_operation_ctx.numa_info.nodes, in ascending node order. Never falls
-  *	back to other nodes.
-+ * @TTM_NUMA_POLICY_INTERLEAVE: Allocate chunks round-robin across the nodes
-+ *	in ttm_operation_ctx.numa_info.nodes.
-  */
- enum ttm_numa_policy {
- 	TTM_NUMA_POLICY_NONE = 0,
- 	TTM_NUMA_POLICY_PREFERRED,
- 	TTM_NUMA_POLICY_BIND,
-+	TTM_NUMA_POLICY_INTERLEAVE,
+ 	kunit_info(test, "running %s\n", __func__);
+ 	bo = xe_bo_create_user(xe, NULL, PAGE_SIZE, DRM_XE_GEM_CPU_CACHING_WC,
+-			       params->mem_mask, NULL);
++			       params->mem_mask, NULL, NULL);
+ 	if (IS_ERR(bo)) {
+ 		KUNIT_FAIL(test, "xe_bo_create() failed with err=%ld\n",
+ 			   PTR_ERR(bo));
+diff --git a/drivers/gpu/drm/xe/tests/xe_migrate.c b/drivers/gpu/drm/xe/tests/xe_migrate.c
+index 56c49d8507d7..4fb3f512d502 100644
+--- a/drivers/gpu/drm/xe/tests/xe_migrate.c
++++ b/drivers/gpu/drm/xe/tests/xe_migrate.c
+@@ -649,7 +649,7 @@ static void validate_ccs_test_run_tile(struct xe_device *xe, struct xe_tile *til
+ 				   DRM_XE_GEM_CPU_CACHING_WC,
+ 				   XE_BO_FLAG_SYSTEM |
+ 				   XE_BO_FLAG_NEEDS_CPU_ACCESS |
+-				   XE_BO_FLAG_PINNED, NULL);
++				   XE_BO_FLAG_PINNED, NULL, NULL);
+ 
+ 	if (IS_ERR(sys_bo)) {
+ 		KUNIT_FAIL(test, "xe_bo_create() failed with err=%ld\n",
+@@ -675,7 +675,7 @@ static void validate_ccs_test_run_tile(struct xe_device *xe, struct xe_tile *til
+ 	ccs_bo = xe_bo_create_user(xe, NULL, SZ_4M,
+ 				   DRM_XE_GEM_CPU_CACHING_WC,
+ 				   bo_flags | XE_BO_FLAG_NEEDS_CPU_ACCESS |
+-				   XE_BO_FLAG_PINNED, NULL);
++				   XE_BO_FLAG_PINNED, NULL, NULL);
+ 
+ 	if (IS_ERR(ccs_bo)) {
+ 		KUNIT_FAIL(test, "xe_bo_create() failed with err=%ld\n",
+@@ -700,7 +700,7 @@ static void validate_ccs_test_run_tile(struct xe_device *xe, struct xe_tile *til
+ 	vram_bo = xe_bo_create_user(xe, NULL, SZ_4M,
+ 				    DRM_XE_GEM_CPU_CACHING_WC,
+ 				    bo_flags | XE_BO_FLAG_NEEDS_CPU_ACCESS |
+-				    XE_BO_FLAG_PINNED, NULL);
++				    XE_BO_FLAG_PINNED, NULL, NULL);
+ 	if (IS_ERR(vram_bo)) {
+ 		KUNIT_FAIL(test, "xe_bo_create() failed with err=%ld\n",
+ 			   PTR_ERR(vram_bo));
+@@ -979,7 +979,7 @@ static void access_memory_test_run_tile(struct xe_device *xe,
+ 
+ 	bo = xe_bo_create_user(xe, NULL, ACCESS_MEM_BO_SIZE,
+ 			       DRM_XE_GEM_CPU_CACHING_WC,
+-			       bo_flags | XE_BO_FLAG_NEEDS_CPU_ACCESS, NULL);
++			       bo_flags | XE_BO_FLAG_NEEDS_CPU_ACCESS, NULL, NULL);
+ 	if (IS_ERR(bo)) {
+ 		KUNIT_FAIL(test, "Failed to create bo: %pe\n", bo);
+ 		goto free_buf;
+diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
+index 353ac1e9a9d6..29fbcc1cbbed 100644
+--- a/drivers/gpu/drm/xe/xe_bo.c
++++ b/drivers/gpu/drm/xe/xe_bo.c
+@@ -396,6 +396,11 @@ struct xe_ttm_tt {
+ 	struct sg_table *sg;
+ 	/** @purgeable: Whether the content of the pages of @ttm is purgeable. */
+ 	bool purgeable;
++	/**
++	 * @mempolicy: Host NUMA policy for backing pages, owned by the BO and
++	 * valid for the lifetime of the tt. NULL if no policy was requested.
++	 */
++	const struct xe_host_mempolicy *mempolicy;
  };
  
+ static int xe_tt_map_sg(struct xe_device *xe, struct ttm_tt *tt)
+@@ -597,6 +602,7 @@ static struct ttm_tt *xe_ttm_tt_create(struct ttm_buffer_object *ttm_bo,
+ 		return NULL;
+ 
+ 	tt = &xe_tt->ttm;
++	xe_tt->mempolicy = bo->mempolicy;
+ 
+ 	extra_pages = 0;
+ 	if (xe_bo_needs_ccs_pages(bo))
+@@ -664,6 +670,8 @@ static int xe_ttm_tt_populate(struct ttm_device *ttm_dev, struct ttm_tt *tt,
+ 			      struct ttm_operation_ctx *ctx)
+ {
+ 	struct xe_ttm_tt *xe_tt = container_of(tt, struct xe_ttm_tt, ttm);
++	/* ctx is shared by every BO of the operation; set the node locally */
++	struct ttm_operation_ctx node_ctx = *ctx;
+ 	int err;
+ 
+ 	/*
+@@ -674,11 +682,16 @@ static int xe_ttm_tt_populate(struct ttm_device *ttm_dev, struct ttm_tt *tt,
+ 	    !(tt->page_flags & TTM_TT_FLAG_EXTERNAL_MAPPABLE))
+ 		return 0;
+ 
++	if (xe_tt->mempolicy) {
++		node_ctx.numa_info.policy = xe_tt->mempolicy->mode;
++		node_ctx.numa_info.nodes = &xe_tt->mempolicy->nodes;
++	}
++
+ 	if (ttm_tt_is_backed_up(tt) && !xe_tt->purgeable) {
+-		err = ttm_tt_restore(ttm_dev, tt, ctx);
++		err = ttm_tt_restore(ttm_dev, tt, &node_ctx);
+ 	} else {
+ 		ttm_tt_clear_backed_up(tt);
+-		err = ttm_pool_alloc(&ttm_dev->pool, tt, ctx);
++		err = ttm_pool_alloc(&ttm_dev->pool, tt, &node_ctx);
+ 	}
+ 	if (err)
+ 		return err;
+@@ -1536,7 +1549,7 @@ int xe_bo_notifier_prepare_pinned(struct xe_bo *bo)
+ 		backup = xe_bo_init_locked(xe, NULL, NULL, bo->ttm.base.resv, NULL, xe_bo_size(bo),
+ 					   DRM_XE_GEM_CPU_CACHING_WB, ttm_bo_type_kernel,
+ 					   XE_BO_FLAG_SYSTEM | XE_BO_FLAG_NEEDS_CPU_ACCESS |
+-					   XE_BO_FLAG_PINNED, NULL, &exec);
++					   XE_BO_FLAG_PINNED, NULL, NULL, &exec);
+ 		if (IS_ERR(backup)) {
+ 			drm_exec_retry_on_contention(&exec);
+ 			ret = PTR_ERR(backup);
+@@ -1678,7 +1691,8 @@ int xe_bo_evict_pinned(struct xe_bo *bo)
+ 						   xe_bo_size(bo),
+ 						   DRM_XE_GEM_CPU_CACHING_WB, ttm_bo_type_kernel,
+ 						   XE_BO_FLAG_SYSTEM | XE_BO_FLAG_NEEDS_CPU_ACCESS |
+-						   XE_BO_FLAG_PINNED, NULL, &exec);
++						   XE_BO_FLAG_PINNED, NULL, NULL,
++						   &exec);
+ 			if (IS_ERR(backup)) {
+ 				drm_exec_retry_on_contention(&exec);
+ 				ret = PTR_ERR(backup);
+@@ -2040,6 +2054,7 @@ static void xe_ttm_bo_destroy(struct ttm_buffer_object *ttm_bo)
+ 		list_del(&bo->vram_userfault_link);
+ 	mutex_unlock(&xe->mem_access.vram_userfault.lock);
+ 
++	kfree(bo->mempolicy);
+ 	kfree(bo);
+ }
+ 
+@@ -2447,6 +2462,8 @@ struct xe_bo *xe_bo_alloc(void)
+  */
+ void xe_bo_free(struct xe_bo *bo)
+ {
++	if (bo)
++		kfree(bo->mempolicy);
+ 	kfree(bo);
+ }
+ 
+@@ -2466,6 +2483,7 @@ void xe_bo_free(struct xe_bo *bo)
+  * @flags: XE_BO_FLAG_ flags.
+  * @dma_buf: The dma-buf to reference for the BO lifetime (imported BOs),
+  * or NULL.
++ * @mpol: Host NUMA memory policy to copy into the BO, or NULL for none.
+  * @exec: The drm_exec transaction to use for exhaustive eviction.
+  *
+  * Initialize or create an xe buffer object. On failure, any allocated buffer
+@@ -2478,6 +2496,7 @@ struct xe_bo *xe_bo_init_locked(struct xe_device *xe, struct xe_bo *bo,
+ 				struct ttm_lru_bulk_move *bulk, size_t size,
+ 				u16 cpu_caching, enum ttm_bo_type type,
+ 				u32 flags, struct dma_buf *dma_buf,
++				const struct xe_host_mempolicy *mpol,
+ 				struct drm_exec *exec)
+ {
+ 	struct ttm_operation_ctx ctx = {
+@@ -2544,6 +2563,13 @@ struct xe_bo *xe_bo_init_locked(struct xe_device *xe, struct xe_bo *bo,
+ 	bo->tile = tile;
+ 	bo->flags = flags;
+ 	bo->cpu_caching = cpu_caching;
++	if (mpol) {
++		bo->mempolicy = kmemdup(mpol, sizeof(*mpol), GFP_KERNEL);
++		if (!bo->mempolicy) {
++			xe_bo_free(bo);
++			return ERR_PTR(-ENOMEM);
++		}
++	}
+ 	bo->ttm.base.funcs = &xe_gem_object_funcs;
+ 	bo->ttm.priority = XE_BO_PRIORITY_NORMAL;
+ 	INIT_LIST_HEAD(&bo->pinned_link);
+@@ -2678,7 +2704,9 @@ __xe_bo_create_locked(struct xe_device *xe,
+ 		      struct xe_tile *tile, struct xe_vm *vm,
+ 		      size_t size, u64 start, u64 end,
+ 		      u16 cpu_caching, enum ttm_bo_type type, u32 flags,
+-		      u64 alignment, struct drm_exec *exec)
++		      u64 alignment,
++		      const struct xe_host_mempolicy *mpol,
++		      struct drm_exec *exec)
+ {
+ 	struct xe_bo *bo = NULL;
+ 	int err;
+@@ -2703,7 +2731,7 @@ __xe_bo_create_locked(struct xe_device *xe,
+ 			       vm && !xe_vm_in_fault_mode(vm) &&
+ 			       flags & XE_BO_FLAG_USER ?
+ 			       &vm->lru_bulk_move : NULL, size,
+-			       cpu_caching, type, flags, NULL, exec);
++			       cpu_caching, type, flags, NULL, mpol, exec);
+ 	if (IS_ERR(bo))
+ 		return bo;
+ 
+@@ -2778,13 +2806,14 @@ struct xe_bo *xe_bo_create_locked(struct xe_device *xe, struct xe_tile *tile,
+ 				  struct drm_exec *exec)
+ {
+ 	return __xe_bo_create_locked(xe, tile, vm, size, 0, ~0ULL, 0, type,
+-				     flags, 0, exec);
++				     flags, 0, NULL, exec);
+ }
+ 
+ static struct xe_bo *xe_bo_create_novm(struct xe_device *xe, struct xe_tile *tile,
+ 				       size_t size, u16 cpu_caching,
+ 				       enum ttm_bo_type type, u32 flags,
+-				       u64 alignment, bool intr)
++				       u64 alignment,
++				       const struct xe_host_mempolicy *mpol, bool intr)
+ {
+ 	struct xe_validation_ctx ctx;
+ 	struct drm_exec exec;
+@@ -2794,7 +2823,8 @@ static struct xe_bo *xe_bo_create_novm(struct xe_device *xe, struct xe_tile *til
+ 	xe_validation_guard(&ctx, &xe->val, &exec, (struct xe_val_flags) {.interruptible = intr},
+ 			    ret) {
+ 		bo = __xe_bo_create_locked(xe, tile, NULL, size, 0, ~0ULL,
+-					   cpu_caching, type, flags, alignment, &exec);
++					   cpu_caching, type, flags, alignment,
++					   mpol, &exec);
+ 		drm_exec_retry_on_contention(&exec);
+ 		if (IS_ERR(bo)) {
+ 			ret = PTR_ERR(bo);
+@@ -2953,17 +2983,21 @@ static void xe_bo_debug_mixed_mode_cur_index_advance(struct xe_device *xe,
+  * @size: The storage size to use for the bo.
+  * @cpu_caching: The caching mode to be used for system backing store.
+  * @flags: XE_BO_FLAG_ flags.
++ * @mpol: The host NUMA memory policy to copy into the bo, or NULL.
+  * @exec: The drm_exec transaction to use for exhaustive eviction, or NULL
+  * if such a transaction should be initiated by the call.
+  *
+- * Create a bo on behalf of user-space.
++ * Create a bo on behalf of user-space, with backing pages placed according
++ * to @mpol.
+  *
+  * Return: The buffer object on success. Negative error pointer on failure.
+  */
+ struct xe_bo *xe_bo_create_user(struct xe_device *xe,
+ 				struct xe_vm *vm, size_t size,
+ 				u16 cpu_caching,
+-				u32 flags, struct drm_exec *exec)
++				u32 flags,
++				const struct xe_host_mempolicy *mpol,
++				struct drm_exec *exec)
+ {
+ 	struct xe_bo *bo;
+ 	int err = 0;
+@@ -2980,12 +3014,13 @@ struct xe_bo *xe_bo_create_user(struct xe_device *xe,
+ 		xe_assert(xe, exec);
+ 		bo = __xe_bo_create_locked(xe, NULL, vm, size, 0, ~0ULL,
+ 					   cpu_caching, ttm_bo_type_device,
+-					   flags, 0, exec);
++					   flags, 0, mpol, exec);
+ 		if (!IS_ERR(bo))
+ 			xe_bo_unlock_vm_held(bo);
+ 	} else {
+ 		bo = xe_bo_create_novm(xe, NULL, size, cpu_caching,
+-				       ttm_bo_type_device, flags, 0, true);
++				       ttm_bo_type_device, flags, 0,
++				       mpol, true);
+ 	}
+ 
+ 	return bo;
+@@ -3019,7 +3054,7 @@ struct xe_bo *xe_bo_create_pin_range_novm(struct xe_device *xe, struct xe_tile *
+ 
+ 	xe_validation_guard(&ctx, &xe->val, &exec, (struct xe_val_flags) {}, err) {
+ 		bo = __xe_bo_create_locked(xe, tile, NULL, size, start, end,
+-					   0, type, flags, 0, &exec);
++					   0, type, flags, 0, NULL, &exec);
+ 		if (IS_ERR(bo)) {
+ 			drm_exec_retry_on_contention(&exec);
+ 			err = PTR_ERR(bo);
+@@ -3058,7 +3093,7 @@ static struct xe_bo *xe_bo_create_pin_map_at_aligned(struct xe_device *xe,
+ 
+ 	bo = __xe_bo_create_locked(xe, tile, vm, size, start, end, 0, type,
+ 				   flags | XE_BO_FLAG_NEEDS_CPU_ACCESS | XE_BO_FLAG_PINNED,
+-				   alignment, exec);
++				   alignment, NULL, exec);
+ 	if (IS_ERR(bo))
+ 		return bo;
+ 
+@@ -3757,7 +3792,7 @@ int xe_gem_create_ioctl(struct drm_device *dev, void *data,
+ 				break;
+ 		}
+ 		bo = xe_bo_create_user(xe, vm, args->size, args->cpu_caching,
+-				       bo_flags, &exec);
++				       bo_flags, NULL, &exec);
+ 		drm_exec_retry_on_contention(&exec);
+ 		if (IS_ERR(bo)) {
+ 			err = PTR_ERR(bo);
+@@ -4228,7 +4263,7 @@ int xe_bo_dumb_create(struct drm_file *file_priv,
+ 			       DRM_XE_GEM_CPU_CACHING_WC,
+ 			       XE_BO_FLAG_VRAM_IF_DGFX(xe_device_get_root_tile(xe)) |
+ 			       XE_BO_FLAG_FORCE_WC |
+-			       XE_BO_FLAG_NEEDS_CPU_ACCESS, NULL);
++			       XE_BO_FLAG_NEEDS_CPU_ACCESS, NULL, NULL);
+ 	if (IS_ERR(bo))
+ 		return PTR_ERR(bo);
+ 
+diff --git a/drivers/gpu/drm/xe/xe_bo.h b/drivers/gpu/drm/xe/xe_bo.h
+index 13197e4e0358..4b2c17bb0f9c 100644
+--- a/drivers/gpu/drm/xe/xe_bo.h
++++ b/drivers/gpu/drm/xe/xe_bo.h
+@@ -123,13 +123,16 @@ struct xe_bo *xe_bo_init_locked(struct xe_device *xe, struct xe_bo *bo,
+ 				struct ttm_lru_bulk_move *bulk, size_t size,
+ 				u16 cpu_caching, enum ttm_bo_type type,
+ 				u32 flags, struct dma_buf *dma_buf,
++				const struct xe_host_mempolicy *mpol,
+ 				struct drm_exec *exec);
+ struct xe_bo *xe_bo_create_locked(struct xe_device *xe, struct xe_tile *tile,
+ 				  struct xe_vm *vm, size_t size,
+ 				  enum ttm_bo_type type, u32 flags,
+ 				  struct drm_exec *exec);
+ struct xe_bo *xe_bo_create_user(struct xe_device *xe, struct xe_vm *vm, size_t size,
+-				u16 cpu_caching, u32 flags, struct drm_exec *exec);
++				u16 cpu_caching, u32 flags,
++				const struct xe_host_mempolicy *mpol,
++				struct drm_exec *exec);
+ struct xe_bo *xe_bo_create_pin_map(struct xe_device *xe, struct xe_tile *tile,
+ 				   struct xe_vm *vm, size_t size,
+ 				   enum ttm_bo_type type, u32 flags,
+diff --git a/drivers/gpu/drm/xe/xe_bo_types.h b/drivers/gpu/drm/xe/xe_bo_types.h
+index 0265fb314c77..ace84235fb13 100644
+--- a/drivers/gpu/drm/xe/xe_bo_types.h
++++ b/drivers/gpu/drm/xe/xe_bo_types.h
+@@ -33,6 +33,23 @@ struct xe_exec_queue;
+ #define	XE_BO_PRIORITY_LOW	0
+ #define	XE_BO_PRIORITY_NORMAL	1
+ 
++/**
++ * struct xe_host_mempolicy - Host NUMA memory policy for system-memory pages
++ *
++ * Captured from the GEM_CREATE NUMA node property at creation time.
++ * Stored by value so that it stays valid when the pages are populated from a
++ * different task, for example during eviction or shrinker restore.
++ */
++struct xe_host_mempolicy {
++	/**
++	 * @mode: %TTM_NUMA_POLICY_PREFERRED, %TTM_NUMA_POLICY_BIND or
++	 * %TTM_NUMA_POLICY_INTERLEAVE
++	 */
++	enum ttm_numa_policy mode;
++	/** @nodes: Host NUMA nodes the policy applies to, non-empty */
++	nodemask_t nodes;
++};
++
  /**
+  * struct xe_bo - Xe buffer object
+  */
+@@ -112,6 +129,13 @@ struct xe_bo {
+ 	 */
+ 	u16 cpu_caching;
+ 
++	/**
++	 * @mempolicy: Host NUMA memory policy for system-memory backing
++	 * pages, or NULL for the device-local default. Owned by the BO and
++	 * freed with it.
++	 */
++	struct xe_host_mempolicy *mempolicy;
++
+ 	/** @devmem_allocation: SVM device memory allocation */
+ 	struct drm_pagemap_devmem devmem_allocation;
+ 
+diff --git a/drivers/gpu/drm/xe/xe_dma_buf.c b/drivers/gpu/drm/xe/xe_dma_buf.c
+index 90c9b90de552..f860221c7e53 100644
+--- a/drivers/gpu/drm/xe/xe_dma_buf.c
++++ b/drivers/gpu/drm/xe/xe_dma_buf.c
+@@ -345,7 +345,8 @@ xe_dma_buf_create_obj(struct drm_device *dev, struct dma_buf *dma_buf)
+ 
+ 		bo = xe_bo_init_locked(xe, NULL, NULL, resv, NULL, dma_buf->size,
+ 				       0, /* Will require 1way or 2way for vm_bind */
+-				       ttm_bo_type_sg, XE_BO_FLAG_SYSTEM, dma_buf, &exec);
++				       ttm_bo_type_sg, XE_BO_FLAG_SYSTEM, dma_buf,
++				       NULL, &exec);
+ 		drm_exec_retry_on_contention(&exec);
+ 		if (IS_ERR(bo)) {
+ 			ret = PTR_ERR(bo);
 -- 
 2.43.0
 
