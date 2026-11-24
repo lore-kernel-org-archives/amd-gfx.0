@@ -2,43 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A42C606A321
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 18:42:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6A13606A323
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 18:46:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NfNp/6hp
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KVf5PDKD
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B2F410F08C;
-	Tue, 24 Nov 2026 18:42:30 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E67310F08C;
- Tue, 24 Nov 2026 18:42:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3302A10F856;
+	Tue, 24 Nov 2026 18:46:23 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 529FF10F856;
+ Tue, 24 Nov 2026 18:46:17 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E4ACF60A60;
- Tue, 24 Nov 2026 18:42:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59FE01F000C4;
- Tue, 24 Nov 2026 18:42:23 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id ED11645A90;
+ Tue, 24 Nov 2026 18:46:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52F4D1F000E0;
+ Tue, 24 Nov 2026 18:46:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795545743;
- bh=52SRQ61rfZVPRDCOUAglscJGlDss/3UZ9vyPXcWxejQ=;
+ s=k20260515; t=1795545976;
+ bh=SdvtQ/ai3Toj6Hil3hMgLoYaomRBbKKf9m4kW3nPaHU=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=NfNp/6hpcc0iZbhBl6JFJWOG82LqBS/gUdJrYnlT+g4wy/Z5GEXqzJ83SK9D8xoSm
- GCq20NeF8wdGM5hGl0KEqkw6+xzDYChsvgjtLlMbY4Abk0mczyLoWzJUYO1srtD18z
- nwrGKtjDX6M8nA00vA8/JRUqJa9t1rsn5UL8IIPvOb5vc2dHCK4N/gmzKNQrh5sejg
- pRWWVtzKlSPQfzGpQYK/zxWisFwYdHQqIz8h3/m4VJgN1JaJx10FtwLJ/2RlTtOicG
- PoN76pA3W2f+MJXD9J4tMezSDfH2X5nwUcEkOvX3o0Q64AXo26Uepxae5ITJ6LgN1q
- TGHb5kS7DxsCQ==
-Message-ID: <sashiko-outbox-231844@kernel.org>
+ b=KVf5PDKDC7KB9RiLpT0KIAY4QnmwiT1bChDLv6MXMJ0NPHWRh1xyNpP2Zvbi4JZ+N
+ 89RUxAVfYn+yBz08zOSH2XqbyD8mU5c41oTL3RKuxryYX+OGnEQM/gTKLhUWy81Zc4
+ qVpd1uLH77lBL8fGNCd1mROoLmwvYktpAmHHHsJ01xlbyivNgyMnn3NcjPHJVq3Asz
+ mpRc6C07eOhA7ajzP6iv5VuclnGEs5JQQ5SNMJ/sgGZwHj1vQRtJgUPxd/ri4JB7oN
+ fbbtckMdCOZ0tOq3atKgTTwxSWIUGjk+38VBYLiIKuzQsa//UVgVVoEvPdwS9KHE2C
+ FZYMkh58W9Hfw==
+Message-ID: <sashiko-outbox-231850@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 14/19] drm/atomic: set hidden CRTC color mgmt model
- to default values
+Subject: Re: [PATCH v3 17/19] drm/amd/display: enable post-blend CTM colorop
 To: "Melissa Wen" <mwen@igalia.com>
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261124181652.1333986-15-mwen@igalia.com>
+In-Reply-To: <20261124181652.1333986-18-mwen@igalia.com>
 References: <20261124181652.1333986-1-mwen@igalia.com>
- <20261124181652.1333986-15-mwen@igalia.com>
+ <20261124181652.1333986-18-mwen@igalia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 18:42:22 +0000
+Date: Tue, 24 Nov 2026 18:46:15 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,81 +57,107 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] drm/atomic: hidden CRTC color model not reset outside
-  drm_mode_atomic_ioctl()
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] drm/amd/display: NULL deref on kasprintf() failure in CRTC
+  pipeline init
+- [Medium] drm/amd/display: missing error unwind in
+  amdgpu_dm_crtc_init()
 --
 
-commit 988786e967d206ee7e346b8385770656e4c8ad9e
+commit a6af21490f0a9bf347d95f27bc66b20a42758591
 Author: Melissa Wen <mwen@igalia.com>
 
-drm/atomic: set hidden CRTC color mgmt model to default values
+drm/amd/display: enable post-blend CTM colorop
 
-This commit resets the hidden CRTC color management properties (either the
-legacy LUT/CTM blobs or the colorop pipeline) to default values on each
-CRTC included in an atomic ioctl commit.
+This commit initializes the AMD post-blend color pipeline on DCN 3.0 and
+newer with a 3x4 CTM colorop and programs it when a CRTC color pipeline is
+active.
 
-> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atom=
-ic_uapi.c
-> index afac90d5d7e0a..fe676e612d414 100644
-> --- a/drivers/gpu/drm/drm_atomic_uapi.c
-> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
-> @@ -1687,6 +1687,32 @@ static void complete_signaling(struct drm_device *=
-dev,
->  	kfree(fence_state);
+Link: https://dri.freedesktop.org/docs/drm/gpu/amdgpu/display/display-manag=
+er.html#dc-color-capabilities-between-dcn-generations
+
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c b/=
+drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
+> index c6bb9fec92175..dcd497b644c11 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
+> @@ -305,3 +305,41 @@ int amdgpu_dm_initialize_default_pipeline(struct drm=
+_plane *plane, struct drm_pr
+>  	return amdgpu_dm_build_default_pipeline(dev, plane, hw_3d_lut, list);
 >  }
-> =20
-> +static void
-> +reset_crtc_color_mgmt_props(struct drm_atomic_commit *state,
-> +			    struct drm_file *file_priv,
-> +			    bool async_flip)
+>  EXPORT_IF_KUNIT(amdgpu_dm_initialize_default_pipeline);
+> +
+> +int amdgpu_dm_initialize_crtc_default_pipeline(struct drm_crtc *crtc,
+> +					       struct drm_prop_enum_list *list)
 > +{
-> +	struct drm_crtc_state *crtc_state;
-> +	struct drm_crtc *crtc;
-> +	bool changed;
-> +	int i;
+> +	struct drm_colorop *ops[MAX_COLOR_PIPELINE_OPS];
+> +	struct drm_device *dev =3D crtc->dev;
+> +	int ret;
+> +	int i =3D 0;
 > +
-> +	/* Async page flip doesn't change properties */
-> +	if (async_flip)
-> +		return;
+> +	memset(ops, 0, sizeof(ops));
 > +
-> +	for_each_new_crtc_in_state(state, crtc, crtc_state, i) {
-> +		if (file_priv->crtc_color_pipeline) {
-> +			changed =3D drm_property_replace_blob(&crtc_state->degamma_lut, NULL);
-> +			changed |=3D drm_property_replace_blob(&crtc_state->ctm, NULL);
-> +			changed |=3D drm_property_replace_blob(&crtc_state->gamma_lut, NULL);
-> +		} else {
-> +			changed =3D drm_atomic_set_colorop_for_crtc(crtc_state, NULL);
-> +		}
-> +		crtc_state->color_mgmt_changed |=3D changed;
+> +	/* 3x4 matrix */
+> +	ops[i] =3D kzalloc_obj(struct drm_colorop);
+> +	if (!ops[i]) {
+> +		ret =3D -ENOMEM;
+> +		goto cleanup;
 > +	}
-> +}
 > +
->  static void
->  set_async_flip(struct drm_atomic_commit *state)
->  {
-> @@ -1845,6 +1871,8 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
->  		drm_mode_object_put(obj);
->  	}
-> =20
-> +	reset_crtc_color_mgmt_props(state, file_priv, async_flip);
+> +	ret =3D drm_crtc_colorop_ctm_3x4_init(dev, ops[i], crtc, &dm_colorop_fu=
+ncs,
+> +					    DRM_COLOROP_FLAG_ALLOW_BYPASS);
+> +	if (ret)
+> +		goto cleanup;
+> +
+> +	list->type =3D ops[i]->base.id;
+> +
+> +	i++;
+> +
+> +	list->name =3D kasprintf(GFP_KERNEL, "Color Pipeline %d", ops[0]->base.=
+id);
+> +
+> +	return 0;
 
 [Severity: Medium]
-Does calling reset_crtc_color_mgmt_props() only in drm_mode_atomic_ioctl()
-leave crtc_state->color_pipeline active when a later client updates CRTC
-color properties through other atomic commit paths?
+What happens if kasprintf() returns NULL here?  Unlike
+amdgpu_dm_build_default_pipeline(), this returns 0 with list->name set to
+NULL, so dm_crtc_init_colorops() passes pipelines[0].name to
+drm_crtc_create_color_pipeline_property() -> drm_property_add_enum(),
+causing a NULL pointer dereference in strlen(name) and skipping cleanup of
+the initialized colorop.
 
-For example, after a client with DRM_CLIENT_CAP_CRTC_COLOR_PIPELINE sets a
-CRTC color pipeline, switching to a client or helper that updates gamma or
-CTM via drm_crtc_legacy_gamma_set() (DRM_IOCTL_MODE_SETGAMMA),
-set_property_atomic() (DRM_IOCTL_MODE_OBJ_SETPROPERTY), or fbdev's
-setcmap_atomic() commits the new LUT/CTM blobs without clearing
-crtc_state->color_pipeline.  Because drivers program CRTC color management
-from color_pipeline whenever it is non-NULL and only fall back to
-degamma_lut, ctm, and gamma_lut otherwise, those updates are silently
-ignored while the previous client's color pipeline remains active.
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/dri=
+vers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+> index 3e0128a29d775..af8be7f8784d3 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+
+[ ... ]
+
+> @@ -840,6 +878,10 @@ int amdgpu_dm_crtc_init(struct amdgpu_display_manage=
+r *dm,
+> =20
+>  #ifdef AMD_PRIVATE_COLOR
+>  	dm_crtc_additional_color_mgmt(&acrtc->base);
+> +#else
+> +	res =3D dm_crtc_init_colorops(&acrtc->base);
+> +	if (res)
+> +		return res;
+>  #endif
+>  	return 0;
+
+[Severity: Medium]
+Should a failure in dm_crtc_init_colorops() clear
+dm->adev->mode_info.crtcs[crtc_index] and jump to error_ism_fini instead of
+returning directly?  Returning early skips amdgpu_dm_ism_flush(),
+drm_crtc_cleanup(), drm_plane_cleanup(), and freeing acrtc and
+cursor_plane, leaving the partially initialized CRTC registered in
+mode_config and stored in mode_info.crtcs[crtc_index].
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124181652.1333=
-986-1-mwen@igalia.com?part=3D14
+986-1-mwen@igalia.com?part=3D17
