@@ -2,57 +2,111 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D3AB606A321
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 13:05:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CF15606A688
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 15:54:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=n2QBylsX
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=LoMiAxTj
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2140B10F598;
-	Tue, 24 Nov 2026 13:05:27 +0000 (UTC)
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C2FE10F596;
- Tue, 24 Nov 2026 13:05:20 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org
- [IPv6:2001:67c:2050:b231:465::2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4jYjhq1yTgz8vZ9;
- Tue, 24 Nov 2026 14:05:15 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1795525515;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=WJMJNU3sAuG+Bc7xlPKNCuWjit5pvGYpvKy6R3HAxwY=;
- b=n2QBylsX9AgBpth6aF9KL7/8f10rvUagABO/0XN/CxDh4pYKwYxCI174ZXayobZNvDq9SY
- 9sIC+BSfIaPDa/s+gegF7nn55WUuL24EnheE64CRh+dY3SLfGHgFzvjLkkmjn+nMHTRdYW
- JP9l4Fw9+55LHY+aZDbXqk4DX5/V7HBTEDzD2e7WDxw5ifh68EGx1kh5+ECJ3J9oJAkLB2
- WdU6lX5xo28/XRJNuVxxr08bm65rajY+XyIWBzEjXFHpbMvhxXuucy3t0AWiIXuqa2VqA/
- vUC01EXsHi34V6MJb948d+u59WHp2g3PqCtaHNdlC0m+ZbOHPGxzkdiObsQHLg==
-Message-ID: <47ee6326-08ca-4dcd-866b-3a543cb15665@mailbox.org>
-Date: Tue, 24 Nov 2026 14:05:10 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id C03CF10F6F7;
+	Tue, 24 Nov 2026 15:54:45 +0000 (UTC)
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
+ [209.85.218.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1016210F5D6
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Nov 2026 14:00:42 +0000 (UTC)
+Received: by mail-ej1-f51.google.com with SMTP id
+ a640c23a62f3a-c50d3ac6b51so1061355966b.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Nov 2026 06:00:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ziepe.ca; s=google; t=1795528840; x=1796133640; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=o+7iSwGfMjtzT2Y6Ygii4nLjUX3g93NcfuA7HOwwEkw=;
+ b=LoMiAxTjV4eorbaLjY1PpY8GS4BMTD1RVMTJVe3OjejInLKAbrB7v9hnviDjelJfjH
+ 1p6JIVi4yXb6IqeKSSAwLvQyJM+lfK70rWd9rpAXaYtbhuHSCQdoHAGUaAiJFqWk1E9s
+ ql7Sqp8wDeKRk78Xo9Y6DqCakWDmzHObQjaZXXJ88N/h/wLlWsADpGU0/AsCB37MZ+jd
+ wvWcKGXdtNIOnbk3MzOoRBKCPKxpZLdkgW6MhdUouXBJBZIByn8NHc1so1kywFlfxTne
+ iH3haIHAafNLDCCbphTFyura/83l84D7uZDMYmA+PlflDgNif1fDbF5Vu3w1gcn7+7o9
+ 9GWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795528840; x=1796133640;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=o+7iSwGfMjtzT2Y6Ygii4nLjUX3g93NcfuA7HOwwEkw=;
+ b=qn9jNVLxlzouoAhn3TzrmaGpxNvViSBN2v2poKO3fkklkkYU5iXsFr6f9Y73u4K3YE
+ hlKzAi4zDv0oIFvJ+UNOr4lDzeMrXOZRZSLLsrCA3jBShVy8UfR24e4aauQW4v2bGdnv
+ 8QcUPxpab1f+gw2ULR3NlNQbmxo+TnezmL5YFn8SWXNOeKL7b3A05wglnDY0NvA+MS8g
+ Igjo2Uz9hLoftkmlo0He//2fj3xgeXxvvfAH+NhbR9cYVMG3WNU5ln5h7FvwmksbgpLt
+ FddE+OMVxTAG5LrXkjqbf6fDrDHTlVmEdd9DLgQ8mB+tCyStcUzJbYLzllQolEfiBgjb
+ neyA==
+X-Forwarded-Encrypted: i=1;
+ AL+hErFhs6wm3KYIKBITwMpqtw2hIHc3dDzHq0ntMxHwKkomvj0guJ29vh+448KM20BqeIGRI1EBWNgG@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z80Kzn6OMiUw0H/6Fd1v0E02TugyOKRG/LjmzFr+m1F2TrkkKmN
+ zgCrLqtUnmcj8wmoP4GsHyRLHIAHzE5XTRLSv7NyBkAotUUfH+JOjQ9iq6biy0PXosk=
+X-Gm-Gg: AZFdTZf8aOVIj5feYTQ/W/zqSt5VLi5CyQERggCkc2CP9YflESe/ecclnX2X42wR9R0
+ xaTB91T6n4TJQRYrzy3YfFmeNue76144TzsuAWz5YoBY3iwNjY1KOZwXhvzH5HkQYbRFkXvHiqB
+ ih3YFu44zVh48X//2IYlQIkYlVB+Vza+dez8zIicGeIIF15Yp0jDk3WsNhiFv0bUBW4/5LPJEl+
+ f8PGP4qBkod85rAKGJ9aCPhqEjFV6QLRYtdOjFWxFl0FKkja9p1SCBTKDn1HCOTOg13h+qG0SdK
+ jrJ/jHPXC06l6A3gzJdfABwlbLpzYG16XiKrm9T2xN3zuY7rSyXY6miKv9Mv6yQJshT5oqoVcBE
+ eh2gtib/+8l+1EKkb3JyoXhSXpVwj0B4TkUl4QxrLDIavjwml8zpaKXl4Rl+Dn3YfCr3tRIl7j0
+ LWxRickevv3xkItOMTk2bacE1UM6u3hGjDrz39FqeG8Kcn7znV9D/ipzF1sW3ybt0UNRiGvXhbQ
+ 8dyoNqVzjgPz8PGvmtFnzLUfdpGf3HwYwnUGZcV8y63AoRUwVJMPuWsyrjiCYpZ7gyrFjefKdg7
+ h3ZPnA==
+X-Received: by 2002:a17:907:3e86:b0:c36:777f:824c with SMTP id
+ a640c23a62f3a-c51315851d7mr1405271066b.4.1795528839874; 
+ Tue, 24 Nov 2026 06:00:39 -0800 (PST)
+Received: from ziepe.ca ([142.177.118.84]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6ba370cc257sm6492195a12.13.2026.11.24.06.00.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 24 Nov 2026 06:00:39 -0800 (PST)
+Received: from jgg by wakko with local (Exim 4.97)
+ (envelope-from <jgg@ziepe.ca>) id 1xVr4W-00000000QnE-3MAi;
+ Tue, 24 Nov 2026 10:00:36 -0400
+Date: Tue, 24 Nov 2026 10:00:36 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: Alistair Popple <apopple@nvidia.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ Dongwon Kim <dongwon.kim@intel.com>, Kevin Tian <kevin.tian@intel.com>,
+ Xu Yilun <yilun.xu@linux.intel.com>,
+ Karl Mehltretter <kmehltretter@gmail.com>,
+ Baolu Lu <baolu.lu@linux.intel.com>,
+ Felix Kuehling <felix.kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, iommu@lists.linux.dev,
+ Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+ linux-nvme@lists.infradead.org, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>,
+ Mina Almasry <almasrymina@google.com>, netdev@vger.kernel.org,
+ Alexey Kardashevskiy <aik@amd.com>, zhipingz@meta.com,
+ treding@nvidia.com, jhubbard@nvidia.com, chaitanyak@nvidia.com,
+ Leon Romanovsky <leon@kernel.org>
+Subject: Re: [PATCH v3 03/24] dma-buf: Add the SGT DMA mapping type
+Message-ID: <20261124140036.GM9566@ziepe.ca>
+References: <20261120-dma_mapping_type_v4-v3-0-c0183a409bdf@nvidia.com>
+ <20261120-dma_mapping_type_v4-v3-3-c0183a409bdf@nvidia.com>
+ <ad46d60a-189d-4dd5-9ad8-ecfd3c90f9d9@amd.com>
+ <20261123165716.GM179082@ziepe.ca>
+ <7ac7edd0-5c38-440a-b26a-21bcbb6f4702@amd.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 2/2] drm/amd/display: Skip flip_done wait for
- non-modeset TEST_ONLY checks
-To: =?UTF-8?Q?Jakub_Oko=C5=84ski?= <jakub@okonski.org>
-Cc: dri-devel@lists.freedesktop.org, harry.wentland@amd.com,
- sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- amd-gfx@lists.freedesktop.org
-References: <20261123220913.937402-1-jakub@okonski.org>
- <20261123220913.937402-3-jakub@okonski.org>
-From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-Content-Language: en-CA
-In-Reply-To: <20261123220913.937402-3-jakub@okonski.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: c1016891d93790a5233
-X-MBO-RS-META: 5b1z3dykqdbxsbpfrqbp8d48a4b7b7d7
+In-Reply-To: <7ac7edd0-5c38-440a-b26a-21bcbb6f4702@amd.com>
+X-Mailman-Approved-At: Tue, 24 Nov 2026 15:54:45 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,74 +117,53 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/23/26 23:09, Jakub Okoński wrote:
-> needs_dc_state_realloc makes amdgpu_dm_atomic_check() call
-> do_aquire_global_lock(), which waits for hw_done and flip_done of each
-> CRTC's newest commit. A TEST_ONLY check issued while a nonblocking
-> commit is pending therefore blocks for up to one refresh (6.9 ms seen
-> on DCN 3.0 at 120 Hz) for about 0.1 ms of validation.
+On Mon, Nov 23, 2026 at 07:37:41PM +0100, Christian König wrote:
+> > Part of the design of this series was to allow the conversion away
+> > from SGT to be done incrementally without breaking compatibility.
 > 
-> A TEST_ONLY transaction publishes no state and does not reconfigure
-> IRQs through the commit path, so a non-modeset test has nothing to
-> order against the pending flip. Skip only its flip_done wait.
+> Do you know the joke from the hitchhikers guide to the galaxy where
+> the dolphins are happy for exactly the same reasons?
 > 
-> Kept: the modeset and private object locks, the hw_done wait (DC
-> validation reads the programmed topology in dc->current_state), the
-> same validation, and the full drain for modeset tests and real
-> commits.
-> 
-> Signed-off-by: Jakub Okoński <jakub@okonski.org>
-> ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 15 ++++++++-------
->  1 file changed, 8 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 3d2201285888..25dcbee0c7df 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -5594,8 +5594,8 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_commit *state)
->  }
->  
->  /*
-> - * Grabs all modesetting locks to serialize against any blocking commits,
-> - * Waits for completion of all non blocking commits.
-> + * Grabs all modesetting locks to serialize against blocking commits, and
-> + * waits for pending programming and, where needed, flip completion.
->   */
->  STATIC_IFN_KUNIT int do_aquire_global_lock(struct drm_device *dev,
->  					   struct drm_atomic_commit *state)
-> @@ -5624,13 +5624,14 @@ STATIC_IFN_KUNIT int do_aquire_global_lock(struct drm_device *dev,
->  		if (!commit)
->  			continue;
->  
-> -		/*
-> -		 * Make sure all pending HW programming completed and
-> -		 * page flips done
-> -		 */
-> +		/* DC validation can inspect the programmed pipe topology. */
->  		ret = wait_for_completion_interruptible_timeout(&commit->hw_done, 10*HZ);
->  
-> -		if (ret > 0)
-> +		/*
-> +		 * Tests don't publish state or reconfigure interrupts. Limit
-> +		 * overlap with pending flips to tests that disallow modesets.
-> +		 */
-> +		if (ret > 0 && (!state->test_only || state->allow_modeset))
->  			ret = wait_for_completion_interruptible_timeout(
->  					&commit->flip_done, 10*HZ);
->  
+> I'm pushing against this plan for exactly the same reason because I
+> think it will make the conversation away from SGT even more
+> problematic than it already is.
 
-Does a commit with both DRM_MODE_ATOMIC_ALLOW_MODESET & DRM_MODE_ATOMIC_TEST_ONLY set really need to wait for pending flips to complete? Why?
+I think it is well proven that trying to do big bang conversions in
+software doesn't work well. :(
+ 
+> > So it is effectively this:
+> > 
+> >> The framework should then either connect the SGT directly if both
+> >> importer and export are using the "classic" interface 
+> 
+> Yeah but that should not be a separate mapping type, it's rather
+> that we just convert back and forth from DMA addresses to SGT for
+> compatibility reasons.
 
+The mapping type is to support ualink/etc that don't do "DMA".
 
--- 
-Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
-https://redhat.com             \               Libre software enthusiast
+Only DMA API can create dma_addr_t's, you can't reuse those types for
+something else.
+
+And you still need a scheme to negotiate exactly what kind of
+connection you need. Focusing on the SGT is missing the big picture of
+why this was organized like this.
+
+> > As this is actually quite complicated and needs discussion exactly
+> > what it will look like.
+> 
+> Actually that is the easy step I think because quite a lot of
+> drivers already convert the SGT to a DMA addr array outside of the
+> DMA-buf framework anyway.
+
+Given the importer an array is not so bad. Getting the sgt out of the
+importer will be a debate.
+
+Jason
