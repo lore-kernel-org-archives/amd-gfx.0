@@ -2,122 +2,96 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A92B3606A31E
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 03:44:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B6D3606A31E
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 04:46:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=J2YG1ts7
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=mCjevdRI
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E67110E04E;
-	Tue, 24 Nov 2026 03:44:09 +0000 (UTC)
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013027.outbound.protection.outlook.com
- [40.107.201.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40E2510E04E
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Nov 2026 03:44:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86F1410E108;
+	Tue, 24 Nov 2026 04:46:18 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012034.outbound.protection.outlook.com [52.101.43.34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 933B610E108
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Nov 2026 04:46:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TULhItMhjbRCi0Rzr4MN4AXJPgfcqorINFu9fH1c9RDrEuAfy52YdCpMx60zaAuJY0PLm+ZCG9rXXqqG9f9zutEsZTeKyhi7YHi1E5t+bfTZakE46UdYPIWKGKKQl+pOLmO8Y/lflLM7nNk70vsbW1Wck1MmhBEaYFjA7BJ8q4oEcZAwmLzklEpEf5a8WNH8CFvD4iOb0lQzLBNruXYYUNZRPKspo3L7F0H1r1HA74vOXQY73KhuCRqJW4jaa305fmW4BsEmsj+DQyUk2B7CDaLKYnd9Qiu1qVEy6qayHSsMHvlP1ikUqTK9lZSy5vHEwUG3FhJHzpEKZUPThH7Idw==
+ b=smO26jkfojskGtTaMLYH+bwgoSqoXRdu566um+UR/EY6tPFUpxxg4zGpPFv8MyVOP7b4U402EAS0OiUCyXwMwZRYFF90+mFoHZk1O1hQ6dG+eGXsIevZZCydwYp7W7FAeaCh92TpKcNxO2geQi15f82VvKVO6TMEJ+DBpNHIaX9K0vAkvObrE48nFm0PfjGWM+7yT1TUA7PkHMXmPMp2qyDd6jUDH7eSQgyzkSAAFjNZKgNFGKevJsH5nC0Hem2WcAzCXJ4BMgneseMVJGs36d3DpNTvSpg8S5KTsdRQcELaCyKYtgPU0d2qr6Pf/PFLLEqfciqplmWtQfVCL4GzCg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tPdsGF6ev/hCcPzXPIA85g78HbYmzdgdzddOjXxKlAI=;
- b=Tn8vYO6N3W9h9LmT2D+d1DbPDFHMVeZNo1fcY2Jl0cH9fpSAIj0v46/bbNfPXNjQxugvrpm6Jb5VpgN+DQg36U5Sa6vI8d/EWk3mop1vUm8B4nUwyamN06A2EkhN7qYZOXE6quLrQM0fHBVgDtVscnbQOZu+rWnVGEvS6W4Lbkv+33DzTLHypsv5nYiCRTHjczbtDwmslgSFLhnAEtb1Y+d/QrTuISFDzjWgc6orFYt287IW7/QwLeklBhMSqstNR6NVGOz94kChXF2cZ0usWv0+1vu+vvnNfLHpBls2kJe3d+XZpJ/VLPCyLW5Nj8Gj9XVJdGKsqeAyKeh6LiAxaA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=s2gyulYjl8fOW3DyEyERod5P263z7wLSNFSqqJyobPk=;
+ b=epkCEOVgDIwSBKj0/AflbzjDojhIrkoVVQqzws8hLkDxUoR+cO6In86lLPuofbVx2MkOcaHepRM7xNvNhzf62LciJXziO0IpzltRlIweInnM3nXY9e9mi47iPJg84otR/VVVylJbzUOTKqMsmhLr5oHe5xHHxjhhlL2OvGmdjtdj3Av206BK5hTLHbkdU7DIPI22OkJOaxBavcAqRXcbhi4kf8ETXxh28za5LUC6YUn1xvcPNLUKyGtLeL4WE8rEViQJTR0KcCTfVc7K2ucgruqoG2QZjwOH51DZPUeFSPNsxCxISTNvT9TPAolYd+fsd7bY/ixwBUF0u95ReLq1Rw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tPdsGF6ev/hCcPzXPIA85g78HbYmzdgdzddOjXxKlAI=;
- b=J2YG1ts7sPeXnYtLTy//VCYV7LL9Swx3k2lHc0lzeQ7Iw8z8jlCxSxpvY5nwLw4khOfXvAL+izYQtDOEm1kxYyGm6OY4Q44agah2Y2nKWlQ5OEGEbkYZCWEJL/glscFZnasP+fA57cxqe0+srqp3dNW0swmsq4pNJzFqpNQHlf4=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from IA0PR12MB8208.namprd12.prod.outlook.com (2603:10b6:208:409::17)
- by PH7PR12MB6834.namprd12.prod.outlook.com (2603:10b6:510:1b4::18)
+ bh=s2gyulYjl8fOW3DyEyERod5P263z7wLSNFSqqJyobPk=;
+ b=mCjevdRITGG6TqZ/GqE3z8HgYfBgyBu6BJ3VLD553TC8SJeCeTPgu5+bKLsf1vTOup5dT6HsvquwYwRJVdTC2zeyxat0occOg0uK1QNWiM0VRoCe8/brjd4mI3jrVIjPNQUti0l7naSYsrJmLzmJRUJRsDUjc+DtNSrN/ngWYMo=
+Received: from BN1PR12CA0029.namprd12.prod.outlook.com (2603:10b6:408:e1::34)
+ by SN7PR12MB6981.namprd12.prod.outlook.com (2603:10b6:806:263::22)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.13; Tue, 24 Nov
- 2026 03:43:55 +0000
-Received: from IA0PR12MB8208.namprd12.prod.outlook.com
- ([fe80::dbd3:cc22:a850:dc1e]) by IA0PR12MB8208.namprd12.prod.outlook.com
- ([fe80::dbd3:cc22:a850:dc1e%4]) with mapi id 15.21.0639.012; Tue, 24 Nov 2026
- 03:43:55 +0000
-Content-Type: multipart/alternative;
- boundary="------------LBtrlwR90Tj0Q0J9h5eD0dta"
-Message-ID: <431ce2ef-0e38-4e8c-b0a1-112596466fb9@amd.com>
-Date: Tue, 24 Nov 2026 09:13:50 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: enable traps for kernel queue VMIDs on GFX9
-To: Jesse Zhang <Jesse.Zhang@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Alexander.Deucher@amd.com, Christian Koenig <christian.koenig@amd.com>
-References: <20261124032648.1977968-1-Jesse.Zhang@amd.com>
-Content-Language: en-US
-From: SRINIVASAN SHANMUGAM <srinivasan.shanmugam@amd.com>
-In-Reply-To: <20261124032648.1977968-1-Jesse.Zhang@amd.com>
-X-ClientProxiedBy: MA5PR01CA0143.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1b9::6) To IA0PR12MB8208.namprd12.prod.outlook.com
- (2603:10b6:208:409::17)
+ 2026 04:46:08 +0000
+Received: from BN3PEPF00022BD9.namprd03.prod.outlook.com
+ (2603:10b6:408:e1:cafe::6c) by BN1PR12CA0029.outlook.office365.com
+ (2603:10b6:408:e1::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.662.5 via Frontend Transport; Tue, 24
+ Nov 2026 04:46:08 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN3PEPF00022BD9.mail.protection.outlook.com (10.167.248.107) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.662.3 via Frontend Transport; Tue, 24 Nov 2026 04:46:08 +0000
+Received: from chonglidebug.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Mon, 23 Nov
+ 2026 22:46:06 -0600
+From: chong li <chongli2@amd.com>
+To: <christian.koenig@amd.com>, <timur.kristof@gmail.com>
+CC: <amd-gfx@lists.freedesktop.org>, chong li <chongli2@amd.com>
+Subject: [PATCH] drm/amdgpu: track finished page table updates with a fence
+ chain
+Date: Tue, 24 Nov 2026 12:45:44 +0800
+Message-ID: <20261124044544.3561866-1-chongli2@amd.com>
+X-Mailer: git-send-email 2.48.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8208:EE_|PH7PR12MB6834:EE_
-X-MS-Office365-Filtering-Correlation-Id: 20b5c424-6bb8-43f6-9377-08df49dd29dd
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BD9:EE_|SN7PR12MB6981:EE_
+X-MS-Office365-Filtering-Correlation-Id: bb24bfbc-c89a-4bbb-5111-08df49e5db1f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|376014|366016|261026121527099003|261102123227099003|261022105027099003|261026140227099003|261028144727099003|261021121427099003|11063799006|56012099006|10067099003|261021123027099003|261009223027099003|18002099003|22082099003|8096899003;
-X-Microsoft-Antispam-Message-Info: XvGSMZasQgKvSMOqrKhTUnZ16Zu4ONawM88uSlqGQb5wSrA8dW7Aal9PkWUmbLfMBHcxQE3ZOPBhB14KlL1GoBsWiulUbsvD2o/Rt7Oz1XbHETctk8jm4BTkcRo8fEImqbSX3XiQg+XM22ZjAkhbzf/qWGxdncPkYG/8R9PS8iPsMW7xJNw4/VbAZyqmC/tCUa12xFugoCwbKH9UU/8i6O8VIHFe4wm2HO/Ly8MPxLpJt2MlNrqkYydOEDcuq+h+zJzxuI7ws5/NRPXi3j2lfQpHt8oGbmPIS3UBbDiCRXjU+So1FE19Gyi8seiHX1JVwZWUQv3O0w3UBtlTbZx88ncST/qBU4M+ej3Gh4vTBapuui/mNI8vZ06yFCEXxvnkKCaAN+WCndy6w21SY+lbkuyTjeDq3RoJMR/zwtE7/vveAykEo7OtZNz4S0JBJSP40V32Em0rlBtTCPTq/Fs3B7imHKELBnGV1BSeZsvKTWtWc1izwjg1yP5+Dy6PgNZWNWYwPZI/8W45Y01KLKBH5oFH+Z4lBsautswfY3HFEpfOXJkZ2ptFc2ie0xWGyBm89gmP26vO6d5ihvW14ck+JVC9H/DIdKqM/sAoyWStEwWv4z2gxZpbeWWlwOuO/l96HJ2O/P6uQiLMEy/2jIOi3RvuLslo5wjVajGqlU8Fq6U=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA0PR12MB8208.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(261026121527099003)(261102123227099003)(261022105027099003)(261026140227099003)(261028144727099003)(261021121427099003)(11063799006)(56012099006)(10067099003)(261021123027099003)(261009223027099003)(18002099003)(22082099003)(8096899003);
+ ARA:13230040|82310400026|1800799024|376014|36860700016|23010399003|6133799003|18002099003|3023799007|261028144727099003|11063799006|56012099006|5023799004|261022075727099003|261009223027099003|261022105027099003|261026140227099003|261021123027099003|261021121427099003|261009221227099003|261102123227099003|10067099003;
+X-Microsoft-Antispam-Message-Info: PYkDJq80QIZk7SmfBLYsMd6OBkURBQCLJvFxIjdgPxwH/1UIxxB6bQSq9j6wozqLkeXrkuWA/UCkN3Jk6XJO3M+YBv2kB9GPBysnKbNfn0MLBuYQoFVbNJ0gdyUXT/APoWGAYS/D7wlYuPisV+KtLtePcbEhhmNjJyMLfGehxSmSYMAr/UR8shQNG+zt/eqggHA3RvejEtAliODUTvkGosQ3PirkRiFaGoTw0nPUdjw+VnJ+2zxARce3i9nOQix5gYk1jHpqwc+/vJrbvWRaADavclgHG4IobjLUhDOmzE5KrSFcqVCG3WZ2H7LsqJw/PlE1bXsEcIv6t+Yo4fH9Gz2J6dFe4BpIj7hFu2MC/+7xxj9imrgtsTbPTjD+zmwUsDQQ7THdORG+tgtp26Ll9y58bRNEpr42dR0hoY1KLn4/OKEqCsLZTPL7/aSJDoFsY1K7ZLz2QTwTQOn94C+mB1P0JbxvN/c+q01EN5+JeE0/xmj10Zn/+P45MU5W0DeEF6IK+Wb2Gf/xSzHlReyi4G15cjim5yBR5Qulo/Q1T463yvi1Jzebcy6bqRkMYkr572QijjP6uob4Yww06c2T3+w/1nXBm9tHG+eoCMt9NZB2KS00y9vU6/9rQVR2uh7adENBxCz0p43OkHY4cc8mEk3bbLqHYcMtUMg9NoYPMwkx8bXPplgQ+BGZOsD9vS2UVoSGjGTGYhlFsKTFyPB02g==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(376014)(36860700016)(23010399003)(6133799003)(18002099003)(3023799007)(261028144727099003)(11063799006)(56012099006)(5023799004)(261022075727099003)(261009223027099003)(261022105027099003)(261026140227099003)(261021123027099003)(261021121427099003)(261009221227099003)(261102123227099003)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?U0I1QkhuQXpKVEZlVzBESWoxQ0IwallCdFVDWkZ2ZThBdmlWRUYxWUFtai9i?=
- =?utf-8?B?bHA4dUEvRTh3UHI1c1ROR2xFenZYWlo0d0ZDMU42Q1RaeFJtb3FsUkZ5RFdD?=
- =?utf-8?B?c2V5cFBZNVBWRUpQVkR3cmZNSG0rK3M4ZG5CSUNFR3VmemNSZ0RCQ29keXVi?=
- =?utf-8?B?RWR2MHBxTkZ1TVZ1Z3NXYm5VcmhEYzdNcklWSDU4UVRLT0MyV1M3emxqeDdo?=
- =?utf-8?B?NFFEbGEvQjFLTUNyZ1V2VDNjcjlnL3owOUdKTnVZREU0RlBxYzZScnJ1VVlV?=
- =?utf-8?B?R2FQa0FXRUN3N3dQekhmYTZiZFhGdTZvTlhQVjlVcFRWTFJ4N3lxbmE2VlND?=
- =?utf-8?B?cERLbG9uWW9Cc2NyaE5SSnFCcjBUK1FiNkEyb3VJYVF3dzMxdkhLRk9uSUp1?=
- =?utf-8?B?T2x0U1QrQVVjS20wSzR0aW9mSWlkKzRpeHlndWNQajg4MFRSUkJTdktpa2lx?=
- =?utf-8?B?bFlWTHY1NlJBQnNDNnpNWmJxRjZNRDN0ZTluOGZNOHZmSTJFZktBeG9GZmgx?=
- =?utf-8?B?ak1ub2hkSVZOSzNLb2VaaWpQd2dIRlpKN3VFZ2h5aWU1eFdzQ1R2RFdGTVV3?=
- =?utf-8?B?OUdPTFRnWTJacjFQdmdqUVhBWFA2UzFBWXlKeStoL3NuM2w2OGo0bDVoWmRG?=
- =?utf-8?B?Sk9wSkhvTU1PTmJSSEh5Nko3ZUJLWWtGMnRTRUJ6alNJMEtzSVhtcXVoT0tU?=
- =?utf-8?B?YVpMUXR1K21PT1NNMXJvR3Q3WXp5THFiRFVpNWFkdUJFaE5DdHJILytnRnJG?=
- =?utf-8?B?TWw3eXZveFQyYkhuQWVTczZZcGMyTC9GRGdHc1NpTnRGOUt1TXV3ZnZJWm02?=
- =?utf-8?B?clVvc1lGTTV2elRGdU11bzZudUZqZ2JSRDh2d0tKNU9JN2JmWFJKVDJpYjhv?=
- =?utf-8?B?WVplZkZJS0tOY2NkdmVhSHdMNlJ2RkFsanRTZ0xtbnFKdVByTllkbjNJamNy?=
- =?utf-8?B?K2FVSmdHcUh0dmtHTFc5ZXVXM0hnM2crdHdCT0lLZUcvTlp6cHdWbFNkNWwy?=
- =?utf-8?B?dW4rR2k4bHgzM1VCNkliWmNlZUg5RXZzUHlhbUxEckZyNmZPK2szc2dIbWlC?=
- =?utf-8?B?SEp2ZXFaOHFwYlg3TTRCMFpDN0VKNkFaT0UrOFF2NGpMU1JPS3dIb2ZnMDFI?=
- =?utf-8?B?RVp4LzFRTWNFVXA0WEQ1bGxybUN2SUJuQm9pbGFxbEM0SzZRSlp6bFpxdnFu?=
- =?utf-8?B?UGtzcWxQd2J4cWtxOElWVlhWV1B6L2ExM0FQSzlkZW5ZWDQrWmc3VG5GZHR2?=
- =?utf-8?B?UEJ5c0lkS2lzOG1Ca1UwUDRJUUI3Vk1yNkV0OHY4YThRRTg3UnQxbU02Tk5O?=
- =?utf-8?B?Zkc4R0JsOHd6VElIR3pvOW14UUdpRHhnZjRzNTFyek4wQ2RyZVVSUkNhYWxk?=
- =?utf-8?B?aENvem10OTkwZmN3a1Q3VTNwdnV3RC8xV21mVjRZeTBVV0xHejVTL1R6OUFh?=
- =?utf-8?B?UjRnZ2xFVHh3c01qb0V1WURNYWlidXc2YjQyaVVkZEdzdEJsM1k4S0FwZTJR?=
- =?utf-8?B?ajdXRzl4d1RMUGxETmdkVEk3cVlQZExLRlc3OWNOWGVrRGUxQlVlOUVTN09l?=
- =?utf-8?B?bXc5T1ByUnZCMjRxZFV1R3hlR1VDdmFaM21tTG9NZHZJdmZubjN1WXVZS0FU?=
- =?utf-8?B?c0RhOHlHZmxGNFcrU2FsaEZuOFVKUm5CS2plRmI1Y0M4eUhOTWxrTG5IdklU?=
- =?utf-8?B?ZjJlbXA5Z1lOOXdHcUNUME1QR3RTV1QwbjR6U210eW0vNm84eXBhalVuVWdD?=
- =?utf-8?B?U2RqdFM1SEVDRVZ1YnBPN1I4T29YSjJiNzlIaVQ5eWtQN21MUjdzL205ekpu?=
- =?utf-8?B?RTB6LzU0dW5sRC9rMDY3RUZkNjlmRUxxT29nZ1RDZlQ1NU9TYkV0RnFuSXB3?=
- =?utf-8?B?allpb2Q3dlViaE82TFJLbFhia0tNKzF2L3UzQ01DNFFwb1FtN3FkU2JsUkFm?=
- =?utf-8?B?RDRmRTdtdnZvdVBoTTVUME1kb1lmbjdOQ1VDL0RVMnFHenE1YnVVYnZyUUcy?=
- =?utf-8?B?RGtNbzBPMk02cEFTNHpqVlkyWVZuaEJSWG90NnpTTGFRWUJUTWh6WUg5SkEr?=
- =?utf-8?B?UGJnWjF1d2ZkNlB2SVJod1UzM3o5eEJNc3Z1Q1YwbkdISVA2N2JFVFVoaG9v?=
- =?utf-8?B?aWErNkEvL3hYUlNkeFRWWGtWdEpVV3pGdXlSUnpOeDQ0dTJlL2xEYnFvcGNU?=
- =?utf-8?B?anM0UUFxRFpoZWNIdDVLV0doRVdyNkRnZ05QM2VVQThucGFtR2d3Q1JtWEl6?=
- =?utf-8?B?aGVmWjRuS21DRWU0QXc4V3g5SXUrMERlQXRpRmgwSVJsdXg1UnQwWG5xQ2t0?=
- =?utf-8?B?UzlPR1NkLy9Ca2Izb21DbFNTRFlBc1MxQ1dYa1lvaW1kNkQrMnR0Zz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: N8kUHJ1i+ufIWcqCZCB/0DoEB5PZu7l94XHJ9Eg7xCf10Non90Pbqt7YrFmPXBVRbJaue3G/zj3JsorcX2Q0ICXZS0zwIdbpPOte05cws3jx+UDVbWnvHKniHAh2C7oMolvszdBmV6P/OETdkyRQQmjd3/+dIDWJM5tvs+2sNFwxCihwiTeigXuhUMvFRj2sScu8fNRE+wccQVbuQYNNRYYcnhqfAzOCFugGCuXd2L/29uUQ/CXKBbN2jXI4f7U21uoaDNTLtPesxI1a0s58vN96GB7AcH/UYpvxmydUfOtDQSySrgJhVW9iZUzvxBXGw0NDXPeMTSC2Ez8GjQ8ZTXyuAPpCsjpZS8/BTPbjjZGmlRRWK6YgxetC9z15amFaxZnqYgVRWH47aBjw0Bbq1Wc5L+qdIBH31p15mhkkDYZ299i61Y7KnsALKMXQASRO
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 20b5c424-6bb8-43f6-9377-08df49dd29dd
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8208.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 03:43:55.0962 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 04:46:08.2071 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bb24bfbc-c89a-4bbb-5111-08df49e5db1f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JK2VTtUnoAQIzp38W6q8BaIEJ75pzg+SjQaj82krXgq5V6ldxyyioNOG9+VqomvjeK0Uar/a+dKcAyWViDsg1w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6834
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF00022BD9.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6981
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,240 +102,261 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	HTML_MESSAGE,INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---------------LBtrlwR90Tj0Q0J9h5eD0dta
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+amdgpu_vm_tlb_seq() waits for the tlb_seq callback of a page table update
+by taking the lock of vm->last_seq_flush. But every fence has its own
+lock, and a newer update replaces vm->last_seq_flush without waiting for
+the callbacks of older updates. A job scheduled after an older fence has
+signaled, but before its callback has finished, takes the lock of the
+newer fence, misses the tlb_seq increment and can reuse a VMID without
+flushing the TLB after the page table update it waited for.
 
+how to fix:
+Stop incrementing tlb_seq from a fence callback. Put the fences of the
+updates which need a TLB flush into a dma_fence_chain and let
+amdgpu_vm_tlb_seq() add the number of updates which have signaled. A
+dependent job then sees the sequence change together with the signaled
+bit of the fence it waited for. The chain nodes are numbered
+consecutively. The number of the newest node minus the number of
+unsignaled nodes therefore also counts the signaled nodes which were
+already pruned, in any completion order. Nothing references the VM from
+a fence callback any more, so amdgpu_vm_fini() no longer needs to wait
+for vm->last_seq_flush.
 
-On 11/24/2026 8:56 AM, Jesse Zhang wrote:
-> GFX9 enables traps per VMID in SPI_GDBG_TRAP_CONFIG.VMID_SEL (or
-> SPI_GDBG_PER_VMID_CNTL on GFX 9.4.2), but only the user queue VMIDs are
-> enabled. So kernel queue jobs never enter the trap handler and an L2
-> trap handler set with AMDGPU_VM_OP_SET_L2_TRAP doesn't run for them.
->
-> Enable traps for every VMID except VMID 0, like GFX 9.4.3 already does.
->
-> Fixes: e259fae224e7 ("drm/amdgpu: Program trap TBA/TMA for kernel-managed VMIDs")
-> Signed-off-by: Jesse Zhang<Jesse.Zhang@amd.com>
-> Change-Id: I40175d1fea21fccb42a4db54be86e5e7458c6ed9
-> ---
->   drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c   | 15 +++++++++++----
->   drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c |  5 +++--
->   drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h |  3 ++-
->   3 files changed, 16 insertions(+), 7 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> index f8a5e9151483..3d8fd62fa269 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> @@ -4064,11 +4064,17 @@ static int gfx_v9_0_hw_init(struct amdgpu_ip_block *ip_block)
->   		return r;
->   
->   	if (amdgpu_trap_is_supported(adev)) {
-> +		/*
-> +		 * Kernel queue VMIDs get the first-level TBA/TMA from the
-> +		 * gfxhub, enable traps for them as well as for the user queue
-> +		 * VMIDs.
-> +		 */
-> +		unsigned long vmid_mask = GENMASK(AMDGPU_NUM_VMID - 1, 1);
-> +
->   		if (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 2))
-> -			gfx_v9_4_2_debug_trap_config_init(adev);
-> +			gfx_v9_4_2_debug_trap_config_init(adev, vmid_mask);
->   		else
-> -			gfx_v9_0_debug_trap_config_init(adev,
-> -							adev->vm_manager.vmid_uq_mask_gfxhub);
-> +			gfx_v9_0_debug_trap_config_init(adev, vmid_mask);
->   	}
->   
->   	if (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 2) &&
-> @@ -4952,7 +4958,8 @@ static int gfx_v9_0_late_init(struct amdgpu_ip_block *ip_block)
->   		return r;
->   
->   	if (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 2))
-> -		gfx_v9_4_2_debug_trap_config_init(adev);
-> +		gfx_v9_4_2_debug_trap_config_init(adev,
-> +			adev->vm_manager.vmid_uq_mask_gfxhub);
->   	else
->   		gfx_v9_0_debug_trap_config_init(adev,
->   			adev->vm_manager.vmid_uq_mask_gfxhub);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
-> index f54f54fe535e..612ced9754bf 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
-> @@ -836,14 +836,15 @@ void gfx_v9_4_2_init_sq(struct amdgpu_device *adev)
->   	}
->   }
->   
-> -void gfx_v9_4_2_debug_trap_config_init(struct amdgpu_device *adev)
-> +void gfx_v9_4_2_debug_trap_config_init(struct amdgpu_device *adev,
-> +				       unsigned long vmid_mask)
->   {
->   	uint32_t data;
->   	int i;
->   
->   	mutex_lock(&adev->srbm_mutex);
->   
-> -	for_each_uq_gfx_vmid(i, adev) {
-> +	for_each_set_bit(i, &vmid_mask, AMDGPU_NUM_VMID) {
->   		data = 0;
->   		soc15_grbm_select(adev, 0, 0, 0, i, 0);
->   		data = REG_SET_FIELD(data, SPI_GDBG_PER_VMID_CNTL, TRAP_EN, 1);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h
-> index ca240f4298da..c4d5055f01e5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h
-> @@ -24,7 +24,8 @@
->   #ifndef __GFX_V9_4_2_H__
->   #define __GFX_V9_4_2_H__
->   
-> -void gfx_v9_4_2_debug_trap_config_init(struct amdgpu_device *adev);
-> +void gfx_v9_4_2_debug_trap_config_init(struct amdgpu_device *adev,
-> +				       unsigned long vmid_mask);
-
-My original change programmed the L1 TBA/TMA for kernel-managed VMIDs,
-
-With this change, kernel-managed VMIDs can also enter the trap handler 
-and reach the L2 trap handler.
-
-Thanks for tracking this down.
-
-Reviewed-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-
-
-
-
---------------LBtrlwR90Tj0Q0J9h5eD0dta
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 11/24/2026 8:56 AM, Jesse Zhang
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:20261124032648.1977968-1-Jesse.Zhang@amd.com">
-      <pre wrap="" class="moz-quote-pre">GFX9 enables traps per VMID in SPI_GDBG_TRAP_CONFIG.VMID_SEL (or
-SPI_GDBG_PER_VMID_CNTL on GFX 9.4.2), but only the user queue VMIDs are
-enabled. So kernel queue jobs never enter the trap handler and an L2
-trap handler set with AMDGPU_VM_OP_SET_L2_TRAP doesn't run for them.
-
-Enable traps for every VMID except VMID 0, like GFX 9.4.3 already does.
-
-Fixes: e259fae224e7 (&quot;drm/amdgpu: Program trap TBA/TMA for kernel-managed VMIDs&quot;)
-Signed-off-by: Jesse Zhang <a class="moz-txt-link-rfc2396E" href="mailto:Jesse.Zhang@amd.com">&lt;Jesse.Zhang@amd.com&gt;</a>
-Change-Id: I40175d1fea21fccb42a4db54be86e5e7458c6ed9
+Signed-off-by: chong li <chongli2@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c   | 15 +++++++++++----
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c |  5 +++--
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h |  3 ++-
- 3 files changed, 16 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 77 +++++++-------------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h | 31 ++++++-----
+ 2 files changed, 38 insertions(+), 70 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index f8a5e9151483..3d8fd62fa269 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -4064,11 +4064,17 @@ static int gfx_v9_0_hw_init(struct amdgpu_ip_block *ip_block)
- 		return r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index a627a3092990..dafcebd95555 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -114,21 +114,6 @@ struct amdgpu_prt_cb {
+ 	struct dma_fence_cb cb;
+ };
  
- 	if (amdgpu_trap_is_supported(adev)) {
-+		/*
-+		 * Kernel queue VMIDs get the first-level TBA/TMA from the
-+		 * gfxhub, enable traps for them as well as for the user queue
-+		 * VMIDs.
-+		 */
-+		unsigned long vmid_mask = GENMASK(AMDGPU_NUM_VMID - 1, 1);
-+
- 		if (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 2))
--			gfx_v9_4_2_debug_trap_config_init(adev);
-+			gfx_v9_4_2_debug_trap_config_init(adev, vmid_mask);
- 		else
--			gfx_v9_0_debug_trap_config_init(adev,
--							adev-&gt;vm_manager.vmid_uq_mask_gfxhub);
-+			gfx_v9_0_debug_trap_config_init(adev, vmid_mask);
- 	}
- 
- 	if (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 2) &amp;&amp;
-@@ -4952,7 +4958,8 @@ static int gfx_v9_0_late_init(struct amdgpu_ip_block *ip_block)
- 		return r;
- 
- 	if (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 2))
--		gfx_v9_4_2_debug_trap_config_init(adev);
-+		gfx_v9_4_2_debug_trap_config_init(adev,
-+			adev-&gt;vm_manager.vmid_uq_mask_gfxhub);
- 	else
- 		gfx_v9_0_debug_trap_config_init(adev,
- 			adev-&gt;vm_manager.vmid_uq_mask_gfxhub);
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
-index f54f54fe535e..612ced9754bf 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
-@@ -836,14 +836,15 @@ void gfx_v9_4_2_init_sq(struct amdgpu_device *adev)
- 	}
+-/**
+- * struct amdgpu_vm_tlb_seq_struct - Helper to increment the TLB flush sequence
+- */
+-struct amdgpu_vm_tlb_seq_struct {
+-	/**
+-	 * @vm: pointer to the amdgpu_vm structure to set the fence sequence on
+-	 */
+-	struct amdgpu_vm *vm;
+-
+-	/**
+-	 * @cb: callback
+-	 */
+-	struct dma_fence_cb cb;
+-};
+-
+ /**
+  * amdgpu_vm_assert_locked - check if VM is correctly locked
+  * @vm: the VM which schould be tested
+@@ -1089,47 +1074,33 @@ int amdgpu_vm_update_pdes(struct amdgpu_device *adev,
+ 	return r;
  }
  
--void gfx_v9_4_2_debug_trap_config_init(struct amdgpu_device *adev)
-+void gfx_v9_4_2_debug_trap_config_init(struct amdgpu_device *adev,
-+				       unsigned long vmid_mask)
+-/**
+- * amdgpu_vm_tlb_seq_cb - make sure to increment tlb sequence
+- * @fence: unused
+- * @cb: the callback structure
+- *
+- * Increments the tlb sequence to make sure that future CS execute a VM flush.
+- */
+-static void amdgpu_vm_tlb_seq_cb(struct dma_fence *fence,
+-				 struct dma_fence_cb *cb)
+-{
+-	struct amdgpu_vm_tlb_seq_struct *tlb_cb;
+-
+-	tlb_cb = container_of(cb, typeof(*tlb_cb), cb);
+-	atomic64_inc(&tlb_cb->vm->tlb_seq);
+-	kfree(tlb_cb);
+-}
+-
+ /**
+  * amdgpu_vm_tlb_flush - prepare TLB flush
+  *
+  * @params: parameters for update
+  * @fence: input fence to sync TLB flush with
+- * @tlb_cb: the callback structure
++ * @chain: preallocated chain node to track the update with
+  *
+  * Increments the tlb sequence to make sure that future CS execute a VM flush.
+  */
+ static void
+ amdgpu_vm_tlb_flush(struct amdgpu_vm_update_params *params,
+ 		    struct dma_fence *fence,
+-		    struct amdgpu_vm_tlb_seq_struct *tlb_cb)
++		    struct dma_fence_chain *chain)
  {
- 	uint32_t data;
+ 	struct amdgpu_vm *vm = params->vm;
++	struct dma_fence *prev, *iter;
+ 
+-	tlb_cb->vm = vm;
+-	if (fence && !dma_fence_add_callback(fence, &tlb_cb->cb,
+-					     amdgpu_vm_tlb_seq_cb)) {
+-		dma_fence_put(vm->last_seq_flush);
+-		vm->last_seq_flush = dma_fence_get(fence);
+-	} else {
+-		amdgpu_vm_tlb_seq_cb(NULL, &tlb_cb->cb);
+-	}
++	/* The reference of vm->last_seq_flush to prev moves into the chain */
++	prev = rcu_dereference_protected(vm->last_seq_flush,
++					 lockdep_is_held(&vm->eviction_lock));
++	dma_fence_chain_init(chain, prev,
++			     fence ? dma_fence_get(fence) : dma_fence_get_stub(),
++			     prev ? prev->seqno + 1 : 1);
++	rcu_assign_pointer(vm->last_seq_flush, &chain->base);
++
++	/* Prune signaled nodes, not every VM reads the sequence */
++	dma_fence_chain_for_each(iter, &chain->base);
+ 
+ 	/* Prepare a TLB flush fence to be attached to PTs */
+ 	/* The check for need_tlb_fence should be dropped once we
+@@ -1177,7 +1148,7 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 			   struct ttm_resource *res, dma_addr_t *pages_addr,
+ 			   struct dma_fence **fence)
+ {
+-	struct amdgpu_vm_tlb_seq_struct *tlb_cb;
++	struct dma_fence_chain *chain;
+ 	struct amdgpu_vm_update_params params;
+ 	struct amdgpu_res_cursor cursor;
+ 	int r, idx;
+@@ -1185,8 +1156,8 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 	if (!drm_dev_enter(adev_to_drm(adev), &idx))
+ 		return -ENODEV;
+ 
+-	tlb_cb = kmalloc_obj(*tlb_cb);
+-	if (!tlb_cb) {
++	chain = dma_fence_chain_alloc();
++	if (!chain) {
+ 		drm_dev_exit(idx);
+ 		return -ENOMEM;
+ 	}
+@@ -1291,14 +1262,14 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 		goto error_free;
+ 
+ 	if (params.needs_flush) {
+-		amdgpu_vm_tlb_flush(&params, *fence, tlb_cb);
+-		tlb_cb = NULL;
++		amdgpu_vm_tlb_flush(&params, *fence, chain);
++		chain = NULL;
+ 	}
+ 
+ 	amdgpu_vm_pt_free_list(adev, &params);
+ 
+ error_free:
+-	kfree(tlb_cb);
++	dma_fence_chain_free(chain);
+ 	amdgpu_vm_end_critical(&params);
+ 	drm_dev_exit(idx);
+ 	return r;
+@@ -2685,7 +2656,7 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 
+ 	vm->last_update = dma_fence_get_stub();
+ 	vm->last_unlocked = dma_fence_get_stub();
+-	vm->last_seq_flush = dma_fence_get_stub();
++	RCU_INIT_POINTER(vm->last_seq_flush, NULL);
+ 	vm->last_tlb_inv = dma_fence_get_stub();
+ 	vm->generation = amdgpu_vm_generation(adev, NULL);
+ 
+@@ -2730,7 +2701,6 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 
+ error_free_delayed:
+ 	dma_fence_put(vm->last_update);
+-	dma_fence_put(vm->last_seq_flush);
+ 	dma_fence_put(vm->last_tlb_inv);
+ 	dma_fence_put(vm->last_unlocked);
+ 	ttm_lru_bulk_move_fini(&adev->mman.bdev, &vm->lru_bulk_move);
+@@ -2863,7 +2833,6 @@ void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+ 	struct amdgpu_bo_va_mapping *mapping, *tmp;
+ 	bool prt_fini_needed = !!adev->gmc.gmc_funcs->set_prt;
+ 	struct amdgpu_bo *root;
+-	unsigned long flags;
  	int i;
  
- 	mutex_lock(&amp;adev-&gt;srbm_mutex);
+ 	amdgpu_amdkfd_gpuvm_destroy_cb(adev, vm);
+@@ -2876,11 +2845,7 @@ void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+ 				      false, MAX_SCHEDULE_TIMEOUT);
+ 	dma_fence_wait(vm->last_unlocked, false);
+ 	dma_fence_put(vm->last_unlocked);
+-	dma_fence_wait(vm->last_seq_flush, false);
+-	/* Make sure that all fence callbacks have completed */
+-	dma_fence_lock_irqsave(vm->last_seq_flush, flags);
+-	dma_fence_unlock_irqrestore(vm->last_seq_flush, flags);
+-	dma_fence_put(vm->last_seq_flush);
++	dma_fence_put(rcu_dereference_protected(vm->last_seq_flush, true));
+ 	dma_fence_put(vm->last_tlb_inv);
  
--	for_each_uq_gfx_vmid(i, adev) {
-+	for_each_set_bit(i, &amp;vmid_mask, AMDGPU_NUM_VMID) {
- 		data = 0;
- 		soc15_grbm_select(adev, 0, 0, 0, i, 0);
- 		data = REG_SET_FIELD(data, SPI_GDBG_PER_VMID_CNTL, TRAP_EN, 1);
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h
-index ca240f4298da..c4d5055f01e5 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.h
-@@ -24,7 +24,8 @@
- #ifndef __GFX_V9_4_2_H__
- #define __GFX_V9_4_2_H__
+ 	list_for_each_entry_safe(mapping, tmp, &vm->freed, list) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+index f6285a9d9e98..6142a86a8b80 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+@@ -24,6 +24,7 @@
+ #ifndef __AMDGPU_VM_H__
+ #define __AMDGPU_VM_H__
  
--void gfx_v9_4_2_debug_trap_config_init(struct amdgpu_device *adev);
-+void gfx_v9_4_2_debug_trap_config_init(struct amdgpu_device *adev,
-+				       unsigned long vmid_mask);</pre>
-    </blockquote>
-    <p>
-      <style>a {
-    text-decoration: none;
-    color: #464feb;
-}tr th, tr td {
-    border: 1px solid #e6e6e6;
-}tr th {
-    background-color: #f5f5f5;
-}</style>
-      <div style="font-family:'Segoe UI';font-size:14px;font-style:normal;font-weight:400;line-height:20px">
-        <p> My original change programmed the L1 TBA/TMA for
-          kernel-managed VMIDs,</p>
-        <p>With this change, kernel-managed VMIDs can also enter the
-          trap handler and reach the L2 trap handler.</p>
-        <p>Thanks for tracking this down.</p>
-        <p>Reviewed-by: Srinivasan Shanmugam
-          <a class="moz-txt-link-rfc2396E" href="mailto:srinivasan.shanmugam@amd.com">&lt;srinivasan.shanmugam@amd.com&gt;</a></p>
-      </div>
-      <br>
-    </p>
-    <p><br>
-    </p>
-    <br>
-  </body>
-</html>
++#include <linux/dma-fence-chain.h>
+ #include <linux/idr.h>
+ #include <linux/kfifo.h>
+ #include <linux/rbtree.h>
+@@ -330,7 +331,7 @@ struct amdgpu_vm {
+ 
+ 	/* Last TLB seq/fence */
+ 	atomic64_t		tlb_seq;
+-	struct dma_fence	*last_seq_flush;
++	struct dma_fence __rcu	*last_seq_flush;
+ 	atomic64_t		kfd_last_flushed_seq;
+ 	uint64_t		tlb_fence_context;
+ 	struct dma_fence	*last_tlb_inv;
+@@ -554,22 +555,24 @@ bool amdgpu_vm_is_bo_always_valid(struct amdgpu_vm *vm, struct amdgpu_bo *bo);
+  */
+ static inline uint64_t amdgpu_vm_tlb_seq(struct amdgpu_vm *vm)
+ {
+-	unsigned long flags;
+-	spinlock_t *lock;
++	u64 seq = atomic64_read(&vm->tlb_seq);
++	struct dma_fence *head, *iter;
+ 
+-	/*
+-	 * Workaround to stop racing between the fence signaling and handling
+-	 * the cb. The lock is static after initially setting it up, just make
+-	 * sure that the dma_fence structure isn't freed up.
+-	 */
+ 	rcu_read_lock();
+-	lock = dma_fence_spinlock(vm->last_seq_flush);
++	head = dma_fence_get_rcu_safe(&vm->last_seq_flush);
+ 	rcu_read_unlock();
+-
+-	spin_lock_irqsave(lock, flags);
+-	spin_unlock_irqrestore(lock, flags);
+-
+-	return atomic64_read(&vm->tlb_seq);
++	if (!head)
++		return seq;
++
++	/* Add the updates in the chain which have finished, in any order */
++	seq += head->seqno;
++	dma_fence_chain_for_each(iter, head) {
++		if (!dma_fence_is_signaled(dma_fence_chain_contained(iter)))
++			--seq;
++	}
++	dma_fence_put(head);
++
++	return seq;
+ }
+ 
+ void amdgpu_vm_update_fault_cache(struct amdgpu_device *adev,
+-- 
+2.48.1
 
---------------LBtrlwR90Tj0Q0J9h5eD0dta--
