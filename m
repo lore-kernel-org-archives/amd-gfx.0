@@ -2,49 +2,65 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DBC1606A323
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 15:55:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9478A606A329
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 15:55:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=sPfFgFWS
+	dkim=pass (2048-bit key) header.d=simple-co.de header.i=@simple-co.de header.a=rsa-sha256 header.s=201801 header.b=lekXeErn;
+	dkim=pass (2048-bit key) header.d=simple-co.de header.i=@simple-co.de header.a=rsa-sha256 header.s=201801 header.b=BgJ6RP+c
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D1D610F755;
-	Tue, 24 Nov 2026 15:54:55 +0000 (UTC)
-Received: from mta0.migadu.com (out-217.mta0.migadu.com [91.218.175.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C94D310E5B4
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Nov 2026 09:47:36 +0000 (UTC)
-X-Envelope-To: amd-gfx@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=LF0q2K3tyOr7KGO2AG5QfLveDcN/YDA1xdf/RlJ8cxA=; 
- c=simple/simple; d=wyuan.org;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795513654; v=1; x=1796118454;
- b=sPfFgFWSZ/DLKmxtyQGKLVTm+OtDZnY04H7mSHJnGuFt6x6TC+fIZyDjugWoF3q9aTm9XYG1
- z1vNAL3YLazW/6rXCHsL1VLkczwBclR66FyQbZXqhLXRym9wiR94gnOxV9G26b6EzVw/2dhmnQZ
- S2hPiN1O/fJxZ/QiSxKBgY1OG1qvpXRivY347kQLFxt3qKAp3EQ1zD7OtUG/IHCH6RGkbed+J3I
- AxJA8gYUwiSe9nQ9nsbCepSLIDxnODrahZf2ENs4m1n4qJZOITL3lOXbR7hq6Nq9VR1+jO9WjYZ
- gD6KVngjsGtH3vfHPgH1fEr/8eoYsuAl41ctVRgUPFQTA==
-X-Envelope-To: amd-gfx@lists.freedesktop.org
-Received: by smtp.migadu.com with ESMTPS id 45a6dc87a3d4f534;
- Tue, 24 Nov 2026 09:46:31 +0000
-X-Mizu-Trace-ID: 45a6dc87a3d4f534
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 24 Nov 2026 17:46:25 +0800
-From: Weijie Yuan <wy@wyuan.org>
-To: TAKANO Mitsuhiro <takano32@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Thomas Huth <thuth@redhat.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] drm/amd/display: document two members of dc.h
-Message-ID: <awVc8RAMO75SFkxV@wyuan.org>
-References: <20261123122226.4101191-1-takano32@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C59BA10F746;
+	Tue, 24 Nov 2026 15:54:51 +0000 (UTC)
+X-Greylist: delayed 548 seconds by postgrey-1.36 at gabe;
+ Tue, 24 Nov 2026 14:43:51 UTC
+Received: from mail.bin-co.de (mail.bin-co.de [37.120.183.211])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DBD6310F61A
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Nov 2026 14:43:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=simple-co.de;
+ s=201801; t=1795530882;
+ bh=O0TE38rH24r1ohj7x/wS2xvssKoIpXBAg2G4OB/hzhI=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=lekXeErnWB4QigHY6Z5A/SmV5k32AEt6uPcjzKJzb02FNORnWA2cA7c+FUOS+tvxm
+ GOkzYFjQvE00RYVfpguMrci2k1+g+8oKdCoR2yu+Dle+Hs0SVv4A1A/urR6trH5r7J
+ y/ihRBjL1FAQxUEMxvPsJ8TXRivr4r0PQ3CdBr688W/lGhDqknyQydQ4mjjh6JApTW
+ d5XQvSVpbd9j5b3OjbLJInXbhPaSMJqSdNqCLfNKKmUwMoev8cbPua/Q/2WoQUHRk2
+ PbQvKODtjBXALvuifXgEJooj924tU/pDHEs1+f8PPekB0sAWBmXtd9KSvx6YKMKJ0A
+ 54VjU38n9w0Ow==
+Received: from localhost (localhost [127.0.0.1])
+ by mail.bin-co.de (Postfix) with ESMTP id 51E1617F066;
+ Tue, 24 Nov 2026 15:34:42 +0100 (CET)
+X-Virus-Scanned: Debian amavis at v2202603343726440230.luckysrv.de
+Received: from mail.bin-co.de ([127.0.0.1])
+ by localhost (mail.bin-co.de [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id vXV-bjnt7cL3; Tue, 24 Nov 2026 15:34:42 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=simple-co.de;
+ s=201801; t=1795530881;
+ bh=O0TE38rH24r1ohj7x/wS2xvssKoIpXBAg2G4OB/hzhI=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=BgJ6RP+c+lxBj79h7EAM6HEClwy9UyDs8qLQOkVw+QTIezVU4yCpIUJeDJl/vmDOx
+ KLISGnNaBZAW7L+KVdOfry3xFBEkWz3MIEhSB58AYy3KBblFu9PrJ8ZdSdiSO/BOVA
+ S/nMEhI2wuzfbwvmN3qzIHI2ukZljRmXjLK7zMqmdiRBz0vU3baW+RiZ1zxJCoNbeo
+ HEXd4GcpiUsdeyGvynZ7lgQWpqYPFoE4LssMm07+01/3FT/edK4bPj9ldf71+aTaeJ
+ AsOpWG+cGG1o3XvaSlClfwM6NItFLliO83tGcAQRPnWGhdZHLGQcHlL7taQNFPfGVf
+ XWn3FdolRRSAw==
+Received: from deepblue.zlan.intra (wan.zappel.net [IPv6:2a02:8106:4:c300::1])
+ (Authenticated sender: zappel@simple-co.de)
+ by mail.bin-co.de (Postfix) with ESMTPSA id B493217F067;
+ Tue, 24 Nov 2026 15:34:41 +0100 (CET)
+From: Armas Spann <zappel@simple-co.de>
+To: amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com,
+ Felix.Kuehling@amd.com, Armas Spann <zappel@simple-co.de>,
+ "Claude Fable 5.2" <noreply@anthropic.com>
+Subject: [PATCH v1 2/9] drm/amdkfd: factor out freeing of per-queue MES
+ resources
+Date: Tue, 24 Nov 2026 15:34:25 +0100
+Message-ID: <20261124143433.49736-3-zappel@simple-co.de>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261124143433.49736-1-zappel@simple-co.de>
+References: <20261124143433.49736-1-zappel@simple-co.de>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261123122226.4101191-1-takano32@gmail.com>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 24 Nov 2026 15:54:45 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -56,25 +72,81 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon, Nov 23, 2026 at 12:22:24PM +0000, TAKANO Mitsuhiro wrote:
-> Two undocumented members in dc.h, both reported by kernel-doc: the union in
-> dc_probe_status has no description of its own, and the comment of
-> mpc_color_caps does not mention max_gamut_remap_coeff.  Both patches only
-> add comment text, so no build was run.
-> 
-> The diff is unchanged from the previous posting.  As Weijie Yuan suggested,
-> the AI disclosure moved out of the commit message: it is now below the ---
-> in each patch, and it is also in this cover letter.
+The gang context and the GART mapping of the write pointer are the parts
+of a queue that only exist for MES. They are freed in
+pqm_clean_queue_resource() together with the GWS bookkeeping.
 
-Tested on my local machine, the warnings disappear.
+Move them into kfd_queue_free_mes_resources() so that code outside the
+pqm can free them at the point where MES is known to have let go of the
+queue.
 
-Tested-by: Weijie Yuan <wy@wyuan.org>
+No functional change.
 
-Thanks. Jon would be happy about this, I guess. ;-)
+Signed-off-by: Armas Spann <zappel@simple-co.de>
+Co-Authored-By: Claude Fable 5.2 <noreply@anthropic.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  1 +
+ .../amd/amdkfd/kfd_process_queue_manager.c    | 21 ++++++++++++++-----
+ 2 files changed, 17 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index 3292e616d..0c276f7eb 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -1387,6 +1387,7 @@ int kfd_criu_resume_queues(struct kfd_process *p);
+ /* Queue Context Management */
+ int init_queue(struct queue **q, const struct queue_properties *properties);
+ void uninit_queue(struct queue *q);
++void kfd_queue_free_mes_resources(struct kfd_node *dev, struct queue *q);
+ void print_queue_properties(struct queue_properties *q);
+ void print_queue(struct queue *q);
+ int kfd_queue_buffer_get(struct amdgpu_vm *vm, void __user *addr, struct amdgpu_bo **pbo,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+index b68e884b1..89e95b70e 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+@@ -186,6 +186,21 @@ int pqm_init(struct process_queue_manager *pqm, struct kfd_process *p)
+ 	return 0;
+ }
+ 
++/*
++ * Free the storage that only exists so MES can run the queue: the gang
++ * context and the GART mapping of the write pointer. MES addresses both
++ * directly, so the queue must be out of MES before this is called.
++ */
++void kfd_queue_free_mes_resources(struct kfd_node *dev, struct queue *q)
++{
++	if (!dev->kfd->shared_resources.enable_mes)
++		return;
++
++	amdgpu_mes_free_gang_ctx_index(&dev->adev->mes, q->gang_ctx_array_index);
++	amdgpu_amdkfd_free_kernel_mem(dev->adev, &q->gang_ctx_bo);
++	amdgpu_amdkfd_free_kernel_mem(dev->adev, (void **)&q->wptr_bo_gart);
++}
++
+ static void pqm_clean_queue_resource(struct process_queue_manager *pqm,
+ 				     struct process_queue_node *pqn)
+ {
+@@ -210,11 +225,7 @@ static void pqm_clean_queue_resource(struct process_queue_manager *pqm,
+ 		pdd->qpd.num_gws = 0;
+ 	}
+ 
+-	if (dev->kfd->shared_resources.enable_mes) {
+-		amdgpu_mes_free_gang_ctx_index(&dev->adev->mes, pqn->q->gang_ctx_array_index);
+-		amdgpu_amdkfd_free_kernel_mem(dev->adev, &pqn->q->gang_ctx_bo);
+-		amdgpu_amdkfd_free_kernel_mem(dev->adev, (void **)&pqn->q->wptr_bo_gart);
+-	}
++	kfd_queue_free_mes_resources(dev, pqn->q);
+ }
+ 
+ void pqm_uninit(struct process_queue_manager *pqm)
+-- 
+2.56.1
+
