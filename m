@@ -2,112 +2,63 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47226606A31E
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 15:55:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B507606A31E
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 15:55:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=XbgSnQ5w
+	dkim=pass (2048-bit key) header.d=simple-co.de header.i=@simple-co.de header.a=rsa-sha256 header.s=201801 header.b=l5nigABE;
+	dkim=pass (2048-bit key) header.d=simple-co.de header.i=@simple-co.de header.a=rsa-sha256 header.s=201801 header.b=CN8Yl4/b
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 685B310F75E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58E8210F75D;
 	Tue, 24 Nov 2026 15:55:02 +0000 (UTC)
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com
- [209.85.218.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A834B10F68B
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Nov 2026 14:20:36 +0000 (UTC)
-Received: by mail-ej1-f43.google.com with SMTP id
- a640c23a62f3a-c4d2b741ed9so744871766b.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Nov 2026 06:20:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1795530035; x=1796134835; darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=Hoa2uDGRiz+jXLxbcD4HBQF2SzMfWsHt0csEQeOTfAo=;
- b=XbgSnQ5w7HsoJWQXtmcP3kkxo7IiRzELTC9pi25LWjC03FdDizbCUiuMyEakdnmHqw
- L4htf7WhxMi4+dkUk7KN850O2GQjK/Hu518NcsCbNomF3VdJWRTt6zZBAO3B1YnOgnX9
- X/bKxGSY6hKbyGJexKTYpSe4K2GhtCe3Yr05MNZJ8mRrVvz9VOzn2SjY4RZceVcsBQ1G
- FojQVp2KjrlhsV8V1CJmEyjvim8S+zp4GnTcImvVbKyNXXw5Vop+eL/F0P82cvBPlSCP
- nvjWYTt5CZWGkBCejbKMk4Y2+xs1tVu73OSCf+1QKolehUvcxFt2wmtwMlna1AByjkYT
- 0x1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795530035; x=1796134835;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=Hoa2uDGRiz+jXLxbcD4HBQF2SzMfWsHt0csEQeOTfAo=;
- b=kElniF4tcPMmZ42F2KCkgJinhJF4x9nNpvBJkyQaHGIyFhyu7nu3Ur2FWW+noTMPB9
- L2ePFe17+VwgUJWw3E+09NzyuxY4r67MJHQfDPnu3nFDimAppM6sv4L9ktkw2AO9zYY+
- poo0WiL8QrdY3OcZCo1SilJBaBaZofnCwrXGErfVSazUqQu1l8SVuSmmkTo6gGNRoIoU
- gLkIZfTKnJTAPp4CeCFmvf3Oh7ebwZ9kyKQnpDAhklmDdD2jtKZ3NV6X9RB8092U072d
- AMp/p9ca0ZADnW8vXU7Cu0qK9S31kHirpMyUiuM9/kDVj2QeYiGRXpGJSL3Ju9ZsDSRy
- EK6w==
-X-Forwarded-Encrypted: i=1;
- AL+hErGHcffKRwdzEWUc5YfIOK+QtktX24QSYCWPQ5PQHOJc0K3R0jOePT61JDYK4Oji0VcmshxxYin4@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8NKruQjQbsabPuS1bqKskShDpYMEkPL3HhiXhI7YREv70SSU6P
- M1GARXSZbZC64JjdUZbIWkvXoVffki0YohhL4t8DbbYSsTdAg5o5fOBJbT1OhlPBP5k=
-X-Gm-Gg: AZFdTZdXpZoUgw3nnvIJrjkN/7CmKvWFtW8yIHsfb1lu10n+KbtIL+EhB9e18b8MzNs
- /eTc74FyyaPtqD0Z9zu6pdiG24uTXnc2wLdR7Sw86uUzgkuwRYsW1B7n1eJmLYjoY5tUyHBksAp
- GNV+TDXC1Sujoxs+9sajGCMz6EDest7YZ9765Sd7PwmuU6tcylPNCzf+NKIqxJU61Ot46caqZ8h
- tPV85S0lv9K/WDNwkmFjlyzMEnI5n4W5h4tWUdZHFGd3vYj5isY5uajElLAi7zDz83iEKGa35VB
- 5MaQiKy/h0OVUfNmdTxjeSyuVF6VSZtLMvcU7PsNMRILagMx23zFaHhTEBNcXCPif8uF3Jp9srk
- y97DNjJGCF/H7dE4zmMD6q8qqN9hTKD3Y2bU56oumVB9PA4HFgOlTx66NK4pxdBJaa9Mp684X5I
- qdkLuRoRdNH9OMgkxN62/hEMcaVkPvGCUf5kHhkJeWYJnYB81cjc+W+akDM9GYbqczBS0lgh/Sc
- sXxXzn7opglSQkVAd79dnIRsU22PUbAJR6u4qUcXEWfsVljeLqpkAZQ2sD5PCjztFD1MCPQnDdc
- wJNn6Zu/9m3Wrx7WvXPnU9EvoHM=
-X-Received: by 2002:a17:906:eec9:b0:c51:5589:35a1 with SMTP id
- a640c23a62f3a-c515589d211mr891019366b.5.1795530034479; 
- Tue, 24 Nov 2026 06:20:34 -0800 (PST)
-Received: from ziepe.ca ([142.177.118.84]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c513ae8dc60sm518286266b.34.2026.11.24.06.20.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 Nov 2026 06:20:33 -0800 (PST)
-Received: from jgg by wakko with local (Exim 4.97)
- (envelope-from <jgg@ziepe.ca>) id 1xVrNo-00000000RS3-1UVp;
- Tue, 24 Nov 2026 10:20:32 -0400
-Date: Tue, 24 Nov 2026 10:20:32 -0400
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Cc: Alistair Popple <apopple@nvidia.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Simona Vetter <simona.vetter@ffwll.ch>,
- Matthew Brost <matthew.brost@intel.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- Dongwon Kim <dongwon.kim@intel.com>, Kevin Tian <kevin.tian@intel.com>,
- Xu Yilun <yilun.xu@linux.intel.com>,
- Karl Mehltretter <kmehltretter@gmail.com>,
- Baolu Lu <baolu.lu@linux.intel.com>,
- Felix Kuehling <felix.kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- linux-rdma@vger.kernel.org, iommu@lists.linux.dev,
- Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
- Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
- linux-nvme@lists.infradead.org, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>,
- Mina Almasry <almasrymina@google.com>, netdev@vger.kernel.org,
- Alexey Kardashevskiy <aik@amd.com>, zhipingz@meta.com,
- treding@nvidia.com, jhubbard@nvidia.com, chaitanyak@nvidia.com,
- Leon Romanovsky <leon@kernel.org>
-Subject: Re: [PATCH v3 03/24] dma-buf: Add the SGT DMA mapping type
-Message-ID: <20261124142032.GN9566@ziepe.ca>
-References: <20261120-dma_mapping_type_v4-v3-0-c0183a409bdf@nvidia.com>
- <20261120-dma_mapping_type_v4-v3-3-c0183a409bdf@nvidia.com>
- <ad46d60a-189d-4dd5-9ad8-ecfd3c90f9d9@amd.com>
- <20261123165716.GM179082@ziepe.ca>
- <7ac7edd0-5c38-440a-b26a-21bcbb6f4702@amd.com>
- <awT8prWsj11TBdmP@nvdebian.thelocal>
- <63eb7b6e-e0a8-4443-a434-0301ed59beae@amd.com>
+Received: from mail.bin-co.de (mail.bin-co.de [37.120.183.211])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F69C10F61A
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Nov 2026 14:44:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=simple-co.de;
+ s=201801; t=1795530884;
+ bh=RuNvG0POF61Wg4R4c+nC8660KgYbvD3VNZ2aCVpWNDU=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=l5nigABEEHIa4t/gX7OGGy7v1b3B9zHknWM5Ji95ebw9JmfZUo9DLzGAK6m94EVlT
+ 6HJP/NKOTDzvXLB50ez7SFKTvZzyzaMm1/g1qqWrk2RYiY3hzJXgnbVsfQWPbXJaiD
+ d4LfTKUw/hmAZmPTgvh6314fpC+Rzk7wkJTNL5QM7dq2NvYMHDCPLFRIxbKDs/TCue
+ xrgoEug/L6e89I3Euu+YLFSXR08tUWrCmai2AKFk98E0tu0BNZg+1ueEQotLVU358x
+ /TufkWAOvtdcE9EdNAvk0lPZE0JXfgrbZzPIAPTxGa6//0fVMFYSgxO5eppj/ycIsA
+ ROznTbH5HhpdA==
+Received: from localhost (localhost [127.0.0.1])
+ by mail.bin-co.de (Postfix) with ESMTP id 1B47417F067;
+ Tue, 24 Nov 2026 15:34:44 +0100 (CET)
+X-Virus-Scanned: Debian amavis at v2202603343726440230.luckysrv.de
+Received: from mail.bin-co.de ([127.0.0.1])
+ by localhost (mail.bin-co.de [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id w4KD9z0mYwkg; Tue, 24 Nov 2026 15:34:43 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=simple-co.de;
+ s=201801; t=1795530883;
+ bh=RuNvG0POF61Wg4R4c+nC8660KgYbvD3VNZ2aCVpWNDU=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=CN8Yl4/baKdPlUY/fOsbAOVGS+Sj+GH1KoCkhYjjpzKeDt4mou5AkVLdoI8o6jJYO
+ O3yfTbm/jVbTcnmmwuLEOGnLxR84YJkZSs5UdiwlZlOHF7eZN6PnQ/xpf3nRSu9ikD
+ gnOw9uKZiFpH//QT9jZRvzu0J2KQVkzfApJCebsGXNn7uUIFUDBHRFBs4sYQQp/81i
+ fpk0yE1y/L9hNO+/FfJvT2rROn+vz34GypAtd8UxJACTNOQBlasAg31LI2u608vswR
+ MpA+cQoaF3BQuy1TLD43T48gYqlZSpqZTpM2U2HR7NJpAhabVv5kqpxQQER//fVoXs
+ /9pneNxcXIi3g==
+Received: from deepblue.zlan.intra (wan.zappel.net [IPv6:2a02:8106:4:c300::1])
+ (Authenticated sender: zappel@simple-co.de)
+ by mail.bin-co.de (Postfix) with ESMTPSA id 6BFA917F06A;
+ Tue, 24 Nov 2026 15:34:43 +0100 (CET)
+From: Armas Spann <zappel@simple-co.de>
+To: amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com,
+ Felix.Kuehling@amd.com, Armas Spann <zappel@simple-co.de>,
+ "Claude Fable 5.2" <noreply@anthropic.com>
+Subject: [PATCH v1 8/9] drm/amdkfd: reconcile queue state with MES after a
+ restart
+Date: Tue, 24 Nov 2026 15:34:31 +0100
+Message-ID: <20261124143433.49736-9-zappel@simple-co.de>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261124143433.49736-1-zappel@simple-co.de>
+References: <20261124143433.49736-1-zappel@simple-co.de>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <63eb7b6e-e0a8-4443-a434-0301ed59beae@amd.com>
 X-Mailman-Approved-At: Tue, 24 Nov 2026 15:54:45 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -119,56 +70,127 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Nov 24, 2026 at 01:36:21PM +0100, Christian König wrote:
-> > The core then negotiates compatible types and adds converters between them,
-> 
-> I have strong objections to that plan and would potentially NAK it.
-> 
-> DMA-buf should *NEVER* accept CPU physical addresses nor provide
-> conversion between different address types.
-> 
-> Keep in mind that DMA-buf is solely a container for DMA addresses,
-> nothing else and it should not provide any mapping functionality
-> whatsoever.
+A GPU reset restarts the MES firmware, which then knows no user queues.
+KFD keeps its processes, in an evicted state, until they exit. Their
+queues cannot be removed cleanly on the way into the reset, because
+every REMOVE_QUEUE fails with -EIO at that point.
 
-dmabuf needs to provide support for drivers to help them use the
-interface, and going from physical to dma_addr_t is absolutely a
-common task every driver must do. I don't care how you call it, but it
-is a service that must be provided by *something* and matched to the
-needs of dmabuf.
+On an R9700 this showed up as resets that come in pairs. A process that
+had lived through a GPU reset exited 62 s later. KFD sent REMOVE_QUEUE
+for queues the new firmware had never seen, MES rejected each command
+within a fraction of a millisecond, and KFD reset the GPU again.
 
-I will definitely NAK any direction to open code dma mapping in every
-driver again. If we are going away from SGT then we are fixing all the
-DRM mistakes, including the wrong open coded DMA mapping, sketchy use
-of SGT, and abuse of P2P that seems to be endemic in drm.
+The per-queue MES state already stops those commands one queue at a
+time. Put the driver state right in one place as well: when the
+scheduler starts, walk the queues of every process, drop the MES state
+that belongs to an earlier firmware instance and release the status
+slots of commands that were lost with it. A queue that is still counted
+as running is deactivated and marked evicted together with its process.
+That is the state kgd2kfd_pre_reset() leaves queues in when eviction
+works, and after a system resume kfd_resume_all_processes() maps the
+queues again from it.
 
-Meaing the exporter constructs a phys_addr list, gets a P2P provider,
-and some common code constructs what is passed to the importer. I
-don't care if this is in "dmabuf" or some "dmabuf library" or
-*whatever* but it must exist as common shared code.
+Signed-off-by: Armas Spann <zappel@simple-co.de>
+Co-Authored-By: Claude Fable 5.2 <noreply@anthropic.com>
+---
+ .../drm/amd/amdkfd/kfd_device_queue_manager.c | 70 +++++++++++++++++++
+ 1 file changed, 70 insertions(+)
 
-dma_buf_phys_vec_to_sgt() is the template how to implement this
-transformation.
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index b93870421..03f341c45 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -2652,6 +2652,74 @@ static int init_dequeue_wait_counts_mes(struct device_queue_manager *dqm)
+ 	return 0;
+ }
+ 
++/*
++ * Bring the queue bookkeeping in line with MES when the scheduler starts.
++ *
++ * If the MES firmware was set up from scratch since a queue was added (GPU
++ * reset, resume), it has no record of that queue. A GPU reset cannot evict
++ * cleanly: the REMOVE_QUEUE commands fail with -EIO while the reset is
++ * running, and whatever was not marked inactive at that point stays active
++ * in the driver. The next REMOVE_QUEUE for such a queue, typically when its
++ * process exits, is rejected by the new firmware instance and that failure
++ * is escalated to another GPU reset.
++ *
++ * So drop the stale MES state here, and deactivate every queue that the
++ * driver still counts as running although MES has lost it. KFD does not
++ * resume processes after a GPU reset. Such a queue is marked evicted, and
++ * its process with it, which is the state kgd2kfd_pre_reset() leaves all
++ * the queues in that it did manage to evict. After a system resume
++ * kfd_resume_all_processes() maps the queues again from that state.
++ *
++ * dqm lock held.
++ */
++static void kfd_dqm_reconcile_mes_queues(struct device_queue_manager *dqm)
++{
++	struct device *dev = dqm->dev->adev->dev;
++	struct device_process_node *cur;
++	struct qcm_process_device *qpd;
++	unsigned int stale = 0, active = 0;
++	struct queue *q;
++
++	if (!dqm->dev->kfd->shared_resources.enable_mes)
++		return;
++
++	/* A command that got no answer died with the old firmware */
++	kfd_mes_fenced(dqm);
++
++	list_for_each_entry(cur, &dqm->queues, list) {
++		qpd = cur->qpd;
++		list_for_each_entry(q, &qpd->queues_list, list) {
++			/* Not in MES, or added to the instance now running */
++			if (q->mes_state == KFD_MES_QUEUE_UNMAPPED ||
++			    q->mes_fw_gen == kfd_mes_gen(dqm))
++				continue;
++
++			/* Also returns the status slot of a lost command */
++			kfd_mes_queue_retired(dqm, q);
++			stale++;
++
++			if (!q->properties.is_active)
++				continue;
++
++			q->properties.is_active = false;
++			q->properties.is_evicted = true;
++			decrement_queue_count(dqm, qpd, q);
++			/* The process stays evicted from here on */
++			if (!qpd->evicted)
++				qpd->evicted = 1;
++			active++;
++		}
++	}
++
++	if (active)
++		dev_warn(dev,
++			 "MES was restarted with %u queue(s) still marked active, evicted them\n",
++			 active);
++	if (stale)
++		dev_info(dev, "MES was restarted, forgot %u user queue(s)\n",
++			 stale);
++}
++
+ static int start_cpsch(struct device_queue_manager *dqm)
+ {
+ 	struct device *dev = dqm->dev->adev->dev;
+@@ -2716,6 +2784,8 @@ static int start_cpsch(struct device_queue_manager *dqm)
+ 		hqd_info_size * sizeof(struct amdgpu_mes_hung_queue_hqd_info),
+ 		GFP_KERNEL);
+ 
++	kfd_dqm_reconcile_mes_queues(dqm);
++
+ 	/* A restart of the MES firmware retires every quarantined queue */
+ 	if (!list_empty(&dqm->zombie_queues))
+ 		mod_delayed_work(system_dfl_wq, &dqm->zombie_work, 0);
+-- 
+2.56.1
 
-> > and having SGT as a type is what allows that. It only exists for unconverted
-> > exporters and importers and eventually goes away once everything is converted.
-> > The idea being we don't have to convert everything all at once, whilst also being
-> > able to add support for different interconnect types. Are you ok with the SGT
-> > type if it is just transitional?
-> 
-> Not really, it just complicate things.
-> 
-> What we should do with the mapping interface is to add the
-> information in which domain the DMA addresses are to be used.
-
-You need to negotiate the actual C data types too, especially if you
-want to do that nasty idea where dmabuf populates an iommu domain.
-
-Jason
