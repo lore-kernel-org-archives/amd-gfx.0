@@ -2,63 +2,150 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BDC8606A31E
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 15:55:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 312C9606A321
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 16:03:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=simple-co.de header.i=@simple-co.de header.a=rsa-sha256 header.s=201801 header.b=pfbWRztx;
-	dkim=pass (2048-bit key) header.d=simple-co.de header.i=@simple-co.de header.a=rsa-sha256 header.s=201801 header.b=pfbWRztx
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=mbA21XMT
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E16B110F760;
-	Tue, 24 Nov 2026 15:55:05 +0000 (UTC)
-Received: from mail.bin-co.de (mail.bin-co.de [37.120.183.211])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BB3410F69E
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Nov 2026 14:43:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=simple-co.de;
- s=201801; t=1795530882;
- bh=SlnlRq82wfzrkQ3qnjklgxdnXXHNrz7pNd6brbagRac=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=pfbWRztxOdxgnvXS0CWyBofBAtpEApQUvUPocU3EO8KN7xKg46LdyJsrUEJAwfZtT
- Rd7NjMjWInNvbeC4lAC7jXtYJkxKhlQbQBxZHPxRQWGmYoxcUXOq+/QnK+M8sXTHpC
- CL+NHmaUS0J55kmH4yqVIRJauvBsksdVy+S8ltGlqt0CwIlAE4U4LQg1R+CC3v/o47
- 2KC3HTBHX8vb8SH1EXNB54J0MYBzqM+EYfKnXeIuZApYNmhr2h2d3mqWypAPfmStdQ
- sUyPh8L9IwfgDRQqNzdJ8+HM2+ffXIyi5jpQtJmJueGXLGMMB/Kg7W0PiKqshEBSCx
- KPoQc3b5KJ0Hg==
-Received: from localhost (localhost [127.0.0.1])
- by mail.bin-co.de (Postfix) with ESMTP id EB0EB17F06C;
- Tue, 24 Nov 2026 15:34:42 +0100 (CET)
-X-Virus-Scanned: Debian amavis at v2202603343726440230.luckysrv.de
-Received: from mail.bin-co.de ([127.0.0.1])
- by localhost (mail.bin-co.de [127.0.0.1]) (amavis, port 10024) with ESMTP
- id a2OgDgioig7T; Tue, 24 Nov 2026 15:34:42 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=simple-co.de;
- s=201801; t=1795530882;
- bh=SlnlRq82wfzrkQ3qnjklgxdnXXHNrz7pNd6brbagRac=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=pfbWRztxOdxgnvXS0CWyBofBAtpEApQUvUPocU3EO8KN7xKg46LdyJsrUEJAwfZtT
- Rd7NjMjWInNvbeC4lAC7jXtYJkxKhlQbQBxZHPxRQWGmYoxcUXOq+/QnK+M8sXTHpC
- CL+NHmaUS0J55kmH4yqVIRJauvBsksdVy+S8ltGlqt0CwIlAE4U4LQg1R+CC3v/o47
- 2KC3HTBHX8vb8SH1EXNB54J0MYBzqM+EYfKnXeIuZApYNmhr2h2d3mqWypAPfmStdQ
- sUyPh8L9IwfgDRQqNzdJ8+HM2+ffXIyi5jpQtJmJueGXLGMMB/Kg7W0PiKqshEBSCx
- KPoQc3b5KJ0Hg==
-Received: from deepblue.zlan.intra (wan.zappel.net [IPv6:2a02:8106:4:c300::1])
- (Authenticated sender: zappel@simple-co.de)
- by mail.bin-co.de (Postfix) with ESMTPSA id 01E5017F065;
- Tue, 24 Nov 2026 15:34:41 +0100 (CET)
-From: Armas Spann <zappel@simple-co.de>
-To: amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com,
- Felix.Kuehling@amd.com, Armas Spann <zappel@simple-co.de>,
- "Claude Fable 5.2" <noreply@anthropic.com>
-Subject: [PATCH v1 3/9] drm/amdkfd: track whether MES knows each queue
-Date: Tue, 24 Nov 2026 15:34:26 +0100
-Message-ID: <20261124143433.49736-4-zappel@simple-co.de>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261124143433.49736-1-zappel@simple-co.de>
-References: <20261124143433.49736-1-zappel@simple-co.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DC6410F77C;
+	Tue, 24 Nov 2026 16:03:38 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012021.outbound.protection.outlook.com [52.101.43.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 206F610F717;
+ Tue, 24 Nov 2026 16:03:32 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gq0Jh1gCOjTATy4Jm2MMKtHvk65tQl0FSyePRv/vKMI98tnlaTxQYUqJN7Bg2/zAgqSo7uYP6bGPxxrjal7rq8pugKcFPkw2Z8i7noD5LDOfR9+TRTsFRAlMKnI44DBx5V3qrqUR64NqkUYnqznZkyephAo8t3QWg7QrZFaRkQNz09ZqLu2hUuhhHeMmLVatvkIoccwlQDQ20F5vKUhWULQz02jdO76QJPFECk9p4W6UM2tOWtVwCpMDV3h/184/QlPcGT71golPOI70XwBWAK/lb1Dnhl8eeiU2FXayNCsnMcV6bXOjc47uNgQMX4IEc4E28AAix8PtLQIXNZ9J9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5bQJNMobLMqtuKHhwgVId/roqubolCM8LnRFW1vjp3o=;
+ b=AnKh4GO2r58cT0mkgRyNQscqPeT9yQgLi/CSsPL1R265ulQHjKpd4a7ebxccUzyMCgDOR3XWuuT77Ec2JW3V+UWPq1mrGmNJ25MXm1JMHtMjSOUYq4OVbnQEbK938TRfKIPdNIcMntph/O3N9p5NLI6vhuiWNBPocMLSu4FKGLXCG2TDV7bNEaLI+7I6rK28gErgvOkiTtUBLI7E/qINIP4AqW2a8tWFVPD7N+6EUXMuzX+qmLyn75OwD7ZP42s5p7UYJITrkJKEBO/enAaKpg7s/Uxdyfb/kWmKz87IJpPBkJA8g2l8VSS0gR2LiKiv/PO3bU/68FCL92yG+J2+SA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5bQJNMobLMqtuKHhwgVId/roqubolCM8LnRFW1vjp3o=;
+ b=mbA21XMT6a1VPpfZHwdu5BOyKuhRJTcSCb6hRPL8WD7/8XmyZpsqFYRaLUkd3xW3Iy8rgBgbb1QsGZq1c3ERQ8DK4O1YXZi2N69DIOBEz7zC32I60PLmbeTZvkh6TywNfBUssB++jOsWhkrGYIHceLI1Mju7cMAjBo1aMpegJHQ=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CY5PR12MB6179.namprd12.prod.outlook.com (2603:10b6:930:24::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.14; Tue, 24 Nov
+ 2026 16:02:50 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0639.012; Tue, 24 Nov 2026
+ 16:02:43 +0000
+Message-ID: <7a5a2d3a-e42e-4dc0-8d22-8dd1bd249501@amd.com>
+Date: Tue, 24 Nov 2026 17:02:31 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 03/24] dma-buf: Add the SGT DMA mapping type
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Alistair Popple <apopple@nvidia.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ Dongwon Kim <dongwon.kim@intel.com>, Kevin Tian <kevin.tian@intel.com>,
+ Xu Yilun <yilun.xu@linux.intel.com>,
+ Karl Mehltretter <kmehltretter@gmail.com>,
+ Baolu Lu <baolu.lu@linux.intel.com>, Felix Kuehling
+ <felix.kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, iommu@lists.linux.dev,
+ Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+ linux-nvme@lists.infradead.org, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Mina Almasry <almasrymina@google.com>, netdev@vger.kernel.org,
+ Alexey Kardashevskiy <aik@amd.com>, zhipingz@meta.com, treding@nvidia.com,
+ jhubbard@nvidia.com, chaitanyak@nvidia.com, Leon Romanovsky <leon@kernel.org>
+References: <20261120-dma_mapping_type_v4-v3-0-c0183a409bdf@nvidia.com>
+ <20261120-dma_mapping_type_v4-v3-3-c0183a409bdf@nvidia.com>
+ <ad46d60a-189d-4dd5-9ad8-ecfd3c90f9d9@amd.com>
+ <20261123165716.GM179082@ziepe.ca>
+ <7ac7edd0-5c38-440a-b26a-21bcbb6f4702@amd.com>
+ <awT8prWsj11TBdmP@nvdebian.thelocal>
+ <63eb7b6e-e0a8-4443-a434-0301ed59beae@amd.com>
+ <20261124142032.GN9566@ziepe.ca>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261124142032.GN9566@ziepe.ca>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR2P281CA0045.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:92::17) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 24 Nov 2026 15:54:45 +0000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY5PR12MB6179:EE_
+X-MS-Office365-Filtering-Correlation-Id: ee4f091b-b256-4438-2ade-08df4a445f68
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|366016|7416014|376014|1800799024|261102130727099003|261026121527099003|10067099003|11063799006|5023799004|4143699003|56012099006|261028144727099003|261022105027099003|261026140227099003|261021121427099003|261102123227099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: CSGAM0gi8jGkyMss17S7FUuh3CUCJyHW0gDVBrOLeQ0Nvw8Jl5Sk3ZbSQIcxo4GZo3B+xZrZ0q4zz3OrX6pFQ35QoBEzId6zmMS9BEWiDlwEPFvkMc7cj906oA0/ui1++IUjt+GVu4Fsu1xw0Mzx0oMygVPKyS/wYdtts44UiZ2S4hxQ31oFxasqp1jMa5Zucrl5PD8Y4bV63rCbk0woTpUodga+GQlCWlJmBKXmFpEMMa30s2+nVk0h1EeYaQHgK5zUgMfPmNEmMneXMIpXm4139Iowqc/w76BRkgv9Ljp/icf+vcrOLuhPgY+S0aIwq78OgTzjEQ5WfM3MglJKo521Je34YAxKEm5ZZLzmf8mEerrVCeXObBEYUtpdwKXvapxQwpBmbL58qZOEY533WXVQk5KWUtS5t0ptHzvNVrhfx6kWUCT+Xa+GjAlebIgRApL3/W0LyvjCZAtch9soI2K/eBFh7dgSp6VorU6q3cHW49MyI1Lq57FFXhCxzRcdJTinY6sGBqliCbp93VTVSj1cwxQm2bR6n6hz54QAn2/7Bd6ejtVkGnDKqDaNCqPgDbA82EsPCFtHsJx4HdQ/qXyu+dcMybNI+k5+ICETjTOli1J0EhW6uJgTk4I80Uzi6/qNmpCreX6ct28iKbvz/rzjpurIPZbo9OV0vz5YNuc=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(261102130727099003)(261026121527099003)(10067099003)(11063799006)(5023799004)(4143699003)(56012099006)(261028144727099003)(261022105027099003)(261026140227099003)(261021121427099003)(261102123227099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RHh0WmJ3VC84SUhURnlVclRMdzhPbVdVSDVXNmpwcEY5cFk5SElvY21DL01n?=
+ =?utf-8?B?d003ckxkeXAxSjVHSENWR2IxS1ZOc09yODFYYnRrek9IZnZZZXFpR3hIYzda?=
+ =?utf-8?B?L0pqU3lXQUk3eVVaWE9RdjBwSk14ZmZiQm1SYUtMcXIxeEtWMU9maXFBU3lr?=
+ =?utf-8?B?V0VtU3ZhNUJrRmJlSUhPL0lEQjhHckthMWtDK1NucHpEWUJaRWR1N2hTcUxS?=
+ =?utf-8?B?V3ZwRjFRT3lwc3ZYaENkSGZyRnVZSVR6Sy80YTRFbGQ2czJkNkRaRUxwcXpI?=
+ =?utf-8?B?TjVLcDJEbk1aYVNuTGx4NFJYRmF0ajhscDA1M2dqc0RtUUV3aTlHZ1FZSHJj?=
+ =?utf-8?B?VlJodm5PeWNwWVNYcmE1T3FsSk0yb1AzcndMQ2p3MnNKOHdnaG4yQWNhV1Y3?=
+ =?utf-8?B?K2FIRWtaNEhlWVZ6UU5EUjVyUmRNVmFrQ213V2ppdGZCL1krOGRRbmV0S1hy?=
+ =?utf-8?B?UVo0Q01JcngwY0F6VlV6S0lubndCR0FiMzYzMk4wOVFBRkJXTFNFRFBONm5q?=
+ =?utf-8?B?elp6TG5vN3VCOUZ5a1I3ZFl1cFB1UFVObXgrWUQ5Qk80U20ycllweGw1Mk45?=
+ =?utf-8?B?dlQ3MS80eWpwcVlneHVhdm8xSGl6MDl3UTV2enc0ZUhERzI0TEd3QTRVSHVV?=
+ =?utf-8?B?S0Eyc3VuWHB0L0VUK1JsMHNmZEs1MzB3T2pjNGxGTDJoTUxkR0F0M3NhUFZJ?=
+ =?utf-8?B?TDY3WldjUnJ4NlV4Y1EzbTFBZXVXeU1MelJzMDVuSjgyMW9wOXdTU2pOUWds?=
+ =?utf-8?B?UHd4VTBXOWFQY3ViT0RGM0NORldwZXM5a056SVJ5cVc2Y0VycnUxQjc4VzZt?=
+ =?utf-8?B?V3E3emJRdGQ1RTh2MHJSU09TL2RVTko5Yk9PWWJERkJSS3Qyb0pDZkNJSFpw?=
+ =?utf-8?B?L0FLL0UxRmNNb09QY3NlRHh0VlVkb2Q2UmxDVEpLcTBHNnRYVVgwR09OTG5H?=
+ =?utf-8?B?d2dLblFMaWZoZEhwUFpyZEJXSTVQbXd6YjhNNERGZHhyS3VWU3laTVlYb0pD?=
+ =?utf-8?B?NGR1TjJ5d2pTRko2Qk5CUmRqVmg0Q2x6YUdYUEtBT0l6bU1mUXlnUWxCcFBk?=
+ =?utf-8?B?VWU4M29HZmNvdjVKcTdDTmMxdGZoRlZOblRYUWp1Y1pZSjdHWXZBY3lHWDAw?=
+ =?utf-8?B?T2ZkTm9zNFRmRUN6MEVlNXF2czhESFlqVHhSL0xoMGVhLy9zSDljb1RnNU1M?=
+ =?utf-8?B?ZFdsOU5uWmJHc2d2K0R5K1ZlNGwyYnpwZlBoSzRheURtQzA4SXhaQXNkQ09G?=
+ =?utf-8?B?cGRlWjRGMDdIMlBaSTUyV2M3WDkyb0hBN2lodUlqanpibFQ4c3M1d0tIZ0d4?=
+ =?utf-8?B?ZURTL2l6TnF6WmlQa0o2YmtFOU1CTEEwQXBTYlFDTzdhVzRlWUNzQjFuMDhD?=
+ =?utf-8?B?Mms0RDRXc0tYdkdFQ3RPeFlNOGltaUpwNC92Q3FBaE9GTVJuQ1k1SGFuZk9H?=
+ =?utf-8?B?RGt4ckF4Z0Jsc0ZiTUZUdXZtaHRuQ3grcjdpWWVYZC9Xd1lxRlpOU0pJb2lM?=
+ =?utf-8?B?OEJzTXpuZFRnQzc4Y2FjL0NybUl5MkhkbXhwZGphYUJGRXNLODhrUjlyQTRB?=
+ =?utf-8?B?dlF2bCtXTjV5disvODM4Y3NNNld2WjFKOUFXc3l3WXdzM25nRUhxNWJ4U2RM?=
+ =?utf-8?B?dkVMTVdiYmw5WnZITFNtU3JVVW4xYjhtQ0Uvd0JVWWIwMkhXMTIzQnZRMjdn?=
+ =?utf-8?B?YmhCbFhKV3dDMEFzTGNVR2VLMThaQlMyZTZ5MmZUNVkxYjJpT2ZrZmdKWTJN?=
+ =?utf-8?B?R1NqQzlUZnZFeTg4dERNOWFuS3hGU3UxZmw5VlhVR1ZaWVNocU82ZE5qbVVo?=
+ =?utf-8?B?TTk3QVBoRDk5bnBUa1RiMXhoaVVpNnFuMkl4dERzMDRWdHR4aW1raDVWWVpK?=
+ =?utf-8?B?OWo5dU9yQ1dkVGxVNERxM29GVUVuby81c3JPdjN5TE5sUGg0SjVaVmt3L1Zu?=
+ =?utf-8?B?WCtxOFB4UG9rbkdpWlV5ZFZmZ0Q2dk1UQlVRck5NNll2WU50YXJyR0JIT0pl?=
+ =?utf-8?B?ZEg3dERwWnJhSE9BWnJmdGIwMWJVRXBnSFlLdXN6RUR6VUYxSzVnbXJrMFVJ?=
+ =?utf-8?B?N1FnQ2tPRU50UnRGcS8xVEhma1AvcE5keTMwOGdnYXM2aUNILzdwWnRIbmdF?=
+ =?utf-8?B?VW9NeFBISlgzOFNuZkxzU1dlNis3eG5YWFdicDNYUk56akd4MjJzbndTdW8w?=
+ =?utf-8?B?ZFhMV3pMVHBsUUpFOWM3c0ljbWltQWhJa2RQdVptamM4UG5tWUhTTFk1VVVN?=
+ =?utf-8?B?LzUybk94WVBsSkNPanErL3Nqc0E2NUpFSjd4VlhnemszSUJOWHgrQWtBN2Zm?=
+ =?utf-8?Q?2thNZKfYtt+Mr00oiP?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ee4f091b-b256-4438-2ade-08df4a445f68
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 16:02:43.2072 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: HCJtcX6OJL5gLPJWv1WZrBnucO+5mrKnka3K10xkvL2RhEUSaVrMOP6mr1a+or3B
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6179
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,493 +156,74 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-KFD has no record of what MES knows about a queue. is_active is set
-before the MES command is sent and is not corrected from its result, and
-every failure of ADD_QUEUE or REMOVE_QUEUE is handled the same way. The
-consequences:
+On 11/24/26 15:20, Jason Gunthorpe wrote:
+> On Tue, Nov 24, 2026 at 01:36:21PM +0100, Christian König wrote:
+>>> The core then negotiates compatible types and adds converters between them,
+>>
+>> I have strong objections to that plan and would potentially NAK it.
+>>
+>> DMA-buf should *NEVER* accept CPU physical addresses nor provide
+>> conversion between different address types.
+>>
+>> Keep in mind that DMA-buf is solely a container for DMA addresses,
+>> nothing else and it should not provide any mapping functionality
+>> whatsoever.
+> 
+> dmabuf needs to provide support for drivers to help them use the
+> interface, and going from physical to dma_addr_t is absolutely a
+> common task every driver must do. I don't care how you call it, but it
+> is a service that must be provided by *something* and matched to the
+> needs of dmabuf.
+> 
+> I will definitely NAK any direction to open code dma mapping in every
+> driver again. If we are going away from SGT then we are fixing all the
+> DRM mistakes, including the wrong open coded DMA mapping, sketchy use
+> of SGT, and abuse of P2P that seems to be endemic in drm.
 
-- REMOVE_QUEUE is sent for queues MES does not have. After a GPU reset
-  the firmware starts empty, but queues that were active keep is_active
-  and get a REMOVE_QUEUE when their process exits. MES rejects it and
-  KFD answers with another GPU reset.
-- reset_queues_mes() returns success although the queue that failed was
-  not removed, when MES reported other queues as hung and those were
-  reset.
-- The result of the remove-after-reset command is ignored.
-- Queues are added a second time after a halt that failed half way.
-- The GPU is reset for a REMOVE_QUEUE that MES completes shortly after
-  the 2.1 s poll gave up.
+Completely agree to that as well.
 
-Record a per-queue state (unmapped, mapped, unknown) from the result of
-each command, together with the firmware generation the queue was added
-under. kfd_mes_queue_retired() answers the one question the rest of the
-dqm needs: can MES still reference this queue. It cannot when the queue
-was never added, its removal was confirmed, the firmware was restarted
-since, or an unanswered REMOVE_QUEUE has completed in the meantime.
+> Meaing the exporter constructs a phys_addr list, gets a P2P provider,
+> and some common code constructs what is passed to the importer. I
+> don't care if this is in "dmabuf" or some "dmabuf library" or
+> *whatever* but it must exist as common shared code.
+> 
+> dma_buf_phys_vec_to_sgt() is the template how to implement this
+> transformation.
 
-With that in place:
+Well what I disagree with the dma_buf_ prefix here.
 
-- Remove and add do nothing for a queue that is already in the wanted
-  state, and an add is refused while a removal is unconfirmed.
-- A REMOVE_QUEUE that timed out gets 4 s more to complete before the
-  recovery path runs. The wait holds the dqm lock, as the 2.1 s poll
-  before it does.
-- When the recovery path returns success and the queue is still in MES,
-  it is removed explicitly.
-- Once a command got no answer, nothing more is sent to MES until it
-  answers or is restarted. Commands queued behind it would each time out
-  under the dqm lock.
-- update_queue() does not rewrite the MQD of an inactive queue whose
-  removal is unconfirmed.
+DMA-buf is just the container of the result of this process and it shouldn't hold any code to actually generate the addresses. That is simply not part of the job of transferring those information between drivers.
 
-Queue storage is still freed as before. The following patches change
-that.
+The whole conversion from phys_vec to DMA addresses is something some API should provide based on the data the exporter/importer have negotiated (e.g. p2pdma_provider for example). 
 
-Signed-off-by: Armas Spann <zappel@simple-co.de>
-Co-Authored-By: Claude Fable 5.2 <noreply@anthropic.com>
----
- .../drm/amd/amdkfd/kfd_device_queue_manager.c | 263 ++++++++++++++++--
- .../drm/amd/amdkfd/kfd_device_queue_manager.h |  17 ++
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  14 +
- .../amd/amdkfd/kfd_process_queue_manager.c    |   2 +
- 4 files changed, 278 insertions(+), 18 deletions(-)
+I think we need something like a DMA P2P API which sits on top of the PCI and iova API.
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index 03d3a739d..2d62c244c 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -28,6 +28,7 @@
- #include <linux/list.h>
- #include <linux/types.h>
- #include <linux/bitops.h>
-+#include <linux/delay.h>
- #include <linux/sched.h>
- #include "kfd_priv.h"
- #include "kfd_device_queue_manager.h"
-@@ -207,6 +208,124 @@ static int convert_to_amdgpu_ring_type(int queue_type)
- 	return amdgpu_ring_type;
- }
- 
-+/*
-+ * MES queue state tracking
-+ *
-+ * The MQD, the gang context, the GART mapping of the write pointer and the
-+ * doorbell id of a queue are all addressed by MES directly. q->mes_state
-+ * records what MES knows about the queue, taken from the result of every
-+ * ADD_QUEUE and REMOVE_QUEUE, so that the rest of the dqm can tell whether
-+ * MES may still use that storage.
-+ *
-+ * All of this is protected by the dqm lock. The lock order is
-+ *
-+ *   p->mutex -> dqm lock -> reset_domain->sem (read, trylock) -> MES lock
-+ *
-+ * and none of the helpers below is called with the MES lock held.
-+ */
-+
-+static u32 kfd_mes_gen(struct device_queue_manager *dqm)
-+{
-+	return (u32)atomic_read(&dqm->dev->adev->mes.fw_gen);
-+}
-+
-+/*
-+ * True when MES cannot reference the storage of @q: the queue was never
-+ * added, its removal was confirmed, the firmware instance that knew it has
-+ * been replaced, or a REMOVE_QUEUE that timed out has completed since.
-+ *
-+ * This is the only place where a queue becomes UNMAPPED without a command
-+ * that succeeded.
-+ */
-+static bool kfd_mes_queue_retired(struct device_queue_manager *dqm,
-+				  struct queue *q)
-+{
-+	struct amdgpu_device *adev = dqm->dev->adev;
-+
-+	if (!dqm->dev->kfd->shared_resources.enable_mes)
-+		return true;
-+	if (q->mes_state == KFD_MES_QUEUE_UNMAPPED)
-+		return true;
-+
-+	/* The firmware instance that knew the queue is gone */
-+	if (q->mes_fw_gen != kfd_mes_gen(dqm))
-+		goto retired;
-+
-+	/* REMOVE_QUEUE completed after the driver stopped waiting for it */
-+	if (q->mes_ticket.valid &&
-+	    amdgpu_mes_ticket_poll(adev, &q->mes_ticket) ==
-+	    AMDGPU_MES_TICKET_DONE)
-+		goto retired;
-+
-+	return false;
-+
-+retired:
-+	amdgpu_mes_ticket_release(adev, &q->mes_ticket);
-+	q->mes_state = KFD_MES_QUEUE_UNMAPPED;
-+	return true;
-+}
-+
-+/*
-+ * Stop talking to MES. Commands are handled in order, so anything sent
-+ * behind one that got no answer only adds another timeout under the dqm
-+ * lock. With no pending command to watch, only a firmware restart lifts
-+ * the fence.
-+ */
-+static void kfd_mes_fence(struct device_queue_manager *dqm, struct queue *q)
-+{
-+	struct amdgpu_device *adev = dqm->dev->adev;
-+
-+	dqm->mes_fenced = true;
-+	dqm->mes_fence_gen = kfd_mes_gen(dqm);
-+	dqm->mes_fence_has_seq = q->mes_ticket.valid &&
-+		amdgpu_mes_ticket_poll(adev, &q->mes_ticket) ==
-+		AMDGPU_MES_TICKET_PENDING;
-+	if (dqm->mes_fence_has_seq)
-+		dqm->mes_fence_ticket = q->mes_ticket;
-+}
-+
-+static bool kfd_mes_fenced(struct device_queue_manager *dqm)
-+{
-+	if (!dqm->mes_fenced)
-+		return false;
-+
-+	if (dqm->mes_fence_gen != kfd_mes_gen(dqm) ||
-+	    (dqm->mes_fence_has_seq &&
-+	     amdgpu_mes_ticket_answered(dqm->dev->adev,
-+					&dqm->mes_fence_ticket)))
-+		dqm->mes_fenced = false;
-+
-+	return dqm->mes_fenced;
-+}
-+
-+/*
-+ * Wait for a REMOVE_QUEUE that timed out to complete after all. Sleeps with
-+ * the dqm lock held. reset_domain->sem is not held, so a pending GPU reset
-+ * is not held up by the wait.
-+ */
-+static bool kfd_mes_wait_retired(struct device_queue_manager *dqm,
-+				 struct queue *q, unsigned int ms)
-+{
-+	struct amdgpu_device *adev = dqm->dev->adev;
-+	unsigned long end = jiffies + msecs_to_jiffies(ms);
-+
-+	do {
-+		if (kfd_mes_queue_retired(dqm, q))
-+			return true;
-+		/* Answered with a failure, or nothing left to wait for */
-+		if (!q->mes_ticket.valid ||
-+		    amdgpu_mes_ticket_poll(adev, &q->mes_ticket) !=
-+		    AMDGPU_MES_TICKET_PENDING)
-+			return false;
-+		if (amdgpu_in_reset(adev) || amdgpu_amdkfd_is_fed(adev))
-+			return false;
-+		usleep_range(KFD_MES_REMOVE_POLL_US,
-+			     2 * KFD_MES_REMOVE_POLL_US);
-+	} while (time_before(jiffies, end));
-+
-+	return kfd_mes_queue_retired(dqm, q);
-+}
-+
- static int add_queue_mes(struct device_queue_manager *dqm, struct queue *q,
- 			 struct qcm_process_device *qpd)
- {
-@@ -215,9 +334,19 @@ static int add_queue_mes(struct device_queue_manager *dqm, struct queue *q,
- 	struct mes_add_queue_input queue_input;
- 	int r, queue_type;
- 	uint64_t wptr_addr_off;
-+	u32 gen;
- 
- 	if (!dqm->sched_running || dqm->sched_halt)
- 		return 0;
-+
-+	/*
-+	 * MES still has the queue (a halt that failed half way), or an
-+	 * earlier REMOVE_QUEUE is unconfirmed. Never add a queue twice.
-+	 */
-+	if (!kfd_mes_queue_retired(dqm, q))
-+		return q->mes_state == KFD_MES_QUEUE_MAPPED ? 0 : -EBUSY;
-+	if (kfd_mes_fenced(dqm))
-+		return -EIO;
- 	if (!down_read_trylock(&adev->reset_domain->sem))
- 		return -EIO;
- 
-@@ -270,10 +399,18 @@ static int add_queue_mes(struct device_queue_manager *dqm, struct queue *q,
- 	queue_input.vm_cntx_cntl = qpd->vm_cntx_cntl;
- 	queue_input.xcc_id = ffs(dqm->dev->xcc_mask) - 1;
- 
-+	/* Cannot change under us, reset_domain->sem is held for reading */
-+	gen = kfd_mes_gen(dqm);
-+
- 	amdgpu_mes_lock(&adev->mes);
- 	r = adev->mes.funcs->add_hw_queue(&adev->mes, &queue_input);
- 	amdgpu_mes_unlock(&adev->mes);
- 	up_read(&adev->reset_domain->sem);
-+
-+	/* A failed ADD_QUEUE may still be executed, or may have been */
-+	q->mes_fw_gen = gen;
-+	q->mes_state = r ? KFD_MES_QUEUE_UNKNOWN : KFD_MES_QUEUE_MAPPED;
-+
- 	if (r) {
- 		dev_err(adev->dev, "failed to add hardware queue to MES, doorbell=0x%x\n",
- 			q->properties.doorbell_off);
-@@ -299,24 +436,38 @@ static int add_queue_mes(struct device_queue_manager *dqm, struct queue *q,
- 	return r;
- }
- 
--static int remove_queue_mes_on_reset_option(struct device_queue_manager *dqm, struct queue *q,
--					    struct qcm_process_device *qpd,
--					    bool is_for_reset,
--					    bool flush_mes_queue)
-+/*
-+ * Send one REMOVE_QUEUE and record the outcome in q->mes_state.
-+ *
-+ * Returns -EIO when nothing was sent because MES is fenced off or a GPU
-+ * reset is in progress, and -ETIMEDOUT when MES did not answer (this
-+ * command, or an earlier one for the same queue).
-+ */
-+static int __remove_queue_mes(struct device_queue_manager *dqm, struct queue *q,
-+			      bool flush_mes_queue)
- {
--	struct amdgpu_device *adev = (struct amdgpu_device *)dqm->dev->adev;
--	int r;
-+	struct amdgpu_device *adev = dqm->dev->adev;
- 	struct mes_remove_queue_input queue_input;
-+	int r;
- 
--	/* queue was already removed during reset */
--	if (q->properties.is_reset)
--		return 0;
-+	if (kfd_mes_fenced(dqm))
-+		return -EIO;
-+
-+	/*
-+	 * An earlier REMOVE_QUEUE for this queue is still in the MES ring.
-+	 * Do not send another one behind it, and keep its status slot.
-+	 */
-+	if (q->mes_ticket.valid &&
-+	    amdgpu_mes_ticket_poll(adev, &q->mes_ticket) ==
-+	    AMDGPU_MES_TICKET_PENDING)
-+		return -ETIMEDOUT;
- 
--	if (!dqm->sched_running || dqm->sched_halt)
--		return 0;
- 	if (!down_read_trylock(&adev->reset_domain->sem))
- 		return -EIO;
- 
-+	/* The earlier command, if there was one, has been answered */
-+	amdgpu_mes_ticket_release(adev, &q->mes_ticket);
-+
- 	memset(&queue_input, 0x0, sizeof(struct mes_remove_queue_input));
- 	queue_input.doorbell_offset = q->properties.doorbell_off;
- 	queue_input.gang_context_addr = q->gang_ctx_gpu_addr;
-@@ -324,23 +475,74 @@ static int remove_queue_mes_on_reset_option(struct device_queue_manager *dqm, st
- 	queue_input.remove_queue_after_reset = flush_mes_queue;
- 	queue_input.xcc_id = ffs(dqm->dev->xcc_mask) - 1;
- 	queue_input.gang_context_array_index = q->gang_ctx_array_index;
-+	queue_input.ticket = &q->mes_ticket;
- 
- 	amdgpu_mes_lock(&adev->mes);
- 	r = adev->mes.funcs->remove_hw_queue(&adev->mes, &queue_input);
- 	amdgpu_mes_unlock(&adev->mes);
- 	up_read(&adev->reset_domain->sem);
- 
-+	q->mes_state = r ? KFD_MES_QUEUE_UNKNOWN : KFD_MES_QUEUE_UNMAPPED;
-+
-+	return r;
-+}
-+
-+static int remove_queue_mes_on_reset_option(struct device_queue_manager *dqm, struct queue *q,
-+					    struct qcm_process_device *qpd,
-+					    bool is_for_reset,
-+					    bool flush_mes_queue)
-+{
-+	struct amdgpu_device *adev = (struct amdgpu_device *)dqm->dev->adev;
-+	int r;
-+
-+	/* MES does not know the queue, or not any more: nothing to send */
-+	if (kfd_mes_queue_retired(dqm, q))
-+		return 0;
-+
-+	/* queue was already removed during reset */
-+	if (q->properties.is_reset)
-+		return 0;
-+
-+	if (!dqm->sched_running || dqm->sched_halt)
-+		return 0;
-+
-+	r = __remove_queue_mes(dqm, q, flush_mes_queue);
-+	if (!r)
-+		return 0;
-+
-+	/* Not answered yet. The command is still queued and may complete. */
-+	if (r == -ETIMEDOUT &&
-+	    kfd_mes_wait_retired(dqm, q, KFD_MES_REMOVE_GRACE_MS)) {
-+		dev_warn(adev->dev,
-+			 "MES confirmed REMOVE_QUEUE late, doorbell=0x%x\n",
-+			 q->properties.doorbell_off);
-+		return 0;
-+	}
-+
- 	/* If is_for_reset set, it is a mes internal cleanup */
--	if (!r || is_for_reset)
-+	if (is_for_reset || r == -EIO)
- 		return r;
- 
- 	/* remove_hw_queue failure indicates a queue hang. reset the queue */
- 	r = reset_queues_mes(dqm, q);
--	if (r && amdgpu_gpu_recovery) {
--		dev_err(adev->dev, "failed to remove queue from MES, doorbell=0x%x\n",
--			q->properties.doorbell_off);
--		dev_err(adev->dev, "MES might be in unrecoverable state, issue a GPU reset\n");
--		kfd_hws_hang(dqm);
-+
-+	/* The recovery dealt with other queues and left this one in MES */
-+	if (!r && !kfd_mes_queue_retired(dqm, q))
-+		r = __remove_queue_mes(dqm, q, false);
-+
-+	if (r) {
-+		if (r == -ETIMEDOUT ||
-+		    (q->mes_ticket.valid &&
-+		     amdgpu_mes_ticket_poll(adev, &q->mes_ticket) ==
-+		     AMDGPU_MES_TICKET_PENDING))
-+			kfd_mes_fence(dqm, q);
-+
-+		if (amdgpu_gpu_recovery) {
-+			dev_err(adev->dev, "failed to remove queue from MES, doorbell=0x%x\n",
-+				q->properties.doorbell_off);
-+			dev_err(adev->dev, "MES might be in unrecoverable state, issue a GPU reset\n");
-+			kfd_hws_hang(dqm);
-+		}
- 	}
- 
- 	return r;
-@@ -484,8 +686,24 @@ static int reset_queues_mes(struct device_queue_manager *dqm, struct queue *q)
- 	queue_input.xcc_id = ffs(dqm->dev->xcc_mask) - 1;
- 	/* pass the known bad queue info to the reset function */
- 	r = amdgpu_gfx_reset_mes_compute(adev, dqm->dev->xcp, NULL, NULL, NULL, &num_hung, &queue_input);
--	if (r)
-+	if (r) {
-+		/* The REMOVE_QUEUE for @q may have been sent and lost */
-+		if (q->mes_state == KFD_MES_QUEUE_MAPPED)
-+			q->mes_state = KFD_MES_QUEUE_UNKNOWN;
- 		goto fail;
-+	}
-+
-+	/*
-+	 * With no hung queue reported, amdgpu_gfx_reset_mes_compute() sent
-+	 * the REMOVE_QUEUE for @q itself and MES confirmed it. MES handles
-+	 * its ring in order, so an earlier unanswered REMOVE_QUEUE for @q
-+	 * has been dealt with as well and its status slot can go.
-+	 */
-+	if (!num_hung) {
-+		amdgpu_mes_ticket_release(adev, &q->mes_ticket);
-+		q->mes_state = KFD_MES_QUEUE_UNMAPPED;
-+	}
-+
- 	pdd = kfd_get_process_device_data(q->device, q->process);
- 	if (pdd) {
- 		ti = amdgpu_vm_get_task_info_pasid(adev, pdd->pasid);
-@@ -1147,6 +1365,15 @@ static int update_queue_locked(struct device_queue_manager *dqm, struct queue *q
- 	/* Save the activity state for queue removal. */
- 	prev_active = q->properties.is_active;
- 
-+	/*
-+	 * The queue is inactive but MES has not confirmed its removal, so
-+	 * MES may still read and write the MQD. Leave it alone.
-+	 */
-+	if (!prev_active && !kfd_mes_queue_retired(dqm, q)) {
-+		retval = -EBUSY;
-+		return retval;
-+	}
-+
- 	/* Make sure the queue is unmapped before updating the MQD */
- 	if (dqm->sched_policy != KFD_SCHED_POLICY_NO_HWS) {
- 		if (!dqm->dev->kfd->shared_resources.enable_mes)
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-index c21da12d3..239168838 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-@@ -37,6 +37,13 @@
- #define KFD_MES_PROCESS_QUANTUM		100000
- #define KFD_MES_GANG_QUANTUM		10000
- 
-+/*
-+ * How long to keep waiting for a REMOVE_QUEUE after the 2.1 s command poll
-+ * gave up, and the polling interval. The wait runs under the dqm lock.
-+ */
-+#define KFD_MES_REMOVE_GRACE_MS		4000
-+#define KFD_MES_REMOVE_POLL_US		2000
-+
- struct device_process_node {
- 	struct qcm_process_device *qpd;
- 	struct list_head list;
-@@ -292,6 +299,16 @@ struct device_queue_manager {
- 	/* for per-queue reset with mes */
- 	u32 *hung_db_array;
- 	struct amdgpu_mes_hung_queue_hqd_info *hqd_info;
-+
-+	/*
-+	 * MES has a command it did not answer. Nothing more is sent until
-+	 * it answers or the firmware is restarted. Protected by the dqm lock.
-+	 */
-+	bool			mes_fenced;
-+	bool			mes_fence_has_seq;
-+	u32			mes_fence_gen;
-+	/* copy of the unanswered ticket, never released through this copy */
-+	struct amdgpu_mes_cmd_ticket mes_fence_ticket;
- };
- 
- void device_queue_manager_init_cik(
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 0c276f7eb..b5eae33d8 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -616,6 +616,13 @@ struct mqd_update_info {
-  *
-  */
- 
-+/* What MES knows about a queue, see kfd_mes_queue_retired() */
-+enum kfd_mes_queue_state {
-+	KFD_MES_QUEUE_UNMAPPED = 0,	/* never added, or removal confirmed */
-+	KFD_MES_QUEUE_MAPPED,		/* ADD_QUEUE confirmed */
-+	KFD_MES_QUEUE_UNKNOWN,		/* ADD or REMOVE sent, not confirmed */
-+};
-+
- struct queue {
- 	struct list_head list;
- 	void *mqd;
-@@ -644,6 +651,13 @@ struct queue {
- 
- 	struct amdgpu_bo *wptr_bo_gart;
- 
-+	/* MES view of the queue. Protected by the dqm lock. */
-+	enum kfd_mes_queue_state mes_state;
-+	/* mes.fw_gen of the firmware instance the queue was added to */
-+	u32 mes_fw_gen;
-+	/* REMOVE_QUEUE that MES has not answered yet */
-+	struct amdgpu_mes_cmd_ticket mes_ticket;
-+
- 	/* The VRAM-resident MQD BO (mqd_on_vram()) is unpinned at S4 suspend so
- 	 * TTM evicts it into the hibernation image, and repinned on resume. Set
- 	 * while the BO is unpinned so the resume path knows to repin it.
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-index 89e95b70e..ef9ad6dc8 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-@@ -196,6 +196,8 @@ void kfd_queue_free_mes_resources(struct kfd_node *dev, struct queue *q)
- 	if (!dev->kfd->shared_resources.enable_mes)
- 		return;
- 
-+	/* The status slot of an unanswered REMOVE_QUEUE goes with the queue */
-+	amdgpu_mes_ticket_release(dev->adev, &q->mes_ticket);
- 	amdgpu_mes_free_gang_ctx_index(&dev->adev->mes, q->gang_ctx_array_index);
- 	amdgpu_amdkfd_free_kernel_mem(dev->adev, &q->gang_ctx_bo);
- 	amdgpu_amdkfd_free_kernel_mem(dev->adev, (void **)&q->wptr_bo_gart);
--- 
-2.56.1
+> 
+>>> and having SGT as a type is what allows that. It only exists for unconverted
+>>> exporters and importers and eventually goes away once everything is converted.
+>>> The idea being we don't have to convert everything all at once, whilst also being
+>>> able to add support for different interconnect types. Are you ok with the SGT
+>>> type if it is just transitional?
+>>
+>> Not really, it just complicate things.
+>>
+>> What we should do with the mapping interface is to add the
+>> information in which domain the DMA addresses are to be used.
+> 
+> You need to negotiate the actual C data types too, especially if you
+> want to do that nasty idea where dmabuf populates an iommu domain.
+
+Yeah agree as well, but to be honest that task is negligible. We first need to figure out where to put the code. 
+
+Christian.
+
+> 
+> Jason
 
