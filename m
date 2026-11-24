@@ -2,42 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31C14606A31E
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 16:29:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 921F6606A326
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 16:29:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KjKmZ5J2
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GWtzwJjv
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A3A4710F64F;
-	Tue, 24 Nov 2026 16:29:23 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 90EAC10F64F
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Nov 2026 16:29:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1035610F7A4;
+	Tue, 24 Nov 2026 16:29:32 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B24C10F771
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Nov 2026 16:29:25 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7589A434A2;
- Tue, 24 Nov 2026 16:29:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBC511F000C6;
- Tue, 24 Nov 2026 16:29:16 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5F66162376;
+ Tue, 24 Nov 2026 16:29:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E52D51F000D1;
+ Tue, 24 Nov 2026 16:29:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795537756;
- bh=DetWoASEjwZzji0CDt3hzjtt7xu6vv5U5e9DJ31OeG4=;
+ s=k20260515; t=1795537764;
+ bh=wJJduHGYYqeij2RWJ+BJglEG8ikqd76fGZ/s9UwmglY=;
  h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=KjKmZ5J2zW0K33CqmtCSjims1Om9FimoA/HvGmdjfC11rDMvFFKcX8WBRVFFkWad9
- aH7RD3GKlc7nOJkn7/8VSXPR6c8+d9newP0RVseqWQIF5vEpG5j1xjm2l8NeNhWJJC
- 8hJwrPQgt3zTwI0huclMVLUbii5XTXLb0TpPuRm3gZOvZuCB1Ek219AjXNWjF1aKBQ
- 1J4EO7IezdEmfT+UnkL1yRQv6TKE+f5Fr3KK3U+BTgyQ+I8+lJuJhid62Ck/KmBDug
- qMqIlyBq/iPAZV/G87fG7geDTqYgJVnvujVKP4wlzvJ9ELeQt+yrKFeOSUYIdg82WD
- RrjHBalCpZZ3Q==
-Message-ID: <sashiko-outbox-231568@kernel.org>
+ b=GWtzwJjvkk08NNd/aRfJsAZEnO1HHjMGcLVl4hBQLBV45IM95XfOZLxr9FZULLc1q
+ Bh4wsnoQF75qhk4KiKJHJh4z6nspI1PP6mjy9p21qS/wI1kShZBPETW9sfcZ/3lJsF
+ 7S5d5jQIE31uO7z3f/xFvkWq7TxzGFUBndtJBebB8eW09FN4T06LL+lBpBaBoXo0wA
+ NHXcg9ypQAYgWHIB7yREaezMfjdzhop82CMJK3RttJscQ4VzokKzXM2jEUS6mzIETN
+ vvdNMfiUwfcDYPKe6SoWjD+dmauXPEs+F9WQkmSpCwQXsKy641nJmpRADIhzBFlIqt
+ jOa8GQ3x+Gziw==
+Message-ID: <sashiko-outbox-231569@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 4/9] drm/amdkfd: add a quarantine for queues MES has
- not retired
+Subject: Re: [PATCH v1 5/9] drm/amdkfd: keep queue storage until MES
+ confirmed retirement
 To: "Armas Spann" <zappel@simple-co.de>, amd-gfx@lists.freedesktop.org
-In-Reply-To: <20261124143433.49736-5-zappel@simple-co.de>
+In-Reply-To: <20261124143433.49736-6-zappel@simple-co.de>
 References: <20261124143433.49736-1-zappel@simple-co.de>
- <20261124143433.49736-5-zappel@simple-co.de>
+ <20261124143433.49736-6-zappel@simple-co.de>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 16:29:16 +0000
+Date: Tue, 24 Nov 2026 16:29:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,262 +57,210 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential
+Thank you for your contribution! Sashiko AI review found 3 potential
 issues to consider:
-- [High] drm/amdkfd: kgd2kfd_teardown_processes() misses exited
-  processes with zombies
-- [High] drm/amdkfd: broken zombie queue handling in reset_queue_mes()
-- [High] drm/amdkfd: unlocked zombie_queues traversal in
-  find_queue_by_doorbell_offset()
-- [High] drm/amdkfd: kfd_process_wq_release() early return leaves
-  svms.restore_work active
-It also noticed 2 related pre-existing issues this patch does not
+- [Medium] drm/amdkfd: active queue count underflow on reset of
+  quarantined queue
+- [Medium] drm/amdkfd: bo_va->queue_refcount race and imbalance in
+  pqm_destroy_queue()
+- [Medium] drm/amdkfd: premature release of user queue buffers when
+  create_queue_cpsch() quarantines queue
+It also noticed 1 related pre-existing issue this patch does not
 introduce:
-- [Critical] drm/amdkfd: invalid free of context ID 0 on alloc failure
-  in create_process() [1]
-- [High] drm/amdkfd: queue_refcount leak in kfd_queue_buffer_get() [2]
+- [High] drm/amdkfd: broken queue state and count in
+  kfd_dqm_suspend_bad_queue_mes() [1]
 --
 
-commit b3a1e7e946a15fc197590f432e1ffb64a5706fc6
+commit 848d4620ce3c40efb53d488158a7d0f3fddf5733
 Author: Armas Spann <zappel@simple-co.de>
 
-drm/amdkfd: add a quarantine for queues MES has not retired
+drm/amdkfd: keep queue storage until MES confirmed retirement
 
-This commit adds per-device quarantine lists, a delayed reaper work item,
-and process storage holds to retain queue and process resources until MES
-confirms queue retirement or is restarted.
-
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/am=
-d/amdkfd/kfd_device.c
-> index edafbd9377b5d..8080fbe3f7a17 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> @@ -1824,6 +1824,15 @@ void kgd2kfd_teardown_processes(struct amdgpu_devi=
-ce *adev)
->  	if (!adev->kfd.dev)
->  		return;
-> =20
-> +	/*
-> +	 * Queues that MES never confirmed as removed keep their process
-> +	 * alive. The device is going away, so stop waiting for MES.
-> +	 */
-> +	if (adev->kfd.dev->init_complete) {
-> +		for (unsigned int i =3D 0; i < adev->kfd.dev->num_nodes; i++)
-> +			kfd_dqm_retire_all(adev->kfd.dev->nodes[i]->dqm);
-> +	}
-> +
->  	/*
->  	 * Wait for all KFD processes using adev to terminate. Must be
->  	 * unbounded: device state is freed once they are gone.
-
-[Severity: High]
-Can kgd2kfd_teardown_processes() skip kfd_dqm_retire_all() and the
-kfd_processes_count wait when every KFD process has already exited user
-space but still has quarantined queues?
-
-When a process exits, kfd_process_notifier_release_internal() removes it
-from kfd_processes_table before queue teardown, while its quarantined
-queues hold p->mes_hold and defer kfd_process_destroy_pdds() (keeping
-kfd_processes_count > 0).  If no other live KFD processes remain when the
-device is removed, kgd2kfd_teardown_processes() returns early at
-if (hash_empty(kfd_processes_table)), so device_queue_manager_uninit()
-cancels dqm->zombie_work, hits WARN_ON(!list_empty(&dqm->zombie_queues)),
-and frees the device structures while the zombies and deferred kfd_process
-still reference them.
+This commit quarantines queues whose retirement has not been confirmed by
+MES across queue creation failure, queue destruction, and process
+termination so their MQDs, doorbell IDs, SDMA IDs, and buffers are not
+reused while MES may still access them.
 
 > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/driv=
 ers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> index 684037d333bf1..2f57cb06f540f 100644
+> index 2f57cb06f540f..0d40053b34c88 100644
 > --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
 > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+[ ... ]
+> @@ -2877,6 +2878,16 @@ static int create_queue_cpsch(struct device_queue_=
+manager *dqm, struct queue *q,
+>  	list_del(&q->list);
+>  	if (q->properties.is_active)
+>  		decrement_queue_count(dqm, qpd, q);
+> +	if (!kfd_mes_queue_retired(dqm, q)) {
+> +		/*
+> +		 * ADD_QUEUE was not confirmed, MES may still map the queue.
+> +		 * The MQD and the doorbell and SDMA ids stay with it.
+> +		 */
+> +		q->zombie_no_user_bos =3D true;
+
+[Severity: Medium]
+Does setting q->zombie_no_user_bos here allow the user queue buffers to be
+unmapped and freed while MES may still map the queue?
+
+When pqm_create_queue() returns an error to kfd_ioctl_create_queue(), the
+ioctl error path calls kfd_queue_unref_bo_vas() and
+kfd_queue_release_buffers(), dropping the BO VA queue refcounts, the BO
+references, and the CWSR SVM range reference immediately.  Because queue
+creation failed, userspace can unmap and reuse wptr_bo, rptr_bo, ring_bo,
+eop_buf_bo, and cwsr_bo while the MQD submitted to MES and the pinned
+wptr_bo_gart mapping still point to them.  If the timed-out ADD_QUEUE
+executes late, MES, CP, or SDMA can read or write unmapped or reallocated
+user memory.
+
+> +		dqm_quarantine_queue(dqm, qpd, q);
+> +		dqm_unlock(dqm);
+> +		return retval;
+> +	}
+
+[Severity: Medium]
+Should this path also clear q->properties.is_active after calling
+decrement_queue_count(), the same way destroy_queue_cpsch() and
+process_termination_cpsch() do?
+
+If MES later reports the quarantined queue as hung during a per-queue
+reset, kfd_reset_queue_mes() finds it on dqm->zombie_queues via
+find_queue_by_doorbell_offset() and calls reset_queue_mes() ->
+set_queue_as_reset():
+
+drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c:set_queue_as_reset() {
+    ...
+	if (q->properties.is_active) {
+		q->properties.is_active =3D false;
+		decrement_queue_count(dqm, qpd, q);
+	}
+}
+
+Because q->properties.is_active was left true, set_queue_as_reset() calls
+decrement_queue_count() a second time and underflows the DQM active queue
+counters.
 
 [ ... ]
+> @@ -3680,20 +3712,18 @@ static int process_termination_cpsch(struct devic=
+e_queue_manager *dqm,
+> =20
+>  	/* Clear all user mode queues */
+>  	list_for_each_entry(q, &qpd->queues_list, list) {
+> -		if (q->properties.type =3D=3D KFD_QUEUE_TYPE_SDMA)
+> -			deallocate_sdma_queue(dqm, q);
+> -		else if (q->properties.type =3D=3D KFD_QUEUE_TYPE_SDMA_XGMI)
+> -			deallocate_sdma_queue(dqm, q);
+> -
+>  		if (q->properties.is_active) {
+>  			decrement_queue_count(dqm, qpd, q);
+> +			/* set_queue_as_reset() must not count it down again */
+> +			q->properties.is_active =3D false;
+> +		}
 
-> @@ -2913,6 +3059,12 @@ static struct queue *find_queue_by_doorbell_offset=
-(struct device_queue_manager *
->  		}
+[Severity: High]
+This problem wasn't introduced by this patch, but
+kfd_dqm_suspend_bad_queue_mes() has the same double decrement and leaves
+the queue marked inactive on reset failure [1]:
+
+drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c:kfd_dqm_suspend_bad_q=
+ueue_mes() {
+    ...
+		list_for_each_entry(q, &qpd->queues_list, list) {
+			if (q->doorbell_id =3D=3D doorbell_id && q->properties.is_active) {
+				reset_queues_mes(dqm, q);
+				q->properties.is_evicted =3D true;
+				q->properties.is_active =3D false;
+				decrement_queue_count(dqm, qpd, q);
+				break;
+			}
+		}
+    ...
+}
+
+When reset_queues_mes() resets the queue as hung via reset_queue_mes() ->
+set_queue_as_reset(), set_queue_as_reset() already clears
+q->properties.is_active and calls decrement_queue_count(), so the
+unconditional decrement_queue_count() afterwards underflows
+dqm->active_queue_count.  If reset_queues_mes() fails instead, clearing
+q->properties.is_active causes later paths to treat a still-mapped queue
+as inactive.
+
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/dri=
+vers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+> index ef9ad6dc874dc..29827a736f7d4 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+[ ... ]
+> @@ -571,23 +590,43 @@ int pqm_destroy_queue(struct process_queue_manager =
+*pqm, unsigned int qid)
 >  	}
 > =20
-> +	/* MES may report a quarantined queue as hung, it still has it */
-> +	list_for_each_entry(q, &dqm->zombie_queues, zombie_node) {
-> +		if (doorbell_offset =3D=3D q->properties.doorbell_off)
-> +			return q;
-> +	}
+>  	if (pqn->q) {
+> -		retval =3D kfd_queue_unref_bo_vas(pdd, &pqn->q->properties);
+> +		struct queue *q =3D pqn->q;
 > +
->  	return NULL;
->  }
-
-[Severity: High]
-Does returning a quarantined queue to kfd_reset_queue_mes() ->
-reset_queue_mes() corrupt queue state and wedge the reaper?
-
-In reset_queue_mes(), remove_queue_mes_on_reset_option() is called with
-its return value ignored, followed unconditionally by set_queue_as_reset():
-
-1. If remove_queue_mes_on_reset_option() skips or fails removal (where
-   is_for_reset =3D=3D true returns early without calling kfd_hws_hang()),
-   set_queue_as_reset() sets q->properties.is_reset =3D true while
-   q->mes_state is still MAPPED or UNKNOWN.  Every subsequent run of
-   kfd_dqm_zombie_worker() calls remove_queue_mes(), which returns 0 early
-   on q->properties.is_reset without retiring the queue, polling every
-   500 ms indefinitely and leaking the queue and process holds.
-2. When a queue is quarantined from create_queue_cpsch() or
-   process_termination_cpsch(), decrement_queue_count() has already run
-   without clearing q->properties.is_active =3D false.  set_queue_as_reset()
-   sees q->properties.is_active =3D=3D true and calls decrement_queue_count=
-()
-   a second time, underflowing dqm->active_queue_count.
-3. set_queue_as_reset() sets pdd->has_reset_queue =3D true for a queue user
-   space already destroyed (or that failed creation), causing later
-   update_queue() calls on the process's remaining live queues to fail
-   with -EACCES.
-
-[Severity: High]
-Can find_queue_by_doorbell_offset() walk dqm->zombie_queues without
-dqm_lock(dqm) held and race with kfd_dqm_zombie_worker() freeing the
-queue?
-
-When KGD resets hung compute queues from gfx_v11_0_reset_kcq(),
-gfx_v12_0_reset_kcq(), or amdgpu_userq_hang_detect_work(),
-amdgpu_gfx_reset_mes_compute() holds only adev->gfx.mec.reset_mutex and
-does not acquire dqm_lock(dqm):
-
-CPU0 (KGD reset)                  CPU1 (kworker)
-amdgpu_gfx_reset_mes_compute()    kfd_dqm_zombie_worker()
-  ...                               dqm_lock(dqm)
-  kfd_reset_queue_mes()             list_move_tail(&q->zombie_node,
-    find_queue_by_doorbell_offset()                &retired)
-      /* walks dqm->zombie_queues   dqm_unlock(dqm)
-       * without dqm_lock */        kfd_dqm_release_zombie(dqm, q)
-                                      uninit_queue(q)
-    reset_queue_mes(dqm, q, ...)        kfree(q)
-      /* dereferences q */              <-- use-after-free
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/a=
-md/amdkfd/kfd_process.c
-> index 546721b4d59ac..3aa6ddf49ad49 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-
-[ ... ]
-
-> @@ -1359,6 +1354,32 @@ static void kfd_process_wq_release(struct work_str=
-uct *work)
->  	 */
->  	kfd_process_remove_sysfs(p);
+> +		retval =3D kfd_queue_unref_bo_vas(pdd, &q->properties);
+>  		if (retval)
+>  			goto err_destroy_queue;
 > =20
-> +	/*
-> +	 * Queues that MES has not let go of still use the pdds, the process
-> +	 * context, the doorbell page and the GPU VM. Everything that carries
-> +	 * the pid is gone at this point, so stop here. The reaper queues
-> +	 * this work again when it frees the last of those queues. Do not
-> +	 * wait instead: kfd_create_process() flushes this workqueue. A work
-> +	 * item never runs twice at the same time, so the second run cannot
-> +	 * free the process under us.
-> +	 */
-> +	p->mes_hold_dropped =3D true;
-> +	if (!atomic_dec_and_test(&p->mes_hold)) {
-> +		pr_warn("Process pid %d: release waits for MES to retire %d queue(s), =
-a GPU reset retires them\n",
-> +			p->lead_thread->pid, atomic_read(&p->mes_hold));
-> +		return;
-> +	}
-> +
-> +release_storage:
-> +	/* Signal the eviction fence after user mode queues are
-> +	 * destroyed. This allows any BOs to be freed without
-> +	 * triggering pointless evictions or waiting for fences.
-> +	 */
-> +	synchronize_rcu();
-> +	ef =3D rcu_access_pointer(p->ef);
-> +	if (ef)
-> +		dma_fence_signal(ef);
-> +
->  	kfd_process_kunmap_signal_bo(p);
->  	kfd_process_free_outstanding_kfd_bos(p);
->  	svm_range_list_fini(p);
+> -		dqm =3D pqn->q->device->dqm;
+> -		retval =3D dqm->ops.destroy_queue(dqm, &pdd->qpd, pqn->q);
+> +		dqm =3D q->device->dqm;
+> +		retval =3D dqm->ops.destroy_queue(dqm, &pdd->qpd, q);
+>  		if (retval) {
+>  			pr_err("Pasid 0x%x destroy queue %d failed, ret %d\n",
+>  				pdd->pasid,
+> -				pqn->q->properties.queue_id, retval);
+> -			if (retval !=3D -ETIME && retval !=3D -EIO)
+> +				q->properties.queue_id, retval);
+> +			/* The dqm left the queue alone, it stays usable */
+> +			if (!q->dqm_dequeued) {
+> +				kfd_queue_ref_bo_vas(pdd, &q->properties);
+>  				goto err_destroy_queue;
+> +			}
+> +		}
 
-[Severity: High]
-Does returning early before svm_range_list_fini(p) leave
-p->svms.restore_work running against the wrong mm_struct across execve()?
+[Severity: Medium]
+Can calling kfd_queue_unref_bo_vas() before dqm->ops.destroy_queue() race
+when wait_on_destroy_queue() drops q->process->mutex for a suspended queue
+of a debugged process?
 
-kfd_process_notifier_release_internal() cancels p->eviction_work,
-p->restore_work, and p->signal_work when the old mm is torn down, but
-p->svms.restore_work is only cancelled in svm_range_list_fini().  If the
-process tore down its old mm via execve() and has a quarantined queue,
-p->lead_thread stays alive with a new mm while kfd_process_wq_release()
-returns early here.  When svm_range_restore_work() runs during the
-quarantine window, get_task_mm(p->lead_thread) returns the post-execve()
-new_mm, locks new_mm->mmap_lock, and passes prange->notifier (whose
-notifier.mm still points to the destroyed old_mm) to
-amdgpu_hmm_range_get_pages() -> hmm_range_fault(), triggering
-mmap_assert_locked(old_mm) and walking the freed old_mm page tables.
+CPU0                                  CPU1
+pqm_destroy_queue(qid)
+  kfd_queue_unref_bo_vas()
+    bo_va->queue_refcount-- (1 -> 0)
+  destroy_queue_cpsch()
+    wait_on_destroy_queue()
+      q->properties.is_being_destroyed =3D true
+      dqm_unlock(dqm)
+      mutex_unlock(&q->process->mutex)
+      wait_event_interruptible(...)
+                                      pqm_destroy_queue(qid)
+                                        kfd_queue_unref_bo_vas()
+                                          /* refcount is 0, no-op */
+                                        destroy_queue_cpsch()
+                                          wait_on_destroy_queue()
+                                            returns -EBUSY
+                                        /* !q->dqm_dequeued */
+                                        kfd_queue_ref_bo_vas()
+                                          bo_va->queue_refcount++ (0 -> 1)
+      /* interrupted by signal */
+      returns -ERESTARTSYS
+  /* !q->dqm_dequeued */
+  kfd_queue_ref_bo_vas()
+    bo_va->queue_refcount++ (1 -> 2)  <-- refcount leaked
 
-[ ... ]
+Because kfd_queue_unref_bo_va() only decrements when bo_va->queue_refcount
+is non-zero while kfd_queue_ref_bo_va() increments unconditionally, a
+second destroy attempt during the wait_on_destroy_queue() sleep window
+permanently inflates bo_va->queue_refcount and prevents the BOs from being
+unmapped.  While CPU0 is sleeping with bo_va->queue_refcount =3D=3D 0, anot=
+her
+thread can also unmap the queue's BOs via unmap_bo_from_gpuvm() before the
+queue is destroyed.
 
-> @@ -1702,6 +1734,7 @@ struct kfd_process *create_process(const struct tas=
-k_struct *thread, bool primar
->  		goto err_alloc_process;
-> =20
->  	kref_init(&process->ref);
-> +	atomic_set(&process->mes_hold, 1);
->  	mutex_init(&process->mutex);
->  	process->mm =3D thread->mm;
->  	process->lead_thread =3D thread->group_leader;
-
-[Severity: Critical]
-This problem wasn't introduced by this patch, but in create_process()
-[1], can a kfd_process_alloc_id() failure free context ID 0 while
-another secondary process is using it?
-
-process is zero-initialized, so process->context_id starts at 0
-(KFD_CONTEXT_ID_MIN).  If kfd_process_alloc_id() fails for a secondary
-process, it leaves process->context_id at 0 and jumps to err_alloc_id,
-which calls kfd_process_free_id(process) -> ida_free(..., 0) on
-primary_process->id_table, releasing an active secondary process's context
-ID and allowing duplicate context ID assignment.
-
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c b/drivers/gpu/drm/amd=
-/amdkfd/kfd_queue.c
-> index cd41b10e08731..ad01308a7d812 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-> @@ -423,6 +423,36 @@ int kfd_queue_unref_bo_vas(struct kfd_process_device=
- *pdd,
->  	return 0;
->  }
-> =20
-> +static void kfd_queue_ref_bo_va(struct amdgpu_vm *vm, struct amdgpu_bo *=
-bo)
-> +{
-> +	struct amdgpu_bo_va *bo_va;
-> +
-> +	if (!bo)
-> +		return;
-> +
-> +	bo_va =3D amdgpu_vm_bo_find(vm, bo);
-> +	if (bo_va)
-> +		bo_va->queue_refcount++;
-> +}
-
-[Severity: High]
-This problem wasn't introduced by this patch, but does
-kfd_queue_buffer_get() leak bo_va->queue_refcount [2] when a
-mapping's underlying BO is NULL (such as a PRT mapping)?
-
-In kfd_queue_buffer_get(), *pbo is set to
-amdgpu_bo_ref(mapping->bo_va->base.bo) (which is NULL when base.bo is
-NULL), while mapping->bo_va->queue_refcount is still incremented.  Because
-kfd_queue_unref_bo_va() (and kfd_queue_ref_bo_va() here) checks for a
-non-NULL bo before looking up bo_va, queue_refcount is never decremented
-on teardown, leaving the mapping permanently non-zero and blocking unmap
-with -EBUSY.
-
-[1] https://sashiko.dev/#/bug/linux-73836404-f2c8-4863-97fc-8a10e19441a4
-[2] https://sashiko.dev/#/bug/linux-7d2cfadd-e9fb-4657-8f39-fe57b15f1bfe
+[1] https://sashiko.dev/#/bug/linux-7affa616-c8be-4685-80a8-eb0c3ae7d034
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124143433.4973=
-6-1-zappel@simple-co.de?part=3D4
+6-1-zappel@simple-co.de?part=3D5
