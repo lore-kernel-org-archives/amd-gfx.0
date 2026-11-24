@@ -2,63 +2,112 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C17C606A32E
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 15:55:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47226606A31E
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 15:55:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=simple-co.de header.i=@simple-co.de header.a=rsa-sha256 header.s=201801 header.b=TCLIIXV8;
-	dkim=pass (2048-bit key) header.d=simple-co.de header.i=@simple-co.de header.a=rsa-sha256 header.s=201801 header.b=sAgK8+1B
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=XbgSnQ5w
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02CB710F75C;
-	Tue, 24 Nov 2026 15:54:56 +0000 (UTC)
-Received: from mail.bin-co.de (mail.bin-co.de [37.120.183.211])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0491410F69E
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Nov 2026 14:44:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=simple-co.de;
- s=201801; t=1795530883;
- bh=33XEX5+ltkaCdqT6hEibMd+I4Kh/NzRfTr2XxVsKigs=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=TCLIIXV8LbfePNKfZZNiei0TzCMYjhtoA7IxqWtChDuH1XUsdkfkTCMnnkd4mLGvi
- l8NgWvlKue1y5UACtF+82rZaxCVmg/r3BuGz2xFPm4BO4TO5Cg6/ipFCgoXNtcyNxz
- x6Osm525myxGTP2d5INXn7ddOU4QhGSx9TiHUoCoW7aIKYFtceotfI0pOBBSALc+e7
- j6wlKJ3Xopd949SEVQXZ6dgvHL0/2c385T3zi093WgXZv3+hB/eQMGcYld9iyTnUYZ
- 2PkPX9XVB7vVJUM2ukWvIlfSnPwq/AeyhgkWyE0APiRa30BkkHxuZBLaAICL0UWMnB
- z3NeSuLYG0Yyw==
-Received: from localhost (localhost [127.0.0.1])
- by mail.bin-co.de (Postfix) with ESMTP id 35A9717F065;
- Tue, 24 Nov 2026 15:34:43 +0100 (CET)
-X-Virus-Scanned: Debian amavis at v2202603343726440230.luckysrv.de
-Received: from mail.bin-co.de ([127.0.0.1])
- by localhost (mail.bin-co.de [127.0.0.1]) (amavis, port 10024) with ESMTP
- id R7_nx7wQkBTo; Tue, 24 Nov 2026 15:34:42 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=simple-co.de;
- s=201801; t=1795530882;
- bh=33XEX5+ltkaCdqT6hEibMd+I4Kh/NzRfTr2XxVsKigs=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=sAgK8+1BEK7XNCSxnN9ILOOo2Xl+jtf206eIgv2gAbOM6qC4TZ1qrCxdj7odZ6KkH
- dDgC9NOcOypknIEQSb1upVcFrmv1Bll4ZlonnvoYpvezU0pP2ACRGvqVFMl/RO5lp0
- yTcVCBczW9po+Enau9fiGk+dib/4+e0gbkQrzCerZarrrCqs6A9ulurZkmaOapXGyv
- Ra8xJNMbmD6WHtBUoyDu2dIO7N9k2kP8M8GgzUxhz1Qow+ub4DbQmw1dSomXublh2T
- LlzhLvFYCQ2LYzjSOCoTTCNFckNhvHdKPqe7+rQscEZ/GAVm5rN1oKabdpoQjAhAQ1
- TZvapECzUJTrQ==
-Received: from deepblue.zlan.intra (wan.zappel.net [IPv6:2a02:8106:4:c300::1])
- (Authenticated sender: zappel@simple-co.de)
- by mail.bin-co.de (Postfix) with ESMTPSA id 48CCA17F06A;
- Tue, 24 Nov 2026 15:34:42 +0100 (CET)
-From: Armas Spann <zappel@simple-co.de>
-To: amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com,
- Felix.Kuehling@amd.com, Armas Spann <zappel@simple-co.de>,
- "Claude Fable 5.2" <noreply@anthropic.com>
-Subject: [PATCH v1 4/9] drm/amdkfd: add a quarantine for queues MES has not
- retired
-Date: Tue, 24 Nov 2026 15:34:27 +0100
-Message-ID: <20261124143433.49736-5-zappel@simple-co.de>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261124143433.49736-1-zappel@simple-co.de>
-References: <20261124143433.49736-1-zappel@simple-co.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 685B310F75E;
+	Tue, 24 Nov 2026 15:55:02 +0000 (UTC)
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com
+ [209.85.218.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A834B10F68B
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Nov 2026 14:20:36 +0000 (UTC)
+Received: by mail-ej1-f43.google.com with SMTP id
+ a640c23a62f3a-c4d2b741ed9so744871766b.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Nov 2026 06:20:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ziepe.ca; s=google; t=1795530035; x=1796134835; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Hoa2uDGRiz+jXLxbcD4HBQF2SzMfWsHt0csEQeOTfAo=;
+ b=XbgSnQ5w7HsoJWQXtmcP3kkxo7IiRzELTC9pi25LWjC03FdDizbCUiuMyEakdnmHqw
+ L4htf7WhxMi4+dkUk7KN850O2GQjK/Hu518NcsCbNomF3VdJWRTt6zZBAO3B1YnOgnX9
+ X/bKxGSY6hKbyGJexKTYpSe4K2GhtCe3Yr05MNZJ8mRrVvz9VOzn2SjY4RZceVcsBQ1G
+ FojQVp2KjrlhsV8V1CJmEyjvim8S+zp4GnTcImvVbKyNXXw5Vop+eL/F0P82cvBPlSCP
+ nvjWYTt5CZWGkBCejbKMk4Y2+xs1tVu73OSCf+1QKolehUvcxFt2wmtwMlna1AByjkYT
+ 0x1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795530035; x=1796134835;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=Hoa2uDGRiz+jXLxbcD4HBQF2SzMfWsHt0csEQeOTfAo=;
+ b=kElniF4tcPMmZ42F2KCkgJinhJF4x9nNpvBJkyQaHGIyFhyu7nu3Ur2FWW+noTMPB9
+ L2ePFe17+VwgUJWw3E+09NzyuxY4r67MJHQfDPnu3nFDimAppM6sv4L9ktkw2AO9zYY+
+ poo0WiL8QrdY3OcZCo1SilJBaBaZofnCwrXGErfVSazUqQu1l8SVuSmmkTo6gGNRoIoU
+ gLkIZfTKnJTAPp4CeCFmvf3Oh7ebwZ9kyKQnpDAhklmDdD2jtKZ3NV6X9RB8092U072d
+ AMp/p9ca0ZADnW8vXU7Cu0qK9S31kHirpMyUiuM9/kDVj2QeYiGRXpGJSL3Ju9ZsDSRy
+ EK6w==
+X-Forwarded-Encrypted: i=1;
+ AL+hErGHcffKRwdzEWUc5YfIOK+QtktX24QSYCWPQ5PQHOJc0K3R0jOePT61JDYK4Oji0VcmshxxYin4@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8NKruQjQbsabPuS1bqKskShDpYMEkPL3HhiXhI7YREv70SSU6P
+ M1GARXSZbZC64JjdUZbIWkvXoVffki0YohhL4t8DbbYSsTdAg5o5fOBJbT1OhlPBP5k=
+X-Gm-Gg: AZFdTZdXpZoUgw3nnvIJrjkN/7CmKvWFtW8yIHsfb1lu10n+KbtIL+EhB9e18b8MzNs
+ /eTc74FyyaPtqD0Z9zu6pdiG24uTXnc2wLdR7Sw86uUzgkuwRYsW1B7n1eJmLYjoY5tUyHBksAp
+ GNV+TDXC1Sujoxs+9sajGCMz6EDest7YZ9765Sd7PwmuU6tcylPNCzf+NKIqxJU61Ot46caqZ8h
+ tPV85S0lv9K/WDNwkmFjlyzMEnI5n4W5h4tWUdZHFGd3vYj5isY5uajElLAi7zDz83iEKGa35VB
+ 5MaQiKy/h0OVUfNmdTxjeSyuVF6VSZtLMvcU7PsNMRILagMx23zFaHhTEBNcXCPif8uF3Jp9srk
+ y97DNjJGCF/H7dE4zmMD6q8qqN9hTKD3Y2bU56oumVB9PA4HFgOlTx66NK4pxdBJaa9Mp684X5I
+ qdkLuRoRdNH9OMgkxN62/hEMcaVkPvGCUf5kHhkJeWYJnYB81cjc+W+akDM9GYbqczBS0lgh/Sc
+ sXxXzn7opglSQkVAd79dnIRsU22PUbAJR6u4qUcXEWfsVljeLqpkAZQ2sD5PCjztFD1MCPQnDdc
+ wJNn6Zu/9m3Wrx7WvXPnU9EvoHM=
+X-Received: by 2002:a17:906:eec9:b0:c51:5589:35a1 with SMTP id
+ a640c23a62f3a-c515589d211mr891019366b.5.1795530034479; 
+ Tue, 24 Nov 2026 06:20:34 -0800 (PST)
+Received: from ziepe.ca ([142.177.118.84]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c513ae8dc60sm518286266b.34.2026.11.24.06.20.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 24 Nov 2026 06:20:33 -0800 (PST)
+Received: from jgg by wakko with local (Exim 4.97)
+ (envelope-from <jgg@ziepe.ca>) id 1xVrNo-00000000RS3-1UVp;
+ Tue, 24 Nov 2026 10:20:32 -0400
+Date: Tue, 24 Nov 2026 10:20:32 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: Alistair Popple <apopple@nvidia.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ Dongwon Kim <dongwon.kim@intel.com>, Kevin Tian <kevin.tian@intel.com>,
+ Xu Yilun <yilun.xu@linux.intel.com>,
+ Karl Mehltretter <kmehltretter@gmail.com>,
+ Baolu Lu <baolu.lu@linux.intel.com>,
+ Felix Kuehling <felix.kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, iommu@lists.linux.dev,
+ Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+ linux-nvme@lists.infradead.org, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>,
+ Mina Almasry <almasrymina@google.com>, netdev@vger.kernel.org,
+ Alexey Kardashevskiy <aik@amd.com>, zhipingz@meta.com,
+ treding@nvidia.com, jhubbard@nvidia.com, chaitanyak@nvidia.com,
+ Leon Romanovsky <leon@kernel.org>
+Subject: Re: [PATCH v3 03/24] dma-buf: Add the SGT DMA mapping type
+Message-ID: <20261124142032.GN9566@ziepe.ca>
+References: <20261120-dma_mapping_type_v4-v3-0-c0183a409bdf@nvidia.com>
+ <20261120-dma_mapping_type_v4-v3-3-c0183a409bdf@nvidia.com>
+ <ad46d60a-189d-4dd5-9ad8-ecfd3c90f9d9@amd.com>
+ <20261123165716.GM179082@ziepe.ca>
+ <7ac7edd0-5c38-440a-b26a-21bcbb6f4702@amd.com>
+ <awT8prWsj11TBdmP@nvdebian.thelocal>
+ <63eb7b6e-e0a8-4443-a434-0301ed59beae@amd.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <63eb7b6e-e0a8-4443-a434-0301ed59beae@amd.com>
 X-Mailman-Approved-At: Tue, 24 Nov 2026 15:54:45 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -70,509 +119,56 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-A queue that is destroyed while MES may still reference it has to keep
-its MQD, gang context, write pointer mapping, user buffers and its
-doorbell and SDMA ids. On gfx12 the MQD comes from a first fit
-sub-allocator and the doorbell id from a first fit bitmap, so both are
-normally handed to the very next queue the process creates.
+On Tue, Nov 24, 2026 at 01:36:21PM +0100, Christian König wrote:
+> > The core then negotiates compatible types and adds converters between them,
+> 
+> I have strong objections to that plan and would potentially NAK it.
+> 
+> DMA-buf should *NEVER* accept CPU physical addresses nor provide
+> conversion between different address types.
+> 
+> Keep in mind that DMA-buf is solely a container for DMA addresses,
+> nothing else and it should not provide any mapping functionality
+> whatsoever.
 
-Add the machinery to park such a queue: a per-device list of zombies and
-a delayed work that frees a zombie once kfd_mes_queue_retired() is true
-for it. The usual way out is the MES restart done by the GPU reset that
-the failed command asked for. start_cpsch() kicks the reaper for that
-case.
+dmabuf needs to provide support for drivers to help them use the
+interface, and going from physical to dma_addr_t is absolutely a
+common task every driver must do. I don't care how you call it, but it
+is a service that must be provided by *something* and matched to the
+needs of dmabuf.
 
-If the removal was skipped and did not fail (scheduler halted or
-stopped, GPU reset in progress), the reaper sends it once that becomes
-possible.
+I will definitely NAK any direction to open code dma mapping in every
+driver again. If we are going away from SGT then we are fixing all the
+DRM mistakes, including the wrong open coded DMA mapping, sketchy use
+of SGT, and abuse of P2P that seems to be endemic in drm.
 
-A zombie uses the pdd, the process context, the doorbell page and the
-GPU VM of its process, so it takes a hold on the process. The release
-worker frees those only when the last hold is gone. It must not block
-for that, because kfd_create_process() flushes the release workqueue and
-every new KFD process would hang behind it. The worker removes the
-debugfs and sysfs entries and the context id, which is what a new
-process with the same pid needs gone, and returns. The reaper queues the
-work again when it frees the last zombie of the process. As a side
-effect the eviction fence of every exiting process is now signalled
-after those entries are removed, no longer before.
+Meaing the exporter constructs a phys_addr list, gets a P2P provider,
+and some common code constructs what is passed to the importer. I
+don't care if this is in "dmabuf" or some "dmabuf library" or
+*whatever* but it must exist as common shared code.
 
-Device removal must not wait for MES. kgd2kfd_teardown_processes()
-declares every queue of the device retired.
+dma_buf_phys_vec_to_sgt() is the template how to implement this
+transformation.
 
-Nothing is quarantined yet. The next patch converts the paths that free
-queue storage.
+> > and having SGT as a type is what allows that. It only exists for unconverted
+> > exporters and importers and eventually goes away once everything is converted.
+> > The idea being we don't have to convert everything all at once, whilst also being
+> > able to add support for different interconnect types. Are you ok with the SGT
+> > type if it is just transitional?
+> 
+> Not really, it just complicate things.
+> 
+> What we should do with the mapping interface is to add the
+> information in which domain the DMA addresses are to be used.
 
-Signed-off-by: Armas Spann <zappel@simple-co.de>
-Co-Authored-By: Claude Fable 5.2 <noreply@anthropic.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_device.c       |   9 +
- .../drm/amd/amdkfd/kfd_device_queue_manager.c | 157 ++++++++++++++++++
- .../drm/amd/amdkfd/kfd_device_queue_manager.h |  14 ++
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  29 ++++
- drivers/gpu/drm/amd/amdkfd/kfd_process.c      |  51 +++++-
- drivers/gpu/drm/amd/amdkfd/kfd_queue.c        |  30 ++++
- 6 files changed, 281 insertions(+), 9 deletions(-)
+You need to negotiate the actual C data types too, especially if you
+want to do that nasty idea where dmabuf populates an iommu domain.
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-index edafbd937..8080fbe3f 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-@@ -1824,6 +1824,15 @@ void kgd2kfd_teardown_processes(struct amdgpu_device *adev)
- 	if (!adev->kfd.dev)
- 		return;
- 
-+	/*
-+	 * Queues that MES never confirmed as removed keep their process
-+	 * alive. The device is going away, so stop waiting for MES.
-+	 */
-+	if (adev->kfd.dev->init_complete) {
-+		for (unsigned int i = 0; i < adev->kfd.dev->num_nodes; i++)
-+			kfd_dqm_retire_all(adev->kfd.dev->nodes[i]->dqm);
-+	}
-+
- 	/*
- 	 * Wait for all KFD processes using adev to terminate. Must be
- 	 * unbounded: device state is freed once they are gone.
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index 2d62c244c..842a3249e 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -247,6 +247,10 @@ static bool kfd_mes_queue_retired(struct device_queue_manager *dqm,
- 	if (q->mes_state == KFD_MES_QUEUE_UNMAPPED)
- 		return true;
- 
-+	/* The device is being removed and MES is shut down next */
-+	if (dqm->mes_retire_all)
-+		goto retired;
-+
- 	/* The firmware instance that knew the queue is gone */
- 	if (q->mes_fw_gen != kfd_mes_gen(dqm))
- 		goto retired;
-@@ -1668,6 +1672,144 @@ static int dqm_repin_mqd_bo(struct device_queue_manager *dqm, struct queue *q)
- 	return 0;
- }
- 
-+/*
-+ * Quarantine
-+ *
-+ * A queue that is destroyed before MES has confirmed its removal keeps its
-+ * MQD, gang context, wptr mapping, user buffers and its doorbell and SDMA
-+ * ids. It is taken off the lists of its process, so user space sees it
-+ * destroyed, and parked on dqm->zombie_queues. The reaper frees it once
-+ * kfd_mes_queue_retired() says MES has let go, which normally means the
-+ * firmware was restarted by the GPU reset the failed command asked for.
-+ *
-+ * A zombie points at its kfd_process_device. It takes a hold on the
-+ * process (p->mes_hold), so the pdd, the process context, the doorbell
-+ * page and the GPU VM outlive every zombie of the process.
-+ *
-+ * The reaper takes p->mutex and the dqm lock one after the other and never
-+ * nested. It frees buffer objects, so it does that outside the dqm lock.
-+ */
-+
-+/* dqm lock held. @q is off qpd->queues_list already. */
-+static void __maybe_unused dqm_quarantine_queue(struct device_queue_manager *dqm,
-+						struct qcm_process_device *qpd,
-+						struct queue *q)
-+{
-+	struct kfd_process_device *pdd = qpd_to_pdd(qpd);
-+
-+	dev_warn(dqm->dev->adev->dev,
-+		 "MES did not confirm retirement of queue doorbell=0x%x, keeping its storage\n",
-+		 q->properties.doorbell_off);
-+
-+	q->is_zombie = true;
-+	q->zombie_pdd = pdd;
-+	atomic_inc(&pdd->process->mes_hold);
-+	list_add_tail(&q->zombie_node, &dqm->zombie_queues);
-+}
-+
-+/*
-+ * Called by the pqm when it holds no more references to a quarantined
-+ * queue. The queue belongs to the reaper afterwards and the caller must
-+ * not touch it again.
-+ */
-+void kfd_dqm_zombie_ready(struct device_queue_manager *dqm, struct queue *q)
-+{
-+	dqm_lock(dqm);
-+	q->zombie_ready = true;
-+	dqm_unlock(dqm);
-+
-+	mod_delayed_work(system_dfl_wq, &dqm->zombie_work, 0);
-+}
-+
-+/* No locks held. @q is off dqm->zombie_queues and retired. */
-+static void kfd_dqm_release_zombie(struct device_queue_manager *dqm,
-+				   struct queue *q)
-+{
-+	struct kfd_process_device *pdd = q->zombie_pdd;
-+	struct kfd_process *p = pdd->process;
-+	struct kfd_node *dev = q->device;
-+	struct mqd_manager *mqd_mgr =
-+		dqm->mqd_mgrs[get_mqd_type_from_queue_type(q->properties.type)];
-+
-+	/* Process side. The pdd is alive, the queue has a hold on it. */
-+	mutex_lock(&p->mutex);
-+	deallocate_doorbell(&pdd->qpd, q);
-+	if (!q->zombie_no_user_bos) {
-+		kfd_queue_unref_bo_vas(pdd, &q->properties);
-+		kfd_queue_release_buffers(pdd, &q->properties, false);
-+	}
-+	mutex_unlock(&p->mutex);
-+
-+	/* Device side */
-+	if (q->properties.type == KFD_QUEUE_TYPE_SDMA ||
-+	    q->properties.type == KFD_QUEUE_TYPE_SDMA_XGMI) {
-+		dqm_lock(dqm);
-+		deallocate_sdma_queue(dqm, q);
-+		dqm_unlock(dqm);
-+	}
-+	dqm_repin_mqd_bo(dqm, q);
-+	mqd_mgr->free_mqd(mqd_mgr, q->mqd, q->mqd_mem_obj);
-+	kfd_queue_free_mes_resources(dev, q);
-+	uninit_queue(q);
-+
-+	/* Last access to the pdd, the process may be freed after this */
-+	kfd_process_put_mes_hold(p);
-+}
-+
-+static void kfd_dqm_zombie_worker(struct work_struct *work)
-+{
-+	struct device_queue_manager *dqm =
-+		container_of(to_delayed_work(work),
-+			     struct device_queue_manager, zombie_work);
-+	struct queue *q, *tmp;
-+	LIST_HEAD(retired);
-+	bool more;
-+
-+	dqm_lock(dqm);
-+	list_for_each_entry_safe(q, tmp, &dqm->zombie_queues, zombie_node) {
-+		if (!q->zombie_ready)
-+			continue;
-+
-+		/*
-+		 * No REMOVE_QUEUE was sent for this queue because the
-+		 * scheduler was stopped or halted, or a reset held it off.
-+		 * Send it once that is possible. A failure leaves the queue
-+		 * UNKNOWN, so this is not repeated.
-+		 */
-+		if (q->mes_state == KFD_MES_QUEUE_MAPPED &&
-+		    !kfd_mes_queue_retired(dqm, q))
-+			remove_queue_mes(dqm, q, &q->zombie_pdd->qpd);
-+
-+		if (kfd_mes_queue_retired(dqm, q))
-+			list_move_tail(&q->zombie_node, &retired);
-+	}
-+	more = !list_empty(&dqm->zombie_queues);
-+	dqm_unlock(dqm);
-+
-+	list_for_each_entry_safe(q, tmp, &retired, zombie_node) {
-+		list_del(&q->zombie_node);
-+		kfd_dqm_release_zombie(dqm, q);
-+	}
-+
-+	if (more)
-+		queue_delayed_work(system_dfl_wq, &dqm->zombie_work,
-+				   msecs_to_jiffies(KFD_MES_ZOMBIE_POLL_MS));
-+}
-+
-+/*
-+ * The device is being removed. MES is shut down right after, so nothing a
-+ * quarantined queue holds can be handed to a new owner that MES would then
-+ * corrupt. Release all zombies so process teardown can finish.
-+ */
-+void kfd_dqm_retire_all(struct device_queue_manager *dqm)
-+{
-+	dqm_lock(dqm);
-+	dqm->mes_retire_all = true;
-+	dqm_unlock(dqm);
-+
-+	mod_delayed_work(system_dfl_wq, &dqm->zombie_work, 0);
-+}
-+
- static int evict_process_queues_nocpsch(struct device_queue_manager *dqm,
- 					struct qcm_process_device *qpd)
- {
-@@ -2537,6 +2679,10 @@ static int start_cpsch(struct device_queue_manager *dqm)
- 		hqd_info_size * sizeof(struct amdgpu_mes_hung_queue_hqd_info),
- 		GFP_KERNEL);
- 
-+	/* A restart of the MES firmware retires every quarantined queue */
-+	if (!list_empty(&dqm->zombie_queues))
-+		mod_delayed_work(system_dfl_wq, &dqm->zombie_work, 0);
-+
- 	dqm_unlock(dqm);
- 
- 	return 0;
-@@ -2920,6 +3066,12 @@ static struct queue *find_queue_by_doorbell_offset(struct device_queue_manager *d
- 		}
- 	}
-
-+	/* MES may report a quarantined queue as hung, it still has it */
-+	list_for_each_entry(q, &dqm->zombie_queues, zombie_node) {
-+		if (doorbell_offset == q->properties.doorbell_off)
-+			return q;
-+	}
-+
- 	return NULL;
- }
-
-@@ -3677,6 +3835,9 @@ struct device_queue_manager *device_queue_manager_init(struct kfd_node *dev)
- 	if (!dqm)
- 		return NULL;
- 
-+	INIT_LIST_HEAD(&dqm->zombie_queues);
-+	INIT_DELAYED_WORK(&dqm->zombie_work, kfd_dqm_zombie_worker);
-+
- 	switch (dev->adev->asic_type) {
- 	/* HWS is not available on Hawaii. */
- 	case CHIP_HAWAII:
-@@ -3813,6 +3968,8 @@ void device_queue_manager_uninit(struct device_queue_manager *dqm)
- {
- 	cancel_delayed_work_sync(&dqm->notify_unmap_work);
- 	dqm->ops.stop(dqm);
-+	cancel_delayed_work_sync(&dqm->zombie_work);
-+	WARN_ON(!list_empty(&dqm->zombie_queues));
- 	dqm->ops.uninitialize(dqm);
- 	if (!dqm->dev->kfd->shared_resources.enable_mes)
- 		deallocate_hiq_sdma_mqd(dqm->dev, &dqm->hiq_sdma_mqd);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-index 239168838..a2defcb99 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-@@ -44,6 +44,9 @@
- #define KFD_MES_REMOVE_GRACE_MS		4000
- #define KFD_MES_REMOVE_POLL_US		2000
- 
-+/* How often the reaper looks at quarantined queues */
-+#define KFD_MES_ZOMBIE_POLL_MS		500
-+
- struct device_process_node {
- 	struct qcm_process_device *qpd;
- 	struct list_head list;
-@@ -309,6 +312,15 @@ struct device_queue_manager {
- 	u32			mes_fence_gen;
- 	/* copy of the unanswered ticket, never released through this copy */
- 	struct amdgpu_mes_cmd_ticket mes_fence_ticket;
-+
-+	/*
-+	 * Destroyed queues that MES has not confirmed as removed, and the
-+	 * reaper that frees them. The list is protected by the dqm lock.
-+	 */
-+	struct list_head	zombie_queues;
-+	struct delayed_work	zombie_work;
-+	/* the device is going away, treat every queue as retired */
-+	bool			mes_retire_all;
- };
- 
- void device_queue_manager_init_cik(
-@@ -356,6 +368,8 @@ bool kfd_dqm_is_queue_in_process(struct device_queue_manager *dqm,
- void kfd_dqm_set_queues_as_reset(struct device_queue_manager *dqm);
- int kfd_reset_queue_mes(struct device_queue_manager *dqm, int queue_type,
- 			int pipe, int queue, unsigned int db);
-+void kfd_dqm_zombie_ready(struct device_queue_manager *dqm, struct queue *q);
-+void kfd_dqm_retire_all(struct device_queue_manager *dqm);
- size_t mqd_size_from_queue_type(struct device_queue_manager *dqm,
- 				enum kfd_queue_type type);
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index b5eae33d8..13e9e3ed8 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -658,6 +658,21 @@ struct queue {
- 	/* REMOVE_QUEUE that MES has not answered yet */
- 	struct amdgpu_mes_cmd_ticket mes_ticket;
- 
-+	/*
-+	 * Quarantine. A queue that is destroyed while MES may still use it
-+	 * keeps all of its storage and waits on dqm->zombie_queues.
-+	 */
-+	struct list_head zombie_node;	/* dqm lock */
-+	struct kfd_process_device *zombie_pdd;
-+	/* written once under the dqm lock, stable afterwards */
-+	bool is_zombie;
-+	/* the pqm is done with the queue, the reaper may free it. dqm lock */
-+	bool zombie_ready;
-+	/* a failed create: the ioctl has dropped the user buffer references */
-+	bool zombie_no_user_bos;
-+	/* the dqm took the queue off its lists, the pqm has to finish */
-+	bool dqm_dequeued;
-+
- 	/* The VRAM-resident MQD BO (mqd_on_vram()) is unpinned at S4 suspend so
- 	 * TTM evicts it into the hibernation image, and repinned on resume. Set
- 	 * while the BO is unpinned so the resume path knows to repin it.
-@@ -963,6 +978,17 @@ struct kfd_process {
- 	struct kref ref;
- 	struct work_struct release_work;
- 
-+	/*
-+	 * Holds on the storage of the process: one for the process itself,
-+	 * one for each of its queues on a dqm->zombie_queues list. A zombie
-+	 * uses the pdd, the process context, the doorbell page and the GPU
-+	 * VM, so the release worker frees those only when the last hold is
-+	 * gone.
-+	 */
-+	atomic_t mes_hold;
-+	/* the release worker has dropped the hold of the process itself */
-+	bool mes_hold_dropped;
-+
- 	struct mutex mutex;
- 
- 	/*
-@@ -1412,6 +1438,8 @@ int kfd_queue_release_buffers(struct kfd_process_device *pdd, struct queue_prope
- void kfd_queue_unref_bo_va(struct amdgpu_vm *vm, struct amdgpu_bo **bo);
- int kfd_queue_unref_bo_vas(struct kfd_process_device *pdd,
- 			   struct queue_properties *properties);
-+void kfd_queue_ref_bo_vas(struct kfd_process_device *pdd,
-+			  struct queue_properties *properties);
- void kfd_queue_ctx_save_restore_size(struct kfd_topology_device *dev);
- int kfd_queue_buffer_svm_get(struct kfd_process_device *pdd, u64 addr, u64 size);
- 
-@@ -1446,6 +1474,7 @@ struct process_queue_node {
- 
- void kfd_process_dequeue_from_device(struct kfd_process_device *pdd);
- void kfd_process_dequeue_from_all_devices(struct kfd_process *p);
-+void kfd_process_put_mes_hold(struct kfd_process *p);
- int pqm_init(struct process_queue_manager *pqm, struct kfd_process *p);
- void pqm_uninit(struct process_queue_manager *pqm);
- int pqm_create_queue(struct process_queue_manager *pqm,
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index 546721b4d..3aa6ddf49 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -1331,20 +1331,15 @@ static void kfd_process_wq_release(struct work_struct *work)
- 					     release_work);
- 	struct dma_fence *ef;
- 
-+	/* Second run, queued when the last quarantined queue was freed */
-+	if (p->mes_hold_dropped)
-+		goto release_storage;
-+
- 	/*
- 	 * If GPU in reset, user queues may still running, wait for reset complete.
- 	 */
- 	kfd_process_wait_gpu_reset_complete(p);
- 
--	/* Signal the eviction fence after user mode queues are
--	 * destroyed. This allows any BOs to be freed without
--	 * triggering pointless evictions or waiting for fences.
--	 */
--	synchronize_rcu();
--	ef = rcu_access_pointer(p->ef);
--	if (ef)
--		dma_fence_signal(ef);
--
- 	if (p->context_id != KFD_CONTEXT_ID_PRIMARY)
- 		kfd_process_free_id(p);
- 	else
-@@ -1359,6 +1354,32 @@ static void kfd_process_wq_release(struct work_struct *work)
- 	 */
- 	kfd_process_remove_sysfs(p);
- 
-+	/*
-+	 * Queues that MES has not let go of still use the pdds, the process
-+	 * context, the doorbell page and the GPU VM. Everything that carries
-+	 * the pid is gone at this point, so stop here. The reaper queues
-+	 * this work again when it frees the last of those queues. Do not
-+	 * wait instead: kfd_create_process() flushes this workqueue. A work
-+	 * item never runs twice at the same time, so the second run cannot
-+	 * free the process under us.
-+	 */
-+	p->mes_hold_dropped = true;
-+	if (!atomic_dec_and_test(&p->mes_hold)) {
-+		pr_warn("Process pid %d: release waits for MES to retire %d queue(s), a GPU reset retires them\n",
-+			p->lead_thread->pid, atomic_read(&p->mes_hold));
-+		return;
-+	}
-+
-+release_storage:
-+	/* Signal the eviction fence after user mode queues are
-+	 * destroyed. This allows any BOs to be freed without
-+	 * triggering pointless evictions or waiting for fences.
-+	 */
-+	synchronize_rcu();
-+	ef = rcu_access_pointer(p->ef);
-+	if (ef)
-+		dma_fence_signal(ef);
-+
- 	kfd_process_kunmap_signal_bo(p);
- 	kfd_process_free_outstanding_kfd_bos(p);
- 	svm_range_list_fini(p);
-@@ -1375,6 +1396,17 @@ static void kfd_process_wq_release(struct work_struct *work)
- 	kfree(p);
- }
- 
-+/*
-+ * Drop the hold a quarantined queue had on its process. Called by the dqm
-+ * when the queue has been freed. The last one finishes a release that
-+ * kfd_process_wq_release() had to put off.
-+ */
-+void kfd_process_put_mes_hold(struct kfd_process *p)
-+{
-+	if (atomic_dec_and_test(&p->mes_hold))
-+		queue_work(kfd_process_wq, &p->release_work);
-+}
-+
- static void kfd_process_ref_release(struct kref *ref)
- {
- 	struct kfd_process *p = container_of(ref, struct kfd_process, ref);
-@@ -1702,6 +1734,7 @@ struct kfd_process *create_process(const struct task_struct *thread, bool primar
- 		goto err_alloc_process;
- 
- 	kref_init(&process->ref);
-+	atomic_set(&process->mes_hold, 1);
- 	mutex_init(&process->mutex);
- 	process->mm = thread->mm;
- 	process->lead_thread = thread->group_leader;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-index cd41b10e0..ad01308a7 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-@@ -423,6 +423,36 @@ int kfd_queue_unref_bo_vas(struct kfd_process_device *pdd,
- 	return 0;
- }
- 
-+static void kfd_queue_ref_bo_va(struct amdgpu_vm *vm, struct amdgpu_bo *bo)
-+{
-+	struct amdgpu_bo_va *bo_va;
-+
-+	if (!bo)
-+		return;
-+
-+	bo_va = amdgpu_vm_bo_find(vm, bo);
-+	if (bo_va)
-+		bo_va->queue_refcount++;
-+}
-+
-+/* Take back the unmap protection dropped by kfd_queue_unref_bo_vas(). */
-+void kfd_queue_ref_bo_vas(struct kfd_process_device *pdd,
-+			  struct queue_properties *properties)
-+{
-+	struct amdgpu_vm *vm = drm_priv_to_vm(pdd->drm_priv);
-+
-+	if (amdgpu_bo_reserve(vm->root.bo, true))
-+		return;
-+
-+	kfd_queue_ref_bo_va(vm, properties->wptr_bo);
-+	kfd_queue_ref_bo_va(vm, properties->rptr_bo);
-+	kfd_queue_ref_bo_va(vm, properties->ring_bo);
-+	kfd_queue_ref_bo_va(vm, properties->eop_buf_bo);
-+	kfd_queue_ref_bo_va(vm, properties->cwsr_bo);
-+
-+	amdgpu_bo_unreserve(vm->root.bo);
-+}
-+
- #define DEBUGGER_BYTES_ALIGN	64
- #define DEBUGGER_BYTES_PER_WAVE	32
- 
--- 
-2.56.1
-
+Jason
