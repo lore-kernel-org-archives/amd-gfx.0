@@ -2,29 +2,29 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3370606A32A
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 18:18:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABEE4606A33E
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 18:18:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=WygejVMm
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=jrDDBnxv
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3443310F084;
-	Tue, 24 Nov 2026 18:18:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D97D410F06C;
+	Tue, 24 Nov 2026 18:18:18 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6E6710F057;
- Tue, 24 Nov 2026 18:18:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0BE110F048;
+ Tue, 24 Nov 2026 18:18:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=QVL9W42nvgkLP2Vqrm+7iN+S9thlvQSdBRGc6TaW+uk=;
- t=1795544297; x=2110904297; b=WygejVMmGHBqF9Mw56Zft9PLEc/rRfc8X3MejA54hUaTxs1
- 3E8kI55QugPu9LUL2fLBZTTvzZNfESDxnd2y/OOxzE2dNxLDzYTbk2UP8PUPeJMQxln8s7gZ+MJ0V
- n/vIvBN0upb7fyI6NU03AMzzocs0owq9kY4nG8H/18nI63sfy9sf6SLiB4GdypRmmEyyNdZJeJlrH
- Alkkg7YDElrgD7pLgu2FVJgM6gqlPxNmX8zGl8uTQLhEoqCq2servrJTPIIY6QjSk3lVoij1U4aAj
- NdGzN0iSaiL9L0AcvFWQeL7QFlB49tZoqOS7mNBJSHJMPT0pzqinrCdTB8LJmeKw==;
+ Cc:To:From:From:Reply-To; bh=7Q/tvhyADyJrRrirPgaeSBl8R9RNHFpbVSvmUKtXozI=;
+ t=1795544292; x=2110904292; b=jrDDBnxvQp3PwqTcKF3ynlOZoTd9m3oKW6/djbtmMsFgZ0A
+ pk3M2uElOvgfr4nGzDIuH7SwDV8uGbFpwSLvAETQFuHD/vtpPjdBPOqbIET3PfoZqvRDybnrlUPKO
+ MyxTrV5/T/kA9aLvwxSSZqwPHuod0IdjSiONKNfZYuyNyi6sQZq02pFwZN9twW2ctp8s1ZtPmvnvW
+ SuXnqpFmDGZcnKa9K3FhULG3HmvdcQ5IrIJiggOhZif99q8Cg7BKUREY30UEsitjrrtgFy3SOQOSK
+ SfedSn5yF3pWcVTYrCf37B2DjpQhXOC+di/6jiXKnf4oBvHgNznSL0EajflyejAA==;
 Received: from 84.125.127.4.dyn.user.ono.com ([84.125.127.4] helo=killbill)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xVv5k-00000003axM-2aq7; Tue, 24 Nov 2026 19:18:08 +0100
+ id 1xVv5f-00000003axM-0yc5; Tue, 24 Nov 2026 19:18:03 +0100
 From: Melissa Wen <mwen@igalia.com>
 To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
  harry.wentland@amd.com, maarten.lankhorst@linux.intel.com,
@@ -42,9 +42,9 @@ Cc: Ariel DAlessandro <ariel.dalessandro@collabora.com>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  Leandro Ribeiro <leandro.ribeiro@collabora.com>,
  Melissa Wen <mwen@igalia.com>
-Subject: [PATCH v3 07/19] drm/atomic: track individual CRTC colorop updates
-Date: Tue, 24 Nov 2026 19:03:24 +0100
-Message-ID: <20261124181652.1333986-8-mwen@igalia.com>
+Subject: [PATCH v3 04/19] drm/atomic: duplicate CRTC colorop states
+Date: Tue, 24 Nov 2026 19:03:21 +0100
+Message-ID: <20261124181652.1333986-5-mwen@igalia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261124181652.1333986-1-mwen@igalia.com>
 References: <20261124181652.1333986-1-mwen@igalia.com>
@@ -68,78 +68,58 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-As done for plane colorops by commit 2e235e2a2784b ("drm/atomic: track
-individual colorop updates"), make drm_atomic_set_colorop_for_crtc()
-report whether the CRTC color pipeline changed and set
-CRTC color_mgmt_changed flag accordingly.
+Add the state of every CRTC colorop to the duplicated state, active or
+not, so their settings persist on a reset cycle.
 
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 
 ---
 v3:
-- new patch: set color_mgmt_changed when the CRTC COLOR_PIPELINE value
-  changes, as commit 2e235e2a2784 does for planes
+- new patch
+- Note: if "drm/atomic: duplicate state of all colorops" for colorop
+  planes [1] lands first, the plane and CRTC loops can be merged into a
+  single pass over all colorops.
+  [1] https://lore.kernel.org/dri-devel/20261111160814.21326-8-mwen@igalia.com/
 ---
- drivers/gpu/drm/drm_atomic_uapi.c | 12 ++++++++++--
- include/drm/drm_atomic_uapi.h     |  2 +-
- 2 files changed, 11 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/drm_atomic_helper.c | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-index 9c3889ebda2b..183716cf0db9 100644
---- a/drivers/gpu/drm/drm_atomic_uapi.c
-+++ b/drivers/gpu/drm/drm_atomic_uapi.c
-@@ -301,13 +301,18 @@ EXPORT_SYMBOL(drm_atomic_set_colorop_for_plane);
-  *
-  * Helper function to select the color pipeline on a crtc by setting
-  * it to the first drm_colorop element of the pipeline.
-+ *
-+ * Return: true if CRTC color pipeline value changed, false otherwise.
-  */
--void
-+bool
- drm_atomic_set_colorop_for_crtc(struct drm_crtc_state *crtc_state,
- 				 struct drm_colorop *colorop)
- {
- 	struct drm_crtc *crtc = crtc_state->crtc;
+diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
+index ccfe3840d505..da908f0266bf 100644
+--- a/drivers/gpu/drm/drm_atomic_helper.c
++++ b/drivers/gpu/drm/drm_atomic_helper.c
+@@ -3730,6 +3730,7 @@ drm_atomic_helper_duplicate_state(struct drm_device *dev,
+ 	struct drm_connector_list_iter conn_iter;
+ 	struct drm_plane *plane;
+ 	struct drm_crtc *crtc;
++	struct drm_colorop *colorop;
+ 	int err = 0;
  
-+	if (crtc_state->color_pipeline == colorop)
-+		return false;
+ 	state = drm_atomic_commit_alloc(dev);
+@@ -3749,6 +3750,23 @@ drm_atomic_helper_duplicate_state(struct drm_device *dev,
+ 		}
+ 	}
+ 
++	/*
++	 * Add all CRTC colorops, active or not, so their settings survive the
++	 * colorop reset done on resume.
++	 */
++	drm_for_each_colorop(colorop, dev) {
++		struct drm_colorop_state *colorop_state;
 +
- 	if (colorop)
- 		drm_dbg_atomic(crtc->dev,
- 			       "Set [COLOROP:%d] for [CRTC:%d:%s] state %p\n",
-@@ -319,6 +324,8 @@ drm_atomic_set_colorop_for_crtc(struct drm_crtc_state *crtc_state,
- 			       crtc->base.id, crtc->name, crtc_state);
- 
- 	crtc_state->color_pipeline = colorop;
++		if (!colorop->crtc)
++			continue;
 +
-+	return true;
- }
- EXPORT_SYMBOL(drm_atomic_set_colorop_for_crtc);
++		colorop_state = drm_atomic_get_colorop_state(state, colorop);
++		if (IS_ERR(colorop_state)) {
++			err = PTR_ERR(colorop_state);
++			goto free;
++		}
++	}
++
+ 	drm_for_each_plane(plane, dev) {
+ 		struct drm_plane_state *plane_state;
  
-@@ -449,7 +456,8 @@ static int drm_atomic_crtc_set_property(struct drm_crtc *crtc,
- 		if (val && !colorop)
- 			return -EACCES;
- 
--		drm_atomic_set_colorop_for_crtc(state, colorop);
-+		state->color_mgmt_changed |=
-+			drm_atomic_set_colorop_for_crtc(state, colorop);
- 	} else if (property == config->prop_mode_id) {
- 		struct drm_property_blob *mode =
- 			drm_property_lookup_blob(dev, val);
-diff --git a/include/drm/drm_atomic_uapi.h b/include/drm/drm_atomic_uapi.h
-index 90e5c207a53b..04fb32eccd0f 100644
---- a/include/drm/drm_atomic_uapi.h
-+++ b/include/drm/drm_atomic_uapi.h
-@@ -54,7 +54,7 @@ void drm_atomic_set_fb_for_plane(struct drm_plane_state *plane_state,
- 				 struct drm_framebuffer *fb);
- bool drm_atomic_set_colorop_for_plane(struct drm_plane_state *plane_state,
- 				      struct drm_colorop *colorop);
--void drm_atomic_set_colorop_for_crtc(struct drm_crtc_state *crtc_state,
-+bool drm_atomic_set_colorop_for_crtc(struct drm_crtc_state *crtc_state,
- 				     struct drm_colorop *colorop);
- int __must_check
- drm_atomic_set_crtc_for_connector(struct drm_connector_state *conn_state,
 -- 
 2.53.0
 
