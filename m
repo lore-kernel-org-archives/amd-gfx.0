@@ -2,83 +2,79 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D0EA606A336
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 08:40:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61847606A33D
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 08:40:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=okonski-org.20260707.gappssmtp.com header.i=@okonski-org.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=KATw54mm
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tgwpKl/w
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD52D10F36B;
-	Tue, 24 Nov 2026 08:40:26 +0000 (UTC)
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com
- [209.85.208.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18F4E10F220
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Nov 2026 22:11:40 +0000 (UTC)
-Received: by mail-ed1-f51.google.com with SMTP id
- 4fb4d7f45d1cf-6ba38c41804so4336476a12.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Nov 2026 14:11:39 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 724BE10F36F;
+	Tue, 24 Nov 2026 08:40:27 +0000 (UTC)
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE3E510E04F
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Nov 2026 02:33:27 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-4bb68c197c7so50228235e9.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Nov 2026 18:33:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=okonski-org.20260707.gappssmtp.com; s=20260707; t=1795471898; x=1796076698;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=8D+ctn0pse02ZuULxqlLv/iDLr/WH6tZ2LvtGmPFTZY=;
- b=KATw54mm3Gah2vA6cu9pZoE0azOWrYs6ZM8AhZjnkroDTiJRnp89TsHR2ICMYX7epl
- 7keU5q8HKD1kVPBPifob5CiQ7cTuWWJB0bKsGKciHZ0zsbGdhCz4adqUUfaJx7e2rJ7H
- G8lO54Aj6pWC1bFOXPHHgRczFyON5uMOXLwIUwE+lv76V05DMrUdULUMqf/SsJQQ44zd
- 1AG9GCcgSjY52joG6jZVVT/2DsQf2CU0nFzgsRBVvhKHN8IfdOcmSNaqXmqXbs7+D/FN
- GE+BNWHRX21jxu7vywuoQzBohqBOpLJsP37MnaQf2zsKcHFavG4NQKrTjb6h72QcWqgu
- SYhQ==
+ d=gmail.com; s=20260707; t=1795487606; x=1796092406; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=j9mwc6rMpp4Ga5sYTN+M+X+R5MsOKpnzk7Ke7RTLN+o=;
+ b=tgwpKl/wKsgvX4CBR5tIEdrt27d8yBENHLH9B3P9FCeN50IZ4rC+Xc4PjJySAfbmS9
+ oH/dMD8oVivoVK+sZILtl9X9f59syKgOvKOBRJvq01hluezUfOXAiNKoQv9wIkK7weFH
+ sMFykwdGwZX0cvAzlJgPksAcHk+YdkXf7juhvaBlTGVmQCuDbUgqWas4++v4CD4xVKCe
+ uLG1ItQyoB4//fD6ldg+awE4YiDvYlfYEecBy049qYKBCAXKfnZqAI51xJQb0MhbQtCE
+ meOXbIDRwDRvNerW1Xaf/9+ccNhXXI5XLIbFc8wDYf8OrMKN14Z0dZbkyMgIyPmcKRJw
+ qwhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795471898; x=1796076698;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=8D+ctn0pse02ZuULxqlLv/iDLr/WH6tZ2LvtGmPFTZY=;
- b=vSCr1F0U0OzMNlBXXmKKrdsTxUK7M74BtKkDixoG8im/cWUUQqskcau9zFD6QnTa7a
- LMk9091gYFpCeWsGVXMi3AHu/HcWrR2oxqtwcjQky+s5/eCICeBY6UcLeumh8wgk6cmN
- 5csJzX5Mxe2jwum8W9bRYSJ+9vBdJzkK/1H1Rhpoa1rEuu34z+4oeXWO6zJF65+/fpx1
- Tbt0vGyCng4D+Xk0Jj+7N0HkUTCo99X8rgF1rINaEBsPN4vcOpfJ7OB5K+ZZ+svqhfAw
- wX80V4DMaoeJWqk8N2NOutfYUw1M9EvmjxAbuSrGrKK5L+FNY8Ls/cSDrrPdEdQArk5D
- eAlg==
-X-Gm-Message-State: APuU4Z+g/xOoK71kEol1yzXodXkj7WhOOEOcOgQnpf7v1XneTFJmPiu2
- JfvZSUb2lMamCVOHg1y++/fzSdpGmKMoysnVqvay65ntazVfmGQZc2IXd/zYo95eRl30M7m1JF6
- mloqNHprVgg==
-X-Gm-Gg: AZFdTZdJxJUmN6RATEYXO0sHUbIB8nepRV2CujrdtkjeG5dt6AHqlNmF4tQVuRarLYR
- AwYISq7I/FxhUkk38me+TyyxgtEwHGJuf9KHsZUQfz9f0LZoQXttFuhntCi3Aak70VCQn/CNPqp
- E4+ugGVBVgJB0iYtf9z9YkeTNiP3wHeJj2kz5ZGIL0mzpQX6hKaTi1ZN3D8tV8EfROC1NYYeHAa
- NP+++NjP/U6mjom5QwyLIZAaAvhJd1EZAYVemexwt0O9Az5Ne+CtdyK9EY6AOIW4TRNQdudT68F
- xkr9RIa8FnzAJQBb7XuvIfBaT4MszjFPBbrkB7enLxJovpZg01xppbhLiSArF7JHWGlVnI9L2xj
- S2khgTW8G/dMsgcoxuJs50SvktxgGJngOw32ypneyd8iVe201dVUC2sa3f0fjFu/LgpeoSfbUAr
- lU9/YZwXbuVa8ejPohl1o10B2t+UQHYBvHQnZ46eyxUCrAlPWVgTofnPAxAZjyNOPPBr8YzZFtd
- OZ4ZwGsqxr5mKUprkIUDWSXlyI4yo2M8jN/3XTiJeDbY3enI31ATuMpKLKaqVUJvVD9bD6zZSJf
- hV+PeLDRvTfc+be/rY2rLxuuxieOhPFxLCk2CtsB67vBubhYSL0p4m7VgqfYG6dY/DO+GOOykzr
- LCr4derG40npIl/Zvs/WdWsXIyTheQw4dEo0hBCV13bfKEg==
-X-Received: by 2002:a05:6402:400d:b0:6b5:9849:e328 with SMTP id
- 4fb4d7f45d1cf-6ba37ebdda1mr8924995a12.39.1795471898391; 
- Mon, 23 Nov 2026 14:11:38 -0800 (PST)
-Received: from vautera ([2a02:21a0:10:748:2::2])
+ d=1e100.net; s=20260707; t=1795487606; x=1796092406;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=j9mwc6rMpp4Ga5sYTN+M+X+R5MsOKpnzk7Ke7RTLN+o=;
+ b=w+I170KmHADPrf8XgijDqFayYFMe18sGV+wcut++LoG57dVb16USXWF0Efl1JBuDPe
+ 1Ox+qrnG7eC3J24pnexFKsDNpXp1zrmSPcOBY+89Jau/m2WF4bbEjtbGESkvWQ7h90G3
+ E42eW4LxiwXvjA9oywt5o831e1l9wpi/Gr92ywRdX9Dc+bLmsI5bC+z2mOJkHJ4tQs4x
+ BAQYvb0EglZxbXNDeKsg99tVrfwwRiaKHmMHbto6gV0SfGNkCrWHKH2KysEHyTiMk6U2
+ +l58TC34QGH6LWntx+a31Q0n/2UCTfNbnbbYwifMhe8Rb5sBNF1x7kaXUk1yz3K6pAL5
+ 6PVQ==
+X-Gm-Message-State: APuU4Z+BI7MHL6WpgIetgPdeKDLVsW4gEXUa4UsSEojk8tkGgy9e/hjF
+ Trvrudz0eJuYk03EY9nxHto2rwsF6JNDhqC8lY0ED3suJv2Tft45vWM9qXEjIoko
+X-Gm-Gg: AZFdTZf5MLqgA7PwR9bedd+Eo1qLcLiDfBM9peHMQa/2AImT/F7d6rA99NLo4g5yR43
+ mWsVyKVhZU9GZKnDIKetshUzSmYK0+Ip5x3qMd+2kHmvBPllQyW8/WISbO0glHk9yEpEIQmy2/3
+ 21BFhSNmbZaD1SszrciYyDqoOweQNxuhJ5BbyddLOIIGyezeIPaS96libRUBlGiJx87e13UN5dd
+ NxQ7sRTqAmm7lF5uJdUwhr4qCadb0ASzJ/zER3TO+WMtZrIklIbtqRKmAn8zf+bzLMoAUXo9esy
+ rdneOObZm6lMU+ftLkemv5il6pPAWmEBsvtIFgHX4du0CjmoXuyhJDI/AIhTZ1ULloUKo58HMF6
+ qikvJPwhpc9Tjo86zlX42YhoMmgTDL9YtzY8Mx8bIYbY0YQAdBZUTMyzt4EyPhU2QLJm1fb4/LG
+ 0YiYmif4DaDSuvHU4Ewx5huf4FMJPAh8GFWqJ0h4EsVYH4BuhzFUdlm+2LGVgPYt9G46q/pAZ9S
+ oxdntetQx/PRt37YFDhfjvd/jfdL8qLp1uBgkzCCjVGHIaZIW+s7rndd329dzRNYjzHiuOl+ocQ
+ hj+fzgtUDEECGYAVnff6bgfP2zejTFiUiBdyDFRsQAcUR6XKch/QXj+pzBVAyyrk1oOhY70ou3+
+ KGRM2UH7A6cORpPEnv7EVaxKoAjkfZhbSffAhLlJACF1y3Q==
+X-Received: by 2002:a05:600c:3547:b0:4a3:5991:718 with SMTP id
+ 5b1f17b1804b1-4bb88809795mr274116815e9.16.1795487606193; 
+ Mon, 23 Nov 2026 18:33:26 -0800 (PST)
+Received: from localhost (2001-1ae9-5b-ad10-b3af-f37f-773f-f37e.ip6.tmcz.cz.
+ [2001:1ae9:5b:ad10:b3af:f37f:773f:f37e])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6ba37109b55sm5678828a12.32.2026.11.23.14.11.35
+ 5b1f17b1804b1-4bb906635c7sm215637135e9.2.2026.11.23.18.33.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Nov 2026 14:11:37 -0800 (PST)
-From: =?UTF-8?q?Jakub=20Oko=C5=84ski?= <jakub@okonski.org>
+ Mon, 23 Nov 2026 18:33:25 -0800 (PST)
+From: Arisa Snowbell <arisa.snowbell@gmail.com>
 To: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, harry.wentland@amd.com,
- sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de
-Subject: [RFC PATCH 2/2] drm/amd/display: Skip flip_done wait for non-modeset
- TEST_ONLY checks
-Date: Mon, 23 Nov 2026 23:09:13 +0100
-Message-ID: <20261123220913.937402-3-jakub@okonski.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261123220913.937402-1-jakub@okonski.org>
-References: <20261123220913.937402-1-jakub@okonski.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Arisa Snowbell <arisa.snowbell@gmail.com>
+Subject: [PATCH 1/1] drm/amdgpu/userq: don't restore user queues during system
+ sleep
+Date: Tue, 24 Nov 2026 03:32:50 +0100
+Message-ID: <2ba4e27796fb1777481bd91d8467439a85542a42.1795482456.git.arisa.snowbell@gmail.com>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <cover.1795482456.git.arisa.snowbell@gmail.com>
+References: <cover.1795482456.git.arisa.snowbell@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 24 Nov 2026 08:40:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -91,68 +87,247 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-needs_dc_state_realloc makes amdgpu_dm_atomic_check() call
-do_aquire_global_lock(), which waits for hw_done and flip_done of each
-CRTC's newest commit. A TEST_ONLY check issued while a nonblocking
-commit is pending therefore blocks for up to one refresh (6.9 ms seen
-on DCN 3.0 at 120 Hz) for about 0.1 ms of validation.
+Before system sleep, amdgpu_device_prepare() moves all BOs out of VRAM.
+When it evicts a BO of a process with user queues, the eviction fence of
+that process signals, and amdgpu_eviction_fence_suspend_worker() queues
+the restore worker right away. So the restore worker runs while the
+eviction is still going on and does the opposite: it locks the VM and
+its BOs, moves them back into VRAM and waits for the page table updates
+while still holding the locks. amdgpu_userq_suspend() cancels the
+restore worker, but only later, in amdgpu_device_suspend().
 
-A TEST_ONLY transaction publishes no state and does not reconfigure
-IRQs through the commit path, so a non-modeset test has nothing to
-order against the pending flip. Skip only its flip_done wait.
+On an RX 9070 XT (gfx12) this hung S3 suspend for good after a few hours
+of uptime. A restore worker waited forever on a page table update fence
+while holding the reservations, and systemd-sleep waited in
+ttm_bo_evict_first() for one of them. Why the fence never signaled is
+not known, but the eviction should not depend on the restore at all.
 
-Kept: the modeset and private object locks, the hw_done wait (DC
-validation reads the programmed topology in dc->current_state), the
-same validation, and the full drain for modeset tests and real
-commits.
+Keep the restore out of system sleep:
 
-Signed-off-by: Jakub Okoński <jakub@okonski.org>
+- Prepare sets a flag that stops the eviction worker from queuing the
+  restore, then cancels any restore already queued. The worker checks
+  the flag under the userq_mutex, so prepare also takes and releases
+  each userq_mutex to wait for a worker that checked it just before.
+
+- amdgpu_userq_resume() does not map the queues of a process whose BOs
+  were evicted, as its page tables are out of date. It queues the
+  restore worker instead, which validates the BOs, rearms the eviction
+  fence and maps the queues. It decides this under the userq_mutex,
+  which the eviction worker holds while it signals.
+
+- Complete clears the flag and queues the restore for evicted processes,
+  unless the device is still suspended, as it is after the hibernation
+  snapshot. A failed prepare does the same.
+
+- The restore worker runs on system_freezable_wq, like the amdkfd
+  restore workers, so a restore queued during resume waits until the
+  system is thawed.
+
+The flag is needed besides the freezable workqueue because for
+hibernation dpm_prepare() runs before freeze_kernel_threads().
+amdgpu_userq_ensure_ev_fence() still queues the restore directly, since
+only ioctls reach it and user space is frozen by then.
+
+A restore worker that was already stuck before suspend started still
+blocks it: hibernation waits for it in amdgpu_userq_block_restore(),
+and for S3 and s2idle the freezer gives up after 20 seconds and aborts
+the suspend instead of hanging.
+
+Fixes: 44cfdf368fb7 ("drm/amdgpu: resume gfx userqueues")
+Signed-off-by: Arisa Snowbell <arisa.snowbell@gmail.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 15 ++++++++-------
- 1 file changed, 8 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       | 13 +++-
+ .../drm/amd/amdgpu/amdgpu_eviction_fence.c    |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c     | 64 ++++++++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h     |  3 +
+ 5 files changed, 79 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 3d2201285888..25dcbee0c7df 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -5594,8 +5594,8 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_commit *state)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index c7577b608f3e..db1800421e37 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -975,6 +975,7 @@ struct amdgpu_device {
+ 	bool                            apu_prefer_gtt;
+ 
+ 	bool                            userq_halt_for_enforce_isolation;
++	bool                            userq_restore_blocked;
+ 	struct amdgpu_uid *uid_info;
+ 
+ 	struct amdgpu_uma_carveout_info uma_info;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index e3b3a2eebd95..01458a613e21 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -2647,6 +2647,7 @@ static int amdgpu_pmops_prepare(struct device *dev)
+ {
+ 	struct drm_device *drm_dev = dev_get_drvdata(dev);
+ 	struct amdgpu_device *adev = drm_to_adev(drm_dev);
++	int r;
+ 
+ 	/* device maybe not resumed here, return immediately in this case */
+ 	if (adev->in_s4 && adev->in_suspend)
+@@ -2665,12 +2666,20 @@ static int amdgpu_pmops_prepare(struct device *dev)
+ 	    !amdgpu_acpi_is_s3_active(adev))
+ 		return 1;
+ 
+-	return amdgpu_device_prepare(drm_dev);
++	amdgpu_userq_block_restore(adev);
++	r = amdgpu_device_prepare(drm_dev);
++	if (r)
++		amdgpu_userq_unblock_restore(adev);
++
++	return r;
  }
  
- /*
-- * Grabs all modesetting locks to serialize against any blocking commits,
-- * Waits for completion of all non blocking commits.
-+ * Grabs all modesetting locks to serialize against blocking commits, and
-+ * waits for pending programming and, where needed, flip completion.
-  */
- STATIC_IFN_KUNIT int do_aquire_global_lock(struct drm_device *dev,
- 					   struct drm_atomic_commit *state)
-@@ -5624,13 +5624,14 @@ STATIC_IFN_KUNIT int do_aquire_global_lock(struct drm_device *dev,
- 		if (!commit)
- 			continue;
+ static void amdgpu_pmops_complete(struct device *dev)
+ {
+-	amdgpu_device_complete(dev_get_drvdata(dev));
++	struct drm_device *drm_dev = dev_get_drvdata(dev);
++
++	amdgpu_device_complete(drm_dev);
++	amdgpu_userq_unblock_restore(drm_to_adev(drm_dev));
+ }
  
--		/*
--		 * Make sure all pending HW programming completed and
--		 * page flips done
--		 */
-+		/* DC validation can inspect the programmed pipe topology. */
- 		ret = wait_for_completion_interruptible_timeout(&commit->hw_done, 10*HZ);
+ static int amdgpu_pmops_suspend(struct device *dev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
+index f8652fd0525d..6c06c93d7f7f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
+@@ -91,7 +91,7 @@ amdgpu_eviction_fence_suspend_worker(struct work_struct *work)
+ 	dma_fence_put(ev_fence);
  
--		if (ret > 0)
-+		/*
-+		 * Tests don't publish state or reconfigure interrupts. Limit
-+		 * overlap with pending flips to tests that disallow modesets.
-+		 */
-+		if (ret > 0 && (!state->test_only || state->allow_modeset))
- 			ret = wait_for_completion_interruptible_timeout(
- 					&commit->flip_done, 10*HZ);
+ 	if (!evf_mgr->shutdown)
+-		schedule_delayed_work(&uq_mgr->resume_work, 0);
++		amdgpu_userq_schedule_resume(uq_mgr);
  
+ 	mutex_unlock(&uq_mgr->userq_mutex);
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+index 9fc8e9e97595..4dfe2d1e1b5c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -428,6 +428,17 @@ static void amdgpu_userq_detach_doorbell(struct amdgpu_usermode_queue *queue)
+ 	up_read(&adev->reset_domain->sem);
+ }
+ 
++static void amdgpu_userq_queue_restore(struct amdgpu_userq_mgr *uq_mgr)
++{
++	queue_delayed_work(system_freezable_wq, &uq_mgr->resume_work, 0);
++}
++
++void amdgpu_userq_schedule_resume(struct amdgpu_userq_mgr *uq_mgr)
++{
++	if (!READ_ONCE(uq_mgr->adev->userq_restore_blocked))
++		amdgpu_userq_queue_restore(uq_mgr);
++}
++
+ /**
+  * amdgpu_userq_ensure_ev_fence - ensure a valid, unsignaled eviction fence exists
+  * @uq_mgr: the usermode queue manager for this process
+@@ -456,7 +467,7 @@ amdgpu_userq_ensure_ev_fence(struct amdgpu_userq_mgr *uq_mgr,
+ 		 * Looks like there was no pending resume work,
+ 		 * add one now to create a valid eviction fence
+ 		 */
+-		schedule_delayed_work(&uq_mgr->resume_work, 0);
++		amdgpu_userq_queue_restore(uq_mgr);
+ 		goto retry;
+ 	}
+ 	dma_fence_put(ev_fence);
+@@ -1428,6 +1439,51 @@ int amdgpu_userq_suspend(struct amdgpu_device *adev)
+ 	return 0;
+ }
+ 
++static bool amdgpu_userq_evicted(struct amdgpu_userq_mgr *uq_mgr)
++{
++	struct amdgpu_fpriv *fpriv = uq_mgr_to_fpriv(uq_mgr);
++	struct dma_fence *ev_fence = amdgpu_evf_mgr_get_fence(&fpriv->evf_mgr);
++	bool evicted = dma_fence_is_signaled(ev_fence);
++
++	dma_fence_put(ev_fence);
++	return evicted;
++}
++
++void amdgpu_userq_block_restore(struct amdgpu_device *adev)
++{
++	struct amdgpu_usermode_queue *queue;
++	struct amdgpu_userq_mgr *uqm;
++	unsigned long queue_id;
++
++	WRITE_ONCE(adev->userq_restore_blocked, true);
++
++	xa_for_each(&adev->userq_doorbell_xa, queue_id, queue) {
++		uqm = queue->userq_mgr;
++		/* Wait out an eviction worker that missed the flag */
++		mutex_lock(&uqm->userq_mutex);
++		mutex_unlock(&uqm->userq_mutex);
++		cancel_delayed_work_sync(&uqm->resume_work);
++	}
++}
++
++void amdgpu_userq_unblock_restore(struct amdgpu_device *adev)
++{
++	struct amdgpu_usermode_queue *queue;
++	struct amdgpu_userq_mgr *uqm;
++	unsigned long queue_id;
++
++	WRITE_ONCE(adev->userq_restore_blocked, false);
++	if (adev->in_suspend)
++		return;
++
++	xa_for_each(&adev->userq_doorbell_xa, queue_id, queue) {
++		uqm = queue->userq_mgr;
++		guard(mutex)(&uqm->userq_mutex);
++		if (amdgpu_userq_evicted(uqm))
++			amdgpu_userq_queue_restore(uqm);
++	}
++}
++
+ int amdgpu_userq_resume(struct amdgpu_device *adev)
+ {
+ 	struct amdgpu_usermode_queue *queue;
+@@ -1438,6 +1494,12 @@ int amdgpu_userq_resume(struct amdgpu_device *adev)
+ 	xa_for_each(&adev->userq_doorbell_xa, queue_id, queue) {
+ 		uqm = queue->userq_mgr;
+ 		guard(mutex)(&uqm->userq_mutex);
++
++		if (amdgpu_userq_evicted(uqm)) {
++			amdgpu_userq_queue_restore(uqm);
++			continue;
++		}
++
+ 		if (adev->in_s0ix)
+ 			r = amdgpu_userq_restore_helper(queue);
+ 		else
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+index 488dc21d7c81..41d26f95a306 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+@@ -160,6 +160,7 @@ int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *userq_mgr, struct drm_file *f
+ 
+ void amdgpu_userq_mgr_cancel_reset_work(struct amdgpu_device *adev);
+ void amdgpu_userq_mgr_cancel_resume(struct amdgpu_userq_mgr *userq_mgr);
++void amdgpu_userq_schedule_resume(struct amdgpu_userq_mgr *uq_mgr);
+ void amdgpu_userq_mgr_fini(struct amdgpu_userq_mgr *userq_mgr);
+ 
+ void amdgpu_userq_wait_for_signal(struct amdgpu_userq_mgr *uq_mgr);
+@@ -173,6 +174,8 @@ bool amdgpu_userq_enabled(struct drm_device *dev);
+ 
+ int amdgpu_userq_suspend(struct amdgpu_device *adev);
+ int amdgpu_userq_resume(struct amdgpu_device *adev);
++void amdgpu_userq_block_restore(struct amdgpu_device *adev);
++void amdgpu_userq_unblock_restore(struct amdgpu_device *adev);
+ 
+ int amdgpu_userq_stop_sched_for_enforce_isolation(struct amdgpu_device *adev,
+ 						  u32 idx);
 -- 
-2.56.0
+2.56.1
 
