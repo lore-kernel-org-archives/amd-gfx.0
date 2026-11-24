@@ -2,63 +2,60 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DD5B606A31E
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 02:58:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20F5F606A31E
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Nov 2026 02:59:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ZOrPeOQa
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=RRHHE/o3
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 21B8110E0A4;
-	Tue, 24 Nov 2026 02:58:48 +0000 (UTC)
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012067.outbound.protection.outlook.com
- [40.107.200.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8AA4F10E0A4
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Nov 2026 02:58:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE51B10E2C0;
+	Tue, 24 Nov 2026 02:59:45 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013010.outbound.protection.outlook.com
+ [40.93.201.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB0FE10E2C0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Nov 2026 02:59:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=T3NxwHmTDElWE2j7R0VvTya4UvnkfZuiyCIars/1SwPwCarjxhzzm+nN5KSZSNWVw0Cwv0f9+5qQq6c9XCqfYJm+AwUc+Hu/xLs4XnNYidKl2NUtPOJ+qyq+qAm7j3GvLZZgNT0fXm2zAqZbXA03LKhOJ4cvxnOxKCtz+9sYjYYeU9g++7VtQLzaKOeyWuJtigKvrTI3OIXeqxfRAtI0VWxi/NJQGdGEKpaf4FkQS9m4AZlVT3Q90tnoUUU3KntKRkReGcH7BUFl/Wh6KW2a4t+qtiAjZZl6Q47W+j6p9zwYqDwlZKhQbg7Sog8UGrRsIUiBFZPYXAG12DV6mwgndg==
+ b=W52M8senkRW6+9vSp9Ih98rdjOk8MwvZ7VsKOHS+Ayt+qWxOIMpw4hl6YBR3cij+15FiYV6QFb9FT4TznJVpAMI7Kaj2O0p+5v6YuKphfytKLIKy9htLn+dMwkavmodj6a6qBvHrAE5XcgBJ/63ukwluZc7+RM1m48yyFqissECXrQNV2/Lr11sUlcAeuXdHM1V5aeDF6ZmgKO/Mju6lvzCrfB1hU/iOzJZAiGPsU9jZeDZgP6s84ns6+DrZ58J4QEODxXZ9vUQ3w/ymWQgDe/hvC/+i4cQZFsF7AzMC2DklWPwNgbp721XtBqLXyfrhsCfUQBtivWXaeQ7iji57oQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9Y/R6hK+WKepb6sqHKfH4PhiqIQPNUhgA8cYKG1PCOo=;
- b=bIrV0nb47GLqhZjsZIhKfcAIBE60hIzNo5CL6h0Kfkwx41vy9emcmtZDqfItHXmZl8GsV6XCphA/Jy5qUr3lV7KwdcIxf2r0kXB71rfg+gG2IaULvcp/tLzr6mO3WY3XjfTKDXBzTbIsavR8u6gZIg3+f7kcJVPl/BMkH4seV5kRN6U7YiFKA7rK8HOSNNhX0neWeDyRU+gB23kX+WWLaH59vUXGMaJNSdNlYkiR7FhjQFHUlpSlR06rbPrfQI4hn4xeM5yUddqMzRd70W5yR50JeEbsUibM91XeXZK+UZ6vOSmvCtM813CkbsfFg1TkxjBKbGBsOiTa72D4+pcHbw==
+ bh=KLXPqZvVSHuvV1DXrFQN+7soSwqHOpMW05mEMA0lbQ8=;
+ b=xyyPn1sWl7WsBDDSCjWE1z7Kx+WAUYH5SMdmpganIv1BSu+wc1QMLxgM2IbteHECBbMrZrA5PADL5mKA60R3rNjJ4V8YK5FxrKZVpAM15p4/cgk0Mb8TbXOZUaHzDpS6y85kCEg5JH47JmlsKDFNjOlviyMQZAFLApWIAJelEcJJcKmHxo9wsEAcRXcRbEp1x3d1KonmJAM/J/3mW34+uj3PWimIc72qOKP4i9LJOsszIBZboibJzNJaiImlBzn4xNRRlmdaVsm7CVliFNMKhs9to9kRQQ5lMPuAE4TfMn4qjXZCC+NmT6Aa09JjBppPBkXMbbXHqDSF04r6P5B/SA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9Y/R6hK+WKepb6sqHKfH4PhiqIQPNUhgA8cYKG1PCOo=;
- b=ZOrPeOQaQnnI56ZQMdZS4v1TOAUv1onSzpBsO/gDV1qNeyMuxa8N7OX3SZMtGSntAI3C1SMh0ZORvGvwlMnv9TOchxWn72fsGFaoQ2oDwP9IRl83aD3M59Y18+NSpLLRAwQrFIBV26h/ueLMdkfQXpLspNYsPw2WgfrHDwV4+84=
+ bh=KLXPqZvVSHuvV1DXrFQN+7soSwqHOpMW05mEMA0lbQ8=;
+ b=RRHHE/o3tgVB6dQatB7niadRlXPbaMYWQi5cS+bqero3mpoVJ9Qjd8WQl9hzi+GhsIJ2f2zk8vCN+cPwoE21SDEQ3nmF5LQ9X2i8a+jU1HZo6+h4j0Wg2Uvd2+KlVfirSVa3O+nsrmR7hK81KcmKD9eovSIglA/IVMFZd5D3Pjg=
 Received: from CY5PR12MB6369.namprd12.prod.outlook.com (2603:10b6:930:21::10)
  by PH7PR12MB9066.namprd12.prod.outlook.com (2603:10b6:510:1f6::5)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.13; Tue, 24 Nov
- 2026 02:58:37 +0000
+ 2026 02:59:36 +0000
 Received: from CY5PR12MB6369.namprd12.prod.outlook.com
  ([fe80::e019:4cd0:8259:f6b8]) by CY5PR12MB6369.namprd12.prod.outlook.com
  ([fe80::e019:4cd0:8259:f6b8%6]) with mapi id 15.21.0639.012; Tue, 24 Nov 2026
- 02:58:37 +0000
+ 02:59:35 +0000
 From: "Zhang, Yifan" <Yifan1.Zhang@amd.com>
 To: "Yuan, Perry" <Perry.Yuan@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
 CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
  <Christian.Koenig@amd.com>
-Subject: RE: [PATCH 2/2] drm/amdkfd: fix deadlock between profiler_lock and
- dqm->lock
-Thread-Topic: [PATCH 2/2] drm/amdkfd: fix deadlock between profiler_lock and
- dqm->lock
-Thread-Index: AQHdexuBtWx8orWt40eniL03yfo6B7c8iM+Q
-Date: Tue, 24 Nov 2026 02:58:37 +0000
-Message-ID: <CY5PR12MB63699754F14EFDBA8432BBFCC1442@CY5PR12MB6369.namprd12.prod.outlook.com>
+Subject: RE: [PATCH 1/2] drm/amdgpu: add ptl_format module parameter
+Thread-Topic: [PATCH 1/2] drm/amdgpu: add ptl_format module parameter
+Thread-Index: AQHdext/bwGBnZJmIU6zBjpDdImxJLc8iUoA
+Date: Tue, 24 Nov 2026 02:59:35 +0000
+Message-ID: <CY5PR12MB6369FB220470EAD77B4E505CC1442@CY5PR12MB6369.namprd12.prod.outlook.com>
 References: <20261123072247.3612981-1-perry.yuan@amd.com>
- <20261123072247.3612981-2-perry.yuan@amd.com>
-In-Reply-To: <20261123072247.3612981-2-perry.yuan@amd.com>
+In-Reply-To: <20261123072247.3612981-1-perry.yuan@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-11-24T02:57:15.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-11-24T02:58:59.0000000Z;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
  v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
@@ -66,46 +63,46 @@ authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: CY5PR12MB6369:EE_|PH7PR12MB9066:EE_
-x-ms-office365-filtering-correlation-id: b2dc65c8-42c3-4c69-1c91-08df49d6d5ed
+x-ms-office365-filtering-correlation-id: 50f5bb45-2350-451d-13ca-08df49d6f8b0
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|376014|366016|38070700021|261026140227099003|261028144727099003|261021121427099003|261021123027099003|261022105027099003|261102123227099003|11063799006|56012099006|10067099003|4143699003|261009223027099003|22082099003|18002099003;
-x-microsoft-antispam-message-info: /sFJzrYPVPluYdyFCX4tFORc3QTKjo+MtOJlNVTQb4NDLKMCbTDQ70W/vdpktCWRRxEliWZfYSnxNBwpAZwBKmbx0f0mgJhJUB03d3MMItVBvEkZavGcJh307bRvwjYKonm2F9IXwgSsS27jr7aFL7nvl2Sg+jOsFzvH+C8X7JQHf6SvkmdPUQIZ2LWAwe2TvCFL7MHXJdZTphyoxRFBg64r9nZkE67zLjwElxT9ioGNBvt1cQe+0Q8vd5T0L1f0Ungs+w58tdjDgg3y7lLgmlgP6bxMLAi89TnUFEeRpF17qIwxJg5Ibw5GC6y2VIYip42JGSu8ryU/dOWv3xJK7LAFYjznSBPGfuKUqUrTebwPUg9JMV6yPQZUvH1CxV6eEt9LFAfshjslpZeFhfTeuoii1EqdDqQ7O5YH/mO9lnZTzxAg+gVzPY7d+gYc9MtK6CEWhMN3dn2OzvYeUaadjk2U2Bpm6nqCESy64Ny9dajio2zF9SnqOda+1mhBgJ1MplXE+5WpboDolFWBF6PxQW8FprnyETBSwMYlsHgPx7Yn33pbEvI5M9n8HyULnuK1BlPd2ZyxD1SGEtSDNLYxPKYNe0vSdHVXFmbwsO0vy7xdRowvg3GtjynczSV56yrXSRRQ7CQTRFJsvC7dsFqJguIbgLqAhpt3aH4FXcH5zS2MlwTjNJYlP81sKjVA8Mh6pwKdrR6UQ4J/G8dGlBB5bAXpOQKoKXoKZYeBoWB32SE=
+ ARA:13230040|23010399003|1800799024|376014|366016|38070700021|261026121527099003|261021121427099003|261021123027099003|261022075727099003|261102123227099003|11063799006|56012099006|10067099003|261009223027099003|22082099003|18002099003|6133799003;
+x-microsoft-antispam-message-info: /XMw9XuO/73WLFEX12nOpdJWO41TU/Lkc0ZRFKuhWYuAzLq5fJ5JNODO90dGCqCfcFQSVx8K82XUx8oXivNue16Eu5sUEt2akQAz/HhTNaMAWPY4yFTEwzSCIx6003nCJrh9SEHyQiWuLbSykyjlzcstSMHsnhUkI9NgtanN/2TRiY6rPa0j9xFf0DesEtNe5Ad74sPia8gZXhy7HF7Nrhbp/fI40/8DKoZ1o+8xQfpVST8IzGO8M2Phl0fuEpwmKk/LEuts7vcwM4wV+jMhzYD8rLKFiVdEZzSvYT5dX83SjwLcR2aEYoLQamXNommEAogAGV3oHU7HVF5pxcbYow+EGZtAL1GOm0yThOflZSKcaFhY9UBih02uIuekLkjL9PjSMKSu+bQLjBLyp1IREJgNAAXVaRKWMDH5Ye9z5Jz/tlKPWe8jrkNH+N/NUySkfg9KVxd9ORFBlnaQ96o8HghINtFPdJ6kHvBCqsWM2HO6n99IvbXv/o0wivvQYVmLl7rx7aBjAb0usr1UNij4BH2xSnCL41mKeTuqsiXZqJMN5puovNum6BiEX3+mEse5P6kC6FEVSBT2+Pu3qVlO6SV3kq0wlvnUXUlPcZ0BNumXu6XqO5CWTgoOUPghJkB2+AJX2jWgvKT+XGHZEeK77uP71nfzEcvAn9L9XMbOiNdC8WU5HOdQfdjx7haF/69fO3kNc5Si7I4nRq7Pd62ZC/xH0DGPkz47EzTZ485pobM=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CY5PR12MB6369.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(38070700021)(261026140227099003)(261028144727099003)(261021121427099003)(261021123027099003)(261022105027099003)(261102123227099003)(11063799006)(56012099006)(10067099003)(4143699003)(261009223027099003)(22082099003)(18002099003);
+ SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(38070700021)(261026121527099003)(261021121427099003)(261021123027099003)(261022075727099003)(261102123227099003)(11063799006)(56012099006)(10067099003)(261009223027099003)(22082099003)(18002099003)(6133799003);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?paIQUFgoUo+CwORHAtsP++w3R1nLKQbdqDUNfIpL1KJlkvho/K+8NVqt2i/q?=
- =?us-ascii?Q?2XmrdE9ffFbrM/OzgpGxx9HKjV46BZz+IfI+phYTmI01T+oQddthsm+sFh0o?=
- =?us-ascii?Q?o5PlqKG4Ui3UR/NXIppidDsw6HV9p86yfHC8BNG0Wrfz+pzqQm1nMDepU1pP?=
- =?us-ascii?Q?BfTFL7StFsdGPT62lOoegYCZjUhwXJN9ZjxHX54s9wF+dTHFZxXBfJPl+H2x?=
- =?us-ascii?Q?LamVIAeZCUKtBmD3NqlAKNcTAusmLF1I2MDWt1NQkXvB7etQc2GGVxEVudbQ?=
- =?us-ascii?Q?GDbO9es89EL39bDxI81EfxzXnVUjjMPwktS4T/zEAsGf8GSTOwsKa+/bEXZ5?=
- =?us-ascii?Q?tBIHfRwTbSJKtH3+fIcISJallJI3kp6W+jqBYTPqgagN++4imabaXYhhhJs5?=
- =?us-ascii?Q?mZzm9Iq0w/iiKX3aagvv6MT0M+SLEP0h5OeOVPUv2hqZbPzX77D0i/UrB3us?=
- =?us-ascii?Q?qYA9BtOGFhoCYOuMRbuwrXv/Rsu1pRkyEJIBHG4Lipz4btjuU4GROqwjIaaJ?=
- =?us-ascii?Q?EhKhtvsOo0WDTcqXDchPzjMgKUlFYSp8Buofz7gYpzGDy0MP+6eIFB2zbiJl?=
- =?us-ascii?Q?8D3Hjh9kK6in+T3ASpzeCHPy/bT8E867nduIZH0PjO1l/JYwoJ91jhNPXQpy?=
- =?us-ascii?Q?eAn/bAaDpJQ28sVFG7MyW4kGCHlUFweBronqnKSe3XIJVk4d2Z+pyMJbw7eq?=
- =?us-ascii?Q?kDF+Xkk5MQXldS196iPq8vuddaoPgmXeBj+Uewb02MQ/ZuUIj1ay+KhMCOj/?=
- =?us-ascii?Q?5ZvzH8JPTMwT+PbjsJPRMUbJM8Jh5PVq2jdiucln9r//vDxmkh0OueSr/Rwb?=
- =?us-ascii?Q?nZ2f59JYeCuNFfOZ73iyNN9nURFgLD6ilTcbLxVGfQ4EbUfQjQwZyB8XLLSr?=
- =?us-ascii?Q?uzv2HYHtdnBi5DYhQXgvhafrFzmrBOiAsvPgYeXIu4mPJKK2eBDNgSyTnEa+?=
- =?us-ascii?Q?vZ1CjdKTysqwkWWtLB5dzyXpjJIVZhufK4NKd3/0kX41Cf7YApRRpi+Q4Ns6?=
- =?us-ascii?Q?SRnpsx4GeNlXky6vA9iUIajGnI0u+v/IiF/4VLHxlKqaspHJdLfYZH8D0MDw?=
- =?us-ascii?Q?LVwQmNeXwGRNXbeEqyaNHMX6E8Xf800Fb9dAFWYlQ/JpPs4KTjqq4uvr4qmp?=
- =?us-ascii?Q?C04Jou6bCHtz70SQt+YPw/MfU3lXcTobI6tCSG0y03DgMiJ5psgf8MceTXeA?=
- =?us-ascii?Q?BDQB2BrxpR8nDpM43h/bfFGTg0+oKHs1uQSJE47yUPvguVwfvFnc7/U+pf8e?=
- =?us-ascii?Q?QgCE8pgdbQq/zhA/JPGgK6p6A28EZg5EjhPPMGXa31tfGIR+NqcmbPkr2GyU?=
- =?us-ascii?Q?sFc34bPTIIeQt5yZex0BvPJmEJvziq4G+zyPJPeF6a209vl4xWcB8lEpQNal?=
- =?us-ascii?Q?lUN8e9z3U5k+7CXCFD4hjVK9LbifpoTl/KSAG/OTMwW1YbTiyC+TFGeIxtQT?=
- =?us-ascii?Q?taujjJw65u9gYH+UxXTdO6DehYyACmnZbH1DtZZgsCHxJ0WLceaqaTLkMXs2?=
- =?us-ascii?Q?o4utNWASrP2uEwMvsn8T0C7mjhqpwkzqK+eM6D8EdwNQS0cYjrewcq6nmKux?=
- =?us-ascii?Q?WbTZMU5gpjNEB01D0Gb2NYmfqgPXa5/lmVTHP85GQzDlQ6y2Ta/gk/5l5A5g?=
- =?us-ascii?Q?/bnY7eRiKbiKfZ1B/P7kZbYvA/EspphdSpPRAukS+yHhva94SpF9bVwB/bIB?=
- =?us-ascii?Q?rQGxar7YBE+vTzk/llj7ynJUN/ffKoa2UaTWsXHx2EUAqGuP?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?ntlqMd/NPbrg0fkW2TT6XL3pmqOz7oh8yCzcL/HmyHsrjMmWMeqYOK2w2RAx?=
+ =?us-ascii?Q?bgrAgiZz+WqUZeXWSj7d45bYY4VRgCyDIJ5DwbeZ848Z6gfhvHSIDWMTz3js?=
+ =?us-ascii?Q?4x/ZIjQ9F6smD3CHQUGWzkTt4kt3Wn7SjhaLP8Rk7vNqX/OsyvUWSc80kZxb?=
+ =?us-ascii?Q?SCCVzTWxl32JjjtLZE0V0G7+zpixvHcSz0icOCjc/ASpsQXXrRKM1W+IBg0z?=
+ =?us-ascii?Q?tTuFnsEYbjtLRttSjTcIpARlyNyi8AYLdCrdjmDHBc/MIJKbrsC9yGdPABtA?=
+ =?us-ascii?Q?Y9UjEzf9yn5Mq80A2CyhoM8Jbz7mjEx2FgrvqbebEu3qSEHxPSqbUOJdJ6gH?=
+ =?us-ascii?Q?jYT2rlcUs1JzbA3szUm6kBFNMQehODVEvPFz/jZhGERjfx5VxWXMlIWogTeb?=
+ =?us-ascii?Q?HmKYYAsrbnd9+YKZnOMgdvCsMwczabXcL4S64gUCt8KVvdzlxYX99BgydM52?=
+ =?us-ascii?Q?rghuN3xs2vFIaXKwYLHsSlUqUgRm6rzZykIGxtu98XXAlzy4iuJsB0tsahrZ?=
+ =?us-ascii?Q?310FwRc8LDfVeVcBNoUq3JHON5WJuD7uC/MkAXcJXSNav6LafsJsaSgQo1Om?=
+ =?us-ascii?Q?sTGjlSBpkOQSt9cqGL2UiZ9M7aCo0g1+XCQP4Q3Os1HNR+lNo4jALc43zcaR?=
+ =?us-ascii?Q?wnhPxYCtOgb8w83VvzZhS9i3yjdvTx6Mycv5VSx2yhpFrA+2SBKX5XgkpFmq?=
+ =?us-ascii?Q?n3Q0BMGFIdjbgCVKIJlqmdNV7ZxHLaAK+BqxgrrYRbvah9pGKzlMU3Vadfh5?=
+ =?us-ascii?Q?DBjM2sOFAG02N6NlJawC6Z+I98kpJeA5eB5YShR0Jhl/35xEY3WbgxZ8Ys+E?=
+ =?us-ascii?Q?jd1mcKlAtb38Wk2D5LgMpNs7d1tZXCnvvhqRo6p4+lPAttuEAiMGSO7W1M4y?=
+ =?us-ascii?Q?xLlCQcRnxFfqHC1x2S96u8krLoIzV1jDltphgkCF0aJnVI8yhn8vd5NLQSg9?=
+ =?us-ascii?Q?i8vF+fmolegI9vQx/8fBcudG/J4qDc0yaU5RGwag3/nsChOH0i3nkzeoGJKy?=
+ =?us-ascii?Q?YTs4zhlUCNvknTtHeD5sxd670q3MwW/bzON5W4r0rpLGJPIXaYjisdmDQ17p?=
+ =?us-ascii?Q?GJGKPGwfj1eaKgxiguNMEFI9w/iuk42mv3NQyOwsa3Vd+bhRqrb3OljhYtcB?=
+ =?us-ascii?Q?LEWB67n/Bwi91mg0StNqGxQ4AFRjbHkYvAct7ZiHkI1/mbeSLsHtqUg9okdB?=
+ =?us-ascii?Q?IxW+OIBy/hSL9z9r1LT4Cd2OcTkdoionGHuajFAdDDakFqnht1uCO4zdHT8l?=
+ =?us-ascii?Q?9s5lwGTDPzcxxAWu9E6f/VguzqTRvVhwAplKKutMZljPtJXHmVh5ZBJwDXG0?=
+ =?us-ascii?Q?c+CzIVEo3OpgNUK6n6uBizBHypfOjMnOWUNrqyZFcNNshFmlPkAr80pJHtuE?=
+ =?us-ascii?Q?uU/HU6J7m5lwZiLo6gtwSyvKLJKeEQ/+4dcXTJngaisOqwBrvNxJR32ef9zE?=
+ =?us-ascii?Q?3/ziwqMUz3ExxWUs2wCkk1OKaF5RBkSE4rUPSaOYkfEreqHCD4d7XC3CQoDG?=
+ =?us-ascii?Q?Ue0DQIQQa0yHoBibgJv0vM6FW0t5eSThO2lNr9vwCaj8J6vrrRbcZp1uVJwM?=
+ =?us-ascii?Q?Zw7+YMC597S4EudWbPQzqTDmnEbONDiKry7l8ipWzunyZyXWQt9qDnzTlmCc?=
+ =?us-ascii?Q?VJ4lFlinxi2V7uayymeSnG3aB5ftzsAzIg9+bEMDIMTYbwZGNNkdxxcF13t5?=
+ =?us-ascii?Q?DWQqiVhP1b1r0MGjzyN5knSonmA=3D?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 X-Archived-By: <archiver.kernel.org>
@@ -113,12 +110,12 @@ MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6369.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b2dc65c8-42c3-4c69-1c91-08df49d6d5ed
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Nov 2026 02:58:37.0762 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 50f5bb45-2350-451d-13ca-08df49d6f8b0
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Nov 2026 02:59:35.3949 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: aIurbWyjo2NUl8X19v3TElfJFMpEKwokxifruyFDBh55RPHiMIbqJztleD6IbVhd
+X-MS-Exchange-CrossTenant-userprincipalname: sDsh7H/jAJWHs4WHTJGXyTDZ37NST5TgaindJy4e51cyjA1SrwRDOeLM83UD0puj
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9066
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -139,7 +136,7 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 AMD General
 
-This patch is: Reviewed-by: Yifan Zhang <yifan1.zhang@amd.com>
+Reviewed-by: Yifan Zhang <yifan1.zhang@amd.com>
 
 Best Regards,
 Yifan
@@ -151,50 +148,187 @@ To: amd-gfx@lists.freedesktop.org
 Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Chri=
 stian.Koenig@amd.com>; Zhang, Yifan <Yifan1.Zhang@amd.com>; Yuan, Perry <Pe=
 rry.Yuan@amd.com>
-Subject: [PATCH 2/2] drm/amdkfd: fix deadlock between profiler_lock and dqm=
-->lock
+Subject: [PATCH 1/2] drm/amdgpu: add ptl_format module parameter
 
-There is an AB-BA lock inversion between dqm->lock and kfd->profiler_lock w=
-hen a profiler process exits without explicitly unlocking the device while =
-another process concurrently creates a queue on the same GPU:
+PTL always starts with VECTOR,F8 at driver load. Users who need other forma=
+ts have to rewrite the ptl_format sysfs file after every boot, and that fil=
+e only accepts writes once PTL is enabled.
 
-Keep kfd->profiler_lock as a leaf lock (consistent with kfd_profiler_pmc() =
-and profile_lock_device()): clear kfd->profiler_process under profiler_lock=
-, release profiler_lock, and then call set_perfcount(dqm, 0) outside the lo=
-ck.
+Add an amdgpu.ptl_format module parameter that takes "FMT1,FMT2", for examp=
+le ptl_format=3DF8,BF16. The formats are applied on the first PTL initializ=
+ation; resume and reset keep using the cached formats as before. An invalid=
+ value is reported and the VECTOR,F8 defaults are kept.
 
-Fixes: a789761de305 ("amd/amdkfd: Add kfd_ioctl_profiler to contain profile=
-r kernel driver changes")
+Move the format parsing out of ptl_format_store() into
+amdgpu_ptl_parse_formats() so the sysfs file and the module parameter share=
+ the same validation.
+
 Signed-off-by: Perry Yuan <perry.yuan@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_process.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h      |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c  | 10 +++++++  drivers/gpu/drm/amd=
+/amdgpu/amdgpu_psp.c  | 34 +++++++++++++++---------  drivers/gpu/drm/amd/am=
+dgpu/gfx_v9_4_3.c  | 14 +++++++++-  drivers/gpu/drm/amd/include/amdgpu_ptl.=
+h |  3 +++
+ 5 files changed, 48 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd=
-/amdkfd/kfd_process.c
-index b6981185c7ff..cb1ceae7606b 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -1230,12 +1230,17 @@ static void kfd_process_free_outstanding_kfd_bos(st=
-ruct kfd_process *p)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdg=
+pu/amdgpu.h
+index a7a2b6b5a497..53eb4824f922 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -270,6 +270,7 @@ extern int amdgpu_rebar;  extern int amdgpu_wbrf;  exte=
+rn int amdgpu_user_queue;  extern int amdgpu_ptl;
++extern char *amdgpu_ptl_format;
 
- static void kfd_process_profiler_release(struct kfd_process *p, struct kfd=
-_process_device *pdd)  {
-+       bool release =3D false;
+ extern uint amdgpu_hdmi_hpd_debounce_delay_ms;
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_drv.c
+index 6478506d8089..5b366fc910ae 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -254,6 +254,7 @@ int amdgpu_rebar =3D -1; /* auto */  int amdgpu_user_qu=
+eue =3D -1;  uint amdgpu_hdmi_hpd_debounce_delay_ms;
+ int amdgpu_ptl =3D -1; /* auto */
++char *amdgpu_ptl_format;
+
+ DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
+                        "DRM_UT_CORE",
+@@ -1183,6 +1184,15 @@ module_param_named(hdmi_hpd_debounce_delay_ms, amdgp=
+u_hdmi_hpd_debounce_delay_ms  MODULE_PARM_DESC(ptl, "Enable PTL (-1 =3D aut=
+o, 0 =3D disable (default), 1 =3D enable, 2 =3D permanently disable)");  mo=
+dule_param_named(ptl, amdgpu_ptl, int, 0444);
+
++/**
++ * DOC: ptl_format (charp)
++ * PTL preferred formats applied at driver load, as "FMT1,FMT2"
++ * (e.g. "F8,BF16"). Supported formats: I8, F16, BF16, F32, F64, F8,
++ * VECTOR. The two formats must differ. Default is VECTOR,F8.
++ */
++MODULE_PARM_DESC(ptl_format, "PTL formats at load, \"FMT1,FMT2\"
++(default VECTOR,F8)"); module_param_named(ptl_format,
++amdgpu_ptl_format, charp, 0444);
 +
-        mutex_lock(&pdd->dev->kfd->profiler_lock);
-        if (pdd->dev->kfd->profiler_process =3D=3D p) {
--               pdd->qpd.dqm->ops.set_perfcount(pdd->qpd.dqm, 0);
-                pdd->dev->kfd->profiler_process =3D NULL;
-+               release =3D true;
-        }
-        mutex_unlock(&pdd->dev->kfd->profiler_lock);
-+
-+       if (release)
-+               pdd->qpd.dqm->ops.set_perfcount(pdd->qpd.dqm, 0);
+ /* These devices are not supported by amdgpu.
+  * They are supported by the mach64, r128, radeon drivers
+  */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_psp.c
+index c19600f8b7f8..09648b68d066 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -1880,6 +1880,26 @@ static enum amdgpu_ptl_fmt str_to_ptl_fmt(const char=
+ *str)
+        return AMDGPU_PTL_FMT_INVALID;
  }
 
- static void kfd_process_destroy_pdds(struct kfd_process *p)
++int amdgpu_ptl_parse_formats(const char *buf, enum amdgpu_ptl_fmt *fmt1,
++               enum amdgpu_ptl_fmt *fmt2)
++{
++       char fmt1_str[8], fmt2_str[8];
++       enum amdgpu_ptl_fmt f1, f2;
++
++       if (sscanf(buf, "%7[^,],%7s", fmt1_str, fmt2_str) !=3D 2)
++               return -EINVAL;
++
++       f1 =3D str_to_ptl_fmt(fmt1_str);
++       f2 =3D str_to_ptl_fmt(fmt2_str);
++       if (f1 >=3D AMDGPU_PTL_FMT_INVALID || f2 >=3D AMDGPU_PTL_FMT_INVALI=
+D ||
++           f1 =3D=3D f2)
++               return -EINVAL;
++
++       *fmt1 =3D f1;
++       *fmt2 =3D f2;
++       return 0;
++}
++
+ static ssize_t ptl_supported_formats_show(struct device *dev,
+                struct device_attribute *attr, char *buf)  { @@ -1979,7 +19=
+99,6 @@ static ssize_t ptl_format_store(struct device *dev,  {
+        struct drm_device *ddev =3D dev_get_drvdata(dev);
+        struct amdgpu_device *adev =3D drm_to_adev(ddev);
+-       char fmt1_str[8], fmt2_str[8];
+        enum amdgpu_ptl_fmt fmt1_enum, fmt2_enum;
+        struct amdgpu_ptl *ptl =3D &adev->psp.ptl;
+        uint32_t ptl_state, fmt1, fmt2;
+@@ -1990,18 +2009,7 @@ static ssize_t ptl_format_store(struct device *dev,
+                return -EPERM;
+
+        mutex_lock(&ptl->mutex);
+-       /* Parse input, expecting "FMT1,FMT2" */
+-       if (sscanf(buf, "%7[^,],%7s", fmt1_str, fmt2_str) !=3D 2) {
+-               mutex_unlock(&ptl->mutex);
+-               return -EINVAL;
+-       }
+-
+-       fmt1_enum =3D str_to_ptl_fmt(fmt1_str);
+-       fmt2_enum =3D str_to_ptl_fmt(fmt2_str);
+-
+-       if (fmt1_enum >=3D AMDGPU_PTL_FMT_INVALID ||
+-                       fmt2_enum >=3D AMDGPU_PTL_FMT_INVALID ||
+-                       fmt1_enum =3D=3D fmt2_enum) {
++       if (amdgpu_ptl_parse_formats(buf, &fmt1_enum, &fmt2_enum)) {
+                mutex_unlock(&ptl->mutex);
+                return -EINVAL;
+        }
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/=
+amdgpu/gfx_v9_4_3.c
+index b789f528f3b0..0cf13e78b821 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+@@ -2454,14 +2454,26 @@ static int gfx_v9_4_3_perf_monitor_ptl_init(struct =
+amdgpu_device *adev, bool ena
+                return -EOPNOTSUPP;
+
+        if (ptl->hw_supported_state =3D=3D AMDGPU_PTL_HW_UNINIT) {
++               enum amdgpu_ptl_fmt f1, f2;
++
+                fmt1 =3D GFX_FTYPE_VECTOR;
+                fmt2 =3D GFX_FTYPE_F8;
++               if (amdgpu_ptl_format) {
++                       if (!amdgpu_ptl_parse_formats(amdgpu_ptl_format, &f=
+1, &f2)) {
++                               fmt1 =3D f1;
++                               fmt2 =3D f2;
++                       } else {
++                               dev_warn(adev->dev,
++                                        "Invalid amdgpu.ptl_format=3D%s, u=
+sing VECTOR,F8\n",
++                                        amdgpu_ptl_format);
++                       }
++               }
+        } else {
+                fmt1 =3D ptl->fmt1;
+                fmt2 =3D ptl->fmt2;
+        }
+
+-       /* initialize PTL with default formats: GFX_FTYPE_VECTOR & GFX_FTYP=
+E_F8 */
++       /* Defaults or amdgpu.ptl_format on first init, cached formats afte=
+r
++*/
+        r =3D amdgpu_ptl_perf_monitor_ctrl(adev, PSP_PTL_PERF_MON_SET, &ptl=
+_state,
+                                                        &fmt1, &fmt2);
+        if (r) {
+diff --git a/drivers/gpu/drm/amd/include/amdgpu_ptl.h b/drivers/gpu/drm/amd=
+/include/amdgpu_ptl.h
+index eead62b4b327..c445525833a2 100644
+--- a/drivers/gpu/drm/amd/include/amdgpu_ptl.h
++++ b/drivers/gpu/drm/amd/include/amdgpu_ptl.h
+@@ -64,6 +64,9 @@ int amdgpu_ptl_perf_monitor_ctrl(struct amdgpu_device *ad=
+ev, u32 req_code,
+                enum amdgpu_ptl_fmt *fmt1,
+                enum amdgpu_ptl_fmt *fmt2);
+
++int amdgpu_ptl_parse_formats(const char *buf, enum amdgpu_ptl_fmt *fmt1,
++               enum amdgpu_ptl_fmt *fmt2);
++
+ int amdgpu_ptl_sysfs_init(struct amdgpu_device *adev);  void amdgpu_ptl_sy=
+sfs_fini(struct amdgpu_device *adev);
+
 --
 2.34.1
 
