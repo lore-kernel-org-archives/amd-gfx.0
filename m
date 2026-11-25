@@ -2,65 +2,60 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D2C6606A321
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Nov 2026 06:57:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2398606A31E
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Nov 2026 06:57:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=SoAdHeKN
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=qSOnfVZp
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C195210F63C;
-	Wed, 25 Nov 2026 06:57:22 +0000 (UTC)
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013016.outbound.protection.outlook.com
- [40.107.201.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 448BD10F635
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Nov 2026 06:57:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 92EDA10F823;
+	Wed, 25 Nov 2026 06:57:29 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012070.outbound.protection.outlook.com [40.107.209.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9574410F636
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Nov 2026 06:57:22 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IAAgcykvqa6gpYlTNnCVj5Li2BThseQNIr/YKjc6siOT9Lh9zNWFot8SkSOsuuSSNxK+RC89c8Xz8VPBz1mhokjWKO+nRXYpe4CzOvOHV/CJFbYfaiLZBrMjxeLxxltxiCWCuyfoT7UQz50m2HheqG2n8lNJ8/Cm05Qs7o7oKHp5VJEA9jEDGqMdIoCYTee4Sa8kEGiGDOjZ5R7nMRDeM8F4rFnB0UgcLqZMe1/WkyqixfCGIAXa/38tLpBaNl13x5qFeo2ShomuG6Ze83nuBEsbW0bBkbbIqcUy78DtXrE0jBjFvoAPTUFMbb6cx3d7Dw5zpWntmzuZVn5//OKv+Q==
+ b=XNHEgNnswZAO8K9EDN1xnU6RtolhC/FhcsNtZwjUSM62PKFYf+WNXqykZzmqnOqDX3sv1xZlI18YG79ds6ozlr8nGbvwIEGvxERjZheWHqGqMx7XyYqWpvMJINHLwDhG8+Dz1J6fNpuZZhNFcTFXBUApnbXei7uRwlXsfnOHl/BFbBPP6bTdWW0wRin22QzT80/3PkqLm4NT9beMh46IWFCveKK/eFi2W6WIgokxo4+xiru20oszQ/Uy1wuz5A/rCOoSD6/9mfclah151YCTODKchzKfhZXubKhjpBxGq+TJU0pGvi/Yat2lnDNdGm4H3Nd+1oxzo1ziqJaqddGKqQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UWVcEBx+3HNAIJ6QxRD2pJay4yu0ZmdsOLLIyWhCiCI=;
- b=bG7TjM7dxblvanYNf5qJ9Wp2h8MsqeCceyt+9wNnyJ8igqQjNnO2rPhorGgtJnGfUQrIWNk+jQZdG52gXWHoLwNGT2K8TBVl7n2Lm2UETauMnqnM9T6CF7/4hKYVNYuX1eyQua0Z5jrYi8t8iEqQjt3ByNTFGmlXejBFN8zNz6hEZ30aq42IwBUzaXdqw4pGswoT5cwHZVJRM75AUbWAjh7GZgkacg4SwI1Dba8rPi6/SROTF0o8yr50i+GGzpax30JSHt8ZKyp2wr03YjqGGopg+6Drt0V7eNIm9n0kSlTVW7ZYA64XLaYqnP6355Ps2RjMLjPxZle2p89r2ahobw==
+ bh=y1nx/Ab83U1axZYhc6ElfJ1+wQvM0R0Lx9hIi4uckAM=;
+ b=miWV4ufWLst4o7JoNBtQ9t3gNE4qVG8+P3Aor0777vLqf2vTqMv3m11H+5rMpM/s2h5E4tMvXkXFFDsOI+9P0LF5R08mLu8plrBA99EWQmaWZn2zvbbUra3tN1d5rIJevuVIN9guHxgrZ/W+ZE05H590Tndoz0zhRBTggLL2UNNxQf9aYpcr2M6k8q2Xvhvh7UmL2Z9f5gz5YEE9ViCr7geZ3pyBdEP8NVr+Nh99M6YrcLfDlfAuNkWNN/Xyn56Lgml9I+xbX7MDVGNOB1iKxc7jiw54MXhahoXdJkHbc0pg+ZFP1qud8lpZPy3Ui33peCnpFYfZ+8g5SY+U7hh8zQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UWVcEBx+3HNAIJ6QxRD2pJay4yu0ZmdsOLLIyWhCiCI=;
- b=SoAdHeKNUlN5BMezyHCf7srSJOWBUzU3ylm6zeuMa+qNZpZJwL/QscIRR89YFzw/LMmfv2cB9DJBKlCDMab1qTfox9Kg7IuryxVUK8jnf+OdUcYTmIIxOiWjAEU4DD4qTReoPwZQgZPqoKvh/mYX8R4DefeTChkeFhpGP8ybWcU=
-Received: from CY5PR20CA0005.namprd20.prod.outlook.com (2603:10b6:930:3::9) by
- PH0PR12MB5630.namprd12.prod.outlook.com (2603:10b6:510:146::12) with
+ bh=y1nx/Ab83U1axZYhc6ElfJ1+wQvM0R0Lx9hIi4uckAM=;
+ b=qSOnfVZpFM4ym4HFMWUA0KONCpF0R+8qJshI40vELhm1DlZ00kv+WJqJASpXyHmz37iuRXV+oBMa3WWwi3wmLMXQ7YADicTVaxvSPuK8QgdlLwKTwA30iyShTOHtco92xCLfDDofhNqN/K2UR+NPGlCCPGkNAbTiTglohPvZUFo=
+Received: from PH5P222CA0010.NAMP222.PROD.OUTLOOK.COM (2603:10b6:510:34b::11)
+ by DS0PR12MB8502.namprd12.prod.outlook.com (2603:10b6:8:15b::16) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.13; Wed, 25 Nov
- 2026 06:55:57 +0000
-Received: from EA8PEPF0000000C.namprd05.prod.outlook.com
- (2603:10b6:930:3:cafe::31) by CY5PR20CA0005.outlook.office365.com
- (2603:10b6:930:3::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.6; Wed, 25 Nov
+ 2026 06:57:18 +0000
+Received: from BY1PEPF0001AE19.namprd04.prod.outlook.com
+ (2603:10b6:510:34b:cafe::a9) by PH5P222CA0010.outlook.office365.com
+ (2603:10b6:510:34b::11) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.662.7 via Frontend Transport; Wed, 25
- Nov 2026 06:55:57 +0000
+ Nov 2026 06:57:18 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- EA8PEPF0000000C.mail.protection.outlook.com (10.167.249.235) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BY1PEPF0001AE19.mail.protection.outlook.com (10.167.242.101) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.662.3 via Frontend Transport; Wed, 25 Nov 2026 06:55:56 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.662.3 via Frontend Transport; Wed, 25 Nov 2026 06:57:18 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Wed, 25 Nov
- 2026 00:55:56 -0600
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Wed, 25 Nov
- 2026 00:55:56 -0600
+ 2026 00:57:17 -0600
 Received: from chenyu-station.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.57 via Frontend
- Transport; Wed, 25 Nov 2026 00:55:47 -0600
+ Transport; Wed, 25 Nov 2026 00:57:09 -0600
 From: Chenyu Chen <chen-yu.chen@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -69,12 +64,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Piotr Maziarz <piotr.maziarz@amd.com>, Alvin Lee
- <alvin.lee2@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>
-Subject: [PATCH 05/27] drm/amd/display: Decouple PROGRAM_CURSOR_UPDATE_NOW
- from dc and pipe_ctx
-Date: Wed, 25 Nov 2026 14:54:54 +0800
-Message-ID: <20261125065631.3889665-6-chen-yu.chen@amd.com>
+ <Chen-Yu.Chen@amd.com>, Alvin Lee <Alvin.Lee2@amd.com>, Nicholas Kazlauskas
+ <nicholas.kazlauskas@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>
+Subject: [PATCH 14/27] drm/amd/display: Add DMUB timer reference clock to
+ ref_clocks
+Date: Wed, 25 Nov 2026 14:55:03 +0800
+Message-ID: <20261125065631.3889665-15-chen-yu.chen@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261125065631.3889665-1-chen-yu.chen@amd.com>
 References: <20261125065631.3889665-1-chen-yu.chen@amd.com>
@@ -84,29 +79,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: EA8PEPF0000000C:EE_|PH0PR12MB5630:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7c93978e-7711-4e18-b9e2-08df4ac1280a
+X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE19:EE_|DS0PR12MB8502:EE_
+X-MS-Office365-Filtering-Correlation-Id: 49f0783a-199e-407c-a437-08df4ac158a0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|376014|23010399003|36860700016|6133799003|18002099003|22082099003|3023799007|11063799006|56012099006|261026140227099003|261022105027099003|261102123227099003|261028144727099003|261021121427099003|261021123027099003|261009223027099003|10067099003;
-X-Microsoft-Antispam-Message-Info: R23WRT2eA9xmFeqcGJzO2JTEW9xmOrrHYVFNbs5+HEWpwowJg3riMisnb0yTJBM4SRr5o/cQt/crbb1gwcv9s0rJsIYdzYaiC16kt/UBtlqFh5Ct+CVRmw2R1HEGrLJNtWnEhhlTnQoiwJHlva8YKURJA8iMlqy0jM0ZyMBlApIuRr7bmRhonIifo2PUiGB8LKMaUJY4jrDAbbVg89zJ+Kh6qrTUPcZhPm2xWnKQwxMzVqaBQzHSxD9TQRfFexnQnCVdhaLELS3N0bv10jltEIv6sot0oWTidYSba8YOzLbua/AQVb3Cckz5ygdxE4tBH359oUeLc3lupGhCSEMasYh2IkTfkKzmpwu3vdqhYX48WGEjmRkAnzYCh6SUqek5QU4/iSjrw7f/iyuWAwazVooNVTxWtLfFXYRR7GLe6ESjNpbou4Hf4VICvFF+6Z0GSHeIzDX+0NmbhT0SDOBEdOsDLjmlHFrGfQwyv7CtARGQ1vXhHOVpNWzDRCNeV9wyQTGYYkioEtMzPDd015z0JMw3YeqsOEf2l1eIxCv8HuQg/kqIwfmnxuARoqMP7nMcRmDMIePbN8IL/6E+Qo1QrnxaWtnRwpRyDvGHFvrrKv0pirzxI3FraxzHDuF8b5rjSLRks8cf1p3uyw+u805BJSMn7n5iPvlfsN2043LgT+9L00j7xdpTIRxkoub0DNSHewrVySySnTAGIUM2ozO7dw==
+ ARA:13230040|36860700016|1800799024|376014|23010399003|82310400026|10067099003|11063799006|56012099006|261021121427099003|261009223027099003|261021135927099003|261102123227099003|261026121527099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: k0OusrEsdwVdvYS7PCJtPsSWngIv8zS0sH+UC5O1Ej4Vl5f3B8+Fvrh6DcCmmSGZHVDbezxWjyBiO6OYdBOkS5RJlo0gYxSiyhc49XpJH2IPJu03eCXpqsD8QrJ96Aaas+EyITBc646rgNUy6lRVYGfxOnnFBYZ5LcvuoVUy4r9urbKhmlJI8OlSkmI+dfVN6cNEL/c8lOGrI7BIFSdHWLg0JTUZFzjZzA7GzxzA+AMtJuxpCK3D8OK/hKDBbzI8sQgwzPIJLCt6/5vIrSTui6uvmQbgNggq0Id3OASw6sib0Jt37q3utPO1fCPJrQvulB4nzAoG9fNrhAx9C7h8p0l2gKYNWIKu1Q8r6WUomymTxXhzFRMTMLWSQzNByjzrAncTlkK+WH8PZ55yV+SlqW9wiZQRMndhPk90M2sQ12+gYoPpMxHFCyIytOJPSd13aLGH+V3kdQYErFJdtA+gLJ5+U3qSqSRtvoEK9L1ovy74KE+nSHVAgVaTiALnW4Z0jbNJbu1drUjvJwTjXf87MfLQ98xWZpSQjtJb5NdWhjhad9yveYHT8nYn9XejIFUYMZQ4TWLELHqvY8vUKmxR47uJ+6jCF0tg6DcxCGXaPx4Oz23hCuYyoj3E/hk4Kg0596zdu4vsSkLDeftEYNl5XoweQmDCFALjFhwtr0+vmRaDYnV5LETmxI/mmCJlMtCws+6jvWd3PSCUuyPbS7KabA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(376014)(23010399003)(36860700016)(6133799003)(18002099003)(22082099003)(3023799007)(11063799006)(56012099006)(261026140227099003)(261022105027099003)(261102123227099003)(261028144727099003)(261021121427099003)(261021123027099003)(261009223027099003)(10067099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(1800799024)(376014)(23010399003)(82310400026)(10067099003)(11063799006)(56012099006)(261021121427099003)(261009223027099003)(261021135927099003)(261102123227099003)(261026121527099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: j3fwFw3R1xvDbS4xbOYDnZndVNrV8B14SI+7c9lwZYM4/4ZSnIxtDFXUBZAMxvvtWeoMGaLnCyBhTiNcnYpsEoNzrGVJXKcTLwBzjW/nI5qkiR5oy4ytVwJFN7PDlt4D4+W8Ao2TmgkK64CxckBm93+6fzzrbQOoKt3F/uO4LrXAihO4Ckxpp7/W5vWnVYFZ8b2rwLGc2OXjh7yjNOqnpmrhCXnvZ4zcFHimXgZTUcmBzIpkNd0mIEcSBGcaSN/Eo3GITJl1WZ6E9Wkdr9G4R266UdJfrzPehaZGJbddDrJzKeHOWdgM02cfSPEHuPviKvbADBuzfxGwm3gST81vieF8PVj3aj5Hir7MJgQX9wlZbkPa4aBwwOCLEryADtsm66VTpAJeX3q7Tle5NcilgqHDbcMba0rVLx7T+CdLJj1WvIgwqKKSVeVojta+dsUZ
+X-MS-Exchange-AntiSpam-MessageData-0: jAlf717WeyW+QeJmzMeAOPJvzqvySmpma2j2uDS1LvaBhqtORCqmhq6AnJAfK9nwsM3o7wZa8hRKtnHcM9zxDFbZSAcZeB9xf/v8+YrZLzTgXAw8P2rGCjKl4cnTMNZDPkOkDeUgWbCbAM9dnEqUeDwaSDEOffclraFB9ToJHaK1CTCCkN9hvC44AXUhCHtLvNgLBlbvQ7SsGTwDj+qgtEUKpIFdQzOHSxcsYYXLxgxgMEY3LP19UzvTVVM2dShvWhC0s+483tRycmjhLCm0Df4oQx5vPSqLENAmIrhpP8CpZ3UAVUI/K6jWZFdpJYqFjEl7DNcpkAEobDfoD9ZZCIMH9eywQRGwvOCCW2I1ZQ4uiKfmhdSN2D7izU9Bgnb4XCsiUZiKO5JJujk6iLkODskIgXUW+7KCkRc8nCiv9crbcyWEQiQqPEXF85IiXwLP
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2026 06:55:56.9492 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7c93978e-7711-4e18-b9e2-08df4ac1280a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2026 06:57:18.4685 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 49f0783a-199e-407c-a437-08df4ac158a0
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: EA8PEPF0000000C.namprd05.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BY1PEPF0001AE19.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5630
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8502
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,220 +119,162 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Piotr Maziarz <piotr.maziarz@amd.com>
+From: Alvin Lee <Alvin.Lee2@amd.com>
 
-[WHY]
-PROGRAM_CURSOR_UPDATE_NOW carried dc and pipe_ctx, and its executor
-read the OTG instance and the cursor offload state through them at run
-time, against the BLS contract.
+[Why]
+The DMUB timer reference clock can differ from the crystal frequency,
+so it should be tracked separately from the other reference clocks.
 
-[HOW]
-Carry the DMUB service handle and the OTG instance instead, filled by
-the new hwss_add_program_cursor_update_now(). The executor passes them
-through the program_cursor_offload_now hook to
-dc_dmub_srv_program_cursor_now(), which checks the service itself for
-cursor offload. The non-BLS path in commit_planes_for_stream uses the
-same hook signature.
+[How]
+Add dmub_timer_refclk_khz to resource_pool ref_clocks. DCN3.0, 3.1,
+3.2, 3.5, 4.01, 4.2 and 5.0 set it in init_hw from the crystal
+frequency, next to xtalin_clock_inKhz, so their behavior does not
+change. DCN6.0 sets it to a fixed 100 MHz (DCN60_DMUB_TIMER_REFCLK_KHZ)
+in dcn60_resource_construct instead of using the crystal frequency.
+Other init paths, such as DCN1.0, DCN2.01, DCN6.0 init_hw and the core
+and bls_builder init, are not changed by this patch and leave the field
+unset.
 
-Cc: Alvin Lee <alvin.lee2@amd.com>
-Signed-off-by: Piotr Maziarz <piotr.maziarz@amd.com>
+Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Signed-off-by: Alvin Lee <Alvin.Lee2@amd.com>
 Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c      |  3 +-
- .../drm/amd/display/dc/core/dc_hw_sequencer.c | 28 +++++++++++++------
- drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  | 11 +++-----
- drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h  |  8 +++---
- .../amd/display/dc/hwss/dcn35/dcn35_hwseq.c   |  4 +--
- .../amd/display/dc/hwss/dcn35/dcn35_hwseq.h   |  2 +-
- .../drm/amd/display/dc/hwss/hw_sequencer.h    | 10 +++++--
- 7 files changed, 40 insertions(+), 26 deletions(-)
+ drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c       | 2 ++
+ drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c       | 2 ++
+ drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c       | 2 ++
+ drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c       | 2 ++
+ drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c     | 2 ++
+ drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_hwseq.c       | 2 ++
+ drivers/gpu/drm/amd/display/dc/hwss/dcn50/dcn50_hwseq.c       | 2 ++
+ drivers/gpu/drm/amd/display/dc/inc/core_types.h               | 1 +
+ .../gpu/drm/amd/display/dc/resource/dcn60/dcn60_resource.c    | 4 ++++
+ 9 files changed, 19 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 92cb123e459b..584eb3e0f4c6 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -5435,7 +5435,8 @@ static void commit_planes_for_stream(struct dc *dc,
- 			continue;
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
+index 35d5cce0a791..c4500617dc85 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
+@@ -686,6 +686,8 @@ void dcn30_init_hw(struct dc *dc)
+ 	if (dc->ctx->dc_bios->fw_info_valid) {
+ 		res_pool->ref_clocks.xtalin_clock_inKhz =
+ 				dc->ctx->dc_bios->fw_info.pll_info.crystal_frequency;
++		res_pool->ref_clocks.dmub_timer_refclk_khz =
++				dc->ctx->dc_bios->fw_info.pll_info.crystal_frequency;
  
- 		if (dc->hwss.program_cursor_offload_now)
--			dc->hwss.program_cursor_offload_now(dc, pipe_ctx);
-+			dc->hwss.program_cursor_offload_now(dc->ctx->dmub_srv,
-+					pipe_ctx->stream_res.tg->inst);
- 		if (pipe_ctx->stream_res.tg->funcs->program_manual_trigger)
- 			pipe_ctx->stream_res.tg->funcs->program_manual_trigger(pipe_ctx->stream_res.tg);
- 	}
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-index 241cbe19056d..079a9ee8c5f5 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-@@ -1715,12 +1715,9 @@ void hwss_build_fast_sequence(struct dc *dc,
- 					current_mpc_pipe->stream && current_mpc_pipe->plane_state &&
- 					current_mpc_pipe->plane_state->update_bits.addr_update &&
- 					!current_mpc_pipe->plane_state->skip_manual_trigger) {
--				if (dc->hwss.program_cursor_offload_now) {
--					block_sequence[*num_steps].params.program_cursor_update_now_params.dc = dc;
--					block_sequence[*num_steps].params.program_cursor_update_now_params.pipe_ctx = current_mpc_pipe;
--					block_sequence[*num_steps].func = PROGRAM_CURSOR_UPDATE_NOW;
--					(*num_steps)++;
--				}
-+				if (dc->hwss.program_cursor_offload_now)
-+					hwss_add_program_cursor_update_now(&seq_state, dc->ctx->dmub_srv,
-+							current_mpc_pipe->stream_res.tg->inst);
+ 		if (res_pool->hubbub) {
  
- 				hwss_add_optc_program_manual_trigger(&seq_state, current_mpc_pipe->stream_res.tg);
- 			}
-@@ -1849,8 +1846,8 @@ void hwss_execute_sequence(struct dc *dc,
- 			break;
- 		case PROGRAM_CURSOR_UPDATE_NOW:
- 			dc->hwss.program_cursor_offload_now(
--				params->program_cursor_update_now_params.dc,
--				params->program_cursor_update_now_params.pipe_ctx);
-+				params->program_cursor_update_now_params.dmub_srv,
-+				params->program_cursor_update_now_params.otg_inst);
- 			break;
- 		case HUBP_WAIT_PIPE_READ_START:
- 			params->hubp_wait_pipe_read_start_params.hubp->funcs->hubp_wait_pipe_read_start(
-@@ -6439,6 +6436,21 @@ void hwss_add_abort_cursor_offload_update(struct block_sequence_state *seq_state
- 	}
- }
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c
+index 7acf6af7e472..e90afdd6f1c9 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c
+@@ -138,6 +138,8 @@ void dcn31_init_hw(struct dc *dc)
+ 	if (dc->ctx->dc_bios->fw_info_valid) {
+ 		res_pool->ref_clocks.xtalin_clock_inKhz =
+ 				dc->ctx->dc_bios->fw_info.pll_info.crystal_frequency;
++		res_pool->ref_clocks.dmub_timer_refclk_khz =
++				dc->ctx->dc_bios->fw_info.pll_info.crystal_frequency;
  
-+void hwss_add_program_cursor_update_now(struct block_sequence_state *seq_state,
-+		struct dc_dmub_srv *dmub_srv,
-+		uint32_t otg_inst)
-+{
-+	struct program_cursor_update_now_params *p;
-+
-+	if (*seq_state->num_steps < MAX_HWSS_BLOCK_SEQUENCE_SIZE) {
-+		seq_state->steps[*seq_state->num_steps].func = PROGRAM_CURSOR_UPDATE_NOW;
-+		p = &seq_state->steps[*seq_state->num_steps].params.program_cursor_update_now_params;
-+		p->dmub_srv = dmub_srv;
-+		p->otg_inst = otg_inst;
-+		(*seq_state->num_steps)++;
-+	}
-+}
-+
- void hwss_add_stream_enc_update_hdmi_info_packets(struct block_sequence_state *seq_state,
- 		struct pipe_ctx *pipe_ctx)
- {
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-index 323e8bec23dc..220e3fc34f3f 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-+++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-@@ -1328,15 +1328,12 @@ void dc_dmub_srv_control_cursor_offload(struct dc *dc, struct dc_state *context,
- 				     enable ? DM_DMUB_WAIT_TYPE_NO_WAIT : DM_DMUB_WAIT_TYPE_WAIT);
- }
+ 		if (res_pool->hubbub) {
  
--void dc_dmub_srv_program_cursor_now(struct dc *dc, const struct pipe_ctx *pipe)
-+void dc_dmub_srv_program_cursor_now(struct dc_dmub_srv *dc_dmub_srv, uint32_t otg_inst)
- {
- 	struct dmub_rb_cmd_cursor_offload_stream_cntl *cntl;
- 	union dmub_rb_cmd cmd;
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
+index b78041ba94e9..945052b1808f 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
+@@ -848,6 +848,8 @@ void dcn32_init_hw(struct dc *dc)
+ 	if (dc->ctx->dc_bios->fw_info_valid) {
+ 		res_pool->ref_clocks.xtalin_clock_inKhz =
+ 				dc->ctx->dc_bios->fw_info.pll_info.crystal_frequency;
++		res_pool->ref_clocks.dmub_timer_refclk_khz =
++				dc->ctx->dc_bios->fw_info.pll_info.crystal_frequency;
  
--	if (!dc_dmub_srv_is_cursor_offload_enabled(dc))
--		return;
--
--	if (!pipe || !pipe->stream || !pipe->stream_res.tg)
-+	if (!dc_dmub_srv || !dc_dmub_srv->cursor_offload_enabled)
- 		return;
- 
- 	memset(&cmd, 0, sizeof(cmd));
-@@ -1345,9 +1342,9 @@ void dc_dmub_srv_program_cursor_now(struct dc *dc, const struct pipe_ctx *pipe)
- 	cntl->header.type = DMUB_CMD__CURSOR_OFFLOAD;
- 	cntl->header.sub_type = DMUB_CMD__CURSOR_OFFLOAD_STREAM_PROGRAM;
- 	cntl->header.payload_bytes = sizeof(cntl->data);
--	cntl->data.otg_inst = pipe->stream_res.tg->inst;
-+	cntl->data.otg_inst = otg_inst;
- 
--	dc_wake_and_execute_dmub_cmd(dc->ctx, &cmd, DM_DMUB_WAIT_TYPE_NO_WAIT);
-+	dc_wake_and_execute_dmub_cmd(dc_dmub_srv->ctx, &cmd, DM_DMUB_WAIT_TYPE_NO_WAIT);
- }
- 
- bool dc_dmub_srv_is_hw_pwr_up(struct dc_dmub_srv *dc_dmub_srv, bool wait)
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h
-index b3d6279cbc15..6c1e1b8f6d9b 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h
-@@ -397,12 +397,12 @@ void dc_dmub_srv_control_cursor_offload(struct dc *dc, struct dc_state *context,
- 					const struct dc_stream_state *stream, bool enable);
- 
- /**
-- * dc_dmub_srv_program_cursor_now() - Requests immediate cursor programming for a given pipe.
-+ * dc_dmub_srv_program_cursor_now() - Requests immediate cursor programming for a given OTG.
-  *
-- * @dc: pointer to DC object
-- * @pipe: top-most pipe for a stream.
-+ * @dc_dmub_srv: DMUB service handle
-+ * @otg_inst: OTG instance of the stream
-  */
--void dc_dmub_srv_program_cursor_now(struct dc *dc, const struct pipe_ctx *pipe);
-+void dc_dmub_srv_program_cursor_now(struct dc_dmub_srv *dc_dmub_srv, uint32_t otg_inst);
- 
- /**
-  * dc_dmub_srv_is_cursor_offload_enabled() - Checks if cursor offload is supported.
+ 		if (res_pool->hubbub) {
+ 			(res_pool->dccg->funcs->get_dccg_ref_freq)(res_pool->dccg,
 diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
-index aa047b5b4939..564ffd61f391 100644
+index 564ffd61f391..d24569870a2d 100644
 --- a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
 +++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
-@@ -1806,9 +1806,9 @@ void dcn35_notify_cursor_offload_drr_update(struct dc *dc, struct dc_state *cont
- 	dc_dmub_srv_control_cursor_offload(dc, context, stream, true);
- }
+@@ -171,6 +171,8 @@ void dcn35_init_hw(struct dc *dc)
+ 	if (dc->ctx->dc_bios->fw_info_valid) {
+ 		res_pool->ref_clocks.xtalin_clock_inKhz =
+ 				dc->ctx->dc_bios->fw_info.pll_info.crystal_frequency;
++		res_pool->ref_clocks.dmub_timer_refclk_khz =
++				dc->ctx->dc_bios->fw_info.pll_info.crystal_frequency;
  
--void dcn35_program_cursor_offload_now(struct dc *dc, const struct pipe_ctx *pipe)
-+void dcn35_program_cursor_offload_now(struct dc_dmub_srv *dc_dmub_srv, uint32_t otg_inst)
- {
--	dc_dmub_srv_program_cursor_now(dc, pipe);
-+	dc_dmub_srv_program_cursor_now(dc_dmub_srv, otg_inst);
- }
+ 		if (res_pool->hubbub) {
  
- static void disable_link_output_symclk_on_tx_off(struct dc_link *link, enum dp_link_encoding link_encoding)
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.h b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.h
-index 0ae2f44cfb9f..2bc210d5fcc4 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.h
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.h
-@@ -117,7 +117,7 @@ void dcn35_update_cursor_offload_pipe(struct dmub_srv *dmub, uint32_t stream_idx
- 		uint8_t pipe_idx, const struct dpp *dpp, const struct hubp *hubp);
- void dcn35_notify_cursor_offload_drr_update(struct dc *dc, struct dc_state *context,
- 					    const struct dc_stream_state *stream);
--void dcn35_program_cursor_offload_now(struct dc *dc, const struct pipe_ctx *pipe);
-+void dcn35_program_cursor_offload_now(struct dc_dmub_srv *dc_dmub_srv, uint32_t otg_inst);
- void dcn35_disable_link_output(struct dc_link *link,
- 		const struct link_resource *link_res,
- 		enum signal_type signal);
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-index 6e009ba37ff9..4769c71f05fb 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-@@ -597,8 +597,8 @@ struct control_cm_hist_params {
- };
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
+index c39189deb244..7b1eca0e2b57 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
+@@ -178,6 +178,8 @@ void dcn401_init_hw(struct dc *dc)
+ 	if (dc->ctx->dc_bios->fw_info_valid) {
+ 		res_pool->ref_clocks.xtalin_clock_inKhz =
+ 				dc->ctx->dc_bios->fw_info.pll_info.crystal_frequency;
++		res_pool->ref_clocks.dmub_timer_refclk_khz =
++				dc->ctx->dc_bios->fw_info.pll_info.crystal_frequency;
  
- struct program_cursor_update_now_params {
--	struct dc *dc;
--	struct pipe_ctx *pipe_ctx;
-+	struct dc_dmub_srv *dmub_srv;
-+	uint32_t otg_inst;
- };
+ 		if (res_pool->hubbub) {
+ 			(res_pool->dccg->funcs->get_dccg_ref_freq)(res_pool->dccg,
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_hwseq.c
+index b1cc09df5e63..62876d489b8e 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_hwseq.c
+@@ -103,6 +103,8 @@ void dcn42_init_hw(struct dc *dc)
+ 	if (dc->ctx->dc_bios->fw_info_valid) {
+ 		res_pool->ref_clocks.xtalin_clock_inKhz =
+ 				dc->ctx->dc_bios->fw_info.pll_info.crystal_frequency;
++		res_pool->ref_clocks.dmub_timer_refclk_khz =
++				dc->ctx->dc_bios->fw_info.pll_info.crystal_frequency;
  
- struct hubp_wait_pipe_read_start_params {
-@@ -2050,7 +2050,7 @@ struct hw_sequencer_funcs {
- 			const struct hubp *hubp);
- 	void (*notify_cursor_offload_drr_update)(struct dc *dc, struct dc_state *context,
- 						 const struct dc_stream_state *stream);
--	void (*program_cursor_offload_now)(struct dc *dc, const struct pipe_ctx *pipe);
-+	void (*program_cursor_offload_now)(struct dc_dmub_srv *dc_dmub_srv, uint32_t otg_inst);
+ 		if (res_pool->hubbub) {
+ 			(res_pool->dccg->funcs->get_dccg_ref_freq)(res_pool->dccg,
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn50/dcn50_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn50/dcn50_hwseq.c
+index 151ec838f613..2986eaa73eae 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn50/dcn50_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn50/dcn50_hwseq.c
+@@ -582,6 +582,8 @@ void dcn50_init_hw(struct dc *dc)
+ 	if (dc->ctx->dc_bios->fw_info_valid) {
+ 		res_pool->ref_clocks.xtalin_clock_inKhz =
+ 				dc->ctx->dc_bios->fw_info.pll_info.crystal_frequency;
++		res_pool->ref_clocks.dmub_timer_refclk_khz =
++				dc->ctx->dc_bios->fw_info.pll_info.crystal_frequency;
  
- 	/* Colour Related */
- 	void (*program_gamut_remap)(struct program_gamut_remap_params *params);
-@@ -3226,6 +3226,10 @@ void hwss_add_commit_cursor_offload_update(struct block_sequence_state *seq_stat
- 		struct dc *dc,
- 		struct pipe_ctx *pipe_ctx);
+ 		if (res_pool->hubbub) {
+ 			(res_pool->dccg->funcs->get_dccg_ref_freq)(res_pool->dccg,
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/core_types.h b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
+index f1b6053fa5c6..09395f5d4e13 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/core_types.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
+@@ -317,6 +317,7 @@ struct resource_pool {
+ 		unsigned int xtalin_clock_inKhz;
+ 		unsigned int dccg_ref_clock_inKhz;
+ 		unsigned int dchub_ref_clock_inKhz;
++		unsigned int dmub_timer_refclk_khz;
+ 	} ref_clocks;
+ 	unsigned int timing_generator_count;
+ 	unsigned int mpcc_count;
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn60/dcn60_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn60/dcn60_resource.c
+index 1d7074451ac1..7fa1bcbd00ef 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn60/dcn60_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn60/dcn60_resource.c
+@@ -107,6 +107,8 @@ enum dcn60_clk_src_array_id {
+ static const uint32_t MCACHE_ID_UNASSIGNED = 0xF;
+ static const uint32_t SPLIT_LOCATION_UNDEFINED = 0xFFFF;
  
-+void hwss_add_program_cursor_update_now(struct block_sequence_state *seq_state,
-+		struct dc_dmub_srv *dmub_srv,
-+		uint32_t otg_inst);
++#define DCN60_DMUB_TIMER_REFCLK_KHZ 100000
 +
- void hwss_add_stream_enc_update_hdmi_info_packets(struct block_sequence_state *seq_state,
- 		struct pipe_ctx *pipe_ctx);
+ /* DCN */
+ #define BASE_INNER(seg) ctx->dcn_reg_offsets[seg]
  
+@@ -2010,6 +2012,8 @@ static bool dcn60_resource_construct(
+ 
+ 	pool->base.res_cap = &res_cap_dcn6_0;
+ 
++	pool->base.ref_clocks.dmub_timer_refclk_khz = DCN60_DMUB_TIMER_REFCLK_KHZ;
++
+ 	/* max number of pipes for ASIC before checking for pipe fuses */
+ 	num_pipes  = pool->base.res_cap->num_timing_generator;
+ 	pipe_fuses = read_pipe_fuses(ctx);
 -- 
 2.43.0
 
