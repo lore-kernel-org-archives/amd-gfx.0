@@ -2,97 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8D9E606A321
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Nov 2026 07:44:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68B72606A332
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Nov 2026 07:51:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=y+BvM20e
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hf0lCEfk
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4FA8510E595;
-	Wed, 25 Nov 2026 07:44:34 +0000 (UTC)
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012015.outbound.protection.outlook.com [52.101.53.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 052E510E595
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Nov 2026 07:44:28 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xml+HHky05becjJKJogr/C0q7bY0lZ/nFh3mSUHDL3lgqdr3OY/ri0zP0r/n8xkUwk71wMWB2LN9QG56dKErIhQpnUZR62UKEJFv84DU4RLWVyHd9M+XQAoZ9LTCwfbDjI6EA4F6+3LtQyPgHNSMDlgaFndEEzTcoVwACFkTT3VG9ZlmiEKV8pS7FsJfYFOy3Vfwo9cp/vX/4bLehe336Sv459ZbAhjuJF0Hp1u0RcBjUtS852msg/PjZBZ43ig3i1UzOTk4C7SZigkiG7qYr5+4CQvMDtR5mWr2YyNfuJDH3DiVMi+dADYou4X9sXf5NjGc2dycsQJQedGmA/iG4g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6l8+RMOxNE78Nd6TUqVSNyOoHyZyAP30kxEwzEnSmvU=;
- b=C4EhqtV89ZomultbLrJxonMBE9vt1+cJwLU8hvtGDFqzOTcOfXXVh24I1OigSe2U7JB56Tz8WsdT2C3Kc6YhLOsmAMM2zPhjYIKqY9NvFtMmCVNng9mS89TUMEOLM7UP1SGC+T4p3wIN3jvqHhHUP4vtUIbzNk89f8iWBhHf93hzvzBS+Zx1S7Xfn0DO5GrXO5cdf/dkW4Cwpfa7yDFNzToL2VEjlDeq3uf/SwV6V+7MPBnzJBxm7VMpMVsKkja+Ai/ZhWnyLkR5I6b6qD+aKlkMuYLaUmbYaZrs3yZPfI21/rzayXD/CX/L2+LJ2o0IcC3FA/2OGazUWQpzNwPzPQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6l8+RMOxNE78Nd6TUqVSNyOoHyZyAP30kxEwzEnSmvU=;
- b=y+BvM20eWt/zgnVxpPSmaax6nLg19hLqPvgkiHJxbz9iUYtcds4yUivu4RXgsqqtYoggoyY0cQJGnzSjIwj8Pz9LdfQh6+23+j8x0dHr7m0xB6/AuCvXtGhE6KXJDfiEFawkMAuqqSJaVUVDmd3uU6qrSGWLL0BETldQLrPdT2s=
-Received: from CH5P220CA0002.NAMP220.PROD.OUTLOOK.COM (2603:10b6:610:1ef::10)
- by PH7PR12MB7281.namprd12.prod.outlook.com (2603:10b6:510:208::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.6; Wed, 25 Nov
- 2026 07:44:22 +0000
-Received: from DS8PEPF000000E1.namprd05.prod.outlook.com
- (2603:10b6:610:1ef:cafe::69) by CH5P220CA0002.outlook.office365.com
- (2603:10b6:610:1ef::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.12 via Frontend Transport; Wed,
- 25 Nov 2026 07:44:22 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- DS8PEPF000000E1.mail.protection.outlook.com (10.167.23.197) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.662.3 via Frontend Transport; Wed, 25 Nov 2026 07:44:22 +0000
-Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Wed, 25 Nov
- 2026 01:44:19 -0600
-From: Lijo Lazar <lijo.lazar@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>, <Asad.Kamal@amd.com>
-Subject: [PATCH 2/2] drm/amdgpu: Fix accesses in SDMA v7.1 soft reset
-Date: Wed, 25 Nov 2026 13:13:59 +0530
-Message-ID: <20261125074359.3144477-2-lijo.lazar@amd.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261125074359.3144477-1-lijo.lazar@amd.com>
-References: <20261125074359.3144477-1-lijo.lazar@amd.com>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS8PEPF000000E1:EE_|PH7PR12MB7281:EE_
-X-MS-Office365-Filtering-Correlation-Id: 13bc7e62-baf3-4930-2c3c-08df4ac7ebcc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|36860700016|23010399003|376014|10067099003|261021123027099003|261102123227099003|261021121427099003|261009223027099003|18002099003|22082099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: 4sJXFC5441Is579XPcOFEEm7XKQa4vqS2Isy+qjmICerS9l8mZDjsKsD02dgj219w+XJJkMs+xNUTMzTQrjEa56ksHlD2aiEkjCFqlotvWAbgspogP6y2uAWAhT2NsKg86Dp4IbLntU3TA65vwWaf/n5TCPjpLGK+qzEsWTeXKd22WuNRoDrPqkEYWrz4T8P1IeMD/7GmIoU3RJMlMpXnyfzRMqB6YHMU/lgGD5nMSygL419ljEed9SzCKvJ3+Ah9SlKAzQ94JGniJGtGZ1jvfyXx7jieBWq6bB5ZRx+EXUrF7fNQy3rbEAFYkas1eCEUsRfdvizykZmhJ3nXdKuyWhayzm+2A8fP+ZxA+5ZsBtv/ES4Gpj/1SFUT40fwIvs9etW+niB4N6kQO3O9RGiVmIZcHJMAgZPLW6zzlXBvvXI6MrKZuNEHxBd0e+YIhdTP/l1Tbj4+GmiYMnyT+FAEanlhWZ8taqixTTFdQ69t+k7V8qi91eyj8K/MpISi8xbERhod/ZLHdK+/h96WW0mE7nOC2miS/YqsJuaBFkJiACakNskD3GwlTNk8ulAoiSAzqLVTC1l74ajDk7rKwmU1p7kwF7GDVaYBjpW1gf2Iif5IGi5O4DRm1i+Vgx5ixOZP4aj10NbHrmkqyvYlLQg4jaBvwflNeVsA30GoN7ygBxbTbAhWOohAapSbv2E315pfINbolKA52Ps2i8AsAfVLQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(36860700016)(23010399003)(376014)(10067099003)(261021123027099003)(261102123227099003)(261021121427099003)(261009223027099003)(18002099003)(22082099003)(56012099006)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: w9c8MS1pfOXoadWMjg4ruPypBmkoQNxXjGKtPmH7uHKycXrm1GDdDu78Picptgl2syR09/jGUQJ97LP3pDNdNo5aI1J+93PIYq0qDI+4iMKlO/iZWynejqOKoOh1jrXBov0TYWTOkPGgXSUghoM2qAq6zGVNnNHljMgzWLSCO1GhizszjVR/4Fq6fxiL5vF/2nCtYaG+nfvO4WeBCK1z/a8drQxbA7dBH9bBe3DIH/I7Aq7bIBCIIOCqaBKLJJakLseZpyEyL30yze3x1nSw1aPC1OOIZL35xrwJ7figF6hcwU2J+OD8RMEqjG+FN/OSNmABNo8NPE6YmgibKbuNRHwOe0itUS/t2kJlOEJCA8TcDpjvzZnF3wNb8DeXNaSsPMI88bPusFBYjAHnZlWjce+9z77Io6jk44CYy3yoXpzzXRo1XSAtMw5Bq6Q7FHZG
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2026 07:44:22.4262 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 13bc7e62-baf3-4930-2c3c-08df4ac7ebcc
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS8PEPF000000E1.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7281
+	by gabe.freedesktop.org (Postfix) with ESMTP id 000AE10E0FA;
+	Wed, 25 Nov 2026 07:51:49 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5539C10E0FA
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Nov 2026 07:51:43 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 7503360E22;
+ Wed, 25 Nov 2026 07:51:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B629D1F000C0;
+ Wed, 25 Nov 2026 07:51:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795593101;
+ bh=MHziPxtpsh8G75IZKkcWMWax9uY9YK7thntlZK+uU/c=;
+ h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
+ b=hf0lCEfk5jiZsJby+TXk2CVK6xhaL8Fcq8su7bwtOMP6Lj1lRd3wiqDxtM1Y+2qIL
+ HBYmdbynCR+hWWJ6lddfIYQWXeGBt6uaP+fkB5HmeiwQkicUckh4nygt6o3ioZbh4H
+ HAGNxHwKCVU5e+ZDjW3fZiWPUOuFFBt3VoT1rP8V1XGbCxfyhHFmRGTZYQT3MTRKYp
+ g+vJP9aJdN+heZay+dT53CXH3yXiTLn5D+YYr/FY+HUOMhlmXJiJ77uZz+jrclK6iB
+ 2kqxP59fDTKhG46Sts3+e0raVrPHdjqKHVT7G86sRQEMgOoUH5bZ+6TEDPWYZgoa1F
+ L1XNXom1b0VEA==
+Message-ID: <sashiko-outbox-232842@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/amdgpu: unlink userptr bo_vas under the notifier_lock
+To: "Jesse Zhang" <Jesse.Zhang@amd.com>, amd-gfx@lists.freedesktop.org
+In-Reply-To: <20261125073502.3144422-1-Jesse.Zhang@amd.com>
+References: <20261125073502.3144422-1-Jesse.Zhang@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 25 Nov 2026 07:51:41 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,66 +45,90 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-Fix the register access in soft reset sequence to use the correct XCC
-instance and per XCC sdma instance.  Soft reset is not yet supported in
-SDMA v7.1 though.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] drm/amdgpu: notifier_lock bypass for addr 0 userptr in
+  amdgpu_vm_bo_del()
+--
 
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
+commit 22400668ad8179b001864d3570debe97ad11a006
+Author: Jesse Zhang <Jesse.Zhang@amd.com>
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c b/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
-index 3e8facc0358d..c689e52b1d72 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
-@@ -788,8 +788,8 @@ static int sdma_v7_1_inst_load_microcode(struct amdgpu_device *adev,
- static int sdma_v7_1_soft_reset(struct amdgpu_ip_block *ip_block)
- {
- 	struct amdgpu_device *adev = ip_block->adev;
-+	u32 xcc_id, sdma_xcc_inst;
- 	uint32_t inst_mask;
--	u32 xcc_id;
- 	u32 tmp;
- 	int i;
- 
-@@ -797,6 +797,8 @@ static int sdma_v7_1_soft_reset(struct amdgpu_ip_block *ip_block)
- 	sdma_v7_1_inst_gfx_stop(adev, inst_mask);
- 
- 	for_each_inst(i, inst_mask) {
-+		sdma_xcc_inst =
-+			GET_INST(SDMA0, i) % adev->sdma.num_inst_per_xcc;
- 		xcc_id = adev->sdma.instance[i].xcc_id;
- 
- 		//tmp = RREG32_SOC15_OFFSET(GC, xcc_id, regSDMA0_SDMA_FREEZE,
-@@ -810,14 +812,14 @@ static int sdma_v7_1_soft_reset(struct amdgpu_ip_block *ip_block)
- 
- 		udelay(100);
- 
--		tmp = GRBM_SOFT_RESET__SOFT_RESET_SDMA0_MASK << i;
--		WREG32_SOC15(GC, 0, regGRBM_SOFT_RESET, tmp);
--		tmp = RREG32_SOC15(GC, 0, regGRBM_SOFT_RESET);
-+		tmp = GRBM_SOFT_RESET__SOFT_RESET_SDMA0_MASK << sdma_xcc_inst;
-+		WREG32_SOC15(GC, xcc_id, regGRBM_SOFT_RESET, tmp);
-+		tmp = RREG32_SOC15(GC, xcc_id, regGRBM_SOFT_RESET);
- 
- 		udelay(100);
- 
--		WREG32_SOC15(GC, 0, regGRBM_SOFT_RESET, 0);
--		tmp = RREG32_SOC15(GC, 0, regGRBM_SOFT_RESET);
-+		WREG32_SOC15(GC, xcc_id, regGRBM_SOFT_RESET, 0);
-+		tmp = RREG32_SOC15(GC, xcc_id, regGRBM_SOFT_RESET);
- 
- 		udelay(100);
- 	}
--- 
-2.49.0
+drm/amdgpu: unlink userptr bo_vas under the notifier_lock
 
+This commit acquires adev->notifier_lock in amdgpu_vm_bo_del() when
+unlinking userptr bo_vas from bo->vm_bo to serialize against concurrent
+MMU notifier invalidations.
+
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_vm.c
+> index 94b1cfe05e3e0..d33dcfd7059cf 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -2252,10 +2252,18 @@ void amdgpu_vm_bo_del(struct amdgpu_device *adev,
+>  	dma_resv_assert_held(vm->root.bo->tbo.base.resv);
+> =20
+>  	if (bo) {
+> +		/*
+> +		 * The MMU notifier of a userptr walks bo->vm_bo under the
+> +		 * notifier_lock, it can't take the BO reservation.
+> +		 */
+> +		bool userptr =3D amdgpu_ttm_tt_is_userptr(bo->tbo.ttm);
+> +
+>  		dma_resv_assert_held(bo->tbo.base.resv);
+>  		if (amdgpu_vm_is_bo_always_valid(vm, bo))
+>  			ttm_bo_set_bulk_move(&bo->tbo, NULL);
+> =20
+> +		if (userptr)
+> +			mutex_lock(&adev->notifier_lock);
+>  		for (base =3D &bo_va->base.bo->vm_bo; *base;
+>  		     base =3D &(*base)->next) {
+>  			if (*base !=3D &bo_va->base)
+> @@ -2265,6 +2273,8 @@ void amdgpu_vm_bo_del(struct amdgpu_device *adev,
+>  			*base =3D bo_va->base.next;
+>  			break;
+>  		}
+> +		if (userptr)
+> +			mutex_unlock(&adev->notifier_lock);
+>  	}
+
+[Severity: High]
+Can a userptr BO created at address 0 bypass adev->notifier_lock here and
+still hit the use-after-free on bo_va?
+
+amdgpu_gem_userptr_ioctl() accepts args->addr =3D=3D 0 with a non-zero
+page-aligned size and AMDGPU_GEM_USERPTR_REGISTER, setting gtt->userptr =3D=
+ 0
+and registering the MMU interval notifier for [0, args->size).  However,
+amdgpu_ttm_tt_is_userptr() tests !gtt->userptr:
+
+drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c:amdgpu_ttm_tt_is_userptr() {
+	struct amdgpu_ttm_tt *gtt =3D ttm_to_amdgpu_ttm_tt(ttm);
+
+	if (gtt =3D=3D NULL || !gtt->userptr)
+		return false;
+
+	return true;
+}
+
+When gtt->userptr is 0, userptr evaluates to false, so amdgpu_vm_bo_del()
+skips adev->notifier_lock while an MMU invalidation on a VMA overlapping
+[0, args->size) can concurrently walk bo->vm_bo in
+amdgpu_hmm_invalidate_gfx() -> amdgpu_vm_bo_invalidate().
+
+Checking amdgpu_ttm_tt_get_usermm(bo->tbo.ttm) (or gtt->usertask in
+amdgpu_ttm_tt_is_userptr()) would cover userptr BOs at address 0 as well.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125073502.3144=
+422-1-Jesse.Zhang@amd.com?part=3D1
