@@ -2,98 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A222606A31E
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Nov 2026 03:03:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EC4E606A31E
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Nov 2026 03:10:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=qAh0ENVr
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YatxfzV8
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41CAF10E5DB;
-	Wed, 25 Nov 2026 03:03:17 +0000 (UTC)
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012015.outbound.protection.outlook.com [52.101.48.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1165F10E5DB
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Nov 2026 03:03:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZUEivc+s0Knvc4pzIeb4qPbABzIf60B4WFmXaBox18KRQ9CoAAJmuCmSj57BBXgZFNNS/nOG7/DBsUHPLyyQorDZxOCp307zhmfaa1G2wXDdXArGLiZy29xF5DL/tJGdv+l09clK9H6aJahZogqus2XjjFSsgZle9UAQ6cM2ONHJQLRAueC1b51C2ZXkTAzu3NcaY9GR+Ek0/bT03zWgOsvjIc2GQcbuk2DxOJhFFd+VfOwkz1R8uXy/xdOLFO9zau+KKrHxWsW1PjYLQtWDrwNJWCb/YnktVBjKjlYksqjUjftcjE4v1H+1hsmREkP0KHjArq531q3iFuOTxWrBKw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5UPV8N1YPHvxrCCl6/2WpQA5oUPiYKL3egLWRAVKYF8=;
- b=bvUi7g3iM4XkriaFqSmuZrhQcntbWn0P00QKGgUdgIKv+1xL55Gn44mFWsSU7unyZn3l/9HwC2emeHbFa0+NP/jJr/MUsrN5rKQNqzeBVK47X6m7Zqzqzwwj/V6SmgA3Y7NMEK4hj1o6mPSqANz2LGoTOcj2Myd50NfkMCyqFVK470imrouyuGtPIykmnL5ZH6/+f9YD7pacDJxugES0HUT5Y2Ovl38Nq49cYShbFjA7+U8RSNcL/OzGnu/aeo1tpR15enKwnuTgy2Li1ml1OhheD4b2ZArljsCCurdEprwi3zUMKPHOVGrGSuiVD/u1eQ1BdOzgB4kVrLR2Tgy34A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5UPV8N1YPHvxrCCl6/2WpQA5oUPiYKL3egLWRAVKYF8=;
- b=qAh0ENVrZlHMrKPVUDjxb/TOuP6FWO7H2dgmTfdLFcwcBwzJurRZwDUJdzXwxj8mTYs/uyWscl6aTyQ2gkeZTJxG6wQ+Ynqsd2z1BF/iOec6D8mXbKHayrqvadVf+BZlzX5FkfQgbFB96oB5uxnKCRoNLf875MTfgDMh0W1dt/M=
-Received: from CYZPR05CA0005.namprd05.prod.outlook.com (2603:10b6:930:89::21)
- by CY5PR12MB6551.namprd12.prod.outlook.com (2603:10b6:930:41::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.12; Wed, 25 Nov
- 2026 03:03:06 +0000
-Received: from CY4PEPF000392DB.namprd03.prod.outlook.com
- (2603:10b6:930:89:cafe::27) by CYZPR05CA0005.outlook.office365.com
- (2603:10b6:930:89::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.662.6 via Frontend Transport; Wed, 25
- Nov 2026 03:03:06 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CY4PEPF000392DB.mail.protection.outlook.com (10.167.247.121) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.662.3 via Frontend Transport; Wed, 25 Nov 2026 03:03:06 +0000
-Received: from prike-code-pc.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Tue, 24 Nov
- 2026 21:03:04 -0600
-From: Prike Liang <Prike.Liang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, <Christian.Koenig@amd.com>,
- <Sunpeng.Li@amd.com>, <Mario.Limonciello@amd.com>, <Lijo.Lazar@amd.com>,
- Prike Liang <Prike.Liang@amd.com>
-Subject: [PATCH] drm/amdgpu: only save VKMS modeset state if VKMS is
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E94110E9CF;
+	Wed, 25 Nov 2026 03:10:03 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF39810E9CF
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Nov 2026 03:09:56 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id C5EC241499;
+ Wed, 25 Nov 2026 03:09:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3804A1F000C4;
+ Wed, 25 Nov 2026 03:09:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795576196;
+ bh=x44bbgzFB6aQnz5rKalkcjmcS+rvCTjemLTC7nlu7FE=;
+ h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
+ b=YatxfzV8vCjERXcoOcd6+q4QkkPygT5Ku86KGYKiRyjxp+KJ6bttnfS8Lsx3gNOp7
+ pkRwgjEqhDwBiaPjHXUqb5HFinSOZKew6kVV/ee+oVRx0OS3tT50i325nNknvecCo9
+ UPq5cQBsdBKOLjOKpLtFGt6L6NKOu/q+JjYctPQAxsLeLUUUU4wTJMlVzt6tp2AuOg
+ aRXOtXae7od9qAtZtYaCTYEbivm622xIfUsVEzwacZI7AzADbYZoBgweOqMD9REy8q
+ Txgk/+eDHnGPpeQE05hLFL/3T57o1JBnL+/m+KvL+3rSUrXGPtjFH+HkLMgFoS8xEh
+ qeqBorx9NbPLg==
+Message-ID: <sashiko-outbox-232453@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/amdgpu: only save VKMS modeset state if VKMS is
  initialized
-Date: Wed, 25 Nov 2026 11:02:55 +0800
-Message-ID: <20261125030255.767185-1-Prike.Liang@amd.com>
-X-Mailer: git-send-email 2.34.1
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF000392DB:EE_|CY5PR12MB6551:EE_
-X-MS-Office365-Filtering-Correlation-Id: d574db82-660e-4074-cdfc-08df4aa0a0f0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|36860700016|23010399003|376014|261009223027099003|18002099003|56012099006|261102123227099003|261026121527099003|261026140227099003|10067099003|261022105027099003|11063799006|261028144727099003|261021121427099003|261021123027099003;
-X-Microsoft-Antispam-Message-Info: olgllEG7kqKD+xQMCMy5GqUcndBh++CTjpfwbhRB35VGlDjH2YerpeRf6/MgbyRd8Fi5Hq5ppIPkLUrxrkEdFOz/OiGMlyfcqWJ5LQqbJA9CwzqPZftEEH0pclxBj5y3YD7LmPgGAvsNN7yAOJZ3/Gi4VkbXDjhRxOvXzpX1bMvpjYl3RniqNbH64VkFrFAuoGPg/rXmI4015+DYvHUfd0arsur/2vOhcjICtsspgeA60tTaXzmchD1d2QwegvPcT6+tYBthyuTvapPihaA+nky+w80mj07VZ62wg1I7S8Ojgod45JFXKHh5Tn/o0r0uZA8UTaqIDJjHLH33pSDAsNys+mBfrmNddETfNLQpQO8qBnQ2G4oM57CiiH8eZDM5e9l4BAnQmub8MYXHfUmri/dnnrh8Pd0nA0hlzs6jpUKwo1lryzFvLusqA8LFpx7N0Bu1r2Y/6XElCan1IB1dAF5zfPYrEaxxeZZKJfxgSMv1F100lC1OqgWcdAd8UzKLh+1ty/x/GO9wyvvtwOE5n775sSX1D2bYC65fb2ZkgccHlegNEQ9DvHvrS1uXdHigrfi9lamu32p/AotnVhZERkCf2VTXeFOntZVy9+rxoRE93tbxnatWL2dMNnywddcRAZHKO6QZHmkmoB6TGD5MacuwBV2kh90tcsvONwG7gz5ivnfqYPuYHmCALkHdK6zw+y6QahJIOe0GNe6ppLagiw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(36860700016)(23010399003)(376014)(261009223027099003)(18002099003)(56012099006)(261102123227099003)(261026121527099003)(261026140227099003)(10067099003)(261022105027099003)(11063799006)(261028144727099003)(261021121427099003)(261021123027099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: bVQfBLTxRyZ9uY96OH/XQvNx7fUoBXXU7K8Q6t1AfmiNR5Sj4hpT6zjusm8yQYL3rXTsKEuSArn0GCuyyMd+LiCRzLqmPVIX71kFUWRPmWfCBPSxkm7EsAMBVr7tFmALviwysJ8/gISUM1QXr8flpyRKxbfYzam+UcOjjOgser4fDuMaBQiR2AEn/iRedIVzT4MUIu7MrcThKbbLF/xd+VX+klaNHa54uFYD19kzj7ucyHegdGZ3IYS0AW86414uf9Wao/ytSYFzyzwzLsgt+3ECOxirWtluWSgHherri3yIriGKkd9WIxhSx9wnwtBnwr1c7MsY0zFdhZkY1p8y2KiYXgYbixnCvhHCsPyi0iuvWpuM33epu+Zm86fV65xk/mmu76u4D4FOZZ5JH13ZBbTq0/aBd5EaYVqiDmK33PvjXUAT6KsR2GKeT4k1AowD
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2026 03:03:06.4632 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d574db82-660e-4074-cdfc-08df4aa0a0f0
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF000392DB.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6551
+To: "Prike Liang" <Prike.Liang@amd.com>, amd-gfx@lists.freedesktop.org
+In-Reply-To: <20261125030255.767185-1-Prike.Liang@amd.com>
+References: <20261125030255.767185-1-Prike.Liang@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 25 Nov 2026 03:09:55 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,100 +46,110 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-Commit 11a08cd5ab25 ("drm/amdgpu: save VKMS modeset state from the system
-PM path only") moved drm_mode_config_helper_suspend()/resume() from the
-VKMS IP block callbacks into amdgpu_device_suspend()/resume(), keyed on
-adev->enable_virtual_display.
+Thank you for your contribution! Sashiko AI review found no new issues
+in this patch, but noticed 1 related pre-existing issue it does not
+introduce:
+- [High] drm/amdgpu/userq: race allowing resume_work after
+  amdgpu_userq_suspend() [1]
+--
 
-That flag does not mean a VKMS IP block exists. amdgpu_virt_init_setting()
-sets it on SR-IOV VFs from the common block's early init, after the IP
-blocks were added. A VF without a usable display IP gets no VKMS block,
-so its mode config has no funcs, but enable_virtual_display is still true.
-The old .suspend callback was never reached on such a device. Now
-drm_atomic_helper_suspend() runs and drm_atomic_state_alloc() dereferences
-the NULL dev->mode_config.funcs.
+commit a80bb08812a1d7a481e2390eeabf02bdbae59d10
+Author: Prike Liang <Prike.Liang@amd.com>
 
-amdgpu_pci_shutdown() calls amdgpu_device_suspend(), so the guest oopses
-on every shutdown and reboot, after it requested full access for FINI and
-before it releases it. On a Navi32 (Radeon PRO V710) VF the host times the
-full access out and resets the VF:
+drm/amdgpu: only save VKMS modeset state if VKMS is initialized
 
-  Received Event: VF1, event = 0x3(REQ_GPU_FINI)
-  VF1 entered full access mode.
-  VF1 full access timed out!
-  Issuing FLR on vf: 1.
+This commit introduces amdgpu_device_has_vkms() to verify that both
+enable_virtual_display and mode_config_initialized are set before saving
+and restoring VKMS modeset state during device suspend and resume.
 
-After repeated timeouts the host ignores the VF's REQ_GPU_INIT_DATA and
-REQ_GPU_INIT, and the next boot fails to probe:
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_device.c
+> index 7cf3a4cbac27c..9b0ef3ab5f53a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
 
-  amdgpu 0000:06:00.0: Doesn't get msg:1 from pf, error=-62
-  amdgpu 0000:06:00.0: probe with driver amdgpu failed with error -62
+[ ... ]
 
-Check mode_info.mode_config_initialized too, as amdgpu_device_fini_hw()
-does before it shuts the mode config down.
+> @@ -4605,7 +4615,7 @@ int amdgpu_device_suspend(struct drm_device *dev, b=
+ool notify_clients)
+>  	amdgpu_ras_suspend(adev);
+> =20
+>  	/* VKMS modeset state is saved here, never from the reset path */
+> -	if (adev->enable_virtual_display) {
+> +	if (amdgpu_device_has_vkms(adev)) {
+>  		r =3D drm_mode_config_helper_suspend(dev);
+>  		if (r)
+>  			goto unwind_smartshift;
 
-Fixes: 11a08cd5ab25 ("drm/amdgpu: save VKMS modeset state from the system PM path only")
-Signed-off-by: Prike Liang <Prike.Liang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
+[Severity: High]
+This problem wasn't introduced by this patch, but can amdgpu_device_suspend=
+()
+leave uqm->resume_work scheduled after amdgpu_userq_suspend() returns
+[1]?
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 0254b5531238..700d7517f22e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -4603,6 +4603,16 @@ void amdgpu_device_complete(struct drm_device *dev)
- 	}
- }
- 
-+/*
-+ * enable_virtual_display is also set on SR-IOV VFs that have no display IP,
-+ * where no VKMS IP block was added and the mode config was never set up.
-+ */
-+static bool amdgpu_device_has_vkms(struct amdgpu_device *adev)
-+{
-+	return adev->enable_virtual_display &&
-+	       adev->mode_info.mode_config_initialized;
-+}
-+
- /**
-  * amdgpu_device_suspend - initiate device suspend
-  *
-@@ -4644,7 +4654,7 @@ int amdgpu_device_suspend(struct drm_device *dev, bool notify_clients)
- 	amdgpu_ras_suspend(adev);
- 
- 	/* VKMS modeset state is saved here, never from the reset path */
--	if (adev->enable_virtual_display) {
-+	if (amdgpu_device_has_vkms(adev)) {
- 		r = drm_mode_config_helper_suspend(dev);
- 		if (r)
- 			goto unwind_smartshift;
-@@ -4701,7 +4711,7 @@ int amdgpu_device_suspend(struct drm_device *dev, bool notify_clients)
- 	}
- 
- unwind_vkms:
--	if (adev->enable_virtual_display)
-+	if (amdgpu_device_has_vkms(adev))
- 		drm_mode_config_helper_resume(dev);
- 
- unwind_smartshift:
-@@ -4803,7 +4813,7 @@ int amdgpu_device_resume(struct drm_device *dev, bool notify_clients)
- 		goto exit;
- 	}
- 
--	if (adev->enable_virtual_display) {
-+	if (amdgpu_device_has_vkms(adev)) {
- 		r = drm_mode_config_helper_resume(dev);
- 		if (r)
- 			goto exit;
--- 
-2.34.1
+During system suspend, amdgpu_userq_suspend() can race with
+amdgpu_eviction_fence_suspend_worker():
 
+kworker                                   CPU0
+amdgpu_eviction_fence_suspend_worker()
+  mutex_lock(&uq_mgr->userq_mutex)
+  ...
+  dma_fence_signal(ev_fence)
+                                          amdgpu_device_prepare()
+                                          amdgpu_device_suspend()
+                                            amdgpu_userq_suspend()
+                                              cancel_delayed_work_sync(
+                                                &uqm->resume_work)
+  schedule_delayed_work(
+    &uq_mgr->resume_work, 0)
+  mutex_unlock(&uq_mgr->userq_mutex)
+                                              guard(mutex)(&uqm->userq_mute=
+x)
+                                              amdgpu_userq_unmap_helper()
+                                            ...
+amdgpu_userq_restore_worker()  <-- runs on suspended GPU
+
+amdgpu_eviction_fence_suspend_worker() signals ev_fence before queuing
+resume_work and releasing userq_mutex, while amdgpu_userq_suspend() calls
+cancel_delayed_work_sync(&uqm->resume_work) before taking userq_mutex and
+without flushing evf_mgr->suspend_work.
+
+In addition, amdgpu_device_suspend() calls amdgpu_userq_suspend() before
+amdgpu_device_evict_resources():
+
+drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:amdgpu_device_suspend() {
+	...
+	r =3D amdgpu_userq_suspend(adev);
+	if (r)
+		goto unwind_ip_phase1;
+
+	r =3D amdgpu_device_evict_resources(adev);
+	if (r)
+		goto unwind_userq;
+	...
+}
+
+If ev_fence is still unsignaled at that point, evicting resources triggers
+evf_mgr->suspend_work, which schedules uqm->resume_work after
+amdgpu_userq_suspend() has already finished.
+
+In either case, amdgpu_userq_restore_worker() can run after TTM buffer
+functions, fence drivers and GPU IP blocks are suspended, causing failed
+page table updates, MES command timeouts or hardware access to a suspended
+device.
+
+[1] https://sashiko.dev/#/bug/linux-f4cce3e7-09c5-44f6-b753-c17f5780e3fb
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125030255.7671=
+85-1-Prike.Liang@amd.com?part=3D1
