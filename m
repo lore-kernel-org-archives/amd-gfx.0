@@ -2,42 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8521606A31E
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Nov 2026 06:58:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DCC0606A321
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Nov 2026 06:58:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=xn/OTjEO
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=TqqHn2S0
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 630B410F74A;
-	Wed, 25 Nov 2026 06:58:29 +0000 (UTC)
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011046.outbound.protection.outlook.com [40.107.208.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E23B310F743
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Nov 2026 06:58:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E43210F747;
+	Wed, 25 Nov 2026 06:58:33 +0000 (UTC)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012034.outbound.protection.outlook.com [52.101.48.34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3802010F747
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Nov 2026 06:58:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XUmSbGOMkBmorszsZbh/8JAvN54wLJsTL75+hJtU0h6c8rNBO57aMwBuqJsCw3rbN/St/a28gcflT3uzZ9HY2EfNLXrkzFvK5CBsRQ73vccrqeL1dUrYE6ehr0eTlgp1UpDYJ6Zwghx4xqtZ06nQ9GiNmjHEbBFPCmO3ZwUzIm4PNrrhngRj64Dcqa/2esSxy/x6wrTkOSZvt9nr6CqlmbupCyottJZ8hL8opZJyr/CEH8C8gQoUIso+/jaNx5F2aFifHvpUbIOHKYC8zhZfSyx6PYwAQOWe5RdE9RoWWwTvXjkReI6zK+g8783KYm+GilmK5Fr7b3wGzvbFBktEQg==
+ b=V3ELiW5cFUM8NibUBOY4f9163HKS7iccA9YI1QdEVj2J9a++savOR7slUGlIgATghBY4pdd0jwU2/ci4LhQKNSIHPbD9T/fNJhXykAMR2kBT8FifkhjPjOsDh+D0V1UaGH2xI9pcZCF19XULDbWgLCpgmJOrOLC4MqROJNbheCB7bGacmvKrJjcYVveGpWCmhnywD00eKQ1UA9YRmRiPXhfHLP0+/qmUM/YccQ87XICQHYy1rcVcjxbfjcVNMsqJID2JM3agcF0Z2w/D6wr6Ouz5g5xnQiC2ZN744YXnNRPgWPyF/QdWXFtOSBcTghi1ThXxK96PpFnaQfEktvX71w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BnbNeAscJBEHG47dupFwei6FltPGiZpYIsaTF/+MOu4=;
- b=L8gCzAFuid5ZxHODhn/TWHmKdyTomGI905STRM3aYj6qCDM9S2bBuoV8Wcj1W/td7R3AyPOnHwQT/MipsFg42luza/A2mc0j06/Ba4vR+Db4LRn/VJgJOnpkIZ5mMviPaC18TwfoI6HYucHY7YJQbFKImAupG0iVF9UDUCpZa6kRgVHQYCWxlqQmjXOgfHBFrzQmgDszmwb4Y5utFWyUWbab1A96BVy/uO6vfPQIhxWNozhXSJMhTqjZtps3JHwNpS6Ymn1J2B80ZpvkpYXimGoGDsUK0e9h5H+w9irERUI8MOMwqOx96u29aveAXWhyqcX5q11JI1R8tBZyjUYwQA==
+ bh=AotqKe6CdFphKPo0Ou0hP1ibRR17LAxh92EKnqrWCj4=;
+ b=cTiLDUGPjFeH2bfu99/SYqB5vr+KT9UmpCgscKjWAwkYYek5+IG4oDml1E8fmF8RjcwSyHJBPLNsliNzF4CvhTlHJ6SjW2VERrn9A7wCKe00rnIG94e/VNGJok3Bhp9P3niQYC0VlI/GrJ1TZZ9x5Xf0bvNYvQUXfkFi7By6j8yxxf/dcz0Rbw1n3PUGN+yT3nPQKPcAw4FMc29Xqlg9PtmIJ0WbEUOrI+JXNiJZf/rCD0PpQ+37sqjCJ4yaC1k8CDZeUzWaCm12ahL6ma7oInw6KiNlYzzQ/BbOVRNuShGMxVMmf2zrNj6ad0qg3/3Iz/GVcXOWrTaB5i2pgNj6ew==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BnbNeAscJBEHG47dupFwei6FltPGiZpYIsaTF/+MOu4=;
- b=xn/OTjEOqGM1XYoPODn3bqqp46ErJzykVzBv64fUpM9ixUqPVrkxUJJ0aIMBWANXK/8TnJQFw260a4KgqStTwBUfdKH/hy8FIBpQfZENW1CSiaqnL2VIXFbMFep2QznMI0r2rF3kXJnYnZCEkj0h5mXNob+dYLzPijDi4c5NHlo=
-Received: from SJ2P220CA0004.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:5da::11)
- by MW4PR12MB5667.namprd12.prod.outlook.com (2603:10b6:303:18a::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.6; Wed, 25 Nov
- 2026 06:58:18 +0000
-Received: from BY1PEPF0001AE17.namprd04.prod.outlook.com
- (2603:10b6:a03:5da:cafe::75) by SJ2P220CA0004.outlook.office365.com
- (2603:10b6:a03:5da::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.662.7 via Frontend Transport; Wed, 25
- Nov 2026 06:58:18 +0000
+ bh=AotqKe6CdFphKPo0Ou0hP1ibRR17LAxh92EKnqrWCj4=;
+ b=TqqHn2S0ZfAEAdbEX5fvI/qtBNgBjFdvzqDCgmAv86+t7/4JYNbS6GNmMDLhlCwN8IqCINGlkp3IYJNldc6Zsosivi6rEIj2jHTPtDgX2VSHDwWTC2CW3wq15lZlYHFAXLnHdHuIY4EFRBju7dPfyEsS7uhzI+a3yUShBCWWEyw=
+Received: from PH0PR07CA0088.namprd07.prod.outlook.com (2603:10b6:510:f::33)
+ by PH7PR12MB9149.namprd12.prod.outlook.com (2603:10b6:510:2ea::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.4; Wed, 25 Nov
+ 2026 06:58:22 +0000
+Received: from BY1PEPF0001AE16.namprd04.prod.outlook.com
+ (2603:10b6:510:f:cafe::9b) by PH0PR07CA0088.outlook.office365.com
+ (2603:10b6:510:f::33) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.662.6 via Frontend Transport; Wed, 25
+ Nov 2026 06:58:22 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -46,16 +46,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BY1PEPF0001AE17.mail.protection.outlook.com (10.167.242.107) with Microsoft
+ BY1PEPF0001AE16.mail.protection.outlook.com (10.167.242.104) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.662.3 via Frontend Transport; Wed, 25 Nov 2026 06:58:18 +0000
+ 15.21.662.3 via Frontend Transport; Wed, 25 Nov 2026 06:58:22 +0000
 Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Wed, 25 Nov
- 2026 00:58:07 -0600
+ 2026 00:58:16 -0600
 Received: from chenyu-station.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.57 via Frontend
- Transport; Wed, 25 Nov 2026 00:57:59 -0600
+ Transport; Wed, 25 Nov 2026 00:58:08 -0600
 From: Chenyu Chen <chen-yu.chen@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -66,9 +66,10 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
  <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>,
  "Chenyu Chen" <chen-yu.chen@amd.com>
-Subject: [PATCH 19/27] drm/amd/display: Test amdgpu_dm_dmub alt-ch apertures
-Date: Wed, 25 Nov 2026 14:55:08 +0800
-Message-ID: <20261125065631.3889665-20-chen-yu.chen@amd.com>
+Subject: [PATCH 20/27] drm/amd/display: Test amdgpu_dm_dmub SET_CONFIG sync
+ wait
+Date: Wed, 25 Nov 2026 14:55:09 +0800
+Message-ID: <20261125065631.3889665-21-chen-yu.chen@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261125065631.3889665-1-chen-yu.chen@amd.com>
 References: <20261125065631.3889665-1-chen-yu.chen@amd.com>
@@ -78,29 +79,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE17:EE_|MW4PR12MB5667:EE_
-X-MS-Office365-Filtering-Correlation-Id: 22e37eb6-1d47-4b0d-ffb5-08df4ac17c8f
+X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE16:EE_|PH7PR12MB9149:EE_
+X-MS-Office365-Filtering-Correlation-Id: a2c88ea6-474a-4c57-c22f-08df4ac17e9d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|1800799024|376014|23010399003|82310400026|10067099003|260925022911599003|260925021911599003|260925021311599003|11063799006|56012099006|261021121427099003|261009223027099003|261102123227099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: O+h8ucO4bqcWIslAc/VFXK5r5MgWqALPDV4kung+RHPNwWUXalimv62s0t2zQju04ODA5bPu/UrHLjPR8FAPsREitb+Nts19kE9PvRSOqq45LPWaD5s4fIwl0nvTLtRxoqkQYC7J86TtfAzgHX7LqjUSeS8rkdf+GY8my3hlYVUyvZQdsjIVIRofarqtzV2tizqCYsZHIoL3OJGj6tYOoxCuspJzlOQ/ygosqFAvNfp+OxtbA4kO784OPgA0UeXHMXrpNRDflVOhPA2zfV+360NXa4qqCkajWAaZC3rkDmxHNSYHLV/sYKhct9HXCYQ5Vrfm/QjndwtxXP43RkffkeCDJfxeuQ4IdElxVWROZ32UmCSG1/nYPjp4D8bTLY9HoSeoE0BiF5PhlRqngA/VzXnajDbQuKcbySmqolv7tfOa5lNAoMPYfPgUGphka47RGwKon/tpjfm/dY8VDwjza2zPmAxyKZxSqk6/x4AibqNLu72mGwCuyDdY+EadFra9C4A5rEeKIKdx7dYGZF0ts/p2FULXM9lq2Ve5+knv4dLUQBDSWr2GSr8JQJdJEM36aU846D8CQcfFDFUMR2HML7EacgS+Y4atadDCW4rTTQ2LXaL3mEsrXpwb/lJN6jsEREF5Vo1VCnhv9DZxmfGg79vqncwnd3wiMf8irdXPpWppjTcHfR4NAFoQT1sBhGhXsV2G6l8NKv86z5d6JzE35A==
+ ARA:13230040|82310400026|1800799024|36860700016|30052699003|376014|23010399003|18002099003|22082099003|3023799007|56012099006|11063799006|261028144727099003|261026140227099003|261022105027099003|261021121427099003|261026121527099003|261009223027099003|261102123227099003|10067099003;
+X-Microsoft-Antispam-Message-Info: XOcKTPqFEHERajjqbLRX/jTAz8hxepan1gAk7+4C2rQfHJFJ8m9GyiVgrsowhXVvV9DdsIzZqDn/gz4v4g4fK0JFuoyjuAgZdx4XUH+kQMVXA/FYIsDqrAVep+IA+X4ssq7y519+bPingFEBhRsypVD7VnblVi/cpe4pd7dMlJUKjUwMpnczpUGWT07/oxkaA3S5+zr/eomNHkbz99X1wr82CXZXIT0z6QpRXJ2KJSaxHgxmu3mycGuDu4h1zzQbl7SbatjlWBTNMtBVrWM0tnopG8aRO4ndq3Lmjs/In53kSYRfEbm22HwDfP1WzEY1vbBNGUxkQximERv3ruyjPi14jT0itb81kHZKKdU3DHzWOtGWEr7TE6qjVY2eDxE1b++jyiBFCWmCVTAY4xS8It50PY+YaDDz9zrM+LVoHTUbLE46c2hjoWgQieERvAnZErrIY43l+wNsRspzcZ9KOXoKjGPzIVZ/pw/e8MUiGzA+av77ZuxzxBD9Jk4b3tZfPmbvWp73aUESpdhK1YAc0yH1z24d4+IsayiOd556d/WtmLL98Hf0sVAgX32ZBMKNe/AiBSrdRpiXW2bIpTRh/7PtuvnTC/Y3YBuTGLzk2twTBYQr9rx11gOCpd5+P2OEWB883ooHcDYWEo9NdKENwDH6OVocciz5hfzlMxKGYx5gdDPf7YRJdpDub6U6lRswXyBXRHbwOxZ8PyhG1o3ceQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(1800799024)(376014)(23010399003)(82310400026)(10067099003)(260925022911599003)(260925021911599003)(260925021311599003)(11063799006)(56012099006)(261021121427099003)(261009223027099003)(261102123227099003)(22082099003)(18002099003);
+ SFS:(13230040)(82310400026)(1800799024)(36860700016)(30052699003)(376014)(23010399003)(18002099003)(22082099003)(3023799007)(56012099006)(11063799006)(261028144727099003)(261026140227099003)(261022105027099003)(261021121427099003)(261026121527099003)(261009223027099003)(261102123227099003)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 9/mLT3ECiw0vS1h2RW67LUy5v971Dl+YOT+weO2XKZtw5lkZVYFQXlt+FLBBwVR3INvOMAjzkhjHQ1g7CnNwCxcv24OywnReN/SjW7Oc/EjN7bdI0/5Zd05kz8gt2FwEgwIcpySzs2MmtIZ+/9+9PVCQLQepWofpWr/M+u2mf0cRFIkbTWLld835GuvRwLix8cIILK3YCLUWliSCjIrQS+/+ZRfkDPM7BgfYLQbY1blmVuTcjWvtcQFPI0MuKbrTbHa4kZAwRG2fp/YoUD+65Ra9Wo+w0Tj4MWzlIwftcO32eD1s/ZeNqGyfngoJPCUhOvM8RTZEMlwgfGU+cwsK9/eSgp6xyk950kTIWavoJ9zC9e+7XB8e4gxQTBJPqZmfMRLegJ784LFRX8E6xJWAlTNto8QTpUO0y52xRe49202cM9BrVeV+xTvgZ/W8AOPN
+X-MS-Exchange-AntiSpam-MessageData-0: RePkzxYWMoDaea5D8VxgB8nTo3AzktBVaDxj2xhc7WTFCs+sCITz0Jr9bLuSrGDwVbmtz3gWKRiwtJHnk87pVbBkaXbMFTBVjJ7bjay4pEbCwohZck1EM1OuYsSqs10B9jXLyJdkXGEryT3i+Cgi2rM1QmDszmkQ4e8195jsDW++xS4i70umDxkD8til+9r6di4Rm153u2laf6xm4f5fjsk6c5veD/U7eB2M3f1Gxy99G/uVJcb5tYNeIZ5MZWVFPzypj2NdUHksdoAgcD6f1M7KbYYbWpOqoU8sQeQDthPLq8i7lvoPj7uqwRS1E4aFW2a75Pj1B2TTNbJ7ataBVEfOVmWr/hT5JrUZJw4cn1m96L9Z5D2NJ21GTwpsq4jnrd4kB0przKpcryO4zdN1nyAvSt8CW3FKXCeru5Lyk24vFbs98scf4zbOpLUXdBwU
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2026 06:58:18.7584 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 22e37eb6-1d47-4b0d-ffb5-08df4ac17c8f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2026 06:58:22.2291 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a2c88ea6-474a-4c57-c22f-08df4ac17e9d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BY1PEPF0001AE17.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BY1PEPF0001AE16.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB5667
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9149
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,127 +122,139 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 From: Alex Hung <alex.hung@amd.com>
 
 [WHAT]
-Add KUnit tests for dm_dmub_hw_init() covering the alternate-channel
-p-state apertures: both apertures published to DML2, and a missing or
-invalid-size aperture leaving the feature disabled.
+Add KUnit tests for amdgpu_dm_process_dmub_set_config_sync() covering
+a pending command completed by a DMUB notification, and the reply
+timeout.
 
 Cc: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
 Signed-off-by: Alex Hung <alex.hung@amd.com>
 Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
 ---
- .../amdgpu_dm/tests/amdgpu_dm_dmub_test.c     | 92 +++++++++++++++++++
- 1 file changed, 92 insertions(+)
+ .../amdgpu_dm/tests/amdgpu_dm_dmub_test.c     | 97 +++++++++++++++++++
+ 1 file changed, 97 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_dmub_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_dmub_test.c
-index 595a7dcb57ad..1a4fa8c7e00c 100644
+index 1a4fa8c7e00c..164071f39731 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_dmub_test.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_dmub_test.c
-@@ -835,6 +835,96 @@ static void dm_test_dmub_hw_init_dmcu_abm(struct kunit *test)
- 	KUNIT_EXPECT_TRUE(test, abm->dmcu_is_running);
+@@ -925,6 +925,33 @@ static void dm_test_dmub_hw_init_alt_channel_rejected(struct kunit *test)
+ 	}
  }
  
-+/*
-+ * Fake discovery MEM_RESERVED_INFO table: the real lookup in
-+ * amdgpu_discovery_get_mem_reserved_region_by_id() walks this cached table.
-+ */
-+
-+#define DM_TEST_VRAM_START		0x8000000000ULL
-+#define DM_TEST_VRAM_BASE_OFFSET	0x40000000ULL
-+#define DM_TEST_APERTURE1_START		0x10000000ULL
-+#define DM_TEST_APERTURE2_START		0x30000000ULL
-+#define DM_TEST_APERTURE1_SIZE		SZ_16M
-+#define DM_TEST_APERTURE2_SIZE		SZ_32M
-+#define DM_TEST_MC_BASE(s)		((s) + DM_TEST_VRAM_START - DM_TEST_VRAM_BASE_OFFSET)
-+
-+static void dm_test_set_reserved_regions(struct kunit *test, struct amdgpu_device *adev,
-+					 u32 num_regions, u64 aperture2_size)
++static void dm_test_free_dc_dmub_srv(void *data)
 +{
-+	struct mem_reserved_info_table_v1_0 *table;
++	struct dc_context *ctx = data;
 +
-+	table = kunit_kzalloc(test, sizeof(*table), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, table);
-+
-+	table->list_num = cpu_to_le32(num_regions);
-+	table->list[0].reserved_region_id = cpu_to_le32(G7_PSTATE_APERTURE1_ID);
-+	table->list[0].reserved_region_size = cpu_to_le64(DM_TEST_APERTURE1_SIZE);
-+	table->list[0].reserved_region_start = cpu_to_le64(DM_TEST_APERTURE1_START);
-+	table->list[1].reserved_region_id = cpu_to_le32(G7_PSTATE_APERTURE2_ID);
-+	table->list[1].reserved_region_size = cpu_to_le64(aperture2_size);
-+	table->list[1].reserved_region_start = cpu_to_le64(DM_TEST_APERTURE2_START);
-+
-+	adev->discovery.mem_reserved_table = table;
-+	adev->gmc.vram_start = DM_TEST_VRAM_START;
-+	adev->vm_manager.vram_base_offset = DM_TEST_VRAM_BASE_OFFSET;
-+	adev->ip_versions[DCE_HWIP][0] = IP_VERSION(6, 0, 0);
++	kfree(ctx->dmub_srv);
++	ctx->dmub_srv = NULL;
 +}
 +
-+/**
-+ * dm_test_dmub_hw_init_alt_channel_apertures - Test hw init publishes both p-state apertures
-+ * @test: The KUnit test context
-+ *
-+ * With both G7 p-state apertures present in the discovery table,
-+ * dm_dmub_hw_init() should translate each base into MC space and hand bits
-+ * [47:16] and the size to DML2.
++/*
++ * Build an amdgpu_device whose DC DMUB service runs on the fake DMUB, so
++ * commands complete instantly and replies echo the submitted command.
 + */
-+static void dm_test_dmub_hw_init_alt_channel_apertures(struct kunit *test)
++static struct amdgpu_device *dm_test_alloc_adev_with_dc_dmub(struct kunit *test)
 +{
 +	struct amdgpu_device *adev = dm_test_alloc_adev_with_dmub(test);
-+	struct dml2_soc_alt_ch_info *cfg = &adev->dm.dc->dml2_options.alt_ch_cfg;
++	struct dc_context *ctx = adev->dm.dc->ctx;
 +
-+	dm_test_set_reserved_regions(test, adev, 2, DM_TEST_APERTURE2_SIZE);
++	spin_lock_init(&adev->dm.dmub_lock);
++	mutex_init(&adev->dm.dpia_aux_lock);
 +
-+	KUNIT_EXPECT_EQ(test, dm_dmub_hw_init(adev), 0);
-+	KUNIT_EXPECT_EQ(test, cfg->region_base_addr_47_16[0],
-+			(u32)(DM_TEST_MC_BASE(DM_TEST_APERTURE1_START) >> 16));
-+	KUNIT_EXPECT_EQ(test, cfg->region_base_addr_47_16[1],
-+			(u32)(DM_TEST_MC_BASE(DM_TEST_APERTURE2_START) >> 16));
-+	KUNIT_EXPECT_EQ(test, cfg->region_size_bytes[0], (u32)DM_TEST_APERTURE1_SIZE);
-+	KUNIT_EXPECT_EQ(test, cfg->region_size_bytes[1], (u32)DM_TEST_APERTURE2_SIZE);
-+}
++	KUNIT_ASSERT_EQ(test, dm_dmub_hw_init(adev), 0);
++	KUNIT_ASSERT_NOT_NULL(test, ctx->dmub_srv);
++	KUNIT_ASSERT_EQ(test, kunit_add_action_or_reset(test, dm_test_free_dc_dmub_srv, ctx), 0);
 +
-+/**
-+ * dm_test_dmub_hw_init_alt_channel_rejected - Test unusable apertures disable the feature
-+ * @test: The KUnit test context
-+ *
-+ * A missing aperture 2, a zero-sized one or one of at least 0xfff MiB disables
-+ * the feature, and dm_dmub_hw_init() must not publish the valid aperture 1.
-+ */
-+static void dm_test_dmub_hw_init_alt_channel_rejected(struct kunit *test)
-+{
-+	static const struct {
-+		u32 num_regions;
-+		u64 aperture2_size;
-+	} cases[] = {
-+		{ 1, DM_TEST_APERTURE2_SIZE },
-+		{ 2, 0 },
-+		{ 2, 0xfffULL << 20 },
-+	};
-+	struct amdgpu_device *adev;
-+	unsigned int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(cases); i++) {
-+		adev = dm_test_alloc_adev_with_dmub(test);
-+		dm_test_set_reserved_regions(test, adev, cases[i].num_regions,
-+					     cases[i].aperture2_size);
-+
-+		KUNIT_EXPECT_EQ(test, dm_dmub_hw_init(adev), 0);
-+		KUNIT_EXPECT_EQ_MSG(test, adev->dm.dc->dml2_options.alt_ch_cfg.region_size_bytes[0],
-+				    0, "case %u", i);
-+	}
++	return adev;
 +}
 +
  /* Tests for dm_dmub_hw_resume() */
  
  /**
-@@ -1958,6 +2048,8 @@ static struct kunit_case amdgpu_dm_dmub_tests[] = {
- 	KUNIT_CASE(dm_test_dmub_hw_init_sanity_checks_dcn31),
- 	KUNIT_CASE(dm_test_dmub_hw_init_sanity_checks_dcn314),
- 	KUNIT_CASE(dm_test_dmub_hw_init_dmcu_abm),
-+	KUNIT_CASE(dm_test_dmub_hw_init_alt_channel_apertures),
-+	KUNIT_CASE(dm_test_dmub_hw_init_alt_channel_rejected),
- 	/* dm_dmub_hw_resume() */
- 	KUNIT_CASE(dm_test_dmub_hw_resume_no_dmub_srv),
- 	KUNIT_CASE(dm_test_dmub_hw_resume_initialized_dmub),
+@@ -1441,6 +1468,74 @@ static void dm_test_process_dmub_set_config_sync_unknown_error(struct kunit *tes
+ 	KUNIT_EXPECT_EQ(test, result, SET_CONFIG_UNKNOWN_ERROR);
+ }
+ 
++static struct amdgpu_device *dm_test_alloc_adev_with_link(struct kunit *test)
++{
++	struct amdgpu_device *adev = dm_test_alloc_adev_with_dc_dmub(test);
++	struct dc_link *link;
++
++	link = kunit_kzalloc(test, sizeof(*link), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, link);
++
++	link->ddc = kunit_kzalloc(test, sizeof(*link->ddc), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, link->ddc);
++
++	link->ctx = adev->dm.dc->ctx;
++	adev->dm.dc->links[0] = link;
++	adev->dm.dc->link_count = 1;
++
++	adev->dm.dmub_notify = kunit_kzalloc(test, sizeof(struct dmub_notification), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, adev->dm.dmub_notify);
++
++	init_completion(&adev->dm.dmub_aux_transfer_done);
++
++	return adev;
++}
++
++/**
++ * dm_test_process_dmub_set_config_sync_pending_notified - Test a pending SET_CONFIG completes
++ * @test: The KUnit test context
++ *
++ * When DMUB accepts the command without an immediate status, the sync helper
++ * waits for the outbox notification, reports its status and rearms the
++ * completion for the next request.
++ */
++static void dm_test_process_dmub_set_config_sync_pending_notified(struct kunit *test)
++{
++	struct amdgpu_device *adev = dm_test_alloc_adev_with_link(test);
++	struct set_config_cmd_payload payload = { 0 };
++	enum set_config_status result = SET_CONFIG_PENDING;
++	int ret;
++
++	adev->dm.dmub_notify->sc_status = SET_CONFIG_ACK_RECEIVED;
++	complete(&adev->dm.dmub_aux_transfer_done);
++
++	ret = amdgpu_dm_process_dmub_set_config_sync(adev->dm.dc->ctx, 0, &payload, &result);
++
++	KUNIT_EXPECT_EQ(test, ret, 0);
++	KUNIT_EXPECT_EQ(test, result, SET_CONFIG_ACK_RECEIVED);
++	KUNIT_EXPECT_FALSE(test, completion_done(&adev->dm.dmub_aux_transfer_done));
++}
++
++/**
++ * dm_test_process_dmub_set_config_sync_timeout - Test a pending SET_CONFIG times out
++ * @test: The KUnit test context
++ *
++ * When DMUB accepts the command but no notification arrives within the 10
++ * second wait, the sync helper returns -1 with SET_CONFIG_UNKNOWN_ERROR.
++ */
++static void dm_test_process_dmub_set_config_sync_timeout(struct kunit *test)
++{
++	struct amdgpu_device *adev = dm_test_alloc_adev_with_link(test);
++	struct set_config_cmd_payload payload = { 0 };
++	enum set_config_status result = SET_CONFIG_PENDING;
++	int ret;
++
++	ret = amdgpu_dm_process_dmub_set_config_sync(adev->dm.dc->ctx, 0, &payload, &result);
++
++	KUNIT_EXPECT_EQ(test, ret, -1);
++	KUNIT_EXPECT_EQ(test, result, SET_CONFIG_UNKNOWN_ERROR);
++}
++
+ /* Tests for abort_fused_io() */
+ 
+ /**
+@@ -2071,6 +2166,8 @@ static struct kunit_case amdgpu_dm_dmub_tests[] = {
+ 	KUNIT_CASE(dm_test_process_dmub_aux_transfer_sync_zero_length),
+ 	/* amdgpu_dm_process_dmub_set_config_sync() */
+ 	KUNIT_CASE(dm_test_process_dmub_set_config_sync_unknown_error),
++	KUNIT_CASE(dm_test_process_dmub_set_config_sync_pending_notified),
++	KUNIT_CASE_SLOW(dm_test_process_dmub_set_config_sync_timeout),
+ 	/* abort_fused_io() */
+ 	KUNIT_CASE(dm_test_abort_fused_io_no_dmub_srv),
+ 	{}
 -- 
 2.43.0
 
