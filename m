@@ -2,84 +2,94 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8987A606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE656606A321
 	for <amd-gfx@archiver.kernel.org>; Wed, 25 Nov 2026 08:42:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q0te2y17
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=yWU/tPwY
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22DAB10FA09;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 74DFE10FA0D;
 	Wed, 25 Nov 2026 08:42:03 +0000 (UTC)
-Received: from mail-wm2-f10.google.com (mail-wm2-f10.google.com
- [74.125.225.138])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E345B10E8CC
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Nov 2026 01:00:38 +0000 (UTC)
-Received: by mail-wm2-f10.google.com with SMTP id
- 5b1f17b1804b1-4b80834ce1aso7711505e9.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Nov 2026 17:00:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795568437; x=1796173237; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:subject:from:cc:to
- :content-language:user-agent:mime-version:date:message-id:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=4ztWU0LVXdWdRsX5K6cCqmpXvJ1UHD07jKNkG2vEvTY=;
- b=q0te2y17Q11mrYs0obDfFVfwNnSGwDcYhUAxx+adjSJ68ocrSrHat2fjhGj5QzY+51
- 2s/sJiP19CQWHlVdUfTLBnIaP/yViexQn//B95TKVr/jCUo5RsRS3rFU5OdWL8G4gCLa
- kEsU616qO3o2fvLBqkNH4wWBuJfWLUEork7w10B918vvOeklh1ORYw56D7qQl3KaRj7V
- PVvSusMOh4gh6LlQvRJXjK25urcDP2zBqI0GrX2rJGytM0t+NY1IdJKisgr9lHTb8lJb
- QvS2WPYpm6MMqZKXdFXeQHXWWp7zVJqyxUBU25OsIoEr3Ve7uPOyQFvg9nHMXe3OGaoP
- VSiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795568437; x=1796173237;
- h=content-transfer-encoding:content-type:subject:from:cc:to
- :content-language:user-agent:mime-version:date:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=4ztWU0LVXdWdRsX5K6cCqmpXvJ1UHD07jKNkG2vEvTY=;
- b=FDXW1b/cMaosfYrMy7J8vO+5y+2OWgfKNrnSf0hTaVF5IdeQz/XnolB6LK8iTl9Adm
- YktoY5ufk3KHELiECwYsN8sx11W8eIAaABvUir8s9qqpwUzPVoUjo2FrQJ+/bt1rhiK6
- 0qYaseVjQkX0SFSiET6J1/Yy5WBFKYrY3/+KIaTbkFyh/pFTpURrHd60Jfvyz4mfy5Uf
- fgduMHpUOeUXVVv7HCqamrJe9QF90aUYV7qPblldrVqkkHz9tQEdaXnfaG44GB34YFO1
- 3X/+ossiVTJwTEA6C4xk5QH+bSJrBcqiY+kg8Avcc/ahr3W0GJIzDyUkLIf2K3PI3Iv/
- ndmA==
-X-Gm-Message-State: APuU4Z9cjpvtR8b6uJMA44EMdNPKQuS3DD//RMesNrVp/dDr3ThsDMzm
- jS4GmBs93lDEE5XReznvG4ueu6EqdItRV3z+fs+GeUMuORrR9WkuOZaWK0FmElMY
-X-Gm-Gg: AZFdTZfZp99DtnOhticIx8fTaMIyE3yNuFJTzd9uGlJMUPSkCqN3gVhIgnxnXYlZ0Ie
- mQzMPIQA8IOCIZci++CuhTu3nIDqVNBKoJdM2xDmkLTbbZ6he8IRgl6XwUUJgq5CUPUQRGkufwV
- /TtHX7mV+X+xQIob8ITeKdxp90G4VEf4VQLkVjrFtXAc7in0RH436wQX2ebzS+R7U4zKsrRj+SO
- RLm1eDRL4pQy3FArJssHYm+5bq01IkCgmi4ad3kIArMJg3LJP9z2IxxvkcuP8sYAIoBz9NKnqnq
- 39kbNuV7tkqRwGDLbv8YvqisTrMx6As9MbNBsevTmemg7pMLXAXVjEe6ewG/+pxUb9vYriPQsHD
- pBP+y13sjXTigRsbrHwQfialXEhn69I1wLy6cfxaiOpQT44MZsoWlojW4y0QarIWWXb9DhxrOVW
- chEqCG5rTw4pIEfBO5qYxcuDtyblsx7tKW/h0BQK/zLa74rGucHqtnq8tmSZRKf9YSPhjGxuxki
- 4njViDBiA15X/Uk1wa/Ib66Quw49/mNWzkaVOASmDQQKGJC/mIm2Hy4gGdoA9i+2UE9CuJOu4E1
- bLQNRofULUn0066YqOQPhG2GXGKSQAkPRi6V
-X-Received: by 2002:a5d:64c4:0:b0:48e:7b12:ac9f with SMTP id
- ffacd0b85a97d-4abb5fa17f2mr31649016f8f.40.1795568436905; 
- Tue, 24 Nov 2026 17:00:36 -0800 (PST)
-Received: from [192.168.1.11] ([31.94.68.154])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4ab658e2d1bsm32363611f8f.8.2026.11.24.17.00.34
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 Nov 2026 17:00:36 -0800 (PST)
-Message-ID: <8342fe8e-5c52-408e-a2f5-0f04b10f332e@gmail.com>
-Date: Wed, 25 Nov 2026 01:00:33 +0000
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE5D010ECD6;
+ Wed, 25 Nov 2026 06:14:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
+ :Reply-To:Content-Type:Content-ID:Content-Description;
+ bh=KSyfkTIM3oBW4szNqhNzxJzYdeXlrWQwTUs3E0agQZA=; b=yWU/tPwYuhIm5oxlF+9IIOB21x
+ XZ1/SuGnvm8fxYUV82u/rwcd+e0JZTVBDbmeo2EFN8RRcskRB0J8b/0GVtFClKCZvHJDDfHB5vJoP
+ mioMKbeXUW1pWyqV3vu4b3sl59Hg3eAdFCLVCKFOWEIQeOJQKtNmm6uSDYGYFEcNmOhI8Ogqlp0Qw
+ UCmXP5Nzvez1UEntRjVk5QkwqQuJFewkiU0ivn2GKJXjq6y17OjRmrQ+fzQ6uD4QJpFz4jELL8vwP
+ QcJ6uaOqREsHDGyS5bWv5k7pNbopX8lNMRWxb+uY/dTboKIQkxA+w2SxUTYfDiL4XcfSJeGrkPkWU
+ S6PSujXA==;
+Received: from [50.53.43.113] (helo=bombadil.infradead.org)
+ by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+ id 1xW6GU-00000008Wvh-0Sz8; Wed, 25 Nov 2026 06:13:58 +0000
+From: Randy Dunlap <rdunlap@infradead.org>
+To: linux-kernel@vger.kernel.org
+Cc: Randy Dunlap <rdunlap@infradead.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org,
+ David Hildenbrand <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Jason Gunthorpe <jgg@nvidia.com>, Leon Romanovsky <leonro@nvidia.com>,
+ linux-mm@kvack.org, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org,
+ Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
+ Marcel Holtmann <marcel@holtmann.org>,
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+ linux-bluetooth@vger.kernel.org,
+ Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+ Jason Wang <jasowangio@gmail.com>, David Heidelberg <david@ixit.cz>,
+ oe-linux-nfc@lists.linux.dev, Chas Williams <3chas3@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
+ Helge Deller <deller@gmx.de>, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, MPT-FusionLinux.pdl@broadcom.com,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K. Petersen" <mkp@kernel.org>, linux-scsi@vger.kernel.org,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
+ Zhihao Cheng <chengzhihao1@huawei.com>, linux-mtd@lists.infradead.org,
+ Neill Kapron <nkapron@google.com>, Andrey Konovalov <andreyknvl@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org, Hans de Goede <hansg@kernel.org>,
+ Arnd Bergmann <arnd@arndb.de>, "Michael S. Tsirkin" <mst@redhat.com>,
+ =?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+ Sean Christopherson <seanjc@google.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org,
+ virtualization@lists.linux.dev, Jan Kara <jack@suse.cz>,
+ linux-fsdevel@vger.kernel.org, "Theodore Ts'o" <tytso@mit.edu>,
+ linux-ext4@vger.kernel.org, Mike Marshall <hubcap@omnibond.com>,
+ devel@lists.orangefs.org, Paulo Alcantara <pc@manguebit.org>,
+ Namjae Jeon <linkinjeon@kernel.org>, linux-cifs@vger.kernel.org,
+ Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>,
+ linux-f2fs-devel@lists.sourceforge.net,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Tzung-Bi Shih <tzungbi@kernel.org>, Benson Leung <bleung@chromium.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, intel-gfx@lists.freedesktop.org,
+ Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ intel-xe@lists.freedesktop.org
+Subject: [PATCH v3 06/12] docs: ioctl-number: update SCSI entries
+Date: Tue, 24 Nov 2026 22:13:33 -0800
+Message-ID: <20261125061340.3402300-7-rdunlap@infradead.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125061340.3402300-1-rdunlap@infradead.org>
+References: <20261125061340.3402300-1-rdunlap@infradead.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Richard Lane <richardlanedev@gmail.com>
-From: Richard Lane <richardlanedev@gmail.com>
-Subject: [PATCH v3 0/3] drm/amd: Enable 2x1 tiled display support on Apple
- Retina iMacs
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 25 Nov 2026 08:41:41 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,102 +101,53 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-8.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FORGED_GMAIL_RCVD,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi folks,
+Update the list of files where SCSI ioctls are defined and update the
+ranges of function numbers that are used.
 
-Apple 21.5" 4K (iMac18,2, iMac19,2) and 27" 5K (iMac15,1, iMac17,1,
-iMac18,3, Polaris-based iMac19,1) Retina iMacs drive their internal
-4096x2304 or 5120x2880 panel as a 2x1 tiled display using two streams
-over an internal eDP root link and a secondary DP link.
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+Reviewed-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
+---
+v2: no change
+v3: rebase
 
-At boot, the Apple EFI firmware initializes only a single pipe and
-leaves the secondary DP tile unlatched with HPD deasserted. Because the
-secondary tile reports HPD low and requires a vendor-specific DPCD
-handshake before it responds as a DisplayPort sink, amdgpu currently
-fails to detect the second tile, leaving Linux limited to single-tile
-resolutions.
+[Since having multiple maintainers trying to merge these would
+cause some conflicts, it would be more manageable for Jon to
+take all of these through the docs-next tree.]
 
-This series enables full dual-tile operation on DCE < 12 Apple 4K/5K
-Retina iMacs so that the internal panel behaves like a standard
-DisplayID tiled monitor:
+Cc: Jonathan Corbet <corbet@lwn.net>
+Cc: Shuah Khan <skhan@linuxfoundation.org>
+Cc: linux-doc@vger.kernel.org
+Cc: MPT-FusionLinux.pdl@broadcom.com
+Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>
+Cc: "Martin K. Petersen" <mkp@kernel.org>
+Cc: linux-scsi@vger.kernel.org
 
-1. Calculate the pre-OS framebuffer reservation in GMC v7 and v8 using
-   mmGRPH_PITCH and the mmGRPH_PRIMARY_SURFACE_ADDRESS offset from
-   vram_start so the full relocated Apple EFI scanout surface is
-   preserved during boot handover without vendor-specific quirks.
-2. Latch the root eDP link via DPCD 0x4F1 prior to EDID read on Apple
-   hardware (DCE < 12), point the secondary DP link to the root eDP
-   link (apple_imac_peer) via an EDID quirk covering 4K and 5K Retina
-   iMacs, latch the secondary tile via DPCD 0x4F1 on the root eDP link,
-   write the 3-byte Boot Camp source table (0x310) on the secondary
-   link, keep the secondary tile out of D3 power-down, and unlatch the
-   TCON back to single-pipe mode on suspend/shutdown. Once unlocked,
-   DRM's DisplayID parser populates has_tile, tile_group, and
-   tile_is_single_monitor on both connectors natively. (DCE >= 12
-   support for Vega-equipped iMac19,1, iMacPro1,1, and 2020 iMac20,x is
-   noted as TODO.)
-3. Compute context->bw_ctx.bw.dce.all_displays_in_sync in
-   dce100_validate_bandwidth() using
-   resource_are_streams_timing_synchronizable() and copy it to
-   pp_display_cfg->all_displays_in_sync in
-   dce_pplib_apply_display_requirements(), matching the existing DCE 11
-   bw_calcs() flow so SMU7 can downclock MCLK at idle on DCE <= 10
-   without modeset underflows.
+ Documentation/userspace-api/ioctl/ioctl-number.rst |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Changes in v3:
-- Patch 2: Added pre-EDID DPCD 0x4F1 latch on the root eDP link in
-  dm_helpers_read_local_edid() so dual-tile detection works even when
-  third party bootloaders are not present on the EFI partition. Added
-  21.5" 4K Retina iMac panel IDs (AE19/1A for iMac18,2 and iMac19,2)
-  and renamed apple_5k_peer / amdgpu_dm_apple5k_unlatch() to
-  apple_imac_peer / amdgpu_dm_apple_imac_unlatch().
-- Patch 3: Dropped the dm_pp_apply_display_requirements() call in
-  amdgpu_dm.c and instead computed all_displays_in_sync in
-  dce100_validate_bandwidth() and copied it in
-  dce_pplib_apply_display_requirements() (dce_clk_mgr.c) to match the
-  existing DCE 11 bw_calcs() path.
-
-Changes in v2:
-- Patch 1: Replaced the hardcoded 64 MiB Apple quirk in amdgpu_gmc.c
-  with a generic calculation in gmc_v7_0_get_vbios_fb_size() and
-  gmc_v8_0_get_vbios_fb_size() using mmGRPH_PITCH and
-  mmGRPH_PRIMARY_SURFACE_ADDRESS.
-- Patch 2: Dropped the DRM_MODE_CONNECTOR_eDP override in
-  amdgpu_dm_connector.c in favor of DRM's native DisplayID tile
-  properties (has_tile, tile_group, tile_is_single_monitor).
-  Renamed tiled_peer to apple_5k_peer and set it only on the secondary
-  DP link, removing dm_helpers_wire_tiled_peer(),
-  dc_link_is_apple_5k_secondary(), and inline explanatory comments.
-- Patch 3: Made the PowerPlay sync check generic for any combination of
-  synchronized displays by checking timing_sync_info.group_size ==
-  params.stream_count instead of tiled_peer.
-
-Regards,
-Richard
-
-Richard Lane (3):
-  drm/amdgpu: use pitch and surface offset for GMC v7/v8 fb size
-  drm/amd/display: unlock secondary tile on Apple 4K/5K iMac panels
-  drm/amd/display: report synced displays to PowerPlay on DCE <= 10
-
- drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c         |  8 +++--
- drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c         |  8 +++--
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 19 +++++++++++
- .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 34 +++++++++++++++++++
- .../display/dc/clk_mgr/dce100/dce_clk_mgr.c   |  3 ++
- drivers/gpu/drm/amd/display/dc/dc.h           |  1 +
- .../drm/amd/display/dc/link/link_detection.c  |  7 +++-
- .../dc/link/protocols/link_dp_capability.c    |  4 +++
- .../display/dc/link/protocols/link_dp_phy.c   |  3 ++
- .../dc/resource/dce100/dce100_resource.c      |  9 +++++
- 10 files changed, 89 insertions(+), 7 deletions(-)
-
--- 
-2.55.0
+--- linux-next-20261123.orig/Documentation/userspace-api/ioctl/ioctl-number.rst
++++ linux-next-20261123/Documentation/userspace-api/ioctl/ioctl-number.rst
+@@ -187,7 +187,7 @@ Code  Seq#    Include File
+ 'I'   40-4F  linux/mISDNif.h                                           conflict!
+ 'K'   all    linux/kd.h
+ 'L'   00-1F  linux/loop.h                                              conflict!
+-'L'   10-1F  drivers/scsi/mpt3sas/mpt3sas_ctl.h                        conflict!
++'L'   10-21  drivers/scsi/mpt3sas/mpt3sas_ctl.h                        conflict!
+ 'L'   E0-FF  linux/ppdd.h                                              encrypted disk device driver
+                                                                        <http://linux01.gwdg.de/~alatham/ppdd.html>
+ 'L'   35-38  arch/m68k/include/asm/fbio.h
+@@ -259,6 +259,7 @@ Code  Seq#    Include File
+ 'c'   00-7F  linux/comstats.h                                          conflict!
+ 'c'   00-7F  linux/coda.h                                              conflict!
+ 'c'   00-1F  linux/chio.h                                              conflict!
++'c'   08     drivers/scsi/ch.c                                         conflict!
+ 'c'   80-9F  arch/s390/include/asm/chsc.h                              conflict!
+ 'c'   A0-AF  arch/x86/include/asm/msr.h conflict!
+ 'd'   00-FF  linux/char/drm/drm.h                                      conflict!
