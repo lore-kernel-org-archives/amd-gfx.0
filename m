@@ -2,48 +2,90 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65C96606A321
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 08:10:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36B08606A31C
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 08:10:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=XbEjNALX
+	dkim=pass (2048-bit key, unprotected) header.d=lwn.net header.i=@lwn.net header.a=rsa-sha256 header.s=20201203 header.b=gYew8w2z
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D0D6112119;
-	Thu, 26 Nov 2026 08:10:04 +0000 (UTC)
-X-Greylist: delayed 302 seconds by postgrey-1.36 at gabe;
- Thu, 26 Nov 2026 05:43:00 UTC
-Received: from mta1.migadu.com (out-168.mta1.migadu.com [95.215.58.168])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7721710E1F7
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Nov 2026 05:43:00 +0000 (UTC)
-X-Envelope-To: amd-gfx@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=Hs7oZtdnHvx+m75uYZQg7898V/1o9cnjKz45ugOSxVQ=; 
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795671778; v=1; x=1796276578;
- b=XbEjNALXImF/IZQQwKTXcUiQSUFywi/ZBVuY69itP0z1HEpy6OVX8zuejyBsCsr0NpszZGPU
- FkMzDwEfXv/ISq9+5cBjdx8h6Ngf4I+jOQhjf9JgH2ofY9UPn1NEAGPjEERTdQIV/ttfpljdQhV
- 11ASjl2THhDk//W2zeDzLuJU=
-X-Envelope-To: amd-gfx@lists.freedesktop.org
-Received: by smtp.migadu.com with ESMTPS id c5e46d6a2a4de310;
- Thu, 26 Nov 2026 05:36:52 +0000
-X-Mizu-Trace-ID: c5e46d6a2a4de310
-X-Migadu-Flow: FLOW_OUT
-From: Matthew Schwartz <matthew.schwartz@linux.dev>
-To: amd-gfx@lists.freedesktop.org
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Ivan Lipski <ivan.lipski@amd.com>, Fangzhi Zuo <jerry.zuo@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Pei-Hsin Yang <peihsiny@valvesoftware.com>,
- Matthew Schwartz <matthew.schwartz@linux.dev>
-Subject: [PATCH 0/2] drm/amd/display: Rebuild the VRR vtotal limits on a
- modeset
-Date: Wed, 25 Nov 2026 21:36:04 -0800
-Message-ID: <20261126053606.12286-1-matthew.schwartz@linux.dev>
-X-Mailer: git-send-email 2.54.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98F2811211C;
+	Thu, 26 Nov 2026 08:10:15 +0000 (UTC)
+Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 745A910FDA3;
+ Wed, 25 Nov 2026 16:45:36 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 164CF410D0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
+ t=1795625135; bh=11zt4OupvieQqDw22Q2ubqyLm0TwPHTf9uDp8UQ/aNg=;
+ h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+ b=gYew8w2zbH6+bi/mBbqli+h0aBDamw00BioPDCMMC4Es4g+qCaaIw8gBYOLhfGAsU
+ 9mfNHzR2Wjt3eb5ezNkPplfVvqDZB4yLXc7H/uIjYl6k/R0SNrt0O4pqewchTPc4H+
+ DoPRzU4+fJgJOU7hPx03jLkV4HVaXJMTTjxyrWRVyiE+GFkUio915W5ZUB0L5VMnbm
+ Z5AtjEERksNhEMgjG3ZSm0ynjzhzYrKmQP0JaqQq4T6DitPDhHE0cz5cUJ9ItE/n9j
+ Ip9FDRPDTnpXpMfA3rcqvq+BtjVyvtC+AdbQzNra/9WErFSqw5foLA7PdpN6n18WG/
+ 9pepodyHhS3sA==
+Received: from localhost (unknown [205.220.129.44])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1)
+ server-digest SHA256) (No client certificate requested)
+ by ms.lwn.net (Postfix) with ESMTPSA id 164CF410D0;
+ Wed, 25 Nov 2026 16:45:34 +0000 (UTC)
+From: Jonathan Corbet <corbet@lwn.net>
+To: Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org
+Cc: Randy Dunlap <rdunlap@infradead.org>, Shuah Khan
+ <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org, David Hildenbrand
+ <david@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, Jason
+ Gunthorpe <jgg@nvidia.com>, Leon Romanovsky <leonro@nvidia.com>,
+ linux-mm@kvack.org, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
+ <tiwai@suse.com>, linux-sound@vger.kernel.org, Jens Axboe
+ <axboe@kernel.dk>, linux-block@vger.kernel.org, Marcel Holtmann
+ <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+ linux-bluetooth@vger.kernel.org, Willem de Bruijn
+ <willemdebruijn.kernel@gmail.com>, Jason Wang <jasowangio@gmail.com>,
+ David Heidelberg <david@ixit.cz>, oe-linux-nfc@lists.linux.dev, Chas
+ Williams <3chas3@gmail.com>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo
+ Abeni <pabeni@redhat.com>, netdev@vger.kernel.org, Helge Deller
+ <deller@gmx.de>, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, MPT-FusionLinux.pdl@broadcom.com, "James
+ E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, "Martin K.
+ Petersen" <mkp@kernel.org>, linux-scsi@vger.kernel.org, Miquel Raynal
+ <miquel.raynal@bootlin.com>, Richard Weinberger <richard@nod.at>, Vignesh
+ Raghavendra <vigneshr@ti.com>, Zhihao Cheng <chengzhihao1@huawei.com>,
+ linux-mtd@lists.infradead.org, Neill Kapron <nkapron@google.com>, Andrey
+ Konovalov <andreyknvl@gmail.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org, Juergen Gross
+ <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org, Hans de Goede <hansg@kernel.org>, Arnd
+ Bergmann <arnd@arndb.de>, "Michael S. Tsirkin" <mst@redhat.com>, Eugenio
+ =?utf-8?Q?P=C3=A9rez?= <eperezma@redhat.com>, Sean Christopherson
+ <seanjc@google.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org,
+ virtualization@lists.linux.dev, Jan Kara <jack@suse.cz>,
+ linux-fsdevel@vger.kernel.org, Theodore Ts'o <tytso@mit.edu>,
+ linux-ext4@vger.kernel.org, Mike Marshall <hubcap@omnibond.com>,
+ devel@lists.orangefs.org, Paulo Alcantara <pc@manguebit.org>, Namjae Jeon
+ <linkinjeon@kernel.org>, linux-cifs@vger.kernel.org, Jaegeuk Kim
+ <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>,
+ linux-f2fs-devel@lists.sourceforge.net, Florian Fainelli
+ <florian.fainelli@broadcom.com>, Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Tzung-Bi Shih
+ <tzungbi@kernel.org>, Benson Leung <bleung@chromium.org>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Alex Deucher
+ <alexander.deucher@amd.com>, Christian =?utf-8?Q?K=C3=B6nig?=
+ <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ intel-gfx@lists.freedesktop.org, Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ intel-xe@lists.freedesktop.org
+Subject: Re: [PATCH v3 00/12] docs: ioctl-number: update entries
+In-Reply-To: <20261125061340.3402300-1-rdunlap@infradead.org>
+References: <20261125061340.3402300-1-rdunlap@infradead.org>
+Date: Wed, 25 Nov 2026 09:45:27 -0700
+Message-ID: <875wxkx3ko.fsf@trenco.lwn.net>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Mailman-Approved-At: Thu, 26 Nov 2026 08:09:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -55,51 +97,38 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-A modeset between two modes with the same refresh rate keeps the
-previous mode's v_total_min/max when VRR stays enabled across it, since
-mod_freesync_build_vrr_params() only rebuilds them when the VRR state or
-refresh range changes. Commit 33c995709121 handled this for the inactive
-state. With VRR active and no BTR, the old limits stay in use for as
-long as the client keeps flipping at the refresh rate.
+Randy Dunlap <rdunlap@infradead.org> writes:
 
-This came up with gamescope, which keeps VRR_ENABLED set across mode
-changes and, with its adaptive_sync_idle_hold option, presents on every
-vblank while the Steam UI is focused. Switching from 1080p60 to 4K60 in
-Steam's display settings then gave no picture on a number of HDMI
-displays, a Dell S2721QS (40-60 Hz) and an LG CX among them. In the
-Dell's log the atomic commit intervals after the switch were 8.3 ms,
-12.5 ms and 20.8 ms. Those are 1125, 1687 and 1125 + 1687 lines of the
-4K timing, the 1080p limits for 60 and 40 Hz. Without the hold the idle
-UI flips slowly enough to reach the fixed refresh path, which rebuilds
-the limits, so the problem stayed hidden.
+> Update file names that define ioctls and update the range of
+> ioctl function numbers that are used where they have changed.
+>
+> [Since having multiple maintainers trying to merge these would
+> cause some conflicts, it would be more manageable for Jon to
+> take all of these through the docs-next tree.]
+>
+>  [PATCH 01/12 v2] docs: ioctl-number: update MM entries
+>  [PATCH 02/12 v2] docs: ioctl-number: update sound entries
+>  [PATCH 03/12 v2] docs: ioctl-number: update block entries
+>  [PATCH 04/12 v2] docs: ioctl-number: update networking entries
+>  [PATCH 05/12 v2] docs: ioctl-number: update video/fbdev entries
+>  [PATCH 06/12 v2] docs: ioctl-number: update SCSI entries
+>  [PATCH 07/12 v2] docs: ioctl-number: update MTD entries
+>  [PATCH 08/12 v2] docs: ioctl-number: update USB entries
+>  [PATCH 09/12 v2] docs: ioctl-number: update virtualization entries
+>  [PATCH 10/12 v2] docs: ioctl-number: update FS entries
+>  [PATCH 11/12 v2] docs: ioctl-number: update platform entries
+>  [PATCH 12/12 v2] docs: ioctl-number: update DRM entries
+>
+>  Documentation/userspace-api/ioctl/ioctl-number.rst |   91 ++++++++---
+>  1 file changed, 72 insertions(+), 19 deletions(-)
 
-Tested on an ASUS ROG Xbox Ally X20 (internal panel, 30-120 Hz) with a
-7.3.1-based kernel and a small KMS test. It sets two 50 Hz modes with
-vtotals of 2764 and 2592, turns VRR on in the first and flips at full
-rate across a modeset to the second. Without patch 1 the second mode
-flips every 21.33 ms, which is the first mode's v_total_min, until VRR
-is toggled. With it the interval is 20.1 ms.
+I've applied the series, thanks.
 
-Patch 1 clears the saved VRR params on a modeset so they are rebuilt
-from the new stream. Patch 2 adds KUnit cases for it.
-
-Matthew Schwartz (2):
-  drm/amd/display: Rebuild the VRR vtotal limits on a modeset
-  drm/amd/display: Test VRR vtotal limits across a modeset
-
- .../display/amdgpu_dm/amdgpu_dm_freesync.c    | 10 ++++
- .../amdgpu_dm/tests/amdgpu_dm_freesync_test.c | 52 +++++++++++++++++++
- 2 files changed, 62 insertions(+)
-
-
-base-commit: da37959f4a22c6bb25a337fcc7946101c8a10f7b
--- 
-2.54.0 (Apple Git-157)
-
+jon
