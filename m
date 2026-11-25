@@ -2,78 +2,38 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0E5F606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC672606A31C
 	for <amd-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 08:10:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yTjvhA9i
+	dkim=pass (2048-bit key, unprotected) header.d=verwilst.be header.i=@verwilst.be header.a=rsa-sha256 header.s=protonmail3 header.b=ADbdVbvY
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3947112121;
-	Thu, 26 Nov 2026 08:10:25 +0000 (UTC)
-Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 887E810E4CC
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Nov 2026 01:23:23 +0000 (UTC)
-Received: by mail-dl1-f51.google.com with SMTP id
- a92af1059eb24-1ae58d17cd9so7121156c88.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Nov 2026 17:23:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795656203; x=1796261003; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=T1o9ngBXV17K0T9VIdpByWQ1tf1l/DUIzKNbevHfagQ=;
- b=yTjvhA9iNF6vJHPxfCfnMX7xExmYLGEPNUXl0juoyPwXGR64rZT26h7j1hvQbb1NHG
- 7WWPmiMz0aqO7VrkxbGqxrlFDyNR8uECqeAFxDFswTlD/6pcRU+s5hE7ZniaRYpILaq2
- ZCowWCt3k47mSxfJ2D3CYfNSWCGg9ahHYzGtAu3XuVgpxvCXZUSsV4+zpSj2x0p875Oh
- TqiOGwOtF44skGxRF+KNf95LIvKaAPsbx2E7NxzaNzdZFi6yAb7kmnjPX6NKwg6pDkoW
- b3Xawek2ow2JS6/bi0qfqx16FESlAJdYay/egRwjcfPw1J12xKWLCLTwpHo30iLmyCPj
- sPIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795656203; x=1796261003;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=T1o9ngBXV17K0T9VIdpByWQ1tf1l/DUIzKNbevHfagQ=;
- b=bdl6XmXY3vWeC57pLiTmlvusAf8KczyH38qg5vzs6eRcFBqMlWSQ8mYVLGmA8vBkGv
- SWOmqiChXK+PzGgPw6scylLxNVep+ilCMjm/58gjRTxVs7CcwaaGX6UUIQ5ypv6IDHVc
- G9wcfAWgb7vkKHXOY7UMRFiza36TAjKpKFzO91yhaJMqUaQIHa5sxO45ABMYnHTyre5Z
- UjQRAQFs0iLugWoL6A3qzDLsmiDmo444PHYN1uS80kKA8mV8YeMISww7BZMRCbwT+kN1
- ps1swLcGl4pvXdp1WaoAez2PMAmZjD1s77wjNzlDNWV3JUEZPdCNHrZ8QaPTHeZcDffe
- dACQ==
-X-Gm-Message-State: APuU4Z9A8v63sglJuSusfua6gBDzN2r/vtER5OQ8UUBBcnb74GSi0Alw
- wiRuROsgCI1ZncD/6inPypnVKBL7JM0+W7ynSoFPaXVWB/BvBms7drzCi6Dvnkpv
-X-Gm-Gg: AZFdTZco+d0yfx9htQ2MDyez+CGtrrXvjuoeWovtgfrTvpdr08o8cVQbPbk1UpPddJE
- +jSS6kAlBsZbAlBVih+8SrFk2voZuEWYfr8J8lem6/JVSn4RNBQqLodCCu7klzTviqIKalgSZue
- Q92nHEwlX1kWFhdLTeU1s614GTcHHEPXuz+G5UFDVoRfmKVoFZJ9NGIH+3/fPZ9epntwWoYoS/Q
- EYEwoOgpFsnsgXpp1frlTR0vXVc+y+Ei+d81mRAeY763S8dg7g3YZLufY0pMk8TYUEAxtOt5d5H
- ThhFw1v/ipMF7fFCXykg1zHi6bs6gp6/G3zClF/D1ur8rNqFensNOc467BfOzonRlDF6J30s+rH
- nVZ4z/Hey1PzHDHCisg/CuzNHdf3983CpPn9wFt27jcNLtuNnhgK9VLk1ARvVt1JH0h5F3xU87l
- E70BY0WhkBwW88+xtGponm8OqCp2aq92MCgCKjYcF0vb81CSkFERjyrOeAe5gdPL3E3oz/3GAuC
- 30ZPS6XchyomCwgJYiFWOrcqs6rv17TQBrL0fL898G3OhwnzxCGVnkTEZeSCijM7V2US3v51iFQ
- EV2ZUrKaIYVnGj/1Hmri
-X-Received: by 2002:a05:693c:600c:b0:36a:1bac:6bf4 with SMTP id
- 5a478bee46e88-38570451dbemr22625193eec.18.1795656202605; 
- Wed, 25 Nov 2026 17:23:22 -0800 (PST)
-Received: from a1-free ([2603:c021:8021:f000:0:1865:8c38:18fc])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-38566cd4efesm59360148eec.12.2026.11.25.17.23.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Nov 2026 17:23:22 -0800 (PST)
-From: TAKANO Mitsuhiro <takano32@gmail.com>
-To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>
-Cc: Rodrigo Siqueira <siqueira@igalia.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Thomas Huth <thuth@redhat.com>, Weijie Yuan <wy@wyuan.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- TAKANO Mitsuhiro <takano32@gmail.com>
-Subject: [PATCH v2 2/2] drm/amd/display: Document max_gamut_remap_coeff
-Date: Thu, 26 Nov 2026 01:23:16 +0000
-Message-ID: <20261126012316.2624853-2-takano32@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261126012316.2624853-1-takano32@gmail.com>
-References: <20261121041427.1743954-1-takano32@gmail.com>
- <20261126012316.2624853-1-takano32@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0494E112122;
+	Thu, 26 Nov 2026 08:10:26 +0000 (UTC)
+Received: from mail-106110.protonmail.ch (mail-106110.protonmail.ch
+ [79.135.106.110])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D01E410FF02
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Nov 2026 18:44:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=verwilst.be;
+ s=protonmail3; t=1795632154; x=1795891354;
+ bh=owDKhfYCN+cNzsVqQuwcUudTbCNXlgtFSXO8Rfaok+w=;
+ h=From:To:Cc:Subject:Date:Message-ID:From:To:Cc:Date:Subject:
+ Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=ADbdVbvYUQtUgFT1kj/LMlaugIwo3iZuNAjd7GK/Py+3+fdZT6EqqT8+520D1sDmP
+ 6Zjlv5S0qafPtV+BNYTeHNVVIoMnSdWiRbxaHqLGO7ZUfm80Skau9i8yA1k6vhfY5x
+ R3lr4b0LWrCjuAI1w98nDDVv9hFCOmJUlUmvC3+AlwcKpJcVGjGReFDHPKpm2PbpYc
+ uE15+ilTp184LnE6D/fVzyO5CrHBX7ehBAqwT09wLj7XHJk4IF4sXYvCXuRJid2eGo
+ BTmN8j8ugQiWG4a3oK6VeuQ7EjoAVZ8CxyENGCBeDkSjteC9Ak7RG1KNnU/PNXu30x
+ 3u8K2IYxka1PQ==
+X-Pm-Submission-Id: 4jZT7X3W8zz2ScmT
+From: Bart Verwilst <bart@verwilst.be>
+To: amd-gfx@lists.freedesktop.org
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
+ alexander.deucher@amd.com, Wayne.Lin@amd.com
+Subject: [PATCH] drm/amd/display: don't tear down a shared link for a stale
+ SST/MST stream
+Date: Wed, 25 Nov 2026 19:42:08 +0100
+Message-ID: <20261125184208.36789-1-bart@verwilst.be>
+X-Mailer: git-send-email 2.56.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -88,50 +48,129 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-kernel-doc reports:
+A sink can switch between SST and MST on the same link. The Samsung
+Odyssey Neo G9 57" does that when Picture-by-Picture is toggled in its
+OSD: PbP is a 3840x2160 SST stream, fullscreen is a 7680x2160 MST stream
+with DSC, both over UHBR.
 
-  dc.h:329 struct member 'max_gamut_remap_coeff' not described in
-  'mpc_color_caps'
+The stream of the previous mode stays in the dc state until userspace
+disables its CRTC. On PbP off, the MST stream is already up (UHBR13.5
+trained, payload allocated, ACT done) when the compositor disables the old
+SST CRTC on the same link. link_set_dpms_off() treats that as a regular
+SST teardown:
 
-The 17 resource files that set dc->caps.color.mpc.gamut_remap to 1 also
-set the member to dc_fixpt_from_fraction(S3D12_MAX, DIVIDER); the other
-ten leave it at zero, and the comment of mpc_color_caps does not mention
-it.  Describe it.
+  link_set_dpms_off ... signal=20 link=2 sink_count=1
+  DPCD 0x00600 AUX <- 02          (sink to D3)
 
-Fixes: 1c5e6cd8291f ("drm/amd/display: adjust floating point format for gamut remap when needed")
-Link: https://lore.kernel.org/all/ec4d7cff-d23a-46d1-b245-921f442b9a7b@redhat.com/
-Signed-off-by: TAKANO Mitsuhiro <takano32@gmail.com>
+update_sst_payload(false) rewrites the payload allocation of the shared
+128b/132b link encoder, and disable_link() powers the sink down and turns
+the PHY off while the MST stream is still running on it.
+disable_link_dp() only protects a link with active MST payloads when the
+stream being disabled is itself an MST stream. On Navi 48 (DCN 4.0.1) the
+GPU locks up about 2.5 s later and needs a hard reset. The mirrored case,
+a stale MST stream disabled on a link that is now SST, does the same
+through deallocate_mst_payload() and disable_link().
+
+Detect a stream whose signal no longer matches the link's connection type
+and only release the stream's own resources for it: blank, disable the
+stream, and do the MST bookkeeping in software. Leave the sink power, the
+PHY and the link encoder's payload table to the stream of the new mode.
+
+Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5671
+Signed-off-by: Bart Verwilst <bart@verwilst.be>
 ---
-v2: The disclosure moves below the --- line, where Weijie Yuan asked for
-    it; the commit message keeps the change alone.  The patches are
-    unchanged otherwise, so the diff is the one already posted.
+Tested on an RX 9070 XT (Navi 48, DCN 4.0.1) with a Samsung Odyssey
+Neo G9 57" on 7.3.5: toggling PbP hard-locked the machine every time.
+With this patch it switches both ways within a few seconds. Logs and
+analysis are in the issue. The patch is against amd-staging-drm-next,
+where the function is now link_set_dpms_off_v1(). The same change
+applies to link_set_dpms_off() in mainline 7.4-rc4.
 
-Written with Hermes Agent, an LLM assistant; the author reviewed it and
-ran kernel-doc on the file with and without the change.
+ .../drm/amd/display/dc/link/link_dpms_v1.c    | 41 +++++++++++++++++--
+ 1 file changed, 37 insertions(+), 4 deletions(-)
 
- drivers/gpu/drm/amd/display/dc/dc.h | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index debdd69bbe4e..32bf87fed40d 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -314,6 +314,7 @@ struct lut3d_caps {
-  * @mcm_3d_lut_caps: HW support cap for MCM LUT memory
-  * @rmcm_3d_lut_caps: HW support cap for RMCM LUT memory
-  * @preblend: whether color manager supports preblend with MPC
-+ * @max_gamut_remap_coeff: largest gamut remap coefficient the MPC supports
-  */
- struct mpc_color_caps {
- 	uint16_t gamut_remap : 1;
+diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dpms_v1.c b/drivers/gpu/drm/amd/display/dc/link/link_dpms_v1.c
+index 1a6fe2e..fd37e68 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/link_dpms_v1.c
++++ b/drivers/gpu/drm/amd/display/dc/link/link_dpms_v1.c
+@@ -2411,6 +2411,7 @@ enum dc_status link_set_dpms_off_v1(struct pipe_ctx *pipe_ctx)
+ 	struct dc_link *link = stream->link;
+ 	struct vpg *vpg = get_vpg(pipe_ctx);
+ 	enum dp_panel_mode panel_mode_dp = dp_get_panel_mode(link);
++	bool stale_on_link;
+ 
+ 	ASSERT(is_master_pipe_for_link(link, pipe_ctx));
+ 
+@@ -2418,6 +2419,26 @@ enum dc_status link_set_dpms_off_v1(struct pipe_ctx *pipe_ctx)
+ 		/* No real hardware to program for virtual signals. */
+ 		return DC_DPMS_SKIPPED_HANDSHAKE;
+ 
++	/*
++	 * A sink can switch between SST and MST on the same link, e.g. a
++	 * monitor toggling Picture-by-Picture. The stream created for the
++	 * previous mode stays in the state until userspace disables its CRTC,
++	 * which can happen after a stream of the new mode is already lit on
++	 * this link. Tearing such a stale stream down must not touch what is
++	 * shared with the new mode: powering the sink down (DP_SET_POWER),
++	 * disabling the PHY, or rewriting the link encoder's payload
++	 * allocation. Only release the stream's own resources.
++	 */
++	stale_on_link =
++		(dc_is_dp_sst_signal(stream->signal) &&
++		 link->type == dc_connection_mst_branch) ||
++		(stream->signal == SIGNAL_TYPE_DISPLAY_PORT_MST &&
++		 (link->type == dc_connection_single ||
++		  link->type == dc_connection_sst_branch));
++	if (stale_on_link)
++		DC_LOG_WARNING("%s: stale signal %x on link %u (type %d), link kept up\n",
++			       __func__, stream->signal, link->link_index, link->type);
++
+ 	if (stream->sink) {
+ 		if (stream->sink->sink_signal != SIGNAL_TYPE_VIRTUAL &&
+ 			stream->sink->sink_signal != SIGNAL_TYPE_NONE) {
+@@ -2443,11 +2464,21 @@ enum dc_status link_set_dpms_off_v1(struct pipe_ctx *pipe_ctx)
+ 	    stream->sink)
+ 		deallocate_usb4_bandwidth(stream);
+ 
+-	if (stream->signal == SIGNAL_TYPE_DISPLAY_PORT_MST)
++	if (stale_on_link) {
++		/* bookkeeping only, the link belongs to the new mode now */
++		if (stream->signal == SIGNAL_TYPE_DISPLAY_PORT_MST) {
++			remove_stream_from_alloc_table(link,
++						       pipe_ctx->stream_res.stream_enc,
++						       pipe_ctx->stream_res.hpo_dp_stream_enc);
++			dm_helpers_dp_mst_update_mst_mgr_for_deallocation(stream->ctx,
++									  stream);
++		}
++	} else if (stream->signal == SIGNAL_TYPE_DISPLAY_PORT_MST) {
+ 		deallocate_mst_payload(pipe_ctx);
+-	else if (dc_is_dp_sst_signal(stream->signal) &&
+-			dp_is_128b_132b_signal(pipe_ctx))
++	} else if (dc_is_dp_sst_signal(stream->signal) &&
++			dp_is_128b_132b_signal(pipe_ctx)) {
+ 		update_sst_payload(pipe_ctx, false);
++	}
+ 
+ 	if (dc_is_hdmi_signal(stream->signal)) {
+ 		struct ext_hdmi_settings settings = {0};
+@@ -2472,7 +2503,9 @@ enum dc_status link_set_dpms_off_v1(struct pipe_ctx *pipe_ctx)
+ 		}
+ 	}
+ 
+-	if (stream->signal == SIGNAL_TYPE_DISPLAY_PORT &&
++	if (stale_on_link) {
++		dc->hwss.disable_stream(pipe_ctx);
++	} else if (stream->signal == SIGNAL_TYPE_DISPLAY_PORT &&
+ 			!dp_is_128b_132b_signal(pipe_ctx)) {
+ 
+ 		/* In DP1.x SST mode, our encoder will go to TPS1
 -- 
-2.53.0
+2.56.1
 
