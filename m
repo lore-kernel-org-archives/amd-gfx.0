@@ -2,40 +2,85 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68B72606A332
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Nov 2026 07:51:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62F8A606A331
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Nov 2026 08:41:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hf0lCEfk
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=M3s8vPVE
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 000AE10E0FA;
-	Wed, 25 Nov 2026 07:51:49 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5539C10E0FA
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Nov 2026 07:51:43 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7503360E22;
- Wed, 25 Nov 2026 07:51:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B629D1F000C0;
- Wed, 25 Nov 2026 07:51:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795593101;
- bh=MHziPxtpsh8G75IZKkcWMWax9uY9YK7thntlZK+uU/c=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=hf0lCEfk5jiZsJby+TXk2CVK6xhaL8Fcq8su7bwtOMP6Lj1lRd3wiqDxtM1Y+2qIL
- HBYmdbynCR+hWWJ6lddfIYQWXeGBt6uaP+fkB5HmeiwQkicUckh4nygt6o3ioZbh4H
- HAGNxHwKCVU5e+ZDjW3fZiWPUOuFFBt3VoT1rP8V1XGbCxfyhHFmRGTZYQT3MTRKYp
- g+vJP9aJdN+heZay+dT53CXH3yXiTLn5D+YYr/FY+HUOMhlmXJiJ77uZz+jrclK6iB
- 2kqxP59fDTKhG46Sts3+e0raVrPHdjqKHVT7G86sRQEMgOoUH5bZ+6TEDPWYZgoa1F
- L1XNXom1b0VEA==
-Message-ID: <sashiko-outbox-232842@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/amdgpu: unlink userptr bo_vas under the notifier_lock
-To: "Jesse Zhang" <Jesse.Zhang@amd.com>, amd-gfx@lists.freedesktop.org
-In-Reply-To: <20261125073502.3144422-1-Jesse.Zhang@amd.com>
-References: <20261125073502.3144422-1-Jesse.Zhang@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 25 Nov 2026 07:51:41 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3454810F9F4;
+	Wed, 25 Nov 2026 08:41:42 +0000 (UTC)
+Received: from mail-wm2-f10.google.com (mail-wm2-f10.google.com
+ [74.125.225.138])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2A4910E895
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Nov 2026 01:02:34 +0000 (UTC)
+Received: by mail-wm2-f10.google.com with SMTP id
+ 5b1f17b1804b1-4b886ebe069so14082665e9.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Nov 2026 17:02:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1795568553; x=1796173353; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:subject:from:cc:to
+ :content-language:user-agent:mime-version:date:message-id:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=uePKERkPYqyNMKFitbdJV3Xl/oPfgxHA9R+TZal+XKQ=;
+ b=M3s8vPVEEI1M/JC3A8Tsc6Y3xxwcI5npD9F1S66UGOWJZPiRz3w3LXokmeSUz4UVza
+ NmWbgHnUiQ5x82S/9JbLLZTCYThW30EBHnwIzvMa3HVySwHPWzPL8IxTGgurfB9u+ROU
+ YOYeKtmhq8vWbMi0Ij6rc2/yTvenpDL8YQv0mbSdJCM9GE25FydJagKW4oYX3yQj3yF9
+ 5xsd4439u2Wg5kh50OW9IskjlYrJTJxQI6VR4x2+2a7uo5ePsU+ut8JY7gWlCh5i8gTn
+ qEB+TKSI5p7iO0KYLMjE/7+w3TS6GhV8hKnsmQf113TtGVysQFXiS/RZ8n0fxb6Rn3DK
+ Npow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795568553; x=1796173353;
+ h=content-transfer-encoding:content-type:subject:from:cc:to
+ :content-language:user-agent:mime-version:date:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=uePKERkPYqyNMKFitbdJV3Xl/oPfgxHA9R+TZal+XKQ=;
+ b=O6dVSHbbUBjpZYoSQ1C6y7vxTXBmI+8HGmbUY9VG70iuAs5fAge/yEVqp3W6TxJVDp
+ x82T+kFtaXI7D23hnxd0fLUMG9pMGqdd1KghoJIpyoMkvdwb3+FrJprNuQsemPnjm+fW
+ SQhXOeBVfnbF7Lq7fbmXRDQt/TpxzBHcb77bG0d+YumAu+lggX+2G8rxXLKU4qIkIQ+e
+ Z1/wjXLw91sx0wLjj8YfiAc35jKpjxsI8heGkCptJsVxl6THkiWu6N5d1kBwWMrFP6Sy
+ 0UJQN85B3Z84bXb+kpA0Y9UcdPPcLjZsPHVi5rDs1DI+gxJKb8mHIh7Bwz73uo1h/Sd8
+ 6Amg==
+X-Gm-Message-State: APuU4Z8w9e+3EMVcFeWwpj35lpAdjO/rP/8+Hrawkr+IV1T1kZeRm961
+ 8aPSJ902L8HIgMY7YjKqqSnVYfOxL5RR0g7oot0A03kRrrMyVaL7+0sT5MBTwAPC
+X-Gm-Gg: AZFdTZfLk5hxsXoGMGYZonRGgk2VwecD5DQaCOeGXjOfyDq/Nxtzz/KqSt4vp3gyh/N
+ EfQuu4qEBL3iMUAIPWQM6VzDsrJaTFkqdwLRongWEjzX2YZ0sXF+mXINzsVKh94CAsLixI+W7Mr
+ Z4hYdYTel2qRaTXuU02NKgOK9uyUM9d47oxb4j98qxRl+tbr4y+apgAH0L0QPvSlqRMIZOXIqfE
+ FTprd6lsjKd0DkczawFZrSSmHRkHD6uJpNL53xwvMS4/WTTQ4qOaJO79Uba2xtF8HxeKYfDZJxE
+ hcwIzfi18RHh57VzqWo+PodFEtj/yhTeX0aspBWgXABBdYnwhyza9q4gfdPn0m8wcbNegtliyi1
+ IzJdlJdbrLaMx2FbxY3VT7QctueJf9IpT0ib3PvMfRqfQkpaWAR5Io1XHw6bBYQ2DRB/dSglzBm
+ 3DdgvXqSMuhChB0HQp9oZijZAZ276XQSK89K6mSxGMfC6wtHfd3T8E8U/KcTvlAEuSVo4D9e58w
+ kVOobsBXFGpoc1LF+ig/PflAQ9zDixif8JXIT3rbf29cgTqjul3yb9UyDBEtdeXM3Wxc2NlrKRK
+ oH/Xyb57+iu7QB/1ehE9xaqRddLvGfNVEGp+QLb0CFctpsAhBuYUCy+4cg==
+X-Received: by 2002:a05:600c:3b84:b0:4bb:6f45:2a6d with SMTP id
+ 5b1f17b1804b1-4bb888074bbmr395065225e9.12.1795568553403; 
+ Tue, 24 Nov 2026 17:02:33 -0800 (PST)
+Received: from [192.168.1.11] ([31.94.68.154])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4ab658e2d55sm31262183f8f.5.2026.11.24.17.02.32
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 24 Nov 2026 17:02:32 -0800 (PST)
+Message-ID: <77a4adb4-5539-4d5b-911f-36b5be6fdc0d@gmail.com>
+Date: Wed, 25 Nov 2026 01:02:31 +0000
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Richard Lane <richardlanedev@gmail.com>
+From: Richard Lane <richardlanedev@gmail.com>
+Subject: [PATCH v3 1/3] drm/amdgpu: use pitch and surface offset for GMC v7/v8
+ fb size
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Wed, 25 Nov 2026 08:41:41 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,90 +90,74 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-14.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [High] drm/amdgpu: notifier_lock bypass for addr 0 userptr in
-  amdgpu_vm_bo_del()
---
+gmc_v7_0_get_vbios_fb_size() and gmc_v8_0_get_vbios_fb_size() currently
+calculate the pre-OS framebuffer reservation as VIEWPORT_WIDTH *
+VIEWPORT_HEIGHT * 4, assuming the scanout stride matches the viewport
+width and that the surface starts at offset 0 of VRAM.
 
-commit 22400668ad8179b001864d3570debe97ad11a006
-Author: Jesse Zhang <Jesse.Zhang@amd.com>
+On Apple Retina iMacs, EFI initializes a single-tile viewport at boot
+but allocates a full-panel stride surface in mmGRPH_PITCH and places
+mmGRPH_PRIMARY_SURFACE_ADDRESS at an offset (e.g. 0x300000) from
+vram_start. Reserving only VIEWPORT_WIDTH * VIEWPORT_HEIGHT * 4 bytes
+allows permanent TTM driver BOs to overlap the active scanout and
+corrupt the boot splash screen.
 
-drm/amdgpu: unlink userptr bo_vas under the notifier_lock
+Calculate the reservation size using mmGRPH_PITCH instead of
+VIEWPORT_WIDTH and add the mmGRPH_PRIMARY_SURFACE_ADDRESS offset from
+vram_start so the full active pre-OS scanout region is preserved.
 
-This commit acquires adev->notifier_lock in amdgpu_vm_bo_del() when
-unlinking userptr bo_vas from bo->vm_bo to serialize against concurrent
-MMU notifier invalidations.
+Signed-off-by: Richard Lane <richardlanedev@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c | 8 +++++---
+ drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c | 8 +++++---
+ 2 files changed, 10 insertions(+), 6 deletions(-)
 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_vm.c
-> index 94b1cfe05e3e0..d33dcfd7059cf 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -2252,10 +2252,18 @@ void amdgpu_vm_bo_del(struct amdgpu_device *adev,
->  	dma_resv_assert_held(vm->root.bo->tbo.base.resv);
-> =20
->  	if (bo) {
-> +		/*
-> +		 * The MMU notifier of a userptr walks bo->vm_bo under the
-> +		 * notifier_lock, it can't take the BO reservation.
-> +		 */
-> +		bool userptr =3D amdgpu_ttm_tt_is_userptr(bo->tbo.ttm);
-> +
->  		dma_resv_assert_held(bo->tbo.base.resv);
->  		if (amdgpu_vm_is_bo_always_valid(vm, bo))
->  			ttm_bo_set_bulk_move(&bo->tbo, NULL);
-> =20
-> +		if (userptr)
-> +			mutex_lock(&adev->notifier_lock);
->  		for (base =3D &bo_va->base.bo->vm_bo; *base;
->  		     base =3D &(*base)->next) {
->  			if (*base !=3D &bo_va->base)
-> @@ -2265,6 +2273,8 @@ void amdgpu_vm_bo_del(struct amdgpu_device *adev,
->  			*base =3D bo_va->base.next;
->  			break;
->  		}
-> +		if (userptr)
-> +			mutex_unlock(&adev->notifier_lock);
->  	}
-
-[Severity: High]
-Can a userptr BO created at address 0 bypass adev->notifier_lock here and
-still hit the use-after-free on bo_va?
-
-amdgpu_gem_userptr_ioctl() accepts args->addr =3D=3D 0 with a non-zero
-page-aligned size and AMDGPU_GEM_USERPTR_REGISTER, setting gtt->userptr =3D=
- 0
-and registering the MMU interval notifier for [0, args->size).  However,
-amdgpu_ttm_tt_is_userptr() tests !gtt->userptr:
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c:amdgpu_ttm_tt_is_userptr() {
-	struct amdgpu_ttm_tt *gtt =3D ttm_to_amdgpu_ttm_tt(ttm);
-
-	if (gtt =3D=3D NULL || !gtt->userptr)
-		return false;
-
-	return true;
-}
-
-When gtt->userptr is 0, userptr evaluates to false, so amdgpu_vm_bo_del()
-skips adev->notifier_lock while an MMU invalidation on a VMA overlapping
-[0, args->size) can concurrently walk bo->vm_bo in
-amdgpu_hmm_invalidate_gfx() -> amdgpu_vm_bo_invalidate().
-
-Checking amdgpu_ttm_tt_get_usermm(bo->tbo.ttm) (or gtt->usertask in
-amdgpu_ttm_tt_is_userptr()) would cover userptr BOs at address 0 as well.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125073502.3144=
-422-1-Jesse.Zhang@amd.com?part=3D1
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+index c09f5153679e..00704dbfc1bb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+@@ -929,9 +929,11 @@ static unsigned int gmc_v7_0_get_vbios_fb_size(struct amdgpu_device *adev)
+ 	} else {
+ 		u32 viewport = RREG32(mmVIEWPORT_SIZE);
+ 
+-		size = (REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT_HEIGHT) *
+-			REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT_WIDTH) *
+-			4);
++		size = REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT_HEIGHT) *
++		       RREG32(mmGRPH_PITCH) * 4;
++		if (size)
++			size += RREG32(mmGRPH_PRIMARY_SURFACE_ADDRESS) -
++				lower_32_bits(adev->gmc.vram_start);
+ 	}
+ 
+ 	return size;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+index 15592027e7c0..a64a3cc07858 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+@@ -1037,9 +1037,11 @@ static unsigned int gmc_v8_0_get_vbios_fb_size(struct amdgpu_device *adev)
+ 	} else {
+ 		u32 viewport = RREG32(mmVIEWPORT_SIZE);
+ 
+-		size = (REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT_HEIGHT) *
+-			REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT_WIDTH) *
+-			4);
++		size = REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT_HEIGHT) *
++		       RREG32(mmGRPH_PITCH) * 4;
++		if (size)
++			size += RREG32(mmGRPH_PRIMARY_SURFACE_ADDRESS) -
++				lower_32_bits(adev->gmc.vram_start);
+ 	}
+ 
+ 	return size;
+-- 
+2.55.0
