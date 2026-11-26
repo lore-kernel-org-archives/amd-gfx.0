@@ -2,45 +2,87 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 552D0606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F469606A32C
 	for <amd-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 13:49:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=verwilst.be header.i=@verwilst.be header.a=rsa-sha256 header.s=protonmail3 header.b=YP3l/Zjt
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Xv6NgdYJ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90322112430;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E50E4112431;
 	Thu, 26 Nov 2026 13:48:55 +0000 (UTC)
-X-Greylist: delayed 58730 seconds by postgrey-1.36 at gabe;
- Thu, 26 Nov 2026 11:01:29 UTC
-Received: from mail-07.mail-europe.com (mail-07.mail-europe.com
- [37.187.220.204])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C2D8610E87D
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Nov 2026 11:01:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=verwilst.be;
- s=protonmail3; t=1795690884; x=1795950084;
- bh=mqHNx7XbtgU+wSbeZ4nVnkhjmB8qJUYO01351tzRUx0=;
- h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
- Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=YP3l/ZjtoRzsgVL3x1e0pXKbh7DUDMvJr3LTz9gZfbIU6LX7o90iQSL5frBqBrSZJ
- +3Ts8zr4F/xXSAAsfTdGpUvpzEmLPRsDbPV3g0ykr+jD8C3Kxs5bqekr4Ekle7QFIz
- MU7s7oNKEaF4Z1pAFu3muJd8c7roGTfF7RCdIRoMB+my1Gn7vcK6B3YaUXgRsGPgfD
- 2bbCwZjiYYp9r4KTSgfgLtsFdJAwEYXmy9r7zxBqf1KhScJhgl2d42Tr4JcFJxfGyP
- SqHHoOwBrUn+3xFcNhOMezerfHXwFUcZO0AMZqY6jtn64p+p310vlQVLkOgfkmQ4bd
- IwP/33Of4Guug==
-X-Pm-Submission-Id: 4jZtrr4RfTz2ScQG
-From: Bart Verwilst <bart@verwilst.be>
-To: amd-gfx@lists.freedesktop.org
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- alexander.deucher@amd.com, Wayne.Lin@amd.com
-Subject: [PATCH v2 1/2] drm/amd/display: don't release an MST payload that
- holds no time slots
-Date: Thu, 26 Nov 2026 12:00:41 +0100
-Message-ID: <20261126110042.14612-2-bart@verwilst.be>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261126110042.14612-1-bart@verwilst.be>
-References: <20261126110042.14612-1-bart@verwilst.be>
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5FB771122D2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Nov 2026 10:41:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1795689695;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=hTXpIfLZ2+j1ow8NmZB6JM/DU4spl29LunD6FR84AzA=;
+ b=Xv6NgdYJNl4EH1DzKAF+Z8SVTsfFT74WwhR6Pcsq+y0YXBVzLprPdmVX+sVruwI3sNJZEO
+ uxjUJw1SbjFSlpEsoLHcSspVdxNutMcmdBZL8TZ458bRLR6xMHqoyNktJeci2HyoKHJbqZ
+ uV9FF1uCMVSxcHtJIcN3TbHpsaxMA+E=
+Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
+ [209.85.218.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-345-lMvtIMLzPdyH0WJF2oslow-1; Thu, 26 Nov 2026 10:41:33 +0000
+X-MC-Unique: lMvtIMLzPdyH0WJF2oslow-1
+X-Mimecast-MFC-AGG-ID: lMvtIMLzPdyH0WJF2oslow_1795689692
+Received: by mail-ej1-f69.google.com with SMTP id
+ a640c23a62f3a-c4d34d6082fso519507966b.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Nov 2026 02:41:33 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795689692; x=1796294492;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=hTXpIfLZ2+j1ow8NmZB6JM/DU4spl29LunD6FR84AzA=;
+ b=CM5kdYPv00jcer7zCsQ4GuHZZIXcT7DzHN506Dgx3BmmFIy04NSohivxY2Uj69UeSz
+ rbywVq+18nzyYalpbiJKwCfs6qzmQf2Q0dqMKGlrcCf6zGbE0OpIvYcnmFbT4a0KJ2bd
+ 0w6FUaMJ+2EyoJhH7vVj9g1SN6cvOqhEhLGOYXjdyO62UFe8/rSZogV00wEHRHHilA75
+ m7Fcov9ycr6QS2vrtaeoVR7xSXx4gBdJeq0uQNAi9b0lF0srOBb9VrYu3ZmEd4CIq5Yw
+ KR6ow7J0fXqDjqsfsouF1wib7isqVdpTJXMC6Jjp6hJwlCBhD3X8TjJx8EC/7uuVGK91
+ Rz4Q==
+X-Forwarded-Encrypted: i=1;
+ AL+hErGXmNa9/1TD2hCzOkv0q2NanxpR1jQ2UjsjY/Hba1k6CnFgg3m2PBYdENAZ73+tQIsC9MsrtD9e@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z83VNR8LlafNufG/RNxgszZ4L4cj44DT/3GB76K6B5Qed+UHfJF
+ MjHd9h3xJTGFzNDTYz5dUT51vYZaCP+2Z313k2bmlli6Xnpwm4B9iotqgT0mhq7a9IahX6+z6hZ
+ G42Vf0T+O9iS+umKG2IBzxK3LB9/PT4RxyDxFfHQEv6SChkdq6Sy8ylVMOb56DRRkYDWGQ33+sG
+ xst3PS5ZmjlPdACj3ZYOWf++mLzMqT+n4u8U0VUanulA==
+X-Gm-Gg: AZFdTZeWeMYhVbUa3KWBAxOcWjMRjzmYbjm7jB/nBjXKy/b/dczHAsYeWizpqLf1cgy
+ 39y8oBbEna0AATnY2YDDU/tF+43I1/aueRd11SzSfIANZx4eywuFmX6bWMJ94P49mAn4/dpLD2t
+ iZJsWiRC+FwqjfnqITXygohe5qI7YdpaTL5DL3dJC7TqBGuz5H8C3e8A==
+X-Received: by 2002:a17:907:6ea9:b0:c2e:856:2a08 with SMTP id
+ a640c23a62f3a-c513a3a6598mr1792624166b.1.1795689692538; 
+ Thu, 26 Nov 2026 02:41:32 -0800 (PST)
+X-Received: by 2002:a17:907:6ea9:b0:c2e:856:2a08 with SMTP id
+ a640c23a62f3a-c513a3a6598mr1792622666b.1.1795689692194; Thu, 26 Nov 2026
+ 02:41:32 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261119054917.184758-2-ltao@redhat.com>
+ <85438483-9843-4b14-b3eb-57a074275911@amd.com>
+In-Reply-To: <85438483-9843-4b14-b3eb-57a074275911@amd.com>
+From: Tao Liu <ltao@redhat.com>
+Date: Thu, 26 Nov 2026 23:40:54 +1300
+X-Gm-Features: Aa3M54qXSxe4Tv3kJZhv4-GTyuCU96H140dAQ2Bw9YC_NOs4WSOucEjet7OYzYQ
+Message-ID: <CAO7dBbV5Baw5SRCNCys21u0NwJ2CCJWu2Av9wzGUHUmMxaE0bQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Fix pdev lifetime in
+ dm_test_conn_init_ctx_alloc()
+To: "Chen, Chen-Yu" <Chen-Yu.Chen@amd.com>
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com, 
+ alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, 
+ simona@ffwll.ch, alex.hung@amd.com, bhawanpreet.lakha@amd.com, 
+ ivan.lipski@amd.com, george.zhang@amd.com, adrian.betschart@cinemaone.ch, 
+ rodrigo.vivi@intel.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: CSv-Qr8n-Hc_H1AaSYDxslLT4_MQJB8ZT-jAzvqs4j8_1795689692
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Thu, 26 Nov 2026 13:48:49 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -52,63 +94,55 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-dm_helpers_dp_mst_update_mst_mgr_for_deallocation() calls
-drm_dp_remove_payload_part2() unconditionally. That function decrements
-payload_count and moves next_start_slot back by the payload's time
-slots. If the payload was never added with drm_dp_add_payload_part1(),
-or was already released, both counters underflow. Every payload
-allocated afterwards then starts at a bogus slot and ACT never
-completes.
+Hi Chen-Yu,
 
-This can happen when the same stream is disabled twice, e.g. first by
-link_set_all_streams_dpms_off_for_link() during a destructive link
-verification and then again when userspace disables its CRTC, or when
-the stream enable was aborted before its payload was allocated.
+On Wed, Nov 25, 2026 at 11:31=E2=80=AFPM Chen, Chen-Yu <Chen-Yu.Chen@amd.co=
+m> wrote:
+>
+>
+> > Fix this by allocating pdev with kzalloc() and freeing it through
+> > the device release callback. This ensures pdev's lifetime is managed
+> > solely by the kobject.
+>
+> Hi Tao,
+>
+> Thanks for the report.
+>
+> The lifetime problem in dm_test_conn_init_ctx_alloc() is real, but it has
+> already been addressed in amd-staging-drm-next by commit 370bab028b38
+> ("drm/amd/display: Add more connector KUnit tests"). That commit allocate=
+s
+> pdev with devm_kzalloc() on the device and registers the unregister actio=
+n
+> with devm_add_action_or_reset(), so devres releases the i2c adapter befor=
+e
+> pdev is freed.
 
-drm_dp_add_payload_part1() sets vc_start_slot and
-drm_dp_remove_payload_part2() resets it to -1, so a negative
-vc_start_slot means there is nothing to release. Return early in that
-case.
+Thanks for the info, I didn't notice the issue has already been fixed.
 
-Signed-off-by: Bart Verwilst <bart@verwilst.be>
----
- .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c    | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+>
+> Your patch no longer applies to the current tree for that reason. Could y=
+ou
+> please rebase it onto the latest amd-staging-drm-next and confirm whether=
+ the
+> issue still reproduces?
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index 6192c0f..bc26f65 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -524,6 +524,22 @@ void dm_helpers_dp_mst_update_mst_mgr_for_deallocation(
- 	mst_mgr = &aconnector->mst_root->mst_mgr;
- 	mst_state = to_drm_dp_mst_topology_state(mst_mgr->base.state);
- 	new_payload = drm_atomic_get_mst_payload_state(mst_state, aconnector->mst_output_port);
-+	if (!new_payload)
-+		return;
-+
-+	/*
-+	 * Only a payload that went through drm_dp_add_payload_part1() holds
-+	 * time slots in the manager (vc_start_slot >= 0). Releasing a payload
-+	 * that was never added, or releasing one twice, would underflow
-+	 * payload_count and next_start_slot.
-+	 */
-+	if (new_payload->vc_start_slot < 0) {
-+		drm_dbg_kms(mst_mgr->dev,
-+			    "MST payload for VCPI %d holds no time slots, nothing to release\n",
-+			    new_payload->vcpi);
-+		return;
-+	}
-+
- 	dm_helpers_construct_old_payload(mst_mgr, mst_state,
- 					 new_payload, &old_payload);
- 
--- 
-2.56.1
+I tested the latest amd-staging-drm-next, the use-after-free issue
+doesn't reproduce, so my patch is no longer needed. Thanks again for
+your review and comments!
+
+Thanks,
+Tao Liu
+
+>
+> Thanks,
+> Chenyu
+>
 
