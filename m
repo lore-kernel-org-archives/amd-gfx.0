@@ -2,103 +2,103 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9996606A333
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Nov 2026 09:59:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6D15606A693
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Nov 2026 09:59:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=LYPnFhKI
+	dkim=pass (2048-bit key, unprotected) header.d=fastmail.com header.i=@fastmail.com header.a=rsa-sha256 header.s=fm3 header.b=kbvw94+K;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=d5P2uTrX
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E8ED11296F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E60B11296D;
 	Fri, 27 Nov 2026 09:58:59 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5E5F112559
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Nov 2026 15:46:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1795707994;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=hQvLC0FxHg/bSpHW9/gmIY66IIHqqdWcBSBJ2Hl0tm0=;
- b=LYPnFhKIghZvF9aLdBFKdhcXZ17yVFo+FvDyX9Gqk2i95v05yQuJPKP8ka2NUie18YXu7P
- CYFxBjx3Yc1zwYFbm36OV5dHUEPoHNP3TX6mHjAphvdyssgRFmzoJTqpHAWhoqSPuKZrSI
- 7egEtSkHEtA4Wjg/osTIFrVGzo6eWv0=
-Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com
- [209.85.128.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-435-nBynqf4kOiKLMK7oSG-9yA-1; Thu, 26 Nov 2026 15:46:32 +0000
-X-MC-Unique: nBynqf4kOiKLMK7oSG-9yA-1
-X-Mimecast-MFC-AGG-ID: nBynqf4kOiKLMK7oSG-9yA_1795707992
-Received: by mail-yw1-f199.google.com with SMTP id
- 00721157ae682-869553205a7so91822097b3.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Nov 2026 07:46:32 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795707992; x=1796312792;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=hQvLC0FxHg/bSpHW9/gmIY66IIHqqdWcBSBJ2Hl0tm0=;
- b=ZIWMbRRJZ9Mv2hs/8gywxS5jzX/Pb0aZLvsgtLYINVkDDn/EYfW0gD/qxgUqsnM12k
- 8HhhZd5fhPPKgl8gzUK9RqWh73zTyv28DO6Zpd+fct6VenDFN35MoGUVtaJFcfCpvra/
- dMQD5s/QQCXOfy5c8W7SRjwxv6VvVRTjg/1I10I8PEDoAW5LFd3HaVSoEF9mj1wEUL5Z
- zap1TioU7yO0TbuO6g1o9qHLSyQLHpg5EYsj0BM1xFqBPKUkvL9a7xpSbcLvttZYTvzH
- ApP21UbDr2RPjErtM6awXW9Rn9pGpc90JI9onIOAzGHJJgXJh/Y4tK2Rqp6MIh2Dg+qm
- omDw==
-X-Forwarded-Encrypted: i=1;
- AL+hErGbXRHI77d90ORJLbxFgyUsZQjPv5SlifMHduyw7ftvmVxLbLAfMsyN6mVdnz+Ogg7mHCQbsOdk@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+1X+v13l2zgfOHcAlI+jdA5lqZSbbIraZd581BcD630QvOFu2R
- Mog0VVheNlLi7OO42es8vc8YjfmKW1unJ7hHj4VS/a0G1bZWpAgHHmAY+1Tt3WdrHYvyXAbnBY+
- 8Jw0EjYzbSCPAzbcXT/xIpYAXnLLAqAGz/jpbsUr1IYlxPfMJ31jTNyx99otyf7J3igi632VUKw
- 48DHrvFcLYBuCcX7DUS9Gjz7YsMCcXTJ/2HkPYWaikgg==
-X-Gm-Gg: AZFdTZdamAxedGar/3vgt7JoKp0Y8ROYU2JvXtz8g398aHkK7AIoSEtTT8vqEjLMpvp
- G2kGxDRm7xLhGsu85I/H5/Ewi37mrXcCFJpz8aNkiFl2wYLSNZgVJFOVb/GbpS2dwRBvTO9xWXj
- Ijk4e3Vf4de0Uje2/w3Ztgzwm2oDvt7kcqOfDRPoXO92APVtC13syyv8F/
-X-Received: by 2002:a05:690c:e654:b0:8b5:6ff3:3413 with SMTP id
- 00721157ae682-8b56ff334a0mr14813297b3.48.1795707991738; 
- Thu, 26 Nov 2026 07:46:31 -0800 (PST)
-X-Received: by 2002:a05:690c:e654:b0:8b5:6ff3:3413 with SMTP id
- 00721157ae682-8b56ff334a0mr14813147b3.48.1795707991136; Thu, 26 Nov 2026
- 07:46:31 -0800 (PST)
+X-Greylist: delayed 581 seconds by postgrey-1.36 at gabe;
+ Thu, 26 Nov 2026 14:26:15 UTC
+Received: from fout-b7-smtp.messagingengine.com
+ (fout-b7-smtp.messagingengine.com [202.12.124.150])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 705E8112495
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Nov 2026 14:26:15 +0000 (UTC)
+Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
+ by mailfout.stl.internal (Postfix) with ESMTP id 6585A1D00494
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Nov 2026 09:16:33 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-09.internal (MEProxy); Thu, 26 Nov 2026 09:16:33 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.com; h=
+ cc:cc:content-transfer-encoding:content-type:date:date:from:from
+ :in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+ :to; s=fm3; t=1795702592; x=1795788992; bh=0jJSJ14/au0I5tvGdZLv3
+ VBdYXYm14UxYMphMpPpqg0=; b=kbvw94+KqF0gfli8MChPdVX2dzxaiiDdkGNrX
+ XA8rrai4Js67jKetb6X2w8WrlRWJFxagkosdzgWKzW+Evg9GBlw0AjbmL8JGhPXX
+ R0pjmEh6Ldtm4Q/chyzW3mBupeazVC8mDRXdTmt79eVlzw1II2QppIlDjQpD8+a1
+ uNquvc9K3JUF0LId5jra+HQvGLsmkjB4Bjxyk8YqVmvh+YSpeJfPIDth5Fg1Eej5
+ VMl6gRhXpAk1Rhd66vi+CAKBRu/EmXKG6ER1fVEsmzZeMPQ3Rrcl1we3+dpzc4VN
+ il4mAJlQ3FEkeU873+rbrBwHZnLqW57+aA47/7nYzJuCYmt5g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:date:date:feedback-id:feedback-id:from:from
+ :in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+ :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+ 1795702592; x=1795788992; bh=0jJSJ14/au0I5tvGdZLv3VBdYXYm14UxYMp
+ hMpPpqg0=; b=d5P2uTrXB70WVfA7IXJR47EdHHzwbVm5+ZWfc9o3wnYKiXG3+LA
+ 7cWLPJ+6cLPTsuwwHrrpngwy/0TqwMIWEOrMlREfK9CHtaO2rr3tfBs4eQKPYR0K
+ hZ2UC9IYKnt77rTu28irZlT8621KDkUKHt2iV63ZWKGt6VeJDiT4v6/rGsUMafgG
+ 4HhcLWihKOW3zH3Q9bohqikrfMOUPJ8ocL+rR9k0bcbOA5gKsyMUYJNZIQsM4/f0
+ Gp292IKrMQe77xUBF2oluDD+U6z2feh5AV/lJN1A49TI0U9Gbjy7bGsJtbWWKBdx
+ n0MyUKl1wW6TBcX7Vf2n8Yr7HQLd7U4Bp0A==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+ repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+ action=sign d=fastmail.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1795702592; d=fastmail.com;
+ mf=PGJhcmFudEBmYXN0bWFpbC5jb20+;
+ rt=PGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPg==;
+ s=fm3:rsa-sha256:KvYYC4IXG9CNameGkecP+h3KkwRQ+yRDeXaUTZKR9J9OGf2
+ EVL0eqmPPfKdXChCFF2Gt8yl/BeUuWF6OwDcgLQRNarqrSzdtb+ZN0p196tuEwh7
+ gVLm3bj9Ma4nE7aW7q5BD7bHXyI5+XUlxjicVgAkObHAfFIBuwL3Eu2LnrwKIvha
+ 1rH1hqB/UUzY2CsqUaTq/3u80jt4b2N2imz2JrkvccQAticCf7u2s0ZWZzS7N42v
+ xeL9TFCoawhTFwllo83DJOtIVlyrvIgvR/xLSGNJ9MSruDHCR+s97rH3iGj2kB4q
+ kmniG/XaSUTtAzp0P4KOh34tJsY7TErrfiAzWUg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+ repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+ action=mi-m=1; hc=9;
+ hn=cc,content-transfer-encoding,date,feedback-id,from,
+ message-id,mime-version,subject,to;
+Message-Instance: m=1;
+ h=sha256:decYHEp1do/N1tLYzQVUe3iGZipOzmD6xPUvkPHPia0=:vQqCiOEAJ5fdy/X2Eu1ZZCDteP3JyJpjgB8/9HEG7Pw=;
+X-ME-Sender: <xms:Pz8Ia7aSol5PN-y4nT6Cq3QQ6_fj6bdKgIcIdhSKsiGuGHpccKCYNg>
+ <xme:Pz8Ia_WwXHxEMY3XWvS6VOpSZRo0QKKkRlWvuQ5VLexnZ2cbtMc0KP7sfXnOKZVm_
+ RrblkH_BdBO6d2VbgFzbxkeDtkaR_wA7N-K0-Xo-V9MR371yqvFE9Eg>
+X-ME-Received: <xmr:Pz8IayOmz1MGkevWRuhJFAfidiZC77tlSTDJO_hAMcMYiyCb3y-tZ2K5>
+X-ME-Proxy-Cause: dmFkZTEcC6pu7LwrB/ySbP3kl6e61I652LHUGBMkCQxxjnqHtpZRQ1RSAqJ7nLzncMfvcZ
+ GGRPVTlArz6DghdWIR6nJjRpetdZcbYJA9sobWt5l+OE8E76RfbwE4v30gzpdXpOX+X2rO
+ d2CO0GInVpNDtde4phNqKkOCWW/28/sysC+2sdQetpH55hDYXZ1Dt6FQ8NLurJ8Eyzstl4
+ 9WRVQyp8Ag+Vm3Lssktpbyy2P9/B8yOpCGGyM4LzeKOxr8wa7pXr/3TaTYC79qH10i5UqI
+ pGNF7xS7yiICDcXiw6h7UI+wnqPP71fPBLGm9qWecX7hx3Zub/dwMPgSydzq6yZ2/KVOGv
+ wel4e8lYHTHi8bjYtdBnXeEeL9sEXapXGlNOjK6a6ps1EqDDuqbVN3NecG3qzRzj6BX42K
+ HeWYUjQgr1VPT9dn3pAbTEraMt6wO4jeCwOcL8GS3OKeSB1oubn2yZtsr2W1yRUimut8Sb
+ 2Y5qYv9tq8mDsduYyGN4pIO7vlmoXX4tai0ExI4HbMG3/2IzBNkX5CyGZXHV8kulQ8NxEM
+ ZB1ydAWtsXXXxbnL1WSNaNeHFJgTgX0hMvZa/mk3OK321jwL2NbCm00i8VGUhgEE2rINDC
+ 7QR+IkZcQgBJsw/AMpLwycyixJAkJ2Rchwp9I7T6YdMvrb7InP2lqgb3lAcg
+X-ME-Proxy: <xmx:Pz8IaxblktLcODS1n2BeIfjgcLiFGqWgOFSXJE8arIc5b3yPgkxNYg>
+ <xmx:Pz8Ia59KrK9pD7ZI1lbSpO0O5xvLTNI_LUl19mPibbtqAsTyCbxcbw>
+ <xmx:Pz8Ia6SGxrucul4l4HU1FeEoLv2mfc2xHaFEyzWFSYNXWVQsD_ZZVw>
+ <xmx:Pz8Ia7fkVBsnZqUdpAI7VeXfCSBGyohov-r3FGpWXPtnKuGETSg2Zw>
+ <xmx:QD8Ia-4GAZ5HkUbB188TlSffRIpU7DE2iQPv-TJv5133ZKcPbEQtiiaA>
+Feedback-ID: i9dce4b48:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 26 Nov 2026 09:16:29 -0500 (EST)
+From: Baran Tuna <barant@fastmail.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Subject: [PATCH] drm/amd/display: Use str_enable_disable() helper
+Date: Thu, 26 Nov 2026 17:16:17 +0300
+Message-ID: <321392d0d9dba36777ec771663c677509fb49c15.1795702369.git.barant@fastmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261126081602.2901498-1-a.kazinsky@ideco.ru>
- <20261126081602.2901498-4-a.kazinsky@ideco.ru>
-In-Reply-To: <20261126081602.2901498-4-a.kazinsky@ideco.ru>
-From: Albert Esteve <aesteve@redhat.com>
-Date: Thu, 26 Nov 2026 16:46:18 +0100
-X-Gm-Features: Aa3M54oYW2ihtUaCzbXcSxw8ImEG7WlDwS6-9lOSsQrY2Wmb71vfmuxMtd2PWFI
-Message-ID: <CADSE00JCThOvzzKK0htFOpoK5ObCYq0EDaVTCR+wNrBvPnNeKQ@mail.gmail.com>
-Subject: Re: [PATCH 3/5] drm/connector: Propagate content type property
- creation errors
-To: Alex Kazinsky <a.kazinsky@ideco.ru>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>,
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Alex Hung <alex.hung@amd.com>, 
- Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>, Fangzhi Zuo <jerry.zuo@amd.com>,
- George Zhang <george.zhang@amd.com>,
- Adrian Betschart <adrian.betschart@cinemaone.ch>, 
- Alex Huang <Alex.Huang2@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, 
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, 
- Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>,
- Hans Verkuil <hverkuil@kernel.org>, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- lvc-project@linuxtesting.org
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 08OepKdb-UFiy59qomp6oVbOoc9KGbTU12sP6fNHcm4_1795707992
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 27 Nov 2026 09:58:44 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -110,135 +110,50 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+Message-ID: <20261126141617.Zl4HsbhEa3ZnEbXOPKKOUg1VspSvbReWm4UYFqXlGQE@z>
 
-On Thu, Nov 26, 2026 at 9:33=E2=80=AFAM Alex Kazinsky <a.kazinsky@ideco.ru>=
- wrote:
->
-> drm_connector_attach_content_type_property() returns success even when
-> drm_mode_create_content_type_property() fails. The property is safely
-> left unattached, but callers cannot detect the failure.
->
-> Propagate the creation error and document the return value. Check the
-> result in the Intel HDMI and DP/LSPCON paths and in AMDGPU, logging the
-> failure while preserving initialization without the optional property.
->
-> Fixes: 50525c332b55 ("drm: content-type property for HDMI connector")
-> Signed-off-by: Alex Kazinsky <a.kazinsky@ideco.ru>
+Replace the open-coded enable ? "enable" : "disable" ternary with
+the str_enable_disable() helper from <linux/string_choices.h>.
 
-Reviewed-by: Albert Esteve <aesteve@redhat.com>
+Found by scripts/coccinelle/api/string_choices.cocci.
 
-Thanks!
-Albert
+Signed-off-by: Baran Tuna <barant@fastmail.com>
+---
+Compile-tested only.
 
-> ---
->  .../amd/display/amdgpu_dm/amdgpu_dm_connector.c  |  3 ++-
->  drivers/gpu/drm/drm_connector.c                  | 16 +++++++++++-----
->  drivers/gpu/drm/i915/display/intel_dp.c          |  3 ++-
->  drivers/gpu/drm/i915/display/intel_hdmi.c        |  3 ++-
->  4 files changed, 17 insertions(+), 8 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c =
-b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> index 8a039ef6e4b7..3d163c2fc106 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> @@ -3325,7 +3325,8 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_=
-display_manager *dm,
->
->         if (connector_type =3D=3D DRM_MODE_CONNECTOR_HDMIA) {
->                 /* Content Type is currently only implemented for HDMI. *=
-/
-> -               drm_connector_attach_content_type_property(&aconnector->b=
-ase);
-> +               if (drm_connector_attach_content_type_property(&aconnecto=
-r->base))
-> +                       drm_err(adev_to_drm(adev), "Failed to attach cont=
-ent type property\n");
->         }
->
->         if (connector_type =3D=3D DRM_MODE_CONNECTOR_HDMIA) {
-> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connec=
-tor.c
-> index 51e616f5aa5e..5ab121860050 100644
-> --- a/drivers/gpu/drm/drm_connector.c
-> +++ b/drivers/gpu/drm/drm_connector.c
-> @@ -2253,14 +2253,20 @@ EXPORT_SYMBOL(drm_connector_attach_dp_subconnecto=
-r_property);
->   *
->   * Called by a driver the first time a HDMI connector is made.
->   *
-> - * Returns: %0
-> + * Returns:
-> + * Zero on success, negative errno on failure.
->   */
->  int drm_connector_attach_content_type_property(struct drm_connector *con=
-nector)
->  {
-> -       if (!drm_mode_create_content_type_property(connector->dev))
-> -               drm_object_attach_property(&connector->base,
-> -                                          connector->dev->mode_config.co=
-ntent_type_property,
-> -                                          DRM_MODE_CONTENT_TYPE_NO_DATA)=
-;
-> +       int ret;
-> +
-> +       ret =3D drm_mode_create_content_type_property(connector->dev);
-> +       if (ret)
-> +               return ret;
-> +
-> +       drm_object_attach_property(&connector->base,
-> +                                  connector->dev->mode_config.content_ty=
-pe_property,
-> +                                  DRM_MODE_CONTENT_TYPE_NO_DATA);
->         return 0;
->  }
->  EXPORT_SYMBOL(drm_connector_attach_content_type_property);
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i9=
-15/display/intel_dp.c
-> index 47741957935a..768cb02f22fb 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -7012,7 +7012,8 @@ intel_dp_add_properties(struct intel_dp *intel_dp, =
-struct drm_connector *_connec
->
->         /* Register HDMI colorspace for case of lspcon */
->         if (intel_bios_encoder_is_lspcon(dp_to_dig_port(intel_dp)->base.d=
-evdata)) {
-> -               drm_connector_attach_content_type_property(&connector->ba=
-se);
-> +               if (drm_connector_attach_content_type_property(&connector=
-->base))
-> +                       drm_err(connector->base.dev, "Failed to attach co=
-ntent type property\n");
->                 intel_attach_hdmi_colorspace_property(&connector->base);
->         } else {
->                 intel_attach_dp_colorspace_property(&connector->base);
-> diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/=
-i915/display/intel_hdmi.c
-> index b6fa1a1558b8..83daf6d1af4a 100644
-> --- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-> +++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-> @@ -2719,7 +2719,8 @@ intel_hdmi_add_properties(struct intel_hdmi *intel_=
-hdmi, struct drm_connector *_
->         intel_attach_aspect_ratio_property(&connector->base);
->
->         intel_attach_hdmi_colorspace_property(&connector->base);
-> -       drm_connector_attach_content_type_property(&connector->base);
-> +       if (drm_connector_attach_content_type_property(&connector->base))
-> +               drm_err(connector->base.dev, "Failed to attach content ty=
-pe property\n");
->
->         if (DISPLAY_VER(display) >=3D 10)
->                 drm_connector_attach_hdr_output_metadata_property(&connec=
-tor->base);
-> --
-> 2.56.0
->
->
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 5d1b010bec9b..870b4653314f 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -85,6 +85,7 @@
+ #include <linux/firmware.h>
+ #include <linux/component.h>
+ #include <linux/sort.h>
++#include <linux/string_choices.h>
+ 
+ #include <drm/drm_privacy_screen_consumer.h>
+ #include <drm/display/drm_dp_mst_helper.h>
+@@ -1468,7 +1469,7 @@ STATIC_IFN_KUNIT void dm_gpureset_toggle_interrupts(struct amdgpu_device *adev,
+ 			rc = amdgpu_dm_irq_set(adev, irq_source, enable) ? 0 : -EBUSY;
+ 			if (rc)
+ 				drm_warn(adev_to_drm(adev), "Failed to %s pflip interrupts\n",
+-					 enable ? "enable" : "disable");
++					 str_enable_disable(enable));
+ 
+ 			if (dc_supports_vrr(adev->dm.dc->ctx->dce_version)) {
+ 				if (enable) {
+
+base-commit: 25faec9ce61c01fb45abf812a222c5b43c3cd5c5
+-- 
+2.53.0
 
