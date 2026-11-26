@@ -2,41 +2,46 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4D27606A31C
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 15:15:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB3C3606A31C
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 15:42:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m6oT3jhw
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=jbd/7YXD
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D06F10E6F0;
-	Thu, 26 Nov 2026 15:14:58 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 488F610E6F0
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Nov 2026 15:14:52 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6271960E87;
- Thu, 26 Nov 2026 15:14:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB41B1F000C4;
- Thu, 26 Nov 2026 15:14:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795706090;
- bh=y5p9FJA7huZNI8OTCEP69wpO6J0CuCJvSdyw1F6QtHc=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=m6oT3jhwawnAaT4IDc93s4wRY1vlbGvEZXcLTXcTxRjbnSeqq6QCKpCkCGTmhot8h
- rcdfNLGB1/CBJMxhqKNLFpjgDsoR2Q6H3ogqTqTqATuvAVQ3sk11dfLl0pUnlI8niB
- JJy0F/KHLiIFr4JmHeqMTDjOLsmyzZh0stQ4hryHqHuhb2npouibVjfVZPjDVKTElv
- /ZcXzVo5t/dsaMqD+I1MUoLumGWg56JvVhH/xE0z+zvLaPXYUtEKUbH1FJUS204oGT
- w9hDstlEFs7KIIXfS2iO8UE1Ftj2wjv5txpnZuA/zW85X4a9UuUN7kInPdBDFvr1RG
- ZK3uPo/Q4NWAg==
-Message-ID: <sashiko-outbox-235786@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/amdgpu: Fix VRAM clearing after GPU reset
-To: "Arunpravin Paneer Selvam" <Arunpravin.PaneerSelvam@amd.com>,
- amd-gfx@lists.freedesktop.org
-In-Reply-To: <20261126144240.598627-1-Arunpravin.PaneerSelvam@amd.com>
-References: <20261126144240.598627-1-Arunpravin.PaneerSelvam@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Nov 2026 15:14:50 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F09410E9D7;
+	Thu, 26 Nov 2026 15:42:11 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB1F310E942;
+ Thu, 26 Nov 2026 15:42:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:From:Reply-To;
+ bh=Al24Z5JOIIe6Nbvyb3Rgw+TciwvHWcNM4xk1ssGHMNg=; t=1795707724; x=2111067724; 
+ b=jbd/7YXDLkb7/5iR4rv7W6U9XpRGHrSWO+KTemRRP58hVdJWqbh2GM72iaFB9w18EQz2WZP/t1U
+ IQU/yTG3RLmfATqlJkPTIy8rlKae7t2AgMbH2KxXY+gNNwKU8s6PNVJO9owqUcUmC5UZpZq/wTtmC
+ nwWio/3HQeObGdwYdhPMY09oq4GGXEj6gpeRUm7jBItdkxVeyosmg74kMCRlakJnkmKmhJP+99pbm
+ mjUnZ0RGa30XHsMk3VF0y2lOVS5XD6/MzeQNxLgoxvuaLAL9q5nsn08h+NmHnfMiXbovNVMg2Kbht
+ GUkuzFTZzh2HMBmB1htWy6sFBRG+Xp5b+waA==;
+Received: from [81.79.79.1] (helo=localhost)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1xWbbm-00000004SZC-3fpG; Thu, 26 Nov 2026 16:42:02 +0100
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+To: dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Philipp Stanner <phasta@kernel.org>, amd-gfx@lists.freedesktop.org
+Subject: [RFC] drm/sched: Track sched fence scheduled and finished time
+ directly
+Date: Thu, 26 Nov 2026 15:42:00 +0000
+Message-ID: <20261126154200.71180-1-tvrtko.ursulin@igalia.com>
+X-Mailer: git-send-email 2.56.0
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,222 +51,278 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-17.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issues to consider:
-- [High] drm/amdgpu: map and copy jobs on TTM entities skipped after
-  reset
-- [High] drm/amdgpu: unwiped VRAM blocks freed as cleared in
-  amdgpu_vram_mgr_del()
-- [Low] drm/amdgpu: missing mgr->vram_lost_counter sync in
-  amdgpu_vram_mgr_del()
-- [Low] drm/amdgpu: missing Fixes trailer for commit a68c7eaa7a8f
-It also noticed 1 related pre-existing issue this patch does not
-introduce:
-- [High] drm/amdgpu: NULL pointer dereference and job leak in
-  amdgpu_ttm_prepare_job() [1]
---
+Philipp reports the current usage of overwriting the dma-fence timestamp
+from the free_job worker is racy and unsafe due missing memory ordering
+and especially with drivers which use own unordered submit workqueue for
+the scheduler. Consider also that the timestamp field is the union in the
+dma-fence object.
 
-commit 644d53e55a5fbf61b0bce43757d1045f37e6f6c6
-Author: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+On top of these serious issue there is also a smaller problem where the
+said race can cause GPU time overaccounting.
 
-> drm/amdgpu: Fix VRAM clearing after GPU reset
->
-> After a VRAM lost reset, freed VRAM can be handed out with old data:
->
-> 1. Clear jobs inherit the error of a job cancelled by the reset and are
->    skipped. Let clear jobs ignore the entity error.
-> 2. Free blocks marked as cleared before the reset are not clear anymore.
->    Reset their cleared state when the VRAM lost counter changes.
-> 3. Blocks whose wipe was queued before the reset are freed as cleared,
->    but the wipe may have been dropped. Don't mark them as cleared then.
->
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/6141
-> Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+Lets try and solve all issues in one swoop by stopping messing with
+dma-fence internals and just track what we want in our own derived fence
+object.
 
-[Severity: Low]
-This fixes a bug in the VRAM clear-on-release tracking.  Should it include:
+We care about fence submit and finish times and by adding a dedicated
+lock to manage them we can safely access both and adjust the former
+without any races.
 
-  Fixes: a68c7eaa7a8f ("drm/amdgpu: Enable clear page functionality")
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+References: https://lore.kernel.org/dri-devel/20261119131830.2535266-2-phasta@kernel.org/
+References: https://lore.kernel.org/dri-devel/20261117094324.8256-1-tvrtko.ursulin@igalia.com/
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Danilo Krummrich <dakr@kernel.org>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Philipp Stanner <phasta@kernel.org>
+Cc: amd-gfx@lists.freedesktop.org
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c    | 15 ++++----
+ drivers/gpu/drm/scheduler/sched_entity.c   |  6 ++--
+ drivers/gpu/drm/scheduler/sched_fence.c    | 20 +++++++++--
+ drivers/gpu/drm/scheduler/sched_internal.h | 41 ++++++++++++++++++++++
+ drivers/gpu/drm/scheduler/sched_main.c     |  8 ++---
+ include/drm/gpu_scheduler.h                | 39 ++++++++++++++++++++
+ 6 files changed, 113 insertions(+), 16 deletions(-)
 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_ttm.c
-> index d3a875a32af1e..703c0952776e4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+index 2f0349233695..1a6985283acc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+@@ -171,21 +171,20 @@ static unsigned int amdgpu_ctx_get_hw_prio(struct amdgpu_ctx *ctx, u32 hw_ip)
+ static ktime_t amdgpu_ctx_fence_time(struct dma_fence *fence)
+ {
+ 	struct drm_sched_fence *s_fence;
++	ktime_t start, end;
+ 
+ 	if (!fence)
+ 		return ns_to_ktime(0);
+ 
+-	/* When the fence is not even scheduled it can't have spend time */
+ 	s_fence = to_drm_sched_fence(fence);
+-	if (!test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &s_fence->scheduled.flags))
+-		return ns_to_ktime(0);
++	drm_sched_fence_get_times(s_fence, &start, &end);
++
++	/* When the fence is not even scheduled it can't have spend time */
++	if (!start)
++		return start;
+ 
+ 	/* When it is still running account how much already spend */
+-	if (!test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &s_fence->finished.flags))
+-		return ktime_sub(ktime_get(), s_fence->scheduled.timestamp);
+-
+-	return ktime_sub(s_fence->finished.timestamp,
+-			 s_fence->scheduled.timestamp);
++	return ktime_sub(end ?: ktime_get(), start);
+ }
+ 
+ static ktime_t amdgpu_ctx_entity_time(struct amdgpu_ctx *ctx,
+diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
+index af6cb79c8a53..9e473f894d30 100644
+--- a/drivers/gpu/drm/scheduler/sched_entity.c
++++ b/drivers/gpu/drm/scheduler/sched_entity.c
+@@ -78,8 +78,10 @@ ktime_t drm_sched_entity_stats_job_add_gpu_time(struct drm_sched_job *job)
+ 	struct drm_sched_fence *s_fence = job->s_fence;
+ 	ktime_t start, end, duration;
+ 
+-	start = dma_fence_timestamp(&s_fence->scheduled);
+-	end = dma_fence_timestamp(&s_fence->finished);
++	drm_sched_fence_get_times(s_fence, &start, &end);
++	if (WARN_ON_ONCE(!start || !end))
++		return ns_to_ktime(0);
++
+ 	duration = ktime_sub(end, start);
+ 
+ 	spin_lock(&stats->lock);
+diff --git a/drivers/gpu/drm/scheduler/sched_fence.c b/drivers/gpu/drm/scheduler/sched_fence.c
+index 9f938f5a7e55..512a35bb0cf4 100644
+--- a/drivers/gpu/drm/scheduler/sched_fence.c
++++ b/drivers/gpu/drm/scheduler/sched_fence.c
+@@ -65,6 +65,9 @@ static void drm_sched_fence_set_parent(struct drm_sched_fence *s_fence,
+ void drm_sched_fence_scheduled(struct drm_sched_fence *fence,
+ 			       struct dma_fence *parent)
+ {
++	ktime_t now = ktime_get();
++	unsigned long flags;
++
+ 	/* Set the parent before signaling the scheduled fence, such that,
+ 	 * any waiter expecting the parent to be filled after the job has
+ 	 * been scheduled (which is the case for drivers delegating waits
+@@ -74,14 +77,26 @@ void drm_sched_fence_scheduled(struct drm_sched_fence *fence,
+ 	if (!IS_ERR_OR_NULL(parent))
+ 		drm_sched_fence_set_parent(fence, parent);
+ 
+-	dma_fence_signal(&fence->scheduled);
++	spin_lock_irqsave(&fence->ts_lock, flags);
++	fence->start_ts = now;
++	spin_unlock_irqrestore(&fence->ts_lock, flags);
++
++	dma_fence_signal_timestamp(&fence->scheduled, now);
+ }
+ 
+ void drm_sched_fence_finished(struct drm_sched_fence *fence, int result)
+ {
++	ktime_t now = ktime_get();
++	unsigned long flags;
++
+ 	if (result)
+ 		dma_fence_set_error(&fence->finished, result);
+-	dma_fence_signal(&fence->finished);
++
++	spin_lock_irqsave(&fence->ts_lock, flags);
++	fence->finished_ts = now;
++	spin_unlock_irqrestore(&fence->ts_lock, flags);
++
++	dma_fence_signal_timestamp(&fence->finished, now);
+ }
+ 
+ static const char *drm_sched_fence_get_driver_name(struct dma_fence *fence)
+@@ -217,6 +232,7 @@ struct drm_sched_fence *drm_sched_fence_alloc(void *owner,
+ 	fence->owner = owner;
+ 	fence->drm_client_id = drm_client_id;
+ 	spin_lock_init(&fence->lock);
++	spin_lock_init(&fence->ts_lock);
+ 
+ 	return fence;
+ }
+diff --git a/drivers/gpu/drm/scheduler/sched_internal.h b/drivers/gpu/drm/scheduler/sched_internal.h
+index 32d3ddb820be..be90e55af947 100644
+--- a/drivers/gpu/drm/scheduler/sched_internal.h
++++ b/drivers/gpu/drm/scheduler/sched_internal.h
+@@ -67,6 +67,47 @@ void drm_sched_fence_scheduled(struct drm_sched_fence *fence,
+ 			       struct dma_fence *parent);
+ void drm_sched_fence_finished(struct drm_sched_fence *fence, int result);
+ 
++/**
++ * drm_sched_fence_advance_start_time - Advance scheduler fence scheduled timestamp
++ * @fence: scheduler fence
++ * @t: time to advance to
++ *
++ * Advances the scheduler fence scheduled time to @t if the fence has already
++ * been scheduled with an older timestamp.
++ */
++static inline void
++drm_sched_fence_advance_start_time(struct drm_sched_fence *fence, ktime_t t)
++{
++	unsigned long flags;
++
++	spin_lock_irqsave(&fence->ts_lock, flags);
++	if (fence->start_ts && ktime_after(t, fence->start_ts))
++		fence->start_ts = t;
++	spin_unlock_irqrestore(&fence->ts_lock, flags);
++}
++
++/**
++ * drm_sched_fence_finished_time - Queries the scheduler fence finished timestamp
++ * @fence: scheduler fence
++ *
++ * Advances the scheduler fence scheduled time to @t if the fence has already
++ * been scheduled with an older timestamp.
++ *
++ * Returns: Scheduler fence finished timestamp.
++ */
++static inline ktime_t
++drm_sched_fence_finished_time(struct drm_sched_fence *fence)
++{
++	unsigned long flags;
++	ktime_t end;
++
++	spin_lock_irqsave(&fence->ts_lock, flags);
++	end = fence->finished_ts;
++	spin_unlock_irqrestore(&fence->ts_lock, flags);
++
++	return end;
++}
++
+ /**
+  * drm_sched_entity_queue_pop - Low level helper for popping queued jobs
+  *
+diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+index 027c1c436caa..ba2a06e22707 100644
+--- a/drivers/gpu/drm/scheduler/sched_main.c
++++ b/drivers/gpu/drm/scheduler/sched_main.c
+@@ -933,11 +933,11 @@ drm_sched_get_finished_job(struct drm_gpu_scheduler *sched)
+ 		next = list_first_entry_or_null(&sched->pending_list,
+ 						typeof(*next), list);
+ 		if (next) {
++			ktime_t ts;
++
+ 			/* make the scheduled timestamp more accurate */
+-			if (test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT,
+-				     &next->s_fence->scheduled.flags))
+-				next->s_fence->scheduled.timestamp =
+-					dma_fence_timestamp(&job->s_fence->finished);
++			ts = drm_sched_fence_finished_time(job->s_fence);
++			drm_sched_fence_advance_start_time(next->s_fence, ts);
+ 
+ 			/* start TO timer for next job */
+ 			drm_sched_start_timeout(sched);
+diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+index 81604b082259..3408674e9406 100644
+--- a/include/drm/gpu_scheduler.h
++++ b/include/drm/gpu_scheduler.h
+@@ -308,6 +308,25 @@ struct drm_sched_fence {
+          */
+ 	struct dma_fence		finished;
+ 
++	/**
++	 * @ts_lock: Lock used for @start_ts and @finished_ts.
++	 */
++	spinlock_t			ts_lock;
++
++	/**
++	 * @start_ts: ktime of fence GPU execution start or 0 is not started.
++	 *
++	 * Must be accessed via helpers.
++	 */
++	ktime_t				start_ts;
++
++	/**
++	 * @finished_ts: ktime of fence GPU execution end or 0 if not finished.
++	 *
++	 * Must be accessed via helpers.
++	 */
++	ktime_t				finished_ts;
++
+ 	/**
+ 	 * @deadline: deadline set on &drm_sched_fence.finished which
+ 	 * potentially needs to be propagated to &drm_sched_fence.parent
+@@ -344,6 +363,26 @@ struct drm_sched_fence {
+ 
+ struct drm_sched_fence *to_drm_sched_fence(struct dma_fence *f);
+ 
++/**
++ * drm_sched_fence_get_times() - Get scheduler fence start and finished times
++ * @fence: Scheduler fence
++ * @scheduled: Pointer to scheduled time storage
++ * @finished: Pointer to finished time storage
++ *
++ * Obtains scheduler fence scheduled and finished times.
++ */
++static inline void
++drm_sched_fence_get_times(struct drm_sched_fence *fence,
++			  ktime_t *scheduled, ktime_t *finished)
++{
++	unsigned long flags;
++
++	spin_lock_irqsave(&fence->ts_lock, flags);
++	*scheduled = fence->start_ts;
++	*finished = fence->finished_ts;
++	spin_unlock_irqrestore(&fence->ts_lock, flags);
++}
++
+ /**
+  * struct drm_sched_job - A job to be run by an entity.
+  *
+-- 
+2.56.0
 
-[ ... ]
-
-> @@ -2639,6 +2641,8 @@ static int amdgpu_ttm_fill_mem(struct amdgpu_device=
- *adev,
->  	if (r)
->  		return r;
-> =20
-> +	job->ignore_entity_error =3D true;
-> +
->  	for (i =3D 0; i < num_loops; i++) {
->  		uint32_t cur_size =3D min(byte_count, max_bytes);
-
-[Severity: High]
-This problem wasn't introduced by this patch, but amdgpu_ttm_prepare_job()
-leaves its output job pointer in an inconsistent state on failure [1],
-which can cause a NULL pointer dereference in amdgpu_copy_buffer() or leak
-job in amdgpu_ttm_fill_mem():
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c:amdgpu_ttm_prepare_job() {
-	...
-	r =3D amdgpu_job_alloc_with_ib(adev, &entity->base,
-				     AMDGPU_FENCE_OWNER_UNDEFINED,
-				     num_dw * 4, pool, k_job_id, job);
-	if (r)
-		return r;
-	...
-	return drm_sched_job_add_resv_dependencies(&(*job)->base, resv,
-						   DMA_RESV_USAGE_BOOKKEEP);
-}
-
-When amdgpu_job_alloc_with_ib() fails, *job is NULL, and amdgpu_copy_buffer=
-()
-jumps to error_free and passes NULL to amdgpu_job_free(), dereferencing
-job->base.entity.  When drm_sched_job_add_resv_dependencies() fails after
-amdgpu_job_alloc_with_ib() succeeds, amdgpu_ttm_fill_mem() returns r without
-calling amdgpu_job_free(job), leaking the allocated job and its IB.
-
-[Severity: High]
-Should GART mapping jobs in amdgpu_ttm_map_buffer() and buffer copy jobs in
-amdgpu_copy_buffer() also set job->ignore_entity_error =3D true?
-
-The TTM scheduler entities (move_entities and clear_entities) persist across
-GPU resets because amdgpu_ttm_disable_buffer_funcs() and
-amdgpu_ttm_enable_buffer_funcs() return early when amdgpu_in_reset(adev) is
-true.  If a reset cancels any job on move_entities[e], that entity's
-last_scheduled fence remains at -ECANCELED.
-
-In a later amdgpu_move_blit() on that entity for a BO with
-AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE, the map and copy jobs submitted by
-amdgpu_ttm_copy_mem_to_mem() have ignore_entity_error =3D=3D false and are
-aborted by amdgpu_job_prepare_job(), whereas the trailing wipe job from
-amdgpu_ttm_fill_mem() ignores the entity error and zeroes old_mem in VRAM
-before its contents were copied to new_mem.  Similarly, in
-amdgpu_ttm_clear_buffer(), any GART window mapping job submitted by
-amdgpu_ttm_map_buffer() is skipped while amdgpu_ttm_fill_mem() runs against
-a stale GART window.
-
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/d=
-rm/amd/amdgpu/amdgpu_vram_mgr.c
-> index 249f07f309515..ef4c7b4384061 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> @@ -456,7 +456,7 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_ma=
-nager *man,
->  	struct gpu_buddy *mm =3D &mgr->mm;
->  	struct gpu_buddy_block *block;
->  	unsigned long pages_per_block;
-> -	int r;
-> +	int vram_lost, r;
-> =20
->  	lpfn =3D (u64)place->lpfn << PAGE_SHIFT;
->  	if (!lpfn || lpfn > man->size)
-> @@ -523,6 +523,13 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_m=
-anager *man,
->  	}
-> =20
->  	mutex_lock(&mgr->lock);
-> +
-> +	vram_lost =3D atomic_read(&adev->vram_lost_counter);
-> +	if (unlikely(mgr->vram_lost_counter !=3D vram_lost)) {
-> +		gpu_buddy_reset_clear(mm, false);
-> +		mgr->vram_lost_counter =3D vram_lost;
-> +	}
-> +
->  	while (remaining_size) {
->  		if (tbo->page_alignment)
->  			min_block_size =3D (u64)tbo->page_alignment << PAGE_SHIFT;
-> @@ -652,6 +659,11 @@ static void amdgpu_vram_mgr_del(struct ttm_resource_=
-manager *man,
->  	list_for_each_entry(block, &vres->blocks, link)
->  		vis_usage +=3D amdgpu_vram_mgr_vis_size(adev, block);
-> =20
-> +	if ((vres->flags & GPU_BUDDY_CLEARED) &&
-> +	    vres->clear_vram_lost_counter !=3D atomic_read(&adev->vram_lost_cou=
-nter)) {
-> +		vres->flags &=3D ~GPU_BUDDY_CLEARED;
-> +	}
-> +
->  	gpu_buddy_free_list(mm, &vres->blocks, vres->flags);
->  	amdgpu_vram_mgr_do_reserve(man);
->  	mutex_unlock(&mgr->lock);
-
-[Severity: High]
-Can amdgpu_vram_mgr_del() still free unwiped blocks as GPU_BUDDY_CLEARED
-when a GPU reset aborts an in-flight wipe job?
-
-Comparing vres->clear_vram_lost_counter against adev->vram_lost_counter in
-amdgpu_vram_mgr_del() misses three cases where the counters still match even
-though the wipe job never ran:
-
-1. In amdgpu_move_blit(), when evict is true on a non-kernel BO,
-   ttm_bo_move_accel_cleanup() calls ttm_bo_move_pipeline_evict(), which
-   frees old_mem via amdgpu_vram_mgr_del() synchronously right after queuing
-   wipe_fence.  At that point adev->vram_lost_counter has not changed yet,
-   so the blocks are returned to gpu_buddy with GPU_BUDDY_CLEARED before the
-   wipe job runs on the hardware.
-2. During a VRAM-lost reset, amdgpu_device_pre_asic_reset() calls
-   amdgpu_fence_driver_force_completion() to signal in-flight SDMA fences
-   with -ECANCELED before the ASIC reset runs, whereas amdgpu_inc_vram_lost=
-()
-   is only called later in amdgpu_device_reinit_after_reset().  Force-
-   completing the wipe fence immediately schedules ttm_bo_delayed_delete()
-   to run amdgpu_vram_mgr_del() while adev->vram_lost_counter still matches
-   vres->clear_vram_lost_counter:
-
-CPU0 (reset)                      CPU1 (bdev->wq)
-amdgpu_device_pre_asic_reset()
-  amdgpu_fence_driver_force_completion()
-    /* signals wipe fence (-ECANCELED) */
-                                  ttm_bo_delayed_delete()
-                                    ...
-                                    amdgpu_vram_mgr_del()
-                                      /* vram_lost_counter unchanged */
-                                      gpu_buddy_free_list(...,
-                                        GPU_BUDDY_CLEARED)
-amdgpu_do_asic_reset()
-  amdgpu_device_reinit_after_reset()
-    amdgpu_inc_vram_lost()
-
-3. On a GPU reset where VRAM is not lost (such as Mode 2 reset on APUs),
-   amdgpu_device_pre_asic_reset() still force-completes in-flight wipe fenc=
-es
-   with -ECANCELED, but amdgpu_inc_vram_lost() is never called.
-
-In each case, the unwiped blocks are marked clear in gpu_buddy and can be
-handed out to later AMDGPU_GEM_CREATE_VRAM_CLEARED allocations with stale
-data.
-
-[Severity: Low]
-Should amdgpu_vram_mgr_del() also synchronize mgr->vram_lost_counter and run
-gpu_buddy_reset_clear(mm, false) before calling gpu_buddy_free_list()?
-
-If a BO is released and wiped after a VRAM-lost reset completes, but before
-the next amdgpu_vram_mgr_new() call, amdgpu_vram_mgr_del() frees those
-Freshly wiped blocks into mm as cleared while mgr->vram_lost_counter still
-holds the pre-reset value.  The first subsequent amdgpu_vram_mgr_new() then
-sees mgr->vram_lost_counter !=3D vram_lost and calls
-gpu_buddy_reset_clear(mm, false), marking those post-reset cleared blocks
-dirty again.
-
-[1] https://sashiko.dev/#/bug/linux-1b68b982-50e9-427b-a5c7-1a7c0cf5aa51
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126144240.5986=
-27-1-Arunpravin.PaneerSelvam@amd.com?part=3D1
