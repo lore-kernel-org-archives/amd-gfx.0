@@ -2,42 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7129606A31C
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 09:34:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C9CC606A31C
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 09:34:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ZlL9tiv/
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=CD9OXH5d
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 185341121E2;
-	Thu, 26 Nov 2026 09:34:37 +0000 (UTC)
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010010.outbound.protection.outlook.com [52.101.61.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A6D41121C4
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Nov 2026 09:34:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC9E71121FE;
+	Thu, 26 Nov 2026 09:34:44 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010008.outbound.protection.outlook.com [52.101.85.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 209EB1121E3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Nov 2026 09:34:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=d5vfzckf+huEsv8cfU2LGsjI6IECZqE7J9AZR8QbANh+4QHroU4Ko61a6ikxfvthgf4V5aBlG+Yir60l0bPPajlzR6sFuyU20FLJ16tQdG3/IVEEINHqIHzN68AXPzHABXCYEdEICrPuiNYTeNYYqtxPj11S4uzMz18iz78MCHBVmJtmql2pQ66OIctEwHah/OrR3UnPY/K4Ie1T5WeJk0lFqUv+4kWSt9jKmQV7pik+34fcE4AUmQuv4wWce2UxTklaEPSwnMz28+trJaBJY41YvBUULqf+etJe6yDKLnDVNqpP8PPcM88+vZQqRT+vzxgmQKUxuxd1T8OToZS3ow==
+ b=mNvT1g1UOIoOTQbkCrtmJRidX0nWXXQy+dvz6Y9Xz59y3trrmrCuptEp7V4xexabbhNYNZ4oeF8rLS3LI4kw9Zygsjgp3Wbnr9F58o/7D9Mp9ap3CgncpdrFAERCFul26kBYJEd/Tnf567Skjp7BgQQzGgjzFPSN3ceidvor8aj6gjid2VMR74goLCBkey99Z50l3pLwTC98oHoHYcwMCPPUQa05ZiHdAl1IUv6j7VKdEmMPOfy7ZKJqBvxyxww/NML092/XzziGIKHlWB3WfIUJyWJvP1SVlPTD6x6UFegZ1MReQkWyeVDJ6JN02ZgjCT9levJV7e621evVUR/zRw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=czoT0Y9mEwu03Z0ehEBJltNy/Bak6ai5y9qLGx2cpvg=;
- b=VWE17K4M8Nk3QgocNs1twhe73d97o655NOayFdvR/fIWBr5Bn7rwUWLeS4ap6lHSo6OCnvtV3I0fmSk7VhJx+Se5UTsadbx9J1mMnMbP770d1A9dwFTd2X7h+wvRdxfN8Jh1ES4s5e+V0em4hLQFHY+GKnMvicYBpVu987gl9qGmm8tEMPto62mePUpelE5turrq8VB5x16ZPbtdLtY57uMzY7HB3qnrv7ZdYpSSLhfxmAnaOLPkENtTaOcT9wpbiZlD8UrESBs0s/BwnERiwN1tcW2/NYAxy5lOMVBrRk2z5kleCPSAt9AnOKbwDIEbfFMSbmBrvNCyvH0KweD8iQ==
+ bh=oux+Qpm3hiP36vPXAjwQe5PvIP6w5HulgVgV1GfxPm0=;
+ b=kWSalMfh/bOwB0qFCHDQN8RD2MfDdi7j0Z6x78IhXNK9GuVevOmS6HQcb9zqvIu/WyvAuy0ZY2dNo+mlbNbcNbe/GE6CX7RcGpJB1E5aWWTs8OTaiISbr1Isy2dAQMMZX7lK1FXohwGIsy0rEC0Fc4v5XRO99Q7+ha9kOnnkeNPqYVEL6LkfVLGQaq9mjN6zJe7lL9K1/OJhDHLA5+uK8jRBFUGtCKzET9jc2ORCIxhByPy+UiHbb/qwPJt7JhXRyk30cMHT3Xv5VYsM0+UDsVTuwUHrnUAIWPY5BvNb1sChwCA1502VGNdBvufZYwmX2nvtuTULuGtDrigCLNZooA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=czoT0Y9mEwu03Z0ehEBJltNy/Bak6ai5y9qLGx2cpvg=;
- b=ZlL9tiv/e5qgUwTzqbcyaE4ksJTOwgbX9/UcrkU/HvGNSSxPUaOSnUWfNZ58wiaKBjkdXGUVCWSnIMzvxIXyUoqwG5WFKUyOEspdhX4O1S1CUdrcobGsddBDk00qqSmex26x0tuYxbdoXK1Uv02WClq0EEsepA8inZpfxFzHYY4=
-Received: from CH5PR04CA0016.namprd04.prod.outlook.com (2603:10b6:610:1f4::24)
- by BL4PR12MB9722.namprd12.prod.outlook.com (2603:10b6:208:4ed::20)
+ bh=oux+Qpm3hiP36vPXAjwQe5PvIP6w5HulgVgV1GfxPm0=;
+ b=CD9OXH5dt3uKv6geWClVsBPpWhLr8IwyUIBsA7d50UWg1v3WTdZ59Ta4zvjecUu6BMZrQrmXexeA08EQlx9bc00060L8e7MTzpA4nyezLZDYtv2res/b06MTpljpvMaGGF0lXtmvO6+tXFqIpjYu03qFWOcnw9FZlLWjVmWgOvo=
+Received: from CH5PR04CA0015.namprd04.prod.outlook.com (2603:10b6:610:1f4::16)
+ by MW4PR12MB6951.namprd12.prod.outlook.com (2603:10b6:303:209::18)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.7; Thu, 26 Nov
- 2026 09:34:26 +0000
+ 2026 09:34:33 +0000
 Received: from CH7PEPF00000019.namprd21.prod.outlook.com
- (2603:10b6:610:1f4:cafe::55) by CH5PR04CA0016.outlook.office365.com
- (2603:10b6:610:1f4::24) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:610:1f4:cafe::8d) by CH5PR04CA0015.outlook.office365.com
+ (2603:10b6:610:1f4::16) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.662.7 via Frontend Transport; Thu, 26
- Nov 2026 09:34:26 +0000
+ Nov 2026 09:34:33 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -48,54 +48,56 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb08.amd.com (165.204.84.17) by
  CH7PEPF00000019.mail.protection.outlook.com (10.167.244.168) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.639.0 via Frontend Transport; Thu, 26 Nov 2026 09:34:25 +0000
+ 15.21.639.0 via Frontend Transport; Thu, 26 Nov 2026 09:34:33 +0000
 Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Thu, 26 Nov
- 2026 03:34:25 -0600
+ 2026 03:34:33 -0600
 Received: from JesseDEV.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.57 via Frontend
- Transport; Thu, 26 Nov 2026 03:34:23 -0600
+ Transport; Thu, 26 Nov 2026 03:34:30 -0600
 From: Jesse Zhang <Jesse.Zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
  <Lijo.Lazar@amd.com>, <timur.kristof@gmail.com>, <Mario.Novales@amd.com>, 
  <Manu.Rastogi@amd.com>, <Jiongyu.Zhu@amd.com>, Jesse Zhang
  <Jesse.Zhang@amd.com>
-Subject: [PATCH v5 01/15] drm/amdgpu: pass the device to the multi ring reset
- helpers
-Date: Thu, 26 Nov 2026 17:33:37 +0800
-Message-ID: <20261126093417.192538-1-Jesse.Zhang@amd.com>
+Subject: [PATCH v5 04/15] drm/amdgpu/gfx: add callbacks to save and restore a
+ gfx HQD
+Date: Thu, 26 Nov 2026 17:33:40 +0800
+Message-ID: <20261126093417.192538-4-Jesse.Zhang@amd.com>
 X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261126093417.192538-1-Jesse.Zhang@amd.com>
+References: <20261126093417.192538-1-Jesse.Zhang@amd.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PEPF00000019:EE_|BL4PR12MB9722:EE_
-X-MS-Office365-Filtering-Correlation-Id: b126228a-c620-47d3-c84d-08df4ba07633
+X-MS-TrafficTypeDiagnostic: CH7PEPF00000019:EE_|MW4PR12MB6951:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3a1e9966-f95f-4846-369d-08df4ba07aa9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|36860700016|376014|23010399003|6133799003|18002099003|11063799006|56012099006|261026121527099003|261026140227099003|261028144727099003|261021121427099003|261022105027099003|261021123027099003|261102123227099003|261009223027099003|10067099003;
-X-Microsoft-Antispam-Message-Info: N/yCfFrc1lD1AUSn2c+Kunk1weSkJK+ni4LXSfC3nMv5hGVv3uFHya2z3hsACIRWdXqR5QfyALB2A/CERdad8Rxb591/uLs8HYUqbmpRm41865j0PhTkzLojHecHqgc4zItMKBZp0ivH9iQXJwFNDXUtn+edqtf5wCcbJNCF8+08OAE2Ubnhm8HMWQ8WAuCMrwlRo0rF9PCC54qaq9pmywydsmtvZadpcCthyhwsFi6dVg4uYlHWkXySZVkmMuViySocPO/4cAHwq7UqECmsAL6aBoPeX7NtXvmrkRRQHr1AQO+TDpwq7NHEZ/1UwYI4CD4VvaLacswlmWik+hDeRr9uoRFXsOZwTiCxgapmDYjPYuYGKQ+KSnjnkIl+mNFBJzRClaWbIUHHfHF3HKH8qfkYmgznSpP9gqUiufx2E1dQJf89AhR0w9wH/ApjEGvt43Uwy+CcjJ9PV/7LiwPMsxoludL9GzYf+A91q5E5C89JlpON5T9Tz3hPzcvGlyG9RNsXZO4Zlm2gfCXvE8816QzRRkFc7sQ+RQ9v2z2UIytYbMNZF0bBeUMFeiqN5pidWhBkMFnI9AMlVDJk8vg5mMgkpYUrop7MEz3Uz4GdsOPoepC/QKfLlgLnQT/bD6+pwZgOqAYMOriL88zP0LxAdwLOrf84uOTs9zsAgDawp1sWo0jYwBDfVSemNNd+ajHgkvH8SAtb6tyszmS8hv5vWQ==
+ ARA:13230040|36860700016|1800799024|23010399003|376014|82310400026|261102123227099003|10067099003|56012099006|11063799006|261028144727099003|261021121427099003|261022105027099003|261026121527099003|261026140227099003|261009223027099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info: qffpUGsS0wv7CGI6tbJWcmmne0v7IX0I4lNEeq38krJcoOJrCnGZsWcwQ/uYxH+QoEcRi/YvuL0c0uX9c7+uvbyw35+PG0eI2+thtJLaFB/aFCtJNf2qq+F6B96yDB6d/eYYPOF+5liZU34HZR1phzsi69DgXiK/NEMhL3S4ngwLIdePWGP9A6J1thSq7BJlR0ftoCMohH0HtZqQhU7EgaT5vsRO0PwwvlFhcSGtqc9dGrnhizkYFAEgIQM7aq3ki6+dzLHWkNFtDKA4KsmmDtd5VrMjd6dM/u2kvep9rEdQe7VSgf6Ty/dSzUrrelfNmInAU64MHwlQPzN98uSMPPZ0v4cfDlerheRm6qOnjHtl48/2RTiBYIc4DY7bLCcm5AiSAJvPTkdqXBVQzT5iPVkH95sMI+oXi5+ySN0Fo9p6ToMorUg1df43yRLGKiPe2jfRn3JS3tx3TrDLiF6agr/xVdCCfrq4Cg94KiRsT7d/H4jmK1PySTxWfus8MVW2ie7+zkiFq8D27+IDB0f/ov1Whr4dpd4SIkY9yD6hJBiSPlrMS+8yklom8hvkj/Fozb6QSTvmbD/EasUGablEn7n/A4TbsIH7d1cPtDatNOafjryoZcSbqjtGygzn70docbOiabvF0BOdt//M0ZdKTNcltbVCIc/ywzvwS+na2Lj24K/cPHUXhoWjgpefzSjjhGrJpPYeNj+ssTJuPrs6xQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(23010399003)(6133799003)(18002099003)(11063799006)(56012099006)(261026121527099003)(261026140227099003)(261028144727099003)(261021121427099003)(261022105027099003)(261021123027099003)(261102123227099003)(261009223027099003)(10067099003);
+ SFS:(13230040)(36860700016)(1800799024)(23010399003)(376014)(82310400026)(261102123227099003)(10067099003)(56012099006)(11063799006)(261028144727099003)(261021121427099003)(261022105027099003)(261026121527099003)(261026140227099003)(261009223027099003)(18002099003)(22082099003)(6133799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: /U4vhx5TporhDuYhJGQnd1/gOreCQb0R+Ue96iyChR2D57lZ328veY55StYJKRy1PsQ8VIwuGoOlAV9VYHuQL4CFcF+8PCy0hihb5pDKrupeVB3ofbaXluM0enW9y+O3mUE5D78sX5y+3l4Jq7nWwzm5dxwMJkKH9J8f80va6e4pQMdwKCX9BY2Uj4PJeVHyDwDSOla09d13Oi9WuniDlS3QZnkHQt9V6pruSJxpOOgZLtkjE2zqnwsF57mPyIii4v2ji7iRgcaH1yaNLiBsozwKMV+gjZ/Zv2Kt65rp2Q2kBEGcwFnmE6qiDfbQZWsHBiFbIdP3CG+nTAmidup/6mC8g/QKjLhS3Tv7Va0FZe1g/lVZmbIHf/0T9J2WfXPY/JRu5qWUPyFiB8x0ZIJauPp3vtau4aM2v7Q/4ZbT72Wlk9l1uvLVuKb4VSS5spxa
+X-MS-Exchange-AntiSpam-MessageData-0: 7eL3qDO+IZ40h2xltX7U+3Wg+MDcvd/IvheL7JV750HwIKOUoK78etnt+oT2lY7+D6JcCR/YMPMV+06veoIEZw/iRZxM0j6v/zLPjXseMoRiHuXpogVDgxf9QuDJvN6UcoXJbY+A0hbuSNnf5OV/bqzchIgoyu5yfVrlzMUQRi1uO4KKVPh47t2Os/nASOhZgKaVigfhQaMzfRv2GuS2Qh2gikDTNf2sLK6hAYq3xUv+ffeNvGObRmavc4u5RF1mlgkOsIb7v1rL99Rov6afxLzL6e9Onjmk3StnOoCp9vNqUyaJdLYYKt9KLfXWGjKB6pmjpiH9Z1vakxLApikz4hgcpAttsm+r6a86CxuDhnR4tUtqgfuG9yJJZI31v6usPn7SxwaUnig3GOwWu/ejjFaZnIl71R1g+ERqTk+Mrsx5pvAa5dxnQ3F0+eS7vp5Y
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Nov 2026 09:34:25.9323 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b126228a-c620-47d3-c84d-08df4ba07633
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Nov 2026 09:34:33.4378 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3a1e9966-f95f-4846-369d-08df4ba07aa9
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CH7PEPF00000019.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9722
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6951
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,110 +115,65 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-amdgpu_multi_ring_reset_helper_begin() and _end() take the device from
-the guilty ring. A reset triggered by a hung user queue has no guilty
-kernel ring, so pass the device explicitly and allow a NULL guilty ring.
+A gfx engine reset clears the HQD registers of the gfx queues, including
+the only copy of the ring position of the queues MES didn't preempt.
+MES doesn't save them in the MQD either when the engine hangs.
 
-No functional change.
+Add struct amdgpu_gfx_saved_hqd for that state, and gfx callbacks for
+the gfx IP, which knows its registers and the layout of its MQD:
+- save_hqd() saves the state of the gfx HQD of a doorbell;
+- restore_hqd() writes it into the MQD after the reset, for MES to load
+  it into the HQD when it maps the queue again.
+
+v4: Rename to save_hqd()/restore_hqd() and struct amdgpu_gfx_saved_hqd
+    (Timur).
 
 Reviewed-by: Timur Kristóf <timur.kristof@gmail.com>
 Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c   |  4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 14 ++++++++------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |  6 ++++--
- 3 files changed, 14 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c
-index 734f2a0bc79a..d0b0d3eaffc5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c
-@@ -465,11 +465,11 @@ int amdgpu_device_ip_soft_reset(struct amdgpu_ring *guilty_ring,
- 	ring_type_mask = amdgpu_ring_mask_from_ip(ip_type);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+index 99739b00c35f..ec77f24db0e2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+@@ -340,6 +340,17 @@ struct amdgpu_gfx_shadow_info {
+ 	u32 eop_alignment;
+ };
  
- 	amdgpu_device_lock_reset_domain(adev->reset_domain);
--	amdgpu_multi_ring_reset_helper_begin(ring_type_mask, guilty_ring, guilty_fence);
-+	amdgpu_multi_ring_reset_helper_begin(adev, ring_type_mask, guilty_ring, guilty_fence);
++/* State of a gfx HQD that a gfx engine reset clears. */
++struct amdgpu_gfx_saved_hqd {
++	u32	doorbell_index;
++	u64	mqd_addr;	/* the MQD loaded in the HQD */
++	bool	on_hqd;
++	u64	wptr;
++	u32	offset;
++	u32	csmd_rptr;
++	bool	connected;	/* the queue the pipe executes */
++};
++
+ struct amdgpu_gfx_funcs {
+ 	/* get the gpu clock counter */
+ 	uint64_t (*get_gpu_clock_counter)(struct amdgpu_device *adev);
+@@ -374,6 +385,17 @@ struct amdgpu_gfx_funcs {
+ 	/* find the gfx HQD slot (me/pipe/queue) for a doorbell */
+ 	bool (*detect_hung_queue)(struct amdgpu_device *adev, u32 doorbell_index,
+ 				  u32 *me, u32 *pipe, u32 *queue);
++	/* save the state of the gfx HQD of a doorbell, if it has one */
++	bool (*save_hqd)(struct amdgpu_device *adev, u32 doorbell_index,
++			 struct amdgpu_gfx_saved_hqd *hqd);
++	/*
++	 * write the HQD state saved by save_hqd() into a gfx MQD, for MES to
++	 * load it into the HQD when it maps the queue again;
++	 * true if the work up to hqd->wptr was dropped
++	 */
++	bool (*restore_hqd)(struct amdgpu_device *adev, void *mqd,
++			    u32 ring_size,
++			    const struct amdgpu_gfx_saved_hqd *hqd);
+ };
  
- 	r = ip_block->version->funcs->soft_reset(ip_block);
- 
--	r = amdgpu_multi_ring_reset_helper_end(ring_type_mask, guilty_ring, r);
-+	r = amdgpu_multi_ring_reset_helper_end(adev, ring_type_mask, guilty_ring, r);
- 	amdgpu_device_unlock_reset_domain(adev->reset_domain);
- 
- 	if (r) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-index 411c74802d20..be91143d9aed 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-@@ -928,8 +928,9 @@ int amdgpu_ring_reset_helper_end(struct amdgpu_ring *ring,
- /**
-  * amdgpu_multi_ring_reset_helper_begin() - Prepare multiple rings for a reset.
-  *
-+ * @adev: amdgpu device
-  * @ring_type_mask: Bitmask of affected ring types
-- * @guilty_ring: The ring which is guilty of causing a reset.
-+ * @guilty_ring: The ring which is guilty of causing a reset, or NULL.
-  * @guilty_fence: The fence which didn't signal on the guilty ring.
-  *
-  * Useful when performing a GPU reset method that affects
-@@ -947,11 +948,11 @@ int amdgpu_ring_reset_helper_end(struct amdgpu_ring *ring,
-  * After the reset is complete, the caller should then call
-  * amdgpu_multi_ring_reset_helper_end() to restore the rings.
-  */
--void amdgpu_multi_ring_reset_helper_begin(const u32 ring_type_mask,
-+void amdgpu_multi_ring_reset_helper_begin(struct amdgpu_device *adev,
-+					  const u32 ring_type_mask,
- 					  struct amdgpu_ring *guilty_ring,
- 					  struct amdgpu_fence *guilty_fence)
- {
--	struct amdgpu_device *adev = guilty_ring->adev;
- 	struct amdgpu_fence *ring_guilty_fence;
- 	struct amdgpu_ring *ring;
- 	bool rings_busy;
-@@ -1043,8 +1044,9 @@ void amdgpu_multi_ring_reset_helper_begin(const u32 ring_type_mask,
- /**
-  * amdgpu_multi_ring_reset_helper_end() - Prepare multiple rings for a reset.
-  *
-+ * @adev: amdgpu device
-  * @ring_type_mask: Bitmask of affected ring types
-- * @guilty_ring: The ring which is guilty of causing a reset.
-+ * @guilty_ring: The ring which is guilty of causing a reset, or NULL.
-  * @ret: Return code from the reset function.
-  *
-  * After calling amdgpu_multi_ring_reset_helper_begin()
-@@ -1055,10 +1057,10 @@ void amdgpu_multi_ring_reset_helper_begin(const u32 ring_type_mask,
-  * be called to restore preemption state, but it won't attempt to
-  * fully restore the ring contents.
-  */
--int amdgpu_multi_ring_reset_helper_end(const u32 ring_type_mask,
-+int amdgpu_multi_ring_reset_helper_end(struct amdgpu_device *adev,
-+				       const u32 ring_type_mask,
- 				       struct amdgpu_ring *guilty_ring, int ret)
- {
--	struct amdgpu_device *adev = guilty_ring->adev;
- 	struct amdgpu_ring *ring;
- 	int i, r;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-index 6224a9f94826..db8fbe92a261 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-@@ -638,10 +638,12 @@ void amdgpu_ring_reset_helper_begin(struct amdgpu_ring *ring,
- 				    struct amdgpu_fence *guilty_fence);
- int amdgpu_ring_reset_helper_end(struct amdgpu_ring *ring,
- 				 struct amdgpu_fence *guilty_fence);
--void amdgpu_multi_ring_reset_helper_begin(const u32 ring_type_mask,
-+void amdgpu_multi_ring_reset_helper_begin(struct amdgpu_device *adev,
-+					  const u32 ring_type_mask,
- 					  struct amdgpu_ring *guilty_ring,
- 					  struct amdgpu_fence *guilty_fence);
--int amdgpu_multi_ring_reset_helper_end(const u32 ring_type_mask,
-+int amdgpu_multi_ring_reset_helper_end(struct amdgpu_device *adev,
-+				       const u32 ring_type_mask,
- 				       struct amdgpu_ring *guilty_ring, int ret);
- bool amdgpu_ring_is_reset_type_supported(struct amdgpu_ring *ring,
- 					 u32 reset_type);
+ struct sq_work {
 -- 
 2.50.1
 
