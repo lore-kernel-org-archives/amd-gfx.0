@@ -2,100 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6D15606A693
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Nov 2026 09:59:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46494606A33C
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Nov 2026 09:59:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.com header.i=@fastmail.com header.a=rsa-sha256 header.s=fm3 header.b=kbvw94+K;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=d5P2uTrX
+	dkim=pass (2048-bit key, unprotected) header.d=verwilst.be header.i=@verwilst.be header.a=rsa-sha256 header.s=protonmail3 header.b=EZHsS6Xp
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E60B11296D;
-	Fri, 27 Nov 2026 09:58:59 +0000 (UTC)
-X-Greylist: delayed 581 seconds by postgrey-1.36 at gabe;
- Thu, 26 Nov 2026 14:26:15 UTC
-Received: from fout-b7-smtp.messagingengine.com
- (fout-b7-smtp.messagingengine.com [202.12.124.150])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 705E8112495
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Nov 2026 14:26:15 +0000 (UTC)
-Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
- by mailfout.stl.internal (Postfix) with ESMTP id 6585A1D00494
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Nov 2026 09:16:33 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-09.internal (MEProxy); Thu, 26 Nov 2026 09:16:33 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.com; h=
- cc:cc:content-transfer-encoding:content-type:date:date:from:from
- :in-reply-to:message-id:mime-version:reply-to:subject:subject:to
- :to; s=fm3; t=1795702592; x=1795788992; bh=0jJSJ14/au0I5tvGdZLv3
- VBdYXYm14UxYMphMpPpqg0=; b=kbvw94+KqF0gfli8MChPdVX2dzxaiiDdkGNrX
- XA8rrai4Js67jKetb6X2w8WrlRWJFxagkosdzgWKzW+Evg9GBlw0AjbmL8JGhPXX
- R0pjmEh6Ldtm4Q/chyzW3mBupeazVC8mDRXdTmt79eVlzw1II2QppIlDjQpD8+a1
- uNquvc9K3JUF0LId5jra+HQvGLsmkjB4Bjxyk8YqVmvh+YSpeJfPIDth5Fg1Eej5
- VMl6gRhXpAk1Rhd66vi+CAKBRu/EmXKG6ER1fVEsmzZeMPQ3Rrcl1we3+dpzc4VN
- il4mAJlQ3FEkeU873+rbrBwHZnLqW57+aA47/7nYzJuCYmt5g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:message-id:mime-version:reply-to:subject:subject:to
- :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
- 1795702592; x=1795788992; bh=0jJSJ14/au0I5tvGdZLv3VBdYXYm14UxYMp
- hMpPpqg0=; b=d5P2uTrXB70WVfA7IXJR47EdHHzwbVm5+ZWfc9o3wnYKiXG3+LA
- 7cWLPJ+6cLPTsuwwHrrpngwy/0TqwMIWEOrMlREfK9CHtaO2rr3tfBs4eQKPYR0K
- hZ2UC9IYKnt77rTu28irZlT8621KDkUKHt2iV63ZWKGt6VeJDiT4v6/rGsUMafgG
- 4HhcLWihKOW3zH3Q9bohqikrfMOUPJ8ocL+rR9k0bcbOA5gKsyMUYJNZIQsM4/f0
- Gp292IKrMQe77xUBF2oluDD+U6z2feh5AV/lJN1A49TI0U9Gbjy7bGsJtbWWKBdx
- n0MyUKl1wW6TBcX7Vf2n8Yr7HQLd7U4Bp0A==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
- repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
- action=sign d=fastmail.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1795702592; d=fastmail.com;
- mf=PGJhcmFudEBmYXN0bWFpbC5jb20+;
- rt=PGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPg==;
- s=fm3:rsa-sha256:KvYYC4IXG9CNameGkecP+h3KkwRQ+yRDeXaUTZKR9J9OGf2
- EVL0eqmPPfKdXChCFF2Gt8yl/BeUuWF6OwDcgLQRNarqrSzdtb+ZN0p196tuEwh7
- gVLm3bj9Ma4nE7aW7q5BD7bHXyI5+XUlxjicVgAkObHAfFIBuwL3Eu2LnrwKIvha
- 1rH1hqB/UUzY2CsqUaTq/3u80jt4b2N2imz2JrkvccQAticCf7u2s0ZWZzS7N42v
- xeL9TFCoawhTFwllo83DJOtIVlyrvIgvR/xLSGNJ9MSruDHCR+s97rH3iGj2kB4q
- kmniG/XaSUTtAzp0P4KOh34tJsY7TErrfiAzWUg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
- repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
- action=mi-m=1; hc=9;
- hn=cc,content-transfer-encoding,date,feedback-id,from,
- message-id,mime-version,subject,to;
-Message-Instance: m=1;
- h=sha256:decYHEp1do/N1tLYzQVUe3iGZipOzmD6xPUvkPHPia0=:vQqCiOEAJ5fdy/X2Eu1ZZCDteP3JyJpjgB8/9HEG7Pw=;
-X-ME-Sender: <xms:Pz8Ia7aSol5PN-y4nT6Cq3QQ6_fj6bdKgIcIdhSKsiGuGHpccKCYNg>
- <xme:Pz8Ia_WwXHxEMY3XWvS6VOpSZRo0QKKkRlWvuQ5VLexnZ2cbtMc0KP7sfXnOKZVm_
- RrblkH_BdBO6d2VbgFzbxkeDtkaR_wA7N-K0-Xo-V9MR371yqvFE9Eg>
-X-ME-Received: <xmr:Pz8IayOmz1MGkevWRuhJFAfidiZC77tlSTDJO_hAMcMYiyCb3y-tZ2K5>
-X-ME-Proxy-Cause: dmFkZTEcC6pu7LwrB/ySbP3kl6e61I652LHUGBMkCQxxjnqHtpZRQ1RSAqJ7nLzncMfvcZ
- GGRPVTlArz6DghdWIR6nJjRpetdZcbYJA9sobWt5l+OE8E76RfbwE4v30gzpdXpOX+X2rO
- d2CO0GInVpNDtde4phNqKkOCWW/28/sysC+2sdQetpH55hDYXZ1Dt6FQ8NLurJ8Eyzstl4
- 9WRVQyp8Ag+Vm3Lssktpbyy2P9/B8yOpCGGyM4LzeKOxr8wa7pXr/3TaTYC79qH10i5UqI
- pGNF7xS7yiICDcXiw6h7UI+wnqPP71fPBLGm9qWecX7hx3Zub/dwMPgSydzq6yZ2/KVOGv
- wel4e8lYHTHi8bjYtdBnXeEeL9sEXapXGlNOjK6a6ps1EqDDuqbVN3NecG3qzRzj6BX42K
- HeWYUjQgr1VPT9dn3pAbTEraMt6wO4jeCwOcL8GS3OKeSB1oubn2yZtsr2W1yRUimut8Sb
- 2Y5qYv9tq8mDsduYyGN4pIO7vlmoXX4tai0ExI4HbMG3/2IzBNkX5CyGZXHV8kulQ8NxEM
- ZB1ydAWtsXXXxbnL1WSNaNeHFJgTgX0hMvZa/mk3OK321jwL2NbCm00i8VGUhgEE2rINDC
- 7QR+IkZcQgBJsw/AMpLwycyixJAkJ2Rchwp9I7T6YdMvrb7InP2lqgb3lAcg
-X-ME-Proxy: <xmx:Pz8IaxblktLcODS1n2BeIfjgcLiFGqWgOFSXJE8arIc5b3yPgkxNYg>
- <xmx:Pz8Ia59KrK9pD7ZI1lbSpO0O5xvLTNI_LUl19mPibbtqAsTyCbxcbw>
- <xmx:Pz8Ia6SGxrucul4l4HU1FeEoLv2mfc2xHaFEyzWFSYNXWVQsD_ZZVw>
- <xmx:Pz8Ia7fkVBsnZqUdpAI7VeXfCSBGyohov-r3FGpWXPtnKuGETSg2Zw>
- <xmx:QD8Ia-4GAZ5HkUbB188TlSffRIpU7DE2iQPv-TJv5133ZKcPbEQtiiaA>
-Feedback-ID: i9dce4b48:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 26 Nov 2026 09:16:29 -0500 (EST)
-From: Baran Tuna <barant@fastmail.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Subject: [PATCH] drm/amd/display: Use str_enable_disable() helper
-Date: Thu, 26 Nov 2026 17:16:17 +0300
-Message-ID: <321392d0d9dba36777ec771663c677509fb49c15.1795702369.git.barant@fastmail.com>
-X-Mailer: git-send-email 2.53.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id C11BD112983;
+	Fri, 27 Nov 2026 09:59:09 +0000 (UTC)
+Received: from mail-244108.protonmail.ch (mail-244108.protonmail.ch
+ [109.224.244.108])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74F5C112609
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Nov 2026 17:32:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=verwilst.be;
+ s=protonmail3; t=1795714354; x=1795973554;
+ bh=LGqcVcaydTIQRQ4BMJ2ovWJiZSzG7AUeW5b0zR7PZh8=;
+ h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
+ Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=EZHsS6XpnLeq0j8l6zM4LX2S/oZMXnOUf6GZ/mtYfWSsEg3gDC1tJ/b/pipV+Dg7F
+ bpfeOjY7DrFu+y+s8qXNiAUDXL6nTe675fKAMb30JrG0crguh6XnrXffp9dxWyVypG
+ f8o+GAG/gwhOc5xDZbnQmWK+wCA/yHT7jEqX/PXYelTE+FRV4eyjmAERTuzh3C4x9T
+ juYzac2J4M/gfXFZP87lHcamr3kjHwxtKtA9reODyyKj2RADO9iPhPR4lloMOsEoOU
+ k3bLjPyyzNNv73Dopay4juYJD+Z3KFu3/pgaMwr874s+b7xjWq1cP/oQAaMMxJW5ET
+ TbeJLHoBRquEg==
+X-Pm-Submission-Id: 4jb3XJ6BH9z1DDLf
+From: Bart Verwilst <bart@verwilst.be>
+To: amd-gfx@lists.freedesktop.org
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
+ alexander.deucher@amd.com, Wayne.Lin@amd.com
+Subject: [PATCH v3 1/2] drm/amd/display: don't release an MST payload that
+ holds no time slots
+Date: Thu, 26 Nov 2026 18:31:55 +0100
+Message-ID: <20261126173156.13147-2-bart@verwilst.be>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261126173156.13147-1-bart@verwilst.be>
+References: <20261126173156.13147-1-bart@verwilst.be>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -110,50 +50,81 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-Message-ID: <20261126141617.Zl4HsbhEa3ZnEbXOPKKOUg1VspSvbReWm4UYFqXlGQE@z>
 
-Replace the open-coded enable ? "enable" : "disable" ternary with
-the str_enable_disable() helper from <linux/string_choices.h>.
+dm_helpers_dp_mst_update_mst_mgr_for_deallocation() calls
+drm_dp_remove_payload_part2() unconditionally. That function decrements
+payload_count and moves next_start_slot back by the payload's time
+slots. If the payload was never added with drm_dp_add_payload_part1(),
+or was already released, both counters underflow. Every payload
+allocated afterwards then starts at a bogus slot and ACT never
+completes.
 
-Found by scripts/coccinelle/api/string_choices.cocci.
+This can happen when the same stream is disabled twice, e.g. first by
+link_set_all_streams_dpms_off_for_link() during a destructive link
+verification and then again when userspace disables its CRTC, or when
+the stream enable was aborted before its payload was allocated.
 
-Signed-off-by: Baran Tuna <barant@fastmail.com>
+drm_dp_add_payload_part1() sets vc_start_slot and
+drm_dp_remove_payload_part2() resets it to -1, so a negative
+vc_start_slot means there is nothing to release. Skip the time slot
+accounting in that case, but still drop the port reference of a deleted
+payload and mark it unallocated, as drm_dp_remove_payload_part2() would.
+
+Fixes: 83a79dd6f4fb ("drm/amd/display: adjust flow for deallocation mst payload")
+Signed-off-by: Bart Verwilst <bart@verwilst.be>
 ---
-Compile-tested only.
+ .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 31 +++++++++++++++++--
+ 1 file changed, 28 insertions(+), 3 deletions(-)
 
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 5d1b010bec9b..870b4653314f 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -85,6 +85,7 @@
- #include <linux/firmware.h>
- #include <linux/component.h>
- #include <linux/sort.h>
-+#include <linux/string_choices.h>
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index 6192c0f..b25d707 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -524,10 +524,35 @@ void dm_helpers_dp_mst_update_mst_mgr_for_deallocation(
+ 	mst_mgr = &aconnector->mst_root->mst_mgr;
+ 	mst_state = to_drm_dp_mst_topology_state(mst_mgr->base.state);
+ 	new_payload = drm_atomic_get_mst_payload_state(mst_state, aconnector->mst_output_port);
+-	dm_helpers_construct_old_payload(mst_mgr, mst_state,
+-					 new_payload, &old_payload);
++	if (!new_payload)
++		return;
  
- #include <drm/drm_privacy_screen_consumer.h>
- #include <drm/display/drm_dp_mst_helper.h>
-@@ -1468,7 +1469,7 @@ STATIC_IFN_KUNIT void dm_gpureset_toggle_interrupts(struct amdgpu_device *adev,
- 			rc = amdgpu_dm_irq_set(adev, irq_source, enable) ? 0 : -EBUSY;
- 			if (rc)
- 				drm_warn(adev_to_drm(adev), "Failed to %s pflip interrupts\n",
--					 enable ? "enable" : "disable");
-+					 str_enable_disable(enable));
+-	drm_dp_remove_payload_part2(mst_mgr, mst_state, &old_payload, new_payload);
++	/*
++	 * Only a payload that went through drm_dp_add_payload_part1() holds
++	 * time slots in the manager (vc_start_slot >= 0). Releasing a payload
++	 * that was never added, or releasing one twice, would underflow
++	 * payload_count and next_start_slot.
++	 */
++	if (new_payload->vc_start_slot >= 0) {
++		dm_helpers_construct_old_payload(mst_mgr, mst_state,
++						 new_payload, &old_payload);
++		drm_dp_remove_payload_part2(mst_mgr, mst_state, &old_payload,
++					    new_payload);
++	} else {
++		drm_dbg_kms(mst_mgr->dev,
++			    "MST payload for VCPI %d holds no time slots, nothing to release\n",
++			    new_payload->vcpi);
++		/*
++		 * Still do what drm_dp_remove_payload_part2() does apart from
++		 * the time slot accounting: drop the port reference of a
++		 * deleted payload, which drm_dp_mst_destroy_state() skips, and
++		 * mark the payload as unallocated.
++		 */
++		if (new_payload->delete)
++			drm_dp_mst_put_port_malloc(new_payload->port);
++		new_payload->payload_allocation_status =
++			DRM_DP_MST_PAYLOAD_ALLOCATION_NONE;
++	}
  
- 			if (dc_supports_vrr(adev->dm.dc->ctx->dce_version)) {
- 				if (enable) {
-
-base-commit: 25faec9ce61c01fb45abf812a222c5b43c3cd5c5
+ 	amdgpu_dm_set_mst_status(&aconnector->mst_status, set_flag, true);
+ 	amdgpu_dm_set_mst_status(&aconnector->mst_status, clr_flag, false);
 -- 
-2.53.0
+2.56.1
 
