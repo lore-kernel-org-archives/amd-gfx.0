@@ -2,62 +2,46 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59191606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE988606A326
 	for <amd-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 13:49:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ideco.ru header.i=@ideco.ru header.a=rsa-sha256 header.s=ics header.b=Klx2pfGi
+	dkim=pass (1024-bit key) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=GUh6XF/1
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA253112432;
-	Thu, 26 Nov 2026 13:49:05 +0000 (UTC)
-Received: from smtp.ideco.ru (smtp.ideco.ru [51.250.56.165])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA79F11214E;
- Thu, 26 Nov 2026 08:35:00 +0000 (UTC)
-Received: from [169.254.254.254] (localhost [127.0.0.1])
- by smtp.ideco.ru (Postfix) with ESMTP id 66818202F354;
- Thu, 26 Nov 2026 13:25:10 +0500 (+05)
-Received: from fedora (5cfcd9fa.dynamic.mv.ru [92.252.217.250])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp.ideco.ru (Postfix) with ESMTPSA id 868242032A51;
- Thu, 26 Nov 2026 13:16:40 +0500 (+05)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.ideco.ru 868242032A51
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ideco.ru; s=ics;
- t=1795681003; bh=r3XTDI4uvFScG85tMDMU/IHVWWOtOx9qSgxsnYpPNkY=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=Klx2pfGi/iKt+nQoFHAuol3STv+RiQlnGrsgpoZkOD9ypvD74RT3MrGINtzkuZRkY
- uotvHdF3hQ0Hs88riF2MMVTO2K34NQcgNCWtsXlBfykVsf5GVD2D7CwYzYIeHeZWZS
- JyDuoiww+sUw1tyx/ZQM/W2SJ2Lue8Qi5v0dO5uFBxJQzmVQQKJruUctiy5VBBNVOk
- WhI6ahgQG0qewFWzTe+S60LlRThJ2UVejU++xzkPl9yMS8BhXjDzIqmkZbvGoP3yGA
- Mp8y37P2xHUcmxSHdD2+5gTNolNRhP86JiJkaYS6KhEMRRyp7AQKPcRCgqogpq7v5Q
- hQlQgLGrOJsHg==
-From: Alex Kazinsky <a.kazinsky@ideco.ru>
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: Alex Kazinsky <a.kazinsky@ideco.ru>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
- Lu Yao <yaolu@kylinos.cn>, Jani Nikula <jani.nikula@intel.com>,
- "Mario Limonciello (AMD)" <superm1@kernel.org>,
- =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Dave Airlie <airlied@redhat.com>, Eric Anholt <eric@anholt.net>,
- Jesse Barnes <jbarnes@virtuousgeek.org>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- lvc-project@linuxtesting.org, stable@vger.kernel.org
-Subject: [PATCH 4/5] drm/connector: Handle scaling mode property allocation
- failures
-Date: Thu, 26 Nov 2026 12:15:59 +0400
-Message-ID: <20261126081602.2901498-5-a.kazinsky@ideco.ru>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261126081602.2901498-1-a.kazinsky@ideco.ru>
-References: <20261126081602.2901498-1-a.kazinsky@ideco.ru>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 436AF112433;
+	Thu, 26 Nov 2026 13:49:06 +0000 (UTC)
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com
+ [101.71.155.101])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDFA711214E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Nov 2026 08:32:59 +0000 (UTC)
+Received: from lgs.. (unknown [101.76.249.61])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 561726983;
+ Thu, 26 Nov 2026 16:27:49 +0800 (GMT+08:00)
+From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, siqueira@igalia.com, karanja99erick@gmail.com
+Cc: amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Subject: [PATCH 1/2] drm/amdgpu: Unregister I2C adapters when tearing down
+ their channels
+Date: Thu, 26 Nov 2026 16:27:48 +0800
+Message-ID: <20261126-a35bb25eb5-u01-1@mail.sdu.edu.cn>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261126-a35bb25eb5-u01-0@mail.sdu.edu.cn>
+References: <20261126-a35bb25eb5-u01-0@mail.sdu.edu.cn>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa216f7d00603a1kunm260ce1253c2c45
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDTEweVk5LSE5IHxhLH0tIGVYeHw
+ 5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWU9LSFVKS0lCQ0
+ NMVUpLS1VLWQY+
+DKIM-Signature: a=rsa-sha256;
+ b=GUh6XF/1ruSaOfm5VBpYHg0gV6S1yfqoAagMizMEtIkYYzLsqvUl2TZ5X1V6agr+qaEwj7Zqrz3+okNIV0m+J5povlKw4uFfFFkkbx2zBtnvKkV7wPp0OsjklWKC5wanv3I6fBhZ/g+gIK+2JF9mG02tjNXowbpU33eBvy/8fBY=;
+ c=relaxed/relaxed; s=default; d=mail.sdu.edu.cn; v=1; 
+ bh=r10kFXyWHiND9oxdYRCVpLudI1UrW9kK5hLsOcguoKU=;
+ h=date:mime-version:subject:message-id:from;
 X-Mailman-Approved-At: Thu, 26 Nov 2026 13:48:49 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -77,207 +61,55 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-drm_mode_create_scaling_mode_property() returns success even when
-drm_property_create_enum() fails. Drivers then continue initialization
-and may pass the NULL property to drm_object_attach_property(), causing
-a NULL pointer dereference.
+The bit-banged adapters have no managed unregister action, and the I2C
+channels are allocated separately. Clearing the bus array leaves both
+the bit-banged adapters and channel storage behind. Register hardware
+adapters explicitly and unregister each adapter before freeing its
+channel.
 
-Return -ENOMEM if the property cannot be created and handle the error
-in Nouveau, AMDGPU, Radeon and GMA500 before creating connectors.
+This issue was found by our static analysis tool under development.
 
-In GMA500, create the property during modeset initialization and
-propagate failures to the driver load path. Remove the redundant
-creation call from the Cedarview output initialization.
-
-Fixes: f453ba046074 ("DRM: add mode setting support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Alex Kazinsky <a.kazinsky@ideco.ru>
+Fixes: 0f36a3c6af9e ("drm/amdgpu/amdgpu_i2c: Use devm_i2c_add_adapter instead of i2c_add_adapter")
+Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c |  6 ++++--
- drivers/gpu/drm/drm_connector.c             |  5 ++++-
- drivers/gpu/drm/gma500/cdv_device.c         |  2 --
- drivers/gpu/drm/gma500/framebuffer.c        | 17 +++++++++++------
- drivers/gpu/drm/gma500/psb_drv.c            |  4 +++-
- drivers/gpu/drm/gma500/psb_drv.h            |  2 +-
- drivers/gpu/drm/nouveau/nouveau_display.c   |  5 +++--
- drivers/gpu/drm/radeon/radeon_display.c     |  6 ++++--
- 8 files changed, 30 insertions(+), 17 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-index 677d199ca931..79ce4414a32f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-@@ -1576,7 +1576,7 @@ static int amdgpu_display_setup_abm_prop(struct amdgpu_device *adev)
- 
- int amdgpu_display_modeset_create_props(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c
+index c576e103a783..af3d4f9b12c7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.c
+@@ -184,7 +184,7 @@ struct amdgpu_i2c_chan *amdgpu_i2c_create(struct drm_device *dev,
+ 		snprintf(i2c->adapter.name, sizeof(i2c->adapter.name),
+ 			 "AMDGPU i2c hw bus %s", name);
+ 		i2c->adapter.algo = &amdgpu_atombios_i2c_algo;
+-		ret = devm_i2c_add_adapter(dev->dev, &i2c->adapter);
++		ret = i2c_add_adapter(&i2c->adapter);
+ 		if (ret)
+ 			goto out_free;
+ 	} else {
+@@ -239,9 +239,17 @@ void amdgpu_i2c_fini(struct amdgpu_device *adev)
  {
--	int sz;
-+	int sz, ret;
+ 	int i;
  
- 	adev->mode_info.coherent_mode_property =
- 		drm_property_create_range(adev_to_drm(adev), 0, "coherent", 0, 1);
-@@ -1588,7 +1588,9 @@ int amdgpu_display_modeset_create_props(struct amdgpu_device *adev)
- 	if (!adev->mode_info.load_detect_property)
- 		return -ENOMEM;
- 
--	drm_mode_create_scaling_mode_property(adev_to_drm(adev));
-+	ret = drm_mode_create_scaling_mode_property(adev_to_drm(adev));
-+	if (ret)
-+		return ret;
- 
- 	sz = ARRAY_SIZE(amdgpu_underscan_enum_list);
- 	adev->mode_info.underscan_property =
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index 5ab121860050..af3dbdcaaca5 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -2495,7 +2495,8 @@ EXPORT_SYMBOL(drm_mode_create_tv_properties);
-  * instead to correctly assign &drm_connector_state.scaling_mode
-  * in the atomic state.
-  *
-- * Returns: %0
-+ * Returns:
-+ * Zero on success, negative errno on failure.
-  */
- int drm_mode_create_scaling_mode_property(struct drm_device *dev)
- {
-@@ -2508,6 +2509,8 @@ int drm_mode_create_scaling_mode_property(struct drm_device *dev)
- 		drm_property_create_enum(dev, 0, "scaling mode",
- 				drm_scaling_mode_enum_list,
- 				    ARRAY_SIZE(drm_scaling_mode_enum_list));
-+	if (!scaling_mode)
-+		return -ENOMEM;
- 
- 	dev->mode_config.scaling_mode_property = scaling_mode;
- 
-diff --git a/drivers/gpu/drm/gma500/cdv_device.c b/drivers/gpu/drm/gma500/cdv_device.c
-index fd6ea8998dbe..2a9e9b323005 100644
---- a/drivers/gpu/drm/gma500/cdv_device.c
-+++ b/drivers/gpu/drm/gma500/cdv_device.c
-@@ -41,8 +41,6 @@ static int cdv_output_init(struct drm_device *dev)
- {
- 	struct drm_psb_private *dev_priv = to_drm_psb_private(dev);
- 
--	drm_mode_create_scaling_mode_property(dev);
--
- 	cdv_disable_vga(dev);
- 
- 	cdv_intel_crt_init(dev, &dev_priv->mode_dev);
-diff --git a/drivers/gpu/drm/gma500/framebuffer.c b/drivers/gpu/drm/gma500/framebuffer.c
-index 37a9f666c0f2..02d892a146fc 100644
---- a/drivers/gpu/drm/gma500/framebuffer.c
-+++ b/drivers/gpu/drm/gma500/framebuffer.c
-@@ -43,8 +43,6 @@ static void psb_setup_outputs(struct drm_device *dev)
- 	struct drm_connector_list_iter conn_iter;
- 	struct drm_connector *connector;
- 
--	drm_mode_create_scaling_mode_property(dev);
--
- 	/* It is ok for this to fail - we just don't get backlight control */
- 	if (!dev_priv->backlight_property)
- 		dev_priv->backlight_property = drm_property_create_range(dev, 0,
-@@ -98,14 +96,19 @@ static void psb_setup_outputs(struct drm_device *dev)
- 	drm_connector_list_iter_end(&conn_iter);
+-	for (i = 0; i < AMDGPU_MAX_I2C_BUS; i++)
+-		if (adev->i2c_bus[i])
+-			adev->i2c_bus[i] = NULL;
++	for (i = 0; i < AMDGPU_MAX_I2C_BUS; i++) {
++		struct amdgpu_i2c_chan *i2c = adev->i2c_bus[i];
++
++		if (!i2c)
++			continue;
++
++		WARN_ON(i2c->has_aux);
++		i2c_del_adapter(&i2c->adapter);
++		kfree(i2c);
++		adev->i2c_bus[i] = NULL;
++	}
  }
  
--void psb_modeset_init(struct drm_device *dev)
-+int psb_modeset_init(struct drm_device *dev)
- {
- 	struct drm_psb_private *dev_priv = to_drm_psb_private(dev);
- 	struct psb_intel_mode_device *mode_dev = &dev_priv->mode_dev;
--	int i;
-+	int i, ret;
-+
-+	ret = drmm_mode_config_init(dev);
-+	if (ret)
-+		return ret;
- 
--	if (drmm_mode_config_init(dev))
--		return;
-+	ret = drm_mode_create_scaling_mode_property(dev);
-+	if (ret)
-+		return ret;
- 
- 	dev->mode_config.min_width = 0;
- 	dev->mode_config.min_height = 0;
-@@ -125,6 +128,8 @@ void psb_modeset_init(struct drm_device *dev)
- 	        dev_priv->ops->errata(dev);
- 
-         dev_priv->modeset = true;
-+
-+	return 0;
- }
- 
- void psb_modeset_cleanup(struct drm_device *dev)
-diff --git a/drivers/gpu/drm/gma500/psb_drv.c b/drivers/gpu/drm/gma500/psb_drv.c
-index d17cb5b4a4bf..6321cbc305bf 100644
---- a/drivers/gpu/drm/gma500/psb_drv.c
-+++ b/drivers/gpu/drm/gma500/psb_drv.c
-@@ -386,7 +386,9 @@ static int psb_driver_load(struct drm_device *dev, unsigned long flags)
- 
- 	dev->max_vblank_count = 0xffffff; /* only 24 bits of frame count */
- 
--	psb_modeset_init(dev);
-+	ret = psb_modeset_init(dev);
-+	if (ret)
-+		goto out_err;
- 	drm_kms_helper_poll_init(dev);
- 
- 	/* Only add backlight support if we have LVDS or MIPI output */
-diff --git a/drivers/gpu/drm/gma500/psb_drv.h b/drivers/gpu/drm/gma500/psb_drv.h
-index db197b865b90..416c9db65e5a 100644
---- a/drivers/gpu/drm/gma500/psb_drv.h
-+++ b/drivers/gpu/drm/gma500/psb_drv.h
-@@ -589,7 +589,7 @@ struct psb_ops {
- };
- 
- /* modesetting */
--extern void psb_modeset_init(struct drm_device *dev);
-+int psb_modeset_init(struct drm_device *dev);
- extern void psb_modeset_cleanup(struct drm_device *dev);
- 
- /* fbdev */
-diff --git a/drivers/gpu/drm/nouveau/nouveau_display.c b/drivers/gpu/drm/nouveau/nouveau_display.c
-index 04e9a512eaec..1e24829e0eac 100644
---- a/drivers/gpu/drm/nouveau/nouveau_display.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_display.c
-@@ -656,8 +656,9 @@ nouveau_display_create(struct drm_device *dev)
- 		return -ENOMEM;
- 
- 	drm_mode_config_init(dev);
--	drm_mode_create_scaling_mode_property(dev);
--	ret = drm_mode_create_dvi_i_properties(dev);
-+	ret = drm_mode_create_scaling_mode_property(dev);
-+	if (!ret)
-+		ret = drm_mode_create_dvi_i_properties(dev);
- 	if (ret) {
- 		drm_mode_config_cleanup(dev);
- 		drm->display = NULL;
-diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/radeon/radeon_display.c
-index aac6733ddd82..c4397edc5913 100644
---- a/drivers/gpu/drm/radeon/radeon_display.c
-+++ b/drivers/gpu/drm/radeon/radeon_display.c
-@@ -1410,7 +1410,7 @@ static const struct drm_prop_enum_list radeon_output_csc_enum_list[] =
- 
- static int radeon_modeset_create_props(struct radeon_device *rdev)
- {
--	int sz;
-+	int sz, ret;
- 
- 	if (rdev->is_atom_bios) {
- 		rdev->mode_info.coherent_mode_property =
-@@ -1432,7 +1432,9 @@ static int radeon_modeset_create_props(struct radeon_device *rdev)
- 	if (!rdev->mode_info.load_detect_property)
- 		return -ENOMEM;
- 
--	drm_mode_create_scaling_mode_property(rdev_to_drm(rdev));
-+	ret = drm_mode_create_scaling_mode_property(rdev_to_drm(rdev));
-+	if (ret)
-+		return ret;
- 
- 	sz = ARRAY_SIZE(radeon_tv_std_enum_list);
- 	rdev->mode_info.tv_std_property =
+ /* looks up bus based on id */
+
 -- 
-2.56.0
-
+2.43.0
 
