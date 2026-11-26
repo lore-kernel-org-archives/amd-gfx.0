@@ -2,84 +2,103 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9A1A606A32A
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Nov 2026 09:59:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9996606A333
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Nov 2026 09:59:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cH4hgqfo
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=LYPnFhKI
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A5D0112973;
-	Fri, 27 Nov 2026 09:59:00 +0000 (UTC)
-Received: from mail-wr2-f10.google.com (mail-wr2-f10.google.com
- [74.125.225.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2CA6410E4B3
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Nov 2026 00:05:55 +0000 (UTC)
-Received: by mail-wr2-f10.google.com with SMTP id
- ffacd0b85a97d-48ded18b8d9so1938453f8f.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Nov 2026 16:05:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795737953; x=1796342753; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:subject:from:cc:to
- :content-language:user-agent:mime-version:date:message-id:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=pqzmgKYMca4RBaxu31DAoXlIpLvnjkLq79oIDqJk3Ys=;
- b=cH4hgqfoQqH5YcbYI/tODaEW3Jbu1UFkM/5qt/ma38i5nhrZAnA/MPlBr5vk0PThOT
- sIfgxdXeuTkQz72BrgIJq2QvEQSvKrSU01Q89ZLTjoOALNdzQOAfR6+wKq+VOD0l+wXP
- 6AO2UPlUuVJ1hh0SrplD0MvV/FYiVwe0rLxwOOd20EUe3PGeZMd8XkfoXr51UMiKTJ7s
- AKbG7Mh44u0h1saENlEi1c5uLH7+wx92sRxt4/uFH13ruz2q6aPtNqkyTCC6J7qwjkW8
- 8glSrO7owrY4t3UmSmpZw10/gsiBX/cdRgVQBaZ5uPy8NeOcQEyocJIvVJO/CKr1vMcU
- SHTg==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E8ED11296F;
+	Fri, 27 Nov 2026 09:58:59 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5E5F112559
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Nov 2026 15:46:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1795707994;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=hQvLC0FxHg/bSpHW9/gmIY66IIHqqdWcBSBJ2Hl0tm0=;
+ b=LYPnFhKIghZvF9aLdBFKdhcXZ17yVFo+FvDyX9Gqk2i95v05yQuJPKP8ka2NUie18YXu7P
+ CYFxBjx3Yc1zwYFbm36OV5dHUEPoHNP3TX6mHjAphvdyssgRFmzoJTqpHAWhoqSPuKZrSI
+ 7egEtSkHEtA4Wjg/osTIFrVGzo6eWv0=
+Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com
+ [209.85.128.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-435-nBynqf4kOiKLMK7oSG-9yA-1; Thu, 26 Nov 2026 15:46:32 +0000
+X-MC-Unique: nBynqf4kOiKLMK7oSG-9yA-1
+X-Mimecast-MFC-AGG-ID: nBynqf4kOiKLMK7oSG-9yA_1795707992
+Received: by mail-yw1-f199.google.com with SMTP id
+ 00721157ae682-869553205a7so91822097b3.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Nov 2026 07:46:32 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795737953; x=1796342753;
- h=content-transfer-encoding:content-type:subject:from:cc:to
- :content-language:user-agent:mime-version:date:message-id:x-gm-gg
+ d=1e100.net; s=20260707; t=1795707992; x=1796312792;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=pqzmgKYMca4RBaxu31DAoXlIpLvnjkLq79oIDqJk3Ys=;
- b=RahAbc6NtLFnoQwFd2mqjsg+uggZ5jkPgOf7e7VZgIXmZ1TAklxtL4JrVmo//cruOA
- fmgmhB637vD+Oa7Zl+xkqfL2lsh+p/5nWfavuRqnOWymE0+wfFUUzRHqdmQNpNFnWWSW
- OqsouKwvhUry6jgIzIXCnIoGdXTw5glhkXDQE6HreZXJrgpfBINaiEBWowAHghfwyAQm
- 4RRvJyXbrLy92Cjbq8stTBfNaVBnupn+CYYQBpHHFsJOzPp51GHci5pSNG61HMj+uwjS
- bHc/ulrQiyJdFkUQ61ZPlJroc153Fe1RZ7qjrqQ83Lsu/BmN6FzXjIQHU//cz43UxU3S
- ZdRQ==
-X-Gm-Message-State: APuU4Z9du4jQB4prZn2XmAenUrU9nk97VSsQ9gBIR+GLZXVFwKEyu3I3
- HfE7gP6HezIHFlkSc976B7M2A9M73oDxe9C3FOUXPMdegnC2x5joZYk33l8ORakp2Jk=
-X-Gm-Gg: AZFdTZcCkZSIt965pTCIJ+6yrt3fAHYmsyDMlEdP02Bz6e32etfjLIY9oE4B4M3pFhT
- DowgA8RBxHTENR3jBFECy3ATpjGVQMrgEmd8qvoh5KJFO6hWJc5X3Rnz+zgY6QqOtSGMMjfy+WG
- RhCLE9ktv97eYHMsuEKGdNUX+WTfquRyImXTQrzS4DgP01EU3auoR+h16356LHysSde5qSPPFOf
- 5tS6vmij74ZAgWmu6n5qdoLmpA/rV570gaIfAZ2BE32Qd/6SHWLj024J8PAD6j9+DqquQvyso8R
- oXkRbrLSNY7lFUo0o3a641c4Bztz/dgS9FxWewmVvbAqYe9fWovMTPIwuBJUp5lyGyH5aoUwQt8
- v2J2ADhoIsyFskdLGpgiKhTbUliY1LG3I7LiV9LZY2oHURo1xIO5NGpBG80Ol/Jn3hnqrwlx+v5
- tGgl83EUQcsHn6GaURU59rKMrJ0GsvrpXOtnvMMmFnD4cfaobBhuoXyXwvqT6u2llt3KWXWuF4M
- XnFV4PMsFlr6fT7YtWnQtupCwYnENekx4zb6R7ac1m2ZkupcVTFANTWmyiUsho0hkpclB+fc0OB
- mDcm9rAnNcVN2IYxAZaUb8G2eRzHBNOxE+Q4
-X-Received: by 2002:a05:600c:4e0d:b0:4bb:69b2:d3b3 with SMTP id
- 5b1f17b1804b1-4bb8881eea5mr456177705e9.27.1795737953420; 
- Thu, 26 Nov 2026 16:05:53 -0800 (PST)
-Received: from [192.168.1.11] ([31.94.68.154])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4bb853a9846sm752070015e9.11.2026.11.26.16.05.51
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Nov 2026 16:05:52 -0800 (PST)
-Message-ID: <07e54333-2391-4e8f-8819-fa431d981430@gmail.com>
-Date: Fri, 27 Nov 2026 00:05:50 +0000
+ bh=hQvLC0FxHg/bSpHW9/gmIY66IIHqqdWcBSBJ2Hl0tm0=;
+ b=ZIWMbRRJZ9Mv2hs/8gywxS5jzX/Pb0aZLvsgtLYINVkDDn/EYfW0gD/qxgUqsnM12k
+ 8HhhZd5fhPPKgl8gzUK9RqWh73zTyv28DO6Zpd+fct6VenDFN35MoGUVtaJFcfCpvra/
+ dMQD5s/QQCXOfy5c8W7SRjwxv6VvVRTjg/1I10I8PEDoAW5LFd3HaVSoEF9mj1wEUL5Z
+ zap1TioU7yO0TbuO6g1o9qHLSyQLHpg5EYsj0BM1xFqBPKUkvL9a7xpSbcLvttZYTvzH
+ ApP21UbDr2RPjErtM6awXW9Rn9pGpc90JI9onIOAzGHJJgXJh/Y4tK2Rqp6MIh2Dg+qm
+ omDw==
+X-Forwarded-Encrypted: i=1;
+ AL+hErGbXRHI77d90ORJLbxFgyUsZQjPv5SlifMHduyw7ftvmVxLbLAfMsyN6mVdnz+Ogg7mHCQbsOdk@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+1X+v13l2zgfOHcAlI+jdA5lqZSbbIraZd581BcD630QvOFu2R
+ Mog0VVheNlLi7OO42es8vc8YjfmKW1unJ7hHj4VS/a0G1bZWpAgHHmAY+1Tt3WdrHYvyXAbnBY+
+ 8Jw0EjYzbSCPAzbcXT/xIpYAXnLLAqAGz/jpbsUr1IYlxPfMJ31jTNyx99otyf7J3igi632VUKw
+ 48DHrvFcLYBuCcX7DUS9Gjz7YsMCcXTJ/2HkPYWaikgg==
+X-Gm-Gg: AZFdTZdamAxedGar/3vgt7JoKp0Y8ROYU2JvXtz8g398aHkK7AIoSEtTT8vqEjLMpvp
+ G2kGxDRm7xLhGsu85I/H5/Ewi37mrXcCFJpz8aNkiFl2wYLSNZgVJFOVb/GbpS2dwRBvTO9xWXj
+ Ijk4e3Vf4de0Uje2/w3Ztgzwm2oDvt7kcqOfDRPoXO92APVtC13syyv8F/
+X-Received: by 2002:a05:690c:e654:b0:8b5:6ff3:3413 with SMTP id
+ 00721157ae682-8b56ff334a0mr14813297b3.48.1795707991738; 
+ Thu, 26 Nov 2026 07:46:31 -0800 (PST)
+X-Received: by 2002:a05:690c:e654:b0:8b5:6ff3:3413 with SMTP id
+ 00721157ae682-8b56ff334a0mr14813147b3.48.1795707991136; Thu, 26 Nov 2026
+ 07:46:31 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+References: <20261126081602.2901498-1-a.kazinsky@ideco.ru>
+ <20261126081602.2901498-4-a.kazinsky@ideco.ru>
+In-Reply-To: <20261126081602.2901498-4-a.kazinsky@ideco.ru>
+From: Albert Esteve <aesteve@redhat.com>
+Date: Thu, 26 Nov 2026 16:46:18 +0100
+X-Gm-Features: Aa3M54oYW2ihtUaCzbXcSxw8ImEG7WlDwS6-9lOSsQrY2Wmb71vfmuxMtd2PWFI
+Message-ID: <CADSE00JCThOvzzKK0htFOpoK5ObCYq0EDaVTCR+wNrBvPnNeKQ@mail.gmail.com>
+Subject: Re: [PATCH 3/5] drm/connector: Propagate content type property
+ creation errors
+To: Alex Kazinsky <a.kazinsky@ideco.ru>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
  Rodrigo Siqueira <siqueira@igalia.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Richard Lane <richardlanedev@gmail.com>
-From: Richard Lane <richardlanedev@gmail.com>
-Subject: [PATCH v4 2/3] drm/amd/display: unlock secondary tile on Apple 4K/5K
- iMac panels
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Alex Hung <alex.hung@amd.com>, 
+ Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>, Fangzhi Zuo <jerry.zuo@amd.com>,
+ George Zhang <george.zhang@amd.com>,
+ Adrian Betschart <adrian.betschart@cinemaone.ch>, 
+ Alex Huang <Alex.Huang2@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, 
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, 
+ Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>,
+ Hans Verkuil <hverkuil@kernel.org>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ lvc-project@linuxtesting.org
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 08OepKdb-UFiy59qomp6oVbOoc9KGbTU12sP6fNHcm4_1795707992
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Fri, 27 Nov 2026 09:58:44 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,201 +110,135 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Apple 21.5" 4K (iMac18,2, iMac19,2) and 27" 5K (iMac15,1, iMac17,1,
-iMac18,3, Polaris-based iMac19,1) Retina iMacs expose their internal
-panel as a 2x1 tiled display over an eDP root link and a secondary DP
-link. At boot, the panel TCON operates in single-pipe mode and holds the
-secondary DP link's HPD line low until unlocked via DPCD registers.
+On Thu, Nov 26, 2026 at 9:33=E2=80=AFAM Alex Kazinsky <a.kazinsky@ideco.ru>=
+ wrote:
+>
+> drm_connector_attach_content_type_property() returns success even when
+> drm_mode_create_content_type_property() fails. The property is safely
+> left unattached, but callers cannot detect the failure.
+>
+> Propagate the creation error and document the return value. Check the
+> result in the Intel HDMI and DP/LSPCON paths and in AMDGPU, logging the
+> failure while preserving initialization without the optional property.
+>
+> Fixes: 50525c332b55 ("drm: content-type property for HDMI connector")
+> Signed-off-by: Alex Kazinsky <a.kazinsky@ideco.ru>
 
-Enable native tiled detection and link training for DCE < 12 Apple 4K/5K
-Retina iMac panels:
-- Latch the root eDP link via DPCD 0x4F1 prior to reading its EDID in
-  dm_helpers_read_local_edid() on Apple hardware (DCE < 12) so the
-  TCON exposes its full DisplayID tile properties even when Apple and
-  OpenCore Legacy Patcher (OCLP) EFI folders are absent.
-- Point the secondary DP dc_link to the root eDP dc_link
-  (apple_tcon_peer) during EDID quirk matching on DCE < 12 iMac15,1
-  (AE01/02), iMac17,1 (AE05/06), iMac18,3 (AE11/12), iMac18,2/19,2
-  (AE19/1A), and Polaris-based iMac19,1 (AE25/26), checking
-  connector_signal since panel IDs can flip across the two links after
-  S3 wake. DCE >= 12 support for Vega-based iMac19,1, iMacPro1,1, and
-  iMac20,x is documented as TODO.
-- Avoid falling back to DVI and latch the secondary tile via DPCD 0x4F1
-  on the root eDP link when probing the secondary link, allowing the
-  secondary link to read its EDID and populate DRM's DisplayID tile
-  properties (has_tile, tile_group, and tile_is_single_monitor).
-- Write the 3-byte Boot Camp source table (0x04, 0x1d, 0x03) to DPCD
-  0x310 in dpcd_set_source_specific_data() to unlock the secondary tile.
-- Unlatch both tiles (0x4F1) and clear DP_SOURCE_TABLE_REVISION (0x310)
-  and DP_EDP_CONFIGURATION_SET (0x10A) in amdgpu_dm_apple_tcon_unlatch()
-  during dm_suspend() so the TCON returns to single-pipe mode for the
-  EFI boot screen across reboots.
+Reviewed-by: Albert Esteve <aesteve@redhat.com>
 
-Signed-off-by: Richard Lane <richardlanedev@gmail.com>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 19 ++++++++++
- .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 35 +++++++++++++++++++
- drivers/gpu/drm/amd/display/dc/dc.h           |  1 +
- .../drm/amd/display/dc/link/link_detection.c  |  7 +++-
- .../dc/link/protocols/link_dp_capability.c    |  4 +++
- 5 files changed, 65 insertions(+), 1 deletion(-)
+Thanks!
+Albert
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 3d2201285888..6275a585593c 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -1610,6 +1610,23 @@ STATIC_IFN_KUNIT void dm_destroy_cached_state(struct amdgpu_device *adev)
- }
- EXPORT_IF_KUNIT(dm_destroy_cached_state);
- 
-+static void amdgpu_dm_apple_imac_unlatch(struct dc *dc)
-+{
-+	const u8 zeros[3] = { 0 };
-+
-+	for (int i = 0; i < dc->link_count; i++) {
-+		struct dc_link *link = dc->links[i];
-+
-+		if (link->apple_imac_peer) {
-+			core_link_write_dpcd(link, DP_SOURCE_TABLE_REVISION, zeros, 3);
-+			core_link_write_dpcd(link, DP_EDP_CONFIGURATION_SET, zeros, 1);
-+			core_link_write_dpcd(link, 0x4F1, zeros, 1);
-+			core_link_write_dpcd(link->apple_imac_peer, 0x4F1, zeros, 1);
-+			break;
-+		}
-+	}
-+}
-+
- static int dm_suspend(struct amdgpu_ip_block *ip_block)
- {
- 	struct amdgpu_device *adev = ip_block->adev;
-@@ -1677,6 +1694,8 @@ static int dm_suspend(struct amdgpu_ip_block *ip_block)
- 
- 	amdgpu_dm_hpd_rx_irq_work_suspend(dm);
- 
-+	amdgpu_dm_apple_imac_unlatch(dm->dc);
-+
- 	dc_set_power_state(dm->dc, DC_ACPI_CM_POWER_STATE_D3);
- 
- 	if (dm->dc->caps.ips_support && adev->in_s0ix)
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index 6192c0f6086d..0863628c9d67 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -29,6 +29,7 @@
- #include <linux/string.h>
- #include <linux/acpi.h>
- #include <linux/i2c.h>
-+#include <linux/dmi.h>
- 
- #include <drm/drm_atomic.h>
- #include <drm/drm_probe_helper.h>
-@@ -173,6 +174,31 @@ STATIC_IFN_KUNIT void apply_edid_quirks(struct dc_link *link, struct edid *edid,
- 		drm_dbg_driver(dev, "Force FreeSync min to 60 Hz on panel id %X\n", panel_id);
- 		edid_caps->panel_patch.force_freesync_min_hz = 60;
- 		break;
-+	/*
-+	 * Workaround for Apple 21.5" 4K and 27" 5K iMac 2x1 tiled panels
-+	 * (eDP root + secondary DP). Point secondary->apple_imac_peer to root
-+	 * so detection/suspend can latch/unlatch the TCON via DPCD; match both
-+	 * single/tiled IDs and gate on eDP so only root sets the peer.
-+	 * IDs (Single/Tiled): iMac15,1 (AE01/02), iMac17,1 (AE05/06),
-+	 * iMac18,3 (AE11/12), iMac18,2/19,2 (AE19/1A), iMac19,1 (AE25/26);
-+	 * TODO (DCE >= 12): iMac19,1/19,2 Vega, iMacPro1,1 (AE1D/1E),
-+	 * iMac20,x (AE31/32, AE35/36).
-+	 */
-+	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE01):
-+	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE02):
-+	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE05):
-+	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE06):
-+	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE11):
-+	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE12):
-+	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE19):
-+	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE1A):
-+	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE25):
-+	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE26):
-+		if (link->connector_signal == SIGNAL_TYPE_EDP &&
-+		    link->ctx->dce_version < DCE_VERSION_12_0 &&
-+		    (link->link_index ^ 1) < link->dc->link_count)
-+			link->dc->links[link->link_index ^ 1]->apple_imac_peer = link;
-+		break;
- 	default:
- 		return;
- 	}
-@@ -1299,6 +1325,15 @@ enum dc_edid_status dm_helpers_read_local_edid(
- 	if (link->dc->hwss.prepare_ddc)
- 		link->dc->hwss.prepare_ddc(link);
- 
-+	if (link->connector_signal == SIGNAL_TYPE_EDP &&
-+	    link->ctx->dce_version < DCE_VERSION_12_0 &&
-+	    dmi_match(DMI_SYS_VENDOR, "Apple Inc.")) {
-+		const char *product = dmi_get_system_info(DMI_PRODUCT_NAME);
-+
-+		if (product && str_has_prefix(product, "iMac"))
-+			dm_helpers_dp_write_dpcd(ctx, link, 0x4F1, &(const uint8_t){1}, 1);
-+	}
-+
- 	dm_helpers_wait_for_edid_ready(link, ddc);
- 
- 	/* some dongles read edid incorrectly the first time,
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 8471dcfe24fd..bd3857267331 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -2018,6 +2018,7 @@ struct dc_scratch_space {
- 	bool skip_implict_edp_power_control;
- 	bool forced_psr_active;
- 	enum backlight_control_type backlight_control_type;
-+	struct dc_link *apple_imac_peer;
- };
- 
- struct dc {
-diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-index 5b257f003f13..02c6e5874c16 100644
---- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-@@ -218,7 +218,7 @@ static enum signal_type link_detect_sink_signal_type(struct dc_link *link,
- 			 * we assume signal is DVI; it could be corrected
- 			 * to HDMI after dongle detection
- 			 */
--			if (!dm_helpers_is_dp_sink_present(link))
-+			if (!link->apple_imac_peer && !dm_helpers_is_dp_sink_present(link))
- 				result = SIGNAL_TYPE_DVI_SINGLE_LINK;
- 		}
- 		break;
-@@ -1651,6 +1651,11 @@ bool link_detect_connection_type(struct dc_link *link, enum dc_connection_type *
- 		}
- 	}
- 
-+	if (*type == dc_connection_none && link->apple_imac_peer) {
-+		core_link_write_dpcd(link->apple_imac_peer, 0x4F1, &(const uint8_t){1}, 1);
-+		*type = dc_connection_single;
-+	}
-+
- 	return true;
- }
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-index c487c5b87dfd..74954702c5a9 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-@@ -1496,6 +1496,10 @@ void dpcd_set_source_specific_data(struct dc_link *link)
- 				link->dc->vendor_signature.data.raw,
- 				sizeof(link->dc->vendor_signature.data.raw));
- 	}
-+
-+	if (link->apple_imac_peer)
-+		core_link_write_dpcd(link, DP_SOURCE_TABLE_REVISION,
-+				     (const uint8_t[]){0x04, 0x1d, 0x03}, 3);
- }
- 
- void dpcd_write_cable_id_to_dprx(struct dc_link *link)
--- 
-2.55.0
+> ---
+>  .../amd/display/amdgpu_dm/amdgpu_dm_connector.c  |  3 ++-
+>  drivers/gpu/drm/drm_connector.c                  | 16 +++++++++++-----
+>  drivers/gpu/drm/i915/display/intel_dp.c          |  3 ++-
+>  drivers/gpu/drm/i915/display/intel_hdmi.c        |  3 ++-
+>  4 files changed, 17 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c =
+b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> index 8a039ef6e4b7..3d163c2fc106 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> @@ -3325,7 +3325,8 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_=
+display_manager *dm,
+>
+>         if (connector_type =3D=3D DRM_MODE_CONNECTOR_HDMIA) {
+>                 /* Content Type is currently only implemented for HDMI. *=
+/
+> -               drm_connector_attach_content_type_property(&aconnector->b=
+ase);
+> +               if (drm_connector_attach_content_type_property(&aconnecto=
+r->base))
+> +                       drm_err(adev_to_drm(adev), "Failed to attach cont=
+ent type property\n");
+>         }
+>
+>         if (connector_type =3D=3D DRM_MODE_CONNECTOR_HDMIA) {
+> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connec=
+tor.c
+> index 51e616f5aa5e..5ab121860050 100644
+> --- a/drivers/gpu/drm/drm_connector.c
+> +++ b/drivers/gpu/drm/drm_connector.c
+> @@ -2253,14 +2253,20 @@ EXPORT_SYMBOL(drm_connector_attach_dp_subconnecto=
+r_property);
+>   *
+>   * Called by a driver the first time a HDMI connector is made.
+>   *
+> - * Returns: %0
+> + * Returns:
+> + * Zero on success, negative errno on failure.
+>   */
+>  int drm_connector_attach_content_type_property(struct drm_connector *con=
+nector)
+>  {
+> -       if (!drm_mode_create_content_type_property(connector->dev))
+> -               drm_object_attach_property(&connector->base,
+> -                                          connector->dev->mode_config.co=
+ntent_type_property,
+> -                                          DRM_MODE_CONTENT_TYPE_NO_DATA)=
+;
+> +       int ret;
+> +
+> +       ret =3D drm_mode_create_content_type_property(connector->dev);
+> +       if (ret)
+> +               return ret;
+> +
+> +       drm_object_attach_property(&connector->base,
+> +                                  connector->dev->mode_config.content_ty=
+pe_property,
+> +                                  DRM_MODE_CONTENT_TYPE_NO_DATA);
+>         return 0;
+>  }
+>  EXPORT_SYMBOL(drm_connector_attach_content_type_property);
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i9=
+15/display/intel_dp.c
+> index 47741957935a..768cb02f22fb 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -7012,7 +7012,8 @@ intel_dp_add_properties(struct intel_dp *intel_dp, =
+struct drm_connector *_connec
+>
+>         /* Register HDMI colorspace for case of lspcon */
+>         if (intel_bios_encoder_is_lspcon(dp_to_dig_port(intel_dp)->base.d=
+evdata)) {
+> -               drm_connector_attach_content_type_property(&connector->ba=
+se);
+> +               if (drm_connector_attach_content_type_property(&connector=
+->base))
+> +                       drm_err(connector->base.dev, "Failed to attach co=
+ntent type property\n");
+>                 intel_attach_hdmi_colorspace_property(&connector->base);
+>         } else {
+>                 intel_attach_dp_colorspace_property(&connector->base);
+> diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/=
+i915/display/intel_hdmi.c
+> index b6fa1a1558b8..83daf6d1af4a 100644
+> --- a/drivers/gpu/drm/i915/display/intel_hdmi.c
+> +++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+> @@ -2719,7 +2719,8 @@ intel_hdmi_add_properties(struct intel_hdmi *intel_=
+hdmi, struct drm_connector *_
+>         intel_attach_aspect_ratio_property(&connector->base);
+>
+>         intel_attach_hdmi_colorspace_property(&connector->base);
+> -       drm_connector_attach_content_type_property(&connector->base);
+> +       if (drm_connector_attach_content_type_property(&connector->base))
+> +               drm_err(connector->base.dev, "Failed to attach content ty=
+pe property\n");
+>
+>         if (DISPLAY_VER(display) >=3D 10)
+>                 drm_connector_attach_hdr_output_metadata_property(&connec=
+tor->base);
+> --
+> 2.56.0
+>
+>
+
