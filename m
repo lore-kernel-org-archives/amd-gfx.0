@@ -2,48 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55359606A682
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 13:48:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 552D0606A32A
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 13:49:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=COJEA5KH
+	dkim=pass (2048-bit key, unprotected) header.d=verwilst.be header.i=@verwilst.be header.a=rsa-sha256 header.s=protonmail3 header.b=YP3l/Zjt
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7631011242B;
-	Thu, 26 Nov 2026 13:48:50 +0000 (UTC)
-X-Greylist: delayed 308 seconds by postgrey-1.36 at gabe;
- Thu, 26 Nov 2026 08:33:03 UTC
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com
- [45.254.49.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DCB3112156
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Nov 2026 08:33:03 +0000 (UTC)
-Received: from lgs.. (unknown [101.76.249.61])
- by smtp.qiye.163.com (Hmail) with ESMTP id 561726986;
- Thu, 26 Nov 2026 16:27:51 +0800 (GMT+08:00)
-From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, siqueira@igalia.com, karanja99erick@gmail.com
-Cc: amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Subject: [PATCH 2/2] drm/radeon: Unregister I2C adapters when tearing down
- their channels
-Date: Thu, 26 Nov 2026 16:27:50 +0800
-Message-ID: <20261126-a35bb25eb5-u01-2@mail.sdu.edu.cn>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261126-a35bb25eb5-u01-0@mail.sdu.edu.cn>
-References: <20261126-a35bb25eb5-u01-0@mail.sdu.edu.cn>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90322112430;
+	Thu, 26 Nov 2026 13:48:55 +0000 (UTC)
+X-Greylist: delayed 58730 seconds by postgrey-1.36 at gabe;
+ Thu, 26 Nov 2026 11:01:29 UTC
+Received: from mail-07.mail-europe.com (mail-07.mail-europe.com
+ [37.187.220.204])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C2D8610E87D
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Nov 2026 11:01:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=verwilst.be;
+ s=protonmail3; t=1795690884; x=1795950084;
+ bh=mqHNx7XbtgU+wSbeZ4nVnkhjmB8qJUYO01351tzRUx0=;
+ h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
+ Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=YP3l/ZjtoRzsgVL3x1e0pXKbh7DUDMvJr3LTz9gZfbIU6LX7o90iQSL5frBqBrSZJ
+ +3Ts8zr4F/xXSAAsfTdGpUvpzEmLPRsDbPV3g0ykr+jD8C3Kxs5bqekr4Ekle7QFIz
+ MU7s7oNKEaF4Z1pAFu3muJd8c7roGTfF7RCdIRoMB+my1Gn7vcK6B3YaUXgRsGPgfD
+ 2bbCwZjiYYp9r4KTSgfgLtsFdJAwEYXmy9r7zxBqf1KhScJhgl2d42Tr4JcFJxfGyP
+ SqHHoOwBrUn+3xFcNhOMezerfHXwFUcZO0AMZqY6jtn64p+p310vlQVLkOgfkmQ4bd
+ IwP/33Of4Guug==
+X-Pm-Submission-Id: 4jZtrr4RfTz2ScQG
+From: Bart Verwilst <bart@verwilst.be>
+To: amd-gfx@lists.freedesktop.org
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
+ alexander.deucher@amd.com, Wayne.Lin@amd.com
+Subject: [PATCH v2 1/2] drm/amd/display: don't release an MST payload that
+ holds no time slots
+Date: Thu, 26 Nov 2026 12:00:41 +0100
+Message-ID: <20261126110042.14612-2-bart@verwilst.be>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261126110042.14612-1-bart@verwilst.be>
+References: <20261126110042.14612-1-bart@verwilst.be>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa216f7d8d503a1kunmbc3647c03c2c51
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZHkhDVkpIQxlOSUlOSEtISlYeHw
- 5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWU9LSFVKS0lCQ0
- NMVUpLS1VLWQY+
-DKIM-Signature: a=rsa-sha256;
- b=COJEA5KHaXoys6JXHs2tGdTjlpkdLKzMGljRZMj/4DhVdhAE9KlKSOm47sEtsWKr2uDUwbhQ/5bJCF3er6s0YxvlzYv4lNXPQsxaKk0WKzcOiC1lrq9lt6h2toTEaC58G2ZIQNNDnPJ7ivP8r/amBMBezMjcHBtLC6PNNrKmdEw=;
- c=relaxed/relaxed; s=default; d=mail.sdu.edu.cn; v=1; 
- bh=5gnU7YW641Bir66C/x10q+FEJ37eCZAH1kNrCFXHE3k=;
- h=date:mime-version:subject:message-id:from;
 X-Mailman-Approved-At: Thu, 26 Nov 2026 13:48:49 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -58,56 +55,60 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Only one hardware adapter path uses managed registration. Clearing the
-bus array leaves the other adapters registered and leaks every channel.
-Use explicit registration throughout and unregister each adapter before
-freeing its channel.
+dm_helpers_dp_mst_update_mst_mgr_for_deallocation() calls
+drm_dp_remove_payload_part2() unconditionally. That function decrements
+payload_count and moves next_start_slot back by the payload's time
+slots. If the payload was never added with drm_dp_add_payload_part1(),
+or was already released, both counters underflow. Every payload
+allocated afterwards then starts at a bogus slot and ACT never
+completes.
 
-This issue was found by our static analysis tool under development.
+This can happen when the same stream is disabled twice, e.g. first by
+link_set_all_streams_dpms_off_for_link() during a destructive link
+verification and then again when userspace disables its CRTC, or when
+the stream enable was aborted before its payload was allocated.
 
-Fixes: 2e01c96d8e6c ("drm/radeon : Use devm_i2c_add_adapter instead of i2c_add_adapter")
-Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+drm_dp_add_payload_part1() sets vc_start_slot and
+drm_dp_remove_payload_part2() resets it to -1, so a negative
+vc_start_slot means there is nothing to release. Return early in that
+case.
+
+Signed-off-by: Bart Verwilst <bart@verwilst.be>
 ---
- drivers/gpu/drm/radeon/radeon_i2c.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
+ .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c    | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_i2c.c b/drivers/gpu/drm/radeon/radeon_i2c.c
-index 13a091ec797b..4dad5c446482 100644
---- a/drivers/gpu/drm/radeon/radeon_i2c.c
-+++ b/drivers/gpu/drm/radeon/radeon_i2c.c
-@@ -931,7 +931,7 @@ struct radeon_i2c_chan *radeon_i2c_create(struct drm_device *dev,
- 		snprintf(i2c->adapter.name, sizeof(i2c->adapter.name),
- 			 "Radeon i2c hw bus %s", name);
- 		i2c->adapter.algo = &radeon_i2c_algo;
--		ret = devm_i2c_add_adapter(dev->dev, &i2c->adapter);
-+		ret = i2c_add_adapter(&i2c->adapter);
- 		if (ret)
- 			goto out_free;
- 	} else if (rec->hw_capable &&
-@@ -990,8 +990,15 @@ void radeon_i2c_fini(struct radeon_device *rdev)
- 	int i;
- 
- 	for (i = 0; i < RADEON_MAX_I2C_BUS; i++) {
--		if (rdev->i2c_bus[i])
--			rdev->i2c_bus[i] = NULL;
-+		struct radeon_i2c_chan *i2c = rdev->i2c_bus[i];
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index 6192c0f..bc26f65 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -524,6 +524,22 @@ void dm_helpers_dp_mst_update_mst_mgr_for_deallocation(
+ 	mst_mgr = &aconnector->mst_root->mst_mgr;
+ 	mst_state = to_drm_dp_mst_topology_state(mst_mgr->base.state);
+ 	new_payload = drm_atomic_get_mst_payload_state(mst_state, aconnector->mst_output_port);
++	if (!new_payload)
++		return;
 +
-+		if (!i2c)
-+			continue;
++	/*
++	 * Only a payload that went through drm_dp_add_payload_part1() holds
++	 * time slots in the manager (vc_start_slot >= 0). Releasing a payload
++	 * that was never added, or releasing one twice, would underflow
++	 * payload_count and next_start_slot.
++	 */
++	if (new_payload->vc_start_slot < 0) {
++		drm_dbg_kms(mst_mgr->dev,
++			    "MST payload for VCPI %d holds no time slots, nothing to release\n",
++			    new_payload->vcpi);
++		return;
++	}
 +
-+		WARN_ON(i2c->has_aux);
-+		i2c_del_adapter(&i2c->adapter);
-+		kfree(i2c);
-+		rdev->i2c_bus[i] = NULL;
- 	}
- }
+ 	dm_helpers_construct_old_payload(mst_mgr, mst_state,
+ 					 new_payload, &old_payload);
  
-
 -- 
-2.43.0
+2.56.1
 
