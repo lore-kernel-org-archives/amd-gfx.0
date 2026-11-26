@@ -2,41 +2,48 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D371B606A32D
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 07:52:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1C9E606A31C
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 08:09:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UgHMD95P
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=qFLfIWz8
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5505010E379;
-	Thu, 26 Nov 2026 07:52:31 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1815C10E73D
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Nov 2026 07:52:25 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D25AE410DF;
- Thu, 26 Nov 2026 07:52:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 920F51F000ED;
- Thu, 26 Nov 2026 07:52:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795679544;
- bh=O1hjaO0t+IO9muHQIofFhJYFnSm0rORX5IomoPaGTJ0=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=UgHMD95PrU9nP/8c/UFuJ8Q/De5py+Z3nm2yrQl6oLrnk9iB93MIaVhFaxGuDOXHJ
- I4zrfgxMvn1Jr8vbc3vJsEwPh4Z0/PSrY0keppkIoq13ygm8IhJidCY++CvMv7Zqye
- ovN4yszd1v8cjYXQ5k4bmQA7iJ8KtGs4Ko4p//ZbUqR/7XB7P7bSVH6lTmTiNtYS1l
- HmN1Aht7h1MVrMBH8VNqlb6uRziuZGq9OJyP74qM1DKSYZcd9xrzT1/GwWp5OgZzAx
- 9Vh/87Uzr0gjmgz+MeQ5r7hHgv1ioTJSOYf88IBvdY/MLtsMJNMaMUCAtwnFXJiGT9
- R389hh95H2dKA==
-Message-ID: <sashiko-outbox-234971@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/amdgpu: keep the address of cleared PDEs with
- translate further
-To: "Bob Zhou" <bobzhou2@amd.com>, amd-gfx@lists.freedesktop.org
-In-Reply-To: <20261126073232.2108102-1-bobzhou2@amd.com>
-References: <20261126073232.2108102-1-bobzhou2@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Nov 2026 07:52:24 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06492112103;
+	Thu, 26 Nov 2026 08:09:34 +0000 (UTC)
+Received: from mta1.migadu.com (out-170.mta1.migadu.com [95.215.58.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F282910E1F7
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Nov 2026 05:43:05 +0000 (UTC)
+X-Envelope-To: amd-gfx@lists.freedesktop.org
+DKIM-Signature: a=rsa-sha256; bh=YPuZ0FF85lb3swyXVbCzcAsTFicF1vKyRQgT1cPqCy8=; 
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1795671784; v=1; x=1796276584;
+ b=qFLfIWz8+BGLgn0ECfu6iKK8yocqnvi94Yaq6+CBaXIjFJSbE2vUzwEsFWvneDl/xD77nFiM
+ p0f6TV2/Qmh62ydxKA28s0VkJSgZSmDhIfv9vF3zntNpDKmPvrlsRsLObeu0DRQdU6GOrUuirIu
+ OIR3KYQZn00V0bMYqoG0rH38=
+X-Envelope-To: amd-gfx@lists.freedesktop.org
+Received: by smtp.migadu.com with ESMTPS id c88e8c6be216d38b;
+ Thu, 26 Nov 2026 05:36:59 +0000
+X-Mizu-Trace-ID: c88e8c6be216d38b
+X-Migadu-Flow: FLOW_OUT
+From: Matthew Schwartz <matthew.schwartz@linux.dev>
+To: amd-gfx@lists.freedesktop.org
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Ivan Lipski <ivan.lipski@amd.com>, Fangzhi Zuo <jerry.zuo@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Pei-Hsin Yang <peihsiny@valvesoftware.com>,
+ Matthew Schwartz <matthew.schwartz@linux.dev>
+Subject: [PATCH 2/2] drm/amd/display: Test VRR vtotal limits across a modeset
+Date: Wed, 25 Nov 2026 21:36:06 -0800
+Message-ID: <20261126053606.12286-3-matthew.schwartz@linux.dev>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261126053606.12286-1-matthew.schwartz@linux.dev>
+References: <20261126053606.12286-1-matthew.schwartz@linux.dev>
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 26 Nov 2026 08:09:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,133 +53,93 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [High] drm/amdgpu: cleared PDE addr passed as incr in
-  amdgpu_vm_pt_clear()
-It also noticed 1 related pre-existing issue this patch does not
-introduce:
-- [Critical] drm/amdgpu: unchecked update() return in
-  amdgpu_vm_pte_update_flags() [1]
---
+Check that amdgpu_dm_update_stream_irq_parameters() replaces saved
+vtotal limits with the new timing's on a modeset, and keeps them on a
+commit that is not one.
 
-commit 989da6857bfdb3b7b6591cb250770217b86c1b11
-Author: Bob Zhou <bobzhou2@amd.com>
+Signed-off-by: Matthew Schwartz <matthew.schwartz@linux.dev>
+---
+ .../amdgpu_dm/tests/amdgpu_dm_freesync_test.c | 52 +++++++++++++++++++
+ 1 file changed, 52 insertions(+)
 
-drm/amdgpu: keep the address of cleared PDEs with translate further
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_freesync_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_freesync_test.c
+index a2b13de2e9e9..ab8931a4d0dd 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_freesync_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_freesync_test.c
+@@ -916,6 +916,56 @@ static void dm_test_update_stream_irq_parameters_fixed(struct kunit *test)
+ 			60000000U);
+ }
+ 
++static void dm_test_update_stream_irq_parameters_stale(struct kunit *test, bool modeset)
++{
++	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
++	struct amdgpu_crtc *acrtc;
++	struct dm_crtc_state crtc_state = { 0 };
++	struct mod_vrr_params *vrr_params;
++
++	acrtc = kunit_kzalloc(test, sizeof(*acrtc), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, acrtc);
++	crtc_state.base.crtc = &acrtc->base;
++	crtc_state.base.vrr_enabled = true;
++	crtc_state.base.mode_changed = modeset;
++	crtc_state.stream = dm_kunit_alloc_stream(test, NULL);
++	crtc_state.stream->timing.h_total = 4400;
++	crtc_state.stream->timing.v_total = 2250;
++	crtc_state.vrr_supported = true;
++	crtc_state.freesync_config.min_refresh_in_uhz = 40000000;
++	crtc_state.freesync_config.max_refresh_in_uhz = 60000000;
++	adev->dm.adev = adev;
++
++	/* Limits of a 1080p60 timing with a 40-60 Hz range */
++	vrr_params = &acrtc->dm_irq_params.vrr_params;
++	vrr_params->state = VRR_STATE_ACTIVE_VARIABLE;
++	vrr_params->adjust.v_total_min = 1125;
++	vrr_params->adjust.v_total_max = 1687;
++
++	amdgpu_dm_update_stream_irq_parameters(&adev->dm, &crtc_state);
++
++	KUNIT_EXPECT_EQ(test, vrr_params->adjust.v_total_min, modeset ? 2250U : 1125U);
++	KUNIT_EXPECT_EQ(test, vrr_params->adjust.v_total_max, modeset ? 2250U : 1687U);
++}
++
++/**
++ * dm_test_update_stream_irq_parameters_modeset - Test a modeset drops the saved vtotal limits
++ * @test: The KUnit test context
++ */
++static void dm_test_update_stream_irq_parameters_modeset(struct kunit *test)
++{
++	dm_test_update_stream_irq_parameters_stale(test, true);
++}
++
++/**
++ * dm_test_update_stream_irq_parameters_no_modeset - Test saved vtotal limits survive a flip
++ * @test: The KUnit test context
++ */
++static void dm_test_update_stream_irq_parameters_no_modeset(struct kunit *test)
++{
++	dm_test_update_stream_irq_parameters_stale(test, false);
++}
++
+ /* Tests for amdgpu_dm_handle_vrr_transition() */
+ 
+ /**
+@@ -1118,6 +1168,8 @@ static struct kunit_case amdgpu_dm_freesync_tests[] = {
+ 	KUNIT_CASE(dm_test_update_stream_irq_parameters_variable),
+ 	KUNIT_CASE(dm_test_update_stream_irq_parameters_inactive),
+ 	KUNIT_CASE(dm_test_update_stream_irq_parameters_fixed),
++	KUNIT_CASE(dm_test_update_stream_irq_parameters_modeset),
++	KUNIT_CASE(dm_test_update_stream_irq_parameters_no_modeset),
+ 	/* amdgpu_dm_handle_vrr_transition */
+ 	KUNIT_CASE(dm_test_handle_vrr_transition_inactive),
+ 	KUNIT_CASE(dm_test_handle_vrr_transition_round_trip),
+-- 
+2.54.0 (Apple Git-157)
 
-This commit passes an address pointer into amdgpu_vm_pt_clear_flags() so
-that callers receive the PDE address generated by amdgpu_gmc_get_vm_pde()
-when clearing page directories.
-
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_vm_pt.c
-> index a6d389c08524f..6aabd9f5291c2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-
-[ ... ]
-
-> @@ -395,7 +393,7 @@ int amdgpu_vm_pt_clear(struct amdgpu_device *adev, st=
-ruct amdgpu_vm *vm,
->  	struct amdgpu_bo *ancestor =3D &vmbo->bo;
->  	struct amdgpu_bo *bo =3D &vmbo->bo;
->  	unsigned int entries;
-> -	uint64_t flags;
-> +	uint64_t value =3D 0, flags;
->  	int r, idx;
-> =20
->  	/* Figure out our place in the hierarchy */
-> @@ -430,8 +428,9 @@ int amdgpu_vm_pt_clear(struct amdgpu_device *adev, st=
-ruct amdgpu_vm *vm,
->  	if (r)
->  		goto exit;
-> =20
-> -	flags =3D amdgpu_vm_pt_clear_flags(adev, vm, level);
-> -	r =3D vm->update_funcs->update(&params, vmbo, 0, 0, entries, 0, flags);
-> +	flags =3D amdgpu_vm_pt_clear_flags(adev, vm, level, &value);
-> +	r =3D vm->update_funcs->update(&params, vmbo, 0, 0, entries, value,
-> +				     flags);
->  	if (r)
->  		goto exit;
-> =20
-
-[Severity: High]
-Does this pass value as the incr argument instead of the addr argument to
-vm->update_funcs->update()?
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h:struct amdgpu_vm_update_fun=
-cs {
-    ...
-	int (*update)(struct amdgpu_vm_update_params *p,
-		      struct amdgpu_bo_vm *bo, uint64_t pe, uint64_t addr,
-		      unsigned count, uint32_t incr, uint64_t flags);
-    ...
-}
-
-Because addr is left at 0 and value is passed as incr, entry 0 of a
-cleared PDB0 on GMC v9 with translate_further enabled is still written with
-address 0, and subsequent entries increment by 0x1000 per entry (leaving
-bit 12 clear on all even entries) instead of writing value to every entry,
-causing GPU VM faults during page table walks.
-
-Should value be passed as the fourth argument (addr) and 0 as the sixth
-argument (incr)?
-
-> @@ -724,7 +723,8 @@ static void amdgpu_vm_pte_update_flags(struct amdgpu_=
-vm_update_params *params,
-> =20
->  	} else if (!(flags & AMDGPU_PTE_VALID) &&
->  		   !(flags & AMDGPU_PTE_PRT_FLAG(params->adev))) {
-> -		flags |=3D amdgpu_vm_pt_clear_flags(adev, params->vm, level);
-> +		flags |=3D amdgpu_vm_pt_clear_flags(adev, params->vm, level,
-> +						  &addr);
->  	}
-> =20
->  	/*
-
-[Severity: Critical]
-This problem wasn't introduced by this patch, but can
-amdgpu_vm_pte_update_flags() cause a NULL pointer dereference on
-params->job [1] by ignoring the return value of
-params->vm->update_funcs->update()?
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c:amdgpu_vm_sdma_update() {
-    ...
-		if (ndw < 32) {
-			r =3D amdgpu_vm_sdma_commit(p, NULL);
-			if (r)
-				return r;
-
-			r =3D amdgpu_vm_sdma_alloc_job(p, count,
-						     AMDGPU_KERNEL_JOB_ID_VM_UPDATE);
-			if (r)
-				return r;
-		}
-    ...
-		pte =3D (uint64_t *)&(p->job->ibs->ptr[p->num_dw_left]);
-    ...
-}
-
-When amdgpu_vm_sdma_commit() runs during amdgpu_vm_sdma_update() and the
-subsequent amdgpu_vm_sdma_alloc_job() fails, p->job is left NULL.  Because
-amdgpu_vm_pte_update_flags() returns void and discards the error, the loop
-in amdgpu_vm_ptes_update() continues and the next call to
-amdgpu_vm_sdma_update() or amdgpu_vm_sdma_commit() dereferences the NULL
-p->job pointer.
-
-[1] https://sashiko.dev/#/bug/linux-1897ae3a-7a03-49b7-b2ae-54c63b21478f
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126073232.2108=
-102-1-bobzhou2@amd.com?part=3D1
