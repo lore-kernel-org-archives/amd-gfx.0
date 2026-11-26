@@ -2,42 +2,150 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F2D1606A31C
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 09:57:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57439606A31E
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 09:58:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FsBkkcCv
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=04+uEy6b
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFDAF10E114;
-	Thu, 26 Nov 2026 09:57:52 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19C4110E114
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Nov 2026 09:57:46 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 927D362C07;
- Thu, 26 Nov 2026 09:57:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 115E71F0093E;
- Thu, 26 Nov 2026 09:57:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795687065;
- bh=sv7vZ4iZiLv8TkrpULnoCQFff/YsU0Dn8EpWeEJJrh0=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=FsBkkcCv96Uw7ZFm6xk//YaCxsBz7Kt/cjMnJ/4eBBdABc2JNXpDMfIw85nvQmjg1
- 31TuGrdy/TsdjwI2/YNWQROeIHyc/VHsst/KX3S12AunaKWEo7ccrtp93n8dSBk2cJ
- ddosbk4ZRRwx/fu7WbDa4/uwEgAeJk7V9t/EGfR+1gha5Zmxuq8bdHwya5ugebDiG3
- XEEfVEHLKs/ElKDIoeXS6ev8jSFtHu3EUxXLOnrUx7zJzNB/uZfQaaJMEmPH1uhWU6
- cOXXbEeD4rqsegZJg5eEPYWOA5ZrrygSodsPQ2xCxc9P1Xhf/r30mTARea6JTPAhND
- kAk0yjOtQ9afw==
-Message-ID: <sashiko-outbox-235204@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 12/15] drm/amdgpu/gfx11: include SOFT_RESET_GFX in
- the gfx engine soft reset
-To: "Jesse Zhang" <Jesse.Zhang@amd.com>, amd-gfx@lists.freedesktop.org
-In-Reply-To: <20261126093417.192538-12-Jesse.Zhang@amd.com>
-References: <20261126093417.192538-1-Jesse.Zhang@amd.com>
- <20261126093417.192538-12-Jesse.Zhang@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Nov 2026 09:57:44 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id C14871121E0;
+	Thu, 26 Nov 2026 09:58:53 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011047.outbound.protection.outlook.com [40.107.208.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4187A112283;
+ Thu, 26 Nov 2026 09:58:27 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qnsPdRSUQVgweAPitwb8JDr9Xu+S+ttT+NkzL8mEGmBRgDE7Swu9pEtvMTwOSKNq25DKaVZmvxuR7mUS4A3mFgcufT2N1JZp778FXgeRNqixGyjUVSzu45JCM2clHK+XhPqkHUwbPGVyFyc8RmvZB1chx4+oSXmAiIv5L/Hksd70doPvJPn+ZCG268HBAPy5as/ZwEsyCegPGZQoTNzdDuTXOV1ZHa8V4awttOJgKgmpQaCVvPISG5J9HdX1ZCchyEq3wGaI4WU6GbD+LBTLtJsbA4sfJ6WAKXfXNnYKLoEXaxY2P3zbWxjJSj3PmL6NIpjfJDevtyzK1XtQOpzyNw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7v+6/vdC8tOuJLuiiuW+HG7sVDDsOHr6dIFJ9e43AAI=;
+ b=zUit2FqbcNT5Qz6I6SKetFnAScCTqpRM+CNszsuSkMM6mWd0SbHS+y/c+RooYRBsm5QqH/OWUUJ7IT+2i4J3oZhW4zaGKA0FL+I2oo0b/96ppNOLRJuC9S0+14MBK0/wbsP7oL1ZAoaHsksm9S4qTYkZzaFrTgJr6cr15gcnGRLeGpd/Cn8JaB4dRVn/shpAdCdvDmQ/pvB0JULwnvP4RonWsCfH4RGiHyIr9CiFcINOzIE8HRZvLQUUTY+cm3mpvSOfJYGXCpHukSHhiudi3jdMkX/AUa9qfd0AQ6zuf4tk8p91jVa0+YG/AZeeTfCLXbtsyvjtmevfOsafjyxufg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7v+6/vdC8tOuJLuiiuW+HG7sVDDsOHr6dIFJ9e43AAI=;
+ b=04+uEy6bsbe6i6uc5PUzVZsBIryOeakc/Sgz0r31BvGmFpsv3Q2NqzNMyw6MSVlXzSbtRUl+H9Z9JqAGbtsdlURjhYxXg0VXE+71ZrunuuYqVxllDWt1cMD2ShHgOk4jZi3DwYp/9mL1UVJ2vHHZVq6OjK9S4iBr6efriRs7F/8=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by IA0PR12MB8893.namprd12.prod.outlook.com (2603:10b6:208:484::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.7; Thu, 26 Nov
+ 2026 09:58:23 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0662.004; Thu, 26 Nov 2026
+ 09:58:23 +0000
+Message-ID: <a8c00bbf-dddb-4207-bcdf-af58d27116c5@amd.com>
+Date: Thu, 26 Nov 2026 10:58:13 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 03/24] dma-buf: Add the SGT DMA mapping type
+To: Alistair Popple <apopple@nvidia.com>, Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ Dongwon Kim <dongwon.kim@intel.com>, Kevin Tian <kevin.tian@intel.com>,
+ Xu Yilun <yilun.xu@linux.intel.com>,
+ Karl Mehltretter <kmehltretter@gmail.com>,
+ Baolu Lu <baolu.lu@linux.intel.com>, Felix Kuehling
+ <felix.kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, iommu@lists.linux.dev,
+ Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+ linux-nvme@lists.infradead.org, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Mina Almasry <almasrymina@google.com>, netdev@vger.kernel.org,
+ Alexey Kardashevskiy <aik@amd.com>, zhipingz@meta.com, treding@nvidia.com,
+ jhubbard@nvidia.com, chaitanyak@nvidia.com, Leon Romanovsky <leon@kernel.org>
+References: <awT8prWsj11TBdmP@nvdebian.thelocal>
+ <63eb7b6e-e0a8-4443-a434-0301ed59beae@amd.com>
+ <20261124142032.GN9566@ziepe.ca>
+ <7a5a2d3a-e42e-4dc0-8d22-8dd1bd249501@amd.com>
+ <20261124194618.GC114530@ziepe.ca> <awZ_Os1pXelOGaFP@nvdebian.thelocal>
+ <fb9a6b12-c134-4e40-86a5-dbcb59c0b91b@amd.com>
+ <20261125155559.GL246011@ziepe.ca>
+ <5fb8bb60-7d9f-49b1-899c-40a890fdc14b@amd.com>
+ <20261125190705.GN246011@ziepe.ca> <awfMy1d8ICL6mr9i@nvdebian.thelocal>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <awfMy1d8ICL6mr9i@nvdebian.thelocal>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0372.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:f8::18) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA0PR12MB8893:EE_
+X-MS-Office365-Filtering-Correlation-Id: b5158486-a275-49d2-27eb-08df4ba3ce95
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|1800799024|23010399003|366016|10067099003|56012099006|11063799006|4143699003|261022105027099003|261021121427099003|261021123027099003|261102123227099003|261102130727099003|261026140227099003|261026121527099003|261028144727099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info: jNH/7tSUkOpZBN5rKDbGK6/xsFjuIvIWWhn6TXdzXIos1ZDyyzWhckZELrgzYob5iRIGxsT1GGiujGpFCOcTSiDi6yjH+xtrHvJ0AxVE66T5++Dux/IFj00wiDnsIkkVIo2/aOxGIxkRy04nz9oNbakytWsmfKw11miCvhbOsVZN1Enz1/8Cn7w5JmIc8mdXRaRWSZmYB99al51dnaLtFbAu8dwMQcMJP/QT+g4If7dGgELNbn2+5z2wtfeWJwtxivVtl7jW2fjDKpWzBpgF+zQ4LEFIJ5Z4Qu1VHrZgTP6A3wh6WPjRPG3JmmUaoSzSsxKmjCWxA/N4JLKJ8Gy3fmdwv80MwLiXjSUfDXdmxHlfYdi5VgDLCYVtjkSofbCFJ34gJWMATrIu4+C7CKc2sEZgytTJo+zOiAkoP1bguhlCYiXVZwBNBIkIPgP8Bo77I0Cd+OFedw2Evu4l5nTERw9UGOK6VwfpoSscen+ay6CKU6LYSWTZ0jB3HWztR6StkYKXKwsZYWyXrSKkM16Fy18nXIfYVVqDffKgzGm4egYDEcrNQCp4YHLT7cP0Bc/oPYKM20OVl2yIUvswiqzb4RiyFnKQp9Yn2yhx6fEowlpudBKYFDWaqQVDLBY3rIeOMdRdJEvk1rAqioDv/vWJIDUJjds5t1A3/pvjfHWyqXU=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(366016)(10067099003)(56012099006)(11063799006)(4143699003)(261022105027099003)(261021121427099003)(261021123027099003)(261102123227099003)(261102130727099003)(261026140227099003)(261026121527099003)(261028144727099003)(22082099003)(18002099003)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TmtabG50RUlWNjMzYXUrTEpFUEdCaWZVWW1acWQ2Nmh1aTk3eVBlMzZpNU8w?=
+ =?utf-8?B?WUh5bVEwdWtuMWhKNnNaTnZwQkk0TmhWODN4QVlOVXYvbGhybEtrbG9scmRS?=
+ =?utf-8?B?Uk9SMTF5RkdNNTQ1ZWw2K0xPOFFvZ1haY09wTGhOMG1IYmx3QTExOTdFbGto?=
+ =?utf-8?B?TTNFcTArdll5b2swMDlvNG43Y1hCTC93bnVhS3ZwTGowMlF3anlEUDhuQlQ4?=
+ =?utf-8?B?Qnk0ZTkxTVVVNUxJaWNRbWNXaFpEa2VuVUlkZnQ0TGVmMndWNEpXOE4zRnRz?=
+ =?utf-8?B?eUQ2RjBiV3RJZktXTyt4YXdRSVlPelU5bWViSEdyUzVWcEo0VlZRWU1aNDQx?=
+ =?utf-8?B?YVcxVXlLcHd3c2VCbnJscFFBMDVMcGNuaEJvdzFGRytYUklJSGN0K2tBMEVE?=
+ =?utf-8?B?NDJmWTh6YUZhMjltM2xRcEVJTWRCMVc2TXl4Z3RIamphZEVrNjI3biszS3NO?=
+ =?utf-8?B?RktNYTBlWk9zTVVnalczTUtpSkUzbUQyUFNhamtNN2Z1NmNxdkljVFJNbCti?=
+ =?utf-8?B?NVRNRWdmd3QxWS95Y29FQXNBQ3l5YTc0azVKbnB6bDBTK2VPRkMzTGtoVlVl?=
+ =?utf-8?B?dFVESkdpUDZ3ajE0T0xRME56bGpRNlE4ckFJdGVvR1lmcGFQWW43dGxSVXJV?=
+ =?utf-8?B?VHZXcC8rQjFLcnViZ2U2NzhPV29ROCt5d0RiZjUyU2FGT1hVblc2cFNaMTRL?=
+ =?utf-8?B?NDZBL1BuUmNaSXc0dXJjend6NlFQS25xQTAzanJrNHd4Y2wrcHRoVmFLZ0ZU?=
+ =?utf-8?B?YXN0Mkd1M1pZaUVZQ2JQZmQ5b0pvTTR3Z3JCVmQrd3lYVjJhVXphMXFnbVBq?=
+ =?utf-8?B?OEdqSXJ5clRCS2FITiszZ1h1Y1o5YWlnKzZCc3h3M2JSSWxzK2NETFF2K3Uy?=
+ =?utf-8?B?MWl2bjJaVFI2empXZEdtRzVuTGloc1dkUzN2QnhHNitSQ0UwYVo3ckgvTSsx?=
+ =?utf-8?B?SXUxVzdJVkFTbmlpNXArRm5aU00xVlpsclZGQU02OXhOTGIwck1JbFhucldP?=
+ =?utf-8?B?YnZ4YldMQkduMVJKbG1seUdqbTBFVmNmWFpWaGdCblhaZWdBWTV2amNsYmlk?=
+ =?utf-8?B?eUEzaENRZUljZm5RdjZnaE5oMWhQVkZXWFdNak5SQXFqYzRUaTgrd0hSTXBo?=
+ =?utf-8?B?ekJQcWZaZUJCSGZrL1NWQW1lTUNleWVuOHo1YjVBdnV6Q1FLYVlwdWJBbXE3?=
+ =?utf-8?B?R3JqODhMbnZBalM2OEEzWG10UE9KUWZMaEppUThnWkpaSUc2emRIQ2EvYi9B?=
+ =?utf-8?B?NjdmNGk0NS9WVHo5Vnh4SFR5SUdiYTBDckg0amx2VTl1b2JCc1NQMVVyaFl4?=
+ =?utf-8?B?QVFJUi9rbTRqYmJna1d2aFZxZ3k1bkxIVGJyaGh2eENTY1QyaWFWbXd0dzFC?=
+ =?utf-8?B?L1Y5R1l2Z3hnZ3hnSUtOdjltaFAzeUNuVC96a01VaUg1ZjFCbnFoUWh2cTJU?=
+ =?utf-8?B?N0dLV1BLM3BqZHZBbU9CQ2ZpS1lBR0s4V3lDdzFoMWpoU1ZzYUZHSFZjV3dh?=
+ =?utf-8?B?T0VPcGpRWVUvK04zTXI4NjdORjBob1gyZm5mdHBYb2VoYWxMNkNpRmlDTVZB?=
+ =?utf-8?B?Y0JYUlFwSW13aUpRVEpSSzRPKytmaENaanFyT2NubzAxQW9KQmxLT1VsRVVP?=
+ =?utf-8?B?bm9DdzZ4SU9TT00yN2o2cS9rb3VqM1hUMmcrQ1VnS29wKzBEQXFiaHc4MGxk?=
+ =?utf-8?B?TjU4RlFoZVY1aWJLUUNVeElodW5DdDZFcy9BTW9XTkRXdTlJczEwNGJxNHRD?=
+ =?utf-8?B?d3NGS1JWZ21qNG9SR1JNRDU4U0ZxdW1Jai9mYTk4aHQyTlVXVGwzK25VSUtz?=
+ =?utf-8?B?SjVNNEFsMk5BSWtwWTh5ZmRZSWJHRFV1Y2c5SzZyZDZnelNCeTVNeHBVMWc2?=
+ =?utf-8?B?c1ZRcmdnUDdZdjJha2RuS0xQYUVNOWJmN3k1bHFlYW5wVWc3VzIyZlNjQTYr?=
+ =?utf-8?B?cHp2TUVUUWQyMlErMnBOc1hTdENIMzZ3UVl3MjdROW1vZmdQWlVHaHhrTlZB?=
+ =?utf-8?B?dy9zcFc3V09qZXEwSWI2cFU3eDdOdmt0bHNqYkQ5d21YZjNraTJhbm1vUzBL?=
+ =?utf-8?B?eU45YlZQRUNJd1hrdE9GQVBwV3pYOVdKbEo1bHhIM3JPY3BTcE9ZUGIwUnV3?=
+ =?utf-8?B?TU0yL2dLQ1JHTHp0YlE1V1kxNmI4a1E2N3FROWF5NFBYbGQ1WEsxU1AvaFdK?=
+ =?utf-8?B?YWdrT2NSWm83L3Iya1NPSEwxYkgzbVp4Z29tVDNpSlVuUFZxeSt2TVMvNEUv?=
+ =?utf-8?B?amRIOWFYbkp0d2YzM1J1NlQ2VVVYWUxGbFREY1RpaTQ3RHcvcVJLZkl6cjdo?=
+ =?utf-8?Q?PFrOAE+1TwFt4xFQsE?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b5158486-a275-49d2-27eb-08df4ba3ce95
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Nov 2026 09:58:22.9662 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9GAhOlm8zIN62e3nAX/NwX3vxI9IipWrmBBGM2UpfXcTC2HYN7rH6lyPGubRAUHg
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8893
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,109 +155,83 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] drm/amdgpu/gfx11: wrong regGCVM_L2_STATUS offset in
-  gfx_v11_0_wait_gc_idle()
---
+On 11/26/26 07:24, Alistair Popple wrote:
+> On 2026-11-26 at 06:07 +1100, Jason Gunthorpe <jgg@ziepe.ca> wrote...
+>> On Wed, Nov 25, 2026 at 07:17:51PM +0100, Christian König wrote:
+>>> On 11/25/26 16:55, Jason Gunthorpe wrote:
+>>>> On Wed, Nov 25, 2026 at 12:19:08PM +0100, Christian König wrote:
+> 
+> [...]
+> 
+>  > > We cannot disconnect this from the DMA API, ie to use an iommu domain
+>>>> or ualink, if exporting drivers are hardwiring calls into it.
+>>>
+>>> Well the plan is to not disconnect it at all. The exporting drivers
+>>> just says to the underlying API here is my buffer please map that
+>>> for this importer and that result is then given back to the importer
+>>> through the DMA API again.
+>>
+>> DMA API will only do basic PCI DMA mappings into dma_addr_t.
+>>
+>> It will never handle iommu_domain, it will never handle ualink/etc.
+>>
+>> Give us a plan for those if you don't like any of these ideas.
+>>
+>>>> Fundamentally the need is for the driver to get the phys_addr list,
+>>>> exactly like today, and then pass it to an op which formats that into
+>>>> the right data structure for the importer. Be it dma_addr[],
+>>>> iommu_domain, or some ualink_addr[] - or whatever.
+>>>
+>>> No, the phys_addr type should only ever been seen by the DMA API and
+>>> not by DMA-buf.
+>>
+>> Again, I don't care how you label things or what "library" they live
+>> in, I can't tell if we are nitpicking names or what.
+>>
+>> But there needs to be some kind of abstraction that takes in
+>> phys_addr_t and makes sgt, dma_addr_t, or iommu_domain depending on
+>> what the importer needs.
+>>
+>> Exporters must not open code that.
+>>
+>> Obviously DMABUF is involved here *somehow* since it is the only thing
+>> that knows an importer even exists.
+>>
+>> Would you be happy if we made a 'dma mapping for dmabuf' library that
+>> did all of this and DMABUF just passes its type opaquely and drivers
+>> just call its tightly abstracted functions?
+>>
+>> That is the component Alistair is proposing, he just prefixed it with
+>> dmabuf_* as the namespace because, lets be honest, only dmabuf needs
+>> this weird looking thing.
+> 
+> Right, I don't really mind where and what things are named. I'm fine with this
+> being a separate library somewhere or building it all on top of opaque/private
+> types. But I'm having trouble understanding where exactly the objections lie and
+> what the path forward is.
 
-commit b092d369a399e18251a9318c45400741bdc05ea3
-Author: Jesse Zhang <Jesse.Zhang@amd.com>
+Would it help if have a call on Teams or similar services to discuss the whole thing?
 
-drm/amdgpu/gfx11: include SOFT_RESET_GFX in the gfx engine soft reset
+That might be easier and especially faster than by mail.
 
-This commit halts MES and RLC F32, waits for in-flight GC memory requests
-to drain in gfx_v11_0_wait_gc_idle(), and pulses SOFT_RESET_GFX together
-with SOFT_RESET_CPF and SOFT_RESET_CPG during a gfx engine soft reset.
+Regards,
+Christian.
 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gfx_v11_0.c
-> index a0ed3363f84d1..824d7914bece9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -6827,15 +6827,74 @@ static void gfx_v11_0_emit_mem_sync(struct amdgpu=
-_ring *ring)
->  				 CP_STAT__UTCL2IU_BUSY_MASK)
-> =20
->  /* Reset CPF/CPG, PFP/ME and the gfx HQDs, then boot PFP/ME again. */
-> +/*
-> + * SOFT_RESET_GFX drops the memory requests in flight through the blocks=
- it
-> + * resets, and their clients then wait for them forever: MES still fetch=
-es
-> + * instructions with its queues suspended, and RLC still writes its DRAM=
- log
-> + * in safe mode. The reset halts both, then waits for these busy bits of=
- the
-> + * GC memory interfaces to clear.
-> + */
-> +#define GFX11_GC_MEM_BUSY	(GRBM_STATUS2__EA_BUSY_MASK | \
-> +				 GRBM_STATUS2__EA_LINK_BUSY_MASK | \
-> +				 GRBM_STATUS2__UTCL2_BUSY_MASK | \
-> +				 GRBM_STATUS2__UTCL2_RQ_PENDING_MASK | \
-> +				 GRBM_STATUS2__TCP_BUSY_MASK | \
-> +				 GRBM_STATUS2__CPC_BUSY_MASK | \
-> +				 GRBM_STATUS2__RLC_BUSY_MASK | \
-> +				 GRBM_STATUS2__RLC_RQ_PENDING_MASK | \
-> +				 GRBM_STATUS2__SDMA_BUSY_MASK | \
-> +				 GRBM_STATUS2__SDMA_SCH_RQ_PENDING_MASK | \
-> +				 GRBM_STATUS2__SDMA0_RQ_PENDING_MASK | \
-> +				 GRBM_STATUS2__SDMA1_RQ_PENDING_MASK)
-> +
-> +/* The RLC busy bits of its memory requests */
-> +#define GFX11_RLC_MEM_BUSY	(RLC_STAT__MC_BUSY_MASK | \
-> +				 RLC_STAT__RLC_SRM_BUSY_MASK | \
-> +				 RLC_STAT__RLC_SPM_BUSY_MASK)
-> +
-> +/* Wait for the requests in flight in the GC, with MES and RLC F32 halte=
-d. */
-> +static int gfx_v11_0_wait_gc_idle(struct amdgpu_device *adev)
-> +{
-> +	u32 busy, cpc, rlc;
-> +	int i;
-> +
-> +	for (i =3D 0; i < adev->usec_timeout; i++) {
-> +		busy =3D RREG32_SOC15(GC, 0, regGRBM_STATUS2) & GFX11_GC_MEM_BUSY;
-> +		cpc =3D RREG32_SOC15(GC, 0, regCP_CPC_STATUS);
-> +		rlc =3D RREG32_SOC15(GC, 0, regRLC_STAT);
-> +
-> +		/* The halted MES and F32 can stay busy, not their memory requests. */
-> +		if (!(cpc & GENMASK(21, 0) & ~CP_CPC_STATUS__MES_BUSY_MASK))
-> +			busy &=3D ~GRBM_STATUS2__CPC_BUSY_MASK;
-> +		if (!(rlc & GFX11_RLC_MEM_BUSY))
-> +			busy &=3D ~GRBM_STATUS2__RLC_BUSY_MASK;
-> +
-> +		if (!busy && !(RREG32_SOC15(GC, 0, regGCVM_L2_STATUS) &
-> +			       GCVM_L2_STATUS__L2_BUSY_MASK))
-> +			return 0;
+> So given no one outright rejected the plan I wrote earlier I'm going to go ahead
+> and post the series implementing it (I was hoping to do that today, but it's not
+> quite ready).
+> 
+> Hopefully that will help by giving us actual code to ground the discussion on.
+> 
+>  - Alistair
+> 
+>> Jason
 
-[Severity: Medium]
-Does RREG32_SOC15(GC, 0, regGCVM_L2_STATUS) read the wrong MMIO offset on
-GC 11.0.3, GC 11.5.x and GC 11.7.x?
-
-gfx_v11_0.c includes gc/gc_11_0_0_offset.h, where regGCVM_L2_STATUS is
-0x15bf (BASE_IDX 0).  On GC 11.0.3 (gc/gc_11_0_3_offset.h) and GC 11.5.x /
-11.7.x (gc/gc_11_5_0_offset.h), the gc_gcvml2pfdec block is shifted by 4
-dwords (which is why gmc_v11_0_set_gfxhub_funcs() selects
-gfxhub_v3_0_3_funcs and gfxhub_v11_5_0_funcs for those IP versions):
-regGCVM_L2_CNTL is at 0x15c0 and regGCVM_L2_STATUS is at 0x15c3, leaving
-0x15bf in an unmapped gap before regGCVM_L2_CNTL.
-
-On those ASICs (such as GC 11.5.1 and GC 11.5.3 where gfx engine soft
-reset is enabled), gfx_v11_0_wait_gc_idle() will not poll the real
-GCVM_L2_STATUS register and can pulse SOFT_RESET_GFX while L2 requests are
-still in flight, or time out if the unmapped read returns all-ones.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126093417.1925=
-38-1-Jesse.Zhang@amd.com?part=3D12
