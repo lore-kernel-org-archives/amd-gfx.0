@@ -2,42 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FADA606A32A
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 10:03:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D612E606A330
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 10:10:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PHnp+pY+
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lqRw8yzq
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0EA111227C;
-	Thu, 26 Nov 2026 10:03:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 536951122BF;
+	Thu, 26 Nov 2026 10:10:10 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5A1A11227C
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Nov 2026 10:03:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95CE21122BF
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Nov 2026 10:10:04 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 99E3340448;
- Thu, 26 Nov 2026 10:03:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44C971F000F2;
- Thu, 26 Nov 2026 10:03:05 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5293745AFD;
+ Thu, 26 Nov 2026 10:10:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6F911F000C6;
+ Thu, 26 Nov 2026 10:10:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795687385;
- bh=5E68ZrOmNazJrpjGR9haN/KsuFd6h2qzkqU5YOkZAjc=;
+ s=k20260515; t=1795687803;
+ bh=sZ6LZ/TDpebzPb6SpJla/6eoFG5FXyIxvbYWwsz036o=;
  h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=PHnp+pY+qQjNTSFHDd2KCkGdfGGdP7SQLOhpoNmI+y8Y96sMb5QTGqfYQNJhR+78u
- LJzPqdz55kpBh11UoJgv87bkWoHoixBq+lozc94AHi4ROXQ2OiRG0svk5hqzQMrj0B
- Z+1ca3zC3V2NPBpw06wO/nt1PP78+ytFlgwkZUbzl96dcXK1YAOWcytRqdeLFJVZPJ
- owBhEXHiVABcJyoz8A/F3MQp3Wa6kTRCJ1hm3Y1tNGs5E44RXc31O4AuelDHk14Hu4
- G+9t7OdRXhK6aQYrHK0P49QUH7W0shHNOWB/amOpl4u0zBOj/I3+sYBw4eHeM7pbaW
- 04v7z1kPeebuw==
-Message-ID: <sashiko-outbox-235224@kernel.org>
+ b=lqRw8yzqYFDGXRY3SkpqGctIrvFKunr3HyfIhogzJ32LUTVVZn95/dYYEcm3+af4s
+ yQ8WC0OMkPUxOPq0IZmWQhJjij1rqW7WofcC2GLXjR3yur+/b8ouOYL6U4Vu17iKEy
+ b4lvWfrt9wgPsIdkYEucPykrMWXICiEwzsYLtmoWjei0oV4zgiECv4M3a3a1Xt0US+
+ L9W7niczBwV+Yrl1B607L2ey6hUiMleKlDK1hK2jvRaq89WZEX95/YYMF92oNDQ5t0
+ wvEe6lxZIJf6e2rvbIj+XODrInNo24IVBIrBsW923O6vJ4AKDIus9R+trwumZSb88a
+ 9xgFOjmHAfAgQ==
+Message-ID: <sashiko-outbox-235249@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 08/15] drm/amdgpu/userq: add helpers to keep the user
- queues of one engine across a reset
+Subject: Re: [PATCH v5 15/15] drm/amdgpu/gfx11: enable the gfx engine soft
+ reset
 To: "Jesse Zhang" <Jesse.Zhang@amd.com>, amd-gfx@lists.freedesktop.org
-In-Reply-To: <20261126093417.192538-8-Jesse.Zhang@amd.com>
+In-Reply-To: <20261126093417.192538-15-Jesse.Zhang@amd.com>
 References: <20261126093417.192538-1-Jesse.Zhang@amd.com>
- <20261126093417.192538-8-Jesse.Zhang@amd.com>
+ <20261126093417.192538-15-Jesse.Zhang@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Nov 2026 10:03:04 +0000
+Date: Thu, 26 Nov 2026 10:10:03 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,161 +57,141 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [High] drm/amdgpu/userq: unsynchronized xa_for_each() UAF and race in
-  HQD helpers
+Thank you for your contribution! Sashiko AI review found 3 potential
+issues to consider:
+- [High] drm/amdgpu: user queue race and UAF during
+  gfx_v11_0_soft_reset_engine()
+- [Medium] drm/amdgpu/gfx11: missing pre-pulse CP_VMID_RESET clear in
+  soft reset
+- [Medium] drm/amdgpu/gfx11: kernel gfx queue left mapped when
+  disable_kq is true
 --
 
-commit f5832ab9e726e4c6325d50c80fa806f8412f97f7
+commit 37d8357ec5fb17ab702d211aa8fb7b20ac9e9a2a
 Author: Jesse Zhang <Jesse.Zhang@amd.com>
 
-drm/amdgpu/userq: add helpers to keep the user queues of one engine across =
-a reset
+drm/amdgpu/gfx11: enable the gfx engine soft reset
 
-This commit adds helpers to save, restore, and clear the HQDs of user
-queues belonging to a single engine across a soft reset.
+This commit enables AMDGPU_RESET_TYPE_IP_BLOCK_SOFT_RESET for GFX rings on
+GC 11.5.1 and 11.5.3 when MES is enabled and SR-IOV VF is not active.
 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_userq.c
-> index ed6f3b67e8720..495198ba1b0b0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -1594,3 +1594,110 @@ int amdgpu_userq_post_reset(struct amdgpu_device =
-*adev, bool vram_lost)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gfx_v11_0.c
+> index 824d7914bece9..a878aaee1b74b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> @@ -1965,6 +1965,13 @@ static int gfx_v11_0_sw_init(struct amdgpu_ip_bloc=
+k *ip_block)
+>  		break;
+>  	}
 > =20
->  	return ret;
->  }
+> +	/* Only on the GC versions it was verified on */
+> +	if ((amdgpu_ip_version(adev, GC_HWIP, 0) =3D=3D IP_VERSION(11, 5, 1) ||
+> +	     amdgpu_ip_version(adev, GC_HWIP, 0) =3D=3D IP_VERSION(11, 5, 3)) &&
+> +	    !amdgpu_sriov_vf(adev) && adev->enable_mes &&
+> +	    !adev->debug_disable_ip_block_soft_reset)
+> +		adev->gfx.gfx_supported_reset |=3D AMDGPU_RESET_TYPE_IP_BLOCK_SOFT_RES=
+ET;
 > +
-> +/**
-> + * amdgpu_userq_save_hqds - save the HQDs of the user queues before an e=
-ngine reset
-> + * @adev: amdgpu device
-> + * @queue_type: AMDGPU_HW_IP_* type of the queues on the reset engine
-> + */
-> +void amdgpu_userq_save_hqds(struct amdgpu_device *adev, u32 queue_type)
-> +{
-> +	struct amdgpu_gfx_saved_hqd hqd;
-> +	struct amdgpu_usermode_queue *queue;
-> +	unsigned long queue_id;
-> +
-> +	adev->gfx.num_saved_gfx_hqds =3D 0;
-> +	if (!adev->gfx.funcs->save_hqd)
-> +		return;
-> +
-> +	xa_for_each(&adev->userq_doorbell_xa, queue_id, queue) {
-> +		if (adev->gfx.num_saved_gfx_hqds >=3D AMDGPU_MAX_GFX_QUEUES)
-> +			break;
-> +		if (queue->queue_type !=3D queue_type ||
-> +		    queue->state !=3D AMDGPU_USERQ_STATE_MAPPED)
-> +			continue;
-> +		if (adev->gfx.funcs->save_hqd(adev, queue->doorbell_index, &hqd) &&
-> +		    hqd.on_hqd)
-> +			adev->gfx.saved_gfx_hqds[adev->gfx.num_saved_gfx_hqds++] =3D hqd;
-> +	}
-> +}
-> +
-> +static struct amdgpu_gfx_saved_hqd *
-> +amdgpu_userq_find_saved_hqd(struct amdgpu_device *adev,
-> +			    struct amdgpu_usermode_queue *queue)
-> +{
-> +	struct amdgpu_gfx_saved_hqd *hqd;
-> +	u32 i;
-> +
-> +	for (i =3D 0; i < adev->gfx.num_saved_gfx_hqds; i++) {
-> +		hqd =3D &adev->gfx.saved_gfx_hqds[i];
-> +		/* Check the MQD too: a new queue may reuse the doorbell. */
-> +		if (hqd->doorbell_index =3D=3D queue->doorbell_index &&
-> +		    hqd->mqd_addr =3D=3D queue->mqd.gpu_addr)
-> +			return hqd;
-> +	}
-> +	return NULL;
-> +}
-> +
-> +/**
-> + * amdgpu_userq_restore_hqds - restore the user queues after an engine r=
-eset
-> + * @adev: amdgpu device
-> + * @queue_type: AMDGPU_HW_IP_* type of the queues on the reset engine
-> + * @guilty: the queue that hung, or NULL
-> + *
-> + * MES doesn't map a queue whose HQD the reset cleared again on its own:=
- unmap
-> + * it from MES, restore its MQD, and map it again.
-> + */
-> +void amdgpu_userq_restore_hqds(struct amdgpu_device *adev, u32 queue_typ=
-e,
-> +			       struct amdgpu_usermode_queue *guilty)
-> +{
-> +	const struct amdgpu_userq_funcs *userq_funcs =3D adev->userq_funcs[queu=
-e_type];
-> +	struct amdgpu_usermode_queue *queue;
-> +	struct amdgpu_gfx_saved_hqd *hqd;
-> +	unsigned long queue_id;
-> +	int r;
-> +
-> +	xa_for_each(&adev->userq_doorbell_xa, queue_id, queue) {
-> +		if (queue->queue_type !=3D queue_type ||
-> +		    queue->state !=3D AMDGPU_USERQ_STATE_MAPPED)
-> +			continue;
-> +
-> +		if (queue =3D=3D guilty) {
-> +			userq_funcs->unmap(queue);
-> +			amdgpu_userq_fence_driver_force_completion(queue);
-> +			trace_amdgpu_userq_state_changed(queue, AMDGPU_USERQ_STATE_HUNG);
-> +			queue->state =3D AMDGPU_USERQ_STATE_HUNG;
-> +			continue;
-> +		}
-> +
-> +		hqd =3D amdgpu_userq_find_saved_hqd(adev, queue);
-> +		if (!hqd)
-> +			continue;
-> +
-> +		userq_funcs->unmap(queue);
-> +		if (adev->gfx.funcs->restore_hqd(adev, queue->mqd.cpu_ptr,
-> +						 queue->userq_prop->queue_size,
-> +						 hqd))
-> +			amdgpu_userq_fence_driver_force_completion_with_seqno(queue,
-> +									      hqd->wptr);
-> +		r =3D userq_funcs->map(queue);
+>  	if (!adev->enable_mes_kiq) {
+>  		r =3D amdgpu_gfx_kiq_init(adev, GFX11_MEC_HPD_SIZE, 0);
+>  		if (r) {
 
 [Severity: High]
-Can amdgpu_userq_save_hqds() and amdgpu_userq_restore_hqds() race with
-amdgpu_userq_destroy() and cause a use-after-free on queue?
+Can enabling engine soft reset cause a use-after-free on struct
+amdgpu_usermode_queue in amdgpu_userq_save_hqds() and
+amdgpu_userq_restore_hqds()?
 
-Unlike a full GPU reset, which holds down_write(&adev->reset_domain->sem),
-an engine soft reset in amdgpu_device_ip_soft_reset() only acquires
-down_read(&adev->reset_domain->sem).  amdgpu_userq_detach_doorbell() and
-amdgpu_userq_unmap_helper() in the queue destruction path also only acquire
-down_read(&adev->reset_domain->sem), so queue destruction is not blocked
-while these helpers walk userq_doorbell_xa (as the comment in
-amdgpu_userq_find_saved_hqd() also notes).  Because xa_for_each() releases
-rcu_read_lock() before entering the loop body and nothing pins queue or
-holds queue->userq_mgr->userq_mutex:
+When funcs->soft_reset_engine is set, amdgpu_device_ip_soft_reset() only
+takes down_read(&adev->reset_domain->sem) before calling
+gfx_v11_0_soft_reset_engine().  Because amdgpu_userq_detach_doorbell(),
+amdgpu_userq_unmap_helper(), and amdgpu_userq_map_helper() also only take
+down_read(&adev->reset_domain->sem), they are not blocked during an engine
+soft reset.
 
-CPU0                                  CPU1
-amdgpu_userq_restore_hqds()
-  xa_for_each(..., queue)
-                                      amdgpu_userq_destroy()
-                                        amdgpu_userq_detach_doorbell(queue)
-                                        ...
-                                        uq_funcs->mqd_destroy(queue)
-                                        kfree(queue)
-    if (queue->queue_type !=3D ...)
-    userq_funcs->unmap(queue)  <-- use-after-free
+Inside gfx_v11_0_soft_reset_engine(), amdgpu_userq_save_hqds() and
+amdgpu_userq_restore_hqds() iterate adev->userq_doorbell_xa with
+xa_for_each() without taking a reference on queue or locking
+uq_mgr->userq_mutex:
 
-Even when the queue is not destroyed, iterating and calling
-userq_funcs->unmap() and userq_funcs->map() without holding
-queue->userq_mgr->userq_mutex races with concurrent eviction and restore
-workers that also run under down_read(&adev->reset_domain->sem), which can
-corrupt queue->state or double-unmap and double-free
-queue->gang_ctx_array_index.  In addition, if a queue is destroyed and a
-new queue is created between amdgpu_userq_save_hqds() and
-amdgpu_userq_restore_hqds(), both the freed doorbell index and the freed
-GTT MQD address (queue->mqd.gpu_addr) can be reallocated to the new queue,
-causing amdgpu_userq_find_saved_hqd() to match and overwrite the new
-queue's MQD with the old queue's saved HQD state.
+CPU0                                     CPU1
+amdgpu_device_ip_soft_reset()
+  down_read(&adev->reset_domain->sem)
+  gfx_v11_0_soft_reset_engine()
+    amdgpu_userq_restore_hqds()
+      xa_for_each(..., queue)
+                                         amdgpu_userq_destroy()
+                                           mutex_lock(&uq_mgr->userq_mutex)
+                                           amdgpu_userq_detach_doorbell()
+                                             down_read(&reset_domain->sem)
+                                             xa_erase(&userq_doorbell_xa, .=
+..)
+                                           ...
+                                           uq_funcs->mqd_destroy(queue)
+                                           kfree(queue)
+        userq_funcs->unmap(queue)
+        ...                              <-- use-after-free
+
+Concurrent eviction and restore workers (amdgpu_userq_evict_all() and
+amdgpu_userq_restore_all()) also only take a read lock on
+reset_domain->sem, so they can issue MES map/unmap requests and mutate
+queue->state while MES is suspended and amdgpu_userq_restore_hqds() is
+updating the queues without uq_mgr->userq_mutex.
+
+[Severity: Medium]
+Should gfx_v11_0_soft_reset_gfx_cp() clear regCP_VMID_RESET before pulsing
+regGRBM_SOFT_RESET, as gfx_v12_0_soft_reset_gfx_cp() does?
+
+drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c:gfx_v11_0_soft_reset_gfx_cp() {
+	...
+	/* A CP DMA in flight during the reset leaves the ME busy after it. */
+	for (i =3D 0; i < adev->usec_timeout; i++) {
+		if (!(RREG32_SOC15(GC, 0, regCP_STAT) & GFX11_CP_STAT_MEM_BUSY))
+			break;
+		udelay(1);\
+	}
+
+	/* GFX_ONLY keeps compute and MES out; CPF alone leaves the stream stuck. =
+*/
+	cntl =3D RREG32_SOC15(GC, 0, regCP_SOFT_RESET_CNTL);
+	...
+}
+
+When a prior per-queue or per-pipe reset via mes_v11_0_reset_queue_mmio()
+times out because PFP or ME is hung, the VMID reset request written to
+regCP_VMID_RESET remains pending when fallback reaches
+gfx_v11_0_soft_reset_gfx_cp().  gfx_v11_0_soft_reset_gfx_cp() only zeroes
+regCP_VMID_RESET after the reset pulse, leaving the VMID reset active
+during the CP soft reset and causing the soft reset to fail and escalate to
+a full GPU reset.
+
+[Severity: Medium]
+Does gfx_v11_0_soft_reset_engine() leave the kernel GFX queue mapped when
+adev->gfx.disable_kq is true?
+
+drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c:gfx_v11_0_soft_reset_engine() {
+	...
+	/* The reset cleared the HQD of the kernel gfx queue: map it again. */
+	r =3D amdgpu_gfx_disable_kgq(adev, 0);
+	if (r)
+		goto fail;
+	for (i =3D 0; i < adev->gfx.num_gfx_rings; i++)
+		amdgpu_gfx_mqd_reset_restore(&adev->gfx.gfx_ring[i]);
+	r =3D amdgpu_gfx_enable_kgq(adev, 0);
+	if (!r)
+		r =3D gfx_v11_0_cp_gfx_start(adev);
+	...
+}
+
+On GFX11, adev->gfx.num_gfx_rings is 1 even when adev->gfx.disable_kq is
+true so gfx_ring[0] can be used to submit clear-state initialization
+packets, after which gfx_v11_0_cp_resume() unmaps it via
+amdgpu_gfx_disable_kgq(adev, 0) so MES can use pipe 0 queue 0 for user
+queues.  When a hung GFX user queue triggers gfx_v11_0_soft_reset_engine()
+with disable_kq set, gfx_ring[0] is mapped with amdgpu_gfx_enable_kgq() and
+never unmapped afterward, leaving the legacy kernel queue mapped on pipe 0
+queue 0 in conflict with MES user queues.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126093417.1925=
-38-1-Jesse.Zhang@amd.com?part=3D8
+38-1-Jesse.Zhang@amd.com?part=3D15
