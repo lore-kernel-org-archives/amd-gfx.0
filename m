@@ -2,89 +2,81 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 733FB606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0E5F606A31E
 	for <amd-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 08:10:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Q5OQSpME
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yTjvhA9i
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA74C112120;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3947112121;
 	Thu, 26 Nov 2026 08:10:25 +0000 (UTC)
-Received: from mail-wm2-f9.google.com (mail-wm2-f9.google.com [74.125.225.137])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D947B112008
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Nov 2026 22:54:12 +0000 (UTC)
-Received: by mail-wm2-f9.google.com with SMTP id
- 5b1f17b1804b1-4ae596853deso13151505e9.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Nov 2026 14:54:12 -0800 (PST)
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 887E810E4CC
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Nov 2026 01:23:23 +0000 (UTC)
+Received: by mail-dl1-f51.google.com with SMTP id
+ a92af1059eb24-1ae58d17cd9so7121156c88.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Nov 2026 17:23:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795647251; x=1796252051; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=qwFPqDuhjt+AHduHGsxSJnIXxJCHI3I68/jYa7+86Ts=;
- b=Q5OQSpME5BgJ/6zwg/bIDL4VTrmoXsplCOgzxp707PxR2Rb/h60w13b3osrOebJYD6
- T/Gesr4bGFzMoRKWqCkqFjBIm7X7IrX7FC/fetbBtCFO5vqWssvkFN2LkdaeH8YEhi10
- 9Y9+mJmhwUY7VcMyyIMDobeIEyYvps2uZbRLPlIA6tlkUbQQCd8x8trcTuG4+9pLp8qn
- 10ctpJrLgq0Qrxjjx1KBev2xFYKF07nYv8xGFHGyZB4tML9GS/f7gootPR9MtGlBrBgq
- PenGymB3mP3uS40+nCPP6NTWsKMVhdE/Qjz5ofIjVpBd2reRcXKbugGHJ+xsnBPN3mwL
- oseg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795647251; x=1796252051;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20260707; t=1795656203; x=1796261003; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=qwFPqDuhjt+AHduHGsxSJnIXxJCHI3I68/jYa7+86Ts=;
- b=Nbn7J3rn46EhZECRHmVHQXAFCYn3FHdXIEjyWnnbhlaOsJY2ZkAzXIar2v9lb9FD2W
- 4svlZkCAFN+UQA69j6cHjK7g9LylYKweMakpcUHpq3NbJkutIt1CbmeCtoe58yYMHtJi
- 3qukYyj4Exvrq4PNYnSKGxamkAUxxOHxmG+0u5jPp5kV6/OXE2WBc7Ivppiygy3EYH4j
- u4fJFMuGcZSPNRXpDP/6QFmHevvvfB8CbPq1yMNuA9ANTz7B8SRknzXZwGwiOodhunyA
- 3b8Y0+rIY1Z8DJuMR1J5770kXwluj7gna6v9pACgepTFXgkF8HgsuXP0gJrlUQAjpfPw
- mLbA==
-X-Forwarded-Encrypted: i=1;
- AL+hErG69OQAyM1R0X5tW2YzsuHG9jKG36UdwNqZucLg//i87/ME4mYGqY5ezrDXOYNgNigJ+L+rMjfn@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9LqotiQl02kaxUAWWUJmO8beM2iUJ0F8tx7ftyDYInABhykhA2
- yPoipBA/V/KT4wSICTZX1m5smYkhYnR/pfs1PhNqOBe1kVx94sLzH2uJ
-X-Gm-Gg: AZFdTZeles7C7CxX+ySI17auj5Y4xmwlLhXUj5J2I8Rlxvhd2wUbWVTsn1uBdKFXenQ
- XSU3sa3ziDzxDnnL6wkhakCAt2symzD74PYHwzKMrJoZ4D8QIuFyy99UHkDlOA0jZEme2Bq7Pnr
- QHsHEAVeUtpzAsi2XI2C7kNGbRsYW73nJKnPTbVeNkQlmiOS/CqgG5l1Th0YrCRKoVgn7Nq/sfQ
- 9pjcZOCSTkDHX/NjaG7jbRodDl+4UzHhhF9dX0OlJpA+ICStbcRZuXQFQyw8cWw0Vpz7dxDdgpn
- splT6kOeS2mDN06lfosCj8ZiWzq7bUD1I4SjssKa7Y+pfIxBJmx464Leq4l41HDjx2kdPl8lSe0
- ODpsdpePCWsvJMS8Yi+ievgBOOUCRInRXNUTVWipjkuCRDigIrz7oJkVaq/OxFkIpn40KuADE0m
- tMaAzarwN2OlKRTQIdIwymle2lhV4ycq4WL1n2RYlRYe4fRSSGgdY3qInSvQ2lv4kXQByLnWikM
- Ivs5a6V3DsTZZS0mBfD50+wwNA9Bp1QD5wl65yL9Z3FE/4Fn4+m+RWrZrhFyTxACKxXeJuxo5i3
- 3Di3r0m6mb2gR99/DKpA2UxRwBxDMr4GegZ+
-X-Received: by 2002:a05:600c:64c8:b0:4a0:1c0e:b057 with SMTP id
- 5b1f17b1804b1-4bb887e2380mr359278035e9.4.1795647250854; 
- Wed, 25 Nov 2026 14:54:10 -0800 (PST)
-Received: from [192.168.1.11] ([31.94.68.154])
+ bh=T1o9ngBXV17K0T9VIdpByWQ1tf1l/DUIzKNbevHfagQ=;
+ b=yTjvhA9iNF6vJHPxfCfnMX7xExmYLGEPNUXl0juoyPwXGR64rZT26h7j1hvQbb1NHG
+ 7WWPmiMz0aqO7VrkxbGqxrlFDyNR8uECqeAFxDFswTlD/6pcRU+s5hE7ZniaRYpILaq2
+ ZCowWCt3k47mSxfJ2D3CYfNSWCGg9ahHYzGtAu3XuVgpxvCXZUSsV4+zpSj2x0p875Oh
+ TqiOGwOtF44skGxRF+KNf95LIvKaAPsbx2E7NxzaNzdZFi6yAb7kmnjPX6NKwg6pDkoW
+ b3Xawek2ow2JS6/bi0qfqx16FESlAJdYay/egRwjcfPw1J12xKWLCLTwpHo30iLmyCPj
+ sPIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795656203; x=1796261003;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=T1o9ngBXV17K0T9VIdpByWQ1tf1l/DUIzKNbevHfagQ=;
+ b=bdl6XmXY3vWeC57pLiTmlvusAf8KczyH38qg5vzs6eRcFBqMlWSQ8mYVLGmA8vBkGv
+ SWOmqiChXK+PzGgPw6scylLxNVep+ilCMjm/58gjRTxVs7CcwaaGX6UUIQ5ypv6IDHVc
+ G9wcfAWgb7vkKHXOY7UMRFiza36TAjKpKFzO91yhaJMqUaQIHa5sxO45ABMYnHTyre5Z
+ UjQRAQFs0iLugWoL6A3qzDLsmiDmo444PHYN1uS80kKA8mV8YeMISww7BZMRCbwT+kN1
+ ps1swLcGl4pvXdp1WaoAez2PMAmZjD1s77wjNzlDNWV3JUEZPdCNHrZ8QaPTHeZcDffe
+ dACQ==
+X-Gm-Message-State: APuU4Z9A8v63sglJuSusfua6gBDzN2r/vtER5OQ8UUBBcnb74GSi0Alw
+ wiRuROsgCI1ZncD/6inPypnVKBL7JM0+W7ynSoFPaXVWB/BvBms7drzCi6Dvnkpv
+X-Gm-Gg: AZFdTZco+d0yfx9htQ2MDyez+CGtrrXvjuoeWovtgfrTvpdr08o8cVQbPbk1UpPddJE
+ +jSS6kAlBsZbAlBVih+8SrFk2voZuEWYfr8J8lem6/JVSn4RNBQqLodCCu7klzTviqIKalgSZue
+ Q92nHEwlX1kWFhdLTeU1s614GTcHHEPXuz+G5UFDVoRfmKVoFZJ9NGIH+3/fPZ9epntwWoYoS/Q
+ EYEwoOgpFsnsgXpp1frlTR0vXVc+y+Ei+d81mRAeY763S8dg7g3YZLufY0pMk8TYUEAxtOt5d5H
+ ThhFw1v/ipMF7fFCXykg1zHi6bs6gp6/G3zClF/D1ur8rNqFensNOc467BfOzonRlDF6J30s+rH
+ nVZ4z/Hey1PzHDHCisg/CuzNHdf3983CpPn9wFt27jcNLtuNnhgK9VLk1ARvVt1JH0h5F3xU87l
+ E70BY0WhkBwW88+xtGponm8OqCp2aq92MCgCKjYcF0vb81CSkFERjyrOeAe5gdPL3E3oz/3GAuC
+ 30ZPS6XchyomCwgJYiFWOrcqs6rv17TQBrL0fL898G3OhwnzxCGVnkTEZeSCijM7V2US3v51iFQ
+ EV2ZUrKaIYVnGj/1Hmri
+X-Received: by 2002:a05:693c:600c:b0:36a:1bac:6bf4 with SMTP id
+ 5a478bee46e88-38570451dbemr22625193eec.18.1795656202605; 
+ Wed, 25 Nov 2026 17:23:22 -0800 (PST)
+Received: from a1-free ([2603:c021:8021:f000:0:1865:8c38:18fc])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4bb884b7515sm755939345e9.13.2026.11.25.14.54.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 25 Nov 2026 14:54:10 -0800 (PST)
-Message-ID: <e25c68b6-d67a-4d5e-86d2-724ee2407f0c@gmail.com>
-Date: Wed, 25 Nov 2026 22:54:08 +0000
+ 5a478bee46e88-38566cd4efesm59360148eec.12.2026.11.25.17.23.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 25 Nov 2026 17:23:22 -0800 (PST)
+From: TAKANO Mitsuhiro <takano32@gmail.com>
+To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>
+Cc: Rodrigo Siqueira <siqueira@igalia.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Thomas Huth <thuth@redhat.com>, Weijie Yuan <wy@wyuan.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ TAKANO Mitsuhiro <takano32@gmail.com>
+Subject: [PATCH v2 2/2] drm/amd/display: Document max_gamut_remap_coeff
+Date: Thu, 26 Nov 2026 01:23:16 +0000
+Message-ID: <20261126012316.2624853-2-takano32@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261126012316.2624853-1-takano32@gmail.com>
+References: <20261121041427.1743954-1-takano32@gmail.com>
+ <20261126012316.2624853-1-takano32@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/3] drm/amd/display: unlock secondary tile on Apple
- 4K/5K iMac panels
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "Koenig, Christian" <Christian.Koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- "Wentland, Harry" <Harry.Wentland@amd.com>,
- "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- "Limonciello, Mario" <Mario.Limonciello@amd.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <6c7b9cdf-9562-4954-9f66-444745e430bb@gmail.com>
- <SJ0PR12MB6830376D484FDC67FA87E10EF7432@SJ0PR12MB6830.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: Richard Lane <richardlanedev@gmail.com>
-In-Reply-To: <SJ0PR12MB6830376D484FDC67FA87E10EF7432@SJ0PR12MB6830.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 26 Nov 2026 08:09:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,286 +88,50 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 25/11/2026 15:41, Deucher, Alexander wrote:
-> Public
-> 
->> -----Original Message-----
->> From: Richard Lane <richardlanedev@gmail.com>
->> Sent: Tuesday, November 24, 2026 8:04 PM
->> To: amd-gfx@lists.freedesktop.org
->> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
->> <Christian.Koenig@amd.com>; David Airlie <airlied@gmail.com>; Simona
->> Vetter <simona@ffwll.ch>; Wentland, Harry <Harry.Wentland@amd.com>; Li,
->> Sun peng (Leo) <Sunpeng.Li@amd.com>; Rodrigo Siqueira
->> <siqueira@igalia.com>; Limonciello, Mario <Mario.Limonciello@amd.com>;
->> dri-devel@lists.freedesktop.org; linux-kernel@vger.kernel.org; Richard Lane
->> <richardlanedev@gmail.com>
->> Subject: [PATCH v3 2/3] drm/amd/display: unlock secondary tile on Apple 4K/5K
->> iMac panels
->>
->> Apple 21.5" 4K (iMac18,2, iMac19,2) and 27" 5K (iMac15,1, iMac17,1,
->> iMac18,3, Polaris-based iMac19,1) Retina iMacs expose their internal panel as
->> a 2x1 tiled display over an eDP root link and a secondary DP link. At boot, the
->> panel TCON operates in single-pipe mode and holds the secondary DP link's
->> HPD line low until unlocked via DPCD registers.
->>
->> Enable native tiled detection and link training for DCE < 12 Apple 4K/5K Retina
->> iMac panels:
->> - Latch the root eDP link via DPCD 0x4F1 prior to reading its EDID in
->>   dm_helpers_read_local_edid() on Apple hardware (DCE < 12) so the
->>   TCON exposes its full DisplayID tile properties even when Apple and
->>   OpenCore Legacy Patcher (OCLP) EFI folders are absent.
->> - Point the secondary DP dc_link to the root eDP dc_link
->>   (apple_tcon_peer) during EDID quirk matching on DCE < 12 iMac15,1
->>   (AE01/02), iMac17,1 (AE05/06), iMac18,3 (AE11/12), iMac18,2/19,2
->>   (AE19/1A), and Polaris-based iMac19,1 (AE25/26), checking
->>   connector_signal since panel IDs can flip across the two links after
->>   S3 wake. DCE >= 12 support for Vega-based iMac19,1, iMacPro1,1, and
->>   iMac20,x is documented as TODO.
->> - Avoid falling back to DVI and latch the secondary tile via DPCD 0x4F1
->>   on the root eDP link when probing the secondary link, allowing the
->>   secondary link to read its EDID and populate DRM's DisplayID tile
->>   properties (has_tile, tile_group, and tile_is_single_monitor).
->> - Write the 3-byte Boot Camp source table (0x04, 0x1d, 0x03) to DPCD
->>   0x310 in dpcd_set_source_specific_data() to unlock the secondary tile.
->> - Prevent the secondary tile from entering DP_SET_POWER D3, which causes
->>   the TCON to drop HPD and stop responding to AUX transactions.
-> 
-> Does the display still blank properly without this?
-> 
-> Alex
-> 
+kernel-doc reports:
 
-I have just tested and the display still blanks, and recovers from suspend
-properly without needing to prevent the secondary tile from entering
-DP_SET_POWER D3. Hence this patch hunk can be dropped (no modification is
-therefore needed to link_dp_phy.c):
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c b/drivers/gpu/drm/amd/display/dc/link/
-protocols/link_dp_phy.c
-index 49521ac4b0e8..f051fe6c060c 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
-@@ -50,6 +50,9 @@ void dpcd_write_rx_power_ctrl(struct dc_link *link, bool on)
- 	if (link->sync_lt_in_progress)
- 		return;
- 
-+	if (!on && link->apple_imac_peer)
-+		return;
-+
- 	core_link_write_dpcd(link, DP_SET_POWER, &state,
- 						 sizeof(state));
+  dc.h:329 struct member 'max_gamut_remap_coeff' not described in
+  'mpc_color_caps'
 
-Should I submit a v4 patch with this change?
+The 17 resource files that set dc->caps.color.mpc.gamut_remap to 1 also
+set the member to dc_fixpt_from_fraction(S3D12_MAX, DIVIDER); the other
+ten leave it at zero, and the comment of mpc_color_caps does not mention
+it.  Describe it.
 
-Richard
+Fixes: 1c5e6cd8291f ("drm/amd/display: adjust floating point format for gamut remap when needed")
+Link: https://lore.kernel.org/all/ec4d7cff-d23a-46d1-b245-921f442b9a7b@redhat.com/
+Signed-off-by: TAKANO Mitsuhiro <takano32@gmail.com>
+---
+v2: The disclosure moves below the --- line, where Weijie Yuan asked for
+    it; the commit message keeps the change alone.  The patches are
+    unchanged otherwise, so the diff is the one already posted.
 
->> - Unlatch both tiles (0x4F1) and clear DP_SOURCE_TABLE_REVISION (0x310)
->>   and DP_EDP_CONFIGURATION_SET (0x10A) in
->> amdgpu_dm_apple_tcon_unlatch()
->>   during dm_suspend() so the TCON returns to single-pipe mode for the
->>   EFI boot screen across reboots.
->>
->> Signed-off-by: Richard Lane <richardlanedev@gmail.com>
->> ---
->>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 19 +++++++++++
->> .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 34
->> +++++++++++++++++++
->>  drivers/gpu/drm/amd/display/dc/dc.h           |  1 +
->>  .../drm/amd/display/dc/link/link_detection.c  |  7 +++-
->>  .../dc/link/protocols/link_dp_capability.c    |  4 +++
->>  .../display/dc/link/protocols/link_dp_phy.c   |  3 ++
->>  6 files changed, 67 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> index 3d2201285888..6275a585593c 100644
->> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> @@ -1610,6 +1610,23 @@ STATIC_IFN_KUNIT void
->> dm_destroy_cached_state(struct amdgpu_device *adev)  }
->> EXPORT_IF_KUNIT(dm_destroy_cached_state);
->>
->> +static void amdgpu_dm_apple_imac_unlatch(struct dc *dc) {
->> +     const u8 zeros[3] = { 0 };
->> +
->> +     for (int i = 0; i < dc->link_count; i++) {
->> +             struct dc_link *link = dc->links[i];
->> +
->> +             if (link->apple_imac_peer) {
->> +                     core_link_write_dpcd(link,
->> DP_SOURCE_TABLE_REVISION, zeros, 3);
->> +                     core_link_write_dpcd(link,
->> DP_EDP_CONFIGURATION_SET, zeros, 1);
->> +                     core_link_write_dpcd(link, 0x4F1, zeros, 1);
->> +                     core_link_write_dpcd(link->apple_imac_peer, 0x4F1,
->> zeros, 1);
->> +                     break;
->> +             }
->> +     }
->> +}
->> +
->>  static int dm_suspend(struct amdgpu_ip_block *ip_block)  {
->>       struct amdgpu_device *adev = ip_block->adev; @@ -1677,6 +1694,8
->> @@ static int dm_suspend(struct amdgpu_ip_block *ip_block)
->>
->>       amdgpu_dm_hpd_rx_irq_work_suspend(dm);
->>
->> +     amdgpu_dm_apple_imac_unlatch(dm->dc);
->> +
->>       dc_set_power_state(dm->dc, DC_ACPI_CM_POWER_STATE_D3);
->>
->>       if (dm->dc->caps.ips_support && adev->in_s0ix) diff --git
->> a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
->> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
->> index 6192c0f6086d..e30450415462 100644
->> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
->> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
->> @@ -29,6 +29,7 @@
->>  #include <linux/string.h>
->>  #include <linux/acpi.h>
->>  #include <linux/i2c.h>
->> +#include <linux/dmi.h>
->>
->>  #include <drm/drm_atomic.h>
->>  #include <drm/drm_probe_helper.h>
->> @@ -173,6 +174,30 @@ STATIC_IFN_KUNIT void apply_edid_quirks(struct
->> dc_link *link, struct edid *edid,
->>               drm_dbg_driver(dev, "Force FreeSync min to 60 Hz on panel id
->> %X\n", panel_id);
->>               edid_caps->panel_patch.force_freesync_min_hz = 60;
->>               break;
->> +     /*
->> +      * Workaround for Apple 21.5" 4K and 27" 5K iMacs which expose a 2x1
->> +      * tiled internal panel over an eDP root link and a secondary DP link.
->> +      * Point the secondary link to the root link to latch/unlatch the TCON
->> +      * via DPCD, checking connector_signal as panel IDs can flip after wake.
->> +      * IDs (Root/Tile): iMac15,1 (AE01/02), iMac17,1 (AE05/06),
->> +      * iMac18,3 (AE11/12), iMac18,2/19,2 (AE19/1A), iMac19,1 (AE25/26);
->> +      * TODO (DCE >= 12): iMac19,1/19,2 Vega, iMacPro1,1 (AE1D/1E),
->> iMac20,x (AE31/32, AE35/36).
->> +      */
->> +     case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE01):
->> +     case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE02):
->> +     case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE05):
->> +     case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE06):
->> +     case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE11):
->> +     case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE12):
->> +     case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE19):
->> +     case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE1A):
->> +     case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE25):
->> +     case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE26):
->> +             if (link->connector_signal == SIGNAL_TYPE_EDP &&
->> +                 link->ctx->dce_version < DCE_VERSION_12_0 &&
->> +                 (link->link_index ^ 1) < link->dc->link_count)
->> +                     link->dc->links[link->link_index ^ 1]->apple_imac_peer
->> = link;
->> +             break;
->>       default:
->>               return;
->>       }
->> @@ -1299,6 +1324,15 @@ enum dc_edid_status dm_helpers_read_local_edid(
->>       if (link->dc->hwss.prepare_ddc)
->>               link->dc->hwss.prepare_ddc(link);
->>
->> +     if (link->connector_signal == SIGNAL_TYPE_EDP &&
->> +         link->ctx->dce_version < DCE_VERSION_12_0 &&
->> +         dmi_match(DMI_SYS_VENDOR, "Apple Inc.")) {
->> +             const char *product =
->> dmi_get_system_info(DMI_PRODUCT_NAME);
->> +
->> +             if (product && str_has_prefix(product, "iMac"))
->> +                     dm_helpers_dp_write_dpcd(ctx, link, 0x4F1, &(const
->> uint8_t){1}, 1);
->> +     }
->> +
->>       dm_helpers_wait_for_edid_ready(link, ddc);
->>
->>       /* some dongles read edid incorrectly the first time, diff --git
->> a/drivers/gpu/drm/amd/display/dc/dc.h
->> b/drivers/gpu/drm/amd/display/dc/dc.h
->> index 8471dcfe24fd..bd3857267331 100644
->> --- a/drivers/gpu/drm/amd/display/dc/dc.h
->> +++ b/drivers/gpu/drm/amd/display/dc/dc.h
->> @@ -2018,6 +2018,7 @@ struct dc_scratch_space {
->>       bool skip_implict_edp_power_control;
->>       bool forced_psr_active;
->>       enum backlight_control_type backlight_control_type;
->> +     struct dc_link *apple_imac_peer;
->>  };
->>
->>  struct dc {
->> diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
->> b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
->> index 5b257f003f13..02c6e5874c16 100644
->> --- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
->> +++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
->> @@ -218,7 +218,7 @@ static enum signal_type
->> link_detect_sink_signal_type(struct dc_link *link,
->>                        * we assume signal is DVI; it could be corrected
->>                        * to HDMI after dongle detection
->>                        */
->> -                     if (!dm_helpers_is_dp_sink_present(link))
->> +                     if (!link->apple_imac_peer &&
->> !dm_helpers_is_dp_sink_present(link))
->>                               result = SIGNAL_TYPE_DVI_SINGLE_LINK;
->>               }
->>               break;
->> @@ -1651,6 +1651,11 @@ bool link_detect_connection_type(struct dc_link
->> *link, enum dc_connection_type *
->>               }
->>       }
->>
->> +     if (*type == dc_connection_none && link->apple_imac_peer) {
->> +             core_link_write_dpcd(link->apple_imac_peer, 0x4F1, &(const
->> uint8_t){1}, 1);
->> +             *type = dc_connection_single;
->> +     }
->> +
->>       return true;
->>  }
->>
->> diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
->> b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
->> index c487c5b87dfd..74954702c5a9 100644
->> --- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
->> +++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
->> @@ -1496,6 +1496,10 @@ void dpcd_set_source_specific_data(struct dc_link
->> *link)
->>                               link->dc->vendor_signature.data.raw,
->>                               sizeof(link->dc->vendor_signature.data.raw));
->>       }
->> +
->> +     if (link->apple_imac_peer)
->> +             core_link_write_dpcd(link, DP_SOURCE_TABLE_REVISION,
->> +                                  (const uint8_t[]){0x04, 0x1d, 0x03}, 3);
->>  }
->>
->>  void dpcd_write_cable_id_to_dprx(struct dc_link *link) diff --git
->> a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
->> b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
->> index 49521ac4b0e8..f051fe6c060c 100644
->> --- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
->> +++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
->> @@ -50,6 +50,9 @@ void dpcd_write_rx_power_ctrl(struct dc_link *link, bool
->> on)
->>       if (link->sync_lt_in_progress)
->>               return;
->>
->> +     if (!on && link->apple_imac_peer)
->> +             return;
->> +
->>       core_link_write_dpcd(link, DP_SET_POWER, &state,
->>                                                sizeof(state));
->>
->> --
->> 2.55.0
+Written with Hermes Agent, an LLM assistant; the author reviewed it and
+ran kernel-doc on the file with and without the change.
+
+ drivers/gpu/drm/amd/display/dc/dc.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index debdd69bbe4e..32bf87fed40d 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -314,6 +314,7 @@ struct lut3d_caps {
+  * @mcm_3d_lut_caps: HW support cap for MCM LUT memory
+  * @rmcm_3d_lut_caps: HW support cap for RMCM LUT memory
+  * @preblend: whether color manager supports preblend with MPC
++ * @max_gamut_remap_coeff: largest gamut remap coefficient the MPC supports
+  */
+ struct mpc_color_caps {
+ 	uint16_t gamut_remap : 1;
+-- 
+2.53.0
 
