@@ -2,42 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEE2D606A31C
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 08:50:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4736E606A31C
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 08:55:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eUsOyrtb
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ckNb/Gg2
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 20E12112176;
-	Thu, 26 Nov 2026 08:49:59 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA659112176
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Nov 2026 08:49:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B15F310E43B;
+	Thu, 26 Nov 2026 08:55:13 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7255810E43B
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Nov 2026 08:55:07 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 196A2612AE;
- Thu, 26 Nov 2026 08:49:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98DF41F000D0;
- Thu, 26 Nov 2026 08:49:51 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 311FE443E7;
+ Thu, 26 Nov 2026 08:55:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B3581F000CA;
+ Thu, 26 Nov 2026 08:55:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795682991;
- bh=EngN7X1SDPRH2rM6zQy6xdYf+9eD2dRUrXjirVD63RQ=;
+ s=k20260515; t=1795683306;
+ bh=vsdmHlp+UN88vF6mlRTwxSLqIxCAcKdWKPTf+pos+eo=;
  h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=eUsOyrtbwcICydMbqqUiFDjhHR7FeB7HAguzpk0Jp8BGyd4BHZ0A7zowIAftx+UfP
- 3ii07niidsBSE1sEJ409o4SzP3zF92NE426Ttaa60h+AjVqbsTwv6q8jGmq7n8zgSP
- um+8qeFelyqT/9H9+g/LmraIdWW6OcTiStRn43ciZV1mrAvHwdTWn909b1uchhKrpK
- 0pIdI0fm3kog/wLc4atEMnZjQ3NvePV9IdFgK/xcwqnK73+3h4T5l+HsmW4z2dujTw
- qFRBEqo/b0WTL9epD9s3tI3UR+xtNcteaslNfqaEQV0NGLxM94dJ8FGLxHk+7mOmD2
- kY7fsQm4ZF6oA==
-Message-ID: <sashiko-outbox-235056@kernel.org>
+ b=ckNb/Gg2PAIy3YTakNQBuP2YZYlUt7xBYnCHtsJlTjy9QpnfKWjlR1Yi3J2hGTcqk
+ gIe+gTbF8SuYFKa6TubvcLVr7NPr5opYZlKI6K4iFBlPVpbDTtW60hWthgZ+BR/f5X
+ SoAZ3Z6cVd4rul0stEUYG36TQa7lW9FzjaSRb5HZPPQ7dp+VHIkAXVaTvqFxTOE9Aq
+ jFY1onsojRXaRNxUpzK7a3hUVthghwsVWYIMbEKO62aMz3bujB0DLY5suCJCu5pae/
+ Q8dhR+2zyn54io4Tlj2EMkFRXorcE3Jgg4jjGX1Hi6Kyiq0Op3pnnC2PTLRR/GqqMn
+ tkfI+amJdVZew==
+Message-ID: <sashiko-outbox-235063@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 4/9] drm/amdkfd: add a quarantine for queues MES has
- not retired
-To: "Armas Spann" <zappel@simple-co.de>, amd-gfx@lists.freedesktop.org
-In-Reply-To: <20261125141933.154222-5-zappel@simple-co.de>
-References: <20261125141933.154222-1-zappel@simple-co.de>
- <20261125141933.154222-5-zappel@simple-co.de>
+Subject: Re: [PATCH] drm/amd/display: don't tear down a shared link for a
+ stale SST/MST stream
+To: "Bart Verwilst" <bart@verwilst.be>, amd-gfx@lists.freedesktop.org
+In-Reply-To: <20261125184208.36789-1-bart@verwilst.be>
+References: <20261125184208.36789-1-bart@verwilst.be>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Nov 2026 08:49:51 +0000
+Date: Thu, 26 Nov 2026 08:55:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,274 +56,201 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 6 potential
+Thank you for your contribution! Sashiko AI review found 4 potential
 issues to consider:
-- [High] drm/amdkfd: unlocked zombie_queues traversal in
-  find_queue_by_doorbell_offset()
-- [High] drm/amdkfd: unsignaled eviction fence and context_id alias on
-  zombie wait
-- [Medium] drm/amdkfd: per-process mes_hold stalls teardown on other
-  GPUs
-- [Medium] drm/amdkfd: cancel_delayed_work_sync() on uninitialized
-  svms.restore_work
-- [Medium] drm/amdkfd: restore_userptr_work not cancelled on notifier
-  release
-- [Medium] drm/amdkfd: svm_range_evict() can re-queue restore_work after
-  notifier release
+- [High] drm/amd/display: stale_on_link in link_set_dpms_off_v1() skips
+  link teardown
+- [High] drm/amd/display: link_set_dpms_off_v1() disables sink DSC on
+  stale stream
+- [High] drm/amd/display: link_set_dpms_off_v1() deallocates active USB4
+  bandwidth
+- [Medium] drm/amd/display: stale stream teardown skips resetting stream
+  encoder VC rate
 --
 
-commit cec5d10251f9be4279a707b9cd0296feef08c241
-Author: Armas Spann <zappel@simple-co.de>
+commit e05b38e79559c6d45e46f82ff60871a8b780f8ca
+Author: Bart Verwilst <bart@verwilst.be>
 
-drm/amdkfd: add a quarantine for queues MES has not retired
+drm/amd/display: don't tear down a shared link for a stale SST/MST stream
 
-This commit introduces a per-device zombie queue list and a delayed reaper
-work item to hold queue and process storage until MES confirms that a
-destroyed queue has been retired.
+This commit detects when a stream being disabled in link_set_dpms_off_v1()
+has a signal type that no longer matches the link's connection type, and
+skips payload table programming and link teardown so a newly active stream
+on the shared link is not disrupted.
 
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/am=
-d/amdkfd/kfd_device.c
-> index edafbd9377b5d..f631047e88b9d 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> @@ -1824,6 +1819,17 @@ void kgd2kfd_teardown_processes(struct amdgpu_devi=
-ce *adev)
->  	if (!adev->kfd.dev)
->  		return;
+> diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dpms_v1.c b/drivers=
+/gpu/drm/amd/display/dc/link/link_dpms_v1.c
+> index 1a6fe2e12c06a..fd37e68c2d97a 100644
+> --- a/drivers/gpu/drm/amd/display/dc/link/link_dpms_v1.c
+> +++ b/drivers/gpu/drm/amd/display/dc/link/link_dpms_v1.c
+> @@ -2411,6 +2411,7 @@ enum dc_status link_set_dpms_off_v1(struct pipe_ctx=
+ *pipe_ctx)
+>  	struct dc_link *link =3D stream->link;
+>  	struct vpg *vpg =3D get_vpg(pipe_ctx);
+>  	enum dp_panel_mode panel_mode_dp =3D dp_get_panel_mode(link);
+> +	bool stale_on_link;
+> =20
+>  	ASSERT(is_master_pipe_for_link(link, pipe_ctx));
+> =20
+> @@ -2418,6 +2419,26 @@ enum dc_status link_set_dpms_off_v1(struct pipe_ct=
+x *pipe_ctx)
+>  		/* No real hardware to program for virtual signals. */
+>  		return DC_DPMS_SKIPPED_HANDSHAKE;
 > =20
 > +	/*
-> +	 * Queues that MES never confirmed as removed keep their process
-> +	 * alive, and such a process is counted in kfd_processes_count after
-> +	 * it has left the table. The device is going away, so stop waiting
-> +	 * for MES, whether the table is empty or not.
+> +	 * A sink can switch between SST and MST on the same link, e.g. a
+> +	 * monitor toggling Picture-by-Picture. The stream created for the
+> +	 * previous mode stays in the state until userspace disables its CRTC,
+> +	 * which can happen after a stream of the new mode is already lit on
+> +	 * this link. Tearing such a stale stream down must not touch what is
+> +	 * shared with the new mode: powering the sink down (DP_SET_POWER),
+> +	 * disabling the PHY, or rewriting the link encoder's payload
+> +	 * allocation. Only release the stream's own resources.
 > +	 */
-> +	if (adev->kfd.dev->init_complete) {
-> +		for (unsigned int i =3D 0; i < adev->kfd.dev->num_nodes; i++)
-> +			kfd_dqm_retire_all(adev->kfd.dev->nodes[i]->dqm);
-> +	}
+> +	stale_on_link =3D
+> +		(dc_is_dp_sst_signal(stream->signal) &&
+> +		 link->type =3D=3D dc_connection_mst_branch) ||
+> +		(stream->signal =3D=3D SIGNAL_TYPE_DISPLAY_PORT_MST &&
+> +		 (link->type =3D=3D dc_connection_single ||
+> +		  link->type =3D=3D dc_connection_sst_branch));
+> +	if (stale_on_link)
+> +		DC_LOG_WARNING("%s: stale signal %x on link %u (type %d), link kept up=
+\n",
+> +			       __func__, stream->signal, link->link_index, link->type);
 > +
->  	/*
->  	 * Wait for all KFD processes using adev to terminate. Must be
->  	 * unbounded: device state is freed once they are gone.
+
+[Severity: High]
+Can stale_on_link evaluate to true when no replacement stream is active on
+the link?
+
+stale_on_link only compares stream->signal against link->type without
+checking whether another stream with dpms_off =3D=3D false is actually acti=
+ve
+on the link in dc->current_state.
+
+During HPD processing in link_detect(), detect_link_and_local_sink() resets
+link->type to dc_connection_single or dc_connection_sst_branch before
+verify_link_capability() runs and before discover_dp_mst_topology()
+restores link->type to dc_connection_mst_branch:
+
+drivers/gpu/drm/amd/display/dc/link/link_detection.c:link_detect() {
+	is_local_sink_detect_success =3D detect_link_and_local_sink(link, reason);
+
+	if (is_local_sink_detect_success && link->local_sink) {
+		verify_link_capability(link, reason);
+	}
+	...
+	if (is_local_sink_detect_success && link->local_sink &&
+			dc_is_dp_signal(link->local_sink->sink_signal) &&
+			link->dpcd_caps.is_mst_capable)
+		is_delegated_to_mst_top_mgr =3D discover_dp_mst_topology(link, reason);
+}
+
+When verify_link_capability_destructive() calls
+link_set_all_streams_dpms_off_for_link() on an active 128b/132b MST link,
+link_set_dpms_off_v1() sees link->type !=3D dc_connection_mst_branch, treats
+the active MST stream as stale, skips disable_link(), and leaves the HPO
+link encoder and link->link_status.link_active enabled while running
+dm_helpers_dp_mst_update_mst_mgr_for_deallocation().  When userspace later
+disables that CRTC, reset_back_end_for_pipe() sees
+link->link_status.link_active still set and calls link_set_dpms_off_v1() a
+second time for the same stream, running
+dm_helpers_dp_mst_update_mst_mgr_for_deallocation() ->
+drm_dp_remove_payload_part2() again and underflowing mst_mgr->payload_count.
+
+The same skip of disable_link() also happens if userspace disables the old
+CRTC before enabling the new one (or switches both in a single atomic
+commit, where dce110_apply_ctx_to_hw() runs reset_hw_ctx_wrap() before
+enabling new streams), leaving the link encoder, PHY, sink power state, and
+link_active enabled with no active stream.
+
+> @@ -2443,11 +2464,21 @@ enum dc_status link_set_dpms_off_v1(struct pipe_c=
+tx *pipe_ctx)
+>  	    stream->sink)
+>  		deallocate_usb4_bandwidth(stream);
+
+[Severity: High]
+Does calling deallocate_usb4_bandwidth(stream) when stale_on_link is true
+tear down the USB4 DP tunnel bandwidth allocated by the new mode's stream?
+
+deallocate_usb4_bandwidth() calls allocate_usb4_bandwidth_for_stream(stream,
+0) on the shared dc_link.  For a stale SST stream (or a stale MST stream
+when link->sink_count is 0 in SST mode), req_bw evaluates to 0 and
+link_dp_dpia_allocate_usb4_bandwidth_for_stream(link, 0) requests 0
+bandwidth for the link over DPCD while the new stream is running.
+
+> -	if (stream->signal =3D=3D SIGNAL_TYPE_DISPLAY_PORT_MST)
+> +	if (stale_on_link) {
+> +		/* bookkeeping only, the link belongs to the new mode now */
+> +		if (stream->signal =3D=3D SIGNAL_TYPE_DISPLAY_PORT_MST) {
+> +			remove_stream_from_alloc_table(link,
+> +						       pipe_ctx->stream_res.stream_enc,
+> +						       pipe_ctx->stream_res.hpo_dp_stream_enc);
+> +			dm_helpers_dp_mst_update_mst_mgr_for_deallocation(stream->ctx,
+> +									  stream);
+> +		}
+> +	} else if (stream->signal =3D=3D SIGNAL_TYPE_DISPLAY_PORT_MST) {
+>  		deallocate_mst_payload(pipe_ctx);
+> -	else if (dc_is_dp_sst_signal(stream->signal) &&
+> -			dp_is_128b_132b_signal(pipe_ctx))
+> +	} else if (dc_is_dp_sst_signal(stream->signal) &&
+> +			dp_is_128b_132b_signal(pipe_ctx)) {
+>  		update_sst_payload(pipe_ctx, false);
+> +	}
 
 [Severity: Medium]
-Can an unretired zombie queue on another GPU cause
-kgd2kfd_teardown_processes() to spin forever on
-adev->kfd.dev->kfd_processes_count?
+Does bypassing deallocate_mst_payload() and update_sst_payload(pipe_ctx,
+false) leave the stale stream encoder's VC time-slot rate and HBLANK
+minimum symbol width programmed in hardware?
 
-kfd_init_apertures() creates a PDD and increments kfd_processes_count on
-every GPU in the topology, while kfd_process_destroy_pdds() only decrements
-kfd_processes_count after p->mes_hold drops to zero for the whole process.
-If an exited process has a zombie queue on GPU B, kfd_dqm_retire_all() on
-GPU A does not retire GPU B's queue, so GPU A's kfd_processes_count never
-reaches zero and teardown of GPU A hangs waiting for GPU B.
+Both helpers zero link_hwss->ext.set_throttled_vcp_size() and
+link_hwss->ext.set_hblank_min_symbol_width() for pipe_ctx before touching
+the link's stream allocation table.  Unlike the allocation table, those
+callbacks program registers indexed by pipe_ctx's own stream encoder
+instance (such as DP_DPHY_SYM32_VC_RATE_CNTL0..3,
+DP_SYM32_ENC_HBLANK_CONTROL, or DP_MSE_RATE_CNTL), which
+dc->hwss.disable_stream() does not clear.
 
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/driv=
-ers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> index 646bc0ce05be8..0c72cf55224cc 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-[ ... ]
-> @@ -684,7 +688,13 @@ static int reset_queue_mes(struct device_queue_manag=
-er *dqm, struct queue *q,
->  	 * its storage until MES is restarted.
->  	 */
->  	r =3D remove_queue_mes_on_reset_option(dqm, q, &pdd->qpd, true, true);
-> -	set_queue_as_reset(dqm, q, &pdd->qpd, true);
-> +	/*
-> +	 * A quarantined queue is destroyed as far as its process is
-> +	 * concerned: it is not counted, and the process is not punished
-> +	 * for a queue it no longer owns. Only the MES side was needed.
-> +	 */
-> +	if (!q->is_zombie)
-> +		set_queue_as_reset(dqm, q, &pdd->qpd, true);
-[ ... ]
-> @@ -2993,6 +3143,12 @@ static struct queue *find_queue_by_doorbell_offset=
-(struct device_queue_manager *
+>  	if (dc_is_hdmi_signal(stream->signal)) {
+>  		struct ext_hdmi_settings settings =3D {0};
+> @@ -2472,7 +2503,9 @@ enum dc_status link_set_dpms_off_v1(struct pipe_ctx=
+ *pipe_ctx)
 >  		}
 >  	}
 > =20
-> +	/* MES may report a quarantined queue as hung, it still has it */
-> +	list_for_each_entry(q, &dqm->zombie_queues, zombie_node) {
-> +		if (doorbell_offset =3D=3D q->properties.doorbell_off)
-> +			return q;
-> +	}
-> +
->  	return NULL;
->  }
+> -	if (stream->signal =3D=3D SIGNAL_TYPE_DISPLAY_PORT &&
+> +	if (stale_on_link) {
+> +		dc->hwss.disable_stream(pipe_ctx);
+> +	} else if (stream->signal =3D=3D SIGNAL_TYPE_DISPLAY_PORT &&
+>  			!dp_is_128b_132b_signal(pipe_ctx)) {
+> =20
+>  		/* In DP1.x SST mode, our encoder will go to TPS1
 
 [Severity: High]
-Can find_queue_by_doorbell_offset() and reset_queue_mes() race with
-kfd_dqm_zombie_worker() on dqm->zombie_queues and use a zombie queue after
-it is freed?
+Just below this block, when stream->timing.flags.DSC is set on the stale DP
+stream, link_set_dpms_off_v1() still calls link_set_dsc_enable(pipe_ctx,
+false):
 
-When amdgpu_gfx_reset_mes_compute() is called from KGD reset paths such as
-gfx_v11_0_reset_kcq(), gfx_v12_0_reset_kcq(), or
-amdgpu_userq_hang_detect_work(), only adev->gfx.mec.reset_mutex is held,
-not dqm_lock(dqm).  kfd_reset_queue_mes() then walks dqm->zombie_queues and
-calls reset_queue_mes() without dqm_lock(dqm):
+drivers/gpu/drm/amd/display/dc/link/link_dpms_v1.c:link_set_dpms_off_v1() {
+	...
+	if (stream->timing.flags.DSC) {
+		if (dc_is_dp_signal(stream->signal))
+			link_set_dsc_enable(pipe_ctx, false);
+		else if (dc_is_hdmi_frl_signal(stream->signal))
+			link_set_dsc_on_stream(pipe_ctx, false);
+	}
+}
 
-CPU0                                  CPU1 (kfd_dqm_zombie_worker)
-amdgpu_gfx_reset_mes_compute()
-  ...
-  kfd_reset_queue_mes()
-    find_queue_by_doorbell_offset()
-      /* walks dqm->zombie_queues
-         without dqm_lock */
-    reset_queue_mes(dqm, q, ...)
-      remove_queue_mes_on_reset_option()
-        q->mes_state =3D KFD_MES_QUEUE_UNMAPPED
-                                      dqm_lock(dqm)
-                                      kfd_mes_queue_retired(dqm, q) =3D=3D =
-true
-                                      list_move_tail(&q->zombie_node, &reti=
-red)
-                                      dqm_unlock(dqm)
-                                      kfd_dqm_release_zombie(dqm, q)
-                                        uninit_queue(q) /* frees q */
-      if (!q->is_zombie)  <-- use-after-free
+Will link_set_dsc_enable(pipe_ctx, false) disable DSC on the shared sink
+while the new stream is using it?
 
-Even before reset_queue_mes() runs, walking dqm->zombie_queues in
-find_queue_by_doorbell_offset() without dqm_lock(dqm) races with
-dqm_quarantine_queue() and kfd_dqm_zombie_worker() modifying the list.
-
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/a=
-md/amdkfd/kfd_process.c
-> index 546721b4d59ac..51c3fa39fcc20 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> @@ -1331,20 +1331,15 @@ static void kfd_process_wq_release(struct work_st=
-ruct *work)
->  					     release_work);
->  	struct dma_fence *ef;
-> =20
-> +	/* Second run, queued when the last quarantined queue was freed */
-> +	if (p->mes_hold_dropped)
-> +		goto release_storage;
-> +
->  	/*
->  	 * If GPU in reset, user queues may still running, wait for reset compl=
-ete.
->  	 */
->  	kfd_process_wait_gpu_reset_complete(p);
-> =20
-> -	/* Signal the eviction fence after user mode queues are
-> -	 * destroyed. This allows any BOs to be freed without
-> -	 * triggering pointless evictions or waiting for fences.
-> -	 */
-> -	synchronize_rcu();
-> -	ef =3D rcu_access_pointer(p->ef);
-> -	if (ef)
-> -		dma_fence_signal(ef);
-> -
->  	if (p->context_id !=3D KFD_CONTEXT_ID_PRIMARY)
->  		kfd_process_free_id(p);
->  	else
-> @@ -1359,6 +1354,32 @@ static void kfd_process_wq_release(struct work_str=
-uct *work)
->  	 */
->  	kfd_process_remove_sysfs(p);
-> =20
-> +	/*
-> +	 * Queues that MES has not let go of still use the pdds, the process
-> +	 * context, the doorbell page and the GPU VM. Everything that carries
-> +	 * the pid is gone at this point, so stop here. The reaper queues
-> +	 * this work again when it frees the last of those queues. Do not
-> +	 * wait instead: kfd_create_process() flushes this workqueue. A work
-> +	 * item never runs twice at the same time, so the second run cannot
-> +	 * free the process under us.
-> +	 */
-> +	p->mes_hold_dropped =3D true;
-> +	if (!atomic_dec_and_test(&p->mes_hold)) {
-> +		pr_warn("Process pid %d: release waits for MES to retire %d queue(s), =
-a GPU reset retires them\n",
-> +			p->lead_thread->pid, atomic_read(&p->mes_hold));
-> +		return;
-> +	}
-
-[Severity: Medium]
-When kfd_process_wq_release() returns early here, can
-p->kgd_process_info->restore_userptr_work keep running against a post-execve
-mm?
-
-During exit_mmap(), mn_itree_release() invalidates userptr BOs and queues
-process_info->restore_userptr_work before mn_hlist_release() calls
-kfd_process_notifier_release_internal() and removes p from
-kfd_processes_table.  Because restore_userptr_work is only cancelled in
-amdgpu_amdkfd_gpuvm_destroy_cb() during kfd_process_destroy_pdds(),
-deferring release_storage allows amdgpu_amdkfd_restore_userptr_worker() to
-look up process_info->pid after execve(), acquire the new mm, fail
-get_user_pages() on the old mm with -ESRCH, and reschedule itself every
-10 ms against the new mm until all zombies retire.
-
-> +
-> +release_storage:
-> +	/* Signal the eviction fence after user mode queues are
-> +	 * destroyed. This allows any BOs to be freed without
-> +	 * triggering pointless evictions or waiting for fences.
-> +	 */
-> +	synchronize_rcu();
-> +	ef =3D rcu_access_pointer(p->ef);
-> +	if (ef)
-> +		dma_fence_signal(ef);
-
-[Severity: High]
-Does deferring dma_fence_signal(ef) until release_storage stall in-flight
-TTM evictions and alias p->context_id while zombies are quarantined?
-
-If TTM enabled signaling on p->ef before kfd_process_table_remove(p),
-amdkfd_fence_enable_signaling() scheduled p->eviction_work and returned
-true without signaling p->ef.  kfd_process_notifier_release_internal() then
-cancels p->eviction_work, so returning early before dma_fence_signal(ef)
-leaves p->ef unsignaled with DMA_FENCE_FLAG_ENABLE_SIGNAL_BIT set, stalling
-any TTM move job waiting on p->ef until every zombie queue retires.
-
-In addition, for a secondary context, kfd_process_free_id(p) frees
-p->context_id before the early return while p->ef is still unsignaled and
-attached to p's BOs.  If a new secondary context in the same mm reuses that
-context_id, a later eviction of the old context's BOs matches the new
-context in kfd_lookup_process_by_id(), evicting the new context while
-leaving the old p->ef unsignaled.
-
-[ ... ]
-
-> @@ -1422,6 +1454,12 @@ void kfd_process_notifier_release_internal(struct =
-kfd_process *p)
->  	kfd_process_table_remove(p);
->  	cancel_delayed_work_sync(&p->eviction_work);
->  	cancel_delayed_work_sync(&p->restore_work);
-> +	/*
-> +	 * Not left to svm_range_list_fini(): the release worker may now
-> +	 * run long after this, and the SVM restore work would look up the
-> +	 * mm of the lead thread, which can be a new one by then.
-> +	 */
-
-[Severity: Medium]
-Can svm_range_evict() re-queue p->svms.restore_work after
-cancel_delayed_work_sync() returns here?
-
-prange->notifier is only unregistered in svm_range_list_fini() at
-release_storage, and mn_itree_release() leaves interval notifiers linked in
-the old mm until exit_mmap() finishes tearing down VMAs and page tables.
-Because svm_range_evict() ignores the -ESRCH return from
-kgd2kfd_quiesce_mm() and unconditionally queues svms->restore_work, any
-concurrent non-UNMAP invalidation on the old mm after this point can
-re-queue p->svms.restore_work, which then looks up p->lead_thread->mm after
-execve().  Using disable_delayed_work_sync(&p->svms.restore_work) (or
-checking r !=3D -ESRCH in svm_range_evict()) would prevent it from being
-queued again.
-
-> +	cancel_delayed_work_sync(&p->svms.restore_work);
-
-[Severity: Medium]
-Does calling cancel_delayed_work_sync(&p->svms.restore_work) unconditionally
-trigger WARN_ON(!work->func) in __flush_work() when CONFIG_HSA_AMD_SVM is
-disabled?
-
-When CONFIG_HSA_AMD_SVM=3Dn, svm_range_list_init() is a no-op stub and never
-initializes p->svms.restore_work, so every exiting KFD process hits the
-warning in __flush_work().
+link_set_dsc_enable(pipe_ctx, false) calls dp_set_dsc_on_rx(pipe_ctx,
+false) before link_set_dsc_on_stream(pipe_ctx, false), which writes 0 to
+DP_DSC_ENABLE (DPCD 0x00160) on the receiver over AUX.  When stale_on_link
+is true, calling link_set_dsc_on_stream(pipe_ctx, false) instead would
+release the pipe's DCN DSC hardware without touching the sink's
+DP_DSC_ENABLE register.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125141933.1542=
-22-1-zappel@simple-co.de?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125184208.3678=
+9-1-bart@verwilst.be?part=3D1
