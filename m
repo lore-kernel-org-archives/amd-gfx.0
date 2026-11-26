@@ -2,87 +2,62 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F469606A32C
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 13:49:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59191606A31E
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Nov 2026 13:49:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Xv6NgdYJ
+	dkim=pass (2048-bit key, unprotected) header.d=ideco.ru header.i=@ideco.ru header.a=rsa-sha256 header.s=ics header.b=Klx2pfGi
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E50E4112431;
-	Thu, 26 Nov 2026 13:48:55 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5FB771122D2
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Nov 2026 10:41:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1795689695;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=hTXpIfLZ2+j1ow8NmZB6JM/DU4spl29LunD6FR84AzA=;
- b=Xv6NgdYJNl4EH1DzKAF+Z8SVTsfFT74WwhR6Pcsq+y0YXBVzLprPdmVX+sVruwI3sNJZEO
- uxjUJw1SbjFSlpEsoLHcSspVdxNutMcmdBZL8TZ458bRLR6xMHqoyNktJeci2HyoKHJbqZ
- uV9FF1uCMVSxcHtJIcN3TbHpsaxMA+E=
-Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
- [209.85.218.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-345-lMvtIMLzPdyH0WJF2oslow-1; Thu, 26 Nov 2026 10:41:33 +0000
-X-MC-Unique: lMvtIMLzPdyH0WJF2oslow-1
-X-Mimecast-MFC-AGG-ID: lMvtIMLzPdyH0WJF2oslow_1795689692
-Received: by mail-ej1-f69.google.com with SMTP id
- a640c23a62f3a-c4d34d6082fso519507966b.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Nov 2026 02:41:33 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795689692; x=1796294492;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=hTXpIfLZ2+j1ow8NmZB6JM/DU4spl29LunD6FR84AzA=;
- b=CM5kdYPv00jcer7zCsQ4GuHZZIXcT7DzHN506Dgx3BmmFIy04NSohivxY2Uj69UeSz
- rbywVq+18nzyYalpbiJKwCfs6qzmQf2Q0dqMKGlrcCf6zGbE0OpIvYcnmFbT4a0KJ2bd
- 0w6FUaMJ+2EyoJhH7vVj9g1SN6cvOqhEhLGOYXjdyO62UFe8/rSZogV00wEHRHHilA75
- m7Fcov9ycr6QS2vrtaeoVR7xSXx4gBdJeq0uQNAi9b0lF0srOBb9VrYu3ZmEd4CIq5Yw
- KR6ow7J0fXqDjqsfsouF1wib7isqVdpTJXMC6Jjp6hJwlCBhD3X8TjJx8EC/7uuVGK91
- Rz4Q==
-X-Forwarded-Encrypted: i=1;
- AL+hErGXmNa9/1TD2hCzOkv0q2NanxpR1jQ2UjsjY/Hba1k6CnFgg3m2PBYdENAZ73+tQIsC9MsrtD9e@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z83VNR8LlafNufG/RNxgszZ4L4cj44DT/3GB76K6B5Qed+UHfJF
- MjHd9h3xJTGFzNDTYz5dUT51vYZaCP+2Z313k2bmlli6Xnpwm4B9iotqgT0mhq7a9IahX6+z6hZ
- G42Vf0T+O9iS+umKG2IBzxK3LB9/PT4RxyDxFfHQEv6SChkdq6Sy8ylVMOb56DRRkYDWGQ33+sG
- xst3PS5ZmjlPdACj3ZYOWf++mLzMqT+n4u8U0VUanulA==
-X-Gm-Gg: AZFdTZeWeMYhVbUa3KWBAxOcWjMRjzmYbjm7jB/nBjXKy/b/dczHAsYeWizpqLf1cgy
- 39y8oBbEna0AATnY2YDDU/tF+43I1/aueRd11SzSfIANZx4eywuFmX6bWMJ94P49mAn4/dpLD2t
- iZJsWiRC+FwqjfnqITXygohe5qI7YdpaTL5DL3dJC7TqBGuz5H8C3e8A==
-X-Received: by 2002:a17:907:6ea9:b0:c2e:856:2a08 with SMTP id
- a640c23a62f3a-c513a3a6598mr1792624166b.1.1795689692538; 
- Thu, 26 Nov 2026 02:41:32 -0800 (PST)
-X-Received: by 2002:a17:907:6ea9:b0:c2e:856:2a08 with SMTP id
- a640c23a62f3a-c513a3a6598mr1792622666b.1.1795689692194; Thu, 26 Nov 2026
- 02:41:32 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA253112432;
+	Thu, 26 Nov 2026 13:49:05 +0000 (UTC)
+Received: from smtp.ideco.ru (smtp.ideco.ru [51.250.56.165])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA79F11214E;
+ Thu, 26 Nov 2026 08:35:00 +0000 (UTC)
+Received: from [169.254.254.254] (localhost [127.0.0.1])
+ by smtp.ideco.ru (Postfix) with ESMTP id 66818202F354;
+ Thu, 26 Nov 2026 13:25:10 +0500 (+05)
+Received: from fedora (5cfcd9fa.dynamic.mv.ru [92.252.217.250])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp.ideco.ru (Postfix) with ESMTPSA id 868242032A51;
+ Thu, 26 Nov 2026 13:16:40 +0500 (+05)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.ideco.ru 868242032A51
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ideco.ru; s=ics;
+ t=1795681003; bh=r3XTDI4uvFScG85tMDMU/IHVWWOtOx9qSgxsnYpPNkY=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=Klx2pfGi/iKt+nQoFHAuol3STv+RiQlnGrsgpoZkOD9ypvD74RT3MrGINtzkuZRkY
+ uotvHdF3hQ0Hs88riF2MMVTO2K34NQcgNCWtsXlBfykVsf5GVD2D7CwYzYIeHeZWZS
+ JyDuoiww+sUw1tyx/ZQM/W2SJ2Lue8Qi5v0dO5uFBxJQzmVQQKJruUctiy5VBBNVOk
+ WhI6ahgQG0qewFWzTe+S60LlRThJ2UVejU++xzkPl9yMS8BhXjDzIqmkZbvGoP3yGA
+ Mp8y37P2xHUcmxSHdD2+5gTNolNRhP86JiJkaYS6KhEMRRyp7AQKPcRCgqogpq7v5Q
+ hQlQgLGrOJsHg==
+From: Alex Kazinsky <a.kazinsky@ideco.ru>
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: Alex Kazinsky <a.kazinsky@ideco.ru>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
+ Lu Yao <yaolu@kylinos.cn>, Jani Nikula <jani.nikula@intel.com>,
+ "Mario Limonciello (AMD)" <superm1@kernel.org>,
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Dave Airlie <airlied@redhat.com>, Eric Anholt <eric@anholt.net>,
+ Jesse Barnes <jbarnes@virtuousgeek.org>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ lvc-project@linuxtesting.org, stable@vger.kernel.org
+Subject: [PATCH 4/5] drm/connector: Handle scaling mode property allocation
+ failures
+Date: Thu, 26 Nov 2026 12:15:59 +0400
+Message-ID: <20261126081602.2901498-5-a.kazinsky@ideco.ru>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261126081602.2901498-1-a.kazinsky@ideco.ru>
+References: <20261126081602.2901498-1-a.kazinsky@ideco.ru>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261119054917.184758-2-ltao@redhat.com>
- <85438483-9843-4b14-b3eb-57a074275911@amd.com>
-In-Reply-To: <85438483-9843-4b14-b3eb-57a074275911@amd.com>
-From: Tao Liu <ltao@redhat.com>
-Date: Thu, 26 Nov 2026 23:40:54 +1300
-X-Gm-Features: Aa3M54qXSxe4Tv3kJZhv4-GTyuCU96H140dAQ2Bw9YC_NOs4WSOucEjet7OYzYQ
-Message-ID: <CAO7dBbV5Baw5SRCNCys21u0NwJ2CCJWu2Av9wzGUHUmMxaE0bQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Fix pdev lifetime in
- dm_test_conn_init_ctx_alloc()
-To: "Chen, Chen-Yu" <Chen-Yu.Chen@amd.com>
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com, 
- alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, 
- simona@ffwll.ch, alex.hung@amd.com, bhawanpreet.lakha@amd.com, 
- ivan.lipski@amd.com, george.zhang@amd.com, adrian.betschart@cinemaone.ch, 
- rodrigo.vivi@intel.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: CSv-Qr8n-Hc_H1AaSYDxslLT4_MQJB8ZT-jAzvqs4j8_1795689692
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 26 Nov 2026 13:48:49 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,55 +69,215 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Chen-Yu,
+drm_mode_create_scaling_mode_property() returns success even when
+drm_property_create_enum() fails. Drivers then continue initialization
+and may pass the NULL property to drm_object_attach_property(), causing
+a NULL pointer dereference.
 
-On Wed, Nov 25, 2026 at 11:31=E2=80=AFPM Chen, Chen-Yu <Chen-Yu.Chen@amd.co=
-m> wrote:
->
->
-> > Fix this by allocating pdev with kzalloc() and freeing it through
-> > the device release callback. This ensures pdev's lifetime is managed
-> > solely by the kobject.
->
-> Hi Tao,
->
-> Thanks for the report.
->
-> The lifetime problem in dm_test_conn_init_ctx_alloc() is real, but it has
-> already been addressed in amd-staging-drm-next by commit 370bab028b38
-> ("drm/amd/display: Add more connector KUnit tests"). That commit allocate=
-s
-> pdev with devm_kzalloc() on the device and registers the unregister actio=
-n
-> with devm_add_action_or_reset(), so devres releases the i2c adapter befor=
-e
-> pdev is freed.
+Return -ENOMEM if the property cannot be created and handle the error
+in Nouveau, AMDGPU, Radeon and GMA500 before creating connectors.
 
-Thanks for the info, I didn't notice the issue has already been fixed.
+In GMA500, create the property during modeset initialization and
+propagate failures to the driver load path. Remove the redundant
+creation call from the Cedarview output initialization.
 
->
-> Your patch no longer applies to the current tree for that reason. Could y=
-ou
-> please rebase it onto the latest amd-staging-drm-next and confirm whether=
- the
-> issue still reproduces?
+Fixes: f453ba046074 ("DRM: add mode setting support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Alex Kazinsky <a.kazinsky@ideco.ru>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c |  6 ++++--
+ drivers/gpu/drm/drm_connector.c             |  5 ++++-
+ drivers/gpu/drm/gma500/cdv_device.c         |  2 --
+ drivers/gpu/drm/gma500/framebuffer.c        | 17 +++++++++++------
+ drivers/gpu/drm/gma500/psb_drv.c            |  4 +++-
+ drivers/gpu/drm/gma500/psb_drv.h            |  2 +-
+ drivers/gpu/drm/nouveau/nouveau_display.c   |  5 +++--
+ drivers/gpu/drm/radeon/radeon_display.c     |  6 ++++--
+ 8 files changed, 30 insertions(+), 17 deletions(-)
 
-I tested the latest amd-staging-drm-next, the use-after-free issue
-doesn't reproduce, so my patch is no longer needed. Thanks again for
-your review and comments!
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+index 677d199ca931..79ce4414a32f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+@@ -1576,7 +1576,7 @@ static int amdgpu_display_setup_abm_prop(struct amdgpu_device *adev)
+ 
+ int amdgpu_display_modeset_create_props(struct amdgpu_device *adev)
+ {
+-	int sz;
++	int sz, ret;
+ 
+ 	adev->mode_info.coherent_mode_property =
+ 		drm_property_create_range(adev_to_drm(adev), 0, "coherent", 0, 1);
+@@ -1588,7 +1588,9 @@ int amdgpu_display_modeset_create_props(struct amdgpu_device *adev)
+ 	if (!adev->mode_info.load_detect_property)
+ 		return -ENOMEM;
+ 
+-	drm_mode_create_scaling_mode_property(adev_to_drm(adev));
++	ret = drm_mode_create_scaling_mode_property(adev_to_drm(adev));
++	if (ret)
++		return ret;
+ 
+ 	sz = ARRAY_SIZE(amdgpu_underscan_enum_list);
+ 	adev->mode_info.underscan_property =
+diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+index 5ab121860050..af3dbdcaaca5 100644
+--- a/drivers/gpu/drm/drm_connector.c
++++ b/drivers/gpu/drm/drm_connector.c
+@@ -2495,7 +2495,8 @@ EXPORT_SYMBOL(drm_mode_create_tv_properties);
+  * instead to correctly assign &drm_connector_state.scaling_mode
+  * in the atomic state.
+  *
+- * Returns: %0
++ * Returns:
++ * Zero on success, negative errno on failure.
+  */
+ int drm_mode_create_scaling_mode_property(struct drm_device *dev)
+ {
+@@ -2508,6 +2509,8 @@ int drm_mode_create_scaling_mode_property(struct drm_device *dev)
+ 		drm_property_create_enum(dev, 0, "scaling mode",
+ 				drm_scaling_mode_enum_list,
+ 				    ARRAY_SIZE(drm_scaling_mode_enum_list));
++	if (!scaling_mode)
++		return -ENOMEM;
+ 
+ 	dev->mode_config.scaling_mode_property = scaling_mode;
+ 
+diff --git a/drivers/gpu/drm/gma500/cdv_device.c b/drivers/gpu/drm/gma500/cdv_device.c
+index fd6ea8998dbe..2a9e9b323005 100644
+--- a/drivers/gpu/drm/gma500/cdv_device.c
++++ b/drivers/gpu/drm/gma500/cdv_device.c
+@@ -41,8 +41,6 @@ static int cdv_output_init(struct drm_device *dev)
+ {
+ 	struct drm_psb_private *dev_priv = to_drm_psb_private(dev);
+ 
+-	drm_mode_create_scaling_mode_property(dev);
+-
+ 	cdv_disable_vga(dev);
+ 
+ 	cdv_intel_crt_init(dev, &dev_priv->mode_dev);
+diff --git a/drivers/gpu/drm/gma500/framebuffer.c b/drivers/gpu/drm/gma500/framebuffer.c
+index 37a9f666c0f2..02d892a146fc 100644
+--- a/drivers/gpu/drm/gma500/framebuffer.c
++++ b/drivers/gpu/drm/gma500/framebuffer.c
+@@ -43,8 +43,6 @@ static void psb_setup_outputs(struct drm_device *dev)
+ 	struct drm_connector_list_iter conn_iter;
+ 	struct drm_connector *connector;
+ 
+-	drm_mode_create_scaling_mode_property(dev);
+-
+ 	/* It is ok for this to fail - we just don't get backlight control */
+ 	if (!dev_priv->backlight_property)
+ 		dev_priv->backlight_property = drm_property_create_range(dev, 0,
+@@ -98,14 +96,19 @@ static void psb_setup_outputs(struct drm_device *dev)
+ 	drm_connector_list_iter_end(&conn_iter);
+ }
+ 
+-void psb_modeset_init(struct drm_device *dev)
++int psb_modeset_init(struct drm_device *dev)
+ {
+ 	struct drm_psb_private *dev_priv = to_drm_psb_private(dev);
+ 	struct psb_intel_mode_device *mode_dev = &dev_priv->mode_dev;
+-	int i;
++	int i, ret;
++
++	ret = drmm_mode_config_init(dev);
++	if (ret)
++		return ret;
+ 
+-	if (drmm_mode_config_init(dev))
+-		return;
++	ret = drm_mode_create_scaling_mode_property(dev);
++	if (ret)
++		return ret;
+ 
+ 	dev->mode_config.min_width = 0;
+ 	dev->mode_config.min_height = 0;
+@@ -125,6 +128,8 @@ void psb_modeset_init(struct drm_device *dev)
+ 	        dev_priv->ops->errata(dev);
+ 
+         dev_priv->modeset = true;
++
++	return 0;
+ }
+ 
+ void psb_modeset_cleanup(struct drm_device *dev)
+diff --git a/drivers/gpu/drm/gma500/psb_drv.c b/drivers/gpu/drm/gma500/psb_drv.c
+index d17cb5b4a4bf..6321cbc305bf 100644
+--- a/drivers/gpu/drm/gma500/psb_drv.c
++++ b/drivers/gpu/drm/gma500/psb_drv.c
+@@ -386,7 +386,9 @@ static int psb_driver_load(struct drm_device *dev, unsigned long flags)
+ 
+ 	dev->max_vblank_count = 0xffffff; /* only 24 bits of frame count */
+ 
+-	psb_modeset_init(dev);
++	ret = psb_modeset_init(dev);
++	if (ret)
++		goto out_err;
+ 	drm_kms_helper_poll_init(dev);
+ 
+ 	/* Only add backlight support if we have LVDS or MIPI output */
+diff --git a/drivers/gpu/drm/gma500/psb_drv.h b/drivers/gpu/drm/gma500/psb_drv.h
+index db197b865b90..416c9db65e5a 100644
+--- a/drivers/gpu/drm/gma500/psb_drv.h
++++ b/drivers/gpu/drm/gma500/psb_drv.h
+@@ -589,7 +589,7 @@ struct psb_ops {
+ };
+ 
+ /* modesetting */
+-extern void psb_modeset_init(struct drm_device *dev);
++int psb_modeset_init(struct drm_device *dev);
+ extern void psb_modeset_cleanup(struct drm_device *dev);
+ 
+ /* fbdev */
+diff --git a/drivers/gpu/drm/nouveau/nouveau_display.c b/drivers/gpu/drm/nouveau/nouveau_display.c
+index 04e9a512eaec..1e24829e0eac 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_display.c
++++ b/drivers/gpu/drm/nouveau/nouveau_display.c
+@@ -656,8 +656,9 @@ nouveau_display_create(struct drm_device *dev)
+ 		return -ENOMEM;
+ 
+ 	drm_mode_config_init(dev);
+-	drm_mode_create_scaling_mode_property(dev);
+-	ret = drm_mode_create_dvi_i_properties(dev);
++	ret = drm_mode_create_scaling_mode_property(dev);
++	if (!ret)
++		ret = drm_mode_create_dvi_i_properties(dev);
+ 	if (ret) {
+ 		drm_mode_config_cleanup(dev);
+ 		drm->display = NULL;
+diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/radeon/radeon_display.c
+index aac6733ddd82..c4397edc5913 100644
+--- a/drivers/gpu/drm/radeon/radeon_display.c
++++ b/drivers/gpu/drm/radeon/radeon_display.c
+@@ -1410,7 +1410,7 @@ static const struct drm_prop_enum_list radeon_output_csc_enum_list[] =
+ 
+ static int radeon_modeset_create_props(struct radeon_device *rdev)
+ {
+-	int sz;
++	int sz, ret;
+ 
+ 	if (rdev->is_atom_bios) {
+ 		rdev->mode_info.coherent_mode_property =
+@@ -1432,7 +1432,9 @@ static int radeon_modeset_create_props(struct radeon_device *rdev)
+ 	if (!rdev->mode_info.load_detect_property)
+ 		return -ENOMEM;
+ 
+-	drm_mode_create_scaling_mode_property(rdev_to_drm(rdev));
++	ret = drm_mode_create_scaling_mode_property(rdev_to_drm(rdev));
++	if (ret)
++		return ret;
+ 
+ 	sz = ARRAY_SIZE(radeon_tv_std_enum_list);
+ 	rdev->mode_info.tv_std_property =
+-- 
+2.56.0
 
-Thanks,
-Tao Liu
-
->
-> Thanks,
-> Chenyu
->
 
